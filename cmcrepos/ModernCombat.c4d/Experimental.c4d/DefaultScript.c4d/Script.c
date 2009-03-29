@@ -50,10 +50,10 @@ public func ChooserFinished()
 protected func InitializePlayer(int iPlr, int iX, int iY, object pBase, int iTeam)
 {
   for(var i=0, pCrew ; pCrew = GetCrew(iPlr, i) ; i++)
-    RelaunchPlayer(iPlr, pCrew, 0, iTeam);
+    RelaunchPlayer(iPlr, pCrew, 0, iTeam, true);
 }
 
-public func RelaunchPlayer(int iPlr, object pCrew, object pKiller, int iTeam)
+public func RelaunchPlayer(int iPlr, object pCrew, object pKiller, int iTeam, bool bFirst)
 {
   // Kein ordentlicher Spieler?
   if(GetOwner(pCrew) == NO_OWNER || iPlr == NO_OWNER || !GetPlayerName(iPlr))
@@ -61,6 +61,11 @@ public func RelaunchPlayer(int iPlr, object pCrew, object pKiller, int iTeam)
     
   // Kein Team
   if(!iTeam) iTeam = GetPlayerTeam(iPlr);
+  
+  // Reject?
+  if(!bFirst)
+    if(RejectRelaunch(iPlr,iTeam))
+      return();
   
   // Clonk tot?
   if(!GetAlive(pCrew))
@@ -120,10 +125,15 @@ public func OnClonkEquip(object pClonk)
 {
   var wpn = CreateContents(92FS, pClonk);
   wpn->DoAmmo(wpn->GetFMData(FM_AmmoID),wpn->GetFMData(FM_AmmoLoad));
-  pClonka->DoAmmo(wpn->GetFMData(FM_AmmoID),wpn->GetFMData(FM_AmmoLoad)*2);
+  pClonk->DoAmmo(wpn->GetFMData(FM_AmmoID),wpn->GetFMData(FM_AmmoLoad)*2);
 }
 
 public func OnClassSelection(object pClonk)
 {
   //Dummy...
+}
+
+public func RejectRelaunch(int iPlr, int iTeam)
+{
+  return(false);
 }

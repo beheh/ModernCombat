@@ -2,7 +2,7 @@
 
 #strict
 
-local clonk,oldvisrange,oldvisstate;
+local clonk,oldvisrange,oldvisstate,suicide;
 
 public func Set(object pClonk)
 {
@@ -22,16 +22,32 @@ public func Set(object pClonk)
   SetPlrViewRange(100,pClonk);
   SetFoW(true,GetOwner(pClonk)); 
   
-  //DeathMenu();
+  suicide = 30;
+  ScheduleCall(this(),"DoMenu",35,suicide); 
+}
+
+func DoMenu()
+{
+  suicide--;
+  DeathMenu();
 }
 
 func DeathMenu()
 {
-  CreateMenu (FKDT, clonk, this(), 0, GetName(), 0, C4MN_Style_Dialog, false);
-  AddMenuItem ("$Suicide$", "Suicide", SKUL,clonk, 0, 0, "$DescSuicide$");
+  CloseMenu(clonk);
+  CreateMenu (FKDT, clonk, this(), 0, GetName(), 0, C4MN_Style_Dialog, true);
+  if(suicide > 0)
+    AddMenuItem(Format("<c %X>$SuicideW$</c>",RGB(128,128,128),suicide), "NoSuicide", SKUL,clonk, 0, 0, "$DescSuicide$");
+  else
+    AddMenuItem("$Suicide$", "Suicide", SKUL,clonk, 0, 0, "$DescSuicide$");
 
   //SetMenuDecoration(MCDC, pClonk);
   SetMenuTextProgress(1, clonk); 
+}
+
+public func NoSuicide()
+{
+  Sound("ERROR",true,0,0,GetOwner(clonk)+1);
 }
 
 public func Suicide()

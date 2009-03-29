@@ -7,12 +7,12 @@ protected func Activate(int iPlr)
   MessageWindow(GetDesc(),iPlr);
 }
 
-protected func Initialize()
+/*protected func Initialize()
 {
   ScheduleCall(this, "Initialized", 1);
-}
+}*/
 
-protected func Initialized()
+public func ChooserFinished()
 {
   for(var pObj in FindObjects(Find_OCF(OCF_CrewMember), Find_Func("IsClonk")))
   {
@@ -33,13 +33,20 @@ protected func Destruction()
   }
 }
 
-public func OnClonkRecruitment(object pClonk, int iPlr)
+public func RejectViewRangeChange(int iNewRange)
 {
-    if(!GetEffect("Sight",pClonk))
-      AddEffect("Sight", pClonk, 10, 1, this, GetID());
+  return(true);
 }
 
-public func IsChooseable() { return(1); }
+public func OnClonkRecruitment(object pClonk, int iPlr)
+{
+  if(FindObject(CHOS)) return;
+
+  if(!GetEffect("Sight",pClonk))
+    AddEffect("Sight", pClonk, 10, 1, this, GetID());
+}
+
+public func IsChooseable() { return 1; }
 
 /* Funktionalität */
 

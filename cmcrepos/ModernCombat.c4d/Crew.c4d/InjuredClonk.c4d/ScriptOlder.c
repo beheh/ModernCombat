@@ -2,7 +2,7 @@
 
 #strict
 
-local clonk,oldvisrange,oldvisstate;
+local clonk;
 
 public func Set(object pClonk)
 {
@@ -11,35 +11,48 @@ public func Set(object pClonk)
   SetXDir(GetXDir(pClonk));
   SetYDir(GetYDir(pClonk));
   
+  for(var a in FindObjects(Find_ActionTarget(this()),Find_NoContainer()))
+  {
+    Log(GetName(a));
+    
+  }
+  
   pClonk->Enter(this());//Schlucken.
   GrabContents(pClonk);
   SetGraphics (0,this(),GetID(pClonk),1,GFXOV_MODE_Object,0,0,pClonk);//Darstellen.
   
-  //Bei der Initialisierung die Werte speichern.
-  oldvisrange = GetObjPlrViewRange(pClonk);
-  oldvisstate = GetPlrFogOfWar(GetOwner(pClonk));
+  SetPlrViewRange (100);
   
-  SetPlrViewRange(100,pClonk);
-  SetFoW(true,GetOwner(pClonk)); 
-  
-  //DeathMenu();
+  DeathMenu();
 }
 
-func DeathMenu()
-{
+func DeathMenu() {
+
+  ShiftGrenades();
+  
   CreateMenu (FKDT, clonk, this(), 0, GetName(), 0, C4MN_Style_Dialog, false);
   AddMenuItem ("$Suicide$", "Suicide", SKUL,clonk, 0, 0, "$DescSuicide$");
-
+  
+  if(Contents()->~IsGrenade()) {
+    AddMenuItem ("$ThrowRight$", "ThrowRight", FRAG, clonk, 0, 0, "$DescThrow$");
+    AddMenuItem ("$ThrowLeft$", "ThrowLeft", FRAG, clonk, 0, 0, "$DescThrow$");
+  }
   //SetMenuDecoration(MCDC, pClonk);
   SetMenuTextProgress(1, clonk); 
-}
+  }
+
+func ShiftGrenades() {
+  for(var i; i < ContentsCount(); ++i) {
+  if(!Contents()->~IsGrenade()) ShiftContents();
+  }
+  }
 
 public func Suicide()
 {
   clonk->Kill();
 }
 
-public func GetClonk() {return(clonk);}
+public func GetClonk(){return(clonk);}
 
 public func Destruction()
 {
@@ -53,10 +66,13 @@ public func Destruction()
   else
     while(Contents())
       Exit(Contents(),0,+10);
-      
-  //Sichtdaten zurücksetzen.
-  SetFoW(oldvisstate,GetOwner(clonk));
-  SetPlrViewRange(oldvisrange,clonk);
+  
+  /*SetObjDrawTransform
+  (
+    1000,0,0,
+    0,1000,0,
+    clonk
+  );*/
 }
 
 public func MenuQueryCancel() { return(true); }
@@ -68,6 +84,26 @@ public func RejectCollect(id idObj, object pObj)
   if(val)  Message("RejectCollect",this());
   return(val);
 }
+
+func FxReloadTimer() { return(-1); } 
+
+func ThrowRight() {
+  if(!GetEffect("Reload", clonk)) {
+  Contents()->~Fuse();
+  Exit(Contents(), -5, 0, 0, 3, 3);
+  AddEffect("Reload", clonk, 1, 200);
+  }
+  DeathMenu();
+  }
+ 
+func ThrowLeft() {
+  if(!GetEffect("Reload", clonk)) {
+  Contents()->~Fuse();
+  Exit(Contents(), -5, 0, 0, -3, -3);
+  AddEffect("Reload", clonk, 1, 200);
+  }
+  DeathMenu();
+  }
 
 //Tags
 public func AimAngle()     {return();}

@@ -97,6 +97,7 @@ global func BloodSplatter2(int iSize, int iX, int iY, int iAngle, int iColor)
                                   iSize*5,iColor, boom, 1);
 }
 
+static const SplatterScale = 50;
 global func Splatter(int iDmg, int iType, object pFrom)
 {
   var x,y;

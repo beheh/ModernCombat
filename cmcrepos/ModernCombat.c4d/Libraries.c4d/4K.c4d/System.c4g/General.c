@@ -133,6 +133,62 @@ global func PlaceObject4K(object pObject,int iX,int iY,int iWidth,int iHeight,in
   return(1);
 }
 
+//Platziert ein Objekt auf einem Tisch. (Tisch sowie Such-Rechteck sind optional.)
+global func PlaceOnTable4K(object pObj, object pTable, int iX, int iY, int iW, int iH)
+{
+  if(!iX && !iY && !iW && !iH)
+  {
+    iX = 0;
+    iY = 0;
+    iW = LandscapeWidth();
+    iH = LandscapeHeight();
+  }
+
+  if(!pTable)
+  {
+    var a = FindObjects(Find_InRect(iX,iY,iW,iH),Find_Or(Find_ID(OTBL),Find_ID(LTBL),Find_ID(TABL)));//Ouch! >.<
+    pTable = a[Random(GetLength(a)-1)];
+  }
+
+  if(Inside(GetR(pTable),-20,20))
+  {
+    var xoff = Random(GetDefCoreVal ("Width",0,GetID(pTable))/2);
+    if(Random(1))
+      xoff = -xoff;
+
+    SetPosition (GetX(pTable)+xoff,GetY(pTable)-10,pObj);
+    return(true);
+  }
+
+  return(false);
+}
+
+//Findet mögliche Kontainer und gibt einen Objektarray zurück. (ID-Liste sowie Such-Reckteck sind optional.)
+global func FindContainers4K(array aIDList, int iX, int iY, int iW, int iH)
+{
+  if(!iX && !iY && !iW && !iH)
+  {
+    iX = 0;
+    iY = 0;
+    iW = LandscapeWidth();
+    iH = LandscapeHeight();
+  }
+  
+  var a;
+  if(!GetLength(aIDList))
+  {
+    a = FindObjects(Find_InRect(iX,iY,iW,iH),Find_NoContainer(),Find_Category(C4D_Structure|C4D_Vehicle|C4D_Object),Find_OCF(OCF_Container));
+  }
+  else
+  {
+    a = CreateArray();
+    for(var idobj in aIDList)
+      AddArray4K(FindObjects(Find_InRect(iX,iY,iW,iH),Find_ID(idobj)),a);
+  }
+  
+  return(a);
+}
+
 //Errechnet Offset-Koordinaten aus iX/iY.
 global func GetOffset4K(int &iX, int &iY, int iPrec, object pObject)
 {

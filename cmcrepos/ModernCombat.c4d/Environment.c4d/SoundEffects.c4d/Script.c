@@ -2,10 +2,10 @@
 
 #strict
 
-local soundset,interval,variation;
+local soundset,interval,variation,falloff,globalsound;
 
 
-public func Set(string szSoundSet, int iInterval, int iVariation)
+public func Set(string szSoundSet, int iInterval, int iVariation, int iFalloff)
 {
   soundset = szSoundSet;
   if(!soundset) soundset = "Waves*";
@@ -16,6 +16,8 @@ public func Set(string szSoundSet, int iInterval, int iVariation)
   variation = iVariation;
   //if(!variation) variation = 40;
   
+  falloff = iFalloff;
+  
   if(iInterval)
     StartSoundEffect();
   else
@@ -24,25 +26,48 @@ public func Set(string szSoundSet, int iInterval, int iVariation)
 
 protected func StartDuroSound()
 {
-  Sound (soundset,false,this(),0,0,+1); 
+  var f,g;
+  if(falloff == -1)
+  {
+    f = 0;
+    g = true;
+  }
+  else
+  {
+    f = falloff;
+    g = false;
+  }
+  Sound(soundset,g,this(),0,0,+1,0,f);
 }
 
 protected func StartSoundEffect()
 {
-  AddEffect ("IntDoSound",this(),50,
+  var f,g;
+  if(falloff == -1)
+  {
+    f = 0;
+    g = true;
+  }
+  else
+  {
+    f = falloff;
+    g = false;
+  }
+  Sound(soundset,g,this(),0,0,0,0,f);
+
+  AddEffect("IntDoSound",this(),50,
             interval+RandomX(-variation,+variation),
             this(),0,soundset); 
 }
 
 public func FxIntDoSoundStart(object pTarget, int iEffectNumber, int iTemp,szsound)
 {
-  EffectVar (0,pTarget,iEffectNumber) = szsound;
+  EffectVar(0,pTarget,iEffectNumber) = szsound;
   return(1);
 }
 
 public func FxIntDoSoundTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
-  Sound (EffectVar(0,pTarget,iEffectNumber),false, pTarget);
   pTarget->StartSoundEffect();
   return(-1);
 }

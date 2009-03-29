@@ -53,3 +53,14 @@ global func AddArrayItem4K(array &a, int i, v)
   
   a[i] = v;
 }
+
+//Fügt einem Array einen anderen hinzu.
+global func AddArray4K(array &aSource, array &aDestination)
+{
+  var s = GetLength(aSource);
+  var d = GetLength(aDestination);
+  SetLength(aDestination,d+s); 
+
+  for(var j = 0; j < s; j++)
+    aDestination[d+j] = aSource[j];
+}
