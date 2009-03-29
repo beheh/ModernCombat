@@ -1,0 +1,9 @@
+[DefCore]
+id=H2_H
+Version=4,9,8,2
+Name=HUDMod
+Category=C4D_StaticBack
+Width=110
+Height=20
+Offset=-55,-10
+Picture=0,0,110,20

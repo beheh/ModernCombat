@@ -1,0 +1,2 @@
+DE:Kisten Spawner
+US:Crate Spawner

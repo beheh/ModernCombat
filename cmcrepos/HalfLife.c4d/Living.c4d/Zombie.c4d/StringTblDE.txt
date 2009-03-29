@@ -1,0 +1,4 @@
+TxtMovement=Bewegen
+TxtAttack=Beissen
+TxtAlert=Alarmieren
+TxtLeave=Zurückverwandeln

@@ -1,0 +1,2 @@
+MsgAllDead=The hunt was a success. All zombies are dead.
+MsgStillLeft=Enemys left:

@@ -1,0 +1,2 @@
+DE:Revolver Munition
+US:Revolver Ammunition

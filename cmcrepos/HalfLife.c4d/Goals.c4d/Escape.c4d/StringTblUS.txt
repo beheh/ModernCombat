@@ -1,0 +1,2 @@
+MsgEscaped=All escaped.
+MsgPlrInfo=Player information:

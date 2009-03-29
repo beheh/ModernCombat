@@ -1,0 +1,19 @@
+[DefCore]
+id=HEVS
+Version=4,9,5
+Name=HEV Suit
+Category=C4D_Object|C4D_SelectMaterial|C4D_SelectKnowledge|C4D_SelectHomebase
+Width=20
+Height=13
+Offset=-10,-7
+Vertices=3
+VertexX=-8,8
+VertexY=5,5,-5
+VertexFriction=80,80,80
+ColorByOwner=1
+Value=45
+Mass=20
+Components=METL=3;ENAP=1
+Picture=0,13,64,64
+Rebuy=1
+Collectible=1

@@ -1,0 +1,2 @@
+Nachschub Kiste.
+Enthält Items wie Munition, Waffen oder Heilpacks.

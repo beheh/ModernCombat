@@ -1,0 +1,2 @@
+DE:Pistole
+US:Pistol

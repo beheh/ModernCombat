@@ -1,0 +1,2 @@
+MsgAllDead=Die Jagd war erfolgreich, alle Zombies sind erledigt.
+MsgStillLeft=Noch lebende Gegner:

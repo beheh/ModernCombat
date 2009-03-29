@@ -1,0 +1,2 @@
+DE:Fahrzeug HUD
+US:Vehicle HUD

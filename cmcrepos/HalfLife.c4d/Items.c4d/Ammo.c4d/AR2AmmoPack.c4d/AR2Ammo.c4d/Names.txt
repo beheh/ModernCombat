@@ -1,0 +1,2 @@
+DE:Impulsmunition
+US:Impulse Ammo

@@ -1,0 +1,11 @@
+# Control Descs
+CtrlInventoryDesc=Inventar auswählen
+AmmoBag=Munitionsgürtel
+CtxUnbuckleDesc=Ausrüstung ablegen
+CtxUnbuckleItem=%s ablegen
+CtxDrone=Drone ausschalten
+CtxUseEquipmentDesc=Ausrüstung benutzen
+CtxObjectInfo=Objektinfo
+CtxHelpMessagesOn=Hilfen an
+CtxHelpMessagesOff=Hilfen aus
+CtxGuard=Bewachen

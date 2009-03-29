@@ -1,0 +1,2 @@
+Resupply crate.
+Contains items like ammunition, weapons or healkits.

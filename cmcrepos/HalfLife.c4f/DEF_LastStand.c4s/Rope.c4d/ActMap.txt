@@ -1,0 +1,5 @@
+[Action]
+Name=Rope
+Facet=0,0,2,6
+FacetTargetStretch=1
+NextAction=Rope

@@ -1,0 +1,2 @@
+MsgEscaped=Alle sind entkommen!
+MsgPlrInfo=Spielerinformationen:
