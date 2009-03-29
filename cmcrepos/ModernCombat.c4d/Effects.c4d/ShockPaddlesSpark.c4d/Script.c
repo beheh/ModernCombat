@@ -1,0 +1,5 @@
+/* Defibrillatorfunke */
+
+#strict
+
+#include SPRK

@@ -1,0 +1,2 @@
+DE:Papier
+US:Paper

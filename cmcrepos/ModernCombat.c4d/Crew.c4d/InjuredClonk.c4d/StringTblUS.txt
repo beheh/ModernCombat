@@ -1,0 +1,5 @@
+Suicide=Commit suicide
+DescSuicide=Kill the selected clonk.
+DescThrow=Throws a grenade.
+ThrowRight=Throw grenade to the right.
+ThrowLeft=Throw grenade to the left.

@@ -1,0 +1,1 @@
+Respawns an object in different situations.

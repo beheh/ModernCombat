@@ -1,0 +1,10 @@
+[DefCore]
+id=HZCC
+Version=4,9,5
+Name=Clonk3
+Category=1
+Picture=0,0,100,100
+Width=100
+Height=100
+Offset=-50,-50
+Oversize=1

@@ -1,0 +1,18 @@
+[DefCore]
+id=RSLH
+Name=Drawn Shield
+Version=4,9,9,0
+Category=C4D_Living
+Width=17
+Height=11
+Offset=-8,-7
+Mass=16
+Picture=0,0,17,11
+Rotate=1
+ColorByOwner=1
+Vertices=1
+NoStabilize=1
+VertexY=1
+VertexCNAT=64
+TimerCall=UpdateR
+Timer=1

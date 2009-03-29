@@ -1,0 +1,10 @@
+MsgNoAdmin=Nur der Host darf diese Einstellungen ändern.
+
+Low=Niedrig
+DescLow=Verwendet niedrige Einstellungen.
+Normal=Normal
+DescNormal=Verwendet normale Einstellungen.
+High=Hoch
+DescHigh=Verwendet hohe Einstellungen.
+VeryHigh=Sehr Hoch
+DescVeryHigh=Verwenet die höchsten Einstellungen.

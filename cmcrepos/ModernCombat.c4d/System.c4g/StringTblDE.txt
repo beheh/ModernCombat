@@ -1,0 +1,8 @@
+rifleman=Schütze
+rifleman_desc=Ist auf hohe Distanz unschlagbar.|Falls es trotzdem ein Gegner in seine Nähe schafft,|werden die beiden Explosiv-Granaten ihre Wirkung nicht verfehlen.
+assault=Sturm
+assault_desc=Auf mittlere Distanz sehr effektiv.|Ausrüstung ist für das Stürmen feindlicher Einrichtungen ausgelegt.|Besonders nützlich ist die Blendgranate beim erobern von Räumen.
+support=Unterstützung
+support_desc=Ist auf das Halten von Stellungen ausgelegt.|Die M249 kann auf mittlere bis hohe Distanzen eingesetzt werden.|Außerdem wird viel Munition mitgeführt,|sodass auch Teamkameraden effektiv versorgt werden können.
+closecombat=Nahkampf
+closecombat_desc=Wenn es hart auf hart kommt.|Ist anfällig für Distanzwaffen,|kann sich aber dafür im Nahkampf gut behaupten.

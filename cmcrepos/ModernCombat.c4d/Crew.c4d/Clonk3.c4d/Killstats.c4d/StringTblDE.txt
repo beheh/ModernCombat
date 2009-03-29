@@ -1,0 +1,6 @@
+MsgScore=%s hat einen Punkt für Team %s geholt!
+
+MsgKillingSpree=["Killing Spree","Rampage","Godlike","matthes?!?"]
+MsgSpreeEnd=%ss Killing Spree wurde beendet.
+
+MsgMultikill=["Doublekill","Triplekill","Multikill","Ultrakill","Monsterkill","Feuermonsterkill","Wipfkill","Wtf?"]

@@ -1,0 +1,2 @@
+msg_noseat=Kein freier Sitz.
+msg_useseat=Sitz:|%s

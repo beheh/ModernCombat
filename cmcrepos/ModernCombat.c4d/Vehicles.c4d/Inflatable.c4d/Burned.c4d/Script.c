@@ -1,0 +1,3 @@
+/*-- Verbranntes Schlauchboot --*/
+
+#strict

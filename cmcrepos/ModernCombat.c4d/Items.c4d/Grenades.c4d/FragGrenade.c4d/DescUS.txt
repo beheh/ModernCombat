@@ -1,0 +1,1 @@
+A frag grenade which tosses sharp-edged splitter when it explodes.

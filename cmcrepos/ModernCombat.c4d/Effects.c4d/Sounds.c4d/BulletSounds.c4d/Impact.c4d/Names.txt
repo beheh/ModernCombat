@@ -1,0 +1,2 @@
+DE:Aufprall
+US:Impact

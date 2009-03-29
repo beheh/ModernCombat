@@ -1,0 +1,2 @@
+CtxGrenadeMenu=Grenades
+AmmoBag=Ammobag

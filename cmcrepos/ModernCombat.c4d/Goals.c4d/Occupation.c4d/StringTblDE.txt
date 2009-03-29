@@ -1,0 +1,9 @@
+MsgGoalFulfilled=Und wir haben einen Gewinner!
+Score=Punkte
+MsgGoalLost=Leider verloren.
+WinMsg=%s hat gewonnen!
+Kills=Kills
+Death=Tode
+MoreTickets=mehr Tickets
+LessTickets=weniger Tickets
+Finished=Fertig!

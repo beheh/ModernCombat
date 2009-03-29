@@ -1,0 +1,11 @@
+[Particle]
+Name=WhiteFlash
+MaxCount=100
+InitFn=StdInit
+ExecFn=StdExec
+DrawFn=Std
+Face=0,0,64,64,-32,-32
+AlphaFade=10
+GravityAcc=0
+Additive=1
+RByV=2

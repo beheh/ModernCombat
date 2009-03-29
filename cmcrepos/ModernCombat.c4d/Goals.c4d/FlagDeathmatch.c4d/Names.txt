@@ -1,0 +1,2 @@
+DE:Flag Deathmatch
+US:Flag Deathmatch

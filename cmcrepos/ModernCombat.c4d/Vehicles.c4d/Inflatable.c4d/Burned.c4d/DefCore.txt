@@ -1,0 +1,19 @@
+[DefCore]
+id=INFB
+Name=Inflatable (Burned)
+Version=4,9,5,0
+Category=C4D_Vehicle
+Width=70
+Height=22
+Offset=-35,-22
+Value=5
+Mass=10
+Picture=0,0,70,22
+Vertices=2
+BurnTo=INFB
+Rotate=1
+VertexX=-33,26
+VertexY=-7,-7
+VertexCNAT=1,2
+VertexFriction=20,20
+

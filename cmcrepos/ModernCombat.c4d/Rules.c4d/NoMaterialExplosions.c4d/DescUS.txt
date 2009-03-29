@@ -1,0 +1,1 @@
+Explosions can not destroy any material. However, it may be possible to dig in it.

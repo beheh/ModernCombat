@@ -1,0 +1,33 @@
+[DefCore]
+id=TIGJ
+Name=Tiger Jet
+Version=4,9,5,0
+Category=C4D_Vehicle | C4D_SelectVehicle | C4D_SelectKnowledge
+MaxUserSelect=1
+Width=135
+Height=78
+Offset=-67,-32
+Value=200
+Mass=200
+Picture=0,0,135,78
+Vertices=5
+Entrance=-25,-25,50,50
+Rebuy=1
+Grab=1
+Rotate=1
+ColorByOwner=1
+BorderBound=1
+UprightAttach=10
+AttractLightning=1
+VehicleControl=2
+NoStabilize=1
+RotatedEntrance=1
+VertexX=-65,0,65,32,-32
+VertexY=6,-6,6,8,8
+VertexCNAT=1,4,2,8,8
+VertexFriction=150,300,200,50,50
+
+[Physical]
+Energy=40000
+Float=1000
+

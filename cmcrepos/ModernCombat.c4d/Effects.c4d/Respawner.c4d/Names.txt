@@ -1,0 +1,2 @@
+DE:Respawner
+US:Respawner
