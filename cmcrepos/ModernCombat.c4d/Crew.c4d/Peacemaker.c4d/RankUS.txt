@@ -23,4 +23,5 @@ Lieutenant of the first Class
 Mainlieutenant
 Troopgeneral
 Brigadegeneral
+Co-General
 General

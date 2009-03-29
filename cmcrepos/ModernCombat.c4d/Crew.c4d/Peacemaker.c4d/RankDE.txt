@@ -23,4 +23,5 @@ Leutnant erster Klasse
 Oberleutnant
 Abteilungsgeneral
 Brigadegeneral
+Co-General
 General
