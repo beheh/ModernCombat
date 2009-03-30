@@ -98,6 +98,7 @@ public func Initialize()
 {
   _inherited();
   CreateFurniture();
+  SetPlayList("HalfLife.ogg");
   ScriptGo(true);
 }
 
