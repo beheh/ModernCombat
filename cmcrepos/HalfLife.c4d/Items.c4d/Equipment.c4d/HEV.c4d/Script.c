@@ -96,6 +96,8 @@ public func OnClonkHit(int iDamage, int iType, object pClonk)
 {
   if(!pClonk) return();
   if(iCharge <= 0) return();
+  Message("%d",0,iDamage);
+  if(iDamage <= 0) return();
  
   var v = iDmg;
   
@@ -115,7 +117,7 @@ public func OnClonkHit(int iDamage, int iType, object pClonk)
     v = iDmg*60/100;
   else
   if(iType == DMG_Bio)
-    v = iDmg/2;
+    v = iDmg*20/100;
 
   DoCharge(-v/2);
 }
