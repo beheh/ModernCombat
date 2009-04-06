@@ -247,7 +247,7 @@ func UpdateHUD(object pHUD)
   
   pHUD->Charge(user->GrenadeCount(GetID()),(user->MaxGrenades() - user->GrenadeCount()) + user->GrenadeCount(GetID()));
   pHUD->Ammo(user->GrenadeCount(GetID()),(user->MaxGrenades() - user->GrenadeCount()) + user->GrenadeCount(GetID()), GetName(), true);
-  pHUD->MasterAmmo(GetID(),user->GrenadeCount(GetID()));
+  //pHUD->MasterAmmo(GetID(),user->GrenadeCount(GetID()));
 }
 
 public func ReadyToFire()

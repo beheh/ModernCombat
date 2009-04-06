@@ -240,7 +240,7 @@ public func VehicleMenu(object pClonk)
   CloseMenu(pClonk);
   CreateMenu(GetID(),pClonk,this,0,"$vehiclemenu$",0,C4MN_Style_Context);
 
-  AddMenuItem("$context$","Context",GetID(pClonk),pClonk,0,ObjectNumber(pClonk));
+  AddMenuItem("$context$","CallCtx",GetID(pClonk),pClonk,0,ObjectNumber(pClonk));
   //AddMenuItem("$get_off$","GetOff",VI4K,pClonk,0,pClonk,0,2,1);
   AddMenuItem("$passenger$","Passenger",VI4K,pClonk,0,ObjectNumber(pClonk),0,2,2);
     
@@ -287,7 +287,7 @@ public func SeatMenu(object pClonk)
 
 func Dummy(){}
 
-public func Context(id iId, int iClonk)
+public func CallCtx(id iId, int iClonk)
 {
   var pClonk = Object(iClonk);
   pClonk->SetCommand(pClonk,"Context",0,0,0,pClonk);

@@ -181,10 +181,8 @@ public func CycleSA(int fm)
   }
   
   j++;
-  if(j > GetLength(a)-1)
+  if(j >= GetLength(a)-1)
     j = 0;
-    
-  Log("%d",j);
 
   SetSpecialAmmo2(a[j],fm);
   if(GetSpeedMenu())
