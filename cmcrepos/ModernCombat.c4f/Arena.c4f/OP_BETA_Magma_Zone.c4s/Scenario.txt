@@ -1,6 +1,7 @@
 [Head]
 Icon=16
-Title=Magma Zone
+Title=OP - Magma Zone
+Origin=ModernCombat.c4f\Arena.c4f\OP_MagmaZone.c4s
 
 [Definitions]
 Definition1=Objects.c4d
