@@ -1,2 +1,0 @@
-DE:Lavaklumpen
-US:Chunk of lava
