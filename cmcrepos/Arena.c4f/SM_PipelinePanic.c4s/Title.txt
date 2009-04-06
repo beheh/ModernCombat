@@ -1,0 +1,2 @@
+DE:SM - <c ff0000>Pipeline Panic</c>
+US:SM - <c ff0000>Pipeline Panic</c>

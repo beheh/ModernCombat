@@ -1,0 +1,13 @@
+CreatingFurniture=Szenario wird eingerichtet...
+CreatingEquipment=Ausrüstung wird plaziert...
+
+Team1=Eurocorps
+Team2=Aggressoren
+
+Flag1=Aufklärungsturm
+Flag2=Westliche Küstenwache
+Flag3=Westlicher Zentralblock
+Flag4=Östlicher Zentralblock
+Flag5=Schiffswerft
+Flag6=Östliche Küstenwache
+Flag7=Bohrplattform

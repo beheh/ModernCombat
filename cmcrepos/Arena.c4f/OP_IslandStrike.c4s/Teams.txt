@@ -1,0 +1,16 @@
+[Teams]
+LastTeamID=2
+TeamColors=true
+MaxScriptPlayers=20
+
+  [Team]
+  id=1
+  Name=$Team1$
+  Color=255
+  PlayerCount=1
+  Players=1
+
+  [Team]
+  id=2
+  Name=$Team2$
+  Color=16711680
