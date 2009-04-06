@@ -489,7 +489,7 @@ private func TestSpread()
   return(0);
 }
 
-private func UpdateCharge()//*ausnutz*
+public func UpdateCharge()//*ausnutz*
 {
   /*var x,y,r;
   if(!this()->~WeaponAt(x,y,r))

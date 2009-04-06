@@ -11,6 +11,12 @@ public func IsDrawable() {return(true);}
 
 func IsEquipment(){return(true);}
 
+protected func ControlUpDouble(object pCaller)
+{
+  Collect(this(),pCaller);
+  return(1);
+}
+
 protected func Activate(object pCaller)
 {
   if(pCaller)

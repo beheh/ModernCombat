@@ -15,5 +15,5 @@ Vertices=1
 VertexY=1
 VertexFriction=100
 Rebuy=1
-Collectible=1
-Float=1
+Float=3
+Grab=2

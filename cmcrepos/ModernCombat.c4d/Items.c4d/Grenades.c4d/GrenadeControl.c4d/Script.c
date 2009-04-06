@@ -113,7 +113,7 @@ public func Throw()
   
   Sound("GrenadeThrow");
   
-  var nade = user->GrabGrenade(GetID());
+  var nade = user->~GrabGrenade(GetID());
   user->~ResetShowWeapon(0);//Seht ihrs? ... DA! ... Eine NULL!
   if(user->~IsAiming())
   {
@@ -233,16 +233,19 @@ func GetCharge()
 {
   var user = GetUser();
   if(!user) return(0);
+  if(!user->~MaxGrenades()) return(0);
   
   return(user->GrenadeCount(GetID())+1);
 }
 
-func UpdateCharge(object pHUD)
+func CustomHUD() {return(true);}
+func UpdateHUD(object pHUD)
 {
   var user = GetUser();
   if(!user) return();
+  if(!user->~MaxGrenades()) return(0);
   
-  pHUD->Charge(user->GrenadeCount(GetID())*100/ ((user->MaxGrenades() - user->GrenadeCount()) + user->GrenadeCount(GetID())));
+  pHUD->Charge(user->GrenadeCount(GetID()),(user->MaxGrenades() - user->GrenadeCount()) + user->GrenadeCount(GetID()));
   pHUD->Ammo(user->GrenadeCount(GetID()),(user->MaxGrenades() - user->GrenadeCount()) + user->GrenadeCount(GetID()), GetName(), true);
   pHUD->MasterAmmo(GetID(),user->GrenadeCount(GetID()));
 }

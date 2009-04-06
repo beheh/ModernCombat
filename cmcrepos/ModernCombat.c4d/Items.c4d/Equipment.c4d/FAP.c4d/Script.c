@@ -263,8 +263,9 @@ public func GetCharge()
   return(1);
 }
 
-func UpdateCharge(object pHUD)
+func CustomHUD(){return(true);}
+func UpdateHUD(object pHUD)
 {
-  pHUD->Charge(healpoints*100/MaxHealPoints());
+  pHUD->Charge(healpoints,MaxHealPoints());
   pHUD->Ammo(healpoints, MaxHealPoints(), GetName(), true);
 }

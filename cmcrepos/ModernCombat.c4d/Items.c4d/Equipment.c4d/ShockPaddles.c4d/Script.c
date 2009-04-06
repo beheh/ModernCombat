@@ -153,9 +153,10 @@ func GetCharge()
   return(charge*100/MaxEnergy());
 }
 
-func UpdateCharge(object pHUD)
+func CustomHUD(){return(true);}
+func UpdateHUD(object pHUD)
 {
-  pHUD->Charge(charge*100/MaxEnergy());
+  pHUD->Charge(charge,MaxEnergy());
   pHUD->Ammo(charge, MaxEnergy(), GetName(), true);
 }
 

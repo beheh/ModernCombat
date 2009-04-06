@@ -1,5 +1,2 @@
-Suicide=Selbstmord begehen
-DescSuicide=Tötet den ausgewählten Clonk.
-DescThrow=Wirft eine Granate.
-ThrowRight=Granate nach rechts werfen.
-ThrowLeft=Granate nach links werfen.
+Suicide=Aufgeben
+SuicideW=<c %x>Aufgeben (%d)</c>

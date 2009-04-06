@@ -323,12 +323,10 @@ public func MaxContentsCount() { return(3); }//Normale Clonks können mehr tragen
 
 protected func ControlSpecial()
 {
-  Log("S1 - Clonk");
-
-  if(Contained())
+  if (Contained())
   {
     if(Contained()->~ContainedSpecial(this()))
-     return(1);
+      return(1);
   }
   
   return(_inherited(...));
@@ -338,13 +336,22 @@ protected func ControlSpecial2()
 {
   [$CtrlMenuDesc$|Image=CXTX]
  
-  if(Contained())
+  // In einem Gebäude oder Fahrzeug: das Kontextmenü des Gebäudes öffnen
+  if (Contained())
   {
     if(Contained()->~ContainedSpecial2(this()))
-     return(1);
+      return(1);
+    if ((Contained()->GetCategory() & C4D_Structure) || (Contained()->GetCategory() & C4D_Vehicle))
+      return(SetCommand(this(),"Context",0,0,0,Contained()), ExecuteCommand());
   }
-  
-  return(_inherited(...));
+  // Fasst ein Objekt an: Kontextmenü des angefassten Objekts öffnen
+  if (GetAction() eq "Push")
+    return(SetCommand(this(),"Context",0,0,0,GetActionTarget()), ExecuteCommand());
+  // Trägt ein Objekt: Kontextmenü des ersten getragenen Objekts öffnen
+  if (Contents(0))
+    return(SetCommand(this(),"Context",0,0,0,Contents(0)), ExecuteCommand());
+  // Ansonsten das Kontextmenü des Clonks öffnen
+  return(SetCommand(this(),"Context",0,0,0,this()), ExecuteCommand());
 }
 
 

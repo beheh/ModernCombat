@@ -85,6 +85,13 @@ public func RejectCollect(id idObj, object pObj)
   return(val);
 }
 
+public func ControlDig(object pCaller)
+{
+  if(pCaller == clonk) return(1);
+  SetCommand(pCaller,"Context",0,0,0,this());
+  return(1);
+}
+
 //Tags
 public func AimAngle()     {return();}
 public func ReadyToFire()  {return();}

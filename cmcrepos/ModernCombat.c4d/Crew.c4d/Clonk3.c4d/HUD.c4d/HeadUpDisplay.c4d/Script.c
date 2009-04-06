@@ -106,6 +106,14 @@ private func UpdateWeapon(object weapon)
 	// Munitionsstand anzeigen
 	if(weapon)
   {
+    if(weapon->~CustomHUD())
+    {
+      Message("",info);
+      Message("",this);
+      weapon->UpdateHUD(this());
+      return;
+    }
+    else
 		if(weapon->~IsWeapon())
     {
 			// Recharge updaten
@@ -124,11 +132,15 @@ private func UpdateWeapon(object weapon)
 			var ammoload = weapon->GetFMData(FM_AmmoLoad);
 			var modusname = weapon->GetFMData(FM_Name);
 			var ammocount = weapon->GetAmmo(ammoid);
+      
+      if(weapon->~IsWeapon2())
+        Message("@%s|<c %x>%s</c>", this, modusname, RGB(128,128,128), weapon->GetFMData(FT_Name));
+      else
+        Message("@%s", this, modusname);
 		  
-			var color = "ffff00";
-			if(!ammocount) color = "ff0000";
-			Message("@%s", this, modusname);
-			Message("@<c %s>%d/%d</c>", info, color, ammocount, ammoload);
+			var color = ColorTrue();
+			if(!ammocount) color = ColorFalse();
+			Message("@<c %x>%d/%d</c>", info, color, ammocount, ammoload);
 			
 			return;
 		}
@@ -148,8 +160,9 @@ private func UpdateAmmoBag()
 
 //Altes Zeugs...
 
-public func Charge(int iCharge)
+public func Charge(int part, int max)
 {
+  var iCharge = part*1000/max;
   if(iCharge == charge) return();
   charge = iCharge;
   alpha = 80;
@@ -157,8 +170,9 @@ public func Charge(int iCharge)
   return(1);
 }
 
-public func Recharge(int iRecharge)
+public func Recharge(int part, int max)
 {
+  var iRecharge = part*1000/max;
   if(iRecharge == recharge) return();
   recharge = iRecharge;
   return(1);
@@ -176,7 +190,7 @@ public func Ammo(int iAmmoCount, int iAmmoLoad, string sftName, bool fShow)
   
   var color = ColorTrue();
   if(!ammoCount) color = ColorFalse();
-  if((ammoCount != 0 && ammoLoad != 0) || fShow)
+  if((ammoCount && ammoLoad) || fShow)
     Message("@%s|<c %x>%d/%d</c>", this(), ftName, color, ammoCount, ammoLoad);
   else
     Message("", this());
