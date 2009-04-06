@@ -1,5 +1,0 @@
-/*-- Baum --*/
-
-#strict
-
-#include TREE

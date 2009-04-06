@@ -1,4 +1,0 @@
-/*-- Laterne --*/
-
-#strict
-#include BULB

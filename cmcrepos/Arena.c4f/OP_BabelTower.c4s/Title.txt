@@ -1,2 +1,0 @@
-DE:OP - <c ff0000>Babel Tower</c>
-US:OP - <c ff0000>Babel Tower</c>
