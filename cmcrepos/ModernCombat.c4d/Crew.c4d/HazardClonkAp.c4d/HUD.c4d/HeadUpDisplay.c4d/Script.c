@@ -133,7 +133,7 @@ private func UpdateWeapon(object weapon)
 			var modusname = weapon->GetFMData(FM_Name);
 			var ammocount = weapon->GetAmmo(ammoid);
       
-      if(weapon->~IsWeapon2())
+      if(weapon->~IsWeapon2() && weapon->GetFMData(FT_Name))
         Message("@%s|<c %x>%s</c>", this, modusname, RGB(128,128,128), weapon->GetFMData(FT_Name));
       else
         Message("@%s", this, modusname);
