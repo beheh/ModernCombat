@@ -1,21 +1,11 @@
-/*-- Motor --*/
+/*-- Schlauchboot (Motor) --*/
 
 #strict
 
-local boat;
-
-protected func Initialize()
-{
-  UpdateTransferZone();
-  SetComDir(COMD_None());
-  return(1);
-}
-
 public func SetBoat(object pBoat)
 {
-  if(pBoat)
-    if(GetID(pBoat) == INFL)
-      boat = pBoat;
+  SetAction("Be",pBoat);
+  UpdateShape();
 }
 
 protected func AttachTargetLost()
@@ -30,24 +20,27 @@ protected func UpdateTransferZone()
 
 public func UpdateShape()
 {
-  if(!boat) return(false);
+  if(!GetActionTarget()) return(false);
   
   var iXOff = 30;
-  if(boat->GetComDir() == 7)//Lol. Sinn?
+  if(GetActionTarget()->GetDir() == DIR_Right)
     iXOff = -iXOff;
     
   SetShape((-10)+iXOff,-15,30,30);
   return(true);
 }
 
+
+//Steuerung
+
 protected func ControlUpdate(object clonk, int comdir)
 {
   if(comdir == COMD_UpLeft || comdir == COMD_Left || comdir == COMD_DownLeft)
-    boat->Left();
+    GetActionTarget()->Left();
   else if(comdir == COMD_UpRight || comdir == COMD_Right || comdir == COMD_DownRight)
-    boat->Right();
+    GetActionTarget()->Right();
   else
-    boat->Stop();
+    GetActionTarget()->Stop();
 }
 
 protected func ControlCommand(string szCommand, object pTarget, int iX, int iY)
@@ -60,25 +53,40 @@ protected func ControlCommand(string szCommand, object pTarget, int iX, int iY)
 private func Command2Control(int iX, int iY)
 {
   // nur X wird ausgewertet
-  if(iX>GetX()) ControlRight();
-  if(iX<GetX()) ControlLeft();
+  if(iX > GetActionTarget()->GetX()) GetActionTarget()->Right();
+  if(iX < GetActionTarget()->GetX()) GetActionTarget()->Left();
+
   return(1);
 }
 
 public func ControlLeft(object pByObj)
 {
   if(!GetPlrCoreJumpAndRunControl(pByObj->GetController()))
-    boat->Left();
+    GetActionTarget()->Left();
+    
+  return(1);
 }
 
 public func ControlRight(object pByObj)
 {
   if(!GetPlrCoreJumpAndRunControl(pByObj->GetController()))
-    boat->Right();
+    GetActionTarget()->Right();
+    
+  return(1);
 }
 
 public func ControlDown(object pByObj)
 {
   if(!GetPlrCoreJumpAndRunControl(pByObj->GetController()))
-    boat->Stop();
+    GetActionTarget()->Stop();
+    
+  return(1);
+}
+
+public func ControlUpDouble(object pByObj)
+{
+  if(GetContact(GetActionTarget(),-1))
+    GetActionTarget()->LandOn();
+    
+  return(1);
 }

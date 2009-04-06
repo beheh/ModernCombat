@@ -1,7 +1,7 @@
 CMC Entwicklerteam
 
-Henry aka [na:skar]
-Aufgabe: Script, Grafik
-
 Speed
 Aufgabe: Grafik
+
+Henry aka [na:skar]
+Aufgabe: Script, Speeds Grafik verunstalten
