@@ -22,10 +22,20 @@ Name=Walk
 Procedure=WALK
 Directions=2
 FlipDir=1
-Length=10
+Length=11
 Delay=25
 Facet=0,20,16,20,0,0
 NextAction=Walk
+
+[Action]
+Name=Scale
+Procedure=SCALE
+Directions=2
+FlipDir=1
+Length=11
+Delay=25
+Facet=0,60,16,20,0,0
+NextAction=Scale
 
 [Action]
 Name=Alert

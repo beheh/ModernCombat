@@ -227,14 +227,14 @@ protected func ContactRight()
 /* Aktionen */
 public func DoJump()
 {
-  if(((GetAction() ne "Walk") && (GetAction() ne "Stand")) || GetEffect("IntAttackDelay", this())) return();
-  SetAction("PrepareJump");
+  if(((GetAction() ne "Walk") && (GetAction() ne "Stand")) || GetEffect("IntAttackDelay", this())) return(0);
+  return(SetAction("PrepareJump"));
 }
 
 public func DoAttackJump(object pTarget)
 {
-  if(((GetAction() ne "Walk") && (GetAction() ne "Stand")) || GetEffect("IntAttackDelay", this())) return();
-  SetAction("PrepareAttackJump",pTarget);
+  if(((GetAction() ne "Walk") && (GetAction() ne "Stand")) || GetEffect("IntAttackDelay", this())) return(0);
+  return(SetAction("PrepareAttackJump",pTarget));
 }
 
 private func ExecJump()
@@ -362,9 +362,9 @@ protected func ContainedUp(object caller)
 protected func ControlUp()
 {
   [$TxtMovement$]
-  if(!GetPlrCoreJumpAndRunControl(GetController()))
-    DoJump();
-  return(1);
+  if(DoJump())
+    return(1);
+  return(0);
 }
 
 protected func ContainedDown(object caller)
