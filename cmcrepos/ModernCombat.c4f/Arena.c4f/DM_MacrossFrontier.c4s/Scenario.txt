@@ -6,7 +6,7 @@ Origin=ModernCombat.c4f\DM_MacrossFrontier.c4s
 [Definitions]
 Definition1=Objects.c4d
 Definition2=Hazard.c4d
-Definition3=ModernCombat_BETA.c4d
+Definition3=ModernCombat.c4d
 
 [Game]
 StructNeedEnergy=0
