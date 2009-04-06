@@ -1,6 +1,0 @@
-CtxConstructionDesc=Construction
-CtxHomeDesc=Back to base
-CtxRelease=Release
-CtrlMenuDesc=Menu
-TxtPermanentModeTurnOn=Permanent mode on
-TxtPermanentModeTurnOff=Permanent mode off
