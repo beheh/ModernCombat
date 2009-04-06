@@ -1,7 +1,7 @@
 [Head]
 Icon=16
 Title=CTF - Blackout
-Origin=ModernCombat.c4f\CTF_Blackout.c4s
+Origin=ModernCombat.c4f\Arena.c4f\CTF_Blackout.c4s
 
 [Definitions]
 Definition1=Objects.c4d
