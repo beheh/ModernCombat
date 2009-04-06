@@ -1,0 +1,12 @@
+[Particle]
+Name=LavaGlow3
+MaxCount=150
+InitFn=StdInit
+ExecFn=StdExec
+DrawFn=Std
+Face=0,0,32,32,-16,-16
+GravityAcc=100
+VertexCount=1
+CollisionFn=Stop
+Repeats=4
+AlphaFade=3

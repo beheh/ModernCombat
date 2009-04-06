@@ -1,0 +1,13 @@
+[Action]
+Name=Evaporate
+Delay=1
+Facet=0,0,8,12
+NextAction=Evaporate
+StartCall=SmokeTrail
+InLiquidAction=Splash
+
+[Action]
+Name=Splash
+Delay=1
+Facet=0,0,8,12
+StartCall=HitLiquid

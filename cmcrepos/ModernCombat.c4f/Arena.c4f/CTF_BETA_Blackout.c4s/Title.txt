@@ -1,0 +1,2 @@
+DE:CTF - <c ff0000>Blackout</c>
+US:CTF - <c ff0000>Blackout</c>

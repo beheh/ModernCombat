@@ -1,0 +1,17 @@
+[Action]
+Name=Grow
+Procedure=FLOAT
+Length=10
+Delay=20
+Directions=4
+Facet=0,0,14,14
+NextAction=Bubble
+
+[Action]
+Name=Bubble
+Procedure=FLOAT
+Length=1
+Delay=100
+Directions=4
+Facet=126,0,14,14
+NextAction=Bubble
