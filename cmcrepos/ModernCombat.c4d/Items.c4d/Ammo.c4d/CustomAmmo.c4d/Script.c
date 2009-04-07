@@ -82,7 +82,7 @@ public func TransferAmmo(object pObj)		// Ammo dem Clonk geben
   SetAmmoCount(old-DoAmmo(AmmoID(),AmmoCount(),pObj));
   
   pObj->~AmmoTransferred();
-  Sound("Resupply");
+  Sound("Resupply.ogg");
   if(!OnTransfer()) RemoveObject();
 
   return(true);
@@ -90,6 +90,6 @@ public func TransferAmmo(object pObj)		// Ammo dem Clonk geben
 
 protected func Hit()
 {
-  Sound("Ammobaghit*");
+  Sound("Ammobaghit*.ogg");
   return(1);
 }
