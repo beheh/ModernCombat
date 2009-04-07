@@ -111,7 +111,7 @@ public func Throw()
       if((user->GetProcedure() eq "WALK")||(user->GetProcedure() eq "THROW"))
         user->SetAction("Throw");
   
-  Sound("GrenadeThrow");
+  Sound("GrenadeThrow*");
   
   var nade = user->~GrabGrenade(GetID());
   user->~ResetShowWeapon(0);//Seht ihrs? ... DA! ... Eine NULL!
