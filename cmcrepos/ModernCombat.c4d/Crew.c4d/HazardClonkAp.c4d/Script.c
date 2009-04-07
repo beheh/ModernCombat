@@ -8,7 +8,6 @@ local crosshair;
 
 private func DeleteCrosshair()
 {
-  //... ach HDF :P
 }
 
 /* neue Waffen-Steuerung */
@@ -380,7 +379,7 @@ protected func PackAmmo(id idType, int iCaller)
     RemoveObject(pPack);//What a fail. :C
   }
   else
-    Sound("PackAmmo");
+    Sound("PackAmmo.ogg");
   
   if(this()->~AmmoBagContextCheck())
   {
