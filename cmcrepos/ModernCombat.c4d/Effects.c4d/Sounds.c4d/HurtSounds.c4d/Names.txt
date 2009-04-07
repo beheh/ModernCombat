@@ -1,2 +1,0 @@
-DE:Verletzungssounds
-US:Hurt Sounds

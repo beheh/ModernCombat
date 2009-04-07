@@ -56,7 +56,7 @@ func Death()
   }
   else
   {
-    Sound("ClonkDie*");
+    Sound("ClonkDie*.ogg");
   }
   
   FadeOut(this());
@@ -67,7 +67,7 @@ func Death()
 public func FxFakeDeathStart(pTarget,iEffectNumber)
 {
   SetComDir(COMD_Stop,pTarget);
-  pTarget->Sound("ClonkDie*");
+  pTarget->Sound("ClonkDie*.ogg");
   if(!ObjectSetAction(pTarget,"Death",0,0,1))
     pTarget->SetAction("Dead");
   DoEnergy(FakeDeathHP(),pTarget);//O.o 
@@ -149,7 +149,7 @@ global func StopFakeDeath(object pTarget)
   if(!pTarget) return(false);
   if(!pTarget->IsClonk()) return(false);
   
-  Sound("ClonkCough*",0,pTarget);
+  Sound("ClonkCough*.ogg",0,pTarget);
   
   while(GetEffect("FakeDeath",pTarget))
     RemoveEffect("FakeDeath",pTarget);

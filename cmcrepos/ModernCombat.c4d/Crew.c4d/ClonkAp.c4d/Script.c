@@ -105,7 +105,7 @@ public func HasBlackOut()//Später solls wieder FakeDeath heissen.
 public func FxBlackOutStart(pTarget,iEffectNumber)
 {
   SetComDir(COMD_Stop,pTarget);
-  pTarget->Sound("ClonkDie*");
+  pTarget->Sound("ClonkDie*.ogg");
   if(!ObjectSetAction(pTarget,"Death",0,0,1))
     pTarget->SetAction("Dead");
   
@@ -218,40 +218,40 @@ public func HurtSounds(int iDmg, int iType)
   if(iType == DMG_Projectile)
   {
     if(!Random(BoundBy(12-iDmg,0,12)))
-      Sound("ClonkPain*");
+      Sound("ClonkPain*.ogg");
     return();
   }
   //Flame
   if(iType == DMG_Fire)
   {
     if(!Random(BoundBy(20-iDmg,0,20)))
-      Sound("ClonkBurning*");
+      Sound("ClonkBurn*.ogg");
     return();
   }
   //Explosion
   if(iType == DMG_Explosion)
   {
     if(!Random(BoundBy(2-iDmg,0,2)))
-      Sound("ClonkPain*");
+      Sound("ClonkPain*.ogg");
     return();
   }
   //Energy
   if(iType == DMG_Energy)
   {
     if(!Random(BoundBy(10-iDmg,0,10)))
-      Sound("ClonkPain*");
+      Sound("ClonkPain*.ogg");
     return();
   }
   //Bio
   if(iType == DMG_Bio)
   {
     if(!Random(BoundBy(20-iDmg,0,20)))
-      Sound("ClonkPoisened*");
+      Sound("ClonkPoisened*.ogg");
     return();
   }
   
   if(!Random(BoundBy(10-iDmg,0,10)))
-    Sound("ClonkPain*");
+    Sound("ClonkPain*.ogg");
 }
 
 
@@ -270,9 +270,9 @@ func Hit2(int xDir, int yDir)
   var hit = Distance(xDir,yDir);//Max(xDir,yDir);
 
   if(hit >= 800)
-    Sound("BodyImpact*");
+    Sound("ClonkImpact*.ogg");
   else if(hit >= 600)
-    Sound("BodyFall*");
+    Sound("ClonkFall*.ogg");
 
   if(!FindObject(FDMG)) return(_inherited(xDir,yDir,...));
 	if(!GetAlive(this())) return(_inherited(xDir,yDir,...));
@@ -281,7 +281,7 @@ func Hit2(int xDir, int yDir)
   DoDmg((hit-700)*2/10,DMG_Melee,this());
   
   if(GetAlive(this()))
-    Sound("Hurt*");
+    Sound("ClonkPain*.ogg");
   
   return(_inherited(xDir,yDir,...));
 }
