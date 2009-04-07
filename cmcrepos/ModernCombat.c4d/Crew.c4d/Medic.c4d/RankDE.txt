@@ -1,28 +1,24 @@
-# Rangsystem für Sanitäter
-
-# Rangnamen
-
-Einfacher Soldat
-Einfacher Soldat zweiter Klasse
-Einfacher Soldat erster Klasse
-Hauptmann zweiter Klasse
-Hauptmann erster Klasse
-Unteroffizier
-Gruppenoffizier
-Riegenoffizier
-Truppenoffizier
-Abteilungsoffizier
+Soldat
+Soldat zweiter Klasse
+Soldat erster Klasse
+Hauptmann
+Späher
+Aufklärer
+Kundschafter
+Vorauskommando
+Schütze
+Richtschütze
+Spezialeinheit
+Präzisionsschütze
+Techniker
+Medizintechniker
+Ingenieur
+Fahrzeugführer
+Panzerfahrer
+Pilot
+Leutnant
 Feldwebel
-Riegenfeldwebel
-Abteilungsfeldwebel
-Feldwebel zweiter Klasse
-Feldwebel erster Klasse
 Major
-Hauptmajor
-Truppenmajor
-Leutnant zweiter Klasse
-Leutnant erster Klasse
-Oberleutnant
-Abteilungsgeneral
-Brigadegeneral
+Offizier
 General
+Kommandant

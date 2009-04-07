@@ -1,27 +1,24 @@
-# CMC Ranknames
-
 Private
-Private of the second Class
-Private of the first Class
-Captain of the second Class
-Captain of the first Class
-Non commissioned Officer
-Groupofficer
-Squadofficer
-Troopofficer
-Brigadeofficer
+Private of the Second Class
+Private of the First Class
+Captain
+Scout
+Spotter
+Keeper
+Advance Unit
+Rifleman
+Gunner
+Special Force Unit
+Marksman
+Technician
+Medical Technician
+Engineer
+Operator
+Tank Driver
+Pilot
+Lieutenant
 Sergeant
-Squadsergeant
-Brigadesergeant
-Sergeant of the second Class
-Sergeant of the first Class
 Major
-Headmajor
-Troopmajor
-Lieutenant of the second Class
-Lieutenant of the first Class
-Mainlieutenant
-Troopgeneral
-Brigadegeneral
-Co-General
+Officer
 General
+Commander
