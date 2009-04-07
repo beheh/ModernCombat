@@ -1,4 +1,4 @@
-/*-- Der Clonk --*/
+/*-- Clonk Appendto --*/
 
 #strict
 #appendto CLNK

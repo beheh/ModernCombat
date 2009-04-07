@@ -1,11 +1,10 @@
+/*-- Kampfclonk Appendto --*/
+
 #strict
 #appendto HZCK
 
-//Kommt alles erst später! >:D
-//  Nain, Lüger! Kommt jetzt! :P
-
-
 local crosshair;
+
 
 private func DeleteCrosshair()
 {

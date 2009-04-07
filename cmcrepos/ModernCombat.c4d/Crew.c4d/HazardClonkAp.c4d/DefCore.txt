@@ -1,7 +1,7 @@
 [DefCore]
 id=HZCC
 Version=4,9,5
-Name=Clonk3
+Name=HazardClonk
 Category=1
 Picture=0,0,100,100
 Width=100
