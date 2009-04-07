@@ -20,6 +20,6 @@ func Fused()
   Sparks(15,RGB(255,128));
   CastParticles("Smoke3",6,8,0,0,80,200,RGBa(255,255,255,120),RGBa(255,255,255,150));
   AddLightFlash(50,0,0,RGB(255,255,128),this());
-  Sound("Blast1");
+  Sound("GrenadeExplosion*.ogg");
   RemoveObject();
 }

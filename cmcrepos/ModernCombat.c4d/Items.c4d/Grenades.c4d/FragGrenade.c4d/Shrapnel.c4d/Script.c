@@ -191,6 +191,6 @@ public func OnHit(object pObject, int iX, int iY)
   if(pObject)
   {
     if(Distance(lx,ly) > 20)
-      Sound("SharpnelImpact*");
+      Sound("SharpnelImpact*.ogg");
   }
 }

@@ -32,14 +32,14 @@ func NoArenaRemove(){IsFusing();}
 
 func HitSound()
 {
-  Sound("GrenadeHit*");
+  Sound("GrenadeHit*.ogg");
 }
 
 func HitObject(object pObj)
 {
   if(!pObj) return();
   if(pObj->~IsClonk())
-    Sound("BodyFall*");
+    Sound("BodyFall*.ogg");
     
   pObj->SetAction("Tumble");
   SetXDir(GetXDir(pObj)+GetXDir()/3,pObj);
@@ -111,7 +111,7 @@ public func Throw()
       if((user->GetProcedure() eq "WALK")||(user->GetProcedure() eq "THROW"))
         user->SetAction("Throw");
   
-  Sound("GrenadeThrow*");
+  Sound("GrenadeThrow*.ogg");
   
   var nade = user->~GrabGrenade(GetID());
   user->~ResetShowWeapon(0);//Seht ihrs? ... DA! ... Eine NULL!
@@ -136,7 +136,7 @@ public func RejectEntrance()
 public func Collection(object pObj)
 {
   if(GetCategory(pObj) & C4D_Living)
-    Sound("GrenadeCharge");
+    Sound("GrenadeCharge.ogg");
 }
 
 public func Departure(object pObj)
@@ -198,7 +198,7 @@ public func FxIntFuseStop(object pTarget)
 
 public func Fuse()
 {
-  Sound("GrenadeActivate");
+  Sound("GrenadeActivate.ogg");
   return(AddEffect ("IntFuse",this(),200,1,this()));
 }
 

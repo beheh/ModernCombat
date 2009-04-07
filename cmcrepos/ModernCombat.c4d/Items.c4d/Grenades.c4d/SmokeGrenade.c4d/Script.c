@@ -11,12 +11,12 @@ public func ContainedDamage(){return(20);}
 
 func HitSound()
 {
-  Sound("SGRN_Hit*");
+  Sound("SGRN_Hit*.ogg");
 }
 
 public func Fused()
 {
-  Sound("SGRN_Fused");
+  Sound("SGRN_Fused.ogg");
   ScheduleCall(this(),"Smoke",14,10);//4 Sekunden lang. :)
   FadeOut();
 }

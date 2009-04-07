@@ -16,7 +16,7 @@ public func Fused()
   Explode(BlastRadius()*2/3);
   DamageObjects(BlastRadius()*3/2,BlastRadius()*2,this());
   CreateParticle("Blast",0,0,0,0,10*BlastRadius(),RGB(255,255,128));
-  Sound("GrenadeExplosion*");
+  Sound("GrenadeExplosion*.ogg");
 }
 
 //Schockwelle. ;)

@@ -9,12 +9,12 @@ public func ContainedDamage(){return(20);}
 
 func HitSound()
 {
-  Sound("SGRN_Hit*");
+  Sound("SGRN_Hit*.ogg");
 }
 
 public func Fused()
 {
-  Sound("STUN_Fused");
+  Sound("STUN_Fused.ogg");
 
   for(var obj in FindObjects(Find_OCF(OCF_CrewMember),Find_Distance(200)))
   {
