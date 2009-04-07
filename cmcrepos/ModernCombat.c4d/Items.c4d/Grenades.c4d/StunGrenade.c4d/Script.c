@@ -5,7 +5,7 @@
 
 public func FuseTime(){return(2*35);}
 public func Color(){return(RGB(0,128,255));}
-public func ContainedDamage(){return(60);}
+public func ContainedDamage(){return(20);}
 
 func HitSound()
 {

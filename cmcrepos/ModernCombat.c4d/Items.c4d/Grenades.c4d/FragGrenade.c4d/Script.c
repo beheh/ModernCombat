@@ -16,7 +16,7 @@ func Fused()
     ammo->Launch(angle,70+Random(30),200+Random(100),5,15,20);
   }
   
-  CreateParticle("Blast",0,0,0,0,10*15,RGB(255,255,128));//FakeBlast :°
+  CreateParticle("Blast",0,0,0,0,10*15,RGB(255,255,128));
   Sparks(15,RGB(255,128));
   CastParticles("Smoke3",6,8,0,0,80,200,RGBa(255,255,255,120),RGBa(255,255,255,150));
   AddLightFlash(50,0,0,RGB(255,255,128),this());
