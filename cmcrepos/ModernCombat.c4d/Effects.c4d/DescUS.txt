@@ -1,1 +1,1 @@
-Effects and helper objects.
+Effects and help objects.
