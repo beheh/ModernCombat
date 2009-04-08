@@ -1,6 +1,7 @@
-/* Patronenhülse */
+/*-- Patronenhülse --*/
 
 #strict
+
 
 public func Set(int iSize)
 {

@@ -1,1 +1,1 @@
-Erzeugt nach der Zündung Nebelschwaden, die Clonks die Sicht rauben.
+Erzeugt nach der Zündung Rauchschwaden, Clonks im Rauch sehen schlecht oder zeitweise garnicht.

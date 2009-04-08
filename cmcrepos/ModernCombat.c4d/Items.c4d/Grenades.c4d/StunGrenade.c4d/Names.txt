@@ -1,2 +1,2 @@
 DE:Blendgranate
-US:Stun grenade
+US:Stun Grenade

@@ -1,3 +1,5 @@
+/*-- Munitionskiste --*/
+
 #strict
 
 local idSpawn, iMaxCount, iRespawnTime, iTakeTime;

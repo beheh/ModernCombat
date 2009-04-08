@@ -1,1 +1,1 @@
-This grenade creates a big fog after being fused, which disposses Clonks of their sight if they move into.
+This grenade releases thick smoke after being fused, clonks running in it will be distracted or even blind.

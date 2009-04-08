@@ -1,2 +1,2 @@
 DE:Rauchgranate
-US:Smoke grenade
+US:Smoke Grenade

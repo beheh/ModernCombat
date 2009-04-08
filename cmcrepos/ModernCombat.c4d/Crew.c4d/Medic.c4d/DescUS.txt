@@ -1,4 +1,5 @@
 Reliable doctor on the battlefields and responsible for many survivors.
+
 Can carry up to 4 objects, 2 of them weapons.
 
 The medic can choose the best healing ability automaticly by using the assignment of keys [Double Stop+Jump].
