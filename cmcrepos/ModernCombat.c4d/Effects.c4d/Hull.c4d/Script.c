@@ -21,9 +21,9 @@ public func Set(int iSize)
 protected func Hit()
 {
   if(GetCon() > 100)
-    Sound("BigHullHit*",false,0,0,0,0,0,300);
+    Sound("BigHullHit*.ogg",false,0,0,0,0,0,300);
   else
-    Sound("HullHit*",false,0,0,0,0,0,300);
+    Sound("HullHit*.ogg",false,0,0,0,0,0,300);
   
   SetRDir();
   SetR();
