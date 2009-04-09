@@ -1,1 +1,1 @@
-Collection of used libraries for this pack.
+Collection of libraries used in this pack.
