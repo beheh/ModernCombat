@@ -6,8 +6,5 @@ Aufgaben: Mapgestaltung, Beschreibung
 Henry/Naskar
 Aufgaben: Script
 
-Maddin
-Aufgaben: Script
-
 ModernClonker
 Aufgaben: Clonkgrafik
