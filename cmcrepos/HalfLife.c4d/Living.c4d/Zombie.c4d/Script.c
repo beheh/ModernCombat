@@ -5,7 +5,7 @@
 
 /* Allgemeines */
 public func IsPossessible() {return(1);}
-public func IsHeadcrab() {return(1);}
+public func Faction() {return(FACTION_Xen);}
 public func IsThreat() {return(true);}
 
 protected func Initialize()
@@ -119,7 +119,7 @@ protected func Activity()
       return();
     }
     
-    if(pEnemy->ObjectCount2(Find_Distance(40),Find_Exclude(this()),Find_Func("IsHeadcrab"),Find_Func("AttackingSameEnemy",pEnemy)) >= 3)
+    if(pEnemy->ObjectCount2(Find_Distance(40),Find_Exclude(this()),Find_Faction(Faction()),Find_Func("AttackingSameEnemy",pEnemy)) >= 3)
     {
       if(GetCommand(this(),1,0) == pEnemy)
         FinishCommand(this(),false,0);
@@ -232,7 +232,7 @@ private func Alert(object pTarget)
   if(pEnemy != pTarget)
     Sound("ZOMB_Alert*.ogg");
   //Message("×",this());
-  for(var headcrab in FindObjects(Find_InRect(-200,-200,+400,+400),Find_Exclude(this()),Find_OCF(OCF_Alive),Find_Func("IsHeadcrab")))
+  for(var headcrab in FindObjects(Find_InRect(-200,-200,+400,+400),Find_Exclude(this()),Find_OCF(OCF_Alive),Find_Faction(Faction())))
     headcrab->OnAlert(pTarget);
 }
 
@@ -241,7 +241,7 @@ public func OnAlert(object pTarget)
   if(UserControlled()) return();
   //Message("•",this());
   
-  if(pTarget->~IsHeadcrab())
+  if(pTarget->~Faction() == Faction())
   {
     if(!pEnemy)
       SetCmd(false,this(),"Follow",pTarget);
@@ -282,7 +282,7 @@ private func FindPrey()
   
   if(GetLength(targets))
   {
-    if(targets[0]->ObjectCount2(Find_Distance(20),Find_Func("IsHeadcrab")) < 3)
+    if(targets[0]->ObjectCount2(Find_Distance(20),Find_Faction(Faction())) < 3)
       return(targets[0]);
   }
   return();
@@ -366,7 +366,7 @@ public func DoBeat2Attack()
 private func JumpAttacking()
 {
   CheckStuck();
-  var victim = FindObject2(Find_AtPoint((GetDir()*2-1)*7),Find_Func("IsThreat"),Find_Exclude(this()),Find_NoContainer(),Find_Not(Find_Func("IsHeadcrab")));
+  var victim = FindObject2(Find_AtPoint((GetDir()*2-1)*7),Find_Func("IsThreat"),Find_Exclude(this()),Find_NoContainer(),Find_Not(Find_Faction(Faction())));
   if(!victim) return();
   
   Sound("ZOMB_Beat*.ogg");
@@ -390,7 +390,7 @@ private func JumpAttackStop()
 
 private func ExecBeat()
 {  
-  var victim = PunchTarget();//FindObject2(Find_AtPoint((GetDir()*2-1)*6,0),Find_OCF(OCF_Prey|OCF_Alive),Find_NoContainer(),Find_Not(Find_Func("IsHeadcrab")),Find_Exclude(this()),Sort_Distance());
+  var victim = PunchTarget();//FindObject2(Find_AtPoint((GetDir()*2-1)*6,0),Find_OCF(OCF_Prey|OCF_Alive),Find_NoContainer(),Find_Not(Find_Faction(Faction())),Find_Exclude(this()),Sort_Distance());
   if(victim)
   {
     Sound("ZOMB_Beat*.ogg");
@@ -407,7 +407,7 @@ private func ExecBeat()
 
 private func ExecBeat2()
 {  
-  var victim = PunchTarget();//FindObject2(Find_AtPoint((GetDir()*2-1)*6,0),Find_OCF(OCF_Prey|OCF_Alive),Find_NoContainer(),Find_Not(Find_Func("IsHeadcrab")),Find_Exclude(this()),Sort_Distance());
+  var victim = PunchTarget();//FindObject2(Find_AtPoint((GetDir()*2-1)*6,0),Find_OCF(OCF_Prey|OCF_Alive),Find_NoContainer(),Find_Not(Find_Faction(Faction())),Find_Exclude(this()),Sort_Distance());
   if(victim)
   {
     Sound("ZOMB_Beat*.ogg");

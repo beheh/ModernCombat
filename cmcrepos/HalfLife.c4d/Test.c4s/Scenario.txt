@@ -15,22 +15,22 @@ StructNeedEnergy=0
 
 [Player1]
 Wealth=250,0,0,250
-Crew=PCMK=1;ZOMB=1;HCRB=1
+Crew=PCMK=1
 Magic=MFFW=0
 
 [Player2]
 Wealth=250,0,0,250
-Crew=PCMK=1;ZOMB=1;HCRB=1
+Crew=PCMK=1
 Magic=MFFW=0
 
 [Player3]
 Wealth=250,0,0,250
-Crew=PCMK=1;ZOMB=1;HCRB=1
+Crew=PCMK=1
 Magic=MFFW=0
 
 [Player4]
 Wealth=250,0,0,250
-Crew=PCMK=1;ZOMB=1;HCRB=1
+Crew=PCMK=1
 Magic=MFFW=0
 
 [Landscape]

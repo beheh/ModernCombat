@@ -4,7 +4,7 @@
 #include HZCK
 
 /* Allgemeines */
-public func IsCombine(){return(true);}
+public func Faction() {return(FACTION_Combine);}
 
 protected func Initialize()
 {

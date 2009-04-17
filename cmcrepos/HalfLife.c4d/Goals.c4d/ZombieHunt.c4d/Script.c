@@ -35,7 +35,7 @@ private func GetFulfillText()
 
 private func ZombiesLeft()
 {
-	return(FindObjects(Find_Func("IsHeadcrab")));
+	return(FindObjects(Find_Faction(FACTION_Xen)));
 }
 
 public func MonsterKilled(id idMonster, object pMonster, int iKiller)

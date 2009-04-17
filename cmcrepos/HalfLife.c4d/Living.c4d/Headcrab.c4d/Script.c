@@ -4,7 +4,7 @@
 
 /* Allgemein */
 public func IsPossessible() { return(1); }
-public func IsHeadcrab() { return(1); }
+public func Faction() { return(FACTION_Xen); }
 public func IsThreat() { return(true); }
 
 protected func Initialize()
@@ -19,7 +19,7 @@ protected func Initialize()
 
 protected func Death(int iKilledBy)
 {
-  Sound("HCRB_Die*.ogg");
+  DieSound();
   SetAction("Dead");
   FadeOut4K(2);
   
@@ -59,7 +59,7 @@ public func OnHit(int iDamage, int iType, object pFrom)
 
 public func Hurt()
 {
-  Sound("HCRB_Hurt*.ogg");
+  HurtSound();
   return(1);
 }
 
@@ -120,44 +120,46 @@ protected func Activity()
         SetCommand(this(),aCmdData[0],aCmdData[1],aCmdData[2],aCmdData[3],aCmdData[4],aCmdData[5],aCmdData[6]);
         return();
       }
-    
-      if(!Random(8))
+      
+      if(GetAction() eq "Walk")
       {
-        if(GetDir() == DIR_Left)
+        if(!Random(8))
         {
-          if(GBackSolid(-10,0))
+          if(GetDir() == DIR_Left)
           {
-            if(!GBackSolid(-10,-15))
+            if(GBackSolid(-10,0))
+            {
+              if(!GBackSolid(-10,-15))
+              {
+                SetComDir(COMD_Stop);
+                TurnLeft();
+                DoJump();
+                return();
+              }
+            }
+          }
+        }
+        else
+        {
+          if(GBackSolid(+10,0))
+          {
+            if(!GBackSolid(+10,-15))
             {
               SetComDir(COMD_Stop);
-              TurnLeft();
+              TurnRight();
               DoJump();
               return();
             }
           }
         }
-       }
-       else
-       {
-         if(GBackSolid(+10,0))
-         {
-           if(!GBackSolid(+10,-15))
-           {
-             SetComDir(COMD_Stop);
-             TurnRight();
-             DoJump();
-             return();
-           }
-         }
-       }
-      
+          
         if(Random(2)) TurnRight();
         else TurnLeft();
       }
-      
-      if(!Random(2))
-        SetComDir(COMD_Stop);
     }
+      
+    if(!Random(2))
+      SetComDir(COMD_Stop);
   }
 }
 
@@ -173,9 +175,9 @@ private func Alert(object pTarget)
 {
   if(!pTarget) return();
 
-  Sound("HCRB_Alert.ogg");
+  AlertSound();
   //Message("×",this());
-  for(var headcrab in FindObjects(Find_InRect(-200,-200,+400,+400),Find_Exclude(this()),Find_OCF(OCF_Alive),Find_Func("IsHeadcrab")))
+  for(var headcrab in FindObjects(Find_InRect(-200,-200,+400,+400),Find_Exclude(this()),Find_OCF(OCF_Alive),Find_Faction(Faction())))
     headcrab->OnAlert(pTarget);
 }
 
@@ -184,12 +186,12 @@ public func OnAlert(object pTarget)
   if(UserControlled()) return();
   //Message("•",this());
   
-  if(pTarget->~IsHeadcrab())
+  if(pTarget->~Faction() == Faction())
   {
     if(!pEnemy)
     {
       bCmd = false;
-      SetCommand(false,this(),"Follow",pTarget);
+      SetCmd(false,"Follow",pTarget);
     }
   }
   else
@@ -206,7 +208,7 @@ private func FindPrey()
   if(GetLength(targets))
     return(targets[0]);
   return();
-  //for(var prey in FindObjects(Find_InRect(/*((GetDir()-1)*2)*180*/-100,-100,+200,+150),Find_OCF(OCF_Prey|OCF_Alive),Find_Not(Find_Func("IsHeadcrab")),Find_NoContainer(),Sort_Distance()))
+  //for(var prey in FindObjects(Find_InRect(/*((GetDir()-1)*2)*180*/-100,-100,+200,+150),Find_OCF(OCF_Prey|OCF_Alive),Find_Not(Find_Faction(Faction())),Find_NoContainer(),Sort_Distance()))
     //if(PathFreeObject4K(this(),prey,5))
       //return(prey);
 }
@@ -234,6 +236,7 @@ public func DoJump()
 public func DoAttackJump(object pTarget)
 {
   if(((GetAction() ne "Walk") && (GetAction() ne "Stand")) || GetEffect("IntAttackDelay", this())) return(0);
+  AttackSound();
   return(SetAction("PrepareAttackJump",pTarget));
 }
 
@@ -244,7 +247,7 @@ private func ExecJump()
   SetXDir(22 * (GetDir()*2-1) * jump / 100);
   SetYDir(-28 * jump / 100);
   if(!GetEffect("IntAttackDelay", this())) AddEffect("IntAttackDelay", this(), 1, 70);
-  Sound("HCRB_Jump1.ogg");
+  JumpSound();
 }
 
 private func ExecAttackJump()
@@ -265,7 +268,7 @@ private func ExecAttackJump()
     if(!GetEffect("IntAttackDelay", this())) AddEffect("IntAttackDelay", this(), 1, 90);
   }
   SetAction("AttackJump");
-  Sound("HCRB_Jump*.ogg");
+  JumpSound();
 }
 
 private func AttackStart()
@@ -276,12 +279,12 @@ private func AttackStart()
 
 public func FxAttackingTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
-  var victim = FindObject2(Find_AtPoint(),Find_OCF(OCF_Prey|OCF_Alive),Find_NoContainer(),Find_Not(Find_Func("IsHeadcrab")),Find_Exclude(this()),Sort_Distance());
+  var victim = FindObject2(Find_AtPoint(),Find_OCF(OCF_Prey|OCF_Alive),Find_NoContainer(),Find_Not(Find_Faction(Faction())),Find_Exclude(this()),Sort_Distance());
   if(victim)
   {
-    Sound("HCRB_Bite.ogg");
+    BiteSound();
     Fling(victim, BoundBy(GetXDir(),-2,+2), BoundBy(GetYDir(),-2,+2));
-    DoDmg(10,DMG_Melee,victim);
+    DoDmg(13,DMG_Melee,victim);
     SetYDir(0);
     if(!GetEffect("IntAttackDelay", this())) AddEffect("IntAttackDelay", this(), 1, 45);
     return(-1);
@@ -290,6 +293,7 @@ public func FxAttackingTimer(object pTarget, int iEffectNumber, int iEffectTime)
 
 private func AttackEnd()
 {
+  Message("AttackEnd",this());
   RemoveEffect("Attacking",this());
 }
 
@@ -438,3 +442,13 @@ protected func ContainedDigDouble()
   RemoveEffect("PossessionSpell", this());
   return(1);
 }
+
+
+/* Geräusche */
+
+public func JumpSound(){Sound("HCRB_Jump.ogg");}
+public func AttackSound(){Sound("HCRB_Attack*.ogg");}
+public func AlertSound(){Sound("HCRB_Alert.ogg");}
+public func HurtSound(){Sound("HCRB_Hurt*.ogg");}
+public func DieSound(){Sound("HCRB_Die*.ogg");}
+public func BiteSound(){Sound("HCRB_Bite.ogg");}

@@ -4,7 +4,7 @@
 #include HZCK
 
 /* Allgemeines */
-public func IsCombine(){return(true);}
+public func Faction() {return(FACTION_Combine);}
 
 static const MCOM_SightRange = 300;
 
@@ -194,7 +194,7 @@ private func FindEnemy()
   
   var aScan;
   
-  aScan = FindObjects(Find_Distance(distance), Find_OCF(OCF_Prey), Find_Not(Find_Func("IsCombine")));
+  aScan = FindObjects(Find_Distance(distance), Find_OCF(OCF_Prey), Find_Not(Find_Faction(Faction())));
   
   for(var scan in aScan)
   {

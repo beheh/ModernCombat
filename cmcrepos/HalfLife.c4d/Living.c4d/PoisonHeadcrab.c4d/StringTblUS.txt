@@ -1,0 +1,4 @@
+TxtMovement=Move
+TxtAttack=Bite
+TxtAlert=Alert
+TxtLeave=Retransform

@@ -16,5 +16,10 @@ protected func Activate(object caller)
     EventInfo4K(0,Format("$PlrRescued$",GetPlayerName(GetOwner(caller)),GetPlayerName(GetOwner(clonk))),GetID(),GetPlrColorDw(GetOwner(caller)));
     return(1);
   }
+  if(GetEffect("PCRB_Poison",caller))
+  {
+    DoHealPoints(-20);
+    RemoveEffect("PCRB_Poison",caller);
+  }
   return(_inherited(caller));
 }
