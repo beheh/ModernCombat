@@ -73,7 +73,7 @@ public func FxINFP_HoldStart(object pTarget, int iEffectNumber, int iTemp, infp)
   SetPhysical("Hangle", GetPhysical("Hangle", 0, pTarget)-EffectVar(3, pTarget, iEffectNumber), 2, pTarget);
 }
 
-func FxINFP_HoldTimer(object pTarget, int iEffectNumber, int iEffectTime)
+public func FxINFP_HoldTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
   if(Contained(EffectVar(4,pTarget,iEffectNumber)) != pTarget)
     return(-1);

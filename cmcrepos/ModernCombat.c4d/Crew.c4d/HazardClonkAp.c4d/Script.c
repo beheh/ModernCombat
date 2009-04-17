@@ -408,6 +408,7 @@ static const CH_JumpSpread = 140;
 static const CH_ScaleSpread = 200;
 static const CH_HangleSpread = 200;
 
+static const CH_CrawlSpreadReduction = 2;
 static const CH_AimSpreadReduction = 3;
 static const CH_StandSpreadReduction = 4;
 
@@ -525,9 +526,13 @@ public func UpdateCharge()//*ausnutz*
   else
     unspread = c->~UnSpread();
 
-  if(!this()->~IsAiming())
+    
+  if(this()->~IsAiming())
   {
-    DoSpread(-(CH_AimSpreadReduction+unspread));
+    if(this->~IsCrawling())
+      DoSpread(-(CH_CrawlSpreadReduction+unspread));
+    else
+      DoSpread(-(CH_AimSpreadReduction+unspread));
   }
   else
   {

@@ -40,6 +40,25 @@ public func GlowColor(int iATime) {
   return(RGBa(0,128,255,50));
 }
 
+public func IsSpecialAmmo(){return(true);}
+
+public func CustomBulletCasing(int iX, int iY, int iXDir, int iYDir, int iSize, int iColor)
+{
+  return(BulletCasing(iX,iY,iXDir,iYDir,iSize,RGB(200,200,200)));
+}
+
+public func CustomMuzzleFlash(int iSize, object pTarget, int iX, int iY, int iAngle, int iColor)
+{
+  return(MuzzleFlash(iSize*3/2,pTarget,iX,iY,iAngle,RGBa(0,127,255,85)));
+}
+
+public func FMMod(int iType,Data)
+{
+  if(iType == FM_BurstAmount) return(Max(2,Data*2));
+  if(iType == FM_BurstRecharge) return(Data/2);
+  return(Data);
+}
+
 
 ///Für Moncocrom-Waffen:
 /*public func FxIntMonochromStart(object pTarget, int iEffectNumber, int iTemp,size,fm)
