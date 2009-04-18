@@ -39,7 +39,7 @@ TemporaryCrew=1
 SilentCommands=1
 
 [Physical]
-Energy=150000
+Energy=100000
 Breath=500000
 Walk=50000
 Jump=30000

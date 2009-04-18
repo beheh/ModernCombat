@@ -38,6 +38,9 @@ public func OnDmg(int iDamage, int iType)
 {
   if(iType == DMG_Bio)
     return(100);
+
+  if(iType == DMG_Projectile)
+    return(-25);
 }
 
 public func OnHit(int iDamage, int iType, object pFrom)
@@ -500,6 +503,13 @@ protected func ContainedRight(object caller)
   SetCommand(this(),"None");
   if(!GetPlrCoreJumpAndRunControl(caller->GetController()))
     TurnRight();
+  return(1);
+}
+
+protected func ControlUp()
+{
+  [$TxtMovement$]
+  Jump();
   return(1);
 }
 

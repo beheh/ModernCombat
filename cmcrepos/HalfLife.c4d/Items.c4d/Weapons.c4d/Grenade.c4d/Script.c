@@ -14,6 +14,7 @@ func HitSound()
 public func Fused()
 {
   //Macht ordentlich Krawumm. :I
+  Sound("GrenadeExplosion*.ogg");
   DamageObjects(40,170,this());
   Explode(40);
 }

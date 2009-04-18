@@ -44,7 +44,7 @@ Directions=2
 FlipDir=1
 Length=3
 Delay=5
-Facet=0,46,16,20,0,10
+Facet=0,46,18,26,0,-6
 NextAction=Alert2
 
 [Action]
@@ -55,7 +55,7 @@ FlipDir=1
 Length=7
 Delay=5
 Reverse=1
-Facet=0,46,18,20,0,10
+Facet=0,46,18,26,0,-6
 NextAction=Walk
 
 [Action]
@@ -65,7 +65,7 @@ Directions=2
 FlipDir=1
 Length=7
 Delay=5
-Facet=0,46,18,20,0,10
+Facet=0,46,18,26,0,-6
 NextAction=Walk
 EndCall=ExecJump
 

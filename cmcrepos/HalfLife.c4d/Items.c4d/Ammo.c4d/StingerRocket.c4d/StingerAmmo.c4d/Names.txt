@@ -1,0 +1,2 @@
+DE:Stinger Munition
+US:Stinger Ammo
