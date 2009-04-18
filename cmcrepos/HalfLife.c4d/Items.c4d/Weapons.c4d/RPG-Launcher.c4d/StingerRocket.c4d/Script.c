@@ -5,11 +5,11 @@
 
 public func Acceleration() { return(5); }
 public func MaxTime() { return(35*5); }
-public func MaxSpeed() { return(150); }
+public func MaxSpeed() { return(120); }
 
 public func Launch(int iAngle, int iDmg)
 {
-  iSpeed = 50;
+  iSpeed = 20;
   iDamage = iDmg;
   if(!iDamage) iDamage = 35;
 
@@ -94,10 +94,10 @@ private func HitObject()
 {
   exploding = true;
   Sound("GrenadeExplosion*.ogg");
-  DamageObjects(iDamage,iDamage,this());
-  DamageObjects(iDamage,iDamage,this());
-  DamageObjects(iDamage,iDamage,this());
-  Explode(iDamage,0,0,0,1);
+  DamageObjects(iDamage*8/6,iDamage,this());
+  DamageObjects(iDamage*8/6,iDamage,this());
+  DamageObjects(iDamage*8/6,iDamage,this());
+  Explode(iDamage*4/5,0,0,0,1);
 }
 
 public func Destruction()

@@ -11,7 +11,7 @@ Vertices=4
 VertexX=-5,+5,-5,+5
 VertexY=1,1,-1,-1
 VertexFriction=70,70
-Value=5
+Value=10
 Mass=5
 Components=TFLN=2
 Picture=0,4,64,64

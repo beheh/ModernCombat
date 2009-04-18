@@ -12,6 +12,7 @@ protected func Initialize()
   aCmdData = [7];
   SetCmd();
   SetAction("Fly");
+  BladingStart();
   SetDir(Random(2));
   SetColorDw(RGB(255));
   
@@ -59,7 +60,6 @@ public func OnHit(int iDmg, int iType, object pFrom)
     CreateParticle("Frazzle", 0, 0, xdir+RandomX(-rnddir,+rnddir), ydir+RandomX(-rnddir,+rnddir), RandomX(40,50), RGBa(0,200,255,100));
   }
   
-  
   if(pFrom)
   {
     if(pFrom->~IsBullet())
@@ -68,17 +68,16 @@ public func OnHit(int iDmg, int iType, object pFrom)
       SetYDir(GetYDir()/2-Cos(GetR(pFrom),iDmg));
     }
   }
-  
-  if(GetEnergy() < (GetPhysical("Energy")/1000)*3/4)
+
+  if(!GetEffect("Damaged",this()))
   {
     SetColorDw(RGB(255,128));
     SetComDir(COMD_None);
     SetCommand(this(),"None");
-    if(!GetEffect("Damaged",this()))
-      AddEffect("Damaged",this(),20,20,this());
-    if(!GetEffect("Smoking",this()))
-      AddEffect("Smoking",this(),20,4,this());
+    AddEffect("Damaged",this(),20,20,this());
   }
+  if(!GetEffect("Smoking",this()))
+    AddEffect("Smoking",this(),20,4,this());
 }
 
 public func FxSmokingTimer(object pTarget, int iEffectNumber, int iEffectTime)
@@ -324,20 +323,18 @@ private func TurnLeft()
 
 public func ContactLeft()
 {
+  CreateParticle("Frazzle", -6, 0, +25, RandomX(-6,+6), RandomX(40,50), RGBa(0,200,255,100));
+  CreateParticle("Frazzle", -6, 0, +25, RandomX(-6,+6), RandomX(40,50), RGBa(0,200,255,100));
   SetXDir(+25);
-  BladeWall();
+  Sound("MHCK_Grind*.ogg");
 }
 
 public func ContactRight()
 {
+  CreateParticle("Frazzle", +6, 0, -25, RandomX(-6,+6), RandomX(40,50), RGBa(0,200,255,100));
+  CreateParticle("Frazzle", +6, 0, -25, RandomX(-6,+6), RandomX(40,50), RGBa(0,200,255,100));
   SetXDir(-25);
-  BladeWall();
-}
-
-public func BladeWall()
-{
-  //if(Distance(GetXDir(),GetYDir()) > 4)
-    Sound("MHCK_Grind*.ogg");
+  Sound("MHCK_Grind*.ogg");
 }
 
 protected func ControlCommand(szCommand, pTarget, iTx, iTy)

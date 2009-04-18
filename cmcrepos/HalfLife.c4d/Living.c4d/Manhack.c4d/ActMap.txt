@@ -3,14 +3,12 @@ Name=Fly
 Procedure=FLOAT
 Directions=2
 FlipDir=1
-Length=5
+Length=4
 FacetBase=1
-Delay=5
-Facet=0,12,11,3,0,0
-NextAction=Hold
+Delay=1
+Facet=0,11,11,1,0,7
+NextAction=Fly
 InLiquidAction=Water
-StartCall=BladingStart
-EndCall=BladingEnd
 AbortCall=BladingEnd
 
 [Action]

@@ -6,8 +6,8 @@
 
 // Anzeige in der Hand
 public func HandSize() { return(850); }
-public func HandX()    { return(3000); }
-public func HandY()    { return(0);  }
+public func HandX()    { return(1000); }
+public func HandY()    { return(-2000);  }
 
 public func HandR()
 {
@@ -30,7 +30,7 @@ public func FMData1(int data)
 
   if(data == FM_Aim)      return(3);
 
-  if(data == FM_Damage)   return(35);
+  if(data == FM_Damage)   return(45);
 
   return(Default(data));
 }
