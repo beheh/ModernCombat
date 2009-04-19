@@ -12,6 +12,7 @@ Definition3=ModernCombat.c4d
 StructNeedEnergy=0
 Goals=GOCC=1
 Rules=CHOS=1
+FoWColor=13816530
 
 [Player1]
 Crew=PCMK=1
