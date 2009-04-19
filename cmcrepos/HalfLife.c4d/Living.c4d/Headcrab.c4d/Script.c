@@ -13,8 +13,15 @@ protected func Initialize()
   SetCmd();
   SetAction("Walk");
   SetDir(Random(2));
+  AddEffect("SelfHeal",this(),20,40,this());
   
   SetName(GetName(0,GetID()));
+}
+
+public func FxSelfHealTimer(object pTarget, int iEffectNumber, int iEffectTime)
+{
+  if(GetEnergy(pTarget) < GetPhysical("Energy",0,pTarget)/1000)
+    DoEnergy(1,pTarget);
 }
 
 protected func Death(int iKilledBy)
@@ -24,6 +31,14 @@ protected func Death(int iKilledBy)
   FadeOut4K(2);
   
   GameCallEx("MonsterKilled",GetID(),this(),iKilledBy);
+  
+  var gotcrew;
+  for(var i; i < GetCrewCount(plr); i++)
+    if(GetOCF(GetCrew(plr,i)) & OCF_Alive)
+      gotcrew = true;
+
+  if(!gotcrew)
+    GameCallEx("RelaunchPlayer",GetOwner(),this(), GetKiller());
   
   return(1);
 }

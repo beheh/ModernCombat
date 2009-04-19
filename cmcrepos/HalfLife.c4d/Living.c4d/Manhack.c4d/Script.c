@@ -29,6 +29,14 @@ protected func Death(int iKilledBy)
   
   GameCallEx("MonsterKilled",GetID(),this(),iKilledBy);
   
+  var gotcrew;
+  for(var i; i < GetCrewCount(plr); i++)
+    if(GetOCF(GetCrew(plr,i)) & OCF_Alive)
+      gotcrew = true;
+
+  if(!gotcrew)
+    GameCallEx("RelaunchPlayer",GetOwner(),this(), GetKiller());
+  
   return(1);
 }
 

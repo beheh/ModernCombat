@@ -2,6 +2,7 @@
 
 #strict
 #include CLNK
+#include L_LA
 
 /* Allgemeines */
 public func IsPossessible() {return(1);}
@@ -40,7 +41,7 @@ public func OnDmg(int iDamage, int iType)
     return(100);
 
   if(iType == DMG_Projectile)
-    return(-25);
+    return(+50);
 }
 
 public func OnHit(int iDamage, int iType, object pFrom)
@@ -320,6 +321,14 @@ public func Death(int iKilledBy)
   FadeOut4K(1);
   
   GameCallEx("MonsterKilled",GetID(),this(),iKilledBy);
+
+  var gotcrew;
+  for(var i; i < GetCrewCount(plr); i++)
+    if(GetOCF(GetCrew(plr,i)) & OCF_Alive)
+      gotcrew = true;
+
+  if(!gotcrew)
+    GameCallEx("RelaunchPlayer",GetOwner(),this(), GetKiller());
   
   return(1);
 }
@@ -458,6 +467,23 @@ private func TurnLeft()
   return(1);
 }
 
+private func HealStart()
+{
+  if(!GetEffect("SelfHeal",this()))
+    AddEffect("SelfHeal",this(),20,13,this());
+}
+
+public func FxSelfHealTimer(object pTarget, int iEffectNumber, int iEffectTime)
+{
+  if(GetEnergy(pTarget) < GetPhysical("Energy",0,pTarget)/1000)
+    DoEnergy(1,pTarget);
+}
+
+private func HealEnd()
+{
+  RemoveEffect("SelfHeal",this());
+}
+
 
 /* Steuerung durch Besessenheit */
 
@@ -465,6 +491,8 @@ protected func ControlCommand(szCommand, pTarget, iTx, iTy)
 {
   if(GetAction() eq "FakeDeath")
     SetAction("FlatUp");
+    
+  if(ControlLadder("ControlCommand")) return(1);
 
   if(szCommand eq "MoveTo")
   {
@@ -475,6 +503,7 @@ protected func ControlCommand(szCommand, pTarget, iTx, iTy)
 
 protected func ControlCommandFinished(string strCommand, object pTarget, int iTx, int iTy, object pTarget2, Data)
 {
+  if(ControlLadder("ControlCommandFinished")) return(1);
   if(!aCmdData[0]) return();
   if(strCommand == aCmdData[0])
   {
@@ -506,13 +535,6 @@ protected func ContainedRight(object caller)
   return(1);
 }
 
-protected func ControlUp()
-{
-  [$TxtMovement$]
-  Jump();
-  return(1);
-}
-
 protected func ContainedUp(object caller)
 {
   [$TxtMovement$]
@@ -531,7 +553,8 @@ protected func ContainedUpDouble(object caller)
 protected func ControlUpDouble()
 {
   [$TxtMovement$]
-  if(GetAction() ne "FakeDead") return(0);
+  if(GetAction() ne "FakeDead") return(_inherited(...));
+  if(ControlLadder("ControlUpDouble")) return(1);
   SetAction("FlatUp");
   return(1);
 }
@@ -548,14 +571,37 @@ protected func ContainedDown(object caller)
   return(1);
 }
 
+protected func ControlUp()
+{
+  [$TxtMovement$]
+  if(ControlLadder("ControlUp")) return(1);
+  return(_inherited(...));
+}
+
+protected func ControlLeft()
+{
+  [$TxtMovement$]
+  if(ControlLadder("ControlLeft")) return(1);
+  return(_inherited(...));
+}
+
+protected func ControlRight()
+{
+  [$TxtMovement$]
+  if(ControlLadder("ControlRight")) return(1);
+  return(_inherited(...));
+}
+
 protected func ControlDown()
 {
   [$TxtMovement$]
+  if(ControlLadder("ControlDown")) return(1);
   if((GetProcedure() eq "WALK") && GetPlrDownDouble(GetController()))
   {
     SetAction("FakeDead");
     return(1);
   }
+  return(_inherited(...));
 }
 
 /* JumpAndRun-Steuerung */
@@ -577,6 +623,8 @@ private func ClearDir(bool fX)
 public func ContainedUpdate(object self, int comdir){return(ControlUpdate(self,comdir));}
 public func ControlUpdate(object self, int comdir)
 {
+  if(ControlLadder("ControlUpdate")) return(1);
+
   SetComDir(comdir);
   ClearScheduleCall(this(), "ClearDir");
   if(comdir == COMD_Down || comdir == COMD_Up) ScheduleCall(this(), "ClearDir", 1, (Abs(GetXDir())+1)/2, true);
@@ -592,6 +640,7 @@ protected func ContainedThrow()
 }
 protected func ControlThrow()
 {
+  if(ControlLadder("ControlThrow")) return(1);
   pEnemy = FindPrey();
   if((GetAction() ne "Fight") && !ReadyToPunch())
   {
@@ -619,6 +668,7 @@ protected func ControlDigDouble(){return(1);}
 protected func ControlDig()
 {
   [$TxtFollow$]
+  if(ControlLadder("ControlDig")) return(1);
   Alert(this());
   if(GetProcedure() eq "WALK")
     SetAction("Throw");
