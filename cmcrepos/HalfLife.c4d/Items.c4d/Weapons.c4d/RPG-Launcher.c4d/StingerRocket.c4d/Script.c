@@ -7,7 +7,7 @@ public func Acceleration() { return(5); }
 public func MaxTime() { return(35*5); }
 public func MaxSpeed() { return(120); }
 
-public func Launch(int iAngle, int iDmg)
+public func Launch(int iAngle, int iDmg, object pFollow)
 {
   iSpeed = 20;
   iDamage = iDmg;
@@ -21,9 +21,43 @@ public func Launch(int iAngle, int iDmg)
   Sound("RPGP_ThrustStart.ogg");
   AddEffect("ThrustSound",this(),1,11,this());
 
-  AddLight(50,RGB(255,200,0),this(),GLOW);
+  AddLight(70,RGB(255,200,200),this(),GLOW);
 
   AddEffect("HitCheck", this(), 1,1, 0, SHT1,shooter);
+  if(pFollow)
+    AddEffect("Follow", this(), 1,1, 0, GetID(),pFollow);
+}
+
+public func FxThrustSoundTimer(object pTarget, int iEffectNumber, int iEffectTime)
+{
+  Sound("RPGP_Thrust.ogg",0,0,0,0,+1);
+  return(-1);
+}
+
+public func FxFollowStart(object pTarget, int iEffectNumber, int iTemp, obj)
+{
+  if(!obj) return(-1);
+  EffectVar(0,pTarget,iEffectNumber) = obj;
+}
+
+public func FxFollowTimer(object pTarget, int iEffectNumber, int iEffectTime)
+{
+  var obj = EffectVar(0,pTarget,iEffectNumber);
+  if(!obj)
+    return(-1);
+  if(obj->~Invalid())
+    return(0);
+  
+  pTarget->SetR(Angle(GetX(pTarget),GetY(pTarget),GetX(obj),GetY(obj)));
+  
+  /*var aoff = AngleOffset4K(GetR(pTarget),Angle(GetX(pTarget),GetY(pTarget),GetX(obj),GetY(obj)));
+  if(aoff != 0)
+  {
+    if(aoff < 0)
+      pTarget->SetR(pTarget->GetR()+Min(-20,aoff));
+    else
+      pTarget->SetR(pTarget->GetR()+Min(+20,aoff));
+  }*/
 }
 
 private func Traveling()
@@ -31,12 +65,6 @@ private func Traveling()
   if(GetActTime() >= MaxTime()) return(Hit());
   Accelerate();
   Smoking();
-}
-
-public func FxThrustSoundTimer(object pTarget, int iEffectNumber, int iEffectTime)
-{
-  Sound("RPGP_Thrust.ogg",0,0,0,0,+1);
-  return(-1);
 }
 
 private func StopThrust()
