@@ -112,7 +112,7 @@ global func CheckEnemy(object pObj, object pObj2, bool findEnemy)
     if( (team1 == team2) && (team1 || team2)) { }
 	
 	// beide haben kein Team aber beide haben keinen Besitzer: nicht treffen/finden
-	else if( !(team1 || team2) && noown1 && noown2 && (pObj->~Faction() == pObj2->Faction())) {}
+	else if( !(team1 || team2) && noown1 && noown2 && (pObj->~Faction() == pObj2->~Faction())) {}
 	
 	// ansonsten (Sind in unterschiedlichen Teams bzw. bei keinem Team haben sie beide keinen Besitzer)
 	else {
