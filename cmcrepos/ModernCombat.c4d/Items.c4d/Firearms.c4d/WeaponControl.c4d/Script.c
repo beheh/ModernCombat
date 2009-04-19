@@ -524,7 +524,7 @@ global func DoAmmo2(int slot, id ammoid, int change, object target)
 
 private func SetFireMode(int i)
 {
-  if((i > GetFMCount()) || i < 1){Message("Ein Doofling wollte einen|nicht existierenden FM setzen.|Nub! >:C");return();}//<- Gegeben! ^^
+  if((i > GetFMCount()) || i < 1){Log("Ein Doofling wollte einen|nicht existierenden FM setzen.|Nub! >:C [%s]",GetName());return();}//<- Gegeben! ^^
 
   // Gleicher Modus: Nur nachladen wenn nicht mehr voll und lädt nicht nach
   if(i == firemode)

@@ -393,7 +393,7 @@ protected func PackAmmo(id idType, int iCaller)
 public func OnHit(int iDmg, int iType, object pFrom)
 {
   this()->~CalcPain(iDmg);
-  this()->~HurtSounds(-iDmg,iType);
+  //this()->~HurtSounds(-iDmg,iType);
     
   return(_inherited(iDmg,iType,pFrom));
 }
