@@ -6,6 +6,7 @@
 public func IsPossessible() { return(1); }
 public func Faction() {return(FACTION_Combine);}
 public func IsThreat() { return(true); }
+public func IsMachine() { return(true); }
 
 protected func Initialize()
 {
@@ -29,7 +30,7 @@ protected func Death(int iKilledBy)
   
   GameCallEx("MonsterKilled",GetID(),this(),iKilledBy);
   
-  var gotcrew;
+  var gotcrew, plr = GetOwner();
   for(var i; i < GetCrewCount(plr); i++)
     if(GetOCF(GetCrew(plr,i)) & OCF_Alive)
       gotcrew = true;
@@ -43,6 +44,15 @@ protected func Death(int iKilledBy)
 public func FxFrazlingTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
   CreateParticle("Frazzle",0,0,RandomX(-10,+10),RandomX(-10,+10),RandomX(25,40), RGBa(0,200,255,150));
+}
+
+public func OnDmg(int iDamage, int iType)
+{
+  if(iType == DMG_Bio)
+    return(100);
+
+  if(iType == DMG_Melee)
+    return(-25);
 }
 
 public func OnHit(int iDmg, int iType, object pFrom)

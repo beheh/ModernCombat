@@ -45,11 +45,11 @@ protected func Death()
     GameCallEx("RelaunchPlayer",GetOwner(),this(), GetKiller());
   else
   {
-    var gotcrew;
+    var gotcrew, plr = GetOwner();
     for(var i; i < GetCrewCount(plr); i++)
       if(GetOCF(GetCrew(plr,i)) & OCF_Alive)
         gotcrew = true;
-  
+
     if(!gotcrew)
       GameCallEx("RelaunchPlayer",GetOwner(),this(), GetKiller());
   }

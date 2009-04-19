@@ -37,7 +37,7 @@ public func FxAttackingTimer(object pTarget, int iEffectNumber, int iEffectTime)
     DoDmg(4,DMG_Melee,victim);
     if(victim)
     {
-      if(!GetEffect("PCRB_Poison",victim))
+      if(!GetEffect("PCRB_Poison",victim) && !victim->~IsMachine() && (victim->~OnDmg(1,DMG_Bio) < 100))
       {
         AddEffect("PCRB_Poison",victim,125,20,0,GetID(),GetController(),70);
       }

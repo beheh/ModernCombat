@@ -260,6 +260,8 @@ private func ReadyToPunch()
   if(GetAction() eq "Fight") return(true);
   if(pEnemy)
     return((ObjectDistance(pEnemy) < 8) && (GetAction() eq "Walk"));
+  if(PunchTarget())
+    return(true);
   return(false);
 }
 
@@ -273,9 +275,21 @@ private func ReadyForJumpAttack()
 
 private func PunchTarget()
 {
-  if((GetAction() eq "Fight") && GetActionTarget())
-    return(GetActionTarget());
-  return(pEnemy);
+  var target = GetActionTarget();
+  if((GetAction() eq "Fight") && target)
+    return(target);
+
+  target = FindObject2(Find_AtPoint((GetDir()*2-1)*6,0),
+                       Find_Exclude(this()),
+                       Find_NoContainer(),
+                       Find_Or
+                       (
+                         Find_Func("IsBulletTarget",GetID(),this(),target),
+                         Find_OCF(OCF_Alive)
+                       ),
+                       Find_Func("CheckEnemy",this()));
+  
+  return(target);
 }
 
 private func FindPrey()
@@ -322,7 +336,7 @@ public func Death(int iKilledBy)
   
   GameCallEx("MonsterKilled",GetID(),this(),iKilledBy);
 
-  var gotcrew;
+  var gotcrew, plr = GetOwner();
   for(var i; i < GetCrewCount(plr); i++)
     if(GetOCF(GetCrew(plr,i)) & OCF_Alive)
       gotcrew = true;
@@ -397,12 +411,12 @@ private func JumpAttackStop()
   SetXDir();
   SetYDir();
   SetAction("FlatUp");
-  AddEffect("IntJumpAttackDelay", this(), 1, 35*3);
+  AddEffect("IntJumpAttackDelay", this(), 1, 35*2);
 }
 
 private func ExecBeat()
 {  
-  var victim = PunchTarget();//FindObject2(Find_AtPoint((GetDir()*2-1)*6,0),Find_OCF(OCF_Prey|OCF_Alive),Find_NoContainer(),Find_Not(Find_Faction(Faction())),Find_Exclude(this()),Sort_Distance());
+  var victim = PunchTarget();
   if(victim)
   {
     Sound("ZOMB_Beat*.ogg");
@@ -419,7 +433,7 @@ private func ExecBeat()
 
 private func ExecBeat2()
 {  
-  var victim = PunchTarget();//FindObject2(Find_AtPoint((GetDir()*2-1)*6,0),Find_OCF(OCF_Prey|OCF_Alive),Find_NoContainer(),Find_Not(Find_Faction(Faction())),Find_Exclude(this()),Sort_Distance());
+  var victim = PunchTarget();
   if(victim)
   {
     Sound("ZOMB_Beat*.ogg");
@@ -671,7 +685,9 @@ protected func ControlDig()
   if(ControlLadder("ControlDig")) return(1);
   Alert(this());
   if(GetProcedure() eq "WALK")
-    SetAction("Throw");
+  {
+    DoBeatAttack();
+  }
   return(1);
 }
 
