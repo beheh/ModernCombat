@@ -1,6 +1,7 @@
 # Control Descs
 CtrlInventoryDesc=Shift inventory
-AmmoBag=Ammobag
+
+# ContextMenu
 CtxUnbuckleDesc=Unbuckle equipment
 CtxUnbuckleItem=Unbuckle %s
 CtxDrone=Turn off drone
@@ -8,4 +9,10 @@ CtxUseEquipmentDesc=Use equipment
 CtxObjectInfo=Object info
 CtxHelpMessagesOn=Help messages on
 CtxHelpMessagesOff=Help messages off
-CtxGuard=Guard
+CtxStartCrawl=Lie Down
+CtxStopCrawl=Stand Up
+CtxGrenadeMenu=Grenades
+
+# Other
+AmmoBag=Ammobag
+Alert=Follow me!

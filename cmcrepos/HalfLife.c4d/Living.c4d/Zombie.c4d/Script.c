@@ -48,6 +48,7 @@ public func FxAutoFightTimer(object pTarget, int iEffectNumber, int iEffectTime)
 
   if(victim)
   {
+    if(victim->GetProcedure() eq "FIGHT") return();
     pEnemy = victim;
     SetAction("Fight",pEnemy);
     ObjectSetAction(pEnemy,"Fight",this()); 

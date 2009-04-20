@@ -94,9 +94,8 @@ global func CheckEnemy(object pObj, object pObj2, bool findEnemy)
   var own2 = GetOwner(pObj2);
   
   // Feinde treffen
-  if(Hostile(own1, own2)) {
+  if(Hostile(own1, own2))
     return true;
-  }
   
   // eines der Objekte  hat keinen Besitzer
   var noown1 = (own1 == NO_OWNER);
@@ -109,15 +108,14 @@ global func CheckEnemy(object pObj, object pObj2, bool findEnemy)
   {
     // im selben Team: nicht treffen/finden
     // 0 ist kein Team
-    if( (team1 == team2) && (team1 || team2))
-    {
-      //...
-    }
+    if( (team1 == team2) && (team1 || team2)){}
+
+    // beide von der selbe Fraktion? //Henry, DAS ist hackig. :I SetTeam() und so währe da besser.
+    else if(pObj->~Faction() == pObj2->~Faction()){return true;}
+
     // beide haben kein Team aber beide haben keinen Besitzer: nicht treffen/finden
-    else if( !(team1 || team2) && noown1 && noown2 && (pObj->~Faction() == pObj2->~Faction()))
-    {
-      //...
-    }
+    else if( !(team1 || team2) && noown1 && noown2){}
+
     // ansonsten (Sind in unterschiedlichen Teams bzw. bei keinem Team haben sie beide keinen Besitzer)
     else
     {
@@ -126,8 +124,8 @@ global func CheckEnemy(object pObj, object pObj2, bool findEnemy)
           return true;
       
       // bei Feindchecks, anvisieren wenn ein Objekt eine Bedrohung
-        if(pObj->~IsThreat())
-          return true;
+      if(pObj->~IsThreat())
+        return true;
     }
   }
 		
