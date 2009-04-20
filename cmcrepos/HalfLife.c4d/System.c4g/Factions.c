@@ -105,36 +105,37 @@ global func CheckEnemy(object pObj, object pObj2, bool findEnemy)
   var team1 = GetTeam(pObj);
   var team2 = GetTeam(pObj2);
   
-  if(noown1 || noown2) {
-
-	// im selben Team: nicht treffen/finden
-	// 0 ist kein Team
-    if( (team1 == team2) && (team1 || team2)) { }
-	
-	// beide haben kein Team aber beide haben keinen Besitzer: nicht treffen/finden
-	else if( !(team1 || team2) && noown1 && noown2 && (pObj->~Faction() == pObj2->~Faction())) {}
-	
-	// ansonsten (Sind in unterschiedlichen Teams bzw. bei keinem Team haben sie beide keinen Besitzer)
-	else {
-	
-	  // bei Trefferchecks, treffen
-	  if(!findEnemy)
-        return true;
-		
-	  // bei Feindchecks, anvisieren wenn ein Objekt eine Bedrohung
-      if(pObj->~IsThreat()) {
-        return true;
-      }
-	}
- 
+  if(noown1 || noown2)
+  {
+    // im selben Team: nicht treffen/finden
+    // 0 ist kein Team
+    if( (team1 == team2) && (team1 || team2))
+    {
+      //...
+    }
+    // beide haben kein Team aber beide haben keinen Besitzer: nicht treffen/finden
+    else if( !(team1 || team2) && noown1 && noown2 && (pObj->~Faction() == pObj2->~Faction()))
+    {
+      //...
+    }
+    // ansonsten (Sind in unterschiedlichen Teams bzw. bei keinem Team haben sie beide keinen Besitzer)
+    else
+    {
+      // bei Trefferchecks, treffen
+      if(!findEnemy)
+          return true;
+      
+      // bei Feindchecks, anvisieren wenn ein Objekt eine Bedrohung
+        if(pObj->~IsThreat())
+          return true;
+    }
   }
 		
   // bei Trefferchecks treffen wenn FF aktiviert ist
-  if(FriendlyFire() && !findEnemy) {
-    if(!(pObj->~IgnoreFriendlyFire())
-	&& !(pObj2->~IgnoreFriendlyFire()) ) {
-		return true;
-	}
+  if(FriendlyFire() && !findEnemy)
+  {
+    if(!(pObj->~IgnoreFriendlyFire()) && !(pObj2->~IgnoreFriendlyFire()))
+		  return true;
   }
 	
   return false;

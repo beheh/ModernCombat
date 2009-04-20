@@ -13,7 +13,7 @@ protected func Initialize()
   SetCmd();
   SetAction("Walk");
   SetDir(Random(2));
-  AddEffect("SelfHeal",this(),20,40,this());
+  AddEffect("SelfHeal",this(),20,30,this());
   
   SetName(GetName(0,GetID()));
 }
@@ -193,7 +193,7 @@ private func Alert(object pTarget)
   AlertSound();
   //Message("×",this());
   for(var headcrab in FindObjects(Find_InRect(-200,-200,+400,+400),Find_Exclude(this()),Find_OCF(OCF_Alive),Find_Faction(Faction())))
-    headcrab->OnAlert(pTarget);
+    headcrab->~OnAlert(pTarget);
 }
 
 public func OnAlert(object pTarget)
@@ -299,9 +299,9 @@ public func FxAttackingTimer(object pTarget, int iEffectNumber, int iEffectTime)
   {
     BiteSound();
     Fling(victim, BoundBy(GetXDir(),-2,+2), BoundBy(GetYDir(),-2,+2));
-    DoDmg(13,DMG_Melee,victim);
+    DoDmg(15,DMG_Melee,victim);
     SetYDir(0);
-    if(!GetEffect("IntAttackDelay", this())) AddEffect("IntAttackDelay", this(), 1, 45);
+    if(!GetEffect("IntAttackDelay", this())) AddEffect("IntAttackDelay", this(), 1, 35);
     return(-1);
   }
 }

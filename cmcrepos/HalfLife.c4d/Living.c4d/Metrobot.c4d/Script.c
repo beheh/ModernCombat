@@ -11,11 +11,8 @@ static const MCOM_SightRange = 300;
 protected func Initialize()
 {
   if(GetOwner() == NO_OWNER)
-  {
-    SetAction("Walk");
-    //GiveWeapon(H2PW);
     AddEffect("IntAI",this(),200,20,this());
-  }
+  _inherited();
 }
 
 global func GiveWeapon(id idItem,object pTarget)
@@ -112,10 +109,16 @@ private func Combat()
   }
   
   if(!enemy)
+  {
     enemy = FindEnemy();
     
-  if(!enemy)
-    return(false);
+    if(enemy)
+    {
+      Alert(enemy);
+    }
+    else
+      return(false);
+  }
 
 
   //Können wir angreifen?
@@ -160,14 +163,31 @@ private func Combat()
       }
       else
       {
-        if(Random(3))
-          MoveToEnemy();
-        else
-          StopMoving();
+        StopMoving();
       }
     }
   }
   
+}
+
+private func Alert(object pTarget)
+{
+  if(!pTarget) return();
+
+  Sound("MCOP_Alert*.ogg");
+  for(var combine in FindObjects(Find_InRect(-200,-200,+400,+400),Find_Exclude(this()),Find_OCF(OCF_Alive),Find_Faction(Faction())))
+    combine->~OnAlert(pTarget);
+}
+
+public func OnAlert(object pTarget)
+{
+  if(pTarget->~Faction() == Faction())
+  {
+    //...
+  }
+  else
+    if(!enemy)
+      enemy = pTarget;
 }
 
 private func GetAttackDistance()
@@ -187,45 +207,11 @@ private func StopMoving()
 
 private func FindEnemy()
 {
-  var only_visible = false;
-  var target = 0;
-  var last_vis = false;
-  var distance = MCOM_SightRange;
+  var angle = 90;
+  if(GetDir() == DIR_Left) angle = 270;
+  var targets = FindTargets(this(),MCOM_SightRange,60,angle);
   
-  var aScan;
-  
-  aScan = FindObjects(Find_Distance(distance), Find_OCF(OCF_Prey), Find_Not(Find_Faction(Faction())));
-  
-  for(var scan in aScan)
-  {
-    if(!GetAlive(scan)) continue;
-  
-    var x = GetX();
-    var y = GetY();
-    //WeaponEnd(x,y);
-    
-    var visible = PathFree (x,y,GetX(scan),GetY(scan));
-    var new_distance = ObjectDistance(this(),scan);
-    
-    if(visible)//Wenn sichtbar ab jetzt nur noch sichtbare Feinde testen!
-      only_visible = true;
-    else
-      if(new_distance >= MCOM_SightRange/3)//Wenn der unsichtbare Feind weniger als die X des Suchradius entfernt ist, dann ignoriert er ihn!
-        continue;
-        
-    if(only_visible)//Wenn only_visible aktiv ist unsichtbare Feinde blocken!
-      if(!visible)
-        continue;
-    
-    if((distance > new_distance)|(last_vis != visible))
-    {
-      distance = new_distance;
-      target = scan;
-      last_vis = visible;
-    }
-  }
-  
-  return(target);
+  return targets[0];
 }
 
 private func Idle()

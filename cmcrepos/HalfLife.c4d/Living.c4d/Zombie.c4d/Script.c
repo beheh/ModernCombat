@@ -19,11 +19,38 @@ protected func Initialize()
   SetCmd();
   
   SetName(GetName(0,GetID()));
+  AddEffect("AutoFight",this(),20,10,this());
   
   if(!UserControlled())
   {
     SetColorDw(HSL(Random(255),Random(128),70+Random(70)));
     SetPhysical("Walk", GetPhysical("Walk",1,0,GetID()) + RandomX(-3000,+3000), 1);
+  }
+}
+
+public func FxAutoFightTimer(object pTarget, int iEffectNumber, int iEffectTime)
+{
+  if(GetProcedure() ne "WALK") return();
+
+  var victim = FindObject2(Find_AtRect(GetDefCoreVal("Offset","DefCore",GetID(),0),
+                                       GetDefCoreVal("Offset","DefCore",GetID(),1),
+                                       GetDefCoreVal("Width","DefCore",GetID()),
+                                       GetDefCoreVal("Height","DefCore",GetID())),
+                           Find_Exclude(this()),
+                           Find_NoContainer(),
+                           Find_Or
+                           (
+                             Find_Func("IsBulletTarget",GetID(),this(),this()),
+                             Find_OCF(OCF_Alive)
+                           ),
+                           Find_Not(Find_Faction(Faction())),
+                           Find_Func("CheckEnemy",this()));
+
+  if(victim)
+  {
+    pEnemy = victim;
+    SetAction("Fight",pEnemy);
+    ObjectSetAction(pEnemy,"Fight",this()); 
   }
 }
 
@@ -134,13 +161,6 @@ protected func Activity()
     else
       bWait = false;
     
-    if(dst < 10)
-    {
-      SetAction("Fight",pEnemy);
-      ObjectSetAction(pEnemy,"Fight",this()); 
-      return();
-    }
-    
     if(ReadyForJumpAttack() && !Random(4))
     {
       DoJumpAttack();
@@ -224,8 +244,6 @@ protected func Idle()
 public func UserControlled()
 {
   if((GetController() != NO_OWNER) && (GetPlayerType(GetController()) == C4PT_User)) return(true);
-  if(GetEffect("PossessionSpell", this())) return(true);
-  if(FindObject2(Find_Container(this()),Find_OCF(OCF_CrewMember|OCF_Alive))) return(true);
   return(false);
 }
 
@@ -237,7 +255,7 @@ private func Alert(object pTarget)
     Sound("ZOMB_Alert*.ogg");
   //Message("×",this());
   for(var headcrab in FindObjects(Find_InRect(-200,-200,+400,+400),Find_Exclude(this()),Find_OCF(OCF_Alive),Find_Faction(Faction())))
-    headcrab->OnAlert(pTarget);
+    headcrab->~OnAlert(pTarget);
 }
 
 public func OnAlert(object pTarget)
@@ -245,10 +263,13 @@ public func OnAlert(object pTarget)
   if(UserControlled()) return();
   //Message("•",this());
   
+  if(GetAction() eq "FakeDead")
+    SetAction("FlatUp");
+  
   if(pTarget->~Faction() == Faction())
   {
     if(!pEnemy)
-      SetCmd(false,this(),"Follow",pTarget);
+      SetCmd(false,"Follow",pTarget);
   }
   else
     if(!pEnemy)
@@ -257,9 +278,10 @@ public func OnAlert(object pTarget)
 
 private func ReadyToPunch()
 {
-  if(GetAction() eq "Fight") return(true);
+  if(GetAction() eq "Fight")
+    return(true);
   if(pEnemy)
-    return((ObjectDistance(pEnemy) < 8) && (GetAction() eq "Walk"));
+    return((ObjectDistance(pEnemy) < 8) && (GetProcedure() ne "WALK"));
   if(PunchTarget())
     return(true);
   return(false);
@@ -269,7 +291,7 @@ private func ReadyForJumpAttack()
 {
   if(GetProcedure() ne "WALK") return(false);
   if(pEnemy)
-    return((ObjectDistance(pEnemy) < 40) && (ObjectDistance(pEnemy) >= 12) && (GetY(pEnemy) > GetY()-5));
+    return((ObjectDistance(pEnemy) < 60) && (ObjectDistance(pEnemy) >= 12) && (GetY(pEnemy) > GetY()-5));
   return(false);
 }
 
@@ -287,6 +309,7 @@ private func PunchTarget()
                          Find_Func("IsBulletTarget",GetID(),this(),target),
                          Find_OCF(OCF_Alive)
                        ),
+                       Find_Not(Find_Faction(Faction())),
                        Find_Func("CheckEnemy",this()));
   
   return(target);
@@ -294,8 +317,8 @@ private func PunchTarget()
 
 private func FindPrey()
 {
-  var angle = 270;
-  if(GetDir() == DIR_Left) angle = 90;
+  var angle = 90;
+  if(GetDir() == DIR_Left) angle = 270;
   var targets = FindTargets(this(),150,60,angle);
   
   if(GetLength(targets))
@@ -308,7 +331,7 @@ private func FindPrey()
 
 protected func RejectCollect(id idObj, object pObj)
 {
-  return(!UserControlled());//Erstmal nur Spieler was aufnehmen lassen.
+  return(1);
 }
 
 protected func ContactLeft()
@@ -373,35 +396,62 @@ public func DoJumpAttack()
   Sound("ZOMB_Hurt*.ogg");
 
   var jump = GetPhysical("Jump", 0) * 100 / GetPhysical("Jump", 0,0, GetID());
-  SetXDir(25 * (GetDir()*2-1) * jump / 100);
+  SetXDir(33 * (GetDir()*2-1) * jump / 100);
   SetYDir(-22 * jump / 100);
 }
 
 public func DoBeatAttack()
 {
   if(!ReadyToPunch() || GetEffect("IntAttackDelay", this())) return();
-  SetAction("Beat");
+  if(GetProcedure() eq "FIGHT")
+    SetAction("Beat");
+  else
+  {
+    SetAction("Throw");
+    ExecBeat();
+  }
 }
 
 public func DoBeat2Attack()
 {
   if(!ReadyToPunch() || GetEffect("IntAttackDelay", this())) return();
-  SetAction("Beat2");
+  if(GetProcedure() eq "FIGHT")
+    SetAction("Beat2");
+  else
+  {
+    SetAction("Throw");
+    ExecBeat2();
+  }
 }
 
 private func JumpAttacking()
 {
   CheckStuck();
-  var victim = FindObject2(Find_AtPoint((GetDir()*2-1)*7),Find_Func("IsThreat"),Find_Exclude(this()),Find_NoContainer(),Find_Not(Find_Faction(Faction())));
+  var victim = FindObject2(Find_AtRect(GetDefCoreVal("Offset","DefCore",GetID(),0),
+                                       GetDefCoreVal("Offset","DefCore",GetID(),1),
+                                       GetDefCoreVal("Width","DefCore",GetID()),
+                                       GetDefCoreVal("Height","DefCore",GetID())),
+                           Find_Exclude(this()),
+                           Find_NoContainer(),
+                           Find_Or
+                           (
+                             Find_Func("IsBulletTarget",GetID(),this(),this()),
+                             Find_OCF(OCF_Alive)
+                           ),
+                           Find_Not(Find_Faction(Faction())),
+                           Find_Func("CheckEnemy",this()));
   if(!victim) return();
   
   Sound("ZOMB_Beat*.ogg");
-  if(!ObjectSetAction(victim,"FlatUp"))
-    Fling(victim,GetDir()*2-1,-1);
-  else
+  if((GetCategory(victim) & C4D_Living) && victim->GetAlive())
   {
-    victim->SetXDir();
-    victim->SetYDir();
+    if(!ObjectSetAction(victim,"FlatUp"))
+      Fling(victim,GetDir()*2-1,-1);
+    else
+    {
+      victim->SetXDir();
+      victim->SetYDir();
+    }
   }
   DoDmg(Distance(GetXDir(),GetYDir())/2,DMG_Melee,victim);
 }
@@ -420,8 +470,14 @@ private func ExecBeat()
   if(victim)
   {
     Sound("ZOMB_Beat*.ogg");
-    if(!ObjectSetAction(victim,"GetPunched") || !Random(2))
-      Fling(victim,GetDir()*2-1, -1);
+    if((GetCategory(victim) & C4D_Living) && victim->GetAlive())
+    {
+      if(!ObjectSetAction(victim,"GetPunched") || !Random(2))
+        Fling(victim,GetDir()*2-1, -1);
+      if(victim)
+        if(!victim->~IsMachine())
+          victim->Paralyze(35);
+    }
     DoDmg(10,DMG_Melee,victim);
     AddEffect("IntAttackDelay", this(), 1, 30);
     return();
@@ -437,7 +493,10 @@ private func ExecBeat2()
   if(victim)
   {
     Sound("ZOMB_Beat*.ogg");
-    Fling(victim,(GetDir()*2-1)*2, -2);
+    if((GetCategory(victim) & C4D_Living) && victim->GetAlive())
+    {
+      Fling(victim,(GetDir()*2-1)*2, -2);
+    }
     DoDmg(10,DMG_Melee,victim);
     AddEffect("IntAttackDelay", this(), 1, 45);
     return();
@@ -451,11 +510,18 @@ private func Punching()
 {
   Sound("Punch*");
   Punch(GetActionTarget());
+  if(GetActionTarget())
+    if(!GetActionTarget()->~IsMachine())
+      GetActionTarget()->Paralyze(35*2);
   SetComDir(COMD_Stop);
 }
 
 private func Fighting()
 {
+  if(GetActionTarget())
+    if(!GetActionTarget()->~IsMachine())
+      GetActionTarget()->Paralyze(35*2);
+
   if(Random(3)) return();
 
   if(!Random(2))
@@ -467,7 +533,7 @@ private func Fighting()
 
 private func TurnRight()
 {
-  if (Stuck() || (GetAction() ne "Walk")) return();
+  if((GetDir() == DIR_Right) && (GetComDir() == COMD_Right)) return(0);
   SetDir(DIR_Right);
   SetComDir(COMD_Right);
   return(1);
@@ -475,7 +541,7 @@ private func TurnRight()
 
 private func TurnLeft()
 {
-  if (Stuck() || (GetAction() ne "Walk")) return();
+  if((GetDir() == DIR_Left) && (GetComDir() == COMD_Left)) return(0);
   SetDir(DIR_Left);
   SetComDir(COMD_Left);
   return(1);
@@ -484,7 +550,17 @@ private func TurnLeft()
 private func HealStart()
 {
   if(!GetEffect("SelfHeal",this()))
-    AddEffect("SelfHeal",this(),20,13,this());
+    AddEffect("SelfHeal",this(),20,8,this());
+    
+  SetShape(-8, 2-5, 16, 8);
+  SetVertexXY(0, 0,5-5);
+  SetVertexXY(1, 0,2-5);
+  SetVertexXY(2, 0,9-5);
+  SetVertexXY(3,-2,3-5);
+  SetVertexXY(4, 2,3-5);
+  SetVertexXY(5,-4,3-5);
+  SetVertexXY(6, 4,3-5);
+  SetPosition(GetX(),GetY()+5);
 }
 
 public func FxSelfHealTimer(object pTarget, int iEffectNumber, int iEffectTime)
@@ -496,12 +572,22 @@ public func FxSelfHealTimer(object pTarget, int iEffectNumber, int iEffectTime)
 private func HealEnd()
 {
   RemoveEffect("SelfHeal",this());
+  
+  SetShape(-8, -10, 16, 20);
+  SetVertexXY(0, 0, 0);
+  SetVertexXY(1, 0,-7);
+  SetVertexXY(2, 0, 9);
+  SetVertexXY(3,-2,-3);
+  SetVertexXY(4, 2,-3);
+  SetVertexXY(5,-4, 3);
+  SetVertexXY(6, 4, 3);
+  SetPosition(GetX(),GetY()-5);
 }
 
 
-/* Steuerung durch Besessenheit */
+/* Steuerung */
 
-protected func ControlCommand(szCommand, pTarget, iTx, iTy)
+public func ControlCommand(szCommand, pTarget, iTx, iTy)
 {
   if(GetAction() eq "FakeDeath")
     SetAction("FlatUp");
@@ -515,7 +601,7 @@ protected func ControlCommand(szCommand, pTarget, iTx, iTy)
   return(0);
 }
 
-protected func ControlCommandFinished(string strCommand, object pTarget, int iTx, int iTy, object pTarget2, Data)
+public func ControlCommandFinished(string strCommand, object pTarget, int iTx, int iTy, object pTarget2, Data)
 {
   if(ControlLadder("ControlCommandFinished")) return(1);
   if(!aCmdData[0]) return();
@@ -531,84 +617,36 @@ protected func ControlCommandFinished(string strCommand, object pTarget, int iTx
   }
 }
 
-protected func ContainedLeft(object caller)
+public func ControlUpDouble()
 {
-  [$TxtMovement$]
-  SetCommand(this(),"None");
-  if(!GetPlrCoreJumpAndRunControl(caller->GetController()))
-    TurnLeft();
-  return(1);
-}
-
-protected func ContainedRight(object caller)
-{
-  [$TxtMovement$]
-  SetCommand(this(),"None");
-  if(!GetPlrCoreJumpAndRunControl(caller->GetController()))
-    TurnRight();
-  return(1);
-}
-
-protected func ContainedUp(object caller)
-{
-  [$TxtMovement$]
-  SetCommand(this(),"None");
-  if(!GetPlrCoreJumpAndRunControl(caller->GetController()))
-    Jump();
-  return(1);
-}
-
-protected func ContainedUpDouble(object caller)
-{
-  [$TxtMovement$]
-  return(ControlUpDouble());
-}
-
-protected func ControlUpDouble()
-{
-  [$TxtMovement$]
   if(GetAction() ne "FakeDead") return(_inherited(...));
   if(ControlLadder("ControlUpDouble")) return(1);
   SetAction("FlatUp");
   return(1);
 }
 
-protected func ContainedDown(object caller)
+public func ControlUp()
 {
-  [$TxtMovement$]
-  SetCommand(this(),"None");
-  if(Contained()) return SetCommand(this, "Exit");
-  
-  if(!GetPlrCoreJumpAndRunControl(caller->GetController()))
-    SetComDir(COMD_Down);
-  ControlDown();
-  return(1);
-}
-
-protected func ControlUp()
-{
-  [$TxtMovement$]
   if(ControlLadder("ControlUp")) return(1);
   return(_inherited(...));
 }
 
-protected func ControlLeft()
+public func ControlLeft()
 {
-  [$TxtMovement$]
   if(ControlLadder("ControlLeft")) return(1);
+  if(TurnLeft()) return(1);
   return(_inherited(...));
 }
 
-protected func ControlRight()
+public func ControlRight()
 {
-  [$TxtMovement$]
   if(ControlLadder("ControlRight")) return(1);
+  if(TurnRight()) return(1);
   return(_inherited(...));
 }
 
-protected func ControlDown()
+public func ControlDown()
 {
-  [$TxtMovement$]
   if(ControlLadder("ControlDown")) return(1);
   if((GetProcedure() eq "WALK") && GetPlrDownDouble(GetController()))
   {
@@ -617,8 +655,6 @@ protected func ControlDown()
   }
   return(_inherited(...));
 }
-
-/* JumpAndRun-Steuerung */
 
 private func ClearDir(bool fX)
 {
@@ -634,7 +670,6 @@ private func ClearDir(bool fX)
   }
 }
 
-public func ContainedUpdate(object self, int comdir){return(ControlUpdate(self,comdir));}
 public func ControlUpdate(object self, int comdir)
 {
   if(ControlLadder("ControlUpdate")) return(1);
@@ -647,53 +682,43 @@ public func ControlUpdate(object self, int comdir)
   return(1);
 }
 
-protected func ContainedThrow()
-{
-  [$TxtAttack$]
-  return(ControlThrow());
-}
-protected func ControlThrow()
+public func ControlThrow()
 {
   if(ControlLadder("ControlThrow")) return(1);
   pEnemy = FindPrey();
   if((GetAction() ne "Fight") && !ReadyToPunch())
   {
-    if(GetProcedure() eq "WALK")
-      DoJumpAttack();
+    if(!DoJumpAttack())
+      if(GetAction() ne "JumpAttack")
+        return(_inherited());
   }
   else
   {
-    if(Random(5))
-      DoBeatAttack();
-    else
-      DoBeat2Attack();
+    if(!DoBeat2Attack())
+      if(GetAction() ne "Beat2")
+        return(_inherited());
   }
 
   return(1);
 }
 
-protected func ContainedDig()
+public func ControlSpecial2()
 {
-  [$TxtFollow$]
-  return(ControlDig());
-}
-protected func ControlDigSingle(){return(1);}
-protected func ControlDigDouble(){return(1);}
-protected func ControlDig()
-{
-  [$TxtFollow$]
-  if(ControlLadder("ControlDig")) return(1);
   Alert(this());
-  if(GetProcedure() eq "WALK")
-  {
-    DoBeatAttack();
-  }
   return(1);
 }
 
-protected func ContainedDigDouble()
+public func ControlDigSingle(){return(ControlDig());}
+public func ControlDigDouble(){return(ControlDig());}
+public func ControlDig()
 {
-  [$TxtLeave$]
-  RemoveEffect("PossessionSpell", this());
+  if(ControlLadder("ControlDig")) return(1);
+  pEnemy = FindPrey();
+  if(ReadyToPunch())
+  {
+    if(!DoBeatAttack())
+      if(GetAction() ne "Beat")
+        return(_inherited());
+  }
   return(1);
 }

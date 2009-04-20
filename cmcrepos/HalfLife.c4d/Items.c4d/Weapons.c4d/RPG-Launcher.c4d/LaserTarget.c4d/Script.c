@@ -67,7 +67,7 @@ private func Update(int iAngle)
   x = mx*ml/LAST_MaxDist;
   y = my*ml/LAST_MaxDist;
   
-  /*for(var i = 0; i < ml; i = Min(ml,i+3))
+  for(var i = 0; i < ml; i = Min(ml,i+3))
   {
     for(var pObj in FindObjects(Find_AtPoint(NotZero(mx*i/ml),my*i/ml),
                                 Find_Exclude(this()), Find_Exclude(target), Find_Exclude(Contained(target)), Find_Exclude(target->~GetUser()),
@@ -83,17 +83,20 @@ private func Update(int iAngle)
       y = my*i/ml;
       break;
     }
-  }*/
+  }
 
   SetPosition(GetX(target)+x, GetY(target)+y);
   
   if(Distance(x,y) >= LAST_MaxDist)
   {
-    SetVisibility(VIS_None);
     invalid = true;
+    SetVisibility(VIS_None);
   }
   else
+  {
     invalid = false;
+    SetVisibility(VIS_All);
+  }
 }
 
 private func NotZero(int a)

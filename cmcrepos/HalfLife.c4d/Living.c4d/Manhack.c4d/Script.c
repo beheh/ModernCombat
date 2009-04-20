@@ -218,7 +218,7 @@ private func Alert(object pTarget)
   AddEffect("Alerting",this(),20,5,this());
   //Message("×",this());
   for(var combine in FindObjects(Find_InRect(-200,-200,+400,+400),Find_Exclude(this()),Find_OCF(OCF_Alive),Find_Faction(Faction())))
-    combine->OnAlert(pTarget);
+    combine->~OnAlert(pTarget);
 }
 
 public func OnAlert(object pTarget)
@@ -311,7 +311,7 @@ public func FxBladingTimer(object pTarget, int iEffectNumber, int iEffectTime)
   if(victim)
   {
     Sound("MHCK_Blading*.ogg");
-    DoDmg(5,DMG_Projectile,victim);
+    DoDmg(7,DMG_Projectile,victim);
   }
 }
 
