@@ -218,6 +218,8 @@ private func Combat()
   //Müssen wir zielen?
   if(CanAim() && ((Abs(GetY(enemy)-GetY()) > 10) || Contents()->GetFMData(FM_Aim)))
   {
+    if(Random(4))
+      return(true);
     if(!AimOnTarget(enemy))
       return(true);
     Fire();
