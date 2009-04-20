@@ -408,9 +408,9 @@ static const CH_JumpSpread = 140;
 static const CH_ScaleSpread = 200;
 static const CH_HangleSpread = 200;
 
-static const CH_CrawlSpreadReduction = 2;
-static const CH_AimSpreadReduction = 3;
-static const CH_StandSpreadReduction = 4;
+static const CH_CrawlSpreadReduction = 4;
+static const CH_AimSpreadReduction = 4;
+static const CH_StandSpreadReduction = 3;
 
 local crosshair,ammobag;
 local spread, handr;

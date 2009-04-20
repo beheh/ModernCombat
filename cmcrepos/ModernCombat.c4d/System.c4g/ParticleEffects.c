@@ -100,6 +100,7 @@ global func BloodSplatter2(int iSize, int iX, int iY, int iAngle, int iColor)
 static const SplatterScale = 50;
 global func Splatter(int iDmg, int iType, object pFrom)
 {
+  if(!GetAlive(this())) return();
   var x,y;
   
   iDmg = iDmg*SplatterScale/100;
