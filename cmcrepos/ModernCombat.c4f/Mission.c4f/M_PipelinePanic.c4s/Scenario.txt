@@ -48,6 +48,7 @@ Liquid=Water-Smooth
 LiquidLevel=20,30,0,100
 Layers=Rock=7;Rock-Ridge=7;Gold=7;Granite=4;Ore=3;Coal-Swirl=4;Water-Smooth=5;Oil-Smooth=5;Earth-Rough=50;Earth-Smooth2=50
 SkyScrollMode=2
+NoScan=1
 
 [Weather]
 Climate=61,0,0,100
