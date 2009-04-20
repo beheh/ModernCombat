@@ -222,6 +222,9 @@ public func SetUpStore(pStore)
   
   pStore->AddWare(H2SG,-1); 
   pStore->AddWare(SGAP,-1); 
+  
+  pStore->AddWare(H2RL,-1); 
+  pStore->AddWare(RPGA,-1); 
 
 
   pStore->AddWare(FAPK,-1);
