@@ -120,6 +120,9 @@ public func Hit()
 
 private func HitObject()
 {
+  if(GetAction() eq "Idle")
+    Explode(3,0,0,0,1);
+
   exploding = true;
   Sound("GrenadeExplosion*.ogg");
   DamageObjects(iDamage*8/6,iDamage,this());
