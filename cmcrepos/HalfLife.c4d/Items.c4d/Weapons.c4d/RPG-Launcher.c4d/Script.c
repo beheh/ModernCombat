@@ -13,7 +13,7 @@ public func HandR()
 {
   var effect = IsReloading();
   if(effect)
-    return Max(Sin(GetEffect(0,this(),effect,6)*90/40,20),0);
+    return Max(Sin(GetEffect(0,this(),effect,6)*90/50,20),0);
     
   return 0;
 }
@@ -25,12 +25,12 @@ public func FMData1(int data)
   if(data == FM_AmmoID)   return RPGM;
   if(data == FM_AmmoLoad) return 1;
 
-  if(data == FM_Reload)   return 80;
-  if(data == FM_Recharge) return 80;
+  if(data == FM_Reload)   return 100;
+  if(data == FM_Recharge) return 100;
 
   if(data == FM_Aim)      return 3;
 
-  if(data == FM_Damage)   return 45;
+  if(data == FM_Damage)   return 40;
 
   return Default(data);
 }

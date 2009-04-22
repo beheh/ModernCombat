@@ -3,13 +3,13 @@
 #strict
 #include MISS
 
-public func Acceleration() { return(5); }
+public func Acceleration() { return(3); }
 public func MaxTime() { return(35*5); }
-public func MaxSpeed() { return(120); }
+public func MaxSpeed() { return(100); }
 
 public func Launch(int iAngle, int iDmg, object pFollow)
 {
-  iSpeed = 20;
+  iSpeed = 5;
   iDamage = iDmg;
   if(!iDamage) iDamage = 35;
 
