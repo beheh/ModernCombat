@@ -116,7 +116,8 @@ public func Capture(int iTeam)
   team = iTeam;
   process = 100;
   attacker = 0;
-  Message("$MsgCaptured$",flag,GetTeamColor(iTeam),GetTeamName(iTeam),GetName());
+  EventInfo4K(0,Format("$MsgCaptured$",GetTeamName(iTeam),GetName()),OFLG,GetTeamColor(iTeam));
+)
   Sound("Trumpet");
   GameCall("PointCaptured",this(),team);//Broadcasten.
   
@@ -132,7 +133,7 @@ protected func Capturing(int iTeam)
 protected func Recaptured()
 {
   attacker = 0;
-  Message("$MsgRecaptured$",flag,GetTeamColor(team),GetTeamName(team),GetName());
+  EventInfo4K(0,Format("$MsgRecaptured$",GetTeamName(team),GetName()),OFLG,GetTeamColor(team));
 }
 
 protected func Recapturing()
