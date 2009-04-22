@@ -116,7 +116,7 @@ public func Capture(int iTeam)
   team = iTeam;
   process = 100;
   attacker = 0;
-  Message("<c %x>%s</c>|hat den Stützpunkt|%s erobert!",flag,GetTeamColor(iTeam),GetTeamName(iTeam),GetName());
+  Message("$MsgCaptured$",flag,GetTeamColor(iTeam),GetTeamName(iTeam),GetName());
   Sound("Trumpet");
   GameCall("PointCaptured",this(),team);//Broadcasten.
   
@@ -126,19 +126,19 @@ public func Capture(int iTeam)
 protected func Capturing(int iTeam)
 {
   attacker = iTeam;
-  Message("<c %x>%s</c>|erobert den Stützpunkt|%s!",flag,GetTeamColor(iTeam),GetTeamName(iTeam),GetName());
+  Message("$MsgCapturing$",flag,GetTeamColor(iTeam),GetTeamName(iTeam),GetName());
 }
 
 protected func Recaptured()
 {
   attacker = 0;
-  Message("<c %x>%s</c>|hat den Stützpunkt|%s zurück erobert!",flag,GetTeamColor(team),GetTeamName(team),GetName());
+  Message("$MsgRecaptured$",flag,GetTeamColor(team),GetTeamName(team),GetName());
 }
 
 protected func Recapturing()
 {
   attacker = 0;
-  Message("<c %x>%s</c>|erobert den Stützpunkt|%s zurück!",flag,GetTeamColor(team),GetTeamName(team),GetName());
+  Message("$MsgRecapturing$",flag,GetTeamColor(team),GetTeamName(team),GetName());
 }
 
 public func NoTeam()
