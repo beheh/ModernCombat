@@ -117,7 +117,6 @@ public func Capture(int iTeam)
   process = 100;
   attacker = 0;
   EventInfo4K(0,Format("$MsgCaptured$",GetTeamName(iTeam),GetName()),OFLG,GetTeamColor(iTeam));
-)
   Sound("Trumpet");
   GameCall("PointCaptured",this(),team);//Broadcasten.
   

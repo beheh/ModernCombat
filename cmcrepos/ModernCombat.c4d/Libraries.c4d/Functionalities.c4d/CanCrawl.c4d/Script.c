@@ -157,7 +157,20 @@ protected func AbortCrawl()
       SetXDir();
       AddEffect("IntCrawl2Scale",this(),10,1,this());
       
-      SetPosition(GetX()+(GetDir()*2-1)*-4,GetY()+8+5);
+      var i = 10;
+      var dir = -(GetDir()*2-1);
+      SetPosition(GetX()+dir,GetY()+8+5);
+      while(i-- > 0)
+      {
+        if(!Stuck())
+        {
+          SetPosition(GetX()-dir,GetY());
+          break;
+        }
+        SetPosition(GetX()+dir,GetY());
+      }
+      
+      //SetPosition(GetX()+(GetDir()*2-1)*-4,GetY()+8+5);
       SetAction("Scale");
       return(1);
     }

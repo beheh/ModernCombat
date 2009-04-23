@@ -109,8 +109,8 @@ func Spread()
 
 public func Accelerate(int iX,int iY,object pObject)
 {         
-  SetXDir(Mul4K(iX,GetXDir(pObject,GS4K_Prec),GS4K_Prec),pObject,GS4K_Prec);
-  SetYDir(Mul4K(iY,GetYDir(pObject,GS4K_Prec),GS4K_Prec),pObject,GS4K_Prec);
+  SetXDir(Mul4K(iX,GetXDir(pObject,100),100),pObject,100);
+  SetYDir(Mul4K(iY,GetYDir(pObject,100),100),pObject,100);
 }
 
 public func Damp(int iStrength,object pObject)

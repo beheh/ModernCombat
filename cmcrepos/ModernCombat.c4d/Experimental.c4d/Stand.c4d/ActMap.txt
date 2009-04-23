@@ -1,0 +1,7 @@
+[Action]
+Name=Be
+Directions=2
+FlipDir=1
+Length=1
+FacetBase=1
+NextAction=Hold

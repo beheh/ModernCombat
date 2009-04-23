@@ -81,7 +81,7 @@ protected func Timer()
   if(recharge)
   {
     SetGraphics("Red", this, GetID(), 2, 2, "Red");
-    SetObjDrawTransform(1000, 0, 50000 -1000 * (100-recharge),0, 1000, 0, this(), 2);
+    SetObjDrawTransform(1000, 0, 50000 - 100 * (1000-recharge),0, 1000, 0, this(), 2);
   }
   else
   {
@@ -108,17 +108,18 @@ private func UpdateWeapon(object weapon)
   {
     if(weapon->~CustomHUD())
     {
+      SetVisibility(VIS_Owner);
       Message("",info);
       Message("",this);
       weapon->UpdateHUD(this());
+      ShowSelectProcess(weapon);
       return;
     }
-    else
-		if(weapon->~IsWeapon())
+    else if(weapon->~IsWeapon())
     {
 			// Recharge updaten
 			if(weapon->IsRecharging())
-				recharge = weapon->GetRecharge();
+				recharge = weapon->GetRecharge()*10;
 			else
 				recharge = 0;
 				
@@ -141,9 +142,19 @@ private func UpdateWeapon(object weapon)
 			var color = ColorTrue();
 			if(!ammocount) color = ColorFalse();
 			Message("@<c %x>%d/%d</c>", info, color, ammocount, ammoload);
+      
+      ShowSelectProcess(weapon);
 			
 			return;
 		}
+    else if(weapon->~SelectionTime())
+    {
+      SetVisibility(VIS_Owner);
+      Message("",info);
+      Message("",this);
+      ShowSelectProcess(weapon);
+      return;
+    }
 	}
 	// keine Waffe: ausblenden
 	SetVisibility(VIS_None);
@@ -151,6 +162,14 @@ private func UpdateWeapon(object weapon)
 	Message("",this);
 	charge = 0;
 	recharge = 0;
+}
+
+private func ShowSelectProcess(object item)
+{
+  if(GetEffect("SelectItem",item))
+  {
+    Recharge(GetEffect("SelectItem",item,0,6),item->~SelectionTime());
+  }
 }
 
 private func UpdateAmmoBag()
@@ -162,9 +181,7 @@ private func UpdateAmmoBag()
 
 public func Charge(int part, int max)
 {
-  var iCharge = part*1000/max;
-  if(iCharge == charge) return();
-  charge = iCharge;
+  charge = part*1000/max;
   alpha = 80;
   if(!charge) alpha = 200;
   return(1);
@@ -172,9 +189,7 @@ public func Charge(int part, int max)
 
 public func Recharge(int part, int max)
 {
-  var iRecharge = part*1000/max;
-  if(iRecharge == recharge) return();
-  recharge = iRecharge;
+  recharge = part*1000/max;
   return(1);
 }
 

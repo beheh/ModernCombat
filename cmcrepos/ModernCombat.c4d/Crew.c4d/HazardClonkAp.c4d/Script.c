@@ -5,9 +5,15 @@
 
 local crosshair;
 
+protected func ControlDownDouble()
+{
+  if(this->~ControlAim("ControlDownDouble")) return(1);
+  return(_inherited());
+}
 
 private func DeleteCrosshair()
 {
+  //... ‘.o ist was?
 }
 
 /* neue Waffen-Steuerung */
@@ -686,7 +692,20 @@ public func HideCH()
 
 public func IsAiming ()
 {
-  return(WildcardMatch(GetAction(), "Aim*"));
+  if(Contained())
+  {
+    if(Contained()->~CanAim())
+      return true;
+  }
+  
+  if(GetProcedure() == "PUSH")
+  {
+    if(GetActionTarget())
+      if(GetActionTarget()->~CanAim())
+        return true;
+  }
+
+  return(_inherited());
 }
 
 public func Entrance(object pContainer)
@@ -1096,129 +1115,110 @@ public func ControlDigDouble()
   return(_inherited(...));
 }
 
+public func FxSelectItemTimer(object pTarget, int iEffectNumber, int iEffectTime)
+{
+  return(-1);
+}
+
+private func Control2Contents(string command)
+{
+  // Haben wir was angefasst?
+  if(GetAction() S= "Push")
+    return(0);
+  // Pause Reload: nicht wieder anfangen ey!!!
+  if(command S= "ControlThrow")
+  {
+    if(WildcardMatch(GetAction(),"Scale*") || GetAction() S= "Hangle")
+      return(1);
+  }
+	
+  //Callback verhindert?
+  if(GetEffect("SelectItem",Contents()))
+  {
+    if(command eq "ControlUpdate")
+    {
+       if(ObjectCall(Contents(), command, this(), Par(1)))
+         return(1);
+       else
+         return(0);
+    }
+    
+    if((command eq "ControlThrow") || (command eq "ControlDig"))
+      return(1);
+    else
+      return(0);
+  }
+  // Getragenes Objekt hat spezielle Steuerungsauswertung
+  if(ObjectCall(Contents(), command, this(), Par(1), Par(2), Par(3), Par(4), Par(5), Par(6), Par(7)))
+    return(1);
+  return(0);
+}
+
 public func ControlSpecial()
 {
   [$CtrlInventoryDesc$|Image=INVT]
   
+  // ControlSpecial an Container weitergeben (z.B. Fahrzeuge)
   if(Contained())
   {
     if(Contained()->~ContainedSpecial(this()))
       return(1);
   }
-  
-  return(_inherited(...));
-}
-
-/* Support f¸r Gesch¸tze und Co. */
-
-/*
-public func GetControlled()
-{
-  var ctrl = Contained();
-  if(!ctrl && (GetProcedure() eq "PUSH"))
-    ctrl = GetActionTarget();
-    
-  return(ctrl);
-}
-
-public func ControlledCanAim()
-{
-  var ctrl = Contained();
-  if(!ctrl && (GetProcedure() eq "PUSH"))
-    ctrl = GetActionTarget();
-
-  if(ctrl)
-    return(ctrl->~UserCanAim());
-}
-
-protected func ControlUpdate(object clonk, int comdir, bool dig, bool throw)
-{
-  if(this()->~Control2Contents("ControlUpdate", comdir, dig, throw)) return(1);
-  if(this()->~ControlLadder("ControlUpdate", comdir, dig, throw)) return(1);
-
-  if(IsAiming() || ControlledCanAim())
+  // Keine Items?
+  if(!Contents()) return();
+  // Hardcode: BR-Bombe darf man nicht abw‰hlen
+  if(Contents()->GetID() == GBRB)
+    return();
+  // wenn wir zielen, wollen wir nur Waffen haben
+  if(IsAiming() && (Contents(0)->~IsWeapon() || Contents(0)->~IsGrenade()))
   {
-    AimUpdate(this(), comdir, 1, "ControlConf");
-    return(1);
+  	// n‰chste Waffe suchen
+  	for(var i = 1; i < ContentsCount(); i++)
+  		if(Contents(i)->~IsWeapon() || Contents(i)->~IsGrenade())
+  		{
+  			// zur Waffe wechseln
+  			ShiftContents(0,0,Contents(i)->GetID(),true);
+  			break;
+  		}
+  }
+  else
+	  // Inventory verschieben
+  	ShiftContents(0,0,0,true);
+  UpdateCharge();
+}
+
+public func Collection(object pObj, bool fPut)
+{
+  if(pObj->~SelectionTime())
+  {
+    if(!GetEffect("SelectItem",pObj))
+      AddEffect("SelectItem",pObj,20,pObj->SelectionTime(),0,GetID());
+  }
+  return(_inherited(pObj,fPut,...));
+}
+
+public func Ejection(object pObj)
+{
+  RemoveEffect("SelectItem",pObj);
+  return(_inherited(pObj,...));
+}
+
+public func ControlContents(id idTarget)
+{
+  if(Contents())
+  {
+    RemoveEffect("SelectItem",Contents());
   }
 
-  return(_inherited());
-}
-
-protected func ControlUp()
-{
-  this()->~ClearMacroCommands();
-  this()->~SetAggroLevel(0,0,0,0,"ControlUp");
-
-  if(IsAiming() || ControlledCanAim())
+  var target = FindContents(idTarget);
+  if(target)
   {
-	  AimUp(this(), 1, "ControlConf");
-      return(1);
+    if(target->~SelectionTime())
+    {
+      if(!GetEffect("SelectItem",target))
+        AddEffect("SelectItem",target,20,target->SelectionTime(),0,GetID());
+      return(0);
+    }
   }
-  if (this()->~Control2Contents("ControlUp") ) return(1);
-  if (this()->~ControlLadder("ControlUp") ) return(1);
-  return(_inherited());
+  return(_inherited(idTarget,...));
 }
-
-protected func ControlUpDouble()
-{
-  if(IsAiming() || ControlledCanAim())
-  {
-	  AimUp(this(), 1, "ControlConf");
-      return(1);
-  }
-  if (this()->~Control2Contents("ControlUpDouble") ) return(1);
-  if (this()->~ControlLadder("ControlUpDouble") ) return(1);
-  return(_inherited());
-}
-
-protected func ControlDown()
-{
-  this()->~ClearMacroCommands();
-  this()->~SetAggroLevel(0,0,0,0,"ControlDown");
-
-  if(IsAiming() || ControlledCanAim())
-  {
-	  AimDown(this(), 1, "ControlConf");
-	  return(1);
-  }
-  if (this()->~Control2Contents("ControlDown") ) return(1);
-  if (this()->~ControlLadder("ControlDown") ) return(1);
-  if(Contents(0))
-    if (GetPlrDownDouble(GetOwner())
-      && !GetEffect("SquatAimTimeout")
-      && (Contents(0)->~CanAim()) && !IsAiming()
-      && (GetAction() eq "WalkArmed" || GetAction() eq "Walk"))
-      {
-         StartSquatAiming(); 
-         return(1);
-      }
-  return(_inherited());
-}
-
-protected func ControlThrow()
-{
-  this()->~ClearMacroCommands();
-  this()->~SetAggroLevel(0,0,0,0,"ControlThrow");
-
-  // Bei vorherigem Doppel-Stop nur Ablegen  
-  if ( GetPlrDownDouble(GetOwner()) )
-  {
-    AddEffect("SquatAimTimeout", this(), 1, 15, this());
-    return(inherited());
-  }
-  // Steuerung an gerittenes Objekt weitergeben
-  if(IsRiding())
-    if(GetActionTarget()->~ControlThrow(this()))
-      return(1);
-  //Steuert man grade was?
-  if(ControlledCanAim())
-    if(GetControlled()->ControlThrow(this()))
-      return(1);
-  // Steuerung an Inhalt weitergeben
-  if (this()->~Control2Contents("ControlThrow") ) return(1);
-  // Oder Leiter und ‰hnliches
-  if (this()->~ControlLadder("ControlThrow") ) return(1);
-  // Sonst internen Throw-Befehl ausf√ºhren
-  return(inherited());
-}*/
