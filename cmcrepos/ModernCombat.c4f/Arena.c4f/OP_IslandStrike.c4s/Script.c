@@ -53,7 +53,7 @@ func CreateFurniture()
   CreateObject(LADR, 3605, 380, -1)->Set(6);
   CreateObject(LADR, 4445, 360, -1)->Set(3);
   CreateObject(LADR, 4680, 530, -1)->Set(7);
-  CreateObject(LADR, 5122, 515, -1)->Set(13);
+  CreateObject(LADR, 5120, 515, -1)->Set(13);
   CreateObject(LADR, 5525, 515, -1)->Set(13);
   CreateObject(LADR, 6635, 425, -1)->Set(11);
   CreateObject(LADR, 7240, 502, -1)->Set(8);
@@ -165,30 +165,30 @@ func CreateFurniture()
   CreateObject(XBRL, 7225, 430, -1)->AutoRespawn();
 
   //Haie
-  CreateObject(SHRK, 100, 550, -1)->AutoRespawn();
-  CreateObject(SHRK, 200, 550, -1)->AutoRespawn();
-  CreateObject(SHRK, 500, 550, -1)->AutoRespawn();
-  CreateObject(SHRK, 600, 550, -1)->AutoRespawn();
+  CreateObject(SHRK, 100, 560, -1)->AutoRespawn();
+  CreateObject(SHRK, 200, 560, -1)->AutoRespawn();
+  CreateObject(SHRK, 500, 560, -1)->AutoRespawn();
+  CreateObject(SHRK, 600, 560, -1)->AutoRespawn();
 
-  CreateObject(SHRK, 1500, 535, -1)->AutoRespawn();
-  CreateObject(SHRK, 1600, 535, -1)->AutoRespawn();
+  CreateObject(SHRK, 1500, 545, -1)->AutoRespawn();
+  CreateObject(SHRK, 1600, 545, -1)->AutoRespawn();
   CreateObject(SHRK, 1800, 550, -1)->AutoRespawn();
   CreateObject(SHRK, 1900, 550, -1)->AutoRespawn();
 
-  CreateObject(SHRK, 3900, 550, -1)->AutoRespawn();
-  CreateObject(SHRK, 4000, 550, -1)->AutoRespawn();
-  CreateObject(SHRK, 4040, 630, -1)->AutoRespawn();
-  CreateObject(SHRK, 4100, 550, -1)->AutoRespawn();
+  CreateObject(SHRK, 3930, 580, -1)->AutoRespawn();
+  CreateObject(SHRK, 4000, 580, -1)->AutoRespawn();
+  CreateObject(SHRK, 4040, 600, -1)->AutoRespawn();
+  CreateObject(SHRK, 4100, 600, -1)->AutoRespawn();
 
-  CreateObject(SHRK, 4700, 570, -1)->AutoRespawn();
-  CreateObject(SHRK, 4800, 570, -1)->AutoRespawn();
-  CreateObject(SHRK, 5100, 570, -1)->AutoRespawn();
-  CreateObject(SHRK, 5200, 570, -1)->AutoRespawn();
+  CreateObject(SHRK, 4700, 585, -1)->AutoRespawn();
+  CreateObject(SHRK, 4800, 585, -1)->AutoRespawn();
+  CreateObject(SHRK, 5100, 585, -1)->AutoRespawn();
+  CreateObject(SHRK, 5200, 585, -1)->AutoRespawn();
 
-  CreateObject(SHRK, 7100, 530, -1)->AutoRespawn();
-  CreateObject(SHRK, 7200, 530, -1)->AutoRespawn();
-  CreateObject(SHRK, 7300, 530, -1)->AutoRespawn();
-  CreateObject(SHRK, 7400, 530, -1)->AutoRespawn();
+  CreateObject(SHRK, 7200, 550, -1)->AutoRespawn();
+  CreateObject(SHRK, 7300, 550, -1)->AutoRespawn();
+  CreateObject(SHRK, 7600, 550, -1)->AutoRespawn();
+  CreateObject(SHRK, 7700, 550, -1)->AutoRespawn();
 
   //Jetwrack
   CreateObject(_JW1, 3120, 305, -1);
@@ -628,6 +628,11 @@ func CreateEquipment()
 
   //OICW
   PlaceSpawnpoint(OICW, 4360, 315);
+
+  //Motorboote
+  SetupVehicleSpawn([INFL],CreateObject(VSPW,1245,510,-1),35*40);
+  SetupVehicleSpawn([INFL],CreateObject(VSPW,4640,550,-1),35*40);
+  SetupVehicleSpawn([INFL],CreateObject(VSPW,5565,550,-1),35*40);
 }
 
 /* Besitznahme */
