@@ -22,6 +22,7 @@ FacetTopFace=1
 NextAction=Sailing
 StartCall=TurnStart
 EndCall=TurnEnd
+PhaseCall=Turning
  
 [Action]
 Name=LowerSail

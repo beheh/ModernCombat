@@ -2,6 +2,8 @@
 
 #strict
 
+static const FKDT_SuicideTime = 15;
+
 local clonk,oldvisrange,oldvisstate,suicide;
 
 public func Set(object pClonk)
@@ -22,7 +24,7 @@ public func Set(object pClonk)
   SetPlrViewRange(100,pClonk);
   SetFoW(true,GetOwner(pClonk)); 
   
-  suicide = 30;
+  suicide = FKDT_SuicideTime;
   ScheduleCall(this(),"DoMenu",35,suicide); 
 }
 
@@ -37,7 +39,7 @@ func DeathMenu()
   CloseMenu(clonk);
   CreateMenu (FKDT, clonk, this(), 0, GetName(), 0, C4MN_Style_Dialog, true);
   if(suicide > 0)
-    AddMenuItem(Format("<c %X>$SuicideW$</c>",RGB(128,128,128),suicide), "NoSuicide", SKUL,clonk, 0, 0, "$DescSuicide$");
+    AddMenuItem(Format("$SuicideW$",RGB(128,128,128),suicide), "NoSuicide", SKUL,clonk, 0, 0, "$DescSuicide$");
   else
     AddMenuItem("$Suicide$", "Suicide", SKUL,clonk, 0, 0, "$DescSuicide$");
 

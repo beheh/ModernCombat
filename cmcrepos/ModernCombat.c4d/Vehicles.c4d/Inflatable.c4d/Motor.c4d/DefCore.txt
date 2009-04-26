@@ -9,3 +9,7 @@ Value=10
 Picture=0,0,40,64
 Grab=2
 VehicleControl=1
+Vertices=1
+
+Vertices=1
+VertexY=1

@@ -21,6 +21,6 @@ Float=-7
 BorderBound=1
 Vertices=5
 VertexX=0,29,-27,29,-27
-VertexY=-12,-2,-2,-15,-15
+VertexY=-12,-2,-2,-1,-1
 VertexCNAT=80,10,9,6,5
 VertexFriction=0,80,80,80,80

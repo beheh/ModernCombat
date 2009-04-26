@@ -4,12 +4,6 @@
 
 global func ZombieInvasion(int iPower)//X Zombies spawnen.
 {
-  var goal;
-  while(goal = FindObject2(Find_Category(C4D_Goal)),Find_Not(Find_ID(G_ZH)))
-    RemoveObject(goal);
-    
-  if(!FindObject(G_ZH)) CreateObject(G_ZH,0,0,NO_OWNER);
-
   for(var i; i < iPower; i++)
   {
     var zombie = PlaceAnimal(RandomIndex4K([CLNK,CLNK,CLNK,CLNK,HZCK]));

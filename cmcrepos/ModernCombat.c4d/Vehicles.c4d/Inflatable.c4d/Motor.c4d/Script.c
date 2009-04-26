@@ -2,6 +2,27 @@
 
 #strict
 
+public func Initialize()
+{
+  AddDamageEffect(this,35);
+}
+
+public func MaxDamage()		{ return(50); }
+
+public func IsBulletTarget(){return(true);}
+//public func IgnoreFriendlyFire() {return(true);}
+
+private func UpdateDmg()
+{
+  if(!GetActionTarget()) return;
+  GetActionTarget()->DoDamage(GetDamage() - GetActionTarget()->GetDamage());
+}
+
+public func Damage()
+{
+	UpdateDmg();
+}
+
 public func SetBoat(object pBoat)
 {
   SetAction("Be",pBoat);
@@ -20,14 +41,41 @@ protected func UpdateTransferZone()
 
 public func UpdateShape()
 {
-  if(!GetActionTarget()) return(false);
+  var boat = GetActionTarget();
+  if(!boat) return(false);
   
-  var iXOff = 30;
-  if(GetActionTarget()->GetDir() == DIR_Right)
-    iXOff = -iXOff;
+  
+  var iXOff;
+  
+  if(boat->GetAction() eq "Turn")
+  {
+    var phases = boat->GetActMapVal("Length", "Turn")-1;
+    var phase = boat->GetPhase()-1;
+  
+    var alpha = (phase * 180 / phases) - 90;
+    iXOff = Sin(alpha, -25);
     
-  SetShape((-10)+iXOff,-15,30,30);
+    //Log("phase %d (alpha = %d / xoff = %d)",phase,alpha,iXOff);
+  }
+  else
+    iXOff = -25;
+
+  if(boat->GetDir() == DIR_Right)
+    iXOff = -iXOff;
+
+  SetVertex(0,0,iXOff,this,2);
+  SetShape(-15,-15,30,30);
+  
+  //SetShape((-10)+iXOff,-15,30,30);
   return(true);
+}
+
+func SetUser(object pUser)
+{
+  var plr = GetOwner(pUser);
+  SetOwner(plr);
+  if(GetActionTarget())
+    GetActionTarget()->SetOwner(plr);
 }
 
 
@@ -35,6 +83,8 @@ public func UpdateShape()
 
 protected func ControlUpdate(object clonk, int comdir)
 {
+  SetUser(clonk);
+
   if(comdir == COMD_UpLeft || comdir == COMD_Left || comdir == COMD_DownLeft)
     GetActionTarget()->Left();
   else if(comdir == COMD_UpRight || comdir == COMD_Right || comdir == COMD_DownRight)
@@ -61,6 +111,8 @@ private func Command2Control(int iX, int iY)
 
 public func ControlLeft(object pByObj)
 {
+  SetUser(pByObj);
+
   if(!GetPlrCoreJumpAndRunControl(pByObj->GetController()))
     GetActionTarget()->Left();
     
@@ -69,6 +121,8 @@ public func ControlLeft(object pByObj)
 
 public func ControlRight(object pByObj)
 {
+  SetUser(pByObj);
+
   if(!GetPlrCoreJumpAndRunControl(pByObj->GetController()))
     GetActionTarget()->Right();
     
@@ -77,6 +131,8 @@ public func ControlRight(object pByObj)
 
 public func ControlDown(object pByObj)
 {
+  SetUser(pByObj);
+
   if(!GetPlrCoreJumpAndRunControl(pByObj->GetController()))
     GetActionTarget()->Stop();
     
@@ -85,6 +141,8 @@ public func ControlDown(object pByObj)
 
 public func ControlUpDouble(object pByObj)
 {
+  SetUser(pByObj);
+
   if(GetContact(GetActionTarget(),-1))
     GetActionTarget()->LandOn();
     

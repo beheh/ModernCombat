@@ -1203,7 +1203,7 @@ public func Collection(object pObj, bool fPut)
   if(pObj->~SelectionTime())
   {
     if(!GetEffect("SelectItem",pObj))
-      AddEffect("SelectItem",pObj,20,pObj->SelectionTime(),0,GetID());
+      AddEffect("SelectItem",pObj,20,pObj->~SelectionTime(),0,GetID());
   }
   return(_inherited(pObj,fPut,...));
 }
@@ -1227,8 +1227,9 @@ public func ControlContents(id idTarget)
     if(target->~SelectionTime())
     {
       if(!GetEffect("SelectItem",target))
-        AddEffect("SelectItem",target,20,target->SelectionTime(),0,GetID());
+        AddEffect("SelectItem",target,20,target->~SelectionTime(),0,GetID());
       return(0);
     }
   }
   return(_inherited(idTarget,...));
+}

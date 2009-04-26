@@ -10,7 +10,7 @@ Value=20
 Mass=30
 Vertices=4
 VertexX=29,-27,29,-27
-VertexY=-2,-2,-15,-15
+VertexY=-2,-2,-11,-11
 VertexCNAT=10,9,6,5
 VertexFriction=80,80,80,80
 Components=METL=1;OBRL=3

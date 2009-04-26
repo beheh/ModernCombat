@@ -20,10 +20,25 @@ func SetUp()
   return(1);
 }
 
+public func MaxDamage()		{ return(50); }
+
+private func UpdateDmg()
+{
+  if(!GetActionTarget()) return;
+  GetActionTarget()->DoDamage(GetDamage() - GetActionTarget()->GetDamage());
+}
+
+public func Damage()
+{
+  UpdateDmg();
+	if(GetDamage() < MaxDamage()) return();
+	Incineration();
+}
+
 func Incineration()
 {
  Sound("OutOfAir");
- Explode(20,motor);
+ if(motor) Explode(20,motor);
  CastParticles("XSpark", 10, 40, RandomX(-38,38), RandomX(-2,3), 50, 0, RGB(190,85,20));
  FadeOut();
  ChangeDef(INFB);
@@ -150,6 +165,12 @@ private func TurnStart()
   //controllers = FindObjects(Find_InRect(-(GetDefWidth()/2),-GetDefHeight(),GetDefWidth(),GetDefHeight()),Find_Category(C4D_Vehicle|C4D_Object|C4D_Living));
   
   AddEffect("IntTurn", this(), 1, 1, this(), 0, controllers);
+}
+
+private func Turning()
+{
+  if(motor)
+    motor->UpdateShape();
 }
 
 protected func FxIntTurnStart(object target, int number, int temp, array controllers)

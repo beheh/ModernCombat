@@ -138,3 +138,42 @@ global func Splatter(int iDmg, int iType, object pFrom)
   BloodSplatter(Min(size*3,100),x,y,red);
   BloodBurst(Min(size*3,100),x,y,red);
 }
+
+
+//Von Hazard, aber etwas erweitert. :)
+global func AddDamageEffect(object target, int size)
+{
+	// target muss die Funktion  GetDmgEffectPos(&x,&y) definiert haben
+	// und MaxDamage
+	if(!target) target = this;
+	if(!target) return;
+	
+	AddEffect("DamageEffect", target, 1, 1, 0, 0, size); 
+}
+
+global func FxDamageEffectStart(object target, int number, int temp, size)
+{
+  if(!size) size = 100;
+  EffectVar(0,target,number) = size; 
+}
+
+global func FxDamageEffectTimer(object target, int number, int time)
+{
+	// wenn noch nicht ausreichend beschädigt, lassen
+	var dmg = target->GetDamage();
+	var maxdmg = target->~MaxDamage();
+
+	if(dmg < maxdmg/2) return;
+
+	var x, y, size = EffectVar(0,target,number);
+	target->~GetDmgEffectPos(x,y);
+	
+	// occupacy of the smoke is dependend on  damage taken
+	var xdir = +RandomX(-10,10);
+	var ydir = -RandomX(-15,10);
+	var smoke = RGBa(220,180,110,BoundBy(maxdmg-dmg,20,255));
+	var thrust = RGBa(255,200,200,BoundBy(maxdmg-dmg,40,255));
+
+	CreateParticle("Smoke2",target->GetX()+x,target->GetY()+y,xdir,ydir,RandomX(80*size/100,380*size/100),smoke);
+	CreateParticle("Thrust",target->GetX()+x,target->GetY()+y,xdir,ydir,RandomX(120*size/100,size*2),thrust);
+}
