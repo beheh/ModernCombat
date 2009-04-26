@@ -40,7 +40,7 @@ public func GlowColor(int iATime) {
   return(RGBa(0,128,255,50));
 }
 
-public func IsSpecialAmmo(){return(true);}
+public func IsSpecialAmmo(){return(false);}
 
 public func CustomBulletCasing(int iX, int iY, int iXDir, int iYDir, int iSize, int iColor)
 {

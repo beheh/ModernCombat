@@ -3,6 +3,8 @@
 
 local hitcnt,size,trail_len;
 
+public func IsSpecialAmmo(){return(false);}
+
 public func Initialize(){}
 
 public func Fast()//OMG, Nein! O_o

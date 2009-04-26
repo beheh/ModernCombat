@@ -66,13 +66,13 @@ global func FxIntDemonTimer(object pTarget, int iEffectNumber, int iEffectTime)
   
   if(enemy)
   {
-    EffectVar (0,pTarget,iEffectNumber) = enemy;
-  
-    if(ObjectDistance(pTarget,enemy) >= 500)
+    if((ObjectDistance(pTarget,enemy) >= 500) || Contained(enemy))
     {
-      EffectVar (0,pTarget,iEffectNumber) = 0;
+      EffectVar(0,pTarget,iEffectNumber) = 0;
       return();
     }
+    else
+      EffectVar(0,pTarget,iEffectNumber) = enemy;
     
     var level = Min(GetEnergy(pTarget),70);
     if(ObjectDistance(pTarget,enemy) <= level*2/3)

@@ -98,7 +98,7 @@ global func FxIntZombieStart(object pTarget, int iEffectNumber, int iTemp)
 
 global func FxIntZombieTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
-  if(!GetAlive(pTarget)/*|| IsFakeDeath(pTarget)*/){Kill(pTarget); return(-1);}//CMC-Support
+  if(!GetAlive(pTarget) || IsFakeDeath(pTarget)){Kill(pTarget); return(-1);}//CMC-Support
   
   if(InLiquid(pTarget))
     pTarget->SetPhysical("BreatheWater",1,2);
@@ -113,13 +113,11 @@ global func FxIntZombieTimer(object pTarget, int iEffectNumber, int iEffectTime)
   {
     for(var obj in FindObjects(Sort_Distance(),
                                Find_Distance(ZOMBIE_ViewRange),
-                               Find_OCF(OCF_Alive|OCF_Prey),Find_OCF(OCF_CrewMember),
+                               Find_OCF(OCF_Alive),Find_OCF(OCF_CrewMember),
                                Find_NoContainer(),
+                               Find_Not(Find_Func("IsZombie")),
                                Find_Exclude(pTarget)))
     {
-      if(GetEffect("*Zombie*",obj))
-        continue;
-        
       enemy = obj;//Wir haben einen ... auf ihn!!
       break;
     }
@@ -129,7 +127,6 @@ global func FxIntZombieTimer(object pTarget, int iEffectNumber, int iEffectTime)
   {
     for(var obj in FindObjects(Sort_Distance(),
                                Find_Distance(ZOMBIE_ViewRange),
-                               Find_Func("IsClonk"),
                                Find_OCF(OCF_Living|OCF_Prey),
                                Find_NoContainer(),
                                Find_Exclude(pTarget)))
@@ -210,7 +207,7 @@ global func FxIntZombieTimer(object pTarget, int iEffectNumber, int iEffectTime)
   {
     EffectVar (0,pTarget,iEffectNumber) = enemy;
   
-    if((ObjectDistance(pTarget,enemy) >= ZOMBIE_ViewRange) || !GetAlive(enemy) || IsZombie(enemy))
+    if((ObjectDistance(pTarget,enemy) >= ZOMBIE_ViewRange) || !GetAlive(enemy) || IsZombie(enemy) || Contained(enemy))
     {
       EffectVar (0,pTarget,iEffectNumber) = 0;
       return();

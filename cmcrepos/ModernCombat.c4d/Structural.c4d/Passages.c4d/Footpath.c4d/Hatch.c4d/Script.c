@@ -31,7 +31,7 @@ public func OnOpen()
 
 public func OnOpened()
 {
-  DigFreeRect(-GetDefWidth()/2,-GetDefHeight()/2,GetDefWidth(),GetDefHeight());
+  DigFreeRect(GetX()-GetDefWidth()/2,GetY()-GetDefHeight()/2,GetDefWidth(),GetDefHeight());
 }
 
 public func OnClose()

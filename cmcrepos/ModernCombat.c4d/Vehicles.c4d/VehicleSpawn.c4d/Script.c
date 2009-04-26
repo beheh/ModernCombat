@@ -109,7 +109,7 @@ public func Spawn(object pObj)
 {
   AddEffect("SpawnBeam", pObj, 120, 1, 0, GetID(), 70);
   Exit(pObj);
-  pObj->SetPosition(GetX(),GetY()+GetDefOffset(GetID(pObj),0));
+  //pObj->SetPosition(GetX(),GetY()+GetDefOffset(GetID(pObj),1));
 }
 
 public func FxSpawnBeamStart(pTarget, iEffectNumber, temp, iFrames)
