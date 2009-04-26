@@ -1,0 +1,8 @@
+Selfkill1=%s hat einen eigenen %s umgebracht.
+Selfkill2=%s mochte seinen einen %s nicht mehr.
+Selfkill3=%s ist pöhze. Der arme %s.
+KilledByPlayer1=%s hat einen %s an %s verloren.
+KilledByPlayer2=%ss %s konnte nichts gegen %s machen.
+Teamkill1=%ss %s ist bei %s in Ungnade gefallen.
+Teamkill2=%s konnte mit seinem %s dem Teamkill von %s nicht entgehen.
+Bomb=%s bekommt eine Bombe!
