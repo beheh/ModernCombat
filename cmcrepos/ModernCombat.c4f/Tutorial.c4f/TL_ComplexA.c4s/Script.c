@@ -1,11 +1,12 @@
 /*-- Komplex A --*/
 
 #strict
+#include CSTD
+
+static station;//Aktuelle Stationsnummer.
 
 func Initialize()
 {
-  //Bildschirmfärbung
-  SetSkyAdjust(RGBa(255,255,255,128),RGB(64,196,255));
   //Szenario einrichten
   CreateFurniture();
   ScriptGo(true);
@@ -14,9 +15,7 @@ func Initialize()
 
 func CreateFurniture()
 {
-  var tmp;
   //Alle Objekte folglich von links oben nach rechts unten
-
   //Rampen
   DrawMaterialQuad("Wall-Stripes",220,640,250,630,250,640,235,640,true);
   DrawMaterialQuad("Wall-Stripes",250,630,280,620,280,630,265,630,true);
@@ -43,9 +42,6 @@ func CreateFurniture()
   CreateObject(PBRL, 20, 640, -1);
   CreateObject(PBRL, 40, 640, -1);
   CreateObject(PBRL, 2050, 400, -1);
-
-  //Explosive Kiste
-  CreateObject(XWCR, 1190, 190, -1);
 
   //Aufzug
   CreateObject(LFTP, 535, 475, -1);
@@ -81,22 +77,6 @@ func CreateFurniture()
 
   //Munitionskiste (Kugeln)
   CreateObject(ABOX, 580, 590, -1)->Set(AMOC);
-
-  //Labortische
-  CreateObject(LTBL, 335, 610, -1);
-  CreateObject(LTBL, 930, 210, -1);
-  CreateObject(LTBL, 1400, 190, -1);
-
-  //Monitore
-  CreateObject(MONI, 340, 598, -1);
-  CreateObject(MONI, 925, 197, -1);
-  CreateObject(MONI, 1395, 177, -1);
-  CreateObject(MONI, 1415, 177, -1);
-
-  //Apparaturen
-  CreateObject(GADG, 1895, 420, -1)->Set(1);
-  CreateObject(GADG, 1910, 420, -1)->Set(1);
-  CreateObject(GADG, 1925, 420, -1)->Set(1);
 
   //Satellitenschüssel
   CreateObject(SADH, 395, 470, -1);
@@ -140,19 +120,15 @@ func CreateFurniture()
   CreateObject(HA4K, 1350, 293, -1);
 
   //Hydrauliktüren
-  tmp = CreateObject(SLDR, 95, 640, -1);
-  tmp->Lock();
-  tmp->SetMaxDamage(-1);
-  tmp = CreateObject(SLDR, 2145, 400, -1);
-  tmp->Lock();
-  tmp->SetMaxDamage(-1);
+  CreateObject(SLDR, 95, 640, -1);
+  CreateObject(SLDR, 2145, 400, -1);
 
   //Steine
-  CreateObject(STNE, 720, 650, -1);
-  CreateObject(STNE, 1085, 670, -1);
-  CreateObject(STNE, 1175, 435, -1);
-  CreateObject(STNE, 1575, 710, -1);
-  CreateObject(STNE, 1835, 560, -1);
+  CreateObject(RO13, 720, 650, -1);
+  CreateObject(RO13, 1085, 670, -1);
+  CreateObject(RO13, 1175, 435, -1);
+  CreateObject(RO13, 1575, 710, -1);
+  CreateObject(RO13, 1835, 560, -1);
 
   //Büsche
   CreateObject(BSH2, 1130, 660, -1);
@@ -175,71 +151,53 @@ func CreateFurniture()
   CreateObject(VINE, 1590, 540, -1);
   CreateObject(VINE, 1625, 490, -1);
   CreateObject(VINE, 1645, 570, -1);
-
-  //Nebel
-  CreateParticle("Fog",625,595,0,0,RandomX(400,1000));
-  CreateParticle("Fog",690,610,0,0,RandomX(500,1500));
-  CreateParticle("Fog",840,680,0,0,RandomX(1000,1500));
-  CreateParticle("Fog",925,740,0,0,RandomX(1000,1500));
-  CreateParticle("Fog",1040,640,0,0,RandomX(1000,1500));
-  CreateParticle("Fog",1065,575,0,0,RandomX(500,1500));
-  CreateParticle("Fog",1105,505,0,0,RandomX(500,1500));
-  CreateParticle("Fog",1120,450,0,0,RandomX(400,1000));
-  CreateParticle("Fog",1180,490,0,0,RandomX(400,1000));
-  CreateParticle("Fog",1180,500,0,0,RandomX(300,900));
-
-  //Sounds
-
-  //Wind
-  CreateObject(SE4K, 930, 180, -1)->Set("WindSound*",775,250);
-  CreateObject(SE4K, 1260, 180, -1)->Set("WindSound*",775,250);
-
-  //Vögel
-  CreateObject(SE4K, 1085, 510, -1)->Set("BirdSong*",140,35);
-  CreateObject(SE4K, 1615, 325, -1)->Set("BirdSong*",140,35);
-
-  //Hallen
-  CreateObject(SE4K, 130, 500, -1)->Set("Interior*",665,105);
-  CreateObject(SE4K, 2100, 300, -1)->Set("Interior*",665,105);
 }
+
+
+/* Script0-X */
+func Script10()
+{
+  SetCrewEnabled(true, GetCrew());
+  SetCursor(0, GetCrew(), true, true);
+  DoInfoMessage(GetCrew(),"Commander","Willkommen zur erweiterten Ausbildung, Soldat!|*rhabarber* *rhabarber*||<c ffff00>Gehe zum Schießstand.</c> <i><c 555555>\\o/ Welcher Schießstand?</c></i>", PCMK, RGB(80,100,0),1);
+}
+
+func Script12()
+{
+  if((LandscapeWidth() - GetX(GetCursor())) < 40)
+    DoInfoMessage(GetCrew(),"Henry","So, hier ist Ende Gelände! =P|<i><c ff0000>Insert coin here.</c></i>", PCMK, RGB(255),1);
+  else
+    goto(11);
+}
+
+
+/* Stationen */
+func Station0(object pClonk)
+{
+  goto();//zurücksetzen
+
+  pClonk->SetPosition(8,630);
+  SetCrewEnabled(false, pClonk);
+  SetCommand(pClonk,"MoveTo",0,138,630);
+}
+
 
 
 /* Respawn */
 
-protected func InitializePlayer(int iPlr, int iX, int iY, object pBase, int iTeam)
+public func OnClonkEquip(object pClonk)
 {
-  for(var i=0, pCrew ; pCrew = GetCrew(iPlr, i) ; i++)
-    RelaunchPlayer(iPlr, pCrew, 0, iTeam);
+  //... leer
 }
 
-public func RelaunchPlayer(int iPlr, object pCrew, object pKiller, int iTeam)
+public func RelaunchPosition(& iX, & iY, int iTeam)
 {
-  //Kein ordentlicher Spieler?
-  if(GetOwner(pCrew) == NO_OWNER || iPlr == NO_OWNER || !GetPlayerName(iPlr))
-    return();
-  //Kein Team
-  if(!iTeam) iTeam = GetPlayerTeam(iPlr);
-  //Clonk tot?
-  if(!GetAlive(pCrew))
-    pCrew = RelaunchClonk(iPlr, pCrew);
-    
-  //AddSpawnEffect(pCrew, pCrew->GetColorDw());
-    
+  iX = 10;
+  iY = 10;
+}
+
+public func OnClassSelection(object pClonk)
+{
   //Station für den Clonk initialisieren. :D
-  GameCall(Format("Station%d",station),pCrew);
-}
-
-public func RelaunchClonk(int iPlr, object pCursor)
-{
-  var pClonk = CreateObject(PCMK, 10, 10, iPlr);
-  if(pCursor)
-    GrabObjectInfo(pCursor, pClonk);
-  else
-    MakeCrewMember(pClonk, iPlr);
-
-  DoEnergy(+150, pClonk);
-  SetCursor(iPlr, pClonk);
-  SetPlrView(iPlr, pClonk);
-
-  return(pClonk);
+  GameCall(Format("Station%d",station),pClonk);
 }

@@ -1,4 +1,4 @@
-/*-- Tutorial --*/
+PCMK/*-- Tutorial --*/
 
 #strict
 
@@ -258,9 +258,8 @@ func CreateFurniture()
 
   //KIs
   PlaceAI(561,580,"PetrolGuard",MDIC);
-  PlaceAI(1070,420,"Marksman",SOLD)->AIVar(1) = -20;
-  
-  Schedule("PlaceAI(1070,480,\"Marksman\",SOLD)",35+Random(35));
+  PlaceAI(1070,420,"Marksman",PCMK)->AIVar(1) = -20;
+  Schedule("PlaceAI(1070,480,\"Marksman\",PCMK)",35+Random(35));//Scheinbar ein Schedule, da die nicht gleichzeitig feuern sollen.
   
   Demo();
 }
@@ -281,14 +280,14 @@ func Script10()
 {
   SetCrewEnabled(true, GetCrew());
   SetCursor (0, GetCrew(), true, true);
-  DoInfoMessage(GetCrew(),"Commander","Willkommen zur erweiterten Ausbildung, Soldat!|Du wirst hier alles Notwendige lernen, um in kommenden Schlachten bestehen zu können.|Fangen wir damit an, das wir deine Kenntnisse über Waffen auffrischen.|<c ffff00>Gehe zum Schießstand.</c>", HZCK, RGB(80,100,0),1);
+  DoInfoMessage(GetCrew(),"Commander","Willkommen zur erweiterten Ausbildung, PCMKat!|Du wirst hier alles Notwendige lernen, um in kommenden Schlachten bestehen zu können.|Fangen wir damit an, das wir deine Kenntnisse über Waffen auffrischen.|<c ffff00>Gehe zum Schießstand.</c>", PCMK, RGB(80,100,0),1);
 }
 
 func Script12()
 {
   if(!FindObject(TRGT))
   {
-    DoInfoMessage(GetCrew(),"Henry","So, hier ist Ende Gelände! :P|<c ff0000>Testzeit abgelaufen.</c>", HZCK, RGB(255),1);
+    DoInfoMessage(GetCrew(),"Henry","So, hier ist Ende Gelände! :P|<c ff0000>Testzeit abgelaufen.</c>", PCMK, RGB(255),1);
   }
   else
     goto(11);
@@ -307,42 +306,22 @@ func Station0(object pClonk)
 
 
 /* Wer kennt ihn nicht? Den Respawn! */
-protected func InitializePlayer(int iPlr, int iX, int iY, object pBase, int iTeam)
+
+public func OnClonkEquip(object pClonk)
 {
-  for(var i=0, pCrew ; pCrew = GetCrew(iPlr, i) ; i++)
-    RelaunchPlayer(iPlr, pCrew, 0, iTeam);
+  //... leer
 }
 
-public func RelaunchPlayer(int iPlr, object pCrew, object pKiller, int iTeam)
+public func RelaunchPosition(& iX, & iY, int iTeam)
 {
-  //Kein ordentlicher Spieler?
-  if(GetOwner(pCrew) == NO_OWNER || iPlr == NO_OWNER || !GetPlayerName(iPlr))
-    return();
-  //Kein Team
-  if(!iTeam) iTeam = GetPlayerTeam(iPlr);
-  //Clonk tot?
-  if(!GetAlive(pCrew))
-    pCrew = RelaunchClonk(iPlr, pCrew);
-    
-  //AddSpawnEffect(pCrew, pCrew->GetColorDw());
-    
+  iX = 10;
+  iY = 10;
+}
+
+public func OnClassSelection(object pClonk)
+{
   //Station für den Clonk initialisieren. :D
-  GameCall(Format("Station%d",station),pCrew);
-}
-
-public func RelaunchClonk(int iPlr, object pCursor)
-{
-  var pClonk = CreateObject(MDIC, 10, 10, iPlr);
-  if(pCursor)
-    GrabObjectInfo(pCursor, pClonk);
-  else
-    MakeCrewMember(pClonk, iPlr);
-
-  DoEnergy(+150, pClonk);
-  SetCursor(iPlr, pClonk);
-  SetPlrView(iPlr, pClonk);
-
-  return(pClonk);
+  GameCall(Format("Station%d",station),pClonk);
 }
 
 
