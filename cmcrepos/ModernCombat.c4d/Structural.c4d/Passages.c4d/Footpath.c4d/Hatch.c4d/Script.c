@@ -29,6 +29,11 @@ public func OnOpen()
   Sound("Airlock1");
 }
 
+public func OnOpened()
+{
+  DigFreeRect(-GetDefWidth()/2,-GetDefHeight()/2,GetDefWidth(),GetDefHeight());
+}
+
 public func OnClose()
 {
   if(GetAction() eq "Closed" || GetAction() eq "Close") return();

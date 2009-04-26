@@ -8,22 +8,25 @@ func SetUp()
 {
   SetAction("Sailing");
   SetComDir(COMD_None);
+  var dir = GetDir();
+  SetDir(DIR_Left);
 
   turn_end_dir = -1;
   motor = CreateObject(OBMT,0,0,NO_OWNER);
   motor->SetBoat(this());
+  
+  SetDir(dir);
+  TurnEnd();
   return(1);
 }
 
 func Incineration()
 {
- //TODO: Irgendwie blöd mit den ganzen Schedules?
  Sound("OutOfAir");
  Explode(20,motor);
- //Schedule("Smoke(RandomX(-38,38),0,10)",9,40);
- //Schedule("CastParticles(\"XSpark\", 10, 40, RandomX(-38,38), RandomX(-2,3), 50, 0, RGB(190,85,20))", 10, 7);
  CastParticles("XSpark", 10, 40, RandomX(-38,38), RandomX(-2,3), 50, 0, RGB(190,85,20));
- Message("",this());
+ FadeOut();
+ ChangeDef(INFB);
 }
 
 private func LandOn()

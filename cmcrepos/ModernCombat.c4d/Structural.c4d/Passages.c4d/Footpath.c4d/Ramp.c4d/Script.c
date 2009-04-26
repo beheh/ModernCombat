@@ -1,68 +1,70 @@
 /*-- Rampe --*/
-
-
 #strict
 
+local x,y,mat;
 
-
-local dir;
-
-
-
-public func Left(string szMaterial)
-
+protected func Initialize()
 {
+  SetObjectBlitMode (GFX_BLIT_Additive);
+  Set(30,-10,"Rock");
+}
 
-  dir = 0;
-  Set(szMaterial);
+public func Set(int iX, int iY, string szMaterial)
+{
+  x = iX;
+  y = iY;
+  if(szMaterial)
+    mat = szMaterial;
+  Update();
+}
 
-  if(FrameCounter() > 10)
+public func Draw()
+{
+  Log("DrawMaterialQuad(\"%s\",%d,%d,%d,%d,%d,%d,%d,%d,true);",mat,GetX()  ,GetY()  ,
+                                                                   GetX()  ,GetY()+y,
+                                                                   GetX()+x,GetY()  ,
+                                                                   GetX()  ,GetY()  );
+                                                                   
+  DrawMaterialQuad (mat, GetX()  , GetY()  ,
+                         GetX()  , GetY()+y,
+                         GetX()+x, GetY()  ,
+                         GetX()  , GetY()  , true);
 
-  {
-
-    Log("DrawMaterialQuad(%s,%d,%d,%d,%d,%d,%d,%d,%d,true);",szMaterial,GetX()+15,GetY(),GetX()-15,GetY()-10,GetX()-15,GetY(),GetX(),GetY());
-
-  }
-
+  Sound("Connect",true);
 }
 
 
 
-public func Right(string szMaterial)
-
+protected func Update()
 {
-
-  dir = 1;
-  Set(szMaterial);
-
-  if(FrameCounter() > 10)
-
-  {
-
-    Log("DrawMaterialQuad(%s,%d,%d,%d,%d,%d,%d,%d,%d,true);",szMaterial,GetX()-15,GetY(),GetX()+15,GetY()-10,GetX()+15,GetY(),GetX(),GetY());
-
-  }
-
-}
-
-
-
-protected func Set(string szMaterial)
-
-{
-
-  if(FrameCounter() > 10) Sound("Connect",true);
-
+  var x1 = 0;
+  var y1 = 0;
   
-  if(dir)//Rechts...
-
-    DrawMaterialQuad (szMaterial, GetX()-15, GetY(),GetX()+15,GetY()-10, GetX()+15, GetY(), GetX(), GetY(), true);
-
-  else//Links...
-
-    DrawMaterialQuad (szMaterial, GetX()+15, GetY(),GetX()-15,GetY()-10, GetX()-15, GetY(), GetX(), GetY(), true);
-
-    
-  RemoveObject();
-
+  var x2 = x;
+  var y2 = y;
+  
+  if(x < 0)
+  {
+    x1 = x;
+    x2 = -x;
+  }
+  
+  if(y < 0)
+  {
+    y1 = y;
+    y2 = -y;
+  }
+  
+  SetShape(x1,y1,x2,y2);
+  
+  SetObjDrawTransform(x*100,0,0,0,y*100,0);
+  
+  var matnum = Material(mat);
+  var rgb = RGB(GetMaterialColor(matnum,0,0), 
+                GetMaterialColor(matnum,0,1), 
+                GetMaterialColor(matnum,0,2)); 
+                
+  SetClrModulation (rgb);
 }
+
+protected func UpdateTransferZone(){Update();}

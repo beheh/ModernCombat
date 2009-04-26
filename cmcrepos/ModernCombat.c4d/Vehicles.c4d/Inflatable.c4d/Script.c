@@ -8,6 +8,15 @@ protected func Initialize()
   SetAction("OnLand");
 }
 
+func Incineration()
+{
+ Sound("OutOfAir");
+ CastParticles("XSpark", 10, 40, RandomX(-38,38), RandomX(-2,3), 50, 0, RGB(190,85,20));
+ FadeOut();
+ ChangeDef(INFB);
+ 
+}
+
 private func Floating()
 {
   // Aufrichten
@@ -20,16 +29,15 @@ private func Floating()
   {
     ChangeDef(INFS);
     SetAction("LowerSail");
-    SetComDir(COMD_None);
     this()->~SetUp();
   }
 }
 
 public func ControlDigDouble(object pCaller)
 {
-  var pack = CreateObject(INFP,0,0,GetOwner(pCaller));
+  ChangeDef(INFP);
+  this->~Initialize();
+  SetCategory(GetCategory(0,INFP));
   if(pCaller)
-    Collect(pack,pCaller); 
-    
-  RemoveObject();
+    Collect(this,pCaller); 
 }

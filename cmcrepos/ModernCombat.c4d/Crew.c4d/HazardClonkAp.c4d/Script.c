@@ -7,9 +7,20 @@ local crosshair;
 
 protected func ControlDownDouble()
 {
-  if(this->~ControlAim("ControlDownDouble")) return(1);
+  if(this->~Control2Grab("ControlDownDouble")) return(1);
   return(_inherited());
 }
+
+private func Control2Grab(string command)
+{
+  // Haben wir was angefasst?
+  if(GetProcedure() eq "PUSH")
+  {
+    if(GetActionTarget())
+      return(GetActionTarget()->~Control2Grab(command,this,...));
+  }
+}
+
 
 private func DeleteCrosshair()
 {
@@ -1221,4 +1232,3 @@ public func ControlContents(id idTarget)
     }
   }
   return(_inherited(idTarget,...));
-}

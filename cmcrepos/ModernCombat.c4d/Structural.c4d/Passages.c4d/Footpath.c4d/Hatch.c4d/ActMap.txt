@@ -27,6 +27,7 @@ Length=1
 Directions=1
 FlipDir=0
 NextAction=Hold
+StartCall=OnOpened
 
 [Action]
 Name=Close

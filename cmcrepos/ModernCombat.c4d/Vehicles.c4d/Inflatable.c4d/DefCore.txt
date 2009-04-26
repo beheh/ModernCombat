@@ -17,7 +17,6 @@ Components=METL=1;OBRL=3
 Picture=0,22,64,64
 ContactIncinerate=5
 BlastIncinerate=35
-BurnTo=INFB
 Rebuy=1
 Grab=1
 Rotate=30

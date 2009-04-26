@@ -15,7 +15,6 @@ SolidMask=0,44,80,22
 TopFace=0,22,80,22
 ContactIncinerate=5
 BlastIncinerate=35
-BurnTo=INFB
 Rebuy=1
 Float=-7
 #UprightAttach=8

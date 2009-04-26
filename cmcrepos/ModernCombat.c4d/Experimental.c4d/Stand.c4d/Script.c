@@ -135,8 +135,10 @@ public func Grabbed(object byObj, bool grabbed)
       }
     }
      
-    if(!GetWeapon())   
+    if(!GetWeapon())
+    {
       return(AddCommand(byObj,"UnGrab"));//Scher dich zum Teufel du Lausbub!
+    }
   }
 }
 
@@ -210,7 +212,7 @@ public func TurnLeft()
 
 public func TurnRight()
 {
-  var user = GetUser();
+  var user = this();//GetUser();
   if(!user) return();
   
   if((user->GetDir() != DIR_Right) || (GetDir() != DIR_Right))
@@ -245,11 +247,12 @@ public func DoAiming(int iChange)
     angle = angle-angle%10;
 
   // Winkel wird zu groß?
-  if(angle > AimMax() || angle < 0)
+  /*if(angle > AimMax() || angle < 0)
     return;
 
   if(GetDir() == DIR_Left)
-    angle = 360-angle;
+    angle = 360-angle;*/
+
   Crosshair->SetAngle(angle);
 
   UpdateAiming();
@@ -275,7 +278,7 @@ public func ControlThrow(object pCaller)
   if(GetWeapon())
   {
     SetUser(pCaller);
-    GetWeapon()->ControlThrow(GetUser());
+    GetWeapon()->ControlThrow(this());
   }
 }
 
@@ -290,7 +293,7 @@ protected func SetWeapon(object pNewWeapon)
 	//AddEffect("InstallWeapon", this, 123, 300, this);
 	pWeapon = pNewWeapon;
   if(pWeapon)
-    pWeapon->SetUser(GetUser());
+    pWeapon->SetUser(this());
 	return(true);
 }
 
@@ -367,8 +370,10 @@ private func ChangeWeapon(object pTarget)
 	}
 }
 
-protected func ControlAim(string command, object clonk)
+protected func Control2Grab(string command, object clonk)
 {
+  Log(command);
+
 	if(!IsAiming()) return false;
 	
 	else if(command == "ControlUpdate")
@@ -377,8 +382,13 @@ protected func ControlAim(string command, object clonk)
 	else if(command == "ControlUp" || command == "ControlUpDouble")
 		AimUp(this(), 1, "ControlConf");
 
-	else if(command == "ControlDown")
+	else if(command == "ControlDown" || command == "ControlDownDouble")
 		AimDown(this(), 1, "ControlConf");
+    
+	else if(command == "ControlThrow")
+  {
+		ControlThrow(clonk);
+	}
 		
 	else if(command == "ControlLeft")
   {
@@ -402,13 +412,10 @@ protected func ControlAim(string command, object clonk)
   
 	else if(command == "ControlContents")
   {
-
 		var pTarget = clonk->FindContents(Par(2));
 		ChangeWeapon(pTarget);
 		return false;
-
 	}
 
-	
 	return true;
 }

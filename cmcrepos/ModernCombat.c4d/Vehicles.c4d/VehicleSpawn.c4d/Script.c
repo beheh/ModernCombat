@@ -2,9 +2,9 @@
 
 #strict
 
-/* globale Funktionen */
 global func FxIntVehicleSpawn4KStart(object pTarget, int iEffectNumber, int iTemp)
 {
+  if(iTemp) return;
   EffectVar (0,pTarget,iEffectNumber) = CreateArray();//Spawn-IDs
   EffectVar (1,pTarget,iEffectNumber) = 0;//aktuelles Fahrzeug
   return(1);
@@ -53,12 +53,13 @@ global func FxIntVehicleSpawn4KStop(object pTarget, int iEffectNumber, int iReas
   return(-1);
 }
 
-global func SetupVehicleSpawn(array aType, object pTarget)
+global func SetupVehicleSpawn(array aType, object pTarget, int iFrames)
 {
   if(!pTarget) pTarget = this();
   if(!pTarget) return(false);
+  if(!iFrames) iFrames = 70;
   
-  var effect = AddEffect ("IntVehicleSpawn4K",pTarget,50,70,pTarget); 
+  var effect = AddEffect ("IntVehicleSpawn4K",pTarget,50,iFrames,pTarget); 
   
   if(GetLength(aType))
   {
@@ -106,18 +107,19 @@ global func VehicleSpawn_DelType(id idType, object pTarget)
 /* objektspzifische Funktionen */
 public func Spawn(object pObj)
 {
-  AddEffect("SpawnBeam", pObj, 120, 1, pObj, GetID(pObj), 70);
-  Exit (pObj,0,-GetObjHeight(pObj));
+  AddEffect("SpawnBeam", pObj, 120, 1, 0, GetID(), 70);
+  Exit(pObj);
+  pObj->SetPosition(GetX(),GetY()+GetDefOffset(GetID(pObj),0));
 }
 
-global func FxSpawnBeamStart(pTarget, iEffectNumber, temp, iFrames)
+public func FxSpawnBeamStart(pTarget, iEffectNumber, temp, iFrames)
 {
   EffectVar(0, pTarget, iEffectNumber) = GetClrModulation(pTarget);
   EffectVar(1, pTarget, iEffectNumber) = iFrames;
   pTarget -> SetClrModulation(RGBa(255, 255, 255, 255));//Unsichtbar.
 }
 
-global func FxSpawnBeamTimer(pTarget, iEffectNumber, iTime)
+public func FxSpawnBeamTimer(pTarget, iEffectNumber, iTime)
 {
   var end_mod = EffectVar(0, pTarget, iEffectNumber);
   var iFrames = EffectVar(1, pTarget, iEffectNumber);
@@ -132,14 +134,14 @@ global func FxSpawnBeamTimer(pTarget, iEffectNumber, iTime)
     CreateParticle("LsrSprk",x,y,0,-2,170,RGBa(0, RandomX(128,255), 255, 50));
   }
   
-  var v = Interpolate4K(0,255,0,iFrames,iTime);
+  var v = 255-(iTime*255/iFrames);
   pTarget->SetClrModulation(RGBa(255,255,255,v),pTarget);
   
   if(iTime >= iFrames)
     return(-1);
 }
 
-global func FxSpawnBeamStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)
+public func FxSpawnBeamStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)
 {
   pTarget->SetClrModulation(EffectVar(0, pTarget, iEffectNumber), pTarget);
 }

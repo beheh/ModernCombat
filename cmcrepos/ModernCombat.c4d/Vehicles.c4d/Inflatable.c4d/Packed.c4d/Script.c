@@ -17,8 +17,11 @@ public func ControlDigDouble(object pCaller)
     if(GetProcedure(pCaller) ne "WALK")
       return(1);
 
-  CreateObject(INFL,0,0,GetOwner(pCaller));
-  RemoveObject();
+  Exit();
+  ChangeDef(INFL);
+  this->~Initialize();
+  SetCategory(GetCategory(0,INFL));
+  SetObjDrawTransform();
   return(1);
 }
 

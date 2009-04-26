@@ -6,7 +6,7 @@
 //Callback: CanAim
 //Callback: ControlAim
 
-protected func ControlAim(string command)
+/*protected func ControlAim(string command)
 {
   if(Contained())
   {
@@ -18,8 +18,20 @@ protected func ControlAim(string command)
   {
     if(GetActionTarget())
       if(GetActionTarget()->~CanAim())
-        return GetActionTarget()->ControlAim(command,this,...);
+        return GetActionTarget()->~ControlAim(command,this,...);
   }
   
   return _inherited(command,...);
+}*/
+
+public func IsAiming()
+{ 
+  if(GetProcedure() == "PUSH")
+  {
+    if(GetActionTarget())
+      //if(GetActionTarget()->~CanAim())
+        return GetActionTarget()->~IsAiming();
+  }
+
+	return _inherited();
 }
