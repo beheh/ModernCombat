@@ -34,11 +34,13 @@ public func GetPain()
 
 public func SetPain(int iValue)
 {
+  return;
+
   //Allgemein
   var iOld = iPain;
   var iNew = BoundBy(iValue,0,100);
   iPain = iNew;
-  Message("%d/100 Schmerzen",this(),iPain);
+  //Message("%d/100 Schmerzen",this(),iPain);
   
   //Effekte
   if((iOld < iNew) && !HasBlackOut())//Mehr Schmerzen?
