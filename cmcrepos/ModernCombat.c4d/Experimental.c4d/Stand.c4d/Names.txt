@@ -1,1 +1,2 @@
-DE:Ständer
+DE:Waffenständer
+US:Weapon Rack

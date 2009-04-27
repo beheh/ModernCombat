@@ -2,6 +2,11 @@
 
 #strict
 
+func ChooserRuleConfig()
+{
+  return [FDMG,NOFF,NOAM];
+}
+
 func Initialize()
 {
   //Tigerjets

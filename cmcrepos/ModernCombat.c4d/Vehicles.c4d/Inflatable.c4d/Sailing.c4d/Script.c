@@ -12,8 +12,9 @@ func SetUp()
   SetDir(DIR_Left);
 
   turn_end_dir = -1;
-  motor = CreateObject(OBMT,0,0,NO_OWNER);
+  motor = CreateObject(OBMT,0,0,GetOwner());
   motor->SetBoat(this());
+  motor->UpdateDmg();
   
   SetDir(dir);
   TurnEnd();

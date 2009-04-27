@@ -10,7 +10,7 @@ public func Initialize()
 public func MaxDamage()		{ return(50); }
 
 public func IsBulletTarget(){return(true);}
-//public func IgnoreFriendlyFire() {return(true);}
+public func IgnoreFriendlyFire() {return(true);}
 
 private func UpdateDmg()
 {
@@ -76,6 +76,11 @@ func SetUser(object pUser)
   SetOwner(plr);
   if(GetActionTarget())
     GetActionTarget()->SetOwner(plr);
+}
+
+func Grabbed(object byObj)
+{
+  SetUser(byObj);
 }
 
 

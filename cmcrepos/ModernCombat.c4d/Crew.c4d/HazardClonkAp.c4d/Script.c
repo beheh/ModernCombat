@@ -373,26 +373,25 @@ protected func PackAmmo(id idType, int iCaller)
 {
   //Wir übersehen mal, das beliebig viel Muni verpackt werden könnte.
   var pCaller = Object(iCaller);
-  /*var pPack;
   
-  for(var obj in FindObjects(Find_Container(),Find_ID(CUAM)))
+  var pPack = DoAmmoPack(idType);
+  
+  if(pPack)
   {
-    if(obj->AmmoID() == idType)
-    {
-      pPack = obj;
-      break;
-    }
-  }*/
-  
-  var pPack = CreateObject(CUAM,0,0,GetOwner());
+    var iChange = pPack->AmmoCount();
+  }
+  else
+  {
+    pPack = CreateObject(CUAM,0,0,GetOwner());
 
-  pPack->SetAmmoID(idType);
-  var change = pPack->DoAmmoCount(GetAmmo(idType));
-  DoAmmo(idType,-change);
+    pPack->SetAmmoID(idType);
+    iChange = pPack->DoAmmoCount(GetAmmo(idType));
+    DoAmmo(idType,-iChange);
+  }
   
   if(!Collect(pPack,this()))
   {
-    DoAmmo(idType,+change); 
+    DoAmmo(idType,+iChange); 
     RemoveObject(pPack);//What a fail. :C
   }
   else
@@ -404,6 +403,22 @@ protected func PackAmmo(id idType, int iCaller)
     ContextAmmobag(pCaller);
     SelectMenuItem(sel,pCaller);
   }
+}
+
+protected func DoAmmoPack(id idType)
+{
+  var ap = idType->~AmmoPackID();
+  if(!ap || !FindDefinition(ap)) return 0;
+  
+  var my_count = GetAmmo(idType);
+  var ap_count = ap->AmmoCount();
+
+  if(my_count < ap_count) return 0;
+  
+  var pack = CreateObject(ap,0,0,GetOwner());
+  DoAmmo(idType,-ap_count);
+  
+  return pack;
 }
 
 /* Schaden */

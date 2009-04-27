@@ -1,6 +1,6 @@
 [DefCore]
-id=STND
-Name=Stand
+id=WRCK
+Name=Weapon Rack
 Version=4,9,5,0
 Category=C4D_Vehicle
 MaxUserSelect=1

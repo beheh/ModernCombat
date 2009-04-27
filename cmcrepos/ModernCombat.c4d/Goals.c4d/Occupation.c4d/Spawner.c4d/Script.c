@@ -13,6 +13,11 @@ global func CreateGOCCSpawner(object pCrew)
   return(true);
 }
 
+public func Initialize()
+{
+  SetVisibility(VIS_Owner);
+}
+
 public func FxIntSpawnCounterStart(object pTarget, int iEffectNumber, int iTemp)
 {
   SetAction("Counter");
