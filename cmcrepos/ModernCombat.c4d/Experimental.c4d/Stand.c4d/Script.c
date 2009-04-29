@@ -1,16 +1,20 @@
 /*-- Waffenständer --*/
-#strict
 
-local pWeapon, pUser;
+#strict 2
+#include L_WR
 
-/* Allgemeines */
-protected func Initialize()
+
+/* Allgemein */
+
+private func IsMachine() { return true; }
+private func IsBulletTarget() { return true; }
+
+public func Initialize()
 {
-  SetController(GetOwner());	
+  SetController(GetOwner());
   SetAction("Be");
-  AddEffect("ShowWeapon",this(),1,1,this(),GetID());
-  SetGraphics(0,this(),GetID(),3,5,0,0,this());
-	return(true);
+  SetGraphics(0,this,GetID(),3,5,0,0,this);
+  return _inherited();
 }
 
 public func Damage()
@@ -19,67 +23,31 @@ public func Damage()
     Explode(20);
 }
 
-/* Waffenzeugs */
-public func Arm(id idType)//Armed and dangerous! >:D
-{
-  if(!idType->~IsWeapon()) return 0;
-  var wepn = CreateObject(idType,0,0,GetController());
-  wepn->Enter(this());
-  return(wepn);
-}
-
 public func WeaponAt(&x, &y, &r)
 {
   x = 0;
   y = -5000;//TODO: Werte anpassen.
-  if(Crosshair)
-    r = Crosshair->GetAngle()+270;
-  return(1);
-}
-
-public func WeaponBegin(&x, &y)
-{
-  var number = GetEffect("ShowWeapon",this());
-  if(!number)
-    return(0);
-  x = EffectVar(2, this(), number)/1000;
-  y = EffectVar(3, this(), number)/1000;
-}
-
-public func WeaponEnd(&x, &y)
-{
-  var number = GetEffect("ShowWeapon",this());
-  if(!number)
-    return(0);
-  x = EffectVar(4, this(), number)/1000;
-  y = EffectVar(5, this(), number)/1000;
-}
-
-public func GetWeaponR()
-{
-  var number = GetEffect("ShowWeapon",this());
-  if(!number)
-    return(0);
-  return(EffectVar(1, this(), number));
+  
+  var ch = GetCrosshair();
+  if(ch)
+    r = ch->GetAngle()+270;
+  return 1;
 }
 
 /* Steuerung */
-/*protected func RejectCollection(object pObject)
-{
-  if(!pObject->~IsWeapon())//Nanu? Keine Waffe? Nee, die nehmen wir nicht.
-  {
-    Sound("Error", false, this());
-    return(true);
-  }
-  else
-    return(false);
-}*/
 
-public func SelectWeapon(object pClonk)
+public func FxSelectWeaponStart(object pClonk, int iEffectNumber, int iTemp, wpn)
 {
-  pClonk->ShiftContents(0,0,GetID(pWeapon));
+  if(!wpn) return -1;
+  EffectVar(0,pClonk,iEffectNumber) = wpn;
+}
+
+public func FxSelectWeaponTimer(object pClonk, int iEffectNumber)
+{
+  pClonk->ShiftContents(0,0,GetID(EffectVar(0,pClonk,iEffectNumber)));
   EffectCall(pClonk,LocalN("wpneffect",pClonk),"Timer");
   pClonk->~CheckArmed();
+  return -1;
 }
 
 public func GrabLost()
@@ -89,33 +57,29 @@ public func GrabLost()
 
 public func Grabbed(object byObj, bool grabbed)
 {
-  if(!grabbed && (pUser == byObj))
+  var clonk = GetUser();
+
+  if(!grabbed && (user == byObj))
   {
-    EndAim();
-    if(GetWeapon())
+    var wp = GetWeapon();
+    Disarm();
+    if(wp && byObj)
     {
-      pWeapon->Exit();
-      if(byObj)
-      {
-        pWeapon->~AimStop();
-        byObj->Collect(pWeapon);
-        ScheduleCall(this(),"SelectWeapon",2,0,byObj);
-        EffectCall(this(),GetEffect("ShowWeapon",this()),"Timer");
-      }
+      byObj->Collect(wp);
+      AddEffect("SelectWeapon",byObj,0,1,0,GetID(),wp);
     }
-  	SetUser();
+  	SetUser(0);
     
-    return();
+    return 0;
   }
 
-	if(GetUser() && (pUser != byObj))
+	if(user && (user != byObj))
 	{
-		return(AddCommand(byObj,"UnGrab"));
+		return AddCommand(byObj,"UnGrab");
 	}
 	else
 	{
 		SetUser(byObj);
-		SetOwner(GetController(byObj));
 	}
 
   if(byObj && !GetWeapon())
@@ -125,255 +89,79 @@ public func Grabbed(object byObj, bool grabbed)
     {
       if(wpn->~IsWeapon())
       {
-        while(Contents()) Exit(Contents(),0,0);
-        wpn->Enter(this());//Collect(wpn,this())
-        SetWeapon(wpn);
-        EffectCall(byObj,LocalN("wpneffect",byObj),"Timer");
-        EffectCall(this(),GetEffect("ShowWeapon",this()),"Timer");
-        pWeapon->~AimStart();
-        InitAim();
+        while(Contents())
+          Exit(Contents(),0,0);
+        Arm(wpn);
+        StartAiming();
       }
     }
      
     if(!GetWeapon())
     {
-      return(AddCommand(byObj,"UnGrab"));//Scher dich zum Teufel du Lausbub!
+      return AddCommand(byObj,"UnGrab");//Scher dich zum Teufel du Lausbub!
     }
   }
 }
 
-/** Zielen **/
 
-local Crosshair;
-
-private func InitAim(int angle)
-{
-	if(Crosshair)
-		RemoveObject(Crosshair);
-	
-	Crosshair = CreateObject(HCRH); // Owner wird in Init gesetzt
-	Crosshair->Init(this());
-	Crosshair->SetAngle(angle);
-} 
-
-private func EndAim()
-{
-	if(pWeapon)
-    pWeapon->PauseReload();
-	AimCancel(GetUser());
-	SetUser();
-	if(Crosshair)
-		RemoveObject(Crosshair);
-}
+/* Zielen */
 
 private func AimMax() { return(90); }
 
-public func DoMouseAiming(int iTx, int iTy)
+public func CorrectAimAngle(int iAngle)
 {
-	if(!Contained())
-  {
-		var iAngle = Normalize(Angle(GetX(),GetY(),iTx,iTy),-180);
-
-		if(iAngle > 0)
-			TurnRight();
-		else
-			TurnLeft();
-
-		//Winkel wird zu groß?
-		iAngle = BoundBy(iAngle,-AimMax(),+AimMax());
-
-		Crosshair->SetAngle(iAngle);
-		UpdateAiming();
-		//Wichtig: Waffe updaten
-		EffectCall(this,LocalN("wpneffect",this),"Timer");
-
-		// Fertig, Feuern!
-		ControlThrow(GetUser());
-		return true;
-	}
-	return false;
+  iAngle = BoundBy(iAngle, 0,AimMax());
+  
+  if(Direction() == DIR_Left)
+    iAngle = 360-iAngle;
+  
+  return iAngle;
 }
 
-public func TurnLeft()
+public func OnTurnLeft()
 {
-  var user = GetUser();
-  if(!user) return();
+  SetDir(DIR_Left);
+  UpdateAiming();
   
-  if((user->GetDir() != DIR_Left) || (GetDir() != DIR_Left))
+  var clonk = GetUser();
+  if(!clonk) return;
+  
+  if((clonk->GetDir() != DIR_Left) || (Direction() != DIR_Left))
   {
     SetDir(DIR_Left);
-    user->SetDir(DIR_Left);
-    var xoff = user->GetX() - GetX();
-    user->SetPosition(GetX() - xoff, user->GetY());
-    
-    UpdateAiming();
+    clonk->SetDir(DIR_Left);
+    var xoff = clonk->GetX() - GetX();
+    clonk->SetPosition(GetX() - xoff, clonk->GetY());
   }
 }
 
-public func TurnRight()
+public func OnTurnRight()
 {
-  var user = this();//GetUser();
-  if(!user) return();
+  SetDir(DIR_Right);
+  UpdateAiming();
   
-  if((user->GetDir() != DIR_Right) || (GetDir() != DIR_Right))
+  var clonk = GetUser();
+  if(!clonk) return;
+  
+  if((clonk->GetDir() != DIR_Right) || (Direction() != DIR_Right))
   {
     SetDir(DIR_Right);
-    user->SetDir(DIR_Right);
-    var xoff = user->GetX() - GetX();
-    user->SetPosition(GetX() - xoff, user->GetY());
-    
-    UpdateAiming();
+    clonk->SetDir(DIR_Right);
+    var xoff = clonk->GetX() - GetX();
+    clonk->SetPosition(GetX() - xoff, clonk->GetY());
   }
 }
 
-public func ControlConf(int conf)
+public func Direction()
 {
-  if(GetPlrCoreJumpAndRunControl(GetController()))
-    DoAiming(conf * AIM_Step / 5);
-  else
-    DoAiming(conf * AIM_Step);
-}
-
-public func DoAiming(int iChange)
-{
-  //zielen wir überhaupt?
-  if(!IsAiming())
-    return;
-
-  var angle = Abs(Crosshair->GetAngle()) + iChange;
-
-  // Winkel anpassen, wenn keine freie Auswahl (klassische Steuerung)
-  if(!GetPlrCoreJumpAndRunControl(GetController()))
-    angle = angle-angle%10;
-
-  // Winkel wird zu groß?
-  /*if(angle > AimMax() || angle < 0)
-    return;
-
-  if(GetDir() == DIR_Left)
-    angle = 360-angle;*/
-
-  Crosshair->SetAngle(angle);
-
-  UpdateAiming();
-}
-
-public func UpdateAiming()
-{
-  if(!IsAiming())
-    return;
-
-  var a = Crosshair->GetAngle();
-
-  if((GetDir() == DIR_Left && a > 0) ||
-     (GetDir() == DIR_Right && a < 0))
-    Crosshair->ChangeDir();
-    
-  if(GetWeapon())
-    EffectCall(this(),GetEffect("ShowWeapon",this()),"Timer");
-}
-
-public func ControlThrow(object pCaller)
-{
-  if(GetWeapon())
-  {
-    SetUser(pCaller);
-    GetWeapon()->ControlThrow(this());
-  }
+  return GetDir();
 }
 
 
+/* Steuerung */
 
-
-
-/** Kontrollfuntkionen **/
-
-protected func SetWeapon(object pNewWeapon)
+public func Control2Grab(string command, object clonk)
 {
-	//AddEffect("InstallWeapon", this, 123, 300, this);
-	pWeapon = pNewWeapon;
-  if(pWeapon)
-    pWeapon->SetUser(this());
-	return(true);
-}
-
-public func GetWeapon()
-{
-  if(pWeapon)//Updaten.
-    if(pWeapon->Contained() != this())
-      pWeapon = 0;
-  
-  return(pWeapon);
-}
-
-public func FxInstallWeaponTimer()
-{
-  SetGraphics(0, this, GetID(pWeapon), 1, GFXOV_MODE_Object);
-  pWeapon->SetUser(this());
- 
-  pWeapon->~OnSelect();//HAHA!
-  
-  return(-1);
-}
-
-public func GetUser()
-{
-  if(pUser)//Updaten.
-    if((GetProcedure(pUser) ne "PUSH") || (pUser->GetActionTarget() != this()))
-      pUser = 0;
-  
-  return(pUser);
-}
-
-public func SetUser(object pNewUser)
-{
-  pUser = pNewUser;
-}
-
-public func AimAngle(int iMaxAngle, int iRange)
-{
-  if(!IsAiming()) return;
-
-	var angle = Crosshair->GetAngle();
-	var x,y,r;
-	this->~WeaponAt(x,y,r);
-  
-  if(iMaxAngle)
-  {
-		var target = this->~GetTarget(angle,iMaxAngle,iRange);
-		if(target)
-			angle = Angle(GetX(),GetY(),GetX(target),GetY(target));
-	}
-
-	return(angle);
-}
-
-/* Tags */
-private func IsMachine()     {return true;}
-public func ReadyToFire()    {return(GetUser() && GetWeapon());}
-public func IsBulletTarget() {return(true);}
-public func IsAiming()       {return(ReadyToFire() && Crosshair);}
-public func ReadyToAim()     {return(ReadyToFire());}
-
-
-
-/** BOING **/
-
-public func CanAim()     {return(true);}
-
-private func ChangeWeapon(object pTarget)
-{
-	if(!pTarget->~IsWeapon())
-  {
-    GrabLost();
-		AddCommand(GetUser(),"UnGrab");
-	}
-}
-
-protected func Control2Grab(string command, object clonk)
-{
-  Log(command);
-
 	if(!IsAiming()) return false;
 	
 	else if(command == "ControlUpdate")
@@ -386,29 +174,19 @@ protected func Control2Grab(string command, object clonk)
 		AimDown(this(), 1, "ControlConf");
     
 	else if(command == "ControlThrow")
-  {
-		ControlThrow(clonk);
-	}
+		Fire();
 		
 	else if(command == "ControlLeft")
-  {
 	  TurnLeft();
-	}
 	
 	else if(command == "ControlRight")
-  {
 		TurnRight();
-	}
 	
 	else if(command == "ControlLeftDouble" || command == "ControlRightDouble")
-  {
 		AddCommand(GetUser(),"UnGrab");
-	}
 	
 	else if(command == "ControlCommand")
-  {
 		return DoMouseAiming(Par(3),Par(4));
-	}
   
 	else if(command == "ControlContents")
   {
@@ -418,4 +196,13 @@ protected func Control2Grab(string command, object clonk)
 	}
 
 	return true;
+}
+
+public func ChangeWeapon(object pTarget)
+{
+	if(!pTarget->~IsWeapon())
+  {
+    GrabLost();
+		AddCommand(GetUser(),"UnGrab");
+	}
 }
