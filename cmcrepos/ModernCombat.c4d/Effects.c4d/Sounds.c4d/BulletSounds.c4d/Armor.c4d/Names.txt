@@ -1,2 +1,0 @@
-DE:Panzerung
-US:Armor

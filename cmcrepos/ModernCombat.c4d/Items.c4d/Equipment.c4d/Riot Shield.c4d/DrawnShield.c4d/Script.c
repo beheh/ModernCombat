@@ -25,10 +25,13 @@ public func UpdateR()
 
 public func Damage() {return(1);}//TODO: Wirklich unzerstörbar?
 public func IsBulletTarget() {return(true);}
+
 public func OnHit(int iDamage, int iType, object pFrom)
 {
-  if(pFrom) if(pFrom->~IsBullet())
-    Sound("ArmorImpact*");
+  //if(pFrom) if(pFrom->~IsBullet())
+  Sound("BlockOff*.ogg");
+  Sparks(5,RGB(255,255,255));
+  AddLightFlash(40,0,0,RGB(255,255,255),this());
 }
 
 //Script teilweise aus dem Ritterpack.

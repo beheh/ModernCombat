@@ -70,6 +70,7 @@ private func CreateShield()
   {
     pShield = CreateObject(RSLH,0,0,GetOwner(GetUser()));
     pShield->Set(GetUser());
+    Sound("RSHL_Deploy.ogg");
   }
 }
 
@@ -79,6 +80,7 @@ private func RemoveShield()
   
   SetAction("Idle");
   RemoveObject(pShield);
+  Sound("RSHL_Hide.ogg");
 }
 
 
