@@ -7,4 +7,3 @@ NextAction=Fly
 Length=26
 Delay=3
 FacetBase=1
-Sound=Flag

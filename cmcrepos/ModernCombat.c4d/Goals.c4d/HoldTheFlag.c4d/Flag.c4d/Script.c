@@ -1,4 +1,4 @@
-/*--- Flagge ---*/
+/*-- Flagge --*/
 
 #strict
 

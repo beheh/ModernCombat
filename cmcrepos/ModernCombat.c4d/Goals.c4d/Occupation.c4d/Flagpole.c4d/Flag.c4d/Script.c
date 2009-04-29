@@ -1,6 +1,7 @@
-/* Fahne */
+/*-- Fahne --*/
 
 #strict
+
 
 protected func Initialize()
 {
@@ -13,5 +14,7 @@ protected func Initialize()
 
 private func Wind()
 {
-    if(GetAction() S= "Fly") SetDir(BoundBy(GetWind() / 15 + 3, 0, 6));
+  Sound("FlagWave*.ogg");
+  if(GetAction() S= "Fly")
+    SetDir(BoundBy(GetWind() / 15 + 3, 0, 6));
 }
