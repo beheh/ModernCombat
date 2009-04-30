@@ -6,7 +6,7 @@ local state;
 
 protected func Initialize()
 {
-  SetPosition(); //In die Ecke mit dir!
+  SetPosition();
   
   for(var o in FindObjects(Find_ID(GetID())))
   {
@@ -24,14 +24,14 @@ protected func Initialize()
   if(state == 2)
   {
     DoClouds(5);
-    Sound("Rain",true,0,50,0,+1);
+    Sound("Rain.ogg",true,0,50,0,+1);
 	  return();
   }
   
   if(state >= 3)
   {
     DoClouds(6);
-    Sound("Rain",true,0,0,0,+1);
+    Sound("Rain.ogg",true,0,0,0,+1);
     return();
   }
 }
@@ -76,6 +76,6 @@ protected func Timer()
   var x = Random(LandscapeWidth());
   var lightning = CreateObject(FXL1,x,1,NO_OWNER);
   lightning->Activate(x, 1, -20, 41, +5, 15);
-  lightning->Sound("Thunder*",1);
+  lightning->Sound("Thunder*.ogg",1);
   lightning->AddLightFlash(1500+Random(1500),0,0,RGB(200,255,255), lightning); 
 }

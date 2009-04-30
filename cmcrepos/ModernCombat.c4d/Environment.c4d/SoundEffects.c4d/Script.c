@@ -8,7 +8,7 @@ local soundset,interval,variation,falloff,globalsound;
 public func Set(string szSoundSet, int iInterval, int iVariation, int iFalloff)
 {
   soundset = szSoundSet;
-  if(!soundset) soundset = "Waves*";
+  if(!soundset) soundset = "Wave*.ogg";
   
   interval = iInterval;
   //if(!interval) interval = 100;
