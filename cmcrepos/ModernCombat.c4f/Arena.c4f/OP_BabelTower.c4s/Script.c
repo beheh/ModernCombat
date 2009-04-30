@@ -402,25 +402,25 @@ func CreateFurniture()
   //Sounds
 
   //Wind
-  CreateObject(SE4K, 585, 150, -1)->Set("WindSound*",245,105);
-  CreateObject(SE4K, 265, 520, -1)->Set("WindSound*",245,105);
-  CreateObject(SE4K, 900, 520, -1)->Set("WindSound*",245,105);
-  CreateObject(SE4K, 145, 870, -1)->Set("WindSound*",245,105);
-  CreateObject(SE4K, 1025, 870, -1)->Set("WindSound*",245,105);
-  CreateObject(SE4K, 225, 1325, -1)->Set("WindSound*",245,105);
-  CreateObject(SE4K, 945, 1325, -1)->Set("WindSound*",245,105);
-  CreateObject(SE4K, 165, 1855, -1)->Set("WindSound*",245,105);
-  CreateObject(SE4K, 1005, 1855, -1)->Set("WindSound*",245,105);
-  CreateObject(SE4K, 240, 2110, -1)->Set("WindSound*",245,105);
-  CreateObject(SE4K, 930, 2110, -1)->Set("WindSound*",245,105);
+  CreateObject(SE4K, 585, 150, -1)->Set("WindSound*.ogg",245,105);
+  CreateObject(SE4K, 265, 520, -1)->Set("WindSound*.ogg",245,105);
+  CreateObject(SE4K, 900, 520, -1)->Set("WindSound*.ogg",245,105);
+  CreateObject(SE4K, 145, 870, -1)->Set("WindSound*.ogg",245,105);
+  CreateObject(SE4K, 1025, 870, -1)->Set("WindSound*.ogg",245,105);
+  CreateObject(SE4K, 225, 1325, -1)->Set("WindSound*.ogg",245,105);
+  CreateObject(SE4K, 945, 1325, -1)->Set("WindSound*.ogg",245,105);
+  CreateObject(SE4K, 165, 1855, -1)->Set("WindSound*.ogg",245,105);
+  CreateObject(SE4K, 1005, 1855, -1)->Set("WindSound*.ogg",245,105);
+  CreateObject(SE4K, 240, 2110, -1)->Set("WindSound*.ogg",245,105);
+  CreateObject(SE4K, 930, 2110, -1)->Set("WindSound*.ogg",245,105);
 
   //Rush Hour
-  CreateObject(SE4K, 225, 2090, -1)->Set("Traffic*",245,70);
-  CreateObject(SE4K, 945, 2090, -1)->Set("Traffic*",245,70);
+  CreateObject(SE4K, 225, 2090, -1)->Set("Traffic*.ogg",245,70);
+  CreateObject(SE4K, 945, 2090, -1)->Set("Traffic*.ogg",245,70);
 
   //Sirenen
-  CreateObject(SE4K, 20, 2090, -1)->Set("Siren*",280,140);
-  CreateObject(SE4K, 1150, 2090, -1)->Set("Siren*",280,140);
+  CreateObject(SE4K, 20, 2090, -1)->Set("Siren*.ogg",280,140);
+  CreateObject(SE4K, 1150, 2090, -1)->Set("Siren*.ogg",280,140);
 }
 
 func CreateEquipment()

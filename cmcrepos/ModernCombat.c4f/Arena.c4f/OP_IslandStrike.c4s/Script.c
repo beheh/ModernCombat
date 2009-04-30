@@ -391,37 +391,37 @@ func CreateFurniture()
   //Sounds
 
   //Möven
-  CreateObject(SE4K, 865, 480, -1)->Set("SeaSounds*",140,35);
-  CreateObject(SE4K, 2290, 500, -1)->Set("SeaSounds*",140,35);
-  CreateObject(SE4K, 2480, 460, -1)->Set("SeaSounds*",140,35);
-  CreateObject(SE4K, 4775, 460, -1)->Set("SeaSounds*",140,35);
-  CreateObject(SE4K, 5120, 420, -1)->Set("SeaSounds*",140,35);
-  CreateObject(SE4K, 6660, 450, -1)->Set("SeaSounds*",140,35);
-  CreateObject(SE4K, 6850, 500, -1)->Set("SeaSounds*",140,35);
-  CreateObject(SE4K, 7560, 275, -1)->Set("SeaSounds*",140,35);
+  CreateObject(SE4K, 865, 480, -1)->Set("SeaSounds*.ogg",140,35);
+  CreateObject(SE4K, 2290, 500, -1)->Set("SeaSounds*.ogg",140,35);
+  CreateObject(SE4K, 2480, 460, -1)->Set("SeaSounds*.ogg",140,35);
+  CreateObject(SE4K, 4775, 460, -1)->Set("SeaSounds*.ogg",140,35);
+  CreateObject(SE4K, 5120, 420, -1)->Set("SeaSounds*.ogg",140,35);
+  CreateObject(SE4K, 6660, 450, -1)->Set("SeaSounds*.ogg",140,35);
+  CreateObject(SE4K, 6850, 500, -1)->Set("SeaSounds*.ogg",140,35);
+  CreateObject(SE4K, 7560, 275, -1)->Set("SeaSounds*.ogg",140,35);
 
   //Wellen
-  CreateObject(SE4K, 240, 510, -1)->Set("Wave*",105,35);
-  CreateObject(SE4K, 640, 510, -1)->Set("Wave*",105,35);
-  CreateObject(SE4K, 1620, 510, -1)->Set("Wave*",105,35);
-  CreateObject(SE4K, 2090, 510, -1)->Set("Wave*",105,35);
-  CreateObject(SE4K, 4000, 530, -1)->Set("Wave*",105,35);
+  CreateObject(SE4K, 240, 510, -1)->Set("Wave*.ogg",105,35);
+  CreateObject(SE4K, 640, 510, -1)->Set("Wave*.ogg",105,35);
+  CreateObject(SE4K, 1620, 510, -1)->Set("Wave*.ogg",105,35);
+  CreateObject(SE4K, 2090, 510, -1)->Set("Wave*.ogg",105,35);
+  CreateObject(SE4K, 4000, 530, -1)->Set("Wave*.ogg",105,35);
 
-  CreateObject(SE4K, 4910, 550, -1)->Set("Wave*",105,35);
-  CreateObject(SE4K, 5370, 550, -1)->Set("Wave*",105,35);
-  CreateObject(SE4K, 7050, 510, -1)->Set("Wave*",105,35);
-  CreateObject(SE4K, 7660, 510, -1)->Set("Wave*",105,35);
+  CreateObject(SE4K, 4910, 550, -1)->Set("Wave*.ogg",105,35);
+  CreateObject(SE4K, 5370, 550, -1)->Set("Wave*.ogg",105,35);
+  CreateObject(SE4K, 7050, 510, -1)->Set("Wave*.ogg",105,35);
+  CreateObject(SE4K, 7660, 510, -1)->Set("Wave*.ogg",105,35);
 
   //Jungel
-  CreateObject(SE4K, 3160, 290, -1)->Set("Jungle*",140,70);
-  CreateObject(SE4K, 3375, 360, -1)->Set("Jungle*",140,70);
-  CreateObject(SE4K, 5850, 340, -1)->Set("Jungle*",140,70);
+  CreateObject(SE4K, 3160, 290, -1)->Set("Jungle*.ogg",140,70);
+  CreateObject(SE4K, 3375, 360, -1)->Set("Jungle*.ogg",140,70);
+  CreateObject(SE4K, 5850, 340, -1)->Set("Jungle*.ogg",140,70);
 
   //Wind
-  CreateObject(SE4K, 1025, 170, -1)->Set("WindSound*",245,105);
-  CreateObject(SE4K, 4000, 280, -1)->Set("WindSound*",245,105);
-  CreateObject(SE4K, 5120, 365, -1)->Set("WindSound*",245,105);
-  CreateObject(SE4K, 7255, 260, -1)->Set("WindSound*",245,105);
+  CreateObject(SE4K, 1025, 170, -1)->Set("WindSound*.ogg",245,105);
+  CreateObject(SE4K, 4000, 280, -1)->Set("WindSound*.ogg",245,105);
+  CreateObject(SE4K, 5120, 365, -1)->Set("WindSound*.ogg",245,105);
+  CreateObject(SE4K, 7255, 260, -1)->Set("WindSound*.ogg",245,105);
 
   //Kran und Konsolen
   var cran = CreateObject(CRN1, 4000, 359, -1);

@@ -78,8 +78,15 @@ func CreateFurniture()
   //Sounds
 
   //Wind
-  CreateObject(SE4K, 945, 890, -1)->Set("WindSound*",775,250);
-  CreateObject(SE4K, 1550, 820, -1)->Set("WindSound*",775,250);
+  CreateObject(SE4K, 945, 890, -1)->Set("WindSound*.ogg",775,250);
+  CreateObject(SE4K, 1550, 820, -1)->Set("WindSound*.ogg",775,250);
+
+  //Erdrutsche
+  CreateObject(SE4K, 70, 255, -1)->Set("FallingDirt*.ogg",775,250);
+  CreateObject(SE4K, 170, 600, -1)->Set("FallingDirt*.ogg",775,250);
+
+  CreateObject(SE4K, 1520, 790, -1)->Set("FallingDirt*.ogg",775,250);
+  CreateObject(SE4K, 1740, 290, -1)->Set("FallingDirt*.ogg",775,250);
 }
 
 func CreateEquipment()

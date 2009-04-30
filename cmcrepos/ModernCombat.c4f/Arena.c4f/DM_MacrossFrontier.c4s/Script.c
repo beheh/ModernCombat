@@ -276,15 +276,15 @@ func CreateFurniture()
   //Sounds
 
   //Wind
-  CreateObject(SE4K, 585, 150, -1)->Set("WindSound*",775,250);
+  CreateObject(SE4K, 585, 150, -1)->Set("WindSound*.ogg",775,250);
 
   //Rush Hour
-  CreateObject(SE4K, 20, 60, -1)->Set("Traffic*",245,70);
-  CreateObject(SE4K, 1510, 40, -1)->Set("Traffic*",245,70);
+  CreateObject(SE4K, 20, 60, -1)->Set("Traffic*.ogg",245,70);
+  CreateObject(SE4K, 1510, 40, -1)->Set("Traffic*.ogg",245,70);
 
   //Hallen
-  CreateObject(SE4K, 490, 390, -1)->Set("Interior*",665,105);
-  CreateObject(SE4K, 1060, 310, -1)->Set("Interior*",665,105);
+  CreateObject(SE4K, 490, 390, -1)->Set("Interior*.ogg",665,105);
+  CreateObject(SE4K, 1060, 310, -1)->Set("Interior*.ogg",665,105);
 }
 
 func CreateEquipment()

@@ -222,19 +222,6 @@ func CreateFurniture()
   var doorw = CreateObject(GAT1, 170, 140, -1);
   CreateObject(ROOM, 435, 730, -1)->Connect(doorw);
 
-  //Sounds
-
-  //Wind
-  CreateObject(SE4K, 280, 775, -1)->Set("WindSound*",775,250);
-  CreateObject(SE4K, 730, 775, -1)->Set("WindSound*",775,250);
-  CreateObject(SE4K, 725, 775, -1)->Set("WindSound*",775,250);
-
-  //Hallen
-  CreateObject(SE4K, 90, 555, -1)->Set("Interior*",665,105);
-  CreateObject(SE4K, 555, 555, -1)->Set("Interior*",665,105);
-  CreateObject(SE4K, 880, 555, -1)->Set("Interior*",665,105);
-  CreateObject(SE4K, 1230, 555, -1)->Set("Interior*",665,105);
-
   //Selbstschussanlagen
   aSelfDefense[0] = CreateObject (SEGU, 360, 420, -1);
     aSelfDefense[0]->Arm(MGSA);
@@ -281,6 +268,19 @@ func CreateFurniture()
     AddWarnEffect(warn,aFlag[5]);
   warn = CreateObject (ALGH, 1055, 170, -1);
     AddWarnEffect(warn,aFlag[5]);
+
+  //Sounds
+
+  //Wind
+  CreateObject(SE4K, 280, 775, -1)->Set("WindSound*.ogg",775,250);
+  CreateObject(SE4K, 730, 775, -1)->Set("WindSound*.ogg",775,250);
+  CreateObject(SE4K, 725, 775, -1)->Set("WindSound*.ogg",775,250);
+
+  //Hallen
+  CreateObject(SE4K, 90, 555, -1)->Set("Interior*.ogg",665,105);
+  CreateObject(SE4K, 555, 555, -1)->Set("Interior*.ogg",665,105);
+  CreateObject(SE4K, 880, 555, -1)->Set("Interior*.ogg",665,105);
+  CreateObject(SE4K, 1230, 555, -1)->Set("Interior*.ogg",665,105);
 }
 
 func CreateEquipment()

@@ -177,13 +177,6 @@ func CreateFurniture()
   CreateObject(GSTA, 2585, 340, -1);
   CreateObject(GSTA, 3585, 340, -1);
 
-  //Sounds
-
-  //Hallen
-  CreateObject(SE4K, 910, 250, -1)->Set("Interior*",665,105);
-
-  CreateObject(SE4K, 3130, 250, -1)->Set("Interior*",665,105);
-
   //Verbundene Türen
   var doorw = CreateObject(ROOM, 890, 210, -1);
   CreateObject(ROOM, 890, 340, -1)->Connect(doorw);
@@ -251,14 +244,12 @@ func CreateFurniture()
   aGate[22] = CreateObject(GAT1, 3865, 190, -1);
   aGate[23] = CreateObject(GAT1, 4020, 190, -1);
 
-  ///Container
-  /*
-  CreateObject(CON1, 285, 340, -1);
-  CreateObject(CON1, 1235, 340, -1);
+  //Sounds
 
-  CreateObject(CON1, 2805, 340, -1);
-  CreateObject(CON1, 3755, 340, -1);
-  */
+  //Hallen
+  CreateObject(SE4K, 910, 250, -1)->Set("Interior*.ogg",665,105);
+
+  CreateObject(SE4K, 3130, 250, -1)->Set("Interior*.ogg",665,105);
 }
 
 func CreateStippel()
