@@ -29,6 +29,9 @@ public func IsBulletTarget() {return(true);}
 public func OnHit(int iDamage, int iType, object pFrom)
 {
   //if(pFrom) if(pFrom->~IsBullet())
+  // BulletCasing(0,0);
+  //Wurde eine Kugel abgewehrt, fliegt eine Patronenhülse in Richtung des Schusses, diese stellt die abgewehrte Kugel dar
+
   Sound("BlockOff*.ogg");
   Sparks(5,RGB(255,255,255));
   AddLightFlash(40,0,0,RGB(255,255,255),this());

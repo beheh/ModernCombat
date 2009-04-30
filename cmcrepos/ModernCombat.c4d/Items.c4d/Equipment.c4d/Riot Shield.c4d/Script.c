@@ -131,3 +131,9 @@ public func FxIntUnbuckleTimer()
   OnUnbuckleEnd();
   return(-1);
 }
+
+protected func Hit()
+{
+  Sound("BlockOff*.ogg");
+  return(1);
+}
