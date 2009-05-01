@@ -9,7 +9,7 @@ Height=16
 Offset=-6,-8
 Value=40
 Mass=16
-Components=METL=3
+Components=METL=5
 Picture=12,0,64,64
 Vertices=4
 Rebuy=1
@@ -19,4 +19,3 @@ ColorByOwner=1
 VertexX=-5,4,4,-5
 VertexY=-7,6,-7,6
 VertexFriction=60,60,60,60
-
