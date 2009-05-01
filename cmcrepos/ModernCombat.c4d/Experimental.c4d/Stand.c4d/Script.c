@@ -19,18 +19,17 @@ public func Initialize()
 
 public func Damage()
 {
-  if(GetDamage() > 100)//TODO: Anpassen.
+  if(GetDamage() > 20)//TODO: Anpassen.
     Explode(20);
 }
 
 public func WeaponAt(&x, &y, &r)
 {
+  if(!crosshair) return 0;
+
+  r = Abs(crosshair->GetAngle())-90;
   x = 0;
-  y = -5000;//TODO: Werte anpassen.
-  
-  var ch = GetCrosshair();
-  if(ch)
-    r = ch->GetAngle()+270;
+  y = -5000;
   return 1;
 }
 
@@ -110,7 +109,7 @@ private func AimMax() { return(90); }
 
 public func CorrectAimAngle(int iAngle)
 {
-  iAngle = BoundBy(iAngle, 0,AimMax());
+  //iAngle = BoundBy(iAngle, 0,AimMax());
   
   if(Direction() == DIR_Left)
     iAngle = 360-iAngle;
@@ -162,6 +161,8 @@ public func Direction()
 
 public func Control2Grab(string command, object clonk)
 {
+  Log("Stand: %s",command);
+
 	if(!IsAiming()) return false;
 	
 	else if(command == "ControlUpdate")
@@ -175,6 +176,9 @@ public func Control2Grab(string command, object clonk)
     
 	else if(command == "ControlThrow")
 		Fire();
+    
+	else if(command == "ControlDigDouble")
+		WeaponMenu();
 		
 	else if(command == "ControlLeft")
 	  TurnLeft();
@@ -186,23 +190,17 @@ public func Control2Grab(string command, object clonk)
 		AddCommand(GetUser(),"UnGrab");
 	
 	else if(command == "ControlCommand")
-		return DoMouseAiming(Par(3),Par(4));
+		DoMouseAiming(Par(3),Par(4));
   
-	else if(command == "ControlContents")
+	/*else if(command == "ControlContents")
   {
 		var pTarget = clonk->FindContents(Par(2));
-		ChangeWeapon(pTarget);
+    var old = GetWeapon();
+		Disarm();
+    old->Enter(clonk);
+    Arm(pTarget);
 		return false;
-	}
+	}*/
 
 	return true;
-}
-
-public func ChangeWeapon(object pTarget)
-{
-	if(!pTarget->~IsWeapon())
-  {
-    GrabLost();
-		AddCommand(GetUser(),"UnGrab");
-	}
 }

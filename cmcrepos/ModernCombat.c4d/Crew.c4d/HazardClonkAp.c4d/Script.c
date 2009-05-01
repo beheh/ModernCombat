@@ -5,22 +5,42 @@
 
 local crosshair;
 
+protected func Control2Grab(string command)
+{
+  if(GetProcedure() == "PUSH")
+  {
+    if(GetActionTarget())
+      GetActionTarget()->~Control2Grab(command,this,...);
+      
+    return true;
+  }
+  
+  return false;
+}
+
+protected func ControlThrow()
+{
+  if(this->~Control2Grab("ControlThrow")) return(1);
+  return(_inherited(...));
+}*
+
+protected func ControlDigDouble()
+{
+  if(this->~Control2Grab("ControlDigDouble")) return(1);
+  return(_inherited(...));
+}
+
 protected func ControlDownDouble()
 {
   if(this->~Control2Grab("ControlDownDouble")) return(1);
   return(_inherited());
 }
 
-private func Control2Grab(string command)
+protected func ControlCommand(szCommand, pTarget, iTx, iTy, pTarget2, Data) 
 {
-  // Haben wir was angefasst?
-  if(GetProcedure() eq "PUSH")
-  {
-    if(GetActionTarget())
-      return(GetActionTarget()->~Control2Grab(command,this,...));
-  }
+  Log(szCommand);
+  return(_inherited(szCommand, pTarget, iTx, iTy, pTarget2, Data) ); 
 }
-
 
 private func DeleteCrosshair()
 {

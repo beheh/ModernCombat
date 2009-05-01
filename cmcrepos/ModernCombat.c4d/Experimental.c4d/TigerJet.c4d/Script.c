@@ -117,13 +117,19 @@ private func Ejection(object pObj)
 public func UseTool(object pClonk, int iSeat, int iTool)
 {
   if(GetEffect("Reload",this)) return;
-  var bomb = CreateObject(ABMB,0,0,GetOwner(pClonk));
-  bomb->SetExplo(35);
+  ScheduleCall(this,"DoBomb",7,5);
+  AddEffect("Reload",this,1,35*5,this,GetID());
+}
+
+public func DoBomb()
+{
+  var bomb = CreateObject(ABMB,0,0,GetOwner());
+  bomb->SetExplo(40);
   bomb->SetR(Angle(0,0,GetXDir(),GetYDir()));
   bomb->Launch(GetXDir(),GetYDir());
   bomb->Sound("TIGJ_Drop.ogg");
-  AddEffect("Reload",this,1,35*2,this,GetID());
 }
+
 public func FxReloadTimer(){return -1;}
 
 func Up()

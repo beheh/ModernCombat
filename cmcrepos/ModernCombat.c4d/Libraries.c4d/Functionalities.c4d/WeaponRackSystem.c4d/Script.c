@@ -107,9 +107,13 @@ public func Disarm()
 public func Fire()
 {
   if(!weapon) return false;
+
+  if(weapon->IsReloading()) return false;
   
-  //weapon->SetUser(this);
-  return weapon->ControlThrow(this);
+  if(!weapon->GetCharge())//Waffe leer? :o
+    return weapon->ControlThrow(GetUser());
+  else
+    return weapon->ControlThrow(this);
 }
 
 public func WeaponMenu()
@@ -232,16 +236,6 @@ public func UpdateAiming()
   
   UpdateWpnEffect();
 }
-
-
-/* --Winkel wird zu groß?--
-
-  if(angle > AimMax() || angle < 0)
-    return;
-
-  if(GetDir() == DIR_Left)
-    angle = 360-angle;
-*/
 
 //-> Bitte überladen !
 public func CorrectAimAngle(int iAngle)

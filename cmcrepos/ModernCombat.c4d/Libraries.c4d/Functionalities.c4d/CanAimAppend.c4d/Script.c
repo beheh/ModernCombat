@@ -6,7 +6,8 @@
 //Callback: CanAim
 //Callback: ControlAim
 
-/*protected func ControlAim(string command)
+/*
+protected func ControlAim(string command)
 {
   if(Contained())
   {
@@ -22,7 +23,7 @@
   }
   
   return _inherited(command,...);
-}*/
+}
 
 public func IsAiming()
 { 
@@ -34,4 +35,4 @@ public func IsAiming()
   }
 
 	return _inherited();
-}
+}*/
