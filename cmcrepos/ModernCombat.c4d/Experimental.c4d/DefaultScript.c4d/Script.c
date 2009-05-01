@@ -4,7 +4,7 @@
 
 public func ChooserFinished()
 {
-  //"Instagib"-Regel?
+  //"Insta Gib"-Regel?
   if(FindObject(IGIB))
   {
     //Keine Waffen und Spawns.
@@ -13,9 +13,14 @@ public func ChooserFinished()
     for(var clonk in FindObjects(Find_OCF(OCF_CrewMember)))
       while(Contents(0, clonk))
         RemoveObject(Contents(0, clonk));
+    //Keine Kisten mit Munition.
+    for(var ammobox in FindObjects(Find_ID(ABOX)))
+      if(ammobox->GetSpawnID())
+        if(ammobox->GetSpawnID()->~IsAmmoPacket())
+          RemoveObject(ammobox);
   }
   
-  //"KeineMunition"-Regel?
+  //"Keine Munition"-Regel?
   if(FindObject(NOAM))
   {
     //Keine Munitions-Spawns.
