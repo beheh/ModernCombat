@@ -81,7 +81,7 @@ private func RemoveShield()
   
   SetAction("Idle");
   RemoveObject(pShield);
-  Sound("RSHL_Hide.ogg");
+  Sound("RSHL_Deploy.ogg");
 }
 
 
@@ -137,4 +137,9 @@ protected func Hit()
 {
   Sound("BlockOff*.ogg");
   return(1);
+}
+
+func OnSelect(int iFM)
+{
+   Sound("RSHL_Charge.ogg");
 }
