@@ -1,33 +1,33 @@
 /*-- Use Skins --*/
 
-#strict
+#strict 2
 
 /* Einstellungen */
 
-func SkinCount(){return(0);}
+public func SkinCount() { return 0; }
 
 
 /* Allgemeines */
 
-func SetupSkin()
+public func SetupSkin()
 {
-  if(!SkinCount()) return(false);
+  if(!SkinCount()) return false;
 
   var skin = GetSkin();
-  if(!skin) skin = Random(SkinCount()+2);
+  if(!skin) skin = RandomX(1,SkinCount()+1);
   SetSkin(skin);
   
-  return(true);
+  return true;
 }
 
-func GetSkin()
+public func GetSkin()
 {
-  return(GetCrewExtraData(this(),"Skin"));
+  return GetCrewExtraData(this,"Skin");
 }
 
-func SetSkin(int iSkin)
+public func SetSkin(int iSkin)
 {
-  SetCrewExtraData(this(),"Skin",iSkin);
+  SetCrewExtraData(this,"Skin",iSkin);
 
   if(iSkin > 1)
     SetGraphics(Format("Skin%d",iSkin));

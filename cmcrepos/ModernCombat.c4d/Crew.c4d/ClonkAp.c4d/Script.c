@@ -3,14 +3,28 @@
 #strict
 #appendto CLNK
 
+protected func Construction()
+{
+  if(GetID() == CLNK)
+  {
+    if(!this->~Redefine2(CIVC))
+      if(!this->~Redefine(CIVC))
+        if(GetOCF(this) & OCF_Alive)
+          {
+            ChangeDef(CIVC,this);
+            ObjectSetAction(this,"Walk");
+          }
+          
+    return this->Construction(...);
+  }
+}
+
 protected func Initialize()
 {
-  var val = _inherited(...);
-
   if(!GetEffect("DmgCheck",this()))
     AddEffect("DmgCheck",this(),1,0);
   
-  return(val);
+  return(_inherited(...));
 }
 
 /* Schmerz-System */

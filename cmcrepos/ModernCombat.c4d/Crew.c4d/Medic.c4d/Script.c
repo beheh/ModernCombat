@@ -10,7 +10,7 @@ static const MDIC_HealMode_Reanimate  = 3;
 
 static const MDIC_TestDir = COMD_Stop;
 
-public func SkinCount(){return(0);}
+public func SkinCount(){return(2);}
 
 public func IsMedic() {return(true);}
 
@@ -192,7 +192,7 @@ public func ControlUp()
 }*/
 
 public func WeaponCollectionLimit() { return(2); } // max. Waffen im Inventar
-public func ObjectCollectionLimit() { return(2); } // max. Objekte im Inventar
+public func ObjectCollectionLimit() { return(3); } // max. Objekte im Inventar
 
 public func HazardGearSupported(object pGear)
 {

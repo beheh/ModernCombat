@@ -6,7 +6,9 @@
 #include L_A2 // has cmc agility
 #include L_ND // can use grenades
 #include L_CR // can crawl
+#include L_SK // uses skins
 
+public func SkinCount() { return 2; }
 
 public func WeaponCollectionLimit() { return(3); }
 public func ObjectCollectionLimit() { return(2); }

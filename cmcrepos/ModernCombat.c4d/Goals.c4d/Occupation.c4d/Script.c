@@ -364,18 +364,19 @@ public func SetTickets(int iTeam, int iTickets)
 public func IsFulfilled()
 {
   if(ObjectCount(CHOS)) return false;
+  if(GetTeamCount() == 1) return false;//Sinnlos.
 
   var alive = [];
+
   for(var i = 0; i <= GetTeamCount(); i++)
   {
     if(GetTeamPlayerCount(i+1))
-      alive[GetLength(alive)] = i;
+      alive[GetLength(alive)] = i+1;
   }
   
   //Nur ein Team am Leben? (-> Gewonnen!)
   if(GetLength(alive) == 1)
   {
-    Log("Team %d hat gewonnen.",alive[0]);
     EliminateLosers(alive[0]);
     if(LosersAlive(alive[0]))
       return false;
@@ -389,7 +390,6 @@ public func IsFulfilled()
   //Draw! D=
   if(!GetLength(alive))
   {
-    Log("Draw");
     EliminateLosers(0);
     if(LosersAlive(0))
       return false;
@@ -415,6 +415,7 @@ private func Evaluation()
 
 private func EliminateLosers(int iTeam)
 {
+  Log("EliminateLosers(%d)",iTeam);
   for(var i = 0; i < GetPlayerCount() ; i++)
     if(GetPlayerTeam(GetPlayerByIndex(i)) != iTeam)
         EliminatePlayer(GetPlayerByIndex(i));
@@ -429,7 +430,7 @@ private func LosersAlive(int iTeam)
   return false;
 }
 
-private func UpdateTicketLoss()
+/*private func UpdateTicketLoss()
 {
   if(ObjectCount(CHOS)) return;
 
@@ -444,7 +445,7 @@ private func UpdateTicketLoss()
   }
 }
 
-/*private func FxTicketLossStart(object pTarget, int iEffectNumber, int iTemp, iTeam)
+private func FxTicketLossStart(object pTarget, int iEffectNumber, int iTemp, iTeam)
 {
   if(!iTeam) return -1;
   EffectVar(0,pTarget,iEffectNumber) = iTeam;
