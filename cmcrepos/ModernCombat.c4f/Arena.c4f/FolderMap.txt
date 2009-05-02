@@ -1,12 +1,12 @@
 [FolderMap]
 MinResX=640
 MinResY=480
-ScenInfoArea=101,134,301,378
+ScenInfoArea=423,243,307,263
 FullscreenBG=1
 
 	[Scenario]
 	File=DM_MacrossFrontier.c4s
-	Area=436,236,269,28
+	Area=103,253,95,81
 	OverlayImage=Overlay.png
 	Title=
 	TitleFontSize=15
@@ -19,7 +19,7 @@ FullscreenBG=1
 
 	[Scenario]
 	File=OP_IslandStrike.c4s
-	Area=436,356,269,28
+	Area=102,415,95,81
 	OverlayImage=Overlay.png
 	Title=
 	TitleFontSize=15
@@ -32,7 +32,7 @@ FullscreenBG=1
 
 	[Scenario]
 	File=OP_BabelTower.c4s
-	Area=436,276,269,28
+	Area=204,334,95,81
 	OverlayImage=Overlay.png
 	Title=
 	TitleFontSize=15
@@ -45,7 +45,7 @@ FullscreenBG=1
 
 	[Scenario]
 	File=OP_ImperialGarden.c4s
-	Area=436,316,269,28
+	Area=305,253,95,81
 	OverlayImage=Overlay.png
 	Title=
 	TitleFontSize=15
@@ -58,39 +58,13 @@ FullscreenBG=1
 
 	[Scenario]
 	File=CTF_Dust.c4s
-	Area=435,436,269,28
+	Area=305,415,95,81
 	OverlayImage=Overlay.png
 	Title=
 	TitleFontSize=15
 	TitleColorInactive=
 	TitleColorActive=16711680
 	TitleOffX=120
-	TitleOffY=0
-	TitleAlign=1
-	TitleUseBookFont=0
-
-	[Scenario]
-	File=SM_PipelinePanic.c4s
-	Area=436,397,269,28
-	OverlayImage=Overlay.png
-	Title=
-	TitleFontSize=15
-	TitleColorInactive=
-	TitleColorActive=16711680
-	TitleOffX=90
-	TitleOffY=0
-	TitleAlign=1
-	TitleUseBookFont=0
-
-	[Scenario]
-	File=CTF_BETA_Blackout.c4s
-	Area=436,476,269,28
-	OverlayImage=Overlay.png
-	Title=
-	TitleFontSize=15
-	TitleColorInactive=
-	TitleColorActive=16711680
-	TitleOffX=90
 	TitleOffY=0
 	TitleAlign=1
 	TitleUseBookFont=0
