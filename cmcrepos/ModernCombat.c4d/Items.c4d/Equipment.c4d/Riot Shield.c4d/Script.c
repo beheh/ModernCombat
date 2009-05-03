@@ -12,7 +12,7 @@ public func HandR() {return(45);}
 public func HandSize() {return(850);}
 public func CanAim() {return(true);}//Was währen wir ohne CanAim()? ^^
 //public func NoCrosshair(){return(1);}
-public func MaxDmg(){return(120);}
+public func MaxDmg(){return(300);}
 
 local pShield, pUser;
 
