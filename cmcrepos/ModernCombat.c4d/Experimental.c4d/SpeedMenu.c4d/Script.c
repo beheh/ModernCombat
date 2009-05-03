@@ -65,6 +65,7 @@ protected func Initialize()
 public func Create(object pCommandObject, object pMenuObj)
 {
   //Felder kopieren
+  //if(pTargetObject) RemoveEffect("IntSMENCheck",pTargetObject);
   pCallbackObject = pCommandObject;
   pTargetObject = pMenuObj;
   SetPosition(GetX(pMenuObj),GetY(pMenuObj));
@@ -153,7 +154,7 @@ public func Close()
   pCallbackObject = 0;
   pTargetObject = 0;
   
-  RemoveEffect("IntSMENCheck",this);
+  RemoveEffect("IntSMENCheck",pTargetObject);
   
   //Löschen
   if(FindObject2(Find_ID(SMEN),Find_Owner(GetOwner(pTargetObject))) != this)//Pro Spieler wird nur ein Speedmenü erhalten.

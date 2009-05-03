@@ -1,6 +1,6 @@
 /*-- gezogenes Schild --*/
 
-#strict
+#strict 2
 
 local target, item, angle;
 public func NoWarp() {return(true);}
@@ -13,7 +13,7 @@ public func Set(object pTarget, object pItem)
   SetAction("Attach",pTarget);
   SetOwner(GetOwner(pTarget));
   SetController(GetController(pTarget));
-  UpdateR();
+  Update();
 }
 
 public func ExecShove()
@@ -56,9 +56,24 @@ public func ExecShove()
 
 public func FxShoveTimer() { return -1; }
 
-public func UpdateR()
+public func Update()
 {
-  if(!target) RemoveObject();
+  if(!target)
+  {
+    item->RemoveShield();
+    return;
+  }
+
+  var a = target->GetAction();
+  if(a != "WalkArmed"
+  && a != "JumpArmed"
+  && a != "KneelUp"
+  && !target->~IsCrawling()
+  && !target->~IsAiming())
+  {
+    item->RemoveShield();
+    return;
+  }
 
   angle = Normalize(target->AimAngle());
   var dir = target->GetDir()*2-1;
@@ -70,7 +85,7 @@ public func UpdateR()
     if(t > ShoveTime()/3)
       t = 35+((t-35)*2/3);
     
-    angle -= dir * Min(Sin(t*90/(ShoveTime()/3), 40),0);
+    angle -= Max(Sin(t*90/(ShoveTime()/3), 40),0) * dir;
   }
   
   SetVertexXY(0,-Sin(angle,7),+Cos(angle,7));
