@@ -1,2 +1,0 @@
-Suicide=Aufgeben
-SuicideW=<c %x>Aufgeben (%d)</c>

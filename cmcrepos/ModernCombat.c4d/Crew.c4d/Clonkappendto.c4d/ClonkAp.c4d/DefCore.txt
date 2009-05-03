@@ -1,5 +1,0 @@
-[DefCore]
-id=CLN2
-Version=4,9,5
-Name=Clonk
-Category=1

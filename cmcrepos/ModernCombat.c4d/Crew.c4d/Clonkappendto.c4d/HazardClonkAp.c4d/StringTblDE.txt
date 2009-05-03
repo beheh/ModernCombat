@@ -1,2 +1,0 @@
-CtxGrenadeMenu=Granaten
-AmmoBag=Munitionsgürtel
