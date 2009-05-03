@@ -1,0 +1,2 @@
+Suicide=Give Up
+SuicideW=<c %x>Give Up (%d)</c>
