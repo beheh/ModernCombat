@@ -69,8 +69,30 @@ private func Class3Setup(int iPlr)
   return(new);
 }
 
-//Support
+//Riotcrusher
 private func Class4Info(int iData)
+{
+  if(iData == CData_Name)  return("$Riotcrusher$");
+  if(iData == CData_Desc)  return("$Riotcrusher_desc$");
+  if(iData == CData_Clonk) return(PCMK);
+  if(iData == CData_Items) return("1x {{MP7R}}|1x {{RSHL}}|2x {{SGRN}}");
+  if(iData == CData_Facet) return(2);
+  return(Default(iData));
+}
+
+private func Class4Setup(int iPlr)
+{
+  var new = CreateObject(PCMK,0,0,iPlr);
+  DoAmmo(STAM,100,new);
+  new->CreateContents(MP7R);
+  new->CreateContents(RSHL);
+  CreateObject(SGRN,0,0,iPlr)->Activate(new);
+  CreateObject(SGRN,0,0,iPlr)->Activate(new);
+  return(new);
+}
+
+//Support
+private func Class5Info(int iData)
 {
 
   /*if(iData == CData_Name)  return("$support$");
@@ -81,33 +103,11 @@ private func Class4Info(int iData)
   return(Default(iData));*/
 }
 
-private func Class4Setup(int iPlr)
+private func Class5Setup(int iPlr)
 {
   /*var new = CreateObject(PCMK,0,0,iPlr);
   DoAmmo(STAM,200,new);
   new->CreateContents(M249);
   new->CreateContents(92FS);
   return(new);*/
-}
-
-//Riotcrusher
-private func Class5Info(int iData)
-{
-  if(iData == CData_Name)  return("$Riotcrusher$");
-  if(iData == CData_Desc)  return("$Riotcrusher_desc$");
-  if(iData == CData_Clonk) return(PCMK);
-  if(iData == CData_Items) return("1x {{MP7R}}|1x {{RSHL}}|2x {{SGRN}}");
-  if(iData == CData_Facet) return(2);
-  return(Default(iData));
-}
-
-private func Class5Setup(int iPlr)
-{
-  var new = CreateObject(PCMK,0,0,iPlr);
-  DoAmmo(STAM,100,new);
-  new->CreateContents(MP7R);
-  new->CreateContents(RSHL);
-  CreateObject(SGRN,0,0,iPlr)->Activate(new);
-  CreateObject(SGRN,0,0,iPlr)->Activate(new);
-  return(new);
 }
