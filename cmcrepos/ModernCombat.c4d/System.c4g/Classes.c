@@ -12,7 +12,7 @@ private func Class1Info(int iData)
   if(iData == CData_Desc)  return("$rifleman_desc$");
   if(iData == CData_Clonk) return(PCMK);
   if(iData == CData_Items) return("1x {{M16A}}|1x {{92FS}}|2x {{FGRN}}");
-  if(iData == CData_Facet) return(2);
+  if(iData == CData_Facet) return(1);
   return(Default(iData));
 }
 
@@ -76,7 +76,7 @@ private func Class4Info(int iData)
   if(iData == CData_Desc)  return("$Riotcrusher_desc$");
   if(iData == CData_Clonk) return(PCMK);
   if(iData == CData_Items) return("1x {{MP7R}}|1x {{RSHL}}|2x {{SGRN}}");
-  if(iData == CData_Facet) return(2);
+  if(iData == CData_Facet) return(5);
   return(Default(iData));
 }
 
