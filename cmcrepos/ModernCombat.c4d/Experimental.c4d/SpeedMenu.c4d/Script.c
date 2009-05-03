@@ -24,14 +24,18 @@ global func CreateSpeedMenu(object pCommandObject, object pMenuObj)
     pMenuObj = this;
     if(!pMenuObj) return 0;
   }
+  
 
-  //Menüposition beenden
-  var x = pMenuObj->GetX(), y = pMenuObj->GetY();
+
   //Erzeugen
   var pMenu = FindObject2(Find_ID(SMEN),Find_Owner(GetOwner(pMenuObj)));
+
   if(!pMenu || pMenu->InUsage())
-    pMenu = CreateObject(SMEN,AbsX(x),AbsY(y),GetOwner(pMenuObj));
-  if(pMenu) pMenu->Create(pCommandObject, pMenuObj);
+    pMenu = CreateObject(SMEN,10,10,GetOwner(pMenuObj));
+
+  if(pMenu)
+    pMenu->Create(pCommandObject, pMenuObj);
+
   return pMenu;
 }
 
@@ -63,6 +67,7 @@ public func Create(object pCommandObject, object pMenuObj)
   //Felder kopieren
   pCallbackObject = pCommandObject;
   pTargetObject = pMenuObj;
+  SetPosition(GetX(pMenuObj),GetY(pMenuObj));
   //Aktivität setzen und Sound ausgeben
   Sound("RMEN_Open",true,0,0,GetOwner()+1); 
   SetAction("Opening");

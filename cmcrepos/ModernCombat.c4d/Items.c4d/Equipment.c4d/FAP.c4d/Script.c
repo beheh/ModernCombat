@@ -258,11 +258,6 @@ protected func CalcValue()
   return(healpoints*(GetValue(0,GetID())/(StartHealPoints()/MaxHealPoints()))/MaxHealPoints());
 }
 
-public func GetCharge()
-{
-  return(1);
-}
-
 func CustomHUD(){return(true);}
 func UpdateHUD(object pHUD)
 {

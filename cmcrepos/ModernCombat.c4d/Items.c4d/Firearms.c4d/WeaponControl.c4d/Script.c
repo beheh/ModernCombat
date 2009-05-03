@@ -150,19 +150,19 @@ public func FMMenu(clonk)
   
   var overlay;
   overlay = ring->AddLeftItem("$Left$","CycleFM",-1,RICO);
-  SetGraphics("1",ring,RICO,overlay,GFXOV_MODE_IngamePicture);
+  SetGraphics(0,ring,RICO,overlay,GFXOV_MODE_IngamePicture);
   
   var overlay;
   overlay = ring->AddRightItem("$Right$","CycleFM",+1,RICO);
-  SetGraphics("1",ring,RICO,overlay,GFXOV_MODE_IngamePicture);
+  SetGraphics(0,ring,RICO,overlay,GFXOV_MODE_IngamePicture);
   
   var overlay;
   overlay = ring->AddUpItem("$FireTec$","FTCycle",firemode,RICO);
-  SetGraphics("1",ring,RICO,overlay,GFXOV_MODE_IngamePicture);
+  SetGraphics("3",ring,RICO,overlay,GFXOV_MODE_IngamePicture);
   
   var overlay;
   overlay = ring->AddDownItem("$AmmoType$","CycleSA",firemode,RICO);
-  SetGraphics("1",ring,RICO,overlay,GFXOV_MODE_IngamePicture);
+  SetGraphics("3",ring,RICO,overlay,GFXOV_MODE_IngamePicture);
 }
 
 public func CycleSA(int fm)
@@ -381,13 +381,6 @@ public func GetSpecialAmmo() {return(idBulletID);}
 
 public func CustomWMItems(int iFM){}
 
-//Doofes
-public func GetCurrentAmmo()//Die Fx ist doof. :|
-{
-  Message("Ey! Nicht GetCurrentAmmo() in WPN2 aufrufen!",this());
-  return(this());//lol...was wird den das? Chaos!!! JahahhH!!
-}
-
 //Slots
 public func GetSlot(int iFM)
 {
@@ -524,7 +517,7 @@ global func DoAmmo2(int slot, id ammoid, int change, object target)
 
 private func SetFireMode(int i)
 {
-  if((i > GetFMCount()) || i < 1){Log("Ein Doofling wollte einen|nicht existierenden FM setzen.|Nub! >:C [%s]",GetName());return();}//<- Gegeben! ^^
+  if((i > GetFMCount()) || i < 1) {Message("Es wurde ein inexistenter FeuerModus gesetzt.|Bitte an den zuständigen Scripter weiterleiten:|{{%i}} FM: %d",this,GetID(),i); return();}//<- Gegeben! ^^
 
   // Gleicher Modus: Nur nachladen wenn nicht mehr voll und lädt nicht nach
   if(i == firemode)

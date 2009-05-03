@@ -37,7 +37,15 @@ func HitSound()
 
 func HitObject(object pObj)
 {
-  if(!pObj) return();
+  if(!pObj)
+    return;
+  
+  if(pObj->~QueryCatchBlow(this))
+    return;
+    
+  if(GetOCF(pObj) | OCF_Alive)
+    return;
+  
   if(pObj->~IsClonk())
     Sound("BodyFall*.ogg");
     
@@ -104,7 +112,8 @@ public func Throw()
   SetYDir(-Cos(angle,ThrowSpeed()));
   SetRDir(RandomX(-6,6));
   
-  AddEffect("HitCheck",this(),1,1,0,GetID(),user);
+  //AddEffect("HitCheck",this(),1,1,0,GetID(),user);
+  AddEffect("HitCheck",this,1,1,0,SHT1,user);
   
   if(user->~IsClonk())
     if(!user->~IsAiming())
@@ -301,6 +310,7 @@ public func FxHitCheckStart(object target, int effect, int temp, object byObj)
   EffectVar(5, target, effect) = byObj;
 }
 
+/*
 public func FxHitCheckTimer(object target, int effect, int time)
 {
   var obj;
@@ -322,7 +332,11 @@ public func FxHitCheckTimer(object target, int effect, int time)
       		                 Find_Exclude(target),
       		                 Find_Exclude(exclude),
                            Find_NoContainer(),
-                           Find_OCF(OCF_Alive),
+                           Find_Or
+                           (
+                             Find_Func("IsBulletTarget",GetID(target),target,exclude),
+                             Find_OCF(OCF_Alive)
+                           ),
                            Find_Func("CheckEnemy",target),
                            Find_Not(Find_Allied(GetOwner(target)))))
     {
@@ -348,3 +362,4 @@ public func FxHitCheckTimer(object target, int effect, int time)
       EffectVar(4, target, effect) = true;
   }
 }
+*/

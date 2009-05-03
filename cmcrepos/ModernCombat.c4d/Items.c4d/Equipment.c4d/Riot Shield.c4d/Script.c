@@ -12,8 +12,9 @@ public func HandR() {return(45);}
 public func HandSize() {return(850);}
 public func CanAim() {return(true);}//Was währen wir ohne CanAim()? ^^
 //public func NoCrosshair(){return(1);}
+public func MaxDmg(){return(120);}
 
-local pShield,pUser;
+local pShield, pUser;
 
 protected func Initialize()
 {
@@ -35,6 +36,16 @@ public func GetUser()
 
 /* Kontrolle */
 
+public func ControlThrow(caller)
+{
+  if(pShield)
+  {
+    pShield->ExecShove();
+    return 1;
+  }
+  return 0;
+}
+
 public func ControlDigDouble(caller)
 {
   SetUser(caller);
@@ -42,17 +53,26 @@ public func ControlDigDouble(caller)
     RemoveShield();
   else
     CreateShield();
+    
+  return 1;
 }
 
 public func Departure()
 {
   SetUser();
   RemoveShield();
+  SetObjDrawTransform();//Reset.
 }
 
 public func Entrance(object pContainer)
 {
   SetUser(pContainer);
+  
+  if((GetDamage() > 0) && !GetEffect("Repair",this))
+    AddEffect("Repair",this,10,14,this);
+    
+  SetR(0);
+  SetRDir(0);
 }
 
 /* Schild */
@@ -65,13 +85,13 @@ private func CreateShield()
   
   if(pShield)
   {
-    pShield->Set(GetUser());
+    pShield->Set(GetUser(),this);
   }
   else
   {
     pShield = CreateObject(RSLH,0,0,GetOwner(GetUser()));
-    pShield->Set(GetUser());
-    Sound("RSHL_Deploy.ogg");
+    pShield->Set(GetUser(),this);
+    Sound("RSHL_Draw.ogg");
   }
 }
 
@@ -81,7 +101,7 @@ private func RemoveShield()
   
   SetAction("Idle");
   RemoveObject(pShield);
-  Sound("RSHL_Deploy.ogg");
+  Sound("RSHL_Hide.ogg");
 }
 
 
@@ -139,7 +159,78 @@ protected func Hit()
   return(1);
 }
 
-func OnSelect(int iFM)
+func Selection()
 {
-   Sound("RSHL_Charge.ogg");
+  Sound("RSHL_Charge.ogg");
+}
+
+func Deselection()
+{
+  RemoveShield();
+}
+
+public func UpdateDmg(int iDamage, int iBy)
+{
+  SetKiller(iBy,this);
+  DoDamage(iDamage,this);
+
+  return GetDamage() >= MaxDmg();
+}
+
+public func Damage(int iChange, int iByPlayer)
+{
+  if(GetDamage() >= MaxDmg())
+  {
+    RemoveObject();
+    return;
+  }
+
+  if(!GetEffect("Repair",this))
+    AddEffect("Repair",this,10,14,this);
+ 
+  UpdateGraphics();
+}
+
+private func UpdateGraphics()
+{
+  var p = Max(0,MaxDmg()-GetDamage());
+  
+  if(p < MaxDmg()/3)
+  {
+    SetGraphics("Damaged2");
+    return;
+  }
+  
+  if(p < MaxDmg()/3*2)
+  {
+    SetGraphics("Damaged");
+    return;
+  }
+  
+  SetGraphics();
+}
+
+public func FxRepairTimer()
+{
+  if(!Contained())
+    return -1;
+
+  var dmg = GetDamage();
+  if(dmg <= 0)
+    return -1;
+  
+  DoDamage(-1);
+}
+
+func CustomHUD(){return(true);}
+func UpdateHUD(object pHUD)
+{
+  var p = Max(0,MaxDmg()-GetDamage());
+  pHUD->Charge(p,MaxDmg());
+  pHUD->Ammo(p,MaxDmg(),GetName(),true);
+}
+
+func Destruction()
+{
+  RemoveShield();
 }

@@ -27,13 +27,17 @@ global func CreateRingMenu(object pCommandObject, object pMenuObj)
     if(!pMenuObj) return 0;
   }
 
-  //Menüposition beenden
-  var x = pMenuObj->GetX(), y = pMenuObj->GetY();
+
+  
   //Erzeugen
   var pMenu = FindObject2(Find_ID(RMEN),Find_Owner(GetOwner(pMenuObj)));
+
   if(!pMenu || pMenu->InUsage())
-    pMenu = CreateObject(RMEN,AbsX(x),AbsY(y),GetOwner(pMenuObj));
-  if(pMenu) pMenu->Create(pCommandObject, pMenuObj);
+    pMenu = CreateObject(RMEN,10,10,GetOwner(pMenuObj));
+
+  if(pMenu)
+    pMenu->Create(pCommandObject, pMenuObj);
+
   return pMenu;
 }
 
@@ -101,6 +105,7 @@ public func Create(object pCommandObject, object pMenuObj)
   //Felder kopieren
   pCallbackObject = pCommandObject;
   pTargetObject = pMenuObj;
+  SetPosition(GetX(pMenuObj),GetY(pMenuObj));
   //Aktivität setzen und Sound ausgeben
   Sound("RMEN_Open",true,0,0,GetOwner()+1); 
   SetAction("Opening");
@@ -130,9 +135,7 @@ public func Add(string szTitle, string szFunc, Parameter, id idIcon)
   aItemPar[i]   = Parameter;
   
   if(idIcon)
-  {
     SetGraphics(0,0,idIcon,i+1,GFXOV_MODE_IngamePicture);
-  }
   
   UpdateItems();
   

@@ -148,11 +148,6 @@ func Ready()
   return(false);
 }
 
-func GetCharge()
-{
-  return(charge*100/MaxEnergy());
-}
-
 func CustomHUD(){return(true);}
 func UpdateHUD(object pHUD)
 {
