@@ -6,3 +6,5 @@ support=Unterstützung
 support_desc=Ist auf das Halten von Stellungen ausgelegt.|Die M249 kann auf mittlere bis hohe Distanzen eingesetzt werden.|Außerdem wird viel Munition mitgeführt,|sodass auch Teamkameraden effektiv versorgt werden können.
 closecombat=Nahkampf
 closecombat_desc=Wenn es hart auf hart kommt.|Ist anfällig für Distanzwaffen,|kann sich aber dafür im Nahkampf gut behaupten.
+Riotcrusher=Blockadebrecher
+Riotcrusher_desc=Mit Abwehrschildern ausgerüstet|ist er der perfekte Personenschutz.|Mit Rauchgranaten kann er|feindliche Aufstände ausräuchern und|ist somit ein harter Wiedersacher.

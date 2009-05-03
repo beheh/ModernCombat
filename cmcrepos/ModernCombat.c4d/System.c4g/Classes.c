@@ -4,6 +4,7 @@
 #strict
 #appendto MCSL
 
+
 //Rifleman
 private func Class1Info(int iData)
 {
@@ -89,14 +90,24 @@ private func Class4Setup(int iPlr)
   return(new);*/
 }
 
-
-//Empty :D
+//Riotcrusher
 private func Class5Info(int iData)
 {
-  return(0);
+  if(iData == CData_Name)  return("$Riotcrusher$");
+  if(iData == CData_Desc)  return("$Riotcrusher_desc$");
+  if(iData == CData_Clonk) return(PCMK);
+  if(iData == CData_Items) return("1x {{MP7R}}|1x {{RSHL}}|2x {{SGRN}}");
+  if(iData == CData_Facet) return(2);
+  return(Default(iData));
 }
 
 private func Class5Setup(int iPlr)
 {
-  return(0);
+  var new = CreateObject(PCMK,0,0,iPlr);
+  DoAmmo(STAM,100,new);
+  new->CreateContents(MP7R);
+  new->CreateContents(RSHL);
+  CreateObject(SGRN,0,0,iPlr)->Activate(new);
+  CreateObject(SGRN,0,0,iPlr)->Activate(new);
+  return(new);
 }
