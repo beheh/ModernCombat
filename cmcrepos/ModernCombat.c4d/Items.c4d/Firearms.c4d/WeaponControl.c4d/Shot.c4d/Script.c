@@ -306,7 +306,7 @@ public func OnHitLandscape(int iX, int iY)
   if(Fast())
   {
     var tmp = CreateObject(TRAI,iX,iY,-1);
-    tmp->Sound("BulletHit*");
+    tmp->Sound("BulletHit*.ogg");
     tmp->RemoveObject();
     
     var rgb = 0;
@@ -330,7 +330,7 @@ public func OnHitLandscape(int iX, int iY)
   }
   else
   {
-    Sound("BulletHit*");
+    Sound("BulletHit*.ogg");
   }
 }
 
