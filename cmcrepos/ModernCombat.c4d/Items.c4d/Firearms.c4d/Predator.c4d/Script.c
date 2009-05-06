@@ -120,5 +120,3 @@ public func Fire2T1()
 {
   Fire2();
 }
-
-/* Da Michael Code Geass süchtig ist. ; ) */

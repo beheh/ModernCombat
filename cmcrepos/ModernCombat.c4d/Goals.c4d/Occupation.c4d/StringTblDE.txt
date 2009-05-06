@@ -7,3 +7,4 @@ Death=Tode
 MoreTickets=mehr Tickets
 LessTickets=weniger Tickets
 Finished=Fertig!
+Tickets=Tickets
