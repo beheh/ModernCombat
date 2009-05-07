@@ -12,7 +12,7 @@ private func Class1Info(int iData)
   if(iData == CData_Desc)  return("$rifleman_desc$");
   if(iData == CData_Clonk) return(PCMK);
   if(iData == CData_Items) return("1x {{M16A}}|1x {{92FS}}|2x {{FGRN}}");
-  if(iData == CData_Facet) return(1);
+  if(iData == CData_Facet) return(2);
   return(Default(iData));
 }
 
@@ -55,7 +55,7 @@ private func Class3Info(int iData)
   if(iData == CData_Desc)  return("$closecombat_desc$");
   if(iData == CData_Clonk) return(PCMK);
   if(iData == CData_Items) return("1x {{SPAS}}|1x {{92FS}}|1x {{FRAG}}");
-  if(iData == CData_Facet) return(2);
+  if(iData == CData_Facet) return(9);
   return(Default(iData));
 }
 
@@ -95,19 +95,43 @@ private func Class4Setup(int iPlr)
 private func Class5Info(int iData)
 {
 
-  /*if(iData == CData_Name)  return("$support$");
+  if(iData == CData_Name)  return("$support$");
   if(iData == CData_Desc)  return("$support_desc$");
   if(iData == CData_Clonk) return(PCMK);
-  if(iData == CData_Items) return("1x {{M249}}|1x {{92FS}}");
-  if(iData == CData_Facet) return(2);
-  return(Default(iData));*/
+  if(iData == CData_Items) return("1x {{M249}}|1x {{FRAG}}|1x {{SGRN}}");
+  if(iData == CData_Facet) return(8);
+  return(Default(iData));
 }
 
 private func Class5Setup(int iPlr)
 {
-  /*var new = CreateObject(PCMK,0,0,iPlr);
+  var new = CreateObject(PCMK,0,0,iPlr);
   DoAmmo(STAM,200,new);
   new->CreateContents(M249);
-  new->CreateContents(92FS);
-  return(new);*/
+  CreateObject(FRAG,0,0,iPlr)->Activate(new);
+  CreateObject(SGRN,0,0,iPlr)->Activate(new);
+  return(new);
+}
+
+//Peacemaker
+private func Class6Info(int iData)
+{
+
+  if(iData == CData_Name)  return("$peacemaker$");
+  if(iData == CData_Desc)  return("$peacemaker_desc$");
+  if(iData == CData_Clonk) return(PCMK);
+  if(iData == CData_Items) return("1x {{PPGN}}|1x {{RSHL}}|2x {{FRAG}}");
+  if(iData == CData_Facet) return(10);
+  return(Default(iData));
+}
+
+private func Class6Setup(int iPlr)
+{
+  var new = CreateObject(PCMK,0,0,iPlr);
+  DoAmmo(STAM,100,new);
+  new->CreateContents(PPGN);
+  new->CreateContents(RSHL);
+  CreateObject(FRAG,0,0,iPlr)->Activate(new);
+  CreateObject(FRAG,0,0,iPlr)->Activate(new);
+  return(new);
 }
