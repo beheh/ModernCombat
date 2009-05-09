@@ -6,14 +6,20 @@ local target, item, angle;
 public func NoWarp() {return(true);}
 public func ShoveTime() {return 13*3;}
 
+public func Incineration()
+{
+  Extinguish();
+}
+
 public func Set(object pTarget, object pItem)
 {
   target = pTarget;
   item = pItem;
-  SetAction("Attach",pTarget);
+
   SetOwner(GetOwner(pTarget));
   SetController(GetController(pTarget));
-  Update();
+
+  Show();
 }
 
 public func ExecShove()
@@ -64,15 +70,15 @@ public func Update()
     return;
   }
 
-  var a = target->GetAction();
-  if(a != "WalkArmed"
-  && a != "JumpArmed"
-  && a != "KneelUp"
-  && !target->~IsCrawling()
-  && !target->~IsAiming())
+  var x,y,r;
+  if(!target->WeaponAt(x,y,r))
   {
-    item->RemoveShield();
+    Hide();
     return;
+  }
+  else
+  {
+    Show();
   }
 
   angle = Normalize(target->AimAngle());
@@ -201,3 +207,31 @@ public func QueryCatchBlow(object pObj)
 }
 
 public func FxCatchBlowTimer() { return -1; }
+
+
+/* Hidez */
+
+private func Hide()
+{
+  if(ActIdle()) return;
+
+  SetAction("Idle");
+  SetPosition(10,10);
+  SetR(0);
+  SetRDir(0);
+  SetXDir(0);
+  SetYDir(0);
+  SetCategory(C4D_StaticBack);
+  SetVisibility(VIS_None);
+}
+
+private func Show()
+{
+  if(!ActIdle()) return;
+
+  SetAction("Attach",target);
+  SetPosition(GetX(target),GetY(target));
+  SetCategory(GetCategory(0,GetID()));
+  SetVisibility(VIS_All);
+  Update();
+}

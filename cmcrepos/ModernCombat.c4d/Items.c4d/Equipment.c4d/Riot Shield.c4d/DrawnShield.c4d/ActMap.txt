@@ -2,6 +2,4 @@
 Name=Attach
 Procedure=ATTACH
 Facet=0,0,18,18
-Delay=1
-NextAction=Attach
-StartCall=Update
+NextAction=Hold

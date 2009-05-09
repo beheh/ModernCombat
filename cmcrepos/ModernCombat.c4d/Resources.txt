@@ -1,0 +1,10 @@
+---------------------------------------
+Liste extern benötigter Ressourcen.
+Wird dringend benötigt um später schneller
+nach OpenClonk portieren zu können.
+
+Bitte vervollständigen!
+
+Beispiel:
+CXIV (Inventaricon) -> Riot Shield
+---------------------------------------

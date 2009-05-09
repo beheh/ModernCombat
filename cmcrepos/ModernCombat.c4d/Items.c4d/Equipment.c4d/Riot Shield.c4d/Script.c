@@ -94,6 +94,7 @@ private func CreateShield()
     pShield->Set(GetUser(),this);
     Sound("RSHL_Deploy.ogg");
   }
+  RemoveEffect("Repair",this);
 }
 
 private func RemoveShield()
@@ -103,55 +104,7 @@ private func RemoveShield()
   SetAction("Idle");
   RemoveObject(pShield);
   Sound("RSHL_Deploy.ogg");
-}
-
-
-/* Aktionen */
-
-private func OnBuckleStart()
-{
-}
-
-private func OnBuckleEnd()
-{
-}
-
-private func OnUnbuckleStart()
-{
-}
-
-private func OnUnbuckleEnd()
-{
-}
-
-//Helper für Aktionen
-
-public func IsBuckling(){return(GetEffect("IntBuckle",this()));}
-
-public func FxIntBuckleStart()
-{
-  OnBuckleStart();
-  return(-1);
-}
-
-public func FxIntBuckleTimer()
-{
-  OnBuckleEnd();
-  return(-1);
-}
-
-public func IsUnBuckling(){return(GetEffect("IntUnbuckle",this()));}
-
-public func FxIntUnbuckleStart()
-{
-  OnUnbuckleStart();
-  return(-1);
-}
-
-public func FxIntUnbuckleTimer()
-{
-  OnUnbuckleEnd();
-  return(-1);
+  Repair();
 }
 
 protected func Hit()
@@ -163,12 +116,21 @@ protected func Hit()
 func Selection()
 {
   Sound("RSHL_Charge.ogg");
+  Repair();
 }
 
 func Deselection()
 {
   RemoveShield();
 }
+
+func Destruction()
+{
+  RemoveShield();
+}
+
+
+/* Schaden */
 
 public func UpdateDmg(int iDamage, int iBy)
 {
@@ -186,9 +148,6 @@ public func Damage(int iChange, int iByPlayer)
     return;
   }
 
-  if(!GetEffect("Repair",this))
-    AddEffect("Repair",this,10,14,this);
- 
   UpdateGraphics();
 }
 
@@ -211,6 +170,14 @@ private func UpdateGraphics()
   SetGraphics();
 }
 
+public func Repair()
+{
+  if(!GetDamage() || pShield) return;
+
+  if(!GetEffect("Repair",this))
+    AddEffect("Repair",this,10,10,this);
+}
+
 public func FxRepairTimer()
 {
   if(!Contained())
@@ -223,15 +190,13 @@ public func FxRepairTimer()
   DoDamage(-1);
 }
 
+
+/* HUD */
+
 func CustomHUD(){return(true);}
 func UpdateHUD(object pHUD)
 {
   var p = Max(0,MaxDmg()-GetDamage());
   pHUD->Charge(p,MaxDmg());
   pHUD->Ammo(p,MaxDmg(),GetName(),true);
-}
-
-func Destruction()
-{
-  RemoveShield();
 }

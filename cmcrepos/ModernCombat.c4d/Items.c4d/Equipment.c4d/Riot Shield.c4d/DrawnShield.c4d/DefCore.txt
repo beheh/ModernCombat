@@ -13,3 +13,7 @@ Vertices=1
 NoStabilize=1
 VertexY=1
 VertexCNAT=64
+NoBurnDecay=1
+NoBurnDamage=1
+Timer=1
+TimerCall=Update

@@ -15,7 +15,7 @@ global func CreateFlagpole(int iX, int iY, string szName, int iRange, int iSpeed
 {
   var point = CreateObject(OFPL, iX, iY, NO_OWNER);
   point->Set(szName,iRange,iSpeed);
-  return(point);
+  return point;
 }
 
 
@@ -37,7 +37,7 @@ public func Activate(iPlr)
   for(var i = 1; i <= GetTeamCount();i++)
     text = Format("%s<c %x>%s</c>: %d $Tickets$",text,GetTeamColor(i),GetTeamName(i),GetTickets(i));
   
-  return(MessageWindow(text,iPlr));
+  return MessageWindow(text,iPlr);
 }
 
 private func GetFlagCount(int iTeam, bool bCountBlankFlags)
@@ -61,7 +61,7 @@ private func GetFlagCount(int iTeam, bool bCountBlankFlags)
     }
     count++;
   }
-  return(count);
+  return count;
 }
 
 public func ChooserFinished()
@@ -93,7 +93,7 @@ public func GetHUDInfo(int player, object hud)
         Format("%s : <c %x>%d</c>",GetTeamColor(i),GetTickets(i));
   }
 	
-	return(str);
+	return str;
 }
 
 
@@ -384,7 +384,7 @@ public func IsFulfilled()
     Evaluation();
     Message("@<c %x>$WinMsg$</c>",0,GetTeamColor(i),GetTeamName(i));
       
-    return(1);
+    return true;
   }
   
   //Draw! D=
@@ -396,7 +396,7 @@ public func IsFulfilled()
       
     Evaluation();
       
-    return(1);
+    return true;
   }
 }
 
@@ -415,10 +415,13 @@ private func Evaluation()
 
 private func EliminateLosers(int iTeam)
 {
-  Log("EliminateLosers(%d)",iTeam);
+  //Log("EliminateLosers(%d)",iTeam);
   for(var i = 0; i < GetPlayerCount() ; i++)
     if(GetPlayerTeam(GetPlayerByIndex(i)) != iTeam)
-        EliminatePlayer(GetPlayerByIndex(i));
+    {
+      //Log("->%d",GetPlayerTeam(GetPlayerByIndex(i)));
+      EliminatePlayer(GetPlayerByIndex(i));
+    }
 }
 
 private func LosersAlive(int iTeam)
