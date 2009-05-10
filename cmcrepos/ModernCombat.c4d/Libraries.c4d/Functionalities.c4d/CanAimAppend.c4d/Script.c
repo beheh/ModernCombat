@@ -53,7 +53,7 @@ public func DoMouseAiming(int iTx, int iTy)
 		//Winkel wird zu groß?
 		iAngle = BoundBy(iAngle,-this->~AimMax(),+this->~AimMax());
     
-    AddEffect("IntMouseAiming",this,10,2,this,0,iAngle);
+    AddEffect("IntMouseAiming",this,10,1,this,0,iAngle);
 
 		/*crosshair->SetAngle(iAngle);
 		UpdateAiming();
