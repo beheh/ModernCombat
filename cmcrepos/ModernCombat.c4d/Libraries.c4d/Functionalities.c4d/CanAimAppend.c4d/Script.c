@@ -53,16 +53,16 @@ public func DoMouseAiming(int iTx, int iTy)
 		//Winkel wird zu groß?
 		iAngle = BoundBy(iAngle,-this->~AimMax(),+this->~AimMax());
     
+    //Henry empfiehlt das nicht, aber gewisse Leute wollen das ja unbedingt. -,-
+    if(!(Contents()->IsRecharging()) && !(Contents()->IsShooting()))
+    {
+      var old = crosshair->GetAngle();
+      if((Abs(AngleOffset4K(old,iAngle)) < 5)/* || GetEffect("IntMouseAiming",this)*/)
+        this->~FireAimWeapon();
+    }
+    
     AddEffect("IntMouseAiming",this,10,1,this,0,iAngle);
-
-		/*crosshair->SetAngle(iAngle);
-		UpdateAiming();
-		//Wichtig: Waffe updaten
-		EffectCall(this,LocalN("wpneffect",this),"Timer");
-
-		// Fertig, Feuern!
-		if(!(Contents()->IsRecharging()) && !(Contents()->IsShooting()))
-			FireAimWeapon();*/
+    
 		return true;
 	}
 	return false;
