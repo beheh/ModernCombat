@@ -10,3 +10,5 @@ Empty=Empty
 FTMenu=Shooting Technique
 AmmoType=Ammo Type
 NA=Not Available
+Left=Left
+Right=Right

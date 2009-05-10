@@ -8,3 +8,7 @@ High=Hoch
 DescHigh=Verwendet hohe Einstellungen.
 VeryHigh=Sehr Hoch
 DescVeryHigh=Verwenet die höchsten Einstellungen.
+
+NoAuto=Automatik: Aus
+DescAuto=Stellt die automatische Effektregulierung an und aus.
+Auto=Automatik: An

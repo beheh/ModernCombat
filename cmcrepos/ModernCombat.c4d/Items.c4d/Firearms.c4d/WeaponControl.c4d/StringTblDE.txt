@@ -10,3 +10,5 @@ Empty=Entladen
 FTMenu=Schusstechnik
 AmmoType=Munitionstyp
 NA=Nicht Vergfügbar
+Left=Link
+Right=Rechts

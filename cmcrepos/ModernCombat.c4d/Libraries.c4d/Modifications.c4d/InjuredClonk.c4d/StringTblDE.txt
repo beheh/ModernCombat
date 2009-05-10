@@ -1,2 +1,3 @@
 Suicide=Aufgeben
 SuicideW=<c %x>Aufgeben (%d)</c>
+DescSuicide=Der verletze Clonk rammt sich ein Messer in den Bauch um nicht als Gefangener zu enden.

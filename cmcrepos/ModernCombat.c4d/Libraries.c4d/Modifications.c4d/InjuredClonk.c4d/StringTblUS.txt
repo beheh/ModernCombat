@@ -1,2 +1,3 @@
 Suicide=Give Up
 SuicideW=<c %x>Give Up (%d)</c>
+DescSuicide=The injured Clonk stabs himself, so he won't become a prisoner.
