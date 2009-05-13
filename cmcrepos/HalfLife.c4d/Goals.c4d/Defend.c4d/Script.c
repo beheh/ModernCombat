@@ -9,6 +9,7 @@ local wave,waves,cooldown,enemys,maxactive,active;
 //GameCall(Format("GDEF_MonsterType%d",i)); -> Setup eines Monster-Typs. Returnwert ist das Monster.
 //GameCall("GDEF_MonsterSet",i); -> Monster Set. (Array mit MonsterTyp-IDs.) i ist die Welle.
 //GameCall("GDEF_MonsterCount",i); -> Monster für Welle i für einen Spieler.
+//GameCall("GDEF_MonsterSpawnTime"); -> Wie schnell Monster gespawnt werden können.
 //GameCall("GDEF_WaveCooldown",i); -> Cooldownzeit nach Welle i. (In Sekunden!)
 //GameCall("GDEF_MaxActive"); -> Maximal gleichzeitig aktive Monster.
 //GameCall("GDEF_OnWaveBegin",i); -> Welle i beginnt.
@@ -31,6 +32,10 @@ public func ChooserFinished()
   waves = GameCall("GDEF_Waves");
   wave = 1;
   cooldown = 16;
+  
+  var time = GameCall("GDEF_MonsterSpawnTime");
+  if(time)
+    AddEffect("IntSpawnMonster",this(),10,time,this());
 }
 
 private func GetWaveCount(int iWave)
@@ -117,13 +122,26 @@ public func Timer()
   }
   
   //Monster spawnen.
-  if((active < maxactive) && (enemys < GetWaveCount(wave)) && (cooldown <= 0))
-  {
-    var aSet = GameCall("GDEF_MonsterSet",wave);
-    GameCall(Format("GDEF_MonsterType%d",aSet[Random(GetLength(aSet))]));
-    //AddEffect("IntGDEF",m,10,35*2,0,GetID(),center_x,center_y);
-    enemys++;
-  }
+  if(!GetEffect("IntSpawnMonster",this()))
+    SpawnMonster();
+}
+
+private func SpawnMonster()
+{
+  if((active >= maxactive) || (enemys >= GetWaveCount(wave)) || (cooldown > 0))
+    return(false);
+
+  var aSet = GameCall("GDEF_MonsterSet",wave);
+  GameCall(Format("GDEF_MonsterType%d",aSet[Random(GetLength(aSet))]));
+  //AddEffect("IntGDEF",m,10,35*2,0,GetID(),center_x,center_y);
+  enemys++;
+  
+  return(true);
+}
+
+public func FxIntSpawnMonsterTimer(object pTarget, int iEffectNumber, int iEffectTime)
+{
+  SpawnMonster();
 }
 
 public func IsFulfilled()
