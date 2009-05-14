@@ -30,6 +30,7 @@ global func Ausrosten(szPlr)
   clonk->CreateContents(NODG,0,4);
   if(FindDefinition(JB4K)) clonk->CreateContents(JB4K)->Activate(clonk);
   clonk->SetClrModulation(RGBa(0,0,1,200));
+  clonk->SetVisibility(VIS_Owner | VIS_Allies);
 }
 
 //*tss* *tss* Also echt Henry.
