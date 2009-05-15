@@ -41,6 +41,6 @@ func Push()
     SetYDir(GetYDir(obj)-power,obj);
   }
 	
-  for(var i = 3; i > 0; i--)
-    CreateParticle ("Air",RandomX(-(width/2),(width/2)),-2,0,-(power*2),20+Random(80),RGBa(0,Random(100),255),this(),true);
+  //for(var i = 3; i > 0; i--)
+    //CreateParticle ("Air",RandomX(-(width/2),(width/2)),-2,0,-(power*2),20+Random(80),RGBa(0,Random(100),255),this(),true);
 }
