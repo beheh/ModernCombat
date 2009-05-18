@@ -281,6 +281,9 @@ func CreateFurniture()
   CreateObject(SE4K, 555, 555, -1)->Set("Interior*.ogg",665,105);
   CreateObject(SE4K, 880, 555, -1)->Set("Interior*.ogg",665,105);
   CreateObject(SE4K, 1230, 555, -1)->Set("Interior*.ogg",665,105);
+
+  //Lautsprecher
+  CreateObject(SE4K, 725, 150, -1)->Set("Announce*.ogg",1500,130);
 }
 
 func CreateEquipment()
