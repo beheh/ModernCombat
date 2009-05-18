@@ -1,1 +1,1 @@
-Respawns an object in different situations.
+Respawns any object on its first position after it has been consumed, destroyed or erased.

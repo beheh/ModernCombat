@@ -1,6 +1,6 @@
 [DefCore]
 id=RS4K
-Name=Respawnpoint
+Name=Respawner
 Version=4,9,5
 Category=C4D_StaticBack|C4D_MouseIgnore
 Width=1
