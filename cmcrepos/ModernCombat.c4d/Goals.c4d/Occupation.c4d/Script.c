@@ -383,7 +383,7 @@ public func IsFulfilled()
 
     Evaluation();
     Message("@<c %x>$WinMsg$</c>",0,GetTeamColor(i),GetTeamName(i));
-      
+    Sound("Cheer.ogg",true);
     return true;
   }
   

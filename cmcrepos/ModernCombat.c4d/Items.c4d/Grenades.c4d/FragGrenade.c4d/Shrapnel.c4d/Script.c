@@ -1,5 +1,8 @@
+/*-- Splitter --*/
+
 #strict
 #include SHTX
+
 
 local hitcnt,size,trail_len;
 
