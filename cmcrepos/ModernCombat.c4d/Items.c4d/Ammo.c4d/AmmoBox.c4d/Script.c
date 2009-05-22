@@ -145,7 +145,7 @@ private func CheckGrab()
 
 protected func Opening() 
 {
-  //Sound("ChestOpen"); 
+  Sound("ABOX_Open.ogg"); 
 }
 
 protected func Opened() 
@@ -169,7 +169,7 @@ protected func CheckResupply(object pClonk, bool bStart)
   
 protected func Closing() 
 {
-  //Sound("ChestClose");
+  Sound("ABOX_Close.ogg");
 }
 
 public func RejectCollect(id idObj)

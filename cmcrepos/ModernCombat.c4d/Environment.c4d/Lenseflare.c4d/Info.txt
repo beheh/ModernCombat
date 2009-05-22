@@ -1,6 +1,0 @@
-ModernClonker hat netterweise eine neue Version gescriptet,
-die neben diversen tollen Features auch vollständig Merhspieler Unterstützung hat.
-
-Original für Schattenblut.
-
-//Henry hat das Script etwas abgeändert damit es auf ScreenRGB passt. (Bisher noch nicht.)

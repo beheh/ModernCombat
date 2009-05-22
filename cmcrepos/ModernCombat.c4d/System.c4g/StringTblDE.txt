@@ -10,3 +10,5 @@ support=Unterstützer
 support_desc=Schwer bewaffnet und mit genügend|Munition ausgerüstet ist der|Unterstützer die Antwort auf fast|jede hitzige Kampfsituation.|Die Munition kann außerdem|trockenen Kameraden aushelfen.
 peacemaker=Peacemaker
 peacemaker_desc=Der Peacemaker ist eine stark|defensive Einheit. Sein Abwehr-|schild lässt ihn in jeder|Situation kalt und dessen Geduld|bringen den Feind dazu, Fehler|zu begehen, sodass sie prompt|ins Visier der Pumpgun geraten.
+medic=Sanitäter
+medic_desc=Der Sanitäter ist das Rückrad|der Truppenversorgung, seine|Heilungskünste lösen auch die|schlimmste Verletzung und macht|die Patienten wieder fit.|Seine Monochromwaffen sorgen für|genügend Abwehrmöglichkeiten.

@@ -1,4 +1,5 @@
 /*-- TEAM-Bugfix --*/
+
 //Damit man auf jeden Fall mehrere Spielziele zur Auswahl haben kann.
 
 #strict 2

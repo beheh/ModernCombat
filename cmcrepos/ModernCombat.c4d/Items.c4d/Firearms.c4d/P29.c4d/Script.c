@@ -28,7 +28,7 @@ public func FMData1(int data)
 
   if(data == FM_Auto)               return(true);
   
-  if(data == FM_Damage)    return(4);
+  if(data == FM_Damage)    return(5);
   
   if(data == FM_Slot)    return(1);
   

@@ -135,3 +135,27 @@ private func Class6Setup(int iPlr)
   CreateObject(FRAG,0,0,iPlr)->Activate(new);
   return(new);
 }
+
+//Medic
+private func Class6Info(int iData)
+{
+
+  if(iData == CData_Name)  return("$medic$");
+  if(iData == CData_Desc)  return("$medic_desc$");
+  if(iData == CData_Clonk) return(MDIC);
+  if(iData == CData_Items) return("1x {{P29W}}|1x {{PDTW}}|1x {{FAPK}}|2x {{STUN}}");
+  if(iData == CData_Facet) return(1);
+  return(Default(iData));
+}
+
+private func Class6Setup(int iPlr)
+{
+  var new = CreateObject(PCMK,0,0,iPlr);
+  DoAmmo(STAM,50,new);
+  new->CreateContents(P29W);
+  new->CreateContents(PDTW);
+  new->CreateContents(FAPK);
+  CreateObject(STUN,0,0,iPlr)->Activate(new);
+  CreateObject(STUN,0,0,iPlr)->Activate(new);
+  return(new);
+}
