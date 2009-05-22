@@ -429,8 +429,12 @@ func CreateEquipment()
   //Alle Objekte folglich von links oben nach rechts unten
 
   //Munitionskisten (Kugeln)
-  CreateObject(ABOX, 570, 320, -1)->Set(AMOC);
-  CreateObject(ABOX, 730, 1940, -1)->Set(AMOC);
+  var tmp = CreateObject(ABOX, 570, 320, -1);
+  tmp->SetGraphics("Normal");
+  tmp->Set(AMOC);
+  var tmp = CreateObject(ABOX, 730, 1940, -1);
+  tmp->SetGraphics("Normal");
+  tmp->Set(AMOC);
 
   //Projektilmunition
   PlaceSpawnpoint(AMOC, 740, 800);
