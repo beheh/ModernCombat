@@ -60,7 +60,7 @@ public func FMData1(int data)
   if(data == FM_Damage)             return(40);
   
   if(data == FM_SpreadAdd) return(170);
-  if(data == FM_StartSpread) return(60);
+  if(data == FM_StartSpread) return(250);
 
   return(Default(data));
 }

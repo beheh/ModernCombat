@@ -10,6 +10,10 @@ func Initialize()
   liftp->DisableVertical();
   liftp->ContactLeft();
 
+  //Clonks
+  CreateObject(PCMK, 645, 350, -1)->AutoRespawn();
+  CreateObject(PCMK, 855, 350, -1)->AutoRespawn();
+
   //Granatenspawnpoints
   PlaceSpawnpoint(FRAG, 740, 590);
   PlaceSpawnpoint(FRG2, 865, 555);

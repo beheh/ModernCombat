@@ -1,6 +1,6 @@
 [Head]
 Icon=42
-Title=Test
+Title=CMC Testing Ground
 Origin=ModernCombat.c4f\DM_MacrossFrontier.c4s
 
 [Definitions]

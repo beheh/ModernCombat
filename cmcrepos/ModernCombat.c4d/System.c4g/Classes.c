@@ -1,5 +1,4 @@
 /*-- Klassen für den Klassenwähler --*/
-//Temporäre Version.
 
 #strict
 #appendto MCSL
@@ -48,14 +47,15 @@ private func Class2Setup(int iPlr)
   return(new);
 }
 
-//CloseCombat
+//Peacemaker
 private func Class3Info(int iData)
 {
-  if(iData == CData_Name)  return("$closecombat$");
-  if(iData == CData_Desc)  return("$closecombat_desc$");
+
+  if(iData == CData_Name)  return("$peacemaker$");
+  if(iData == CData_Desc)  return("$peacemaker_desc$");
   if(iData == CData_Clonk) return(PCMK);
-  if(iData == CData_Items) return("1x {{SPAS}}|1x {{92FS}}|1x {{FRAG}}");
-  if(iData == CData_Facet) return(9);
+  if(iData == CData_Items) return("1x {{PPGN}}|1x {{RSHL}}|2x {{FRAG}}");
+  if(iData == CData_Facet) return(10);
   return(Default(iData));
 }
 
@@ -63,8 +63,9 @@ private func Class3Setup(int iPlr)
 {
   var new = CreateObject(PCMK,0,0,iPlr);
   DoAmmo(STAM,100,new);
-  new->CreateContents(SPAS);
-  new->CreateContents(92FS);
+  new->CreateContents(PPGN);
+  new->CreateContents(RSHL);
+  CreateObject(FRAG,0,0,iPlr)->Activate(new);
   CreateObject(FRAG,0,0,iPlr)->Activate(new);
   return(new);
 }
@@ -113,31 +114,8 @@ private func Class5Setup(int iPlr)
   return(new);
 }
 
-//Peacemaker
-private func Class6Info(int iData)
-{
-
-  if(iData == CData_Name)  return("$peacemaker$");
-  if(iData == CData_Desc)  return("$peacemaker_desc$");
-  if(iData == CData_Clonk) return(PCMK);
-  if(iData == CData_Items) return("1x {{PPGN}}|1x {{RSHL}}|2x {{FRAG}}");
-  if(iData == CData_Facet) return(10);
-  return(Default(iData));
-}
-
-private func Class6Setup(int iPlr)
-{
-  var new = CreateObject(PCMK,0,0,iPlr);
-  DoAmmo(STAM,100,new);
-  new->CreateContents(PPGN);
-  new->CreateContents(RSHL);
-  CreateObject(FRAG,0,0,iPlr)->Activate(new);
-  CreateObject(FRAG,0,0,iPlr)->Activate(new);
-  return(new);
-}
-
 //Medic
-private func Class7Info(int iData)
+private func Class6Info(int iData)
 {
 
   if(iData == CData_Name)  return("$medic$");
@@ -148,7 +126,7 @@ private func Class7Info(int iData)
   return(Default(iData));
 }
 
-private func Class7Setup(int iPlr)
+private func Class6Setup(int iPlr)
 {
   var new = CreateObject(PCMK,0,0,iPlr);
   DoAmmo(STAM,50,new);
