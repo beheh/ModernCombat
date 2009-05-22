@@ -137,7 +137,7 @@ private func Class6Setup(int iPlr)
 }
 
 //Medic
-private func Class6Info(int iData)
+private func Class7Info(int iData)
 {
 
   if(iData == CData_Name)  return("$medic$");
@@ -148,7 +148,7 @@ private func Class6Info(int iData)
   return(Default(iData));
 }
 
-private func Class6Setup(int iPlr)
+private func Class7Setup(int iPlr)
 {
   var new = CreateObject(PCMK,0,0,iPlr);
   DoAmmo(STAM,50,new);
