@@ -9,17 +9,16 @@ public func HandY()         { return(1000); }
 
 public func BarrelXOffset() { return(-1000); }
 public func BarrelYOffset() { return(-2000); }
-
-//public func SelectionTime() { return(35*3); }
+public func SelectionTime() { return(15*3); }
 
 func OnReload()
 {
-  Sound("M249_Reload");
+  Sound("M249_Reload.ogg");
 }
 
 func OnSelect()
 {
-   Sound("M249_Charge");
+  Sound("M249_Charge.ogg");
 }
 
 public func FMData1(int data)
@@ -34,10 +33,10 @@ public func FMData1(int data)
 
   if(data == FM_Auto)               return(true);
   
-  if(data == FM_Damage)             return(9);
+  if(data == FM_Damage)             return(10);
   
-  if(data == FM_SpreadAdd) return(35);
-  if(data == FM_StartSpread) return(200);
+  if(data == FM_SpreadAdd) return(30);
+  if(data == FM_StartSpread) return(300);
 
   return(Default(data));
 }
@@ -58,13 +57,16 @@ public func FMData1T1(int data)//Automatik
   return(FMData1(data));
 }
 
-public func FMData1T2(int data)//Einzelfeuer
+public func FMData1T2(int data)//Burst
 {
-  if(data == FT_Name)                 return("$Single$");
+  if(data == FT_Name)                 return("$Burst$");
   if(data == FM_Recharge)             return(30);
+  if(data == FT_IconFacet)            return(FICO_Burst);
   if(data == FM_Auto)                 return(false);
-  if(data == FT_IconFacet)            return(FICO_Single);
   if(data == FM_Damage)               return(FMData1(FM_Damage)*2);
+  if(data == FM_BurstAmount)          return(4);
+  if(data == FM_BurstRecharge)        return(5);
+  if(data == FM_SpreadAdd)            return(42);
   return(FMData1(data));
 }
 
@@ -77,7 +79,7 @@ public func Fire1()
   var x,y;
   user->WeaponEnd(x,y);
   var ammo = SALaunchBullet(x,y,GetController(user),angle+RandomX(-2,+2),250,600,GetFMData(FM_Damage));
-  ammo->Sound("M249_Fire");
+  ammo->Sound("M249_Fire.ogg");
 
   // Effekte
   SAMuzzleFlash(RandomX(35,50),user,x,y,angle);
@@ -97,7 +99,7 @@ public func Fire1T2()
   var x,y;
   user->WeaponEnd(x,y);
   var ammo = SALaunchBullet(x,y,GetController(user),angle+RandomX(-1,+1),250,600,GetFMData(FM_Damage));
-  ammo->Sound("M249_Fire");
+  ammo->Sound("M249_Fire.ogg");
 
   // Effekte
   SAMuzzleFlash(45,user,x,y,angle);

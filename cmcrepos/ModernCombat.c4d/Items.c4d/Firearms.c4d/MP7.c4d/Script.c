@@ -8,10 +8,16 @@ public func HandX()	{ return(5000); }
 public func HandY()	{ return(-2000); }
 
 public func BarrelYOffset() { return(-5500); }
+public func SelectionTime() { return(10*3); }
+
+func OnSelect()
+{
+  Sound("MP7R_Charge.ogg");
+}
 
 func OnReload()
 {
-  Sound("MP7R_Reload");
+  Sound("MP7R_Reload.ogg");
 }
 
 //Automatikfeuer - Kugeln
@@ -22,16 +28,16 @@ public func FMData1(int data)
   if(data == FM_AmmoID)             return(STAM);
   if(data == FM_AmmoLoad)           return(30);
   
-  if(data == FM_Reload)             return(50);
+  if(data == FM_Reload)             return(70);
   if(data == FM_Recharge)           return(4);
 
   if(data == FM_Auto)               return(true);
   
-  if(data == FM_Damage)    return(5);
+  if(data == FM_Damage)    return(8);
   
   if(data == FM_Slot)    return(1);
   
-  if(data == FM_SpreadAdd) return(35);
+  if(data == FM_SpreadAdd) return(30);
   if(data == FM_StartSpread) return(20);
 
   return(Default(data));
@@ -84,7 +90,7 @@ public func Fire1()
   var x,y;
   user->WeaponEnd(x,y);
   var ammo = SALaunchBullet(x,y,GetController(user),angle+RandomX(-3,+3),230,350+Random(100),GetFMData(FM_Damage));
-  ammo->Sound("MP7R_Fire");
+  ammo->Sound("MP7R_Fire.ogg");
 
   // Effekte
   SAMuzzleFlash(RandomX(15,25),user,x,y,angle);
@@ -104,7 +110,7 @@ public func Fire1T2()
   var x,y;
   user->WeaponEnd(x,y);
   var ammo = SALaunchBullet(x,y,GetController(user),angle+RandomX(-2,+2),230,350+Random(100),GetFMData(FM_Damage));
-  ammo->Sound("MP7R_Fire");
+  ammo->Sound("MP7R_Fire.ogg");
 
   // Effekte
   SAMuzzleFlash(RandomX(15,25),user,x,y,angle);
@@ -119,7 +125,7 @@ public func Fire1T3()
   var x,y;
   user->WeaponEnd(x,y);
   var ammo = SALaunchBullet(x,y,GetController(user),angle+RandomX(-1,+1),220,350+Random(100),GetFMData(FM_Damage));
-  ammo->Sound("MP7R_Fire");
+  ammo->Sound("MP7R_Fire.ogg");
 
   // Effekte
   SAMuzzleFlash(RandomX(15,25),user,x,y,angle);

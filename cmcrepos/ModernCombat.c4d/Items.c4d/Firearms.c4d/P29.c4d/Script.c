@@ -9,10 +9,11 @@ public func HandY()         { return(2000); }
 
 public func BarrelYOffset() { return(+2000); }
 public func BarrelXOffset() { return(-1500); }
+public func SelectionTime() { return(14*3); }
 
 public func OnReload(int i)
 {
-  Sound("P29W_Reload");
+  Sound("P29W_Reload.ogg");
 }
 
 //Automatikfeuer - Kugeln
@@ -28,7 +29,7 @@ public func FMData1(int data)
 
   if(data == FM_Auto)               return(true);
   
-  if(data == FM_Damage)    return(5);
+  if(data == FM_Damage)    return(6);
   
   if(data == FM_Slot)    return(1);
   
@@ -71,7 +72,7 @@ public func Fire1()
   var x,y;
   user->WeaponEnd(x,y);
   var ammo = SALaunchBullet(x,y,GetController(user),angle+RandomX(-2,+2),230,350+Random(50),GetFMData(FM_Damage));
-  ammo->Sound("P29W_Fire");
+  ammo->Sound("P29W_Fire.ogg");
 
   // Effekte
   SAMuzzleFlash(RandomX(25,30),user,x,y-2,angle);
@@ -91,7 +92,7 @@ public func Fire1T2()
   var x,y;
   user->WeaponEnd(x,y);
   var ammo = SALaunchBullet(x,y,GetController(user),angle+RandomX(-1,+1),230,400,GetFMData(FM_Damage));
-  ammo->Sound("P29W_Fire");
+  ammo->Sound("P29W_Fire.ogg");
 
   // Effekte
   SAMuzzleFlash(RandomX(25,30),user,x,y-2,angle);
@@ -149,7 +150,7 @@ public func Fire2()
 
   BulletCasing(x/3,y/3,-dir*17*(Random(1)+1),-(15+Random(2)),4);
 
-  ammo->Sound("P29W_MonochromFire");
+  ammo->Sound("P29W_MonochromFire.ogg");
 
   MuzzleFlash(RandomX(40,50),user,x,y-2,angle,RGB(0,128,255));
   MuzzleFlash(RandomX(20,30),user,x,y-2,angle,RGB(0,70+Random(30),255));
@@ -173,7 +174,7 @@ public func Fire2T2()
 
   BulletCasing(x/3,y/3,-dir*17*(Random(1)+1),-(15+Random(2)),4);
   
-  ammo->Sound("P29W_MonochromFire");
+  ammo->Sound("P29W_MonochromFire.ogg");
   
   MuzzleFlash(RandomX(40,50),user,x,y-2,angle,RGB(0,128,255));
   MuzzleFlash(RandomX(20,30),user,x,y-2,angle,RGB(0,70+Random(30),255));
@@ -181,7 +182,7 @@ public func Fire2T2()
 
 public func OnSelect(int iFM)
 {
-  Sound("P29W_Charge");
+  Sound("P29W_Charge.ogg");
 }
 
 /* Da Michael Code Geass süchtig ist. ; ) */

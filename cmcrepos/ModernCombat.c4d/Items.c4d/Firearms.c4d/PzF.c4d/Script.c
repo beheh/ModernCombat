@@ -14,12 +14,12 @@ public func BarrelYOffset() { return(8500); }*/
 
 func OnReload()
 {
-  Sound("PZFW_Reload");
+  Sound("PZFW_Reload.ogg");
 }
 
 func OnSelect()
 {
-   Sound("PZFW_Charge");
+   Sound("PZFW_Charge.ogg");
 }
 
 public func FMData1(int data)
@@ -84,7 +84,7 @@ public func LaunchRocket(rid, angle, dmg)
   }*/
 
   // Sound
-  Sound("PZFW_Fire*");
+  Sound("PZFW_Fire*.ogg");
   
   ShakeViewPort(20, Contained());
   
@@ -258,13 +258,13 @@ func FxIntUnlockTimer(object pTarget, int iEffectNumber, int iEffectTime)
 
   if(iEffectTime >= UnlockTime())
   {
-    Sound("PZFW_Ready",false,0,0,GetController(GetUser())); 
+    Sound("PZFW_Ready.ogg",false,0,0,GetController(GetUser())); 
     AddEffect("IntReady",this(),1,0,this());
     return(-1);
   }
   
   if(!(iEffectTime % 17))
-    Sound("PZFW_Beep",false,0,0,GetController(GetUser())); 
+    Sound("PZFW_Beep.ogg",false,0,0,GetController(GetUser())); 
 }
 
 func FxIntUnlockStop(object pTarget, int iEffectNumber, int iEffectTime)

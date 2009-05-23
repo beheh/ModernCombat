@@ -7,15 +7,16 @@ public func HandSize() { return(800); }
 public func HandX()    { return(5500); }
 public func HandY()    { return(-1000); }
 public func BarrelYOffset() { return(-5000); }
+public func SelectionTime() { return(3*3); }
 
 func OnSelect(int iFM)
 {
-   Sound("PDTW_Charge");
+   Sound("PDTW_Charge.ogg");
 }
 
 public func OnReload(int i)
 {
-  Sound("PDTW_Reload");
+  Sound("PDTW_Reload.ogg");
 }
 
 //Einzelfeuer - Kugeln
@@ -63,7 +64,7 @@ public func Fire1()
   var x,y;
   user->WeaponEnd(x,y);
   var ammo = SALaunchBullet(x,y,GetController(user),angle+RandomX(-1,+1),230,350+Random(50),GetFMData(FM_Damage));
-  ammo->Sound("PDTW_Fire*");
+  ammo->Sound("PDTW_Fire*.ogg");
 
   // Effekte
   SAMuzzleFlash(RandomX(25,30),user,x,y,angle);
@@ -110,7 +111,7 @@ public func Fire2()
 
   BulletCasing(x/3,y/3,-dir*17*(Random(1)+1),-(15+Random(2)),4);
 
-  ammo->Sound("PDTW_FireMonochrom*");
+  ammo->Sound("PDTW_FireMonochrom*.ogg");
   
   MuzzleFlash(RandomX(30,40),user,x,y-2,angle,RGB(0,128,255));
   MuzzleFlash(RandomX(10,20),user,x,y-2,angle,RGB(0,70+Random(30),255));

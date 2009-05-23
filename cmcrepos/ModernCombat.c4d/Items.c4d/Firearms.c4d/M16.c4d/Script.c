@@ -10,19 +10,20 @@ public func HandX()         { return(5000); }
 public func HandY()         { return(2000); }
 
 public func BarrelYOffset() { return(-2500); }
+public func SelectionTime() { return(14*3); }
 
 func OnReload(i)
 {
   if(i == 1)
-    Sound("M16A_Reload");
+    Sound("M16A_Reload.ogg");
     
   if(i == 2)
-    Sound("M203_Reload");
+    Sound("M203_Reload.ogg");
 }
 
 func OnSelect()
 {
-   Sound("M16A_Charge");
+   Sound("M16A_Charge.ogg");
 }
 
 public func OnSelectFT(int iFireMode, int iFireTec)
@@ -86,7 +87,7 @@ public func Fire1()//Standardschuss mit dem Gewehr.
   var x,y;
   user->WeaponEnd(x,y);
   var ammo = SALaunchBullet(x,y,GetController(user),angle,250,800,GetFMData(FM_Damage));
-  ammo->Sound("M16A_Fire*");
+  ammo->Sound("M16A_Fire*.ogg");
 
   // Effekte
   SAMuzzleFlash(RandomX(30,40),user,x,y,angle);
@@ -106,7 +107,7 @@ public func Fire1T1()//Stoßfeuer schießst 3 Mal hintereinander.
   var x,y;
   user->WeaponEnd(x,y);
   var ammo = SALaunchBullet(x,y,GetController(user),angle+RandomX(-2,+2),250,800,GetFMData(FM_Damage));
-  ammo->Sound("M16A_Fire*");
+  ammo->Sound("M16A_Fire*.ogg");
 
   // Effekte
   SAMuzzleFlash(RandomX(30,40),user,x,y,angle);
@@ -199,7 +200,7 @@ public func LaunchGrenade(id idg, int speed, int angle, int mode)
   grenade->Launch(xdir+GetXDir(user)/10, ydir/*+GetYDir(user)/20*/, GetFMData(FM_Damage,2));
 
   // effect
-  grenade->Sound("M203_Fire*");
+  grenade->Sound("M203_Fire*.ogg");
 
   CreateParticle("Thrust",x,y,/*GetXDir(user)*/,/*GetYDir(user)*/,15,RGBa(255,200,200,0),0,0);
 

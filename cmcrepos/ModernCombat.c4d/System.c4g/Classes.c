@@ -32,7 +32,7 @@ private func Class2Info(int iData)
   if(iData == CData_Name)  return("$assault$");
   if(iData == CData_Desc)  return("$assault_desc$");
   if(iData == CData_Clonk) return(PCMK);
-  if(iData == CData_Items) return("1x {{FP90}}|1x {{92FS}}|1x {{STUN}}");
+  if(iData == CData_Items) return("1x {{P29W}}|1x {{92FS}}|1x {{STUN}}");
   if(iData == CData_Facet) return(2);
   return(Default(iData));
 }
@@ -41,7 +41,7 @@ private func Class2Setup(int iPlr)
 {
   var new = CreateObject(PCMK,0,0,iPlr);
   DoAmmo(STAM,100,new);
-  new->CreateContents(FP90);
+  new->CreateContents(P29W);
   new->CreateContents(92FS);
   CreateObject(STUN,0,0,iPlr)->Activate(new);
   return(new);
