@@ -285,6 +285,13 @@ func CreateFurniture()
   CreateObject(BSH2, 6680, 510, -1);
   CreateObject(BSH2, 6690, 520, -1);
 
+  //Steine
+  CreateObject(STNE, 1460, 560, -1);
+  CreateObject(STNE, 3320, 370, -1);
+  CreateObject(STNE, 5815, 350, -1);
+  CreateObject(STNE, 6640, 670, -1);
+  CreateObject(STNE, 7410, 570, -1);
+
   //Verbundene Türen
   var doorw = CreateObject(GAT1, 2960, 333, -1);
   CreateObject(ROOM, 3570, 410, -1)->Connect(doorw);
@@ -300,7 +307,7 @@ func CreateFurniture()
   CreateObject(GAT1, 6145, 315, -1);
   CreateObject(GAT1, 6195, 315, -1);
 
-  //Panel
+  //Panele
   CreateObject(CPP1, 2840, 510, -1);
   CreateObject(CPP1, 4465, 580, -1);
 
@@ -574,18 +581,17 @@ func CreateEquipment()
 
   //Munitionskisten (Kugeln)
   var tmp = CreateObject(ABOX, 1060, 540, -1);
+  tmp->AutoRespawn();
   tmp->SetGraphics("Normal");
   tmp->Set(AMOC);
   var tmp = CreateObject(ABOX, 7300, 430, -1);
+  tmp->AutoRespawn();
   tmp->SetGraphics("Normal");
   tmp->Set(AMOC);
 
   //Projektilmunition
   PlaceSpawnpoint(AMOC, 3160, 290);
   PlaceSpawnpoint(AMOC, 4735, 445);
-
-  //Granatmunition
-  PlaceSpawnpoint(GRDC, 4335, 320);
 
   //Raketen
   PlaceSpawnpoint(MIAP, 1025, 205);
@@ -609,16 +615,13 @@ func CreateEquipment()
   PlaceSpawnpoint(FRAG, 2940, 610);
   PlaceSpawnpoint(FRAG, 6210, 610);
 
-  //Splittergranatenspawnpoints
-  PlaceSpawnpoint(FRAG, 2940, 610);
-
   //P29
   PlaceSpawnpoint(P29W, 1015, 530);
   PlaceSpawnpoint(P29W, 7205, 420);
 
-  //Spas12
-  PlaceSpawnpoint(SPAS, 2830, 580);
-  PlaceSpawnpoint(SPAS, 6300, 590);
+  //Pumpgun
+  PlaceSpawnpoint(PPGN, 2830, 580);
+  PlaceSpawnpoint(PPGN, 6300, 590);
 
   //M16
   PlaceSpawnpoint(M16A, 1335, 430);
@@ -634,9 +637,6 @@ func CreateEquipment()
   //PzF
   PlaceSpawnpoint(PZFW, 1000, 205);
   PlaceSpawnpoint(PZFW, 6495, 615);
-
-  //OICW
-  PlaceSpawnpoint(OICW, 4360, 315);
 
   //Motorboote
   SetupVehicleSpawn([INFL],CreateObject(VSPW,1245,510,-1),35*40);

@@ -61,7 +61,7 @@ func CreateFurniture()
   CreateObject(OLGH, 585, 1400, -1)->Set(5, 15, 1, 1, 40);
   CreateObject(OLGH, 585, 1830, -1)->Set(2, 15, 1, 1, 40);
 
-  //Rampen
+  ///Rampen
   DrawMaterialQuad("Wall-Concrete3",500,1940,530,1930,530,1940,515,1940,true);
   DrawMaterialQuad("Wall-Concrete3",530,1930,560,1920,560,1930,545,1930,true);
 
@@ -279,67 +279,46 @@ func CreateFurniture()
   //Tore und Konsolen
   var autod = CreateObject (HNG2, 450, 1250, -1);
   autod->Close();
-  CreateObject(CONS, 560, 1245, -1)->Set(autod);
-  
-  autod = CreateObject (HNG2, 720, 1250, -1);
+  CreateObject (CONS, 560, 1245, -1)
+  ->Set(autod);
+  var autod = CreateObject (HNG2, 720, 1250, -1);
   autod->Open();
-  CreateObject(CONS, 610, 1245, -1)->Set(autod);
-  
-  autod = CreateObject (HNG2, 450, 1370, -1);
+  CreateObject (CONS, 610, 1245, -1)
+  ->Set(autod);
+  var autod = CreateObject (HNG2, 450, 1370, -1);
   autod->Open();
-  CreateObject(CONS, 385, 1365, -1)->Set(autod);
-  
-  autod = CreateObject (HNG2, 720, 1370, -1);
+  CreateObject (CONS, 385, 1365, -1)
+  ->Set(autod);
+  var autod = CreateObject (HNG2, 720, 1370, -1);
   autod->Close();
-  CreateObject(CONS, 780, 1365, -1)->Set(autod);
-  
-  autod = CreateObject (HNG2, 460, 1800, -1);
+  CreateObject (CONS, 780, 1365, -1)
+  ->Set(autod);
+  var autod = CreateObject (HNG2, 460, 1800, -1);
   autod->Close();
-  CreateObject(CONS, 545, 1795, -1)->Set(autod);
-  
-  autod = CreateObject (HNG2, 460, 1940, -1);
+  CreateObject (CONS, 545, 1795, -1)
+  ->Set(autod);
+  var autod = CreateObject (HNG2, 460, 1940, -1);
   autod->Open();
-  CreateObject(CONS, 490, 1935, -1)->Set(autod);
-  
-  autod = CreateObject (HNG2, 710, 1800, -1);
+  CreateObject (CONS, 490, 1935, -1)
+  ->Set(autod);
+  var autod = CreateObject (HNG2, 710, 1800, -1);
   autod->Close();
-  CreateObject(CONS, 625, 1795, -1)->Set(autod);
-  
-  autod = CreateObject (HNG2, 710, 1940, -1);
+  CreateObject (CONS, 625, 1795, -1)
+  ->Set(autod);
+  var autod = CreateObject (HNG2, 710, 1940, -1);
   autod->Open();
-  CreateObject(CONS, 680, 1935, -1)->Set(autod);
+  CreateObject (CONS, 680, 1935, -1)
+  ->Set(autod);
 
   //Hangartore und Konsolen
-  autod = CreateObject (HNG1, 270, 1950, -1);
+  var autod = CreateObject (HNG1, 270, 1950, -1);
   autod->Open();
-  CreateObject(CONS, 135, 1935, -1)->Set(autod);
-  
-  autod = CreateObject (HNG1, 900, 1950, -1);
+  CreateObject (CONS, 135, 1935, -1)
+  ->Set(autod);
+  var autod = CreateObject (HNG1, 900, 1950, -1);
   autod->Open();
-  CreateObject (CONS, 1025, 1935, -1)->Set(autod);
-  
-  //Selbstschussanlagen und Konsolen
-  //Basis 2
-  aSelfDefense[0] = CreateObject (SEGU, 465, 709, -1);
-  aSelfDefense[0]->Arm(MGSA);
-  aSelfDefense[0]->SetAutoRepair(525);
-  CreateObject (CONS, 465, 645, -1)->Set(aSelfDefense[0]);
-
-  aSelfDefense[1] = CreateObject (SEGU, 705, 709, -1);
-  aSelfDefense[1]->Arm(MGSA);
-  aSelfDefense[1]->SetAutoRepair(525);
-  CreateObject (CONS, 705, 645, -1)->Set(aSelfDefense[1]);
-
-  //Basis 4
-  aSelfDefense[2] = CreateObject (SEGU, 475, 1329, -1);
-  aSelfDefense[2]->Arm(MGSA);
-  aSelfDefense[2]->SetAutoRepair(525);
-  CreateObject (CONS, 530, 1360, -1)->Set(aSelfDefense[2]);
-
-  aSelfDefense[3] = CreateObject (SEGU, 690, 1329, -1);
-  aSelfDefense[3]->Arm(MGSA);
-  aSelfDefense[3]->SetAutoRepair(525);
-  CreateObject (CONS, 640, 1360, -1)->Set(aSelfDefense[3]);
+  CreateObject (CONS, 1025, 1935, -1)
+  ->Set(autod);
 
   //Flaggen
   aFlag[0] = CreateObject(OFPL,585,160,NO_OWNER);
@@ -358,7 +337,6 @@ func CreateFurniture()
 
   aFlag[4] = CreateObject(OFPL,1025,1440,NO_OWNER);
     aFlag[4]->Set("$Flag5$",100,2);
-    aFlag[4]->Capture(2);
 
   aFlag[5] = CreateObject(OFPL,145,1940,NO_OWNER);
     aFlag[5]->Set("$Flag6$",100,2);
@@ -397,6 +375,29 @@ func CreateFurniture()
     warn->SetR(-180);
     AddWarnEffect(warn,aFlag[6]);
 
+  //Selbstschussanlagen und Konsolen
+  //Basis 2
+  aSelfDefense[1] = CreateObject (SEGU, 465, 709, -1);
+  aSelfDefense[1]->Arm(MGSA);
+  aSelfDefense[1]->SetAutoRepair(525);
+  CreateObject (CONS, 465, 645, -1)->Set(aSelfDefense[1]);
+
+  aSelfDefense[1] = CreateObject (SEGU, 705, 709, -1);
+  aSelfDefense[1]->Arm(MGSA);
+  aSelfDefense[1]->SetAutoRepair(525);
+  CreateObject (CONS, 705, 645, -1)->Set(aSelfDefense[1]);
+
+  //Basis 4
+  aSelfDefense[3] = CreateObject (SEGU, 475, 1329, -1);
+  aSelfDefense[3]->Arm(MGSA);
+  aSelfDefense[3]->SetAutoRepair(525);
+  CreateObject (CONS, 530, 1360, -1)->Set(aSelfDefense[3]);
+
+  aSelfDefense[3] = CreateObject (SEGU, 690, 1329, -1);
+  aSelfDefense[3]->Arm(MGSA);
+  aSelfDefense[3]->SetAutoRepair(525);
+  CreateObject (CONS, 640, 1360, -1)->Set(aSelfDefense[3]);
+
   //Sounds
 
   //Wind
@@ -430,17 +431,15 @@ func CreateEquipment()
   var tmp = CreateObject(ABOX, 570, 320, -1);
   tmp->SetGraphics("Normal");
   tmp->Set(AMOC);
+  tmp->AutoRespawn();
   var tmp = CreateObject(ABOX, 730, 1940, -1);
   tmp->SetGraphics("Normal");
   tmp->Set(AMOC);
+  tmp->AutoRespawn();
 
   //Projektilmunition
   PlaceSpawnpoint(AMOC, 740, 800);
   PlaceSpawnpoint(AMOC, 390, 1360);
-
-  //Granatmunition
-  PlaceSpawnpoint(GRDC, 300, 465);
-  PlaceSpawnpoint(GRDC, 1005, 1935);
 
   //Raketen
   PlaceSpawnpoint(MIAP, 600, 490);
@@ -461,22 +460,6 @@ func CreateEquipment()
   //Splittergranaten
   PlaceSpawnpoint(FRAG, 145, 1340);
   PlaceSpawnpoint(FRAG, 1025, 1340);
-
-  //OICW
-  PlaceSpawnpoint(OICW, 270, 465);
-  PlaceSpawnpoint(OICW, 1040, 1935);
-
-  //P90
-  PlaceSpawnpoint(FP90, 585, 580);
-  PlaceSpawnpoint(FP90, 695, 1680);
-
-  //Benelli
-  PlaceSpawnpoint(BNEL, 255, 990);
-  PlaceSpawnpoint(BNEL, 885, 1245);
-
-  //PzF
-  PlaceSpawnpoint(PZFW, 570, 490);
-  PlaceSpawnpoint(PZFW, 570, 1550);
 }
 
 /* Besitznahme */
@@ -484,23 +467,17 @@ func CreateEquipment()
 //Wenn eine Flagge übernommen wird...
 func PointCaptured(object pPoint, int iTeam)
 {
-  if(pPoint == aFlag[1])
-  {
-    if(aSelfDefense[0])
-      aSelfDefense[0]->SetTeam(iTeam);
-      
-    if(aSelfDefense[1])
-      aSelfDefense[1]->SetTeam(iTeam);
-  }
+  if(pPoint == aFlag[0])
+    aSelfDefense[0]->SetTeam(iTeam);
   
-  if(pPoint == aFlag[3])
-  {
-    if(aSelfDefense[2])
-      aSelfDefense[2]->SetTeam(iTeam);
-      
-    if(aSelfDefense[3])
-      aSelfDefense[3]->SetTeam(iTeam);
-  }
+  if(pPoint == aFlag[1])
+    aSelfDefense[1]->SetTeam(iTeam);
+  
+  if(pPoint == aFlag[5])
+    aSelfDefense[2]->SetTeam(iTeam);
+
+  if(pPoint == aFlag[6])
+    aSelfDefense[3]->SetTeam(iTeam);
 }
 
 //Alarmleuchtensteuerung in Effektform
@@ -531,15 +508,11 @@ global func FxIntWarnTimer(object pTarget, int iEffectNumber, int iEffectTime)
     EffectVar(1,pTarget,iEffectNumber) = iNow;
   }
   
-  return(0);
+  return(1);
 }
 
 func AddWarnEffect(object pTarget, object pPoint)
 {
   AddEffect ("IntWarn",pTarget,100,35,pTarget,0,pPoint);
-}
 
-public func OnClassSelection(object pClonk)
-{
-  CreateContents(JTPK, pClonk)->Activate(pClonk);
 }

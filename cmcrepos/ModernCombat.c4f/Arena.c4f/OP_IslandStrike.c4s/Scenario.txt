@@ -11,7 +11,7 @@ Definition3=ModernCombat.c4d
 [Game]
 StructNeedEnergy=0
 Goals=GOCC=1
-Rules=CHOS=1
+Rules=CHOS=1;MCSL=1
 FoWColor=13816530
 
 [Player1]

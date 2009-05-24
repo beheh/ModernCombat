@@ -18,8 +18,34 @@ FullscreenBG=1
 	TitleUseBookFont=0
 
 	[Scenario]
+	File=DM_BroadcastStation.c4s
+	Area=103,335,95,81
+	OverlayImage=Overlay.png
+	Title=
+	TitleFontSize=15
+	TitleColorInactive=
+	TitleColorActive=16711680
+	TitleOffX=90
+	TitleOffY=0
+	TitleAlign=1
+	TitleUseBookFont=0
+
+	[Scenario]
 	File=OP_IslandStrike.c4s
 	Area=102,415,95,81
+	OverlayImage=Overlay.png
+	Title=
+	TitleFontSize=15
+	TitleColorInactive=
+	TitleColorActive=16711680
+	TitleOffX=95
+	TitleOffY=0
+	TitleAlign=1
+	TitleUseBookFont=0
+
+	[Scenario]
+	File=OP_AtlanticCrisis.c4s
+	Area=204,253,95,81
 	OverlayImage=Overlay.png
 	Title=
 	TitleFontSize=15
@@ -45,7 +71,7 @@ FullscreenBG=1
 
 	[Scenario]
 	File=OP_ImperialGarden.c4s
-	Area=305,253,95,81
+	Area=204,415,95,81
 	OverlayImage=Overlay.png
 	Title=
 	TitleFontSize=15
@@ -58,7 +84,7 @@ FullscreenBG=1
 
 	[Scenario]
 	File=CTF_Dust.c4s
-	Area=305,415,95,81
+	Area=305,253,95,81
 	OverlayImage=Overlay.png
 	Title=
 	TitleFontSize=15

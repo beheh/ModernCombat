@@ -243,6 +243,16 @@ func CreateFurniture()
   tmp = CreateObject(SCR3, 1450, 320, -1);
   tmp->SetClrModulation(RGB(255,255,255));
 
+  //Büsche
+  CreateObject(BSH2, 200, 190, -1);
+  CreateObject(BSH2, 260, 85, -1);
+  CreateObject(BSH2, 745, 200, -1);
+  CreateObject(BSH2, 1300, 120, -1);
+
+  //Steine
+  CreateObject(STNE, 145, 55, -1);
+  CreateObject(STNE, 1390, 40, -1);
+
   //Schild
   CreateObject(ESGN, 805, 430, -1);
 
@@ -296,8 +306,14 @@ func CreateEquipment()
   //Alle Objekte folglich von links oben nach rechts unten
 
   //Munitionskisten (Kugeln)
-  CreateObject(ABOX, 75, 350, -1)->Set(AMOC);
-  CreateObject(ABOX, 1475, 260, -1)->Set(AMOC);
+  var tmp = CreateObject (ABOX, 75, 350, -1);
+  tmp->AutoRespawn();
+  tmp->Set(AMOC);
+  tmp->SetGraphics("Normal");
+  var tmp = CreateObject (ABOX, 1475, 260, -1);
+  tmp->AutoRespawn();
+  tmp->Set(AMOC);
+  tmp->SetGraphics("Normal");
 
   //Projektilmunition
   PlaceSpawnpoint(AMOC, 760, 490);
@@ -321,13 +337,13 @@ func CreateEquipment()
   PlaceSpawnpoint(SGRN, 360, 200);
   PlaceSpawnpoint(SGRN, 1135, 120);
 
-  //Tavor
-  PlaceSpawnpoint(TAVR, 75, 430);
-  PlaceSpawnpoint(TAVR, 1475, 350);
+  //M16
+  PlaceSpawnpoint(M16A, 75, 430);
+  PlaceSpawnpoint(M16A, 1475, 350);
 
-  //Spas12
-  PlaceSpawnpoint(SPAS, 580, 160);
-  PlaceSpawnpoint(SPAS, 930, 80);
+  //Pumpgun
+  PlaceSpawnpoint(PPGN, 580, 160);
+  PlaceSpawnpoint(PPGN, 930, 80);
 
   //PzF
   PlaceSpawnpoint(PZFW, 760, 430);
