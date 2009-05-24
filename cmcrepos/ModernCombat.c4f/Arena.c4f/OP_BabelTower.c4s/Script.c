@@ -539,7 +539,7 @@ func AddWarnEffect(object pTarget, object pPoint)
   AddEffect ("IntWarn",pTarget,100,35,pTarget,0,pPoint);
 }
 
-func OnClonkRecruitment(object pClonk)
+public func OnClassSelection(object pClonk)
 {
   CreateContents(JTPK, pClonk)->Activate(pClonk);
 }
