@@ -96,16 +96,17 @@ func CreateEquipment()
 
   //Munitionskisten (Kugeln)
   var tmp = CreateObject(ABOX, 350, 540, -1);
-  tmp->SetGraphics("Desert");
   tmp->Set(AMOC);
-  CreateObject(ABOX, 1395, 490, -1);
   tmp->SetGraphics("Desert");
+
+  var tmp = CreateObject(ABOX, 1395, 490, -1);
   tmp->Set(AMOC);
+  tmp->SetGraphics("Desert");
 
   //Munitionskiste (Raketen)
-  CreateObject(ABOX, 1055, 780, -1);
-  tmp->SetGraphics("Desert");
+  var tmp = CreateObject(ABOX, 1055, 780, -1);
   tmp->Set(MIAP);
+  tmp->SetGraphics("Desert");
 
   //Projektilmunition
   PlaceSpawnpoint(AMOC, 280, 404);
@@ -122,14 +123,14 @@ func CreateEquipment()
   //PzF
   PlaceSpawnpoint(PZFW, 205, 405);
 
-  //Spas12
-  PlaceSpawnpoint(SPAS, 455, 620);
+  //Pumpgun
+  PlaceSpawnpoint(PPGN, 455, 620);
 
-  //P90
-  PlaceSpawnpoint(FP90, 1270, 680);
+  //P29
+  PlaceSpawnpoint(P29W, 1270, 680);
 
-  //OICW
-  PlaceSpawnpoint(OICW, 1565, 740);
+  //Abwehrschild
+  PlaceSpawnpoint(RSHL, 1565, 740);
 
   //MP7
   PlaceSpawnpoint(MP7R, 60, 620);

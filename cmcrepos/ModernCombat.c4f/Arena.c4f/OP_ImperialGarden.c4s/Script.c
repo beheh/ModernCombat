@@ -331,8 +331,8 @@ func CreateEquipment()
   //P29
   PlaceSpawnpoint(P29W, 870, 640);
 
-  //Tavor
-  PlaceSpawnpoint(TAVR, 650, 150);
+  //Pumpgun
+  PlaceSpawnpoint(PPGN, 650, 150);
 }
 
 /* Besitznahme */

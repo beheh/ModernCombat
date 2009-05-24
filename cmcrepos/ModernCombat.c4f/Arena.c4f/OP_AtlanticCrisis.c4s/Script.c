@@ -311,10 +311,8 @@ func CreateEquipment()
 
   //Munitionskisten (Kugeln)
   tmp = CreateObject(ABOX, 1680, 300, -1);
-  tmp->AutoRespawn();
   tmp->Set(AMOC);
   tmp = CreateObject(ABOX, 4330, 300, -1);
-  tmp->AutoRespawn();
   tmp->Set(AMOC);
 
   //Projektilmunition

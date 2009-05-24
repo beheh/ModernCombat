@@ -318,15 +318,12 @@ func CreateEquipment()
 
   //Munitionskisten (Kugeln)
   var tmp = CreateObject (ABOX, 370, 683, -1);
-  tmp->AutoRespawn();
   tmp->Set(AMOC);
   tmp->SetGraphics("Normal");
   var tmp = CreateObject (ABOX, 1255, 190, -1);
-  tmp->AutoRespawn();
   tmp->Set(AMOC);
   tmp->SetGraphics("Normal");
   var tmp = CreateObject (ABOX, 1285, 840, -1);
-  tmp->AutoRespawn();
   tmp->Set(AMOC);
   tmp->SetGraphics("Normal");
 

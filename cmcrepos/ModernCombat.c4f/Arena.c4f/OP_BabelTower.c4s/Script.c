@@ -431,11 +431,9 @@ func CreateEquipment()
   var tmp = CreateObject(ABOX, 570, 320, -1);
   tmp->SetGraphics("Normal");
   tmp->Set(AMOC);
-  tmp->AutoRespawn();
   var tmp = CreateObject(ABOX, 730, 1940, -1);
   tmp->SetGraphics("Normal");
   tmp->Set(AMOC);
-  tmp->AutoRespawn();
 
   //Projektilmunition
   PlaceSpawnpoint(AMOC, 740, 800);
