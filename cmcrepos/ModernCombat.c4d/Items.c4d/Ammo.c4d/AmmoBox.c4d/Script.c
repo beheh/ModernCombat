@@ -327,7 +327,7 @@ public func FxIntResupplyStop(object pTarget, int iEffectNumber, int iReason, bo
 /* Bumm */
 public func IsCraneGrabable() { return(1); }
 
-func Incineration(int iPlr)
+/*func Incineration(int iPlr)
 {
   ClearScheduleCall(this(), "InstaExplode");
   ScheduleCall(this(), "InstaExplode", 100+Random(80),0,iPlr);
@@ -373,4 +373,4 @@ func InstaExplode(int iPlr)
   //Explosion
   SetController(iPlr);
   Explode(30);
-}
+}*/
