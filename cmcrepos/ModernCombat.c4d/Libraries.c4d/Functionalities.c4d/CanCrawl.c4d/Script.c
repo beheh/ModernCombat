@@ -5,7 +5,7 @@
 
 /* Einstellungen */
 
-static const CRAWL_AIM_Max = 20;
+static const CRAWL_AIM_Max = 50;
 local crosshair;
 
 

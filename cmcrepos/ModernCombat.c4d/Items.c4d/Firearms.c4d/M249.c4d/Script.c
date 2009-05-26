@@ -63,10 +63,9 @@ public func FMData1T2(int data)//Burst
   if(data == FM_Recharge)             return(30);
   if(data == FT_IconFacet)            return(FICO_Burst);
   if(data == FM_Auto)                 return(false);
-  if(data == FM_Damage)               return(FMData1(FM_Damage)*2);
   if(data == FM_BurstAmount)          return(4);
   if(data == FM_BurstRecharge)        return(5);
-  if(data == FM_SpreadAdd)            return(42);
+  if(data == FM_SpreadAdd)            return(55);
   return(FMData1(data));
 }
 

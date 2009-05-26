@@ -32,7 +32,7 @@ public func FMData1(int data)
 
   if(data == FM_Auto)               return(false);
   
-  if(data == FM_Damage)    return(12);
+  if(data == FM_Damage)    return(13);
   
   if(data == FM_Slot)    return(1);
   
@@ -82,7 +82,7 @@ public func FMData2(int data)
   if(data == FM_Name)           return("$Monochrom$");
   if(data == FM_BurstAmount)    return(2);
   if(data == FM_BurstRecharge)  return(4);
-  if(data == FM_SpreadAdd) return(60);
+  if(data == FM_SpreadAdd) return(50);
   return(FMData1(data));
 }
 
