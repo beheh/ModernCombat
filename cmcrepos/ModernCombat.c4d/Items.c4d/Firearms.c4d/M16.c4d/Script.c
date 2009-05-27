@@ -150,10 +150,7 @@ public func FMData2T2(int data)
 {
   if(data == FT_Name)                 return("$Cluster$");
   if(data == FT_IconFacet)            return(FICO_Cluster);
-  if(data == FM_AmmoLoad)             return(2);
-  if(data == FM_AmmoUsage)            return(2);
   if(data == FM_Icon)                 return(M23C);
-  if(data == FM_Reload)               return(70);
   return(FMData2(data));
 }
 
