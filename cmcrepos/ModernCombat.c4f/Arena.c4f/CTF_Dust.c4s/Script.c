@@ -13,7 +13,7 @@ func Initialize()
   for(var i=0;i<180;++i) 
     CreateParticle("Fog",Random(LandscapeWidth()),Random(LandscapeHeight()),0,0,RandomX(900,1700));
   //Musiktitel, welches für dieses Szenario bestimmt ist, zuerst abspielen
-  Music("Quaddamage");
+  Music("Commander Fights");
   //Szenario einrichten
   CreateFurniture();
   //Ausrüstung plazieren

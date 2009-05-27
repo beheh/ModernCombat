@@ -7,7 +7,7 @@
 func Initialize()
 {
   //Musiktitel, welches für dieses Szenario bestimmt ist, zuerst abspielen
-  Music("Quaddamage");
+  Music("Quaddamage.ogg");
   //Szenario einrichten
   CreateFurniture();
   //Equipment plazieren

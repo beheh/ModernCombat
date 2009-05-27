@@ -11,7 +11,7 @@ func Initialize()
   //Bildschirmfärbung
   SetGamma(RGB(2,3,10), RGB(131,135,158), RGB(252,253,255) );
   //Musiktitel, welches für dieses Szenario bestimmt ist, zuerst abspielen
-  Music("Ghosthouse");
+  Music("Suspicion");
   //Flaggen
   aFlag = [];
   //Selbstschussanlagen
