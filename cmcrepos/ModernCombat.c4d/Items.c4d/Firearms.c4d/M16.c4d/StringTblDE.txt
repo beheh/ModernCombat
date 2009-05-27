@@ -5,5 +5,3 @@ Single=Einzelfeuer
 Grenades=Granaten
 Explosive=Explosiv-Granaten
 Cluster=Sharpnel-Granaten
-KRFLUpgradeDesc=Rüstet die Waffe mit einem Granantenwerfer aus
-KRFLUpgraded=Mit Granatenwerfer aufgerüstet.

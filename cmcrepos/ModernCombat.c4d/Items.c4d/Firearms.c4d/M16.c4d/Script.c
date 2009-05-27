@@ -3,8 +3,6 @@
 #strict
 #include WPN2
 
-local attachment;
-
 public func HandSize()      { return(1000); }
 public func HandX()         { return(5000); }
 public func HandY()         { return(2000); }
@@ -19,6 +17,9 @@ func OnReload(i)
     
   if(i == 2)
     Sound("M203_Reload.ogg");
+    var user = GetUser();
+    var dir = GetDir(user)*2-1;
+    SABulletCasing(dir*1,0,-dir*14*(Random(1)+1),-(13+Random(2)));
 }
 
 func OnSelect()
@@ -122,7 +123,7 @@ public func FMData2(int data)
   if(data == FM_AmmoID)   return(GRAM);
   if(data == FM_AmmoLoad) return(1);
 
-  if(data == FM_Reload)   return(80);
+  if(data == FM_Reload)   return(70);
   if(data == FM_Recharge) return(1);
 
   if(data == FM_Damage)   return(20);
@@ -130,9 +131,6 @@ public func FMData2(int data)
   if(data == FM_Slot)    return(2);//Der Granatenwerfer benutzt den zweiten Slot.
   
   if(data == FM_Icon) return(M203);
-  
-  if(data == FM_Condition) return(attachment == M203);
-  if(data == FM_Aim) return(3);
   
   if(data == FM_SpreadAdd) return(50);
   if(data == FM_StartSpread) return(80);
@@ -155,7 +153,7 @@ public func FMData2T2(int data)
   if(data == FM_AmmoLoad)             return(2);
   if(data == FM_AmmoUsage)            return(2);
   if(data == FM_Icon)                 return(M23C);
-  if(data == FM_Reload)               return(100);
+  if(data == FM_Reload)               return(70);
   return(FMData2(data));
 }
 
@@ -202,49 +200,11 @@ public func LaunchGrenade(id idg, int speed, int angle, int mode)
   // effect
   grenade->Sound("M203_Fire*.ogg");
 
-  CreateParticle("Thrust",x,y,/*GetXDir(user)*/,/*GetYDir(user)*/,15,RGBa(255,200,200,0),0,0);
+  CreateParticle("Thrust",x,y,GetXDir(user),GetYDir(user),80,RGBa(255,200,200,0),0,0);
 
-  for(var i=0; i<6; ++i)
-  {
-    CreateParticle("Smoke2",x+RandomX(-2,+2),y+RandomX(-2,+2),
-                   /*GetXDir(user)+*/RandomX(0,xdir/8),/*GetYDir(user)+*/RandomX(0,ydir/8),
-                   RandomX(15,50),RGBa(200,200,200,0),0,0);
-  }
-}
-  
-  
-//Tuning. :>
-public func IsUpgradeable(id uid)
-{
-  if(GetUpgrade(uid))
-    return(false);
-    
-  if(attachment)
-    return(false);
-  
-  if(uid == KRFL) return("$KRFLUpgradeDesc$");
-}
-
-public func OnUpgrade(id uid)
-{
-  var own = GetOwner(Contained());
-  if(uid == KRFL)
-  {
-    SetGraphics("M203");
-    attachment = M203;
-    SetFireMode(2);
-    if(Contained()) HelpMessage(own, "$KRFLUpgraded$", Contained());
-    return(true);
-  }
-}
-
-public func OnDowngrade(id uid)
-{
-  if(uid == KRFL)
-  {
-    SetGraphics();
-    attachment = 0;
-    SetFireMode(1);
-    return(true);
+  for(var i=0; i<20; ++i) {
+    CreateParticle("Smoke2",x+RandomX(-5,+5),y+RandomX(-5,+5),
+                   GetXDir(user)+RandomX(0,xdir/4),GetYDir(user)+RandomX(0,ydir/4),
+                   RandomX(80,140),RGBa(200,200,200,0),0,0);
   }
 }

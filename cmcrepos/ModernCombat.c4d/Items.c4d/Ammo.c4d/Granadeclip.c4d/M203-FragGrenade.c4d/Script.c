@@ -14,10 +14,16 @@ func Trigger()
     ammo->Launch(angle,70+Random(30),100+Random(100),5,15,15);
   }
   
-  CreateParticle("Blast",0,0,0,0,10*15,RGB(255,255,128));//FakeBlast :°
-  Sound("Blast1");
+  CreateParticle("Blast",0,0,0,0,5*10,RGB(255,255,128));//FakeBlast :°
+  Sound("GrenadeExplosion*.ogg");
   Sparks(15,RGB(255,128));
   CastParticles("Smoke3",6,8,0,0,80,150,RGBa(255,255,255,120),RGBa(255,255,255,150));
   AddLightFlash(50,0,0,RGB(255,255,128),this());
   RemoveObject();
+}
+
+func IsBulletTarget(id id)
+{
+  // Kann von anderen Geschossen getroffen werden
+  return(true);
 }

@@ -19,10 +19,11 @@ private func Class1Setup(int iPlr)
 {
   var new = CreateObject(PCMK,0,0,iPlr);
   DoAmmo(STAM,100,new);
+  DoAmmo(GRAM,12,new);
   new->CreateContents(M16A);
   new->CreateContents(92FS);
   CreateObject(FGRN,0,0,iPlr)->Activate(new);
-  CreateObject(FGRN,0,0,iPlr)->Activate(new);
+  CreateObject(FGRN,0,0,iPlr);
   return(new);
 }
 
@@ -43,7 +44,7 @@ private func Class2Setup(int iPlr)
   DoAmmo(STAM,100,new);
   new->CreateContents(P29W);
   new->CreateContents(92FS);
-  CreateObject(STUN,0,0,iPlr)->Activate(new);
+  CreateObject(STUN,0,0,iPlr);
   return(new);
 }
 
@@ -66,7 +67,7 @@ private func Class3Setup(int iPlr)
   new->CreateContents(PPGN);
   new->CreateContents(RSHL);
   CreateObject(FRAG,0,0,iPlr)->Activate(new);
-  CreateObject(FRAG,0,0,iPlr)->Activate(new);
+  CreateObject(FRAG,0,0,iPlr);
   return(new);
 }
 
@@ -88,7 +89,7 @@ private func Class4Setup(int iPlr)
   new->CreateContents(MP7R);
   new->CreateContents(RSHL);
   CreateObject(SGRN,0,0,iPlr)->Activate(new);
-  CreateObject(SGRN,0,0,iPlr)->Activate(new);
+  CreateObject(SGRN,0,0,iPlr);
   return(new);
 }
 
@@ -110,7 +111,7 @@ private func Class5Setup(int iPlr)
   DoAmmo(STAM,200,new);
   new->CreateContents(M249);
   CreateObject(FRAG,0,0,iPlr)->Activate(new);
-  CreateObject(SGRN,0,0,iPlr)->Activate(new);
+  CreateObject(SGRN,0,0,iPlr);
   return(new);
 }
 
@@ -128,12 +129,12 @@ private func Class6Info(int iData)
 
 private func Class6Setup(int iPlr)
 {
-  var new = CreateObject(PCMK,0,0,iPlr);
+  var new = CreateObject(MDIC,0,0,iPlr);
   DoAmmo(STAM,50,new);
   new->CreateContents(P29W);
   new->CreateContents(PDTW);
   new->CreateContents(FAPK);
   CreateObject(STUN,0,0,iPlr)->Activate(new);
-  CreateObject(STUN,0,0,iPlr)->Activate(new);
+  CreateObject(STUN,0,0,iPlr);
   return(new);
 }

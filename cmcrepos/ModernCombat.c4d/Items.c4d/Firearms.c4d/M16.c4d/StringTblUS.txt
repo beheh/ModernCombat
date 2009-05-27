@@ -5,5 +5,3 @@ Single=Single
 Grenades=Grenades
 Explosive=Explosive Grenades
 Cluster=Cluster Grenades
-KRFLUpgradeDesc=Adjusts an grenade launcher to the weapon
-KRFLUpgraded=Armed with grenade launcher.

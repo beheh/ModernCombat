@@ -6,16 +6,18 @@
 
 local active,sx,sy;
 
-
 public func IsAmmoPacket() { return(true); }
 public func AmmoID()       { return(GRAM); }
 public func AmmoCount()    { return(1); }
 public func IsRifleGrenade()    { return(true); }
+public func BlastRadius(){return(30);}
 
-/*func IsBulletTarget(id id)
+
+func IsBulletTarget(id id)
 {
+  // Kann von anderen Geschossen getroffen werden
   return(true);
-}*/
+}
 
 func Launch(int xdir, int ydir, int iDmg,a,b,c)
 {
@@ -53,7 +55,8 @@ func HitObject(object pObj)
 
 func Trigger(object pObj)
 {
-  Explode(iDamage*2/3);
-  DamageObjects(iDamage*3/2,iDamage*2,this());
-  CreateParticle("Blast",0,0,0,0,10*iDamage,RGB(255,255,128));//FakeBlast :°
+  Explode(BlastRadius()*2/3);
+  DamageObjects(BlastRadius()*3/2,BlastRadius()*2,this());
+  CreateParticle("Blast",0,0,0,0,10*BlastRadius(),RGB(255,255,128));
+  Sound("GrenadeExplosion*.ogg");
 }
