@@ -23,7 +23,7 @@ private func Class1Setup(int iPlr)
   new->CreateContents(M16A);
   new->CreateContents(92FS);
   CreateObject(FGRN,0,0,iPlr)->Activate(new);
-  CreateObject(FGRN,0,0,iPlr);
+  new->CreateContents(FGRN);
   return(new);
 }
 
@@ -44,7 +44,7 @@ private func Class2Setup(int iPlr)
   DoAmmo(STAM,100,new);
   new->CreateContents(P29W);
   new->CreateContents(92FS);
-  CreateObject(STUN,0,0,iPlr);
+  new->CreateContents(STUN);
   return(new);
 }
 
@@ -67,7 +67,7 @@ private func Class3Setup(int iPlr)
   new->CreateContents(PPGN);
   new->CreateContents(RSHL);
   CreateObject(FRAG,0,0,iPlr)->Activate(new);
-  CreateObject(FRAG,0,0,iPlr);
+  new->CreateContents(FRAG);
   return(new);
 }
 
@@ -89,7 +89,7 @@ private func Class4Setup(int iPlr)
   new->CreateContents(MP7R);
   new->CreateContents(RSHL);
   CreateObject(SGRN,0,0,iPlr)->Activate(new);
-  CreateObject(SGRN,0,0,iPlr);
+  new->CreateContents(SGRN);
   return(new);
 }
 
@@ -111,7 +111,7 @@ private func Class5Setup(int iPlr)
   DoAmmo(STAM,200,new);
   new->CreateContents(M249);
   CreateObject(FRAG,0,0,iPlr)->Activate(new);
-  CreateObject(SGRN,0,0,iPlr);
+  new->CreateContents(SGRN);
   return(new);
 }
 
@@ -135,6 +135,6 @@ private func Class6Setup(int iPlr)
   new->CreateContents(PDTW);
   new->CreateContents(FAPK);
   CreateObject(STUN,0,0,iPlr)->Activate(new);
-  CreateObject(STUN,0,0,iPlr);
+  new->CreateContents(STUN);
   return(new);
 }
