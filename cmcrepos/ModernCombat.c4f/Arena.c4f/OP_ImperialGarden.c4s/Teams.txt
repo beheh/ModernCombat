@@ -1,7 +1,6 @@
 [Teams]
 LastTeamID=2
 TeamColors=true
-AutoGenerateTeams=1
 
   [Team]
   id=1
