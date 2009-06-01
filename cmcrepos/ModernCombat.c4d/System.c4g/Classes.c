@@ -74,8 +74,8 @@ private func Class3Setup(int iPlr)
 //Riotcrusher
 private func Class4Info(int iData)
 {
-  if(iData == CData_Name)  return("$Riotcrusher$");
-  if(iData == CData_Desc)  return("$Riotcrusher_desc$");
+  if(iData == CData_Name)  return("$riotcrusher$");
+  if(iData == CData_Desc)  return("$riotcrusher_desc$");
   if(iData == CData_Clonk) return(PCMK);
   if(iData == CData_Items) return("1x {{MP7R}}|1x {{RSHL}}|2x {{SGRN}}");
   if(iData == CData_Facet) return(5);
@@ -136,5 +136,33 @@ private func Class6Setup(int iPlr)
   new->CreateContents(FAPK);
   CreateObject(STUN,0,0,iPlr)->Activate(new);
   new->CreateContents(STUN);
+  return(new);
+}
+
+
+
+
+
+//Infantryman
+private func Class7Info(int iData)
+{
+  if(iData == CData_Name)  return("$infantryman$");
+  if(iData == CData_Desc)  return("$infantryman_desc$");
+  if(iData == CData_Clonk) return(PCMK);
+  if(iData == CData_Items) return("1x {{DEGL}}|1x {{FAPK}}|4x {{FGRN}}");
+  if(iData == CData_Facet) return(3);
+  return(Default(iData));
+}
+
+private func Class7Setup(int iPlr)
+{
+  var new = CreateObject(PCMK,0,0,iPlr);
+  DoAmmo(STAM,100,new);
+  new->CreateContents(DEGL);
+  new->CreateContents(FAPK);
+  CreateObject(FGRN,0,0,iPlr)->Activate(new);
+  CreateObject(FGRN,0,0,iPlr)->Activate(new);
+  CreateObject(FGRN,0,0,iPlr)->Activate(new);
+  new->CreateContents(FGRN);
   return(new);
 }
