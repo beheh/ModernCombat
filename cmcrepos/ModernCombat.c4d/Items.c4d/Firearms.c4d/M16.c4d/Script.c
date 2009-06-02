@@ -13,13 +13,16 @@ public func SelectionTime() { return(14*3); }
 func OnReload(i)
 {
   if(i == 1)
+  {
     Sound("M16A_Reload.ogg");
-    
+  }
   if(i == 2)
+  {
     Sound("M203_Reload.ogg");
     var user = GetUser();
     var dir = GetDir(user)*2-1;
     SABulletCasing(dir*1,0,-dir*14*(Random(1)+1),-(13+Random(2)));
+  }
 }
 
 func OnSelect()
