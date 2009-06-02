@@ -296,7 +296,7 @@ func HasStippelSetup(){return(true);}
 
 func StippelSetup()
 {
-  bInfQueens = true;
+  //bInfQueens = true;
   CreateStippel();
 }
 
