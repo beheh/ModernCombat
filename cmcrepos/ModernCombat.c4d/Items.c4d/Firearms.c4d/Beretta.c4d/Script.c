@@ -124,7 +124,7 @@ public func Fire()
 {
 
   // bereit zum Schieﬂen
-  if(GetAction() eq "Sil")
+  if(GetAction() eq "Sil" || GetAction() eq "NoSil")
     return(false);
   
   return(_inherited());

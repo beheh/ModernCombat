@@ -2,11 +2,12 @@
 
 #strict
 
-global func FxIntVehicleSpawn4KStart(object pTarget, int iEffectNumber, int iTemp)
+global func FxIntVehicleSpawn4KStart(object pTarget, int iEffectNumber, int iTemp, int iDir)
 {
   if(iTemp) return;
-  EffectVar (0,pTarget,iEffectNumber) = CreateArray();//Spawn-IDs
-  EffectVar (1,pTarget,iEffectNumber) = 0;//aktuelles Fahrzeug
+  EffectVar (0,pTarget,iEffectNumber) = CreateArray(); // Spawn-IDs
+  EffectVar (1,pTarget,iEffectNumber) = 0; // aktuelles Fahrzeug
+  EffectVar (2,pTarget,iEffectNumber) = iDir; // Richtung des Fahrzeu
   return(1);
 }
 
@@ -19,9 +20,11 @@ global func FxIntVehicleSpawn4KTimer(object pTarget, int iEffectNumber, int iEff
   if(!pVehicle)
   {
     pVehicle = CreateContents(RandomIndex4K(aType),pTarget);
-    if(!pTarget->~Spawn(pVehicle))
-      pVehicle->Exit();
+    pTarget->~Spawn(pVehicle, EffectVar (2, pTarget, iEffectNumber), pTarget);
+      
   }
+  else
+    pTarget->~Spawn(pVehicle, EffectVar (2, pTarget, iEffectNumber), pTarget);
   
   EffectVar (1,pTarget,iEffectNumber) = pVehicle;
   
@@ -53,13 +56,14 @@ global func FxIntVehicleSpawn4KStop(object pTarget, int iEffectNumber, int iReas
   return(-1);
 }
 
-global func SetupVehicleSpawn(array aType, object pTarget, int iFrames)
+global func SetupVehicleSpawn(array aType, object pTarget, int iFrames, int iDir)
 {
+  // pTarget ist der Spawner
   if(!pTarget) pTarget = this();
   if(!pTarget) return(false);
   if(!iFrames) iFrames = 70;
   
-  var effect = AddEffect ("IntVehicleSpawn4K",pTarget,50,iFrames,pTarget); 
+  var effect = AddEffect ("IntVehicleSpawn4K",pTarget, 50, iFrames, pTarget, 0, iDir); 
   
   if(GetLength(aType))
   {
@@ -105,12 +109,26 @@ global func VehicleSpawn_DelType(id idType, object pTarget)
 
 
 /* objektspzifische Funktionen */
-public func Spawn(object pObj)
-{
-  AddEffect("SpawnBeam", pObj, 120, 1, 0, GetID(), 70);
-  Exit(pObj);
-  //pObj->SetPosition(GetX(),GetY()+GetDefOffset(GetID(pObj),1));
-}
+
+public func Spawn(object vehic, int dir, object spawner) {
+  if(!vehic)
+    return(0);
+  
+  // Keine Lebewesen einzementieren. Wir sind hier ja nicht bei der Mafia.
+  if(!FindObject2(Find_OCF(OCF_Living), Find_Distance(vehic->~GetObjWidth())))
+  {
+   Exit(vehic);
+   SetDir(dir, vehic);
+   if(!GetEffect("SpawnTemp", vehic, 0, 1))
+     {
+     AddEffect("SpawnBeam", vehic, 120, 1, 0, GetID(), 70);
+     AddEffect("SpawnTemp", vehic, 10, 100, 0, GetID());
+     }
+   return(1);
+  }
+  }
+  
+public func FxSpawnTempTimer() {}
 
 public func FxSpawnBeamStart(pTarget, iEffectNumber, temp, iFrames)
 {
@@ -118,6 +136,8 @@ public func FxSpawnBeamStart(pTarget, iEffectNumber, temp, iFrames)
   EffectVar(1, pTarget, iEffectNumber) = iFrames;
   pTarget -> SetClrModulation(RGBa(255, 255, 255, 255));//Unsichtbar.
 }
+
+// SetupVehicleSpawn([STMG], this(), 50, 1)
 
 public func FxSpawnBeamTimer(pTarget, iEffectNumber, iTime)
 {
