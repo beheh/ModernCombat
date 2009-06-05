@@ -120,6 +120,19 @@ public func OnSelectFT(int i, int j)
   }
 }
 
+public func Fire()
+{
+
+  // bereit zum Schieﬂen
+  if(GetAction() eq "Sil")
+    return(false);
+  
+  return(_inherited());
+
+ 
+}
+
+
 public func Sil()
 {
   SetGraphics(0,this(),SILE,1,GFXOV_MODE_Base); 
