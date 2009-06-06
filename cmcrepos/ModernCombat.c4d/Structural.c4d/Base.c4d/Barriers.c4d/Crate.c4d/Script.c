@@ -5,6 +5,7 @@
 public func IsBulletTarget() { return(1); }
 public func IsCraneGrabable() { return(1); }
 public func CanBeLaserRecycled() { return(2); }
+public func IsSpawnBlocker() { return(true); }
 
 func Damage()
 {

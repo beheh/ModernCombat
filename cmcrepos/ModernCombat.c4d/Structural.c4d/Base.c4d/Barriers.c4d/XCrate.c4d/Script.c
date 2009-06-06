@@ -3,6 +3,8 @@
 #strict
 #include WCR2
 
+public func IsSpawnBlocker() { return(true); }
+
 func Incineration(int iPlr)
 {
   ClearScheduleCall(this(), "InstaExplode");
