@@ -28,7 +28,7 @@ func Launch(int xdir, int ydir, int iDmg,a,b,c)
   inherited(xdir,ydir,iDmg,a,b,c);
 }
 
-protected func SecureDistance(){return(90);}
+protected func SecureDistance(){return(110);}
 
 protected func Secure()
 {
