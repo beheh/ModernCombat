@@ -28,7 +28,7 @@ func Launch(int xdir, int ydir, int iDmg,a,b,c)
   inherited(xdir,ydir,iDmg,a,b,c);
 }
 
-protected func SecureDistance(){return(100);}
+protected func SecureDistance(){return(90);}
 
 protected func Secure()
 {
@@ -65,19 +65,27 @@ func HitObject(object pObj)
   if(Secure())
   {
     if(pObj)
-     if(Hostile(GetOwner(this()), GetOwner(pObj)) || FriendlyFire())
      {
-       DoDmg(Distance(GetXDir(),GetYDir())/20,DMG_Melee,pObj); 
-    
+       DoDmg(Distance(GetXDir(),GetYDir())/5,DMG_Projectile,pObj); 
+       CastParticles("Smoke3",12,10,0,0,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
        if(GetOCF(pObj) & OCF_Living)
          Sound("SharpnelImpact*.ogg");
        else
          Sound("BlockOff*.ogg");
+       RemoveObject();
+       return();
      }
      else
      {
        Sound("GrenadeHit*.ogg");
+       Sparks(30,RGB(255,128));
+       CastParticles("Smoke3",12,10,0,0,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
+       RemoveObject();
+       return();
      }
+     Sound("GrenadeHit*.ogg");
+     Sparks(30,RGB(255,128));
+     CastParticles("Smoke3",12,10,0,0,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
      RemoveObject();
      return();
   }
