@@ -130,8 +130,16 @@ public func Spawn()
   if(!Contents()) return(RemoveObject());
 
   if(!GameCall("OccupationSpawn",Contents()))//INFO: Eigene Spawnmöglichkeiten via GameCall. Z.B. Fallschirm-Sprung o.Ä.! ;D
-    AddSpawnEffect(Contents(), Contents()->GetColorDw());
-  RemoveObject(0,1);
+    {
+    // Igitt. Aber obj->ID::Call(); geht nicht. :(
+    var tim = CreateObject(TIM2);
+    var obj = Contents();
+    Exit(obj);
+    Enter(tim, obj);
+    tim->Spawn();
+    RemoveObject();
+    }
+  
   return(1);
 }
 
