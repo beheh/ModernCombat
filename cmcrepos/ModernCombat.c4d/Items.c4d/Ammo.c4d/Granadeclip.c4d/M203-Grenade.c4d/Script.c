@@ -28,6 +28,19 @@ func Launch(int xdir, int ydir, int iDmg,a,b,c)
   inherited(xdir,ydir,iDmg,a,b,c);
 }
 
+protected func SecureDistance(){return(100);}
+
+protected func Secure()
+{
+  if(!active)
+    return(true);
+    
+  if(Distance(GetX(),GetY(),sx,sy) <= SecureDistance())
+    return(true);
+    
+  return(false);
+}
+
 func Hit()
 {
   HitObject();
@@ -49,8 +62,26 @@ func FxGrenadeTimer(object target, int effect, int time)
 
 func HitObject(object pObj)
 {
-  RemoveEffect("Grenade", this(),0,1);
-  Trigger(pObj);
+  if(Secure())
+  {
+    if(pObj)
+     if(Hostile(GetOwner(this()), GetOwner(pObj)) || FriendlyFire())
+     {
+       DoDmg(Distance(GetXDir(),GetYDir())/20,DMG_Melee,pObj); 
+    
+       if(GetOCF(pObj) & OCF_Living)
+         Sound("SharpnelImpact*.ogg");
+       else
+         Sound("BlockOff*.ogg");
+     }
+     else
+     {
+       Sound("GrenadeHit*.ogg");
+     }
+     RemoveObject();
+     return();
+  }
+  Trigger();
 }
 
 func Trigger(object pObj)
