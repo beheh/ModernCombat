@@ -72,7 +72,7 @@ func CreateFurniture()
 
   //Kisten
   CreateObject(WCR2, 30, 710, -1);
-  CreateObject(WCR2, 240, 710, -1)->AutoRespawn();
+  CreateObject(WCR2, 215, 710, -1)->AutoRespawn();
   CreateObject(WCR2, 310, 683, -1);
   CreateObject(WCR2, 400, 710, -1)->AutoRespawn();
   CreateObject(WCR2, 475, 500, -1)->AutoRespawn();

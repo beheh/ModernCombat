@@ -164,25 +164,6 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   }
 }
 
-public func RelaunchPosition2(& iX, & iY, int iTeam)//Wegen Domination.
-{
-  var rand = Random(2);
-  if(iTeam == 1)
-  {
-    if(!rand)
-      { iX = 370; iY = 350; }
-    if(!--rand)
-      { iX = 400; iY = 210; }
-  }
-  else
-  {
-    if(!rand)
-      { iX = 1395; iY = 630; }
-    if(!--rand)
-      { iX = 1395; iY = 710; }
-  }
-}
-
 /* Regelwähler */
 
 public func ChooserFinished()
@@ -206,14 +187,5 @@ public func ChooserFinished()
   {
     CreateFlag(1,130,680,GetTeamColor(1)); 
     CreateFlag(2,1720,400,GetTeamColor(2)); 
-  }
-  
-  //Domination-Spielziel
-  if(FindObject(GDOM))
-  {
-    CreateDominationPoint(150,320,1);
-    CreateDominationPoint(150,680,2);
-    CreateDominationPoint(1510,730,3);
-    CreateDominationPoint(1720,400,4);
   }
 }

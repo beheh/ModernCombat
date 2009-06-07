@@ -351,54 +351,20 @@ func CreateEquipment()
 
 public func RelaunchPosition(& iX, & iY, int iTeam)
 {
-  var rand = Random(5);
+  var rand = Random(2);
   if(iTeam == 1)
-  rand = Random(2);
-  if(iTeam == 2)
-  rand = 3+Random(2);
-  if(!rand)
-  { iX = 340; iY = 340; }
-  if(!--rand)
-  { iX = 530; iY = 470; }
-  if(!--rand)
-  { iX = 760; iY = 425; }
-  if(!--rand)
-  { iX = 1020; iY = 330; }
-  if(!--rand)
-  { iX = 1220; iY = 260; }
-
-  if(FindObject(GHTF))
   {
-   var rand = Random(4);
-   if(iTeam == 1)
-   rand = Random(2);
-   if(iTeam == 2)
-   rand = 2+Random(2);
-   if(!rand)
-   { iX = 340; iY = 340; }
-   if(!--rand)
-   { iX = 530; iY = 470; }
-   if(!--rand)
-   { iX = 1020; iY = 330; }
-   if(!--rand)
-   { iX = 1220; iY = 260; }
+    if(!rand)
+      { iX = 340; iY = 340; }
+    if(!--rand)
+      { iX = 530; iY = 470; }
   }
-
-  if(FindObject(GFDM))
+  else
   {
-   var rand = Random(4);
-   if(iTeam == 1)
-   rand = Random(2);
-   if(iTeam == 2)
-   rand = 2+Random(2);
-   if(!rand)
-   { iX = 340; iY = 340; }
-   if(!--rand)
-   { iX = 530; iY = 470; }
-   if(!--rand)
-   { iX = 1020; iY = 330; }
-   if(!--rand)
-   { iX = 1220; iY = 260; }
+    if(!rand)
+      { iX = 1020; iY = 330; }
+    if(!--rand)
+      { iX = 1220; iY = 260; }
   }
 }
 
