@@ -253,7 +253,7 @@ func CreateFurniture()
 
   //Steine
   CreateObject(STNE, 1015, 820, -1);
-  CreateObject(STNE, 1460, 590, -1);
+  CreateObject(STNE, 1470, 590, -1);
   CreateObject(STNE, 1580, 345, -1);
   CreateObject(STNE, 1715, 430, -1);
   CreateObject(STNE, 1805, 800, -1);
