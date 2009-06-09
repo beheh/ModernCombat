@@ -25,7 +25,7 @@ public func FMData1(int data)
   if(data == FM_AmmoLoad)           return(35);
   
   if(data == FM_Reload)             return(65);
-  if(data == FM_Recharge)           return(3);
+  if(data == FM_Recharge)           return(4);
 
   if(data == FM_Auto)               return(true);
   
@@ -106,6 +106,7 @@ public func FMData2(int data)
   if(data == FM_BurstAmount)    return(2);
   if(data == FM_BurstRecharge)  return(1);
   if(data == FM_SpreadAdd)      return(FMData1(data)/3*2);
+  if(data == FM_Recharge)       return(5);
   
   return(FMData1(data));
 }
