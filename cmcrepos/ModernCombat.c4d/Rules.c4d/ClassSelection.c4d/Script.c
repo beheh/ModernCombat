@@ -71,8 +71,7 @@ func RelaunchPlayer(int iPlr, object pClonk)
   	spawntimer = 10;
   	spawnclonk = pClonk;
   }
-	
-	// Mit toller Verzögerung, damit keine falsche Auswahl durch vorherige Tastendrucks...bla
+
   ScheduleCall(0,"InitClassMenu",20,0,pClonk);
   return();
 }

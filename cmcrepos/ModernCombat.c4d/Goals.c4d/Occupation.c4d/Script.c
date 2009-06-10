@@ -3,7 +3,9 @@
 #strict 2
 #include TEAM
 
+
 /* Globale Funktionen */
+
 global func DoTickets(int iTeam, int iChange)
 {
   var f = FindObject(GOCC);
@@ -18,8 +20,8 @@ global func CreateFlagpole(int iX, int iY, string szName, int iRange, int iSpeed
   return point;
 }
 
-
 /* Allgemein */
+
 local iStartTickets;
 local aTicket;
 

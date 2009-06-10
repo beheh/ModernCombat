@@ -1,1 +1,1 @@
-SpawnMenu=flag selector
+SpawnMenu=Flag selector
