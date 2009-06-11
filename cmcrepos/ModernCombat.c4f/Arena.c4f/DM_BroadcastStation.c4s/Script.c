@@ -9,7 +9,7 @@ func Initialize()
   //Bildschirmfärbung
   SetSkyAdjust(RGBa(255,255,255,128),RGB(64,196,255));
   //Musiktitel, welches für dieses Szenario bestimmt ist, zuerst abspielen
-  Music("Deep Universe.ogg");
+  Music("Deep Universe");
   //Szenario einrichten
   CreateFurniture();
   //Equipment plazieren
