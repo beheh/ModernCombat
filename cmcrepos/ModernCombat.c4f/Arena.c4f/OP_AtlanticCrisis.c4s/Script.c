@@ -11,7 +11,7 @@ func Initialize()
   //Bildschirmfärbung
   SetGamma(RGB(2,3,10), RGB(131,135,158), RGB(252,253,255) );
   //Musiktitel, welches für dieses Szenario bestimmt ist, zuerst abspielen
-  Music("Blue Ressort");
+  Music("Missile Alert");
   //Flaggen
   aFlag = [];
   //Szenario einrichten
@@ -329,8 +329,8 @@ func CreateEquipment()
   PlaceSpawnpoint(FGRN, 4600, 408);
 
   //Motorboote
-  SetupVehicleSpawn([INFL],CreateObject(VSPW,1710,510,-1));
-  SetupVehicleSpawn([INFL],CreateObject(VSPW,4310,510,-1));
+  SetupVehicleSpawn([INFL],CreateObject(VSPW,1710,510,-1),10*10,1);
+  SetupVehicleSpawn([INFL],CreateObject(VSPW,4310,510,-1),10*10,2);
 
   //Waffenautomaten
   SetUpStore(CreateObject(WPVM, 1500, 430, -1));

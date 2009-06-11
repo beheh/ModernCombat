@@ -637,9 +637,13 @@ func CreateEquipment()
   PlaceSpawnpoint(PZFW, 6495, 615);
 
   //Motorboote
-  SetupVehicleSpawn([INFL],CreateObject(VSPW,1245,510,-1),35*40);
-  SetupVehicleSpawn([INFL],CreateObject(VSPW,4640,550,-1),35*40);
-  SetupVehicleSpawn([INFL],CreateObject(VSPW,5565,550,-1),35*40);
+  SetupVehicleSpawn([INFL],CreateObject(VSPW,1245,510,-1),10*10,1);
+  SetupVehicleSpawn([INFL],CreateObject(VSPW,2120,510,-1),10*10,2);
+
+  SetupVehicleSpawn([INFL],CreateObject(VSPW,4640,550,-1),10*10,1);
+  SetupVehicleSpawn([INFL],CreateObject(VSPW,5565,550,-1),10*10,2);
+
+  SetupVehicleSpawn([INFL],CreateObject(VSPW,7440,510,-1),10*10,2);
 }
 
 /* Besitznahme */
