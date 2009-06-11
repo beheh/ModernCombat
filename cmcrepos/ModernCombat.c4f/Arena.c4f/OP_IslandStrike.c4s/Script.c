@@ -460,7 +460,7 @@ func CreateFurniture()
 
   //Selbstschussanlagen
   aSelfDefense[0] = CreateObject (SEGU, 1095, 309, -1);
-    aSelfDefense[0]->Arm(MGSA);
+    aSelfDefense[0]->Arm(MISA);
     aSelfDefense[0]->TurnOn(MGSA);
     CreateObject (CONS, 1155, 530, -1)->Set(aSelfDefense[0]);
   
@@ -477,7 +477,7 @@ func CreateFurniture()
     CreateObject (CONS, 6355, 500, -1)->Set(aSelfDefense[2]);
   
   aSelfDefense[3] = CreateObject (SEGU, 7190, 479, -1);
-    aSelfDefense[3]->Arm(MGSA);
+    aSelfDefense[3]->Arm(MISA);
     aSelfDefense[3]->TurnOn(MGSA);
     CreateObject (CONS, 7260, 420, -1)->Set(aSelfDefense[3]);
   

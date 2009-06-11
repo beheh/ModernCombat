@@ -6,6 +6,8 @@ TeamColors=true
   id=1
   Name=$Team1$
   Color=16776960
+  PlayerCount=1
+  Players=1
 
   [Team]
   id=2

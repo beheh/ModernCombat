@@ -340,7 +340,7 @@ func CreateEquipment()
 //Wenn eine Flagge übernommen wird...
 func PointCaptured(object pPoint, int iTeam)
 {
-  if(pPoint == aFlag[0])
+  if(pPoint == aFlag[1])
     aSelfDefense[0]->SetTeam(iTeam);
   
   if(pPoint == aFlag[5])
@@ -349,10 +349,10 @@ func PointCaptured(object pPoint, int iTeam)
 
 func PointCaptured(object pPoint, int iTeam)
 {
-  if(pPoint == aFlag[0])
+  if(pPoint == aFlag[1])
     aSelfDefense[0]->SetTeam(iTeam);
 
-  if(pPoint == aFlag[5])
+  if(pPoint == aFlag[4])
     aSelfDefense[1]->SetTeam(iTeam);
 }
 

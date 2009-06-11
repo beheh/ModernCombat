@@ -351,16 +351,31 @@ func CreateEquipment()
 
 public func RelaunchPosition(& iX, & iY, int iTeam)
 {
-  var rand = Random(2);
-  if(iTeam == 1)
+  //CTF-Spielziel
+  if(FindObject(GCTF))
+   var rand = Random(2);
+   if(iTeam == 1)
+   {
+     if(!rand)
+       { iX = 340; iY = 340; }
+     if(!--rand)
+       { iX = 530; iY = 470; }
+     return(1);
+   }
+   else
+   {
+     if(!rand)
+       { iX = 1020; iY = 330; }
+     if(!--rand)
+       { iX = 1220; iY = 260; }
+     return(1);
+   }
+  var rand = Random(4);
   {
     if(!rand)
       { iX = 340; iY = 340; }
     if(!--rand)
       { iX = 530; iY = 470; }
-  }
-  else
-  {
     if(!rand)
       { iX = 1020; iY = 330; }
     if(!--rand)
@@ -374,17 +389,10 @@ public func ChooserFinished()
 {
   inherited();
 
-  //Bei FlagDeathMatch-Spielziel
-  if(FindObject(GFDM))
+  //CTF-Spielziel
+  if(FindObject(GCTF))
   {
-    //FDM-Flaggenpunkt erstellen.
-    CreateFDMBase(785, 360);
-  }
-
-  //Bei Hold-The-Flag-Spielziel
-  if(FindObject(GHTF))
-  {
-    //HTF-Flaggenpunkt erstellen.
-    CreateHTFBase(785, 360);
+    CreateFlag(1,110,440,GetTeamColor(1)); 
+    CreateFlag(2,1440,360,GetTeamColor(2)); 
   }
 }
