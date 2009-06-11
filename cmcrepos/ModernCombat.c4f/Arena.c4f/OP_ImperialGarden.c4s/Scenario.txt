@@ -1,7 +1,7 @@
 [Head]
 Icon=16
 Title=OP - Imperial Garden
-Origin=ModernCombat.c4f\Arena.c4f\OP_ImperialGarden.c4s
+Origin=ModernCombat.c4f
 
 [Definitions]
 Definition1=Objects.c4d

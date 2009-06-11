@@ -1,7 +1,7 @@
 [Head]
 Icon=16
 Title=DM - Macross Frontier
-Origin=ModernCombat.c4f\Arena.c4f\DM_MacrossFrontier.c4s
+Origin=ModernCombat.c4f
 
 [Definitions]
 Definition1=Objects.c4d

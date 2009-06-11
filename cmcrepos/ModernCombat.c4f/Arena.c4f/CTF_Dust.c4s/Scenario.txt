@@ -1,7 +1,7 @@
 [Head]
 Icon=16
 Title=CTF - Dust
-Origin=ModernCombat.c4f\Arena.c4f\CTF_Dust.c4s
+Origin=ModernCombat.c4f
 
 [Definitions]
 Definition1=Objects.c4d

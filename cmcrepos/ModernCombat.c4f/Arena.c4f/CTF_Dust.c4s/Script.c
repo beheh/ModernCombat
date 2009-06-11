@@ -52,7 +52,7 @@ func CreateFurniture()
   //Kisten
   CreateObject(WCR2, 335, 740, -1)->AutoRespawn();
   CreateObject(WCR2, 463, 290, -1)->AutoRespawn();
-  CreateObject(WCR2, 794, 450, -1)->AutoRespawn();
+  CreateObject(WCR2, 790, 450, -1)->AutoRespawn();
 
   //Explosive Kiste
   CreateObject(XWCR, 1090, 740, -1)->AutoRespawn();

@@ -2,7 +2,7 @@
 Icon=16
 Title=TL - Complex B
 MaxPlayer=1
-Origin=ModernCombat.c4f\Tutorial.c4f\TL_ComplexB.c4s
+Origin=ModernCombat.c4f\Tutorial.c4f
 
 [Definitions]
 Definition1=Objects.c4d

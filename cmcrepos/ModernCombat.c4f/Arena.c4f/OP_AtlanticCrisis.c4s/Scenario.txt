@@ -1,7 +1,7 @@
 [Head]
 Icon=16
 Title=OP - Atlantic Crisis
-Origin=ModernCombat.c4f\Arena.c4f\OP_AtlanticCrisis.c4s
+Origin=ModernCombat.c4f
 
 [Definitions]
 Definition1=Objects.c4d
