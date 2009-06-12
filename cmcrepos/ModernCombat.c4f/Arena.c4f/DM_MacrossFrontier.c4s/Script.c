@@ -265,11 +265,11 @@ func CreateFurniture()
 
   //Selbstschussanlagen und Konsolen
   var selfd = CreateObject (SEGU, 700, 219, -1);
-  selfd->Arm(M249);
+  selfd->Arm(P29W);
   CreateObject (CONS, 570, 225, -1)
   ->Set(selfd);
   var selfd = CreateObject (SEGU, 850, 139, -1);
-  selfd->Arm(M249);
+  selfd->Arm(P29W);
   CreateObject (CONS, 975, 140, -1)
   ->Set(selfd);
 
