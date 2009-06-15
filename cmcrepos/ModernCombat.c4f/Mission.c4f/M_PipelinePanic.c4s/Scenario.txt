@@ -1,7 +1,8 @@
 [Head]
 Icon=16
 Title=M - Pipeline Panic
-Origin=ModernCombat.c4f\Mission.c4f
+Origin=ModernCombat.c4f
+Loader=Loader_CMC*
 
 [Definitions]
 Definition1=Objects.c4d

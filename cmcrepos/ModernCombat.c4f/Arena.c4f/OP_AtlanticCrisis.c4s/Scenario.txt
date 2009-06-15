@@ -2,6 +2,7 @@
 Icon=16
 Title=OP - Atlantic Crisis
 Origin=ModernCombat.c4f
+Loader=Loader_CMC*
 
 [Definitions]
 Definition1=Objects.c4d

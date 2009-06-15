@@ -2,6 +2,7 @@
 Icon=16
 Title=OP - Babel Tower
 Origin=ModernCombat.c4f
+Loader=Loader_CMC*
 
 [Definitions]
 Definition1=Objects.c4d
