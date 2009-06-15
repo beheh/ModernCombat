@@ -117,7 +117,8 @@ public func Spawn(object vehic, int dir, object spawner) {
   // Keine Lebewesen einzementieren. Wir sind hier ja nicht bei der Mafia.
   if(!FindObject2(Find_OCF(OCF_Living), Find_Distance(vehic->~GetObjWidth())))
   {
-   Exit(vehic, 0, -GetObjHeight(vehic)/2);
+   if(GetID(vehic) == INFL) Exit(vehic,0,22);
+   else(Exit(vehic, 0, -GetObjHeight(vehic)/2));
    SetDir(dir, vehic);
    if(!GetEffect("SpawnTemp", vehic, 0, 1))
      {
