@@ -10,7 +10,7 @@ public func IsAmmoPacket() { return(true); }
 public func AmmoID()       { return(GRAM); }
 public func AmmoCount()    { return(1); }
 public func IsRifleGrenade()    { return(true); }
-public func BlastRadius(){return(30);}
+public func BlastRadius(){return(20);}
 
 
 func IsBulletTarget(id id)
