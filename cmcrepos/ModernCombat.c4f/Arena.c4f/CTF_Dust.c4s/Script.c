@@ -75,6 +75,27 @@ func CreateFurniture()
   //Glühbirne
   CreateObject(LBGH, 1340, 645, -1);
 
+  //Gasflasche
+  CreateObject(GSBO, 385, 360, -1)->AutoRespawn();
+
+  //Geländer
+  CreateObject(RAI1, 370, 480, -1)->SetRail([1]);
+  CreateObject(RAI1, 350, 540, -1)->SetRail([1,1]);
+  CreateObject(RAI1, 1250, 690, -1)->SetRail([1,1]);
+  CreateObject(RAI1, 1360, 720, -1)->SetRail([1,1,1,1]);
+  CreateObject(RAI1, 1480, 730, -1)->SetRail([1,1]);
+
+  //Büsche
+  CreateObject(BSH2, 320, 470, -1);
+  CreateObject(BSH2, 650, 560, -1);
+  CreateObject(BSH2, 1275, 825, -1);
+  CreateObject(BSH2, 1550, 600, -1);
+  CreateObject(BSH2, 1730, 350, -1);
+
+  //Steine
+  CreateObject(STNE, 540, 380, -1);
+  CreateObject(STNE, 1290, 820, -1);
+
   //Sounds
 
   //Wind
