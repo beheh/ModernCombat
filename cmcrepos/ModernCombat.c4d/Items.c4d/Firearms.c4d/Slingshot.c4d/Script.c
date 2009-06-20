@@ -126,7 +126,7 @@ public func FMData1T2(int data)
 
 public func Fire1()//Schuss mit dem Granatenwerfer.
 {  
-  LaunchGrenade(M203, 90,Contained()->~AimAngle(0,0,true)+RandomX( -3, 3));
+  LaunchGrenade(M203, 100,Contained()->~AimAngle(0,0,true)+RandomX( -3, 3));
 }
 
 public func Fire1T1()
@@ -136,7 +136,7 @@ public func Fire1T1()
 
 public func Fire2()
 {  
-  LaunchGrenade(M23C, 90,Contained()->~AimAngle(0,0,true)+RandomX( -3, 3));
+  LaunchGrenade(M23C, 100,Contained()->~AimAngle(0,0,true)+RandomX( -3, 3));
 }
 
 public func Fire1T2()
