@@ -139,10 +139,6 @@ private func Class6Setup(int iPlr)
   return(new);
 }
 
-
-
-
-
 //Infantryman
 private func Class7Info(int iData)
 {
@@ -164,5 +160,26 @@ private func Class7Setup(int iPlr)
   CreateObject(FGRN,0,0,iPlr)->Activate(new);
   CreateObject(FGRN,0,0,iPlr)->Activate(new);
   new->CreateContents(FGRN);
+  return(new);
+}
+
+//Artillerist
+private func Class8Info(int iData)
+{
+  if(iData == CData_Name)  return("$artillerist$");
+  if(iData == CData_Desc)  return("$artillerist_desc$");
+  if(iData == CData_Clonk) return(PCMK);
+  if(iData == CData_Items) return("1x {{SGST}}|1x {{92FS}}");
+  if(iData == CData_Facet) return(4);
+  return(Default(iData));
+}
+
+private func Class8Setup(int iPlr)
+{
+  var new = CreateObject(PCMK,0,0,iPlr);
+  DoAmmo(STAM,30,new);
+  DoAmmo(GRAM,40,new);
+  new->CreateContents(SGST);
+  new->CreateContents(92FS);
   return(new);
 }

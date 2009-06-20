@@ -13,4 +13,6 @@ peacemaker_desc=Der Peacemaker ist eine stark|defensive Einheit. Sein Abwehr-|sc
 medic=Sanitäter
 medic_desc=Der Sanitäter ist das Rückrad|der Truppenversorgung, seine|Heilungskünste lösen auch die|schlimmste Verletzung und macht|die Patienten wieder fit.|Seine Monochromwaffen sorgen für|genügend Abwehrmöglichkeiten.
 infantryman=Grenadier
-infantryman_desc=Der wurfbegabte Grenadier verfügt|über mehrere tödliche Feld-granaten,  mit denen er perfekt|umzugehen weiß. Zudem besitzt er|ein EHP zur eigenen Direkthilfe|und eine schlagkräftige Pistole,|sollte der Gegner zu nah sein.
+infantryman_desc=Der wurfbegabte Grenadier verfügt|über mehrere tödliche Feld-|granaten,  mit denen er perfekt|umzugehen weiß. Zudem besitzt er|ein EHP zur eigenen Direkthilfe|und eine schlagkräftige Pistole,|sollte der Gegner zu nah sein.
+artillerist=Artillerist
+artillerist_desc=Mit einem starken Granatenwerfer|ausgerüstet, ist der Artillerist|eine Unterstützungseinheit, die|hinter der Frontlinie agiert.|Seine Hauptwaffe sorgt dabei für|tödlichen Regen für den Gegner,|sofern dieser im Freien ist.
