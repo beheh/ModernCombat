@@ -1,6 +1,3 @@
-Bullets=Kugeln
-Burst=Stoﬂfeuer
-Single=Einzelfeuer
 Grenades=Granaten
 Explosive=Explosiv-Granaten
 Cluster=Sharpnel-Granaten
