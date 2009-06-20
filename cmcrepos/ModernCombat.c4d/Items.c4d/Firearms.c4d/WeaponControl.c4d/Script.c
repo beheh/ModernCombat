@@ -271,7 +271,7 @@ private func ChangeFireMode(unused, i)
     return(); 
   }*/
   
-  Sound("WPN2_Switch");
+  Sound("WPN2_Switch.ogg");
   
   CloseMenu(GetUser());
   var last = firemode;
@@ -298,7 +298,7 @@ private func ManualReload(fm)
 
 private func ManualEmpty(unused,fm)
 {
-  Sound("WPN2_Unload");
+  Sound("WPN2_Unload.ogg");
   Empty2(GetSlot(fm));
   WeaponMenu(fm);
 }
@@ -367,7 +367,7 @@ public func SAMenu(unused, fm)
 //public func SetSpecialAmmo2(id idType, fm)
 public func SetSpecialAmmo2(id idType, fm)
 {
-  Sound("WPN2_Switch");
+  Sound("WPN2_Switch.ogg");
   SetSpecialAmmo(idType);
   //WeaponMenu(fm,3);
 }
@@ -1112,7 +1112,7 @@ public func SetFireTec(int iFT,int iFM, bool bNoCalls)
   
   if(!bNoCalls && (last != iFT))
   {
-    Sound("WPN2_Switch");
+    Sound("WPN2_Switch.ogg");
     OnSelectFT(iFM,iFT,last);
   }
   
@@ -1414,7 +1414,7 @@ global func FxShowWeaponTimer(object pTarget, int iNumber, int iTime)
 
 func Hit()
 {
-  Sound("WPN2_Hit*");
+  Sound("WPN2_Hit*.ogg");
 }
 
 global func SALaunchBullet(int iX, int iY, int iOwner, int iAngle, int iSpeed, int iDist, int iDmg, int iRemoveTime, id idType)

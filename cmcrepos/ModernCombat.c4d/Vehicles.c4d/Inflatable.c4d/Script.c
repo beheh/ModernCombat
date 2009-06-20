@@ -10,7 +10,7 @@ protected func Initialize()
 
 func Incineration()
 {
- Sound("OutOfAir");
+ Sound("OutOfAir.ogg");
  CastParticles("XSpark", 10, 40, RandomX(-38,38), RandomX(-2,3), 50, 0, RGB(190,85,20));
  FadeOut();
  ChangeDef(INFB);

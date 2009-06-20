@@ -50,14 +50,14 @@ public func Fire1()    // Projektil-Dauerfeuer
   BulletCasing(dir*1,0,-dir*14*(Random(1)+1),-(13+Random(2)),7,0,true);
 
   // Sound
-  Sound("MISA_Fire",0,ammo);
+  Sound("MISA_Fire.ogg",0,ammo);
 }
 
 func OnAutoStop(int iFM)
 {
   //if(iFM == 0)
   Message("END",this());
-    Sound("MISA_FireEnd");
+    Sound("MISA_FireEnd.ogg");
 }
 
 public func Fire2()
@@ -85,7 +85,7 @@ private func Burst()
   BulletCasing(dir*1,0,-dir*14*(Random(1)+1),-(13+Random(2)),7,0,true);
 
   // Sound
-  Sound("MISA_Fire",0,ammo);
+  Sound("MISA_Fire.ogg",0,ammo);
 }
 
 public func NoWeaponChoice() { return(true); }

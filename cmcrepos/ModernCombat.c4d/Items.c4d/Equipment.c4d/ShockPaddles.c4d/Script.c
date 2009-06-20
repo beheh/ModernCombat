@@ -97,7 +97,7 @@ func Use()
       obj = this();
         
     //Effekgehasche.
-    Sound("Defibrillator");
+    Sound("CDBT_Shock.ogg");
     obj->CastObjects(SPSK,5,20);
     obj->AddLightFlash (40+Random(20),0,0,RGB(0,140,255));
     
@@ -107,7 +107,7 @@ func Use()
   else
   {
     //Effekgehasche.
-    Sound("DefibrillatorFail");
+    Sound("CDBT_ShockFail.ogg");
     CastObjects(SPSK,5,20);
     AddLightFlash (40+Random(20),0,0,RGB(0,140,255));
     
@@ -124,11 +124,11 @@ func UseReanimation(pTarget)
 {
   if(!Ready())
   {
-    Sound("DefibrillatorFail");
+    Sound("CDBT_ShockFail.ogg");
     return(false);
   }
   
-  Sound("Defibrillator");
+  Sound("CDBT_Shock.ogg");
   pTarget->CastObjects(SPSK,5,20);
   pTarget->AddLightFlash (40+Random(20),0,0,RGB(0,140,255));
   charge = BoundBy(charge-20,0,60);

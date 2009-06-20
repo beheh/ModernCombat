@@ -1,9 +1,10 @@
-#strict
+/*-- Schuss --*/
 
-/* Schuss */
+#strict
 
 local iTime, lx, ly, pTrail, iDamage,speed,max_dst,dst,fb;
 local shooter,wpnid; // Dingens/Clonk das den Schuss abgefeuert hat.
+
 
 func Construction(object byObj)
 {
@@ -234,7 +235,7 @@ public func Ricochet(int iX, int iY)
   {
     var O = A+(A-I)+180;
     iDamage = iDamage-iDamage*(H*50/RicochetAngle())/100;//Maximal 50% abziehen.
-    Sound("Ricochet*");
+    Sound("Ricochet*.ogg");
     
     if(Fast())
     {
@@ -363,12 +364,12 @@ public func OnHit(object pObject, int iX, int iY)
     if(Fast())
     {
       var tmp = CreateObject(TRAI,iX,iY,-1);
-      tmp->Sound("BulletImpact*");
+      tmp->Sound("BulletImpact*.ogg");
       tmp->RemoveObject();
     }
     else
     {
-      Sound("BulletImpact*");
+      Sound("BulletImpact*.ogg");
     }
     
     if(GetOCF(pObject) & OCF_Living)//Für Lebewesen keine Funken-Effekte.

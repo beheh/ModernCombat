@@ -1,4 +1,4 @@
-/*-- Fass --*/
+/*-- Giftfass --*/
 
 #strict
 #include XBRL

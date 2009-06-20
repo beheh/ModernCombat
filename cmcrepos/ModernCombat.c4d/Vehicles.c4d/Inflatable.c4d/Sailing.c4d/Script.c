@@ -38,7 +38,7 @@ public func Damage()
 
 func Incineration()
 {
- Sound("OutOfAir");
+ Sound("OutOfAir.ogg");
  if(motor) Explode(20,motor);
  CastParticles("XSpark", 10, 40, RandomX(-38,38), RandomX(-2,3), 50, 0, RGB(190,85,20));
  FadeOut();
@@ -67,7 +67,7 @@ private func Sail()
 
   var xdir = Min(Abs(GetXDir())+2,30);
   
-  Sound("motor_loop",false,motor,100,0,+1);
+  Sound("Motor.ogg",false,motor,100,0,+1);
  
   if(GetComDir() == COMD_Left)
     SetXDir(-xdir);
@@ -112,7 +112,7 @@ func Left()
 func Stop()
 {
   SetComDir(COMD_None);
-  Sound("motor_loop",false,motor,100,0,-1);
+  Sound("Motor.ogg",false,motor,100,0,-1);
 }
 
 

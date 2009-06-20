@@ -136,7 +136,7 @@ public func FxFAPHealStart(pTarget, iEffectNumber, iTemp, pClonk)
   if(!pClonk) return(-1);
   
   EffectVar(0, pTarget, iEffectNumber) = pClonk;
-  Sound("FAPKHealStart");
+  Sound("FAPK_HealStart.ogg");
   
   if(pClonk->~IsMedic())
   {
@@ -184,7 +184,7 @@ public func FxFAPHealTimer(pTarget, iEffectNumber, iEffectTime)
   pClonk->CreateParticle("ShockWave",0,0,Random(10),Random(10),5*GetObjHeight(pClonk)+25+Sin(iEffectTime*5,35),RGB(210,20,20),pClonk);
   
   if(!(iEffectTime % 40))
-    Sound("FAPKHeal*");
+    Sound("FAPK_Healing*.ogg");
   
   if(!(iEffectTime % 6))
   {
@@ -208,7 +208,7 @@ public func FxFAPHealStop(target, no, reason, temp)
   var clonk = EffectVar(0, target, no);
 
   if(!reason && clonk)
-    Sound("FAPKHealEnd");
+    Sound("FAPK_HealEnd.ogg");
   
   //Zurücksetzen.
   clonk->~StopHealing();
@@ -243,13 +243,13 @@ public func Remove()
 
 protected func Hit()
 {
-  Sound("FAPKHit*");
+  Sound("FAPK_Hit*.ogg");
   return(1);
 }
 
 protected func Selection()
 {
-  Sound("FAPKCharge");
+  Sound("FAPK_Charge.ogg");
   return(1);
 }
 

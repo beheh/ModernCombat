@@ -1,2 +1,0 @@
-DE:Kugelgeräusche
-US:Bulletsounds

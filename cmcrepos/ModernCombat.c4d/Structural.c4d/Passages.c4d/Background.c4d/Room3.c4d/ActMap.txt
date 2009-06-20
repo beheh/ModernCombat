@@ -23,4 +23,4 @@ Facet=378,0,42,34
 NextAction=CloseDoor
 StartCall=OpenEntrance
 EndCall=CloseEntrance
-Sound=DOR3_Ding
+Sound=DOR3_Ding.ogg

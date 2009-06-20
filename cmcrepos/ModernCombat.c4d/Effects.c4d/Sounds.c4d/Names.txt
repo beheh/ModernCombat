@@ -1,2 +1,0 @@
-DE:Sounds
-US:Sounds

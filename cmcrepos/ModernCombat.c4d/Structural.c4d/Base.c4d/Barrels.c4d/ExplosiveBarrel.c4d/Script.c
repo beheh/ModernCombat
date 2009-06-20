@@ -1,4 +1,4 @@
-/*-- Fass --*/
+/*-- Explosivfass --*/
 
 #strict
 local damaged;
@@ -35,7 +35,7 @@ func InstaExplode(int iPlr)
   damaged = true;
 
   //Effektgehasche
-  Sound("BarrelImpact*");
+  Sound("BarrelImpact*.ogg");
   CastParticles("Wave", 7+Random(5), RandomX(35,55), 0,0, 30,60, RGBa(1,1,1,50), RGBa(1,1,1,100));
   AddLightFlash(50, 0,0, RGBa(255,255,200,100));
   Sparks(7+Random(5), RGBa(255,255,150,100));

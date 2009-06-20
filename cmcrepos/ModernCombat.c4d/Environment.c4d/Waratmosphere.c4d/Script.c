@@ -27,11 +27,11 @@ protected func Make()
      && PathFree(x,y,x,y+70))
      {
       CreateParticle("BigBlast",x,y,0,0,dis*2,RGBa(100,100,100,70));
-      Sound("Blast*",1,0,20);
+      Sound("GrenadeExplosion*.ogg",1,0,20);
     }      
   }
   if(Random(65-ObjectCount(GetID())*5)) return(1);
   skyfade = 300;
-  Sound("Warflair*",1);
+  Sound("Warflair*.ogg",1);
   return(1);
 }

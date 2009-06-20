@@ -5,5 +5,5 @@ FacetBase=1
 Length=1
 Delay=1
 EndCall=Push
-Sound=Turbine
+Sound=Turbine.ogg
 NextAction=Push

@@ -1,4 +1,4 @@
-/*-- Schlauchboot (Motor) --*/
+/*-- Motor --*/
 
 #strict
 

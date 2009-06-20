@@ -42,7 +42,7 @@ public func Fire1()    // Projektil-Dauerfeuer
   BulletCasing(dir*1,0,-dir*14*(Random(1)+1),-(13+Random(2)),5,0,true);
 
   // Sound
-  ammo->Sound("MG2A_Fire");
+  ammo->Sound("MG2A_Fire.ogg");
 }
 
 public func NoWeaponChoice() { return(true); }
