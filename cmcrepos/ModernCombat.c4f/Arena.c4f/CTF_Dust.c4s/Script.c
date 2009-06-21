@@ -197,12 +197,6 @@ public func ChooserFinished()
     CreateFDMBase(830, 660);
   }
 
-  //HtF-Spielziel
-  if(FindObject(GHTF))
-  {
-    CreateHTFBase(830, 660);
-  }
-  
   //CtF-Spielziel
   if(FindObject(GCTF))
   {
