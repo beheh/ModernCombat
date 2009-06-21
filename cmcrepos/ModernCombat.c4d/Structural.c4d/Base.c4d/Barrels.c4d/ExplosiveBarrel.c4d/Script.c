@@ -74,7 +74,7 @@ func BlowUp(int iPlr)
   
 protected func Hit()
 {
-  Sound("BarrelImpact*");
+  Sound("BarrelImpact*.ogg");
   return(1);
 }
 

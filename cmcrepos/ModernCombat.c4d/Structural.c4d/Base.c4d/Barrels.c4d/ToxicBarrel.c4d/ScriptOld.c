@@ -58,7 +58,7 @@ func InstaExplode(int iPlr)
   CastParticles("FrSprk", 30, 5, 0, 0, 70, 130, RGBa(0, 240, 0, 10), RGBa(20, 255, 20, 75));  
   Sound("SlimeHit");
   Sound("Poff");
-  Sound("BarrelImpact*");
+  Sound("BarrelImpact*.ogg");
   
   SetAction("Wreck");
   FadeOut();
@@ -68,7 +68,7 @@ func InstaExplode(int iPlr)
   
 protected func Hit()
 {
-  Sound("BarrelImpact*");
+  Sound("BarrelImpact*.ogg");
   return(1);
 }
 
