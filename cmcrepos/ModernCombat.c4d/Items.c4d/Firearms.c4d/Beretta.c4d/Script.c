@@ -110,12 +110,12 @@ public func OnSelectFT(int i, int j)
 {
   if(j == 1)//Abschrauben?
   {
-    Sound("WPN2_UnSil");
+    Sound("WPN2_UnSil.ogg");
     SetAction("NoSil");
   }
   else//Aufschrauben!
   {
-    Sound("WPN2_Sil");
+    Sound("WPN2_Sil.ogg");
     SetAction("Sil");
   }
 }
