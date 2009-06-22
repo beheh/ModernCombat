@@ -7,9 +7,9 @@ MaxUserSelect=1
 Width=24
 Height=18
 Offset=-13,-13
-Value=15
+Value=25
 Mass=30
-Components=METL=1;WOOD=2
+Components=METL=2;WOOD=2
 Picture=0,18,64,64
 Vertices=4
 NoBurnDecay=1
