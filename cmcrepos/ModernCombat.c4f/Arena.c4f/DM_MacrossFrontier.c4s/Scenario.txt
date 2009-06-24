@@ -53,5 +53,5 @@ YearSpeed=0,0,0,100
 Wind=1,100,-100,100
 
 [Environment]
-Objects=EGRS=1;DARK=1;STRM=2
+Objects=EGRS=1;DARK=2;STRM=2
  

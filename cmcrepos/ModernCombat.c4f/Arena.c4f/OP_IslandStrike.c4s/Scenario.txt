@@ -52,5 +52,5 @@ YearSpeed=53,0,0,100
 Wind=1,100,-100,100
 
 [Environment]
-Objects=EGRS=1;EGLN=3;DARK=1;CICA=1;OWL1=1;BRDS=1;ELGT=1
+Objects=EGRS=1;EGLN=3;BRDS=1;ELGT=1
  

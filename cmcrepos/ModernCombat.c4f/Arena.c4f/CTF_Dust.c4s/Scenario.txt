@@ -57,5 +57,4 @@ YearSpeed=0,0,0,100
 Wind=1,100,-100,100
 
 [Environment]
-Objects=LENS=1;SONE=1;DARK=2;ELGT=1;DOFO=1
- 
+Objects=LENS=1;SONE=1;ELGT=1;DOFO=1
