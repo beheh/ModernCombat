@@ -128,10 +128,7 @@ public func Fire()
     return(false);
   
   return(_inherited());
-
- 
 }
-
 
 public func Sil()
 {
