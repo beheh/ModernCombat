@@ -164,6 +164,10 @@ func CreateFurniture()
   CreateObject(MSGN, 685, 590, -1);
   CreateObject(MSGN, 780, 590, -1);
 
+  //Notausgangslichter
+  CreateObject(ETLT, 145, 395, -1);
+  CreateObject(ETLT, 1255, 305, -1);
+
   //Lüftungsgitter
   CreateObject(ENGT, 170, 570, -1);
   CreateObject(ENGT, 585, 680, -1);

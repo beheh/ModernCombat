@@ -147,6 +147,15 @@ func CreateFurniture()
   CreateObject(MSGN, 920, 380, -1);
   CreateObject(MSGN, 950, 390, -1);
 
+  //Notausgangslichter
+  CreateObject(ETLT, 20, 425, -1);
+  CreateObject(ETLT, 895, 460, -1);
+  CreateObject(ETLT, 1520, 345, -1);
+
+  //Warnschilder
+  CreateObject(EXSN, 440, 450, -1);
+  CreateObject(EXSN, 1125, 370, -1);
+
   //Alarmlampen
   CreateObject(ALGH, 710, 170, -1)->TurnOn();
   CreateObject(ALGH, 840, 90, -1)->TurnOn();

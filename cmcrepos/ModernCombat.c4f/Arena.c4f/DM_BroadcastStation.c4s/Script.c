@@ -177,6 +177,10 @@ func CreateFurniture()
   CreateObject(MSGN, 940, 710, -1);
   CreateObject(MSGN, 1025, 710, -1);
 
+  //Notausgangslichter
+  CreateObject(ETLT, 160, 475, -1);
+  CreateObject(ETLT, 1635, 165, -1);
+
   //Gasflaschen
   CreateObject(GSBO, 320, 500, -1)->AutoRespawn();
   CreateObject(GSBO, 1180, 710, -1)->AutoRespawn();
