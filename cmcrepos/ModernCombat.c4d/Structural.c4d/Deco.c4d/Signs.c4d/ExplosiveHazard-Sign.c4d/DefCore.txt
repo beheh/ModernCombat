@@ -5,7 +5,7 @@ Name=Explosion hazard sign
 Category=C4D_StaticBack
 Width=25
 Height=26
-Offset=-14,-15
+Offset=-13,-13
 Value=10
 Mass=3
 Components=METL=1
