@@ -75,6 +75,8 @@ func Damage()
   if(broken) return();
   broken = true;
   SetAction("Broken");
+  if(Light())
+   Light()->TurnOff();
   Sound("Glass");
   Sparks(7+Random(5), RGBa(255,255,150,100));
   CastParticles("SplinterGlass", 1, 35, RandomX(-10,10), -5, 20, 20, RGBa(255,255,255,0), RGBa(255,255,255,0));
