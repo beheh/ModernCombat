@@ -9,10 +9,6 @@ public func FuseTime(){return(2*35);}
 public func Color(){return(RGB(128,255,0));}//grün
 public func ContainedDamage(){return(20);}
 
-func HitSound()
-{
-  Sound("SGRN_Hit*.ogg");
-}
 
 public func Fused()
 {
@@ -33,4 +29,9 @@ func Smoke()
   gas->SetYDir(GetYDir()/3*2 - (time*(10+Random(30))/10));
   
    time++;
+}
+
+func HitSound()
+{
+  Sound("SGRN_Hit*.ogg");
 }

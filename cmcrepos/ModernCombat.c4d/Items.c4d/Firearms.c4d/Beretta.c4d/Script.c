@@ -11,17 +11,9 @@ public func HandY()    { return(0000); }
 public func BarrelYOffset() { return(-3200); }
 public func SelectionTime() { return(3*3); }
 
-func OnSelect(int iFM)
-{
-   Sound("PDTW_Charge.ogg");
-}
 
-func OnReload(i)
-{
-  Sound("92FS_Reload.ogg");
-}
+//Kugeln - Einzelfeuer
 
-//Einzelfeuer - Kugeln
 public func FMData1(int data)
 {
   if(data == FM_Name)                 return("$Bullets$");
@@ -45,17 +37,22 @@ public func FMData1(int data)
   return(Default(data));
 }
 
+public func FMData1T1(int data)
+{
+  if(data == FT_Name) return("$Single$");
+  return(FMData1(data));
+}
+
+public func Fire1T1()
+{
+  Fire1();
+}
+
 public func BotData1(int data)
 {
   if(data == BOT_Range)    return(100);
 
   return(Default(data));
-}
-
-public func FMData1T1(int data)
-{
-  if(data == FT_Name) return("$Single$");
-  return(FMData1(data));
 }
 
 public func Fire1()
@@ -73,17 +70,12 @@ public func Fire1()
   SABulletCasing(x/3,y/3,-dir*5,-20,4);
 }
 
-public func Fire1T1()
-{
-  Fire1();
-}
 
-
-//Silencer
+//Kugeln - Schallgedämpftes Einzelfeuer
 
 public func FMData1T2(int data)
 {
-  if(data == FT_Name) return("$Single$ [SIL]");
+  if(data == FT_Name) return("$SilencedSingle$");
   if(data == FM_Damage) return(9);
   return(FMData1T1(data));
 }
@@ -103,8 +95,7 @@ public func Fire1T2()
   SABulletCasing(x/3,y/3,-dir*5,-20,4);
 }
 
-
-//System-Gedöhns
+/* Schalldämpfer */
 
 public func OnSelectFT(int i, int j)
 {
@@ -138,4 +129,16 @@ public func Sil()
 public func NoSil()
 {
   SetGraphics(0,this(),0,1);
+}
+
+/* Allgemeines */
+
+func OnSelect(int iFM)
+{
+   Sound("PDTW_Charge.ogg");
+}
+
+func OnReload(i)
+{
+  Sound("92FS_Reload.ogg");
 }

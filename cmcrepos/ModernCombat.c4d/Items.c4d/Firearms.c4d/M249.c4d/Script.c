@@ -11,15 +11,8 @@ public func BarrelXOffset() { return(-1000); }
 public func BarrelYOffset() { return(-2000); }
 public func SelectionTime() { return(15*3); }
 
-func OnReload()
-{
-  Sound("M249_Reload.ogg");
-}
 
-func OnSelect()
-{
-  Sound("M249_Charge.ogg");
-}
+//Kugeln - Automatikfeuer
 
 public func FMData1(int data)
 {
@@ -41,6 +34,18 @@ public func FMData1(int data)
   return(Default(data));
 }
 
+public func FMData1T1(int data)
+{
+  if(data == FT_Name)                 return("$Auto$");
+  if(data == FT_IconFacet)            return(FICO_Auto);
+  return(FMData1(data));
+}
+
+public func Fire1T1()
+{
+  Fire1();
+}
+
 public func BotData1(int data)
 {
   if(data == BOT_Range)    return(600);
@@ -49,27 +54,6 @@ public func BotData1(int data)
   return(Default(data));
 }
 
-//Feuertechniken
-public func FMData1T1(int data)//Automatik
-{
-  if(data == FT_Name)                 return("$Auto$");
-  if(data == FT_IconFacet)            return(FICO_Auto);
-  return(FMData1(data));
-}
-
-public func FMData1T2(int data)//Burst
-{
-  if(data == FT_Name)                 return("$Burst$");
-  if(data == FM_Recharge)             return(30);
-  if(data == FT_IconFacet)            return(FICO_Burst);
-  if(data == FM_Auto)                 return(false);
-  if(data == FM_BurstAmount)          return(4);
-  if(data == FM_BurstRecharge)        return(5);
-  if(data == FM_SpreadAdd)            return(55);
-  return(FMData1(data));
-}
-
-//Feuer!
 public func Fire1()
 {
   var user = GetUser();
@@ -85,9 +69,19 @@ public func Fire1()
   SABulletCasing(x/3,y/3,-dir*14*(Random(1)+1),-(13+Random(2)),5);
 }
 
-public func Fire1T1()
+
+//Kugeln - Stoﬂfeuer
+
+public func FMData1T2(int data)
 {
-  Fire1();
+  if(data == FT_Name)                 return("$Burst$");
+  if(data == FM_Recharge)             return(30);
+  if(data == FT_IconFacet)            return(FICO_Burst);
+  if(data == FM_Auto)                 return(false);
+  if(data == FM_BurstAmount)          return(4);
+  if(data == FM_BurstRecharge)        return(5);
+  if(data == FM_SpreadAdd)            return(55);
+  return(FMData1(data));
 }
 
 public func Fire1T2()
@@ -103,4 +97,16 @@ public func Fire1T2()
   // Effekte
   SAMuzzleFlash(45,user,x,y,angle);
   SABulletCasing(x/3,y/3,-dir*14*(Random(1)+1),-(13+Random(2)),5);
+}
+
+/* Allgemein */
+
+func OnReload()
+{
+  Sound("M249_Reload.ogg");
+}
+
+func OnSelect()
+{
+  Sound("M249_Charge.ogg");
 }

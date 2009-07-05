@@ -9,39 +9,8 @@ public func HandY()         { return(2000); }
 public func BarrelYOffset() { return(-2000); }
 public func SelectionTime() { return(16*3); }
 
-public func HandR()
-{
-  //if(IsReloading() || IsRecharging()) return(-17);
 
-  var effect = IsReloading();
-  if(effect)
-    return(-BoundBy(GetEffect(0,this(),effect,6)*2,0,17));
-    
-  effect = IsRecharging();
-  if(effect)
-    return(-BoundBy(GetEffect(0,this(),effect,6)*2,0,17));
-}	
-
-public func OnSelectFT(int iFireMode, int iFireTec)
-{
-  //...
-}
-
-func OnSelect()
-{
-  if(GetAmmo())
-    Sound("PPGN_Pump*.ogg");
-}
-
-func OnFinishReloadStart()
-{
-  AddEffect("Pump", this(), 1, 1+GetFMData(FM_Recharge, 1)-25, this());
-}
-
-func OnSingleReloadStart()
-{
-  Sound("PPGN_Reload.ogg");
-}
+//Patronen - Einzelfeuer
 
 public func FMData1(int data)
 {
@@ -64,6 +33,17 @@ public func FMData1(int data)
   if(data == FM_StartSpread) return(250);
 
   return(Default(data));
+}
+
+public func FMData1T1(int data)
+{
+  if(data == FT_Name)                 return("$Single$");
+  return(FMData1(data));
+}
+
+public func Fire1T1()
+{
+  Fire1();
 }
 
 public func BotData1(int data)
@@ -95,6 +75,31 @@ public func Fire1()
   AddEffect("Pump", this(), 1, 1+GetFMData(FM_Recharge, 1)-25, this());
 }
 
+/* Nachladen */
+
+public func HandR()
+{
+  //if(IsReloading() || IsRecharging()) return(-17);
+
+  var effect = IsReloading();
+  if(effect)
+    return(-BoundBy(GetEffect(0,this(),effect,6)*2,0,17));
+    
+  effect = IsRecharging();
+  if(effect)
+    return(-BoundBy(GetEffect(0,this(),effect,6)*2,0,17));
+}	
+
+func OnFinishReloadStart()
+{
+  AddEffect("Pump", this(), 1, 1+GetFMData(FM_Recharge, 1)-25, this());
+}
+
+func OnSingleReloadStart()
+{
+  Sound("PPGN_Reload.ogg");
+}
+
 public func FxPumpStop(object pTarget)
 {
   Sound("PPGN_Pump*.ogg");
@@ -104,4 +109,17 @@ public func FxPumpStop(object pTarget)
   var user = GetUser();
   var dir = GetDir(user)*2-1;
   SABulletCasing(dir*1,0,-dir*14*(Random(1)+1),-(13+Random(2)),6,RGB(255));
+}
+
+/* Allgemein */
+
+public func OnSelectFT(int iFireMode, int iFireTec)
+{
+  //...
+}
+
+func OnSelect()
+{
+  if(GetAmmo())
+    Sound("PPGN_Pump*.ogg");
 }

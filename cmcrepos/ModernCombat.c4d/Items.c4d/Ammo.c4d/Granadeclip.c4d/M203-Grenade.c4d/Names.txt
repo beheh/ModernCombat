@@ -1,2 +1,0 @@
-DE:M203-Granate
-US:M203-Grenade

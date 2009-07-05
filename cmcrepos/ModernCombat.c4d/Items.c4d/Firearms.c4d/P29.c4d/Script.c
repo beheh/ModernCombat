@@ -11,12 +11,9 @@ public func BarrelYOffset() { return(+2000); }
 public func BarrelXOffset() { return(-1500); }
 public func SelectionTime() { return(14*3); }
 
-public func OnReload(int i)
-{
-  Sound("P29W_Reload.ogg");
-}
 
-//Automatikfeuer - Kugeln
+//Kugeln - Automatikfeuer
+
 public func FMData1(int data)
 {
   if(data == FM_Name)                 return("$Bullets$");
@@ -40,13 +37,6 @@ public func FMData1(int data)
   return(Default(data));
 }
 
-public func BotData1(int data)
-{
-  if(data == BOT_Range)    return(400);
-
-  return(Default(data));
-}
-
 public func FMData1T1(int data)
 {
   if(data == FT_Name)                 return("$Auto$");
@@ -54,14 +44,16 @@ public func FMData1T1(int data)
   return(FMData1(data));
 }
 
-public func FMData1T2(int data)//Einzelfeuer
+public func Fire1T1()
 {
-  if(data == FT_Name)                 return("$Single$");
-  if(data == FT_IconFacet)            return(FICO_Single);
-  if(data == FM_Recharge)             return(9);
-  if(data == FM_Auto)                 return(false);
-  if(data == FM_Damage)               return(FMData1(FM_Damage)*2);
-  return(FMData1(data));
+  Fire1();
+}
+
+public func BotData1(int data)
+{
+  if(data == BOT_Range)    return(400);
+
+  return(Default(data));
 }
 
 public func Fire1()
@@ -79,7 +71,20 @@ public func Fire1()
   SABulletCasing(x/3,y/3,-dir*14*(Random(1)+1),-(13+Random(2)),4);
 }
 
-public func Fire1T1()
+
+//Kugeln - Einzelfeuer
+
+public func FMData1T2(int data)
+{
+  if(data == FT_Name)                 return("$Single$");
+  if(data == FT_IconFacet)            return(FICO_Single);
+  if(data == FM_Recharge)             return(9);
+  if(data == FM_Auto)                 return(false);
+  if(data == FM_Damage)               return(FMData1(FM_Damage)*2);
+  return(FMData1(data));
+}
+
+public func Fire1T2()
 {
   Fire1();
 }
@@ -99,7 +104,9 @@ public func Fire1T2()
   SABulletCasing(x/3,y/3,-dir*14*(Random(1)+1),-(13+Random(2)),4);
 }
 
-//Monochrom
+
+//Monochrom - Doppelautomatikfeuer
+
 public func FMData2(int data)
 {
   if(data == FM_Name)           return("$Monochrom$");
@@ -111,31 +118,23 @@ public func FMData2(int data)
   return(FMData1(data));
 }
 
+public func FMData2T1(int data)
+{
+  if(data == FT_Name)                 return("$MonochromAuto$");
+  if(data == FT_IconFacet)            return(FICO_Auto);
+  return(FMData2(data));
+}
+
+public func Fire2T1()
+{
+  Fire2();
+}
+
 public func BotData2(int data)
 {
   if(data == BOT_Range)    return(300);
 
   return(Default(data));
-}
-
-public func FMData2T1(int data)
-{
-  if(data == FT_Name)                 return("$Auto$");
-  if(data == FT_IconFacet)            return(FICO_Auto);
-  return(FMData2(data));
-}
-
-public func FMData2T2(int data)//Einzelfeuer
-{
-  if(data == FT_Name)                 return("$Single$");
-  if(data == FT_IconFacet)            return(FICO_Single);
-  if(data == FM_Recharge)             return(9);
-  if(data == FM_Auto)                 return(false);
-  if(data == FM_Damage)               return(FMData2(FM_Damage)*2);
-  
-  if(data == FM_BurstRecharge)  return(3);
-  
-  return(FMData2(data));
 }
 
 public func Fire2()
@@ -157,9 +156,20 @@ public func Fire2()
   MuzzleFlash(RandomX(20,30),user,x,y-2,angle,RGB(0,70+Random(30),255));
 }
 
-public func Fire2T1()
+
+//Monochrom - Doppelschuss
+
+public func FMData2T2(int data)
 {
-  Fire2();
+  if(data == FT_Name)                 return("$MonochromSingle$");
+  if(data == FT_IconFacet)            return(FICO_Single);
+  if(data == FM_Recharge)             return(9);
+  if(data == FM_Auto)                 return(false);
+  if(data == FM_Damage)               return(FMData2(FM_Damage)*2);
+  
+  if(data == FM_BurstRecharge)  return(3);
+  
+  return(FMData2(data));
 }
 
 public func Fire2T2()
@@ -181,9 +191,14 @@ public func Fire2T2()
   MuzzleFlash(RandomX(20,30),user,x,y-2,angle,RGB(0,70+Random(30),255));
 }
 
+/* Allgemein */
+
 public func OnSelect(int iFM)
 {
   Sound("P29W_Charge.ogg");
 }
 
-/* Da Michael Code Geass süchtig ist. ; ) */
+public func OnReload(int i)
+{
+  Sound("P29W_Reload.ogg");
+}

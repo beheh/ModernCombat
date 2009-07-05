@@ -9,17 +9,9 @@ public func HandY()    { return(-1000); }
 public func BarrelYOffset() { return(-5000); }
 public func SelectionTime() { return(3*3); }
 
-func OnSelect(int iFM)
-{
-   Sound("PDTW_Charge.ogg");
-}
 
-public func OnReload(int i)
-{
-  Sound("PDTW_Reload.ogg");
-}
+//Kugeln - Einzelfeuer
 
-//Einzelfeuer - Kugeln
 public func FMData1(int data)
 {
   if(data == FM_Name)               return("$Bullets$");
@@ -43,17 +35,22 @@ public func FMData1(int data)
   return(Default(data));
 }
 
+public func FMData1T1(int data)
+{
+  if(data == FT_Name)                 return("$Single$");
+  return(FMData1(data));
+}
+
+public func Fire1T1()
+{
+  Fire1();
+}
+
 public func BotData1(int data)
 {
   if(data == BOT_Range)    return(500);
 
   return(Default(data));
-}
-
-public func FMData1T1(int data)
-{
-  if(data == FT_Name)                 return("$Single$");
-  return(FMData1(data));
 }
 
 public func Fire1()
@@ -71,12 +68,9 @@ public func Fire1()
   SABulletCasing(x/3,y/3,-dir*14*(Random(1)+1),-(13+Random(2)),4);
 }
 
-public func Fire1T1()
-{
-  Fire1();
-}
 
-//Monochrom
+//Monochrom - Doppelschuss
+
 public func FMData2(int data)
 {
   if(data == FM_Name)           return("$Monochrom$");
@@ -86,16 +80,21 @@ public func FMData2(int data)
   return(FMData1(data));
 }
 
+public func FMData2T1(int data)
+{
+  if(data == FT_Name)                 return("$MonochromSingle$");
+  return(FMData2(data));
+}
+
+public func Fire2T1()
+{
+  Fire2();
+}
+
 public func BotData2(int data)
 {
   if(data == BOT_Range)    return(300);
   return(Default(data));
-}
-
-public func FMData2T1(int data)
-{
-  if(data == FT_Name)                 return("$Single$");
-  return(FMData2(data));
 }
 
 public func Fire2()
@@ -117,7 +116,14 @@ public func Fire2()
   MuzzleFlash(RandomX(10,20),user,x,y-2,angle,RGB(0,70+Random(30),255));
 }
 
-public func Fire2T1()
+/* Allgemein */
+
+func OnSelect(int iFM)
 {
-  Fire2();
+   Sound("PDTW_Charge.ogg");
+}
+
+public func OnReload(int i)
+{
+  Sound("PDTW_Reload.ogg");
 }

@@ -10,31 +10,8 @@ public func HandY()         { return(2000); }
 public func BarrelYOffset() { return(-2500); }
 public func SelectionTime() { return(14*3); }
 
-func OnReload(i)
-{
-  if(i == 1)
-  {
-    Sound("M16A_Reload.ogg");
-  }
-  if(i == 2)
-  {
-    Sound("M203_Reload.ogg");
-    var user = GetUser();
-    var dir = GetDir(user)*2-1;
-    SABulletCasing(dir*1,0,-dir*14*(Random(1)+1),-(13+Random(2)));
-  }
-}
 
-func OnSelect()
-{
-   Sound("M16A_Charge.ogg");
-}
-
-public func OnSelectFT(int iFireMode, int iFireTec)
-{
-  if(iFireMode == 2)
-    Empty2(2);
-}
+//Kugeln - Stoßfeuer
 
 public func FMData1(int data)
 {
@@ -58,13 +35,6 @@ public func FMData1(int data)
   return(Default(data));
 }
 
-public func BotData1(int data)
-{
-  if(data == BOT_Range)    return(600);
-
-  return(Default(data));
-}
-
 public func FMData1T1(int data)
 {
   if(data == FT_Name)                 return("$Burst$");//Der Name der Feuertechnik.
@@ -75,11 +45,31 @@ public func FMData1T1(int data)
   return(FMData1(data));
 }
 
-public func FMData1T2(int data)
+public func Fire1T2()//Stoßfeuer-Feuertechnik benutzt den Standard.
 {
-  if(data == FT_Name)                 return("$Single$");
-  if(data == FT_IconFacet)            return(FICO_Single);
-  return(FMData1(data));//Standardwerte aus dem zugrunde liegendem Feuermodus nehmen.
+  Fire1();
+}
+
+public func BotData1(int data)
+{
+  if(data == BOT_Range)    return(600);
+
+  return(Default(data));
+}
+
+public func Fire1T1()//Stoßfeuer schießst 3 Mal hintereinander.
+{
+  var user = GetUser();
+  var dir = GetDir(user)*2-1;
+  var angle = user->AimAngle(10,0,true);
+  var x,y;
+  user->WeaponEnd(x,y);
+  var ammo = SALaunchBullet(x,y,GetController(user),angle+RandomX(-2,+2),250,800,GetFMData(FM_Damage));
+  ammo->Sound("M16A_Fire*.ogg");
+
+  // Effekte
+  SAMuzzleFlash(RandomX(30,40),user,x,y,angle);
+  SABulletCasing(x/3,y/3,-dir*14*(Random(1)+1),-(13+Random(2)),5);
 }
 
 //Feuer!
@@ -98,28 +88,19 @@ public func Fire1()//Standardschuss mit dem Gewehr.
   SABulletCasing(x/3,y/3,-dir*14*(Random(1)+1),-(13+Random(2)),5);
 }
 
-public func Fire1T2()//Automatik-Feuertechnik benutzt den Standard.
-{
-  Fire1();
-}
 
-public func Fire1T1()//Stoßfeuer schießst 3 Mal hintereinander.
-{
-  var user = GetUser();
-  var dir = GetDir(user)*2-1;
-  var angle = user->AimAngle(10,0,true);
-  var x,y;
-  user->WeaponEnd(x,y);
-  var ammo = SALaunchBullet(x,y,GetController(user),angle+RandomX(-2,+2),250,800,GetFMData(FM_Damage));
-  ammo->Sound("M16A_Fire*.ogg");
+//Kugeln - Einzelfeuer
 
-  // Effekte
-  SAMuzzleFlash(RandomX(30,40),user,x,y,angle);
-  SABulletCasing(x/3,y/3,-dir*14*(Random(1)+1),-(13+Random(2)),5);
+public func FMData1T2(int data)
+{
+  if(data == FT_Name)                 return("$Single$");
+  if(data == FT_IconFacet)            return(FICO_Single);
+  return(FMData1(data));//Standardwerte aus dem zugrunde liegendem Feuermodus nehmen.
 }
 
 
-// Granatenwerferaufsatz
+//Granaten - Explosivgranaten
+
 public func FMData2(int data)
 {
   if(data == FM_Name)     return("$Grenades$");
@@ -149,12 +130,9 @@ public func FMData2T1(int data)
   return(FMData2(data));
 }
 
-public func FMData2T2(int data)
-{
-  if(data == FT_Name)                 return("$Cluster$");
-  if(data == FT_IconFacet)            return(FICO_Cluster);
-  if(data == FM_Icon)                 return(M23C);
-  return(FMData2(data));
+public func Fire2T1()
+{  
+  Fire2();
 }
 
 public func BotData2(int data)
@@ -162,21 +140,6 @@ public func BotData2(int data)
   if(data == BOT_Range)    return(90);
 
   return(Default(data));
-}
-
-public func Fire2()//Schuss mit dem Granatenwerfer.
-{  
-  LaunchGrenade(M203, 90,Contained()->~AimAngle(0,0,true)+RandomX( -3, 3));
-}
-
-public func Fire2T1()
-{  
-  Fire2();
-}
-
-public func Fire2T2()
-{  
-  LaunchGrenade(M23C, 90,Contained()->~AimAngle(0,0,true)+RandomX( -3, 3));
 }
 
 public func LaunchGrenade(id idg, int speed, int angle, int mode)
@@ -207,4 +170,53 @@ public func LaunchGrenade(id idg, int speed, int angle, int mode)
                    GetXDir(user)+RandomX(0,xdir/4),GetYDir(user)+RandomX(0,ydir/4),
                    RandomX(80,140),RGBa(200,200,200,0),0,0);
   }
+}
+
+
+//Granaten - Splittergranaten
+
+public func FMData2T2(int data)
+{
+  if(data == FT_Name)                 return("$Cluster$");
+  if(data == FT_IconFacet)            return(FICO_Cluster);
+  if(data == FM_Icon)                 return(M23C);
+  return(FMData2(data));
+}
+
+public func Fire2()//Schuss mit dem Granatenwerfer.
+{  
+  LaunchGrenade(M203, 90,Contained()->~AimAngle(0,0,true)+RandomX( -3, 3));
+}
+
+public func Fire2T2()
+{  
+  LaunchGrenade(M23C, 90,Contained()->~AimAngle(0,0,true)+RandomX( -3, 3));
+}
+
+/* Allgemein */
+
+func OnReload(i)
+{
+  if(i == 1)
+  {
+    Sound("M16A_Reload.ogg");
+  }
+  if(i == 2)
+  {
+    Sound("M203_Reload.ogg");
+    var user = GetUser();
+    var dir = GetDir(user)*2-1;
+    SABulletCasing(dir*1,0,-dir*14*(Random(1)+1),-(13+Random(2)));
+  }
+}
+
+func OnSelect()
+{
+   Sound("M16A_Charge.ogg");
+}
+
+public func OnSelectFT(int iFireMode, int iFireTec)
+{
+  if(iFireMode == 2)
+    Empty2(2);
 }

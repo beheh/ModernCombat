@@ -1,6 +1,6 @@
 Bullets=Bullets
 Burst=Burst
-Single=Single
+Single=Single Shots
 Grenades=Grenades
 Explosive=Explosive Grenades
-Cluster=Cluster Grenades
+Cluster=Frag Grenades

@@ -1,6 +1,6 @@
 [DefCore]
 id=M23C
-Name=M203-Fragmentation grenade
+Name=M203-Frag Grenade
 Category=3600
 MaxUserSelect=10
 Width=3

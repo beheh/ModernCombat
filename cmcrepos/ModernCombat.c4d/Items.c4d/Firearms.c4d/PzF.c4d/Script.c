@@ -1,4 +1,4 @@
-/*-- Panzerfaust (PzF) --*/
+/*-- Panzerfaust --*/
 
 #strict
 
@@ -12,15 +12,8 @@ public func HandY()    { return(0);  }
 /*public func BarrelXOffset() { return(5000); }		
 public func BarrelYOffset() { return(8500); }*/		
 
-func OnReload()
-{
-  Sound("PZFW_Reload.ogg");
-}
 
-func OnSelect()
-{
-   Sound("PZFW_Charge.ogg");
-}
+//Raketen - Ungelenkte Rakete
 
 public func FMData1(int data)
 {
@@ -40,6 +33,17 @@ public func FMData1(int data)
   return(Default(data));
 }
 
+public func FMData1T1(int data)
+{
+  if(data == FT_Name) return("$Normal$");
+  return(FMData1(data));
+}
+
+public func Fire1()
+{
+  LaunchRocket(PZFM,Contained()->~AimAngle(0,0,true), GetFMData(FM_Damage, 1)/2);
+}
+
 public func BotData1(int data)
 {
   if(data == BOT_Range)    return(700);
@@ -47,11 +51,6 @@ public func BotData1(int data)
   if(data == BOT_Power)    return(BOT_Power_LongLoad);
 
   return(Default(data));
-}
-
-public func Fire1()
-{
-  LaunchRocket(PZFM,Contained()->~AimAngle(0,0,true), GetFMData(FM_Damage, 1)/2);
 }
 
 //Wuuuschh!
@@ -90,6 +89,8 @@ public func LaunchRocket(rid, angle, dmg)
   
   BackFire();
 }
+
+/* Stichflamme */
 
 func BackFire()
 {
@@ -186,8 +187,7 @@ public func FxIntBackFireTimer(object pTarget, int iEffectNumber, int iEffectTim
   return(0);
 }
 
-
-//Überladungen und WEPN-Hacks! ;D
+/* Freischaltmechanismus */
 
 func OnSelect()
 {
@@ -280,15 +280,7 @@ func FxIntReadyTimer(object pTarget, int iEffectNumber, int iEffectTime)
       return(-1);
 }
 
-
-
-
-
-
-
-
-
-/* Extra-Zeug, was entweder noch nicht geht oder nur Speicherplatz vergeudet. */
+/* Extra-Zeug, was entweder noch nicht geht oder nur Speicherplatz vergeudet.------------------------------ */
 
 /*private func ChangeFireMode(id, i)
 {
@@ -378,3 +370,15 @@ private func ResetCross(object pCross)
   return(pNewCross);
 }
 */
+
+/* Allgemein */
+
+func OnReload()
+{
+  Sound("PZFW_Reload.ogg");
+}
+
+func OnSelect()
+{
+   Sound("PZFW_Charge.ogg");
+}

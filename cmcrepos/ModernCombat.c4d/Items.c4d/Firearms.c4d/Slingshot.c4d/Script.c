@@ -11,30 +11,12 @@ public func BarrelXOffset() { return(-1000); }
 public func BarrelYOffset() { return(-2000); }
 public func SelectionTime() { return(14*3); }
 
-func OnReload()
-{
-  Sound("SGST_ReloadStart.ogg");
-}
 
-func OnSingleReloadStart()
-{
-  Sound("SGST_Loading.ogg");
-}
+//Granaten - Explosivgranaten
 
-func OnReloaded()
-{
-  Sound("SGST_ReloadStop.ogg");
-}
-
-func OnSelect()
-{
-  Sound("SGST_Charge.ogg");
-}
-
-//Automatikfeuer - Kugeln
 public func FMData1(int data)
 {
-  if(data == FM_Name)                 return("Grenades");
+  if(data == FM_Name)                 return("$Grenades$");
     
   if(data == FM_AmmoID)             return(GRAM);
   if(data == FM_AmmoLoad)           return(8);
@@ -57,23 +39,24 @@ public func FMData1(int data)
   return(Default(data));
 }
 
-public func BotData1(int data)
+public func FMData1T1(int data)
 {
-  if(data == BOT_Range)    return(500);
-
-  return(Default(data));
-}
-
-public func BotData2(int data)
-{
-  if(data == BOT_Range)    return(500);
-
-  return(Default(data));
+  if(data == FT_Name)                 return("$Explosive$");
+  if(data == FT_IconFacet)            return(FICO_Explosive);
+  if(data == FM_Icon)                 return(M203);
+  return(FMData1(data));
 }
 
 public func Fire1T1()//Schuss mit dem Granatenwerfer.
 {
    LaunchGrenade(M203, 100+Random(40),Contained()->~AimAngle(0,0,true));
+}
+
+public func BotData1(int data)
+{
+  if(data == BOT_Range)    return(500);
+
+  return(Default(data));
 }
 
 public func LaunchGrenade(id idg, int speed, int angle, int mode)
@@ -108,13 +91,8 @@ public func LaunchGrenade(id idg, int speed, int angle, int mode)
   Sound("SGST_Pump.ogg");
 }
 
-public func FMData1T1(int data)
-{
-  if(data == FT_Name)                 return("$Explosive$");
-  if(data == FT_IconFacet)            return(FICO_Explosive);
-  if(data == FM_Icon)                 return(M203);
-  return(FMData1(data));
-}
+
+//Granaten - Splittergranaten
 
 public func FMData1T2(int data)
 {
@@ -124,22 +102,38 @@ public func FMData1T2(int data)
   return(FMData1(data));
 }
 
-public func Fire1()//Schuss mit dem Granatenwerfer.
-{  
-  LaunchGrenade(M203, 100,Contained()->~AimAngle(0,0,true)+RandomX( -3, 3));
-}
-
-public func Fire1T1()
-{  
-  Fire1();
-}
-
-public func Fire2()
+public func Fire1T2()
 {  
   LaunchGrenade(M23C, 100,Contained()->~AimAngle(0,0,true)+RandomX( -3, 3));
 }
 
-public func Fire1T2()
-{  
-  Fire2();
+public func BotData2(int data)
+{
+  if(data == BOT_Range)    return(500);
+
+  return(Default(data));
+}
+
+/* Nachladen */
+
+func OnReload()
+{
+  Sound("SGST_ReloadStart.ogg");
+}
+
+func OnSingleReloadStart()
+{
+  Sound("SGST_Loading.ogg");
+}
+
+func OnReloaded()
+{
+  Sound("SGST_ReloadStop.ogg");
+}
+
+/* Allgemein */
+
+func OnSelect()
+{
+  Sound("SGST_Charge.ogg");
 }

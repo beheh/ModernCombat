@@ -7,6 +7,7 @@ public func Color(){return(RGB(255,255,0));}
 
 public func ContainedDamage(){return(120);}
 
+
 func Fused()
 {
   for(var i = 40; i > 0; --i)

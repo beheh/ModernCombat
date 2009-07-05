@@ -2,3 +2,5 @@ Bullets=Bullets
 Auto=Auto
 Single=Single
 Monochrom=Monochrom
+MonochromAuto=Double Auto
+MonochromSingle=Double Shots

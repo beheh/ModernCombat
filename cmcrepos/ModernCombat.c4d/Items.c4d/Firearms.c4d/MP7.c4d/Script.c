@@ -10,17 +10,9 @@ public func HandY()	{ return(-2000); }
 public func BarrelYOffset() { return(-5500); }
 public func SelectionTime() { return(10*3); }
 
-func OnSelect()
-{
-  Sound("MP7R_Charge.ogg");
-}
 
-func OnReload()
-{
-  Sound("MP7R_Reload.ogg");
-}
+//Kugeln - Automatikfeuer
 
-//Automatikfeuer - Kugeln
 public func FMData1(int data)
 {
   if(data == FM_Name)                 return("$Bullets$");
@@ -43,13 +35,6 @@ public func FMData1(int data)
   return(Default(data));
 }
 
-public func BotData1(int data)
-{
-  if(data == BOT_Range)    return(500);
-
-  return(Default(data));
-}
-
 public func FMData1T1(int data)
 {
   if(data == FT_Name)                 return("$Auto$");
@@ -57,30 +42,17 @@ public func FMData1T1(int data)
   return(FMData1(data));
 }
 
-public func FMData1T2(int data)//Burst
+public func Fire1T1()
 {
-  if(data == FT_Name)                 return("$Burst$");
-  if(data == FM_Recharge)             return(20);
-  if(data == FT_IconFacet)            return(FICO_Burst);
-  if(data == FM_Auto)                 return(false);
-  if(data == FM_Damage)               return(FMData1(FM_Damage)*3/2);
-  if(data == FM_BurstAmount)          return(3);
-  if(data == FM_BurstRecharge)        return(3);
-  if(data == FM_SpreadAdd)            return(42);
-  return(FMData1(data));
+  Fire1();
 }
 
-public func FMData1T3(int data)//Einzelfeuer
+public func BotData1(int data)
 {
-  if(data == FT_Name)                 return("$Single$");
-  if(data == FM_Recharge)             return(9);
-  if(data == FT_IconFacet)            return(FICO_Single);
-  if(data == FM_Auto)                 return(false);
-  if(data == FM_Damage)               return(FMData1(FM_Damage)*2);
-  return(FMData1(data));
+  if(data == BOT_Range)    return(500);
+
+  return(Default(data));
 }
-
-
 
 public func Fire1()
 {
@@ -97,9 +69,20 @@ public func Fire1()
   SABulletCasing(x/3,y/3,-dir*14,-(14),4);
 }
 
-public func Fire1T1()
+
+//Kugeln - Stoﬂfeuer
+
+public func FMData1T2(int data)
 {
-  Fire1();
+  if(data == FT_Name)                 return("$Burst$");
+  if(data == FM_Recharge)             return(20);
+  if(data == FT_IconFacet)            return(FICO_Burst);
+  if(data == FM_Auto)                 return(false);
+  if(data == FM_Damage)               return(FMData1(FM_Damage)*3/2);
+  if(data == FM_BurstAmount)          return(3);
+  if(data == FM_BurstRecharge)        return(3);
+  if(data == FM_SpreadAdd)            return(42);
+  return(FMData1(data));
 }
 
 public func Fire1T2()
@@ -117,6 +100,19 @@ public func Fire1T2()
   SABulletCasing(x/3,y/3,-dir*14,-(14),4);
 }
 
+
+//Kugeln - Einzelfeuer
+
+public func FMData1T3(int data)
+{
+  if(data == FT_Name)                 return("$Single$");
+  if(data == FM_Recharge)             return(9);
+  if(data == FT_IconFacet)            return(FICO_Single);
+  if(data == FM_Auto)                 return(false);
+  if(data == FM_Damage)               return(FMData1(FM_Damage)*2);
+  return(FMData1(data));
+}
+
 public func Fire1T3()
 {
   var user = GetUser();
@@ -130,4 +126,16 @@ public func Fire1T3()
   // Effekte
   SAMuzzleFlash(RandomX(15,25),user,x,y,angle);
   SABulletCasing(x/3,y/3,-dir*14,-(14),4);
+}
+
+/* Allgemein */
+
+func OnSelect()
+{
+  Sound("MP7R_Charge.ogg");
+}
+
+func OnReload()
+{
+  Sound("MP7R_Reload.ogg");
 }

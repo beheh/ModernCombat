@@ -1,1 +1,2 @@
 Pellets=Pellets
+Single=Single Shots

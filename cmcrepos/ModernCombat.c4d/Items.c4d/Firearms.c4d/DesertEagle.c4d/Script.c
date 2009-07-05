@@ -11,17 +11,9 @@ public func HandY()    { return(0000); }
 public func BarrelYOffset() { return(-3200); }
 public func SelectionTime() { return(3*8); }
 
-func OnSelect(int iFM)
-{
-   Sound("DEGL_Charge.ogg");
-}
 
-func OnReload(i)
-{
-  Sound("DEGL_Reload.ogg");
-}
+//Kugeln - Einzelfeuer
 
-//Einzelfeuer - Kugeln
 public func FMData1(int data)
 {
   if(data == FM_Name)                 return("$Bullets$");
@@ -45,17 +37,22 @@ public func FMData1(int data)
   return(Default(data));
 }
 
+public func FMData1T1(int data)
+{
+  if(data == FT_Name) return("$Single$");
+  return(FMData1(data));
+}
+
+public func Fire1T1()
+{
+  Fire1();
+}
+
 public func BotData1(int data)
 {
   if(data == BOT_Range)    return(100);
 
   return(Default(data));
-}
-
-public func FMData1T1(int data)
-{
-  if(data == FT_Name) return("$Single$");
-  return(FMData1(data));
 }
 
 public func Fire1()
@@ -73,7 +70,14 @@ public func Fire1()
   SABulletCasing(x/3,y/3,-dir*14*(Random(1)+2),-(13+Random(2)),5);
 }
 
-public func Fire1T1()
+/* Allgemein */
+
+func OnSelect(int iFM)
 {
-  Fire1();
+   Sound("DEGL_Charge.ogg");
+}
+
+func OnReload(i)
+{
+  Sound("DEGL_Reload.ogg");
 }

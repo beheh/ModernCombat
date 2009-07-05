@@ -1,3 +1,4 @@
 Bullets=Kugeln
 Single=Einzelfeuer
 Monochrom=Monochromfeuer
+MonochromSingle=Doppelschuss

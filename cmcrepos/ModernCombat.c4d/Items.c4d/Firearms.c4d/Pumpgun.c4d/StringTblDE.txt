@@ -1,1 +1,2 @@
-Pellets=Pellets
+Pellets=Patronen
+Single=Einzelfeuer
