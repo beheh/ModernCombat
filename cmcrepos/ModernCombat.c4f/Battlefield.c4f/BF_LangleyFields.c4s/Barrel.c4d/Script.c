@@ -113,7 +113,7 @@ protected func CalcValue()
   
 protected func Hit()
 {
-  Sound("BarrelImpact*");
+  Sound("BarrelImpact*.ogg");
   BarrelEject();
   return(1);
 }
