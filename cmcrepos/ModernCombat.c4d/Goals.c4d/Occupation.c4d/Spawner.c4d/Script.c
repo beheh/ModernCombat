@@ -30,7 +30,7 @@ public func FxIntSpawnCounterTimer(object pTarget, int iEffectNumber, int iEffec
     return(-1);
   
   var crew = pTarget->Contents();
-  Sound("Select",false,crew,100,GetOwner(crew)+1);
+  Sound("Select.ogg",false,crew,100,GetOwner(crew)+1);
   
   if(iEffectTime >= 35*5)
   {
