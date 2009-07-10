@@ -58,7 +58,7 @@ FullscreenBG=1
 
 	[Scenario]
 	File=OP_BabelTower.c4s
-	Area=204,334,95,81
+	Area=204,335,95,81
 	OverlayImage=Overlay.png
 	Title=
 	TitleFontSize=15
@@ -91,6 +91,19 @@ FullscreenBG=1
 	TitleColorInactive=
 	TitleColorActive=16711680
 	TitleOffX=120
+	TitleOffY=0
+	TitleAlign=1
+	TitleUseBookFont=0
+
+	[Scenario]
+	File=DM_Yuki.c4s
+	Area=305,335,95,81
+	OverlayImage=Overlay.png
+	Title=
+	TitleFontSize=15
+	TitleColorInactive=
+	TitleColorActive=16711680
+	TitleOffX=90
 	TitleOffY=0
 	TitleAlign=1
 	TitleUseBookFont=0
