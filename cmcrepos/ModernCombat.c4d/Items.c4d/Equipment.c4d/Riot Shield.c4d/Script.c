@@ -62,6 +62,8 @@ public func Departure()
 {
   SetUser();
   RemoveShield();
+  pShield = 0;
+  pUser = 0;
   SetObjDrawTransform();//Reset.
 }
 
@@ -168,6 +170,15 @@ private func UpdateGraphics()
   }
   
   SetGraphics();
+}
+
+public func CheckChange()
+{
+  if(pUser)
+    if(Contents(0,pUser) != this())
+      RemoveShield();
+      
+  return(1);
 }
 
 public func Repair()

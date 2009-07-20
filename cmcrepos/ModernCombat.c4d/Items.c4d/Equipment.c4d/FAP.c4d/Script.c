@@ -86,21 +86,20 @@ public func RejectEntrance(object pObj)
   return(false);
 }
 
-/*public func Entrance(object pContainer)
+public func Entrance(object pContainer)
 {
   for(var obj in FindObjects(Find_Container(pContainer),Find_ID(GetID()),Find_Exclude(this())))
   {
     if(obj->GetHealPoints() < obj->MaxHealPoints())
     {
-      //var cnt = obj->GetHealPoints();
-      //var new = obj->DoHealPoints(healpoints);
-      //RemoveObject();
+      var cnt = obj->GetHealPoints();
+      var new = obj->DoHealPoints(healpoints);
       
       if(!DoHealPoints(cnt-new))
         Schedule("RemoveObject",1);
     }
   }
-}*/
+}
 
 public func ControlThrow(object pClonk)
 {

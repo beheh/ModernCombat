@@ -111,10 +111,10 @@ public func ResetFlag()//Flagge wieder an Basis kleben.
 public func InitFlag()//Flagge erstellen und für unsere Zwecke initialisieren.
 {
   if(!flag)
-    flag = FindObject(HTFF);
+    flag = FindObject(FDMF);
   
   if(!flag)
-    flag = CreateObject(HTFF,0,0,NO_OWNER);
+    flag = CreateObject(FDMF,0,0,NO_OWNER);
     
   flag->Activate(this());
   
