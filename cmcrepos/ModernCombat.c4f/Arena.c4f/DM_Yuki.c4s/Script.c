@@ -540,7 +540,6 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
      if(!--rand)
        { iX = 1585; iY = 505; }
    }
-   return(1);
   }
   //FDM-Spielziel
   if(FindObject(GFDM))
@@ -554,7 +553,6 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
    { iX = 1285; iY = 735; }
    if(!--rand)
    { iX = 1520; iY = 625; }
-   return(1);
   }
   else
   {
