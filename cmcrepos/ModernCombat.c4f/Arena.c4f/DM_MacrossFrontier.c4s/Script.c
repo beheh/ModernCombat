@@ -362,33 +362,34 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
 {
   //CTF-Spielziel
   if(FindObject(GCTF))
+  {
    var rand = Random(2);
    if(iTeam == 1)
    {
-     if(!rand)
-       { iX = 340; iY = 340; }
-     if(!--rand)
-       { iX = 530; iY = 470; }
-     return(1);
-   }
-   else
-   {
-     if(!rand)
-       { iX = 1020; iY = 330; }
-     if(!--rand)
-       { iX = 1220; iY = 260; }
-     return(1);
-   }
-  var rand = Random(4);
-  {
     if(!rand)
       { iX = 340; iY = 340; }
     if(!--rand)
       { iX = 530; iY = 470; }
+   }
+   else
+   {
     if(!rand)
       { iX = 1020; iY = 330; }
     if(!--rand)
       { iX = 1220; iY = 260; }
+   }
+  }
+  else
+  {
+   var rand = Random(4);
+   if(!rand)
+     { iX = 340; iY = 340; }
+   if(!--rand)
+     { iX = 530; iY = 470; }
+   if(!--rand)
+     { iX = 1020; iY = 330; }
+   if(!--rand)
+     { iX = 1220; iY = 260; }
   }
 }
 
@@ -403,5 +404,11 @@ public func ChooserFinished()
   {
     CreateFlag(1,110,440,GetTeamColor(1)); 
     CreateFlag(2,1440,360,GetTeamColor(2)); 
+  }
+
+  //FDM-Spielziel
+  if(FindObject(GFDM))
+  {
+    CreateFDMBase(760, 380);
   }
 }

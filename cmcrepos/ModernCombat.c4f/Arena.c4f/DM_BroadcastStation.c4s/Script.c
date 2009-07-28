@@ -367,15 +367,44 @@ func CreateEquipment()
 
 public func RelaunchPosition(& iX, & iY, int iTeam)
 {
-  var rand = Random(5);
-  if(!rand)
-  { iX = 260; iY = 700; }
-  if(!--rand)
-  { iX = 595; iY = 410; }
-  if(!--rand)
-  { iX = 1525; iY = 650; }
-  if(!--rand)
-  { iX = 1635; iY = 240; }
-  if(!--rand)
-  { iX = 1155; iY = 185; }
+  //FDM-Spielziel
+  if(FindObject(GFDM))
+  {
+   var rand = Random(4);
+   if(!rand)
+   { iX = 330; iY = 390; }
+   if(!--rand)
+   { iX = 260; iY = 700; }
+   if(!--rand)
+   { iX = 1445; iY = 300; }
+   if(!--rand)
+   { iX = 1515; iY = 645; }
+  }
+  else
+  {
+   var rand = Random(5);
+   if(!rand)
+   { iX = 260; iY = 700; }
+   if(!--rand)
+   { iX = 595; iY = 410; }
+   if(!--rand)
+   { iX = 1525; iY = 650; }
+   if(!--rand)
+   { iX = 1635; iY = 240; }
+   if(!--rand)
+   { iX = 1155; iY = 185; }
+  }
+}
+
+/* Regelwähler */
+
+public func ChooserFinished()
+{
+  inherited();
+
+  //FDM-Spielziel
+  if(FindObject(GFDM))
+  {
+    CreateFDMBase(940, 710);
+  }
 }

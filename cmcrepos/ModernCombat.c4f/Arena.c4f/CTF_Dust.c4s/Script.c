@@ -168,20 +168,38 @@ func CreateEquipment()
 
 public func RelaunchPosition(& iX, & iY, int iTeam)
 {
-  var rand = Random(2);
-  if(iTeam == 1)
+  //FDM-Spielziel
+  if(FindObject(GCTF))
   {
-    if(!rand)
-      { iX = 370; iY = 350; }
-    if(!--rand)
-      { iX = 400; iY = 210; }
+   var rand = Random(2);
+
+   if(iTeam == 1)
+   {
+     if(!rand)
+       { iX = 370; iY = 350; }
+     if(!--rand)
+       { iX = 400; iY = 210; }
+   }
+   else
+   {
+     if(!rand)
+       { iX = 1395; iY = 630; }
+     if(!--rand)
+       { iX = 1395; iY = 710; }
+   }
   }
   else
   {
-    if(!rand)
-      { iX = 1395; iY = 630; }
-    if(!--rand)
-      { iX = 1395; iY = 710; }
+   var rand = Random(4);
+
+   if(!rand)
+     { iX = 120; iY = 310; }
+   if(!--rand)
+     { iX = 180; iY = 670; }
+   if(!rand)
+     { iX = 1490; iY = 720; }
+   if(!--rand)
+     { iX = 1700; iY = 395; }
   }
 }
 

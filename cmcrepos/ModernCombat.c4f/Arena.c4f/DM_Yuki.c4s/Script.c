@@ -522,6 +522,7 @@ public func SetUpStore(pStore)
 
 public func RelaunchPosition(& iX, & iY, int iTeam)
 {
+  //CTF-Spielziel
   if(FindObject(GCTF))
   {
    var rand = Random(2);
@@ -539,6 +540,20 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
      if(!--rand)
        { iX = 1585; iY = 505; }
    }
+   return(1);
+  }
+  //FDM-Spielziel
+  if(FindObject(GFDM))
+  {
+   var rand = Random(4);
+   if(!rand)
+   { iX = 220; iY = 510; }
+   if(!--rand)
+   { iX = 425; iY = 735; }
+   if(!--rand)
+   { iX = 1285; iY = 735; }
+   if(!--rand)
+   { iX = 1520; iY = 625; }
    return(1);
   }
   else
@@ -562,7 +577,13 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
 public func ChooserFinished()
 {
   inherited();
-  
+
+  //FDM-Spielziel
+  if(FindObject(GFDM))
+  {
+    CreateFDMBase(865, 420);
+  }
+
   //CtF-Spielziel
   if(FindObject(GCTF))
   {
