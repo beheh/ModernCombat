@@ -72,7 +72,7 @@ func RelaunchPlayer(int iPlr, object pClonk)
   	spawnclonk = pClonk;
   }
 
-  ScheduleCall(0,"InitClassMenu",20,0,pClonk);
+  ScheduleCall(0,"InitClassMenu",40,0,pClonk);
   return();
 }
 
@@ -82,10 +82,7 @@ public func Spawntimer()
   {
   	spawntimer--;
   	PlayerMessage(GetOwner(spawnclonk),"@$TimeTillRespawn$",0,spawntimer);
-  	if(!spawntimer)
-    {
-  		Finish(0,spawnclonk);
-  	}
+  	if(!spawntimer){  SetupClass(RandomX(1,GetClassAmount()),spawnclonk);  }
   }
 }
 
@@ -100,11 +97,11 @@ func InitClassMenu(object pClonk)
   //Stuff damit man nicht Angreifbar ist in der Zwischenzeit
   if(GetID(Contained(pClonk)) != TIM1)//Vielleicht einfach nur auf Contained() prüfen?
   {
-    var tmp = CreateObject(TIM1,AbsX(GetX(pClonk)),AbsY(GetY(pClonk)),iPlayer);
-    SetCategory(GetCategory(tmp) | C4D_Foreground,tmp);
-    SetGraphics(0,tmp,GetID(pClonk),1,5,0,1,pClonk);
-    SetVisibility(VIS_Owner,tmp);
-    Enter(tmp,pClonk);
+      var tmp = CreateObject(TIM1,AbsX(GetX(pClonk)),AbsY(GetY(pClonk)),iPlayer);
+      SetCategory(GetCategory(tmp) | C4D_Foreground,tmp);
+      SetGraphics(0,tmp,GetID(pClonk),1,5,0,1,pClonk);
+      SetVisibility(VIS_Allies,VIS_Owner,tmp);
+      Enter(tmp,pClonk);
   }
   
   crew[iPlayer] = pClonk;
@@ -151,6 +148,9 @@ func Finish(object pClonk)
   
   //Wieder angreifbar machen
   RemoveObject(Contained(pClonk),1);
+  
+  //Viewport leeren
+  PlayerMessage(iPlayer,"@");
   
   //Broadcasten
   GameCallEx("OnClassSelection",crew[iPlayer]);
@@ -263,6 +263,12 @@ private func Default(int iData)
   return(true);
 }
 
+global func GetClassAmount()
+{
+  var i = 1;
+  while(GetCData(i))  i++;
+  return(i);
+}
 
 /* KI-Support */
 

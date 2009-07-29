@@ -99,7 +99,7 @@ public func RelaunchPlayer(int iPlr, object pCrew, object pKiller, int iTeam, bo
 public func RelaunchClonk(int iPlr, object pCursor)
 {
   var pClonk = CreateObject(PCMK, 10, 10, iPlr);
-  if(pCursor && !FindObject(MCSL))
+  if(pCursor)
     GrabObjectInfo(pCursor, pClonk);
   else
     MakeCrewMember(pClonk, iPlr);
