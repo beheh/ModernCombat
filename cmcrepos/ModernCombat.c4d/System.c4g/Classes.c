@@ -100,7 +100,7 @@ private func Class5Info(int iData)
   if(iData == CData_Name)  return("$support$");
   if(iData == CData_Desc)  return("$support_desc$");
   if(iData == CData_Clonk) return(PCMK);
-  if(iData == CData_Items) return("1x {{M249}}|1x {{FRAG}}|1x {{SGRN}}");
+  if(iData == CData_Items) return("1x {{M249}}|1x {{PDTW}}|2x {{SGRN}}");
   if(iData == CData_Facet) return(8);
   return(Default(iData));
 }
@@ -110,7 +110,8 @@ private func Class5Setup(int iPlr)
   var new = CreateObject(PCMK,0,0,iPlr);
   DoAmmo(STAM,200,new);
   new->CreateContents(M249);
-  CreateObject(FRAG,0,0,iPlr)->Activate(new);
+  new->CreateContents(PDTW);
+  CreateObject(SGRN,0,0,iPlr)->Activate(new);
   new->CreateContents(SGRN);
   return(new);
 }
