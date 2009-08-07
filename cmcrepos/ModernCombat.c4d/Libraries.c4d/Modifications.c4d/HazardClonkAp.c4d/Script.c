@@ -694,6 +694,7 @@ public func GetSpread()
 private func InitCrosshair()
 {
   InitCH();
+  Sound("WPN2_Deploy*.ogg");
 }
 
 public func InitCH()
