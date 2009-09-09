@@ -6,6 +6,8 @@
 static aDoor1,aDoor2,aLamp1,aLamp2,aLamp3;
 
 
+/* Initalisierung */
+
 func Initialize()
 {
   //Musiktitel, welches für dieses Szenario bestimmt ist, zuerst abspielen
@@ -509,6 +511,8 @@ func CreateEquipment()
   SetUpStore(CreateObject(WPVM, 870, 680, -1));
 }
 
+/* Kaufliste */
+
 public func SetUpStore(pStore)
 {
   pStore->AddWares("IsWeapon", -1);
@@ -590,7 +594,7 @@ public func ChooserFinished()
   }
 }
 
-/* Szenarioevent - Türensteuerung */
+/* Türensteuerung */
 
 protected func Script220()
 {

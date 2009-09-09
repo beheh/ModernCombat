@@ -6,6 +6,8 @@
 static aFlag;
 
 
+/* Initalisierung */
+
 func Initialize()
 {
   //Bildschirmfärbung
@@ -337,6 +339,8 @@ func CreateEquipment()
   SetUpStore(CreateObject(WPVM, 3025, 430, -1));
   SetUpStore(CreateObject(WPVM, 4500, 430, -1));
 }
+
+/* Kaufliste */
 
 public func SetUpStore(pStore)
 {

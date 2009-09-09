@@ -4,6 +4,8 @@
 #include CSTD
 
 
+/* Initalisierung */
+
 func Initialize()
 {
   //Bildschirmfärbung

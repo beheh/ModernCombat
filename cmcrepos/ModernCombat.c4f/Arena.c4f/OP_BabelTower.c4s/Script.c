@@ -6,6 +6,8 @@
 static aFlag,aSelfDefense;
 
 
+/* Initalisierung */
+
 func Initialize()
 {
   //Bildschirmfärbung
@@ -503,7 +505,8 @@ func PointCaptured(object pPoint, int iTeam)
   }
 }
 
-//Alarmleuchtensteuerung in Effektform
+/* Alarmleuchtensteuerung */
+
 global func FxIntWarnStart(object pTarget, int iEffectNumber, int iTemp,pPoint)
 {
   EffectVar(0,pTarget,iEffectNumber) = pPoint;
@@ -538,6 +541,8 @@ func AddWarnEffect(object pTarget, object pPoint)
 {
   AddEffect ("IntWarn",pTarget,100,35,pTarget,0,pPoint);
 }
+
+/* Jetpack bei Ausrüstung */
 
 public func OnClassSelection(object pClonk)
 {

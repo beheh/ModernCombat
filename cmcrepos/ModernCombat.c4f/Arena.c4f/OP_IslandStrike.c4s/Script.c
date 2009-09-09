@@ -6,6 +6,8 @@
 static aFlag,aSelfDefense;
 
 
+/* Initalisierung */
+
 func Initialize()
 {
   //Bildschirmfärbung
@@ -664,7 +666,8 @@ func PointCaptured(object pPoint, int iTeam)
     aSelfDefense[3]->SetTeam(iTeam);
 }
 
-//Alarmleuchtensteuerung in Effektform
+/* Alarmleuchtensteuerung */
+
 global func FxIntWarnStart(object pTarget, int iEffectNumber, int iTemp,pPoint)
 {
   EffectVar(0,pTarget,iEffectNumber) = pPoint;

@@ -28,27 +28,10 @@ Crew=PCMK=1
 Crew=PCMK=1
 
 [Landscape]
-VegetationLevel=0,0,0,100
-InEarthLevel=0,0,0,100
-Sky=Clouds1;Default
 BottomOpen=1
 MapWidth=80,0,64,250
 MapHeight=80,0,40,250
-Amplitude=10,10,0,100
-Phase=50,50,0,100
-Period=10,10,0,100
-Random=20,20,0,100
-Liquid=Water-Smooth
-LiquidLevel=20,30,0,100
-Layers=Rock=7;Rock-Ridge=7;Gold=7;Granite=4;Ore=3;Coal-Swirl=4;Water-Smooth=5;Oil-Smooth=5;Earth-Rough=50;Earth-Smooth2=50
 NoScan=1
 
-[Weather]
-Climate=64,0,0,100
-StartSeason=64,0,0,100
-YearSpeed=20,10,0,100
-Wind=1,100,-100,100
-
 [Environment]
-Objects=STRM=1;DOFO=1
- 
+Objects=STRM=1;DOFO=1 

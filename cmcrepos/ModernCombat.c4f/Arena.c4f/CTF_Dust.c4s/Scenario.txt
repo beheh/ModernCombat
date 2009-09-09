@@ -34,27 +34,13 @@ Crew=PCMK=1
 [Landscape]
 Vegetation=TRE3=1;TRE2=1;CACT=2;CAC2=3;BSH2=5
 VegetationLevel=74,0,0,100
-InEarthLevel=0,0,0,100
 Sky=Default
 SkyFade=200,200,240,253,249,234
 BottomOpen=1
 MapWidth=80,0,64,250
 MapHeight=80,0,40,250
-Amplitude=10,10,0,100
-Phase=50,50,0,100
-Period=10,10,0,100
-Random=20,20,0,100
-Liquid=Water-Smooth
-LiquidLevel=20,30,0,100
-Layers=Rock=7;Rock-Ridge=7;Gold=7;Granite=4;Ore=3;Coal-Swirl=4;Water-Smooth=5;Oil-Smooth=5;Earth-Rough=50;Earth-Smooth2=50
 NoScan=1
 SkyScrollMode=2
-
-[Weather]
-Climate=6,1,0,100
-StartSeason=50,0,0,100
-YearSpeed=0,0,0,100
-Wind=1,100,-100,100
 
 [Environment]
 Objects=LENS=1;SONE=1;ELGT=1;DOFO=1

@@ -4,6 +4,8 @@
 #include CSTD
 
 
+/* Initalisierung */
+
 func Initialize()
 {
   //Musiktitel, welches für dieses Szenario bestimmt ist, zuerst abspielen

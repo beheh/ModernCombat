@@ -4,6 +4,8 @@
 #include CSTD
 
 
+/* Initalisierung */
+
 func Initialize()
 {
   //Lichteinstellung
@@ -162,7 +164,6 @@ func CreateEquipment()
   //Predator
   PlaceSpawnpoint(PDTW, 650, 445);
 }
-
 
 /* Relaunch */
 

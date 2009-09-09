@@ -34,28 +34,15 @@ Crew=PCMK=1
 [Landscape]
 Vegetation=TRE1=1;TRE2=2;TRE3=1;TRE4=5;TRB4=1;BSH2=3
 VegetationLevel=100,0,0,100
-InEarthLevel=0,0,0,100
 Sky=Clouds2
 BottomOpen=1
 TopOpen=1
 MapWidth=179,0,64,250
 MapHeight=94,0,40,250
-Amplitude=10,10,0,100
-Period=10,10,0,100
-Random=20,20,0,100
-Liquid=Water-Smooth
-LiquidLevel=20,30,0,100
-Layers=Rock=7;Rock-Ridge=7;Gold=7;Granite=4;Ore=3;Coal-Swirl=4;Water-Smooth=5;Oil-Smooth=5;Earth-Rough=50;Earth-Smooth2=50
 NoScan=1
 
 [Animals]
 Animal=BIRD=2
-
-[Weather]
-Climate=11,0,0,100
-StartSeason=49,0,0,100
-YearSpeed=0,0,0,100
-Wind=1,100,-100,100
 
 [Environment]
 Objects=LENS=1;EGLN=2;EGRS=1;ELGT=1;DOFO=1
