@@ -1,0 +1,4 @@
+[Action]
+Name=Wreck
+Facet=0,17,11,17
+NextAction=Hold

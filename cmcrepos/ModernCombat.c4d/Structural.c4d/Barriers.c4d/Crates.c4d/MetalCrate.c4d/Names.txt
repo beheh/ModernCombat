@@ -1,0 +1,2 @@
+DE:Metallkiste
+US:Metal Crate
