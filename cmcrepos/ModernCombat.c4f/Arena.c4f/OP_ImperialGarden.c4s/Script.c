@@ -127,10 +127,12 @@ func CreateFurniture()
   CreateObject (JMPD, 490, 270, -1)->Set(80, 40);
   CreateObject (JMPD, 1220, 782, -1)->Set(100, -5);
 
+  //Metallkiste
+  CreateObject(MWCR, 835, 590, -1)->AutoRespawn();
+
   //Kisten
   CreateObject(WCR2, 130, 200, -1)->AutoRespawn();
   CreateObject(WCR2, 195, 450, -1)->AutoRespawn();
-  CreateObject(WCR2, 835, 590, -1)->AutoRespawn();
   CreateObject(WCR2, 1150, 670, -1)->AutoRespawn();
   CreateObject(WCR2, 1345, 502, -1)->AutoRespawn();
 

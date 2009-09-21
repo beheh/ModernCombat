@@ -126,6 +126,9 @@ func CreateFurniture()
   //Satellitenschüssel
   CreateObject(SADH, 7625, 320, -1);
 
+  //Metallkiste
+  CreateObject(MWCR, 4570, 390, -1)->AutoRespawn();
+
   //Kisten
   CreateObject(WCR2, 1275, 400, -1)->AutoRespawn();
   CreateObject(WCR2, 3605, 500, -1)->AutoRespawn();
@@ -133,7 +136,6 @@ func CreateFurniture()
   CreateObject(WCR2, 4250, 410, -1)->AutoRespawn();
   CreateObject(WCR2, 4265, 410, -1)->AutoRespawn();
   CreateObject(WCR2, 4400, 330, -1)->AutoRespawn();
-  CreateObject(WCR2, 4570, 390, -1)->AutoRespawn();
   CreateObject(WCR2, 6290, 620, -1)->AutoRespawn();
   CreateObject(WCR2, 6310, 620, -1)->AutoRespawn();
   CreateObject(WCR2, 7325, 310, -1)->AutoRespawn();

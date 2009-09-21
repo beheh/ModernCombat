@@ -108,8 +108,10 @@ func CreateFurniture()
   CreateObject(_WIN, 798, 1800, -1);
   CreateObject(_WIN, 798, 1850, -1);
 
+  //Metallkiste
+  CreateObject(MWCR, 515, 660, -1)->AutoRespawn();
+
   //Kisten
-  CreateObject(WCR2, 515, 660, -1)->AutoRespawn();
   CreateObject(WCR2, 655, 870, -1)->AutoRespawn();
   CreateObject(WCR2, 585, 1120, -1)->AutoRespawn();
   CreateObject(WCR2, 605, 1370, -1)->AutoRespawn();
