@@ -91,9 +91,9 @@ func CreateFurniture()
   CreateObject(STU1, 1115, 170, -1);
 
   //Luftströme
-  CreateObject(PS4K, 280, 870, -1)->Set(70,150,6);
+  CreateObject(PS4K, 280, 870, -1)->Set(75,150,6);
   CreateObject(PS4K, 725, 870, -1)->Set(100,350,5);
-  CreateObject(PS4K, 1020, 870, -1)->Set(50,125,5);
+  CreateObject(PS4K, 1020, 870, -1)->Set(55,125,5);
 
   //Leitern
   CreateObject(LADR, 125, 710, -1)->Set(30);
@@ -132,9 +132,9 @@ func CreateFurniture()
 
   //Kisten
   CreateObject(WCR2, 130, 200, -1)->AutoRespawn();
-  CreateObject(WCR2, 195, 450, -1)->AutoRespawn();
+  CreateObject(WCR2, 195, 451, -1)->AutoRespawn();
   CreateObject(WCR2, 1150, 670, -1)->AutoRespawn();
-  CreateObject(WCR2, 1345, 502, -1)->AutoRespawn();
+  CreateObject(WCR2, 1345, 501, -1)->AutoRespawn();
 
   //Explosive Kiste
   CreateObject(XWCR, 810, 590, -1)->AutoRespawn();

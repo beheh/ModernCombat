@@ -164,6 +164,8 @@ func CreateFurniture()
 
   //Metallkisten
   CreateObject(MWCR, 305, 440, -1)->AutoRespawn();
+  CreateObject(MWCR, 825, 500, -1);
+  CreateObject(MWCR, 842, 500, -1);
   CreateObject(MWCR, 1240, 360, -1)->AutoRespawn();
 
   //Kisten
