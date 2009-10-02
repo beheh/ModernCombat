@@ -5,22 +5,9 @@ ScenInfoArea=1,1,1,1
 FullscreenBG=1
 
 	[Scenario]
-	File=Arena.c4f
-	OverlayImage=Overlay.png
-	Area=160,321,155,113
-	Title=
-	TitleFontSize=20
-	TitleColorInactive=
-	TitleColorActive=16711680
-	TitleOffX=60
-	TitleOffY=-5
-	TitleAlign=1
-	TitleUseBookFont=0
-
-	[Scenario]
-	File=Battlefield.c4f
-	OverlayImage=Overlay.png
-	Area=333,251,155,113
+	File=Tutorial.c4f
+	OverlayImage=OverlayTutorial.png
+	Area=252,132,235,33
 	Title=
 	TitleFontSize=20
 	TitleColorInactive=
@@ -32,8 +19,8 @@ FullscreenBG=1
 
 	[Scenario]
 	File=Mission.c4f
-	OverlayImage=Overlay.png
-	Area=333,381,155,113
+	OverlayImage=OverlayMission.png
+	Area=252,232,209,33
 	Title=
 	TitleFontSize=20
 	TitleColorInactive=
@@ -44,9 +31,22 @@ FullscreenBG=1
 	TitleUseBookFont=0
 
 	[Scenario]
-	File=Tutorial.c4f
-	OverlayImage=Overlay.png
-	Area=506,321,155,113
+	File=Battlefield.c4f
+	OverlayImage=OverlayBattlefield.png
+	Area=252,332,356,33
+	Title=
+	TitleFontSize=20
+	TitleColorInactive=
+	TitleColorActive=16711680
+	TitleOffX=60
+	TitleOffY=-5
+	TitleAlign=1
+	TitleUseBookFont=0
+
+	[Scenario]
+	File=Arena.c4f
+	OverlayImage=OverlayArena.png
+	Area=252,432,145,33
 	Title=
 	TitleFontSize=20
 	TitleColorInactive=
@@ -58,8 +58,8 @@ FullscreenBG=1
 
 	[Scenario]
 	File=Staff.c4f
-	OverlayImage=Overlay.png
-	Area=96,474,29,29
+	OverlayImage=OverlayStaff.png
+	Area=693,42,39,37
 	Title=
 	TitleFontSize=20
 	TitleColorInactive=

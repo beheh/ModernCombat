@@ -1,26 +1,26 @@
 [FolderMap]
 MinResX=640
 MinResY=480
-ScenInfoArea=423,243,307,263
+ScenInfoArea=545,50,190,490
 FullscreenBG=1
 
 	[Scenario]
-	File=DM_MacrossFrontier.c4s
-	Area=103,253,95,81
-	OverlayImage=Overlay.png
+	File=CTF_Dust.c4s
+	Area=246,139,46,14
+	OverlayImage=OverlayDust.png
 	Title=
 	TitleFontSize=15
 	TitleColorInactive=
 	TitleColorActive=16711680
-	TitleOffX=90
+	TitleOffX=120
 	TitleOffY=0
 	TitleAlign=1
 	TitleUseBookFont=0
 
 	[Scenario]
 	File=DM_BroadcastStation.c4s
-	Area=103,335,95,81
-	OverlayImage=Overlay.png
+	Area=246,179,203,14
+	OverlayImage=OverlayBroadcastStation.png
 	Title=
 	TitleFontSize=15
 	TitleColorInactive=
@@ -31,22 +31,35 @@ FullscreenBG=1
 	TitleUseBookFont=0
 
 	[Scenario]
-	File=OP_IslandStrike.c4s
-	Area=102,415,95,81
-	OverlayImage=Overlay.png
+	File=DM_MacrossFrontier.c4s
+	Area=246,219,192,14
+	OverlayImage=OverlayMacrossFrontier.png
 	Title=
 	TitleFontSize=15
 	TitleColorInactive=
 	TitleColorActive=16711680
-	TitleOffX=95
+	TitleOffX=90
+	TitleOffY=0
+	TitleAlign=1
+	TitleUseBookFont=0
+
+	[Scenario]
+	File=DM_Yuki.c4s
+	Area=246,259,46,14
+	OverlayImage=OverlayYuki.png
+	Title=
+	TitleFontSize=15
+	TitleColorInactive=
+	TitleColorActive=16711680
+	TitleOffX=90
 	TitleOffY=0
 	TitleAlign=1
 	TitleUseBookFont=0
 
 	[Scenario]
 	File=OP_AtlanticCrisis.c4s
-	Area=204,253,95,81
-	OverlayImage=Overlay.png
+	Area=246,299,178,14
+	OverlayImage=OverlayAtlanticCrisis.png
 	Title=
 	TitleFontSize=15
 	TitleColorInactive=
@@ -58,8 +71,8 @@ FullscreenBG=1
 
 	[Scenario]
 	File=OP_BabelTower.c4s
-	Area=204,335,95,81
-	OverlayImage=Overlay.png
+	Area=246,339,132,14
+	OverlayImage=OverlayBabelTower.png
 	Title=
 	TitleFontSize=15
 	TitleColorInactive=
@@ -71,8 +84,8 @@ FullscreenBG=1
 
 	[Scenario]
 	File=OP_ImperialGarden.c4s
-	Area=204,415,95,81
-	OverlayImage=Overlay.png
+	Area=246,379,180,14
+	OverlayImage=OverlayImperialGarden.png
 	Title=
 	TitleFontSize=15
 	TitleColorInactive=
@@ -83,27 +96,27 @@ FullscreenBG=1
 	TitleUseBookFont=0
 
 	[Scenario]
-	File=CTF_Dust.c4s
-	Area=305,253,95,81
-	OverlayImage=Overlay.png
+	File=OP_IslandStrike.c4s
+	Area=246,419,154,14
+	OverlayImage=OverlayIslandStrike.png
+	Title=
+	TitleFontSize=15
+	TitleColorInactive=
+	TitleColorActive=16711680
+	TitleOffX=95
+	TitleOffY=0
+	TitleAlign=1
+	TitleUseBookFont=0
+
+	[Scenario]
+	File=AS_EndlessOutpost.c4s
+	Area=246,459,178,14
+	OverlayImage=OverlayEndlessOutpost.png
 	Title=
 	TitleFontSize=15
 	TitleColorInactive=
 	TitleColorActive=16711680
 	TitleOffX=120
-	TitleOffY=0
-	TitleAlign=1
-	TitleUseBookFont=0
-
-	[Scenario]
-	File=DM_Yuki.c4s
-	Area=305,335,95,81
-	OverlayImage=Overlay.png
-	Title=
-	TitleFontSize=15
-	TitleColorInactive=
-	TitleColorActive=16711680
-	TitleOffX=90
 	TitleOffY=0
 	TitleAlign=1
 	TitleUseBookFont=0
