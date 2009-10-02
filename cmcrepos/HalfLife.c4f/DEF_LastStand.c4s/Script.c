@@ -86,7 +86,7 @@ public func MonsterSpawn(int & iX, int & iY)
   if(!--rand)
     { iX = 370; iY = 360; }
   if(!--rand)
-    { iX = 1700; iY = 250; }
+    { iX = 1560; iY = 340; }
   if(!--rand)
     { iX = 2010; iY = 840; }
 }
