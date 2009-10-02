@@ -32,6 +32,7 @@ IncompleteActivity=1
 Timer=1
 TimerCall=UpdateCharge
 ContactCalls=1
+NoFight=1
 
 [Physical]
 Energy=140000
