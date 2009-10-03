@@ -6,6 +6,11 @@
 static aFlag;
 
 
+func ChooserRuleConfig()
+{
+  return [NOFF,WPST,NODR];
+}
+
 /* Initalisierung */
 
 func Initialize()

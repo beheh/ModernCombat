@@ -6,6 +6,11 @@
 static aDoor1,aDoor2,aLamp1,aLamp2,aLamp3;
 
 
+func ChooserRuleConfig()
+{
+  return [NOFF,WPST,NODR];
+}
+
 /* Initalisierung */
 
 func Initialize()
