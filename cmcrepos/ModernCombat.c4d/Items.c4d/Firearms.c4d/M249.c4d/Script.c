@@ -9,7 +9,7 @@ public func HandY()         { return(1000); }
 
 public func BarrelXOffset() { return(-1000); }
 public func BarrelYOffset() { return(-2000); }
-public func SelectionTime() { return(15*3); }
+public func SelectionTime() { return(12*3); }
 
 
 //Kugeln - Automatikfeuer
