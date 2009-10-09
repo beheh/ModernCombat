@@ -98,9 +98,9 @@ global func BloodSplatter2(int iSize, int iX, int iY, int iAngle, int iColor)
 }
 
 static const SplatterScale = 50;
-global func Splatter(int iDmg, int iType, object pFrom)
+global func Splatter(int iDmg, int iType, object pFrom, int iColor)
 {
-  if(!GetAlive(this())) return();
+  //if(!GetAlive(this())) return();
   var x,y;
   
   iDmg = iDmg*SplatterScale/100;
@@ -116,7 +116,8 @@ global func Splatter(int iDmg, int iType, object pFrom)
     }
   }
 
-  var red = RGB(150+Random(105));
+	if(!iColor)
+    iColor = RGB(150+Random(105));
   var size = BoundBy(iDmg,8,80);
   
   if(pFrom)
@@ -131,12 +132,12 @@ global func Splatter(int iDmg, int iType, object pFrom)
       x += Sin(angle,GetDefWidth()/2);
       y -= Cos(angle,GetDefHeight()/2);
 
-      BloodSplatter2(Min(size*2,100),x,y,angle,red);
+      BloodSplatter2(Min(size*2,100),x,y,angle,iColor);
     }
   }
   
-  BloodSplatter(Min(size*3,100),x,y,red);
-  BloodBurst(Min(size*3,100),x,y,red);
+  BloodSplatter(Min(size*3,100),x,y,iColor);
+  BloodBurst(Min(size*3,100),x,y,iColor);
 }
 
 
