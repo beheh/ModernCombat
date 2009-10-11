@@ -1,0 +1,13 @@
+[Action]
+Name=Initialize
+Length=1
+Delay=1
+NextAction=Idle
+EndCall=Initialized
+
+[Action]
+Name=Dusk
+Length=1
+Delay=1
+NextAction=Dusk
+StartCall=Dusk

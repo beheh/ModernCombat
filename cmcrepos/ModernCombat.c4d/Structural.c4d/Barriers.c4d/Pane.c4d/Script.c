@@ -4,7 +4,7 @@
 
 public func Damage()
 {
-  if(GetDamage() > 100)
+  if(GetDamage() > 10)
   {
    Shatter();
    return(0);
