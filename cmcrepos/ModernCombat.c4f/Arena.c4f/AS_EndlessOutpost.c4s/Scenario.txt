@@ -13,7 +13,6 @@ Definition3=ModernCombat.c4d
 StructNeedEnergy=0
 Goals=GAS_=1
 Rules=CHOS=1
-FoWColor=13816530
 
 [Player1]
 Crew=PCMK=1
@@ -33,3 +32,10 @@ TopOpen=0
 MapWidth=179,0,64,250
 MapHeight=94,0,40,250
 NoScan=1
+SkyScrollMode=1
+
+[Weather]
+Wind=20,4,-100,100
+
+[Environment]
+Objects=SLSY=4

@@ -36,6 +36,10 @@ VegetationLevel=100,0,0,100
 MapWidth=80,0,64,250
 MapHeight=80,0,40,250
 NoScan=1
+SkyScrollMode=1
+
+[Weather]
+Wind=20,4,-100,100
 
 [Environment]
 Objects=EGRS=1;DARK=2;STRM=2 

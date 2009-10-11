@@ -40,7 +40,6 @@ BottomOpen=1
 MapWidth=80,0,64,250
 MapHeight=80,0,40,250
 NoScan=1
-SkyScrollMode=2
 
 [Environment]
 Objects=LENS=1;SONE=1;ELGT=1;DOFO=1

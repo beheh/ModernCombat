@@ -40,6 +40,10 @@ TopOpen=1
 MapWidth=179,0,64,250
 MapHeight=94,0,40,250
 NoScan=1
+SkyScrollMode=1
+
+[Weather]
+Wind=20,4,-100,100
 
 [Animals]
 Animal=BIRD=2

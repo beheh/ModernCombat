@@ -17,6 +17,8 @@ func ChooserRuleConfig()
 
 func Initialize()
 {
+  //Bildschirmfärbung
+  SetGamma(RGB(0,0,0), RGB(80,80,80), RGB(200,200,200));
   //Türen
   aDoor = [];
   //Ziele
@@ -282,6 +284,9 @@ func CreateFurniture()
   //Automat
   CreateObject(CLVM, 1895, 110, -1);
   CreateObject(CLVM, 1980, 400, -1);
+
+  //Warnschild
+  CreateObject(EXSN, 1700, 200, -1);
 
   //Wald
   CreateObject(TRE3,255,457,-1);

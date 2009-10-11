@@ -32,6 +32,9 @@ MapHeight=99,0,40,10000
 NoScan=1
 SkyScrollMode=1
 
+[Weather]
+Wind=20,4,-100,100
+
 [Animals]
 Animal=FISH=3;BIRD=2
 

@@ -27,8 +27,6 @@ func Initialize()
   CreateFurniture();
   //Ausrüstung plazieren
   CreateEquipment();
-  //Himmel
-  SetSkyParallax(0,15,15);
   return(1);
 }
 

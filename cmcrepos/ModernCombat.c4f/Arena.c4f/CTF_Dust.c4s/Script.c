@@ -17,10 +17,6 @@ func Initialize()
 {
   //Lichteinstellung
   SetGamma(RGB(3,1,0),RGB(95,83,68),RGB(213,212,187));
-  SetSkyParallax(0,33,57,0,0,0,0); 
-  //Nebel
-  for(var i=0;i<180;++i) 
-    CreateParticle("Fog",Random(LandscapeWidth()),Random(LandscapeHeight()),0,0,RandomX(900,1700));
   //Musiktitel, welches für dieses Szenario bestimmt ist, zuerst abspielen
   Music("Rock Go On");
   //Szenario einrichten

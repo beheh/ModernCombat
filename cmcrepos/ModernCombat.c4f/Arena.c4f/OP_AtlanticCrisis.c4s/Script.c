@@ -17,6 +17,8 @@ func Initialize()
 {
   //Bildschirmfärbung
   SetGamma(RGB(2,3,10), RGB(131,135,158), RGB(252,253,255) );
+  //Hintergrundbewegung
+  SetSkyParallax(0,15,15);
   //Musiktitel, welches für dieses Szenario bestimmt ist, zuerst abspielen
   Music("Missile Alert");
   //Flaggen
@@ -25,8 +27,6 @@ func Initialize()
   CreateFurniture();
   //Ausrüstung plazieren
   CreateEquipment();
-  //Himmel
-  SetSkyParallax(0,15,15);
   return(1);
 }
 
