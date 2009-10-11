@@ -263,7 +263,7 @@ private func Default(int iData)
   return(true);
 }
 
-global func GetClassAmount()
+public func GetClassAmount()
 {
   var i = 1;
   while(GetCData(i))  i++;
