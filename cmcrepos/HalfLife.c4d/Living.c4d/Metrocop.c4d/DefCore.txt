@@ -34,7 +34,7 @@ TimerCall=UpdateCharge
 ContactCalls=1
 
 [Physical]
-Energy=100000
+Energy=70000
 Breath=240000
 Walk=70000
 Jump=40000

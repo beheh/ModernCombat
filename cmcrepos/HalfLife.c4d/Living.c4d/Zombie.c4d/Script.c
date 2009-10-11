@@ -454,7 +454,7 @@ private func JumpAttacking()
       victim->SetYDir();
     }
   }
-  DoDmg(Distance(GetXDir(),GetYDir())/2,DMG_Melee,victim);
+  DoDmg(Distance(GetXDir(),GetYDir())/3,DMG_Melee,victim);
 }
 
 private func JumpAttackStop()
