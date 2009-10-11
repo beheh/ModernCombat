@@ -1,4 +1,4 @@
-/*-- Fraktionen --*/
+/*-- Faktionen --*/
 
 #strict 2
 
