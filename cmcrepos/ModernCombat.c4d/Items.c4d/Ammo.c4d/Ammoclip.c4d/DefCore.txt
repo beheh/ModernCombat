@@ -6,7 +6,7 @@ MaxUserSelect=10
 Width=10
 Height=9
 Offset=-5,-5
-Value=30
+Value=15
 Mass=10
 Components=METL=3;GUNP=2;
 Picture=10,0,64,64
