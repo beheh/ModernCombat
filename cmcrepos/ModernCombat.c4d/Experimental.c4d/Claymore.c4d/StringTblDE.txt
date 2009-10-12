@@ -1,0 +1,9 @@
+MnuLeftDown=Linksunten
+MnuLeft=Links
+MnuLeftUp=Linksoben
+MnuUp=Oben
+MnuRightUp=Rechtsoben
+MnuRight=Rechts
+MnuRightDown=Rechtsunten
+Store=Einlagern
+Collected={{%i}} aufgenommen.
