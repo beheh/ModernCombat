@@ -82,6 +82,12 @@ func CreateFurniture()
   Log("$CreatingFurniture$");
   //Alle Objekte folglich von links nach rechts
 
+  //Sternenhimmel
+  CreateObject(SLSY, 10, 10, -1);
+  CreateObject(SLSY, 10, 10, -1);
+  CreateObject(SLSY, 10, 10, -1);
+  CreateObject(SLSY, 10, 10, -1);
+
   //Leitern
   CreateObject(LADR, 70, 620, -1)->Set(33);
   CreateObject(LADR, 720, 530, -1)->Set(14);
@@ -639,9 +645,12 @@ func OnTarget1Destruction()
   aDoor[3]->Unlock();
   aDoor[4]->Unlock();
 
-  //Abwehranlagen deaktivieren
-  aSelfDefense[0]->EMPShock();
-  aSelfDefense[0]->TurnOff();
+  //Abwehranlage deaktivieren, sofern vorhanden
+  if(!FindObject(aSelfDefense[0]))
+  {
+   aSelfDefense[0]->EMPShock();
+   aSelfDefense[0]->TurnOff();
+  }
 
   //Lampen deaktivieren
   aLamp[0]->EMPShock();
@@ -719,9 +728,12 @@ func OnTarget3Destruction()
   aDoor[6]->Open();
   aDoor[7]->Open();
 
-  //Abwehranlagen deaktivieren
-  aSelfDefense[1]->EMPShock();
-  aSelfDefense[1]->TurnOff();
+  //Abwehranlage deaktivieren, sofern vorhanden
+  if(!FindObject(aSelfDefense[1]))
+  {
+   aSelfDefense[1]->EMPShock();
+   aSelfDefense[1]->TurnOff();
+  }
 
   //Lampen deaktivieren
   //aLamp2[3]->EMPShock();

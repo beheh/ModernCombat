@@ -38,6 +38,3 @@ SkyScrollMode=1
 
 [Weather]
 Wind=20,4,-100,100
-
-[Environment]
-Objects=SLSY=4
