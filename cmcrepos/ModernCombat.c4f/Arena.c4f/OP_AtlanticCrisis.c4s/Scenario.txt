@@ -1,8 +1,10 @@
 [Head]
 Icon=16
 Title=OP - Atlantic Crisis
-Origin=ModernCombat.c4f
+MaxPlayer=12
+MaxPlayerLeague=12
 Loader=Loader_CMC*
+Origin=ModernCombat.c4f
 
 [Definitions]
 Definition1=Objects.c4d

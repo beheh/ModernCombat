@@ -1,6 +1,8 @@
 [Head]
 Icon=16
 Title=DM - Yuki
+MaxPlayer=12
+MaxPlayerLeague=12
 Loader=Loader_CMC*
 Origin=ModernCombat.c4f
 
