@@ -1,5 +1,5 @@
 /*-- Lenseflare --*/
-// Sonnenskript includieren
+
 #include SONE
 
 #strict
@@ -7,6 +7,7 @@
 static const CALC_Shadow=false;
 
 local SonneX, SonneY, Screen;
+
 
 // Initialisierung
 protected func Initialize()
