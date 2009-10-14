@@ -24,6 +24,12 @@ private func SwimStart()
     var iFromSide = +1; if (GetDir(pPrey)) iFromSide = -1;
     SetCommand(this(), "MoveTo", 0, GetX(pPrey) + 10 * iFromSide, GetY(pPrey));
   }
+  
+  //Booten aus dem Weg gehen
+  var boot;
+  if(boot = FindObject2(Find_ID(INFL),Find_Distance(200)))
+    if(GetY(boot) - GetY() < 40)
+      SetComDir(BoundBy(GetComDir(), COMD_DownRight(), COMD_DownLeft()));
 }
 
 private func FindPrey()
@@ -58,4 +64,15 @@ private func Attack()
   Sound("Munch*");
   AddEffect("IntAttackDelay", this(), 1, 35);//Eine Sekunde abstand!
   return(1);
+}
+
+protected func Activity() 
+{
+  _inherited();
+  
+  //Booten aus dem Weg gehen
+  var boot;
+  if(boot = FindObject2(Find_ID(INFL),Find_Distance(200)))
+    if(GetY(boot) - GetY() < 40)
+      SetComDir(BoundBy(GetComDir(), COMD_DownRight(), COMD_DownLeft()));
 }
