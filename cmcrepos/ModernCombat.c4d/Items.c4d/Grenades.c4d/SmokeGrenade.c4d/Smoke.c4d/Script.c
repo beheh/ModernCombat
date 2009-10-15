@@ -14,10 +14,19 @@ private func TimerCall()
     
     if(!GetEffect("SmokeGrenade",obj))
       AddEffect("SmokeGrenade",obj,25,1,obj);
+    if(!GetEffect("SmokeDamage",obj))
+      AddEffect("SmokeDamage",obj,25,25,obj);
   }
 }
 
 public func GetAlpha() {return(a);}
+
+//Schadenseffekt
+global func FxSmokeDamageTimer(object pTarget, int iEffectNumber, int iEffectTime)
+{
+  if(!FindObject2(pTarget->Find_AtPoint(),Find_ID(SM4K))) return(-1);
+  DoDmg(1,DMG_Bio,pTarget,0,GetOwner(this())); 
+}
 
 //toller Effekt
 global func FxSmokeGrenadeStart(object pTarget, int iEffectNumber, int iTemp)
