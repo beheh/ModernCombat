@@ -1,3 +1,0 @@
-Diese Weiterentwicklung der altbekannten "Claymore"-Mine, welche zur Personenabwehr diente, kann nun viel besser eingestellt werden und in verschiedensten Winkeln ausgerichtet werden. Außerdem verfügt sie nicht nur über einen simplen Laser, welcher Bewegungen entdeckt, sondern gleichzeitig über einen Infrarotscanner, sodass die Mine nur explodiert, wenn sich ein Lebewesen nähert und nicht blind in jeder Situation hochgeht.
-
-Kann im Gürtel verstaut und auf doppel-graben aktiviert werden.

@@ -1,3 +1,0 @@
-This is a Claymore V2, an advanced edition of the well known booby trap. You can adjust it much better and change the explosion angle as you like. Besides a laser which detects movements it uses a infrared scanner to find living victims.
-
-Can be stored in the belt and activated by double pressing dig.
