@@ -1,10 +1,10 @@
-/*-- Sprengfalle --*/
+/*-- Claymore --*/
 
 #strict 2
 
 //Indikatoren
 
-local bActive,iDir,controller;
+local bActive,iDir,controller, laser;
 
 public func IsEquipment(){return(true);}
 public func IsDrawable(){return(true);}
@@ -12,7 +12,6 @@ public func IsReloading(){return(false);}
 public func IsShooting(){return(false);}//Nein, keine Automatikminen. O_o
 public func IsRecharging(){return(false);}
 public func IsMine(){return(true);}
-public func IsDrobotMaterial(){return(true);}
 public func NoArenaRemove(){return(true);}
 public func Color(){return(RGB(200,200,200));}
 public func HandX()    { return(0); }    // X-Position in der Hand
@@ -20,11 +19,11 @@ public func HandY()    { return(0); }    // Y-Position in der Hand
 public func HandSize() { return(1000); } // Größe in der Hand, Standard: 1000
 public func HandBarrel(){return(0); }    // Y-Offset des Laufs
 public func BarrelXOffset(){return(0);}
-public func BarrelYOffset(){return(0);}
+public func BarrelYOffset(){return(0);}
 
 
-func Initialize()
-{
+
+func Initialize() {
 
   SetAction("Defused"); 
   return 1;
@@ -41,6 +40,7 @@ public func Activate(object pObjBy)
 {
   if(!Contained()) return 0;
   SetUser(pObjBy);
+  SetOwner(pObjBy);
   CreateMenu(APMI, pObjBy, this());
   AddMenuItem("$MnuLeft$", "Fuse", LMM2, pObjBy, 0, -90, 0, 2, 0);
   AddMenuItem("$MnuLeftUp$", "Fuse", LMM2, pObjBy, 0, -45, 0, 2, 1);
@@ -77,6 +77,8 @@ private func Fuse(a, int iAngle)
   Sound("BBTP_Activate.ogg");
   CreateParticle("PSpark",0,0,0,0,100,RGBa(255,0,0,0),this());
   Exit(0,0,5);
+  GetUser()->~GrabGrenade(GetID());
+  GetUser()->~ResetShowWeapon(0);
   return(1);
 }
 
@@ -84,10 +86,11 @@ private func FinFuse()
 {
   SetClrModulation(RGBa(255,255,255,80));
   CreateParticle("PSpark",0,0,0,0,100,RGBa(255,0,0,0),this());
-  var laser = CreateObject(LASR,0,0,GetOwner());
+  laser = CreateObject(LASR,0,0,GetOwner());
   laser -> Set(iDir,3,60,0,0,this());
-  laser -> RGBa(255,0,0,200);
-  CreateObject(MFLG,0,-2,GetOwner())->Set(this());
+  laser -> SetClrModulation(RGBa(255,0,0,230));
+  CreateObject(MFLG,0,-2,GetOwner())->Set(this());
+
   bActive=true;
   Sound("BBTP_Alarm.ogg");
 }
@@ -96,19 +99,20 @@ private func FinFuse()
 public func ControlUp(object pObjBy)
 {
   if(Contained()) return;
-  FindObject2(Find_ID(MFLG),Find_ActionTarget(this()))->RemoveObject();
   if(!pObjBy->~RejectCollect(GetID(), this())) Enter(pObjBy);
   if(bActive)
     Defuse();
-  ClearScheduleCall();
-  Sound("Pshshsh");
   return 1;
 }
 
 private func Defuse()
 {
   SetAction("Defused");
+  RemoveObject(laser);
+  FindObject2(Find_ID(MFLG),Find_ActionTarget(this()))->RemoveObject();
   SetClrModulation();
+  ClearScheduleCall();
+  Sound("Pshshsh");
   bActive=false;
   return(1);
 }
@@ -138,6 +142,7 @@ public func Detonate()
     i++;
    }
   Sound("BBTP_Explosion1.ogg");
+  RemoveObject(laser);
   RemoveObject();
 }
 
