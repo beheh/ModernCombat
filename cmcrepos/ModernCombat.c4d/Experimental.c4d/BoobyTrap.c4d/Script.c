@@ -1,4 +1,4 @@
-/*-- Claymore --*/
+/*-- Sprengfalle --*/
 
 #strict 2
 
@@ -22,20 +22,21 @@ public func BarrelXOffset(){return(0);}
 public func BarrelYOffset(){return(0);}
 
 
+/* Initalisierung */
 
-func Initialize() {
-
+func Initialize()
+{
   SetAction("Defused"); 
-  return 1;
+  return(1);
 }
 
 func Hit()
 {
   Sound("BBTP_Hit*.ogg");
-  return 1;
 }
 
-//Aktivierung
+/* Aktivierung */
+
 public func Activate(object pObjBy)
 {
   if(!Contained()) return 0;
@@ -95,7 +96,8 @@ private func FinFuse()
   Sound("BBTP_Alarm.ogg");
 }
 
-//Deaktivierung
+/* Deaktivierung */
+
 public func ControlUp(object pObjBy)
 {
   if(Contained()) return;
@@ -112,12 +114,13 @@ private func Defuse()
   FindObject2(Find_ID(MFLG),Find_ActionTarget(this()))->RemoveObject();
   SetClrModulation();
   ClearScheduleCall();
-  Sound("Pshshsh");
+  Sound("BBTP_Charge.ogg");
   bActive=false;
   return(1);
 }
 
-//Check..
+/* Gegnererkennung */
+
 private func Check()
 {
   if(!bActive) return;
@@ -130,8 +133,7 @@ private func Check()
     Detonate();
   return 1;
 }
-      
-//...und Explosion :)
+
 public func Detonate()
 {
   var i = 0;
@@ -146,21 +148,8 @@ public func Detonate()
   RemoveObject();
 }
 
-protected func Selection()
-{
-  Sound("BBTP_Charge.ogg");
-  return(1);
-}
+/* Granaten-HUD */
 
-public func IsBulletTarget(){if(!Random(6)) return(true);}
-
-protected func Damage(int iChange) 
-{
-  Detonate();
-}
-
-
-//HUD Dingens (aus Granatenscript)
 func GetCharge()
 {
   var user = GetUser();
@@ -171,6 +160,7 @@ func GetCharge()
 }
 
 func CustomHUD() {return(true);}
+
 func UpdateHUD(object pHUD)
 {
   var user = GetUser();
@@ -180,6 +170,8 @@ func UpdateHUD(object pHUD)
   pHUD->Charge(user->GrenadeCount(GetID()),(user->MaxGrenades() - user->GrenadeCount()) + user->GrenadeCount(GetID()));
   pHUD->Ammo(user->GrenadeCount(GetID()),(user->MaxGrenades() - user->GrenadeCount()) + user->GrenadeCount(GetID()), GetName(), true);
 }
+
+/* Besitzererkennung */
 
 public func GetUser()
 {
@@ -195,4 +187,19 @@ public func SetUser(object pUser)
 {
   controller = pUser;
   SetController(GetController(pUser));
+}
+
+/* Sonstiges */
+
+protected func Selection()
+{
+  Sound("BBTP_Charge.ogg");
+  return(1);
+}
+
+public func IsBulletTarget(){if(!Random(6)) return(true);}
+
+protected func Damage(int iChange) 
+{
+  Detonate();
 }
