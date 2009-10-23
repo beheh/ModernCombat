@@ -4,7 +4,7 @@
 
 //Indikatoren
 
-local bActive, iDir, controller, laser;
+local bActive, bReady, iDir, controller, laser;
 
 public func IsEquipment(){return(true);}
 public func IsDrawable(){return(true);}
@@ -43,6 +43,7 @@ public func ControlThrow(object caller)
 {
   SetUser(caller);
   
+  if(ContentsCount(BBTP, caller) > 1){ Activate(caller); return; }
   if(!Contained(GetUser()))
   {
     GetUser()->~CheckArmed();//Noch einmal schnell prüfen.
@@ -63,9 +64,11 @@ public func Throw()
   
   SetController(GetOwner(user));
   Exit(0,0,10);
+  SetR(0);
   Sound("BBTP_Activate.ogg");
   CreateParticle("PSpark",0,0,0,0,60,RGBa(255,0,0,0),this());
   ScheduleCall(0,"FinFuse", 2*36);
+  bActive=true;
   
   //Grafisches Trallala
   SetAction("Fused");
@@ -91,14 +94,15 @@ public func Activate(pCaller)
 
 private func FinFuse()
 {
+  if(!bActive) return;
   SetClrModulation(RGBa(255,255,255,80));
   CreateParticle("PSpark",0,0,0,0,60,RGBa(255,0,0,0),this());
   laser = CreateObject(LASR,0,0,GetOwner(controller));
   laser -> Set(iDir,3,60,0,0,this());
   laser -> SetClrModulation(RGBa(255,0,0,230));
-  CreateObject(MFLG,0,-2,GetOwner(controller))->Set(this());
+  CreateObject(MFLG,0,2,GetOwner(controller))->Set(this());
 
-  bActive=true;
+  bReady=true;
   Sound("BBTP_Alarm.ogg");
 }
 
@@ -107,8 +111,9 @@ private func FinFuse()
 public func ControlUp(object pObjBy)
 {
   if(Contained()) return;
+  bActive=false;
   if(!pObjBy->~RejectCollect(GetID(), this())) Enter(pObjBy);
-  if(bActive)
+  if(bReady)
     Defuse();
   Activate(pObjBy);
   return 1;
@@ -120,9 +125,9 @@ private func Defuse()
   RemoveObject(laser);
   FindObject2(Find_ID(MFLG),Find_ActionTarget(this()))->RemoveObject();
   SetClrModulation();
-  ClearScheduleCall();
   Sound("BBTP_Charge.ogg");
   bActive=false;
+  bReady=false;
   return(1);
 }
 
@@ -130,7 +135,7 @@ private func Defuse()
 
 private func Check()
 {
-  if(!bActive) return;
+  if(!bReady) return;
   var pVictim;
   if( ObjectCount2(Find_OnLine(0,0,Sin(iDir,60,1),-Cos(iDir,60,1)), 
       Find_Func("CheckEnemy",this,0,true),
