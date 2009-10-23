@@ -4,16 +4,19 @@
 
 //Indikatoren
 
-local bActive,iDir,controller, laser;
+local bActive, iDir, controller, laser;
 
 public func IsEquipment(){return(true);}
 public func IsDrawable(){return(true);}
 public func IsReloading(){return(false);}
+public func CanAim() { return(true); }
 public func IsShooting(){return(false);}//Nein, keine Automatikminen. O_o
 public func IsRecharging(){return(false);}
 public func IsMine(){return(true);}
 public func NoArenaRemove(){return(true);}
+
 public func Color(){return(RGB(200,200,200));}
+
 public func HandX()    { return(0); }    // X-Position in der Hand
 public func HandY()    { return(0); }    // Y-Position in der Hand
 public func HandSize() { return(1000); } // Größe in der Hand, Standard: 1000
@@ -35,62 +38,65 @@ func Hit()
   Sound("BBTP_Hit*.ogg");
 }
 
-/* Aktivierung */
-
-public func Activate(object pObjBy)
+///Waffe
+public func ControlThrow(object caller)
 {
-  if(!Contained()) return 0;
-  SetUser(pObjBy);
-  SetOwner(pObjBy);
-  CreateMenu(APMI, pObjBy, this());
-  AddMenuItem("$MnuLeft$", "Fuse", LMM2, pObjBy, 0, -90, 0, 2, 0);
-  AddMenuItem("$MnuLeftUp$", "Fuse", LMM2, pObjBy, 0, -45, 0, 2, 1);
-  AddMenuItem("$MnuUp$", "Fuse", LMM2, pObjBy, 0, 0, 0, 2, 2);
-  AddMenuItem("$MnuRightUp$", "Fuse", LMM2, pObjBy, 0, 45, 0, 2, 3);
-  AddMenuItem("$MnuRight$", "Fuse", LMM2, pObjBy, 0, 90, 0, 2, 4);
-  AddMenuItem("","",LMM2, pObjBy, 0, 0, 0, 2, 8);
-  AddMenuItem("$MnuLeftDown$", "Fuse", LMM2, pObjBy, 0, -135, 0, 2, 5);
-  AddMenuItem("$Store$", "MnuStore", APMI, pObjBy, 0, pObjBy);
-  AddMenuItem("$MnuRightDown$", "Fuse", LMM2, pObjBy, 0, 135, 0, 2, 7);
-  AddMenuItem("","",LMM2, pObjBy, 0, 0, 0, 2, 8);
-  SelectMenuItem(7, pObjBy); 
-  return 1;
+  SetUser(caller);
+  
+  if(!Contained(GetUser()))
+  {
+    GetUser()->~CheckArmed();//Noch einmal schnell prüfen.
+    if(GetUser()->~ReadyToFire())
+    {
+      Throw();
+      return(true);
+    }
+  }
+  
+  return(_inherited(...));
 }
 
-public func MnuStore(a, pCaller)
+public func Throw()
+{  
+  var user = GetUser();
+  iDir = user->AimAngle();
+  
+  SetController(GetOwner(user));
+  Exit(0,0,10);
+  Sound("BBTP_Activate.ogg");
+  CreateParticle("PSpark",0,0,0,0,60,RGBa(255,0,0,0),this());
+  ScheduleCall(0,"FinFuse", 2*36);
+  
+  //Grafisches Trallala
+  SetAction("Fused");
+  if(Inside(iDir,-180,-130)) SetPhase(3);
+  if(Inside(iDir,-129,-78))  SetPhase(0);
+  if(Inside(iDir,-77 ,-27))  SetPhase(1);
+  if(Inside(iDir,-26 ,25))   SetPhase(2);
+  if(Inside(iDir,26  ,76))   SetPhase(3);
+  if(Inside(iDir,77  ,128))  SetPhase(0);
+  if(Inside(iDir,129 ,179))  SetPhase(1);
+  
+  var nextmine = user->~GrabGrenade(GetID());
+  user->~ResetShowWeapon(0);
+  if(user->~IsAiming())
+    if(!nextmine) user->StopAiming();
+}
+
+public func Activate(pCaller)
 {
   pCaller->~StoreGrenade(this());
   HelpMessage(GetOwner(pCaller),"$Collected$",pCaller,GetID());
 }
 
-private func Fuse(a, int iAngle)
-{
-  SetAction("Fused");
-  if(iAngle==-135) SetPhase(3);
-  if(iAngle==-90) SetPhase(0);
-  if(iAngle==-45) SetPhase(1);
-  if(iAngle==0) SetPhase(2);
-  if(iAngle==45) SetPhase(3);
-  if(iAngle==90) SetPhase(0);
-  if(iAngle==135) SetPhase(1);
-  iDir=iAngle;
-  ScheduleCall(0,"FinFuse", 2*36);
-  Sound("BBTP_Activate.ogg");
-  CreateParticle("PSpark",0,0,0,0,100,RGBa(255,0,0,0),this());
-  Exit(0,0,5);
-  GetUser()->~GrabGrenade(GetID());
-  GetUser()->~ResetShowWeapon(0);
-  return(1);
-}
-
 private func FinFuse()
 {
   SetClrModulation(RGBa(255,255,255,80));
-  CreateParticle("PSpark",0,0,0,0,100,RGBa(255,0,0,0),this());
-  laser = CreateObject(LASR,0,0,GetOwner());
+  CreateParticle("PSpark",0,0,0,0,60,RGBa(255,0,0,0),this());
+  laser = CreateObject(LASR,0,0,GetOwner(controller));
   laser -> Set(iDir,3,60,0,0,this());
   laser -> SetClrModulation(RGBa(255,0,0,230));
-  CreateObject(MFLG,0,-2,GetOwner())->Set(this());
+  CreateObject(MFLG,0,-2,GetOwner(controller))->Set(this());
 
   bActive=true;
   Sound("BBTP_Alarm.ogg");
@@ -104,6 +110,7 @@ public func ControlUp(object pObjBy)
   if(!pObjBy->~RejectCollect(GetID(), this())) Enter(pObjBy);
   if(bActive)
     Defuse();
+  Activate(pObjBy);
   return 1;
 }
 
