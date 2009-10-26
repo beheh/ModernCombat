@@ -1,0 +1,2 @@
+DE:Monochrom Projektil
+US:Monochrom Bullet

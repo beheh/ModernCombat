@@ -1,0 +1,10 @@
+[DefCore]
+id=AIMB
+Version=4,9,8,2
+Name=Aimbot
+Category=C4D_StaticBack
+Width=11
+Height=11
+Offset=-5,-5
+Components=AIMB=1
+Picture=0,0,11,11

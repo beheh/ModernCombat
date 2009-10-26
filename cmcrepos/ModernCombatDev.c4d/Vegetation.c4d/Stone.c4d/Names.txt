@@ -1,0 +1,2 @@
+DE:Gestein
+US:Stone

@@ -1,0 +1,7 @@
+An atmospheric thunder storm in the sky which behaves realistic.
+ 
+1: only clouds
+2: with rain
+3: with less thunders
+4: with thunders
+5: with much thunders

@@ -1,0 +1,3 @@
+Bullets=Kugeln
+Auto=Automatikfeuer
+Single=Einzelfeuer

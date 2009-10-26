@@ -1,0 +1,8 @@
+[DefCore]
+id=SR4K
+Name=ScreenRGB
+Category=60817409
+Width=250
+Height=250
+Offset=0,0
+Oversize=1

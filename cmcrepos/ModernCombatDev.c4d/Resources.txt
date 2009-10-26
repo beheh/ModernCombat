@@ -1,0 +1,14 @@
+Es sollten (außer dem Clonk) keine externen Ressourcen benötigt werden.
+
+
+Aktuelle externe Ressourcen:
+-Hazard-Clonk -> vom Peacemaker
+-Sonnen-Objekt -> vom neuen Sonnensystem
+-Spark -> Defi
+-Team-System -> Spielziele
+-Hazard-Granate -> M203-Grenade
+-Rakete -> PzF-Rakete
+-Waffen-System -> WPN2 & PzF
+-Projektil -> InstaGib-Projektil
+-Kiste (WCR2) -> Kiste
+-Tür -> Hintergrundtüren

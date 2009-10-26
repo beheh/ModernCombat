@@ -1,0 +1,2 @@
+DE:Schlauchboot
+US:Inflatable

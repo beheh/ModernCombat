@@ -1,0 +1,14 @@
+[DefCore]
+id=STNE
+Name=Rock
+Version=4,6,2
+Category=C4D_StaticBack
+Width=32
+Height=32
+Offset=-16,-16
+Value=1
+Mass=6
+Vertices=4
+VertexX=-16,16,-16,16
+VertexY=16,-16,-16,16
+Picture=0,0,32,32

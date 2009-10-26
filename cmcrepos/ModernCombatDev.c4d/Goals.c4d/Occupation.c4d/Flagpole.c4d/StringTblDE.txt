@@ -1,0 +1,4 @@
+MsgCaptured=Team %s eroberte Stützpunkt %s
+MsgCapturing=Team <c %x>%s</c>|erobert Stützpunkt|%s
+MsgRecaptured=Team %s eroberte Stützpunkt %s zurück
+MsgRecapturing=Team <c %x>%s</c>|erobert Stützpunkt|%s zurück

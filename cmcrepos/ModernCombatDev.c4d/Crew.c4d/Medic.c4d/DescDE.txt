@@ -1,0 +1,5 @@
+Verlässlicher Arzt auf den Schlachtfeldern und der Grund für viele Überlebende.
+
+Bis zu 4 Objekte können getragen werden, davon 2 Waffen.
+
+Mit der Tastenbelegung [Doppelstop+Hoch] wählt der Sanitäter die momentan beste Heilungsmethode automatisch.

@@ -1,0 +1,13 @@
+[Action]
+Name=NoSil
+Procedure=NONE
+Delay=40
+NextAction=Idle
+EndCall=NoSil
+
+[Action]
+Name=Sil
+Procedure=NONE
+Delay=40
+NextAction=Idle
+EndCall=Sil
