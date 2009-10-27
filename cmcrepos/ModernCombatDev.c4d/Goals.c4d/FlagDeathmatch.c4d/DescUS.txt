@@ -1,1 +1,0 @@
-Only the player with the flag gets points for kills.

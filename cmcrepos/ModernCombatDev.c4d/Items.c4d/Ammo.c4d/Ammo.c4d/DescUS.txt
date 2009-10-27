@@ -1,1 +1,1 @@
-Provides basic functions for ammunition.
+The basic controls for ammunition.
