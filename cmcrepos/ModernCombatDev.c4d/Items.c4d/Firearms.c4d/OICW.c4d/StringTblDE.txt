@@ -1,5 +1,0 @@
-Grenades=Granaten
-Bullets=Kugeln
-Auto=Automatikfeuer
-Burst=Stoﬂfeuer
-Single=Einzelfeuer
