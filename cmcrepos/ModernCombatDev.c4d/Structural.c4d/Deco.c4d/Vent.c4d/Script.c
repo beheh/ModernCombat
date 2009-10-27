@@ -1,0 +1,4 @@
+/*-- Ventialtor --*/
+
+#strict
+#include VENT
