@@ -1,2 +1,0 @@
-DE:explosives Fass
-US:Explosive Barrel

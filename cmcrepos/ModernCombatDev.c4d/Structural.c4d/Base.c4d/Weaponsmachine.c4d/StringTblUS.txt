@@ -1,4 +1,0 @@
-Weapons=Weapons
-Ammo=Ammo
-Equipment=Equipment
-End=Finish
