@@ -1,4 +1,0 @@
-Bullets=Bullets
-Auto=Auto
-Single=Single
-Monochrom=Monochrom

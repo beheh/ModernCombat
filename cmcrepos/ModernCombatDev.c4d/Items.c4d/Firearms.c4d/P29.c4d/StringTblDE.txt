@@ -1,4 +1,0 @@
-Bullets=Kugeln
-Auto=Automatikfeuer
-Single=Einzelfeuer
-Monochrom=Monochrom
