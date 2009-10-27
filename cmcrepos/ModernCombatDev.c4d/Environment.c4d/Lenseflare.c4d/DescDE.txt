@@ -1,1 +1,1 @@
-Dieses Objekt fügt Sonnenlicht und Blendeneffekte ins Szenario ein.
+Dieses Objekt erzeugt eine Sonne und Blendeneffekte.

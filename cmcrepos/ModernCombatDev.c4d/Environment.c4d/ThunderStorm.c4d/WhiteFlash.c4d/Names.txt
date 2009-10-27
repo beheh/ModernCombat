@@ -1,2 +1,2 @@
-DE:Mündungsfeuer
-US:Muzzle flash
+DE:Blitzeinschlag
+US:White Flash

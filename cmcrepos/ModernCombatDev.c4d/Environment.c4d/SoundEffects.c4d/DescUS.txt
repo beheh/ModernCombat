@@ -1,1 +1,1 @@
-Responsible for fitting sounds.
+Fitting sounds.
