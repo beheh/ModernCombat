@@ -1,0 +1,2 @@
+Missile=Missiles
+Normal=Non-automatic Missile
