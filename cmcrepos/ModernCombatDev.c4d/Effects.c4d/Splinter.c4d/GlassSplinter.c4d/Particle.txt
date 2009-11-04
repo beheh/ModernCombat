@@ -1,5 +1,5 @@
 [Particle]
-Name=SplinterGlass
+Name=GlassSplinter
 MaxCount=300
 InitFn=StdInit
 ExecFn=StdExec

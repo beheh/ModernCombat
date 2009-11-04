@@ -32,7 +32,7 @@ public func Shatter(int iPower, object pFrom)
   // Zersplittern
   Sound("Glass");
   for(var i = 0 ; i < GetDefHeight()/3 ; i++)
-    CreateParticle ("SplinterGlass", 0, i*3-GetDefHeight()/2, +Sin(angle+(Random(spread)-spread/2),iPower), -Cos(angle+(Random(spread)-spread/2),iPower), 20);
+    CreateParticle ("GlassSplinter", 0, i*3-GetDefHeight()/2, +Sin(angle+(Random(spread)-spread/2),iPower), -Cos(angle+(Random(spread)-spread/2),iPower), 20);
     
   RemoveObject();
 }
