@@ -363,12 +363,12 @@ public func OnHit(object pObject, int iX, int iY)
     if(Fast())
     {
       var tmp = CreateObject(TRAI,iX,iY,-1);
-      tmp->Sound("BulletImpact*");
+      tmp->Sound("BulletImpact*.ogg");
       tmp->RemoveObject();
     }
     else
     {
-      Sound("BulletImpact*");
+      Sound("BulletImpact*.ogg");
     }
     
     if(GetOCF(pObject) & OCF_Living)//Für Lebewesen keine Funken-Effekte.

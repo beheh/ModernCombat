@@ -7,19 +7,21 @@ public func Color(){return(RGB(255,0,0));}
 public func ContainedDamage(){return(120);}
 public func BlastRadius(){return(40);}
 
+
 public func Fused()
 {
-  //Kaboom!
   var helper = CreateObject(TIM1,0,0,-1);
   AddEffect("IntShockWave",helper,10,1,0,GetID()); 
-  
+
   Explode(BlastRadius()*2/3);
   DamageObjects(BlastRadius()*3/2,BlastRadius()*2,this());
   CreateParticle("Blast",0,0,0,0,10*BlastRadius(),RGB(255,255,128));
+  CastParticles("MetalSplinter",4,90,0,0,40,15,RGB(40,20,20));
   Sound("GrenadeExplosion*.ogg");
 }
 
-//Schockwelle. ;)
+/* Schockwelle */
+
 public func FxIntShockWaveStart(object pTarget, int iEffectNumber, int iTemp)
 {
   //...
