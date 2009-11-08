@@ -92,8 +92,7 @@ public func SetAlpha(int iValue)
   a = BoundBy(iValue,0,255);
   SetClrModulation(RGBa(r,g,b,a));
   
-  if(a >= 255)
-    RemoveObject();// !!!
+  if(a >= 255) RemoveObject();// !!!
 }
 
 public func DoAlpha(int iValue, int iMin, int iMax)
@@ -102,8 +101,7 @@ public func DoAlpha(int iValue, int iMin, int iMax)
   a = BoundBy(a-iValue,Max(iMin,0),Min(iMax,255));
   SetClrModulation(RGBa(r,g,b,a));
   
-  if(a >= 255)
-    RemoveObject();// !!!
+  if(a >= 255) RemoveObject();// !!!
 }
 
 func CursorCheck()

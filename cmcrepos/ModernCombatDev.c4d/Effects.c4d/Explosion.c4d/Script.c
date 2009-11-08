@@ -1,38 +1,34 @@
-/* Explosion */
+/* Kab000m! 2.0 */
 
-#strict
+#strict 2
 
-//Explode mit Effekt und tollen Extraparametern für performance-/effektmäßiges Zeug
-global func Explode(int iLevel, object pObj, id idEffect, string szEffect, bool bNoShots)
+global func Explode(int iLevel, object pObj, id idEffect, string szEffect)
 {
   if(!pObj)
-    if(!(pObj=this()))
-      return();
+    if(!(pObj=this))
+      return;
   
   var x = AbsX(pObj->GetX()),
   	  y = AbsY(pObj->GetY());
+			
+  var boom = FindObject(BOOM);
+  if(!boom) boom = CreateObject(BOOM,0,0,-1);
+			
+	var xdir = GetXDir(pObj) + GetWind(GetX(pObj),GetY(pObj))/20;
+	var ydir = GetYDir(pObj);
+	
+	var opt_angle = Angle(xdir,ydir);
+	var speed = BoundBy(Distance(xdir,ydir),0,60);
   
+	
+	///Feuer-, Funken- und Dirt-Effekte...
   var i=0, count = 3+iLevel/8, angle = Random(360);
-  while(count > 0 && ++i < count*10)
+  while((count > 0) && (++i < count*10))
   {
     angle += RandomX(40,80);
     
-    var xdir = GetXDir(pObj) + GetWind(GetX(pObj),GetY(pObj))/20;
-    var ydir = GetYDir(pObj);
-    
-    var opt_angle = Angle(xdir,ydir);
-    var speed = BoundBy(Distance(xdir,ydir),0,60);
-   
     angle = Interpolate4K(angle,opt_angle,0,60,speed);
     angle -= 180;
-  
-    /*if(!bNoShots)
-      if(EffectLevel() > EM4K_Low)
-        if(GetName(0,SHRP))//Gibt es das Objekt? (HAX)
-        {
-          var ammo = CreateObject(SHRP,x,y,GetController(pObj));
-          ammo->Launch(angle,100+iLevel*3,Max(1,RandomX(30,iLevel*8)),4);
-        }*/
         
     //Rauch
     var smokex = +Sin(angle,RandomX(iLevel/4,iLevel/2));
@@ -40,23 +36,45 @@ global func Explode(int iLevel, object pObj, id idEffect, string szEffect, bool 
     if(GBackSolid(x+smokex,y+smokey))
       continue;
      var level = iLevel + Random(iLevel/5);
-    CreateSmokeTrail(level,angle,smokex,smokey,pObj);
+
+		var a = angle+RandomX(-15,+15);
+		for(var i = 7; i > 0; i--)
+		  CreateParticle("BlastSpark1", smokex, smokey, +Sin(a,level+RandomX(-5,+5)), -Cos(a,level+RandomX(-5,+5)), 25+Random(50)); 
+    CreateParticle("BlastFlame", smokex, smokey, +Sin(angle,level/2), -Cos(angle,level/2), level*5);
+    for(var i = Random(3)+1; i > 0; i--)
+		{
+		  a = angle+RandomX(-30,+30);
+		  CreateParticle("BlastDirt", smokex, smokey, +Sin(a,level+RandomX(-20,+20)), -Cos(a,level+RandomX(-20,+20)), level*RandomX(7,12));
+		}
+		//CreateSmokeTrail(level,angle,smokex,smokey,pObj);
     count--;
   }
 
+	///Brandspuren...
   if(EffectLevel() > EM4K_Low)
     CreateBurnMark(x,y,iLevel,20+iLevel/2);
 
+  ///Lichteffekte bei Dunkelheit...
   if(IsDark())
   {
     var iSize = iLevel*100;
-    if(iLevel < 20) {
+    if(iLevel < 20)
       iSize /= 2;
-    }
     AddLightFlash(iSize/3, x, y, RGBa(255,220,64,15));
   }
+	
+	///Feuer-Effekt..
+	/*angle = Interpolate4K(0,opt_angle,0,120,speed);
+	angle -= 180;
+	CreateParticle("BlastBg",0,0,+Sin(angle,100),-Cos(angle,100),iLevel*20);
+	//CreateParticle("BlastBg",0,0,0,-1,iLevel*20);
+	*/
+	
+	///Der eigentliche Blast-Partikel...
+	CreateParticle("Blast",x,y,0,0,iLevel*11);
 
-  return(inherited(iLevel, pObj, idEffect, szEffect));
+	///Standart-Verhalten...
+  return inherited(iLevel, pObj, idEffect, szEffect);
 }
 
 global func SemiExplode(int iLevel, int incidence)
@@ -64,15 +82,15 @@ global func SemiExplode(int iLevel, int incidence)
   for(var i = 0; i < incidence; i++)
   {
     var rock = CreateObject(ROCK, 0, 0, GetOwner());
-    if(this())
+    if(this)
     {
-      rock->SetXDir(GetXDir(this()));
-      rock->SetYDir(GetYDir(this()));
+      rock->SetXDir(GetXDir(this));
+      rock->SetYDir(GetYDir(this));
     }
     Explode(iLevel,rock); 
   }
   RemoveObject();
-  return(1);
+  return 1;
 }
 
 global func CreateBurnMark(int iX, int iY, int iLevel, int Count) 
@@ -83,15 +101,14 @@ global func CreateBurnMark(int iX, int iY, int iLevel, int Count)
   
   var angle=Random(360/Count); //variablen für die überprüfung
   var type;
-  for(var z; z < Count; z++) {
-
+  for(var z; z < Count; z++)
+	{
     angle += Max(1,360/Count);
 
     // Check: Sky or Solid/Liquid
     var x = iX+Cos(angle,iLevel);
     var y = iY+Sin(angle,iLevel);
-    if(GetMaterialVal("Density","Material",GetMaterial(x,y)) != 0
-       || GetMaterial(x,y) == -1)
+    if((GetMaterialVal("Density","Material",GetMaterial(x,y)) != 0) || (GetMaterial(x,y) == -1))
       continue;
 
     type = 1+Random(3);
@@ -101,26 +118,29 @@ global func CreateBurnMark(int iX, int iY, int iLevel, int Count)
 
     CreateParticle("BurnMark",iX+cos,iY+sin,Cos(angle+RandomX(-5,5),50),Sin(angle+RandomX(-5,5),50),size*5+Random(25),RGBa(0,0,0,64),boom,1); 
   }
-
 }
 
-global func BurnMarkCheck(int angle,int size, int iX, int iY) {
+global func BurnMarkCheck(int angle,int size, int iX, int iY)
+{
   var sin = Sin(angle,size);
   var cos = Cos(angle,size);
   var x = cos, y = sin, i=100;
-  while(GetMaterial(iX+x,iY+y) == -1 || GetMaterialVal("Density","Material",GetMaterial(iX+x,iY+y)) != 0) {
+
+  while(GetMaterial(iX+x,iY+y) == -1 || GetMaterialVal("Density","Material",GetMaterial(iX+x,iY+y)) != 0)
+	{
     x = cos*i/100;
     y = sin*i/100;
-    if(i <= 0) return(0);
+    if(i <= 0) return 0;
     i-=10;
   }
-  return(size);
+
+  return size;
 }
 
-global func CreateSmokeTrail(int iStrength, int iAngle, int iX, int iY, object pObj) {
-//  Log("I...");
-    iX += GetX(pObj);
-    iY += GetY(pObj);
+global func CreateSmokeTrail(int iStrength, int iAngle, int iX, int iY, object pObj)
+{
+  iX += GetX(pObj);
+  iY += GetY(pObj);
   AddEffect("SmokeTrail", 0, 300, 1, 0, 0, iStrength, iAngle, iX, iY);
 }
 
@@ -131,10 +151,10 @@ global func CreateSmokeTrail(int iStrength, int iAngle, int iX, int iY, object p
 // 3 - Y-Position
 // 4 - Anfangs-X-Geschwindigkeit
 // 5 - Anfangs-Y-Geschwindigkeit
-global func FxSmokeTrailStart(object pTarget, int iEffectNumber, int iTemp, iStrength, iAngle, iX, iY) {
-
+global func FxSmokeTrailStart(object pTarget, int iEffectNumber, int iTemp, iStrength, iAngle, iX, iY)
+{
   if(iTemp)
-    return();
+    return;
   
   if(iAngle%90 == 1) iAngle += 1;
   iStrength = Max(iStrength,5);
@@ -147,7 +167,8 @@ global func FxSmokeTrailStart(object pTarget, int iEffectNumber, int iTemp, iStr
   EffectVar(5, pTarget, iEffectNumber) = -Cos(iAngle,iStrength*40);
 }
 
-global func FxSmokeTrailTimer(object pTarget, int iEffectNumber, int iEffectTime) {
+global func FxSmokeTrailTimer(object pTarget, int iEffectNumber, int iEffectTime)
+{
   var iStrength = EffectVar(0, pTarget, iEffectNumber);
   var iAStr = EffectVar(1, pTarget, iEffectNumber);
   var iX = EffectVar(2, pTarget, iEffectNumber);
@@ -176,9 +197,9 @@ global func FxSmokeTrailTimer(object pTarget, int iEffectNumber, int iEffectTime
   iY += ydir/100;
   
   if(GBackSemiSolid(iX,iY))
-    return(-1);
+    return -1;
   if(iAStr <= 1)
-    return(-1);
+    return -1;
     
   EffectVar(1, pTarget, iEffectNumber) = iAStr;
   EffectVar(2, pTarget, iEffectNumber) = iX;
@@ -186,6 +207,7 @@ global func FxSmokeTrailTimer(object pTarget, int iEffectNumber, int iEffectTime
   EffectVar(5, pTarget, iEffectNumber) = iYDir;
 }
 
-global func FxSmokeTrailStop() {
-//  Log("Nikotine");
+global func FxSmokeTrailStop()
+{
+  //...
 }

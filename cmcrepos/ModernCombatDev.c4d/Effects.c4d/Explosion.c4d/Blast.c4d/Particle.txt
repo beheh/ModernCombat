@@ -8,5 +8,5 @@ Face=0,0,48,48,-24,-24
 Delay=2
 Repeats=1
 Reverse=0
+AlphaFade=0
 Additive=1
-AlphaFade=3

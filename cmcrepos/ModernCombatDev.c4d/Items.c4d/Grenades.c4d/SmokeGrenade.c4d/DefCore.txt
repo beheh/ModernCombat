@@ -6,7 +6,7 @@ MaxUserSelect=8
 Width=3
 Height=7
 Offset=-2,-4
-Value=15
+Value=10
 Mass=10
 Components=METL=1;SPHR=1;
 Picture=3,0,64,64
