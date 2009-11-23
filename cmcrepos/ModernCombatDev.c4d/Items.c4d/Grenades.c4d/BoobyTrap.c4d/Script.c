@@ -149,13 +149,16 @@ private func Check()
 public func Detonate()
 {
   var i = 0;
-  while(i < 7)
+  while(i < 10)
    {
     var ammo = CreateObject(SHT1,0,0,GetController());
     ammo->Launch(iDir+RandomX(-15,15),100+Random(80),100+Random(50),3,30,8);
     i++;
    }
   Sound("BBTP_Explosion.ogg");
+  CreateParticle("Blast",0,0,0,0,10*25,RGB(255,255,128));
+  CastParticles("Smoke3",12,10,0,0,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
+  CastParticles("PxSpark",10,40,0,0,60,120,RGBa(255,255,255,70),RGBa(255,255,255,70));
   RemoveObject(laser);
   RemoveObject();
 }
