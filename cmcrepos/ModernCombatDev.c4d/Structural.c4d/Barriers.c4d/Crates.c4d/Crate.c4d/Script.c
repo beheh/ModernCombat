@@ -7,6 +7,7 @@ public func IsCraneGrabable() { return(1); }
 public func CanBeLaserRecycled() { return(2); }
 public func IsSpawnBlocker() { return(true); }
 
+
 /* Zerstörung */
 
 func Damage()

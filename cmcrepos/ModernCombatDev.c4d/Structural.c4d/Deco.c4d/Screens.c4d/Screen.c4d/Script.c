@@ -1,4 +1,4 @@
-/*-- Scannerbildschirm --*/
+/*-- Bildschirm --*/
 
 #strict
 

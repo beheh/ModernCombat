@@ -1,7 +1,0 @@
-[Action]
-Name=Scan
-Procedure=NONE
-NextAction=Scan
-Delay=6
-Length=38
-Facet=0,0,60,40

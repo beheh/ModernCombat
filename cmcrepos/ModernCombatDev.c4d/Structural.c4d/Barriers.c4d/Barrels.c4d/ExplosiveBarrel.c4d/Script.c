@@ -1,11 +1,15 @@
 /*-- Explosivfass --*/
 
 #strict
+
 local damaged;
 
 public func IsBulletTarget(){if(!damaged) return(1);}
 public func IsCraneGrabable() { return(!damaged); }
 public func IgnoreFriendlyFire() { return(1); }
+
+
+/* Entzündung */
 
 func Incineration(int iPlr)
 {
@@ -19,14 +23,14 @@ func IncinerationEx(int iPlr)
   ClearScheduleCall(this(), "InstaExplode");
 }
 
+/* Zerstörung */
+
 func Damage(int iChange, int iPlr)
 {
   if(GetDamage() > 1)
-    //if(!(GetOCF() & OCF_OnFire()))
-      Incinerate();
+   Incinerate();
   if(GetDamage() < 20) return();
-
-  InstaExplode(iPlr);
+   InstaExplode(iPlr);
 }
 
 func InstaExplode(int iPlr)
@@ -40,7 +44,7 @@ func InstaExplode(int iPlr)
   AddLightFlash(50, 0,0, RGBa(255,255,200,100));
   Sparks(7+Random(5), RGBa(255,255,150,100));
   //CreateParticle("Blast",0,0,0,0,40*10,RGB(255,64),this(),true); 
-  
+
   //Umliegende Objekte anzünden
   for(var obj in FindObjects(Find_Distance(30+Random(20)),Find_Exclude(this()),Find_Not(Find_Category(C4D_StaticBack))))
   {
@@ -53,7 +57,6 @@ func InstaExplode(int iPlr)
       if(!Random(inc-3))
         obj->Incinerate();
   }
-  
   //Explosion
   BlowUp(iPlr);
 }
@@ -71,14 +74,19 @@ func BlowUp(int iPlr)
 }
 
 /* Aufschlag */ 
+
+protected func Hit3()
+{
+  DoDamage(20);
+}
+
+public func OnHit(int iDamage, int iType, object pFrom)
+{
+  Sound("BarrelDamaged*.ogg");
+}
   
 protected func Hit()
 {
   Sound("BarrelImpact*.ogg");
   return(1);
-}
-
-protected func Hit3()
-{
-  DoDamage(20);
 }

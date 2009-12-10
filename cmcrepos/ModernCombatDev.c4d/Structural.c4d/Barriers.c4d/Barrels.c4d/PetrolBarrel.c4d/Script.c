@@ -3,6 +3,9 @@
 #strict
 #include XBRL
 
+
+/* Zerstörung */
+
 func BlowUp(int iPlr)
 {
   SetAction("Wreck");
@@ -12,8 +15,7 @@ func BlowUp(int iPlr)
   SetRDir(RandomX(-40,+40));
   AddFireEffect(this(),50,RGB(80,80,80),true,30);
   FadeOut();
-  
-  
+
   //Von NapalmGranate aus Hazard. :)
   //if(Stuck()) return();
   

@@ -3,10 +3,8 @@
 #strict
 #include XBRL
 
-protected func Hit3()
-{
-  DoDamage(50);
-}
+
+/* Zerstörung */
 
 func Damage(int iChange, int iPlr)
 {
@@ -40,4 +38,11 @@ global func FxGasEffectTimer(object target, int effect, int time)
   
   if(time >= 175)
     RemoveObject(target);
+}
+
+/* Aufprall */
+
+protected func Hit3()
+{
+  DoDamage(50);
 }

@@ -2,6 +2,9 @@
 
 #strict
 
+
+/* Zerstörung */
+
 public func Damage()
 {
   if(GetDamage() > 10)
