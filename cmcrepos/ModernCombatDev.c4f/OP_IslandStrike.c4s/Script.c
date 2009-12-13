@@ -38,9 +38,6 @@ func CreateFurniture()
   Log("$CreatingFurniture$");
   //Alle Objekte folglich von links oben nach rechts unten
 
-  //Bonusspawnpunkt
-  PlaceBonusSpawnpoint([AMPB,HSTB,AEXB,AIMB], 3995, 320);
-
   //Aufzüge
   CreateObject(LFTP, 1025, 290, -1);
   CreateObject(LFTP, 2745, 555, -1);

@@ -31,9 +31,6 @@ func CreateFurniture()
   Log("$CreatingFurniture$");
   //Alle Objekte folglich von links nach rechts
 
-  //Bonusspawnpunkt
-  PlaceBonusSpawnpoint([HSTB,AEXB,AIMB], 780, 145);
-
   //Leitern
   CreateObject(LADR, 95, 440, -1)->Set(10);
   CreateObject(LADR, 306, 397, -1)->Set(5);

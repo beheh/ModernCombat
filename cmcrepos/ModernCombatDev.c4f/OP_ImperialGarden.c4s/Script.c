@@ -38,9 +38,6 @@ func CreateFurniture()
   Log("$CreatingFurniture$");
   //Alle Objekte folglich von links oben nach rechts unten
 
-  //Bonusspawnpunkt
-  PlaceBonusSpawnpoint([AIMB], 725, 535);
-
   //Rampen
   DrawMaterialQuad("Wall-Unknown1",200,200,230,190,230,200,215,200,true);
   DrawMaterialQuad("Wall-Unknown1",321,200,291,190,291,200,306,200,true);
