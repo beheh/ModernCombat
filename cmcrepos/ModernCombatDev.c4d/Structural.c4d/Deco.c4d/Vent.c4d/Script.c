@@ -1,4 +1,9 @@
 /*-- Ventialtor --*/
 
 #strict
-#include VENT
+
+func Initialize()
+{
+  SetAction("Turn");
+  return(1);
+}

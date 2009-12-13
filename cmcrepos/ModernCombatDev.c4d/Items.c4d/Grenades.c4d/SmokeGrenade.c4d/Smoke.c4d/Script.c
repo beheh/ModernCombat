@@ -2,14 +2,14 @@
 #strict 2
 
 local iLifeTime;
-static const SM4K_FadeTime = 35*5;
+static const SM4K_FadeTime = 175; // 5 Sekunden
 
 public func Initialize()
 {
 	iLifeTime = 35*20+Random(35*5);
-	SetAction("Be");
 	SetCon(5);
 	AddEffect("Smoking", this, 25, 2, this);
+	SetAction("Be");
 }
 
 public func Timer()
@@ -21,7 +21,7 @@ public func Timer()
 		return;
 
   // Rauchwolken vergrößern sich etwas...
-  if(GetCon() < 70)
+  if(GetCon() < 50)
     DoCon(3);
   
   // Und werden langsamer... in Abhängigkeit zur Größe natürlich ;)
@@ -29,7 +29,7 @@ public func Timer()
 	SetYDir(GetYDir(0,1000)+GetGravityAccel4K(500),0,1000);
   
   // Lebewesen können im Rauch nix sehen. >:D
-  for(var obj in FindObjects(Find_Distance(GetCon()/2), Find_NoContainer(), Find_Or(Find_OCF(OCF_Living), Find_OCF(OCF_CrewMember)))) // <- NICHT OCF_Alive ... btw. muss Find_OCF doppelt?
+  for(var obj in FindObjects(Find_Distance(GetCon()/2,0,0), Find_NoContainer(), Find_Or(Find_OCF(OCF_Living), Find_OCF(OCF_CrewMember)))) // <- NICHT OCF_Alive ... btw. muss Find_OCF doppelt?
   {
     if(!GetEffect("SmokeGrenade", obj))
       AddEffect("SmokeGrenade", obj, 25, 1, obj);
@@ -44,6 +44,40 @@ public func FxSmokingTimer()
   return 0;
 }
 
+func Spread()
+{
+  var contact = GetContact(this,-1);
+  if(!contact) return;
+  
+  if(contact & CNAT_Bottom)
+    SetYDir(GetYDir(0,100)-30,0,100);
+  if(contact & CNAT_Top)
+    SetYDir(GetYDir(0,100)+30,0,100);
+  if(contact & CNAT_Right)
+    SetXDir(GetXDir(0,100)-30,0,100);
+  if(contact & CNAT_Left)
+    SetXDir(GetXDir(0,100)+30,0,100);
+}
+
+protected func ContactBottom()
+{
+  Spread();
+}
+
+protected func ContactTop()
+{
+  Spread();
+}
+
+protected func ContactLeft()
+{
+  Spread();
+}
+
+protected func ContactRight()
+{
+  Spread();
+}
 
 /* der Rauch-Effekt */
 global func FxSmokeGrenadeStart(object pTarget, int iEffectNumber, int iTemp)
@@ -65,7 +99,7 @@ global func FxSmokeGrenadeTimer(object pTarget, int iEffectNumber, int iEffectTi
   var smoked = false;
   for(var smoke in FindObjects(pTarget->Find_AtPoint(), Find_ID(SM4K)))
   {
-    if(smoke->GetCon()/2 > ObjectDistance(smoke, pTarget))
+    if(smoke->GetCon()/2 > Distance(GetX(smoke),GetY(smoke),GetX(pTarget),GetY(pTarget)))
     {
       smoked = true;
       break;
@@ -89,7 +123,6 @@ global func FxSmokeGrenadeStop(object pTarget, int iEffectNumber, int iReason, b
   if(EffectVar(0,pTarget,iEffectNumber))
     EffectVar(0,pTarget,iEffectNumber)->RemoveObject();
 }
-
 
 /* Geschwindigkeits-Dämpfung */
 public func Damp(int iStrength)

@@ -21,7 +21,7 @@ func Smoke()
 {
   CastParticles("Smoke3", 2, 5, 0, 0, 30, 100, RGBa(255, 255, 255, 130), RGBa(255, 255, 255, 200));
 
-  var smoke = CreateObject(SM4K, 0, +47, GetController());
+  var smoke = CreateObject(SM4K, 0, 0, GetController());
   smoke->SetXDir((GetXDir() / 3 * 2) + (time * RandomX(-30, +30) / 10));
   smoke->SetYDir((GetYDir() / 3 * 2) - (time * (10 + Random(20)) / 10));	
   

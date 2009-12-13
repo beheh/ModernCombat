@@ -7,27 +7,30 @@ local WeaponChoice;
 local spawntimer;
 local spawnclonk;
 
-protected func Activate(iPlr) {
+protected func Activate(iPlr)
+{
   MessageWindow(GetDesc(),iPlr);
 }
 
-func Initialize() {
+func Initialize()
+{
   SetPosition();
   WeaponChoice = CreateArray(0);
-  inherited();
+  _inherited();
   AddWares("IsWeapon",-1);
   AddWares("IsEquipment",-1);
   AddWares("IsUpgrade",-1);
   SortWare("IsWeapon","IsEquipment","IsUpgrade");
 }
 
-func InitializePlayer(int iPlayer) {
+func InitializePlayer(int iPlayer)
+{
   if(!GetLength(WeaponChoice[iPlayer]))
     WeaponChoice[iPlayer] = CreateArray(0);
+
   var pClonk = GetCursor(iPlayer);
-  if(!pClonk || FindObject(CHOS)) {
+  if(!pClonk || FindObject(CHOS))
     ScheduleCall(0,"InitializePlayer",1,0,iPlayer);
-  }
   
   //Startgeld! :)
 //  SetWealth(iPlayer,GetWealth(iPlayer)+75); Nöö
@@ -37,16 +40,18 @@ func InitializePlayer(int iPlayer) {
   ScheduleCall(0,"CreateWpnMenu",1,0,pClonk);
 }
 
-func RelaunchPlayer(int iPlr, object pClonk) {
+func RelaunchPlayer(int iPlr, object pClonk)
+{
   if(!pClonk)
     if(!(pClonk = GetCursor(iPlr)))
       return(ScheduleCall(this(),"RelaunchPlayer",1,0,iPlr,pClonk));
   if(!GetAlive(pClonk))
     return(ScheduleCall(this(),"RelaunchPlayer",1,0,iPlr));
 
-  if(FindObject(GLMS)) {
-	spawntimer = 10;
-	spawnclonk = pClonk;
+  if(FindObject(GLMS))
+	{
+		spawntimer = 10;
+		spawnclonk = pClonk;
   }
 	
   CreateWpnMenu(pClonk);

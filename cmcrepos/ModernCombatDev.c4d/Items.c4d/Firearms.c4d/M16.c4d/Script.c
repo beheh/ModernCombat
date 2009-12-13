@@ -218,5 +218,5 @@ func OnSelect()
 public func OnSelectFT(int iFireMode, int iFireTec)
 {
   if(iFireMode == 2)
-    Empty2(2);
+    Empty(2);
 }
