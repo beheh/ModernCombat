@@ -10,6 +10,7 @@ Origin=ModernCombat.c4f
 Definition1=Objects.c4d
 Definition2=Hazard.c4d\Structural.c4d
 Definition3=ModernCombatDev.c4d
+SkipDefs=RGSA
 
 [Game]
 StructNeedEnergy=0
