@@ -24,22 +24,27 @@ global func DoAmmo(id ammoid, int change, object target, int slot)
 	  slot = 0;
 	}
 	
-	var ammo, oldammoamount;
-	
+	var ammo, oldammoamount, maxamount = ammoid->~MaxAmount();
+
 	if(!has_slots)
 	{
 		ammo = FindContents(ammoid, obj);
-		if(!ammo)
-			ammo = CreateContents(ammoid, obj);
-			
-		oldammoamount = obj->GetAmmo(ammoid);
+		if(ammo)
+		{
+			oldammoamount = ammo->Local(0);
+		}
+		else
+		{
+			oldammoamount = 0;
+			ammo = CreateContents(ammoid, obj); // O'Rly?
+		}
 	}
   else
 	{
-	  oldammoamount = obj->GetAmmo(ammoid,slot);
+	  oldammoamount = obj->GetAmmoCount(slot);
 	}
 
-	var maxamount = ammo->~MaxAmount();
+	
 	var truechange;
 
 	if(maxamount == 0)
@@ -52,7 +57,7 @@ global func DoAmmo(id ammoid, int change, object target, int slot)
 	if(!has_slots)
 	{
 	  if(truechange == 0)
-		  RemoveObject(ammo);
+			RemoveObject(ammo);
 		else
 		  ammo->Local(0) = truechange;
 	}
@@ -85,25 +90,17 @@ global func GetAmmo(id ammoid, object target, int slot)
 		  slot = obj->~GetSlot();
 	}
 	else
-	{
 	  slot = 0;
-	}
 	
 	if(!has_slots && !(ammoid->~IsAmmo())) return 0;
 
-  var ammo;
-  if(ammo=FindContents(ammoid, obj))
-    return(ammo->Local(0));
-  else
-    return(0);
-		
 	if(!has_slots)
 	{
-		ammo = FindContents(ammoid, obj);
-		if(!ammo)
-			return 0;
+		var ammo;
+		if(ammo=FindContents(ammoid, obj))
+			return ammo->Local(0);
 		else
-		  return obj->GetAmmo(ammoid);
+			return 0;
 	}
   else
 	{
