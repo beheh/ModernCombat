@@ -1,0 +1,122 @@
+[FolderMap]
+MinResX=640
+MinResY=480
+ScenInfoArea=575,172,195,379
+FullscreenBG=1
+
+	[Scenario]
+	File=CTF_Dust.c4s
+	Area=246,179,46,14
+	OverlayImage=OverlayDust.png
+	Title=
+	TitleFontSize=15
+	TitleColorInactive=
+	TitleColorActive=16711680
+	TitleOffX=90
+	TitleOffY=0
+	TitleAlign=1
+	TitleUseBookFont=0
+
+	[Scenario]
+	File=DM_BroadcastStation.c4s
+	Area=246,219,203,14
+	OverlayImage=OverlayBroadcastStation.png
+	Title=
+	TitleFontSize=15
+	TitleColorInactive=
+	TitleColorActive=16711680
+	TitleOffX=90
+	TitleOffY=0
+	TitleAlign=1
+	TitleUseBookFont=0
+
+	[Scenario]
+	File=DM_MacrossFrontier.c4s
+	Area=246,259,192,14
+	OverlayImage=OverlayMacrossFrontier.png
+	Title=
+	TitleFontSize=15
+	TitleColorInactive=
+	TitleColorActive=16711680
+	TitleOffX=90
+	TitleOffY=0
+	TitleAlign=1
+	TitleUseBookFont=0
+
+	[Scenario]
+	File=DM_Yuki.c4s
+	Area=246,299,46,14
+	OverlayImage=OverlayYuki.png
+	Title=
+	TitleFontSize=15
+	TitleColorInactive=
+	TitleColorActive=16711680
+	TitleOffX=95
+	TitleOffY=0
+	TitleAlign=1
+	TitleUseBookFont=0
+
+	[Scenario]
+	File=OP_AtlanticCrisis.c4s
+	Area=246,339,178,14
+	OverlayImage=OverlayAtlanticCrisis.png
+	Title=
+	TitleFontSize=15
+	TitleColorInactive=
+	TitleColorActive=16711680
+	TitleOffX=100
+	TitleOffY=0
+	TitleAlign=1
+	TitleUseBookFont=0
+
+	[Scenario]
+	File=OP_BabelTower.c4s
+	Area=246,379,132,14
+	OverlayImage=OverlayBabelTower.png
+	Title=
+	TitleFontSize=15
+	TitleColorInactive=
+	TitleColorActive=16711680
+	TitleOffX=90
+	TitleOffY=0
+	TitleAlign=1
+	TitleUseBookFont=0
+
+	[Scenario]
+	File=OP_ImperialGarden.c4s
+	Area=246,419,180,14
+	OverlayImage=OverlayImperialGarden.png
+	Title=
+	TitleFontSize=15
+	TitleColorInactive=
+	TitleColorActive=16711680
+	TitleOffX=95
+	TitleOffY=0
+	TitleAlign=1
+	TitleUseBookFont=0
+
+	[Scenario]
+	File=OP_IslandStrike.c4s
+	Area=246,459,154,14
+	OverlayImage=OverlayIslandStrike.png
+	Title=
+	TitleFontSize=15
+	TitleColorInactive=
+	TitleColorActive=16711680
+	TitleOffX=120
+	TitleOffY=0
+	TitleAlign=1
+	TitleUseBookFont=0
+
+	[Scenario]
+	File=AS_EndlessOutpost.c4s
+	Area=246,499,178,14
+	OverlayImage=OverlayEndlessOutpost.png
+	Title=
+	TitleFontSize=15
+	TitleColorInactive=
+	TitleColorActive=16711680
+	TitleOffX=120
+	TitleOffY=0
+	TitleAlign=1
+	TitleUseBookFont=0

@@ -1,0 +1,10 @@
+[DefCore]
+id=CMC1
+Version=4,9,8,2
+Name=CMCSign
+Category=C4D_StaticBack
+Width=64
+Height=64
+Offset=-32,-32
+Picture=0,0,64,64
+StretchGrowth=1

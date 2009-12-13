@@ -1,0 +1,9 @@
+CreatingFurniture=Creating furniture...
+CreatingEquipment=Placing equipment...
+
+Team1=Eurocorps
+Team2=Aggressors
+
+Flag1=Blue Base
+Flag2=Drilling Platform
+Flag3=Red Base

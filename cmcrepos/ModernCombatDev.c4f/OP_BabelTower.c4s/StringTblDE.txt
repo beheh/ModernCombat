@@ -1,0 +1,13 @@
+CreatingFurniture=Szenario wird eingerichtet...
+CreatingEquipment=Ausrüstung wird plaziert...
+
+Team1=Revolutionäre
+Team2=Eurocorps
+
+Flag1=Turmspitze
+Flag2=Dachplattform
+Flag3=Linkes oberes Gerüst
+Flag4=Kontrollraum
+Flag5=Rechtes Gerüst
+Flag6=Linkes unteres Gerüst
+Flag7=Lobby
