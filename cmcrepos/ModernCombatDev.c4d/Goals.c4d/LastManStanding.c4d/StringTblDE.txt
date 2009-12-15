@@ -1,0 +1,4 @@
+MsgGoalFulfilled=Du bist der letzte Überlebende.
+MsgGoalUnfulfilled=Du hast noch %d Relaunchs.
+WinMsg=%s hat gewonnen!
+MsgHUD=noch %d Clonks
