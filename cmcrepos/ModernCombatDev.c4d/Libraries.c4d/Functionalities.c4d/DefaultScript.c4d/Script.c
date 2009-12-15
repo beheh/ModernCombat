@@ -1,6 +1,6 @@
 /*-- Standartscript --*/
 
-#strict
+#strict 2
 
 public func ChooserFinished()
 {
@@ -13,6 +13,7 @@ public func ChooserFinished()
     for(var clonk in FindObjects(Find_OCF(OCF_CrewMember)))
       while(Contents(0, clonk))
         RemoveObject(Contents(0, clonk));
+
     //Keine Kisten mit Munition.
     for(var ammobox in FindObjects(Find_ID(ABOX)))
       if(ammobox->GetSpawnID())
@@ -62,7 +63,7 @@ public func RelaunchPlayer(int iPlr, object pCrew, object pKiller, int iTeam, bo
 {
   // Kein ordentlicher Spieler?
   if(GetOwner(pCrew) == NO_OWNER || iPlr == NO_OWNER || !GetPlayerName(iPlr))
-    return();
+    return;
     
   // Kein Team
   if(!iTeam) iTeam = GetPlayerTeam(iPlr);
@@ -70,7 +71,7 @@ public func RelaunchPlayer(int iPlr, object pCrew, object pKiller, int iTeam, bo
   // Reject?
   if(!bFirst)
     if(RejectRelaunch(iPlr,iTeam))
-      return();
+      return;
   
   // Clonk tot?
   if(!GetAlive(pCrew))
@@ -140,5 +141,16 @@ public func OnClassSelection(object pClonk)
 
 public func RejectRelaunch(int iPlr, int iTeam)
 {
-  return(false);
+  return false;
 }
+
+/*
+public func MapSize(int iIdx, int iData)
+{
+	if(iIdx == 0)
+	{
+		if(iData == MAPSIZE_Name)	return "Small";		
+		if(iData == MAPSIZE_X)	return "Small";		
+	}
+}
+*/

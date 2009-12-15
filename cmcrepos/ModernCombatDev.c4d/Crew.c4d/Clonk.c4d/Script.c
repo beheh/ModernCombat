@@ -3,6 +3,9 @@
 #strict 2
 #include CLNK
 
+
+/** Includes **/
+
 //#include L_DR	// can have drone (with context menu)
 #include L_GE	// can use gear (with context menu)
 #include L_LA	// can climb on ladders	
@@ -16,11 +19,56 @@
 #include L_SK // uses skins
 
 
-/* Allgemein */
-public func SkinCount() { return 2; }
+/** Konstanten **/
 
+// Waffenanzeige
+static const WeaponDrawLayer = 1; //Layer in dem die Waffen gezeichnet werden
+
+// Crosshair
+static const CH_ShowAlways = 1;
+
+static const CH_MaxSpread = 500;
+
+static const CH_WalkSpread = 80;
+static const CH_JumpSpread = 140;
+static const CH_ScaleSpread = 200;
+static const CH_HangleSpread = 200;
+
+static const CH_CrawlSpreadReduction = 4;
+static const CH_AimSpreadReduction = 4;
+static const CH_StandSpreadReduction = 3;
+
+
+/** Lokale Variablen **/
+
+local ammobag;
+local wpneffect;
+local LastDmgType;
+local punchtype; //Muss das sein? Effekte würdens auch tun. :/
+local iPain, iPainFactor, pRedHurt;
+local killicon;
+local LastDmgType;
+local spread;
+local handr;
+
+
+/** Allgemeines **/
+
+public func SkinCount() { return 2; }
 public func WeaponCollectionLimit() { return 1; }
 public func ObjectCollectionLimit() { return 4; }
+public func MaxContentsCount() { return WeaponCollectionLimit() + ObjectCollectionLimit(); } // Irritiert jetzt iwie.
+
+protected func Initialize()
+{
+  wpneffect = AddEffect("ShowWeapon",this,1,1,this,HZCK);
+
+	InitCrosshair();
+  AmmoStoring();
+  GetHUD(this);
+
+  return inherited(...);
+}
 
 protected func Death()
 {
@@ -95,9 +143,9 @@ public func JumpStart(bool bBackflip)
 }
 
 protected func ComNone()
- {
+{
   SetComDir(COMD_None);
- }
+}
 
 private func IsJumping()
 {
@@ -113,35 +161,7 @@ public func StopHealing()
 }
 
 
-/* Deathmessages */
-
-private func DeathAnnounce(int plr, object clonk, int killplr)//Achtung! Im Clonk-Append gibts die selbe Funktion mit ähnlichem Inhalt. -> Hazardsupport.
-{
-  if(GetEffect("NoAnnounce", this)) return;
-
-  if(killplr == -1)
-    return /*this->CLNK::DeathAnnounce(plr,clonk,killplr)*/;
-    
-  if(!clonk)
-  {
-    clonk = this;
-    if(!clonk) return;
-  }
-  
-  //Selfkill?
-  if(plr == killplr)
-    KILL->SKMsg(plr, clonk);
-  else
-    KILL->KTMsg(killplr, plr, clonk);
-
-  KILL->KillStat(GetCursor(killplr),plr);//hier auch clonk->~KillIcon()? könnte lustig sein :>
-  
-  //this->CLNK::DeathAnnounce(plr,clonk,killplr);
-}
-
-
 /* Munitionssystem */
-local ammobag;
 
 private func AmmoBagContextCheck()
 {
@@ -294,6 +314,42 @@ public func UpdateCharge()
   var hud = GetHUD();
   if(hud) hud->Update(Content,AmmoStoring(),this);
 
+	
+	/// Crosshair updaten ...
+    
+	if(!this()->~ReadyToFire() || !this()->~IsArmed() || (GetCursor(GetOwner()) != this()))
+	{
+		this->~HideCrosshair();
+		return _inherited();
+	}
+  
+  var c = Contents();
+
+  ShowCrosshair();
+  
+  DoSpread(BoundBy(TestSpread()-spread,0,10));
+  
+  var unspread;
+  if(c->~IsWeapon())
+    unspread = c->GetFMData(FM_UnSpread);
+  else
+    unspread = c->~UnSpread();
+
+    
+  if(this()->~IsAiming())
+  {
+    if(IsCrawling())
+      DoSpread(-(CH_CrawlSpreadReduction+unspread));
+    else
+      DoSpread(-(CH_AimSpreadReduction+unspread));
+  }
+  else
+  {
+    DoSpread(-(CH_StandSpreadReduction+unspread));
+  }
+
+  UpdateAiming();
+	
   return 1;
 }
 
@@ -311,7 +367,7 @@ public func AmmoStoring()
 
 /* Nahkampfsystem */
 
-local punchtype;//Muss das sein? Effekte würdens auch tun. :/
+
 
 private func Fighting()
 {
@@ -1187,7 +1243,7 @@ protected func ContactBottom()
 protected func ControlThrow()
 {
   // Bei vorherigem Doppel-Stop nur Ablegen  
-  if ( GetPlrDownDouble(GetOwner()) )
+  if( GetPlrDownDouble(GetOwner()) )
   {
     AddEffect("SquatAimTimeout", this, 1, 15, this);
     return inherited();
@@ -1207,4 +1263,106 @@ protected func ControlThrow()
 public func MacroComTumble()
 {
   //... *dummy*
+}
+
+/* *** 'Kampfclonk' Append *** */
+// Sollte mal in das bestehende Script richtig integriert werden. :S
+
+func ResetShowWeapon(object pNew)
+{
+  var effect = GetEffect("ShowWeapon",this); 
+  if(!effect) return false;
+  
+  if(pNew)
+  {
+    EffectVar(0, this(), effect) = GetID(pNew);
+    EffectVar(1, this(), effect) = pNew;
+  }
+  else
+  {
+    EffectVar(0, this(), effect) = 0;
+    EffectVar(1, this(), effect) = 0;
+  }
+  
+  return true;
+}
+
+/* neues Zielsystem */
+
+/*func HandR()
+{
+  return 0);//return handr/CH_Spread_Prec);
+}*/
+
+private func GetSpreadAOff()
+{
+  handr = RandomX(-spread/2/CH_Spread_Prec,+spread/2/CH_Spread_Prec);
+  return handr;
+}
+
+private func GetSpreadAOff2()
+{
+  handr = RandomX(-spread/2/CH_Spread_Prec,+spread/2/CH_Spread_Prec);
+  return handr*(100/CH_Spread_Prec);
+}
+
+private func TestSpread()
+{
+  var proc = GetProcedure();
+  
+  if(proc == "WALK")
+  {
+    if(GetComDir())
+      if(spread < CH_WalkSpread)
+        return CH_WalkSpread;
+    return 0;
+  }
+  
+  if(proc == "SWIM")
+  {
+    if(spread < CH_WalkSpread)
+      return CH_WalkSpread;
+    return 0;
+  }
+  
+  if(proc == "FLIGHT")
+  {
+    if(spread < CH_JumpSpread)
+      return CH_JumpSpread;
+    return 0;
+  }
+
+  if((proc == "SCALE")||(GetAction() == "ScaleLadder"))
+  {
+    if(spread < CH_ScaleSpread)
+      return CH_ScaleSpread;
+    return 0;
+  }
+  
+  if(proc == "HANGLE")
+  {
+    if(spread < CH_HangleSpread)
+      return CH_HangleSpread;
+    return 0;
+  }
+  
+  return 0;
+}
+
+public func DoSpread(int iChange, int iMax)
+{
+  var wpn = Contents();
+  if(!wpn) return;
+  if(!wpn->~IsWeapon() && !wpn->~IsGrenade()) return;
+  
+  if(iMax) iChange = Max(0,BoundBy(spread+iChange,0,iMax)-spread);
+  spread = BoundBy(spread+iChange,0,CH_MaxSpread);
+  
+  if(crosshair)
+    crosshair->SetSpread(spread);
+}
+
+public func GetSpread()
+{
+  return spread;
 }

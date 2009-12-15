@@ -23,6 +23,11 @@ static const AIM_Max = 150;
 public func AimStep()	{ return AIM_Step; }
 public func AimMax()	{ return AIM_Max; }
 
+public func GetCrosshair()
+{
+  return crosshair;
+}
+
 // Muss Aktion "Aim" haben (und "AimLow")
 
 protected func ControlAim(string command)
@@ -292,9 +297,12 @@ public func StartAiming()
 
 public func InitCrosshair()
 {
-  crosshair = CreateObject(HCRH,0,0,GetOwner());
-  crosshair->Init(this);
-  crosshair->SetAngle(90);
+	if(!crosshair)
+	{
+		crosshair = CreateObject(HCRH,0,0,GetOwner());
+		crosshair->Init(this);
+		crosshair->SetAngle(90);
+	}
   
   ResetCrosshair();
 }

@@ -1,0 +1,4 @@
+Appendto an den Basisclonk (CLNK).
+
+Weil z.B. Magier nicht zu 'Zivilclonks' werden können,
+aber trotzdem Sachen wie Fallschaden haben sollen. ;)

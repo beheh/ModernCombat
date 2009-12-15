@@ -1,3 +1,0 @@
-CtxGrenadeMenu=Granaten
-AmmoBag=Munitionsgürtel
-CtrlInventoryDesc=Inventar

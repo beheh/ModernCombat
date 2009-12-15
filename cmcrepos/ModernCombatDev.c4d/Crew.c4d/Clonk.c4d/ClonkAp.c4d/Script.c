@@ -3,10 +3,13 @@
 #strict 2
 #appendto CLNK
 
+local iPain, iPainFactor, pRedHurt;
+local killicon;
+local LastDmgType;
 
-/* Allgemein */
+public func IsThreat() { return true; }
 
-//damit normale Clonks auch Waffen etc. nutzen können -> in Zivilclonk (hust) umwandeln
+// Damit normale Clonks auch Waffen etc. nutzen können -> in Zivilclonk (hust) umwandeln
 protected func Construction()
 {
   if(GetID() == CLNK)
@@ -33,14 +36,7 @@ protected func Initialize()
   return _inherited(...);
 }
 
-public func IsThreat() { return true; }
-
-public func MaxContentsCount() { return 3; }//Normale Clonks können mehr tragen. :>
-
-
 /* Schmerz-System */
-local iPain, iPainFactor, pRedHurt;
-
 public func PainFactor(int iFactor)
 {
   if(iFactor) iPainFactor = iFactor;
@@ -321,10 +317,6 @@ func Hit2(int xDir, int yDir)
 
 
 /* Killverfolgung */
-
-local killicon;
-local LastDmgType;
-
 public func LastDamageType(int type)
 {
   if(type)
@@ -343,18 +335,29 @@ public func KillIcon(id idKillIcon)
 
 private func DeathAnnounce(int plr, object clonk, int killplr)
 {
-  if(killplr == -1)
-    return _inherited(plr,clonk,killplr);
+  if(GetEffect("NoAnnounce", this)) return;
+
+  if(killplr == NO_OWNER)
+    return /*this->CLNK::DeathAnnounce(plr,clonk,killplr)*/;
+    
+  if(!clonk)
+  {
+    clonk = this;
+    if(!clonk) return;
+  }
   
   //Selfkill?
   if(plr == killplr)
+	{
     KILL->SKMsg(plr, clonk);
+		// Punkteabzug? :o?
+	}
   else
     KILL->KTMsg(killplr, plr, clonk);
 
   KILL->KillStat(GetCursor(killplr),plr);//hier auch clonk->~KillIcon()? könnte lustig sein :>
   
-  inherited(plr,clonk,killplr);
+  //this->CLNK::DeathAnnounce(plr,clonk,killplr);
 }
 
 
@@ -408,7 +411,6 @@ protected func ControlSpecial2()
 
 
 /* Hazard-Heilung */
-
 public func StopHealing()
 {
   SetComDir(COMD_Stop);

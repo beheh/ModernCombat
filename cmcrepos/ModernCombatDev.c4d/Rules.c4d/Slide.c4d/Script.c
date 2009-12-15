@@ -1,7 +1,7 @@
 /*-- Rutschen --*/
 
 #strict
-#appendto CLN2
+#appendto CLNK
 
 
 local speed;      //Geschwindigkeit vor dem Aufprall
