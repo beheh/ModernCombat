@@ -1,6 +1,6 @@
 /* Partikeleffekte */
 
-#strict
+#strict 2
 
 global func Sparks(int iAmount, int iRGB, int iX, int iY)
 {
@@ -19,13 +19,14 @@ global func LaserLight(int iSize, int iRGB, int iX, int iY, int iIterations)
 {
   if(!iIterations) iIterations = 1;
 
-  for(var i = 0; i < iIterations; ++i) {
+  for(var i = 0; i < iIterations; ++i)
+	{
     var random = Random(360);
     CreateParticle("LsrSprk",iX,iY,Sin(random,10),-Cos(random,10),iSize*5,iRGB);
   }
   
   if(!IsDark())
-    return();
+    return;
   
   if(!iRGB)
     iRGB = RGB(255,255,255);
@@ -35,12 +36,11 @@ global func LaserLight(int iSize, int iRGB, int iX, int iY, int iIterations)
   iRGB = RGBa(r,g,b,Min(a+65,255));
 
   AddLightFlash(iSize*14, iX, iY, iRGB);
-
 }
 
 global func MuzzleFlash(int iSize, object pClonk, int iX, int iY, int iAngle, int iColor)
 {
-  if(!pClonk) pClonk = this();
+  if(!pClonk) pClonk = this;
   
   var mx = +Sin(iAngle,iSize/4),
       my = -Cos(iAngle,iSize/4);
@@ -57,7 +57,7 @@ global func MuzzleFlash(int iSize, object pClonk, int iX, int iY, int iAngle, in
   //SmokeBurst(iSize*2/3,iX,iY,iAngle);
                  
   if(!IsDark())
-    return();
+    return;
     
   if(!iColor)
     iColor = RGB(255,255,255);
@@ -104,7 +104,7 @@ global func BloodSplatter(int iSize, int iX, int iY, int iColor)
 {
 	// not on sky
 	if(GetMaterialVal("Density","Material",GetMaterial(iX,iY)) != 0
-       || GetMaterial(iX,iY) == -1) return();
+       || GetMaterial(iX,iY) == -1) return;
 	
 	// behind everything (like the burn mark of the explosion) *cough*
 	var boom;
@@ -120,7 +120,7 @@ global func BloodSplatter(int iSize, int iX, int iY, int iColor)
 global func BloodSplatter2(int iSize, int iX, int iY, int iAngle, int iColor)
 {
 	if(GetMaterialVal("Density","Material",GetMaterial(iX,iY)) != 0
-       || GetMaterial(iX,iY) == -1) return();
+       || GetMaterial(iX,iY) == -1) return;
 
   iAngle += 180;
 
@@ -136,7 +136,7 @@ global func BloodSplatter2(int iSize, int iX, int iY, int iAngle, int iColor)
 static const SplatterScale = 50;
 global func Splatter(int iDmg, int iType, object pFrom)
 {
-  if(!GetAlive(this())) return();
+  if(!GetAlive(this)) return;
   var x,y;
   
   iDmg = iDmg*SplatterScale/100;
@@ -220,14 +220,14 @@ global func FxDamageEffectTimer(object target, int number, int time)
 global func AddSpawnEffect(object pObj, int rgba)
 {
   if(!pObj)
-    if(!(pObj = this()))
-      return();
+    if(!(pObj = this))
+      return;
   AddEffect("Spawn", pObj, 5, 1, 0, 0, rgba);
 }
 
 global func FxSpawnStart(object pTarget, int iNo, int iTemp, int rgba)
 {
-  if(iTemp) return();
+  if(iTemp) return;
   EffectVar(0, pTarget, iNo) = rgba;
   EffectVar(1, pTarget, iNo) = 360;
 }
@@ -239,7 +239,7 @@ global func FxSpawnTimer(object pTarget, int iNo)
   if(EffectVar(1, pTarget, iNo) <= 0)
   {
     CastParticles("PSpark", 20, 50, GetX(pTarget), GetY(pTarget), 10, 50, rgba, rgba);
-    return(-1);
+    return -1;
   }
   for(var i=0, x,y ; i < 5 ; i++)
   {
