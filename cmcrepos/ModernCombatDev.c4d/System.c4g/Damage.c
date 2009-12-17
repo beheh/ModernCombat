@@ -25,10 +25,7 @@ global func DoDmg(int iDmg, int iType, object pTarget, int iPrecision, int dmgpl
 
   // Killer setzen
   if(this && pTarget->GetOCF() & OCF_CrewMember || dmgplayer)
-  {
-    DebugLog("DoDmg sets killer: %d, owner of %s", "damage", this->GetOwner(), this->GetName());
     SetKiller(dmgdealer, pTarget);
-  }
   
   if(GetOCF(pTarget) & OCF_CrewMember)
   {

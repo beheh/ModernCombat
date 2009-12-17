@@ -7,18 +7,12 @@
 local speed;      //Geschwindigkeit vor dem Aufprall
 local speedfall;  //8tel der Geschwindigkeit beim Aufprall
 
-protected func Activate(iByPlayer)
-{
-  MessageWindow(GetDesc(), iByPlayer);
-  return(1);
-}
-
 /*-- Timer --*/
 
 public func UpdateCharge()
 {
   //Nur, wenn Regel aktiviert
-  if(!FindObject(SLAP)) return 0;
+  if(!FindObject(SLDE)) return 0;
   if(GetAction() ne "FlatUp")
     speed = GetXDir(this(),70);
   if(GetAction() eq "FlatUp")

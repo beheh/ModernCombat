@@ -9,7 +9,7 @@ global func DemonInvasion(int iPower)//Rettet eure wertlosen Seelen!
     RemoveObject(goal);
 
   for(var i; i < iPower; i++)
-    PlaceAnimal(RandomIndex4K([WIPF,WIPF,WIPF,HZCK,MONS,SNKE,SNKE,BIRD,BIRD,FMNS]))->Demonize();
+    PlaceAnimal(RandomIndex4K([WIPF,WIPF,WIPF,MONS,SNKE,SNKE,BIRD,BIRD,FMNS,CIVC,CIVC,PCMK,MDIC]))->Demonize();
 
   Message("<c 00ff00>!DÄMONEN-INVASION!</c>|Es gibt jetzt %d Dämonen!",0,ObjectCount2(Find_Func("IsDemon")));
   

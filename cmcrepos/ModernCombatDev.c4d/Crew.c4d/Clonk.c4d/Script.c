@@ -156,7 +156,7 @@ private func IsJumping()
 
 public func StopHealing()
 {
-  _inherited();
+  _inherited(...);
   CheckArmed();
 }
 
@@ -320,7 +320,7 @@ public func UpdateCharge()
 	if(!this()->~ReadyToFire() || !this()->~IsArmed() || (GetCursor(GetOwner()) != this()))
 	{
 		this->~HideCrosshair();
-		return _inherited();
+		return _inherited(...);
 	}
   
   var c = Contents();
@@ -508,17 +508,18 @@ public func WeaponAt(int &x, int &y, int &r)
   // zielt mit der Waffe
   else if(IsAiming())
   {
+		if(WeaponAtCrawlAim(x,y,r)) return 1;
     r = Abs(crosshair->GetAngle()) - 90;
     x=-Sin(65+p*20,4000)-1500;
     y=-Sin(55+p*10,5000);
     if(a == "AimLow")
       y += 4000;
-    if(a == "AimSquat")
+    else if(a == "AimSquat")
     {
       x += 5000;
       y += 4500;
     }
-    if(a == "AimSquatLow")
+    else if(a == "AimSquatLow")
     {
       x += 5000;
       y += 6000;
@@ -526,7 +527,7 @@ public func WeaponAt(int &x, int &y, int &r)
     return 1;
   }
 
-  return 0;
+  return _inherited(x,y,r,...);
 }
 
 public func WeaponBegin(int &x, int &y)
@@ -586,7 +587,7 @@ public func AimOverride()
 {
 	if(Contained()) return Contained()->~AimOverride();
 	
-	return _inherited();
+	return _inherited(...);
 }
 
 public func ReadyToFire()
@@ -609,7 +610,7 @@ public func ReadyToFire()
 		return true;
    
    // JetpackFlight fehlt noch, sowie Aim*... das steht in den Funktionalitäten
-   return _inherited();
+   return _inherited(...);
 }
 
 private func CheckArmed()
@@ -621,7 +622,7 @@ private func CheckArmed()
   if (GetAction() == "JumpArmed") if (!IsArmed2()) return SetAction("Jump");
   if (GetAction() == "SwimArmed") if (!IsArmed2()) return SetAction("Swim");
   
-  return _inherited();
+  return _inherited(...);
 }
 
 // Der Clonk ist bewaffnet (auch mit einer Waffe die nicht angezeigt wird)
@@ -655,7 +656,7 @@ protected func Scaling()
   PauseReloading();
   if(!GetEffect("ScaleReloading",this))
     AddEffect("ScaleReloading",this,1,1,this,CIVC);
-  return _inherited();
+  return _inherited(...);
 }
 
 func FxScaleReloadingTimer()
@@ -909,7 +910,7 @@ protected func ControlDigDouble()
 protected func ControlDownDouble()
 {
   if(this->~Control2Grab("ControlDownDouble")) return 1;
-  return _inherited();
+  return _inherited(...);
 }
 
 public func ControlContents(id idTarget)
@@ -1116,7 +1117,7 @@ protected func ControlUp()
   if (Control2Contents("ControlUp") ) return 1;
   if (ControlLadder("ControlUp") ) return 1;
   if (ControlAgility("ControlUp") ) return 1;
-  return _inherited();
+  return _inherited(...);
 }
 
 protected func ControlUpDouble()
@@ -1126,7 +1127,7 @@ protected func ControlUpDouble()
   if (Control2Contents("ControlUpDouble") ) return 1;
   if (ControlJetpack("ControlUpDouble") ) return 1;
   if (ControlAgility("ControlUpDouble") ) return 1;
-  return _inherited();
+  return _inherited(...);
 }
 
 protected func ControlDown()
@@ -1142,7 +1143,7 @@ protected func ControlDown()
        StartSquatAiming(); 
        return 1;
     }
-  return _inherited();
+  return _inherited(...);
 }
 
 private func ReadyToSquatAim()
@@ -1162,7 +1163,7 @@ protected func ControlLeft()
   if (ControlJetpack("ControlLeft") ) return 1;
   if (ControlAgility("ControlLeft") ) return 1;
 
-  return _inherited();
+  return _inherited(...);
 }
 
 protected func ControlRight()
@@ -1174,12 +1175,11 @@ protected func ControlRight()
   if (ControlJetpack("ControlRight") ) return 1;
   if (ControlAgility("ControlRight") ) return 1;
 
-  return _inherited();
+  return _inherited(...);
 }
 
 protected func ControlLeftDouble()
 {
-
   if(IsHealing())
   {
 	  StopHealing();
@@ -1191,7 +1191,7 @@ protected func ControlLeftDouble()
   if (Control2Contents("ControlLeftDouble")) return 1;
   if (ControlJetpack("ControlLeftDouble") ) return 1;
   if (ControlAgility("ControlLeftDouble") ) return 1;
-  return _inherited();
+  return _inherited(...);
 }
 
 protected func ControlRightDouble()
@@ -1206,7 +1206,7 @@ protected func ControlRightDouble()
   if (Control2Contents("ControlRightDouble")) return 1;
   if (ControlJetpack("ControlRightDouble") ) return 1;
   if (ControlAgility("ControlRightDouble") ) return 1;
-  return _inherited();
+  return _inherited(...);
 }
 
 protected func ControlDigDouble()
@@ -1218,7 +1218,7 @@ protected func ControlDigDouble()
   }
   if (Control2Grab("ControlDigDouble")) return 0;
   if (Control2Contents("ControlDigDouble")) return 1;
-  return _inherited();
+  return _inherited(...);
 }
 
 protected func ControlDigSingle()
@@ -1226,7 +1226,7 @@ protected func ControlDigSingle()
   if (Control2Grab("ControlDig")) return 0;
   if (Control2Contents("ControlDig")) return 1;
   if (ControlLadder("ControlDig") ) return 1;
-  return _inherited();
+  return _inherited(...);
 }
 
 protected func ContactBottom()
@@ -1246,18 +1246,19 @@ protected func ControlThrow()
   if( GetPlrDownDouble(GetOwner()) )
   {
     AddEffect("SquatAimTimeout", this, 1, 15, this);
-    return inherited();
+    return inherited(...);
   }
   // Steuerung an gerittenes Objekt weitergeben
   if(IsRiding())
     if(GetActionTarget()->~ControlThrow(this))
       return 1; 
 
-  if (Control2Grab("ControlThrow")) return 0;
-  if (Control2Contents("ControlThrow") ) return 1;
-  if (ControlLadder("ControlThrow") ) return 1;
+	if(CrawlTryAim()) return 1;
+  if(Control2Grab("ControlThrow")) return 0;
+  if(Control2Contents("ControlThrow")) return 1;
+  if(ControlLadder("ControlThrow")) return 1;
 
-  return _inherited();
+  return inherited(...);
 }
 
 public func MacroComTumble()
@@ -1366,3 +1367,38 @@ public func GetSpread()
 {
   return spread;
 }
+
+
+/** Aktionsmanager **/
+
+/*
+public func OnStartAction()
+{
+	var action = GetAction();
+	
+	if((action == "Walk") || (action == "WalkArmed") || (action == "Swim") || (action == "SwimArmed"))
+		CheckArmed();
+	else if((action == "Scale") || (action == "ScaleDown"))
+		Scaling();
+	else if((action == "ScaleLadder") || (action == "Hangle"))
+		PauseReloading();
+	else if((action == "Dig") || (action == "Bridge"))
+		Digging();
+	else if((action == "Jump") || (action == "JumpArmed") || (action == "Dive"))
+		JumpStart();
+	else if((action == "Ride") || (action == "RideStill"))
+		Riding();
+	else if(action == "Chop")
+		Chopping();
+	else if(action == "Fight")
+		Fighting();
+	else if(action == "Build")
+		Building();
+	else if((action == "Throw") || (action == "RideThrow"))
+		Throwing();
+	else if((action == "Crawl") || (action == "CrawlFall") || (action == "CrawlArmed") || (action == "AimCrawl") || (action == "CrawlAim"))
+		StartCrawl();
+	
+	StaminaCheckAction();
+}
+*/

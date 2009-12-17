@@ -6,8 +6,10 @@
 local iPain, iPainFactor, pRedHurt;
 local killicon;
 local LastDmgType;
+local stamina;
 
 public func IsThreat() { return true; }
+public func MaxStamina() { return 1000; }
 
 // Damit normale Clonks auch Waffen etc. nutzen können -> in Zivilclonk (hust) umwandeln
 protected func Construction()
@@ -24,6 +26,9 @@ protected func Construction()
         
     return this->Construction(...);
   }
+
+	if(!GetEffect("IntStamina", this))
+		AddEffect("IntStamina", this, 1, 5, this);
   
   return _inherited(...);
 }
@@ -228,7 +233,8 @@ public func OnHit(int iDmg, int iType, object pFrom)
 {
   if(!GetAlive() || IsFakeDeath()) return;
 
-  CalcPain(iDmg);
+  //CalcPain(iDmg);
+	DoStamina(-iDmg*10);
   HurtSounds(-iDmg,iType);
   
   if(iType == DMG_Bio)
@@ -422,3 +428,98 @@ public func StopHealing()
 
 // Heilt sich mit einem Medikit o.ä.
 public func IsHealing () { return WildcardMatch(GetAction(), "Heal*"); }
+
+
+/** Stamina **/
+
+public func FxIntStaminaStart(object pTarget, int iEffectNumber, int iTemp)
+{
+	stamina = MaxStamina();
+}
+
+public func FxIntStaminaTimer(object pTarget, int iEffectNumber, int iEffectTime)
+{
+	StaminaCheckAction();
+}
+
+public func FxIntStaminaStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)
+{
+	// ...
+}
+
+public func UpdateStamina()
+{
+	if(stamina <= 200)
+		Message("%03d%",this,stamina/10);
+	// Hier kommen nacher irgendwelche dollen Effekte hin. :)
+}
+
+public func SetStamina(int iStamina)
+{
+	stamina = BoundBy(iStamina, 0, MaxStamina());
+	UpdateStamina();
+}
+
+public func DoStamina(int iChange)
+{
+	stamina = BoundBy(stamina + iChange, 0, MaxStamina());
+	UpdateStamina();
+}
+
+public func GetStamina()
+{
+	return stamina;
+}
+
+public func StaminaCheckAction()
+{
+	var action = GetAction();
+	if(WildcardMatch(action, "Walk*") || (action == "Push"))
+	{
+		if(GetComDir() == COMD_None)
+			DoStamina(+5);
+		else
+			DoStamina(-3);
+	}
+	else if(WildcardMatch(action, "Scale*"))
+	{
+		if(GetComDir() == COMD_None)
+			DoStamina(+1);
+		else
+			DoStamina(-5);
+	}
+	else if((action == "Dig") || (action == "Bridge") || (action == "Chop") || (action == "Build"))
+	{
+		DoStamina(-7);
+	}
+	else if(WildcardMatch(action, "Swim*"))
+	{
+		if(GetComDir() == COMD_None)
+			DoStamina(+1);
+		else
+			DoStamina(-4);
+	}
+	else if(action == "Hangle")
+	{
+		if(GetComDir() != COMD_None)
+			DoStamina(-7);
+	}
+	else if(WildcardMatch(action, "Ride*") || WildcardMatch(action, "Aim*") || (action == "Heal"))
+	{
+		DoStamina(+7);
+	}
+	else if(WildcardMatch(GetAction(), "*Crawl*"))
+	{
+		if(GetComDir() == COMD_None)
+			DoStamina(+10);
+		else
+			DoStamina(-5);
+	}
+}
+
+public func ControlUp()
+{
+	var r = _inherited(...);
+	if(!r) DoStamina(-50); // wenn wir wirklich springen (r == 0) dann stamina verringern
+	return r;
+}

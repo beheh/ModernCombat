@@ -586,18 +586,26 @@ private func Shoot(object caller)
   var user = GetUser();
   if(user)
   {
-    var x,y;
-    user->WeaponEnd(x,y);
-    
     if(ObjectCount(NOWH))
+		{
+			var x,y;
+			user->WeaponEnd(x,y);
       if(!PathFree4K(0,0,x,y,4))
-        return(false);
+        return false;
+		}
   }
+	else
+		return StopAutoFire();
 
   var ammoid = GetFMData(FM_AmmoID);
+	
+	// Soll zielen, tut es aber nicht?
+  if(!(user->~IsAiming()) && (GetFMData(FM_Aim) > 0) && !user->~AimOverride())
+    return StopAutoFire();
 
-  if(!(user->~IsAiming()) && GetFMData(FM_Aim))
-    StopAutoFire();
+	// Unser user ist in einem Container.
+  if(user->Contained() && (user == Contained()))
+    return StopAutoFire();
  
   // Feuern...
   if(CheckFireTec())
@@ -605,6 +613,8 @@ private func Shoot(object caller)
   else
     Call(Format("Fire%d",firemode));
   DoSpread(+GetFMData(FM_SpreadAdd));
+
+	if(!user) return 0;
 
   if(ratecount == 1)
   {
@@ -621,6 +631,7 @@ private func Shoot(object caller)
   }
   else
   {
+		shooting = false;
     OnEmpty();
     if(GetFMData(FM_Auto)) OnAutoStop(firemode);
 
@@ -803,7 +814,6 @@ public func FxReloadTimer(object pTarget, int iNumber, int iTime)
   //Normales Nachladen...
   if(EffectVar(1,pTarget,iNumber))
   {
-    Log("  Nachladen");
     if(GetFMData(FM_SingleReload))
     {
       if(iTime >= GetFMData(FM_Reload)*EffectVar(3,pTarget,iNumber)/GetFMData(FM_AmmoLoad))
@@ -817,8 +827,6 @@ public func FxReloadTimer(object pTarget, int iNumber, int iTime)
     GetUser()->~UpdateCharge();
     if(EffectVar(4,pTarget,iNumber)-- <= 0)//Fertig?
     {
-      Log("Nachladen - Stop");
-      Log("Beenden - Start");
       EffectVar(1,pTarget,iNumber) = 0;
       EffectVar(5,pTarget,iNumber) = +1;//Jetzt wird beendet.
       OnFinishReloadStart(EffectVar(2,pTarget,iNumber));
@@ -832,11 +840,8 @@ public func FxReloadTimer(object pTarget, int iNumber, int iTime)
     //Vorbereiten...
     if(EffectVar(5,pTarget,iNumber) == -1)
     {
-      Log("  Vorbereiten");
       if(iTime >= GetFMData(FM_PrepareReload))
       {
-        Log("Vorbereiten - Stop");
-        Log("Nachladen - Start");
         EffectVar(5,pTarget,iNumber) = 0;//Jetzt wird nachgeladen.
         EffectVar(1,pTarget,iNumber) = 1;
         OnPrepareReloadStop(EffectVar(2,pTarget,iNumber));
@@ -851,11 +856,9 @@ public func FxReloadTimer(object pTarget, int iNumber, int iTime)
     //Beenden...
     if(EffectVar(5,pTarget,iNumber) >= +1)
     {
-      Log("  Beenden");
       EffectVar(5,pTarget,iNumber)++;
       if(EffectVar(5,pTarget,iNumber) >= GetFMData(FM_FinishReload))
       {
-        Log("Beenden - Stop");
         return -1;
       }
     }
@@ -894,7 +897,7 @@ public func FxRechargeStop(object pTarget, int iNumber, int iReason, bool fTemp)
       if(GetFMData(FM_Auto))
         OnAutoStop(firemode);
 
-      StopAutoFire();
+      stopauto = false;
       shooting = false;
     }
     else
@@ -1179,6 +1182,7 @@ protected func Departure()
 protected func Entrance(object pContainer)
 {
   SetUser(pContainer);
+	pContainer->~CheckArmed(); // Sicherheitshalber nochmal. ;)
 }
 
 public func Hit()

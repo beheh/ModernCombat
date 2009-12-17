@@ -6,7 +6,7 @@ global func ZombieInvasion(int iPower)//X Zombies spawnen.
 {
   for(var i; i < iPower; i++)
   {
-    var zombie = PlaceAnimal(RandomIndex4K([CLNK,CLNK,CLNK,CLNK,HZCK]));
+    var zombie = PlaceAnimal(RandomIndex4K([CIVC,CIVC,CIVC,PCMK,MDIC]));
     zombie->SetColorDw(HSL(Random(256),255,127));
     zombie->Zombize();
   }

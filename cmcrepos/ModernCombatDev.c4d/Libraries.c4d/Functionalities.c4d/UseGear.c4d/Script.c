@@ -125,7 +125,8 @@ public func HasGear(int iGearType, id idGear)
 {
   // nach bestimmter ID suchen
   var gear;
-  if(idGear) {
+  if(idGear)
+	{
     for(gear in aGear)
 	  if(gear)
 	    if(GetID(gear) == idGear)
@@ -134,7 +135,8 @@ public func HasGear(int iGearType, id idGear)
   }
 
   // nach bestimmtem Typ suchen
-  if(iGearType) {
+  if(iGearType)
+	{
     if(aGear[iGearType])
       return(true);
     return(false);

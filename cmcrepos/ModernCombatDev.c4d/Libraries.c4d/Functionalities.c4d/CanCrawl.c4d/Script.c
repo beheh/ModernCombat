@@ -6,6 +6,7 @@
 /* Einstellungen */
 
 static const CRAWL_AIM_Max = 20;
+
 local crosshair;
 
 
@@ -254,14 +255,14 @@ public func FxCrawlStop(pClonk, iNum)
 
 /* Overloads */
 
-protected func ControlThrow()
+public func CrawlTryAim() // Yeah, epic doofer Funktionsname! Bekomm ich einen Keks? :3
 {
-  if(IsCrawling() && this()->~IsArmed() && !this()->~ReadyToFire() && this()->~ReadyToAim())
+  if(IsCrawling() && this()->~IsArmed2() && !this()->~ReadyToFire() && this()->~ReadyToAim())
   {
     this()->~StartAiming();
     return(1);
   }
-  return(_inherited(...));
+  return(0);
 }
 
 public func ControlUp()
@@ -271,7 +272,6 @@ public func ControlUp()
     StopCrawling();
     return(1);
   }
-  return(_inherited(...));
 }
 
 public func ControlDig()
@@ -307,9 +307,9 @@ public func ControlDigSingle()
 
 public func ReadyToAim()
 {
-   var val = _inherited();
+   var val = _inherited(...);
    if(val) return(val);
-   if(/*GetAction() eq "CrawlArmed" || */GetAction() eq "Crawl") return(1);
+   if(/*GetAction() eq "CrawlArmed" || */GetAction() eq "Crawl") return(true);
 }
 
 private func CheckArmed()
@@ -320,29 +320,26 @@ private func CheckArmed()
   return(_inherited());
 }
 
-public func WeaponAt(&x, &y, &r)
+public func WeaponAtCrawlAim(&x, &y, &r)
 {
-  if(this()->~IsAiming() && (GetAction() eq "AimCrawl"))
+  if(GetAction() eq "AimCrawl")
   {
     r = (Abs(crosshair->GetAngle())-90);
     x = 8000;
     y = 7000-5000;
     return(1);
   }
-  
-  return(_inherited(x,y,r));
+	return(0);
+}
 
-  /*if(_inherited(x,y,r)) return(1);
-
+/*
   if(GetAction() eq "CrawlArmed")
   {
     x = 8000;
     y = 7000;
     return(1);
   }
-
-  return(0);*/
-}
+*/
 
 public func DoAiming(int iChange)
 {

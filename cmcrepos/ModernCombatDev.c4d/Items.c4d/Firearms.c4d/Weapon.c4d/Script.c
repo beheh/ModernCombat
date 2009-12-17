@@ -455,7 +455,8 @@ public func GetUpgrade(id uid)
 
 /* Feuern */
 
-private func Shoot(object caller) {          // Feuern mit Feuermodus
+private func Shoot(object caller)
+{
   //User da? :S
   if(!GetUser())
     return(stopauto=true);
@@ -591,6 +592,7 @@ protected func Departure()  // Waffe weggeworfen: Nachladen abbrechen. :(
 protected func Entrance(object pContainer)
 {
   SetUser(pContainer);
+	pContainer->~CheckArmed(); // Sicherheitshalber nochmal. ;)
 }
 
 public func IsWeapon() { return(true); }
