@@ -1,0 +1,14 @@
+[Particle]
+Name=Oil
+MaxCount=1000
+InitFn=StdInit
+ExecFn=StdExec
+DrawFn=Std
+Face=0,0,32,32,-16,-16
+Repeats=3
+GravityAcc=200
+AlphaFade=5
+Attach=1
+CollisionFn=Stop
+VertexCount=1
+VertexY=50

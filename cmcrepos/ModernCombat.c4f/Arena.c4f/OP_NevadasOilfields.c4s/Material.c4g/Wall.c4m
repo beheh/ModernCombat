@@ -1,0 +1,6 @@
+[Material]
+Name=Wall
+Color=190,190,190,191,0,0,0,0,191
+TextureOverlay=Wall4
+Shape=0
+ 
