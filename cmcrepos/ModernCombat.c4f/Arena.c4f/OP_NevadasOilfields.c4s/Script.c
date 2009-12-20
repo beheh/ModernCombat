@@ -7,7 +7,7 @@ static aFlag;
 
 func ChooserRuleConfig()
 {
-  return [NOFF,WPST,NODR];
+  return [NOFF,NODR];
 }
 
 protected func Initialize() {
@@ -75,6 +75,28 @@ protected func CreateFurniture()
   CreateObject(GSTA,1959,790,-1)->AutoRespawn();
   CreateObject(DRCN,228,480,-1);
   CreateObject(DRCN,2711,480,-1);
+
+  CreateObject(LFTP,95, 514,-1)->SetYTop(0);
+  CreateObject(LFTP,2845, 514,-1)->SetYTop(0);
+
+  CreateObject(EXSN, 210, 395,-1);
+  CreateObject(EXSN, 2732, 393,-1);
+
+  CreateObject(LCKR, 632, 380,-1);
+  CreateObject(LCKR, 666, 380,-1);
+  CreateObject(LCKR, 2290, 380,-1);
+  CreateObject(LCKR, 2272, 380,-1);
+
+  CreateObject(VEN3, 652, 376,-1)->SetCon(40);
+  CreateObject(VEN3, 2285, 377,-1)->SetCon(40);
+
+  CreateObject(H24K, 1125, 629,-1);
+  CreateObject(H24K, 1815, 629,-1);
+
+  CreateObject(FIEX, 472, 783,-1);
+  CreateObject(FIEX, 1292, 783,-1);
+  CreateObject(FIEX, 2180, 783,-1);
+
   return(1);
 }
 
@@ -89,20 +111,4 @@ func CreateEquipment()
   tmp->Set(AMOC);
   tmp = CreateObject(ABOX, 2766, 490, -1);
   tmp->Set(AMOC);
-
-  //Waffenautomaten
-  SetUpStore(CreateObject(WPVM, 1608, 790, -1));
-  SetUpStore(CreateObject(WPVM, 1960, 790, -1));
-
-}
-
-/* Kaufliste */
-
-public func SetUpStore(pStore)
-{
-  pStore->AddWares("IsWeapon", -1);
-  pStore->AddWares("IsAmmoPacket", -1);
-  pStore->AddWares("IsUpgrade", -1);
-  pStore->AddWares("IsEquipment", -1);
-  pStore->SortWare("IsWeapon","IsAmmoPacket","IsUpgrade","IsEquipment");
 }

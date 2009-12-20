@@ -13,10 +13,11 @@ VertexX=-11,10,-14,13
 VertexY=-28,-28,27,27
 VertexFriction=50,50,100,100
 Exclusive=1
-BlastIncinerate=50
 Construction=1
 HorizontalFix=1
 Basement=0
+Timer=35
+TimerCall=CheckFire
 
 [Physical]
 Energy=100000
