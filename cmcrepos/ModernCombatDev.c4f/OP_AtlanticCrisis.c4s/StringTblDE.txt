@@ -4,6 +4,6 @@ CreatingEquipment=Ausrüstung wird plaziert...
 Team1=Eurocorps
 Team2=Aggressoren
 
-Flag1=Blaue Basis
+Flag1=Westliche Basis
 Flag2=Bohrplattform
-Flag3=Rote Basis
+Flag3=Östliche Basis
