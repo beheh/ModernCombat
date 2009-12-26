@@ -22,6 +22,7 @@ func Damage()
    //Effekte
    CastParticles("MetalSplinter",4,150,0,0,40,150);
    CastParticles("MetalSplinter",8,230,0,0,40,15,RGB(40,20,20));
+   CastParticles("Smoke3",12,10,0,0,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
    Sound("StructuralDamage*.ogg");
    //Zum brennenden Wrack werden
    ChangeDef(_HBB); 
