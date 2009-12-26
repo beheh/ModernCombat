@@ -38,24 +38,20 @@ func InstaExplode(int iPlr)
   if(damaged) return();
   damaged = true;
 
-  //Effektgehasche
+  //Effekte
   Sound("BarrelImpact*.ogg");
-  CastParticles("Wave", 7+Random(5), RandomX(35,55), 0,0, 30,60, RGBa(1,1,1,50), RGBa(1,1,1,100));
-  AddLightFlash(50, 0,0, RGBa(255,255,200,100));
-  Sparks(7+Random(5), RGBa(255,255,150,100));
-  //CreateParticle("Blast",0,0,0,0,40*10,RGB(255,64),this(),true); 
+  CastParticles("MetalSplinter",4,100,0,0,20,70,RGB(250,0,0));
 
   //Umliegende Objekte anzünden
   for(var obj in FindObjects(Find_Distance(30+Random(20)),Find_Exclude(this()),Find_Not(Find_Category(C4D_StaticBack))))
   {
-    var inc = GetDefCoreVal("ContactIncinerate",0,GetID(obj));
-    if(!inc) continue;
-    
+   var inc = GetDefCoreVal("ContactIncinerate",0,GetID(obj));
+   if(!inc) continue;
     if(inc == 3)
-      obj->Incinerate();
-    else
-      if(!Random(inc-3))
-        obj->Incinerate();
+     obj->Incinerate();
+   else
+   if(!Random(inc-3))
+    obj->Incinerate();
   }
   //Explosion
   BlowUp(iPlr);
@@ -67,7 +63,7 @@ func BlowUp(int iPlr)
   SetController(iPlr);
   CreateObject(ROCK,0,0,iPlr)->Explode(30);
   Extinguish();
-  
+
   SetRDir(RandomX(-40,+40));
   AddFireEffect(this(),50,RGB(80,80,80),true,30);
   FadeOut();

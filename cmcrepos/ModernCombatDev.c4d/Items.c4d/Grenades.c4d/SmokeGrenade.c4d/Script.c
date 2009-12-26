@@ -10,12 +10,19 @@ public func Color() { return RGB(128,255,0); } // grün
 public func ContainedDamage() { return 20; }
 
 
+/* Explosion */
+
 public func Fused()
 {
+  //Rauchen (gefährdet die Gesundheit)
+  ScheduleCall(this, "Smoke", 14, 10);
+
+  //Effekte
   Sound("SGRN_Fused.ogg");
-  ScheduleCall(this, "Smoke", 14, 10); // 4 Sekunden lang. :)
   FadeOut();
 }
+
+/* Rauchen */
 
 func Smoke()
 {
@@ -27,6 +34,8 @@ func Smoke()
   
   time++;
 }
+
+/* Aufprall */
 
 func HitSound()
 {

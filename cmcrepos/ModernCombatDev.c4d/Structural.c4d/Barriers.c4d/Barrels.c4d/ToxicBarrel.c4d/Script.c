@@ -14,8 +14,10 @@ func Damage(int iChange, int iPlr)
 
 func BlowUp(int iPlr)
 {
-  SetController(iPlr);
+  //Effekt
+  CastParticles("MetalSplinter",4,100,0,0,20,70,RGB(0,250,0));
 
+  SetController(iPlr);
   SetAction("Wreck");
   SetController(iPlr);
   Extinguish();

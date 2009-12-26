@@ -13,8 +13,6 @@ func HitSound()
 
 public func Fused()
 {
-  Sound("STUN_Fused.ogg");
-
   for(var obj in FindObjects(Find_OCF(OCF_CrewMember),Find_Distance(200)))
   {
     var intensity = ((200-ObjectDistance(this(),obj))*470/200)/2;
@@ -35,15 +33,18 @@ public func Fused()
 
     AddEffect("IntFlashbang",obj,10,1,0,GetID(), intensity); 
   }
-  
+
+  //Effekte
+  Sound("STUN_Fused.ogg");
   Sparks(30,RGB(255,128));
   CastParticles("Smoke3",12,10,0,0,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
   CastParticles("PxSpark",10,40,0,0,60,120,RGBa(255,255,255,70),RGBa(255,255,255,70));
-  AddLightFlash(50,0,0,RGB(255,255,255),this());
-  //BlastObjects(GetX(),GetY(),10);
+  AddLightFlash(50,0,0,RGB(255,255,128),this());
   FadeOut();
 }
 
+
+/* Blendeffekt */
 //intensity: 0-100-200 ...
 public func FxIntFlashbangStart(object pTarget, int iEffectNumber, int iTemp, intensity)
 {

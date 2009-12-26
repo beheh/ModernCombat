@@ -8,12 +8,18 @@
 
 func BlowUp(int iPlr)
 {
+  //Effekt
+  CastParticles("MetalSplinter",4,100,0,0,20,70,RGB(250,0,0));
+  //Explosion
+  CreateObject(ROCK,0,0,iPlr)->Explode(20);
+
   SetAction("Wreck");
   SetController(iPlr);
-  CreateObject(ROCK,0,0,iPlr)->Explode(20);
   Extinguish();
   SetRDir(RandomX(-40,+40));
   AddFireEffect(this(),50,RGB(80,80,80),true,30);
+
+  //Langsam verschwinden
   FadeOut();
 
   //Von NapalmGranate aus Hazard. :)

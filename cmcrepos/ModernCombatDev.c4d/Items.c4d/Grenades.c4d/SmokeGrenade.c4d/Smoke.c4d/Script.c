@@ -1,24 +1,30 @@
-/*-- Rauch 2.0 --*/
+/*-- Rauch --*/
+
 #strict 2
 
 local iLifeTime;
 static const SM4K_FadeTime = 175; // 5 Sekunden
 
+
+/* Initalisierung */
+
 public func Initialize()
 {
-	iLifeTime = 35*20+Random(35*5);
-	SetCon(5);
-	AddEffect("Smoking", this, 25, 2, this);
-	SetAction("Be");
+  iLifeTime = 35*20+Random(35*5);
+  SetCon(5);
+  AddEffect("Smoking", this, 25, 2, this);
+  SetAction("Be");
 }
+
+/* Timecall */
 
 public func Timer()
 {
-	// Zuende?
-	if(GetActTime() > iLifeTime)
-		RemoveObject();
-	if(GetActTime() > iLifeTime-SM4K_FadeTime) // Wir faden aus. Daher nix weiter mehr tun.
-		return;
+  // Zuende?
+  if(GetActTime() > iLifeTime)
+   RemoveObject();
+  if(GetActTime() > iLifeTime-SM4K_FadeTime) //Rauchen einstellen
+   return;
 
   // Rauchwolken vergrößern sich etwas...
   if(GetCon() < 50)
@@ -38,8 +44,8 @@ public func Timer()
 
 public func FxSmokingTimer()
 {
-	// Und tolle Partikel-Effekte, damit Leute im Rauch auch nicht gesehen werden. ;)
-	var alpha = BoundBy((GetActTime()-(iLifeTime-SM4K_FadeTime)) * 255 / SM4K_FadeTime, 0, 255);
+  // Und tolle Partikel-Effekte, damit Leute im Rauch auch nicht gesehen werden. ;)
+  var alpha = BoundBy((GetActTime()-(iLifeTime-SM4K_FadeTime)) * 255 / SM4K_FadeTime, 0, 255);
   CreateParticle("SmokeGrenadeSmoke", 0, 0, 0, RandomX(-10, +10), GetCon()*10, RGBa(255, 255, 255, alpha));
   return 0;
 }
@@ -48,7 +54,6 @@ func Spread()
 {
   var contact = GetContact(this,-1);
   if(!contact) return;
-  
   if(contact & CNAT_Bottom)
     SetYDir(GetYDir(0,100)-30,0,100);
   if(contact & CNAT_Top)
@@ -59,12 +64,14 @@ func Spread()
     SetXDir(GetXDir(0,100)+30,0,100);
 }
 
-protected func ContactBottom()
+/* Kontakt */
+
+protected func ContactTop()
 {
   Spread();
 }
 
-protected func ContactTop()
+protected func ContactBottom()
 {
   Spread();
 }
@@ -79,7 +86,8 @@ protected func ContactRight()
   Spread();
 }
 
-/* der Rauch-Effekt */
+/* Raucheffekt */
+
 global func FxSmokeGrenadeStart(object pTarget, int iEffectNumber, int iTemp)
 {
   // KIs brauchen den Sichteffekt nicht.
@@ -124,10 +132,11 @@ global func FxSmokeGrenadeStop(object pTarget, int iEffectNumber, int iReason, b
     EffectVar(0,pTarget,iEffectNumber)->RemoveObject();
 }
 
-/* Geschwindigkeits-Dämpfung */
+/* Geschwindigkeitsdämpfung */
+
 public func Damp(int iStrength)
 {
-	iStrength = 1000 - iStrength;
+  iStrength = 1000 - iStrength;
   SetXDir(Mul4K(iStrength, GetXDir(this, 1000), 1000), this, 1000);
   SetYDir(Mul4K(iStrength, GetYDir(this, 1000), 1000), this, 1000);
 }
