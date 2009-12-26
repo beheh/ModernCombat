@@ -111,8 +111,8 @@ func CreateFurniture()
   CreateObject (JMPD, 705, 440, -1)->Set(85, -9);
   CreateObject (JMPD, 840, 360, -1)->Set(91, 13);
 
-  //Aufzugstür
-  CreateObject(ROM3, 895, 500, -1);
+  //Tür
+  CreateObject(ROOM, 895, 500, -1);
 
   //Labortische
   CreateObject(LTBL, 185, 440, -1);
@@ -258,8 +258,6 @@ func CreateFurniture()
 
   tmp = CreateObject(SCA2, 713, 325, -1);
   tmp->SetAction("Scan2");
-  tmp = CreateObject(SCA2, 775, 325, -1);
-  tmp->SetAction("Clonk");
   CreateObject(SCA2, 838, 325, -1);
 
   tmp = CreateObject(SCR3, 1280, 320, -1);

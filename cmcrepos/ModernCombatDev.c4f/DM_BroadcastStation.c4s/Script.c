@@ -71,8 +71,8 @@ func CreateFurniture()
   tmp->Lock();
   tmp->SetMaxDamage(-1);
 
-  //Aufzugstür
-  CreateObject(ROM3, 50, 490, -1);
+  //Tür
+  CreateObject(ROM2, 50, 490, -1);
 
   //Alarmlampen
   CreateObject(ALGH, 905, 340, -1);

@@ -300,9 +300,9 @@ func CreateFurniture()
   //Verbundene Türen
   var doorw = CreateObject(GAT1, 2960, 333, -1);
   CreateObject(ROOM, 3570, 410, -1)->Connect(doorw);
-  doorw = CreateObject(GAT2, 3845, 685, -1);
+  doorw = CreateObject(GAT1, 3845, 685, -1);
   CreateObject(GAT1, 3830, 525, -1)->Connect(doorw);
-  doorw = CreateObject(GAT2, 4200, 685, -1);
+  doorw = CreateObject(GAT1, 4200, 685, -1);
   CreateObject(GAT1, 4215, 515, -1)->Connect(doorw);
   doorw = CreateObject(GAT1, 6095, 315, -1);
   CreateObject(ROOM, 5735, 400, -1)->Connect(doorw);
