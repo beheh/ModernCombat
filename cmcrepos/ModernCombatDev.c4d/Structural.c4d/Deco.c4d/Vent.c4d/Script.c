@@ -1,6 +1,9 @@
-/*-- Ventialtor --*/
+/*-- Ventilator --*/
 
 #strict
+
+
+/* Initalisierung */
 
 func Initialize()
 {

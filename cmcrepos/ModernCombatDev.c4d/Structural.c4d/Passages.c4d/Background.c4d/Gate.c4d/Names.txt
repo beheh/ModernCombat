@@ -1,2 +1,2 @@
-DE:Spiraltor
-US:Spiral gate
+DE:Tor
+US:Gate

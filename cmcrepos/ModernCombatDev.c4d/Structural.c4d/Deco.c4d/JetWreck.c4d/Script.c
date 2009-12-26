@@ -2,6 +2,9 @@
 
 #strict
 
+
+/* Initalisierung */
+
 func Initialize()
 {
   SetAction("Be");

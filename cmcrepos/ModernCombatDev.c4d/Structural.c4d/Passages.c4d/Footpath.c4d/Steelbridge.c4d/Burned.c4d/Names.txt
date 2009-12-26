@@ -1,2 +1,2 @@
 DE:Zerstörte Stahlbrücke
-US:Destroyed steelbridge
+US:Destroyed Steelbridge

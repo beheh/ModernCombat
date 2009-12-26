@@ -4,10 +4,15 @@
 
 local graphics;
 
+
+/* Initalisierung */
+
 func Initialize()
 {
   graphics = 0;
 }
+
+/* Einstellungen */
 
 func Set(int i)
 {

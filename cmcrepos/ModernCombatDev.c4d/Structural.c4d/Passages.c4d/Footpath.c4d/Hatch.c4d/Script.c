@@ -4,6 +4,11 @@
 
 #include GBDR
 
+public func IsBulletTarget(id idBullet){return(false);}//Nur anfällig gegenüber Explosionen
+
+
+/* Initalisierung */
+
 public func Initialize() 
 {
    SetAction("Closed");
@@ -11,16 +16,7 @@ public func Initialize()
    SetMaxDamage(100);
 }
 
-public func OnDmg(int iDmg, int iType)
-{
-  // diese Tür ist besonders dick
-  if(iType == DMG_Projectile)	return(60);
-  if(iType == DMG_Melee)	return(80);
-  if(iType == DMG_Energy)	return(30);
-  if(iType == DMG_Explosion)	return(0);
-
-  return(100);
-}
+/* Öffnung und Schließung */
 
 public func OnOpen()
 {
@@ -47,12 +43,7 @@ public func SetPathFree()
   SetSolidMask();
 }
 
-public func OnDestroyed(iType)
-{
-    //Kleinen Explosionseffekt
-    CreateObject(ROCK)->Explode(20);
-    SetAction("Destroyed");
-}
+/* Clonkerkennung */
 
 private func SomeonesApproaching()// such ankommene Clonks
 {
@@ -62,8 +53,7 @@ private func SomeonesApproaching()// such ankommene Clonks
   aClonks = FindObjects(Find_InRect(-(GetObjWidth()/2),0,GetObjWidth(),20),
  		        Find_NoContainer(),
  		        Find_OCF(OCF_Alive),
- 		        Find_Not(Find_Func("IsAlien")) );//Das mit dem Alien ändert sich später noch. -> Hazard 2.0
-
+ 		        Find_Not(Find_Func("IsAlien")) );
   if(!closed)
   {
     if(!GetLength(aClonks))
@@ -81,6 +71,27 @@ private func SomeonesApproaching()// such ankommene Clonks
   return(false);
 }
 
+/* Zerstörung */
+
+public func OnDmg(int iDmg, int iType)
+{
+  //Anfälligkeit gegenüber Einflüssen
+  if(iType == DMG_Projectile)	return(60);
+  if(iType == DMG_Melee)	return(80);
+  if(iType == DMG_Energy)	return(30);
+  if(iType == DMG_Explosion)	return(0);
+  return(100);
+}
+
+public func OnDestroyed(iType)
+{
+    //Kleinen Explosionseffekt
+    CreateObject(ROCK)->Explode(20);
+    SetAction("Destroyed");
+}
+
+/* Steuerung */
+
 public func ControlUp(object pByObj)
 {
   if(GetAction() ne "Destroyed")
@@ -89,9 +100,8 @@ public func ControlUp(object pByObj)
   return(1);
 }
 
-public func IsBulletTarget(id idBullet){return(false);}//kann nur von explosionen schaden bekommen
+/* KI Hilfe */
 
-//KI
 public func UpdateTransferZone()
 {
   //SetTransferZone(-15,-GetObjWidth()/2,30,GetObjWidth());

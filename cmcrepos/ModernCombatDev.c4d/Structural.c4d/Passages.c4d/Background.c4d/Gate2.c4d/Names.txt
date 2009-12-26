@@ -1,2 +1,0 @@
-DE:Schleusentor
-US:Lock gate

@@ -1,2 +1,2 @@
-DE:Hintergrund-Türen
+DE:Hintergrundtüren
 US:Background doors

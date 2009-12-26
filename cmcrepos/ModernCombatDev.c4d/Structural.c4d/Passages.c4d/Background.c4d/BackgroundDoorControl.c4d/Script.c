@@ -1,20 +1,25 @@
-/*-- Türsteuerung --*/
+/*-- Hintergrundtürsteuerung --*/
 
 #strict
 #appendto GAT1
-#appendto GAT2
 #appendto ROOM
 #appendto ROM2
 
 local lock;
 local target;
 
+public func IsBackDoor() { return(true); }
+
+
+/* Initalisierung */
 
 public func Initialize()
 {
   Unlock();
   return(_inherited());
 }
+
+/* Abschließfunktion */
 
 public func Lock()
 {
@@ -25,6 +30,8 @@ public func Unlock()
 {
   lock = 0;
 }
+
+/* Türverbindung */
 
 public func GetTarget()
 {
@@ -46,14 +53,13 @@ func Collection2(object pObj)
     if(target)
     {
       AddEffect("Move2Door",pObj,200,15);
-      //return();//:S
+      //return();
     }
   return(_inherited(...));
 }
 
 global func FxMove2DoorStart(object pTarget)
 {
-  //:O lol
   var cont = pTarget->Contained();
   if(cont)
     if(cont->~IsBackDoor())
@@ -65,11 +71,6 @@ global func FxMove2DoorStart(object pTarget)
 global func FxMove2DoorTimer(pTarget)
 {
   pTarget->AddCommand(0,"Exit");
-  
-  /*
-  if(pTarget->Contained())
-    pTarget->Contained()->Collection2(pTarget);
-  */
   return(-1);
 }
 
@@ -77,5 +78,3 @@ private func SoundDoorLocked()
 {
   Sound("MetalHit1");
 }
-
-public func IsBackDoor() { return(true); }

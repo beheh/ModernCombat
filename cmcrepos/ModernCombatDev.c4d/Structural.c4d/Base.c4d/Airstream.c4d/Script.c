@@ -4,6 +4,9 @@
 
 local width,height,power;
 
+
+/* Initalisierung */
+
 func Initialize()
 {
   Set(40,60,5);
@@ -18,6 +21,8 @@ func Set(w,h,p)
   height = h;
   power = p;
 }
+
+/* Schiebeeffekt */
 
 func Push()
 {

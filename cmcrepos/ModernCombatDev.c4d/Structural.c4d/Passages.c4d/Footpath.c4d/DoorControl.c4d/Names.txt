@@ -1,2 +1,2 @@
 DE:Türsteuerung
-US:Doorcontrol
+US:Door Control

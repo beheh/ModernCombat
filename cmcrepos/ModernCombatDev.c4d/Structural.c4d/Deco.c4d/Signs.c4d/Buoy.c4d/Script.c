@@ -2,18 +2,22 @@
 
 #strict
 
-//Die Dauerdrehung lass ich nochmal weg. -> Buggy.
-local sway,dir,max;//,r;
+local sway,dir,max;
 
-func CalcMax()
-{
-  max = Abs(GetWind(0,-2))/6;
-}
+
+/* Initalisierung */
 
 func Initialize()
 {
   if(FrameCounter() <= 10)
     sway = RandomX(20,-20);
+}
+
+/* Bewegung */
+
+func CalcMax()
+{
+  max = Abs(GetWind(0,-2))/6;
 }
 
 func Timer()

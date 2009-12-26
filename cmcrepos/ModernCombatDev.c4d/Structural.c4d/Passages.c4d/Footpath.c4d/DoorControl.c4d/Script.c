@@ -1,4 +1,4 @@
-/*-- Doorcontrol --*/
+/*-- Türsteuerung --*/
 
 #strict
 

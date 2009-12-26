@@ -1,6 +1,6 @@
 [DefCore]
 id=_HBB
-Name=Bridge
+Name=Destroyed Bridge
 Version=4,9,8,0
 Category=C4D_Structure
 Width=72

@@ -1,6 +1,6 @@
 [DefCore]
 id=H24K
-Name=Hatch2
+Name=Big Hatch
 Version=4,9,5
 Category=2
 Width=30

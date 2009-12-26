@@ -5,12 +5,10 @@
 local pLight, bOn, broken;
 
 public func LightSize() { return(50); }
+public func IsLamp() { return(true); }
+public func IsMachine() { return(true); }
 
-
-public func Light() 
-{
-  return pLight; 
-}
+/* Initalisierung */
 
 protected func Initialize()
 {
@@ -19,10 +17,17 @@ protected func Initialize()
   return(1);
 }
 
+public func Light() 
+{
+  return pLight; 
+}
+
 protected func CreateLight()
 {
   pLight = AddLightAmbience(LightSize());
 }
+
+/* Ein- und Ausschalten */
 
 public func TurnOn()
 {
@@ -51,8 +56,7 @@ public func Switch()
    TurnOn();
 }
 
-public func IsLamp() { return(true); }
-public func IsMachine() { return(true); }
+/* EMP Effekt */
 
 public func EMPShock()
 {
@@ -70,6 +74,15 @@ public func EMPShockEnd()
   }
 }
 
+/* Zerstörung */
+
+public func IsBulletTarget(id def)
+{
+  if(broken) return();
+  if(def->~NoDecoDamage()) return();
+  return(Random(2));
+}
+
 func Damage()
 {
   if(broken) return();
@@ -82,13 +95,6 @@ func Damage()
   CastParticles("SplinterGlass", 1, 35, RandomX(-10,10), -5, 20, 20, RGBa(255,255,255,0), RGBa(255,255,255,0));
   CastParticles("Smoke3",5,5,0,0,40,100,RGBa(255,255,255,120),RGBa(255,255,255,150));
   AddLightFlash(50, 0,0, RGBa(255,255,200,100));
-}
-
-public func IsBulletTarget(id def)
-{
-  if(broken) return();
-  if(def->~NoDecoDamage()) return();
-  return(Random(2));
 }
 
 /* Serialisierung */

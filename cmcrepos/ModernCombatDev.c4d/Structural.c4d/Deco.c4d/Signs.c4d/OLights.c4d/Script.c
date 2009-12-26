@@ -4,10 +4,13 @@
 
 local light,count,distance,left,right;
 
+
+/* Initalisierung */
+
 func Initialize()
 {
-  count = 5;//Standard.
-  distance = 20;//20px Abstand zwischen den Lichtern.
+  count = 5;//Lichterzahl
+  distance = 20;//Pixelabstand zwischen den Lichtern
   left = true;
   right = true;
   return(1);
@@ -59,7 +62,8 @@ func Timer()
     CreateParticle ("NoGravSpark", +light*distance, 0, 0, 0, 20, RGBa(250,170,100,0)); 
 }
 
-//TimerEffekt
+/* Lichteffekt */
+
 public func FxIntOLightsStart(object pTarget, int iEffectNumber, int iTemp)
 {
   return(1);

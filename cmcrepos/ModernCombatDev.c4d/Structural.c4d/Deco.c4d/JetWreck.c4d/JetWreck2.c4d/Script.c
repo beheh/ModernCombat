@@ -3,6 +3,9 @@
 #strict
 #include _JW1
 
+
+/* Initalisierung */
+
 func Initialize()
 {
   SetAction("Be");
