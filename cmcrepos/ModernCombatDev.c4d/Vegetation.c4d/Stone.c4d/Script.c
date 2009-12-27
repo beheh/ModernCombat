@@ -3,6 +3,8 @@
 #strict
 
 
+/* Initalisierung */
+
 protected func Initialize() 
 {
   SetAction("Standard");
@@ -11,10 +13,16 @@ protected func Initialize()
   SetSolidMask(phase * 32, 0, 32, 32);
 }
 
-protected func Damage() 
+/* Zerstörung */
+
+func Damage()
 {
-  if (GetDamage() < 50) return(0);
-  CastObjects(ROCK, 4, 15, 0, -5);
-  RemoveObject();
-  return(1);
+  if(GetDamage() > 70)
+  {
+   //Effekte
+   CastParticles("Smoke3",12,10,0,0,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
+   Sound("RockBreak*");
+   //Verschwinden
+   RemoveObject();
+  }
 }

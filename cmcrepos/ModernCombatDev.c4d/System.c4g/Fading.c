@@ -1,6 +1,9 @@
 /*-- Fading --*/
 
+//Globaler Ausblendeffekt.
+
 #strict
+
 
 global func FxFadeOutStart(target, no, temp, level)
 {
@@ -48,7 +51,8 @@ global func FadeIn(object pObject, int level)
   return(AddEffect("FadeIn", pObject, 101, 2,0,0,level));
 }
 
-global func StopFading(int color, object pObject) {
+global func StopFading(int color, object pObject)
+{
   if(!pObject)
     pObject = this();
   
