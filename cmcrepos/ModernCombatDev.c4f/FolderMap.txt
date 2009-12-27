@@ -19,7 +19,7 @@ FullscreenBG=1
 
 	[Scenario]
 	File=DM_BroadcastStation.c4s
-	Area=246,219,203,14
+	Area=246,199,203,14
 	OverlayImage=OverlayBroadcastStation.png
 	Title=
 	TitleFontSize=15
@@ -32,7 +32,7 @@ FullscreenBG=1
 
 	[Scenario]
 	File=DM_MacrossFrontier.c4s
-	Area=246,259,192,14
+	Area=246,219,192,14
 	OverlayImage=OverlayMacrossFrontier.png
 	Title=
 	TitleFontSize=15
@@ -45,7 +45,7 @@ FullscreenBG=1
 
 	[Scenario]
 	File=DM_Yuki.c4s
-	Area=246,299,46,14
+	Area=246,239,46,14
 	OverlayImage=OverlayYuki.png
 	Title=
 	TitleFontSize=15
@@ -58,7 +58,7 @@ FullscreenBG=1
 
 	[Scenario]
 	File=OP_AtlanticCrisis.c4s
-	Area=246,339,178,14
+	Area=246,259,178,14
 	OverlayImage=OverlayAtlanticCrisis.png
 	Title=
 	TitleFontSize=15
@@ -71,7 +71,7 @@ FullscreenBG=1
 
 	[Scenario]
 	File=OP_BabelTower.c4s
-	Area=246,379,132,14
+	Area=246,279,132,14
 	OverlayImage=OverlayBabelTower.png
 	Title=
 	TitleFontSize=15
@@ -84,7 +84,7 @@ FullscreenBG=1
 
 	[Scenario]
 	File=OP_ImperialGarden.c4s
-	Area=246,419,180,14
+	Area=246,299,180,14
 	OverlayImage=OverlayImperialGarden.png
 	Title=
 	TitleFontSize=15
@@ -97,7 +97,7 @@ FullscreenBG=1
 
 	[Scenario]
 	File=OP_IslandStrike.c4s
-	Area=246,459,154,14
+	Area=246,319,154,14
 	OverlayImage=OverlayIslandStrike.png
 	Title=
 	TitleFontSize=15
@@ -110,8 +110,21 @@ FullscreenBG=1
 
 	[Scenario]
 	File=AS_EndlessOutpost.c4s
-	Area=246,499,178,14
+	Area=246,339,178,14
 	OverlayImage=OverlayEndlessOutpost.png
+	Title=
+	TitleFontSize=15
+	TitleColorInactive=
+	TitleColorActive=16711680
+	TitleOffX=120
+	TitleOffY=0
+	TitleAlign=1
+	TitleUseBookFont=0
+
+	[Scenario]
+	File=OP_Firewood.c4s
+	Area=246,359,92,14
+	OverlayImage=OverlayFirewood.png
 	Title=
 	TitleFontSize=15
 	TitleColorInactive=
