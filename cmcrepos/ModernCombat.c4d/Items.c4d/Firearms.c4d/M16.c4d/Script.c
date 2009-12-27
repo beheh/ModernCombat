@@ -180,6 +180,7 @@ public func FMData2T2(int data)
   if(data == FT_Name)                 return("$Cluster$");
   if(data == FT_IconFacet)            return(FICO_Cluster);
   if(data == FM_Icon)                 return(M23C);
+  if(data == FM_Damage)               return(3);
   return(FMData2(data));
 }
 

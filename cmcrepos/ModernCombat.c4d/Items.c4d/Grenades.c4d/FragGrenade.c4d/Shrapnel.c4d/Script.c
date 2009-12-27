@@ -167,13 +167,6 @@ public func BulletStrike(object pObj)
   {
     if(pObj->~IsBullet()) return(false);
     if(GetID(pObj) == TRAI) return(false);//:C
-    if(GetEffect("IntShrapnelHit",pObj))
-    {
-      return(false);
-    }
-    
-
-    AddEffect("IntShrapnelHit",pObj,1,10,0,GetID());
     
     if(GetOCF(pObj) & OCF_Alive)
     {
@@ -182,14 +175,12 @@ public func BulletStrike(object pObj)
     }
     
     DoDmg(iDamage,DMG_Projectile,pObj,0,0,wpnid);
-    
+    Remove();
     return(true);
   }
     
   return(true);
 }
-
-public func FxIntShrapnelHitTimer() {return(-1);}
 
 public func OnHit(object pObject, int iX, int iY)
 {
