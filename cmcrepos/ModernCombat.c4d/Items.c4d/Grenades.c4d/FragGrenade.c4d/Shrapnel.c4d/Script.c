@@ -175,8 +175,7 @@ public func BulletStrike(object pObj)
     }
     
     DoDmg(iDamage,DMG_Projectile,pObj,0,0,wpnid);
-    Remove();
-    return(true);
+    return(Remove());
   }
     
   return(true);

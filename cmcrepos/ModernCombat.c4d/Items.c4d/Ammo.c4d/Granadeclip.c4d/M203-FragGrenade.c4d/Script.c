@@ -11,7 +11,7 @@ func Trigger()
   {
     var angle = Random(360);//Interpolate4K(Random(360),Angle(GetXDir(),GetYDir()),0,80,BoundBy(Distance(GetXDir(),GetYDir()),0,80)) - 180;
     var ammo = CreateObject(SHRP,0,0,GetController());
-    ammo->Launch(angle,70+Random(30),100+Random(100),5,15,15);
+    ammo->Launch(angle,70+Random(30),100+Random(100),5,15,4);
   }
   
   CreateParticle("Blast",0,0,0,0,5*10,RGB(255,255,128));//FakeBlast :°
