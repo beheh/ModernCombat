@@ -17,6 +17,8 @@ public func Color(){return(0);}//Farbcode der Granate. ;)
 
 public func IsDangerous4AI() { return(IsFusing()); }
 
+protected func NoArenaRemove() {return(true);}
+
 public func ThrowSpeed() {return(60);}
 
 public func HandX()    { return(0); }    // X-Position in der Hand

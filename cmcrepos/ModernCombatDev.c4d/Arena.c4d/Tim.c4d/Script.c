@@ -4,7 +4,7 @@
 
 local spawn;
 
-func Initialize() { ScheduleCall(this(), "SpawnOk", 20); }
+func Initialize() { ScheduleCall(this(), "SpawnOk", 35); }
 func SpawnOk()
 {
   if(!Contents())

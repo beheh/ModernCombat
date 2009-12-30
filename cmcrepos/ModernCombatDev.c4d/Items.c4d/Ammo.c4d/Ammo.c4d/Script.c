@@ -5,6 +5,7 @@
 public func IsAmmoPacket() { return(GetID() != MCAM); }
 public func AmmoID()       { return(STAM); }
 public func AmmoCount()    { return(100); }
+protected func NoArenaRemove() {return(true);}
 
 protected func Activate(object pObj)
 {

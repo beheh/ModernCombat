@@ -16,6 +16,8 @@ public func StartHealPoints() { return(150); }
 
 func IsEquipment(){return(true);}
 
+protected func NoArenaRemove() {return(true);}
+
 /*public func OnCollection()
 {
   return(true);
