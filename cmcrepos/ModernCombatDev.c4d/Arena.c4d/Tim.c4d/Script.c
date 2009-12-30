@@ -4,7 +4,21 @@
 
 local spawn;
 
-func Initialize() { ScheduleCall(this(), "SpawnOk", 35); }
+func Initialize()
+{ 
+  //Check ob Spawnpoint feststeckt
+  var i = 0;
+  while(Stuck())
+  {
+    DoDamage(9999,FindObject2(Find_AtPoint()));
+    i++;
+    if(i >= 30)
+      break;
+  }
+    
+  ScheduleCall(this(), "SpawnOk", 35); 
+}
+
 func SpawnOk()
 {
   if(!Contents())
