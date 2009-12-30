@@ -212,10 +212,10 @@ func CreateFurniture()
   tmp = CreateObject(SCR3, 2445, 450, -1);
   tmp->SetClrModulation(RGB(255,255,255));
 
-  //Stationäre Gastanks
-  CreateObject(GSTA, 1610, 520, -1);
-  CreateObject(GSTA, 1740, 210, -1);
-  CreateObject(GSTA, 2800, 410, -1);
+  //Explosivtanks
+  CreateObject(XTNK, 1610, 520, -1);
+  CreateObject(XTNK, 1740, 210, -1);
+  CreateObject(XTNK, 2800, 410, -1);
 
   //Labortische
   CreateObject(LTBL,1410, 320, -1);

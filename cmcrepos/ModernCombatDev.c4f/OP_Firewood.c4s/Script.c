@@ -179,11 +179,11 @@ func CreateFurniture()
   CreateObject(XBRL, 2520, 390, -1)->AutoRespawn();
   CreateObject(XBRL, 2535, 390, -1)->AutoRespawn();
 
-  //Stationärer Gastank
-  CreateObject(GSTA, 765, 390, -1)->AutoRespawn();
-  CreateObject(GSTA, 1555, 510, -1)->AutoRespawn();
-  CreateObject(GSTA, 1720, 510, -1)->AutoRespawn();
-  CreateObject(GSTA, 2505, 390, -1)->AutoRespawn();
+  //Explosivtanks
+  CreateObject(XTNK, 765, 390, -1)->AutoRespawn();
+  CreateObject(XTNK, 1555, 510, -1)->AutoRespawn();
+  CreateObject(XTNK, 1720, 510, -1)->AutoRespawn();
+  CreateObject(XTNK, 2505, 390, -1)->AutoRespawn();
 
   //Stahlbrücken
   CreateObject(_HBR, 865, 402, -1);

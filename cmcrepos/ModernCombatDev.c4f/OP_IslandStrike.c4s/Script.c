@@ -396,9 +396,9 @@ func CreateFurniture()
   CreateObject(ESGN, 5830, 505, -1);
   CreateObject(ESGN, 6200, 505, -1);
 
-  //Stationäre Gastanks
-  CreateObject(GSTA, 1335, 440, -1)->AutoRespawn();
-  CreateObject(GSTA, 4345, 330, -1)->AutoRespawn();
+  //Explosivtanks
+  CreateObject(XTNK, 1335, 440, -1)->AutoRespawn();
+  CreateObject(XTNK, 4345, 330, -1)->AutoRespawn();
 
   //Sounds
 

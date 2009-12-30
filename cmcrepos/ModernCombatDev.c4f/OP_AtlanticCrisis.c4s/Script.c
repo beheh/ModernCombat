@@ -251,8 +251,8 @@ func CreateFurniture()
   CreateObject(RAI1, 4410, 500, -1)->SetRail([1,1,1,1,1]);
   CreateObject(RAI1, 4650, 400, -1)->SetRail([1,1,1,1]);
 
-  //Stationärer Gastank
-  CreateObject(GSTA, 3140, 310, -1)->AutoRespawn();
+  //Explosivtanks
+  CreateObject(XTNK, 3140, 310, -1)->AutoRespawn();
 
   //Schilder
   CreateObject(ESGN, 1515, 490, -1);

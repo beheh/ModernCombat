@@ -201,8 +201,8 @@ func CreateFurniture()
   CreateObject(FIEX, 1695, 475, -1);
 
   //Stationäre Gastanks
-  CreateObject(GSTA, 600, 610, -1);
-  CreateObject(GSTA, 1000, 750, -1)->AutoRespawn();
+  CreateObject(XTNK, 600, 610, -1);
+  CreateObject(XTNK, 1000, 750, -1)->AutoRespawn();
 
   //Apparaturen
   CreateObject(GADG, 1195, 750, -1)->Set(1);
