@@ -12,7 +12,7 @@ protected func Initialize()
 	// Action setzen
 	SetAction("SeiBrav");
 	// Nur für den Herrn und Meister sichtbar
-	SetVisibility (VIS_Owner(), this);
+	SetVisibility (VIS_Owner, this);
 	if(!FindObject(GetID())) 
 	// Das erste Sonnen-Objekt prüft nur, dass jeder Spieler auch sein Umweltobjekt hat
 	{
@@ -67,9 +67,9 @@ protected func TuWasBraves()
 	SetPosition(SonneX,SonneY);
 	// Nachts ausblenden
 	if(IsDay())
-		SetVisibility (VIS_Owner());
+		SetVisibility (VIS_Owner);
 	else
-		SetVisibility (VIS_None());
+		SetVisibility (VIS_None);
 	// Sofern der Spieler alleine ist, blenden
 	var VektorDist=GibVektorDist(GetOwner());
 	if(GetPlayerCount()==1)

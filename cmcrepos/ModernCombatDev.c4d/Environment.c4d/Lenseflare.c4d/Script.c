@@ -12,7 +12,7 @@ local SonneX, SonneY, Screen;
 protected func Initialize()
 {
 	// Nur für den Herrn und Meister sichtbar
-	SetVisibility (VIS_Owner(), this);
+	SetVisibility (VIS_Owner, this);
 	if(!FindObject(GetID())) 
 	// Das erste Lenseflare-Objekt prüft dass jeder Spieler auch sein Umweltobjekt hat und erstellt den Schatten (wenn aktiviert)
 	{
@@ -107,11 +107,11 @@ protected func TuWasBraves()
   // Tagsüber die Sonne einblenden
 	if(IsDay())
 	{
-		SetVisibility (VIS_Owner());
+		SetVisibility (VIS_Owner);
 	}
 	else
 	{
-		SetVisibility (VIS_None());
+		SetVisibility (VIS_None);
 	}
 	// Alle Lenseflares durchgehen
 	for(var i=0; i<MIJON(); ++i)
@@ -119,14 +119,14 @@ protected func TuWasBraves()
 		if(SonneSichtbar)
 		{
 			// Tags sichtbar
-			SetVisibility (VIS_Owner(), Local(i));
+			SetVisibility (VIS_Owner, Local(i));
 			SetClrModulation(FarbModulation,Local(i));
 			var LensDist = (i*AbstaendeAbsolut)/100;
 			SetPosition(GibLensPosX(LensDist,VektorX,VektorDist), GibLensPosY(LensDist,VektorY,VektorDist),Local(i));
 		}
 		else
 			// Nachts unsichtbar ODER bei verdeckter Sonne
-			SetVisibility (VIS_None(), Local(i));
+			SetVisibility (VIS_None, Local(i));
 	}
 	// Sonnenstich
   var Gelbstich = BoundBy((500-VektorDist)/10,0,100); // Prozentangabe 0 = weit weg, 100 = nahe; 500 Pixel sind dabei "weit weg"

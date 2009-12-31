@@ -131,7 +131,7 @@ private func BuyItem(id id, object pClonk) {
     if(i == id)
       if(FindIn(WeaponChoice[iPlayer],id)) {
         Uncheck(id,iPlayer,pClonk);
-        do!= = true;
+        done = true;
       }
   if(!done)
     Check(id,iPlayer,pClonk);

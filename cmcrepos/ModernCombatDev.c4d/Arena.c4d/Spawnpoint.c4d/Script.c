@@ -64,7 +64,7 @@ private func Initialized()
       if(GetPlayerType(GetPlayerByIndex(i)))
         if(!(Local() & 1<<GetPlayerByIndex(i)))
           Local() += 1<<GetPlayerByIndex(i);
-    SetVisibility(VIS_Local() | VIS_God());
+    SetVisibility(VIS_Local | VIS_God);
     }
   // Initialisiert
   initialized = true;
@@ -103,7 +103,7 @@ private func DecreaseTimer()
       // Objekt ist wieder da
       player[0] = 0;
       nocollect[0] = false;
-      SetVisibility(VIS_All());
+      SetVisibility(VIS_All);
       }
     }
 }
@@ -220,7 +220,7 @@ private func Collected(int iPlr, object pClonk) // Regelt, dass ein Spieler das 
     // Nicht mehr einsammelbar
     nocollect[0] = true;
     // Nicht mehr sichtbar
-    SetVisibility(VIS_God());
+    SetVisibility(VIS_God);
     }
 }
 

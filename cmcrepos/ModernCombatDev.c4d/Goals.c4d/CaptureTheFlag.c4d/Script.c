@@ -199,8 +199,8 @@ public func GetOwnFlagBase(int iOwner) {
 // Some constants
 private func MaxFlagBaseDistance()  { return 250; }
 
-// KI Taktik
-public func AITactic(object pAIPlayer)
+// KI Taktik  (Ausgeklammert, da Hazard KI benötigt)
+/*public func AITactic(object pAIPlayer)
 {
   var owner = pAIPlayer->GetOwner();
   
@@ -284,4 +284,4 @@ public func AITactic(object pAIPlayer)
       }
     }
   }
-}
+}*/

@@ -80,7 +80,7 @@ public func Throw()
   if(Inside(iDir,77  ,128))  SetPhase(0);
   if(Inside(iDir,129 ,179))  SetPhase(1);
   
-  var nextmi!= = user->~GrabGrenade(GetID());
+  var nextmine = user->~GrabGrenade(GetID());
   user->~ResetShowWeapon(0);
   if(user->~IsAiming())
     if(!nextmine) user->StopAiming();

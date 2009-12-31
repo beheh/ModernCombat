@@ -410,7 +410,7 @@ private func Punching()
 
 public func InCloseCombat()
 {
-  return GetProcedure() == "FIGHT") && GetActionTarget(;
+  return GetProcedure() == "FIGHT" && GetActionTarget();
 }
 
 public func ControlThrow()

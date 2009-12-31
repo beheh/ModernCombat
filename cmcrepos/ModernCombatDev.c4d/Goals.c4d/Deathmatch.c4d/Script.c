@@ -45,7 +45,8 @@ public func GetHUDInfo(int player) {
 	return Format("%d kills %s",TeamGetKills(t34m), secondstring);
 }
 
-// KI-Taktik
+// KI-Taktik (Ausgeklammert, da Hazard KI benötigt)
+/*
 public func AITactic(object pAIPlayer)
 {
   var owner = pAIPlayer->GetOwner();
@@ -64,3 +65,4 @@ public func AITactic(object pAIPlayer)
   }
   return true;
 }
+*/

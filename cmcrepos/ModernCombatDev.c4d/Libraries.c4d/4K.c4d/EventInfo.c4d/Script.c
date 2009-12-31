@@ -6,7 +6,7 @@ global func EventInfo4K(int iPlrPlusOne)
 {
   var msg;
   
-  if(iPlrPlusO!= <= 0)
+  if(iPlrPlusOne <= 0)
   {
     for(var i = 0; i < GetPlayerCount(C4PT_User); i++)
     {

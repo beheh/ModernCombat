@@ -136,13 +136,13 @@ public func ControlDig()
   return _inherited();
 }
 
-public func ControlThrowDouble(){if(IsHealing()) return StopHealing());return(_inherited();}
-public func ControlDigDouble(){if(IsHealing()) return StopHealing());return(_inherited();}
-public func ControlUpDouble(){if(IsHealing()) return StopHealing());return(_inherited();}
-public func ControlDownDouble(){if(IsHealing()) return StopHealing());return(_inherited();}
-public func ControlLeftDouble(){if(IsHealing()) return StopHealing());return(_inherited();}
-public func ControlRightDouble(){if(IsHealing()) return StopHealing());return(_inherited();}
-public func ControlSpecial(){if(IsHealing()) return StopHealing());return(_inherited();}
+public func ControlThrowDouble(){if(IsHealing()) return StopHealing();return _inherited();}
+public func ControlDigDouble(){if(IsHealing()) return StopHealing();return _inherited();}
+public func ControlUpDouble(){if(IsHealing()) return StopHealing();return _inherited();}
+public func ControlDownDouble(){if(IsHealing()) return StopHealing();return _inherited();}
+public func ControlLeftDouble(){if(IsHealing()) return StopHealing();return _inherited();}
+public func ControlRightDouble(){if(IsHealing()) return StopHealing();return _inherited();}
+public func ControlSpecial(){if(IsHealing()) return StopHealing();return _inherited();}
 
 public func ControlUp()
 {

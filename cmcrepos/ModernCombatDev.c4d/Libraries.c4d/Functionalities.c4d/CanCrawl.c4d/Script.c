@@ -309,7 +309,7 @@ public func ReadyToAim()
 {
    var val = _inherited(...);
    if(val) return val;
-   if(/*GetAction() eq "CrawlArmed" || */GetAction() eq "Crawl") return(true);
+   if(/*GetAction() == "CrawlArmed" || */GetAction() == "Crawl") return true;
 }
 
 private func CheckArmed()

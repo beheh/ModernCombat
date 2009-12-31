@@ -34,12 +34,12 @@ func SpawnOk()
   }
 }
 
-public func ContainedLeft() { if(!spawn) return 1); return(Spawn(); }
-public func ContainedRight() { if(!spawn) return 1); return(Spawn(); }
-public func ContainedDown() { if(!spawn) return 1); return(Spawn(); }
-public func ContainedUp() { if(!spawn) return 1); return(Spawn(); }
-public func ContainedDig() { if(!spawn) return 1); return(Spawn(); }
-public func ContainedThrow() { if(!spawn) return 1); return(Spawn(); }
+public func ContainedLeft() { if(!spawn) return 1; return Spawn(); }
+public func ContainedRight() { if(!spawn) return 1; return Spawn(); }
+public func ContainedDown() { if(!spawn) return 1; return Spawn(); }
+public func ContainedUp() { if(!spawn) return 1; return Spawn(); }
+public func ContainedDig() { if(!spawn) return 1; return Spawn(); }
+public func ContainedThrow() { if(!spawn) return 1; return Spawn(); }
 
 public func Spawn()
 {

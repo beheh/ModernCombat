@@ -2,6 +2,14 @@
 
 #strict 2
 
+protected func Initialize()
+{
+  //Omg, Spawnpoints ohne Füllung?
+  for(var spwn in FindObjects(Find_ID(SPNP)))
+    if(!Contents(0, spwn)) 
+      RemoveObject(spwn);
+}
+
 public func ChooserFinished()
 {
   //"Insta Gib"-Regel?
@@ -13,7 +21,6 @@ public func ChooserFinished()
     for(var clonk in FindObjects(Find_OCF(OCF_CrewMember)))
       while(Contents(0, clonk))
         RemoveObject(Contents(0, clonk));
-
     //Keine Kisten mit Munition.
     for(var ammobox in FindObjects(Find_ID(ABOX)))
       if(ammobox->GetSpawnID())
@@ -40,7 +47,8 @@ public func ChooserFinished()
   if(FindObject(WPCH) || FindObject(MCSL))
   {
     for(var spwn in FindObjects(Find_ID(SPNP)))
-      if(Contents(0, spwn)->~IsWeapon())
+      if(!Contents(0,spwn)) RemoveObject(spwn);
+      else if(Contents(0, spwn)->~IsWeapon())
         RemoveObject(spwn);
   }
   
