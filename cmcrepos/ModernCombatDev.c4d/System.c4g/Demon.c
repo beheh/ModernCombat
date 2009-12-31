@@ -1,6 +1,6 @@
 /*-- Dämonen! >:D --*/
 
-#strict
+#strict 2
 
 global func DemonInvasion(int iPower)//Rettet eure wertlosen Seelen!
 {
@@ -21,10 +21,10 @@ global func DemonInvasion(int iPower)//Rettet eure wertlosen Seelen!
 
 global func IsDemon(object pTarget)
 {
-  if(!pTarget) pTarget = this();
-  if(!pTarget) return(false);
+  if(!pTarget) pTarget = this;
+  if(!pTarget) return false;
   
-  return(GetEffect("*Demon*",pTarget));
+  return GetEffect("*Demon*",pTarget);
 }
 
 global func FxIntDemonStart(object pTarget, int iEffectNumber, int iTemp)
@@ -69,7 +69,7 @@ global func FxIntDemonTimer(object pTarget, int iEffectNumber, int iEffectTime)
     if((ObjectDistance(pTarget,enemy) >= 500) || Contained(enemy))
     {
       EffectVar(0,pTarget,iEffectNumber) = 0;
-      return();
+      return ;
     }
     else
       EffectVar(0,pTarget,iEffectNumber) = enemy;
@@ -123,7 +123,7 @@ global func FxIntDemonStop(object pTarget, int iEffectNumber, int iReason, bool 
     
     pTarget->SetOwner(EffectVar(1,pTarget,iEffectNumber));
     
-    SetCommand(pTarget,"None");
+    SetCommand(pTarget,"No!=");
     
     SetClrModulation (0,pTarget);
 
@@ -135,18 +135,18 @@ global func FxIntDemonStop(object pTarget, int iEffectNumber, int iReason, bool 
 
 global func Demonize(pTarget)
 {
-  if(!pTarget) pTarget = this();
-  if(!pTarget) return(false);
+  if(!pTarget) pTarget = this;
+  if(!pTarget) return false;
   
-  return(AddEffect("IntDemon",pTarget,20,20,pTarget)); 
+  return AddEffect("IntDemon",pTarget,20,20,pTarget); 
 }
 
 global func UnDemonize(pTarget)
 {
-  if(!pTarget) pTarget = this();
-  if(!pTarget) return(false);
+  if(!pTarget) pTarget = this;
+  if(!pTarget) return false;
   
-  return(RemoveEffect("IntDemon",pTarget)); 
+  return RemoveEffect("IntDemon",pTarget); 
 }
 
 

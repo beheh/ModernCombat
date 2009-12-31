@@ -1,5 +1,5 @@
 /* ScreenRGB 2 */
-#strict
+#strict 2
 
 local r,g,b,a;
 local target,layer,fade;
@@ -13,7 +13,7 @@ public func Initialize()
   SetClrModulation (RGBa(0,0,0,255));
   a = 255;
 
-  return(1);
+  return 1;
 }
 
 global func ScreenRGB2(object pTarget, int dwRGBa, int iAlphaAdd, int iFadeRate, bool bAdditive, int iLayer)
@@ -26,12 +26,12 @@ global func ScreenRGB2(object pTarget, int dwRGBa, int iAlphaAdd, int iFadeRate,
     obj = CreateObject(S24K,0,0,GetOwner(pTarget));
     
   obj->Set(pTarget,dwRGBa,iAlphaAdd,iFadeRate,bAdditive,iLayer);
-  return(obj);
+  return obj;
 }
 
 public func SameLayer(int iLayer)
 {
-  if(layer) if(iLayer == layer) return(true);
+  if(layer) if(iLayer == layer) return true;
 }
 
 public func Set(object pTarget, int dwRGBa, int iAlphaAdd, int iFadeRate, bool bAdditive, int iLayer)
@@ -54,10 +54,10 @@ public func Set(object pTarget, int dwRGBa, int iAlphaAdd, int iFadeRate, bool b
   a = BoundBy(a_save-iAlphaAdd,0,255);
     
   if(!fade)
-    RemoveEffect("IntRGBFade",this());
+    RemoveEffect("IntRGBFade",this);
   else
-    if(!GetEffect("IntRGBFade",this()))
-      AddEffect("IntRGBFade",this(),25,3,this());
+    if(!GetEffect("IntRGBFade",this))
+      AddEffect("IntRGBFade",this,25,3,this);
 }
 
 
@@ -65,7 +65,7 @@ public func Set(object pTarget, int dwRGBa, int iAlphaAdd, int iFadeRate, bool b
 
 public func FxIntRGBFadeStart(object pTarget, int iEffectNumber, int iTemp)
 {
-  return(1);
+  return 1;
 }
 
 public func FxIntRGBFadeTimer(object pTarget, int iEffectNumber, int iEffectTime)
@@ -74,18 +74,18 @@ public func FxIntRGBFadeTimer(object pTarget, int iEffectNumber, int iEffectTime
   pTarget->SetClrModulation(RGBa(r,g,b,a));
   
   if(a <= 0)
-    return(-1);
+    return -1;
 
-  return(0);
+  return 0;
 }
 
 public func FxIntRGBFadeStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)
 {
   RemoveObject();
-  return(0);
+  return 0;
 }
 
-public func GetAlpha(){return(a);}
+public func GetAlpha(){return a;}
 
 public func SetAlpha(int iValue)
 {
@@ -112,5 +112,5 @@ func CursorCheck()
     SetVisibility (VIS_Owner);
 }
 
-public func NoWarp(){return(true);}
-public func IsHUD(){return(true);}
+public func NoWarp(){return true;}
+public func IsHUD(){return true;}

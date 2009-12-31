@@ -1,16 +1,16 @@
 /*-- Panzerfaust (PzF) --*/
 
-#strict
+#strict 2
 
 #include WEPN
 
 // Anzeige in der Hand
-public func HandSize() { return(800); }
-public func HandX()    { return(3000); }
-public func HandY()    { return(0);  }
+public func HandSize() { return 800; }
+public func HandX()    { return 3000; }
+public func HandY()    { return 0;  }
 
-public func BarrelXOffset() { return(5000); }		
-public func BarrelYOffset() { return(8500); }		
+public func BarrelXOffset() { return 5000; }		
+public func BarrelYOffset() { return 8500; }		
 
 func OnReload()
 {
@@ -24,29 +24,29 @@ func OnSelect()
 
 public func FMData1(int data)
 {
-  if(data == FM_Name)     return("$Missile$");
-  if(data == FM_Icon)     return(PZFM);	
-  if(data == FM_AmmoID)   return(MIAM);
-  if(data == FM_AmmoLoad) return(2);//1 Schuss verbraucht 2 Raketenmunition.
-  if(data == FM_AmmoUsage)return(2);
+  if(data == FM_Name)     return "$Missile$";
+  if(data == FM_Icon)     return PZFM;	
+  if(data == FM_AmmoID)   return MIAM;
+  if(data == FM_AmmoLoad) return 2;//1 Schuss verbraucht 2 Raketenmunition.
+  if(data == FM_AmmoUsage)return 2;
 
-  if(data == FM_Reload)   return(160); 
-  if(data == FM_Recharge) return(1);
+  if(data == FM_Reload)   return 160; 
+  if(data == FM_Recharge) return 1;
 
-  if(data == FM_Aim)      return(1);
+  if(data == FM_Aim)      return 1;
 
-  if(data == FM_Damage)   return(100);
+  if(data == FM_Damage)   return 100;
 
-  return(Default(data));
+  return Default(data);
 }
 
 public func BotData1(int data)
 {
-  if(data == BOT_Range)    return(700);
-  if(data == BOT_DmgType)  return(DMG_Explosion);
-  if(data == BOT_Power)    return(BOT_Power_LongLoad);
+  if(data == BOT_Range)    return 700;
+  if(data == BOT_DmgType)  return DMG_Explosion;
+  if(data == BOT_Power)    return BOT_Power_LongLoad;
 
-  return(Default(data));
+  return Default(data);
 }
 
 public func Fire1()
@@ -94,7 +94,7 @@ public func LaunchRocket(rid, angle, dmg)
 func BackFire()
 {
   var user = GetUser();
-  if(!user) return();
+  if(!user) return ;
   
   var x,y,angle;
 
@@ -109,7 +109,7 @@ func BackFire()
   for(var obj in FindObjects(Find_Exclude(GetUser()), Find_Not(Find_Func("IsLight"),Find_Func("IsHUD")), Find_Distance (20, x, y),Find_NoContainer(),Find_Category(C4D_Living | C4D_Object | C4D_Vehicle)))
   {
     //Beschädigen
-    var dist = ObjectDistance(this(),obj);
+    var dist = ObjectDistance(this,obj);
     DoDmg (dist, DMG_Fire, obj); 
     
     //Beschleunigen
@@ -121,13 +121,13 @@ func BackFire()
   }
 
   //Effektgehasche
-  AddEffect ("IntBackFire",this(),200,2,this()); 
+  AddEffect ("IntBackFire",this,200,2,this); 
 }
 
 public func FxIntBackFireStart(object pTarget, int iEffectNumber, int iTemp)
 {
   var user = pTarget->GetUser();
-  if(!user) return(-1);
+  if(!user) return -1;
   
   var x,y;
   var angle = user->AimAngle()-180;
@@ -148,16 +148,16 @@ public func FxIntBackFireStart(object pTarget, int iEffectNumber, int iTemp)
                    RandomX(80,140),RGBa(220,200,180,0),0,0);
   }
 
-  return(1);
+  return 1;
 }
 
 public func FxIntBackFireTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
   if(iEffectTime >= 10)
-    return(-1);
+    return -1;
     
   var user = pTarget->GetUser();
-  if(!user) return(-1);
+  if(!user) return -1;
 
   var x,y,angle;
   angle = user->AimAngle()-180;
@@ -170,7 +170,7 @@ public func FxIntBackFireTimer(object pTarget, int iEffectNumber, int iEffectTim
   
   user->CreateParticle("JetFlame", x, y-3, x, y, RandomX(150,300), RGB(255,30+Random(110),0,iEffectTime*255/10));
   
-  return(0);
+  return 0;
 }
 
 
@@ -184,55 +184,55 @@ func OnSelect()
 func OnDeselect()
 {
   SetGraphics();
-  RemoveEffect("IntReady",this());
-  RemoveEffect("IntUnlock",this());
+  RemoveEffect("IntReady",this);
+  RemoveEffect("IntUnlock",this);
 }
 
 func Entrance()
 {
   SetGraphics("Unlocked");
-  return(_inherited(...));
+  return _inherited(...);
 }
 
 func Departure()
 {
   OnDeselect();
-  return(_inherited(...));
+  return _inherited(...);
 }
 
 func OnAimStop()
 {
-  RemoveEffect("IntReady",this());
-  RemoveEffect("IntUnlock",this());
+  RemoveEffect("IntReady",this);
+  RemoveEffect("IntUnlock",this);
 }
 
-public func UnlockTime(){return(35*2);}
+public func UnlockTime(){return 35*2;}
 
 private func Shoot(object pCaller)
 {
-  if(!GetEffect("IntReady",this()) && UnlockTime())//Bereit?
+  if(!GetEffect("IntReady",this) && UnlockTime())//Bereit?
   {
-    if(GetEffect("IntUnlock",this()))//Entsichert noch?
+    if(GetEffect("IntUnlock",this))//Entsichert noch?
     {
       //Sound("PZFW_Deny",false,0,0,GetController(GetUser())); 
     }
     else//Nein? Entsichern starten!
     {
-      AddEffect("IntUnlock",this(),1,1,this());
+      AddEffect("IntUnlock",this,1,1,this);
     }
     
-    return();
+    return ;
   }
   
-  RemoveEffect("IntReady",this());
+  RemoveEffect("IntReady",this);
   
-  return(inherited(pCaller,...));
+  return inherited(pCaller,...);
 }
 
 
 func FxIntUnlockStart(object pTarget, int iEffectNumber, int iTemp)
 {
-  RemoveEffect("IntReady",this());
+  RemoveEffect("IntReady",this);
   var pHUD = CreateObject(1HHD,0,0,GetOwner(GetUser()));
   pHUD->Set(GetUser(),0,RGB(255,255,0),GetUser());
   EffectVar(0, pTarget, iEffectNumber) = pHUD;
@@ -245,8 +245,8 @@ func FxIntUnlockTimer(object pTarget, int iEffectNumber, int iEffectTime)
   if(iEffectTime >= UnlockTime())
   {
     Sound("PZFW_Ready",false,0,0,GetController(GetUser())); 
-    AddEffect("IntReady",this(),1,0,this());
-    return(-1);
+    AddEffect("IntReady",this,1,0,this);
+    return -1;
   }
   
   if(!(iEffectTime % 17))
@@ -277,7 +277,7 @@ func FxIntReadyTimer(object pTarget, int iEffectNumber, int iEffectTime)
 /*private func ChangeFireMode(id, i)
 {
   // Immer noch genügend Munition da?
-  if(!CheckAmmo(GetFMData(FM_AmmoID,i),GetFMData(FM_AmmoUsage,i),GetUser(),this()))
+  if(!CheckAmmo(GetFMData(FM_AmmoID,i),GetFMData(FM_AmmoUsage,i),GetUser(),this))
   {
     // Nein. Mecker.
     Failure(id, i);
@@ -287,7 +287,7 @@ func FxIntReadyTimer(object pTarget, int iEffectNumber, int iEffectTime)
     ControlDigDouble(GetUser());
     SelectMenuItem (item, GetUser());
     // Fertig.
-    return(); 
+    return ; 
   }
   
   CloseMenu(GetUser());
@@ -297,11 +297,11 @@ func FxIntReadyTimer(object pTarget, int iEffectNumber, int iEffectTime)
   if(SetFireMode(i))
   {
     if(!GetAmmo(i) && (i != last))
-      return(Reload(i));
+      return Reload(i);
   }
   
   if(last == i)
-    return(Lock());
+    return Lock();
 }*/
 
 
@@ -350,7 +350,7 @@ private func SimRocketFlight(iX, iY, iXDir, iYDir, idID, pCross, iXOffset, iYOff
 
 private func ResetCross(object pCross)
 {
-  if(!pCross)return();
+  if(!pCross)return ;
   
   var pNewCross = pCross->CreateObject(GetID(pCross),0,0,NO_OWNER);
   
@@ -359,6 +359,6 @@ private func ResetCross(object pCross)
   pNewCross->Init(GetUser());
   
   RemoveObject(pCross);
-  return(pNewCross);
+  return pNewCross;
 }
 */

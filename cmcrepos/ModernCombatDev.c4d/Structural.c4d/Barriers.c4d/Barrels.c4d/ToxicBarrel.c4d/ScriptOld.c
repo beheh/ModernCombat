@@ -1,6 +1,6 @@
 /*-- Fass --*/
 
-#strict
+#strict 2
 #include XBRL
 
 public func OnHit(int iDamage, int iType, object pFrom)
@@ -34,14 +34,14 @@ public func SplatterWaste(int iPower, object pFrom)
 
 func Damage(int iChange, int iPlr)
 {
-  if(GetDamage() < 40) return();
+  if(GetDamage() < 40) return ;
 
   InstaExplode(iPlr);
 }
 
 func InstaExplode(int iPlr)
 {
-  if(damaged) return();
+  if(damaged) return ;
   damaged = true;
 
   var glob;
@@ -69,7 +69,7 @@ func InstaExplode(int iPlr)
 protected func Hit()
 {
   Sound("BarrelImpact*.ogg");
-  return(1);
+  return 1;
 }
 
 protected func Hit3()

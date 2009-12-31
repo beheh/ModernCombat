@@ -1,4 +1,4 @@
-#strict
+#strict 2
 
 /* Unstuck-Effect */
 /*Effekt der Objekte augenfreundlich aus Materialien herauszieht.*/
@@ -17,7 +17,7 @@ global func FxIntUnstuck4KStart(object pTarget, int iEffectNumber, int iTemp,iXD
           Normalize4K(iXDir,iYDir);
           EffectVar (0,pTarget,iEffectNumber) = iXDir;
           EffectVar (1,pTarget,iEffectNumber) = iYDir;
-          return(1);
+          return 1;
         }
       }
     }
@@ -30,21 +30,21 @@ global func FxIntUnstuck4KStart(object pTarget, int iEffectNumber, int iTemp,iXD
     EffectVar (0,pTarget,iEffectNumber) = iXDir;
     EffectVar (1,pTarget,iEffectNumber) = iYDir;
   }
-  return(1);
+  return 1;
 }
 
 global func FxIntUnstuck4KTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
   if(!Stuck(pTarget))
-    return(-1);
+    return -1;
 
   if(iEffectTime > 10)
-    return(-1);
+    return -1;
 
   SetPosition(GetX(pTarget)  -  EffectVar (0,pTarget,iEffectNumber),
               GetY(pTarget)  -  EffectVar (1,pTarget,iEffectNumber));
 
-  return(0);
+  return 0;
 }
 
 global func AutoUnstuck(pTarget,iXDir,iYDir)
@@ -67,13 +67,13 @@ global func FxIntWreckSmoke4KStart(object pTarget, int iEffectNumber, int iTemp,
   EffectVar (1,pTarget,iEffectNumber) = iX;
   EffectVar (2,pTarget,iEffectNumber) = iY;
   EffectVar (3,pTarget,iEffectNumber) = bF;
-  return(1);
+  return 1;
 }
 
 global func FxIntWreckSmoke4KTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
   if(!pTarget)
-    return(-1);
+    return -1;
 
   var iP = EffectVar (0,pTarget,iEffectNumber);
   var iX = EffectVar (1,pTarget,iEffectNumber);
@@ -90,15 +90,15 @@ global func FxIntWreckSmoke4KTimer(object pTarget, int iEffectNumber, int iEffec
   
   CreateParticle("Smoke3",iX,iY,RandomX(-1,1),-Random(5),iP + Random(iP/2) + vel/3,RGBa(black,black,black,alpha)); 
 
-  return(0);
+  return 0;
 }
 
 global func AddSmokeEffect4K(iStrength,iX,iY,bBurning,pTarget)
 {
-  if(!pTarget) pTarget = this();
-  if(!pTarget) return(0);
+  if(!pTarget) pTarget = this;
+  if(!pTarget) return 0;
   AddEffect ("IntWreckSmoke4K",pTarget,10,2,pTarget,0,iStrength,iX,iY,bBurning);
-  return(1);
+  return 1;
 }
 
 
@@ -108,7 +108,7 @@ global func AddSmokeEffect4K(iStrength,iX,iY,bBurning,pTarget)
 global func FxIntSpeedSecure4KStart(object pTarget, int iEffectNumber, int iTemp,max_speed)
 {
   EffectVar (0,pTarget,iEffectNumber) = max_speed;
-  return(1);
+  return 1;
 }
 
 global func FxIntSpeedSecure4KTimer(object pTarget, int iEffectNumber, int iEffectTime)
@@ -117,19 +117,19 @@ global func FxIntSpeedSecure4KTimer(object pTarget, int iEffectNumber, int iEffe
     SetCategory(C4D_Vehicle,pTarget);
   else
     SetCategory(C4D_Object,pTarget);
-  return(0);
+  return 0;
 }
 
 global func FxIntSpeedSecure4KStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)
 {
   SetCategory(C4D_Object,pTarget);
-  return(-1);
+  return -1;
 }
 
 global func SetSpeedSecure(iMaxSpeed,pTarget)
 {
-  if(!pTarget) pTarget = this();
-  if(!pTarget) return(false);
+  if(!pTarget) pTarget = this;
+  if(!pTarget) return false;
   
   if(!iMaxSpeed) iMaxSpeed = 20;
   
@@ -155,17 +155,17 @@ global func FxFadeOut4KTimer(target, no)
   if(EffectVar(0, target, no) >= 255)
   {
     RemoveObject(target);
-    return(-1);
+    return -1;
   }
 }
 
 global func FadeOut4K(int iSpeed, object pObject)
 {
-  if(!pObject) pObject = this();
-  if(!pObject) return();
+  if(!pObject) pObject = this;
+  if(!pObject) return ;
 
-  if(GetEffect("*FadeOut*", pObject)) return();
-  return(AddEffect("FadeOut4K", pObject, 101, 2,0,0,iSpeed));
+  if(GetEffect("*FadeOut*", pObject)) return ;
+  return AddEffect("FadeOut4K", pObject, 101, 2,0,0,iSpeed);
 }
 
 global func FxFadeIn4KStart(target, no, temp, speed)
@@ -188,17 +188,17 @@ global func FxFadeIn4KTimer(target, no)
   
   if(EffectVar(0, target, no) <= 0)
   {
-    return(-1);
+    return -1;
   }
 }
 
 global func FadeIn4K(int iSpeed, object pObject)
 {
-  if(!pObject) pObject = this();
-  if(!pObject) return();
+  if(!pObject) pObject = this;
+  if(!pObject) return ;
 
-  if(GetEffect("*FadeIn*", pObject)) return();
-  return(AddEffect("FadeIn4K", pObject, 101, 2,0,0,iSpeed));
+  if(GetEffect("*FadeIn*", pObject)) return ;
+  return AddEffect("FadeIn4K", pObject, 101, 2,0,0,iSpeed);
 }
 
 
@@ -213,7 +213,7 @@ global func FxIntTimedMessage4KStart(object pTarget, int iEffectNumber, int iTem
 global func FxIntTimedMessage4KTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
   Message(" ",pTarget);
-  return(-1);
+  return -1;
 }
 
 global func FxIntTimedMessage4KStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)
@@ -246,7 +246,7 @@ global func FxIntTimedPlayerMessage4KStart(object pTarget, int iEffectNumber, in
 global func FxIntTimedPlayerMessage4KTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
   PlayerMessage(EffectVar(0,pTarget,iEffectNumber)," ",pTarget);
-  return(-1);
+  return -1;
 }
 
 global func FxIntTimedPlayerMessage4KStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)

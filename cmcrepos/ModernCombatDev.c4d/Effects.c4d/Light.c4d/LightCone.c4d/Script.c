@@ -1,6 +1,6 @@
 /*-- Lichtkegel --*/
 
-#strict
+#strict 2
 #include LIGH
 
 // Variablen

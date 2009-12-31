@@ -1,6 +1,6 @@
 /*-- Besitznahme --*/
 
-#strict
+#strict 2
 #include TEAM
 
 protected func Activate(iPlr) // Defaultnachrichten
@@ -10,7 +10,7 @@ protected func Activate(iPlr) // Defaultnachrichten
     //if(aTicket[GetPlayerTeam(iPlr)-1] >= iWinScore)
       //return(MessageWindow("$MsgGoalFulfilled$",iPlr));
     //else
-      return(MessageWindow("$MsgGoalLost$",iPlr));
+      return MessageWindow("$MsgGoalLost$",iPlr);
   }
   
   var text = "";
@@ -20,16 +20,16 @@ protected func Activate(iPlr) // Defaultnachrichten
     text = Format("%s<c %x>%s</c>: %d $Tickets$",text,GetTeamColor(i),GetTeamName(i),aTicket[i-1]);
   }
   
-  return(MessageWindow(text,iPlr));
+  return MessageWindow(text,iPlr);
 }
 
 //Einstellungen! >:D
-public func IsConfigurable() { return(1); }
+public func IsConfigurable() { return 1; }
 
 public func ConfigMenu(object pCaller)
 {
   OpenGoalMenu();
-  return(1);
+  return 1;
 }
 
 protected func OpenGoalMenu(id dummy, int iSelection)
@@ -76,7 +76,7 @@ protected func Initialize()
 {
   aTicket = CreateArray();
   iStartTickets = 10;
-  return(_inherited());
+  return _inherited();
 }
 
 //Die Initialisierung des Scoreboards. Damit alle Spalten/Zeilen etc. angezeigt werden
@@ -175,7 +175,7 @@ private func InitScoreboard()
 // Team eintragen, dass mehrere Spieler hat
 private func InitMultiplayerTeam(int iTeam)
 {
-  if(iTeam < 1) return();
+  if(iTeam < 1) return ;
 
   var col = GetTeamColor(iTeam);
 
@@ -191,7 +191,7 @@ private func InitMultiplayerTeam(int iTeam)
 // Team eintragen, dass nur einen Spieler hat
 private func InitSingleplayerTeam(int iPlr)
 {
-  if(iPlr == -1) return();
+  if(iPlr == -1) return ;
 
   var col = GetPlrColorDw(iPlr);
 
@@ -208,8 +208,8 @@ private func InitSingleplayerTeam(int iPlr)
 private func InitPlayer(int iPlr)
 {
   // Team 0 oder -1 können wir nicht behandeln
-  if(GetPlayerTeam(iPlr) < 1) return();
-  if(iPlr == -1) return();
+  if(GetPlayerTeam(iPlr) < 1) return ;
+  if(iPlr == -1) return ;
   
   // Eintragen
   SetScoreboardData(iPlr, SBRD_Caption, "");
@@ -224,9 +224,9 @@ private func InitPlayer(int iPlr)
 // Spieler austragen
 private func RemoveScoreboardPlayer(int iPlr)
 {
-  if(iPlr == -1) return();
+  if(iPlr == -1) return ;
 
-  if(GetTeamPlayerCount(GetPlayerTeam(iPlr)) == 1) return(RemoveSingleplayerTeam(iPlr));
+  if(GetTeamPlayerCount(GetPlayerTeam(iPlr)) == 1) return RemoveSingleplayerTeam(iPlr);
 
   SetScoreboardData(iPlr, TEAM_TeamColumn);
   SetScoreboardData(iPlr, TEAM_PlayerColumn);
@@ -237,7 +237,7 @@ private func RemoveScoreboardPlayer(int iPlr)
   SortTeamScoreboard();
 
   // Team nicht prüfen
-  if(fNoTeamCheck) return();
+  if(fNoTeamCheck) return ;
   fNoTeamCheck = true;
 
   // Team wechselt zum Einzelspielerteam
@@ -296,8 +296,8 @@ public func TicketChange(int iTeam, int iChange)
 
 public func IsFulfilled() // Siegreiches Team?
 {
-  if(ObjectCount(CHOS)) return(0);
-  if(GetPlayerCount() >= 1){return(0);}
+  if(ObjectCount(CHOS)) return 0;
+  if(GetPlayerCount() >= 1){return 0;}
   for(var i = 1; i <= GetTeamCount();i++)
   {
     //Alles eingenommen oder gefraggt!
@@ -308,7 +308,7 @@ public func IsFulfilled() // Siegreiches Team?
       
       //Leben noch Verlierer? -> Ligainkompatibilität!
       if(LosersAlive())
-        return(0);
+        return 0;
         
       // Auswertungsdialog
       if(!evaluation)
@@ -320,7 +320,7 @@ public func IsFulfilled() // Siegreiches Team?
 			}
       
       evaluation = true;
-      return(1);
+      return 1;
     }
   }
 }
@@ -331,9 +331,9 @@ private func OnlyTeamAlife(int iTeam)
   {
     if(iTeam != i)
       if(aTicket[i-1])
-        return(false);
+        return false;
   }
-  return(true);
+  return true;
 }
 
 private func EliminateLosers()  // Hier trennt sich die Spreu vom Weizen
@@ -349,9 +349,9 @@ private func LosersAlive()
   for(var x = 0 ; x < GetPlayerCount() ; x++)
     if(!GetFlagCount(GetPlayerTeam(GetPlayerByIndex(x))))
       if(GetPlayerByIndex(x) >= 0)
-        return(1);
+        return 1;
 
-  return(0);
+  return 0;
 }
 
 /* Globale Funktionen */
@@ -367,7 +367,7 @@ global func CreateFlagpole(int iX, int iY, string szName, int iRange, int iSpeed
 {
   var point = CreateObject(OFPL, iX, iY, NO_OWNER);
   point->Set(szName,iRange,iSpeed);
-  return(point);
+  return point;
 }
 
 
@@ -394,7 +394,7 @@ public func GetFlagCount(int iTeam)
         continue;
     count++;
   }
-  return(count);
+  return count;
 }
 
 public func ResetFlagpoles()
@@ -450,7 +450,7 @@ public func RelaunchPlayer(int iPlr, object pCrew, int iMurdererPlr, int iTeam, 
 {
   // Kein ordentlicher Spieler?
   if(GetOwner(pCrew) == NO_OWNER || iPlr == NO_OWNER || !GetPlayerName(iPlr))
-    return();
+    return ;
   // Kein Team
   if(!iTeam) iTeam = GetPlayerTeam(iPlr);
   
@@ -488,7 +488,7 @@ public func RelaunchPlayer(int iPlr, object pCrew, int iMurdererPlr, int iTeam, 
       EliminatePlayer(iPlr);
       //Log("Keine Tickets kein Respawn! (%d->%s)",iTeam,GetPlayerName(iPlr));
       UpdateScoreboard(iTeam);
-      return();
+      return ;
     }
 
     aTicket[iTeam-1]--;
@@ -500,12 +500,12 @@ public func RelaunchPlayer(int iPlr, object pCrew, int iMurdererPlr, int iTeam, 
   if(!FindObject(CHOS) && !FindObject(MCSL))//Regelwähler oder Klassenwahl?
     CreateGOCCSpawner(pCrew);
     
-  return();
+  return ;
 }
 
 public func ChooserFinished()
 {
-  ScheduleCall(this(),"InitScoreboard",1);
+  ScheduleCall(this,"InitScoreboard",1);
   
   if(!FindObject(MCSL))//Klassenwahl?
     ScheduleCall(0,"CreateSpawners",1);
@@ -514,7 +514,7 @@ public func ChooserFinished()
 public func OnClassSelection(object pClonk)
 {
   if(FindObject(CHOS))
-    return();
+    return ;
     
   CreateGOCCSpawner(pClonk);
 }
@@ -528,4 +528,4 @@ func CreateSpawners()
 
 /* Status */
 
-public func IsTeamGoal() { return(1); }
+public func IsTeamGoal() { return 1; }

@@ -1,6 +1,6 @@
 /*-- Pfeil --*/
 
-#strict
+#strict 2
 
 protected func Initialize() { SetAction("Turn"); }
 

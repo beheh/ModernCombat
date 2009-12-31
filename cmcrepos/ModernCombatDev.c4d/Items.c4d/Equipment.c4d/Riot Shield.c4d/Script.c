@@ -1,19 +1,19 @@
 /*-- Abwehrschild --*/
 
-#strict
+#strict 2
 
 
 /* Allgemein */
 
-public func IsDrawable() {return(true);}
-public func HandX() {return(0);}
-public func HandY() {return(-1000);}
-public func HandR() {return(45);}
-public func HandSize() {return(850);}
-public func CanAim() {return(true);}//Was währen wir ohne CanAim()? ^^
+public func IsDrawable() {return true;}
+public func HandX() {return 0;}
+public func HandY() {return -1000;}
+public func HandR() {return 45;}
+public func HandSize() {return 850;}
+public func CanAim() {return true;}//Was währen wir ohne CanAim()? ^^
 //public func NoCrosshair(){return(1);}
-public func MaxDmg(){return(250);}
-func IsEquipment(){return(true);}
+public func MaxDmg(){return 250;}
+func IsEquipment(){return true;}
 
 local pShield, pUser;
 
@@ -32,7 +32,7 @@ public func SetUser(object pNewUser)
 
 public func GetUser()
 {
-  return(pUser);
+  return pUser;
 }
 
 /* Kontrolle */
@@ -80,7 +80,7 @@ public func Entrance(object pContainer)
 
 private func CreateShield()
 {
-  if(!GetUser()) return();
+  if(!GetUser()) return ;
   
   SetAction("Invis");
   
@@ -99,7 +99,7 @@ private func CreateShield()
 
 private func RemoveShield()
 {
-  if(!pShield) return();
+  if(!pShield) return ;
   
   SetAction("Idle");
   RemoveObject(pShield);
@@ -110,7 +110,7 @@ private func RemoveShield()
 protected func Hit()
 {
   Sound("BlockOff*.ogg");
-  return(1);
+  return 1;
 }
 
 func Selection()
@@ -193,7 +193,7 @@ public func FxRepairTimer()
 
 /* HUD */
 
-func CustomHUD(){return(true);}
+func CustomHUD(){return true;}
 func UpdateHUD(object pHUD)
 {
   var p = Max(0,MaxDmg()-GetDamage());

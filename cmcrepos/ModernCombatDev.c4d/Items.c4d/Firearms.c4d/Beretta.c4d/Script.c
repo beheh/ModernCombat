@@ -1,46 +1,46 @@
 /*-- Beretta --*/
 
-#strict
+#strict 2
 #include WPN2
 
-public func HandSize() { return(800); }
-public func HandX()    { return(7000); }
-public func HandY()    { return(0000); }
+public func HandSize() { return 800; }
+public func HandX()    { return 7000; }
+public func HandY()    { return 0000; }
 
 //public func BarrelYOffset() { return(-1600); }
-public func BarrelYOffset() { return(-3200); }
-public func SelectionTime() { return(3*3); }
+public func BarrelYOffset() { return -3200; }
+public func SelectionTime() { return 3*3; }
 
 
 //Kugeln - Einzelfeuer
 
 public func FMData1(int data)
 {
-  if(data == FM_Name)                 return("$Bullets$");
+  if(data == FM_Name)                 return "$Bullets$";
     
-  if(data == FM_AmmoID)             return(STAM);
-  if(data == FM_AmmoLoad)           return(15);
+  if(data == FM_AmmoID)             return STAM;
+  if(data == FM_AmmoLoad)           return 15;
   
-  if(data == FM_Reload)             return(40);
-  if(data == FM_Recharge)           return(7);
+  if(data == FM_Reload)             return 40;
+  if(data == FM_Recharge)           return 7;
 
-  if(data == FM_Auto)               return(false);
+  if(data == FM_Auto)               return false;
   
-  if(data == FM_Damage)    return(15);
+  if(data == FM_Damage)    return 15;
   
-  if(data == FM_Slot)    return(1);
+  if(data == FM_Slot)    return 1;
   
-  if(data == FM_SpreadAdd) return(80);
-  if(data == FM_StartSpread) return(0);
+  if(data == FM_SpreadAdd) return 80;
+  if(data == FM_StartSpread) return 0;
   if(data == FM_MaxSpread) return(CH_MaxSpread/2);
 
-  return(Default(data));
+  return Default(data);
 }
 
 public func FMData1T1(int data)
 {
-  if(data == FT_Name) return("$Single$");
-  return(FMData1(data));
+  if(data == FT_Name) return "$Single$";
+  return FMData1(data);
 }
 
 public func Fire1T1()
@@ -50,9 +50,9 @@ public func Fire1T1()
 
 public func BotData1(int data)
 {
-  if(data == BOT_Range)    return(100);
+  if(data == BOT_Range)    return 100;
 
-  return(Default(data));
+  return Default(data);
 }
 
 public func Fire1()
@@ -75,9 +75,9 @@ public func Fire1()
 
 public func FMData1T2(int data)
 {
-  if(data == FT_Name) return("$SilencedSingle$");
-  if(data == FM_Damage) return(9);
-  return(FMData1T1(data));
+  if(data == FT_Name) return "$SilencedSingle$";
+  if(data == FM_Damage) return 9;
+  return FMData1T1(data);
 }
 
 public func Fire1T2()
@@ -115,20 +115,20 @@ public func Fire()
 {
 
   // bereit zum Schieﬂen
-  if(GetAction() eq "Sil" || GetAction() eq "NoSil")
-    return(false);
+  if(GetAction() == "Sil" || GetAction() == "NoSil")
+    return false;
   
-  return(_inherited());
+  return _inherited();
 }
 
 public func Sil()
 {
-  SetGraphics(0,this(),SILE,1,GFXOV_MODE_Base); 
+  SetGraphics(0,this,SILE,1,GFXOV_MODE_Base); 
 }
 
 public func NoSil()
 {
-  SetGraphics(0,this(),0,1);
+  SetGraphics(0,this,0,1);
 }
 
 /* Allgemeines */

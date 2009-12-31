@@ -1,6 +1,6 @@
 /*-- Ausrüstung --*/
 
-#strict
+#strict 2
 
 // actually, only the first four are used...
 static const GEAR_Armor  = 1;
@@ -13,24 +13,24 @@ static const GEAR_Helmet = 6;
 
 /* Status */
 
-public func IsHazardGear() { return(true); }
+public func IsHazardGear() { return true; }
 
 /* Buckle */
 public func Activate(object pClonk)
 {
   [$CtrlActivateDesc$]
   // Can the clonk use this?
-  if (!(pClonk->~CanUse(GetID()))) return(0);
+  if (!(pClonk->~CanUse(GetID()))) return 0;
   // Clonk doesn't already use gear of that type 
-  if (pClonk->~HasGear(this()->~GetGearType()))
+  if (pClonk->~HasGear(this->~GetGearType()))
 	{
     PlayerMessage(GetOwner(pClonk),"$AlreadyWears$",pClonk,GetName(pClonk));
-    return(0);
+    return 0;
   }
   // Buckle
-  if(pClonk->~EquipGear(this()))
+  if(pClonk->~EquipGear(this))
     GearBuckle(pClonk);
-  return(1);
+  return 1;
 }
 
 public func GearBuckle(object pClonk)

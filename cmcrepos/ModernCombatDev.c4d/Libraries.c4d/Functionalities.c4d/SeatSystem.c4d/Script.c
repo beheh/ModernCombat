@@ -220,7 +220,7 @@ public func Collection2(object pObj)
     {
       Sound("CommandFailure1",false,pObj,0,GetOwner(pObj)+1);
       PlayerMessage (GetOwner(pObj),"$vehicle_full$",pObj); 
-      return(Exit(pObj));
+      return Exit(pObj);
     }
 
   //Keiner der Insassen darf mit dem Clonk verfeindet sein!

@@ -2,7 +2,7 @@
 // Sonnenskript includieren
 #include SONE
 
-#strict
+#strict 2
 
 static const CALC_Shadow=false;
 
@@ -12,17 +12,17 @@ local SonneX, SonneY, Screen;
 protected func Initialize()
 {
 	// Nur für den Herrn und Meister sichtbar
-	SetVisibility (VIS_Owner(), this());
+	SetVisibility (VIS_Owner(), this);
 	if(!FindObject(GetID())) 
 	// Das erste Lenseflare-Objekt prüft dass jeder Spieler auch sein Umweltobjekt hat und erstellt den Schatten (wenn aktiviert)
 	{
-		SetOwner(-1,this()); // Unparteiisch sein!
-		SetCategory(1 | C4D_MouseIgnore(),this()); // Nicht bewegen
+		SetOwner(-1,this); // Unparteiisch sein!
+		SetCategory(1 | C4D_MouseIgnore,this); // Nicht bewegen
 		SetAction("IchWillNurSpielerZaehlen");
 		
 		if(CALC_Shadow)
 		{
-  		Log("Berechne Schatten...");
+  		Log("Berech!= Schatten...");
   		var Shadow_Res=100;
   		var temp=CreateArray();
       temp=CreateArray(LandscapeWidth()/Shadow_Res);
@@ -50,7 +50,7 @@ protected func Initialize()
                     CreateParticle("Shadow",AbsX(x),AbsY(y),0,0,20*Shadow_Res-temp[x/Shadow_Res][y/Shadow_Res]
                     ,RGBa(255,255,255,255-(temp[x/Shadow_Res][y/Shadow_Res]+temp[x/Shadow_Res+1][y/Shadow_Res+1]+temp[x/Shadow_Res-1][y/Shadow_Res-1])/3));
 		}
-    return();
+    return ;
 	}
 }
 
@@ -86,8 +86,8 @@ protected func TuWasBraves()
 	{
 		for(var i=0; i<MIJON(); ++i)
 			RemoveObject(Local(i));
-		RemoveObject(this()); 
-		return();
+		RemoveObject(this); 
+		return ;
 	}
 	// Sonnenposition anpassen
 	BerechneSonne();
@@ -163,8 +163,8 @@ private func GibHelligkeit()
 {
 	var ZeitObjekt = FindObject(TIME);
 	if(!ZeitObjekt)
-		return(100);
-	return(Local(2, ZeitObjekt));
+		return 100;
+	return Local(2, ZeitObjekt);
 }
 
 private func GibSonnenMod() // Dämmerung 
@@ -198,18 +198,18 @@ private func GibAlphaMod(iEntfernung)
 // Genutzte Gammarampe
 global func GammaRampe_Lenseflare()
 {
-	return(2);
+	return 2;
 }
 
 // Den (unskalierten) Vektor. Er wird skaliert, um die Lenseflare-Positionen zu errechnen
 private func GibVektorX(iSpieler)
 {
-	return(GibMittelpunktX(iSpieler) - SonneX);
+	return GibMittelpunktX(iSpieler) - SonneX;
 }
 
 private func GibVektorY(iSpieler)
 {
-	return(GibMittelpunktY(iSpieler) - SonneY);
+	return GibMittelpunktY(iSpieler) - SonneY;
 }
 
 // Skaliere den Vektor mit der gewünschten Entfernung Lenseflare->Sonne
@@ -218,7 +218,7 @@ private func GibLensPosX(iEntfernung, VektorX, VektorDist)
 	// Skalierung in Promille
 	var Skalierung = (iEntfernung*1000) / VektorDist;
 	var TempX = (VektorX * Skalierung)/1000;
-	return(TempX + SonneX);
+	return TempX + SonneX;
 }
 
 private func GibLensPosY(iEntfernung, VektorY, VektorDist)
@@ -226,7 +226,7 @@ private func GibLensPosY(iEntfernung, VektorY, VektorDist)
 	// Skalierung in Promille
 	var Skalierung = (iEntfernung*1000) / VektorDist;
 	var TempY = (VektorY * Skalierung)/1000;
-	return(TempY + SonneY);
+	return TempY + SonneY;
 }
 
 // Wieviele Lenseflares hätten's denn gerne

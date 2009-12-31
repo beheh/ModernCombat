@@ -39,31 +39,31 @@ static const BOT_EMP      = 104;  // EMP-Waffe. Wird nur gegen Maschinen eingese
 
 public func Default(int data)    // Standardeinstellungen
 {
-  if(data == FM_Name)      return("Standard");
-  if(data == FM_AmmoID)    return(STAM);
-  if(data == FM_AmmoUsage) return(1);
-  if(data == FM_AmmoRate)  return(1);
-  if(data == FM_Auto)      return(false);
-  if(data == FM_Aim)       return(0);
-  if(data == FM_Condition) return(true);
-  if(data == FM_AmmoLoad)  return(5);
-  if(data == FM_Reload)    return(100);
-  if(data == FM_Recharge)  return(10);
-  if(data == FM_Icon)      return(GetID());
-  if(data == FM_Damage)    return(0);
-  if(data == BOT_Range)    return(100);
-  if(data == BOT_DmgType)  return(DMG_Projectile);
-  if(data == BOT_Ballistic)return(0);
-  if(data == BOT_Power)    return(BOT_Power_1);
-  if(data == BOT_EMP)      return(false);
+  if(data == FM_Name)      return "Standard";
+  if(data == FM_AmmoID)    return STAM;
+  if(data == FM_AmmoUsage) return 1;
+  if(data == FM_AmmoRate)  return 1;
+  if(data == FM_Auto)      return false;
+  if(data == FM_Aim)       return 0;
+  if(data == FM_Condition) return true;
+  if(data == FM_AmmoLoad)  return 5;
+  if(data == FM_Reload)    return 100;
+  if(data == FM_Recharge)  return 10;
+  if(data == FM_Icon)      return GetID();
+  if(data == FM_Damage)    return 0;
+  if(data == BOT_Range)    return 100;
+  if(data == BOT_DmgType)  return DMG_Projectile;
+  if(data == BOT_Ballistic)return 0;
+  if(data == BOT_Power)    return BOT_Power_1;
+  if(data == BOT_EMP)      return false;
 }
 
-public func HandX()    { return(0); }    // X-Position in der Hand
-public func HandY()    { return(0); }    // Y-Position in der Hand
-public func HandSize() { return(1000); } // Größe in der Hand, Standard: 1000
-public func HandBarrel(){return(0); }    // Y-Offset des Laufs
+public func HandX()    { return 0; }    // X-Position in der Hand
+public func HandY()    { return 0; }    // Y-Position in der Hand
+public func HandSize() { return 1000; } // Größe in der Hand, Standard: 1000
+public func HandBarrel(){return 0; }    // Y-Offset des Laufs
 
-public func CanAim() { return(true); }   // mit diesem Gegenstand kann man zielen
+public func CanAim() { return true; }   // mit diesem Gegenstand kann man zielen
 
 /* Callbacks an Objekte die WEPN includieren */
 // i ist dabei firemode
@@ -106,7 +106,7 @@ protected func Initialize() {
 /* Feuern */
 
 public func SetUser(object pObj) { controller = pObj; }
-public func GetUser() { return(controller); }
+public func GetUser() { return controller; }
 
 public func ControlUpdate(object caller, int comdir, bool dig, bool throw)
 {
@@ -118,7 +118,7 @@ public func ControlUpdate(object caller, int comdir, bool dig, bool throw)
   // Nicht nachladen, wenn die Munition ausging und der Controller rechtzeitig
   // werfen wieder loslässt.  
   else if(!throw)
-    ClearScheduleCall(this(), "Reload");
+    ClearScheduleCall(this, "Reload");
 }
 
 public func ControlThrow(caller)
@@ -131,7 +131,7 @@ public func ControlThrow(caller)
     if(!GetPlrCoreJumpAndRunControl(caller->GetController()))
       StopAutoFire();
 
-    return(1);
+    return 1;
   }
 
   // Unterstützt der Schussmodus Zielen, aber wir tuns nicht?
@@ -146,7 +146,7 @@ public func ControlThrow(caller)
     var ammoid = GetFMData(FM_AmmoID);
     var ammousage = GetFMData(FM_AmmoUsage);
     // weil keine Muni mehr da war? -> nachladen wenn geht
-    if(!CheckAmmo(ammoid,ammousage,this()))
+    if(!CheckAmmo(ammoid,ammousage,this))
       if(CheckAmmo(ammoid,ammousage,GetUser()))
       {
         Reload();
@@ -156,7 +156,7 @@ public func ControlThrow(caller)
         PlayerMessage(GetOwner(caller), "$NotEnoughAmmo$", caller, ammoid);
       }
     // Sonst nix.
-    return(1);
+    return 1;
   }
 
   // Feuern! Fehlgeschlagen?
@@ -165,7 +165,7 @@ public func ControlThrow(caller)
     var ammoid = GetFMData(FM_AmmoID);
     var ammousage = GetFMData(FM_AmmoUsage);
     // weil keine Muni mehr da war? -> nachladen wenn geht
-    if(!CheckAmmo(ammoid,ammousage,this()))
+    if(!CheckAmmo(ammoid,ammousage,this))
       if(CheckAmmo(ammoid,ammousage,GetUser())) {
         Reload();
       }
@@ -175,24 +175,24 @@ public func ControlThrow(caller)
       }
   }
 
-  return(1);
+  return 1;
 }
 
 public func Fire()
 {
 
   // bereit zum Schießen
-  if(!(GetUser()->~ReadyToFire())) return(false); 
+  if(!(GetUser()->~ReadyToFire())) return false; 
 
   // lädt grad nach... bitte nicht stören
-  if(IsReloading()) return(false);
+  if(IsReloading()) return false;
 
   var ammoid = GetFMData(FM_AmmoID);
   var ammousage = GetFMData(FM_AmmoUsage);
   // leer?
-  if(!CheckAmmo(ammoid,ammousage,this())) {
+  if(!CheckAmmo(ammoid,ammousage,this)) {
     OnEmpty(firemode);
-    return(false);
+    return false;
   }
 
   // Callback
@@ -202,7 +202,7 @@ public func Fire()
   // FEUAAA!!!1 OMGOMG
   Shoot();
 
-  return(true);
+  return true;
 }
 
 /* Waffenmenü */
@@ -231,7 +231,7 @@ public func ControlDigDouble(caller)
       var entryname=Format("%s (%s)", name, GetName(0, id));
       
       // Genug Ammo für zumindest einen Schuss vorhanden sein
-      if(!CheckAmmo(id,GetFMData(FM_AmmoUsage,i),GetUser(),this()))
+      if(!CheckAmmo(id,GetFMData(FM_AmmoUsage,i),GetUser(),this))
       {
         // Name des Eintrags wird grau
         entryname=Format("<c %x>%s</c>", RGB(100,100,100), entryname);
@@ -239,12 +239,12 @@ public func ControlDigDouble(caller)
         obj->SetClrModulation(RGB(100,100,100));
       }
       // Eintrag hinzufügen.
-      AddMenuItem(entryname, "ChangeFireMode", GetID(this()), GetUser(), 0, i, Format("$DescFireMode$", name), 4, obj); 
+      AddMenuItem(entryname, "ChangeFireMode", GetID(this), GetUser(), 0, i, Format("$DescFireMode$", name), 4, obj); 
       // Objekte natürlich wieder löschen
       RemoveObject(obj);
     }
   }
-  return(true);
+  return true;
 }
 
 /* Nachladen/Feuermodus ändern */
@@ -257,12 +257,12 @@ private func Failure(dummy, i)
   OnEmpty(i);
 }
 
-public func GetFireMode() { return(firemode); }
+public func GetFireMode() { return firemode; }
 
 private func ChangeFireMode(dummy, i)
 {
   // Immer noch genügend Munition da?
-  if(!CheckAmmo(GetFMData(FM_AmmoID, i),GetFMData(FM_AmmoUsage,i),GetUser(),this()))
+  if(!CheckAmmo(GetFMData(FM_AmmoID, i),GetFMData(FM_AmmoUsage,i),GetUser(),this))
   {
     // Nein. Mecker.
     Failure(dummy, i);
@@ -272,7 +272,7 @@ private func ChangeFireMode(dummy, i)
     ControlDigDouble(GetUser());
     SelectMenuItem (item, GetUser());
     // Fertig.
-    return(); 
+    return ; 
   }
   CloseMenu(GetUser());
   var old = GetFireMode();
@@ -286,12 +286,12 @@ private func ChangeFireMode(dummy, i)
 }
 
 private func SetFireMode(int i) {
-  if(i == 0) return();
+  if(i == 0) return ;
 
   // Gleicher Modus: Nur nachladen wenn nicht mehr voll und lädt nicht nach
   if(i == firemode) {
-    if(CheckAmmo(GetFMData(FM_AmmoID, i),GetFMData(FM_AmmoLoad),this())) return(); 
-    if(IsReloading()) return();
+    if(CheckAmmo(GetFMData(FM_AmmoID, i),GetFMData(FM_AmmoLoad),this)) return ; 
+    if(IsReloading()) return ;
   }
   // Alte Munition ausladen
   Empty();
@@ -304,25 +304,25 @@ private func SetFireMode(int i) {
   if(GetUser())
     HelpMessage(GetUser()->GetOwner(),"$FireModeChanged$",GetUser(),GetFMData(FM_Name),GetFMData(FM_AmmoID));
   
-  return(1);
+  return 1;
 }
 
 public func Reload()    // Waffe nachladen
 {
   ResumeReload();
-  if(IsReloading()) return(false);
+  if(IsReloading()) return false;
 
   // Verzögerung? Abbrechen
-  if(IsRecharging()) RemoveEffect("Recharge", this());
+  if(IsRecharging()) RemoveEffect("Recharge", this);
 
   // nicht genug Ammo um nachzuladen
   var ammoid = GetFMData(FM_AmmoID);
   var ammousage = GetFMData(FM_AmmoUsage);
   if(!CheckAmmo(ammoid,ammousage,GetUser()))
-    return(false);
+    return false;
 
   // entleeren falls noch voll
-  if(CheckAmmo(ammoid,ammousage,this()))
+  if(CheckAmmo(ammoid,ammousage,this))
     Empty();
 
   if(GetFMData(FM_Auto))
@@ -331,53 +331,53 @@ public func Reload()    // Waffe nachladen
   var reloadtime = GetFMData(FM_Reload)*MaxReloadAmount(GetUser())/GetFMData(FM_AmmoLoad);
 
   // Mit dem Nachladen beginnen
-  AddEffect("Reload", this(), 1, 1, this(), 0, Max(1, reloadtime));
-  return(true);
+  AddEffect("Reload", this, 1, 1, this, 0, Max(1, reloadtime));
+  return true;
 }
 
 public func CancelReload()  // Nachladen abbrechen
 {
-  if(!IsReloading()) return(false);
-  RemoveEffect("Reload", this(),0,true);
-  return(true);
+  if(!IsReloading()) return false;
+  RemoveEffect("Reload", this,0,true);
+  return true;
 }
 
 public func PauseReload() // Nachladen pausieren
 {
-  if(!IsReloading()) return(false);
-  if(EffectVar(1,this(),GetEffect("Reload",this())) == 0) return(false);
-  EffectVar(1,this(),GetEffect("Reload",this())) = 0;
-  return(true);
+  if(!IsReloading()) return false;
+  if(EffectVar(1,this,GetEffect("Reload",this)) == 0) return false;
+  EffectVar(1,this,GetEffect("Reload",this)) = 0;
+  return true;
 }
 
 public func ResumeReload()  // Nachladen wiederaufnehmen (wenn pausiert)
 {
-  if(!IsReloading()) return(false);
-  if(EffectVar(1,this(),GetEffect("Reload",this())) == 1) return(false);
-  EffectVar(1,this(),GetEffect("Reload",this())) = 1;
-  return(true);
+  if(!IsReloading()) return false;
+  if(EffectVar(1,this,GetEffect("Reload",this)) == 1) return false;
+  EffectVar(1,this,GetEffect("Reload",this)) = 1;
+  return true;
 }
 
 private func Recharge()    // Wartezeit zwischen zwei SchÃ¼ssen
 {
   var rechargetime = GetFMData(FM_Recharge);
-  AddEffect("Recharge", this(), 1, 1+Max(1, rechargetime), this());
+  AddEffect("Recharge", this, 1, 1+Max(1, rechargetime), this);
 }
 
 public func Empty()    // Waffe ausleeren
 {
   // Laden wir nach? Abbrechen.
-  if(IsReloading()) RemoveEffect("Reload", this());
-  if(IsRecharging()) RemoveEffect("Recharge", this());
+  if(IsReloading()) RemoveEffect("Reload", this);
+  if(IsRecharging()) RemoveEffect("Recharge", this);
 
   // Munitionsart wo raus muss
   var ammoid = GetFMData(FM_AmmoID);
   // Zu schiebende Munitionsmenge
-  var ammoamount = GetAmmo(ammoid, this());
+  var ammoamount = GetAmmo(ammoid, this);
   // Clonk wiedergeben 
   DoAmmo(ammoid, ammoamount, GetUser());
   // Hier entfernen
-  DoAmmo(ammoid, -ammoamount, this());
+  DoAmmo(ammoid, -ammoamount, this);
 }
 
 private func Reloaded(caller)   // Waffe nachgeladen
@@ -389,10 +389,10 @@ private func Reloaded(caller)   // Waffe nachgeladen
 
   // zwischendurch Ammo zuviel ammo verbraucht? Fehlschlag.
   if(!CheckAmmo(ammoid,ammoamount,caller))
-    return(false);
+    return false;
 
   // Hier einfügen
-  DoAmmo(ammoid, ammoamount, this());
+  DoAmmo(ammoid, ammoamount, this);
   // Dem Clonk abziehen
   DoAmmo(ammoid, -ammoamount, caller);
 
@@ -411,11 +411,11 @@ public func Upgrade(id uid)
   // ist die Waffe damit überhaupt upgradebar?
   if(!IsUpgradeable(uid))
     // nichts tun
-    return(false);
+    return false;
   
   upgrades[GetLength(upgrades)] = uid;
   OnUpgrade(uid);
-  return(true);
+  return true;
 }
 
 // Upgrade uid entfernen
@@ -423,7 +423,7 @@ public func Downgrade(id uid)
 {
   // haben wir das Upgrade überhaupt?
   if(!GetUpgrade(uid))
-    return(false);
+    return false;
   
   for(var i = 0; i < GetLength(upgrades); i++)
     if(upgrades[i] == uid)
@@ -437,10 +437,10 @@ public func Downgrade(id uid)
         CreateContents(uid,Contained());
       else
         CreateObject(uid);
-      return(true);
+      return true;
     }
   
-  return(false);
+  return false;
 }
 
 // Ist waffe mit uid upgegradet?
@@ -448,9 +448,9 @@ public func GetUpgrade(id uid)
 {
   for(var upg in upgrades)
     if(upg == uid)
-      return(true);
+      return true;
       
-  return(false);
+  return false;
 } 
 
 /* Feuern */
@@ -459,21 +459,21 @@ private func Shoot(object caller)
 {
   //User da? :S
   if(!GetUser())
-    return(stopauto=true);
+    return stopauto=true;
 
   var ammoid = GetFMData(FM_AmmoID);
   //soll er zielen, zielt aber nicht?
   if(!(GetUser()->~IsAiming()) && GetFMData(FM_Aim)>0 && !(GetUser()->~AimOverride()))
-    return(stopauto=true); //abbrechen
+    return stopauto=true; //abbrechen
   // user hat sich irgendwo reinbewegt 
   if(GetUser()->Contained() && GetUser() == Contained())
-    return(stopauto=true);
+    return stopauto=true;
   // Feuern...
   Call(Format("Fire%d",firemode));
   if(GetFMData(FM_Auto))
     shooting = true;
 
-  if(!GetUser()) return();
+  if(!GetUser()) return ;
 	
   // Munition abziehen
   if(ratecount == 1) {
@@ -493,27 +493,27 @@ private func Shoot(object caller)
     // Automatisch nachladen, wenn die Feuertaste nach 5 Frames noch gedrückt ist
     if(GetPlrCoreJumpAndRunControl(GetUser()->GetController()))
     	if(!IsReloading())
-      	ScheduleCall(this(), "Reload", 5);
+      	ScheduleCall(this, "Reload", 5);
   }
   // HZCK soll Munition doch bitte neu anschauen
   GetUser()->~UpdateCharge();
 }
 
-public func IsShooting() { return(shooting); }
+public func IsShooting() { return shooting; }
 
 public func GetFMData(int data, int i)
 {
   // Vom Feuermodus i Information holen
   // i nicht angegeben? Muss nicht, ist aktueller dann
   if(!i) i=firemode;
-  var value = ObjectCall(this(), Format("FMData%d",i), data);
+  var value = ObjectCall(this, Format("FMData%d",i), data);
   // Modifikationen
   var effect,user = GetUser(),j;
-  while(effect = GetEffect("*Bonus*",this(),j) || j == 0) {
+  while(effect = GetEffect("*Bonus*",this,j) || j == 0) {
     j++;
-    if(!GetEffect("*Bonus*",this(),effect,1))
+    if(!GetEffect("*Bonus*",this,effect,1))
       continue;
-    var tval = EffectCall(this(),effect,"FMData",data,value);
+    var tval = EffectCall(this,effect,"FMData",data,value);
     if(tval)
       value = tval;
   }
@@ -536,7 +536,7 @@ public func GetFMData(int data, int i)
         value = tval;
     }*/
   }
-  return(value);
+  return value;
 }
 
 // Informationen für Bots (je nach Feuermodus)
@@ -544,7 +544,7 @@ public func GetBotData(int data, int i)
 {
   // Vom Feuermodus i Information holen
   if(!i) i=firemode;
-  return(ObjectCall(this(), Format("BotData%d",i), data));
+  return ObjectCall(this, Format("BotData%d",i), data);
 }
 
 protected func Deselection(object pContainer)
@@ -584,7 +584,7 @@ protected func Departure()  // Waffe weggeworfen: Nachladen abbrechen. :(
     if(!stopauto)
       OnAutoStop(firemode);
   if(IsReloading())
-    RemoveEffect("Reload", this(), 0, true);
+    RemoveEffect("Reload", this, 0, true);
 
   SetUser();
 }
@@ -595,8 +595,8 @@ protected func Entrance(object pContainer)
 	pContainer->~CheckArmed(); // Sicherheitshalber nochmal. ;)
 }
 
-public func IsWeapon() { return(true); }
-public func NoWeaponChoice() { return(GetID() == WEPN); }
+public func IsWeapon() { return true; }
+public func NoWeaponChoice() { return GetID() == WEPN; }
 
 public func GetCharge() {   // wie voll ist die Waffe
   var charge;
@@ -604,14 +604,14 @@ public func GetCharge() {   // wie voll ist die Waffe
   // lädt nach: Nachladestatus anzeigen
   if(IsReloading()) {
     // Nachladestatus in %
-    charge = 1000*(EffectVar(0, this(), GetEffect("Reload", this())))/GetFMData(FM_Reload);
+    charge = 1000*(EffectVar(0, this, GetEffect("Reload", this)))/GetFMData(FM_Reload);
   }
   // ansonsten: Ladestand anzeigen
   else {
     charge = 1000*GetAmmo(ammoid)/GetFMData(FM_AmmoLoad);
   }
 
-  return(charge);
+  return charge;
 }
 
 private func MaxReloadAmount(object pAmmostore) {
@@ -624,23 +624,23 @@ private func MaxReloadAmount(object pAmmostore) {
   ammoload /= ammousage;
   ammoload *= ammousage;
 
-  return(ammoload);
+  return ammoload;
 }
 
-public func IsReloading() { return(GetEffect("Reload",this())); }
-public func IsRecharging() { return(GetEffect("Recharge", this())); }
+public func IsReloading() { return GetEffect("Reload",this); }
+public func IsRecharging() { return GetEffect("Recharge", this); }
 
 public func GetRecharge() {
   if(!IsRecharging())
-    return(100);
-  var time = GetEffect("Recharge",this(),0,6);
+    return 100;
+  var time = GetEffect("Recharge",this,0,6);
   return((100*time)/GetFMData(FM_Recharge));
 }
 
 /* Effekte */
 
 public func FxReloadStart(object pTarget, int iNumber, int iTemp, int iTime) {
-  if(iTemp) return();
+  if(iTemp) return ;
 
   // Nachladen aktiv:
   EffectVar(1,pTarget,iNumber) = 1;
@@ -654,15 +654,15 @@ public func FxReloadTimer(object pTarget, int iNumber, int iTime) {
   if(EffectVar(1,pTarget,iNumber))
   {
     GetUser()->~UpdateCharge();
-    if(EffectVar(0,pTarget,iNumber)++ >= EffectVar(2,pTarget,iNumber)) return(-1);
+    if(EffectVar(0,pTarget,iNumber)++ >= EffectVar(2,pTarget,iNumber)) return -1;
   }
 }
 
 public func FxReloadStop(object pTarget, int iNumber, int iReason, bool fTemp) {
   // nicht nachladen
-  if(!GetAlive(GetUser()) && GetCategory(GetUser())&C4D_Living) return(0);
+  if(!GetAlive(GetUser()) && GetCategory(GetUser())&C4D_Living) return 0;
   // temporäre Aufrufe ignorieren
-  if(fTemp) return();
+  if(fTemp) return ;
   Message(" ",pTarget);
   // nur erfolgreich nachgeladen wenn Timer abgelaufen
   if(iReason == 0)
@@ -671,12 +671,12 @@ public func FxReloadStop(object pTarget, int iNumber, int iReason, bool fTemp) {
 
 public func FxRechargeStop(object pTarget, int iNumber, int iReason, bool fTemp) {
   // Waffenträger weg?
-  if(!GetUser()) return(0);
-  if(!GetAlive(GetUser()) && GetCategory(GetUser())&C4D_Living) return(0);
+  if(!GetUser()) return 0;
+  if(!GetAlive(GetUser()) && GetCategory(GetUser())&C4D_Living) return 0;
   // automatisch weiterschießen, mit JnR-Control auch bei normalen Waffen
   if(GetFMData(FM_Auto) || GetPlrCoreJumpAndRunControl(pTarget->GetController())) {
     // ... außer wenn abgebrochen oder keine Munition mehr (!)
-    if(stopauto || (GetUser()->Contents() != this() && GetUser() == Contained(this())) || !(GetUser()->ReadyToFire()) || !CheckAmmo(GetFMData(FM_AmmoID), GetFMData(FM_AmmoUsage))) {
+    if(stopauto || (GetUser()->Contents() != this && GetUser() == Contained(this)) || !(GetUser()->ReadyToFire()) || !CheckAmmo(GetFMData(FM_AmmoID), GetFMData(FM_AmmoUsage))) {
       // Callback bei AutoFire
       if(GetFMData(FM_Auto))
         OnAutoStop(firemode);
@@ -696,9 +696,9 @@ public func FxRechargeStop(object pTarget, int iNumber, int iReason, bool fTemp)
 global func HelpMessage(int iPlr, string szMsg, object pTarget, a,b,c,d,e,f,g)
 {
   // Nur ausgeben, wenn auch erwünscht
-  if(GetPlrExtraData(iPlr, "Hazard_NoHelpMsg")) return(0);
+  if(GetPlrExtraData(iPlr, "Hazard_NoHelpMsg")) return 0;
   // Hallo Neuling! Hier deine Info!
-  return(PlayerMessage(iPlr, szMsg, pTarget, a,b,c,d,e,f,g));
+  return PlayerMessage(iPlr, szMsg, pTarget, a,b,c,d,e,f,g);
 }
 
 /*  Waffenrotationszeugs und so :)   */
@@ -720,10 +720,10 @@ global func HelpMessage(int iPlr, string szMsg, object pTarget, a,b,c,d,e,f,g)
 
 global func FxShowWeaponStart(object pTarget, int iNumber, int iTemp)
 {
-  if (iTemp) return(FX_OK);
+  if (iTemp) return FX_OK;
   // Erste Grafikaktualisierung
   FxShowWeaponTimer(pTarget, iNumber);
-  return (FX_OK);
+  return FX_OK;
 }
 
 global func FxShowWeaponTimer(object pTarget, int iNumber, int iTime)
@@ -738,7 +738,7 @@ global func FxShowWeaponTimer(object pTarget, int iNumber, int iTime)
       EffectVar(6, pTarget, iNumber) = 0;
     }
     SetGraphics(0, pTarget, 0, WeaponDrawLayer);
-    return(FX_OK);
+    return FX_OK;
   }
   //Die Waffe momentan überhaupt anzeigen?
   if(!(pTarget->~WeaponAt(xoff, yoff, r))) {
@@ -748,7 +748,7 @@ global func FxShowWeaponTimer(object pTarget, int iNumber, int iTime)
       EffectVar(6, pTarget, iNumber) = 0;
     }
     SetGraphics(0, pTarget, 0, WeaponDrawLayer);
-    return(FX_OK);
+    return FX_OK;
   }
   var obj = Contents(0,pTarget), id=GetID(obj);
   // Waffe nicht mehr aktuell
@@ -767,7 +767,7 @@ global func FxShowWeaponTimer(object pTarget, int iNumber, int iTime)
         EffectVar(6, pTarget, iNumber) = 0;
       }
       SetGraphics(0, pTarget, 0, WeaponDrawLayer);
-      return(FX_OK);
+      return FX_OK;
     }
   }
 
@@ -838,7 +838,7 @@ global func FxShowWeaponTimer(object pTarget, int iNumber, int iTime)
   
 global func FxShowWeaponStop(object pTarget, int iNumber, int iReason, bool fTemp)
 {
-  if (fTemp) return(FX_OK);
+  if (fTemp) return FX_OK;
   // Grafik entfernen
   SetGraphics(0, pTarget, 0, WeaponDrawLayer);
   

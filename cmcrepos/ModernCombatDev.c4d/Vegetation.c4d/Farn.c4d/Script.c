@@ -1,10 +1,10 @@
 /*-- Farn --*/
 
-#strict
+#strict 2
 
 func RejectEntrance(object pObj)
 {
-  if(GetAction() eq "Still")
+  if(GetAction() == "Still")
   {
     if(GetXDir(pObj) || GetYDir(pObj))
     {
@@ -15,7 +15,7 @@ func RejectEntrance(object pObj)
       Sound("Rustle*");
     }
   }
-  return(true);
+  return true;
 }
 
 func Still()

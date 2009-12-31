@@ -187,7 +187,7 @@ public func AimAngle(int iAim, int iRange)
 			angle = Angle(GetX(),GetY(),GetX(target),GetY(target));
 	}
 
-	return(angle);
+	return angle;
 }
 
 public func ControlConf(int conf)

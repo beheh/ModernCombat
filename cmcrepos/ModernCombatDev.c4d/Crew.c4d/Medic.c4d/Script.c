@@ -1,6 +1,6 @@
 /*--- Der Sanitäter ---*/
 
-#strict
+#strict 2
 #include PCMK
 
 static const MDIC_HealMode_Auto       = 0;//Heilmodi-IDs
@@ -10,20 +10,20 @@ static const MDIC_HealMode_Reanimate  = 3;
 
 static const MDIC_TestDir = COMD_Stop;
 
-public func SkinCount(){return(2);}
+public func SkinCount(){return 2;}
 
-public func IsMedic() {return(true);}
+public func IsMedic() {return true;}
 
 public func HealDistance(int iType)
 {
   if(!iType) iType = heal_mode;
 
   if(iType == MDIC_HealMode_SingleHeal)
-    return(20);
+    return 20;
   if(iType == MDIC_HealMode_GroupHeal)
-    return(80);
+    return 80;
   if(iType == MDIC_HealMode_Reanimate)
-    return(20);
+    return 20;
 }
 
 public func HealSpeed(int iType)
@@ -31,9 +31,9 @@ public func HealSpeed(int iType)
   if(!iType) iType = heal_mode;
 
   if(iType == MDIC_HealMode_SingleHeal)
-    return(3);
+    return 3;
   if(iType == MDIC_HealMode_GroupHeal)
-    return(1);
+    return 1;
 }
 
 public func HealTimer(int iType)
@@ -41,11 +41,11 @@ public func HealTimer(int iType)
   if(!iType) iType = heal_mode;
 
   if(iType == MDIC_HealMode_SingleHeal)
-    return(10);
+    return 10;
   if(iType == MDIC_HealMode_GroupHeal)
-    return(10);
+    return 10;
   if(iType == MDIC_HealMode_Reanimate)
-    return(10);
+    return 10;
 }
 
 local heal_mode;//Der Heilmodus.
@@ -54,18 +54,18 @@ local aPatients;//Array mit Patienten.
 protected func Initialize()
 {
   aPatients = CreateArray();
-  return(inherited());
+  return inherited();
 }
 
 func AddPatient(object pClonk)
 {
   var i = FindPatient(pClonk);
   if(i >= 0)
-    return(i);
+    return i;
 
   i = GetLength(aPatients);
   aPatients[i] = pClonk;
-  return(i);
+  return i;
 }
 
 func RemovePatient(object pClonk)
@@ -75,10 +75,10 @@ func RemovePatient(object pClonk)
   {
     aPatients[i] = 0;
     CleanArray4K(aPatients);
-    return(true);
+    return true;
   }
     
-  return(false);
+  return false;
 }
 
 func FindPatient(object pClonk)
@@ -87,10 +87,10 @@ func FindPatient(object pClonk)
   {
     if(aPatients[i] == pClonk)
     {
-      return(i);
+      return i;
     }
   }
-  return(-1);
+  return -1;
 }
 
 func ClearPatients()
@@ -109,12 +109,12 @@ public func ReadyToHeal()
 {
   //TODO: Erweitern?
   if(FindContents(FAPK)||FindContents(CDBT))
-    return(true);
+    return true;
 }
 
 public func HealMenu(object pCaller)
 {
-  CreateMenu(_IN2,pCaller,this(),0,"$CtxHealMenu$",0,C4MN_Style_Context);
+  CreateMenu(_IN2,pCaller,this,0,"$CtxHealMenu$",0,C4MN_Style_Context);
   if(FindContents(FAPK))
   {
     AddMenuItem ("$MenHealSingle$","StartHeal(MDIC_HealMode_SingleHeal)",FAPK,pCaller,0,0,"$DescHealSingle$");
@@ -126,78 +126,78 @@ public func HealMenu(object pCaller)
 
 public func ControlThrow()
 {
-  if(IsHealing()) return(StopHealing());
-  return(_inherited());
+  if(IsHealing()) return StopHealing();
+  return _inherited();
 }
 
 public func ControlDig()
 {
-  if(IsHealing()) return(StopHealing());
-  return(_inherited());
+  if(IsHealing()) return StopHealing();
+  return _inherited();
 }
 
-public func ControlThrowDouble(){if(IsHealing()) return(StopHealing());return(_inherited());}
-public func ControlDigDouble(){if(IsHealing()) return(StopHealing());return(_inherited());}
-public func ControlUpDouble(){if(IsHealing()) return(StopHealing());return(_inherited());}
-public func ControlDownDouble(){if(IsHealing()) return(StopHealing());return(_inherited());}
-public func ControlLeftDouble(){if(IsHealing()) return(StopHealing());return(_inherited());}
-public func ControlRightDouble(){if(IsHealing()) return(StopHealing());return(_inherited());}
-public func ControlSpecial(){if(IsHealing()) return(StopHealing());return(_inherited());}
+public func ControlThrowDouble(){if(IsHealing()) return StopHealing());return(_inherited();}
+public func ControlDigDouble(){if(IsHealing()) return StopHealing());return(_inherited();}
+public func ControlUpDouble(){if(IsHealing()) return StopHealing());return(_inherited();}
+public func ControlDownDouble(){if(IsHealing()) return StopHealing());return(_inherited();}
+public func ControlLeftDouble(){if(IsHealing()) return StopHealing());return(_inherited();}
+public func ControlRightDouble(){if(IsHealing()) return StopHealing());return(_inherited();}
+public func ControlSpecial(){if(IsHealing()) return StopHealing());return(_inherited();}
 
 public func ControlUp()
 {
-  if(IsHealing()) return(StopHealing());
-  if(GetPlrDownDouble(GetOwner()) && GetAction() eq "Walk")
+  if(IsHealing()) return StopHealing();
+  if(GetPlrDownDouble(GetOwner()) && GetAction() == "Walk")
   {
     StartHeal(MDIC_HealMode_Auto);
-    return(true);
+    return true;
   }
-  return(_inherited());
+  return _inherited();
 }
 
 /*public func RejectCollect(id idObj, object pObj)
 {
   // Spawnpunkt-Hack
-  if(idObj == SPNP) return();
+  if(idObj == SPNP) return ;
   // Munitionspaket?
   if(pObj ->~ IsAmmoPacket())
     // Davon kann man in jeden Fall _eines_ im Inventar haben
     if(!CustomContentsCount("IsAmmoPacket"))
-      return(0);
+      return 0;
   //Waffe?
   if(pObj ->~ IsWeapon()) {
     //Sonderbehandlung?
-    if(!(pObj ->~ OnCollection(this()))) {
+    if(!(pObj ->~ OnCollection(this))) {
       //nein. Standardprozedur:
       //schon so eine Waffe im Inventar? Oder bereits 3 andere Waffen?
       if(ContentsCount(idObj) || CustomContentsCount("IsWeapon") >= WeaponCollectionLimit())
-        return(1);  //Ja, nicht aufnehmen
+        return 1;  //Ja, nicht aufnehmen
       else
-        return(0);
+        return 0;
     }
     else
-      return(0);
+      return 0;
   }
   // Einsammellimit für Ausrüstung
   if(pObj ->~ IsEquipment() && ContentsCount(idObj) > 0)
-    return(1);
+    return 1;
   //Wieviel haben wir denn schon im inventar?
   if(ContentsCount() - CustomContentsCount("IsWeapon") >= ObjectCollectionLimit())
-    return(1);
+    return 1;
   for(var gear in aGear)
     if(GetID(gear) == idObj)
-      return(1);
+      return 1;
   // Ok
-  return(0);
+  return 0;
 }*/
 
-public func WeaponCollectionLimit() { return(2); } // max. Waffen im Inventar
-public func ObjectCollectionLimit() { return(3); } // max. Objekte im Inventar
+public func WeaponCollectionLimit() { return 2; } // max. Waffen im Inventar
+public func ObjectCollectionLimit() { return 3; } // max. Objekte im Inventar
 
 public func HazardGearSupported(object pGear)
 {
-  if(GetID(pGear) == HARM) return(false);//TODO: Diese Dinge checken.
-  return(true);
+  if(GetID(pGear) == HARM) return false;//TODO: Diese Dinge checken.
+  return true;
 }
 
 /* Heilsystem */
@@ -207,7 +207,7 @@ protected func Heal()
 {
   if(heal_mode == MDIC_HealMode_GroupHeal)
   {
-    CreateParticle("HealMark",0,0,Sin(HealMark_R,100),Cos(HealMark_R,100),HealDistance()*10,GetPlrColorDw(GetOwner()),this(),true);
+    CreateParticle("HealMark",0,0,Sin(HealMark_R,100),Cos(HealMark_R,100),HealDistance()*10,GetPlrColorDw(GetOwner()),this,true);
     HealMark_R+=20;
     
     GroupHeal();
@@ -223,7 +223,7 @@ public func StartHeal(int iType)
   {
     iType = AutoHealSelect();
     if(iType && (iType != MDIC_HealMode_Auto))
-      return(StartHeal(iType));
+      return StartHeal(iType);
   }
   
   if(IsHealing())
@@ -235,114 +235,114 @@ public func StartHeal(int iType)
   
   //Heilmodis
   if(iType == MDIC_HealMode_GroupHeal)
-    if(GroupHeal()) return(true);
+    if(GroupHeal()) return true;
   
   if(iType == MDIC_HealMode_SingleHeal)//TODO: Menü machen.
-    if(SingleHeal()) return(true);
+    if(SingleHeal()) return true;
 
   if(iType == MDIC_HealMode_Reanimate)//TODO: Menü machen.
-    if(Reanimate()) return(true);
+    if(Reanimate()) return true;
     
   SetComDir(MDIC_TestDir);
   
-  return(false);
+  return false;
 }
 
 public func AutoHealSelect()
 {
   if(CheckReanimate())
-    return(MDIC_HealMode_Reanimate);
+    return MDIC_HealMode_Reanimate;
     
   if(CheckSingleHeal())
-    return(MDIC_HealMode_SingleHeal);
+    return MDIC_HealMode_SingleHeal;
     
   if(CheckGroupHeal())
-    return(MDIC_HealMode_GroupHeal);
+    return MDIC_HealMode_GroupHeal;
 }
 
 //Reanimation
 func CheckReanimate(object pClonk)
 {
-  if(!FindContents(CDBT)) return(false);
-  if(!FindContents(CDBT)->Ready()) return(false);
+  if(!FindContents(CDBT)) return false;
+  if(!FindContents(CDBT)->Ready()) return false;
   
   if(!pClonk)
   {
     pClonk = FindObject2(
              Find_OCF(OCF_CrewMember|OCF_Prey),
              Find_Distance(HealDistance(MDIC_HealMode_Reanimate)),
-             Find_Exclude(this()),
+             Find_Exclude(this),
              Find_Allied(GetOwner()));
   }
   
   if(!CheckHealTarget(pClonk))
-    return(false);
+    return false;
     
   if(!IsFakeDeath(pClonk))
-    return(false);
+    return false;
   
-  return(pClonk);
+  return pClonk;
 }
 
 func Reanimate(object pClonk)
 {
   pClonk = CheckReanimate(pClonk);
-  if(!pClonk) return(false);
+  if(!pClonk) return false;
   
   //Sound("HealingStart"); 
   SetAction("Reanimation");
   SetDir(GetX(pClonk));
   
-  AddEffect("MDICReanimate",this(),150,HealTimer(MDIC_HealMode_Reanimate),this(),0,pClonk);
+  AddEffect("MDICReanimate",this,150,HealTimer(MDIC_HealMode_Reanimate),this,0,pClonk);
   
-  return(true);
+  return true;
 }
 
 //Einzelheilung
 func CheckSingleHeal(object pClonk)
 {
-  if(!FindContents(FAPK)) return(false);
+  if(!FindContents(FAPK)) return false;
   
   if(!pClonk)
   {
     pClonk = FindObject2(
              Find_OCF(OCF_CrewMember|OCF_Prey),
              Find_Distance(HealDistance(MDIC_HealMode_SingleHeal)),
-             Find_Exclude(this()),
+             Find_Exclude(this),
              Find_Allied(GetOwner()));
   }
   
   if(!CheckHealTarget(pClonk))
-    return(false);
+    return false;
     
-  return(pClonk);
+  return pClonk;
 }
 
 
 func SingleHeal(object pClonk)
 {
   pClonk = CheckSingleHeal(pClonk);
-  if(!pClonk) return(false);
+  if(!pClonk) return false;
                
   SetAction("MedicHeal");
   Sound("HealingStart"); 
   SetDir(GetX(pClonk));
 
-  AddEffect ("MDICHeal",pClonk,150,HealTimer(MDIC_HealMode_SingleHeal),this(),0,this(),HealSpeed(MDIC_HealMode_SingleHeal),MDIC_HealMode_SingleHeal);
+  AddEffect ("MDICHeal",pClonk,150,HealTimer(MDIC_HealMode_SingleHeal),this,0,this,HealSpeed(MDIC_HealMode_SingleHeal),MDIC_HealMode_SingleHeal);
     
-  return(true);
+  return true;
 }
 
 //GRuppenheilung
 func CheckGroupHeal()
 {
-  if(!FindContents(FAPK)) return(false);
+  if(!FindContents(FAPK)) return false;
   var b = false;
 
   var aClonks = FindObjects(
                 Find_OCF(OCF_CrewMember|OCF_Prey),
                 Find_Distance(HealDistance(MDIC_HealMode_GroupHeal)),
-                Find_Exclude(this()),
+                Find_Exclude(this),
                 Find_Allied(GetOwner()));
   
   for(var pClonk in aClonks)
@@ -355,15 +355,15 @@ func CheckGroupHeal()
   
   if(b)
     if(GetLength(aClonks))
-      return(aClonks);
+      return aClonks;
     
-  return(false);
+  return false;
 }
 
 func GroupHeal()
 {
   var aClonks = CheckGroupHeal();
-  if(!aClonks) return(false);
+  if(!aClonks) return false;
 
   for(var pClonk in aClonks)
   {
@@ -372,11 +372,11 @@ func GroupHeal()
       SetAction("MedicHeal");
       Sound("HealingStart"); 
   
-      AddEffect ("MDICHeal",pClonk,150,HealTimer(MDIC_HealMode_GroupHeal),this(),0,this(),HealSpeed(MDIC_HealMode_GroupHeal),MDIC_HealMode_GroupHeal);
+      AddEffect ("MDICHeal",pClonk,150,HealTimer(MDIC_HealMode_GroupHeal),this,0,this,HealSpeed(MDIC_HealMode_GroupHeal),MDIC_HealMode_GroupHeal);
     }
   }
     
-  return(false);
+  return false;
 }
 
 func CheckHealTarget(object pClonk)
@@ -387,23 +387,23 @@ func CheckHealTarget(object pClonk)
     {
       if(!GetHealingEffect(pClonk))
       {
-        return(true);
+        return true;
       }
     }
   }
-  return(false);
+  return false;
 }
 
 func IsHealing()
 {
-  if((GetAction() eq "MedicHeal")||(GetAction() eq "Reanimate"))
-    return(true);
+  if((GetAction() == "MedicHeal")||(GetAction() == "Reanimate"))
+    return true;
 }
 
 func GetHealingEffect(object pTarget, int iValue)//Nicht fürs reanimieren!
 {
-  if(!pTarget) pTarget = this();
-  return(GetEffect("MDICHeal",pTarget,0,iValue)); 
+  if(!pTarget) pTarget = this;
+  return GetEffect("MDICHeal",pTarget,0,iValue); 
 }
 
 global func FxMDICHealStart(object pTarget, int iEffectNumber, int iTemp, pSani,iHealSpeed,iType)
@@ -436,16 +436,16 @@ global func FxMDICHealStart(object pTarget, int iEffectNumber, int iTemp, pSani,
 global func FxMDICHealTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
   var pSani = EffectVar(0,pTarget,iEffectNumber);
-  if(!pSani) return(-1);
+  if(!pSani) return -1;
     
   if(ObjectDistance(pTarget,pSani)>=pSani->HealDistance(EffectVar(2,pTarget,iEffectNumber)))
-    return(-1);
+    return -1;
     
   if(GetEnergy(pTarget) >= GetPhysical("Energy",0,pTarget)/1000)
-    return(-1);
+    return -1;
     
-  if(GetAction(pSani) ne "MedicHeal")
-    return(-1);
+  if(GetAction(pSani) != "MedicHeal")
+    return -1;
    
   DoEnergy(EffectVar(1,pTarget,iEffectNumber),pTarget);//Nur wegen DIESER Codezeile gibts einen neuen Clonk! Lolz! >.<
   
@@ -496,14 +496,14 @@ public func StopHealing()
   SetComDir(COMD_Stop);
   heal_mode = 0;
     
-  return(true);
+  return true;
 }
 
 /* Reanimiereffekt */
 func IsReanimating()
 {
-  if((GetAction() eq "Reanimate") && GetEffect("MDICReanimate"))
-    return(true);
+  if((GetAction() == "Reanimate") && GetEffect("MDICReanimate"))
+    return true;
 }
 
 public func FxMDICReanimateStart(object pTarget, int iEffectNumber, int iTemp, pClonk)
@@ -515,7 +515,7 @@ public func FxMDICReanimateStart(object pTarget, int iEffectNumber, int iTemp, p
   2 = Status (In Prozent!)
 */
   if(EffectCall(pTarget,iEffectNumber,"Check") == -1)
-    return(-1);
+    return -1;
 
   EffectVar(0,pTarget,iEffectNumber) = pClonk;
   pTarget->AddPatient(pClonk);
@@ -527,13 +527,13 @@ public func FxMDICReanimateStart(object pTarget, int iEffectNumber, int iTemp, p
   
   PauseFakeDeath(true, pClonk);//Das währ sonst fies.
   
-  Sound("MsgUsing",0,this());
+  Sound("MsgUsing",0,this);
 }
 
 public func FxMDICReanimateTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
   if(EffectCall(pTarget,iEffectNumber,"Check") == -1)
-    return(-1);
+    return -1;
    
   EffectVar(2,pTarget,iEffectNumber) += GetEnergy(EffectVar(0,pTarget,iEffectNumber))/12;
   
@@ -542,7 +542,7 @@ public func FxMDICReanimateTimer(object pTarget, int iEffectNumber, int iEffectT
   if(EffectVar(2,pTarget,iEffectNumber) >= 100)
   {
     if(EffectCall(pTarget,iEffectNumber,"Do") == -1)
-      return(-1);
+      return -1;
   }
   
   Sound("Heartbeat");//,EffectVar(0,pTarget,iEffectNumber));
@@ -554,19 +554,19 @@ public func FxMDICReanimateCheck(object pTarget, int iEffectNumber)
   var pCDBT = FindContents(CDBT,pTarget);
   
   /*if(GetAction(EffectVar(0,pTarget,iEffectNumber)) ne "Dead")
-    return(-1);*/
+    return -1;*/
     
-  if(GetAction(pTarget) ne "Reanimation")
-    return(-1);
+  if(GetAction(pTarget) != "Reanimation")
+    return -1;
   
   if(!pCDBT)
-    return(-1);
+    return -1;
     
   if(!pCDBT->Ready())
-    return(-1);
+    return -1;
     
   if(ObjectDistance(pTarget,EffectVar(0,pTarget,iEffectNumber)) >= pTarget->HealDistance(MDIC_HealMode_Reanimate))
-    return(-1);
+    return -1;
 }
 
 public func FxMDICReanimateDo(object pTarget, int iEffectNumber)
@@ -575,7 +575,7 @@ public func FxMDICReanimateDo(object pTarget, int iEffectNumber)
   var pCDBT = FindContents(CDBT,pTarget);
   
   if(!pCDBT->UseReanimation(pClonk))
-    return(0);
+    return 0;
   
   pClonk->DoEnergy(10+Random(4)-1);//TODO: Doof.
   
@@ -586,7 +586,7 @@ public func FxMDICReanimateDo(object pTarget, int iEffectNumber)
   SetComDir(COMD_Stop,pTarget);
   pTarget->SetAction("KneelUp");
   
-  return(-1);
+  return -1;
 }
 
 public func FxMDICReanimateStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)

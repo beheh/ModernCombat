@@ -42,5 +42,5 @@ protected func Initialize()
 {
   SetupSkin();
   
-  return(_inherited(...));
+  return _inherited(...);
 }

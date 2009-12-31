@@ -1,18 +1,18 @@
 /*-- Splitter --*/
 
-#strict
+#strict 2
 #include SHTX
 
 
 local hitcnt,size,trail_len;
 
-public func IsSpecialAmmo(){return(false);}
+public func IsSpecialAmmo(){return false;}
 
 public func Initialize(){}
 
 public func Fast()//OMG, Nein! O_o
 {
-  return(false);
+  return false;
 }
 
 public func Launch(int iAngle, int iSpeed, int iDist, int iSize, int iTrail, int iDmg)
@@ -38,11 +38,11 @@ public func Launch(int iAngle, int iSpeed, int iDist, int iSize, int iTrail, int
   iTime = 10*iDist/iSpeed;
   
   if(!iTime)
-    return(RemoveObject());
+    return RemoveObject();
 
-  var self = this();
+  var self = this;
   SetAction("Travel");
-  if(!self) return();   // Kleiner Sicherheitscheck, ob die Kugel nicht sofort verschwindet
+  if(!self) return ;   // Kleiner Sicherheitscheck, ob die Kugel nicht sofort verschwindet
 
   SetXDir(+Sin(iAngle,iSpeed));
   SetYDir(-Cos(iAngle,iSpeed));
@@ -53,7 +53,7 @@ public func Launch(int iAngle, int iSpeed, int iDist, int iSize, int iTrail, int
   trail_len = iTrail;
   CreateTrail(iSize, iTrail);
 
-  AddEffect("HitCheck", this(), 1,1, 0, GetID(), shooter);
+  AddEffect("HitCheck", this, 1,1, 0, GetID(), shooter);
 }
 
 private func CreateTrail(int iSize, int iTrail)
@@ -61,7 +61,7 @@ private func CreateTrail(int iSize, int iTrail)
   pTrail = CreateObject(TRAI,0,0,-1);
   if(pTrail)
   {
-    pTrail->Set(iSize-2,iTrail,this());
+    pTrail->Set(iSize-2,iTrail,this);
     SetGraphics("Trail",pTrail,GetID());
     
     SetObjectBlitMode(GetObjectBlitMode(),pTrail);
@@ -75,22 +75,22 @@ private func Traveling()
   // ausfaden
   SetClrModulation(Color(iATime));
   // löschen
-  if(iATime >= iTime) return(Remove());
+  if(iATime >= iTime) return Remove();
 
   // außerhalb der Landschaft: löschen
-  if(GetY()<0) return(Remove());
+  if(GetY()<0) return Remove();
 }
 
 private func Color(int iATime)
 {
   var iPrg = 100*iATime/iTime;
-  return(RGBa(255-iPrg*2,255-iPrg*2,255-iPrg*2,iPrg*2));
+  return RGBa(255-iPrg*2,255-iPrg*2,255-iPrg*2,iPrg*2);
 }
 
 public func TrailColor(int iATime)
 {
   var iPrg = 100*iATime/iTime;
-  return(RGBa(255-iPrg*2,255-iPrg*2,255-iPrg*2,iPrg*2));
+  return RGBa(255-iPrg*2,255-iPrg*2,255-iPrg*2,iPrg*2);
 }
 
 public func Hit(int iXDir, int iYDir)
@@ -137,16 +137,16 @@ public func Hit(int iXDir, int iYDir)
 
     CreateTrail(size,trail_len);
 
-    return();
+    return ;
   }
-  return(inherited(...));
+  return inherited(...);
 }
 
 private func HitObject(object pObject)
 {
   if(shooter && pObject)
     if(pObject == shooter)
-      return(false);//>:O
+      return false;//>:O
       
   if(BulletStrike(pObject))
   {
@@ -157,7 +157,7 @@ private func HitObject(object pObject)
 
     if((hitcnt > 1) || !pObject)
       Remove();
-    return(true);
+    return true;
   }
 }
 
@@ -165,11 +165,11 @@ public func BulletStrike(object pObj)
 {
   if(pObj)
   {
-    if(pObj->~IsBullet()) return(false);
-    if(GetID(pObj) == TRAI) return(false);//:C
+    if(pObj->~IsBullet()) return false;
+    if(GetID(pObj) == TRAI) return false;//:C
     if(GetEffect("IntShrapnelHit",pObj))
     {
-      return(false);
+      return false;
     }
     
 
@@ -183,13 +183,13 @@ public func BulletStrike(object pObj)
     
     DoDmg(iDamage,DMG_Projectile,pObj,0,0,wpnid);
     
-    return(true);
+    return true;
   }
     
-  return(true);
+  return true;
 }
 
-public func FxIntShrapnelHitTimer() {return(-1);}
+public func FxIntShrapnelHitTimer() {return -1;}
 
 public func OnHit(object pObject, int iX, int iY)
 {

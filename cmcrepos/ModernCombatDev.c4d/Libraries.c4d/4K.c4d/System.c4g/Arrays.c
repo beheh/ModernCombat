@@ -1,9 +1,9 @@
-#strict
+#strict 2
 
 //Gibt einen zufälligen Eintrag eines Arrays zurück.
 global func RandomIndex4K(array ids)
 {
-  return(ids[Random(GetLength(ids))]);//Wie billig! Rausnehmen?
+  return ids[Random(GetLength(ids))];//Wie billig! Rausnehmen?
 }
 
 //Findet das erste Vorlommen von v im Array a und gibt die Position zurück.
@@ -14,10 +14,10 @@ global func FindInArray4K(array a, v)
   {
     if(a[i] == v)
     {
-      return(i);
+      return i;
     }
   }
-  return(-1);
+  return -1;
 }
 
 //Löscht alle leeren Einträge aus einem Array.

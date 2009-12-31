@@ -1,6 +1,6 @@
 /*-- Soundkulisse --*/
 
-#strict
+#strict 2
 
 local soundset,interval,variation,falloff,globalsound;
 
@@ -37,7 +37,7 @@ protected func StartDuroSound()
     f = falloff;
     g = false;
   }
-  Sound(soundset,g,this(),0,0,+1,0,f);
+  Sound(soundset,g,this,0,0,+1,0,f);
 }
 
 protected func StartSoundEffect()
@@ -53,21 +53,21 @@ protected func StartSoundEffect()
     f = falloff;
     g = false;
   }
-  Sound(soundset,g,this(),0,0,0,0,f);
+  Sound(soundset,g,this,0,0,0,0,f);
 
-  AddEffect("IntDoSound",this(),50,
+  AddEffect("IntDoSound",this,50,
             interval+RandomX(-variation,+variation),
-            this(),0,soundset); 
+            this,0,soundset); 
 }
 
 public func FxIntDoSoundStart(object pTarget, int iEffectNumber, int iTemp,szsound)
 {
   EffectVar(0,pTarget,iEffectNumber) = szsound;
-  return(1);
+  return 1;
 }
 
 public func FxIntDoSoundTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
   pTarget->StartSoundEffect();
-  return(-1);
+  return -1;
 }

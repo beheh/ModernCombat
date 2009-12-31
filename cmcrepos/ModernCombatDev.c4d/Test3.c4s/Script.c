@@ -1,6 +1,6 @@
 /*-- CMC Test --*/
 
-#strict
+#strict 2
 #include CSTD
 
 func ChooserRuleConfig()

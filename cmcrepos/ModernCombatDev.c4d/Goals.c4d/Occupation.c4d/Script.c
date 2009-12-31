@@ -66,7 +66,7 @@ private func GetFlagCount(int iTeam, bool bCountBlankFlags)
 
 public func ChooserFinished()
 {
-  ScheduleCall(this(),"InitScoreboard",1);
+  ScheduleCall(this,"InitScoreboard",1);
   
   if(!FindObject(MCSL))//Klassenwahl?
     ScheduleCall(0,"CreateSpawners",1);

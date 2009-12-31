@@ -1,6 +1,6 @@
 /*-- Orientierungslichter --*/
 
-#strict
+#strict 2
 
 local light,count,distance,left,right;
 
@@ -13,7 +13,7 @@ func Initialize()
   distance = 20;//Pixelabstand zwischen den Lichtern
   left = true;
   right = true;
-  return(1);
+  return 1;
 }
 
 func SetType(bool bLeft,bool bRight)
@@ -28,14 +28,14 @@ func SetType(bool bLeft,bool bRight)
   right = bRight;
 }
 
-func GetLeft(){return(left);}
-func GetRight(){return(right);}
+func GetLeft(){return left;}
+func GetRight(){return right;}
 
 func SetCount(int iCount){count = iCount;}
-func GetCount(){return(count);}
+func GetCount(){return count;}
 
 func SetDistance(int iDist){distance = iDist;}
-func GetDistance(){return(distance);}
+func GetDistance(){return distance;}
 
 func Set(int iCount, int iDist, bool bLeft, bool bRight, int iTimer)
 {
@@ -47,7 +47,7 @@ func Set(int iCount, int iDist, bool bLeft, bool bRight, int iTimer)
   if(!iTimer) iTimer = 35;
   
   RemoveEffect("IntOLights");
-  AddEffect("IntOLights",this(),50,iTimer,this(),GetID()); 
+  AddEffect("IntOLights",this,50,iTimer,this,GetID()); 
 }
 
 func Timer()
@@ -66,16 +66,16 @@ func Timer()
 
 public func FxIntOLightsStart(object pTarget, int iEffectNumber, int iTemp)
 {
-  return(1);
+  return 1;
 }
 
 public func FxIntOLightsTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
   Timer();
-  return(0);
+  return 0;
 }
 
 public func FxIntOLightsStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)
 {
-  return(-1);
+  return -1;
 }

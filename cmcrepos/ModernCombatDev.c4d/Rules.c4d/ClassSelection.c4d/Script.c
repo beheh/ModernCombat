@@ -1,6 +1,6 @@
 /*-- Klassenwahl --*/
 
-#strict
+#strict 2
 
 local spawntimer;
 local spawnclonk;
@@ -27,7 +27,7 @@ private func Initialized()
 }
 
 // Kann mittels des Spielzielauswählers ausgewählt werden
-public func IsChooseable() { return(1); }
+public func IsChooseable() { return 1; }
 
 
 /* (Re-)Spawn */
@@ -38,11 +38,11 @@ func InitializePlayer(int iPlayer)
   if(!pClonk)
   {
     ScheduleCall(0,"InitializePlayer",1,0,iPlayer);
-    return();
+    return ;
   }
   
   if(FindObject(CHOS))
-    return();
+    return ;
 
   ScheduleCall(0,"InitClassMenu",1,0,pClonk);
 }
@@ -62,9 +62,9 @@ func RelaunchPlayer(int iPlr, object pClonk)
 {
   if(!pClonk)
     if(!(pClonk = GetCursor(iPlr)))
-      return(ScheduleCall(this(),"RelaunchPlayer",1,0,iPlr,pClonk));
+      return ScheduleCall(this,"RelaunchPlayer",1,0,iPlr,pClonk);
   if(!GetAlive(pClonk))
-    return(ScheduleCall(this(),"RelaunchPlayer",1,0,iPlr));
+    return ScheduleCall(this,"RelaunchPlayer",1,0,iPlr);
 
   if(FindObject(GLMS))
   {
@@ -73,7 +73,7 @@ func RelaunchPlayer(int iPlr, object pClonk)
   }
 	
   InitClassMenu(pClonk);
-  return();
+  return ;
 }
 
 public func Spawntimer()
@@ -93,7 +93,7 @@ func InitClassMenu(object pClonk)
 {
   //Parameter vergessen?
   if(!pClonk)
-    return(0);
+    return 0;
 
   var iPlayer = GetOwner(pClonk);
     
@@ -117,7 +117,7 @@ func InitClassMenu(object pClonk)
   
   if(IsAIControlled(pClonk))
   {
-    return(AIThink(iPlayer,pClonk));
+    return AIThink(iPlayer,pClonk);
   }
  
   OpenMenu(pClonk);
@@ -158,7 +158,7 @@ func Finish(object pClonk)
 
 /* Menüzeug */
 
-private func InfoMenuItems(){return(3);}
+private func InfoMenuItems(){return 3;}
 
 local bNoMenuUpdate;
 
@@ -173,7 +173,7 @@ private func OpenMenu(object pClonk, int iSelection)
 
 
   CloseMenu(pClonk);
-  if(!CreateMenu(GetID(),pClonk,this(),0,0,0,C4MN_Style_Dialog,1)) return(false);
+  if(!CreateMenu(GetID(),pClonk,this,0,0,0,C4MN_Style_Dialog,1)) return false;
   
   var class = iSelection-InfoMenuItems();
   
@@ -202,10 +202,10 @@ private func OpenMenu(object pClonk, int iSelection)
     SelectMenuItem(iSelection,pClonk);
   }
   
-  return(true);
+  return true;
 } 
 
-public func MenuQueryCancel() { return(1); }
+public func MenuQueryCancel() { return 1; }
 
 protected func OnMenuSelection(int iIndex, object pClonk)
 {
@@ -226,13 +226,13 @@ static const CData_Facet = 6;
 
 public func GetCData(int iClass,int iData)
 {
-  return(PrivateCall(this(),Format("Class%dInfo",iClass),iData));
+  return PrivateCall(this,Format("Class%dInfo",iClass),iData);
 }
 
 public func SetupClass(int iClass, int iPlayer)
 {
   var oldCrew = crew[iPlayer];
-  crew[iPlayer] = PrivateCall(this(),Format("Class%dSetup",iClass),iPlayer);
+  crew[iPlayer] = PrivateCall(this,Format("Class%dSetup",iClass),iPlayer);
   
   if(Contained(oldCrew))
   {
@@ -254,13 +254,13 @@ public func SetupClass(int iClass, int iPlayer)
 
 private func Default(int iData)
 {
-  if(iData == CData_Name)  return("<Classname>");
-  if(iData == CData_Desc)  return("<Description>");
-  if(iData == CData_Clonk) return(CLNK);
-  if(iData == CData_Items) return("<Items>");
-  if(iData == CData_Icon)  return(GetID());
-  if(iData == CData_Facet) return(0);
-  return(true);
+  if(iData == CData_Name)  return "<Classname>";
+  if(iData == CData_Desc)  return "<Description>";
+  if(iData == CData_Clonk) return CLNK;
+  if(iData == CData_Items) return "<Items>";
+  if(iData == CData_Icon)  return GetID();
+  if(iData == CData_Facet) return 0;
+  return true;
 }
 
 

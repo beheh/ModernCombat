@@ -317,7 +317,7 @@ public func UpdateCharge()
 	
 	/// Crosshair updaten ...
     
-	if(!this()->~ReadyToFire() || !this()->~IsArmed() || (GetCursor(GetOwner()) != this()))
+	if(!this->~ReadyToFire() || !this->~IsArmed() || (GetCursor(GetOwner()) != this))
 	{
 		this->~HideCrosshair();
 		return _inherited(...);
@@ -336,7 +336,7 @@ public func UpdateCharge()
     unspread = c->~UnSpread();
 
     
-  if(this()->~IsAiming())
+  if(this->~IsAiming())
   {
     if(IsCrawling())
       DoSpread(-(CH_CrawlSpreadReduction+unspread));
@@ -410,7 +410,7 @@ private func Punching()
 
 public func InCloseCombat()
 {
-  return (GetProcedure() == "FIGHT") && GetActionTarget();
+  return GetProcedure() == "FIGHT") && GetActionTarget(;
 }
 
 public func ControlThrow()
@@ -877,7 +877,7 @@ private func Control2Contents(string command)
   }
 	
   // Getragenes Objekt hat spezielle Steuerungsauswertung
-  if(ObjectCall(Contents(), command, this(), Par(1), Par(2), Par(3), Par(4), Par(5), Par(6), Par(7)))
+  if(ObjectCall(Contents(), command, this, Par(1), Par(2), Par(3), Par(4), Par(5), Par(6), Par(7)))
     return 1;
   return 0;
 }
@@ -975,9 +975,9 @@ private func ChangeWeapon(object pTarget)
 
 protected func ContentsDestruction()
 {
-  ScheduleCall(this(), "CheckArmed", 1);
+  ScheduleCall(this, "CheckArmed", 1);
   UpdateCharge();
-  if(Contents(1)) Schedule("Contents(0)->~Selection(this());", 1);
+  if(Contents(1)) Schedule("Contents(0)->~Selection(this);", 1);
 }
 
 protected func Departure(pContainer)
@@ -1276,13 +1276,13 @@ func ResetShowWeapon(object pNew)
   
   if(pNew)
   {
-    EffectVar(0, this(), effect) = GetID(pNew);
-    EffectVar(1, this(), effect) = pNew;
+    EffectVar(0, this, effect) = GetID(pNew);
+    EffectVar(1, this, effect) = pNew;
   }
   else
   {
-    EffectVar(0, this(), effect) = 0;
-    EffectVar(1, this(), effect) = 0;
+    EffectVar(0, this, effect) = 0;
+    EffectVar(1, this, effect) = 0;
   }
   
   return true;

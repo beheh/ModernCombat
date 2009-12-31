@@ -1,6 +1,6 @@
 /*-- Gepackter Munitionsclip --*/
 
-#strict
+#strict 2
 
 func ControlDig(object clonk)
 {
@@ -40,7 +40,7 @@ func ControlDig(object clonk)
   overlay = ring->AddLeftItem("BOING","Push",clonk,RICO);
   SetGraphics("5",ring,RICO,overlay,GFXOV_MODE_IngamePicture);
   
-  return(1);
+  return 1;
 }
 
 func Push(p)

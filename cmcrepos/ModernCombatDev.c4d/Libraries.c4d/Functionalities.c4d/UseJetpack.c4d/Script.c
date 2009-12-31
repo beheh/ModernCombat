@@ -5,11 +5,11 @@
 /* Der Clonk kann das Jetpack mit dieser Funktionalität benutzen
      Dazu in ControlUpDouble, ControlRightDouble und ControlLeftDouble
      jeweils die Funktion
-	 if(ControlJetpack("ControlUpDouble")) return(1);
+	 if(ControlJetpack("ControlUpDouble")) return 1;
      aufrufen (hier am Beispiel von ControlUpDouble).
 	 
      Damit während des JetpackFlight geschossen werden kann muss in ReadyToFire()
-     und AimOverride() am Ende return(_inherited()); aufgerufen werden.
+     und AimOverride() am Ende return _inherited(); aufgerufen werden.
 */
 
 public func HasJetpack()
@@ -26,17 +26,17 @@ protected func ControlJetpack(string strControl) {
 	
 	// up double
 	if(strControl == "ControlUpDouble") {
-		ret = jetpack->ControlUpDouble(this());
+		ret = jetpack->ControlUpDouble(this);
 	}
 	
 	// right double
 	if(strControl == "ControlRightDouble") {
-		ret = jetpack->ControlRightDouble(this());
+		ret = jetpack->ControlRightDouble(this);
 	}
 	
 	// left double
 	if(strControl == "ControlLeftDouble") {
-		ret = jetpack->ControlLeftDouble(this());
+		ret = jetpack->ControlLeftDouble(this);
 	}
 	
 	return ret;

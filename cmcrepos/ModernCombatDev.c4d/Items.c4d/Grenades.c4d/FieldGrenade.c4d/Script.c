@@ -1,11 +1,11 @@
 /*-- Feldgranate --*/
 
-#strict
+#strict 2
 #include NADE
 
-public func Color(){return(RGB(255,0,0));}
-public func ContainedDamage(){return(120);}
-public func BlastRadius(){return(40);}
+public func Color(){return RGB(255,0,0);}
+public func ContainedDamage(){return 120;}
+public func BlastRadius(){return 40;}
 
 /* Explosion */
 
@@ -34,7 +34,7 @@ public func FxIntShockWaveStart(object pTarget, int iEffectNumber, int iTemp)
 public func FxIntShockWaveTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
   pTarget->CreateParticle("ShockWave",0,0,0,0,iEffectTime*(10*(FGRN->BlastRadius()*3/2))/10,RGB(255,255,128));
-  if(iEffectTime >= 10) return(-1);
+  if(iEffectTime >= 10) return -1;
 }
 
 public func FxIntShockWaveStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)

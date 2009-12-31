@@ -1,6 +1,6 @@
 /*-- Türsteuerung --*/
 
-#strict
+#strict 2
 
 // Lokale Variablen
 
@@ -12,10 +12,10 @@ local maxdmg;
 // Einstellungen und Eigenschaften:
 
 public func GetMaxDamage()		// max. Schaden
-	{ return(maxdmg); }	
+	{ return maxdmg; }	
 
 public func IsDestroyable()	// zerstörbar?
-	{ return(maxdmg != -1); }
+	{ return maxdmg != -1; }
 
 public func SetMaxDamage(int m)
 	{ maxdmg = m; }
@@ -30,9 +30,9 @@ public func Unlock()
 
 // Callbacks
 
-func OnDestroyed()	{ return(1); }	// zerstört
-func OnOpen()		{ return(1); }	// geöffnet
-func OnClose()		{ return(1); }	// geschlossen
+func OnDestroyed()	{ return 1; }	// zerstört
+func OnOpen()		{ return 1; }	// geöffnet
+func OnClose()		{ return 1; }	// geschlossen
 
 
 // Initialisieren
@@ -42,7 +42,7 @@ public func Initialize()
   closed = true;
   Unlock();
   SetMaxDamage(50); // default
-  AddEffect("CheckOpen",this(),1,5,this());
+  AddEffect("CheckOpen",this,1,5,this);
   
   UpdateTransferZone();
 }
@@ -57,7 +57,7 @@ public func ControlTransfer(object obj, int x, int y) {
   //Versperrt und Türe zu!
   if(lock && closed)
     //wir können nicht durch. :(
-    return(false);
+    return false;
   
   var dir = 1;
   if(obj->GetX() < GetX())
@@ -66,7 +66,7 @@ public func ControlTransfer(object obj, int x, int y) {
   //Türe zu?
   if(closed)
     //Nahe genug herkommen, damit sie aufgeht.
-      return(AddCommand(obj,"MoveTo",0,GetX()+10*dir,GetY()));
+      return AddCommand(obj,"MoveTo",0,GetX()+10*dir,GetY());
   
   //Türe offen -> Durchgehn \o/
   
@@ -78,7 +78,7 @@ public func SetKeycardLock(int iID, int dir)		// per Keycard
 {
   var x = (dir*2-1)*(GetObjWidth()/2+15);
   var konsole = CreateObject(LKEY,x,0,GetOwner());
-  konsole -> Set(this(),iID);
+  konsole -> Set(this,iID);
   Lock();
   return konsole;
 }
@@ -87,7 +87,7 @@ public func SetPasscodeLock(int a, int dir)		// per Eingabecode
 {
   var x = (dir*2-1)*(GetObjWidth()/2+10);
   var konsole = CreateObject(PKEY,x,0,GetOwner());
-  konsole -> Set(this(),a);
+  konsole -> Set(this,a);
   Lock();
   return konsole;
 }
@@ -96,7 +96,7 @@ public func SetSwitchLock(int dir)			// per Schalter
 {
   var x = (dir*2-1)*(GetObjWidth()/2+8);
   var konsole = CreateObject(SWTH,x,0,GetOwner());
-  konsole -> Set(this());
+  konsole -> Set(this);
   Lock();
   return konsole;
 }
@@ -115,16 +115,16 @@ public func SwitchOff()	{ Close(); }
 
 public func Open()					// öffnet die Tür
 {
-  if(destroyed) return();
-  if(!closed) return();
+  if(destroyed) return ;
+  if(!closed) return ;
   OnOpen();
   closed = false;
 }
 
 public func Close()					// schließt die Tür
 {
-  if(destroyed) return();
-  if(closed) return();
+  if(destroyed) return ;
+  if(closed) return ;
   OnClose();
   closed = true;
 }
@@ -138,7 +138,7 @@ protected func Damage(int iChange, int iByPlayer)	// Schaden
   if(GetDamage() > GetMaxDamage() && IsDestroyable() && !destroyed)
   {
     SetSolidMask(0);
-    RemoveEffect("CheckOpen",this(),0);
+    RemoveEffect("CheckOpen",this,0);
     destroyed = true;
     OnDestroyed();
   }
@@ -148,8 +148,8 @@ public func IsBulletTarget()				// kann getroffen werden
 {
     // kann nur beschossen werdne wenn zu
     if(!closed || destroyed)
-        return(false);
-    return(true);
+        return false;
+    return true;
 }
 
 // Türsteuerung - automatisches öffnen und schließen
@@ -157,9 +157,9 @@ public func IsBulletTarget()				// kann getroffen werden
 public func FxCheckOpenTimer()				// Clonks suchen und Tür öffnen
 {
   // Wenn kaputt, dann gar nix mehr
-  if(destroyed) return(-1);
+  if(destroyed) return -1;
   // wenn verschließbar, Tür öffnet und schließt nicht automatisch
-  if(lock == 1) return();
+  if(lock == 1) return ;
 
   // wieder schließen
   if(!closed) {
@@ -187,13 +187,13 @@ private func SomeonesApproaching() {			// such ankommene Clonks
      // Irgendwas gefunden?
      if(GetLength(aClonks) > 0)
      {
-       return(true);
+       return true;
      }
   }
-  return(false);
+  return false;
 }
 
-public func IsSideDoor() { return(true); }
+public func IsSideDoor() { return true; }
 
 /* Serialisierung */
 
@@ -204,7 +204,7 @@ public func Serialize(array& extra)
 		extra[GetLength(extra)] = Format("Lock(%v)", (lock == 2));
 	if (destroyed) {
 		extra[GetLength(extra)] = "SetSolidMask()";
-		extra[GetLength(extra)] = "RemoveEffect(\"CheckOpen\",this(),0)";
+		extra[GetLength(extra)] = "RemoveEffect(\"CheckOpen\",this,0)";
 		extra[GetLength(extra)] = "LocalN(\"destroyed\")=true";
 	}
 }

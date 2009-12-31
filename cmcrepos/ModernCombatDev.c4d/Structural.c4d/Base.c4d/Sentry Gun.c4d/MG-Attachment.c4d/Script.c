@@ -1,24 +1,24 @@
 /*-- MG-Aufsatz --*/
 
-#strict
+#strict 2
 
 #include WEPN
 
-public func HandSize() { return(1000); }
-public func HandX()    { return(7000); }
-public func HandY()    { return(0); }
+public func HandSize() { return 1000; }
+public func HandX()    { return 7000; }
+public func HandY()    { return 0; }
 
 public func FMData1(int data)
 {
-  if(data == FM_AmmoID)    return(STAM);
-  if(data == FM_AmmoLoad)  return(500);
+  if(data == FM_AmmoID)    return STAM;
+  if(data == FM_AmmoLoad)  return 500;
 
-  if(data == FM_Reload)    return(1);
-  if(data == FM_Recharge)  return(4);
+  if(data == FM_Reload)    return 1;
+  if(data == FM_Recharge)  return 4;
 
-  if(data == FM_AmmoUsage) return(0);
-  if(data == FM_AmmoRate)  return(2);
-  if(data == FM_Auto)      return(1);
+  if(data == FM_AmmoUsage) return 0;
+  if(data == FM_AmmoRate)  return 2;
+  if(data == FM_Auto)      return 1;
 
 //  return(Default(data));
 }
@@ -45,4 +45,4 @@ public func Fire1()    // Projektil-Dauerfeuer
   ammo->Sound("MG2A_Fire.ogg");
 }
 
-public func NoWeaponChoice() { return(true); }
+public func NoWeaponChoice() { return true; }

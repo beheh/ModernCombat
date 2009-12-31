@@ -1,4 +1,4 @@
-#strict
+#strict 2
 
 //Im Gegensatz zu PathFree kann hier durch iPrec die Abtast-Distanz angegeben werden.
 global func PathFreeAngle4K(int iX, int iY, int iAngle, int iDistance, int iPrec, int iAnglePrec)
@@ -9,7 +9,7 @@ global func PathFreeAngle4K(int iX, int iY, int iAngle, int iDistance, int iPrec
   if(!iAnglePrec)
     iAnglePrec = 1;
     
-  if(this())
+  if(this)
   {
     iX -= GetX();
     iY -= GetY();
@@ -22,11 +22,11 @@ global func PathFreeAngle4K(int iX, int iY, int iAngle, int iDistance, int iPrec
   while(ml+=iPrec)
   {
     if(GBackSolid(mx*ml/iDistance,my*ml/iDistance))
-      return(false);
+      return false;
     if(ml>=iDistance)
       break;
   }
-  return(true);
+  return true;
 }
 
 
@@ -53,7 +53,7 @@ global func PathFreeAngleEx4K(int iX, int iY, int iAngle, int iDistance, int iPr
       if(GBackSolid(x,y))
         s--;
   }
-  return(iDistance-s);
+  return iDistance-s;
 }
 
 global func PathFreeEx4K(int iStartX, int iStartY, int iEndX, int iEndY, int iPrec)
@@ -63,7 +63,7 @@ global func PathFreeEx4K(int iStartX, int iStartY, int iEndX, int iEndY, int iPr
   
   iAngle += 90;
   
-  return(PathFreeAngleEx4K(iEndX,iEndY,iAngle,iDistance,iPrec,1));//*hack*
+  return PathFreeAngleEx4K(iEndX,iEndY,iAngle,iDistance,iPrec,1);//*hack*
 }
 
 global func PathFree4K(int iStartX, int iStartY, int iEndX, int iEndY, int iPrec)
@@ -71,7 +71,7 @@ global func PathFree4K(int iStartX, int iStartY, int iEndX, int iEndY, int iPrec
   if(!iPrec)
     iPrec = 1;
     
-  if(this())
+  if(this)
   {
     iStartX -= GetX();
     iEndX -= GetX();
@@ -87,20 +87,20 @@ global func PathFree4K(int iStartX, int iStartY, int iEndX, int iEndY, int iPrec
   while(ml+=iPrec)
   {
     if(GBackSolid(iStartX+(mx*ml/d),iStartY+(my*ml/d)))
-      return(false);
+      return false;
     if(ml>=d)
       break;
   }
-  return(true);
+  return true;
 }
 
 global func PathFreeObject4K(object pA, object pB, int iPrec)
 {
-  if(!pA) return();
-  if(!pB) pB = this();
-  if(!pB) return();
+  if(!pA) return ;
+  if(!pB) pB = this;
+  if(!pB) return ;
   
-  return(PathFree4K(GetX(pA),GetY(pA),GetX(pB),GetY(pB),iPrec));
+  return PathFree4K(GetX(pA),GetY(pA),GetX(pB),GetY(pB),iPrec);
 }
 
 //Plaziert ein Objekt. (PlaceInMaterial() fand ich iwie doof. :|)
@@ -130,7 +130,7 @@ global func PlaceObject4K(object pObject,int iX,int iY,int iWidth,int iHeight,in
   
   SetPosition(GetX(pObject),GetY(pObject)-1,pObject);
 
-  return(1);
+  return 1;
 }
 
 //Platziert ein Objekt auf einem Tisch. (Tisch sowie Such-Rechteck sind optional.)
@@ -157,10 +157,10 @@ global func PlaceOnTable4K(object pObj, object pTable, int iX, int iY, int iW, i
       xoff = -xoff;
 
     SetPosition (GetX(pTable)+xoff,GetY(pTable)-10,pObj);
-    return(true);
+    return true;
   }
 
-  return(false);
+  return false;
 }
 
 //Findet mögliche Kontainer und gibt einen Objektarray zurück. (ID-Liste sowie Such-Reckteck sind optional.)
@@ -186,7 +186,7 @@ global func FindContainers4K(array aIDList, int iX, int iY, int iW, int iH)
       AddArray4K(FindObjects(Find_InRect(iX,iY,iW,iH),Find_ID(idobj)),a);
   }
   
-  return(a);
+  return a;
 }
 
 //Errechnet Offset-Koordinaten aus iX/iY.
@@ -196,7 +196,7 @@ global func GetOffset4K(int &iX, int &iY, int iPrec, object pObject)
     iPrec = 1;
 
   if(!pObject)
-    pObject = this();
+    pObject = this;
     
   var d = Distance (iX,iY);
   var r = Angle (iX,iY) + GetR(pObject) + 90;
@@ -212,12 +212,12 @@ global func GetXOffset4K(int iX, int iY, int iPrec, object pObject)
     iPrec = 1;
 
   if(!pObject)
-    pObject = this();
+    pObject = this;
     
   var d = Distance (iX,iY);
   var r = Angle (iX,iY) + GetR(pObject) + 90;
   
-  return(Cos(r,d,iPrec));
+  return Cos(r,d,iPrec);
 }
 
 //Wie GetOffset4K nur eben mit iY als return-Wert. (Eigentlich unnütz, raus?)
@@ -227,27 +227,27 @@ global func GetYOffset4K(int iX, int iY, int iPrec, object pObject)
     iPrec = 1;
 
   if(!pObject)
-    pObject = this();
+    pObject = this;
     
   var d = Distance (iX,iY);
   var r = Angle (iX,iY) + GetR(pObject) + 90;
   
-  return(Sin(r,d,iPrec));
+  return Sin(r,d,iPrec);
 }
 
 //Gibt es das Material X (Achtung MaterialID!) in der Umgebung? (ToDo: Soll Prozentsatz ausgeben.)
 global func FindMaterial4K(int iMat, int iDistance, int iX, int iY, int iPrec)
 {
-  if(!MaterialName(iMat)) return(false);
-  if(!iDistance) return(false);
+  if(!MaterialName(iMat)) return false;
+  if(!iDistance) return false;
   if(!iPrec) iPrec = 30;
   
   for(var x = -iDistance; x < iDistance; x += 10)
     for(var y =- iDistance; y < iDistance;y += 10) 
       if(GetMaterial(x,y) == iMat)
-        return(true);
+        return true;
         
-  return(false);
+  return false;
 }
 
 //Tötet ein Lebewesen wie ein normales Objekt.
@@ -258,8 +258,8 @@ global func SilentKill4K(object pObject, bool fEjectContents)
   denn es sollte darauf geachtet werden,
   dass bei Death() usw. manchmal noch wichtige Dinge getan werden müssen!
 */
-  if(!pObject) pObject = this();
-  if(!pObject) return();
+  if(!pObject) pObject = this;
+  if(!pObject) return ;
   
   SetAlive (false, pObject);
   
@@ -273,7 +273,7 @@ global func SilentKill4K(object pObject, bool fEjectContents)
 //ObjectDistance gibt es, aber ObjectAngle nicht? :°
 global func ObjectAngle(object pA, object pB)
 {
-  return(Angle(GetX(pA),GetY(pA),GetX(pB),GetY(pA)));
+  return Angle(GetX(pA),GetY(pA),GetX(pB),GetY(pA));
 }
 
 //Errechnet die Oberflächennormale.
@@ -295,5 +295,5 @@ global func SurfaceNormal4K(int iX, int iY, int iDist, int iPrec)
     }
   }
   
-  return(Angle(0,0,vX,vY,iPrec));
+  return Angle(0,0,vX,vY,iPrec);
 }

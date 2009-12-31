@@ -1,6 +1,6 @@
 /*-- Fensterscheibe --*/
 
-#strict
+#strict 2
 
 
 /* Zerstörung */
@@ -10,9 +10,9 @@ public func Damage()
   if(GetDamage() > 10)
   {
    Shatter();
-   return(0);
+   return 0;
   }
-  return(1);
+  return 1;
 }
 
 public func OnHit(int iDamage, int iType, object pFrom)
@@ -42,6 +42,6 @@ public func Shatter(int iPower, object pFrom)
 
 public func IsBulletTarget(id def)
 {
-  if(def->~NoDecoDamage()) return(false);
-  return(true);
+  if(def->~NoDecoDamage()) return false;
+  return true;
 }

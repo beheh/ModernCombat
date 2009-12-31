@@ -1,27 +1,27 @@
 /* Zielscheibe */
 
-#strict
+#strict 2
 
 local triggered,plr,target;
 
 public func IsBulletTarget(id idBullet, object pBullet, object pShooter)
 {
   if(Triggered())
-    return(false);
+    return false;
   
   if(plr != NO_OWNER)
     if(plr != GetController(pBullet))
-      return(false);
+      return false;
       
   if(target)
     if(target != pShooter)
-      return(false);
+      return false;
       
-  return(true);
+  return true;
 }	
 
-public func MinDmg(){return(1);}
-public func Triggered(){return(triggered);}
+public func MinDmg(){return 1;}
+public func Triggered(){return triggered;}
 public func ObjectHit(){}
 
 public func Initialize()
@@ -32,29 +32,29 @@ public func Initialize()
   SetColorDw(RGB(255));
   SetAction("Exist");
   SetPhase(Random(16));
-  return(1);
+  return 1;
 }
 
 protected func Activate(int iPlayer)
 {
-  if(Triggered()) return(false);
+  if(Triggered()) return false;
   
   /*if(target)
     if(GetController(target) != iPlayer)
-      return(false);*/
+      return false;*/
       
   if(plr != NO_OWNER)
     if(plr != iPlayer)
-      return(false);
+      return false;
       
-  if(!this())
-    return(false);
+  if(!this)
+    return false;
     
   triggered = true;
   Sound("Ding");
-  DoWealth(iPlayer,GetValue (this(), 0, 0, iPlayer));
-  AddEffect("IntRemoving", this(), 101, 2,0,GetID());
-  return(true);
+  DoWealth(iPlayer,GetValue (this, 0, 0, iPlayer));
+  AddEffect("IntRemoving", this, 101, 2,0,GetID());
+  return true;
 }
 
 //Kann nur von _diesem_ Objekt (und seinen Schüssen) getroffen werden.
@@ -71,9 +71,9 @@ public func SetPlr(int iPlr)
   SetColorDw(GetPlrColorDw(plr));
 }
 
-public func GetTarget(){return(target);}
+public func GetTarget(){return target;}
 
-public func GetPlr(){return(plr);}
+public func GetPlr(){return plr;}
 
 public func OnHit(int iDamage, int iType, object pFrom)
 {
@@ -90,7 +90,7 @@ public func Damage(int iChange,int byPlr)
   else
     ObjectHit();
     
-  return(1);
+  return 1;
 }
 
 protected func RejectCollect(id unused, object pObj)
@@ -98,19 +98,19 @@ protected func RejectCollect(id unused, object pObj)
   if(Activate(GetController(pObj)))
     pObj->~Hit(GetXDir(pObj),GetYDir(pObj));
     
-  return(true);
+  return true;
 }
 
 protected func Check()
 {
   var pObj;
-  if(pObj = FindObject(0,1,0,0,0, OCF_CrewMember(),0,0,NoContainer()))
-    return(Activate(GetController(pObj)));
+  if(pObj = FindObject(0,1,0,0,0, OCF_CrewMember,0,0,NoContainer()))
+    return Activate(GetController(pObj));
 }
 
 func MoveLine(int iX, int iY, int iSpeed)
 {
-  return(AddEffect("IntMoveLine", this(), 1, 1, 0, GetID(),iX,iY,iSpeed));
+  return AddEffect("IntMoveLi!=", this, 1, 1, 0, GetID(),iX,iY,iSpeed);
 }
 
 public func FxIntMoveLineStart(object target, int effect, int temp,x, y, speed)
@@ -155,7 +155,7 @@ public func FxIntMoveLineTimer(object target, int effect, int time)
   
   EffectVar(5,target,effect) = l;
 	
-  return(0);
+  return 0;
 }
 
 func FxIntRemovingTimer(target, no)
@@ -167,6 +167,6 @@ func FxIntRemovingTimer(target, no)
   if(alpha >= 255)
   {
     RemoveObject(target);
-    return(-1);
+    return -1;
   }
 }

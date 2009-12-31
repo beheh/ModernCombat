@@ -1,6 +1,6 @@
 /* Assault */
 
-#strict
+#strict 2
 #include TEAM
 
 local targets;      // Die Ziele
@@ -49,14 +49,14 @@ protected func Initialize()
   // Verteidiger ist demnach Team 2
   defender = 2;
 
-  return(_inherited());
+  return _inherited();
 }
 
 public func AddTarget(object newtarget, int opt, int maxdmg, bool nobar)
 {
   // kein Ziel? WTF?!
   if(!newtarget)
-    return();
+    return ;
 
   // Ziel adden
   var index = GetLength(targets);
@@ -65,27 +65,27 @@ public func AddTarget(object newtarget, int opt, int maxdmg, bool nobar)
   targetopt[index] = opt;
   
   // Effekt hinzufuegen == Zerstoerungskontrolle
-  AddEffect("AS_Target",newtarget, 42, 0, this(), GAS_, maxdmg, nobar);
+  AddEffect("AS_Target",newtarget, 42, 0, this, GAS_, maxdmg, nobar);
 
 	newtarget->SetTeam(AS_GetDefenderTeam());
 
   //das wars!
-  return(index+1);
+  return index+1;
 }
 
 public func SetTargetStatus(int Index, int status, int maxdmg, bool nobar)
 {
   // Index muss >0 und <=GetLength() sein.
   if(GetLength(targetstatus) < Index && Index <= 0)
-    return(0); //wtf? kein target? einfach 0 zurueckgeben.
+    return 0; //wtf? kein target? einfach 0 zurueckgeben.
   
   if(status)
   {
     //existiert das Objekt noch?
     if(!targets[Index])
-      return();
+      return ;
     
-    AddEffect("AS_Target",targets[Index], 42, 0, this(), GAS_, maxdmg, nobar);
+    AddEffect("AS_Target",targets[Index], 42, 0, this, GAS_, maxdmg, nobar);
   }
   else
   {
@@ -99,13 +99,13 @@ public func GetTargetStatus(int index)
   // *copy'n'paste*
   // Index muss >0 und <=GetLength() sein.
   if(GetLength(targetstatus) < index && index <= 0)
-    return(0); //wtf? kein target? einfach 0 zurueckgeben.
+    return 0; //wtf? kein target? einfach 0 zurueckgeben.
   
-  return(targetstatus[index-1]);
+  return targetstatus[index-1];
 }
 
 public func GetAssaultPhase() {
-	return(phase);
+	return phase;
 }
 
 public func GetHUDInfo(int player) {
@@ -119,7 +119,7 @@ public func SetDamageMask(int index, int dmgmask)
   // *copy'n'paste*
   // Index muss >0 und <=GetLength() sein.
   if(GetLength(targetstatus) < index && index <= 0)
-    return(0); //wtf? kein target? einfach 0 zurueckgeben.
+    return 0; //wtf? kein target? einfach 0 zurueckgeben.
     
   var obj = targets[index-1];
   var nr = GetEffect("AS_Target", obj);
@@ -131,11 +131,11 @@ public func GetDamageMask(int index )
   // *copy'n'paste*
   // Index muss >0 und <=GetLength() sein.
   if(GetLength(targetstatus) < index && index <= 0)
-    return(0); //wtf? kein target? einfach 0 zurueckgeben.
+    return 0; //wtf? kein target? einfach 0 zurueckgeben.
 
   var obj = targets[index-1];
   var nr = GetEffect("AS_Target", obj);
-  return(EffectVar(1, obj, nr));
+  return EffectVar(1, obj, nr);
 } */
 
 /* Effekte!!!! */
@@ -149,7 +149,7 @@ public func GetDamageMask(int index )
 private func FxAS_TargetStart(object pTarget, int iEffectNumber, int iTemp, int maxdmg, bool nobar)
 {
   if(iTemp)
-    return();
+    return ;
 
 	var index;
 	for(index = 0; index < GetLength(targets); index++)
@@ -186,7 +186,7 @@ private func FxAS_TargetDamage(object pTarget, int iEffectNumber, int iDmgEngy, 
   FxAS_TargetUpdate(pTarget, iEffectNumber, (eng*100)/EffectVar(0, pTarget, iEffectNumber));
   
   // Schaden durchgehen lassen.
-  return(iDmgEngy);
+  return iDmgEngy;
 }
 
 private func FxAS_TargetUpdate(object pTarget, int iEffectNumber, int percent)
@@ -200,9 +200,9 @@ private func FxAS_TargetUpdate(object pTarget, int iEffectNumber, int percent)
   {
     pTarget->~Damage();
     RemoveEffect(0, pTarget, iEffectNumber);
-    return(-1);
+    return -1;
   }*/
-  return();
+  return ;
 }
 
 // Das wahre Ende.
@@ -302,7 +302,7 @@ private func FxAS_TargetStop(object pTarget, int iEffectNumber, int iReason, boo
 func Timer()
 {
 	if(FindObject(CHOS))
-		return();
+		return ;
 
   //OMGROFLOLHA$X=RFURLOL X-DD!11! :DD!ORLGMF!
   // ^- Überreste einer Gobby-Sitzung .
@@ -340,7 +340,7 @@ public func Activate(int iPlr) {
     if(targetstatus[index] && !targetopt[index])
       count++;
 
-  return(MessageWindow(Format("$MsgGoalUnfulfilled$", count),iPlr));
+  return MessageWindow(Format("$MsgGoalUnfulfilled$", count),iPlr);
 }
 
 private func UpdateScoreboard()
@@ -350,7 +350,7 @@ private func UpdateScoreboard()
 
 public func RelaunchPlayer(int iPlr, object pClonk, int iMurdererPlr)
 {
-  if(iPlr == -1 || !GetPlayerName(iPlr)) return();
+  if(iPlr == -1 || !GetPlayerName(iPlr)) return ;
 
 	// Scoreboard-stuff brauchen wir nicht
 

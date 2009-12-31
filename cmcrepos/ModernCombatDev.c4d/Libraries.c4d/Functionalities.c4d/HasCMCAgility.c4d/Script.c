@@ -153,7 +153,7 @@ private func MayFlip()
 {
 	if(this->IsJumping() || GetAction() == "JetpackFlight")
 	  if(!GetEffect("ExtraJump", this))
-	    return(true);
+	    return true;
 }
 
 /* JumpStart */

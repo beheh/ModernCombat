@@ -1,10 +1,10 @@
 /*-- Fallschirm --*/
-#strict
+#strict 2
 
 protected func Initialize()
 {
   if(GetOwner() == NO_OWNER) SetColorDw(RGBa(0,0,0,255));
-	return(1);
+	return 1;
 }
 
 //Einklinken und Ausklinken
@@ -36,7 +36,7 @@ private func Fly()
 
 public func GetAttObj()
 {
-  return(GetActionTarget());
+  return GetActionTarget();
 }
 
 //Effekte
@@ -44,9 +44,9 @@ private func Opening()//auf
 {
   if(GetActTime() > 35)
   {
-    SetObjDrawTransform(1000,0,0,0,1000,0,this());
+    SetObjDrawTransform(1000,0,0,0,1000,0,this);
     SetAction("Fly",GetActionTarget());
-    return();
+    return ;
   }
   var w = Sin(90*(1000*GetActTime()/(35))/1000,1000);
   var h = 1000*GetActTime()/(35);
@@ -71,7 +71,7 @@ private func Folding()//zu
   if(GetActTime() > 35)
   {
     RemoveObject();
-    return();
+    return ;
   }
   var w = 1001-(Sin(90*(1000*GetActTime()/(35))/1000,1000));
   var h = 1001-(1000*GetActTime()/(35));
@@ -97,10 +97,10 @@ private func Attach(object pTarget, int iX, int iY)
 
 private func Detach()
 {
-  if(!pAttach) return();
+  if(!pAttach) return ;
   RemoveVertex(iVertex,pAttach);
 
-  if(GetProcedure() eq "ATTACH")
+  if(GetProcedure() == "ATTACH")
     SetAction("Fold");
 }
 

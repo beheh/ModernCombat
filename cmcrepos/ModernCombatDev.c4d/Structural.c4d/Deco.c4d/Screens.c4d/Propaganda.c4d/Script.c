@@ -1,6 +1,6 @@
 /*-- Propagandaschirm --*/
 
-#strict
+#strict 2
 
 func Initialize() {
   SetAction("Animate");

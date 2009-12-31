@@ -1,6 +1,6 @@
 /*-- Schwerverletzter --*/
 
-#strict
+#strict 2
 
 local clonk,oldvisrange,oldvisstate;
 
@@ -11,9 +11,9 @@ public func Set(object pClonk)
   SetXDir(GetXDir(pClonk));
   SetYDir(GetYDir(pClonk));
   
-  pClonk->Enter(this());//Schlucken.
+  pClonk->Enter(this);//Schlucken.
   GrabContents(pClonk);
-  SetGraphics (0,this(),GetID(pClonk),1,GFXOV_MODE_Object,0,0,pClonk);//Darstellen.
+  SetGraphics (0,this,GetID(pClonk),1,GFXOV_MODE_Object,0,0,pClonk);//Darstellen.
   
   //Bei der Initialisierung die Werte speichern.
   oldvisrange = GetObjPlrViewRange(pClonk);
@@ -27,7 +27,7 @@ public func Set(object pClonk)
 
 func DeathMenu()
 {
-  CreateMenu (FKDT, clonk, this(), 0, GetName(), 0, C4MN_Style_Dialog, false);
+  CreateMenu (FKDT, clonk, this, 0, GetName(), 0, C4MN_Style_Dialog, false);
   AddMenuItem ("$Suicide$", "Suicide", SKUL,clonk, 0, 0, "$DescSuicide$");
 
   //SetMenuDecoration(MCDC, pClonk);
@@ -39,17 +39,17 @@ public func Suicide()
   clonk->Kill();
 }
 
-public func GetClonk() {return(clonk);}
+public func GetClonk() {return clonk;}
 
 public func Destruction()
 {
-  if(!clonk) return();
+  if(!clonk) return ;
   
-  if(Contained(clonk) == this())
+  if(Contained(clonk) == this)
     clonk->Exit(0,0,GetObjHeight(clonk)/2);
     
   if(GetAlive(clonk))
-    clonk->GrabContents(this());
+    clonk->GrabContents(this);
   else
     while(Contents())
       Exit(Contents(),0,+10);
@@ -59,17 +59,17 @@ public func Destruction()
   SetPlrViewRange(oldvisrange,clonk);
 }
 
-public func MenuQueryCancel() { return(true); }
+public func MenuQueryCancel() { return true; }
 
 public func RejectCollect(id idObj, object pObj)
 {
-  if(!clonk) return();
+  if(!clonk) return ;
   var val = clonk->~RejectCollect(idObj,pObj);
-  if(val)  Message("RejectCollect",this());
-  return(val);
+  if(val)  Message("RejectCollect",this);
+  return val;
 }
 
 //Tags
-public func AimAngle()     {return();}
-public func ReadyToFire()  {return();}
-public func IsAiming()     {return();}
+public func AimAngle()     {return ;}
+public func ReadyToFire()  {return ;}
+public func IsAiming()     {return ;}

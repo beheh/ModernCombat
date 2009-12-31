@@ -1,6 +1,6 @@
 /*-- Feuer --*/
 
-#strict
+#strict 2
 
 //Farben
 static const FIRE_Blue  = 340810495; // RGBa(80,90,255,20);
@@ -11,9 +11,9 @@ static const FIRE_Red   =  33554431; // intern geregelt
 
 global func FxDmgCheckStart(object pTarget, int iEffectNumber, int iTemp) {
   if(iTemp)
-    return();
+    return ;
   if(GetEffectCount("DmgCheck",pTarget) > 1)
-    return(-1);
+    return -1;
 }
 
 global func FxDmgCheckDamage(object pTarget, int iEffectNumber, int iDmgEngy, int iCause) {
@@ -32,7 +32,7 @@ global func FxDmgCheckDamage(object pTarget, int iEffectNumber, int iDmgEngy, in
     type = DMG_Melee;
   //Was anderes -> nichts tun.
   else
-    return(iDmgEngy);
+    return iDmgEngy;
   
   //Ziel sagen, welcher Schadenstyp gemach wurde
   if(type)
@@ -51,13 +51,13 @@ global func FxDmgCheckDamage(object pTarget, int iEffectNumber, int iDmgEngy, in
 
 global func AddFireEffect(object pTarget, int iDuration, int dwColor,bool bOverride, int iSize) {
   if(!pTarget)
-    pTarget = this();
-  return(AddEffect("FireEffect",pTarget,2,4,0,0, iDuration, dwColor, bOverride,iSize));
+    pTarget = this;
+  return AddEffect("FireEffect",pTarget,2,4,0,0, iDuration, dwColor, bOverride,iSize);
 }
 
 global func FxFireEffectStart(object pTarget, int iEffectNumber, int iTemp, int iDuration, int dwColor, bool bOverride, int iSize) {
   if(iTemp)
-    return(0);
+    return 0;
   EffectVar(0,pTarget,iEffectNumber) = iDuration; //Wie lange der Effekt anhalten soll
   EffectVar(1,pTarget,iEffectNumber) = dwColor; //die Farbe des Feuers. Teh Rok. :)
   //Größe des Feuerzeugs. Relativ zur Standardgröße
@@ -67,7 +67,7 @@ global func FxFireEffectStart(object pTarget, int iEffectNumber, int iTemp, int 
 
 global func FxFireEffectTimer(object pTarget, int iEffectNumber, int iEffectTime) {
   if(Contained(pTarget))
-    return(1);
+    return 1;
   
   var firemode;
   if(GetOCF(pTarget) & OCF_Living)
@@ -158,22 +158,22 @@ global func FxFireEffectTimer(object pTarget, int iEffectNumber, int iEffectTime
     CreateParticle(particle,x+px,y+py, xdir, ydir, size, clr, pTarget, !!Random(2));
   }
   if(EffectVar(0,pTarget,iEffectNumber) && EffectVar(0,pTarget,iEffectNumber) < iEffectTime)
-    return(-1);
+    return -1;
 }
 
 global func FxFireEffectEffect(string szNewEffectName, object pTarget, int iEffectNumber, int iNewEffectNumber, int iDuration, int dwColor, bool bOverride) {
-  if(szNewEffectName S= "Fire" || szNewEffectName S= "FireEffect")
+  if(szNewEffectName == "Fire" || szNewEffectName == "FireEffect")
     if(bOverride)
-      return(-2);
+      return -2;
   
 }
 
 global func FxFireEffectAdd(object pTarget, int iEffectNumber, string szNewEffectName, int iNewEffectTimer, int iDuration, int dwColor, bool bOverride) {
   EffectVar(0,pTarget,iEffectNumber) = iDuration;
   EffectVar(1,pTarget,iEffectNumber) = dwColor;
-  return(1);
+  return 1;
 }
 
 global func IsAlphaOnly(int iColor) {
-  return((GetRGBaValue(iColor,0) && GetRGBaValue(iColor,1) == 255 && GetRGBaValue(iColor,2) == 255 && GetRGBaValue(iColor,3) == 255) || !iColor);
+  return (GetRGBaValue(iColor,0) && GetRGBaValue(iColor,1) == 255 && GetRGBaValue(iColor,2) == 255 && GetRGBaValue(iColor,3) == 255) || !iColor;
 }

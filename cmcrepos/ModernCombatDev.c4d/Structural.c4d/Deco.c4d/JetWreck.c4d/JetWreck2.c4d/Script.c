@@ -1,6 +1,6 @@
 /*-- Jetwrack --*/
 
-#strict
+#strict 2
 #include _JW1
 
 
@@ -10,5 +10,5 @@ func Initialize()
 {
   SetAction("Be");
   //AddSmokeEffect4K(60,-28,4,this());
-  return(1);
+  return 1;
 }

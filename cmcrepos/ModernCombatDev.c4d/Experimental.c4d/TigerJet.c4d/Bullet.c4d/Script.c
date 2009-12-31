@@ -1,4 +1,4 @@
-#strict
+#strict 2
 
 local shooter;
 local explo;
@@ -9,7 +9,7 @@ local nospeed;
 func Construction(object byObj) {
   // nichts? :C
   if(!byObj)
-    return();
+    return ;
   // Waffe?
   shooter = GetShooter(byObj);
 	
@@ -18,7 +18,7 @@ func Construction(object byObj) {
 
 public func Launch(int xdir, int ydir)
 {
-  AddEffect("HitCheck", this(), 1, 1, 0, SHT1,shooter,true);
+  AddEffect("HitCheck", this, 1, 1, 0, SHT1,shooter,true);
   SetSpeed(xdir, ydir);
   SetAction("Travel");
 }

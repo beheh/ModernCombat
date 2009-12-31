@@ -1,4 +1,4 @@
-#strict
+#strict 2
 
 //Interpoliert einen Wert.
 global func Interpolate4K(y1,y2,x1,x2,x3)
@@ -9,7 +9,7 @@ global func Interpolate4K(y1,y2,x1,x2,x3)
 //*faul* Alte Funktion.
 global func Interpolate(y1,y2,x1,x2,x3)
 {
-  return(Interpolate4K(y1,y2,x1,x2,x3));
+  return Interpolate4K(y1,y2,x1,x2,x3);
 }
 
 
@@ -21,16 +21,16 @@ global func InterpolateRGBa(RGBa_1,RGBa_2,x1,x2,x3)
   var b = Interpolate(GetRGBaValue(RGBa_1,3),GetRGBaValue (RGBa_2,3),x1,x2,x3);
   var a = Interpolate(GetRGBaValue(RGBa_1,0),GetRGBaValue (RGBa_2,0),x1,x2,x3);
 
-  return(RGBa(r,g,b,a));
+  return RGBa(r,g,b,a);
 }
 
 //Interpoliert 3 Farben.
 global func InterpolateRGBa2(RGBa_1,RGBa_2,RGBa_3,x1,x2,x3)
 {
   if(x3 <= x2/2)
-    return(InterpolateRGBa(RGBa_1,RGBa_2,x1,Average4K(x1,x2),x3));
+    return InterpolateRGBa(RGBa_1,RGBa_2,x1,Average4K(x1,x2),x3);
   else
-    return(InterpolateRGBa(RGBa_2,RGBa_3,Average4K(x1,x2),x2,x3));
+    return InterpolateRGBa(RGBa_2,RGBa_3,Average4K(x1,x2),x2,x3);
 }
 
 //Gibt den Duchschnittswert zurück.
@@ -42,7 +42,7 @@ global func Average4K(int A, int B)
 //Normalisiert die angegeben Werte.
 global func Normalize4K(int &a,int &b)
 {
-  if(!a || !b) return();
+  if(!a || !b) return ;
   if(a > b)
   {
     a = a/b;
@@ -86,7 +86,7 @@ global func Sub4K(int iVal1, int iVal2, int iPrec)
   if(iValue > iMax)
     iValue = iMin + (iValue - iMax);
     
-  return(iValue);
+  return iValue;
 }*/
 
 global func Wrap4K(int iValue, int iStart, int iEnd)
@@ -116,5 +116,5 @@ global func AngleOffset4K(int iBase, int iSecond)
     offset = iSecond-iBase;
   }
   
-  return(offset);
+  return offset;
 }

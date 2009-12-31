@@ -1,6 +1,6 @@
 /*-- Ventilator --*/
 
-#strict
+#strict 2
 
 
 /* Initalisierung */
@@ -8,5 +8,5 @@
 func Initialize()
 {
   SetAction("Turn");
-  return(1);
+  return 1;
 }

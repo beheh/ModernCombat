@@ -1,6 +1,6 @@
 /*-- WPN2-Icons --*/
 
-#strict
+#strict 2
 
 static const WICO_Reload   = 1;
 static const WICO_Empty    = 2;

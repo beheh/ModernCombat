@@ -1,16 +1,16 @@
 /*-- Stahlbrücke --*/
 
-#strict
+#strict 2
 
-public func IsBridge() { return(1); }
-public func IsLocked() { return(true); }
+public func IsBridge() { return 1; }
+public func IsLocked() { return true; }
 
 
 /* Initalisierung */
 
 protected func Initialize()
 {
-  return(1);
+  return 1;
 }
 
 /* Zerstörung */

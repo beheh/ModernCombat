@@ -1,6 +1,6 @@
 /*-- Schlauchboot (aktiv) --*/
 
-#strict
+#strict 2
 
 local motor,turn_end_dir;
 
@@ -13,15 +13,15 @@ func SetUp()
 
   turn_end_dir = -1;
   motor = CreateObject(OBMT,0,0,GetOwner());
-  motor->SetBoat(this());
+  motor->SetBoat(this);
   motor->UpdateDmg();
   
   SetDir(dir);
   TurnEnd();
-  return(1);
+  return 1;
 }
 
-public func MaxDamage()		{ return(50); }
+public func MaxDamage()		{ return 50; }
 
 private func UpdateDmg()
 {
@@ -32,7 +32,7 @@ private func UpdateDmg()
 public func Damage()
 {
   UpdateDmg();
-	if(GetDamage() < MaxDamage()) return();
+	if(GetDamage() < MaxDamage()) return ;
 	Incineration();
 }
 
@@ -63,7 +63,7 @@ private func Sail()
   if(!FindObject(0,0,0,0,0,0,"Push",motor))
     Stop();
     
-  if(GetComDir() == COMD_None) return();
+  if(GetComDir() == COMD_None) return ;
 
   var xdir = Min(Abs(GetXDir())+2,30);
   
@@ -95,8 +95,8 @@ func Right()
 {
   if(GetDir() == DIR_Left)
     SetDirection(COMD_Right);
-  if(GetAction() eq "Turn")
-    return();
+  if(GetAction() == "Turn")
+    return ;
   SetComDir(COMD_Right);
 }
 
@@ -104,8 +104,8 @@ func Left()
 {
   if(GetDir() == DIR_Right)
     SetDirection(COMD_Left);
-  if(GetAction() eq "Turn")
-    return();
+  if(GetAction() == "Turn")
+    return ;
   SetComDir(COMD_Left);
 }
 
@@ -123,12 +123,12 @@ private func SetDirection(int comdir)
   // Richtungsaenderung nach oben/unten geht auch mit "Turn", aber eine
   // ComDir-Aenderung, die wieder eine Turn-Action erfordern wuerde muss
   // warten, bis die jetzige Turn-Action fertig ist.
-  if(GetAction() S= "Turn")
+  if(GetAction() == "Turn")
   {
     turn_end_dir = comdir;
     if(comdir == COMD_Stop || (ComDirLike(comdir, COMD_Right) && GetDir() == DIR_Left) || (ComDirLike(comdir, COMD_Left) && GetDir() == DIR_Right))
     {
-      return(0);
+      return 0;
     }
   }
 
@@ -165,7 +165,7 @@ private func TurnStart()
   
   //controllers = FindObjects(Find_InRect(-(GetDefWidth()/2),-GetDefHeight(),GetDefWidth(),GetDefHeight()),Find_Category(C4D_Vehicle|C4D_Object|C4D_Living));
   
-  AddEffect("IntTurn", this(), 1, 1, this(), 0, controllers);
+  AddEffect("IntTurn", this, 1, 1, this, 0, controllers);
 }
 
 private func Turning()
@@ -176,7 +176,7 @@ private func Turning()
 
 protected func FxIntTurnStart(object target, int number, int temp, array controllers)
 {
-  if(temp) return(0);
+  if(temp) return 0;
 
   // Alle anfassenden Clonks
   EffectVar(0, target, number) = controllers;
@@ -193,7 +193,7 @@ protected func FxIntTurnTimer(object target, int number, int time)
   var delay = GetActMapVal("Delay", "Turn");
   var phases = GetActMapVal("Length", "Turn");
   // Schon vorbei
-  if(time == delay * phases) return(-1);
+  if(time == delay * phases) return -1;
   // Eine Sinus-Kurve von -90 bis +90 Grad hernehmen um die neue Position
   // der Clonks zu bestimmen.
   var sin_phase = (time * 180 / (phases * delay)) - 90;
@@ -220,7 +220,7 @@ protected func FxIntTurnTimer(object target, int number, int time)
 
 protected func FxIntTurnStop(object target, int number, bool temp)
 {
-  if(temp) return(0);
+  if(temp) return 0;
   var length = GetLength(EffectVar(0, target, number));
 
   // Nochmal alle Controller durchgehen
@@ -231,7 +231,7 @@ protected func FxIntTurnStop(object target, int number, bool temp)
 
     // Und an fertige Position tun, zur Sicherheit, wenn es noch Controller sind
     if(!object) continue;
-    if(object->GetAction() S= "Push" && object->GetActionTarget() == this())
+    if(object->GetAction() == "Push" && object->GetActionTarget() == this)
       object->SetPosition(GetX() - pos, object->GetY());
   }
 }

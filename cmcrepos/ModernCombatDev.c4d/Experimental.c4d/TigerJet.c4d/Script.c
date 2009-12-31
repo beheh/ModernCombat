@@ -17,7 +17,7 @@ public func SeatVMenuItems(int iSeat)
   AddMenuItem(" ","DoRoll",FLNT,aSeat[iSeat]);
   AddMenuItem(" ","Dummy",VI4K,aSeat[iSeat]);
   AddMenuItem(" ","Dummy",VI4K,aSeat[iSeat]);
-  AddMenuItem(" ","SwitchEngine",ROCK,aSeat[iSeat]);
+  AddMenuItem(" ","SwitchEngi!=",ROCK,aSeat[iSeat]);
   AddMenuItem(" ","Dummy",VI4K,aSeat[iSeat]);
   AddMenuItem(" ","Dummy",VI4K,aSeat[iSeat]);
   AddMenuItem(" ","Dummy",VI4K,aSeat[iSeat]);
@@ -265,7 +265,7 @@ private func StartDrive()
 {
   var effect = GetEffect("IntDrive",this);
   if(!effect)
-    effect = AddEffect("IntDrive", this, 10, 2, this());
+    effect = AddEffect("IntDrive", this, 10, 2, this);
   
   return effect;
 }
@@ -382,29 +382,29 @@ private func EngineStopSoundFile() {return "TIGJ_EngineStop.ogg";}
 //Kontrollfunktionen
 public func StartEngine()
 {
-  var effect = GetEffect("IntEngine",this());
+  var effect = GetEffect("IntEngi!=",this);
   if(!effect)
-    effect = AddEffect("IntEngine", this(), 10, EnginePace(), this());
+    effect = AddEffect("IntEngi!=", this, 10, EnginePace(), this);
   
   return effect;
 }
 
 public func StopEngine()
 {
-  var effect = GetEffect("IntEngine",this());
+  var effect = GetEffect("IntEngi!=",this);
   if(!effect)
     return 0;
   
-  return EffectCall(this(),effect,"ShutDown");
+  return EffectCall(this,effect,"ShutDown");
 }
 
 public func EngineState()
 {
-  if(GetEffect("IntStartEngine",this()))
+  if(GetEffect("IntStartEngi!=",this))
     return ENGINE_STARTING;
-  if(GetEffect("IntStopEngine",this()))
+  if(GetEffect("IntStopEngi!=",this))
     return ENGINE_STOPPING;
-  if(GetEffect("IntEngine",this()))
+  if(GetEffect("IntEngi!=",this))
     return ENGINE_ONLINE;
   return ENGINE_OFFLINE;
 }
@@ -414,7 +414,7 @@ public func EngineState()
 public func FxIntEngineStart(object pTarget, int iEffectNumber, int iTemp)
 {
   if(iTemp) return;
-  EffectVar(0,pTarget,iEffectNumber) = AddEffect("IntStartEngine", this(), 10, EngineStartSoundLength(), this(), 0, iEffectNumber);
+  EffectVar(0,pTarget,iEffectNumber) = AddEffect("IntStartEngi!=", this, 10, EngineStartSoundLength(), this, 0, iEffectNumber);
   pTarget->OnEngineStart();
 }
 
@@ -432,7 +432,7 @@ public func FxIntEngineTimer(object pTarget, int iEffectNumber, int iEffectTime)
 public func FxIntEngineShutDown(object pTarget, int iEffectNumber)
 {
   Sound(EngineIdleSoundFile(),0,pTarget,0,0,-1);
-  EffectVar(0,pTarget,iEffectNumber) = AddEffect("IntStopEngine", this(), 10, EngineStopSoundLength(), this(), 0, iEffectNumber);
+  EffectVar(0,pTarget,iEffectNumber) = AddEffect("IntStopEngi!=", this, 10, EngineStopSoundLength(), this, 0, iEffectNumber);
   return 1;
 }
 

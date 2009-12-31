@@ -1,32 +1,32 @@
 /*-- Granatensteuerung --*/
 
-#strict
+#strict 2
 
 ///Allgemein
-public func IsDrawable(){return(true);}
-public func IsGrenade(){return(true);}
-public func IsEquipment(){return(true);}
-public func NoWeaponChoice() {return(GetID() == NADE);}
-public func FuseTime(){return(3*35);}
-public func ContainedDamage(){return(60);}
-public func CanAim() { return(true); }//°.° Na klar!
-public func IsRecharging() {return(false);}
-public func IsDrobotMaterial(){return(true);}
+public func IsDrawable(){return true;}
+public func IsGrenade(){return true;}
+public func IsEquipment(){return true;}
+public func NoWeaponChoice() {return GetID() == NADE;}
+public func FuseTime(){return 3*35;}
+public func ContainedDamage(){return 60;}
+public func CanAim() { return true; }//°.° Na klar!
+public func IsRecharging() {return false;}
+public func IsDrobotMaterial(){return true;}
 
-public func Color(){return(0);}//Farbcode der Granate. ;)
+public func Color(){return 0;}//Farbcode der Granate. ;)
 
-public func IsDangerous4AI() { return(IsFusing()); }
+public func IsDangerous4AI() { return IsFusing(); }
 
-protected func NoArenaRemove() {return(true);}
+protected func NoArenaRemove() {return true;}
 
-public func ThrowSpeed() {return(60);}
+public func ThrowSpeed() {return 60;}
 
-public func HandX()    { return(0); }    // X-Position in der Hand
-public func HandY()    { return(0); }    // Y-Position in der Hand
-public func HandSize() { return(1000); } // Größe in der Hand, Standard: 1000
-public func HandBarrel(){return(0); }    // Y-Offset des Laufs
-public func BarrelXOffset(){return(0);}
-public func BarrelYOffset(){return(0);}
+public func HandX()    { return 0; }    // X-Position in der Hand
+public func HandY()    { return 0; }    // Y-Position in der Hand
+public func HandSize() { return 1000; } // Größe in der Hand, Standard: 1000
+public func HandBarrel(){return 0; }    // Y-Offset des Laufs
+public func BarrelXOffset(){return 0;}
+public func BarrelYOffset(){return 0;}
 
 local controller,activated;
 
@@ -77,7 +77,7 @@ public func ControlThrow(object caller)
   if(!IsFusing())
   {
     Fuse();
-    return(true);
+    return true;
   }
   
   if(!Contained(GetUser()))
@@ -86,16 +86,16 @@ public func ControlThrow(object caller)
     if(GetUser()->~ReadyToFire())
     {
       Throw();
-      return(true);
+      return true;
     }
   }
   
-  return(_inherited(...));
+  return _inherited(...);
 }
 
 public func Throw()
 {
-  if(!IsFusing()) return();
+  if(!IsFusing()) return ;
   
   var user = GetUser();
   
@@ -119,7 +119,7 @@ public func Throw()
   
   if(user->~IsClonk())
     if(!user->~IsAiming())
-      if((user->GetProcedure() eq "WALK")||(user->GetProcedure() eq "THROW"))
+      if((user->GetProcedure() == "WALK")||(user->GetProcedure() == "THROW"))
         user->SetAction("Throw");
   
   Sound("GrenadeThrow*.ogg");
@@ -135,13 +135,13 @@ public func Throw()
 
 public func Activate(pCaller)
 {
-  pCaller->~StoreGrenade(this());
+  pCaller->~StoreGrenade(this);
   HelpMessage(GetOwner(pCaller),"$Collected$",pCaller,GetID());
 }
 
 public func RejectEntrance()
 {
-  return(activated);
+  return activated;
 }
 
 public func Collection(object pObj)
@@ -159,7 +159,7 @@ public func Departure(object pObj)
 public func FxIntFuseStart()
 {
   activated = true;
-  return(1);
+  return 1;
 }
 
 public func FxIntFuseTimer(object pTarget, int iEffectNumber, int iEffectTime)
@@ -176,11 +176,11 @@ public func FxIntFuseTimer(object pTarget, int iEffectNumber, int iEffectTime)
   }
   else
   {
-    if(Contained()->Contents() == this())
+    if(Contained()->Contents() == this)
       PlayerMessage(GetController(Contained()),"<c %x>•</c>",Contained(),InterpolateRGBa2(RGB(0,255),RGB(255,255),RGB(255,0),0,FuseTime(),iEffectTime));    
   }
 
-  if(iEffectTime < FuseTime()) return();
+  if(iEffectTime < FuseTime()) return ;
   
   var c = Contained();
   if(Contained())
@@ -190,7 +190,7 @@ public func FxIntFuseTimer(object pTarget, int iEffectNumber, int iEffectTime)
       var obj = Contained();
       var user = obj->GetUser();
       if(!user)
-        return(false);
+        return false;
         
       Exit();
       SetPosition(GetX(user),GetY(user));
@@ -199,23 +199,23 @@ public func FxIntFuseTimer(object pTarget, int iEffectNumber, int iEffectTime)
       Exit();
   }
   pTarget->Fused2(c);
-  return(-1);
+  return -1;
 }
 
 public func FxIntFuseStop(object pTarget)
 {
-  return(0);
+  return 0;
 }
 
 public func Fuse()
 {
   Sound("GrenadeActivate.ogg");
-  return(AddEffect ("IntFuse",this(),200,1,this()));
+  return AddEffect ("IntFuse",this,200,1,this);
 }
 
 public func IsFusing()
 {
-  return(GetEffect("IntFuse",this()));
+  return GetEffect("IntFuse",this);
 }
 
 public func Fused2(object pContainer)
@@ -228,7 +228,7 @@ public func Fused2(object pContainer)
       pContainer->DoDmg(ContainedDamage(),DMG_Fire);//Autsch! >_<
     }
   }
-  RemoveEffect("HitCheck",this());
+  RemoveEffect("HitCheck",this);
   Fused();
 }
 
@@ -243,18 +243,18 @@ public func Fused()
 func GetCharge()
 {
   var user = GetUser();
-  if(!user) return(0);
-  if(!user->~MaxGrenades()) return(0);
+  if(!user) return 0;
+  if(!user->~MaxGrenades()) return 0;
   
-  return(user->GrenadeCount(GetID())+1);
+  return user->GrenadeCount(GetID())+1;
 }
 
-func CustomHUD() {return(true);}
+func CustomHUD() {return true;}
 func UpdateHUD(object pHUD)
 {
   var user = GetUser();
-  if(!user) return();
-  if(!user->~MaxGrenades()) return(0);
+  if(!user) return ;
+  if(!user->~MaxGrenades()) return 0;
   
   pHUD->Charge(user->GrenadeCount(GetID()),(user->MaxGrenades() - user->GrenadeCount()) + user->GrenadeCount(GetID()));
   pHUD->Ammo(user->GrenadeCount(GetID()),(user->MaxGrenades() - user->GrenadeCount()) + user->GrenadeCount(GetID()), GetName(), true);
@@ -263,7 +263,7 @@ func UpdateHUD(object pHUD)
 
 public func ReadyToFire()
 {
-  return(true);//Mal sehen...
+  return true;//Mal sehen...
 }
 
 public func GetUser()
@@ -273,7 +273,7 @@ public func GetUser()
       if(GetOCF(Contained()) & OCF_Alive)//*grummel* nicht sooo toll
         controller = Contained();
   
-  return(controller);
+  return controller;
 }
 
 public func SetUser(object pUser)
@@ -282,9 +282,9 @@ public func SetUser(object pUser)
   SetController(GetController(pUser));
 }
 
-func IsBouncy() { return(true); }//Hach, sind wir heute sprunghaft...
-func IsReloading(){return(false);}
-func IsShooting(){return(false);}//Nein, keine Automatikgranaten. :D
+func IsBouncy() { return true; }//Hach, sind wir heute sprunghaft...
+func IsReloading(){return false;}
+func IsShooting(){return false;}//Nein, keine Automatikgranaten. :D
 
 
 
@@ -299,7 +299,7 @@ func IsShooting(){return(false);}//Nein, keine Automatikgranaten. :D
 
 public func FxHitCheckStart(object target, int effect, int temp, object byObj)
 {
-  if(temp) return();
+  if(temp) return ;
   EffectVar(0, target, effect) = GetX(target);
   EffectVar(1, target, effect) = GetY(target);
   if(!byObj)

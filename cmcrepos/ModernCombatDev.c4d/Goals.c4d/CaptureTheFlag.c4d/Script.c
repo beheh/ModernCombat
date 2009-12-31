@@ -1,6 +1,6 @@
 /*-- CTF --*/
 
-#strict
+#strict 2
 #include TEAM
 
 local aFlagCarrier;
@@ -12,17 +12,17 @@ protected func Initialize()
   if (pGoal = FindObject(GetID()))
   { 
     LocalN("iWinScore", pGoal)++;
-    return(RemoveObject()); 
+    return RemoveObject(); 
   }
   iWinScore = 1;
   aFlagCarrier = CreateArray();
-  return(_inherited());
+  return _inherited();
 }
 
 public func GetHUDInfo(int player, object hud) {
 	
 	var team = GetPlayerTeam(player);
-	if(team < 1) return(inherited(player));
+	if(team < 1) return inherited(player);
 	var ourFlag = GetFriendlyFlag(player);
 	
 	// Flag stolen?
@@ -43,7 +43,7 @@ public func GetHUDInfo(int player, object hud) {
 	else
 		SetHUDGraphics(0,hud,GetID(),3,2);
 	
-	return(inherited(player));
+	return inherited(player);
 }
 
 /* Globale Funktionen */
@@ -95,7 +95,7 @@ public func FlagCaptured(int iTeam, int iCTeam, object pClonk)
 public func FlagLost(int iTeam)
 {
   UpdateHUDs();
-  if(aFlagCarrier[iTeam] == -1) return();
+  if(aFlagCarrier[iTeam] == -1) return ;
   SetFlagMarker(aFlagCarrier[iTeam], 0, true);
   aFlagCarrier[iTeam] = -1;
 }
@@ -103,7 +103,7 @@ public func FlagLost(int iTeam)
 public func FlagScored(int iTeam, int iCTeam, object pClonk)
 {
   UpdateHUDs();
-  if(aFlagCarrier[iTeam] == -1) return();
+  if(aFlagCarrier[iTeam] == -1) return ;
   SetFlagMarker(aFlagCarrier[iTeam], 0, true);
   aFlagCarrier[iTeam] = -1;
 }
@@ -131,13 +131,13 @@ private func SetFlagMarker(int iPlr, int iCTeam, bool fRemove)
 }
 
 // Kann mittels des Spielzielauswählers konfiguriert werden
-public func IsConfigurable() { return(1); }
+public func IsConfigurable() { return 1; }
 
 
 // Returns the enemy flag carrier if any
 public func GetEnemyFlagCarrier(int iOwner) {
 	var ourFlag = GetFriendlyFlag(iOwner);
-	return(ourFlag -> GetCarrier());
+	return ourFlag -> GetCarrier();
 }
 
 // Returns the friendly flag carrier if any. 
@@ -151,11 +151,11 @@ public func GetFriendlyFlagCarrier(int iOwner) {
       // ... which is in our team ...
       if( flagger_team == GetPlayerTeam(iOwner) ) {
         // ...his flag
-        return(flagger);
+        return flagger;
       }
     }
   }
-  return(0);
+  return 0;
 }
 
 public func GetFriendlyFlag(int iOwner) {
@@ -163,10 +163,10 @@ public func GetFriendlyFlag(int iOwner) {
   for(var pFlag in FindObjects(Find_ID(FLA2))) {
     // that is not ours
     if( pFlag->GetTeam() == GetPlayerTeam(iOwner) ) {
-      return(pFlag);
+      return pFlag;
     }
   }
-  return(0);
+  return 0;
 }
 
 // Returns the flag of a random enemy
@@ -180,7 +180,7 @@ public func GetEnemyFlag(int iOwner) {
     }
   }
   // Choose a flag randomly
-  return(flags[Random(GetLength(flags))]);
+  return flags[Random(GetLength(flags))];
 }
 
 // Returns the own flag base
@@ -190,14 +190,14 @@ public func GetOwnFlagBase(int iOwner) {
     // ... of our team ...
     if( pFlag->GetTeam() == GetPlayerTeam(iOwner) ) {
       // ...its base
-      return(pFlag->GetBase());
+      return pFlag->GetBase();
     }
   }
-  return(0);
+  return 0;
 }
 
 // Some constants
-private func MaxFlagBaseDistance()  { return(250); }
+private func MaxFlagBaseDistance()  { return 250; }
 
 // KI Taktik
 public func AITactic(object pAIPlayer)
@@ -273,7 +273,7 @@ public func AITactic(object pAIPlayer)
         // else just go to enemy flag/enemy flag carrier
         if(!pEFC) {
           if(!(pCrew->GetCommand() || pCrew->GetMacroCommand())) {
-            pCrew->SetMacroCommand(this(), "MoveTo",  eflagbase,0,0,0,Aggro_Follow);
+            pCrew->SetMacroCommand(this, "MoveTo",  eflagbase,0,0,0,Aggro_Follow);
             DebugMessage("@Going to enemy flag base.", "tactics");
           }
         }

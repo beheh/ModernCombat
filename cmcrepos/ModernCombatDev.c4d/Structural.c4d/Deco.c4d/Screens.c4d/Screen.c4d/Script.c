@@ -1,6 +1,6 @@
 /*-- Bildschirm --*/
 
-#strict
+#strict 2
 
 
 /* Initalisierung */

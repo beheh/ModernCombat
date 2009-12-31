@@ -1,6 +1,6 @@
 /*-- Munitionskiste --*/
 
-#strict
+#strict 2
 
 local idSpawn, iMaxCount, iRespawnTime, iTakeTime;
 
@@ -12,7 +12,7 @@ protected func Initialize()
   iMaxCount = 3;
   idSpawn = NONE;
   
-  return(1);
+  return 1;
 }
 
 private func PreDef(id idType)
@@ -69,17 +69,17 @@ public func Set(id idType, int iMax, int iTake, int iRespawn)
 
   idSpawn = idType;
   
-  RemoveEffect("IntRespawn",this());
+  RemoveEffect("IntRespawn",this);
   
   if(iRespawnTime && idSpawn)
-    AddEffect("IntRespawn", this(), 10, iRespawnTime, this());
+    AddEffect("IntRespawn", this, 10, iRespawnTime, this);
    
   if(idSpawn->~IsAmmoPacket())
     SetIcon(idSpawn->AmmoID());//:o
   else
     SetIcon(idSpawn);
   
-  return(this());
+  return this;
 }
 
 public func SetIcon(id idIcon)
@@ -97,7 +97,7 @@ public func SetIcon(id idIcon)
     var w = 7*1000/GetObjHeight(); 
     var h = 7*1000/GetObjHeight();
     
-    SetObjDrawTransform(w,0,+4000,0,h,0,this(),1);
+    SetObjDrawTransform(w,0,+4000,0,h,0,this,1);
   }
   else
   {
@@ -107,20 +107,20 @@ public func SetIcon(id idIcon)
 
 protected func Open()
 {
-  if (GetAction() ne "Closed") return();
+  if (GetAction() != "Closed") return ;
   SetAction("Opening");
 }
   
 protected func Close()
 {
-  if (GetAction() ne "Open") return();  
+  if (GetAction() != "Open") return ;  
   SetAction("Closing");	    
 }
 
 protected func Grabbed(object pClonk, bool fGrab)
 {
-  if(!CheckGrab()) return();
-  if(idSpawn && pClonk && fGrab && (GetAction() eq "Open")) CheckResupply(pClonk,false);
+  if(!CheckGrab()) return ;
+  if(idSpawn && pClonk && fGrab && (GetAction() == "Open")) CheckResupply(pClonk,false);
 }
 
 protected func GrabLost(object pClonk)
@@ -131,15 +131,15 @@ protected func GrabLost(object pClonk)
 private func CheckGrab()
 {
   // Die Truhe soll sich selbst öffnen, wenn (mindestens) ein Clonk sie anfasst...
-  if (FindObject(0,0,0,0,0,OCF_CrewMember(),"Push",this()))
+  if (FindObject(0,0,0,0,0,OCF_CrewMember,"Push",this))
   {
     Open();
-    return(true);
+    return true;
   }
   else
   {
     Close();
-    return(false);
+    return false;
   }
 }
 
@@ -150,10 +150,10 @@ protected func Opening()
 
 protected func Opened() 
 {
-  if(!CheckGrab() || !idSpawn) return();
+  if(!CheckGrab() || !idSpawn) return ;
   
   //Allen Clonks die die Kiste anfassen und noch keinen Resupply-Effekt haben, einen geben.
-  for(var pClonk in FindObjects(Find_Action("Push"),Find_ActionTarget(this())))
+  for(var pClonk in FindObjects(Find_Action("Push"),Find_ActionTarget(this)))
   {
     CheckResupply(pClonk,true);
   }
@@ -163,7 +163,7 @@ protected func CheckResupply(object pClonk, bool bStart)
 {
   if(!GetEffect("IntResupply",pClonk))
   {
-    AddEffect("IntResupply", pClonk, 10, iTakeTime, 0, GetID(), this(), bStart);
+    AddEffect("IntResupply", pClonk, 10, iTakeTime, 0, GetID(), this, bStart);
   }
 }
   
@@ -174,32 +174,32 @@ protected func Closing()
 
 public func RejectCollect(id idObj)
 {
-  if(GetAction() ne "Open") return(true);
+  if(GetAction() != "Open") return true;
 
   if(idSpawn)
   {
-    if(idSpawn != idObj) return(true);
-    if(ContentsCount() >= iMaxCount) return(true);
+    if(idSpawn != idObj) return true;
+    if(ContentsCount() >= iMaxCount) return true;
   }
   else
   {
-    if(ContentsCount() >= 10) return(true);
+    if(ContentsCount() >= 10) return true;
   }
 
-  return(false);
+  return false;
 }
 
 protected func ControlDig(object pClonk)
 {
-  if(GetAction() ne "Open") return(1);
+  if(GetAction() != "Open") return 1;
   
-  if(idSpawn) return(1);
+  if(idSpawn) return 1;
 
-  pClonk->SetCommand(0, "Get", this(), 0,0, 0, 1);
+  pClonk->SetCommand(0, "Get", this, 0,0, 0, 1);
   
   /*if(!idSpawn)
   {
-    pClonk->SetCommand(0, "Get", this(), 0,0, 0, 1);
+    pClonk->SetCommand(0, "Get", this, 0,0, 0, 1);
   }
   else
   {
@@ -210,18 +210,18 @@ protected func ControlDig(object pClonk)
 
 public func GetMaxCount()
 {
-  return(iMaxCount);
+  return iMaxCount;
 }
 
 public func GetSpawnID()
 {
-  return(idSpawn);
+  return idSpawn;
 }
 
 /* Effekte */
 public func FxIntRespawnStart(object pTarget, int iEffectNumber, int iTemp)
 {
-  if(!idSpawn) return(-1);
+  if(!idSpawn) return -1;
   while(Contents()) RemoveObject(Contents());//Leeren.
   CreateContents(idSpawn,0,iMaxCount);//Füllen.
 }
@@ -243,7 +243,7 @@ public func FxIntRespawnStop(object pTarget, int iEffectNumber, int iReason, boo
 //für Clonks
 public func FxIntResupplyStart(object pTarget, int iEffectNumber, int iTemp, pCrate, bStartTake)
 {
-  if(!pCrate) return(-1);
+  if(!pCrate) return -1;
   EffectVar(0,pTarget,iEffectNumber) = pCrate; 
   
   if(bStartTake)
@@ -251,7 +251,7 @@ public func FxIntResupplyStart(object pTarget, int iEffectNumber, int iTemp, pCr
     if(FxIntResupplyTimer(pTarget,iEffectNumber,0) == -1)
     {
       FxIntResupplyStop(pTarget,iEffectNumber);//Wird leider nicht aufgerufen. :\
-      return(-1);
+      return -1;
     }
   }
   else
@@ -263,7 +263,7 @@ public func FxIntResupplyStart(object pTarget, int iEffectNumber, int iTemp, pCr
     if(!obj)
     {
       FxIntResupplyStop(pTarget,iEffectNumber);
-      return(-1);
+      return -1;
     }
   }
 }
@@ -271,26 +271,26 @@ public func FxIntResupplyStart(object pTarget, int iEffectNumber, int iTemp, pCr
 public func FxIntResupplyTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
   var crate = EffectVar(0,pTarget,iEffectNumber);
-  if(!crate) return(-1);//Gibts die Kiste auch noch?
-  if((GetProcedure(pTarget) ne "PUSH")||(GetActionTarget(0,pTarget) != crate)) return(-1);//Fässt der Clonk die auch noch lieb an?
+  if(!crate) return -1;//Gibts die Kiste auch noch?
+  if((GetProcedure(pTarget) != "PUSH")||(GetActionTarget(0,pTarget) != crate)) return -1;//Fässt der Clonk die auch noch lieb an?
   
   var obj = crate->Contents(0);
-  if(!obj) return(-1);
+  if(!obj) return -1;
   var objid = GetID(obj);
 
   if(obj->~IsAmmoPacket())
     if(!obj->~MayTransfer(pTarget))
-      return(-1);
+      return -1;
       
   if(obj->~IsGrenade())//Granate?
   {
     if(!pTarget->~StoreGrenade(obj))
-      return(-1);
+      return -1;
   }
   else
   {
     if(!pTarget->Collect(obj))
-      return(-1);//Fail.
+      return -1;//Fail.
 
     if(obj->~IsWeapon())//Waffe?
       DoAmmo(obj->GetFMData(FM_AmmoID),obj->GetFMData(FM_AmmoLoad),obj);
@@ -303,7 +303,7 @@ public func FxIntResupplyTimer(object pTarget, int iEffectNumber, int iEffectTim
   {
     EffectVar(1,pTarget,iEffectNumber) = true;
     PlayerMessage(GetController(pTarget),"{{%i}}|%d/%d",pTarget,objid,ContentsCount(objid,crate),crate->GetMaxCount());
-    return(-1);
+    return -1;
   }
   else
   {
@@ -319,23 +319,23 @@ public func FxIntResupplyStop(object pTarget, int iEffectNumber, int iReason, bo
   /*
   var crate = EffectVar(0,pTarget,iEffectNumber);
   if(crate && pTarget->GetAlive())
-    if((GetProcedure(pTarget) eq "PUSH")&&(GetActionTarget(0,pTarget) == crate))
+    if((GetProcedure(pTarget) == "PUSH")&&(GetActionTarget(0,pTarget) == crate))
       SetCommand(pTarget,"UnGrab");//Loslassen plz. :)
   */
 }
 
 /* Bumm */
-public func IsCraneGrabable() { return(1); }
+public func IsCraneGrabable() { return 1; }
 
 /*func Incineration(int iPlr)
 {
-  ClearScheduleCall(this(), "InstaExplode");
-  ScheduleCall(this(), "InstaExplode", 100+Random(80),0,iPlr);
+  ClearScheduleCall(this, "InstaExplode");
+  ScheduleCall(this, "InstaExplode", 100+Random(80),0,iPlr);
 }
 
 func IncinerationEx(int iPlr)
 {
-  ClearScheduleCall(this(), "InstaExplode");
+  ClearScheduleCall(this, "InstaExplode");
 }
 
 func Damage(int iChange, int iPlr)
@@ -343,7 +343,7 @@ func Damage(int iChange, int iPlr)
   if(GetDamage() > 20)
       Incinerate();
       
-  if(GetDamage() < 100) return();
+  if(GetDamage() < 100) return ;
   
   InstaExplode(iPlr);
 }
@@ -355,7 +355,7 @@ func InstaExplode(int iPlr)
   CastParticles("Splinter", 10, 200, 0,0, 50, 75, RGBa(80,0,0,0), RGBa(30,0,0,0));
   
   //Umliegende Objekte anzünden
-  for(var obj in FindObjects(Find_Distance(40+Random(20)),Find_Exclude(this()),Find_Not(Find_Category(C4D_StaticBack))))
+  for(var obj in FindObjects(Find_Distance(40+Random(20)),Find_Exclude(this),Find_Not(Find_Category(C4D_StaticBack))))
   {
     var inc = GetDefCoreVal("ContactIncinerate",0,GetID(obj));
     if(!inc) continue;

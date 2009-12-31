@@ -260,7 +260,7 @@ public func StopAiming()
     else
       crosshair->SetAngle(+90);
   }
-  return(_inherited());
+  return _inherited();
 }
 
 public func StartAiming()
@@ -440,14 +440,14 @@ public func AimAngle(int iMaxAngle, int iRange, bool bSpread)
    var x,y,r;
    this->~WeaponAt(x,y,r);
    
-   if(!this()->~IsAiming())
+   if(!this->~IsAiming())
      angle = (90+r)*(GetDir()*2-1);
    else
      angle = crosshair->GetAngle();
   
    if(iRange)
    {
-     var target = this()->~GetTarget(angle,iMaxAngle,iRange);
+     var target = this->~GetTarget(angle,iMaxAngle,iRange);
      if(target)
        angle = Angle(GetX(),GetY(),GetX(target),GetY(target));
    }
@@ -462,16 +462,16 @@ public func AimAngle2(int iMaxAngle, int iRange, bool bSpread)//Präzision 100. A
 {
    var angle;
    var x,y,r;
-   this()->~WeaponAt(x,y,r);
+   this->~WeaponAt(x,y,r);
    
-   if(!this()->~IsAiming())
+   if(!this->~IsAiming())
      angle = (90+r)*(GetDir()*2-1);
    else
      angle = crosshair->GetAngle();
   
    if(iRange)
    {
-     var target = this()->~GetTarget(angle,iMaxAngle,iRange);
+     var target = this->~GetTarget(angle,iMaxAngle,iRange);
      if(target)
        angle = Angle(GetX(),GetY(),GetX(target),GetY(target));
    }
@@ -479,18 +479,18 @@ public func AimAngle2(int iMaxAngle, int iRange, bool bSpread)//Präzision 100. A
    if(bSpread)
      angle += GetSpreadAOff2();
 
-   return(angle);
+   return angle;
 }
 
 global func AimAngleEx(int iMaxAngle, int iRange, bool bSpread)
 {
-  if(!this()) return(0);
+  if(!this) return 0;
 
-  var angle = this()->~AimAngle2(iMaxAngle,iRange,bSpread);
+  var angle = this->~AimAngle2(iMaxAngle,iRange,bSpread);
   if(!angle)
-    angle = this()->AimAngle(iMaxAngle,iRange,bSpread)*100;
+    angle = this->AimAngle(iMaxAngle,iRange,bSpread)*100;
     
-  return(angle);
+  return angle;
 }
 
 global func GetSpreadAOff()

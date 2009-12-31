@@ -1,11 +1,11 @@
 /*-- Holziste --*/
 
-#strict
+#strict 2
 
-public func IsBulletTarget() { return(1); }
-public func IsCraneGrabable() { return(1); }
-public func CanBeLaserRecycled() { return(2); }
-public func IsSpawnBlocker() { return(true); }
+public func IsBulletTarget() { return 1; }
+public func IsCraneGrabable() { return 1; }
+public func CanBeLaserRecycled() { return 2; }
+public func IsSpawnBlocker() { return true; }
 
 
 /* Zerstörung */
@@ -26,5 +26,5 @@ func Damage()
 protected func Hit()
 {
   Sound("CrateImpact*.ogg");
-  return(1);
+  return 1;
 }

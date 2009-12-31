@@ -1,6 +1,6 @@
 /*-- Schlauchboot (inaktiv) --*/
 
-#strict
+#strict 2
 
 protected func Initialize()
 {
@@ -22,14 +22,14 @@ private func Floating()
   // Aufrichten
   SetRDir(BoundBy(GetR(),-20,+20)/-5);
   // Nicht mehr im Wasser
-  if (!(GetOCF()&OCF_InLiquid())) 
-    return(SetAction("OnLand"));
+  if (!(GetOCF()&OCF_InLiquid)) 
+    return SetAction("OnLand");
   // Segeln, wenn aufgerichtet
   if (Inside(GetR(),-5,+5))
   {
     ChangeDef(INFS);
     SetAction("LowerSail");
-    this()->~SetUp();
+    this->~SetUp();
   }
 }
 

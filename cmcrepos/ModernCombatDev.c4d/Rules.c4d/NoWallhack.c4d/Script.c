@@ -1,6 +1,6 @@
 /*-- Kein Wallhack --*/
 
-#strict
+#strict 2
 
 
 /* Infos */
@@ -8,7 +8,7 @@
 protected func Activate(iByPlayer)
 {
   MessageWindow(GetDesc(), iByPlayer);
-  return(1);
+  return 1;
 }
 
-public func IsChooseable() { return(true); }
+public func IsChooseable() { return true; }

@@ -1,11 +1,11 @@
 /*-- Bitte Lächeln! BLITZ! --*/
 
-#strict
+#strict 2
 #appendto FXL1
 
 /*-- Blitz --*/
 
-#strict
+#strict 2
 
 
 
@@ -41,7 +41,7 @@ private func Advance()
       AddLightFlash(iSize*15, iX, iY, iColor);
     }
   
-    return(Remove());
+    return Remove();
   }
 
   // Objektschaden
@@ -53,17 +53,17 @@ private func Advance()
 
   // Neuen Eckpunkt
   if (!AddVertex( iVtxX+iAdvX+Random(iVarX), iVtxY+iAdvY+Random(iVarY)))
-    return(Remove());
+    return Remove();
 
   // Objektanziehung
   iVtx = GetVertexNum()-1; iVtxX = GetVertex(iVtx, 0); iVtxY = GetVertex(iVtx, 1);
   var obj;
   if (iVtx>7)
-    if (obj = FindObject( 0, iVtxX-GetX()-50, iVtxY-GetY()-50, 100, 100, OCF_AttractLightning(), 0,0, NoContainer()  ) )
+    if (obj = FindObject( 0, iVtxX-GetX()-50, iVtxY-GetY()-50, 100, 100, OCF_AttractLightning, 0,0, NoContainer()  ) )
       Attraction(obj);
 
   LightningEffect(4);
 
   // Weiter	
-  return(ExecLgt());
+  return ExecLgt();
 }

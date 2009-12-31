@@ -22,9 +22,9 @@ public func UpdateCharge()
   //Nur, wenn Regel aktiviert
   if(!FindObject(SLDE)) return 0;
   if(GetAction() != "FlatUp")
-    speed = GetXDir(this(),70);
+    speed = GetXDir(this,70);
   if(GetAction() == "FlatUp")
-    if(GetPhase(this())==1)
+    if(GetPhase(this)==1)
       speedfall = speed / 7;
   if(GetAction() == "FlatUp")
     Slipper();
@@ -35,7 +35,7 @@ public func UpdateCharge()
 private func Slipper() 
 {
   if(speed != 0)
-   {SetXDir(speed,this(),70);
+   {SetXDir(speed,this,70);
     speed -= speedfall;}
   return 1;
 }

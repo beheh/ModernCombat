@@ -1,20 +1,20 @@
 /*-- Flagpole --*/
 
-#strict
+#strict 2
 
 //Timer-Effekt
 public func FxIntFlagpoleTimer(object pTarget)
 {
   if(!pTarget)
-    return(-1);
+    return -1;
   pTarget->Timer();
-  return(0);
+  return 0;
 }
 
 
 local team,process,range,flag,attacker,spawnpoints,trend;
 
-public func IsFlagpole(){return(true);}
+public func IsFlagpole(){return true;}
 
 public func Initialize()
 {
@@ -35,8 +35,8 @@ public func Set(string szName, int iRange, int iSpeed)
   
   if(!iSpeed) iSpeed = 10;
   
-  RemoveEffect("IntFlagpole",this());
-  AddEffect("IntFlagpole",this(),10,iSpeed,this());
+  RemoveEffect("IntFlagpole",this);
+  AddEffect("IntFlagpole",this,10,iSpeed,this);
 }
 
 public func AddSpawnPoint(int iX, int iY)
@@ -50,7 +50,7 @@ public func GetSpawnPoint(int &iX, int &iY)
   if(!GetLength(spawnpoints))
   {
     iY = -30;
-    return();
+    return ;
   }
 
   var rnd = Random(GetLength(spawnpoints)/2);
@@ -58,10 +58,10 @@ public func GetSpawnPoint(int &iX, int &iY)
   iY = spawnpoints[rnd+1];
 }
 
-public func GetAttacker(){return(attacker);}
-public func GetTeam(){return(team);}
-public func GetProcess(){return(process);}
-public func GetTrend(){return(trend);}
+public func GetAttacker(){return attacker;}
+public func GetTeam(){return team;}
+public func GetProcess(){return process;}
+public func GetTrend(){return trend;}
 
 public func IsAttacked()
 {
@@ -70,14 +70,14 @@ public func IsAttacked()
     if(GetOwner(clonk) == NO_OWNER) continue;
   
     if(GetPlayerTeam(GetOwner(clonk)) != team)
-      return(true);
+      return true;
   }
-  return(false);
+  return false;
 }
 
 public func IsCaptured()
 {
-  if((process == 100)&&(team)) return(team);
+  if((process == 100)&&(team)) return team;
 }
 
 
@@ -91,7 +91,7 @@ protected func Timer()
   {
     if(GetOwner(clonk) == NO_OWNER) continue;
     if(Contained(clonk)) continue;
-    if(!PathFree4K(GetX(this()),GetY(this())-GetDefHeight(GetID())/2,GetX(clonk),GetY(clonk),4)) continue;
+    if(!PathFree4K(GetX(this),GetY(this)-GetDefHeight(GetID())/2,GetX(clonk),GetY(clonk),4)) continue;
   
     if(GetPlayerTeam(GetOwner(clonk)) == team)
       friends++;
@@ -118,7 +118,7 @@ public func Capture(int iTeam)
   attacker = 0;
   EventInfo4K(0,Format("$MsgCaptured$",GetTeamName(iTeam),GetName()),OFLG,GetTeamColor(iTeam));
   Sound("Trumpet");
-  GameCall("PointCaptured",this(),team);//Broadcasten.
+  GameCall("PointCaptured",this,team);//Broadcasten.
   
   UpdateFlag();
 }
@@ -151,7 +151,7 @@ public func NoTeam()
 
 public func UpdateFlag()
 {
-  if(!flag) return();
+  if(!flag) return ;
   
   if(team)
     SetClrModulation(GetTeamColor(team),flag);
@@ -161,7 +161,7 @@ public func UpdateFlag()
 
 protected func SetFlagPos(int iHeight)//Prozentangaben! :D
 {
-  if(!flag) return();
+  if(!flag) return ;
   //Log("%d%%",iHeight);
   iHeight = ((((GetDefHeight()+GetDefOffset(GetID(flag),true))*10)/100*(iHeight*10)) / 100)-GetDefOffset(GetID(flag),true);//Prozent umrechnen.
   //Log("%d%",iHeight);
@@ -215,5 +215,5 @@ public func DoProcess(int iTeam, int iAmount)
     
   UpdateFlag();
   
-  return(process);
+  return process;
 }

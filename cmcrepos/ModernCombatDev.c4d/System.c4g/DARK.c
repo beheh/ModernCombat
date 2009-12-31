@@ -1,6 +1,6 @@
 /*-- Düsternis --*/
 
-#strict
+#strict 2
 #appendto DARK
 
 public func ChooserFinished()
@@ -23,9 +23,9 @@ public func ChooserFinished()
 
 public func OnClonkRecruitment(object pClonk)
 {
-  if(FindObject(CHOS)) return();
+  if(FindObject(CHOS)) return ;
   if(ObjectCount(GetID()) > 1)
-    return(ScheduleCall(this(),"OnClonkRecruitment",1,0,pClonk));
+    return ScheduleCall(this,"OnClonkRecruitment",1,0,pClonk);
     
   if(!GameCallEx("RejectViewRangeChange",700-3*GetDarkness(100)))
     SetPlrViewRange(700-3*GetDarkness(100),pClonk);

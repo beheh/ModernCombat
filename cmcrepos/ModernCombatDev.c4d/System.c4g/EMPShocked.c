@@ -3,11 +3,11 @@
 #strict 2
 
 global func EMPShockEffect(int iTime) {
-  AddEffect("EMPDamaged", this(), 190, 5, 0, 0,iTime);
+  AddEffect("EMPDamaged", this, 190, 5, 0, 0,iTime);
 }
 
 global func EMPShocked() {
-  return GetEffect("EMPDamaged",this());
+  return GetEffect("EMPDamaged",this);
 }
 
 global func FxEMPDamagedStart(object pTarget, int iEffectNumber, int iTemp, int iTime)

@@ -1,6 +1,6 @@
 /*-- Boje --*/
 
-#strict
+#strict 2
 
 local sway,dir,max;
 
@@ -43,10 +43,10 @@ func Timer()
     //r += BoundBy(GetWind(0,-2),0,GetWind(0,-2)/Abs(GetWind(0,-2)));
     
     var r2 = Sin(sway*90/max,max);
-    SetDTRotation (r2,0,0,this());
+    SetDTRotation (r2,0,0,this);
   }
   else
-    SetDTRotation (0,0,0,this());
+    SetDTRotation (0,0,0,this);
 }
 
 protected func SetDTRotation (int r, int xoff, int yoff, object obj)//*hrhrhrhr*

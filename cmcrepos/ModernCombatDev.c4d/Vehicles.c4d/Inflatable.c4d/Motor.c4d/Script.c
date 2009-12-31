@@ -1,16 +1,16 @@
 /*-- Schlauchboot (Motor) --*/
 
-#strict
+#strict 2
 
 public func Initialize()
 {
   AddDamageEffect(this,35);
 }
 
-public func MaxDamage()		{ return(50); }
+public func MaxDamage()		{ return 50; }
 
-public func IsBulletTarget(){return(true);}
-public func IgnoreFriendlyFire() {return(true);}
+public func IsBulletTarget(){return true;}
+public func IgnoreFriendlyFire() {return true;}
 
 private func UpdateDmg()
 {
@@ -42,12 +42,12 @@ protected func UpdateTransferZone()
 public func UpdateShape()
 {
   var boat = GetActionTarget();
-  if(!boat) return(false);
+  if(!boat) return false;
   
   
   var iXOff;
   
-  if(boat->GetAction() eq "Turn")
+  if(boat->GetAction() == "Turn")
   {
     var phases = boat->GetActMapVal("Length", "Turn")-1;
     var phase = boat->GetPhase()-1;
@@ -67,7 +67,7 @@ public func UpdateShape()
   SetShape(-15,-15,30,30);
   
   //SetShape((-10)+iXOff,-15,30,30);
-  return(true);
+  return true;
 }
 
 func SetUser(object pUser)
@@ -101,8 +101,8 @@ protected func ControlUpdate(object clonk, int comdir)
 protected func ControlCommand(string szCommand, object pTarget, int iX, int iY)
 {
   // Bewegungskommando (nur links/rechts auswerten)
-  if(szCommand eq "MoveTo")
-    return(Command2Control(iX,iY));
+  if(szCommand == "MoveTo")
+    return Command2Control(iX,iY);
 }
 
 private func Command2Control(int iX, int iY)
@@ -111,7 +111,7 @@ private func Command2Control(int iX, int iY)
   if(iX > GetActionTarget()->GetX()) GetActionTarget()->Right();
   if(iX < GetActionTarget()->GetX()) GetActionTarget()->Left();
 
-  return(1);
+  return 1;
 }
 
 public func ControlLeft(object pByObj)
@@ -121,7 +121,7 @@ public func ControlLeft(object pByObj)
   if(!GetPlrCoreJumpAndRunControl(pByObj->GetController()))
     GetActionTarget()->Left();
     
-  return(1);
+  return 1;
 }
 
 public func ControlRight(object pByObj)
@@ -131,7 +131,7 @@ public func ControlRight(object pByObj)
   if(!GetPlrCoreJumpAndRunControl(pByObj->GetController()))
     GetActionTarget()->Right();
     
-  return(1);
+  return 1;
 }
 
 public func ControlDown(object pByObj)
@@ -141,7 +141,7 @@ public func ControlDown(object pByObj)
   if(!GetPlrCoreJumpAndRunControl(pByObj->GetController()))
     GetActionTarget()->Stop();
     
-  return(1);
+  return 1;
 }
 
 public func ControlUpDouble(object pByObj)
@@ -151,5 +151,5 @@ public func ControlUpDouble(object pByObj)
   if(GetContact(GetActionTarget(),-1))
     GetActionTarget()->LandOn();
     
-  return(1);
+  return 1;
 }

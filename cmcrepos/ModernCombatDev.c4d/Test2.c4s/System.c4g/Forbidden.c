@@ -1,6 +1,6 @@
 /*-- Deaktivierte Waffen und Tools --*/
 
-#strict
+#strict 2
 #appendto ENWP
 #appendto FTWP
 #appendto GLWP
@@ -28,9 +28,9 @@
 
 
 
-func IsUpgrade(){return(false);}
-func IsMine(){return(false);}
-func IsHazardGear(){return(false);}
-func IsEquipment(){return(false);}
-func IsAmmoPacket(){return(false);}
-func NoWeaponChoice(){return(true);}
+func IsUpgrade(){return false;}
+func IsMine(){return false;}
+func IsHazardGear(){return false;}
+func IsEquipment(){return false;}
+func IsAmmoPacket(){return false;}
+func NoWeaponChoice(){return true;}

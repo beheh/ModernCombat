@@ -1,13 +1,13 @@
 /*-- Semtexgranate --*/
 
-#strict
+#strict 2
 #include NADE
 
 local time;//:X
 
-public func FuseTime(){return(4*35);}
-public func Color(){return(RGB(255,128,0));}//grün
-public func ContainedDamage(){return(0);}
+public func FuseTime(){return 4*35;}
+public func Color(){return RGB(255,128,0);}//grün
+public func ContainedDamage(){return 0;}
 
 func HitSound()
 {
@@ -17,7 +17,7 @@ func HitSound()
 public func Fused()
 {
   Sound("SXGR_SemtexBlast.ogg");
-  ScheduleCall(this(),"DoFlames",3,20); 
+  ScheduleCall(this,"DoFlames",3,20); 
   FadeOut();
 }
 

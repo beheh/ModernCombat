@@ -1,6 +1,6 @@
 /*-- Deathmatch --*/
 
-#strict
+#strict 2
 #include TEAM
 
 protected func Initialize() {
@@ -9,17 +9,17 @@ protected func Initialize() {
   if (pGoal = FindObject(GetID()))
   { 
     LocalN("iWinScore", pGoal)++;
-    return(RemoveObject()); 
+    return RemoveObject(); 
   }
   iWinScore = 1;
-  return(_inherited());
+  return _inherited();
 }
 
 public func RelaunchPlayer(int iPlr, object pClonk, int iMurdererPlr) {
   inherited(iPlr, pClonk, iMurdererPlr);
-  if(iPlr == -1 || !GetPlayerName(iPlr)) return();
+  if(iPlr == -1 || !GetPlayerName(iPlr)) return ;
   if(iMurdererPlr == -1)
-    return();
+    return ;
   
   // kein Teamkill?
   if(GetPlayerTeam(iPlr) != GetPlayerTeam(iMurdererPlr))
@@ -28,7 +28,7 @@ public func RelaunchPlayer(int iPlr, object pClonk, int iMurdererPlr) {
 }
 
 // Kann mittels des Spielzielauswählers konfiguriert werden
-public func IsConfigurable() { return(1); }
+public func IsConfigurable() { return 1; }
 
 public func GetHUDInfo(int player) {
 	var t34m = GetPlayerTeam(player);
@@ -42,7 +42,7 @@ public func GetHUDInfo(int player) {
 	if(y00Rl4me > 0) secondstring = Format("(+%d)",y00Rl4me);
 	if(y00Rl4me < 0) secondstring = Format("(%d)",y00Rl4me);
 	
-	return(Format("%d kills %s",TeamGetKills(t34m), secondstring));
+	return Format("%d kills %s",TeamGetKills(t34m), secondstring);
 }
 
 // KI-Taktik
@@ -59,8 +59,8 @@ public func AITactic(object pAIPlayer)
     else {
       pCrew->CheckInventory();
       if(!(pCrew->GetCommand() || pCrew->GetMacroCommand()))
-        pCrew->SetMacroCommand(this(), "Follow", GetCrew(owner, 0),0,0,0,Aggro_Follow);
+        pCrew->SetMacroCommand(this, "Follow", GetCrew(owner, 0),0,0,0,Aggro_Follow);
     }
   }
-  return(true);
+  return true;
 }

@@ -1,10 +1,10 @@
 /*-- Bodenlucke --*/
 
-#strict
+#strict 2
 
 #include GBDR
 
-public func IsBulletTarget(id idBullet){return(false);}//Nur anfällig gegenüber Explosionen
+public func IsBulletTarget(id idBullet){return false;}//Nur anfällig gegenüber Explosionen
 
 
 /* Initalisierung */
@@ -20,7 +20,7 @@ public func Initialize()
 
 public func OnOpen()
 {
-  if(GetAction() eq "Open" || GetAction() eq "Opened") return();
+  if(GetAction() == "Open" || GetAction() == "Opened") return ;
   SetAction("Open");
   Sound("Airlock1");
 }
@@ -32,7 +32,7 @@ public func OnOpened()
 
 public func OnClose()
 {
-  if(GetAction() eq "Closed" || GetAction() eq "Close") return();
+  if(GetAction() == "Closed" || GetAction() == "Close") return ;
   SetAction("Close");
   Sound("Airlock2");
   SetSolidMask(0, 0, 20, 20,3);
@@ -67,8 +67,8 @@ private func SomeonesApproaching()// such ankommene Clonks
 
   // Irgendwas gefunden?
   if(GetLength(aClonks) > 0)
-    return(true);
-  return(false);
+    return true;
+  return false;
 }
 
 /* Zerstörung */
@@ -76,11 +76,11 @@ private func SomeonesApproaching()// such ankommene Clonks
 public func OnDmg(int iDmg, int iType)
 {
   //Anfälligkeit gegenüber Einflüssen
-  if(iType == DMG_Projectile)	return(60);
-  if(iType == DMG_Melee)	return(80);
-  if(iType == DMG_Energy)	return(30);
-  if(iType == DMG_Explosion)	return(0);
-  return(100);
+  if(iType == DMG_Projectile)	return 60;
+  if(iType == DMG_Melee)	return 80;
+  if(iType == DMG_Energy)	return 30;
+  if(iType == DMG_Explosion)	return 0;
+  return 100;
 }
 
 public func OnDestroyed(iType)
@@ -94,10 +94,10 @@ public func OnDestroyed(iType)
 
 public func ControlUp(object pByObj)
 {
-  if(GetAction() ne "Destroyed")
+  if(GetAction() != "Destroyed")
     if(!lock)
       OnOpen();
-  return(1);
+  return 1;
 }
 
 /* KI Hilfe */
@@ -111,37 +111,37 @@ public func UpdateTransferZone()
 public func ControlTransfer(object obj, int x, int y)
 {
   if(lock && closed)
-    return(false);
+    return false;
   
   var dir = 1;
   if(obj->GetY() < GetY()+GetObjHeight())
     dir = -1;
   
-  if(!closed) return(false);
+  if(!closed) return false;
   
   if(dir == -1)
   {
-    if(GetProcedure(obj) ne "PUSH")
+    if(GetProcedure(obj) != "PUSH")
     {
-      if(GetCommand(obj) ne "Grab")
-        return(AddCommand(obj,"Grab",this(),0,-10));
+      if(GetCommand(obj) != "Grab")
+        return AddCommand(obj,"Grab",this,0,-10);
     }
     else
     {
       ControlUp(obj);
-        return(true);
+        return true;
     }
   }
   else
   {
-    return(AddCommand(obj,"MoveTo",0,GetX(),GetY()+10));
+    return AddCommand(obj,"MoveTo",0,GetX(),GetY()+10);
   }
 }
 
 global func DebugCmds(object pTarget, bool fLog)
 {
-  if(!pTarget) pTarget = this();
-  if(!pTarget) return();
+  if(!pTarget) pTarget = this;
+  if(!pTarget) return ;
 
   var i,name,target,target_name,x,y,list = "<CMD-LIST>";
   while(name = GetCommand(pTarget,0,i))

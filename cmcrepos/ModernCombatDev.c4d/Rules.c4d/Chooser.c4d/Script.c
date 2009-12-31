@@ -1,6 +1,6 @@
 /*-- Spielzielauswahl --*/
 
-#strict
+#strict 2
 
 //C4D_Goal | C4D_Rule | C4D_Environment
 static const Chooser_Cat = 524384;
@@ -9,7 +9,7 @@ static const Chooser_Cat = 524384;
 
 protected func Activate(iPlr)
 {
-  if(!iPlr) return(OpenMenu());
+  if(!iPlr) return OpenMenu();
   MessageWindow(Format("$Choosing$", GetPlayerName()),iPlr);
 }
 
@@ -26,7 +26,7 @@ protected func Initialize()
   aTempGoalSave = CreateArray();
   aAI = CreateArray();
   // Spielziele bald entfernen
-  ScheduleCall(this(), "RemoveGoals", 1);
+  ScheduleCall(this, "RemoveGoals", 1);
   if(IsDark())
     SetDarkness(0);
   iDarkCount = 0;
@@ -37,7 +37,7 @@ protected func Initialize()
 protected func LoadRuleCfg()
 {
   var a = GameCall("ChooserRuleConfig");
-  if(!GetLength(a)) return();
+  if(!GetLength(a)) return ;
   
   for(var i=0, idR, def, j, check ; idR = GetDefinition(i, Chooser_Cat) ; i++)
     if(DefinitionCall(idR, "IsChooseable") && !GetLength(FindObjects(Find_ID(idR))))
@@ -69,7 +69,7 @@ protected func InitializePlayer(int iPlr, int iX, int iY, object pBase, int iTea
     for(var i=1 ; i < aAI[iTeam] ; i++)
       CreateClonk(iPlr);
   aAI[iTeam] = 0;
-  if(Death) return();
+  if(Death) return ;
   // Alle Clonks des Spielers verstauen
   for(var i=0, pCrew, tmp ; pCrew = GetCrew(iPlr, i) ; i++)
     {
@@ -83,7 +83,7 @@ protected func InitializePlayer(int iPlr, int iX, int iY, object pBase, int iTea
   if(!iPlr)
   {
     Log("$ChoosingPlayer$", GetPlayerName(iPlr));
-    return(OpenMenu());
+    return OpenMenu();
   }
 }
 
@@ -102,10 +102,10 @@ private func CreateClonk(int iPlr)
 
 protected func OpenMenu()
 {
-  if(GetLength(aGoals)) return(OpenGoalChooseMenu());
+  if(GetLength(aGoals)) return OpenGoalChooseMenu();
 
   var pClonk = GetCursor();
-  if(!pClonk) return(ScheduleCall(this(), "OpenMenu", 1));
+  if(!pClonk) return ScheduleCall(this, "OpenMenu", 1);
 
   if(GetMenu(pClonk))
     CloseMenu(pClonk);
@@ -207,13 +207,13 @@ protected func ChangeDARKConf(id dummy, int iChange)
 protected func OpenGoalChooseMenu()
 {
   var pClonk = GetCursor();
-  if(!pClonk) return(ScheduleCall(this(), "OpenMenu", 1));
-  if(!GetLength(aGoals)) return(ScheduleCall(this(), "OpenMenu", 1));
+  if(!pClonk) return ScheduleCall(this, "OpenMenu", 1);
+  if(!GetLength(aGoals)) return ScheduleCall(this, "OpenMenu", 1);
 
   CloseMenu(pClonk);
 
   if(GetLength(aGoals) == 1) {
-    return(CreateGoal(aGoals[0], aTempGoalSave[0]));
+    return CreateGoal(aGoals[0], aTempGoalSave[0]);
   }
 
   CreateMenu(GetID(), pClonk, 0, 0, 0, 0, 1);
@@ -243,23 +243,23 @@ protected func CreateGoal(id idGoal, int iScore)
 private func GoalIsCompatible()
 {
   // Schon eines gefunden?
-  if(pGoal) return(1);
+  if(pGoal) return 1;
   // Mehr als ein Spielziel wird nicht unterstützt
-  if(GetLength(FindObjects(Find_Category(C4D_Goal()))) != 1) return();
+  if(GetLength(FindObjects(Find_Category(C4D_Goal))) != 1) return ;
   // Ist das Spielziel kompatibel mit diesem Objekt?
-  if(!(FindObject2(Find_Category(C4D_Goal()))->~IsConfigurable())) return();
+  if(!(FindObject2(Find_Category(C4D_Goal))->~IsConfigurable())) return ;
   // Gut
-  pGoal = FindObject2(Find_Category(C4D_Goal()));
-  return(1);
+  pGoal = FindObject2(Find_Category(C4D_Goal));
+  return 1;
 }
 
 protected func OpenGoalMenu(id dummy, int iSelection)
 {
-  if(!pGoal) return(OpenMenu());
+  if(!pGoal) return OpenMenu();
 	
   var pClonk = GetCursor();
   if(pGoal->~ConfigMenu(pClonk))
-	return(1);//OpenMenu()
+	return 1;//OpenMenu()
 	
   var pClonk = GetCursor();
   // Menü aufmachen
@@ -279,7 +279,7 @@ protected func OpenGoalMenu(id dummy, int iSelection)
 protected func OpenGoalMenu(id dummy, int iSelection)
 {
 
-  return(_inherited(dummy, iSelection,...));
+  return _inherited(dummy, iSelection,...);
 }
 
 
@@ -298,8 +298,8 @@ protected func ChangeGoalConf(id dummy, int iChange)
 
 private func GetWinScore2()
 {
-  var pGoal = FindObject2(Find_Category(C4D_Goal()));
-  return(GetWinScore(pGoal));
+  var pGoal = FindObject2(Find_Category(C4D_Goal));
+  return GetWinScore(pGoal);
 }
 
 /* Sondermenü: KI */
@@ -307,7 +307,7 @@ private func GetWinScore2()
 protected func OpenAIMenu(id dummy, int iSelection)
 {
   var pClonk = GetCursor();
-  var pGoal = FindObject2(Find_Category(C4D_Goal()));
+  var pGoal = FindObject2(Find_Category(C4D_Goal));
   // Menü aufmachen
   CreateMenu(GetID(), pClonk, 0,0,0,0, 1);
   // Kein Teamspielziel
@@ -366,7 +366,7 @@ protected func AIConfig(int iTeam, int iChange, int iSel)
     }
   }
   // Menü wieder öffnen (verzögert)
-  ScheduleCall(this(), "OpenAIMenu", 2, 0, 0, iSel);
+  ScheduleCall(this, "OpenAIMenu", 2, 0, 0, iSel);
 }
 
 private func KIMessage(object pClonk)
@@ -405,12 +405,12 @@ protected func GetTeamCount()
   var i=1;
   while(GetTeamName(i))
     i++;
-  return(i-1);
+  return i-1;
 }
 
 private func GetTeamStrength(int iTeam)
 {
-  if(!iTeam) return();
+  if(!iTeam) return ;
 
   for(var i=0,j,str ; i < GetPlayerCount() ; i++)
   {
@@ -424,7 +424,7 @@ private func GetTeamStrength(int iTeam)
     }
   }
   if(iTeam < GetLength(aAI)) str += aAI[iTeam]; 
-  return(str);
+  return str;
 }
 
 /* Konfiguration abschließen */
@@ -439,7 +439,7 @@ protected func ConfigurationFinished()
       AddAI(i);
     i++;
   }
-  ScheduleCall(this(), "ConfigurationFinished2", 5);
+  ScheduleCall(this, "ConfigurationFinished2", 5);
 }
 
 protected func ConfigurationFinished2()
@@ -472,7 +472,7 @@ protected func ConfigurationFinished2()
       
       pCrew->~Recruitment(pCrew->GetOwner());
       }
-    for(var rule in FindObjects(Find_Category(Chooser_Cat), Find_Exclude(this())))
+    for(var rule in FindObjects(Find_Category(Chooser_Cat), Find_Exclude(this)))
       rule->~InitializePlayer(GetPlayerByIndex(i));
     }
   // Überschüssiges TIM1-Objekte entfernen (falls Spieler ziwschenzeitlich geflogen sind)
@@ -485,7 +485,7 @@ protected func ConfigurationFinished2()
 
 /* Generelles */
 
-public func MenuQueryCancel() { return(1); }
+public func MenuQueryCancel() { return 1; }
 
 private func Eastern(object P)
 {

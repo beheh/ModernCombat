@@ -1,26 +1,26 @@
 /*-- Erste Hilfe Pack --*/
 
-#strict
+#strict 2
 
 local healpoints;
 
 /* Initialisierung */
 
-public func HandSize()   {return(1000);}
-public func HandX()      {return(100);   }
-public func HandY()      {return(0);   }
-public func IsDrawable() { return(true); } 
+public func HandSize()   {return 1000;}
+public func HandX()      {return 100;   }
+public func HandY()      {return 0;   }
+public func IsDrawable() { return true; } 
 
-public func MaxHealPoints() { return(150); } 
-public func StartHealPoints() { return(150); }
+public func MaxHealPoints() { return 150; } 
+public func StartHealPoints() { return 150; }
 
-func IsEquipment(){return(true);}
+func IsEquipment(){return true;}
 
-protected func NoArenaRemove() {return(true);}
+protected func NoArenaRemove() {return true;}
 
 /*public func OnCollection()
 {
-  return(true);
+  return true;
 }*/
 
 protected func Initialize()
@@ -39,20 +39,20 @@ public func Think(object pAI, object pClonk)//Für 4K-Bots. :D *pwnpwn*
 
 protected func Activate(caller)
 {
-  if(GetEffect("FAPHeal",this()))
+  if(GetEffect("FAPHeal",this))
   {
-    RemoveEffect("FAPHeal",this());
-    return(1);
+    RemoveEffect("FAPHeal",this);
+    return 1;
   }
   if(GetEffect("*Heal*",caller))
   {
     PlayerMessage(GetOwner(caller), "$Alreadyhealing$",caller);
-    return(1);
+    return 1;
   }
   if(GetEnergy(caller) == GetPhysical("Energy",0, caller)/1000)
   {
     PlayerMessage(GetOwner(caller), "$NotWounded$",caller);
-    return(1);
+    return 1;
   }
   if(OnFire(caller))
   {
@@ -61,36 +61,36 @@ protected func Activate(caller)
     Extinguish(caller);
   }
   
-  AddEffect("FAPHeal",this(),250,2,this(),GetID(),caller);
+  AddEffect("FAPHeal",this,250,2,this,GetID(),caller);
   //PlayerMessage(GetOwner(caller),"$Uselimit$",caller,Heallimit);
-  return(1);
+  return 1;
 }
 
 func Departure(object pClonk)
 {
-  if(GetEffect("FAPHeal", this()))
+  if(GetEffect("FAPHeal", this))
   {
-    RemoveEffect("FAPHeal",this());
+    RemoveEffect("FAPHeal",this);
     /*Enter(pClonk);
     SelectFAP();*/
   }
 }
 
-public func RejectShift(){return(GetEffect("FAPHeal",this()));}
+public func RejectShift(){return GetEffect("FAPHeal",this);}
 
 public func RejectEntrance(object pObj)
 {
   if(GetOCF(pObj) & OCF_Living)
   {
     if(ContentsCount(GetID(),pObj))//fail. :c
-      return(true);
+      return true;
   }
-  return(false);
+  return false;
 }
 
 /*public func Entrance(object pContainer)
 {
-  for(var obj in FindObjects(Find_Container(pContainer),Find_ID(GetID()),Find_Exclude(this())))
+  for(var obj in FindObjects(Find_Container(pContainer),Find_ID(GetID()),Find_Exclude(this)))
   {
     if(obj->GetHealPoints() < obj->MaxHealPoints())
     {
@@ -107,7 +107,7 @@ public func RejectEntrance(object pObj)
 public func ControlThrow(object pClonk)
 {
   if(pClonk->~IsMedic()) pClonk->~StartHeal(MDIC_HealMode_SingleHeal);
-  return(true);
+  return true;
 }
 
 public func ControlUp(object pClonk)
@@ -115,15 +115,15 @@ public func ControlUp(object pClonk)
   if(GetPlrDownDouble(GetController(pClonk)))
   {
     pClonk->~StartHeal(MDIC_HealMode_GroupHeal);
-    return(true);
+    return true;
   }
-  return(false);
+  return false;
 }
 
 func Deselection(object pClonk)//Hack für Clonks die nicht RejectShift unterstützen. :P
 {
-  if(GetEffect("FAPHeal", this()))
-    ScheduleCall(this(),"SelectFAP",1);
+  if(GetEffect("FAPHeal", this))
+    ScheduleCall(this,"SelectFAP",1);
 }
 
 protected func SelectFAP()
@@ -135,7 +135,7 @@ protected func SelectFAP()
 
 public func FxFAPHealStart(pTarget, iEffectNumber, iTemp, pClonk)
 {
-  if(!pClonk) return(-1);
+  if(!pClonk) return -1;
   
   EffectVar(0, pTarget, iEffectNumber) = pClonk;
   Sound("FAPK_HealStart.ogg");
@@ -154,32 +154,32 @@ public func FxFAPHealStart(pTarget, iEffectNumber, iTemp, pClonk)
     EffectVar(1, pTarget, iEffectNumber) = 0;
   }
   
-  return(1);
+  return 1;
 }
 
 public func FxFAPHealTimer(pTarget, iEffectNumber, iEffectTime)
 {
   var pClonk = EffectVar(0, pTarget, iEffectNumber);
-  if(!pClonk) return(-1);
+  if(!pClonk) return -1;
   
   if(EffectVar(1, pTarget, iEffectNumber))
   {
-    if((pClonk->GetProcedure() ne "WALK") || pClonk->~IsCrawling())//Nur gehen ist erlaubt.
-      return(-1);
+    if((pClonk->GetProcedure() != "WALK") || pClonk->~IsCrawling())//Nur gehen ist erlaubt.
+      return -1;
   }
   else
   {
-    if((pClonk->GetAction() ne "Heal") && (pClonk->GetComDir() != COMD_Stop))
+    if((pClonk->GetAction() != "Heal") && (pClonk->GetComDir() != COMD_Stop))
     {
-      return(-1);
+      return -1;
     }
   }
 
   if(GetEnergy(pClonk) >= GetPhysical("Energy",0,pClonk)/1000)//Fertig geheilt?
-    return(-1);
+    return -1;
     
   /*if((pClonk->GetComDir() != COMD_None) && !EffectVar(1, pTarget, iEffectNumber))
-    return(-1);*/
+    return -1;*/
 
   //Effekte
   //CreateParticle("MSpark",GetX(pClonk)+RandomX(-8, 8),GetY(pClonk)+RandomX(-10, 10),0,-20,RandomX(18,38),RGB(210,20,20));
@@ -199,10 +199,10 @@ public func FxFAPHealTimer(pTarget, iEffectNumber, iEffectTime)
     
     if(!(iEffectTime % 4) || !EffectVar(1, pTarget, iEffectNumber))
       if(pTarget->DoHealPoints(-heal) <= 0)
-        return(-1);
+        return -1;
   }
 
-  return(1);
+  return 1;
 }
 
 public func FxFAPHealStop(target, no, reason, temp)
@@ -218,22 +218,22 @@ public func FxFAPHealStop(target, no, reason, temp)
     SetPhysical("Walk", GetPhysical("Walk", 0, clonk)+EffectVar(1, target, no), 2, clonk);
 }
 
-public func GetHealPoints(){return(healpoints);}
+public func GetHealPoints(){return healpoints;}
 
 public func DoHealPoints(int iChange)
 {
   healpoints = BoundBy(healpoints+iChange,0,MaxHealPoints());
   
   if(healpoints <= 0)
-    ScheduleCall(this(),"Remove",1);
+    ScheduleCall(this,"Remove",1);
   
-  return(healpoints);
+  return healpoints;
   
   /*if(healpoints+iChange < 0)
-    return(-(healpoints+iChange));
+    return -(healpoints+iChange);
     
   if(healpoints+iChange > MaxHealPoints())
-    return((healpoints+iChange) - MaxHealPoints());*/
+    return (healpoints+iChange) - MaxHealPoints();*/
 }
 
 public func Remove()
@@ -246,13 +246,13 @@ public func Remove()
 protected func Hit()
 {
   Sound("FAPK_Hit*.ogg");
-  return(1);
+  return 1;
 }
 
 protected func Selection()
 {
   Sound("FAPK_Charge.ogg");
-  return(1);
+  return 1;
 }
 
 protected func CalcValue()
@@ -260,7 +260,7 @@ protected func CalcValue()
   return(healpoints*(GetValue(0,GetID())/(StartHealPoints()/MaxHealPoints()))/MaxHealPoints());
 }
 
-func CustomHUD(){return(true);}
+func CustomHUD(){return true;}
 func UpdateHUD(object pHUD)
 {
   pHUD->Charge(healpoints,MaxHealPoints());

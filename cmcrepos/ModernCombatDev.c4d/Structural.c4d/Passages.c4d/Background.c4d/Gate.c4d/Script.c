@@ -1,6 +1,6 @@
 /*-- Tor --*/
 
-#strict
+#strict 2
 #include DOOR
 
 

@@ -1,16 +1,16 @@
 /*-- Keine Materialexplosionen --*/
 
-#strict
+#strict 2
 
 
 /* Infos */
 protected func Activate(iByPlayer)
 {
   MessageWindow(GetDesc(), iByPlayer);
-  return(1);
+  return 1;
 }
 
 global func NoMatExplosions()
 {
-  return(ObjectCount(NMTX));
+  return ObjectCount(NMTX);
 }

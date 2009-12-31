@@ -114,7 +114,7 @@ public func RelaunchClonk(int iPlr, object pCursor)
   pClonk->Enter(tim);
   PlayerMessage(iPlr, Format("@%s", GetName(pClonk)), tim);
 
-  return(pClonk);
+  return pClonk;
 }
 
 

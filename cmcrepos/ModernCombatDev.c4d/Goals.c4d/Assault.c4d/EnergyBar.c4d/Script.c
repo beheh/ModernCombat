@@ -1,12 +1,12 @@
 /*-- Energiebalken --*/
 
-#strict
+#strict 2
 
 local obj;
 
 protected func Initialize()
 {
-  SetGraphics("Row", this(), GetID(), 1, 1);
+  SetGraphics("Row", this, GetID(), 1, 1);
 }
 
 public func Set(object target, int color)
@@ -17,7 +17,7 @@ public func Set(object target, int color)
   SetVertex(0,1,GetVertex(0,1,target) + GetObjHeight(target)/2+10);
   SetAction("Attach",target);
   
-  SetClrModulation(color,this(),1);
+  SetClrModulation(color,this,1);
   
   Update(100);
 }

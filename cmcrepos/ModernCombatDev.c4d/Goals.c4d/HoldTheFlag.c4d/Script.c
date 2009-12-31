@@ -1,6 +1,6 @@
 /*-- Hold the Flag --*/
 
-#strict
+#strict 2
 #include TEAM
 
 local flag;
@@ -21,11 +21,11 @@ global func CreateHTFBase(int iX, int iY)
   if(!goal)
   {
     Log("No HTF-Goal. (Call CreateHTFBase() in ChooserFinished!)");
-    return(false);
+    return false;
   }
   
   goal->SetFlagBase(base);
-  return(true);
+  return true;
 }
 
 protected func Initialize()
@@ -35,7 +35,7 @@ protected func Initialize()
   if (pGoal = FindObject(GetID()))
   { 
     LocalN("iWinScore", pGoal)++;
-    return(RemoveObject()); 
+    return RemoveObject(); 
   }
   iWinScore = 1;
   
@@ -49,7 +49,7 @@ protected func Initialize()
   
   ALLvsONE(0);
   
-  return(_inherited());
+  return _inherited();
 }
 
 protected func InitializePlayer()
@@ -59,13 +59,13 @@ protected func InitializePlayer()
   else
     ALLvsONE(0);
       
-  return(_inherited(...));
+  return _inherited(...);
 }
 
 protected func Destruction()
 {
   if(flag) Log("Flag hat überlebt!");
-  return(_inherited());
+  return _inherited();
 }
 
 public func GetHoldTime()//Wie lange muss man denn die Flagge halten?
@@ -73,7 +73,7 @@ public func GetHoldTime()//Wie lange muss man denn die Flagge halten?
   if(!htime)
     htime = 60*35;
   //TODO: Spielerzahl einbeziehen. :P
-  return(htime);
+  return htime;
 }
 
 public func SetFlagBase(object pFlagBase)//Das ist meine Flaggenbasis.
@@ -106,7 +106,7 @@ public func ChooserFinished()
 public func CollectFlag(object pClonk, object pFlag)//Callback: Jemand hat die Flagge aufgesammelt.
 {
   Log("%s hat die Flagge aufgesammelt.",GetTaggedPlayerName(GetController(pClonk)));
-  AddEffect("Hold", this(), 101, 1, this());
+  AddEffect("Hold", this, 101, 1, this);
   
   ALLvsONE(GetPlayerTeam(GetOwner(pClonk)));
   UpdateHUDs();
@@ -122,7 +122,7 @@ public func DropFlag(object pClonk, object pFlag)//Callback: Fallengelassen. -.-
     
   ALLvsONE(0);
     
-  RemoveEffect("Hold",this());
+  RemoveEffect("Hold",this);
   UpdateHUDs();
 }
 
@@ -160,14 +160,14 @@ public func InitFlag()//Flagge erstellen und für unsere Zwecke initialisieren.
   if(!flag)
     flag = CreateObject(HTFF,0,0,NO_OWNER);
     
-  flag->Activate(this());
+  flag->Activate(this);
   
   ResetFlag();
   UpdateHUDs();
 }
 
 // Kann mittels des Spielzielauswählers konfiguriert werden
-public func IsConfigurable() { return(true); }
+public func IsConfigurable() { return true; }
 
 // KI-Taktik
 /*public func AITactic(object pAIPlayer)
@@ -185,10 +185,10 @@ public func IsConfigurable() { return(true); }
     {
       pCrew->CheckInventory();
       if(!(pCrew->GetCommand() || pCrew->GetMacroCommand()))
-        pCrew->SetMacroCommand(this(), "Follow", GetCrew(owner, 0),0,0,0,Aggro_Follow);
+        pCrew->SetMacroCommand(this, "Follow", GetCrew(owner, 0),0,0,0,Aggro_Follow);
     }
   }
-  return(true);
+  return true;
 }*/
 
 private func ALLvsONE(int iTeam)//*möp*
@@ -234,9 +234,9 @@ private func ALLvsONE(int iTeam)//*möp*
 public func FxHoldTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
   if(!flag)
-    return(-1);
+    return -1;
   if(!flag->GetClonk())
-    return(-1);
+    return -1;
 
   if(!(iEffectTime%35))
   {
@@ -250,18 +250,18 @@ public func FxHoldTimer(object pTarget, int iEffectNumber, int iEffectTime)
     var c = flag->GetClonk();
     if(c)
       HoldTheFlag(c);
-    return(-1);
+    return -1;
   }
 }
 
 public func GetHUDInfo(int player)
 {
-  if(!flag) return(" ");
+  if(!flag) return " ";
   var clonk =  flag->GetClonk();
-  if(!clonk) return(" ");
+  if(!clonk) return " ";
   
   var team = GetPlayerTeam(player);
-  var time = GetHoldTime() - GetEffect("Hold",this(),0,6);
+  var time = GetHoldTime() - GetEffect("Hold",this,0,6);
   
   return(Format("<c %x>%s</c> : %.2d",GetTeamColor(team),GetPlayerName(player),time/35));
 }

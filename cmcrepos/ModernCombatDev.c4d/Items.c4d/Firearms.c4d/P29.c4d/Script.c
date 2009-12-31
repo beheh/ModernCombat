@@ -1,47 +1,47 @@
 /*-- P29 --*/
 
-#strict
+#strict 2
 #include WPN2
 
-public func HandSize()      { return(730); }
-public func HandX()         { return(5000); }
-public func HandY()         { return(2000); }
+public func HandSize()      { return 730; }
+public func HandX()         { return 5000; }
+public func HandY()         { return 2000; }
 
-public func BarrelYOffset() { return(+2000); }
-public func BarrelXOffset() { return(-1500); }
-public func SelectionTime() { return(11*3); }
+public func BarrelYOffset() { return +2000; }
+public func BarrelXOffset() { return -1500; }
+public func SelectionTime() { return 11*3; }
 
 
 //Kugeln - Automatikfeuer
 
 public func FMData1(int data)
 {
-  if(data == FM_Name)                 return("$Bullets$");
+  if(data == FM_Name)                 return "$Bullets$";
     
-  if(data == FM_AmmoID)             return(STAM);
-  if(data == FM_AmmoLoad)           return(35);
+  if(data == FM_AmmoID)             return STAM;
+  if(data == FM_AmmoLoad)           return 35;
   
-  if(data == FM_Reload)             return(65);
-  if(data == FM_Recharge)           return(3);
+  if(data == FM_Reload)             return 65;
+  if(data == FM_Recharge)           return 3;
 
-  if(data == FM_Auto)               return(true);
+  if(data == FM_Auto)               return true;
   
-  if(data == FM_Damage)    return(6);
+  if(data == FM_Damage)    return 6;
   
-  if(data == FM_Slot)    return(1);
+  if(data == FM_Slot)    return 1;
   
-  if(data == FM_SpreadAdd) return(28);
-  if(data == FM_StartSpread) return(80);
+  if(data == FM_SpreadAdd) return 28;
+  if(data == FM_StartSpread) return 80;
   if(data == FM_MaxSpread) return(CH_MaxSpread/3*2);
 
-  return(Default(data));
+  return Default(data);
 }
 
 public func FMData1T1(int data)
 {
-  if(data == FT_Name)                 return("$Auto$");
-  if(data == FT_IconFacet)            return(FICO_Auto);
-  return(FMData1(data));
+  if(data == FT_Name)                 return "$Auto$";
+  if(data == FT_IconFacet)            return FICO_Auto;
+  return FMData1(data);
 }
 
 public func Fire1T1()
@@ -51,9 +51,9 @@ public func Fire1T1()
 
 public func BotData1(int data)
 {
-  if(data == BOT_Range)    return(400);
+  if(data == BOT_Range)    return 400;
 
-  return(Default(data));
+  return Default(data);
 }
 
 public func Fire1()
@@ -76,12 +76,12 @@ public func Fire1()
 
 public func FMData1T2(int data)
 {
-  if(data == FT_Name)                 return("$Single$");
-  if(data == FT_IconFacet)            return(FICO_Single);
-  if(data == FM_Recharge)             return(9);
-  if(data == FM_Auto)                 return(false);
-  if(data == FM_Damage)               return(FMData1(FM_Damage)*2);
-  return(FMData1(data));
+  if(data == FT_Name)                 return "$Single$";
+  if(data == FT_IconFacet)            return FICO_Single;
+  if(data == FM_Recharge)             return 9;
+  if(data == FM_Auto)                 return false;
+  if(data == FM_Damage)               return FMData1(FM_Damage)*2;
+  return FMData1(data);
 }
 
 public func Fire1T2()
@@ -109,20 +109,20 @@ public func Fire1T2()
 
 public func FMData2(int data)
 {
-  if(data == FM_Name)           return("$Monochrom$");
-  if(data == FM_BurstAmount)    return(2);
-  if(data == FM_BurstRecharge)  return(1);
+  if(data == FM_Name)           return "$Monochrom$";
+  if(data == FM_BurstAmount)    return 2;
+  if(data == FM_BurstRecharge)  return 1;
   if(data == FM_SpreadAdd)      return(FMData1(data)/3*2);
-  if(data == FM_Recharge)       return(6);
+  if(data == FM_Recharge)       return 6;
   
-  return(FMData1(data));
+  return FMData1(data);
 }
 
 public func FMData2T1(int data)
 {
-  if(data == FT_Name)                 return("$MonochromAuto$");
-  if(data == FT_IconFacet)            return(FICO_Auto);
-  return(FMData2(data));
+  if(data == FT_Name)                 return "$MonochromAuto$";
+  if(data == FT_IconFacet)            return FICO_Auto;
+  return FMData2(data);
 }
 
 public func Fire2T1()
@@ -132,9 +132,9 @@ public func Fire2T1()
 
 public func BotData2(int data)
 {
-  if(data == BOT_Range)    return(300);
+  if(data == BOT_Range)    return 300;
 
-  return(Default(data));
+  return Default(data);
 }
 
 public func Fire2()
@@ -161,15 +161,15 @@ public func Fire2()
 
 public func FMData2T2(int data)
 {
-  if(data == FT_Name)                 return("$MonochromSingle$");
-  if(data == FT_IconFacet)            return(FICO_Single);
-  if(data == FM_Recharge)             return(9);
-  if(data == FM_Auto)                 return(false);
-  if(data == FM_Damage)               return(FMData2(FM_Damage)*2);
+  if(data == FT_Name)                 return "$MonochromSingle$";
+  if(data == FT_IconFacet)            return FICO_Single;
+  if(data == FM_Recharge)             return 9;
+  if(data == FM_Auto)                 return false;
+  if(data == FM_Damage)               return FMData2(FM_Damage)*2;
   
-  if(data == FM_BurstRecharge)  return(3);
+  if(data == FM_BurstRecharge)  return 3;
   
-  return(FMData2(data));
+  return FMData2(data);
 }
 
 public func Fire2T2()

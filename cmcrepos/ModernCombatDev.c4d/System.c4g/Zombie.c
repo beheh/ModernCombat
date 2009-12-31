@@ -1,6 +1,6 @@
 /* Die Zombies! >:D */
 
-#strict
+#strict 2
 
 global func ZombieInvasion(int iPower)//X Zombies spawnen.
 {
@@ -17,38 +17,38 @@ global func ZombieInvasion(int iPower)//X Zombies spawnen.
 
 global func Zombize(pTarget)//Ein Lebewesen zu einem Zombie machen.
 {
-  if(!pTarget) pTarget = this();
-  if(!pTarget) return(false);
+  if(!pTarget) pTarget = this;
+  if(!pTarget) return false;
   
   if(!GetEffect("IntZombie",pTarget))
-    return(AddEffect("IntZombie",pTarget,20,35,pTarget)); 
+    return AddEffect("IntZombie",pTarget,20,35,pTarget); 
 }
 
 global func UnZombize(pTarget)//Einen Zombie zurückverwandeln.
 {
-  if(!pTarget) pTarget = this();
-  if(!pTarget) return(false);
+  if(!pTarget) pTarget = this;
+  if(!pTarget) return false;
   
-  return(RemoveEffect("IntZombie",pTarget)); 
+  return RemoveEffect("IntZombie",pTarget); 
 }
 
 global func IsZombie(object pTarget)//Ist das Objekt ein Zombie?
 {
-  if(!pTarget) pTarget = this();
-  if(!pTarget) return(false);
+  if(!pTarget) pTarget = this;
+  if(!pTarget) return false;
   
-  return(GetEffect("*Zombie*",pTarget));
+  return GetEffect("*Zombie*",pTarget);
 }
 
 global func IsActiveZombie(object pTarget)//Ist das Objekt ein aktiver Zombie? (Schläft also nicht.)
 {
-  if(!pTarget) pTarget = this();
-  if(!pTarget) return(false);
+  if(!pTarget) pTarget = this;
+  if(!pTarget) return false;
   
   if(GetEffect("IntZombieStandBy",pTarget))
-    return();
+    return ;
   
-  return(GetEffect("Int*Zombie*",pTarget));
+  return GetEffect("Int*Zombie*",pTarget);
 }
 
 
@@ -66,7 +66,7 @@ static const ZOMBIE_ViewRange = 300;//Soweit sehen Zombies.
 
 global func FxIntZombieStart(object pTarget, int iEffectNumber, int iTemp)
 {
-  if(iTemp) return();
+  if(iTemp) return ;
   
   pTarget->SetName("Zombie");//Sollte vllt. in ZombieInvasion() rein?
 
@@ -92,7 +92,7 @@ global func FxIntZombieStart(object pTarget, int iEffectNumber, int iTemp)
 
 global func FxIntZombieTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
-  if(!GetAlive(pTarget) || IsFakeDeath(pTarget)){Kill(pTarget); return(-1);}//CMC-Support
+  if(!GetAlive(pTarget) || IsFakeDeath(pTarget)){Kill(pTarget); return -1;}//CMC-Support
   
   if(InLiquid(pTarget))
     pTarget->SetPhysical("BreatheWater",1,2);
@@ -184,7 +184,7 @@ global func FxIntZombieTimer(object pTarget, int iEffectNumber, int iEffectTime)
           SetCommand(pTarget,"MoveTo",corpse,0,0,0,false);
       }
       
-      return();
+      return ;
     }
   }
   
@@ -204,7 +204,7 @@ global func FxIntZombieTimer(object pTarget, int iEffectNumber, int iEffectTime)
     if((ObjectDistance(pTarget,enemy) >= ZOMBIE_ViewRange) || !GetAlive(enemy) || IsZombie(enemy) || Contained(enemy))
     {
       EffectVar (0,pTarget,iEffectNumber) = 0;
-      return();
+      return ;
     }
     
     if(class)
@@ -213,7 +213,7 @@ global func FxIntZombieTimer(object pTarget, int iEffectNumber, int iEffectTime)
         if(GetCommand(pTarget,1) != enemy)
           SetCommand(pTarget,"MoveTo",enemy,0,0,0,true);
           
-      return();
+      return ;
     }
           
     if(enemy_dst <= Distance(GetObjWidth(pTarget),GetObjHeight(pTarget))/3*2)
@@ -235,7 +235,7 @@ global func FxIntZombieTimer(object pTarget, int iEffectNumber, int iEffectTime)
       if(GetCommand(pTarget,1) != enemy)
         SetCommand(pTarget,"MoveTo",enemy,0,0,0,true);
       
-    return();
+    return ;
   }
   
   //Es gibt nix zu tun?! Ô.o
@@ -244,7 +244,7 @@ global func FxIntZombieTimer(object pTarget, int iEffectNumber, int iEffectTime)
 
 global func FxIntZombieStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)
 {
-  if(fTemp) return();
+  if(fTemp) return ;
   
   EffectCall(pTarget,iEffectNumber,Format("%sEnd",EffectVar(4,pTarget,iEffectNumber)));
 
@@ -262,7 +262,7 @@ global func FxIntZombieStop(object pTarget, int iEffectNumber, int iReason, bool
   
   pTarget->SetOwner(EffectVar(2,pTarget,iEffectNumber));
   
-  SetCommand(pTarget,"None");
+  SetCommand(pTarget,"No!=");
   
   SetClrModulation (0,pTarget);
 
@@ -277,7 +277,7 @@ global func FxIntZombieStop(object pTarget, int iEffectNumber, int iReason, bool
 global func FxIntZombieStandByStart(object pTarget, int iEffectNumber, int iTemp)
 {
   ChangeEffect("IntZombie",pTarget,0,"IntZombie",0);//Timer ausschalten.
-  SetCommand(pTarget,"None");
+  SetCommand(pTarget,"No!=");
   SetAction("Dead");
 }
 
@@ -295,7 +295,7 @@ global func FxIntZombieStandByTimer(object pTarget, int iEffectNumber, int iEffe
     //*klingel* Aufstehen!
     ObjectSetAction(pTarget,"FlatUp",0,0,1);
     ChangeEffect("IntZombie",pTarget,0,"IntZombie",35);
-    return(-1);
+    return -1;
   }
 }
 
@@ -312,13 +312,13 @@ global func FxIntZombieBerserkerInit(object pTarget, int iEffectNumber)
   
   pTarget->Sound("DeathGrowl");
   
-  return(1);
+  return 1;
 }
 
 global func FxIntZombieBerserkerAttack(object pTarget, int iEffectNumber, object enemy)
 {
   if(ObjectDistance(pTarget,enemy) > Distance(GetObjWidth(pTarget),GetObjHeight(pTarget))/3*2)
-    return();
+    return ;
 
   pTarget->SetAction("Throw");
   Punch(enemy,30+Random(20));
@@ -328,7 +328,7 @@ global func FxIntZombieBerserkerAttack(object pTarget, int iEffectNumber, object
   glob->HitLiving(enemy);*/
   pTarget->Sound("Growl*");
   
-  return(1);
+  return 1;
 }
 
 global func FxIntZombieBerserkerEnd(object pTarget, int iEffectNumber)
@@ -348,7 +348,7 @@ global func FxIntZombieAssassinInit(object pTarget, int iEffectNumber)
   
   AddEffect("IntZAssassin",pTarget,10,20);
   
-  return(1);
+  return 1;
 }
 
 //Spzialtimer (Ist kein Callback vom Zombie!)
@@ -363,7 +363,7 @@ global func FxIntZAssassinTimer(object pTarget, int iEffectNumber)
 global func FxIntZombieAssassinAttack(object pTarget, int iEffectNumber, object enemy)
 {
   if(ObjectDistance(pTarget,enemy) > Distance(GetObjWidth(pTarget),GetObjHeight(pTarget))*2)
-    return();
+    return ;
 
   /*for(var i = 7+Random(5), glob ; i ; i--)
   {
@@ -380,7 +380,7 @@ global func FxIntZombieAssassinAttack(object pTarget, int iEffectNumber, object 
   
   pTarget->Explode(20);
   
-  return(1);
+  return 1;
 }
 
 global func FxIntZombieAssassinEnd(object pTarget, int iEffectNumber)

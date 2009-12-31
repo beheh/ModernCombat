@@ -322,7 +322,7 @@ public func GetFMCount()
   var i = 1;
   while(GetFMData(FM_Name,i))
     i++;
-  return(i);
+  return i;
 }
 
 public func GetFTCount(int iFM)
@@ -332,7 +332,7 @@ public func GetFTCount(int iFM)
   var i = 1;
   while(GetFMData(FT_Name,iFM,i))
     i++;
-  return(i);
+  return i;
 }
 
 
@@ -668,7 +668,7 @@ private func SetFireMode(int i)
   if(GetUser())
     HelpMessage(GetUser()->GetOwner(),"$FireModeChanged$",GetUser(),GetFMData(FM_Name),GetFMData(FM_AmmoID));
   
-  return(1);
+  return 1;
 }
 
 
@@ -789,8 +789,8 @@ public func GetRecharge()
   0: insgesammte Nachladezeit
   1: Nachladen aktiv?
   2: Slot
-  3: bereits nachgeladene Munition (Nur FM_SingleReload.)
-  4: abgelaufene Nachladezeit
+  3: bereits nachgelade!= Munition (Nur FM_SingleReload.)
+  4: abgelaufe!= Nachladezeit
   5: Status -1 Vorbereiten | 0 Nachladen | +1 Beenden
 */
 public func FxReloadStart(object pTarget, int iNumber, int iTemp, int iTime, iSlot)
@@ -1204,10 +1204,10 @@ public func Hit()
 
 global func FxShowWeaponStart(object pTarget, int iNumber, int iTemp)
 {
-  if (iTemp) return(FX_OK);
+  if (iTemp) return FX_OK;
   // Erste Grafikaktualisierung
   FxShowWeaponTimer(pTarget, iNumber);
-  return (FX_OK);
+  return FX_OK;
 }
 
 global func FxShowWeaponTimer(object pTarget, int iNumber, int iTime)
@@ -1222,7 +1222,7 @@ global func FxShowWeaponTimer(object pTarget, int iNumber, int iTime)
       EffectVar(6, pTarget, iNumber) = 0;
     }
     SetGraphics(0, pTarget, 0, WeaponDrawLayer);
-    return(FX_OK);
+    return FX_OK;
   }
   //Die Waffe momentan überhaupt anzeigen?
   if(!(pTarget->~WeaponAt(xoff, yoff, r))) {
@@ -1232,7 +1232,7 @@ global func FxShowWeaponTimer(object pTarget, int iNumber, int iTime)
       EffectVar(6, pTarget, iNumber) = 0;
     }
     SetGraphics(0, pTarget, 0, WeaponDrawLayer);
-    return(FX_OK);
+    return FX_OK;
   }
   var obj = Contents(0,pTarget), id=GetID(obj);
   // Waffe nicht mehr aktuell
@@ -1251,7 +1251,7 @@ global func FxShowWeaponTimer(object pTarget, int iNumber, int iTime)
         EffectVar(6, pTarget, iNumber) = 0;
       }
       SetGraphics(0, pTarget, 0, WeaponDrawLayer);
-      return(FX_OK);
+      return FX_OK;
     }
   }
 
@@ -1322,7 +1322,7 @@ global func FxShowWeaponTimer(object pTarget, int iNumber, int iTime)
   
 global func FxShowWeaponStop(object pTarget, int iNumber, int iReason, bool fTemp)
 {
-  if (fTemp) return(FX_OK);
+  if (fTemp) return FX_OK;
   // Grafik entfernen
   SetGraphics(0, pTarget, 0, WeaponDrawLayer);
   

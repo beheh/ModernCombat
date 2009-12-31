@@ -1,4 +1,4 @@
-#strict
+#strict 2
 
 /* Schuss */
 
@@ -10,7 +10,7 @@ local bGlow;
 func Construction(object byObj) {
   // nichts? :C
   if(!byObj)
-    return();
+    return ;
   // Waffe?
   shooter = GetShooter(byObj);
   // Team?
@@ -47,11 +47,11 @@ public func Launch(int iAngle, int iSpeed, int iDist, int iSize, int iTrail, int
   iTime = 10*iDist/iSpeed;
   
   if(!iTime)
-    return(RemoveObject());
+    return RemoveObject();
 
-  var self = this();
+  var self = this;
   SetAction("Travel");
-  if(!self) return();   // Kleiner Sicherheitscheck, ob die Kugel nicht sofort verschwindet  
+  if(!self) return ;   // Kleiner Sicherheitscheck, ob die Kugel nicht sofort verschwindet  
 
   SetXDir(+Sin(iAngle,iSpeed, iAPrec));
   SetYDir(-Cos(iAngle,iSpeed, iAPrec));
@@ -64,12 +64,12 @@ public func Launch(int iAngle, int iSpeed, int iDist, int iSize, int iTrail, int
   // Tolles Leuchten erzeugen
   if(iGlowSize) {
     bGlow = true;
-    SetGraphics(0,this(),LIGH,1,GFXOV_MODE_Base, 0, 1);
-    SetObjDrawTransform(100+35*iGlowSize,0,0, 0,100+35*iGlowSize,0, this(),1);
-    SetClrModulation(GlowColor(1),this(),1);
+    SetGraphics(0,this,LIGH,1,GFXOV_MODE_Base, 0, 1);
+    SetObjDrawTransform(100+35*iGlowSize,0,0, 0,100+35*iGlowSize,0, this,1);
+    SetClrModulation(GlowColor(1),this,1);
   }
   
-  AddEffect("HitCheck", this(), 1,1, 0,GetID(),shooter);
+  AddEffect("HitCheck", this, 1,1, 0,GetID(),shooter);
 
   // Werte für Reflektionen speichern
   iRefl = iReflections;
@@ -96,7 +96,7 @@ public func Launch(int iAngle, int iSpeed, int iDist, int iSize, int iTrail, int
 private func CreateTrail(int iSize, int iTrail) {
   pTrail = CreateObject(TRAI,0,0,-1);
   if(pTrail) {
-    pTrail->Set(iSize-2,iTrail,this());
+    pTrail->Set(iSize-2,iTrail,this);
     SetObjectBlitMode(GetObjectBlitMode(),pTrail);
   }
 }
@@ -114,10 +114,10 @@ private func Traveling()
     SetClrModulation(GlowColor(iATime),0,1);
   }
   // löschen
-  if(iATime >= iTime) return(Remove());
+  if(iATime >= iTime) return Remove();
 
   // außerhalb der Landschaft: löschen
-  if(GetY()<0) return(Remove());
+  if(GetY()<0) return Remove();
 }
   
 /* Treffer */
@@ -174,10 +174,10 @@ private func Hit()
   var objs = FindObjects(	Find_AtPoint(),
 							Find_NoContainer(),
 							Find_Or(
-								Find_Func("IsBulletTarget",GetID(),this(),shooter),
+								Find_Func("IsBulletTarget",GetID(),this,shooter),
 								Find_OCF(OCF_Alive)
 							),
-							Find_Func("CheckEnemy",this())
+							Find_Func("CheckEnemy",this)
 							/*Find_Not(Find_Func("HitExclude"))*/);  
  
   for(var pTarget in objs) {
@@ -200,16 +200,16 @@ public func BulletStrike(object pObj) {
 
 private func Color(int iATime) {
   var iPrg = 100*iATime/iTime;
-  return(RGBa(255,255-iPrg*2,255-iPrg*2,iPrg*2));
+  return RGBa(255,255-iPrg*2,255-iPrg*2,iPrg*2);
 }
 
 public func TrailColor(int iATime) {
   var iPrg = 100*iATime/iTime;
-  return(RGBa(255,255-iPrg*2,255-iPrg*2,iPrg*2));
+  return RGBa(255,255-iPrg*2,255-iPrg*2,iPrg*2);
 }
 
 public func GlowColor(int iATime) {
-  return(RGBa(255,190,0,50));
+  return RGBa(255,190,0,50);
 }
 
 // Dummy-func
@@ -239,7 +239,7 @@ public func Remove() {
 
 public func FxHitCheckStart(object target, int effect, int temp, object byObj, bool neverShooter)
 {
-  if(temp) return();
+  if(temp) return ;
   EffectVar(0, target, effect) = GetX(target);
   EffectVar(1, target, effect) = GetY(target);
   if(!byObj)
@@ -286,7 +286,7 @@ public func FxHitCheckTimer(object target, int effect, int time)
 		// IsBulletTarget oder Alive
 		if(obj->~IsBulletTarget(GetID(target),target,EffectVar(2, target, effect)) || GetOCF(obj) & OCF_Alive) {
 			DebugLog("%s IsBulletTarget: %i, %s, %s","HitCheck",GetName(obj),GetID(target),GetName(target),GetName(EffectVar(2, target, effect)));
-			return(target-> ~HitObject(obj));
+			return target-> ~HitObject(obj);
 	  }
   }
 
@@ -317,6 +317,6 @@ public func FxHitCheckTimer(object target, int effect, int time)
 }
 
 // Ist ein Schuss! Nicht warpen!
-func NoWarp() { return(true); }
+func NoWarp() { return true; }
 // Ist ein Schuss!
-func IsBullet() { return(true); }
+func IsBullet() { return true; }

@@ -1,6 +1,6 @@
 /*-- Kriegsflare --*/
 
-#strict
+#strict 2
 
 local skyfade;
 
@@ -8,7 +8,7 @@ local skyfade;
 
 protected func Initialize()
 {
-  return(1);
+  return 1;
 }
 
 /* Explosionen */
@@ -30,8 +30,8 @@ protected func Make()
       Sound("Blast*",1,0,20);
     }      
   }
-  if(Random(65-ObjectCount(GetID())*5)) return(1);
+  if(Random(65-ObjectCount(GetID())*5)) return 1;
   skyfade = 300;
   Sound("Warflair*",1);
-  return(1);
+  return 1;
 }

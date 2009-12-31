@@ -1,18 +1,18 @@
 /*-- Benzintank --*/
 
-#strict
+#strict 2
 
 
 /* Entzündung */
 
 func Incineration(int iPlr)
 {
-  ScheduleCall(this(), "BlowUp", 20+Random(50),0,iPlr);
+  ScheduleCall(this, "BlowUp", 20+Random(50),0,iPlr);
 }
 
 func IncinerationEx(int iPlr)
 {
-  ClearScheduleCall(this(), "BlowUp");
+  ClearScheduleCall(this, "BlowUp");
 }
 
 /* Zerstörung */

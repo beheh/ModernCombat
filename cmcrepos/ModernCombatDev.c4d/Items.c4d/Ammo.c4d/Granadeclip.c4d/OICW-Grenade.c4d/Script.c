@@ -1,6 +1,6 @@
 /*-- OICW-Granate --*/
 
-#strict
+#strict 2
 #include M203
 
 

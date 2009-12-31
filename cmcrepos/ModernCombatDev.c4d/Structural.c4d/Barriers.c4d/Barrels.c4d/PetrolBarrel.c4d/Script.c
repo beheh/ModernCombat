@@ -1,6 +1,6 @@
 /*-- Benzinfass --*/
 
-#strict
+#strict 2
 #include XBRL
 
 
@@ -17,7 +17,7 @@ func BlowUp(int iPlr)
   SetController(iPlr);
   Extinguish();
   SetRDir(RandomX(-40,+40));
-  AddFireEffect(this(),50,RGB(80,80,80),true,30);
+  AddFireEffect(this,50,RGB(80,80,80),true,30);
 
   //Langsam verschwinden
   FadeOut();

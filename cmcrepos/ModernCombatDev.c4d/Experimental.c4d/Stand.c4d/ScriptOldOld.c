@@ -1,5 +1,5 @@
 /*-- Waffenständer --*/
-#strict
+#strict 2
 
 local pWeapon, pUser;
 
@@ -8,9 +8,9 @@ protected func Initialize()
 {
   SetController(GetOwner());	
   SetAction("Be");
-  AddEffect("ShowWeapon",this(),1,1,this(),GetID());
-  SetGraphics(0,this(),GetID(),3,5,0,0,this());
-	return(true);
+  AddEffect("ShowWeapon",this,1,1,this,GetID());
+  SetGraphics(0,this,GetID(),3,5,0,0,this);
+	return true;
 }
 
 public func Damage()
@@ -24,8 +24,8 @@ public func Arm(id idType)//Armed and dangerous! >:D
 {
   if(!idType->~IsWeapon()) return 0;
   var wepn = CreateObject(idType,0,0,GetController());
-  wepn->Enter(this());
-  return(wepn);
+  wepn->Enter(this);
+  return wepn;
 }
 
 public func WeaponAt(&x, &y, &r)
@@ -33,33 +33,33 @@ public func WeaponAt(&x, &y, &r)
   x = 0;
   y = -5000;//TODO: Werte anpassen.
   r = AimAngle()+270;
-  return(1);
+  return 1;
 }
 
 public func WeaponBegin(&x, &y)
 {
-  var number = GetEffect("ShowWeapon",this());
+  var number = GetEffect("ShowWeapon",this);
   if(!number)
-    return(0);
-  x = EffectVar(2, this(), number)/1000;
-  y = EffectVar(3, this(), number)/1000;
+    return 0;
+  x = EffectVar(2, this, number)/1000;
+  y = EffectVar(3, this, number)/1000;
 }
 
 public func WeaponEnd(&x, &y)
 {
-  var number = GetEffect("ShowWeapon",this());
+  var number = GetEffect("ShowWeapon",this);
   if(!number)
-    return(0);
-  x = EffectVar(4, this(), number)/1000;
-  y = EffectVar(5, this(), number)/1000;
+    return 0;
+  x = EffectVar(4, this, number)/1000;
+  y = EffectVar(5, this, number)/1000;
 }
 
 public func GetWeaponR()
 {
-  var number = GetEffect("ShowWeapon",this());
+  var number = GetEffect("ShowWeapon",this);
   if(!number)
-    return(0);
-  return(EffectVar(1, this(), number));
+    return 0;
+  return EffectVar(1, this, number);
 }
 
 /* Steuerung */
@@ -67,11 +67,11 @@ public func GetWeaponR()
 {
   if(!pObject->~IsWeapon())//Nanu? Keine Waffe? Nee, die nehmen wir nicht.
   {
-    Sound("Error", false, this());
-    return(true);
+    Sound("Error", false, this);
+    return true;
   }
   else
-    return(false);
+    return false;
 }*/
 
 public func SelectWeapon(object pClonk)
@@ -97,18 +97,18 @@ public func Grabbed(object byObj, bool grabbed)
       if(byObj)
       {
         byObj->Collect(pWeapon);
-        ScheduleCall(this(),"SelectWeapon",2,0,byObj);
-        EffectCall(this(),GetEffect("ShowWeapon",this()),"Timer");
+        ScheduleCall(this,"SelectWeapon",2,0,byObj);
+        EffectCall(this,GetEffect("ShowWeapon",this),"Timer");
       }
     }
   	SetUser();
     
-    return();
+    return ;
   }
 
 	if(GetUser() && (pUser != byObj))
 	{
-		return(AddCommand(byObj,"UnGrab"));
+		return AddCommand(byObj,"UnGrab");
 	}
 	else
 	{
@@ -124,16 +124,16 @@ public func Grabbed(object byObj, bool grabbed)
       if(wpn->~IsWeapon())
       {
         while(Contents()) Exit(Contents(),0,0);
-        wpn->Enter(this());//Collect(wpn,this())
+        wpn->Enter(this);//Collect(wpn,this())
         SetWeapon(wpn);
         EffectCall(byObj,LocalN("wpneffect",byObj),"Timer");
-        EffectCall(this(),GetEffect("ShowWeapon",this()),"Timer");
+        EffectCall(this,GetEffect("ShowWeapon",this),"Timer");
         InitAim();
       }
     }
      
     if(!GetWeapon())   
-      return(AddCommand(byObj,"UnGrab"));//Scher dich zum Teufel du Lausbub!
+      return AddCommand(byObj,"UnGrab");//Scher dich zum Teufel du Lausbub!
   }
 }
 
@@ -147,7 +147,7 @@ private func InitAim(int angle)
 		RemoveObject(Crosshair);
 	
 	Crosshair = CreateObject(HCRH); // Owner wird in Init gesetzt
-	Crosshair->Init(this());
+	Crosshair->Init(this);
 	Crosshair->SetAngle(angle);
 } 
 
@@ -161,11 +161,11 @@ private func EndAim()
 		RemoveObject(Crosshair);
 }
 
-private func MinAngle() { return(120); }
+private func MinAngle() { return 120; }
 
 public func ControlCommand(string strCommand, object pTarget, int iTx, int iTy, object pTarget2, int iData, object pCmdObj)
 {
-	if(strCommand eq "MoveTo")
+	if(strCommand == "MoveTo")
   {
 		var angle = Normalize(Angle(GetX(),GetY(),iTx,iTy),-180);
     
@@ -184,7 +184,7 @@ public func ControlCommand(string strCommand, object pTarget, int iTx, int iTy, 
     if(!GetUser())
 		  SetUser(GetCursor(GetController()));
 		ControlThrow(GetUser());
-		return(1);
+		return 1;
 	}
 }
 
@@ -192,46 +192,46 @@ public func ControlUp()
 {
     [$TxtUp$|Image=ROCK]
 	AimUp(GetUser(), 1, "ControlConf");
-	return(true);
+	return true;
 }
 
 public func ControlDown()
 {
     [$TxtRight$|Image=ROCK]
 	AimDown(GetUser(), 1, "ControlConf");
-	return(true);
+	return true;
 }
 
 public func ControlRightDouble()
 {
 	AddCommand(GetUser(),"UnGrab");
-	return(true);
+	return true;
 }  
 
 public func ControlLeftDouble()
 {
 	AddCommand(GetUser(),"UnGrab");
-	return(true);
+	return true;
 }  
 
 public func ControlLeft()
 {
     [$TxtLeft$|Image=FLNT]
 	TurnLeft();
-	return(true);
+	return true;
 }
 
 public func ControlRight()
 {
     [$TxtRight$|Image=FLNT]
 	TurnRight();
-	return(true);
+	return true;
 }
 
 public func TurnLeft()
 {
   var user = GetUser();
-  if(!user) return();
+  if(!user) return ;
   
   if((user->GetDir() != DIR_Left) || (GetDir() != DIR_Left))
   {
@@ -247,7 +247,7 @@ public func TurnLeft()
 public func TurnRight()
 {
   var user = GetUser();
-  if(!user) return();
+  if(!user) return ;
   
   if((user->GetDir() != DIR_Right) || (GetDir() != DIR_Right))
   {
@@ -272,7 +272,7 @@ public func ControlUpdate(object clonk, int comdir, bool dig, bool throw)
   if(pWeapon)
     pWeapon->ControlUpdate(clonk,comdir,dig,throw);
 	
-	return(true);
+	return true;
 }
 
 public func ControlConf(int conf)
@@ -304,7 +304,7 @@ public func DoAiming(int change)
   UpdateAiming();
   
   if(GetWeapon())
-    EffectCall(this(),GetEffect("ShowWeapon",this()),"Timer");
+    EffectCall(this,GetEffect("ShowWeapon",this),"Timer");
 }
 
 public func UpdateAiming()
@@ -340,35 +340,35 @@ protected func SetWeapon(object pNewWeapon)
 	pWeapon = pNewWeapon;
   if(pWeapon)
     pWeapon->SetUser(GetUser());
-	return(true);
+	return true;
 }
 
 public func GetWeapon()
 {
   if(pWeapon)//Updaten.
-    if(pWeapon->Contained() != this())
+    if(pWeapon->Contained() != this)
       pWeapon = 0;
   
-  return(pWeapon);
+  return pWeapon;
 }
 
 public func FxInstallWeaponTimer()
 {
   SetGraphics(0, this, GetID(pWeapon), 1, GFXOV_MODE_Object);
-  pWeapon->SetUser(this());
+  pWeapon->SetUser(this);
  
   pWeapon->~OnSelect();//HAHA!
   
-  return(-1);
+  return -1;
 }
 
 public func GetUser()
 {
   if(pUser)//Updaten.
-    if((GetProcedure(pUser) ne "PUSH") || (pUser->GetActionTarget() != this()))
+    if((GetProcedure(pUser) != "PUSH") || (pUser->GetActionTarget() != this))
       pUser = 0;
   
-  return(pUser);
+  return pUser;
 }
 
 public func SetUser(object pNewUser)
@@ -380,32 +380,32 @@ public func SetUser(object pNewUser)
 private func IsMachine()     {return true;}
 public func AimAngle()
 {
-  if(!Crosshair) return(0);
-  return(Crosshair->GetAngle());
+  if(!Crosshair) return 0;
+  return Crosshair->GetAngle();
 }
-public func ReadyToFire()    {return(GetUser() && GetWeapon());}
-public func IsBulletTarget() {return(true);}
-public func IsAiming()       {return(ReadyToFire());}
-public func ReadyToAim()     {return(ReadyToFire());}
+public func ReadyToFire()    {return GetUser() && GetWeapon();}
+public func IsBulletTarget() {return true;}
+public func IsAiming()       {return ReadyToFire();}
+public func ReadyToAim()     {return ReadyToFire();}
 
 
 
 /** BOING **/
 
-public func CanAim()     {return(true);}
+public func CanAim()     {return true;}
 
 protected func ControlAim(string command)
 {
 	if(!IsAiming()) return false;
 	
 	else if(command == "ControlUpdate")
-		AimUpdate(this(), Par(1), 1, "ControlConf");
+		AimUpdate(this, Par(1), 1, "ControlConf");
 
 	else if(command == "ControlUp" || command == "ControlUpDouble")
-		AimUp(this(), 1, "ControlConf");
+		AimUp(this, 1, "ControlConf");
 
 	else if(command == "ControlDown")
-		AimDown(this(), 1, "ControlConf");
+		AimDown(this, 1, "ControlConf");
 		
 	else if(command == "ControlLeft")
   {

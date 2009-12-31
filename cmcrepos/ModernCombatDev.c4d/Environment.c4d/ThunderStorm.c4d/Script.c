@@ -1,6 +1,6 @@
 /*-- Gewitter --*/
 
-#strict
+#strict 2
 
 local state;
 
@@ -11,28 +11,28 @@ protected func Initialize()
   for(var o in FindObjects(Find_ID(GetID())))
   {
     ++state;
-    if(o != this())
+    if(o != this)
       RemoveObject(FindObject(GetID()));
   }
   
   if(state == 1)
   {
     DoClouds(5);
-	  return();
+	  return ;
   }
   
   if(state == 2)
   {
     DoClouds(5);
     Sound("Rain.ogg",true,0,50,0,+1);
-	  return();
+	  return ;
   }
   
   if(state >= 3)
   {
     DoClouds(6);
     Sound("Rain.ogg",true,0,0,0,+1);
-    return();
+    return ;
   }
 }
 
@@ -49,7 +49,7 @@ protected func DoClouds(int iAmount)
 protected func Timer()
 {
   //Vom Regen-Umweltobjekt geklaut. :°
-  if(state <= 1) return();
+  if(state <= 1) return ;
   var plr = 0;
   var range = 600;
   if(EffectLevel() >= EM4K_High)
@@ -70,8 +70,8 @@ protected func Timer()
     CreateParticle("Raindrop", RandomX(borderleft, borderright), 0, RandomX(GetWind(0,0,1)*3, GetWind(0,0,1)*5), RandomX(200, 300), 5*64 + Random(32));
 
   //Blitze?
-  if(state < 3) return();
-  if(Random(100) - (state * 10)) return();
+  if(state < 3) return ;
+  if(Random(100) - (state * 10)) return ;
 
   var x = Random(LandscapeWidth());
   var lightning = CreateObject(FXL1,x,1,NO_OWNER);

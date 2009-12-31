@@ -1,25 +1,25 @@
 /*-- Ereignis-Anzeiger --*/
 
-#strict
+#strict 2
 
 global func EventInfo4K(int iPlrPlusOne)
 {
   var msg;
   
-  if(iPlrPlusOne <= 0)
+  if(iPlrPlusO!= <= 0)
   {
     for(var i = 0; i < GetPlayerCount(C4PT_User); i++)
     {
       msg = CreateObject(EI4K,0,0,GetPlayerByIndex(i,C4PT_User));
       msg->Set(...);
     }
-    return(msg);
+    return msg;
   }
   else
   {
     msg = CreateObject(EI4K,0,0,iPlrPlusOne-1);
     msg->Set(...);
-    return(msg);
+    return msg;
   }
 }
 
@@ -56,12 +56,12 @@ public func Set(string szText, id idIcon, int dwTextColor, int dwIconColor, stri
   
   Sound("EI4K_NewMessage.ogg",true,0,0,GetOwner()+1);
   
-  AddEffect("IntEventInfo",this(),10,1,this(),EI4K);
+  AddEffect("IntEventInfo",this,10,1,this,EI4K);
 }
 
 public func FxIntEventInfoStart(object pTarget, int iEffectNumber, int iTemp)
 {
-  if(iTemp) return();
+  if(iTemp) return ;
 
   SortByActTime();
   SetGraphics(graphics,0,icon,1,GFXOV_MODE_IngamePicture);
@@ -72,9 +72,9 @@ public func FxIntEventInfoTimer(object pTarget, int iEffectNumber, int iEffectTi
 {
   var a = 255-Sin(900+(iEffectTime*900/MaxTime()),255*2,10)/2;
   
-  SetClrModulation(RGBa(255,255,255,a),this(),1); 
+  SetClrModulation(RGBa(255,255,255,a),this,1); 
   CustomMessage(Format("           %s",text), pTarget, GetOwner(), 0, 26, SetRGBaValue(color,a), 0, 0, MSG_NoLinebreak);
-  if(iEffectTime >= MaxTime()) return(-1);
+  if(iEffectTime >= MaxTime()) return -1;
 }
 
 public func FxIntEventInfoStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)
@@ -85,7 +85,7 @@ public func FxIntEventInfoStop(object pTarget, int iEffectNumber, int iReason, b
 
 private func Destruction()//*hack*
 {
-  SortByActTime(this());
+  SortByActTime(this);
 }
 
 private func SortByActTime(object pExclude)
@@ -94,7 +94,7 @@ private func SortByActTime(object pExclude)
   var temp;
   
   if(!pExclude)//*cheat*
-    aSymbols[GetLength(aSymbols)] = this();
+    aSymbols[GetLength(aSymbols)] = this;
 
   //Sortieren.
   while(!Sorted(aSymbols))
@@ -126,7 +126,7 @@ private func SortByActTime(object pExclude)
 private func Sorted(&aSymbols)
 {
   if(GetLength(aSymbols) == 1)
-    return(true);
+    return true;
 
   for(var i = 0;i < GetLength(aSymbols);i++)
   {
@@ -135,20 +135,20 @@ private func Sorted(&aSymbols)
 
     if(aSymbols[i]->EI4K::GetEffectTime() < aSymbols[i-1]->EI4K::GetEffectTime())
     {
-      return(false);
+      return false;
     }
   }
-  return(true);
+  return true;
 }
 
 public func GetEffectTime()
 {
-  return(GetEffect("IntEventInfo",this(),0,6));
+  return GetEffect("IntEventInfo",this,0,6);
 }
 
 /* Interne Konstanten und Tags */
 
-public func MaxInfos(){return(12);}
-public func MaxTime(){return(35*12);}
-public func IconSize(){return(23);}
-public func IsHUD(){return(1);}
+public func MaxInfos(){return 12;}
+public func MaxTime(){return 35*12;}
+public func IconSize(){return 23;}
+public func IsHUD(){return 1;}

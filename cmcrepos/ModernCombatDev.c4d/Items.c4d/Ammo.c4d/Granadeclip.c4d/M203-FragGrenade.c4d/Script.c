@@ -1,9 +1,9 @@
 /*-- M203-Splittergranate --*/
 
-#strict
+#strict 2
 #include M203
 
-func ExplodeDelay() { return(80); }
+func ExplodeDelay() { return 80; }
 
 func Trigger()
 {
@@ -18,6 +18,6 @@ func Trigger()
   Sound("Blast1");
   Sparks(15,RGB(255,128));
   CastParticles("Smoke3",6,8,0,0,80,150,RGBa(255,255,255,120),RGBa(255,255,255,150));
-  AddLightFlash(50,0,0,RGB(255,255,128),this());
+  AddLightFlash(50,0,0,RGB(255,255,128),this);
   RemoveObject();
 }

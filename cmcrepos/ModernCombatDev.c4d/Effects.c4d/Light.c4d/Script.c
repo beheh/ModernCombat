@@ -1,13 +1,13 @@
 /*-- Licht --*/
 
-#strict
+#strict 2
 
 local iColor, bAmbience, iF;
 
 //Licht initialisieren, Parameter setzen, etc.
 protected func Init(int iSize, int iColor, object pTarget, string cGraphics) {
   if(bAmbience && !IsDark())
-    Schedule("RemoveObject()",1,0,this());
+    Schedule("RemoveObject()",1,0,this);
 //Werte
   if(!iSize)
     iSize = GetCon();  
@@ -72,7 +72,7 @@ public func ChangeColor(int iNewColor) {
   
   SetClrModulation(iNewColor);
   
-  return(iNewColor);
+  return iNewColor;
 }
 
 //Grafik ändern
@@ -81,8 +81,8 @@ public func ChangeGraphics(string cNewGraphics) {
 }
 
 //festlegen, dass es ein Licht ist.
-public func IsLight() { return(1); }
-public func NoWarp() { return(true); }
+public func IsLight() { return 1; }
+public func NoWarp() { return true; }
 
 /*--  Globale Funktionen zur Lichterzeugung  --*/
 
@@ -91,46 +91,46 @@ global func CreateLight(id ID, int iSize, int iColor, object pTarget, string sGr
   var light = CreateObject(ID, 0, 0, GetController(pTarget));
   light->Init(iSize, iColor, pTarget, sGraphics);
   
-  return(light);
+  return light;
 }
 
 //erzeugt ein Licht mit Größe und Farbe und hängt es an pTarget
 global func AddLight(int iSize, int iColor, object pTarget) {
   if(!pTarget)
-    if(!(pTarget = this()))
-      return();
+    if(!(pTarget = this))
+      return ;
   
-  return(CreateLight(LIGH, iSize, iColor, pTarget));
+  return CreateLight(LIGH, iSize, iColor, pTarget);
 }
 
 
 global func AddLightHalf(int iSize, int iColor, object pTarget) {
   if(!pTarget)
-    if(!(pTarget = this()))
-      return();
+    if(!(pTarget = this))
+      return ;
   
-  return(CreateLight(LIGH, iSize, iColor, pTarget, "Half"));
+  return CreateLight(LIGH, iSize, iColor, pTarget, "Half");
 }
 
 global func AddLightCone(int iSize, int iColor, object pTarget) {
   if(!pTarget)
-    if(!(pTarget = this()))
-      return();
+    if(!(pTarget = this))
+      return ;
   
-  return(CreateLight(LGHC, iSize, iColor, pTarget));
+  return CreateLight(LGHC, iSize, iColor, pTarget);
 }
 
 //Ambience-Light, Umgebungslicht, nicht sichtbar wenn keine Dunkelheit herrscht.
 global func AddLightAmbience(int iSize, object pTarget, string cGraphics) {
   if(!pTarget)
-    if(!(pTarget = this()))
-      return();
+    if(!(pTarget = this))
+      return ;
       
   var light = CreateObject(LIGH,0,0,GetController(pTarget));
   light->LocalN("bAmbience") = true;
   light->Init(iSize*5, RGBa(255,255,255,50), pTarget, cGraphics);
   
-  return(light);
+  return light;
 }
 
 //Lichtblitz!

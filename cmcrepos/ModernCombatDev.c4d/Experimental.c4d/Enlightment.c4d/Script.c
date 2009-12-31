@@ -1,6 +1,6 @@
 /*-- Lichteinfall --*/
 
-#strict
+#strict 2
 
 local fEnlightment;
 
@@ -16,7 +16,7 @@ public func Enlight() {
   if(IsNight() || IsDark()) 
   {
   fEnlightment = false;
-  return(0);
+  return 0;
   }
   // Lücht!
   fEnlightment = true; 
@@ -47,13 +47,13 @@ public func Enlight() {
     lite->FadeIn();
     
     // Effekt zur Erkennung anhängen
-    AddEffect("EnvLight", lite, 50, 100, this(), ELGT);
-    AddEffect("EnvLight", holder, 50, 100, this(), ELGT);
+    AddEffect("EnvLight", lite, 50, 100, this, ELGT);
+    AddEffect("EnvLight", holder, 50, 100, this, ELGT);
     
     if(SizeY < 100)
       RemoveObject(holder);
     }
-  return(1);
+  return 1;
 }
 
 func FxEnvLightTimer(object pTarget) {}

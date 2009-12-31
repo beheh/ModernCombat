@@ -1,3 +1,3 @@
 /*-- Sichthelfer --*/
 
-#strict
+#strict 2

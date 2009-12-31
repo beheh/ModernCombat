@@ -1,6 +1,6 @@
 /*-- Windstrom --*/
 
-#strict
+#strict 2
 
 local width,height,power;
 
@@ -12,7 +12,7 @@ func Initialize()
   Set(40,60,5);
 
   SetAction("Push");
-  return(1);
+  return 1;
 }
 
 func Set(w,h,p)
@@ -29,7 +29,7 @@ func Push()
   for(var obj in FindObjects(Find_InRect(-(width/2),-height,width/2,height),Find_Or(Find_Category(C4D_Vehicle),Find_OCF(OCF_Collectible),Find_OCF(OCF_Living))))//links
   {
     if(obj->~IsClonk())
-      if(GetProcedure(obj) eq "WALK")
+      if(GetProcedure(obj) == "WALK")
         obj->SetAction("Jump");
         
     SetXDir(GetXDir(obj,100)-1,obj,100);
@@ -39,7 +39,7 @@ func Push()
   for(var obj in FindObjects(Find_InRect(0,-height,width/2,height),Find_Or(Find_Category(C4D_Vehicle),Find_OCF(OCF_Collectible),Find_OCF(OCF_Living))))//rechts
   {
     if(obj->~IsClonk())
-      if(GetProcedure(obj) eq "WALK")
+      if(GetProcedure(obj) == "WALK")
         obj->SetAction("Jump");
         
     SetXDir(GetXDir(obj,100)+1,obj,100);

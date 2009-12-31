@@ -1,23 +1,23 @@
 /*-- Flagge --*/
 
-#strict
+#strict 2
 
 local callback;
 
 public func GetClonk()
 {
   if(WildcardMatch(GetAction(), "*Attach*"))
-    return(GetActionTarget());
+    return GetActionTarget();
   else
-    return(0);
+    return 0;
 }
 
 /* TimerCall */
 
 private func Wee()
 {
-  if(WildcardMatch(GetAction(), "*Fly*")) return(Wind2Fly());
-  if(WildcardMatch(GetAction(), "*Attach*")) return(Clonk2Rotate());
+  if(WildcardMatch(GetAction(), "*Fly*")) return Wind2Fly();
+  if(WildcardMatch(GetAction(), "*Attach*")) return Clonk2Rotate();
 }
 
 private func Wind2Fly()
@@ -30,16 +30,16 @@ private func Wind2Fly()
 
 private func Clonk2Rotate()
 {
-  if(!GetAlive(GetActionTarget())) return(AttachTargetLost());
+  if(!GetAlive(GetActionTarget())) return AttachTargetLost();
 
   SetDir(GetActionTarget()->GetDir());
 
-  if(GetDir(GetActionTarget()) == DIR_Left())
+  if(GetDir(GetActionTarget()) == DIR_Left)
     {
     //if(Inside(GetR(), 15, 55)) SetR(GetR()+RandomX(-2,3));
     /*else */SetR(BoundBy(GetR(), 35, 55));
     }
-  if(GetDir(GetActionTarget()) == DIR_Right())
+  if(GetDir(GetActionTarget()) == DIR_Right)
     {
     //if(Inside(GetR(), -55, -15)) SetR(GetR()+RandomX(-3,2));
     /*else */SetR(BoundBy(GetR(), -55, -35));
@@ -61,7 +61,7 @@ protected func Activate(object pCallback, int dwColor)
   SetVisibility(VIS_All,tmp);*/
   //Ach Käse.
 
-  AddEffect("Collect", this(), 101, 5, this());
+  AddEffect("Collect", this, 101, 5, this);
 }
 
 /* Einsamml0rn!!11 */
@@ -71,30 +71,30 @@ protected func Collected(object pClonk)
   SetAction("Attach", pClonk);
 
   if(callback)
-    if(callback->~CollectFlag(pClonk,this()))
+    if(callback->~CollectFlag(pClonk,this))
     {
       SetAction("Lost");
       SetActionTargets();
       SetColorDw(RGB(255,255,255));
-      return(false);
+      return false;
     }
 
-  return(true);
+  return true;
 }
 
 protected func CheckCollect(object pClonk)
 {
-  if(WildcardMatch(GetAction(), "*Attach*")) return();
+  if(WildcardMatch(GetAction(), "*Attach*")) return ;
   if(Collected(pClonk))
-    return(true);
+    return true;
   else
-    return(false);
+    return false;
 }
 
 protected func AttachTargetLost()
 {
   if(callback)
-    callback->~DropFlag(GetClonk(),this());
+    callback->~DropFlag(GetClonk(),this);
     
   SetDir();
   SetAction("Lost");
@@ -120,10 +120,10 @@ public func FxCollectTimer(target, no)
   else
   {
     var c;
-    while(c = FindObject(0, -20, -20, 40, 40, OCF_CrewMember(), 0,0, NoContainer(), c))
-      if(c->GetOCF() & OCF_Alive())
+    while(c = FindObject(0, -20, -20, 40, 40, OCF_CrewMember, 0,0, NoContainer(), c))
+      if(c->GetOCF() & OCF_Alive)
         if(CheckCollect(c))
-          return();
+          return ;
   }
 }
 
@@ -144,4 +144,4 @@ public func Destruction()
   }
 }
 
-public func NoWarp() { return(true); }
+public func NoWarp() { return true; }

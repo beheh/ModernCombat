@@ -1,5 +1,5 @@
 /* Explode, BlastObjects und Sichtfenster-Kamera-Wackel-Effekt */
-#strict
+#strict 2
 
 global func DoExplosion(int x, int y, int level, object inobj, int cause_plr, id effect_def, string effect_particle, object layer)
 {
@@ -55,7 +55,7 @@ global func DoExplosion(int x, int y, int level, object inobj, int cause_plr, id
         }
       
       CreateParticle(effect_particle, x,y, 0,0, level*10, RGBa(255,255,255,vis));
-      if (effect_particle eq "Blast")
+      if (effect_particle == "Blast")
 				if (!CastParticles("FSpark", level/5+1, level, x,y, level*5+10,level*10+10, 0x00ef0000,0xffff1010))
 					if(blast = CreateConstruction(FXB1, x,y+level, cause_plr, level*5))
 						blast->~Activate();
@@ -172,14 +172,14 @@ global func BlastObject(int level, object obj, int cause_plr_plus_one)
 {
   if(level)
     obj->~LastDamageType(DMG_Explosion);
-  if(this())
+  if(this)
     obj->~KillIcon(GetID());
-  return(inherited(level,obj,cause_plr_plus_one,...));
+  return inherited(level,obj,cause_plr_plus_one,...);
 }
 
 global func DamageObjects(int iDistance, int iDamage, object pObject, int iX, int iY)
 {
-  if(!pObject) pObject = this();
+  if(!pObject) pObject = this;
 
   var x = GetX(pObject)+iX;
   var y = GetY(pObject)+iY;

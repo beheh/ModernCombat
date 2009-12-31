@@ -1,6 +1,6 @@
 /*--- Flagge! ---*/
 
-#strict
+#strict 2
 
 local base, team, cteam;
 
@@ -8,8 +8,8 @@ local base, team, cteam;
 
 private func Wee()
 {
-  if(WildcardMatch(GetAction(), "*Fly*")) return(Wind2Fly());
-  if(WildcardMatch(GetAction(), "*Attach*")) return(Clonk2Rotate());
+  if(WildcardMatch(GetAction(), "*Fly*")) return Wind2Fly();
+  if(WildcardMatch(GetAction(), "*Attach*")) return Clonk2Rotate();
 }
 
 private func Wind2Fly()
@@ -22,15 +22,15 @@ private func Wind2Fly()
 
 private func Clonk2Rotate()
 {
-  if(!GetAlive(GetActionTarget())) return(AttachTargetLost());
+  if(!GetAlive(GetActionTarget())) return AttachTargetLost();
 
   SetDir(GetActionTarget()->GetDir());
 
-  if(GetDir(GetActionTarget()) == DIR_Left())
+  if(GetDir(GetActionTarget()) == DIR_Left)
     {
     SetR(15-GetXDir(GetActionTarget()));
     }
-  if(GetDir(GetActionTarget()) == DIR_Right())
+  if(GetDir(GetActionTarget()) == DIR_Right)
     {
     SetR(-15-GetXDir(GetActionTarget()));
     }
@@ -46,13 +46,13 @@ protected func Activate(pBase, iTeam, rgb)
   SetColorDw(rgb);
 
   // bei Dunkelheit besser zu sehen
-  var tmp = AddLightAmbience(30,this());
+  var tmp = AddLightAmbience(30,this);
   var r,g,b,a;
   SplitRGBaValue(rgb,r,g,b,a);
   tmp->ChangeColor(RGBa(r,g,b,a+30));
   SetVisibility(VIS_All,tmp);
 
-  AddEffect("Collect", this(), 101, 5, this());
+  AddEffect("Collect", this, 101, 5, this);
 }
 
 /* Einsamml0rn!!11 */
@@ -69,21 +69,21 @@ protected func Collected(pClonk)
   // captureTeam: The team that captured the flag
   // clonk: the clonk who did it
   GameCallEx("FlagCaptured",team, GetPlayerTeam(GetOwner(pClonk)), pClonk);
-  return(1);
+  return 1;
 }
 
 protected func CheckCollect(pClonk)
 {
-  if(WildcardMatch(GetAction(), "*Attach*")) return();
+  if(WildcardMatch(GetAction(), "*Attach*")) return ;
   if(GetPlayerTeam(GetOwner(pClonk)) == team)
     {
-    if(GetAction() ne "Lost") CheckFlag(pClonk);
+    if(GetAction() != "Lost") CheckFlag(pClonk);
     else Return2Base(pClonk);
-    return();
+    return ;
     }
-  if(FindObject(GetID(), 0,0,0,0,0, 0, pClonk)) return();  // Mehr als 2 Teams ftw!
+  if(FindObject(GetID(), 0,0,0,0,0, 0, pClonk)) return ;  // Mehr als 2 Teams ftw!
 
-  return(Collected(pClonk));
+  return Collected(pClonk);
 }
 
 protected func AttachTargetLost()
@@ -94,7 +94,7 @@ protected func AttachTargetLost()
   // falls sie festsitzt, wird sie sofort zurückgebracht
   if(GBackSolid()) {
     RemoveObject();
-	return();
+	return ;
   }
   Log("$FlagLost$", GetTeamName(team));
   GameCallEx("FlagLost",team);
@@ -104,12 +104,12 @@ protected func AttachTargetLost()
 
 public func IsAtHome() {
 	if(GetActionTarget() == base)
-		return(true);
+		return true;
 }
 
 public func GetCarrier() {
 	if(WildcardMatch(GetAction(), "*Attach*")) {
-      return(GetActionTarget()); 
+      return GetActionTarget(); 
 	}
 }
 
@@ -129,7 +129,7 @@ protected func Return2Base(pClonk, nolog)
 protected func CheckFlag(pClonk)
 {
   var flag = FindObject(GetID(), 0,0,0,0,0, 0,pClonk);
-  if(!flag) return();
+  if(!flag) return ;
 
   Log("$CapturedTheFlag$", GetPlayerName(GetOwner(pClonk)));
   DoWealth(GetOwner(pClonk), 50); // Geld!
@@ -145,12 +145,12 @@ protected func CheckFlag(pClonk)
 // verbessertes Einsammeln
 public func FxCollectTimer(target, no)
 {
-  if(WildcardMatch(GetAction(target),"*Attach*")) return();
+  if(WildcardMatch(GetAction(target),"*Attach*")) return ;
   var clonk;
-  while(clonk = FindObject(0, -20, -20, 40, 40, OCF_CrewMember(), 0,0, NoContainer(), clonk))
-    if(clonk->GetOCF() & OCF_Alive())
+  while(clonk = FindObject(0, -20, -20, 40, 40, OCF_CrewMember, 0,0, NoContainer(), clonk))
+    if(clonk->GetOCF() & OCF_Alive)
       if(CheckCollect(clonk))
-        return();
+        return ;
 }
 
 /* Kaputt! */
@@ -166,8 +166,8 @@ public func Destruction()
   Log("$FlagReturned$", GetTeamName(team));
 }
 
-public func NoWarp() { return(1); }
+public func NoWarp() { return 1; }
 
-public func GetBase() { return(base); }
+public func GetBase() { return base; }
 
-public func GetTeam() { return (team); }
+public func GetTeam() { return team; }

@@ -1,6 +1,6 @@
 /*-- Giftfass --*/
 
-#strict
+#strict 2
 #include XBRL
 
 
@@ -8,7 +8,7 @@
 
 func Damage(int iChange, int iPlr)
 {
-  if(GetDamage() < 50) return();
+  if(GetDamage() < 50) return ;
   InstaExplode(iPlr);
 }
 
@@ -23,7 +23,7 @@ func BlowUp(int iPlr)
   Extinguish();
   SetRDir(RandomX(-40,+40));
 
-  AddEffect("GasEffect", this(), 1, 1, 0, GetID());
+  AddEffect("GasEffect", this, 1, 1, 0, GetID());
 }
 
 global func FxGasEffectTimer(object target, int effect, int time)

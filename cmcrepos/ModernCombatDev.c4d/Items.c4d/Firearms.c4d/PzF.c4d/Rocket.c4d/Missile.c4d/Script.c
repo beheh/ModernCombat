@@ -1,19 +1,19 @@
 /* Rakete */
 
-#strict
+#strict 2
 
 local iSpeed, iDamage, exploding;
 local shooter;
 
-public func Acceleration() { return(5); }
-public func MaxTime() { return(60); }
-public func MaxSpeed() { return(180); }
+public func Acceleration() { return 5; }
+public func MaxTime() { return 60; }
+public func MaxSpeed() { return 180; }
 
 func Construction(object byObj)
 {
   // nichts? :C
   if(!byObj)
-    return();
+    return ;
   // Waffe?
   if(byObj->~IsWeapon())
     // User der Waffe?
@@ -38,9 +38,9 @@ public func Launch(int iAngle, int iDmg)
   SetYDir(-Cos(iAngle,iSpeed));
   SetAction("Travel");
 
-  AddLight(100,RGB(255,127,0),this(),GLOW);
+  AddLight(100,RGB(255,127,0),this,GLOW);
 
-  AddEffect("HitCheck", this(), 1,1, 0, SHT1,shooter);
+  AddEffect("HitCheck", this, 1,1, 0, SHT1,shooter);
 }
 
 /* Timer */
@@ -61,7 +61,7 @@ private func Smoking()
   var maxy = -Cos(GetR(),dist/10);
   var ptrdist = 50;
   
-  CreateParticle("MuzzleFlash2",0,0,+Sin(GetR()+180,500),-Cos(GetR()+180,500),RandomX(20,80)*5,RGBa(255,57),this());
+  CreateParticle("MuzzleFlash2",0,0,+Sin(GetR()+180,500),-Cos(GetR()+180,500),RandomX(20,80)*5,RGBa(255,57),this);
 
   for(var i=0; i<dist; i+=ptrdist)
   {
@@ -84,7 +84,7 @@ private func Smoking()
 private func Traveling()
 {
   // kommt nich weiter
-  if(GetActTime() >= MaxTime()) return(Hit());
+  if(GetActTime() >= MaxTime()) return Hit();
 
   // beschleunigen
   Accelerate();
@@ -92,7 +92,7 @@ private func Traveling()
   // Effekte
   Smoking();
   
-  SetRDir(RandomX(-30,+30),this(),100);
+  SetRDir(RandomX(-30,+30),this,100);
 }
   
 /* Treffer */
@@ -120,6 +120,6 @@ public func EMPShock()
   SetAction("Idle");
 }
 
-public func IsBulletTarget() { return(true); }
-public func NoDecoDamage() { return(true); }
-public func IsMachine() { return(true); }
+public func IsBulletTarget() { return true; }
+public func NoDecoDamage() { return true; }
+public func IsMachine() { return true; }

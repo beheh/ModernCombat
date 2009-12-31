@@ -1,12 +1,12 @@
 /*-- Use Grenades --*/
 
-#strict
+#strict 2
 
 local aGear;
 
 /* Einstellungen */
 
-public func MaxGrenades(){return(4);}//Maximale Granaten im Inventar + Gürtel.
+public func MaxGrenades(){return 4;}//Maximale Granaten im Inventar + Gürtel.
 
 
 /* Allgemeines */
@@ -22,14 +22,14 @@ protected func ContextGrenadeMenu(object pCaller)
 
 protected func HasGrenades()
 {
-  if(!pGrenadeStoring) return(false);
-  if(pGrenadeStoring->Contents()) return(true);
-  return(false);
+  if(!pGrenadeStoring) return false;
+  if(pGrenadeStoring->Contents()) return true;
+  return false;
 }
 
 public func GrenadeMenu(object pCaller)
 {
-  CreateMenu(GRNS,pCaller,this(),0,"$CtxGrenadeMenu$",0,C4MN_Style_Context);
+  CreateMenu(GRNS,pCaller,this,0,"$CtxGrenadeMenu$",0,C4MN_Style_Context);
   
   var id_list = CreateArray();
   for(var nade in FindObjects(Find_Container(pGrenadeStoring)))
@@ -45,48 +45,48 @@ public func GrenadeMenu(object pCaller)
 
 public func GetGrenade(id type)
 {
-  return(FindContents(type,pGrenadeStoring));
+  return FindContents(type,pGrenadeStoring);
 }
 
 public func GrabGrenade(id type)
 {
   var grenade = FindContents(type,pGrenadeStoring);
-  if(!grenade) return(0);
-  grenade->Enter(this());
-  ShiftContents (this(),false,type,true);
-  return(grenade);
+  if(!grenade) return 0;
+  grenade->Enter(this);
+  ShiftContents (this,false,type,true);
+  return grenade;
 }
 
 public func StoreGrenade(object pGrenade)
 {
-  if(!pGrenade) return();
+  if(!pGrenade) return ;
 
-  if(pGrenade->Contained()  == this())
+  if(pGrenade->Contained()  == this)
   {
     if(ObjectCount2(Find_Container(pGrenadeStoring)) >= MaxGrenades())
-      return(false);
+      return false;
   }
   else
   {
     if(GrenadeCount() >= MaxGrenades())
-      return(false);
+      return false;
   }
   Sound("GrenadeCharge", 1, 0,0, GetOwner()+1);
   pGrenade->Enter(pGrenadeStoring);
-  return(true);
+  return true;
 }
 
 public func GrenadeCount(id type)
 {
-  if(!type) return(ObjectCount2(Find_Container(pGrenadeStoring)) + ObjectCount2(Find_Func("IsGrenade"),Find_Container(this())));
-  return(ObjectCount2(Find_ID(type), Find_Container(pGrenadeStoring)) + ObjectCount2(Find_ID(type), Find_Container(this())));
+  if(!type) return ObjectCount2(Find_Container(pGrenadeStoring)) + ObjectCount2(Find_Func("IsGrenade"),Find_Container(this));
+  return ObjectCount2(Find_ID(type), Find_Container(pGrenadeStoring)) + ObjectCount2(Find_ID(type), Find_Container(this));
 }
 
 public func GetGrenadeStoring()
 {
   if(!pGrenadeStoring)
     pGrenadeStoring = CreateObject(GRNS,0,0,GetOwner());
-  return(pGrenadeStoring);
+  return pGrenadeStoring;
 }
 
 /* Overloads */
@@ -96,26 +96,26 @@ protected func Initialize()
   if(!pGrenadeStoring)
     pGrenadeStoring = CreateObject(GRNS,0,0,GetOwner());
     
-  pGrenadeStoring->SetUser(this());
+  pGrenadeStoring->SetUser(this);
   
-  return(_inherited(...));
+  return _inherited(...);
 }
 
 protected func Destruction()
 {
   if(pGrenadeStoring)
     RemoveObject(pGrenadeStoring);
-  return(_inherited(...));
+  return _inherited(...);
 }
 
 public func IsArmed()
 {
-  if(!Contents()) return(); 
+  if(!Contents()) return ; 
   if(Contents()->~IsWeapon())
-    return(true);
+    return true;
   if(Contents()->~IsGrenade())
-    return(true);
-  return(false);
+    return true;
+  return false;
 }
 
 protected func Collection2(object pObj)// Einsammeln
@@ -127,7 +127,7 @@ protected func Collection2(object pObj)// Einsammeln
       ShiftContents(0,0,0,0);
       pObj ->~ OnDeselect();
     }
-  this()->~UpdateCharge();
+  this->~UpdateCharge();
 }
 
 protected func RejectCollect(id idObj, object pObj)
@@ -135,68 +135,68 @@ protected func RejectCollect(id idObj, object pObj)
   // Für die KI
   var effect;
   if(effect = GetEffect("CollectionException", pObj))
-    if(EffectVar(0, pObj, effect) == this())
-      return(1);
+    if(EffectVar(0, pObj, effect) == this)
+      return 1;
   // Spawnpunkt-Hack
-  if(idObj == SPNP) return();
+  if(idObj == SPNP) return ;
   // Munitionspaket?
   if(pObj ->~ IsAmmoPacket())
     // Davon kann man in jeden Fall _eines_ im Inventar haben
-    if(!this()->~CustomContentsCount("IsAmmoPacket"))
-      return(0);
+    if(!this->~CustomContentsCount("IsAmmoPacket"))
+      return 0;
   
   //Waffe?
   if(pObj ->~ IsWeapon())
   {
     //Sonderbehandlung?
-    if(!(pObj ->~ OnCollection(this())))
+    if(!(pObj ->~ OnCollection(this)))
     {
       //nein. Standardprozedur:
       //schon so eine Waffe im Inventar? Oder bereits 3 andere Waffen?
-      if(ContentsCount(idObj) || this()->~CustomContentsCount("IsWeapon") >= this()->~WeaponCollectionLimit())
-        return(1);  //Ja, nicht aufnehmen
+      if(ContentsCount(idObj) || this->~CustomContentsCount("IsWeapon") >= this->~WeaponCollectionLimit())
+        return 1;  //Ja, nicht aufnehmen
       else
-        return(0);
+        return 0;
     }
     else
-      return(0);
+      return 0;
   }
   
   //Granate?
   if(pObj ->~ IsGrenade())
   {
-    if(pObj->~OnCollection(this()))
-      return(0);
+    if(pObj->~OnCollection(this))
+      return 0;
     else
     {
       if(GrenadeCount() >= MaxGrenades())//Schon genug Granaten im Gürtel/Inventar?
       {
-        return(1);
+        return 1;
       }
       
-      if(this()->~CustomContentsCount("IsGrenade"))
-        ScheduleCall(pObj,"Activate",1,0,this());//Oha...
+      if(this->~CustomContentsCount("IsGrenade"))
+        ScheduleCall(pObj,"Activate",1,0,this);//Oha...
 
-      return(0);
+      return 0;
     }
   }
   
   // Einsammellimit für Ausrüstung
   /*if(pObj ->~ IsEquipment() && ContentsCount(idObj) > 0)
-    return(1);*/
+    return 1;*/
 
   //Wieviel haben wir denn schon im inventar?
-  if(ContentsCount() - (this()->~CustomContentsCount("IsWeapon") + this()->~CustomContentsCount("IsGrenade")) >= this()->~ObjectCollectionLimit())
-    return(1);
+  if(ContentsCount() - (this->~CustomContentsCount("IsWeapon") + this->~CustomContentsCount("IsGrenade")) >= this->~ObjectCollectionLimit())
+    return 1;
   
   // nicht angelegte Ausrüstung nochmal aufsammeln
   for(var gear in aGear)
     if(gear)
       if(GetID(gear) == idObj)
-        return(1);
+        return 1;
   
   // Ok
-  return(0);
+  return 0;
 }
 
 private func ChangeWeapon(object pTarget)
@@ -204,7 +204,7 @@ private func ChangeWeapon(object pTarget)
 	if(pTarget->~IsWeapon() || pTarget->~IsGrenade())
   {
 		var phase = GetPhase();
-    if(this()->~IsCrawling())
+    if(this->~IsCrawling())
     {
       SetAction("AimCrawl");
     }
@@ -226,7 +226,7 @@ private func ChangeWeapon(object pTarget)
 	}
 	else
   {
-		this()->~StopAiming();
+		this->~StopAiming();
 	}
 }
 
@@ -235,17 +235,17 @@ private func ChangeWeapon(object pTarget)
   // Aktuelles Objekt verhindert Shift?
   if(Contents())
     if(Contents()->~RejectShift(idTarget))
-      return(1);
+      return 1;
       
   // Zielobjekt will gar nicht, dass wir was machen
-  if(idTarget->~NoControlContents()) return();
+  if(idTarget->~NoControlContents()) return ;
   
   // Wer ist idTarget?
   var pTarget = FindContents(idTarget);
   
   // Zielaktion abbrechen (Spezial: außer wenn mit anwählbarem 
   // Objekt auch gezielt werden kann...)
-  if(this()->~IsAiming())
+  if(this->~IsAiming())
   {
      var phase = GetPhase();
      // Zielaktion anpassen
@@ -265,17 +265,17 @@ private func ChangeWeapon(object pTarget)
      }
      else
      {
-       this()->~StopAiming();
+       this->~StopAiming();
      }
   }
   // Hast du noch einen letzten Wunsch, Contents(0)??!
-  if(Contents(0)) Contents(0)->~Deselection(this());
+  if(Contents(0)) Contents(0)->~Deselection(this);
   // Rotieren
-  if (!ShiftContents(0, 0, idTarget)) return(1);
+  if (!ShiftContents(0, 0, idTarget)) return 1;
   // Waffe ziehen/wegstecken
-  this()->~CheckArmed();
+  this->~CheckArmed();
   // Munitionsanzeige updaten
   UpdateCharge();
   // Objekt benachrichtigen
-  if(Contents(0)) Contents(0)->~Selection(this());
+  if(Contents(0)) Contents(0)->~Selection(this);
 }*/

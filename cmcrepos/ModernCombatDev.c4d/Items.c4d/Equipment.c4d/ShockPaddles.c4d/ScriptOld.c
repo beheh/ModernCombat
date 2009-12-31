@@ -1,17 +1,17 @@
 /*--- Defibrillator ---*/
 
-#strict
+#strict 2
 
 local charge;
 
-public func HandSize() {return(1000);}
-public func HandX() {return(4500);}
-public func HandY() {return(0);}
-public func IsDrawable() {return(true);}
+public func HandSize() {return 1000;}
+public func HandX() {return 4500;}
+public func HandY() {return 0;}
+public func IsDrawable() {return true;}
 
-public func MaxEnergy() {return(30);}
+public func MaxEnergy() {return 30;}
 
-func IsEquipment(){return(true);}
+func IsEquipment(){return true;}
 
 public func Initialize()
 {
@@ -20,24 +20,24 @@ public func Initialize()
 
 public func GetUser()
 {
-  return(Contained());
+  return Contained();
 }
 
 public func Timer()
 {
   if(GetUser())
     if(GetUser()->~IsReanimating())
-      return(false);
+      return false;
       
   charge = BoundBy(charge+1,0,MaxEnergy());//TODO: Ladegschwindigkeit.
       
-  return(true);
+  return true;
 }
 
 public func ControlThrow()
 {
   Use();
-  return(true);
+  return true;
 }
 
 public func ControlUp(object pClonk)
@@ -45,19 +45,19 @@ public func ControlUp(object pClonk)
   if(GetPlrDownDouble(GetController(pClonk)))
   {
     pClonk->~StartHeal(MDIC_HealMode_Reanimate);
-    return(true);
+    return true;
   }
-  return(false);
+  return false;
 }
 
 public func Activate(pClonk)
 {
-  return(Use());
+  return Use();
 }
 
 func Use()
 {
-  if(!Ready()) return(false);
+  if(!Ready()) return false;
 
   var dir = +1;
   if(GetDir(GetUser()) == DIR_Left)
@@ -87,7 +87,7 @@ func Use()
     }
     
     if(!obj)//Könnte ja jetzt weg sein.
-      obj = this();
+      obj = this;
         
     //Effekgehasche.
     Sound("Defibrillator");
@@ -110,7 +110,7 @@ func Use()
  
   SetAction("Reload");
   
-  return(true);
+  return true;
 }
 
 func UseReanimation(pTarget)
@@ -118,7 +118,7 @@ func UseReanimation(pTarget)
   if(!Ready())
   {
     Sound("DefibrillatorFail");
-    return(false);
+    return false;
   }
   
   Sound("Defibrillator");
@@ -126,19 +126,19 @@ func UseReanimation(pTarget)
   pTarget->AddLightFlash (40+Random(20),0,0,RGB(0,140,255));
   charge = BoundBy(charge-20,0,60);
   SetAction("Reload");
-  return(true);
+  return true;
 }
 
 func Ready()
 {
-  if(GetAction() eq "Reload")
-    return(false);
+  if(GetAction() == "Reload")
+    return false;
 
   //Nagut! Jeder kann das. So.
   //if(GetID(GetUser()) == MDIC)
     if(charge >= 20)
-      return(true);
-  return(false);
+      return true;
+  return false;
 }
 
 func GetCharge()

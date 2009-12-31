@@ -1,50 +1,50 @@
 /*-- Slingshot --*/
 
-#strict
+#strict 2
 #include WPN2
 
-public func HandSize() { return(1050); }
-public func HandX() { return(5000); }
-public func HandY() { return(1000); }
+public func HandSize() { return 1050; }
+public func HandX() { return 5000; }
+public func HandY() { return 1000; }
 
-public func BarrelXOffset() { return(-1000); }
-public func BarrelYOffset() { return(-2000); }
-public func SelectionTime() { return(14*3); }
+public func BarrelXOffset() { return -1000; }
+public func BarrelYOffset() { return -2000; }
+public func SelectionTime() { return 14*3; }
 
 
 //Granaten - Explosivgranaten
 
 public func FMData1(int data)
 {
-  if(data == FM_Name)                 return("$Grenades$");
+  if(data == FM_Name)                 return "$Grenades$";
     
-  if(data == FM_AmmoID)             return(GRAM);
-  if(data == FM_AmmoLoad)           return(8);
+  if(data == FM_AmmoID)             return GRAM;
+  if(data == FM_AmmoLoad)           return 8;
   
-  if(data == FM_Recharge)           return(60);
+  if(data == FM_Recharge)           return 60;
 	
-  if(data == FM_SingleReload)       return(1);
-	if(data == FM_Reload)             return(35*6);
-  if(data == FM_PrepareReload)      return(50);
-  if(data == FM_FinishReload)       return(30);
+  if(data == FM_SingleReload)       return 1;
+	if(data == FM_Reload)             return 35*6;
+  if(data == FM_PrepareReload)      return 50;
+  if(data == FM_FinishReload)       return 30;
 
   //if(data == FM_Aim)               return(3);
   
-  if(data == FM_Damage)    return(13);
+  if(data == FM_Damage)    return 13;
   
-  if(data == FM_SpreadAdd) return(70);
-  if(data == FM_StartSpread) return(80);
+  if(data == FM_SpreadAdd) return 70;
+  if(data == FM_StartSpread) return 80;
   if(data == FM_MaxSpread) return(CH_MaxSpread/3*2);
 
-  return(Default(data));
+  return Default(data);
 }
 
 public func FMData1T1(int data)
 {
-  if(data == FT_Name)                 return("$Explosive$");
-  if(data == FT_IconFacet)            return(FICO_Explosive);
-  if(data == FM_Icon)                 return(M203);
-  return(FMData1(data));
+  if(data == FT_Name)                 return "$Explosive$";
+  if(data == FT_IconFacet)            return FICO_Explosive;
+  if(data == FM_Icon)                 return M203;
+  return FMData1(data);
 }
 
 public func Fire1T1()//Schuss mit dem Granatenwerfer.
@@ -54,9 +54,9 @@ public func Fire1T1()//Schuss mit dem Granatenwerfer.
 
 public func BotData1(int data)
 {
-  if(data == BOT_Range)    return(500);
+  if(data == BOT_Range)    return 500;
 
-  return(Default(data));
+  return Default(data);
 }
 
 public func LaunchGrenade(id idg, int speed, int angle, int mode)
@@ -96,10 +96,10 @@ public func LaunchGrenade(id idg, int speed, int angle, int mode)
 
 public func FMData1T2(int data)
 {
-  if(data == FT_Name)                 return("$Cluster$");
-  if(data == FT_IconFacet)            return(FICO_Cluster);
-  if(data == FM_Icon)                 return(M23C);
-  return(FMData1(data));
+  if(data == FT_Name)                 return "$Cluster$";
+  if(data == FT_IconFacet)            return FICO_Cluster;
+  if(data == FM_Icon)                 return M23C;
+  return FMData1(data);
 }
 
 public func Fire1T2()
@@ -109,9 +109,9 @@ public func Fire1T2()
 
 public func BotData2(int data)
 {
-  if(data == BOT_Range)    return(500);
+  if(data == BOT_Range)    return 500;
 
-  return(Default(data));
+  return Default(data);
 }
 
 /* Nachladen */

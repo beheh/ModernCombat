@@ -1,6 +1,6 @@
 /*-- Waffenautomat --*/
 //Kann auch Dinge verkaufen.
-#strict
+#strict 2
 #appendto WPVM
 
 /*local WeaponChoice;
@@ -20,8 +20,8 @@ func Initialize()
 func ControlThrowDouble(object pByObj)
 {
   var pItem = pByObj->Contents();
-  if(!pItem) return();
-  if(!FindWare(GetID(pItem))) return();
+  if(!pItem) return ;
+  if(!FindWare(GetID(pItem))) return ;
   
   var iPlr = GetController(pByObj);
 

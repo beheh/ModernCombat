@@ -20,7 +20,7 @@ protected func Initialize()
 
 public func ChooserFinished()
 {
-  ScheduleCall(this(),"InitScoreboard",1);
+  ScheduleCall(this,"InitScoreboard",1);
 }
 
 private func UpdateHUDs()

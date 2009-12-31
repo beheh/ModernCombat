@@ -1,6 +1,6 @@
 global func FxDmgCheckDamage(object pTarget, int iEffectNumber, int iDmgEngy, int iCause)
 {
-  if(iDmgEngy > 0) return(iDmgEngy);
+  if(iDmgEngy > 0) return iDmgEngy;
   
   var type;
   //Explosion
@@ -37,15 +37,15 @@ global func FxDmgCheckDamage(object pTarget, int iEffectNumber, int iDmgEngy, in
     if(GetEnergy(pTarget) <= -iDmgEngy/1000)
     {
       FakeDeath(pTarget);
-      return(0);//Nain... der - ist - doch - tot.... echt mal!
+      return 0;//Nain... der - ist - doch - tot.... echt mal!
     }
   }
   
-  return(iDmgEngy);
+  return iDmgEngy;
 }
 
 /* Faketot */
-func FakeDeathHP(){return(20);}
+func FakeDeathHP(){return 20;}
 
 func Death()
 {
@@ -59,9 +59,9 @@ func Death()
     Sound("ClonkDie*.ogg");
   }
   
-  FadeOut(this());
+  FadeOut(this);
   
-  return(_inherited(...));//Haha ... tolle Funktion.
+  return _inherited(...);//Haha ... tolle Funktion.
 }
 
 public func FxFakeDeathStart(pTarget,iEffectNumber)
@@ -105,16 +105,16 @@ public func FxFakeDeathStop(object pTarget, int iEffectNumber, int iReason, bool
   if(iReason == 0)
     ObjectSetAction(pTarget,"FlatUp",0,0,1);
     
-  return(1);
+  return 1;
 }
 
 global func PauseFakeDeath(bool fPause, object pTarget)
 {
-  if(!pTarget) pTarget = this();
+  if(!pTarget) pTarget = this;
   if(GetID(pTarget) == FKDT)
     pTarget = pTarget->Contents();
-  if(!pTarget) return(false);
-  if(!pTarget->IsClonk()) return(false);
+  if(!pTarget) return false;
+  if(!pTarget->IsClonk()) return false;
   
   var effect = GetEffect("FakeDeath",pTarget);
   if(effect)
@@ -125,43 +125,43 @@ global func PauseFakeDeath(bool fPause, object pTarget)
       EffectCall(pTarget,effect,"Unpause");
   }
     
-  return(effect);
+  return effect;
 }
 
 global func FakeDeath(object pTarget)
 {
-  if(!pTarget) pTarget = this();
-  if(!pTarget) return(false);
-  if(!pTarget->IsClonk()) return(false);
+  if(!pTarget) pTarget = this;
+  if(!pTarget) return false;
+  if(!pTarget->IsClonk()) return false;
   
   var effect = GetEffect("FakeDeath",pTarget);
   if(!effect)
     effect = AddEffect("FakeDeath",pTarget,100,35,pTarget,GetID(pTarget));
     
-  return(effect);
+  return effect;
 }
 
 global func StopFakeDeath(object pTarget)
 {
-  if(!pTarget) pTarget = this();
+  if(!pTarget) pTarget = this;
   if(GetID(pTarget) == FKDT)
     pTarget = pTarget->GetClonk();
-  if(!pTarget) return(false);
-  if(!pTarget->IsClonk()) return(false);
+  if(!pTarget) return false;
+  if(!pTarget->IsClonk()) return false;
   
   Sound("ClonkCough*.ogg",0,pTarget);
   
   while(GetEffect("FakeDeath",pTarget))
     RemoveEffect("FakeDeath",pTarget);
     
-  return(true);
+  return true;
 }
 
 global func IsFakeDeath(object pTarget)
 {
-  if(!pTarget) pTarget = this();
-  if(!pTarget) return(false);
-  if(!pTarget->~IsClonk()) return(false);
+  if(!pTarget) pTarget = this;
+  if(!pTarget) return false;
+  if(!pTarget->~IsClonk()) return false;
   
-  return(GetEffect("FakeDeath",pTarget));
+  return GetEffect("FakeDeath",pTarget);
 }

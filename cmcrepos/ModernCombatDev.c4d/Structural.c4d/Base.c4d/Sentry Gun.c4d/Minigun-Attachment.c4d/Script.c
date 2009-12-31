@@ -1,33 +1,33 @@
 /*-- Minigun-Aufsatz --*/
 
-#strict
+#strict 2
 
 #include WEPN
 
-public func HandSize() { return(1000); }
-public func HandX()    { return(7000); }
-public func HandY()    { return(0); }
+public func HandSize() { return 1000; }
+public func HandX()    { return 7000; }
+public func HandY()    { return 0; }
 
 public func FMData1(int data)
 {
-  if(data == FM_AmmoID)    return(STAM);
-  if(data == FM_AmmoLoad)  return(9999);
+  if(data == FM_AmmoID)    return STAM;
+  if(data == FM_AmmoLoad)  return 9999;
 
-  if(data == FM_Reload)    return(1);
-  if(data == FM_Recharge)  return(2);
+  if(data == FM_Reload)    return 1;
+  if(data == FM_Recharge)  return 2;
 
   //if(data == FM_AmmoUsage) return(0);
   //if(data == FM_AmmoRate)  return(2);
-  if(data == FM_Auto)      return(1);
+  if(data == FM_Auto)      return 1;
 
-  return(Default(data));
+  return Default(data);
 }
 
 public func FMData2(int data)
 {
-  if(data == FM_Recharge)  return(25);
+  if(data == FM_Recharge)  return 25;
 
-  return(FMData1(data));
+  return FMData1(data);
 }
 
 public func Fire1()    // Projektil-Dauerfeuer
@@ -56,14 +56,14 @@ public func Fire1()    // Projektil-Dauerfeuer
 func OnAutoStop(int iFM)
 {
   //if(iFM == 0)
-  Message("END",this());
+  Message("END",this);
     Sound("MISA_FireEnd.ogg");
 }
 
 public func Fire2()
 {
   Burst();
-  ScheduleCall(this(),"Burst",4,2); 
+  ScheduleCall(this,"Burst",4,2); 
 }
 
 private func Burst()
@@ -88,4 +88,4 @@ private func Burst()
   Sound("MISA_Fire.ogg",0,ammo);
 }
 
-public func NoWeaponChoice() { return(true); }
+public func NoWeaponChoice() { return true; }

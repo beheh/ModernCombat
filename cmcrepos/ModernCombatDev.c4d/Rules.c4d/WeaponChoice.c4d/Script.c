@@ -1,6 +1,6 @@
 /*-- WeaponChoice --*/
 
-#strict
+#strict 2
 #include WPVM
 
 local WeaponChoice;
@@ -44,9 +44,9 @@ func RelaunchPlayer(int iPlr, object pClonk)
 {
   if(!pClonk)
     if(!(pClonk = GetCursor(iPlr)))
-      return(ScheduleCall(this(),"RelaunchPlayer",1,0,iPlr,pClonk));
+      return ScheduleCall(this,"RelaunchPlayer",1,0,iPlr,pClonk);
   if(!GetAlive(pClonk))
-    return(ScheduleCall(this(),"RelaunchPlayer",1,0,iPlr));
+    return ScheduleCall(this,"RelaunchPlayer",1,0,iPlr);
 
   if(FindObject(GLMS))
 	{
@@ -55,7 +55,7 @@ func RelaunchPlayer(int iPlr, object pClonk)
   }
 	
   CreateWpnMenu(pClonk);
-  return();
+  return ;
 }
 
 protected func Spawntimer() {
@@ -72,7 +72,7 @@ protected func Spawntimer() {
 func CreateWpnMenu(object pClonk) {
   //Parameter vergessen?
   if(!pClonk)
-    return(0);
+    return 0;
   var iPlayer = GetOwner(pClonk);
     
   //Stuff damit man nicht Angreifbar ist in der Zwischenzeit
@@ -131,7 +131,7 @@ private func BuyItem(id id, object pClonk) {
     if(i == id)
       if(FindIn(WeaponChoice[iPlayer],id)) {
         Uncheck(id,iPlayer,pClonk);
-        done = true;
+        do!= = true;
       }
   if(!done)
     Check(id,iPlayer,pClonk);
@@ -147,7 +147,7 @@ private func BuyItem(id id, object pClonk) {
 
 private func Uncheck(id ID, int iPlayer, object pClonk) {
   if(!ID)
-    return();
+    return ;
   
   if(FindContents(ID,pClonk))
     RemoveObject(FindContents(ID,pClonk));
@@ -160,15 +160,15 @@ private func Uncheck(id ID, int iPlayer, object pClonk) {
 
 private func Check(id ID, int iPlayer, object pClonk) {
   if(!ID)
-    return();
+    return ;
   //genug Geld?
   if(GetDefValue(ID) > GetWealth(iPlayer))
-    return(Sound("Error",1,0,0,iPlayer));
+    return Sound("Error",1,0,0,iPlayer);
   //testen ob wir das Objekt überhaupt noch aufnehmen dürfen
   var tmp = CreateObject(ID,0,0,iPlayer);
   if(pClonk->~RejectCollect(ID,tmp)) {
     RemoveObject(tmp);  
-    return(Sound("Error",1,0,0,iPlayer));
+    return Sound("Error",1,0,0,iPlayer);
   }
   else
     Enter(pClonk,tmp);
@@ -179,13 +179,13 @@ private func Check(id ID, int iPlayer, object pClonk) {
 func FindIn(array a, b) {
   for(var c in a)
     if(b == c)
-      return(true);
-  return(false);
+      return true;
+  return false;
 }
 
 func Finish(id unused, object pClonk, bool bRight) {
   if(bRight)
-    return(MenuQueryCancel(0,pClonk));
+    return MenuQueryCancel(0,pClonk);
 
   PlayerMessage(GetOwner(spawnclonk),"");
   spawnclonk = 0;
@@ -231,8 +231,8 @@ func MenuQueryCancel(int iSelection, object pMenuObj) {
   CreateWpnMenu(pMenuObj);
   SelectMenuItem(sel,pMenuObj);
   
-  return(true);
+  return true;
 }
 
 // Kann mittels des Spielzielauswählers ausgewählt werden
-public func IsChooseable() { return(1); }
+public func IsChooseable() { return 1; }

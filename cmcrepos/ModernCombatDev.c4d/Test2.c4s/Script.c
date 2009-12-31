@@ -1,6 +1,6 @@
 /*-- CMC Test --*/
 
-#strict
+#strict 2
 
 func ChooserRuleConfig()
 {
@@ -49,7 +49,7 @@ public func RelaunchPlayer(int iPlr, object pCrew, object pKiller, int iTeam)
 {
   // Kein ordentlicher Spieler?
   if(GetOwner(pCrew) == NO_OWNER || iPlr == NO_OWNER || !GetPlayerName(iPlr))
-    return();
+    return ;
   // Kein Team
   if(!iTeam) iTeam = GetPlayerTeam(iPlr);
   
@@ -87,7 +87,7 @@ public func RelaunchClonk(int iPlr, object pCursor)
   SetCursor(iPlr, pClonk);
   SetPlrView(iPlr, pClonk);
 
-  return(pClonk);
+  return pClonk;
 }
 
 public func RelaunchPosition(& iX, & iY, int iTeam)

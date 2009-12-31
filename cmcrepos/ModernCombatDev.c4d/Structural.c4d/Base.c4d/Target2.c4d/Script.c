@@ -1,6 +1,6 @@
 /*-- Target --*/
 
-#strict
+#strict 2
 
 protected func Initialize()
 {
@@ -12,20 +12,20 @@ func Incineration(int iPlr)//Sollte überladen und angepasst werden.
   Extinguish();
   SetClrModulation(RGB(70,70,70));
   //Schedule("DoDmg(5,DMG_Fire,0,1)",1,20,this());
-  AddFireEffect(this(),30,FIRE_Red,1);
+  AddFireEffect(this,30,FIRE_Red,1);
   
   if(iPlr > NO_OWNER)
     if(GetDamage() >= MinDmg())
       Activate(iPlr);
 }
 
-public func MinDmg(){return(1);}
+public func MinDmg(){return 1;}
 
 public func IsBulletTarget()
 {
-  if(GetAction() eq "Stand")
-    return(true);
-  return(false);
+  if(GetAction() == "Stand")
+    return true;
+  return false;
 }	
 
 public func OnHit(int iDamage, int iType, object pFrom)
@@ -38,14 +38,14 @@ public func OnHit(int iDamage, int iType, object pFrom)
 
 public func Damage(int iChange,int byPlr)
 {
-  if(!IsBulletTarget()) return();
+  if(!IsBulletTarget()) return ;
   
   if(GetDamage() >= MinDmg())
     Activate(byPlr);
   else
     ObjectHit(byPlr);
     
-  return(1);
+  return 1;
 }
 
 public func ObjectHit(int iPlr)
@@ -55,7 +55,7 @@ public func ObjectHit(int iPlr)
 
 public func Activate(int iPlr)
 {
-  Message("!",this());
+  Message("!",this);
   Sound("Ding");
   SetAction("Fall");
   Sound("DOR2_Open");
@@ -64,10 +64,10 @@ public func Activate(int iPlr)
 
 public func Reset()
 {
-  if((GetAction() ne "Stand")
-   ||(GetAction() ne "SetUp"))
-    return(SetAction("SetUp"));
-  return(false);
+  if((GetAction() != "Stand")
+   ||(GetAction() != "SetUp"))
+    return SetAction("SetUp");
+  return false;
 }
 
 private func Down()

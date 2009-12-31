@@ -1,6 +1,6 @@
 /*-- Nebliger Wind --*/
 
-#strict
+#strict 2
 
 local vel;
 
@@ -20,8 +20,8 @@ protected func Timer()
   DoFog();
   
   if(!Random(100))
-    if(!GetEffect("IntPush",this()))
-      AddEffect ("IntPush", this(), 50, 1, this(), GetID(), 35*(3+Random(10)));
+    if(!GetEffect("IntPush",this))
+      AddEffect ("IntPush", this, 50, 1, this, GetID(), 35*(3+Random(10)));
 }
 
 protected func DoFog(x)
@@ -29,7 +29,7 @@ protected func DoFog(x)
   //atmosphärischen Nebel an den Kartenrändern machen
   var grey = 100+Random(155);
   
-  var obj = this();
+  var obj = this;
   if(!Random(3))
     obj = 0;
     
@@ -45,7 +45,7 @@ public func FxIntPushTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
   var duration = EffectVar(0,pTarget,iEffectNumber);
   
-  if(iEffectTime >= duration) return(-1);
+  if(iEffectTime >= duration) return -1;
   
   if(iEffectTime < duration/3)
   {

@@ -1,6 +1,6 @@
 /*-- Düsternis --*/
 
-#strict
+#strict 2
 
 //Ob es wirklich dunkel ist.
 local darkness;
@@ -14,13 +14,13 @@ protected func Activate(iPlr) {
 }
 
 public func Initialize() {
-  ScheduleCall(this(),"PostInitialize",1);
+  ScheduleCall(this,"PostInitialize",1);
 }
 
 private func PostInitialize()	{
   //nur eine Dunkelheit!
   var count = 1;
-  for(var d in FindObjects(Find_ID(GetID()),Find_Exclude(this()))) {
+  for(var d in FindObjects(Find_ID(GetID()),Find_Exclude(this))) {
     count++;
     RemoveObject(d);
   }
@@ -57,9 +57,9 @@ public func InitializePlayer(int iPlr) {
 }
 
 public func OnClonkRecruitment(object pClonk) {
-  if(FindObject(CHOS)) return();
+  if(FindObject(CHOS)) return ;
   if(ObjectCount(GetID()) > 1)
-    return(ScheduleCall(this(),"OnClonkRecruitment",1,0,pClonk));
+    return ScheduleCall(this,"OnClonkRecruitment",1,0,pClonk);
   SetPlrViewRange(700-3*GetDarkness(100),pClonk);
   var tmp = AddLightAmbience(80,pClonk);
   tmp->ChangeColor(RGBa(255,255,255,110));
@@ -85,21 +85,21 @@ public func ChooserFinished() {
 
 global func IsDark() {
   var obj;
-  if(GetID(this()) != DARK)
+  if(GetID(this) != DARK)
     obj = FindObject(DARK);
   else
-    obj = this();
+    obj = this;
   //kein Dunkelheit-Objekt -> Keine Dunkelheit
   if(!obj)
-    return(false);
+    return false;
 
-  return(obj);
+  return obj;
 }
 
 global func GetDarkness(int precision) {
   var dark;
   if(!(dark = IsDark()))
-    return(0);
+    return 0;
 
   if(!precision) precision = 10;  
 
@@ -109,18 +109,18 @@ global func GetDarkness(int precision) {
   
   val = darkness/(1000/precision);
     
-  return(val);
+  return val;
 }
 
 global func SetDarkness(int iGrade) {
   var obj;
-  if(GetID(this()) != DARK)
+  if(GetID(this) != DARK)
     obj = FindObject(DARK);
   else
-    obj = this();
+    obj = this;
   //kein Dunkelheit-Objekt -> Keine Dunkelheit
   if(!obj)
-    return(false);
+    return false;
 
   iGrade = BoundBy(iGrade,0,10);
 
@@ -131,19 +131,19 @@ global func SetDarkness(int iGrade) {
   
   obj->UpdateLights();
   
-  return(true);
+  return true;
 }
 
 // iStep: wie viel Änderung der Dunkelheit pro 10 Frames
 global func FadeDarkness(int iGrade, int iStep) {
   var obj;
-  if(GetID(this()) != DARK)
+  if(GetID(this) != DARK)
     obj = FindObject(DARK);
   else
-    obj = this();
+    obj = this;
   //kein Dunkelheit-Objekt -> Keine Dunkelheit
   if(!obj)
-    return(false);
+    return false;
 
   if(!iStep) iStep = 100;
 
@@ -153,7 +153,7 @@ global func FadeDarkness(int iGrade, int iStep) {
   
   AddEffect("Fading",obj,20,1,obj,DARK,iGrade*100,darkness,iStep);
   
-  return(true);
+  return true;
 }
 
 public func Destruction() {
@@ -165,7 +165,7 @@ public func Destruction() {
 
 func FxFadingStart(object pTarget, int iEffectNumber, int iTemp, int endgrade, int startgrade, int frames) {
   if(iTemp)
-    return();
+    return ;
   EffectVar(0, pTarget, iEffectNumber) = endgrade;
   EffectVar(1, pTarget, iEffectNumber) = startgrade;
   EffectVar(2, pTarget, iEffectNumber) = frames;  
@@ -178,7 +178,7 @@ func FxFadingTimer(object pTarget, int iEffectNumber, int iEffectTime) {
   var fade = EffectVar(2,pTarget,iEffectNumber);
   var go = EffectVar(3,pTarget,iEffectNumber);
   if(grade == end)
-    return(-1);
+    return -1;
   
   go += fade;
 
@@ -210,8 +210,8 @@ func FxFadingTimer(object pTarget, int iEffectNumber, int iEffectTime) {
 }
 
 func FxFadingEffect(string szNewEffectName, object pTarget, int iEffectNumber, int iNewEffectNumber, int endgrade, int stargrade, int frames) {
-  if(szNewEffectName S= "Fading")
-    return(-3);
+  if(szNewEffectName == "Fading")
+    return -3;
 }
 
 func FxFadingAdd(object pTarget, int iEffectNumber, string szNewEffectName, int iNewEffectTimer, int endgrade, int stargrade, int frames) {

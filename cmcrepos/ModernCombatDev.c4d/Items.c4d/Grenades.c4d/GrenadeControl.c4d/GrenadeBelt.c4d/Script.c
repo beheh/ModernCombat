@@ -1,6 +1,6 @@
 /*-- Granatengürtel --*/
 
-#strict
+#strict 2
 
 local pUser;
 
@@ -8,7 +8,7 @@ func Initialize()
 {
   SetPosition();
   SetVisibility(VIS_None);
-  return(1);
+  return 1;
 }
 
 func SetUser(user)
@@ -18,5 +18,5 @@ func SetUser(user)
 
 func GetUser()
 {
-  return(pUser);
+  return pUser;
 }

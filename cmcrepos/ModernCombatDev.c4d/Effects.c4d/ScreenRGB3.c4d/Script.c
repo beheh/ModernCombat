@@ -1,5 +1,5 @@
 /* ScreenRGB 3 */
-#strict
+#strict 2
 
 local r,g,b,a;
 local target,layer;
@@ -13,7 +13,7 @@ public func Initialize()
   SetClrModulation(RGBa(0,0,0,255));
   a = 255;
 
-  return(1);
+  return 1;
 }
 
 global func ScreenRGB3(object pTarget, int dwRGBa, bool bAdditive, int iLayer, object pRGB)
@@ -31,12 +31,12 @@ global func ScreenRGB3(object pTarget, int dwRGBa, bool bAdditive, int iLayer, o
   }
     
   pRGB->Set(pTarget,dwRGBa,bAdditive,iLayer);
-  return(pRGB);
+  return pRGB;
 }
 
 public func SameLayer(int iLayer)
 {
-  if(layer) if(iLayer == layer) return(true);
+  if(layer) if(iLayer == layer) return true;
 }
 
 public func Set(object pTarget, int dwRGBa, bool bAdditive, int iLayer)
@@ -65,5 +65,5 @@ func CursorCheck()
     SetVisibility (VIS_Owner);
 }
 
-public func NoWarp(){return(true);}
-public func IsHUD(){return(true);}
+public func NoWarp(){return true;}
+public func IsHUD(){return true;}

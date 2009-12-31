@@ -105,7 +105,7 @@ public func Grabbed(object byObj, bool grabbed)
 
 /* Zielen */
 
-private func AimMax() { return(90); }
+private func AimMax() { return 90; }
 
 public func CorrectAimAngle(int iAngle)
 {
@@ -166,13 +166,13 @@ public func Control2Grab(string command, object clonk)
 	if(!IsAiming()) return false;
 	
 	else if(command == "ControlUpdate")
-		AimUpdate(this(), Par(2), 1, "ControlConf");
+		AimUpdate(this, Par(2), 1, "ControlConf");
 
 	else if(command == "ControlUp" || command == "ControlUpDouble")
-		AimUp(this(), 1, "ControlConf");
+		AimUp(this, 1, "ControlConf");
 
 	else if(command == "ControlDown" || command == "ControlDownDouble")
-		AimDown(this(), 1, "ControlConf");
+		AimDown(this, 1, "ControlConf");
     
 	else if(command == "ControlThrow")
 		Fire();

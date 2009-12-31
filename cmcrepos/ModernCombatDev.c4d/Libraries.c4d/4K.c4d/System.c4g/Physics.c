@@ -1,4 +1,4 @@
-#strict
+#strict 2
 
 //Beschleunigt mit XDir. (ToDo: Beide Funktionen zusammenfassen?)
 global func AccelerateX4K(int iX,int iPrec,object pObject)
@@ -7,7 +7,7 @@ global func AccelerateX4K(int iX,int iPrec,object pObject)
     iPrec = 1;
     
   if(!pObject)
-    pObject = this();
+    pObject = this;
 
   SetXDir(Mul4K(iX,GetXDir(pObject,100),100),pObject,100);
 }
@@ -19,7 +19,7 @@ global func AccelerateY4K(int iY,int iPrec,object pObject)
     iPrec = 1;
 
   if(!pObject)
-    pObject = this();
+    pObject = this;
     
   SetYDir(Mul4K(iY,GetYDir(pObject,100),100),pObject,100);
 }
@@ -31,7 +31,7 @@ global func AccelerateAngle4K(int iAngle,int iPower,int iPrec,object pObject)
     iPrec = 1;
     
   if(!pObject)
-    pObject = this();
+    pObject = this;
 
   var iX = -Cos(iAngle,iPower,100);
   var iY = -Sin(iAngle,iPower,100);
@@ -47,7 +47,7 @@ global func AccelerateR4K(int iAmount,int iPrec,object pObject)
     iPrec = 1;
     
   if(!pObject)
-    pObject = this();
+    pObject = this;
     
   SetRDir(Mul4K(iAmount,GetRDir(pObject,iPrec),iPrec),pObject,iPrec);
 }

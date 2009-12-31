@@ -1,6 +1,6 @@
 /*-- langsame Projektile --*/
 
-#strict
+#strict 2
 
 protected func Activate(iPlr)
 {
@@ -9,7 +9,7 @@ protected func Activate(iPlr)
 
 global func FastBullets()
 {
-  return(!ObjectCount(SBUL));
+  return !ObjectCount(SBUL);
 }
 
-public func IsChooseable() { return(1); }
+public func IsChooseable() { return 1; }

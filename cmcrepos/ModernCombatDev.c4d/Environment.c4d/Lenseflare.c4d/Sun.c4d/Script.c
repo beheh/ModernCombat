@@ -1,6 +1,6 @@
 /*-- Sonne --*/
 
-#strict
+#strict 2
 
 local SonneX, SonneY;
 
@@ -8,18 +8,18 @@ local SonneX, SonneY;
 protected func Initialize()
 {
 	// In den Hintergrund mit dir.
-	SetCategory(C4D_StaticBack()|C4D_Background());
+	SetCategory(C4D_StaticBack|C4D_Background);
 	// Action setzen
 	SetAction("SeiBrav");
 	// Nur für den Herrn und Meister sichtbar
-	SetVisibility (VIS_Owner(), this());
+	SetVisibility (VIS_Owner(), this);
 	if(!FindObject(GetID())) 
 	// Das erste Sonnen-Objekt prüft nur, dass jeder Spieler auch sein Umweltobjekt hat
 	{
-		SetOwner(-1,this()); // Unparteiisch sein!
-		SetCategory(1,this()); // Nicht bewegen
+		SetOwner(-1,this); // Unparteiisch sein!
+		SetCategory(1,this); // Nicht bewegen
 		SetAction("IchWillNurSpielerZaehlen");
-		return();
+		return ;
 	}
 }
 
@@ -28,8 +28,8 @@ private func FindeFreienSpieler()
 {
 	for(var i=0; i<16; ++i)
 		if(GetPlayerName(i)&&(!FindObjectOwner(GetID(),i)))
-			return(i);
-	return(-1);
+			return i;
+	return -1;
 }
 
 // Prüft alle Spieler durch, ob denn auch jeder seine Sonne hat
@@ -53,14 +53,14 @@ protected func TuWasBraves()
 	// Bei vorhandenem Lenseflare (mit integrierter Sonne) kann dieses Objekt gelöscht werden
 	if(ObjectCount(LENS))
 	{
-		RemoveObject(this());
-		return();
+		RemoveObject(this);
+		return ;
 	}
 	// Hat es seinen Besitzer verloren? :(
 	if((!GetPlayerName(GetOwner())) || GetOwner()==-1)
 	{
-		RemoveObject(this()); 
-		return();
+		RemoveObject(this); 
+		return ;
 	}
 	// Sonnenposition anpassen
 	BerechneSonne();
@@ -87,17 +87,17 @@ protected func TuWasBraves()
 private func GibMittelpunktX(iSpieler)
 {
 	if(IsNetwork())
-		return(BoundBy(GetX(GetCursor(iSpieler)),400,LandscapeWidth()-400));
+		return BoundBy(GetX(GetCursor(iSpieler)),400,LandscapeWidth()-400);
 	else
-		return(BoundBy(GetPlrViewX(iSpieler),400,LandscapeWidth()-400));
+		return BoundBy(GetPlrViewX(iSpieler),400,LandscapeWidth()-400);
 }
 
 private func GibMittelpunktY(iSpieler)
 {
 	if(IsNetwork())
-		return(Min(GetY(GetCursor(iSpieler)),LandscapeHeight()-300));
+		return Min(GetY(GetCursor(iSpieler)),LandscapeHeight()-300);
 	else
-		return(Min(GetPlrViewY(iSpieler),LandscapeHeight()-300));
+		return Min(GetPlrViewY(iSpieler),LandscapeHeight()-300);
 }
 
 // Sonnenkoordinate
@@ -161,19 +161,19 @@ private func BerechneSonneY()
 
 private func TIME_Tick()
 {
-	return(10);
+	return 10;
 }
 
 private func GibTageszeit()
 {
 	var ZeitObjekt = FindObject(TIME);
-	if (!ZeitObjekt) return(-1);
+	if (!ZeitObjekt) return -1;
 	return(Local(1, ZeitObjekt)*100/PrivateCall(ZeitObjekt,"TimeResolution")); // 0-100=Mittag-Mittag
 }
 
 private func GibVektorDist(iSpieler)
 {
-	return(Distance(GibMittelpunktX(iSpieler),GibMittelpunktY(iSpieler),SonneX,SonneY));
+	return Distance(GibMittelpunktX(iSpieler),GibMittelpunktY(iSpieler),SonneX,SonneY);
 }
 
 // Bodenhöhe. Aus dem Schmetterling übernommen und aktuelle Syntax und global gemacht und so. k?
@@ -185,5 +185,5 @@ private func GetHorizonHeight(iX)
 	{
 		iY+=10;
 	}
-	return(iY+GetY());
+	return iY+GetY();
 }

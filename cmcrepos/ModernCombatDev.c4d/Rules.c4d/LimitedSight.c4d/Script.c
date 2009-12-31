@@ -35,7 +35,7 @@ protected func Destruction()
 
 public func RejectViewRangeChange(int iNewRange)
 {
-  return(true);
+  return true;
 }
 
 public func OnClonkRecruitment(object pClonk, int iPlr)

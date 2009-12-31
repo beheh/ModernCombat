@@ -1,22 +1,22 @@
 /*-- Explosivkiste --*/
 
-#strict
+#strict 2
 #include WCR2
 
-public func IsSpawnBlocker() { return(true); }
+public func IsSpawnBlocker() { return true; }
 
 
 /* Entzündung */
 
 func Incineration(int iPlr)
 {
-  ClearScheduleCall(this(), "InstaExplode");
-  ScheduleCall(this(), "InstaExplode", 100+Random(80),0,iPlr);
+  ClearScheduleCall(this, "InstaExplode");
+  ScheduleCall(this, "InstaExplode", 100+Random(80),0,iPlr);
 }
 
 func IncinerationEx(int iPlr)
 {
-  ClearScheduleCall(this(), "InstaExplode");
+  ClearScheduleCall(this, "InstaExplode");
 }
 
 /* Zerstörung */
@@ -26,7 +26,7 @@ func Damage(int iChange, int iPlr)
   if(GetDamage() > 1)
       Incinerate();
       
-  if(GetDamage() < 70) return();
+  if(GetDamage() < 70) return ;
   
   InstaExplode(iPlr);
 }
@@ -39,7 +39,7 @@ func InstaExplode(int iPlr)
   Sound("CrateCrack");
   
   //Umliegende Objekte anzünden
-  for(var obj in FindObjects(Find_Distance(40+Random(20)),Find_Exclude(this()),Find_Not(Find_Category(C4D_StaticBack))))
+  for(var obj in FindObjects(Find_Distance(40+Random(20)),Find_Exclude(this),Find_Not(Find_Category(C4D_StaticBack))))
   {
     var inc = GetDefCoreVal("ContactIncinerate",0,GetID(obj));
     if(!inc) continue;

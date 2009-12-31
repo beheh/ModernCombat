@@ -1,5 +1,5 @@
 /* Defibrillatorfunke */
 
-#strict
+#strict 2
 
 #include SPRK

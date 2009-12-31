@@ -1,33 +1,33 @@
 /*-- Schlauchboot (gepackt) --*/
 
-#strict
+#strict 2
 
 /* Initialisierung */
 
-public func HandSize()   {return(800);}
-public func HandX()      {return(3000);}
-public func HandY()      {return(-3000);}
-public func IsDrawable() {return(true);}
+public func HandSize()   {return 800;}
+public func HandX()      {return 3000;}
+public func HandY()      {return -3000;}
+public func IsDrawable() {return true;}
 
-func IsEquipment(){return(true);}
+func IsEquipment(){return true;}
 
 public func ControlDigDouble(object pCaller)
 {
   if(pCaller)
-    if(GetProcedure(pCaller) ne "WALK")
-      return(1);
+    if(GetProcedure(pCaller) != "WALK")
+      return 1;
 
   Exit();
   ChangeDef(INFL);
   this->~Initialize();
   SetCategory(GetCategory(0,INFL));
   SetObjDrawTransform();
-  return(1);
+  return 1;
 }
 
 func Deselection(object pClonk)//Hack für Clonks die nicht RejectShift unterstützen. :P
 {
-  ScheduleCall(this(),"SelectMe",1);
+  ScheduleCall(this,"SelectMe",1);
 }
 
 protected func SelectMe()
@@ -35,7 +35,7 @@ protected func SelectMe()
   ShiftContents(Contained(),0,GetID());
 }
 
-public func RejectShift(){return(true);}
+public func RejectShift(){return true;}
 
 protected func Departure(object p)
 {
@@ -47,21 +47,21 @@ protected func Entrance(object pTo)
 	if(GetOwner(pTo) != NO_OWNER)
 		SetOwner(GetOwner(pTo));
 
-	if(Contents(0,Contained()) != this())
+	if(Contents(0,Contained()) != this)
 		Contents(0,Contained())->~Deselection(Contained());
 
 	ShiftContents(pTo,0,GetID(),0);
 
-  if(!(GetOCF(pTo) & OCF_CrewMember)) return(1);
+  if(!(GetOCF(pTo) & OCF_CrewMember)) return 1;
   if(!GetEffect("INFP_Hold",pTo))
-    AddEffect("INFP_Hold",pTo,1,35,0,GetID(),this());
+    AddEffect("INFP_Hold",pTo,1,35,0,GetID(),this);
 }
 
 public func FxINFP_HoldStart(object pTarget, int iEffectNumber, int iTemp, infp)
 {
   if(iTemp)
     if(GetPhysical("Walk", 2, pTarget) <= GetPhysical("Walk", 1, 0, GetID(pTarget))*5/10)
-      return();
+      return ;
 
   // Lähmung
   EffectVar(0, pTarget, iEffectNumber) = GetPhysical("Walk", 1, 0, GetID(pTarget))*3/10;
@@ -79,7 +79,7 @@ public func FxINFP_HoldStart(object pTarget, int iEffectNumber, int iTemp, infp)
 public func FxINFP_HoldTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
   if(Contained(EffectVar(4,pTarget,iEffectNumber)) != pTarget)
-    return(-1);
+    return -1;
 }
 
 public func FxINFP_HoldStop(target, no, reason, temp)

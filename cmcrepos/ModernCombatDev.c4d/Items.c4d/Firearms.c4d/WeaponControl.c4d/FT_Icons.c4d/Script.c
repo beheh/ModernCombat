@@ -1,6 +1,6 @@
 /*-- WPN2-FireTec-Icons --*/
 
-#strict
+#strict 2
 
 static const FICO_Auto     = 1;
 static const FICO_Single   = 2;

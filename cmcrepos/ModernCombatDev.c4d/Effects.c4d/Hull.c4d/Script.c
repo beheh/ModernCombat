@@ -1,6 +1,6 @@
 /*-- Patronenhülse --*/
 
-#strict
+#strict 2
 
 
 public func Set(int iSize)
@@ -31,13 +31,13 @@ protected func Hit()
 
 global func BulletCasing(int iX, int iY, int iXDir, int iYDir, int iSize, int iColor, int bForceLow)
 {
-  if(EffectLevel() == EM4K_Low) return();
+  if(EffectLevel() == EM4K_Low) return ;
   var xd,yd;
   
-  if(this())
+  if(this)
   {
-    xd = iXDir + GetXDir(this());
-    yd = iYDir + GetYDir(this());
+    xd = iXDir + GetXDir(this);
+    yd = iYDir + GetYDir(this);
   }
   
   xd = iXDir + RandomX(-3,3);
@@ -51,7 +51,7 @@ global func BulletCasing(int iX, int iY, int iXDir, int iYDir, int iSize, int iC
       CreateParticle("BulletCasing2",iX,iY,iXDir,iYDir,10,iColor);
     else
       CreateParticle("BulletCasing",iX,iY,iXDir,iYDir,iSize*5,iColor);
-    return();
+    return ;
   }
   
   if(!iSize) iSize = 5;

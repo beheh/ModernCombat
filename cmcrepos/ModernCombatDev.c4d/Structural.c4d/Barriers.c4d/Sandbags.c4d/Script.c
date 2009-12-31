@@ -1,6 +1,6 @@
 /*-- Sandsackbarriere --*/
 
-#strict
+#strict 2
 
 local left,permanent;
 
@@ -17,8 +17,8 @@ func Initialize()
 
 public func OnHit(int iDamage, int iType, object pFrom)
 {
-  if(!pFrom) return();
-  if(iType != DMG_Projectile) return();
+  if(!pFrom) return ;
+  if(iType != DMG_Projectile) return ;
 
   CreateParticle ("MaterialBlast",Min(GetX(pFrom)-GetX(),GetDefWidth()/2),Min(GetY(pFrom)-GetY(),GetDefHeight()/2),0,0,Min(iDamage*10,200),RGB(194,155,108),0,false);  
 }
@@ -63,19 +63,19 @@ func Right()
 {
   SetGraphics();
   left = 0;
-  return(this());
+  return this;
 }
 
 func Left()
 {
   SetGraphics("LEFT");
   left = 1;
-  return(this());
+  return this;
 }
 
 func Unstuck()
 {
-  for(var obj in FindObjects(Find_Exclude(this()),Find_InRect(-7,-15,15,32)))
+  for(var obj in FindObjects(Find_Exclude(this),Find_InRect(-7,-15,15,32)))
   {
     if(Stuck(obj))
     {

@@ -1,23 +1,23 @@
 /*-- Rahmen --*/
  
-#strict
+#strict 2
  
 local smashed;
 local width, height;
  
 global func AddFrame(object pObj) {
 	if(!pObj)
-		if(!(pObj = this()))
-			return(0);
+		if(!(pObj = this))
+			return 0;
 	var tmp = CreateObject(FRME,0,25,GetOwner(pObj));
 	ScheduleCall(tmp,"Set",1,0,pObj);
-	return(tmp);
+	return tmp;
 }
  
 global func RemoveFrame(object pObj) {
 	if(!pObj)
-		if(!(pObj = this()))
-			return(0);
+		if(!(pObj = this))
+			return 0;
 	var pFrame = pObj->FindObject(FRME, 1,1);
 	if(pFrame) RemoveObject(pFrame);
 }
@@ -25,7 +25,7 @@ global func RemoveFrame(object pObj) {
 protected func Initialize() {
 	SetClrModulation(RGBa(255,255,255,200));
 	SetObjectBlitMode(GFX_BLIT_Additive);
-	SetGraphics("Frame", this(),GetID(),4,1);
+	SetGraphics("Frame", this,GetID(),4,1);
 }
  
 public func Set(object pTarget) {
@@ -63,7 +63,7 @@ protected func Damage() {
  
 		var graphic = Random(4)+1;
  
-		SetGraphics(Format("%s%d","Broken",graphic),this(),GetID(),smashed,1,0, 1);
+		SetGraphics(Format("%s%d","Broken",graphic),this,GetID(),smashed,1,0, 1);
 		SetObjDrawTransform(width, 0,0,0, height,0,0,smashed);
 	}
 	if(GetDamage() >= 75)
@@ -72,8 +72,8 @@ protected func Damage() {
 		CastParticles("SplinterGlass", 1, 35, RandomX(-20,20), -5, 20, 20, GetClrModulation(), GetClrModulation());
 		Sound("CrystalHit*");
  
-		SetGraphics("BrokenGlass", this(),GetID(), 0,1,0, 1);
-		SetGraphics("BrokenEnd", this(),GetID(), 1,1,0, 1);
+		SetGraphics("BrokenGlass", this,GetID(), 0,1,0, 1);
+		SetGraphics("BrokenEnd", this,GetID(), 1,1,0, 1);
 		SetGraphics(0,0,0,2);
 		SetGraphics(0,0,0,3);
 	}

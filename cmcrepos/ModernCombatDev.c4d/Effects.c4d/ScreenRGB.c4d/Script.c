@@ -1,5 +1,5 @@
 /* ScreenRGB */
-#strict
+#strict 2
 
 static const SR4K_LayerRedHurt = 1;
 static const SR4K_LayerSmoke = 2;
@@ -15,7 +15,7 @@ public func Initialize()
 
   SetClrModulation (RGBa(0,0,0,255));
 
-  return(1);
+  return 1;
 }
 
 global func ScreenRGB(object pTarget, int dwRGBa, int iFadeIn, int iDuration, int iFadeOut, bool bAdditive, int iLayer)
@@ -28,12 +28,12 @@ global func ScreenRGB(object pTarget, int dwRGBa, int iFadeIn, int iDuration, in
     obj = CreateObject(SR4K,0,0,GetOwner(pTarget));
     
   obj->Set(pTarget,dwRGBa,iFadeIn,iDuration,iFadeOut,bAdditive,iLayer);
-  return(obj);
+  return obj;
 }
 
 public func SameLayer(int iLayer)
 {
-  if(!layer) if(iLayer == layer) return(true);
+  if(!layer) if(iLayer == layer) return true;
 }
 
 public func Set(object pTarget, int dwRGBa, int iFadeIn, int iDuration, int iFadeOut, bool bAdditive, int iLayer)
@@ -69,11 +69,11 @@ public func Set(object pTarget, int dwRGBa, int iFadeIn, int iDuration, int iFad
   if(!fadeout)
     fadeout = 1;
     
-  var effect = GetEffect("IntRGBFade",this());
+  var effect = GetEffect("IntRGBFade",this);
   if(effect)
-    EffectVar(0,this(),effect) = 0;//:S
+    EffectVar(0,this,effect) = 0;//:S
   else
-    AddEffect("IntRGBFade",this(),25,1,this());
+    AddEffect("IntRGBFade",this,25,1,this);
 }
 
 ///Fade-Effekt
@@ -107,7 +107,7 @@ public func FxIntRGBFadeStart(object pTarget, int iEffectNumber, int iTemp)
   EffectVar(0,pTarget,iEffectNumber) = state;
   EffectVar(1,pTarget,iEffectNumber) = alpha;
   
-  return(1);
+  return 1;
 }
 
 public func FxIntRGBFadeTimer(object pTarget, int iEffectNumber, int iEffectTime)
@@ -137,7 +137,7 @@ public func FxIntRGBFadeTimer(object pTarget, int iEffectNumber, int iEffectTime
       EffectVar(0,pTarget,iEffectNumber) = -1;
       EffectVar(2,pTarget,iEffectNumber) = iEffectTime;
     }
-    return(0);
+    return 0;
   }
   else if(state == -1)//Ausfaden.
   {
@@ -145,16 +145,16 @@ public func FxIntRGBFadeTimer(object pTarget, int iEffectNumber, int iEffectTime
     pTarget->SetClrModulation(RGBa(r,g,b,EffectVar(1,pTarget,iEffectNumber)));
     
     if(EffectVar(1,pTarget,iEffectNumber) >= 255)//Fertig mit Ausfaden?
-      return(-1);//Weg damit!
+      return -1;//Weg damit!
   }
 
-  return(0);
+  return 0;
 }
 
 public func FxIntRGBFadeStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)
 {
   RemoveObject();
-  return(0);
+  return 0;
 }
 
 
@@ -163,8 +163,8 @@ public func Fade(iTime)
   if(!iTime) iTime = fadeout;
   fadeout = iTime;
   
-  var effect = GetEffect("IntRGBFade",this());
-  if(effect) EffectVar(0,this(),effect) = -1;
+  var effect = GetEffect("IntRGBFade",this);
+  if(effect) EffectVar(0,this,effect) = -1;
 }
 
 func CursorCheck()
@@ -175,5 +175,5 @@ func CursorCheck()
     SetVisibility (VIS_Owner);
 }
 
-public func NoWarp(){return(true);}
-public func IsHUD(){return(true);}
+public func NoWarp(){return true;}
+public func IsHUD(){return true;}

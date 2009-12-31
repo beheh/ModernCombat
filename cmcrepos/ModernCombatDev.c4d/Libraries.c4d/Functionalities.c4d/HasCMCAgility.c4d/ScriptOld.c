@@ -1,19 +1,19 @@
 /*-- Has CMC Agility --*/
 
-#strict
+#strict 2
 
 /* Allgemeines */
 
 private func StopWallJump()
 {
-  var i = GetEffectCount(0,this());
+  var i = GetEffectCount(0,this);
   var j;
   while(i--)
-    if(j = GetEffect("IntWallJump",this(),i))
-      RemoveEffect(0,this(),j);
+    if(j = GetEffect("IntWallJump",this,i))
+      RemoveEffect(0,this,j);
 }
 
-public func FxIntWallJumpTimer(){return(-1);}
+public func FxIntWallJumpTimer(){return -1;}
 
 
 protected func WallJumpBoost()
@@ -32,9 +32,9 @@ protected func BackFlipBoost()
 
 private func MayJump()//Aus L_AG ("Has Agility") genommen. -> Komplatibel.
 {
-	if(this()->IsJumping() || GetAction() eq "JetpackFlight")
+	if(this->IsJumping() || GetAction() == "JetpackFlight")
 	  if(!GetEffect("ExtraJump", this))
-	    return(true);
+	    return true;
 }
 
 
@@ -64,10 +64,10 @@ public func ControlLeftDouble()
     if(MayJump())
     {
       BackFlipBoost();
-      return(1);
+      return 1;
     }
  
-    if(GetEffect("IntWallJump",this()) && !GetContact(this()))
+    if(GetEffect("IntWallJump",this) && !GetContact(this))
     {
       Log("WallJump");
       
@@ -77,11 +77,11 @@ public func ControlLeftDouble()
       WallJumpBoost();
       Sound("Kime*");
       StopWallJump();
-      return(1);
+      return 1;
     }
   }
     
-  return(_inherited(...));
+  return _inherited(...);
 }
 
 public func ControlRightDouble()
@@ -91,10 +91,10 @@ public func ControlRightDouble()
     if(MayJump())
     {
       BackFlipBoost();
-      return(1);
+      return 1;
     }
  
-    if(GetEffect("IntWallJump",this()) && !GetContact(this()))
+    if(GetEffect("IntWallJump",this) && !GetContact(this))
     {
       Log("WallJump");
       
@@ -104,31 +104,31 @@ public func ControlRightDouble()
       WallJumpBoost();
       Sound("Kime*");
       StopWallJump();
-      return(1);
+      return 1;
     }
   }
     
-  return(_inherited(...));
+  return _inherited(...);
 }
 
 public func ControlLeft()
 {
-  if((GetDir() == DIR_Right) && (GetProcedure() eq "SCALE"))
+  if((GetDir() == DIR_Right) && (GetProcedure() == "SCALE"))
   {
     Log("AddEffect");
-    AddEffect("IntWallJump",this(),10,20,this());
+    AddEffect("IntWallJump",this,10,20,this);
   }
 
-  return(_inherited(...));
+  return _inherited(...);
 }
 
 public func ControlRight()
 {
-  if((GetDir() == DIR_Left) && (GetProcedure() eq "SCALE"))
+  if((GetDir() == DIR_Left) && (GetProcedure() == "SCALE"))
   {
     Log("AddEffect");
-    AddEffect("IntWallJump",this(),10,20,this());
+    AddEffect("IntWallJump",this,10,20,this);
   }
 
-  return(_inherited(...));
+  return _inherited(...);
 }

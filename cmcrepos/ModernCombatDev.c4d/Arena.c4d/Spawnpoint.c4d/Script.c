@@ -1,6 +1,6 @@
 /*-- Spawnpoint --*/
 
-#strict
+#strict 2
 
 local initialized, angle, player, nocollect, spawntimer;
 
@@ -10,7 +10,7 @@ global func PlaceSpawnpoint(id idObj, int iX, int iY, int timer)
   spwn->CreateContents(idObj);
   if(timer)
     spwn->LocalN("spawntimer") = timer;
-  return(spwn);
+  return spwn;
 }
 
 protected func Initialize()
@@ -30,13 +30,13 @@ protected func Timer()
     // Ein Inhaltsobjekt?
     if(Contents())
       // Initialisieren
-      return(Initialized());
+      return Initialized();
   // Kein Inhalt?
   if(!Contents())
     {
     // Nicht mehr initialisiert
     initialized = false;
-    return();
+    return ;
     }
   // Tolle Effekt starten
   angle += 10;
@@ -114,13 +114,13 @@ public func FxCollectTimer()
 {
   // Ist ein Clonk hier? -> Einsammeln lassen
   var pObj;
-  for(var pClonk in FindObjects(Find_AtPoint(), Find_OCF(OCF_CrewMember()), Find_OCF(OCF_CrewMember()), Find_NoContainer()))
+  for(var pClonk in FindObjects(Find_AtPoint(), Find_OCF(OCF_CrewMember), Find_OCF(OCF_CrewMember), Find_NoContainer()))
     if(CheckCollect(GetOwner(pClonk)))
       {
       pObj = CreateContents(GetID(Contents()));
       // Kann der Clonk einsammeln?
       Collect(pObj, pClonk);
-      if(Contained(pObj) == this()) RemoveObject(pObj);
+      if(Contained(pObj) == this) RemoveObject(pObj);
       else
         {
         Sound("Grab", 0, pClonk, 0, GetOwner(pClonk)+1);
@@ -135,9 +135,9 @@ public func FxCollectTimer()
 public func RejectEntrance(object pClonk)
 {
   // Objekt ist ein Clonk?
-  if(!(GetOCF(pClonk) & OCF_CrewMember) && !(pClonk->~CanCollectFromSpawnpoints())) return(1);
+  if(!(GetOCF(pClonk) & OCF_CrewMember) && !(pClonk->~CanCollectFromSpawnpoints())) return 1;
   // Ich hab Contents?
-  if(!Contents() || !initialized) return(1);
+  if(!Contents() || !initialized) return 1;
   // Darf einsammeln
   if(CheckCollect(GetOwner(pClonk), pClonk))
   {
@@ -145,12 +145,12 @@ public func RejectEntrance(object pClonk)
     // Kann der Clonk einsammeln?
     if(pObj->~IsAmmoPacket()) {
       if(!(pObj->MayTransfer(pClonk)))
-        return(1);
-      if(NoAmmo()) return(1);
+        return 1;
+      if(NoAmmo()) return 1;
     }
 
     Collect(pObj, pClonk);
-    if(Contained(pObj) == this()) RemoveObject(pObj);
+    if(Contained(pObj) == this) RemoveObject(pObj);
     else
     {
       Sound("Grab", 0, pClonk, 0, GetOwner(pClonk)+1);
@@ -164,29 +164,29 @@ public func RejectEntrance(object pClonk)
         DoAmmo(pObj->GetFMData(FM_AmmoID),pObj->GetFMData(FM_AmmoLoad),pObj);
     }
   }
-  return(1);
+  return 1;
 }
 
 private func CheckCollect(int iPlr, object pClonk) // Überprüft, ob ein Spieler das Objekt einsammeln darf
 {
-  if(!initialized) return();
+  if(!initialized) return ;
   // Waffen-Bleiben-Regel
   if(FindObject(WPST))
   {
     if(GetPlayerType(iPlr) == C4PT_User)
-      return(!nocollect[iPlr]);
+      return !nocollect[iPlr];
     if(!nocollect[iPlr])
     {
       nocollect[iPlr] = CreateArray();
-      return(true);
+      return true;
     }
     for(var pClnk in nocollect[iPlr])
       if(pClnk == pClonk)
-        return(false);
-    return(true);
+        return false;
+    return true;
   }
   else
-    return(!nocollect[0]);
+    return !nocollect[0];
 }
 
 private func Collected(int iPlr, object pClonk) // Regelt, dass ein Spieler das Objekt einsammelt
@@ -202,8 +202,8 @@ private func Collected(int iPlr, object pClonk) // Regelt, dass ein Spieler das 
         if(!nocollect[iPlr][i])
           break;
       nocollect[iPlr][i] = pClonk;
-      ScheduleCall(this(), "AICollectTimer", spawntimer, 0, iPlr, pClonk);
-      return();
+      ScheduleCall(this, "AICollectTimer", spawntimer, 0, iPlr, pClonk);
+      return ;
     }
     // Spielertimer hochsetzen
     player[iPlr] = spawntimer;

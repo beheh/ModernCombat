@@ -1,16 +1,16 @@
 /* Hochexplosivrakete */
 
-#strict
+#strict 2
 #include MISS
 
-public func Acceleration() { return(7); }
-public func MaxTime() { return(120); }
-public func MaxSpeed() { return(220); }
+public func Acceleration() { return 7; }
+public func MaxTime() { return 120; }
+public func MaxSpeed() { return 220; }
 
 private func Traveling()
 {
   // kommt nich weiter
-  if(GetActTime() >= MaxTime()) return(Hit());
+  if(GetActTime() >= MaxTime()) return Hit();
 
   // beschleunigen
   Accelerate();
@@ -18,8 +18,8 @@ private func Traveling()
   // Effekte
   Smoking();
   
-  if(GetR()<0)   SetRDir(-10,this(),100);
-  if(GetR()>0)   SetRDir(+10,this(),100);
+  if(GetR()<0)   SetRDir(-10,this,100);
+  if(GetR()>0)   SetRDir(+10,this,100);
 }
 
 private func Smoking()
@@ -29,7 +29,7 @@ private func Smoking()
   var maxy = -Cos(GetR(),dist/10);
   var ptrdist = 50;
   
-  CreateParticle("MuzzleFlash2",0,0,+Sin(GetR()+180,500),-Cos(GetR()+180,500),RandomX(20,80)*5,RGBa(255,57),this());
+  CreateParticle("MuzzleFlash2",0,0,+Sin(GetR()+180,500),-Cos(GetR()+180,500),RandomX(20,80)*5,RGBa(255,57),this);
 
   for(var i=0; i<dist; i+=ptrdist)
   {

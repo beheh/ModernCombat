@@ -1,48 +1,48 @@
 /*-- M16 --*/
 
-#strict
+#strict 2
 #include WPN2
 
-public func HandSize()      { return(1000); }
-public func HandX()         { return(5000); }
-public func HandY()         { return(2000); }
+public func HandSize()      { return 1000; }
+public func HandX()         { return 5000; }
+public func HandY()         { return 2000; }
 
-public func BarrelYOffset() { return(-2500); }
-public func SelectionTime() { return(12*3); }
+public func BarrelYOffset() { return -2500; }
+public func SelectionTime() { return 12*3; }
 
 
 //Kugeln - Stoﬂfeuer
 
 public func FMData1(int data)
 {
-  if(data == FM_Name)               return("$Bullets$");
+  if(data == FM_Name)               return "$Bullets$";
     
-  if(data == FM_AmmoID)             return(STAM);
-  if(data == FM_AmmoLoad)           return(30);
+  if(data == FM_AmmoID)             return STAM;
+  if(data == FM_AmmoLoad)           return 30;
   
-  if(data == FM_Reload)             return(130);
-  if(data == FM_Recharge)           return(13);
+  if(data == FM_Reload)             return 130;
+  if(data == FM_Recharge)           return 13;
 
-  if(data == FM_Auto)               return(false);
+  if(data == FM_Auto)               return false;
   
-  if(data == FM_Damage)             return(15);
+  if(data == FM_Damage)             return 15;
   
-  if(data == FM_Slot)               return(1);//Das Gewehr bekommt den Slot 1.
+  if(data == FM_Slot)               return 1;//Das Gewehr bekommt den Slot 1.
   
-  if(data == FM_SpreadAdd) return(68);
-  if(data == FM_StartSpread) return(70);
+  if(data == FM_SpreadAdd) return 68;
+  if(data == FM_StartSpread) return 70;
 
-  return(Default(data));
+  return Default(data);
 }
 
 public func FMData1T1(int data)
 {
-  if(data == FT_Name)                 return("$Burst$");//Der Name der Feuertechnik.
-  if(data == FT_IconFacet)            return(FICO_Burst);
-  if(data == FM_Recharge)             return(33);
-  if(data == FM_BurstAmount)          return(3);
-  if(data == FM_BurstRecharge)        return(3);
-  return(FMData1(data));
+  if(data == FT_Name)                 return "$Burst$";//Der Name der Feuertechnik.
+  if(data == FT_IconFacet)            return FICO_Burst;
+  if(data == FM_Recharge)             return 33;
+  if(data == FM_BurstAmount)          return 3;
+  if(data == FM_BurstRecharge)        return 3;
+  return FMData1(data);
 }
 
 public func Fire1T2()//Stoﬂfeuer-Feuertechnik benutzt den Standard.
@@ -52,9 +52,9 @@ public func Fire1T2()//Stoﬂfeuer-Feuertechnik benutzt den Standard.
 
 public func BotData1(int data)
 {
-  if(data == BOT_Range)    return(600);
+  if(data == BOT_Range)    return 600;
 
-  return(Default(data));
+  return Default(data);
 }
 
 public func Fire1T1()//Stoﬂfeuer schieﬂst 3 Mal hintereinander.
@@ -93,9 +93,9 @@ public func Fire1()//Standardschuss mit dem Gewehr.
 
 public func FMData1T2(int data)
 {
-  if(data == FT_Name)                 return("$Single$");
-  if(data == FT_IconFacet)            return(FICO_Single);
-  return(FMData1(data));//Standardwerte aus dem zugrunde liegendem Feuermodus nehmen.
+  if(data == FT_Name)                 return "$Single$";
+  if(data == FT_IconFacet)            return FICO_Single;
+  return FMData1(data);//Standardwerte aus dem zugrunde liegendem Feuermodus nehmen.
 }
 
 
@@ -103,31 +103,31 @@ public func FMData1T2(int data)
 
 public func FMData2(int data)
 {
-  if(data == FM_Name)     return("$Grenades$");
-  if(data == FM_AmmoID)   return(GRAM);
-  if(data == FM_AmmoLoad) return(1);
+  if(data == FM_Name)     return "$Grenades$";
+  if(data == FM_AmmoID)   return GRAM;
+  if(data == FM_AmmoLoad) return 1;
 
-  if(data == FM_Reload)   return(70);
-  if(data == FM_Recharge) return(1);
+  if(data == FM_Reload)   return 70;
+  if(data == FM_Recharge) return 1;
 
-  if(data == FM_Damage)   return(20);
+  if(data == FM_Damage)   return 20;
   
-  if(data == FM_Slot)    return(2);//Der Granatenwerfer benutzt den zweiten Slot.
+  if(data == FM_Slot)    return 2;//Der Granatenwerfer benutzt den zweiten Slot.
   
-  if(data == FM_Icon) return(M203);
+  if(data == FM_Icon) return M203;
   
-  if(data == FM_SpreadAdd) return(50);
-  if(data == FM_StartSpread) return(80);
+  if(data == FM_SpreadAdd) return 50;
+  if(data == FM_StartSpread) return 80;
 
-  return(Default(data));
+  return Default(data);
 }
 
 public func FMData2T1(int data)
 {
-  if(data == FT_Name)                 return("$Explosive$");
-  if(data == FT_IconFacet)            return(FICO_Explosive);
-  if(data == FM_Icon)                 return(M203);
-  return(FMData2(data));
+  if(data == FT_Name)                 return "$Explosive$";
+  if(data == FT_IconFacet)            return FICO_Explosive;
+  if(data == FM_Icon)                 return M203;
+  return FMData2(data);
 }
 
 public func Fire2T1()
@@ -137,9 +137,9 @@ public func Fire2T1()
 
 public func BotData2(int data)
 {
-  if(data == BOT_Range)    return(90);
+  if(data == BOT_Range)    return 90;
 
-  return(Default(data));
+  return Default(data);
 }
 
 public func LaunchGrenade(id idg, int speed, int angle, int mode)
@@ -177,10 +177,10 @@ public func LaunchGrenade(id idg, int speed, int angle, int mode)
 
 public func FMData2T2(int data)
 {
-  if(data == FT_Name)                 return("$Cluster$");
-  if(data == FT_IconFacet)            return(FICO_Cluster);
-  if(data == FM_Icon)                 return(M23C);
-  return(FMData2(data));
+  if(data == FT_Name)                 return "$Cluster$";
+  if(data == FT_IconFacet)            return FICO_Cluster;
+  if(data == FM_Icon)                 return M23C;
+  return FMData2(data);
 }
 
 public func Fire2()//Schuss mit dem Granatenwerfer.

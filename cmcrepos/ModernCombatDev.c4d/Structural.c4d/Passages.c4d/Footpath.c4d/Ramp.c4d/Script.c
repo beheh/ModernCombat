@@ -1,5 +1,5 @@
 /*-- Rampe --*/
-#strict
+#strict 2
 
 local x,y,mat;
 

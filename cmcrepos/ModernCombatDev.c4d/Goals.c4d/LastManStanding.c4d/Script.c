@@ -1,12 +1,12 @@
 /*-- Last Man Standing --*/
 
-#strict
+#strict 2
 #include TEAM
 
 local aPlayerLives, chooser;
 
 // Kann mittels des Spielzielauswählers konfiguriert werden
-public func IsConfigurable() { return(1); }
+public func IsConfigurable() { return 1; }
 
 /* Initialisierungen */
 
@@ -16,17 +16,17 @@ protected func Initialize() {
   if (pGoal = FindObject(GetID()))
   { 
     LocalN("iWinScore", pGoal)++;
-    return(RemoveObject()); 
+    return RemoveObject(); 
   }
   iWinScore = 1;
   aPlayerLives = CreateArray();
   if(FindObject(CHOS)) chooser = true;
-  return(_inherited());
+  return _inherited();
 }
 
 public func GetHUDInfo(int player) {
 	
-	return(Format("$MsgHUD$",aPlayerLives[player]));
+	return Format("$MsgHUD$",aPlayerLives[player]);
 
 }
 
@@ -50,16 +50,16 @@ public func ChooserFinished()
 /* Relaunch */
 
 public func RelaunchPlayer(int iPlr, object pClonk, int iMurdererPlr) {
-  if(iPlr == -1 || !GetPlayerName(iPlr)) return();
+  if(iPlr == -1 || !GetPlayerName(iPlr)) return ;
   if(GetPlayerType(iPlr) == C4PT_Script)
     if(GetAlive(pClonk))
     {
       aPlayerLives[iPlr] += iWinScore;
-      return();
+      return ;
     }
 
   if(iPlr == -1)
-    return();
+    return ;
 
   aPlayerLives[iPlr]--;
   var left = Format("%d", aPlayerLives[iPlr]);
@@ -84,7 +84,7 @@ public func RelaunchPlayer(int iPlr, object pClonk, int iMurdererPlr) {
 public func IsFulfilled() // Siegreiches Team?
 {
   // Es werden noch Regeln (und KI) gewählt
-  if(chooser) return();
+  if(chooser) return ;
 
   var iTeam;
   for(var i = 0 ; i < GetPlayerCount() ; i++)
@@ -93,19 +93,19 @@ public func IsFulfilled() // Siegreiches Team?
       iTeam = GetPlayerTeam(GetPlayerByIndex(i));
     // Spieler aus einem anderen Team leben noch?
     if(GetPlayerTeam(GetPlayerByIndex(i)) != iTeam)
-      return();
+      return ;
   }
   Message("@<c %x>$WinMsg$</c>", 0, GetTeamColor(iTeam), GetTeamName(iTeam));
-  return(1);
+  return 1;
 }
 
 protected func Activate(iPlr)
 {
   if (IsFulfilled())
   {
-    return(MessageWindow("$MsgGoalFulfilled$",iPlr));
+    return MessageWindow("$MsgGoalFulfilled$",iPlr);
   }
-  return(MessageWindow(Format("$MsgGoalUnfulfilled$", aPlayerLives[iPlr]), iPlr));
+  return MessageWindow(Format("$MsgGoalUnfulfilled$", aPlayerLives[iPlr]), iPlr);
 }
 
 /* Überladungen für das Scoreboard */
@@ -134,7 +134,7 @@ private func InitPlayer(int iPlr)
 
 private func UpdateScoreboard(int iTeam)
 {
-  return();
+  return ;
 }
 
 private func SortTeamScoreboard()
@@ -163,12 +163,12 @@ public func AITactic(object pAIPlayer)
 	  // Leute töten ist nicht so wichtig... such lieber nach guten Waffen
       if(pCrew->CustomContentsCount("IsWeapon") < 2) {
         if(pCrew->SearchWeapon(Aggro_Shoot)) {
-		  return(true);
+		  return true;
 		}
 	  }
       // Genug ausgerüstet (oder nix gefunden)... Krieg!!
       pAIPlayer->TacticDefault(pCrew);
     }
   }
-  return(true);
+  return true;
 }

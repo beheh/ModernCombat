@@ -1,6 +1,6 @@
 /*-- toll fadende und bunte Nachrichten --*/
 
-#strict
+#strict 2
 
 global func Message4K(pObject,szText,iFrames,dwRGBa_1,dwRGBa_2)
 {
@@ -9,7 +9,7 @@ global func Message4K(pObject,szText,iFrames,dwRGBa_1,dwRGBa_2)
 
 global func Message4K2(pObject,szText,iFrames,dwRGBa,iFadeIn,iFadeOut)
 {
-  if(!pObject) pObject = this();
+  if(!pObject) pObject = this;
 
   var pObject2 = pObject;
 
@@ -40,14 +40,14 @@ global func FxIntShowMessage4KStart(object pTarget, int iEffectNumber, int iTemp
   EffectVar (1,pTarget,iEffectNumber) = dwRGBa_1;
   EffectVar (2,pTarget,iEffectNumber) = dwRGBa_2;
   EffectVar (3,pTarget,iEffectNumber) = iFrames;
-  return(1);
+  return 1;
 }
 
 global func FxIntShowMessage4KTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
 
   if(iEffectTime > EffectVar (3,pTarget,iEffectNumber))
-    return(-1);
+    return -1;
 
   var iFrames  = EffectVar (3,pTarget,iEffectNumber);
 
@@ -59,7 +59,7 @@ global func FxIntShowMessage4KTimer(object pTarget, int iEffectNumber, int iEffe
 
   Message ("<c %x>%s</c>",pTarget,rgba,EffectVar (0,pTarget,iEffectNumber));
 
-  return(0);
+  return 0;
 }
 
 global func FxIntShowMessage4KStop (object pTarget, int iEffectNumber, int iReason, bool fTemp)
@@ -69,7 +69,7 @@ global func FxIntShowMessage4KStop (object pTarget, int iEffectNumber, int iReas
 
 global func FxIntShowMessage4KEffect (string szNewEffectName, object pTarget, int iEffectNumber, int iNewEffectNumber)
 {
-  return(-2);
+  return -2;
 }
 
 global func FxIntShowMessage4KAdd (object pTarget, int iEffectNumber, string szNewEffectName, int iNewEffectTimer,szText,dwRGBa_1,dwRGBa_2,iFrames)
@@ -97,5 +97,5 @@ global func InterpolateRGBa(RGBa_1,RGBa_2,x1,x2,x3)
   var b = Interpolate(GetRGBaValue(RGBa_1,3),GetRGBaValue (RGBa_2,3),x1,x2,x3);
   var a = Interpolate(GetRGBaValue(RGBa_1,0),GetRGBaValue (RGBa_2,0),x1,x2,x3);
 
-  return(RGBa(r,g,b,a));
+  return RGBa(r,g,b,a);
 }

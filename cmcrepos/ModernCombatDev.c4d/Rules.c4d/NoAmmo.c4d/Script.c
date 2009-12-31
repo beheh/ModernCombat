@@ -1,12 +1,12 @@
-#strict
+#strict 2
 
 protected func Activate(iPlr) {
   MessageWindow(GetDesc(),iPlr);
 }
 
 global func NoAmmo() {
-  return(ObjectCount(NOAM));
+  return ObjectCount(NOAM);
 }
 
 // Kann mittels des Spielzielauswählers ausgewählt werden
-public func IsChooseable() { return(1); }
+public func IsChooseable() { return 1; }

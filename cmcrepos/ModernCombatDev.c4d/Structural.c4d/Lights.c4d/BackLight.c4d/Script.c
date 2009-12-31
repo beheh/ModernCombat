@@ -1,12 +1,12 @@
 /*-- Ausgangslicht --*/
 
-#strict
+#strict 2
 
 local pLight, bOn, broken;
 
-public func LightSize() { return(50); }
-public func IsLamp() { return(true); }
-public func IsMachine() { return(true); }
+public func LightSize() { return 50; }
+public func IsLamp() { return true; }
+public func IsMachine() { return true; }
 
 /* Initalisierung */
 
@@ -14,7 +14,7 @@ protected func Initialize()
 {
   CreateLight();
   TurnOn();
-  return(1);
+  return 1;
 }
 
 public func Light() 
@@ -32,7 +32,7 @@ protected func CreateLight()
 public func TurnOn()
 {
   if(EMPShocked()) return;
-   if(broken) return();
+   if(broken) return ;
     bOn = true;
     SetAction("On");
     if(Light())
@@ -50,7 +50,7 @@ public func TurnOff()
 
 public func Switch()
 {
-  if(GetAction() S= "On")
+  if(GetAction() == "On")
    TurnOff();
    else
    TurnOn();
@@ -60,7 +60,7 @@ public func Switch()
 
 public func EMPShock()
 {
-  if(broken) return();
+  if(broken) return ;
   TurnOff();
   EMPShockEffect(800+Random(200));
 }
@@ -78,14 +78,14 @@ public func EMPShockEnd()
 
 public func IsBulletTarget(id def)
 {
-  if(broken) return();
-  if(def->~NoDecoDamage()) return();
-  return(Random(2));
+  if(broken) return ;
+  if(def->~NoDecoDamage()) return ;
+  return Random(2);
 }
 
 func Damage()
 {
-  if(broken) return();
+  if(broken) return ;
   broken = true;
   SetAction("Broken");
   if(Light())
@@ -101,6 +101,6 @@ func Damage()
 
 public func Serialize(array& extra)
 {
-  if (GetAction() ne "On")
+  if (GetAction() != "On")
    extra[GetLength(extra)] = "TurnOff()";
 }

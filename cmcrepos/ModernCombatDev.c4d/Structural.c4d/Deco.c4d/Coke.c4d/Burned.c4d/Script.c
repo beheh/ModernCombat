@@ -1,6 +1,6 @@
 /*-- kaputter Automat --*/
 
-#strict
+#strict 2
 
 protected func Incineration()
 {

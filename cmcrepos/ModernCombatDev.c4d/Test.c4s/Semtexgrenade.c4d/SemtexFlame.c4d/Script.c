@@ -38,7 +38,7 @@ public func Launch(int xdir, int ydir, bool slime, int iDamagepar)
   SetSpeed(xdir,ydir);
   SetAction("Fly");
   size = StdSize();
-  AddEffect("HitCheck", this(), 1,1, this(),0,shooter);
+  AddEffect("HitCheck", this, 1,1, this,0,shooter);
 }
 
 
@@ -255,10 +255,10 @@ protected func Hit(int iXDir, int iYDir)
   iXDir += RandomX(-d,+d);
   iYDir += RandomX(-d,+d);
 
-  if(GBackSolid(0,+5)) return(SetYDir(-iYDir,0,100));
-  if(GBackSolid(0,-5))  return(SetYDir(-iYDir,0,100));
-  if(GBackSolid(-5,0))  return(SetXDir(-iXDir,0,100));
-  if(GBackSolid(+5,0))   return(SetXDir(-iXDir,0,100));
+  if(GBackSolid(0,+5)) return SetYDir(-iYDir,0,100);
+  if(GBackSolid(0,-5))  return SetYDir(-iYDir,0,100);
+  if(GBackSolid(-5,0))  return SetXDir(-iXDir,0,100);
+  if(GBackSolid(+5,0))   return SetXDir(-iXDir,0,100);
 }
 
 func NoWarp() { return true; }

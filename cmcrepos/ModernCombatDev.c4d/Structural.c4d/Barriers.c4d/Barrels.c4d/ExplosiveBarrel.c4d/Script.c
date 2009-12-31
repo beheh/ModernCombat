@@ -1,12 +1,12 @@
 /*-- Explosivfass --*/
 
-#strict
+#strict 2
 
 local damaged;
 
-public func IsBulletTarget(){if(!damaged) return(1);}
-public func IsCraneGrabable() { return(!damaged); }
-public func IgnoreFriendlyFire() { return(1); }
+public func IsBulletTarget(){if(!damaged) return 1;}
+public func IsCraneGrabable() { return !damaged; }
+public func IgnoreFriendlyFire() { return 1; }
 
 
 /* Entzündung */
@@ -14,13 +14,13 @@ public func IgnoreFriendlyFire() { return(1); }
 func Incineration(int iPlr)
 {
   if(damaged) Extinguish();
-  ClearScheduleCall(this(), "InstaExplode");
-  ScheduleCall(this(), "InstaExplode", 80+Random(300),0,iPlr);
+  ClearScheduleCall(this, "InstaExplode");
+  ScheduleCall(this, "InstaExplode", 80+Random(300),0,iPlr);
 }
 
 func IncinerationEx(int iPlr)
 {
-  ClearScheduleCall(this(), "InstaExplode");
+  ClearScheduleCall(this, "InstaExplode");
 }
 
 /* Zerstörung */
@@ -29,13 +29,13 @@ func Damage(int iChange, int iPlr)
 {
   if(GetDamage() > 1)
    Incinerate();
-  if(GetDamage() < 20) return();
+  if(GetDamage() < 20) return ;
    InstaExplode(iPlr);
 }
 
 func InstaExplode(int iPlr)
 {
-  if(damaged) return();
+  if(damaged) return ;
   damaged = true;
 
   //Effekte
@@ -43,7 +43,7 @@ func InstaExplode(int iPlr)
   CastParticles("MetalSplinter",4,100,0,0,20,70,RGB(250,0,0));
 
   //Umliegende Objekte anzünden
-  for(var obj in FindObjects(Find_Distance(30+Random(20)),Find_Exclude(this()),Find_Not(Find_Category(C4D_StaticBack))))
+  for(var obj in FindObjects(Find_Distance(30+Random(20)),Find_Exclude(this),Find_Not(Find_Category(C4D_StaticBack))))
   {
    var inc = GetDefCoreVal("ContactIncinerate",0,GetID(obj));
    if(!inc) continue;
@@ -65,7 +65,7 @@ func BlowUp(int iPlr)
   Extinguish();
 
   SetRDir(RandomX(-40,+40));
-  AddFireEffect(this(),50,RGB(80,80,80),true,30);
+  AddFireEffect(this,50,RGB(80,80,80),true,30);
   FadeOut();
 }
 
@@ -84,5 +84,5 @@ public func OnHit(int iDamage, int iType, object pFrom)
 protected func Hit()
 {
   Sound("BarrelImpact*.ogg");
-  return(1);
+  return 1;
 }

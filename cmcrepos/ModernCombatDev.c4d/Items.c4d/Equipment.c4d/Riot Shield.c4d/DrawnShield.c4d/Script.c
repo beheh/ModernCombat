@@ -3,7 +3,7 @@
 #strict 2
 
 local target, item, angle;
-public func NoWarp() {return(true);}
+public func NoWarp() {return true;}
 public func ShoveTime() {return 13*3;}
 
 public func Incineration()
@@ -39,7 +39,7 @@ public func ExecShove()
   }
   
   var victim = FindObject2(Find_AtPoint(px,py),
-                 Find_Exclude(this()),
+                 Find_Exclude(this),
                  Find_NoContainer(),
                  Find_Or
                  (
@@ -112,7 +112,7 @@ public func Update()
     SetKiller(iByPlayer,item);
     DoDamage(iChange,item);
   }
-  return(1);
+  return 1;
 }*/
 
 public func IsBulletTarget(id idBullet, object pBullet, object pShooter)
@@ -203,7 +203,7 @@ public func QueryCatchBlow(object pObj)
     if(pObj)
       AddEffect("CatchBlow",pObj,1,35,0,GetID());
   }
-  return(true);
+  return true;
 }
 
 public func FxCatchBlowTimer() { return -1; }

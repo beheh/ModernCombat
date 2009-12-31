@@ -1,6 +1,6 @@
 /*-- Sentry Gun --*/
 
-#strict
+#strict 2
 
 local cur_Attachment;
 local aim_angle;
@@ -16,41 +16,41 @@ local autorepair;
 /* Aktionen */
 public func StartRepair()
 {
-  if(GetAction() ne "RepairStart")
+  if(GetAction() != "RepairStart")
     SetAction("RepairStart");
   Repairing = true;
-  RemoveEffect("ShowWeapon",this());
+  RemoveEffect("ShowWeapon",this);
 }
 
 public func Repair()
 { 
   DoDamage(-GetDamage());//Es hat ja jetzt einen Schutz.
-  AddEffect("IntRepair",this(),50,5,this());
+  AddEffect("IntRepair",this,50,5,this);
 }
 
 public func FxIntRepairStart(object pTarget, int iEffectNumber, int iTemp)
 {
-  Sound("Weld.ogg",false,this(),50,0,+1); 
-  return(1);
+  Sound("Weld.ogg",false,this,50,0,+1); 
+  return 1;
 }
 
 public func FxIntRepairTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
   if(iEffectTime >= 35*20)
-    return(-1);
+    return -1;
     
   if(!Random(2))
     Sparks(2+Random(5), RGB(187, 214, 224), RandomX(-GetDefWidth()/2,+GetDefWidth()/2), RandomX(-GetDefHeight()/2,+GetDefHeight()/2));
     
-  return(0);
+  return 0;
 }
 
 public func FxIntRepairStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)
 {
-  Sound("Weld.ogg",false,this(),0,0,-1); 
+  Sound("Weld.ogg",false,this,0,0,-1); 
   if(!iReason)
     pTarget->SetAction("RepairStop");
-  return(0);
+  return 0;
 }
 
 public func StopRepair()
@@ -58,15 +58,15 @@ public func StopRepair()
   Repairing = false;
   Damaged = 0;
   DoDamage(-GetDamage());//Entschädigen.
-  AddEffect("ShowWeapon",this(),1,1,this(),GetID());
-  SetGraphics(0,this(),GetID(),3,5,0,0,this());
+  AddEffect("ShowWeapon",this,1,1,this,GetID());
+  SetGraphics(0,this,GetID(),3,5,0,0,this);
 }
 
 public func Destroyed()
 {
   SetAction("Destroyed");
   Damaged = 1;
-  RemoveEffect("ShowWeapon",this()); 
+  RemoveEffect("ShowWeapon",this); 
   AutoRepair();
   GetAttWeapon()->StopAutoFire();
 }
@@ -75,7 +75,7 @@ public func Destroyed()
 public func AutoRepair()
 {
   if(autorepair)
-    ScheduleCall(this(),"StartRepair",autorepair+RandomX(-50,+50));
+    ScheduleCall(this,"StartRepair",autorepair+RandomX(-50,+50));
 }
 
 public func SetAutoRepair(int iAuto)
@@ -104,18 +104,18 @@ public func SetTeam(int i) //Einem Team zuordnen
 public func Arm(id idWeapon)
 {
   // Crash-Vermeidung
-  if(!idWeapon) return();
-  if(!GetName(0, idWeapon)) return();
+  if(!idWeapon) return ;
+  if(!GetName(0, idWeapon)) return ;
 
   //Ausrüsten mit idWeapon
   var pWeapon = CreateObject(idWeapon, 0, 0, GetOwner());
-  Enter(this(),pWeapon);
+  Enter(this,pWeapon);
   //Ordnern
-  SetObjectOrder(this(), pWeapon, 1);
+  SetObjectOrder(this, pWeapon, 1);
   aim_angle = 180;
   iPat_Dir = -1+ Random(2)*2;
   cur_Attachment = pWeapon;
-  LocalN("controller", pWeapon) = this();
+  LocalN("controller", pWeapon) = this;
   Reload();
   GetAttWeapon()->StopAutoFire();
 }
@@ -126,39 +126,39 @@ public func Initialize()
 {
   //Ausrichten
   FitToTop();
-  AddEffect("ShowWeapon",this(),1,1,this(),GetID());
+  AddEffect("ShowWeapon",this,1,1,this,GetID());
   //lieber Overlay 3 nehmen. Falls wir mal 2-overlayige waffen einbaun :]
-  SetGraphics(0,this(),GetID(),3,5,0,0,this());
+  SetGraphics(0,this,GetID(),3,5,0,0,this);
 }
 
 public func WeaponAt(&x, &y, &r) {
   x = 0;
   y = 7000;
   r = aim_angle+270;
-  return(1);
+  return 1;
 }
 
 public func WeaponBegin(&x, &y) {
-  var number = GetEffect("ShowWeapon",this());
+  var number = GetEffect("ShowWeapon",this);
   if(!number)
-    return(0);
-  x = EffectVar(2, this(), number)/1000;
-  y = EffectVar(3, this(), number)/1000;
+    return 0;
+  x = EffectVar(2, this, number)/1000;
+  y = EffectVar(3, this, number)/1000;
 }
 
 public func WeaponEnd(&x, &y) {
-  var number = GetEffect("ShowWeapon",this());
+  var number = GetEffect("ShowWeapon",this);
   if(!number)
-    return(0);
-  x = EffectVar(4, this(), number)/1000;
-  y = EffectVar(5, this(), number)/1000;
+    return 0;
+  x = EffectVar(4, this, number)/1000;
+  y = EffectVar(5, this, number)/1000;
 }
 
 public func GetWeaponR() {
-  var number = GetEffect("ShowWeapon",this());
+  var number = GetEffect("ShowWeapon",this);
   if(!number)
-    return(0);
-  return(EffectVar(1, this(), number));
+    return 0;
+  return EffectVar(1, this, number);
 }
 
 public func FitToTop()
@@ -171,25 +171,25 @@ public func FitToTop()
     y -= 1;
     
     //Endlosschleife vermeiden
-    if(y < 0) return(1);
+    if(y < 0) return 1;
     
     SetPosition(x, y);
   }
-  return(1);
+  return 1;
 }
 
 public func Activity()
 {
   var iHeight, iWidth, iAngle;
   //Wuah, haben wir eine Waffe?
-  if(! GetAttWeapon()) return();
+  if(! GetAttWeapon()) return ;
   //Sind wir im Eimer?
-  if( Damaged) return();
+  if( Damaged) return ;
   //Sind wir aktiv?
-  if(! Active) return();
-  if(Repairing) return();
+  if(! Active) return ;
+  if(Repairing) return ;
   //Wenn nicht schon gesetzt: Turn-Action
-  if(GetAction() ne "Turn")
+  if(GetAction() != "Turn")
     SetAction("Turn");
 
   /*Patroullie fahren*/
@@ -238,7 +238,7 @@ public func Search(int iX, int iWidth, int iHeight)
   /*DrawParticleLine("PSpark", 0, 0, -70 + Sin(aim_angle, SearchLength()), SearchLength(), 10, 80, RGB(255, 0, 0));
   DrawParticleLine("PSpark", 0, 0, 70 + Sin(aim_angle, SearchLength()), SearchLength(), 10, 80, RGB(255, 0, 0));*/ 
   
-  while( pAim = FindObject(0, iX, 17, iWidth, iHeight, OCF_Alive(), 0, 0, NoContainer(), pAim ))   
+  while( pAim = FindObject(0, iX, 17, iWidth, iHeight, OCF_Alive, 0, 0, NoContainer(), pAim ))   
   {
     // Freund-Checks
     if(Team)
@@ -265,7 +265,7 @@ public func Search(int iX, int iWidth, int iHeight)
         continue;
     Shooting = true;
     if(!IsFiring())
-      GetAttWeapon()->ControlThrow(this());
+      GetAttWeapon()->ControlThrow(this);
     if(GetAmmo(GetAttWeapon()->GetFMData(FM_AmmoID), GetAttWeapon()) < GetAttWeapon()->GetFMData(FM_AmmoUsage))
       Reload();
     break;
@@ -280,11 +280,11 @@ public func Search(int iX, int iWidth, int iHeight)
 
 public func IsFiring()
 {
-  if(!GetAttWeapon()) return(false);
+  if(!GetAttWeapon()) return false;
   
   if(GetEffect("Recharge",GetAttWeapon()))
-    return(true);
-  return(false);
+    return true;
+  return false;
 }
 
 private func Reload()
@@ -294,7 +294,7 @@ private func Reload()
   // Erzeugen
   Local(0, CreateContents(AmmoID)) = GetAttWeapon()->~GetFMData(FM_AmmoLoad);
   // Waffe soll nachladen
-  GetAttWeapon()->~Reloaded(this());
+  GetAttWeapon()->~Reloaded(this);
   GetAttWeapon()->~Recharge();
 }
 
@@ -303,12 +303,12 @@ public func Damage()
   if(GetDamage() > 400)
   {
     Explode(30);//Jetzt ist sie wirklich weg. :P
-    return();
+    return ;
   }
   
   if(GetDamage() > 200)
   {
-    if((GetAction() eq "Turn") || (GetAction() eq "Idle"))
+    if((GetAction() == "Turn") || (GetAction() == "Idle"))
     {
       Destroyed();
       CreateObject(ROCK)->Explode(20);
@@ -318,11 +318,11 @@ public func Damage()
 
 public func EMPShock()
 {
-    if(Damaged) return(0);
+    if(Damaged) return 0;
     //EMP Granate!1 :O
     Damaged = 1;
-    AddEffect("EMP_Damaged", this(), 180, 50, this(), GetID() );
-    return(1);
+    AddEffect("EMP_Damaged", this, 180, 50, this, GetID() );
+    return 1;
 }
 
 public func FxEMP_DamagedTimer( pTarget, iEffectNumber)
@@ -333,8 +333,8 @@ public func FxEMP_DamagedTimer( pTarget, iEffectNumber)
     }
     
     //Nach gewisser Zeit wieder anstellen.
-    if( GetEffect("EMP_Damaged", this(), 0, 6) > 650)
-      return(-1);
+    if( GetEffect("EMP_Damaged", this, 0, 6) > 650)
+      return -1;
 }
 
 public func FxEMP_DamagedStop( pTarget, iEffectNumber)
@@ -349,13 +349,13 @@ public func ConsoleControl(int i)
 {
     if(i == 1)
     {
-      if(Active) return("$TurnOff$");
+      if(Active) return "$TurnOff$";
       else
-          return("$TurnOn$");
+          return "$TurnOn$";
     }
     if(i == 2)
-      if(GetAction() eq "Destroyed")
-        return("$Repair$");
+      if(GetAction() == "Destroyed")
+        return "$Repair$";
 }
 
 public func ConsoleControlled(int i)
@@ -370,20 +370,20 @@ public func ConsoleControlled(int i)
     }
     if(i == 2)
     {
-      if(GetAction() eq "Destroyed")
+      if(GetAction() == "Destroyed")
         StartRepair();
     }
 }
 
-public func UpdateCharge() { return(1); }
+public func UpdateCharge() { return 1; }
 
 //Für das Abfragen
-public func GetAttWeapon() { return(cur_Attachment); } //Waffe
-public func MaxRotLeft()   { return(110); } //Maximaler Winkel links
-public func MaxRotRight()  { return(250); } //Maximaler Winkel rechts
-public func SearchLength() { return(250); } //Suchlänge
-public func AimAngle()     { return(aim_angle); } //Winkel auf Ziel
-public func ReadyToFire()  { return(1); } //Allzeit bereit
-public func IsMachine()    { return(true); } //Ist eine Elektrische Anlage
-public func IsBulletTarget() { return(true); } //Kugelziel
-public func IsAiming()     { return(true); } // Die Sentry Gun "zielt" immer
+public func GetAttWeapon() { return cur_Attachment; } //Waffe
+public func MaxRotLeft()   { return 110; } //Maximaler Winkel links
+public func MaxRotRight()  { return 250; } //Maximaler Winkel rechts
+public func SearchLength() { return 250; } //Suchlänge
+public func AimAngle()     { return aim_angle; } //Winkel auf Ziel
+public func ReadyToFire()  { return 1; } //Allzeit bereit
+public func IsMachine()    { return true; } //Ist eine Elektrische Anlage
+public func IsBulletTarget() { return true; } //Kugelziel
+public func IsAiming()     { return true; } // Die Sentry Gun "zielt" immer

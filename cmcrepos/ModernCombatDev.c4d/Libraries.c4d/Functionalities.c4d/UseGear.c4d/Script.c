@@ -21,7 +21,7 @@
 
 */
 
-#strict
+#strict 2
 
 local aGear;
 
@@ -50,10 +50,10 @@ public func OnDmg(int iDamage, int iType) {
   for(gear in aGear) {
     // not null...
     if(gear) {
-      add += (gear->~OnClonkDmg(iDamage, iType, this()));
+      add += (gear->~OnClonkDmg(iDamage, iType, this));
     } 
   }
-  return(add);
+  return add;
 }
 
 // Effekte o.Ä. anzeigen
@@ -65,7 +65,7 @@ public func OnHit(int iDmg, int iType, object pFrom)
   for(var gear in aGear)
     // not null...
     if(gear)
-      gear->~OnClonkHit(iDmg, iType, this());
+      gear->~OnClonkHit(iDmg, iType, this);
 }
 
 /* Kontext menü */
@@ -73,7 +73,7 @@ public func OnHit(int iDmg, int iType, object pFrom)
 // Ausrüstung benutzen
 protected func ContextUseEquipment(object pCaller) {
   [$CtxUseEquipmentDesc$|Image=HARM|Condition=HasUsableGear]
-  if(!HasUsableGear()) return();
+  if(!HasUsableGear()) return ;
   CreateMenu(HARM,0,0,0,0,0,1);
   // nutzbare Ausrüstung anzeigen
   for(var i=0; i<GetLength(aGear); ++i) {
@@ -83,14 +83,14 @@ protected func ContextUseEquipment(object pCaller) {
         AddMenuItem(gear->~ConDesc(), "UseEquipment", GetID(gear), 0, 0, i);
   }
 
-  return(1);
+  return 1;
 }
 
 // Ausrüstung ablegen
 protected func ContextUnbuckle(object pCaller)
 {
   [$CtxUnbuckleDesc$|Image=HARM|Condition=FunnyBug]
-  if(!HasGear()) return();
+  if(!HasGear()) return ;
   CreateMenu(HARM,0,0,0,0,0,1);
   // alle Ausrüstung anzeigen
   for(var i; i<GetLength(aGear); ++i) {
@@ -99,7 +99,7 @@ protected func ContextUnbuckle(object pCaller)
       AddMenuItem("$CtxUnbuckleItem$", Format("TakeOffGear(0,%d)",i), GetID(gear));
   }
 
-  return(1);
+  return 1;
 }
 
 
@@ -114,7 +114,7 @@ protected func HasUsableGear()
   for(gear in aGear) {
     if(gear) 
       if(gear->~ConUseable())
-        return(1);
+        return 1;
   }
 }
 
@@ -130,32 +130,32 @@ public func HasGear(int iGearType, id idGear)
     for(gear in aGear)
 	  if(gear)
 	    if(GetID(gear) == idGear)
-	      return(gear);
-    return(false);
+	      return gear;
+    return false;
   }
 
   // nach bestimmtem Typ suchen
   if(iGearType)
 	{
     if(aGear[iGearType])
-      return(true);
-    return(false);
+      return true;
+    return false;
   }
   
   // keine Parameter: allgemein ob Ausrüstung da ist
   for(gear in aGear)
     if(gear)
-      return(true);
+      return true;
   
-  return(false);
+  return false;
 }
 
 // Kann Ausrüstung benutzen
 public func CanUse(id idObj)
 {
   // Das Objekt kann natürlich Ausnahmen vornehmen....
-  if(DefinitionCall(idObj, "IsHazardGear")) return(1);
-  return(_inherited(idObj));
+  if(DefinitionCall(idObj, "IsHazardGear")) return 1;
+  return _inherited(idObj);
 }
 
 
@@ -166,7 +166,7 @@ public func CanUse(id idObj)
 protected func UseEquipment(id bla, int i)
 {
   if(aGear[i])
-    aGear[i]->~ConUse(this());
+    aGear[i]->~ConUse(this);
 }
 
 // Ausrüstung ablegen
@@ -183,20 +183,20 @@ public func TakeOffGear(object pGear, int iGearType)
       for(var i=0; i<GetLength(aGear); ++i)
         if(aGear[i])
           TakeOffGear(0,i);
-      return(1);
+      return 1;
     }
 
     geartype = pGear->~GetGearType();
     // das Objekt ist nicht angelegt
-    if(aGear[geartype] != pGear) return(0);
+    if(aGear[geartype] != pGear) return 0;
   }
   else {
     // angegebener geartype garnicht angelegt 
-    if(!HasGear(geartype)) return(0);
+    if(!HasGear(geartype)) return 0;
   }
   
   // er ist angelegt: ok, ablegen
-  aGear[geartype]->~GearUnbuckle(this());
+  aGear[geartype]->~GearUnbuckle(this);
 
   // aufsammeln wenn möglich
   if(aGear[geartype])
@@ -210,17 +210,17 @@ public func TakeOffGear(object pGear, int iGearType)
 public func EquipGear(object pGear)
 {
   // überhaupt benutzbar
-  if(!pGear) return(0);
-  if(!(pGear->~IsHazardGear())) return(0);
+  if(!pGear) return 0;
+  if(!(pGear->~IsHazardGear())) return 0;
   // schon eine Ausrüstung dieses Typs am Clonk
   var geartype = pGear->~GetGearType();
-  if(HasGear(geartype)) return(0);
+  if(HasGear(geartype)) return 0;
 
   // ok:
   // speichern
   aGear[geartype] = pGear;
   // Auslösen
-  return(1);
+  return 1;
 }
 
-protected func FunnyBug() { return(HasGear()); }
+protected func FunnyBug() { return HasGear(); }
