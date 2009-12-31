@@ -14,7 +14,7 @@ SkipDefs=RGSA
 
 [Game]
 StructNeedEnergy=0
-Goals=GTDM=10;GFDM=4;GCTF=3;GLMS=5
+Goals=GTDM=10;GHTF=3;GCTF=3;GLMS=5
 Rules=CHOS=1
 FoWColor=13816530
 

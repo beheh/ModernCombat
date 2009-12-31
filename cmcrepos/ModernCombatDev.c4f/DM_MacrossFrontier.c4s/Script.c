@@ -419,9 +419,9 @@ public func ChooserFinished()
     CreateFlag(2,1440,360,GetTeamColor(2)); 
   }
 
-  //FDM-Spielziel
-  if(FindObject(GFDM))
+  //HTF-Spielziel
+  if(FindObject(GHTF))
   {
-    CreateFDMBase(760, 380);
+    CreateHTFBase(760, 380);
   }
 }

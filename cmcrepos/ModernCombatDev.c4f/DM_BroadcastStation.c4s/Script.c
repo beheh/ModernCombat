@@ -378,8 +378,8 @@ func CreateEquipment()
 
 public func RelaunchPosition(& iX, & iY, int iTeam)
 {
-  //FDM-Spielziel
-  if(FindObject(GFDM))
+  //HTF-Spielziel
+  if(FindObject(GHTF))
   {
    var rand = Random(4);
    if(!rand)
@@ -413,9 +413,9 @@ public func ChooserFinished()
 {
   inherited();
 
-  //FDM-Spielziel
-  if(FindObject(GFDM))
+  //HTF-Spielziel
+  if(FindObject(GHTF))
   {
-    CreateFDMBase(940, 710);
+    CreateHTFBase(940, 710);
   }
 }

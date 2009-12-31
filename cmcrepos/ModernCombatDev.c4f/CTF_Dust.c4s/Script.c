@@ -177,7 +177,7 @@ func CreateEquipment()
 
 public func RelaunchPosition(& iX, & iY, int iTeam)
 {
-  //FDM-Spielziel
+  //CTF-Spielziel
   if(FindObject(GCTF))
   {
    var rand = Random(2);
@@ -218,13 +218,13 @@ public func ChooserFinished()
 {
   inherited();
 
-  //FDM-Spielziel
-  if(FindObject(GFDM))
+  //HTF-Spielziel
+  if(FindObject(GHTF))
   {
-    CreateFDMBase(830, 660);
+    CreateHTFBase(830, 660);
   }
 
-  //CtF-Spielziel
+  //CTF-Spielziel
   if(FindObject(GCTF))
   {
     CreateFlag(1,130,680,GetTeamColor(1)); 
