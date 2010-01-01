@@ -6,6 +6,8 @@
 static aDoor1,aDoor2,aLamp1,aLamp2,aLamp3;
 
 
+/* Regelvoreinstellung */
+
 func ChooserRuleConfig()
 {
   return [NOFF,WPST,NODR];

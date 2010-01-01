@@ -4,6 +4,8 @@
 #include CSTD
 
 
+/* Regelvoreinstellung */
+
 func ChooserRuleConfig()
 {
   return [NOFF,WPST,NODR];

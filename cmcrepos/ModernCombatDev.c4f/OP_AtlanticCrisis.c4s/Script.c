@@ -6,6 +6,8 @@
 static aFlag;
 
 
+/* Regelvoreinstellung */
+
 func ChooserRuleConfig()
 {
   return [NOFF,WPST,NODR];

@@ -13,6 +13,8 @@ func ChooserRuleConfig()
   return [NOFF,WPST,NODR,MCSL];
 }
 
+/* Initalisierung */
+
 func Initialize()
 {
   //Starttitel und Musikliste zusammenstellen
@@ -217,6 +219,14 @@ func CreateFurniture()
   CreateObject(SE4K, 1940, 310, -1)->Set("BirdSong*",140,35);
   CreateObject(SE4K, 2050, 470, -1)->Set("BirdSong*",140,35);
   CreateObject(SE4K, 2960, 480, -1)->Set("BirdSong*",140,35);
+
+  //Jungel
+  CreateObject(SE4K, 270, 460, -1)->Set("Jungle*.ogg",300,50);
+  CreateObject(SE4K, 1005, 320, -1)->Set("Jungle*.ogg",300,50);
+  CreateObject(SE4K, 1425, 190, -1)->Set("Jungle*.ogg",300,50);
+  CreateObject(SE4K, 1850, 190, -1)->Set("Jungle*.ogg",300,50);
+  CreateObject(SE4K, 2270, 320, -1)->Set("Jungle*.ogg",300,50);
+  CreateObject(SE4K, 3000, 460, -1)->Set("Jungle*.ogg",300,50);
 
   //Wellen
   CreateObject(SE4K, 880, 600, -1)->Set("Wave*.ogg",105,35);
