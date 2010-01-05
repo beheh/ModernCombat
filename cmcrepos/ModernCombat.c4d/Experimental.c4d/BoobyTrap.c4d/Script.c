@@ -41,13 +41,15 @@ func Hit()
 ///Waffe
 public func ControlThrow(object caller)
 {
-  SetUser(caller);
+  SetController(GetOwner(caller));
+  controller = GetOwner(caller);
+  SetOwner(GetOwner(caller));
   
   if(ContentsCount(BBTP, caller) > 1){ Activate(caller); return; }
-  if(!Contained(GetUser()))
+  if(!Contained(caller))
   {
-    GetUser()->~CheckArmed();//Noch einmal schnell prüfen.
-    if(GetUser()->~ReadyToFire())
+    caller->~CheckArmed();//Noch einmal schnell prüfen.
+    if(Contained()->~ReadyToFire())
     {
       Throw();
       return(true);
@@ -59,13 +61,11 @@ public func ControlThrow(object caller)
 
 public func Throw()
 {  
-  var user = GetUser();
+  var user = Contained();
   iDir = user->AimAngle();
   
-  SetController(GetOwner(user));
   Exit(0,0,10);
-  SetR(0);
-  Sound("BBTP_Activate.ogg");
+  Sound("BBTP_Activate.ogg", 0, 0, 50);
   CreateParticle("PSpark",0,0,0,0,60,RGBa(255,0,0,0),this());
   ScheduleCall(0,"FinFuse", 2*36);
   bActive=true;
@@ -97,13 +97,14 @@ private func FinFuse()
   if(!bActive) return;
   SetClrModulation(RGBa(255,255,255,80));
   CreateParticle("PSpark",0,0,0,0,60,RGBa(255,0,0,0),this());
-  laser = CreateObject(LASR,0,0,GetOwner(controller));
+  laser = CreateObject(LASR,0,0,controller);
   laser -> Set(iDir,3,60,0,0,this());
-  laser -> SetClrModulation(RGBa(255,0,0,230));
-  CreateObject(MFLG,0,2,GetOwner(controller))->Set(this());
+  laser -> SetClrModulation(RGBa(255,0,0,180));
+  laser ->~ Destruction();
+  CreateObject(MFLG,0,1,controller)->Set(this());
 
   bReady=true;
-  Sound("BBTP_Alarm.ogg");
+  Sound("BBTP_Alarm.ogg", 0, 0, 50);
 }
 
 /* Deaktivierung */
@@ -126,7 +127,6 @@ private func Defuse()
   FindObject2(Find_ID(MFLG),Find_ActionTarget(this()))->RemoveObject();
   SetClrModulation();
   Sound("BBTP_Charge.ogg");
-  bActive=false;
   bReady=false;
   return(1);
 }
@@ -137,7 +137,7 @@ private func Check()
 {
   if(!bReady) return;
   var pVictim;
-  if( ObjectCount2(Find_OnLine(0,0,Sin(iDir,60,1),-Cos(iDir,60,1)), 
+  if( ObjectCount2(Find_OnLine(0,0,Sin(iDir,80,1),-Cos(iDir,80,1)), 
       Find_Func("CheckEnemy",this,0,true),
       Find_Not(Find_Distance(20)),
       Find_OCF(OCF_Alive),
@@ -151,8 +151,8 @@ public func Detonate()
   var i = 0;
   while(i < 7)
    {
-    var ammo = CreateObject(SHT1,0,0,GetController());
-    ammo->Launch(iDir+RandomX(-15,15),100+Random(80),100+Random(50),3,30,8);
+    var ammo = CreateObject(SHRP,0,0,GetOwner());
+    ammo->Launch(iDir+RandomX(-10,10),100+Random(80),100+Random(50),3,20,8);
     i++;
    }
   Sound("BBTP_Explosion1.ogg");
@@ -164,7 +164,7 @@ public func Detonate()
 
 func GetCharge()
 {
-  var user = GetUser();
+  var user = Contained();
   if(!user) return(0);
   if(!user->~MaxGrenades()) return(0);
   
@@ -175,30 +175,12 @@ func CustomHUD() {return(true);}
 
 func UpdateHUD(object pHUD)
 {
-  var user = GetUser();
+  var user = Contained();
   if(!user) return;
   if(!user->~MaxGrenades()) return 0;
   
   pHUD->Charge(user->GrenadeCount(GetID()),(user->MaxGrenades() - user->GrenadeCount()) + user->GrenadeCount(GetID()));
   pHUD->Ammo(user->GrenadeCount(GetID()),(user->MaxGrenades() - user->GrenadeCount()) + user->GrenadeCount(GetID()), GetName(), true);
-}
-
-/* Besitzererkennung */
-
-public func GetUser()
-{
-  if(!controller)
-    if(Contained())
-      if(GetOCF(Contained()) & OCF_Alive)//*grummel* nicht sooo toll
-        controller = Contained();
-  
-  return(controller);
-}
-
-public func SetUser(object pUser)
-{
-  controller = pUser;
-  SetController(GetController(pUser));
 }
 
 /* Sonstiges */
