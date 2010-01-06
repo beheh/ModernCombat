@@ -1,0 +1,2 @@
+Store=Einlagern
+Collected={{%i}} aufgenommen.
