@@ -352,7 +352,7 @@ func CreateFurniture()
 
   //Flaggen
   aFlag[0] = CreateObject(OFPL,585,160,NO_OWNER);
-    aFlag[0]->Set("$Flag1$",100);
+    aFlag[0]->Set("$Flag1$",100,2);
     aFlag[0]->Capture(1);
 
   aFlag[1] = CreateObject(OFPL,585,720,NO_OWNER);
@@ -374,7 +374,7 @@ func CreateFurniture()
     aFlag[5]->Capture(2);
 
   aFlag[6] = CreateObject(OFPL,585,1920,NO_OWNER);
-    aFlag[6]->Set("$Flag7$",100);
+    aFlag[6]->Set("$Flag7$",100,2);
     aFlag[6]->Capture(2);
 
   //Alarmleuchten

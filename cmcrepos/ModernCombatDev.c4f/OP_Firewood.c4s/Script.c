@@ -193,17 +193,17 @@ func CreateFurniture()
 
   //Flaggen
   aFlag[0] = CreateObject(OFPL,465,300,NO_OWNER);
-    aFlag[0]->Set("$Flag1$",100);
+    aFlag[0]->Set("$Flag1$",100,2);
     aFlag[0]->Capture(1);
 
   aFlag[1] = CreateObject(OFPL,1640,100,NO_OWNER);
-    aFlag[1]->Set("$Flag2$",0);
+    aFlag[1]->Set("$Flag2$",0,2);
 
   aFlag[2] = CreateObject(OFPL,1640,520,NO_OWNER);
-    aFlag[2]->Set("$Flag3$",0);
+    aFlag[2]->Set("$Flag3$",0,2);
 
   aFlag[3] = CreateObject(OFPL,2810,300,NO_OWNER);
-    aFlag[3]->Set("$Flag4$",100);
+    aFlag[3]->Set("$Flag4$",100,2);
     aFlag[3]->Capture(2);
 
   //Sounds
