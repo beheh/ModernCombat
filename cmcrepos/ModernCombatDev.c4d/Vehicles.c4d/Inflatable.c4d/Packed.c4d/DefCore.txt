@@ -1,6 +1,6 @@
 [DefCore]
 id=INFP
-Name=Inflatable
+Name=Inflatable Pack
 Version=4,9,5
 Category=C4D_Object|C4D_SelectKnowledge|C4D_SelectHomebase|C4D_SelectMaterial
 MaxUserSelect=2

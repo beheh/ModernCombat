@@ -1,16 +1,22 @@
-/*-- Schlauchboot (Motor) --*/
+/*-- Motor --*/
 
 #strict 2
+
+public func MaxDamage()		{ return 60; }
+public func IsBulletTarget(){return true;}
+public func IgnoreFriendlyFire() {return true;}
+
+local motoridle;
+
+
+/* Initalisierung */
 
 public func Initialize()
 {
   AddDamageEffect(this,35);
 }
 
-public func MaxDamage()		{ return 50; }
-
-public func IsBulletTarget(){return true;}
-public func IgnoreFriendlyFire() {return true;}
+/* Schaden */
 
 private func UpdateDmg()
 {
@@ -20,8 +26,10 @@ private func UpdateDmg()
 
 public func Damage()
 {
-	UpdateDmg();
+  UpdateDmg();
 }
+
+/* Funktionen */
 
 public func SetBoat(object pBoat)
 {
@@ -38,6 +46,16 @@ protected func UpdateTransferZone()
 {
   UpdateShape();
 }
+
+func SetUser(object pUser)
+{
+  var plr = GetOwner(pUser);
+  SetOwner(plr);
+  if(GetActionTarget())
+    GetActionTarget()->SetOwner(plr);
+}
+
+/* Darstellung */
 
 public func UpdateShape()
 {
@@ -70,39 +88,42 @@ public func UpdateShape()
   return true;
 }
 
-func SetUser(object pUser)
+/* Soundeffekte */
+
+protected func Grabbed(object pByObject, bool fGrab)
 {
-  var plr = GetOwner(pUser);
-  SetOwner(plr);
-  if(GetActionTarget())
-    GetActionTarget()->SetOwner(plr);
+  var boat = GetActionTarget();
+  if(fGrab)
+  {
+   Sound("MotorStart.ogg");
+   boat -> Sound("MotorIdleLoop.ogg",false,motoridle,100,0,+1);
+  }
+  else
+  {
+   Sound("MotorEnd.ogg");
+   boat -> Sound("MotorIdleLoop.ogg",false,motoridle,100,0,-1);
+  }
 }
 
-func Grabbed(object byObj)
-{
-  SetUser(byObj);
-}
-
-
-//Steuerung
+/* Steuerung */
 
 protected func ControlUpdate(object clonk, int comdir)
 {
   SetUser(clonk);
 
   if(comdir == COMD_UpLeft || comdir == COMD_Left || comdir == COMD_DownLeft)
-    GetActionTarget()->Left();
+   GetActionTarget()->Left();
   else if(comdir == COMD_UpRight || comdir == COMD_Right || comdir == COMD_DownRight)
-    GetActionTarget()->Right();
+   GetActionTarget()->Right();
   else
-    GetActionTarget()->Stop();
+   GetActionTarget()->Stop();
 }
 
 protected func ControlCommand(string szCommand, object pTarget, int iX, int iY)
 {
   // Bewegungskommando (nur links/rechts auswerten)
   if(szCommand == "MoveTo")
-    return Command2Control(iX,iY);
+   return Command2Control(iX,iY);
 }
 
 private func Command2Control(int iX, int iY)
@@ -110,7 +131,6 @@ private func Command2Control(int iX, int iY)
   // nur X wird ausgewertet
   if(iX > GetActionTarget()->GetX()) GetActionTarget()->Right();
   if(iX < GetActionTarget()->GetX()) GetActionTarget()->Left();
-
   return 1;
 }
 
@@ -119,37 +139,30 @@ public func ControlLeft(object pByObj)
   SetUser(pByObj);
 
   if(!GetPlrCoreJumpAndRunControl(pByObj->GetController()))
-    GetActionTarget()->Left();
-    
+   GetActionTarget()->Left();
   return 1;
 }
 
 public func ControlRight(object pByObj)
 {
   SetUser(pByObj);
-
   if(!GetPlrCoreJumpAndRunControl(pByObj->GetController()))
-    GetActionTarget()->Right();
-    
+   GetActionTarget()->Right();
   return 1;
 }
 
 public func ControlDown(object pByObj)
 {
   SetUser(pByObj);
-
   if(!GetPlrCoreJumpAndRunControl(pByObj->GetController()))
-    GetActionTarget()->Stop();
-    
+   GetActionTarget()->Stop();
   return 1;
 }
 
 public func ControlUpDouble(object pByObj)
 {
   SetUser(pByObj);
-
   if(GetContact(GetActionTarget(),-1))
-    GetActionTarget()->LandOn();
-    
+   GetActionTarget()->LandOn();
   return 1;
 }

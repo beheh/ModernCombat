@@ -1,2 +1,2 @@
-DE:Segelboot
-US:Sailboat
+DE:Schlauchboot
+US:Inflatable

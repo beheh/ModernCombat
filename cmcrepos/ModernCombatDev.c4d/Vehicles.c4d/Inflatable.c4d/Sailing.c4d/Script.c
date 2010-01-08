@@ -1,8 +1,13 @@
-/*-- Schlauchboot (aktiv) --*/
+/*-- Schlauchboot --*/
 
 #strict 2
 
-local motor,turn_end_dir;
+local motor, motoridle, turn_end_dir, damaged;
+
+public func MaxDamage()	{ return 60; }
+
+
+/* Initalisierung */
 
 func SetUp()
 {
@@ -21,7 +26,7 @@ func SetUp()
   return 1;
 }
 
-public func MaxDamage()		{ return 50; }
+/* Zerstörung */
 
 private func UpdateDmg()
 {
@@ -32,18 +37,38 @@ private func UpdateDmg()
 public func Damage()
 {
   UpdateDmg();
-	if(GetDamage() < MaxDamage()) return ;
-	Incineration();
+  if(GetDamage() < MaxDamage()) return ;
+  Incineration();
 }
 
 func Incineration()
 {
- Sound("OutOfAir");
- if(motor) Explode(20,motor);
- CastParticles("XSpark", 10, 40, RandomX(-38,38), RandomX(-2,3), 50, 0, RGB(190,85,20));
- FadeOut();
- ChangeDef(INFB);
+  if(damaged) return ;
+  damaged = true;
+
+  if(motor) Explode(20,motor);
+  SetAction("Wreck");
+  var phase = Random(3);
+  SetPhase(phase);
+  SetSolidMask();
+
+  //Effekte
+  Sound("MotorIdleLoop.ogg",false,motoridle,100,0,-1);
+  Sound("MotorLoop.ogg",false,motor,100,0,-1);
+  Sound("OutOfAir.ogg");
+  Sound("StructuralDamage*.ogg");
+  CastParticles("MetalSplinter",4,100,0,0,20,170,RGB(50,250,50));
+  CastParticles("MetalSplinter",2,100,0,0,30,100,RGB(0,0,0));
+  CreateParticle("Blast",0,-10,-20,0,5*50,RGB(255,255,128));
+  CreateParticle("Blast",0,-10,20,0,5*50,RGB(255,255,128));
+  CastParticles("Smoke3",15,15,0,-10,100,200,RGBa(0,0,0,100));
+  //SetClrModulation(RGBa(50,50,50,100)); Nicht benötigt wenn die Action Wreck das Objekt schwärzen kann =P
+
+  //Verschwinden
+  FadeOut();
 }
+
+/* Landung */
 
 private func LandOn()
 {  
@@ -51,12 +76,13 @@ private func LandOn()
   RemoveObject(motor);
   ChangeDef(INFL);
   SetAction("JustLanded");
+  Sound("MotorIdleLoop.ogg",false,motoridle,100,0,-1);
 }
 
 private func SoundSailDown() { Sound("SailDown"); }
 private func SoundSailUp()   { Sound("SailUp");   }
 
-/* Der Antrieb */
+/* Bewegung */
 
 private func Sail()
 {
@@ -66,14 +92,14 @@ private func Sail()
   if(GetComDir() == COMD_None) return ;
 
   var xdir = Min(Abs(GetXDir())+2,30);
-  
-  Sound("motor_loop",false,motor,100,0,+1);
- 
+
+  Sound("MotorLoop.ogg",false,motor,100,0,+1);
+  Sound("MotorIdleLoop.ogg",false,motoridle,100,0,-1);
+
   if(GetComDir() == COMD_Left)
     SetXDir(-xdir);
   else
     SetXDir(+xdir);
-    
 
   //Effekte
   var dir = -(GetDir()*2-1);
@@ -84,13 +110,12 @@ private func Sail()
     bubble->SetXDir(8);
     bubble->SetYDir(5);
   }
-
   CreateParticle("SlimeGrav",30*dir,-5,(1+Random(4))*dir,-(7+Random(4)) ,xdir*100/30 ,RGBa(100,150,255,100+Random(100)));
   CreateParticle("SlimeGrav",30*dir,-10,(1+Random(4))*dir,-(7+Random(4)) ,xdir*100/30 ,RGBa(100,150,255,100+Random(100)));
 }
 
+/* Steuerung */
 
-/* Stuerung */
 func Right()
 {
   if(GetDir() == DIR_Left)
@@ -112,9 +137,11 @@ func Left()
 func Stop()
 {
   SetComDir(COMD_None);
-  Sound("motor_loop",false,motor,100,0,-1);
-}
+  Sound("MotorLoop.ogg",false,motor,100,0,-1);
 
+  if(FindObject(0,0,0,0,0,0,"Push",motor))
+   Sound("MotorIdleLoop.ogg",false,motoridle,100,0,+1);
+}
 
 /* Drehen */
 
@@ -148,8 +175,6 @@ private func SetDirection(int comdir)
   }
 }
 
-
-//Vom Luftschiff kopiert.
 private func TurnStart()
 {
   motor->SetShape(-(GetDefWidth()/2),-(GetDefHeight()/2),GetDefWidth(),GetDefHeight());

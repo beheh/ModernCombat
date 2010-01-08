@@ -1,4 +1,14 @@
 [Action]
+Name=BuildUp
+Length=5
+Delay=10
+Directions=2
+FlipDir=1
+FacetBase=1
+Facet=80,0,80,22,0,0
+NextAction=OnLand
+
+[Action]
 Name=OnLand
 Directions=2
 FlipDir=1

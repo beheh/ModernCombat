@@ -8,12 +8,11 @@ Width=80
 Height=22
 Offset=-40,-22
 Value=20
-Mass=30
+Mass=100
 Components=METL=1;OBRL=3
 Picture=0,66,64,64
 SolidMask=0,44,80,22
 TopFace=0,22,80,22
-ContactIncinerate=5
 BlastIncinerate=35
 Rebuy=1
 Float=-7
