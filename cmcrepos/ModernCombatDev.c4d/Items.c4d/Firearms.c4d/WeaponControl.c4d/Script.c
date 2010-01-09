@@ -188,7 +188,7 @@ public func SetFireTec(int iFT,int iFM, bool bNoCalls)
   
   if(!bNoCalls && (last != iFT))
   {
-    Sound("WPN2_Switch.ogg");
+    Sound("WPN2_Switch*.ogg");
     OnSelectFT(iFM,iFT,last);
   }
   
