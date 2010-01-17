@@ -77,6 +77,16 @@ func CreateFurniture()
   CreateObject(XBRL, 400, 360, -1)->AutoRespawn();
   CreateObject(XBRL, 1405, 720, -1)->AutoRespawn();
   CreateObject(XBRL, 1630, 400, -1)->AutoRespawn();
+  var tmp = CreateObject(XBRL, 1355, 620, -1);
+  tmp->damaged = true;
+  tmp->SetAction("Wreck");
+  var tmp = CreateObject(TBRL, 1365, 620, -1);
+  tmp->damaged = true;
+  tmp->SetAction("Wreck");
+  var tmp = CreateObject(XBRL, 1530, 670, -1);
+  tmp->Incinerate();
+  tmp->damaged = true;
+  tmp->SetAction("Wreck");
 
   //Flutlichter
   CreateObject(FLGH, 455, 630, -1)->SetRotation(30);
