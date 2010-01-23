@@ -33,4 +33,12 @@ FlipDir=1
 Delay=150
 FacetBase=1
 NextAction=OnLand
- 
+
+[Action]
+Name=Wreck
+Directions=2
+Length=3
+Delay=0
+FlipDir=1
+Facet=80,0,80,22,0,0
+NextAction=Hold
