@@ -46,10 +46,9 @@ NextAction=Closed
 [Action]
 Name=Destroyed
 Procedure=NONE
-Facet=0,0,30,30
-FacetTopFace=0,30,30,30
+Facet=240,0,30,30
 Directions=1
-Length=1
+Length=3
 FlipDir=1
 NoOtherAction=1
 ObjectDisabled=1

@@ -28,14 +28,14 @@ public func Shatter(int iPower, object pFrom)
   
   if(pFrom)
   {
-    angle = ObjectAngle(pFrom);
-    spread = 60;
+   angle = ObjectAngle(pFrom);
+   spread = 60;
   }
   
   // Zersplittern
-  Sound("Glass");
+  Sound("GlassBreak*.ogg");
   for(var i = 0 ; i < GetDefHeight()/3 ; i++)
-    CreateParticle ("GlassSplinter", 0, i*3-GetDefHeight()/2, +Sin(angle+(Random(spread)-spread/2),iPower), -Cos(angle+(Random(spread)-spread/2),iPower), 20);
+   CreateParticle ("GlassSplinter", 0, i*3-GetDefHeight()/2, +Sin(angle+(Random(spread)-spread/2),iPower), -Cos(angle+(Random(spread)-spread/2),iPower), 20);
     
   RemoveObject();
 }

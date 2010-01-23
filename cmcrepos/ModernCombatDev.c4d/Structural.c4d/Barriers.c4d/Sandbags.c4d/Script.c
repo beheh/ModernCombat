@@ -5,7 +5,6 @@
 local left,permanent;
 
 
-
 /* Initalisierung */
 
 func Initialize()
@@ -25,14 +24,13 @@ public func OnHit(int iDamage, int iType, object pFrom)
 
 func Incineration()
 {
-  // Kaputt!
   if(permanent)
   {
-    Extinguish();
-    SetCon(100);
+   Extinguish();
+   SetCon(100);
   }
   else
-    CastParticles("Sandbag", 10, 70, 0,0, 35, 45, RGBa(228,228,228,0), RGBa(250,250,250,50));
+   CastParticles("Sandbag", 10, 70, 0,0, 35, 45, RGBa(228,228,228,0), RGBa(250,250,250,50));
 }
 
 func Permanent()
@@ -47,15 +45,15 @@ func Construction(object pByObj)//Wird sofort beim Bauen aufgerufen.
   var dir = GetDir(pByObj);
 
   if(!dir)
-    dir = GetDir(Contained(pByObj));
+   dir = GetDir(Contained(pByObj));
 
   if(dir)
   {
-    Right();
+   Right();
   }
   else
   {
-    Left();
+   Left();
   }
 }
 
@@ -77,12 +75,12 @@ func Unstuck()
 {
   for(var obj in FindObjects(Find_Exclude(this),Find_InRect(-7,-15,15,32)))
   {
-    if(Stuck(obj))
-    {
-      if(left)
-        AutoUnstuck(obj,-1,0);
-      else
-        AutoUnstuck(obj,1,0);
-    }
+   if(Stuck(obj))
+   {
+    if(left)
+     AutoUnstuck(obj,-1,0);
+    else
+     AutoUnstuck(obj,1,0);
+   }
   }
 }

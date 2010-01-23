@@ -24,3 +24,19 @@ public func OnClose()
   Sound("Airlock2");
   SetSolidMask(0, 30, 30, 30);
 }
+
+/* Zerstörung */
+
+public func OnDestroyed(iType)
+{
+  //Explosion
+  CreateObject(ROCK)->Explode(30);
+  SetAction("Destroyed");
+  var phase = Random(3);
+  SetPhase(phase);
+
+  //Effekte
+  CastParticles("MetalSplinter",4,50,0,0,40,150);
+  CastParticles("Smoke3",5,10,0,0,50,200);
+  Sound("StructuralDamage*.ogg");
+}

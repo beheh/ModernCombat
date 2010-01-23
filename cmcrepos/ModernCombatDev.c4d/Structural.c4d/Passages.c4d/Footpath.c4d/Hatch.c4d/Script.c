@@ -85,9 +85,14 @@ public func OnDmg(int iDmg, int iType)
 
 public func OnDestroyed(iType)
 {
-    //Kleinen Explosionseffekt
-    CreateObject(ROCK)->Explode(20);
-    SetAction("Destroyed");
+  //Explosion
+  CreateObject(ROCK)->Explode(20);
+  SetAction("Destroyed");
+
+  //Effekte
+  CastParticles("MetalSplinter",2,50,0,0,40,150);
+  CastParticles("Smoke3",5,10,0,0,50,200);
+  Sound("StructuralDamage*.ogg");
 }
 
 /* Steuerung */
