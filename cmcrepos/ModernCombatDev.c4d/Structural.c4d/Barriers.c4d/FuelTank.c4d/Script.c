@@ -28,7 +28,7 @@ func BlowUp(int iPlr)
 {
   //Effekte
   Sound("StructuralDamage*.ogg");
-  CastParticles("MetalSplinter", 15+Random(5), 100, 0,0, 60,100,RGB(250,0,0));
+  CastParticles("MetalCrateSplinter", 15+Random(5), 100, 0,0, 60,100,RGB(250,0,0));
   CastParticles("MetalSplinter", 15+Random(5), 100, 0,0, 35,50,RGB(40,20,20));
   //Explosion
   Explode(50);
