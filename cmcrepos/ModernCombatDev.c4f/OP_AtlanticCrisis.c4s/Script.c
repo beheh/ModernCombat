@@ -131,11 +131,11 @@ func CreateFurniture()
   CreateObject(_HBR, 3245, 372, -1);
 
   //Bojen
-  CreateObject(BUOY, 1180, 510, -1);
-  CreateObject(BUOY, 2370, 510, -1);
+  CreateObject(BUOY, 1180, 533, -1);
+  CreateObject(BUOY, 2370, 533, -1);
 
-  CreateObject(BUOY, 3840, 510, -1);
-  CreateObject(BUOY, 4830, 510, -1);
+  CreateObject(BUOY, 3840, 533, -1);
+  CreateObject(BUOY, 4830, 533, -1);
 
   //Satellitenschüssel
   CreateObject(SADH, 2840, 310, -1);

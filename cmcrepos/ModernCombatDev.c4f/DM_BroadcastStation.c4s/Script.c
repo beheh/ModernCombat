@@ -248,10 +248,6 @@ func CreateFurniture()
   tmp = CreateObject(HNG2, 660, 710, -1);
   tmp->Opened();
 
-  //Logos
-  CreateObject(CMC1, 450, 700, -1);
-  CreateObject(CMC1, 1265, 710, -1);
-
   //Anlagen
   CreateObject(CCP2, 75, 710, -1);
   CreateObject(CGLO, 630, 510, -1);

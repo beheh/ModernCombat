@@ -118,11 +118,11 @@ func CreateFurniture()
   CreateObject(PIPL, 5150, 485, -1)->Right()->Right()->Right()->Right()->Right()->Right()->Right()->Up()->Up()->Right()->Right();
 
   //Bojen
-  CreateObject(BUOY, 445, 510, -1);
-  CreateObject(BUOY, 1765, 510, -1);
-  CreateObject(BUOY, 5040, 550, -1);
-  CreateObject(BUOY, 5200, 550, -1);
-  CreateObject(BUOY, 7665, 510, -1);
+  CreateObject(BUOY, 445, 533, -1);
+  CreateObject(BUOY, 1765, 533, -1);
+  CreateObject(BUOY, 5040, 573, -1);
+  CreateObject(BUOY, 5200, 573, -1);
+  CreateObject(BUOY, 7665, 533, -1);
 
   //Satellitenschüssel
   CreateObject(SADH, 7625, 320, -1);

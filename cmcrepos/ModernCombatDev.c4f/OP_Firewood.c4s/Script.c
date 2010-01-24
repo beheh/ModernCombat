@@ -135,6 +135,14 @@ func CreateFurniture()
   CreateObject(MSGN, 915, 390, -1);
   CreateObject(MSGN, 2375, 390, -1);
 
+  //Bojen
+  CreateObject(BUOY, 725, 633, -1);
+
+  CreateObject(BUOY, 1590, 633, -1);
+  CreateObject(BUOY, 1690, 633, -1);
+
+  CreateObject(BUOY, 2540, 633, -1);
+
   //Regale
   CreateObject(FRAM, 565, 380, -1);
   CreateObject(FRAM, 590, 380, -1);
