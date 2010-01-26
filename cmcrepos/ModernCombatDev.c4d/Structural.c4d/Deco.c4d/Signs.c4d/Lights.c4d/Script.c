@@ -1,4 +1,4 @@
-/*-- Orientierungslichter --*/
+/*-- Lichter --*/
 
 #strict 2
 

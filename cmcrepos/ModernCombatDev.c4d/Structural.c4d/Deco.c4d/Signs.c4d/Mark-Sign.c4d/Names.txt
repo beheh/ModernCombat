@@ -1,2 +1,2 @@
-DE:Markierungsschild
-US:Mark-Sign
+DE:Markierung
+US:Mark

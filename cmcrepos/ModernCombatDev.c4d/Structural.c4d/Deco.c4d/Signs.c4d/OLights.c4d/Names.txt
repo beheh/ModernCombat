@@ -1,2 +1,0 @@
-DE:Orientierungslichter
-US:Orientation Lights

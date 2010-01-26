@@ -1,1 +1,1 @@
-Lüftet.
+Lüftet abgeschlossene Räume.
