@@ -1,0 +1,14 @@
+[Particle]
+Name=MetalCrateSplinter
+MaxCount=40
+InitFn=StdInit
+ExecFn=StdExec
+DrawFn=Std
+CollisionFn=Stop
+Face=0,0,17,18,-8,-9
+Repeats=1
+GravityAcc=100
+VertexCount=1
+VertexY=50
+AlphaFade=1
+RByV=1

@@ -1,0 +1,1 @@
+Automatically builds up one inflatable when activated..

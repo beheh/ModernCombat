@@ -1,0 +1,15 @@
+[DefCore]
+id=MSGN
+Version=4,9,8,2
+Name=Mark
+Category=C4D_StaticBack
+Width=5
+Height=27
+Offset=-8,-8
+Value=10
+Mass=3
+Components=METL=1
+Picture=0,0,5,27
+StretchGrowth=1
+IncompleteActivity=1
+Oversize=1

@@ -1,0 +1,9 @@
+[Action]
+Name=Push
+Procedure=NONE
+FacetBase=1
+Length=1
+Delay=1
+EndCall=Push
+Sound=Turbine.ogg
+NextAction=Push

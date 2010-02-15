@@ -1,0 +1,10 @@
+Komfortabler Weg nach oben.
+
+
+
+Set(<Breite>, <Höhe>, <Material>)
+Parameter setzen und als Vorschau darstellen.
+
+
+Draw()
+Material erstellen und im Log Script ausgeben.

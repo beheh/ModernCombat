@@ -1,0 +1,2 @@
+DE:Sturmgewehr
+US:Assault Rifle

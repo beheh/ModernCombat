@@ -1,0 +1,11 @@
+[DefCore]
+id=1HHD
+Name=Energy bar
+Version=4,9,5
+Category=58720257
+Width=25
+Height=8
+Offset=-12,-4
+Picture=0,0,25,8
+Timer=1
+TimerCall=Timer

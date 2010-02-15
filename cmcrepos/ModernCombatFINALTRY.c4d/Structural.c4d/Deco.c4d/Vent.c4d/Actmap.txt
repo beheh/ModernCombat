@@ -1,0 +1,16 @@
+[Action]
+Name=Turn
+Length=19
+Delay=1
+NextAction=Turn
+Facet=0,0,128,128
+Sound=VentLoop
+
+[Action]
+Name=RevTurn
+Length=19
+Delay=1
+Reverse=1
+NextAction=RevTurn
+Facet=0,0,128,128
+Sound=VentLoop

@@ -1,0 +1,15 @@
+[DefCore]
+id=EXSN
+Version=4,9,8,2
+Name=Explosion Hazard
+Category=C4D_StaticBack
+Width=25
+Height=26
+Offset=-13,-13
+Value=10
+Mass=3
+Components=METL=1
+Picture=0,0,25,26
+StretchGrowth=1
+IncompleteActivity=1
+Oversize=1

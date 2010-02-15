@@ -1,0 +1,3 @@
+NotWounded=Nicht verwundet.
+Alreadyhealing=Es wird bereits geheilt.
+Uselimit=EHP aufgebraucht.

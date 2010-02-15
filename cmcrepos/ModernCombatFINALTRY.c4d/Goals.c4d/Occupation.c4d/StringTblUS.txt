@@ -1,0 +1,10 @@
+MsgGoalFulfilled=We have a winner!
+Score=Points
+MsgGoalLost=Alas! You have lost.
+WinMsg=And the winner is: %s
+Kills=Kills
+Death=Death
+MoreTickets=more Tickets
+LessTickets=less Tickets
+Finished=Finished!
+Tickets=Tickets

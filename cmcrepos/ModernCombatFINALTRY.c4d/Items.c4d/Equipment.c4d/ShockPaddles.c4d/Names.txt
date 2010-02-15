@@ -1,0 +1,2 @@
+DE:Defibrillator
+US:Shock Paddles

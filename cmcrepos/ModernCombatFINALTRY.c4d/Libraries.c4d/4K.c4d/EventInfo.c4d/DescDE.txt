@@ -1,0 +1,12 @@
+Globale Funktion:
+
+EventInfo4K(
+
+int iPlrPlusOne,
+string szText,
+id idIcon,
+int dwTextColor,
+int dwIconColor,
+string szGraphics
+
+)

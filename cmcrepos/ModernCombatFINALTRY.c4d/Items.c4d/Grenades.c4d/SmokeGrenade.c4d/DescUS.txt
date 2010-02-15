@@ -1,0 +1,1 @@
+This grenade releases thick smoke after being fused, clonks running in it will be distracted or even blind.

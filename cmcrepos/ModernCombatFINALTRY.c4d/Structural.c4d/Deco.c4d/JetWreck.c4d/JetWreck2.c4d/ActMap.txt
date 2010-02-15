@@ -1,0 +1,4 @@
+[Action]
+Name=Be
+Directions=2
+FacetBase=1
