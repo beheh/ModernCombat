@@ -22,7 +22,7 @@ func Launch(int xdir, int ydir, int iDmg,a,b,c)
 
 /* Mindestabstand */
 
-protected func SecureDistance(){return(100);}
+protected func SecureDistance(){return(75);}
 
 protected func Secure()
 {
