@@ -52,6 +52,6 @@ public func TransferAmmo(object pObj)
 
 protected func Hit()
 {
-  Sound("Ammobaghit*.ogg");
+  Sound("AmmoBoxHit*.ogg");
   return(1);
 }
