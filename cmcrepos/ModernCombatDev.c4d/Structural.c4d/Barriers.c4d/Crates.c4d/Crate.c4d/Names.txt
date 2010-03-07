@@ -1,2 +1,0 @@
-DE:Holzkiste
-US:Wooden Crate

@@ -1,5 +1,0 @@
-[DefCore]
-id=CSTD
-Name=Default Script
-Category=1
-Picture=0,0,64,64

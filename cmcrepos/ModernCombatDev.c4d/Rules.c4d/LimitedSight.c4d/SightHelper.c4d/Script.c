@@ -1,3 +1,0 @@
-/*-- Sichthelfer --*/
-
-#strict 2

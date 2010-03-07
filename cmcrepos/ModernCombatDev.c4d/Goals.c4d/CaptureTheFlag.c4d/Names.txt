@@ -1,2 +1,0 @@
-DE:Capture the flag
-US:Capture the flag

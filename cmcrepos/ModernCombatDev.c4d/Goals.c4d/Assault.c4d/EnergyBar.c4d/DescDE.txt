@@ -1,1 +1,0 @@
-Zeigt an wieviel Schaden ein Ziel hat.

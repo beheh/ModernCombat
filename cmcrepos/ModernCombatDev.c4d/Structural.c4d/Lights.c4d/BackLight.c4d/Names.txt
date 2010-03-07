@@ -1,2 +1,0 @@
-DE:Ausgangslicht
-US:Exit light

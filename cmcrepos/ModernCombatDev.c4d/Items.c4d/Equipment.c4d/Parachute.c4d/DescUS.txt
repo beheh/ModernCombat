@@ -1,1 +1,0 @@
-Can transport clonks and objects to the ground in a relative secure way.

@@ -1,2 +1,0 @@
-NotEnoughAmmo=Not enough {{%i}}!#
-OnlyMedic=Only medics are skilled enough for attacking with this item!
