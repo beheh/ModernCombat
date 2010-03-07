@@ -1,9 +1,0 @@
-[Material]
-Name=Brick
-Color=50,50,50,20,20,20,80,80,80
-Shape=0
-Density=50
-BlastFree=1
-Placement=60
-TextureOverlay=Brick
-OverlayType=3

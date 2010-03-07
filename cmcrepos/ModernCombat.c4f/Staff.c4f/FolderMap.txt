@@ -1,5 +1,0 @@
-[FolderMap]
-MinResX=640
-MinResY=480
-ScenInfoArea=1,1,1,1
-FullscreenBG=1

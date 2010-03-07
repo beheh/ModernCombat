@@ -1,2 +1,0 @@
-DE:TL - <c 3333ff>Complex B</c>
-US:TL - <c 3333ff>Complex B</c>

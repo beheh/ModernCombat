@@ -1,2 +1,0 @@
-DE:BF - <c 00ff00>Kubradamm</c>
-US:BF - <c 00ff00>Kubra Dam</c>

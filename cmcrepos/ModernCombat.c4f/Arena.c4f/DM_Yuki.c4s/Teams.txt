@@ -1,4 +1,0 @@
-[Teams]
-Active=1
-AllowTeamSwitch=0
-AutoGenerateTeams=1

@@ -1,8 +1,0 @@
-Team1=Geizclonks
-Team2=Goldgieriege Wipfbande
-Flag1=Basis: Team 1
-Flag2=Aussichtsplattform 1
-Flag3=Wüste
-Flag4=Aussichtsplattform 2
-Flag5=Basis: Team 2
-Flag6=Lagerraum
