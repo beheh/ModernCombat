@@ -1,2 +1,0 @@
-OpenDoor=Tür öffnen.
-NoCard=Keine passende Karte vorhanden.

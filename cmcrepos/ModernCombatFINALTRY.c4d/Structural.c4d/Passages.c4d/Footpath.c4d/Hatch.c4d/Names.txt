@@ -1,2 +1,0 @@
-DE:Bodenlucke
-US:Hatch

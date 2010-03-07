@@ -1,2 +1,0 @@
-DE:Keine Materialexplosionen
-US:No Material Explosions

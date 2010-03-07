@@ -1,1 +1,0 @@
-Symbolizes the faction which controls the surrounding area.

@@ -1,3 +1,0 @@
-CtxGrenadeMenu=Grenades
-AmmoBag=Ammobag
-CtrlInventoryDesc=Inventory

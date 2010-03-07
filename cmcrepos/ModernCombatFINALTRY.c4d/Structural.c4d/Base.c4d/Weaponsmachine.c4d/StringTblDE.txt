@@ -1,4 +1,0 @@
-Weapons=Waffen
-Ammo=Munition
-Equipment=Ausrüstung
-End=Bestätigen

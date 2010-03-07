@@ -1,5 +1,0 @@
-passenger=Passagier
-get_off=Aussteigen
-seatmenu=Sitzmenü
-free=frei
-vehicle_full=Voll besetzt.
