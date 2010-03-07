@@ -1,0 +1,24 @@
+[DefCore]
+id=MN4K
+Name=Manta
+Version=4,9,5,0
+Category=C4D_Vehicle | C4D_SelectVehicle | C4D_SelectKnowledge | C4D_SelectHomebase
+MaxUserSelect=1
+ContactCalls=0
+Width=40
+Height=16
+Offset=-22,-7
+Value=50
+Mass=150
+Components=MN4K=1
+Picture=0,0,40,16
+Vertices=5
+Entrance=-10,-15,20,30
+Grab=1
+Rotate=1
+RotatedEntrance=1
+VertexX=-6,11,17,6,-19
+VertexY=8,8,4,-7,-5
+VertexCNAT=8,8,2,4,1
+VertexFriction=70,70,70,70,80
+

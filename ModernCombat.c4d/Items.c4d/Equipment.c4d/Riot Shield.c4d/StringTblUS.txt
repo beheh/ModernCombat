@@ -1,0 +1,2 @@
+ProtectionStart=Draw Shield
+ProtectionStop=Hide Shield

@@ -1,0 +1,2 @@
+DE:Flaggenmast
+US:Flagpole

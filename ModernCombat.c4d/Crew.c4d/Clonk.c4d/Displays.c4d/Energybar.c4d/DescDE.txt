@@ -1,0 +1,1 @@
+Zeigt den Energiestatus anderer Clonks.

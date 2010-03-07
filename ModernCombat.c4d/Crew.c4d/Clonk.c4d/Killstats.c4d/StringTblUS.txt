@@ -1,0 +1,10 @@
+MsgSelfKill=["%s killed himself, dork!","%s committed suicide!","%s eliminated himself!"]
+
+MsgTeamKill=%s is a teamkiller! (%s / %s)
+
+MsgScore=%s scored for team %s!
+
+MsgKillingSpree=["Killing Spree","Rampage","Godlike","matthes?!?"]
+MsgSpreeEnd=%s's Killing Spree was ended.
+
+MsgMultikill=["Doublekill","Triplekill","Multikill","Ultrakill","Monsterkill","Firemonsterkill","Wipfkill","Wtf?"]

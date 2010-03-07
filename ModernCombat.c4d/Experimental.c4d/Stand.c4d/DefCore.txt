@@ -1,0 +1,24 @@
+[DefCore]
+id=WRCK
+Name=Weapon Rack
+Version=4,9,5,0
+Category=C4D_Vehicle
+MaxUserSelect=1
+Width=25
+Height=12
+Offset=-12,-6
+Value=40
+Mass=30
+Components=METL=5
+Picture=0,0,25,12
+Grab=2
+NoPushEnter=1
+AttractLightning=1
+NoBurnDamage=1
+VehicleControl=1
+Vertices=3
+VertexX=0,-11,11
+VertexY=-5,5,5
+VertexCNAT=20,9,10
+VertexFriction=20,70,70
+
