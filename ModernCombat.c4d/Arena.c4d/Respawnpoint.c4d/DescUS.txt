@@ -1,0 +1,1 @@
+Respawns any object on its first position after it has been consumed, destroyed or erased.
