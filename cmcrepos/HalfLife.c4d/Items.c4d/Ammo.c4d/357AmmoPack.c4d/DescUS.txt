@@ -1,1 +1,0 @@
-Contains ammo for the revolver.

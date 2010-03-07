@@ -1,2 +1,0 @@
-DE:Ausbruch
-US:Escape

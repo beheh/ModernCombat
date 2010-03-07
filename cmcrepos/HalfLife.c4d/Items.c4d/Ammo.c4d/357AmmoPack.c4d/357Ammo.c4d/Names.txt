@@ -1,2 +1,0 @@
-DE:357 Munition
-US:357 Ammo

@@ -1,2 +1,0 @@
-DE:Nachschub-Kiste
-US:ResupplyCrate

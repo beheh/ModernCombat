@@ -1,2 +1,0 @@
-DE:Verteidigen
-US:Defend

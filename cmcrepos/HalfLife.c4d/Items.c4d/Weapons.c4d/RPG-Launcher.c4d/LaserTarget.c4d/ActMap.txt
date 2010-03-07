@@ -1,8 +1,0 @@
-[Action]
-Name=Laser
-Procedure=FLOAT
-NextAction=Laser
-FacetBase=1
-Length=1
-Delay=1
-EndCall=Laser

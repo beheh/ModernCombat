@@ -1,6 +1,0 @@
-[DefCore]
-id=H2WP
-Version=4,9,8,2
-Name=HL2-Waffe
-Category=C4D_StaticBack
-Picture=0,0,64,64

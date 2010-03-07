@@ -1,2 +1,0 @@
-DE:SMG Munition
-US:SMG Ammunition

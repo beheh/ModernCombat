@@ -1,1 +1,0 @@
-Dieses Objekt stellt die Grundfunktionalität für HL2-Waffen zur Verfügung.

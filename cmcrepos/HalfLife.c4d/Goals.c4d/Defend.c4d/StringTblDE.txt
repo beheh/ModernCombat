@@ -1,2 +1,0 @@
-MsgWon=Alle Wellen wurde überstanden!
-MsgWave=Welle %d von %d.

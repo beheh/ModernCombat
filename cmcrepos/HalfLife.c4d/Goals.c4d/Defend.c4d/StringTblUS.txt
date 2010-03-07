@@ -1,2 +1,0 @@
-MsgWon=All waves were survived!
-MsgWave=Wave %d of %d.
