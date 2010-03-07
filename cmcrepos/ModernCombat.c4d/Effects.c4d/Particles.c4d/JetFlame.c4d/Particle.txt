@@ -1,0 +1,11 @@
+[Particle]
+Name=JetFlame
+MaxCount=2000
+InitFn=StdInit
+ExecFn=StdExec
+DrawFn=Std
+Face=0,0,12,12,-12,-6
+Additive=1
+AlphaFade=5
+RByV=2
+

@@ -1,0 +1,2 @@
+DE:Projektil-Schweif
+US:Bullet Tail

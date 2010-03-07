@@ -1,0 +1,1 @@
+Depending on how a clonk falls to the ground he may slide to a certain direction.

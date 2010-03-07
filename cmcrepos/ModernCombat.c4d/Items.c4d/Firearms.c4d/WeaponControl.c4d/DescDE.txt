@@ -1,0 +1,1 @@
+Dieses Objekt stellt erweiterte Funktionalität für Waffen zur Verfügung.

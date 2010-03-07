@@ -1,0 +1,1 @@
+Contains medicaments, bandage material and more equipment to supply wounded clonks. It is a essential tool for medics.

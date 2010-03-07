@@ -1,0 +1,2 @@
+Allows the reanimation of badly injured clonks by using electric shocks. Only medics have enough skill to use it.
+Also able to use as a weapon.  

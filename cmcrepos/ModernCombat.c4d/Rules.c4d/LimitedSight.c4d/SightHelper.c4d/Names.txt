@@ -1,0 +1,2 @@
+DE:Sichthelfer
+US:Sight Helper

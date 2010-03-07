@@ -1,0 +1,16 @@
+Creates great colour effects!
+
+object ScreenRGB(pTarget,dwRGBa,iFadeIn,iDuration,iFadeOut,bAdditive)
+
+ptarget: targetobject (-1 for all)
+dwRGBa: color (the alpha value sets the maximum visibility , 0 == 255!!)
+iFadeIn: frames to fade in
+iDuration: frames to stay idle before fade out (-1 for manual fade out)
+iFadeOut: frames to fade out
+bAdditive: the effect will be drawed additive
+
+
+Manual fadeout with:
+Fade(iTime)
+
+iTime: frames to fade out (0 == iFadeOut of ScreenRGB())

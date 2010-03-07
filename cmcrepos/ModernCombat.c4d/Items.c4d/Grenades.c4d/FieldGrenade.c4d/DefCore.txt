@@ -1,0 +1,19 @@
+[DefCore]
+id=FGRN
+Name=Field Grenade
+Category=3600
+MaxUserSelect=8
+Width=4
+Height=6
+Offset=-2,-3
+Value=15
+Mass=10
+Components=GUNP=2;
+Picture=4,0,64,64
+Vertices=4
+VertexX=-2,-2,2,2
+VertexY=-3,3,-3,3
+VertexFriction=300,300,300,300
+Rebuy=1
+Collectible=1
+Rotate=1
