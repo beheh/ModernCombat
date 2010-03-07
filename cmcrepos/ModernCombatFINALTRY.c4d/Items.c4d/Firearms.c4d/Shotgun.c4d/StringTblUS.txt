@@ -1,0 +1,3 @@
+Pellets=Pellets
+SpreadShot=Spread Shot
+PrecisionShot=Precision Shot

@@ -1,0 +1,16 @@
+[DefCore]
+id=CUAM
+Name=Custom Ammo Box
+Category=16
+Width=10
+Height=6
+Offset=-5,-3
+Vertices=1
+VertexY=1
+VertexFriction=60
+Value=5
+Mass=10
+Components=METL=3;GUNP=2;
+Picture=10,0,87,67
+Rebuy=1
+Collectible=1

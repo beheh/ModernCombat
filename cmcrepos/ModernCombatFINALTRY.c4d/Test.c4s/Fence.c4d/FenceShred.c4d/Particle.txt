@@ -1,0 +1,14 @@
+[Particle]
+Name=FenceShred
+MaxCount=150
+InitFn=StdInit
+ExecFn=StdExec
+DrawFn=Std
+CollisionFn=Stop
+Face=0,0,16,16,-8,-8
+Delay=0
+RByV=1
+GravityAcc=100
+VertexCount=1
+VertexY=50
+AlphaFade=1

@@ -1,0 +1,2 @@
+DE:Gepackter Munitionsclip
+US:Packed Ammoclip

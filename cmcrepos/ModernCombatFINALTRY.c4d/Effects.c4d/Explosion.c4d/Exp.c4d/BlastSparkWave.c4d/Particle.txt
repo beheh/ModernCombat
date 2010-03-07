@@ -1,0 +1,11 @@
+[Particle]
+Name=BlastSparkWave
+MaxCount=100
+InitFn=StdInit
+ExecFn=StdExec
+DrawFn=Std
+Face=0,0,128,128,-64,-64
+Delay=0
+AlphaFade=7
+GravityAcc=0
+Additive=1

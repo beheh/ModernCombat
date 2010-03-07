@@ -1,0 +1,1 @@
+Das Ziel ist es möglichst viele Flaggenpositionen zu erobern um das gegnerische Team zu bezwingen. Tickets regeln die Respawns für alle Teams separat.

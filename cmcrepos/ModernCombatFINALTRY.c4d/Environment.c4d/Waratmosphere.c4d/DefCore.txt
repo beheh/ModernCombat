@@ -1,0 +1,10 @@
+[DefCore]
+id=WRAE
+Name=Waratmosphere
+Version=4,9,5
+Value=1
+Category=65
+MaxUserSelect=5
+Picture=0,0,64,64
+Timer=2
+TimerCall=Make

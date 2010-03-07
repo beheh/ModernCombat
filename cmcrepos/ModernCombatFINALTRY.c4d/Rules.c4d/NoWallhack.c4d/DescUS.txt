@@ -1,0 +1,1 @@
+It is not possible to shoot through thin walls or objects if you stand right in front of them.

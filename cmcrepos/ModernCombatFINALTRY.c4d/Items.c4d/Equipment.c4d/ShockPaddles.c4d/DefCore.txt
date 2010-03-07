@@ -1,0 +1,20 @@
+[DefCore]
+id=CDBT
+Name=Shock Paddles
+Version=4,9,5
+Category=3600
+MaxUserSelect=4
+Width=6
+Height=6
+Offset=-3,-3
+Value=35
+Mass=10
+Components=METL=3;CRYS=1;
+Picture=6,0,54,53
+Vertices=1
+VertexY=1
+VertexFriction=80
+Rebuy=1
+Collectible=1
+Timer=35
+TimerCall=Timer

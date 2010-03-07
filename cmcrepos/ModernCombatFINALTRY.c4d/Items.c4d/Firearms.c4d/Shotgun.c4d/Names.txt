@@ -1,0 +1,2 @@
+DE:Schrotflinte
+US:Shotgun

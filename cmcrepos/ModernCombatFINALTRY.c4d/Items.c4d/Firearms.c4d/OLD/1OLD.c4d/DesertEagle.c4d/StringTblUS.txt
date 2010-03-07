@@ -1,0 +1,2 @@
+Bullets=Bullets
+Single=Single Shots

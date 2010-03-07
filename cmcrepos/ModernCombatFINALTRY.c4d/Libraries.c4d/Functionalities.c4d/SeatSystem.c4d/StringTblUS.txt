@@ -1,0 +1,10 @@
+msg_noseat=Kein freier Sitz.
+msg_useseat=Sitz:|%s
+vehicle_full=Vehicle full.
+vehiclemenu=Vehiclemenu
+context=Context
+get_off=Get off
+passenger=Passenger
+free=Free
+escape_hatch=Escape_hatch
+seatmenu=Seatmenu

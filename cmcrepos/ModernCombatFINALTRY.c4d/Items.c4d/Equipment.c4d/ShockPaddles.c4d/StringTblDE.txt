@@ -1,0 +1,2 @@
+NotCharged=Lade {{%i}}!
+Reanimated=%d reanimiert %d wieder.

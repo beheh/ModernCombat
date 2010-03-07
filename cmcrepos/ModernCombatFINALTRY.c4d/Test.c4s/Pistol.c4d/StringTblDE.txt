@@ -1,0 +1,5 @@
+Bullets=Kugeln
+Single=Einzelfeuer
+
+SLCRUpgradeDesc=Bringt einen Schalldämpfer an der Waffe an.
+SLCRUpgraded=Schalldämpfer aufgesetzt.

@@ -1,0 +1,12 @@
+[Particle]
+Name=BlastBg
+MaxCount=500
+InitFn=StdInit
+ExecFn=StdExec
+DrawFn=Std
+Face=0,0,112,112,-56,-56
+Delay=0
+AlphaFade=7
+RByV=2
+GravityAcc=0
+#Additive=1
