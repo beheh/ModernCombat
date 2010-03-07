@@ -1,11 +1,10 @@
 [Head]
 Icon=42
 Title=Test3
-Origin=ModernCombat.c4f\DM_MacrossFrontier.c4s
 
 [Definitions]
 Definition1=Objects.c4d
-Definition2=ModernCombatDev.c4d
+Definition2=ModernCombat.c4d
 
 [Game]
 StructNeedEnergy=0
