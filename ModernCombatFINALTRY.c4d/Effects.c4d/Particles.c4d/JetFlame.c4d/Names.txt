@@ -1,0 +1,2 @@
+DE:Stichflamme
+US:JetFlame

@@ -1,0 +1,1 @@
+Marks friendly mines for teammates.

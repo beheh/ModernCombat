@@ -1,0 +1,2 @@
+DE:Minigun-Aufsatz
+US:Minigun-Attachment

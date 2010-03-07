@@ -1,0 +1,10 @@
+[DefCore]
+id=OSCF
+Name=Screen Coloration
+Category=60817409
+Width=250
+Height=250
+Offset=0,0
+Oversize=1
+TimerCall=Timer
+Timer=1

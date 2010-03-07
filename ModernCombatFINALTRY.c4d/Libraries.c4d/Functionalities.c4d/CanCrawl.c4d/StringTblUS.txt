@@ -1,0 +1,2 @@
+CtxStopCrawl=Stop
+CtxStartCrawl=Start crawl

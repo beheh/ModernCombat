@@ -1,0 +1,2 @@
+DE:Sprengstoff
+US:Explosives

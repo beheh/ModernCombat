@@ -1,0 +1,1 @@
+Ersetzt ein beliebiges Fahrzeug durch ein neues an seiner Anfangsposition sobald es zerstört oder entfernt wurde.
