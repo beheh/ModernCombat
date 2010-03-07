@@ -1,2 +1,0 @@
-Drücken zum Schalten.
-Kann jetzt toll per Entrance() betätigt werden.
