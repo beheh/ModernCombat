@@ -1370,7 +1370,7 @@ public func GetSpread()
 
 
 /** Mini-KI **/
-
+/*
 static const GUARDAI_PACE = 35;
 static const GUARDAI_RANGE = 200;
 static const GUARDAI_MAXANGLE = 45;
@@ -1447,9 +1447,7 @@ protected func SetGuardAI(id idUnused, int iMode)
 }
 
 
-/*
-	...
-*/
+// ...
 
 public func FxIntGuardAIStart(object pTarget, int iEffectNumber, int iTemp)
 {
@@ -1570,3 +1568,5 @@ public func FxIntGuardAIStop(object pTarget, int iEffectNumber, int iReason, boo
 {
 	// ggf. Ausgangszustand herstellen.
 }
+
+*/
