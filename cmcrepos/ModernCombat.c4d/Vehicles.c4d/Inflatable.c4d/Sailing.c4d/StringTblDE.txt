@@ -1,3 +1,0 @@
-TxtLeft=Links
-TxtRight=Rechts
-TxtLand=Anlanden
