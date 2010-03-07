@@ -1,2 +1,0 @@
-DE:Munitionsclip
-US:Ammoclip

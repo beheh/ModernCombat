@@ -1,5 +1,0 @@
-[Action]
-Name=Reload
-Delay=35
-FacetBase=1
-NextAction=Idle

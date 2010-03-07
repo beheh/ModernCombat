@@ -1,9 +1,0 @@
-MnuLeftDown=Left-Down
-MnuLeft=Left
-MnuLeftUp=Left-Up
-MnuUp=Up
-MnuRightUp=Right-Up
-MnuRight=Right
-MnuRightDown=Right-Down
-Store=Store
-Collected={{%i}} collected.

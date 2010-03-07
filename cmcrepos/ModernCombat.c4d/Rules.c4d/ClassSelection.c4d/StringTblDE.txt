@@ -1,1 +1,0 @@
-TimeTillRespawn=Noch %d Sekunden bis zum Respawn

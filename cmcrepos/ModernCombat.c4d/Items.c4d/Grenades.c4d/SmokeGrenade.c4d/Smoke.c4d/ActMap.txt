@@ -1,7 +1,0 @@
-[Action]
-Name=Be
-Procedure=FLOAT
-FacetBase=1
-Delay=3
-StartCall=Timer
-NextAction=Be

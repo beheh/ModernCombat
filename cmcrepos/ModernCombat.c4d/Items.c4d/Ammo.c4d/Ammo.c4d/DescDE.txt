@@ -1,1 +1,0 @@
-Stellt grundlegende Funktionen für Munition bereit.

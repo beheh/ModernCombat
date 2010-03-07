@@ -1,2 +1,0 @@
-DE:langsame Projektile
-US:Slow Bullets

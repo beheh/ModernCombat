@@ -1,1 +1,0 @@
-Dieses Objekt fügt Sonnenlicht und Blendeneffekte in das Szenario ein.

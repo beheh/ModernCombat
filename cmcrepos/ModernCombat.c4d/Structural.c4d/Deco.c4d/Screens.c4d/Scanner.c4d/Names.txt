@@ -1,2 +1,0 @@
-DE:Scannerbildschirm
-US:Scanner screen

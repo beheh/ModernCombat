@@ -1,2 +1,0 @@
-DE:Fahrzeug-Spawn
-US:vehicle spawn

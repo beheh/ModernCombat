@@ -1,2 +1,0 @@
-DE:M203-Explosivgranate
-US:M203-Explosive Grenade
