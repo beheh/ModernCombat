@@ -34,11 +34,6 @@ public func Timer()
    if(charge == 9)
     Sound("CDBT_Reload*.ogg");
 
-  //Bei Reanimation nicht aufladen
-  if(GetUser())
-   if(GetUser()->~IsReanimating())
-    return(false);
-
   //Akku um einen Punkt aufladen
   charge = BoundBy(charge+1,0,MaxEnergy());
 
@@ -80,9 +75,6 @@ func Use(caller)
   //Nicht schocken wenn nicht bereit
   if(!Ready()) return(false);
 
-  //Nicht bei Reanimation
-  if(GetUser()->~Reanimate()) return(1);
-
   //Richtung feststellen
   var dir = +1;
   if(GetDir(GetUser()) == DIR_Left())
@@ -107,12 +99,15 @@ func Use(caller)
     //Globalnachricht
     EventInfo4K(0,Format("$Reanimated$",GetPlayerName(GetOwner(caller)),GetPlayerName(GetOwner(obj))),GetID(),GetPlrColorDw(GetOwner(caller)));
 
+    //Energie entladen
+    charge = BoundBy(charge-20,0,MaxEnergy());
+
     return(1);
   }
 
   obj=0;
 
-  //Feinde suchen
+  //Keine Patienten, dann eben Feinde suchen
   if(FindObject2(Find_InRect(-10,-10,20,20),Find_OCF(OCF_Alive),Find_NoContainer(),Find_Exclude(caller)))
   {
     obj = FindObjects(Find_InRect(-10,-10,20,20),Find_OCF(OCF_Alive),Find_NoContainer(),Find_Exclude(caller));
@@ -121,8 +116,8 @@ func Use(caller)
       if(target && CheckEnemy(GetUser(),target))
       {
         //Schaden durch elektrischen Schlag (und Schleudern)
-        Fling(target,2*dir,-2);
         DoDmg(40+Random(10),DMG_Energy,target);
+        Fling(target,2*dir,-2);
 
         if(!target)//Könnte ja jetzt weg sein.
           target = this();
@@ -135,7 +130,6 @@ func Use(caller)
 
         //Energie entladen
         charge = BoundBy(charge-20,0,MaxEnergy());
-        break; //Wenn einmal gefunden, nicht weiterschnüffeln
       }
     }
   }
@@ -148,35 +142,13 @@ func Use(caller)
     AddLightFlash(40+Random(20),0,0,RGB(0,140,255));
 
     //Energie entladen
-    charge = BoundBy(charge-10,0,MaxEnergy());
+    charge = BoundBy(charge-10,0,MaxEnergy());//Schock ins Leere kostet weniger Energiepunkte
   }
 
   //Nachladen
   SetAction("Reload");
 
   return(true);
-}
-
-/* Medic-Reanimation */
-
-public func UseReanimation(pTarget)
-{
-  pTarget = pTarget->GetClonk();
-
-  //Patient wiederbeleben
-  pTarget->StopFakeDeath();
-
-  //Effekte
-  Sound("CDBT_Shock.ogg");
-  pTarget->Sound("ClonkCough*.ogg");
-  pTarget->Sparks(10,RGB(250,150,0));
-  pTarget->Sparks(5,RGB(100,100,250));
-  pTarget->AddLightFlash(40+Random(20),0,0,RGB(0,140,255));
-
-  //Globalnachricht
-  EventInfo4K(0,Format("$Reanimated$",GetPlayerName(GetOwner(pTarget)),GetPlayerName(GetOwner(pTarget))),GetID(),GetPlrColorDw(GetOwner(pTarget)));
-
-  return(1);
 }
 
 /* Bereitschaft */
@@ -198,7 +170,7 @@ public func RejectEntrance(object pObj)
 {
   if(GetOCF(pObj) & OCF_Living)
   {
-   if(ContentsCount(GetID(),pObj))//fail. :c
+   if(ContentsCount(GetID(),pObj))
     return(true);
   }
   return(false);

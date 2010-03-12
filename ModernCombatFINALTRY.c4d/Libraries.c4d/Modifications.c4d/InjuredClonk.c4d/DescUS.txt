@@ -1,1 +1,1 @@
-This object provides basic functionality for injured clonks.
+Badly injured clonks are struggling against death and are forced results of bloody conflicts. Medics call those cases "Fake Death" because they are able to revieve those clonks when having enough time.
