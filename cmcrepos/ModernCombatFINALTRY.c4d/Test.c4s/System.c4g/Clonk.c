@@ -1,6 +1,7 @@
 #strict
 #appendto CLNK
 
+
 protected func Initialize()
 {
   _inherited();
@@ -9,6 +10,7 @@ protected func Initialize()
 }
 
 public func CalcPain(){}//Kein Schmerz-System.
+
 
 global func FxFakeDeathDamage(object pTarget, int iEffectNumber, int iDmgEngy, int iCause)
 {
@@ -40,8 +42,9 @@ func Death()
   }
   
   FadeOut(this());
-  
-  return(_inherited(...));//Haha ... tolle Funktion.
+
+  RemoveObject();
+  //return(_inherited(...));//Haha ... tolle Funktion.
 }
 
 
@@ -76,6 +79,7 @@ global func StopFakeDeath(object pTarget)
     
   return(true);
 }
+
 
 global func IsFakeDeath(object pTarget)
 {

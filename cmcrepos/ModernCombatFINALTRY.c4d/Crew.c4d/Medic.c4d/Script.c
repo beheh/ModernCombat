@@ -573,9 +573,6 @@ public func FxMDICReanimateDo(object pTarget, int iEffectNumber)
   var pClonk = EffectVar(0,pTarget,iEffectNumber);
   var pCDBT = FindContents(CDBT,pTarget);
   
-  if(!pCDBT->UseReanimation(pClonk))
-    return(0);
-  
   pClonk->DoEnergy(10+Random(4)-1);//TODO: Doof.
   
   //Effektgehasche
