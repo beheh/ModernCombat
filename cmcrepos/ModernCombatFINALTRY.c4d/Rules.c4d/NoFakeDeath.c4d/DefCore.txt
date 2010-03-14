@@ -1,6 +1,6 @@
 [DefCore]
 id=NOFD
-Name=NoFakeDeath
+Name=No Injured
 Version=4,9,5
 Category=524289
 Value=1

@@ -3,6 +3,10 @@
 #strict
 #appendto CLNK
 
+public func IsClonk() { return(1); }
+
+
+/* Erstellung */
 
 protected func Construction()
 {
@@ -22,196 +26,22 @@ protected func Construction()
   return _inherited(...);
 }
 
+/* Initalisierung */
+
 protected func Initialize()
 {
+  _inherited();
+  //Schadenseffekt einfügen
   if(!GetEffect("DmgCheck",this()))
     AddEffect("DmgCheck",this(),1,0);
-  
-  return(_inherited(...));
+
+  //Fake Death Effekt einfügen
+  if(IsClonk() && (GetOwner() != NO_OWNER) && (GetPlayerType(GetOwner()) != C4PT_Script))
+    AddEffect("FakeDeath",this(),10,0,this());
 }
 
-/* Schmerz-System */
+/* Brennen */
 
-local iPain,iPainFactor,pRedHurt;
-
-public func PainFactor(int iFactor)
-{
-  if(iFactor) iPainFactor = iFactor;
-  return(iPainFactor);
-}
-
-public func DoPain(int iChange)
-{
-  return(SetPain(GetPain()+iChange));
-}
-
-public func GetPain()
-{
-  return(iPain);
-}
-
-public func SetPain(int iValue)
-{
-  return;
-
-  //Allgemein
-  var iOld = iPain;
-  var iNew = BoundBy(iValue,0,100);
-  iPain = iNew;
-  //Message("%d/100 Schmerzen",this(),iPain);
-  
-  //Effekte
-  if((iOld < iNew) && !HasBlackOut())//Mehr Schmerzen?
-  {
-    if(iNew >= 100)
-      AddEffect("BlackOut",this(),10,20,this());
-    else
-    if(!GetEffect("Pain",this()))
-      AddEffect("Pain",this(),10,10,this());
-      
-    if(iNew >= 30)
-    {
-      var effect = GetEffect("Shock",this());
-      if(!effect)
-        effect = AddEffect("Shock",this(),10,0,this());
-      else
-        EffectCall(this(),effect,"Update"); 
-    }
-  }
-  
-  //Einfärbung
-  var a = 255-Cos(BoundBy(900*iPain/100,0,900),255,10);
-  if(a > 0)
-  {
-    pRedHurt = ScreenRGB3(this(),RGB(a,0,0),true,SR4K_LayerRedHurt,pRedHurt);
-  }
-  else
-  {
-    if(pRedHurt) RemoveObject(pRedHurt);
-  }
-  
-  return(iPain);
-}
-
-public func CalcPain(int iDmg)
-{
-  DoPain((iDmg*80/(GetPhysical("Energy",0)/1000))*(100+iPainFactor)/100);
-  iPainFactor = 0;
-}
-
-public func FxPainStart(pTarget,iEffectNumber)
-{
-  //...
-}
-
-public func FxPainTimer(pTarget,iEffectNumber,iEffectTime)
-{
-  if(GetPain() > 0)
-    DoPain(-1);
-  else
-    return(-1);
-}
-
-public func FxPainStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)
-{
-  //...
-}
-
-public func HasBlackOut()//Später solls wieder FakeDeath heissen.
-{
-  return(GetEffect("BlackOut",this()));
-}
-
-public func FxBlackOutStart(pTarget,iEffectNumber)
-{
-  SetComDir(COMD_Stop,pTarget);
-  pTarget->Sound("ClonkDie*.ogg");
-  if(!ObjectSetAction(pTarget,"Death",0,0,1))
-    pTarget->SetAction("Dead");
-  
-  var pHelper = pTarget->CreateObject(FKDT,0,0,GetController(pTarget));
-  pHelper->Set(pTarget);
-  EffectVar(1,pTarget,iEffectNumber) = pHelper;
-  
-  RemoveEffect("Pain",this());
-}
-
-public func FxBlackOutTimer(pTarget,iEffectNumber,iEffectTime)
-{
-  if(GetPain() > 50)
-    DoPain(-1);
-  else
-    return(-1);
-}
-
-public func FxBlackOutStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)
-{
-  if(EffectVar(1,pTarget,iEffectNumber))
-    RemoveObject(EffectVar(1,pTarget,iEffectNumber));
-  
-  if(iReason == 4)
-    FadeOut(pTarget);
-    
-  if(iReason == 0)
-  {
-    AddEffect("Pain",this(),10,10,this());
-    ObjectSetAction(pTarget,"FlatUp",0,0,1);
-  }
-}
-
-static const PAIN_ShockOffset = 25;
-
-public func FxShockStart(pTarget,iEffectNumber,tmp)
-{
-  EffectVar(0,pTarget,iEffectNumber) = pTarget->GetPain();
-}
-
-public func FxShockUpdate(pTarget,iEffectNumber)
-{
-  var start = EffectVar(0,pTarget,iEffectNumber);
-  
-  Log("Shock: %d",PAIN_ShockOffset-(pTarget->GetPain()-start));
-
-  if((pTarget->GetPain()-start) < -PAIN_ShockOffset)
-    return(-1);
-
-  if((pTarget->GetPain()-start) > PAIN_ShockOffset)
-  {
-    pTarget->SetAction("Tumble");
-    return(-1);
-  }
-}
-
-public func FxShockStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)
-{
-  //...
-}
-
-
-/* FakeDeath */
-
-global func PauseFakeDeath(bool fPause, object pTarget)
-{
-  return();
-}
-
-global func FakeDeath(object pTarget)
-{
-  return();
-}
-
-global func StopFakeDeath(object pTarget)
-{
-  return();
-}
-
-global func IsFakeDeath(object pTarget)
-{
-  return();
-}
-
-
-/* FEUAAAA!!!! */
 public func Incineration()
 {
   Extinguish();
@@ -220,9 +50,10 @@ public func Incineration()
   AddFireEffect(this(),30,FIRE_Red,1);
 }
 
+/* Soundauswahl */
+
 public func OnHit(int iDmg, int iType, object pFrom)
 {
-  CalcPain(iDmg);
   HurtSounds(-iDmg,iType);
     
   return(_inherited(iDmg,iType,pFrom));
@@ -284,6 +115,7 @@ protected func ControlContents(idTarget)
 }
 
 /* Fallschaden */
+
 func Hit2(int xDir, int yDir)
 {
   var hit = Distance(xDir,yDir);//Max(xDir,yDir);
@@ -333,14 +165,11 @@ private func DeathAnnounce(int plr, object clonk, int killplr)
   inherited(plr,clonk,killplr);
 }
 
-/* Sonstiges */
+/* Inventar */
 
-public func MaxContentsCount() { return(3); }//Normale Clonks können mehr tragen. :>
-
+public func MaxContentsCount() { return(3); }
 
 /* Steuerungs-Callbacks */
-
-//Gehaim gehaim! Pschhht, darf kainer wissn!!
 
 protected func ControlSpecial()
 {
@@ -375,68 +204,86 @@ protected func ControlSpecial2()
   return(SetCommand(this(),"Context",0,0,0,this()), ExecuteCommand());
 }
 
-/* diverse andere Sounds */
+/* Fake Death */
 
-/*public func CrewSelection(bool fDeselect, bool fCursorOnly)
+global func PauseFakeDeath(bool fPause, object pTarget)
 {
-  if(!fDeselect || !fCursorOnly)
-    Sound("BOING");
-  return(_inherited(fDeselect,fCursorOnly,...));
+  return();
 }
 
-public func Damage()
+global func FakeDeath(object pTarget)
 {
-  if(GetEnergy() >= GetPhysical("Energy") / 1000 / 2)
-    Sound("BOING");
-  return(_inherited(...));
+  if(!pTarget) pTarget = this();
+  if(!pTarget) return(false);
+  if(!pTarget->IsClonk()) return(false);
+
+  //Fake Death erstellen
+  var fake = CreateObject(FKDT,0,0,GetOwner(pTarget));
+  fake->Set(pTarget);
+
+  SetComDir(COMD_Stop,pTarget);
+  pTarget->Sound("ClonkDie*");
+  if(!ObjectSetAction(pTarget,"Death",0,0,1))
+    pTarget->SetAction("Dead");
+    
+  return(true);
 }
 
-public func ContextEnergy()
+global func StopFakeDeath(object pTarget)
 {
-  [$TxtEnergysupply$|Image=CXEC|Condition=AtEnergySite]
-  if(_inherited(...))
+  if(!pTarget) pTarget = this();
+  if(GetID(pTarget) == FKDT)
+    pTarget = pTarget->GetClonk();
+  if(!pTarget) return(false);
+  if(!pTarget->IsClonk()) return(false);
+  
+  Sound("ClonkCough*",0,pTarget);
+  ObjectSetAction(pTarget,"FlatUp",0,0,1);
+  RemoveObject(pTarget->Contained(),true);
+    
+  return(true);
+}
+
+global func IsFakeDeath(object pTarget)
+{
+  if(!pTarget) pTarget = this();
+  if(!pTarget) return(false);
+  //if(!pTarget->~IsClonk()) return(false);
+  
+  return(GetID(pTarget->Contained()) == FKDT);
+}
+
+global func FxFakeDeathDamage(object pTarget, int iEffectNumber, int iDmgEngy, int iCause)
+{
+  if(!ObjectCount(NOFD) && !IsFakeDeath(pTarget))
   {
-    Sound("BOING");
-    return(1);
+    if(GetEnergy(pTarget) <= -iDmgEngy/1000)
+    {
+      FakeDeath(pTarget);
+      return(0);
+    }
   }
+  
+  return(iDmgEngy);
 }
 
-public func ContextConstructionSite()
-{
-  [$CtxConstructionMaterial$|Image=CXCM|Condition=AtConstructionSite]
-  if(_inherited(...))
-  {
-    Sound("BOING");
-    return(1);
-  }
-}
+/* Entgültiger Tod */
 
-public func ContextChop()
+func Death(object pTarget)
 {
-  [$CtxChop$|Image=CXCP|Condition=AtTreeToChop]
-  if(_inherited(...))
+  if(IsFakeDeath())
   {
-    Sound("BOING");
-    return(1);
+   SetPhase(5);//Fallanimation überspringen
+   Sound("Death");
   }
-}
+  else
+  {
+   Sound("ClonkDie*.ogg");
+  }
+  //Verschwinden
+  FadeOut(this());
 
-public func ContextConstruction()
-{
-  [$CtxConstructionDesc$|Image=CXCN|Condition=HasConstructMenu]
-  if(_inherited(...))
-  {
-    Sound("BOING");
-    return(1);
-  }
+  //Fake Death löschen
+  if(IsFakeDeath())
+   RemoveObject(Contained(),true);
 }
-
-public func ContextHome()
-{
-  [$CtxHomeDesc$|Image=CXHM|Condition=HasBase]
-  if(_inherited(...))
-  {
-    Sound("BOING");
-    return(1);
-  }
-}*/

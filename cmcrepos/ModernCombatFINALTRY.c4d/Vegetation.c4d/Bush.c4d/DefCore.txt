@@ -1,6 +1,6 @@
 [DefCore]
 id=BSH2
-Name=Bush2
+Name=Bush
 Version=4,9,5,0
 Category=C4D_SelectVegetation|C4D_Foreground|C4D_StaticBack
 MaxUserSelect=10

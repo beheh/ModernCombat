@@ -1,3 +1,8 @@
-Suicide=Aufgeben
-SuicideW=<c %x>Aufgeben (%d)</c>
-DescSuicide=Der verletze Clonk rammt sich ein Messer in den Bauch um nicht als Gefangener zu enden.
+Title=Clonk <c ff0000>eliminiert</c>!
+Suicide=Selbstmord
+SuicideDesc=Gibt dem Clonk den Todesstoﬂ.
+CallMedic=Nach Sanit‰ter rufen
+CantCallMedic=<c %x>Nach Sanit‰ter rufen</c>
+Info=<c ff0000>%s</c> wurde eliminiert. Warte auf einen Sanit‰ter oder gebe den Clonk auf.
+Info2=<c ff0000>%s</c> wurde eliminiert. Warte auf eine Reanimation durch einen Sanit‰ter.
+DeathCounter=Tod in <c ffff33>%d</c> Sekunden
