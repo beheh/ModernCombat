@@ -67,8 +67,8 @@ func Use(caller)
 {
   //Hinweis bei fehlender Spannung
   if(charge <= 9)
-    PlayerMessage(GetOwner(caller), "$NotCharged$", Contained(this),ENAM);
-  
+   PlayerMessage(GetOwner(caller), "$NotCharged$", Contained(this),ENAM);
+
   //Nicht in Gebäuden
   if(Contained(caller)) return(false);
 
@@ -78,31 +78,35 @@ func Use(caller)
   //Richtung feststellen
   var dir = +1;
   if(GetDir(GetUser()) == DIR_Left())
-    dir = -1;
+   dir = -1;
 
   //Patienten suchen
   var obj;
   if(obj = FindObject2(Find_InRect(-10,-10,20,20),Find_ID(FKDT),Find_Allied(GetOwner(caller)),Find_NoContainer()))
   {
-    obj = obj->GetClonk();
+   obj = obj->GetClonk();
 
-    //Patient wiederbeleben
-    obj->StopFakeDeath();
+   //Patient wiederbeleben
+   obj->StopFakeDeath();
+   //Energieschub
+   obj->DoEnergy(50);
+   //Restliche Energie mit Heilungseffekt übergeben
+   obj->AddEffect("ShockPaddlesHeal",obj,20,1,0,GetID(),HealAmount(),HealRate());
 
-    //Effekte
-    Sound("CDBT_Shock.ogg");
-    obj->Sound("ClonkCough*.ogg");
-    obj->Sparks(10,RGB(250,150,0));
-    obj->Sparks(5,RGB(100,100,250));
-    obj->AddLightFlash(40+Random(20),0,0,RGB(0,140,255));
+   //Effekte
+   Sound("CDBT_Shock.ogg");
+   obj->Sound("ClonkCough*.ogg");
+   obj->Sparks(10,RGB(250,150,0));
+   obj->Sparks(5,RGB(100,100,250));
+   obj->AddLightFlash(40+Random(20),0,0,RGB(0,140,255));
 
-    //Globalnachricht
-    EventInfo4K(0,Format("$Reanimated$",GetPlayerName(GetOwner(caller)),GetPlayerName(GetOwner(obj))),GetID(),GetPlrColorDw(GetOwner(caller)));
+   //Globalnachricht
+   EventInfo4K(0,Format("$Reanimated$",GetPlayerName(GetOwner(caller)),GetPlayerName(GetOwner(obj))),GetID(),GetPlrColorDw(GetOwner(caller)));
 
-    //Energie entladen
-    charge = BoundBy(charge-20,0,MaxEnergy());
+   //Energie entladen
+   charge = BoundBy(charge-20,0,MaxEnergy());
 
-    return(1);
+   return(1);
   }
 
   obj=0;
@@ -110,45 +114,79 @@ func Use(caller)
   //Keine Patienten, dann eben Feinde suchen
   if(FindObject2(Find_InRect(-10,-10,20,20),Find_OCF(OCF_Alive),Find_NoContainer(),Find_Exclude(caller)))
   {
-    obj = FindObjects(Find_InRect(-10,-10,20,20),Find_OCF(OCF_Alive),Find_NoContainer(),Find_Exclude(caller));
-    for(var target in obj)
+   obj = FindObjects(Find_InRect(-10,-10,20,20),Find_OCF(OCF_Alive),Find_NoContainer(),Find_Exclude(caller));
+   for(var target in obj)
+   {
+    if(target && CheckEnemy(GetUser(),target))
     {
-      if(target && CheckEnemy(GetUser(),target))
-      {
-        //Schaden durch elektrischen Schlag (und Schleudern)
-        DoDmg(40+Random(10),DMG_Energy,target);
-        Fling(target,2*dir,-2);
+     //Schaden durch elektrischen Schlag (und Schleudern)
+     DoDmg(40+Random(10),DMG_Energy,target);
+     Fling(target,2*dir,-2);
+     if(!target)//Könnte ja jetzt weg sein.
+     target = this();
 
-        if(!target)//Könnte ja jetzt weg sein.
-          target = this();
+     //Effekte
+     Sound("CDBT_Shock.ogg");
+     target->Sparks(5,RGB(250,150,0));
+     target->Sparks(10,RGB(100,100,250));
+     target->AddLightFlash(40+Random(20),0,0,RGB(0,140,255));
 
-        //Effekte
-        Sound("CDBT_Shock.ogg");
-        target->Sparks(5,RGB(250,150,0));
-        target->Sparks(10,RGB(100,100,250));
-        target->AddLightFlash(40+Random(20),0,0,RGB(0,140,255));
-
-        //Energie entladen
-        charge = BoundBy(charge-20,0,MaxEnergy());
-      }
+     //Energie entladen
+     charge = BoundBy(charge-20,0,MaxEnergy());
     }
+   }
   }
   else
   {
-    //Effekte
-    Sound("CDBT_ShockFail.ogg");
-    Sparks(5,RGB(250,150,0));
-    Sparks(10,RGB(100,100,250));
-    AddLightFlash(40+Random(20),0,0,RGB(0,140,255));
+   //Effekte
+   Sound("CDBT_ShockFail.ogg");
+   Sparks(5,RGB(250,150,0));
+   Sparks(10,RGB(100,100,250));
+   AddLightFlash(40+Random(20),0,0,RGB(0,140,255));
 
-    //Energie entladen
-    charge = BoundBy(charge-10,0,MaxEnergy());//Schock ins Leere kostet weniger Energiepunkte
+   //Energie entladen
+   charge = BoundBy(charge-10,0,MaxEnergy());//Schock ins Leere kostet weniger Energiepunkte
   }
-
   //Nachladen
   SetAction("Reload");
 
   return(true);
+}
+
+/* Selbstheilungseffekt durch Wiederbelebung */
+
+func HealRate()		{ return(2);  }
+func HealAmount()	{ return(60); }
+
+func FxShockPaddlesHealStart(object pTarget, int iEffectNumber, int iTemp, int iHealAmount, int iHealRate)
+{
+  //Heilungsrate und -menge festlegen
+  EffectVar(0,pTarget,iEffectNumber) = iHealAmount;	//Heilung pro Frame
+  EffectVar(1,pTarget,iEffectNumber) = iHealRate;	//Zeitdauer der Heilung
+}
+
+func FxShockPaddlesHealTimer(object pTarget, int iEffectNumber, int iEffectTime)
+{
+  //Heilungseffekt
+  if(!(iEffectTime % EffectVar(1, pTarget, iEffectNumber)))
+  {
+   DoEnergy(1, pTarget);
+   EffectVar(0,pTarget,iEffectNumber)--;
+  }
+  //Schluss wenn komplett geheilt
+  if(GetEnergy(pTarget) >= GetPhysical("Energy",0,pTarget)/1000)
+   return(-1);
+  //oder der Effekt aufgebraucht
+  if(!EffectVar(0,pTarget,iEffectNumber))
+   return(-1);
+}
+
+func FxShockPaddlesHealDamage(object pTarget, int iEffectNumber, int iChange)
+{
+  //Wenn durch Außeneinwirkung verletzt, Effekt abbrechen
+  if(iChange >= 0) return(iChange);
+  RemoveEffect("ShockPaddlesHeal", pTarget);
+  return(iChange);
 }
 
 /* Bereitschaft */

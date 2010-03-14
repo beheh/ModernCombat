@@ -4,20 +4,29 @@
 
 static const FKDT_SuicideTime = 15; //Standardzeit bei Fake Death
 
-local clonk,oldvisrange,oldvisstate,suicide;
+local clonk,oldvisrange,oldvisstate,suicide, mediccalls;
 
 public func AimAngle()     {return();}
 public func ReadyToFire()  {return();}
 public func IsAiming()     {return();}
 
 
-/* Erstellung */
+/* Initalisierung */
 
-public func Set(object pClonk)
+protected func Initialize()
 {
   //Anderer Todesschrei zur Unterscheidung zwischen Fake Death und "echtem" Ableben
   Sound("ClonkDie*.ogg");
 
+  //Anzahl Rufe
+  mediccalls = 2;
+  _inherited();
+}
+
+/* Erstellung */
+
+public func Set(object pClonk)
+{
   clonk = pClonk;
   SetPosition(GetX(pClonk),GetY(pClonk)/*GetObjHeight(pClonk)/2*/);
   SetXDir(GetXDir(pClonk));
@@ -41,6 +50,9 @@ public func Set(object pClonk)
   //Lebenszeit setzen
   suicide = FKDT_SuicideTime;
 
+  //Etwas Lebensenergie
+  DoEnergy(10, pClonk);
+
   //Verzögert Auswahlmenü öffnen
   ScheduleCall(this(),"DoMenu",35,suicide); 
 }
@@ -53,22 +65,36 @@ func DoMenu()
   DeathMenu();
 }
 
-func DeathMenu()
+private func DeathMenu()
 {
+  var selection = GetMenuSelection(clonk);
+
   CloseMenu(clonk);
-  CreateMenu(FKDT, clonk, this(), 0, GetName(), 0, C4MN_Style_Dialog, true);
-  if(suicide > 0)
-   AddMenuItem(Format("$SuicideW$",RGB(128,128,128),suicide), "NoSuicide", SKUL,clonk, 0, 0, "$DescSuicide$");
+
+  //Menü erstellen
+  CreateMenu (FKDT, clonk, this(), 0, Format("$Title$"), C4MN_Style_Dialog, true);//Titelzeile
+  if(!FindObject(NOSC))
+   AddMenuItem("$Suicide$", "Suicide", ICN2, clonk, 0, 0, "$SuicideDesc$");//Selbstmord
+  //if(mediccalls)
+  // AddMenuItem("$CallMedic$", "MedicCall", ICN3, clonk);//Nach Sanitäter rufen
+  //else
+  //{
+   AddMenuItem(Format("$CantCallMedic$",RGB(128,128,128),suicide), 0, ICN3, clonk);
+  //}
+  AddMenuItem(" ","", NONE,clonk, 0, 0, "", 512, 0, 0);					//Leerzeile
+  if(!FindObject(NOSC))
+   AddMenuItem(Format("$Info$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);	//Hinweise
   else
-   AddMenuItem("$Suicide$", "Suicide", SKUL,clonk, 0, 0, "$DescSuicide$");
+  {
+   AddMenuItem(Format("$Info2$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);
+  }
+  AddMenuItem(Format("$DeathCounter$", suicide),"", NONE, clonk, 0, 0, "", 512, 0, 0);	//Zeit bis zum Tod
 
-  //SetMenuDecoration(MCDC, pClonk);
+  SelectMenuItem(selection, clonk); 
+  if(suicide <= 0)
+    Suicide();
+
   SetMenuTextProgress(1, clonk); 
-}
-
-public func NoSuicide()
-{
-  Sound("ERROR",true,0,0,GetOwner(clonk)+1);
 }
 
 public func MenuQueryCancel() { return(true); }
@@ -77,18 +103,48 @@ public func MenuQueryCancel() { return(true); }
 
 public func Suicide()
 {
-  //Ende im Gelände
-  clonk->Kill();
+  //Eventuelles Hinweisicon entfernen
+  for(var icons in FindObjects(Find_ID(ICN3), Find_Owner(GetOwner(clonk))))
+   RemoveObject(icons);
 
-  //Leiche "auswerfen" und ausfaden lassen
+  //Ende im Gelände 
+  clonk->Kill(); 
+ 
+  //Leiche "auswerfen" und ausfaden lassen 
   clonk->Exit(0,0,GetObjHeight(clonk)/2);
-  clonk->FadeOut();
+  clonk -> FadeOut();
 
   //Verschwinden
   RemoveObject();
 }
 
 public func GetClonk() {return(clonk);}
+
+/* Nach Sanitäter rufen */
+
+private func MedicCall()
+{
+  //LOL
+  Sound("Lol.ogg");
+
+  //Hinweisicon erstellen
+  var icon = CreateObject(ICN2, 0, -10, GetOwner(this));
+  FadeOutIcon(icon, 0);
+
+  //Ein Ruf weniger
+  return(mediccalls--);
+}
+
+private func FadeOutIcon(object pItem, int iRepeat)
+{
+  if(iRepeat >= 256)
+  {
+   RemoveObject(pItem);
+   return;
+  }
+  SetClrModulation(RGBa(255,255,255,iRepeat), pItem);
+  ScheduleCall(0, "FadeOutIcon", 1, 0, pItem, iRepeat+3);
+}
 
 /* Entfernen (bei Wiederbelebung) */
 
