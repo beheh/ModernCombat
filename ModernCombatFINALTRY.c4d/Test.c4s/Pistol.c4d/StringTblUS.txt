@@ -1,5 +1,0 @@
-Bullets=Bullets
-Single=Single Shots
-
-SLCRUpgradeDesc=Attaches a silencer onto the weapon.
-SLCRUpgraded=Silencer attached.
