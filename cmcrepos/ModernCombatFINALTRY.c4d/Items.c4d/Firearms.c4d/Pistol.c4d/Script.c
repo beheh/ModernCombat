@@ -10,8 +10,6 @@ public func HandY()    { return(-1000); }
 public func BarrelYOffset() { return(-5000); }
 public func SelectionTime() { return(3*3); }
 
-local silencer;
-
 
 /* Kugeln */
 
@@ -66,66 +64,11 @@ public func Fire1()
   var x,y;
   user->WeaponEnd(x,y);
   var ammo = SALaunchBullet(x,y,GetController(user),angle+RandomX(-1,+1),230,350+Random(50),GetFMData(FM_Damage));
-  if(silencer)
-  {
-   ammo->Sound("FireSilenced*.ogg",0);
-  }
-  else
-  {
-   ammo->Sound("PSTL_Fire*.ogg");
-  }
+  ammo->Sound("PSTL_Fire*.ogg");
 
   // Effekte
-  if(silencer)
-  {
-   SAMuzzleFlash(4,user,x,y,angle);
-   SABulletCasing(x/3,y/3,-dir*5,-20,4);
-  }
-  else
-  {
-   SAMuzzleFlash(RandomX(25,30),user,x,y,angle);
-   SABulletCasing(x/3,y/3,-dir*14*(Random(1)+1),-(13+Random(2)),4);
-  }
-}
-
-/* Upgrade */
-
-public func IsUpgradeable(id uid)
-{
-  if(GetUpgrade(uid))
-   return(false);
-  if(uid == SLCR) return("$SLCRUpgradeDesc$");
-}
-
-public func OnUpgrade(id uid)
-{
-  if(uid == SLCR)
-  {
-   silencer = true;
-   AttachSilencer();
-   var own = GetOwner(Contained());
-   if(Contained()) HelpMessage(own,"$SLCRUpgraded$",Contained());
-   return(true);
-  }
-}
-
-public func OnDowngrade(id uid)
-{
-  if(uid == SLCR)
-  {
-   silencer = false;
-   return(true);
-  }
-}
-
-public func AttachSilencer()
-{
-  SetGraphics(0,this(),SLCR,1,GFXOV_MODE_Base); 
-}
-
-public func DetachSilencer()
-{
-  SetGraphics(0,this(),0,1);
+  SAMuzzleFlash(RandomX(25,30),user,x,y,angle);
+  SABulletCasing(x/3,y/3,-dir*14*(Random(1)+1),-(13+Random(2)),4);
 }
 
 /* Allgemein */

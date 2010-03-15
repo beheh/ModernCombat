@@ -1,0 +1,2 @@
+Bullets=Kugeln
+Single=Einzelfeuer
