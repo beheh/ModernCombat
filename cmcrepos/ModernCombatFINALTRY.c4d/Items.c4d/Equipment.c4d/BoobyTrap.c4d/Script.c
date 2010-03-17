@@ -4,28 +4,29 @@
 
 local bActive, bReady, iDir, controller, laser;
 
-public func IsEquipment(){return(true);}
-public func IsDrawable(){return(true);}
-public func IsReloading(){return(false);}
-public func CanAim() { return(true); }
-public func IsShooting(){return(false);}//Nein, keine Automatikminen. O_o
-public func IsRecharging(){return(false);}
-public func IsMine(){return(true);}
-public func NoArenaRemove(){return(true);}
-public func Color(){return(RGB(200,200,200));}
-public func IsBulletTarget(){if(!Random(6)) return(true);}
-public func HandX()    { return(0); }    // X-Position in der Hand
-public func HandY()    { return(0); }    // Y-Position in der Hand
-public func HandSize() { return(1000); } // Größe in der Hand, Standard: 1000
-public func HandBarrel(){return(0); }    // Y-Offset des Laufs
-public func BarrelXOffset(){return(0);}
-public func BarrelYOffset(){return(0);}
+public func IsDrawable()			{return(true);}
+public func IsReloading()			{return(false);}
+public func CanAim()				{return(true);}
+public func IsShooting()			{return(false);}
+public func IsRecharging()			{return(false);}
+public func IsMine()				{return(true);}
+public func NoArenaRemove()			{return(true);}
+public func Color()				{return(RGB(200,200,200));}
+public func IsBulletTarget()			{if(!Random(6)) return(true);}
+public func HandX()				{return(5000);}
+public func HandY()				{return(0);}
+public func HandSize()				{return(1000);}
+public func HandBarrel()			{return(0);}
+public func BarrelXOffset()			{return(-850);}
+public func BarrelYOffset()			{return(0);}
+func IsEquipment()				{return(true);}
 
 
 /* Initalisierung */
 
 func Initialize()
 {
+  //inaktiv erstellen
   SetAction("Defused"); 
   return(1);
 }
@@ -34,11 +35,14 @@ func Initialize()
 
 public func ControlThrow(object caller)
 {
+  //Wird nicht getragen: Werfen gesperrt
+  if(!Contained()) return;
+
+  //Träger = Besitzer
   SetController(GetOwner(caller));
   controller = GetOwner(caller);
   SetOwner(GetOwner(caller));
-  
-  if(ContentsCount(BBTP, caller) > 1){ Activate(caller); return; }
+
   if(!Contained(caller))
   {
     caller->~CheckArmed();
@@ -48,7 +52,6 @@ public func ControlThrow(object caller)
       return(true);
     }
   }
-  
   return(_inherited(...));
 }
 
@@ -100,12 +103,6 @@ private func FinFuse()
   Sound("BBTP_Alarm.ogg", 0, 0, 50);
 }
 
-public func Activate(pCaller)
-{
-  pCaller->~StoreGrenade(this());
-  HelpMessage(GetOwner(pCaller),"$Collected$",pCaller,GetID());
-}
-
 /* Deaktivierung */
 
 public func ControlUp(object pObjBy)
@@ -113,9 +110,12 @@ public func ControlUp(object pObjBy)
   if(Contained()) return;
   bActive=false;
   if(!pObjBy->~RejectCollect(GetID(), this())) Enter(pObjBy);
+
+  //Eventuell sichern
   if(bReady)
-    Defuse();
-  Activate(pObjBy);
+   Defuse();
+  //Aufnehmen
+  Collect(pObjBy);
   return 1;
 }
 
@@ -134,7 +134,9 @@ private func Defuse()
 
 private func Check()
 {
+  //Nicht aktiv, nicht suchen
   if(!bReady) return;
+
   var pVictim;
   if( ObjectCount2(Find_OnLine(0,0,Sin(iDir,80,1),-Cos(iDir,80,1)), 
       Find_Func("CheckEnemy",this,0,true),
@@ -149,9 +151,12 @@ private func Check()
 
 protected func Damage(int iChange) 
 {
+  //Zündung durch Schaden
   if(GetDamage() < 5) return ;
   Sound("BBTP_Alarm.ogg");
+  //Zündung verzögert
   ScheduleCall(this, "Detonate",20);
+  //Sofortige Zündung bei hohem Schaden
   if(GetDamage() < 10) return ;
   Detonate();
 }
@@ -178,30 +183,28 @@ public func Detonate()
   RemoveObject();
 }
 
-/* Granaten-HUD */
-
-func GetCharge()
-{
-  var user = Contained();
-  if(!user) return(0);
-  if(!user->~MaxGrenades()) return(0);
-
-  return(user->GrenadeCount(GetID())+1);
-}
-
-func CustomHUD() {return(true);}
-
-func UpdateHUD(object pHUD)
-{
-  var user = Contained();
-  if(!user) return;
-  if(!user->~MaxGrenades()) return 0;
-
-  pHUD->Charge(user->GrenadeCount(GetID()),(user->MaxGrenades() - user->GrenadeCount()) + user->GrenadeCount(GetID()));
-  pHUD->Ammo(user->GrenadeCount(GetID()),(user->MaxGrenades() - user->GrenadeCount()) + user->GrenadeCount(GetID()), GetName(), true);
-}
-
 /* Sonstiges */
+
+protected func RejectCollect()
+{
+  return(true);
+}
+
+protected func RejectCollect(idObj, pObj)
+{
+  // Verhindert Aufnahme aller nichtpassender Objekte
+  return(1);
+}
+
+public func RejectEntrance(object pObj)
+{
+  if(GetOCF(pObj) & OCF_Living)
+  {
+   if(ContentsCount(GetID(),pObj))
+    return(true);
+  }
+  return(false);
+}
 
 protected func Selection()
 {

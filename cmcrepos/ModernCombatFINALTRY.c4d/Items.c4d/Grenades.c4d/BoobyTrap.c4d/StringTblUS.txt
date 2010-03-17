@@ -1,2 +1,0 @@
-Store=Store
-Collected={{%i}} collected.
