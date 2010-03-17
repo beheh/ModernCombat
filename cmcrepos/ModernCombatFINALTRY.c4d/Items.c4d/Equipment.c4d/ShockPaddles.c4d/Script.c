@@ -29,11 +29,13 @@ public func GetUser()
 
 public func Timer()
 {
-  //Hinweis bei voller Ladung
+  //Hinweis bei voller Ladung sowie nachladen
   if(GetUser())
    if(charge == 9)
+   {
     Sound("CDBT_Reload*.ogg");
-
+    SetAction("Reload");
+   }
   //Akku um einen Punkt aufladen
   charge = BoundBy(charge+1,0,MaxEnergy());
 
