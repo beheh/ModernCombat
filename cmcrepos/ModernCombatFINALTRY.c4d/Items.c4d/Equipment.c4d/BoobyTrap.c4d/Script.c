@@ -165,10 +165,10 @@ public func Detonate()
 {
   //Splitter verschleudern
   var i = 0;
-  while(i < 7)
+  while(i < 12)
   {
    var ammo = CreateObject(SHRP,0,0,GetOwner());
-   ammo->Launch(iDir+RandomX(-15,15),100+Random(80),100+Random(50),3,20,8);
+   ammo->Launch(iDir+RandomX(-15,15),100+Random(80),100+Random(50),3,20,35);
    i++;
   }
 
