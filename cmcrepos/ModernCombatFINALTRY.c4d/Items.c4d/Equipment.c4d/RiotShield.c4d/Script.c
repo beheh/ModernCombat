@@ -55,16 +55,6 @@ public func ControlThrow(caller)
   return 0;
 }
 
-public func ControlDigDouble(caller)
-{
-  SetUser(caller);
-  if(pShield)
-   RemoveShield();
-  else
-   CreateShield();
-  return 1;
-}
-
 /* Ablegen */
 
 public func Departure()
@@ -86,6 +76,11 @@ public func Entrance(object pContainer)
   //Position setzen
   SetR(0);
   SetRDir(0);
+
+  //Schild erstellen wenn aktiv gewählt
+  if(pUser->Contents(0) == this)
+   if(GetOCF(pContainer) & OCF_CrewMember)
+    CreateShield();
 }
 
 /* Schilderstellung und -entfernung */
@@ -110,11 +105,14 @@ private func CreateShield()
 
 private func RemoveShield()
 {
+  //Kein Schild, kein entfernen
   if(!pShield) return();
 
   SetAction("Idle");
-  RemoveObject(pShield);
   Sound("RSHL_Hide.ogg");
+
+  //Schild weg
+  RemoveObject(pShield);
 }
 
 /* Sonstiges */
@@ -127,11 +125,13 @@ protected func Hit()
 
 func Selection()
 {
-  Sound("RSHL_Charge.ogg");
+  //Schild erstellen
+  CreateShield();
 }
 
 func Deselection()
 {
+  //Schild entfernen
   RemoveShield();
 }
 
