@@ -1,0 +1,10 @@
+assault=Assault
+assault_desc=Qualified for all distances.|Assaults form the major attack|unit of the team and therefore are|mostly front and center in combat.
+medic=Medic
+medic_desc=Medics are the backbone of team|support and can heal and reanimate|wounded effectively. They are the|ultimate teamplayers.
+support=Supporter
+support_desc=Heavily armed and equppied with|lots of ammo. Idial to rain down|barrages on enemies and useful|in any stormy situation.
+antiskill=Antiskill
+antiskill_desc=Part of the special forces which|effectivly use riotshield to fend|of enemy fire. Use Shotguns to|quickly start counterattacks.
+artillerist=Artillerist
+artillerist_desc=Equipped with a powerful grenade|launcher, this unit acts behind|the battlefield and fires deadly|artillery onto the enemy.
