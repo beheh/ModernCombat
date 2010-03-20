@@ -1,2 +1,2 @@
 DE:Standartscript
-US:default script
+US:Default Script
