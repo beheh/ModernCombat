@@ -1,1 +1,1 @@
-Standartscript für Szenarien.
+Stellt ein Standardsatz an Scriptfunktionen für Szenarien bereit.
