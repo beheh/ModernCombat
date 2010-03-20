@@ -4,11 +4,11 @@
 
 local charge;
 
-public func HandSize() {return(1000);}
-public func HandX() {return(4500);}
-public func HandY() {return(0);}
-public func IsDrawable() {return(true);}
-public func MaxEnergy() {return(30);}
+public func HandSize()	{return(1000);}
+public func HandX()	{return(4500);}
+public func HandY()	{return(0);}
+public func IsDrawable(){return(true);}
+public func MaxEnergy()	{return(30);}
 
 func IsEquipment(){return(true);}
 

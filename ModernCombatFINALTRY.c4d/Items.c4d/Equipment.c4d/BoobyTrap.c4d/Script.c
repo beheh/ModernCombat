@@ -4,22 +4,22 @@
 
 local bActive, bReady, iDir, controller, laser;
 
-public func IsDrawable()			{return(true);}
-public func IsReloading()			{return(false);}
-public func CanAim()				{return(true);}
-public func IsShooting()			{return(false);}
-public func IsRecharging()			{return(false);}
-public func IsMine()				{return(true);}
-public func NoArenaRemove()			{return(true);}
-public func Color()				{return(RGB(200,200,200));}
-public func IsBulletTarget()			{if(!Random(6)) return(true);}
-public func HandX()				{return(5000);}
-public func HandY()				{return(0);}
-public func HandSize()				{return(1000);}
-public func HandBarrel()			{return(0);}
-public func BarrelXOffset()			{return(-850);}
-public func BarrelYOffset()			{return(0);}
-func IsEquipment()				{return(true);}
+public func IsDrawable()	{return(true);}
+public func IsReloading()	{return(false);}
+public func CanAim()		{return(true);}
+public func IsShooting()	{return(false);}
+public func IsRecharging()	{return(false);}
+public func IsMine()		{return(true);}
+public func NoArenaRemove()	{return(true);}
+public func Color()		{return(RGB(200,200,200));}
+public func IsBulletTarget()	{if(!Random(6)) return(true);}
+public func HandX()		{return(5000);}
+public func HandY()		{return(0);}
+public func HandSize()		{return(1000);}
+public func HandBarrel()	{return(0);}
+public func BarrelXOffset()	{return(-850);}
+public func BarrelYOffset()	{return(0);}
+func IsEquipment()		{return(true);}
 
 
 /* Initalisierung */

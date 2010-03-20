@@ -2,13 +2,13 @@
 
 #strict
 
-public func IsDrawable() {return(true);}
-public func HandX() {return(0);}
-public func HandY() {return(-1200);}
-public func HandR() {return(45);}
-public func HandSize() {return(850);}
-public func CanAim() {return(true);}
-func IsEquipment(){return(true);}
+public func IsDrawable(){return(true);}
+public func HandX()	{return(0);}
+public func HandY()	{return(-1200);}
+public func HandR()	{return(45);}
+public func HandSize()	{return(850);}
+public func CanAim()	{return(true);}
+func IsEquipment()	{return(true);}
 
 local pShield, pUser;
 
