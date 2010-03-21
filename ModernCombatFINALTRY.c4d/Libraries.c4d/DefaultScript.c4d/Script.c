@@ -84,10 +84,6 @@ public func RelaunchPlayer(int iPlr, object pCrew, object pKiller, int iTeam, bo
   //Clonk tot?
   if(!GetAlive(pCrew))
    pCrew = RelaunchClonk(iPlr, pCrew);
-
-  //KI-Spieler?
-  if(GetPlayerType(iPlr) == C4PT_Script)
-   pCrew->~SetupBot4K();
     
   //Zufallsposition setzen
   var iX, iY;
