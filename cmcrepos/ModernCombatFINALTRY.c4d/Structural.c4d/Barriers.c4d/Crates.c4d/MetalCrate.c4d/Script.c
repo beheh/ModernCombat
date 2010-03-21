@@ -3,9 +3,7 @@
 #strict 2
 #include WCR2
 
-public func IsBulletTarget() { return 0; }
-public func IsCraneGrabable() { return 1; }
-public func IsSpawnBlocker() { return true; }
+public func IsBulletTarget()	{return 0;}
 
 
 /* Zerstörung */

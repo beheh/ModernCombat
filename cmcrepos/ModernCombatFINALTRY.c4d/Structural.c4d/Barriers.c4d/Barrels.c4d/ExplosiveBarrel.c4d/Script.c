@@ -4,9 +4,9 @@
 
 local damaged;
 
-public func IsBulletTarget(){if(!damaged) return 1;}
-public func IsCraneGrabable() { return !damaged; }
-public func IgnoreFriendlyFire() { return 1; }
+public func IsBulletTarget()	{if(!damaged) return 1;}
+public func IsCraneGrabable()	{return !damaged;}
+public func IgnoreFriendlyFire(){return 1;}
 
 
 /* Entzündung */

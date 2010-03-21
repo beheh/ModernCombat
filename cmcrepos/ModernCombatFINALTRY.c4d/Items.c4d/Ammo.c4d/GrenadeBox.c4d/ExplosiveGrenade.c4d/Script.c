@@ -5,7 +5,7 @@
 
 local active,sx,sy;
 
-public func BlastRadius()	{return(20);}
+public func BlastRadius()	{return(30);}
 
 
 /* Start */
@@ -77,7 +77,7 @@ func HitObject(object pObj)
 func Trigger(object pObj)
 {
   Explode(BlastRadius()*2/3);
-  DamageObjects(BlastRadius()*3/2,BlastRadius()*2,this());
+  DamageObjects(BlastRadius()*3/2,BlastRadius()/2,this());
   CreateParticle("Blast",0,0,0,0,10*BlastRadius(),RGB(255,255,128));
   Sound("ShellExplosion*.ogg");
 }

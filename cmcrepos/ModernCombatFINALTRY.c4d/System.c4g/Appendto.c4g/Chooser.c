@@ -1,6 +1,11 @@
-/*-- Chooser-Append --*/
+/*-- Spielregelwahl --*/
+
+//Erweitert die Spielregelwahl und erlaubt Voreinstellungen der Regeln in einem Szenario.
+
 #strict
+
 #appendto CHOS
+
 
 protected func Initialize()
 {
@@ -21,11 +26,11 @@ protected func LoadRuleCfg()
 {
   var a = GameCall("ChooserRuleConfig");
   if(!GetLength(a)) return();
-  
+
   for(var i=0, idR, def, j, check ; idR = GetDefinition(i, Chooser_Cat) ; i++)
-    if(DefinitionCall(idR, "IsChooseable") && !GetLength(FindObjects(Find_ID(idR))))
-    {
-      if(FindInArray4K(a,idR) > -1)
-        aRules[i] = true;
-    }
+   if(DefinitionCall(idR, "IsChooseable") && !GetLength(FindObjects(Find_ID(idR))))
+   {
+    if(FindInArray4K(a,idR) > -1)
+     aRules[i] = true;
+   }
 }

@@ -3,8 +3,6 @@
 #strict 2
 #include WCR2
 
-public func IsSpawnBlocker() { return true; }
-
 
 /* Entzündung */
 
