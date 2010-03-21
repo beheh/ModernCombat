@@ -1,9 +1,10 @@
-/*-- TEAM-Bugfix --*/
+/*-- Teams --*/
 
-//Damit man auf jeden Fall mehrere Spielziele zur Auswahl haben kann.
+//Damit in jedem Falle mehrere Spielziele zur Auswahl stehen können.
 
 #strict 2
 #appendto TEAM
+
 
 protected func Initialize()
 {
@@ -11,10 +12,8 @@ protected func Initialize()
   aKill = CreateArray();
   aDeath = CreateArray();
   if(!FindObject(CHOS))
-    ChooserFinished();
+   ChooserFinished();
 
-  //return this->GOAL::Initialize();
-  //Das andere geht nicht. D=
   if(!FindObject(GOAL)) CreateObject(GOAL,0,0,-1);
 }
 
