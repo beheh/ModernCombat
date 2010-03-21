@@ -1,4 +1,4 @@
-/* Partikeleffekte */
+/* Globale Partikeleffekte */
 
 #strict
 
@@ -13,14 +13,14 @@ global func MuzzleFlash(int iSize, object pClonk, int iX, int iY, int iAngle, in
                  iSize*5,iColor,pClonk);
   if(!IsDark())
     return();
-  
+
   if(!iColor)
     iColor = RGB(255,255,255);
-  
+
   var r,g,b,a;
   SplitRGBaValue(iColor,r,g,b,a);
   iColor = RGBa(r,g,b,Min(a+65,255));
-  
+
   AddLightFlash(iSize*25, iX, iY, iColor);
 }
 
@@ -28,13 +28,13 @@ global func SmokeBurst(int iSize, int iX, int iY, int iAngle, object pAttach, in
 {
   if(!pAttach)
   {
-  	if(!ObjectCount(BOOM)) pAttach = CreateObject(BOOM,0,0,-1);
-  	else pAttach = FindObject(BOOM);
+   if(!ObjectCount(BOOM)) pAttach = CreateObject(BOOM,0,0,-1);
+   else pAttach = FindObject(BOOM);
   }
-  
+
   if(!dwColor)
   {
-    dwColor = RGB(255,255,255);
+   dwColor = RGB(255,255,255);
   }
 
   var mx = +Sin(iAngle,6),
@@ -45,43 +45,42 @@ global func SmokeBurst(int iSize, int iX, int iY, int iAngle, object pAttach, in
                  
   CreateParticle("GunSmoke",iX,iY,mx/2,my/2,
                  iSize*4,SetRGBaValue(dwColor,64,0),pAttach,1);
-                 
+
   CreateParticle("GunSmoke",iX,iY,mx,my,
                  iSize*3,SetRGBaValue(dwColor,128,0),pAttach,1);
 }
 
 global func BloodBurst(int iSize, int iX, int iY, int iColor)
 {
-	CreateParticle("BloodBurst",iX,iY,0,1,iSize*5,iColor);
+  CreateParticle("BloodBurst",iX,iY,0,1,iSize*5,iColor);
 }
 
 global func BloodSplatter(int iSize, int iX, int iY, int iColor)
 {
-	// not on sky
-	if(GetMaterialVal("Density","Material",GetMaterial(iX,iY)) != 0
-       || GetMaterial(iX,iY) == -1) return();
-	
-	// behind everything (like the burn mark of the explosion) *cough*
-	var boom;
-	if(!ObjectCount(BOOM)) boom = CreateObject(BOOM,0,0,-1);
-	else boom = FindObject(BOOM);
-	
-	var r = Random(360);
-	var xdir = Sin(r,100);
-	var ydir = -Cos(r,100);
-	CreateParticle("BloodSplatter",iX,iY,xdir,ydir,iSize*5,iColor,boom,1);
+  //Nicht in der Luft
+  if(GetMaterialVal("Density","Material",GetMaterial(iX,iY)) != 0
+  || GetMaterial(iX,iY) == -1) return();
+
+  var boom;
+  if(!ObjectCount(BOOM)) boom = CreateObject(BOOM,0,0,-1);
+  else boom = FindObject(BOOM);
+
+  var r = Random(360);
+  var xdir = Sin(r,100);
+  var ydir = -Cos(r,100);
+  CreateParticle("BloodSplatter",iX,iY,xdir,ydir,iSize*5,iColor,boom,1);
 }
 
 global func BloodSplatter2(int iSize, int iX, int iY, int iAngle, int iColor)
 {
-	if(GetMaterialVal("Density","Material",GetMaterial(iX,iY)) != 0
-       || GetMaterial(iX,iY) == -1) return();
+  if(GetMaterialVal("Density","Material",GetMaterial(iX,iY)) != 0
+  || GetMaterial(iX,iY) == -1) return();
 
   iAngle += 180;
 
-	var boom;
-	if(!ObjectCount(BOOM)) boom = CreateObject(BOOM,0,0,-1);
-	else boom = FindObject(BOOM);
+  var boom;
+  if(!ObjectCount(BOOM)) boom = CreateObject(BOOM,0,0,-1);
+  else boom = FindObject(BOOM);
 
   CreateParticle("BloodSplatter2",iX+Sin(iAngle,iSize/2-5),iY-Cos(iAngle,iSize/2-5),
                                   Sin(iAngle,100),-Cos(iAngle,100),
@@ -89,22 +88,22 @@ global func BloodSplatter2(int iSize, int iX, int iY, int iAngle, int iColor)
 }
 
 static const SplatterScale = 50;
+
 global func Splatter(int iDmg, int iType, object pFrom, int iColor)
 {
-  //if(!GetAlive(this())) return();
   var x,y;
   
   iDmg = iDmg*SplatterScale/100;
 
   if(iDmg < 10)
   {
-    if(!Random(10-iDmg))
-      return _inherited(iDmg,iType,pFrom);
-    else
-    {
-      x = RandomX(-GetDefWidth(GetID())/3,+GetDefWidth(GetID())/3);
-      y = RandomX(-GetDefHeight(GetID())/3,+GetDefHeight(GetID())/3);
-    }
+   if(!Random(10-iDmg))
+    return _inherited(iDmg,iType,pFrom);
+   else
+   {
+    x = RandomX(-GetDefWidth(GetID())/3,+GetDefWidth(GetID())/3);
+    y = RandomX(-GetDefHeight(GetID())/3,+GetDefHeight(GetID())/3);
+   }
   }
 
 	if(!iColor)
@@ -131,16 +130,13 @@ global func Splatter(int iDmg, int iType, object pFrom, int iColor)
   BloodBurst(Min(size*3,100),x,y,iColor);
 }
 
-
-//Von Hazard, aber etwas erweitert. :)
 global func AddDamageEffect(object target, int size)
 {
-	// target muss die Funktion  GetDmgEffectPos(&x,&y) definiert haben
-	// und MaxDamage
-	if(!target) target = this;
-	if(!target) return;
-	
-	AddEffect("DamageEffect", target, 1, 1, 0, 0, size); 
+  //Ziel muss die Funktion  GetDmgEffectPos(&x,&y) definiert haben
+  if(!target) target = this;
+  if(!target) return;
+
+  AddEffect("DamageEffect", target, 1, 1, 0, 0, size); 
 }
 
 global func FxDamageEffectStart(object target, int number, int temp, size)
@@ -151,21 +147,21 @@ global func FxDamageEffectStart(object target, int number, int temp, size)
 
 global func FxDamageEffectTimer(object target, int number, int time)
 {
-	// wenn noch nicht ausreichend beschädigt, lassen
-	var dmg = target->GetDamage();
-	var maxdmg = target->~MaxDamage();
+  //Wenn noch nicht ausreichend beschädigt, lassen
+  var dmg = target->GetDamage();
+  var maxdmg = target->~MaxDamage();
 
-	if(dmg < maxdmg/2) return;
+  if(dmg < maxdmg/2) return;
 
-	var x, y, size = EffectVar(0,target,number);
-	target->~GetDmgEffectPos(x,y);
+  var x, y, size = EffectVar(0,target,number);
+  target->~GetDmgEffectPos(x,y);
 	
-	// occupacy of the smoke is dependend on  damage taken
-	var xdir = +RandomX(-10,10);
-	var ydir = -RandomX(-15,10);
-	var smoke = RGBa(220,180,110,BoundBy(maxdmg-dmg,20,255));
-	var thrust = RGBa(255,200,200,BoundBy(maxdmg-dmg,40,255));
+  //Occupacy of the smoke is dependend on damage taken
+  var xdir = +RandomX(-10,10);
+  var ydir = -RandomX(-15,10);
+  var smoke = RGBa(220,180,110,BoundBy(maxdmg-dmg,20,255));
+  var thrust = RGBa(255,200,200,BoundBy(maxdmg-dmg,40,255));
 
-	CreateParticle("Smoke2",target->GetX()+x,target->GetY()+y,xdir,ydir,RandomX(80*size/100,380*size/100),smoke);
-	CreateParticle("Thrust",target->GetX()+x,target->GetY()+y,xdir,ydir,RandomX(120*size/100,size*2),thrust);
+  CreateParticle("Smoke2",target->GetX()+x,target->GetY()+y,xdir,ydir,RandomX(80*size/100,380*size/100),smoke);
+  CreateParticle("Thrust",target->GetX()+x,target->GetY()+y,xdir,ydir,RandomX(120*size/100,size*2),thrust);
 }
