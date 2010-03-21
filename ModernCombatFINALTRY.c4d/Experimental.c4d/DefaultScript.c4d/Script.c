@@ -13,10 +13,12 @@ public func ChooserFinished()
    //Spawnpoints entfernen
    for(var spwn in FindObjects(Find_ID(SPNP)))
     RemoveObject(spwn);
+
    //Eventuelle Clonkausrüstung entfernen
    for(var clonk in FindObjects(Find_OCF(OCF_CrewMember)))
     while(Contents(0, clonk))
      RemoveObject(Contents(0, clonk));
+
    //Munitionskisten entfernen
    for(var ammobox in FindObjects(Find_ID(AMCT)))
     RemoveObject(ammobox);
@@ -67,33 +69,34 @@ protected func InitializePlayer(int iPlr, int iX, int iY, object pBase, int iTea
 
 public func RelaunchPlayer(int iPlr, object pCrew, object pKiller, int iTeam, bool bFirst)
 {
-  // Kein ordentlicher Spieler?
+  //Kein ordentlicher Spieler?
   if(GetOwner(pCrew) == NO_OWNER || iPlr == NO_OWNER || !GetPlayerName(iPlr))
    return();
     
-  // Kein Team
+  //Kein Team?
   if(!iTeam) iTeam = GetPlayerTeam(iPlr);
   
-  // Reject?
+  //Reject?
   if(!bFirst)
    if(RejectRelaunch(iPlr,iTeam))
     return();
   
-  // Clonk tot?
+  //Clonk tot?
   if(!GetAlive(pCrew))
    pCrew = RelaunchClonk(iPlr, pCrew);
-    
+
+  //KI-Spieler?
   if(GetPlayerType(iPlr) == C4PT_Script)
    pCrew->~SetupBot4K();
     
-  // Zufallsposition
+  //Zufallsposition setzen
   var iX, iY;
   RelaunchPosition(iX, iY, iTeam);
   
   //Ausrüsten
   if(!FindObject(IGIB))
    OnClonkEquip(pCrew);
-  
+
   if(Contained(pCrew))
    SetPosition(iX, iY, Contained(pCrew));
   else
@@ -105,6 +108,7 @@ public func RelaunchPlayer(int iPlr, object pCrew, object pKiller, int iTeam, bo
 
 public func RelaunchClonk(int iPlr, object pCursor)
 {
+  //Clonkerstellung
   var pClonk = CreateObject(PCMK, 10, 10, iPlr);
   if(pCursor)
    GrabObjectInfo(pCursor, pClonk);
@@ -115,9 +119,11 @@ public func RelaunchClonk(int iPlr, object pCursor)
   SetCursor(iPlr, pClonk);
   SetPlrView(iPlr, pClonk);
   
-  // Wegstecken
+  //In Spawnpoint verschieben
   var tim = CreateObject(TIM2, 10, 10, -1);
   pClonk->Enter(tim);
+
+  //Clonknamen anzeigen
   PlayerMessage(iPlr, Format("@%s", GetName(pClonk)), tim);
 
   return(pClonk);
@@ -135,8 +141,13 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
 
 public func OnClonkEquip(object pClonk)
 {
+  //Standardausrüstung geben: Pistole und Handgranate
   var wpn = CreateContents(PSTL, pClonk);
   wpn->DoAmmo(wpn->GetFMData(FM_AmmoID),wpn->GetFMData(FM_AmmoLoad));
+  CreateContents(FGRN, pClonk);
+
+  //Etwas Zusatzmunition für die Pistole sofern welche benötigt wird
+  if(!FindObject(NOAM))
   pClonk->DoAmmo(wpn->GetFMData(FM_AmmoID),wpn->GetFMData(FM_AmmoLoad)*2);
 }
 
