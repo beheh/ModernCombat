@@ -114,6 +114,11 @@ public func Suicide()
   clonk->Exit(0,0,GetObjHeight(clonk)/2);
   clonk -> FadeOut();
 
+  //Clonkinventar löschen sofern Arenaregel aktiv
+  if(FindObject(GCTF))
+  for(var item in FindObjects(Find_Container(this)))
+   RemoveObject(item);
+
   //Verschwinden
   RemoveObject();
 }
