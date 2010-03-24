@@ -148,6 +148,7 @@ func Finish(object pClonk)
   RemoveObject(Contained(pClonk),1);
 
   //Spawneffekt erstellen
+  Sound("RSHL_Deploy.ogg",pClonk);
   AddSpawnEffect(pClonk);
 
   //Viewport leeren

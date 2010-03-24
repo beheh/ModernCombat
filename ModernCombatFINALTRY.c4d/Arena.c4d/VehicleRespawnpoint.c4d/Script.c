@@ -15,17 +15,17 @@ global func FxIntVehicleSpawn4KTimer(object pTarget, int iEffectNumber, int iEff
 {
   var aType    = EffectVar (0,pTarget,iEffectNumber);
   if(!GetLength(aType)) return 0;
-  
+
   var pVehicle = EffectVar (1,pTarget,iEffectNumber);
   if(!pVehicle)
   {
-    pVehicle = CreateContents(RandomIndex4K(aType),pTarget);
-    if(!pTarget->~Spawn(pVehicle))
-      pVehicle->Exit();
+   pVehicle = CreateContents(RandomIndex4K(aType),pTarget);
+   if(!pTarget->~Spawn(pVehicle))
+    pVehicle->Exit();
   }
-  
+
   EffectVar (1,pTarget,iEffectNumber) = pVehicle;
-  
+
   return 0;
 }
 
@@ -33,7 +33,7 @@ global func FxIntVehicleSpawn4KAddType(object pTarget, int iEffectNumber, id idT
 {
   if(FindInArray4K(EffectVar (0,pTarget,iEffectNumber), idType) == -1)
   {
-    EffectVar (0,pTarget,iEffectNumber)[GetLength(EffectVar (0,pTarget,iEffectNumber))] = idType;
+   EffectVar (0,pTarget,iEffectNumber)[GetLength(EffectVar (0,pTarget,iEffectNumber))] = idType;
   }
   return 0;
 }
@@ -43,8 +43,8 @@ global func FxIntVehicleSpawn4KDelType(object pTarget, int iEffectNumber, id idT
   var i = FindInArray4K(EffectVar (0,pTarget,iEffectNumber), idType);
   if(i != -1)
   {
-    EffectVar (0,pTarget,iEffectNumber)[i] = 0;
-    CleanArray4K(EffectVar (0,pTarget,iEffectNumber));
+   EffectVar (0,pTarget,iEffectNumber)[i] = 0;
+   CleanArray4K(EffectVar (0,pTarget,iEffectNumber));
   }
   return 0;
 }
@@ -59,15 +59,14 @@ global func SetupVehicleSpawn(array aType, object pTarget, int iFrames)
   if(!pTarget) pTarget = this;
   if(!pTarget) return false;
   if(!iFrames) iFrames = 70;
-  
+
   var effect = AddEffect ("IntVehicleSpawn4K",pTarget,50,iFrames,pTarget); 
-  
+
   if(GetLength(aType))
   {
-    for(var i = 0; i < GetLength(aType); i++)
-      EffectCall (pTarget,effect,"AddType", aType[i]);
+   for(var i = 0; i < GetLength(aType); i++)
+    EffectCall (pTarget,effect,"AddType", aType[i]);
   }
-  
   return true;
 }
 
@@ -75,7 +74,7 @@ global func RemoveVehicleSpawn(object pTarget)
 {
   if(!pTarget) pTarget = this;
   if(!pTarget) return false;
-  
+
   RemoveEffect ("IntVehicleSpawn4K", pTarget);
   return true;
 }
@@ -84,10 +83,10 @@ global func VehicleSpawn_AddType(id idType, object pTarget)
 {
   if(!pTarget) pTarget = this;
   if(!pTarget) return false;
-  
+
   var effect = GetEffect ("IntVehicleSpawn4K", pTarget);
   if(!effect) return false;
-  
+
   EffectCall (pTarget,effect,"AddType", idType);
   return true;
 }
@@ -96,14 +95,13 @@ global func VehicleSpawn_DelType(id idType, object pTarget)
 {
   if(!pTarget) pTarget = this;
   if(!pTarget) return false;
-  
+
   var effect = GetEffect ("IntVehicleSpawn4K", pTarget);
   if(!effect) return false;
-  
+
   EffectCall (pTarget,effect,"DelType", idType);
   return true;
 }
-
 
 /* Objektspzifische Funktionen */
 
@@ -128,19 +126,18 @@ public func FxSpawnBeamTimer(pTarget, iEffectNumber, iTime)
 
   for(var i = 0; i < 2; ++i)
   {
-    var cur_X = pTarget->GetX() - GetX();
-    var cur_Y = pTarget->GetY() - GetY();
-    var x = RandomX( cur_X - pTarget->GetObjWidth() / 2, cur_X + pTarget->GetObjWidth() / 2);
-    var y = RandomX( cur_Y - pTarget->GetObjHeight() / 2, cur_Y + pTarget->GetObjHeight() / 2);
-    
-    CreateParticle("LsrSprk",x,y,0,-2,170,RGBa(0, RandomX(128,255), 255, 50));
+   var cur_X = pTarget->GetX() - GetX();
+   var cur_Y = pTarget->GetY() - GetY();
+   var x = RandomX( cur_X - pTarget->GetObjWidth() / 2, cur_X + pTarget->GetObjWidth() / 2);
+   var y = RandomX( cur_Y - pTarget->GetObjHeight() / 2, cur_Y + pTarget->GetObjHeight() / 2);
+
+   CreateParticle("LsrSprk",x,y,0,-2,170,RGBa(0, RandomX(128,255), 255, 50));
   }
-  
   var v = 255-(iTime*255/iFrames);
   pTarget->SetClrModulation(RGBa(255,255,255,v),pTarget);
   
   if(iTime >= iFrames)
-    return -1;
+   return -1;
 }
 
 public func FxSpawnBeamStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)
