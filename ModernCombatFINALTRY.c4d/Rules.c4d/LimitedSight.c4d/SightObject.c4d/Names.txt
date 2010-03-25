@@ -1,0 +1,2 @@
+DE:Sichtobjekt
+US:Sight Object

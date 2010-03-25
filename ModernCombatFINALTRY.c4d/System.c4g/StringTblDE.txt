@@ -1,7 +1,7 @@
 // Klassenwahl
 
 assault=Sturmeinheit
-assault_desc=Eignen sich für alle Distanzen.|Sturmeinheiten bilden die Speer-|spitzen der Teams und sind demnach|meist an vorderster Front zuhause.
+assault_desc=Eignen sich für alle Distanzen.|Sturmeinheiten bilden die Speer-|spitzen des Teams und sind demnach|meist an vorderster Front zuhause.
 medic=Sanitäter
 medic_desc=Sanitäter bilden das Rückgrat der|Teamversorgung und können|effektiv heilen und reanimieren.|Die ultimativen Teamspieler.
 support=Unterstützer

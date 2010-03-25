@@ -1,0 +1,3 @@
+/*-- Sichtobjekt --*/
+
+#strict
