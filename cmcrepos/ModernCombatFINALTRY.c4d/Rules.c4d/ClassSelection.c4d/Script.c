@@ -8,6 +8,7 @@ local crew;
 
 public func IsChooseable()	{return(1);}
 
+
 /* Initalisierung */
 
 protected func Initialize()
@@ -72,20 +73,8 @@ func RelaunchPlayer(int iPlr, object pClonk)
    spawnclonk = pClonk;
   }
 
-  var iPlayer = GetOwner(pClonk);
-
-  //Clonk in Spawnpoint verschieben
-  if(GetID(Contained(pClonk)) != TIM1)
-  {
-   var tmp = CreateObject(TIM1,AbsX(GetX(pClonk)),AbsY(GetY(pClonk)),iPlayer);
-   SetCategory(GetCategory(tmp) | C4D_Foreground,tmp);
-   SetGraphics(0,tmp,GetID(pClonk),1,5,0,1,pClonk);
-   SetVisibility(VIS_Owner,tmp);
-   Enter(tmp,pClonk);
-  }
-
   //Menü zeitverzögert erstellen
-  ScheduleCall(0,"InitClassMenu",40,0,pClonk);
+  ScheduleCall(0,"InitClassMenu",10,0,pClonk);
   return();
 }
 
@@ -111,6 +100,16 @@ func InitClassMenu(object pClonk)
   var iPlayer = GetOwner(pClonk);
 
   crew[iPlayer] = pClonk;
+
+  //Clonk in Spawnpoint verschieben
+  if(GetID(Contained(pClonk)) != TIM1)
+  {
+   var tmp = CreateObject(TIM1,AbsX(GetX(pClonk)),AbsY(GetY(pClonk)),iPlayer);
+   SetCategory(GetCategory(tmp) | C4D_Foreground,tmp);
+   SetGraphics(0,tmp,GetID(pClonk),1,5,0,1,pClonk);
+   SetVisibility(VIS_Owner,tmp);
+   Enter(tmp,pClonk);
+  }
 
   //Bereits ein Menü offen?
   if(GetMenu(pClonk))

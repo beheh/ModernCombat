@@ -90,7 +90,6 @@ private func DeathMenu()
   }
   AddMenuItem(Format("$DeathCounter$", suicide),"", NONE, clonk, 0, 0, "", 512, 0, 0);	//Zeit bis zum Tod
 
-  SelectMenuItem(selection, clonk); 
   if(suicide <= 0)
     Suicide();
 
