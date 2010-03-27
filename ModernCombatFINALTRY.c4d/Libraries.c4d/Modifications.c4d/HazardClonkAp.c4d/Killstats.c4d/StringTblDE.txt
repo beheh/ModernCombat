@@ -1,4 +1,4 @@
-MsgScore=%s hat einen Punkt für Team %s geholt!
+MsgScore=Soldat %s hat einen Punkt für Team %s geholt!
 
 MsgKillingSpree=["Killing Spree","Rampage","Godlike","matthes?!?"]
 MsgSpreeEnd=%ss Killing Spree wurde beendet.
