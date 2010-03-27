@@ -1,0 +1,15 @@
+CreatingFurniture=Szenario wird eingerichtet...
+CreatingEquipment=Ausrüstung wird plaziert...
+CreatingAssaultObjects=Spielzielobjekte werden plaziert...
+
+Attacker=Sturmtruppe
+Defender=Basisbesatzung
+
+Target1=Steuerungseinheit
+Target2=Lüftungssystem
+Target3=Energieumwandler
+Target4=Server 1
+Target5=Server 2
+Target6=Server 3
+Target7=Server 4
+Target8=Server 5

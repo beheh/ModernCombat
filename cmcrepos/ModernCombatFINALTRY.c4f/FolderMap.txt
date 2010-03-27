@@ -1,0 +1,41 @@
+[FolderMap]
+MinResX=640
+MinResY=480
+ScenInfoArea=575,72,195,455
+FullscreenBG=1
+
+	[Scenario]
+	File=DM_MacrossFrontier.c4s
+	Area=54,173,466,24
+	OverlayImage=OverlayMacrossFrontier.png
+
+
+	[Scenario]
+	File=CTF_Dust.c4s
+	Area=54,203,466,24
+	OverlayImage=OverlayDust.png
+
+
+	[Scenario]
+	File=DM_Yuki.c4s
+	Area=54,233,466,24
+	OverlayImage=OverlayYuki.png
+
+
+	[Scenario]
+	File=DM_BroadcastStation.c4s
+	Area=54,263,466,24
+	OverlayImage=OverlayBroadcastStation.png
+
+
+	[Scenario]
+	File=AS_EndlessOutpost.c4s
+	Area=54,293,466,24
+	OverlayImage=OverlayEndlessOutpost.png
+
+
+
+	[Scenario]
+	File=Credits.c4f
+	Area=652,50,83,14
+	OverlayImage=OverlayCredits.png
