@@ -1,0 +1,17 @@
+[DefCore]
+id=LAT2
+Version=4,9,8,2
+Name=Lantern
+Category=C4D_Vehicle
+Timer=1
+TimerCall=Adjust
+Width=6
+Height=10
+Offset=-3,-5
+Vertices=1
+VertexY=-4
+Value=2
+Mass=5
+Components=BULB=1
+Picture=0,0,9,18
+Rotate=1

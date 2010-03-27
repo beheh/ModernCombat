@@ -1,0 +1,16 @@
+[Teams]
+Active=1
+AllowTeamSwitch=0
+TeamDistribution=Host
+LastTeamID=2
+TeamColors=1
+
+  [Team]
+  id=1
+  Name=$Attacker$
+  Color=16711680
+
+  [Team]
+  id=2
+  Name=$Defender$
+  Color=16053492

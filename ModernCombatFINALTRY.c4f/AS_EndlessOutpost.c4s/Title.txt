@@ -1,0 +1,2 @@
+DE:AS - <c ff0000>Endless Outpost</c>
+US:AS - <c ff0000>Endless Outpost</c>
