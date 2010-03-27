@@ -102,8 +102,8 @@ func Use(caller)
    obj->Sparks(5,RGB(100,100,250));
    obj->AddLightFlash(40+Random(20),0,0,RGB(0,140,255));
 
-   //Globalnachricht
-   EventInfo4K(0,Format("$Reanimated$",GetPlayerName(GetOwner(caller)),GetPlayerName(GetOwner(obj))),GetID(),GetPlrColorDw(GetOwner(caller)));
+   //Eventnachricht: Spieler reanimiert Spieler
+   EventInfo4K(0,Format("$MsgReanimation$",GetTaggedPlayerName(GetOwner(obj)),GetTaggedPlayerName(GetOwner(caller))),FKDT);
 
    //Energie entladen
    charge = BoundBy(charge-20,0,MaxEnergy());
