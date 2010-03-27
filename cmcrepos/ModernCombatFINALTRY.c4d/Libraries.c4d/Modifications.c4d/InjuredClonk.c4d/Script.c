@@ -105,6 +105,11 @@ public func Suicide()
   //Eventuelles Hinweisicon entfernen
   for(var icons in FindObjects(Find_ID(ICN3), Find_Owner(GetOwner(clonk))))
    RemoveObject(icons);
+  
+  //Clonkinventar löschen sofern Arenaregel aktiv
+  if(FindObject(NODR))
+   for(var item in FindObjects(Find_Container(this),Find_Not(Find_OCF(OCF_Alive))))
+    RemoveObject(item);
 
   //Ende im Gelände 
   clonk->Kill(); 
@@ -113,13 +118,8 @@ public func Suicide()
   clonk->Exit(0,0,GetObjHeight(clonk)/2);
   clonk -> FadeOut();
 
-  //Clonkinventar löschen sofern Arenaregel aktiv
-  if(FindObject(NODR))
-   for(var item in FindObjects(Find_Container(this)))
-    RemoveObject(item);
-
   //Verschwinden
-  RemoveObject();
+  RemoveObject(0,1);
 }
 
 public func GetClonk() {return(clonk);}

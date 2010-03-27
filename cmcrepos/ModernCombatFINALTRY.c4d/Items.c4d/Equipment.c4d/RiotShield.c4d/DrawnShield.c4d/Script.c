@@ -2,7 +2,7 @@
 
 #strict 2
 
-local target, item, angle;
+local target, item, angle, last;
 
 public func NoWarp() {return(true);}
 public func ShoveTime() {return 13*3;}
@@ -153,24 +153,29 @@ public func OnHit(int iDamage, int iType, object pFrom)
   Sparks(Random(2)+6,RGB(255,255,Random(5)+255));
 }
 
-public func QueryCatchBlow(object pObj) 
+public func QueryCatchBlow(a,object pObj) 
 {
-  if(GetEffect("CatchBlow",pObj))
+  if(pObj == last)
+   return;
+  if(!Hostile(GetOwner(pObj),GetOwner(this)))
    return;
 
   var iPower = BoundBy(GetMass(pObj),0,50) * Distance(GetXDir(pObj),GetYDir(pObj)) * Distance(GetXDir(pObj),GetYDir(pObj));
-  if(iPower/3 < 15000)
+  if(iPower/3 < 30000)
   {
    //if(GetXDir(pObj) < 0) if(GetX(pObj) < GetX() + 6) SetPosition(GetX() + 9, GetY(pObj) - GetYDir(pObj) / 3, pObj); 
-   //if(GetXDir(pObj) > 0) if(GetX(pObj) > GetX() - 6) SetPosition(GetX() - 9, GetY(pObj) - GetYDir(pObj) / 3, pObj); 
-   SetXDir(BoundBy(-GetXDir(pObj) / 3, -10, 10), pObj);
-   SetYDir(BoundBy(-GetYDir(pObj) / 4, -10, 10), pObj); 
+   //if(GetXDir(pObj) > 0) if(GetX(pObj) > GetX() - 6) SetPosition(GetX() - 9, GetY(pObj) - GetYDir(pObj) / 3, pObj);
+   //Hochkomplizierte Berechnungen
+   var rad = Distance(GetX(),GetY(),GetX()+GetXDir(pObj),GetY()+GetYDir(pObj));
+   var enterAngle = Angle(GetX(),GetY(),GetX()+GetXDir(pObj),GetY()+GetYDir(pObj))-target->AimAngle();
+   var exitAngle = -enterAngle+target->AimAngle()+180;
+   SetXDir(Sin(exitAngle,rad)/2, pObj);
+   SetYDir(-Cos(exitAngle,rad)/2, pObj); 
 
    if(GetMass(pObj) >= 10) Sound("ClonkHit*"); 
    if(GetMass(pObj) < 10)  Sound("ArmorImpact*",false,0,50);
    ProtectedCall(pObj,"Hit");
-   if(pObj)
-    AddEffect("CatchBlow",pObj,1,35,0,GetID());
+   last = pObj;
   }
   return(true);
 }
@@ -178,8 +183,6 @@ public func QueryCatchBlow(object pObj)
 /* Schlageffekt */
 
 public func FxShoveTimer() { return -1; }
-
-public func FxCatchBlowTimer() { return -1; }
 
 /* Verstecken und Anzeigen */
 
