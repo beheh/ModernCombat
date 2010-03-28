@@ -1,7 +1,10 @@
-/*-- Capture the Flag - EventInfo4K --*/
+/*-- Capture the Flag --*/
+
+//CTF Spielziel zeigt Spielevents nun mit dem Eventsystem an statt im Log.
 
 #strict 2
 #appendto FLA2
+
 
 protected func Collected(pClonk)
 {
@@ -60,7 +63,6 @@ protected func CheckFlag(pClonk)
   // clonk: the clonk who did it
   GameCallEx("FlagScored",team, GetPlayerTeam(GetOwner(pClonk)), pClonk);
 }
-
 
 public func Destruction()
 {
