@@ -17,16 +17,16 @@ public func SelectionTime() { return(14*3); }
 public func FMData1(int data)
 {
   if(data == FM_Name)                 return("$Grenades$");
-    
+
   if(data == FM_AmmoID)             return(GRAM);
   if(data == FM_AmmoLoad)           return(8);
-  
-  if(data == FM_Recharge)           return(40);
-	
+
+  if(data == FM_Recharge)           return(65);
+
   if(data == FM_SingleReload)       return(1);
   if(data == FM_Reload)             return(35*6);
-  if(data == FM_PrepareReload)      return(45);
-  if(data == FM_FinishReload)       return(30);
+  if(data == FM_PrepareReload)      return(30);
+  if(data == FM_FinishReload)       return(25);
 
   if(data == FM_Damage)    return(13);
   

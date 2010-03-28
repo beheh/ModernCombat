@@ -159,7 +159,13 @@ func Finish(object pClonk)
 
 /* Menü */
 
-private func InfoMenuItems(){return(5);}
+private func InfoMenuItems()
+{
+  if(!FindObject(NOAM))
+  {return(6);}
+  else
+  {return(5);}
+}
 
 local bNoMenuUpdate;
 
