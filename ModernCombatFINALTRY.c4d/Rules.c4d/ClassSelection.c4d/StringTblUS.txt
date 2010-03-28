@@ -1,1 +1,2 @@
-TimeTillRespawn=%d seconds until respawn
+TimeTillRespawn=%d seconds till respawn.
+PlayerChoosedClass=%s enters the game as %s!
