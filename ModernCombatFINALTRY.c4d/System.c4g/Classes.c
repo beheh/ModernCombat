@@ -11,7 +11,8 @@ private func Class1Info(int iData)
   if(iData == CData_Name)  return("<c ffff33>$assault$</c>");
   if(iData == CData_Desc)  return("$assault_desc$");
   if(iData == CData_Clonk) return(PCMK);
-  if(iData == CData_Items) return("1x {{ASTR}}|1x {{PSTL}}||--|--||2x {{FGRN}}|1x {{FRAG}}");
+  if(iData == CData_Ammo)  return("90x {{STAM}}12x {{GRAM}}");
+  if(iData == CData_Items) return("1x {{ASTR}}     1x {{PSTL}}||--          --||2x {{FGRN}}     1x {{FRAG}}");
   if(iData == CData_Facet) return(1);
   return(Default(iData));
 }
@@ -19,7 +20,7 @@ private func Class1Info(int iData)
 private func Class1Setup(int iPlr)
 {
   var new = CreateObject(PCMK,0,0,iPlr);
-  DoAmmo(STAM,100,new);
+  DoAmmo(STAM,90,new);
   DoAmmo(GRAM,12,new);
   new->CreateContents(ASTR);
   new->CreateContents(PSTL);
@@ -37,7 +38,8 @@ private func Class2Info(int iData)
   if(iData == CData_Name)  return("<c ffff33>$medic$</c>");
   if(iData == CData_Desc)  return("$medic_desc$");
   if(iData == CData_Clonk) return(MDIC);
-  if(iData == CData_Items) return("1x {{SMGN}}|1x {{PSTL}}||1x {{CDBT}}|1x {{FAPK}}||2x {{STUN}}|--");
+  if(iData == CData_Ammo)  return("50x {{STAM}}");
+  if(iData == CData_Items) return("1x {{SMGN}}     1x {{PSTL}}||1x {{CDBT}}     1x {{FAPK}}||2x {{STUN}}     --");
   if(iData == CData_Facet) return(2);
   return(Default(iData));
 }
@@ -62,7 +64,8 @@ private func Class3Info(int iData)
   if(iData == CData_Name)  return("<c ffff33>$support$</c>");
   if(iData == CData_Desc)  return("$support_desc$");
   if(iData == CData_Clonk) return(PCMK);
-  if(iData == CData_Items) return("1x {{MNGN}}|1x {{PSTL}}||1x {{BBTP}}|--||2x {{SGRN}}|--");
+  if(iData == CData_Ammo)  return("200x {{STAM}}");
+  if(iData == CData_Items) return("1x {{MNGN}}     1x {{PSTL}}||1x {{BBTP}}     --||2x {{SGRN}}     --");
   if(iData == CData_Facet) return(3);
   return(Default(iData));
 }
@@ -87,7 +90,8 @@ private func Class4Info(int iData)
   if(iData == CData_Name)  return("<c ffff33>$antiskill$</c>");
   if(iData == CData_Desc)  return("$antiskill_desc$");
   if(iData == CData_Clonk) return(PCMK);
-  if(iData == CData_Items) return("1x {{PPGN}}|1x {{PSTL}}||1x {{RSHL}}|--||2x {{FRAG}}|--");
+  if(iData == CData_Ammo)  return("70x {{STAM}}");
+  if(iData == CData_Items) return("1x {{PPGN}}     1x {{PSTL}}||1x {{RSHL}}     --||2x {{FRAG}}     --");
   if(iData == CData_Facet) return(4);
   return(Default(iData));
 }
@@ -95,7 +99,7 @@ private func Class4Info(int iData)
 private func Class4Setup(int iPlr)
 {
   var new = CreateObject(PCMK,0,0,iPlr);
-  DoAmmo(STAM,100,new);
+  DoAmmo(STAM,70,new);
   new->CreateContents(PPGN);
   new->CreateContents(PSTL);
   new->CreateContents(RSHL);
@@ -111,7 +115,8 @@ private func Class5Info(int iData)
   if(iData == CData_Name)  return("<c ffff33>$artillerist$</c>");
   if(iData == CData_Desc)  return("$artillerist_desc$");
   if(iData == CData_Clonk) return(PCMK);
-  if(iData == CData_Items) return("1x {{SGST}}|1x {{PSTL}}||--|--||1x {{STUN}}|1x {{SGRN}}");
+  if(iData == CData_Ammo)  return("50x {{STAM}}30x {{GRAM}}");
+  if(iData == CData_Items) return("1x {{SGST}}     1x {{PSTL}}||--          --||1x {{STUN}}     1x {{SGRN}}");
   if(iData == CData_Facet) return(5);
   return(Default(iData));
 }
@@ -120,7 +125,7 @@ private func Class5Setup(int iPlr)
 {
   var new = CreateObject(PCMK,0,0,iPlr);
   DoAmmo(STAM,50,new);
-  DoAmmo(GRAM,40,new);
+  DoAmmo(GRAM,30,new);
   new->CreateContents(SGST);
   new->CreateContents(PSTL);
   CreateObject(STUN,0,0,iPlr)->Activate(new);

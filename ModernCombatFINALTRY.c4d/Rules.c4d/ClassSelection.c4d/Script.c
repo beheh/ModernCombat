@@ -159,7 +159,7 @@ func Finish(object pClonk)
 
 /* Menü */
 
-private func InfoMenuItems(){return(3);}
+private func InfoMenuItems(){return(4);}
 
 local bNoMenuUpdate;
 
@@ -176,18 +176,32 @@ private func OpenMenu(object pClonk, int iSelection)
 
   var class = iSelection-InfoMenuItems();
 
-  AddMenuItem(" | ", "", GetCData(class,CData_Icon), pClonk, 0, 0, "", 514, GetCData(class,CData_Facet), 0);//*hack*
+  //Klassenicon
+  AddMenuItem(" | ", "", GetCData(class,CData_Icon), pClonk, 0, 0, "", 514, GetCData(class,CData_Facet), 0);
 
+  //Klassenname und -beschreibung
+  //34 Zeichen pro Zeile! (Ohne Icon!)
   AddMenuItem(Format("%s|%s", GetCData(class,CData_Name), GetCData(class,CData_Desc)),
               "", NONE, pClonk, 0, 0, "", 512, 0, 0);
 
-  AddMenuItem(Format("{{%i}}%s|%s",GetCData(class,CData_Clonk),GetName(0,GetCData(class,CData_Clonk)), GetCData(class,CData_Items)),
+  //Clonkicon und -name
+  AddMenuItem(Format("{{%i}}%s",GetCData(class,CData_Clonk),GetName(0,GetCData(class,CData_Clonk))),
               "", NONE, pClonk, 0, 0, "", 512, 0, 0);
 
-  AddMenuItem(" ","", NONE,pClonk, 0, 0, "", 512, 0, 0);//leer
+  //Klassenmunition
+  if(!FindObject(NOAM))
+  {
+   AddMenuItem(Format("%s|",GetCData(class,CData_Ammo)),
+              "", NONE, pClonk, 0, 0, "", 512, 0, 0);}
 
-  //34 Zeichen pro Zeile! (Ohne Icon!)
+  //Klassenausrüstung
+  AddMenuItem(Format("%s",GetCData(class,CData_Items)),
+              "", NONE, pClonk, 0, 0, "", 512, 0, 0);
 
+  //Leerzeile
+  AddMenuItem(" ","", NONE,pClonk, 0, 0, "", 512, 0, 0);
+
+  //Auswahlliste der Klassen
   var i = 1;
   while(GetCData(i))
   {
@@ -219,9 +233,10 @@ protected func OnMenuSelection(int iIndex, object pClonk)
 static const CData_Name  = 1;
 static const CData_Desc  = 2;
 static const CData_Clonk = 3;
-static const CData_Items = 4;
-static const CData_Icon  = 5;
-static const CData_Facet = 6;
+static const CData_Ammo  = 4;
+static const CData_Items = 5;
+static const CData_Icon  = 6;
+static const CData_Facet = 7;
 
 public func GetCData(int iClass,int iData)
 {
@@ -254,6 +269,7 @@ private func Default(int iData)
   if(iData == CData_Name)  return("<Classname>");
   if(iData == CData_Desc)  return("<Description>");
   if(iData == CData_Clonk) return(CLNK);
+  if(iData == CData_Ammo)  return("<Ammo>");
   if(iData == CData_Items) return("<Items>");
   if(iData == CData_Icon)  return(GetID());
   if(iData == CData_Facet) return(0);
