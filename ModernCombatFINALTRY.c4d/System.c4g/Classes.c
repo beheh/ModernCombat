@@ -12,7 +12,7 @@ private func Class1Info(int iData)
   if(iData == CData_Desc)  return("$assault_desc$");
   if(iData == CData_Clonk) return(PCMK);
   if(iData == CData_Ammo)  return("90x {{STAM}}12x {{GRAM}}");
-  if(iData == CData_Items) return("1x {{ASTR}}     1x {{PSTL}}||--          --||2x {{FGRN}}     1x {{FRAG}}");
+  if(iData == CData_Items) return("1x {{ASTR}}     1x {{PSTL}}|--          --|2x {{FGRN}}     1x {{FRAG}}");
   if(iData == CData_Facet) return(1);
   return(Default(iData));
 }
@@ -39,7 +39,7 @@ private func Class2Info(int iData)
   if(iData == CData_Desc)  return("$medic_desc$");
   if(iData == CData_Clonk) return(MDIC);
   if(iData == CData_Ammo)  return("50x {{STAM}}");
-  if(iData == CData_Items) return("1x {{SMGN}}     1x {{PSTL}}||1x {{CDBT}}     1x {{FAPK}}||2x {{STUN}}     --");
+  if(iData == CData_Items) return("1x {{SMGN}}     1x {{PSTL}}|1x {{CDBT}}     1x {{FAPK}}|2x {{STUN}}     --");
   if(iData == CData_Facet) return(2);
   return(Default(iData));
 }
@@ -65,7 +65,7 @@ private func Class3Info(int iData)
   if(iData == CData_Desc)  return("$support_desc$");
   if(iData == CData_Clonk) return(PCMK);
   if(iData == CData_Ammo)  return("200x {{STAM}}");
-  if(iData == CData_Items) return("1x {{MNGN}}     1x {{PSTL}}||1x {{BBTP}}     --||2x {{SGRN}}     --");
+  if(iData == CData_Items) return("1x {{MNGN}}     1x {{PSTL}}|1x {{BBTP}}     --|2x {{SGRN}}     --");
   if(iData == CData_Facet) return(3);
   return(Default(iData));
 }
@@ -91,7 +91,7 @@ private func Class4Info(int iData)
   if(iData == CData_Desc)  return("$antiskill_desc$");
   if(iData == CData_Clonk) return(PCMK);
   if(iData == CData_Ammo)  return("70x {{STAM}}");
-  if(iData == CData_Items) return("1x {{PPGN}}     1x {{PSTL}}||1x {{RSHL}}     --||2x {{FRAG}}     --");
+  if(iData == CData_Items) return("1x {{PPGN}}     1x {{PSTL}}|1x {{RSHL}}     --|2x {{FRAG}}     --");
   if(iData == CData_Facet) return(4);
   return(Default(iData));
 }
@@ -116,7 +116,7 @@ private func Class5Info(int iData)
   if(iData == CData_Desc)  return("$artillerist_desc$");
   if(iData == CData_Clonk) return(PCMK);
   if(iData == CData_Ammo)  return("50x {{STAM}}30x {{GRAM}}");
-  if(iData == CData_Items) return("1x {{SGST}}     1x {{PSTL}}||--          --||1x {{STUN}}     1x {{SGRN}}");
+  if(iData == CData_Items) return("1x {{SGST}}     1x {{PSTL}}|--          --|1x {{STUN}}     1x {{SGRN}}");
   if(iData == CData_Facet) return(5);
   return(Default(iData));
 }

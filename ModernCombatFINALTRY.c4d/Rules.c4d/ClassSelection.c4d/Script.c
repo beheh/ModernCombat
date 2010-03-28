@@ -159,7 +159,7 @@ func Finish(object pClonk)
 
 /* Menü */
 
-private func InfoMenuItems(){return(4);}
+private func InfoMenuItems(){return(5);}
 
 local bNoMenuUpdate;
 
@@ -184,6 +184,9 @@ private func OpenMenu(object pClonk, int iSelection)
   AddMenuItem(Format("%s|%s", GetCData(class,CData_Name), GetCData(class,CData_Desc)),
               "", NONE, pClonk, 0, 0, "", 512, 0, 0);
 
+  //Leerzeile
+  AddMenuItem(" ","", NONE,pClonk, 0, 0, "", 512, 0, 0);
+
   //Clonkicon und -name
   AddMenuItem(Format("{{%i}}%s",GetCData(class,CData_Clonk),GetName(0,GetCData(class,CData_Clonk))),
               "", NONE, pClonk, 0, 0, "", 512, 0, 0);
@@ -191,7 +194,7 @@ private func OpenMenu(object pClonk, int iSelection)
   //Klassenmunition
   if(!FindObject(NOAM))
   {
-   AddMenuItem(Format("%s|",GetCData(class,CData_Ammo)),
+   AddMenuItem(Format("%s",GetCData(class,CData_Ammo)),
               "", NONE, pClonk, 0, 0, "", 512, 0, 0);}
 
   //Klassenausrüstung
