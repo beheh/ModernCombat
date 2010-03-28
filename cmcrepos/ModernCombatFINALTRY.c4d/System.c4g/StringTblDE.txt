@@ -10,3 +10,12 @@ antiskill=Antiskill
 antiskill_desc=Bilden die Spezialeinheiten, welche|effektiv mit Einsatzschildern vor|Feindbeschuss schützen und schnell|mit Shotguns Angriffe starten.
 artillerist=Artillerist
 artillerist_desc=Mit einem starken Granatenwerfer|ausgerüstet, agiert diese Einheit|hinter der Frontlinie und feuert|tödliche Artillerie auf den Feind.
+
+
+// CTF
+
+ReturnedTheFlag=%s hat die Flagge zurückgebracht
+CapturedTheFlag=%s hat die Flagge erfolgreich geklaut
+HasTheFlag=%s hat die Flagge von <c %x>%s</c>
+FlagLost=Die Flagge von <c %x>%s</c> wurde fallen gelassen
+FlagReturned=Die Flagge von <c %x>%s</c> ist zurück

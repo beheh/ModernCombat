@@ -270,6 +270,14 @@ public func SetupClass(int iClass, int iPlayer)
   SetPlrView(iPlayer,crew[iPlayer]);
   SetCursor(iPlayer,crew[iPlayer],true,false); 
 
+  //Nachricht
+  for(var i = 0; i < GetPlayerCount(); i++)
+    if(GetPlayerTeam(i) == GetPlayerTeam(iPlayer))
+      EventInfo4K(i+1, 
+        Format("$PlayerChoosedClass$", GetTaggedPlayerName(iPlayer), GetCData(iClass,CData_Name)),
+        GetCData(iClass,CData_Icon),
+        RGB(220,220,220));
+
   Finish(crew[iPlayer]);
 }
 

@@ -1,1 +1,2 @@
 TimeTillRespawn=Noch %d Sekunden bis zum Respawn
+PlayerChoosedClass=%s steigt als %s ein!
