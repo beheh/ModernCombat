@@ -358,16 +358,15 @@ func CreateEquipment()
   PlaceSpawnpoint(PPGN, 720, 160);
 
   //Feldgranaten
-  PlaceSpawnpoint(FGRN, 290, 220);
-  PlaceSpawnpoint(FGRN, 1255, 140);
+  PlaceSpawnpoint(FGRN, 575, 165);
+  PlaceSpawnpoint(FGRN, 930, 85);
 
   //Blendgranaten
   PlaceSpawnpoint(STUN, 405, 315);
   PlaceSpawnpoint(STUN, 1145, 230);
 
-  //Rauchgranaten
-  PlaceSpawnpoint(SGRN, 360, 200);
-  PlaceSpawnpoint(SGRN, 1135, 120);
+  //Rauchgranate
+  PlaceSpawnpoint(SGRN, 760, 435);
 }
 
 /* Relaunch */
@@ -381,16 +380,16 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
    if(iTeam == 1)
    {
     if(!rand)
-      { iX = 340; iY = 340; }
+      { iX = 220; iY = 200; }
     if(!--rand)
-      { iX = 530; iY = 470; }
+      { iX = 250; iY = 140; }
    }
    else
    {
     if(!rand)
-      { iX = 1020; iY = 330; }
+      { iX = 1265; iY = 85; }
     if(!--rand)
-      { iX = 1220; iY = 260; }
+      { iX = 1295; iY = 120; }
    }
   }
   else

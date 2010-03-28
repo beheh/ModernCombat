@@ -548,15 +548,15 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
     if(!rand)
       { iX = 205; iY = 220; }
     if(!--rand)
-      { iX = 170; iY = 640; }
+      { iX = 270; iY = 250; }
     return(1);
    }
    else
    {
     if(!rand)
-      { iX = 1815; iY = 250; }
+      { iX = 1580; iY = 500; }
     if(!--rand)
-      { iX = 1585; iY = 505; }
+      { iX = 1675; iY = 600; }
     return(1);
    }
   }
