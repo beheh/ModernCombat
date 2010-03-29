@@ -95,6 +95,15 @@ public func Update()
   {
    Show();
   }
+  
+  //Gegner nicht ranlassen D:
+  for(var enemy in FindObjects(Find_AtPoint(), Find_OCF(OCF_Alive), Find_Hostile(GetOwner())))
+  {
+    SetXDir(GetXDir(enemy)/2+Sin(target->AimAngle(),20),enemy);
+    SetYDir(GetYDir(enemy)/2-Cos(target->AimAngle(),20),enemy);
+    if(WildcardMatch(GetAction(enemy),"*Jump*"))
+      SetAction("Tumble",enemy);
+  }
 
   angle = Normalize(target->AimAngle());
   var dir = target->GetDir()*2-1;
@@ -153,7 +162,7 @@ public func OnHit(int iDamage, int iType, object pFrom)
   Sparks(Random(2)+6,RGB(255,255,Random(5)+255));
 }
 
-public func QueryCatchBlow(a,object pObj) 
+public func QueryCatchBlow(object pObj) 
 {
   if(pObj == last)
    return;
@@ -169,10 +178,10 @@ public func QueryCatchBlow(a,object pObj)
    var rad = Distance(GetX(),GetY(),GetX()+GetXDir(pObj),GetY()+GetYDir(pObj));
    var enterAngle = Angle(GetX(),GetY(),GetX()+GetXDir(pObj),GetY()+GetYDir(pObj))-target->AimAngle();
    var exitAngle = -enterAngle+target->AimAngle()+180;
-   SetXDir(Sin(exitAngle,rad)/2, pObj);
-   SetYDir(-Cos(exitAngle,rad)/2, pObj); 
+   SetXDir(Sin(exitAngle,rad)*2/3, pObj);
+   SetYDir(-Cos(exitAngle,rad)*2/3, pObj); 
 
-   if(GetMass(pObj) >= 10) Sound("ClonkHit*"); 
+   if(GetMass(pObj) >= 10) Sound("ClonkHit*");
    if(GetMass(pObj) < 10)  Sound("ArmorImpact*",false,0,50);
    ProtectedCall(pObj,"Hit");
    last = pObj;
