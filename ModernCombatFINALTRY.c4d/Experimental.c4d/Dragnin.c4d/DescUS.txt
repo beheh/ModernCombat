@@ -1,1 +1,1 @@
-Heals the client about a small amount energy in a relative quick manner.
+The user instantly recives a smaller energy burst.

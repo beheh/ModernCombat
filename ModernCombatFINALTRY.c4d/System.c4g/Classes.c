@@ -12,7 +12,7 @@ private func Class1Info(int iData)
   if(iData == CData_Desc)  return("$assault_desc$");
   if(iData == CData_Clonk) return(PCMK);
   if(iData == CData_Ammo)  return("90x {{STAM}}12x {{GRAM}}");
-  if(iData == CData_Items) return("1x {{ASTR}}     1x {{PSTL}}|--          --|2x {{FGRN}}     1x {{FRAG}}");
+  if(iData == CData_Items) return("1x {{ASTR}}     1x {{PSTL}}|1x {{DGNN}}     --|2x {{FGRN}}     1x {{FRAG}}");
   if(iData == CData_Facet) return(1);
   return(Default(iData));
 }
@@ -24,6 +24,7 @@ private func Class1Setup(int iPlr)
   DoAmmo(GRAM,12,new);
   new->CreateContents(ASTR);
   new->CreateContents(PSTL);
+  new->CreateContents(DGNN);
   CreateObject(FGRN,0,0,iPlr)->Activate(new);
   CreateObject(FGRN,0,0,iPlr)->Activate(new);
   CreateObject(FRAG,0,0,iPlr)->Activate(new);
@@ -116,7 +117,7 @@ private func Class5Info(int iData)
   if(iData == CData_Desc)  return("$artillerist_desc$");
   if(iData == CData_Clonk) return(PCMK);
   if(iData == CData_Ammo)  return("50x {{STAM}}30x {{GRAM}}");
-  if(iData == CData_Items) return("1x {{SGST}}     1x {{PSTL}}|--          --|1x {{STUN}}     1x {{SGRN}}");
+  if(iData == CData_Items) return("1x {{SGST}}     1x {{PSTL}}|1x {{DGNN}}     --|1x {{STUN}}     1x {{SGRN}}");
   if(iData == CData_Facet) return(5);
   return(Default(iData));
 }
@@ -128,6 +129,7 @@ private func Class5Setup(int iPlr)
   DoAmmo(GRAM,30,new);
   new->CreateContents(SGST);
   new->CreateContents(PSTL);
+  new->CreateContents(DGNN);
   CreateObject(STUN,0,0,iPlr)->Activate(new);
   CreateObject(SGRN,0,0,iPlr)->Activate(new);
   return(new);

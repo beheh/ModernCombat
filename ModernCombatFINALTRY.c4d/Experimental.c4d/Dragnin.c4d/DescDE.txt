@@ -1,1 +1,1 @@
-Heilt den Benutzer in relativ kurzer Zeit um eine kleine Menge Energie.
+Gibt dem Nutzer einen kleineren sofort wirkenden Energieschub.

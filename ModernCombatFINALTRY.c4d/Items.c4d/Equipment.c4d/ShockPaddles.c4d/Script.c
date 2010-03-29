@@ -122,7 +122,7 @@ func Use(caller)
     if(target && CheckEnemy(GetUser(),target))
     {
      //Schaden durch elektrischen Schlag (und Schleudern)
-     DoDmg(40+Random(10),DMG_Energy,target);
+     DoDmg(30+Random(10),DMG_Energy,target);
      Fling(target,2*dir,-2);
      if(!target)//Könnte ja jetzt weg sein.
      target = this();
