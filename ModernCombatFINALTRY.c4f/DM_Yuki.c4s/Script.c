@@ -19,7 +19,7 @@ func Initialize()
 {
   //Starttitel und Musikliste zusammenstellen
   SetPlayList("CMC_*.ogg");
-  Music("CMC_Progress.ogg");
+  Music("CMC_Hacking.ogg");
   //Türenteam1
   aDoor1 = [];
   //Türenteam2

@@ -17,7 +17,7 @@ func Initialize()
 {
   //Starttitel und Musikliste zusammenstellen
   SetPlayList("CMC_*.ogg");
-  Music("CMC_Friendly Unit.ogg");
+  Music("CMC_Moving Squad.ogg");
   //Szenario einrichten
   CreateFurniture();
   //Equipment plazieren

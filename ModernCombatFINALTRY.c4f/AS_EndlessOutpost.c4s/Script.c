@@ -19,7 +19,7 @@ func Initialize()
 {
   //Starttitel und Musikliste zusammenstellen
   SetPlayList("CMC_*.ogg");
-  Music("CMC_Moving Squad.ogg");
+  Music("CMC_Techno.ogg");
   //Bildschirmfärbung
   SetGamma(RGB(0,0,0), RGB(80,80,80), RGB(200,200,200));
   //Türen
