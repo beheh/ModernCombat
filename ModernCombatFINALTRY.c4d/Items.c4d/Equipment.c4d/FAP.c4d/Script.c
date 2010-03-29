@@ -9,9 +9,9 @@ public func HandX()     	{return(3500);}
 public func HandY()     	{return(0);}
 public func IsDrawable() 	{return true;} 
 
-public func MaxHealPoints()	{return 150;}
+public func MaxHealPoints()	  {return 150;}
 public func StartHealPoints()	{return 150;}
-func IsEquipment()		{return true;}
+public func IsEquipment()		  {return true;}
 
 
 /* Initialisierung */
@@ -225,7 +225,8 @@ public func FxFAPGrouphealTimer(pTarget, iEffectNumber, iEffectTime)
   if(!Contained()->~IsMedic())          return 1;	//Nur Sanitäter
   if(GetEffect("FAPHeal", this()))      return 1;	//Ohne Effekt
   if(!GetHealPoints())                  return 1;	//Nur wenn noch Punkte da sind
-  if(Contents(0,Contained()) != this()) return 1;	//Nicht wenn Sanitäter in Gebäude
+  if(Contents(0,Contained()) != this()) return 1;	//Nur, falls angewählt
+  if(GetID(Contained()) == FKDT)        return 1; //Im Faketod-Objekt?
 
   //Harte Vorauswahl überlebt? Los geht's.
   var heal = 8; //Merke: 8-2 -> 1 Patient
@@ -233,7 +234,7 @@ public func FxFAPGrouphealTimer(pTarget, iEffectNumber, iEffectTime)
   for(var patient in FindObjects(Find_OCF(OCF_Alive),
                                  Find_Distance(80),
                                  Find_NoContainer(),
-                                 Find_Allied()))
+                                 Find_Allied(GetOwner(Contained()))))
   {
    if(GetEnergy(patient) < GetPhysical("Energy",0, patient)/1000)
    {
