@@ -20,17 +20,17 @@ public func FMData1(int data)
   if(data == FM_AmmoID)             return(STAM);
   if(data == FM_AmmoLoad)           return(30);
   
-  if(data == FM_Reload)             return(130);
+  if(data == FM_Reload)             return(90);
   if(data == FM_Recharge)           return(13);
 
   if(data == FM_Auto)               return(false);
   
-  if(data == FM_Damage)             return(15);
+  if(data == FM_Damage)             return(14);
   
   if(data == FM_Slot)               return(1);//Das Gewehr bekommt den Slot 1.
   
-  if(data == FM_SpreadAdd) return(68);
-  if(data == FM_StartSpread) return(70);
+  if(data == FM_SpreadAdd) return(60);
+  if(data == FM_StartSpread) return(50);
 
   return(Default(data));
 }
@@ -41,7 +41,7 @@ public func FMData1T1(int data)
 {
   if(data == FT_Name)                 return("$Burst$");//Der Name der Feuertechnik.
   if(data == FT_IconFacet)            return(FICO_Burst);
-  if(data == FM_Recharge)             return(33);
+  if(data == FM_Recharge)             return(15);
   if(data == FM_BurstAmount)          return(3);
   if(data == FM_BurstRecharge)        return(3);
   return(FMData1(data));

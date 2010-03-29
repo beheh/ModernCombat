@@ -1,2 +1,3 @@
 AlreadyHealing=Clonk wird bereits behandelt.
 NotWounded=Clonk nicht verwundet.
+NotEnoughPoints=Benötige 40 EHP Punkte zum Entpacken.

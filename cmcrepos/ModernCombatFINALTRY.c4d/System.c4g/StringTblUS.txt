@@ -19,3 +19,11 @@ CapturedTheFlag=%s captured the flag
 HasTheFlag=%s has got the flag of <c %x>%s</c>
 FlagLost=The flag of <c %x>%s</c> was dropped
 FlagReturned=The flag of <c %x>%s</c> was returned
+
+
+// Chooser
+
+ChoosingPlayer=%s configures the game, please be patient...
+Choosing=%s configures the rules, please be patient...
+Goal=The goal has been chosen: <c ffff33>%s</c>
+Rules=Rules chosen: 

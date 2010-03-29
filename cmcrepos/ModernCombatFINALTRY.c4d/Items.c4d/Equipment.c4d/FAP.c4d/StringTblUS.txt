@@ -1,2 +1,3 @@
 AlreadyHealing=Clonk already in treatment.
 NotWounded=Clonk not wounded.
+NotEnoughPoints=Need 40 FAP points to unpack.
