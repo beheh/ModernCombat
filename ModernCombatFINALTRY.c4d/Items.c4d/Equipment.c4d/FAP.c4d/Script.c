@@ -16,13 +16,10 @@ public func StartHealPoints() { return(150); }
 
 func IsEquipment(){return(true);}
 
-/*public func OnCollection()
-{
-  return(true);
-}*/
 
 protected func Initialize()
 {
+  AddEffect("FAPRegenerate",this(),251,50,this(),GetID());
   healpoints = StartHealPoints();
 }
 
@@ -37,6 +34,12 @@ public func Think(object pAI, object pClonk)//Für 4K-Bots. :D *pwnpwn*
 
 protected func Activate(caller)
 {
+  if(!GetHealPoints())
+  {
+    //Sound für Kaputtmachen eines EHPs hier rein
+    CastParticles("Paper", RandomX(4,8), 40, 0, 0, 4*5, 7*5, RGBa(180,180,180,0), RGBa(240,240,240,150));
+    return(Remove());
+  }
   if(GetEffect("FAPHeal",this()))
   {
     RemoveEffect("FAPHeal",this());
@@ -67,11 +70,7 @@ protected func Activate(caller)
 func Departure(object pClonk)
 {
   if(GetEffect("FAPHeal", this()))
-  {
     RemoveEffect("FAPHeal",this());
-    /*Enter(pClonk);
-    SelectFAP();*/
-  }
 }
 
 public func RejectShift(){return(GetEffect("FAPHeal",this()));}
@@ -103,18 +102,13 @@ public func Entrance(object pContainer)
 
 public func ControlThrow(object pClonk)
 {
-  if(pClonk->~IsMedic()) pClonk->~StartHeal(MDIC_HealMode_SingleHeal);
-  return(true);
-}
-
-public func ControlUp(object pClonk)
-{
-  if(GetPlrDownDouble(GetController(pClonk)))
+  if(pClonk->~IsMedic() && GetHealPoints() >= 40)
   {
-    pClonk->~StartHeal(MDIC_HealMode_GroupHeal);
-    return(true);
+    DoHealPoints(-40);
+    CreateContents(DGNN,pClonk);
+    Sound("FAPK_HealStart.ogg"); //Richtigen Sound hier einsetzen
   }
-  return(false);
+  return(true);
 }
 
 func Deselection(object pClonk)//Hack für Clonks die nicht RejectShift unterstützen. :P
@@ -215,27 +209,29 @@ public func FxFAPHealStop(target, no, reason, temp)
     SetPhysical("Walk", GetPhysical("Walk", 0, clonk)+EffectVar(1, target, no), 2, clonk);
 }
 
+/* Heilpunkte */
+
 public func GetHealPoints(){return(healpoints);}
 
 public func DoHealPoints(int iChange)
 {
+  Log("%v",iChange);
   healpoints = BoundBy(healpoints+iChange,0,MaxHealPoints());
-  
-  if(healpoints <= 0)
-    ScheduleCall(this(),"Remove",1);
+  Log("%v",BoundBy(healpoints+iChange,0,MaxHealPoints()));
   
   return(healpoints);
-  
-  /*if(healpoints+iChange < 0)
-    return(-(healpoints+iChange));
-    
-  if(healpoints+iChange > MaxHealPoints())
-    return((healpoints+iChange) - MaxHealPoints());*/
 }
 
-public func Remove()
+/* Regenerierungseffekt */
+
+public func FxFAPRegenerateTimer(pTarget, iEffectNumber, iEffectTime)
 {
-  RemoveObject();
+  if(!Contained()) return(1);
+  if(!Contained()->~IsMedic()) return(1);
+  if(GetHealPoints() < MaxHealPoints())
+    DoHealPoints(1);
+
+  return(1);
 }
 
 /* Infos */
@@ -243,12 +239,6 @@ public func Remove()
 protected func Hit()
 {
   Sound("FAPK_Hit*.ogg");
-  return(1);
-}
-
-protected func Selection()
-{
-  Sound("FAPK_Charge.ogg");
   return(1);
 }
 
@@ -262,4 +252,9 @@ func UpdateHUD(object pHUD)
 {
   pHUD->Charge(healpoints,MaxHealPoints());
   pHUD->Ammo(healpoints, MaxHealPoints(), GetName(), true);
+}
+
+public func Remove()
+{
+  RemoveObject();
 }

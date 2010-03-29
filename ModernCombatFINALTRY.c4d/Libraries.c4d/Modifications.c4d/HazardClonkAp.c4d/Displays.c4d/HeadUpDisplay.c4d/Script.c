@@ -61,7 +61,7 @@ private func InitAmmoBagHUD()
   //Munition erfassen
   for(var i=0; def = GetDefinition(i,C4D_StaticBack); ++i)
   {
-   if(DefinitionCall(def,"IsAmmo"))
+   if(DefinitionCall(def,"IsHUDAmmo"))
     allAmmo[arrI++] = def;
   }
   ammoobjs = CreateArray();
