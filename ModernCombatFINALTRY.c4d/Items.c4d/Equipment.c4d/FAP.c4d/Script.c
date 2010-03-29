@@ -107,11 +107,18 @@ public func Entrance(object pContainer)
 public func ControlThrow(object pClonk)
 {
   //Sanitäter können mit [Werfen] Dragnin entpacken
-  if(pClonk->~IsMedic() && GetHealPoints() >= 40)
+  if(pClonk->~IsMedic())
   {
-   DoHealPoints(-40);
-   CreateContents(DGNN,pClonk);
-   Sound("FAPK_Dragnin.ogg");
+   if(GetHealPoints() >= 40)
+   {
+    DoHealPoints(-40);
+    CreateContents(DGNN,pClonk);
+    Sound("FAPK_Dragnin.ogg");
+   }
+   else
+   {
+    PlayerMessage(GetOwner(pClonk), "$NotEnoughPoints$",pClonk);
+   }
   }
   return(true);
 }
@@ -219,9 +226,7 @@ public func GetHealPoints(){return(healpoints);}
 
 public func DoHealPoints(int iChange)
 {
-  Log("%v",iChange);
   healpoints = BoundBy(healpoints+iChange,0,MaxHealPoints());
-  Log("%v",BoundBy(healpoints+iChange,0,MaxHealPoints()));
 
   return(healpoints);
 }
