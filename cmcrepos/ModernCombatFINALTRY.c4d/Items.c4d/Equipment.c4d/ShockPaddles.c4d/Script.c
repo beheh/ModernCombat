@@ -55,16 +55,6 @@ public func Activate(pClonk)
   return(Use(pClonk));
 }
 
-public func ControlUp(object pClonk)
-{
-  if(GetPlrDownDouble(GetController(pClonk)))
-  {
-   pClonk->~StartHeal(MDIC_HealMode_Reanimate);
-   return(true);
-  }
-  return(false);
-}
-
 func Use(caller)
 {
   //Hinweis bei fehlender Spannung
@@ -86,29 +76,37 @@ func Use(caller)
   var obj;
   if(obj = FindObject2(Find_InRect(-10,-10,20,20),Find_ID(FKDT),Find_Allied(GetOwner(caller)),Find_NoContainer()))
   {
-   obj = obj->GetClonk();
+   if(caller->~IsMedic()) //Falls kein Medic
+   {   
+    obj = obj->GetClonk();
+ 
+    //Patient wiederbeleben
+    obj->StopFakeDeath();
+    //Energieschub
+    obj->DoEnergy(20);
+    //Restliche Energie mit Heilungseffekt übergeben
+    obj->AddEffect("ShockPaddlesHeal",obj,20,1,0,GetID(),HealAmount(),HealRate());
 
-   //Patient wiederbeleben
-   obj->StopFakeDeath();
-   //Energieschub
-   obj->DoEnergy(50);
-   //Restliche Energie mit Heilungseffekt übergeben
-   obj->AddEffect("ShockPaddlesHeal",obj,20,1,0,GetID(),HealAmount(),HealRate());
+    //Effekte
+    Sound("CDBT_Shock.ogg");
+    obj->Sound("ClonkCough*.ogg");
+    obj->Sparks(10,RGB(250,150,0));
+    obj->Sparks(5,RGB(100,100,250));
+    obj->AddLightFlash(40+Random(20),0,0,RGB(0,140,255));
+ 
+    //Eventnachricht: Spieler reanimiert Spieler
+    EventInfo4K(0,Format("$MsgReanimation$",GetTaggedPlayerName(GetOwner(obj)),GetTaggedPlayerName(GetOwner(caller))),FKDT);
 
-   //Effekte
-   Sound("CDBT_Shock.ogg");
-   obj->Sound("ClonkCough*.ogg");
-   obj->Sparks(10,RGB(250,150,0));
-   obj->Sparks(5,RGB(100,100,250));
-   obj->AddLightFlash(40+Random(20),0,0,RGB(0,140,255));
+    //Energie entladen
+    charge = BoundBy(charge-20,0,MaxEnergy());
 
-   //Eventnachricht: Spieler reanimiert Spieler
-   EventInfo4K(0,Format("$MsgReanimation$",GetTaggedPlayerName(GetOwner(obj)),GetTaggedPlayerName(GetOwner(caller))),FKDT);
-
-   //Energie entladen
-   charge = BoundBy(charge-20,0,MaxEnergy());
-
-   return(1);
+    return(1);
+   }
+   else
+   {
+    Sound("CommandFailure1");
+    PlayerMessage(GetOwner(caller), "$OnlyMedicsReanimate$", caller);
+   }
   }
 
   obj=0;
@@ -158,7 +156,7 @@ func Use(caller)
 /* Selbstheilungseffekt durch Wiederbelebung */
 
 func HealRate()		{ return(2);  }
-func HealAmount()	{ return(60); }
+func HealAmount()	{ return(100); }
 
 func FxShockPaddlesHealStart(object pTarget, int iEffectNumber, int iTemp, int iHealAmount, int iHealRate)
 {

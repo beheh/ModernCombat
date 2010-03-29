@@ -1,2 +1,3 @@
 NotCharged=Lade {{%i}}!
 MsgReanimation=Soldat %s wurde von %s wiederbelebt!
+OnlyMedicsReanimate=Nur Sanitäter können wiederbeleben!
