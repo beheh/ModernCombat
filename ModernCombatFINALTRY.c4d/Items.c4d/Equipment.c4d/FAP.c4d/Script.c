@@ -4,9 +4,9 @@
 
 local healpoints;
 
-public func HandSize()   	{return 1000;}
-public func HandX()     	{return 3500;}
-public func HandY()     	{return 0;}
+public func HandSize()   	{return(1000);}
+public func HandX()     	{return(3500);}
+public func HandY()     	{return(0);}
 public func IsDrawable() 	{return true;} 
 
 public func MaxHealPoints()	{return 150;}
@@ -167,10 +167,10 @@ public func FxFAPHealTimer(pTarget, iEffectNumber, iEffectTime)
   //CreateParticle("MSpark",GetX(pClonk)+RandomX(-8, 8),GetY(pClonk)+RandomX(-10, 10),0,-20,RandomX(18,38),RGB(210,20,20));
   pClonk->CreateParticle("ShockWave",0,0,Random(10),Random(10),5*GetObjHeight(pClonk)+25+Sin(iEffectTime*5,35),RGB(210,20,20),pClonk);
   
-  if(!(iEffectTime % 40))  //Alle 40 Frames
+  if(!(iEffectTime % 40))	//Alle 40 Frames
    Sound("FAPK_Healing*.ogg");
   
-  if(!(iEffectTime % 6)) //Alle 6 Frames
+  if(!(iEffectTime % 6))	//Alle 6 Frames
   {
    //Eigentliches Heilen.
    DoEnergy(2,pClonk);  
@@ -220,13 +220,13 @@ public func FxFAPRegenerateTimer(pTarget, iEffectNumber, iEffectTime)
 
 public func FxFAPGrouphealTimer(pTarget, iEffectNumber, iEffectTime)
 {
-  //ololo, Kriterien
-  if(!Contained())                      return 1;
-  if(!Contained()->~IsMedic())          return 1;
-  if(GetEffect("FAPHeal", this()))      return 1;
-  if(!GetHealPoints())                  return 1;
-  if(Contents(0,Contained()) != this()) return 1;
-  
+  //Kriterien
+  if(!Contained())                      return 1;	//Nicht im Freien
+  if(!Contained()->~IsMedic())          return 1;	//Nur Sanitäter
+  if(GetEffect("FAPHeal", this()))      return 1;	//Ohne Effekt
+  if(!GetHealPoints())                  return 1;	//Nur wenn noch Punkte da sind
+  if(Contents(0,Contained()) != this()) return 1;	//Nicht wenn Sanitäter in Gebäude
+
   //Harte Vorauswahl überlebt? Los geht's.
   var heal = 8; //Merke: 8-2 -> 1 Patient
   var Patients = [];
@@ -235,26 +235,28 @@ public func FxFAPGrouphealTimer(pTarget, iEffectNumber, iEffectTime)
                                  Find_NoContainer(),
                                  Find_Allied()))
   {
-    if(GetEnergy(patient) < GetPhysical("Energy",0, patient)/1000)
-    {
-      if(patient == Contained()) continue;
-      heal = Max(heal-2, 2); //Bewirkt, dass bei mehr Patienten weniger gut geheilt wird
-      Patients[GetLength(Patients)] = patient;
-    }
+   if(GetEnergy(patient) < GetPhysical("Energy",0, patient)/1000)
+   {
+    if(patient == Contained()) continue;
+    //Bewirkt, dass bei mehr Patienten weniger gut geheilt wird
+    heal = Max(heal-2, 2);
+    Patients[GetLength(Patients)] = patient;
+   }
   }
-  
+
   for(var clonk in Patients)
   {
-    if(!clonk)
-      continue;
-    else
-    {
-      DoEnergy(heal, clonk);
-      clonk->CreateParticle("ShockWave",0,0,0,0,5*GetObjHeight(clonk)+5*5,RGB(210,20,20),clonk);
-      clonk->CreateParticle("ShockWave",0,0,0,0,5*GetObjHeight(clonk)+10*5,RGB(210,20,120),clonk);
-      clonk->CreateParticle("ShockWave",0,0,0,0,5*GetObjHeight(clonk)+15*5,RGB(210,20,220),clonk);
-      DoHealPoints(-heal/2);
-    }
+   if(!clonk)
+    continue;
+   else
+   {
+    DoEnergy(heal, clonk);
+    clonk->CreateParticle("ShockWave",0,0,0,0,5*GetObjHeight(clonk)+5*5,RGB(210,20,20),clonk);
+    clonk->CreateParticle("ShockWave",0,0,0,0,5*GetObjHeight(clonk)+10*5,RGB(210,20,120),clonk);
+    clonk->CreateParticle("ShockWave",0,0,0,0,5*GetObjHeight(clonk)+15*5,RGB(210,20,220),clonk);
+    DoHealPoints(-heal/2);
+    Sound("FAPK_Healing*.ogg");
+   }
   }
 }
 
