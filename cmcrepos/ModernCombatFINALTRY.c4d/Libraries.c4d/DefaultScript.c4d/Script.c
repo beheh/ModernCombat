@@ -46,6 +46,11 @@ public func ChooserFinished()
    for(var spwn in FindObjects(Find_ID(SPNP)))
     if(Contents(0, spwn)->~IsWeapon())
      RemoveObject(spwn);
+
+   //Ausrüstungsspawnpoints entfernen
+   for(var spwn in FindObjects(Find_ID(SPNP)))
+    if(Contents(0, spwn)->~IsEquipment())
+     RemoveObject(spwn);
   }
 
   //Ohne Klassenwahl
