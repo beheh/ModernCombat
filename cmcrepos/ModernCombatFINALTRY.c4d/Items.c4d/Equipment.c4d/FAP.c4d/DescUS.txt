@@ -1,1 +1,1 @@
-Contains medicaments, bandage material and more equipment to supply wounded clonks. It is a essential tool for medics.
+Contains medicaments, bandage material, dragnin and more equipment to supply wounded clonks. Press [Throw] to extract dragnin injections as a medic.
