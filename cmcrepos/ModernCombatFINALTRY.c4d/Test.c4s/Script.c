@@ -36,7 +36,7 @@ func Initialize()
   PlaceSpawnpoint(SPAS, 790, 640);
 
   //Leiter
-  //CreateObject(LADR, 505, 585, -1)->Set(26);
+  CreateObject(LADR, 505, 585, -1)->Set(26);
 
   //Waffenautomaten
   SetUpStore(CreateObject(WPVM, 410, 350, -1));
