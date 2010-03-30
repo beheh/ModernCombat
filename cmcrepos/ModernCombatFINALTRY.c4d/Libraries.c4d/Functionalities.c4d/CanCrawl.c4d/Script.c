@@ -361,7 +361,7 @@ public func DoMouseAiming(int iTx, int iTy)
   if(IsCrawling())
   {
     var angle = Normalize(Angle(GetX(),GetY(),iTx,iTy),-180);
-    if(!Inside(angle,90-CRAWL_AIM_Max,90+CRAWL_AIM_Max) && !Inside(angle,270-CRAWL_AIM_Max,270+CRAWL_AIM_Max))
+    if(!Inside(angle,90-CRAWL_AIM_Max,90+CRAWL_AIM_Max) && !Inside(angle,-90-CRAWL_AIM_Max,-90+CRAWL_AIM_Max))
       return;
   }
   
