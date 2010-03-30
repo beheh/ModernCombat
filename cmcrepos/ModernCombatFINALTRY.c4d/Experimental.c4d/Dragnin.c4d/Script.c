@@ -44,10 +44,10 @@ func FxDragninHealStart(object pTarget, int iEffectNumber, int iTemp, int iHealA
   EffectVar(1,pTarget,iEffectNumber) = iHealRate; //Frames per HP
 
   //Lähmung
-  EffectVar(2, pTarget, iEffectNumber) = GetPhysical("Walk", 1, 0, GetID(pTarget))/5;
-  EffectVar(3, pTarget, iEffectNumber) = GetPhysical("Jump", 1, 0, GetID(pTarget))/5;
-  EffectVar(4, pTarget, iEffectNumber) = GetPhysical("Scale", 1, 0, GetID(pTarget))/5;
-  EffectVar(5, pTarget, iEffectNumber) = GetPhysical("Hangle", 1, 0, GetID(pTarget))/5;
+  EffectVar(2, pTarget, iEffectNumber) = GetPhysical("Walk", 1, 0, GetID(pTarget))/3;
+  EffectVar(3, pTarget, iEffectNumber) = GetPhysical("Jump", 1, 0, GetID(pTarget))/3;
+  EffectVar(4, pTarget, iEffectNumber) = GetPhysical("Scale", 1, 0, GetID(pTarget))/3;
+  EffectVar(5, pTarget, iEffectNumber) = GetPhysical("Hangle", 1, 0, GetID(pTarget))/3;
 
   SetPhysical("Walk", GetPhysical("Walk", 0, pTarget)-EffectVar(2, pTarget, iEffectNumber), 2, pTarget);
   SetPhysical("Jump", GetPhysical("Jump", 0, pTarget)-EffectVar(3, pTarget, iEffectNumber), 2, pTarget);
@@ -75,6 +75,15 @@ func FxDragninHealTimer(object pTarget, int iEffectNumber, int iEffectTime)
   {
    return(-1);
   }
+}
+
+/ func FxDragninHealDamage(target, no, dmg, dmgtype)
+{
+  //Bei Schaden abbrechen
+  if(dmg < 0)
+    RemoveEffect(0,target,no);
+  else
+    return(dmg);
 }
 
 public func FxDragninHealStop(target, no, reason, temp)
