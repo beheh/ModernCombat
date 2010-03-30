@@ -77,7 +77,7 @@ func FxDragninHealTimer(object pTarget, int iEffectNumber, int iEffectTime)
   }
 }
 
-/ func FxDragninHealDamage(target, no, dmg, dmgtype)
+func FxDragninHealDamage(target, no, dmg, dmgtype)
 {
   //Bei Schaden abbrechen
   if(dmg < 0)
