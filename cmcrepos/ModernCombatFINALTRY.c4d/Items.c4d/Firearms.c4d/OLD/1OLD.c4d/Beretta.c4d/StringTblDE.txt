@@ -1,3 +1,0 @@
-Bullets=Kugeln
-Single=Einzelfeuer
-SilencedSingle=Schallgedämpftes Einzelfeuer

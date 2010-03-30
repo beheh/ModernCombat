@@ -1,2 +1,0 @@
-NothingUpgradeable=Nothing upgradeable available.
-Upgrade=Upgrade %s

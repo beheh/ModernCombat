@@ -1,4 +1,0 @@
-Bullets=Bullets
-Single=Single Shots
-Monochrom=Monochrom
-MonochromSingle=Double Shots
