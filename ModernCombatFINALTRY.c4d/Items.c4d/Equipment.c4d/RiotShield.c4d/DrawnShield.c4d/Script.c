@@ -95,15 +95,6 @@ public func Update()
   {
    Show();
   }
-  
-  //Gegner nicht ranlassen D:
-  for(var enemy in FindObjects(Find_AtPoint(), Find_OCF(OCF_Alive), Find_Hostile(GetOwner())))
-  {
-    SetXDir(GetXDir(enemy)/2+Sin(target->AimAngle(),20),enemy);
-    SetYDir(GetYDir(enemy)/2-Cos(target->AimAngle(),20),enemy);
-    if(WildcardMatch(GetAction(enemy),"*Jump*"))
-      SetAction("Tumble",enemy);
-  }
 
   angle = Normalize(target->AimAngle());
   var dir = target->GetDir()*2-1;
@@ -166,7 +157,7 @@ public func QueryCatchBlow(object pObj)
 {
   if(pObj == last)
    return;
-  if(!Hostile(GetOwner(pObj),GetOwner(this)))
+  if(!Hostile(GetController(pObj),GetController(this)))
    return;
 
   var iPower = BoundBy(GetMass(pObj),0,50) * Distance(GetXDir(pObj),GetYDir(pObj)) * Distance(GetXDir(pObj),GetYDir(pObj));

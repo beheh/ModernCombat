@@ -36,6 +36,10 @@ public func Set(object pClonk)
   pClonk->Enter(this());
   //Objekte des Clonks aufnehmen
   GrabContents(pClonk);
+  //CTF-Flagge entfernen
+  for(var content in FindObjects(Find_Container(this())))
+    if(GetID(content) == FLA2)
+      Exit(content);
   //Aussehen des Clonks imitieren
   SetGraphics (0,this(),GetID(pClonk),1,GFXOV_MODE_Object,0,0,pClonk);
 
@@ -54,7 +58,7 @@ public func Set(object pClonk)
   DoEnergy(10, pClonk);
 
   //Verzögert Auswahlmenü öffnen
-  ScheduleCall(this(),"DoMenu",35,suicide); 
+  ScheduleCall(this(),"DoMenu",35,suicide);
 }
 
 /* Auswahlmenü */

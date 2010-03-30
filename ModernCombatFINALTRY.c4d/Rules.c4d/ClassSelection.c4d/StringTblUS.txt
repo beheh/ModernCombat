@@ -1,2 +1,2 @@
-TimeTillRespawn=%d seconds till respawn.
+TimeTillRespawn=<c ff0000>%d</c> seconds till respawn.
 PlayerChoosedClass=%s enters the game as %s!

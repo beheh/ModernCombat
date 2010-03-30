@@ -2,9 +2,9 @@
 
 #strict
 
-local spawntimer;
-local spawnclonk;
 local crew;
+local lastclass;
+local selection;
 
 public func IsChooseable()	{return(1);}
 
@@ -14,7 +14,9 @@ public func IsChooseable()	{return(1);}
 protected func Initialize()
 {
   SetPosition(10,10);
-  crew = CreateArray(0);
+  crew = [];
+  lastclass = [];
+  selection = [];
   ScheduleCall(0,"Initialized",1);
 }
 
@@ -66,28 +68,38 @@ func RelaunchPlayer(int iPlr, object pClonk)
   if(!GetAlive(pClonk))
    return(ScheduleCall(this(),"RelaunchPlayer",1,0,iPlr));
 
-  //Zeitbegrenzung bei Last Man Standing
-  if(FindObject(GLMS))
-  {
-   spawntimer = 10;
-   spawnclonk = pClonk;
-  }
-
   //Menü zeitverzögert erstellen
   ScheduleCall(0,"InitClassMenu",10,0,pClonk);
+  
   return();
 }
 
-protected func Spawntimer()
+/* Spawntimer */
+
+public func FxSpawntimerStart(pTarget, iNo, iTemp, iPlr)
 {
-  if(spawntimer)
+  if(iTemp) //Ich verstehs nochimmer nicht :/
+   return(-1);
+  if(iPlr < 0)
+   return(-1);
+   
+  //EffectVars
+  EffectVar(0, pTarget, iNo) = iPlr;  //Player
+  EffectVar(1, pTarget, iNo) = 15; //Zeit
+  
+  PlayerMessage(EffectVar(0, pTarget, iNo), "@$TimeTillRespawn$", 0, EffectVar(1, pTarget, iNo));
+}
+
+public func FxSpawntimerTimer(pTarget, iNo, iTime)
+{
+  EffectVar(1, pTarget, iNo)--;
+  PlayerMessage(EffectVar(0, pTarget, iNo), "@$TimeTillRespawn$", 0, EffectVar(1, pTarget, iNo));
+  
+  if(EffectVar(1, pTarget, iNo) <= 0)
   {
-   spawntimer--;
-   PlayerMessage(GetOwner(spawnclonk),"@$TimeTillRespawn$",0,spawntimer);
-   if(!spawntimer)
-   {
-    SetupClass(RandomX(1,GetClassAmount()),spawnclonk);
-   }
+    SetupClass(selection[EffectVar(0, pTarget, iNo)]-InfoMenuItems(), EffectVar(0, pTarget, iNo));
+    PlayerMessage(EffectVar(0, pTarget, iNo), "@");
+    return(-1);
   }
 }
 
@@ -98,6 +110,11 @@ func InitClassMenu(object pClonk)
     return(0);
 
   var iPlayer = GetOwner(pClonk);
+  
+  //Zeitbegrenzung bei Last Man Standing
+  //if(FindObject(GLMS)) Generelle Zeitbegrenzung, damit Deppen nicht ihre Team-
+  //kammeraden im Stich lassen können und im DM auch nicht gecampt werden kann bei 1vs1
+  AddEffect("Spawntimer", this(), 100, 35, this(), GetID(), iPlayer);
 
   crew[iPlayer] = pClonk;
 
@@ -110,7 +127,7 @@ func InitClassMenu(object pClonk)
    SetVisibility(VIS_Owner,tmp);
    Enter(tmp,pClonk);
   }
-
+  
   //Bereits ein Menü offen?
   if(GetMenu(pClonk))
   {
@@ -121,10 +138,6 @@ func InitClassMenu(object pClonk)
 
 func Finish(object pClonk)
 {
-  PlayerMessage(GetOwner(spawnclonk),"");
-  spawnclonk = 0;
-  spawntimer = 0;
-
   var iPlayer = GetOwner(pClonk);
 
   //Menü schließen
@@ -149,9 +162,12 @@ func Finish(object pClonk)
   //Spawneffekt erstellen
   Sound("RSHL_Deploy.ogg",pClonk);
   AddSpawnEffect(pClonk);
-
-  //Viewport leeren
-  PlayerMessage(iPlayer,"@");
+  
+  //Effekt entfernen
+  for(var i = 0; i < GetEffectCount("Spawntimer", this()); i++)
+    if(EffectVar(0, this(), GetEffect("Spawntimer", this(), i)) == iPlayer)
+      RemoveEffect("Spawntimer", this(), i);
+  PlayerMessage(iPlayer, "@");
 
   //Broadcasten
   GameCallEx("OnClassSelection",crew[iPlayer]);
@@ -172,7 +188,10 @@ local bNoMenuUpdate;
 private func OpenMenu(object pClonk, int iSelection)
 {
   if(!iSelection)
-   iSelection = InfoMenuItems()+1;
+   if(lastclass[GetOwner(pClonk)] > 0)
+    iSelection = lastclass[GetOwner(pClonk)]+InfoMenuItems();
+   else
+    iSelection = InfoMenuItems()+1;
 
   if(GetMenu(pClonk))
    iSelection = GetMenuSelection(pClonk);
@@ -231,6 +250,7 @@ public func MenuQueryCancel() { return(1); }
 
 protected func OnMenuSelection(int iIndex, object pClonk)
 {
+  selection[GetOwner(pClonk)] = iIndex;
   if(bNoMenuUpdate)
    bNoMenuUpdate = false;
   else
@@ -277,6 +297,9 @@ public func SetupClass(int iClass, int iPlayer)
         Format("$PlayerChoosedClass$", GetTaggedPlayerName(iPlayer), GetCData(iClass,CData_Name)),
         GetCData(iClass,CData_Icon),
         RGB(220,220,220));
+  
+  //Speichern
+  lastclass[iPlayer] = iClass;
 
   Finish(crew[iPlayer]);
 }
