@@ -40,7 +40,7 @@ private func Class2Info(int iData)
   if(iData == CData_Desc)  return("$medic_desc$");
   if(iData == CData_Clonk) return(MDIC);
   if(iData == CData_Ammo)  return("50x {{STAM}}");
-  if(iData == CData_Items) return("1x {{SMGN}}     1x {{PSTL}}|1x {{CDBT}}     1x {{FAPK}}|2x {{STUN}}     --");
+  if(iData == CData_Items) return("1x {{SMGN}}     1x {{PSTL}}|1x {{CDBT}}     1x {{FAPK}}|2x {{STUN}}     2x {{FRAG}}");
   if(iData == CData_Facet) return(2);
   return(Default(iData));
 }
@@ -55,6 +55,8 @@ private func Class2Setup(int iPlr)
   new->CreateContents(FAPK);
   CreateObject(STUN,0,0,iPlr)->Activate(new);
   CreateObject(STUN,0,0,iPlr)->Activate(new);
+  CreateObject(FRAG,0,0,iPlr)->Activate(new);
+  CreateObject(FRAG,0,0,iPlr)->Activate(new);
   return(new);
 }
 
