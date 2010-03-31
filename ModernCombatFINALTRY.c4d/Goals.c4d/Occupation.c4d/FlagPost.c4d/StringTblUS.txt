@@ -1,0 +1,4 @@
+MsgCaptured=Team <c %x>%s</c>|conquered flag post|%s
+MsgCapturing=Team <c %x>%s</c>|conquers flag post|%s
+MsgRecaptured=Team <c %x>%s</c>|reclaimed flag post|%s
+MsgRecapturing=Team <c %x>%s</c>|reclaim flag post|%s

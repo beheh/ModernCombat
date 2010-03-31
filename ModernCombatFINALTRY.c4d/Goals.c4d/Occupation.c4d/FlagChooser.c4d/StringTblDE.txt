@@ -1,0 +1,1 @@
+SpawnMenu=Wähle einen <c ffff33>Einstiegspunkt</c>
