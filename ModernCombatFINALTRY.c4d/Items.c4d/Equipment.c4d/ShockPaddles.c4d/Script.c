@@ -76,8 +76,6 @@ func Use(caller)
   var obj;
   if(obj = FindObject2(Find_InRect(-10,-10,20,20),Find_ID(FKDT),Find_Allied(GetOwner(caller)),Find_NoContainer()))
   {
-   if(caller->~IsMedic()) //Falls kein Medic
-   {   
     obj = obj->GetClonk();
  
     //Patient wiederbeleben
@@ -101,12 +99,6 @@ func Use(caller)
     charge = BoundBy(charge-20,0,MaxEnergy());
 
     return(1);
-   }
-   else
-   {
-    Sound("CommandFailure1");
-    PlayerMessage(GetOwner(caller), "$OnlyMedicsReanimate$", caller);
-   }
   }
 
   obj=0;

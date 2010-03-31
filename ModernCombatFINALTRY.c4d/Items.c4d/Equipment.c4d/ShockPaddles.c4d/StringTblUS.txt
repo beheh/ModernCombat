@@ -1,3 +1,2 @@
 NotCharged=Loading {{%i}}!
 MsgReanimation=Soldier %s has been reanimated by %s!
-OnlyMedicsReanimate=Only medics can reanimate!
