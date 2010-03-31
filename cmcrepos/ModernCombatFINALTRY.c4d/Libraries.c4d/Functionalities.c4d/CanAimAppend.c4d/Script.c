@@ -54,7 +54,7 @@ public func DoMouseAiming(int iTx, int iTy)
 		iAngle = BoundBy(iAngle,-this->~AimMax(),+this->~AimMax());
     
     //Henry empfiehlt das nicht, aber gewisse Leute wollen das ja unbedingt. -,-
-    if(!(Contents()->IsRecharging()) && !(Contents()->IsShooting()))
+    if(!(Contents()->~IsRecharging()) && !(Contents()->~IsShooting()))
     {
       var old = crosshair->GetAngle();
       if((Abs(AngleOffset4K(old,iAngle)) < 5)/* || GetEffect("IntMouseAiming",this)*/)
