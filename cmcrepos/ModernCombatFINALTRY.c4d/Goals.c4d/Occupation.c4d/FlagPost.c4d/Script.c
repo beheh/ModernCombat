@@ -1,20 +1,18 @@
-/*-- Flagpole --*/
+/*-- Flaggenposten --*/
 
 #strict
 
-//Timer-Effekt
-public func FxIntFlagpoleTimer(object pTarget)
-{
-  if(!pTarget)
-    return(-1);
-  pTarget->Timer();
-  return(0);
-}
-
-
 local team,process,range,flag,attacker,spawnpoints,trend;
 
+public func GetAttacker()	{return(attacker);}
+public func GetTeam()		{return(team);}
+public func GetProcess()	{return(process);}
+public func GetTrend()		{return(trend);}
+
 public func IsFlagpole(){return(true);}
+
+
+/* Initalisierung */
 
 public func Initialize()
 {
@@ -23,6 +21,15 @@ public func Initialize()
   if(!flag)
     flag = CreateObject(OFLG);
   UpdateFlag();
+}
+
+//Timer-Effekt
+public func FxIntFlagpoleTimer(object pTarget)
+{
+  if(!pTarget)
+    return(-1);
+  pTarget->Timer();
+  return(0);
 }
 
 public func Set(string szName, int iRange, int iSpeed)
@@ -57,11 +64,6 @@ public func GetSpawnPoint(int &iX, int &iY)
   iX = spawnpoints[rnd];
   iY = spawnpoints[rnd+1];
 }
-
-public func GetAttacker(){return(attacker);}
-public func GetTeam(){return(team);}
-public func GetProcess(){return(process);}
-public func GetTrend(){return(trend);}
 
 public func IsAttacked()
 {

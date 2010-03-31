@@ -29,8 +29,8 @@ public func FMData1(int data)
   
   if(data == FM_Slot)               return(1);//Das Gewehr bekommt den Slot 1.
   
-  if(data == FM_SpreadAdd) return(60);
-  if(data == FM_StartSpread) return(50);
+  if(data == FM_SpreadAdd) return(55);
+  if(data == FM_StartSpread) return(40);
 
   return(Default(data));
 }

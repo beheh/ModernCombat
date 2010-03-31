@@ -14,7 +14,8 @@ protected func Initialize()
 
 private func Wind()
 {
-  Sound("FlagWave*.ogg");
+  if(Random(6))
+   Sound("FlagWave*.ogg");
   if(GetAction() S= "Fly")
     SetDir(BoundBy(GetWind() / 15 + 3, 0, 6));
 }

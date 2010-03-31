@@ -1,6 +1,14 @@
-/*-- Spawner --*/
+/*-- Flaggenwähler --*/
 
 #strict
+
+
+/* Initalisierung */
+
+public func Initialize()
+{
+  SetVisibility(VIS_Owner);
+}
 
 global func CreateGOCCSpawner(object pCrew)
 {
@@ -11,11 +19,6 @@ global func CreateGOCCSpawner(object pCrew)
   pCrew->Enter(spawner);
   
   return(true);
-}
-
-public func Initialize()
-{
-  SetVisibility(VIS_Owner);
 }
 
 public func FxIntSpawnCounterStart(object pTarget, int iEffectNumber, int iTemp)
