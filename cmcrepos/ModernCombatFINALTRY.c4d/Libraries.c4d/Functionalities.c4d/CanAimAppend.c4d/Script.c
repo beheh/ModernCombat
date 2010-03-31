@@ -54,12 +54,14 @@ public func DoMouseAiming(int iTx, int iTy)
 		iAngle = BoundBy(iAngle,-this->~AimMax(),+this->~AimMax());
     
     //Henry empfiehlt das nicht, aber gewisse Leute wollen das ja unbedingt. -,-
-    if(!(Contents()->~IsRecharging()) && !(Contents()->~IsShooting()))
-    {
+    //Brauchen wir das wirklich? Macht ja FireAimWeapon schon den Check
+    //So funktioniert jetzt auch das Dauerfeuer-Abbrechen
+    //if(!(Contents()->~IsRecharging()) && !(Contents()->~IsShooting()))
+    //{
       var old = crosshair->GetAngle();
       if((Abs(AngleOffset4K(old,iAngle)) < 5)/* || GetEffect("IntMouseAiming",this)*/)
         this->~FireAimWeapon();
-    }
+    //}
     
     AddEffect("IntMouseAiming",this,10,1,this,0,iAngle);
     
