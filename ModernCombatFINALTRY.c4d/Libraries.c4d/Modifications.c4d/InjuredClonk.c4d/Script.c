@@ -31,15 +31,17 @@ public func Set(object pClonk)
   SetPosition(GetX(pClonk),GetY(pClonk)/*GetObjHeight(pClonk)/2*/);
   SetXDir(GetXDir(pClonk));
   SetYDir(GetYDir(pClonk));
+  
+    //CTF-Flagge entfernen
+  for(var content in FindObjects(Find_ActionTarget(pClonk),Find_ID(FLA2)))
+    if(GetID(content) == FLA2)
+      content->~AttachTargetLost();
 
   //Clonk aufnehmen
   pClonk->Enter(this());
   //Objekte des Clonks aufnehmen
   GrabContents(pClonk);
-  //CTF-Flagge entfernen
-  for(var content in FindObjects(Find_Container(this())))
-    if(GetID(content) == FLA2)
-      Exit(content);
+  
   //Aussehen des Clonks imitieren
   SetGraphics (0,this(),GetID(pClonk),1,GFXOV_MODE_Object,0,0,pClonk);
 
