@@ -1,0 +1,18 @@
+[DefCore]
+id=C4__
+Name=C4 Charge
+Version=4,9,5
+Category=C4D_Object
+Width=9
+Height=4
+Offset=-4,-2
+Value=15
+Mass=10
+Components=GUNP=3;
+Picture=0,4,64,64
+Vertices=2
+VertexX=3,-3
+VertexY=1,1
+VertexFriction=80,80
+Rotate=1
+Float=1

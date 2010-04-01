@@ -1,0 +1,1 @@
+Four times ultimative explosive force. Reacts with a delay to the fuse, proportional to the distance.
