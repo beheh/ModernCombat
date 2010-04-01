@@ -4,9 +4,9 @@
 
 local healpoints;
 
-public func HandSize()   	{return(1000);}
-public func HandX()     	{return(3500);}
-public func HandY()     	{return(0);}
+public func HandSize()   	{return 1000;}
+public func HandX()     	{return 3500;}
+public func HandY()     	{return 0;}
 public func IsDrawable() 	{return true;} 
 
 public func MaxHealPoints()	  {return 150;}
@@ -22,6 +22,8 @@ protected func Initialize()
   AddEffect("FAPRegenerate",this(),251,50,this(),GetID());
   //Gruppenheilung
   AddEffect("FAPGroupheal",this(),252,20,this(),GetID());
+  //Lichteffekt
+  AddEffect("FAPLight",this(),250,2,this(),GetID());
   healpoints = StartHealPoints();
 }
 
@@ -111,9 +113,9 @@ public func ControlThrow(object pClonk)
   //Sanitäter können mit [Werfen] Dragnin entpacken
   if(pClonk->~IsMedic())
   {
-   if(GetHealPoints() >= 30)
+   if(GetHealPoints() >= 40)
    {
-    DoHealPoints(-30);
+    DoHealPoints(-40);
     CreateContents(DGNN,pClonk);
     Sound("FAPK_Dragnin.ogg");
    }
@@ -156,7 +158,7 @@ public func FxFAPHealTimer(pTarget, iEffectNumber, iEffectTime)
   if(!pClonk) return -1;
   
   //Abbruch
-  if((pClonk->GetAction() != "Heal") && (pClonk->GetComDir() != COMD_Stop))
+  if((pClonk->GetAction() != "Heal") || (pClonk->GetComDir() != COMD_Stop))
     return -1;
 
   //Fertig geheilt?
@@ -214,6 +216,17 @@ public func FxFAPRegenerateTimer(pTarget, iEffectNumber, iEffectTime)
    DoHealPoints(1);
 
   return 1;
+}
+
+/* Lämpcheneffekt */
+
+public func FxFAPLightTimer(pTarget, iNo, iTime)
+{
+  if(!Contained())
+    CreateParticle("LightFlash", 1, -3, 0, 0, 5*GetHealPoints()/15, RGBa(20, 60, 255));
+  if(Contents(0,Contained()) == this())
+    if(WildcardMatch(GetAction(Contained()), "*Armed*"))
+      CreateParticle("LightFlash", (GetDir(Contained())*2), -2, 0, 0, 5*GetHealPoints()/10, RGBa(20, 60, 255), this());
 }
 
 /* Gruppenheilung */
