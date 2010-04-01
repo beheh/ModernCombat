@@ -36,9 +36,18 @@ protected func Initialize()
 public func Activate(iPlr)
 {
   var text = "";
-  for(var i = 1; i <= GetTeamCount();i++)
-    text = Format("%s<c %x>%s</c>: %d $Tickets$",text,GetTeamColor(i),GetTeamName(i),GetTickets(i));
-  
+  if(GetWinningTeam() > 0) {
+    if(GetWinningTeam() == GetPlayerTeam(iPlr)) {
+      text = "$MsgGoalFulfilled$";
+    }
+    else {
+      text = "$MsgGoalLost$";
+    }
+  }
+  else {
+    for(var i = 1; i <= GetTeamCount(); i++)
+      text = Format("%s<c %x>%s</c>: %d $Tickets$|",text,GetTeamColor(i),GetTeamName(i),GetTickets(i));
+  }
   return MessageWindow(text,iPlr);
 }
 
@@ -366,31 +375,23 @@ public func SetTickets(int iTeam, int iTickets)
 public func IsFulfilled()
 {
   if(ObjectCount(CHOS)) return false;
-  if(GetTeamCount() == 1) return false;//Sinnlos.
 
-  var alive = [];
+  var iWinningTeam = GetWinningTeam();
 
-  for(var i = 0; i <= GetTeamCount(); i++)
-  {
-    if(GetTeamPlayerCount(i+1))
-      alive[GetLength(alive)] = i+1;
-  }
-  
   //Nur ein Team am Leben? (-> Gewonnen!)
-  if(GetLength(alive) == 1)
+  if(iWinningTeam > 0)
   {
-    EliminateLosers(alive[0]);
-    if(LosersAlive(alive[0]))
+    EliminateLosers(iWinningTeam);
+    if(LosersAlive(iWinningTeam))
       return false;
 
     Evaluation();
-    Message("@<c %x>$WinMsg$</c>",0,GetTeamColor(i),GetTeamName(i));
+    Message("@<c %x>$WinMsg$</c>",0 , GetTeamColor(iWinningTeam), GetTeamName(iWinningTeam));
     Sound("Cheer.ogg",true);
     return true;
   }
-  
   //Draw! D=
-  if(!GetLength(alive))
+  if(iWinningTeam == -1)
   {
     EliminateLosers(0);
     if(LosersAlive(0))
@@ -400,6 +401,26 @@ public func IsFulfilled()
       
     return true;
   }
+}
+
+private func GetWinningTeam() {
+  var alive = [];
+
+  //Alle Teams nach Spielern durchsuchen
+  for(var i = 0; i <= GetTeamCount(); i++)
+  {
+    if(GetTeamPlayerCount(i))
+      alive[GetLength(alive)] = i;
+  }
+  //Lebt nur noch ein Team?
+  if(GetLength(alive) == 1) {
+    return alive[0];
+  }
+  //Keine Gewinner ._.
+  if(GetLength(alive) == 0) {
+    return -1;
+  }
+  return 0;
 }
 
 private func Evaluation()
@@ -417,11 +438,9 @@ private func Evaluation()
 
 private func EliminateLosers(int iTeam)
 {
-  //Log("EliminateLosers(%d)",iTeam);
   for(var i = 0; i < GetPlayerCount() ; i++)
     if(GetPlayerTeam(GetPlayerByIndex(i)) != iTeam)
     {
-      //Log("->%d",GetPlayerTeam(GetPlayerByIndex(i)));
       EliminatePlayer(GetPlayerByIndex(i));
     }
 }
@@ -465,6 +484,13 @@ private func FxTicketLossTimer(object pTarget, int iEffectNumber, int iEffectTim
 /* Respawn */
 private func InitializePlayer(int iPlr, int iX, int iY, object pBase, int iTeam)
 {
+	//Neineinein, kein Rejoin
+  if(!FindObject(CHOS) && !GetTickets(iTeam))
+  {
+    EliminatePlayer(iPlr);
+    return false;
+  }
+
   //Verfeindung setzen
   Hostility(iPlr);
   // Ins Scoreboard eintragen
