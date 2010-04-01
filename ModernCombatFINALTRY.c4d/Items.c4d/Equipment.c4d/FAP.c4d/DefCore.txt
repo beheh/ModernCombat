@@ -4,13 +4,13 @@ Name=FAP
 Version=4,9,5
 Category=3600
 MaxUserSelect=6
-Width=8
-Height=6
+Width=9
+Height=7
 Offset=-3,-3
 Value=25
 Mass=10
 Components=WOOD=4;METL=1;
-Picture=8,0,80,60
+Picture=9,0,80,53
 Vertices=1
 VertexY=1
 VertexFriction=100
