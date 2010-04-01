@@ -45,6 +45,7 @@ protected func Initialize()
 public func Incineration()
 {
   Extinguish();
+  Sound("ClonkBurn*.ogg");
   if(GetAction() eq "Death") return(0);//Fakedeath
   Schedule("DoDmg(5,DMG_Fire,0,1)",1,20,this());
   AddFireEffect(this(),30,FIRE_Red,1);

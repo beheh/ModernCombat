@@ -1,2 +1,0 @@
-AlreadyHealing=Clonk wird bereits behandelt.
-NotWounded=Clonk nicht verwundet.

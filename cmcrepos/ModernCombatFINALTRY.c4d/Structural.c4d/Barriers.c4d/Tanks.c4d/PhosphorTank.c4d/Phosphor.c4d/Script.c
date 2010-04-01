@@ -72,10 +72,49 @@ func BurnObjects()
 
 func HitObject(pObj)
 {
+    if(GetOCF(pObj) & OCF_Living)
+      AddEffect("Phosphored", pObj, 50, 50, this(), GetID());
     DoDmg(3, DMG_Fire, pObj, 1);
     AddFireEffect(pObj,50,FIRE_Red,1);
     //anzündbares anzünden, aber nicht lebewesen.
     if(pObj) //existiert es überhaupt noch?
       if(pObj->GetOCF() & OCF_Inflammable && !(pObj->GetOCF() & OCF_Living))
       Incinerate(pObj);
+}
+
+/* Kleben am Clonk (Hazard) */
+
+protected func Hit()
+{
+  SetAction("Globbing");
+}
+
+/* Klebeeffekt */
+
+public func FxPhosphoredStart(pTarget, iNo, iTemp, pPhosphor)
+{
+  if(iTemp)
+    return(-1);
+  for(var i = 0; i < GetEffectCount("Phosphored", this()); i++)
+    if(EffectVar(0, this(), GetEffect("Phosphored", this(), i)) == this())
+      return(-1);
+  EffectVar(0, pTarget, iNo) = this(); //Der Klumpen
+  SetAction("AGlobbing", pTarget);
+}
+
+public func FxPhosphoredTimer(pTarget, iNo, iTime)
+{
+  if(Inside(iTime,90,100))
+    return(-1);
+    
+  if(Inside(iTime,40,60))
+    AttachTargetLost();
+}
+     
+
+protected func AttachTargetLost()
+{
+  SetAction("Idle");
+  SetXDir(RandomX(-20,20));
+  SetYDir(RandomX(10,-30));
 }
