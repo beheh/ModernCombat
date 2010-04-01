@@ -411,7 +411,12 @@ private func GetWinningTeam() {
   {
     for(var j = 0; j < GetPlayerCount(); j++)
     {
-      if(GetPlayerTeam(GetPlayerByIndex(j)) == i && GetID(Contained(GetCursor(GetPlayerByIndex(j)))) != OSPW) {
+      if(GetPlayerTeam(GetPlayerByIndex(j)) == i) {
+        if(GetID(Contained(GetCursor(GetPlayerByIndex(j)))) == OSPW) {
+          if(!GetTickets(GetPlayerTeam(GetPlayerByIndex(j)))) {
+            continue;
+          }
+        }
         alive[GetLength(alive)] = i;
       }
     }
