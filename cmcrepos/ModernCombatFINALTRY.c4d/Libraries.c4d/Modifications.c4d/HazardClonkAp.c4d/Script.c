@@ -1191,11 +1191,11 @@ private func Control2Contents(string command)
   if(GetAction() S= "Push")
     return(0);
   // Pause Reload: nicht wieder anfangen ey!!!
-  if(command S= "ControlThrow")
+/*  if(command S= "ControlThrow")
   {
     if(WildcardMatch(GetAction(),"Scale*") || GetAction() S= "Hangle")
       return(1);
-  }
+  }*/ //Auskommentiert wegen C4
 	
   //Callback verhindert?
   if(GetEffect("SelectItem",Contents()))
