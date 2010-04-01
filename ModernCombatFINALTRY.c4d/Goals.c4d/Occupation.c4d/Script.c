@@ -409,8 +409,12 @@ private func GetWinningTeam() {
   //Alle Teams nach Spielern durchsuchen
   for(var i = 0; i <= GetTeamCount(); i++)
   {
-    if(GetTeamPlayerCount(i))
-      alive[GetLength(alive)] = i;
+    for(var j = 0; j < GetPlayerCount(); j++)
+    {
+      if(GetPlayerTeam(GetPlayerByIndex(j)) == i && GetID(Contained(GetCursor(GetPlayerByIndex(j)))) != OSPW) {
+        alive[GetLength(alive)] = i;
+      }
+    }
   }
   //Lebt nur noch ein Team?
   if(GetLength(alive) == 1) {
