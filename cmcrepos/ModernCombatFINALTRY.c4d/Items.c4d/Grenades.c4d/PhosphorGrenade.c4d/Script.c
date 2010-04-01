@@ -7,6 +7,7 @@ public func Color()		{return RGB(255,130,0);}
 public func ContainedDamage()	{return 100;}
 public func BlastRadius()	{return 10;}
 
+
 /* Explosion */
 
 public func Fused()

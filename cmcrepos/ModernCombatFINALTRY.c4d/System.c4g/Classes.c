@@ -119,7 +119,7 @@ private func Class5Info(int iData)
   if(iData == CData_Desc)  return("$artillerist_desc$");
   if(iData == CData_Clonk) return(PCMK);
   if(iData == CData_Ammo)  return("50x {{STAM}}30x {{GRAM}}");
-  if(iData == CData_Items) return("1x {{SGST}}     1x {{PSTL}}|1x {{DGNN}}     --|1x {{STUN}}     1x {{SGRN}}");
+  if(iData == CData_Items) return("1x {{SGST}}     1x {{PSTL}}|1x {{DGNN}}     --|1x {{STUN}}     2x {{PGRN}}");
   if(iData == CData_Facet) return(5);
   return(Default(iData));
 }
@@ -133,6 +133,7 @@ private func Class5Setup(int iPlr)
   new->CreateContents(PSTL);
   new->CreateContents(DGNN);
   CreateObject(STUN,0,0,iPlr)->Activate(new);
-  CreateObject(SGRN,0,0,iPlr)->Activate(new);
+  CreateObject(PGRN,0,0,iPlr)->Activate(new);
+  CreateObject(PGRN,0,0,iPlr)->Activate(new);
   return(new);
 }
