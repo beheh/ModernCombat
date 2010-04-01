@@ -34,6 +34,19 @@ FullscreenBG=1
 	OverlayImage=OverlayEndlessOutpost.png
 
 
+	[Scenario]
+	File=OP_IslandStrike.c4s
+	Area=54,323,466,24
+	OverlayImage=OverlayIslandStrike.png
+
+
+	[Scenario]
+	File=OP_AtlanticCrisis.c4s
+	Area=54,353,466,24
+	OverlayImage=OverlayAtlanticCrisis.png
+
+
+
 
 	[Scenario]
 	File=Credits.c4f
