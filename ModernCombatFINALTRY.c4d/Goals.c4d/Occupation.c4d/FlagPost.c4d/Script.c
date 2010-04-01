@@ -93,7 +93,8 @@ protected func Timer()
   {
     if(GetOwner(clonk) == NO_OWNER) continue;
     if(!PathFree4K(GetX(this()),GetY(this())-GetDefHeight(GetID())/2,GetX(clonk),GetY(clonk),4)) continue;
-  
+    if(Contained(pClonk)) continue;
+    
     if(GetPlayerTeam(GetOwner(clonk)) == team)
       friends++;
     else
