@@ -79,7 +79,7 @@ public func IsAttacked()
 
 public func IsCaptured()
 {
-  if((process == 100)&&(team)) return(team);
+  if((process > 0)&&(team)) return(team);
 }
 
 
@@ -89,10 +89,9 @@ protected func Timer()
   
   trend = 0;
 
-  for(clonk in FindObjects(Find_Distance(range),Find_OCF(OCF_Alive)))
+  for(clonk in FindObjects(Find_Distance(range),Find_OCF(OCF_Alive),Find_NoContainer()))
   {
     if(GetOwner(clonk) == NO_OWNER) continue;
-    if(Contained(clonk)) continue;
     if(!PathFree4K(GetX(this()),GetY(this())-GetDefHeight(GetID())/2,GetX(clonk),GetY(clonk),4)) continue;
   
     if(GetPlayerTeam(GetOwner(clonk)) == team)

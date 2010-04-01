@@ -43,6 +43,7 @@ func Hit()
 
 func HitObject(object pObj)
 {
+  if(!Hostile(GetOwner(pObj),GetOwner())) return(false);
   if(Secure())
   {
    if(pObj)
