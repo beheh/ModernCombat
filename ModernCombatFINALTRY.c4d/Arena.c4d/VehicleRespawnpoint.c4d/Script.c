@@ -6,8 +6,9 @@
 global func FxIntVehicleSpawn4KStart(object pTarget, int iEffectNumber, int iTemp)
 {
   if(iTemp) return;
-  EffectVar (0,pTarget,iEffectNumber) = CreateArray();//Spawn-IDs
-  EffectVar (1,pTarget,iEffectNumber) = 0;//aktuelles Fahrzeug
+  EffectVar (0, pTarget, iEffectNumber) = CreateArray(); //Spawn-IDs
+  EffectVar (1, pTarget, iEffectNumber) = 0; //aktuelles Fahrzeug
+  EffectVar (2, pTarget, iEffectNumber) = DIR_Right; //Aktuelle Dir
   return 1;
 }
 
@@ -20,6 +21,7 @@ global func FxIntVehicleSpawn4KTimer(object pTarget, int iEffectNumber, int iEff
   if(!pVehicle)
   {
    pVehicle = CreateContents(RandomIndex4K(aType),pTarget);
+   pVehicle->SetDir(EffectVar (2,pTarget,iEffectNumber));
    if(!pTarget->~Spawn(pVehicle))
     pVehicle->Exit();
   }
@@ -49,18 +51,26 @@ global func FxIntVehicleSpawn4KDelType(object pTarget, int iEffectNumber, id idT
   return 0;
 }
 
+global func FxIntVehicleSpawn4KSetDir(object pTarget, int iEffectNumber, int iDir)
+{
+  EffectVar (2,pTarget,iEffectNumber) = iDir;
+  return 0;
+}
+
 global func FxIntVehicleSpawn4KStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)
 {
   return -1;
 }
 
-global func SetupVehicleSpawn(array aType, object pTarget, int iFrames)
+global func SetupVehicleSpawn(array aType, int iDir, object pTarget, int iFrames)
 {
   if(!pTarget) pTarget = this;
   if(!pTarget) return false;
   if(!iFrames) iFrames = 70;
 
   var effect = AddEffect ("IntVehicleSpawn4K",pTarget,50,iFrames,pTarget); 
+
+  EffectCall (pTarget, effect, "SetDir", iDir);
 
   if(GetLength(aType))
   {
@@ -100,6 +110,18 @@ global func VehicleSpawn_DelType(id idType, object pTarget)
   if(!effect) return false;
 
   EffectCall (pTarget,effect,"DelType", idType);
+  return true;
+}
+
+global func VehicleSpawn_SetDir(int iDir, object pTarget)
+{
+  if(!pTarget) pTarget = this;
+  if(!pTarget) return false;
+
+  var effect = GetEffect ("IntVehicleSpawn4K", pTarget);
+  if(!effect) return false;
+
+  EffectCall (pTarget,effect,"SetDir", iDir);
   return true;
 }
 
