@@ -63,6 +63,9 @@ protected func Activate(caller)
     DoHealPoints(-30);
     Extinguish(caller);
   }
+  
+  //Clonk anhalten
+  SetComDir(COMD_Stop, caller);
 
   //Heilungseffekt auflegen
   AddEffect("FAPHeal",this(),250,2,this(),GetID(),caller);
@@ -222,11 +225,12 @@ public func FxFAPRegenerateTimer(pTarget, iEffectNumber, iEffectTime)
 
 public func FxFAPLightTimer(pTarget, iNo, iTime)
 {
+  if(GetHealPoints() < 10) return 1;
   if(!Contained())
-    CreateParticle("LightFlash", 1, -3, 0, 0, 5*GetHealPoints()/15, RGBa(20, 60, 255));
+    CreateParticle("LightFlash", 1, -3, 0, 0, 5*8, RGBa(BoundBy(InvertA1(255*GetHealPoints()/150,255)+10,0,255), 255*GetHealPoints()/150));
   if(Contents(0,Contained()) == this())
     if(WildcardMatch(GetAction(Contained()), "*Armed*"))
-      CreateParticle("LightFlash", (GetDir(Contained())*2), -2, 0, 0, 5*GetHealPoints()/10, RGBa(20, 60, 255), this());
+      CreateParticle("LightFlash", (GetDir(Contained())*6)-2, -2, 0, 0, 5*8, RGBa(BoundBy(InvertA1(255*GetHealPoints()/150,255)+10,0,255), 255*GetHealPoints()/150));
 }
 
 /* Gruppenheilung */

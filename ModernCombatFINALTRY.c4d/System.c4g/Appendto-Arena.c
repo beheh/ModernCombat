@@ -14,7 +14,8 @@ protected func Timer()
                                                          Find_Or(Find_Func("IsWeapon"),
                                                                  Find_Func("IsEquipment"),
                                                                  Find_Func("IsUpgrade")),
-                                                         Find_Not(Find_Func("IsMine"),Find_Func("NoArenaRemove"))))
+                                                         Find_Not(Find_Func("IsMine")),
+                                                         Find_Not(Find_Func("NoArenaRemove"))))
     AddEffect("Arena_Remove", pObj, 1, 170, this());
   //Spezialsuche: Drohnen
   for(pObj in FindObjects(Find_ID(DRSU), Find_NoContainer()))
