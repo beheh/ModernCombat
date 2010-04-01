@@ -16,21 +16,22 @@ public func Fused()
   for(var obj in FindObjects(Find_OCF(OCF_CrewMember),Find_Distance(200)))
   {
     var intensity = ((200-ObjectDistance(this,obj))*470/200)/2;
-    
+
     if(obj->~IsClonk())
     {
       if(!PathFree(GetX(),GetY(),GetX(obj),GetY(obj)-8))//Speziell für Clonkaugen. >,<
         continue;
 
-      if(((GetDir(obj) == DIR_Left) && (GetX(obj) < GetX())) ||
-         ((GetDir(obj) == DIR_Right) && (GetX(obj) > GetX())))
+      if(((GetDir(obj) == DIR_Left) && (GetX() < GetX(obj))) || ((GetDir(obj) == DIR_Right) && (GetX(obj) > GetX(obj))))
       {
+        Log("Looking in");
         intensity = Max(intensity,255);
       }
     }
     else
+    {
       if(!PathFree(GetX(),GetY(),GetX(obj),GetY(obj))) continue;
-
+    }
     AddEffect("IntFlashbang",obj,10,1,0,GetID(), intensity); 
   }
 
