@@ -381,13 +381,6 @@ public func ChooserFinished()
 {
   inherited();
 
-  //CTF-Spielziel
-  if(FindObject(GCTF))
-  {
-   CreateFlag(1,85,390,GetTeamColor(1)); 
-   CreateFlag(2,2715,390,GetTeamColor(2)); 
-  }
-
   //OP-Spielziel
   if(FindObject(GOCC))
   {
@@ -408,6 +401,38 @@ public func ChooserFinished()
     aFlag[4]->Set("$Flag5$",100,2);
     aFlag[4]->Capture(2);
   }
+
+  //CTF-Spielziel
+  if(FindObject(GCTF))
+  {
+   CreateFlag(1,790,450,GetTeamColor(1));
+   CreateFlag(2,2010,450,GetTeamColor(2));
+
+   //Grenzen
+   CreateObject(BRDR, 440, 0, -1)->Set(0);
+   CreateObject(BRDR, 2360, 0, -1)->Set(1);
+
+   //Warnschilder
+   CreateObject(SGNP, 410, 290, -1);
+   CreateObject(SGNP, 460, 450, -1);
+   CreateObject(SGNP, 2340, 450, -1);
+   CreateObject(SGNP, 2385, 290, -1);
+  }
+
+  //DM/LMS-Spielziel
+  if(FindObject(GTDM)) || FindObject(GLMS))
+  {
+   //Grenzen
+   CreateObject(BRDR, 790, 0, -1)->Set(0);
+   CreateObject(BRDR, 2010, 0, -1)->Set(1);
+
+   //Warnschilder
+   CreateObject(SGNP, 720, 390, -1);
+   CreateObject(SGNP, 720, 450, -1);
+
+   CreateObject(SGNP, 2080, 390, -1);
+   CreateObject(SGNP, 2080, 450, -1);
+  }
 }
 
 /* Relaunch */
@@ -419,16 +444,38 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   {
    iX = 1400; iY = 300;
   }
-  if(iTeam == 1)
+
+  //CTF-Spielziel
+  if(FindObject(GCTF))
   {
-    iX = 85;
-    iY = 210;
-    if(!Random(2)) iX = 145;
+   if(iTeam == 1)
+   {
+    iX = 560;
+    iY = 310;
+    if(!Random(2)) iY = 380;
+   }
+   if(iTeam == 2)
+   {
+    iX = 2240;
+    iY = 310;
+    if(!Random(2)) iY = 380;
+   }
   }
-  if(iTeam == 2)
+
+  //DM/LMS-Spielziel
+  if(FindObject(GTDM)) || FindObject(GLMS))
   {
-    iX = 2705;
-    iY = 210;
-    if(!Random(2)) iX = 2625;
+   if(iTeam == 1)
+   {
+    iX = 940;
+    iY = 250;
+    if(!Random(2)) iY = 410;
+   }
+   if(iTeam == 2)
+   {
+    iX = 1860;
+    iY = 250;
+    if(!Random(2)) iY = 400;
+   }
   }
 }

@@ -1,2 +1,7 @@
 CreatingFurniture=Creating furniture...
 CreatingEquipment=Placing equipment...
+
+Team1=Alpha
+Team2=Beta
+Team3=Gamma
+Team4=Delta
