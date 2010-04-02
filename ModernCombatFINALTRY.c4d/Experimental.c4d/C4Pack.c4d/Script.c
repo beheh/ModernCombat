@@ -2,7 +2,7 @@
 
 #strict 2
 
-local amount;
+local amount, max;
 
 public func HandSize()   	{return 1000;}
 public func HandX()     	{return 3500;}
@@ -13,19 +13,18 @@ public func IsEquipment()	{return true;}
 protected func Initialize()
 {
   amount = 4;
+  max = 4;
 }
 
 /* Benutzung */
 public func ControlThrow(object pByObj)
 {
-  Log("Controlled1");
   if(GetPlrDownDouble(GetOwner(pByObj)))
     return _inherited(...);
-  Log("Controlled2");
   
   if(amount <= 0)
   {
-    Sound("GrenadeThrow*.ogg"); //Sound für Päckchen alle?
+    //Sound für Päckchen alle?
     return true;
   }
   
@@ -33,12 +32,12 @@ public func ControlThrow(object pByObj)
   x = (GetDir(pByObj)*8)-8;
   y = -9;
   
-  var c4 = CreateObject(C4__, x, y, GetOwner(pByObj));
+  var c4 = CreateObject(C4EX, x, y, GetOwner(pByObj));
   amount--;
   
   if(WildcardMatch(GetAction(pByObj), "Scale*") && GetAction(pByObj) != "ScaleLadder")
   {
-    c4->SetR((GetDir(pByObj)*180)-90);
+    c4->SetR((GetDir(pByObj)*-180)+90);
     c4->SetPosition(GetX(pByObj)+(GetDir(pByObj)*12)-6,GetY(pByObj));
     c4->SetActive(this());
     return true;
@@ -58,6 +57,17 @@ public func ControlThrow(object pByObj)
     c4->SetXDir((GetDir(pByObj)*80)-40);
     c4->SetYDir(-25);
     c4->SetActive(this());
+    Sound("GrenadeThrow*.ogg");
+    return true;
+  }
+  
+  if(WildcardMatch(GetAction(pByObj), "Jump*"))
+  {
+    c4->SetRDir(RandomX(-20,20));
+    c4->SetXDir((GetDir(pByObj)*80)-40);
+    c4->SetYDir(-25);
+    c4->SetActive(this());
+    Sound("GrenadeThrow*.ogg");
     return true;
   }
   
@@ -67,22 +77,32 @@ public func ControlThrow(object pByObj)
     c4->SetActive(this());
     return true;
   }
+  
+  if(GetAction(pByObj) == "Swim")
+  {
+    c4->SetPosition(GetX(pByObj),GetY(pByObj)+5);
+    c4->SetXDir((GetDir(pByObj)*60)-30);
+    c4->SetYDir(10);
+    c4->SetActive(this());
+    Sound("GrenadeThrow*.ogg");
+    return true;
+  }
+  
+  //Falls keine passende Aktion
+  RemoveObject(c4);
+  amount++;
 }
 
 /* Aktivierung */
 public func Activate()
 {
-  var packets = 0;
-  for(var c4 in FindObjects(Find_ID(C4__), Find_Func("GetPacket", this)))
-  {
+  for(var c4 in FindObjects(Find_ID(C4EX), Find_Func("GetPacket", this)))
     ScheduleCall(c4, "Trigger", ObjectDistance(c4)/10);
-    packets++;
-  }
    
   //Effekte
   SetPicture(10,5,39,64);
   Schedule("SetPicture(64,6,64,64)", 25);
-  if(packets == 0 && amount <= 0)
+  if(amount <= 0)
     Schedule("RemoveObject()", 25);
   //Sound(...)  Drücken des Knopfes oder so
 }
@@ -91,10 +111,16 @@ public func Activate()
 func CustomHUD() {return true;}
 func UpdateHUD(object pHUD)
 {
-  pHUD->Charge(amount,4);
-  pHUD->Ammo(amount, 4, GetName(), true);
+  pHUD->Charge(amount, max);
+  pHUD->Ammo(amount, max, GetName(), true);
 }
 
 /* Methoden */
-public func DoPackAmount(int iAmount) { return amount += iAmount; }
+public func DoPackAmount(int iAmount)
+{ 
+  if((amount += iAmount) > max)
+    max = amount;
+  return amount;
+}
+
 public func GetPackAmount() { return amount; }
