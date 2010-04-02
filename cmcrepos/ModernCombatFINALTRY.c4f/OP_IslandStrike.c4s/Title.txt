@@ -1,0 +1,2 @@
+DE:OP - <c ff0000>Island Strike</c>
+US:OP - <c ff0000>Island Strike</c>
