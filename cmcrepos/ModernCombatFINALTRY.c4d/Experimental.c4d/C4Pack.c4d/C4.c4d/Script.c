@@ -27,10 +27,10 @@ public func SetActive(object pCaller)
   if(!GetXDir() && !GetYDir())
     SetClrModulation(RGBa(255,255,255,100));
   else
-    AddEffect("Check", this(), 200, 1, this(), C4__);
+    AddEffect("Check", this(), 200, 1, this(), C4EX);
   
   //Effekte
-  Sound("Bip"); //Vielleicht eigenen C4 Aktivierungssound?
+  Sound("Bip"); //Deploysound
   CreateParticle("PSpark",0,0,0,0,60,RGBa(255,0,0,0),this());
 }
 
@@ -46,23 +46,44 @@ public func FxCheckTimer(pTarget, iNo, iTime)
     return;
   
   var obj;
-  if(obj = FindObject2(Find_AtPoint(GetX(pTarget),GetY(pTarget)), Find_Func("IsBulletTarget", GetID()), Find_NoContainer()))
+  if(obj = FindObject2(Find_AtPoint(), Find_Func("IsBulletTarget", GetID()), Find_NoContainer(),Find_Not(Find_OCF(OCF_Alive))))
+  {
+    Sound("LineConnect"); //Attachsound?
+    SetRDir(0);
     SetAction("Attaching", obj);
+    
+    //Nahesten Vertex finden (Oh shit. Wenn das funktioniert mach ich Partey hier! :D)
+    var nearest = [0,0,500], dist;
+    for(var i = 0; i < GetVertexNum(obj); i++)
+      for(var j = 0; j < GetVertexNum(pTarget); j++)
+        if(dist = Distance(GetX(obj)+GetVertex(i,0,obj),GetY(obj)+GetVertex(i,1,obj),
+                    GetX(pTarget)+GetVertex(0,0,pTarget),GetY(pTarget)+GetVertex(0,1,pTarget))
+                    < nearest[2])
+        {
+          nearest[0] = i;
+          nearest[1] = j;
+          nearest[2] = dist;
+        }
+    SetActionData(256*nearest[j] + nearest[i], pTarget);
+  }
 }
 
 public func Trigger()
 {
-  Sound("Bip"); //Eigener C4 Zündsound
+  Sound("Bip"); //Zündsound
   
   CreateParticle("PSpark",0,0,0,0,60,RGBa(255,0,0,0),this());
-  ScheduleCall(0, "BlowUp", 5);
+  ScheduleCall(0, "BlowUp", 10);
 }
 
 public func BlastRadius() { return 50; }
 
 public func BlowUp()
 {
-  //Sound(...)   Eigener Blastsound
+  if(GBackLiquid())
+    Sound("Lol.ogg");//Wasserexplosionssound
+  else
+    Sound("Lol.ogg");//Normaler Explosionssound
   
   //Effekte vielleicht Umgestaltung?
   var helper = CreateObject(TIM1,0,0,-1);
@@ -78,8 +99,8 @@ public func BlowUp()
 
 public func OnDmg(int iDamage, int iType)
 {
-  if((iType == DMG_Fire || iType == DMG_Explosion) && iDamage > 15)
-    BlowUp();
+  if(iType == DMG_Fire || iType == DMG_Explosion)
+    Trigger();
 }
 
 func Incineration()
@@ -97,7 +118,7 @@ public func FxIntShockWaveStart(object pTarget, int iEffectNumber, int iTemp)
 
 public func FxIntShockWaveTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
-  pTarget->CreateParticle("ShockWave",0,0,0,0,iEffectTime*(10*(C4__->BlastRadius()*3/2))/5,RGB(255,255,128));
+  pTarget->CreateParticle("ShockWave",0,0,0,0,iEffectTime*(10*(C4EX->BlastRadius()*3/2))/5,RGB(255,255,128));
   if(iEffectTime >= 5) return -1;
 }
 

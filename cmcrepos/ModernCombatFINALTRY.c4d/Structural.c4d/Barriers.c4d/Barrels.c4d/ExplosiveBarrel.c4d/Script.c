@@ -27,10 +27,15 @@ func IncinerationEx(int iPlr)
 
 func Damage(int iChange, int iPlr)
 {
+  if(!this()) //Falls selber nicht mehr da :S
+    return;
   if(GetDamage() > 1)
    Incinerate();
-  if(GetDamage() < 20) return ;
-   InstaExplode(iPlr);
+  
+  if(!this()) //Einfach mal doppelgemoppelt
+    return;
+  if(GetDamage() < 20) return;
+  InstaExplode(iPlr);
 }
 
 func InstaExplode(int iPlr)

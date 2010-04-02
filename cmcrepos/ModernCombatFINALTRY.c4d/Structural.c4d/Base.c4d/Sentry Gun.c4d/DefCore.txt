@@ -16,3 +16,4 @@ Value=90
 Mass=170
 Components=METL=6
 Picture=0,24,64,59
+Rotate=1
