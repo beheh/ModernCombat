@@ -1,6 +1,6 @@
 [DefCore]
-id=NOSC
-Name=No Suicide
+id=SICD
+Name=Suicide
 Version=4,9,5
 Category=524289
 MaxUserSelect=1
@@ -10,4 +10,3 @@ Offset=0,0
 Value=10
 Mass=0
 Picture=0,0,64,64
- 

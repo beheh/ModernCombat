@@ -1,4 +1,4 @@
-/*-- Kein Selbstmord --*/
+/*-- Selbstmord --*/
 
 #strict
 
