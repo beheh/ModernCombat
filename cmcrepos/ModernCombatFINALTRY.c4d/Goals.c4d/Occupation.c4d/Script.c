@@ -405,6 +405,7 @@ public func IsFulfilled()
 
 private func GetWinningTeam() {
   var alive = [];
+  var add, id;
 
   //Alle Teams nach Spielern durchsuchen
   for(var i = 0; i <= GetTeamCount(); i++)
@@ -412,12 +413,23 @@ private func GetWinningTeam() {
     for(var j = 0; j < GetPlayerCount(); j++)
     {
       if(GetPlayerTeam(GetPlayerByIndex(j)) == i) {
-        if(GetID(Contained(GetCursor(GetPlayerByIndex(j)))) == OSPW) {
-          if(!GetTickets(GetPlayerTeam(GetPlayerByIndex(j)))) {
-            continue;
+        for(var pPole in FindObjects(Find_ID(OFPL))) {
+          add = false;
+          if(pPole->GetTeam() == i) {
+            add = true;
+            break;
           }
         }
-        alive[GetLength(alive)] = i;
+        if(!Contained(GetCursor(GetPlayerByIndex(j)))) {
+          add = true;
+        }
+        else {
+          id = GetID(Contained(GetCursor(GetPlayerByIndex(j))));
+          if(id != OSPW && id != TIM1) {
+            add = true;
+          }
+        }
+        if(add) alive[GetLength(alive)] = i;
       }
     }
   }
@@ -566,7 +578,7 @@ private func RelaunchPlayer(int iPlr, object pCrew, int iMurdererPlr, int iTeam,
     SortTeamScoreboard();
     Money(iPlr, pCrew, iMurdererPlr);
     
-    if(!GetTickets(iTeam))
+    if(!GetTickets(iTeam) || (GetWinningTeam() > 0 && GetWinningTeam() != iTeam))
     {
       EliminatePlayer(iPlr);
       UpdateScoreboard(iTeam);
