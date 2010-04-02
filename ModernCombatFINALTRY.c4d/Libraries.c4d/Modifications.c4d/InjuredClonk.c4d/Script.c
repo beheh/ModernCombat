@@ -79,7 +79,7 @@ private func DeathMenu()
 
   //Menü erstellen
   CreateMenu (FKDT, clonk, this(), 0, Format("$Title$"), C4MN_Style_Dialog, true);//Titelzeile
-  if(!FindObject(NOSC))
+  if(FindObject(SICD))
    AddMenuItem("$Suicide$", "Suicide", ICN2, clonk, 0, 0, "$SuicideDesc$");//Selbstmord
   //if(mediccalls)
   // AddMenuItem("$CallMedic$", "MedicCall", ICN3, clonk);//Nach Sanitäter rufen
