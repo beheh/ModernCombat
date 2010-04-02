@@ -181,7 +181,7 @@ public func SelectFlagpole(object pObject)
   var crew = Contents();
   if(!crew) return();
   
-  if((pObject->GetTeam() != GetPlayerTeam(GetOwner(crew))) || (pObject->GetProcess() < 100))
+  if((pObject->GetTeam() != GetPlayerTeam(GetOwner(crew))) || (pObject->GetProcess() < 1))
   {
     SetPlrViewRange(0,crew);
     return(Sound("Error",false,crew,100,GetOwner(crew)+1));
