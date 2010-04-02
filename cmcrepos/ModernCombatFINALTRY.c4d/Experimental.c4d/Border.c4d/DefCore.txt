@@ -8,3 +8,4 @@ Height=1
 Offset=0,0
 Timer=10
 TimerCall=Check
+Picture=0,0,64,64
