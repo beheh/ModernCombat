@@ -1,2 +1,0 @@
-DE:C4 Sprengstoff
-US:C4 Explosives
