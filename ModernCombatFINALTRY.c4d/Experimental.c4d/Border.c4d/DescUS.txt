@@ -1,0 +1,1 @@
+Player who trespass this border will get eliminated in a few seconds and therefore can't leave the playing field.

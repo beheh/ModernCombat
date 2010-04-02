@@ -1,1 +1,1 @@
-OutOfBorders=Sie befinden sich außerhalb des Schlachtfeldes!|Eliminierung in <c ff0000>%d</c> Sekunden.
+Warning=Bist du irgendwie lebensmüde? Das ist feindliches Scharfschützengebiet!|Zieh dich zurück oder du bist Toast!|<c ff0000>%d</c>
