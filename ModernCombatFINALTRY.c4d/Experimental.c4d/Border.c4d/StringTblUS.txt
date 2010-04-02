@@ -1,1 +1,1 @@
-Warning=Do you have a death wish? This is enemy sniper area!|Retreat immediately or your toast!|<c ff0000>%d</c>
+Warning=Warning, you are leaving the battlefield!|Retreat now or you will be eliminated!|<c ff0000>%d</c>
