@@ -29,8 +29,8 @@ public func SetActive(object pCaller)
   
   if(!GetXDir() && !GetYDir())
     SetClrModulation(RGBa(255,255,255,100));
-  else
-    AddEffect("Check", this(), 200, 1, this(), C4EX);
+//else
+  //AddEffect("Check", this(), 200, 1, this(), C4EX);
   
   //Effekte
   Sound("C4PA_Ignition.ogg");
@@ -38,7 +38,7 @@ public func SetActive(object pCaller)
 }
 
 /* Prüfungseffekt */
-
+/*
 public func FxCheckStart(pTarget, iNo, iTemp)
 {
   if(iTemp)
@@ -47,32 +47,25 @@ public func FxCheckStart(pTarget, iNo, iTemp)
 
 public func FxCheckTimer(pTarget, iNo, iTime)
 {
-  if(!GetXDir(pTarget) && !GetYDir(pTarget))
-    return;
-  
   var obj;
   if(obj = FindObject2(Find_AtPoint(), Find_Func("IsBulletTarget", GetID()), Find_NoContainer(),Find_Not(Find_OCF(OCF_Alive))))
   {
-   Sound("C4EX_Attach.ogg");
-   SetRDir(0);
-   SetAction("Attaching", obj);
-
-   //Nahesten Vertex finden
-   var nearest = [0,0,500], dist;
-   for(var i = 0; i < GetVertexNum(obj); i++)
-    for(var j = 0; j < GetVertexNum(pTarget); j++)
-      if(dist = Distance(GetX(obj)+GetVertex(i,0,obj),GetY(obj)+GetVertex(i,1,obj),
-                 GetX(pTarget)+GetVertex(0,0,pTarget),GetY(pTarget)+GetVertex(0,1,pTarget))
-                 < nearest[2])
-        {
-         nearest[0] = i;
-         nearest[1] = j;
-         nearest[2] = dist;
-        }
-    SetActionData(256*nearest[j] + nearest[i], pTarget);
+   if(GetAction()!="Attaching")
+   {
+     Sound("C4EX_Attach.ogg");
+     SetRDir(0);
+     SetAction("Attaching");
+   }
+   SetPosition((AbsX()*-1)+GetXDir(obj),(AbsY()*-1)+GetYDir(obj));
   }
+  else
+    if(GetAction()!="Idle")
+    {
+      SetRDir(RandomX(-20,20));
+      SetAction("Idle");
+    }
 }
-
+*/
 /* Zündung */
 
 public func Trigger()
@@ -100,12 +93,20 @@ public func BlowUp()
   
   //Extraschaden für Strukturen
   for(var obj in FindObjects(Find_Distance(50), Find_Category(C4D_Structure | C4D_Vehicle)))
-   DoDmg(BoundBy(InvertA1(ObjectDistance(obj), 60),0,60), DMG_Explosion, obj, 0, GetOwner());
+   DoDmg(BoundBy(InvertA1(ObjectDistance(obj), 100),0,60), DMG_Explosion, obj, 0, GetOwner());
 
   Explode(BlastRadius());
+  RemoveObject();
 }
 
 /* Außeneinwirkung */
+
+public func IsBulletTarget(ID)
+{
+  if(ID == C4EX)
+    return false;
+  return true;
+}
 
 public func OnDmg(int iDamage, int iType)
 {
