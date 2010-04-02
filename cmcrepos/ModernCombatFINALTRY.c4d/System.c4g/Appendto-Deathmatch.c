@@ -1,7 +1,10 @@
-/*-- Deathmatch: Minuspunkte bei Self- oder Teamkill --*/
+/*-- Deathmatch --*/
+
+//Das Eliminieren von Teammitgliedern oder sich selbst zieht einen Punkt ab.
 
 #strict 2
 #appendto GTDM
+
 
 public func RelaunchPlayer(int iPlr, object pClonk, int iMurdererPlr)
 {
