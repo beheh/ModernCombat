@@ -16,8 +16,8 @@ public func GetPackAmount()	{return amount;}
 
 protected func Initialize()
 {
-  amount = 4;
-  max = 4;
+  amount = 3;
+  max = 3;
 }
 
 /* Benutzung */
@@ -41,7 +41,7 @@ public func ControlThrow(object pByObj)
   var c4 = CreateObject(C4EX, x, y, GetOwner(pByObj));
   amount--;
 
-  //An Leiter
+  //Beim Klettern (aber _nicht_ Leiter)
   if(WildcardMatch(GetAction(pByObj), "Scale*") && GetAction(pByObj) != "ScaleLadder")
   {
    c4->SetR((GetDir(pByObj)*-180)+90);
@@ -63,8 +63,8 @@ public func ControlThrow(object pByObj)
   if(WildcardMatch(GetAction(pByObj), "Walk*"))
   {
    c4->SetRDir(RandomX(-20,20));
-   c4->SetXDir((GetDir(pByObj)*80)-40);
-   c4->SetYDir(-25);
+   c4->SetXDir((GetDir(pByObj)*30)-15);
+   c4->SetYDir(-15);
    c4->SetActive(this());
    Sound("GrenadeThrow*.ogg");
    return true;
@@ -74,8 +74,8 @@ public func ControlThrow(object pByObj)
   if(WildcardMatch(GetAction(pByObj), "Jump*"))
   {
    c4->SetRDir(RandomX(-20,20));
-   c4->SetXDir((GetDir(pByObj)*80)-40);
-   c4->SetYDir(-25);
+   c4->SetXDir((GetDir(pByObj)*30)-15);
+   c4->SetYDir(-15);
    c4->SetActive(this());
    Sound("GrenadeThrow*.ogg");
    return true;
@@ -93,7 +93,7 @@ public func ControlThrow(object pByObj)
   if(GetAction(pByObj) == "Swim")
   {
    c4->SetPosition(GetX(pByObj),GetY(pByObj)+5);
-   c4->SetXDir((GetDir(pByObj)*60)-30);
+   c4->SetXDir((GetDir(pByObj)*60)-10);
    c4->SetYDir(10);
    c4->SetActive(this());
    Sound("GrenadeThrow*.ogg");
