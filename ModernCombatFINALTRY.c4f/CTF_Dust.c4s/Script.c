@@ -3,12 +3,15 @@
 #strict
 #include CSTD
 
+static aFlag;
+
 
 /* Regelvoreinstellung */
 
 func ChooserRuleConfig()
 {
-  return [NOFF,WPST,NODR];
+  //Standardregelsatz: Kein FriendlyFire, Waffen bleiben, Arena, Klassenwahl
+  return [NOFF,WPST,NODR,MCSL];
 }
 
 /* Initalisierung */
@@ -20,6 +23,8 @@ func Initialize()
   Music("CMC_Odyssey.ogg");
   //Lichteinstellung
   SetGamma(RGB(3,1,0),RGB(95,83,68),RGB(213,212,187));
+  //Flaggen
+  aFlag = [];
   //Szenario einrichten
   CreateFurniture();
   //Ausrüstung plazieren
@@ -175,24 +180,42 @@ func CreateEquipment()
 
 public func RelaunchPosition(& iX, & iY, int iTeam)
 {
+  //OP-Spielziel
+  if(FindObject(GOCC))
+  {
+   iX = 875; iY = 565;
+  }
   //CTF-Spielziel
   if(FindObject(GCTF))
   {
    var rand = Random(2);
-
    if(iTeam == 1)
    {
     if(!rand)
-     { iX = 370; iY = 350; }
+     { iX = 305; iY = 535; }
     if(!--rand)
-     { iX = 400; iY = 210; }
+     { iX = 335; iY = 535; }
    }
-   else
+   if(iTeam == 2)
    {
     if(!rand)
-     { iX = 1395; iY = 630; }
+     { iX = 1380; iY = 405; }
     if(!--rand)
-     { iX = 1395; iY = 710; }
+     { iX = 1410; iY = 405; }
+   }
+   if(iTeam == 3)
+   {
+    if(!rand)
+     { iX = 1220; iY = 780; }
+    if(!--rand)
+     { iX = 1275; iY = 810; }
+   }
+   if(iTeam == 4)
+   {
+    if(!rand)
+     { iX = 480; iY = 285; }
+    if(!--rand)
+     { iX = 580; iY = 285; }
    }
   }
   else
@@ -212,14 +235,79 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
 
 /* Regelwähler */
 
-public func ChooserFinished()
+public func ChooserFinished(int iTeam)
 {
   inherited();
 
+  //OP-Spielziel
+  if(FindObject(GOCC))
+  {
+   aFlag[0] = CreateObject(OFPL,140,680,NO_OWNER);
+   if(iTeam == 1)
+   {
+    aFlag[0]->Set("$Flag1$",100,2);
+    aFlag[0]->Capture(1);
+   }
+   else
+   {
+    aFlag[0]->Set("$Flag1$",0,2);
+   }
+
+   aFlag[1] = CreateObject(OFPL,145,320,NO_OWNER);
+   if(iTeam == 4)
+   {
+    aFlag[1]->Set("$Flag2$",100,2);
+    aFlag[1]->Capture(4);
+   }
+   else
+   {
+    aFlag[1]->Set("$Flag2$",0,2);
+   }
+
+   aFlag[2] = CreateObject(OFPL,630,560,NO_OWNER);
+    aFlag[2]->Set("$Flag3$",0,2);
+
+   aFlag[3] = CreateObject(OFPL,1005,700,NO_OWNER);
+    aFlag[3]->Set("$Flag4$",0,2);
+
+   aFlag[4] = CreateObject(OFPL,1495,730,NO_OWNER);
+   if(iTeam == 3)
+   {
+    aFlag[4]->Set("$Flag5$",100,2);
+    aFlag[4]->Capture(3);
+   }
+   else
+   {
+    aFlag[4]->Set("$Flag5$",0,2);
+   }
+
+   aFlag[5] = CreateObject(OFPL,1705,400,NO_OWNER);
+   if(iTeam == 2)
+   {
+    aFlag[5]->Set("$Flag6$",100,2);
+    aFlag[5]->Capture(2);
+   }
+   else
+   {
+    aFlag[5]->Set("$Flag6$",0,2);
+   }
+  }
+}
+
+/* CTF */
+
+protected func InitTeamFlag(int iTeam)
+{
   //CTF-Spielziel
   if(FindObject(GCTF))
   {
-   CreateFlag(1,130,680,GetTeamColor(1)); 
-   CreateFlag(2,1720,400,GetTeamColor(2)); 
+   if(iTeam == 1)
+   {CreateFlag(1,130,680,GetTeamColor(1));}
+   if(iTeam == 2)
+   {CreateFlag(2,1720,400,GetTeamColor(2));}
+   if(iTeam == 3)
+   {CreateFlag(3,1500,730,GetTeamColor(3));}
+   if(iTeam == 4)
+   {CreateFlag(4,145,320,GetTeamColor(4));}
   }
 }
