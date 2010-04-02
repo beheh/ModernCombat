@@ -16,10 +16,10 @@ FacetBase=1
 NextAction=Hold
 
 [Action]
-Name=Closeing
+Name=Closing
 Procedure=FLOAT
 Length=1
 Delay=1
 FacetBase=1
-NextAction=Closeing
-EndCall=Closeing
+NextAction=Closing
+EndCall=Closing

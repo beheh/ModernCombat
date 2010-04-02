@@ -191,18 +191,19 @@ public func CycleSA(int fm)
 
 private func CycleFM(int iDir)
 {
-  var safe = 10;
   var fm = firemode;
-  while(safe--)
-  {
-    if(GetFMData(FM_Name,fm))
-      fm += iDir;
-    else
+  fm = fm + iDir % GetFMCount();
+  
+  if(!GetFMData(FM_Name,fm) || !fm) {
+    if(iDir < 0) {
+      fm = GetFMCount();
+    }
+    else {
       fm = 1;
-      
-    if(GetFMData(FM_Condition,fm))
-      break;
+    }
   }
+  
+  Log("%d", fm);
     
   SetFireMode(fm);
   if(GetSpeedMenu())
@@ -397,7 +398,7 @@ public func GetFMCount()
   var i = 1;
   while(GetFMData(FM_Name,i))
     i++;
-  return(i);
+  return(i-1);
 }
 
 public func GetFTCount(int iFM)

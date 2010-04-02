@@ -123,13 +123,13 @@ public func AddLeftItem(string szTitle, string szFunc, Parameter, id idIcon)
 public func CloseDown()
 {
   Sound("RMEN_Close",true,0,0,GetOwner()+1); 
-  SetAction("Closeing");
+  SetAction("Closing");
   return 1;
 }
 
 public func NoClose()
 {
-  if(GetAction() != "Closeing") return;
+  if(GetAction() != "Closing") return;
   SetAction("Opening");
 }
 
@@ -179,7 +179,7 @@ protected func CrewSelection(bool fDeselect, bool fCursor)
   {
     SetViewCursor(GetOwner());// ViewCursor zurücksetzen
     Sound("RMEN_Close");
-    SetAction("Closeing");
+    SetAction("Closing");
   }
   return 1;
 }
@@ -304,7 +304,7 @@ protected func ControlSpecial2()      { return CloseDown(); }
 
 private func ActivateItem(int iItem)
 {
-  if(GetAction() == "Closeing") return 1;
+  if(GetAction() == "Closing") return 1;
   
   if(aItemFunc[iItem])
     pCallbackObject->Call(aItemFunc[iItem],aItemPar[iItem]);
@@ -325,7 +325,7 @@ protected func Opening()
     SetAction("Open");
 }
 
-protected func Closeing()
+protected func Closing()
 {
   ScaleItems((GetDefWidth()/2)-(GetActTime()*(GetDefWidth()/2)/RMEN_Animation));
 
