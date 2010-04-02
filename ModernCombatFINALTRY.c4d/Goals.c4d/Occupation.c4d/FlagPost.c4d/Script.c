@@ -2,12 +2,13 @@
 
 #strict
 
-local team,process,range,flag,attacker,spawnpoints,trend;
+local team,process,range,flag,attacker,spawnpoints,trend,capt;
 
 public func GetAttacker()	{return(attacker);}
 public func GetTeam()		{return(team);}
 public func GetProcess()	{return(process);}
 public func GetTrend()		{return(trend);}
+public func IsFullyCaptured() {return(capt);}
 
 public func IsFlagpole(){return(true);}
 
@@ -77,11 +78,10 @@ public func IsAttacked()
   return(false);
 }
 
-public func IsCaptured()
+public func IsCaptured(bool pBool)
 {
-  if((process > 0)&&(team)) return(team);
+  capt = pBool;
 }
-
 
 protected func Timer()
 {
@@ -118,6 +118,7 @@ public func Capture(int iTeam)
   team = iTeam;
   process = 100;
   attacker = 0;
+  capt = true;
   EventInfo4K(0,Format("$MsgCaptured$",GetTeamName(iTeam),GetName()),OFLG,GetTeamColor(iTeam));
   Sound("Trumpet");
   GameCall("PointCaptured",this(),team);//Broadcasten.
@@ -134,6 +135,7 @@ protected func Capturing(int iTeam)
 protected func Recaptured()
 {
   attacker = 0;
+  capt = true;
   EventInfo4K(0,Format("$MsgRecaptured$",GetTeamName(team),GetName()),OFLG,GetTeamColor(team));
 }
 
@@ -148,6 +150,7 @@ public func NoTeam()
   team = 0;
   process = 0;
   attacker = 0;
+  capt = false;
   UpdateFlag();
 }
 
@@ -212,6 +215,7 @@ public func DoProcess(int iTeam, int iAmount)
   if((process <= 0) && (old > 0))//neutrale Flagge
   {
     attacker = 0;
+    capt = false;
     team = iTeam;
   }
     
