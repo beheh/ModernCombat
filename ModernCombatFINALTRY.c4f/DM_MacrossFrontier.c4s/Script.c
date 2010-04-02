@@ -8,7 +8,8 @@
 
 func ChooserRuleConfig()
 {
-  return [NOFF,WPST,NODR];
+  //Standardregelsatz: Kein FriendlyFire, Waffen bleiben, Arena, Klassenwahl
+  return [NOFF,WPST,NODR,MCSL];
 }
 
 /* Initalisierung */

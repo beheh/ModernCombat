@@ -1,8 +1,6 @@
 [Head]
 Icon=16
-Title=DM - Broadcast Station
-MaxPlayer=12
-MaxPlayerLeague=12
+Title=OP - Ground Zero
 Loader=Loader_CMC*
 Origin=ModernCombatFINALTRY.c4f
 
@@ -13,9 +11,8 @@ Definition3=ModernCombatFINALTRY.c4d
 
 [Game]
 StructNeedEnergy=0
-Goals=GLMS=5;GTDM=10
+Goals=GOCC=1;GLMS=10;GCTF=3;GTDM=10
 Rules=CHOS=1
-FoWColor=13816530
 
 [Player1]
 Wealth=50,0,0,250
@@ -34,21 +31,17 @@ Wealth=50,0,0,250
 Crew=PCMK=1
 
 [Landscape]
-Vegetation=TRE1=1;TRE2=2;TRE3=1;TRE4=5;TRB4=1;BSH2=3
-VegetationLevel=100,0,0,100
-Sky=Clouds2
-BottomOpen=1
-TopOpen=1
-MapWidth=179,0,64,250
-MapHeight=94,0,40,250
+VegetationLevel=0,0,0,100
+MapWidth=80,0,64,250
+MapHeight=80,0,40,250
 NoScan=1
-SkyScrollMode=1
 
 [Weather]
-Wind=20,4,-100,100
-
-[Animals]
-Animal=BIRD=2
+Climate=94,3,0,100
+StartSeason=91,0,0,100
+YearSpeed=0,0,0,100
+Rain=3,0,0,100
+Wind=-1,0,-100,100
 
 [Environment]
-Objects=EGRS=1;LENS=1;ELGT=1;DOFO=1
+Objects=DOFO=1;WRAE=1;DARK=1 

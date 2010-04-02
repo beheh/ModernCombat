@@ -10,7 +10,8 @@ static aDoor1,aDoor2,aLamp1,aLamp2,aLamp3;
 
 func ChooserRuleConfig()
 {
-  return [NOFF,WPST,NODR];
+  //Standardregelsatz: Kein FriendlyFire, Waffen bleiben, Arena, Klassenwahl
+  return [NOFF,WPST,NODR,MCSL];
 }
 
 /* Initalisierung */
@@ -633,7 +634,7 @@ protected func Script250()
   aLamp3[2]->TurnOff();
   aLamp3[3]->TurnOff();
 
-  EventInfo4K(0,Format("$MsgDoor$"));
+  EventInfo4K(0,Format("$MsgDoor$"),STDR);
 
   aDoor1[0]->Open();
   aDoor1[1]->Open();
@@ -692,7 +693,7 @@ protected func Script500()
   aLamp3[2]->TurnOff();
   aLamp3[3]->TurnOff();
 
-  EventInfo4K(0,Format("$MsgDoor$"));
+  EventInfo4K(0,Format("$MsgDoor$"),STDR);
 
   aDoor1[0]->Close();
   aDoor1[1]->Close();

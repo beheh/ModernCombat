@@ -46,6 +46,13 @@ FullscreenBG=1
 	OverlayImage=OverlayAtlanticCrisis.png
 
 
+	[Scenario]
+	File=OP_GroundZero.c4s
+	Area=54,383,466,24
+	OverlayImage=OverlayGroundZero.png
+
+
+
 
 
 	[Scenario]
