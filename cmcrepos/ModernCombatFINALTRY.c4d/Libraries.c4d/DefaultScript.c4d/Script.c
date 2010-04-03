@@ -60,6 +60,10 @@ public func ChooserFinished()
     for(var j = 0, pCrew ; pCrew = GetCrew(GetPlayerByIndex(i), j) ; j++)
      OnClassSelection(pCrew);
   }
+  
+  //Nochmal alle Spieler relaunchen
+  for(var i = 0; i < GetPlayerCount(); i++)
+    RelaunchPlayer(GetPlayerByIndex(i),GetCursor(GetPlayerByIndex(i)), 0, GetPlayerTeam(GetPlayerByIndex(i)));
 }
 
 /* Spielerinitalisierung */
@@ -121,7 +125,7 @@ public func RelaunchClonk(int iPlr, object pCursor)
   SetPlrView(iPlr, pClonk);
   
   //In Spawnpoint verschieben
-  var tim = CreateObject(TIM2, 10, 10, -1);
+  var tim = CreateObject(TIM2, LandscapeWidth()/2, LandscapeHeight()/2, -1);
   pClonk->Enter(tim);
 
   //Clonknamen anzeigen
