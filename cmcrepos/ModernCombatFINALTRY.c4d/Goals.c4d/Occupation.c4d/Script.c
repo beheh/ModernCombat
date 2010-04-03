@@ -405,7 +405,7 @@ public func IsFulfilled()
 }
 
 private func GetWinningTeam() {
-  var alive = [], poles = [];;
+  var alive = [], poles = [];
   var add, id;
   
   //Zwei Siegbedingungen: Alle Spieler eines Teams eliminiert und alle Flaggen des Teams eingenommen
@@ -433,16 +433,27 @@ private func GetWinningTeam() {
       if(alive[i] == 0) //Keine Clonks auf dem Feld oder kurz vorm Respawn?
         EliminateTeam(i); //Eliminieren!
     }
+    else
+      alive[i] = 1;
   }
   
-  //Nur noch ein Team existent?
-  if(GetTeamCount() == 1)
-    return GetTeamByIndex(0);
-  //Keine Teams mehr? ._.
-  if(!GetTeamCount())
+  Log("%v",alive);
+  //Wie viele Teams existent?
+  var teamA = 0;
+  for(var i = 0; i < GetLength(alive); i++)
+    if(alive[i] > 0)
+    {
+      if(teamA) //Zwei oder mehr Teams lebendig?
+        return 0;
+      else
+        teamA = i; //Ein lebendiges Team gefunden?
+    }
+  if(teamA < 1) //Falls keine Teams lebendig (wieso auch immer)
     return -1;
-  //Noch mehrere Teams vorhanden?
-  return 0;
+  else
+    return teamA; //Ansonsten das einzig lebendige Team
+    
+   
 
   //Alle Teams nach Spielern durchsuchen
   /*for(var i = 0; i <= GetTeamCount(); i++)

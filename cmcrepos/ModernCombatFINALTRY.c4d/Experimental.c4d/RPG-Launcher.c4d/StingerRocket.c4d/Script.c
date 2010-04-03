@@ -123,10 +123,8 @@ private func HitObject()
 
   exploding = true;
   Sound("GrenadeExplosion*.ogg");
-  DamageObjects(iDamage*8/6,iDamage,this());
-  DamageObjects(iDamage*8/6,iDamage,this());
-  DamageObjects(iDamage*8/6,iDamage,this());
-  Explode(iDamage*4/5,0,0,0,1);
+  DamageObjects(iDamage,iDamage,this());
+  Explode(iDamage,0,0,0,1);
 }
 
 public func Destruction()
