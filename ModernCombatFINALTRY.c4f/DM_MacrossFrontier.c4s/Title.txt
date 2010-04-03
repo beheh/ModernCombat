@@ -1,2 +1,0 @@
-DE:DM - <c ff0000>Macross Frontier</c>
-US:DM - <c ff0000>Macross Frontier</c>

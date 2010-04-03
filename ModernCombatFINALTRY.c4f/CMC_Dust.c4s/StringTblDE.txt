@@ -1,0 +1,14 @@
+CreatingFurniture=Szenario wird eingerichtet...
+CreatingEquipment=Ausrüstung wird plaziert...
+
+Team1=Alpha
+Team2=Beta
+Team3=Gamma
+Team4=Delta
+
+Flag1=Alpha-Base
+Flag2=Delta-Base
+Flag3=Ruins
+Flag4=Central Ruins
+Flag5=Gamma-Base
+Flag6=Beta-Base

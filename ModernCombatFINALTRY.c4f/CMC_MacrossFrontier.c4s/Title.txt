@@ -1,0 +1,2 @@
+DE:CMC - <c ff0000>Macross Frontier</c>
+US:CMC - <c ff0000>Macross Frontier</c>

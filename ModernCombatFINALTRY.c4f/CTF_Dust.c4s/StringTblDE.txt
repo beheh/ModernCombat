@@ -1,7 +1,0 @@
-CreatingFurniture=Szenario wird eingerichtet...
-CreatingEquipment=Ausrüstung wird plaziert...
-
-Team1=Alpha
-Team2=Beta
-Team3=Gamma
-Team4=Delta

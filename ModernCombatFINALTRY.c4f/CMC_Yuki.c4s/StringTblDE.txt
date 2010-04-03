@@ -1,0 +1,13 @@
+CreatingFurniture=Szenario wird eingerichtet...
+CreatingEquipment=Ausrüstung wird plaziert...
+
+MsgDoor=Das Sicherheitssystem reorganisiert die Türsysteme.
+
+Team1=Eurocorps
+Team2=Aggressoren
+
+Flag1=Westlicher Schacht
+Flag2=Eingang
+Flag3=Depot
+Flag4=Funkstation
+Flag5=Östlicher Schacht
