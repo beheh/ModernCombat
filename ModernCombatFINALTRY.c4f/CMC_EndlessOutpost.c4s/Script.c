@@ -563,7 +563,7 @@ func CreateAssaultObjects()
   aDoor[4] = CreateObject(HA4K, 850, 163, -1);
    aDoor[4]->Lock();
 
-  aSelfDefense[0]=CreateObject(SEGU,945,260,-1);
+  aSelfDefense[0]=CreateObject(SEGU,945,249,-1);
   aSelfDefense[0]->Arm(PPGN);
   aSelfDefense[0]->TurnOn();
   aSelfDefense[0]->TurnOn();
@@ -600,7 +600,7 @@ func CreateAssaultObjects()
   aDoor[7] = CreateObject(SEDR,1850,110,-1);
    aDoor[7]->Lock();
 
-  aSelfDefense[1]=CreateObject(SEGU,1495,380,-1);
+  aSelfDefense[1]=CreateObject(SEGU,1495,369,-1);
   aSelfDefense[1]->Arm(PPGN);
   aSelfDefense[1]->TurnOn();
   aSelfDefense[1]->TurnOn();

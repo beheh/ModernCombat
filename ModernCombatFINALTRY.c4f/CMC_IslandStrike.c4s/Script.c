@@ -53,6 +53,8 @@ func CreateFurniture()
   CreateObject(LFTP, 6405, 555, -1);
 
   //Leitern
+  CreateObject(LADR, 1295, 485, -1)->Set(5);
+  CreateObject(LADR, 1405, 485, -1)->Set(5);
   CreateObject(LADR, 2515, 425, -1)->Set(11);
   CreateObject(LADR, 3505, 640, -1)->Set(20);
   CreateObject(LADR, 3605, 380, -1)->Set(6);
@@ -66,6 +68,7 @@ func CreateFurniture()
   CreateObject(LADR, 7320, 502, -1)->Set(8);
   CreateObject(LADR, 7365, 440, -1)->Set(12);
   CreateObject(LADR, 7425, 475, -1)->Set(14);
+  CreateObject(LADR, 7665, 370, -1)->Set(6);
 
   //Bodenlucken
   CreateObject(HA4K, 2960, 373, -1);
@@ -132,6 +135,7 @@ func CreateFurniture()
 
   //Metallkiste
   CreateObject(MWCR, 4570, 390, -1)->AutoRespawn();
+  CreateObject(MWCR, 7560, 510, -1)->AutoRespawn();
 
   //Kisten
   CreateObject(WCR2, 1275, 400, -1)->AutoRespawn();
@@ -146,6 +150,7 @@ func CreateFurniture()
 
   //Explosive Kiste
   CreateObject(XWCR, 5560, 400, -1)->AutoRespawn();
+  CreateObject(XWCR, 7550, 492, -1);
 
   //Benzinfässer
   CreateObject(PBRL, 1100, 270, -1)->AutoRespawn();
@@ -229,6 +234,7 @@ func CreateFurniture()
   CreateObject(CON1, 2830, 620, -1);
   CreateObject(CON1, 6089, 380, -1);
   CreateObject(CON1, 6146, 380, -1);
+  CreateObject(CON1, 7500, 510, -1)->SetPerspective(2);
 
   //Ventillatoren
   CreateObject(VENT, 2705, 463, -1)->SetCon(20);
@@ -362,6 +368,7 @@ func CreateFurniture()
   CreateObject(RAI1, 5530, 400, -1)->SetRail([1,1,1,1]);
   CreateObject(RAI1, 7140, 360, -1)->SetRail([1,1,1,1,1,1,1,1,1]);
   CreateObject(RAI1, 7395, 360, -1)->SetRail([1]);
+  CreateObject(RAI1, 7480, 510, -1)->SetRail([1,1,1,1,1,1]);
 
   //Zäune
   CreateObject(FENC, 2850, 410, -1);
