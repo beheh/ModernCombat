@@ -381,7 +381,6 @@ public func IsFulfilled()
   //Nur ein Team am Leben? (-> Gewonnen!)
   if(iWinningTeam > 0)
   {
-    EliminateLosers(iWinningTeam);
     if(LosersAlive(iWinningTeam))
       return false;
 
@@ -393,7 +392,8 @@ public func IsFulfilled()
   //Draw! D=
   if(iWinningTeam == -1)
   {
-    EliminateLosers(0);
+    for(var i = 0; i < GetTeamCount(); i++)
+      EliminateTeam(GetTeamByIndex(i));
     if(LosersAlive(0))
       return false;
       
@@ -404,11 +404,44 @@ public func IsFulfilled()
 }
 
 private func GetWinningTeam() {
-  var alive = [];
+  var alive = [], poles = [];;
   var add, id;
+  
+  //Zwei Siegbedingungen: Alle Spieler eines Teams eliminiert und alle Flaggen des Teams eingenommen
+  for(var i = 1; i <= GetTeamCount(); i++)
+  {
+    poles[i] = 0;
+    for(var pole in FindObjects(Find_ID(OFPL)))
+      if(pole->GetTeam() == i && pole->IsFullyCaptured())
+        poles[i]++;
+    if(poles[i] == 0) //Keine Flaggen?
+    {
+      alive[i] = 0;    //Hackig...
+      for(var clonk in FindObjects(Find_OCF(OCF_Alive), Find_OCF(OCF_CrewMember)))
+        if(GetPlayerTeam(GetOwner(clonk)) == i)
+          if(Contained(clonk))
+          {
+            if((GetID(Contained(clonk)) == OSPW && GetAction(Contained(clonk)) != "Counter") || GetID(Contained(clonk)) == TIM2)
+              continue;
+            alive[i]++;
+            break;
+          }
+      if(alive[i] == 0) //Keine Clonks auf dem Feld oder kurz vorm Respawn?
+        EliminateTeam(i); //Eliminieren!
+    }
+  }
+  
+  //Nur noch ein Team existent?
+  if(GetTeamCount() == 1)
+    return GetTeamByIndex(0);
+  //Keine Teams mehr? ._.
+  if(!GetTeamCount())
+    return -1;
+  //Noch mehrere Teams vorhanden?
+  return 0;
 
   //Alle Teams nach Spielern durchsuchen
-  for(var i = 0; i <= GetTeamCount(); i++)
+  /*for(var i = 0; i <= GetTeamCount(); i++)
   {
     for(var j = 0; j < GetPlayerCount(); j++)
     {
@@ -442,6 +475,7 @@ private func GetWinningTeam() {
     return -1;
   }
   return 0;
+  */
 }
 
 private func Evaluation()
@@ -457,10 +491,10 @@ private func Evaluation()
   evaluation = true;
 }
 
-private func EliminateLosers(int iTeam)
+private func EliminateTeam(int iTeam)
 {
   for(var i = 0; i < GetPlayerCount() ; i++)
-    if(GetPlayerTeam(GetPlayerByIndex(i)) != iTeam)
+    if(GetPlayerTeam(GetPlayerByIndex(i)) == iTeam)
     {
       EliminatePlayer(GetPlayerByIndex(i));
     }
