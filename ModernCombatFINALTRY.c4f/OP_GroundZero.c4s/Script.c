@@ -420,7 +420,7 @@ public func ChooserFinished()
   }
 
   //DM/LMS-Spielziel
-  if(FindObject(GTDM)) || FindObject(GLMS))
+  if(FindObject(GTDM) || FindObject(GLMS))
   {
    //Grenzen
    CreateObject(BRDR, 790, 0, -1)->Set(0);
@@ -463,7 +463,7 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   }
 
   //DM/LMS-Spielziel
-  if(FindObject(GTDM)) || FindObject(GLMS))
+  if(FindObject(GTDM) || FindObject(GLMS))
   {
    if(iTeam == 1)
    {
