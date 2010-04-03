@@ -20,11 +20,11 @@ public func FMData1(int data)
   if(data == FM_AmmoID)		return MIAM;
   if(data == FM_AmmoLoad)	return 1;
 
-  if(data == FM_Reload)		return 100;
-  if(data == FM_Recharge)	return 100;
+  if(data == FM_Reload)		return 200;
+  if(data == FM_Recharge)	return 200;
 
   if(data == FM_Aim)		return 3;
-  if(data == FM_Damage)		return 40;
+  if(data == FM_Damage)		return 35;
 
   if(data == FM_Slot)    return(1);
 
