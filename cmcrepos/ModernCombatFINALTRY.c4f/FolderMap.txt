@@ -5,49 +5,49 @@ ScenInfoArea=575,72,195,455
 FullscreenBG=1
 
 	[Scenario]
-	File=DM_MacrossFrontier.c4s
+	File=CMC_MacrossFrontier.c4s
 	Area=54,173,466,24
 	OverlayImage=OverlayMacrossFrontier.png
 
 
 	[Scenario]
-	File=CTF_Dust.c4s
+	File=CMC_BroadcastStation.c4s
 	Area=54,203,466,24
-	OverlayImage=OverlayDust.png
-
-
-	[Scenario]
-	File=DM_Yuki.c4s
-	Area=54,233,466,24
-	OverlayImage=OverlayYuki.png
-
-
-	[Scenario]
-	File=DM_BroadcastStation.c4s
-	Area=54,263,466,24
 	OverlayImage=OverlayBroadcastStation.png
 
 
 	[Scenario]
-	File=AS_EndlessOutpost.c4s
-	Area=54,293,466,24
+	File=CMC_EndlessOutpost.c4s
+	Area=54,233,466,24
 	OverlayImage=OverlayEndlessOutpost.png
 
 
 	[Scenario]
-	File=OP_IslandStrike.c4s
+	File=CMC_Dust.c4s
+	Area=54,263,466,24
+	OverlayImage=OverlayDust.png
+
+
+	[Scenario]
+	File=CMC_Yuki.c4s
+	Area=54,293,466,24
+	OverlayImage=OverlayYuki.png
+
+
+	[Scenario]
+	File=CMC_IslandStrike.c4s
 	Area=54,323,466,24
 	OverlayImage=OverlayIslandStrike.png
 
 
 	[Scenario]
-	File=OP_AtlanticCrisis.c4s
+	File=CMC_AtlanticCrisis.c4s
 	Area=54,353,466,24
 	OverlayImage=OverlayAtlanticCrisis.png
 
 
 	[Scenario]
-	File=OP_GroundZero.c4s
+	File=CMC_GroundZero.c4s
 	Area=54,383,466,24
 	OverlayImage=OverlayGroundZero.png
 
