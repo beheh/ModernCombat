@@ -11,5 +11,3 @@ Value=100
 Mass=0
 Components=GOCC=1;
 Picture=0,0,64,64
-#Timer=350
-#TimerCall=UpdateTicketLoss
