@@ -387,6 +387,7 @@ public func IsFulfilled()
     Evaluation();
     Message("@<c %x>$WinMsg$</c>",0 , GetTeamColor(iWinningTeam), GetTeamName(iWinningTeam));
     Sound("Cheer.ogg",true);
+    Schedule("GameOver()",150);
     return true;
   }
   //Draw! D=
@@ -398,7 +399,7 @@ public func IsFulfilled()
       return false;
       
     Evaluation();
-      
+    Schedule("GameOver()",150);
     return true;
   }
 }
@@ -419,6 +420,7 @@ private func GetWinningTeam() {
       alive[i] = 0;    //Hackig...
       for(var clonk in FindObjects(Find_OCF(OCF_Alive), Find_OCF(OCF_CrewMember)))
         if(GetPlayerTeam(GetOwner(clonk)) == i)
+        {
           if(Contained(clonk))
           {
             if((GetID(Contained(clonk)) == OSPW && GetAction(Contained(clonk)) != "Counter") || GetID(Contained(clonk)) == TIM2)
@@ -426,6 +428,8 @@ private func GetWinningTeam() {
             alive[i]++;
             break;
           }
+          alive[i]++;
+        }
       if(alive[i] == 0) //Keine Clonks auf dem Feld oder kurz vorm Respawn?
         EliminateTeam(i); //Eliminieren!
     }
