@@ -2,6 +2,8 @@
 
 #strict 2
 
+//Indikator
+public func IsSpawnpoint() { return true; }
 
 global func FxIntVehicleSpawn4KStart(object pTarget, int iEffectNumber, int iTemp)
 {

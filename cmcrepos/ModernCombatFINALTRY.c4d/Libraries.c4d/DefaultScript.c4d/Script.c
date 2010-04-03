@@ -146,6 +146,9 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
 
 public func OnClonkEquip(object pClonk)
 {
+  //Falls Clonk bereits einmal ausgerüstet, nicht nochmal ausrüsten
+  if(Contents(0,pClonk))
+    return();
   //Standardausrüstung geben: Pistole und Handgranate
   var wpn = CreateContents(PSTL, pClonk);
   wpn->DoAmmo(wpn->GetFMData(FM_AmmoID),wpn->GetFMData(FM_AmmoLoad));
