@@ -110,7 +110,7 @@ public func ControlThrow(object pByObj)
 public func Activate()
 {
   for(var c4 in FindObjects(Find_ID(C4EX), Find_Func("GetPacket", this)))
-   ScheduleCall(c4, "Trigger", ObjectDistance(c4)/10);
+   ScheduleCall(c4, "Trigger", ObjectDistance(c4)/10, 0);
 
   //Effekte
   SetPicture(10,5,39,64);
@@ -137,6 +137,17 @@ public func DoPackAmount(int iAmount)
   if((amount += iAmount) > max)
    max = amount;
   return amount;
+}
+
+/* Aufnahme */
+public func Entrance(object pContainer)
+{
+  for(var obj in FindObjects(Find_Container(pContainer),Find_ID(GetID()),Find_Exclude(this())))
+    if(obj->DoPackAmount())
+    {
+      DoPackAmount(obj->DoPackAmount());
+      RemoveObject(obj);
+    }
 }
 
 /* Sounds */

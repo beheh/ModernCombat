@@ -1,1 +1,1 @@
-Warning=Warning, you are leaving the battlefield!|Retreat now or you will be eliminated!|<c ff0000>%d</c>
+Warning=Warning, return to the battlefield!|Elimination in <c ff0000>%d</c> seconds.

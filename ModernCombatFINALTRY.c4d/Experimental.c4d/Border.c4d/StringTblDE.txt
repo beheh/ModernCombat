@@ -1,1 +1,1 @@
-Warning=Achtung, du verlässt das Schlachtfeld!|Ziehe dich zurück oder du wirst eliminiert!|<c ff0000>%d</c>
+Warning=Achtung, kehre zum Schlachtfeld zurück!|Elimination in <c ff0000>%d</c> Sekunden.

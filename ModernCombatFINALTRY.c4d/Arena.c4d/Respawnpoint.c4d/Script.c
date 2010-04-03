@@ -6,6 +6,9 @@ local target,id;
 local xdir,ydir,r;
 local frames,distance;
 
+//Indikator
+public func IsSpawnpoint() { return(true); }
+
 
 /* Globale Aufruffunktion */
 

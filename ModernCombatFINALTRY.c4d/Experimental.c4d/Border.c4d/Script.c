@@ -37,6 +37,8 @@ public func Set(iDir)
    xh = LandscapeWidth();
    yh = LandscapeHeight()-GetY();
   }
+  for(var obj in FindObjects(Find_InRect(x,y,xh,yh),Find_Func("IsSpawnpoint")))
+   RemoveObject(obj);
 }
 
 /* Grenzüberschreiter suchen */
@@ -46,6 +48,8 @@ private func Check()
   for(var clonk in FindObjects(Find_InRect(x,y,xh,yh),Find_OCF(OCF_CrewMember),Find_OCF(OCF_Alive)))
    if(!GetEffect("Border", clonk))
     AddEffect("Border", clonk, 50, 35, this);
+  for(var flag in FindObjects(Find_InRect(x,y,xh,yh),Find_ID(FLA2),Find_NoContainer()))
+    RemoveObject(FLA2);
 }
 
 private func DoShadows()

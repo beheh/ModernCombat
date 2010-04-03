@@ -4,6 +4,9 @@
 
 local idSpawn, iMaxCount, iRespawnTime, iTakeTime;
 
+//Indikator
+public func IsSpawnpoint() { return(true); }
+
 protected func Initialize()
 {
   SetAction("Closed");
