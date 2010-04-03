@@ -235,15 +235,20 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
 
 /* Regelwähler */
 
-public func ChooserFinished(int iTeam)
+public func ChooserFinished()
 {
   inherited();
+  
+  //Teams abfragen
+  var aTeams = [false,false,false,false,false];
+  for(var i = 0; i < GetPlayerCount(); i++)
+    aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = true;
 
   //OP-Spielziel
   if(FindObject(GOCC))
   {
    aFlag[0] = CreateObject(OFPL,140,680,NO_OWNER);
-   if(iTeam == 1)
+   if(aTeams[1] == true)
    {
     aFlag[0]->Set("$Flag1$",100,2);
     aFlag[0]->Capture(1);
@@ -254,7 +259,7 @@ public func ChooserFinished(int iTeam)
    }
 
    aFlag[1] = CreateObject(OFPL,145,320,NO_OWNER);
-   if(iTeam == 4)
+   if(aTeams[4] == true)
    {
     aFlag[1]->Set("$Flag2$",100,2);
     aFlag[1]->Capture(4);
@@ -271,7 +276,7 @@ public func ChooserFinished(int iTeam)
     aFlag[3]->Set("$Flag4$",0,2);
 
    aFlag[4] = CreateObject(OFPL,1495,730,NO_OWNER);
-   if(iTeam == 3)
+   if(aTeams[3] == true)
    {
     aFlag[4]->Set("$Flag5$",100,2);
     aFlag[4]->Capture(3);
@@ -282,7 +287,7 @@ public func ChooserFinished(int iTeam)
    }
 
    aFlag[5] = CreateObject(OFPL,1705,400,NO_OWNER);
-   if(iTeam == 2)
+   if(aTeams[2] == true)
    {
     aFlag[5]->Set("$Flag6$",100,2);
     aFlag[5]->Capture(2);
@@ -292,22 +297,17 @@ public func ChooserFinished(int iTeam)
     aFlag[5]->Set("$Flag6$",0,2);
    }
   }
-}
-
-/* CTF */
-
-protected func InitTeamFlag(int iTeam)
-{
+  
   //CTF-Spielziel
   if(FindObject(GCTF))
   {
-   if(iTeam == 1)
+   if(aTeams[1] == true)
    {CreateFlag(1,130,680,GetTeamColor(1));}
-   if(iTeam == 2)
+   if(aTeams[2] == true)
    {CreateFlag(2,1720,400,GetTeamColor(2));}
-   if(iTeam == 3)
+   if(aTeams[3] == true)
    {CreateFlag(3,1500,730,GetTeamColor(3));}
-   if(iTeam == 4)
+   if(aTeams[4] == true)
    {CreateFlag(4,145,320,GetTeamColor(4));}
   }
 }
