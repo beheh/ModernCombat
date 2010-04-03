@@ -572,7 +572,7 @@ public func ChooserFinished()
     aFlag[0]->Set("$Flag1$",0,2);
    }
 
-   aFlag[1] = CreateObject(OFPL,630,560,NO_OWNER);
+   aFlag[1] = CreateObject(OFPL,610,350,NO_OWNER);
     aFlag[1]->Set("$Flag2$",0,2);
 
    aFlag[2] = CreateObject(OFPL,1040,750,NO_OWNER);
