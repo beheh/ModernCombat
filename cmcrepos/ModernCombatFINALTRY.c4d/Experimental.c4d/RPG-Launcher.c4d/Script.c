@@ -56,7 +56,7 @@ public func BotData1(int data)
 
 public func Fire1()
 {
-  LaunchRocket(RPGP,Contained()->~AimAngle(10), GetFMData(FM_Damage,1));
+  LaunchRocket(ROKT,Contained()->~AimAngle(10), GetFMData(FM_Damage,1));
 }
 
 public func LaunchRocket(id rid, int angle, int dmg)
@@ -84,14 +84,14 @@ public func LaunchRocket(id rid, int angle, int dmg)
                   RandomX(80,100),RGBa(255,255,255,128),0,0);
   }
 
-  Sound("H2RL_Launch.ogg");
+  Sound("RTLR_Launch*.ogg");
 }
 
 /* Allgemein */
 
 public func OnReload()
 {
-  Sound("H2RL_Reload.ogg");
+  Sound("RTLR_Reload.ogg");
 }
 
 public func HandR()
