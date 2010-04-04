@@ -49,7 +49,7 @@ private func Check()
    if(!GetEffect("Border", clonk))
     AddEffect("Border", clonk, 50, 35, this);
   for(var flag in FindObjects(Find_InRect(x,y,xh,yh),Find_ID(FLA2),Find_NoContainer()))
-    RemoveObject(FLA2);
+   RemoveObject(FLA2);
 }
 
 private func DoShadows()
