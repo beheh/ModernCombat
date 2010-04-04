@@ -52,6 +52,12 @@ FullscreenBG=1
 	OverlayImage=OverlayGroundZero.png
 
 
+	[Scenario]
+	File=CMC_Firewood.c4s
+	Area=54,413,466,24
+	OverlayImage=OverlayFirewood.png
+
+
 
 
 

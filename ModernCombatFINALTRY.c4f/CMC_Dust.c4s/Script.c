@@ -148,6 +148,9 @@ func CreateEquipment()
   PlaceSpawnpoint(ABOX, 280, 404);
   PlaceSpawnpoint(ABOX, 1255, 805);
 
+  //Raketen
+  PlaceSpawnpoint(MIAP, 740, 420);
+
   //Feldgranaten
   PlaceSpawnpoint(FGRN, 630, 560);
   PlaceSpawnpoint(FGRN, 1155, 575);
@@ -170,6 +173,9 @@ func CreateEquipment()
 
   //Abwehrschild
   PlaceSpawnpoint(RSHL, 1565, 740);
+
+  //C4
+  PlaceSpawnpoint(C4PA, 830, 655);
 
   //Sturmgewehre
   PlaceSpawnpoint(ASTR, 60, 620);

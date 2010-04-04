@@ -343,6 +343,9 @@ func CreateEquipment()
   //Granatenmunition
   PlaceSpawnpoint(GBOX, 1490, 550);
 
+  //Raketen
+  PlaceSpawnpoint(MIAP, 1645, 170);
+
   //Feldgranaten
   PlaceSpawnpoint(FGRN, 620, 700);
   PlaceSpawnpoint(FGRN, 1535, 300);

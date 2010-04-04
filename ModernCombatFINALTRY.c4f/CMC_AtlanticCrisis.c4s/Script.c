@@ -326,12 +326,28 @@ func CreateEquipment()
   var tmp = CreateObject (AMCT, 3020, 360, -1);
   tmp->Set(GBOX);
 
+  //Raketen
+  PlaceSpawnpoint(MIAP, 2150, 415);
+  PlaceSpawnpoint(MIAP, 3860, 415);
+
+  //Maschinenpistolen
+  PlaceSpawnpoint(SMGN, 1520, 495);
+  PlaceSpawnpoint(SMGN, 4490, 495);
+
+  //Sturmgewehr
+  PlaceSpawnpoint(ASTR, 2890, 425);
+
+  //Raketenwerfer
+  PlaceSpawnpoint(RTLR, 2180, 415);
+  PlaceSpawnpoint(RTLR, 3830, 415);
+
   //Motorboote
   SetupVehicleSpawn([INFL],DIR_Right,CreateObject(VSPW,1710,520,-1),10*10,1);
   SetupVehicleSpawn([INFL],DIR_Left,CreateObject(VSPW,4310,520,-1),10*10,2);
 
   //Automaten
   var store = CreateObject(WPVM,1500, 430,-1);
+  store->AddWare(C4PA,-1);
   store->AddWare(FAPK,-1);
   store->AddWare(RSHL,-1);
   store->AddWare(CDBT,-1);
@@ -341,6 +357,7 @@ func CreateEquipment()
   store->AddWare(SGRN,-1);
   store->AddWare(STUN,-1);
   var store = CreateObject(WPVM,3025, 430,-1);
+  store->AddWare(C4PA,-1);
   store->AddWare(FAPK,-1);
   store->AddWare(RSHL,-1);
   store->AddWare(CDBT,-1);
@@ -350,6 +367,7 @@ func CreateEquipment()
   store->AddWare(SGRN,-1);
   store->AddWare(STUN,-1);
   var store = CreateObject(WPVM,4500, 430,-1);
+  store->AddWare(C4PA,-1);
   store->AddWare(FAPK,-1);
   store->AddWare(RSHL,-1);
   store->AddWare(CDBT,-1);
