@@ -227,10 +227,10 @@ public func FxFAPLightTimer(pTarget, iNo, iTime)
 {
   if(GetHealPoints() < 10) return 1;
   if(!Contained())
-    CreateParticle("FapLight", 1, -2, 0, 0, 5*5, RGBa(BoundBy(InvertA1(255*GetHealPoints()/150,255)+10,0,255), 255*GetHealPoints()/150),this);
+   CreateParticle("FapLight", 1, -2, 0, 0, 5*5, RGBa(BoundBy(InvertA1(255*GetHealPoints()/150,255)+10,0,255), 255*GetHealPoints()/150),this);
   if(Contents(0,Contained()) == this())
-    if(WildcardMatch(GetAction(Contained()), "*Armed*"))
-      CreateParticle("FapLight", (GetDir(Contained())*1), -2, 0, 0, 5*5, RGBa(BoundBy(InvertA1(255*GetHealPoints()/150,255)+10,0,255), 255*GetHealPoints()/150),this);
+   if(WildcardMatch(GetAction(Contained()), "*Armed*"))
+    CreateParticle("FapLight", (GetDir(Contained())*1), -2, 0, 0, 5*5, RGBa(BoundBy(InvertA1(255*GetHealPoints()/150,255)+10,0,255), 255*GetHealPoints()/150),this);
 }
 
 /* Gruppenheilung */
@@ -248,10 +248,11 @@ public func FxFAPGrouphealTimer(pTarget, iEffectNumber, iEffectTime)
   //Harte Vorauswahl überlebt? Los geht's.
   var heal = 8; //Merke: 8-2 -> 1 Patient
   var Patients = [];
-  for(var patient in FindObjects(Find_OCF(OCF_Alive),
-                                 Find_Distance(80),
-                                 Find_NoContainer(),
-                                 Find_Allied(GetOwner(Contained()))))
+  for(var patient in FindObjects(Find_OCF(OCF_Alive),			//Patient am Leben?
+                                 Find_Distance(80),			//In Reichweite?
+                                 Find_NoContainer(),			//Im Freien?
+                                 Find_Allied(GetOwner(Contained()))))	//Verbündet?
+  if(patient->~IsClonk())						//Patient ein Clonk?
   {
    if(GetEnergy(patient) < GetPhysical("Energy",0, patient)/1000)
    {
