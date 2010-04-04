@@ -6,9 +6,9 @@ Team2=Beta
 Team3=Gamma
 Team4=Delta
 
-Flag1=Alpha-Basis
-Flag2=Delta-Basis
-Flag3=Ruine
-Flag4=Ruinenzentrum
-Flag5=Gamma-Basis
-Flag6=Beta-Basis
+Flag1=Alpha-Base
+Flag2=Delta-Base
+Flag3=Ruins
+Flag4=Central Ruins
+Flag5=Gamma-Base
+Flag6=Beta-Base
