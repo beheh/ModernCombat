@@ -1,2 +1,2 @@
-DE:Stinger Rakete
-US:Stinger Rocket
+DE:Rakete
+US:Rocket

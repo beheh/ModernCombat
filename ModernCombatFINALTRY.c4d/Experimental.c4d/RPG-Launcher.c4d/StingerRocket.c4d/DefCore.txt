@@ -1,6 +1,6 @@
 [DefCore]
-id=RPGP
-Name=StingerRocket
+id=ROKT
+Name=Rocket
 Version=4,9,5
 Category=C4D_Object
 Width=4
