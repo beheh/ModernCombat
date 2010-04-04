@@ -4,7 +4,7 @@ Title=CMC - Broadcast Station
 MaxPlayer=12
 MaxPlayerLeague=12
 Loader=Loader_CMC*
-Origin=ModernCombatFINALTRY.c4f
+Origin=ModernCombatFINALTRY.c4f\CMC_BroadcastStation.c4s
 
 [Definitions]
 Definition1=Objects.c4d

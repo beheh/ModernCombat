@@ -17,7 +17,7 @@ TeamDistribution=Host
   [Team]
   id=3
   Name=$Team3$
-  Color=16053492
+  Color=16776960
 
   [Team]
   id=4

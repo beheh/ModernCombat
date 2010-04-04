@@ -2,7 +2,7 @@
 Icon=16
 Title=CMC - Ground Zero
 Loader=Loader_CMC*
-Origin=ModernCombatFINALTRY.c4f
+Origin=ModernCombatFINALTRY.c4f\CMC_GroundZero.c4s
 
 [Definitions]
 Definition1=Objects.c4d
