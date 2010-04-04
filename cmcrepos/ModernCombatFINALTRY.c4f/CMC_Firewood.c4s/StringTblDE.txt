@@ -1,0 +1,10 @@
+CreatingFurniture=Szenario wird eingerichtet...
+CreatingEquipment=Ausrüstung wird plaziert...
+
+Team1=Eurocorps
+Team2=Aggressoren
+
+Flag1=Westturm
+Flag2=Bohrplattform
+Flag3=Versorgungsdepot
+Flag4=Ostturm

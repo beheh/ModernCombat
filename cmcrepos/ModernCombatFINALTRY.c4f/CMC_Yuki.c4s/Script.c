@@ -528,6 +528,7 @@ func CreateEquipment()
 
   //Automat
   var store = CreateObject(WPVM,860, 680,-1);
+  store->AddWare(C4PA,-1);
   store->AddWare(FAPK,-1);
   store->AddWare(RSHL,-1);
   store->AddWare(CDBT,-1);

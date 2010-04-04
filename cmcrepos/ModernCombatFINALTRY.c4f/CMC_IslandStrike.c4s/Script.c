@@ -515,6 +515,10 @@ func CreateEquipment()
   //Granatenmunition
   PlaceSpawnpoint(GBOX, 4735, 455);
 
+  //Raketen
+  PlaceSpawnpoint(MIAP, 2485, 640);
+  PlaceSpawnpoint(MIAP, 6600, 650);
+
   //Feldgranaten
   PlaceSpawnpoint(FGRN, 985, 405);
   PlaceSpawnpoint(FGRN, 7405, 355);
@@ -548,6 +552,14 @@ func CreateEquipment()
 
   //Maschinengewehr
   PlaceSpawnpoint(MNGN, 5100, 395);
+
+  //Raketenwerfer
+  PlaceSpawnpoint(RTLR, 2425, 635);
+  PlaceSpawnpoint(RTLR, 6670, 645);
+
+  //Einsatzschilder
+  PlaceSpawnpoint(RSHL, 950, 465);
+  PlaceSpawnpoint(RSHL, 7570, 405);
 
   //Motorboote
   SetupVehicleSpawn([INFL],DIR_Right,CreateObject(VSPW,1245,520,-1),10*10,1);

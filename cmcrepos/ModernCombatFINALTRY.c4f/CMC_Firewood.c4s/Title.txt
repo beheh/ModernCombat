@@ -1,0 +1,2 @@
+DE:CMC - <c ff0000>Firewood</c>
+US:CMC - <c ff0000>Firewood</c>
