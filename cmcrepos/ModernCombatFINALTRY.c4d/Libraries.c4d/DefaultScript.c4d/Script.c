@@ -163,6 +163,8 @@ public func OnClonkEquip(object pClonk)
 
 public func OnClassSelection(object pClonk)
 {
+  if(!FindObject(MCSL))
+    CreateGOCCSpawner(pClonk);
 }
 
 /* Relaunch ablehnen */

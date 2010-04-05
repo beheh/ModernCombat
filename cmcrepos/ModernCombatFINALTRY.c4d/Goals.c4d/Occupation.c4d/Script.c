@@ -437,7 +437,6 @@ private func GetWinningTeam() {
       alive[i] = 1;
   }
   
-  Log("%v",alive);
   //Wie viele Teams existent?
   var teamA = 0;
   for(var i = 0; i < GetLength(alive); i++)
