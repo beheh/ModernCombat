@@ -153,204 +153,51 @@ private func ConfigFinished()
 /* Scoreboard */
 private func InitScoreboard()
 {  
-  SetScoreboardData(SBRD_Caption, TEAM_TeamColumn, "{{KILC}}", SBRD_Caption);
-  SetScoreboardData(SBRD_Caption, TEAM_PlayerColumn, "{{PCMK}}", SBRD_Caption);
-  SetScoreboardData(SBRD_Caption, TEAM_GoalColumn, "{{TIKT}}", SBRD_Caption);
-  SetScoreboardData(SBRD_Caption, TEAM_KillColumn, "{{PIWP}}", SBRD_Caption);
-  SetScoreboardData(SBRD_Caption, TEAM_DeathColumn, "{{KAMB}}", SBRD_Caption);
-
-  var teams = [];
-  var team;
-
-  //Daten
-  //erstmal rausfinden welche Teams wir anzeigen
-  for(var i = 0 ; i < GetPlayerCount() ; i++)
-  {
-    if(!GetPlayerName(GetPlayerByIndex(i)))
-	    continue;
-
-	  var done=0, plrteam = GetPlayerTeam(GetPlayerByIndex(i));
-	  if(plrteam < 1) continue;
-
-	  for(var team in teams)
-	    if(team == plrteam)
-	      done++;
-        
-	  if(!done)
-	  {
-	    teams[GetLength(teams)] = plrteam;
-	  }
-  }
-
-  //Nach Teamnummern sortieren.
-  var t1, t2;
-  for(t1 = 0; t1 < GetLength(teams); t1++)
-  {
-    for(t2 = t1; t2 < GetLength(teams); t2++)
-  	  if(teams[t2] < teams[t1])
-      {
-	      var tmp = teams[t1];
-    		teams[t1] = teams[t2];
-		    teams[t2] = tmp;
-      }
-  }
+  SetScoreboardData(SBRD_Caption, SBRD_Caption, "{{GOCC}}", SBRD_Caption);
+  SetScoreboardData(SBRD_Caption, 1, "{{OSPW}}", SBRD_Caption);
+  SetScoreboardData(SBRD_Caption, 2, "{{OPI1}}", SBRD_Caption);
   
-  //Darstellen. (InitSingleplayer/Multiplayer/Player)
-  for(var x=0; x < GetLength(teams); x++)
+  UpdateScoreboard();
+}
+
+private func UpdateScoreboard()
+{
+  Log("update");
+  var i = 1;
+  //Flaggen
+  var flagnames = GameCall("GetFlagNames");
+  for(var flag in FindObjects(Find_ID(OFPL)))
   {
-    var t = teams[x];
-
-    if(!GetTeamPlayerCount(t)) continue;
-
-    if(GetTeamPlayerCount(t) == 1)
-    {
-      InitSingleplayerTeam(GetTeamPlayer(t, 1));
-      continue;
-    }
-
-    InitMultiplayerTeam(t);
-
-    var j = 0;
-    while(GetTeamPlayer(t, ++j) != -1)
-    {
-      InitPlayer(GetTeamPlayer(t, j));
-    }
+    var color=RGB(255,255,255);
+    if(flag->GetTeam())
+      color=GetTeamColor(flag->GetTeam());
+    Log("%s",flagnames[i-1]);
+    SetScoreboardData(i,1,Format("<c %x>%s</c>",color,flagnames[i-1]), i);
+    SetScoreboardData(i,2,Format("%d %", flag->GetProcess()), i);
+    i++;
   }
-  
-  for(var i = 1; i <= GetTeamCount(); i++)
+  SetScoreboardData(i, 1, "", i);
+  i++;
+  //Tickets
+  for(var j = 1; j <= GetTeamCount(); j++)
   {
-    Log("Team %d mit %d Starttickets.",i,iStartTickets);//TODO: Übersetzung.
-    aTicket[i-1] = iStartTickets;
+    SetScoreboardData(i, 1, Format("{{TIKT}} <c %x>%s</c>:", GetTeamColor(j), GetTeamName(j)), i);
+    SetScoreboardData(i, 2, Format("<c %x>%d</c>", GetTeamColor(j), GetTickets(j)), i);
+    i++;
   }
-  
-  SortTeamScoreboard();
-  init = true;
-
-  UpdateScoreboardTotal();
 }
-
-
-// Team eintragen, dass mehrere Spieler hat
-private func InitMultiplayerTeam(int iTeam)
-{
-  if(iTeam < 1) return;
-
-  var col = GetTeamColor(iTeam);
-
-  SetScoreboardData(TEAM_iRow + iTeam, SBRD_Caption, "");
-  SetScoreboardData(TEAM_iRow + iTeam, TEAM_TeamColumn,  Format("<c %x>%s</c>", col, GetTeamName(iTeam)), iTeam);
-  SetScoreboardData(TEAM_iRow + iTeam, TEAM_PlayerColumn, "");
-  SetScoreboardData(TEAM_iRow + iTeam, TEAM_GoalColumn,  Format("<c %x>%d</c>", col, aTicket[iTeam-1]), aTicket[iTeam-1]);
-  SetScoreboardData(TEAM_iRow + iTeam, TEAM_KillColumn,  Format("<c %x>%d</c>", col, TeamGetKills(iTeam)), TeamGetKills(iTeam)+1);
-  SetScoreboardData(TEAM_iRow + iTeam, TEAM_DeathColumn, Format("<c %x>%d</c>", col, TeamGetDeath(iTeam)));
-  SortTeamScoreboard();
-}
-
-// Team eintragen, dass nur einen Spieler hat
-private func InitSingleplayerTeam(int iPlr)
-{
-  if(iPlr == -1) return;
-
-  var col = GetPlrColorDw(iPlr);
-
-  SetScoreboardData(iPlr, SBRD_Caption, "");
-  SetScoreboardData(iPlr, TEAM_TeamColumn, GetTaggedPlayerName(iPlr), GetPlayerTeam(iPlr));
-  SetScoreboardData(iPlr, TEAM_PlayerColumn, "");
-  SetScoreboardData(iPlr, TEAM_GoalColumn,  Format("<c %x>%d</c>", col, aTicket[GetPlayerTeam(iPlr)-1]), aTicket[GetPlayerTeam(iPlr)-1]);
-  SetScoreboardData(iPlr, TEAM_KillColumn,  Format("<c %x>%d</c>", col, TeamGetKills(GetPlayerTeam(iPlr))), TeamGetKills(GetPlayerTeam(iPlr))+1);
-  SetScoreboardData(iPlr, TEAM_DeathColumn, Format("<c %x>%d</c>", col, aDeath[iPlr]), aDeath[iPlr]);
-  SortTeamScoreboard();
-}
-
-// Spieler eintragen
-private func InitPlayer(int iPlr)
-{
-  // Team 0 oder -1 können wir nicht behandeln
-  if(GetPlayerTeam(iPlr) < 1) return;
-  if(iPlr == -1) return;
-  
-  // Eintragen
-  SetScoreboardData(iPlr, SBRD_Caption, "");
-  SetScoreboardData(iPlr, TEAM_TeamColumn, Format("<c %x>\\</c>",GetTeamColor(GetPlayerTeam(iPlr))), GetPlayerTeam(iPlr));
-  SetScoreboardData(iPlr, TEAM_PlayerColumn, GetTaggedPlayerName(iPlr));
-  SetScoreboardData(iPlr, TEAM_GoalColumn, "", aTicket[GetPlayerTeam(iPlr)-1]);
-  SetScoreboardData(iPlr, TEAM_KillColumn, Format("%d", aKill[iPlr]), aKill[iPlr]);
-  SetScoreboardData(iPlr, TEAM_DeathColumn, Format("%d", aDeath[iPlr]), aDeath[iPlr]);
-  SortTeamScoreboard();
-}
-
-// Spieler austragen
-private func RemoveScoreboardPlayer(int iPlr)
-{
-  if(iPlr == -1) return;
-
-  if(GetTeamPlayerCount(GetPlayerTeam(iPlr)) == 1) return RemoveSingleplayerTeam(iPlr);
-
-  SetScoreboardData(iPlr, TEAM_TeamColumn);
-  SetScoreboardData(iPlr, TEAM_PlayerColumn);
-  SetScoreboardData(iPlr, TEAM_GoalColumn);
-  SetScoreboardData(iPlr, TEAM_KillColumn);
-  SetScoreboardData(iPlr, TEAM_DeathColumn);
-
-  SortTeamScoreboard();
-
-  // Team nicht prüfen
-  if(fNoTeamCheck) return;
-  fNoTeamCheck = true;
-
-  // Team wechselt zum Einzelspielerteam
-  if(GetTeamPlayerCount(GetPlayerTeam(iPlr)) == 2) // 2, weil der Spieler in diesem Moment noch im Spiel ist
-  {
-    var j = 0, p;
-    while(GetTeamPlayer(GetPlayerTeam(iPlr), ++j) != -1)
-    {
-      p = GetTeamPlayer(iPlr, j);
-      if(p == iPlr) continue;
-      //Log("lol: %d", p);//TODO: Wasn das?!
-      RemoveMultiplayerTeam(GetPlayerTeam(iPlr));
-      InitSingleplayerTeam(p);
-    }
-  }
-  fNoTeamCheck = false;
-}
-
-//aktualisiert den Punktestand
-private func UpdateScoreboardTotal()
-{
-  for(var i = 1; i <= GetTeamCount(); i++)
-    UpdateScoreboard(i);
-}
-
-private func UpdateScoreboard(int iTeam)
-{
-  if(GetTeamPlayerCount(iTeam) > 1)
-  {
-    SetScoreboardData(TEAM_iRow + iTeam, TEAM_GoalColumn, Format("<c %x>%d</c>", GetTeamColor(iTeam), aTicket[iTeam-1]), aTicket[iTeam-1]);
-    var p, j=0;
-    while(GetTeamPlayer(iTeam, ++j) != -1)
-    {
-      p = GetTeamPlayer(iTeam, j);
-      SetScoreboardData(p, TEAM_GoalColumn, "", aTicket[iTeam-1]);
-    }
-  }
-  else
-    SetScoreboardData(GetTeamPlayer(iTeam, 1), TEAM_GoalColumn, Format("<c %x>%d</c>", GetPlrColorDw(GetTeamPlayer(iTeam, 1)), aTicket[iTeam-1]), aTicket[iTeam-1]);
-
-  SortTeamScoreboard();
-}
-
 
 /* Tickets */
 public func TicketChange(int iTeam, int iChange)
 {
   DoTickets(iChange);
-  UpdateScoreboard(iTeam);
+  //UpdateScoreboard(iTeam);
 }
 
 public func ScoreChange(int iTeam, int iChange)
 {
   DoTickets(iChange);
-  UpdateScoreboard(iTeam);
+  //UpdateScoreboard(iTeam);
 }
 
 public func GetTickets(int iTeam)
@@ -361,13 +208,13 @@ public func GetTickets(int iTeam)
 public func DoTickets(int iTeam, int iChange)
 {
   aTicket[iTeam-1] = Max(aTicket[iTeam-1] + iChange, 0);
-  UpdateScoreboard(iTeam);
+  //UpdateScoreboard(iTeam);
 }
 
 public func SetTickets(int iTeam, int iTickets)
 {
   aTicket[iTeam-1] = Max(iTickets, 0);
-  UpdateScoreboard(iTeam);
+  //UpdateScoreboard(iTeam);
 }
 
 
@@ -563,7 +410,7 @@ private func InitializePlayer(int iPlr, int iX, int iY, object pBase, int iTeam)
   //Verfeindung setzen
   Hostility(iPlr);
   // Ins Scoreboard eintragen
-
+ /*
   var teamp = GetTeamPlayerCount(iTeam);
   // Team ist neu
   if(teamp == 1)
@@ -586,7 +433,7 @@ private func InitializePlayer(int iPlr, int iX, int iY, object pBase, int iTeam)
   if(teamp > 2)
     InitPlayer(iPlr);
   // Sortieren
-  SortTeamScoreboard();
+  SortTeamScoreboard();*/
   
   RelaunchPlayer(iPlr, GetCrew(iPlr), 0, iTeam, true);
 }
@@ -629,14 +476,14 @@ private func RelaunchPlayer(int iPlr, object pCrew, int iMurdererPlr, int iTeam,
     if(!GetTickets(iTeam) || (GetWinningTeam() > 0 && GetWinningTeam() != iTeam))
     {
       EliminatePlayer(iPlr);
-      UpdateScoreboard(iTeam);
+      //UpdateScoreboard(iTeam);
       return;
     }
 
     DoTickets(iTeam,-1);
   }
   
-  UpdateScoreboardTotal();
+  //UpdateScoreboardTotal();
 
   if(!FindObject(CHOS) && !FindObject(MCSL))//Regelwähler oder Klassenwahl?
     CreateGOCCSpawner(pCrew);
