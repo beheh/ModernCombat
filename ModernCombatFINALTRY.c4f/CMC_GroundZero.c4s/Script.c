@@ -4,6 +4,9 @@
 #include CSTD
 
 static aFlag;
+static aFlagnames = [Format("$Flag1$"), Format("$Flag2$"), Format("$Flag3$"), Format("$Flag4$"), Format("$Flag5$")];
+
+public func GetFlagNames() {return (aFlagnames);}
 
 
 /* Regelvoreinstellung */
@@ -23,6 +26,8 @@ func Initialize()
   Music("CMC_No Good.ogg");
   //Himmel
   SetSkyParallax(0,15,15);
+  //Flaggennamen
+  aFlagnames = [Format("$Flag1$"),Format("$Flag2$"),Format("$Flag3$"),Format("$Flag4$"),Format("$Flag5$")];
   //Flaggen
   aFlag = [];
   //Szenario einrichten
