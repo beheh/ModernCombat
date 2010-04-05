@@ -2,9 +2,55 @@
 
 #strict
 
-public func IsEquipment() {return(true);}
-public func NoArenaRemove() {return(true);}
+public func HandSize()		{return(1000);}
+public func HandX()		{return(4500);}
+public func HandY()		{return(0);}
+public func IsDrawable()	{return(true);}
+public func IsEquipment()	{return(true);}
+public func NoArenaRemove()	{return(true);}
 
+
+/* Stich setzen */
+
+public func ControlThrow(pByObject)
+{
+  Sting(pByObject);
+  return(true);
+}
+
+func Sting(caller)
+{
+  //Patienten suchen
+  var obj;
+  if(obj = FindObject2(Find_InRect(-10,-10,20,20),Find_OCF(OCF_Alive),Find_Exclude(caller),Find_Allied(GetOwner(caller)),Find_NoContainer()))
+  {
+ 
+   //Bereits anderweitig am heilen?
+   if(GetEffect("*Heal*",obj))
+   {
+    PlayerMessage(GetOwner(caller), "$AlreadyHealing$",caller);
+    return(1);
+   }
+   //Nicht verwundet?
+   if(GetEnergy(obj) == GetPhysical("Energy",0, obj)/1000)
+   {
+    PlayerMessage(GetOwner(caller), "$NotWounded$",caller);
+    return(1);
+   }
+
+   //Heileffekt geben
+   AddEffect("DragninHeal",obj,20,1,0,GetID(),HealAmount(),HealRate());
+   Sound("DGNN_Use.ogg");
+   RemoveObject();
+
+  }
+  else
+  {
+   //Ins Leere stechen
+   Sound("GrenadeThrow*.ogg");
+  }
+  return(1);
+}
 
 /* Aktivierung */
 
