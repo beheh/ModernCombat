@@ -113,14 +113,17 @@ protected func Timer()
     DoProcess(team,1);
 }
 
-public func Capture(int iTeam)
+public func Capture(int iTeam, bool bSilent)
 {
   team = iTeam;
   process = 100;
   attacker = 0;
   capt = true;
-  EventInfo4K(0,Format("$MsgCaptured$",GetTeamName(iTeam),GetName()),OFLG,GetTeamColor(iTeam));
-  Sound("Trumpet");
+  if(!bSilent)
+  {
+    EventInfo4K(0,Format("$MsgCaptured$",GetTeamName(iTeam),GetName()),OFLG,GetTeamColor(iTeam));
+    Sound("Trumpet");
+  }
   GameCall("PointCaptured",this(),team);//Broadcasten.
   
   UpdateFlag();
