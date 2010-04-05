@@ -686,7 +686,7 @@ public func ChooserFinished()
    if(aTeams[1] == true)
    {
     aFlag[0]->Set("$Flag1$",100,2);
-    aFlag[0]->Capture(1);
+    aFlag[0]->Capture(1,1);
    }
    else
    {
@@ -697,7 +697,7 @@ public func ChooserFinished()
    if(aTeams[1] == true)
    {
     aFlag[1]->Set("$Flag2$",100,2);
-    aFlag[1]->Capture(1);
+    aFlag[1]->Capture(1,1);
    }
    else
    {
@@ -708,7 +708,7 @@ public func ChooserFinished()
    if(aTeams[1] == true)
    {
     aFlag[2]->Set("$Flag3$",100,2);
-    aFlag[2]->Capture(1);
+    aFlag[2]->Capture(1,1);
    }
    else
    {
@@ -722,7 +722,7 @@ public func ChooserFinished()
    if(aTeams[2] == true)
    {
     aFlag[4]->Set("$Flag5$",100,2);
-    aFlag[4]->Capture(2);
+    aFlag[4]->Capture(2,1);
    }
    else
    {
@@ -733,7 +733,7 @@ public func ChooserFinished()
    if(aTeams[2] == true)
    {
     aFlag[5]->Set("$Flag6$",100,2);
-    aFlag[5]->Capture(2);
+    aFlag[5]->Capture(2,1);
    }
    else
    {
@@ -744,7 +744,7 @@ public func ChooserFinished()
    if(aTeams[2] == true)
    {
     aFlag[6]->Set("$Flag7$",100,2);
-    aFlag[6]->Capture(2);
+    aFlag[6]->Capture(2,1);
    }
    else
    {
