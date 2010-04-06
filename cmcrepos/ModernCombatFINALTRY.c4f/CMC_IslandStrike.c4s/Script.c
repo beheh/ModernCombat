@@ -6,7 +6,7 @@
 static aFlag,aSelfDefense;
 static aFlagnames = [Format("$Flag1$"), Format("$Flag2$"), Format("$Flag3$"), Format("$Flag4$"), Format("$Flag5$"), Format("$Flag6$"), Format("$Flag7$")];
 
-public func GetFlagNames() {return (aFlagnames);}
+public func GetFlagNames() {return (aFlagnames);}
 
 
 /* Regelvoreinstellung */
@@ -27,7 +27,7 @@ func Initialize()
   //Bildschirmfärbung
   SetGamma(RGB(7,6,0), RGB(152,147,128), RGB(255,254,236) );
   //Flaggennamen
-  aFlagnames = [Format("$Flag1$"),Format("$Flag2$"),Format("$Flag3$"),Format("$Flag4$"),Format("$Flag5$"),Format("$Flag6$"),Format("$Flag7$")];
+  aFlagnames = [Format("$Flag1$"),Format("$Flag2$"),Format("$Flag3$"),Format("$Flag4$"),Format("$Flag5$"),Format("$Flag6$"),Format("$Flag7$")];
   //Flaggen
   aFlag = [];
   //Selbstschussanlagen
