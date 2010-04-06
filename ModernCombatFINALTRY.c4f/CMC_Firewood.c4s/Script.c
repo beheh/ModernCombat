@@ -4,9 +4,6 @@
 #include CSTD
 
 static aFlag;
-static aFlagnames = [Format("$Flag1$"), Format("$Flag2$"), Format("$Flag3$"),Format("$Flag4$")];
-
-public func GetFlagNames() {return (aFlagnames);}
 
 
 /* Regelvoreinstellung */
@@ -26,8 +23,6 @@ func Initialize()
   Music("CMC_Odyssey.ogg");
   //Bildschirmfärbung
   SetGamma(RGB(2,3,10), RGB(131,135,158), RGB(252,253,255) );
-  //Flaggennamen
-  aFlagnames = [Format("$Flag1$"),Format("$Flag2$"),Format("$Flag3$"),Format("$Flag4$")];
   //Flaggen
   aFlag = [];
   //Szenario einrichten

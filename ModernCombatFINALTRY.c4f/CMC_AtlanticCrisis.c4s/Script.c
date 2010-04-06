@@ -4,9 +4,6 @@
 #include CSTD
 
 static aFlag;
-static aFlagnames = [Format("$Flag1$"), Format("$Flag2$"), Format("$Flag3$")];
-
-public func GetFlagNames() {return (aFlagnames);}
 
 
 /* Regelvoreinstellung */
@@ -28,8 +25,6 @@ func Initialize()
   SetGamma(RGB(2,3,10), RGB(131,135,158), RGB(252,253,255) );
   //Hintergrundbewegung
   SetSkyParallax(0,15,15);
-  //Flaggennamen
-  aFlagnames = [Format("$Flag1$"),Format("$Flag2$"),Format("$Flag3$")];
   //Flaggen
   aFlag = [];
   //Szenario einrichten
