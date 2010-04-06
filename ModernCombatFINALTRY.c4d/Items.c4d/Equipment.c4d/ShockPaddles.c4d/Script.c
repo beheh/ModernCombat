@@ -74,7 +74,9 @@ func Use(caller)
 
   //Patienten suchen
   var obj;
-  if(obj = FindObject2(Find_InRect(-10,-10,20,20),Find_ID(FKDT),Find_Allied(GetOwner(caller)),Find_NoContainer()))
+  if(obj = FindObject2(Find_InRect(-10,-10,20,20),Find_ID(FKDT),			//Schwerverletzter?
+						  Find_Allied(GetOwner(caller)),	//Verbündet?
+						  Find_NoContainer()))			//Im Freien?
   {
     obj = obj->GetClonk();
  
@@ -104,7 +106,9 @@ func Use(caller)
   obj=0;
 
   //Keine Patienten, dann eben Feinde suchen
-  if(FindObject2(Find_InRect(-10,-10,20,20),Find_OCF(OCF_Alive),Find_NoContainer(),Find_Exclude(caller)))
+  if(FindObject2(Find_InRect(-10,-10,20,20),Find_OCF(OCF_Alive),	//Am Leben?
+					    Find_NoContainer(),		//Im Freien?
+					    Find_Exclude(caller)))	//Nicht der Schocker selbst?
   {
    obj = FindObjects(Find_InRect(-10,-10,20,20),Find_OCF(OCF_Alive),Find_NoContainer(),Find_Exclude(caller));
    for(var target in obj)
