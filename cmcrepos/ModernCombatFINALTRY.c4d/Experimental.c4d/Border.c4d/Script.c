@@ -46,9 +46,19 @@ public func Set(iDir)
 private func Check()
 {
   for(var clonk in FindObjects(Find_InRect(x,y,xh,yh),Find_OCF(OCF_CrewMember),Find_OCF(OCF_Alive)))
-   if(!GetEffect("Border", clonk))
-    AddEffect("Border", clonk, 50, 35, this);
-  for(var flag in FindObjects(Find_InRect(x,y,xh,yh),Find_ID(FLA2),Find_NoContainer()))
+    if(!GetEffect("Border", clonk))
+    {
+      if(Contained())
+      {
+        if(GetID(Contained()) == FKDT || GetID(Contained()) == TIM2 || GetID(Contained()) == GOCC)
+          continue;
+        else
+          AddEffect("Border", clonk, 50, 35, this);
+      }
+      else
+        AddEffect("Border", clonk, 50, 35, this);
+    }
+  for(var flag in FindObjects(Find_InRect(x,y,xh,yh),Find_ID(FLA2),Find_Action("Lost")))
    RemoveObject(FLA2);
 }
 

@@ -11,5 +11,5 @@ Value=100
 Mass=0
 Components=GOCC=1;
 Picture=0,0,64,64
-#Timer=10
-#TimerCall=UpdateScoreboard
+Timer=5
+TimerCall=UpdateScoreboard

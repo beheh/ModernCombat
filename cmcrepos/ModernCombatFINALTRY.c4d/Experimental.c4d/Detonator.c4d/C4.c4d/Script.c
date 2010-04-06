@@ -110,7 +110,7 @@ public func IsBulletTarget(ID)
 
 public func OnDmg(int iDamage, int iType)
 {
-  if(iType == DMG_Fire || iType == DMG_Explosion)
+  if((iType == DMG_Fire || iType == DMG_Explosion) && iDamage > 10)
    Trigger();
 }
 

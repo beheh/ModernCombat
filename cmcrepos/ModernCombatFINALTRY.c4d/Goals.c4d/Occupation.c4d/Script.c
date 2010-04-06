@@ -162,29 +162,27 @@ private func InitScoreboard()
 
 private func UpdateScoreboard()
 {
-  Log("update");
   var i = 1;
   //Flaggen
-  var flagnames = GameCall("GetFlagNames");
   for(var flag in FindObjects(Find_ID(OFPL)))
   {
     var color=RGB(255,255,255);
     if(flag->GetTeam())
       color=GetTeamColor(flag->GetTeam());
-    Log("%s",flagnames[i-1]);
-    SetScoreboardData(i,1,Format("<c %x>%s</c>",color,flagnames[i-1]), i);
-    SetScoreboardData(i,2,Format("%d %", flag->GetProcess()), i);
+    SetScoreboardData(i,1,Format("<c %x>%s</c>",color,GetName(flag)), GetX(flag));
+    SetScoreboardData(i,2,Format("%d %", flag->GetProcess()), flag->GetProcess());
     i++;
   }
-  SetScoreboardData(i, 1, "", i);
+  SetScoreboardData(i, 1, "", LandscapeWidth()+9); //ololo
   i++;
   //Tickets
   for(var j = 1; j <= GetTeamCount(); j++)
   {
-    SetScoreboardData(i, 1, Format("{{TIKT}} <c %x>%s</c>:", GetTeamColor(j), GetTeamName(j)), i);
-    SetScoreboardData(i, 2, Format("<c %x>%d</c>", GetTeamColor(j), GetTickets(j)), i);
+    SetScoreboardData(i, 1, Format("<c %x>%s</c>:", GetTeamColor(j), GetTeamName(j)), LandscapeWidth()+10);
+    SetScoreboardData(i, 2, Format("<c %x>%d</c> {{TIKT}}", GetTeamColor(j), GetTickets(j)), i);
     i++;
   }
+  SortScoreboard(1);
 }
 
 /* Tickets */
@@ -281,7 +279,10 @@ private func GetWinningTeam() {
         EliminateTeam(i); //Eliminieren!
     }
     else
-      alive[i] = 1;
+      //Garkeine Spieler in einem Team?
+      for(var j = 0; j < GetPlayerCount(); j++)
+        if(GetPlayerTeam(GetPlayerByIndex(j)) == i)
+          alive[i]++;
   }
   
   //Wie viele Teams existent?
@@ -450,27 +451,14 @@ private func RelaunchPlayer(int iPlr, object pCrew, int iMurdererPlr, int iTeam,
   {
     //Tode++
     aDeath[iPlr]++;
-    if(GetTeamPlayerCount(GetPlayerTeam(iPlr)) > 1)
-      SetScoreboardData(iPlr, TEAM_DeathColumn, Format("%d", aDeath[iPlr]), aDeath[iPlr]);
-    else
-      SetScoreboardData(iPlr, TEAM_DeathColumn, Format("<c %x>%d</c>", GetPlrColorDw(iPlr), aDeath[iPlr]), aDeath[iPlr]);
-    if(GetTeamPlayerCount(GetPlayerTeam(iPlr)) > 1)
-      SetScoreboardData(TEAM_iRow + GetPlayerTeam(iPlr), TEAM_DeathColumn, Format("<c %x>%d</c>", GetTeamColor(GetPlayerTeam(iPlr)), TeamGetDeath(GetPlayerTeam(iPlr))), TeamGetDeath(GetPlayerTeam(iPlr))+1);
+
     //kein Selfkill? kein Teamkill?
     if(iMurdererPlr != -1 && GetPlayerTeam(iPlr) != GetPlayerTeam(iMurdererPlr))
     {	
       //kill++
       aKill[iMurdererPlr]++;
-      SetScoreboardData(iMurdererPlr, TEAM_KillColumn, Format("<c %x>%d</c>", GetPlrColorDw(iMurdererPlr), aKill[iMurdererPlr]), aKill[iMurdererPlr]);
-      //team: kill++
-      if(GetTeamPlayerCount(GetPlayerTeam(iMurdererPlr)) > 1)
-      {
-        SetScoreboardData(TEAM_iRow + GetPlayerTeam(iMurdererPlr), TEAM_KillColumn, Format("<c %x>%d</c>", GetTeamColor(GetPlayerTeam(iMurdererPlr)), TeamGetKills(GetPlayerTeam(iMurdererPlr))), TeamGetKills(GetPlayerTeam(iMurdererPlr))+1);
-        SetScoreboardData(iMurdererPlr, TEAM_KillColumn, Format("%d", aKill[iMurdererPlr]), aKill[iMurdererPlr]);
-      }
     }
     
-    SortTeamScoreboard();
     Money(iPlr, pCrew, iMurdererPlr);
     
     if(!GetTickets(iTeam) || (GetWinningTeam() > 0 && GetWinningTeam() != iTeam))
@@ -497,4 +485,11 @@ public func OnClassSelection(object pClonk)
     return;
     
   CreateGOCCSpawner(pClonk);
+}
+
+public func ChooserFinished()
+{
+  for(var i = 1; i <= GetTeamCount(); i++)
+    DoTickets(i, iStartTickets);
+  _inherited(...);
 }
