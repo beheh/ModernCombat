@@ -6,7 +6,7 @@
 static aDoor1, aDoor2, aLamp1, aLamp2, aLamp3, aFlag;
 static aFlagnames = [Format("$Flag1$"), Format("$Flag2$"), Format("$Flag3$"), Format("$Flag4$"), Format("$Flag5$")];
 
-public func GetFlagNames() {return (aFlagnames);}
+public func GetFlagNames() {return (aFlagnames);}
 
 
 /* Regelvoreinstellung */
@@ -35,7 +35,7 @@ func Initialize()
   //Lampen3
   aLamp3 = [];
   //Flaggennamen
-  aFlagnames = [Format("$Flag1$"),Format("$Flag2$"),Format("$Flag3$"),Format("$Flag4$"),Format("$Flag5$")];
+  aFlagnames = [Format("$Flag1$"),Format("$Flag2$"),Format("$Flag3$"),Format("$Flag4$"),Format("$Flag5$")];
   //Flaggen
   aFlag = [];
   //Szenario einrichten

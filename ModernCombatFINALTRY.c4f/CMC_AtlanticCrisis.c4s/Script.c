@@ -6,7 +6,7 @@
 static aFlag;
 static aFlagnames = [Format("$Flag1$"), Format("$Flag2$"), Format("$Flag3$")];
 
-public func GetFlagNames() {return (aFlagnames);}
+public func GetFlagNames() {return (aFlagnames);}
 
 
 /* Regelvoreinstellung */
@@ -29,7 +29,7 @@ func Initialize()
   //Hintergrundbewegung
   SetSkyParallax(0,15,15);
   //Flaggennamen
-  aFlagnames = [Format("$Flag1$"),Format("$Flag2$"),Format("$Flag3$")];
+  aFlagnames = [Format("$Flag1$"),Format("$Flag2$"),Format("$Flag3$")];
   //Flaggen
   aFlag = [];
   //Szenario einrichten
