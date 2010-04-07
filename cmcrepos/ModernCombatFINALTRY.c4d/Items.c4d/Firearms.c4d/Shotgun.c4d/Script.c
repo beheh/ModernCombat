@@ -20,9 +20,9 @@ public func FMData1(int data)
   if(data == FM_AmmoLoad)           return(20);
   if(data == FM_AmmoUsage)          return(4);
   
-  if(data == FM_SingleReload)       return(1);
+  if(data == FM_SingleReload)       return(2);
   if(data == FM_PrepareReload)      return(10);
-  if(data == FM_FinishReload)       return(20);
+  if(data == FM_FinishReload)       return(40);
     
   if(data == FM_Reload)             return(75);
   if(data == FM_Recharge)           return(50);
@@ -59,8 +59,7 @@ public func BotData1(int data)
 public func FMData1T2(int data)
 {
   if(data == FT_Name)                 return("$PrecisionShot$");
-  if(data == FM_Recharge)           return(45);
-  if(data == FM_Damage)             return(30);
+  if(data == FM_Damage)             return(35);
   if(data == FM_SpreadAdd) return(100);
   if(data == FM_StartSpread) return(250);
   return(FMData1(data));
@@ -68,7 +67,7 @@ public func FMData1T2(int data)
 
 public func Fire1T2()
 {
-  Fire1();
+  Fire2();
 }
 
 /* Kugeln - Schuss */
@@ -86,6 +85,27 @@ public func Fire1()
   for(var i; i < j; i++)
   {
    ammo = SALaunchBullet(x,y,GetController(user),angle+RandomX(-6,+6),220+Random(60),260+Random(40),10);
+  }
+  ammo->Sound("PPGN_Fire*.ogg");
+
+  // Effekte
+  SAMuzzleFlash(RandomX(40,55),user,x,y,angle);
+  AddEffect("Pump", this(), 1, 1+GetFMData(FM_Recharge, 1)-25, this());
+}
+
+public func Fire2()
+{
+  var user = GetUser();
+  var dir = GetDir(user)*2-1;
+  var angle = user->AimAngle(10,0,true);
+  var x,y;
+  user->WeaponEnd(x,y);
+
+  var ammo;
+  var j = GetFMData(FM_Damage, 1)/10;
+  for(var i; i < j; i++)
+  {
+   ammo = SALaunchBullet(x,y,GetController(user),angle+RandomX(-3,+3),300+Random(60),340+Random(40),10);
   }
   ammo->Sound("PPGN_Fire*.ogg");
 
