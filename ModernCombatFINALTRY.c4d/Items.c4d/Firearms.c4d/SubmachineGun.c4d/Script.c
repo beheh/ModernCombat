@@ -25,7 +25,7 @@ public func FMData1(int data)
 
   if(data == FM_Auto)               return(true);
   
-  if(data == FM_Damage)    return(5);
+  if(data == FM_Damage)    return(6);
   
   if(data == FM_Slot)    return(1);
   
@@ -61,7 +61,7 @@ public func BotData1(int data)
 public func FMData1T2(int data)
 {
   if(data == FT_Name)                 return("$Burst$");
-  if(data == FM_Recharge)             return(20);
+  if(data == FM_Recharge)             return(15);
   if(data == FT_IconFacet)            return(FICO_Burst);
   if(data == FM_Auto)                 return(false);
   if(data == FM_Damage)               return(8);
@@ -91,7 +91,7 @@ public func Fire1T2()
 public func FMData1T3(int data)
 {
   if(data == FT_Name)                 return("$Single$");
-  if(data == FM_Recharge)             return(9);
+  if(data == FM_Recharge)             return(7);
   if(data == FT_IconFacet)            return(FICO_Single);
   if(data == FM_Auto)                 return(false);
   if(data == FM_Damage)               return(FMData1(FM_Damage)*2);
