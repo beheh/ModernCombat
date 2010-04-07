@@ -8,40 +8,6 @@
 
 func ExplodeDelay() { return(80); }
 
-/* Treffer */
-
-func HitObject(object pObj)
-{
-  if(Secure())
-  {
-   if(pObj)
-   {
-    if(!Hostile(GetOwner(pObj),GetOwner())) return(false);
-    DoDmg(Distance(GetXDir(),GetYDir())/5,DMG_Projectile,pObj); 
-    CastParticles("Smoke3",12,10,0,0,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
-    if(GetOCF(pObj) & OCF_Living)
-    {
-     Sound("SharpnelImpact*.ogg");
-    }
-    else
-    {
-     Sound("BlockOff*.ogg");
-     Sparks(30,RGB(255,128));
-     CastParticles("Smoke3",12,10,0,0,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
-    }
-   }
-   else
-   {
-    Sound("GrenadeHit*.ogg");
-    Sparks(30,RGB(255,128));
-    CastParticles("Smoke3",12,10,0,0,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
-    RemoveObject();
-    return();
-   }
-  }
-  Trigger();
-}
-
 func Trigger()
 {
   //Splitter erzeugen
