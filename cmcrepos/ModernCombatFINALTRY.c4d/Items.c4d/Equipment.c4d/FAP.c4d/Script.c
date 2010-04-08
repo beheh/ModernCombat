@@ -9,9 +9,9 @@ public func HandX()     	{return 2000;}
 public func HandY()     	{return -2000;}
 public func IsDrawable() 	{return true;} 
 
-public func MaxHealPoints()	  {return 150;}
+public func MaxHealPoints()	{return 150;}
 public func StartHealPoints()	{return 150;}
-public func IsEquipment()		  {return true;}
+public func IsEquipment()	{return true;}
 
 
 /* Initialisierung */
