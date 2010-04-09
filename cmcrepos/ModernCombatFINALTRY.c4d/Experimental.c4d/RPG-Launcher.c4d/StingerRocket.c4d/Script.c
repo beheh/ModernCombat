@@ -23,7 +23,7 @@ public func Launch(int iAngle, int iDmg, object pFollow)
   SetAction("Travel");
 
   //Effekte
-  Sound("RPGP_ThrustStart.ogg");
+  //Sound("RPGP_ThrustStart.ogg");
   AddEffect("ThrustSound",this(),1,11,this());
   AddLight(70,RGB(255,200,200),this(),GLOW);
 
@@ -37,7 +37,7 @@ public func Launch(int iAngle, int iDmg, object pFollow)
 
 public func FxThrustSoundTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
-  Sound("RPGP_Thrust.ogg",0,0,0,0,+1);
+  //Sound("RPGP_Thrust.ogg",0,0,0,0,+1);
   return(-1);
 }
 
