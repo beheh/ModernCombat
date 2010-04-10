@@ -1,2 +1,2 @@
-CtxStopCrawl=Stoppen
-CtxStartCrawl=Loskriechen
+CtxStopCrawl=Aufstehen
+CtxStartCrawl=Hinlegen

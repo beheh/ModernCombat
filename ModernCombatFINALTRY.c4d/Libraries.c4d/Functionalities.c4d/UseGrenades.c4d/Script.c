@@ -4,9 +4,7 @@
 
 local aGear;
 
-/* Einstellungen */
-
-public func MaxGrenades(){return(4);}//Maximale Granaten im Inventar + Gürtel.
+public func MaxGrenades(){return(4);}	//Maximale Granaten im Inventar + Gürtel
 
 
 /* Allgemeines */

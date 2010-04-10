@@ -3,10 +3,30 @@
 #strict
 #include ESHL
 
+func ExplodeDelay()	{return(80);}
 
-/* Timer */
 
-func ExplodeDelay() { return(80); }
+/* Treffer */
+
+func HitObject(object pObj)
+{
+  if(pObj)
+  {
+   DoDmg(Distance(GetXDir(),GetYDir())/5,DMG_Projectile,pObj); 
+   CastParticles("Smoke3",12,10,0,0,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
+   if(GetOCF(pObj) & OCF_Living)
+   {
+    Sound("SharpnelImpact*.ogg");
+   }
+   else
+   {
+    Sound("BlockOff*.ogg");
+    Sparks(30,RGB(255,128));
+    CastParticles("Smoke3",12,10,0,0,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
+   }
+  }
+  Trigger();
+}
 
 func Trigger()
 {
