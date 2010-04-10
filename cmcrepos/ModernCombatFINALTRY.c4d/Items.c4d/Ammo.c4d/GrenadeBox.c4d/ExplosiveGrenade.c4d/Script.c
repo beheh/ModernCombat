@@ -6,6 +6,8 @@
 local active,sx,sy;
 
 public func BlastRadius()	{return(30);}
+protected func SecureDistance()	{return(75);} //Mindestabstand
+func ExplodeDelay()		{return(35*3);}
 
 
 /* Start */
@@ -19,18 +21,14 @@ func Launch(int xdir, int ydir, int iDmg,a,b,c)
   inherited(xdir,ydir,iDmg,a,b,c);
 }
 
-/* Mindestabstand */
-
-protected func SecureDistance(){return(75);}
-
 protected func Secure()
 {
   if(!active)
    return(true);
-    
+
   if(Distance(GetX(),GetY(),sx,sy) <= SecureDistance())
    return(true);
-    
+
   return(false);
 }
 
@@ -84,8 +82,6 @@ func Trigger(object pObj)
 
 /* Timer */
 
-func ExplodeDelay() { return(35*3); }
-
 func FxGrenadeTimer(object target, int effect, int time)
 {
   if(time > ExplodeDelay()) return(HitObject());
@@ -101,7 +97,7 @@ func FxGrenadeTimer(object target, int effect, int time)
 
 func IsBulletTarget(id id)
 {
-  // Kann von anderen Geschossen getroffen werden
+  //Kann von anderen Geschossen getroffen werden
   return(true);
 }
 
