@@ -140,14 +140,15 @@ public func DoPackAmount(int iAmount)
 }
 
 /* Aufnahme */
+
 public func Entrance(object pContainer)
 {
   for(var obj in FindObjects(Find_Container(pContainer),Find_ID(GetID()),Find_Exclude(this())))
-    if(obj->DoPackAmount())
-    {
-      DoPackAmount(obj->DoPackAmount());
-      RemoveObject(obj);
-    }
+   if(obj->DoPackAmount())
+   {
+    DoPackAmount(obj->DoPackAmount());
+    RemoveObject(obj);
+   }
 }
 
 /* Sounds */
