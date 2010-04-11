@@ -145,26 +145,22 @@ public func FMMenu(clonk)
   var ring = CreateSpeedMenu(0,clonk);
   
   var overlay;
+  
   overlay = ring->AddThrowItem("$Reload$","ManualReload",firemode,RICO);
   SetGraphics("1",ring,RICO,overlay,GFXOV_MODE_IngamePicture);
-  
-  var overlay;
-  overlay = ring->AddLeftItem("$Left$","CycleFM",-1,RICO);
-  SetGraphics(0,ring,RICO,overlay,GFXOV_MODE_IngamePicture);
-  
-  var overlay;
-  overlay = ring->AddRightItem("$Right$","CycleFM",+1,RICO);
-  SetGraphics(0,ring,RICO,overlay,GFXOV_MODE_IngamePicture);
-  
-  var overlay;
-  overlay = ring->AddUpItem("$FireTec$","FTCycle",firemode,RICO);
-  SetGraphics("3",ring,RICO,overlay,GFXOV_MODE_IngamePicture);
-  
-  var overlay;
-  overlay = ring->AddDownItem("$AmmoType$","CycleSA",firemode,RICO);
-  SetGraphics("3",ring,RICO,overlay,GFXOV_MODE_IngamePicture);
-}
 
+  overlay = ring->AddLeftItem("$Left$","CycleFM",-1,RICO);
+  SetGraphics("3",ring,RICO,overlay,GFXOV_MODE_IngamePicture);
+
+  overlay = ring->AddRightItem("$Right$","CycleFM",+1,RICO);
+  SetGraphics("3",ring,RICO,overlay,GFXOV_MODE_IngamePicture);
+
+  overlay = ring->AddUpItem("$FireTec$","FTCycle",firemode,RICO);
+  SetGraphics("4",ring,RICO,overlay,GFXOV_MODE_IngamePicture);
+  
+  //overlay = ring->AddDownItem("$AmmoType$","CycleSA",firemode,RICO);
+  //SetGraphics("2",ring,RICO,overlay,GFXOV_MODE_IngamePicture);
+}
 public func CycleSA(int fm)
 {
   var safe = 10;

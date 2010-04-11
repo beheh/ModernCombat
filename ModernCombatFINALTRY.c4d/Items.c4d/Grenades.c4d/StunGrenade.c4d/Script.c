@@ -21,12 +21,8 @@ public func Fused()
     {
       if(!PathFree(GetX(),GetY(),GetX(obj),GetY(obj)-8))//Speziell für Clonkaugen. >,<
         continue;
-
       if(((GetDir(obj) == DIR_Left) && (GetX() < GetX(obj))) || ((GetDir(obj) == DIR_Right) && (GetX(obj) > GetX(obj))))
-      {
-        Log("Looking in");
         intensity = Max(intensity,255);
-      }
     }
     else
     {
