@@ -1,5 +1,7 @@
 #strict 2
 
+static const RMEN_Radius = 54;
+static const RMEN_Animation = 8;
 static const SMEN_ItemCount = 5;
 
 local pCallbackObject;   //Befehlsziel für Callbacks
