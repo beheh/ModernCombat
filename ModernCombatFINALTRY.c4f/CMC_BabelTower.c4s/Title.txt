@@ -1,0 +1,2 @@
+DE:CMC - <c ff0000>Babel Tower</c>
+US:CMC - <c ff0000>Babel Tower</c>
