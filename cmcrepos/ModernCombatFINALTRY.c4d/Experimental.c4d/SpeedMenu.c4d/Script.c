@@ -230,8 +230,8 @@ private func CreateItem(int i)
     w = GetDefCoreVal("Picture","DefCore",ROCK,2)*1000/GetDefCoreVal("Picture","DefCore",GetID(),2);
     h = GetDefCoreVal("Picture","DefCore",ROCK,3)*1000/GetDefCoreVal("Picture","DefCore",GetID(),3);
     
-    xoff = +Sin((360/(SMEN_ItemCount-1))*i,RMEN_Radius*w);
-    yoff = -Cos((360/(SMEN_ItemCount-1))*i,RMEN_Radius*h);
+    xoff = +Sin((360/(SMEN_ItemCount-1))*(i-1),RMEN_Radius*w);
+    yoff = -Cos((360/(SMEN_ItemCount-1))*(i-1),RMEN_Radius*h);
     
     SetObjDrawTransform(w/2,0,xoff,0,h/2,yoff,0,i+1);
   }
@@ -254,8 +254,8 @@ private func ScaleItems(int iDst)
   {
     if(!ItemActive(i)) continue;
 
-    xoff = +Sin((360/(SMEN_ItemCount-1))*i,(iDst*RMEN_Radius/GetDefWidth())*1000);
-    yoff = -Cos((360/(SMEN_ItemCount-1))*i,(iDst*RMEN_Radius/GetDefHeight())*1000);
+    xoff = +Sin((360/(SMEN_ItemCount-1))*(i-1),(iDst*RMEN_Radius/GetDefWidth())*1000);
+    yoff = -Cos((360/(SMEN_ItemCount-1))*(i-1),(iDst*RMEN_Radius/GetDefHeight())*1000);
     
     SetObjDrawTransform(iDst*500/GetDefWidth(),0,xoff,0,iDst*500/GetDefHeight(),yoff,0,i+1);
   }
