@@ -1,7 +1,7 @@
 MsgGoalFulfilled=We have a winner!
 Score=Points
-MsgGoalLost=Alas! You have lost.
-WinMsg=And the winner is: %s
+MsgGoalLost=Your team has lost.
+WinMsg=Team <c %x>%s</c> has won this battle!
 Kills=Kills
 Death=Death
 MoreTickets=more Tickets

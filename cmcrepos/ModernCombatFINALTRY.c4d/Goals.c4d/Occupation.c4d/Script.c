@@ -155,7 +155,7 @@ private func InitScoreboard()
 {  
   SetScoreboardData(SBRD_Caption, SBRD_Caption, "{{GOCC}}", SBRD_Caption);
   SetScoreboardData(SBRD_Caption, 1, "{{OSPW}}", SBRD_Caption);
-  SetScoreboardData(SBRD_Caption, 2, "{{OPI1}}", SBRD_Caption);
+  SetScoreboardData(SBRD_Caption, 2, "{{AFTN}}", SBRD_Caption);
   
   UpdateScoreboard();
 }
@@ -230,7 +230,7 @@ public func IsFulfilled()
       return false;
 
     Evaluation();
-    Message("@<c %x>$WinMsg$</c>",0 , GetTeamColor(iWinningTeam), GetTeamName(iWinningTeam));
+    Message("@$WinMsg$",0 , GetTeamColor(iWinningTeam), GetTeamName(iWinningTeam));
     Sound("Cheer.ogg",true);
     Schedule("GameOver()",150);
     return true;
