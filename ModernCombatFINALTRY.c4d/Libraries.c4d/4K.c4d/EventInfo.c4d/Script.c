@@ -33,7 +33,7 @@ protected func Initialize()
 
 local text,icon,color,graphics;
 
-public func Set(string szText, id idIcon, int dwTextColor, int dwIconColor, string szGraphics)
+public func Set(string szText, id idIcon, int dwTextColor, int dwIconColor, string szGraphics, string szSound)
 {
   if(!idIcon)
   {
@@ -54,7 +54,8 @@ public func Set(string szText, id idIcon, int dwTextColor, int dwIconColor, stri
   graphics = szGraphics;
   SetColorDw(dwIconColor);
   
-  Sound("EI4K_NewMessage.ogg",true,0,0,GetOwner()+1);
+  if(!szSound) szSound = "EI4K_NewMessage.ogg";
+  Sound(szSound,true,0,0,GetOwner()+1);
   
   AddEffect("IntEventInfo",this(),10,1,this(),EI4K);
 }
