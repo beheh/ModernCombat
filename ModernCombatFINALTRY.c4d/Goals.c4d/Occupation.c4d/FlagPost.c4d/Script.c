@@ -8,9 +8,9 @@ public func GetAttacker()	{return(attacker);}
 public func GetTeam()		{return(team);}
 public func GetProcess()	{return(process);}
 public func GetTrend()		{return(trend);}
-public func IsFullyCaptured() {return(capt);}
+public func IsFullyCaptured()	{return(capt);}
 
-public func IsFlagpole(){return(true);}
+public func IsFlagpole()	{return(true);}
 
 
 /* Initalisierung */
@@ -20,15 +20,16 @@ public func Initialize()
   spawnpoints = CreateArray();
   Set();
   if(!flag)
-    flag = CreateObject(OFLG);
+   flag = CreateObject(OFLG);
   UpdateFlag();
 }
 
-//Timer-Effekt
+/* Timereffekt */
+
 public func FxIntFlagpoleTimer(object pTarget)
 {
   if(!pTarget)
-    return(-1);
+   return(-1);
   pTarget->Timer();
   return(0);
 }
@@ -40,12 +41,14 @@ public func Set(string szName, int iRange, int iSpeed)
 
   if(!iRange) iRange = 100;
   range = iRange;
-  
+
   if(!iSpeed) iSpeed = 10;
-  
+
   RemoveEffect("IntFlagpole",this());
   AddEffect("IntFlagpole",this(),10,iSpeed,this());
 }
+
+/* Spawnpoint setzen */
 
 public func AddSpawnPoint(int iX, int iY)
 {
@@ -57,8 +60,8 @@ public func GetSpawnPoint(int &iX, int &iY)
 {
   if(!GetLength(spawnpoints))
   {
-    iY = -30;
-    return();
+   iY = -30;
+   return();
   }
 
   var rnd = Random(GetLength(spawnpoints)/2);
@@ -66,14 +69,15 @@ public func GetSpawnPoint(int &iX, int &iY)
   iY = spawnpoints[rnd+1];
 }
 
+/* Wird angegriffen */
+
 public func IsAttacked()
 {
   for(clonk in FindObjects(Find_Distance(range),Find_OCF(OCF_Alive)))
   {
-    if(GetOwner(clonk) == NO_OWNER) continue;
-  
-    if(GetPlayerTeam(GetOwner(clonk)) != team)
-      return(true);
+   if(GetOwner(clonk) == NO_OWNER) continue;
+   if(GetPlayerTeam(GetOwner(clonk)) != team)
+    return(true);
   }
   return(false);
 }
@@ -83,32 +87,34 @@ public func IsCaptured(bool pBool)
   capt = pBool;
 }
 
+/* Timer */
+
 protected func Timer()
 {
   var enemys,friends,opposition;
-  
+
   trend = 0;
 
   for(clonk in FindObjects(Find_Distance(range),Find_OCF(OCF_Alive),Find_NoContainer()))
   {
-    if(GetOwner(clonk) == NO_OWNER) continue;
-    if(!PathFree4K(GetX(this()),GetY(this())-GetDefHeight(GetID())/2,GetX(clonk),GetY(clonk),4)) continue;
-    if(Contained(clonk)) continue;
-    
-    if(GetPlayerTeam(GetOwner(clonk)) == team)
-      friends++;
-    else
-    {
-      enemys++;
-      opposition = GetPlayerTeam(GetOwner(clonk));
-    }
+   if(GetOwner(clonk) == NO_OWNER) continue;
+   if(!PathFree4K(GetX(this()),GetY(this())-GetDefHeight(GetID())/2,GetX(clonk),GetY(clonk),4)) continue;
+   if(Contained(clonk)) continue;
+
+   if(GetPlayerTeam(GetOwner(clonk)) == team)
+    friends++;
+   else
+   {
+    enemys++;
+    opposition = GetPlayerTeam(GetOwner(clonk));
+   }
   }
-  
+
   attacker = opposition;
-  
+
   if(enemys && !friends)
     DoProcess(opposition,1);
-    
+
   if(!enemys && friends)
     DoProcess(team,1);
 }
@@ -121,11 +127,11 @@ public func Capture(int iTeam, bool bSilent)
   capt = true;
   if(!bSilent)
   {
-    EventInfo4K(0,Format("$MsgCaptured$",GetTeamName(iTeam),GetName()),OFLG,GetTeamColor(iTeam));
-    Sound("Trumpet");
+   EventInfo4K(0,Format("$MsgCaptured$",GetTeamName(iTeam),GetName()),OFLG,GetTeamColor(iTeam));
+   Sound("Trumpet");
   }
   GameCall("PointCaptured",this(),team);//Broadcasten.
-  
+
   UpdateFlag();
 }
 
@@ -160,14 +166,14 @@ public func NoTeam()
 public func UpdateFlag()
 {
   if(!flag) return();
-  
+
   if(team)
-    SetClrModulation(GetTeamColor(team),flag);
-    
+   SetClrModulation(GetTeamColor(team),flag);
+
   SetFlagPos(process);
 }
 
-protected func SetFlagPos(int iHeight)//Prozentangaben! :D
+protected func SetFlagPos(int iHeight)
 {
   if(!flag) return();
   //Log("%d%%",iHeight);
@@ -181,48 +187,52 @@ protected func SetFlagPos(int iHeight)//Prozentangaben! :D
 public func DoProcess(int iTeam, int iAmount)
 {
   var old = process;
-  
-  if(team)//Wenn er schon ein Team hat muss natürlich erstmal übernommen werden.
+
+  //Eventuelle Gegnerflagge abnehmen
+  if(team)
   {
-    if(iTeam != team)
-      iAmount = -iAmount;
-    else
-      if(attacker)
-        if(attacker != team)
-          Recapturing();
+   if(iTeam != team)
+    iAmount = -iAmount;
+   else
+   if(attacker)
+    if(attacker != team)
+     Recapturing();
   }
   else
-    team = iTeam;
-  
+   team = iTeam;
+
   process = BoundBy(process+iAmount,0,100);
-  
+
   if(old < process)
-    trend = +1;
-  
+   trend = +1;
+
   if(old > process)
-    trend = -1;
-  
-  if((process < 100) && (old >= 100))//feindliche Flagge übernehmen
+   trend = -1;
+
+  //Feindliche Flagge übernehmen
+  if((process < 100) && (old >= 100))
   {
-    Capturing(iTeam);
+   Capturing(iTeam);
   }
-    
-  if((process >= 100) && (old < 100))//eigene Flagge sichern
+
+  //Eigene Flagge sichern
+  if((process >= 100) && (old < 100))
   {
-    if(attacker)
-      Recaptured();
-    else
-      Capture(iTeam);
+   if(attacker)
+    Recaptured();
+   else
+    Capture(iTeam);
   }
-  
-  if((process <= 0) && (old > 0))//neutrale Flagge
+
+  //Neutrale Flagge
+  if((process <= 0) && (old > 0))
   {
-    attacker = 0;
-    capt = false;
-    team = iTeam;
+   attacker = 0;
+   capt = false;
+   team = iTeam;
   }
-    
+
   UpdateFlag();
-  
+
   return(process);
 }
