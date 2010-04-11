@@ -5,6 +5,7 @@ string szText,
 id idIcon,
 int dwTextColor,
 int dwIconColor,
-string szGraphics
+string szGraphics,
+string szSound
 
 )
