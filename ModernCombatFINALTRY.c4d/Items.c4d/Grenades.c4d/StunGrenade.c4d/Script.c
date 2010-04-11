@@ -19,7 +19,7 @@ public func Fused()
 
     if(obj->~IsClonk())
     {
-      if(!PathFree(GetX(),GetY(),GetX(obj),GetY(obj)-8))//Speziell für Clonkaugen. >,<
+      if(!PathFree(GetX(),GetY(),GetX(obj),GetY(obj)-8))//Speziell fÃ¼r Clonkaugen. >,<
         continue;
       if(((GetDir(obj) == DIR_Left) && (GetX() < GetX(obj))) || ((GetDir(obj) == DIR_Right) && (GetX(obj) > GetX(obj))))
         intensity = Max(intensity,255);
@@ -65,10 +65,20 @@ public func FxIntFlashbangTimer(object pTarget, int iEffectNumber, int iEffectTi
   var a = BoundBy(255-(i*255/100),0,255);
   EffectVar(1,pTarget,iEffectNumber)->Set(pTarget,RGBa(255,255,255,a));
   
+  var val, num, pCursor;
   for(var i = 0; i < GetPlayerCount(); i++)
   {
-    if(!CheckVisibility(GetCursor(GetPlayerByIndex(i)), pTarget)) continue;
-    PlayerMessage(GetPlayerByIndex(i), "<c %x>•</c>", pTarget, RGBa(255,255,255,a));
+    pCursor = GetCursor(GetPlayerByIndex(i))->~GetRealCursor();
+    if(!pCursor) pCursor = GetCursor(GetPlayerByIndex(i));
+    num = GetEffect("IntFlashbang", pCursor);
+    if(num) {
+      val = 255-BoundBy((EffectVar(0,pCursor,num)-1)*255/100,0,255);
+      if(255-a < val) val = 255-a;
+    }
+    else {
+      val = 255-a;
+    }
+    PlayerMessage(GetPlayerByIndex(i), "<c %x>â€¢</c>", pTarget, RGBa(255,255,255,BoundBy(val, 1, 254)));
   }
 }
 
