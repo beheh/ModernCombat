@@ -24,12 +24,13 @@ global func CreateSpeedMenu(object pCommandObject, object pMenuObj)
     pMenuObj = this;
     if(!pMenuObj) return 0;
   }
-  
-
 
   //Erzeugen
-  var pMenu = FindObject2(Find_ID(SMEN),Find_Owner(GetOwner(pMenuObj)));
-
+  var pMenu, pMenus = FindObjects(Find_ID(SMEN),Find_Owner(GetOwner(pMenuObj)));
+ 
+  for(var pCurrentMenu in pMenus)
+    if(pCurrentMenu->~GetRealCursor() == pMenuObj)
+      pMenu = pCurrentMenu;
   if(!pMenu || pMenu->InUsage())
     pMenu = CreateObject(SMEN,10,10,GetOwner(pMenuObj));
 
@@ -102,6 +103,10 @@ public func Add(int iItem, string szTitle, string szFunc, Parameter, id idIcon)
     SetGraphics(0,0,idIcon,iItem+1,GFXOV_MODE_IngamePicture);
   
   return iItem+1;
+}
+
+public func GetRealCursor() {
+  return pTargetObject;
 }
 
 //Helper...

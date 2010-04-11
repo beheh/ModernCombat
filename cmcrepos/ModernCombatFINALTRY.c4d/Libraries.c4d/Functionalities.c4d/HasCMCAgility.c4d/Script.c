@@ -66,7 +66,7 @@ private func ControlAgility(string strControl)
     SetComDir(COMD_Left); 
    }
    else
-   if(GetProcedure() eq "SCALE")
+   if(GetProcedure() eq "SCALE" && GetDir() != DIR_Left)
    {
     AddEffect("IntWallJump",this(),10,20,this());
    }
@@ -84,7 +84,7 @@ private func ControlAgility(string strControl)
     SetComDir(COMD_Right); 
    }
    else
-   if(GetProcedure() eq "SCALE")
+   if(GetProcedure() eq "SCALE" && GetDir() != DIR_Right)
    {
     AddEffect("IntWallJump",this(),10,20,this());
    }

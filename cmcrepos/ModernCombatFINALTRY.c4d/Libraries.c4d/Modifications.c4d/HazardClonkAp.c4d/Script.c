@@ -719,19 +719,21 @@ public func ShowCH()
     
   if(crosshair->GetActionTarget() != this())
     crosshair->Reset(this());
-    
+   
   if(!this()->~IsAiming())
   {
     //if((crosshair->GetAngle() != -90) || (crosshair->GetAngle() != +90))
       //ResetCH();
+
+    var dummy1, dummy2, r;
+    this->WeaponAt(dummy1, dummy2, r);
       
     if(GetDir() == DIR_Left)
-      crosshair->SetAngle(-90);
+      crosshair->SetAngle(-90-r);
     else
-      crosshair->SetAngle(+90);
+      crosshair->SetAngle(+90+r);
   }
 }
-
 public func ResetCH()
 {
   if(!crosshair) return();

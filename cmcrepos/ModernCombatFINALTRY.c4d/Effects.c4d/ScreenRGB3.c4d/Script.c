@@ -59,10 +59,23 @@ public func Set(object pTarget, int dwRGBa, bool bAdditive, int iLayer)
 
 func CursorCheck()
 {
-  if(GetCursor(GetOwner()) != target)
+  var pRealCursor;
+  if(GetCursor(GetOwner())) pRealCursor = GetCursor(GetOwner())->~GetRealCursor();
+  var fDisplay = false; 
+  if(GetCursor(GetOwner()) == target) {
+    fDisplay = true;
+  }
+  if(pRealCursor) {
+    if(pRealCursor == target) {
+      fDisplay = true;
+    }
+  }
+  if(fDisplay) {
+    SetVisibility (VIS_Owner); 
+  }
+  else {
     SetVisibility (VIS_None);
-  else
-    SetVisibility (VIS_Owner);
+  }
 }
 
 public func NoWarp(){return(true);}
