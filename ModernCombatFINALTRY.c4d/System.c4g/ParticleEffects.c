@@ -107,7 +107,7 @@ global func Splatter(int iDmg, int iType, object pFrom, int iColor)
   }
 
 	if(!iColor)
-    iColor = RGB(150+Random(105));
+    iColor = RGB(80+Random(105));
   var size = BoundBy(iDmg,8,80);
   
   if(pFrom)

@@ -158,8 +158,8 @@ public func FMMenu(clonk)
   overlay = ring->AddUpItem("$FireTec$","FTCycle",firemode,RICO);
   SetGraphics("4",ring,RICO,overlay,GFXOV_MODE_IngamePicture);
   
-  //overlay = ring->AddDownItem("$AmmoType$","CycleSA",firemode,RICO);
-  //SetGraphics("2",ring,RICO,overlay,GFXOV_MODE_IngamePicture);
+  overlay = ring->AddDownItem("$AmmoType$","ManualEmpty",firemode,RICO);
+  SetGraphics("2",ring,RICO,overlay,GFXOV_MODE_IngamePicture);
 }
 public func CycleSA(int fm)
 {
@@ -295,7 +295,7 @@ private func ManualEmpty(unused,fm)
 {
   Sound("WPN2_Unload.ogg");
   Empty2(GetSlot(fm));
-  WeaponMenu(fm);
+  //WeaponMenu(fm);
 }
 
 public func WeaponMenu(int iFM, int iSel)
