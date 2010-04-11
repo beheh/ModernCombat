@@ -1,3 +1,5 @@
+/*-- Speedmenü --*/
+
 #strict 2
 
 static const RMEN_Radius = 54;
@@ -10,6 +12,7 @@ local pTargetObject;     //Besitzobjekt (an das die Sicht geklebt wird, und dess
 local aItemTitle;        //Titel
 local aItemFunc;         //Funktion
 local aItemPar;          //Parameter
+
 
 /* globale Funktionen */
 
@@ -208,7 +211,6 @@ public func InUsage()
   return pCallbackObject || pTargetObject || GetEffect("IntSMENCheck",this);
 }
 
-
 /* Von Overlays und Menü-Items... */
 
 private func ItemActive(int iItem)
@@ -296,7 +298,6 @@ private func ClearItems()
   }
 }
 
-
 /* Steuerung */
 
 protected func ControlThrow()         { return ActivateItem(0); }
@@ -320,7 +321,6 @@ private func ActivateItem(int iItem)
   
   return 1;
 }
-
 
 /* Aktionen */
 
