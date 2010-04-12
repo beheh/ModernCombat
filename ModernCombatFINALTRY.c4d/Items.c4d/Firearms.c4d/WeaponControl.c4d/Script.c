@@ -202,6 +202,7 @@ private func CycleFM(int iDir)
   SetFireMode(fm);
   if(GetSpeedMenu())
     GetSpeedMenu()->NoClose();
+  return 1;
 }
 
 public func FMMenuOld(caller)//O_o
