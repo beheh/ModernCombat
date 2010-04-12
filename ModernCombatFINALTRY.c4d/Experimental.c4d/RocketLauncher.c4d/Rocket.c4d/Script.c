@@ -1,4 +1,4 @@
-/* Rakete */
+/*-- Rakete --*/
 
 #strict
 #include MISS

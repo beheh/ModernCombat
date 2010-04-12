@@ -8,10 +8,10 @@ public func HandSize()	{return 850;}
 public func HandX()	{return 1000;}
 public func HandY()	{return -2000;}
 
-public func SelectionTime() { return(3*3); }
+public func SelectionTime() { return(3*15); }
 
 
-/* Raketen */
+/* Raketen - Optische Steuerung */
 
 public func FMData1(int data)
 {
@@ -20,7 +20,7 @@ public func FMData1(int data)
   if(data == FM_AmmoID)		return MIAM;
   if(data == FM_AmmoLoad)	return 1;
 
-  if(data == FM_Reload)		return 200;
+  if(data == FM_Reload)		return 180;
   if(data == FM_Recharge)	return 200;
 
   if(data == FM_Aim)		return 3;
@@ -28,12 +28,10 @@ public func FMData1(int data)
 
   if(data == FM_Slot)    return(1);
 
-  if(data == FM_SpreadAdd) return(100);
+  if(data == FM_SpreadAdd) return(300);
 
   return Default(data);
 }
-
-/* Raketen - Lasererfassung */
 
 public func FMData1T1(int data)
 {
@@ -69,6 +67,7 @@ public func LaunchRocket(id rid, int angle, int dmg)
   rocket->Launch(angle, dmg, user);
 
   //Effekte
+  Sound("RTLR_Launch*.ogg");
   var ax, ay, xdir, ydir;
   user->WeaponBegin(ax,ay);
   xdir = ax-x;
@@ -76,23 +75,16 @@ public func LaunchRocket(id rid, int angle, int dmg)
 
   CreateParticle("Thrust",ax,ay,xdir/2,ydir/2,80,RGBa(255,200,200,0),0,0);
 
-  for(var i = 0; i < 10; ++i)
+  for(var i=0; i<20; ++i)
   {
-   var rand = RandomX(-7,+7);
+   var rand = RandomX(-10,+10);
    CreateParticle("Smoke2",ax+Sin(angle,rand),ay-Cos(angle,rand),
-                  RandomX(0,xdir),RandomX(0,ydir),
-                  RandomX(80,100),RGBa(255,255,255,128),0,0);
+                  RandomX(0,2*xdir),RandomX(0,2*ydir),
+                  RandomX(80,140),RGBa(220,200,180,0),0,0);
   }
-
-  Sound("RTLR_Launch*.ogg");
 }
 
-/* Allgemein */
-
-public func OnReload()
-{
-  Sound("RTLR_Reload.ogg");
-}
+/* Handeffekt */
 
 public func HandR()
 {
@@ -100,4 +92,17 @@ public func HandR()
   if(effect)
    return Max(Sin(GetEffect(0,this(),effect,6)*90/50,20),0);
   return 0;
+}
+
+/* Sounds */
+
+public func OnReload()
+{
+  Sound("RTLR_Reload.ogg");
+}
+
+protected func Selection()
+{
+  Sound("RTLR_Charge.ogg");
+  return 1;
 }

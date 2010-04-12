@@ -1,1 +1,1 @@
-Gibt dem Nutzer einen kleineren sofort wirkenden Energieschub.
+Gibt dem Nutzer einen kleineren sofort wirkenden Energieschub. Mit [Werfen] kann man einem Verbündeten die Injektion verabreichen, doch Vorsicht: Bei plötzlichen Adrenalinanstieg, der durch Verletzungen am Patienten passieren, wird der heilende Effekt geblockt.
