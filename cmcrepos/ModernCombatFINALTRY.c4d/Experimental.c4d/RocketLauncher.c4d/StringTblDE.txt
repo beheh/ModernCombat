@@ -1,2 +1,2 @@
 Missiles=Raketen
-Laser=Optikische Steuerung
+Optical=Optische Steuerung

@@ -1,2 +1,2 @@
 Missiles=Missiles
-Laser=Optical Control
+Optical=Optical Control
