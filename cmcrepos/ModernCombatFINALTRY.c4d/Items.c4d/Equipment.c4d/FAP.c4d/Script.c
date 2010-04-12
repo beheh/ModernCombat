@@ -5,8 +5,8 @@
 local healpoints;
 
 public func HandSize()   	{return 1000;}
-public func HandX()     	{return 2000;}
-public func HandY()     	{return -2000;}
+public func HandX()     	{return 4000;}
+public func HandY()     	{return 10;}
 public func IsDrawable() 	{return true;} 
 
 public func MaxHealPoints()	{return 150;}

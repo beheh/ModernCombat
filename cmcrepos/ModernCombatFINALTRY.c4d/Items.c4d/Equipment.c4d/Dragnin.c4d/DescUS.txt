@@ -1,1 +1,1 @@
-The user instantly recives a smaller energy burst.
+The user instantly recives a smaller energy burst. Press [Throw] to inject it to allied clonks but be careful: If the patient is getting an adrenalin boost which is triggered by damage, the healing effect is blocked.
