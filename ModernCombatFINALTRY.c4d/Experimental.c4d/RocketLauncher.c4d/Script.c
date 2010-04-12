@@ -4,11 +4,11 @@
 
 #include WPN2
 
-public func HandSize()	{return 850;}
-public func HandX()	{return 1000;}
-public func HandY()	{return -2000;}
+public func HandSize()		{return 850;}
+public func HandX()		{return 1000;}
+public func HandY()		{return -2000;}
 
-public func SelectionTime() { return(3*15); }
+public func SelectionTime()	{return(3*15);}
 
 
 /* Raketen - Optische Steuerung */
@@ -35,7 +35,7 @@ public func FMData1(int data)
 
 public func FMData1T1(int data)
 {
-  if(data == FT_Name)		return "$Laser$";
+  if(data == FT_Name)		return "$Optical$";
   return FMData1(data);
 }
 
