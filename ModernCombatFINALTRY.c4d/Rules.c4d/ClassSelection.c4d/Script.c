@@ -146,7 +146,8 @@ func Finish(object pClonk)
   //Alle Waffen auffüllen
   for(var wpn in FindObjects(Find_Container(pClonk), Find_Func("IsWeapon")))
   {
-   while(wpn->CycleFM(+1)) {
+   while(wpn->CycleFM(+1))
+   {
     var ammo = wpn->GetFMData(FM_AmmoID);
     var load = wpn->GetFMData(FM_AmmoLoad);
     if(wpn->GetAmmo(ammo) == load) break;
@@ -163,9 +164,8 @@ func Finish(object pClonk)
   //Aus Spawnpoint entlassen
   RemoveObject(Contained(pClonk),1);
 
-  //Spawneffekt erstellen
+  //Sound
   Sound("RSHL_Deploy.ogg",pClonk);
-  AddSpawnEffect(pClonk);
   
   //Effekt entfernen
   for(var i = 0; i < GetEffectCount("Spawntimer", this()); i++)
