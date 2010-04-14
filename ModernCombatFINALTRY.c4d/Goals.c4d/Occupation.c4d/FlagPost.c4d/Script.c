@@ -52,8 +52,8 @@ public func Set(string szName, int iRange, int iSpeed)
 
 public func AddSpawnPoint(int iX, int iY)
 {
-  spawnpoints[GetLength(spawnpoints)] = iX;
-  spawnpoints[GetLength(spawnpoints)] = iY;
+  spawnpoints[GetLength(spawnpoints)] = AbsX(iX);
+  spawnpoints[GetLength(spawnpoints)] = AbsY(iY);
 }
 
 public func GetSpawnPoint(int &iX, int &iY)
