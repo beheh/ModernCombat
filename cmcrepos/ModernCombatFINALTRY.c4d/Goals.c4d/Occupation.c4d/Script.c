@@ -168,9 +168,15 @@ private func UpdateScoreboard()
   {
     var color=RGB(255,255,255);
     if(flag->GetTeam())
-      color=GetTeamColor(flag->GetTeam());
+      if(flag->GetProcess() >= 100) {
+        color = GetTeamColor(flag->GetTeam());
+      }
+      else {
+        //color = DoColorBrightness(GetTeamColor(flag->GetTeam()), -80);
+				color = SetRGBaValue(GetTeamColor(flag->GetTeam()), 180, 0);
+      }
     SetScoreboardData(i,1,Format("<c %x>%s</c>",color,GetName(flag)), GetX(flag));
-    SetScoreboardData(i,2,Format("%d %", flag->GetProcess()), flag->GetProcess());
+    SetScoreboardData(i,2,Format("%d%", flag->GetProcess()), flag->GetProcess());
     i++;
   }
   SetScoreboardData(i, 1, "", LandscapeWidth()+9); //ololo
@@ -439,6 +445,11 @@ private func InitializePlayer(int iPlr, int iX, int iY, object pBase, int iTeam)
   RelaunchPlayer(iPlr, GetCrew(iPlr), 0, iTeam, true);
 }
 
+public func RejectRelaunch(int iPlr, int iTeam)
+{
+  return(false);
+}
+
 private func RelaunchPlayer(int iPlr, object pCrew, int iMurdererPlr, int iTeam, no_relaunch)
 {
   // Kein ordentlicher Spieler?
@@ -478,6 +489,19 @@ private func RelaunchPlayer(int iPlr, object pCrew, int iMurdererPlr, int iTeam,
     
   return;
 }
+
+private func RemovePlayer(int iPlr)
+{
+  if(iPlr == -1) return;
+
+	// Auswertungsdialog
+	DoEvaluation(iPlr);
+
+  UpdateHUDs();
+  aDeath[iPlr] = 0;
+  aKill[iPlr] = 0;
+}
+
 
 public func OnClassSelection(object pClonk)
 {
