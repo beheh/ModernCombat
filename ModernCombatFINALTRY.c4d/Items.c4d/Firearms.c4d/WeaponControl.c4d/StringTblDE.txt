@@ -3,6 +3,7 @@ FireTec=Schusstechnik wechseln:
 DescFireMode=Auf %s schalten
 DescFireTec=Auf %s schalten
 NotEnoughAmmo=Nicht genug {{%i}}!
+NotAbleToShoot=Schuss nicht möglich!
 Reloaded=%dx {{%i}} nachgeladen.
 FireModeChanged=Feuermodus:|%s ({{%i}})
 Reload=Nachladen
