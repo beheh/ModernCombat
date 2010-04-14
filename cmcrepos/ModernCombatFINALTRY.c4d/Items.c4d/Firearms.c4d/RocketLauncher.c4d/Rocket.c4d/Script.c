@@ -10,6 +10,7 @@ protected func SecureDistance()	{return(100);} //Mindestabstand
 
 local sx,sy;
 
+
 /* Start */
 
 public func Launch(int iAngle, int iDmg, object pFollow)
@@ -30,7 +31,6 @@ public func Launch(int iAngle, int iDmg, object pFollow)
   sy = GetY();
 
   //Effekte
-  //Sound("RPGP_ThrustStart.ogg");
   AddEffect("ThrustSound",this(),1,11,this());
   AddLight(70,RGB(255,200,200),this(),GLOW);
 
@@ -52,7 +52,7 @@ protected func Secure()
 
 public func FxThrustSoundTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
-  //Sound("RPGP_Thrust.ogg",0,0,0,0,+1);
+  Sound("RPGP_Thrust.ogg",0,0,0,0,+1);
   return(-1);
 }
 
@@ -151,13 +151,12 @@ private func HitObject(pObj)
 {
   if(GetAction() eq "Idle")
    Explode(3,0,0,0,1);
-  
-  //Von Granate kopiert
+
   if(Secure())
   {
    if(pObj)
    {
-    DoDmg(Distance(GetXDir(),GetYDir())/5,DMG_Projectile,pObj); 
+    DoDmg(Distance(GetXDir(),GetYDir())/5,DMG_Projectile,pObj);
     CastParticles("Smoke3",12,10,0,0,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
     if(GetOCF(pObj) & OCF_Living)
     {
