@@ -2,6 +2,7 @@ Adler
 Atomclonk
 Anderson
 Amsder
+B_E
 Bringthon
 Berment
 Biber
@@ -48,6 +49,7 @@ Rodney
 Roy
 Shadow of Darkness
 Sheppard
+Silverwolf
 Smith
 Stuard
 Sturman
