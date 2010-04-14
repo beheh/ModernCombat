@@ -134,7 +134,7 @@ func UpdateHUD(object pHUD)
 
 public func DoPackAmount(int iAmount)
 { 
-  if((amount += iAmount) > max)
+  if((amount = BoundBy(amount + iAmount,0,5)) > max)
    max = amount;
   return amount;
 }
@@ -146,9 +146,19 @@ public func Entrance(object pContainer)
   for(var obj in FindObjects(Find_Container(pContainer),Find_ID(GetID()),Find_Exclude(this())))
    if(obj->DoPackAmount())
    {
-    DoPackAmount(obj->DoPackAmount());
-    RemoveObject(obj);
+    if(DoPackAmount() >= 5) return;
+    var amount = DoPackAmount();
+    obj->DoPackAmount(amount);
+    RemoveObject();
    }
+}
+
+public func RejectEntrance(object pObj)
+{
+  var pack;
+  if(pack = FindObject2(Find_Container(pObj), Find_ID(C4PA)))
+    if(pack->DoPackAmount() >= 5)
+      return 1;
 }
 
 /* Sounds */
