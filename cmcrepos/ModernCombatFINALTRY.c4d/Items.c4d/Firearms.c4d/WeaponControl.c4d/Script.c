@@ -1184,9 +1184,10 @@ private func Shoot(object caller)// Feuern mit Feuermodus
     var x,y;
     user->WeaponEnd(x,y);
     
-    if(ObjectCount(NOWH))
-      if(!PathFree4K(0,0,x,y,4))
-        return(false);
+    if(!PathFree(0,0,x,y) && !GBackSolid(x, y)) {
+      PlayerMessage(GetOwner(user), "$NotAbleToShoot$", user);
+      return(false);
+    }
   }
 
   var ammoid = GetFMData(FM_AmmoID);

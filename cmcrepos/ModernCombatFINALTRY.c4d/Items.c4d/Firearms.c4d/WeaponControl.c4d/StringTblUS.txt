@@ -2,6 +2,7 @@ FireMode=Switch fire mode:
 FireTec=Change shooting technique:
 DescFireMode=Switch to %s
 DescFireTec=Switch to %s
+NotAbleToShoot=Not able to shoot!
 NotEnoughAmmo=Not enough {{%i}}!
 Reloaded=Reloaded %dx {{%i}}.
 FireModeChanged=Fire mode: %s ({{%i}})
