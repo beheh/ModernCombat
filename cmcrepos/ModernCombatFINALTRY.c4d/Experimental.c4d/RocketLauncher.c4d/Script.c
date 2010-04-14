@@ -10,6 +10,8 @@ public func HandY()		{return -2000;}
 
 public func SelectionTime()	{return(3*15);}
 
+local pRocket, bGuiding;
+
 
 /* Raketen - Optische Steuerung */
 
@@ -65,6 +67,9 @@ public func LaunchRocket(id rid, int angle, int dmg)
 
   var rocket = CreateObject(rid,x,y+10,GetController(user));
   rocket->Launch(angle, dmg, user);
+  
+  SetPlrView(GetController(user), rocket);
+  pRocket = rocket;
 
   //Effekte
   Sound("RTLR_Launch*.ogg");
@@ -105,4 +110,15 @@ protected func Selection()
 {
   Sound("RTLR_Charge.ogg");
   return 1;
+}
+
+/* Raketenverfolgung */
+
+private func Check()
+{
+  if(!Contained()) return;
+  
+  if(Contained()->~IsAiming())
+    if(pRocket)
+      SetPlrView(GetOwner(Contained()), pRocket);
 }
