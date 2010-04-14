@@ -39,6 +39,14 @@ public func SetActive(object pCaller)
 
 /* Prüfungseffekt */
 
+private func CheckFuse()
+{
+  if(!fuse)
+   FadeOut();
+}
+
+/*
+
 public func FxCheckStart(pTarget, iNo, iTemp)
 {
   if(iTemp)
@@ -64,7 +72,9 @@ public func FxCheckTimer(pTarget, iNo, iTime)
       SetRDir(RandomX(-20,20));
       SetAction("Idle");
     }
-}
+} 
+
+*/
 
 /* Zündung */
 
