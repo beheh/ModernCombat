@@ -146,6 +146,7 @@ private func UpdateWeapon(object weapon)
   {
    if(weapon->~CustomHUD())
    {
+    recharge = 0;
     SetVisibility(VIS_Owner);
     Message("",info);
     Message("",this);
