@@ -6,7 +6,9 @@
 public func Acceleration()	{return(3);}
 public func MaxTime()		{return(35*5);}
 public func MaxSpeed()		{return(100);}
+protected func SecureDistance()	{return(100);} //Mindestabstand
 
+local sx,sy;
 
 /* Start */
 
@@ -21,6 +23,11 @@ public func Launch(int iAngle, int iDmg, object pFollow)
   SetXDir(+Sin(iAngle,iSpeed));
   SetYDir(-Cos(iAngle,iSpeed));
   SetAction("Travel");
+  
+  SetPlrViewRange(120);
+  
+  sx = GetX();
+  sy = GetY();
 
   //Effekte
   //Sound("RPGP_ThrustStart.ogg");
@@ -31,6 +38,14 @@ public func Launch(int iAngle, int iDmg, object pFollow)
   AddEffect("HitCheck", this(), 1,1, 0, SHT1,shooter);
   if(pFollow)
    AddEffect("Follow", this(), 1,1, 0, GetID(),pFollow);
+}
+
+protected func Secure()
+{
+  if(Distance(GetX(),GetY(),sx,sy) <= SecureDistance())
+   return(true);
+
+  return(false);
 }
 
 /* Soundeffekt */
@@ -132,10 +147,40 @@ public func Hit()
    HitObject();
 }
 
-private func HitObject()
+private func HitObject(pObj)
 {
   if(GetAction() eq "Idle")
    Explode(3,0,0,0,1);
+  
+  //Von Granate kopiert
+  if(Secure())
+  {
+   if(pObj)
+   {
+    DoDmg(Distance(GetXDir(),GetYDir())/5,DMG_Projectile,pObj); 
+    CastParticles("Smoke3",12,10,0,0,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
+    if(GetOCF(pObj) & OCF_Living)
+    {
+     Sound("SharpnelImpact*.ogg");
+    }
+    else
+    {
+     Sound("BlockOff*.ogg");
+     Sparks(30,RGB(255,128));
+     CastParticles("Smoke3",12,10,0,0,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
+    }
+    RemoveObject();
+    return();
+   }
+   else
+   {
+    Sound("GrenadeHit*.ogg");
+    Sparks(30,RGB(255,128));
+    CastParticles("Smoke3",12,10,0,0,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
+    RemoveObject();
+    return();
+   }
+  }
 
   exploding = true;
   Sound("GrenadeExplosion*.ogg");
