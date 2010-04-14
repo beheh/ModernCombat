@@ -33,6 +33,7 @@ public func DoMouseAiming(int iTx, int iTy)
 public func FxIntMouseAimingStart(object pTarget, int iEffectNumber, int iTemp, iAngle)
 {
   EffectVar(0,pTarget,iEffectNumber) = iAngle;
+  EffectVar(1,pTarget,iEffectNumber) = GetDir(pTarget);
   return 0;
 }
 
@@ -50,8 +51,8 @@ public func FxIntMouseAimingAdd(object pTarget, int iEffectNumber, string szNewE
 
 public func FxIntMouseAimingTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
-  if(!pTarget->IsAiming()) return -1;
-
+  if(!pTarget->IsAiming() || EffectVar(1,pTarget,iEffectNumber) != GetDir(pTarget)) return -1;
+  
   var end = EffectVar(0,pTarget,iEffectNumber);
   var cur = crosshair->GetAngle();
 
