@@ -39,6 +39,10 @@ func Hit()
   HitObject();
 }
 
+protected func RejectEntrance(pNewContainer) {
+  return(1);
+}
+
 func HitObject(object pObj)
 {
   if(Secure())
