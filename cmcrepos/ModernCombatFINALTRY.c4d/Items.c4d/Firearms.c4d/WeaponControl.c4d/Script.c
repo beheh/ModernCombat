@@ -91,7 +91,6 @@ public func FTMenu(int iFM)
   }
 }
 
-//public func FTCycle(unused,fm)
 public func FTCycle(fm)
 {
   var safe = 10;
@@ -111,31 +110,6 @@ public func FTCycle(fm)
   if(GetSpeedMenu())
     GetSpeedMenu()->NoClose();
 }
-
-/*public func FTMenu(caller)
-{
-  if(!caller) caller = GetUser();
-  SetUser(caller);
-  
-  if(!CheckFireTec(2)) return();//Sollte mindestens 2 Feuertechniken haben.
-
-  var name;
-  var i = 1;
-  
-  //Das Menü für die Schussmodiauswahl
-  CreateMenu(GetID(), GetUser(), 0, 0, "$FireTec$",0, C4MN_Style_Normal);
-  
-  //Solang suchen, bis keine Schussmodi mehr da sind
-  while(name = GetFMData(FT_Name, firemode,i))
-  {
-    AddMenuItem(name,Format("SetFireTec(%d,%d)",i,firemode), GetFMData(FT_Icon, firemode,i), GetUser(), 0, i, Format("$DescFireTec$", name),2,GetFMData(FT_IconFacet, firemode,i));
-    i++;
-  }
-  
-  SelectMenuItem (aFM_FireTec[firemode-1]-1,GetUser());
-  
-  return(true);
-}*/
 
 public func FMMenu(clonk)
 {
@@ -205,89 +179,9 @@ private func CycleFM(int iDir)
   return 1;
 }
 
-public func FMMenuOld(caller)//O_o
-{
-  if(!caller) caller = GetUser();
-
-  SetUser(caller);
-
-  var name;
-  // Das Menü für die Schussmodiauswahl
-  CreateMenu(GetID(), GetUser(), 0, 0, "$FireMode$", C4MN_Extra_Info, 0, true);
-  // Solang suchen, bis keine Schussmodi mehr da sind
-  for(var i = 1; name=GetFMData(FM_Name, i); i++ )
-  {
-    // Vorraussetzung muss erfüllt sein
-    if(GetFMData(FM_Condition, i))
-    {
-      var id = GetFMData(FM_AmmoID, i);
-      var iconid = GetFMData(FM_Icon, i);
-      var obj = CreateObject(iconid);
-      // Wir haben ein Objekt fürs Menü und legen die Ammografik drauf
-      SetGraphics(0, obj, id, 1, GFXOV_MODE_Picture);
-      SetObjDrawTransform(650,0,5000,0,650,5000, obj, 1);
-      
-      // Eintragstext
-      var entryname=Format("%s (%s)", name, GetName(0, id));
-      
-      // Genug Ammo für zumindest einen Schuss vorhanden sein
-      if(!CheckAmmo(id,GetFMData(FM_AmmoUsage,i),GetUser(),this()))
-      {
-        // Name des Eintrags wird grau
-        entryname=Format("<c %x>%s</c>", RGB(100,100,100), entryname);
-        // Eintrag grau
-        obj->SetClrModulation(RGB(100,100,100));
-      }
-      // Eintrag hinzufügen.
-      AddMenuItem(entryname, "ChangeFireMode", GetID(this()), GetUser(), 0, i, Format("$DescFireMode$", name), 4, obj); 
-      // Objekte natürlich wieder löschen
-      RemoveObject(obj);
-    }
-  }
-  
-  SelectMenuItem (firemode-1,GetUser());
-  
-  return(true);
-}
-
-private func ChangeFireMode(unused, i)
-{
-  //HAR HAR! Nein... denk nicht mal daran. :P
-  // Immer noch genügend Munition da?
-  /*if(!CheckAmmo(GetFMData(FM_AmmoID,i),GetFMData(FM_AmmoUsage,i),GetUser(),this()))
-  {
-    // Nein. Mecker.
-    Failure(id, i);
-    // Menü will geupdatet werden, wahrscheinlich
-    var item=GetMenuSelection(GetUser());
-    CloseMenu(GetUser());
-    FMMenu(GetUser());
-    SelectMenuItem (item, GetUser());
-    // Fertig.
-    return(); 
-  }*/
-  
-  Sound("WPN2_Switch*.ogg");
-  
-  CloseMenu(GetUser());
-  var last = firemode;
-  
-  // Schussmodus umstellen
-  if(SetFireMode(i))
-  {
-    if(!GetAmmo2(GetSlot(i)) && (i != last))
-      return(Reload(i));
-  }
-  
-  if(last == i)
-    return(WeaponMenu(i));
-}
-
-//private func ManualReload(unused,fm)
 private func ManualReload(fm)
 {
   Reload(fm);
-  //WeaponMenu(fm);
   if(GetSpeedMenu())
     GetSpeedMenu()->NoClose();
 }
@@ -296,7 +190,6 @@ private func ManualEmpty(unused,fm)
 {
   Sound("WPN2_Unload.ogg");
   Empty2(GetSlot(fm));
-  //WeaponMenu(fm);
 }
 
 public func WeaponMenu(int iFM, int iSel)
@@ -360,12 +253,10 @@ public func SAMenu(unused, fm)
   SelectMenuItem (sel,GetUser());
 }
 
-//public func SetSpecialAmmo2(id idType, fm)
 public func SetSpecialAmmo2(id idType, fm)
 {
   Sound("WPN2_Switch*.ogg");
   SetSpecialAmmo(idType);
-  //WeaponMenu(fm,3);
 }
 
 public func SetSpecialAmmo(id idType)
@@ -670,16 +561,14 @@ public func FxReloadStart(object pTarget, int iNumber, int iTemp, int iTime,iSlo
   if(iTemp) return();
   
   EffectVar(0,pTarget,iNumber) = GetFMData(FM_Reload)*(GetFMData(FM_AmmoLoad)-GetAmmo2(iSlot))/GetFMData(FM_AmmoLoad);
-                                 //GetFMData(FM_Reload)*(GetFMData(FM_AmmoLoad)-GetAmmo2(iSlot))/MaxReloadAmount(GetUser());
   EffectVar(4,pTarget,iNumber) = EffectVar(0,pTarget,iNumber);
-  
   EffectVar(2,pTarget,iNumber) = iSlot;
   
   //Vorbereiten.
   EffectVar(1,pTarget,iNumber) = 0;
   
   //Log("Vorbereiten - Start");
-  EffectVar(5,pTarget,iNumber) = -1;//Vorbereiten.
+  EffectVar(5,pTarget,iNumber) = -1;
 }
 
 public func FxReloadTimer(object pTarget, int iNumber, int iTime)
@@ -699,28 +588,23 @@ public func FxReloadTimer(object pTarget, int iNumber, int iTime)
     }
     
     GetUser()->~UpdateCharge();
-    if(EffectVar(4,pTarget,iNumber)-- <= 0)//Fertig?
+    if(EffectVar(4,pTarget,iNumber)-- <= 0) //Fertig?
     {
-      //Log("Nachladen - Stop");
-      //Log("Beenden - Start");
       EffectVar(1,pTarget,iNumber) = 0;
-      EffectVar(5,pTarget,iNumber) = +1;//Jetzt wird beendet.
+      EffectVar(5,pTarget,iNumber) = +1; //Jetzt wird beendet.
       OnFinishReloadStart(EffectVar(2,pTarget,iNumber));
       
       if(GetFMData(FM_SingleReload))
         OnSingleReloadStop(EffectVar(2,pTarget,iNumber));
     }
   }
-  else//Ansonsten bereitet er vor oder beendet?
+  else //Ansonsten bereitet er vor oder beendet?
   {
     //Vorbereiten...
     if(EffectVar(5,pTarget,iNumber) == -1)
     {
-      //Log("  Vorbereiten");
       if(iTime >= GetFMData(FM_PrepareReload))
       {
-        //Log("Vorbereiten - Stop");
-        //Log("Nachladen - Start");
         EffectVar(5,pTarget,iNumber) = 0;//Jetzt wird nachgeladen.
         EffectVar(1,pTarget,iNumber) = 1;
         OnPrepareReloadStop(EffectVar(2,pTarget,iNumber));
@@ -735,11 +619,9 @@ public func FxReloadTimer(object pTarget, int iNumber, int iTime)
     //Beenden...
     if(EffectVar(5,pTarget,iNumber) >= +1)
     {
-      //Log("  Beenden");
       EffectVar(5,pTarget,iNumber)++;
       if(EffectVar(5,pTarget,iNumber) >= GetFMData(FM_FinishReload))
       {
-        //Log("Beenden - Stop");
         return(-1);
       }
     }
@@ -822,7 +704,7 @@ public func Reload(int iFM)// Waffe nachladen
 
   // nicht genug Ammo um nachzuladen
   var ammoid = GetFMData(FM_AmmoID,iFM);
-  var ammousage = GetFMData(FM_AmmoUsage,iFM);//TODO:->FireTec!!
+  var ammousage = GetFMData(FM_AmmoUsage,iFM);
   if(!CheckAmmo(ammoid,ammousage,GetUser()))
     return(false);
 
@@ -835,7 +717,7 @@ public func Reload(int iFM)// Waffe nachladen
     OnAutoStop();
   OnReload(iFM);
     
-  AddEffect("Reload", this(), 1, 1, this(), 0, /*Max(1, reloadtime)*/0,iSlot);
+  AddEffect("Reload", this(), 1, 1, this(), 0, 0,iSlot);
 
   return(true);
 }
@@ -1050,12 +932,12 @@ public func ResumeReload(iSlot)  // Nachladen wiederaufnehmen (wenn pausiert)
   }
 }
 
-private func Reloaded(caller,slot,amount)//Waffe nachgeladen
+private func Reloaded(caller,slot,amount) //Waffe nachgeladen
 {
   //Munitionsart wo rein muss
   var ammoid = GetFMData(FM_AmmoID);
   //Wie viel?
-  amount = Min(amount,MaxReloadAmount(caller));
+  amount = Min(amount,MaxReloadAmount(caller)-GetAmmo2(slot));
   //Hier einfügen
   DoAmmo2(slot, ammoid, amount, this());
   //Dem Clonk abziehen
@@ -1067,7 +949,7 @@ private func Reloaded(caller,slot,amount)//Waffe nachgeladen
   OnReloaded(firemode,slot);
 }
 
-/*public func GetCharge(int iSlot)//wie voll ist die Waffe
+/*public func GetCharge(int iSlot) //wie voll ist die Waffe
 {
   var charge;
   var ammoid = GetFMData(FM_AmmoID);
