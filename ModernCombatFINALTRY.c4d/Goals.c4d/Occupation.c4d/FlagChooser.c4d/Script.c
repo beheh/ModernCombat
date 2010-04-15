@@ -81,18 +81,18 @@ protected func Collection2(object pObject)
 
 private func SelectBestFlag()
 {
-  var flag = GetBestFlag();
+  var flag = GetBestFlag(GetPlayerTeam(GetOwner(Contents())));
   if(flag)
     SetSelected(flag);
 }
 
-private func GetBestFlag()
+global func GetBestFlag(int iTeam)
 {
   var capture;
   var best;
-  for(var flag in flagpoles)
+  for(var flag in FindObjects(Find_Func("IsFlagpole")))
   {
-    if(flag->GetTeam() == GetPlayerTeam(GetOwner(Contents())))
+    if(flag->GetTeam() == iTeam)
     {
       if(flag->GetProcess() > capture)//Wer bietet mehr?
       {
@@ -217,25 +217,24 @@ protected func Timer()
   selection = GetMenuSelection (crew); 
   
   if(GetSelected())
-    ShowFlagpole(GetSelected());//TODO: Wozu wird denn nochmal der Timer gebraucht? Es gibt doch einen Callback dafür?
+    ShowFlagpole(GetSelected(), Contents(), oldvisrange);//TODO: Wozu wird denn nochmal der Timer gebraucht? Es gibt doch einen Callback dafür?
   
   SpawnMenu();
 }
 
-public func ShowFlagpole(object pObject)
+global func ShowFlagpole(object pObject, object pCrew, int iMaxrange)
 {
-  var crew = Contents();
-  if(!crew) return();
+  if(!pCrew) return();
   
-  if(pObject->GetTeam() != GetPlayerTeam(GetOwner(crew)))
+  if(pObject->GetTeam() != GetPlayerTeam(GetOwner(pCrew)))
   {
-    SetPlrViewRange(0,crew);//ZENSIERT! :I
+    SetPlrViewRange(0,pCrew); //ZENSIERT! :I
     return();
   }
   
-  SetPlrViewRange(Min(200,oldvisrange),crew);//blah
+  SetPlrViewRange(Min(200,iMaxrange), pCrew);//blah
   
-  SetPosition(GetX(pObject),GetY(pObject));
+  SetPosition(GetX(pObject), GetY(pObject));
 }
 
 protected func MenuQueryCancel()
