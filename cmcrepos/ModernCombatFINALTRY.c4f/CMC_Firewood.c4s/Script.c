@@ -299,6 +299,9 @@ public func ChooserFinished()
   {
    //Flaggen
    aFlag[0] = CreateObject(OFPL,465,300,NO_OWNER);
+   aFlag[0] -> AddSpawnPoint(190,380);
+   aFlag[0] -> AddSpawnPoint(430,380);
+   aFlag[0] -> AddSpawnPoint(690,380);
    if(aTeams[1] == true)
    {
     aFlag[0]->Set("$Flag1$",100,2);
@@ -310,12 +313,22 @@ public func ChooserFinished()
    }
 
    aFlag[1] = CreateObject(OFPL,1640,100,NO_OWNER);
-    aFlag[1]->Set("$Flag2$",0,2);
+   aFlag[1] -> AddSpawnPoint(1425,250);
+   aFlag[1] -> AddSpawnPoint(1665,200);
+   aFlag[1] -> AddSpawnPoint(1855,250);
+   aFlag[1]->Set("$Flag2$",0,2);
 
    aFlag[2] = CreateObject(OFPL,1640,520,NO_OWNER);
-    aFlag[2]->Set("$Flag3$",0,2);
+   aFlag[2] -> AddSpawnPoint(1465,370);
+   aFlag[2] -> AddSpawnPoint(1580,390);
+   aFlag[2] -> AddSpawnPoint(1700,390);
+   aFlag[2] -> AddSpawnPoint(1815,370);
+   aFlag[2]->Set("$Flag3$",0,2);
 
    aFlag[3] = CreateObject(OFPL,2810,300,NO_OWNER);
+   aFlag[3] -> AddSpawnPoint(2585,380);
+   aFlag[3] -> AddSpawnPoint(2850,380);
+   aFlag[3] -> AddSpawnPoint(3090,380);
    if(aTeams[2] == true)
    {
     aFlag[3]->Set("$Flag4$",100,2);

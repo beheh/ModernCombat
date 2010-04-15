@@ -372,7 +372,7 @@ func CreateEquipment()
   PlaceSpawnpoint(FGRN, 60, 520);
   PlaceSpawnpoint(FGRN, 950, 505);
   PlaceSpawnpoint(FGRN, 1850, 505);
-  PlaceSpawnpoint(FGRN, 2740, 1785);
+  PlaceSpawnpoint(FGRN, 2740, 520);
 
   //Splittergranaten
   PlaceSpawnpoint(FRAG, 670, 250);
@@ -428,6 +428,9 @@ public func ChooserFinished()
   if(FindObject(GOCC))
   {
    aFlag[0] = CreateObject(OFPL,100,390,NO_OWNER);
+   aFlag[0] -> AddSpawnPoint(100,570);
+   aFlag[0] -> AddSpawnPoint(110,210);
+   aFlag[0] -> AddSpawnPoint(260,450);
    if(aTeams[1] == true)
    {
     aFlag[0]->Set("$Flag1$",100,2);
@@ -439,15 +442,28 @@ public func ChooserFinished()
    }
 
    aFlag[1] = CreateObject(OFPL,780,450,NO_OWNER);
-    aFlag[1]->Set("$Flag2$",0,2);
+   aFlag[1] -> AddSpawnPoint(550,310);
+   aFlag[1] -> AddSpawnPoint(570,380);
+   aFlag[1] -> AddSpawnPoint(640,250);
+   aFlag[1]->Set("$Flag2$",0,2);
 
    aFlag[2] = CreateObject(OFPL,1400,420,NO_OWNER);
-    aFlag[2]->Set("$Flag3$",0,2);
+   aFlag[2] -> AddSpawnPoint(1060,310);
+   aFlag[2] -> AddSpawnPoint(1090,410);
+   aFlag[2] -> AddSpawnPoint(1710,410);
+   aFlag[2] -> AddSpawnPoint(1740,310);
+   aFlag[2]->Set("$Flag3$",0,2);
 
    aFlag[3] = CreateObject(OFPL,2020,450,NO_OWNER);
-    aFlag[3]->Set("$Flag4$",0,2);
+   aFlag[3] -> AddSpawnPoint(2160,250);
+   aFlag[3] -> AddSpawnPoint(2230,380);
+   aFlag[3] -> AddSpawnPoint(2250,310);
+   aFlag[3]->Set("$Flag4$",0,2);
 
    aFlag[4] = CreateObject(OFPL,2690,390,NO_OWNER);
+   aFlag[4] -> AddSpawnPoint(2540,450);
+   aFlag[4] -> AddSpawnPoint(2690,210);
+   aFlag[4] -> AddSpawnPoint(2700,570);
    if(aTeams[2] == true)
    {
     aFlag[4]->Set("$Flag5$",100,2);

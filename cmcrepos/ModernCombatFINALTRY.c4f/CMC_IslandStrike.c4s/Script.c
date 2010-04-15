@@ -683,6 +683,9 @@ public func ChooserFinished()
 
    //Flaggen
    aFlag[0] = CreateObject(OFPL,1205,390,NO_OWNER);
+   aFlag[0] -> AddSpawnPoint(950,260);
+   aFlag[0] -> AddSpawnPoint(985,460);
+   aFlag[0] -> AddSpawnPoint(1170,530);
    if(aTeams[1] == true)
    {
     aFlag[0]->Set("$Flag1$",100,2);
@@ -694,6 +697,9 @@ public func ChooserFinished()
    }
 
    aFlag[1] = CreateObject(OFPL,2720,340,NO_OWNER);
+   aFlag[1] -> AddSpawnPoint(2640,630);
+   aFlag[1] -> AddSpawnPoint(2710,500);
+   aFlag[1] -> AddSpawnPoint(2870,500);
    if(aTeams[1] == true)
    {
     aFlag[1]->Set("$Flag2$",100,2);
@@ -705,6 +711,9 @@ public func ChooserFinished()
    }
 
    aFlag[2] = CreateObject(OFPL,3580,630,NO_OWNER);
+   aFlag[2] -> AddSpawnPoint(3395,510);
+   aFlag[2] -> AddSpawnPoint(3610,400);
+   aFlag[2] -> AddSpawnPoint(3640,320);
    if(aTeams[1] == true)
    {
     aFlag[2]->Set("$Flag3$",100,2);
@@ -716,9 +725,15 @@ public func ChooserFinished()
    }
 
    aFlag[3] = CreateObject(OFPL,4510,390,NO_OWNER);
-    aFlag[3]->Set("$Flag4$",0,2);
+   aFlag[3] -> AddSpawnPoint(4230,400);
+   aFlag[3] -> AddSpawnPoint(4335,570);
+   aFlag[3] -> AddSpawnPoint(4550,570);
+   aFlag[3]->Set("$Flag4$",0,2);
 
    aFlag[4] = CreateObject(OFPL,5665,340,NO_OWNER);
+   aFlag[4] -> AddSpawnPoint(5760,540);
+   aFlag[4] -> AddSpawnPoint(5785,500);
+   aFlag[4] -> AddSpawnPoint(5890,500);
    if(aTeams[2] == true)
    {
     aFlag[4]->Set("$Flag5$",100,2);
@@ -730,6 +745,9 @@ public func ChooserFinished()
    }
 
    aFlag[5] = CreateObject(OFPL,6430,340,NO_OWNER);
+   aFlag[5] -> AddSpawnPoint(6260,610);
+   aFlag[5] -> AddSpawnPoint(6440,500);
+   aFlag[5] -> AddSpawnPoint(6510,630);
    if(aTeams[2] == true)
    {
     aFlag[5]->Set("$Flag6$",100,2);
@@ -741,6 +759,9 @@ public func ChooserFinished()
    }
 
    aFlag[6] = CreateObject(OFPL,7260,360,NO_OWNER);
+   aFlag[6] -> AddSpawnPoint(7500,475);
+   aFlag[6] -> AddSpawnPoint(7580,500);
+   aFlag[6] -> AddSpawnPoint(7620,310);
    if(aTeams[2] == true)
    {
     aFlag[6]->Set("$Flag7$",100,2);
