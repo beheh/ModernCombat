@@ -114,7 +114,7 @@ func InitClassMenu(object pClonk)
   //Zeitbegrenzung bei Last Man Standing
   //if(FindObject(GLMS)) Generelle Zeitbegrenzung, damit Deppen nicht ihre Team-
   //kammeraden im Stich lassen können und im DM auch nicht gecampt werden kann bei 1vs1
-  AddEffect("Spawntimer", this(), 100, 35, this(), GetID(), iPlayer);
+  if(FindObject(GLMS) || FindObject(GTDM)) AddEffect("Spawntimer", this(), 100, 35, this(), GetID(), iPlayer);
 
   crew[iPlayer] = pClonk;
 

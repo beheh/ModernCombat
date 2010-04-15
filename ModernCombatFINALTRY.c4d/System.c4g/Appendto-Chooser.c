@@ -90,13 +90,19 @@ protected func ConfigurationFinished2()
 {
   Death = true;
   // Regeln erzeugen
-  var i = 0, j, pCrew, tmp, log = "$Rules$";
+  var i = 0, j = 0, pCrew, tmp, log = "$Rules$";
   for(var check in aRules)
     {
     if(check)
       {
       CreateObject(GetDefinition(i, Chooser_Cat), 10,10, -1);
-      log = Format("%s, %s", log, GetName(0, GetDefinition(i, Chooser_Cat)));
+      if(j != 0) {
+        log = Format("%s, %s", log, GetName(0, GetDefinition(i, Chooser_Cat)));
+      }
+      else {
+        log = Format("%s%s", log, GetName(0, GetDefinition(i, Chooser_Cat)));
+      }
+      j++;
       }
     i++;
     }
