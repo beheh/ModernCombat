@@ -197,6 +197,9 @@ public func ChooserFinished()
   if(FindObject(GOCC))
   {
    aFlag[0] = CreateObject(OFPL,140,680,NO_OWNER);
+   aFlag[0] -> AddSpawnPoint(305, 530);
+   aFlag[0] -> AddSpawnPoint(380, 470);
+   aFlag[0] -> AddSpawnPoint(470, 770);
    if(aTeams[1] == true)
    {
     aFlag[0]->Set("$Flag1$",100,2);
@@ -208,6 +211,9 @@ public func ChooserFinished()
    }
 
    aFlag[1] = CreateObject(OFPL,145,320,NO_OWNER);
+   aFlag[1] -> AddSpawnPoint(360, 410);
+   aFlag[1] -> AddSpawnPoint(480, 280);
+   aFlag[1] -> AddSpawnPoint(580, 280);
    if(aTeams[4] == true)
    {
     aFlag[1]->Set("$Flag2$",100,2);
@@ -219,12 +225,21 @@ public func ChooserFinished()
    }
 
    aFlag[2] = CreateObject(OFPL,630,560,NO_OWNER);
-    aFlag[2]->Set("$Flag3$",0,2);
+   aFlag[2] -> AddSpawnPoint(780, 550);
+   aFlag[2] -> AddSpawnPoint(650, 440);
+   aFlag[2] -> AddSpawnPoint(815, 440);
+   aFlag[2]->Set("$Flag3$",0,2);
 
    aFlag[3] = CreateObject(OFPL,1005,700,NO_OWNER);
-    aFlag[3]->Set("$Flag4$",0,2);
+   aFlag[3] -> AddSpawnPoint(910, 820);
+   aFlag[3] -> AddSpawnPoint(985, 560);
+   aFlag[3] -> AddSpawnPoint(1070, 770);
+   aFlag[3]->Set("$Flag4$",0,2);
 
    aFlag[4] = CreateObject(OFPL,1495,730,NO_OWNER);
+   aFlag[4] -> AddSpawnPoint(1330, 610);
+   aFlag[4] -> AddSpawnPoint(1380, 740);
+   aFlag[4] -> AddSpawnPoint(1395, 630);
    if(aTeams[3] == true)
    {
     aFlag[4]->Set("$Flag5$",100,2);
@@ -236,6 +251,9 @@ public func ChooserFinished()
    }
 
    aFlag[5] = CreateObject(OFPL,1705,400,NO_OWNER);
+   aFlag[5] -> AddSpawnPoint(1280, 430);
+   aFlag[5] -> AddSpawnPoint(1420, 470);
+   aFlag[5] -> AddSpawnPoint(1550, 480);
    if(aTeams[2] == true)
    {
     aFlag[5]->Set("$Flag6$",100,2);
