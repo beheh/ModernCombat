@@ -52,9 +52,7 @@ func CreateFurniture()
   DrawMaterialQuad("Wall-Unknown1",1440,520,1470,510,1470,520,1455,520,true);
 
   DrawMaterialQuad("Wall-Stripes",1470,510,1500,500,1500,510,1485,510,true);
-  DrawMaterialQuad("Wall-Stripes",1631,510,1601,500,1601,510,1616,510,true);
 
-  DrawMaterialQuad("Wall-Unknown1",1661,520,1631,510,1631,520,1646,520,true);
   DrawMaterialQuad("Wall-Unknown1",1691,530,1661,520,1661,530,1676,530,true);
   DrawMaterialQuad("Wall-Unknown1",1721,540,1691,530,1691,540,1706,540,true);
 
@@ -64,11 +62,9 @@ func CreateFurniture()
   DrawMaterialQuad("Wall-Plate",4590,420,4620,410,4620,420,4605,420,true);
   DrawMaterialQuad("Wall-PlateRed",4620,410,4650,400,4650,410,4635,410,true);
 
-  DrawMaterialQuad("Wall-Unknown1",4350,520,4380,510,4380,520,4365,520,true);
   DrawMaterialQuad("Wall-Unknown1",4290,540,4320,530,4320,540,4305,540,true);
   DrawMaterialQuad("Wall-Unknown1",4320,530,4350,520,4350,530,4335,530,true);
 
-  DrawMaterialQuad("Wall-Stripes",4380,510,4410,500,4410,510,4395,510,true);
   DrawMaterialQuad("Wall-Stripes",4541,510,4511,500,4511,510,4526,510,true);
 
   DrawMaterialQuad("Wall-Unknown1",4631,540,4601,530,4601,540,4616,540,true);
@@ -343,6 +339,7 @@ func CreateEquipment()
 
   //Motorboote
   SetupVehicleSpawn([INFL],DIR_Right,CreateObject(VSPW,1710,520,-1),10*10);
+  SetupVehicleSpawn([INFL],DIR_Left,CreateObject(VSPW,2990,520,-1),10*10);
   SetupVehicleSpawn([INFL],DIR_Left,CreateObject(VSPW,4310,520,-1),10*10);
 
   //Automaten
