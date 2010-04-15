@@ -225,6 +225,7 @@ protected func Timer()
 global func ShowFlagpole(object pObject, object pCrew, int iMaxrange)
 {
   if(!pCrew) return();
+  if(!iMaxrange) iMaxrange = 200;
   
   if(pObject->GetTeam() != GetPlayerTeam(GetOwner(pCrew)))
   {
@@ -232,7 +233,7 @@ global func ShowFlagpole(object pObject, object pCrew, int iMaxrange)
     return();
   }
   
-  SetPlrViewRange(Min(200,iMaxrange), pCrew);//blah
+  SetPlrViewRange(Min(200,iMaxrange), pCrew); //blah
   
   SetPosition(GetX(pObject), GetY(pObject));
 }
