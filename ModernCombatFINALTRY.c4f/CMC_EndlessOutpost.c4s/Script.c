@@ -123,7 +123,7 @@ func CreateFurniture()
   CreateObject(H24K, 1985, 118, -1);
 
   //Stahltüren
-  CreateObject(STDR, 815, 410, -1);
+  CreateObject(STDR, 815, 410, -1)->Lock();
   CreateObject(STDR, 875, 550, -1);
   CreateObject(STDR, 965, 550, -1);
   CreateObject(STDR, 1065, 260, -1);
@@ -554,14 +554,19 @@ func CreateAssaultObjects()
 
   aDoor[0] = CreateObject(SEDR,1225, 560,-1);
    aDoor[0]->Lock();
+   aDoor[0]->SetMaxDamage(-1);
   aDoor[1] = CreateObject(SEDR,1245, 430,-1);
    aDoor[1]->Lock();
+   aDoor[1]->SetMaxDamage(-1);
   aDoor[2] = CreateObject(SEDR,1355, 260,-1);
    aDoor[2]->Lock();
+   aDoor[2]->SetMaxDamage(-1);
   aDoor[3] = CreateObject(H24K, 1205, 208, -1);
    aDoor[3]->Lock();
+   aDoor[3]->SetMaxDamage(-1);
   aDoor[4] = CreateObject(HA4K, 850, 163, -1);
    aDoor[4]->Lock();
+   aDoor[4]->SetMaxDamage(-1);
 
   aSelfDefense[0]=CreateObject(SEGU,945,249,-1);
   aSelfDefense[0]->Arm(PPGN);
@@ -582,6 +587,12 @@ func CreateAssaultObjects()
   aTarget[1] -> SetName("$Target2$");
 
   aDoor[5] = CreateObject(HNG2,1355,550,-1);
+  aDoor[8] = CreateObject(HA4K, 1440, 323, -1);
+   aDoor[8]->Lock();
+   aDoor[8]->SetMaxDamage(-1);
+  aDoor[9] = CreateObject(HA4K, 1650, 293, -1);
+   aDoor[9]->Lock();
+   aDoor[9]->SetMaxDamage(-1);
 
   aLamp[4]=CreateObject(LLGH,1183,380,-1);
   aLamp[5]=CreateObject(LLGH,1227,295,-1);
@@ -595,10 +606,10 @@ func CreateAssaultObjects()
   aTarget[2] = CreateObject(LBPC,1795,492,-1);
   aTarget[2] -> SetName("$Target3$");
 
-  aDoor[6] = CreateObject(SEDR,1905,490,-1);
-   aDoor[6]->Lock();
+  aDoor[6] = CreateObject(HNG2,1905,490,-1);
   aDoor[7] = CreateObject(SEDR,1850,110,-1);
    aDoor[7]->Lock();
+   aDoor[7]->SetMaxDamage(-1);
 
   aSelfDefense[1]=CreateObject(SEGU,1495,369,-1);
   aSelfDefense[1]->Arm(PPGN);
@@ -649,8 +660,8 @@ func CreateAssaultObjects()
 func OnTarget1Destruction()
 {
   //Positionen
-  X[AS_GetAttackerTeam()]=1110;
-  Y[AS_GetAttackerTeam()]=550;
+  X[AS_GetAttackerTeam()]=1140;
+  Y[AS_GetAttackerTeam()]=420;
   X[AS_GetDefenderTeam()]=1610;
   Y[AS_GetDefenderTeam()]=60;
 
@@ -663,7 +674,7 @@ func OnTarget1Destruction()
   aDoor[1]->Open();
   aDoor[2]->Open();
   aDoor[3]->Unlock();
-  aDoor[4]->Unlock();
+  aDoor[4]->Open();
 
   //Abwehranlage deaktivieren, sofern vorhanden
   if(aSelfDefense[0])
@@ -708,6 +719,8 @@ func OnTarget2Destruction()
 
   //Türen öffnen
   aDoor[5]->Open();
+  aDoor[8]->Open();
+  aDoor[9]->Open();
 
   //Lampen ausschalten
   aLamp[4]->EMPShock();
