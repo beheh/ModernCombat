@@ -414,11 +414,6 @@ private func InitializePlayer(int iPlr, int iX, int iY, object pBase, int iTeam)
   RelaunchPlayer(iPlr, GetCrew(iPlr), 0, iTeam, true);
 }
 
-public func RejectRelaunch(int iPlr, int iTeam)
-{
-  return(false);
-}
-
 private func RelaunchPlayer(int iPlr, object pCrew, int iMurdererPlr, int iTeam, no_relaunch)
 {
   // Kein ordentlicher Spieler?
@@ -454,11 +449,24 @@ private func RelaunchPlayer(int iPlr, object pCrew, int iMurdererPlr, int iTeam,
   }
 
   if(!FindObject(CHOS) && !FindObject(MCSL))//Regelwähler oder Klassenwahl?
-    CreateGOCCSpawner(pCrew);
+     CreateGOCCSpawner(pCrew);
+     
+  Schedule(Format("DoFlag(%d, %d)", iTeam, iPlr), 1);
 
-  ShowFlagpole(GetBestFlag(iTeam), pCrew);
-    
   return;
+}
+
+public func DoFlag(int iTeam, int iPlr) {
+  var pCrew = GetCrew(iPlr);
+  var pObject = Contained(pCrew);
+  if(!pObject) {
+    pObject = pCrew;
+  }
+  else {
+    SetVisibility(VIS_None, pCrew);
+  }
+  ShowFlagpole(GetBestFlag(iTeam), pCrew, pObject);
+  return true;
 }
 
 private func RemovePlayer(int iPlr)
