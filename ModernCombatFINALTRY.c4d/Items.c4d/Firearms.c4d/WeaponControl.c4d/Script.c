@@ -1184,7 +1184,7 @@ private func Shoot(object caller)// Feuern mit Feuermodus
     var x,y;
     user->WeaponEnd(x,y);
     
-    if(!PathFree(0,0,x,y) && !GBackSolid(x, y)) {
+    if(!PathFree(GetX(),GetY(),GetX()+x,GetY()+y) && !GBackSolid(x, y)) {
       PlayerMessage(GetOwner(user), "$NotAbleToShoot$", user);
       return(false);
     }
