@@ -8,15 +8,16 @@ public func IsSpawnpoint() { return true; }
 global func FxIntVehicleSpawn4KStart(object pTarget, int iEffectNumber, int iTemp)
 {
   if(iTemp) return;
-  EffectVar (0, pTarget, iEffectNumber) = CreateArray(); //Spawn-IDs
-  EffectVar (1, pTarget, iEffectNumber) = 0; //aktuelles Fahrzeug
-  EffectVar (2, pTarget, iEffectNumber) = DIR_Right; //Aktuelle Dir
+  EffectVar(0, pTarget, iEffectNumber) = CreateArray(); //Spawn-IDs
+  EffectVar(1, pTarget, iEffectNumber) = 0; //aktuelles Fahrzeug
+  EffectVar(2, pTarget, iEffectNumber) = DIR_Right; //Aktuelle Dir
+  EffectVar(3, pTarget, iEffectNumber) = 100; //Sichere Zone
   return 1;
 }
 
 global func FxIntVehicleSpawn4KTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
-  var aType    = EffectVar (0,pTarget,iEffectNumber);
+  var aType = EffectVar(0,pTarget,iEffectNumber);
   if(!GetLength(aType)) return 0;
 
   var pVehicle = EffectVar (1,pTarget,iEffectNumber);
@@ -28,7 +29,13 @@ global func FxIntVehicleSpawn4KTimer(object pTarget, int iEffectNumber, int iEff
     pVehicle->Exit();
   }
 
-  EffectVar (1,pTarget,iEffectNumber) = pVehicle;
+  var iDistance = EffectVar(3, pTarget, iEffectNumber);
+
+  if(iDistance > 0 && Distance(GetX(pVehicle), GetY(pVehicle), GetX(this), GetY(this)) > iDistance) {
+    AddEffect("IntVehicleUnused", pVehicle, 51, 10, pVehicle, 0, this, iDistance);
+  }
+  
+  EffectVar(1,pTarget,iEffectNumber) = pVehicle;
 
   return 0;
 }
@@ -37,7 +44,7 @@ global func FxIntVehicleSpawn4KAddType(object pTarget, int iEffectNumber, id idT
 {
   if(FindInArray4K(EffectVar (0,pTarget,iEffectNumber), idType) == -1)
   {
-   EffectVar (0,pTarget,iEffectNumber)[GetLength(EffectVar (0,pTarget,iEffectNumber))] = idType;
+   EffectVar(0,pTarget,iEffectNumber)[GetLength(EffectVar(0,pTarget,iEffectNumber))] = idType;
   }
   return 0;
 }
@@ -47,32 +54,41 @@ global func FxIntVehicleSpawn4KDelType(object pTarget, int iEffectNumber, id idT
   var i = FindInArray4K(EffectVar (0,pTarget,iEffectNumber), idType);
   if(i != -1)
   {
-   EffectVar (0,pTarget,iEffectNumber)[i] = 0;
-   CleanArray4K(EffectVar (0,pTarget,iEffectNumber));
+   EffectVar(0,pTarget,iEffectNumber)[i] = 0;
+   CleanArray4K(EffectVar(0,pTarget,iEffectNumber));
   }
   return 0;
 }
 
 global func FxIntVehicleSpawn4KSetDir(object pTarget, int iEffectNumber, int iDir)
 {
-  EffectVar (2,pTarget,iEffectNumber) = iDir;
+  EffectVar(2,pTarget,iEffectNumber) = iDir;
   return 0;
 }
+
+global func FxIntVehicleSpawn4KSetDist(object pTarget, int iEffectNumber, int iDistance)
+{
+  EffectVar(3,pTarget,iEffectNumber) = iDistance;
+  return 0;
+}
+
 
 global func FxIntVehicleSpawn4KStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)
 {
   return -1;
 }
 
-global func SetupVehicleSpawn(array aType, int iDir, object pTarget, int iFrames)
+global func SetupVehicleSpawn(array aType, int iDir, object pTarget, int iFrames, int iDistance)
 {
   if(!pTarget) pTarget = this;
   if(!pTarget) return false;
   if(!iFrames) iFrames = 70;
+  if(!iDistance) iDistance = 100;
 
-  var effect = AddEffect ("IntVehicleSpawn4K",pTarget,50,iFrames,pTarget); 
+  var effect = AddEffect("IntVehicleSpawn4K",pTarget,50,iFrames,pTarget); 
 
-  EffectCall (pTarget, effect, "SetDir", iDir);
+  EffectCall(pTarget, effect, "SetDir", iDir);
+  EffectCall(pTarget, effect, "SetDist", iDistance);
 
   if(GetLength(aType))
   {
@@ -127,6 +143,50 @@ global func VehicleSpawn_SetDir(int iDir, object pTarget)
   return true;
 }
 
+global func VehicleSpawn_SetDist(int iDistance, object pTarget)
+{
+  if(!pTarget) pTarget = this;
+  if(!pTarget) return false;
+
+  var effect = GetEffect ("IntVehicleSpawn4K", pTarget);
+  if(!effect) return false;
+
+  EffectCall (pTarget,effect,"SetDistance", iDistance);
+  return true;
+}
+
+/* Unbenutze Beschädigen */
+
+global func FxIntVehicleUnusedStart(object pTarget, int iEffectNumber, id idType, object pSpawner, int iDistance) {
+  EffectVar(0, pTarget, iEffectNumber) = pSpawner; //Spawner
+  EffectVar(1, pTarget, iEffectNumber) = iDistance; //Sichere Zone
+  return 1;
+}
+
+global func FxIntVehicleUnusedTimer(object pTarget, int iEffectNumber, id idType)
+{
+  var pSpawner = EffectVar(0,pTarget,iEffectNumber);
+  var iDistance = EffectVar(1,pTarget,iEffectNumber);
+  if(iDistance < 0)
+    return -1;
+  if(!pTarget || !pSpawner)
+    return -1;
+  if(pTarget->~GetActionTarget()) {
+    var pCommanders = FindObjects(Find_ActionTarget(pTarget->~GetActionTarget()), Find_OCF(OCF_CrewMember));
+    var remove = false;
+    for(var pCommander in pCommanders) {
+      var iDistance = Distance(GetX(pCommander), GetY(pCommander), GetX(pTarget->~GetActionTarget()), GetY(pTarget->~GetActionTarget()));
+      if(iDistance < 50)
+        remove = true;
+    }
+    if(remove) return -1;
+  }
+  if(Distance(GetX(pTarget), GetY(pTarget), GetX(pSpawner), GetY(pSpawner)) < iDistance)
+    return -1;
+  DoDmg(1, DMG_Melee, pTarget);
+  return 1;
+}
+
 /* Objektspzifische Funktionen */
 
 public func Spawn(object pObj)
@@ -140,7 +200,7 @@ public func FxSpawnBeamStart(pTarget, iEffectNumber, temp, iFrames)
 {
   EffectVar(0, pTarget, iEffectNumber) = GetClrModulation(pTarget);
   EffectVar(1, pTarget, iEffectNumber) = iFrames;
-  pTarget -> SetClrModulation(RGBa(255, 255, 255, 255));//Unsichtbar.
+  pTarget->SetClrModulation(RGBa(255, 255, 255, 255));//Unsichtbar.
 }
 
 public func FxSpawnBeamTimer(pTarget, iEffectNumber, iTime)

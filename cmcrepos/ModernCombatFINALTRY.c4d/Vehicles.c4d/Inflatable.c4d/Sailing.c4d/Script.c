@@ -145,6 +145,12 @@ func Stop()
    Sound("MotorIdleLoop.ogg",false,motoridle,100,0,+1);
 }
 
+/* Kontrolle ob verwendet */
+
+public func GetActionTarget() {
+  return motor;
+}
+
 /* Drehen */
 
 private func SetDirection(int comdir)
