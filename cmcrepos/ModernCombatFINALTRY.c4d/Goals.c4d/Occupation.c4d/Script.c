@@ -421,7 +421,6 @@ public func RejectRelaunch(int iPlr, int iTeam)
 
 private func RelaunchPlayer(int iPlr, object pCrew, int iMurdererPlr, int iTeam, no_relaunch)
 {
-  Log("!");
   // Kein ordentlicher Spieler?
   if(GetOwner(pCrew) == NO_OWNER || iPlr == NO_OWNER || !GetPlayerName(iPlr))
     return;
@@ -457,7 +456,7 @@ private func RelaunchPlayer(int iPlr, object pCrew, int iMurdererPlr, int iTeam,
   if(!FindObject(CHOS) && !FindObject(MCSL))//Regelwähler oder Klassenwahl?
     CreateGOCCSpawner(pCrew);
 
-  ShowFlagpole(GetBestFlag(iTeam), pCrew));
+  ShowFlagpole(GetBestFlag(iTeam), pCrew);
     
   return;
 }
