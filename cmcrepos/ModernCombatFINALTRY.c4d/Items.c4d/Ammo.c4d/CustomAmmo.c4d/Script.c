@@ -4,18 +4,19 @@
 
 local ammoid,count;
 
-public func NoWeaponChoice(){return(true);}//LOLZ!
-public func IsAmmoPacket() {return(true);}//:S
-public func AmmoID(){return(ammoid);}
-public func AmmoCount(){return(count);}
+public func NoWeaponChoice()	{return(true);}
+public func IsAmmoPacket()	{return(true);}
+public func AmmoID()		{return(ammoid);}
+public func AmmoCount()		{return(count);}
+
 
 public func SetAmmoID(id idType)
 {
   if(idType->~IsAmmo())
   {
-    ammoid = idType;
-    SetGraphics(0,0,idType,1,GFXOV_MODE_Picture);
-    SetObjDrawTransform(500, 0, 0, 0, 500, 0, this(), 1);
+   ammoid = idType;
+   SetGraphics(0,0,idType,1,GFXOV_MODE_Picture);
+   SetObjDrawTransform(500, 0, 0, 0, 500, 0, this(), 1);
   }
   return(false);
 }
@@ -31,8 +32,8 @@ public func SetAmmoCount(int iCount)
 {
   if(!iCount)
   {
-    RemoveObject();
-    return(0);
+   RemoveObject();
+   return(0);
   }
   count = BoundBy(iCount,0,GetMax());
   return(count);
@@ -46,10 +47,12 @@ public func DoAmmoCount(int iCount)
   return(dif);
 }
 
-//Von STAM kopiert.
-private func OnTransfer(){}
+private func OnTransfer()
+{
+}
 
-protected func Activate(object pObj) {		// Doppelgraben
+protected func Activate(object pObj)
+{
   return(TransferAmmo(pObj));
 }
 
@@ -58,12 +61,12 @@ public func MayTransfer(object pObj)
   if(!pObj) return(false);
   var MaxAmmo = AmmoID()->~MaxAmmo();
   if(MaxAmmo)
-    if(GetAmmo(AmmoID(),pObj) + AmmoCount() > MaxAmmo)
-      return(false);
+   if(GetAmmo(AmmoID(),pObj) + AmmoCount() > MaxAmmo)
+    return(false);
   return(true);
 }
 
-public func TransferAmmo(object pObj)		// Ammo dem Clonk geben
+public func TransferAmmo(object pObj)
 {
   if(!pObj) return(false);
   if(NoAmmo()) return(false);
@@ -71,12 +74,12 @@ public func TransferAmmo(object pObj)		// Ammo dem Clonk geben
   // nicht wenn er schon zu viel hat
   if(!MayTransfer(pObj))
   {
-    PlayerMessage(GetOwner(pObj),"$NotMoreAmmo$",pObj,AmmoID());
-    return();
+   PlayerMessage(GetOwner(pObj),"$NotMoreAmmo$",pObj,AmmoID());
+   return();
   }
 
   // Nachricht ausgeben
-  PlayerMessage(GetOwner(pObj),"$Collected$",pObj,AmmoCount(),AmmoID());//Das ist mal keine Hilfenachricht, weil niemand wissen kann wieviel da drin ist. ;D
+  PlayerMessage(GetOwner(pObj),"$Collected$",pObj,AmmoCount(),AmmoID());//Das ist mal keine Hilfenachricht, weil niemand wissen kann wieviel da drin ist.
   
   var old = count;
   SetAmmoCount(old-DoAmmo(AmmoID(),AmmoCount(),pObj));

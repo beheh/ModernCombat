@@ -124,7 +124,7 @@ private func Class5Info(int iData)
   if(iData == CData_Desc)  return("$artillerist_desc$");
   if(iData == CData_Clonk) return(PCMK);
   if(iData == CData_Ammo)  return("50x {{STAM}}30x {{GRAM}}");
-  if(iData == CData_Items) return("1x {{SGST}}     1x {{PSTL}}|1x {{DGNN}}     --|2x {{PGRN}}     2x {{FGRN}}");
+  if(iData == CData_Items) return("1x {{SGST}}     1x {{PSTL}}|1x {{BBTP}}     1x {{DGNN}}|2x {{PGRN}}     2x {{FGRN}}");
   if(iData == CData_Facet) return(5);
   return(Default(iData));
 }
@@ -136,6 +136,7 @@ private func Class5Setup(int iPlr)
   DoAmmo(GRAM,30,new);
   new->CreateContents(SGST);
   new->CreateContents(PSTL);
+  new->CreateContents(BBTP);
   new->CreateContents(DGNN);
   CreateObject(PGRN,0,0,iPlr)->Activate(new);
   CreateObject(PGRN,0,0,iPlr)->Activate(new);
