@@ -562,13 +562,13 @@ func CreateEquipment()
   PlaceSpawnpoint(RSHL, 7570, 405);
 
   //Motorboote
-  SetupVehicleSpawn([INFL],DIR_Right,CreateObject(VSPW,1245,520,-1),10*10,1);
-  SetupVehicleSpawn([INFL],DIR_Left,CreateObject(VSPW,2120,520,-1),10*10,2);
+  SetupVehicleSpawn([INFL],DIR_Right,CreateObject(VSPW,1245,520,-1),10*10);
+  SetupVehicleSpawn([INFL],DIR_Left,CreateObject(VSPW,2120,520,-1),10*10);
 
-  SetupVehicleSpawn([INFL],DIR_Right,CreateObject(VSPW,4640,560,-1),10*10,1);
-  SetupVehicleSpawn([INFL],DIR_Left,CreateObject(VSPW,5565,560,-1),10*10,2);
+  SetupVehicleSpawn([INFL],DIR_Right,CreateObject(VSPW,4640,560,-1),10*10);
+  SetupVehicleSpawn([INFL],DIR_Left,CreateObject(VSPW,5565,560,-1),10*10);
 
-  SetupVehicleSpawn([INFL],DIR_Left,CreateObject(VSPW,7440,520,-1),10*10,2);
+  SetupVehicleSpawn([INFL],DIR_Left,CreateObject(VSPW,7440,520,-1),10*10);
 }
 
 /* Bei Flaggenübernahme */

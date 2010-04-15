@@ -342,8 +342,8 @@ func CreateEquipment()
   PlaceSpawnpoint(RTLR, 3830, 415);
 
   //Motorboote
-  SetupVehicleSpawn([INFL],DIR_Right,CreateObject(VSPW,1710,520,-1),10*10,1);
-  SetupVehicleSpawn([INFL],DIR_Left,CreateObject(VSPW,4310,520,-1),10*10,2);
+  SetupVehicleSpawn([INFL],DIR_Right,CreateObject(VSPW,1710,520,-1),10*10);
+  SetupVehicleSpawn([INFL],DIR_Left,CreateObject(VSPW,4310,520,-1),10*10);
 
   //Automaten
   var store = CreateObject(WPVM,1500, 430,-1);
