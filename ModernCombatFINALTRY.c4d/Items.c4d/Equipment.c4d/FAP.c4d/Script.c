@@ -12,6 +12,7 @@ public func IsDrawable() 	{return true;}
 public func MaxHealPoints()	{return 150;}
 public func StartHealPoints()	{return 150;}
 public func IsEquipment()	{return true;}
+public func NoArenaRemove()	{return(true);}
 
 
 /* Initialisierung */
