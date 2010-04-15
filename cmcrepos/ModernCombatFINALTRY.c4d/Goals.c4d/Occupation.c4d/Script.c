@@ -313,45 +313,6 @@ private func GetWinningTeam() {
     return -1;
   else
     return teamA; //Ansonsten das einzig lebendige Team
-    
-   
-
-  //Alle Teams nach Spielern durchsuchen
-  /*for(var i = 0; i <= GetTeamCount(); i++)
-  {
-    for(var j = 0; j < GetPlayerCount(); j++)
-    {
-      if(GetPlayerTeam(GetPlayerByIndex(j)) == i) {
-        for(var pPole in FindObjects(Find_ID(OFPL))) {
-          add = false;
-          if(pPole->GetTeam() == i) {
-            add = true;
-            break;
-          }
-        }
-        if(!Contained(GetCursor(GetPlayerByIndex(j)))) {
-          add = true;
-        }
-        else {
-          id = GetID(Contained(GetCursor(GetPlayerByIndex(j))));
-          if(id != OSPW && id != TIM1) {
-            add = true;
-          }
-        }
-        if(add) alive[GetLength(alive)] = i;
-      }
-    }
-  }
-  //Lebt nur noch ein Team?
-  if(GetLength(alive) == 1) {
-    return alive[0];
-  }
-  //Keine Gewinner ._.
-  if(GetLength(alive) == 0) {
-    return -1;
-  }
-  return 0;
-  */
 }
 
 private func Evaluation()
@@ -460,11 +421,15 @@ public func RejectRelaunch(int iPlr, int iTeam)
 
 private func RelaunchPlayer(int iPlr, object pCrew, int iMurdererPlr, int iTeam, no_relaunch)
 {
+  Log("!");
   // Kein ordentlicher Spieler?
   if(GetOwner(pCrew) == NO_OWNER || iPlr == NO_OWNER || !GetPlayerName(iPlr))
     return;
   // Kein Team
   if(!iTeam) iTeam = GetPlayerTeam(iPlr);
+ 
+  //Kriegsnebel für alle
+  SetFoW(true, iPlr);
   
   if(!no_relaunch)
   {
@@ -483,17 +448,16 @@ private func RelaunchPlayer(int iPlr, object pCrew, int iMurdererPlr, int iTeam,
     if(!GetTickets(iTeam) || (GetWinningTeam() > 0 && GetWinningTeam() != iTeam))
     {
       EliminatePlayer(iPlr);
-      //UpdateScoreboard(iTeam);
       return;
     }
 
     DoTickets(iTeam,-1);
   }
-  
-  //UpdateScoreboardTotal();
 
   if(!FindObject(CHOS) && !FindObject(MCSL))//Regelwähler oder Klassenwahl?
     CreateGOCCSpawner(pCrew);
+
+  ShowFlagpole(GetBestFlag(iTeam), pCrew));
     
   return;
 }
