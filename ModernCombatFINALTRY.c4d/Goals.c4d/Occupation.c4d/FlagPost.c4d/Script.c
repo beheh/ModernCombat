@@ -75,7 +75,7 @@ public func GetSpawnPoint(int &iX, int &iY)
 
 public func IsAttacked()
 {
-  for(clonk in FindObjects(Find_Distance(range),Find_OCF(OCF_Alive)))
+  for(clonk in FindObjects(Find_Distance(range),Find_OCF(OCF_Alive), Find_NoContainer()))
   {
    if(GetOwner(clonk) == NO_OWNER) continue;
    if(GetPlayerTeam(GetOwner(clonk)) != team)

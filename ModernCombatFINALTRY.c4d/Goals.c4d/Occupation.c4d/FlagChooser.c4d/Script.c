@@ -18,7 +18,7 @@ global func CreateGOCCSpawner(object pCrew)
   var spawner = CreateObject(OSPW);
   pCrew->Enter(spawner);
   
-  return(true);
+  return(spawner);
 }
 
 public func FxIntSpawnCounterStart(object pTarget, int iEffectNumber, int iTemp)
@@ -217,12 +217,12 @@ protected func Timer()
   selection = GetMenuSelection (crew); 
   
   if(GetSelected())
-    ShowFlagpole(GetSelected(), Contents(), oldvisrange);//TODO: Wozu wird denn nochmal der Timer gebraucht? Es gibt doch einen Callback dafür?
+    ShowFlagpole(GetSelected(), Contents(), this, oldvisrange);//TODO: Wozu wird denn nochmal der Timer gebraucht? Es gibt doch einen Callback dafür?
   
   SpawnMenu();
 }
 
-global func ShowFlagpole(object pObject, object pCrew, int iMaxrange)
+global func ShowFlagpole(object pObject, object pCrew, object pContainer, int iMaxrange)
 {
   if(!pCrew) return();
   if(!iMaxrange) iMaxrange = 200;
@@ -235,7 +235,7 @@ global func ShowFlagpole(object pObject, object pCrew, int iMaxrange)
   
   SetPlrViewRange(Min(200,iMaxrange), pCrew); //blah
   
-  SetPosition(GetX(pObject), GetY(pObject));
+  pContainer->SetPosition(GetX(pObject), GetY(pObject));
 }
 
 protected func MenuQueryCancel()
