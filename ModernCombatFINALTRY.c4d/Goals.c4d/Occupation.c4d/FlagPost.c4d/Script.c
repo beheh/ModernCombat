@@ -113,10 +113,10 @@ protected func Timer()
   attacker = opposition;
 
   if(enemys && !friends)
-    DoProcess(opposition,1);
+    DoProcess(opposition,Min(enemys,3));
 
   if(!enemys && friends)
-    DoProcess(team,1);
+    DoProcess(team,Min(friends,3));
 }
 
 public func Capture(int iTeam, bool bSilent)

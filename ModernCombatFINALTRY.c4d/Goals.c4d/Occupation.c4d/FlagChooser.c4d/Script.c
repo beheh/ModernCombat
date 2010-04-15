@@ -23,6 +23,10 @@ global func CreateGOCCSpawner(object pCrew)
 
 public func FxIntSpawnCounterStart(object pTarget, int iEffectNumber, int iTemp)
 {
+  //Speichern
+  EffectVar(0, pTarget, iEffectNumber) = GetCategory(pTarget);
+  SetCategory(C4D_Foreground, pTarget);
+  //Zählen
   SetAction("Counter");
   return(1);
 }
@@ -50,6 +54,9 @@ public func FxIntSpawnCounterTimer(object pTarget, int iEffectNumber, int iEffec
 
 public func FxIntSpawnCounterStop(object pTarget, int iEffectNumber, int iTemp,iFrames)
 {
+  //Und wieder laden
+  SetCategory(EffectVar(0, pTarget, iEffectNumber), pTarget);
+  //Normale Action
   SetAction("Idle");
   return(1);
 }
