@@ -101,7 +101,7 @@ private func Sail()
   if(!IsTurning())
     if(GetComDir() == COMD_Left)
       SetXDir(-xdir);
-    else
+    else if(GetComDir() == COMD_Right)
       SetXDir(+xdir);
 
   //Effekte
@@ -256,10 +256,11 @@ protected func FxIntTurnTimer(object target, int number, int time)
     var pos_t = -pos * 2;
     controller->SetPosition(GetX() + pos - (pos*2 * pos_phase / 100), controller->GetY());
   }
-  var xdir = Abs(pos_phase * EffectVar(2, target, number) / 100);
+  var speed_phase = (time * 180 / (phases * delay)) - 90;
+  var xdir = speed_phase * EffectVar(2, target, number) / 90;
   if(GetComDir(target) == COMD_Left)
     target->SetXDir(-xdir);
-  else
+  else if(GetComDir(target) == COMD_Right)
     target->SetXDir(+xdir);
 }
 
