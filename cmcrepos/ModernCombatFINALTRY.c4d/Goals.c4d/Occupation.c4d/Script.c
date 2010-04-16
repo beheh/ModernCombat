@@ -194,7 +194,7 @@ private func UpdateScoreboard()
 public func FlagAttacked(object pFlag) {
   for(var i = 0; i < GetPlayerCount(); i++) {
     DoScoreboardShow(1, GetPlayerByIndex(i)+1);
-    Schedule(Format("DoScoreboardShow(-1, %d)", GetPlayerByIndex(i)+1), 200);
+    Schedule(Format("DoScoreboardShow(-1, %d)", GetPlayerByIndex(i)+1), 150);
   }
 }
 
