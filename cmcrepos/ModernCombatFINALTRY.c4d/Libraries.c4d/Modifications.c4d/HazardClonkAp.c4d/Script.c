@@ -2,6 +2,7 @@
 
 #strict
 #appendto HZCK
+#include HZCK
 
 local crosshair;
 
@@ -558,31 +559,12 @@ private func TestSpread()
   return(0);
 }
 
-public func UpdateCharge()//*ausnutz*
-{
-  /*var x,y,r;
-  if(!this()->~WeaponAt(x,y,r))
-  {
-     HideCH();
-     return(_inherited());
-  }
-    
-  crosshair->SetAngle(r);*/
-  
-  //if(!ControlledCanAim())
-  //{
-    /*if(!c)
+public func UpdateCH() {
+  if(!this()->~ReadyToFire() || !this()->~IsArmed() || (GetCursor(GetOwner()) != this()))
     {
       HideCH();
-      return(_inherited());
-    }*/
-    
-    if(!this()->~ReadyToFire() || !this()->~IsArmed() || (GetCursor(GetOwner()) != this()))
-    {
-      HideCH();
-      return(_inherited());
+      return;
     }
-  //}
   
   var c = Contents();
 
@@ -610,7 +592,62 @@ public func UpdateCharge()//*ausnutz*
   }
 
   this()->~UpdateAiming();
+}
+
+public func UpdateCharge()
+{
+  UpdateCH();
   
+  // Nur wenn ich Cursor bin
+  var pCursor = GetCursor(GetOwner());
+  if(pCursor && pCursor != this()) pCursor = pCursor->~GetRealCursor(); 
+  if(pCursor != this()) return();
+
+  if(GetOwner() < -1) return();
+
+  // in Gebäuden/Fahrzeugen
+  if(Contained())
+    if(Contained()->~UpdateCharge(this()))
+      return(1);
+
+  // reitet
+  if(IsRiding())
+    if(GetActionTarget()->~UpdateCharge(this()))
+      return(1);
+
+  // ggf. an angefasstes Objekt weiterleiten
+  var Content = Contents();
+  if(GetAction() S= "Push")
+  	if(GetActionTarget()->~IsWeapon())
+  		Content = GetActionTarget();
+
+  // HUD
+  var hud = GetHUD();
+  if(hud) hud->Update(Content, AmmoStoring(),this());
+
+  return(1);
+}
+
+public func UpdateCharge()//*ausnutz*
+{
+  /*var x,y,r;
+  if(!this()->~WeaponAt(x,y,r))
+  {
+     HideCH();
+     return(_inherited());
+  }
+    
+  crosshair->SetAngle(r);*/
+  
+  //if(!ControlledCanAim())
+  //{
+    /*if(!c)
+    {
+      HideCH();
+      return(_inherited());
+    }*/
+    
+    
   return(_inherited());
 }
 

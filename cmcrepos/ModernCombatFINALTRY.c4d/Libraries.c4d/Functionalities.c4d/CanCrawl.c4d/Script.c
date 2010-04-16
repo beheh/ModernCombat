@@ -67,7 +67,7 @@ public func Ready2Crawl()
 public func CanStandUp()
 {
   //Nur wenn kein Material über dem Clonk ist
-  return(!GBackSolid(0,-7-5));
+  return(PathFree(GetX(), GetY(), GetX(), GetY()-7-5));
 }
 
 public func CanStandUp2()
@@ -214,7 +214,7 @@ public func FxCrawlStart(pClonk, iNum)
 {
   // Physical, Shape und Vertixes anpassen
   EffectVar(0, pClonk, iNum) = GetPhysical("Walk", 0);
-  SetPhysical("Walk", GetPhysical("Walk", 0)/4, 2);
+  SetPhysical("Walk", GetPhysical("Walk", 0)/4, PHYS_Temporary);
   SetShape(-8, 2-5, 16, 8);
   SetVertexXY(0, 0,5-5);
   SetVertexXY(1, 0,2-5);
@@ -229,7 +229,7 @@ public func FxCrawlStart(pClonk, iNum)
 public func FxCrawlStop(pClonk, iNum)
 {
   //Physical, Shape und Vertices zurücksetzen
-  SetPhysical("Walk", EffectVar(0, pClonk, iNum), 2);
+  SetPhysical("Walk", EffectVar(0, pClonk, iNum), PHYS_Temporary);
   SetShape(-8, -10, 16, 20);
   SetVertexXY(0, 0, 0);
   SetVertexXY(1, 0,-7);
