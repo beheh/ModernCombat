@@ -116,11 +116,6 @@ func CreateFurniture()
 
   //Glastische
   CreateObject(GTBL, 300, 460, -1);
-  CreateObject(GTBL, 950, 370, -1);
-  CreateObject(GTBL, 1100, 370, -1);
-
-  CreateObject(GTBL, 1700, 370, -1);
-  CreateObject(GTBL, 1850, 370, -1);
   CreateObject(GTBL, 2500, 460, -1);
 
   //Stationäre Gastanks
@@ -205,10 +200,6 @@ func CreateFurniture()
 
   //Monitore
   CreateObject(MONI, 310, 448, -1);
-  CreateObject(MONI, 960, 358, -1);
-  CreateObject(MONI, 1090, 358, -1);
-  CreateObject(MONI, 1710, 358, -1);
-  CreateObject(MONI, 1840, 358, -1);
   CreateObject(MONI, 2485, 448, -1);
 
   //Pflanzen
