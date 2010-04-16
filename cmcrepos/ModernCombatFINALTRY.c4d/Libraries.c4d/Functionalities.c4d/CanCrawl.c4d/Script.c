@@ -213,8 +213,8 @@ public func FxNoCrawlTimer() { return(-1); }
 public func FxCrawlStart(pClonk, iNum)
 {
   // Physical, Shape und Vertixes anpassen
-  EffectVar(0, pClonk, iNum) = GetPhysical("Walk", 0);
-  SetPhysical("Walk", GetPhysical("Walk", 0)/4, PHYS_Temporary);
+  EffectVar(0, pClonk, iNum) = GetPhysical("Walk", 0, pClonk);
+  SetPhysical("Walk", GetPhysical("Walk", 0, pClonk)/4, PHYS_Temporary);
   SetShape(-8, 2-5, 16, 8);
   SetVertexXY(0, 0,5-5);
   SetVertexXY(1, 0,2-5);
