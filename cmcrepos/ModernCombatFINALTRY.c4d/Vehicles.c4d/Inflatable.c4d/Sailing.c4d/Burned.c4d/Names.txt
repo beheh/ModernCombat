@@ -1,2 +1,2 @@
-DE:Verbranntes Segelboot
-US:Sailboat wreck
+DE:Verbranntes Schlauchboot
+US:Inflatable wreck

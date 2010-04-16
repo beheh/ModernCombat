@@ -42,7 +42,7 @@ private func UpdateDmg()
 public func Damage()
 {
   UpdateDmg();
-  if(GetDamage() < MaxDamage()) return ;
+  if(GetDamage() < MaxDamage()) return;
   Incineration();
 }
 
@@ -97,11 +97,12 @@ private func Sail()
 
   Sound("MotorLoop.ogg",false,motor,100,0,+1);
   Sound("MotorIdleLoop.ogg",false,motoridle,100,0,-1);
-
-  if(GetComDir() == COMD_Left)
-    SetXDir(-xdir);
-  else
-    SetXDir(+xdir);
+  
+  if(!IsTurning())
+    if(GetComDir() == COMD_Left)
+      SetXDir(-xdir);
+    else
+      SetXDir(+xdir);
 
   //Effekte
   var dir = -(GetDir()*2-1);
@@ -207,6 +208,10 @@ private func Turning()
     motor->UpdateShape();
 }
 
+public func IsTurning() {
+  return (GetEffect("IntTurn", this) != 0);
+}
+
 protected func FxIntTurnStart(object target, int number, int temp, array controllers)
 {
   if(temp) return 0;
@@ -218,6 +223,8 @@ protected func FxIntTurnStart(object target, int number, int temp, array control
   // ... die hier ermittelt wird
   for(var i = 0; i < GetLength(controllers); ++ i)
     EffectVar(1, target, number)[i] = controllers[i]->GetX() - GetX();
+  //Anfangsgeschwindigkeit
+  EffectVar(2, target, number) = Abs(GetXDir(target));
 }
 
 protected func FxIntTurnTimer(object target, int number, int time)
@@ -249,6 +256,11 @@ protected func FxIntTurnTimer(object target, int number, int time)
     var pos_t = -pos * 2;
     controller->SetPosition(GetX() + pos - (pos*2 * pos_phase / 100), controller->GetY());
   }
+  var xdir = Abs(pos_phase * EffectVar(2, target, number) / 100);
+  if(GetComDir(target) == COMD_Left)
+    target->SetXDir(-xdir);
+  else
+    target->SetXDir(+xdir);
 }
 
 protected func FxIntTurnStop(object target, int number, bool temp)
