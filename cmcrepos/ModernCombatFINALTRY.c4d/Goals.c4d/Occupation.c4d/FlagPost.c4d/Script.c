@@ -119,6 +119,9 @@ protected func Timer()
 
   if(!enemys && friends)
     DoProcess(team,Min(friends,3));
+    
+  if(enemys && friends)
+    Message("$MsgFoughtOver$", flag, GetTeamColor(team), GetName());
 }
 
 public func Capture(int iTeam, bool bSilent)
@@ -132,7 +135,7 @@ public func Capture(int iTeam, bool bSilent)
    EventInfo4K(0,Format("$MsgCaptured$",GetTeamName(iTeam),GetName()),OFLG,GetTeamColor(iTeam));
    Sound("Trumpet");
   }
-  GameCall("PointCaptured",this(),team);//Broadcasten.
+  GameCall("PointCaptured",this(),team); //Broadcasten.
 
   UpdateFlag();
 }
@@ -154,6 +157,10 @@ protected func Recapturing()
 {
   attacker = 0;
   Message("$MsgRecapturing$",flag,GetTeamColor(team),GetTeamName(team),GetName());
+}
+
+protected func Lost() {
+  EventInfo4K(0,Format("$MsgFlagLost$",GetTeamName(team),GetName()),OFLG,GetTeamColor(team));
 }
 
 public func NoTeam()
@@ -181,7 +188,7 @@ protected func SetFlagPos(int iHeight)
   //Log("%d%%",iHeight);
   iHeight = ((((GetDefHeight()+GetDefOffset(GetID(flag),true))*10)/100*(iHeight*10)) / 100)-GetDefOffset(GetID(flag),true);//Prozent umrechnen.
   //Log("%d%",iHeight);
-  iHeight = BoundBy(iHeight,0,GetDefHeight()+GetDefOffset(GetID(flag),true));//Sicherheit ist wichtig.
+  iHeight = BoundBy(iHeight,0,GetDefHeight()+GetDefOffset(GetID(flag),true)); //Sicherheit ist wichtig.
   //Log("%d%[s]",iHeight);
   SetPosition(GetX(),GetY()-iHeight,flag);//Und setzen.
 }
@@ -211,12 +218,19 @@ public func DoProcess(int iTeam, int iAmount)
   if(old > process)
    trend = -1;
 
+  if(old == 100 && trend == -1)
+    GameCallEx("FlagAttacked", this);
+    
   //Feindliche Flagge übernehmen
   if((process < 100) && (old >= 100))
   {
    Capturing(iTeam);
   }
-
+  
+  if((process <= 0) && old > 0)
+  {
+    Lost();
+  }
   //Eigene Flagge sichern
   if((process >= 100) && (old < 100))
   {
