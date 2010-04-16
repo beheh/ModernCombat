@@ -147,7 +147,7 @@ public func Capture(int iTeam, bool bSilent)
 protected func Capturing(int iTeam)
 {
   attacker = iTeam;
-  Message("$MsgCapturing$",flag,GetTeamColor(iTeam),GetTeamName(iTeam),GetName(this()));
+  Message("$MsgCapturing$",flag,GetTeamColor(iTeam),GetTeamName(iTeam),GetName());
 }
 
 protected func Recaptured()
@@ -160,7 +160,7 @@ protected func Recaptured()
 protected func Recapturing(int iTeam)
 {
   attacker = 0;
-  Message("$MsgCapturing$",flag,GetTeamColor(iTeam),GetTeamName(iTeam),GetName(this()));
+  Message("$MsgCapturing$",flag,GetTeamColor(iTeam),GetTeamName(iTeam),GetName());
 }
 
 protected func Lost() {
@@ -222,7 +222,7 @@ public func DoProcess(int iTeam, int iAmount)
   if(old > process)
    trend = -1;
 
-  if((old = 100 && trend < 0) || (old == 0 && trend > 0))
+  if((old == 100 && trend < 0) || (old == 0 && trend > 0))
     GameCallEx("FlagAttacked", this);
   
   if((process <= 0) && old > 0) {
