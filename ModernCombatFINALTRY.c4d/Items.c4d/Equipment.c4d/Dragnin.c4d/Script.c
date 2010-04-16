@@ -91,15 +91,15 @@ func FxDragninHealStart(object pTarget, int iEffectNumber, int iTemp, int iHealA
   EffectVar(1,pTarget,iEffectNumber) = iHealRate; //Frames per HP
 
   //Lähmung
-  EffectVar(2, pTarget, iEffectNumber) = GetPhysical("Walk", 1, 0, GetID(pTarget))/3;
-  EffectVar(3, pTarget, iEffectNumber) = GetPhysical("Jump", 1, 0, GetID(pTarget))/3;
-  EffectVar(4, pTarget, iEffectNumber) = GetPhysical("Scale", 1, 0, GetID(pTarget))/3;
-  EffectVar(5, pTarget, iEffectNumber) = GetPhysical("Hangle", 1, 0, GetID(pTarget))/3;
+  EffectVar(2, pTarget, iEffectNumber) = GetPhysical("Walk", 2, pTarget);
+  EffectVar(3, pTarget, iEffectNumber) = GetPhysical("Jump", 2, pTarget);
+  EffectVar(4, pTarget, iEffectNumber) = GetPhysical("Scale", 2, pTarget);
+  EffectVar(5, pTarget, iEffectNumber) = GetPhysical("Hangle", 2, pTarget);
 
-  SetPhysical("Walk", GetPhysical("Walk", 0, pTarget)-EffectVar(2, pTarget, iEffectNumber), 2, pTarget);
-  SetPhysical("Jump", GetPhysical("Jump", 0, pTarget)-EffectVar(3, pTarget, iEffectNumber), 2, pTarget);
-  SetPhysical("Scale", GetPhysical("Scale", 0, pTarget)-EffectVar(4, pTarget, iEffectNumber), 2, pTarget);
-  SetPhysical("Hangle", GetPhysical("Hangle", 0, pTarget)-EffectVar(5, pTarget, iEffectNumber), 2, pTarget);
+  SetPhysical("Walk", GetPhysical("Walk", 0, pTarget)/3, 2, pTarget);
+  SetPhysical("Jump", GetPhysical("Jump", 0, pTarget)/3, 2, pTarget);
+  SetPhysical("Scale", GetPhysical("Scale", 0, pTarget)/3, 2, pTarget);
+  SetPhysical("Hangle", GetPhysical("Hangle", 0, pTarget)/3, 2, pTarget);
 }
 
 func FxDragninHealTimer(object pTarget, int iEffectNumber, int iEffectTime)
@@ -136,10 +136,10 @@ func FxDragninHealDamage(target, no, dmg, dmgtype)
 public func FxDragninHealStop(target, no, reason, temp)
 {
   //Lähmung rückgängig machen
-  SetPhysical("Walk", GetPhysical("Walk", 0, target)+EffectVar(2, target, no), 2, target);
-  SetPhysical("Jump", GetPhysical("Jump", 0, target)+EffectVar(3, target, no), 2, target);
-  SetPhysical("Scale", GetPhysical("Scale", 0, target)+EffectVar(4, target, no), 2, target);
-  SetPhysical("Hangle", GetPhysical("Hangle", 0, target)+EffectVar(5, target, no), 2, target);
+  SetPhysical("Walk", EffectVar(2, target, no), 2, target);
+  SetPhysical("Jump", EffectVar(3, target, no), 2, target);
+  SetPhysical("Scale", EffectVar(4, target, no), 2, target);
+  SetPhysical("Hangle", EffectVar(5, target, no), 2, target);
 }
 
 /* Sounds */
