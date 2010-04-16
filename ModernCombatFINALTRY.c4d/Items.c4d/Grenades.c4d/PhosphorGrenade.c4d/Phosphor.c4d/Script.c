@@ -73,7 +73,7 @@ func BurnObjects()
 func HitObject(pObj)
 {
     if(GetOCF(pObj) & OCF_Living)
-      AddEffect("Phosphored", pObj, 50, 50, this(), GetID());
+      AddEffect("Phosphored", pObj, 50, 20, this(), GetID());
     DoDmg(3, DMG_Fire, pObj, 1);
     AddFireEffect(pObj,50,FIRE_Red,1);
     //anzündbares anzünden, aber nicht lebewesen.
@@ -86,7 +86,11 @@ func HitObject(pObj)
 
 protected func Hit()
 {
-  SetAction("Globbing");
+  var contact = GetContact(0, -1, 0);
+  if(contact & CNAT_Left || contact & CNAT_Right || contact & CNAT_Top)
+    SetAction("Globbing");
+  if(life < 300)
+    SetAction("Globbing");
 }
 
 /* Klebeeffekt */
@@ -104,10 +108,10 @@ public func FxPhosphoredStart(pTarget, iNo, iTemp, pPhosphor)
 
 public func FxPhosphoredTimer(pTarget, iNo, iTime)
 {
-  if(Inside(iTime,90,100))
+  if(iTime >= 60)
     return(-1);
     
-  if(Inside(iTime,40,60))
+  if(iTime >= 40)
     AttachTargetLost();
 }
      
