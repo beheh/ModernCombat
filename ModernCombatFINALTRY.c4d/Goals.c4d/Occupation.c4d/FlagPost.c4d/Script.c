@@ -119,9 +119,13 @@ protected func Timer()
 
   if(!enemys && friends)
     DoProcess(team,Min(friends,3));
-    
-  if(enemys && friends)
+  
+  if(enemys && friends) {
     Message("$MsgFoughtOver$", flag, GetTeamColor(team), GetName());
+  }
+  else if(trend == 0) {
+    Message("", flag);
+  }
 }
 
 public func Capture(int iTeam, bool bSilent)
@@ -143,7 +147,7 @@ public func Capture(int iTeam, bool bSilent)
 protected func Capturing(int iTeam)
 {
   attacker = iTeam;
-  Message("$MsgCapturing$",flag,GetTeamColor(iTeam),GetTeamName(iTeam),GetName());
+  Message("$MsgCapturing$",flag,GetTeamColor(iTeam),GetTeamName(iTeam),GetName(this()));
 }
 
 protected func Recaptured()
@@ -153,10 +157,10 @@ protected func Recaptured()
   EventInfo4K(0,Format("$MsgRecaptured$",GetTeamName(team),GetName()),OFLG,GetTeamColor(team));
 }
 
-protected func Recapturing()
+protected func Recapturing(int iTeam)
 {
   attacker = 0;
-  Message("$MsgRecapturing$",flag,GetTeamColor(team),GetTeamName(team),GetName());
+  Message("$MsgCapturing$",flag,GetTeamColor(iTeam),GetTeamName(iTeam),GetName(this()));
 }
 
 protected func Lost() {
@@ -218,19 +222,21 @@ public func DoProcess(int iTeam, int iAmount)
   if(old > process)
    trend = -1;
 
-  if(old == 100 && trend == -1)
+  if((old = 100 && trend < 0) || (old == 0 && trend > 0))
     GameCallEx("FlagAttacked", this);
-    
-  //Feindliche Flagge übernehmen
-  if((process < 100) && (old >= 100))
-  {
-   Capturing(iTeam);
-  }
   
-  if((process <= 0) && old > 0)
-  {
+  if((process <= 0) && old > 0) {
     Lost();
   }
+  
+  //Feindliche Flagge übernehmen
+  if(process < 100 && trend < 0) {
+    Capturing(iTeam);
+  }
+  else if(process < 100 && trend > 0) {
+    Recapturing(iTeam);
+  }
+  
   //Eigene Flagge sichern
   if((process >= 100) && (old < 100))
   {
