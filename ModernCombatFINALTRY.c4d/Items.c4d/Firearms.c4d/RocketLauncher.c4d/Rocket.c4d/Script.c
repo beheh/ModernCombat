@@ -161,6 +161,7 @@ private func HitObject(pObj)
     if(GetOCF(pObj) & OCF_Living)
     {
      Sound("SharpnelImpact*.ogg");
+     Fling(pObj,GetXDir()/15,GetYDir()/15-1);
     }
     else
     {
