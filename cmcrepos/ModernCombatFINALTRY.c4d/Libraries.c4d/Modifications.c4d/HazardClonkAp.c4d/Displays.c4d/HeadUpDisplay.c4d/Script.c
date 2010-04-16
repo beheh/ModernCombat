@@ -121,22 +121,15 @@ protected func Timer()
 public func Update(object weapon, object ammobag, object who)
 {
   //Nur den Cursor updaten
-  if(who)
-   if(GetCursor(GetOwner(who)) == who)
-   {
-    UpdateWeapon(weapon);
-   }
-}
-
-public func Update(object weapon, object ammobag, object who)
-{
-  //Nur den Cursor updaten
-  if(who)
-   if(GetCursor(GetOwner(who)) == who)
+  if(who) {
+   var pCursor = GetCursor(GetOwner(who));
+   if(pCursor && pCursor != who) pCursor = pCursor->~GetRealCursor();
+   if(pCursor == who)
    {
     UpdateWeapon(weapon);
     UpdateAmmoBag(ammobag, weapon);
    }
+  }
 }
 
 private func UpdateWeapon(object weapon)
