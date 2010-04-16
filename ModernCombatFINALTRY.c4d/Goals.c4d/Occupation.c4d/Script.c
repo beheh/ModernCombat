@@ -162,7 +162,6 @@ private func InitScoreboard()
 
 private func UpdateScoreboard()
 {
-  var visible = false;
   var i = 1;
   //Flaggen
   for(var flag in FindObjects(Find_ID(OFPL)))
@@ -178,7 +177,6 @@ private func UpdateScoreboard()
       }
     SetScoreboardData(i,1,Format("<c %x>%s</c>",color,GetName(flag)), GetX(flag));
     SetScoreboardData(i,2,Format("%d%", flag->GetProcess()), flag->GetProcess());
-    if(flag->GetTrend() != 0) visible = true;
     i++;
   }
   SetScoreboardData(i, 1, "", LandscapeWidth()+9); //ololo
@@ -191,11 +189,12 @@ private func UpdateScoreboard()
     i++;
   }
   SortScoreboard(1);
-  if(visible) {
-    for(var i = 0; i < GetPlayerCount(); i++) {
-      DoScoreboardShow(1, GetPlayerByIndex(i)+1);
-      Schedule(Format("DoScoreboardShow(-1, %d)", GetPlayerByIndex()+1), 200);
-    }
+}
+
+public func FlagAttacked(object pFlag) {
+  for(var i = 0; i < GetPlayerCount(); i++) {
+    DoScoreboardShow(1, GetPlayerByIndex(i)+1);
+    Schedule(Format("DoScoreboardShow(-1, %d)", GetPlayerByIndex(i)+1), 200);
   }
 }
 
