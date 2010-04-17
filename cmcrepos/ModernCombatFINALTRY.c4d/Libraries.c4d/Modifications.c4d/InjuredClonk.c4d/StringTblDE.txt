@@ -1,6 +1,5 @@
 Title=Clonk <c ff0000>eliminiert</c>!
 Suicide=Selbstmord
-CantSuicide=Selbstmord nicht möglich
 SuicideDesc=Gibt dem Clonk den Todesstoß.
 Info=<c ff0000>%s</c> wurde eliminiert. Warte auf einen Sanitäter oder gebe den Clonk auf.
 Info2=<c ff0000>%s</c> wurde eliminiert. Warte auf eine Reanimation durch einen Sanitäter.
