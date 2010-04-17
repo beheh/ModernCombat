@@ -199,8 +199,6 @@ public func DoProcess(int iTeam, int iAmount)
 
   process = BoundBy(process+iAmount,0,100);
 
-  if(old == 0 && process < 0)
-
   if(old < process)
    trend = +1;
 

@@ -128,7 +128,7 @@ private func OpenGoalMenu(id dummy, int iSelection)
   var pClonk = GetCursor();
   CreateMenu(GetID(),pClonk,0,0,0,0,1);
 
-  AddMenuItem(" ", "OpenGoalMenu", GetID(), pClonk, iStartTickets, 0, " ");
+  AddMenuItem("", "OpenGoalMenu", GetID(), pClonk, iStartTickets, 0, " ");
   AddMenuItem("$MoreTickets$", "ChangeStartTickets", CHOS, pClonk, 0, +1, "$MoreTickets$",2,1);
   AddMenuItem("$LessTickets$", "ChangeStartTickets", CHOS, pClonk, 0, -1, "$LessTickets$",2,2);
   AddMenuItem("$Finished$", "ConfigFinished", CHOS, pClonk,0,0,"$Finished$",2,3);
@@ -185,13 +185,14 @@ private func UpdateScoreboard()
     SetScoreboardData(i,2,Format("%d%", flag->GetProcess()), flag->GetProcess());
     i++;
   }
-  SetScoreboardData(i, 1, "", LandscapeWidth()+9);
-  i++;
+  if(i != 1) {
+    SetScoreboardData(i, 1, "", LandscapeWidth()+1); i++;
+  }
   //Tickets
   for(var j = 1; j <= GetTeamCount(); j++)
   {
-    SetScoreboardData(i, 1, Format("<c %x>%s</c>", GetTeamColor(j), GetTeamName(j)), LandscapeWidth()+10);
-    SetScoreboardData(i, 2, Format("%d {{TIKT}}", GetTickets(j)), i);
+    SetScoreboardData(i, 1, Format("<c %x>%s</c>", GetTeamColor(j), GetTeamName(j)), i-GetFlagCount(j)+LandscapeWidth()+2);
+    SetScoreboardData(i, 2, Format("%d {{TIKT}}", GetTickets(j)), GetTickets(j));
     i++;
   }
   SortScoreboard(1);
