@@ -43,7 +43,7 @@ public func Fire1()    // Projektil-Dauerfeuer
   
   var ammo = CreateObject(SHTX, iX, iY, GetController(user));
   //int iAngle, int iSpeed, int iDist, int iSize, int iTrail, int iDmg
-  ammo->Launch(angle, 300, 600, 2, 100, 33,1);
+  ammo->Launch(angle, 300, 600, 2, 100, 5,1);
 
   // Effekte
   MuzzleFlash(40+Random(60),user,iX,iY,angle);
@@ -55,9 +55,7 @@ public func Fire1()    // Projektil-Dauerfeuer
 
 func OnAutoStop(int iFM)
 {
-  //if(iFM == 0)
-  Message("END",this);
-    Sound("MISA_FireEnd.ogg");
+  Sound("MISA_FireEnd.ogg");
 }
 
 public func Fire2()
@@ -78,7 +76,7 @@ private func Burst()
   user->WeaponEnd(iX,iY);
   
   var ammo = CreateObject(SHTX, iX, iY, GetController(user));
-  ammo->Launch(angle, 300, 600, 2, 100, 33,1);
+  ammo->Launch(angle, 300, 600, 2, 100, 5,1);
 
   // Effekte
   MuzzleFlash(20+Random(30),user,iX,iY,angle);
