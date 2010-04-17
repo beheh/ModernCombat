@@ -229,7 +229,7 @@ public func DoTickets(int iTeam, int iChange)
   if(iWarningTickets != 0 && iWarningTickets == aTicket[iTeam-1]) {
     for(var i = 0; i < GetPlayerCount(); i++) {
       if(GetPlayerTeam(GetPlayerByIndex(i)) == iTeam) {
-        EventInfo4K(GetPlayerByIndex(i)+1,Format("$MsgTicketsLow$",aTicket[iTeam-1]),TIKT,0,0,"TicketsLow.ogg");
+        EventInfo4K(GetPlayerByIndex(i)+1,Format("$MsgTicketsLow$",aTicket[iTeam-1]),TIKT,0,0,0,"TicketsLow.ogg");
       }
     }
   }
