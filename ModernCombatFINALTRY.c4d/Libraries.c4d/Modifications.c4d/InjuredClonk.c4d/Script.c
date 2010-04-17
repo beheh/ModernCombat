@@ -80,13 +80,12 @@ private func DeathMenu()
   if(FindObject(SICD))
   {
    AddMenuItem("$Suicide$", "Suicide", ICN2, clonk, 0, 0, "$SuicideDesc$");		//Selbstmord
-  }
-  AddMenuItem(" ","", NONE,clonk, 0, 0, "", 512, 0, 0);					//Leerzeile
-  if(FindObject(SICD))
+   AddMenuItem(" ","", NONE,clonk, 0, 0, "", 512, 0, 0);				//Leerzeile
    AddMenuItem(Format("$Info$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);	//Hinweise
+  }
   else
   {
-   AddMenuItem(Format("$Info2$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);
+   AddMenuItem(Format("$Info2$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);  //Falls kein Selbstmord möglich
   }
   AddMenuItem(Format("$DeathCounter$", suicide),"", NONE, clonk, 0, 0, "", 512, 0, 0);	//Zeit bis zum Tod
   if(suicide <= 0)
@@ -95,16 +94,12 @@ private func DeathMenu()
   SetMenuTextProgress(1, clonk); 
 }
 
-public func MenuQueryCancel() { return(true); }
+public func MenuQueryCancel()	{return(true);}
 
 /* Selbstmord */
 
 public func Suicide()
 {
-  //Eventuelles Hinweisicon entfernen
-  for(var icons in FindObjects(Find_ID(ICN3), Find_Owner(GetOwner(clonk))))
-   RemoveObject(icons);
-  
   //Clonkinventar löschen sofern Arenaregel aktiv
   if(FindObject(NODR))
    for(var item in FindObjects(Find_Container(this),Find_Not(Find_OCF(OCF_Alive))))
@@ -121,7 +116,7 @@ public func Suicide()
   RemoveObject(0,1);
 }
 
-public func GetClonk() {return(clonk);}
+public func GetClonk()	{return(clonk);}
 
 /* Entfernen (bei Wiederbelebung) */
 
@@ -167,5 +162,3 @@ public func GetDeathCountdown()
 {
   return(suicide);
 }
-
-
