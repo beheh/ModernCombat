@@ -183,7 +183,7 @@ global func FxFadeIn4KStart(target, no, temp, speed)
 global func FxFadeIn4KTimer(target, no)
 {
   EffectVar(0, target, no) = BoundBy(EffectVar(0, target, no) - EffectVar(1, target, no), 0, 255);
-  SetClrModulation(RGBa(255,255,255, EffectVar(0, target, no)), target);
+  //SetClrModulation(RGBa(255,255,255, EffectVar(0, target, no)), target);
   SetClrModulation(SetRGBaValue(EffectVar(2, target, no),EffectVar(0, target, no),0), target);
   
   if(EffectVar(0, target, no) <= 0)
