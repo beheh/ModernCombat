@@ -227,7 +227,7 @@ public func DoTickets(int iTeam, int iChange)
   aTicket[iTeam-1] = Max(aTicket[iTeam-1] + iChange, 0);
   if(iWarningTickets != 0 && iWarningTickets == aTicket[iTeam-1]) {
     for(var i = 0; i < GetPlayerCount(); i++) {
-      if(GetPlayerTeam(GetPlayerByIndex(i) == iTeam) {
+      if(GetPlayerTeam(GetPlayerByIndex(i)) == iTeam) {
         EventInfo4K(GetPlayerByIndex(i)+1,Format("$MsgTicketsLow$",aTicket[iTeam-1]),TIKT);
         Sound("Lol.ogg", true, 0, 100, GetPlayerByIndex(i));
       }
