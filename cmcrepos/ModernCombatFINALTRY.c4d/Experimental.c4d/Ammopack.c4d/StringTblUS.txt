@@ -1,0 +1,3 @@
+TakeAmmo=Take ammunition...
+NeededPoints=Not possible. <c ff0000>%d</c> points are needed to unpack ammo.
+AmmoRecieved=x<c ffff00>%d</c> {{%i}} recieved

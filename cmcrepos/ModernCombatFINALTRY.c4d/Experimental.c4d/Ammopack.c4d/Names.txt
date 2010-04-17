@@ -1,0 +1,2 @@
+DE:Munitionspaket
+US:Ammopack
