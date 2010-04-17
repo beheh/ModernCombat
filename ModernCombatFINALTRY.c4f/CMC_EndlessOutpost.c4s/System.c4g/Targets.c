@@ -15,8 +15,8 @@ public func Damage()
 
 public func OnDmg(int iDamage, int iType)
 {
-    if(iType == DMG_Melee) return 85;
-    if(iType == DMG_Explosion) return 50;
+    if(iType == DMG_Projectile) return 65;
+    if(iType == DMG_Explosion) return 0;
 }
 
 public func IsBulletTarget() { return GetEffect("AS_Target",this); }
