@@ -102,7 +102,7 @@ Length=11
 Delay=16
 Facet=0,100,16,20,0,0
 NextAction=Hangle
-StartCall=PauseReloading
+StartCall=Hangling
 InLiquidAction=Swim
 
 [Action]
