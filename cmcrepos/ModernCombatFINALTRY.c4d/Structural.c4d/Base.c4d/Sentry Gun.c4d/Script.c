@@ -1,6 +1,6 @@
 /*-- Sentry Gun --*/
 
-#strict
+#strict 2
 
 local cur_Attachment;
 local aim_angle;
@@ -12,20 +12,24 @@ local GotTarget;
 local Damaged;
 local Repairing;//Repariert gerade. Damit Active nicht durcheinander kommt.
 local autorepair;
+local last_id;
 
 /* Aktionen */
 public func StartRepair()
 {
-  if(GetAction() != "RepairStart")
+  ClearScheduleCall(this, "StartRepair");
+  if(!Repairing && !WildcardMatch(GetAction(), "*Repair*"))
+  {
+    Repairing = true;
     SetAction("RepairStart");
-  Repairing = true;
-  RemoveEffect("ShowWeapon",this);
+    RemoveEffect("ShowWeapon",this);
+  }
 }
 
 public func Repair()
 { 
   DoDamage(-GetDamage());//Es hat ja jetzt einen Schutz.
-  AddEffect("IntRepair",this,50,5,this);
+  if(!GetEffect("IntRepair")) AddEffect("IntRepair",this,50,5,this);
 }
 
 public func FxIntRepairStart(object pTarget, int iEffectNumber, int iTemp)
@@ -48,8 +52,9 @@ public func FxIntRepairTimer(object pTarget, int iEffectNumber, int iEffectTime)
 public func FxIntRepairStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)
 {
   Sound("Weld.ogg",false,this,0,0,-1); 
-  if(!iReason)
+  if(!iReason) {
     pTarget->SetAction("RepairStop");
+  }
   return 0;
 }
 
@@ -58,17 +63,21 @@ public func StopRepair()
   Repairing = false;
   Damaged = 0;
   DoDamage(-GetDamage());//Entschädigen.
+  Arm(last_id);
   AddEffect("ShowWeapon",this,1,1,this,GetID());
   SetGraphics(0,this,GetID(),3,5,0,0,this);
 }
 
 public func Destroyed()
 {
+  last_id = GetID(Contents());
+  RemoveObject(Contents());
   SetAction("Destroyed");
   Damaged = 1;
   RemoveEffect("ShowWeapon",this); 
   AutoRepair();
-  GetAttWeapon()->StopAutoFire();
+  CreateObject(ROCK,0,0)->Explode(20);
+  //GetAttWeapon()->StopAutoFire();
 }
 
 //Startet die Reparatur automatisch wenn kaputt.
@@ -98,8 +107,8 @@ public func TurnOff()
 public func Arm(id idWeapon)
 {
   // Crash-Vermeidung
-  if(!idWeapon) return();
-  if(!GetName(0, idWeapon)) return();
+  if(!idWeapon) return;
+  if(!GetName(0, idWeapon)) return;
 
   //Ausrüsten mit idWeapon
   var pWeapon = CreateObject(idWeapon, 0, 0, GetOwner());
@@ -156,15 +165,15 @@ public func Activity()
 {
   var iHeight, iWidth, iAngle;
   //Wuah, haben wir eine Waffe?
-  if(! GetAttWeapon()) return();
+  if(! GetAttWeapon()) return;
   //Sind wir im Eimer?
-  if( EMPShocked()) return();
+  if( EMPShocked()) return;
   if( Damaged) return ;
   //Sind wir aktiv?
   if(! Active) return ;
   if(Repairing) return ;
   //Wenn nicht schon gesetzt: Turn-Action
-  if(GetAction() ne "Turn")
+  if(GetAction() != "Turn")
     SetAction("Turn");
 
   /*Patroullie fahren*/
@@ -302,13 +311,14 @@ private func Reload()
 }
 
 public func MaxDamage() {
-	return( 100 );
+	return(100);
 }
 
 public func Damage()
 {
-  if(GetDamage() > MaxDamage())
-    Explode(20);
+  if(GetDamage() > MaxDamage() && !Damaged) {
+    Destroyed();
+  }
 }
 
 public func EMPShock()

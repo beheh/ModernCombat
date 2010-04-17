@@ -8,4 +8,4 @@ MoreTickets=mehr Tickets
 LessTickets=weniger Tickets
 Finished=Fertig!
 Tickets=Tickets
-MsgTicketsLow=Unsere Verstärkung geht zu Neige, nur noch <c ffff33>%s</c> übrig
+MsgTicketsLow=Unsere Verstärkung geht zu Neige, nur noch <c ffff33>%d</c> übrig
