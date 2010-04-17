@@ -48,7 +48,8 @@ public func Damage()
 
 func Incineration()
 {
-  if(damaged) return ;
+  if(GetID(this) != INFS) return;
+  if(damaged) return;
   damaged = true;
 
   if(motor) Explode(20,motor);
@@ -66,7 +67,7 @@ func Incineration()
   //SetClrModulation(RGBa(50,50,50,100)); Nicht benötigt wenn die Action Wreck das Objekt schwärzen kann =P
 
   //Verschwinden
-  ChangeDef(INFB);
+  Schedule("ChangeDef(INFB)",1);
   FadeOut();
 }
 
