@@ -1,4 +1,4 @@
-/*-- Munitionspaket --*/
+/*-- MTP --*/
 
 #strict 2
 
@@ -21,7 +21,7 @@ protected func Initialize()
 {
   //Punkteregeneration
   AddEffect("AMPKRegenerate",this(),251,20,this(),GetID());
-  //Gruppen-restocking
+  //Gruppenaufstockung
   AddEffect("AMPKRestocking",this(),252,60,this(),GetID());
   //Lichteffekt
   AddEffect("AMPKLight",this(),250,1,this(),GetID());
@@ -37,9 +37,9 @@ protected func Activate(caller)
 
   //Munitionsmenü öffnen
   CreateMenu(GetID(), caller, this(), 0, "$TakeAmmo$", 0, 1);
-    AddMenuItem(GetName(0,STAM), "CreateAmmopack", ABOX, caller, 50);
-    AddMenuItem(GetName(0,GRAM), "CreateAmmopack", GBOX, caller, 12);
-    AddMenuItem(GetName(0,MIAM), "CreateAmmopack", MIAP, caller, 4);
+   AddMenuItem(GetName(0,STAM), "CreateAmmopack", ABOX, caller, 50);
+   AddMenuItem(GetName(0,GRAM), "CreateAmmopack", GBOX, caller, 12);
+   AddMenuItem(GetName(0,MIAM), "CreateAmmopack", MIAP, caller, 4);
 
   return 1;
 }
@@ -47,54 +47,50 @@ protected func Activate(caller)
 private func CreateAmmopack(idAmmo)
 {
   if(!Contained())
-    return 0;
+   return 0;
 
   if(idAmmo == ABOX)
   {
-    if(GetAmmoPoints() >= 50)
-    {
-      CreateContents(idAmmo, Contained());
-      Sound("PackAmmo.ogg",0,0,0,GetOwner(Contained()));
-      DoAmmoPoints(-50);
-    }
-    else
-    {
-      Sound("Error",0,0,0,GetOwner(Contained()));
-      PlayerMessage(GetOwner(Contained()),"$NeededPoints$", Contained(), 50);
-    }
+   if(GetAmmoPoints() >= 50)
+   {
+    CreateContents(idAmmo, Contained());
+    Sound("PackAmmo.ogg",0,0,0,GetOwner(Contained()));
+    DoAmmoPoints(-50);
+   }
+   else
+   {
+    PlayerMessage(GetOwner(Contained()),"$NeededPoints$", Contained(), 50);
+   }
   }
 
   if(idAmmo == GBOX)
   {
-    if(GetAmmoPoints() >= 60)
-    {
-      CreateContents(idAmmo, Contained());
-      Sound("PackAmmo.ogg",0,0,0,GetOwner(Contained()));
-      DoAmmoPoints(-60);
-    }
-    else
-    {
-      Sound("Error",0,0,0,GetOwner(Contained()));
-      PlayerMessage(GetOwner(Contained()),"$NeededPoints$", Contained(), 60);
-    }
+   if(GetAmmoPoints() >= 60)
+   {
+    CreateContents(idAmmo, Contained());
+    Sound("PackAmmo.ogg",0,0,0,GetOwner(Contained()));
+    DoAmmoPoints(-60);
+   }
+   else
+   {
+    PlayerMessage(GetOwner(Contained()),"$NeededPoints$", Contained(), 60);
+   }
   }
 
   if(idAmmo == MIAP)
   {
-    if(GetAmmoPoints() >= 40)
-    {
-      CreateContents(idAmmo, Contained());
-      Sound("PackAmmo.ogg",0,0,0,GetOwner(Contained()));
-      DoAmmoPoints(-40);
-    }
-    else
-    {
-      Sound("Error",0,0,0,GetOwner(Contained()));
-      PlayerMessage(GetOwner(Contained()),"$NeededPoints$", Contained(), 40);
-    }
+   if(GetAmmoPoints() >= 40)
+   {
+    CreateContents(idAmmo, Contained());
+    Sound("PackAmmo.ogg",0,0,0,GetOwner(Contained()));
+    DoAmmoPoints(-40);
+   }
+   else
+   {
+    PlayerMessage(GetOwner(Contained()),"$NeededPoints$", Contained(), 40);
+   }
   }
 }
-
 
 public func RejectEntrance(object pObj)
 {
@@ -106,9 +102,17 @@ public func RejectEntrance(object pObj)
   return false;
 }
 
-/* Ammopunkte */
+public func ControlThrow(object pClonk)
+{
+  return true;
+}
 
-public func GetAmmoPoints(){return ammopoints;}
+/* Munitionspunkte */
+
+public func GetAmmoPoints()
+{
+  return ammopoints;
+}
 
 public func DoAmmoPoints(int iChange)
 {
@@ -140,7 +144,7 @@ public func FxFAMPKLightTimer(pTarget, iNo, iTime)
     CreateParticle("FapLight", (GetDir(Contained())*1), -2, 0, 0, 5*5, RGBa(BoundBy(InvertA1(255*GetAmmoPoints()/300,255)+10,0,255), 255*GetAmmoPoints()/300),this);
 }
 
-/* Gruppenheilung */
+/* Gruppenaufstockung */
 
 public func FxAMPKRestockingTimer(pTarget, iEffectNumber, iEffectTime)
 {
@@ -151,51 +155,51 @@ public func FxAMPKRestockingTimer(pTarget, iEffectNumber, iEffectTime)
   if(GetID(Contained()) == FKDT)        return 1;	//Im FakeDeath-Objekt?
 
   //Harte Vorauswahl überlebt? Los geht's.
-  for(var target in FindObjects(Find_OCF(OCF_Alive),			//Patient am Leben?
+  for(var target in FindObjects(Find_OCF(OCF_Alive),			//Ziel am Leben?
                                 Find_Distance(80),			//In Reichweite?
                                 Find_NoContainer(),			//Im Freien?
                                 Find_Allied(GetOwner(Contained())),	//Verbündet?
                                 Find_Exclude(Contained())))  		//Nicht der selbe Clonk?
   {
 
-    if(!(target->~IsClonk()))						//Patient ein Clonk?
-      continue;
+    if(!(target->~IsClonk()))						//Ziel ein Clonk?
+     continue;
 
     //Munitionsbedarf feststellen
     var highestammo = 0, ammoID = 0;
     for(var i = 0; i < ContentsCount(0,target); i++)
-      if(Contents(i,target)->~IsWeapon())
-        for(var j = 0; j < Contents(i,target)->GetFMCount(); j++)
-        {
-          var ammocount, weapon = Contents(i,target);
-          if(weapon->GetFMData(FM_AmmoLoad,j) <= 3)
-            ammocount = weapon->GetFMData(FM_AmmoLoad,j)*10;
-          else
-            ammocount = weapon->GetFMData(FM_AmmoLoad,j)*3;
-          if(GetAmmo(weapon->GetFMData(FM_AmmoID,j),target) < ammocount)
-          {
-            if(!ammoID)
-              ammoID = weapon->GetFMData(FM_AmmoID,j);
-            if(highestammo < ammocount)
-              highestammo = ammocount;
-          }
-        }
+     if(Contents(i,target)->~IsWeapon())
+      for(var j = 0; j < Contents(i,target)->GetFMCount(); j++)
+      {
+       var ammocount, weapon = Contents(i,target);
+       if(weapon->GetFMData(FM_AmmoLoad,j) <= 3)
+        ammocount = weapon->GetFMData(FM_AmmoLoad,j)*10;
+       else
+        ammocount = weapon->GetFMData(FM_AmmoLoad,j)*3;
+       if(GetAmmo(weapon->GetFMData(FM_AmmoID,j),target) < ammocount)
+       {
+        if(!ammoID)
+         ammoID = weapon->GetFMData(FM_AmmoID,j);
+        if(highestammo < ammocount)
+         highestammo = ammocount;
+       }
+      }
 
     if(!ammoID)
-      break;
-   
+     break;
+
     //Munition hinzufügen
     var factor;
     if(ammoID == STAM)
-      factor = 1;
+     factor = 1;
     if(ammoID == GRAM)
-      factor = 5;
+     factor = 5;
     if(ammoID == MIAM)
-      factor = 10;
+     factor = 10;
     if(!factor)
-      factor = 2;
+     factor = 2;
     if(ammoID->MaxAmmo()/10*factor > GetAmmoPoints() || GetAmmo(ammoID,target) >= highestammo)
-      break;
+     break;
 
     PlayerMessage(GetOwner(target),"$AmmoRecieved$", target, ammoID->MaxAmmo()/10, ammoID);
     DoAmmo(ammoID, ammoID->MaxAmmo()/10, target);
@@ -226,7 +230,7 @@ func UpdateHUD(object pHUD)
 
 protected func Hit()
 {
-  Sound("FAPK_Hit*.ogg");  //Eigene Sounds plz
+  Sound("AmmoBoxHit*.ogg");
   return 1;
 }
 

@@ -1,1 +1,1 @@
-Enthält Medikamente, Verbandszeug, Dragnin und weiteres Equipment zur Versorgung von verletzten Clonks. Drücke [Werfen] um als Sanitäter Dragninspritzen zu entnehmen.
+Enthält Medikamente, Verbandszeug, Dragnin und weiteres Equipment zur Versorgung von verletzten Clonks. Drücke [Werfen] um als Sanitäter Dragninspritzen zu entnehmen und halte es in Händen, um Verwundete in der Nähe zu heilen.

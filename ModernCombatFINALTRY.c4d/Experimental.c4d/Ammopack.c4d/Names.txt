@@ -1,2 +1,2 @@
-DE:Munitionspaket
-US:Ammopack
+DE:MTP
+US:AMP
