@@ -22,9 +22,13 @@ func Initialize()
 
 protected func UpdateMediHUD()
 {
-  for(var clonk in FindObjects(Find_OCF(OCF_Alive),Find_OCF(OCF_CrewMember),Find_NoContainer()))
+  for(var clonk in FindObjects(Find_OCF(OCF_Alive),Find_OCF(OCF_CrewMember),Find_NoContainer(),Find_Exclude()))
   {
-    if(FindObject2(Find_ID(HBAR), Find_ActionTarget(clonk), Find_Exclude()))
+    var break = 0;
+    for(var bar in FindObjects(Find_ID(HBAR), Find_ActionTarget(clonk)))
+      if(GetOwner(bar) == GetOwner())
+        break++;
+    if(break)
       continue;
     if(!Hostile(GetOwner(clonk),GetOwner()))
       CreateObject(HBAR,0,0,GetOwner())->Set(clonk,RGB(80,190,255));
