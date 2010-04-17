@@ -472,27 +472,29 @@ func CreateFurniture()
   CreateObject (CONS, 6270, 615, -1)->Set(autod);
 
   //Selbstschussanlagen
-  aSelfDefense[0] = CreateObject (SEGU, 1095, 309, -1);
+  aSelfDefense[0] = CreateObject(SEGU, 1095, 309, -1);
     aSelfDefense[0]->Arm(MISA);
-    aSelfDefense[0]->TurnOn(MGSA);
-    CreateObject (CONS, 1155, 530, -1)->Set(aSelfDefense[0]);
+    aSelfDefense[0]->TurnOn();
+    aSelfDefense[0]->SetAutoRepair(900);
+    CreateObject(CONS, 1155, 530, -1)->Set(aSelfDefense[0]);
   
-  aSelfDefense[1] = CreateObject (SEGU, 2565, 379, -1);
+  aSelfDefense[1] = CreateObject(SEGU, 2565, 379, -1);
     aSelfDefense[1]->Arm(MISA);
-    aSelfDefense[1]->SetAutoRepair(525);
-    aSelfDefense[1]->GetAttWeapon()->SetFireMode(2);
-    CreateObject (CONS, 2800, 500, -1)->Set(aSelfDefense[1]);
+    aSelfDefense[1]->TurnOn();
+    aSelfDefense[1]->SetAutoRepair(900);
+    CreateObject(CONS, 2800, 500, -1)->Set(aSelfDefense[1]);
   
-  aSelfDefense[2] = CreateObject (SEGU, 6585, 379, -1);
+  aSelfDefense[2] = CreateObject(SEGU, 6585, 379, -1);
     aSelfDefense[2]->Arm(MISA);
-    aSelfDefense[2]->SetAutoRepair(525);
-    aSelfDefense[2]->GetAttWeapon()->SetFireMode(2);
-    CreateObject (CONS, 6355, 500, -1)->Set(aSelfDefense[2]);
+    aSelfDefense[2]->TurnOn();
+    aSelfDefense[2]->SetAutoRepair(900);
+    CreateObject(CONS, 6355, 500, -1)->Set(aSelfDefense[2]);
   
-  aSelfDefense[3] = CreateObject (SEGU, 7190, 479, -1);
+  aSelfDefense[3] = CreateObject(SEGU, 7190, 479, -1);
     aSelfDefense[3]->Arm(MISA);
-    aSelfDefense[3]->TurnOn(MGSA);
-    CreateObject (CONS, 7260, 420, -1)->Set(aSelfDefense[3]);
+    aSelfDefense[3]->TurnOn();
+    aSelfDefense[3]->SetAutoRepair(900);
+    CreateObject(CONS, 7260, 420, -1)->Set(aSelfDefense[3]);
 }
 
 func CreateEquipment()

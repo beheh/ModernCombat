@@ -3,7 +3,7 @@
 #strict
 #include CSTD
 
-static aFlag;
+static aFlag, aSelfDefense;
 
 
 /* Regelvoreinstellung */
@@ -23,6 +23,8 @@ func Initialize()
   Music("CMC_Odyssey.ogg");
   //Flaggen
   aFlag = [];
+  //Selbstschussanlage
+  aSelfDefense = [];
   //Szenario einrichten
   CreateFurniture();
   //Ausrüstung plazieren
@@ -170,10 +172,10 @@ func CreateFurniture()
   CreateObject(RAI1, 2250, 210, -1)->SetRail([1,3,1,3,1,3,1]);
 
   //Selbstschussanlage und Konsole
-  var selfd = CreateObject (SEGU, 1305, 369, -1);
-  selfd->Arm(MP7R);
-  CreateObject (CONS, 1300, 330, -1)
-  ->Set(selfd);
+  aSelfDefense[0] = CreateObject(SEGU, 1305, 369, -1);
+    aSelfDefense[0]->Arm(MISA);
+    aSelfDefense[0]->SetAutoRepair(900);
+    CreateObject(CONS, 1300, 330, -1)->Set(aSelfDefense[0]);
 
   //Sounds
 
@@ -241,6 +243,14 @@ func CreateEquipment()
   store->AddWare(PGRN,-1);
   store->AddWare(SGRN,-1);
   store->AddWare(STUN,-1);
+}
+
+/* Bei Flaggenübernahme */
+
+func PointCaptured(object pPoint, int iTeam)
+{
+  if(pPoint == aFlag[2])
+   aSelfDefense[0]->SetTeam(iTeam);
 }
 
 /* Regelwähler */
