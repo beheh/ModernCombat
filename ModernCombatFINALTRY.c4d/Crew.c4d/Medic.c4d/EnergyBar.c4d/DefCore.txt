@@ -1,0 +1,10 @@
+[DefCore]
+id=HBAR
+Version=4,9,8,2
+Name=EnergyBar
+Category=C4D_StaticBack | C4D_Foreground
+Width=32
+Height=7
+Offset=-16,-3
+Vertices=1
+Picture=0,0,32,7
