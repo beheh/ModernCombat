@@ -1,0 +1,12 @@
+CreatingFurniture=Creating furniture...
+CreatingEquipment=Placing equipment...
+
+Team1=Spies
+Team2=Eurocorps
+
+Flag1=Western Station
+Flag2=Supply Center
+Flag3=Observation Deck
+Flag4=Post
+Flag5=Core Platform
+Flag6=Eastern Station
