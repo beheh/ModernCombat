@@ -150,18 +150,18 @@ protected func Capturing(int iTeam)
   Message("$MsgCapturing$",flag,GetTeamColor(iTeam),GetTeamName(iTeam),GetName());
 }
 
-protected func Recaptured()
+/*protected func Recaptured()
 {
   attacker = 0;
   capt = true;
-  EventInfo4K(0,Format("$MsgRecaptured$",GetTeamName(team),GetName()),OFLG,GetTeamColor(team));
+  EventInfo4K(0,Format("MsgRecaptured$",GetTeamName(team),GetName()),OFLG,GetTeamColor(team));
 }
 
 protected func Recapturing(int iTeam)
 {
   attacker = 0;
-  Message("$MsgCapturing$",flag,GetTeamColor(iTeam),GetTeamName(iTeam),GetName());
-}
+  Message("MsgCapturing$",flag,GetTeamColor(iTeam),GetTeamName(iTeam),GetName());
+}*/
 
 protected func Lost() {
   EventInfo4K(0,Format("$MsgFlagLost$",GetTeamName(team),GetName()),OFLG,GetTeamColor(team));
@@ -206,10 +206,6 @@ public func DoProcess(int iTeam, int iAmount)
   {
    if(iTeam != team)
     iAmount = -iAmount;
-   else
-   if(attacker)
-    if(attacker != team)
-     Recapturing();
   }
   else
    team = iTeam;
@@ -234,15 +230,12 @@ public func DoProcess(int iTeam, int iAmount)
     Capturing(iTeam);
   }
   else if(process < 100 && trend > 0) {
-    Recapturing(iTeam);
+    Capturing(iTeam);
   }
   
   //Eigene Flagge sichern
   if((process >= 100) && (old < 100))
   {
-   if(attacker)
-    Recaptured();
-   else
     Capture(iTeam);
   }
 
