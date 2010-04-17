@@ -29,8 +29,8 @@ public func FMData1(int data)
   
   if(data == FM_Slot)    return(1);
   
-  if(data == FM_SpreadAdd) return(60);//Kaum Rückstoß
-  if(data == FM_StartSpread) return(0);//Pistolen sind leicht
+  if(data == FM_SpreadAdd) return(60); //Kaum Rückstoß
+  if(data == FM_StartSpread) return(0); //Pistolen sind leicht
   if(data == FM_MaxSpread) return(CH_MaxSpread/3*2);
 
   return(Default(data));

@@ -101,7 +101,7 @@ public func GetHUDInfo(int player, object hud)
     
     if(GetTeamCount() > 1)
       for(var i = 2; i <= GetTeamCount(); i++)
-        Format("%s : <c %x>%d</c>",GetTeamColor(i),GetTickets(i));
+        Format("%s : <c %x>%d</c>",GetTeamName(i),GetTeamColor(i),GetTickets(i));
   }
 	
 	return str;

@@ -350,14 +350,14 @@ public func HitObject(object pObject)
       x = lx;
       y = ly;
     }
-    OnHit(pObject,x,y);
+    OnBulletHit(pObject,x,y);
     
     Remove();
     return(true);
   }
 }
 
-public func OnHit(object pObject, int iX, int iY)
+public func OnBulletHit(object pObject, int iX, int iY)
 {
   if(pObject)
   {
