@@ -23,6 +23,7 @@ global func CreateFlagpole(int iX, int iY, string szName, int iRange, int iSpeed
 /* Allgemein */
 
 local iStartTickets;
+local iWarningTickets;
 local aTicket;
 
 protected func Initialize()
@@ -78,7 +79,12 @@ private func GetFlagCount(int iTeam, bool bCountBlankFlags)
 public func ChooserFinished()
 {
   ScheduleCall(this(),"InitScoreboard",1);
-  
+  if(iStartTickets < 4) {
+    iWarningTickets = 0;
+  }
+  else {
+    iWarningTickets = Max(iStartTickets/4, 5);
+  }
   if(!FindObject(MCSL))//Klassenwahl?
     ScheduleCall(0,"CreateSpawners",1);
 }
@@ -219,7 +225,14 @@ public func GetTickets(int iTeam)
 public func DoTickets(int iTeam, int iChange)
 {
   aTicket[iTeam-1] = Max(aTicket[iTeam-1] + iChange, 0);
-  //UpdateScoreboard(iTeam);
+  if(iWarningTickets != 0 && iWarningTickets == aTicket[iTeam-1]) {
+    for(var i = 0; i < GetPlayerCount(); i++) {
+      if(GetPlayerTeam(GetPlayerByIndex(i) == iTeam) {
+        EventInfo4K(GetPlayerByIndex(i)+1,Format("$MsgTicketsLow$",aTicket[iTeam-1]),TIKT);
+        Sound("Lol.ogg", true, 0, 100, GetPlayerByIndex(i));
+      }
+    }
+  }
 }
 
 public func SetTickets(int iTeam, int iTickets)
