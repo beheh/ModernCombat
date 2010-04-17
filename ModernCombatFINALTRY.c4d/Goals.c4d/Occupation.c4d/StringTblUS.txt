@@ -8,4 +8,4 @@ MoreTickets=more Tickets
 LessTickets=less Tickets
 Finished=Finished!
 Tickets=Tickets
-MsgTicketsLow=Our reinforcements are going low, only <c ffff33>%s</c> left
+MsgTicketsLow=Our reinforcements are going low, only <c ffff33>%d</c> left
