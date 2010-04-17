@@ -201,8 +201,6 @@ public func DoProcess(int iTeam, int iAmount)
 
   if(old == 0 && process < 0)
 
-  Log("%d %d %d", old, process, iAmount);
-
   if(old < process)
    trend = +1;
 
