@@ -8,7 +8,7 @@ public func MaxTime()		{return(35*5);}
 public func MaxSpeed()		{return(100);}
 protected func SecureDistance()	{return(100);} //Mindestabstand
 
-local sx,sy;
+local sx,sy,start;
 
 
 /* Start */
@@ -29,6 +29,7 @@ public func Launch(int iAngle, int iDmg, object pFollow)
   
   sx = GetX();
   sy = GetY();
+  start = FrameCounter();
 
   //Effekte
   AddEffect("ThrustSound",this(),1,11,this());
@@ -42,7 +43,7 @@ public func Launch(int iAngle, int iDmg, object pFollow)
 
 protected func Secure()
 {
-  if(Distance(GetX(),GetY(),sx,sy) <= SecureDistance())
+  if(Distance(GetX(),GetY(),sx,sy) <= SecureDistance() && FrameCounter() < start+70)
    return(true);
 
   return(false);

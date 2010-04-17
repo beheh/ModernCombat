@@ -3,7 +3,7 @@
 #strict
 #include GREN
 
-local active,sx,sy;
+local active,sx,sy, start;
 
 public func BlastRadius()	{return(30);}
 protected func SecureDistance()	{return(75);} //Mindestabstand
@@ -18,6 +18,7 @@ func Launch(int xdir, int ydir, int iDmg,a,b,c)
   active = true;
   sx = GetX();
   sy = GetY();
+  start = FrameCounter();
   inherited(xdir,ydir,iDmg,a,b,c);
 }
 
@@ -26,7 +27,7 @@ protected func Secure()
   if(!active)
    return(true);
 
-  if(Distance(GetX(),GetY(),sx,sy) <= SecureDistance())
+  if(Distance(GetX(),GetY(),sx,sy) <= SecureDistance() && FrameCounter() < start+70)
    return(true);
 
   return(false);
