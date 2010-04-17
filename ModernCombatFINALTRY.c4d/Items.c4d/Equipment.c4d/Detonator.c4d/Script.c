@@ -157,8 +157,8 @@ public func RejectEntrance(object pObj)
 {
   var pack;
   if(pack = FindObject2(Find_Container(pObj), Find_ID(C4PA)))
-    if(pack->DoPackAmount() >= 5)
-      return 1;
+   if(pack->DoPackAmount() >= 5)
+    return 1;
 }
 
 /* Sounds */
