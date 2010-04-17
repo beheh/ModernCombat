@@ -3,7 +3,7 @@
 #strict
 #include CSTD
 
-static aFlag,aSelfDefense;
+static aFlag, aSelfDefense;
 
 
 /* Regelvoreinstellung */
@@ -331,25 +331,25 @@ func CreateFurniture()
   //Selbstschussanlagen und Konsolen
   //Basis 2
   aSelfDefense[0] = CreateObject (SEGU, 465, 698, -1);
-  aSelfDefense[0]->Arm(MGSA);
-  aSelfDefense[0]->SetAutoRepair(525);
-  CreateObject (CONS, 465, 645, -1)->Set(aSelfDefense[0]);
+  aSelfDefense[0]->Arm(MISA);
+  aSelfDefense[0]->SetAutoRepair(900);
+  CreateObject(CONS, 465, 645, -1)->Set(aSelfDefense[0]);
 
   aSelfDefense[1] = CreateObject (SEGU, 705, 698, -1);
-  aSelfDefense[1]->Arm(MGSA);
-  aSelfDefense[1]->SetAutoRepair(525);
-  CreateObject (CONS, 705, 645, -1)->Set(aSelfDefense[1]);
+  aSelfDefense[1]->Arm(MISA);
+  aSelfDefense[1]->SetAutoRepair(900);
+  CreateObject(CONS, 705, 645, -1)->Set(aSelfDefense[1]);
 
   //Basis 4
   aSelfDefense[2] = CreateObject (SEGU, 480, 1318, -1);
-  aSelfDefense[2]->Arm(MGSA);
-  aSelfDefense[2]->SetAutoRepair(525);
+  aSelfDefense[2]->Arm(MISA);
+  aSelfDefense[2]->SetAutoRepair(900);
   CreateObject (CONS, 530, 1360, -1)->Set(aSelfDefense[2]);
 
   aSelfDefense[3] = CreateObject (SEGU, 690, 1318, -1);
-  aSelfDefense[3]->Arm(MGSA);
-  aSelfDefense[3]->SetAutoRepair(525);
-  CreateObject (CONS, 640, 1360, -1)->Set(aSelfDefense[3]);
+  aSelfDefense[3]->Arm(MISA);
+  aSelfDefense[3]->SetAutoRepair(900);
+  CreateObject(CONS, 640, 1360, -1)->Set(aSelfDefense[3]);
 
   //Sounds
 

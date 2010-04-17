@@ -3,7 +3,7 @@
 #strict
 #include CSTD
 
-static aFlag;
+static aFlag, aSelfDefense;
 
 
 /* Regelvoreinstellung */
@@ -25,6 +25,8 @@ func Initialize()
   SetSkyParallax(0,45,24,0,0,0,0);
   //Flaggen
   aFlag = [];
+  //Selbstschussanlagen
+  aSelfDefense = [];
   //Szenario einrichten
   CreateFurniture();
   //Equipment plazieren
@@ -118,9 +120,9 @@ func CreateFurniture()
   CreateObject(GTBL, 300, 460, -1);
   CreateObject(GTBL, 2500, 460, -1);
 
-  //Stationäre Gastanks
-  CreateObject(GSTA, 300, 390, -1)->AutoRespawn();
-  CreateObject(GSTA, 2500, 390, -1)->AutoRespawn();
+  //Explosivtanks
+  CreateObject(XTNK, 300, 390, -1)->AutoRespawn();
+  CreateObject(XTNK, 2500, 390, -1)->AutoRespawn();
 
   //Wandlampen
   CreateObject(BLGH, 940, 310, -1);
@@ -289,14 +291,17 @@ func CreateFurniture()
   CreateObject(_DCK,1234,550,-1);
 
   //Selbstschussanlagen und Konsolen
-  var selfd = CreateObject (SEGU, 415, 329, -1);
-  selfd->Arm(PPGN);
-  CreateObject (CONS, 250, 385, -1)
-  ->Set(selfd);
-  var selfd = CreateObject (SEGU, 2385, 329, -1);
-  selfd->Arm(PPGN);
-  CreateObject (CONS, 2550, 385, -1)
-  ->Set(selfd);
+  aSelfDefense[0] = CreateObject(SEGU, 415, 329, -1);
+    aSelfDefense[0]->Arm(MISA);
+    aSelfDefense[0]->TurnOn();
+    aSelfDefense[0]->SetAutoRepair(900);
+    CreateObject(CONS, 250, 385, -1)->Set(aSelfDefense[0]);
+  
+  aSelfDefense[1] = CreateObject(SEGU, 2385, 329, -1);
+    aSelfDefense[1]->Arm(MISA);
+    aSelfDefense[1]->TurnOn();
+    aSelfDefense[1]->SetAutoRepair(900);
+    CreateObject(CONS, 2550, 385, -1)->Set(aSelfDefense[1]);
 
   //Tore und Konsolen
   var autod = CreateObject (HNG2, 1400, 610, -1);
@@ -373,6 +378,17 @@ func CreateEquipment()
   //Splittergranaten
   PlaceSpawnpoint(FRAG, 670, 250);
   PlaceSpawnpoint(FRAG, 2130, 250);
+}
+
+/* Bei Flaggenübernahme */
+
+func PointCaptured(object pPoint, int iTeam)
+{
+  if(pPoint == aFlag[0])
+   aSelfDefense[0]->SetTeam(iTeam);
+
+  if(pPoint == aFlag[4])
+   aSelfDefense[1]->SetTeam(iTeam);
 }
 
 /* Regelwähler */

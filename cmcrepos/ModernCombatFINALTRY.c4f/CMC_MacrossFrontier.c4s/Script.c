@@ -296,14 +296,15 @@ func CreateFurniture()
   CreateObject(VENT, 1200, 260, -1)->SetCon(40);
 
   //Selbstschussanlagen und Konsolen
-  var selfd = CreateObject (SEGU, 700, 219, -1);
-  selfd->Arm(PPGN);
-  CreateObject (CONS, 570, 225, -1)
-  ->Set(selfd);
+  var selfd = CreateObject(SEGU, 700, 219, -1);
+  selfd->Arm(MISA);
+  selfd->SetAutoRepair(900);
+  CreateObject(CONS, 570, 225, -1)->Set(selfd);
+
   var selfd = CreateObject (SEGU, 850, 139, -1);
-  selfd->Arm(PPGN);
-  CreateObject (CONS, 975, 140, -1)
-  ->Set(selfd);
+  selfd->Arm(MISA);
+  selfd->SetAutoRepair(900);
+  CreateObject (CONS, 975, 140, -1)->Set(selfd);
 
   //Tore und Konsolen
   var autod = CreateObject (HNG2, 610, 340, -1);
