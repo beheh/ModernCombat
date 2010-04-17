@@ -4,8 +4,10 @@
 
 local idSpawn, iMaxCount, iRespawnTime, iTakeTime;
 
-//Indikator
-public func IsSpawnpoint() { return(true); }
+public func IsSpawnpoint()	{return(true);}
+
+
+/* Initalisierung */
 
 protected func Initialize()
 {
@@ -17,6 +19,8 @@ protected func Initialize()
   
   return(1);
 }
+
+/* Respawn bestimmen */
 
 private func PreDef(id idType)
 {
@@ -78,7 +82,7 @@ public func Set(id idType, int iMax, int iTake, int iRespawn)
     AddEffect("IntRespawn", this(), 10, iRespawnTime, this());
    
   if(idSpawn->~IsAmmoPacket())
-    SetIcon(idSpawn->AmmoID());//:o
+    SetIcon(idSpawn->AmmoID());
   else
     SetIcon(idSpawn);
   
@@ -108,6 +112,8 @@ public func SetIcon(id idIcon)
   }
 }
 
+/* Öffnen und Schließen */
+
 protected func Open()
 {
   if (GetAction() ne "Closed") return();
@@ -119,6 +125,8 @@ protected func Close()
   if (GetAction() ne "Open") return();  
   SetAction("Closing");	    
 }
+
+/* Anfassen und Loslassen */
 
 protected func Grabbed(object pClonk, bool fGrab)
 {
@@ -133,7 +141,7 @@ protected func GrabLost(object pClonk)
 
 private func CheckGrab()
 {
-  // Die Truhe soll sich selbst öffnen, wenn (mindestens) ein Clonk sie anfasst...
+  // Die Truhe soll sich selbst öffnen, wenn (mindestens) ein Clonk sie anfasst
   if (FindObject(0,0,0,0,0,OCF_CrewMember(),"Push",this()))
   {
     Open();
@@ -199,16 +207,6 @@ protected func ControlDig(object pClonk)
   if(idSpawn) return(1);
 
   pClonk->SetCommand(0, "Get", this(), 0,0, 0, 1);
-  
-  /*if(!idSpawn)
-  {
-    pClonk->SetCommand(0, "Get", this(), 0,0, 0, 1);
-  }
-  else
-  {
-    //...
-    Message("%s kann nicht {{%i}} aus der Kiste nehmen.",pClonk,GetName(pClonk),idSpawn);
-  }*/
 }
 
 public func GetMaxCount()
@@ -221,7 +219,8 @@ public func GetSpawnID()
   return(idSpawn);
 }
 
-/* Effekte */
+/* Respawneffekt */
+
 public func FxIntRespawnStart(object pTarget, int iEffectNumber, int iTemp)
 {
   if(!idSpawn) return(-1);
@@ -242,8 +241,8 @@ public func FxIntRespawnStop(object pTarget, int iEffectNumber, int iReason, boo
   while(Contents()) RemoveObject(Contents());//Leeren.
 }
 
+/* Aufnehmeffekt */
 
-//für Clonks
 public func FxIntResupplyStart(object pTarget, int iEffectNumber, int iTemp, pCrate, bStartTake)
 {
   if(!pCrate) return(-1);
@@ -253,8 +252,8 @@ public func FxIntResupplyStart(object pTarget, int iEffectNumber, int iTemp, pCr
   {
     if(FxIntResupplyTimer(pTarget,iEffectNumber,0) == -1)
     {
-      FxIntResupplyStop(pTarget,iEffectNumber);//Wird leider nicht aufgerufen. :\
-      return(-1);
+     FxIntResupplyStop(pTarget,iEffectNumber);//Wird leider nicht aufgerufen. :\
+     return(-1);
     }
   }
   else
@@ -265,8 +264,8 @@ public func FxIntResupplyStart(object pTarget, int iEffectNumber, int iTemp, pCr
     
     if(!obj)
     {
-      FxIntResupplyStop(pTarget,iEffectNumber);
-      return(-1);
+     FxIntResupplyStop(pTarget,iEffectNumber);
+     return(-1);
     }
   }
 }
@@ -282,98 +281,40 @@ public func FxIntResupplyTimer(object pTarget, int iEffectNumber, int iEffectTim
   var objid = GetID(obj);
 
   if(obj->~IsAmmoPacket())
-    if(!obj->~MayTransfer(pTarget))
-      return(-1);
+   if(!obj->~MayTransfer(pTarget))
+    return(-1);
       
   if(obj->~IsGrenade())//Granate?
   {
-    if(!pTarget->~StoreGrenade(obj))
-      return(-1);
-  }
-  else
-  {
-    if(!pTarget->Collect(obj))
-      return(-1);//Fail.
-
-    if(obj->~IsWeapon())//Waffe?
-      DoAmmo(obj->GetFMData(FM_AmmoID),obj->GetFMData(FM_AmmoLoad),obj);
-      
-    if(obj->~IsAmmoPacket())//Munition?
-      obj->~TransferAmmo(pTarget);
-  }
-  
-  if(!crate->Contents(0))
-  {
-    EffectVar(1,pTarget,iEffectNumber) = true;
-    PlayerMessage(GetController(pTarget),"{{%i}}|%d/%d",pTarget,objid,ContentsCount(objid,crate),crate->GetMaxCount());
+   if(!pTarget->~StoreGrenade(obj))
     return(-1);
   }
   else
   {
-    PlayerMessage(GetController(pTarget),"@{{%i}}|%d/%d",pTarget,objid,ContentsCount(objid,crate),crate->GetMaxCount());
+   if(!pTarget->Collect(obj))
+    return(-1);
+
+   if(obj->~IsWeapon())//Waffe?
+    DoAmmo(obj->GetFMData(FM_AmmoID),obj->GetFMData(FM_AmmoLoad),obj);
+      
+   if(obj->~IsAmmoPacket())//Munition?
+    obj->~TransferAmmo(pTarget);
+  }
+  
+  if(!crate->Contents(0))
+  {
+   EffectVar(1,pTarget,iEffectNumber) = true;
+   PlayerMessage(GetController(pTarget),"{{%i}}|%d/%d",pTarget,objid,ContentsCount(objid,crate),crate->GetMaxCount());
+   return(-1);
+  }
+  else
+  {
+   PlayerMessage(GetController(pTarget),"@{{%i}}|%d/%d",pTarget,objid,ContentsCount(objid,crate),crate->GetMaxCount());
   }
 }
 
 public func FxIntResupplyStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)
 {
   if(!EffectVar(1,pTarget,iEffectNumber))
-    PlayerMessage(GetController(pTarget),"",pTarget);
-
-  /*
-  var crate = EffectVar(0,pTarget,iEffectNumber);
-  if(crate && pTarget->GetAlive())
-    if((GetProcedure(pTarget) eq "PUSH")&&(GetActionTarget(0,pTarget) == crate))
-      SetCommand(pTarget,"UnGrab");//Loslassen plz. :)
-  */
+   PlayerMessage(GetController(pTarget),"",pTarget);
 }
-
-/* Bumm */
-public func IsCraneGrabable() { return(1); }
-
-/*func Incineration(int iPlr)
-{
-  ClearScheduleCall(this(), "InstaExplode");
-  ScheduleCall(this(), "InstaExplode", 100+Random(80),0,iPlr);
-}
-
-func IncinerationEx(int iPlr)
-{
-  ClearScheduleCall(this(), "InstaExplode");
-}
-
-func Damage(int iChange, int iPlr)
-{
-  if(GetDamage() > 20)
-      Incinerate();
-      
-  if(GetDamage() < 100) return();
-  
-  InstaExplode(iPlr);
-}
-
-func InstaExplode(int iPlr)
-{
-  //Effektgehasche
-  Sound("CrateCrack");
-  CastParticles("Splinter", 10, 200, 0,0, 50, 75, RGBa(80,0,0,0), RGBa(30,0,0,0));
-  
-  //Umliegende Objekte anzünden
-  for(var obj in FindObjects(Find_Distance(40+Random(20)),Find_Exclude(this()),Find_Not(Find_Category(C4D_StaticBack))))
-  {
-    var inc = GetDefCoreVal("ContactIncinerate",0,GetID(obj));
-    if(!inc) continue;
-    
-    if(inc <= 3)
-      obj->Incinerate();
-    else
-      if(!Random(inc-3))
-        obj->Incinerate();
-  }
-  
-  while(Contents())
-    Contents()->Exit(Contents(),0,0,Random(360),RandomX(-20,+20),RandomX(-20,+20),RandomX(-10,+10)); 
-  
-  //Explosion
-  SetController(iPlr);
-  Explode(30);
-}*/

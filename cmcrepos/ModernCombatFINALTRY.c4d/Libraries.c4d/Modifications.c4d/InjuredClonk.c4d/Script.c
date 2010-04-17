@@ -4,7 +4,7 @@
 
 static const FKDT_SuicideTime = 15; //Standardzeit bei Fake Death
 
-local clonk,oldvisrange,oldvisstate,suicide, mediccalls;
+local clonk,oldvisrange,oldvisstate,suicide;
 
 public func AimAngle()     {return();}
 public func ReadyToFire()  {return();}
@@ -18,8 +18,6 @@ protected func Initialize()
   //Anderer Todesschrei zur Unterscheidung zwischen Fake Death und "echtem" Ableben
   Sound("ClonkDie*.ogg");
 
-  //Anzahl Rufe
-  mediccalls = 2;
   _inherited();
 }
 
@@ -32,10 +30,10 @@ public func Set(object pClonk)
   SetXDir(GetXDir(pClonk));
   SetYDir(GetYDir(pClonk));
   
-    //CTF-Flagge entfernen
+  //CTF-Flagge entfernen
   for(var content in FindObjects(Find_ActionTarget(pClonk),Find_ID(FLA2)))
-    if(GetID(content) == FLA2)
-      content->~AttachTargetLost();
+   if(GetID(content) == FLA2)
+    content->~AttachTargetLost();
 
   //Clonk aufnehmen
   pClonk->Enter(this());
@@ -78,17 +76,11 @@ private func DeathMenu()
   CloseMenu(clonk);
 
   //Menü erstellen
-  CreateMenu (FKDT, clonk, this(), 0, Format("$Title$"), C4MN_Style_Dialog, true);//Titelzeile
+  CreateMenu (FKDT, clonk, this(), 0, Format("$Title$"), C4MN_Style_Dialog, true);	//Titelzeile
   if(FindObject(SICD))
-   AddMenuItem("$Suicide$", "Suicide", ICN2, clonk, 0, 0, "$SuicideDesc$");//Selbstmord
-  //if(mediccalls)
-  // AddMenuItem("$CallMedic$", "MedicCall", ICN3, clonk);//Nach Sanitäter rufen
-  //else
-  //{
-   AddMenuItem(Format("$CantCallMedic$",RGB(128,128,128),suicide), 0, ICN3, clonk);
-  //}
+   AddMenuItem("$Suicide$", "Suicide", ICN2, clonk, 0, 0, "$SuicideDesc$");		//Selbstmord
   AddMenuItem(" ","", NONE,clonk, 0, 0, "", 512, 0, 0);					//Leerzeile
-  if(!FindObject(NOSC))
+  if(FindObject(SICD))
    AddMenuItem(Format("$Info$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);	//Hinweise
   else
   {
@@ -129,32 +121,6 @@ public func Suicide()
 }
 
 public func GetClonk() {return(clonk);}
-
-/* Nach Sanitäter rufen */
-
-private func MedicCall()
-{
-  //LOL
-  Sound("Lol.ogg");
-
-  //Hinweisicon erstellen
-  var icon = CreateObject(ICN2, 0, -10, GetOwner(this));
-  FadeOutIcon(icon, 0);
-
-  //Ein Ruf weniger
-  return(mediccalls--);
-}
-
-private func FadeOutIcon(object pItem, int iRepeat)
-{
-  if(iRepeat >= 256)
-  {
-   RemoveObject(pItem);
-   return;
-  }
-  SetClrModulation(RGBa(255,255,255,iRepeat), pItem);
-  ScheduleCall(0, "FadeOutIcon", 1, 0, pItem, iRepeat+3);
-}
 
 /* Entfernen (bei Wiederbelebung) */
 
