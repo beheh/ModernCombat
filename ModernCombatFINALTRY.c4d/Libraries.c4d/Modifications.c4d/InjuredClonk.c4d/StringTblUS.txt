@@ -1,8 +1,6 @@
 Title=Clonk <c ff0000>eliminated</c>!
 Suicide=Suicide
 SuicideDesc=Gives the final death blow to the clonk.
-CallMedic=Call for medic
-CantCallMedic=<c %x>Call for medic</c>
 Info=<c ff0000>%s</c> has been eliminated. Wait for a medic or abandon this clonk.
 Info2=<c ff0000>%s</c> has been eliminated. Wait for a medic to revive you.
 DeathCounter=Dead in <c ffff33>%d</c> seconds
