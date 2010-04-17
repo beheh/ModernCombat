@@ -79,14 +79,12 @@ private func DeathMenu()
 
   //Menü erstellen
   CreateMenu (FKDT, clonk, this(), 0, Format("$Title$"), C4MN_Style_Dialog, true);//Titelzeile
-  if(FindObject(SICD))
-   AddMenuItem("$Suicide$", "Suicide", ICN2, clonk, 0, 0, "$SuicideDesc$");//Selbstmord
-  //if(mediccalls)
-  // AddMenuItem("$CallMedic$", "MedicCall", ICN3, clonk);//Nach Sanitäter rufen
-  //else
-  //{
-   AddMenuItem(Format("$CantCallMedic$",RGB(128,128,128),suicide), 0, ICN3, clonk);
-  //}
+  if(FindObject(SICD)) {
+    AddMenuItem("$Suicide$", "Suicide", ICN2, clonk, 0, 0, "$SuicideDesc$");//Selbstmord
+  }
+  else {
+    AddMenuItem(Format("<c %x>$CantSuicide$</c>",RGB(128,128,128)),"", ICN2,clonk, 0, 0, "", 512, 0, 0);					//Leerzeile
+  }
   AddMenuItem(" ","", NONE,clonk, 0, 0, "", 512, 0, 0);					//Leerzeile
   if(FindObject(SICD))
    AddMenuItem(Format("$Info$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);	//Hinweise
@@ -95,7 +93,6 @@ private func DeathMenu()
    AddMenuItem(Format("$Info2$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);
   }
   AddMenuItem(Format("$DeathCounter$", suicide),"", NONE, clonk, 0, 0, "", 512, 0, 0);	//Zeit bis zum Tod
-
   if(suicide <= 0)
     Suicide();
 
