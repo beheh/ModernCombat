@@ -110,7 +110,7 @@ global func BlastObjects2(int x, int y, int level, object container, int cause_p
    {
     BlastObject(level, container, cause_plr_plus_one);
     for (obj in FindObjects(Find_Container(container), Find_Layer(layer)))
-     BlastObject(level, obj, cause_plr_plus_one);
+     if(obj) DoDmg(level, DMG_Explosion, obj, 0, cause_plr_plus_one-1);
    }
   }
   else
@@ -118,7 +118,7 @@ global func BlastObjects2(int x, int y, int level, object container, int cause_p
    //Objekt ist draußen
    //Objekte am Explosionspunkt beschädigen
    for (var obj in FindObjects(Find_AtRect(l_x-5, l_y-5, 10,10), Find_NoContainer(), Find_Layer(layer)))
-    BlastObject(level, obj, cause_plr_plus_one);
+    if(obj) DoDmg(level, DMG_Explosion, obj, 0, cause_plr_plus_one-1);//BlastObject(level, obj, cause_plr_plus_one);
    //Objekte im Explosionsradius schleudern
    var shockwave_objs = FindObjects(Find_Distance(range, l_x,l_y), Find_NoContainer(), Find_Layer(layer),
        Find_Or(Find_Category(C4D_Object|C4D_Living|C4D_Vehicle), Find_Func("CanBeHitByShockwaves")), Find_Func("BlastObjectsShockwaveCheck",x,y));
@@ -179,17 +179,18 @@ global func BlastObject(int level, object obj, int cause_plr_plus_one)
 global func DamageObjects(int iDistance, int iDamage, object pObject, int iX, int iY)
 {
   if(!pObject) pObject = this;
-
   var x = GetX(pObject)+iX;
   var y = GetY(pObject)+iY;
+  var dealer = 0;
+  if(GetController(pObject)) dealer = GetController(pObject)+1;
   var icon = pObject->~GetKillIcon();
   if(!icon) icon = GetID(pObject);
 
   for(var obj in FindObjects(pObject->Find_Distance(iDistance,iX,iY),
                              Find_Exclude(pObject),
                              Find_NoContainer(),
-                             Find_Category(C4D_Object|C4D_Living|C4D_Vehicle)))
+                             Find_Category(C4D_Object|C4D_Living|C4D_Vehicle|C4D_StaticBack)))
   {
-    pObject->DoDmg(iDamage - (Distance(GetX(obj),GetY(obj),x,y)*iDamage/iDistance),DMG_Explosion,obj,0,0,icon);
+    pObject->DoDmg(iDamage - (Distance(GetX(obj),GetY(obj),x,y)*iDamage/iDistance),DMG_Explosion,obj,0,dealer,icon);
   }
 }
