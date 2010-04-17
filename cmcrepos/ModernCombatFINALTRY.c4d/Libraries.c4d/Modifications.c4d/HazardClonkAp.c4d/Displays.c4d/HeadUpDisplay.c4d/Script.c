@@ -8,6 +8,8 @@ local ammoobjs,allAmmo,
       ammoID, ammoCount, ammoLoad, masterAmmoCount,
       info;
 
+static const HUD_Grenade_Icon = GRNS;
+
 public func GraphicsID(){return(1HUD);}
 public func ColorTrue(){return(RGB(255,255,0));}
 public func ColorFalse(){return(RGB(255,0,0));}
@@ -58,19 +60,24 @@ private func InitAmmoBagHUD()
   var def = 0;
   allAmmo = CreateArray();
   var arrI = 0;
+  
+  //Granatenhack
+  allAmmo[arrI++] = HUD_Grenade_Icon;
+  
   //Munition erfassen
   for(var i=0; def = GetDefinition(i,C4D_StaticBack); ++i)
   {
    if(DefinitionCall(def,"IsHUDAmmo"))
     allAmmo[arrI++] = def;
   }
+  
   ammoobjs = CreateArray();
 
   //Munitionsobjekte plazieren
   for(var i=0; i < GetLength(allAmmo); ++i)
   {
    ammoobjs[i] = CreateObject(2HUD,0,0,GetOwner());
-   ammoobjs[i]->SetPosition(70,-85-i*28);
+   ammoobjs[i]->SetPosition(70,-100-i*28);
    ammoobjs[i]->SetGraphics(0, 0, allAmmo[i],1,4);
    ammoobjs[i]->SetObjDrawTransform(750,0,-50000,0,750,-62000,0,1);
    ammoobjs[i]->SetVisibility(VIS_None);
@@ -127,7 +134,7 @@ public func Update(object weapon, object ammobag, object who)
    if(pCursor == who)
    {
     UpdateWeapon(weapon);
-    UpdateAmmoBag(ammobag, weapon);
+    UpdateAmmoBag(ammobag, weapon, who);
    }
   }
 }
@@ -196,19 +203,26 @@ private func UpdateWeapon(object weapon)
   recharge = 0;
 }
 
-private func UpdateAmmoBag(object ammobag, object weapon)
+private func UpdateAmmoBag(object ammobag, object weapon, object who)
 {
   var ammoid = 0;
-  if(weapon)
+  var handle_grenade, is_grenade = false;
+  if(weapon) {
    if(weapon->~IsWeapon())
     ammoid = weapon->GetFMData(FM_AmmoID);
-
+   if(weapon->~IsGrenade())
+    is_grenade = true;
+  }
   for(var i=0; i < GetLength(ammoobjs); ++i)
   {
+   if(allAmmo[i] == HUD_Grenade_Icon)
+    handle_grenade = true;
+   else
+    handle_grenade = false;
    var aobj = ammoobjs[i];
 
    //Unsichtbar bei "Keine Munition"-Regel
-   if(NoAmmo() || !ammobag)
+   if((NoAmmo() && !handle_grenade) || !ammobag)
    {
     aobj->SetVisibility(VIS_None);
     aobj->Message("",aobj);
@@ -218,12 +232,15 @@ private func UpdateAmmoBag(object ammobag, object weapon)
    aobj->SetVisibility(VIS_Owner);
 
    var ammo = 0;
-   if(ammobag)
+   if(ammobag && !handle_grenade)
     ammo = ammobag->GetAmmo(allAmmo[i]);
+
+   if(handle_grenade && GetCursor(GetOwner(who))->~GetGrenadeStoring());
+    ammo = GetCursor(GetOwner(who))->~GrenadeCount();
 
    var color = "eeeeee";
     if(!ammo) color = "777777";
-     if(allAmmo[i] == ammoid)
+     if(allAmmo[i] == ammoid || is_grenade)
      {
       color = "ffff00";
       if(!ammo) color = "ff0000";

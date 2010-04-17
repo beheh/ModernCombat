@@ -120,7 +120,7 @@ public func TurnOn()
 public func TurnOff()
 {
   Active = false;
-  GetAttWeapon()->StopAutoFire();
+  if(GetAttWeapon()) GetAttWeapon()->StopAutoFire();
 }
 
 public func Arm(id idWeapon)
