@@ -1,5 +1,5 @@
 [Teams]
-LastTeamID=2
+LastTeamID=4
 TeamColors=true
 AllowTeamSwitch=0
 TeamDistribution=Host
@@ -8,10 +8,18 @@ TeamDistribution=Host
   id=1
   Name=$Team1$
   Color=255
-  PlayerCount=1
-  Players=1
 
   [Team]
   id=2
   Name=$Team2$
-  Color=1702425
+  Color=16711680
+
+  [Team]
+  id=3
+  Name=$Team3$
+  Color=16776960
+
+  [Team]
+  id=4
+  Name=$Team4$
+  Color=65535

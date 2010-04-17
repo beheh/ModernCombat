@@ -292,6 +292,10 @@ public func ChooserFinished()
    {CreateFlag(1,465,300,GetTeamColor(1));}
    if(aTeams[2] == true)
    {CreateFlag(2,2810,300,GetTeamColor(2));}
+   if(aTeams[3] == true)
+   {CreateFlag(3,1640,100,GetTeamColor(3));}
+   if(aTeams[4] == true)
+   {CreateFlag(4,1660,520,GetTeamColor(4));}
   }
 
   //OP-Spielziel
@@ -316,14 +320,30 @@ public func ChooserFinished()
    aFlag[1] -> AddSpawnPoint(1425,250);
    aFlag[1] -> AddSpawnPoint(1665,200);
    aFlag[1] -> AddSpawnPoint(1855,250);
-   aFlag[1]->Set("$Flag2$",0,2);
+   if(aTeams[3] == true)
+   {
+    aFlag[1]->Set("$Flag2$",100,2);
+    aFlag[1]->Capture(3,1);
+   }
+   else
+   {
+    aFlag[1]->Set("$Flag2$",0,2);
+   }
 
    aFlag[2] = CreateObject(OFPL,1640,520,NO_OWNER);
    aFlag[2] -> AddSpawnPoint(1465,370);
    aFlag[2] -> AddSpawnPoint(1580,390);
    aFlag[2] -> AddSpawnPoint(1700,390);
    aFlag[2] -> AddSpawnPoint(1815,370);
-   aFlag[2]->Set("$Flag3$",0,2);
+   if(aTeams[4] == true)
+   {
+    aFlag[2]->Set("$Flag3$",100,2);
+    aFlag[2]->Capture(4,1);
+   }
+   else
+   {
+    aFlag[2]->Set("$Flag3$",0,2);
+   }
 
    aFlag[3] = CreateObject(OFPL,2810,300,NO_OWNER);
    aFlag[3] -> AddSpawnPoint(2585,380);
@@ -364,6 +384,22 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
     if(!--rand)
      { iX = 2900; iY = 300; }
    }
+   if(iTeam == 3)
+   {
+    var rand = Random(2);
+    if(!rand)
+     { iX = 1490; iY = 110; }
+    if(!--rand)
+     { iX = 1790; iY = 110; }
+   }
+   if(iTeam == 4)
+   {
+    var rand = Random(2);
+    if(!rand)
+     { iX = 1555; iY = 400; }
+    if(!--rand)
+     { iX = 1725; iY = 400; }
+   }
    return(1);
   }
 
@@ -385,6 +421,22 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
      { iX = 3055; iY = 530; }
     if(!--rand)
      { iX = 3190; iY = 440; }
+   }
+   if(iTeam == 3)
+   {
+    var rand = Random(2);
+    if(!rand)
+     { iX = 1535; iY = 200; }
+    if(!--rand)
+     { iX = 1745; iY = 200; }
+   }
+   if(iTeam == 4)
+   {
+    var rand = Random(2);
+    if(!rand)
+     { iX = 1460; iY = 370; }
+    if(!--rand)
+     { iX = 1820; iY = 370; }
    }
    return(1);
   }
