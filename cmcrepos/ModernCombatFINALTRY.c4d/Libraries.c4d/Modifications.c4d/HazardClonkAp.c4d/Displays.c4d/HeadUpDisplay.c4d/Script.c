@@ -235,7 +235,7 @@ private func UpdateAmmoBag(object ammobag, object weapon, object who)
    if(ammobag && !handle_grenade)
     ammo = ammobag->GetAmmo(allAmmo[i]);
 
-   if(handle_grenade && GetCursor(GetOwner(who))->~GetGrenadeStoring());
+   if(handle_grenade && GetCursor(GetOwner(who))->~GetGrenadeStoring())
     ammo = GetCursor(GetOwner(who))->~GrenadeCount();
 
    var color = "eeeeee";
