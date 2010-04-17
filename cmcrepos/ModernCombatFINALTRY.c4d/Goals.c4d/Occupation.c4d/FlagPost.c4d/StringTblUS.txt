@@ -2,4 +2,3 @@ MsgCaptured=Team %s conquered flag post %s
 MsgCapturing=Team <c %x>%s</c>|conquers flag post|%s
 MsgFlagLost=Team %s has lost flag post %s
 MsgFoughtOver=Flag post <c %x>%s</c>|is embattled!
-MsgTicketsLow=Our reinforcements are going low, only <c ffff33>%s</c> left
