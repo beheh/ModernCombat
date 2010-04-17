@@ -1,0 +1,1 @@
+Contains all sorts of ammunition. To take ammo for own purposes press [doubledig], friendly units are automatically supplied as long as you hold it in your hands. Regenerates over time.

@@ -1,0 +1,1 @@
+Enthält alle möglichen Arten von Munition. Auf [Doppelgraben] kann Munition für den Eigenverbrauch entnommen werden, andere Spieler in der Nähe werden automatisch versorgt, solange sie es in den Händen halten. Regeneriert sich nach und nach.
