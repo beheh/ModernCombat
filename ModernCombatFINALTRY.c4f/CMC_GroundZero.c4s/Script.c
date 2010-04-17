@@ -283,6 +283,11 @@ func CreateFurniture()
   CreateObject(LBDR, 2445, 390, -1);
   CreateObject(LBDR, 2445, 460, -1);
 
+  //Hintergründe (Docks)
+  CreateObject(_DCK,220,400,-1);
+  CreateObject(_DCK,727,400,-1);
+  CreateObject(_DCK,1234,400,-1);
+
   //Selbstschussanlagen und Konsolen
   var selfd = CreateObject (SEGU, 415, 329, -1);
   selfd->Arm(PPGN);

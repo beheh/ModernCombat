@@ -6,62 +6,66 @@ FullscreenBG=1
 
 	[Scenario]
 	File=CMC_MacrossFrontier.c4s
-	Area=54,173,466,24
+	Area=54,143,466,24
 	OverlayImage=OverlayMacrossFrontier.png
 
 
 	[Scenario]
 	File=CMC_BroadcastStation.c4s
-	Area=54,203,466,24
+	Area=54,173,466,24
 	OverlayImage=OverlayBroadcastStation.png
 
 
 	[Scenario]
 	File=CMC_EndlessOutpost.c4s
-	Area=54,233,466,24
+	Area=54,203,466,24
 	OverlayImage=OverlayEndlessOutpost.png
 
 	[Scenario]
 	File=CMC_BabelTower.c4s
-	Area=54,263,466,24
+	Area=54,233,466,24
 	OverlayImage=OverlayBabelTower.png
 
 	[Scenario]
 	File=CMC_Dust.c4s
-	Area=54,293,466,24
+	Area=54,263,466,24
 	OverlayImage=OverlayDust.png
 
 
 	[Scenario]
 	File=CMC_Yuki.c4s
-	Area=54,323,466,24
+	Area=54,293,466,24
 	OverlayImage=OverlayYuki.png
 
 
 	[Scenario]
 	File=CMC_IslandStrike.c4s
-	Area=54,353,466,24
+	Area=54,323,466,24
 	OverlayImage=OverlayIslandStrike.png
 
 
 	[Scenario]
 	File=CMC_AtlanticCrisis.c4s
-	Area=54,383,466,24
+	Area=54,353,466,24
 	OverlayImage=OverlayAtlanticCrisis.png
 
 
 	[Scenario]
 	File=CMC_GroundZero.c4s
-	Area=54,413,466,24
+	Area=54,383,466,24
 	OverlayImage=OverlayGroundZero.png
 
 
 	[Scenario]
 	File=CMC_Firewood.c4s
-	Area=54,443,466,24
+	Area=54,413,466,24
 	OverlayImage=OverlayFirewood.png
 
 
+	[Scenario]
+	File=CMC_MagmaZone.c4s
+	Area=54,443,466,24
+	OverlayImage=OverlayMagmaZone.png
 
 
 

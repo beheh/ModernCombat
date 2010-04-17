@@ -1,0 +1,12 @@
+CreatingFurniture=Szenario wird eingerichtet...
+CreatingEquipment=Ausrüstung wird plaziert...
+
+Team1=Spione
+Team2=Eurocorps
+
+Flag1=Westliche Station
+Flag2=Nachschublager
+Flag3=Aussichtsdeck
+Flag4=Posten
+Flag5=Kernplattform
+Flag6=Östliche Station
