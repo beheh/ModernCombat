@@ -1,2 +1,2 @@
 NotCharged=Lade {{%i}}!
-MsgReanimation=Soldat %s wurde von %s wiederbelebt!
+MsgReanimation=%s wurde von %s wiederbelebt
