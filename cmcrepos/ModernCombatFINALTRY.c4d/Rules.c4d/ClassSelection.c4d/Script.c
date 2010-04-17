@@ -6,7 +6,7 @@ local crew;
 local lastclass;
 local selection;
 
-public func IsChooseable()	{return(1);}
+public func IsChooseable()	{return(1);}	//Kann mittels des Spielzielauswählers ausgewählt werden
 
 
 /* Initalisierung */
@@ -78,15 +78,15 @@ func RelaunchPlayer(int iPlr, object pClonk)
 
 public func FxSpawntimerStart(pTarget, iNo, iTemp, iPlr)
 {
-  if(iTemp) //Ich verstehs nochimmer nicht :/
+  if(iTemp)
    return(-1);
   if(iPlr < 0)
    return(-1);
-   
+
   //EffectVars
-  EffectVar(0, pTarget, iNo) = iPlr;  //Player
-  EffectVar(1, pTarget, iNo) = 15; //Zeit
-  
+  EffectVar(0, pTarget, iNo) = iPlr;	//Spieler
+  EffectVar(1, pTarget, iNo) = 15;	//Zeit
+
   PlayerMessage(EffectVar(0, pTarget, iNo), "@$TimeTillRespawn$", 0, EffectVar(1, pTarget, iNo));
 }
 
@@ -94,12 +94,12 @@ public func FxSpawntimerTimer(pTarget, iNo, iTime)
 {
   EffectVar(1, pTarget, iNo)--;
   PlayerMessage(EffectVar(0, pTarget, iNo), "@$TimeTillRespawn$", 0, EffectVar(1, pTarget, iNo));
-  
+
   if(EffectVar(1, pTarget, iNo) <= 0)
   {
-    SetupClass(selection[EffectVar(0, pTarget, iNo)]-InfoMenuItems(), EffectVar(0, pTarget, iNo));
-    PlayerMessage(EffectVar(0, pTarget, iNo), "@");
-    return(-1);
+   SetupClass(selection[EffectVar(0, pTarget, iNo)]-InfoMenuItems(), EffectVar(0, pTarget, iNo));
+   PlayerMessage(EffectVar(0, pTarget, iNo), "@");
+   return(-1);
   }
 }
 
@@ -107,13 +107,11 @@ func InitClassMenu(object pClonk)
 {
   //Kein Clonk?
   if(!pClonk)
-    return(0);
+   return(0);
 
   var iPlayer = GetOwner(pClonk);
-  
-  //Zeitbegrenzung bei Last Man Standing
-  //if(FindObject(GLMS)) Generelle Zeitbegrenzung, damit Deppen nicht ihre Team-
-  //kammeraden im Stich lassen können und im DM auch nicht gecampt werden kann bei 1vs1
+
+  //Zeitbegrenzung bei LSM und DM
   if(FindObject(GLMS) || FindObject(GTDM)) AddEffect("Spawntimer", this(), 100, 35, this(), GetID(), iPlayer);
 
   crew[iPlayer] = pClonk;
@@ -127,7 +125,7 @@ func InitClassMenu(object pClonk)
    SetVisibility(VIS_Owner,tmp);
    Enter(tmp,pClonk);
   }
-  
+
   //Bereits ein Menü offen?
   if(GetMenu(pClonk))
   {
@@ -166,7 +164,7 @@ func Finish(object pClonk)
 
   //Sound
   Sound("RSHL_Deploy.ogg",pClonk);
-  
+
   //Effekt entfernen
   for(var i = 0; i < GetEffectCount("Spawntimer", this()); i++)
     if(EffectVar(0, this(), GetEffect("Spawntimer", this(), i)) == iPlayer)
@@ -250,7 +248,7 @@ private func OpenMenu(object pClonk, int iSelection)
   return(true);
 } 
 
-public func MenuQueryCancel() { return(1); }
+public func MenuQueryCancel()	{return(1);}
 
 protected func OnMenuSelection(int iIndex, object pClonk)
 {
@@ -296,12 +294,12 @@ public func SetupClass(int iClass, int iPlayer)
 
   //Nachricht
   for(var i = 0; i < GetPlayerCount(); i++)
-    if(GetPlayerTeam(i) == GetPlayerTeam(iPlayer))
-      EventInfo4K(i+1, 
-        Format("$PlayerChoosedClass$", GetTaggedPlayerName(iPlayer), GetCData(iClass,CData_Name)),
-        GetCData(iClass,CData_Icon),
-        RGB(220,220,220));
-  
+   if(GetPlayerTeam(i) == GetPlayerTeam(iPlayer))
+    EventInfo4K(i+1, 
+     Format("$PlayerChoosedClass$", GetTaggedPlayerName(iPlayer), GetCData(iClass,CData_Name)),
+     GetCData(iClass,CData_Icon),
+     RGB(220,220,220));
+
   //Speichern
   lastclass[iPlayer] = iClass;
 

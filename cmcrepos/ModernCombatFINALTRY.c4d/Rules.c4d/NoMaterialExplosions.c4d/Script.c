@@ -3,7 +3,6 @@
 #strict
 
 
-/* Infos */
 protected func Activate(iByPlayer)
 {
   MessageWindow(GetDesc(), iByPlayer);
