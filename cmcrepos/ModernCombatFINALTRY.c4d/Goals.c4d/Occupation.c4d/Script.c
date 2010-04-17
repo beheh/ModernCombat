@@ -185,7 +185,7 @@ private func UpdateScoreboard()
     SetScoreboardData(i,2,Format("%d%", flag->GetProcess()), flag->GetProcess());
     i++;
   }
-  SetScoreboardData(i, 1, "", LandscapeWidth()+9); //ololo
+  SetScoreboardData(i, 1, "", LandscapeWidth()+9);
   i++;
   //Tickets
   for(var j = 1; j <= GetTeamCount(); j++)
@@ -228,8 +228,7 @@ public func DoTickets(int iTeam, int iChange)
   if(iWarningTickets != 0 && iWarningTickets == aTicket[iTeam-1]) {
     for(var i = 0; i < GetPlayerCount(); i++) {
       if(GetPlayerTeam(GetPlayerByIndex(i)) == iTeam) {
-        EventInfo4K(GetPlayerByIndex(i)+1,Format("$MsgTicketsLow$",aTicket[iTeam-1]),TIKT);
-        Sound("Lol.ogg", true, 0, 100, GetPlayerByIndex(i));
+        EventInfo4K(GetPlayerByIndex(i)+1,Format("$MsgTicketsLow$",aTicket[iTeam-1]),TIKT,"TicketsLow.ogg");
       }
     }
   }
