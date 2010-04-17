@@ -77,7 +77,7 @@ protected func CreateGoal(id idGoal, int iScore)
   // Alten Wert setzen
   SetWinScore(iScore, goal);
   // Alle benachrichtigen
-  EventInfo4K(0,Format("$Goal$", GetName(0, idGoal)),CHOS);
+  EventInfo4K(0,Format("$Goal$", GetName(0, idGoal)),idGoal);
   // Array leeren, damit das Menü nicht nochmal kommt
   aGoals = CreateArray();
   // Normales Menü öffnen
