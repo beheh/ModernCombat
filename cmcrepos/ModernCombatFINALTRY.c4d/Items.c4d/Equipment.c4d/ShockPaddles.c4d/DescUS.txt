@@ -1,2 +1,1 @@
-Allows the reanimation of badly injured clonks by using electric shocks. Only medics have the required skill to use it.
-Can be alienated to use as a weapon.
+Allows the reanimation of badly injured clonks by using electric shocks. Can be alienated to use as a weapon.

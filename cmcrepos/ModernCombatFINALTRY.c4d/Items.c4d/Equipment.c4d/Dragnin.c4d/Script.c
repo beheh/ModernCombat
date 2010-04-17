@@ -24,7 +24,6 @@ func Sting(caller)
   var obj;
   if(obj = FindObject2(Find_InRect(-10,-10,20,20),Find_OCF(OCF_Alive),Find_Exclude(caller),Find_Allied(GetOwner(caller)),Find_NoContainer()))
   {
- 
    //Bereits anderweitig am heilen?
    if(GetEffect("*Heal*",obj))
    {
@@ -42,7 +41,6 @@ func Sting(caller)
    AddEffect("DragninHeal",obj,20,1,0,GetID(),HealAmount(),HealRate());
    Sound("DGNN_Use.ogg");
    RemoveObject();
-
   }
   else
   {
@@ -59,8 +57,8 @@ func Activate(object pByObj)
   //Bereits anderweitig am heilen?
   if(GetEffect("*Heal*",pByObj))
   {
-    PlayerMessage(GetOwner(pByObj), "$AlreadyHealing$",pByObj);
-    return(1);
+   PlayerMessage(GetOwner(pByObj), "$AlreadyHealing$",pByObj);
+   return(1);
   }
   //Nicht verwundet?
   if(GetEnergy(pByObj) == GetPhysical("Energy",0, pByObj)/1000)
@@ -128,9 +126,9 @@ func FxDragninHealDamage(target, no, dmg, dmgtype)
 {
   //Bei Schaden abbrechen
   if(dmg < 0)
-    RemoveEffect(0,target,no);
+   RemoveEffect(0,target,no);
   else
-    return(dmg);
+   return(dmg);
 }
 
 public func FxDragninHealStop(target, no, reason, temp)
