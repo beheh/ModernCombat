@@ -53,18 +53,14 @@ public func Incineration()
 
 /* Soundauswahl */
 
-public func OnHit(int iDmg, int iType, object pFrom)
-{
-  HurtSounds(-iDmg,iType);
-    
-  return(_inherited(iDmg,iType,pFrom));
+public func OnDmg(int iDmg, int iType) {
+  HurtSounds(iDmg,iType);
+  return(_inherited(...));
 }
 
 public func HurtSounds(int iDmg, int iType)
 {
-  iDmg = -iDmg;
   if(iDmg <= 0) return();
-
   //Projectile
   if(iType == DMG_Projectile)
   {
