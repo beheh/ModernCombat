@@ -51,7 +51,7 @@ public func Repair()
 
 public func FxIntRepairStart(object pTarget, int iEffectNumber, int iTemp)
 {
-  Sound("Weld.ogg",false,this,50,0,+1); 
+  Sound("Repair.ogg",false,this,50,0,+1); 
   return 1;
 }
 
@@ -68,7 +68,7 @@ public func FxIntRepairTimer(object pTarget, int iEffectNumber, int iEffectTime)
 
 public func FxIntRepairStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)
 {
-  Sound("Weld.ogg",false,this,0,0,-1); 
+  Sound("Repair.ogg",false,this,0,0,-1); 
   if(!iReason)
   {
    pTarget->SetAction("RepairStop");
