@@ -153,7 +153,7 @@ private func HitObject(object pObject)
     hitcnt++;
   
     var x,y;
-    OnHit(pObject,x,y);
+    OnShrapnelHit(pObject,x,y);
 
     if((hitcnt > 1) || !pObject)
       Remove();
@@ -191,7 +191,7 @@ public func BulletStrike(object pObj)
 
 public func FxIntShrapnelHitTimer() {return -1;}
 
-public func OnHit(object pObject, int iX, int iY)
+public func OnShrapnelHit(object pObject, int iX, int iY)
 {
   if(pObject)
   {

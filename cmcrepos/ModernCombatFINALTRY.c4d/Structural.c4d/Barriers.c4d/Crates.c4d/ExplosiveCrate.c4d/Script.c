@@ -21,7 +21,7 @@ func IncinerationEx(int iPlr)
 
 func Damage(int iChange, int iPlr)
 {
-  if(GetDamage() > 1)
+  if(GetDamage() > 0)
       Incinerate();
       
   if(GetDamage() < 70) return ;
@@ -29,7 +29,7 @@ func Damage(int iChange, int iPlr)
   InstaExplode(iPlr);
 }
 
-func InstaExplode(int iPlr)
+public func InstaExplode(int iPlr)
 {
   //Effektgehasche
   CastParticles("WoodenCrateSplinter", 4, 50, 0,0, 141, RGBa(80,0,0,0), RGBa(30,0,0,0));
@@ -42,18 +42,23 @@ func InstaExplode(int iPlr)
     var inc = GetDefCoreVal("ContactIncinerate",0,GetID(obj));
     if(!inc) continue;
     
-    if(inc <= 2)
+    if(inc <= 2) {
       obj->Incinerate();
-    else
-      if(!Random(inc-2))
+      continue; 
+    }
+    else {
+      if(!Random(inc-2)) {
         obj->Incinerate();
+        continue;
+      }
+    }
   }
   
   AddLightFlash(50, 0,0, RGBa(255,255,200,100));
   
   //Explosion
   SetController(iPlr);
-  RemoveObject(0, 1);
+  RemoveObject(this, true);
   CreateObject(ROCK,0,0,iPlr)->Explode(45);
   CreateObject(ROCK,0,0,iPlr)->Explode(30);
 }

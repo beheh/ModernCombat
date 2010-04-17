@@ -32,10 +32,10 @@ func BlowUp(int iPlr)
   for(strength = 30; strength > 10; strength -= 9)
   {
     flamecount = 7 + Random(5);
-    var flame = 0;
-    while(flamecount && flame < 3)
+    var i = 0;
+    while(flamecount && i < 3)
     {
-      flame++;
+      i++;
       for(var z=flamecount, a = 360/z; z > 0; z--)
       {
         var flame, x,y;

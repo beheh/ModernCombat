@@ -129,8 +129,9 @@ protected func ControlCommand(string szCommand, object pTarget, int iX, int iY)
 private func Command2Control(int iX, int iY)
 {
   // nur X wird ausgewertet
-  if(iX > GetActionTarget()->GetX()) GetActionTarget()->Right();
-  if(iX < GetActionTarget()->GetX()) GetActionTarget()->Left();
+  if(iX > GetActionTarget()->GetX()+20) GetActionTarget()->Right();
+  if(iX < GetActionTarget()->GetX()-20) GetActionTarget()->Left();
+  if(iX < GetActionTarget()->GetX()+20 && iX > GetActionTarget()->GetX()-20) GetActionTarget()->Stop();
   return 1;
 }
 

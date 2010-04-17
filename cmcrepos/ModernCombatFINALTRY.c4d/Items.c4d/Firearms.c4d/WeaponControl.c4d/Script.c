@@ -5,17 +5,17 @@
 
 local stopauto,firemode,shooting,ratecount;
 
-local aSlot_Type;//Hält den Munitionstyp.
-local aSlot_Amount;//Hält die Munitionsmenge.
+local aSlot_Type; //Hält den Munitionstyp.
+local aSlot_Amount; //Hält die Munitionsmenge.
 
-local aFM_FireTec;//Hält die Feuertechnik.
+local aFM_FireTec; //Hält die Feuertechnik.
 
-local idBulletID;//Bei Projektielmunition hält dies die ProjektilID.
+local idBulletID; //Bei Projektielmunition hält dies die ProjektilID.
 
-static const FM_Slot          = 13;//Der Slot vom Feuermodus.
-static const FM_SingleReload  = 14;//Munition wird einzeln nachgeladen. (z.B. für Shotguns)
-static const FM_PrepareReload = 15;//Zeit bevor das eigentliche Nachladen beginnt. (Nur interessant wenn auch FM_SingleReload benutzt wird.)
-static const FM_FinishReload  = 16;//Zeit nach dem Nachladen. (Nur interessant wenn auch FM_SingleReload benutzt wird.)
+static const FM_Slot          = 13; //Der Slot vom Feuermodus.
+static const FM_SingleReload  = 14; //Munition wird einzeln nachgeladen. (z.B. für Shotguns)
+static const FM_PrepareReload = 15; //Zeit bevor das eigentliche Nachladen beginnt. (Nur interessant wenn auch FM_SingleReload benutzt wird.)
+static const FM_FinishReload  = 16; //Zeit nach dem Nachladen. (Nur interessant wenn auch FM_SingleReload benutzt wird.)
 static const FM_BurstAmount   = 17;
 static const FM_BurstRecharge = 18;
 
@@ -24,14 +24,14 @@ static const FM_StartSpread   = 20;
 static const FM_MaxSpread     = 21;
 static const FM_UnSpread      = 22;
 
-static const FT_Name          = 23;//Name der Feuertechnik.
-static const FT_Icon          = 24;//Icondefinition der Feuertechnik.
-static const FT_IconFacet     = 25;//Facet. Wie bei AddMenuItem.
-static const FT_Condition     = 26;//Wie FM_Condition. Nur eben für Feuertechniken.
+static const FT_Name          = 23; //Name der Feuertechnik.
+static const FT_Icon          = 24; //Icondefinition der Feuertechnik.
+static const FT_IconFacet     = 25; //Facet. Wie bei AddMenuItem.
+static const FT_Condition     = 26; //Wie FM_Condition. Nur eben für Feuertechniken.
 
-static const FM_SupportedSA   = 27;//WTH?!
+static const FM_SupportedSA   = 27; //WTH?!
 
-public func IsWeapon2() {return(true);}//Diese Waffe benutzt das neue Waffensystem. Sie includiert also WPN2.
+public func IsWeapon2() {return(true);} //Diese Waffe benutzt das neue Waffensystem. Sie includiert also WPN2.
 public func NoWeaponChoice() { return(GetID() == WPN2); }
 
 public func OnSelectFT(int iFireMode, int iFireTec, int iLastFireTec){}
