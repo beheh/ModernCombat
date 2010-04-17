@@ -88,7 +88,7 @@ private func DeathMenu()
    AddMenuItem(Format("$CantCallMedic$",RGB(128,128,128),suicide), 0, ICN3, clonk);
   //}
   AddMenuItem(" ","", NONE,clonk, 0, 0, "", 512, 0, 0);					//Leerzeile
-  if(!FindObject(NOSC))
+  if(FindObject(SICD))
    AddMenuItem(Format("$Info$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);	//Hinweise
   else
   {
