@@ -1,1 +1,1 @@
-Stellt das Granatensystem zur Verfügung.
+Stellt grundlegende Funktionen für Handgranaten bereit.
