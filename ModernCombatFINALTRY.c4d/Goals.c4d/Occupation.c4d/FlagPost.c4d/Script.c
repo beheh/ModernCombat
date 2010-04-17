@@ -150,19 +150,6 @@ protected func Capturing(int iTeam)
   Message("$MsgCapturing$",flag,GetTeamColor(iTeam),GetTeamName(iTeam),GetName());
 }
 
-/*protected func Recaptured()
-{
-  attacker = 0;
-  capt = true;
-  EventInfo4K(0,Format("MsgRecaptured$",GetTeamName(team),GetName()),OFLG,GetTeamColor(team));
-}
-
-protected func Recapturing(int iTeam)
-{
-  attacker = 0;
-  Message("MsgCapturing$",flag,GetTeamColor(iTeam),GetTeamName(iTeam),GetName());
-}*/
-
 protected func Lost() {
   EventInfo4K(0,Format("$MsgFlagLost$",GetTeamName(team),GetName()),OFLG,GetTeamColor(team));
 }
@@ -204,13 +191,17 @@ public func DoProcess(int iTeam, int iAmount)
   //Eventuelle Gegnerflagge abnehmen
   if(team)
   {
-   if(iTeam != team)
+   if(iTeam != team || (old == 0 && old > process))
     iAmount = -iAmount;
   }
   else
    team = iTeam;
 
   process = BoundBy(process+iAmount,0,100);
+
+  if(old == 0 && process < 0)
+
+  Log("%d %d %d", old, process, iAmount);
 
   if(old < process)
    trend = +1;
@@ -225,15 +216,12 @@ public func DoProcess(int iTeam, int iAmount)
     Lost();
   }
   
-  //Feindliche Flagge übernehmen
-  if(process < 100 && trend < 0) {
-    Capturing(iTeam);
-  }
-  else if(process < 100 && trend > 0) {
+  //Flagge wird übernommen
+  if(process < 100 && trend != 0) {
     Capturing(iTeam);
   }
   
-  //Eigene Flagge sichern
+  //Flagge ist fertig übernommen
   if((process >= 100) && (old < 100))
   {
     Capture(iTeam);
