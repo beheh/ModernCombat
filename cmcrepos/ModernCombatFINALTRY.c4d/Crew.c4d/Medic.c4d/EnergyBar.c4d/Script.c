@@ -36,6 +36,6 @@ public func Update()
   }
   else
     percent = BoundBy(GetEnergy(obj)*100/(GetDefCoreVal("Energy","Physical",GetID(obj))/1000),0,100);
-  SetObjDrawTransform(10*percent,0,0,0,1000,0,0,1);
+  SetObjDrawTransform(10*percent,0,-160*(100-percent),0,1000,0,0,1);
   ScheduleCall(0,"Update",1);
 }
