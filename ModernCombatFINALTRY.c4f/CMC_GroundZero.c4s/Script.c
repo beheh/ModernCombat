@@ -22,7 +22,7 @@ func Initialize()
   SetPlayList("CMC_Base Groove.ogg;CMC_Deep Universe.ogg;CMC_Friendly Unit.ogg;CMC_Moving Squad.ogg;CMC_No Good.ogg;CMC_Obsession.ogg;CMC_Rock Go On.ogg;CMC_Techno.ogg;CMC_Your Eyes.ogg");
   Music("CMC_No Good.ogg");
   //Himmel
-  SetSkyParallax(0,15,15);
+  SetSkyParallax(0,45,24,0,0,0,0);
   //Flaggen
   aFlag = [];
   //Szenario einrichten
@@ -284,9 +284,9 @@ func CreateFurniture()
   CreateObject(LBDR, 2445, 460, -1);
 
   //Hintergründe (Docks)
-  CreateObject(_DCK,220,400,-1);
-  CreateObject(_DCK,727,400,-1);
-  CreateObject(_DCK,1234,400,-1);
+  CreateObject(_DCK,220,550,-1);
+  CreateObject(_DCK,727,550,-1);
+  CreateObject(_DCK,1234,550,-1);
 
   //Selbstschussanlagen und Konsolen
   var selfd = CreateObject (SEGU, 415, 329, -1);
