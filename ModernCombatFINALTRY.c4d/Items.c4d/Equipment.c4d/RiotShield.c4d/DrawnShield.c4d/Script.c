@@ -37,7 +37,7 @@ public func ExecShove()
 
   //Schwingeffekt
   AddEffect("Shove",this,10,ShoveTime(),this);
-  Sound("ClonkAction*.ogg");
+  Sound("ClonkAction*.ogg",target);
 
   var px,py,dx,dy;
   if(target)

@@ -1,2 +1,2 @@
 DE:Granatensteuerung
-US:Grenade control
+US:Grenade Control
