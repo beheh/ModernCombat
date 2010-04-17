@@ -80,7 +80,7 @@ private func DeathMenu()
   if(FindObject(SICD))
    AddMenuItem("$Suicide$", "Suicide", ICN2, clonk, 0, 0, "$SuicideDesc$");		//Selbstmord
   AddMenuItem(" ","", NONE,clonk, 0, 0, "", 512, 0, 0);					//Leerzeile
-  if(FindObject(SICD))
+  if(!FindObject(SICD))
    AddMenuItem(Format("$Info$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);	//Hinweise
   else
   {
