@@ -2,4 +2,3 @@ MsgCaptured=Team %s eroberte Flaggenposten %s
 MsgCapturing=Team <c %x>%s</c>|erobert Flaggenposten|%s
 MsgFlagLost=Team %s hat Flaggenposten %s verloren
 MsgFoughtOver=Flaggenposten <c %x>%s</c>|ist umkämpft!
-MsgTicketsLow=Unsere Verstärkung geht zu Neige, nur noch <c ffff33>%s</c> übrig
