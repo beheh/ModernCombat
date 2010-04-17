@@ -14,7 +14,7 @@ local pGrenadeStoring;
 protected func ContextGrenadeMenu(object pCaller)
 {
   [$CtxGrenadeMenu$|Image=GRNS|Condition=HasGrenades]
-  Sound("GrenadeCharge", 1, 0,0, GetOwner()+1);
+  Sound("GrenadeCharge.ogg", 1, 0,0, GetOwner()+1);
   GrenadeMenu(pCaller);
 }
 
@@ -69,7 +69,7 @@ public func StoreGrenade(object pGrenade)
     if(GrenadeCount() >= MaxGrenades())
       return(false);
   }
-  Sound("GrenadeCharge", 1, 0,0, GetOwner()+1);
+  Sound("GrenadeCharge.ogg", 1, 0,0, GetOwner()+1);
   pGrenade->Enter(pGrenadeStoring);
   return(true);
 }

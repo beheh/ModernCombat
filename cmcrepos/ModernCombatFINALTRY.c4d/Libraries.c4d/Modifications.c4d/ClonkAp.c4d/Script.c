@@ -219,7 +219,7 @@ global func FakeDeath(object pTarget)
   fake->Set(pTarget);
 
   SetComDir(COMD_Stop,pTarget);
-  pTarget->Sound("ClonkDie*");
+  pTarget->Sound("ClonkDie*.ogg");
   if(!ObjectSetAction(pTarget,"Death",0,0,1))
     pTarget->SetAction("Dead");
     
@@ -234,7 +234,7 @@ global func StopFakeDeath(object pTarget)
   if(!pTarget) return(false);
   if(!pTarget->IsClonk()) return(false);
   
-  Sound("ClonkCough*",0,pTarget);
+  Sound("ClonkCough*.ogg",0,pTarget);
   ObjectSetAction(pTarget,"FlatUp",0,0,1);
   RemoveObject(pTarget->Contained(),true);
     
