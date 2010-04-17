@@ -10,27 +10,44 @@ local iPat_Dir;
 local Active;
 local GotTarget;
 local Damaged;
-local Repairing;//Repariert gerade. Damit Active nicht durcheinander kommt.
+local Repairing;
 local autorepair;
 local last_id;
 
-/* Aktionen */
+public func GetAttWeapon()	{return(cur_Attachment);}	//Waffe
+public func MaxRotLeft()	{return(110+GetR());}		//Maximaler Winkel links
+public func MaxRotRight()	{return(250+GetR());}		//Maximaler Winkel rechts
+public func SearchLength()	{return(250);}			//Suchlänge
+public func AimAngle()		{return(aim_angle+GetR());}	//Winkel auf Ziel
+public func ReadyToFire()	{return(1);}			//Allzeit bereit
+public func IsMachine()		{return(true);}			//Ist eine Elektrische Anlage
+public func IsBulletTarget()	{return(true);}			//Kugelziel
+public func IsAiming()		{return(true);}			// Die Sentry Gun "zielt" immer
+public func IsThreat()		{return(Active);}
+public func UpdateCharge()	{return(1);}
+
+
+/* Reperatur */
+
 public func StartRepair()
 {
   ClearScheduleCall(this, "StartRepair");
   if(!Repairing && !WildcardMatch(GetAction(), "*Repair*"))
   {
-    Repairing = true;
-    SetAction("RepairStart");
-    RemoveEffect("ShowWeapon",this);
+   Repairing = true;
+   SetAction("RepairStart");
+   RemoveEffect("ShowWeapon",this);
   }
 }
 
 public func Repair()
 { 
-  DoDamage(-GetDamage());//Es hat ja jetzt einen Schutz.
+  //Jetzt gepanzert
+  DoDamage(-GetDamage());
   if(!GetEffect("IntRepair")) AddEffect("IntRepair",this,50,5,this);
 }
+
+/* Reparatureffekt */
 
 public func FxIntRepairStart(object pTarget, int iEffectNumber, int iTemp)
 {
@@ -41,19 +58,20 @@ public func FxIntRepairStart(object pTarget, int iEffectNumber, int iTemp)
 public func FxIntRepairTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
   if(iEffectTime >= 35*20)
-    return -1;
-    
+   return -1;
+
   if(!Random(2))
-    Sparks(2+Random(5), RGB(187, 214, 224), RandomX(-GetDefWidth()/2,+GetDefWidth()/2), RandomX(-GetDefHeight()/2,+GetDefHeight()/2));
-    
+   Sparks(2+Random(5), RGB(187, 214, 224), RandomX(-GetDefWidth()/2,+GetDefWidth()/2), RandomX(-GetDefHeight()/2,+GetDefHeight()/2));
+
   return 0;
 }
 
 public func FxIntRepairStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)
 {
   Sound("Weld.ogg",false,this,0,0,-1); 
-  if(!iReason) {
-    pTarget->SetAction("RepairStop");
+  if(!iReason)
+  {
+   pTarget->SetAction("RepairStop");
   }
   return 0;
 }
@@ -62,11 +80,24 @@ public func StopRepair()
 {
   Repairing = false;
   Damaged = 0;
-  DoDamage(-GetDamage());//Entschädigen.
+  DoDamage(-GetDamage());
   Arm(last_id);
   AddEffect("ShowWeapon",this,1,1,this,GetID());
   SetGraphics(0,this,GetID(),3,5,0,0,this);
 }
+
+public func AutoRepair()
+{
+  if(autorepair)
+    ScheduleCall(this,"StartRepair",autorepair+RandomX(-50,+50));
+}
+
+public func SetAutoRepair(int iAuto)
+{
+  autorepair = iAuto;
+}
+
+/* Zerstörung */
 
 public func Destroyed()
 {
@@ -77,19 +108,6 @@ public func Destroyed()
   RemoveEffect("ShowWeapon",this); 
   AutoRepair();
   CreateObject(ROCK,0,0)->Explode(20);
-  //GetAttWeapon()->StopAutoFire();
-}
-
-//Startet die Reparatur automatisch wenn kaputt.
-public func AutoRepair()
-{
-  if(autorepair)
-    ScheduleCall(this,"StartRepair",autorepair+RandomX(-50,+50));
-}
-
-public func SetAutoRepair(int iAuto)
-{
-  autorepair = iAuto;
 }
 
 /* Aufrufe */
@@ -106,7 +124,7 @@ public func TurnOff()
 
 public func Arm(id idWeapon)
 {
-  // Crash-Vermeidung
+  //Crash-Vermeidung
   if(!idWeapon) return;
   if(!GetName(0, idWeapon)) return;
 
@@ -127,37 +145,40 @@ public func Arm(id idWeapon)
 public func Initialize() 
 {
   AddEffect("ShowWeapon",this(),1,1,this(),GetID());
-  //lieber Overlay 3 nehmen. Falls wir mal 2-overlayige waffen einbaun :]
   SetGraphics(0,this(),GetID(),3,5,0,0,this());
 }
 
-public func WeaponAt(&x, &y, &r) {
+public func WeaponAt(&x, &y, &r)
+{
   x = Sin(GetR()-180,7000);
   y = -Cos(GetR()-180,7000);
   r = aim_angle+270+GetR();
   return(1);
 }
 
-public func WeaponBegin(&x, &y) {
+public func WeaponBegin(&x, &y)
+{
   var number = GetEffect("ShowWeapon",this());
   if(!number)
-    return(0);
+   return(0);
   x = EffectVar(2, this(), number)/1000;
   y = EffectVar(3, this(), number)/1000;
 }
 
-public func WeaponEnd(&x, &y) {
+public func WeaponEnd(&x, &y)
+{
   var number = GetEffect("ShowWeapon",this());
   if(!number)
-    return(0);
+   return(0);
   x = EffectVar(4, this(), number)/1000;
   y = EffectVar(5, this(), number)/1000;
 }
 
-public func GetWeaponR() {
+public func GetWeaponR()
+{
   var number = GetEffect("ShowWeapon",this());
   if(!number)
-    return(0);
+   return(0);
   return(EffectVar(1, this(), number));
 }
 
@@ -176,7 +197,7 @@ public func Activity()
   if(GetAction() != "Turn")
     SetAction("Turn");
 
-  /*Patroullie fahren*/
+  /* Patroullie fahren */
   
   // alle 5 Frames
   if(!(GetActTime()%5)) {
@@ -310,24 +331,27 @@ private func Reload()
   GetAttWeapon()->~StopAutoFire();
 }
 
-public func MaxDamage() {
-	return(100);
+public func MaxDamage()
+{
+  return(100);
 }
 
 public func Damage()
 {
-  if(GetDamage() > MaxDamage() && !Damaged) {
-    Destroyed();
+  if(GetDamage() > MaxDamage() && !Damaged)
+  {
+   Destroyed();
   }
 }
 
+/* EMP */
+
 public func EMPShock()
 {
-    //EMP Granate!1 :O
-	EMPShockEffect(20*35);
-	if(GetAttWeapon())
-		GetAttWeapon()->StopAutoFire();
-    return(1);
+  EMPShockEffect(20*35);
+  if(GetAttWeapon())
+   GetAttWeapon()->StopAutoFire();
+  return(1);
 }
 
 /* Konsolensteuerung */
@@ -362,19 +386,6 @@ public func ConsoleControlled(int i)
     }
 }
 
-public func UpdateCharge() { return(1); }
-
-//Für das Abfragen
-public func GetAttWeapon() { return(cur_Attachment); } //Waffe
-public func MaxRotLeft()   { return(110+GetR()); } //Maximaler Winkel links
-public func MaxRotRight()  { return(250+GetR()); } //Maximaler Winkel rechts
-public func SearchLength() { return(250); } //Suchlänge
-public func AimAngle()     { return(aim_angle+GetR()); } //Winkel auf Ziel
-public func ReadyToFire()  { return(1); } //Allzeit bereit
-public func IsMachine()    { return(true); } //Ist eine Elektrische Anlage
-public func IsBulletTarget() { return(true); } //Kugelziel
-public func IsAiming()     { return(true); } // Die Sentry Gun "zielt" immer
-
 /* Serialisierung */
 
 public func RejectContainedSerialize(object foo) { return !false; } // weg mit den alten Waffen
@@ -390,5 +401,3 @@ public func Serialize(array& extra)
 		extra[GetLength(extra)] = Format("LocalN(\"iPat_Dir\")=%d", iPat_Dir);
 	}
 }
-
-public func IsThreat() { return(Active); }
