@@ -105,7 +105,8 @@ public func FxBorderTimer(pTarget, iNo, iTime)
   if(EffectVar(0, pTarget, iNo) == 0)
   {
    //Opfer töten
-   DoDmg(999, DMG_Projectile, pTarget);
+   Kill(pTarget);
+   RemoveObject(pTarget);
    Sound("BRDR_Fire.ogg",pTarget);
    PlayerMessage(GetOwner(pTarget),"@",pTarget);
    return -1;
