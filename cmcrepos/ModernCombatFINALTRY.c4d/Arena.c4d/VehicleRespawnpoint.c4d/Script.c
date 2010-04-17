@@ -27,8 +27,9 @@ global func FxIntVehicleSpawn4KTimer(object pTarget, int iEffectNumber, int iEff
    pVehicle->SetDir(EffectVar (2,pTarget,iEffectNumber));
    if(!pTarget->~Spawn(pVehicle))
     pVehicle->Exit();
+    pVehicle->SetPosition(GetX(),GetY());
   }
-
+  
   var iDistance = EffectVar(3, pTarget, iEffectNumber);
 
   if(iDistance > 0 && Distance(GetX(pVehicle), GetY(pVehicle), GetX(this), GetY(this)) > iDistance) {
