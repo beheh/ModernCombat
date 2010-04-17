@@ -19,7 +19,7 @@ func ChooserRuleConfig()
 func Initialize()
 {
   //Starttitel und Musikliste zusammenstellen
-  SetPlayList("CMC_*.ogg");
+  SetPlayList("CMC_Base Groove.ogg;CMC_Blue Ressort.ogg;CMC_Deep Universe.ogg;CMC_Friendly Unit.ogg;CMC_Hacking.ogg;CMC_Moving Squad.ogg;CMC_No Good.ogg;CMC_Obsession.ogg;CMC_Rock Go On.ogg;CMC_Techno.ogg;CMC_Your Eyes.ogg");
   Music("CMC_Blue Ressort.ogg");
   //Bildschirmfärbung
   SetGamma(RGB(2,3,10), RGB(131,135,158), RGB(252,253,255) );
