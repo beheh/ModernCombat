@@ -200,7 +200,8 @@ private func UpdateScoreboard()
 
 
 /* GameCalls */
-public func FlagAttacked(object pFlag, int iTeam) {
+public func FlagAttacked(object pFlag, int iTeam)
+{
   for(var i = 0; i < GetPlayerCount(); i++) {
     if(GetPlayerTeam(GetPlayerByIndex(i)) == iTeam) {
       DoScoreboardShow(1, GetPlayerByIndex(i)+1);
@@ -210,7 +211,8 @@ public func FlagAttacked(object pFlag, int iTeam) {
   UpdateScoreboard();
 }
 
-public func FlagLost(object pFlag, int iTeam, int iTeamAttacker) {
+public func FlagLost(object pFlag, int iTeam, int iTeamAttacker)
+{
   for(var i = 0; i < GetPlayerCount(); i++) {
     if(GetPlayerTeam(GetPlayerByIndex(i)) == iTeam) {
       EventInfo4K(GetPlayerByIndex(i)+1, Format("$MsgFlagLost$", GetName(pFlag), GetTeamName(iTeamAttacker)), OFLG, GetTeamColor(iTeamAttacker));
@@ -219,22 +221,26 @@ public func FlagLost(object pFlag, int iTeam, int iTeamAttacker) {
   UpdateScoreboard();
 }
 
-public func FlagCaptured(object pFlag, int iTeam) {
+public func FlagCaptured(object pFlag, int iTeam)
+{
   EventInfo4K(0, Format("$MsgCaptured$", GetTeamName(iTeam), GetName(pFlag)), OFLG, GetTeamColor(iTeam), 0, 0, "Trumpet");
   UpdateScoreboard();
+}
+
+public func TicketsLow(int iRemaining, int iTeam)
+{
+  for(var i = 0; i < GetPlayerCount(); i++) {
+    if(GetPlayerTeam(GetPlayerByIndex(i)) == iTeam) {
+     EventInfo4K(GetPlayerByIndex(i)+1,Format("$MsgTicketsLow$",iRemaining),TIKT,0,0,0,"TicketsLow.ogg");
+    }
+  }
 }
 
 /* Tickets */
 public func TicketChange(int iTeam, int iChange)
 {
   DoTickets(iChange);
-  //UpdateScoreboard(iTeam);
-}
-
-public func ScoreChange(int iTeam, int iChange)
-{
-  DoTickets(iChange);
-  //UpdateScoreboard(iTeam);
+  UpdateScoreboard(iTeam);
 }
 
 public func GetTickets(int iTeam)
@@ -246,18 +252,14 @@ public func DoTickets(int iTeam, int iChange)
 {
   aTicket[iTeam-1] = Max(aTicket[iTeam-1] + iChange, 0);
   if(iWarningTickets != 0 && iWarningTickets == aTicket[iTeam-1]) {
-    for(var i = 0; i < GetPlayerCount(); i++) {
-      if(GetPlayerTeam(GetPlayerByIndex(i)) == iTeam) {
-        EventInfo4K(GetPlayerByIndex(i)+1,Format("$MsgTicketsLow$",aTicket[iTeam-1]),TIKT,0,0,0,"TicketsLow.ogg");
-      }
-    }
+    Schedule(Format("GameCallEx(\"TicketsLow\", %d, %d)", aTicket[iTeam-1], iTeam), 1);
   }
 }
 
 public func SetTickets(int iTeam, int iTickets)
 {
   aTicket[iTeam-1] = Max(iTickets, 0);
-  //UpdateScoreboard(iTeam);
+  UpdateScoreboard(iTeam);
 }
 
 
@@ -377,33 +379,6 @@ private func LosersAlive(int iTeam)
   return false;
 }
 
-/*private func UpdateTicketLoss()
-{
-  if(ObjectCount(CHOS)) return;
-
-  var cnt_div_teams = GetFlagCount()/GetTeamCount();
-  var team_cnt;
-
-  for(var i = 0; i < GetTeamCount(); i++)
-  {
-    team_cnt = GetFlagCount(i+1,true);
-    if(team_cnt < cnt_div_teams)
-      DoTickets(i+1,-1);
-  }
-}
-
-private func FxTicketLossStart(object pTarget, int iEffectNumber, int iTemp, iTeam)
-{
-  if(!iTeam) return -1;
-  EffectVar(0,pTarget,iEffectNumber) = iTeam;
-}
-
-private func FxTicketLossTimer(object pTarget, int iEffectNumber, int iEffectTime)
-{
-  pTarget->DoTickets(EffectVar(0,pTarget,iEffectNumber),-1);
-}*/
-
-
 /* Respawn */
 private func InitializePlayer(int iPlr, int iX, int iY, object pBase, int iTeam)
 {
@@ -416,31 +391,6 @@ private func InitializePlayer(int iPlr, int iX, int iY, object pBase, int iTeam)
 
   //Verfeindung setzen
   Hostility(iPlr);
-  // Ins Scoreboard eintragen
- /*
-  var teamp = GetTeamPlayerCount(iTeam);
-  // Team ist neu
-  if(teamp == 1)
-  {
-    //TODO: Theoretisch könnte man hier auch toll die Ticketverteilung tun. :)
-    InitSingleplayerTeam(iPlr);
-  }
-  // Team wechselt von Einzelspieler auf Mehrspieler
-  if(teamp == 2)
-  {
-    InitMultiplayerTeam(iTeam);
-    RemoveSingleplayerTeam(iPlr);
-    var j = 0;
-    while(GetTeamPlayer(iTeam, ++j) != -1)
-    {
-      InitPlayer(GetTeamPlayer(iTeam, j));
-    }
-  }
-  // Spieler normal einfügen
-  if(teamp > 2)
-    InitPlayer(iPlr);
-  // Sortieren
-  SortTeamScoreboard();*/
   
   RelaunchPlayer(iPlr, GetCrew(iPlr), 0, iTeam, true);
 }
