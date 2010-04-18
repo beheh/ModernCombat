@@ -191,7 +191,7 @@ public func DoProcess(int iTeam, int iAmount)
   //Eventuelle Gegnerflagge abnehmen
   if(team)
   {
-   if(iTeam != team || (old == 0 && old > process))
+   if(iTeam != team && (process != 0))
     iAmount = -iAmount;
   }
   else
