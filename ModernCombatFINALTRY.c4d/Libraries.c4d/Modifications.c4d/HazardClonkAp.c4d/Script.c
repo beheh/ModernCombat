@@ -1326,3 +1326,16 @@ public func ControlContents(id idTarget)
   }
   return(_inherited(idTarget,...));
 }
+
+protected func ContentsDestruction()      // Wenn Inhaltsobjekte verschwinden
+{
+  // nach Waffe suchen
+  ScheduleCall(this(), "CheckArmed", 1);
+  UpdateCharge();
+  // nächstes Objekt benachrichtigen
+  Schedule("CheckContentsDestruction();", 1);
+}
+
+protected func CheckContentsDestruction() {
+  if(Contents(0)) Contents(0)->~Selection(this());
+}
