@@ -130,7 +130,7 @@ public func Update(object weapon, object ammobag, object who)
   //Nur den Cursor updaten
   if(who) {
    var pCursor = GetCursor(GetOwner(who));
-   if(pCursor && pCursor != who) pCursor = pCursor->~GetRealCursor();
+   if(pCursor != who) pCursor = pCursor->~GetRealCursor();
    if(pCursor == who)
    {
     UpdateWeapon(weapon);
@@ -205,6 +205,9 @@ private func UpdateWeapon(object weapon)
 
 private func UpdateAmmoBag(object ammobag, object weapon, object who)
 {
+  var pCursor = GetCursor(GetOwner(who));
+  if(pCursor != who) pCursor = pCursor->~GetRealCursor();
+
   var ammoid = 0;
   var handle_grenade, is_grenade = false;
   if(weapon) {
@@ -235,8 +238,8 @@ private func UpdateAmmoBag(object ammobag, object weapon, object who)
    if(ammobag && !handle_grenade)
     ammo = ammobag->GetAmmo(allAmmo[i]);
 
-   if(handle_grenade && GetCursor(GetOwner(who))->~GetGrenadeStoring())
-    ammo = GetCursor(GetOwner(who))->~GrenadeCount();
+   if(handle_grenade && pCursor->~GetGrenadeStoring())
+    ammo = pCursor->~GrenadeCount();
 
    var color = "eeeeee";
     if(!ammo) color = "777777";
