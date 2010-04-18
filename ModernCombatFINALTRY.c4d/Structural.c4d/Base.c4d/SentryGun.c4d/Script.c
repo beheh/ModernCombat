@@ -189,15 +189,14 @@ public func Activity()
   //Wuah, haben wir eine Waffe?
   if(! GetAttWeapon()) return;
   //Sind wir im Eimer?
-  if( EMPShocked()) return;
-  if( Damaged) return ;
+  if(EMPShocked()) return;
+  if(Damaged) return;
   //Sind wir aktiv?
-  if(! Active) return ;
-  if(Repairing) return ;
+  if(!Active) return;
+  if(Repairing) return;
   //Wenn nicht schon gesetzt: Turn-Action
   if(GetAction() != "Turn")
     SetAction("Turn");
-
   /* Patroullie fahren */
   
   // alle 5 Frames
@@ -218,10 +217,10 @@ public func Activity()
 	    target_angle = MaxRotLeft();
 	    GotTarget = 0;
 	  }
-	if(!GotTarget)
-		aim_angle += iPat_Dir*3;
+	  if(!GotTarget) {
+  		aim_angle += iPat_Dir*3;
+    }
   }
-  
   //Das Fahren selber ;)
   if(GotTarget)
   	aim_angle += BoundBy(target_angle-AimAngle(),-8,8);
