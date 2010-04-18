@@ -47,7 +47,7 @@ global func BulletCasing(int iX, int iY, int iXDir, int iYDir, int iSize, int iC
   var tmp = CreateObject(BHUL,iX,iY,NO_OWNER);
   tmp->SetXDir(xd);
   tmp->SetYDir(yd);
-  if(!iColor) iColor = RGB(255,240,0);
-  tmp->SetClrModulation(DoColorBrightness(iColor,-30));
+  if(!iColor) iColor = RGB(255,220,0);
+  tmp->SetClrModulation(DoColorBrightness(iColor,40));
   tmp->Set(iSize);
 }

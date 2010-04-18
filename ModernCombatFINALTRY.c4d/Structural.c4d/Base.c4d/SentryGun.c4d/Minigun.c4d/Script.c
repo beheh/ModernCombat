@@ -17,8 +17,8 @@ public func FMData1(int data)
   if(data == FM_AmmoID)    return STAM;
   if(data == FM_AmmoLoad)  return 9999;
 
-  if(data == FM_Reload)    return 1;
-  if(data == FM_Recharge)  return 1;
+  if(data == FM_Reload)    return 2;
+  if(data == FM_Recharge)  return 2;
 
   if(data == FM_Auto)      return 1;
 
@@ -37,7 +37,7 @@ public func Fire1()
   user->WeaponEnd(iX,iY);
   
   var ammo = CreateObject(SHTX, iX, iY, GetController(user));
-  ammo->Launch(angle, 300, 600, 2, 100, 2, 1);
+  ammo->Launch(angle, 300, 600, 2, 100, 3, 1);
 
   // Effekte
   MuzzleFlash(40+Random(60),user,iX,iY,angle);
