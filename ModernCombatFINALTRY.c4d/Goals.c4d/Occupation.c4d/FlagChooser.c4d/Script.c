@@ -14,7 +14,6 @@ global func CreateGOCCSpawner(object pCrew)
 {
   if(!pCrew) pCrew = this();
   if(!pCrew) return(false);
-  if(!FindObject(GOCC)) return(false);
 
   var spawner = CreateObject(OSPW);
   pCrew->Enter(spawner);
