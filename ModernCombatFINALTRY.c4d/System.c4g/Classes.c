@@ -66,8 +66,8 @@ private func Class3Info(int iData)
   if(iData == CData_Name)  return("<c ffff33>$support$</c>");
   if(iData == CData_Desc)  return("$support_desc$");
   if(iData == CData_Clonk) return(PCMK);
-  if(iData == CData_Ammo)  return("200x {{STAM}}50x {{GRAM}}10x {{MIAM}}");
-  if(iData == CData_Items) return("1x {{MNGN}}     1x {{RTLR}}|1x {{BBTP}}     1x {{DGNN}}|1x {{PGRN}}     2x{{SGRN}}");
+  if(iData == CData_Ammo)  return("200x {{STAM}}10x {{MIAM}}");
+  if(iData == CData_Items) return("1x {{MNGN}}     1x {{RTLR}}|1x {{AMPK}}     1x {{DGNN}}|1x {{PGRN}}     2x{{SGRN}}");
   if(iData == CData_Facet) return(3);
   return(Default(iData));
 }
@@ -75,12 +75,11 @@ private func Class3Info(int iData)
 private func Class3Setup(int iPlr)
 {
   var new = CreateObject(PCMK,0,0,iPlr);
-  DoAmmo(STAM,400,new);
-  DoAmmo(GRAM,50,new);
+  DoAmmo(STAM,200,new);
   DoAmmo(MIAM,10,new);
   new->CreateContents(MNGN);
   new->CreateContents(RTLR);
-  new->CreateContents(BBTP);
+  new->CreateContents(AMPK);
   new->CreateContents(DGNN);
   CreateObject(PGRN,0,0,iPlr)->Activate(new);
   CreateObject(SGRN,0,0,iPlr)->Activate(new);
