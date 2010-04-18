@@ -14,7 +14,12 @@ global func CreateGOCCSpawner(object pCrew)
 {
   if(!pCrew) pCrew = this();
   if(!pCrew) return(false);
-
+  
+  if(!GetLength(FindObjects(Find_Func("IsFlagpole")))) {
+    Log("ERROR: Could not find any flags");
+    return(false);
+  }
+  
   var spawner = CreateObject(OSPW);
   pCrew->Enter(spawner);
   
@@ -225,6 +230,7 @@ protected func Timer()
 global func ShowFlagpole(object pObject, object pCrew, object pContainer, int iMaxrange)
 {
   if(!pCrew) return();
+  if(!pObject) return();
   if(!iMaxrange) iMaxrange = 200;
   
   if(pObject->GetTeam() != GetPlayerTeam(GetOwner(pCrew)))
@@ -236,6 +242,7 @@ global func ShowFlagpole(object pObject, object pCrew, object pContainer, int iM
   SetPlrViewRange(Min(200,iMaxrange), pCrew); //blah
   
   pContainer->SetPosition(GetX(pObject), GetY(pObject));
+  return(true);
 }
 
 protected func MenuQueryCancel()

@@ -309,7 +309,7 @@ private func GetWinningTeam() {
         poles[i]++;
     if(poles[i] == 0) //Keine Flaggen?
     {
-      alive[i] = 0;    //Hackig...
+      alive[i] = 0; //Hackig...
       for(var clonk in FindObjects(Find_OCF(OCF_Alive), Find_OCF(OCF_CrewMember)))
         if(GetPlayerTeam(GetOwner(clonk)) == i)
         {
@@ -385,8 +385,12 @@ private func InitializePlayer(int iPlr, int iX, int iY, object pBase, int iTeam)
 	//Neineinein, kein Rejoin
   if(!FindObject(CHOS) && !GetTickets(iTeam))
   {
-    EliminatePlayer(iPlr);
+    GameCall("ForceObservation",iPlr);
     return false;
+  }
+  if(GetWinningTeam() != 0 && GetWinningTeam() != iTeam) {
+    if(GetCursor(iPlr)) SetPlrViewRange(0, GetCursor(iPlr));
+    EliminatePlayer(iPlr);
   }
 
   //Verfeindung setzen
@@ -420,10 +424,13 @@ private func RelaunchPlayer(int iPlr, object pCrew, int iMurdererPlr, int iTeam,
     
     Money(iPlr, pCrew, iMurdererPlr);
     
-    if(!GetTickets(iTeam) || (GetWinningTeam() > 0 && GetWinningTeam() != iTeam))
+    if(GetWinningTeam() > 0 && GetWinningTeam() != iTeam)
     {
-      EliminatePlayer(iPlr);
+      if(GetCursor(iPlr)) SetPlrViewRange(0, GetCursor(iPlr));
       return;
+    }
+    if(!GetTickets(iTeam)) {
+      GameCall("ForceObservation",iPlr);
     }
 
     DoTickets(iTeam,-1);
@@ -446,7 +453,10 @@ public func DoFlag(int iTeam, int iPlr) {
   else {
     SetVisibility(VIS_None, pCrew);
   }
-  ShowFlagpole(GetBestFlag(iTeam), pCrew, pObject);
+  SetVisibility(VIS_None, pObject);
+  if(!ShowFlagpole(GetBestFlag(iTeam), pCrew, pObject)) {
+    SetPlrViewRange(0, pCrew);
+  }
   return true;
 }
 
