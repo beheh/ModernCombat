@@ -9,3 +9,5 @@ LessTickets=weniger Tickets
 Finished=Fertig!
 Tickets=Tickets
 MsgTicketsLow=Unsere Verstärkung geht zu Neige, nur noch <c ffff33>%d</c> übrig
+MsgFlagLost=Flaggenposten %s an Team %s verloren
+MsgCaptured=Team %s eroberte Flaggenposten %s
