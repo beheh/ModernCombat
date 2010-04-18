@@ -134,12 +134,8 @@ public func Capture(int iTeam, bool bSilent)
   process = 100;
   attacker = 0;
   capt = true;
-  if(!bSilent)
-  {
-   EventInfo4K(0,Format("$MsgCaptured$",GetTeamName(iTeam),GetName()),OFLG,GetTeamColor(iTeam));
-   Sound("Trumpet");
-  }
   GameCall("PointCaptured",this(),team); //Broadcasten.
+  if(!bSilent) GameCallEx("FlagCaptured", this, team);
 
   UpdateFlag();
 }
@@ -148,10 +144,6 @@ protected func Capturing(int iTeam)
 {
   attacker = iTeam;
   Message("$MsgCapturing$",flag,GetTeamColor(iTeam),GetTeamName(iTeam),GetName());
-}
-
-protected func Lost() {
-  EventInfo4K(0,Format("$MsgFlagLost$",GetTeamName(team),GetName()),OFLG,GetTeamColor(team));
 }
 
 public func NoTeam()
@@ -206,11 +198,7 @@ public func DoProcess(int iTeam, int iAmount)
    trend = -1;
 
   if((old == 100 && trend < 0) || (old == 0 && trend > 0))
-    GameCallEx("FlagAttacked", this);
-  
-  if((process <= 0) && old > 0) {
-    Lost();
-  }
+    GameCallEx("FlagAttacked", this, team);
   
   //Flagge wird übernommen
   if(process < 100 && trend != 0) {
@@ -226,6 +214,7 @@ public func DoProcess(int iTeam, int iAmount)
   //Neutrale Flagge
   if((process <= 0) && (old > 0))
   {
+   if(team) GameCallEx("FlagLost", this, team, iTeam);
    attacker = 0;
    capt = false;
    team = iTeam;

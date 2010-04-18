@@ -198,11 +198,30 @@ private func UpdateScoreboard()
   SortScoreboard(1);
 }
 
-public func FlagAttacked(object pFlag) {
+
+/* GameCalls */
+public func FlagAttacked(object pFlag, int iTeam) {
   for(var i = 0; i < GetPlayerCount(); i++) {
-    DoScoreboardShow(1, GetPlayerByIndex(i)+1);
-    Schedule(Format("DoScoreboardShow(-1, %d)", GetPlayerByIndex(i)+1), 150);
+    if(GetPlayerTeam(GetPlayerByIndex(i)) == iTeam) {
+      DoScoreboardShow(1, GetPlayerByIndex(i)+1);
+      Schedule(Format("DoScoreboardShow(-1, %d)", GetPlayerByIndex(i)+1), 150);
+    }
   }
+  UpdateScoreboard();
+}
+
+public func FlagLost(object pFlag, int iTeam, int iTeamAttacker) {
+  for(var i = 0; i < GetPlayerCount(); i++) {
+    if(GetPlayerTeam(GetPlayerByIndex(i)) == iTeam) {
+      EventInfo4K(GetPlayerByIndex(i)+1, Format("$MsgFlagLost$", GetName(pFlag), GetTeamName(iTeamAttacker)), OFLG, GetTeamColor(iTeamAttacker));
+    }
+  }
+  UpdateScoreboard();
+}
+
+public func FlagCaptured(object pFlag, int iTeam) {
+  EventInfo4K(0, Format("$MsgCaptured$", GetTeamName(iTeam), GetName(pFlag)), OFLG, GetTeamColor(iTeam), 0, 0, "Trumpet");
+  UpdateScoreboard();
 }
 
 /* Tickets */

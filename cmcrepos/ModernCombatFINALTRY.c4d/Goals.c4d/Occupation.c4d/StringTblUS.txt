@@ -9,3 +9,5 @@ LessTickets=less Tickets
 Finished=Finished!
 Tickets=Tickets
 MsgTicketsLow=Our reinforcements are going low, only <c ffff33>%d</c> left
+MsgCaptured=Team %s conquered flag post %s
+MsgFlagLost=Lost flag post %s to team %s
