@@ -163,7 +163,7 @@ public func OnClonkEquip(object pClonk)
 
 public func OnClassSelection(object pClonk)
 {
-  if(!FindObject(MCSL))
+  if(!FindObject(MCSL) && !FindObject(WPCH))
     CreateGOCCSpawner(pClonk);
 }
 
@@ -172,4 +172,13 @@ public func OnClassSelection(object pClonk)
 public func RejectRelaunch(int iPlr, int iTeam)
 {
   return(false);
+}
+
+/* Spieler zuschauen lassen */
+
+public func ForceObservation(int iPlr)
+{
+  //mgöglicherweise irgendwann richtig implementieren
+  if(GetCursor(iPlr)) SetPlrViewRange(0, GetCursor(iPlr));
+  EliminatePlayer(iPlr);
 }

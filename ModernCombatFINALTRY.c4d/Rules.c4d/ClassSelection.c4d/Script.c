@@ -286,7 +286,10 @@ public func SetupClass(int iClass, int iPlayer)
    Enter(tmp,crew[iPlayer]);
   }
 
-  MakeCrewMember(crew[iPlayer],iPlayer);
+  if(GetID(oldCrew) == GetID(crew[iPlayer]))
+    GrabObjectInfo(oldCrew, crew[iPlayer]);
+  else
+    MakeCrewMember(crew[iPlayer], iPlayer);
   SilentKill4K(oldCrew);
   SelectCrew(iPlayer,crew[iPlayer],1);
   SetPlrView(iPlayer,crew[iPlayer]);
