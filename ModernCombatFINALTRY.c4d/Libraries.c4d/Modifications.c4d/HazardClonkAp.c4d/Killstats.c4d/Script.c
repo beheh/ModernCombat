@@ -54,7 +54,10 @@ public func KMsg(int plr1, int plr2, object clonk)
   if(!killicon) killicon = SKUL;
 
   //Nachricht konstruieren
-  msg = Format("%s {{%i}}",GetTaggedPlayerName(plr1),killicon);
+  if(killicon != SKUL)
+    msg = Format("%s {{%i}}",GetTaggedPlayerName(plr1),killicon);
+  else
+    msg = Format("%s",GetTaggedPlayerName(plr1));
   if(typeicon)
    msg = Format("%s({{%i}})",msg,typeicon);
 
@@ -62,7 +65,7 @@ public func KMsg(int plr1, int plr2, object clonk)
    msg = Format("%s %s",msg,GetTaggedPlayerName(plr2));
 
   //Eventnachricht: Spieler eliminiert Spieler
-  EventInfo4K(0,msg);
+  EventInfo4K(0,msg,SKUL);
 }
 
 /* Selbstmordnachricht */
