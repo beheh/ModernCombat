@@ -223,7 +223,7 @@ public func Activity()
   }
   //Das Fahren selber ;)
   if(GotTarget)
-  	aim_angle += BoundBy(target_angle-AimAngle(),-8,8);
+  	aim_angle += BoundBy(target_angle-AimAngle(),-1,1);
   
        
   /* Feinde suchen */
