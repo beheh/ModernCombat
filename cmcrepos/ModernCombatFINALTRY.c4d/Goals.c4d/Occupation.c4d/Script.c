@@ -128,7 +128,7 @@ private func OpenGoalMenu(id dummy, int iSelection)
   var pClonk = GetCursor();
   CreateMenu(GetID(),pClonk,0,0,0,0,1);
 
-  AddMenuItem("", "OpenGoalMenu", GetID(), pClonk, iStartTickets, 0, " ");
+  AddMenuItem(" ", "OpenGoalMenu", GetID(), pClonk, iStartTickets, 0, " ");
   AddMenuItem("$MoreTickets$", "ChangeStartTickets", CHOS, pClonk, 0, +1, "$MoreTickets$",2,1);
   AddMenuItem("$LessTickets$", "ChangeStartTickets", CHOS, pClonk, 0, -1, "$LessTickets$",2,2);
   AddMenuItem("$Finished$", "ConfigFinished", CHOS, pClonk,0,0,"$Finished$",2,3);
