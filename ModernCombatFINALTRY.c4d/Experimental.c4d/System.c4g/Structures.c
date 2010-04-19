@@ -1,7 +1,9 @@
-/*-- Gebäude-appendto --*/
+/*-- Gebäude --*/
 
-//Appendiert an alle Gebäude mit Fundament (also fast alle Gebäude) und Bambushütten :I
+//Appendiert an alle Gebäude mit Fundament
+
 #strict 2
+
 /*
 #appendto BAS7
 #appendto HUT1

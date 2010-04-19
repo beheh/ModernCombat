@@ -1,7 +1,8 @@
-/*-- GOAL-append... --*/
+/*-- Goal --*/
 
 #strict 2
 #appendto GOAL
+
 
 protected func RoundOver()
 {

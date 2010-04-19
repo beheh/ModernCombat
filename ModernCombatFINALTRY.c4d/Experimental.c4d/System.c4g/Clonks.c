@@ -1,8 +1,9 @@
-/*-- Clonk-appendto --*/
+/*-- Clonk --*/
 
 #strict 2
 /*
 #appendto CLNK
+
 
 local assistkiller;
 

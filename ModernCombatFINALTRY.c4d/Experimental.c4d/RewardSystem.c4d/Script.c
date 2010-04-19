@@ -1,10 +1,13 @@
-/*-- Speichern --*/
+/*-- Belohnungssystem --*/
 
 #strict 2
 
 local aData;
 
-public func IsChooseable() { return true; } //Wählbar
+public func IsChooseable()	{return true;}
+
+
+/* Initalisierung */
 
 protected func Initialize()
 {
