@@ -1,9 +1,11 @@
 /*-- Clonk Appendto --*/
 
-#strict
+#strict 2
 #appendto CLNK
 
-public func IsClonk() { return(1); }
+local assistkiller;
+
+public func IsClonk() { return 1; }
 
 
 /* Erstellung */
@@ -34,6 +36,11 @@ protected func Initialize()
   //Schadenseffekt einfügen
   if(!GetEffect("DmgCheck",this()))
     AddEffect("DmgCheck",this(),1,0);
+  
+  //Assistkillarray
+  assistkiller = [];
+  for(var i=0; i < GetPlayerCount(); i++)
+    assistkiller[i*2] = -1;
 
   //Fake Death Effekt einfügen
   if(IsClonk() && (GetOwner() != NO_OWNER) && (GetPlayerType(GetOwner()) != C4PT_Script))
@@ -46,7 +53,7 @@ public func Incineration()
 {
   Extinguish();
   Sound("ClonkBurn*.ogg");
-  if(GetAction() eq "Death") return(0);//Fakedeath
+  if(GetAction() == "Death") return(0);//Fakedeath
   Schedule("DoDmg(5,DMG_Fire,0,1)",1,20,this());
   AddFireEffect(this(),30,FIRE_Red,1);
 }
@@ -55,50 +62,69 @@ public func Incineration()
 
 public func OnDmg(int iDmg, int iType) {
   HurtSounds(iDmg,iType);
-  return(_inherited(...));
+  return _inherited(...);
 }
 
 public func HurtSounds(int iDmg, int iType)
 {
-  if(iDmg <= 0) return();
+  if(iDmg <= 0) return;
   //Projectile
   if(iType == DMG_Projectile)
   {
     if(!Random(BoundBy(12-iDmg,0,12)))
       Sound("ClonkPain*.ogg");
-    return();
+    return;
   }
   //Flame
   if(iType == DMG_Fire)
   {
     if(!Random(BoundBy(13-iDmg,0,13)))
       Sound("ClonkBurn*.ogg");
-    return();
+    return;
   }
   //Explosion
   if(iType == DMG_Explosion)
   {
     if(!Random(BoundBy(2-iDmg,0,2)))
       Sound("ClonkPain*.ogg");
-    return();
+    return;
   }
   //Energy
   if(iType == DMG_Energy)
   {
     if(!Random(BoundBy(10-iDmg,0,10)))
       Sound("ClonkPain*.ogg");
-    return();
+    return;
   }
   //Bio
   if(iType == DMG_Bio)
   {
     if(!Random(BoundBy(20-iDmg,0,20)))
       Sound("ClonkPoisened*.ogg");
-    return();
+    return;
   }
   
   if(!Random(BoundBy(10-iDmg,0,10)))
     Sound("ClonkPain*.ogg");
+}
+
+/* Assistkiller abspeichern */
+
+public func OnHit(int iChange, int iType, object pFrom)
+{
+  var iByPlayer = GetController(pFrom);
+  for(var i=0; i < GetLength(assistkiller)/2; i++)
+  {
+    if(assistkiller[i*2] == iByPlayer)
+      return assistkiller[i*2+1] += iChange;
+    if(assistkiller[i*2] == -1)
+    {
+      assistkiller[i*2] = iByPlayer;
+      assistkiller[i*2+1] = iChange;
+      return 1;
+    }
+  }
+  _inherited(...);
 }
 
 /* Reject Shift */
@@ -107,8 +133,8 @@ protected func ControlContents(idTarget)
 {
   if(Contents())
     if(Contents()->~RejectShift(idTarget))
-      return(1);
-  return(_inherited(idTarget,...));
+      return 1;
+  return _inherited(idTarget,...);
 }
 
 /* Fallschaden */
@@ -131,7 +157,7 @@ func Hit2(int xDir, int yDir)
   if(GetAlive(this()))
     Sound("ClonkPain*.ogg");
   
-  return(_inherited(xDir,yDir,...));
+  return _inherited(xDir,yDir,...);
 }
 
 /* Killverfolgung */
@@ -149,7 +175,7 @@ public func KillIcon(id idKillIcon)
 private func DeathAnnounce(int plr, object clonk, int killplr)
 {
   if(killplr == -1)
-    return(inherited(plr,clonk,killplr));
+    return inherited(plr,clonk,killplr);
   
   //Selfkill?
   if(plr == killplr)
@@ -164,7 +190,7 @@ private func DeathAnnounce(int plr, object clonk, int killplr)
 
 /* Inventar */
 
-public func MaxContentsCount() { return(3); }
+public func MaxContentsCount() { return 3; }
 
 /* Steuerungs-Callbacks */
 
@@ -173,10 +199,10 @@ protected func ControlSpecial()
   if (Contained())
   {
     if(Contained()->~ContainedSpecial(this()))
-      return(1);
+      return 1;
   }
   
-  return(_inherited(...));
+  return _inherited(...);
 }
 
 protected func ControlSpecial2()
@@ -187,43 +213,107 @@ protected func ControlSpecial2()
   if (Contained())
   {
     if(Contained()->~ContainedSpecial2(this()))
-      return(1);
+      return 1;
     if ((Contained()->GetCategory() & C4D_Structure) || (Contained()->GetCategory() & C4D_Vehicle))
-      return(SetCommand(this(),"Context",0,0,0,Contained()), ExecuteCommand());
+    {
+      ExecuteCommand();
+      return SetCommand(this(),"Context",0,0,0,Contained());
+    }
   }
   // Fasst ein Objekt an: Kontextmenü des angefassten Objekts öffnen
-  if (GetAction() eq "Push")
-    return(SetCommand(this(),"Context",0,0,0,GetActionTarget()), ExecuteCommand());
+  if (GetAction() == "Push")
+  {
+    ExecuteCommand();
+    return SetCommand(this(),"Context",0,0,0,GetActionTarget());
+  }
   // Trägt ein Objekt: Kontextmenü des ersten getragenen Objekts öffnen
   if (Contents(0))
-    return(SetCommand(this(),"Context",0,0,0,Contents(0)), ExecuteCommand());
+  {
+    ExecuteCommand();
+    return SetCommand(this(),"Context",0,0,0,Contents(0));
+  }
   // Ansonsten das Kontextmenü des Clonks öffnen
-  return(SetCommand(this(),"Context",0,0,0,this()), ExecuteCommand());
+  ExecuteCommand();
+  return SetCommand(this(),"Context",0,0,0,this());
 }
 
 /* Fake Death */
 
 global func PauseFakeDeath(bool fPause, object pTarget)
 {
-  return();
+  return;
 }
 
 global func FakeDeath(object pTarget)
 {
   if(!pTarget) pTarget = this();
-  if(!pTarget) return(false);
-  if(!pTarget->IsClonk()) return(false);
+  if(!pTarget) return false;
+  if(!pTarget->IsClonk()) return false;
+  
+  pTarget->OnFakeDeath();
 
   //Fake Death erstellen
-  var fake = CreateObject(FKDT,0,0,GetOwner(pTarget));
+  if(WildcardMatch(GetAction(pTarget),"*Crawl*"))
+  {
+    var fake = CreateObject(FKDT,0,-5,GetOwner(pTarget));
+    if(!ObjectSetAction(pTarget,"Death",0,0,1))
+      pTarget->SetAction("Dead");
+    SetPhase(5,pTarget);
+  }
+  else
+  {
+    var fake = CreateObject(FKDT,0,0,GetOwner(pTarget));
+    if(!ObjectSetAction(pTarget,"Death",0,0,1))
+      pTarget->SetAction("Dead");
+  }
   fake->Set(pTarget);
 
   SetComDir(COMD_Stop,pTarget);
   pTarget->Sound("ClonkDie*.ogg");
-  if(!ObjectSetAction(pTarget,"Death",0,0,1))
-    pTarget->SetAction("Dead");
     
-  return(true);
+  return true;
+}
+
+public func OnFakeDeath()
+{
+  if(!FindObject(AR_A))
+    return;
+  var Database = FindObject(AR_A);
+  var killer = GetKiller();
+  
+  if(killer < 0 || killer == GetOwner())
+  {
+    Database -> SetPlayerStats("Negativepoints", GetOwner(), SuicidePoints());
+    AddEffect("PointMessage",this,130,1,this,0,Format("{{%i}} <c ff0000>%d</c>", IC07, SuicidePoints()));
+  }
+  
+  //Ansonsten Killpunkte geben (und Todespunkte (und Assistkills))
+  if( Hostile(killer,GetOwner()) )
+  {
+    Database -> SetPlayerStats("Battlepoints", killer, KillPoints());
+    AddEffect("PointMessage",GetCursor(killer),130,1,GetCursor(killer),0,Format("{{%i}} <c 00ff00>+%d</c>", IC01, KillPoints()));
+    
+    //Dem mit dem meisten angerichteten Schaden neben dem Killer Assistpunkte geben
+    var highest = CreateArray(2);
+    for(var i = 0; i < GetLength(assistkiller)/2; i++)
+      if(assistkiller[i*2+1] > highest[0])
+      {
+        highest[0] = assistkiller[i*2+1];
+        highest[1] = assistkiller[i*2];
+      }
+    if(highest[1] != killer)
+    {
+      Database -> SetPlayerStats("Battlepoints", highest[1], AssistPoints());
+      AddEffect("PointMessage",GetCursor(highest[1]),130,1,GetCursor(highest[1]),0,Format("{{%i}} <c 00ff00>%d</c>", IC02, AssistPoints()));
+    }  
+  }
+  
+  //OMGOMG TEAMKILLERRRR!!! D:
+  if( !Hostile(killer,GetOwner()) && killer != GetOwner() && !(killer < 0))
+  {
+    Database -> SetPlayerStats("Negativepoints", killer, TeamkillPoints());
+    AddEffect("PointMessage",GetCursor(killer),130,1,GetCursor(killer),0,Format("{{%i}} <c ff0000>%d</c>", IC06, TeamkillPoints()));
+  }
 }
 
 global func StopFakeDeath(object pTarget)
@@ -231,23 +321,23 @@ global func StopFakeDeath(object pTarget)
   if(!pTarget) pTarget = this();
   if(GetID(pTarget) == FKDT)
     pTarget = pTarget->GetClonk();
-  if(!pTarget) return(false);
-  if(!pTarget->IsClonk()) return(false);
+  if(!pTarget) return false;
+  if(!pTarget->IsClonk()) return false;
   
   Sound("ClonkCough*.ogg",0,pTarget);
   ObjectSetAction(pTarget,"FlatUp",0,0,1);
   RemoveObject(pTarget->Contained(),true);
     
-  return(true);
+  return true;
 }
 
 global func IsFakeDeath(object pTarget)
 {
   if(!pTarget) pTarget = this();
-  if(!pTarget) return(false);
+  if(!pTarget) return false;
   //if(!pTarget->~IsClonk()) return(false);
   
-  return(GetID(pTarget->Contained()) == FKDT);
+  return GetID(pTarget->Contained()) == FKDT;
 }
 
 global func FxFakeDeathDamage(object pTarget, int iEffectNumber, int iDmgEngy, int iCause)
@@ -257,11 +347,11 @@ global func FxFakeDeathDamage(object pTarget, int iEffectNumber, int iDmgEngy, i
     if(GetEnergy(pTarget) <= -iDmgEngy/1000)
     {
       FakeDeath(pTarget);
-      return(0);
+      return 0;
     }
   }
   
-  return(iDmgEngy);
+  return iDmgEngy;
 }
 
 /* Entgültiger Tod */
@@ -270,8 +360,8 @@ func Death(object pTarget)
 {
   if(IsFakeDeath())
   {
-   SetPhase(5);//Fallanimation überspringen
-   Sound("Death");
+    SetPhase(5);//Fallanimation überspringen
+    Sound("Death");
   }
   else
   {
@@ -283,4 +373,27 @@ func Death(object pTarget)
   //Fake Death löschen
   if(IsFakeDeath())
    RemoveObject(Contained(),true);
+}
+
+/* Punkte */
+
+public func FxPointMessageStart(pTarget, iNo, iTemp, szString)
+{
+  if(iTemp)
+    return -1;
+  //Vars
+  EffectVar(0,pTarget,iNo) = szString; //Die Message
+  EffectVar(1,pTarget,iNo) = CreateObject(ARHL,0,0,-1); //Der Helper
+  //Sound (hier einfügen) <----------------------------------------
+}
+
+public func FxPointMessageTimer(pTarget, iNo, iTime)
+{
+  CustomMessage(EffectVar(0,pTarget,iNo),EffectVar(1,pTarget,iNo),NO_OWNER,0,-iTime/5,
+                RGBa(255,255,255,BoundBy(-300+iTime*5,0,255)));
+  if(-300+iTime*5 > 255)
+  {
+    RemoveObject(EffectVar(1,pTarget,iNo));
+    return -1;
+  }
 }

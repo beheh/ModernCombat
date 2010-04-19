@@ -2,7 +2,7 @@
 
 #strict 2
 
-local healpoints;
+local healpoints, healed;
 
 public func HandSize()   	{return 1000;}
 public func HandX()     	{return 4000;}
@@ -19,6 +19,7 @@ public func NoArenaRemove()	{return(true);}
 
 protected func Initialize()
 {
+  healed = 0;
   //Punkteregeneration
   AddEffect("FAPRegenerate",this(),251,50,this(),GetID());
   //Gruppenheilung
@@ -271,12 +272,22 @@ public func FxFAPGrouphealTimer(pTarget, iEffectNumber, iEffectTime)
    else
    {
     DoEnergy(heal, clonk);
+    healed += heal;
     clonk->CreateParticle("ShockWave",0,0,0,0,5*GetObjHeight(clonk)+5*5,RGB(210,20,20),clonk);
     clonk->CreateParticle("ShockWave",0,0,0,0,5*GetObjHeight(clonk)+10*5,RGB(210,20,120),clonk);
     clonk->CreateParticle("ShockWave",0,0,0,0,5*GetObjHeight(clonk)+15*5,RGB(210,20,220),clonk);
     DoHealPoints(-heal/2);
     Sound("FAPK_Healing*.ogg");
    }
+  }
+  if(healed >= 40)
+  {
+    healed = 0;
+    if(FindObject(AR_A))
+    {
+      FindObject(AR_A) -> SetPlayerStats("Teampoints", GetOwner(Contained()), BonusPoints("Healing",40));
+      Contained()-> AddEffect("PointMessage",Contained(),130,1,Contained(),0,Format("{{%i}} <c 00ff00>+%d</c>", IC05, BonusPoints("Healing",40)));
+    }
   }
 }
 
