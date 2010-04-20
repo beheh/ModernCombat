@@ -326,8 +326,6 @@ private func GetWinningTeam() {
           }
           alive[i]++;
         }
-      if(alive[i] == 0) //Keine Clonks auf dem Feld oder kurz vorm Respawn?
-        EliminateTeam(i); //Eliminieren!
     }
     else
       //Garkeine Spieler in einem Team?
@@ -335,7 +333,7 @@ private func GetWinningTeam() {
         if(GetPlayerTeam(GetPlayerByIndex(j)) == i)
           alive[i]++;
   }
-  
+
   //Wie viele Teams existent?
   var teamA = 0;
   for(var i = 0; i < GetLength(alive); i++)
@@ -347,7 +345,7 @@ private func GetWinningTeam() {
         teamA = i; //Ein lebendiges Team gefunden?
     }
   if(teamA < 1) //Falls keine Teams lebendig (wieso auch immer)
-    return -1;
+    return 0;
   else
     return teamA; //Ansonsten das einzig lebendige Team
 }
@@ -392,9 +390,9 @@ private func InitializePlayer(int iPlr, int iX, int iY, object pBase, int iTeam)
     GameCall("ForceObservation",iPlr);
     return false;
   }
-  if(GetWinningTeam() != 0 && GetWinningTeam() != iTeam) {
-    if(GetCursor(iPlr)) SetPlrViewRange(0, GetCursor(iPlr));
-    EliminatePlayer(iPlr);
+  if(GetWinningTeam() > 0 && iTeam != GetWinningTeam()) {
+     GameCall("ForceObservation",iPlr);
+     return false;
   }
 
   //Verfeindung setzen
@@ -403,49 +401,21 @@ private func InitializePlayer(int iPlr, int iX, int iY, object pBase, int iTeam)
   RelaunchPlayer(iPlr, GetCrew(iPlr), 0, iTeam, true);
 }
 
-private func RelaunchPlayer(int iPlr, object pCrew, int iMurdererPlr, int iTeam, no_relaunch)
+public func RelaunchPlayer(int iPlr, object pCrew, int iMurdererPlr, int iTeam, no_relaunch)
 {
-  // Kein ordentlicher Spieler?
-  if(GetOwner(pCrew) == NO_OWNER || iPlr == NO_OWNER || !GetPlayerName(iPlr))
-    return;
-  // Kein Team
-  if(!iTeam) iTeam = GetPlayerTeam(iPlr);
- 
-  //Kriegsnebel für alle
-  SetFoW(true, iPlr);
-  
-  if(!no_relaunch)
+  if(GetWinningTeam() > 0 && GetWinningTeam() != iTeam)
   {
-    //Tode++
-    aDeath[iPlr]++;
-
-    //kein Selfkill? kein Teamkill?
-    if(iMurdererPlr != -1 && GetPlayerTeam(iPlr) != GetPlayerTeam(iMurdererPlr))
-    {	
-      //kill++
-      aKill[iMurdererPlr]++;
-    }
-    
-    Money(iPlr, pCrew, iMurdererPlr);
-    
-    if(GetWinningTeam() > 0 && GetWinningTeam() != iTeam)
-    {
-      if(GetCursor(iPlr)) SetPlrViewRange(0, GetCursor(iPlr));
-      return;
-    }
-    if(!GetTickets(iTeam)) {
-      GameCall("ForceObservation",iPlr);
-    }
-
-    DoTickets(iTeam,-1);
+    if(GetCursor(iPlr)) SetPlrViewRange(0, GetCursor(iPlr));
+    return;
   }
+  if(!GetTickets(iTeam)) {
+    GameCall("ForceObservation",iPlr);
+    return;
+  }
+  DoTickets(iTeam,-1);
+  inherited(iPlr, pCrew, iMurdererPlr);
 
-  if(!FindObject(CHOS) && !FindObject(MCSL))//Regelwähler oder Klassenwahl?
-     CreateGOCCSpawner(pCrew);
-     
   Schedule(Format("DoFlag(%d, %d)", iTeam, iPlr), 1);
-
-  return;
 }
 
 public func DoFlag(int iTeam, int iPlr) {
@@ -482,5 +452,10 @@ public func OnClassSelection(object pClonk)
   if(FindObject(CHOS))
     return;
     
+  CreateGOCCSpawner(pClonk);
+}
+
+public func OnWeaponChoice(object pClonk)
+{
   CreateGOCCSpawner(pClonk);
 }

@@ -53,17 +53,17 @@ public func ChooserFinished()
      RemoveObject(spwn);
   }
 
+  //Nochmal alle Spieler relaunchen
+  for(var i = 0; i < GetPlayerCount(); i++)
+    RelaunchPlayer(GetPlayerByIndex(i),GetCursor(GetPlayerByIndex(i)), 0, GetPlayerTeam(GetPlayerByIndex(i)));
+    
   //Ohne Klassenwahl
   if(!FindObject(MCSL))
   {
    for(var i = 0; i < GetPlayerCount(); i++)
-    for(var j = 0, pCrew ; pCrew = GetCrew(GetPlayerByIndex(i), j) ; j++)
-     OnClassSelection(pCrew);
+    for(var j = 0, pCrew; pCrew = GetCrew(GetPlayerByIndex(i), j) ; j++)
+     GameCallEx("OnClassSelection", pCrew);
   }
-  
-  //Nochmal alle Spieler relaunchen
-  for(var i = 0; i < GetPlayerCount(); i++)
-    RelaunchPlayer(GetPlayerByIndex(i),GetCursor(GetPlayerByIndex(i)), 0, GetPlayerTeam(GetPlayerByIndex(i)));
 }
 
 /* Spielerinitalisierung */
@@ -108,7 +108,7 @@ public func RelaunchPlayer(int iPlr, object pCrew, object pKiller, int iTeam, bo
    OnClonkEquip(pCrew);
 
   if(!FindObject(MCSL) && !FindObject(CHOS))
-   OnClassSelection(pCrew);
+   GameCallEx("OnClassSelection",pCrew);
 }
 
 public func RelaunchClonk(int iPlr, object pCursor)
@@ -157,13 +157,6 @@ public func OnClonkEquip(object pClonk)
   //Etwas Zusatzmunition für die Pistole sofern welche benötigt wird
   if(!FindObject(NOAM))
   pClonk->DoAmmo(wpn->GetFMData(FM_AmmoID),wpn->GetFMData(FM_AmmoLoad)*2);
-}
-
-/* Sobald eine Klasse gewählt wurde */
-
-public func OnClassSelection(object pClonk)
-{
-  return;
 }
 
 /* Relaunch ablehnen */

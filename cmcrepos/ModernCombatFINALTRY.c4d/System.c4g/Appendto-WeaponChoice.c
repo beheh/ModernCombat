@@ -70,21 +70,9 @@ func RelaunchPlayer(int iPlr, object pClonk) {
 
 //Alle Waffenmodi auffüllen
 func Finish(id unused, object pClonk, bool bRight) {
-  if(bRight)
-    return(MenuQueryCancel(0,pClonk));
-
-  PlayerMessage(GetOwner(spawnclonk),"");
-  spawnclonk = 0;
-  spawntimer = 0;
+  _inherited(...);
   
-  var iPlayer = GetOwner(pClonk);
-  
-  //Auswahl löschen
-  //if(!GetLength(WeaponChoice[iPlayer])) WeaponChoice[iPlayer] = CreateArray();
-  //Menü schließen
-  CloseMenu(GetCursor(iPlayer));
-  //Sound! :D
-  Sound("Cash",1,0,0,iPlayer);
+  GameCallEx("OnWeaponChoice", pClonk);
   
   //Alle Waffen auffüllen
   for(var wpn in FindObjects(Find_Container(pClonk), Find_Func("IsWeapon")))
@@ -102,9 +90,4 @@ func Finish(id unused, object pClonk, bool bRight) {
    }
    wpn->~CycleFM(+1); //Noch ein letztes Mal
   }
-  
-  pClonk->~UpdateCharge();
-  
-  //Wieder angreifbar machen
-  RemoveObject(Contained(pClonk),1);
 }
