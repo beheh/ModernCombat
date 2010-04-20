@@ -390,10 +390,6 @@ private func InitializePlayer(int iPlr, int iX, int iY, object pBase, int iTeam)
     GameCall("ForceObservation",iPlr);
     return false;
   }
-  if(GetWinningTeam() > 0 && iTeam != GetWinningTeam()) {
-     GameCall("ForceObservation",iPlr);
-     return false;
-  }
 
   //Verfeindung setzen
   Hostility(iPlr);
