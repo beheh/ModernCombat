@@ -123,6 +123,7 @@ public func ControlThrow(object pClonk)
     DoHealPoints(-40);
     CreateContents(DGNN,pClonk);
     Sound("FAPK_Dragnin.ogg");
+    while(Contents()->GetID() != DRGN) ShiftContents();
    }
    else
    {

@@ -56,6 +56,7 @@ private func CreateAmmopack(idAmmo)
     CreateContents(idAmmo, Contained());
     Sound("PackAmmo.ogg",0,0,0,GetOwner(Contained()));
     DoAmmoPoints(-50);
+    while(Contents()->GetID() != idAmmo) ShiftContents();
    }
    else
    {
@@ -70,6 +71,7 @@ private func CreateAmmopack(idAmmo)
     CreateContents(idAmmo, Contained());
     Sound("PackAmmo.ogg",0,0,0,GetOwner(Contained()));
     DoAmmoPoints(-60);
+    while(Contents()->GetID() != idAmmo) ShiftContents();
    }
    else
    {
@@ -84,6 +86,7 @@ private func CreateAmmopack(idAmmo)
     CreateContents(idAmmo, Contained());
     Sound("PackAmmo.ogg",0,0,0,GetOwner(Contained()));
     DoAmmoPoints(-40);
+    while(Contents()->GetID() != idAmmo) ShiftContents();
    }
    else
    {
@@ -190,17 +193,19 @@ public func FxAMPKRestockingTimer(pTarget, iEffectNumber, iEffectTime)
 
     //Munition hinzufügen
     var factor;
-    if(ammoID == STAM)
+    if(ammoID == STAM)  //Normale Kugeln = 1 Punkt
      factor = 1;
-    if(ammoID == GRAM)
+    if(ammoID == GRAM)  //Granaten = 5 Punkte
      factor = 5;
-    if(ammoID == MIAM)
+    if(ammoID == MIAM)  //Raketen = 10 Punkte
      factor = 10;
-    if(!factor)
+    if(!factor)         //Alles andere = 2 Punkte
      factor = 2;
     if(ammoID->MaxAmmo()/10*factor > GetAmmoPoints() || GetAmmo(ammoID,target) >= highestammo)
      break;
 
+    //Nachricht für Verteilenden und Erhaltenden
+    PlayerMessage(GetOwner(Contained()),"$AmmoRecieved$", Contained(), ammoID->MaxAmmo()/10, ammoID);
     PlayerMessage(GetOwner(target),"$AmmoRecieved$", target, ammoID->MaxAmmo()/10, ammoID);
     DoAmmo(ammoID, ammoID->MaxAmmo()/10, target);
     Sound("Resupply.ogg");
