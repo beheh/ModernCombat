@@ -3,6 +3,10 @@
 #strict 2
 
 
+/* Leere Funktionen */
+public func OnClassSelection() {}
+public func OnWeaponChoice() {}
+
 /* Wahl abgeschlossen */
 
 public func ChooserFinished()
@@ -58,7 +62,7 @@ public func ChooserFinished()
   {
    for(var i = 0; i < GetPlayerCount(); i++)
     for(var j = 0, pCrew; pCrew = GetCrew(GetPlayerByIndex(i), j) ; j++)
-     GameCallEx("OnClassSelection", pCrew);
+     OnClassSelection(pCrew);
   }
 
   //Nochmal alle Spieler relaunchen
@@ -93,6 +97,10 @@ public func RelaunchPlayer(int iPlr, object pCrew, object pKiller, int iTeam, bo
   //Clonk tot?
   if(!GetAlive(pCrew))
    pCrew = RelaunchClonk(iPlr, pCrew);
+
+  //Ausrüsten
+  if(!FindObject(IGIB))
+   OnClonkEquip(pCrew);
   
   //Zufallsposition setzen
   var iX, iY;
@@ -102,13 +110,9 @@ public func RelaunchPlayer(int iPlr, object pCrew, object pKiller, int iTeam, bo
    SetPosition(iX, iY, Contained(pCrew));
   else
    SetPosition(iX, iY, pCrew);
-  
-  //Ausrüsten
-  if(!FindObject(IGIB))
-   OnClonkEquip(pCrew);
 
   if(!FindObject(MCSL) && !FindObject(CHOS))
-   GameCallEx("OnClassSelection",pCrew);
+   OnClassSelection(pCrew);
 }
 
 public func RelaunchClonk(int iPlr, object pCursor)
