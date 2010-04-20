@@ -462,7 +462,7 @@ protected func DoAmmoPack(id idType)
 
 public func ReadyToFire() {
   if(GetAction() eq "Crawl" && Contents())
-    if(Contents()->~CanAim())
+    if(Contents()->~CanAim() && Contents()->~IsEquipment())
       return(true);
   return(_inherited(...));
 }
