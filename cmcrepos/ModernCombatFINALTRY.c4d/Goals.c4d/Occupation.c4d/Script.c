@@ -382,7 +382,7 @@ private func LosersAlive(int iTeam)
 }
 
 /* Respawn */
-private func InitializePlayer(int iPlr, int iX, int iY, object pBase, int iTeam)
+public func InitializePlayer(int iPlr, int iX, int iY, object pBase, int iTeam)
 {
 	//Neineinein, kein Rejoin
   if(!FindObject(CHOS) && !GetTickets(iTeam))
