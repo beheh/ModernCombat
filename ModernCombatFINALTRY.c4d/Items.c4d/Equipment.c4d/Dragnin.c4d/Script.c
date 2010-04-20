@@ -93,6 +93,7 @@ func FxDragninHealStart(object pTarget, int iEffectNumber, int iTemp, int iHealA
   SetPhysical("Jump", GetPhysical("Jump", 0, pTarget)/3, 2, pTarget);
   SetPhysical("Scale", GetPhysical("Scale", 0, pTarget)/3, 2, pTarget);
   SetPhysical("Hangle", GetPhysical("Hangle", 0, pTarget)/3, 2, pTarget);
+  SetPhysical("Swim", GetPhysical("Swim", 0, pTarget)/3, 2, pTarget);
 }
 
 func FxDragninHealTimer(object pTarget, int iEffectNumber, int iEffectTime)
@@ -133,6 +134,7 @@ public func FxDragninHealStop(object pTarget, no, reason, temp)
   SetPhysical("Jump", GetPhysical("Jump", 0, pTarget)*3, 2, pTarget);
   SetPhysical("Scale", GetPhysical("Scale", 0, pTarget)*3, 2, pTarget);
   SetPhysical("Hangle", GetPhysical("Hangle", 0, pTarget)*3, 2, pTarget);
+  SetPhysical("Swim", GetPhysical("Swim", 0, pTarget)*3, 2, pTarget);
 }
 
 /* Sounds */
