@@ -56,7 +56,6 @@ private func CreateAmmopack(idAmmo)
     CreateContents(idAmmo, Contained());
     Sound("PackAmmo.ogg",0,0,0,GetOwner(Contained()));
     DoAmmoPoints(-50);
-    while(Contents()->GetID() != idAmmo) ShiftContents();
    }
    else
    {
@@ -71,7 +70,6 @@ private func CreateAmmopack(idAmmo)
     CreateContents(idAmmo, Contained());
     Sound("PackAmmo.ogg",0,0,0,GetOwner(Contained()));
     DoAmmoPoints(-60);
-    while(Contents()->GetID() != idAmmo) ShiftContents();
    }
    else
    {
@@ -86,13 +84,14 @@ private func CreateAmmopack(idAmmo)
     CreateContents(idAmmo, Contained());
     Sound("PackAmmo.ogg",0,0,0,GetOwner(Contained()));
     DoAmmoPoints(-40);
-    while(Contents()->GetID() != idAmmo) ShiftContents();
    }
    else
    {
     PlayerMessage(GetOwner(Contained()),"$NeededPoints$", Contained(), 40);
    }
   }
+  //Hinwechseln
+  ShiftContents(Contained(),0,idAmmo);
 }
 
 public func RejectEntrance(object pObj)
@@ -137,7 +136,7 @@ public func FxAMPKRegenerateTimer(pTarget, iEffectNumber, iEffectTime)
 
 /* Lämpcheneffekt */
 
-public func FxFAMPKLightTimer(pTarget, iNo, iTime)
+public func FxAMPKLightTimer(pTarget, iNo, iTime)
 {
   if(GetAmmoPoints() < 20) return 1;
   if(!Contained())
@@ -204,12 +203,14 @@ public func FxAMPKRestockingTimer(pTarget, iEffectNumber, iEffectTime)
     if(ammoID->MaxAmmo()/10*factor > GetAmmoPoints() || GetAmmo(ammoID,target) >= highestammo)
      break;
 
-    //Nachricht für Verteilenden und Erhaltenden
-    PlayerMessage(GetOwner(Contained()),"$AmmoRecieved$", Contained(), ammoID->MaxAmmo()/10, ammoID);
+    PlayerMessage(GetOwner(Contained()),"$AmmoRecieved$", target, ammoID->MaxAmmo()/10, ammoID);
     PlayerMessage(GetOwner(target),"$AmmoRecieved$", target, ammoID->MaxAmmo()/10, ammoID);
     DoAmmo(ammoID, ammoID->MaxAmmo()/10, target);
     Sound("Resupply.ogg");
     DoAmmoPoints(-ammoID->MaxAmmo()/10*factor);
+    //Punkte
+    FindObject(AR_A) -> SetPlayerStats("Teampoints", GetOwner(Contained()), BonusPoints("Restocking",ammoID->MaxAmmo()/10*factor));
+    Contained()-> AddEffect("PointMessage",Contained(),130,1,Contained(),0,Format("{{%i}} <c 00ff00>+%d</c>", IC14, BonusPoints("Restocking",ammoID->MaxAmmo()/10*factor)));
   }
 }
 

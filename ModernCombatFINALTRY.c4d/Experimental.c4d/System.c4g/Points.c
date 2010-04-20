@@ -20,7 +20,7 @@ global func ReanimationPoints()		{return 50;}	//Punkte für Reanimation
 
 global func BonusPoints(string szType, extraData)
 {
-  if(szType == "Restocking") return extraData/2;		//Munitionswert/2 Punkte
+  if(szType == "Restocking") return extraData/3;		//Munitionswert/3 Punkte
   if(szType == "Healing") return extraData/2;			//Geheilte Menge/2 Punkte
   if(szType == "OPNeutralize") return 40;			//Punkte für Flaggenneutralisierung
   if(szType == "OPConquer") return 30;				//Punkte für Flaggeneroberung

@@ -384,7 +384,7 @@ public func FxPointMessageStart(pTarget, iNo, iTemp, szString)
   //Vars
   EffectVar(0,pTarget,iNo) = szString; //Die Message
   EffectVar(1,pTarget,iNo) = CreateObject(ARHL,0,0,-1); //Der Helper
-  //Sound (hier einfügen) <----------------------------------------
+  Sound("PointsGet.ogg");
 }
 
 public func FxPointMessageTimer(pTarget, iNo, iTime)
