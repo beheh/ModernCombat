@@ -382,7 +382,7 @@ private func LosersAlive(int iTeam)
 }
 
 /* Respawn */
-public func InitializePlayer(int iPlr, int iX, int iY, object pBase, int iTeam)
+private func InitializePlayer(int iPlr, int iX, int iY, object pBase, int iTeam)
 {
 	//Neineinein, kein Rejoin
   if(!FindObject(CHOS) && !GetTickets(iTeam))
@@ -397,7 +397,7 @@ public func InitializePlayer(int iPlr, int iX, int iY, object pBase, int iTeam)
   RelaunchPlayer(iPlr, GetCrew(iPlr), 0, iTeam, true);
 }
 
-public func RelaunchPlayer(int iPlr, object pCrew, int iMurdererPlr, int iTeam, no_relaunch)
+private func RelaunchPlayer(int iPlr, object pCrew, int iMurdererPlr, int iTeam, no_relaunch)
 {
   if(GetWinningTeam() > 0 && GetWinningTeam() != iTeam)
   {
@@ -409,7 +409,9 @@ public func RelaunchPlayer(int iPlr, object pCrew, int iMurdererPlr, int iTeam, 
     return;
   }
   DoTickets(iTeam,-1);
-  inherited(iPlr, pCrew, iMurdererPlr);
+  
+  if(!FindObject(CHOS) && !FindObject(MCSL))//Regelwähler oder Klassenwahl?
+    CreateGOCCSpawner(pCrew);
 
   Schedule(Format("DoFlag(%d, %d)", iTeam, iPlr), 1);
 }
