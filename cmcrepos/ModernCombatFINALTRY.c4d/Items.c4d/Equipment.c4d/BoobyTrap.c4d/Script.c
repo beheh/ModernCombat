@@ -63,7 +63,13 @@ public func Throw()
   iDir = user->AimAngle();
 
   //Clonk verlassen
-  Exit(0,0,10);
+  if(GetAction(user) == "Crawl")
+    if(GetDir(user) == DIR_Left)
+      Exit(0,-10,5);
+    else
+      Exit(0,10,5);
+  else
+    Exit(0,0,10);
 
   //Effekte
   Sound("BBTP_Activate.ogg", 0, 0, 50);
@@ -96,8 +102,10 @@ private func FinFuse()
   CreateParticle("PSpark",0,0,0,0,60,RGBa(255,0,0,0),this());
   laser = CreateObject(LASR,0,0,controller);
   laser -> Set(iDir,3,60,0,0,this());
-  laser -> SetClrModulation(RGBa(255,0,0,180));
-  laser ->~ Destruction();
+  if(laser) { //Falls er im Boden steckt
+    laser -> SetClrModulation(RGBa(255,0,0,180));
+    laser ->~ Destruction();
+  }
   CreateObject(MFLG,0,1,controller)->Set(this());
 
   bReady=true;
@@ -124,7 +132,8 @@ private func Defuse()
 {
   SetAction("Defused");
   RemoveObject(laser);
-  FindObject2(Find_ID(MFLG),Find_ActionTarget(this()))->RemoveObject();
+  var flag = FindObject2(Find_ID(MFLG),Find_ActionTarget(this()));
+  if(flag) RemoveObject(flag);
   SetClrModulation();
   Sound("BBTP_Charge.ogg");
   bReady=false;
