@@ -399,7 +399,7 @@ private func InitializePlayer(int iPlr, int iX, int iY, object pBase, int iTeam)
 
 private func RelaunchPlayer(int iPlr, object pCrew, int iMurdererPlr, int iTeam, no_relaunch)
 {
-  if(FindObject(CHSR)) return;
+  if(FindObject(CHOS)) return;
   if(GetWinningTeam() > 0 && GetWinningTeam() != iTeam)
   {
     if(GetCursor(iPlr)) SetPlrViewRange(0, GetCursor(iPlr));
