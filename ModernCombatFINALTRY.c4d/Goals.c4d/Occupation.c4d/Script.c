@@ -399,17 +399,17 @@ private func InitializePlayer(int iPlr, int iX, int iY, object pBase, int iTeam)
 
 private func RelaunchPlayer(int iPlr, object pCrew, int iMurdererPlr, int iTeam, no_relaunch)
 {
+  if(!FindObject(CHSR)) return;
   if(GetWinningTeam() > 0 && GetWinningTeam() != iTeam)
   {
     if(GetCursor(iPlr)) SetPlrViewRange(0, GetCursor(iPlr));
     return;
   }
   if(!GetTickets(iTeam)) {
-    //GameCall("ForceObservation",iPlr);
-    //return;
-    Log("Doof");
+    GameCall("ForceObservation",iPlr);
+    return;
   }
-  //DoTickets(iTeam,-1);
+  DoTickets(iTeam,-1);
   
   if(!FindObject(CHOS) && !FindObject(MCSL))//Regelwähler oder Klassenwahl?
     CreateGOCCSpawner(pCrew);
