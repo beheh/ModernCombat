@@ -1,6 +1,6 @@
 /*-- Standartscript --*/
 
-#strict
+#strict 2
 
 
 /* Wahl abgeschlossen */
@@ -80,7 +80,7 @@ public func RelaunchPlayer(int iPlr, object pCrew, object pKiller, int iTeam, bo
 {
   //Kein ordentlicher Spieler?
   if(GetOwner(pCrew) == NO_OWNER || iPlr == NO_OWNER || !GetPlayerName(iPlr))
-   return();
+   return;
     
   //Kein Team?
   if(!iTeam) iTeam = GetPlayerTeam(iPlr);
@@ -88,24 +88,24 @@ public func RelaunchPlayer(int iPlr, object pCrew, object pKiller, int iTeam, bo
   //Reject?
   if(!bFirst)
    if(RejectRelaunch(iPlr,iTeam))
-    return();
+    return;
   
   //Clonk tot?
   if(!GetAlive(pCrew))
    pCrew = RelaunchClonk(iPlr, pCrew);
-    
+  
   //Zufallsposition setzen
   var iX, iY;
   RelaunchPosition(iX, iY, iTeam);
   
-  //Ausrüsten
-  if(!FindObject(IGIB))
-   OnClonkEquip(pCrew);
-
   if(Contained(pCrew))
    SetPosition(iX, iY, Contained(pCrew));
   else
    SetPosition(iX, iY, pCrew);
+  
+  //Ausrüsten
+  if(!FindObject(IGIB))
+   OnClonkEquip(pCrew);
 
   if(!FindObject(MCSL) && !FindObject(CHOS))
    OnClassSelection(pCrew);
@@ -148,7 +148,7 @@ public func OnClonkEquip(object pClonk)
 {
   //Falls Clonk bereits einmal ausgerüstet, nicht nochmal ausrüsten
   if(Contents(0,pClonk))
-    return();
+    return;
   //Standardausrüstung geben: Pistole und Handgranate
   var wpn = CreateContents(PSTL, pClonk);
   wpn->DoAmmo(wpn->GetFMData(FM_AmmoID),wpn->GetFMData(FM_AmmoLoad));
@@ -163,8 +163,7 @@ public func OnClonkEquip(object pClonk)
 
 public func OnClassSelection(object pClonk)
 {
-  if(!FindObject(MCSL) && !FindObject(WPCH))
-    CreateGOCCSpawner(pClonk);
+  return;
 }
 
 /* Relaunch ablehnen */

@@ -87,6 +87,10 @@ public func ChooserFinished()
   }
   if(!FindObject(MCSL))//Klassenwahl?
     ScheduleCall(0,"CreateSpawners",1);
+    
+  for(var i = 1; i <= GetTeamCount(); i++)
+    DoTickets(i, iStartTickets);
+  _inherited(...);
 }
 
 private func CreateSpawners()
@@ -479,11 +483,4 @@ public func OnClassSelection(object pClonk)
     return;
     
   CreateGOCCSpawner(pClonk);
-}
-
-public func ChooserFinished()
-{
-  for(var i = 1; i <= GetTeamCount(); i++)
-    DoTickets(i, iStartTickets);
-  _inherited(...);
 }
