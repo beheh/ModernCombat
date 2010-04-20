@@ -460,6 +460,13 @@ protected func DoAmmoPack(id idType)
   return pack;
 }
 
+public func ReadyToFire() {
+  if(GetAction() eq "Crawl" && Contents())
+    if(Contents()->~CanAim())
+      return(true);
+  return(_inherited(...));
+}
+
 /* Schaden */
 public func OnHit(int iDmg, int iType, object pFrom)
 {
