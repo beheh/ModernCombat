@@ -52,10 +52,6 @@ public func ChooserFinished()
     if(Contents(0, spwn)->~IsEquipment())
      RemoveObject(spwn);
   }
-
-  //Nochmal alle Spieler relaunchen
-  for(var i = 0; i < GetPlayerCount(); i++)
-    RelaunchPlayer(GetPlayerByIndex(i),GetCursor(GetPlayerByIndex(i)), 0, GetPlayerTeam(GetPlayerByIndex(i)));
     
   //Ohne Klassenwahl
   if(!FindObject(MCSL))
@@ -64,6 +60,10 @@ public func ChooserFinished()
     for(var j = 0, pCrew; pCrew = GetCrew(GetPlayerByIndex(i), j) ; j++)
      GameCallEx("OnClassSelection", pCrew);
   }
+
+  //Nochmal alle Spieler relaunchen
+  for(var i = 0; i < GetPlayerCount(); i++)
+    RelaunchPlayer(GetPlayerByIndex(i),GetCursor(GetPlayerByIndex(i)), 0, GetPlayerTeam(GetPlayerByIndex(i)));
 }
 
 /* Spielerinitalisierung */
