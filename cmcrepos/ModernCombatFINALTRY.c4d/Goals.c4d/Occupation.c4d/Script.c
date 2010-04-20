@@ -405,10 +405,11 @@ private func RelaunchPlayer(int iPlr, object pCrew, int iMurdererPlr, int iTeam,
     return;
   }
   if(!GetTickets(iTeam)) {
-    GameCall("ForceObservation",iPlr);
-    return;
+    //GameCall("ForceObservation",iPlr);
+    //return;
+    Log("Doof");
   }
-  DoTickets(iTeam,-1);
+  //DoTickets(iTeam,-1);
   
   if(!FindObject(CHOS) && !FindObject(MCSL))//Regelwähler oder Klassenwahl?
     CreateGOCCSpawner(pCrew);
