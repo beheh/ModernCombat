@@ -31,16 +31,9 @@ public func Set(object target, int color)
 
 public func Update()
 {
-  if(!(GetOCF(obj) & OCF_Alive))
+  if(!(GetOCF(obj) & OCF_Alive) || Contained(obj))
    RemoveObject();
-  var percent;
-  if(IsFakeDeath(obj))
-  {
-   SetActionTargets(Contained(obj));
-   percent = Contained(obj)->GetDeathCountdown()*100/FKDT_SuicideTime;
-  }
-  else
-   percent = BoundBy(GetEnergy(obj)*100/(GetDefCoreVal("Energy","Physical",GetID(obj))/1000),0,100);
+  var percent = BoundBy(GetEnergy(obj)*100/(GetDefCoreVal("Energy","Physical",GetID(obj))/1000),0,100);
   SetObjDrawTransform(10*percent,0,-160*(100-percent),0,1000,0,0,1);
   ScheduleCall(0,"Update",1);
 }

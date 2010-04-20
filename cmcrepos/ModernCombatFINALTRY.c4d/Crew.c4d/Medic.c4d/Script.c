@@ -35,3 +35,10 @@ protected func UpdateMediHUD()
   }
   ScheduleCall(0,"UpdateMediHUD",1);
 }
+
+public func Death()
+{
+  for(var bar in FindObjects(Find_ID(HBAR),Find_Owner(GetOwner())))
+    RemoveObject(bar);
+  _inherited(...);
+}
