@@ -49,6 +49,9 @@ public func KMsg(int plr1, int plr2, object clonk)
     typeicon = STAM;
   }
 
+  //Kein Icon?
+  if(!typeicon) typeicon = SKUL;
+
   //Icon setzen
   var killicon = clonk->~KillIcon();
   if(!killicon) killicon = SKUL;
