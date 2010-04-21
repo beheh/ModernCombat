@@ -66,7 +66,7 @@ public func ExecShove()
    Fling(victim, (target->GetDir()*2-1)*2, -1);
    //Schaden durch Schlag wenn das Ziel ein Lebewesen ist
    if(GetOCF(victim) & OCF_Living)
-    DoDmg(15,DMG_Melee,victim,0,0,GetController()+1,RSHL);
+    DoDmg(15,DMG_Melee,victim,0,GetController()+1,RSHL);
    Sound("RSHL_Shove.ogg");
   }
   else

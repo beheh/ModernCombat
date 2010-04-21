@@ -16,13 +16,13 @@ protected func Initialize()
 
 protected func Activate(iByPlayer)
 {
-  var outstring = Format("$ActualPoints$"),
+  var outstring = Format("$ActualPoints$|"),
       points = Format("$Points$");
       
   for(var i = 0; i < GetPlayerCount(); i++)
   {
     var plr = GetPlayerByIndex(i);
-    outstring = Format("%s<i>%s</i>: %d %s|",outstring,GetTaggedPlayerName(plr),
+    outstring = Format("%s%s: %d %s|",outstring,GetTaggedPlayerName(plr),
                        GetPlayerStats("Totalpoints",plr), points);
   }
   

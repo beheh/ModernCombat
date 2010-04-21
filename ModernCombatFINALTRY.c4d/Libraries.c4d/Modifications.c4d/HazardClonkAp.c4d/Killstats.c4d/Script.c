@@ -37,7 +37,9 @@ public func KMsg(int plr1, int plr2, object clonk)
 
   if(type)
   {
-   if(type == DMG_Fire)
+   if(type == DMG_Melee)
+    typeicon = ROCK;
+   else if(type == DMG_Fire)
     typeicon = GSAM;
    else if(type == DMG_Explosion)
     typeicon = BOOM;
@@ -46,7 +48,8 @@ public func KMsg(int plr1, int plr2, object clonk)
    else if(type == DMG_Bio)
     typeicon = GLOB;
    else if(type == DMG_Projectile)
-    typeicon = STAM;
+    if(killicon)
+      if(killicon->~IsWeapon()) typeicon = STAM;
   }
 
   //Kein Icon?
@@ -57,14 +60,16 @@ public func KMsg(int plr1, int plr2, object clonk)
   if(!killicon) killicon = SKUL;
 
   //Nachricht konstruieren
-  if(killicon != SKUL)
+  if(killicon != SKUL || plr1 != plr2) {
     msg = Format("%s {{%i}}",GetTaggedPlayerName(plr1),killicon);
-  else
+    if(killicon != typeicon && typeicon != SKUL)
+      msg = Format("%s({{%i}})",msg,typeicon);
+    if(plr1 != plr2)
+      msg = Format("%s %s",msg,GetTaggedPlayerName(plr2));
+  }
+  else {
     msg = Format("%s",GetTaggedPlayerName(plr1));
-  if(killicon && typeicon && killicon != typeicon)
-   msg = Format("%s({{%i}})",msg,typeicon);
-  if(plr1 != plr2)
-   msg = Format("%s %s",msg,GetTaggedPlayerName(plr2));
+  }
 
   //Eventnachricht: Spieler eliminiert Spieler
   EventInfo4K(0,msg,SKUL);
