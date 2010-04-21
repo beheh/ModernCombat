@@ -2,6 +2,27 @@
 
 #strict
 
+global func MuzzleFlash(int iSize, object pClonk, int iX, int iY, int iAngle, int iColor)
+{
+  if(!pClonk) pClonk = this();
+
+  CreateParticle("MuzzleFlash3",iX,iY,
+                 +Sin(iAngle,500),
+                 -Cos(iAngle,500),
+                 iSize*5,iColor,pClonk);
+  if(!IsDark())
+    return();
+
+  if(!iColor)
+    iColor = RGB(255,255,255);
+
+  var r,g,b,a;
+  SplitRGBaValue(iColor,r,g,b,a);
+  iColor = RGBa(r,g,b,Min(a+65,255));
+
+  AddLightFlash(iSize*25, iX, iY, iColor);
+}
+
 global func SmokeBurst(int iSize, int iX, int iY, int iAngle, object pAttach, int dwColor)
 {
   if(!pAttach)
