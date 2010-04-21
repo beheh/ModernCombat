@@ -13,8 +13,8 @@ public func IsRecharging()	{return false;}
 public func Color()		{return 0;}
 public func IsDangerous4AI()	{return IsFusing();}
 public func ThrowSpeed()	{return 60;}
-public func HandX()		{return 0;}
-public func HandY()		{return 0;}
+public func HandX()		{return 3000;}
+public func HandY()		{return 0000;}
 public func HandSize()		{return 1000;}
 public func HandBarrel()	{return 0;}
 public func BarrelXOffset()	{return 0;}
