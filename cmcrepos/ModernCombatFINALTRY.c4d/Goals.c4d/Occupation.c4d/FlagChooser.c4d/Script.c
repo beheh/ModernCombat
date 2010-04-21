@@ -107,7 +107,22 @@ global func GetBestFlag(int iTeam)
 {
   var capture;
   var best;
-  for(var flag in FindObjects(Find_Func("IsFlagpole")))
+  var nflagpoles = [];
+  var dir = FindObject(GOCC)->GetDirection();
+  var poles = [];
+  var pos;
+  for(var pole in FindObjects(Find_Func("IsFlagpole"))) {
+    if(!pole) continue;
+    if(dir == GOCC_Horizontal)
+      pos = GetX(pole);
+    if(dir == GOCC_Vertical)
+      pos = GetY(pole);
+    poles[pos] = pole;
+  }
+  for(var pole in poles) {
+    nflagpoles[GetLength(nflagpoles)] = pole;
+  }
+  for(var flag in nflagpoles)
   {
     if(flag->GetTeam() == iTeam)
     {
