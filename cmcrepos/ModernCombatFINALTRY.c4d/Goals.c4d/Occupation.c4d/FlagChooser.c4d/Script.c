@@ -15,11 +15,6 @@ global func CreateGOCCSpawner(object pCrew)
   if(!pCrew) pCrew = this();
   if(!pCrew) return(false);
   
-  if(!GetLength(FindObjects(Find_Func("IsFlagpole")))) {
-    Log("ERROR: Could not find any flags");
-    return(false);
-  }
-  
   var spawner = CreateObject(OSPW);
   pCrew->Enter(spawner);
   
@@ -77,8 +72,13 @@ protected func Collection2(object pObject)
   oldvisrange = GetObjPlrViewRange(pObject);
   oldvisstate = GetPlrFogOfWar(GetOwner(pObject));
 
-  if(!flagpoles)
+  if(!flagpoles) {
     flagpoles = FindObjects(Find_Func("IsFlagpole"));
+    if(!flagpoles) {
+      Log("ERROR: Could not find any flags");
+      GameOver();
+    }
+  }
 	
   SpawnMenu();
   SelectBestFlag();
