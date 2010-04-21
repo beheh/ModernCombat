@@ -152,8 +152,8 @@ public func RejectCollect(id idObj, object pObj)
 public func ControlDig(object pCaller)
 {
   if(pCaller == clonk) return(1);
-  SetCommand(pCaller,"Context",0,0,0,this());
-  return(1);
+  // Herausnehmen per Graben: Holen-Menü öffnen
+  pCaller->SetCommand(0, "Get", this(), 0, 0, 0, 1);
 }
 
 /* Abfrage */
