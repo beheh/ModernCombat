@@ -128,7 +128,7 @@ protected func AbortCrawl()
    return(1);
   }
 
-  if(act eq "Jump")
+  if(WildcardMatch(act, "*Jump*"))
   {
    if(!CanStandUp())
     return(SetAction("CrawlFall"));
