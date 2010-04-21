@@ -1,0 +1,11 @@
+[DefCore]
+id=STRM
+Name=Thunderstorm
+Version=4,9,5
+Category=1048641
+Width=1
+Height=1
+MaxUserSelect=1
+Timer=1
+TimerCall=Timer
+Picture=0,0,64,64
