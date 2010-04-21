@@ -18,3 +18,5 @@ VertexFriction=80,80
 Rotate=1
 Rebuy=1
 Collectible=1
+Timer=10
+TimerCall=Check
