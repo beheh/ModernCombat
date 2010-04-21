@@ -73,7 +73,19 @@ protected func Collection2(object pObject)
   oldvisstate = GetPlrFogOfWar(GetOwner(pObject));
 
   if(!flagpoles) {
-    flagpoles = FindObjects(Find_Func("IsFlagpole"));
+    flagpoles = [];
+    var dir = FindObject(GOCC)->GetDirection();
+    var poles = [], pos;
+    for(var pole in FindObjects(Find_Func("IsFlagpole"))) {
+      if(dir == GOCC_Horizontal)
+        pos = GetX(pole);
+      if(dir == GOCC_Vertical)
+        pos = GetY(pole);
+      poles[pos] = pole;
+    }
+    for(var pole in poles) {
+      flagpoles[GetLength(flagpoles)] = pole;
+    }
     if(!flagpoles) {
       Log("ERROR: Could not find any flags");
       GameOver();
