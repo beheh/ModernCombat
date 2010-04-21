@@ -389,7 +389,7 @@ public func FxPointMessageStart(pTarget, iNo, iTemp, szString)
 
 public func FxPointMessageTimer(pTarget, iNo, iTime)
 {
-  CustomMessage(EffectVar(0,pTarget,iNo),EffectVar(1,pTarget,iNo),NO_OWNER,0,-iTime,
+  CustomMessage(EffectVar(0,pTarget,iNo),EffectVar(1,pTarget,iNo),NO_OWNER,0,-iTime/2,
                 RGBa(255,255,255,BoundBy(-50+iTime*5,0,255)));
   if(-50+iTime*5 > 255)
   {
