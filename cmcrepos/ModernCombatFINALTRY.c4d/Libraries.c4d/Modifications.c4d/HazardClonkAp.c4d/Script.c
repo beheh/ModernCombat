@@ -1323,6 +1323,7 @@ public func ControlContents(id idTarget)
     {
       if(!GetEffect("SelectItem",target))
         AddEffect("SelectItem",target,20,target->~SelectionTime(),0,GetID());
+      ScheduleCall(this, "CheckArmed", 1);
       return(0);
     }
   }
