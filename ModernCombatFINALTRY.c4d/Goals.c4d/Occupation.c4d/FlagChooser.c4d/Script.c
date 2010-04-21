@@ -73,19 +73,7 @@ protected func Collection2(object pObject)
   oldvisstate = GetPlrFogOfWar(GetOwner(pObject));
 
   if(!flagpoles) {
-    flagpoles = [];
-    var dir = FindObject(GOCC)->GetDirection();
-    var poles = [], pos;
-    for(var pole in FindObjects(Find_Func("IsFlagpole"))) {
-      if(dir == GOCC_Horizontal)
-        pos = GetX(pole);
-      if(dir == GOCC_Vertical)
-        pos = GetY(pole);
-      poles[pos] = pole;
-    }
-    for(var pole in poles) {
-      flagpoles[GetLength(flagpoles)] = pole;
-    }
+    flagpoles = FindObjects(Find_Func("IsFlagpole"));
     if(!flagpoles) {
       Log("ERROR: Could not find any flags");
       GameOver();
@@ -107,23 +95,7 @@ global func GetBestFlag(int iTeam)
 {
   var capture;
   var best;
-  var flagpoles = [];
-  var dir = FindObject(GOCC)->GetDirection();
-  var poles = [];
-  var pos;
-  for(var pole in FindObjects(Find_Func("IsFlagpole"))) {
-    if(!pole) continue;
-    if(dir == GOCC_Horizontal)
-      pos = GetX(pole);
-    if(dir == GOCC_Vertical)
-      pos = GetY(pole);
-    poles[pos] = pole;
-  }
-  for(var pole in poles) {
-    if(!pole) continue;
-    flagpoles[GetLength(flagpoles)] = pole;
-  }
-  for(var flag in flagpoles)
+  for(var flag in FindObjects(Find_Func("IsFlagpole")))
   {
     if(flag->GetTeam() == iTeam)
     {
