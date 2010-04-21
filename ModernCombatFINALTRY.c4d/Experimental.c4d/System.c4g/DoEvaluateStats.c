@@ -6,19 +6,19 @@
 global func DoEvaluateStats()
 {
   //Das Regelobjekt
-  var databank = FindObject(AR_A);
+  var database = FindObject(AR_A);
 
   //Für jeden Spieler
-  for(var i=0; i < databank->GetPlayerAmount(); i++)
+  for(var i=0; i < database->GetPlayerAmount(); i++)
   {
    AddEvaluationData(Format("$Complete$",
-                            databank->GetPlayerStats("Name", i),
-                            databank->GetPlayerStats("Killpoints", i),
-                            databank->GetPlayerStats("Teampoints", i),
-                            databank->GetPlayerStats("Negativepoints", i)),0);
+                            database->GetPlayerStats("Name", i),
+                            database->GetPlayerStats("Killpoints", i),
+                            database->GetPlayerStats("Teampoints", i),
+                            database->GetPlayerStats("Negativepoints", i)),0);
    AddEvaluationData(
      Format("$CompletePoints$",
-            databank->GetPlayerStats("Name", i),
-            databank->GetPlayerStats("Totalpoints", i)),0);
+            database->GetPlayerStats("Name", i),
+            database->GetPlayerStats("Totalpoints", i)),0);
   }
 }
