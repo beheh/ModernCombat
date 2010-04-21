@@ -25,12 +25,17 @@ global func CreateFlagpole(int iX, int iY, string szName, int iRange, int iSpeed
 local iStartTickets;
 local iWarningTickets;
 local aTicket;
+local iDir;
+
+static const GOCC_Horizontal = 1;
+static const GOCC_Vertical = 2;
 
 protected func Initialize()
 {
   aTicket = [];
   iStartTickets = 10;
-
+  iDir = GOCC_Horizontal;
+  
   return _inherited();
 }
 
@@ -50,6 +55,14 @@ public func Activate(iPlr)
       text = Format("%s<c %x>%s</c>: %d $Tickets$|",text,GetTeamColor(i),GetTeamName(i),GetTickets(i));
   }
   return MessageWindow(text,iPlr);
+}
+
+public func SetDirection(int iDirection) {
+  iDir = iDirection;
+}
+
+public func GetDirection() {
+  return iDir;
 }
 
 private func GetFlagCount(int iTeam, bool bCountBlankFlags)
@@ -173,6 +186,7 @@ private func InitScoreboard()
 private func UpdateScoreboard()
 {
   var i = 1;
+  var data;
   //Flaggen
   for(var flag in FindObjects(Find_ID(OFPL)))
   {
@@ -185,18 +199,27 @@ private func UpdateScoreboard()
         //color = DoColorBrightness(GetTeamColor(flag->GetTeam()), -80);
 				color = SetRGBaValue(GetTeamColor(flag->GetTeam()), 180, 0);
       }
-    SetScoreboardData(i,1,Format("<c %x>%s</c>",color,GetName(flag)), GetX(flag));
+    if(iDir == GOCC_Horizontal)
+      data = GetX(flag);
+    if(iDir == GOCC_Vertical)
+      data = GetY(flag);
+    SetScoreboardData(i,1,Format("<c %x>%s</c>",color,GetName(flag)), data);
     SetScoreboardData(i,2,Format("%d%", flag->GetProcess()), flag->GetProcess());
     i++;
   }
+  var base;
+  if(iDir == GOCC_Horizontal)
+    base = LandscapeWidth();
+  if(iDir == GOCC_Vertical)
+    base = LandscapeHeight();
   if(i != 1) {
-    SetScoreboardData(i, 1, "", LandscapeWidth()+1); i++;
+    SetScoreboardData(i, 1, "", base+1); i++;
   }
   //Tickets
   for(var j = 1; j <= GetTeamCount(); j++)
   {
-    SetScoreboardData(i, 1, Format("<c %x>%s</c>", GetTeamColor(j), GetTeamName(j)), i-GetFlagCount(j)+LandscapeWidth()+2);
-    SetScoreboardData(i, 2, Format("%d {{TIKT}}", GetTickets(j)), GetTickets(j));
+    SetScoreboardData(i, 1, Format("<c %x>%s</c>", GetTeamColor(j), GetTeamName(j)), base+2+GetFlagCount(j));
+    SetScoreboardData(i, 2, Format("%d {{TIKT}}", GetTickets(j)), base+2+GetTickets(j));
     i++;
   }
   SortScoreboard(1);
@@ -282,7 +305,7 @@ public func IsFulfilled()
 
     Evaluation();
     Message("@$WinMsg$",0 , GetTeamColor(iWinningTeam), GetTeamName(iWinningTeam));
-    Sound("Cheer.ogg",true);
+    Sound("Cheer.ogg", true);
     Schedule("GameOver()",150);
     return true;
   }
