@@ -44,4 +44,4 @@ SkyScrollMode=1
 Wind=20,4,-100,100
 
 [Environment]
-Objects=EGRS=1;DARK=1
+Objects=EGRS=1;WRAE=1;DARK=1

@@ -41,4 +41,4 @@ Wind=20,4,-100,100
 Animal=FISH=3;BIRD=2
 
 [Environment]
-Objects=DARK=1 
+Objects=WRAE=1;DARK=1
