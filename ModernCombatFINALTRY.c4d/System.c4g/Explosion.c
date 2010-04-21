@@ -110,7 +110,10 @@ global func BlastObjects2(int x, int y, int level, object container, int cause_p
    {
     BlastObject(level, container, cause_plr_plus_one);
     for (obj in FindObjects(Find_Container(container), Find_Layer(layer)))
-     if(obj) DoDmg(level, DMG_Explosion, obj, 0, cause_plr_plus_one-1);
+     if(obj) {
+       DoDmg(level, DMG_Explosion, obj, 0, cause_plr_plus_one); //Muss um eins erhöht sein!
+       if(this) obj->~KillIcon(GetID(this));
+     }
    }
   }
   else
@@ -172,7 +175,7 @@ global func BlastObject(int level, object obj, int cause_plr_plus_one)
   if(level)
    obj->~LastDamageType(DMG_Explosion);
   if(this)
-   obj->~KillIcon(GetID());
+   obj->~KillIcon(GetID(this));
   return inherited(level,obj,cause_plr_plus_one,...);
 }
 

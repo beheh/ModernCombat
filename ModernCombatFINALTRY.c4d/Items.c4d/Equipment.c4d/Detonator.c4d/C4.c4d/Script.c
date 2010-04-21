@@ -104,7 +104,7 @@ public func BlowUp()
   
   //Extraschaden für Strukturen
   for(var obj in FindObjects(Find_Distance(50), Find_Category(C4D_Structure | C4D_Vehicle)))
-   DoDmg(BoundBy(InvertA1(ObjectDistance(obj), 100),0,60), DMG_Explosion, obj, 0, GetOwner());
+   DoDmg(BoundBy(InvertA1(ObjectDistance(obj), 100),0,60), DMG_Explosion, obj, 0, GetOwner()+1, GetID());
 
   Explode(BlastRadius());
   RemoveObject();
