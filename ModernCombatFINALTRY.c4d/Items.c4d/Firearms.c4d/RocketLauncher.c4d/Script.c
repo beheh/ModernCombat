@@ -106,10 +106,9 @@ public func OnReload()
   Sound("RTLR_Reload.ogg");
 }
 
-protected func Selection()
+public func OnSelect()
 {
   Sound("RTLR_Charge.ogg");
-  return _inherited();
 }
 
 /* Raketenverfolgung */
