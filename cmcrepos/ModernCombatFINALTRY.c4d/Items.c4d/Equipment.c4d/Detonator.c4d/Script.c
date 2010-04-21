@@ -11,7 +11,6 @@ public func IsDrawable()	{return true;}
 public func IsEquipment()	{return true;}
 public func GetPackAmount()	{return amount;}
 
-
 /* Initalisierung */
 
 protected func Initialize()
@@ -116,8 +115,7 @@ public func Activate()
   SetPicture(10,5,39,64);
   Schedule("SetPicture(64,6,64,64)", 25);
   Sound("C4PA_Ignition.ogg");
-  if(amount <= 0)
-   Schedule("RemoveObject()", 25);
+  Check();
 }
 
 /* HUD */
@@ -159,6 +157,12 @@ public func RejectEntrance(object pObj)
   if(pack = FindObject2(Find_Container(pObj), Find_ID(C4PA)))
    if(pack->DoPackAmount() >= 5)
     return 1;
+}
+
+/* TimerCall */
+protected func Check() {
+  if(amount <= 0 && !FindObject2(Find_ID(C4EX), Find_Func("GetPacket", this)))
+    RemoveObject();
 }
 
 /* Sounds */
