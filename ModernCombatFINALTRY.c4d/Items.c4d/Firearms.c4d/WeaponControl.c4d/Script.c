@@ -192,67 +192,6 @@ private func ManualEmpty(unused,fm)
   Empty2(GetSlot(fm));
 }
 
-public func WeaponMenu(int iFM, int iSel)
-{
-  if(!iSel)
-  {
-    if(GetMenu(GetUser()) == GetID())
-      iSel = GetMenuSelection(GetUser());
-    else
-      iSel = -1;
-  }
-  else
-  {
-    iSel--;
-  }
-
-  CloseMenu(GetUser());
-  CreateMenu(GetID(), GetUser(), 0, 0, " ", 0, 0, true);
-  
-  AddMenuItem ("$Empty$","ManualEmpty",WICO,GetUser(),0,iFM,0,2,WICO_Empty);
-  AddMenuItem ("$Reload$","ManualReload",WICO,GetUser(),0,iFM,0,2,WICO_Reload);//Std.
-  
-  /*if((!GetAmmo2(GetSlot(iFM)) || GetFMData(FM_SingleReload,iFM)) && !IsReloading())
-    AddMenuItem ("$Reload$","ManualReload",WICO,GetUser(),0,iFM,0,2,WICO_Reload);
-  else
-    AddMenuItem ("$Empty$","ManualEmpty",WICO,GetUser(),0,iFM,0,2,WICO_Empty);*/
-
-  FTMenu(iFM);
-  
-  //AddMenuItem ("$AmmoType$","SAMenu",WICO,GetUser(),0,iFM,0,2,WICO_ATSelect);
-  //AddMenuItem ("<Zieltechnik>","FTMenu()",WICO,GetUser(),0,0,0,2,WICO_Aiming);//Noch nicht.
-  
-  CustomWMItems(iFM);
-  
-  SetMenuSize (0,3, GetUser());
-  
-  if(iSel >= 0)
-    SelectMenuItem(iSel,GetUser());
-  else
-    SelectMenuItem(1,GetUser());
-  
-  return(true);
-}
-
-public func SAMenu(unused, fm)
-{
-  if(GetFMData(FM_AmmoID) != STAM) return();
-
-  CloseMenu(GetUser());
-  CreateMenu(GetID(), GetUser(), 0, 0, "$AmmoType$",0,C4MN_Style_Context);
-  
-  var sel,j = 0;
-  for(var i = 0, idR; idR = GetDefinition(i, C4D_Vehicle) ; i++)
-    if(idR->~IsSpecialAmmo())
-    {
-      if(idR == idBulletID) sel = j;
-      AddMenuItem(GetName(0,idR),"SetSpecialAmmo2",idR,GetUser(),0,fm,GetDesc(0,idR));
-      j++;
-    }
-
-  SelectMenuItem (sel,GetUser());
-}
-
 public func SetSpecialAmmo2(id idType, fm)
 {
   Sound("WPN2_Switch*.ogg");
@@ -1128,7 +1067,7 @@ public func GetSpread()
   return(user->GetSpread());
 }
 
-protected func Selection(object pContainer)
+public func Selection(object pContainer)
 {
   //Startstreuung hinzufügen
   var diff = GetFMData(FM_StartSpread) - GetSpread();

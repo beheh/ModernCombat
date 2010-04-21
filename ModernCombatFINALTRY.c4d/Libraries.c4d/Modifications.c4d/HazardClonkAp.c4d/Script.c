@@ -61,11 +61,6 @@ protected func ControlDownDouble()
   return(_inherited(szCommand, pTarget, iTx, iTy, pTarget2, Data) ); 
 }*/
 
-private func DeleteCrosshair()
-{
-  //... Ô.o ist was?
-}
-
 /* neue Waffen-Steuerung */
 /*public func UpdateCharge()
 {
@@ -1346,3 +1341,28 @@ protected func ContentsDestruction()      // Wenn Inhaltsobjekte verschwinden
 protected func CheckContentsDestruction() {
   if(Contents(0)) Contents(0)->~Selection(this());
 }
+
+protected func ControlSpecial()
+  {
+  [$CtrlInventoryDesc$|Image=INVT]
+  if(!Contents()) return();
+  // Hardcode: BR-Bombe darf man nicht abwählen
+  if(Contents()->GetID() == GBRB)
+    return();
+  // wenn wir zielen, wollen wir nur Waffen haben
+  if(IsAiming() && Contents(0)->~IsWeapon())
+  {
+  	// nächste Waffe suchen
+  	for(var i = 1; i < ContentsCount(); i++)
+  		if(Contents(i)->~IsWeapon())
+  		{
+  			// zur Waffe wechseln
+  			ShiftContents(0,0,Contents(i)->GetID(),true);
+  			break;
+  		}
+  }
+  else
+	  // Inventory verschieben
+  	ShiftContents(0,0,0,1);
+  UpdateCharge();
+  }
