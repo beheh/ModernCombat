@@ -53,7 +53,7 @@ public func Incineration()
 {
   Extinguish();
   Sound("ClonkBurn*.ogg");
-  if(GetAction() == "Death") return(0);//Fakedeath
+  if(GetAction() == "Death") return(0); //Fakedeath
   Schedule("DoDmg(5,DMG_Fire,0,1)",1,20,this());
   AddFireEffect(this(),30,FIRE_Red,1);
 }
@@ -389,9 +389,9 @@ public func FxPointMessageStart(pTarget, iNo, iTemp, szString)
 
 public func FxPointMessageTimer(pTarget, iNo, iTime)
 {
-  CustomMessage(EffectVar(0,pTarget,iNo),EffectVar(1,pTarget,iNo),NO_OWNER,0,-iTime/5,
-                RGBa(255,255,255,BoundBy(-300+iTime*5,0,255)));
-  if(-300+iTime*5 > 255)
+  CustomMessage(EffectVar(0,pTarget,iNo),EffectVar(1,pTarget,iNo),NO_OWNER,0,-iTime,
+                RGBa(255,255,255,BoundBy(-50+iTime*5,0,255)));
+  if(-50+iTime*5 > 255)
   {
     RemoveObject(EffectVar(1,pTarget,iNo));
     return -1;
