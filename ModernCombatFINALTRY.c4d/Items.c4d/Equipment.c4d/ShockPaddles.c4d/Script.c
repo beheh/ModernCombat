@@ -97,7 +97,8 @@ func Use(caller)
  
     //Eventnachricht: Spieler reanimiert Spieler
     EventInfo4K(0,Format("$MsgReanimation$",GetTaggedPlayerName(GetOwner(obj)),GetTaggedPlayerName(GetOwner(caller))),FKDT);
-    
+
+    //Punkte bei Belohnungssystem
     if(FindObject(AR_A))
     {
       FindObject(AR_A) -> SetPlayerStats("Teampoints", GetOwner(caller), ReanimationPoints());
