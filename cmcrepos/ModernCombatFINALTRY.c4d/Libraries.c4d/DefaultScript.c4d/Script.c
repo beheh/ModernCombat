@@ -4,8 +4,8 @@
 
 
 /* Leere Funktionen */
-/*public func OnClassSelection() {}
-public func OnWeaponChoice() {}**/
+public func OnClassSelection() {}
+public func OnWeaponChoice() {}
 
 /* Wahl abgeschlossen */
 

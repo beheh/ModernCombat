@@ -136,6 +136,7 @@ func InitClassMenu(object pClonk)
 
 func Finish(object pClonk)
 {
+  if(!pClonk || !Contained(pClonk)) return;
   var iPlayer = GetOwner(pClonk);
 
   //Menü schließen
@@ -160,7 +161,7 @@ func Finish(object pClonk)
   pClonk->~UpdateCharge();
 
   //Aus Spawnpoint entlassen
-  RemoveObject(Contained(pClonk),1);
+  Contained(pClonk)->RemoveObject(0,true);
 
   //Sound
   Sound("RSHL_Deploy.ogg",pClonk);
