@@ -35,6 +35,10 @@ public func KMsg(int plr1, int plr2, object clonk)
   var msg;
   var typeicon,type = clonk->~LastDamageType();
 
+  //Icon setzen
+  var killicon = clonk->~KillIcon();
+  if(!killicon) killicon = SKUL;
+
   if(type)
   {
    if(type == DMG_Fire)
@@ -54,10 +58,6 @@ public func KMsg(int plr1, int plr2, object clonk)
 
   //Kein Icon?
   if(!typeicon) typeicon = SKUL;
-
-  //Icon setzen
-  var killicon = clonk->~KillIcon();
-  if(!killicon) killicon = SKUL;
 
   //Nachricht konstruieren
   if(killicon != SKUL || plr1 != plr2) {
