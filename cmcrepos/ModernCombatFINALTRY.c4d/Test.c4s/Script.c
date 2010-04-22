@@ -61,17 +61,11 @@ func Initialize()
   var selfd = CreateObject (SEGU, 75, 245, -1);
   selfd->Arm(MISA);
   selfd->SetAutoRepair(525);
-  CreateObject (CONS, 195, 340, -1)
-  ->Set(selfd);
+  CreateObject (CONS, 195, 340, -1)->Set(selfd);
   var selfd = CreateObject (SEGU, 855, 70, -1);
   selfd->Arm(MG2A);
   selfd->SetAutoRepair(525);
-  CreateObject (CONS, 855, 180, -1)
-  ->Set(selfd);
-
-
-
-
+  CreateObject (CONS, 855, 175, -1)->Set(selfd);
 
   //CMC Theme abspielen
   //Sound("CMCTheme.ogg");

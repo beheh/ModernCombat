@@ -31,7 +31,6 @@ global func GetGOCCDirection() {
   return GOCC_Horizontal;
 }
 
-
 global func GetGOCCFlags() {
   var list = [];
   var pos = 0;
@@ -436,10 +435,12 @@ private func InitializePlayer(int iPlr, int iX, int iY, object pBase, int iTeam)
   RelaunchPlayer(iPlr, GetCrew(iPlr), 0, iTeam, true);
 }
 
-private func RelaunchPlayer(int iPlr, object pCrew, int iMurdererPlr, int a, no_relaunch)
+private func RelaunchPlayer(int iPlr, object pCrew, int iMurdererPlr, int iTeam, no_relaunch)
 {
   if(FindObject(CHOS)) return;
-  var iTeam = GetPlayerTeam(iPlr);
+
+  //Kein Team?
+  if(!iTeam) iTeam = GetPlayerTeam(iPlr);
   
   if(GetWinningTeam() > 0 && GetWinningTeam() != iTeam)
   {
@@ -451,9 +452,9 @@ private func RelaunchPlayer(int iPlr, object pCrew, int iMurdererPlr, int a, no_
     return;
   }
   DoTickets(iTeam,-1);
-  
-  if(!FindObject(CHOS) && !FindObject(MCSL))//Regelwähler oder Klassenwahl?
-    CreateGOCCSpawner(pCrew);
+ 
+  //if(!FindObject(CHOS) && !FindObject(MCSL) && !FindObject(WPCH)) //Regelwähler oder Klassenwahl?
+  //  CreateGOCCSpawner(pCrew);
     
   Schedule(Format("DoFlag(%d, %d)", iTeam, iPlr), 1);
 }
@@ -461,13 +462,9 @@ private func RelaunchPlayer(int iPlr, object pCrew, int iMurdererPlr, int a, no_
 public func DoFlag(int iTeam, int iPlr) {
   var pCrew = GetCrew(iPlr);
   var pObject = Contained(pCrew);
-  if(!pObject) {
-    pObject = pCrew;
+  if(pObject) {
+    SetVisibility(VIS_None, pObject);
   }
-  else {
-    SetVisibility(VIS_None, pCrew);
-  }
-  SetVisibility(VIS_None, pObject);
 
   if(!ShowFlagpole(GetBestFlag(iTeam), pCrew, pObject)) {
     SetPlrViewRange(0, pCrew);
@@ -492,11 +489,6 @@ public func OnClassSelection(object pClonk)
 {
   if(FindObject(CHOS))
     return;
-    
-  CreateGOCCSpawner(pClonk);
-}
 
-public func OnWeaponChoice(object pClonk)
-{
   CreateGOCCSpawner(pClonk);
 }

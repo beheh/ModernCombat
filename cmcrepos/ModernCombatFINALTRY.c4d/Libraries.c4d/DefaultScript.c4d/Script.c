@@ -4,8 +4,8 @@
 
 
 /* Leere Funktionen */
-public func OnClassSelection() {}
-public func OnWeaponChoice() {}
+/*public func OnClassSelection() {}
+public func OnWeaponChoice() {}**/
 
 /* Wahl abgeschlossen */
 
@@ -62,7 +62,7 @@ public func ChooserFinished()
   {
    for(var i = 0; i < GetPlayerCount(); i++)
     for(var j = 0, pCrew; pCrew = GetCrew(GetPlayerByIndex(i), j) ; j++)
-     OnClassSelection(pCrew);
+     GameCallEx("OnClassSelection",pCrew);
   }
 
   //Nochmal alle Spieler relaunchen
@@ -111,8 +111,8 @@ public func RelaunchPlayer(int iPlr, object pCrew, object pKiller, int iTeam, bo
   else
    SetPosition(iX, iY, pCrew);
 
-  if(!FindObject(MCSL) && !FindObject(CHOS))
-   OnClassSelection(pCrew);
+  if(!FindObject(MCSL) && !FindObject(WPCH) && !FindObject(CHOS))
+   GameCallEx("OnClassSelection",pCrew);
 }
 
 public func RelaunchClonk(int iPlr, object pCursor)
