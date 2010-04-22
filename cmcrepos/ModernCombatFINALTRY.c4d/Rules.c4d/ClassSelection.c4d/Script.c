@@ -161,7 +161,7 @@ func Finish(object pClonk)
   pClonk->~UpdateCharge();
 
   //Aus Spawnpoint entlassen
-  Contained(pClonk)->RemoveObject(0,true);
+  if(Contained(pClonk) && Contained(pClonk) != this) RemoveObject(Contained(pClonk),true);
 
   //Sound
   Sound("RSHL_Deploy.ogg",pClonk);

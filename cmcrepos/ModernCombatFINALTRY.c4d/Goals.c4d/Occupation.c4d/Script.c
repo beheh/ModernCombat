@@ -315,9 +315,11 @@ public func IsFulfilled()
   //Nur ein Team am Leben? (-> Gewonnen!)
   if(iWinningTeam > 0)
   {
-    if(LosersAlive(iWinningTeam))
-      return false;
-
+    for(var i = 0; i < GetTeamCount(); i++)
+      if(GetTeamByIndex(i) != iWinningTeam) EliminateTeam(GetTeamByIndex(i));
+   
+    if(LosersAlive(iWinningTeam)) return;
+         
     Evaluation();
     Message("@$WinMsg$",0 , GetTeamColor(iWinningTeam), GetTeamName(iWinningTeam));
     Sound("Cheer.ogg", true);
@@ -357,7 +359,7 @@ private func GetWinningTeam() {
         {
           if(Contained(clonk))
           {
-            if((GetID(Contained(clonk)) == OSPW && GetAction(Contained(clonk)) != "Counter") || GetID(Contained(clonk)) == TIM2)
+            if((GetID(Contained(clonk)) == OSPW && GetAction(Contained(clonk)) != "Counter") || GetID(Contained(clonk)) == TIM1 || GetID(Contained(clonk)) == TIM2)
               continue;
             alive[i]++;
             break;
@@ -442,19 +444,20 @@ private func RelaunchPlayer(int iPlr, object pCrew, int iMurdererPlr, int iTeam,
   //Kein Team?
   if(!iTeam) iTeam = GetPlayerTeam(iPlr);
   
-  if(GetWinningTeam() > 0 && GetWinningTeam() != iTeam)
-  {
+  if(GetTickets(iTeam) <= 0) {
     if(GetCursor(iPlr)) SetPlrViewRange(0, GetCursor(iPlr));
     GameCall("ForceObservation",iPlr);
     return;
   }
-  if(!GetTickets(iTeam)) {
-    GameCall("ForceObservation",iPlr);
+  if(GetWinningTeam() > 0 && GetWinningTeam() != iTeam) {
+    if(GetCursor(iPlr)) SetPlrViewRange(0, GetCursor(iPlr));
     return;
   }
+  
+  
   DoTickets(iTeam,-1);
  
-  //if(!FindObject(CHOS) && !FindObject(MCSL) && !FindObject(WPCH)) //Regelwähler oder Klassenwahl?
+  //if(!FindObject(CHOS) && !FindObject(MCSL)) //Regelwähler oder Klassenwahl?
   //  CreateGOCCSpawner(pCrew);
     
   Schedule(Format("DoFlag(%d, %d)", iTeam, iPlr), 1);
