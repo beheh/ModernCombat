@@ -160,7 +160,10 @@ public func RejectEntrance(object pObj)
 }
 
 /* TimerCall */
-protected func Check() {
+
+protected func Check()
+{
+  //Grund zum existieren?
   if(amount <= 0 && !FindObject2(Find_ID(C4EX), Find_Func("GetPacket", this)))
     RemoveObject();
 }
