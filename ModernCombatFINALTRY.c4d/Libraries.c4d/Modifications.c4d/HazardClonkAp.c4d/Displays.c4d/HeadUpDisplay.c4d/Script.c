@@ -243,7 +243,7 @@ private func UpdateAmmoBag(object ammobag, object weapon, object who)
 
    var color = "eeeeee";
     if(!ammo) color = "777777";
-     if(allAmmo[i] == ammoid || is_grenade)
+     if(allAmmo[i] == ammoid || (is_grenade && handle_grenade))
      {
       color = "ffff00";
       if(!ammo) color = "ff0000";
