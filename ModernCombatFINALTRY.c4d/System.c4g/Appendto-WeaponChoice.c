@@ -17,8 +17,9 @@ func Initialize() {
   aWare = CreateArray();
   aCount = CreateArray();
   AddWares("IsWeapon2",-1);
-  AddWares("IsEquipment",-1);
-  SortWare("IsWeapon2","IsEquipment");
+  AddWares("IsGrenade",-1);
+  AddWares("IsCMCEquipment",-1);
+  SortWare("IsWeapon2","IsGrenade","IsCMCEquipment");
 }
 
 func RelaunchPlayer(int iPlr, object pClonk) {
@@ -68,11 +69,22 @@ func RelaunchPlayer(int iPlr, object pClonk) {
   return();
 }
 
-//Alle Waffenmodi auffüllen
 func Finish(id unused, object pClonk, bool bRight) {
-  _inherited(...);
+  if(bRight)
+    return(MenuQueryCancel(0,pClonk));
+
+  PlayerMessage(GetOwner(spawnclonk),"");
+  spawnclonk = 0;
+  spawntimer = 0;
   
-  GameCallEx("OnWeaponChoice", pClonk);
+  var iPlayer = GetOwner(pClonk);
+  
+  //Auswahl löschen
+  WeaponChoice[iPlayer] = CreateArray();
+  //Menü schließen
+  CloseMenu(GetCursor(iPlayer));
+  //Sound! :D
+  Sound("Cash",1,0,0,iPlayer);
   
   //Alle Waffen auffüllen
   for(var wpn in FindObjects(Find_Container(pClonk), Find_Func("IsWeapon")))
@@ -90,4 +102,11 @@ func Finish(id unused, object pClonk, bool bRight) {
    }
    wpn->~CycleFM(+1); //Noch ein letztes Mal
   }
+  
+  pClonk->~UpdateCharge();
+
+  GameCallEx("OnClassSelection", pClonk);
+  
+  //Wieder angreifbar machen
+  RemoveObject(Contained(pClonk),1);
 }
