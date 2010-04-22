@@ -20,21 +20,45 @@ global func CreateFlagpole(int iX, int iY, string szName, int iRange, int iSpeed
   return point;
 }
 
+/* Flaggen */
+
+static const GOCC_Horizontal = 1;
+static const GOCC_Vertical = 2;
+
+global func GetGOCCDirection() {
+  var call = GameCall("OccupationDir");
+  if(call) return call;
+  return GOCC_Horizontal;
+}
+
+
+global func GetGOCCFlags() {
+  var list = [];
+  var pos = 0;
+  for(var flag in FindObjects(Find_Func("IsFlagpole"))) {
+    if(GetGOCCDirection() == GOCC_Horizontal)
+      pos = GetX(flag);
+    if(GetGOCCDirection() == GOCC_Vertical)
+      pos = GetY(flag);
+    if(flag) list[pos] = flag;
+  }
+  var flags = [];
+  for(var flag in list) {
+    if(flag) flags[GetLength(flags)] = flag;
+  }
+  return flags;
+}
+
 /* Allgemein */
 
 local iStartTickets;
 local iWarningTickets;
 local aTicket;
-local iDir;
-
-static const GOCC_Horizontal = 1;
-static const GOCC_Vertical = 2;
 
 protected func Initialize()
 {
   aTicket = [];
   iStartTickets = 10;
-  iDir = GOCC_Horizontal;
   
   return _inherited();
 }
@@ -57,15 +81,7 @@ public func Activate(iPlr)
   return MessageWindow(text,iPlr);
 }
 
-public func SetDirection(int iDirection) {
-  iDir = iDirection;
-}
-
-public func GetDirection() {
-  return iDir;
-}
-
-private func GetFlagCount(int iTeam, bool bCountBlankFlags)
+public func GetFlagCount(int iTeam, bool bCountBlankFlags)
 {
   var count = 0;
   for(var flag in FindObjects(Find_Func("IsFlagpole")))
@@ -188,7 +204,7 @@ private func UpdateScoreboard()
   var i = 1;
   var data;
   //Flaggen
-  for(var flag in FindObjects(Find_ID(OFPL)))
+  for(var flag in GetGOCCFlags())
   {
     var color=RGB(255,255,255);
     if(flag->GetTeam())
@@ -199,18 +215,18 @@ private func UpdateScoreboard()
         //color = DoColorBrightness(GetTeamColor(flag->GetTeam()), -80);
 				color = SetRGBaValue(GetTeamColor(flag->GetTeam()), 180, 0);
       }
-    if(iDir == GOCC_Horizontal)
+    if(GetGOCCDirection() == GOCC_Horizontal)
       data = GetX(flag);
-    if(iDir == GOCC_Vertical)
+    if(GetGOCCDirection() == GOCC_Vertical)
       data = GetY(flag);
     SetScoreboardData(i,1,Format("<c %x>%s</c>",color,GetName(flag)), data);
     SetScoreboardData(i,2,Format("%d%", flag->GetProcess()), flag->GetProcess());
     i++;
   }
   var base;
-  if(iDir == GOCC_Horizontal)
+  if(GetGOCCDirection() == GOCC_Horizontal)
     base = LandscapeWidth();
-  if(iDir == GOCC_Vertical)
+  if(GetGOCCDirection() == GOCC_Vertical)
     base = LandscapeHeight();
   if(i != 1) {
     SetScoreboardData(i, 1, "", base+1); i++;
@@ -420,9 +436,11 @@ private func InitializePlayer(int iPlr, int iX, int iY, object pBase, int iTeam)
   RelaunchPlayer(iPlr, GetCrew(iPlr), 0, iTeam, true);
 }
 
-private func RelaunchPlayer(int iPlr, object pCrew, int iMurdererPlr, int iTeam, no_relaunch)
+private func RelaunchPlayer(int iPlr, object pCrew, int iMurdererPlr, int a, no_relaunch)
 {
   if(FindObject(CHOS)) return;
+  var iTeam = GetPlayerTeam(iPlr);
+  
   if(GetWinningTeam() > 0 && GetWinningTeam() != iTeam)
   {
     if(GetCursor(iPlr)) SetPlrViewRange(0, GetCursor(iPlr));
@@ -436,7 +454,7 @@ private func RelaunchPlayer(int iPlr, object pCrew, int iMurdererPlr, int iTeam,
   
   if(!FindObject(CHOS) && !FindObject(MCSL))//Regelwähler oder Klassenwahl?
     CreateGOCCSpawner(pCrew);
-
+    
   Schedule(Format("DoFlag(%d, %d)", iTeam, iPlr), 1);
 }
 
@@ -450,6 +468,7 @@ public func DoFlag(int iTeam, int iPlr) {
     SetVisibility(VIS_None, pCrew);
   }
   SetVisibility(VIS_None, pObject);
+
   if(!ShowFlagpole(GetBestFlag(iTeam), pCrew, pObject)) {
     SetPlrViewRange(0, pCrew);
   }
