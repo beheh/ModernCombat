@@ -73,7 +73,7 @@ protected func Collection2(object pObject)
   oldvisstate = GetPlrFogOfWar(GetOwner(pObject));
 
   if(!flagpoles) {
-    flagpoles = FindObjects(Find_Func("IsFlagpole"));
+    flagpoles = GetGOCCFlags();
     if(!flagpoles) {
       Log("ERROR: Could not find any flags");
       GameOver();
@@ -91,16 +91,50 @@ private func SelectBestFlag()
     SetSelected(flag);
 }
 
+global func GetFlagDistance(object pFlag) {
+  var flags = GetGOCCFlags();  
+  var i = 0;
+  while(i < GetLength(flags)-1) {
+    if(pFlag == flags[i]) {
+      break;
+    } 
+    i++;
+  }
+  var down = i;
+  var up = i;
+  var iTeam = pFlag->GetTeam();
+  var dist = 0;
+  while(down >= 0 || up <= GetLength(flags)-1) {
+    if(flags[down] && down >= 0)
+		  if(flags[down]->GetTeam() != iTeam) {
+		    dist = i - down;
+		    break;
+		  }
+    down--;
+		if(flags[up] && up >= 0)
+		  if(flags[up]->GetTeam() != iTeam) {
+		    dist = up - i;
+		    break;
+		  }
+    up++;
+  }
+  return(dist);
+}
+
 global func GetBestFlag(int iTeam)
 {
   var capture;
   var best;
-  for(var flag in FindObjects(Find_Func("IsFlagpole")))
+  var dist;
+  
+  var flags = GetGOCCFlags();  
+  for(var flag in flags)
   {
     if(flag->GetTeam() == iTeam)
     {
-      if(flag->GetProcess() > capture)//Wer bietet mehr?
+      if(flag->GetProcess() > capture || GetFlagDistance(flag) < dist) //Wer bietet mehr?
       {
+        dist = GetFlagDistance(flag);
         capture = flag->GetProcess();
         best = flag;
       }
@@ -229,8 +263,8 @@ protected func Timer()
 
 global func ShowFlagpole(object pObject, object pCrew, object pContainer, int iMaxrange)
 {
-  if(!pCrew) return();
-  if(!pObject) return();
+  if(!pCrew) return;
+  if(!pObject) return;
   if(!iMaxrange) iMaxrange = 200;
   
   if(pObject->GetTeam() != GetPlayerTeam(GetOwner(pCrew)))
