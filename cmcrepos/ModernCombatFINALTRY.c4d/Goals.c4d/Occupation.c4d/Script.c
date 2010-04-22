@@ -424,12 +424,7 @@ private func LosersAlive(int iTeam)
 /* Respawn */
 private func InitializePlayer(int iPlr, int iX, int iY, object pBase, int iTeam)
 {
-	//Neineinein, kein Rejoin
-  if(!FindObject(CHOS) && !GetTickets(iTeam))
-  {
-    GameCall("ForceObservation",iPlr);
-    return false;
-  }
+  if(IsFulfilled()) return EliminatePlayer(iPlr);
 
   //Verfeindung setzen
   Hostility(iPlr);
@@ -440,6 +435,8 @@ private func InitializePlayer(int iPlr, int iX, int iY, object pBase, int iTeam)
 private func RelaunchPlayer(int iPlr, object pCrew, int iMurdererPlr, int iTeam, no_relaunch)
 {
   if(FindObject(CHOS)) return;
+
+  if(IsFulfilled()) return EliminatePlayer(iPlr);
 
   //Kein Team?
   if(!iTeam) iTeam = GetPlayerTeam(iPlr);
