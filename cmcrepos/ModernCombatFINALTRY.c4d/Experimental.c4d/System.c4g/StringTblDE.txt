@@ -1,2 +1,0 @@
-Complete=%s -  Gefechtspunkte: <c 00ff00>+%d</c>  Teampunkte: <c 00ff00>+%d</c>  Minuspunkte: <c ff0000>%d</c>
-CompletePoints=<i>%s</i> hat eine Gesammtpunktzahl von <c ffbb00>%d</c>!
