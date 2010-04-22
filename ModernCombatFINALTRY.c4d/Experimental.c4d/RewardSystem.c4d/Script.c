@@ -11,7 +11,7 @@ public func IsChooseable()	{return true;}
 
 protected func Initialize()
 {
-  aData=CreateArray(0);
+  aData = CreateArray(0);
 }
 
 protected func Activate(iByPlayer)
@@ -61,4 +61,26 @@ public func GetPlayerStats(string szType, int iPlr)
 public func GetPlayerAmount()
 {
   return GetLength(aData);
+}
+
+global func DoEvaluateStats()
+{
+  //Das Regelobjekt
+  var database = FindObject(AR_A);
+  
+  if(!database) return 0;
+
+  //Für jeden Spieler
+  for(var i=0; i < database->GetPlayerAmount(); i++)
+  {
+   AddEvaluationData(Format("$Complete$",
+                            database->GetPlayerStats("Name", i),
+                            database->GetPlayerStats("Killpoints", i),
+                            database->GetPlayerStats("Teampoints", i),
+                            database->GetPlayerStats("Negativepoints", i)),0);
+   AddEvaluationData(
+     Format("$CompletePoints$",
+            database->GetPlayerStats("Name", i),
+            database->GetPlayerStats("Totalpoints", i)),0);
+  }
 }
