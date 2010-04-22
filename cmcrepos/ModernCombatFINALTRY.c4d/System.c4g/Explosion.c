@@ -174,11 +174,12 @@ global func BlastObject(int level, object obj, int cause_plr_plus_one)
 {
   if(level)
    obj->~LastDamageType(DMG_Explosion);
+  obj->~SetKiller(cause_plr_plus_one-1);
   var icon;
   if(this) icon = this->~GetKillIcon();
   if(!icon && this) icon = this->GetID();
   if(icon) obj->~KillIcon(icon);
-  return inherited(level,obj,cause_plr_plus_one,...);
+  return inherited(...);
 }
 
 global func DamageObjects(int iDistance, int iDamage, object pObject, int iX, int iY)
