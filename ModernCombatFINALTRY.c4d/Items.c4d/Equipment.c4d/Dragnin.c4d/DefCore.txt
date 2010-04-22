@@ -13,7 +13,7 @@ VertexFriction=200,200
 Value=10
 Mass=5
 Components=METL=1
-Picture=0,4,72,69
+Picture=0,4,64,64
 Rebuy=1
 Collectible=1
 Rotate=1

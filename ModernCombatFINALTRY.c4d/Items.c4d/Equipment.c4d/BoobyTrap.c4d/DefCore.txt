@@ -10,7 +10,7 @@ Offset=-4,-4
 Value=35
 Mass=10
 Components=METL=1;FLNT=2;
-Picture=8,10,66,60
+Picture=0,10,64,64
 Vertices=2
 VertexY=-3,3
 VertexFriction=100,100

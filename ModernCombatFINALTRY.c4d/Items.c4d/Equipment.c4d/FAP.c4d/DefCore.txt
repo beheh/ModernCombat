@@ -10,7 +10,7 @@ Offset=-3,-3
 Value=35
 Mass=10
 Components=WOOD=4;METL=1;
-Picture=9,0,80,53
+Picture=0,7,64,64
 Vertices=1
 VertexY=1
 VertexFriction=100
