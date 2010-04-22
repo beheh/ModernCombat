@@ -10,8 +10,8 @@ static aFlag,aSelfDefense;
 
 func ChooserRuleConfig()
 {
-  //Standardregelsatz: Kein FriendlyFire, Waffen bleiben, Arena, Klassenwahl
-  return [NOFF,WPST,NODR,MCSL];
+  //Standardregelsatz: Belohnungssystem, Kein FriendlyFire, Waffen bleiben, Arena, Klassenwahl
+  return [AR_A,NOFF,WPST,NODR,MCSL];
 }
 
 /* Initalisierung */
