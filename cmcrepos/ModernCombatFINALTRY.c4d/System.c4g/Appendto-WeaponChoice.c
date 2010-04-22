@@ -5,6 +5,8 @@
 #strict
 #appendto WPCH
 
+public func IsChooseable() { return(0); }
+
 public func IsChooseable()
 {
   if(!ObjectCount(MCSL))
