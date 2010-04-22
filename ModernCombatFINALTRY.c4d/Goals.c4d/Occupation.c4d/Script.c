@@ -445,6 +445,7 @@ private func RelaunchPlayer(int iPlr, object pCrew, int iMurdererPlr, int iTeam,
   if(GetWinningTeam() > 0 && GetWinningTeam() != iTeam)
   {
     if(GetCursor(iPlr)) SetPlrViewRange(0, GetCursor(iPlr));
+    GameCall("ForceObservation",iPlr);
     return;
   }
   if(!GetTickets(iTeam)) {
