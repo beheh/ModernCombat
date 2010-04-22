@@ -1,8 +1,9 @@
 /*-- Gebäude --*/
 
-//Appendiert an alle Gebäude mit Fundament
+//Appendto an alle Gebäude mit Fundament.
 
 #strict 2
+
 
 /*
 #appendto BAS7

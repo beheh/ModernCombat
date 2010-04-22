@@ -21,7 +21,7 @@ protected func Initialize()
 {
   healed = 0;
   //Punkteregeneration
-  AddEffect("FAPRegenerate",this(),251,50,this(),GetID());
+  AddEffect("FAPRegenerate",this(),251,30,this(),GetID());
   //Gruppenheilung
   AddEffect("FAPGroupheal",this(),252,20,this(),GetID());
   //Lichteffekt
@@ -215,9 +215,16 @@ public func DoHealPoints(int iChange)
 
 public func FxFAPRegenerateTimer(pTarget, iEffectNumber, iEffectTime)
 {
+  //Nicht wenn im Freien
   if(!Contained()) return 1;
+
+  //Oder wenn Halter kein Sanitäter
   if(!Contained()->~IsMedic()) return 1;
+
+  //Oder momentan in Nutzung
   if(GetEffect("FAPHeal", this())) return 1;
+
+  //Oder wenn bereits voll
   if(GetHealPoints() < MaxHealPoints())
    DoHealPoints(1);
 
@@ -284,6 +291,7 @@ public func FxFAPGrouphealTimer(pTarget, iEffectNumber, iEffectTime)
   if(healed >= 40)
   {
     healed = 0;
+    //Punkte bei Belohnungssystem
     if(FindObject(AR_A))
     {
       FindObject(AR_A) -> SetPlayerStats("Teampoints", GetOwner(Contained()), BonusPoints("Healing",40));

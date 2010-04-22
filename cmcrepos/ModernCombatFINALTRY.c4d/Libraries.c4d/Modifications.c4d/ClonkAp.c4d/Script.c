@@ -60,7 +60,8 @@ public func Incineration()
 
 /* Soundauswahl */
 
-public func OnDmg(int iDmg, int iType) {
+public func OnDmg(int iDmg, int iType)
+{
   HurtSounds(iDmg,iType);
   return _inherited(...);
 }
@@ -68,28 +69,28 @@ public func OnDmg(int iDmg, int iType) {
 public func HurtSounds(int iDmg, int iType)
 {
   if(iDmg <= 0) return;
-  //Projectile
+  //Projektile
   if(iType == DMG_Projectile)
   {
     if(!Random(BoundBy(12-iDmg,0,12)))
       Sound("ClonkPain*.ogg");
     return;
   }
-  //Flame
+  //Flammen
   if(iType == DMG_Fire)
   {
     if(!Random(BoundBy(13-iDmg,0,13)))
       Sound("ClonkBurn*.ogg");
     return;
   }
-  //Explosion
+  //Explosionen
   if(iType == DMG_Explosion)
   {
     if(!Random(BoundBy(2-iDmg,0,2)))
       Sound("ClonkPain*.ogg");
     return;
   }
-  //Energy
+  //Energie
   if(iType == DMG_Energy)
   {
     if(!Random(BoundBy(10-iDmg,0,10)))
@@ -103,7 +104,8 @@ public func HurtSounds(int iDmg, int iType)
       Sound("ClonkPoisened*.ogg");
     return;
   }
-  
+
+  //Ansonsten Standard
   if(!Random(BoundBy(10-iDmg,0,10)))
     Sound("ClonkPain*.ogg");
 }
@@ -308,7 +310,7 @@ public func OnFakeDeath()
     }  
   }
   
-  //OMGOMG TEAMKILLERRRR!!! D:
+  //Teamkiller
   if( !Hostile(killer,GetOwner()) && killer != GetOwner() && !(killer < 0))
   {
     Database -> SetPlayerStats("Negativepoints", killer, TeamkillPoints());
@@ -381,10 +383,10 @@ public func FxPointMessageStart(pTarget, iNo, iTemp, szString)
 {
   if(iTemp)
     return -1;
-  //Vars
-  EffectVar(0,pTarget,iNo) = szString; //Die Message
-  EffectVar(1,pTarget,iNo) = CreateObject(ARHL,0,0,-1); //Der Helper
-  Sound("PointsGet.ogg");
+
+  EffectVar(0,pTarget,iNo) = szString;			//Die Message
+  EffectVar(1,pTarget,iNo) = CreateObject(ARHL,0,0,-1);	//Der Helper
+  Sound("PointsGet.ogg");				//Sound
 }
 
 public func FxPointMessageTimer(pTarget, iNo, iTime)
