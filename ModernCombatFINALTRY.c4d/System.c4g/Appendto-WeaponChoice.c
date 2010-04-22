@@ -7,12 +7,6 @@
 
 public func IsChooseable() { return(0); }
 
-public func IsChooseable()
-{
-  if(!ObjectCount(MCSL))
-    return(1);
-}
-
 func Initialize() {
   SetPosition();
   WeaponChoice = CreateArray(0);
