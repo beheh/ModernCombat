@@ -631,6 +631,11 @@ public func ChooserFinished()
   }
 }
 
+/* Besitznahme */
+public func OccupationDir() {
+  return GOCC_Vertical;
+}
+
 /* Relaunch */
 
 public func RelaunchPosition(& iX, & iY, int iTeam)
