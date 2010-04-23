@@ -62,18 +62,6 @@ private func Check()
    RemoveObject(FLA2);
 }
 
-private func DoShadows()
-{
-  for(var i = 0; i < Abs(xh)/150; i++)
-   for(var j = 0; j < Abs(yh)/150; j++)
-   {
-    if(i % 2)
-     CreateObject(BDSH, x+i*150+50, y+j*150+50+75, -1)->~Set(x,y,xh,yh);
-    else
-     CreateObject(BDSH, x+i*150+50, y+j*150+50, -1)->~Set(x,y,xh,yh);
-   }
-}
-
 /* Effekt */
 
 public func FxBorderStart(pTarget, iNo, iTemp)
@@ -83,7 +71,7 @@ public func FxBorderStart(pTarget, iNo, iTemp)
 
   //Countdown
   EffectVar(0, pTarget, iNo) = 10;
-  Sound("Ding",0,pTarget,0,GetOwner(pTarget));
+  Sound("TicketsLow.ogg",0,pTarget,0,GetOwner(pTarget));
   //Hinweisnachricht
   PlayerMessage(GetOwner(pTarget),"@$Warning$",pTarget, EffectVar(0, pTarget, iNo));
 }
@@ -106,7 +94,6 @@ public func FxBorderTimer(pTarget, iNo, iTime)
   {
    //Opfer töten
    Kill(pTarget);
-   RemoveObject(pTarget);
    Sound("BRDR_Fire.ogg",pTarget);
    PlayerMessage(GetOwner(pTarget),"@",pTarget);
    return -1;
