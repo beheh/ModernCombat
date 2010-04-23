@@ -75,7 +75,7 @@ global func DoEvaluateStats()
   {
    AddEvaluationData(Format("$Complete$",
                             database->GetPlayerStats("Name", i),
-                            database->GetPlayerStats("Killpoints", i),
+                            database->GetPlayerStats("Battlepoints", i),
                             database->GetPlayerStats("Teampoints", i),
                             database->GetPlayerStats("Negativepoints", i)),0);
    AddEvaluationData(
