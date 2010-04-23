@@ -44,8 +44,8 @@ func Sting(caller)
    //Punkte bei Belohnungssystem
    if(FindObject(AR_A))
    {
-     FindObject(AR_A) -> SetPlayerStats("Teampoints", GetOwner(caller), DragninPoints());
-     caller-> AddEffect("PointMessage",caller,130,1,caller,0,Format("{{%i}} <c 00ff00>+%d</c>", IC05, DragninPoints()));
+     FindObject(AR_A)->SetPlayerStats("Teampoints", GetOwner(caller), DragninPoints());
+     caller->AddEffect("PointMessage",caller,130,1,caller,0,Format("{{%i}} <c 00ff00>+%d</c>", IC05, DragninPoints()));
    }
 
    RemoveObject();
@@ -97,11 +97,11 @@ func FxDragninHealStart(object pTarget, int iEffectNumber, int iTemp, int iHealA
   EffectVar(1,pTarget,iEffectNumber) = iHealRate; //Frames per HP
 
   //Lähmung
-  SetPhysical("Walk", GetPhysical("Walk", 0, pTarget)/3, 2, pTarget);
-  SetPhysical("Jump", GetPhysical("Jump", 0, pTarget)/3, 2, pTarget);
-  SetPhysical("Scale", GetPhysical("Scale", 0, pTarget)/3, 2, pTarget);
-  SetPhysical("Hangle", GetPhysical("Hangle", 0, pTarget)/3, 2, pTarget);
-  SetPhysical("Swim", GetPhysical("Swim", 0, pTarget)/3, 2, pTarget);
+  SetPhysical("Walk", GetPhysical("Walk", 2, pTarget)/3, 2, pTarget);
+  SetPhysical("Jump", GetPhysical("Jump", 2, pTarget)/3, 2, pTarget);
+  SetPhysical("Scale", GetPhysical("Scale", 2, pTarget)/3, 2, pTarget);
+  SetPhysical("Hangle", GetPhysical("Hangle", 2, pTarget)/3, 2, pTarget);
+  SetPhysical("Swim", GetPhysical("Swim", 2, pTarget)/3, 2, pTarget);
 }
 
 func FxDragninHealTimer(object pTarget, int iEffectNumber, int iEffectTime)
@@ -138,11 +138,11 @@ func FxDragninHealDamage(target, no, dmg, dmgtype)
 public func FxDragninHealStop(object pTarget, no, reason, temp)
 {
   //Lähmung rückgängig machen
-  SetPhysical("Walk", GetPhysical("Walk", 0, pTarget)*3, 2, pTarget);
-  SetPhysical("Jump", GetPhysical("Jump", 0, pTarget)*3, 2, pTarget);
-  SetPhysical("Scale", GetPhysical("Scale", 0, pTarget)*3, 2, pTarget);
-  SetPhysical("Hangle", GetPhysical("Hangle", 0, pTarget)*3, 2, pTarget);
-  SetPhysical("Swim", GetPhysical("Swim", 0, pTarget)*3, 2, pTarget);
+  SetPhysical("Walk", GetPhysical("Walk", 2, pTarget)*3, 2, pTarget);
+  SetPhysical("Jump", GetPhysical("Jump", 2, pTarget)*3, 2, pTarget);
+  SetPhysical("Scale", GetPhysical("Scale", 2, pTarget)*3, 2, pTarget);
+  SetPhysical("Hangle", GetPhysical("Hangle", 2, pTarget)*3, 2, pTarget);
+  SetPhysical("Swim", GetPhysical("Swim", 2, pTarget)*3, 2, pTarget);
 }
 
 /* Sounds */

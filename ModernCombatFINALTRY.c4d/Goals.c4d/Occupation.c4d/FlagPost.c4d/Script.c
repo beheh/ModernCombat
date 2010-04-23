@@ -2,7 +2,7 @@
 
 #strict
 
-local team,process,range,flag,attacker,spawnpoints,trend,capt;
+local team,process,range,flag,attacker,spawnpoints,trend,capt,pAttackers;
 
 public func GetAttacker()	{return(attacker);}
 public func GetTeam()		{return(team);}
@@ -21,6 +21,7 @@ public func Initialize()
   Set();
   if(!flag)
    flag = CreateObject(OFLG);
+  pAttackers = CreateArray();
   UpdateFlag();
 }
 
@@ -97,6 +98,23 @@ protected func Timer()
 
   trend = 0;
 
+  //Erst mal schauen ob noch alle da sind
+  var del;
+  var clonks = FindObjects(Find_Distance(range),Find_OCF(OCF_Alive),Find_NoContainer());
+  for(var pClonk in pAttackers) {
+    del = true;
+    for(var clonk in clonks) {
+      if(clonk == pClonk) del = false;
+      if(!del) break;
+    }
+    //Und weg damit
+    if(del)
+      pAttackers[FindInArray4K(pAttackers, pClonk)] = 0;
+  }
+  
+  //Leere Einträge entfernen
+  CleanArray4K(pAttackers);
+  
   for(clonk in FindObjects(Find_Distance(range),Find_OCF(OCF_Alive),Find_NoContainer()))
   {
    if(GetOwner(clonk) == NO_OWNER) continue;
@@ -109,6 +127,14 @@ protected func Timer()
    {
     enemys++;
     opposition = GetPlayerTeam(GetOwner(clonk));
+    var new = true;
+    //Schauen ob wir ihn schon finden können;
+    for(var pClonk in pAttackers) {
+      if(pClonk == clonk) new = false;
+      if(!new) break;
+    }
+    //Er ist neu? Dann rein damit!
+    if(new) pAttackers[GetLength(pAttackers)] = clonk;
    }
   }
 
@@ -135,7 +161,7 @@ public func Capture(int iTeam, bool bSilent)
   attacker = 0;
   capt = true;
   GameCall("PointCaptured",this(),team); //Broadcasten.
-  if(!bSilent) GameCallEx("FlagCaptured", this, team);
+  if(!bSilent) GameCallEx("FlagCaptured", this, team, pAttackers);
 
   UpdateFlag();
 }
@@ -198,7 +224,7 @@ public func DoProcess(int iTeam, int iAmount)
    trend = -1;
 
   if((old == 100 && trend < 0) || (old == 0 && trend > 0))
-    GameCallEx("FlagAttacked", this, team);
+    GameCallEx("FlagAttacked", this, team, pAttackers);
   
   //Flagge wird übernommen
   if(process < 100 && trend != 0) {
@@ -214,7 +240,7 @@ public func DoProcess(int iTeam, int iAmount)
   //Neutrale Flagge
   if((process <= 0) && (old > 0))
   {
-   if(team) GameCallEx("FlagLost", this, team, iTeam);
+   if(team) GameCallEx("FlagLost", this, team, iTeam, pAttackers);
    attacker = 0;
    capt = false;
    team = iTeam;

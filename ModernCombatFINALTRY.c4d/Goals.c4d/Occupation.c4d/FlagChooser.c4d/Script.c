@@ -275,6 +275,8 @@ global func ShowFlagpole(object pObject, object pCrew, object pContainer, int iM
   
   SetPlrViewRange(Min(200,iMaxrange), pCrew); //blah
   
+  var obj = pContainer;
+  if(!pContainer) pContainer = pCrew;
   pContainer->SetPosition(GetX(pObject), GetY(pObject));
   return(true);
 }
