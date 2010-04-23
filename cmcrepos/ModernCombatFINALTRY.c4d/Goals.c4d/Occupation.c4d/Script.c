@@ -253,8 +253,24 @@ public func FlagAttacked(object pFlag, int iTeam)
   UpdateScoreboard();
 }
 
-public func FlagLost(object pFlag, int iTeam, int iTeamAttacker)
+public func FlagLost(object pFlag, int iTeam, int iTeamAttacker, array pAttackers)
 {
+  //Punkte bei Belohnungssystem
+  if(FindObject(AR_A))
+  {
+    var i = 0;
+    for(var pClonk in pAttackers)  {
+      if(!i) {
+        FindObject(AR_A)->SetPlayerStats("Battlepoints", GetOwner(pClonk), BonusPoints("OPNeutralize"));
+        pClonk->AddEffect("PointMessage",pClonk,130,1,pClonk,0,Format("{{%i}} <c 00ff00>+%d</c>", IC13, BonusPoints("OPNeutralize")));
+      }
+      else {
+        FindObject(AR_A)->SetPlayerStats("Battlepoints", GetOwner(pClonk), BonusPoints("OPAssist"));
+        pClonk->AddEffect("PointMessage",pClonk,130,1,pClonk,0,Format("{{%i}} <c 00ff00>+%d</c>", IC11, BonusPoints("OPAssist")));
+      }
+      i++;
+    }
+  }
   for(var i = 0; i < GetPlayerCount(); i++) {
     if(GetPlayerTeam(GetPlayerByIndex(i)) == iTeam) {
       EventInfo4K(GetPlayerByIndex(i)+1, Format("$MsgFlagLost$", GetName(pFlag), GetTeamName(iTeamAttacker)), OFLG, GetTeamColor(iTeamAttacker));
@@ -263,8 +279,24 @@ public func FlagLost(object pFlag, int iTeam, int iTeamAttacker)
   UpdateScoreboard();
 }
 
-public func FlagCaptured(object pFlag, int iTeam)
+public func FlagCaptured(object pFlag, int iTeam, array pAttackers)
 {
+  //Punkte bei Belohnungssystem
+  if(FindObject(AR_A))
+  {
+    var i = 0;
+    for(var pClonk in pAttackers)  {
+      if(!i) {
+        FindObject(AR_A)->SetPlayerStats("Battlepoints", GetOwner(pClonk), BonusPoints("OPConquer"));
+        pClonk->AddEffect("PointMessage",pClonk,130,1,pClonk,0,Format("{{%i}} <c 00ff00>+%d</c>", IC10, BonusPoints("OPConquer")));
+      }
+      else {
+        FindObject(AR_A)->SetPlayerStats("Battlepoints", GetOwner(pClonk), BonusPoints("OPAssist"));
+        pClonk->AddEffect("PointMessage",pClonk,130,1,pClonk,0,Format("{{%i}} <c 00ff00>+%d</c>", IC11, BonusPoints("OPAssist")));
+      }
+      i++;
+    }
+  }
   EventInfo4K(0, Format("$MsgCaptured$", GetTeamName(iTeam), GetName(pFlag)), OFLG, GetTeamColor(iTeam), 0, 0, "Trumpet");
   UpdateScoreboard();
 }
@@ -436,7 +468,8 @@ private func RelaunchPlayer(int iPlr, object pCrew, int iMurdererPlr, int iTeam,
 {
   if(FindObject(CHOS)) return;
 
-  if(IsFulfilled()) return EliminatePlayer(iPlr);
+  //Schauen wir mal ob noch geht
+  IsFulfilled();
 
   //Kein Team?
   if(!iTeam) iTeam = GetPlayerTeam(iPlr);
@@ -450,7 +483,6 @@ private func RelaunchPlayer(int iPlr, object pCrew, int iMurdererPlr, int iTeam,
     if(GetCursor(iPlr)) SetPlrViewRange(0, GetCursor(iPlr));
     return;
   }
-  
   
   DoTickets(iTeam,-1);
  
