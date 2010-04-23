@@ -35,7 +35,7 @@ protected func Activate(caller)
   //Clonk anhalten
   SetComDir(COMD_Stop, caller);
 
-  //Munitionsmenü öffnen
+  //Munitionsmenü erstellen
   CreateMenu(GetID(), caller, this(), 0, "$TakeAmmo$", 0, 1);
    AddMenuItem(GetName(0,STAM), "CreateAmmopack", ABOX, caller, 50);
    AddMenuItem(GetName(0,GRAM), "CreateAmmopack", GBOX, caller, 12);
@@ -49,6 +49,7 @@ private func CreateAmmopack(idAmmo)
   if(!Contained())
    return 0;
 
+  //Bei Projektilmunition
   if(idAmmo == ABOX)
   {
    if(GetAmmoPoints() >= 50)
@@ -63,6 +64,7 @@ private func CreateAmmopack(idAmmo)
    }
   }
 
+  //Bei Granatmunition
   if(idAmmo == GBOX)
   {
    if(GetAmmoPoints() >= 60)
@@ -77,6 +79,7 @@ private func CreateAmmopack(idAmmo)
    }
   }
 
+  //Bei Raketen
   if(idAmmo == MIAP)
   {
    if(GetAmmoPoints() >= 40)
@@ -208,9 +211,14 @@ public func FxAMPKRestockingTimer(pTarget, iEffectNumber, iEffectTime)
     DoAmmo(ammoID, ammoID->MaxAmmo()/10, target);
     Sound("Resupply.ogg");
     DoAmmoPoints(-ammoID->MaxAmmo()/10*factor);
-    //Punkte
-    FindObject(AR_A) -> SetPlayerStats("Teampoints", GetOwner(Contained()), BonusPoints("Restocking",ammoID->MaxAmmo()/10*factor));
-    Contained()-> AddEffect("PointMessage",Contained(),130,1,Contained(),0,Format("{{%i}} <c 00ff00>+%d</c>", IC14, BonusPoints("Restocking",ammoID->MaxAmmo()/10*factor)));
+
+    //Punkte bei Belohnungssystem
+    if(FindObject(AR_A))
+    {
+      FindObject(AR_A) -> SetPlayerStats("Teampoints", GetOwner(Contained()), BonusPoints("Restocking",ammoID->MaxAmmo()/10*factor));
+      Contained()-> AddEffect("PointMessage",Contained(),130,1,Contained(),0,Format("{{%i}} <c 00ff00>+%d</c>", IC14, BonusPoints("Restocking",ammoID->MaxAmmo()/10*factor)));
+    }
+
   }
 }
 
