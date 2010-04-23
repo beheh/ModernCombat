@@ -1,6 +1,6 @@
 [DefCore]
 id=AMPK
-Name=Ammo Pack
+Name=AMP
 Version=4,9,5
 Category=3600
 MaxUserSelect=6
