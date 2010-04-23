@@ -27,8 +27,8 @@ protected func Make()
     && GBackSky(x,y+70) 
     && PathFree(x,y,x,y+70))
     {
-     CreateParticle("BigBlast",x,y,0,0,dis*2,RGBa(100,100,100,70));
-     Sound("Blast*",1,0,20);
+     CreateParticle("Blast",x,y,0,0,dis*2,RGBa(100,100,100,70));
+     Sound("C4EX_Detonation*.ogg",1,0,20);
     }      
   }
   if(Random(65-ObjectCount(GetID())*5)) return 1;
