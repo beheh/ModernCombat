@@ -2,7 +2,7 @@
 
 #strict
 
-local team,process,range,flag,attacker,spawnpoints,trend,capt,pAttackers;
+local team,process,range,flag,attacker,spawnpoints,trend,capt,pAttackers,lastowner;
 
 public func GetAttacker()	{return(attacker);}
 public func GetTeam()		{return(team);}
@@ -90,6 +90,10 @@ public func IsCaptured(bool pBool)
   capt = pBool;
 }
 
+protected func ResetAttackers() {
+  pAttackers = CreateArray();
+}
+
 /* Timer */
 
 protected func Timer()
@@ -156,13 +160,16 @@ protected func Timer()
 
 public func Capture(int iTeam, bool bSilent)
 {
-  team = iTeam;
   process = 100;
   attacker = 0;
   capt = true;
-  GameCall("PointCaptured",this(),team); //Broadcasten.
-  if(!bSilent) GameCallEx("FlagCaptured", this, team, pAttackers);
-
+  team = iTeam;
+  if(lastowner != team) {
+    GameCall("PointCaptured",this(),team); //Broadcasten.
+    if(!bSilent) GameCallEx("FlagCaptured", this, team, pAttackers);
+    ResetAttackers();
+  }
+  lastowner = team;
   UpdateFlag();
 }
 
@@ -223,8 +230,9 @@ public func DoProcess(int iTeam, int iAmount)
   if(old > process)
    trend = -1;
 
-  if((old == 100 && trend < 0) || (old == 0 && trend > 0))
+  if((old == 100 && trend < 0) || (old == 0 && trend > 0)) {
     GameCallEx("FlagAttacked", this, team, pAttackers);
+  }
   
   //Flagge wird übernommen
   if(process < 100 && trend != 0) {
@@ -240,7 +248,8 @@ public func DoProcess(int iTeam, int iAmount)
   //Neutrale Flagge
   if((process <= 0) && (old > 0))
   {
-   if(team) GameCallEx("FlagLost", this, team, iTeam, pAttackers);
+   if(team && lastowner != iTeam) GameCallEx("FlagLost", this, team, iTeam, pAttackers);
+   lastowner = team;
    attacker = 0;
    capt = false;
    team = iTeam;
