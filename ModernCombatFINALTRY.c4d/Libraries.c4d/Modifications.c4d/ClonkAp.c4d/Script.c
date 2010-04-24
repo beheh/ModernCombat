@@ -278,23 +278,16 @@ global func FakeDeath(object pTarget)
 
 public func OnFakeDeath()
 {
-  if(!FindObject(AR_A))
-    return;
-  var Database = FindObject(AR_A);
   var killer = GetKiller();
   
   if(killer < 0 || killer == GetOwner())
-  {
-    Database -> SetPlayerStats("Negativepoints", GetOwner(), SuicidePoints());
-    AddEffect("PointMessage",this,130,1,this,0,Format("{{%i}} <c ff0000>%d</c>", IC07, SuicidePoints()));
-  }
+    DoPlayerPoints(SuicidePoints(), RWDS_MinusPoints, GetOwner(), this, IC07);
   
   //Ansonsten Killpunkte geben (und Todespunkte (und Assistkills))
   if( Hostile(killer,GetOwner()) )
   {
-    Database -> SetPlayerStats("Battlepoints", killer, KillPoints());
-    AddEffect("PointMessage",GetCursor(killer),130,1,GetCursor(killer),0,Format("{{%i}} <c 00ff00>+%d</c>", IC01, KillPoints()));
-    
+    DoPlayerPoints(KillPoints(), RWDS_BattlePoints, GetOwner(), this, IC01);
+
     //Dem mit dem meisten angerichteten Schaden neben dem Killer Assistpunkte geben
     var highest = CreateArray(2);
     for(var i = 0; i < GetLength(assistkiller)/2; i++)
@@ -305,17 +298,13 @@ public func OnFakeDeath()
       }
     if(highest[1] != killer)
     {
-      Database -> SetPlayerStats("Battlepoints", highest[1], AssistPoints());
-      AddEffect("PointMessage",GetCursor(highest[1]),130,1,GetCursor(highest[1]),0,Format("{{%i}} <c 00ff00>%d</c>", IC02, AssistPoints()));
+      DoPlayerPoints(AssistPoints(), RWDS_BattlePoints, GetOwner(), this, IC02);
     }  
   }
   
   //Teamkiller
   if( !Hostile(killer,GetOwner()) && killer != GetOwner() && !(killer < 0))
-  {
-    Database -> SetPlayerStats("Negativepoints", killer, TeamkillPoints());
-    AddEffect("PointMessage",GetCursor(killer),130,1,GetCursor(killer),0,Format("{{%i}} <c ff0000>%d</c>", IC06, TeamkillPoints()));
-  }
+    DoPlayerPoints(TeamkillPoints(), RWDS_MinusPoints, GetOwner(), this, IC06);
 }
 
 global func StopFakeDeath(object pTarget)

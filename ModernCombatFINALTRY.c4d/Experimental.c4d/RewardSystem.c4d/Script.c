@@ -113,10 +113,12 @@ global func DoPlayerPoints(int iPoints, int iType, int iPlr, object pClonk, id i
   if(!db) return;
   if(!iPoints) return;
   if(pClonk) {
+    Log("%i", idIcon);
     if(!idIcon) idIcon = CLNK;
-    if(iPoints < 0) szMsg = Format("{{%i}} <c 00ff00>-%d</c>", idIcon, iPoints);
-    if(iPoints > 0) szMsg = Format("{{%i}} <c ff0000>+%d</c>", idIcon, iPoints);
-    pClonk->AddEffect("PointMessage", pClonk, 130, 1, pClonk, 0, szMg);
+    var szMsg;
+    if(iPoints < 0) szMsg = Format("{{%i}} <c ff0000>%d</c>", idIcon, iPoints);
+    if(iPoints > 0) szMsg = Format("{{%i}} <c 00ff00>+%d</c>", idIcon, iPoints);
+    pClonk->AddEffect("PointMessage", pClonk, 130, 1, pClonk, 0, szMsg);
   }
   db->SetPlayerData(db->GetPlayerPoints(iType, iPlr)+iPoints, iType, iPlr);
 }
