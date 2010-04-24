@@ -100,6 +100,8 @@ protected func ResetAttackers() {
 protected func Timer()
 {
   var enemys,friends,opposition;
+  
+  iOld = trend;
 
   trend = 0;
 
@@ -147,6 +149,9 @@ protected func Timer()
 
   if(!enemys && friends)
     DoProcess(team,Min(friends,3));
+
+  if(trend != iOld)
+    ResetAttackers();
 
   var pClonks = CreateArray();
   if(trend < 0)
