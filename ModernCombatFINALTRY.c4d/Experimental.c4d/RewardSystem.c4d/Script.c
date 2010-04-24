@@ -166,5 +166,6 @@ public func GetPlayerData(int iType, int iPlr) {
   if(iType == RWDS_TotalPoints) {
     return aData[iPlr][RWDS_BattlePoints] + aData[iPlr][RWDS_TeamPoints] + aData[iPlr][RWDS_MinusPoints];
   }
+  if(!aData[iPlr][iType]) return;
   return aData[iPlr][iType];
 }
