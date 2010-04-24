@@ -164,11 +164,9 @@ public func Capture(int iTeam, bool bSilent)
   attacker = 0;
   capt = true;
   team = iTeam;
-  if(lastowner != team) {
-    GameCall("PointCaptured",this(),team); //Broadcasten.
-    if(!bSilent) GameCallEx("FlagCaptured", this, team, pAttackers);
-    ResetAttackers();
-  }
+  GameCall("PointCaptured",this(),team); //Broadcasten.
+  if(!bSilent) GameCallEx("FlagCaptured", this, team, (lastowner == team));
+  ResetAttackers();
   lastowner = team;
   UpdateFlag();
 }
