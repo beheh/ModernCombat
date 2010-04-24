@@ -417,19 +417,22 @@ func CreateEquipment()
   PlaceSpawnpoint(ASTR, 585, 585);
   PlaceSpawnpoint(ASTR, 485, 1795);
 
-  //Slingshots
-  PlaceSpawnpoint(SGST, 270, 465);
-  PlaceSpawnpoint(SGST, 945, 1785);
-
-  //Shotgun
-  PlaceSpawnpoint(PPGN, 300, 1115);
-
   //Maschinengewehr
   PlaceSpawnpoint(MNGN, 870, 1115);
 
   //Raketenwerfer
   PlaceSpawnpoint(RTLR, 560, 495);
   PlaceSpawnpoint(RTLR, 610, 1555);
+
+  //Shotgun
+  PlaceSpawnpoint(PPGN, 300, 1115);
+
+  //Slingshots
+  PlaceSpawnpoint(SGST, 270, 465);
+  PlaceSpawnpoint(SGST, 945, 1785);
+
+  //Maschinenpistole
+  PlaceSpawnpoint(SMGN, 605, 1115);
 
   //Sprengfallen
   PlaceSpawnpoint(BBTP, 415, 805);
