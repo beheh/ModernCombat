@@ -21,7 +21,7 @@ global func BonusPoints(string szType, extraData)
   if(szType == "Healing") return extraData/2;		//Geheilte Menge/2 Punkte
   if(szType == "OPNeutralize") return 40;		//Punkte für Flaggenneutralisierung
   if(szType == "OPConquer") return 30;			//Punkte für Flaggeneroberung
-  if(szType == "OPSavekill") return 30;			//Flaggenverteidigung
+  if(szType == "OPDefend") return 30;			//Flaggenverteidigung
   if(szType == "OPAssist") return 20;			//Hilfe bei Eroberung/Neutralisierung
   if(szType == "CTFSteal") return 50;			//Flagge stehlen
   if(szType == "CTFRegain") return 50;			//Flagge zurückgeholt

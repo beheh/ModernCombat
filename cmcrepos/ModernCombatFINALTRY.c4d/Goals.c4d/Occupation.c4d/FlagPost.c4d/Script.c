@@ -165,10 +165,10 @@ public func Capture(int iTeam, bool bSilent)
   attacker = 0;
   team = iTeam;
   capt = true;
-  var fSilent = false;
+  var fRegained = false;
   if(!bSilent) {
-    if(lastowner == team) fSilent = true;
-    GameCallEx("FlagCaptured", this, team, pAttackers, fSilent);
+    if(lastowner == team) fRegained = true;
+    GameCallEx("FlagCaptured", this, team, pAttackers, fRegained);
   }
   ResetAttackers();
   lastowner = team;

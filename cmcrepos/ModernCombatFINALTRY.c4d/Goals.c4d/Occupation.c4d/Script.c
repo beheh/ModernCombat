@@ -274,10 +274,15 @@ public func FlagLost(object pFlag, int iTeam, int iTeamAttacker, array pAttacker
   UpdateScoreboard();
 }
 
-public func FlagCaptured(object pFlag, int iTeam, array pAttackers, bool fNoScore)
+public func FlagCaptured(object pFlag, int iTeam, array pAttackers, bool fRegained)
 {
   //Punkte bei Belohnungssystem
-  if(!fNoScore)
+  if(fRegained) {
+    for(var pClonk in pAttackers) {
+      DoPlayerPoints(BonusPoints("OPDefend"), RWDS_BattlePoints, GetOwner(pClonk), pClonk, IC12);
+    }
+  }
+  else
   {
     var i = 0;
     for(var pClonk in pAttackers)  {
