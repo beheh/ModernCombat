@@ -58,6 +58,12 @@ protected func Activate(caller)
    PlayerMessage(GetOwner(caller), "$NotWounded$",caller);
    return 1;
   }
+  //Können wir überhaupt?
+  if(!WildcardMatch(caller->GetAction(), "*Walk*"))
+  {
+    PlayerMessage(GetOwner(caller), "$CantHeal$",caller);
+    return 1;
+  }
   //Brennende Clonks löschen
   if(OnFire(caller))
   {
