@@ -18,6 +18,7 @@ public func IsFlagpole()	{return(true);}
 public func Initialize()
 {
   spawnpoints = CreateArray();
+  lastowner = 0;
   Set();
   if(!flag)
    flag = CreateObject(OFLG);
@@ -162,10 +163,11 @@ public func Capture(int iTeam, bool bSilent)
 {
   process = 100;
   attacker = 0;
-  capt = true;
   team = iTeam;
-  GameCall("PointCaptured",this(),team); //Broadcasten.
-  if(!bSilent) GameCallEx("FlagCaptured", this, team, (lastowner == team));
+  var fSilent = false;
+  if(lastowner == team) fSilent = true;
+  if(!bSilent) GameCallEx("FlagCaptured", this, team, pAttackers, fSilent);
+  capt = true;
   ResetAttackers();
   lastowner = team;
   UpdateFlag();
