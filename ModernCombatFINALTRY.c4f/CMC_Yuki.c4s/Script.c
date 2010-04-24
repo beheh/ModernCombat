@@ -478,19 +478,35 @@ func CreateEquipment()
   tmp->Set(GBOX);
   tmp->SetGraphics("Normal");
 
+  //Raketen
+  PlaceSpawnpoint(MIAP, 1020, 575);
+
   //Feldgranaten
   PlaceSpawnpoint(FGRN, 320, 530);
   PlaceSpawnpoint(FGRN, 835, 390);
   PlaceSpawnpoint(FGRN, 1295, 800);
   PlaceSpawnpoint(FGRN, 1580, 370);
 
-  //Splittergranate
+  //Splittergranaten
   PlaceSpawnpoint(FRAG, 65, 685);
   PlaceSpawnpoint(FRAG, 1910, 460);
 
-  //Blendgranatenspawnpoints
+  //Blendgranaten
   PlaceSpawnpoint(STUN, 560, 750);
   PlaceSpawnpoint(STUN, 1220, 550);
+
+  //Sturmgewehr
+  PlaceSpawnpoint(ASTR, 1190, 815);
+
+  //Maschinengewehre
+  PlaceSpawnpoint(MNGN, 335, 255);
+  PlaceSpawnpoint(MNGN, 1520, 230);
+
+  //Raketenwerfer
+  PlaceSpawnpoint(RTLR, 1000, 575);
+
+  //Shotgun
+  PlaceSpawnpoint(PPGN, 860, 750);
 
   //Slingshot
   PlaceSpawnpoint(SGST, 700, 510);
@@ -498,16 +514,6 @@ func CreateEquipment()
   //Maschinenpistolen
   PlaceSpawnpoint(SMGN, 320, 390);
   PlaceSpawnpoint(SMGN, 1815, 570);
-
-  //Shotgun
-  PlaceSpawnpoint(PPGN, 860, 750);
-
-  //Maschinengewehre
-  PlaceSpawnpoint(MNGN, 335, 255);
-  PlaceSpawnpoint(MNGN, 1520, 230);
-
-  //Sturmgewehr
-  PlaceSpawnpoint(ASTR, 1190, 815);
 
   //Abwehrschild
   PlaceSpawnpoint(RSHL, 75, 230);
