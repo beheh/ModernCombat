@@ -1150,6 +1150,8 @@ global func FxShowWeaponTimer(object pTarget, int iNumber, int iTime)
   id = EffectVar(0, pTarget, iNumber);
   obj = EffectVar(6, pTarget, iNumber);
 
+  if(!obj) return -1;
+
   // Ausrichtung nach Blickrichtung des Clonks
   // Variablen für die Transformation
 
