@@ -238,15 +238,11 @@ func CreateFurniture()
   CreateObject(ETLT, 2475, 430, -1);
 
   //Stahltüren
-  CreateObject(SLDR, 125, 540, -1);
-  CreateObject(SLDR, 205, 540, -1);
   CreateObject(SLDR, 585, 320, -1);
   CreateObject(SLDR, 645, 320, -1);
 
   CreateObject(SLDR, 2155, 320, -1);
   CreateObject(SLDR, 2215, 320, -1);
-  CreateObject(SLDR, 2595, 540, -1);
-  CreateObject(SLDR, 2675, 540, -1);
 
   //Einfache Türen
   CreateObject(LBDR, 225, 290, -1);
@@ -443,6 +439,13 @@ public func ChooserFinished()
   //OP-Spielziel
   if(FindObject(GOCC))
   {
+   //SSA Besitzer setzen
+   if(aTeams[1] == true)
+   {aSelfDefense[0]->SetTeam(1);}
+   if(aTeams[2] == true)
+   {aSelfDefense[1]->SetTeam(2);}
+
+   //Flaggen
    aFlag[0] = CreateObject(OFPL,100,390,NO_OWNER);
    aFlag[0] -> AddSpawnPoint(100,570);
    aFlag[0] -> AddSpawnPoint(110,210);
