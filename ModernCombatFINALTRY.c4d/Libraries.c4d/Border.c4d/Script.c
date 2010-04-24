@@ -71,7 +71,7 @@ public func FxBorderStart(pTarget, iNo, iTemp)
 
   //Countdown
   EffectVar(0, pTarget, iNo) = 10;
-  Sound("TicketsLow.ogg",0,pTarget,0,GetOwner(pTarget));
+  Sound("Alarm.ogg",0,pTarget,0,GetOwner(pTarget));
   //Hinweisnachricht
   PlayerMessage(GetOwner(pTarget),"@$Warning$",pTarget, EffectVar(0, pTarget, iNo));
 }
@@ -100,7 +100,4 @@ public func FxBorderTimer(pTarget, iNo, iTime)
   }
   EffectVar(0, pTarget, iNo)--;
   PlayerMessage(GetOwner(pTarget),"@$Warning$",pTarget, EffectVar(0, pTarget, iNo));
-
-  if(Random(2))
-   Sound("BulletHit*.ogg",pTarget);
 }
