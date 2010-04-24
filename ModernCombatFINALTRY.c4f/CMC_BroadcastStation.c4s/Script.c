@@ -364,6 +364,9 @@ func CreateEquipment()
 
   //Sprengfalle
   PlaceSpawnpoint(BBTP, 1160, 820);
+
+  //Dragnin
+  PlaceSpawnpoint(DGNN, 1190, 585);
 }
 
 /* Relaunch */

@@ -357,9 +357,21 @@ func CreateEquipment()
   //Shotgun
   PlaceSpawnpoint(PPGN, 1400, 165);
 
+  //SMGs
+  PlaceSpawnpoint(SMGN, 920, 505);
+  PlaceSpawnpoint(SMGN, 1880, 505);
+
+  //Raketenwerfer
+  PlaceSpawnpoint(RTLR, 970, 255);
+  PlaceSpawnpoint(RTLR, 1830, 255);
+
   //C4
   PlaceSpawnpoint(C4PA, 530, 525);
   PlaceSpawnpoint(C4PA, 2270, 525);
+
+  //Dragnin
+  PlaceSpawnpoint(DGNN, 845, 575);
+  PlaceSpawnpoint(DGNN, 1955, 575);
 
   //Feldgranaten
   PlaceSpawnpoint(FGRN, 60, 520);

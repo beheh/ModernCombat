@@ -329,6 +329,10 @@ func CreateEquipment()
   PlaceSpawnpoint(RTLR, 2180, 415);
   PlaceSpawnpoint(RTLR, 3830, 415);
 
+  //Dragnin
+  PlaceSpawnpoint(DGNN, 1700, 295);
+  PlaceSpawnpoint(DGNN, 4310, 295);
+
   //Motorboote
   SetupVehicleSpawn([INFL],DIR_Right,CreateObject(VSPW,1710,520,-1),10*10);
   SetupVehicleSpawn([INFL],DIR_Left,CreateObject(VSPW,2990,520,-1),10*10);
