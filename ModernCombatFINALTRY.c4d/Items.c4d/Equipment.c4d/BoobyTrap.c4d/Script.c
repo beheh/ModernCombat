@@ -128,7 +128,8 @@ public func ControlUp(object pObjBy)
    Defuse();
   //Aufnehmen
   Collect(pObjBy);
-  
+
+  //Punkte bei Belohnungssystem
   DoPlayerPoints(BonusPoints("TechnicalTask"), RWDS_TeamPoints, GetOwner(pObjBy), pObjBy, IC15);
   
   return 1;

@@ -91,7 +91,8 @@ public func IsCaptured(bool pBool)
   capt = pBool;
 }
 
-protected func ResetAttackers() {
+protected func ResetAttackers()
+{
   pAttackers = CreateArray();
 }
 
