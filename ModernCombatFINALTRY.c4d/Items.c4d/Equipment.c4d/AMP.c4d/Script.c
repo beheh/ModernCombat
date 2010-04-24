@@ -213,12 +213,7 @@ public func FxAMPKRestockingTimer(pTarget, iEffectNumber, iEffectTime)
     DoAmmoPoints(-ammoID->MaxAmmo()/10*factor);
 
     //Punkte bei Belohnungssystem
-    if(FindObject(AR_A))
-    {
-      FindObject(AR_A) -> SetPlayerStats("Teampoints", GetOwner(Contained()), BonusPoints("Restocking",ammoID->MaxAmmo()/10*factor));
-      Contained()-> AddEffect("PointMessage",Contained(),130,1,Contained(),0,Format("{{%i}} <c 00ff00>+%d</c>", IC14, BonusPoints("Restocking",ammoID->MaxAmmo()/10*factor)));
-    }
-
+    DoPlayerPoints(BonusPoints("Restocking",ammoID->MaxAmmo()/10*factor), RWDS_TeamPoints, GetOwner(Contained()), Contained(), IC14);
   }
 }
 

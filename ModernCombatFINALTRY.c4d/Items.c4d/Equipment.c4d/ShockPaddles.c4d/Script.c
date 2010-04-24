@@ -99,11 +99,7 @@ func Use(caller)
     EventInfo4K(0,Format("$MsgReanimation$",GetTaggedPlayerName(GetOwner(obj)),GetTaggedPlayerName(GetOwner(caller))),FKDT);
 
     //Punkte bei Belohnungssystem
-    if(FindObject(AR_A))
-    {
-      FindObject(AR_A) -> SetPlayerStats("Teampoints", GetOwner(caller), ReanimationPoints());
-      caller-> AddEffect("PointMessage",caller,130,1,caller,0,Format("{{%i}} <c 00ff00>+%d</c>", IC04, ReanimationPoints()));
-    }
+    DoPlayerPoints(ReanimationPoints(), RWDS_TeamPoints, GetOwner(caller), caller, IC04);
 
     //Energie entladen
     charge = BoundBy(charge-20,0,MaxEnergy());

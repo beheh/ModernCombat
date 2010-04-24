@@ -298,11 +298,7 @@ public func FxFAPGrouphealTimer(pTarget, iEffectNumber, iEffectTime)
   {
     healed = 0;
     //Punkte bei Belohnungssystem
-    if(FindObject(AR_A))
-    {
-      FindObject(AR_A) -> SetPlayerStats("Teampoints", GetOwner(Contained()), BonusPoints("Healing",40));
-      Contained()-> AddEffect("PointMessage",Contained(),130,1,Contained(),0,Format("{{%i}} <c 00ff00>+%d</c>", IC05, BonusPoints("Healing",40)));
-    }
+    DoPlayerPoints(BonusPoints("Healing",40), RWDS_TeamPoints, GetOwner(Contained()), Contained(), IC05);
   }
 }
 

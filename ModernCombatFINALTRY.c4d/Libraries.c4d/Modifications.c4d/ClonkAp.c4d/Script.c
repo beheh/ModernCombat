@@ -284,9 +284,9 @@ public func OnFakeDeath()
     DoPlayerPoints(SuicidePoints(), RWDS_MinusPoints, GetOwner(), this, IC07);
   
   //Ansonsten Killpunkte geben (und Todespunkte (und Assistkills))
-  if( Hostile(killer,GetOwner()) )
+  if(Hostile(killer,GetOwner()) )
   {
-    DoPlayerPoints(KillPoints(), RWDS_BattlePoints, GetOwner(), this, IC01);
+    DoPlayerPoints(KillPoints(), RWDS_BattlePoints, killer, GetCursor(killer), IC01);
 
     //Dem mit dem meisten angerichteten Schaden neben dem Killer Assistpunkte geben
     var highest = CreateArray(2);
@@ -298,13 +298,13 @@ public func OnFakeDeath()
       }
     if(highest[1] != killer)
     {
-      DoPlayerPoints(AssistPoints(), RWDS_BattlePoints, GetOwner(), this, IC02);
+      DoPlayerPoints(AssistPoints(), RWDS_BattlePoints, killer, GetCursor(killer), IC02);
     }  
   }
   
   //Teamkiller
   if( !Hostile(killer,GetOwner()) && killer != GetOwner() && !(killer < 0))
-    DoPlayerPoints(TeamkillPoints(), RWDS_MinusPoints, GetOwner(), this, IC06);
+    DoPlayerPoints(TeamkillPoints(), RWDS_MinusPoints, killer, GetCursor(killer), IC06);
 }
 
 global func StopFakeDeath(object pTarget)

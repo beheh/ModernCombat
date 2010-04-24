@@ -42,11 +42,7 @@ func Sting(caller)
    Sound("DGNN_Use.ogg");
 
    //Punkte bei Belohnungssystem
-   if(FindObject(AR_A))
-   {
-     FindObject(AR_A)->SetPlayerStats("Teampoints", GetOwner(caller), DragninPoints());
-     caller->AddEffect("PointMessage",caller,130,1,caller,0,Format("{{%i}} <c 00ff00>+%d</c>", IC05, DragninPoints()));
-   }
+   DoPlayerPoints(DragninPoints(), RWDS_TeamPoints, GetOwner(caller), caller, IC05);
 
    RemoveObject();
   }
