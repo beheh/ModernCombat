@@ -248,6 +248,7 @@ private func CreateItem(int i)
 
 private func ScaleItems(int iDst)
 {
+  iDst = Max(iDst, 0);
   SetObjDrawTransform(iDst*1000/(GetDefWidth()/2),0,0,0,iDst*1000/(GetDefWidth()/2),0,0,0);
   
   
