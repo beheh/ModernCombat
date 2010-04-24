@@ -298,7 +298,7 @@ public func OnFakeDeath()
       }
     if(highest[1] != killer)
     {
-      DoPlayerPoints(AssistPoints(), RWDS_BattlePoints, killer, GetCursor(killer), IC02);
+      DoPlayerPoints(AssistPoints(), RWDS_BattlePoints, highest[1], GetCursor(highest[1]), IC02);
     }  
   }
   
