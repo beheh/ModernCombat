@@ -147,7 +147,7 @@ public func Entrance(object pContainer)
     if(DoPackAmount() >= 5) return;
     var amount = DoPackAmount();
     obj->DoPackAmount(amount);
-    RemoveObject();
+    Schedule("RemoveObject()", 1);
    }
 }
 
