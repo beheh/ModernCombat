@@ -675,9 +675,15 @@ public func ChooserFinished()
   //OP-Spielziel
   if(FindObject(GOCC))
   {
+   //SSA Besitzer setzen
+   if(aTeams[1] == true)
+   {aSelfDefense[0]->SetTeam(1); aSelfDefense[1]->SetTeam(1);}
+   if(aTeams[2] == true)
+   {aSelfDefense[2]->SetTeam(2); aSelfDefense[3]->SetTeam(2);}
+
    //Grenzen
    CreateObject(BRDR, 440, 0, -1)->Set(0);
-   CreateObject(BRDR, 7665, 0, -1)->Set(1);
+   CreateObject(BRDR, 7690, 0, -1)->Set(1);
 
    //Flaggen
    aFlag[0] = CreateObject(OFPL,1205,390,NO_OWNER);
