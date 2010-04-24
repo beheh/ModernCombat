@@ -6,14 +6,6 @@ static aDoor, aTarget, aSelfDefense, aLamp, aLamp2;
 static X, Y;
 
 
-/* Regelvoreinstellung */
-
-func ChooserRuleConfig()
-{
-  //Standardregelsatz: Belohnungssystem, Kein FriendlyFire, Waffen bleiben, Arena, Klassenwahl
-  return [AR_A,NOFF,WPST,NODR,MCSL];
-}
-
 /* Initalisierung */
 
 func Initialize()
