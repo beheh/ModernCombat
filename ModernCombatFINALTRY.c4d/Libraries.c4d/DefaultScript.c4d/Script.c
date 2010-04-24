@@ -2,11 +2,6 @@
 
 #strict 2
 
-
-/* Leere Funktionen */
-public func OnClassSelection() {}
-public func OnWeaponChoice() {}
-
 /* Wahl abgeschlossen */
 
 public func ChooserFinished()
@@ -68,6 +63,14 @@ public func ChooserFinished()
   //Nochmal alle Spieler relaunchen
   for(var i = 0; i < GetPlayerCount(); i++)
     RelaunchPlayer(GetPlayerByIndex(i),GetCursor(GetPlayerByIndex(i)), 0, GetPlayerTeam(GetPlayerByIndex(i)));
+}
+
+/* Regelvoreinstellung */
+
+func ChooserRuleConfig()
+{
+  //Standardregelsatz: Belohnungssystem, Kein FriendlyFire, Waffen bleiben, Arena, Klassenwahl
+  return [RWDS,NOFF,WPST,NODR,MCSL];
 }
 
 /* Spielerinitalisierung */
@@ -178,3 +181,8 @@ public func ForceObservation(int iPlr)
   if(GetCursor(iPlr)) SetPlrViewRange(0, GetCursor(iPlr));
   EliminatePlayer(iPlr);
 }
+
+
+/* Abstrakte Funktionen */
+public func OnClassSelection() {}
+public func OnWeaponChoice() {}

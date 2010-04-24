@@ -376,26 +376,3 @@ func Death(object pTarget)
   if(IsFakeDeath())
    RemoveObject(Contained(),true);
 }
-
-/* Punkte */
-
-public func FxPointMessageStart(pTarget, iNo, iTemp, szString)
-{
-  if(iTemp)
-    return -1;
-
-  EffectVar(0,pTarget,iNo) = szString;			//Die Message
-  EffectVar(1,pTarget,iNo) = CreateObject(ARHL,0,0,-1);	//Der Helper
-  Sound("PointsGet.ogg");				//Sound
-}
-
-public func FxPointMessageTimer(pTarget, iNo, iTime)
-{
-  CustomMessage(EffectVar(0,pTarget,iNo),EffectVar(1,pTarget,iNo),NO_OWNER,0,-iTime/2,
-                RGBa(255,255,255,BoundBy(-50+iTime*5,0,255)));
-  if(-50+iTime*5 > 255)
-  {
-    RemoveObject(EffectVar(1,pTarget,iNo));
-    return -1;
-  }
-}

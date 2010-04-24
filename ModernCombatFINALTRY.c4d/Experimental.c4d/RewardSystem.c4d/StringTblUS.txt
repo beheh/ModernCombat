@@ -1,4 +1,4 @@
-ActualPoints=Current statistics:|
+ActualPoints=Current statistics
 Points=points
-Complete=%s -  Kills: <c 00ff00>%d</c>  Assist-kills: <c 00ff00>%d</c>  Killpoints: <c 00ff00>%d</c>  Deaths: <c ff0000>%d</c>  Suicides: <c ff0000>%d</c>  Teamkills: <c ff0000>%d</c>  Minuspoints: <c ff0000>%d</c>  Bonus: <c 00ff00>%d</c>
-CompletePoints=<i>%s</i> has a total of <c ffbb00>%d</c> points!
+Complete=%s|Battlepoints: <c 00ff00>+%d</c>  Teampoints: <c 00ff00>+%d</c>  Minuspoints: <c ff0000>-%d</c>
+Total=<i>%s</i> has a total of <c ffbb00>%d</c> points!
