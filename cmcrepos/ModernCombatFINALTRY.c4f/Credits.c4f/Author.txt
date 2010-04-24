@@ -1,21 +1,21 @@
 CMC Entwicklerteam
 
 Michael14
-Projektleiter
-
-Henry/Naskar
-Chefscripter
+Projektleiter >
 
 Atomclonk
-Scripter
+Scripter >
 
 B_E
+Scripter >
+
+Henry/Naskar
+Scripter
+
+Maddin
 Scripter
 
 Dragonclonk
-Grafiker
-
-ModernClonker
 Grafiker
 
 Biber
@@ -30,8 +30,14 @@ Betatester
 Cmdr. Adler
 Betatester
 
+JOK
+Betatester
+
 OblivionSnickers
 Betatester
 
 Shadow of Darkness
+Betatester
+
+Silverwolf
 Betatester
