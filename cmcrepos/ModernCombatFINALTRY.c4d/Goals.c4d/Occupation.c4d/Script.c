@@ -279,10 +279,10 @@ public func FlagLost(object pFlag, int iTeam, int iTeamAttacker, array pAttacker
   UpdateScoreboard();
 }
 
-public func FlagCaptured(object pFlag, int iTeam, array pAttackers)
+public func FlagCaptured(object pFlag, int iTeam, array pAttackers, bool fNoScore)
 {
   //Punkte bei Belohnungssystem
-  if(FindObject(AR_A))
+  if(!fNoScore && FindObject(AR_A))
   {
     var i = 0;
     for(var pClonk in pAttackers)  {
