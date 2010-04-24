@@ -24,7 +24,9 @@ global func BonusPoints(string szType, extraData)
   if(szType == "OPDefend") return 30;			//Flaggenverteidigung
   if(szType == "OPAssist") return 20;			//Hilfe bei Eroberung/Neutralisierung
   if(szType == "CTFSteal") return 50;			//Flagge stehlen
-  if(szType == "CTFRegain") return 50;			//Flagge zurückgeholt
+  if(szType == "CTFRegain") return 30;			//Flagge zurückgeholt
+  if(szType == "TechnicalTask") return 50;			//Sprengsatz entschärft
+
   //if("IncinerateClonk") return 20;			//Bonuspunkte für das anzünden gegnerischer Clonks...
   //if("DestroyHomebase") return 100;			//Bonuspunkte, falls man Gebäude mit Flagge zerstört...
 }
