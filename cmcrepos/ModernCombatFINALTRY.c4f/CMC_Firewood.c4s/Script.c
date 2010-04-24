@@ -261,6 +261,9 @@ func CreateEquipment()
   //Abwehrschild
   PlaceSpawnpoint(RSHL, 1640, 410);
 
+  //Dragnin
+  PlaceSpawnpoint(DGNN, 1640, 300);
+
   //Motorboote
   SetupVehicleSpawn([INFL],DIR_Right,CreateObject(VSPW,670,620,-1),10*10);
   SetupVehicleSpawn([INFL],DIR_Right,CreateObject(VSPW,1640,620,-1),10*10);

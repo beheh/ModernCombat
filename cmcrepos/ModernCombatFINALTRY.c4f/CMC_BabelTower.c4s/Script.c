@@ -425,6 +425,10 @@ func CreateEquipment()
   //Sprengfallen
   PlaceSpawnpoint(BBTP, 415, 805);
   PlaceSpawnpoint(BBTP, 695, 1685);
+
+  //Dragnin
+  PlaceSpawnpoint(DGNN, 885, 465);
+  PlaceSpawnpoint(DGNN, 240, 1785);
 }
 
 /* Besitznahme */

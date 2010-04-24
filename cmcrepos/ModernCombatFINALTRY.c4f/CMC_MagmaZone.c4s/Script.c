@@ -221,6 +221,10 @@ func CreateEquipment()
   //Sprengfalle
   PlaceSpawnpoint(BBTP, 1250, 530);
 
+  //Dragnin
+  PlaceSpawnpoint(DGNN, 670, 645);
+  PlaceSpawnpoint(DGNN, 1560, 155);
+
   //Feldgranaten
   PlaceSpawnpoint(FGRN, 560, 525);
   PlaceSpawnpoint(FGRN, 1875, 255);

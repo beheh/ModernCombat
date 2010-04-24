@@ -354,6 +354,9 @@ func CreateEquipment()
   //Shotgun
   PlaceSpawnpoint(PPGN, 720, 160);
 
+  //Dragnin
+  PlaceSpawnpoint(DGNN, 760, 435);
+
   //Feldgranaten
   PlaceSpawnpoint(FGRN, 575, 165);
   PlaceSpawnpoint(FGRN, 930, 85);
@@ -361,9 +364,6 @@ func CreateEquipment()
   //Blendgranaten
   PlaceSpawnpoint(STUN, 405, 315);
   PlaceSpawnpoint(STUN, 1145, 230);
-
-  //Rauchgranate
-  PlaceSpawnpoint(SGRN, 760, 435);
 }
 
 /* Regelwähler */
