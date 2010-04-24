@@ -1,4 +1,4 @@
 ActualPoints=Current statistics
 Points=points
-Complete=%s|Battlepoints: <c 00ff00>+%d</c>  Teampoints: <c 00ff00>+%d</c>  Minuspoints: <c ff0000>-%d</c>
+Complete=Battlepoints: <c 00ff00>+%d</c>  Teampoints: <c 00ff00>+%d</c>  Minuspoints: <c ff0000>-%d</c>
 Total=<i>%s</i> has a total of <c ffbb00>%d</c> points!
