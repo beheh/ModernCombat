@@ -479,8 +479,8 @@ private func RelaunchPlayer(int iPlr, object pCrew, int iMurdererPlr, int iTeam,
   
   DoTickets(iTeam,-1);
  
-  //if(!FindObject(CHOS) && !FindObject(MCSL)) //Regelwähler oder Klassenwahl?
-  //  CreateGOCCSpawner(pCrew);
+  if(!FindObject(CHOS) && !FindObject(MCSL)) //Regelwähler oder Klassenwahl?
+    CreateGOCCSpawner(pCrew);
     
   Schedule(Format("DoFlag(%d, %d)", iTeam, iPlr), 1);
 }
