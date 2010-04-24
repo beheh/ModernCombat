@@ -305,7 +305,7 @@ public func TicketsLow(int iRemaining, int iTeam)
 {
   for(var i = 0; i < GetPlayerCount(); i++) {
     if(GetPlayerTeam(GetPlayerByIndex(i)) == iTeam) {
-     EventInfo4K(GetPlayerByIndex(i)+1,Format("$MsgTicketsLow$",iRemaining),TIKT,0,0,0,"TicketsLow.ogg");
+     EventInfo4K(GetPlayerByIndex(i)+1,Format("$MsgTicketsLow$",iRemaining),TIKT,0,0,0,"Alarm.ogg");
     }
   }
 }
