@@ -23,6 +23,7 @@ global func CreateGOCCSpawner(object pCrew)
 
 public func FxIntSpawnCounterStart(object pTarget, int iEffectNumber, int iTemp)
 {
+  SetVisibility(VIS_Owner);
   //Speichern
   EffectVar(0, pTarget, iEffectNumber) = GetCategory(pTarget);
   SetCategory(C4D_Foreground, pTarget);

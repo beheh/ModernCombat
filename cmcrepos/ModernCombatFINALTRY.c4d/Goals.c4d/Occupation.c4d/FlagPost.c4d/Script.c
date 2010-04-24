@@ -164,10 +164,12 @@ public func Capture(int iTeam, bool bSilent)
   process = 100;
   attacker = 0;
   team = iTeam;
-  var fSilent = false;
-  if(lastowner == team) fSilent = true;
-  if(!bSilent) GameCallEx("FlagCaptured", this, team, pAttackers, fSilent);
   capt = true;
+  var fSilent = false;
+  if(!bSilent) {
+    if(lastowner == team) fSilent = true;
+    GameCallEx("FlagCaptured", this, team, pAttackers, fSilent);
+  }
   ResetAttackers();
   lastowner = team;
   UpdateFlag();
@@ -201,11 +203,8 @@ public func UpdateFlag()
 protected func SetFlagPos(int iHeight)
 {
   if(!flag) return();
-  //Log("%d%%",iHeight);
   iHeight = ((((GetDefHeight()+GetDefOffset(GetID(flag),true))*10)/100*(iHeight*10)) / 100)-GetDefOffset(GetID(flag),true);//Prozent umrechnen.
-  //Log("%d%",iHeight);
   iHeight = BoundBy(iHeight,0,GetDefHeight()+GetDefOffset(GetID(flag),true)); //Sicherheit ist wichtig.
-  //Log("%d%[s]",iHeight);
   SetPosition(GetX(),GetY()-iHeight,flag);//Und setzen.
 }
 
@@ -249,7 +248,7 @@ public func DoProcess(int iTeam, int iAmount)
   if((process <= 0) && (old > 0))
   {
    if(team && lastowner != iTeam) GameCallEx("FlagLost", this, team, iTeam, pAttackers);
-   lastowner = team;
+   //lastowner = team;
    attacker = 0;
    capt = false;
    team = iTeam;
