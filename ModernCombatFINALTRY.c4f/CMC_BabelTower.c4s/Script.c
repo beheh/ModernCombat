@@ -6,6 +6,13 @@
 static aFlag, aSelfDefense;
 
 
+/* OP Flaggenanordnung */
+
+public func OccupationDir()
+{
+  return GOCC_Vertical;
+}
+
 /* Initalisierung */
 
 func Initialize()
@@ -431,10 +438,9 @@ func CreateEquipment()
   PlaceSpawnpoint(DGNN, 240, 1785);
 }
 
-/* Besitznahme */
+/* Bei Flaggenübernahme */
 
-//Wenn eine Flagge übernommen wird...
-func PointCaptured(object pPoint, int iTeam)
+func FlagCaptured(object pPoint, int iTeam)
 {
   if(pPoint == aFlag[1])
   {
@@ -625,11 +631,6 @@ public func ChooserFinished()
     warn->SetR(-180);
     AddWarnEffect(warn,aFlag[6]);
   }
-}
-
-/* Besitznahme */
-public func OccupationDir() {
-  return GOCC_Vertical;
 }
 
 /* Relaunch */

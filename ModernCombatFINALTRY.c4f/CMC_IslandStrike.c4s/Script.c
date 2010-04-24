@@ -571,7 +571,7 @@ func CreateEquipment()
 
 /* Bei Flaggenübernahme */
 
-func PointCaptured(object pPoint, int iTeam)
+func FlagCaptured(object pPoint, int iTeam)
 {
   if(pPoint == aFlag[0])
    aSelfDefense[0]->SetTeam(iTeam);
