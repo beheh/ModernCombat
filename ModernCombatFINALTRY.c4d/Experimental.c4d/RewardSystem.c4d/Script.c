@@ -113,7 +113,6 @@ global func DoPlayerPoints(int iPoints, int iType, int iPlr, object pClonk, id i
   if(!db) return;
   if(!iPoints) return;
   if(pClonk) {
-    Log("%i", idIcon);
     if(!idIcon) idIcon = CLNK;
     var szMsg;
     if(iPoints < 0) szMsg = Format("{{%i}} <c ff0000>%d</c>", idIcon, iPoints);
