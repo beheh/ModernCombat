@@ -117,14 +117,20 @@ private func FinFuse()
 public func ControlUp(object pObjBy)
 {
   if(Contained()) return;
+  if(pObjBy->~RejectCollect(GetID(), this())) return;
+
   bActive=false;
-  if(!pObjBy->~RejectCollect(GetID(), this())) Enter(pObjBy);
+  
+  Enter(pObjBy);
 
   //Eventuell sichern
   if(bReady)
    Defuse();
   //Aufnehmen
   Collect(pObjBy);
+  
+  DoPlayerPoints(BonusPoints("TechnicalTask"), RWDS_TeamPoints, GetOwner(pObjBy), pObjBy, IC15);
+  
   return 1;
 }
 

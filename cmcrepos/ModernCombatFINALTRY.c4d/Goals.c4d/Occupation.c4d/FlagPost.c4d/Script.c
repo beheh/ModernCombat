@@ -120,18 +120,42 @@ protected func Timer()
   //Leere Einträge entfernen
   CleanArray4K(pAttackers);
   
-  for(clonk in FindObjects(Find_Distance(range),Find_OCF(OCF_Alive),Find_NoContainer()))
+  var aFriends = CreateArray();
+  var aEnemies = CreateArray();
+  var clonks = FindObjects(Find_Distance(range),Find_OCF(OCF_Alive),Find_NoContainer());
+  
+  for(clonk in clonks)
   {
-   if(GetOwner(clonk) == NO_OWNER) continue;
-   if(!PathFree4K(GetX(this()),GetY(this())-GetDefHeight(GetID())/2,GetX(clonk),GetY(clonk),4)) continue;
-   if(Contained(clonk)) continue;
+    if(GetOwner(clonk) == NO_OWNER) continue;
+    if(!PathFree4K(GetX(this()),GetY(this())-GetDefHeight(GetID())/2,GetX(clonk),GetY(clonk),4)) continue;
+    if(Contained(clonk)) continue;
+    if(GetPlayerTeam(GetOwner(clonk)) == team) {
+      friends++;
+      aFriends[GetLength(aFriends)] = clonk;
+    }
+    else
+    {
+      enemys++;
+      opposition = GetPlayerTeam(GetOwner(clonk));
+      aEnemies[GetLength(aEnemies)] = clonk;
+    }
+  }
+  attacker = opposition;
 
-   if(GetPlayerTeam(GetOwner(clonk)) == team)
-    friends++;
-   else
-   {
-    enemys++;
-    opposition = GetPlayerTeam(GetOwner(clonk));
+  if(enemys && !friends)
+    DoProcess(opposition,Min(enemys,3));
+
+  if(!enemys && friends)
+    DoProcess(team,Min(friends,3));
+
+  var pClonks = CreateArray();
+  if(trend < 0)
+    pClonks = aEnemies;
+  if(trend > 0)
+    pClonks = aFriends;
+
+  for(var clonk in pClonks) {
+    if(!clonk) continue;
     var new = true;
     //Schauen ob wir ihn schon finden können;
     for(var pClonk in pAttackers) {
@@ -140,17 +164,8 @@ protected func Timer()
     }
     //Er ist neu? Dann rein damit!
     if(new) pAttackers[GetLength(pAttackers)] = clonk;
-   }
   }
 
-  attacker = opposition;
-
-  if(enemys && !friends)
-    DoProcess(opposition,Min(enemys,3));
-
-  if(!enemys && friends)
-    DoProcess(team,Min(friends,3));
-  
   if(enemys && friends) {
     Message("$MsgFoughtOver$", flag, GetTeamColor(team), GetName());
   }
