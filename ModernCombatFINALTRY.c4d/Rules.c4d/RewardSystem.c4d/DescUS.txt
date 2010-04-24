@@ -1,0 +1,1 @@
+Players are beeing rated more exact, allowing to get better insights into the achievements of a player in a round.
