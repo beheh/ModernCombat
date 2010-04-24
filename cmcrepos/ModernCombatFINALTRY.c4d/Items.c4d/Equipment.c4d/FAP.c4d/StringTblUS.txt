@@ -1,3 +1,4 @@
 AlreadyHealing=Clonk already in treatment.
 NotWounded=Clonk not wounded.
+CantHeal=Clonk can't heal here.
 NotEnoughPoints=<c ff0000>40</c> points needed to unpack.
