@@ -256,20 +256,15 @@ public func FlagAttacked(object pFlag, int iTeam)
 public func FlagLost(object pFlag, int iTeam, int iTeamAttacker, array pAttackers)
 {
   //Punkte bei Belohnungssystem
-  if(FindObject(AR_A))
-  {
-    var i = 0;
-    for(var pClonk in pAttackers)  {
-      if(!i) {
-        FindObject(AR_A)->SetPlayerStats("Battlepoints", GetOwner(pClonk), BonusPoints("OPNeutralize"));
-        pClonk->AddEffect("PointMessage",pClonk,130,1,pClonk,0,Format("{{%i}} <c 00ff00>+%d</c>", IC13, BonusPoints("OPNeutralize")));
-      }
-      else {
-        FindObject(AR_A)->SetPlayerStats("Battlepoints", GetOwner(pClonk), BonusPoints("OPAssist"));
-        pClonk->AddEffect("PointMessage",pClonk,130,1,pClonk,0,Format("{{%i}} <c 00ff00>+%d</c>", IC11, BonusPoints("OPAssist")));
-      }
-      i++;
+  var i = 0;
+  for(var pClonk in pAttackers)  {
+    if(!i) {
+      DoPlayerPoints(BonusPoints("OPNeutralize"), RWDS_BattlePoints, GetOwner(pClonk), pClonk, IC13);
     }
+    else {
+      DoPlayerPoints(BonusPoints("OPAssist"), RWDS_BattlePoints, GetOwner(pClonk), pClonk, IC13);
+    }
+    i++;
   }
   for(var i = 0; i < GetPlayerCount(); i++) {
     if(GetPlayerTeam(GetPlayerByIndex(i)) == iTeam) {
@@ -282,17 +277,15 @@ public func FlagLost(object pFlag, int iTeam, int iTeamAttacker, array pAttacker
 public func FlagCaptured(object pFlag, int iTeam, array pAttackers, bool fNoScore)
 {
   //Punkte bei Belohnungssystem
-  if(!fNoScore && FindObject(AR_A))
+  if(!fNoScore)
   {
     var i = 0;
     for(var pClonk in pAttackers)  {
       if(!i) {
-        FindObject(AR_A)->SetPlayerStats("Battlepoints", GetOwner(pClonk), BonusPoints("OPConquer"));
-        pClonk->AddEffect("PointMessage",pClonk,130,1,pClonk,0,Format("{{%i}} <c 00ff00>+%d</c>", IC10, BonusPoints("OPConquer")));
+        DoPlayerPoints(BonusPoints("OPConquer"), RWDS_BattlePoints, GetOwner(pClonk), pClonk, IC10);
       }
       else {
-        FindObject(AR_A)->SetPlayerStats("Battlepoints", GetOwner(pClonk), BonusPoints("OPAssist"));
-        pClonk->AddEffect("PointMessage",pClonk,130,1,pClonk,0,Format("{{%i}} <c 00ff00>+%d</c>", IC11, BonusPoints("OPAssist")));
+        DoPlayerPoints(BonusPoints("OPAssist"), RWDS_BattlePoints, GetOwner(pClonk), pClonk, IC13);
       }
       i++;
     }
