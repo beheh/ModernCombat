@@ -118,6 +118,10 @@ public func ControlUp(object pObjBy)
 {
   if(Contained()) return;
   if(pObjBy->~RejectCollect(GetID(), this())) return;
+  
+  //Punkte bei Belohnungssystem
+  if(Hostile(GetOwner(),pObjBy)) 
+    DoPlayerPoints(BonusPoints("TechnicalTask"), RWDS_TeamPoints, GetOwner(pObjBy), pObjBy, IC15);
 
   bActive=false;
   
@@ -128,9 +132,6 @@ public func ControlUp(object pObjBy)
    Defuse();
   //Aufnehmen
   Collect(pObjBy);
-
-  //Punkte bei Belohnungssystem
-  DoPlayerPoints(BonusPoints("TechnicalTask"), RWDS_TeamPoints, GetOwner(pObjBy), pObjBy, IC15);
   
   return 1;
 }
