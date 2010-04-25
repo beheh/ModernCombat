@@ -248,7 +248,7 @@ protected func ControlThrow()
     this()->~StartAiming();
     return(1);
   }
-  if(this->~IsCrawling()) {
+  if(this->~IsCrawling() && !this->~IsAiming()) {
     var obj = Contents(0);
     if(obj) {
 			if(!obj->~CanAim()) {
@@ -269,6 +269,10 @@ protected func ControlThrow()
 				obj->SetYDir(-Cos(angle,30));
 				obj->SetRDir(RandomX(-6,6));
 				return(1);
+			}
+			else {
+  			this()->~StartAiming();
+  			return(1);
 			}
 		}
 	}

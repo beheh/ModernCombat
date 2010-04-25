@@ -11,7 +11,7 @@ public func CanAim()		{return(true);}
 func IsEquipment()		{return(true);}
 public func NoArenaRemove()	{return(true);}
 
-local pShield, pUser;
+local pShield, pUser, iHits;
 
 
 /* Initalisierung */
@@ -117,6 +117,14 @@ private func RemoveShield()
 }
 
 /* Sonstiges */
+
+public func DoHit(int iHit) {
+  iHits += iHit;
+  if(iHits >= 150) {
+    iHits = 0;
+    DoPlayerPoints(BonusPoints("Protection"), RWDS_BattlePoints, GetOwner(Contained()), Contained(), IC16);
+  }
+}
 
 protected func Hit()
 {
