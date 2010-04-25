@@ -143,9 +143,14 @@ public func FxDamagedTimer(object pTarget, int iEffectNumber, int iEffectTime)
 public func Hit()
 {
   if(GetAction() eq "Idle")
+  {
    Explode(3,0,0,0,1);
+   CastParticles("Smoke3",12,10,0,0,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
+  }
   else
+  {
    HitObject();
+  }
 }
 
 private func HitObject(pObj)
