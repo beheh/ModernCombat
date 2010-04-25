@@ -185,6 +185,9 @@ public func GetWeaponR()
 
 public func Activity()
 {
+  //Owner updaten
+  cur_Attachment->SetOwner(GetOwner());
+
   var iHeight, iWidth, iAngle;
   //Wuah, haben wir eine Waffe?
   if(! GetAttWeapon()) return;
