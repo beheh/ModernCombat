@@ -17,7 +17,6 @@ public func Set(object pTarget, object pItem)
 
   SetOwner(GetOwner(pTarget));
   SetController(GetController(pTarget));
-  SetVisibility(VIS_None);
   
   Show();
 }
