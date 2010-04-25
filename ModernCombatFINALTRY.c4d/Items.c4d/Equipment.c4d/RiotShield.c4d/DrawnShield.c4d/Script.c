@@ -17,7 +17,8 @@ public func Set(object pTarget, object pItem)
 
   SetOwner(GetOwner(pTarget));
   SetController(GetController(pTarget));
-
+  SetVisibility(VIS_None);
+  
   Show();
 }
 
@@ -148,6 +149,7 @@ public func IsBulletTarget(id idBullet, object pBullet, object pShooter)
 
 public func OnHit(int iDamage, int iType, object pFrom)
 {
+  if(Hostile(GetOwner(pFrom), GetOwner())) item->DoHit(iDamage);
   //Effekte
   Sound("BlockOff*.ogg");
   CastParticles("Glas", 1+Random(3), 40, 0,0, 40,10, RGBa(200,200,200), RGBa(2,2,200));
