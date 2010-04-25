@@ -93,14 +93,15 @@ public func ControlThrow(object caller)
 
 public func Throw()
 {
-  if(!IsFusing()) return ;
+  if(!IsFusing()) return 1;
 
   var user = GetUser();
 
   if(user->~IsClonk()) {
     if(!user->~IsAiming()) {
       if(user->~IsCrawling() && user->~ReadyToAim()) {
-        return user->~StartAiming();
+        user->~StartAiming();
+        return 1;
       }
       else {
         if((user->GetProcedure() == "WALK")||(user->GetProcedure() == "THROW"))
@@ -117,7 +118,7 @@ public func Throw()
   SetCategory(C4D_Vehicle);
   Exit();
   SetController(GetOwner(user));
-  SetPosition(GetX(user),GetY(user));
+  SetPosition(GetX(user)+(dir*12),GetY(user));
 
   SetR(angle);
   SetXDir(+Sin(angle,ThrowSpeed()));
@@ -135,6 +136,7 @@ public func Throw()
    if(!nade) user->StopAiming();
    else user->SetAiming(angle);
   }
+  return 1;
 }
 
 /* Granatengürtel */
