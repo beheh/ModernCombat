@@ -118,8 +118,6 @@ public func Fire2()
 
 public func HandR()
 {
-  //if(IsReloading() || IsRecharging()) return(-17);
-
   var effect = IsReloading();
   if(effect)
     return(-BoundBy(GetEffect(0,this(),effect,6)*2,0,17));
@@ -151,11 +149,6 @@ public func FxPumpStop(object pTarget)
 }
 
 /* Allgemein */
-
-public func OnSelectFT(int iFireMode, int iFireTec)
-{
-  //...
-}
 
 func OnSelect()
 {

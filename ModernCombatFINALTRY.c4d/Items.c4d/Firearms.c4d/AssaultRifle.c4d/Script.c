@@ -40,7 +40,6 @@ public func FMData1(int data)
 public func FMData1T1(int data)
 {
   if(data == FT_Name)                 return("$Burst$");//Der Name der Feuertechnik.
-  if(data == FT_IconFacet)            return(FICO_Burst);
   if(data == FM_Recharge)             return(15);
   if(data == FM_BurstAmount)          return(3);
   if(data == FM_BurstRecharge)        return(3);
@@ -74,7 +73,6 @@ public func BotData1(int data)
 public func FMData1T2(int data)
 {
   if(data == FT_Name)                 return("$Single$");
-  if(data == FT_IconFacet)            return(FICO_Single);
   return(FMData1(data));//Standardwerte aus dem zugrunde liegendem Feuermodus nehmen.
 }
 
@@ -126,7 +124,6 @@ public func FMData2(int data)
 public func FMData2T1(int data)
 {
   if(data == FT_Name)                 return("$Explosive$");
-  if(data == FT_IconFacet)            return(FICO_Explosive);
   if(data == FM_Icon)                 return(M203);
   return(FMData2(data));
 }
@@ -153,7 +150,6 @@ public func BotData2(int data)
 public func FMData2T2(int data)
 {
   if(data == FT_Name)                 return("$Cluster$");
-  if(data == FT_IconFacet)            return(FICO_Cluster);
   if(data == FM_Icon)                 return(FSHL);
   if(data == FM_Damage)               return(3);
   return(FMData2(data));
@@ -169,7 +165,6 @@ public func Fire2T2()
 public func FMData2T3(int data)
 {
   if(data == FT_Name)                 return("$Smoke$");
-  if(data == FT_IconFacet)            return(FICO_Explosive);
   if(data == FM_Icon)                 return(SSHL);
   if(data == FM_Damage)               return(3);
   return(FMData2(data));

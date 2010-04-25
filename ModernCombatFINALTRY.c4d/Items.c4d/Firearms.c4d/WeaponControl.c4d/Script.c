@@ -44,8 +44,6 @@ public func OnFinishReloadStart(int iSlot){}
 public func Default(int data)    // Standardeinstellungen
 {
   if(data == FT_Name)      return(0);//Wichtig!!
-  if(data == FT_Icon)      return(FICO);
-  if(data == FT_IconFacet) return(0);
   if(data == FT_Condition) return(true);
   if(data == FM_Slot)      return(0);
   return(inherited(data));
@@ -78,17 +76,6 @@ protected func Initialize()
 public func ControlDigDouble(caller)
 {
   return(FMMenu(caller));
-}
-
-public func FTMenu(int iFM)
-{
-  if(!GetFMData(FT_Name, iFM,1))
-    AddMenuItem("$NA$",Format("WeaponMenu(%d)",iFM),FICO,GetUser());
-  else
-  {
-    var i = aFM_FireTec[iFM-1];
-    AddMenuItem(GetFMData(FT_Name, iFM,i),"FTCycle", GetFMData(FT_Icon, iFM,i), GetUser(), 0, iFM, GetFMData(FT_Name, iFM,i),2,GetFMData(FT_IconFacet, iFM,i));
-  }
 }
 
 public func FTCycle(fm)

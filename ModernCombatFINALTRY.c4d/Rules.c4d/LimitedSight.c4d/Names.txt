@@ -1,2 +1,2 @@
-DE:beschränkte Sicht
+DE:Beschränkte Sicht
 US:Limited Sight
