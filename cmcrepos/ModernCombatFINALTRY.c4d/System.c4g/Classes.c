@@ -12,7 +12,7 @@ private func Class1Info(int iData)
   if(iData == CData_Desc)  return("$assault_desc$");
   if(iData == CData_Clonk) return(PCMK);
   if(iData == CData_Ammo)  return("90x {{STAM}}12x {{GRAM}}");
-  if(iData == CData_Items) return("1x {{ASTR}}     1x {{PSTL}}|1x {{C4PA}}     1x {{DGNN}}|1x {{STUN}}     1x {{SGRN}}");
+  if(iData == CData_Items) return("1x {{ASTR}}     1x {{PSTL}}|1x {{C4PA}}     1x {{DGNN}}|2x {{STUN}}     1x {{SGRN}}");
   if(iData == CData_Facet) return(1);
   return(Default(iData));
 }
@@ -26,6 +26,7 @@ private func Class1Setup(int iPlr)
   new->CreateContents(PSTL);
   new->CreateContents(C4PA);
   new->CreateContents(DGNN);
+  CreateObject(STUN,0,0,iPlr)->Activate(new);
   CreateObject(STUN,0,0,iPlr)->Activate(new);
   CreateObject(SGRN,0,0,iPlr)->Activate(new);
   return(new);
@@ -67,7 +68,10 @@ private func Class3Info(int iData)
   if(iData == CData_Desc)  return("$support_desc$");
   if(iData == CData_Clonk) return(PCMK);
   if(iData == CData_Ammo)  return("200x {{STAM}}10x {{MIAM}}");
-  if(iData == CData_Items) return("1x {{MNGN}}     1x {{RTLR}}|1x {{AMPK}}     1x {{DGNN}}|1x {{PGRN}}     2x{{SGRN}}");
+  if(!FindObject(NOAM))
+  {if(iData == CData_Items) return("1x {{MNGN}}     1x {{RTLR}}|1x {{AMPK}}     1x {{DGNN}}|2x {{STUN}}     1x{{SGRN}}");}
+  else
+  {if(iData == CData_Items) return("1x {{MNGN}}     1x {{RTLR}}|1x {{DGNN}}     --|2x {{STUN}}     1x{{SGRN}}");}
   if(iData == CData_Facet) return(3);
   return(Default(iData));
 }
@@ -79,10 +83,11 @@ private func Class3Setup(int iPlr)
   DoAmmo(MIAM,10,new);
   new->CreateContents(MNGN);
   new->CreateContents(RTLR);
-  new->CreateContents(AMPK);
+  if(!FindObject(NOAM))
+  {new->CreateContents(AMPK);}
   new->CreateContents(DGNN);
-  CreateObject(PGRN,0,0,iPlr)->Activate(new);
-  CreateObject(SGRN,0,0,iPlr)->Activate(new);
+  CreateObject(STUN,0,0,iPlr)->Activate(new);
+  CreateObject(STUN,0,0,iPlr)->Activate(new);
   CreateObject(SGRN,0,0,iPlr)->Activate(new);
   return(new);
 }
@@ -96,7 +101,7 @@ private func Class4Info(int iData)
   if(iData == CData_Desc)  return("$antiskill_desc$");
   if(iData == CData_Clonk) return(PCMK);
   if(iData == CData_Ammo)  return("70x {{STAM}}");
-  if(iData == CData_Items) return("1x {{PPGN}}     1x {{PSTL}}|1x {{RSHL}}     1x {{DGNN}}|2x {{FRAG}}     1x{{STUN}}");
+  if(iData == CData_Items) return("1x {{PPGN}}     1x {{PSTL}}|1x {{RSHL}}     1x {{DGNN}}|2x {{FRAG}}     2x{{STUN}}");
   if(iData == CData_Facet) return(4);
   return(Default(iData));
 }
@@ -111,6 +116,7 @@ private func Class4Setup(int iPlr)
   new->CreateContents(DGNN);
   CreateObject(FRAG,0,0,iPlr)->Activate(new);
   CreateObject(FRAG,0,0,iPlr)->Activate(new);
+  CreateObject(STUN,0,0,iPlr)->Activate(new);
   CreateObject(STUN,0,0,iPlr)->Activate(new);
   return(new);
 }
