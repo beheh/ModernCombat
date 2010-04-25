@@ -59,14 +59,13 @@ global func DoEvaluateStats()
   while(db->GetData()[iPlr] != 0)
   {
     if(!aList[GetPlayerTeam(iPlr)]) aList[GetPlayerTeam(iPlr)] = CreateArray();
-    szComplete = Format("$Complete$",
+    szTotal = Format("$Total$",
                    db->GetPlayerPoints(RWDS_PlayerName, iPlr),
+                   db->GetPlayerPoints(RWDS_TotalPoints, iPlr));
+    szComplete = Format("$Complete$",
                    db->GetPlayerPoints(RWDS_BattlePoints, iPlr),
                    db->GetPlayerPoints(RWDS_TeamPoints, iPlr),
                    db->GetPlayerPoints(RWDS_MinusPoints, iPlr));
-    szTotal = Format("$Total$",
-                db->GetPlayerPoints(RWDS_PlayerName, iPlr),
-                db->GetPlayerPoints(RWDS_TotalPoints, iPlr));
     aList[GetPlayerTeam(iPlr)][GetLength(aList[GetPlayerTeam(iPlr)])] = [szTotal, szComplete];
     iPlr++;
   }
@@ -114,9 +113,10 @@ global func DoPlayerPoints(int iPoints, int iType, int iPlr, object pClonk, id i
     var szMsg;
     if(iPoints < 0) szMsg = Format("{{%i}} <c ff0000>%d</c>", idIcon, iPoints);
     if(iPoints > 0) szMsg = Format("{{%i}} <c 00ff00>+%d</c>", idIcon, iPoints);
+    if(iPoints == 0) szMsg = Format("{{%i}} <c ffff00>+%d</c>", idIcon, iPoints);
     pClonk->AddEffect("PointMessage", pClonk, 130, 1, pClonk, 0, szMsg);
   }
-  db->SetPlayerData(db->GetPlayerPoints(iType, iPlr)+iPoints, iType, iPlr);
+  return db->SetPlayerData(db->GetPlayerPoints(iType, iPlr)+iPoints, iType, iPlr);
 }
 
 global func GetPlayerPoints(int iType, int iPlr) {
@@ -156,7 +156,9 @@ global func FxPointMessageTimer(pTarget, iNo, iTime)
 
 public func SetPlayerData(xData, int iType, int iPlr) {
   if(iType == RWDS_TotalPoints) return;
+  if(!aData[iPlr]) return false;
   aData[iPlr][iType] = xData;
+  return true;
 }
 
 public func GetPlayerData(int iType, int iPlr) {
