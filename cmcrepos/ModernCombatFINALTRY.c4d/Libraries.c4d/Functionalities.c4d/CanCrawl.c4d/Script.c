@@ -250,24 +250,26 @@ protected func ControlThrow()
   }
   if(this->~IsCrawling()) {
     var obj = Contents(0);
-		if(!obj->~CanAim()) {
-		  if(obj->~ControlThrow(this)) return(1);
-		  var dir = -(GetDir()*2-1);
-		  var angle = -45;
+    if(obj) {
+			if(!obj->~CanAim()) {
+				if(obj->~ControlThrow(this)) return(1);
+				var dir = -(GetDir()*2-1);
+				var angle = -45;
 
-		  obj->Exit();
-			obj->SetController(GetOwner(this));
-			obj->SetPosition(GetX(this)-(dir*8),GetY(this));
+				obj->Exit();
+				obj->SetController(GetOwner(this));
+				obj->SetPosition(GetX(this)-(dir*8),GetY(this));
 			
-		  obj->SetR(angle);
+				obj->SetR(angle);
 			
-			while(obj->Stuck())
-			  SetPosition(GetX(obj),GetY(obj)-1,obj);
+				while(obj->Stuck())
+					SetPosition(GetX(obj),GetY(obj)-1,obj);
 
-			obj->SetXDir(+Sin(angle,30)*dir);
-			obj->SetYDir(-Cos(angle,30));
-			obj->SetRDir(RandomX(-6,6));
-			return(1);
+				obj->SetXDir(+Sin(angle,30)*dir);
+				obj->SetYDir(-Cos(angle,30));
+				obj->SetRDir(RandomX(-6,6));
+				return(1);
+			}
 		}
 	}
 	return _inherited();
