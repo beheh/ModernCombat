@@ -849,7 +849,7 @@ public func StartAiming()//Wegen fehlendem Hazard-Feature.
       SetAction("AimLow");
   }
   else
-  if(Contents(0)->~GetFMData(FM_Aim) == 3)
+  if(Contents(0)->~GetFMData(FM_Aim) == 0)
   {
     if(GetActMapVal("Name","AimSquat",GetID()))
       SetAction("AimSquat");
@@ -1078,14 +1078,14 @@ public func UpdateAiming()
   //Log("%d / %d",EffectVar(4, pTarget, iNumber),EffectVar(5, pTarget, iNumber));
 }*/
 
-public func SetAiming(int iAngle)
+public func SetAiming(int iAngle, bool fForceExact)
 {
   //zielen wir überhaupt?
   if(!this()->~IsAiming())
     return();
 
   // Winkel anpassen, wenn keine freie Auswahl (klassische Steuerung)
-  if(!GetPlrCoreJumpAndRunControl(GetController()))
+  if(!GetPlrCoreJumpAndRunControl(GetController()) && !fForceExact)
     iAngle = iAngle-iAngle%AIM_Step;
 
   // Winkel wird zu groß?
@@ -1276,16 +1276,20 @@ public func ControlSpecial()
   if(Contents()->GetID() == GBRB)
     return();
   // wenn wir zielen, wollen wir nur Waffen haben
-  if(IsAiming() && (Contents(0)->~IsWeapon() || Contents(0)->~IsGrenade()))
+  if(IsAiming() && Contents(0)->~CanAim())
   {
+    var angle = Abs(AimAngle());
   	// nächste Waffe suchen
   	for(var i = 1; i < ContentsCount(); i++)
-  		if(Contents(i)->~IsWeapon() || Contents(i)->~IsGrenade())
+  		if(Contents(i)->~CanAim())
   		{
   			// zur Waffe wechseln
   			ShiftContents(0,0,Contents(i)->GetID(),true);
   			break;
   		}
+    StopAiming();
+    StartAiming();
+    SetAiming(angle, true);
   }
   else
 	  // Inventory verschieben
@@ -1343,7 +1347,7 @@ protected func CheckContentsDestruction() {
   if(Contents(0)) Contents(0)->~Selection(this());
 }
 
-protected func ControlSpecial()
+/*protected func ControlSpecial()
   {
   [$CtrlInventoryDesc$|Image=INVT]
   if(!Contents()) return();
@@ -1367,3 +1371,4 @@ protected func ControlSpecial()
   	ShiftContents(0,0,0,1);
   UpdateCharge();
   }
+*/
