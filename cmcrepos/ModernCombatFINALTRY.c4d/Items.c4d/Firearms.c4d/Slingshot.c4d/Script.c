@@ -40,7 +40,6 @@ public func FMData1(int data)
 public func FMData1T1(int data)
 {
   if(data == FT_Name)                 return("$Explosive$");
-  if(data == FT_IconFacet)            return(FICO_Explosive);
   if(data == FM_Icon)                 return(ESHL);
   return(FMData1(data));
 }
@@ -92,7 +91,6 @@ public func LaunchGrenade(id idg, int speed, int angle, int mode)
 public func FMData1T2(int data)
 {
   if(data == FT_Name)                 return("$Cluster$");
-  if(data == FT_IconFacet)            return(FICO_Cluster);
   if(data == FM_Icon)                 return(FSHL);
   if(data == FM_Damage)               return(2);
   return(FMData1(data));
@@ -115,7 +113,6 @@ public func BotData2(int data)
 public func FMData1T3(int data)
 {
   if(data == FT_Name)                 return("$Smoke$");
-  if(data == FT_IconFacet)            return(FICO_Explosive);
   if(data == FM_Icon)                 return(SSHL);
   if(data == FM_Damage)               return(2);
   return(FMData1(data));

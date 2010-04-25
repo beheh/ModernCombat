@@ -40,7 +40,6 @@ public func FMData1(int data)
 public func FMData1T1(int data)
 {
   if(data == FT_Name)                 return("$Auto$");
-  if(data == FT_IconFacet)            return(FICO_Auto);
   return(FMData1(data));
 }
 
@@ -62,7 +61,6 @@ public func FMData1T2(int data)
 {
   if(data == FT_Name)                 return("$Burst$");
   if(data == FM_Recharge)             return(15);
-  if(data == FT_IconFacet)            return(FICO_Burst);
   if(data == FM_Auto)                 return(false);
   if(data == FM_Damage)               return(8);
   if(data == FM_BurstAmount)          return(3);
@@ -92,7 +90,6 @@ public func FMData1T3(int data)
 {
   if(data == FT_Name)                 return("$Single$");
   if(data == FM_Recharge)             return(7);
-  if(data == FT_IconFacet)            return(FICO_Single);
   if(data == FM_Auto)                 return(false);
   if(data == FM_Damage)               return(FMData1(FM_Damage)*2);
   return(FMData1(data));
