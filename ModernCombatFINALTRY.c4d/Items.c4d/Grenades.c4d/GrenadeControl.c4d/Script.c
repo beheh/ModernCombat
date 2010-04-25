@@ -97,6 +97,18 @@ public func Throw()
 
   var user = GetUser();
 
+  if(user->~IsClonk()) {
+    if(!user->~IsAiming()) {
+      if(user->~IsCrawling() && user->~ReadyToAim()) {
+        return user->~StartAiming();
+      }
+      else {
+        if((user->GetProcedure() == "WALK")||(user->GetProcedure() == "THROW"))
+          user->SetAction("Throw");
+      }
+    }
+  }
+
   var dir = GetDir(user)*2-1;
   var angle = user->AimAngle();
   var x,y;
@@ -113,11 +125,6 @@ public func Throw()
   SetRDir(RandomX(-6,6));
 
   AddEffect("HitCheck",this,1,1,0,SHT1,user);
-
-  if(user->~IsClonk())
-   if(!user->~IsAiming())
-    if((user->GetProcedure() == "WALK")||(user->GetProcedure() == "THROW"))
-     user->SetAction("Throw");
 
   Sound("GrenadeThrow*.ogg");
 

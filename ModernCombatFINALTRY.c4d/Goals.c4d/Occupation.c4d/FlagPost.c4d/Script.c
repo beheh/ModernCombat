@@ -102,7 +102,7 @@ protected func Timer()
 {
   var enemys,friends,opposition;
   
-  iOld = trend;
+  var iOld = trend;
 
   trend = 0;
 
