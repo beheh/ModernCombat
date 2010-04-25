@@ -2,6 +2,7 @@
 Icon=16
 Title=Tutorial
 MaxPlayer=1
+Origin=ModernCombatFINALTRY.c4f
 
 [Definitions]
 Definition1=Objects.c4d
