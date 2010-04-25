@@ -71,11 +71,21 @@ func Hit(int iXDir, int iYDir)
 public func ControlThrow(object caller)
 {
   SetUser(caller);
-
-  if(!IsFusing())
-  {
-   Fuse();
-   return true;
+  var user = caller;
+  
+  if(user->~IsClonk()) {
+    if(!user->~IsAiming() && user->~IsCrawling()) {
+      if(user->~IsCrawling() && user->~ReadyToAim()) {
+        user->~StartAiming();
+        return 1;
+      }
+    }
+    else {
+      if(!IsFusing()) {
+        Fuse();
+        return true;
+      }
+    }
   }
 
   if(!Contained(GetUser()))
@@ -93,8 +103,6 @@ public func ControlThrow(object caller)
 
 public func Throw()
 {
-  if(!IsFusing()) return 1;
-
   var user = GetUser();
 
   if(user->~IsClonk()) {
@@ -109,6 +117,8 @@ public func Throw()
       }
     }
   }
+
+  if(!IsFusing()) return 1;
 
   var dir = GetDir(user)*2-1;
   var angle = user->AimAngle();
