@@ -115,6 +115,7 @@ public func HurtSounds(int iDmg, int iType)
 public func OnHit(int iChange, int iType, object pFrom)
 {
   var iByPlayer = GetController(pFrom);
+  if(iByPlayer == GetOwner()) return _inherited(...); //Yay, Selfassist!11
   for(var i=0; i < GetLength(assistkiller)/2; i++)
   {
     if(assistkiller[i*2] == iByPlayer)
