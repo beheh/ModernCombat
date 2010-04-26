@@ -70,6 +70,7 @@ func CreateFurniture()
 
   CreateObject(LADR, 2200, 485, -1)->Set(7);
 
+  CreateObject(LADR, 2765, 485, -1)->Set(6);
   CreateObject(LADR, 2870, 485, -1)->Set(6);
   CreateObject(LADR, 2910, 485, -1)->Set(6);
 
@@ -77,6 +78,7 @@ func CreateFurniture()
 
   CreateObject(LADR, 3070, 485, -1)->Set(6);
   CreateObject(LADR, 3110, 485, -1)->Set(6);
+  CreateObject(LADR, 3215, 485, -1)->Set(6);
 
   CreateObject(LADR, 3810, 485, -1)->Set(7);
 
@@ -109,15 +111,17 @@ func CreateFurniture()
   CreateObject(OLGH, 4365, 300, -1)->Set(4, 15, 1, 1, 40);
 
   //Automat
-  CreateObject(CLVM, 2955, 430, -1);
+  CreateObject(CLVM, 2840, 430, -1);
 
   //Büsche
   CreateObject(BSH2, 2770, 470, -1);
   CreateObject(BSH2, 3180, 325, -1);
 
-  //Stahlbrücken
-  CreateObject(_HBR, 2735, 372, -1);
-  CreateObject(_HBR, 3245, 372, -1);
+  //Stahltüren
+  CreateObject(STDR, 2795, 430, -1);
+  CreateObject(STDR, 2875, 360, -1);
+  CreateObject(STDR, 3105, 360, -1);
+  CreateObject(STDR, 3185, 430, -1);
 
   //Bojen
   CreateObject(BUOY, 1180, 533, -1);
@@ -134,6 +138,10 @@ func CreateFurniture()
   CreateObject(WCR2, 2910, 360, -1)->AutoRespawn();
   CreateObject(WCR2, 3070, 360, -1)->AutoRespawn();
   CreateObject(WCR2, 3890, 420, -1)->AutoRespawn();
+
+  //Metallkisten
+  CreateObject(MWCR, 2940, 430, -1);
+  CreateObject(MWCR, 2960, 430, -1);
 
   //Benzinfässer
   CreateObject(PBRL, 1290, 400, -1)->AutoRespawn();
@@ -264,9 +272,6 @@ func CreateFurniture()
   CreateObject(SCA1, 3155, 390, -1);
   CreateObject(SCR1, 4330, 495, -1);
 
-  //Tisch
-  CreateObject(GTBL, 2950, 430, -1);
-
   //Grenzen
   CreateObject(BRDR, 1170, 0, -1)->Set(0);
   CreateObject(BRDR, 4835, 0, -1)->Set(1);
@@ -322,7 +327,7 @@ func CreateEquipment()
   PlaceSpawnpoint(ASTR, 2890, 425);
 
   //Maschinengewehr
-  PlaceSpawnpoint(MNGN, 3090, 425);
+  PlaceSpawnpoint(MNGN, 2990, 510);
 
   //Raketenwerfer
   PlaceSpawnpoint(RTLR, 2180, 415);
