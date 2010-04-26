@@ -136,6 +136,25 @@ global func FxSmokeGrenadeStop(object pTarget, int iEffectNumber, int iReason, b
     EffectVar(0,pTarget,iEffectNumber)->RemoveObject();
 }
 
+public func GetAlpha(){return a;}
+
+public func SetAlpha(int iValue)
+{
+  a = BoundBy(iValue,0,255);
+  SetClrModulation(RGBa(r,g,b,a));
+  
+  if(a >= 255) RemoveObject();// !!!
+}
+
+public func DoAlpha(int iValue, int iMin, int iMax)
+{
+  if(!iMax) iMax = 255;
+  a = BoundBy(a-iValue,Max(iMin,0),Min(iMax,255));
+  SetClrModulation(RGBa(r,g,b,a));
+  
+  if(a >= 255) RemoveObject();// !!!
+}
+
 /* Geschwindigkeitsdämpfung */
 
 public func Damp(int iStrength)

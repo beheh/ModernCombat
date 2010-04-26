@@ -1,11 +1,8 @@
-/* ScreenRGB */
-#strict
-
-static const SR4K_LayerRedHurt = 1;
-static const SR4K_LayerSmoke = 2;
+/* ScreenRGB 2 */
+#strict 2
 
 local r,g,b,a;
-local fadein,fadeout,duration,target,layer;
+local target,layer,fade;
 
 public func Initialize()
 {
@@ -14,29 +11,30 @@ public func Initialize()
   SetPosition(0,0);
 
   SetClrModulation (RGBa(0,0,0,255));
+  a = 255;
 
-  return(1);
+  return 1;
 }
 
-global func ScreenRGB(object pTarget, int dwRGBa, int iFadeIn, int iDuration, int iFadeOut, bool bAdditive, int iLayer)
+global func ScreenRGB2(object pTarget, int dwRGBa, int iAlphaAdd, int iFadeRate, bool bAdditive, int iLayer)
 {
   var obj;
   if(iLayer)
-    obj = FindObject2(Find_ID(SR4K),Find_Owner(GetOwner(pTarget)),Find_Func("SameLayer",iLayer));
+    obj = FindObject2(Find_ID(S24K),Find_Owner(GetOwner(pTarget)),Find_Func("SameLayer",iLayer));
     
   if(!obj)
-    obj = CreateObject(SR4K,0,0,GetOwner(pTarget));
+    obj = CreateObject(S24K,0,0,GetOwner(pTarget));
     
-  obj->Set(pTarget,dwRGBa,iFadeIn,iDuration,iFadeOut,bAdditive,iLayer);
-  return(obj);
+  obj->Set(pTarget,dwRGBa,iAlphaAdd,iFadeRate,bAdditive,iLayer);
+  return obj;
 }
 
 public func SameLayer(int iLayer)
 {
-  if(!layer) if(iLayer == layer) return(true);
+  if(layer) if(iLayer == layer) return true;
 }
 
-public func Set(object pTarget, int dwRGBa, int iFadeIn, int iDuration, int iFadeOut, bool bAdditive, int iLayer)
+public func Set(object pTarget, int dwRGBa, int iAlphaAdd, int iFadeRate, bool bAdditive, int iLayer)
 {
   target = pTarget;
   layer = iLayer;
@@ -48,145 +46,71 @@ public func Set(object pTarget, int dwRGBa, int iFadeIn, int iDuration, int iFad
 
   if(bAdditive)//Additiv zeichnen?
     SetObjectBlitMode(GFX_BLIT_Additive);
-
-  if(!GetRGBaValue(dwRGBa))//Kein Alphakanal? :o
-    dwRGBa = SetRGBaValue (dwRGBa,1);
     
-  fadein = Max(fadein,iFadeIn);
-  fadeout = Max(fadeout,iFadeOut);
-  duration += iDuration;
-
+  fade = Max(fade,iFadeRate);
+  
   var a_save = a;
   SplitRGBaValue(dwRGBa,r,g,b,a);
-  if(a_save)
-    a = Min(a,a_save);
-  
-  SetClrModulation (RGBa(r,g,b,255));
-
-  if(!fadein)
-    fadein = 1;
-
-  if(!fadeout)
-    fadeout = 1;
+  a = BoundBy(a_save-iAlphaAdd,0,255);
     
-  var effect = GetEffect("IntRGBFade",this());
-  if(effect)
-    EffectVar(0,this(),effect) = 0;//:S
+  if(!fade)
+    RemoveEffect("IntRGBFade",this);
   else
-    AddEffect("IntRGBFade",this(),25,1,this());
+    if(!GetEffect("IntRGBFade",this))
+      AddEffect("IntRGBFade",this,25,3,this);
 }
+
 
 ///Fade-Effekt
 
-/* -Effektvariablen-
-
-0: Animationsstatus
-   +1: Einfaden
-    0: Da sein.
-   -1: Ausfaden.
-   
-1: Alpha (Der aktuelle Alpha-Wert.)
-
-2: Effektzeit zu der das Einfaden abgeschlossen wurde. (Für duration wichtig.)
-
-*/
-
 public func FxIntRGBFadeStart(object pTarget, int iEffectNumber, int iTemp)
 {
-  var state = +1;
-  var alpha = 255;
-  
-  if(fadein < 0)//Kein Einfaden?
-    state = 0;
-  if(duration < 0)//Sofort Ausfaden?
-    state = -1;
-    
-  if(state < +1)//Nicht Einfaden?
-    alpha = a;
-    
-  EffectVar(0,pTarget,iEffectNumber) = state;
-  EffectVar(1,pTarget,iEffectNumber) = alpha;
-  
-  return(1);
+  return 1;
 }
 
 public func FxIntRGBFadeTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
-  var state = EffectVar(0,pTarget,iEffectNumber);
+  a = BoundBy(a+fade,0,255);
+  pTarget->SetClrModulation(RGBa(r,g,b,a));
   
-  if(state == +1)//Einfaden.
-  {
-    EffectVar(1,pTarget,iEffectNumber) = BoundBy( 255 - (iEffectTime*(255-a)/fadein) ,0,255);
-    pTarget->SetClrModulation(RGBa(r,g,b,EffectVar(1,pTarget,iEffectNumber)));
-    
-    if(EffectVar(1,pTarget,iEffectNumber) <= a)//Fertig mit Einfaden?
-    {
-      if(duration < 0)
-        EffectVar(0,pTarget,iEffectNumber) = -1;
-      else
-      {
-        EffectVar(0,pTarget,iEffectNumber) =  0;
-        EffectVar(2,pTarget,iEffectNumber) = iEffectTime;//Aktuelle Zeit speichern.
-      }
-    }
-  }
-  else if(state == 0)//Da sein.
-  {
-    if(iEffectTime - EffectVar(3,pTarget,iEffectNumber) >= duration)
-    {
-      EffectVar(0,pTarget,iEffectNumber) = -1;
-      EffectVar(2,pTarget,iEffectNumber) = iEffectTime;
-    }
-    return(0);
-  }
-  else if(state == -1)//Ausfaden.
-  {
-    EffectVar(1,pTarget,iEffectNumber) = BoundBy( a + ((iEffectTime-EffectVar(2,pTarget,iEffectNumber))*(255-a)/fadeout) ,0,255);
-    pTarget->SetClrModulation(RGBa(r,g,b,EffectVar(1,pTarget,iEffectNumber)));
-    
-    if(EffectVar(1,pTarget,iEffectNumber) >= 255)//Fertig mit Ausfaden?
-      return(-1);//Weg damit!
-  }
+  if(a <= 0)
+    return -1;
 
-  return(0);
+  return 0;
 }
 
 public func FxIntRGBFadeStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)
 {
   RemoveObject();
-  return(0);
+  return 0;
 }
 
+public func GetAlpha(){return a;}
 
-public func Fade(iTime)
+public func SetAlpha(int iValue)
 {
-  if(!iTime) iTime = fadeout;
-  fadeout = iTime;
+  a = BoundBy(iValue,0,255);
+  SetClrModulation(RGBa(r,g,b,a));
   
-  var effect = GetEffect("IntRGBFade",this());
-  if(effect) EffectVar(0,this(),effect) = -1;
+  if(a >= 255) RemoveObject();// !!!
+}
+
+public func DoAlpha(int iValue, int iMin, int iMax)
+{
+  if(!iMax) iMax = 255;
+  a = BoundBy(a-iValue,Max(iMin,0),Min(iMax,255));
+  SetClrModulation(RGBa(r,g,b,a));
+  
+  if(a >= 255) RemoveObject();// !!!
 }
 
 func CursorCheck()
 {
-  var pRealCursor;
-  if(GetCursor(GetOwner())) pRealCursor = GetCursor(GetOwner())->~GetRealCursor();
-  var fDisplay = false; 
-  if(GetCursor(GetOwner()) == target) {
-    fDisplay = true;
-  }
-  if(pRealCursor) {
-    if(pRealCursor == target) {
-      fDisplay = true;
-    }
-  }
-  if(fDisplay) {
-    SetVisibility (VIS_Owner); 
-  }
-  else {
+  if(GetCursor(GetOwner()) != target)
     SetVisibility (VIS_None);
-  }
+  else
+    SetVisibility (VIS_Owner);
 }
 
-public func NoWarp(){return(true);}
-public func IsHUD(){return(true);}
+public func NoWarp(){return true;}
+public func IsHUD(){return true;}
