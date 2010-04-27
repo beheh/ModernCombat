@@ -185,9 +185,6 @@ public func GetWeaponR()
 
 public func Activity()
 {
-  //Owner updaten
-  cur_Attachment->SetOwner(GetOwner());
-
   var iHeight, iWidth, iAngle;
   //Wuah, haben wir eine Waffe?
   if(! GetAttWeapon()) return;
@@ -200,6 +197,10 @@ public func Activity()
   //Wenn nicht schon gesetzt: Turn-Action
   if(GetAction() != "Turn")
     SetAction("Turn");
+    
+  //Owner updaten
+  cur_Attachment->SetOwner(GetOwner());
+  
   /* Patroullie fahren */
   
   // alle 5 Frames

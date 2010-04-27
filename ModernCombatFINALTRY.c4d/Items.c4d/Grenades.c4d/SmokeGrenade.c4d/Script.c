@@ -15,7 +15,7 @@ public func ContainedDamage() { return 20; }
 public func Fused()
 {
   //Rauchen (gefährdet die Gesundheit)
-  ScheduleCall(this, "Smoke", 14, 10);
+  ScheduleCall(this, "Smoke", 3, 10);
 
   //Effekte
   Sound("SGRN_Fused.ogg");
@@ -32,8 +32,8 @@ func Smoke()
   CastParticles("Smoke3", 2, 5, 0, 0, 30, 100, RGBa(255, 255, 255, 130), RGBa(255, 255, 255, 200));
 
   var smoke = CreateObject(SM4K, 0, 0, GetController());
-  smoke->SetXDir((GetXDir() / 3 * 2) + (time * RandomX(-30, +30) / 10));
-  smoke->SetYDir((GetYDir() / 3 * 2) - (time * (10 + Random(20)) / 10));	
+  SetXDir((GetXDir() / 3 * 2) + (time * RandomX(-30, +30)),smoke,100);
+  SetYDir((GetYDir() / 3 * 2) - (time * (10 + Random(20))),smoke,100);
   
   time++;
 }

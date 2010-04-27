@@ -170,6 +170,8 @@ public func Collection(object pObj)
 
 public func Departure(object pObj)
 {
+  if(IsFusing())
+    SetCategory(C4D_Vehicle);
   PlayerMessage(GetController(pObj)," ",pObj);
 }
 
