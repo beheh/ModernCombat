@@ -695,7 +695,7 @@ public func AimAngle(int iMaxAngle, int iRange, bool bSpread)
    this()->~WeaponAt(x,y,r);
    
    if(!IsAiming()) {
-	  if(Contents()->IsGrenade())
+	  if(Contents()->~IsGrenade())
 	    angle = (60+r)*(GetDir()*2-1);
 	  else
 		  angle = (90+r)*(GetDir()*2-1);
