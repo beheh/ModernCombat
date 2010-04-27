@@ -5,20 +5,26 @@
 static station;//Aktuelle Stationsnummer.
 static benzinclonk;//Clonk der die Benzinfäßer "bewacht".
 
+
+/* Initalisierung */
+
 func Initialize()
 {
+  //Starttitel und Musikliste zusammenstellen
+  SetPlayList("CMC_Base Groove.ogg;CMC_Deep Universe.ogg;CMC_Friendly Unit.ogg;CMC_Hacking.ogg;CMC_Moving Squad.ogg;CMC_No Good.ogg;CMC_Obsession.ogg;CMC_Odyssey.ogg;CMC_Rock Go On.ogg;CMC_Techno.ogg;CMC_Your Eyes.ogg");
+  Music("CMC_Base Groove.ogg");
   //Szenario einrichten
   CreateFurniture();
+  //Script starten
   ScriptGo(true);
   return(1);
 }
 
+/* Plazierungslisten */
+
 func CreateFurniture()
 {
   //Alle Objekte folglich von links oben nach rechts unten
-  //Sektionen nummerisch von links nach rechts
-
-  //Sektion 1--------------------------------------------------------
   
   //Benzinfässer
   CreateObject(PBRL, 649, 581, -1);
@@ -41,10 +47,15 @@ func CreateFurniture()
   CreateObject(_WIN, 722, 466, -1);
   CreateObject(_WIN, 722, 495, -1);
   CreateObject(_WIN, 722, 524, -1);
+  CreateObject(_WIN, 2378, 490, -1);
+  CreateObject(_WIN, 2378, 461, -1);
 
   //Leitern
   CreateObject(LADR, 960, 720, -1)->Set(44);
   CreateObject(LADR, 1410, 770, -1)->Set(20);
+  CreateObject(LADR, 2030, 550, -1)->Set(22);
+  CreateObject(LADR, 2340, 550, -1)->Set(6);
+  CreateObject(LADR, 2890, 625, -1)->Set(18);
 
   //Kisten
   CreateObject(WCR2, 25, 450, -1);
@@ -75,9 +86,8 @@ func CreateFurniture()
   CreateObject(TABL, 875, 720, -1);
   CreateObject(TABL, 910, 360, -1);
   CreateObject(TABL, 920, 720, -1);
-
-  //Munitionskisten (Kugeln)
-  CreateObject(AMCT, 870, 360, -1)->Set(ABOX);
+  CreateObject(TABL, 1970, 490, -1);
+  CreateObject(TABL, 2265, 491, -1);
 
   //Explosivtank
   CreateObject(XTNK, 520, 590, -1);
@@ -88,9 +98,16 @@ func CreateFurniture()
   //Flutlichter
   CreateObject(FLGH, 180, 640, -1)->SetRotation(65);
   CreateObject(FLGH, 1355, 550, -1);
+  CreateObject(FLGH, 1635, 550, -1);
+  CreateObject(FLGH, 2365, 490, -1)->SetRotation(25);
+  CreateObject(FLGH, 2655, 680, -1)->SetRotation(-75);
+  CreateObject(FLGH, 2785, 590, -1)->SetRotation(-10);
 
   //Radarbildschirm
   CreateObject(SCA1, 960, 330, -1);
+
+  //Automat
+  CreateObject(CLVM, 1985, 360, -1);
 
   //Laborlicht
   CreateObject(LLGH, 395, 600, -1);
@@ -106,6 +123,11 @@ func CreateFurniture()
   CreateObject(CLGH, 1035, 465, -1);
   CreateObject(CLGH, 1035, 525, -1);
   CreateObject(CLGH, 1210, 605, -1);
+  CreateObject(CLGH, 1970, 405, -1);
+  CreateObject(CLGH, 1970, 465, -1);
+  CreateObject(CLGH, 1970, 525, -1);
+  CreateObject(CLGH, 1985, 295, -1);
+  CreateObject(CLGH, 2120, 455, -1);
 
   //Wandlampen
   CreateObject(BLGH, 745, 345, -1);
@@ -116,7 +138,7 @@ func CreateFurniture()
   CreateObject(LCKR, 735, 260, -1);
   CreateObject(LCKR, 755, 260, -1);
 
-  //Tür (Dekoration)
+  //Türen
   CreateObject(ROOM, 615, 640, -1);
   CreateObject(ROOM, 1005, 720, -1);
 
@@ -145,39 +167,12 @@ func CreateFurniture()
   CreateObject(HA4K, 960, 363, -1);
   CreateObject(HA4K, 960, 433, -1);
   CreateObject(HA4K, 960, 493, -1);
-
-  //Bodenlucken (Script)
-  CreateObject(HA4K, 960, 553, -1)->Lock();
-
-  //Hydrauliktüren (Script)
-  CreateObject(SLDR, 90, 640, -1);
-  CreateObject(SLDR, 810, 350, -1);
-  CreateObject(SLDR, 915, 490, -1);
-  CreateObject(SLDR, 915, 550, -1)->Lock();
-  CreateObject(SLDR, 1070, 550, -1);
-
-  //Sektion 2--------------------------------------------------------
-
-  //Deckenlichter
-  CreateObject(CLGH, 1970, 405, -1);
-  CreateObject(CLGH, 1970, 465, -1);
-  CreateObject(CLGH, 1970, 525, -1);
-  CreateObject(CLGH, 1985, 295, -1);
-  CreateObject(CLGH, 2120, 455, -1);
-
-  //Leiter
-  CreateObject(LADR, 2030, 550, -1)->Set(22);
-
-  //Tische
-  CreateObject(TABL, 1970, 490, -1);
-
-  //Automat
-  CreateObject(CLVM, 1985, 360, -1);
-
-  //Bodenlucken
   CreateObject(HA4K, 2030, 363, -1);
   CreateObject(HA4K, 2030, 433, -1);
   CreateObject(HA4K, 2030, 493, -1);
+  CreateObject(HA4K, 2340, 493, -1);
+  CreateObject(HA4K, 2890, 473, -1);
+  CreateObject(HA4K, 2760, 473, -1);
 
   //Ventillator
   CreateObject(MVNT, 2135, 489, -1)->SetCon(50);
@@ -185,40 +180,10 @@ func CreateFurniture()
   //Geländer
   CreateObject(RAI1, 1960, 360, -1)->SetRail([1,1,1]);
   CreateObject(RAI1, 2200, 490, -1)->SetRail([1,1,1,1,1,1,1]);
-
-  //Glasscheiben
-  CreateObject(_WIN, 2378, 490, -1);
-  CreateObject(_WIN, 2378, 461, -1);
+  CreateObject(RAI1, 2665, 470, -1)->SetRail([1,1,1,1,1,1,1,1,1]);
 
   //Laborlicht
   CreateObject(LLGH, 2345, 470, -1);
-
-  //Hydrauliktüren (Script)
-  CreateObject(SLDR, 1920, 550, -1);
-  CreateObject(SLDR, 2190, 490, -1);
-
-  //Sektion 3--------------------------------------------------------
-
-  //Leitern
-  CreateObject(LADR, 2340, 550, -1)->Set(6);
-  CreateObject(LADR, 2890, 625, -1)->Set(18);
-
-  //Bodenlucken
-  CreateObject(HA4K, 2340, 493, -1);
-  CreateObject(HA4K, 2890, 473, -1);
-  CreateObject(HA4K, 2760, 473, -1);
-
-  //Geländer
-  CreateObject(RAI1, 2665, 470, -1)->SetRail([1,1,1,1,1,1,1,1,1]);
-
-  //Tische
-  CreateObject(TABL, 2265, 491, -1);
-
-  //Flutlichter
-  CreateObject(FLGH, 1635, 550, -1);
-  CreateObject(FLGH, 2365, 490, -1)->SetRotation(25);
-  CreateObject(FLGH, 2655, 680, -1)->SetRotation(-75);
-  CreateObject(FLGH, 2785, 590, -1)->SetRotation(-10);
 
   //Rampen
   DrawMaterialQuad("Wall-Stripes",220,640,250,630,250,640,235,640,true);
@@ -250,10 +215,6 @@ func CreateFurniture()
   var doorw = CreateObject(ROM2, 865, 490, -1);
   CreateObject(ROM2, 2095, 490, -1)->Connect(doorw);
 
-  //Hydrauliktüren (Script)
-  CreateObject(SLDR, 2615, 610, -1);
-  CreateObject(SLDR, 2705, 680, -1);
-
   //Sonstiges--------------------------------------------------------
 
   //KIs
@@ -262,6 +223,30 @@ func CreateFurniture()
   
   Schedule("PlaceAI(1070,480,\"Marksman\",PCMK)",35+Random(35));
   
+  //Munitionskisten (Kugeln)
+  CreateObject(AMCT, 870, 360, -1)->Set(ABOX);
+
+  //Schilder (Strings müssen her, ENGLISCH!)
+  CreateObject(_SGN, 195, 640, -1)->SetNewInfo(1,"Links: Zentrale|Rechts: Schießstand");
+  CreateObject(_SGN, 710, 570, -1)->SetNewInfo(1,"Hoch: Schießstand|Runter: Lagerebene");
+  CreateObject(_SGN, 790, 350, -1)->SetNewInfo(1,"Achtung: Hier wird scharf geschossen!");
+  CreateObject(_SGN, 935, 490, -1)->SetNewInfo(1,"Zur Ausrüstungsschulung");
+  CreateObject(_SGN, 2115, 490, -1)->SetNewInfo(1,"Tür: Schießstand|Links: Ausrüstungsschulung|Rechts: Parkour");
+
+  //Bodenlucken (Script)
+  CreateObject(HA4K, 960, 553, -1)->Lock();
+
+  //Hydrauliktüren (Script)
+  CreateObject(SLDR, 90, 640, -1);
+  CreateObject(SLDR, 810, 350, -1);
+  CreateObject(SLDR, 915, 490, -1);
+  CreateObject(SLDR, 915, 550, -1)->Lock();
+  CreateObject(SLDR, 1070, 550, -1);
+  CreateObject(SLDR, 2615, 610, -1);
+  CreateObject(SLDR, 2705, 680, -1);
+  CreateObject(SLDR, 1920, 550, -1);
+  CreateObject(SLDR, 2190, 490, -1);
+
   Demo();
 }
 
@@ -277,6 +262,7 @@ func Demo()
 
 
 /* Script0-X */
+
 func Script10()
 {
   SetCrewEnabled(true, GetCrew());
@@ -296,6 +282,7 @@ func Script12()
 
 
 /* Stationen */
+
 func Station0(object pClonk)
 {
   goto();//zurücksetzen

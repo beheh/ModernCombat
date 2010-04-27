@@ -1,0 +1,14 @@
+[Action]
+Name=Blink
+Procedure=NONE
+Length=9
+Delay=4
+Facet=0,64,10,15,8,-15
+FacetBase=1
+NextAction=Blink
+
+[Action]
+Name=Still
+Procedure=NONE
+FacetBase=1
+NextAction=Still
