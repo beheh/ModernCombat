@@ -113,8 +113,8 @@ public func UpdateAngle()
 {
   if(target)  //Haaaaaax
     if(Contents(0,target))
-      if(Contents(0,target)->IsGrenade())
-        if(!target->IsAiming())
+      if(Contents(0,target)->~IsGrenade())
+        if(!target->~IsAiming())
           angle = 65*(GetDir(target)*2-1);
   SetR(angle/*+GetR(target)*/);
   UpdateGraphics();
