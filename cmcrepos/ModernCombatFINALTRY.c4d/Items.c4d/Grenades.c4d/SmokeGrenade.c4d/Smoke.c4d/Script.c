@@ -32,7 +32,7 @@ public func Timer()
 
   // Rauchwolken vergrößern sich etwas...
   if(GetCon() < 50)
-    DoCon(3);
+    DoCon(6);
   
   // Und werden langsamer... in Abhängigkeit zur Größe natürlich ;)
   Damp(GetCon());
@@ -50,6 +50,7 @@ public func FxSmokingTimer()
 {
   // Und tolle Partikel-Effekte, damit Leute im Rauch auch nicht gesehen werden. ;)
   var alpha = BoundBy((GetActTime()-(iLifeTime-SM4K_FadeTime)) * 255 / SM4K_FadeTime, 0, 255);
+  CreateParticle("SmokeGrenadeSmoke", 0, 0, 0, RandomX(-10, +10), GetCon()*10, RGBa(255, 255, 255, alpha));
   CreateParticle("SmokeGrenadeSmoke", 0, 0, 0, RandomX(-10, +10), GetCon()*10, RGBa(255, 255, 255, alpha));
   return 0;
 }
@@ -136,23 +137,28 @@ global func FxSmokeGrenadeStop(object pTarget, int iEffectNumber, int iReason, b
     EffectVar(0,pTarget,iEffectNumber)->RemoveObject();
 }
 
-public func GetAlpha(){return a;}
-
 public func SetAlpha(int iValue)
 {
-  a = BoundBy(iValue,0,255);
+  var a = BoundBy(iValue,0,255);
+  var r,g,b;
+  SplitRGBaValue(iValue,r,g,b);
   SetClrModulation(RGBa(r,g,b,a));
-  
-  if(a >= 255) RemoveObject();// !!!
 }
 
 public func DoAlpha(int iValue, int iMin, int iMax)
 {
   if(!iMax) iMax = 255;
+  var r,g,b,a;
+  SplitRGBaValue(iValue,r,g,b,a);
   a = BoundBy(a-iValue,Max(iMin,0),Min(iMax,255));
   SetClrModulation(RGBa(r,g,b,a));
-  
-  if(a >= 255) RemoveObject();// !!!
+}
+
+public func GetAlpha()
+{
+  var a;
+  SplitRGBaValue(GetClrModulation(),0,0,0,a);
+  return a;
 }
 
 /* Geschwindigkeitsdämpfung */
