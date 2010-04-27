@@ -1,0 +1,2 @@
+CtrlUp=Nachricht lesen
+TxtMsg=<c 00ff00>Nachricht an %s:</c>|<c bb00ff00>%s</c>
