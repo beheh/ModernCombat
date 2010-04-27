@@ -77,7 +77,7 @@ public func Fire1T2()
   var x,y;
   user->WeaponEnd(x,y);
   var ammo = SALaunchBullet(x,y,GetController(user),angle+RandomX(-2,+2),230,350+Random(100),GetFMData(FM_Damage));
-  ammo->Sound("SMGN_Fire.ogg");
+  ammo->Sound("SMGN_Fire*.ogg");
 
   // Effekte
   SAMuzzleFlash(RandomX(15,25),user,x,y,angle);
@@ -103,7 +103,7 @@ public func Fire1T3()
   var x,y;
   user->WeaponEnd(x,y);
   var ammo = SALaunchBullet(x,y,GetController(user),angle+RandomX(-1,+1),220,350+Random(100),GetFMData(FM_Damage));
-  ammo->Sound("SMGN_Fire.ogg");
+  ammo->Sound("SMGN_Fire*.ogg");
 
   // Effekte
   SAMuzzleFlash(RandomX(15,25),user,x,y,angle);
@@ -120,7 +120,7 @@ public func Fire1()
   var x,y;
   user->WeaponEnd(x,y);
   var ammo = SALaunchBullet(x,y,GetController(user),angle+RandomX(-3,+3),230,350+Random(100),GetFMData(FM_Damage));
-  ammo->Sound("SMGN_Fire.ogg");
+  ammo->Sound("SMGN_Fire*.ogg");
 
   // Effekte
   SAMuzzleFlash(RandomX(15,25),user,x,y,angle);
