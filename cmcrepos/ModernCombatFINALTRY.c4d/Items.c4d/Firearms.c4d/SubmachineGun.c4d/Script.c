@@ -29,7 +29,7 @@ public func FMData1(int data)
   
   if(data == FM_Slot)    return(1);
   
-  if(data == FM_SpreadAdd) return(28);
+  if(data == FM_SpreadAdd) return(25);
   if(data == FM_StartSpread) return(50);
 
   return(Default(data));

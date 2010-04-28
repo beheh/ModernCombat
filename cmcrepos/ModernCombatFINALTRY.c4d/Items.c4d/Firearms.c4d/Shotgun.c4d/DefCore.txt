@@ -10,7 +10,7 @@ Offset=-8,-3
 Vertices=1
 VertexY=2
 VertexFriction=100
-Value=40
+Value=45
 Mass=12
 Components=METL=4
 Picture=0,6,64,64

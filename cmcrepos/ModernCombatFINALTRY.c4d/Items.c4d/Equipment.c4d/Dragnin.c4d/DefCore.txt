@@ -17,3 +17,4 @@ Picture=0,4,64,64
 Rebuy=1
 Collectible=1
 Rotate=1
+Float=1
