@@ -15,3 +15,4 @@ Components=METL=3;GUNP=2;
 Picture=10,0,87,67
 Rebuy=1
 Collectible=1
+Float=1

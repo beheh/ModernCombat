@@ -17,6 +17,7 @@ Collectible=1
 Timer=1
 TimerCall=CheckChange
 Rotate=1
+Float=1
 ColorByOwner=1
 VertexX=-5,4,4,-5
 VertexY=-7,6,-7,6
