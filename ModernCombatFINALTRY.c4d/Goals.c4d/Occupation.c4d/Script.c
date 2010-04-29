@@ -25,7 +25,8 @@ global func CreateFlagpole(int iX, int iY, string szName, int iRange, int iSpeed
 static const GOCC_Horizontal = 1;
 static const GOCC_Vertical = 2;
 
-global func GetGOCCDirection() {
+global func GetGOCCDirection()
+{
   var call = GameCall("OccupationDir");
   if(call) return call;
   return GOCC_Horizontal;
@@ -189,6 +190,7 @@ private func ConfigFinished()
 
 
 /* Scoreboard */
+
 private func InitScoreboard()
 {  
   SetScoreboardData(SBRD_Caption, SBRD_Caption, "{{GOCC}}", SBRD_Caption);
@@ -240,8 +242,8 @@ private func UpdateScoreboard()
   SortScoreboard(1);
 }
 
-
 /* GameCalls */
+
 public func FlagAttacked(object pFlag, int iTeam)
 {
   for(var i = 0; i < GetPlayerCount(); i++) {
@@ -268,7 +270,7 @@ public func FlagLost(object pFlag, int iTeam, int iTeamAttacker, array pAttacker
   }
   for(var i = 0; i < GetPlayerCount(); i++) {
     if(GetPlayerTeam(GetPlayerByIndex(i)) == iTeam) {
-      EventInfo4K(GetPlayerByIndex(i)+1, Format("$MsgFlagLost$", GetName(pFlag), GetTeamName(iTeamAttacker)), OFLG, GetTeamColor(iTeamAttacker));
+      EventInfo4K(GetPlayerByIndex(i)+1, Format("$MsgFlagLost$", GetName(pFlag), GetTeamColor(iTeam), GetTeamName(iTeamAttacker)), OFLG, 0, 0, 0, "Info.ogg");
     }
   }
   UpdateScoreboard();
@@ -295,7 +297,7 @@ public func FlagCaptured(object pFlag, int iTeam, array pAttackers, bool fRegain
       i++;
     }
   }
-  EventInfo4K(0, Format("$MsgCaptured$", GetTeamName(iTeam), GetName(pFlag)), OFLG, GetTeamColor(iTeam), 0, 0, "Trumpet");
+  EventInfo4K(0, Format("$MsgCaptured$", GetTeamColor(iTeam), GetTeamName(iTeam), GetName(pFlag)), OFLG, 0, 0, 0, "Info.ogg");
   UpdateScoreboard();
 }
 
@@ -309,6 +311,7 @@ public func TicketsLow(int iRemaining, int iTeam)
 }
 
 /* Tickets */
+
 public func TicketChange(int iTeam, int iChange)
 {
   DoTickets(iChange);

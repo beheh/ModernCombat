@@ -1,2 +1,2 @@
-MsgCapturing=Team <c %x>%s</c>|conquers flag post|%s
+MsgCapturing=Team <c %x>%s</c>|conquers flag post|<c ffff33>%s</c>
 MsgFoughtOver=Flag post <c %x>%s</c>|is embattled!

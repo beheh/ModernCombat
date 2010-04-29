@@ -1,2 +1,2 @@
-MsgCapturing=Team <c %x>%s</c>|erobert Flaggenposten|%s
+MsgCapturing=Team <c %x>%s</c>|erobert Flaggenposten|<c ffff33>%s</c>
 MsgFoughtOver=Flaggenposten <c %x>%s</c>|ist umkämpft!
