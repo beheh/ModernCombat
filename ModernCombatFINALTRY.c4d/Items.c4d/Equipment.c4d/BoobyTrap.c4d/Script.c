@@ -120,7 +120,7 @@ public func ControlUp(object pObjBy)
   if(pObjBy->~RejectCollect(GetID(), this())) return;
   
   //Punkte bei Belohnungssystem
-  if(Hostile(GetOwner(),pObjBy)) 
+  if(Hostile(GetOwner(),GetOwner(pObjBy))) 
     DoPlayerPoints(BonusPoints("TechnicalTask"), RWDS_TeamPoints, GetOwner(pObjBy), pObjBy, IC15);
 
   bActive=false;

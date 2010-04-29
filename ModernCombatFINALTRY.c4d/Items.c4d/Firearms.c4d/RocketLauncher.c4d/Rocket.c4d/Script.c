@@ -26,6 +26,7 @@ public func Launch(int iAngle, int iDmg, object pFollow)
   SetAction("Travel");
   
   SetPlrViewRange(120);
+  SetCategory(C4D_Vehicle);
   
   sx = GetX();
   sy = GetY();
