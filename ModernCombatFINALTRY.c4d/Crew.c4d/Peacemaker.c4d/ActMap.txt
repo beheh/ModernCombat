@@ -397,7 +397,7 @@ Directions=2
 FlipDir=1
 Attach=8
 Length=11
-Delay=2
+Delay=1
 Facet=0,420,22,20,-3,0
 NextAction=Crawl
 ObjectDisabled=1
@@ -457,7 +457,6 @@ NextAction=Hold
 StartCall=StartCrawl
 AbortCall=AbortCrawl
 InLiquidAction=Swim
-
 
 [Action]
 Name=CrawlAim
