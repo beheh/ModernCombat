@@ -3,6 +3,8 @@
 #strict 2
 #include TEAM
 
+private func StartTickets()	{return(15);}	//Standardticketzahl
+
 
 /* Globale Funktionen */
 
@@ -58,7 +60,7 @@ local aTicket;
 protected func Initialize()
 {
   aTicket = [];
-  iStartTickets = 10;
+  iStartTickets = StartTickets();
   
   return _inherited();
 }
