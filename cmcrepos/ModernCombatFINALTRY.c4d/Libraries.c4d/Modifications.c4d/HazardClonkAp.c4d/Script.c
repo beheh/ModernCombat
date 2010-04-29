@@ -596,6 +596,8 @@ public func UpdateCH() {
   this()->~UpdateAiming();
 }
 
+local pIcon;
+
 public func UpdateCharge()
 {
   UpdateCH();
@@ -626,6 +628,13 @@ public func UpdateCharge()
   // HUD
   var hud = GetHUD();
   if(hud) hud->Update(Content, AmmoStoring(),this());
+  
+  //Energiecheck
+  if(BoundBy(GetEnergy()*100/(GetDefCoreVal("Energy","Physical",GetID())/1000),0,100) < 30 && !pIcon)
+  {
+    pIcon = CreateObject(_IN2,0,0,GetOwner());
+    pIcon -> Set(this());
+  }
 
   return(1);
 }

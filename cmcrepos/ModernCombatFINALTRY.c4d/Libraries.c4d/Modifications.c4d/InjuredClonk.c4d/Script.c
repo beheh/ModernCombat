@@ -30,6 +30,9 @@ public func Set(object pClonk)
   SetXDir(GetXDir(pClonk));
   SetYDir(GetYDir(pClonk));
   
+  //Reanimationszeichen erstellen
+  CreateObject(_IN3,0,0,GetOwner(pClonk))->Set(this());
+  
   //CTF-Flagge entfernen
   for(var content in FindObjects(Find_ActionTarget(pClonk),Find_ID(FLA2)))
    if(GetID(content) == FLA2)

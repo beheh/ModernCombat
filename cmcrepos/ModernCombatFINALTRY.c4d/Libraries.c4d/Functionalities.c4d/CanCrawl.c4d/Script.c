@@ -244,6 +244,9 @@ public func FxCrawlStop(pClonk, iNum)
 
 protected func ControlThrow()
 {
+  if(GetAction() eq "StartCrawl")
+    return(1);
+    
   if(IsCrawling() && this()->~IsArmed() && !this()->~ReadyToFire() && this()->~ReadyToAim()) {
     this()->~StartAiming();
     return(1);
