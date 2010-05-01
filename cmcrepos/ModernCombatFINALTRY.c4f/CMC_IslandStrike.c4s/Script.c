@@ -23,10 +23,20 @@ func Initialize()
   CreateFurniture();
   //Ausrüstung plazieren
   CreateEquipment();
-  return(1);
+  //Artillerie plazieren
+  CreateArtillery();
+  return(1); 
 }
 
 /* Plazierungslisten */
+
+func CreateArtillery()
+{
+  CreateObject(_ART,2550,340,-1);
+  CreateObject(_ART,3640,330,-1);
+  CreateObject(_ART,4360,330,-1);
+  CreateObject(_ART,6590,340,-1);
+}
 
 func CreateFurniture()
 {
