@@ -5,5 +5,10 @@
 func Initialize()
 {
   SetPlrViewRange(200);
-  Schedule("RemoveObject()",100);
+}
+
+func Check()
+{
+  if(GetPlrView(GetOwner()) != this)
+    RemoveObject();
 }
