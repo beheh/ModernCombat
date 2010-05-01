@@ -2,7 +2,7 @@
 id=_GSS
 Version=4,9,8,2
 Name=Geschoss
-Category=C4D_Object
+Category=C4D_Vehicle
 MaxUserSelect=10
 Timer=1
 TimerCall=ResetRotation

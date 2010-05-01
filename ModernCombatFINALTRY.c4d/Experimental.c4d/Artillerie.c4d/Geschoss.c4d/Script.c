@@ -12,5 +12,5 @@ func ResetRotation() {
 
 func Hit()
 {
-    Explode(40+RandomX(0,20));
+    Explode(30+RandomX(0,10));
 }
