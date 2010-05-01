@@ -3,7 +3,7 @@
 #strict 2
 #appendto CLNK
 
-local assistkiller;
+local assistkiller, machinekill;
 
 public func IsClonk() { return 1; }
 
@@ -114,6 +114,17 @@ public func HurtSounds(int iDmg, int iType)
 
 public func OnHit(int iChange, int iType, object pFrom)
 {
+  //Treffender eine Maschine?
+  if(pFrom)
+  {
+    if(pFrom->~IsMachine())
+      machinekill = true;
+    else
+      machinekill = false;
+  }
+  else
+    machinekill = false;
+
   var iByPlayer = GetController(pFrom);
   if(iByPlayer == GetOwner()) return _inherited(...); //Yay, Selfassist!11
   for(var i=0; i < GetLength(assistkiller)/2; i++)
@@ -280,10 +291,23 @@ global func FakeDeath(object pTarget)
 public func OnFakeDeath()
 {
   var killer = GetKiller();
-  
-  if(killer < 0 || killer == GetOwner())
-    DoPlayerPoints(SuicidePoints(), RWDS_MinusPoints, GetOwner(), this, IC07);
-  
+
+  if(!machinekill)
+    if(killer < 0 || killer == GetOwner())
+      DoPlayerPoints(SuicidePoints(), RWDS_MinusPoints, GetOwner(), this, IC07);
+  else
+  {
+    //Dem mit dem meisten angerichteten Schaden neben dem Killer(Maschine) Assistpunkte geben
+    var highest = CreateArray(2);
+    for(var i = 0; i < GetLength(assistkiller)/2; i++)
+      if(assistkiller[i*2+1] > highest[0])
+      {
+        highest[0] = assistkiller[i*2+1];
+        highest[1] = assistkiller[i*2];
+      }
+    DoPlayerPoints(AssistPoints(), RWDS_BattlePoints, highest[1], GetCursor(highest[1]), IC02);
+  }
+
   //Ansonsten Killpunkte geben (und Todespunkte (und Assistkills))
   if(Hostile(killer,GetOwner()) )
   {
