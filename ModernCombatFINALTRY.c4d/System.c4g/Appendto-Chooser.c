@@ -3,6 +3,7 @@
 //Erweitert die Spielregelwahl und erlaubt Voreinstellungen der Regeln in einem Szenario.
 
 #strict
+
 #appendto CHOS
 
 

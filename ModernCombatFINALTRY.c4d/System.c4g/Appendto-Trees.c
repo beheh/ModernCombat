@@ -1,10 +1,13 @@
-/*-- Neues Script --*/
+/*-- Baum --*/
+
+//Bäume sind unzerstörbar.
 
 #strict 2
+
 #appendto TREE
+
 
 protected func Damage()
 {
-  // Nix machen bei Schaden
   return(0);
 }

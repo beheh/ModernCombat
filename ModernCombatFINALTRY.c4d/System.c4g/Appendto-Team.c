@@ -3,7 +3,9 @@
 //Damit in jedem Falle mehrere Spielziele zur Auswahl stehen können.
 
 #strict 2
+
 #appendto TEAM
+
 
 protected func Initialize()
 {

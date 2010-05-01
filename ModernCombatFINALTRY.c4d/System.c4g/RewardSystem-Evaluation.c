@@ -1,6 +1,7 @@
 /*-- Goal --*/
 
 #strict 2
+
 #appendto GOAL
 
 

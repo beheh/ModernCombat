@@ -1,7 +1,9 @@
 /*-- Spawnpoint --*/
 
+//Spawnpoints sind nun als solche identifizierbar.
+
 #strict 2
+
 #appendto SPNP
 
-//Indikator
-public func IsSpawnpoint() { return(true); }
+public func IsSpawnpoint()	{return(true);}

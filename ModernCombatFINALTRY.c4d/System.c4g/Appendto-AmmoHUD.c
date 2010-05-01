@@ -1,8 +1,11 @@
-/*-- Nur CMC-Relevante Ammo im HUD zeigen --*/
+/*-- MunitionsHUD --*/
+
+//Nur inkludierende Munitionstypen anzeigen
 
 #strict 2
+
 #appendto STAM
 #appendto GRAM
 #appendto MIAM
 
-public func IsHUDAmmo() { return true; }
+public func IsHUDAmmo()	{return true;}

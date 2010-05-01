@@ -3,6 +3,7 @@
 //Das Eliminieren von Teammitgliedern oder sich selbst zieht einen Punkt ab.
 
 #strict 2
+
 #appendto GTDM
 
 

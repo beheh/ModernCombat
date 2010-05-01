@@ -4,7 +4,7 @@
 
 #include GBDR
 
-public func IsBulletTarget(id idBullet){return false;}//Nur anfällig gegenüber Explosionen
+public func IsBulletTarget(id idBullet)	{return false;}	//Nur anfällig gegenüber Explosionen
 
 
 /* Initalisierung */
@@ -45,11 +45,11 @@ public func SetPathFree()
 
 /* Clonkerkennung */
 
-private func SomeonesApproaching()// such ankommene Clonks
+private func SomeonesApproaching()
 {
   var aClonks = CreateArray();
 
-  // Suchen wir mal rum.
+  //Clonks suchen
   aClonks = FindObjects(Find_InRect(-(GetObjWidth()/2),0,GetObjWidth(),20),
  		        Find_NoContainer(),
  		        Find_OCF(OCF_Alive),
@@ -65,7 +65,7 @@ private func SomeonesApproaching()// such ankommene Clonks
     }
   }
 
-  // Irgendwas gefunden?
+  //Etwas gefunden?
   if(GetLength(aClonks) > 0)
     return true;
   return false;
@@ -85,14 +85,13 @@ public func OnDmg(int iDmg, int iType)
 
 public func OnDestroyed(iType)
 {
-  //Explosion
-  CreateObject(ROCK)->Explode(20);
-  SetAction("Destroyed");
-
   //Effekte
   CastParticles("MetalSplinter",2,50,0,0,40,150);
   CastParticles("Smoke3",5,10,0,0,50,200);
   Sound("StructuralDamage*.ogg");
+
+  //Explosion
+  Explode(20);
 }
 
 /* Steuerung */

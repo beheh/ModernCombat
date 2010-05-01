@@ -3,6 +3,7 @@
 //Haie meiden Schlauchboote und verfügen über erweiterte Angriffe.
 
 #strict
+
 #appendto SHRK
 
 public func IsBulletTarget()	{return(true);}

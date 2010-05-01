@@ -3,7 +3,9 @@
 //Beim Spawnen wird überprüft, ob Objekte "IsSpawnBlocker" den Ort blockieren und zerstören diese.
 
 #strict
+
 #appendto TIM2
+
 
 public func Spawn()
 {
