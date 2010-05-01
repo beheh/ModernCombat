@@ -140,8 +140,8 @@ func CreateFurniture()
   CreateObject(WCR2, 3890, 420, -1)->AutoRespawn();
 
   //Metallkisten
-  CreateObject(MWCR, 2940, 430, -1);
-  CreateObject(MWCR, 2960, 430, -1);
+  CreateObject(MWCR, 2940, 430, -1)->AutoRespawn();
+  CreateObject(MWCR, 2960, 430, -1)->AutoRespawn();
 
   //Benzinfässer
   CreateObject(PBRL, 1290, 400, -1)->AutoRespawn();
@@ -172,6 +172,10 @@ func CreateFurniture()
 
   //Explosivkiste
   CreateObject(XWCR, 2815, 310, -1)->AutoRespawn();
+
+  //Stahlbrücken
+  CreateObject(_HBR, 2735, 372, -1);
+  CreateObject(_HBR, 3247, 372, -1);
 
   //Haie
   CreateObject(SHRK, 500, 580, -1)->AutoRespawn();
