@@ -563,7 +563,7 @@ func CreateAssaultObjects()
   aSelfDefense[0]=CreateObject(SEGU,945,249,-1);
   aSelfDefense[0]->Arm(MISA);
   aSelfDefense[0]->TurnOn();
-  aSelfDefense[0]->SetAutoRepair(900);
+  aSelfDefense[0]->SetAutoRepair(1500);
   aSelfDefense[0]->SetTeam(AS_GetDefenderTeam());
   CreateObject(CONS, 1050, 550, -1)
   ->Set(aSelfDefense[0]);
@@ -605,7 +605,7 @@ func CreateAssaultObjects()
   aSelfDefense[1]=CreateObject(SEGU,1495,369,-1);
   aSelfDefense[1]->Arm(MISA);
   aSelfDefense[1]->TurnOn();
-  aSelfDefense[1]->SetAutoRepair(900);
+  aSelfDefense[1]->SetAutoRepair(1500);
   aSelfDefense[1]->SetTeam(AS_GetDefenderTeam());
 
   aLamp2[3]=CreateObject(LBGH,1565,340,-1);

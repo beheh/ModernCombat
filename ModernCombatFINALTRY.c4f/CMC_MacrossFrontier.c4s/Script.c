@@ -290,12 +290,12 @@ func CreateFurniture()
   //Selbstschussanlagen und Konsolen
   var selfd = CreateObject(SEGU, 700, 219, -1);
   selfd->Arm(MISA);
-  selfd->SetAutoRepair(900);
+  selfd->SetAutoRepair(1500);
   CreateObject(CONS, 570, 225, -1)->Set(selfd);
 
   var selfd = CreateObject (SEGU, 850, 139, -1);
   selfd->Arm(MISA);
-  selfd->SetAutoRepair(900);
+  selfd->SetAutoRepair(1500);
   CreateObject (CONS, 975, 140, -1)->Set(selfd);
 
   //Tore und Konsolen
