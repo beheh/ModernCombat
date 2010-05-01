@@ -123,6 +123,11 @@ public func ControlUp(object pObjBy)
   if(Hostile(GetOwner(),GetOwner(pObjBy))) 
     DoPlayerPoints(BonusPoints("TechnicalTask"), RWDS_TeamPoints, GetOwner(pObjBy), pObjBy, IC15);
 
+  //Träger = Besitzer
+  SetController(GetOwner(pObjBy));
+  controller = GetOwner(pObjBy);
+  SetOwner(GetOwner(pObjBy));
+
   bActive=false;
   
   Enter(pObjBy);
