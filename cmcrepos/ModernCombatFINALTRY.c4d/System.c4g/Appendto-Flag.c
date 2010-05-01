@@ -3,6 +3,7 @@
 //CTF Spielziel zeigt Spielevents nun mit dem Eventsystem an statt im Log.
 
 #strict 2
+
 #appendto FLA2
 
 

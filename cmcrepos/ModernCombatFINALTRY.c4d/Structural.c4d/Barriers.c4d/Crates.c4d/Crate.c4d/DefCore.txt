@@ -17,4 +17,3 @@ VertexX=6,-8
 VertexY=7,7
 VertexCNAT=10,9
 VertexFriction=200,200
-

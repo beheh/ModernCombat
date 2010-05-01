@@ -3,11 +3,14 @@
 //Die Waffenwahl Regel ist aus technischen Gründen nicht mehr wählbar, wenn bereits die Klassenwahl aktiv ist.
 
 #strict
+
 #appendto WPCH
 
-public func IsChooseable() { return(0); }
+public func IsChooseable()	{return(0);}
 
-func Initialize() {
+
+func Initialize()
+{
   SetPosition();
   WeaponChoice = CreateArray(0);
   aWare = CreateArray();

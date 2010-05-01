@@ -1,7 +1,11 @@
 /*-- Waffenautomat --*/
+
 //Kann auch Dinge verkaufen.
+
 #strict
+
 #appendto WPVM
+
 
 /*local WeaponChoice;
 
@@ -25,9 +29,8 @@ func ControlThrowDouble(object pByObj)
   
   var iPlr = GetController(pByObj);
 
-  //Geld abziehn
+  //Geld abziehen
   DoWealth(iPlr,GetValue(pItem,0,0,iPlr)/2);
-  //*Ca-Ching*
   Sound("UnCash",0,0,0,iPlr+1);
 
   DoWare(GetID(pItem), +1);
