@@ -295,7 +295,7 @@ public func OnFakeDeath()
   if(!machinekill)
     if(killer < 0 || killer == GetOwner())
       DoPlayerPoints(SuicidePoints(), RWDS_MinusPoints, GetOwner(), this, IC07);
-  else
+/*else
   {
     //Dem mit dem meisten angerichteten Schaden neben dem Killer(Maschine) Assistpunkte geben
     var highest = CreateArray(2);
@@ -306,7 +306,7 @@ public func OnFakeDeath()
         highest[1] = assistkiller[i*2];
       }
     DoPlayerPoints(AssistPoints(), RWDS_BattlePoints, highest[1], GetCursor(highest[1]), IC02);
-  }
+  }*/
 
   //Ansonsten Killpunkte geben (und Todespunkte (und Assistkills))
   if(Hostile(killer,GetOwner()) )
