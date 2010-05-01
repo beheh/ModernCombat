@@ -290,13 +290,13 @@ func CreateFurniture()
   aSelfDefense[0] = CreateObject(SEGU, 415, 329, -1);
     aSelfDefense[0]->Arm(MISA);
     aSelfDefense[0]->TurnOn();
-    aSelfDefense[0]->SetAutoRepair(900);
+    aSelfDefense[0]->SetAutoRepair(1500);
     CreateObject(CONS, 250, 385, -1)->Set(aSelfDefense[0]);
   
   aSelfDefense[1] = CreateObject(SEGU, 2385, 329, -1);
     aSelfDefense[1]->Arm(MISA);
     aSelfDefense[1]->TurnOn();
-    aSelfDefense[1]->SetAutoRepair(900);
+    aSelfDefense[1]->SetAutoRepair(1500);
     CreateObject(CONS, 2550, 385, -1)->Set(aSelfDefense[1]);
 
   //Tore und Konsolen
