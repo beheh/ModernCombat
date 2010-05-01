@@ -32,8 +32,8 @@ func Initialize()
 
 func CreateArtillery()
 {
-  CreateObject(_ART,2070,320,-1);
-  CreateObject(_ART,730,320,-1);
+  CreateObject(ART2,2070,320,-1);
+  CreateObject(ART2,730,320,-1);
 }
 
 func CreateFurniture()
@@ -417,8 +417,8 @@ public func ChooserFinished()
   if(FindObject(GTDM) || FindObject(GLMS))
   {
    //Grenzen
-   CreateObject(BRDR, 790, 0, -1)->Set(0);
-   CreateObject(BRDR, 2010, 0, -1)->Set(1);
+   CreateObject(BRDR, 700, 0, -1)->Set(0);
+   CreateObject(BRDR, 2100, 0, -1)->Set(1);
 
    //Warnschilder
    CreateObject(SGNP, 720, 390, -1);

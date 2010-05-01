@@ -32,10 +32,10 @@ func Initialize()
 
 func CreateArtillery()
 {
-  CreateObject(_ART,2550,340,-1);
-  CreateObject(_ART,3640,330,-1);
-  CreateObject(_ART,4360,330,-1);
-  CreateObject(_ART,6590,340,-1);
+  CreateObject(ART2,2550,340,-1);
+  CreateObject(ART2,3640,330,-1);
+  CreateObject(ART2,4360,330,-1);
+  CreateObject(ART2,6590,340,-1);
 }
 
 func CreateFurniture()
