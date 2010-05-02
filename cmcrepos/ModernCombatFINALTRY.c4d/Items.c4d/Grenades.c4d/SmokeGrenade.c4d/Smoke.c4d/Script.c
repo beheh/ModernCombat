@@ -99,7 +99,7 @@ global func FxSmokeGrenadeStart(object pTarget, int iEffectNumber, int iTemp)
   if(GetController(pTarget) == NO_OWNER) return 0;
   if(GetPlayerType(GetController(pTarget)) == C4PT_Script) return 0;
   
-  EffectVar(0, pTarget, iEffectNumber) = ScreenRGB2(pTarget, RGBa(150, 150, 150, 254), 0, 0, false, SR4K_LayerSmoke);
+  EffectVar(0, pTarget, iEffectNumber) = ScreenRGB(pTarget, RGBa(150, 150, 150, 254), 0, 0, false, SR4K_LayerSmoke);
   return 0;
 }
 

@@ -51,7 +51,7 @@ public func FxIntFlashbangStart(object pTarget, int iEffectNumber, int iTemp, in
   EffectVar(0,pTarget,iEffectNumber) = intensity;
 
   var a = BoundBy(255-(intensity*255/100),0,255);
-  var flash = ScreenRGB3(pTarget,RGBa(255,255,255,a));
+  var flash = ScreenRGB(pTarget,RGBa(255,255,255,a), 0, 0, false, SR4K_LayerLight);
   if(!flash)
     return -1;
   else
@@ -65,7 +65,7 @@ public func FxIntFlashbangTimer(object pTarget, int iEffectNumber, int iEffectTi
   if(!EffectVar(1,pTarget,iEffectNumber)) return -1;
   
   var a = BoundBy(255-(i*255/100),0,255);
-  EffectVar(1,pTarget,iEffectNumber)->Set(pTarget,RGBa(255,255,255,a));
+  EffectVar(1,pTarget,iEffectNumber)->SetAlpha(a);
   
   /*var val, num, pCursor;
   for(var i = 0; i < GetPlayerCount(); i++)
