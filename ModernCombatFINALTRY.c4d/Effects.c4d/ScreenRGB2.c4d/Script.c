@@ -1,8 +1,11 @@
-/* ScreenRGB 2 */
+/* ScreenRGB */
 #strict 2
 
 local r,g,b,a;
 local target,layer,fade;
+
+static const SR4K_LayerSmoke = 1;
+static const SR4K_LayerLight = 2;
 
 public func Initialize()
 {
@@ -16,7 +19,7 @@ public func Initialize()
   return 1;
 }
 
-global func ScreenRGB2(object pTarget, int dwRGBa, int iAlphaAdd, int iFadeRate, bool bAdditive, int iLayer)
+global func ScreenRGB(object pTarget, int dwRGBa, int iAlphaAdd, int iFadeRate, bool bAdditive, int iLayer)
 {
   var obj;
   if(iLayer)

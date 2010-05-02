@@ -1,6 +1,6 @@
 [DefCore]
 id=S24K
-Name=ScreenRGB2
+Name=ScreenRGB
 Category=60817409
 Width=250
 Height=250
