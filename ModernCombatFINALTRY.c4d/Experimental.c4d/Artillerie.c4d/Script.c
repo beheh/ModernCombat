@@ -17,7 +17,7 @@ func Initialize() {
 
 func Rotation() {
 
-  if(!iCooldown)
+  if(iCooldown <= 0)
     CreateParticle("PSpark",0,-4,0,0,40,RGB(0,255,0),this());
   else
   {
