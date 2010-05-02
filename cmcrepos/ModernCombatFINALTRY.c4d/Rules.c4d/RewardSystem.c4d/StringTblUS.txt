@@ -1,4 +1,4 @@
 ActualPoints=Current Statistics
 Points=Points
+Total=%s  Total: <c ffbb00>%d</c>
 Complete=Battle: <c 00ff00>+%d</c>  Team: <c 00ff00>+%d</c>  Minus: <c ff0000>%d</c>
-Total=%s has a total of <c ffbb00>%d</c> points!
