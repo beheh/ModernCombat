@@ -94,7 +94,7 @@ func CreateFurniture()
   //Rampen
   DrawMaterialQuad("Wall-Concrete3",1150,400,1180,390,1180,400,1165,400,true);
 
-  DrawMaterialQuad("Sand-Swirl",2450,511,2480,501,2480,511,2465,511,true);
+  DrawMaterialQuad("Wall-Concrete2",2450,511,2480,501,2480,511,2465,511,true);
 
   DrawMaterialQuad("Wall-Concrete2",2681,510,2651,500,2651,510,2666,510,true);
 
@@ -117,7 +117,7 @@ func CreateFurniture()
 
   DrawMaterialQuad("Wall-Concrete2",6470,510,6500,500,6500,510,6485,510,true);
 
-  DrawMaterialQuad("Sand-Swirl",6701,510,6671,500,6671,510,6686,510,true);
+  DrawMaterialQuad("Wall-Concrete2",6701,510,6671,500,6671,510,6686,510,true);
 
   //Rohre
   CreateObject(PIPL, 2730, 365, -1)->Up()->Right()->Right()->Right()->Right();
@@ -571,7 +571,7 @@ func CreateEquipment()
 
   //Motorboote
   SetupVehicleSpawn([INFL],DIR_Right,CreateObject(VSPW,1245,520,-1),10*10);
-  SetupVehicleSpawn([INFL],DIR_Left,CreateObject(VSPW,2120,520,-1),10*10);
+  SetupVehicleSpawn([INFL],DIR_Left,CreateObject(VSPW,2195,520,-1),10*10);
 
   SetupVehicleSpawn([INFL],DIR_Right,CreateObject(VSPW,4640,560,-1),10*10);
   SetupVehicleSpawn([INFL],DIR_Left,CreateObject(VSPW,5565,560,-1),10*10);
