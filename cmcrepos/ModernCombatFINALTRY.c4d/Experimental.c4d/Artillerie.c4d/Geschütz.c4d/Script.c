@@ -2,11 +2,12 @@
 
 #strict
 
-func Initialize() {
-   
+func Initialize()
+{
   return(1);
 }
 
-func EjectBullet() {
-  CreateParticle("BulletCasing",0,0,RandomX(-30,0),RandomX(-30,-10),40);
+func EjectBullet()
+{
+  SABulletCasing(0, 0, RandomX(-20,-10), RandomX(-30,-20), 8, RGB(130,130,100));
 }
