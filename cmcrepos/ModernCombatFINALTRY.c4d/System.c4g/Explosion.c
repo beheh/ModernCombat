@@ -172,8 +172,7 @@ global func BlastObjects2(int x, int y, int level, object container, int cause_p
 
 global func BlastObject(int level, object obj, int cause_plr_plus_one)
 {
-  if(level)
-   obj->~LastDamageType(DMG_Explosion);
+  obj->~LastDamageType(DMG_Explosion);
   obj->SetKiller(cause_plr_plus_one-1);
   var icon;
   if(this) icon = this->~GetKillIcon();

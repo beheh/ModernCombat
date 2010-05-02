@@ -182,6 +182,12 @@ public func ForceObservation(int iPlr)
   EliminatePlayer(iPlr);
 }
 
+/* Runde auswerten */
+
+public func OnGameOver()
+{
+  if(ObjectCount(RWDS)) RewardEvaluation();
+}
 
 /* Abstrakte Funktionen */
 public func OnClassSelection() {}
