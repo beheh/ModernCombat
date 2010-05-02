@@ -6,7 +6,6 @@ local pCannon;
 local bRotate,bDirection;
 local iCooldown;
 local byObj;
-local bAiming,byAimObj;
 
 
 /* Initalisierung */
@@ -15,7 +14,6 @@ func Initialize()
 {
   pCannon=CreateObject(CNON,0,32,-1);
   iCooldown = 0;
-  bAiming = false;
   SetR(RandomX(-44,44),pCannon);
   return(1);
 }
@@ -23,11 +21,11 @@ func Initialize()
 func Rotation()
 {
   if(iCooldown <= 0)
-    CreateParticle("PSpark",0,-4,0,0,40,RGB(0,255,0),this());
+    CreateParticle("PSpark",19,-7,0,0,40,RGB(0,255,0),this());
   else
   {
     iCooldown -= 3;
-    CreateParticle("PSpark",0,-4,0,0,40,RGB(255,0,0),this());
+    CreateParticle("PSpark",19,-7,0,0,40,RGB(255,0,0),this());
   }
 
   if(!bRotate) return(0);
@@ -37,15 +35,6 @@ func Rotation()
 
   if(bDirection==0) {Sound("CannonRotation"); SetR(GetR(pCannon)+1,pCannon);}
   if(bDirection==1) {Sound("CannonRotation"); SetR(GetR(pCannon)-1,pCannon);}
-
-  if(!bAiming) return(1);
-
-  var iX = -AbsX()+Sin(GetR(pCannon),34), iY = -AbsY()-Cos(GetR(pCannon),34)-3, iXDir = Sin(GetR(pCannon),150), iYDir = -Cos(GetR(pCannon),150);
-  if(!SimFlight(iX,iY,iXDir,iYDir,50,50,500,10))
-    return(1);
-  var target = CreateObject(ARCR,AbsX(iX),AbsY(iY),GetOwner(pByObj));
-  SetVisibility(VIS_Owner,target);
-  SetPlrView(GetOwner(pByObj),target);
 
 }
 
@@ -76,21 +65,18 @@ func ControlUp(pByObj)
 
 func ControlDig(object pByObj)
 {
-  bAiming = !bAiming;
-  byAimObj = pByObj;
+  var iX = -AbsX()+Sin(GetR(pCannon),34), iY = -AbsY()-Cos(GetR(pCannon),34)-3, iXDir = Sin(GetR(pCannon),150), iYDir = -Cos(GetR(pCannon),150);
+  if(!SimFlight(iX,iY,iXDir,iYDir,50,50,500,10))
+    return(1);
+  var target = CreateObject(ARCR,AbsX(iX),AbsY(iY),GetOwner(pByObj));
+  SetVisibility(VIS_Owner,target);
+  SetPlrView(GetOwner(pByObj),target);
   Sound("Info.ogg");
-}
-
-func Grabbed(pByObj, bGrab)
-{
-  Log("%v",bGrab);
-  if(!bGrab)
-    bAiming = false;
 }
 
 func ControlThrow(object pByObj)
 {
-  if(iCooldown > 0) return(Sound("Error",0,0,0,GetOwner(pByObj)+1)); 
+  if(iCooldown > 0) return(PlayerMessage(GetOwner(pByObj),"$Reloading$",this())); 
 
   iCooldown=50*35;
   byObj = pByObj;
@@ -105,16 +91,15 @@ public func Shoot()
   var iX=Sin(GetR(pCannon),34);
   var iY=-Cos(GetR(pCannon),34)-3;
    
-  Sound("Blast2");
   var pProjectile=CreateObject(ABLT,iX,iY,GetOwner(byObj));
   SetXDir( Sin(GetR(pCannon),RandomX(140,160)),pProjectile,10);
   SetYDir(-Cos(GetR(pCannon),RandomX(140,160)),pProjectile,10);
+  
+  //Effekte
+  Sound("ATBY_Fire*.ogg");
   ObjectSetAction(pCannon,"Backdraft");
   CreateParticle("LightFlash",iX,iY,0,0,500,RGBa(255,255,255,32));
   for(var i = 0; i < 14; i++)
-  {
     CreateParticle("Smoke",iX,iY+RandomX(-20,20),0,0,RandomX(50,100),RGB(96,96,96));
-    iSmoke1--;
-  }
   MuzzleFlash(RandomX(30,75),this(),iX,iY,GetR(pCannon));
 }
