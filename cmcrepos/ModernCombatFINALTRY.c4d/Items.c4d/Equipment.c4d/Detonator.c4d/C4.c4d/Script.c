@@ -27,6 +27,8 @@ public func SetActive(object pCaller)
   fuse = pCaller;
   active = true;
   
+  SetController(GetOwner(pCaller));
+  
   if(!GetXDir() && !GetYDir())
     SetClrModulation(RGBa(255,255,255,100));
   //else
