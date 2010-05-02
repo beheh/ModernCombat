@@ -204,13 +204,11 @@ public func Activity()
   // alle 30 Frames
   if(!(GetActTime()%30))
   {
-    var x,y;
-    WeaponBegin(x,y);
     if(GetTeam())
       var rgb = GetTeamColor(GetTeam());
     else
       var rgb = RGB(255,255,255);
-    CreateParticle("PSpark",x+Sin(GetWeaponR(),2),y-Cos(GetWeaponR(),2),0,0,5*15,rgb,cur_Attachment);
+    CreateParticle("NoGravSpark",Sin(GetR()+45,5),-Cos(GetR()+45,5)-10,0,0,5*15,rgb,cur_Attachment);
   }
   
   /* Patroullie fahren */
