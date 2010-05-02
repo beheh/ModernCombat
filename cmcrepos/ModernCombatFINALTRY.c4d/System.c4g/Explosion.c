@@ -175,8 +175,8 @@ global func BlastObject(int level, object obj, int cause_plr_plus_one)
   obj->~LastDamageType(DMG_Explosion);
   obj->SetKiller(cause_plr_plus_one-1);
   var icon;
-  if(this) icon = this->~GetKillIcon();
-  if(!icon && this) icon = this->GetID();
+  /*if(this) icon = this->~GetKillIcon();
+  if(!icon && this) icon = this->GetID();*/
   if(icon) obj->~KillIcon(icon);
   return inherited(...);
 }
