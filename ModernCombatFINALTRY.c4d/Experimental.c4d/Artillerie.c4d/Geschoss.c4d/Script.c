@@ -4,6 +4,8 @@
 
 local sounded;
 
+public func IsBulletTarget() {return true;}
+
 func Initialize()
 {
    sounded = false;
@@ -24,4 +26,10 @@ func ResetRotation()
 func Hit()
 {
     Explode(40+RandomX(0,20));
+}
+
+public func Damage()
+{
+  if(GetDamage() > 20)
+    Hit();
 }
