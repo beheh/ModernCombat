@@ -1,0 +1,2 @@
+Reloading=Artillerieschlag wird noch vorbereitet.
+Destroyed=Artilleriebatterie beschädigt, warte auf Reparatur.

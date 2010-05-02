@@ -1,0 +1,2 @@
+Reloading=Artillery strike is beeing prepared.
+Destroyed=Artillery battery damaged, wait for its repair.
