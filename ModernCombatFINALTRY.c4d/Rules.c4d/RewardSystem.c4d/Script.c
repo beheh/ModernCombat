@@ -2,7 +2,7 @@
 
 #strict 2
 
-local aData;
+local aData, fEvaluation;
 
 public func IsChooseable()	{return true;}
 
@@ -11,6 +11,7 @@ public func IsChooseable()	{return true;}
 protected func Initialize()
 {
   aData = CreateArray();
+  fEvaluation = false;
 }
 
 protected func Activate(iByPlayer)
@@ -47,11 +48,20 @@ protected func Activate(iByPlayer)
 
 /* Auswerten */
 
-global func DoEvaluateStats()
+global func RewardEvaluation()
 {
   var db = FindObject(RWDS);
   if(!db) return;
   
+  db->Evaluate();
+}
+
+public func Evaluate()
+{
+  if(fEvaluation) return 0;
+  fEvaluation = true;
+  var db = this;
+
   //Erst mal einsortieren
   var aList = CreateArray();
   var iPlr, szComplete, szTotal;
@@ -78,6 +88,7 @@ global func DoEvaluateStats()
       AddEvaluationData(aStrings[1], 0);      
     }
   }
+  return 1;
 }
 
 /* Spieler updaten */
