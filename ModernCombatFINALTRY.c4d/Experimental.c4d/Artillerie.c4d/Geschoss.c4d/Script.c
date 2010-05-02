@@ -25,7 +25,7 @@ func ResetRotation()
 
 func Hit()
 {
-    Explode(40+RandomX(0,20));
+    Explode(40+RandomX(0,10));
 }
 
 public func Damage()
