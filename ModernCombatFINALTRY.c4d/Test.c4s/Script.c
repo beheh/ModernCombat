@@ -20,6 +20,9 @@ func Initialize()
   PlaceSpawnpoint(SGRN, 790, 460);
   PlaceSpawnpoint(STUN, 705, 465);
 
+  //Artillerie
+  CreateObject(ART2, 580, 230);
+
   //EHP-Spawnpoint
   PlaceSpawnpoint(FAPK, 1000, 340);
 

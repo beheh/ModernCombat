@@ -1,16 +1,27 @@
 /*-- Geschoss --*/
 
-#strict
+#strict 2
 
-func Initialize() {
+local sounded;
+
+func Initialize()
+{
+   sounded = false;
    return(1);
 }
 
-func ResetRotation() {
-    SetR(Angle(GetX(),GetY(),GetX()+GetXDir(),GetY()+GetYDir()),this());
+func ResetRotation()
+{
+  SetR(Angle(GetX(),GetY(),GetX()+GetXDir(),GetY()+GetYDir()),this());
+    
+  if(GetYDir() > 1 && !sounded)
+  {
+    sounded = true;
+    Schedule("Sound(\"Artillery*.ogg\")",20);
+  }
 }
 
 func Hit()
 {
-    Explode(30+RandomX(0,10));
+    Explode(40+RandomX(0,20));
 }
