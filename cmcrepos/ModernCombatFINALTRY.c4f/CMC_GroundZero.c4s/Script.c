@@ -23,18 +23,10 @@ func Initialize()
   CreateFurniture();
   //Equipment plazieren
   CreateEquipment();
-  //Artillerie plazieren
-  CreateArtillery();
   return(1); 
 }
 
 /* Plazierungslisten */
-
-func CreateArtillery()
-{
-  CreateObject(ART2,2070,320,-1);
-  CreateObject(ART2,730,320,-1);
-}
 
 func CreateFurniture()
 {
@@ -389,6 +381,11 @@ func CreateEquipment()
   //Splittergranaten
   PlaceSpawnpoint(FRAG, 670, 250);
   PlaceSpawnpoint(FRAG, 2130, 250);
+
+  //Artilleriebatterien
+  CreateObject(ATBY,725,320,-1);
+  CreateObject(ATBY,2070,320,-1);
+
 }
 
 /* Bei Flaggenübernahme */
