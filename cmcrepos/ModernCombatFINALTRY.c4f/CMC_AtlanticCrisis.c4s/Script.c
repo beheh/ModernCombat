@@ -353,7 +353,7 @@ func CreateEquipment()
   PlaceSpawnpoint(DGNN, 4310, 295);
 
   //Artilleriebatterien
-  CreateObject(ATBY,2230,420,-1);
+  CreateObject(ATBY,2231,420,-1);
   CreateObject(ATBY,3775,420,-1);
 
   //Motorboote
