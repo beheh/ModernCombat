@@ -121,7 +121,7 @@ global func BlastObjects2(int x, int y, int level, object container, int cause_p
    //Objekt ist draußen
    //Objekte am Explosionspunkt beschädigen
    for (var obj in FindObjects(Find_AtRect(l_x-5, l_y-5, 10,10), Find_NoContainer(), Find_Layer(layer)))
-    if(obj) DoDmg(level, DMG_Explosion, obj, 0, cause_plr_plus_one-1);//BlastObject(level, obj, cause_plr_plus_one);
+    if(obj) DoDmg(level, DMG_Explosion, obj, 0, cause_plr_plus_one);//BlastObject(level, obj, cause_plr_plus_one);
    //Objekte im Explosionsradius schleudern
    var shockwave_objs = FindObjects(Find_Distance(range, l_x,l_y), Find_NoContainer(), Find_Layer(layer),
        Find_Or(Find_Category(C4D_Object|C4D_Living|C4D_Vehicle), Find_Func("CanBeHitByShockwaves")), Find_Func("BlastObjectsShockwaveCheck",x,y));
@@ -174,7 +174,7 @@ global func BlastObject(int level, object obj, int cause_plr_plus_one)
 {
   if(level)
    obj->~LastDamageType(DMG_Explosion);
-  obj->~SetKiller(cause_plr_plus_one-1);
+  obj->SetKiller(cause_plr_plus_one-1);
   var icon;
   if(this) icon = this->~GetKillIcon();
   if(!icon && this) icon = this->GetID();
