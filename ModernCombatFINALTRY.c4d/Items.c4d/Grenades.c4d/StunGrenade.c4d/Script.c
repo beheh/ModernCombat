@@ -23,6 +23,8 @@ public func Fused()
         continue;
       if(((GetDir(obj) == DIR_Left) && (GetX() < GetX(obj))) || ((GetDir(obj) == DIR_Right) && (GetX(obj) > GetX(obj))))
         intensity = Max(intensity,255);
+      if(!Hostile(GetOwner(obj), GetController()))
+        intensity = intensity/2;
     }
     else
     {
