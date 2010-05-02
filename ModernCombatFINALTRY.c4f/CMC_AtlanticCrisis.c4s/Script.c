@@ -23,18 +23,10 @@ func Initialize()
   CreateFurniture();
   //Ausrüstung plazieren
   CreateEquipment();
-  //Artillerie plazieren
-  CreateArtillery();
   return(1);
 }
 
 /* Plazierungslisten */
-
-func CreateArtillery()
-{
-  CreateObject(ART2,2160,420,-1);
-  CreateObject(ART2,3850,420,-1);
-}
 
 func CreateFurniture()
 {
@@ -156,14 +148,14 @@ func CreateFurniture()
   CreateObject(PBRL, 1580, 430, -1)->AutoRespawn();
   CreateObject(PBRL, 1580, 500, -1)->AutoRespawn();
 
-  CreateObject(PBRL, 2220, 420, -1)->AutoRespawn();
-  CreateObject(PBRL, 2240, 420, -1)->AutoRespawn();
+  CreateObject(PBRL, 2155, 420, -1)->AutoRespawn();
+  CreateObject(PBRL, 2170, 420, -1)->AutoRespawn();
 
   CreateObject(PBRL, 2940, 360, -1)->AutoRespawn();
   CreateObject(PBRL, 3020, 280, -1)->AutoRespawn();
 
-  CreateObject(PBRL, 3790, 420, -1)->AutoRespawn();
-  CreateObject(PBRL, 3770, 420, -1)->AutoRespawn();
+  CreateObject(PBRL, 3835, 420, -1)->AutoRespawn();
+  CreateObject(PBRL, 3850, 420, -1)->AutoRespawn();
 
   CreateObject(PBRL, 4435, 430, -1)->AutoRespawn();
   CreateObject(PBRL, 4435, 500, -1)->AutoRespawn();
@@ -359,6 +351,10 @@ func CreateEquipment()
   //Dragnin
   PlaceSpawnpoint(DGNN, 1700, 295);
   PlaceSpawnpoint(DGNN, 4310, 295);
+
+  //Artilleriebatterien
+  CreateObject(ATBY,2230,420,-1);
+  CreateObject(ATBY,3775,420,-1);
 
   //Motorboote
   SetupVehicleSpawn([INFL],DIR_Right,CreateObject(VSPW,1710,520,-1),10*10);
