@@ -242,10 +242,10 @@ private func UpdateScoreboard()
       SetScoreboardData(i, 1, Format("<c %x>%s</c>", GetTeamColor(iTeam), GetTeamName(j)), base+2+GetFlagCount(iTeam));
       SetScoreboardData(i, 2, Format("%d {{TIKT}}", GetTickets(iTeam)), base+2+GetTickets(iTeam));
     }
-    else {
+    /*else {
       SetScoreboardData(i, 1, 0);
       SetScoreboardData(i, 2, 0);
-    }
+    }*/
     i++;
   }
   SortScoreboard(1);
