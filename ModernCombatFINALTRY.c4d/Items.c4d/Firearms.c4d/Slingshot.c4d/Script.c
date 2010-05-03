@@ -21,7 +21,7 @@ public func FMData1(int data)
   if(data == FM_AmmoID)             return(GRAM);
   if(data == FM_AmmoLoad)           return(8);
 
-  if(data == FM_Recharge)           return(65);
+  if(data == FM_Recharge)           return(60);
 
   if(data == FM_SingleReload)       return(1);
   if(data == FM_Reload)             return(35*6);
@@ -73,6 +73,13 @@ public func LaunchGrenade(id idg, int speed, int angle, int mode)
   //Granate abfeuern
   var grenade=CreateObject(idg, x+xdir/10, y+ydir/10, GetController(user));
   grenade->Launch(xdir/*+GetXDir(user)/2*/, ydir/*+GetYDir(user)/4*/, GetFMData(FM_Damage,2));
+  
+  //Sicht auf Granate (wie beim Bogen auf die Pfeile)
+  if(!(user ->~ IsMachine()))
+  {
+    SetPlrView(GetController(user),grenade);
+    SetPlrViewRange(100, grenade);
+  }
 
   //Effekte
   grenade->Sound("SGST_Fire.ogg");
