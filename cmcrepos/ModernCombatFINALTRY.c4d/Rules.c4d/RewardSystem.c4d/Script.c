@@ -116,7 +116,7 @@ static const RWDS_TeamPoints = 4;
 static const RWDS_MinusPoints = 5;
 
 global func DoPlayerPoints(int iPoints, int iType, int iPlr, object pClonk, id idIcon) {
-  var db = FindObject(RWDS);
+  var db = FindObject2(Find_ID(RWDS));
   if(!db) return;
   if(!iPoints) return;
   if(pClonk) {
