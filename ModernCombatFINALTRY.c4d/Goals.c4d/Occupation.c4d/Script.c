@@ -8,12 +8,12 @@ private func StartTickets()	{return(15);}	//Standardticketzahl
 
 /* Globale Funktionen */
 
-global func DoTickets(int iTeam, int iChange)
+/*global func DoTickets(int iTeam, int iChange)
 {
   var f = FindObject(GOCC);
   if(f)
     f->TicketChange(iTeam, iChange);
-}
+}*/
 
 global func CreateFlagpole(int iX, int iY, string szName, int iRange, int iSpeed)
 {
@@ -237,12 +237,27 @@ private func UpdateScoreboard()
   //Tickets
   for(var j = 1; j <= GetTeamCount(); j++)
   {
-    SetScoreboardData(i, 1, Format("<c %x>%s</c>", GetTeamColor(j), GetTeamName(j)), base+2+GetFlagCount(j));
-    SetScoreboardData(i, 2, Format("%d {{TIKT}}", GetTickets(j)), base+2+GetTickets(j));
+    var iTeam = GetTeamByIndex(j);
+    if(GetTeamPlayerCount(iTeam) > 0) {
+      SetScoreboardData(i, 1, Format("<c %x>%s</c>", GetTeamColor(iTeam), GetTeamName(j)), base+2+GetFlagCount(iTeam));
+      SetScoreboardData(i, 2, Format("%d {{TIKT}}", GetTickets(iTeam)), base+2+GetTickets(iTeam));
+    }
+    else {
+      SetScoreboardData(i, 1, 0);
+      SetScoreboardData(i, 2, 0);
+    }
     i++;
   }
   SortScoreboard(1);
 }
+
+/* Kein Scoreboard */
+
+private func InitMultiplayerTeam(int iTeam) {}
+private func RemoveMultiplayerTeam(int iTeam) {}
+private func InitSingleplayerTeam(int iPlr) {}
+private func RemoveSingleplayerTeam(int iPlr) {}
+private func InitPlayer(int iPlr) {}
 
 /* GameCalls */
 
@@ -270,10 +285,12 @@ public func FlagLost(object pFlag, int iTeam, int iTeamAttacker, array pAttacker
     }
     i++;
   }
-  for(var i = 0; i < GetPlayerCount(); i++) {
-    if(GetPlayerTeam(GetPlayerByIndex(i)) == iTeam) {
-      EventInfo4K(GetPlayerByIndex(i)+1, Format("$MsgFlagLost$", GetName(pFlag), GetTeamColor(iTeam), GetTeamName(iTeamAttacker)), OFLG, 0, 0, 0, "Info.ogg");
-    }
+  if(iTeam) {
+		for(var i = 0; i < GetPlayerCount(); i++) {
+		  if(GetPlayerTeam(GetPlayerByIndex(i)) == iTeam) {
+				EventInfo4K(GetPlayerByIndex(i)+1, Format("$MsgFlagLost$", GetName(pFlag), GetTeamColor(iTeam), GetTeamName(iTeamAttacker)), OFLG, 0, GetTeamColor(iTeam), 0, "Info.ogg");
+		  }
+		}
   }
   UpdateScoreboard();
 }
@@ -299,7 +316,7 @@ public func FlagCaptured(object pFlag, int iTeam, array pAttackers, bool fRegain
       i++;
     }
   }
-  EventInfo4K(0, Format("$MsgCaptured$", GetTeamColor(iTeam), GetTeamName(iTeam), GetName(pFlag)), OFLG, 0, 0, 0, "Info.ogg");
+  EventInfo4K(0, Format("$MsgCaptured$", GetTeamColor(iTeam), GetTeamName(iTeam), GetName(pFlag)), OFLG, 0, GetTeamColor(iTeam), 0, "Info.ogg");
   UpdateScoreboard();
 }
 
@@ -308,6 +325,15 @@ public func TicketsLow(int iRemaining, int iTeam)
   for(var i = 0; i < GetPlayerCount(); i++) {
     if(GetPlayerTeam(GetPlayerByIndex(i)) == iTeam) {
      EventInfo4K(GetPlayerByIndex(i)+1,Format("$MsgTicketsLow$",iRemaining),TIKT,0,0,0,"Alarm.ogg");
+    }
+  }
+}
+
+public func NoTickets(int iTeam)
+{
+  for(var i = 0; i < GetPlayerCount(); i++) {
+    if(GetPlayerTeam(GetPlayerByIndex(i)) == iTeam) {
+     EventInfo4K(GetPlayerByIndex(i)+1,Format("$MsgNoTickets$"),TIKT,0,0,0,"Alarm.ogg");
     }
   }
 }
@@ -330,6 +356,9 @@ public func DoTickets(int iTeam, int iChange)
   aTicket[iTeam-1] = Max(aTicket[iTeam-1] + iChange, 0);
   if(iWarningTickets != 0 && iWarningTickets == aTicket[iTeam-1]) {
     Schedule(Format("GameCallEx(\"TicketsLow\", %d, %d)", aTicket[iTeam-1], iTeam), 1);
+  }
+  if(aTicket[iTeam-1] == 0) {
+    Schedule(Format("GameCallEx(\"NoTickets\", %d, %d)", iTeam), 1);
   }
 }
 

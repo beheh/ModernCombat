@@ -13,3 +13,4 @@ TimerCall=Wind
 Timer=10
 ContactIncinerate=0
 BlastIncinerate=0
+ColorByOwner=1
