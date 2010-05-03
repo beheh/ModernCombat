@@ -173,11 +173,11 @@ private func OpenGoalMenu(id dummy, int iSelection)
 
 private func ChangeStartTickets(id dummy, int iChange)
 {
-  // Stand verändern
-  iStartTickets = BoundBy(iStartTickets+iChange,0,100);//100 ist Maximum.
-  // Geräusch
+  //Stand verändern
+  iStartTickets = BoundBy(iStartTickets+iChange,0,100); //100 ist Maximum.
+  //Geräusch
   Sound("Grab", 1,0,0,1);
-  // Menü wieder öffnen
+  //Menü wieder öffnen
   var iSel = 1;
   if(iChange == -1) iSel = 2;
   OpenGoalMenu(0, iSel);
