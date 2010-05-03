@@ -21,7 +21,7 @@ protected func Initialize()
   return(_inherited());
 }
 
-private func UpdateHUDs()
+private func UpdateHUD()
 {
   if(FindObject(GOAL)) return;
   return inherited();
