@@ -75,7 +75,7 @@ public func LaunchGrenade(id idg, int speed, int angle, int mode)
   grenade->Launch(xdir/*+GetXDir(user)/2*/, ydir/*+GetYDir(user)/4*/, GetFMData(FM_Damage,2));
   
   //Sicht auf Granate (wie beim Bogen auf die Pfeile)
-  if(!(user ->~ IsMachine()))
+  if(!(user ->~ IsMachine()) && user->~IsAiming())
   {
     SetPlrView(GetController(user),grenade);
     SetPlrViewRange(100, grenade);
