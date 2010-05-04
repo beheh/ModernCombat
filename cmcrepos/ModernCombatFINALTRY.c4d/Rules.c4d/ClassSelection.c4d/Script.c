@@ -129,7 +129,7 @@ func InitClassMenu(object pClonk)
   //Bereits ein Menü offen?
   if(GetMenu(pClonk))
   {
-   CloseMenu(pClonk); //Menü schließen
+		CloseMenu(pClonk); //Menü schließen
   }
   OpenMenu(pClonk);
 }
@@ -145,17 +145,17 @@ func Finish(object pClonk)
   //Alle Waffen auffüllen
   for(var wpn in FindObjects(Find_Container(pClonk), Find_Func("IsWeapon")))
   {
-   while(wpn->CycleFM(+1))
-   {
-    var ammo = wpn->GetFMData(FM_AmmoID);
-    var load = wpn->GetFMData(FM_AmmoLoad);
-    if(wpn->GetAmmo(ammo) == load) break;
-    //erst entladen
-    DoAmmo(ammo,-load, wpn);
-    //dann neu reinladen
-    DoAmmo(ammo, load, wpn);
-   }
-   wpn->CycleFM(+1); //Noch ein letztes Mal
+		while(wpn->CycleFM(+1))
+		{
+			var ammo = wpn->GetFMData(FM_AmmoID);
+			var load = wpn->GetFMData(FM_AmmoLoad);
+			if(wpn->GetAmmo(ammo) == load) break;
+			//erst entladen
+			DoAmmo(ammo,-load, wpn);
+			//dann neu reinladen
+			DoAmmo(ammo, load, wpn);
+		}
+		wpn->CycleFM(+1); //Noch ein letztes Mal
   }
 
   pClonk->~UpdateCharge();

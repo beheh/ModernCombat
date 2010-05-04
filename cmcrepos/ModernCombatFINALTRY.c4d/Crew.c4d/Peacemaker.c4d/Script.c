@@ -28,6 +28,9 @@ private func AbortWalk()
         SetAction("Jump");
     }
   }
+  if(Contents()) {
+   Contents()->~AbortWalk(this);
+  }
 }
 
 private func CheckArmed()
