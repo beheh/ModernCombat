@@ -1,15 +1,14 @@
 [Action]
 Name=Backdraft
 Facet=0,0,6,68,0,0
-Length=6
+Length=4
 Delay=1
 NextAction=Redraft
 
 [Action]
 Name=Redraft
-Facet=0,0,6,68,0,0
+Facet=24,0,6,68,0,0
 Length=6
 Delay=3
-Reverse=1
 NextAction=Idle
 EndCall=EjectBullet
