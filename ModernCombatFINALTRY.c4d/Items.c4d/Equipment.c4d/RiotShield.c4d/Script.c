@@ -10,6 +10,7 @@ public func HandSize()		{return(850);}
 public func CanAim()		{return(true);}
 func IsEquipment()		{return(true);}
 public func NoArenaRemove()	{return(true);}
+public func AbortWalk(pClonk) { if(GetAction(pClonk) eq "Tumble") pClonk->SetAction("Walk"); }
 
 local pShield, pUser, iHits;
 
