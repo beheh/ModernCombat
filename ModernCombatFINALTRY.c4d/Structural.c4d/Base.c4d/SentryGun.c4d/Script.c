@@ -110,6 +110,14 @@ public func Destroyed()
   CreateObject(ROCK,0,0)->Explode(20);
 }
 
+/* Schaden */
+
+public func OnDmg(int iDmg, int iType)
+{
+	if(iType == DMG_Explosion)	return(0); //Maximale Wirkung von Sprengstoff
+	return(80); //Default
+}
+
 /* Aufrufe */
 
 public func TurnOn()

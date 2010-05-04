@@ -16,16 +16,19 @@ func ResetRotation()
 {
   SetR(Angle(GetX(),GetY(),GetX()+GetXDir(),GetY()+GetYDir()),this());
     
-  if(GetYDir() > 1 && !sounded)
+  if(GetYDir() > 2 && !sounded)
   {
     sounded = true;
-    Schedule("Sound(\"Artillery*.ogg\")",20);
+    Sound("Artillery*.ogg");
   }
 }
 
 func Hit()
 {
-    Explode(40+RandomX(0,10));
+  DamageObjects(50,30,this());
+  Explode(30+Random(10),0,0,0,1);
+  Sound("C4EX_Detonation*.ogg");
+  CastParticles("Smoke3",15,10,0,0,300,700);
 }
 
 public func Damage()

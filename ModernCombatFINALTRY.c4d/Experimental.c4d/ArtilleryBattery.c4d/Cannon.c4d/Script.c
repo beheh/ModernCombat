@@ -4,6 +4,7 @@
 
 func Initialize()
 {
+  FadeIn4K(10);
   return(1);
 }
 
