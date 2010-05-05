@@ -6,7 +6,7 @@
 local active,sx,sy, start;
 
 public func BlastRadius()	{return(30);}
-protected func SecureDistance()	{return(75);} //Mindestabstand
+protected func SecureDistance()	{return(75);}
 func ExplodeDelay()		{return(35*3);}
 
 
@@ -40,7 +40,8 @@ func Hit()
   HitObject();
 }
 
-protected func RejectEntrance(pNewContainer) {
+protected func RejectEntrance(pNewContainer)
+{
   return(1);
 }
 

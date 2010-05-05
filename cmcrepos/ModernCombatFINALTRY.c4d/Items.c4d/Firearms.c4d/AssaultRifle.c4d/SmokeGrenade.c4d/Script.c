@@ -3,7 +3,7 @@
 #strict
 #include ESHL
 
-protected func SecureDistance()	{return(0);} //Kein Mindestabstand
+protected func SecureDistance()	{return(0);}
 func ExplodeDelay()		{return(120);}
 
 

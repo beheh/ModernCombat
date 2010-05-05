@@ -3,7 +3,7 @@
 #strict
 #include ESHL
 
-func ExplodeDelay()	{return(80);}
+func ExplodeDelay()		{return(80);}
 
 
 /* Treffer */

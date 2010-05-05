@@ -3,34 +3,34 @@
 #strict
 #include WPN2
 
-public func HandSize()      {return(1000); }
-public func HandX()         {return(5000); }
-public func HandY()         {return(1000); }
-public func BarrelYOffset() {return(-2000);}
-public func SelectionTime() {return(10*3); }
+public func HandSize()		{return(1000);}
+public func HandX()		{return(5000);}
+public func HandY()		{return(1000);}
+public func BarrelYOffset()	{return(-2000);}
+public func SelectionTime()	{return(30);}
 
 
 /* Kugeln */
 
 public func FMData1(int data)
 {
-  if(data == FM_Name)               return("$Pellets$");
+  if(data == FM_Name)		return("$Pellets$");
     
-  if(data == FM_AmmoID)             return(STAM);
-  if(data == FM_AmmoLoad)           return(20);
-  if(data == FM_AmmoUsage)          return(4);
+  if(data == FM_AmmoID)		return(STAM);
+  if(data == FM_AmmoLoad)	return(20);
+  if(data == FM_AmmoUsage)	return(4);
   
-  if(data == FM_SingleReload)       return(2);
-  if(data == FM_PrepareReload)      return(10);
-  if(data == FM_FinishReload)       return(40);
+  if(data == FM_SingleReload)	return(2);
+  if(data == FM_PrepareReload)	return(10);
+  if(data == FM_FinishReload)	return(40);
     
-  if(data == FM_Reload)             return(75);
-  if(data == FM_Recharge)           return(50);
+  if(data == FM_Reload)		return(75);
+  if(data == FM_Recharge)	return(50);
   
-  if(data == FM_Damage)             return(40);
+  if(data == FM_Damage)		return(40);
   
-  if(data == FM_SpreadAdd) return(170);
-  if(data == FM_StartSpread) return(250);
+  if(data == FM_SpreadAdd)	return(170);
+  if(data == FM_StartSpread)	return(250);
 
   return(Default(data));
 }
@@ -39,7 +39,7 @@ public func FMData1(int data)
 
 public func FMData1T1(int data)
 {
-  if(data == FT_Name)                 return("$SpreadShot$");
+  if(data == FT_Name)		return("$SpreadShot$");
   return(FMData1(data));
 }
 
@@ -50,7 +50,7 @@ public func Fire1T1()
 
 public func BotData1(int data)
 {
-  if(data == BOT_Range)    return(400);
+  if(data == BOT_Range)		return(400);
   return(Default(data));
 }
 
@@ -58,10 +58,12 @@ public func BotData1(int data)
 
 public func FMData1T2(int data)
 {
-  if(data == FT_Name)                 return("$PrecisionShot$");
-  if(data == FM_Damage)             return(35);
-  if(data == FM_SpreadAdd) return(100);
-  if(data == FM_StartSpread) return(250);
+  if(data == FT_Name)		return("$PrecisionShot$");
+  if(data == FM_Damage)		return(37);
+
+  if(data == FM_SpreadAdd)	return(100);
+  if(data == FM_StartSpread)	return(250);
+
   return(FMData1(data));
 }
 
