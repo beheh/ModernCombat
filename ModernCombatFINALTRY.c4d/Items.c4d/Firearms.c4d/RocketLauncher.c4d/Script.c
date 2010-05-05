@@ -8,7 +8,7 @@ public func HandSize()		{return 850;}
 public func HandX()		{return 1000;}
 public func HandY()		{return -2000;}
 
-public func SelectionTime()	{return(3*15);}
+public func SelectionTime()	{return(45);}
 
 local pRocket, bGuiding;
 
@@ -28,9 +28,9 @@ public func FMData1(int data)
   if(data == FM_Aim)		return 1;
   if(data == FM_Damage)		return 35;
 
-  if(data == FM_Slot)    return(1);
+  if(data == FM_Slot)		return(1);
 
-  if(data == FM_SpreadAdd) return(300);
+  if(data == FM_SpreadAdd)	return(300);
 
   return Default(data);
 }
@@ -99,18 +99,6 @@ public func HandR()
   return 0;
 }
 
-/* Sounds */
-
-public func OnReload()
-{
-  Sound("RTLR_Reload.ogg");
-}
-
-public func OnSelect()
-{
-  Sound("RTLR_Charge.ogg");
-}
-
 /* Raketenverfolgung */
 
 private func Check()
@@ -120,4 +108,16 @@ private func Check()
   if(Contained()->~IsAiming())
     if(pRocket)
       SetPlrView(GetOwner(Contained()), pRocket);
+}
+
+/* Allgemein */
+
+public func OnReload()
+{
+  Sound("RTLR_Reload.ogg");
+}
+
+public func OnSelect()
+{
+  Sound("RTLR_Charge.ogg");
 }
