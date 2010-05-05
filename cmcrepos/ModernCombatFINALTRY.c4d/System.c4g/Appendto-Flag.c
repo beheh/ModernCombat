@@ -46,7 +46,7 @@ protected func Return2Base(pClonk, nolog)
   // game call: FlagReturned(flagTeam, clonk)
   // flagTeam: The team to which the flag belongs to
   // clonk: the clonk who did it
-  GameCallEx("FlagReturned",team, GetPlayerTeam(GetOwner(pClonk)));
+  GameCallEx("FlagReturned",team, pClonk);
 }
 
 protected func CheckFlag(pClonk)

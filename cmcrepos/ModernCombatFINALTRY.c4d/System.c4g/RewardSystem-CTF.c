@@ -13,8 +13,8 @@ public func FlagScored(int iTeam, int iCTeam, object pClonk)
   return _inherited(...);
 }
 
-public func FlagReturned(int iTeam)
+public func FlagReturned(int iTeam, object pClonk)
 {
-  DoPlayerPoints(BonusPoints("CTFRegain"), RWDS_BattlePoints, aFlagCarrier[iTeam], GetCursor(aFlagCarrier[iTeam]), IC09);
+  DoPlayerPoints(BonusPoints("CTFRegain"), RWDS_BattlePoints, GetOwner(pClonk), pClonk, IC09);
   return _inherited(...);
 }
