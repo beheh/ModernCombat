@@ -122,7 +122,12 @@ func InitClassMenu(object pClonk)
    var tmp = CreateObject(TIM1,AbsX(GetX(pClonk)),AbsY(GetY(pClonk)),iPlayer);
    SetCategory(GetCategory(tmp) | C4D_Foreground,tmp);
    SetGraphics(0,tmp,GetID(pClonk),1,5,0,1,pClonk);
-   SetVisibility(VIS_Owner,tmp);
+   if(FindObject(GOCC)) {
+     SetVisibility(VIS_None, tmp);
+   }
+   else {
+     SetVisibility(VIS_Owner, tmp);
+   }
    Enter(tmp,pClonk);
   }
 
