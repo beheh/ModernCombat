@@ -183,12 +183,6 @@ private func ChangeStartTickets(id dummy, int iChange)
   OpenGoalMenu(0, iSel);
 }
 
-private func ConfigFinished()
-{
-  var chos = FindObject(CHOS);
-  if(chos)
-    chos->OpenMenu();
-}
 
 
 /* Scoreboard */

@@ -186,7 +186,7 @@ public func ForceObservation(int iPlr)
 
 public func OnGameOver()
 {
-  if(ObjectCount(RWDS)) RewardEvaluation();
+  //RewardEvaluation();
 }
 
 /* Abstrakte Funktionen */

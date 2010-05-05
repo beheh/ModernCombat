@@ -50,6 +50,7 @@ protected func Activate(iByPlayer)
 
 global func RewardEvaluation()
 {
+  Log("1");
   var db = FindObject(RWDS);
   if(!db) return;
   
