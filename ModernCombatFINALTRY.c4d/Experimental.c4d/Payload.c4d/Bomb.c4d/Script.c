@@ -81,7 +81,7 @@ public func Timer() {
     iCheckpoint++;
     if(iCheckpoint > 0) {
       EventInfo4K(0, Format("Die <c %x>Bombe</c> hat einen Checkpoint erreicht", GetTeamColor(iTeam)), PLBM);
-      AddPayloadTime(3,30);
+      GameCallEx("AddPayloadTime",3,30);
     }
   }
   if(GetX()*(iDir*2-1) >= iEnd*(iDir*2-1)) {
@@ -136,13 +136,13 @@ public func Heal() {
   var Patients = [];
   for(var patient in FindObjects(Find_OCF(OCF_Alive),			//Patient am Leben?
                                  Find_Distance(50),			//In Reichweite?
-                                 Find_NoContainer(),			//Im Freien?
-                                 Find_Allied(GetOwner(Contained()))))	//Verbündet?
+                                 Find_NoContainer()))	//Verbündet?
   if(patient->~IsClonk())						//Patient ein Clonk?
   {
    if(GetEnergy(patient) < GetPhysical("Energy",0, patient)/1000)
    {
     if(patient == Contained()) continue;
+    if(GetPlayerTeam(GetOwner(patient)) != iTeam) continue;
     //Bewirkt, dass bei mehr Patienten weniger gut geheilt wird
     heal = Max(heal-2, 2);
     Patients[GetLength(Patients)] = patient;
