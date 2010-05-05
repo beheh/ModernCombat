@@ -855,7 +855,7 @@ public func StartAiming()//Wegen fehlendem Hazard-Feature.
       SetAction("AimLow");
   }
   else
-  if(Contents(0)->~GetFMData(FM_Aim) == 1)
+  if(Contents(0)->~GetFMData(FM_Aim) == 0)
   {
     if(GetActMapVal("Name","AimSquat",GetID()))
       SetAction("AimSquat");
