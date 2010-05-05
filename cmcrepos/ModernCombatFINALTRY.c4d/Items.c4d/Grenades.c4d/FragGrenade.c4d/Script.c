@@ -3,14 +3,15 @@
 #strict 2
 #include NADE
 
-public func Color(){return RGB(255,255,0);}
-public func ContainedDamage(){return 120;}
+public func Color()		{return RGB(255,255,0);}
+public func ContainedDamage()	{return 120;}
 
 
 /* Explosion */
 
 func Fused()
 {
+  //Splitter verschleudern
   for(var i = 40; i > 0; --i)
   {
     var angle = Interpolate4K(Random(360),Angle(GetXDir(),GetYDir()),0,80,BoundBy(Distance(GetXDir(),GetYDir()),0,80)) - 180;

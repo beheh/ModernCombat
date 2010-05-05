@@ -3,7 +3,7 @@
 #strict 2
 
 local iLifeTime;
-static const SM4K_FadeTime = 175; // 5 Sekunden
+static const SM4K_FadeTime = 175; //5 Sekunden
 
 
 /* Initalisierung */
