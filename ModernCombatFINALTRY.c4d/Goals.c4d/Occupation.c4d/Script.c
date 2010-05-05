@@ -158,6 +158,13 @@ public func ConfigMenu(object pCaller)
   return 1;
 }
 
+private func ConfigFinished()
+{
+  var chos = FindObject(CHOS);
+  if(chos)
+    chos->OpenMenu();
+}
+
 private func OpenGoalMenu(id dummy, int iSelection)
 {
   var pClonk = GetCursor();
