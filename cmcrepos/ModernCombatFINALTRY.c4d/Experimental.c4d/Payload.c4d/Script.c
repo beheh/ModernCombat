@@ -97,6 +97,7 @@ public func AddPayloadTime(int iMinutesAdd, int iSecondsAdd) {
 }
 
 protected func Timer() {
+  if(FindObject(CHOS)) return;
   if(!(iTimer % 5)) UpdateScoreboard();
   if(!(iTimer % 36)) iSeconds--;
   iTimer++;
