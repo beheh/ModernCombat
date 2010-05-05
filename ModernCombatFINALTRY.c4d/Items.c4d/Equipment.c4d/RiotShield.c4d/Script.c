@@ -72,6 +72,8 @@ public func Departure()
 
 public func Entrance(object pContainer)
 {
+  if(pContainer != GetUser()) iHits = 0;
+
   //Träger gleich Besitzer
   SetUser(pContainer);
 
@@ -121,7 +123,7 @@ private func RemoveShield()
 
 public func DoHit(int iHit) {
   iHits += iHit;
-  if(iHits >= 150) {
+  if(iHits >= 120) {
     iHits = 0;
     DoPlayerPoints(BonusPoints("Protection"), RWDS_BattlePoints, GetOwner(Contained()), Contained(), IC16);
   }
