@@ -5,9 +5,9 @@
 
 local time;
 
-public func FuseTime() { return 2*35; }
-public func Color() { return RGB(128,255,0); } // grün
-public func ContainedDamage() { return 20; }
+public func FuseTime()		{return 2*35;}
+public func Color()		{return RGB(128,255,0);}
+public func ContainedDamage()	{return 20;}
 
 
 /* Explosion */

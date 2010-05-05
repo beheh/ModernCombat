@@ -3,14 +3,12 @@
 #strict 2
 #include SHTX
 
-
 local hitcnt,size,trail_len;
 
 public func IsSpecialAmmo(){return false;}
 
-public func Initialize(){}
 
-public func Fast()//OMG, Nein! O_o
+public func Fast()
 {
   return false;
 }
@@ -166,7 +164,7 @@ public func BulletStrike(object pObj)
   if(pObj)
   {
     if(pObj->~IsBullet()) return false;
-    if(GetID(pObj) == TRAI) return false;//:C
+    if(GetID(pObj) == TRAI) return false;
     if(GetEffect("IntShrapnelHit",pObj))
     {
       return false;
@@ -189,7 +187,7 @@ public func BulletStrike(object pObj)
   return true;
 }
 
-public func FxIntShrapnelHitTimer() {return -1;}
+public func FxIntShrapnelHitTimer()	{return -1;}
 
 public func OnShrapnelHit(object pObject, int iX, int iY)
 {
