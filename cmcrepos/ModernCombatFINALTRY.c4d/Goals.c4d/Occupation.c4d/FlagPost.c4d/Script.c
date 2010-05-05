@@ -130,6 +130,7 @@ protected func Timer()
   for(clonk in clonks)
   {
     if(GetOwner(clonk) == NO_OWNER) continue;
+    if(!GetPlayerName(GetOwner(clonk)) || !GetPlayerTeam(GetOwner(clonk))) continue;
     if(!PathFree4K(GetX(this()),GetY(this())-GetDefHeight(GetID())/2,GetX(clonk),GetY(clonk),4)) continue;
     if(Contained(clonk)) continue;
     if(GetPlayerTeam(GetOwner(clonk)) == team) {
@@ -215,8 +216,18 @@ public func UpdateFlag()
 {
   if(!flag) return();
 
-  if(team)
-   SetClrModulation(GetTeamColor(team),flag);
+  if(team) {
+    flag->SetColorDw(RGB(0,0,0));
+    for(var i = 0; i < GetPlayerCount(); i++) {
+      if(GetPlayerTeam(GetPlayerByIndex(i)) != team) continue;
+	    flag->SetOwner(GetPlayerByIndex(i));
+    	break;
+    }
+  }
+  else {
+    flag->SetOwner(NO_OWNER);
+    flag->SetColorDw(RGB(255, 255, 255));
+  }
 
   SetFlagPos(process);
 }

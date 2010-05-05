@@ -239,7 +239,7 @@ private func UpdateScoreboard()
   {
     var iTeam = GetTeamByIndex(j);
     if(GetTeamPlayerCount(iTeam) > 0) {
-      SetScoreboardData(i, 1, Format("<c %x>%s</c>", GetTeamColor(iTeam), GetTeamName(j)), base+2+GetFlagCount(iTeam));
+      SetScoreboardData(i, 1, Format("<c %x>%s</c>", GetTeamColor(iTeam), GetTeamName(iTeam)), base+2+GetFlagCount(iTeam));
       SetScoreboardData(i, 2, Format("%d {{TIKT}}", GetTickets(iTeam)), base+2+GetTickets(iTeam));
     }
     else {
@@ -288,7 +288,7 @@ public func FlagLost(object pFlag, int iTeam, int iTeamAttacker, array pAttacker
   if(iTeam) {
 		for(var i = 0; i < GetPlayerCount(); i++) {
 		  if(GetPlayerTeam(GetPlayerByIndex(i)) == iTeam) {
-				EventInfo4K(GetPlayerByIndex(i)+1, Format("$MsgFlagLost$", GetName(pFlag), GetTeamColor(iTeam), GetTeamName(iTeamAttacker)), OFLG, 0, GetTeamColor(iTeam), 0, "Info.ogg");
+				EventInfo4K(GetPlayerByIndex(i)+1, Format("$MsgFlagLost$", GetName(pFlag), GetTeamColor(iTeamAttacker), GetTeamName(iTeamAttacker)), OFLG, 0, GetTeamColor(iTeamAttacker), 0, "Info.ogg");
 		  }
 		}
   }
@@ -521,19 +521,18 @@ private func RelaunchPlayer(int iPlr, object pCrew, int iMurdererPlr, int iTeam,
   if(!FindObject(CHOS) && !FindObject(MCSL)) //Regelwähler oder Klassenwahl?
     CreateGOCCSpawner(pCrew);
     
-  Schedule(Format("DoFlag(%d, %d)", iTeam, iPlr), 1);
+  DoFlag(iTeam, iPlr);
 }
 
 public func DoFlag(int iTeam, int iPlr) {
   var pCrew = GetCrew(iPlr);
+  if(!pCrew) return Schedule(Format("DoFlag(%d, %d)", iTeam, iPlr), 1);
   var pObject = Contained(pCrew);
-  if(pObject) {
-    SetVisibility(VIS_None, pObject);
-  }
 
   if(!ShowFlagpole(GetBestFlag(iTeam), pCrew, pObject)) {
     SetPlrViewRange(0, pCrew);
   }
+  
   return true;
 }
 
