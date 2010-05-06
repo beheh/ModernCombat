@@ -3,8 +3,8 @@
 #strict 2
 #include NADE
 
-public func Color(){return RGB(0,128,255);}
-public func ContainedDamage(){return 20;}
+public func Color()		{return RGB(0,128,255);}
+public func ContainedDamage()	{return 20;}
 
 func HitSound()
 {
@@ -17,9 +17,10 @@ public func Fused()
   {
     var intensity = ((200-ObjectDistance(this,obj))*470/200)/2;
 
+    //Ziel ein Clonk?
     if(obj->~IsClonk())
     {
-      if(!PathFree(GetX(),GetY(),GetX(obj),GetY(obj)-8))//Speziell für Clonkaugen. >,<
+      if(!PathFree(GetX(),GetY(),GetX(obj),GetY(obj)-8))
         continue;
       if(((GetDir(obj) == DIR_Left) && (GetX() < GetX(obj))) || ((GetDir(obj) == DIR_Right) && (GetX(obj) > GetX(obj))))
         intensity = Max(intensity,255);
@@ -42,15 +43,14 @@ public func Fused()
   FadeOut();
 }
 
-
 /* Blendeffekt */
-//intensity: 0-100-200 ...
+
 public func FxIntFlashbangStart(object pTarget, int iEffectNumber, int iTemp, intensity)
 {
   if(!intensity) return -1;
   EffectVar(0,pTarget,iEffectNumber) = intensity;
 
-  if(intensity > 38) Sound("Lol.ogg", false, pTarget, 100);
+  if(intensity > 38) Sound("STUN_Bang.ogg", false, pTarget, 100);
 
   var a = BoundBy(255-(intensity*255/100),0,255);
   var flash = ScreenRGB(pTarget,RGBa(255,255,255,a), 0, 0, false, SR4K_LayerLight);
@@ -84,7 +84,7 @@ public func FxIntFlashbangTimer(object pTarget, int iEffectNumber, int iEffectTi
     }
     flag = 0;
     if(c != 0) flag = MSG_Multiple;
-    CustomMessage(Format("<c %x>{{STUN}}</c>", RGBa(255,255,255,BoundBy(val, 1, 254))), pTarget, GetPlayerByIndex(i), 0, 0, 0, 0, 0, flag); 
+    CustomMessage(Format("<c %x>{{ICN3}}</c>", RGBa(255,255,255,BoundBy(val, 1, 254))), pTarget, GetPlayerByIndex(i), 0, 0, 0, 0, 0, flag); 
     c++;
   }
 }
