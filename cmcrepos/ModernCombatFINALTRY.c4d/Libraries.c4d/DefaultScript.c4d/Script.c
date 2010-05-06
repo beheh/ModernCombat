@@ -2,6 +2,7 @@
 
 #strict 2
 
+
 /* Wahl abgeschlossen */
 
 public func ChooserFinished()
@@ -189,6 +190,10 @@ public func OnGameOver()
   //RewardEvaluation();
 }
 
-/* Abstrakte Funktionen */
-public func OnClassSelection() {}
-public func OnWeaponChoice() {}
+/* Zusatzfunktionen */
+
+public func OnClassSelection()
+{}
+
+public func OnWeaponChoice()
+{}

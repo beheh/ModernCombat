@@ -6,9 +6,9 @@ static const FKDT_SuicideTime = 15; //Standardzeit bei Fake Death
 
 local clonk,oldvisrange,oldvisstate,suicide;
 
-public func AimAngle()     {return();}
-public func ReadyToFire()  {return();}
-public func IsAiming()     {return();}
+public func AimAngle()		{return();}
+public func ReadyToFire()	{return();}
+public func IsAiming()		{return();}
 
 
 /* Initalisierung */
@@ -50,7 +50,7 @@ public func Set(object pClonk)
   oldvisrange = GetObjPlrViewRange(pClonk);
   oldvisstate = GetPlrFogOfWar(GetOwner(pClonk));
 
-  //Sichtwerte für den Fake Death setzen
+  //Sichtwerte für den FakeDeath setzen
   SetPlrViewRange(100,pClonk);
   SetFoW(true,GetOwner(pClonk)); 
 
@@ -88,7 +88,7 @@ private func DeathMenu()
   }
   else
   {
-   AddMenuItem(Format("$Info2$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);  //Falls kein Selbstmord möglich
+   AddMenuItem(Format("$Info2$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);	//Falls kein Selbstmord möglich
   }
   AddMenuItem(Format("$DeathCounter$", suicide),"", NONE, clonk, 0, 0, "", 512, 0, 0);	//Zeit bis zum Tod
   if(suicide <= 0)
@@ -156,7 +156,7 @@ public func RejectCollect(id idObj, object pObj)
 public func ControlDig(object pCaller)
 {
   if(pCaller == clonk) return(1);
-  // Herausnehmen per Graben: Holen-Menü öffnen
+  //Herausnehmen per Graben: Holen-Menü öffnen
   pCaller->SetCommand(0, "Get", this(), 0, 0, 0, 1);
 }
 
