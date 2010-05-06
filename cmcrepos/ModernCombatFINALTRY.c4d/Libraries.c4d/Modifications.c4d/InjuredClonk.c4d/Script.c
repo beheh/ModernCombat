@@ -142,7 +142,7 @@ public func Destruction()
   //Sichtdaten zurücksetzen
   SetFoW(oldvisstate,GetOwner(clonk));
   SetPlrViewRange(oldvisrange,clonk);
-  clonk->RemoveEffect("NoAnnounce");
+  RemoveEffect("NoAnnounce", clonk);
 }
 
 public func RejectCollect(id idObj, object pObj)
