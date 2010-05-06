@@ -59,6 +59,13 @@ public func KMsg(int plr1, int plr2, object clonk)
   //Kein Icon?
   if(!typeicon) typeicon = SKUL;
 
+  //Killer links
+  if(plr1 && plr2 && plr1 != plr2) {
+    var plr1c = plr1;
+    plr1 = plr2;
+    plr2 = plr1c;
+  }
+
   //Nachricht konstruieren
   if(killicon != SKUL || plr1 != plr2) {
     msg = Format("%s {{%i}}",GetTaggedPlayerName(plr1),killicon);
