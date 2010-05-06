@@ -67,7 +67,7 @@ public func FxIntFlashbangTimer(object pTarget, int iEffectNumber, int iEffectTi
   var a = BoundBy(255-(i*255/100),0,255);
   EffectVar(1,pTarget,iEffectNumber)->SetAlpha(a);
   
-  /*var val, num, pCursor;
+  var val, num, pCursor, c, flag;
   for(var i = 0; i < GetPlayerCount(); i++)
   {
     pCursor = GetCursor(GetPlayerByIndex(i))->~GetRealCursor();
@@ -80,8 +80,12 @@ public func FxIntFlashbangTimer(object pTarget, int iEffectNumber, int iEffectTi
     else {
       val = 255-a;
     }
-    PlayerMessage(GetPlayerByIndex(i), "<c %x>•</c>", pTarget, RGBa(255,255,255,BoundBy(val, 1, 254)));
-  }*/
+    if(val >= 255) continue;
+    flag = 0;
+    if(c != 0) flag = MSG_Multiple;
+    CustomMessage(Format("<c %x>Blend</c>", RGBa(255,255,255,BoundBy(val, 1, 254))), pTarget, GetPlayerByIndex(i), 0, 0, 0, 0, 0, flag); 
+    c++;
+  }
 }
 
 public func FxIntFlashbangStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)
