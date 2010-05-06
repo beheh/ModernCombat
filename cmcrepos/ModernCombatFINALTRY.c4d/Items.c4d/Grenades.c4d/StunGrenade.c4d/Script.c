@@ -50,6 +50,8 @@ public func FxIntFlashbangStart(object pTarget, int iEffectNumber, int iTemp, in
   if(!intensity) return -1;
   EffectVar(0,pTarget,iEffectNumber) = intensity;
 
+  if(intensity > 38) Sound("Applause.ogg", false, pTarget, 100, GetOwnerr(pTarget));
+
   var a = BoundBy(255-(intensity*255/100),0,255);
   var flash = ScreenRGB(pTarget,RGBa(255,255,255,a), 0, 0, false, SR4K_LayerLight);
   if(!flash)
@@ -82,7 +84,7 @@ public func FxIntFlashbangTimer(object pTarget, int iEffectNumber, int iEffectTi
     }
     flag = 0;
     if(c != 0) flag = MSG_Multiple;
-    CustomMessage(Format("<c %x>•</c>", RGBa(255,255,255,BoundBy(val, 1, 254))), pTarget, GetPlayerByIndex(i), 0, 0, 0, 0, 0, flag); 
+    CustomMessage(Format("<c %x>{{STUN}}</c>", RGBa(255,255,255,BoundBy(val, 1, 254))), pTarget, GetPlayerByIndex(i), 0, 0, 0, 0, 0, flag); 
     c++;
   }
 }
