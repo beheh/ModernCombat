@@ -1,4 +1,4 @@
-ï»¿/*-- Blendgranate --*/
+/*-- Blendgranate --*/
 
 #strict 2
 #include NADE
@@ -19,7 +19,7 @@ public func Fused()
 
     if(obj->~IsClonk())
     {
-      if(!PathFree(GetX(),GetY(),GetX(obj),GetY(obj)-8))//Speziell fÃ¼r Clonkaugen. >,<
+      if(!PathFree(GetX(),GetY(),GetX(obj),GetY(obj)-8))//Speziell für Clonkaugen. >,<
         continue;
       if(((GetDir(obj) == DIR_Left) && (GetX() < GetX(obj))) || ((GetDir(obj) == DIR_Right) && (GetX(obj) > GetX(obj))))
         intensity = Max(intensity,255);
@@ -83,7 +83,7 @@ public func FxIntFlashbangTimer(object pTarget, int iEffectNumber, int iEffectTi
     if(val >= 255) continue;
     flag = 0;
     if(c != 0) flag = MSG_Multiple;
-    CustomMessage(Format("<c %x>â€¢</c>", RGBa(255,255,255,BoundBy(val, 1, 254))), pTarget, GetPlayerByIndex(i), 0, 0, 0, 0, 0, flag); 
+    CustomMessage(Format("<c %x>•</c>", RGBa(255,255,255,BoundBy(val, 1, 254))), pTarget, GetPlayerByIndex(i), 0, 0, 0, 0, 0, flag); 
     c++;
   }
 }
