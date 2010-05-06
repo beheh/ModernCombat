@@ -80,10 +80,9 @@ public func FxIntFlashbangTimer(object pTarget, int iEffectNumber, int iEffectTi
     else {
       val = 255-a;
     }
-    if(val >= 255) continue;
     flag = 0;
     if(c != 0) flag = MSG_Multiple;
-    CustomMessage(Format("<c %x>•</c>", RGBa(255,255,255,BoundBy(val, 1, 254))), pTarget, GetPlayerByIndex(i), 0, 0, 0, 0, 0, flag); 
+    CustomMessage(Format("<c %x>â€¢</c>", RGBa(255,255,255,BoundBy(val, 1, 254))), pTarget, GetPlayerByIndex(i), 0, 0, 0, 0, 0, flag); 
     c++;
   }
 }
