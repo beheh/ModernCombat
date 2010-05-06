@@ -1,1 +1,0 @@
-Spieler die diese Grenze übertreten werden nach wenigen Sekunden automatisch eliminiert und hindern sie so daran das Spielfeld zu verlassen.
