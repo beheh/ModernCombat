@@ -188,6 +188,8 @@ public func KillIcon(id idKillIcon)
 
 private func DeathAnnounce(int plr, object clonk, int killplr)
 {
+  if(GetEffect("NoAnnounce", this)) return;
+
   if(killplr == -1)
     return inherited(plr,clonk,killplr);
   
@@ -195,7 +197,7 @@ private func DeathAnnounce(int plr, object clonk, int killplr)
   if(plr == killplr)
     KILL->SKMsg(plr, clonk);
   else
-    KILL->KTMsg(killplr, plr, clonk);
+    KILL->KTMsg(plr, killplr, clonk);
 
   KILL->KillStat(GetCursor(killplr),plr);//hier auch clonk->~KillIcon()? könnte lustig sein :>
   
@@ -281,6 +283,8 @@ global func FakeDeath(object pTarget)
       pTarget->SetAction("Dead");
   }
   fake->Set(pTarget);
+  pTarget->DeathAnnounce(GetOwner(pTarget), pTarget, GetKiller(pTarget));
+  pTarget->AddEffect("NoAnnounce", pTarget, 51);
 
   SetComDir(COMD_Stop,pTarget);
   pTarget->Sound("ClonkDie*.ogg");
