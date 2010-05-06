@@ -1,6 +1,6 @@
 /*-- Dragnin --*/
 
-#strict
+#strict 2
 
 public func HandSize()		{return(1000);}
 public func HandX()		{return(4500);}
@@ -87,7 +87,7 @@ func FxDragninHealStart(object pTarget, int iEffectNumber, int iTemp, int iHealA
 {
   if(iTemp)
     if(GetPhysical("Walk", 2, pTarget) <= GetPhysical("Walk", 1, 0, GetID(pTarget))*5/10)
-      return();
+      return;
 
   EffectVar(0,pTarget,iEffectNumber) = iHealAmount; //Heilung insgesammt
   EffectVar(1,pTarget,iEffectNumber) = iHealRate; //Frames per HP
@@ -117,6 +117,11 @@ func FxDragninHealTimer(object pTarget, int iEffectNumber, int iEffectTime)
   }
   //Schon leer?
   if(!EffectVar(0,pTarget,iEffectNumber))
+  {
+    return(-1);
+  }
+  //FakeDeath?
+  if(Contained(pTarget) && GetID(Contained(pTarget)) == FKDT)
   {
     return(-1);
   }
