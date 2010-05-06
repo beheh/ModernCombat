@@ -1,4 +1,4 @@
-/*-- Blendgranate --*/
+﻿/*-- Blendgranate --*/
 
 #strict 2
 #include NADE
@@ -83,7 +83,7 @@ public func FxIntFlashbangTimer(object pTarget, int iEffectNumber, int iEffectTi
     if(val >= 255) continue;
     flag = 0;
     if(c != 0) flag = MSG_Multiple;
-    CustomMessage(Format("<c %x>Blend</c>", RGBa(255,255,255,BoundBy(val, 1, 254))), pTarget, GetPlayerByIndex(i), 0, 0, 0, 0, 0, flag); 
+    CustomMessage(Format("<c %x>•</c>", RGBa(255,255,255,BoundBy(val, 1, 254))), pTarget, GetPlayerByIndex(i), 0, 0, 0, 0, 0, flag); 
     c++;
   }
 }
