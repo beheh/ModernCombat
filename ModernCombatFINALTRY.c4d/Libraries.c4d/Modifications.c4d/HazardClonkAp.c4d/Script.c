@@ -1121,7 +1121,7 @@ private func DeathAnnounce(int plr, object clonk, int killplr)
   if(plr == killplr)
     KILL->SKMsg(plr, clonk);
   else
-    KILL->KTMsg(killplr, plr, clonk);
+    KILL->KTMsg(plr, killplr, clonk);
 
   KILL->KillStat(GetCursor(killplr),plr);//hier auch clonk->~KillIcon()? könnte lustig sein :>
   
