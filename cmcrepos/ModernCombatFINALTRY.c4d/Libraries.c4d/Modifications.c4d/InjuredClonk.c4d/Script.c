@@ -60,6 +60,9 @@ public func Set(object pClonk)
   //Etwas Lebensenergie
   DoEnergy(10, pClonk);
 
+  //Sounden   
+  Sound("Lol.ogg", false, pClonk, 100, GetOwner(pClonk)+1, +1);
+
   //Verzögert Auswahlmenü öffnen
   ScheduleCall(this(),"DoMenu",35,suicide);
 }
@@ -93,7 +96,8 @@ private func DeathMenu()
   AddMenuItem(Format("$DeathCounter$", suicide),"", NONE, clonk, 0, 0, "", 512, 0, 0);	//Zeit bis zum Tod
   if(suicide <= 0)
    Suicide();
-
+  
+  SelectMenuItem(selection, clonk);
   SetMenuTextProgress(1, clonk); 
 }
 
@@ -127,6 +131,10 @@ public func Destruction()
 {
   //Kein Clonk?
   if(!clonk) return();
+
+  //Ende Sound
+  Sound("Lol.ogg", false, clonk, 100, GetOwner(clonk)+1, -1);
+
 
   //Clonk "auswerfen"
   if(Contained(clonk) == this())
