@@ -121,9 +121,11 @@ private func RemoveShield()
 
 /* Sonstiges */
 
-public func DoHit(int iHit) {
+public func DoHit(int iHit)
+{
   iHits += iHit;
-  if(iHits >= 120) {
+  if(iHits >= 120)
+  {
     iHits = 0;
     DoPlayerPoints(BonusPoints("Protection"), RWDS_BattlePoints, GetOwner(Contained()), Contained(), IC16);
   }
