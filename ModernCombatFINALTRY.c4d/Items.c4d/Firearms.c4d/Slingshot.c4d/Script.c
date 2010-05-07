@@ -4,7 +4,7 @@
 #include WPN2
 
 public func HandSize()		{return(1050);}
-public func HandX()		{return(5000);}
+public func HandX()		{return(4000);}
 public func HandY()		{return(1000);}
 
 public func BarrelXOffset()	{return(-1000);}
