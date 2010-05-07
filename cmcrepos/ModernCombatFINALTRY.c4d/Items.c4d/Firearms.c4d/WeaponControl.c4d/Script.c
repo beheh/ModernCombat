@@ -662,28 +662,30 @@ public func ControlThrow(caller)
   }
 
   // Unterstützt der Schussmodus Zielen, aber wir tuns nicht?
-  if(GetFMData(FM_Aim) && !(GetUser()->~IsAiming()) && !(GetUser()->~AimOverride()))
-  {
-    // Können wir?
-    if(GetUser()->~ReadyToAim())
-      // Auf gehts:
-      GetUser()->StartAiming();
-  
-    // Nachladen?
-    var ammoid = GetFMData(FM_AmmoID);
-    var ammousage = GetFMData(FM_AmmoUsage);
-    // weil keine Muni mehr da war? -> nachladen wenn geht
-    if(!CheckAmmo(ammoid,ammousage,this()))
-      if(CheckAmmo(ammoid,ammousage,GetUser()))
-      {
-        Reload();
-      }
-      // nicht genügend Munition
-      else {
-        PlayerMessage(GetOwner(caller), "$NotEnoughAmmo$", caller, ammoid);
-      }
-    // Sonst nix.
-    return(1);
+  if(GetFMData(FM_Aim) == 1 || GetFMData(FM_Aim) == 2) {
+		if(!(GetUser()->~IsAiming()) && !(GetUser()->~AimOverride()))
+		{
+		  // Können wir?
+		  if(GetUser()->~ReadyToAim())
+		    // Auf gehts:
+		    GetUser()->StartAiming();
+		
+		  // Nachladen?
+		  var ammoid = GetFMData(FM_AmmoID);
+		  var ammousage = GetFMData(FM_AmmoUsage);
+		  // weil keine Muni mehr da war? -> nachladen wenn geht
+		  if(!CheckAmmo(ammoid,ammousage,this()))
+		    if(CheckAmmo(ammoid,ammousage,GetUser()))
+		    {
+		      Reload();
+		    }
+		    // nicht genügend Munition
+		    else {
+		      PlayerMessage(GetOwner(caller), "$NotEnoughAmmo$", caller, ammoid);
+		    }
+		  // Sonst nix.
+		  return(1);
+		}
   }
 
   // Feuern! Fehlgeschlagen?
