@@ -44,4 +44,4 @@ Rain=3,0,0,100
 Wind=-1,0,-100,100
 
 [Environment]
-Objects=DOFO=1;WRAE=1;DARK=1 
+Objects=EGRS=1;DOFO=1;WRAE=1;DARK=1 
