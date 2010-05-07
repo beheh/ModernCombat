@@ -50,7 +50,7 @@ public func FxIntFlashbangStart(object pTarget, int iEffectNumber, int iTemp, in
   if(!intensity) return -1;
   EffectVar(0,pTarget,iEffectNumber) = intensity;
 
-  if(intensity > 38) Sound("STUN_Bang.ogg", false, pTarget, 100);
+  if(intensity > 38) Sound("STUN_Bang.ogg", false, pTarget, 100, GetOwner(pTarget)+1);
 
   var a = BoundBy(255-(intensity*255/100),0,255);
   var flash = ScreenRGB(pTarget,RGBa(255,255,255,a), 0, 0, false, SR4K_LayerLight);
