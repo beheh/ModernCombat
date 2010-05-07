@@ -45,4 +45,4 @@ SkyScrollMode=1
 Wind=20,4,-100,100
 
 [Environment]
-Objects=EGRS=1;EGLN=3;SLSY=3
+Objects=EGRS=1;EGLN=3;SLSY=3;DARK=1
