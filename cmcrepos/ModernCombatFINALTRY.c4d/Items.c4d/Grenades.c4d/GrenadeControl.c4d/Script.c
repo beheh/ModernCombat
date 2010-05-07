@@ -56,7 +56,7 @@ func HitObject(object pObj)
 
 func Hit(int iXDir, int iYDir)
 {
-  //Geräusch
+  //Geräusch3
   HitSound();
 
   //Entsprechende Hüpfbewegung
@@ -64,6 +64,13 @@ func Hit(int iXDir, int iYDir)
   if(GBackSolid(0,-5))  return(SetYDir(-iYDir/26));
   if(GBackSolid(-5,0))  return(SetXDir(-iXDir/16));
   if(GBackSolid(+5,0))   return(SetXDir(-iXDir/16));
+}
+
+/* Aimstart */
+
+public func AimStart() {
+  if(!Contained()) return;
+  Contained()->~DoAiming(-30);
 }
 
 /* Steuerung */
