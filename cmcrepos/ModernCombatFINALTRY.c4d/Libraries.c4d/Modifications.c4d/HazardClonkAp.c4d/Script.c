@@ -845,21 +845,12 @@ public func StartAiming()//Wegen fehlendem Hazard-Feature.
   if(Contained()) return(Contained()->~StartAiming());
 
   SetXDir(0);
-  
-  SetAction("Aim");
-  
-  // Aim low if possble
-  if(Contents(0)->~GetFMData(FM_Aim) == 2 || Contents(0)->~GetFMData(FM_Aim) == -1)
-  {
-    if(GetActMapVal("Name","AimLow",GetID()))
-      SetAction("AimLow");
-  }
+
+  SetXDir(0);
+  if(Contents(0)->~GetFMData(FM_Aim) == 2 || Contents(0)->~GetFMData(FM_Aim) == 0)
+    SetAction("AimLow");
   else
-  if(Contents(0)->~GetFMData(FM_Aim) == 0)
-  {
-    if(GetActMapVal("Name","AimSquat",GetID()))
-      SetAction("AimSquat");
-  }
+    SetAction("Aim");
 
   SetPhase(this()->~AimAngle2Phase(90));
   SetComDir(COMD_Stop);
@@ -1293,8 +1284,12 @@ public func ControlSpecial()
   			ShiftContents(0,0,Contents(i)->GetID(),true);
   			break;
   		}
-    StopAiming();
-    StartAiming();
+    if(WildcardMatch(GetAction(), "*Squat*")) {
+   		StartSquatAiming();
+    }
+    else {
+    	StartAiming();
+    }
     SetAiming(angle, true);
   }
   else
