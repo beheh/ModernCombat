@@ -840,13 +840,12 @@ public func Destruction()
   return(_inherited());
 }
 
-public func StartAiming()//Wegen fehlendem Hazard-Feature.
+public func StartAiming() //Wegen fehlendem Hazard-Feature.
 {
   if(Contained()) return(Contained()->~StartAiming());
 
   SetXDir(0);
 
-  SetXDir(0);
   if(Contents(0)->~GetFMData(FM_Aim) == 2 || Contents(0)->~GetFMData(FM_Aim) == 0)
     SetAction("AimLow");
   else
@@ -862,6 +861,28 @@ public func StartAiming()//Wegen fehlendem Hazard-Feature.
   // Callback
   if(Contents(0)) Contents(0)->~AimStart();
 }
+
+public func StartSquatAiming() { // Anfangen in der Hocke zu zielen
+
+  if(Contained()) return(Contained()->~StartAiming());
+
+  SetXDir(0);
+  if(Contents(0)->~GetFMData(FM_Aim) == 2 || Contents(0)->~GetFMData(FM_Aim) == 0)
+    SetAction("AimSquatLow");
+  else
+    SetAction("AimSquat");
+    
+  SetPhase(this()->~AimAngle2Phase(90));
+  SetComDir(COMD_Stop());
+
+  InitCrosshair();
+  
+  ScheduleCall(this(),"UpdateAiming",1);
+
+  // Callback
+  if(Contents(0)) Contents(0)->~AimStart();
+}
+
 
 public func StopAiming()
 {
@@ -1284,7 +1305,7 @@ public func ControlSpecial()
   			ShiftContents(0,0,Contents(i)->GetID(),true);
   			break;
   		}
-    if(WildcardMatch(GetAction(), "*Squat*")) {
+    if(IsSquatAiming()) {
    		StartSquatAiming();
     }
     else {
