@@ -4,8 +4,8 @@
 #include WPN2
 
 public func HandSize()		{return(800);}
-public func HandX()		{return(5500);}
-public func HandY()		{return(-1000);}
+public func HandX()		{return(4000);}
+public func HandY()		{return(-700);}
 
 public func BarrelYOffset()	{return(-5000);}
 public func SelectionTime()	{return(10);}
@@ -24,7 +24,7 @@ public func FMData1(int data)
   if(data == FM_Recharge)	return(5);
 
   if(data == FM_Auto)		return(false);
-  
+
   if(data == FM_Damage)		return(13);
   
   if(data == FM_Slot)		return(1);

@@ -5,7 +5,7 @@
 
 public func HandSize()		{return(800);}
 public func HandX()		{return(5000);}
-public func HandY()		{return(1000);}
+public func HandY()		{return(800);}
 
 public func BarrelXOffset()	{return(-1000);}
 public func BarrelYOffset()	{return(-2000);}

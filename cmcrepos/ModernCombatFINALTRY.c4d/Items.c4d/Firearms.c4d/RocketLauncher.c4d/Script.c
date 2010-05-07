@@ -6,7 +6,7 @@
 
 public func HandSize()		{return 850;}
 public func HandX()		{return 1000;}
-public func HandY()		{return -2000;}
+public func HandY()		{return -2500;}
 
 public func SelectionTime()	{return(45);}
 
