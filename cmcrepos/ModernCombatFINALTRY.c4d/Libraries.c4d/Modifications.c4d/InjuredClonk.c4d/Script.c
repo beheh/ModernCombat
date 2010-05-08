@@ -140,8 +140,10 @@ public func Destruction()
    clonk->Exit(0,0,GetObjHeight(clonk)/2);
 
   //Besitztümer weitergeben
-  if(GetAlive(clonk))
+  if(GetAlive(clonk)) {
    clonk->GrabContents(this());
+   RemoveEffect("NoAnnounce", clonk);
+  }
   else
    while(Contents())
     Exit(Contents(),0,+10);
@@ -149,7 +151,6 @@ public func Destruction()
   //Sichtdaten zurücksetzen
   SetFoW(oldvisstate,GetOwner(clonk));
   SetPlrViewRange(oldvisrange,clonk);
-  RemoveEffect("NoAnnounce", clonk);
 }
 
 public func RejectCollect(id idObj, object pObj)

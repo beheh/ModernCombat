@@ -60,26 +60,19 @@ public func KMsg(int plr1, int plr2, object clonk)
   if(!typeicon) typeicon = SKUL;
 
   //Killer links
-  if(plr1 && plr2 && plr1 != plr2) {
-    var plr1c = plr1;
-    plr1 = plr2;
-    plr2 = plr1c;
-  }
+  var victim = plr1;
+  var killer = plr2;
 
   //Nachricht konstruieren
-  if(killicon != SKUL || plr1 != plr2) {
-    msg = Format("%s {{%i}}",GetTaggedPlayerName(plr1),killicon);
-    if(killicon != typeicon && typeicon != SKUL)
-      msg = Format("%s({{%i}})",msg,typeicon);
-    if(plr1 != plr2)
-      msg = Format("%s %s",msg,GetTaggedPlayerName(plr2));
-  }
-  else {
-    msg = Format("%s",GetTaggedPlayerName(plr1));
-  }
-
+  msg = Format("{{%i}}",killicon);
+  if(typeicon && killicon != typeicon)
+    msg = Format("%s({{%i}})",msg,typeicon);
+  msg = Format("%s %s", msg, GetTaggedPlayerName(victim));
+  if(killer != victim)
+	  msg = Format("%s %s", GetTaggedPlayerName(killer), msg);
+  
   //Eventnachricht: Spieler eliminiert Spieler
-  EventInfo4K(0,msg,SKUL);
+  EventInfo4K(0,msg,PCMK);
 }
 
 /* Selbstmordnachricht */
