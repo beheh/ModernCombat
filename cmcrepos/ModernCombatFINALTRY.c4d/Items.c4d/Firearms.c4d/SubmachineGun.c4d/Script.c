@@ -8,7 +8,7 @@ public func HandX()		{return(2500);}
 public func HandY()		{return(-2000);}
 
 public func BarrelYOffset()	{return(-5500);}
-public func SelectionTime()	{return(10*3);}
+public func SelectionTime()	{return(30);}
 
 
 /* Kugeln */
@@ -31,6 +31,7 @@ public func FMData1(int data)
   
   if(data == FM_SpreadAdd)	return(25);
   if(data == FM_StartSpread)	return(50);
+  if(data == FM_MaxSpread)	return(350);
 
   return(Default(data));
 }
@@ -77,17 +78,7 @@ public func FMData1T2(int data)
 
 public func Fire1T2()
 { 
-  var user = GetUser();
-  var dir = GetDir(user)*2-1;
-  var angle = user->AimAngle(15,0,true);
-  var x,y;
-  user->WeaponEnd(x,y);
-  var ammo = SALaunchBullet(x,y,GetController(user),angle+RandomX(-2,+2),230,350+Random(100),GetFMData(FM_Damage));
-  ammo->Sound("SMGN_Fire*.ogg");
-
-  // Effekte
-  SAMuzzleFlash(RandomX(15,25),user,x,y,angle);
-  SABulletCasing(x/3,y/3,-dir*14,-(14),4);
+  Fire1();
 }
 
 /* Kugeln - Einzelfeuer */
@@ -107,17 +98,7 @@ public func FMData1T3(int data)
 
 public func Fire1T3()
 {
-  var user = GetUser();
-  var dir = GetDir(user)*2-1;
-  var angle = user->AimAngle(15,0,true);
-  var x,y;
-  user->WeaponEnd(x,y);
-  var ammo = SALaunchBullet(x,y,GetController(user),angle+RandomX(-1,+1),220,350+Random(100),GetFMData(FM_Damage));
-  ammo->Sound("SMGN_Fire*.ogg");
-
-  // Effekte
-  SAMuzzleFlash(RandomX(15,25),user,x,y,angle);
-  SABulletCasing(x/3,y/3,-dir*14,-(14),4);
+  Fire1();
 }
 
 /* Kugeln - Schuss */
@@ -129,7 +110,7 @@ public func Fire1()
   var angle = user->AimAngle(15,0,true);
   var x,y;
   user->WeaponEnd(x,y);
-  var ammo = SALaunchBullet(x,y,GetController(user),angle+RandomX(-3,+3),230,350+Random(100),GetFMData(FM_Damage));
+  var ammo = SALaunchBullet(x,y,GetController(user),angle+RandomX(-3,+3),230,450,GetFMData(FM_Damage));
   ammo->Sound("SMGN_Fire*.ogg");
 
   // Effekte

@@ -31,7 +31,7 @@ public func FMData1(int data)
   
   if(data == FM_SpreadAdd)	return(60);
   if(data == FM_StartSpread)	return(10);
-  if(data == FM_MaxSpread)	return(CH_MaxSpread/6);
+  if(data == FM_MaxSpread)	return(200);
 
   return(Default(data));
 }
@@ -51,7 +51,7 @@ public func Fire1T1()
 
 public func BotData1(int data)
 {
-  if(data == BOT_Range)		return(500);
+  if(data == BOT_Range)		return(400);
 
   return(Default(data));
 }
@@ -63,7 +63,7 @@ public func Fire1()
   var angle = user->AimAngle(20,0,true);
   var x,y;
   user->WeaponEnd(x,y);
-  var ammo = SALaunchBullet(x,y,GetController(user),angle+RandomX(-1,+1),230,350+Random(50),GetFMData(FM_Damage));
+  var ammo = SALaunchBullet(x,y,GetController(user),angle+RandomX(-1,+1),250,400,GetFMData(FM_Damage));
   ammo->Sound("PSTL_Fire*.ogg");
 
   // Effekte

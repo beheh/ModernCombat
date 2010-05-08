@@ -1,3 +1,2 @@
 Pellets=Patronen
 SpreadShot=Streuschuss
-PrecisionShot=Präzisionsschuss
