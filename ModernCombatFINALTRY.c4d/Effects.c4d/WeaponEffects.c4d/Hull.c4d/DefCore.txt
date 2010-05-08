@@ -12,3 +12,4 @@ VertexFriction=200
 Rotate=1
 Oversize=1
 StretchGrowth=1
+Float=1
