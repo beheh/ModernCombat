@@ -61,7 +61,7 @@ private func Attack()
   if (!pPrey || !GetAlive(pPrey)) return();
 
   //Schaden
-  DoDmg(10+Random(20),DMG_Melee,pPrey);
+  DoDmg(10+Random(20),DMG_Melee,pPrey,0,0,GetID());
   //Verschleudern
   Fling (pPrey,0,-1);
   SetAction("Jaw");

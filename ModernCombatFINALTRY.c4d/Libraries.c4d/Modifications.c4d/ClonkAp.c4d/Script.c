@@ -178,18 +178,13 @@ func Hit2(int xDir, int yDir)
 
 private func DeathAnnounce(int plr, object clonk, int killplr)
 {
-  if(killplr == -1)
-    return;
-  
   if(!clonk)
     clonk = this();
-  if(!clonk) return;
-  
+  if(!clonk) return;  
   if(GetEffect("NoAnnounce", clonk)) return;
-  if(!GetAlive(clonk) && !ObjectCount(NOFD)) return; //FakeDeath-Hack
-  
+  if(!GetAlive(clonk) && !IsFakeDeath()) return; //FakeDeath-Hack
   //Selfkill?
-  if(plr == killplr)
+  if(plr == killplr || killplr == -1)
     KILL->SKMsg(plr, clonk);
   else
     KILL->KTMsg(plr, killplr, clonk);
