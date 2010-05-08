@@ -31,6 +31,7 @@ public func FMData1(int data)
   
   if(data == FM_SpreadAdd)	return(50);
   if(data == FM_StartSpread)	return(100);
+  if(data == FM_MaxSpread)	return(450);
 
   return(Default(data));
 }
@@ -51,22 +52,12 @@ public func FMData1T1(int data)
 
 public func Fire1T1()
 {
-  var user = GetUser();
-  var dir = GetDir(user)*2-1;
-  var angle = user->AimAngle(10,0,true);
-  var x,y;
-  user->WeaponEnd(x,y);
-  var ammo = SALaunchBullet(x,y,GetController(user),angle+0,250,800,GetFMData(FM_Damage));
-  ammo->Sound("ASTR_Fire*.ogg");
-
-  // Effekte
-  SAMuzzleFlash(RandomX(30,40),user,x,y,angle);
-  SABulletCasing(x/3,y/3,-dir*14*(Random(1)+1),-(13+Random(2)),5);
+  Fire1();
 }
 
 public func BotData1(int data)
 {
-  if(data == BOT_Range)		return(600);
+  if(data == BOT_Range)		return(800);
 
   return(Default(data));
 }
@@ -76,6 +67,9 @@ public func BotData1(int data)
 public func FMData1T2(int data)
 {
   if(data == FT_Name)		return("$Single$");
+
+  if(data == FM_Damage)		return(15);
+
   return(FMData1(data));
 }
 
@@ -120,6 +114,7 @@ public func FMData2(int data)
   
   if(data == FM_SpreadAdd)	return(200);
   if(data == FM_StartSpread)	return(100);
+  if(data == FM_MaxSpread)	return(400);
 
   return(Default(data));
 }
@@ -160,7 +155,7 @@ public func FMData2T2(int data)
 
 public func Fire2T2()
 {  
-  LaunchGrenade(FSHL, 90,Contained()->~AimAngle(0,0,true)+RandomX( -3, 3));
+  LaunchGrenade(FSHL, 90,Contained()->~AimAngle(0,0,true)+0);
 }
 
 /* Granaten - Rauchgranaten */
@@ -175,7 +170,7 @@ public func FMData2T3(int data)
 
 public func Fire2T3()
 {  
-  LaunchGrenade(SSHL, 90,Contained()->~AimAngle(0,0,true)+RandomX( -3, 3));
+  LaunchGrenade(SSHL, 90,Contained()->~AimAngle(0,0,true)+0);
 }
 
 /* Granaten - Schuss */
@@ -185,25 +180,25 @@ public func LaunchGrenade(id idg, int speed, int angle, int mode)
   var user = Contained();
   var dir = GetDir(user)*2-1;
 
-  // Adjust angle
+  //Angle anpassen
   angle = BoundBy(angle/*+GetYDir(user)*/+dir,-360,360);
-  // calculate speed
+
+  //Geschwindigkeit anpassen
   var xdir = Sin(angle,speed);
   var ydir = -Cos(angle,speed);
 
   var x,y;
   user->WeaponEnd(x,y);
 
-  // create and launch
+  //Erstellen und Abfeuern
   var grenade=CreateObject(idg, x+xdir/10, y+ydir/10, GetController(user));
   grenade->Launch(xdir+GetXDir(user)/10, ydir/*+GetYDir(user)/20*/, GetFMData(FM_Damage,2));
 
-  // effect
+  //Effekte
   grenade->Sound("ASTR_LauncherFire*.ogg");
-
   CreateParticle("Thrust",x,y,GetXDir(user),GetYDir(user),80,RGBa(255,200,200,0),0,0);
-
-  for(var i=0; i<20; ++i) {
+  for(var i=0; i<20; ++i)
+  {
     CreateParticle("Smoke2",x+RandomX(-5,+5),y+RandomX(-5,+5),
                    GetXDir(user)+RandomX(0,xdir/4),GetYDir(user)+RandomX(0,ydir/4),
                    RandomX(80,140),RGBa(200,200,200,0),0,0);

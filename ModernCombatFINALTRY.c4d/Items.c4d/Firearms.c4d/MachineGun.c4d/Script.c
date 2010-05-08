@@ -30,6 +30,7 @@ public func FMData1(int data)
   
   if(data == FM_SpreadAdd)	return(25);
   if(data == FM_StartSpread)	return(250);
+  if(data == FM_MaxSpread)	return(450);
 
   return(Default(data));
 }
@@ -49,7 +50,7 @@ public func Fire1T1()
 
 public func BotData1(int data)
 {
-  if(data == BOT_Range)		return(600);
+  if(data == BOT_Range)		return(750);
   if(data == BOT_Power)		return(BOT_Power_LongLoad);
 
   return(Default(data));
@@ -76,17 +77,7 @@ public func FMData1T2(int data)
 
 public func Fire1T2()
 {
-  var user = GetUser();
-  var dir = GetDir(user)*2-1;
-  var angle = user->AimAngle(10,0,true);
-  var x,y;
-  user->WeaponEnd(x,y);
-  var ammo = SALaunchBullet(x,y,GetController(user),angle+RandomX(-1,+1),250,700,GetFMData(FM_Damage));
-  ammo->Sound("MNGN_Fire.ogg");
-
-  // Effekte
-  SAMuzzleFlash(45,user,x,y,angle);
-  SABulletCasing(x/3,y/3,-dir*14*(Random(1)+1),-(13+Random(2)),5);
+  Fire1();
 }
 
 /* Kugeln - Schuss */
@@ -98,7 +89,7 @@ public func Fire1()
   var angle = user->AimAngle(10,0,true);
   var x,y;
   user->WeaponEnd(x,y);
-  var ammo = SALaunchBullet(x,y,GetController(user),angle+RandomX(-2,+2),250,700,GetFMData(FM_Damage));
+  var ammo = SALaunchBullet(x,y,GetController(user),angle+RandomX(-1,+1),250,750,GetFMData(FM_Damage));
   ammo->Sound("MNGN_Fire.ogg");
 
   // Effekte

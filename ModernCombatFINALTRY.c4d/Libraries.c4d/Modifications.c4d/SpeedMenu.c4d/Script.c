@@ -6,12 +6,12 @@ static const RMEN_Radius = 54;
 static const RMEN_Animation = 8;
 static const SMEN_ItemCount = 5;
 
-local pCallbackObject;   //Befehlsziel für Callbacks
-local pTargetObject;     //Besitzobjekt (an das die Sicht geklebt wird, und dessen Besitzer die Auswahl trifft)
+local pCallbackObject;		//Befehlsziel für Callbacks
+local pTargetObject;		//Besitzobjekt (an das die Sicht geklebt wird, und dessen Besitzer die Auswahl trifft)
 
-local aItemTitle;        //Titel
-local aItemFunc;         //Funktion
-local aItemPar;          //Parameter
+local aItemTitle;		//Titel
+local aItemFunc;		//Funktion
+local aItemPar;			//Parameter
 
 
 /* globale Funktionen */
@@ -57,7 +57,6 @@ global func GetSpeedMenu(object pCommandObject)
   return pMenu;
 }
 
-
 /* Allgemeines */
 
 protected func Initialize()
@@ -71,25 +70,28 @@ protected func Initialize()
 public func Create(object pCommandObject, object pMenuObj)
 {
   //Felder kopieren
-  //if(pTargetObject) RemoveEffect("IntSMENCheck",pTargetObject);
   pCallbackObject = pCommandObject;
   pTargetObject = pMenuObj;
   SetPosition(GetX(pMenuObj),GetY(pMenuObj));
-  //Aktivität setzen und Sound ausgeben
-  Sound("RMEN_Open",true,0,0,GetOwner()+1); 
+
+  //Aktivität setzen
   SetAction("Opening");
   Opening();//Erstes Update
-  //Eine volle Energieleiste sieht doch viel schöner aus :)
+
+  //Volle Energieleiste
   DoEnergy(100);
+
   //Als Cursorobjekt auswählen, damit Tastaturkommandos gesendet werden und die Sicht stimmt
   SetCursor(GetOwner(),this,1,1);
   SelectCrew(GetOwner(),pMenuObj,0,1);
   SetViewCursor(GetOwner(),pMenuObj);
-  //SetComDir(COMD_Stop,pMenuObj);
+
   //Letztes Kommando löschen, um ControlSpecial auch beim schnellen ControlSpecialDouble abzufangen
   ClearLastPlrCom(GetController(pMenuObj));
+
   //Überwachungseffekt fürs Schließen an den Clonk
   AddEffect("IntSMENCheck",pMenuObj,1,1,this);
+
   //Sichtbar machen
   SetVisibility(VIS_Owner);
 
@@ -110,11 +112,13 @@ public func Add(int iItem, string szTitle, string szFunc, Parameter, id idIcon)
   return iItem+1;
 }
 
-public func GetRealCursor() {
+public func GetRealCursor()
+{
   return pTargetObject;
 }
 
-//Helper...
+/* Hilfen */
+
 public func AddThrowItem(string szTitle, string szFunc, Parameter, id idIcon)
             { return Add(0,szTitle,szFunc,Parameter,idIcon); }
             
@@ -132,7 +136,6 @@ public func AddLeftItem(string szTitle, string szFunc, Parameter, id idIcon)
 
 public func CloseDown()
 {
-  Sound("RMEN_Close",true,0,0,GetOwner()+1); 
   SetAction("Closing");
   return 1;
 }
@@ -147,6 +150,7 @@ public func Close()
 {
   //Alle Items löschen
   ClearItems();
+
   //Sicht zurücksetzen - mit Pfeil, aber ohne Rahmen
   if(GetCursor(GetOwner()) == this || !GetCursor(GetOwner()))
   {
@@ -154,7 +158,7 @@ public func Close()
     //ViewCursor zurücksetzen
     SetViewCursor(GetOwner());
   }
-  
+
   aItemTitle = [];
   aItemTitle = [SMEN_ItemCount];
   aItemFunc  = [];
@@ -163,9 +167,9 @@ public func Close()
   aItemPar   = [SMEN_ItemCount];
   pCallbackObject = 0;
   pTargetObject = 0;
-  
+
   RemoveEffect("IntSMENCheck",pTargetObject);
-  
+
   //Löschen
   if(FindObject2(Find_ID(SMEN),Find_Owner(GetOwner(pTargetObject))) != this)//Pro Spieler wird nur ein Speedmenü erhalten.
   {
@@ -188,7 +192,6 @@ protected func CrewSelection(bool fDeselect, bool fCursor)
   if(fDeselect)
   {
     SetViewCursor(GetOwner());// ViewCursor zurücksetzen
-    Sound("RMEN_Close");
     SetAction("Closing");
   }
   return 1;
@@ -211,7 +214,7 @@ public func InUsage()
   return pCallbackObject || pTargetObject || GetEffect("IntSMENCheck",this);
 }
 
-/* Von Overlays und Menü-Items... */
+/* Overlays und Menü-Items */
 
 private func ItemActive(int iItem)
 {
@@ -250,15 +253,15 @@ private func ScaleItems(int iDst)
 {
   iDst = Max(iDst, 0);
   SetObjDrawTransform(iDst*1000/(GetDefWidth()/2),0,0,0,iDst*1000/(GetDefWidth()/2),0,0,0);
-  
-  
+
+
   //Item 1
   if(ItemActive(i))
   {
     var xoff,yoff,i = 0;
     SetObjDrawTransform(iDst*500/GetDefWidth(),0,0,0,iDst*500/GetDefHeight(),0,0,i+1);
   }
-  
+
   //Items 2 bis 5
    for(i = 1; i <= 4; i++)
   {
@@ -270,24 +273,6 @@ private func ScaleItems(int iDst)
     SetObjDrawTransform(iDst*500/GetDefWidth(),0,xoff,0,iDst*500/GetDefHeight(),yoff,0,i+1);
   }
 }
-
-/*protected func FxIntItemActicvatedStart(object pTarget, int iEffectNumber, int iTemp, overlay)
-{
-  if(iTemp) return 0;
-  EffectVar(0,pTarget,iEffectNumber) = overlay;
-  EffectCall(pTarget,iEffectNumber,"Timer",0); //Gleich mal updaten! :)
-}
-
-protected func FxIntItemActicvatedTimer(object pTarget, int iEffectNumber, int iEffectTime)
-{
-  SetClrModulation(RGBa(255,255,255,0),0,i+1);
-}
-
-protected func FxIntItemActicvatedStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)
-{
-  if(fTemp) return 0;
-  
-}*/
 
 private func ClearItems()
 {
@@ -301,15 +286,15 @@ private func ClearItems()
 
 /* Steuerung */
 
-protected func ControlThrow()         { return ActivateItem(0); }
-protected func ControlUp()            { return ActivateItem(1); }
-protected func ControlRight()         { return ActivateItem(2); }
-protected func ControlDown()          { return ActivateItem(3); }
-protected func ControlLeft()          { return ActivateItem(4); }
+protected func ControlThrow()		{return ActivateItem(0);}
+protected func ControlUp()		{return ActivateItem(1);}
+protected func ControlRight()		{return ActivateItem(2);}
+protected func ControlDown()		{return ActivateItem(3);}
+protected func ControlLeft()		{return ActivateItem(4);}
 
-protected func ControlDig()           { return CloseDown(); }
-protected func ControlSpecial()       { return CloseDown(); }
-protected func ControlSpecial2()      { return CloseDown(); }
+protected func ControlDig()		{return CloseDown();}
+protected func ControlSpecial()		{return CloseDown();}
+protected func ControlSpecial2()	{return CloseDown();}
 
 private func ActivateItem(int iItem)
 {
