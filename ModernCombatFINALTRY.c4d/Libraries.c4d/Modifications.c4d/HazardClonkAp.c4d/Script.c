@@ -598,6 +598,15 @@ public func UpdateCH() {
 
 local pIcon;
 
+private func DeathAnnounce(int plr, object clonk, int killplr)
+{
+  if(!clonk)
+    clonk = this();
+  if(!clonk) return;
+  return CLNK->DeathAnnounce(plr, clonk, killplr);
+}
+
+
 public func UpdateCharge()
 {
   UpdateCH();
@@ -1115,29 +1124,6 @@ public func SetAiming(int iAngle, bool fForceExact)
   crosshair->SetAngle(iAngle);
 
   this()->~UpdateAiming();
-}
-
-//Kill-Nachrichten
-private func DeathAnnounce(int plr, object clonk, int killplr)
-{
-  if(GetEffect("NoAnnounce", this)) return();
-
-  if(killplr == -1)
-    return(/*this()->CLNK::DeathAnnounce(plr,clonk,killplr)*/);
-    
-  if(!clonk)
-    clonk = this();//:o
-  if(!clonk) return();
-  
-  //Selfkill?
-  if(plr == killplr)
-    KILL->SKMsg(plr, clonk);
-  else
-    KILL->KTMsg(plr, killplr, clonk);
-
-  KILL->KillStat(GetCursor(killplr),plr);//hier auch clonk->~KillIcon()? könnte lustig sein :>
-  
-  //this()->CLNK::DeathAnnounce(plr,clonk,killplr);
 }
 
 /* Nahkampfsystem */
