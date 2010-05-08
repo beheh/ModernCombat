@@ -16,6 +16,8 @@ global func DoDmg(int iDmg, int iType, object pTarget, int iPrecision, int dmgpl
   if(dmgdealer < 0)
   	dmgdealer = GetController(pTarget);
 
+  Log("%v", idKillIcon);
+
   var red = pTarget->~OnDmg(iDmg, iType); //reduction
   // reduction
   dmg = iDmg*(100-red)*iPrecision;
@@ -30,6 +32,9 @@ global func DoDmg(int iDmg, int iType, object pTarget, int iPrecision, int dmgpl
     {
       if(this())
         idKillIcon = this()->~GetKillIcon();
+      
+      if(this() && !idKillIcon)
+        idKillIcon = this()->GetID();
       
       if(!idKillIcon)
       {
