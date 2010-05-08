@@ -108,6 +108,9 @@ public func FxPhosphoredStart(pTarget, iNo, iTemp, pPhosphor)
 
 public func FxPhosphoredTimer(pTarget, iNo, iTime)
 {
+  if(!GetAlive(pTarget) || Contained(pTarget))
+    AttachTargetLost();
+
   if(iTime >= 60)
     return(-1);
     
