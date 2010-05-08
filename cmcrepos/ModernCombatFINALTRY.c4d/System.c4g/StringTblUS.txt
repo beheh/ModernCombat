@@ -16,7 +16,7 @@ artillerist_desc=Equipped with a powerful grenade|launcher, this unit acts behin
 
 ReturnedTheFlag=%s returned the flag
 CapturedTheFlag=%s captured the flag
-HasTheFlag=%s has got the flag of <c %x>%s</c>
+HasTheFlag=%s has got the flag of team <c %x>%s</c>
 FlagLost=The flag of <c %x>%s</c> was dropped
 FlagReturned=The flag of <c %x>%s</c> was returned
 
