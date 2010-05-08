@@ -7,6 +7,8 @@ Team3=Gamma
 Team4=Delta
 
 Flag1=Westturm
-Flag2=Bohrplattform
-Flag3=Versorgungsdepot
-Flag4=Ostturm
+Flag2=Westlicher Tunnel
+Flag3=Bohrplattform
+Flag4=Versorgungsdepot
+Flag5=Östlicher Tunnel
+Flag6=Ostturm

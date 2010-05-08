@@ -332,47 +332,59 @@ public func ChooserFinished()
     aFlag[0]->Set("$Flag1$",0,2);
    }
 
-   aFlag[1] = CreateObject(OFPL,1639,100,NO_OWNER);
-   aFlag[1] -> AddSpawnPoint(1425,250);
-   aFlag[1] -> AddSpawnPoint(1665,200);
-   aFlag[1] -> AddSpawnPoint(1855,250);
+   aFlag[1] = CreateObject(OFPL,1115,510,NO_OWNER);
+   aFlag[1] -> AddSpawnPoint(945,450);
+   aFlag[1] -> AddSpawnPoint(1050,400);
+   aFlag[1] -> AddSpawnPoint(1265,560);
+   aFlag[1]->Set("$Flag2$",0,2);
+
+   aFlag[2] = CreateObject(OFPL,1639,100,NO_OWNER);
+   aFlag[2] -> AddSpawnPoint(1425,250);
+   aFlag[2] -> AddSpawnPoint(1665,200);
+   aFlag[2] -> AddSpawnPoint(1855,250);
    if(aTeams[3] == true)
    {
-    aFlag[1]->Set("$Flag2$",100,2);
-    aFlag[1]->Capture(3,1);
-   }
-   else
-   {
-    aFlag[1]->Set("$Flag2$",0,2);
-   }
-
-   aFlag[2] = CreateObject(OFPL,1641,520,NO_OWNER);
-   aFlag[2] -> AddSpawnPoint(1465,370);
-   aFlag[2] -> AddSpawnPoint(1580,390);
-   aFlag[2] -> AddSpawnPoint(1700,390);
-   aFlag[2] -> AddSpawnPoint(1815,370);
-   if(aTeams[4] == true)
-   {
     aFlag[2]->Set("$Flag3$",100,2);
-    aFlag[2]->Capture(4,1);
+    aFlag[2]->Capture(3,1);
    }
    else
    {
     aFlag[2]->Set("$Flag3$",0,2);
    }
 
-   aFlag[3] = CreateObject(OFPL,2810,300,NO_OWNER);
-   aFlag[3] -> AddSpawnPoint(2585,380);
-   aFlag[3] -> AddSpawnPoint(2850,380);
-   aFlag[3] -> AddSpawnPoint(3090,380);
-   if(aTeams[2] == true)
+   aFlag[3] = CreateObject(OFPL,1641,520,NO_OWNER);
+   aFlag[3] -> AddSpawnPoint(1465,370);
+   aFlag[3] -> AddSpawnPoint(1580,390);
+   aFlag[3] -> AddSpawnPoint(1700,390);
+   aFlag[3] -> AddSpawnPoint(1815,370);
+   if(aTeams[4] == true)
    {
     aFlag[3]->Set("$Flag4$",100,2);
-    aFlag[3]->Capture(2,1);
+    aFlag[3]->Capture(4,1);
    }
    else
    {
     aFlag[3]->Set("$Flag4$",0,2);
+   }
+
+   aFlag[4] = CreateObject(OFPL,2165,510,NO_OWNER);
+   aFlag[4] -> AddSpawnPoint(2235,400);
+   aFlag[4] -> AddSpawnPoint(2355,460);
+   aFlag[4] -> AddSpawnPoint(2015,560);
+   aFlag[4]->Set("$Flag5$",0,2);
+
+   aFlag[5] = CreateObject(OFPL,2810,300,NO_OWNER);
+   aFlag[5] -> AddSpawnPoint(2585,380);
+   aFlag[5] -> AddSpawnPoint(2850,380);
+   aFlag[5] -> AddSpawnPoint(3090,380);
+   if(aTeams[2] == true)
+   {
+    aFlag[5]->Set("$Flag6$",100,2);
+    aFlag[5]->Capture(2,1);
+   }
+   else
+   {
+    aFlag[5]->Set("$Flag6$",0,2);
    }
   }
 }
