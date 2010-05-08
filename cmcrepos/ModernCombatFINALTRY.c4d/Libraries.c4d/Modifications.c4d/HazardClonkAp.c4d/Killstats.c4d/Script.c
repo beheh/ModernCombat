@@ -72,7 +72,7 @@ public func KMsg(int plr1, int plr2, object clonk)
 	  msg = Format("%s %s", GetTaggedPlayerName(killer), msg);
   
   //Eventnachricht: Spieler eliminiert Spieler
-  EventInfo4K(0,msg,PCMK);
+  EventInfo4K(0,msg,0);
 }
 
 /* Selbstmordnachricht */

@@ -37,7 +37,7 @@ public func Set(string szText, id idIcon, int dwTextColor, int dwIconColor, stri
 {
   if(!idIcon)
   {
-    idIcon = GetID();
+    //idIcon = GetID();
     if(!szGraphics)
       szGraphics = "Default";
   }
@@ -65,7 +65,9 @@ public func FxIntEventInfoStart(object pTarget, int iEffectNumber, int iTemp)
   if(iTemp) return();
 
   SortByActTime();
-  SetGraphics(graphics,0,icon,1,GFXOV_MODE_IngamePicture);
+  if(icon) {
+    SetGraphics(graphics,0,icon,1,GFXOV_MODE_IngamePicture);
+  }
   FxIntEventInfoTimer(pTarget,iEffectNumber,0);
 }
 
@@ -73,7 +75,7 @@ public func FxIntEventInfoTimer(object pTarget, int iEffectNumber, int iEffectTi
 {
   var a = 255-Sin(900+(iEffectTime*900/MaxTime()),255*2,10)/2;
   
-  SetClrModulation(RGBa(255,255,255,a),this(),1); 
+  if(icon) SetClrModulation(RGBa(255,255,255,a),this(),1); 
   CustomMessage(Format("           %s",text), pTarget, GetOwner(), 0, 26, SetRGBaValue(color,a), 0, 0, MSG_NoLinebreak);
   if(iEffectTime >= MaxTime()) return(-1);
 }

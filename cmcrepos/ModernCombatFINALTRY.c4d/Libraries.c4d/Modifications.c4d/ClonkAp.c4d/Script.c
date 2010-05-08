@@ -176,22 +176,17 @@ func Hit2(int xDir, int yDir)
 
 /* Killverfolgung */
 
-local killicon;
-
-public func KillIcon(id idKillIcon)
-{
-  if(idKillIcon)
-    killicon = idKillIcon;
-    
-  return(killicon);
-}
-
 private func DeathAnnounce(int plr, object clonk, int killplr)
 {
-  if(GetEffect("NoAnnounce", this)) return;
-
   if(killplr == -1)
-    return inherited(plr,clonk,killplr);
+    return;
+  
+  if(!clonk)
+    clonk = this();
+  if(!clonk) return;
+  
+  if(GetEffect("NoAnnounce", clonk)) return;
+  if(!GetAlive(clonk) && !ObjectCount(NOFD)) return; //FakeDeath-Hack
   
   //Selfkill?
   if(plr == killplr)
@@ -201,7 +196,19 @@ private func DeathAnnounce(int plr, object clonk, int killplr)
 
   KILL->KillStat(GetCursor(killplr),plr);//hier auch clonk->~KillIcon()? könnte lustig sein :>
   
-  inherited(plr,clonk,killplr);
+  clonk->AddEffect("NoAnnounce", clonk, 20);
+  
+  //this()->CLNK::DeathAnnounce(plr,clonk,killplr);
+}
+
+local killicon;
+
+public func KillIcon(id idKillIcon)
+{
+  if(idKillIcon)
+    killicon = idKillIcon;
+    
+  return(killicon);
 }
 
 /* Inventar */
@@ -284,7 +291,6 @@ global func FakeDeath(object pTarget)
   }
   fake->Set(pTarget);
   pTarget->DeathAnnounce(GetOwner(pTarget), pTarget, GetKiller(pTarget));
-  pTarget->AddEffect("NoAnnounce", pTarget, 51);
 
   SetComDir(COMD_Stop,pTarget);
   pTarget->Sound("ClonkDie*.ogg");
