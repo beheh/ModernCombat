@@ -112,10 +112,12 @@ protected func Timer()
   for(var pClonk in pAttackers) {
     del = true;
     for(var clonk in clonks) {
-      if(clonk == pClonk) del = false;
-      if(!del) break;
+      if(clonk == pClonk) {
+      	del = false;
+        break;
+      }
     }
-    //Und weg damit
+    //Falls nicht mehr da -> weg damit
     if(del)
       pAttackers[FindInArray4K(pAttackers, pClonk)] = 0;
   }
