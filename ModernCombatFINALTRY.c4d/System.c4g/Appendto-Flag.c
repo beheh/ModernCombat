@@ -75,3 +75,14 @@ public func Destruction()
   GameCallEx("FlagReturned",team);
   EventInfo4K(0, Format("$FlagReturned$", GetTeamColor(team), GetTeamName(team)), FLA2, 0, GetTeamColor(team));
 }
+
+public func FxCollectTimer(target, no)
+{
+  if(WildcardMatch(GetAction(target),"*Attach*")) return;
+  if(GetMaterial(AbsX(GetX(target)), AbsY(GetY(target))) == Material("DuroLava"))
+  {
+    target->RemoveObject();
+    return -1;
+  }
+  return _inherited(target, no);
+}
