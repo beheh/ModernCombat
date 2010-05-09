@@ -5,9 +5,13 @@
 static const RMEN_Radius = 54;
 static const RMEN_Animation = 8;
 static const SMEN_ItemCount = 5;
+static const RMEN_TextDistance = 22;
 
 local pCallbackObject;		//Befehlsziel für Callbacks
 local pTargetObject;		//Besitzobjekt (an das die Sicht geklebt wird, und dessen Besitzer die Auswahl trifft)
+
+local aTopInfo;
+local aBottomInfo;
 
 local aItemTitle;		//Titel
 local aItemFunc;		//Funktion
@@ -61,9 +65,11 @@ global func GetSpeedMenu(object pCommandObject)
 
 protected func Initialize()
 {
-  aItemTitle = [SMEN_ItemCount];
-  aItemFunc  = [SMEN_ItemCount];
-  aItemPar   = [SMEN_ItemCount];
+  aItemTitle  = [SMEN_ItemCount];
+  aItemFunc   = [SMEN_ItemCount];
+  aItemPar    = [SMEN_ItemCount];
+  aTopInfo    = [];
+  aBottomInfo = [];
   SetVisibility(VIS_None); 
 }
 
@@ -134,6 +140,12 @@ public func AddDownItem(string szTitle, string szFunc, Parameter, id idIcon)
 public func AddLeftItem(string szTitle, string szFunc, Parameter, id idIcon)
             { return Add(4,szTitle,szFunc,Parameter,idIcon); }
 
+public func AddTopInfoItem(string szItem)
+						{ return aTopInfo[GetLength(aTopInfo)] = szItem; }
+
+public func AddBottomInfoItem(string szItem)
+						{ return aBottomInfo[GetLength(aBottomInfo)] = szItem; }
+
 public func CloseDown()
 {
   SetAction("Closing");
@@ -158,6 +170,9 @@ public func Close()
     //ViewCursor zurücksetzen
     SetViewCursor(GetOwner());
   }
+
+  //Letztes Kommando löschen
+  ClearLastPlrCom(GetController(pTargetObject));
 
   aItemTitle = [];
   aItemTitle = [SMEN_ItemCount];
@@ -318,8 +333,22 @@ protected func Opening()
     SetAction("Open");
 }
 
+protected func Open() {
+  var i = -GetLength(aTopInfo)-1*RMEN_TextDistance+5;
+  for(var szItem in aTopInfo) {
+    CustomMessage(Format("@%s", szItem), this, GetOwner(), 0, i, 0, 0, 0, MSG_Multiple);
+    i += RMEN_TextDistance;
+  }
+  var i = 190;
+  for(var szItem in aBottomInfo) {
+    CustomMessage(Format("@%s", szItem), this, GetOwner(), 0, i, 0, 0, 0, MSG_Multiple);
+    i += RMEN_TextDistance;
+  }
+}
+
 protected func Closing()
 {
+  Message(" ", this, GetOwner());
   ScaleItems((GetDefWidth()/2)-(GetActTime()*(GetDefWidth()/2)/RMEN_Animation));
 
   if(GetActTime() >= RMEN_Animation)

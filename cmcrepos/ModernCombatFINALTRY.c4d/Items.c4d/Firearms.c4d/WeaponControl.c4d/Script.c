@@ -121,6 +121,25 @@ public func FMMenu(clonk)
   
   overlay = ring->AddDownItem("$AmmoType$","ManualEmpty",firemode,RICO);
   SetGraphics("2",ring,RICO,overlay,GFXOV_MODE_IngamePicture);
+  
+  var szName = "";
+  for(var i = 1; i <= GetFMCount(); i++) {
+  	szName = GetFMData(FM_Name, i, 1);
+  	if(i == firemode) 
+  		szName = Format("<c ffff00>%s</c>", szName);
+  	else
+  	  szName = Format("<c eeeeee>%s</c>", szName);	
+		ring->AddTopInfoItem(szName);
+	}
+	for(var i = 1; i < GetFTCount(firemode); i++) {
+	  szName = GetFMData(FT_Name, firemode, i);
+	  if(i == GetFireTec(firemode))
+	  	szName = Format("<c ffff00>%s</c>", szName);
+	  else
+  	  szName = Format("<c eeeeee>%s</c>", szName);	
+		ring->AddBottomInfoItem(szName);
+	}
+	
 }
 public func CycleSA(int fm)
 {
