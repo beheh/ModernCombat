@@ -511,6 +511,9 @@ private func RelaunchPlayer(int iPlr, object pCrew, int iMurdererPlr, int iTeam,
 
   //Kein Team?
   if(!iTeam) iTeam = GetPlayerTeam(iPlr);
+
+  //Geld verteilen
+  Money(iPlr, pCrew, iMurdererPlr);
   
   if(GetTickets(iTeam) <= 0) {
     if(GetCursor(iPlr)) SetPlrViewRange(0, GetCursor(iPlr));
@@ -527,6 +530,7 @@ private func RelaunchPlayer(int iPlr, object pCrew, int iMurdererPlr, int iTeam,
   if(!FindObject(CHOS) && !FindObject(MCSL)) //Regelwähler oder Klassenwahl?
     CreateGOCCSpawner(pCrew);
     
+  //Flagge anfokussieren
   DoFlag(iTeam, iPlr);
 }
 
