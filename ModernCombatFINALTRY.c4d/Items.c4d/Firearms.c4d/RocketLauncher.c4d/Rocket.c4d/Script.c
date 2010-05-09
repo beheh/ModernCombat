@@ -64,24 +64,56 @@ public func FxFollowStart(object pTarget, int iEffectNumber, int iTemp, obj)
 {
   if(!obj) return(-1);
   EffectVar(0,pTarget,iEffectNumber) = obj;
+  EffectVar(1,pTarget,iEffectNumber) = 0;
 }
 
 public func FxFollowTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
-  var obj = EffectVar(0,pTarget,iEffectNumber);
-  if(!obj)
-   return(-1);
-  //Schütze nicht mehr am Zielen?
-  if(!obj->~IsAiming())
-   return(-1);
+  //Ziel noch gültig?
+  if(EffectVar(1,pTarget,iEffectNumber)) {
+    var pEnemy = EffectVar(1,pTarget,iEffectNumber);
+    var del = false;
+  	if(!GetEffect("TracerDart", pEnemy)) del = true;
+		if(!PathFree(GetX(pTarget), GetY(pTarget), GetX(pEnemy), GetY(pEnemy))) del = true;
+		if(del) EffectVar(1,pTarget,iEffectNumber) = 0;
+  }
+  //Haben wir noch ein Ziel?
+  if(!EffectVar(1,pTarget,iEffectNumber)) {
+  	var pEnemies = FindObjects(Find_NoContainer(), Find_Distance(300, GetX(pTarget), GetY(pTarget)), Sort_Distance(GetX(pTarget), GetY(pTarget)));
+		for(var pEnemy in pEnemies) {
+			if(!GetEffect("TracerDart", pEnemy)) continue;
+      if(GetPlayerTeam(GetController(pTarget)) != EffectVar(0, pTarget, GetEffect("TracerDart", pEnemy))) continue;
+			if(!PathFree(GetX(pTarget), GetY(pTarget), GetX(pEnemy), GetY(pEnemy))) continue;
+		  EffectVar(1,pTarget,iEffectNumber) = pEnemy;
+		  break;
+		}
+  }
+  //Soll-Winkel
+  var iDAngle;
+  var iMaxTurn;
+  //Sonst anvisieren!
+  if(EffectVar(1,pTarget,iEffectNumber)) {
+  	var pEnemy = EffectVar(1,pTarget,iEffectNumber);
+  	iDAngle = Angle(AbsX(GetX(pTarget)), AbsY(GetY(pTarget)), AbsX(GetX(pEnemy)), AbsY(GetY(pEnemy)));
+  	iMaxTurn = 8;
+  }
+  else {
+    var obj = EffectVar(0,pTarget,iEffectNumber);
+		if(!obj)
+		 return;
+		//Schütze nicht mehr am Zielen?
+		if(!obj->~IsAiming())
+		 return;
 
-   var iDAngle = obj->AimAngle();
-   var iAngle = GetR(pTarget);
+		iDAngle = obj->AimAngle();
+		iMaxTurn = 6;
+  }
+	var iAngle = GetR(pTarget);
 
-   var iDiff = Normalize(iDAngle - iAngle,-180);
-   var iTurn = Min(Abs(iDiff),6);
+	var iDiff = Normalize(iDAngle - iAngle,-180);
+	var iTurn = Min(Abs(iDiff),iMaxTurn);
 
-   pTarget->SetR(iAngle+iTurn*((iDiff > 0)*2-1));
+	pTarget->SetR(iAngle+iTurn*((iDiff > 0)*2-1));
 }
 
 private func Traveling()

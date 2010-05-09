@@ -196,7 +196,7 @@ private func ChangeStartTickets(id dummy, int iChange)
 
 private func InitScoreboard()
 {  
-  SetScoreboardData(SBRD_Caption, SBRD_Caption, "{{GOCC}}", SBRD_Caption);
+  SetScoreboardData(SBRD_Caption, SBRD_Caption, Format("%s",GetName()), SBRD_Caption);
   SetScoreboardData(SBRD_Caption, 1, "{{OSPW}}", SBRD_Caption);
   SetScoreboardData(SBRD_Caption, 2, "{{AFTN}}", SBRD_Caption);
   
@@ -259,6 +259,7 @@ private func RemoveMultiplayerTeam(int iTeam) {}
 private func InitSingleplayerTeam(int iPlr) {}
 private func RemoveSingleplayerTeam(int iPlr) {}
 private func InitPlayer(int iPlr) {}
+private func RemoveScoreboardPlayer(int iPlr) {}
 
 /* GameCalls */
 
