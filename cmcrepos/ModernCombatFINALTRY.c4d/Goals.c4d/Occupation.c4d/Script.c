@@ -282,7 +282,7 @@ public func FlagLost(object pFlag, int iTeam, int iTeamAttacker, array pAttacker
       DoPlayerPoints(BonusPoints("OPNeutralize"), RWDS_BattlePoints, GetOwner(pClonk), pClonk, IC13);
     }
     else {
-      DoPlayerPoints(BonusPoints("OPAssist"), RWDS_BattlePoints, GetOwner(pClonk), pClonk, IC13);
+      DoPlayerPoints(BonusPoints("OPAssist"), RWDS_BattlePoints, GetOwner(pClonk), pClonk, IC10);
     }
     i++;
   }
