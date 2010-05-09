@@ -1,0 +1,1 @@
+A magnetic tracer dart which is coated in special glue. Enables automated weapon systems to home into targets.

@@ -56,6 +56,8 @@ public func BotData1(int data)
   return(Default(data));
 }
 
+/* Kugeln - Schuss */
+
 public func Fire1()
 {
   var user = GetUser();
@@ -71,6 +73,60 @@ public func Fire1()
   SABulletCasing(x/3,y/3,-dir*14*(Random(1)+1),-(13+Random(2)),4);
 }
 
+/* Peilsender */
+
+public func FMData2(int data)
+{
+  if(data == FM_Name)		return("$TracerDart$");
+    
+  if(data == FM_AmmoID)		return(STAM);
+  if(data == FM_AmmoLoad)	return(1);
+
+  if(data == FM_Reload)		return(120);
+
+  if(data == FM_Auto)		return(false);
+  
+  if(data == FM_Damage)		return(0);
+  
+  if(data == FM_Slot)		return(2);
+
+  if(data == FM_SpreadAdd) return(60);
+  if(data == FM_StartSpread) return(10);
+  if(data == FM_MaxSpread) return(200);
+
+  return(Default(data));
+}
+
+/* Peilsender - Einzelfeuer */
+
+public func FMData2T1(int data)
+{
+  if(data == FT_Name)		return("$Single$");
+  return(FMData2(data));
+}
+
+public func Fire2T1()
+{
+  Fire2();
+}
+
+/* Peilsender - Schuss */
+
+public func Fire2()
+{
+  var user = GetUser();
+  var dir = GetDir(user)*2-1;
+  var angle = user->AimAngle(20,0,true);
+  var x,y;
+  user->WeaponEnd(x,y);
+  var ammo = CreateObject(TRDT,x,y,GetController(user));
+  ammo->Launch(angle,180,400,20,1000);
+  ammo->Sound("TRCR_Fire.ogg");
+
+  // Effekte
+  //SAMuzzleFlash(RandomX(25,30),user,x,y,angle,RGB(0,128,255));
+}
+
 /* Allgemein */
 
 func OnSelect()
@@ -78,7 +134,17 @@ func OnSelect()
   Sound("PSTL_Charge.ogg");
 }
 
-public func OnReload()
+public func OnReload(i)
 {
-  Sound("PSTL_Reload.ogg");
+  if(i == 1)
+  {
+    Sound("PSTL_Reload.ogg");
+  }
+  if(i == 2)
+  {
+    Sound("PSTL_TracerReload.ogg");
+    var user = GetUser();
+    var dir = GetDir(user)*2-1;
+    SABulletCasing(dir*1,0,-dir*14*(Random(1)+1),-(13+Random(2)));
+  }
 }
