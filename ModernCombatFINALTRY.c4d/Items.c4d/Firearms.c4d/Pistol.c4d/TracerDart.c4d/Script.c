@@ -34,6 +34,7 @@ public func BulletStrike(object pObj)
 {
   if(pObj)
   {
+    Sound("TRDT_Attach.ogg");
     if(!GetEffect("TracerDart",pObj))
     {
       AddEffect("TracerDart",pObj);
