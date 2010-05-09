@@ -371,6 +371,9 @@ private func SetFireMode(int i)
   
   ResumeReload(i);
   
+  //Sound
+  Sound("WPN2_Switch*.ogg");
+  
   // Helpmessage
   HelpMessage(GetUser()->GetOwner(),"$FireModeChanged$",GetUser(),GetFMData(FM_Name),GetFMData(FM_AmmoID));
   
