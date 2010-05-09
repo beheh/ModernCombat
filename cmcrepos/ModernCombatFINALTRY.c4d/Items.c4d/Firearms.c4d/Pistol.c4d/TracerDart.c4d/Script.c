@@ -1,6 +1,6 @@
 /*-- Peilsender --*/
 
-#strict
+#strict 2
 #include SHT1
 
 public func TrailColor(int iATime)	{return(Color(iATime));}
@@ -34,13 +34,16 @@ public func BulletStrike(object pObj)
 {
   if(pObj)
   {
-    Sound("TRDT_Attach.ogg");
-    if(!GetEffect("TracerDart",pObj))
-    {
-      AddEffect("TracerDart",pObj);
+    if(GetAlive(pObj) && Hostile(GetOwner(pObj), GetController())) {
+		  Sound("TRDT_Attach.ogg");
+		  if(!GetEffect("TracerDart",pObj))
+		  {
+		    AddEffect("TracerDart",pObj,20,1, 0, 0, GetPlayerTeam(GetController()));
+		    return 1;
+		  }
     }
   }
-  return(1);
+  return 0;
 }
 
 private func Color(int iATime)
@@ -56,16 +59,24 @@ private func GlowColor()
 
 /* Peilsendereffekt */
 
-func FxTracerDartStart(object pTarget)
+global func FxTracerDartStart(object pTarget, int iEffectNumber, int iTemp, int iTeam)
 {
   //Besitzer des Schusses festlegen (der Schütze)
   //Haftzeit festsetzen (20 Sekunden)
+  EffectVar(0, pTarget, iEffectNumber) = iTeam;
+  EffectVar(1, pTarget, iEffectNumber) = 20*38;
 }
 
-func FxTracerDartTimer(object pTarget)
+global func FxTracerDartTimer(object pTarget, int iEffectNumber)
 {
   //Blinkeffekt (ähnlich C4, mittig im Target; Spielerfarben blinken (Farbe des Schützen, nicht des Ziels))
+  //Uhja.
+  
+  Message("!", pTarget);
   //Haftzeit verringern
+  EffectVar(1, pTarget, iEffectNumber)--;
   //Haftzeit zuende? Entfernen.
+  if(EffectVar(1, pTarget, iEffectNumber) <= 0) return -1;
   //Target im Wasser? Entfernen.
+  if(GBackLiquid(AbsX(GetX(pTarget)), AbsY(GetY(pTarget)))) return -1;
 }
