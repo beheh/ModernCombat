@@ -5,6 +5,7 @@ Name=Tracer Dart
 Category=C4D_Vehicle
 Width=20
 Height=18
+Picture=20,0,29,29
 Offset=-10,-9
 Vertices=1
 VertexFriction=1

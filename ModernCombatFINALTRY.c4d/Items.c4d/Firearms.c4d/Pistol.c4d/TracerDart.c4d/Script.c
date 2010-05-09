@@ -21,12 +21,17 @@ private func CreateTrail(int iSize, int iTrail)
 
 /* Treffer */
 
+func Hit()
+{
+  //Bei Materialaufprall entfernen
+  Remove();
+}
+
 private func HitObject(object pObject)
 {
   if(BulletStrike(pObject))
   {
     LaserLight(30, Color(GetActTime()),0,0,10);
-    Remove();
   }
 }
 
@@ -34,17 +39,28 @@ public func BulletStrike(object pObj)
 {
   if(pObj)
   {
-    if(GetAlive(pObj) && Hostile(GetOwner(pObj), GetController())) {
-		  if(!GetEffect("TracerDart",pObj))
-		  {
-		  	Sound("TRDT_Attach.ogg");
-		    AddEffect("TracerDart",pObj,20,1, 0, 0, GetPlayerTeam(GetController()));
-		    return 1;
-		  }
+    //Passendes Ziel vorhanden?
+    if(GetAlive(pObj) && Hostile(GetOwner(pObj), GetController()))
+    {
+      //Nicht bereits markiert?
+      if(!GetEffect("TracerDart",pObj))
+      {
+        //Treffergeräusch
+        Sound("TRDT_Attach.ogg");
+
+        AddEffect("TracerDart",pObj,20,1, 0, 0, GetPlayerTeam(GetController()));
+
+        //Verschwinden
+        Remove();
+
+        return 1;
+      }
     }
   }
   return 1;
 }
+
+/* Farbeffekt */
 
 private func Color(int iATime)
 {
@@ -62,21 +78,25 @@ private func GlowColor()
 global func FxTracerDartStart(object pTarget, int iEffectNumber, int iTemp, int iTeam)
 {
   //Besitzer des Schusses festlegen (der Schütze)
-  //Haftzeit festsetzen (20 Sekunden)
   EffectVar(0, pTarget, iEffectNumber) = iTeam;
+
+  //Haftzeit festsetzen (20 Sekunden)
   EffectVar(1, pTarget, iEffectNumber) = 20*38;
 }
 
 global func FxTracerDartTimer(object pTarget, int iEffectNumber)
 {
-  //Blinkeffekt (ähnlich C4, mittig im Target; Spielerfarben blinken (Farbe des Schützen, nicht des Ziels))
-  //Uhja.
-  
-  Message("!", pTarget);
+  //FakeDeath?
+  if(Contained(pTarget) && GetID(Contained(pTarget)) == FKDT) return -1;
+
+  //Zielobjekt im Wasser? Entfernen.
+  if(GBackLiquid(AbsX(GetX(pTarget)), AbsY(GetY(pTarget)))) return -1;
+
   //Haftzeit verringern
   EffectVar(1, pTarget, iEffectNumber)--;
   //Haftzeit zuende? Entfernen.
   if(EffectVar(1, pTarget, iEffectNumber) <= 0) return -1;
-  //Target im Wasser? Entfernen.
-  if(GBackLiquid(AbsX(GetX(pTarget)), AbsY(GetY(pTarget)))) return -1;
+
+  //Blinkeffekt
+  pTarget -> CreateParticle("FapLight",0,0,0,0,60,RGBa(255,0,0,0),this());
 }
