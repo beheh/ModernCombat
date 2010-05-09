@@ -35,9 +35,9 @@ public func BulletStrike(object pObj)
   if(pObj)
   {
     if(GetAlive(pObj) && Hostile(GetOwner(pObj), GetController())) {
-		  Sound("TRDT_Attach.ogg");
 		  if(!GetEffect("TracerDart",pObj))
 		  {
+		  	Sound("TRDT_Attach.ogg");
 		    AddEffect("TracerDart",pObj,20,1, 0, 0, GetPlayerTeam(GetController()));
 		    return 1;
 		  }
