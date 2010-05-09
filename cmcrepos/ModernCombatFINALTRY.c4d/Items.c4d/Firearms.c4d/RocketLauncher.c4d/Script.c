@@ -66,6 +66,7 @@ public func LaunchRocket(id rid, int angle, int dmg)
   user->WeaponEnd(x,y);
 
   var rocket = CreateObject(rid,x,y+10,GetController(user));
+  rocket->SetController(GetController(user));
   rocket->Launch(angle, dmg, user);
   
   SetPlrView(GetController(user), rocket);
