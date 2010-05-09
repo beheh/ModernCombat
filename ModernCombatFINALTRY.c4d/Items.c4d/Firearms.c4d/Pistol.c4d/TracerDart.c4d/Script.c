@@ -98,5 +98,5 @@ global func FxTracerDartTimer(object pTarget, int iEffectNumber)
   if(EffectVar(1, pTarget, iEffectNumber) <= 0) return -1;
 
   //Blinkeffekt
-  pTarget -> CreateParticle("FapLight",0,0,0,0,60,RGBa(255,0,0,0),this());
+  pTarget -> CreateParticle("FapLight",0,0,0,0,60,GetTeamColor(EffectVar(0, pTarget, iEffectNumber)),this());
 }
