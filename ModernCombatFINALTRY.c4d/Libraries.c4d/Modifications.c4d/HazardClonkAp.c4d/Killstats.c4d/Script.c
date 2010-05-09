@@ -51,19 +51,18 @@ public func KMsg(int plr1, int plr2, object clonk)
     typeicon = GLOB;
    else if(type == DMG_Projectile)
     if(killicon)
-      if(killicon->~IsWeapon()) typeicon = STAM;
+      if(killicon->~IsWeapon()) typeicon = SHTX;
   }
 
   //Kein Icon?
-  if(!typeicon) typeicon = SKUL;
+  if(!killicon && !typeicon) typeicon = SKUL;
 
   //Killer links
   var victim = plr1;
   var killer = plr2;
 
   //Nachricht konstruieren
-  if(killicon)
-    msg = Format("{{%i}}",killicon);
+  msg = Format("{{%i}}",killicon); 
   if(typeicon && killicon != typeicon)
     if(killicon)
     	msg = Format("%s({{%i}})",msg,typeicon);
