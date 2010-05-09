@@ -43,8 +43,6 @@ public func KMsg(int plr1, int plr2, object clonk)
   {
    if(type == DMG_Fire)
     typeicon = GSAM;
-   else if(type == DMG_Melee)
-    typeicon = ROCK;
    else if(type == DMG_Explosion)
     typeicon = BOOM;
    else if(type == DMG_Energy)
@@ -64,9 +62,13 @@ public func KMsg(int plr1, int plr2, object clonk)
   var killer = plr2;
 
   //Nachricht konstruieren
-  msg = Format("{{%i}}",killicon);
+  if(killicon)
+    msg = Format("{{%i}}",killicon);
   if(typeicon && killicon != typeicon)
-    msg = Format("%s({{%i}})",msg,typeicon);
+    if(killicon)
+    	msg = Format("%s({{%i}})",msg,typeicon);
+    else
+			msg = Format("%s{{%i}}",msg,typeicon);    	
   msg = Format("%s %s", msg, GetTaggedPlayerName(victim));
   if(killer != victim)
 	  msg = Format("%s %s", GetTaggedPlayerName(killer), msg);
