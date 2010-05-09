@@ -1,2 +1,3 @@
 Bullets=Bullets
+TracerDart=Tracer Darts
 Single=Single Shots
