@@ -34,6 +34,10 @@ global func DoDmg(int iDmg, int iType, object pTarget, int iPrecision, int dmgpl
       if(this() && !idKillIcon)
         idKillIcon = this()->GetID();
       
+      if(idKillIcon->~IsClonk()) {
+        idKillIcon = 0;
+      }
+      
       if(!idKillIcon)
       {
         if(iType)
