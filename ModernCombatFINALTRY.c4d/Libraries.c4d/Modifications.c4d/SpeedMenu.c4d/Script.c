@@ -313,11 +313,13 @@ protected func ControlSpecial2()	{return CloseDown();}
 
 private func ActivateItem(int iItem)
 {
+  Open();
+
   if(GetAction() == "Closing") return 1;
   
   if(aItemFunc[iItem])
     pCallbackObject->Call(aItemFunc[iItem],aItemPar[iItem]);
-  
+
   CloseDown();
   
   return 1;
@@ -334,7 +336,8 @@ protected func Opening()
 }
 
 protected func Open() {
-  var i = -GetLength(aTopInfo)-1*RMEN_TextDistance+5;
+  Message(" ", this, GetOwner());
+  var i = -(GetLength(aTopInfo)-1)*RMEN_TextDistance;
   for(var szItem in aTopInfo) {
     CustomMessage(Format("@%s", szItem), this, GetOwner(), 0, i, 0, 0, 0, MSG_Multiple);
     i += RMEN_TextDistance;
