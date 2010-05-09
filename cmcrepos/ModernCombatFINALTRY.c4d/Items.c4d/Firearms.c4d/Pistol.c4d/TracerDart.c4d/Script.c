@@ -43,7 +43,7 @@ public func BulletStrike(object pObj)
 		  }
     }
   }
-  return 0;
+  return 1;
 }
 
 private func Color(int iATime)
