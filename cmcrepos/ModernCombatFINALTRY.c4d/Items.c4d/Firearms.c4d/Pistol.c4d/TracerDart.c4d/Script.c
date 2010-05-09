@@ -48,7 +48,7 @@ public func BulletStrike(object pObj)
         //Treffergeräusch
         Sound("TRDT_Attach.ogg");
 
-        AddEffect("TracerDart",pObj,20,1, 0, 0, GetPlayerTeam(GetController()));
+        AddEffect("TracerDart",pObj,20,1, 0, 0, GetController());
 
         //Verschwinden
         Remove();
@@ -65,7 +65,7 @@ public func BulletStrike(object pObj)
 private func Color(int iATime)
 {
   var iPrg = 100*iATime/iTime;
-  return(RGBa(255,127-iPrg,127,iPrg*2));
+  return(GetPlrColorDw(GetController()));
 }
 
 private func GlowColor()
@@ -75,10 +75,10 @@ private func GlowColor()
 
 /* Peilsendereffekt */
 
-global func FxTracerDartStart(object pTarget, int iEffectNumber, int iTemp, int iTeam)
+global func FxTracerDartStart(object pTarget, int iEffectNumber, int iTemp, int iOwner)
 {
   //Besitzer des Schusses festlegen (der Schütze)
-  EffectVar(0, pTarget, iEffectNumber) = iTeam;
+  EffectVar(0, pTarget, iEffectNumber) = iOwner;
 
   //Haftzeit festsetzen (20 Sekunden)
   EffectVar(1, pTarget, iEffectNumber) = 20*38;
@@ -98,5 +98,5 @@ global func FxTracerDartTimer(object pTarget, int iEffectNumber)
   if(EffectVar(1, pTarget, iEffectNumber) <= 0) return -1;
 
   //Blinkeffekt
-  pTarget -> CreateParticle("FapLight",0,0,0,0,60,GetTeamColor(EffectVar(0, pTarget, iEffectNumber)),this());
+  pTarget->CreateParticle("FapLight",0,0,0,0,60,GetPlrColorDw(EffectVar(0, pTarget, iEffectNumber)),this());
 }
