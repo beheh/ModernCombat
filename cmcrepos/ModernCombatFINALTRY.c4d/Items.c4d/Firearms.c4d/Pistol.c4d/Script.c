@@ -122,9 +122,6 @@ public func Fire2()
   var ammo = CreateObject(TRDT,x,y,GetController(user));
   ammo->Launch(angle,180,400,20,1000);
   ammo->Sound("PSTL_TracerFire.ogg");
-
-  // Effekte
-  //SAMuzzleFlash(RandomX(25,30),user,x,y,angle,RGB(0,128,255));
 }
 
 /* Allgemein */
