@@ -1,3 +1,4 @@
+
 [DefCore]
 id=C4EX
 Name=C4 Charge
@@ -18,4 +19,4 @@ ContactIncinerate=1
 Rotate=1
 Float=1
 Timer=1
-TimerCall=Attach
+TimerCall=Check
