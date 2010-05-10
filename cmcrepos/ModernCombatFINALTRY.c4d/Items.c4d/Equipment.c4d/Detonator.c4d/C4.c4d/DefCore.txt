@@ -17,5 +17,5 @@ VertexFriction=100,100
 ContactIncinerate=1
 Rotate=1
 Float=1
-Timer=200
-TimerCall=CheckFuse
+Timer=1
+TimerCall=Attach
