@@ -2,7 +2,7 @@
 
 #strict 2
 
-local fuse, active, thrown;
+local fuse, active, thrown, pStickTo, iStickXOffset, iStickYOffset;
 
 
 /* Initalisierung */
@@ -47,36 +47,25 @@ private func CheckFuse()
    FadeOut();
 }
 
-/*
-
-public func FxCheckStart(pTarget, iNo, iTemp)
-{
-  if(iTemp)
-    return -1;
-}
-
-public func FxCheckTimer(pTarget, iNo, iTime)
-{
-  var obj;
-  if(obj = FindObject2(Find_AtPoint(), Find_Func("IsBulletTarget", GetID()), Find_NoContainer(),Find_Not(Find_OCF(OCF_Alive))))
-  {
-   if(GetAction()!="Attaching")
-   {
-     Sound("C4EX_Attach.ogg");
-     SetRDir(0);
-     SetAction("Attaching");
-   }
-   SetPosition((AbsX()*-1)+GetXDir(obj),(AbsY()*-1)+GetYDir(obj));
+protected func Timer() {
+  CheckFuse();
+  if(pStickTo) {
+    SetPosition(GetX(pStickTo)+iStickXOffset, GetY(pStickTo)+iStickYOffset, this, false);
+    SetXDir(0);
+    SetYDir(0);
   }
-  else
-    if(GetAction()!="Idle")
-    {
-      SetRDir(RandomX(-20,20));
-      SetAction("Idle");
+  else {
+    pStickTo = FindObject2(Find_AtPoint(), Find_Func("IsBulletTarget", GetID()), Find_NoContainer(),Find_Not(Find_OCF(OCF_Alive)));
+    if(pStickTo) {
+      Sound("C4EX_Attach.ogg");
+      iStickXOffset = GetX()-GetX(pStickTo);
+      iStickYOffset = GetY()-GetY(pStickTo);
+      SetCategory(C4D_Vehicle);
+      SetObjectOrder(pStickTo, this);
+      SetRDir(0);
     }
-} 
-
-*/
+  }
+}
 
 /* Zündung */
 
