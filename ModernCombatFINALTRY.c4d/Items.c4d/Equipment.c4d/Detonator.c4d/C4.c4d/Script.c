@@ -2,7 +2,7 @@
 
 #strict 2
 
-local fuse, active, thrown, pStickTo, iStickXOffset, iStickYOffset;
+local fuse, active, thrown, pStickTo, iStickXOffset, iStickYOffset, iPreviousCategory;
 
 
 /* Initalisierung */
@@ -11,6 +11,7 @@ public func Initialize()
 {
   active = false;
   thrown = false;
+  iPreviousCategory = GetCategory();
   fuse = 0;
 }
 
@@ -60,9 +61,13 @@ protected func Timer() {
       Sound("C4EX_Attach.ogg");
       iStickXOffset = GetX()-GetX(pStickTo);
       iStickYOffset = GetY()-GetY(pStickTo);
+      iPreviousCategory = GetCategory();
       SetCategory(C4D_Vehicle);
       SetObjectOrder(pStickTo, this);
       SetRDir(0);
+    }
+    else {
+      SetCategory(iPreviousCategory); 
     }
   }
 }
