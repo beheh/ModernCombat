@@ -10,6 +10,8 @@ public func HandY()     	{return 0;}
 public func IsDrawable()	{return true;}
 public func IsEquipment()	{return true;}
 public func GetPackAmount()	{return amount;}
+public func NoArenaRemove()	{return(true);}
+
 
 /* Initalisierung */
 
