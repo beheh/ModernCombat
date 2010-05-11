@@ -11,7 +11,7 @@ static aFlag, aSelfDefense;
 func Initialize()
 {
   //Starttitel und Musikliste zusammenstellen
-  SetPlayList("CMC_Base Groove.ogg;CMC_Deep Universe.ogg;CMC_Friendly Unit.ogg;CMC_Moving Squad.ogg;CMC_No Good.ogg;CMC_Obsession.ogg;CMC_Rock Go On.ogg;CMC_Techno.ogg;CMC_Your Eyes.ogg");
+  SetPlayList("CMC_Base Groove.ogg;CMC_Offensive.ogg;CMC_Deep Universe.ogg;CMC_Friendly Unit.ogg;CMC_Moving Squad.ogg;CMC_No Good.ogg;CMC_Obsession.ogg;CMC_Rock Go On.ogg;CMC_Techno.ogg;CMC_Your Eyes.ogg");
   Music("CMC_No Good.ogg");
   //Himmel
   SetSkyParallax(0,45,24,0,0,0,0);
