@@ -56,7 +56,7 @@ protected func Timer() {
     SetYDir(0);
   }
   else {
-    pStickTo = FindObject2(Find_AtPoint(), Find_Func("IsBulletTarget", GetID()), Find_NoContainer(),Find_Not(Find_OCF(OCF_Alive)));
+    pStickTo = FindObject2(Find_AtPoint(), Find_Func("IsBulletTarget", GetID()), Find_Not(Find_Func("RejectC4Attach", this)), Find_NoContainer(), Find_Not(Find_OCF(OCF_Alive)));
     if(pStickTo) {
       Sound("C4EX_Attach.ogg");
       iStickXOffset = GetX()-GetX(pStickTo);
