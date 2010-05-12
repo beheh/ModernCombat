@@ -1,1 +1,1 @@
-Special.
+Colors the players view.

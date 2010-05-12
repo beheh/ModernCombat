@@ -1,4 +1,5 @@
 /* ScreenRGB */
+
 #strict 2
 
 local r,g,b,a;
@@ -6,6 +7,9 @@ local target,layer,fade;
 
 static const SR4K_LayerSmoke = 1;
 static const SR4K_LayerLight = 2;
+
+
+/* Initalisierung */
 
 public func Initialize()
 {
@@ -63,8 +67,7 @@ public func Set(object pTarget, int dwRGBa, int iAlphaAdd, int iFadeRate, bool b
       AddEffect("IntRGBFade",this,25,3,this);
 }
 
-
-///Fade-Effekt
+/* Fade-Effekt */
 
 public func FxIntRGBFadeStart(object pTarget, int iEffectNumber, int iTemp)
 {
