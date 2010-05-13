@@ -1,11 +1,11 @@
 [Particle]
-Name=FenceShred
-MaxCount=150
+Name=ConcreteSplinter
+MaxCount=300
 InitFn=StdInit
 ExecFn=StdExec
 DrawFn=Std
 CollisionFn=Stop
-Face=0,0,16,16,-8,-8
+Face=0,0,10,10,-5,-5
 Delay=0
 RByV=1
 GravityAcc=100
