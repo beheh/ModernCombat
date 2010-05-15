@@ -1,0 +1,14 @@
+CreatingFurniture=Creating furniture...
+CreatingEquipment=Placing equipment...
+
+Team1=Alpha
+Team2=Beta
+Team3=Gamma
+Team4=Delta
+
+Flag1=Alpha-Basis
+Flag2=Beta-Basis
+Flag3=Gamma-Basis
+Flag4=Delta-Basis
+Flag5=Empennage
+Flag6=Factory Building

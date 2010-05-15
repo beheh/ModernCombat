@@ -68,6 +68,14 @@ FullscreenBG=1
 	OverlayImage=OverlayMagmaZone.png
 
 
+	[Scenario]
+	File=CMC_DoubleTrouble.c4s
+	Area=54,473,466,24
+	OverlayImage=OverlayDoubleTrouble.png
+
+
+
+
 
 	[Scenario]
 	File=Credits.c4f
