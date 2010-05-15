@@ -1,6 +1,6 @@
 /*-- Lebewesen --*/
 
-//Alle inkludierten Lebewesen sind Projektilziele und faden nah dem Tod aus.
+//Alle inkludierten Lebewesen sind Projektilziele und faden nach dem Tod aus.
 
 #strict 2
 
