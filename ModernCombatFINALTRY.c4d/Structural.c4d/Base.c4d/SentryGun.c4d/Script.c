@@ -114,8 +114,9 @@ public func Destroyed()
 
 public func OnDmg(int iDmg, int iType)
 {
-	if(iType == DMG_Explosion)	return(0); //Maximale Wirkung von Sprengstoff
-	return(80); //Default
+  if(iType == DMG_Projectile)	return(30);	//Projektile
+  if(iType == DMG_Explosion)	return(0);	//Explosion
+  return(50);					//Default
 }
 
 /* Aufrufe */
