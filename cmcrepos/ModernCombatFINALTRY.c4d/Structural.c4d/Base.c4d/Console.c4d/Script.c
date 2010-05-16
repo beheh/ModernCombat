@@ -33,6 +33,9 @@ protected func ControlDig(pClonk)
 {
   [$Control$]
 
+  //Kein Menü wenn kein Ziel
+  if(!target) return(0);
+
   //Sicht auf Zielobjekt zentrieren
   SetPlrView(GetController(pClonk),target);
 
