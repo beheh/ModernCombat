@@ -281,13 +281,11 @@ func CreateFurniture()
   //Selbstschussanlagen und Konsolen
   aSelfDefense[0] = CreateObject(SEGU, 415, 329, -1);
     aSelfDefense[0]->Arm(MISA);
-    aSelfDefense[0]->TurnOn();
     aSelfDefense[0]->SetAutoRepair(1500);
     CreateObject(CONS, 250, 385, -1)->Set(aSelfDefense[0]);
   
   aSelfDefense[1] = CreateObject(SEGU, 2385, 329, -1);
     aSelfDefense[1]->Arm(MISA);
-    aSelfDefense[1]->TurnOn();
     aSelfDefense[1]->SetAutoRepair(1500);
     CreateObject(CONS, 2550, 385, -1)->Set(aSelfDefense[1]);
 
@@ -452,6 +450,10 @@ public func ChooserFinished()
    {aSelfDefense[0]->SetTeam(1);}
    if(aTeams[2] == true)
    {aSelfDefense[1]->SetTeam(2);}
+
+   //SSA anschalten
+   aSelfDefense[0]->TurnOn();
+   aSelfDefense[1]->TurnOn();
 
    //Flaggen
    aFlag[0] = CreateObject(OFPL,100,390,NO_OWNER);
