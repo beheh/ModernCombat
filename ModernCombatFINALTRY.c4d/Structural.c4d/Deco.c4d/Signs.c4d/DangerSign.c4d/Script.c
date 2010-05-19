@@ -5,6 +5,13 @@
 public func IsBulletTarget()	{return(1);}
 
 
+/* Schaden */
+
+public func OnHit()
+{
+   CastParticles("WoodSplinter", 3, 50, 0,0, 141);
+}
+
 /* Zerstörung */
 
 func Damage()
@@ -16,11 +23,4 @@ func Damage()
    Sound("CrateCrack");
    RemoveObject(0, 1);
   }
-}
-
-/* Schaden */
-
-public func OnHit()
-{
-   CastParticles("WoodSplinter", 3, 50, 0,0, 141);
 }

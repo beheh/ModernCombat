@@ -27,6 +27,7 @@ private func UpdateDmg()
 public func Damage()
 {
   UpdateDmg();
+  Sound("BarrelDamaged*.ogg");
 }
 
 /* Funktionen */
