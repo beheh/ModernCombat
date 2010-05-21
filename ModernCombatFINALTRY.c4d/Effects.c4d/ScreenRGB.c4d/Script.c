@@ -112,11 +112,23 @@ public func DoAlpha(int iValue, int iMin, int iMax)
 
 func CursorCheck()
 {
-  if(GetCursor(GetOwner()) != target)
-    SetVisibility (VIS_None);
+  var cursor = false;
+  if(GetCursor(GetOwner())) {
+	  if(GetCursor(GetOwner()) == target)
+	    cursor = true;
+	  if(GetCursor(GetOwner())->~GetRealCursor() == target)
+	    cursor = true;
+	}
+  else {
+    cursor = true;
+  }
+  if(cursor)
+    SetVisibility(VIS_Owner);
   else
-    SetVisibility (VIS_Owner);
+    SetVisibility(VIS_None);
 }
 
+public func GetTargetCursor(){;}
+public func IsOverlayScreen(){return true;}
 public func NoWarp(){return true;}
 public func IsHUD(){return true;}
