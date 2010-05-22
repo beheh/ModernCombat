@@ -3,6 +3,8 @@
 #strict
 #include WPN2
 
+local casing;
+
 public func HandSize()		{return(800);}
 public func HandX()		{return(4000);}
 public func HandY()		{return(-700);}
@@ -68,7 +70,7 @@ public func Fire1()
   var ammo = SALaunchBullet(x,y,GetController(user),angle+RandomX(-1,+1),250,400,GetFMData(FM_Damage));
   ammo->Sound("PSTL_Fire*.ogg");
 
-  // Effekte
+  //Effekte
   SAMuzzleFlash(RandomX(25,30),user,x,y,angle);
   SABulletCasing(x/3,y/3,-dir*14*(Random(1)+1),-(13+Random(2)),4);
 }
@@ -122,6 +124,8 @@ public func Fire2()
   var ammo = CreateObject(TRDT,x,y,GetController(user));
   ammo->Launch(angle,180,800,20,1000);
   ammo->Sound("PSTL_TracerFire.ogg");
+
+  casing = 1;
 }
 
 /* Allgemein */
@@ -140,8 +144,12 @@ public func OnReload(i)
   if(i == 2)
   {
     Sound("PSTL_TracerReload.ogg");
-    var user = GetUser();
-    var dir = GetDir(user)*2-1;
-    SABulletCasing(dir*1,0,-dir*14*(Random(1)+1),-(13+Random(2)));
+    if(casing)
+    {
+      var user = GetUser();
+      var dir = GetDir(user)*2-1;
+      SABulletCasing(dir*1,0,-dir*14*(Random(1)+1),-(13+Random(2)),6,RGB(150,150,150));
+      casing = 0;
+    }
   }
 }

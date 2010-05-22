@@ -3,6 +3,8 @@
 #strict
 #include WPN2
 
+local casing;
+
 public func HandSize()		{return(1000);}
 public func HandX()		{return(5000);}
 public func HandY()		{return(1000);}
@@ -203,6 +205,9 @@ public func LaunchGrenade(id idg, int speed, int angle, int mode)
                    GetXDir(user)+RandomX(0,xdir/4),GetYDir(user)+RandomX(0,ydir/4),
                    RandomX(80,140),RGBa(200,200,200,0),0,0);
   }
+
+  //Patronenhülse vorhanden
+  casing = 1;
 }
 
 /* Allgemein */
@@ -216,9 +221,13 @@ func OnReload(i)
   if(i == 2)
   {
     Sound("ASTR_LauncherReload.ogg");
-    var user = GetUser();
-    var dir = GetDir(user)*2-1;
-    SABulletCasing(dir*1,0,-dir*14*(Random(1)+1),-(13+Random(2)));
+    if(casing)
+    {
+      var user = GetUser();
+      var dir = GetDir(user)*2-1;
+      SABulletCasing(dir*1,0,-dir*14*(Random(1)+1),-(13+Random(2)),6,RGB(150,150,150));
+      casing = 0;
+    }
   }
 }
 
