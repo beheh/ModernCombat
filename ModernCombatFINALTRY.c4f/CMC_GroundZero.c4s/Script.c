@@ -382,7 +382,7 @@ func CreateEquipment()
 
   //Artilleriebatterien
   CreateObject(ATBY,725,320,-1);
-  CreateObject(ATBY,2070,320,-1);
+  CreateObject(ATBY,2073,320,-1);
 
 }
 
