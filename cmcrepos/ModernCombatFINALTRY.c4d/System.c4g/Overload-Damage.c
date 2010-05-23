@@ -26,19 +26,18 @@ global func DoDmg(int iDmg, int iType, object pTarget, int iPrecision, int dmgpl
   
   if(GetOCF(pTarget) & OCF_CrewMember)
   {
-    if(!idKillIcon)//Kein Killicon?
+    if(!idKillIcon && this())//Kein Killicon?
     {
-      if(this())
-        idKillIcon = this()->~GetKillIcon();
-      
-      if(this() && !idKillIcon)
-        idKillIcon = this()->GetID();
-      
-      if(idKillIcon->~IsClonk()) {
-        idKillIcon = 0;
-      }
+      idKillIcon = this()->~GetKillIcon();
       
       if(!idKillIcon)
+        idKillIcon = this()->GetID();
+      
+      if(idKillIcon->~IsClonk())
+        idKillIcon = 0;      
+    }
+    
+    if(!idKillIcon)
       {
         if(iType)
         {
@@ -56,7 +55,6 @@ global func DoDmg(int iDmg, int iType, object pTarget, int iPrecision, int dmgpl
         else
           idKillIcon = KAMB;
       }
-    }
     
     pTarget->~KillIcon(idKillIcon);
   }
