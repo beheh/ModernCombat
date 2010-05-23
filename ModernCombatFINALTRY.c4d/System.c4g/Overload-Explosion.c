@@ -135,6 +135,8 @@ global func BlastObjects2(int x, int y, int level, object container, int cause_p
      {
       //Objekt hat benutzerdefinierte Reaktion auf die Schockwelle?
       if (obj->~OnShockwaveHit(level, x,y)) continue;
+      //Beschädigen
+      BlastObject(level/Distance(GetX(obj), GetY(obj), x, y), obj, cause_plr_plus_one);
       //Lebewesen leiden besonders
       var cat = GetCategory(obj);
       if (cat & C4D_Living)
