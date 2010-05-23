@@ -38,11 +38,13 @@ global func FxIntUnstuck4KTimer(object pTarget, int iEffectNumber, int iEffectTi
   if(!Stuck(pTarget))
     return(-1);
 
-  if(iEffectTime > 10)
+  if(iEffectTime > 12) {
+  	AutoUnstuck4K(pTarget);
     return(-1);
+  }
 
-  SetPosition(GetX(pTarget)  -  EffectVar (0,pTarget,iEffectNumber),
-              GetY(pTarget)  -  EffectVar (1,pTarget,iEffectNumber));
+  SetPosition(GetX(pTarget)  +	EffectVar (0,pTarget,iEffectNumber)/10,
+              GetY(pTarget)  +  EffectVar (1,pTarget,iEffectNumber)/10);
 
   return(0);
 }
@@ -54,6 +56,7 @@ global func AutoUnstuck(pTarget,iXDir,iYDir)
 
 global func AutoUnstuck4K(pTarget,iXDir,iYDir)
 {
+  if(!pTarget) pTarget = this;
   if(!GetEffect("IntUnstuck4K",pTarget))
     AddEffect("IntUnstuck4K",pTarget,1,1,pTarget,0,iXDir,iYDir); 
 }

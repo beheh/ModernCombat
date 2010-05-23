@@ -111,7 +111,7 @@ global func BlastObjects2(int x, int y, int level, object container, int cause_p
     BlastObject(level, container, cause_plr_plus_one);
     for (obj in FindObjects(Find_Container(container), Find_Layer(layer)))
      if(obj) {
-       DoDmg(level, DMG_Explosion, obj, 0, cause_plr_plus_one); //Muss um eins erhöht sein!
+       if(obj & C4D_Living) DoDmg(level, DMG_Explosion, obj, 0, cause_plr_plus_one); //Muss um eins erhöht sein!
        if(this) obj->~KillIcon(GetID(this));
      }
    }
@@ -122,9 +122,10 @@ global func BlastObjects2(int x, int y, int level, object container, int cause_p
    //Objekte am Explosionspunkt beschädigen
    for (var obj in FindObjects(Find_AtRect(l_x-5, l_y-5, 10,10), Find_NoContainer(), Find_Layer(layer))) {
     if(obj) {
-      if(!GetCategory(obj) & C4D_Living) DoDmg(level, DMG_Explosion, obj, 0, cause_plr_plus_one);
+      if(!(GetCategory(obj) & C4D_Living)) DoDmg(level, DMG_Explosion, obj, 0, cause_plr_plus_one);
       if(this) obj->~KillIcon(GetID(this));
     }
+   }
    //Objekte im Explosionsradius schleudern
    var shockwave_objs = FindObjects(Find_Distance(range, l_x,l_y), Find_NoContainer(), Find_Layer(layer),
        Find_Or(Find_Category(C4D_Object|C4D_Living|C4D_Vehicle), Find_Func("CanBeHitByShockwaves")), Find_Func("BlastObjectsShockwaveCheck",x,y));
