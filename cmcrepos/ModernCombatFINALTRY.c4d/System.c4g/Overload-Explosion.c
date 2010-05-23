@@ -122,7 +122,7 @@ global func BlastObjects2(int x, int y, int level, object container, int cause_p
    //Objekte am Explosionspunkt beschädigen
    for (var obj in FindObjects(Find_AtRect(l_x-5, l_y-5, 10,10), Find_NoContainer(), Find_Layer(layer))) {
     if(obj) {
-      DoDmg(level, DMG_Explosion, obj, 0, cause_plr_plus_one);
+      if(!GetCategory(obj) & C4D_Living) DoDmg(level, DMG_Explosion, obj, 0, cause_plr_plus_one);
       if(this) obj->~KillIcon(GetID(this));
     }
    //Objekte im Explosionsradius schleudern

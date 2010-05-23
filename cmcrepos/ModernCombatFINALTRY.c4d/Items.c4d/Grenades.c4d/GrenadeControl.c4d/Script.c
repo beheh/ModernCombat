@@ -61,9 +61,9 @@ func Hit(int iXDir, int iYDir)
 
   //Entsprechende Hüpfbewegung
   if(GBackSolid(0,+5)) return(SetYDir(-iYDir/26));
-  if(GBackSolid(0,-5))  return(SetYDir(-iYDir/26));
-  if(GBackSolid(-5,0))  return(SetXDir(-iXDir/16));
-  if(GBackSolid(+5,0))   return(SetXDir(-iXDir/16));
+  if(GBackSolid(0,-5)) return(SetYDir(-iYDir/26));
+  if(GBackSolid(-5,0)) return(SetXDir(-iXDir/16));
+  if(GBackSolid(+5,0)) return(SetXDir(-iXDir/16));
 }
 
 /* Aimstart */

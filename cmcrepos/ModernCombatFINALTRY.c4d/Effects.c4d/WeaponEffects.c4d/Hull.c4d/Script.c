@@ -18,12 +18,18 @@ public func Set(int iSize)
   FadeOut4K(2);
 }
 
-protected func Hit()
+func Hit(int iXDir, int iYDir)
 {
   if(GetCon() > 100)
     Sound("BigHullHit*.ogg",false,0,0,0,0,0,300);
   else
     Sound("HullHit*.ogg",false,0,0,0,0,0,300);
+    
+  //Entsprechende Hüpfbewegung
+  if(GBackSolid(0,+5) && iYDir != 0) return(SetYDir(-iYDir/26));
+  if(GBackSolid(0,-5) && iYDir != 0) return(SetYDir(-iYDir/26));
+  if(GBackSolid(-5,0) && iXDir != 0) return(SetXDir(-iXDir/12));
+  if(GBackSolid(+5,0) && iXDir != 0) return(SetXDir(-iXDir/12));
   
   SetRDir();
   SetR();
