@@ -26,10 +26,12 @@ func Hit(int iXDir, int iYDir)
     Sound("HullHit*.ogg",false,0,0,0,0,0,300);
     
   //Entsprechende Hüpfbewegung
-  if(GBackSolid(0,+5) && iYDir != 0) return(SetYDir(-iYDir/26));
-  if(GBackSolid(0,-5) && iYDir != 0) return(SetYDir(-iYDir/26));
-  if(GBackSolid(-5,0) && iXDir != 0) return(SetXDir(-iXDir/12));
-  if(GBackSolid(+5,0) && iXDir != 0) return(SetXDir(-iXDir/12));
+  if(GBackSolid(0,+5)) SetYDir(-iYDir/26);
+  if(GBackSolid(0,-5)) SetYDir(-iYDir/26);
+  if(GBackSolid(-5,0)) SetXDir(-iXDir/12);
+  if(GBackSolid(+5,0)) SetXDir(-iXDir/12);
+  
+  if(GetXDir() < 1 && GetYDir() < 1) return();
   
   SetRDir();
   SetR();
