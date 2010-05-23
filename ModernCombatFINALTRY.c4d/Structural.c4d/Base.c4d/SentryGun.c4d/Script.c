@@ -215,9 +215,11 @@ public func Activity()
   {
     if(GetTeam())
       var rgb = GetTeamColor(GetTeam());
+    else if(GetOwner())
+      var rgb = GetPlrColorDw(GetOwner());
     else
       var rgb = RGB(255,255,255);
-    CreateParticle("NoGravSpark",Sin(GetR()+45,5),-Cos(GetR()+45,5)-10,0,0,5*15,rgb,cur_Attachment);
+    CreateParticle("FapLight",0,4,0,0,5*15,rgb,this);
   }
   
   /* Patroullie fahren */
