@@ -102,14 +102,24 @@ public func SetAutoRepair(int iAuto)
 public func Destroyed()
 {
   last_id = GetID(Contents());
+
+  //Waffe entfernen
   RemoveObject(Contents());
+
+  //Status setzen
   SetAction("Destroyed");
   Damaged = 1;
   RemoveEffect("ShowWeapon",this); 
+
+  //Reparatur anordnen
   AutoRepair();
+
+  //Punkte bei Belohnungssystem
   if(fActive && GetKiller(this) != -1)
     if((GetOwner() != -1 && Hostile(GetOwner(), GetKiller())) || GetOwner() == -1 && !GetTeam(this))
 		  DoPlayerPoints(BonusPoints("Destruction"), RWDS_BattlePoints, GetKiller(this), GetCursor(GetKiller(this)), IC03);
+
+  //Explosion
   CreateObject(ROCK,0,0)->Explode(20);
 }
 
@@ -125,6 +135,9 @@ public func OnDmg(int iDmg, int iType)
 public func OnHit(a, b, object pBy)
 {
   SetKiller(GetController(pBy));
+
+  if(Repairing)
+   Sound("BlockOff*.ogg");
 }
 
 /* Aufrufe */

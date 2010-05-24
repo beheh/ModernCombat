@@ -186,7 +186,7 @@ public func FxFAPHealTimer(pTarget, iEffectNumber, iEffectTime)
   
   if(!(iEffectTime % 6))	//Alle 6 Frames
   {
-   //Eigentliches Heilen.
+   //Eigentliches Heilen
    DoEnergy(2,pClonk);  
    if(pTarget->DoHealPoints(-1) <= 0)
     return -1;
