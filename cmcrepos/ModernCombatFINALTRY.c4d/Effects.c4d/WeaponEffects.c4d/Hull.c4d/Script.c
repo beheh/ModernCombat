@@ -31,7 +31,7 @@ func Hit(int iXDir, int iYDir)
   if(GBackSolid(-5,0)) SetXDir(-iXDir/12);
   if(GBackSolid(+5,0)) SetXDir(-iXDir/12);
   
-  if(GetXDir() < 1 && GetYDir() < 1) return();
+  if(Abs(GetXDir()) < 1 && Abs(GetYDir()) < 1) return();
   
   SetRDir();
   SetR();

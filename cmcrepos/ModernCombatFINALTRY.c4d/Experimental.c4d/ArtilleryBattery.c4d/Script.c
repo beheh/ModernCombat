@@ -226,10 +226,11 @@ public func FxIntRepairStop(object pTarget, int iEffectNumber, int iReason, bool
 
 public func Damage()
 {
-  return;
-  if(GetDamage() > MaxDamage());
+  if(GetDamage() <= MaxDamage()) return;;
   RemoveObject(pCannon);
   SetAction("Destroyed");
+  if(GetKiller())
+		DoPlayerPoints(BonusPoints("Destruction"), RWDS_BattlePoints, GetKiller(), GetCursor(GetKiller()), IC03);
   Damaged = 1;
   iCooldown = 0;
   AutoRepair();
