@@ -179,7 +179,7 @@ global func BlastObject(int level, object obj, int cause_plr_plus_one)
   if(this) icon = this->~GetKillIcon();
   if(!icon && this) icon = this->GetID();
   if(icon) obj->~KillIcon(icon);
-  return _inherited(level, obj, cause_plr_plus_one);
+  return true; //_inherited(level, obj, cause_plr_plus_one);
 }
 
 global func DamageObjects(int iDistance, int iDamage, object pObject, int iX, int iY)
