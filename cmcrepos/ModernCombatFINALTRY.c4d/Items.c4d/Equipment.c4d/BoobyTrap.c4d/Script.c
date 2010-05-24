@@ -10,7 +10,7 @@ public func CanAim()		{return(true);}
 public func IsShooting()	{return(false);}
 public func IsRecharging()	{return(false);}
 public func IsMine()		{return(true);}
-public func NoArenaRemove()	{return(true);}
+public func NoArenaRemove()	{return(bActive);}
 public func Color()		{return(RGB(200,200,200));}
 public func IsBulletTarget()	{if(!Random(6)) return(true);}
 public func HandX()		{return(5000);}
@@ -73,7 +73,7 @@ public func Throw()
 
   //Effekte
   Sound("BBTP_Activate.ogg", 0, 0, 50);
-  CreateParticle("PSpark",0,0,0,0,60,RGBa(255,0,0,0),this());
+  CreateParticle("PSpark",0,0,0,0,60,GetPlrColorDw(GetOwner()),this());
 
   //Aktivierung
   bActive=true;
@@ -99,11 +99,11 @@ private func FinFuse()
 {
   if(!bActive) return;
   SetClrModulation(RGBa(255,255,255,80));
-  CreateParticle("PSpark",0,0,0,0,60,RGBa(255,0,0,0),this());
+  CreateParticle("PSpark",0,0,0,0,60,GetPlrColorDw(GetOwner()),this());
   laser = CreateObject(LASR,0,0,controller);
   laser -> Set(iDir,3,60,0,0,this());
   if(laser) { //Falls er im Boden steckt
-    laser -> SetClrModulation(RGBa(255,0,0,180));
+    laser -> SetClrModulation(DoRGBaValue(GetPlrColorDw(GetOwner()), 180, 0));
     laser ->~ Destruction();
   }
   CreateObject(MFLG,0,1,controller)->Set(this());

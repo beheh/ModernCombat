@@ -81,8 +81,9 @@ public func FxFollowTimer(object pTarget, int iEffectNumber, int iEffectTime)
   if(!EffectVar(1,pTarget,iEffectNumber)) {
   	var pEnemies = FindObjects(Find_Distance(300, GetX(pTarget), GetY(pTarget)), Sort_Distance(GetX(pTarget), GetY(pTarget)));
 		for(var pEnemy in pEnemies) {
-			if(!GetEffect("TracerDart", pEnemy)) continue;
-      if(GetPlayerTeam(GetController(pTarget)) != GetPlayerTeam(EffectVar(0, pTarget, GetEffect("TracerDart", pEnemy)))) continue;
+		  var iEffectTracer = GetEffect("TracerDart", pEnemy);
+			if(!iEffectTracer) continue;
+      if(Hostile(GetController(pTarget), EffectVar(0, pEnemy, iEffectTracer))) continue;
 			if(!PathFree(GetX(pTarget), GetY(pTarget), GetX(pEnemy), GetY(pEnemy))) continue;
 		  EffectVar(1,pTarget,iEffectNumber) = pEnemy;
                   Sound("BBTP_Alarm.ogg");

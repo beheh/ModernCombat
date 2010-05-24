@@ -49,7 +49,7 @@ public func BulletStrike(object pObj)
         Sound("TRDT_Attach.ogg");
 
         //Effekt übergeben
-        AddEffect("TracerDart",pObj,20,1, 0, 0, GetController());
+        AddEffect("TracerDart", pObj, 20, 1, 0, 0, GetController());
 
         //Verschwinden
         Remove();
