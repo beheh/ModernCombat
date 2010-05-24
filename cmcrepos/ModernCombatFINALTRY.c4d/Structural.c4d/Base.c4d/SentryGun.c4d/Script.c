@@ -122,8 +122,9 @@ public func OnDmg(int iDmg, int iType)
   return(50);					//Default
 }
 
-public func OnHit(a, b, object pBy) {
-	SetKiller(GetController(pBy));
+public func OnHit(a, b, object pBy)
+{
+  SetKiller(GetController(pBy));
 }
 
 /* Aufrufe */

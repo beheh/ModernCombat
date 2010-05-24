@@ -20,7 +20,7 @@ func IncinerationEx(int iPlr)
 func Damage(int iChange, int iPlr)
 {
   SetController(iPlr);
-  if(GetDamage() > 200)
+  if(GetDamage() >= 100)
    Incinerate();
 }
 
