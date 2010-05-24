@@ -120,12 +120,8 @@ global func BlastObjects2(int x, int y, int level, object container, int cause_p
   {
    //Objekt ist draußen
    //Objekte am Explosionspunkt beschädigen
-   for (var obj in FindObjects(Find_AtRect(l_x-5, l_y-5, 10,10), Find_NoContainer(), Find_Layer(layer))) {
-    if(obj) {
-      if(!(GetCategory(obj) & C4D_Living)) DoDmg(level, DMG_Explosion, obj, 0, cause_plr_plus_one);
-      if(this) obj->~KillIcon(GetID(this));
-    }
-   }
+   for (var obj in FindObjects(Find_AtRect(l_x-5, l_y-5, 10,10), Find_NoContainer(), Find_Layer(layer)))
+      if (obj) BlastObject(level, obj, cause_plr_plus_one);
    //Objekte im Explosionsradius schleudern
    var shockwave_objs = FindObjects(Find_Distance(range, l_x,l_y), Find_NoContainer(), Find_Layer(layer),
        Find_Or(Find_Category(C4D_Object|C4D_Living|C4D_Vehicle), Find_Func("CanBeHitByShockwaves")), Find_Func("BlastObjectsShockwaveCheck",x,y));
@@ -143,9 +139,9 @@ global func BlastObjects2(int x, int y, int level, object container, int cause_p
       var cat = GetCategory(obj);
       if (cat & C4D_Living)
       {
-       DoEnergy(level/-3*2, obj, false, FX_Call_EngBlast, cause_plr_plus_one);
-       DoDamage(level/3*2, obj, FX_Call_DmgBlast, cause_plr_plus_one);
-      }
+       DoEnergy(level/-2, obj, false, FX_Call_EngBlast, cause_plr_plus_one);
+       DoDamage(level/2, obj, FX_Call_DmgBlast, cause_plr_plus_one);
+      }    
       //Killverfolgung bei Projektilen
       if (cat & C4D_Object) SetController(cause_plr_plus_one-1, obj);
       //Schockwelle
@@ -176,13 +172,14 @@ global func BlastObjects2(int x, int y, int level, object container, int cause_p
 
 global func BlastObject(int level, object obj, int cause_plr_plus_one)
 {
-  obj->~LastDamageType(DMG_Explosion);
-  obj->SetKiller(cause_plr_plus_one-1);
+  //obj->~LastDamageType(DMG_Explosion);
+  //obj->SetKiller(cause_plr_plus_one-1);
+  DoDmg(level, DMG_Explosion, obj, 0, cause_plr_plus_one);
   var icon;
-  /*if(this) icon = this->~GetKillIcon();
-  if(!icon && this) icon = this->GetID();*/
+  if(this) icon = this->~GetKillIcon();
+  if(!icon && this) icon = this->GetID();
   if(icon) obj->~KillIcon(icon);
-  return inherited(...);
+  return _inherited(level, obj, cause_plr_plus_one);
 }
 
 global func DamageObjects(int iDistance, int iDamage, object pObject, int iX, int iY)
