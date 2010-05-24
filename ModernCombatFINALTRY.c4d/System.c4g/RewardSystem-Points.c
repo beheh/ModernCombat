@@ -27,6 +27,7 @@ global func BonusPoints(string szType, extraData)
   if(szType == "CTFRegain")	return 30;		//Flagge zurückgeholt
   if(szType == "TechnicalTask")	return 10;		//Sprengsatz entschärft
   if(szType == "Protection")	return 10;		//Punkte für Schildabwehr
+  if(szType == "Destruction")	return 30;		//Punkte für zerstörte feindliche Struktur
 
   //if("IncinerateClonk")	return 20;		//Bonuspunkte für das anzünden gegnerischer Clonks
   //if("DestroyHomebase")	return 100;		//Bonuspunkte für die Zerstörung gegnerischer Heimatbasen

@@ -7,7 +7,7 @@ local aim_angle;
 local target_angle;
 local Shooting;
 local iPat_Dir;
-local Active;
+local fActive;
 local GotTarget;
 local Damaged;
 local Repairing;
@@ -23,7 +23,7 @@ public func ReadyToFire()	{return(1);}			//Allzeit bereit
 public func IsMachine()		{return(true);}			//Ist eine Elektrische Anlage
 public func IsBulletTarget()	{return(true);}			//Kugelziel
 public func IsAiming()		{return(true);}			// Die Sentry Gun "zielt" immer
-public func IsThreat()		{return(Active);}
+public func IsThreat()		{return(fActive);}
 public func UpdateCharge()	{return(1);}
 
 
@@ -107,6 +107,9 @@ public func Destroyed()
   Damaged = 1;
   RemoveEffect("ShowWeapon",this); 
   AutoRepair();
+  if(fActive && GetKiller(this) != -1)
+    if((GetOwner() && Hostile(GetOwner(), GetKiller())) || !GetTeam() && !GetOwner())
+		  DoPlayerPoints(BonusPoints("Destruction"), RWDS_BattlePoints, GetKiller(this), GetCursor(GetKiller(this)), IC03);
   CreateObject(ROCK,0,0)->Explode(20);
 }
 
@@ -119,16 +122,20 @@ public func OnDmg(int iDmg, int iType)
   return(50);					//Default
 }
 
+public func OnHit(a, b, object pBy) {
+	SetKiller(GetController(pBy));
+}
+
 /* Aufrufe */
 
 public func TurnOn()
 {
-  Active = true;
+  fActive = true;
 }
 
 public func TurnOff()
 {
-  Active = false;
+  fActive = false;
   if(GetAttWeapon()) GetAttWeapon()->StopAutoFire();
 }
 
@@ -201,7 +208,7 @@ public func Activity()
   if(EMPShocked()) return;
   if(Damaged) return;
   //Sind wir aktiv?
-  if(!Active) return;
+  if(!fActive) return;
   if(Repairing) return;
   //Wenn nicht schon gesetzt: Turn-Action
   if(GetAction() != "Turn")
@@ -385,7 +392,7 @@ public func ConsoleControl(int i)
 {
     if(i == 1)
     {
-      if(Active) return "$TurnOff$";
+      if(fActive) return "$TurnOff$";
       else
           return "$TurnOn$";
     }
@@ -398,7 +405,7 @@ public func ConsoleControlled(int i)
 {
     if(i == 1)
     {
-        if(Active) TurnOff();
+        if(fActive) TurnOff();
         else
         {
             TurnOn();
@@ -418,7 +425,7 @@ public func RejectContainedSerialize(object foo) { return !false; } // weg mit d
 public func Serialize(array& extra)
 {
 	extra[GetLength(extra)] = Format("SetTeam(%d)", GetTeam());
-	if (Active)
+	if (fActive)
 		extra[GetLength(extra)] = "TurnOn()";
 	if (cur_Attachment) {
 		extra[GetLength(extra)] = Format("Arm(%i)", GetID(cur_Attachment));
