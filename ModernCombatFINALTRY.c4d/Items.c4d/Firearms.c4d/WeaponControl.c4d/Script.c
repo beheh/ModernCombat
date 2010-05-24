@@ -497,6 +497,22 @@ public func GetRecharge()
   return((100*time)/GetFMData(FM_Recharge));
 }
 
+public func FxNoFinishReloadStart(object pTarget, int iNumber)
+{
+	EffectVar(0,pTarget,iNumber) = 30;
+}
+
+public func FxNoFinishReloadTimer(object pTarget, int iNumber, int iTime)
+{
+	//Schauen ob der Delay vorbei ist
+	if(EffectVar(0,pTarget,iNumber)-- <= 0)
+		return -1;
+	
+	//Falls nicht mehr nachgeladen wird
+	if(!GetEffect("Reload", pTarget))
+		return -1;
+}
+
 //Nachladen
 /*
   0: insgesammte Nachladezeit
@@ -519,6 +535,10 @@ public func FxReloadStart(object pTarget, int iNumber, int iTemp, int iTime,iSlo
   
   //Log("Vorbereiten - Start");
   EffectVar(5,pTarget,iNumber) = -1;
+  
+  //Reload-End-Spam verhindern
+  if(GetFMData(FM_SingleReload))
+  	AddEffect("NoFinishReload", pTarget, 20, 1, pTarget);
 }
 
 public func FxReloadTimer(object pTarget, int iNumber, int iTime)
@@ -772,8 +792,9 @@ public func Fire()
   if(IsReloading())
   {
     if(GetFMData(FM_SingleReload))
-      if(!IsPreparing() || !IsCanceling() || EffectVar(3,this(),GetEffect("Reload",this())))
-        FinishReload();
+      if(!GetEffect("NoFinishReload", this))
+      	if(!IsPreparing() || !IsCanceling() || EffectVar(3,this(),GetEffect("Reload",this())))
+        	FinishReload();
     return(false);
   }
 
