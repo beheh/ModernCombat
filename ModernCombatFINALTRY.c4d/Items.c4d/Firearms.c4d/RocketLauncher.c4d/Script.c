@@ -26,7 +26,7 @@ public func FMData1(int data)
   if(data == FM_Recharge)	return 200;
 
   if(data == FM_Aim)		return 1;
-  if(data == FM_Damage)		return 35;
+  if(data == FM_Damage)		return 25;
 
   if(data == FM_Slot)		return(1);
 
