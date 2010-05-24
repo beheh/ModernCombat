@@ -118,7 +118,7 @@ public func Fire2()
 {
   var user = GetUser();
   var dir = GetDir(user)*2-1;
-  var angle = user->AimAngle(20,0,true);
+  var angle = user->AimAngle(20,0,false);
   var x,y;
   user->WeaponEnd(x,y);
   var ammo = CreateObject(TRDT,x,y,GetController(user));
