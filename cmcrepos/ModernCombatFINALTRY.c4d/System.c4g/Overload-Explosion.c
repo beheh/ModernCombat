@@ -172,14 +172,14 @@ global func BlastObjects2(int x, int y, int level, object container, int cause_p
 
 global func BlastObject(int level, object obj, int cause_plr_plus_one)
 {
-  //obj->~LastDamageType(DMG_Explosion);
-  //obj->SetKiller(cause_plr_plus_one-1);
+  obj->SetKiller(cause_plr_plus_one-1);
+  obj->~LastDamageType(DMG_Explosion);
   DoDmg(level, DMG_Explosion, obj, 0, cause_plr_plus_one);
   var icon;
   if(this) icon = this->~GetKillIcon();
   if(!icon && this) icon = this->GetID();
   if(icon) obj->~KillIcon(icon);
-  return true; //_inherited(level, obj, cause_plr_plus_one);
+  return true;
 }
 
 global func DamageObjects(int iDistance, int iDamage, object pObject, int iX, int iY)
@@ -187,7 +187,7 @@ global func DamageObjects(int iDistance, int iDamage, object pObject, int iX, in
   if(!pObject) pObject = this;
   var x = GetX(pObject)+iX;
   var y = GetY(pObject)+iY;
-  var dealer = 0;
+  var dealer = -1;
   if(GetController(pObject)) dealer = GetController(pObject);
   var icon = pObject->~GetKillIcon();
   if(!icon) icon = GetID(pObject);
@@ -199,4 +199,6 @@ global func DamageObjects(int iDistance, int iDamage, object pObject, int iX, in
   {
     pObject->DoDmg(iDamage - (Distance(GetX(obj),GetY(obj),x,y)*iDamage/iDistance),DMG_Explosion,obj,0,dealer+1,icon);
   }
+  obj->SetKiller(dealer);
+  obj->~LastDamageType(DMG_Explosion);
 }
