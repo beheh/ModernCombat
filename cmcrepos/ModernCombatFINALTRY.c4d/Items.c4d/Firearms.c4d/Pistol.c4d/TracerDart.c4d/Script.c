@@ -40,7 +40,7 @@ public func BulletStrike(object pObj)
   if(pObj)
   {
     //Passendes Ziel vorhanden?
-    if(Hostile(GetController(pObj), GetController()))
+    if(Hostile(GetOwner(pObj), GetController()))
     {
       //Nicht bereits markiert?
       if(!GetEffect("TracerDart",pObj))

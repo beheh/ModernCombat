@@ -108,7 +108,7 @@ public func Destroyed()
   RemoveEffect("ShowWeapon",this); 
   AutoRepair();
   if(fActive && GetKiller(this) != -1)
-    if((GetOwner() && Hostile(GetOwner(), GetKiller())) || !GetTeam() && !GetOwner())
+    if((GetOwner() != -1 && Hostile(GetOwner(), GetKiller())) || GetOwner() == -1 && !GetTeam(this))
 		  DoPlayerPoints(BonusPoints("Destruction"), RWDS_BattlePoints, GetKiller(this), GetCursor(GetKiller(this)), IC03);
   CreateObject(ROCK,0,0)->Explode(20);
 }
