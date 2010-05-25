@@ -1,0 +1,1 @@
+TargetMarked=<c %x>%s</c> has painted a target, units with <c ffff33>rocket launchers</c>, standby to fire

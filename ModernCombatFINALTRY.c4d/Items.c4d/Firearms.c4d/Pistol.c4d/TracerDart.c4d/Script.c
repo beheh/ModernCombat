@@ -53,7 +53,28 @@ public func BulletStrike(object pObj)
 
         //Verschwinden
         Remove();
-
+        
+        //Broadcast
+        for(var i = 0; i < GetPlayerCount(); i++) {
+        	var iPlr = GetPlayerByIndex(i);
+        	if(Hostile(GetController(), iPlr)) continue;
+        	var fRocketLauncher = false;
+        	var j = GetCrewCount(iPlr);
+        	while(j--) {
+        		var k = GetCrew(iPlr, j)->ContentsCount();
+		      	while(k--) {
+		      		if(GetCrew(iPlr, j)->Contents(k)->GetID() == RTLR) {
+		      			fRocketLauncher = true;
+		      			break;
+		      		}
+		      	}
+		      	if(fRocketLauncher) break;
+        	}
+        	if(fRocketLauncher) {
+		        EventInfo4K(iPlr+1, Format("$TargetMarked$", GetPlrColorDw(GetController()), GetPlayerName(GetController())), TRDT);
+	        }
+				}		
+				
         return 1;
       }
     }
