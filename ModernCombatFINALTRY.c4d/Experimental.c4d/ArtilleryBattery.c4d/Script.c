@@ -1,39 +1,40 @@
 /*-- Artilleriebatterie --*/
 
-#strict
+#strict 2
+#include CSTR
 
 local pCannon;
-local bRotate,bDirection;
+local bRotate, bDirection;
 local iCooldown;
 local byObj;
-local Damaged;
-local Repairing;
-local autorepair;
 
-public func IsMachine()		{return(true);}
-public func MaxDamage()		{return(200);}
-
+public func IsMachine()		{return(true);} //Maschine
+public func IsBulletTarget()   {if(!Random(3)) return(true);} //Ziel
 
 /* Initalisierung */
 
 func Initialize()
 {
-  pCannon=CreateObject(CNON,0,32,-1);
+  pCannon = CreateObject(CNON,0,32,-1);
   iCooldown = 0;
-  autorepair = 36*30;
   SetR(0, pCannon); //Findet Michael ja schöner als SetR(RandomX(-44,44),pCannon); =)
-  return(1);
+  return inherited();
+}
+
+public func MaxDamage()
+{
+  return(200);
 }
 
 /* Check */
 
 func Rotation()
 {
-  if(Damaged)
+  if(IsDestroyed())
   {
     if(FrameCounter()%30 < 3)
       CreateParticle("PSpark",18,-9,0,0,50,RGB(255,255,0),this());
-    return();
+    return;
   }
     
   if(iCooldown <= 0)
@@ -54,12 +55,12 @@ func Rotation()
 
 }
 
-/* Steuerung */
+/* Kontrolle */
 
 func ControlRight(pByObj)
 {
   //Abfrage
-  if(Damaged)
+  if(IsDestroyed())
     return(PlayerMessage(GetOwner(pByObj),"$Destroyed$", this()));
     
   bRotate=1;
@@ -69,7 +70,7 @@ func ControlRight(pByObj)
 func ControlLeft(pByObj)
 {
   //Abfrage
-  if(Damaged)
+  if(IsDestroyed())
     return(PlayerMessage(GetOwner(pByObj),"$Destroyed$", this()));
     
   bRotate=1;
@@ -79,7 +80,7 @@ func ControlLeft(pByObj)
 func ControlDown(pByObj)
 {
   //Abfrage
-  if(Damaged)
+  if(IsDestroyed())
     return(PlayerMessage(GetOwner(pByObj),"$Destroyed$", this()));
     
   bRotate=0;
@@ -89,7 +90,7 @@ func ControlDown(pByObj)
 func ControlUp(pByObj)
 {
   //Abfrage
-  if(Damaged)
+  if(IsDestroyed())
     return(PlayerMessage(GetOwner(pByObj),"$Destroyed$", this()));
     
   ControlDown();
@@ -98,7 +99,7 @@ func ControlUp(pByObj)
 func ControlDig(object pByObj)
 {
   //Abfrage
-  if(Damaged)
+  if(IsDestroyed())
     return(PlayerMessage(GetOwner(pByObj),"$Destroyed$", this()));
     
   var iX = -AbsX()+Sin(GetR(pCannon),34), iY = -AbsY()-Cos(GetR(pCannon),34)-3, iXDir = Sin(GetR(pCannon),150), iYDir = -Cos(GetR(pCannon),150);
@@ -107,13 +108,13 @@ func ControlDig(object pByObj)
   var target = CreateObject(ARCR,AbsX(iX),AbsY(iY),GetOwner(pByObj));
   SetVisibility(VIS_Owner,target);
   SetPlrView(GetOwner(pByObj),target);
-  Sound("CatapultSet");
+  Sound("Info.ogg");
 }
 
 func ControlThrow(object pByObj)
 {
   //Abfrage
-  if(Damaged)
+  if(IsDestroyed())
     return(PlayerMessage(GetOwner(pByObj),"$Destroyed$", this()));
     
   if(iCooldown > 0) return(PlayerMessage(GetOwner(pByObj),"$Reloading$",this())); 
@@ -121,7 +122,7 @@ func ControlThrow(object pByObj)
   iCooldown=80*35; //-20 Sekunden Feuersalve... 60 Sek Cooldown
   byObj = pByObj;
   SetOwner(GetOwner(pByObj));
-  Sound("C4EX_Ignition.ogg");
+  Sound("Info.ogg");
   ScheduleCall(this(),"Shoot",70,10);
   Schedule(Format("EventInfo4K(0, \"$ArtilleryLaunch$\", ATBY)", GetPlrColorDw(GetOwner(byObj)), GetPlayerName(GetOwner(byObj))), 70);
 }
@@ -146,114 +147,25 @@ public func Shoot()
   MuzzleFlash(RandomX(30,75),this(),iX,iY,GetR(pCannon));
 }
 
-/* Reperatur */
-
-public func StartRepair()
-{
-  ClearScheduleCall(this, "StartRepair");
-  if(!Repairing && !WildcardMatch(GetAction(), "*Repair*"))
-  {
-   Repairing = true;
-   SetAction("RepairStart");
-  }
-}
-
-public func Repair()
-{ 
-  //Jetzt gepanzert
-  DoDamage(-GetDamage());
-  if(!GetEffect("IntRepair")) AddEffect("IntRepair",this,50,5,this);
-}
-
-public func StopRepair()
-{
-  Repairing = false;
-  Damaged = 0;
-  DoDamage(-GetDamage());
-  pCannon = CreateObject(CNON,0,32,-1);
-  SetAction("Idle");
-}
-
-public func AutoRepair()
-{
-  if(autorepair)
-    ScheduleCall(this,"StartRepair",autorepair+RandomX(-50,+50));
-}
-
-public func SetAutoRepair(int iAuto)
-{
-  autorepair = iAuto;
-}
-
-/* Reparatureffekt */
-
-public func FxIntRepairStart(object pTarget, int iEffectNumber, int iTemp)
-{
-  Sound("Repair.ogg",false,this,50,0,+1); 
-  return 1;
-}
-
-public func FxIntRepairTimer(object pTarget, int iEffectNumber, int iEffectTime)
-{
-  if(iEffectTime >= 35*20)
-   return -1;
-
-  if(!Random(2))
-   Sparks(2+Random(5), RGB(187, 214, 224), RandomX(-GetDefWidth()/2,+GetDefWidth()/2), RandomX(-GetDefHeight()/2,+GetDefHeight()/2));
-
-  return 0;
-}
-
-public func FxIntRepairStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)
-{
-  Sound("Repair.ogg",false,this,0,0,-1); 
-  if(!iReason)
-  {
-   pTarget->SetAction("RepairEnd");
-  }
-  return 0;
-}
-
 /* Schaden */
 
-public func Damage()
-{
-  if(GetDamage() > MaxDamage() && !Damaged)
-  {
-   Destroyed();
-  }
-}
-
-public func Destroyed()
+public func OnDestruction()
 {
   //Waffe entfernen
   if(pCannon) pCannon->RemoveObject();
-
-  //Status setzen
-  SetAction("Destroyed");
-  Damaged = 1;
   iCooldown = 0;
   RemoveEffect("ShowWeapon",this); 
-
-  //Reparatur anordnen
-  AutoRepair();
-
-  //Punkte bei Belohnungssystem
-  if(GetKiller(this) != -1)
-    if((GetOwner() != -1 && Hostile(GetOwner(), GetKiller())) || GetOwner() == -1 && !GetTeam(this))
-		  DoPlayerPoints(BonusPoints("Destruction"), RWDS_BattlePoints, GetKiller(this), GetCursor(GetKiller(this)), IC03);
-
-  //Effekte
-  CastParticles("MetalSplinter",6,150,0,-10,40,150);
-  CastParticles("Smoke3",10,25,0,0,50,200);
-  Sound("StructuralDamage*.ogg");
-
-  //Explosion
-  CreateObject(ROCK,0,0)->Explode(20);
 }
 
 public func OnDmg(int iDmg, int iType)
 {
 	if(iType == DMG_Explosion)	return(0); //Maximale Wirkung von Sprengstoff
 	return(80); //Default
+}
+
+/* Reperatur */
+
+public func OnRepair()
+{
+	pCannon = CreateObject(CNON,0,32,-1);
 }

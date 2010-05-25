@@ -18,7 +18,7 @@ NextAction=Repair
 StartCall=Repair
 
 [Action]
-Name=RepairEnd
+Name=RepairStop
 Facet=0,44,47,22,0,0
 Length=8
 Delay=5
