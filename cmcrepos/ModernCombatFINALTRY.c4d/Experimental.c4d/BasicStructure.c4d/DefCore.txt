@@ -1,5 +1,5 @@
 [DefCore]
 id=CSTR
-Name=Default Script
+Name=Basic Structure
 Category=1
 Picture=0,0,64,64

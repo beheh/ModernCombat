@@ -1,4 +1,4 @@
-/*-- Gebäudescript --*/
+/*-- Grundstruktur --*/
 
 #strict 2
 
@@ -6,25 +6,25 @@ local fDestroyed;
 local fRepairing;
 local iAutorepairDuration;
 
-/* Callbacks */
+public func OnDestruction()		{}		//Bei der Zerstörung des Gebäudes, aber folgenden Reparatur
+public func OnRepair()			{}		//Nach der Wiederinstandsetzung
+public func AutoRepairWait()		{return 36*25;}	//Standardzeit bis zur Autoreparatur
+public func BonusPointCondition()	{return true;}	//Zusätzlicher Callback, ob Punkte vergeben werden
+public func MaxDamage()			{return 100;}	//Maximalschaden
 
-public func OnDestruction() {} //Bei der Zerstörung des Gebäudes, aber folgenden Reparatur
-public func OnRepair() {} //Nach der Wiederinstandsetzung
-public func AutoRepairWait() { return 36*25; } //Dauer bis zur Automatischen Reparatur
-public func BonusPointCondition() { return true; } //Zusätzlicher Callback, ob Punkte vergeben werden
-public func MaxDamage() { return 100; } //Maximalschaden, Standard ist 100
+public func IsRepairing()		{return fRepairing;}
+public func IsDestroyed()		{return fDestroyed;}
+public func IsCMCStructure()		{return true;}
+public func AutoRepairDuration()	{return iAutorepairDuration;}
 
-public func IsRepairing() { return fRepairing; }
-public func IsDestroyed() { return fDestroyed; }
-public func IsCMCStructure() { return true; }
-public func AutoRepairDuration() { return iAutorepairDuration; }
 
 /* Initialisierung */
 
-public func Initialize() {
-	fDestroyed = false;
-	fRepairing = false;
-	iAutorepairDuration = 36*20;
+public func Initialize()
+{
+  fDestroyed = false;
+  fRepairing = false;
+  iAutorepairDuration = 36*20;
 }
 
 /* Reparatur */
@@ -118,22 +118,23 @@ public func OnHit(a, b, object pBy)
 
 /* Zerstörung */
 
-public func Destroyed() {
-	//Status setzen
-	SetAction("Destroyed");
+public func Destroyed()
+{
+  //Status setzen
+  SetAction("Destroyed");
   fDestroyed = true;
-  
+
   //Reparatur anordnen
   AutoRepair();
 
-	//Punkte bei Belohnungssystem
+  //Punkte bei Belohnungssystem
   if(BonusPointCondition() && GetKiller(this) != -1)
     if((GetOwner() != -1 && Hostile(GetOwner(), GetKiller())) || GetOwner() == -1 && !GetTeam(this))
 		  DoPlayerPoints(BonusPoints("Destruction"), RWDS_BattlePoints, GetKiller(this), GetCursor(GetKiller(this)), IC03);
 
-	//Explosion
+  //Explosion
   CreateObject(ROCK,0,0)->Explode(20);
-  
+
   //Callback
   OnDestruction();
 }

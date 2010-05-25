@@ -8,8 +8,8 @@ local bRotate, bDirection;
 local iCooldown;
 local byObj;
 
-public func IsMachine()		{return(true);} //Maschine
-public func IsBulletTarget()   {if(!Random(3)) return(true);} //Ziel
+public func IsMachine()		{return(true);}
+
 
 /* Initalisierung */
 
@@ -108,12 +108,12 @@ func ControlDig(object pByObj)
   var target = CreateObject(ARCR,AbsX(iX),AbsY(iY),GetOwner(pByObj));
   SetVisibility(VIS_Owner,target);
   SetPlrView(GetOwner(pByObj),target);
-  Sound("Info.ogg");
+  Sound("CatapultSet");
 }
 
 func ControlThrow(object pByObj)
 {
-  //Abfrage
+  //Nicht wenn zerstört
   if(IsDestroyed())
     return(PlayerMessage(GetOwner(pByObj),"$Destroyed$", this()));
     
@@ -122,8 +122,13 @@ func ControlThrow(object pByObj)
   iCooldown=80*35; //-20 Sekunden Feuersalve... 60 Sek Cooldown
   byObj = pByObj;
   SetOwner(GetOwner(pByObj));
-  Sound("Info.ogg");
+
+  Sound("RadioConfirm*.ogg");
+
+  //Artillerieschlag planen
   ScheduleCall(this(),"Shoot",70,10);
+
+  //Eventnachricht: Spieler startet Artillerieschlag
   Schedule(Format("EventInfo4K(0, \"$ArtilleryLaunch$\", ATBY)", GetPlrColorDw(GetOwner(byObj)), GetPlayerName(GetOwner(byObj))), 70);
 }
 
