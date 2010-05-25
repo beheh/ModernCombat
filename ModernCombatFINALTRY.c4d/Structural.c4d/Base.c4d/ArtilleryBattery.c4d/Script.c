@@ -108,7 +108,7 @@ func ControlDig(object pByObj)
   var target = CreateObject(ARCR,AbsX(iX),AbsY(iY),GetOwner(pByObj));
   SetVisibility(VIS_Owner,target);
   SetPlrView(GetOwner(pByObj),target);
-  Sound("Info.ogg");
+  Sound("CatapultSet");
 }
 
 func ControlThrow(object pByObj)
@@ -122,7 +122,7 @@ func ControlThrow(object pByObj)
   iCooldown=80*35; //-20 Sekunden Feuersalve... 60 Sek Cooldown
   byObj = pByObj;
   SetOwner(GetOwner(pByObj));
-  Sound("Info.ogg");
+  Sound("RadioConfirm*.ogg");
   ScheduleCall(this(),"Shoot",70,10);
   Schedule(Format("EventInfo4K(0, \"$ArtilleryLaunch$\", ATBY, 0, 0, 0, \"RadioConfirm*.ogg\")", GetPlrColorDw(GetOwner(byObj)), GetPlayerName(GetOwner(byObj))), 70);
 }
