@@ -4,19 +4,18 @@
 
 local fDestroyed;
 local fRepairing;
-local iAutorepairDuration;
+local iAutorepairWait;
 
 public func OnDestruction()		{}		//Bei der Zerstörung des Gebäudes, aber folgenden Reparatur
 public func OnRepair()			{}		//Nach der Wiederinstandsetzung
-public func AutoRepairWait()		{return 36*25;}	//Standardzeit bis zur Autoreparatur
+public func AutoRepairDuration()	{return 36*20;} //Dauer der Reparatur
 public func BonusPointCondition()	{return true;}	//Zusätzlicher Callback, ob Punkte vergeben werden
 public func MaxDamage()			{return 100;}	//Maximalschaden
 
 public func IsRepairing()		{return fRepairing;}
 public func IsDestroyed()		{return fDestroyed;}
 public func IsCMCStructure()		{return true;}
-public func AutoRepairDuration()	{return iAutorepairDuration;}
-
+public func AutoRepairWait()		{return iAutorepairWait;}
 
 /* Initialisierung */
 
@@ -24,7 +23,7 @@ public func Initialize()
 {
   fDestroyed = false;
   fRepairing = false;
-  iAutorepairDuration = 36*20;
+  iAutorepairWait = 36*20;
 }
 
 /* Reparatur */
@@ -85,12 +84,12 @@ public func StopRepair()
 
 public func AutoRepair()
 {
-  ScheduleCall(this, "StartRepair", AutoRepairWait());
+  if(AutoRepairWait() > 0) ScheduleCall(this, "StartRepair", AutoRepairWait());
 }
 
 public func SetAutoRepair(int iAuto)
 {
-  iAutorepairDuration = iAuto;
+  iAutorepairWait = iAuto;
 }
 
 /* Schaden */

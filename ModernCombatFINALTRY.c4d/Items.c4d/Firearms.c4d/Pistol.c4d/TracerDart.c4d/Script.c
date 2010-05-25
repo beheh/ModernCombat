@@ -71,7 +71,7 @@ public func BulletStrike(object pObj)
 		      	if(fRocketLauncher) break;
         	}
         	if(fRocketLauncher) {
-		        EventInfo4K(iPlr+1, Format("$TargetMarked$", GetPlrColorDw(GetController()), GetPlayerName(GetController())), TRDT);
+		        EventInfo4K(iPlr+1, Format("$TargetMarked$", GetPlrColorDw(GetController()), GetPlayerName(GetController())), TRDT, 0, 0, 0, "RadioConfirm*.ogg");
 	        }
 				}
 				
