@@ -530,9 +530,9 @@ public func ChooserFinished()
 
    //Flaggen
    aFlag[0] = CreateObject(OFPL,585,160,NO_OWNER);
-   aFlag[0] -> AddSpawnPoint(270, 520);
-   aFlag[0] -> AddSpawnPoint(610, 490);
-   aFlag[0] -> AddSpawnPoint(890, 460);
+   aFlag[0] -> AddSpawnPoint(270, 0, "EquipParachute"); //520
+   aFlag[0] -> AddSpawnPoint(610, 0, "EquipParachute"); //490
+   aFlag[0] -> AddSpawnPoint(890, 0, "EquipParachute"); //460
    if(aTeams[1] == true)
    {
     aFlag[0]->Set("$Flag1$",100,2);
@@ -671,4 +671,9 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
 
   //Startsicht
   iX = 585; iY = 1310;
+}
+
+public func EquipParachute(object pClonk) {
+	CreateContents(PARA, pClonk)->Set(pClonk);
+	return true; //Ansonsten weiß der Spawner nicht, dass es uns gibt
 }
