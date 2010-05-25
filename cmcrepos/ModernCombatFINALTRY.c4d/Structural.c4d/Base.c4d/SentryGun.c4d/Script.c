@@ -29,11 +29,12 @@ public func UpdateCharge()	{return(1);}
 public func OnDestruction()
 {
   //Waffe entfernen
-  if(Contents()) {
-  	last_id = GetID(Contents());
-  	Contents()->RemoveObject();
-  }
-  RemoveEffect("ShowWeapon",this);
+	Disarm();
+}
+
+public func OnRepair()
+{
+	Arm(last_id);
 }
 
 /* Bonus-Punkte */
@@ -73,6 +74,7 @@ public func Arm(id idWeapon)
   //Ausrüsten mit idWeapon
   var pWeapon = CreateObject(idWeapon, 0, 0, GetOwner());
   Enter(this(),pWeapon);
+   
   //Ordnern
   SetObjectOrder(this(), pWeapon, 1);
   aim_angle = 180;
@@ -80,6 +82,18 @@ public func Arm(id idWeapon)
   cur_Attachment = pWeapon;
   LocalN("controller", pWeapon) = this();
   Reload();
+  
+  //Effekt
+  AddEffect("ShowWeapon", this, 20, 1, this);
+}
+
+public func Disarm()
+{
+  while(Contents()) {
+  	last_id = GetID(Contents());
+  	Contents()->RemoveObject();
+  }
+  RemoveEffect("ShowWeapon", this);
 }
 
 /* Script */
