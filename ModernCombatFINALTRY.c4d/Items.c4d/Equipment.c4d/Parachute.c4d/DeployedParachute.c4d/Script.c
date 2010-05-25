@@ -24,13 +24,13 @@ public func Set(object pObj)
 //Fall abbremsen
 private func Fly()
 {
-  SetXDir(GetWind(GetX(),GetY())/8,GetAttObj());
+  SetXDir(GetXDir(GetAttObj(), 10)+GetWind(GetX(), GetY())*10/16+(GetDir(GetAttObj())*2-1)*5, GetAttObj(), 10);
   
-	var speed = GetYDir(GetAttObj(),10);
-	if(speed>=18)
-		SetYDir(speed/11,GetAttObj(),10);
+	var speed = GetYDir(GetAttObj(), 10);
+	if(speed >= 18)
+		SetYDir(speed/11, GetAttObj(), 10);
     
-  if(GetPlrDownDouble(GetController(GetAttObj())) || (Abs(speed) < 2))
+  if(GetPlrDownDouble(GetController(GetAttObj())) || speed < 2)
     Close();
 }
 
@@ -51,7 +51,7 @@ private func Opening()//auf
   var w = Sin(90*(1000*GetActTime()/(35))/1000,1000);
   var h = 1000*GetActTime()/(35);
 
-  SetObjDrawTransform(w,0,0,0,h,(500*GetObjHeight())-((1000*GetObjHeight())*h/1000),this());
+  SetObjDrawTransform(w,0,0,0,h,(500*GetObjHeight())-((1000*GetObjHeight())*h/2000),this());
 }
 
 public func Close()

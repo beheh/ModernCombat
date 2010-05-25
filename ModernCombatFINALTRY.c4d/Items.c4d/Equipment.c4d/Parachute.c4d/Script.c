@@ -8,8 +8,13 @@ func Initialize()
   return(1);
 }
 
-func ControlDigDouble(caller)
+func Activate(caller)
 {
   CreateObject(PARA,0,200,-1)->Set(caller);
   RemoveObject();
+}
+
+func ControlDigDouble(caller)
+{
+	Activate(caller);
 }
