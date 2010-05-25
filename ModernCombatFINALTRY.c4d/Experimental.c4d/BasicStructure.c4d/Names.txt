@@ -1,0 +1,2 @@
+DE:Grundstruktur
+US:Basic Structure
