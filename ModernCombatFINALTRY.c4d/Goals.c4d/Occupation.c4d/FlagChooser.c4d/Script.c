@@ -2,12 +2,14 @@
 
 #strict
 
+local szFunction;
 
 /* Initalisierung */
 
 public func Initialize()
 {
   SetVisibility(VIS_Owner);
+  szFunction = "";
 }
 
 global func CreateGOCCSpawner(object pCrew)
@@ -179,7 +181,7 @@ public func Spawn()
 {
   if(!Contents()) return(RemoveObject());
 
-  if(!GameCall("OccupationSpawn",Contents()))//INFO: Eigene Spawnmöglichkeiten via GameCall. Z.B. Fallschirm-Sprung o.Ä.! ;D
+  if(!GameCall(szFunction,Contents())) //INFO: Eigene Spawnmöglichkeiten via GameCall. Z.B. Fallschirm-Sprung o.Ä.! ;D
     {
     // Igitt. Aber obj->ID::Call(); geht nicht. :(
     var tim = CreateObject(TIM2);
@@ -236,10 +238,12 @@ public func SelectFlagpole(object pObject)
 
   SetPlrViewRange(Min(200,oldvisrange),crew);//Nicht mehr als maximal 200px sehen.
   
-  var X,Y;
-  pObject->GetSpawnPoint(X,Y);
+  var X,Y, szFunc;
+  pObject->GetSpawnPoint(X,Y,szFunc);
   
   SetPosition(GetX(pObject)+X,GetY(pObject)+Y);
+  
+  if(szFunc) szFunction = szFunc;
     
   SpawnOk();
   CloseMenu(crew);
