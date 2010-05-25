@@ -1,6 +1,7 @@
 /*-- Sentry Gun --*/
 
 #strict 2
+#include CSTR
 
 local cur_Attachment;
 local aim_angle;
@@ -9,9 +10,6 @@ local Shooting;
 local iPat_Dir;
 local fActive;
 local GotTarget;
-local Damaged;
-local Repairing;
-local autorepair;
 local last_id;
 
 public func GetAttWeapon()	{return(cur_Attachment);}	//Waffe
@@ -26,101 +24,22 @@ public func IsAiming()		{return(true);}			// Die Sentry Gun "zielt" immer
 public func IsThreat()		{return(fActive);}
 public func UpdateCharge()	{return(1);}
 
-
-/* Reperatur */
-
-public func StartRepair()
-{
-  ClearScheduleCall(this, "StartRepair");
-  if(!Repairing && !WildcardMatch(GetAction(), "*Repair*"))
-  {
-   Repairing = true;
-   SetAction("RepairStart");
-   RemoveEffect("ShowWeapon",this);
-  }
-}
-
-public func Repair()
-{ 
-  //Jetzt gepanzert
-  DoDamage(-GetDamage());
-  if(!GetEffect("IntRepair")) AddEffect("IntRepair",this,50,5,this);
-}
-
-/* Reparatureffekt */
-
-public func FxIntRepairStart(object pTarget, int iEffectNumber, int iTemp)
-{
-  Sound("Repair.ogg",false,this,50,0,+1); 
-  return 1;
-}
-
-public func FxIntRepairTimer(object pTarget, int iEffectNumber, int iEffectTime)
-{
-  if(iEffectTime >= 35*20)
-   return -1;
-
-  if(!Random(2))
-   Sparks(2+Random(5), RGB(187, 214, 224), RandomX(-GetDefWidth()/2,+GetDefWidth()/2), RandomX(-GetDefHeight()/2,+GetDefHeight()/2));
-
-  return 0;
-}
-
-public func FxIntRepairStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)
-{
-  Sound("Repair.ogg",false,this,0,0,-1); 
-  if(!iReason)
-  {
-   pTarget->SetAction("RepairStop");
-  }
-  return 0;
-}
-
-public func StopRepair()
-{
-  Repairing = false;
-  Damaged = 0;
-  DoDamage(-GetDamage());
-  Arm(last_id);
-  AddEffect("ShowWeapon",this,1,1,this,GetID());
-  SetGraphics(0,this,GetID(),3,5,0,0,this);
-}
-
-public func AutoRepair()
-{
-  if(autorepair)
-    ScheduleCall(this,"StartRepair",autorepair+RandomX(-50,+50));
-}
-
-public func SetAutoRepair(int iAuto)
-{
-  autorepair = iAuto;
-}
-
 /* Zerstörung */
 
-public func Destroyed()
+public func OnDestruction()
 {
-  last_id = GetID(Contents());
-
   //Waffe entfernen
-  if(Contents()) Contents()->RemoveObject();
+  if(Contents()) {
+  	last_id = GetID(Contents());
+  	Contents()->RemoveObject();
+  }
+  RemoveEffect("ShowWeapon",this);
+}
 
-  //Status setzen
-  SetAction("Destroyed");
-  Damaged = 1;
-  RemoveEffect("ShowWeapon",this); 
+/* Bonus-Punkte */
 
-  //Reparatur anordnen
-  AutoRepair();
-
-  //Punkte bei Belohnungssystem
-  if(fActive && GetKiller(this) != -1)
-    if((GetOwner() != -1 && Hostile(GetOwner(), GetKiller())) || GetOwner() == -1 && !GetTeam(this))
-		  DoPlayerPoints(BonusPoints("Destruction"), RWDS_BattlePoints, GetKiller(this), GetCursor(GetKiller(this)), IC03);
-
-  //Explosion
-  CreateObject(ROCK,0,0)->Explode(20);
+public func BonusPointCondition() {
+	return fActive;
 }
 
 /* Schaden */
@@ -129,15 +48,7 @@ public func OnDmg(int iDmg, int iType)
 {
   if(iType == DMG_Projectile)	return(30);	//Projektile
   if(iType == DMG_Explosion)	return(0);	//Explosion
-  return(50);					//Default
-}
-
-public func OnHit(a, b, object pBy)
-{
-  SetKiller(GetController(pBy));
-
-  if(Repairing)
-   Sound("BlockOff*.ogg");
+  return(50); //Default
 }
 
 /* Aufrufe */
@@ -220,10 +131,10 @@ public func Activity()
   if(! GetAttWeapon()) return;
   //Sind wir im Eimer?
   if(EMPShocked()) return;
-  if(Damaged) return;
+  if(IsDestroyed()) return;
   //Sind wir aktiv?
   if(!fActive) return;
-  if(Repairing) return;
+  if(IsRepairing()) return;
   //Wenn nicht schon gesetzt: Turn-Action
   if(GetAction() != "Turn")
     SetAction("Turn");
@@ -380,14 +291,6 @@ private func Reload()
 public func MaxDamage()
 {
   return(100);
-}
-
-public func Damage()
-{
-  if(GetDamage() > MaxDamage() && !Damaged)
-  {
-   Destroyed();
-  }
 }
 
 /* EMP */

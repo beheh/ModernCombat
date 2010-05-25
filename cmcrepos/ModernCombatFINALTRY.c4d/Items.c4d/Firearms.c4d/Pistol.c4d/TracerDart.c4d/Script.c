@@ -109,7 +109,7 @@ global func FxTracerDartStart(object pTarget, int iEffectNumber, int iTemp, int 
 global func FxTracerDartTimer(object pTarget, int iEffectNumber)
 {
   //FakeDeath?
-  if(Contained(pTarget) && GetID(Contained(pTarget)) == FKDT) return -1;
+  if(Contained(pTarget) && GetID(Contained(pTarget)) == FKDT || pTarget->GetAction() == "Dead") return -1;
 
   //Zielobjekt im Wasser? Entfernen.
   if(GBackLiquid(AbsX(GetX(pTarget)), AbsY(GetY(pTarget)))) return -1;
@@ -121,4 +121,12 @@ global func FxTracerDartTimer(object pTarget, int iEffectNumber)
 
   //Blinkeffekt
   pTarget->CreateParticle("FapLight",0,0,0,0,60,GetPlrColorDw(EffectVar(0, pTarget, iEffectNumber)),this());
+}
+
+global func FxTracerDartStop(object pTarget, int iEffectNumber)
+{
+	var iPlr = EffectVar(0, pTarget, iEffectNumber);
+	if(!Hostile(GetKiller(pTarget), iPlr) && GetKiller(pTarget) != iPlr)
+		if(Contained(pTarget) && GetID(Contained(pTarget)) == FKDT || pTarget->GetAction() == "Dead")
+			DoPlayerPoints(BonusPoints("TracerAssist"), RWDS_TeamPoints, iPlr, GetCursor(iPlr), IC02);
 }
