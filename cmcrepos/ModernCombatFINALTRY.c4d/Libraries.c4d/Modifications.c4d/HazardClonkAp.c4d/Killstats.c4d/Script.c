@@ -65,7 +65,7 @@ public func KMsg(int plr1, int plr2, object clonk)
   msg = Format("{{%i}}",killicon); 
   if(typeicon && killicon != typeicon)
     if(killicon)
-    	msg = Format("%s({{%i}})",msg,typeicon);
+    	msg = Format("%s ({{%i}})",msg,typeicon);
     else
 			msg = Format("%s{{%i}}",msg,typeicon);    	
   msg = Format("%s %s", msg, GetTaggedPlayerName(victim));
