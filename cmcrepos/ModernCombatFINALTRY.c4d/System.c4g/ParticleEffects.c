@@ -96,8 +96,8 @@ global func Splatter(int iDmg, int iType, object pFrom, int iColor)
 
   if(iDmg < 10)
   {
-   if(!Random(10-iDmg))
-    return _inherited(iDmg,iType,pFrom);
+   if(!Random(5-iDmg/2))
+    return 0;//_inherited(iDmg,iType,pFrom);
    else
    {
     x = RandomX(-GetDefWidth(GetID())/3,+GetDefWidth(GetID())/3);
