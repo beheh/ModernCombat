@@ -2,11 +2,18 @@
 
 #strict
 
+
+/* Initalisierung */
+
 func Initialize()
 {
-  FadeIn4K(10);
+  //Ausfahraktion
+  SetAction("Extend");
+
   return(1);
 }
+
+/* Hülsenauswurf */
 
 func EjectBullet()
 {

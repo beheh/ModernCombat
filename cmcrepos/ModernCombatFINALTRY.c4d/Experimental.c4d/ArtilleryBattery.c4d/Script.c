@@ -10,8 +10,8 @@ local Damaged;
 local Repairing;
 local autorepair;
 
-public func IsMachine()		{return(true);} //Maschine
-//public func IsBulletTarget()   {if(!Random(3)) return(true);} //Ziel
+public func IsMachine()		{return(true);}
+public func MaxDamage()		{return(200);}
 
 
 /* Initalisierung */
@@ -23,11 +23,6 @@ func Initialize()
   autorepair = 36*30;
   SetR(0, pCannon); //Findet Michael ja schöner als SetR(RandomX(-44,44),pCannon); =)
   return(1);
-}
-
-public func MaxDamage()
-{
-  return(200);
 }
 
 /* Check */
@@ -59,7 +54,7 @@ func Rotation()
 
 }
 
-/* Kontrolle */
+/* Steuerung */
 
 func ControlRight(pByObj)
 {
@@ -112,7 +107,7 @@ func ControlDig(object pByObj)
   var target = CreateObject(ARCR,AbsX(iX),AbsY(iY),GetOwner(pByObj));
   SetVisibility(VIS_Owner,target);
   SetPlrView(GetOwner(pByObj),target);
-  Sound("Info.ogg");
+  Sound("CatapultSet");
 }
 
 func ControlThrow(object pByObj)
@@ -126,7 +121,7 @@ func ControlThrow(object pByObj)
   iCooldown=80*35; //-20 Sekunden Feuersalve... 60 Sek Cooldown
   byObj = pByObj;
   SetOwner(GetOwner(pByObj));
-  Sound("Info.ogg");
+  Sound("C4EX_Ignition.ogg");
   ScheduleCall(this(),"Shoot",70,10);
   Schedule(Format("EventInfo4K(0, \"$ArtilleryLaunch$\", ATBY)", GetPlrColorDw(GetOwner(byObj)), GetPlayerName(GetOwner(byObj))), 70);
 }
@@ -151,10 +146,7 @@ public func Shoot()
   MuzzleFlash(RandomX(30,75),this(),iX,iY,GetR(pCannon));
 }
 
-
-//------------------------------------------------------------------------------
-///* Reperatur */---------------------------------------------------------------
-//---------------------------------------(Ich brauch das für die Ordnung :I)----
+/* Reperatur */
 
 public func StartRepair()
 {
@@ -250,6 +242,11 @@ public func Destroyed()
   if(GetKiller(this) != -1)
     if((GetOwner() != -1 && Hostile(GetOwner(), GetKiller())) || GetOwner() == -1 && !GetTeam(this))
 		  DoPlayerPoints(BonusPoints("Destruction"), RWDS_BattlePoints, GetKiller(this), GetCursor(GetKiller(this)), IC03);
+
+  //Effekte
+  CastParticles("MetalSplinter",6,150,0,-10,40,150);
+  CastParticles("Smoke3",10,25,0,0,50,200);
+  Sound("StructuralDamage*.ogg");
 
   //Explosion
   CreateObject(ROCK,0,0)->Explode(20);
