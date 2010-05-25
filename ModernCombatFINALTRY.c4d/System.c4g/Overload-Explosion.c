@@ -172,13 +172,10 @@ global func BlastObjects2(int x, int y, int level, object container, int cause_p
 
 global func BlastObject(int level, object obj, int cause_plr_plus_one)
 {
-  obj->SetKiller(cause_plr_plus_one-1);
-  obj->~LastDamageType(DMG_Explosion);
-  DoDmg(level, DMG_Explosion, obj, 0, cause_plr_plus_one);
   var icon;
   if(this) icon = this->~GetKillIcon();
-  if(!icon && this) icon = this->GetID();
-  if(icon) obj->~KillIcon(icon);
+  if(!icon) icon = GetID(this);
+  DoDmg(level, DMG_Explosion, obj, 0, cause_plr_plus_one, icon);
   return true;
 }
 
@@ -188,17 +185,15 @@ global func DamageObjects(int iDistance, int iDamage, object pObject, int iX, in
   var x = GetX(pObject)+iX;
   var y = GetY(pObject)+iY;
   var dealer = -1;
-  if(GetController(pObject)) dealer = GetController(pObject);
+  dealer = GetController(pObject);
   var icon = pObject->~GetKillIcon();
   if(!icon) icon = GetID(pObject);
-
   for(var obj in FindObjects(pObject->Find_Distance(iDistance,iX,iY),
-                             Find_Exclude(pObject),
+                             pObject->Find_Exclude(this),
                              Find_NoContainer(),
                              Find_Category(C4D_Object|C4D_Living|C4D_Vehicle|C4D_StaticBack)))
   {
-    pObject->DoDmg(iDamage - (Distance(GetX(obj),GetY(obj),x,y)*iDamage/iDistance),DMG_Explosion,obj,0,dealer+1,icon);
+    DoDmg(iDamage - (Distance(GetX(obj),GetY(obj),x,y)*iDamage/iDistance), DMG_Explosion, obj, 0, dealer+1, icon);
   }
-  obj->SetKiller(dealer);
-  obj->~LastDamageType(DMG_Explosion);
+  return true;
 }
