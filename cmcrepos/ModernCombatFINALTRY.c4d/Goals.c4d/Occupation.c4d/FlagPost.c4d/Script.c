@@ -52,15 +52,16 @@ public func Set(string szName, int iRange, int iSpeed)
 
 /* Spawnpoint setzen */
 
-public func AddSpawnPoint(int iX, int iY)
+public func AddSpawnPoint(int iX, int iY, string szFunction)
 {
   var i = GetLength(spawnpoints);
   spawnpoints[i] = CreateArray();
   spawnpoints[i][0] = AbsX(iX);
   spawnpoints[i][1] = AbsY(iY);
+  spawnpoints[i][2] = szFunction;  
 }
 
-public func GetSpawnPoint(int &iX, int &iY)
+public func GetSpawnPoint(int &iX, int &iY, string &szFunction)
 {
   if(!GetLength(spawnpoints))
   {
@@ -71,6 +72,7 @@ public func GetSpawnPoint(int &iX, int &iY)
   var rnd = Random(GetLength(spawnpoints));
   iX = spawnpoints[rnd][0];
   iY = spawnpoints[rnd][1];
+  szFunction = spawnpoints[rnd][2];
 }
 
 /* Wird angegriffen */
