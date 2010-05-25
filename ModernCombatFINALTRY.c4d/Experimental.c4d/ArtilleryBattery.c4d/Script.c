@@ -20,7 +20,7 @@ func Initialize()
 {
   pCannon=CreateObject(CNON,0,32,-1);
   iCooldown = 0;
-  autorepair = 1;
+  autorepair = 36*30;
   SetR(0, pCannon); //Findet Michael ja schöner als SetR(RandomX(-44,44),pCannon); =)
   return(1);
 }
@@ -37,16 +37,16 @@ func Rotation()
   if(Damaged)
   {
     if(FrameCounter()%30 < 3)
-      CreateParticle("PSpark",19,-7,0,0,40,RGB(255,255,0),this());
+      CreateParticle("PSpark",18,-9,0,0,50,RGB(255,255,0),this());
     return();
   }
     
   if(iCooldown <= 0)
-      CreateParticle("PSpark",19,-7,0,0,40,RGB(0,255,0,100),this());
+      CreateParticle("PSpark",18,-9,0,0,40,RGB(0,255,0,100),this());
   else
   {
     iCooldown -= 3;
-      CreateParticle("PSpark",19,-7,0,0,40,RGB(255,0,0,100),this());
+      CreateParticle("PSpark",18,-9,0,0,40,RGB(255,0,0,100),this());
   }
 
   if(!bRotate) return(0);
@@ -159,11 +159,10 @@ public func Shoot()
 public func StartRepair()
 {
   ClearScheduleCall(this, "StartRepair");
-  Log("%v , %v",!Repairing,!WildcardMatch(GetAction(), "*Repair*"));
   if(!Repairing && !WildcardMatch(GetAction(), "*Repair*"))
   {
    Repairing = true;
-   SetAction("StartRepair");
+   SetAction("RepairStart");
   }
 }
 
@@ -218,7 +217,7 @@ public func FxIntRepairStop(object pTarget, int iEffectNumber, int iReason, bool
   Sound("Repair.ogg",false,this,0,0,-1); 
   if(!iReason)
   {
-   pTarget->SetAction("RepairStop");
+   pTarget->SetAction("RepairEnd");
   }
   return 0;
 }
@@ -227,14 +226,33 @@ public func FxIntRepairStop(object pTarget, int iEffectNumber, int iReason, bool
 
 public func Damage()
 {
-  if(GetDamage() <= MaxDamage()) return;;
-  RemoveObject(pCannon);
+  if(GetDamage() > MaxDamage() && !Damaged)
+  {
+   Destroyed();
+  }
+}
+
+public func Destroyed()
+{
+  //Waffe entfernen
+  if(pCannon) pCannon->RemoveObject();
+
+  //Status setzen
   SetAction("Destroyed");
-  if(GetKiller())
-		DoPlayerPoints(BonusPoints("Destruction"), RWDS_BattlePoints, GetKiller(), GetCursor(GetKiller()), IC03);
   Damaged = 1;
   iCooldown = 0;
+  RemoveEffect("ShowWeapon",this); 
+
+  //Reparatur anordnen
   AutoRepair();
+
+  //Punkte bei Belohnungssystem
+  if(GetKiller(this) != -1)
+    if((GetOwner() != -1 && Hostile(GetOwner(), GetKiller())) || GetOwner() == -1 && !GetTeam(this))
+		  DoPlayerPoints(BonusPoints("Destruction"), RWDS_BattlePoints, GetKiller(this), GetCursor(GetKiller(this)), IC03);
+
+  //Explosion
+  CreateObject(ROCK,0,0)->Explode(20);
 }
 
 public func OnDmg(int iDmg, int iType)
