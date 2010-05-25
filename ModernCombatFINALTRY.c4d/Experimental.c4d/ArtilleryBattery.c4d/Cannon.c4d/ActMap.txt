@@ -1,4 +1,12 @@
 [Action]
+Name=Extend
+Facet=60,0,6,68,0,0
+Length=11
+Delay=3
+NextAction=Idle
+Sound=CannonRotation
+
+[Action]
 Name=Backdraft
 Facet=0,0,6,68,0,0
 Length=4
