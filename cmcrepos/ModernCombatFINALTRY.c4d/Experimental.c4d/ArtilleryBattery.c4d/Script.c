@@ -21,7 +21,7 @@ func Initialize()
   pCannon=CreateObject(CNON,0,32,-1);
   iCooldown = 0;
   autorepair = 1;
-  SetR(RandomX(-44,44),pCannon);
+  SetR(0, pCannon); //Findet Michael ja schöner als SetR(RandomX(-44,44),pCannon); =)
   return(1);
 }
 
@@ -42,11 +42,11 @@ func Rotation()
   }
     
   if(iCooldown <= 0)
-      CreateParticle("PSpark",19,-7,0,0,40,RGB(0,255,0,100),this());
+      CreateParticle("PSpark",19,-7,0,0,35,RGB(0,255,0,100),this());
   else
   {
     iCooldown -= 3;
-      CreateParticle("PSpark",19,-7,0,0,40,RGB(255,0,0,100),this());
+      CreateParticle("PSpark",19,-7,0,0,35,RGB(255,0,0,100),this());
   }
 
   if(!bRotate) return(0);
@@ -128,6 +128,7 @@ func ControlThrow(object pByObj)
   SetOwner(GetOwner(pByObj));
   Sound("Info.ogg");
   ScheduleCall(this(),"Shoot",70,10);
+  Schedule(Format("EventInfo4K(0, \"$ArtilleryLaunch$\", ATBY)", GetPlrColorDw(GetOwner(byObj)), GetPlayerName(GetOwner(byObj))), 70);
 }
 
 /* Schuss */
@@ -137,10 +138,10 @@ public func Shoot()
   var iX=Sin(GetR(pCannon),34);
   var iY=-Cos(GetR(pCannon),34)-3;
    
-  var pProjectile=CreateObject(ABLT,iX,iY,GetOwner(byObj));
+  var pProjectile = CreateObject(ABLT,iX,iY,GetOwner(byObj));
   SetXDir( Sin(GetR(pCannon),RandomX(135,165)),pProjectile,10);
   SetYDir(-Cos(GetR(pCannon),RandomX(135,165)),pProjectile,10);
-  
+
   //Effekte
   Sound("ATBY_Fire*.ogg");
   ObjectSetAction(pCannon,"Backdraft");

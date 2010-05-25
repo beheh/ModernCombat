@@ -641,29 +641,6 @@ public func UpdateCharge()
   return(1);
 }
 
-public func UpdateCharge()//*ausnutz*
-{
-  /*var x,y,r;
-  if(!this()->~WeaponAt(x,y,r))
-  {
-     HideCH();
-     return(_inherited());
-  }
-    
-  crosshair->SetAngle(r);*/
-  
-  //if(!ControlledCanAim())
-  //{
-    /*if(!c)
-    {
-      HideCH();
-      return(_inherited());
-    }*/
-    
-    
-  return(_inherited());
-}
-
 global func AimAngleEx(int iMaxAngle, int iRange, bool bSpread)
 {
   if(!this()) return(0);
