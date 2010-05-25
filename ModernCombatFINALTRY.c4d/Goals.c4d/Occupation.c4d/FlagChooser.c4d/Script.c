@@ -181,12 +181,12 @@ public func Spawn()
 {
   if(!Contents()) return(RemoveObject());
 
-  if(!GameCall(szFunction,Contents())) //INFO: Eigene Spawnmöglichkeiten via GameCall. Z.B. Fallschirm-Sprung o.Ä.! ;D
+	var obj = Contents();
+  Exit(obj);
+  if(!GameCall(szFunction,obj)) //INFO: Eigene Spawnmöglichkeiten via GameCall. Z.B. Fallschirm-Sprung o.Ä.! ;D
     {
     // Igitt. Aber obj->ID::Call(); geht nicht. :(
     var tim = CreateObject(TIM2);
-    var obj = Contents();
-    Exit(obj);
     Enter(tim, obj);
     tim->Spawn();
     RemoveObject();
