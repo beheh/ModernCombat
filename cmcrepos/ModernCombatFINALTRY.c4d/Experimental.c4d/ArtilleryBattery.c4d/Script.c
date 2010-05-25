@@ -136,6 +136,8 @@ func ControlThrow(object pByObj)
 
 public func Shoot()
 {
+	if(IsDestroyed()) return;
+	
   var iX=Sin(GetR(pCannon),34);
   var iY=-Cos(GetR(pCannon),34)-3;
    

@@ -73,8 +73,10 @@ public func BulletStrike(object pObj)
         	if(fRocketLauncher) {
 		        EventInfo4K(iPlr+1, Format("$TargetMarked$", GetPlrColorDw(GetController()), GetPlayerName(GetController())), TRDT);
 	        }
-				}		
+				}
 				
+				//Punkte
+				DoPlayerPoints(BonusPoints("TracerSet"), RWDS_TeamPoints, GetController(), GetCursor(GetController()), IC17);
         return 1;
       }
     }
