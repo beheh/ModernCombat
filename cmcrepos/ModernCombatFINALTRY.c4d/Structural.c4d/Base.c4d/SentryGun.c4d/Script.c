@@ -104,7 +104,7 @@ public func Destroyed()
   last_id = GetID(Contents());
 
   //Waffe entfernen
-  RemoveObject(Contents());
+  if(Contents()) Contents()->RemoveObject();
 
   //Status setzen
   SetAction("Destroyed");
