@@ -37,16 +37,16 @@ func Rotation()
   if(Damaged)
   {
     if(FrameCounter()%30 < 3)
-      CreateParticle("PSpark",19,-7,0,0,50,RGB(255,255,0),this());
+      CreateParticle("PSpark",19,-7,0,0,40,RGB(255,255,0),this());
     return();
   }
     
   if(iCooldown <= 0)
-      CreateParticle("PSpark",19,-7,0,0,35,RGB(0,255,0,100),this());
+      CreateParticle("PSpark",19,-7,0,0,40,RGB(0,255,0,100),this());
   else
   {
     iCooldown -= 3;
-      CreateParticle("PSpark",19,-7,0,0,35,RGB(255,0,0,100),this());
+      CreateParticle("PSpark",19,-7,0,0,40,RGB(255,0,0,100),this());
   }
 
   if(!bRotate) return(0);
