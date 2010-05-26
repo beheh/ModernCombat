@@ -9,7 +9,7 @@ local iCooldown;
 local byObj;
 
 public func IsMachine()		{return(true);}
-public func IsBulletTarget()	{if(!Random(3)) return(true);}
+public func IsBulletTarget()	{if(!Random(100)) return(true);}
 public func MaxDamage()		{return(200);}
 
 
