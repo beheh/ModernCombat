@@ -5,6 +5,7 @@
 local fDestroyed;
 local fRepairing;
 local iAutorepairWait;
+local iLastAttacker;
 
 public func OnDestruction()		{}		//Bei der Zerstörung des Gebäudes, aber folgenden Reparatur
 public func OnRepair()			{}		//Nach der Wiederinstandsetzung
@@ -24,6 +25,7 @@ public func Initialize()
   fDestroyed = false;
   fRepairing = false;
   iAutorepairWait = 36*20;
+  iLastAttacker = -1;
 }
 
 /* Reparatur */
@@ -107,11 +109,11 @@ public func OnDmg(int iDmg, int iType)
   return(50);	//Default
 }
 
-public func OnHit(a, b, object pBy)
+public func OnHit(int iDmg, int iType, object pBy)
 {
-  SetKiller(GetController(pBy));
+  iLastAttacker = GetController(pBy);
 
-  if(fRepairing)
+  if(fRepairing && iType == DMG_Projectile)
    Sound("BlockOff*.ogg");
 }
 
@@ -127,9 +129,12 @@ public func Destroyed()
   AutoRepair();
 
   //Punkte bei Belohnungssystem
-  if(BonusPointCondition() && GetKiller(this) != -1)
-    if((GetOwner() != -1 && Hostile(GetOwner(), GetKiller())) || GetOwner() == -1 && !GetTeam(this))
-		  DoPlayerPoints(BonusPoints("Destruction"), RWDS_BattlePoints, GetKiller(this), GetCursor(GetKiller(this)), IC03);
+  if(BonusPointCondition() && iLastAttacker != -1)
+    if((GetOwner() != -1 && Hostile(GetOwner(), iLastAttacker)) || (GetOwner() == -1 && !GetTeam(this)) || (GetTeam(this) != GetPlayerTeam(iLastAttacker)))
+		  DoPlayerPoints(BonusPoints("Destruction"), RWDS_BattlePoints, iLastAttacker, GetCursor(iLastAttacker), IC03);
+
+	//Letzer Angreifer zurücksetzen
+	iLastAttacker = -1;
 
   //Explosion
   CreateObject(ROCK,0,0)->Explode(20);
