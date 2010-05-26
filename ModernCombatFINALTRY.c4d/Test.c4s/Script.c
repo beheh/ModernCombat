@@ -15,28 +15,28 @@ func Initialize()
   CreateObject(PCMK, 855, 350, -1)->AutoRespawn();
 
   //Granatenspawnpoints
-  PlaceSpawnpoint(FRAG, 740, 590);
-  PlaceSpawnpoint(FRG2, 865, 555);
-  PlaceSpawnpoint(SGRN, 790, 460);
-  PlaceSpawnpoint(STUN, 705, 465);
+  PlaceSpawnpoint(FRAG, 740, 590, -1);
+  PlaceSpawnpoint(FRG2, 865, 555, -1);
+  PlaceSpawnpoint(SGRN, 790, 460, -1);
+  PlaceSpawnpoint(STUN, 705, 465, -1);
 
   //Artillerie
-  CreateObject(ATBY, 580, 230);
+  CreateObject(ATBY, 580, 230, -1);
 
   //EHP-Spawnpoint
-  PlaceSpawnpoint(FAPK, 1000, 340);
+  PlaceSpawnpoint(FAPK, 1000, 340, -1);
 
   //Waffenspawnpoints
-  PlaceSpawnpoint(BNEL, 235, 70);
-  PlaceSpawnpoint(92FS, 235, 160);
-  PlaceSpawnpoint(ASTR, 235, 220);
-  PlaceSpawnpoint(M249, 235, 280);
-  PlaceSpawnpoint(MP7R, 235, 340);
-  PlaceSpawnpoint(OICW, 320, 160);
-  PlaceSpawnpoint(P29W, 320, 220);
-  PlaceSpawnpoint(PDTW, 320, 280);
-  PlaceSpawnpoint(PZFW, 710, 70);
-  PlaceSpawnpoint(SPAS, 790, 640);
+  PlaceSpawnpoint(BNEL, 235, 70, -1);
+  PlaceSpawnpoint(92FS, 235, 160, -1);
+  PlaceSpawnpoint(ASTR, 235, 220, -1);
+  PlaceSpawnpoint(M249, 235, 280, -1);
+  PlaceSpawnpoint(MP7R, 235, 340, -1);
+  PlaceSpawnpoint(OICW, 320, 160, -1);
+  PlaceSpawnpoint(P29W, 320, 220, -1);
+  PlaceSpawnpoint(PDTW, 320, 280, -1);
+  PlaceSpawnpoint(PZFW, 710, 70, -1);
+  PlaceSpawnpoint(SPAS, 790, 640, -1);
 
   //Leiter
   CreateObject(LADR, 505, 585, -1)->Set(26);
