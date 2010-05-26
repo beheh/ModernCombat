@@ -506,16 +506,25 @@ private func InitializePlayer(int iPlr, int iX, int iY, object pBase, int iTeam)
 private func RelaunchPlayer(int iPlr, object pCrew, int iMurdererPlr, int iTeam, no_relaunch)
 {
   if(FindObject(CHOS)) return;
+	if(iPlr == -1 || !GetPlayerName(iPlr)) return();
 
   //Schauen wir mal ob noch geht
   IsFulfilled();
 
   //Kein Team?
   if(!iTeam) iTeam = GetPlayerTeam(iPlr);
-
+  
+  //Kills
+  aDeath[iPlr]++;
+  //Tode
+  if(iMurdererPlr != -1 && GetPlayerTeam(iPlr) != GetPlayerTeam(iMurdererPlr)) {
+    aKill[iMurdererPlr]++;
+  }
+  
   //Geld verteilen
   Money(iPlr, pCrew, iMurdererPlr);
   
+  //Tickets
   if(GetTickets(iTeam) <= 0) {
     if(GetCursor(iPlr)) SetPlrViewRange(0, GetCursor(iPlr));
     GameCall("ForceObservation",iPlr);
