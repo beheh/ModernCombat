@@ -99,7 +99,7 @@ public func SetAutoRepair(int iAuto)
 
 public func Damage()
 {
-  if(GetDamage() > MaxDamage() && !fDestroyed)
+  if(GetDamage() > MaxDamage() && !IsDestroyed())
   {
    Destroyed();
   }
@@ -112,7 +112,8 @@ public func OnDmg(int iDmg, int iType)
 
 public func OnHit(int iDmg, int iType, object pBy)
 {
-  iLastAttacker = GetController(pBy);
+	if(!IsDestroyed())	
+	  iLastAttacker = GetController(pBy);
 
   if(fRepairing && iType == DMG_Projectile)
    Sound("BlockOff*.ogg");
@@ -122,24 +123,24 @@ public func OnHit(int iDmg, int iType, object pBy)
 
 public func Destroyed()
 {
-  //Status setzen
+	//Status setzen
   SetAction("Destroyed");
   fDestroyed = true;
-
-  //Reparatur anordnen
-  AutoRepair();
 
   //Punkte bei Belohnungssystem
   if(BonusPointCondition() && iLastAttacker != -1)
     if((GetOwner() != -1 && Hostile(GetOwner(), iLastAttacker)) || (GetOwner() == -1 && !GetTeam(this)) || (GetTeam(this) != GetPlayerTeam(iLastAttacker)))
 		  DoPlayerPoints(BonusPoints("Destruction"), RWDS_BattlePoints, iLastAttacker, GetCursor(iLastAttacker), IC03);
-
-	//Letzer Angreifer zurücksetzen
-	iLastAttacker = -1;
-
+	
   //Explosion
-  CreateObject(ROCK,0,0)->Explode(20);
+  DoExplosion(GetX(), GetY(), 20, 0, iLastAttacker);
+
+	//Letzen Angreifer zurücksetzen
+	iLastAttacker = -1;
 
   //Callback
   OnDestruction();
+
+  //Reparatur anordnen
+  AutoRepair();
 }
