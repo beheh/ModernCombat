@@ -1,6 +1,6 @@
 [DefCore]
 id=PPAR
-Name=PackedParachute
+Name=Parachute Backpack
 Version=4,9,5
 Category=18960
 MaxUserSelect=2
@@ -9,7 +9,7 @@ Height=12
 Offset=-5,-6
 Value=30
 Mass=10
-Components=_PCA=1;
+Components=PARA=1;
 Picture=12,0,64,64
 Vertices=2
 VertexX=0,0
@@ -17,4 +17,3 @@ VertexY=5,-5
 VertexFriction=20,20
 Rebuy=1
 Collectible=1
- 

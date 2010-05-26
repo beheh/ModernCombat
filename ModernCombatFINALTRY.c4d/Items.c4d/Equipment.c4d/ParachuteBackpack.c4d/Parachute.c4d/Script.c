@@ -1,5 +1,9 @@
 /*-- Fallschirm --*/
+
 #strict
+
+
+/* Initalisierung */
 
 protected func Initialize()
 {
@@ -7,7 +11,8 @@ protected func Initialize()
 	return(1);
 }
 
-//Einklinken und Ausklinken
+/* Ein- und Ausklinken */
+
 public func ControlDigDouble(pObj)
 {
   Set(pObj);
@@ -15,13 +20,14 @@ public func ControlDigDouble(pObj)
 
 public func Set(object pObj)
 {
-  Sound("Click");
+  Sound("OpeningParachute*.ogg");
   Attach(pObj,0,0);
   SetAction("Open",pObj);
   SetActionData(256 + iVertex);
 }
 
-//Fall abbremsen
+/* Fall bremsen */
+
 private func Fly()
 {
   SetXDir(BoundBy(GetXDir(GetAttObj(), 10)+(GetWind(GetX(), GetY())/16)*10+(GetDir(GetAttObj())*2-1)*2, -12, 12), GetAttObj(), 10);
@@ -39,8 +45,9 @@ public func GetAttObj()
   return(GetActionTarget());
 }
 
-//Effekte
-private func Opening()//auf
+/* Effekte */
+
+private func Opening()
 {
   if(GetActTime() > 35)
   {
@@ -81,7 +88,8 @@ private func Folding()//zu
 }
 
 
-/* Attach-Sachen */
+/* Attach */
+
 local iVertex, pAttach;
 private func Attach(object pTarget, int iX, int iY)
 {
