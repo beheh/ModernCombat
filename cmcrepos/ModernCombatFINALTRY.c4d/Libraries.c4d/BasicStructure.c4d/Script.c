@@ -132,8 +132,8 @@ public func Destroyed()
     if((GetOwner() != -1 && Hostile(GetOwner(), iLastAttacker)) || (GetOwner() == -1 && !GetTeam(this)) || (GetTeam(this) != GetPlayerTeam(iLastAttacker)))
 		  DoPlayerPoints(BonusPoints("Destruction"), RWDS_BattlePoints, iLastAttacker, GetCursor(iLastAttacker), IC03);
 	
-  //Explosion
-  DoExplosion(GetX(), GetY(), 20, 0, iLastAttacker);
+  //Explosion lokale Koordinaten an 0,0
+  DoExplosion(0, 0, 20, 0, iLastAttacker);
 
 	//Letzen Angreifer zurücksetzen
 	iLastAttacker = -1;
