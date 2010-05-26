@@ -24,7 +24,7 @@ public func Set(object pObj)
 //Fall abbremsen
 private func Fly()
 {
-  SetXDir(BoundBy(GetXDir(GetAttObj(), 10)+GetWind(GetX(), GetY())*10/16+(GetDir(GetAttObj())*2-1)*2, -12, 12), GetAttObj(), 10);
+  SetXDir(BoundBy(GetXDir(GetAttObj(), 10)+(GetWind(GetX(), GetY())/16)*10+(GetDir(GetAttObj())*2-1)*2, -12, 12), GetAttObj(), 10);
   
 	var speed = GetYDir(GetAttObj(), 10);
 	if(speed >= 18)

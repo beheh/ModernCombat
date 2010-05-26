@@ -1,5 +1,5 @@
 [DefCore]
-id=_PPA
+id=PPAR
 Name=PackedParachute
 Version=4,9,5
 Category=18960

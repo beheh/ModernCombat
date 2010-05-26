@@ -3,18 +3,18 @@
 #strict
 
 
-func Initialize()
+public func Initialize()
 {  
-  return(1);
+	return(1);
 }
 
-func Activate(caller)
+protected func Activate(caller)
 {
-  CreateObject(PARA,0,200,-1)->Set(caller);
-  RemoveObject();
+	CreateObject(PARA,0,200,-1)->Set(caller);
+	RemoveObject();
 }
 
-func ControlDigDouble(caller)
+protected func ControlDigDouble(caller)
 {
 	Activate(caller);
 }
