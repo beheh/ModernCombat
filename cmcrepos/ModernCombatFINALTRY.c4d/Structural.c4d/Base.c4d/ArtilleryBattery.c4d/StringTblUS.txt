@@ -1,4 +1,3 @@
 Reloading=Artillery strike is beeing prepared.
-InProgress=Artillery strike allready in progress.
 Destroyed=Artillery battery not operational.
 ArtilleryLaunch=Warning: <c %x>%s</c> has launched an <c ffff33>artillery strike</c>
