@@ -8,28 +8,28 @@ local bRotate, bDirection;
 local iCooldown;
 local byObj;
 
-public func IsMachine()		{return(true);} //Maschine
-public func IsBulletTarget()   {if(!Random(3)) return(true);} //Ziel
+public func IsMachine()		{return(true);}
+public func IsBulletTarget()	{if(!Random(3)) return(true);}
+public func MaxDamage()		{return(200);}
+
 
 /* Initalisierung */
 
 func Initialize()
 {
+  //Kanone erstellen
   pCannon = CreateObject(CNON,0,32,-1);
   iCooldown = 0;
-  SetR(0, pCannon); //Findet Michael ja schöner als SetR(RandomX(-44,44),pCannon); =)
-  return inherited();
-}
+  SetR(0, pCannon);
 
-public func MaxDamage()
-{
-  return(200);
+  return inherited();
 }
 
 /* Check */
 
 func Rotation()
 {
+  //Statusleuchte
   if(IsDestroyed())
   {
     if(FrameCounter()%30 < 3)
@@ -55,11 +55,11 @@ func Rotation()
 
 }
 
-/* Kontrolle */
+/* Steuerung */
 
 func ControlRight(pByObj)
 {
-  //Abfrage
+  //Zerstört?
   if(IsDestroyed())
     return(PlayerMessage(GetOwner(pByObj),"$Destroyed$", this()));
     
@@ -69,7 +69,7 @@ func ControlRight(pByObj)
 
 func ControlLeft(pByObj)
 {
-  //Abfrage
+  //Zerstört?
   if(IsDestroyed())
     return(PlayerMessage(GetOwner(pByObj),"$Destroyed$", this()));
     
@@ -79,7 +79,7 @@ func ControlLeft(pByObj)
 
 func ControlDown(pByObj)
 {
-  //Abfrage
+  //Zerstört?
   if(IsDestroyed())
     return(PlayerMessage(GetOwner(pByObj),"$Destroyed$", this()));
     
@@ -89,7 +89,7 @@ func ControlDown(pByObj)
 
 func ControlUp(pByObj)
 {
-  //Abfrage
+  //Zerstört?
   if(IsDestroyed())
     return(PlayerMessage(GetOwner(pByObj),"$Destroyed$", this()));
     
@@ -98,28 +98,35 @@ func ControlUp(pByObj)
 
 func ControlDig(object pByObj)
 {
-  //Abfrage
+  //Zerstört?
   if(IsDestroyed())
     return(PlayerMessage(GetOwner(pByObj),"$Destroyed$", this()));
-    
+
+  //Zielpunkt berechnen
   var iX = -AbsX()+Sin(GetR(pCannon),34), iY = -AbsY()-Cos(GetR(pCannon),34)-3, iXDir = Sin(GetR(pCannon),150), iYDir = -Cos(GetR(pCannon),150);
   if(!SimFlight(iX,iY,iXDir,iYDir,50,50,500,10))
     return(1);
+
+  //Icon setzen
   var target = CreateObject(ARCR,AbsX(iX),AbsY(iY),GetOwner(pByObj));
   SetVisibility(VIS_Owner,target);
+
+  //Sicht zentrieren
   SetPlrView(GetOwner(pByObj),target);
   Sound("CatapultSet");
 }
 
 func ControlThrow(object pByObj)
 {
-  //Abfrage
+  //Zerstört?
   if(IsDestroyed())
     return(PlayerMessage(GetOwner(pByObj),"$Destroyed$", this()));
-    
+
+  //Nicht bereit?
   if(iCooldown > 0) return(PlayerMessage(GetOwner(pByObj),"$Reloading$",this())); 
 
-  iCooldown=80*35; //-20 Sekunden Feuersalve... 60 Sek Cooldown
+  //-20 Sekunden Feuersalve / 60 Sekunden Cooldown
+  iCooldown=80*35;
   byObj = pByObj;
   SetOwner(GetOwner(pByObj));
   Sound("RadioConfirm*.ogg");
@@ -131,7 +138,8 @@ func ControlThrow(object pByObj)
 
 public func Shoot()
 {
-	if(IsDestroyed()) return;
+  //Zerstört?
+  if(IsDestroyed()) return;
 	
   var iX=Sin(GetR(pCannon),34);
   var iY=-Cos(GetR(pCannon),34)-3;
@@ -161,13 +169,14 @@ public func OnDestruction()
 
 public func OnDmg(int iDmg, int iType)
 {
-	if(iType == DMG_Explosion)	return(0); //Maximale Wirkung von Sprengstoff
-	return(80); //Default
+  if(iType == DMG_Explosion)	return(0);	//Maximale Wirkung von Sprengstoff
+  return(80);					//Default
 }
 
 /* Reperatur */
 
 public func OnRepair()
 {
-	pCannon = CreateObject(CNON,0,32,-1);
+  //Neue Kanone
+  pCannon = CreateObject(CNON,0,32,-1);
 }

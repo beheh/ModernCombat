@@ -1,4 +1,3 @@
-Reloading=Artillerieschlag wird noch vorbereitet.
-InProgress=Artillerieschlag wird momentan bereits ausgeführt.
+Reloading=Artillerieschlag wird vorbereitet.
 Destroyed=Artilleriebatterie nicht einsatzbereit.
 ArtilleryLaunch=Achtung: <c %x>%s</c> startet einen <c ffff33>Artillerieschlag</c>

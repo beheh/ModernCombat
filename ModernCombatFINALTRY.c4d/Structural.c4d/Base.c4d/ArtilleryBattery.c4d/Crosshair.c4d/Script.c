@@ -2,6 +2,9 @@
 
 #strict 2
 
+
+/* Initalisierung */
+
 func Initialize()
 {
   SetPlrViewRange(200);
