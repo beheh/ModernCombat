@@ -8,13 +8,6 @@ private func StartTickets()	{return(15);}	//Standardticketzahl
 
 /* Globale Funktionen */
 
-/*global func DoTickets(int iTeam, int iChange)
-{
-  var f = FindObject(GOCC);
-  if(f)
-    f->TicketChange(iTeam, iChange);
-}*/
-
 global func CreateFlagpole(int iX, int iY, string szName, int iRange, int iSpeed)
 {
   var point = CreateObject(OFPL, iX, iY, NO_OWNER);
@@ -506,7 +499,7 @@ private func InitializePlayer(int iPlr, int iX, int iY, object pBase, int iTeam)
 private func RelaunchPlayer(int iPlr, object pCrew, int iMurdererPlr, int iTeam, no_relaunch)
 {
   if(FindObject(CHOS)) return;
-	if(iPlr == -1 || !GetPlayerName(iPlr)) return();
+	if(iPlr == -1 || !GetPlayerName(iPlr)) return;
 
   //Schauen wir mal ob noch geht
   IsFulfilled();

@@ -18,11 +18,11 @@ protected func Initialize()
   if(!FindObject(GOAL)) CreateObject(GOAL,0,0,-1);
   
   ScheduleCall(this(),"InitScoreboard",1);
-  return(_inherited());
+  return inherited(...);
 }
 
 private func UpdateHUD()
 {
   if(FindObject(GOAL)) return;
-  return inherited();
+  return inherited(...);
 }
