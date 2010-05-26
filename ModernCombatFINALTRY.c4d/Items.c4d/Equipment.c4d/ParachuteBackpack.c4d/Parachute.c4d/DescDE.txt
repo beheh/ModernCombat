@@ -1,1 +1,0 @@
-Lässt Objekte sanft zu Boden gleiten.
