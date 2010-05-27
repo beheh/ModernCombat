@@ -75,7 +75,7 @@ protected func UpdateAmmoBars()
 		  if(!Contents() || GetID(Contents()) != AMPK) continue;
 		  if(Hostile(GetOwner(clonk),GetOwner())) continue;
 		  if(!GetPlayerName(GetController(clonk))) continue;
-		  CreateObject(ABAR,AbsX(GetX(clonk)),AbsY(GetY(clonk)),GetOwner())->Set(clonk,RGB(255,255,80));
+		  CreateObject(ABAR,AbsX(GetX(clonk)),AbsY(GetY(clonk)),GetOwner())->Set(clonk,RGB(255,255,80),GetLength(FindObjects(Find_Func("IsBar"), Find_Func("BarActive"), Find_ActionTarget(clonk), Find_Owner(GetOwner())))+1);
 		}
   }
   ScheduleCall(0,"UpdateAmmoBars",1);
