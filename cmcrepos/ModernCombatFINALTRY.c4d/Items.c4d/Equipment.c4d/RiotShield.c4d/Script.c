@@ -137,19 +137,29 @@ protected func Hit()
   return(1);
 }
 
-func Selection()
+/* Schildhandling */
+
+public func Selection()
 {
   //Schild erstellen
   CreateShield();
 }
 
-func Deselection()
+public func Deselection()
 {
   //Schild entfernen
   RemoveShield();
 }
 
-func Destruction()
+public func Destruction()
 {
   RemoveShield();
+}
+
+/* Liegen */
+
+public func AimStart() {
+	if(Contained()->~IsCrawling() && Contained()->~AimAngle() > 60) {
+		Contained()->SetAiming(60);
+	}
 }
