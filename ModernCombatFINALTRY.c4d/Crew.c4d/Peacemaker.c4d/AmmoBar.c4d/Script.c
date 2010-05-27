@@ -20,13 +20,13 @@ protected func Initialize()
 
 /* Einstellung */
 
-public func Set(object target, int color)
+public func Set(object target, int color, int barcount)
 {
   obj = target;
-
+	iBarCount = barcount;
+	
   SetVertex(0,0,GetVertex(0,0,target));
-  //Erst mal von einem Balken ausgehen
-  iBarCount = 1;
+	//Balken setzem
   SetVertex(0,1,GetVertex(0,1,target) - GetObjHeight(target)/2-(iBarCount*10));
   //Und dranmachen
   SetAction("Attach",target);
