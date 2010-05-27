@@ -10,7 +10,6 @@ protected func SecureDistance()	{return(100);} //Mindestabstand
 
 local sx,sy,start;
 
-
 /* Start */
 
 public func Launch(int iAngle, int iDmg, object pFollow)
@@ -86,7 +85,7 @@ public func FxFollowTimer(object pTarget, int iEffectNumber, int iEffectTime)
       if(Hostile(GetController(pTarget), EffectVar(0, pEnemy, iEffectTracer))) continue;
 			if(!PathFree(GetX(pTarget), GetY(pTarget), GetX(pEnemy), GetY(pEnemy))) continue;
 		  EffectVar(1,pTarget,iEffectNumber) = pEnemy;
-                  Sound("BBTP_Alarm.ogg");
+      Sound("BBTP_Alarm.ogg");
 		  break;
 		}
   }
