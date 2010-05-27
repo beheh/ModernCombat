@@ -43,7 +43,7 @@ public func BulletStrike(object pObj)
     if(Hostile(GetOwner(pObj), GetController()))
     {
       //Nicht bereits markiert?
-      if(!GetEffect("TracerDart",pObj))
+      if(!GetEffect("TracerDart",pObj) && !pObj->~IgnoreTracer())
       {
         //Treffergeräusch
         Sound("TRDT_Attach.ogg");

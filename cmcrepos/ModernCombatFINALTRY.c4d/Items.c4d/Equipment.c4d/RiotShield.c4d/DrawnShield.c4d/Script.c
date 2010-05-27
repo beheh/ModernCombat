@@ -7,6 +7,7 @@ local target, item, angle, last;
 public func NoWarp() {return(true);}
 public func ShoveTime() {return 13*3;}
 public func RejectEntrancer() {return true;}
+public func IgnoreTracer()	{return true;}
 
 /* Erstellung */
 
