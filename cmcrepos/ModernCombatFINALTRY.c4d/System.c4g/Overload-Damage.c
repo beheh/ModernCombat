@@ -67,6 +67,6 @@ global func DoDmg(int iDmg, int iType, object pTarget, int iPrecision, int dmgpl
   pTarget->~LastDamageType(iType);
   pTarget->~OnHit(dmg/1000, iType, pFrom);
   if(GetCategory(pTarget) & C4D_Living)
-    return(DoEnergy(-dmg,pTarget, true));
+    return(DoEnergy(-dmg, pTarget, true, 0, dmgdealer+1));
   return(DoDamage(dmg/1000,pTarget));
 }
