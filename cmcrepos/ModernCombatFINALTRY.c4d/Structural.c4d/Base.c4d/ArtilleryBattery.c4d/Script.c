@@ -135,7 +135,7 @@ public func BeginAttack()
 {
 	//Broadcast!
 	if(GetController() != -1) EventInfo4K(0, Format("$ArtilleryLaunch$",  GetPlrColorDw(GetController()), GetPlayerName(GetController())), ATBY, 0, 0, 0, "RadioConfirm*.ogg");
-	Sound("Siren", false, this, 100);
+	Sound("StrikeAlert.ogg", false, this, 100);
 	return true;
 }
 
