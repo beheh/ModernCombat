@@ -1,2 +1,2 @@
-DE:Energiebalken
-US:Energy Bar
+DE:Munitionsbalken
+US:Ammo Bar
