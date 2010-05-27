@@ -1,6 +1,6 @@
 /*-- Energiebalken --*/
 
-#strict
+#strict 2
 
 local obj;
 
@@ -9,6 +9,7 @@ local obj;
 
 protected func Initialize()
 {
+	SetVisibility(VIS_None);
   SetGraphics("Row", this(), GetID(), 1, 1);
 }
 
@@ -22,20 +23,19 @@ public func Set(object target, int color)
   SetVertex(0,1,GetVertex(0,1,target) - GetObjHeight(target)/2-10);
   SetAction("Attach",target);
 
-  SetVisibility(VIS_Owner);
-
   SetClrModulation(color,this(),1);
-
-  Update();
+  
+  return true;
 }
 
 public func Update()
 {
-  if(!(GetOCF(obj) & OCF_Alive) || Contained(obj) || Hostile(GetOwner(), GetOwner(obj)))
-   RemoveObject();
+  if(!obj || !(GetOCF(obj) & OCF_Alive) || Contained(obj) || Hostile(GetOwner(), GetOwner(obj)))
+   return SetVisibility(VIS_None);
   var percent = BoundBy(GetEnergy(obj)*100/(GetDefCoreVal("Energy","Physical",GetID(obj))/1000),0,100);
   if(percent > 95)
-   RemoveObject();
+   return SetVisibility(VIS_None);
+  SetVisibility(VIS_Owner);
   SetObjDrawTransform(10*percent,0,-160*(100-percent),0,1000,0,0,1);
-  ScheduleCall(0,"Update",1);
+  return true;
 }
