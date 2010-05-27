@@ -1256,6 +1256,9 @@ public func ControlSpecial()
   // Hardcode: BR-Bombe darf man nicht abwählen
   if(Contents()->GetID() == GBRB)
     return();
+  // Manche Sachen dürfen einfach nicht
+  if(Contents()->~RejectShift())
+  	return();
   // wenn wir zielen, wollen wir nur Waffen haben
   if(IsAiming() && Contents(0)->~CanAim())
   {
