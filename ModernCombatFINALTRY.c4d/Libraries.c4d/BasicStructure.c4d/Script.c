@@ -18,7 +18,6 @@ public func IsDestroyed()		{return fDestroyed;}
 public func IsCMCStructure()		{return true;}
 public func AutoRepairWait()		{return iAutorepairWait;}
 
-
 /* Initialisierung */
 
 public func Initialize()
@@ -27,6 +26,8 @@ public func Initialize()
   fRepairing = false;
   iAutorepairWait = 36*20;
   iLastAttacker = -1;
+  SetAction("Idle");
+  return true;
 }
 
 /* Reparatur */
@@ -132,8 +133,13 @@ public func Destroyed()
     if((GetOwner() != -1 && Hostile(GetOwner(), iLastAttacker)) || (GetOwner() == -1 && !GetTeam(this)) || (GetTeam(this) != GetPlayerTeam(iLastAttacker)))
 		  DoPlayerPoints(BonusPoints("Destruction"), RWDS_BattlePoints, iLastAttacker, GetCursor(iLastAttacker), IC03);
 	
-  //Explosion lokale Koordinaten an 0,0
-  DoExplosion(0, 0, 20, 0, iLastAttacker);
+  //Explosion
+	var pBlast = CreateObject(ROCK, 0, 0, iLastAttacker);
+	pBlast->SetController(iLastAttacker);
+	pBlast->Explode(20);
+	  
+  //Sound
+  Sound("Blast2", false, this);
 
 	//Letzen Angreifer zurücksetzen
 	iLastAttacker = -1;

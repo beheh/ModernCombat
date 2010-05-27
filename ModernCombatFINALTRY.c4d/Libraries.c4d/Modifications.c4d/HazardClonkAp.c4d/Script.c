@@ -6,24 +6,6 @@
 
 local crosshair;
 
-/*private func Control2Contents (string command)
-{
-  // Haben wir was angefasst?
-  if(GetAction() S= "Push")
-    return(0);
-  // Pause Reload: nicht wieder anfangen ey!!!
-  if(command S= "ControlThrow" && GetEffect("ScaleReloading",this))
-  {
-	  if(WildcardMatch(GetAction(),"Scale*") || GetAction() S= "Hangle")
-	    return(1);
-  }
-	
-  // Getragenes Objekt hat spezielle Steuerungsauswertung
-  if(ObjectCall(Contents(), command, this(), Par(1), Par(2), Par(3), Par(4), Par(5), Par(6), Par(7)))
-    return(1);
-  return(0);
-}*/
-
 protected func Control2Grab(string command)
 {
   if(GetProcedure() == "PUSH")
@@ -54,12 +36,6 @@ protected func ControlDownDouble()
   if(this->~Control2Grab("ControlDownDouble")) return(1);
   return(_inherited());
 }
-
-/*protected func ControlCommand(szCommand, pTarget, iTx, iTy, pTarget2, Data) 
-{
-  Log(szCommand);
-  return(_inherited(szCommand, pTarget, iTx, iTy, pTarget2, Data) ); 
-}*/
 
 /* neue Waffen-Steuerung */
 /*public func UpdateCharge()
@@ -308,6 +284,18 @@ protected func ControlDownDouble()
     return(1);
   }
 }*/
+
+public func ControlUp()
+{
+  RemoveEffect("IntMouseAiming", this);
+  return(_inherited()); 
+}
+
+public func ControlDown() 
+{
+  RemoveEffect("IntMouseAiming", this);
+  return(_inherited()); 
+}
 
 func ResetShowWeapon(object pNew)
 {
