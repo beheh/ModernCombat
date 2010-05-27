@@ -10,10 +10,9 @@ public func HandSize()		{return(850);}
 public func CanAim()		{return(true);}
 func IsEquipment()		{return(true);}
 public func NoArenaRemove()	{return(true);}
-public func AbortWalk(pClonk)	{if(GetAction(pClonk) eq "Tumble") pClonk->SetAction("Walk");}
 
 local pShield, pUser, iHits;
-
+local iPrevDir, fAiming, iAimingAngle;
 
 /* Initalisierung */
 
@@ -39,9 +38,27 @@ public func GetUser()
 
 public func CheckChange()
 {
-  if(pUser)
-   if(Contents(0,pUser) != this())
-    RemoveShield();
+	if(GetUser()) {
+		//Anti-Umfall-Zwischenspeicher-Hack
+		if(GetUser()->GetAction() eq "Tumble") {
+			GetUser()->SetAction("Walk");
+			GetUser()->SetDir(iPrevDir);
+			if(fAiming) {
+				GetUser()->~StartSquatAiming();
+				GetUser()->~SetAiming(iAimingAngle);
+			}
+		}
+		iPrevDir = GetUser()->GetDir();
+		fAiming = false;
+		if(GetUser()->~IsAiming())
+			fAiming = true;
+		iAimingAngle = Abs(GetUser()->~AimAngle());
+   	if(Contents(0,pUser) != this())
+    	RemoveShield();
+  }
+  else {
+    RemoveShield();  
+  }
   return(1);
 }
 

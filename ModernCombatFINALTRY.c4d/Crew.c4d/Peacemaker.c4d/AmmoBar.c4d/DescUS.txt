@@ -1,1 +1,1 @@
-Represents the status of one clonk.
+Represents the ammo of the held weapon of one clonk.
