@@ -6,7 +6,7 @@ local target, item, angle, last;
 
 public func NoWarp() {return(true);}
 public func ShoveTime() {return 13*3;}
-
+public func RejectEntrancer() {return true;}
 
 /* Erstellung */
 
@@ -125,7 +125,7 @@ public func Update()
 
 public func IsBulletTarget(id idBullet, object pBullet, object pShooter)
 {
-  if(!pBullet && !pShooter)
+	if(!pBullet && !pShooter)
    return true;
 
   if(pBullet)
@@ -148,7 +148,7 @@ public func IsBulletTarget(id idBullet, object pBullet, object pShooter)
 
 public func OnHit(int iDamage, int iType, object pFrom)
 {
-  if(Hostile(GetOwner(pFrom), GetOwner())) item->DoHit(iDamage);
+  if(Hostile(GetController(pFrom), GetController())) item->DoHit(iDamage);
   //Effekte
   Sound("BlockOff*.ogg");
   CastParticles("Glas", 1+Random(3), 40, 0,0, 40,10, RGBa(200,200,200), RGBa(2,2,200));
