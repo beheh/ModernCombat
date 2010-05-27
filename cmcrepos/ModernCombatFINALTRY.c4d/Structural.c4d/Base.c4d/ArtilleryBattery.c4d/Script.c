@@ -125,12 +125,18 @@ func ControlThrow(object pByObj)
   if(iCooldown > 0) return(PlayerMessage(GetOwner(pByObj),"$Reloading$",this())); 
 
   //-20 Sekunden Feuersalve / 60 Sekunden Cooldown
-  iCooldown=80*35;
-  byObj = pByObj;
-  SetOwner(GetOwner(pByObj));
-  Sound("RadioConfirm*.ogg");
+  iCooldown = 80*35;
+  SetController(GetController(pByObj));
   ScheduleCall(this(),"Shoot",70,10);
-  Schedule(Format("EventInfo4K(0, \"$ArtilleryLaunch$\", ATBY, 0, 0, 0, \"RadioConfirm*.ogg\")", GetPlrColorDw(GetOwner(byObj)), GetPlayerName(GetOwner(byObj))), 70);
+  ScheduleCall(this, "BeginAttack", 70);
+}
+
+public func BeginAttack()
+{
+	//Broadcast!
+	if(GetController() != -1) EventInfo4K(0, Format("$ArtilleryLaunch$",  GetPlrColorDw(GetController()), GetPlayerName(GetController())), ATBY, 0, 0, 0, "RadioConfirm*.ogg");
+	Sound("Siren", false, this, 100);
+	return true;
 }
 
 /* Schuss */
@@ -144,6 +150,7 @@ public func Shoot()
   var iY=-Cos(GetR(pCannon),34)-3;
    
   var pProjectile = CreateObject(ABLT,iX,iY,GetOwner(byObj));
+  pProjectile->SetController(GetController());
   SetXDir( Sin(GetR(pCannon),RandomX(135,165)),pProjectile,10);
   SetYDir(-Cos(GetR(pCannon),RandomX(135,165)),pProjectile,10);
 
