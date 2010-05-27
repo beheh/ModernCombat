@@ -4,11 +4,16 @@
 
 local obj;
 local iBarCount;
+local fActive;
+
+public func IsBar() {	return true; }
+public func BarActive() {	return fActive; }
 
 /* Initalisierung */
 
 protected func Initialize()
 {
+	fActive = false;
 	SetVisibility(VIS_None);
   SetGraphics("Row", this(), GetID(), 1, 1);
 }
@@ -40,6 +45,7 @@ public func Update()
 {
 	//Erst mal annehmen, dass wir verschwinden
 	SetVisibility(VIS_None);
+	fActive = false;
 	//Schauen, ob wir überhaupt anzeigen brauchen
   if(!obj || !(GetOCF(obj) & OCF_Alive) || Contained(obj) || Hostile(GetOwner(), GetOwner(obj)))
    return;
@@ -63,11 +69,12 @@ public func Update()
   var percent = BoundBy((((100*1000)/ammomax)*ammocount)/1000,0,100);
   //Bei fast vollem Balken lohnt es sich nicht wirklich
   if(percent > 95) return;
-	//Jetzt können wir uns wieder sichtbar machen
-  SetVisibility(VIS_Owner);
-  //Anpassen (runterrucken falls wir andere Balken haben)
-  SetVertex(0,1,GetVertex(0,1,target) - GetObjHeight(target)/2-(iBarCount*10));
+	//Anpassen (runterrucken falls wir andere Balken haben)
+  SetVertex(0,1,GetVertex(0,1,obj) - GetObjHeight(obj)/2-(iBarCount*10));
   //Prozentbalken anpassen
   SetObjDrawTransform(10*percent,0,-160*(100-percent),0,1000,0,0,1);
+  //Jetzt können wir uns wieder sichtbar machen
+  SetVisibility(VIS_Owner);
+  fActive = true;
   return true;
 }
