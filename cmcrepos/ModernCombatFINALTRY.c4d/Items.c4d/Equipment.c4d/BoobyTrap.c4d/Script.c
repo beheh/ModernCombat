@@ -239,3 +239,9 @@ func Hit()
 {
   Sound("BBTP_Hit*.ogg");
 }
+
+public func Destruction()
+{
+  //Entfernung
+	if(laser)	RemoveObject(laser);
+}
