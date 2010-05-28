@@ -666,30 +666,31 @@ public func AimAngle2(int iMaxAngle, int iRange, bool bSpread)//Präzision 100. A
 
 public func AimAngle(int iMaxAngle, int iRange, bool bSpread)
 {
-   var angle;
-   var x,y,r;
-   this()->~WeaponAt(x,y,r);
-   
-   if(!IsAiming()) {
-	  if(Contents()->~IsGrenade())
-	    angle = (60+r)*(GetDir()*2-1);
-	  else
-		  angle = (90+r)*(GetDir()*2-1);
-   }
-   else
-     angle = crosshair->GetAngle();
-  
-   if(iRange)
-   {
-     var target = this()->~GetTarget(angle,iMaxAngle,iRange);
-     if(target)
-       angle = Angle(GetX(),GetY(),GetX(target),GetY(target));
-   }
-     
-   if(bSpread)
-     angle += GetSpreadAOff();
+	var angle;
+	var x,y,r;
+	this()->~WeaponAt(x,y,r);
 
-   return(angle);
+	if(!IsAiming()) {
+		angle = (90+r)*(GetDir()*2-1);
+		if(Contents())
+			if(Contents()->~IsGrenade())
+				angle = (60+r)*(GetDir()*2-1);
+	}
+	else {
+		angle = crosshair->GetAngle();
+	}
+
+	if(iRange)
+	{
+		var target = this()->~GetTarget(angle,iMaxAngle,iRange);
+		if(target)
+			angle = Angle(GetX(),GetY(),GetX(target),GetY(target));
+	}
+	 
+	if(bSpread)
+		angle += GetSpreadAOff();
+
+	return(angle);
 }
 
 public func DoSpread(int iChange, int iMax)

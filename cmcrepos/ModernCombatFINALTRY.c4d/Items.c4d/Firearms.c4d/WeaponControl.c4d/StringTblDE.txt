@@ -12,4 +12,5 @@ FTMenu=Schusstechnik
 AmmoType=Munitionstyp
 FireModeBack=Vorheriger Feuermodus
 FireModeForward=Nächster Feuermodus
-FireTecCycle=Nächste Schusstechnik
+FireTecBack=Vorherige Schusstechnik
+FireTecForward=Nächste Schusstechnik

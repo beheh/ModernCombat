@@ -12,4 +12,5 @@ FTMenu=Shooting Technique
 AmmoType=Ammo Type
 FireModeBack=Previous fire mode
 FireModeForward=Next fire mode
-FireTecCycle=Cycle shooting technique
+FireTecBack=Previous shooting technique
+FireTecForward=Next shooting technique

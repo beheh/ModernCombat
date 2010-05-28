@@ -226,8 +226,8 @@ private func HitObject(pObj)
   Sound("GrenadeExplosion*.ogg");
 
   //Schaden verursachen
-  //DamageObjects(iDamage,iDamage,this());
-  Explode(2*iDamage,0,0,0,1);
+  DamageObjects(iDamage/2,iDamage/2,this());
+  Explode(iDamage*3/2,0,0,0,1);
 }
 
 public func Destruction()

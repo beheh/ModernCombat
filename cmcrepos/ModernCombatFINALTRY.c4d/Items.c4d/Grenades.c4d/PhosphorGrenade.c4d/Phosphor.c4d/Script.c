@@ -10,7 +10,7 @@ local light,last_size,life;
 func Initialize()
 {
   life = 300+Random(100);
-  light = AddLight (40,RGB());
+  light = AddLight(40,RGB());
   AddFireEffect(this(),0,RGB(0,255,255),0,-5 - Random(15));
   Timer();
   return(1);
@@ -31,7 +31,7 @@ func Timer()
 
   var rgb = RGB(speed,BoundBy(speed,140,255),255);
 
-  SetClrModulation (rgb);
+  SetClrModulation(rgb);
   light->ChangeColor (rgb);
   /*if(last_size != size)
     light->ChangeSize (size);
@@ -39,7 +39,7 @@ func Timer()
   last_size = size;*/
 
   var aObjects = CreateArray();
-  aObjects = FindObjects (Find_AtPoint(),Find_NoContainer());
+  aObjects = FindObjects(Find_AtPoint(),Find_NoContainer());
 
   BurnObjects();
 
@@ -72,14 +72,15 @@ func BurnObjects()
 
 func HitObject(pObj)
 {
-    if(GetOCF(pObj) & OCF_Living)
-      AddEffect("Phosphored", pObj, 50, 20, this(), GetID());
-    DoDmg(3, DMG_Fire, pObj, 1);
-    AddFireEffect(pObj,50,FIRE_Red,1);
-    //anzündbares anzünden, aber nicht lebewesen.
-    if(pObj) //existiert es überhaupt noch?
-      if(pObj->GetOCF() & OCF_Inflammable && !(pObj->GetOCF() & OCF_Living))
-      Incinerate(pObj);
+		if(GetOCF(pObj) & OCF_Living)
+			AddEffect("Phosphored", pObj, 50, 20, this(), GetID());
+		DoDmg(3, DMG_Fire, pObj, 1);
+		AddFireEffect(pObj,50,FIRE_Red,1);
+		//anzündbares anzünden, aber nicht lebewesen.
+		if(pObj) //existiert es überhaupt noch?
+			if(pObj->GetOCF() & OCF_Inflammable && !(pObj->GetOCF() & OCF_Living))
+				Incinerate(pObj);
+    return true;
 }
 
 /* Kleben am Clonk (Hazard) */
@@ -99,10 +100,9 @@ public func FxPhosphoredStart(pTarget, iNo, iTemp, pPhosphor)
 {
   if(iTemp)
     return(-1);
-  for(var i = 0; i < GetEffectCount("Phosphored", this()); i++)
-    if(EffectVar(0, this(), GetEffect("Phosphored", this(), i)) == this())
-      return(-1);
-  EffectVar(0, pTarget, iNo) = this(); //Der Klumpen
+  if(GetLength(FindObjects(Find_ID(GetID()), Find_ActionTarget(pTarget))) > 3)
+  	return -1;
+	EffectVar(0, pTarget, iNo) = this(); //Der Klumpen
   SetAction("AGlobbing", pTarget);
 }
 

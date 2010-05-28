@@ -12,7 +12,7 @@ Mass=10
 Components=WOOD=4;METL=1;
 Picture=0,7,64,64
 Vertices=1
-VertexY=1
+VertexY=3
 VertexFriction=100
 Rebuy=1
 Collectible=1
