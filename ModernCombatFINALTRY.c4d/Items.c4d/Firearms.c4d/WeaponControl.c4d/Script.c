@@ -82,14 +82,14 @@ public func FMMenu(clonk)
   overlay = ring->AddThrowItem("$Reload$","ManualReload",firemode,RICO);
   SetGraphics("1",ring,RICO,overlay,GFXOV_MODE_IngamePicture);
 
-  overlay = ring->AddLeftItem("$FireModeBack$","CycleFM",-1,RICO);
-  SetGraphics("3",ring,RICO,overlay,GFXOV_MODE_IngamePicture);
-
-  overlay = ring->AddRightItem("$FireModeForward$","CycleFM",+1,RICO);
-  SetGraphics("3",ring,RICO,overlay,GFXOV_MODE_IngamePicture);
-
-  overlay = ring->AddUpItem("$FireTecCycle$","CycleFT",+1,RICO);
+  overlay = ring->AddLeftItem("$FireTecBack$","CycleFT",-1,RICO);
   SetGraphics("4",ring,RICO,overlay,GFXOV_MODE_IngamePicture);
+
+  overlay = ring->AddRightItem("$FireTecForward$","CycleFT",+1,RICO);
+  SetGraphics("4",ring,RICO,overlay,GFXOV_MODE_IngamePicture);
+
+  overlay = ring->AddUpItem("$FireModeCycle$","CycleFM",+1,RICO);
+  SetGraphics("3",ring,RICO,overlay,GFXOV_MODE_IngamePicture);
   
   overlay = ring->AddDownItem("$AmmoType$","ManualEmpty",firemode,RICO);
   SetGraphics("2",ring,RICO,overlay,GFXOV_MODE_IngamePicture);
@@ -799,17 +799,13 @@ private func Reloaded(caller,slot,amount) //Waffe nachgeladen
 private func CycleFM(int iDir)
 {
   var fm = firemode;
-  fm = (fm + iDir) % GetFMCount();
-  
-  if(!GetFMData(FM_Name, fm) || !fm) {
-    if(iDir < 0) {
-      fm = GetFMCount();
-    }
-    else {
-      fm = 1;
-    }
+  fm += iDir;
+  if(iDir < 0) {
+  	if(!fm) fm = GetFMCount();
   }
-
+  if(iDir > 0) {
+  	if(!GetFMData(FM_Name, fm)) fm = 1;
+  }
   SetFireMode(fm);
   if(GetSpeedMenu())
     GetSpeedMenu()->NoClose();
@@ -906,6 +902,7 @@ public func SetFireTec(int iFT,int iFM, bool bNoCalls)
 	while(GetEffect("Recharge", this)) {
 		RemoveEffect("Recharge", this);
 	}
+	StopAutoFire();
 
   if(!iFM) iFM = firemode;
   if(!GetFMData(FT_Condition,iFM,iFT)) return(false);
@@ -939,17 +936,13 @@ private func CycleFT(int iDir)
 {
   var fm = firemode;
   var ft = GetFireTec(fm);
-  ft = (ft + iDir) % GetFTCount(fm);
-  
-  if(!GetFMData(FM_Name, fm, ft) || !ft) {
-    if(iDir < 0) {
-      ft = GetFTCount(fm);
-    }
-    else {
-      ft = 1;
-    }
+  ft += iDir;
+  if(iDir < 0) {
+  	if(!ft) ft = GetFTCount(fm);
   }
-
+  if(iDir > 0) {
+  	if(ft >= GetFTCount(fm)) ft = 1;
+  }
   SetFireTec(ft, fm);
   if(GetSpeedMenu())
     GetSpeedMenu()->NoClose();
@@ -974,7 +967,7 @@ private func Shoot(object caller)// Feuern mit Feuermodus
 
   var ammoid = GetFMData(FM_AmmoID);
   //soll er zielen, zielt aber nicht?
-  if(!(GetUser()->~IsAiming()) && GetFMData(FM_Aim))
+  if(!(GetUser()->~IsAiming()) && GetFMData(FM_Aim) == 1)
     stopauto=true;//abbrechen
   // Feuern...
   if(CheckFireTec())
