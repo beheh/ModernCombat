@@ -1,40 +1,40 @@
-/*-- Schild --*/
+/*-- Informations-Schild --*/
 
 #strict
 
-local Text, NewInfo;
+local szText, fNewInfo;
 
 
 /* Initalisierung */
 
 protected func Initialize()
 {
-  Text = "<i>leervcgggggggg ggg gggggggggg gggggggggggggggg ggggg gggggggggggg</i>";
-  SetAction("Blink");    
+  szText = "";
+  fNewInfo = false;
 }
 
 protected func ControlUp(object caller)
 {
   CreateMenu(_SGN, caller, caller, 0, "", 0, C4MN_Style_Dialog);
   AddMenuItem(Format("Portrait:%i::ffffff::1", _SGN), "", NONE, caller, 0, 0, "", 5, 0, 0);
-  AddMenuItem(Format("$TxtMsg$", GetName(caller), Text), "",
+  AddMenuItem(Format("$TxtMsg$", GetName(caller), szText), "",
               NONE, caller, 0, 0, "", 512, 0, 0);
-  NewInfo = false;
+  fNewInfo = false;
   SetAction("Still");
 }
 
-public func SetNewInfo(bool fSet, sText)
+public func SetNewInfo(bool fSet, string sText)
 {
   if(sText)
-    Text = sText;
+    szText = sText;
   if(fSet)
   {
     SetAction("Blink");
-    NewInfo = true;
+    fNewInfo = true;
   }
   else
   {
     SetAction("Still");
-    NewInfo = false;
+    fNewInfo = false;
   }
 }
