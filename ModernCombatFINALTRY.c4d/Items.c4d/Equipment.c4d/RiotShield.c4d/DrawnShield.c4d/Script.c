@@ -139,9 +139,9 @@ public func IsBulletTarget(id idBullet, object pBullet, object pShooter)
   else
    r = Angle(GetX(),GetY(),GetX(pShooter),GetY(pShooter));
 
-  r = AngleOffset4K(GetR(),r);
+  r = AngleOffset4K(angle,r);
 
-  if(Abs(r) <= 45)
+  if(Abs(r) > 45)
    return false;
   else
    return true;
