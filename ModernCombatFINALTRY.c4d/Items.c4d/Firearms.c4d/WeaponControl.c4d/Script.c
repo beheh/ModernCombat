@@ -29,8 +29,6 @@ static const FT_Icon          = 24; //Icondefinition der Feuertechnik.
 static const FT_IconFacet     = 25; //Facet. Wie bei AddMenuItem.
 static const FT_Condition     = 26; //Wie FM_Condition. Nur eben f¸r Feuertechniken.
 
-static const FM_SupportedSA   = 27; //WTH?!
-
 public func IsWeapon2() {return(true);} //Diese Waffe benutzt das neue Waffensystem. Sie includiert also WPN2.
 public func NoWeaponChoice() { return(GetID() == WPN2); }
 
@@ -61,41 +59,15 @@ protected func Initialize()
     aFM_FireTec[i-1] = 1;//Defaults setzen.
     i++;
   }
-  
-  //Alle Waffen haben Silenc0r! :X
-  /*SetGraphics(0,this(),SILE,1,GFXOV_MODE_Base); 
-  SetObjDrawTransform(
-    1000,0, this()->~BarrelXOffset()-(GetDefWidth()*1000/2),
-    0,1000, this()->~BarrelYOffset(),
-  this(),1);*/
-  
+
   return(inherited());
 }
 
-//Men¸
+/* Men¸ f¸r Schussmodi */
+
 public func ControlDigDouble(caller)
 {
   return(FMMenu(caller));
-}
-
-public func FTCycle(fm)
-{
-  var safe = 10;
-  var ft = aFM_FireTec[fm-1];
-  while(safe--)
-  {
-    if(GetFMData(FT_Name,fm,ft+1))
-      ft++;
-    else
-      ft = 1;
-      
-    if(GetFMData(FT_Condition,fm,ft))
-      break;
-  }
-    
-  SetFireTec(ft,firemode);
-  if(GetSpeedMenu())
-    GetSpeedMenu()->NoClose();
 }
 
 public func FMMenu(clonk)
@@ -110,13 +82,13 @@ public func FMMenu(clonk)
   overlay = ring->AddThrowItem("$Reload$","ManualReload",firemode,RICO);
   SetGraphics("1",ring,RICO,overlay,GFXOV_MODE_IngamePicture);
 
-  overlay = ring->AddLeftItem("$Left$","CycleFM",-1,RICO);
+  overlay = ring->AddLeftItem("$FireModeBack$","CycleFM",-1,RICO);
   SetGraphics("3",ring,RICO,overlay,GFXOV_MODE_IngamePicture);
 
-  overlay = ring->AddRightItem("$Right$","CycleFM",+1,RICO);
+  overlay = ring->AddRightItem("$FireModeForward$","CycleFM",+1,RICO);
   SetGraphics("3",ring,RICO,overlay,GFXOV_MODE_IngamePicture);
 
-  overlay = ring->AddUpItem("$FireTec$","FTCycle",firemode,RICO);
+  overlay = ring->AddUpItem("$FireTecCycle$","CycleFT",+1,RICO);
   SetGraphics("4",ring,RICO,overlay,GFXOV_MODE_IngamePicture);
   
   overlay = ring->AddDownItem("$AmmoType$","ManualEmpty",firemode,RICO);
@@ -143,49 +115,6 @@ public func FMMenu(clonk)
 	}
 	
 }
-public func CycleSA(int fm)
-{
-  var safe = 10;
-  var a = [];
-  var j = 0;
-  
-  for(var i = 0, idR; idR = GetDefinition(i, C4D_Vehicle) ; i++)
-  {
-    if(idR->~IsSpecialAmmo())
-    {
-      if(idR == idBulletID) j = i;
-      a[GetLength(a)] = idR;
-    }
-  }
-  
-  j++;
-  if(j >= GetLength(a)-1)
-    j = 0;
-
-  SetSpecialAmmo2(a[j],fm);
-  if(GetSpeedMenu())
-    GetSpeedMenu()->NoClose();
-}
-
-private func CycleFM(int iDir)
-{
-  var fm = firemode;
-  fm = fm + iDir % GetFMCount();
-  
-  if(!GetFMData(FM_Name,fm) || !fm) {
-    if(iDir < 0) {
-      fm = GetFMCount();
-    }
-    else {
-      fm = 1;
-    }
-  }
-
-  SetFireMode(fm);
-  if(GetSpeedMenu())
-    GetSpeedMenu()->NoClose();
-  return 1;
-}
 
 private func ManualReload(fm)
 {
@@ -199,21 +128,6 @@ private func ManualEmpty(unused,fm)
   Sound("WPN2_Unload.ogg");
   Empty2(GetSlot(fm));
 }
-
-public func SetSpecialAmmo2(id idType, fm)
-{
-  Sound("WPN2_Switch*.ogg");
-  SetSpecialAmmo(idType);
-}
-
-public func SetSpecialAmmo(id idType)
-{
-  idBulletID = idType;
-}
-
-public func GetSpecialAmmo() {return(idBulletID);}
-
-public func CustomWMItems(int iFM){}
 
 //Slots
 public func GetSlot(int iFM)
@@ -276,7 +190,8 @@ public func SetAmmoCount(int iSlot, int iAmount)
   aSlot_Amount[iSlot-1] = iAmount;
 }
 
-//Munikontrolle
+/* Munition */
+
 global func GetAmmo(id ammoid, object target)
 {
   if(!target) target=this();
@@ -347,38 +262,6 @@ global func DoAmmo2(int slot, id ammoid, int change, object target)
   
   // Differenz zur√ºckgeben: Tats√§chliche √Ñnderung.
   return(truechange-oldammoamount);
-}
-
-private func SetFireMode(int i)
-{
-  if((i > GetFMCount()) || i < 1) {	Message("Feuermodus nicht vorhanden:|{{%i}} FM: %d",this,GetID(),i); return();	}
-
-  //Nicht mehr weiterfeuern
-  RemoveEffect("BurstFire", this());
-
-  // Gleicher Modus: Nur nachladen wenn nicht mehr voll und l‰dt nicht nach
-  if(i == firemode)
-  {
-    if(CheckAmmo(GetFMData(FM_AmmoID, i),GetFMData(FM_AmmoLoad),this())) return(); 
-    if(IsReloading(i)) return();
-  }
-  
-  CancelReload(firemode);
-   
-  // Schussmodus umstellen
-  firemode = i;
-  stopauto = false;
-  ratecount = GetFMData(FM_AmmoRate, i);
-  
-  ResumeReload(i);
-  
-  //Sound
-  Sound("WPN2_Switch*.ogg");
-  
-  // Helpmessage
-  HelpMessage(GetUser()->GetOwner(),"$FireModeChanged$",GetUser(),GetFMData(FM_Name),GetFMData(FM_AmmoID));
-  
-  return(1);
 }
 
 public func Empty()    // Waffe ausleeren
@@ -459,11 +342,6 @@ public func GetCharge()
   // l‰dt nach: Nachladestatus anzeigen
   if(IsReloading())
   {
-    //TODO: Hier gibts noch ein doofes Problem mit der Anzeige. :C (Nicht vollst‰ndiges Nachladen.)
-    /*charge = 1000*
-                (GetReloadTime()+
-                (GetFMData(FM_Reload)*GetAmmo(ammoid)/GetFMData(FM_AmmoLoad)))/
-            GetFMData(FM_Reload);*/
       charge = 1000*
                (GetReloadTime()+(GetFMData(FM_Reload)*GetAmmo(ammoid)/GetFMData(FM_AmmoLoad)))/
                GetFMData(FM_Reload)*MaxReloadAmount(GetUser())/GetFMData(FM_AmmoLoad);
@@ -483,12 +361,6 @@ public func GetRecharge()
   {
     return(100*EffectVar(5,this(),IsReloading())/GetFMData(FM_FinishReload));
   }
-  
-  /*
-  if(IsPreparing())
-  {
-    return(100*GetEffect("Reload", this(), IsReloading(),6)/GetFMData(FM_PrepareReload));
-  }*/
 
   if(!IsRecharging())
     return(100);
@@ -751,7 +623,7 @@ public func ControlThrow(caller)
     {
       var rechargetime = GetFMData(FM_BurstRecharge);
       if(rechargetime)
-        AddEffect("BurstFire", this(), 1, rechargetime, this(),0,GetFMData(FM_BurstAmount));
+        AddEffect("BurstFire", this(), 1, rechargetime, this(), 0, GetFMData(FM_BurstAmount));
       else
       {
         for(var i = GetFMData(FM_BurstAmount); i > 0; i--)
@@ -777,11 +649,13 @@ public func FxBurstFireTimer(object pTarget, int iNumber, int iTime)
   EffectVar(0,pTarget,iNumber)--;
   if(EffectVar(0,pTarget,iNumber) > 0)
     pTarget->Fire();
+  else
+  	return -1;
 }
 
 public func Fire()
 {
-  if(GetSpread()+GetFMData(FM_SpreadAdd) >= CH_MaxSpread)//TODO: Ist ReadyToFire() nicht besser?
+  if(GetSpread()+GetFMData(FM_SpreadAdd) >= CH_MaxSpread)
     return(false);
 
   // bereit zum Schieﬂen
@@ -799,6 +673,7 @@ public func Fire()
 
   var ammoid = GetFMData(FM_AmmoID);
   var ammousage = GetFMData(FM_AmmoUsage);
+
   // leer?
   if(!CheckAmmo(ammoid,ammousage,this()))
   {
@@ -919,28 +794,103 @@ private func Reloaded(caller,slot,amount) //Waffe nachgeladen
   OnReloaded(firemode,slot);
 }
 
-/*public func GetCharge(int iSlot) //wie voll ist die Waffe
+/* Firemode */
+
+private func CycleFM(int iDir)
 {
-  var charge;
-  var ammoid = GetFMData(FM_AmmoID);
-  var ammoamount = MaxReloadAmount(GetUser());
-  // l‰dt nach: Nachladestatus anzeigen
-  if(IsReloading(iSlot))
-  {
-    // Nachladestatus in %
-    var done = 1000*EffectVar(0, this(), IsReloading(iSlot))/GetFMData(FM_Reload);
-    charge = done*ammoamount/GetFMData(FM_AmmoLoad);
+  var fm = firemode;
+  fm = (fm + iDir) % GetFMCount();
+  
+  if(!GetFMData(FM_Name, fm) || !fm) {
+    if(iDir < 0) {
+      fm = GetFMCount();
+    }
+    else {
+      fm = 1;
+    }
   }
-  // ansonsten: Ladestand anzeigen
+
+  SetFireMode(fm);
+  if(GetSpeedMenu())
+    GetSpeedMenu()->NoClose();
+  return 1;
+}
+
+public func SetFireMode(int i)
+{
+  if((i > GetFMCount()) || i < 1) {	Message("Feuermodus nicht vorhanden:|{{%i}} FM: %d",this,GetID(),i); return();	}
+
+  // Gleicher Modus: Nur nachladen wenn nicht mehr voll und l‰dt nicht nach
+  if(i == firemode)
+  {
+    if(CheckAmmo(GetFMData(FM_AmmoID, i),GetFMData(FM_AmmoLoad),this())) return(); 
+    if(IsReloading(i)) return();
+  }
+  
+  CancelReload(firemode);
+   
+  // Schussmodus umstellen
+  firemode = i;
+  stopauto = false;
+  ratecount = GetFMData(FM_AmmoRate, i);
+  
+  ResumeReload(i);
+  
+  //Sound
+  Sound("WPN2_Switch*.ogg");
+  
+  //Helpmessage
+  HelpMessage(GetUser()->GetOwner(),"$FireModeChanged$",GetUser(),GetFMData(FM_Name),GetFMData(FM_AmmoID));
+  
+  return(1);
+}
+
+public func GetFMData(int data, int i, int t)
+{
+  // Vom Feuermodus i Information holen
+  // i nicht angegeben? Muss nicht, ist aktueller dann
+  if(!i) i=firemode;
+  if(!t) t=GetFireTec(i);
+  
+  var value,ammoid;
+  if(CheckFireTec(t,i))
+  {
+    value = ObjectCall(this(), Format("FMData%dT%d",i,t), data);
+    ammoid = ObjectCall(this(), Format("FMData%dT%d",i,t), FM_AmmoID);
+  }
   else
   {
-    charge = 1000*GetAmmo(ammoid)/GetFMData(FM_AmmoLoad);
+    value = ObjectCall(this(), Format("FMData%d",i), data);//Abw‰rtskomplatiblit‰t
+    ammoid = ObjectCall(this(), Format("FMData%d",i), FM_AmmoID);
   }
+    
+  if(ammoid == STAP)
+    value = ammoid->~FMMod(data,value);
 
-  return(charge);
-}*/
+  var effect,user = GetUser(),j;
+  while(effect = GetEffect("*Bonus*",this(),j) || j == 0)
+  {
+    j++;
+    if(!GetEffect("*Bonus*",this(),effect,1))
+      continue;
+    var tval = EffectCall(this(),effect,"FMData",data,value);
+    if(tval)
+      value = tval;
+  }
+  if(user)
+  {
+    for(var i; i <= GetEffectCount("*Bonus*",user); i++) {
+      var tval = EffectCall(user,GetEffect("*Bonus*",user,i-1),"FMData",data,value,i);
+      if(tval)
+        value = tval;
+    }
+  }
+  
+  return(value);
+}
 
-//Feuertechniken (Burst,etc.)
+/* Feuertechniken (Burst,etc.) */
+
 public func GetFireTec(int iFM)
 {
   if(!iFM) iFM = firemode;
@@ -949,6 +899,14 @@ public func GetFireTec(int iFM)
 
 public func SetFireTec(int iFT,int iFM, bool bNoCalls)
 {
+  //Nicht mehr weiterfeuern
+  var iBurstEffect = GetEffect("BurstFire", this());
+	if(iBurstEffect)
+		EffectVar(0,this,iBurstEffect) = 0;
+	while(GetEffect("Recharge", this)) {
+		RemoveEffect("Recharge", this);
+	}
+
   if(!iFM) iFM = firemode;
   if(!GetFMData(FT_Condition,iFM,iFT)) return(false);
 
@@ -977,56 +935,28 @@ public func CheckFireTec(int iFT, int iFM)
   return(false);
 }
 
-public func GetFMData(int data, int i, int t)
+private func CycleFT(int iDir)
 {
-  // Vom Feuermodus i Information holen
-  // i nicht angegeben? Muss nicht, ist aktueller dann
-  if(!i) i=firemode;
-  if(!t) t=GetFireTec(i);
+  var fm = firemode;
+  var ft = GetFireTec(fm);
+  ft = (ft + iDir) % GetFTCount(fm);
   
-  var value,ammoid;
-  if(CheckFireTec(t,i))
-  {
-    value = ObjectCall(this(), Format("FMData%dT%d",i,t), data);
-    ammoid = ObjectCall(this(), Format("FMData%dT%d",i,t), FM_AmmoID);
-  }
-  else
-  {
-    value = ObjectCall(this(), Format("FMData%d",i), data);//Abw‰rtskomplatiblit‰t
-    ammoid = ObjectCall(this(), Format("FMData%d",i), FM_AmmoID);
-  }
-    
-  // Modifikationen
-  /*var ammoid;
-  if(CheckFireTec(t,i))
-    ammoid = ObjectCall(this(), Format("FMData%dT%d",i,t), FM_AmmoID);
-  else
-    ammoid = ObjectCall(this(), Format("FMData%d",i), FM_AmmoID);*/
-  
-  if(ammoid == STAP)
-    value = ammoid->~FMMod(data,value);
-
-  var effect,user = GetUser(),j;
-  while(effect = GetEffect("*Bonus*",this(),j) || j == 0)
-  {
-    j++;
-    if(!GetEffect("*Bonus*",this(),effect,1))
-      continue;
-    var tval = EffectCall(this(),effect,"FMData",data,value);
-    if(tval)
-      value = tval;
-  }
-  if(user)
-  {
-    for(var i; i <= GetEffectCount("*Bonus*",user); i++) {
-      var tval = EffectCall(user,GetEffect("*Bonus*",user,i-1),"FMData",data,value,i);
-      if(tval)
-        value = tval;
+  if(!GetFMData(FM_Name, fm, ft) || !ft) {
+    if(iDir < 0) {
+      ft = GetFTCount(fm);
+    }
+    else {
+      ft = 1;
     }
   }
-  
-  return(value);
+
+  SetFireTec(ft, fm);
+  if(GetSpeedMenu())
+    GetSpeedMenu()->NoClose();
+  return 1;
 }
+
+/* Schuss */
 
 private func Shoot(object caller)// Feuern mit Feuermodus
 {
@@ -1079,7 +1009,8 @@ private func Shoot(object caller)// Feuern mit Feuermodus
   return(true);
 }
 
-/* neues Zielsystem */
+/* Neues Zielsystem */
+
 public func DoSpread(int iChange)
 {
   var user = this()->~GetUser();
@@ -1168,9 +1099,6 @@ global func FxShowWeaponTimer(object pTarget, int iNumber, int iTime)
       {
         SetObjDrawTransform(1000,0,0,0,1000,0,EffectVar(6,pTarget,iNumber));
         
-        //Silencer
-        SetObjDrawTransform(1000,0, EffectVar(6,pTarget,iNumber)->~BarrelXOffset()-(GetDefWidth()*1000/2),0,1000, EffectVar(6,pTarget,iNumber)->~BarrelYOffset(),EffectVar(6,pTarget,iNumber),1);
-        
         EffectVar(6, pTarget, iNumber) = 0;
       }
       SetGraphics(0, pTarget, 0, WeaponDrawLayer);
@@ -1228,30 +1156,11 @@ global func FxShowWeaponTimer(object pTarget, int iNumber, int iTime)
   SetObjDrawTransform(1000,xskew,xoff,yskew,1000,yoff, pTarget, WeaponDrawLayer); //position
   SetObjDrawTransform(width,xskew,0,yskew,height,0, obj); //Grˆﬂe und Rotation
   
-  //Silencer! ;D
+  //Daten
   var w = GetDefCoreVal("Width",0,id)/2;
   var brlx = DefinitionCall(id,"BarrelXOffset");
   var brly = DefinitionCall(id,"BarrelYOffset");
-  
-  SetObjDrawTransform(
-    width,xskew,
-    +(Cos(r,1000*(brlx-w*1000))/1000 - Sin(r,1000*dir*brly)/1000),
-    yskew,height,
-    -(Cos(r,1000*dir*brly)/1000 + Sin(r,1000*(brlx-w*1000))/1000),
-  obj, 1);
-  
-  /* Backup ftw!
-  
-  SetObjDrawTransform(
-    width,xskew,
-    +(Cos(r,size*(brlx-w*1000))/1000 - Sin(r,size*brly)/1000),
-    yskew,height,
-    -(Cos(r,size*brly)/1000 + Sin(r,size*(brlx-w*1000))/1000),
-  obj, 1);
-  
-  */
-  
-  
+
   // abspeichern, damit abrufbar
   r = -r-90;
   var r2 = (Angle(0,0,w-brlx/1000,brly/1000)-90)*dir;
@@ -1271,7 +1180,6 @@ func Hit()
 global func SALaunchBullet(int iX, int iY, int iOwner, int iAngle, int iSpeed, int iDist, int iDmg, int iRemoveTime, id idType)
 {
   var ammoid = idType;
-  if(!ammoid) ammoid = this()->~GetSpecialAmmo();
   if(!ammoid) ammoid = SHTX;
   
   var iSize = 2;
@@ -1286,7 +1194,6 @@ global func SALaunchBullet(int iX, int iY, int iOwner, int iAngle, int iSpeed, i
 global func SABulletCasing(int iX, int iY, int iXDir, int iYDir, int iSize, int iColor, id idType)
 {
   var ammoid = idType;
-  if(!ammoid) ammoid = this()->~GetSpecialAmmo();
   if(!ammoid) ammoid = SHTX;
   
   return(ammoid->CustomBulletCasing(GetX()+iX,GetY()+iY,iXDir,iYDir,iSize,iColor));
@@ -1295,7 +1202,6 @@ global func SABulletCasing(int iX, int iY, int iXDir, int iYDir, int iSize, int 
 global func SAMuzzleFlash(int iSize, object pTarget, int iX, int iY, int iAngle, int iColor, id idType)
 {
   var ammoid = idType;
-  if(!ammoid) ammoid = this()->~GetSpecialAmmo();
   if(!ammoid) ammoid = SHTX;
   
   return(ammoid->CustomMuzzleFlash(iSize,pTarget,GetX()+iX,GetY()+iY,iAngle,iColor));
