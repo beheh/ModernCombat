@@ -1,4 +1,4 @@
-FireMode=Schussmodus wechseln:
+FireMode=Feuermodusmodus wechseln:
 FireTec=Schusstechnik wechseln:
 DescFireMode=Auf %s schalten
 DescFireTec=Auf %s schalten
@@ -10,6 +10,6 @@ Reload=Nachladen
 Empty=Entladen
 FTMenu=Schusstechnik
 AmmoType=Munitionstyp
-NA=Nicht Vergfügbar
-Left=Link
-Right=Rechts
+FireModeBack=Vorheriger Feuermodus
+FireModeForward=Nächster Feuermodus
+FireTecCycle=Nächste Schusstechnik
