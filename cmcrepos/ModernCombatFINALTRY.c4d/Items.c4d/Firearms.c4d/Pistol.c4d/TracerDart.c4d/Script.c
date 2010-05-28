@@ -80,6 +80,9 @@ public func BulletStrike(object pObj)
         return 1;
       }
     }
+    if(pObj->~BlockTracer()) {
+    	Remove();
+    }
   }
   return 1;
 }

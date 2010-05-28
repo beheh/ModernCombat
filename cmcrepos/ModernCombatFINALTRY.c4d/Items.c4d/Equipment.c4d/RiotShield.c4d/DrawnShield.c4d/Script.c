@@ -8,6 +8,7 @@ public func NoWarp() {return(true);}
 public func ShoveTime() {return 13*3;}
 public func RejectEntrancer() {return true;}
 public func IgnoreTracer()	{return true;}
+public func BlockTracer()	{return true;}
 
 /* Erstellung */
 
