@@ -12,11 +12,11 @@ public func IsBulletTarget(id idBullet, object pBullet, object pShooter)
   if(plr != NO_OWNER)
     if(plr != GetController(pBullet))
       return(false);
-      
+
   if(target)
     if(target != pShooter)
       return(false);
-      
+
   return(true);
 }	
 

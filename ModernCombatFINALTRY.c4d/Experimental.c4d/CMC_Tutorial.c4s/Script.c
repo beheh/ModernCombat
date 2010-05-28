@@ -4,7 +4,7 @@
 
 static station;//Aktuelle Stationsnummer.
 static benzinclonk;//Clonk der die Benzinfäßer "bewacht".
-
+static pPlayerTarget1;
 
 /* Initalisierung */
 
@@ -255,9 +255,9 @@ func Demo()
   CreateObject (TRGT, 1352, 373, 0)->SetCon(50);
   CreateObject (TRGT, 1350, 439, 0)->SetCon(50);
   CreateObject (TRGT, 1349, 502, 0)->SetCon(50);
-  CreateObject (TRGT, 1218, 456, 0)->MoveLine(0,-100,1);
-  
-  CreateObject (ASTR, 910, 342, -1);
+  pPlayerTarget1 = CreateObject (TRGT, 1218, 456, 0);
+  pPlayerTarget1->MoveLine(0,-100,1);
+  CreateObject(ASTR, 910, 342, 0); //Ja Owner 0...
 }
 
 
@@ -272,7 +272,7 @@ func Script10()
 
 func Script12()
 {
-  if(!FindObject(TRGT))
+  if(!pPlayerTarget1)
   {
     DoInfoMessage(GetCrew(),"Henry","So, hier ist Ende Gelände! :P|<c ff0000>Testzeit abgelaufen.</c>", HZCK, RGB(255),1);
   }
