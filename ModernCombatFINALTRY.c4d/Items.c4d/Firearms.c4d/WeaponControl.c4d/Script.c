@@ -938,10 +938,10 @@ private func CycleFT(int iDir)
   var ft = GetFireTec(fm);
   ft += iDir;
   if(iDir < 0) {
-  	if(!ft) ft = GetFTCount(fm);
+  	if(!ft) ft = GetFTCount(fm)-1;
   }
   if(iDir > 0) {
-  	if(ft >= GetFTCount(fm)) ft = 1;
+  	if(ft > GetFTCount(fm)-1) ft = 1;
   }
   SetFireTec(ft, fm);
   if(GetSpeedMenu())
