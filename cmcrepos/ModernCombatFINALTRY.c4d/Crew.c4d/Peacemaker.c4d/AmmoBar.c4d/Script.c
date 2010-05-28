@@ -8,6 +8,7 @@ local fActive;
 
 public func IsBar() {	return true; }
 public func BarActive() {	return fActive; }
+public func RejectEntrance()	{ return true;	}
 
 /* Initalisierung */
 

@@ -351,7 +351,10 @@ global func DoAmmo2(int slot, id ammoid, int change, object target)
 
 private func SetFireMode(int i)
 {
-  if((i > GetFMCount()) || i < 1) {Message("Es wurde ein inexistenter FeuerModus gesetzt.|Bitte an den zuständigen Scripter weiterleiten:|{{%i}} FM: %d",this,GetID(),i); return();}//<- Gegeben! ^^
+  if((i > GetFMCount()) || i < 1) {	Message("Feuermodus nicht vorhanden:|{{%i}} FM: %d",this,GetID(),i); return();	}
+
+  //Nicht mehr weiterfeuern
+  RemoveEffect("BurstFire", this());
 
   // Gleicher Modus: Nur nachladen wenn nicht mehr voll und lädt nicht nach
   if(i == firemode)
@@ -361,14 +364,10 @@ private func SetFireMode(int i)
   }
   
   CancelReload(firemode);
-  
-  var fm = GetFMCount();
-  for(var j;j<=fm;j++)//Alle Nachladeprozesse pausieren. Sinn?
-    PauseReload(j);
-  
+   
   // Schussmodus umstellen
-  firemode=i;
-  stopauto=false;
+  firemode = i;
+  stopauto = false;
   ratecount = GetFMData(FM_AmmoRate, i);
   
   ResumeReload(i);
@@ -706,7 +705,7 @@ public func ControlThrow(caller)
   }
 
   // Unterstützt der Schussmodus Zielen, aber wir tuns nicht?
-  if(GetFMData(FM_Aim) && !(GetUser()->~IsAiming()) && !(GetUser()->~AimOverride()))
+  if(GetFMData(FM_Aim) == 1 && !(GetUser()->~IsAiming()) && !(GetUser()->~AimOverride()))
   {
     // Können wir?
     if(GetUser()->~ReadyToAim())
