@@ -53,7 +53,7 @@ public func Incineration()
 {
   Extinguish();
   Sound("ClonkBurn*.ogg");
-  if(GetAction() == "Death") return(0); //Fakedeath
+  if(IsFakeDeath()) return(0); //Fakedeath
   Schedule("DoDmg(5,DMG_Fire,0,1)",1,20,this());
   AddFireEffect(this(),30,FIRE_Red,1);
 }
@@ -62,7 +62,9 @@ public func Incineration()
 
 public func OnDmg(int iDmg, int iType)
 {
-  HurtSounds(iDmg,iType);
+  if(!IsFakeDeath()) {
+  	HurtSounds(iDmg,iType);
+  }
   return _inherited(...);
 }
 
@@ -155,6 +157,8 @@ protected func ControlContents(idTarget)
 
 func Hit2(int xDir, int yDir)
 {
+	if(IsFakeDeath()) return();
+ 
   var hit = Distance(xDir,yDir);//Max(xDir,yDir);
 
   if(hit >= 800)
