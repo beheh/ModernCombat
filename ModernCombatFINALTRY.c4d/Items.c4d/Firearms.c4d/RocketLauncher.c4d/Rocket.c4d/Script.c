@@ -4,7 +4,7 @@
 #include MISS
 
 public func Acceleration()	{return(3);}
-public func MaxTime()		{return(35*5);}
+public func MaxTime()		{return(200);}
 public func MaxSpeed()		{return(100);}
 protected func SecureDistance()	{return(100);} //Mindestabstand
 

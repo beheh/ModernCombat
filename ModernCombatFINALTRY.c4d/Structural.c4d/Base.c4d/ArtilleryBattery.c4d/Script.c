@@ -129,6 +129,8 @@ func ControlThrow(object pByObj)
   SetController(GetController(pByObj));
   ScheduleCall(this(),"Shoot",70,10);
   ScheduleCall(this, "BeginAttack", 70);
+
+  Sound("CatapultSet");
 }
 
 public func BeginAttack()

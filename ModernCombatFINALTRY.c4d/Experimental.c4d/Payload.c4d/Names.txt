@@ -1,2 +1,0 @@
-DE:Payload
-US:Payload
