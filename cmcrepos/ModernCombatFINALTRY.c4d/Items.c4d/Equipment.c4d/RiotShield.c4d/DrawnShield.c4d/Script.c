@@ -135,7 +135,7 @@ public func IsBulletTarget(id idBullet, object pBullet, object pShooter, int old
     return true;
 
   var r;
-  if(pBullet)
+  if(pBullet && oldx && oldy)
    r = Angle(GetX(),GetY(),oldx,oldy);
   else
    r = Angle(GetX(),GetY(),GetX(pShooter),GetY(pShooter));

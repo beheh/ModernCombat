@@ -88,7 +88,7 @@ public func FMMenu(clonk)
   overlay = ring->AddRightItem("$FireTecForward$","CycleFT",+1,RICO);
   SetGraphics("4",ring,RICO,overlay,GFXOV_MODE_IngamePicture);
 
-  overlay = ring->AddUpItem("$FireModeCycle$","CycleFM",+1,RICO);
+  overlay = ring->AddUpItem("$FireModeForward$","CycleFM",+1,RICO);
   SetGraphics("3",ring,RICO,overlay,GFXOV_MODE_IngamePicture);
   
   overlay = ring->AddDownItem("$AmmoType$","ManualEmpty",firemode,RICO);
