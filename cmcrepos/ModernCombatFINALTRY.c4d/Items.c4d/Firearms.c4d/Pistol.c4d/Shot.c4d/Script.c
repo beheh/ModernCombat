@@ -452,30 +452,6 @@ public func Remove(int iRemoveTime)
     RemoveObject();
 }
 
-
-/* Effekt für Trefferüberprüfung */
-
-// EffectVars:
-// 0 - alte X-Position
-// 1 - alte Y-Position
-// 2 - Schütze (Objekt, das die Waffe abgefeuert hat, üblicherweise ein Clonk)
-// 3 - ID des Schützen
-// 4 - Scharf? Wenn true wird der Schütze vom Projektil getroffen 
-
-public func FxHitCheckStart(object target, int effect, int temp, object byObj)
-{
-  if(temp) return();
-  EffectVar(0, target, effect) = GetX(target);
-  EffectVar(1, target, effect) = GetY(target);
-  if(!byObj)
-    byObj = target;
-  if(byObj->Contained())
-    byObj = (byObj->Contained());
-  EffectVar(2, target, effect) = byObj;
-  EffectVar(3, target, effect) = GetID(byObj);
-  EffectVar(4, target, effect) = false;
-}
-
 /* Effekt für Trefferüberprüfung */
 
 // EffectVars:
@@ -520,10 +496,11 @@ public func FxHitCheckTimer(object target, int effect, int time)
   
   //DrawParticleLine("NoGravSpark",newx-oldx, newy-oldy,0,0,1,25,RGB(255,0,0),RGB(0,0,255));
   // Wir suchen nach Objekten entlang der Linie die wir uns seit dem letzten Check
-  // bewegt haben. Und sortieren sie nach Distanz (nähere zuerst)
+  // bewegt haben. Und sortieren sie nach Distanz (entfernten zuerst, da wir die zuerst passieren)
   for(obj in FindObjects(Find_OnLine(oldx,oldy,newx,newy),
                          Find_NoContainer(),
-                         Sort_Distance(oldx, oldy)))
+                         Sort_Distance(oldx, oldy),
+                         Sort_Reverse()))
   {
 		// Excludes
 		if(obj == target) continue;
@@ -533,7 +510,7 @@ public func FxHitCheckTimer(object target, int effect, int time)
 		if(!CheckEnemy(obj,target)) continue;
 
 		// IsBulletTarget oder Alive
-		if(obj->~IsBulletTarget(GetID(target),target,EffectVar(2, target, effect)) || GetOCF(obj) & OCF_Alive) {
+		if(obj->~IsBulletTarget(GetID(target),target,EffectVar(2, target, effect), oldx, oldy) || GetOCF(obj) & OCF_Alive) {
 			DebugLog("%s IsBulletTarget: %i, %s, %s","HitCheck",GetName(obj),GetID(target),GetName(target),GetName(EffectVar(2, target, effect)));
 			return(target-> ~HitObject(obj));
 	  }
