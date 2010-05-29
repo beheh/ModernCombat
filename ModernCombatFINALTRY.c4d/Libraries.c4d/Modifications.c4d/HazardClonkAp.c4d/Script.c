@@ -1012,7 +1012,7 @@ public func ControlSpecial()
   			ShiftContents(0,0,Contents(i)->GetID(),true);
   			break;
   		}
-    if(IsSquatAiming()) {
+    if(IsSquatAiming() || Contents()->~GetFMData(FM_Aim) != 1) {
    		StartSquatAiming();
     }
     else {
