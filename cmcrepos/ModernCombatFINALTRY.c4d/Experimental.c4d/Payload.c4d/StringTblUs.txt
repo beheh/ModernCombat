@@ -1,2 +1,0 @@
-TaskAttack=Attack with the bomb.
-TaskDefend=Protected your base.
