@@ -6,7 +6,7 @@ local target, item, angle, last;
 
 public func NoWarp() {return(true);}
 public func ShoveTime() {return 13*3;}
-public func RejectEntrancer() {return true;}
+public func RejectEntrance() {return true;}
 public func IgnoreTracer()	{return true;}
 public func BlockTracer()	{return true;}
 
@@ -125,7 +125,7 @@ public func Update()
 
 /* Trefferverhalten */
 
-public func IsBulletTarget(id idBullet, object pBullet, object pShooter)
+public func IsBulletTarget(id idBullet, object pBullet, object pShooter, int oldx, int oldy)
 {
 	if(!pBullet && !pShooter)
    return true;
@@ -136,7 +136,7 @@ public func IsBulletTarget(id idBullet, object pBullet, object pShooter)
 
   var r;
   if(pBullet)
-   r = Angle(GetX(),GetY(),GetX(pBullet),GetY(pBullet));
+   r = Angle(GetX(),GetY(),oldx,oldy);
   else
    r = Angle(GetX(),GetY(),GetX(pShooter),GetY(pShooter));
 
