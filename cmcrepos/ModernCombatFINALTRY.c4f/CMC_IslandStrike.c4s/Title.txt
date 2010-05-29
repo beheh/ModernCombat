@@ -1,2 +1,0 @@
-DE:CMC - <c ff0000>Island Strike</c>
-US:CMC - <c ff0000>Island Strike</c>
