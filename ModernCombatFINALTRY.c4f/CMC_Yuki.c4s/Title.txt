@@ -1,2 +1,0 @@
-DE:CMC - <c ff0000>Yuki</c>
-US:CMC - <c ff0000>Yuki</c>
