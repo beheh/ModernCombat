@@ -253,6 +253,7 @@ private func InitSingleplayerTeam(int iPlr) {}
 private func RemoveSingleplayerTeam(int iPlr) {}
 private func InitPlayer(int iPlr) {}
 private func RemoveScoreboardPlayer(int iPlr) {}
+public func WinScoreChange(int iNewScore) {}
 
 /* GameCalls */
 

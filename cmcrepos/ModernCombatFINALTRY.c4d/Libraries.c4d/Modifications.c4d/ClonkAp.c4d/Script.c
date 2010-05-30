@@ -6,7 +6,7 @@
 local assistkiller, machinekill;
 
 public func IsClonk() { return 1; }
-
+public func MenuQueryCancel()	{return(IsFakeDeath());}
 
 /* Erstellung */
 
@@ -157,7 +157,7 @@ protected func ControlContents(idTarget)
 
 func Hit2(int xDir, int yDir)
 {
-	if(IsFakeDeath()) return();
+	if(IsFakeDeath()) return;
  
   var hit = Distance(xDir,yDir);//Max(xDir,yDir);
 

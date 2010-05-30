@@ -499,8 +499,7 @@ public func FxHitCheckTimer(object target, int effect, int time)
   // bewegt haben. Und sortieren sie nach Distanz (entfernten zuerst, da wir die zuerst passieren)
   for(obj in FindObjects(Find_OnLine(oldx,oldy,newx,newy),
                          Find_NoContainer(),
-                         Sort_Distance(oldx, oldy),
-                         Sort_Reverse()))
+                         Sort_Distance(oldx, oldy)))
   {
 		// Excludes
 		if(obj == target) continue;

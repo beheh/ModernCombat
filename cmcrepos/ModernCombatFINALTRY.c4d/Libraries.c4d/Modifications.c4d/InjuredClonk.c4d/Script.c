@@ -10,7 +10,6 @@ public func AimAngle()		{return();}
 public func ReadyToFire()	{return();}
 public func IsAiming()		{return();}
 
-
 /* Initalisierung */
 
 protected func Initialize()
@@ -82,7 +81,7 @@ private func DeathMenu()
   CloseMenu(clonk);
 
   //Menü erstellen
-  CreateMenu (FKDT, clonk, this(), 0, Format("$Title$"), C4MN_Style_Dialog, true);	//Titelzeile
+  CreateMenu(FKDT, clonk, this(), 0, Format("$Title$"), C4MN_Style_Dialog, true);	//Titelzeile
   if(FindObject(SICD))
   {
    AddMenuItem("$Suicide$", "Suicide", ICN2, clonk, 0, 0, "$SuicideDesc$");		//Selbstmord
@@ -100,8 +99,6 @@ private func DeathMenu()
   SelectMenuItem(selection, clonk);
   SetMenuTextProgress(1, clonk); 
 }
-
-public func MenuQueryCancel()	{return(true);}
 
 /* Selbstmord */
 
