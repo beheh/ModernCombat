@@ -180,7 +180,7 @@ func Hit2(int xDir, int yDir)
 
 /* Killverfolgung */
 
-private func DeathAnnounce(int plr, object clonk, int killplr)
+private func DeathAnnounce(int plr, object clonk, int killplr, bool fNoPoints)
 {
   if(!clonk)
     clonk = this();
@@ -197,24 +197,16 @@ private func DeathAnnounce(int plr, object clonk, int killplr)
   
   clonk->AddEffect("NoAnnounce", clonk, 20);
   
+  if(!fNoPoints) DoPoints();
+}
+
+protected func DoPoints() {
   //Punkte vergeben
   var killer = GetKiller();
 
   if(!machinekill)
     if(killer < 0 || killer == GetOwner())
       DoPlayerPoints(SuicidePoints(), RWDS_MinusPoints, GetOwner(), this, IC07);
-/*else
-  {
-    //Dem mit dem meisten angerichteten Schaden neben dem Killer(Maschine) Assistpunkte geben
-    var highest = CreateArray(2);
-    for(var i = 0; i < GetLength(assistkiller)/2; i++)
-      if(assistkiller[i*2+1] > highest[0])
-      {
-        highest[0] = assistkiller[i*2+1];
-        highest[1] = assistkiller[i*2];
-      }
-    DoPlayerPoints(AssistPoints(), RWDS_BattlePoints, highest[1], GetCursor(highest[1]), IC02);
-  }*/
 
   //Ansonsten Killpunkte geben (und Todespunkte (und Assistkills))
   if(Hostile(killer,GetOwner()) )

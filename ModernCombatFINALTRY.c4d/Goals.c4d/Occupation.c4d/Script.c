@@ -445,15 +445,15 @@ private func GetWinningTeam() {
   var add, id;
   
   //Zwei Siegbedingungen: Alle Spieler eines Teams eliminiert und alle Flaggen des Teams eingenommen
-  for(var i = 1; i <= GetTeamCount(); i++)
+  for(var i = 0; i < GetTeamCount(); i++)
   {
-		alive[i] = TeamAlive(GetTeamByIndex(i));
+		alive[GetTeamByIndex(i)] = TeamAlive(GetTeamByIndex(i));
   }
 
   //Wie viele Teams existent?
   var teamA = 0;
   for(var i = 0; i < GetLength(alive); i++)
-    if(alive[i] > 0)
+    if(alive[i])
     {
       if(teamA) //Zwei oder mehr Teams lebendig?
         return 0;
