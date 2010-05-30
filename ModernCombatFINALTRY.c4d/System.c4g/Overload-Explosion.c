@@ -175,6 +175,7 @@ global func BlastObject(int level, object obj, int cause_plr_plus_one)
   var icon;
   if(this) icon = this->~GetKillIcon();
   if(!icon) icon = GetID(this);
+  obj->~SetKiller(cause_plr_plus_one-1);
   DoDmg(level, DMG_Explosion, obj, 0, cause_plr_plus_one, icon);
   return true;
 }
