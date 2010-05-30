@@ -194,6 +194,7 @@ public func LaunchGrenade(id idg, int speed, int angle, int mode)
 
   //Erstellen und Abfeuern
   var grenade=CreateObject(idg, x+xdir/10, y+ydir/10, GetController(user));
+  grenade->SetController(GetController(user));
   grenade->Launch(xdir+GetXDir(user)/10, ydir/*+GetYDir(user)/20*/, GetFMData(FM_Damage,2));
 
   //Effekte

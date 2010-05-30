@@ -181,7 +181,7 @@ global func BlastObject(int level, object obj, int cause_plr_plus_one)
 
 global func DamageObjects(int iDistance, int iDamage, object pObject, int iX, int iY)
 {
-  if(!pObject) pObject = this;
+  if(!pObject) pObject = this();
   var x = GetX(pObject)+iX;
   var y = GetY(pObject)+iY;
   var dealer = -1;
@@ -193,7 +193,7 @@ global func DamageObjects(int iDistance, int iDamage, object pObject, int iX, in
                              Find_NoContainer(),
                              Find_Category(C4D_Object|C4D_Living|C4D_Vehicle|C4D_StaticBack)))
   {
-    DoDmg(iDamage - (Distance(GetX(obj),GetY(obj),x,y)*iDamage/iDistance), DMG_Explosion, obj, 0, dealer+1, icon);
+  	DoDmg(iDamage - (Distance(GetX(obj),GetY(obj),x,y)*iDamage/iDistance), DMG_Explosion, obj, 0, dealer+1, icon);
   }
   return true;
 }
