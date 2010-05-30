@@ -343,7 +343,7 @@ private func DeathAnnounce(int plr, object clonk, int killplr)
   if(!clonk)
     clonk = this();
   if(!clonk) return;
-  return CLNK->DeathAnnounce(plr, clonk, killplr);
+  return _inherited(plr, clonk, killplr);
 }
 
 
