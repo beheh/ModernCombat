@@ -344,7 +344,7 @@ private func DeathAnnounce(int plr, object clonk, int killplr)
     clonk = this();
   if(!clonk) return;
   var r = CLNK->DeathAnnounce(plr, clonk, killplr, true);
-  DoPoints();
+  if(r) DoPoints();
   return r;
 }
 
