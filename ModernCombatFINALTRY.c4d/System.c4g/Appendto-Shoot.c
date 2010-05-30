@@ -23,11 +23,9 @@ public func FxHitCheckTimer(object target, int effect, int time)
   //DrawParticleLine("NoGravSpark",newx-oldx, newy-oldy,0,0,1,25,RGB(255,0,0),RGB(0,0,255));
   // Wir suchen nach Objekten entlang der Linie die wir uns seit dem letzten Check
   // bewegt haben. Und sortieren sie nach Distanz (nähere zuerst)
-  // Nein, eben nicht. Entfernte zuerst, da wir die ja als erstes passiert haben
   for(obj in FindObjects(Find_OnLine(oldx,oldy,newx,newy),
                          Find_NoContainer(),
-                         Sort_Distance(oldx, oldy),
-                         Sort_Reverse()))
+                         Sort_Distance(oldx, oldy)))
   {
 		// Excludes
 		if(obj == target) continue;
