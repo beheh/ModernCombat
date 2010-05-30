@@ -508,7 +508,7 @@ private func InitializePlayer(int iPlr, int iX, int iY, object pBase, int iTeam)
   RelaunchPlayer(iPlr, GetCrew(iPlr), 0, iTeam, true);
 }
 
-private func RelaunchPlayer(int iPlr, object pCrew, int iMurdererPlr, int iTeam, no_relaunch)
+protected func RelaunchPlayer(int iPlr, object pCrew, int iMurdererPlr, int iTeam, no_relaunch)
 {
   if(FindObject(CHOS)) return;
 	if(iPlr == -1 || !GetPlayerName(iPlr)) return;
