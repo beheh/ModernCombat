@@ -29,16 +29,15 @@ func ResetRotation()
     Sound("Artillery*.ogg");
   }
   
-  HitObjects();
+  SearchObjects();
 }
 
 /* Objekte treffen */
 
-func HitObjects()
+func SearchObjects()
 {
 	if(!fHit) {
 		if(FindObject2(Find_AtPoint(), Find_Exclude(this), Find_Func("IsBulletTarget", GetID(), this, 0, GetX(), GetY()))) {
-			fHit = true;
 			Hit();
 		}
 	}
@@ -48,6 +47,11 @@ func HitObjects()
 
 func Hit()
 {
+	if(fHit) return;
+	
+	//Schon getroffen
+	fHit = true;
+
   //Explosion
   DamageObjects(50,30,this());
   Explode(30+Random(10),0,0,0,1);
@@ -55,6 +59,8 @@ func Hit()
   //Effekte
   Sound("C4EX_Detonation*.ogg");
   CastParticles("Smoke3",15,10,0,0,300,700);
+  
+  return;
 }
 
 public func Damage()

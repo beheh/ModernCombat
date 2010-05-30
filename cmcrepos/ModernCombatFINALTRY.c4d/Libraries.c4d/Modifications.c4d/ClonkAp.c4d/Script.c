@@ -156,9 +156,9 @@ protected func ControlContents(idTarget)
 /* Fallschaden */
 
 func Hit2(int xDir, int yDir)
-{
-	if(IsFakeDeath()) return;
- 
+{ 
+  if(IsFakeDeath()) return(_inherited(xDir,yDir,...));
+  
   var hit = Distance(xDir,yDir);//Max(xDir,yDir);
 
   if(hit >= 800)
@@ -168,7 +168,7 @@ func Hit2(int xDir, int yDir)
 
   if(!FindObject(FDMG)) return(_inherited(xDir,yDir,...));
 	if(!GetAlive(this())) return(_inherited(xDir,yDir,...));
-  
+ 	
   if(hit <= 700) return(_inherited(xDir,yDir,...));
   DoDmg((hit-700)*2/10,DMG_Melee,this());
   
@@ -186,7 +186,7 @@ private func DeathAnnounce(int plr, object clonk, int killplr)
     clonk = this();
   if(!clonk) return;  
   if(GetEffect("NoAnnounce", clonk)) return;
-  if(!GetAlive(clonk) && !IsFakeDeath()) return; //FakeDeath-Hack
+  if(!GetAlive(clonk)) return; //FakeDeath-Hack
   //Selfkill?
   if(plr == killplr || killplr == -1)
     KILL->SKMsg(plr, clonk);
