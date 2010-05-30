@@ -18,5 +18,5 @@ Float=1
 Grab=1
 GrabPutGet=C4D_GrabGet|C4D_GrabPut
 NoSell=1
-Timer=10
+Timer=35
 TimerCall=DeathMenu

@@ -184,9 +184,9 @@ private func DeathAnnounce(int plr, object clonk, int killplr)
 {
   if(!clonk)
     clonk = this();
-  if(!clonk) return;  
+  if(!clonk) return;
   if(GetEffect("NoAnnounce", clonk)) return;
-  if(!GetAlive(clonk)) return; //FakeDeath-Hack
+  if(!GetAlive(clonk) && !FindObject(NOFD)) return; //FakeDeath-Hack
   //Selfkill?
   if(plr == killplr || killplr == -1)
     KILL->SKMsg(plr, clonk);
@@ -197,6 +197,48 @@ private func DeathAnnounce(int plr, object clonk, int killplr)
   
   clonk->AddEffect("NoAnnounce", clonk, 20);
   
+  //Punkte vergeben
+  var killer = GetKiller();
+
+  if(!machinekill)
+    if(killer < 0 || killer == GetOwner())
+      DoPlayerPoints(SuicidePoints(), RWDS_MinusPoints, GetOwner(), this, IC07);
+/*else
+  {
+    //Dem mit dem meisten angerichteten Schaden neben dem Killer(Maschine) Assistpunkte geben
+    var highest = CreateArray(2);
+    for(var i = 0; i < GetLength(assistkiller)/2; i++)
+      if(assistkiller[i*2+1] > highest[0])
+      {
+        highest[0] = assistkiller[i*2+1];
+        highest[1] = assistkiller[i*2];
+      }
+    DoPlayerPoints(AssistPoints(), RWDS_BattlePoints, highest[1], GetCursor(highest[1]), IC02);
+  }*/
+
+  //Ansonsten Killpunkte geben (und Todespunkte (und Assistkills))
+  if(Hostile(killer,GetOwner()) )
+  {
+    DoPlayerPoints(KillPoints(), RWDS_BattlePoints, killer, GetCursor(killer), IC01);
+
+    //Dem mit dem meisten angerichteten Schaden neben dem Killer Assistpunkte geben
+    var highest = CreateArray(2);
+    for(var i = 0; i < GetLength(assistkiller)/2; i++)
+      if(assistkiller[i*2+1] > highest[0])
+      {
+        highest[0] = assistkiller[i*2+1];
+        highest[1] = assistkiller[i*2];
+      }
+    if(highest[1] != killer)
+    {
+      DoPlayerPoints(AssistPoints(), RWDS_BattlePoints, highest[1], GetCursor(highest[1]), IC02);
+    }  
+  }
+  
+  //Teamkiller
+  if( !Hostile(killer,GetOwner()) && killer != GetOwner() && !(killer < 0))
+    DoPlayerPoints(TeamkillPoints(), RWDS_MinusPoints, killer, GetCursor(killer), IC06);
+
   //this()->CLNK::DeathAnnounce(plr,clonk,killplr);
 }
 
@@ -297,49 +339,7 @@ global func FakeDeath(object pTarget)
   return true;
 }
 
-public func OnFakeDeath()
-{
-  var killer = GetKiller();
-
-  if(!machinekill)
-    if(killer < 0 || killer == GetOwner())
-      DoPlayerPoints(SuicidePoints(), RWDS_MinusPoints, GetOwner(), this, IC07);
-/*else
-  {
-    //Dem mit dem meisten angerichteten Schaden neben dem Killer(Maschine) Assistpunkte geben
-    var highest = CreateArray(2);
-    for(var i = 0; i < GetLength(assistkiller)/2; i++)
-      if(assistkiller[i*2+1] > highest[0])
-      {
-        highest[0] = assistkiller[i*2+1];
-        highest[1] = assistkiller[i*2];
-      }
-    DoPlayerPoints(AssistPoints(), RWDS_BattlePoints, highest[1], GetCursor(highest[1]), IC02);
-  }*/
-
-  //Ansonsten Killpunkte geben (und Todespunkte (und Assistkills))
-  if(Hostile(killer,GetOwner()) )
-  {
-    DoPlayerPoints(KillPoints(), RWDS_BattlePoints, killer, GetCursor(killer), IC01);
-
-    //Dem mit dem meisten angerichteten Schaden neben dem Killer Assistpunkte geben
-    var highest = CreateArray(2);
-    for(var i = 0; i < GetLength(assistkiller)/2; i++)
-      if(assistkiller[i*2+1] > highest[0])
-      {
-        highest[0] = assistkiller[i*2+1];
-        highest[1] = assistkiller[i*2];
-      }
-    if(highest[1] != killer)
-    {
-      DoPlayerPoints(AssistPoints(), RWDS_BattlePoints, highest[1], GetCursor(highest[1]), IC02);
-    }  
-  }
-  
-  //Teamkiller
-  if( !Hostile(killer,GetOwner()) && killer != GetOwner() && !(killer < 0))
-    DoPlayerPoints(TeamkillPoints(), RWDS_MinusPoints, killer, GetCursor(killer), IC06);
-}
+public func OnFakeDeath(){}
 
 global func StopFakeDeath(object pTarget)
 {
@@ -383,19 +383,27 @@ global func FxFakeDeathDamage(object pTarget, int iEffectNumber, int iDmgEngy, i
 
 func Death(object pTarget)
 {
+	if(!pTarget) pTarget = this();
+	if(!pTarget) return;
+  
+  //Todesnachricht bei keinem FakeDeath
+  if(FindObject(NOFD))
+    pTarget->DeathAnnounce(GetOwner(pTarget), pTarget, GetKiller(pTarget));
+  
   if(IsFakeDeath())
   {
     SetPhase(5);//Fallanimation überspringen
-    Sound("Death");
+    Sound("Death", false, pTarget);
   }
   else
   {
-   Sound("ClonkDie*.ogg");
+   Sound("ClonkDie*.ogg", false, pTarget);
   }
+  
   //Verschwinden
-  FadeOut(this());
+  FadeOut(pTarget);
 
   //Fake Death löschen
   if(IsFakeDeath())
-   RemoveObject(Contained(),true);
+   RemoveObject(Contained(pTarget),true);
 }
