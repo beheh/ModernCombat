@@ -198,6 +198,8 @@ private func DeathAnnounce(int plr, object clonk, int killplr, bool fNoPoints)
   clonk->AddEffect("NoAnnounce", clonk, 20);
   
   if(!fNoPoints) DoPoints();
+  
+  return true;
 }
 
 protected func DoPoints() {
