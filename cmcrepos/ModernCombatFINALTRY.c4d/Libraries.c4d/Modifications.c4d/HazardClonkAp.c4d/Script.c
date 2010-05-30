@@ -343,9 +343,10 @@ private func DeathAnnounce(int plr, object clonk, int killplr)
   if(!clonk)
     clonk = this();
   if(!clonk) return;
-  return inherited(plr, clonk, killplr);
+  var r = CLNK->DeathAnnounce(plr, clonk, killplr, true);
+  DoPoints();
+  return r;
 }
-
 
 public func UpdateCharge()
 {
