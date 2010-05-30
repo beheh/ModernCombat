@@ -154,7 +154,6 @@ public func RejectCollect(id idObj, object pObj)
 {
   if(!clonk) return();
   var val = clonk->~RejectCollect(idObj,pObj);
-  if(val)  Message("RejectCollect",this());
   return(val);
 }
 
