@@ -16,8 +16,7 @@ protected func Initialize()
    ChooserFinished();
 
   if(!FindObject(GOAL)) CreateObject(GOAL,0,0,-1);
-  
-  ScheduleCall(this(),"InitScoreboard",1);
+
   return inherited(...);
 }
 
