@@ -254,6 +254,7 @@ private func RemoveSingleplayerTeam(int iPlr) {}
 private func InitPlayer(int iPlr) {}
 private func RemoveScoreboardPlayer(int iPlr) {}
 public func WinScoreChange(int iNewScore) {}
+private func SortTeamScoreboard()	{}
 
 /* GameCalls */
 
@@ -405,6 +406,40 @@ public func IsFulfilled()
   }
 }
 
+private func TeamAlive(int iTeam) {
+  var alive = [], poles = [];
+  var i = iTeam;
+  
+  //Zwei Siegbedingungen: Alle Spieler eines Teams eliminiert und alle Flaggen des Teams eingenommen
+  poles[i] = 0;
+  for(var pole in FindObjects(Find_ID(OFPL)))
+    if(pole->GetTeam() == i && pole->IsFullyCaptured())
+      poles[i]++;
+  if(poles[i] == 0) //Keine Flaggen?
+  {
+    alive[i] = 0; //Hackig...
+    for(var clonk in FindObjects(Find_OCF(OCF_Alive), Find_OCF(OCF_CrewMember)))
+      if(GetPlayerTeam(GetOwner(clonk)) == i)
+      {
+        if(Contained(clonk))
+        {
+          if((GetID(Contained(clonk)) == OSPW && GetAction(Contained(clonk)) != "Counter") || GetID(Contained(clonk)) == TIM1 || GetID(Contained(clonk)) == TIM2)
+            continue;
+          alive[i]++;
+          break;
+        }
+        alive[i]++;
+      }
+  }
+  else
+    //Garkeine Spieler in einem Team?
+    for(var j = 0; j < GetPlayerCount(); j++)
+      if(GetPlayerTeam(GetPlayerByIndex(j)) == i)
+        alive[i]++;
+  if(alive[i] > 0) return true;
+  return false;
+}
+
 private func GetWinningTeam() {
   var alive = [], poles = [];
   var add, id;
@@ -412,31 +447,7 @@ private func GetWinningTeam() {
   //Zwei Siegbedingungen: Alle Spieler eines Teams eliminiert und alle Flaggen des Teams eingenommen
   for(var i = 1; i <= GetTeamCount(); i++)
   {
-    poles[i] = 0;
-    for(var pole in FindObjects(Find_ID(OFPL)))
-      if(pole->GetTeam() == i && pole->IsFullyCaptured())
-        poles[i]++;
-    if(poles[i] == 0) //Keine Flaggen?
-    {
-      alive[i] = 0; //Hackig...
-      for(var clonk in FindObjects(Find_OCF(OCF_Alive), Find_OCF(OCF_CrewMember)))
-        if(GetPlayerTeam(GetOwner(clonk)) == i)
-        {
-          if(Contained(clonk))
-          {
-            if((GetID(Contained(clonk)) == OSPW && GetAction(Contained(clonk)) != "Counter") || GetID(Contained(clonk)) == TIM1 || GetID(Contained(clonk)) == TIM2)
-              continue;
-            alive[i]++;
-            break;
-          }
-          alive[i]++;
-        }
-    }
-    else
-      //Garkeine Spieler in einem Team?
-      for(var j = 0; j < GetPlayerCount(); j++)
-        if(GetPlayerTeam(GetPlayerByIndex(j)) == i)
-          alive[i]++;
+		alive[i] = TeamAlive(GetTeamByIndex(i));
   }
 
   //Wie viele Teams existent?
@@ -507,7 +518,7 @@ private func RelaunchPlayer(int iPlr, object pCrew, int iMurdererPlr, int iTeam,
 
   //Kein Team?
   if(!iTeam) iTeam = GetPlayerTeam(iPlr);
-  
+
   //Kills
   aDeath[iPlr]++;
   //Tode
@@ -528,6 +539,11 @@ private func RelaunchPlayer(int iPlr, object pCrew, int iMurdererPlr, int iTeam,
     if(GetCursor(iPlr)) SetPlrViewRange(0, GetCursor(iPlr));
     return;
   }
+
+	//Check ob noch am Leben
+  if(!TeamAlive(iTeam)) {
+  	return EliminatePlayer(iPlr);
+  }  
   
   DoTickets(iTeam,-1);
  

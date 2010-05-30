@@ -193,7 +193,7 @@ private func DeathAnnounce(int plr, object clonk, int killplr)
   else
     KILL->KTMsg(plr, killplr, clonk);
 
-  KILL->KillStat(GetCursor(killplr),plr);//hier auch clonk->~KillIcon()? könnte lustig sein :>
+  //KILL->KillStat(GetCursor(killplr),plr);//hier auch clonk->~KillIcon()? könnte lustig sein :>
   
   clonk->AddEffect("NoAnnounce", clonk, 20);
   
