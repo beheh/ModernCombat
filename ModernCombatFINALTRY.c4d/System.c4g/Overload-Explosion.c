@@ -139,8 +139,12 @@ global func BlastObjects2(int x, int y, int level, object container, int cause_p
       var cat = GetCategory(obj);
       if (cat & C4D_Living)
       {
-       DoEnergy(level/-2, obj, false, FX_Call_EngBlast, cause_plr_plus_one);
+	     DoEnergy(level/-2, obj, false, FX_Call_EngBlast, cause_plr_plus_one);
        DoDamage(level/2, obj, FX_Call_DmgBlast, cause_plr_plus_one);
+       SetKiller(cause_plr_plus_one-1, obj);
+       if(this) var icon = this->~GetKillIcon();
+		   if(!icon) icon = GetID();
+       if(icon) obj->~KillIcon(icon);
       }    
       //Killverfolgung bei Projektilen
       if (cat & C4D_Object) SetController(cause_plr_plus_one-1, obj);
@@ -174,7 +178,7 @@ global func BlastObject(int level, object obj, int cause_plr_plus_one)
 {
   var icon;
   if(this) icon = this->~GetKillIcon();
-  if(!icon) icon = GetID(this);
+  if(!icon) icon = GetID();
   DoDmg(level, DMG_Explosion, obj, 0, cause_plr_plus_one, icon);
   return true;
 }
