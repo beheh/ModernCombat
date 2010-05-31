@@ -283,11 +283,11 @@ public func FlagLost(object pFlag, int iTeam, int iTeamAttacker, array pAttacker
   var i = 0;
   for(var pClonk in pAttackers)  {
     if(!i) {
-      DoPlayerPoints(BonusPoints("OPNeutralize"), RWDS_BattlePoints, GetOwner(pClonk), pClonk, IC13);
+      DoPlayerPoints(BonusPoints("OPNeutralize"), RWDS_TeamPoints, GetOwner(pClonk), pClonk, IC13);
       DoWealth(GetOwner(pClonk), 20);
     }
     else {
-      DoPlayerPoints(BonusPoints("OPAssist"), RWDS_BattlePoints, GetOwner(pClonk), pClonk, IC10);
+      DoPlayerPoints(BonusPoints("OPAssist"), RWDS_TeamPoints, GetOwner(pClonk), pClonk, IC10);
       DoWealth(GetOwner(pClonk), 10);
     }
     i++;
@@ -307,7 +307,7 @@ public func FlagCaptured(object pFlag, int iTeam, array pAttackers, bool fRegain
   //Punkte bei Belohnungssystem
   if(fRegained) {
     for(var pClonk in pAttackers) {
-      DoPlayerPoints(BonusPoints("OPDefend"), RWDS_BattlePoints, GetOwner(pClonk), pClonk, IC12);
+      DoPlayerPoints(BonusPoints("OPDefend"), RWDS_TeamPoints, GetOwner(pClonk), pClonk, IC12);
       DoWealth(GetOwner(pClonk), 15);
     }
   }
@@ -316,11 +316,11 @@ public func FlagCaptured(object pFlag, int iTeam, array pAttackers, bool fRegain
     var i = 0;
     for(var pClonk in pAttackers)  {
       if(!i) {
-        DoPlayerPoints(BonusPoints("OPConquer"), RWDS_BattlePoints, GetOwner(pClonk), pClonk, IC10);
+        DoPlayerPoints(BonusPoints("OPConquer"), RWDS_TeamPoints, GetOwner(pClonk), pClonk, IC10);
         DoWealth(GetOwner(pClonk), 30);
       }
       else {
-        DoPlayerPoints(BonusPoints("OPAssist"), RWDS_BattlePoints, GetOwner(pClonk), pClonk, IC13);
+        DoPlayerPoints(BonusPoints("OPAssist"), RWDS_TeamPoints, GetOwner(pClonk), pClonk, IC13);
         DoWealth(GetOwner(pClonk), 20);
       }
       i++;
