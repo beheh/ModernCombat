@@ -5,8 +5,8 @@
 
 static const GOCC_Horizontal = 1;
 static const GOCC_Vertical = 2;
-static const GOCC_FlagColumn = 0;
-static const GOCC_ProgressColumn = 1;
+static const GOCC_FlagColumn = 1;
+static const GOCC_ProgressColumn = 2;
 
 private func StartTickets()	{return 15;}	//Standardticketzahl
 
@@ -185,6 +185,8 @@ private func ChangeStartTickets(id dummy, int iChange)
 
 protected func InitScoreboard()
 {  
+	if(FindObject(CHOS)) return;
+
 	UpdateHUDs();
 
 	//Überschriften
@@ -199,6 +201,8 @@ protected func InitScoreboard()
 
 private func UpdateScoreboard()
 {
+	if(FindObject(CHOS)) return;
+
 	//Zeile
   var i = 0;
   var data;
@@ -237,11 +241,11 @@ private func UpdateScoreboard()
   {
     var iTeam = GetTeamByIndex(j);
     if(TeamAlive(iTeam)) {
-      SetScoreboardData(i, GOCC_TeamColumn, Format("<c %x>%s</c>", GetTeamColor(iTeam), GetTeamName(iTeam)), base+2+GetFlagCount(iTeam));
+      SetScoreboardData(i, GOCC_FlagColumn, Format("<c %x>%s</c>", GetTeamColor(iTeam), GetTeamName(iTeam)), base+2+GetFlagCount(iTeam));
       SetScoreboardData(i, GOCC_ProgressColumn, Format("%d {{TIKT}}", GetTickets(iTeam)), base+2+GetTickets(iTeam));
     }
     else {
-      SetScoreboardData(i, GOCC_TeamColumn, 0);
+      SetScoreboardData(i, GOCC_FlagColumn, 0);
       SetScoreboardData(i, GOCC_ProgressColumn, 0);
     }
     i++;
