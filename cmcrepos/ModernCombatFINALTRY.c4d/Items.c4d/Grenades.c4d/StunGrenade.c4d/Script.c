@@ -74,6 +74,8 @@ public func FxIntFlashbangTimer(object pTarget, int iEffectNumber, int iEffectTi
   {
     pCursor = GetCursor(GetPlayerByIndex(i))->~GetRealCursor();
     if(!pCursor) pCursor = GetCursor(GetPlayerByIndex(i));
+    if(!pCursor) continue;
+    if(Contained(pCursor)) continue;
     num = GetEffect("IntFlashbang", pCursor);
     if(num) {
       val = 255-BoundBy((EffectVar(0,pCursor,num)-1)*255/100,0,255);

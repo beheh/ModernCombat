@@ -159,6 +159,8 @@ protected func AbortCrawl()
      SetPosition(GetX()+dir,GetY());
     }
 
+		if(Stuck()) AutoUnstuck(this);
+
     //SetPosition(GetX()+(GetDir()*2-1)*-4,GetY()+8+5);
     SetAction("Scale");
     return(1);
