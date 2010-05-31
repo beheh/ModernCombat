@@ -175,7 +175,6 @@ global func BlastObject(int level, object obj, int cause_plr_plus_one)
   var icon;
   if(this) icon = this->~GetKillIcon();
   if(!icon) icon = GetID(this);
-  obj->~SetKiller(cause_plr_plus_one-1);
   DoDmg(level, DMG_Explosion, obj, 0, cause_plr_plus_one, icon);
   return true;
 }
@@ -187,6 +186,7 @@ global func DamageObjects(int iDistance, int iDamage, object pObject, int iX, in
   var y = GetY(pObject)+iY;
   var dealer = -1;
   dealer = GetController(pObject);
+  if(dealer == -1) dealer = GetOwner(pObject);
   var icon = pObject->~GetKillIcon();
   if(!icon) icon = GetID(pObject);
   for(var obj in FindObjects(pObject->Find_Distance(iDistance,iX,iY),
