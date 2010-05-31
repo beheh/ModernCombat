@@ -3,22 +3,12 @@
 #strict 2
 #include TEAM
 
-private func StartTickets()	{return(15);}	//Standardticketzahl
-
-
-/* Globale Funktionen */
-
-global func CreateFlagpole(int iX, int iY, string szName, int iRange, int iSpeed)
-{
-  var point = CreateObject(OFPL, iX, iY, NO_OWNER);
-  point->Set(szName,iRange,iSpeed);
-  return point;
-}
-
-/* Flaggen */
-
 static const GOCC_Horizontal = 1;
 static const GOCC_Vertical = 2;
+
+private func StartTickets()	{return 15;}	//Standardticketzahl
+
+/* Globale Funktionen */
 
 global func GetGOCCDirection()
 {
@@ -29,52 +19,29 @@ global func GetGOCCDirection()
 
 global func GetGOCCFlags() {
   var list = [];
-  var pos = 0;
-  for(var flag in FindObjects(Find_Func("IsFlagpole"))) {
+  var iPos = 0;
+  for(var pFlag in FindObjects(Find_Func("IsFlagpole"))) {
     if(GetGOCCDirection() == GOCC_Horizontal)
-      pos = GetX(flag);
+      iPos = GetX(pFlag);
     if(GetGOCCDirection() == GOCC_Vertical)
-      pos = GetY(flag);
-    if(flag) list[pos] = flag;
+      iPos = GetY(pFlag);
+    list[iPos] = pFlag;
   }
-  var flags = [];
-  for(var flag in list) {
-    if(flag) flags[GetLength(flags)] = flag;
+  var pFlags = [];
+  for(var pFlag in list) {
+    if(pFlag) pFlags[GetLength(pFlags)] = pFlag;
   }
   return flags;
 }
 
-/* Allgemein */
-
-local iStartTickets;
-local iWarningTickets;
-local aTicket;
-
-protected func Initialize()
+global func CreateFlagpole(int iX, int iY, string szName, int iRange, int iSpeed)
 {
-  aTicket = [];
-  iStartTickets = StartTickets();
-  
-  return _inherited();
+  var point = CreateObject(OFPL, iX, iY, NO_OWNER);
+  point->Set(szName, iRange, iSpeed);
+  return point;
 }
 
-public func Activate(iPlr)
-{
-  var text = "";
-  if(GetWinningTeam() > 0) {
-    if(GetWinningTeam() == GetPlayerTeam(iPlr)) {
-      text = "$MsgGoalFulfilled$";
-    }
-    else {
-      text = "$MsgGoalLost$";
-    }
-  }
-  else {
-    for(var i = 1; i <= GetTeamCount(); i++)
-      text = Format("%s<c %x>%s</c>: %d $Tickets$|",text,GetTeamColor(i),GetTeamName(i),GetTickets(i));
-  }
-  return MessageWindow(text,iPlr);
-}
+/* Flaggen */
 
 public func GetFlagCount(int iTeam, bool bCountBlankFlags)
 {
@@ -100,6 +67,41 @@ public func GetFlagCount(int iTeam, bool bCountBlankFlags)
   return count;
 }
 
+/* Allgemein */
+
+local iStartTickets;
+local iWarningTickets;
+local aTicket;
+
+protected func Initialize()
+{
+  aTicket = [];
+  iStartTickets = StartTickets();
+  
+  return _inherited();
+}
+
+public func Activate(iPlr)
+{
+  var szText = "";
+  if(GetWinningTeam() > 0) {
+    if(GetWinningTeam() == GetPlayerTeam(iPlr)) {
+      szText = "$MsgGoalFulfilled$";
+    }
+    else {
+      szText = "$MsgGoalLost$";
+    }
+  }
+  else {
+		//Alle Teamtickets anzeigen
+    for(var i = 0; i < GetTeamCount(); i++) {
+    	var iTeam = GetTeamByIndex(i);
+      if(TeamAlive(iTeam)) szText = Format("%s<c %x>%s</c>: %d $Tickets$|", szText, GetTeamColor(iTeam), GetTeamName(iTeam), GetTickets(iTeam));
+  	}
+  }
+  return MessageWindow(szText ,iPlr);
+}
+
 public func ChooserFinished()
 {
   ScheduleCall(this(),"InitScoreboard",1);
@@ -117,12 +119,7 @@ public func ChooserFinished()
   _inherited(...);
 }
 
-private func CreateSpawners()
-{
-  for(var i = 0; i < GetPlayerCount(); i++)
-    for(var j = 0, pCrew ; pCrew = GetCrew(GetPlayerByIndex(i), j) ; j++)
-      CreateGOCCSpawner(pCrew);
-}
+/* HUD */
 
 public func GetHUDInfo(int player, object hud)
 {
@@ -141,8 +138,8 @@ public func GetHUDInfo(int player, object hud)
 	return str;
 }
 
-
 /* Konfiguration */
+
 public func IsConfigurable() { return true; }
 
 public func ConfigMenu(object pCaller)
@@ -183,17 +180,20 @@ private func ChangeStartTickets(id dummy, int iChange)
   OpenGoalMenu(0, iSel);
 }
 
-
-
 /* Scoreboard */
 
-private func InitScoreboard()
+protected func InitScoreboard()
 {  
+	UpdateHUDs();
+
+	//Überschriften
   SetScoreboardData(SBRD_Caption, SBRD_Caption, Format("%s",GetName()), SBRD_Caption);
   SetScoreboardData(SBRD_Caption, 1, "{{OSPW}}", SBRD_Caption);
   SetScoreboardData(SBRD_Caption, 2, "{{AFTN}}", SBRD_Caption);
-  
+
   UpdateScoreboard();
+  
+  init = true;
 }
 
 private func UpdateScoreboard()
@@ -203,13 +203,13 @@ private func UpdateScoreboard()
   //Flaggen
   for(var flag in GetGOCCFlags())
   {
-    var color=RGB(255,255,255);
+  	//Erst mal weiß annehmen
+    var color = RGB(255,255,255);
     if(flag->GetTeam())
       if(flag->GetProcess() >= 100) {
         color = GetTeamColor(flag->GetTeam());
       }
       else {
-        //color = DoColorBrightness(GetTeamColor(flag->GetTeam()), -80);
 				color = SetRGBaValue(GetTeamColor(flag->GetTeam()), 180, 0);
       }
     if(GetGOCCDirection() == GOCC_Horizontal)
@@ -226,13 +226,15 @@ private func UpdateScoreboard()
   if(GetGOCCDirection() == GOCC_Vertical)
     base = LandscapeHeight();
   if(i != 1) {
-    SetScoreboardData(i, 1, "", base+1); i++;
+    SetScoreboardData(i, 1, " ", base+1);
+    SetScoreboardData(i, 2, " ", base+1);
+    i++;
   }
   //Tickets
-  for(var j = 0; j <= GetTeamCount(); j++)
+  for(var j = 0; j < GetTeamCount(); j++)
   {
     var iTeam = GetTeamByIndex(j);
-    if(GetTeamPlayerCount(iTeam) > 0) {
+    if(TeamAlive(iTeam)) {
       SetScoreboardData(i, 1, Format("<c %x>%s</c>", GetTeamColor(iTeam), GetTeamName(iTeam)), base+2+GetFlagCount(iTeam));
       SetScoreboardData(i, 2, Format("%d {{TIKT}}", GetTickets(iTeam)), base+2+GetTickets(iTeam));
     }
@@ -245,16 +247,16 @@ private func UpdateScoreboard()
   SortScoreboard(1);
 }
 
-/* Kein Scoreboard */
+/* Unbenötigtes */
 
-private func InitMultiplayerTeam(int iTeam) {}
+/*private func InitMultiplayerTeam(int iTeam) {}
 private func RemoveMultiplayerTeam(int iTeam) {}
 private func InitSingleplayerTeam(int iPlr) {}
 private func RemoveSingleplayerTeam(int iPlr) {}
 private func InitPlayer(int iPlr) {}
 private func RemoveScoreboardPlayer(int iPlr) {}
 public func WinScoreChange(int iNewScore) {}
-private func SortTeamScoreboard()	{}
+private func SortTeamScoreboard()	{}*/
 
 /* GameCalls */
 
@@ -322,6 +324,38 @@ public func FlagCaptured(object pFlag, int iTeam, array pAttackers, bool fRegain
   UpdateScoreboard();
 }
 
+/* Tickets */
+
+public func TicketChange(int iTeam, int iChange)
+{
+	DoTickets(iChange);
+	if(iWarningTickets != 0 && iWarningTickets == aTicket[iTeam-1]) {
+		Schedule(Format("GameCallEx(\"TicketsLow\", %d, %d)", aTicket[iTeam-1], iTeam), 1);
+	}
+	if(aTicket[iTeam-1] == 0) {
+		Schedule(Format("GameCallEx(\"NoTickets\", %d, %d)", iTeam), 1);
+	}
+	UpdateScoreboard(iTeam);
+}
+
+public func GetTickets(int iTeam)
+{
+	return aTicket[iTeam-1];
+}
+
+public func SetTickets(int iTeam, int iTickets)
+{
+	aTicket[iTeam-1] = Max(iTickets, 0);
+	UpdateScoreboard(iTeam);
+}
+
+public func DoTickets(int iTeam, int iChange, bool fNoWarn)
+{
+	aTicket[iTeam-1] = Max(aTicket[iTeam-1] + iChange, 0);
+}
+
+/* EventInfos */
+
 public func TicketsLow(int iRemaining, int iTeam)
 {
   for(var i = 0; i < GetPlayerCount(); i++) {
@@ -340,38 +374,8 @@ public func NoTickets(int iTeam)
   }
 }
 
-/* Tickets */
-
-public func TicketChange(int iTeam, int iChange)
-{
-  DoTickets(iChange);
-  UpdateScoreboard(iTeam);
-}
-
-public func GetTickets(int iTeam)
-{
-  return aTicket[iTeam-1];
-}
-
-public func DoTickets(int iTeam, int iChange)
-{
-  aTicket[iTeam-1] = Max(aTicket[iTeam-1] + iChange, 0);
-  if(iWarningTickets != 0 && iWarningTickets == aTicket[iTeam-1]) {
-    Schedule(Format("GameCallEx(\"TicketsLow\", %d, %d)", aTicket[iTeam-1], iTeam), 1);
-  }
-  if(aTicket[iTeam-1] == 0) {
-    Schedule(Format("GameCallEx(\"NoTickets\", %d, %d)", iTeam), 1);
-  }
-}
-
-public func SetTickets(int iTeam, int iTickets)
-{
-  aTicket[iTeam-1] = Max(iTickets, 0);
-  UpdateScoreboard(iTeam);
-}
-
-
 /* Spiellogik */
+
 public func IsFulfilled()
 {
   if(ObjectCount(CHOS)) return false;
@@ -498,8 +502,11 @@ private func LosersAlive(int iTeam)
 }
 
 /* Respawn */
-private func InitializePlayer(int iPlr, int iX, int iY, object pBase, int iTeam)
+
+protected func InitializePlayer(int iPlr, int iX, int iY, object pBase, int iTeam)
 {
+  if(!init) return;
+
   if(IsFulfilled()) return EliminatePlayer(iPlr);
 
   //Verfeindung setzen
