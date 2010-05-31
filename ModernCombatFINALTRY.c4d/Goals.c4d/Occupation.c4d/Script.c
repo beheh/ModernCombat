@@ -5,6 +5,8 @@
 
 static const GOCC_Horizontal = 1;
 static const GOCC_Vertical = 2;
+static const GOCC_FlagColumn = 0;
+static const GOCC_ProgressColumn = 1;
 
 private func StartTickets()	{return 15;}	//Standardticketzahl
 
@@ -31,7 +33,7 @@ global func GetGOCCFlags() {
   for(var pFlag in list) {
     if(pFlag) pFlags[GetLength(pFlags)] = pFlag;
   }
-  return flags;
+  return pFlags;
 }
 
 global func CreateFlagpole(int iX, int iY, string szName, int iRange, int iSpeed)
@@ -114,9 +116,8 @@ public func ChooserFinished()
   if(!FindObject(MCSL))//Klassenwahl?
     ScheduleCall(0,"CreateSpawners",1);
     
-  for(var i = 1; i <= GetTeamCount(); i++)
-    DoTickets(i, iStartTickets);
-  _inherited(...);
+  for(var i = 1; i < GetTeamCount(); i++)
+    DoTickets(GetTeamByIndex(i), iStartTickets);
 }
 
 /* HUD */
@@ -188,8 +189,8 @@ protected func InitScoreboard()
 
 	//Überschriften
   SetScoreboardData(SBRD_Caption, SBRD_Caption, Format("%s",GetName()), SBRD_Caption);
-  SetScoreboardData(SBRD_Caption, 1, "{{OSPW}}", SBRD_Caption);
-  SetScoreboardData(SBRD_Caption, 2, "{{AFTN}}", SBRD_Caption);
+  SetScoreboardData(SBRD_Caption, GOCC_FlagColumn, "{{OSPW}}", SBRD_Caption);
+  SetScoreboardData(SBRD_Caption, GOCC_ProgressColumn, "{{AFTN}}", SBRD_Caption);
 
   UpdateScoreboard();
   
@@ -198,7 +199,8 @@ protected func InitScoreboard()
 
 private func UpdateScoreboard()
 {
-  var i = 1;
+	//Zeile
+  var i = 0;
   var data;
   //Flaggen
   for(var flag in GetGOCCFlags())
@@ -216,8 +218,8 @@ private func UpdateScoreboard()
       data = GetX(flag);
     if(GetGOCCDirection() == GOCC_Vertical)
       data = GetY(flag);
-    SetScoreboardData(i,1,Format("<c %x>%s</c>",color,GetName(flag)), data);
-    SetScoreboardData(i,2,Format("%d%", flag->GetProcess()), flag->GetProcess());
+    SetScoreboardData(i, GOCC_FlagColumn, Format("<c %x>%s</c>", color, GetName(flag)), data);
+    SetScoreboardData(i, GOCC_ProgressColumn, Format("%d%", flag->GetProcess()), flag->GetProcess());
     i++;
   }
   var base;
@@ -226,8 +228,8 @@ private func UpdateScoreboard()
   if(GetGOCCDirection() == GOCC_Vertical)
     base = LandscapeHeight();
   if(i != 1) {
-    SetScoreboardData(i, 1, " ", base+1);
-    SetScoreboardData(i, 2, " ", base+1);
+    SetScoreboardData(i, GOCC_FlagColumn, " ", base+1);
+    SetScoreboardData(i, GOCC_ProgressColumn, " ", base+1);
     i++;
   }
   //Tickets
@@ -235,12 +237,12 @@ private func UpdateScoreboard()
   {
     var iTeam = GetTeamByIndex(j);
     if(TeamAlive(iTeam)) {
-      SetScoreboardData(i, 1, Format("<c %x>%s</c>", GetTeamColor(iTeam), GetTeamName(iTeam)), base+2+GetFlagCount(iTeam));
-      SetScoreboardData(i, 2, Format("%d {{TIKT}}", GetTickets(iTeam)), base+2+GetTickets(iTeam));
+      SetScoreboardData(i, GOCC_TeamColumn, Format("<c %x>%s</c>", GetTeamColor(iTeam), GetTeamName(iTeam)), base+2+GetFlagCount(iTeam));
+      SetScoreboardData(i, GOCC_ProgressColumn, Format("%d {{TIKT}}", GetTickets(iTeam)), base+2+GetTickets(iTeam));
     }
     else {
-      SetScoreboardData(i, 1, 0);
-      SetScoreboardData(i, 2, 0);
+      SetScoreboardData(i, GOCC_TeamColumn, 0);
+      SetScoreboardData(i, GOCC_ProgressColumn, 0);
     }
     i++;
   }
@@ -249,14 +251,14 @@ private func UpdateScoreboard()
 
 /* Unbenötigtes */
 
-/*private func InitMultiplayerTeam(int iTeam) {}
+private func InitMultiplayerTeam(int iTeam) {}
 private func RemoveMultiplayerTeam(int iTeam) {}
 private func InitSingleplayerTeam(int iPlr) {}
 private func RemoveSingleplayerTeam(int iPlr) {}
 private func InitPlayer(int iPlr) {}
 private func RemoveScoreboardPlayer(int iPlr) {}
 public func WinScoreChange(int iNewScore) {}
-private func SortTeamScoreboard()	{}*/
+private func SortTeamScoreboard()	{}
 
 /* GameCalls */
 
@@ -413,6 +415,11 @@ public func IsFulfilled()
 private func TeamAlive(int iTeam) {
   var alive = [], poles = [];
   var i = iTeam;
+  
+  //Regelwähler-Hack
+  if(FindObject(CHOS)) {
+  	return GetTeamPlayerCount(iTeam);
+  }
   
   //Zwei Siegbedingungen: Alle Spieler eines Teams eliminiert und alle Flaggen des Teams eingenommen
   poles[i] = 0;
