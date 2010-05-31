@@ -2,7 +2,6 @@
 
 #strict
 
-
 global func DoDmg(int iDmg, int iType, object pTarget, int iPrecision, int dmgplayer, id idKillIcon)
 {
   if(!pTarget)
@@ -13,6 +12,7 @@ global func DoDmg(int iDmg, int iType, object pTarget, int iPrecision, int dmgpl
 
   var dmg;
   var dmgdealer = dmgplayer-1;
+
   if(dmgdealer < 0)
   	dmgdealer = GetController(pTarget);
 
@@ -63,10 +63,11 @@ global func DoDmg(int iDmg, int iType, object pTarget, int iPrecision, int dmgpl
   var pFrom;
   if(pTarget != this())
     pFrom = this();
-  if(!pFrom) pFrom = GetCursor(dmgdealer);
+  if(!pFrom) pFrom = GetCrew(dmgdealer);
+
   pTarget->~LastDamageType(iType);
   pTarget->~OnHit(dmg/1000, iType, pFrom);
   if(GetCategory(pTarget) & C4D_Living)
-    return(DoEnergy(-dmg, pTarget, true));
+    return(DoEnergy(-dmg, pTarget, true, 0, dmgplayer));
   return(DoDamage(dmg/1000,pTarget));
 }
