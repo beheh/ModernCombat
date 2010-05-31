@@ -116,7 +116,7 @@ public func ChooserFinished()
   if(!FindObject(MCSL))//Klassenwahl?
     ScheduleCall(0,"CreateSpawners",1);
     
-  for(var i = 1; i < GetTeamCount(); i++)
+  for(var i = 0; i < GetTeamCount(); i++)
     DoTickets(GetTeamByIndex(i), iStartTickets);
 }
 
