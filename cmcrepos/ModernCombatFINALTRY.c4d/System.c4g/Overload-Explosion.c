@@ -111,8 +111,7 @@ global func BlastObjects2(int x, int y, int level, object container, int cause_p
     BlastObject(level, container, cause_plr_plus_one);
     for (obj in FindObjects(Find_Container(container), Find_Layer(layer)))
      if(obj) {
-       if(obj & C4D_Living) DoDmg(level, DMG_Explosion, obj, 0, cause_plr_plus_one); //Muss um eins erhöht sein!
-       if(this) obj->~KillIcon(GetID(this));
+       if(obj & C4D_Living) BlastObject(level, obj, cause_plr_plus_one); //DoDmg(level, DMG_Explosion, obj, 0, cause_plr_plus_one); //Muss um eins erhöht sein!
      }
    }
   }
@@ -139,13 +138,8 @@ global func BlastObjects2(int x, int y, int level, object container, int cause_p
       var cat = GetCategory(obj);
       if (cat & C4D_Living)
       {
-	     DoEnergy(level/-2, obj, false, FX_Call_EngBlast, cause_plr_plus_one);
-       DoDamage(level/2, obj, FX_Call_DmgBlast, cause_plr_plus_one);
-       SetKiller(cause_plr_plus_one-1, obj);
-       if(this) var icon = this->~GetKillIcon();
-		   if(!icon) icon = GetID();
-       if(icon) obj->~KillIcon(icon);
-      }    
+       BlastObject(level/2, obj, cause_plr_plus_one);
+      }
       //Killverfolgung bei Projektilen
       if (cat & C4D_Object) SetController(cause_plr_plus_one-1, obj);
       //Schockwelle

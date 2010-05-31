@@ -4,7 +4,6 @@
 
 static const STAT_Spree = 5;
 
-
 public func KTMsg(int plr1, int plr2, object clonk)
 {
   if(!plr1 && !plr2)
@@ -20,17 +19,17 @@ public func KTMsg(int plr1, int plr2, object clonk)
 
 public func KMsg(int plr1, int plr2, object clonk)
 {
-  /* Für Debugzwecke temporär entfernt.
   var tp;
   for(var goal in FindObjects(Find_Category(C4D_Goal)))
     if(goal->~IsTeamGoal())
       tp = true;
       
   if(!tp)
-    return();*/
+    return();
 
   //Kein Clonk?
   if(!clonk) return();
+	if(!GetPlayerName(plr1)) return;
 
   var msg;
   var typeicon,type = clonk->~LastDamageType();
@@ -96,7 +95,6 @@ public func SMsg(int plr)
 {
   //Eventnachricht: Spieler erhält Punkt
   EventInfo4K(0,Format("$MsgScore$",GetTaggedPlayerName(plr),GetPlrTeamName(plr)),PCMK);
-  //Log("$MsgScore$",GetTaggedPlayerName(plr),GetPlrTeamName(plr));
 }
 
 private func GetPlrTeamName(int plr)
