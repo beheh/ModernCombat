@@ -111,7 +111,7 @@ global func BlastObjects2(int x, int y, int level, object container, int cause_p
     BlastObject(level, container, cause_plr_plus_one);
     for (obj in FindObjects(Find_Container(container), Find_Layer(layer)))
      if(obj) {
-       if(obj & C4D_Living) BlastObject(level, obj, cause_plr_plus_one); //DoDmg(level, DMG_Explosion, obj, 0, cause_plr_plus_one); //Muss um eins erhöht sein!
+       if(GetCategory(obj) & C4D_Living) BlastObject(level, obj, cause_plr_plus_one); //DoDmg(level, DMG_Explosion, obj, 0, cause_plr_plus_one); //Muss um eins erhöht sein!
      }
    }
   }
