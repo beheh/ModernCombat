@@ -173,9 +173,9 @@ global func BlastObject(int level, object obj, int cause_plr_plus_one)
   var icon;
   if(this) icon = this->~GetKillIcon();
   if(!icon) icon = GetID();
-  if(cause_plr_plus_one == 0) Log("%d: (%v) No killer detected", FrameCounter(), obj);
+  //if(cause_plr_plus_one == 0) Log("%d: (%v) No killer detected", FrameCounter(), obj);
   DoDmg(level, DMG_Explosion, obj, 0, cause_plr_plus_one, icon);
-  if(cause_plr_plus_one != GetKiller(obj)+1) Log("%d: (%v) Killer missmatch detected", FrameCounter(), obj);
+  //if(cause_plr_plus_one != GetKiller(obj)+1) Log("%d: (%v) Killer missmatch detected", FrameCounter(), obj);
   return true;
 }
 
