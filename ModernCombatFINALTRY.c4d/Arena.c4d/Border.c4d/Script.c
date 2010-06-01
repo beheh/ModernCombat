@@ -59,7 +59,7 @@ private func Check()
       AddEffect("Border", clonk, 50, 35, this);
     }
   for(var flag in FindObjects(Find_InRect(x,y,xh,yh),Find_ID(FLA2),Find_Action("Lost")))
-   RemoveObject(FLA2);
+   RemoveObject(flag);
 }
 
 /* Effekt */

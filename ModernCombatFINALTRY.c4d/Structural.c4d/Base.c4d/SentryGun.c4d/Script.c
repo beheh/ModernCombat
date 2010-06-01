@@ -276,7 +276,6 @@ public func Search(int iX, int iWidth, int iHeight)
 
 		return pAim;
 
-
     break;
   }
   
