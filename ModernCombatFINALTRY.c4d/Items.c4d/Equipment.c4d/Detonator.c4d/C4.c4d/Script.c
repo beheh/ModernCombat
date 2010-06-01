@@ -103,7 +103,6 @@ public func BlowUp()
    DoDmg(BoundBy(InvertA1(ObjectDistance(obj), 100),0,60), DMG_Explosion, obj, 0, GetOwner()+1, GetID());
 
   Explode(BlastRadius());
-  RemoveObject();
 }
 
 /* Auﬂeneinwirkung */
