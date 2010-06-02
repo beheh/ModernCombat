@@ -186,7 +186,7 @@ private func DeathAnnounce(int plr, object clonk, int killplr, bool fNoPoints)
     clonk = this();
   if(!clonk) return;
   if(GetEffect("NoAnnounce", clonk)) return;
-  if(!GetAlive(clonk) && !FindObject(NOFD)) return; //FakeDeath-Hack
+  if(!GetAlive(clonk) && GetID(Contained(clonk)) == FKDT) return; //FakeDeath-Hack
   //Selfkill?
   if(plr == killplr || killplr == -1)
     KILL->SKMsg(plr, clonk);
