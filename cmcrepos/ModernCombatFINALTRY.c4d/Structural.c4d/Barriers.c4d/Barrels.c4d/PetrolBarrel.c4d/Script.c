@@ -11,7 +11,7 @@ func BlowUp(int iPlr)
   //Effekt
   CastParticles("MetalSplinter",4,100,0,0,20,70,RGB(250,0,0));
   //Explosion
-  CreateObject(ROCK,0,0,iPlr)->Explode(20);
+  FakeExplode(20, iPlr-1);
   //Sound
   Sound("Inflame");
 

@@ -60,7 +60,7 @@ public func KMsg(int plr1, int plr2, object clonk)
   var victim = plr1;
   var killer = plr2;
 
-  //Nachricht konstruieren
+	//Nachricht konstruieren
   msg = Format("{{%i}}",killicon); 
   if(typeicon && killicon != typeicon)
     if(killicon)

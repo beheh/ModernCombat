@@ -66,7 +66,7 @@ func BlowUp(int iPlr)
 {
   SetAction("Wreck");
   SetController(iPlr);
-  CreateObject(ROCK,0,0,iPlr)->Explode(30);
+  FakeExplode(30, iPlr+1);
   Extinguish();
 
   SetRDir(RandomX(-40,+40));

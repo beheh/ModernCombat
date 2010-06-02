@@ -198,3 +198,14 @@ global func DamageObjects(int iDistance, int iDamage, object pObject, int iX, in
   }
   return true;
 }
+
+
+global func FakeExplode(int iLevel, int iControllerPlusOne, object obj) {
+	if(!obj) obj = this;
+	if(!obj) return false;
+	var dummy = CreateObject(GetID(obj));
+  dummy->SetController(iControllerPlusOne-1);
+  dummy->Explode(iLevel);
+  if(dummy) dummy->RemoveObject();
+	return true;
+}
