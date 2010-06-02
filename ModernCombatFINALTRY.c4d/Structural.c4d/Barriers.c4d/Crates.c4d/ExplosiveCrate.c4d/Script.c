@@ -58,7 +58,6 @@ public func InstaExplode(int iPlr)
   
   //Explosion
   SetController(iPlr);
-  RemoveObject(this, true);
-  CreateObject(ROCK,0,0,iPlr)->Explode(45);
-  CreateObject(ROCK,0,0,iPlr)->Explode(30);
+  FakeExplode(45, iPlr+1);
+  FakeExplode(30, iPlr+1);
 }
