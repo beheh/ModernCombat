@@ -134,10 +134,8 @@ public func Destroyed()
 		  DoPlayerPoints(BonusPoints("Destruction"), RWDS_BattlePoints, iLastAttacker, GetCursor(iLastAttacker), IC03);
 	
   //Explosion
-	var pBlast = CreateObject(ROCK, 0, 0, iLastAttacker);
-	pBlast->SetController(iLastAttacker);
-	pBlast->Explode(20);
-	  
+	FakeExplode(20, iLastAttacker+1);	
+		  
   //Sound
   Sound("Blast2", false, this);
 
