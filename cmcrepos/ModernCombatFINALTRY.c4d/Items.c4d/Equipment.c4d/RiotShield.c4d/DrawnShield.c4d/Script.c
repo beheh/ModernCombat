@@ -59,6 +59,7 @@ public func ExecShove()
                   Find_Func("IsBulletTarget",GetID(),this,target),
                   Find_OCF(OCF_Alive)
                  ),
+                 Find_Category(C4D_Living|C4D_Vehicle),
                  Find_Func("CheckEnemy",this),
                  Sort_Distance(dx,dy));
 
