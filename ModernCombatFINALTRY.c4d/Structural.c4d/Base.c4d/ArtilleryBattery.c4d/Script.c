@@ -190,3 +190,10 @@ public func OnRepair()
   //Neue Kanone
   pCannon = CreateObject(CNON,0,32,-1);
 }
+
+/* Normale Entfernung */
+
+public func Destruction() {
+	if(pCannon) pCannon->RemoveObject();
+	RemoveEffect("ShowWeapon",this); 
+}

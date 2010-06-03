@@ -3,6 +3,7 @@
 #strict 2
 #include WCR2
 
+local blasted;
 
 /* Entzündung */
 
@@ -24,13 +25,16 @@ func Damage(int iChange, int iPlr)
   if(GetDamage() > 0)
       Incinerate();
       
-  if(GetDamage() < 70) return ;
+  if(GetDamage() < 70) return;
   
-  InstaExplode(iPlr);
+  ScheduleCall(this, "InstaExplode", 1, 0, iPlr);
 }
 
 public func InstaExplode(int iPlr)
 {
+	if(blasted) return;
+	blasted = true;
+	
   //Effektgehasche
   CastParticles("WoodenCrateSplinter", 4, 50, 0,0, 141, RGBa(80,0,0,0), RGBa(30,0,0,0));
   CastParticles("WoodSplinter", 10, 200, 0,0, 50, 75, RGBa(80,0,0,0), RGBa(30,0,0,0));
@@ -60,4 +64,6 @@ public func InstaExplode(int iPlr)
   SetController(iPlr);
   FakeExplode(45, iPlr+1);
   FakeExplode(30, iPlr+1);
+  RemoveObject(this);
+  return;
 }
