@@ -21,7 +21,7 @@ public func ReadyToFire()	{return(1);}			//Allzeit bereit
 public func IsMachine()		{return(true);}			//Ist eine Elektrische Anlage
 public func IsBulletTarget()	{return(true);}			//Kugelziel
 public func IsAiming()		{return(true);}			// Die Sentry Gun "zielt" immer
-public func IsThreat()		{return(fActive);}
+public func IsThreat()		{return(fActive);}	//Wenn wir an sind, sind wir böse >:(
 public func UpdateCharge()	{return(1);}
 
 /* Zerstörung */
@@ -142,7 +142,7 @@ public func Activity()
 {
   var iHeight, iWidth, iAngle;
   //Wuah, haben wir eine Waffe?
-  if(! GetAttWeapon()) return;
+  if(!GetAttWeapon()) return;
   //Sind wir im Eimer?
   if(EMPShocked()) return;
   if(IsDestroyed()) return;
@@ -256,37 +256,36 @@ public func Search(int iX, int iWidth, int iHeight)
 
 	var w,h;
   
-	var Targets = FindTargets(this(), SearchLength()); //FindObjects(Find_Distance(SearchLength()),Find_PathFree(),Find_NoContainer());
+	var Targets = FindTargets(this(), SearchLength());
   for(pAim in Targets)
   {
-    if(GetOwner() != NO_OWNER)
-      if(pAim->GetOwner() == GetOwner() || !Hostile(pAim->GetOwner(), GetOwner()))
-        continue;
+		if(GetOwner() != NO_OWNER)
+			if(pAim->GetOwner() == GetOwner() || !Hostile(pAim->GetOwner(), GetOwner()))
+				continue;
 
 		if(!CheckTarget(pAim,this()))
 			continue;
 
-
-    //Winkel zum Ziel
-    target_angle = Angle(GetX(), GetY() + 7, pAim->GetX(), pAim->GetY());
+		//Winkel zum Ziel
+		target_angle = Angle(GetX(), GetY() + 7, pAim->GetX(), pAim->GetY());
 
 		target_angle = Normalize(target_angle, 0);
-    if(target_angle < MaxRotLeft() || target_angle > MaxRotRight())
-    	continue;
+		if(target_angle < MaxRotLeft() || target_angle > MaxRotRight())
+			continue;
 
-		return pAim;
-
-    break;
+		break;
   }
   
-  if(Shooting && ! pAim)
-  {
-    Shooting = false;
-    GetAttWeapon()->StopAutoFire();
-  }
-  
-  if(!pAim)
-    GotTarget = true;
+	if(Shooting && !pAim)
+	{
+		Shooting = false;
+		GetAttWeapon()->StopAutoFire();
+	}
+
+	if(!pAim)
+  	GotTarget = true;
+
+  return pAim;
 }
 
 private func Reload()
