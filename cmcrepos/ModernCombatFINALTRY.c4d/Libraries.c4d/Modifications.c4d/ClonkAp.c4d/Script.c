@@ -5,8 +5,8 @@
 
 local assistkiller, machinekill;
 
-public func IsClonk() { return 1; }
-public func MenuQueryCancel()	{return(IsFakeDeath());}
+public func IsClonk() { return true; }
+protected func MenuQueryCancel()	{return(IsFakeDeath());}
 
 /* Erstellung */
 
@@ -186,14 +186,14 @@ private func DeathAnnounce(int plr, object clonk, int killplr, bool fNoPoints)
     clonk = this();
   if(!clonk) return;
   if(GetEffect("NoAnnounce", clonk)) return;
-  if(!GetAlive(clonk) && GetID(Contained(clonk)) == FKDT) return; //FakeDeath-Hack
+  if(!GetAlive(clonk) && IsFakeDeath(clonk)) return; //FakeDeath-Hack
   //Selfkill?
   if(plr == killplr || killplr == -1)
     KILL->SKMsg(plr, clonk);
   else
     KILL->KTMsg(plr, killplr, clonk);
 
-  //KILL->KillStat(GetCursor(killplr),plr);//hier auch clonk->~KillIcon()? könnte lustig sein :>
+  KILL->KillStat(GetCursor(killplr),plr); //hier auch clonk->~KillIcon()? könnte lustig sein :>
   
   clonk->AddEffect("NoAnnounce", clonk, 20);
   
@@ -230,10 +230,8 @@ protected func DoPoints() {
   }
   
   //Teamkiller
-  if( !Hostile(killer,GetOwner()) && killer != GetOwner() && !(killer < 0))
+  if(!Hostile(killer,GetOwner()) && killer != GetOwner() && !(killer < 0))
     DoPlayerPoints(TeamkillPoints(), RWDS_MinusPoints, killer, GetCursor(killer), IC06);
-
-  //this()->CLNK::DeathAnnounce(plr,clonk,killplr);
 }
 
 local killicon;
