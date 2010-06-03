@@ -46,7 +46,7 @@ func Rotation()
 
   if(!bRotate) return(0);
 
-	if(!FindObject2(Find_Action("Grab"), Find_ActionTarget())) {bRotate = 0; Sound("CannonStop"); return(0);}
+	if(!FindObject2(Find_Action("Push"), Find_ActionTarget(this))) {bRotate = 0; Sound("CannonStop"); return(0);}
 
   if(GetR(pCannon)> 80) {bRotate=0; SetR(GetR(pCannon)-1,pCannon); Sound("CannonStop"); return(0);}
   if(GetR(pCannon)<-80) {bRotate=0; SetR(GetR(pCannon)+1,pCannon); Sound("CannonStop"); return(0);}
