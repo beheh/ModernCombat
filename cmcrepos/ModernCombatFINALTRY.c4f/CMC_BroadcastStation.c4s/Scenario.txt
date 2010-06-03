@@ -47,8 +47,5 @@ SkyScrollMode=1
 [Weather]
 Wind=20,4,-100,100
 
-[Animals]
-Animal=BIRD=2
-
 [Environment]
 Objects=EGRS=1;LENS=1;ELGT=1;DOFO=1;DARK=1
