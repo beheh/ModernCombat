@@ -1,1 +1,1 @@
-Free usable helper functions.
+Free usable helper functions. Modified for CMC.
