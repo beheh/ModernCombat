@@ -15,5 +15,5 @@ VertexFriction=50,50
 Value=15
 Mass=50
 Components=FLNT=5
-Picture=0,0,5,15
+Picture=0,15,64,64
 Rotate=1
