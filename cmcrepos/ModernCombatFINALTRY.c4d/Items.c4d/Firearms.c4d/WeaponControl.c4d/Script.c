@@ -619,7 +619,7 @@ public func ControlThrow(caller)
   }
   else
   {
-    if(GetFMData(FM_BurstAmount) > 1)
+    if(GetFMData(FM_BurstAmount) > 1 && !GetEffect("BurstFire", this()))
     {
       var rechargetime = GetFMData(FM_BurstRecharge);
       if(rechargetime)
@@ -645,6 +645,8 @@ public func FxBurstFireTimer(object pTarget, int iNumber, int iTime)
 {
   if(!GetUser()) return(0);
   if(!GetAlive(GetUser()) && GetCategory(GetUser())&C4D_Living) return(0);
+  
+  if(pTarget->GetFMData(FM_Auto)) return -1;
   
   EffectVar(0,pTarget,iNumber)--;
   if(EffectVar(0,pTarget,iNumber) > 0)
@@ -816,6 +818,9 @@ public func SetFireMode(int i)
 {
   if((i > GetFMCount()) || i < 1) {	Message("Feuermodus nicht vorhanden:|{{%i}} FM: %d",this,GetID(),i); return();	}
 
+	if(IsRecharging()) StopAutoFire();
+	RemoveEffect("BurstFire", this());
+
   // Gleicher Modus: Nur nachladen wenn nicht mehr voll und lädt nicht nach
   if(i == firemode)
   {
@@ -896,13 +901,8 @@ public func GetFireTec(int iFM)
 public func SetFireTec(int iFT,int iFM, bool bNoCalls)
 {
   //Nicht mehr weiterfeuern
-  var iBurstEffect = GetEffect("BurstFire", this());
-	if(iBurstEffect)
-		EffectVar(0,this,iBurstEffect) = 0;
-	while(GetEffect("Recharge", this)) {
-		RemoveEffect("Recharge", this);
-	}
-	StopAutoFire();
+	if(IsRecharging()) StopAutoFire();
+	RemoveEffect("BurstFire", this());
 
   if(!iFM) iFM = firemode;
   if(!GetFMData(FT_Condition,iFM,iFT)) return(false);
