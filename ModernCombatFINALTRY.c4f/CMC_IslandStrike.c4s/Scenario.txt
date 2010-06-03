@@ -40,5 +40,6 @@ SkyScrollMode=1
 
 [Weather]
 Wind=20,4,-100,100
+
 [Environment]
 Objects=EGRS=1;EGLN=3;BRDS=1;ELGT=1
