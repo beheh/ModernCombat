@@ -677,7 +677,8 @@ func OnTarget1Destruction()
   //Abwehranlage deaktivieren, sofern vorhanden
   if(aSelfDefense[0])
   {
-   aSelfDefense[0]->EMPShock();
+   aSelfDefense[0]->SetAutoRepair(0);
+   aSelfDefense[0]->Destroyed();
    aSelfDefense[0]->TurnOff();
   }
 
@@ -762,7 +763,8 @@ func OnTarget3Destruction()
   //Abwehranlage deaktivieren, sofern vorhanden
   if(aSelfDefense[1])
   {
-   aSelfDefense[1]->EMPShock();
+   aSelfDefense[0]->SetAutoRepair(0);
+   aSelfDefense[1]->Destroyed();
    aSelfDefense[1]->TurnOff();
   }
 
