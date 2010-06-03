@@ -363,3 +363,7 @@ public func Serialize(array& extra)
 		extra[GetLength(extra)] = Format("LocalN(\"iPat_Dir\")=%d", iPat_Dir);
 	}
 }
+
+public func Destruction() {
+  RemoveEffect("ShowWeapon", this);
+}
