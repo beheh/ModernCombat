@@ -2,15 +2,20 @@
 
 #strict 2
 
+static EFSM_CurrentData;
+static EFSM_Init;
+
+/* Effect-Konstanten */
+
 static const EFSM_Blood = 1;	//1/0
 static const EFSM_BulletCasing = 2;	//1/0
 static const EFSM_BulletEffects = 3;	//0/1/2
 static const EFSM_Fog = 4;	//0/1
 static const EFSM_ExplosionEffects = 5;	//0/1/2
 static const EFSM_Enlight = 6;	//0/1
+static const EFSM_Darkness = 7;	//0/1
 
-static EFSM_CurrentData;
-static EFSM_Init;
+/* Globale Effektstufe setzen */
 
 global func EFSM_SetEffects(int iLevel) {
 	if(!iLevel) iLevel = 3;
@@ -22,6 +27,7 @@ global func EFSM_SetEffects(int iLevel) {
 	SetEffectData(iLevel>1, EFSM_Fog);
 	SetEffectData(iLevel-1, EFSM_ExplosionEffects);
 	SetEffectData(iLevel>1, EFSM_Enlight);
+	SetEffectData(iLevel>1, EFSM_Darkness);
 	return true;
 }
 
@@ -33,5 +39,12 @@ global func GetEffectData(int iEffect) {
 global func SetEffectData(int iData, int iEffect) {
 	if(!EFSM_Init) EFSM_SetEffects();
 	EFSM_CurrentData[iEffect] = iData;
+	OnUpdateEffects();
 	return true;
+}
+
+global func OnUpdateEffects() {
+	if(!GetEffectData(EFSM_Darkness)) {
+		RemoveAll(DARK);
+	}
 }
