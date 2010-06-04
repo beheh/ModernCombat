@@ -437,6 +437,7 @@ public func FxReloadTimer(object pTarget, int iNumber, int iTime)
       
       if(GetFMData(FM_SingleReload))
         OnSingleReloadStop(EffectVar(2,pTarget,iNumber));
+      return(-1);
     }
   }
   else //Ansonsten bereitet er vor oder beendet?
@@ -577,7 +578,7 @@ public func ControlThrow(caller)
   }
 
   // Unterstützt der Schussmodus Zielen, aber wir tuns nicht?
-  if(GetFMData(FM_Aim) == 1 && !(GetUser()->~IsAiming()) && !(GetUser()->~AimOverride()))
+  if(GetFMData(FM_Aim)>0 && !(GetUser()->~IsAiming()) && !(GetUser()->~AimOverride()))
   {
     // Können wir?
     if(GetUser()->~ReadyToAim())
@@ -967,7 +968,7 @@ private func Shoot(object caller)// Feuern mit Feuermodus
 
   var ammoid = GetFMData(FM_AmmoID);
   //soll er zielen, zielt aber nicht?
-  if(!(GetUser()->~IsAiming()) && GetFMData(FM_Aim) == 1)
+  if(!(GetUser()->~IsAiming()) && GetFMData(FM_Aim)>0)
     stopauto=true;//abbrechen
   // Feuern...
   if(CheckFireTec())

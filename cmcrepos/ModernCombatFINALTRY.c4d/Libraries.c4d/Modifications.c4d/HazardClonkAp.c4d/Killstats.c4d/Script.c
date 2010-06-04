@@ -42,6 +42,8 @@ public func KMsg(int plr1, int plr2, object clonk)
   {
    if(type == DMG_Fire)
     typeicon = GSAM;
+   else if(type == DMG_Melee)
+   	typeicon = ICFT;
    else if(type == DMG_Explosion)
     typeicon = BOOM;
    else if(type == DMG_Energy)
@@ -50,7 +52,10 @@ public func KMsg(int plr1, int plr2, object clonk)
     typeicon = GLOB;
    else if(type == DMG_Projectile)
     if(killicon)
-      if(killicon->~IsWeapon()) typeicon = SHTX;
+      if(killicon->~IsWeapon())
+      	typeicon = SHTX;
+      else
+      	typeicon = SHRP;
   }
 
   //Kein Icon?

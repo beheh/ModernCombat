@@ -42,7 +42,7 @@ FlipDir=1
 Length=16
 Facet=0,20,16,20,0,0
 NextAction=ScaleLadder
-StartCall=PauseReloading
+StartCall=ScalingLadder
 
 [Action]
 Name=Tumble
