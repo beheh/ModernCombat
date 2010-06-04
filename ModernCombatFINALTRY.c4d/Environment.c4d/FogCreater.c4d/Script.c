@@ -22,6 +22,7 @@ protected func Initialize()
 
 protected func Timer()
 {
+	if(!GetEffectData(EFSM_Fog)) return;
   DoFog();
   
   if(!Random(100))

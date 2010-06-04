@@ -25,6 +25,8 @@ global func MuzzleFlash(int iSize, object pClonk, int iX, int iY, int iAngle, in
 
 global func SmokeBurst(int iSize, int iX, int iY, int iAngle, object pAttach, int dwColor)
 {
+	if(GetEffectData(EFSM_BulletEffects) < 1) return;
+
   if(!pAttach)
   {
    if(!ObjectCount(BOOM)) pAttach = CreateObject(BOOM,0,0,-1);
@@ -56,6 +58,8 @@ global func BloodBurst(int iSize, int iX, int iY, int iColor)
 
 global func BloodSplatter(int iSize, int iX, int iY, int iColor)
 {
+	if(!GetEffectData(EFSM_Blood)) return;
+
   //Nicht in der Luft
   if(GetMaterialVal("Density","Material",GetMaterial(iX,iY)) != 0
   || GetMaterial(iX,iY) == -1) return();
@@ -72,6 +76,8 @@ global func BloodSplatter(int iSize, int iX, int iY, int iColor)
 
 global func BloodSplatter2(int iSize, int iX, int iY, int iAngle, int iColor)
 {
+	if(!GetEffectData(EFSM_Blood)) return;
+
   if(GetMaterialVal("Density","Material",GetMaterial(iX,iY)) != 0
   || GetMaterial(iX,iY) == -1) return();
 
