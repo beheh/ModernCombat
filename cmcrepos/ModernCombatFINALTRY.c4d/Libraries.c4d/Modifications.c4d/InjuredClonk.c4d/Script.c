@@ -9,6 +9,7 @@ local clonk,oldvisrange,oldvisstate,suicide;
 public func AimAngle()		{return();}
 public func ReadyToFire()	{return();}
 public func IsAiming()		{return();}
+public func MenuQueryCancel()	{return(true);}
 
 /* Initalisierung */
 
@@ -16,7 +17,6 @@ protected func Initialize()
 {
   //Anderer Todesschrei zur Unterscheidung zwischen Fake Death und "echtem" Ableben
   Sound("ClonkDie*.ogg");
-
   _inherited();
 }
 
@@ -25,7 +25,7 @@ protected func Initialize()
 public func Set(object pClonk)
 {
   clonk = pClonk;
-  SetPosition(GetX(pClonk),GetY(pClonk)/*GetObjHeight(pClonk)/2*/);
+  SetPosition(GetX(pClonk),GetY(pClonk));
   SetXDir(GetXDir(pClonk));
   SetYDir(GetYDir(pClonk));
   
@@ -80,6 +80,8 @@ private func DeathMenu()
 
   CloseMenu(clonk);
 
+	if(GetMenu(clonk)) return;
+
   //Menü erstellen
   CreateMenu(FKDT, clonk, this(), 0, Format("$Title$"), C4MN_Style_Dialog, true);	//Titelzeile
   if(FindObject(SICD))
@@ -96,8 +98,8 @@ private func DeathMenu()
   if(suicide <= 0)
    Suicide();
   
-  SelectMenuItem(selection, clonk);
-  SetMenuTextProgress(1, clonk); 
+  if(selection >= 0) SelectMenuItem(selection, clonk);
+  //SetMenuTextProgress(1, clonk); 
 }
 
 /* Selbstmord */
@@ -109,12 +111,14 @@ public func Suicide()
    for(var item in FindObjects(Find_Container(this),Find_Not(Find_OCF(OCF_Alive))))
     RemoveObject(item);
 
-  //Ende im Gelände 
-  clonk->Kill(); 
- 
-  //Leiche "auswerfen" und ausfaden lassen 
-  clonk->Exit(0,0,GetObjHeight(clonk)/2);
-  clonk -> FadeOut();
+	if(clonk) {
+		//Ende im Gelände 
+		clonk->Kill();
+	 
+		//Leiche "auswerfen" und ausfaden lassen 
+		if(clonk) clonk->Exit(0,0,GetObjHeight(clonk)/2);
+		if(clonk) clonk->FadeOut();
+  }
 
   //Verschwinden
   RemoveObject(0,1);
@@ -122,9 +126,17 @@ public func Suicide()
 
 public func GetClonk()	{return(clonk);}
 
-/* Entfernen (bei Wiederbelebung) */
+/* Zerstörung */
 
-public func Destruction()
+public func Destruction() {
+	while(Contents()) {
+		RemoveObject(Contents(), false);
+	}
+}
+
+/* Wiederbelebung */
+
+public func Reanimation() {
 {
   //Kein Clonk?
   if(!clonk) return();
@@ -139,7 +151,7 @@ public func Destruction()
   //Besitztümer weitergeben
   if(GetAlive(clonk)) {
    clonk->GrabContents(this());
-   RemoveEffect("NoAnnounce", clonk);
+   clonk->RemoveEffect("NoAnnounce", clonk);
   }
   else
    while(Contents())
@@ -148,6 +160,8 @@ public func Destruction()
   //Sichtdaten zurücksetzen
   SetFoW(oldvisstate,GetOwner(clonk));
   SetPlrViewRange(oldvisrange,clonk);
+  
+  RemoveObject();
 }
 
 public func RejectCollect(id idObj, object pObj)

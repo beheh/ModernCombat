@@ -337,10 +337,9 @@ public func UpdateCH() {
 
 local pIcon;
 
-private func DeathAnnounce(int plr, object clonk, int killplr)
+protected func DeathAnnounce(int plr, object clonk, int killplr)
 {
-  if(!clonk)
-    clonk = this();
+  if(!clonk) clonk = this();
   if(!clonk) return;
   var r = CLNK->DeathAnnounce(plr, clonk, killplr, true);
   if(r) this->DoPoints();
