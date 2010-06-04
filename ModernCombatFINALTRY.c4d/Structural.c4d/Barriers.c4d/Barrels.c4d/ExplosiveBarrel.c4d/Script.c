@@ -8,6 +8,28 @@ public func IsBulletTarget()	{if(!damaged) return 1;}
 public func IsCraneGrabable()	{return !damaged;}
 public func IgnoreFriendlyFire(){return 1;}
 
+/* Aufrichtung */
+
+public func FloatUpright() {
+	if(GBackLiquid()) {
+		if(GetR() >= 0) {
+			if(GetR() < 90) {
+				SetR(GetR()+1);
+			}
+			if(GetR() > 90) {
+				SetR(GetR()-1);
+			}
+		}
+		else {
+			if(GetR() < -90) {
+				SetR(GetR()+1);
+			}
+			if(GetR() > -90) {
+				SetR(GetR()-1);
+			}		
+		}
+	}
+}
 
 /* Entzündung */
 

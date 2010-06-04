@@ -2,7 +2,6 @@
 
 #strict
 #appendto HZCK
-#include HZCK
 
 local crosshair;
 
@@ -344,7 +343,7 @@ private func DeathAnnounce(int plr, object clonk, int killplr)
     clonk = this();
   if(!clonk) return;
   var r = CLNK->DeathAnnounce(plr, clonk, killplr, true);
-  if(r) DoPoints();
+  if(r) this->DoPoints();
   return r;
 }
 
@@ -365,7 +364,7 @@ public func UpdateCharge()
       return(1);
 
   // reitet
-  if(IsRiding())
+  if(this->IsRiding())
     if(GetActionTarget()->~UpdateCharge(this()))
       return(1);
 
@@ -377,7 +376,7 @@ public func UpdateCharge()
 
   // HUD
   var hud = GetHUD();
-  if(hud) hud->Update(Content, AmmoStoring(),this());
+  if(hud) hud->Update(Content, this->AmmoStoring(),this());
 
   return(1);
 }
@@ -813,7 +812,7 @@ public func ControlSpecial()
   			ShiftContents(0,0,Contents(i)->GetID(),true);
   			break;
   		}
-    if(IsSquatAiming() || Contents()->~GetFMData(FM_Aim) != 1) {
+    if(this->IsSquatAiming() || Contents()->~GetFMData(FM_Aim) != 1) {
    		StartSquatAiming();
     }
     else {
@@ -875,4 +874,8 @@ protected func ContentsDestruction()      // Wenn Inhaltsobjekte verschwinden
 
 protected func CheckContentsDestruction() {
   if(Contents(0)) Contents(0)->~Selection(this());
+}
+
+protected func ScalingLadder() {
+	return this->Hangling(); //Funktional identisch
 }
