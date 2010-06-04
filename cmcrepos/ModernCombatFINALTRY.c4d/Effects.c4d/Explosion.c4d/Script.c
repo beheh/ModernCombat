@@ -38,13 +38,16 @@ global func Explode(int iLevel, object pObj, id idEffect, string szEffect)
      var level = iLevel + Random(iLevel/5);
 
 		var a = angle+RandomX(-15,+15);
-		for(var i = 7; i > 0; i--)
-		  CreateParticle("BlastSpark1", smokex, smokey, +Sin(a,level+RandomX(-5,+5)), -Cos(a,level+RandomX(-5,+5)), 25+Random(50)); 
-    CreateParticle("BlastFlame", smokex, smokey, +Sin(angle,level/2), -Cos(angle,level/2), level*5);
-    for(var i = Random(3)+1; i > 0; i--)
-		{
-		  a = angle+RandomX(-30,+30);
-		  CreateParticle("BlastDirt", smokex, smokey, +Sin(a,level+RandomX(-20,+20)), -Cos(a,level+RandomX(-20,+20)), level*RandomX(7,12));
+		if(GetEffectData(EFSM_ExplosionEffects) > 2)
+			for(var i = 7; i > 0; i--)
+			  CreateParticle("BlastSpark1", smokex, smokey, +Sin(a,level+RandomX(-5,+5)), -Cos(a,level+RandomX(-5,+5)), 25+Random(50)); 
+    if(GetEffectData(EFSM_ExplosionEffects) > 1) CreateParticle("BlastFlame", smokex, smokey, +Sin(angle,level/2), -Cos(angle,level/2), level*5);
+    if(GetEffectData(EFSM_ExplosionEffects) > 0) {
+		  for(var i = Random(3)+1; i > 0; i--)
+			{
+				a = angle+RandomX(-30,+30);
+				CreateParticle("BlastDirt", smokex, smokey, +Sin(a,level+RandomX(-20,+20)), -Cos(a,level+RandomX(-20,+20)), level*RandomX(7,12));
+			}
 		}
 		//CreateSmokeTrail(level,angle,smokex,smokey,pObj);
     count--;
@@ -94,6 +97,7 @@ global func SemiExplode(int iLevel, int incidence)
 
 global func CreateBurnMark(int iX, int iY, int iLevel, int Count) 
 {
+	if(GetEffectData(EFSM_ExplosionEffects) < 1) return;
   var boom;
   if(!ObjectCount(BOOM)) boom = CreateObject(BOOM,0,0,-1);
   else boom = FindObject(BOOM);
@@ -138,6 +142,7 @@ global func BurnMarkCheck(int angle,int size, int iX, int iY)
 
 global func CreateSmokeTrail(int iStrength, int iAngle, int iX, int iY, object pObj)
 {
+	if(GetEffectData(EFSM_ExplosionEffects) < 2) return;
   iX += GetX(pObj);
   iY += GetY(pObj);
   AddEffect("SmokeTrail", 0, 300, 1, 0, 0, iStrength, iAngle, iX, iY);

@@ -395,7 +395,7 @@ public func OnBulletHit(object pObject, int iX, int iY)
   SplitRGBaValue(iColor,r,g,b,a);
   iColor = RGBa(r,g,b,Min(a+alphamod,255));
   
-  CreateParticle("Flare",iX,iY,RandomX(-1000,+1000),RandomX(-1000,+1000),(100*GetCon()/100)*5*sizemod/100,iColor);
+  if(GetEffectData(EFSM_BulletEffects) > 0) CreateParticle("Flare",iX,iY,RandomX(-1000,+1000),RandomX(-1000,+1000),(100*GetCon()/100)*5*sizemod/100,iColor);
 }
 
 public func BulletStrike(object pObj)
@@ -674,6 +674,7 @@ public func CustomLaunch(int iAngle, int iSpeed, int iDist, int iSize, int iTrai
 
 public func CustomBulletCasing(int iX, int iY, int iXDir, int iYDir, int iSize, int iColor)
 {
+	if(!GetEffectData(EFSM_BulletCasing)) return;
   return(BulletCasing(iX,iY,iXDir,iYDir,iSize,iColor));
 }
 

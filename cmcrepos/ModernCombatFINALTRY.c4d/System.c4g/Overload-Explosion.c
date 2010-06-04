@@ -54,7 +54,7 @@ global func DoExplosion(int x, int y, int level, object inobj, int cause_plr, id
      {
       var a = Random(360);
       var d = Random(level);
-      Bubble (x-Sin(a,d),y+Cos(a,d));
+      if(GetEffectData(EFSM_ExplosionEffects) > 0) Bubble (x-Sin(a,d),y+Cos(a,d));
      }
     }
    CreateParticle(effect_particle, x,y, 0,0, level*10, RGBa(255,255,255,vis));
@@ -196,7 +196,6 @@ global func DamageObjects(int iDistance, int iDamage, object pObject, int iX, in
   }
   return true;
 }
-
 
 global func FakeExplode(int iLevel, int iControllerPlusOne, object obj) {
 	if(!obj) obj = this;

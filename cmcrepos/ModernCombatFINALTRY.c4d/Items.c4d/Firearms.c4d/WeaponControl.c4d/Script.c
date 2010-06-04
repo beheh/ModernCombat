@@ -1187,7 +1187,7 @@ global func SALaunchBullet(int iX, int iY, int iOwner, int iAngle, int iSpeed, i
 
 global func SABulletCasing(int iX, int iY, int iXDir, int iYDir, int iSize, int iColor, id idType)
 {
-  var ammoid = idType;
+	var ammoid = idType;
   if(!ammoid) ammoid = SHTX;
   
   return(ammoid->CustomBulletCasing(GetX()+iX,GetY()+iY,iXDir,iYDir,iSize,iColor));
