@@ -2,7 +2,7 @@
 
 #strict 2
 
-local amount, max;
+local amount, max, init;
 
 public func HandSize()   	{return 1000;}
 public func HandX()     	{return 3500;}
@@ -12,13 +12,13 @@ public func IsEquipment()	{return true;}
 public func GetPackAmount()	{return amount;}
 public func NoArenaRemove()	{return(true);}
 
-
 /* Initalisierung */
 
 protected func Initialize()
 {
   amount = 3;
   max = 3;
+  init = true;
 }
 
 /* Benutzung */
@@ -75,7 +75,7 @@ public func ControlThrow(object pByObj)
   if(WildcardMatch(GetAction(pByObj), "Jump*"))
   {
    c4->SetRDir(RandomX(-20,20));
-   c4->SetXDir((GetDir(pByObj)*30)-15);
+   c4->SetXDir(((GetDir(pByObj)*2-1)*30));
    c4->SetYDir(-15);
    c4->SetActive(this());
    Sound("GrenadeThrow*.ogg");
@@ -94,7 +94,7 @@ public func ControlThrow(object pByObj)
   if(GetAction(pByObj) == "Swim")
   {
    c4->SetPosition(GetX(pByObj),GetY(pByObj)+5);
-   c4->SetXDir((GetDir(pByObj)*60)-10);
+   c4->SetXDir(((GetDir(pByObj)*2-1)*30));
    c4->SetYDir(10);
    c4->SetActive(this());
    Sound("GrenadeThrow*.ogg");
@@ -159,12 +159,14 @@ public func RejectEntrance(object pObj)
   if(pack = FindObject2(Find_Container(pObj), Find_ID(C4PA)))
    if(pack->DoPackAmount() >= 8)
     return 1;
+  return 0;
 }
 
 /* TimerCall */
 
 protected func Check()
 {
+	if(!init) return;
   //Grund zum existieren?
   if(amount <= 0 && !FindObject2(Find_ID(C4EX), Find_Func("GetPacket", this)))
     RemoveObject();
