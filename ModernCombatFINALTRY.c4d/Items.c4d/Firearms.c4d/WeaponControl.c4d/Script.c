@@ -647,7 +647,7 @@ public func FxBurstFireTimer(object pTarget, int iNumber, int iTime)
   if(!GetUser()) return(0);
   if(!GetAlive(GetUser()) && GetCategory(GetUser())&C4D_Living) return(0);
   
-  if(pTarget->GetFMData(FM_Auto)) return -1;
+  if(!pTarget->GetFMData(FM_BurstAmount)) return -1;
   
   EffectVar(0,pTarget,iNumber)--;
   if(EffectVar(0,pTarget,iNumber) > 0)
