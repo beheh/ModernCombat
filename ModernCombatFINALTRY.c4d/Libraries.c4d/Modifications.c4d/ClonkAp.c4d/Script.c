@@ -6,7 +6,6 @@
 local assistkiller, machinekill;
 
 public func IsClonk() { return true; }
-protected func MenuQueryCancel()	{return(IsFakeDeath());}
 
 /* Erstellung */
 
@@ -180,13 +179,12 @@ func Hit2(int xDir, int yDir)
 
 /* Killverfolgung */
 
-private func DeathAnnounce(int plr, object clonk, int killplr, bool fNoPoints)
+protected func DeathAnnounce(int plr, object clonk, int killplr, bool fNoPoints)
 {
-  if(!clonk)
-    clonk = this();
+  if(!clonk) clonk = this();
   if(!clonk) return;
-  if(GetEffect("NoAnnounce", clonk)) return;
   if(!GetAlive(clonk) && IsFakeDeath(clonk)) return; //FakeDeath-Hack
+  if(GetEffect("NoAnnounce", clonk)) return;
   //Selfkill?
   if(plr == killplr || killplr == -1)
     KILL->SKMsg(plr, clonk);
@@ -195,8 +193,8 @@ private func DeathAnnounce(int plr, object clonk, int killplr, bool fNoPoints)
 
   KILL->KillStat(GetCursor(killplr),plr); //hier auch clonk->~KillIcon()? könnte lustig sein :>
   
-  clonk->AddEffect("NoAnnounce", clonk, 20);
-  
+  clonk->AddEffect("NoAnnounce", clonk, 1);
+    
   if(!fNoPoints) DoPoints();
   
   return true;
@@ -343,8 +341,8 @@ global func StopFakeDeath(object pTarget)
   
   Sound("ClonkCough*.ogg",0,pTarget);
   ObjectSetAction(pTarget,"FlatUp",0,0,1);
-  RemoveObject(pTarget->Contained(),true);
-    
+	pTarget->Contained()->Reanimation();
+	   
   return true;
 }
 
