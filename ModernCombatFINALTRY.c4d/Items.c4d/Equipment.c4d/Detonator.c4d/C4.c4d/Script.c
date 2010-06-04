@@ -87,16 +87,18 @@ public func BlastRadius() {return 50;}
 
 public func BlowUp()
 {
-  if(GBackLiquid())
+  if(GBackLiquid()) {
    Sound("C4EX_WaterDetonation.ogg");
-  else
+  }
+  else {
    Sound("C4EX_Detonation*.ogg");
+   CastParticles("Smoke3",15,20,0,0,220,500);
+	}
 
   //Effekte
   var helper = CreateObject(TIM1,0,0,-1);
   AddEffect("IntShockWave",helper,10,1,0,GetID()); 
   CreateParticle("Blast",0,0,0,0,10*BlastRadius(),RGB(255,255,128));
-  CastParticles("Smoke3",15,20,0,0,220,500);
   
   //Extraschaden für Strukturen
   for(var obj in FindObjects(Find_Distance(50), Find_Category(C4D_Structure | C4D_Vehicle)))

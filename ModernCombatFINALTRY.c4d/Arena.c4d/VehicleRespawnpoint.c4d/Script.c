@@ -173,7 +173,7 @@ global func FxIntVehicleUnusedTimer(object pTarget, int iEffectNumber, id idType
   if(!pTarget || !pSpawner)
     return -1;
   if(pTarget->~GetActionTarget()) {
-    var pCommanders = FindObjects(Find_ActionTarget(pTarget->~GetActionTarget()), Find_Action("Push"), Find_OCF(OCF_Alive));
+    var pCommanders = FindObjects(Find_ActionTarget(pTarget->~GetActionTarget()), Find_OCF(OCF_Alive));
     var remove = false;
     for(var pCommander in pCommanders) {
       var iDistance = Distance(GetX(pCommander), GetY(pCommander), GetX(pTarget->~GetActionTarget()), GetY(pTarget->~GetActionTarget()));
