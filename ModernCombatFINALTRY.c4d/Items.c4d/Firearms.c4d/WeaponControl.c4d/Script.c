@@ -559,6 +559,11 @@ public func Reload(int iFM)// Waffe nachladen
     OnAutoStop();
   OnReload(iFM);
     
+  //Stossfeuer gegebenfalls stoppen
+  if(GetEffect("BurstFire", this())) {
+  	RemoveEffect("BurstFire", this());
+	}
+    
   AddEffect("Reload", this(), 1, 1, this(), 0, 0,iSlot);
 
   return(true);
@@ -637,9 +642,29 @@ public func ControlThrow(caller)
   return(1);
 }
 
-public func FxBurstFireStart(object pTarget, int iEffectNumber, int iTemp,iAmount)
+public func ControlUpdate(object caller, int comdir, bool dig, bool throw)
+{
+  SetUser(caller);
+
+  // autom. Schuss beenden, wenn Werfen losgelassen (JumpAndRun)
+  if(IsRecharging() && !throw) {
+  	if(GetEffect("BurstFire", this())) {
+  		RemoveEffect("BurstFire", this());
+  	}
+  	else {
+	    StopAutoFire();
+	  }
+	}
+  // Nicht nachladen, wenn die Munition ausging und der Controller rechtzeitig
+  // werfen wieder loslässt.  
+  else if(!throw)
+    ClearScheduleCall(this(), "Reload");
+}
+
+public func FxBurstFireStart(object pTarget, int iEffectNumber, int iTemp, iAmount)
 {
   EffectVar(0,pTarget,iEffectNumber) = iAmount;
+  EffectVar(1,pTarget,iEffectNumber) = -1;
 }
 
 public func FxBurstFireTimer(object pTarget, int iNumber, int iTime)
@@ -653,7 +678,43 @@ public func FxBurstFireTimer(object pTarget, int iNumber, int iTime)
   if(EffectVar(0,pTarget,iNumber) > 0)
     pTarget->Fire();
   else
-  	return -1;
+  	if(GetPlrCoreJumpAndRunControl(pTarget->GetController())) {
+  		if(EffectVar(1,pTarget,iNumber) > 0) {
+  			EffectVar(1,pTarget,iNumber)--;
+  		}
+  		else if(EffectVar(1,pTarget,iNumber) < 0) {
+  			EffectVar(1,pTarget,iNumber) = pTarget->GetFMData(FM_BurstRecharge);
+  		}
+  		else {
+  			EffectVar(0,pTarget,iNumber) = GetFMData(FM_BurstAmount)+1;
+  			EffectVar(1,pTarget,iNumber) = -1;
+  		}
+  	}
+  	else {
+  		return -1;
+  	}
+}
+
+
+public func FxRechargeStop(object pTarget, int iNumber, int iReason, bool fTemp) {
+  // Waffenträger weg?
+  if(!GetUser()) return(0);
+  if(!GetAlive(GetUser()) && GetCategory(GetUser())&C4D_Living) return(0);
+  // automatisch weiterschießen, mit JnR-Control auch bei normalen Waffen
+  if(GetFMData(FM_Auto, firemode, GetFireTec(firemode)) || GetPlrCoreJumpAndRunControl(pTarget->GetController())) {
+    // ... außer wenn abgebrochen oder keine Munition mehr (!)
+    if(GetFMData(FM_BurstAmount, firemode, GetFireTec(firemode)) || stopauto || (GetUser()->Contents() != this() && GetUser() == Contained(this())) || !(GetUser()->ReadyToFire()) || !CheckAmmo(GetFMData(FM_AmmoID), GetFMData(FM_AmmoUsage))) {
+      // Callback bei AutoFire
+      if(GetFMData(FM_Auto, firemode, GetFireTec(firemode)))
+        OnAutoStop(firemode);
+
+      stopauto = false;
+      shooting = false;
+    }
+    else {
+      Shoot(pTarget);
+    }
+  }
 }
 
 public func Fire()
