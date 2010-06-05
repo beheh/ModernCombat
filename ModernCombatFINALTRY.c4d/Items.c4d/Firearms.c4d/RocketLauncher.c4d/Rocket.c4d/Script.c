@@ -82,9 +82,10 @@ public func FxFollowTimer(object pTarget, int iEffectNumber, int iEffectTime)
 		for(var pEnemy in pEnemies) {
 		  var iEffectTracer = GetEffect("TracerDart", pEnemy);
 			if(!iEffectTracer) continue;
-      if(Hostile(GetController(pTarget), EffectVar(0, pEnemy, iEffectTracer))) continue;
+			var iPlr = EffectVar(0, pEnemy, iEffectTracer);
+      if(Hostile(GetController(pTarget), iPlr)) continue;
 			if(!PathFree(GetX(pTarget), GetY(pTarget), GetX(pEnemy), GetY(pEnemy))) continue;
-		  EffectVar(1,pTarget,iEffectNumber) = pEnemy;
+		  EffectVar(1, pTarget, iEffectNumber) = pEnemy;
       Sound("BBTP_Alarm.ogg", false, this);
 		  break;
 		}

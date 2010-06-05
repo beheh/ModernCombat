@@ -92,7 +92,7 @@ public func BlowUp()
   }
   else {
    Sound("C4EX_Detonation*.ogg");
-   CastParticles("Smoke3",15,20,0,0,220,500);
+   if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("Smoke3",15,20,0,0,220,500);
 	}
 
   //Effekte
