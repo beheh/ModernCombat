@@ -36,8 +36,10 @@ public func InstaExplode(int iPlr)
 	blasted = true;
 	
   //Effektgehasche
-  CastParticles("WoodenCrateSplinter", 4, 50, 0,0, 141, RGBa(80,0,0,0), RGBa(30,0,0,0));
-  CastParticles("WoodSplinter", 10, 200, 0,0, 50, 75, RGBa(80,0,0,0), RGBa(30,0,0,0));
+  if(GetEffectData(EFSM_ExplosionEffects) > 1) {
+  	CastParticles("WoodenCrateSplinter", 4, 50, 0,0, 141, RGBa(80,0,0,0), RGBa(30,0,0,0));
+ 		CastParticles("WoodSplinter", 10, 200, 0,0, 50, 75, RGBa(80,0,0,0), RGBa(30,0,0,0));
+ 	}
   Sound("CrateCrack");
   
   //Umliegende Objekte anzünden

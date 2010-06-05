@@ -6,6 +6,7 @@
 
 #appendto CHOS
 
+local iEffectCount;
 
 /* Nur eine Mitteilung für Neugierige */
 
@@ -21,6 +22,65 @@ protected func Initialize()
 {
   _inherited();
   LoadRuleCfg();
+  iEffectCount = 3;
+}
+
+protected func OpenMenu()
+{
+  if(GetLength(aGoals)) return(OpenGoalChooseMenu());
+
+  var pClonk = GetCursor();
+  if(!pClonk) return(ScheduleCall(this(), "OpenMenu", 1));
+
+  if(GetMenu(pClonk))
+    CloseMenu(pClonk);
+
+  Message("", pClonk);
+
+  CreateMenu(GetID(), pClonk, 0, 0, 0, 0, 1);
+  // Spielregeln
+  AddMenuItem("$CreateRules$", "OpenRuleMenu", CTFL, pClonk, 0,0, "$RuleInfo$");
+  // Dunkelheit
+  if(IsDark())
+    AddMenuItem("%s", "OpenDarknessMenu", DARK, pClonk,0,0,"$DarknessChose$");
+  // Spielziel
+  if(GoalIsCompatible()) AddMenuItem("%s", "OpenGoalMenu", GetID(pGoal), pClonk,0,0,"$GoalChose$");
+  // KI
+  if(ObjectCount(WAYP) && !GetLeague()) AddMenuItem("$AIMenu$", "OpenAIMenu", HZCK, pClonk, 0,0, "$AIInfo$");
+  // Fertig
+  AddMenuItem("$Effects$", "OpenEffectMenu", BOOM, pClonk, 0,0, "$EffectInfo$");
+  // Fertig
+  AddMenuItem("$Finished$", "ConfigurationFinished", CHOS, pClonk,0,0,"$Finished$",2,3);
+}
+
+protected func OpenEffectMenu(id dummy, int iSelection)
+{
+  var pClonk = GetCursor();
+  // Menü aufmachen
+  CreateMenu(GetID(), pClonk, 0,0,0,0, 1);
+  // Anzeige
+  AddMenuItem(" ", "OpenEffectMenu", BOOM, pClonk, iEffectCount, 0, " ");
+  // Zähler erhöhen
+  AddMenuItem("$MoreEffects$", "ChangeEffectConf", CHOS, pClonk, 0, +1, "$MoreEffects$",2,1);
+  // Zähler senken
+  AddMenuItem("$LessEffects$", "ChangeEffectConf", CHOS, pClonk, 0, -1, "$LessEffects$",2,2);
+  // Fertig
+  AddMenuItem("$Finished$", "OpenMenu", CHOS, pClonk,0,0, "$Finished$",2,3);
+  // Letzten Eintrag auswählen
+  SelectMenuItem(iSelection, pClonk);
+}
+
+protected func ChangeEffectConf(id dummy, int iChange)
+{
+  // Stand verändern
+  iEffectCount = BoundBy(iEffectCount+iChange, 1, 3);
+  EFSM_SetEffects(iEffectCount);
+  // Geräusch
+  Sound("Grab", 1,0,0,1);
+  // Menü wieder öffnen
+  var iSel = 1;
+  if(iChange == -1) iSel = 2;
+  OpenEffectMenu(0, iSel);
 }
 
 protected func OpenGoalMenu(id dummy, int iSelection)
@@ -130,6 +190,8 @@ protected func ConfigurationFinished2()
   for(tmp in FindObjects(Find_ID(TIM1)))
     if(!(tmp->Contents()))
       RemoveObject(tmp, 1);
+  // Effekte
+  EFSM_SetEffects(iEffectCount);
   // Selber entfernen
   RemoveObject();
 }

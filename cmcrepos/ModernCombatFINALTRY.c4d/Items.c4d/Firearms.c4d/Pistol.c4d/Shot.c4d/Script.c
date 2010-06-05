@@ -674,7 +674,6 @@ public func CustomLaunch(int iAngle, int iSpeed, int iDist, int iSize, int iTrai
 
 public func CustomBulletCasing(int iX, int iY, int iXDir, int iYDir, int iSize, int iColor)
 {
-	if(!GetEffectData(EFSM_BulletCasing)) return;
   return(BulletCasing(iX,iY,iXDir,iYDir,iSize,iColor));
 }
 
