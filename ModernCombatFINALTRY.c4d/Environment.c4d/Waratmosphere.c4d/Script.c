@@ -19,7 +19,7 @@ protected func Make()
   if(skyfade) skyfade-=20;
 
   if(skyfade <= 255) SetSkyAdjust(RGBa(255,255,255,220), RGB(skyfade,skyfade,skyfade));
-  if(!Random(40-ObjectCount(GetID())*5))
+  if(!Random(40-ObjectCount(GetID())*5) && GetEffectData(EFSM_Waratmosphere))
   {
    var x = Random(LandscapeWidth()), y = Random(LandscapeHeight()),dis=Random(100)+200;
    if(GBackSky(x,y)

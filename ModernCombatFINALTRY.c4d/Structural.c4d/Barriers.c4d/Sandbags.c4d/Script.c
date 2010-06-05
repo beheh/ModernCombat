@@ -19,7 +19,7 @@ public func OnHit(int iDamage, int iType, object pFrom)
   if(!pFrom) return ;
   if(iType != DMG_Projectile) return ;
 
-  CreateParticle ("MaterialBlast",Min(GetX(pFrom)-GetX(),GetDefWidth()/2),Min(GetY(pFrom)-GetY(),GetDefHeight()/2),0,0,Min(iDamage*10,200),RGB(194,155,108),0,false);  
+  if(GetEffectData(EFSM_BulletEffects) > 1) CreateParticle ("MaterialBlast",Min(GetX(pFrom)-GetX(),GetDefWidth()/2),Min(GetY(pFrom)-GetY(),GetDefHeight()/2),0,0,Min(iDamage*10,200),RGB(194,155,108),0,false);  
 }
 
 func Incineration()

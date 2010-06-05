@@ -54,7 +54,7 @@ global func DoExplosion(int x, int y, int level, object inobj, int cause_plr, id
      {
       var a = Random(360);
       var d = Random(level);
-      if(GetEffectData(EFSM_ExplosionEffects) > 0) Bubble (x-Sin(a,d),y+Cos(a,d));
+      if(GetEffectData(EFSM_ExplosionEffects) > 1) Bubble (x-Sin(a,d),y+Cos(a,d));
      }
     }
    CreateParticle(effect_particle, x,y, 0,0, level*10, RGBa(255,255,255,vis));

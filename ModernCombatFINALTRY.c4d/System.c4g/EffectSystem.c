@@ -14,6 +14,7 @@ static const EFSM_Fog = 4;	//0/1
 static const EFSM_ExplosionEffects = 5;	//0/1/2
 static const EFSM_Enlight = 6;	//0/1
 static const EFSM_Darkness = 7;	//0/1
+static const EFSM_Waratmosphere = 8;	//0/1
 
 /* Globale Effektstufe setzen */
 
@@ -27,7 +28,8 @@ global func EFSM_SetEffects(int iLevel) {
 	SetEffectData(iLevel>1, EFSM_Fog);
 	SetEffectData(iLevel-1, EFSM_ExplosionEffects);
 	SetEffectData(iLevel>1, EFSM_Enlight);
-	SetEffectData(iLevel>1, EFSM_Darkness);
+	SetEffectData(iLevel>2, EFSM_Darkness);
+	SetEffectData(iLevel>1, EFSM_Waratmosphere);
 	return true;
 }
 

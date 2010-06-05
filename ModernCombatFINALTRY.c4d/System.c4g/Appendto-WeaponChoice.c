@@ -9,7 +9,7 @@
 public func IsChooseable()	{return(0);}
 
 
-func Initialize()
+public func Initialize()
 {
   SetPosition();
   WeaponChoice = CreateArray(0);
@@ -21,7 +21,7 @@ func Initialize()
   SortWare("IsWeapon2","IsGrenade","IsCMCEquipment");
 }
 
-func RelaunchPlayer(int iPlr, object pClonk) {
+public func RelaunchPlayer(int iPlr, object pClonk) {
   if(!pClonk)
     if(!(pClonk = GetCursor(iPlr)))
       return(ScheduleCall(this(),"RelaunchPlayer",1,0,iPlr,pClonk));

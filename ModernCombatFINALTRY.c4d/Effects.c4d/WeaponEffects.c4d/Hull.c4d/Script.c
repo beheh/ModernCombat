@@ -39,6 +39,8 @@ func Hit(int iXDir, int iYDir)
 
 global func BulletCasing(int iX, int iY, int iXDir, int iYDir, int iSize, int iColor, int bForceLow)
 {
+	if(!GetEffectData(EFSM_BulletCasing)) return;
+	
   var xd,yd;
   
   if(this())
