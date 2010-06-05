@@ -75,6 +75,9 @@ protected func Collection2(object pObject)
   oldvisrange = GetObjPlrViewRange(pObject);
   oldvisstate = GetPlrFogOfWar(GetOwner(pObject));
 
+	SetFoW(true, GetOwner(pObject));
+	SetPlrViewRange(0, pObject);
+
   if(!flagpoles) {
     flagpoles = GetGOCCFlags();
     if(!flagpoles) {
