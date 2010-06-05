@@ -106,18 +106,22 @@ public func Activate(iPlr)
 
 public func ChooserFinished()
 {
-  ScheduleCall(this(),"InitScoreboard",1);
-  if(iStartTickets < 4) {
-    iWarningTickets = 0;
-  }
-  else {
-    iWarningTickets = Max(iStartTickets/4, 5);
-  }
-  if(!FindObject(MCSL))//Klassenwahl?
-    ScheduleCall(0,"CreateSpawners",1);
-    
-  for(var i = 0; i < GetTeamCount(); i++)
-    DoTickets(GetTeamByIndex(i), iStartTickets);
+	ScheduleCall(this(),"InitScoreboard",1);
+	if(iStartTickets < 4) {
+		iWarningTickets = 0;
+	}
+	else {
+		iWarningTickets = Max(iStartTickets/4, 5);
+	}
+	if(!FindObject(MCSL))//Klassenwahl?
+		ScheduleCall(0,"CreateSpawners",1);
+		
+	for(var i = 0; i < GetTeamCount(); i++)
+		DoTickets(GetTeamByIndex(i), iStartTickets);
+		
+	for(var i = 0; i < GetPlayerCount(); i++) {
+		DoScoreboardShow(1, GetPlayerByIndex(i)+1);
+	}
 }
 
 /* HUD */
@@ -125,17 +129,17 @@ public func ChooserFinished()
 public func GetHUDInfo(int player, object hud)
 {
 	var team = GetPlayerTeam(player);
-  var str;
-  
-  if(GetTeamCount() > 0)
-  {
-    str = Format("<c %x>%d</c>",GetTeamColor(1),GetTickets(1));
-    
-    if(GetTeamCount() > 1)
-      for(var i = 2; i <= GetTeamCount(); i++)
-        Format("%s : <c %x>%d</c>",GetTeamName(i),GetTeamColor(i),GetTickets(i));
-  }
-	
+	var str;
+
+	if(GetTeamCount() > 0)
+	{
+		str = Format("<c %x>%d</c>",GetTeamColor(1),GetTickets(1));
+		
+		if(GetTeamCount() > 1)
+		  for(var i = 2; i <= GetTeamCount(); i++)
+		    Format("%s : <c %x>%d</c>",GetTeamName(i),GetTeamColor(i),GetTickets(i));
+	}
+
 	return str;
 }
 
@@ -335,12 +339,6 @@ public func FlagCaptured(object pFlag, int iTeam, array pAttackers, bool fRegain
 public func TicketChange(int iTeam, int iChange)
 {
 	DoTickets(iChange);
-	if(iWarningTickets != 0 && iWarningTickets == aTicket[iTeam-1]) {
-		Schedule(Format("GameCallEx(\"TicketsLow\", %d, %d)", aTicket[iTeam-1], iTeam), 1);
-	}
-	if(aTicket[iTeam-1] == 0) {
-		Schedule(Format("GameCallEx(\"NoTickets\", %d, %d)", iTeam), 1);
-	}
 	UpdateScoreboard(iTeam);
 }
 
@@ -353,11 +351,21 @@ public func SetTickets(int iTeam, int iTickets)
 {
 	aTicket[iTeam-1] = Max(iTickets, 0);
 	UpdateScoreboard(iTeam);
+	return true;
 }
 
 public func DoTickets(int iTeam, int iChange, bool fNoWarn)
 {
-	aTicket[iTeam-1] = Max(aTicket[iTeam-1] + iChange, 0);
+	SetTickets(iTeam, GetTickets(iTeam) + iChange);
+	if(!fNoWarn) {
+		if(iWarningTickets != 0 && iWarningTickets == aTicket[iTeam-1]) {
+			Schedule(Format("GameCallEx(\"TicketsLow\", %d, %d)", aTicket[iTeam-1], iTeam), 1);
+		}
+		if(aTicket[iTeam-1] == 0) {
+			Schedule(Format("GameCallEx(\"NoTickets\", %d, %d)", iTeam), 1);
+		}
+	}
+	return true;
 }
 
 /* EventInfos */
@@ -369,6 +377,7 @@ public func TicketsLow(int iRemaining, int iTeam)
      EventInfo4K(GetPlayerByIndex(i)+1,Format("$MsgTicketsLow$",iRemaining),TIKT,0,0,0,"Alarm.ogg");
     }
   }
+  return true;
 }
 
 public func NoTickets(int iTeam)
@@ -378,6 +387,7 @@ public func NoTickets(int iTeam)
      EventInfo4K(GetPlayerByIndex(i)+1,Format("$MsgNoTickets$"),TIKT,0,0,0,"Alarm.ogg");
     }
   }
+  return true;
 }
 
 /* Spiellogik */

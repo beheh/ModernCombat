@@ -809,7 +809,7 @@ private func CycleFM(int iDir)
   if(iDir > 0) {
   	if(!GetFMData(FM_Name, fm)) fm = 1;
   }
-  SetFireMode(fm);
+  if(fm != firemode) SetFireMode(fm);
   if(GetSpeedMenu())
     GetSpeedMenu()->NoClose();
   return 1;
@@ -820,7 +820,8 @@ public func SetFireMode(int i)
   if((i > GetFMCount()) || i < 1) {	Message("Feuermodus nicht vorhanden:|{{%i}} FM: %d",this,GetID(),i); return();	}
 
 	if(IsRecharging()) StopAutoFire();
-	RemoveEffect("BurstFire", this());
+	RemoveEffect("BurstFire", this);
+	while(GetEffect("Recharge", this)) RemoveEffect("Recharge", this); 
 
   // Gleicher Modus: Nur nachladen wenn nicht mehr voll und lädt nicht nach
   if(i == firemode)
@@ -904,6 +905,7 @@ public func SetFireTec(int iFT,int iFM, bool bNoCalls)
   //Nicht mehr weiterfeuern
 	if(IsRecharging()) StopAutoFire();
 	RemoveEffect("BurstFire", this());
+	while(GetEffect("Recharge", this)) RemoveEffect("Recharge", this); 
 
   if(!iFM) iFM = firemode;
   if(!GetFMData(FT_Condition,iFM,iFT)) return(false);
@@ -944,7 +946,7 @@ private func CycleFT(int iDir)
   if(iDir > 0) {
   	if(ft > GetFTCount(fm)-1) ft = 1;
   }
-  SetFireTec(ft, fm);
+  if(ft != GetFireTec(fm)) SetFireTec(ft, fm);
   if(GetSpeedMenu())
     GetSpeedMenu()->NoClose();
   return 1;

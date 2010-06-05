@@ -136,7 +136,7 @@ public func Destruction() {
 
 /* Wiederbelebung */
 
-public func Reanimation() {
+public func Reanimation()
 {
   //Kein Clonk?
   if(!clonk) return();
@@ -150,12 +150,14 @@ public func Reanimation() {
 
   //Besitztümer weitergeben
   if(GetAlive(clonk)) {
-   clonk->GrabContents(this());
-   clonk->RemoveEffect("NoAnnounce", clonk);
+		clonk->GrabContents(this());
+		clonk->RemoveEffect("NoAnnounce", clonk);
   }
-  else
-   while(Contents())
-    Exit(Contents(),0,+10);
+  else {
+		while(Contents()) {
+			Exit(Contents(),0,+10);
+		}
+  }
 
   //Sichtdaten zurücksetzen
   SetFoW(oldvisstate,GetOwner(clonk));
