@@ -124,6 +124,12 @@ public func ChooserFinished()
 	}
 }
 
+public func CreateSpawners() {
+	for(var i = 0; i < GetPlayerCount(); i++) {
+		CreateGOCCSpawner(GetCrew(GetPlayerByIndex(i)));
+	}
+}
+
 /* HUD */
 
 public func GetHUDInfo(int player, object hud)
@@ -538,7 +544,6 @@ protected func InitializePlayer(int iPlr, int iX, int iY, object pBase, int iTea
 
 protected func RelaunchPlayer(int iPlr, object pCrew, int iMurdererPlr, int iTeam, no_relaunch)
 {
-  if(FindObject(CHOS)) return;
 	if(iPlr == -1 || !GetPlayerName(iPlr)) return;
 
   //Schauen wir mal ob noch geht
