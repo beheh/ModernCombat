@@ -54,7 +54,7 @@ public func Set(object pClonk)
   SetFoW(true,GetOwner(pClonk)); 
 
   //Lebenszeit setzen
-  suicide = FKDT_SuicideTime;
+  suicide = FKDT_SuicideTime + 1;
 
   //Etwas Lebensenergie
   DoEnergy(10, pClonk);
@@ -63,6 +63,7 @@ public func Set(object pClonk)
   Sound("FKDT_ClonkDown.ogg", false, pClonk, 100, GetOwner(pClonk)+1, +1);
 
   //Verzögert Auswahlmenü öffnen
+  DoMenu();
   ScheduleCall(this(),"DoMenu",35,suicide);
 }
 
@@ -86,9 +87,14 @@ private func DeathMenu()
   CreateMenu(FKDT, clonk, this(), 0, Format("$Title$"), C4MN_Style_Dialog, true);	//Titelzeile
   if(FindObject(SICD))
   {
-   AddMenuItem("$Suicide$", "Suicide", ICN2, clonk, 0, 0, "$SuicideDesc$");		//Selbstmord
-   AddMenuItem(" ","", NONE,clonk, 0, 0, "", 512, 0, 0);				//Leerzeile
-   AddMenuItem(Format("$Info$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);	//Hinweise
+		if(suicide != FKDT_SuicideTime) {
+			AddMenuItem("$Suicide$", "Suicide", ICN2, clonk, 0, 0, "$SuicideDesc$");		//Selbstmord
+		}
+		else {
+			AddMenuItem("<c 777777>$Suicide$</c>", "", ICN2, clonk, 0, 0, "$SuicideDesc$");		//Selbstmord
+		}
+		AddMenuItem(" ","", NONE,clonk, 0, 0, "", 512, 0, 0);				//Leerzeile
+		AddMenuItem(Format("$Info$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);	//Hinweise
   }
   else
   {
@@ -108,16 +114,21 @@ public func Suicide()
 {
   //Clonkinventar löschen sofern Arenaregel aktiv
   if(FindObject(NODR))
-   for(var item in FindObjects(Find_Container(this),Find_Not(Find_OCF(OCF_Alive))))
+   for(var item in FindObjects(Find_Container(this),Find_Not(Find_OCF(OCF_Living))))
     RemoveObject(item);
 
 	if(clonk) {
+		//
+		clonk->Exit(0,0,GetObjHeight(clonk)/2);
+		
 		//Ende im Gelände 
-		clonk->Kill();
+		if(clonk) {
+			clonk->Kill();
+			clonk->SetPhase(5);
+		}
 	 
 		//Leiche "auswerfen" und ausfaden lassen 
-		if(clonk) clonk->Exit(0,0,GetObjHeight(clonk)/2);
-		if(clonk) clonk->FadeOut();
+		clonk->FadeOut();
   }
 
   //Verschwinden
