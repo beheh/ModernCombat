@@ -64,8 +64,8 @@ public func ControlThrow(object pByObj)
   if(WildcardMatch(GetAction(pByObj), "Walk*"))
   {
    c4->SetRDir(RandomX(-20,20));
-   c4->SetXDir(GetXDir(pByObj)+(GetDir(pByObj)*2-1)*15);
-   c4->SetYDir(GetYDir(pByObj)-15);
+   c4->SetXDir((GetDir(pByObj)*2-1)*20);
+   c4->SetYDir(-15);
    c4->SetActive(this());
    Sound("GrenadeThrow*.ogg");
    return true;
@@ -75,8 +75,8 @@ public func ControlThrow(object pByObj)
   if(WildcardMatch(GetAction(pByObj), "Jump*"))
   {
    c4->SetRDir(RandomX(-20,20));
-   c4->SetXDir(GetXDir(pByObj)+(GetDir(pByObj)*2-1)*15);
-   c4->SetYDir(GetYDir(pByObj)-15);
+   c4->SetXDir((GetDir(pByObj)*2-1)*20);
+   c4->SetYDir(-15);
    c4->SetActive(this());
    Sound("GrenadeThrow*.ogg");
    return true;

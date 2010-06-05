@@ -114,25 +114,20 @@ public func Suicide()
 {
   //Clonkinventar löschen sofern Arenaregel aktiv
   if(FindObject(NODR))
-   for(var item in FindObjects(Find_Container(this),Find_Not(Find_OCF(OCF_Living))))
+   for(var item in FindObjects(Find_Container(this),Find_Not(Find_OCF(OCF_Alive))))
     RemoveObject(item);
 
 	if(clonk) {
-		//
-		clonk->Exit(0,0,GetObjHeight(clonk)/2);
-		
-		//Ende im Gelände 
-		if(clonk) {
-			clonk->Kill();
-			clonk->SetPhase(5);
-		}
+		//Töten
+		clonk->Kill();
 	 
-		//Leiche "auswerfen" und ausfaden lassen 
+		//Leiche "auswerfen" und ausfaden lassen
+		clonk->Exit(0,0,GetObjHeight(clonk)/2);
 		clonk->FadeOut();
   }
 
   //Verschwinden
-  RemoveObject(0,1);
+  RemoveObject();
 }
 
 public func GetClonk()	{return(clonk);}

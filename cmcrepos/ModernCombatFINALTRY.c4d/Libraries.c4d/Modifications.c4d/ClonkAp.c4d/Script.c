@@ -392,8 +392,4 @@ func Death(object pTarget)
   
   //Verschwinden
   FadeOut(pTarget);
-
-  //Fake Death löschen
-  if(IsFakeDeath())
-   RemoveObject(Contained(pTarget),true);
 }
