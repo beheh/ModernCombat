@@ -64,8 +64,8 @@ public func ControlThrow(object pByObj)
   if(WildcardMatch(GetAction(pByObj), "Walk*"))
   {
    c4->SetRDir(RandomX(-20,20));
-   c4->SetXDir((GetDir(pByObj)*30)-15);
-   c4->SetYDir(-15);
+   c4->SetXDir(GetXDir(pByObj)+(GetDir(pByObj)*2-1)*15);
+   c4->SetYDir(GetYDir(pByObj)-15);
    c4->SetActive(this());
    Sound("GrenadeThrow*.ogg");
    return true;
@@ -75,8 +75,8 @@ public func ControlThrow(object pByObj)
   if(WildcardMatch(GetAction(pByObj), "Jump*"))
   {
    c4->SetRDir(RandomX(-20,20));
-   c4->SetXDir(((GetDir(pByObj)*2-1)*30));
-   c4->SetYDir(-15);
+   c4->SetXDir(GetXDir(pByObj)+(GetDir(pByObj)*2-1)*15);
+   c4->SetYDir(GetYDir(pByObj)-15);
    c4->SetActive(this());
    Sound("GrenadeThrow*.ogg");
    return true;
@@ -94,8 +94,8 @@ public func ControlThrow(object pByObj)
   if(GetAction(pByObj) == "Swim")
   {
    c4->SetPosition(GetX(pByObj),GetY(pByObj)+5);
-   c4->SetXDir(((GetDir(pByObj)*2-1)*30));
-   c4->SetYDir(10);
+   c4->SetXDir(GetXDir(pByObj)+(GetDir(pByObj)*2-1)*20);
+   c4->SetYDir(GetYDir(pByObj)+10);
    c4->SetActive(this());
    Sound("GrenadeThrow*.ogg");
    return true;
@@ -143,6 +143,7 @@ public func DoPackAmount(int iAmount)
 
 public func Entrance(object pContainer)
 {
+	if(pContainer->~IsSpawnpoint()) return;
   for(var obj in FindObjects(Find_Container(pContainer),Find_ID(GetID()),Find_Exclude(this())))
    if(obj->DoPackAmount())
    {
