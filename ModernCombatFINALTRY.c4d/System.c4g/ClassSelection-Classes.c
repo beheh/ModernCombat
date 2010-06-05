@@ -67,7 +67,7 @@ private func Class3Info(int iData)
   if(iData == CData_Name)  return("<c ffff33>$support$</c>");
   if(iData == CData_Desc)  return("$support_desc$");
   if(iData == CData_Clonk) return(PCMK);
-  if(iData == CData_Ammo)  return("200x {{STAM}}10x {{MIAM}}");
+  if(iData == CData_Ammo)  return("200x {{STAM}}4x {{MIAM}}");
   if(!FindObject(NOAM))
   {if(iData == CData_Items) return("1x {{MNGN}}     1x {{RTLR}}|1x {{AMPK}}     1x {{DGNN}}|2x {{STUN}}     1x{{SGRN}}");}
   else
@@ -80,7 +80,7 @@ private func Class3Setup(int iPlr)
 {
   var new = CreateObject(PCMK,0,0,iPlr);
   DoAmmo(STAM,200,new);
-  DoAmmo(MIAM,10,new);
+  DoAmmo(MIAM,4,new);
   new->CreateContents(MNGN);
   new->CreateContents(RTLR);
   if(!FindObject(NOAM))

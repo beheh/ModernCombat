@@ -82,7 +82,7 @@ private func CreateAmmopack(idAmmo)
   //Bei Raketen
   if(idAmmo == MIAP)
   {
-   if(GetAmmoPoints() >= 40)
+   if(GetAmmoPoints() >= 60)
    {
     CreateContents(idAmmo, Contained());
     Sound("PackAmmo.ogg",0,0,0,GetOwner(Contained()));
