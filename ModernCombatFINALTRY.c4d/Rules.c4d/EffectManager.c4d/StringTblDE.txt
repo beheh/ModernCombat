@@ -1,4 +1,3 @@
 EffectLevel=Effektstufe %d
 SetEffectLevel=Effektstufe setzen
-Finished=Fertig
-NewLevel=Effekte wurden auf Stufe %d gesetzt
+NewLevel=Effektstufe wurde auf <c ffff33>%d</c> gesetzt

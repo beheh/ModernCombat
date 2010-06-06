@@ -48,7 +48,7 @@ protected func OpenMenu()
   // KI
   if(ObjectCount(WAYP) && !GetLeague()) AddMenuItem("$AIMenu$", "OpenAIMenu", HZCK, pClonk, 0,0, "$AIInfo$");
   // Fertig
-  AddMenuItem("$Effects$", "OpenEffectMenu", BOOM, pClonk, 0,0, "$EffectInfo$");
+  AddMenuItem("$Effects$", "OpenEffectMenu", EFMN, pClonk, 0,0, "$EffectInfo$");
   // Fertig
   AddMenuItem("$Finished$", "ConfigurationFinished", CHOS, pClonk,0,0,"$Finished$",2,3);
 }
@@ -59,7 +59,7 @@ protected func OpenEffectMenu(id dummy, int iSelection)
   // Menü aufmachen
   CreateMenu(GetID(), pClonk, 0,0,0,0, 1);
   // Anzeige
-  AddMenuItem(" ", "OpenEffectMenu", BOOM, pClonk, iEffectCount, 0, " ");
+  AddMenuItem(" ", "OpenEffectMenu", EFMN, pClonk, iEffectCount, 0, " ");
   // Zähler erhöhen
   AddMenuItem("$MoreEffects$", "ChangeEffectConf", CHOS, pClonk, 0, +1, "$MoreEffects$",2,1);
   // Zähler senken
