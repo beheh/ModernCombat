@@ -16,6 +16,9 @@ protected func Activate(iByPlayer)
 		// Fertig
 		AddMenuItem("$Finished$", "End", CHOS, pClonk, 0, pClonk, "$Finished$", 2, 4);
   }
+  else {
+  	MessageWindow(GetDesc(),iByPlayer);
+  }
   return(1);
 }
 
