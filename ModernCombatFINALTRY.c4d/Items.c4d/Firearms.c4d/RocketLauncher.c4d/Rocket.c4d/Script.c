@@ -190,10 +190,8 @@ public func Hit()
 
 private func HitObject(pObj)
 {
-  if(GetAction() eq "Idle")
-   return Explode(3,0,0,0,1);
 
-  if(Secure())
+  if(Secure() || GetAction() eq "Idle")
   {
    if(pObj)
    {
