@@ -1,4 +1,3 @@
-EffectLevel=Effektlevel %d
+EffectLevel=Effect Level %d
 SetEffectLevel=Set effect level
-Finished=Fertig
-NewLevel=Effects were set to level %d
+NewLevel=Effect level has been set to <c ffff33>%d</c>
