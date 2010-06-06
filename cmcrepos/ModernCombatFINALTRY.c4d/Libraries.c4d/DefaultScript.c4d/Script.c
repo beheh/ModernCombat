@@ -53,6 +53,9 @@ public func ChooserFinished()
      RemoveObject(spwn);
   }
     
+  //Effektmanager
+  CreateObject(EFMN);
+    
   //Ohne Klassenwahl
   if(!FindObject(MCSL))
   {
