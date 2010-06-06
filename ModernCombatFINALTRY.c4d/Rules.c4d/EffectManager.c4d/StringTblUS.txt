@@ -1,0 +1,4 @@
+EffectLevel=Effektlevel %d
+SetEffectLevel=Set effect level
+Finished=Fertig
+NewLevel=Effects were set to level %d
