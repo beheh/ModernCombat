@@ -1,0 +1,4 @@
+EffectLevel=Effektstufe %d
+SetEffectLevel=Effektstufe setzen
+Finished=Fertig
+NewLevel=Effekte wurden auf Stufe %d gesetzt
