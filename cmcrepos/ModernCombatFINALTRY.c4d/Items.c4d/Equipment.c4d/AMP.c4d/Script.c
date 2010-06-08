@@ -86,11 +86,11 @@ private func CreateAmmopack(idAmmo)
    {
     CreateContents(idAmmo, Contained());
     Sound("PackAmmo.ogg",0,0,0,GetOwner(Contained()));
-    DoAmmoPoints(-40);
+    DoAmmoPoints(-60);
    }
    else
    {
-    PlayerMessage(GetOwner(Contained()),"$NeededPoints$", Contained(), 40);
+    PlayerMessage(GetOwner(Contained()),"$NeededPoints$", Contained(), 60);
    }
   }
   //Hinwechseln
