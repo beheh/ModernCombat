@@ -249,6 +249,8 @@ func CreateFurniture()
   CreateObject(_WIN, 1147, 335, -1);
   CreateObject(_WIN, 1147, 360, -1);
 
+  CreateObject(_WIN, 1442, 140, -1);
+
   //Monitore
   CreateObject(MONI, 1420, 308, -1);
   CreateObject(MONI, 1510, 308, -1);
@@ -269,6 +271,7 @@ func CreateFurniture()
   CreateObject(PLNT, 820, 360, -1);
 
   CreateObject(PLNT, 1400, 308, -1);
+  CreateObject(PLNT, 1455, 140, -1);
   CreateObject(PLNT, 1615, 278, -1);
 
   CreateObject(PLNT, 1955, 98, -1);
