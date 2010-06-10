@@ -1,7 +1,10 @@
-/*-- Neues Script --*/
+/*-- Gasflasche --*/
+
+//Hazard-Gasflaschenzerstörung modifiziert.
 
 #strict 2
 #appendto GSBO
+
 
 private func InstaExplode(bool noRemove)
 {

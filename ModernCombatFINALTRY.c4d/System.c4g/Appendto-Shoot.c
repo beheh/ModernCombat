@@ -1,7 +1,10 @@
-/*-- Hazardschussfix --*/
+/*-- Hazardschuss Fix --*/
+
+//Hazardschuss Bugs überladen und korrigiert.
 
 #strict 2
 #appendto SHT1
+
 
 public func FxHitCheckTimer(object target, int effect, int time)
 {
