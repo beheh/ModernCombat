@@ -15,7 +15,7 @@ global func SetupSection1()
   }
   
   TutorialMessage("$Mobility_I_1$");
-  wait(3*5);
+  ScriptGo(1);
   goto(4);
   
   sect1told = false;
