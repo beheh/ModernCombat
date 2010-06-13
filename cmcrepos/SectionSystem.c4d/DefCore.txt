@@ -1,5 +1,0 @@
-[DefCore]
-id=STSY
-Name=Section System
-Category=1
-Picture=0,0,64,64
