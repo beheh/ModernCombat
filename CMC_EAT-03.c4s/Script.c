@@ -182,70 +182,42 @@ global func SetupSection1()
   CreateObject(STNE,425,349,-1);
   CreateObject(STNE,508,332,-1);
 
-  ScriptGo(false);
+  ScriptGo(true);
   goto(5);
 }
 
-/* 2 - Einsatzschild */
-
-global func SetupSection2()
+func Script5()
 {
-  for(var clonk in FindObjects(Find_ID(PCMK)))
-  {
-    SetPosition(RandomX(130,180),-50,clonk);
-    CreateObject(PARA,0,0,GetOwner(clonk))->Set(clonk);
-    CreateContents(RSHL,clonk);
-  }
-  
-  var SelfDefense=CreateObject(SEGU,100,75,-1);
-  SelfDefense->Arm(MISA);
-  SelfDefense->TurnOn();
-  SelfDefense=CreateObject(SEGU,58,120,-1);
-  SelfDefense->Arm(MISA);
-  SelfDefense->SetR(-90);
-  SelfDefense->TurnOn();
-  
-  Message("<c 4444ff>Michael: Überlebe 10 Sekunden! Nutze das Schild um die Kugeln abzuwehren!</c>");
-  Sound("Ding");
-  
-  ScriptGo(true);
-  goto(10);
-}
-
-func Script45()
-{
-  if(GetAlive(FindObject2(Find_ID(PCMK),Find_Owner(0))))
+  if(FindObject2(Find_ID(PCMK),Find_InRect(640,240,160,100)))
   {
     LoadSection(0);
     Sound("Cheer.ogg");
-    Message("<c 4444ff>Michael: Yeah, assness.</c>");
-    for(var sentry in FindObjects(Find_ID(SEGU)))
-      sentry->TurnOff();
-    unlocked[2] = 2;
-    ScriptGo(false);
+    TutorialMessage("$Ace_WellDone2$");
+    unlocked[1] = 2;
+    unlocked[2] = 1;
+    ScriptGo(0);
   }
   else
-  {
-    Sound("Lol.ogg");
-    Message("<c 4444ff>Michael: You fail'd, soldier.</c>");
-  }
+    goto(4);
 }
+  
 
 /* 3 - Athletik II */
 
-global func SetupSection3()
+global func SetupSection2()
 {
   var tmp;
-  for(var clonk in FindObjects(Find_ID(PCMK)))
-  {
-    SetPosition(RandomX(30,120),-50,clonk);
-    CreateObject(PARA,0,0,GetOwner(clonk))->Set(clonk);
-  }
 
   //Räume
   tmp = CreateObject(ROOM, 475, 950, -1);
   tmp -> FadeOut();
   CreateObject(ROOM, 1760, 310, -1);
+  
+  for(var clonk in FindObjects(Find_ID(PCMK)))
+  {
+    Enter(tmp,clonk);
+    SetCommand(clonk,"Exit");
+  }
 
   //Leiter
   CreateObject(LADR, 940, 530, -1)->Set(10);
@@ -265,6 +237,20 @@ global func SetupSection3()
   CreateObject(_HBR, 1015, 792, -1);
   CreateObject(_HBR, 1175, 702, -1);
 
-  ScriptGo(false);
-  goto(5);
+  ScriptGo(true);
+  goto(10);
+}
+
+func Script10()
+{
+  if(FindObject2(Find_ID(PCMK), Find_InRect(1500,250,300,100), Find_Container(FindObject(ROOM))))
+  {
+    LoadSection(0);
+    Sound("Cheer.ogg");
+    TutorialMessage("$Ace_WellDone1$");
+    unlocked[2] = 2;
+    ScriptGo(0);
+  }
+  else
+    goto(9);
 }
