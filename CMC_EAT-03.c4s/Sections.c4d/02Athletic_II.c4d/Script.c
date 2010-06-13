@@ -20,9 +20,15 @@ global func SetupSection2()
     SetCommand(clonk,"Exit");
   }
 
+  //Schilder
+  CreateObject(_SGN, 625, 1050, -1)->SetNewInfo("$Info01$");
+  CreateObject(_SGN, 820, 870, -1)->SetNewInfo("$Info02$");
+  CreateObject(_SGN, 1095, 690, -1)->SetNewInfo("$Info03$");
+  CreateObject(_SGN, 1790, 510, -1)->SetNewInfo("$Info04$");
+
   //Sprungschanzen
-  CreateObject (JMPD, 725, 1050, -1)->Set(90, 10);
-  CreateObject (JMPD, 1230,505, -1)->Set(60, 65);
+  CreateObject(JMPD, 725, 1050, -1)->Set(90, 10);
+  CreateObject(JMPD, 1230,505, -1)->Set(60, 65);
 
   //Geländer
   CreateObject(RAI1, 403, 1030, -1)->SetRail([1,3,1,3,1,3,1,3,1,3,1,3,1]);
@@ -45,6 +51,8 @@ func Script10()
 {
   Sound("RadioConfirm*.ogg");
   TutorialMessage("$TxtS2_01$");
+
+  SetArrow(850, 855);
 }
 
 func Script15()
@@ -53,6 +61,8 @@ func Script15()
   {
     Sound("RadioConfirm*.ogg");
     TutorialMessage("$TxtS2_02$");
+
+    RemoveArrow();
   }
   else
     goto(14);
@@ -64,6 +74,8 @@ func Script20()
   {
     Sound("RadioConfirm*.ogg");
     TutorialMessage("$TxtS2_03$");
+
+    SetArrow(1155, 855);
   }
   else
     goto(19);
@@ -75,6 +87,8 @@ func Script25()
   {
     Sound("RadioConfirm*.ogg");
     TutorialMessage("$TxtS2_04$");
+
+    SetArrow(920, 770);
   }
   else
     goto(24);
@@ -86,6 +100,8 @@ func Script30()
   {
     Sound("RadioConfirm*.ogg");
     TutorialMessage("$TxtS2_05$");
+
+    RemoveArrow();
   }
   else
     goto(29);
@@ -97,6 +113,8 @@ func Script35()
   {
     Sound("RadioConfirm*.ogg");
     TutorialMessage("$TxtS2_06$");
+
+    SetArrow(1250, 665);
   }
   else
     goto(34);
@@ -108,6 +126,8 @@ func Script40()
   {
     Sound("RadioConfirm*.ogg");
     TutorialMessage("$TxtS2_07$");
+
+    SetArrow(1240, 480);
   }
   else
     goto(39);
@@ -119,6 +139,8 @@ func Script45()
   {
     Sound("RadioConfirm*.ogg");
     TutorialMessage("$TxtS2_08$");
+
+    SetArrow(1630, 485);
   }
   else
     goto(44);
@@ -130,6 +152,8 @@ func Script50()
   {
     Sound("RadioConfirm*.ogg");
     TutorialMessage("$TxtS2_09$");
+
+    SetArrow(1790, 485);
   }
   else
     goto(49);
@@ -141,6 +165,8 @@ func Script55()
   {
     Sound("RadioConfirm*.ogg");
     TutorialMessage("$TxtS2_10$");
+
+    SetArrow(1770, 280);
   }
   else
     goto(54);
