@@ -1,3 +1,5 @@
+//Tutorialtext
+
 TxtS2_01=<c 8888ff>Michael14</c>: Dann fangen wir mal an, nutze die <c ffff33>Sprungschanze</c>, um weiter nach oben zu gelangen!
 TxtS2_02=<c 8888ff>Michael14</c>: Toll. Es ist Zeit fürs <c ffff33>hinlegen</c>, drücke <c ffff33>[Doppelstop+Graben]</c>, um in Liegeposition zu gehen.
 TxtS2_03=<c 8888ff>Michael14</c>: Krieche nun mit den <c ffff33>Richtungstasten</c> durch die engen Gänge.
@@ -8,3 +10,10 @@ TxtS2_07=<c 8888ff>Michael14</c>: Nutze jetzt die <c ffff33>Sprungschanze</c> üb
 TxtS2_08=<c 8888ff>Michael14</c>: Nicht schlapp machen, durch dieses Durcheinander zum <c ffff33>Ausgang</c> weiter oben!
 TxtS2_09=<c 8888ff>Michael14</c>: Alles klar, hier ist die letzte Grundlage: Der <c ffff33>Backjump</c>. Laufe und drücke <c ffff33>[Links</c> bzw. in diesem Fall <c ffff33>Rechts+Springen]</c>, um in die gegengesetzte Richtung einen Weitsprung auszuführen. Nutze ihn, um auf die andere Seite zu kommen!
 TxtS2_10=<c 8888ff>Michael14</c>: Schön, gehe nun durch den <c ffff33>Ausgang</c> um diese Lektion abzuschließen!
+
+//Schilder
+
+Info01=Schilder wie dieses findest du überall durch das Tutorial hindurch, sie geben dir wichtige Hinweise!
+Info02=Liegend ist der Clonk langsamer und nicht sehr mobil, dafür feuert es sich ausgezeichnet von dieser Position und Gegner haben Probleme, liegende Gegenspieler auszuschalten.
+Info03=Wandsprünge erleichtern den Aufstieg in schwierigem Gelände erheblich, nutze sie auch, um schnell ausweichen zu können.
+Info04=Der Backjump ist nicht nur eine gute Fortbewegungsmöglichkeit, sondern auch eine ausgezeichnete Möglichkeit um gegnerischen Attacken schnell auszuweichen.
