@@ -1,0 +1,13 @@
+CreatingFurniture=Szenario wird eingerichtet...
+
+// Einführung
+
+TxtWelcome=<c 8888ff>Michael14</c>: Willkommen, Soldat! Dies ist das Eurocorps Ausbildungs- und Trainingscenter EAT-03. Das Trainingsgelände steht dir frei zur Verfügung. Starte ein beliebiges Trainingsprogramm, indem du in den Simulationsraum rechts von dir gehst!
+
+TxtChoose=<c 8888ff>Michael14</c>:Das Menü stellt dir alle zur Verfügung stehenden Trainingsprogramme dar, wähle Athletik I aus, um mit deinem Training zu beginnen. <c 44ff44>Grün</c> bedeutet, dass du bereits dieses Training abgeschlossen hast, <c ffff44>gelb</c>, dass es verfügbar ist, aber noch nicht bewältigt wurde und <c 888888>grau</c> bedeutet, dass du dieses Trainingsprogramm noch freigeschalten musst.
+
+// Sektionennamen
+
+SectionName1=Lobby
+SectionName2=Athletik I
+SectionName3=Einsatzschild I
