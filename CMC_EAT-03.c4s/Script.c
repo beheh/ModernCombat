@@ -148,7 +148,7 @@ global func SetupSection0()
   CreateObject(AMCT, 300, 130, -1)->Set(GBOX);
 }
 
-/* 1 - Athletik */
+/* 1 - Athletik I */
 
 global func SetupSection1()
 {
@@ -231,4 +231,40 @@ func Script45()
   }
 }
 
+/* 3 - Athletik II */
 
+global func SetupSection3()
+{
+  var tmp;
+  for(var clonk in FindObjects(Find_ID(PCMK)))
+  {
+    SetPosition(RandomX(30,120),-50,clonk);
+    CreateObject(PARA,0,0,GetOwner(clonk))->Set(clonk);
+  }
+
+  //Räume
+  tmp = CreateObject(ROOM, 475, 950, -1);
+  tmp -> FadeOut();
+  CreateObject(ROOM, 1760, 310, -1);
+
+  //Leiter
+  CreateObject(LADR, 940, 530, -1)->Set(10);
+
+  //Sprungschanzen
+  CreateObject (JMPD, 725, 1050, -1)->Set(90, 10);
+  CreateObject (JMPD, 1230,505, -1)->Set(60, 65);
+
+  //Geländer
+  CreateObject(RAI1, 403, 1030, -1)->SetRail([1,3,1,3,1,3,1,3,1,3,1,3,1]);
+  CreateObject(RAI1, 803, 870, -1)->SetRail([1,3,1,3,1,3,1]);
+  CreateObject(RAI1, 1503, 670, -1)->SetRail([1,3,1,3,1,3,1]);
+  CreateObject(RAI1, 1693, 310, -1)->SetRail([1,3,1,3,1,3,1,3,1,3,1]);
+
+  //Stahlbrücken
+  CreateObject(_HBR, 1015, 702, -1);
+  CreateObject(_HBR, 1015, 792, -1);
+  CreateObject(_HBR, 1175, 702, -1);
+
+  ScriptGo(false);
+  goto(5);
+}
