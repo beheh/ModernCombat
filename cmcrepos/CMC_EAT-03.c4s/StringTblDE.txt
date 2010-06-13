@@ -22,3 +22,16 @@ SectionName1=Lobby
 SectionName2=Athletik I
 SectionName3=Athletik II
 SectionName3=Athletik II
+
+// Sektion 2
+
+TxtS2_01=<c 8888ff>Michael14</c>: Dann fangen wir mal an, nutze die <c ffff33>Sprungschanze</c>, um weiter nach oben zu gelangen!
+TxtS2_02=<c 8888ff>Michael14</c>: Toll. Es ist Zeit fürs <c ffff33>hinlegen</c>, drücke <c ffff33>[Doppelstop+Graben]</c>, um in Liegeposition zu gehen.
+TxtS2_03=<c 8888ff>Michael14</c>: Krieche nun mit den <c ffff33>Richtungstasten</c> durch die engen Gänge.
+TxtS2_04=<c 8888ff>Michael14</c>: Nicht schlecht, aber wie kommt man nun hoch? Da kommt der <c ffff33>Wandsprung</c> ins Spiel. Kletter an einer Wand und drücke <c ffff33>[Doppelrechts</c> bzw. <c ffff33>-links]</c>, um dich von der Wand in die entsprechende Richtung zu stoßen und arbeite dich dann weiter vor.
+TxtS2_05=<c 8888ff>Michael14</c>: Ok, aufgepasst: Kriechst du über einen Abgrund wie den solchen, der jetzt vor dir ist, hält sich der Clonk an der Wand <c ffff33>fest</c> und rettet sich so vor dem Fall. Mach mir das mal vor.
+TxtS2_06=<c 8888ff>Michael14</c>: Beeindruckend...fast. Nutze jetzt den <c ffff33>Wandsprung</c> und weiter gehts.
+TxtS2_07=<c 8888ff>Michael14</c>: Nutze jetzt die <c ffff33>Sprungschanze</c> über dir!
+TxtS2_08=<c 8888ff>Michael14</c>: Nicht schlapp machen, durch dieses Durcheinander zum <c ffff33>Ausgang</c> weiter oben!
+TxtS2_09=<c 8888ff>Michael14</c>: Alles klar, hier ist die letzte Grundlage: Der <c ffff33>Backjump</c>. Laufe und drücke <c ffff33>[Links</c> bzw. <c ffff33>Rechts+Springen</c>, um in die gegengesetzte Richtung einen Weitsprung auszuführen. Nutze ihn, um auf die andere Seite zu kommen!
+TxtS2_10=<c 8888ff>Michael14</c>: Schön, gehe nun durch den <c ffff33>Ausgang</c> um diese Lektion abzuschließen!

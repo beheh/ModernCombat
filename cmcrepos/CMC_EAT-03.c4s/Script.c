@@ -17,6 +17,7 @@ func Initialize()
 {
   //Sektion 1 freischalten
   unlocked = [0,1,0];
+  unlocked = [0,2,0];
   wait(3);
 
   //Lobby initialisieren
