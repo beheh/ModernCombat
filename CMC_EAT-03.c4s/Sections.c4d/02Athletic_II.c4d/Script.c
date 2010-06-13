@@ -1,6 +1,8 @@
-/* 3 - Athletik II */
+/*-- Athletik II --*/
 
 #strict 2
+
+/* Erstellung */
 
 global func SetupSection2()
 {
@@ -10,15 +12,13 @@ global func SetupSection2()
   tmp = CreateObject(ROOM, 475, 950, -1);
   tmp -> FadeOut();
   CreateObject(ROOM, 1760, 310, -1);
-  
+
+  //Spieler plazieren
   for(var clonk in FindObjects(Find_ID(PCMK)))
   {
     Enter(tmp,clonk);
     SetCommand(clonk,"Exit");
   }
-
-  //Leiter
-  CreateObject(LADR, 940, 530, -1)->Set(10);
 
   //Sprungschanzen
   CreateObject (JMPD, 725, 1050, -1)->Set(90, 10);
@@ -39,16 +39,123 @@ global func SetupSection2()
   goto(10);
 }
 
+/* Ablauf */
+
 func Script10()
+{
+  Sound("RadioConfirm*.ogg");
+  TutorialMessage("$TxtS2_01$");
+}
+
+func Script15()
+{
+  if(FindObject2(Find_ID(PCMK), Find_InRect(810,830,40,80)))
+  {
+    Sound("RadioConfirm*.ogg");
+    TutorialMessage("$TxtS2_02$");
+  }
+  else
+    goto(14);
+}
+
+func Script20()
+{
+  if(FindObject2(Find_ID(PCMK), Find_Action("Crawl")))
+  {
+    Sound("RadioConfirm*.ogg");
+    TutorialMessage("$TxtS2_03$");
+  }
+  else
+    goto(19);
+}
+
+func Script25()
+{
+  if(FindObject2(Find_ID(PCMK), Find_InRect(1140,790,80,80)))
+  {
+    Sound("RadioConfirm*.ogg");
+    TutorialMessage("$TxtS2_04$");
+  }
+  else
+    goto(24);
+}
+
+func Script30()
+{
+  if(FindObject2(Find_ID(PCMK), Find_InRect(910,770,20,10)))
+  {
+    Sound("RadioConfirm*.ogg");
+    TutorialMessage("$TxtS2_05$");
+  }
+  else
+    goto(29);
+}
+
+func Script35()
+{
+  if(FindObject2(Find_ID(PCMK), Find_Action("Scale"), Find_InRect(850,760,30,30)))
+  {
+    Sound("RadioConfirm*.ogg");
+    TutorialMessage("$TxtS2_06$");
+  }
+  else
+    goto(34);
+}
+
+func Script40()
+{
+  if(FindObject2(Find_ID(PCMK), Find_InRect(1220,600,80,90)))
+  {
+    Sound("RadioConfirm*.ogg");
+    TutorialMessage("$TxtS2_07$");
+  }
+  else
+    goto(39);
+}
+
+func Script45()
+{
+  if(FindObject2(Find_ID(PCMK), Find_InRect(1500,640,100,30)))
+  {
+    Sound("RadioConfirm*.ogg");
+    TutorialMessage("$TxtS2_08$");
+  }
+  else
+    goto(44);
+}
+
+func Script50()
+{
+  if(FindObject2(Find_ID(PCMK), Find_InRect(1610,450,20,60)))
+  {
+    Sound("RadioConfirm*.ogg");
+    TutorialMessage("$TxtS2_09$");
+  }
+  else
+    goto(49);
+}
+
+func Script55()
+{
+  if(FindObject2(Find_ID(PCMK), Find_InRect(1760,470,40,60)))
+  {
+    Sound("RadioConfirm*.ogg");
+    TutorialMessage("$TxtS2_10$");
+  }
+  else
+    goto(54);
+}
+
+
+func Script60()
 {
   if(FindObject2(Find_ID(PCMK), Find_InRect(1500,250,300,100), Find_Container(FindObject(ROOM))))
   {
     LoadSection(0);
     Sound("Cheer.ogg");
-    TutorialMessage("$Ace_WellDone1$");
     unlocked[2] = 2;
     ScriptGo(0);
   }
   else
-    goto(9);
+    goto(59);
 }
