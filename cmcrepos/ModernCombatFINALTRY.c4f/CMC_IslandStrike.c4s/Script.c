@@ -437,11 +437,9 @@ func CreateFurniture()
   CreateObject(SE4K, 4000, 430, -1)->Set("Announce*.ogg",1500,130);
   CreateObject(SE4K, 7215, 280, -1)->Set("Announce*.ogg",1500,130);
 
-  //Kran und Konsolen
+  //Kran
   var cran = CreateObject(CRN1, 4000, 359, -1);
   cran->Set(42);
-  CreateObject(CONS, 3710, 465, -1)->Set(cran);
-  CreateObject(CONS, 4305, 465, -1)->Set(cran);
   
   //Tore und Konsolen
   var autod = CreateObject (HNG2, 2780, 620, -1);
