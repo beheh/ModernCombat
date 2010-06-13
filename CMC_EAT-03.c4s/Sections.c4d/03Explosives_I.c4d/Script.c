@@ -6,7 +6,7 @@ static sect1told;
 
 /* 1 - Athletik I */
 
-global func SetupSection1()
+/*global func SetupSection3()
 {
   for(var clonk in FindObjects(Find_ID(PCMK)))
   {
@@ -39,8 +39,7 @@ obj12->Enter(Object(0));
 var obj13 = CreateObject(C4PA,186,257,0);
 obj13->Enter(Object(0));
 CreateObject(AMCT,186,268,0);
-var obj14 = CreateObject(HA4K,161,281,0);
-obj14->SetMaxDmg(100);
+var obj14 = CreateObject(HA4K,161,281,0)->SetMaxDmg(100);
 var obj15 = CreateObject(RAI1,152,260,0);
 obj15->SetRail([0, 1, 4],1);
 var obj16 = CreateObject(RAI1,177,260,0);
