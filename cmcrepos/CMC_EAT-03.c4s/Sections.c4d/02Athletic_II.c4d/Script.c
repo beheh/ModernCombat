@@ -187,7 +187,7 @@ func Script45()
 
 func Script50()
 {
-  if(FindObject2(Find_ID(PCMK), Find_InRect(1610,450,20,60)))
+  if(FindObject2(Find_ID(PCMK), Find_InRect(1610,450,40,60)))
   {
     Sound("RadioConfirm*.ogg");
     TutorialMessage("$TxtS2_09$");
