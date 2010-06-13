@@ -10,7 +10,7 @@ global func SetupSection2()
 
   //Räume
   tmp = CreateObject(ROOM, 475, 950, -1);
-  tmp -> FadeOut();
+  tmp ->FadeOut();
   CreateObject(ROOM, 1760, 310, -1);
 
   //Spieler plazieren
@@ -20,15 +20,34 @@ global func SetupSection2()
     SetCommand(clonk,"Exit");
   }
 
-  //Schilder
-  CreateObject(_SGN, 625, 1050, -1)->SetNewInfo("$Info01$");
-  CreateObject(_SGN, 820, 870, -1)->SetNewInfo("$Info02$");
-  CreateObject(_SGN, 1095, 690, -1)->SetNewInfo("$Info03$");
-  CreateObject(_SGN, 1790, 510, -1)->SetNewInfo("$Info04$");
+  //Selbstschussanlage und Konsole
+  tmp = CreateObject (SEGU, 1760, 338, -1);
+  tmp ->Arm(MISA);
+  tmp ->TurnOn();
+  CreateObject(CONS, 1715, 585, -1)->Set(tmp);
 
   //Sprungschanzen
   CreateObject(JMPD, 725, 1050, -1)->Set(90, 10);
   CreateObject(JMPD, 1230,505, -1)->Set(60, 65);
+
+  //Orientierungslichter
+  CreateObject(OLGH, 485, 1030, -1)->Set(3, 15, 1, 1, 40);
+  CreateObject(OLGH, 625, 1050, -1)->Set(2, 15, 1, 1, 40);
+  CreateObject(OLGH, 725, 1050, -1)->Set(2, 15, 1, 1, 40);
+
+  CreateObject(OLGH, 930, 690, -1)->Set(3, 15, 1, 1, 40);
+  CreateObject(OLGH, 1095, 690, -1)->Set(3, 15, 1, 1, 40);
+  CreateObject(OLGH, 1260, 690, -1)->Set(3, 15, 1, 1, 40);
+
+  CreateObject(OLGH, 1565, 310, -1)->Set(2, 15, 1, 1, 40);
+  CreateObject(OLGH, 1755, 310, -1)->Set(3, 15, 1, 1, 40);
+
+  //Glasscheibe
+  CreateObject(_WIN, 1210, 880, -1);
+
+  //Metallkiste
+  CreateObject(MWCR, 920, 690, -1);
+  CreateObject(MWCR, 940, 690, -1);
 
   //Geländer
   CreateObject(RAI1, 403, 1030, -1)->SetRail([1,3,1,3,1,3,1,3,1,3,1,3,1]);
@@ -36,10 +55,30 @@ global func SetupSection2()
   CreateObject(RAI1, 1503, 670, -1)->SetRail([1,3,1,3,1,3,1]);
   CreateObject(RAI1, 1693, 310, -1)->SetRail([1,3,1,3,1,3,1,3,1,3,1]);
 
+  //Regale
+  CreateObject(FRAM, 1620, 510, -1);
+  CreateObject(FRAM, 1640, 510, -1);
+
   //Stahlbrücken
   CreateObject(_HBR, 1015, 702, -1);
   CreateObject(_HBR, 1015, 792, -1);
   CreateObject(_HBR, 1175, 702, -1);
+
+  //Schilder
+  CreateObject(_SGN, 625, 1050, -1)->SetNewInfo("$Info01$");
+  CreateObject(_SGN, 820, 870, -1)->SetNewInfo("$Info02$");
+  CreateObject(_SGN, 1095, 690, -1)->SetNewInfo("$Info03$");
+  CreateObject(_SGN, 1790, 590, -1)->SetNewInfo("$Info04$");
+  CreateObject(_SGN, 1790, 510, -1)->SetNewInfo("$Info05$");
+
+  //Sounds
+
+  //Hallen
+  CreateObject(SE4K, 590, 960, -1)->Set("Interior*.ogg",665,105);
+  CreateObject(SE4K, 1175, 740, -1)->Set("Interior*.ogg",670,105);
+  CreateObject(SE4K, 1265, 450, -1)->Set("Interior*.ogg",665,105);
+  CreateObject(SE4K, 1685, 550, -1)->Set("Interior*.ogg",670,105);
+  CreateObject(SE4K, 1665, 330, -1)->Set("Interior*.ogg",665,105);
 
   ScriptGo(true);
   goto(10);
