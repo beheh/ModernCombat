@@ -2,7 +2,7 @@
 
 TxtS2_01=<c 8888ff>Michael14</c>: Dann fangen wir mal an, nutze die <c ffff33>Sprungschanze</c>, um weiter nach oben zu gelangen!
 TxtS2_02=<c 8888ff>Michael14</c>: Toll. Es ist Zeit fürs <c ffff33>hinlegen</c>, drücke <c ffff33>[Doppelstop+Graben]</c>, um in Liegeposition zu gehen.
-TxtS2_03=<c 8888ff>Michael14</c>: Krieche nun mit den <c ffff33>Richtungstasten</c> durch die engen Gänge.
+TxtS2_03=<c 8888ff>Michael14</c>: Krieche nun mithilfe der <c ffff33>Richtungstasten</c> durch die engen Gänge.
 TxtS2_04=<c 8888ff>Michael14</c>: Nicht schlecht, aber wie kommt man nun hoch? Da kommt der <c ffff33>Wandsprung</c> ins Spiel. Kletter an einer Wand und drücke <c ffff33>[Doppelrechts</c> bzw. <c ffff33>-links]</c>, um dich von der Wand in die entsprechende Richtung zu stoßen und arbeite dich dann weiter vor.
 TxtS2_05=<c 8888ff>Michael14</c>: Ok, aufgepasst: Kriechst du über einen Abgrund wie den solchen, der jetzt vor dir ist, hält sich der Clonk an der Wand <c ffff33>fest</c> und rettet sich so vor dem Fall. Mach mir das mal vor.
 TxtS2_06=<c 8888ff>Michael14</c>: Beeindruckend...fast. Nutze jetzt den <c ffff33>Wandsprung</c> und weiter gehts.
@@ -16,4 +16,5 @@ TxtS2_10=<c 8888ff>Michael14</c>: Schön, gehe nun durch den <c ffff33>Ausgang</c
 Info01=Schilder wie dieses findest du überall durch das Tutorial hindurch, sie geben dir wichtige Hinweise!
 Info02=Liegend ist der Clonk langsamer und nicht sehr mobil, dafür feuert es sich ausgezeichnet von dieser Position und Gegner haben Probleme, liegende Gegenspieler auszuschalten.
 Info03=Wandsprünge erleichtern den Aufstieg in schwierigem Gelände erheblich, nutze sie auch, um schnell ausweichen zu können.
-Info04=Der Backjump ist nicht nur eine gute Fortbewegungsmöglichkeit, sondern auch eine ausgezeichnete Möglichkeit um gegnerischen Attacken schnell auszuweichen.
+Info04=Weiße Konsolen steuern bestimmte Objekte die zu deinem taktischen Vorteil genutzt werden können. Diese rechts beispielsweise kontrolliert die Selbstschussanlage (kurz SSA) weiter oben. Du solltest sie deaktivieren bevor du weitergehst!
+Info05=Der Backjump ist nicht nur eine gute Fortbewegungsmöglichkeit, sondern auch eine ausgezeichnete Möglichkeit um gegnerischen Attacken schnell auszuweichen.
