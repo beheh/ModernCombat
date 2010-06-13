@@ -17,11 +17,11 @@ global func SetupSection1()
   TutorialMessage("$Mobility_I_1$");
   ScriptGo(1);
   goto(4);
-  
   sect1told = false;
   
 
   //Zeug
+  CreateObject(FDMG,10,10,-1);
   CreateObject(BSH2,434,43,-1);
   CreateObject(LADR,543,206,-1)->Set(18);
   CreateObject(STNE,37,223,-1);
@@ -55,13 +55,20 @@ func Script5()
     Sound("Cheer.ogg");
     TutorialMessage("$Ace_WellDone2$");
     unlocked[1] = 2;
-    unlocked[2] = 1;
+    if(unlocked[2] == 0)
+      unlocked[2] = 1;
     ScriptGo(0);
   }
   if(!FindObject(BBTP) && !sect1told)
   {
     TutorialMessage("$Mobility_I_2$");
     sect1told = true;
+    wait(3*6);
   }
+  if(FindObject2(Find_ID(PCMK),Find_InRect(290,270,140,80)))
+    TutorialMessage("$Mobility_I_3$");
+  if(FindObject2(Find_ID(PCMK),Find_InRect(460,40,80,30)))
+    TutorialMessage("$Mobility_I_4$");
+    
   goto(4);
 }
