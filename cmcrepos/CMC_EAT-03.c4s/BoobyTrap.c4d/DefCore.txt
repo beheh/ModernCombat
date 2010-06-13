@@ -1,0 +1,20 @@
+[DefCore]
+id=BBTP
+Name=Booby Trap
+Version=4,9,5
+Category=C4D_Object|C4D_SelectHomebase|C4D_SelectMaterial
+MaxUserSelect=5
+Width=8
+Height=8
+Offset=-4,-4
+Value=35
+Mass=10
+Components=METL=1;FLNT=2;
+Picture=0,10,64,64
+Vertices=2
+VertexY=-3,3
+VertexFriction=100,100
+Rebuy=1
+Grab=2
+Timer=2
+TimerCall=Check
