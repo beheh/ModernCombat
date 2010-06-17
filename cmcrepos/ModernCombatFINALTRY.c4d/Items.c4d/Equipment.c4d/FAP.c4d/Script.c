@@ -12,7 +12,7 @@ public func IsDrawable() 	{return true;}
 public func MaxHealPoints()	{return 150;}
 public func StartHealPoints()	{return 150;}
 public func IsEquipment()	{return true;}
-public func NoArenaRemove()	{return(true);}
+public func NoArenaRemove()	{return true;}
 
 
 /* Initialisierung */
@@ -21,11 +21,11 @@ protected func Initialize()
 {
   healed = 0;
   //Punkteregeneration
-  AddEffect("FAPRegenerate",this(),251,30,this(),GetID());
+  AddEffect("FAPRegenerate",this,251,30,this,GetID());
   //Gruppenheilung
-  AddEffect("FAPGroupheal",this(),252,20,this(),GetID());
+  AddEffect("FAPGroupheal",this,252,20,this,GetID());
   //Lichteffekt
-  AddEffect("FAPLight",this(),250,1,this(),GetID());
+  AddEffect("FAPLight",this,250,1,this,GetID());
   healpoints = StartHealPoints();
 }
 
@@ -41,9 +41,9 @@ protected func Activate(caller)
    return RemoveObject();
   }
   //Bereits am Heilen? Dann Stoppen
-  if(GetEffect("FAPHeal",this()))
+  if(GetEffect("FAPHeal",this))
   {
-   RemoveEffect("FAPHeal",this());
+   RemoveEffect("FAPHeal",this);
    return 1;
   }
   //Bereits anderweitig am heilen?
@@ -76,7 +76,7 @@ protected func Activate(caller)
   SetComDir(COMD_Stop, caller);
 
   //Heilungseffekt auflegen
-  AddEffect("FAPHeal",this(),250,2,this(),GetID(),caller);
+  AddEffect("FAPHeal",this,250,2,this,GetID(),caller);
 
   return 1;
 }
@@ -84,14 +84,14 @@ protected func Activate(caller)
 func Departure(object pClonk)
 {
   //Heilungseffekt bei Verlassen des Patienten entfernen
-  if(GetEffect("FAPHeal", this()))
-   RemoveEffect("FAPHeal",this());
+  if(GetEffect("FAPHeal", this))
+   RemoveEffect("FAPHeal",this);
 }
 
 public func RejectShift()
 {
   //Wegwurf bei Nutzung verhindern
-  return GetEffect("FAPHeal",this());
+  return GetEffect("FAPHeal",this);
 }
 
 public func RejectEntrance(object pObj)
@@ -106,7 +106,7 @@ public func RejectEntrance(object pObj)
 
 public func Entrance(object pContainer)
 {
-  for(var obj in FindObjects(Find_Container(pContainer),Find_ID(GetID()),Find_Exclude(this())))
+  for(var obj in FindObjects(Find_Container(pContainer),Find_ID(GetID()),Find_Exclude(this)))
   {
    if(obj->GetHealPoints() < obj->MaxHealPoints())
    {
@@ -141,8 +141,8 @@ public func ControlThrow(object pClonk)
 
 func Deselection(object pClonk)
 {
-  if(GetEffect("FAPHeal", this()))
-   ScheduleCall(this(),"SelectFAP",1);
+  if(GetEffect("FAPHeal", this))
+   ScheduleCall(this,"SelectFAP",1);
 }
 
 protected func SelectFAP()
@@ -228,7 +228,7 @@ public func FxFAPRegenerateTimer(pTarget, iEffectNumber, iEffectTime)
   if(!Contained()->~IsMedic()) return 1;
 
   //Oder momentan in Nutzung
-  if(GetEffect("FAPHeal", this())) return 1;
+  if(GetEffect("FAPHeal", this)) return 1;
 
   //Oder wenn bereits voll
   if(GetHealPoints() < MaxHealPoints())
@@ -244,7 +244,7 @@ public func FxFAPLightTimer(pTarget, iNo, iTime)
   if(GetHealPoints() < 10) return 1;
   if(!Contained())
    CreateParticle("FapLight", 1, -2, 0, 0, 5*5, RGBa(BoundBy(InvertA1(255*GetHealPoints()/150,255)+10,0,255), 255*GetHealPoints()/150),this);
-  if(Contents(0,Contained()) == this())
+  if(Contents(0,Contained()) == this)
    if(WildcardMatch(GetAction(Contained()), "*Armed*"))
     CreateParticle("FapLight", (GetDir(Contained())*1), -2, 0, 0, 5*5, RGBa(BoundBy(InvertA1(255*GetHealPoints()/150,255)+10,0,255), 255*GetHealPoints()/150),this);
 }
@@ -256,9 +256,9 @@ public func FxFAPGrouphealTimer(pTarget, iEffectNumber, iEffectTime)
   //Kriterien
   if(!Contained())                      return 1;	//Nicht im Freien
   if(!Contained()->~IsMedic())          return 1;	//Nur Sanitäter
-  if(GetEffect("FAPHeal", this()))      return 1;	//Ohne Effekt
+  if(GetEffect("FAPHeal", this))      return 1;	//Ohne Effekt
   if(!GetHealPoints())                  return 1;	//Nur wenn noch Punkte da sind
-  if(Contents(0,Contained()) != this()) return 1;	//Nur, falls angewählt
+  if(Contents(0,Contained()) != this) return 1;	//Nur, falls angewählt
   if(GetID(Contained()) == FKDT)        return 1;	//Im FakeDeath-Objekt?
 
   //Harte Vorauswahl überlebt? Los geht's.
