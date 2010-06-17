@@ -3,7 +3,7 @@
 #strict 
 #include WEPN
 
-local stopauto,firemode,shooting,ratecount;
+local stopauto,firemode,shooting,ratecount,stopburst;
 
 local aSlot_Type; //Hält den Munitionstyp.
 local aSlot_Amount; //Hält die Munitionsmenge.
@@ -540,9 +540,8 @@ public func Reload(int iFM)// Waffe nachladen
   if(IsRecharging()) RemoveEffect("Recharge", this());
   
   //Hat schon genug?!
-  if(GetFMData(FM_SingleReload,iFM))
-    if(GetAmmo2(iSlot,ammoid) >= GetFMData(FM_AmmoLoad))
-      return(false);
+  if(GetAmmo2(iSlot,ammoid) >= GetFMData(FM_AmmoLoad))
+    return(false);
 
   // nicht genug Ammo um nachzuladen
   var ammoid = GetFMData(FM_AmmoID,iFM);
@@ -649,7 +648,7 @@ public func ControlUpdate(object caller, int comdir, bool dig, bool throw)
   // autom. Schuss beenden, wenn Werfen losgelassen (JumpAndRun)
   if(IsRecharging() && !throw) {
   	if(GetEffect("BurstFire", this())) {
-  		RemoveEffect("BurstFire", this());
+  		stopburst = true;
   	}
   	else {
 	    StopAutoFire();
@@ -677,7 +676,11 @@ public func FxBurstFireTimer(object pTarget, int iNumber, int iTime)
   EffectVar(0,pTarget,iNumber)--;
   if(EffectVar(0,pTarget,iNumber) > 0)
     pTarget->Fire();
-  else
+  else {
+    if(stopburst) {
+	  	stopburst = false;
+	 		return -1;
+  	}
   	if(GetPlrCoreJumpAndRunControl(pTarget->GetController())) {
   		if(EffectVar(1,pTarget,iNumber) > 0) {
   			EffectVar(1,pTarget,iNumber)--;
@@ -693,6 +696,7 @@ public func FxBurstFireTimer(object pTarget, int iNumber, int iTime)
   	else {
   		return -1;
   	}
+  }
 }
 
 

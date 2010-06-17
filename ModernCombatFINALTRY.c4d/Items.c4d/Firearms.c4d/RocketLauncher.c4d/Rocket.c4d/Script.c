@@ -121,10 +121,12 @@ public func FxFollowTimer(object pTarget, int iEffectNumber, int iEffectTime)
 private func Traveling()
 {
   if(GetActTime() >= MaxTime()) return(Hit());
+  //Im Wasser abstürzen
+  if(GBackLiquid()) Fall();
   //Geschwindigkeit erhöhen
   Accelerate();
   //Rauchspur
-  Smoking();
+  if(!GBackLiquid())Smoking();
 }
 
 private func StopThrust()
@@ -163,11 +165,15 @@ public func Damage()
   //Rakete abschießbar
   if(GetDamage() > 5 && !exploding)
   {
+		Fall();
+  }
+}
+
+public func Fall() {
    SetAction("Idle");
    FadeOut4K(4);
    AddEffect("Damaged",this(),1,1,this());
    Sound("RPGP_ShotDown.ogg");
-  }
 }
 
 public func FxDamagedTimer(object pTarget, int iEffectNumber, int iEffectTime)
