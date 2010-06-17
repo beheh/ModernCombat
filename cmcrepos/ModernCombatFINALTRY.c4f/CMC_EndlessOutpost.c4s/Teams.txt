@@ -1,6 +1,6 @@
 [Teams]
 Active=1
-AllowTeamSwitch=0
+AllowTeamSwitch=1
 TeamDistribution=Host
 LastTeamID=2
 TeamColors=1
