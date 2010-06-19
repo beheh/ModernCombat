@@ -62,8 +62,6 @@ private func Attack()
 
   //Schaden
   DoDmg(10+Random(20),DMG_Melee,pPrey,0,0,GetID());
-  //Verschleudern
-  Fling (pPrey,0,-1);
   SetAction("Jaw");
   Sound("Munch*");
   AddEffect("IntAttackDelay", this(), 1, 35);
