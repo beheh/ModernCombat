@@ -27,16 +27,17 @@ func CreateFurniture()
   //Alle Objekte folglich von links nach rechts
 
   //Leitern
-  CreateObject(LADR, 95, 440, -1)->Set(10);
+  CreateObject(LADR, 95, 438, -1)->Set(10);
   CreateObject(LADR, 306, 397, -1)->Set(5);
   CreateObject(LADR, 321, 310, -1)->Set(9);
   CreateObject(LADR, 481, 310, -1)->Set(9);
-  CreateObject(LADR, 661, 270, -1)->Set(11);
-  CreateObject(LADR, 891, 190, -1)->Set(11);
+  CreateObject(LADR, 661, 266, -1)->Set(11);
+
+  CreateObject(LADR, 891, 186, -1)->Set(11);
   CreateObject(LADR, 1071, 230, -1)->Set(9);
   CreateObject(LADR, 1232, 230, -1)->Set(9);
   CreateObject(LADR, 1248, 318, -1)->Set(5);
-  CreateObject(LADR, 1457, 360, -1)->Set(10);
+  CreateObject(LADR, 1457, 358, -1)->Set(10);
 
   //Bodenlucken
   CreateObject(HA4K, 320, 233, -1);

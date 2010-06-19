@@ -45,18 +45,20 @@ func CreateFurniture()
   CreateObject(LFTP, 2635, 435, -1);
 
   //Leitern
+  CreateObject(LADR, 40, 534, -1)->Set(17);
   CreateObject(LADR, 535, 320, -1)->Set(7);
   CreateObject(LADR, 695, 320, -1)->Set(7);
-  CreateObject(LADR, 1025, 310, -1)->Set(17);
-  CreateObject(LADR, 35, 530, -1)->Set(17);
-  CreateObject(LADR, 835, 580, -1)->Set(15);
+  CreateObject(LADR, 835, 580, -1)->Set(16);
+
+  CreateObject(LADR, 1025, 313, -1)->Set(17);
   CreateObject(LADR, 1205, 520, -1)->Set(9);
+  CreateObject(LADR, 1595, 520, -1)->Set(9);
   CreateObject(LADR, 1775, 310, -1)->Set(17);
+
+  CreateObject(LADR, 1965, 580, -1)->Set(16);
   CreateObject(LADR, 2105, 320, -1)->Set(7);
   CreateObject(LADR, 2265, 320, -1)->Set(7);
-  CreateObject(LADR, 1595, 520, -1)->Set(9);
-  CreateObject(LADR, 1965, 580, -1)->Set(15);
-  CreateObject(LADR, 2765, 530, -1)->Set(17);
+  CreateObject(LADR, 2760, 534, -1)->Set(17);
 
   //Bodenlucken
   CreateObject(HA4K, 40, 393, -1);

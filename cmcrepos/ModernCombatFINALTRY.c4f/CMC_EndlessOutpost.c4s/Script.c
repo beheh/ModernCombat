@@ -93,16 +93,18 @@ func CreateFurniture()
   CreateObject(SLSY, 10, 10, -1);
 
   //Leitern
-  CreateObject(LADR, 70, 620, -1)->Set(33);
+  CreateObject(LADR, 70, 622, -1)->Set(33);
   CreateObject(LADR, 720, 530, -1)->Set(14);
-  CreateObject(LADR, 850, 400, -1)->Set(20);
+
   CreateObject(LADR, 850, 400, -1)->Set(29);
   CreateObject(LADR, 985, 570, -1)->Set(17);
-  CreateObject(LADR, 1040, 420, -1)->Set(20);
-  CreateObject(LADR, 1205, 570, -1)->Set(45);
-  CreateObject(LADR, 1480, 280, -1)->Set(9);
-  CreateObject(LADR, 1670, 270, -1)->Set(7);
+  CreateObject(LADR, 1040, 420, -1)->Set(19);
+  CreateObject(LADR, 1205, 568, -1)->Set(45);
+
   CreateObject(LADR, 1385, 520, -1)->Set(15);
+  CreateObject(LADR, 1481, 280, -1)->Set(9);
+  CreateObject(LADR, 1670, 273, -1)->Set(7);
+
   CreateObject(LADR, 1985, 320, -1)->Set(14);
   CreateObject(LADR, 2080, 480, -1)->Set(33);
   CreateObject(LADR, 2120, 480, -1)->Set(20);

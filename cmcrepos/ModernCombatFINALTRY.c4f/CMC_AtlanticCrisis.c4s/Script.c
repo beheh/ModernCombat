@@ -64,27 +64,27 @@ func CreateFurniture()
   DrawMaterialQuad("Wall-Unknown1",4571,520,4541,510,4541,520,4556,520,true);
 
   //Leitern
-  CreateObject(LADR, 1275, 485, -1)->Set(10);
-  CreateObject(LADR, 1550, 480, -1)->Set(5);
-  CreateObject(LADR, 1575, 400, -1)->Set(12);
+  CreateObject(LADR, 1275, 496, -1)->Set(11);
+  CreateObject(LADR, 1550, 486, -1)->Set(6);
+  CreateObject(LADR, 1575, 404, -1)->Set(12);
 
-  CreateObject(LADR, 2200, 485, -1)->Set(7);
+  CreateObject(LADR, 2200, 500, -1)->Set(9);
 
-  CreateObject(LADR, 2765, 485, -1)->Set(6);
-  CreateObject(LADR, 2870, 485, -1)->Set(6);
-  CreateObject(LADR, 2910, 485, -1)->Set(6);
+  CreateObject(LADR, 2765, 502, -1)->Set(8);
+  CreateObject(LADR, 2870, 502, -1)->Set(8);
+  CreateObject(LADR, 2910, 502, -1)->Set(8);
 
-  CreateObject(LADR, 2990, 430, -1)->Set(8);
+  CreateObject(LADR, 2990, 432, -1)->Set(8);
 
-  CreateObject(LADR, 3070, 485, -1)->Set(6);
-  CreateObject(LADR, 3110, 485, -1)->Set(6);
-  CreateObject(LADR, 3215, 485, -1)->Set(6);
+  CreateObject(LADR, 3070, 502, -1)->Set(8);
+  CreateObject(LADR, 3110, 502, -1)->Set(8);
+  CreateObject(LADR, 3215, 502, -1)->Set(8);
 
-  CreateObject(LADR, 3810, 485, -1)->Set(7);
+  CreateObject(LADR, 3810, 500, -1)->Set(9);
 
-  CreateObject(LADR, 4435, 400, -1)->Set(12);
-  CreateObject(LADR, 4460, 480, -1)->Set(5);
-  CreateObject(LADR, 4738, 485, -1)->Set(10);
+  CreateObject(LADR, 4435, 404, -1)->Set(12);
+  CreateObject(LADR, 4460, 486, -1)->Set(6);
+  CreateObject(LADR, 4738, 496, -1)->Set(11);
 
   //Bodenlucken
   CreateObject(HA4K, 1550, 433, -1);

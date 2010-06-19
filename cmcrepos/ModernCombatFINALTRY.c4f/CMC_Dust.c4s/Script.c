@@ -36,7 +36,7 @@ func CreateFurniture()
 
   //Leitern
   CreateObject(LADR, 230, 650, -1)->Set(11);
-  CreateObject(LADR, 425, 335, -1)->Set(14);
+  CreateObject(LADR, 425, 338, -1)->Set(14);
   CreateObject(LADR, 865, 790, -1)->Set(14);
   CreateObject(LADR, 1090, 690, -1)->Set(31);
   CreateObject(LADR, 1350, 595, -1)->Set(10);
