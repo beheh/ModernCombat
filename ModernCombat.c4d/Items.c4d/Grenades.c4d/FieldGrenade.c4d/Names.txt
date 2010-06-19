@@ -1,2 +1,0 @@
-DE:Feldgranate
-US:Field Grenade

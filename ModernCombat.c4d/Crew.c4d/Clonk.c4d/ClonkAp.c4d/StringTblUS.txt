@@ -1,6 +1,0 @@
-CtxConstructionDesc=Construction
-CtxConstructionMaterial=Construction material
-CtxHomeDesc=Back to base
-CtxChop=Chop
-CtrlMenuDesc=Menu
-TxtEnergysupply=Energy supply

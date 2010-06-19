@@ -1,1 +1,0 @@
-Der Effekt-Manager hilft das Spiel auch in Extremsituationen flüssig laufen zu lassen.

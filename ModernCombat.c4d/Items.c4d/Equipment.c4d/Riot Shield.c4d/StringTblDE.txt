@@ -1,2 +1,0 @@
-ProtectionStart=Schild ziehen
-ProtectionStop=Schild wegstecken

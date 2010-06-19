@@ -1,1 +1,0 @@
-Orientation lights for planes and spaceships.

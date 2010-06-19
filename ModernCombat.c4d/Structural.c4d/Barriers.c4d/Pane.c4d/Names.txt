@@ -1,2 +1,0 @@
-DE:Fensterscheibe
-US:Pane

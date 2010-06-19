@@ -1,3 +1,0 @@
-Grenades=Granaten
-Explosive=Explosivgranaten
-Cluster=Splittergranaten

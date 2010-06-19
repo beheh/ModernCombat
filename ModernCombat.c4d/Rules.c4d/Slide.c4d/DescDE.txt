@@ -1,1 +1,0 @@
-Je nachdem wie ein Clonk auf den Boden aufkommt, kann dieser in eine bestimmte Richtung rutschen.

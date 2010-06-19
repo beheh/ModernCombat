@@ -1,2 +1,0 @@
-DE:Fahrzeugrespawnpoint
-US:vehicle Respawnpoint

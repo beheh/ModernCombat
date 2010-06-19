@@ -1,1 +1,0 @@
-Displays information about the currently carried or grabbed object or entered building.

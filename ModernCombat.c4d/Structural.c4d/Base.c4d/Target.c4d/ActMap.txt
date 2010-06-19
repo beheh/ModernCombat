@@ -1,8 +1,0 @@
-[Action]
-Name=Exist
-Procedure=FLOAT
-Directions=1
-Length=16
-Delay=2
-NextAction=Exist
-Facet=0,0,26,26

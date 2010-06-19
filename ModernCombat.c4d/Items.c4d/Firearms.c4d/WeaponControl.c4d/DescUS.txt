@@ -1,1 +1,0 @@
-This object provides amplified control for weapons.

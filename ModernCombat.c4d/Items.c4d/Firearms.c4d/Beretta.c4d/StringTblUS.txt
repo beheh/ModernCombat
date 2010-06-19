@@ -1,3 +1,0 @@
-Bullets=Bullets
-Single=Single Shots
-SilencedSingle=Silenced Single Shots

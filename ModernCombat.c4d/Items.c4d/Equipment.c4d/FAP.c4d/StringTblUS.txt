@@ -1,3 +1,0 @@
-NotWounded=Not Wounded.
-Alreadyhealing=Already healing.
-Uselimit=FAP used.

@@ -1,1 +1,0 @@
-The effect manager helps to run the game also in extreme situations smooth.

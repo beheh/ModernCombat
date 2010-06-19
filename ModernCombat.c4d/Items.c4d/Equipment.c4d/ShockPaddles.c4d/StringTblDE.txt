@@ -1,2 +1,0 @@
-NotEnoughAmmo=Nicht genügent {{%i}}!
-OnlyMedic=Nur Sanitäter können mit dem Defibrilator angreifen!
