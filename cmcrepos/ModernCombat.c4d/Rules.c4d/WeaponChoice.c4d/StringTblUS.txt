@@ -1,3 +1,0 @@
-NoWeapons=No Weapons found.
-End=Finish
-TimeTillRespawn=%d seconds until respawn

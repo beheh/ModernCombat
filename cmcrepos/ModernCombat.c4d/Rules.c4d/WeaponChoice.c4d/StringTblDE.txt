@@ -1,3 +1,0 @@
-NoWeapons=Es wurden keine Waffen gefunden.
-End=Ende
-TimeTillRespawn=Noch %d Sekunden bis zum Respawn

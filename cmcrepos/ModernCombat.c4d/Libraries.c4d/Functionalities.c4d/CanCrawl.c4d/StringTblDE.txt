@@ -1,2 +1,0 @@
-CtxStopCrawl=Stoppen
-CtxStartCrawl=Loskriechen

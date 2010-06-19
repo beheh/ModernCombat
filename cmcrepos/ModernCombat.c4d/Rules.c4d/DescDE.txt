@@ -1,1 +1,0 @@
-Regelobjekte bestimmen den Spielablauf und bieten in Einzelfällen Sonderoptionen.

@@ -1,1 +1,0 @@
-The goal is to earn points by holding the flag for a specific time.

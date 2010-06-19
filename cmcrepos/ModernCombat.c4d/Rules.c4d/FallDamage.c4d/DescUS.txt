@@ -1,1 +1,0 @@
-The faster a clonk hits the ground the greater is the damage he reseives.

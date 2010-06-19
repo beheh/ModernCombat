@@ -1,1 +1,0 @@
-The goal is to conquer as much flagpositions as possible to crush the enemy team. Tickets control the respawns of every team separately.

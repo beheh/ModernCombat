@@ -1,8 +1,0 @@
-Ein sich realistisch verhaltendes, atmosphärischers Gewitter am Himmel.
-Weiter einstellbar durch die Anzahl der Objekte:
- 
-1: nur Wolken
-2: mit Regen
-3: mit wenigen Blitzen
-4: mit Blitzen
-5: mit vielen Blitzen

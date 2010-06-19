@@ -1,1 +1,0 @@
-The first player may choose the rules at the beginning and configures the goal if activated.

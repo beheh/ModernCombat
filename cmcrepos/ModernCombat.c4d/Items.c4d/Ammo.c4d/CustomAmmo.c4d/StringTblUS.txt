@@ -1,2 +1,0 @@
-NotMoreAmmo=Can not store more {{%i}}!
-Collected=%dx {{%i}} collected.

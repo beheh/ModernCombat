@@ -1,2 +1,0 @@
-DE:Luftstrom
-US:Air Stream

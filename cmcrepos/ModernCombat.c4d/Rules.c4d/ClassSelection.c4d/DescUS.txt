@@ -1,1 +1,0 @@
-Provides several clonk classes for all players.

@@ -1,3 +1,0 @@
-TurnOff=Turn On
-TurnOn=Turn Off
-Repair=Repair

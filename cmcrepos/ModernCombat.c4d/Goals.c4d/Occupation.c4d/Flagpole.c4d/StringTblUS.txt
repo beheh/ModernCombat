@@ -1,4 +1,0 @@
-MsgCaptured=Team <c %x>%s</c>|conquered base|%s
-MsgCapturing=Team <c %x>%s</c>|conquers Stützpunkt|%s
-MsgRecaptured=Team <c %x>%s</c>|reclaimed base|%s
-MsgRecapturing=Team <c %x>%s</c>|reclaim base|%s
