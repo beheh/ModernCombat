@@ -124,7 +124,7 @@ protected func InitializePlayer(int iPlr, int iX, int iY, object pBase, int iTea
   // Spieler 1? Dann Menü öffnen
   if(!iPlr)
   {
-    EventInfo4K(0,Format("$ChoosingPlayer$", GetTaggedPlayerName(iPlr)), CHOS);
+    EventInfo4K(0,Format("$ChoosingPlayer$", GetTaggedPlayerName(iPlr)), CHOS, 0, 0, 0, "Info.ogg");
     return(OpenMenu());
   }
 }
@@ -138,7 +138,7 @@ protected func CreateGoal(id idGoal, int iScore)
   // Alten Wert setzen
   SetWinScore(iScore, goal);
   // Alle benachrichtigen
-  EventInfo4K(0,Format("$Goal$", GetName(0, idGoal)),idGoal);
+  EventInfo4K(0,Format("$Goal$", GetName(0, idGoal)),idGoal, 0, 0, 0, "Info.ogg");
   // Array leeren, damit das Menü nicht nochmal kommt
   aGoals = CreateArray();
   // Normales Menü öffnen
@@ -169,7 +169,7 @@ protected func ConfigurationFinished2()
     }
   // Dunkelheit erzeugen
   log = Format("%s, %s x%d", log, GetName(0, DARK), iDarkCount);
-  EventInfo4K(0,Format("<c ffcc00>%s</c>",log),CHOS);
+  EventInfo4K(0,Format("<c ffcc00>%s</c>",log),CHOS, 0, 0, 0, "Info.ogg");
   // ein schneller GameCall für Einstellungen
   GameCallEx("ChooserFinished");
 
