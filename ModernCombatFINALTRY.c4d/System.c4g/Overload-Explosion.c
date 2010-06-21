@@ -189,8 +189,7 @@ global func DamageObjects(int iDistance, int iDamage, object pObject, int iX, in
   if(!icon) icon = GetID(pObject);
   for(var obj in FindObjects(pObject->Find_Distance(iDistance,iX,iY),
                              pObject->Find_Exclude(this),
-                             Find_NoContainer(),
-                             Find_Category(C4D_Object|C4D_Living|C4D_Vehicle|C4D_StaticBack)))
+                             Find_NoContainer()))
   {
   	DoDmg(iDamage - (Distance(GetX(obj),GetY(obj),x,y)*iDamage/iDistance), DMG_Explosion, obj, 0, dealer+1, icon);
   }

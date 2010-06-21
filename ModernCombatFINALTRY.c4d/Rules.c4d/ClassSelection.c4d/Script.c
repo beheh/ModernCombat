@@ -169,7 +169,7 @@ func Finish(object pClonk)
   if(Contained(pClonk) && Contained(pClonk) != this) RemoveObject(Contained(pClonk),true);
 
   //Sound
-  Sound("RSHL_Deploy.ogg",pClonk);
+  Sound("RSHL_Deploy.ogg", 0, pClonk, 100, GetOwner(pClonk)+1);
 
   //Effekt entfernen
   for(var i = 0; i < GetEffectCount("Spawntimer", this()); i++)
