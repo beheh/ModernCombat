@@ -7,29 +7,31 @@
 #appendto CHOS
 
 local iEffectCount;
+local iChoosePlr;
 
 /* Nur eine Mitteilung für Neugierige */
 
 protected func Activate(iPlr)
 {
   if(!iPlr) return(OpenMenu());
-  MessageWindow(Format("$Choosing$", GetPlayerName()),iPlr);
+  MessageWindow(Format("$Choosing$", GetPlayerName(iChoosePlr)),iPlr);
 }
 
 /* Initalisierung */
 
 protected func Initialize()
 {
-  _inherited();
+  iChoosePlr = 0;
   LoadRuleCfg();
   iEffectCount = 3;
+  return _inherited();
 }
 
 protected func OpenMenu()
 {
   if(GetLength(aGoals)) return(OpenGoalChooseMenu());
 
-  var pClonk = GetCursor();
+  var pClonk = GetCursor(iChoosePlr);
   if(!pClonk) return(ScheduleCall(this(), "OpenMenu", 1));
 
   if(GetMenu(pClonk))
@@ -122,9 +124,10 @@ protected func InitializePlayer(int iPlr, int iX, int iY, object pBase, int iTea
     Eastern(tmp);
     }
   // Spieler 1? Dann Menü öffnen
-  if(!iPlr)
+  if(GetPlrClientNr(iPlr) == 0)
   {
     EventInfo4K(0,Format("$ChoosingPlayer$", GetTaggedPlayerName(iPlr)), CHOS, 0, 0, 0, "Info.ogg");
+  	iChoosePlr = iPlr;
     return(OpenMenu());
   }
 }
