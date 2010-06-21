@@ -116,10 +116,12 @@ public func IsBulletTarget(ID)
   return true;
 }
 
-public func OnDmg(int iDamage, int iType)
+public func OnHit(int iDamage, int iType, object pFrom)
 {
-  if((iType == DMG_Fire || iType == DMG_Explosion) && iDamage > 10)
-   Trigger();
+  if((iType == DMG_Fire || iType == DMG_Explosion) && iDamage > 10) {
+  	SetController(GetController(pFrom));
+  	Trigger();
+  }
 }
 
 func Incineration()
