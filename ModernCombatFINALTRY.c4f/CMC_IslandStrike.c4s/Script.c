@@ -138,7 +138,7 @@ func CreateFurniture()
   CreateObject(WCR2, 1275, 400, -1)->AutoRespawn();
   CreateObject(WCR2, 3605, 500, -1)->AutoRespawn();
   CreateObject(WCR2, 3775, 410, -1)->AutoRespawn();
-  CreateObject(WCR2, 4250, 410, -1)->AutoRespawn();
+  CreateObject(WCR2, 4250, 410, -1);
   CreateObject(WCR2, 4265, 410, -1)->AutoRespawn();
   CreateObject(WCR2, 4400, 330, -1)->AutoRespawn();
   CreateObject(WCR2, 6290, 620, -1)->AutoRespawn();
@@ -405,8 +405,8 @@ func CreateFurniture()
   CreateObject(XTNK, 4345, 330, -1)->AutoRespawn();
 
   //Phosphortanks
-  CreateObject(PTNK, 2845, 410, -1)->AutoRespawn();
-  CreateObject(PTNK, 6300, 410, -1)->AutoRespawn();
+  CreateObject(PTNK, 2855, 410, -1)->AutoRespawn();
+  CreateObject(PTNK, 6295, 410, -1)->AutoRespawn();
 
   //Sounds
 
@@ -861,7 +861,7 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
     if(!rand)
      { iX = 3600; iY = 400; }
     if(!--rand)
-     { iX = 3630; iY = 320; }
+     { iX = 3675; iY = 320; }
    }
    if(iTeam == 2)
    {
@@ -883,7 +883,7 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
     if(!rand)
      { iX = 3600; iY = 400; }
     if(!--rand)
-     { iX = 3630; iY = 320; }
+     { iX = 3675; iY = 320; }
    }
    if(iTeam == 2)
    {

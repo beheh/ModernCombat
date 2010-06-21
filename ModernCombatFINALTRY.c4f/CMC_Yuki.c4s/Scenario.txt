@@ -17,19 +17,15 @@ Goals=GOCC=1;GLMS=5;GCTF=3;GTDM=10
 Rules=CHOS=1
 
 [Player1]
-Wealth=50,0,0,250
 Crew=PCMK=1
 
 [Player2]
-Wealth=50,0,0,250
 Crew=PCMK=1
 
 [Player3]
-Wealth=50,0,0,250
 Crew=PCMK=1
 
 [Player4]
-Wealth=50,0,0,250
 Crew=PCMK=1
 
 [Landscape]
