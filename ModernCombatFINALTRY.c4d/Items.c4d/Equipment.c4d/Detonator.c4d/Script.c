@@ -108,10 +108,12 @@ public func ControlThrow(object pByObj)
 
 /* Zündung */
 
-public func Activate()
+public func Activate(object pActivator)
 {
-  for(var c4 in FindObjects(Find_ID(C4EX), Find_Func("GetPacket", this)))
-   ScheduleCall(c4, "Trigger", ObjectDistance(c4)/10, 0);
+  for(var c4 in FindObjects(Find_ID(C4EX), Find_Func("GetPacket", this))) {
+	 	c4->SetController(GetOwner(pActivator));
+		ScheduleCall(c4, "Trigger", ObjectDistance(c4)/10, 0);
+  }
 
   //Effekte
   SetPicture(10,5,39,64);

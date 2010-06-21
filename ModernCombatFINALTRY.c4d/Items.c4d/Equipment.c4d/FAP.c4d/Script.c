@@ -255,7 +255,7 @@ public func FxFAPGrouphealTimer(pTarget, iEffectNumber, iEffectTime)
 {
   //Kriterien
   if(!Contained())                      return 1;	//Nicht im Freien
-  if(!Contained(Contained()))           return 1;	//Container nicht im Freien
+  if(Contained(Contained()))           return 1;	//Container nicht im Freien
   if(!Contained()->~IsMedic())          return 1;	//Nur Sanitäter
   if(GetEffect("FAPHeal", this))      return 1;	//Ohne Effekt
   if(!GetHealPoints())                  return 1;	//Nur wenn noch Punkte da sind
