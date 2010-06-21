@@ -155,6 +155,7 @@ public func FxAMPKRestockingTimer(pTarget, iEffectNumber, iEffectTime)
 {
   //Kriterien
   if(!Contained())                      return 1;	//Nicht im Freien
+  if(!Contained(Contained()))           return 1;	//Container nicht im Freien
   if(GetAmmoPoints() < 30)              return 1;	//Nur wenn noch Punkte da sind
   if(Contents(0,Contained()) != this()) return 1;	//Nur, falls angewählt
   if(GetID(Contained()) == FKDT)        return 1;	//Im FakeDeath-Objekt?
