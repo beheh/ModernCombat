@@ -302,7 +302,7 @@ private func Reload()
 
 public func MaxDamage()
 {
-  return(100);
+  return(80);
 }
 
 /* EMP */

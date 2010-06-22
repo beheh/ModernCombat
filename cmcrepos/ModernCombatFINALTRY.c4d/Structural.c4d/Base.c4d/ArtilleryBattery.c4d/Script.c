@@ -9,7 +9,7 @@ local iCooldown;
 local byObj;
 
 public func IsMachine()		{return(true);}
-public func MaxDamage()		{return(200);}
+public func MaxDamage()		{return(120);}
 
 
 /* Initalisierung */
