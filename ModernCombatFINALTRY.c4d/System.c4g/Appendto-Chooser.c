@@ -21,10 +21,10 @@ protected func Activate(iPlr)
 
 protected func Initialize()
 {
+  _inherited();
   iChoosePlr = 0;
   LoadRuleCfg();
   iEffectCount = 3;
-  return _inherited();
 }
 
 protected func OpenMenu()
