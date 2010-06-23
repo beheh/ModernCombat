@@ -36,30 +36,32 @@ public func InstaExplode(int iPlr)
 	blasted = true;
 	
   //Effektgehasche
-  if(GetEffectData(EFSM_ExplosionEffects) > 1) {
-  	CastParticles("WoodenCrateSplinter", 4, 50, 0,0, 141, RGBa(80,0,0,0), RGBa(30,0,0,0));
- 		CastParticles("WoodSplinter", 10, 200, 0,0, 50, 75, RGBa(80,0,0,0), RGBa(30,0,0,0));
- 	}
+  if(GetEffectData(EFSM_ExplosionEffects) > 1)
+  {
+   CastParticles("WoodenCrateSplinter", 4, 50, 0,0, 141, RGBa(80,0,0,0), RGBa(30,0,0,0));
+   CastParticles("WoodSplinter", 10, 200, 0,0, 50, 75, RGBa(80,0,0,0), RGBa(30,0,0,0));
+  }
   Sound("CrateCrack");
-  
+
   //Umliegende Objekte anzünden
   for(var obj in FindObjects(Find_Distance(40+Random(20)),Find_Exclude(this),Find_Not(Find_Category(C4D_StaticBack))))
   {
     var inc = GetDefCoreVal("ContactIncinerate",0,GetID(obj));
     if(!inc) continue;
     
-    if(inc <= 2) {
+    if(inc <= 2)
+    {
       obj->Incinerate();
       continue; 
     }
     else {
-      if(!Random(inc-2)) {
+      if(!Random(inc-2))
+      {
         obj->Incinerate();
         continue;
       }
     }
   }
-  
   AddLightFlash(50, 0,0, RGBa(255,255,200,100));
   
   //Explosion

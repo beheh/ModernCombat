@@ -4,9 +4,9 @@
 
 local target, item, angle, last;
 
-public func NoWarp() {return(true);}
-public func ShoveTime() {return 13*3;}
-public func RejectEntrance() {return true;}
+public func NoWarp()		{return(true);}
+public func ShoveTime()		{return 13*3;}
+public func RejectEntrance()	{return true;}
 public func IgnoreTracer()	{return true;}
 public func BlockTracer()	{return true;}
 
@@ -128,7 +128,7 @@ public func Update()
 
 public func IsBulletTarget(id idBullet, object pBullet, object pShooter, int oldx, int oldy)
 {
-	if(!pBullet && !pShooter)
+  if(!pBullet && !pShooter)
    return true;
 
   if(pBullet)
@@ -154,7 +154,7 @@ public func OnHit(int iDamage, int iType, object pFrom)
   if(Hostile(GetController(pFrom), GetController())) item->DoHit(iDamage);
   //Effekte
   Sound("BlockOff*.ogg");
-  CastParticles("Glas", 1+Random(3), 40, 0,0, 40,10, RGBa(200,200,200), RGBa(2,2,200));
+  if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("Glas", 1+Random(3), 40, 0,0, 40,10, RGBa(200,200,200), RGBa(2,2,200));
   Sparks(Random(2)+6,RGB(255,255,Random(5)+255));
 }
 
@@ -187,7 +187,7 @@ public func QueryCatchBlow(object pObj)
 
 /* Schlageffekt */
 
-public func FxShoveTimer() { return -1; }
+public func FxShoveTimer()	{return -1;}
 
 /* Verstecken und Anzeigen */
 

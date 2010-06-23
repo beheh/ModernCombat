@@ -4,31 +4,27 @@
 
 local damaged;
 
-public func IsBulletTarget()	{if(!damaged) return 1;}
-public func IsCraneGrabable()	{return !damaged;}
-public func IgnoreFriendlyFire(){return 1;}
+public func IsBulletTarget()		{if(!damaged) return 1;}
+public func IsCraneGrabable()		{return !damaged;}
+public func IgnoreFriendlyFire()	{return 1;}
 
 /* Aufrichtung */
 
-public func FloatUpright() {
-	if(GBackLiquid()) {
-		if(GetR() >= 0) {
-			if(GetR() < 90) {
-				SetR(GetR()+1);
-			}
-			if(GetR() > 90) {
-				SetR(GetR()-1);
-			}
-		}
-		else {
-			if(GetR() < -90) {
-				SetR(GetR()+1);
-			}
-			if(GetR() > -90) {
-				SetR(GetR()-1);
-			}		
-		}
-	}
+public func FloatUpright()
+{
+  if(GBackLiquid())
+  {
+   if(GetR() >= 0)
+   {
+    if(GetR() < 90) {SetR(GetR()+1);}
+    if(GetR() > 90) {SetR(GetR()-1);}
+   }
+   else
+   {
+    if(GetR() < -90) {SetR(GetR()+1);}
+    if(GetR() > -90) {SetR(GetR()-1);}		
+   }
+  }
 }
 
 /* Entzündung */
@@ -67,7 +63,7 @@ func InstaExplode(int iPlr)
 
   //Effekte
   Sound("BarrelImpact*.ogg");
-  CastParticles("MetalSplinter",4,100,0,0,20,70,RGB(250,0,0));
+  if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",4,100,0,0,20,70,RGB(250,0,0));
 
   //Umliegende Objekte anzünden
   for(var obj in FindObjects(Find_Distance(30+Random(20)),Find_Exclude(this),Find_Not(Find_Category(C4D_StaticBack))))
@@ -94,6 +90,14 @@ func BlowUp(int iPlr)
   SetRDir(RandomX(-40,+40));
   AddFireEffect(this,50,RGB(80,80,80),true,30);
   FadeOut();
+}
+
+/* Schaden */
+
+public func OnDmg(int iDmg, int iType)
+{
+  if(iType == DMG_Bio)		return(100);	//Säure und biologische Schadstoffe
+  return(0);
 }
 
 /* Aufschlag */ 

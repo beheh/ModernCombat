@@ -48,16 +48,20 @@ private func CheckFuse()
    FadeOut();
 }
 
-protected func Timer() {
+protected func Timer()
+{
   CheckFuse();
-  if(pStickTo) {
+  if(pStickTo)
+  {
     SetPosition(GetX(pStickTo)+iStickXOffset, GetY(pStickTo)+iStickYOffset, this, false);
     SetXDir(0);
     SetYDir(0);
   }
-  else {
+  else
+  {
     pStickTo = FindObject2(Find_AtPoint(), Find_Func("IsBulletTarget", GetID()), Find_Not(Find_Func("RejectC4Attach", this)), Find_NoContainer(), Find_Not(Find_OCF(OCF_Living)));
-    if(pStickTo) {
+    if(pStickTo)
+    {
       Sound("C4EX_Attach.ogg");
       iStickXOffset = GetX()-GetX(pStickTo);
       iStickYOffset = GetY()-GetY(pStickTo);
@@ -66,7 +70,8 @@ protected func Timer() {
       SetObjectOrder(pStickTo, this);
       SetRDir(0);
     }
-    else {
+    else
+    {
       SetCategory(iPreviousCategory); 
     }
   }
@@ -83,17 +88,19 @@ public func Trigger()
 
 /* Explosion */
 
-public func BlastRadius() {return 50;}
+public func BlastRadius()	{return 50;}
 
 public func BlowUp()
 {
-  if(GBackLiquid()) {
+  if(GBackLiquid())
+  {
    Sound("C4EX_WaterDetonation.ogg");
   }
-  else {
+  else
+  {
    Sound("C4EX_Detonation*.ogg");
    if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("Smoke3",15,20,0,0,220,500);
-	}
+  }
 
   //Effekte
   var helper = CreateObject(TIM1,0,0,-1);
@@ -118,9 +125,10 @@ public func IsBulletTarget(ID)
 
 public func OnHit(int iDamage, int iType, object pFrom)
 {
-  if((iType == DMG_Fire || iType == DMG_Explosion) && iDamage > 10) {
-  	SetController(GetController(pFrom));
-  	Trigger();
+  if((iType == DMG_Fire || iType == DMG_Explosion) && iDamage > 10)
+  {
+   SetController(GetController(pFrom));
+   Trigger();
   }
 }
 
@@ -132,8 +140,7 @@ func Incineration()
 /* Schockwelle */
 
 public func FxIntShockWaveStart(object pTarget, int iEffectNumber, int iTemp)
-{
-}
+{}
 
 public func FxIntShockWaveTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {

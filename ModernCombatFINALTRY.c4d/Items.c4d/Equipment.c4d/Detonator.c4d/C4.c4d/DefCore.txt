@@ -1,4 +1,3 @@
-
 [DefCore]
 id=C4EX
 Name=C4 Charge

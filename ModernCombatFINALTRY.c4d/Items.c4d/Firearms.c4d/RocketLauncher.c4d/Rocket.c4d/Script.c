@@ -165,15 +165,16 @@ public func Damage()
   //Rakete abschießbar
   if(GetDamage() > 5 && !exploding)
   {
-		Fall();
+   Fall();
   }
 }
 
-public func Fall() {
-   SetAction("Idle");
-   FadeOut4K(4);
-   AddEffect("Damaged",this(),1,1,this());
-   Sound("RPGP_ShotDown.ogg");
+public func Fall()
+{
+  SetAction("Idle");
+  FadeOut4K(4);
+  AddEffect("Damaged",this(),1,1,this());
+  Sound("RPGP_ShotDown.ogg");
 }
 
 public func FxDamagedTimer(object pTarget, int iEffectNumber, int iEffectTime)
@@ -186,7 +187,7 @@ public func Hit()
   if(GetAction() eq "Idle")
   {
    Explode(3,0,0,0,1);
-   CastParticles("Smoke3",12,10,0,0,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
+   if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("Smoke3",12,10,0,0,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
   }
   else
   {
@@ -238,4 +239,13 @@ private func HitObject(pObj)
 public func Destruction()
 {
   StopThrust();
+}
+
+/* Schaden */
+
+public func OnDmg(int iDmg, int iType)
+{
+  if(iType == DMG_Fire)		return(60);	//Feuer
+  if(iType == DMG_Bio)		return(100);	//Säure und biologische Schadstoffe
+  return(0);
 }

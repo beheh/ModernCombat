@@ -118,3 +118,12 @@ func Damage()
    Trigger();
   }
 }
+
+/* Schaden */
+
+public func OnDmg(int iDmg, int iType)
+{
+  if(iType == DMG_Fire)		return(60);	//Feuer
+  if(iType == DMG_Bio)		return(100);	//Säure und biologische Schadstoffe
+  return(0);
+}

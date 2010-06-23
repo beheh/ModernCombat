@@ -42,7 +42,7 @@ public func ControlThrow(object pByObj)
   var c4 = CreateObject(C4EX, x, y, GetOwner(pByObj));
   amount--;
 
-  //Beim Klettern (aber _nicht_ Leiter)
+  //Beim Klettern (aber nicht an Leitern)
   if(WildcardMatch(GetAction(pByObj), "Scale*") && GetAction(pByObj) != "ScaleLadder")
   {
    c4->SetR((GetDir(pByObj)*-180)+90);
@@ -110,9 +110,10 @@ public func ControlThrow(object pByObj)
 
 public func Activate(object pActivator)
 {
-  for(var c4 in FindObjects(Find_ID(C4EX), Find_Func("GetPacket", this))) {
-	 	c4->SetController(GetOwner(pActivator));
-		ScheduleCall(c4, "Trigger", ObjectDistance(c4)/10, 0);
+  for(var c4 in FindObjects(Find_ID(C4EX), Find_Func("GetPacket", this)))
+  {
+   c4->SetController(GetOwner(pActivator));
+   ScheduleCall(c4, "Trigger", ObjectDistance(c4)/10, 0);
   }
 
   //Effekte
@@ -124,7 +125,7 @@ public func Activate(object pActivator)
 
 /* HUD */
 
-func CustomHUD() {return true;}
+func CustomHUD()	{return true;}
 
 func UpdateHUD(object pHUD)
 {

@@ -43,12 +43,15 @@ func Timer()
 
   BurnObjects();
 
-  if(!Random(20))
-     CastObjects(SPRK, 1, 20);
+  if(GetEffectData(EFSM_ExplosionEffects) > 0) 
+  {
+   if(!Random(20))
+    CastObjects(SPRK, 1, 20);
+  }
 
   life--;
 
-  if(GBackLiquid ())
+  if(GBackLiquid())
   {
     CastObjects(FXU1, Random(3),10);
     life -= 10;
@@ -72,15 +75,15 @@ func BurnObjects()
 
 func HitObject(pObj)
 {
-		if(GetOCF(pObj) & OCF_Living)
-			AddEffect("Phosphored", pObj, 50, 20, this(), GetID());
-		DoDmg(3, DMG_Fire, pObj, 1);
-		AddFireEffect(pObj,50,FIRE_Red,1);
-		//anzündbares anzünden, aber nicht lebewesen.
-		if(pObj) //existiert es überhaupt noch?
-			if(pObj->GetOCF() & OCF_Inflammable && !(pObj->GetOCF() & OCF_Living))
-				Incinerate(pObj);
-    return true;
+  if(GetOCF(pObj) & OCF_Living)
+   AddEffect("Phosphored", pObj, 50, 20, this(), GetID());
+  DoDmg(3, DMG_Fire, pObj, 1);
+  AddFireEffect(pObj,50,FIRE_Red,1);
+  //Anzündbares anzünden, aber nicht Lebewesen
+  if(pObj) //existiert es überhaupt noch?
+   if(pObj->GetOCF() & OCF_Inflammable && !(pObj->GetOCF() & OCF_Living))
+    Incinerate(pObj);
+  return true;
 }
 
 /* Kleben am Clonk (Hazard) */
@@ -118,7 +121,6 @@ public func FxPhosphoredTimer(pTarget, iNo, iTime)
     AttachTargetLost();
 }
      
-
 protected func AttachTargetLost()
 {
   SetAction("Idle");

@@ -37,7 +37,7 @@ public func Shatter(int iPower, object pFrom)
   for(var i = 0 ; i < GetDefHeight()/3 ; i++)
    CreateParticle ("GlassSplinter", 0, i*3-GetDefHeight()/2, +Sin(angle+(Random(spread)-spread/2),iPower), -Cos(angle+(Random(spread)-spread/2),iPower), 20);
 
-  CastParticles("Glas", 2+Random(4), 50, 0,0, 60,10, RGBa(200,200,200), RGBa(200,200,200));
+  if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("Glas", 2+Random(4), 50, 0,0, 60,10, RGBa(200,200,200), RGBa(200,200,200));
   RemoveObject();
 }
 

@@ -53,8 +53,8 @@ func Trigger()
 
   //Effekte
   CreateParticle("Blast",0,0,0,0,5*10,RGB(255,255,128));
-  CastParticles("MetalSplinter",5,100,0,0,20,40,RGB(40,20,20));
-  CastParticles("Smoke3",10,15,0,0,300,50,RGBa(255,255,255,120),RGBa(255,255,255,150));
+  if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("Smoke3",10,15,0,0,300,50,RGBa(255,255,255,120),RGBa(255,255,255,150));
+  if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",5,100,0,0,20,40,RGB(40,20,20));
   Sparks(15,RGB(255,128));
   Sound("GrenadeExplosion*.ogg");
   AddLightFlash(50,0,0,RGB(255,255,128),this());

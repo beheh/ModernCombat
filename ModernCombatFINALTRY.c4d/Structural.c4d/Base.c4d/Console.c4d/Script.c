@@ -14,7 +14,7 @@ protected func Timer(pClonk)
   //Kein zu steuerndes Objekt mehr? Selbstzerstörung.
   if(!target)
   {
-   CastParticles("MetalSplinter",4,50,0,0,40,150);
+   if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",4,50,0,0,40,150);
    CastParticles("Smoke3",5,10,0,0,50,200);
    Sound("StructuralDamage*.ogg");
    return(RemoveObject());

@@ -22,7 +22,10 @@ func Fused()
   //Effekte
   Sparks(30,RGB(255,128));
   CreateParticle("Blast",0,0,0,0,10*15,RGB(255,255,128));
-  CastParticles("Smoke3",6,8,0,0,80,200,RGBa(255,255,255,120),RGBa(255,255,255,150));
+  if(!GBackLiquid())
+  {
+   if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("Smoke3",6,8,0,0,80,200,RGBa(255,255,255,120),RGBa(255,255,255,150));
+  }
   Sound("GrenadeExplosion*.ogg");
   RemoveObject();
 }

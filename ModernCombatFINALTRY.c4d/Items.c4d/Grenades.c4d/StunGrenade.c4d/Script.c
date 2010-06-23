@@ -37,7 +37,10 @@ public func Fused()
   //Effekte
   Sound("STUN_Fused.ogg");
   Sparks(30,RGB(255,128));
-  CastParticles("Smoke3",12,10,0,0,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
+  if(!GBackLiquid())
+  {
+   if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("Smoke3",12,10,0,0,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
+  }
   CastParticles("PxSpark",10,40,0,0,60,120,RGBa(255,255,255,70),RGBa(255,255,255,70));
   AddLightFlash(50,0,0,RGB(255,255,128),this);
   FadeOut();
