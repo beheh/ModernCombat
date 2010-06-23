@@ -9,7 +9,7 @@ local iCooldown;
 local byObj;
 
 public func IsMachine()		{return(true);}
-public func MaxDamage()		{return(120);}
+public func MaxDamage()		{return(150);}
 
 
 /* Initalisierung */
@@ -137,10 +137,13 @@ func ControlThrow(object pByObj)
 
 public func BeginAttack()
 {
-	//Broadcast!
-	if(GetController() != -1) EventInfo4K(0, Format("$ArtilleryLaunch$",  GetPlrColorDw(GetController()), GetPlayerName(GetController())), ATBY, 0, 0, 0, "RadioConfirm*.ogg");
-	Sound("StrikeAlert.ogg", false, this, 100);
-	return true;
+  //Zerstört?
+  if(IsDestroyed()) return;
+
+  //EventMessage
+  if(GetController() != -1) EventInfo4K(0, Format("$ArtilleryLaunch$",  GetPlrColorDw(GetController()), GetPlayerName(GetController())), ATBY, 0, 0, 0, "RadioConfirm*.ogg");
+  Sound("StrikeAlert.ogg", false, this, 100);
+  return true;
 }
 
 /* Schuss */
@@ -173,14 +176,24 @@ public func OnDestruction()
 {
   //Waffe entfernen
   if(pCannon) pCannon->RemoveObject();
+
+  //Cooldown zurücksetzen
   iCooldown = 0;
+
   RemoveEffect("ShowWeapon",this); 
+
+  //Effekte
+  if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("Smoke3",15,20,0,0,220,500);
+  if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("ConcreteSplinter",4,110,0,0,40,100);
+  if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("ConcreteSplinter",8,150,0,0,40,15,RGB(40,20,20));
 }
 
 public func OnDmg(int iDmg, int iType)
 {
-  if(iType == DMG_Explosion)	return(0);	//Maximale Wirkung von Sprengstoff
-  return(80);					//Default
+  if(iType == DMG_Fire)		return(60);	//Feuer
+  if(iType == DMG_Explosion)	return(0);	//Explosionen und Druckwellen
+  if(iType == DMG_Bio)		return(100);	//Säure und biologische Schadstoffe
+  return(80);
 }
 
 /* Reperatur */
@@ -193,7 +206,8 @@ public func OnRepair()
 
 /* Normale Entfernung */
 
-public func Destruction() {
-	if(pCannon) pCannon->RemoveObject();
-	RemoveEffect("ShowWeapon",this); 
+public func Destruction()
+{
+  if(pCannon) pCannon->RemoveObject();
+  RemoveEffect("ShowWeapon",this); 
 }

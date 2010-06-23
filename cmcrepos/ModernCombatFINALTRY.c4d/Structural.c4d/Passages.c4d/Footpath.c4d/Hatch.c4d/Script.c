@@ -75,19 +75,18 @@ private func SomeonesApproaching()
 
 public func OnDmg(int iDmg, int iType)
 {
-  //Anfälligkeit gegenüber Einflüssen
-  if(iType == DMG_Projectile)	return 60;
-  if(iType == DMG_Melee)	return 80;
-  if(iType == DMG_Energy)	return 30;
-  if(iType == DMG_Explosion)	return 0;
-  return 100;
+  if(iType == DMG_Fire)		return 60;	//Feuer
+  if(iType == DMG_Explosion)	return 0;	//Explosionen und Druckwellen
+  if(iType == DMG_Energy)	return 50;	//Energiewaffen
+  if(iType == DMG_Bio)		return 100;	//Säure und biologische Schadstoffe
+  return 50;
 }
 
 public func OnDestroyed(iType)
 {
   //Effekte
-  CastParticles("MetalSplinter",2,50,0,0,40,150);
-  CastParticles("Smoke3",5,10,0,0,50,200);
+  if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("Smoke3",5,10,0,0,50,200);
+  if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",2,50,0,0,40,150);
   Sound("StructuralDamage*.ogg");
 
   //Explosion

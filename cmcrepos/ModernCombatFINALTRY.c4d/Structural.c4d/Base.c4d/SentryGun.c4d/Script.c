@@ -1,4 +1,4 @@
-/*-- Sentry Gun --*/
+/*-- Selbstschussanlage --*/
 
 #strict 2
 #include CSTR
@@ -20,16 +20,26 @@ public func AimAngle()		{return(aim_angle+GetR());}	//Winkel auf Ziel
 public func ReadyToFire()	{return(1);}			//Allzeit bereit
 public func IsMachine()		{return(true);}			//Ist eine Elektrische Anlage
 public func IsBulletTarget()	{return(true);}			//Kugelziel
-public func IsAiming()		{return(true);}			// Die Sentry Gun "zielt" immer
-public func IsThreat()		{return(fActive);}	//Wenn wir an sind, sind wir böse >:(
+public func IsAiming()		{return(true);}			//Selbstschussanlage immer am Zielen
+public func IsThreat()		{return(fActive);}		//Status
 public func UpdateCharge()	{return(1);}
+
 
 /* Zerstörung */
 
 public func OnDestruction()
 {
   //Waffe entfernen
-	Disarm();
+  Disarm();
+
+  //Effekte
+  if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("Smoke3",3,20,0,0,220,500);
+  if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("ConcreteSplinter",4,100,0,0,40,15,RGB(40,20,20));
+}
+
+public func Destruction()
+{
+  RemoveEffect("ShowWeapon", this);
 }
 
 public func OnRepair()
@@ -39,17 +49,21 @@ public func OnRepair()
 
 /* Bonus-Punkte */
 
-public func BonusPointCondition() {
-	return fActive;
+public func BonusPointCondition()
+{
+  return fActive;
 }
 
 /* Schaden */
 
 public func OnDmg(int iDmg, int iType)
 {
-  if(iType == DMG_Projectile)	return(30);	//Projektile
-  if(iType == DMG_Explosion)	return(0);	//Explosion
-  return(50); //Default
+  if(iType == DMG_Projectile)	return(40);	//Projektile
+  if(iType == DMG_Fire)		return(60);	//Feuer
+  if(iType == DMG_Explosion)	return(0);	//Explosionen und Druckwellen
+  if(iType == DMG_Energy)	return(50);	//Energiewaffen
+  if(iType == DMG_Bio)		return(100);	//Säure und biologische Schadstoffe
+  return(50);
 }
 
 /* Aufrufe */
@@ -89,9 +103,10 @@ public func Arm(id idWeapon)
 
 public func Disarm()
 {
-  while(Contents()) {
-  	last_id = GetID(Contents());
-  	Contents()->RemoveObject();
+  while(Contents())
+  {
+   last_id = GetID(Contents());
+   Contents()->RemoveObject();
   }
   RemoveEffect("ShowWeapon", this);
 }
@@ -349,7 +364,7 @@ public func ConsoleControlled(int i)
 
 /* Serialisierung */
 
-public func RejectContainedSerialize(object foo) { return !false; } // weg mit den alten Waffen
+public func RejectContainedSerialize(object foo)	{return !false;} //weg mit den alten Waffen
 
 public func Serialize(array& extra)
 {
@@ -361,8 +376,4 @@ public func Serialize(array& extra)
 		extra[GetLength(extra)] = Format("LocalN(\"aim_angle\")=%d", aim_angle);
 		extra[GetLength(extra)] = Format("LocalN(\"iPat_Dir\")=%d", iPat_Dir);
 	}
-}
-
-public func Destruction() {
-  RemoveEffect("ShowWeapon", this);
 }

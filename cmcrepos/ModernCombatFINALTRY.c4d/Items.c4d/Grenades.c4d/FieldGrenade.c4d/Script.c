@@ -21,16 +21,14 @@ public func Fused()
 
   //Effekte
   CreateParticle("Blast",0,0,0,0,10*BlastRadius(),RGB(255,255,128));
-  CastParticles("MetalSplinter",8,200,0,0,45,20,RGB(40,20,20));
+  if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",8,200,0,0,45,20,RGB(40,20,20));
   Sound("GrenadeExplosion*.ogg");
 }
 
 /* Schockwelle */
 
 public func FxIntShockWaveStart(object pTarget, int iEffectNumber, int iTemp)
-{
-  //...
-}
+{}
 
 public func FxIntShockWaveTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {

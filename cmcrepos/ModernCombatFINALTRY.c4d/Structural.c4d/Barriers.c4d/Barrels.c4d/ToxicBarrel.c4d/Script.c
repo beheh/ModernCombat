@@ -15,7 +15,7 @@ func Damage(int iChange, int iPlr)
 func BlowUp(int iPlr)
 {
   //Effekt
-  CastParticles("MetalSplinter",4,100,0,0,20,70,RGB(0,250,0));
+  if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",4,100,0,0,20,70,RGB(0,250,0));
 
   SetController(iPlr);
   SetAction("Wreck");

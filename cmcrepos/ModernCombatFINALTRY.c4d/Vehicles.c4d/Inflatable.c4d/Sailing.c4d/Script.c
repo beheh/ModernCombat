@@ -4,7 +4,7 @@
 
 local motor, motoridle, turn_end_dir, damaged;
 
-public func MaxDamage()	{ return 60; }
+public func MaxDamage()	{return 80;}
 
 
 /* Initalisierung */
@@ -55,20 +55,28 @@ func Incineration()
   if(motor) Explode(20,motor);
 
   //Effekte
+  CreateParticle("Blast",0,-10,-20,0,5*50,RGB(255,255,128));
+  CreateParticle("Blast",0,-10,20,0,5*50,RGB(255,255,128));
+  if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("Smoke3",15,15,0,-10,100,200,RGBa(0,0,0,100));
+  if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",4,100,0,0,20,170,RGB(50,250,50));
+  if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",2,100,0,0,30,100,RGB(0,0,0));
   Sound("MotorIdleLoop.ogg",false,motoridle,100,0,-1);
   Sound("MotorLoop.ogg",false,motor,100,0,-1);
   Sound("OutOfAir.ogg");
   Sound("StructuralDamage*.ogg");
-  CastParticles("MetalSplinter",4,100,0,0,20,170,RGB(50,250,50));
-  CastParticles("MetalSplinter",2,100,0,0,30,100,RGB(0,0,0));
-  CreateParticle("Blast",0,-10,-20,0,5*50,RGB(255,255,128));
-  CreateParticle("Blast",0,-10,20,0,5*50,RGB(255,255,128));
-  CastParticles("Smoke3",15,15,0,-10,100,200,RGBa(0,0,0,100));
-  //SetClrModulation(RGBa(50,50,50,100)); Nicht benötigt wenn die Action Wreck das Objekt schwärzen kann =P
 
   //Verschwinden
   Schedule("ChangeDef(INFB)",1);
   FadeOut();
+}
+
+/* Schaden */
+
+public func OnDmg(int iDmg, int iType)
+{
+  if(iType == DMG_Fire)		return(60);	//Feuer
+  if(iType == DMG_Bio)		return(100);	//Säure und biologische Schadstoffe
+  return(0);
 }
 
 /* Landung */
@@ -82,8 +90,8 @@ private func LandOn()
   Sound("MotorIdleLoop.ogg",false,motoridle,100,0,-1);
 }
 
-private func SoundSailDown() { Sound("SailDown"); }
-private func SoundSailUp()   { Sound("SailUp");   }
+private func SoundSailDown()	{Sound("SailDown");}
+private func SoundSailUp()	{Sound("SailUp");}
 
 /* Bewegung */
 
@@ -149,7 +157,8 @@ func Stop()
 
 /* Kontrolle ob verwendet */
 
-public func GetActionTarget() {
+public func GetActionTarget()
+{
   return motor;
 }
 

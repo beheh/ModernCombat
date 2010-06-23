@@ -22,8 +22,11 @@ public func Fused()
 
   //Effekte
   CreateParticle("Blast",0,0,0,0,10*BlastRadius(),RGB(20,128,255));
-  CastParticles("MetalSplinter",8,200,0,0,45,20,RGB(40,20,20));
-  CastParticles("Smoke3",50,20,0,0,100,200,RGBa(255,255,255,100),RGBa(255,0,255,130));
+  if(!GBackLiquid())
+  {
+   if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("Smoke3",50,20,0,0,100,200,RGBa(255,255,255,100),RGBa(255,0,255,130));
+  }
+  if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",8,200,0,0,45,20,RGB(40,20,20));
   Sound("Inflame");
   Sound("GrenadeExplosion*.ogg");
 }
@@ -31,9 +34,7 @@ public func Fused()
 /* Schockwelle */
 
 public func FxIntShockWaveStart(object pTarget, int iEffectNumber, int iTemp)
-{
-  //...
-}
+{}
 
 public func FxIntShockWaveTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {

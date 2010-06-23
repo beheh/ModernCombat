@@ -196,9 +196,9 @@ public func Detonate()
   }
 
   //Effekte
-  CastParticles("MetalSplinter",2,150,0,0,45,30,RGB(40,20,20));
-  CastParticles("MetalSplinter",2,100,0,0,30,80);
-  CastParticles("Smoke3",12,10,0,0,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
+  if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("Smoke3",12,10,0,0,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
+  if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",2,150,0,0,45,30,RGB(40,20,20));
+  if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",2,100,0,0,30,80);
   Sound("BBTP_Explosion.ogg");
 
   //Entfernung
@@ -215,7 +215,7 @@ protected func RejectCollect()
 
 protected func RejectCollect(idObj, pObj)
 {
-  // Verhindert Aufnahme aller nichtpassender Objekte
+  //Verhindert Aufnahme aller nichtpassender Objekte
   return(1);
 }
 
@@ -243,5 +243,6 @@ func Hit()
 public func Destruction()
 {
   //Entfernung
-	if(laser)	RemoveObject(laser);
+  if(laser)
+   RemoveObject(laser);
 }
