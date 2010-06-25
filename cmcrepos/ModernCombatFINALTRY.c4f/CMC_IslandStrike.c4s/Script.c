@@ -47,6 +47,8 @@ func CreateFurniture()
   //Leitern
   CreateObject(LADR, 1295, 494, -1)->Set(6);
   CreateObject(LADR, 1405, 494, -1)->Set(6);
+  CreateObject(LADR, 1595, 494, -1)->Set(6);
+  CreateObject(LADR, 1715, 494, -1)->Set(6);
 
   CreateObject(LADR, 2515, 431, -1)->Set(11);
 
@@ -82,6 +84,7 @@ func CreateFurniture()
 
   //Orientierungslichter
   CreateObject(OLGH, 1025, 210, -1)->Set(3, 15, 1, 1, 30);
+  CreateObject(OLGH, 1500, 290, -1)->Set(4, 15, 1, 1, 30);
   CreateObject(OLGH, 2560, 340, -1)->Set(2, 15, 1, 1, 40);
   CreateObject(OLGH, 2960, 280, -1)->Set(2, 15, 1, 1, 40);
   CreateObject(OLGH, 6590, 340, -1)->Set(2, 15, 1, 1, 40);
@@ -131,10 +134,12 @@ func CreateFurniture()
   CreateObject(SADH, 7625, 320, -1);
 
   //Metallkiste
+  CreateObject(MWCR, 1530, 400, -1)->AutoRespawn();
   CreateObject(MWCR, 4570, 390, -1)->AutoRespawn();
   CreateObject(MWCR, 7560, 510, -1)->AutoRespawn();
 
   //Kisten
+  CreateObject(WCR2, 1510, 400, -1);
   CreateObject(WCR2, 1275, 400, -1)->AutoRespawn();
   CreateObject(WCR2, 3605, 500, -1)->AutoRespawn();
   CreateObject(WCR2, 3775, 410, -1)->AutoRespawn();
@@ -150,6 +155,8 @@ func CreateFurniture()
   CreateObject(XWCR, 7550, 492, -1);
 
   //Benzinfässer
+  CreateObject(PBRL, 1475, 400, -1)->AutoRespawn();
+  CreateObject(PBRL, 1485, 400, -1)->AutoRespawn();
   CreateObject(PBRL, 1100, 270, -1)->AutoRespawn();
   CreateObject(PBRL, 1170, 470, -1)->AutoRespawn();
 
@@ -237,7 +244,8 @@ func CreateFurniture()
   CreateObject(VENT, 2705, 463, -1)->SetCon(20);
   CreateObject(VENT, 6445, 463, -1)->SetCon(20);
 
-  //Satellitenschüssel
+  //Satellitenschüsseln
+  CreateObject(RADR, 1500, 290, -1);
   CreateObject(RADR, 2960, 280, -1);
 
   //Markierungsschilder
@@ -286,6 +294,7 @@ func CreateFurniture()
   CreateObject(GADG, 5820, 510, -1)->Set(1);
 
   //Büsche
+  CreateObject(BSH2, 1875, 350, -1);
   CreateObject(BSH2, 2470, 510, -1);
   CreateObject(BSH2, 2460, 520, -1);
   CreateObject(BSH2, 3060, 640, -1);
@@ -295,6 +304,7 @@ func CreateFurniture()
 
   //Steine
   CreateObject(STNE, 1460, 560, -1);
+  CreateObject(STNE, 1985, 370, -1);
   CreateObject(STNE, 3320, 370, -1);
   CreateObject(STNE, 5815, 350, -1);
   CreateObject(STNE, 6640, 670, -1);
@@ -338,11 +348,14 @@ func CreateFurniture()
   CreateObject(LLGH, 1035, 520, -1);
   CreateObject(LLGH, 1250, 490, -1);
   CreateObject(LLGH, 1340, 490, -1);
+  CreateObject(LLGH, 1500, 490, -1);
+  CreateObject(LLGH, 1655, 490, -1);
   CreateObject(LLGH, 5120, 540, -1);
   CreateObject(LLGH, 7280, 410, -1);
 
   //Sandsackbarrieren
   CreateObject(SBBA, 1380, 440, -1)->Right();
+  CreateObject(SBBA, 1690, 440, -1)->Right();
   CreateObject(SBBA, 2660, 340, -1);
   CreateObject(SBBA, 3800, 410, -1)->Right();
   CreateObject(SBBA, 4204, 409, -1);
@@ -356,6 +369,7 @@ func CreateFurniture()
   CreateObject(RAI1, 930, 270, -1)->SetRail([1,1]);
   CreateObject(RAI1, 1075, 270, -1)->SetRail([1,1]);
   CreateObject(RAI1, 1300, 440, -1)->SetRail([1,1,1,1,1]);
+  CreateObject(RAI1, 1600, 440, -1)->SetRail([1,1,1,1,1]);
   CreateObject(RAI1, 3700, 410, -1)->SetRail([1,1,1,1,1,1]);
   CreateObject(RAI1, 4190, 410, -1)->SetRail([1,1,1,1,1,1]);
   CreateObject(RAI1, 5063, 400, -1)->SetRail([1,1,1,1,1,1]);
@@ -400,11 +414,16 @@ func CreateFurniture()
   CreateObject(ESGN, 5830, 505, -1);
   CreateObject(ESGN, 6200, 505, -1);
 
+  //Glasscheiben
+  CreateObject(_WIN, 5092, 470, -1);
+  CreateObject(_WIN, 5148, 470, -1);
+
   //Explosivtanks
   CreateObject(XTNK, 1335, 440, -1)->AutoRespawn();
   CreateObject(XTNK, 4345, 330, -1)->AutoRespawn();
 
   //Phosphortanks
+  CreateObject(PTNK, 1635, 440, -1)->AutoRespawn();
   CreateObject(PTNK, 2855, 410, -1)->AutoRespawn();
   CreateObject(PTNK, 6295, 410, -1)->AutoRespawn();
 
