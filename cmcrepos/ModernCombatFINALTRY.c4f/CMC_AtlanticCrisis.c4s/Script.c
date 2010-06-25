@@ -236,10 +236,6 @@ func CreateFurniture()
   CreateObject(RADR, 1610, 300, -1);
   CreateObject(RADR, 4400, 300, -1);
 
-  //Einfache Türen
-  CreateObject(LBDR, 2875, 360, -1);
-  CreateObject(LBDR, 3095, 360, -1);
-
   //Dekoschleusen
   CreateObject(GAT1, 2800, 490, -1);
   CreateObject(GAT1, 2990, 490, -1);
