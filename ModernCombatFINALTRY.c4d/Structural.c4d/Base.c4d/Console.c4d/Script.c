@@ -44,7 +44,7 @@ protected func ControlDig(pClonk)
   for(var i = 1, desc ; desc = target->~ConsoleControl(i) ; i++)
   {
    AddMenuItem(desc, Format("ConsoleControlled(%d, %d, %d)", i, ObjectNumber(pClonk), ObjectNumber(this())), GetID(), pClonk, 0, 0, "$Control$");
-   Sound("CatapultSet");
+   Sound("Acknowledge.ogg", 0, pClonk, 100, GetOwner(pClonk)+1);
   }
   return(1);
 }
