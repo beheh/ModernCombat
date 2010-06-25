@@ -132,7 +132,7 @@ func ControlThrow(object pByObj)
   ScheduleCall(this(),"Shoot",70,10);
   ScheduleCall(this, "BeginAttack", 70);
 
-  Sound("CatapultSet");
+  Sound("Acknowledge.ogg", 0, pByObj, 100, GetOwner(pByObj)+1);
 }
 
 public func BeginAttack()
