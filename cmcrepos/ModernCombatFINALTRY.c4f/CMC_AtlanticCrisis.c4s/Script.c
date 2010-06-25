@@ -69,6 +69,7 @@ func CreateFurniture()
   CreateObject(LADR, 1575, 404, -1)->Set(12);
 
   CreateObject(LADR, 2200, 500, -1)->Set(9);
+  CreateObject(LADR, 2400, 500, -1)->Set(9);
 
   CreateObject(LADR, 2765, 502, -1)->Set(8);
   CreateObject(LADR, 2870, 502, -1)->Set(8);
@@ -80,6 +81,7 @@ func CreateFurniture()
   CreateObject(LADR, 3110, 502, -1)->Set(8);
   CreateObject(LADR, 3215, 502, -1)->Set(8);
 
+  CreateObject(LADR, 3610, 500, -1)->Set(9);
   CreateObject(LADR, 3810, 500, -1)->Set(9);
 
   CreateObject(LADR, 4435, 404, -1)->Set(12);
@@ -91,6 +93,7 @@ func CreateFurniture()
   CreateObject(HA4K, 1550, 503, -1);
 
   CreateObject(HA4K, 2200, 423, -1);
+  CreateObject(HA4K, 2400, 423, -1);
 
   CreateObject(HA4K, 2870, 433, -1);
   CreateObject(HA4K, 2910, 433, -1);
@@ -100,6 +103,7 @@ func CreateFurniture()
   CreateObject(HA4K, 3070, 433, -1);
   CreateObject(HA4K, 3110, 433, -1);
 
+  CreateObject(HA4K, 3610, 423, -1);
   CreateObject(HA4K, 3810, 423, -1);
 
   CreateObject(HA4K, 4460, 433, -1);
@@ -107,7 +111,9 @@ func CreateFurniture()
 
   //Orientierungslichter
   CreateObject(OLGH, 1645, 300, -1)->Set(4, 15, 1, 1, 40);
+  CreateObject(OLGH, 2410, 320, -1)->Set(35, 5, 1, 1, 20);
   CreateObject(OLGH, 2990, 280, -1)->Set(4, 10, 1, 1, 20);
+  CreateObject(OLGH, 3600, 320, -1)->Set(35, 5, 1, 1, 20);
   CreateObject(OLGH, 4365, 300, -1)->Set(4, 15, 1, 1, 40);
 
   //Automat
@@ -161,6 +167,10 @@ func CreateFurniture()
   CreateObject(PBRL, 4435, 500, -1)->AutoRespawn();
   CreateObject(PBRL, 4720, 400, -1)->AutoRespawn();
 
+  //Phosphorfässer
+  CreateObject(HBRL, 2430, 420, -1)->AutoRespawn();
+  CreateObject(HBRL, 3580, 420, -1)->AutoRespawn();
+
   //Giftfässer
   CreateObject(TBRL, 2810, 430, -1)->AutoRespawn();
   CreateObject(TBRL, 2830, 430, -1)->AutoRespawn();
@@ -174,8 +184,14 @@ func CreateFurniture()
   CreateObject(XWCR, 2815, 310, -1)->AutoRespawn();
 
   //Stahlbrücken
+  CreateObject(_HBR, 2065, 432, -1);
+  CreateObject(_HBR, 2335, 432, -1);
+  CreateObject(_HBR, 2485, 432, -1);
   CreateObject(_HBR, 2735, 372, -1);
   CreateObject(_HBR, 3247, 372, -1);
+  CreateObject(_HBR, 3525, 432, -1);
+  CreateObject(_HBR, 3675, 432, -1);
+  CreateObject(_HBR, 3945, 432, -1);
 
   //Haie
   CreateObject(SHRK, 500, 580, -1)->AutoRespawn();
@@ -212,6 +228,8 @@ func CreateFurniture()
 
   //Ventillatoren
   CreateObject(VENT, 1380, 490, -1)->SetCon(30);
+  CreateObject(VEN3, 2410, 400, -1)->SetCon(30);
+  CreateObject(VEN3, 3600, 400, -1)->SetCon(30);
   CreateObject(VENT, 4630, 490, -1)->SetCon(30);
 
   //Satellitenschüsseln
@@ -259,6 +277,8 @@ func CreateFurniture()
 
   //Phosphortanks
   CreateObject(PTNK, 1600, 430, -1)->AutoRespawn();
+  CreateObject(PTNK, 2410, 420, -1)->AutoRespawn();
+  CreateObject(PTNK, 3600, 420, -1)->AutoRespawn();
   CreateObject(PTNK, 4410, 430, -1)->AutoRespawn();
 
   //Schilder
