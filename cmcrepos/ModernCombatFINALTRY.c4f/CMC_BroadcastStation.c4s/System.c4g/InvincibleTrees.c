@@ -7,7 +7,7 @@
 #appendto TREE
 
 
-protected func Damage()
+public func ChopDown()
 {
   return(0);
 }
