@@ -1,0 +1,11 @@
+#Steuerung
+CtrlLeft=Links drehen
+CtrlRight=Rechts drehen
+CtrlUp=Mehr Schub
+CtrlDown=Weniger Schub
+CtrlLeftD=Nach links umdrehen
+CtrlRightD=Nach rechts umdrehen
+CtrlDigD=Platz wechseln
+
+#beim Nachladen des MG
+TxtNoAmmo=Keine Munition

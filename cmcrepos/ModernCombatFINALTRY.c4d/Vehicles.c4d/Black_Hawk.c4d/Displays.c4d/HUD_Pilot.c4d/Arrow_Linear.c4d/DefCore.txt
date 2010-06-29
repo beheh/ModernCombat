@@ -1,0 +1,15 @@
+[DefCore]
+id=H_H2
+Name=Arrow
+Category=25165825
+Width=14
+Height=20
+Offset=-7,-10
+Picture=0,0,14,20
+Timer=1
+TimerCall=TimerFunc
+Rotate=1
+NoStabilize=1
+Version=4,9,5
+Value=0
+Oversize=1
