@@ -1,0 +1,17 @@
+#Control
+CtrlLeft=Rotate left
+CtrlRight=Rotate right
+CtrlUp=Open throttle
+CtrlDown=Close throttle
+CtrlLeftD=Turn left
+CtrlRightD=Turn right
+CtrlDigD=Change seat
+
+#if no more fuel
+MsgNoFuel=No fuel.
+
+#when changing seat
+MsgSeat=-<c %x>  pilot  </c>-|-<c %x>  winch  </c>-|-<c %x>   MG    </c>-|-<c %x> nothing </c>-
+
+#on reload of MG
+TxtNoAmmo=No ammo

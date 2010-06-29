@@ -128,6 +128,7 @@ public func OnHit(int iDamage, int iType, object pFrom)
   if((iType == DMG_Fire || iType == DMG_Explosion) && iDamage > 10)
   {
    SetController(GetController(pFrom));
+   SetOwner(GetOwner(pFrom));
    Trigger();
   }
 }
