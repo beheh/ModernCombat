@@ -620,6 +620,7 @@ public func ControlThrow(caller)
       // nicht genügend Munition
       else {
         PlayerMessage(GetOwner(caller), "$NotEnoughAmmo$", caller, ammoid);
+        Sound("WPN2_Empty.ogg");
       }
   }
   else
