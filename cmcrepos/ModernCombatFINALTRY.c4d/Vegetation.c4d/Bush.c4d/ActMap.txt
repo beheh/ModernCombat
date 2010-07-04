@@ -5,7 +5,7 @@ FlipDir=1
 Length=20
 Delay=4
 Facet=0,0,40,30
-NextAction=Still
+NextAction=Breeze
 
 [Action]
 Name=Still
@@ -16,4 +16,3 @@ Delay=50
 Facet=0,0,40,30
 FacetBase=0
 NextAction=Still
-StartCall=Still
