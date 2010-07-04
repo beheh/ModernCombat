@@ -45,6 +45,7 @@ func CreateFurniture()
   CreateObject(LFTP, 6405, 555, -1);
 
   //Leitern
+  CreateObject(LADR, 925, 453, -1)->Set(22);
   CreateObject(LADR, 1295, 494, -1)->Set(6);
   CreateObject(LADR, 1405, 494, -1)->Set(6);
   CreateObject(LADR, 1595, 494, -1)->Set(6);
@@ -116,6 +117,13 @@ func CreateFurniture()
   DrawMaterialQuad("Wall-Concrete2",6470,510,6500,500,6500,510,6485,510,true);
 
   DrawMaterialQuad("Wall-Concrete2",6701,510,6671,500,6671,510,6686,510,true);
+
+  //Glasscheiben
+  CreateObject(_WIN, 982, 330, -1);
+  CreateObject(_WIN, 1068, 330, -1);
+
+  CreateObject(_WIN, 5092, 470, -1);
+  CreateObject(_WIN, 5148, 470, -1);
 
   //Rohre
   CreateObject(PIPL, 2730, 365, -1)->Up()->Right()->Right()->Right()->Right();
@@ -304,7 +312,7 @@ func CreateFurniture()
 
   //Steine
   CreateObject(STNE, 1460, 560, -1);
-  CreateObject(STNE, 1985, 370, -1);
+  CreateObject(STNE, 2030, 340, -1);
   CreateObject(STNE, 3320, 370, -1);
   CreateObject(STNE, 5815, 350, -1);
   CreateObject(STNE, 6640, 670, -1);
@@ -413,10 +421,6 @@ func CreateFurniture()
   CreateObject(ESGN, 2960, 505, -1);
   CreateObject(ESGN, 5830, 505, -1);
   CreateObject(ESGN, 6200, 505, -1);
-
-  //Glasscheiben
-  CreateObject(_WIN, 5092, 470, -1);
-  CreateObject(_WIN, 5148, 470, -1);
 
   //Explosivtanks
   CreateObject(XTNK, 1335, 440, -1)->AutoRespawn();
