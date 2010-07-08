@@ -138,6 +138,14 @@ func Incineration()
   BlowUp();
 }
 
+/* Schaden */
+
+public func OnDmg(int iDmg, int iType)
+{
+  if(iType == DMG_Bio)		return(100);	//Säure und biologische Schadstoffe
+  return(0);
+}
+
 /* Schockwelle */
 
 public func FxIntShockWaveStart(object pTarget, int iEffectNumber, int iTemp)
