@@ -1,7 +1,7 @@
 [Teams]
 LastTeamID=4
 TeamColors=true
-AllowTeamSwitch=1
+AllowTeamSwitch=0
 TeamDistribution=Host
 
   [Team]

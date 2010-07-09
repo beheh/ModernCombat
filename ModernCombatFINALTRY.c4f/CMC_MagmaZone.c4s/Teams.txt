@@ -1,6 +1,6 @@
 [Teams]
 LastTeamID=2
-AllowTeamSwitch=1
+AllowTeamSwitch=0
 TeamColors=true
 
   [Team]
