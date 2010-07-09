@@ -4,7 +4,7 @@
 
 #include GBDR
 
-public func IsBulletTarget(id idBullet)	{return false;}	//Nur anfällig gegenüber Explosionen
+public func IsBulletTarget()	{return(false);}
 
 
 /* Initalisierung */
@@ -13,7 +13,7 @@ public func Initialize()
 {
    SetAction("Closed");
    _inherited();
-   SetMaxDamage(100);
+   SetMaxDamage(-1);
 }
 
 /* Öffnung und Schließung */
@@ -69,28 +69,6 @@ private func SomeonesApproaching()
   if(GetLength(aClonks) > 0)
     return true;
   return false;
-}
-
-/* Zerstörung */
-
-public func OnDmg(int iDmg, int iType)
-{
-  if(iType == DMG_Fire)		return 60;	//Feuer
-  if(iType == DMG_Explosion)	return 0;	//Explosionen und Druckwellen
-  if(iType == DMG_Energy)	return 50;	//Energiewaffen
-  if(iType == DMG_Bio)		return 100;	//Säure und biologische Schadstoffe
-  return 50;
-}
-
-public func OnDestroyed(iType)
-{
-  //Effekte
-  if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("Smoke3",5,10,0,0,50,200);
-  if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",2,50,0,0,40,150);
-  Sound("StructuralDamage*.ogg");
-
-  //Explosion
-  Explode(20);
 }
 
 /* Steuerung */
