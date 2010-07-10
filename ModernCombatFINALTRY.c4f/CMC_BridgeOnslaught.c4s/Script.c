@@ -75,6 +75,60 @@ func CreateFurniture()
   CreateObject(H24K, 1975, 448, -1);
   CreateObject(H24K, 2145, 648, -1);
 
+  //Geländer
+  CreateObject(RAI1, 505, 270, -1)->SetRail([1,1,1,1,1,1,1,1]);
+  CreateObject(RAI1, 725, 440, -1)->SetRail([1,1,1]);
+  CreateObject(RAI1, 1227, 310, -1)->SetRail([1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]);
+  CreateObject(RAI1, 1945, 440, -1)->SetRail([1,1,1]);
+  CreateObject(RAI1, 2075, 270, -1)->SetRail([1,1,1,1,1,1,1,1]);
+
+  //Glasscheiben
+  CreateObject(_WIN, 1262, 510, -1);
+  CreateObject(_WIN, 1262, 520, -1);
+
+  CreateObject(_WIN, 1468, 510, -1);
+  CreateObject(_WIN, 1468, 520, -1);
+
+  //Satellitenschüsseln
+  CreateObject(RADR, 1020, 310, -1);
+  CreateObject(RADR, 1700, 310, -1);
+
+  //Automaten
+  CreateObject(SPVM, 615, 800, -1);
+  CreateObject(CLVM, 2115, 800, -1);
+
+  //Glastische
+  CreateObject(GTBL, 660, 800, -1);
+  CreateObject(GTBL, 2065, 800, -1);
+
+  //Wandlampen
+  CreateObject(BLGH, 635, 400, -1);
+  CreateObject(BLGH, 635, 600, -1);
+  CreateObject(BLGH, 1075, 400, -1);
+
+  CreateObject(BLGH, 1655, 400, -1);
+  CreateObject(BLGH, 2095, 400, -1);
+  CreateObject(BLGH, 2095, 600, -1);
+
+  //Notausgangslichter
+  CreateObject(ETLT, 750, 770, -1);
+  CreateObject(ETLT, 1980, 770, -1);
+
+  //Monitore
+  CreateObject(MONI, 655, 788, -1)->On();
+  CreateObject(MONI, 665, 788, -1)->On();
+
+  CreateObject(MONI, 2055, 788, -1)->On();
+  CreateObject(MONI, 2065, 788, -1)->On();
+
+  //Dekoschleusen
+  CreateObject(GAT1, 1075, 520, -1);
+  CreateObject(GAT1, 1655, 520, -1);
+
+  //Explosivtanks
+  CreateObject(XTNK, 230, 440, -1)->AutoRespawn();
+  CreateObject(XTNK, 2500, 440, -1)->AutoRespawn();
+
   //Container
   CreateObject(CON1, 25, 440, -1)->SetPerspective(2);
   CreateObject(CON1, 75, 440, -1);
@@ -110,12 +164,20 @@ func CreateFurniture()
   //Kisten
   CreateObject(WCR2, 590, 800, -1);
   CreateObject(WCR2, 610, 640, -1)->AutoRespawn();
+  CreateObject(WCR2, 915, 640, -1);
   CreateObject(WCR2, 1270, 440, -1)->AutoRespawn();
   CreateObject(WCR2, 1400, 640, -1)->AutoRespawn();
   CreateObject(WCR2, 1415, 640, -1);
   CreateObject(WCR2, 1405, 622, -1);
+  CreateObject(WCR2, 1815, 640, -1);
   CreateObject(WCR2, 2120, 640, -1)->AutoRespawn();
   CreateObject(WCR2, 2140, 800, -1);
+
+  //Sandsackbarrieren
+  CreateObject(SBBA, 790, 800, -1)->Right();
+  CreateObject(SBBA, 1260, 640, -1);
+  CreateObject(SBBA, 1470, 640, -1)->Right();
+  CreateObject(SBBA, 1940, 800, -1);
 
   //Stahlbrücken
   CreateObject(_HBR, 595, 452, -1);
@@ -260,6 +322,26 @@ func CreateFurniture()
     aSelfDefense[1]->Arm(MISA);
     aSelfDefense[1]->SetAutoRepair(1500);
     CreateObject(CONS, 2430, 525, -1)->Set(aSelfDefense[1]);
+
+  //Sounds
+
+  //Wind
+  CreateObject(SE4K, 580, 170, -1)->Set("WindSound*.ogg",775,250);
+  CreateObject(SE4K, 1365, 170, -1)->Set("WindSound*.ogg",775,250);
+  CreateObject(SE4K, 2150, 170, -1)->Set("WindSound*.ogg",775,250);
+
+  //Hallen
+  CreateObject(SE4K, 90, 410, -1)->Set("Interior*.ogg",665,105);
+  CreateObject(SE4K, 540, 560, -1)->Set("Interior*.ogg",670,105);
+  CreateObject(SE4K, 960, 670, -1)->Set("Interior*.ogg",670,105);
+  CreateObject(SE4K, 1365, 550, -1)->Set("Interior*.ogg",665,105);
+  CreateObject(SE4K, 1770, 670, -1)->Set("Interior*.ogg",670,105);
+  CreateObject(SE4K, 2190, 560, -1)->Set("Interior*.ogg",670,105);
+  CreateObject(SE4K, 2635, 410, -1)->Set("Interior*.ogg",665,105);
+
+  //Rush Hour
+  CreateObject(SE4K, 1075, 880, -1)->Set("Traffic*.ogg",245,70);
+  CreateObject(SE4K, 1655, 880, -1)->Set("Traffic*.ogg",245,70);
 }
 
 func CreateEquipment()
@@ -342,6 +424,17 @@ func CreateEquipment()
   //Artilleriebatterien
   CreateObject(ATBY,1260,310,-1);
   CreateObject(ATBY,1470,310,-1);
+}
+
+/* Bei Flaggenübernahme */
+
+func FlagCaptured(object pPoint, int iTeam)
+{
+  if(pPoint == aFlag[0])
+   aSelfDefense[0]->SetTeam(iTeam);
+
+  if(pPoint == aFlag[4])
+   aSelfDefense[1]->SetTeam(iTeam);
 }
 
 /* Regelwähler */
