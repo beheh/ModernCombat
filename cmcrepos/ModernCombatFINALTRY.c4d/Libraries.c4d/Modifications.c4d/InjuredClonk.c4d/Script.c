@@ -87,25 +87,22 @@ private func DeathMenu()
   CreateMenu(FKDT, clonk, this(), 0, Format("$Title$"), C4MN_Style_Dialog, true);	//Titelzeile
   if(FindObject(SICD))
   {
-		if(suicide != FKDT_SuicideTime) {
-			AddMenuItem("$Suicide$", "Suicide", ICN2, clonk, 0, 0, "$SuicideDesc$");		//Selbstmord
-		}
-		else {
-			AddMenuItem("<c 777777>$Suicide$</c>", "", ICN2, clonk, 0, 0, "$SuicideDesc$");		//Selbstmord
-		}
-		AddMenuItem(" ","", NONE,clonk, 0, 0, "", 512, 0, 0);				//Leerzeile
-		AddMenuItem(Format("$Info$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);	//Hinweise
+    if(suicide != FKDT_SuicideTime)
+    {AddMenuItem("$Suicide$", "Suicide", ICN2, clonk, 0, 0, "$SuicideDesc$");}		//Selbstmord
+    else
+    {AddMenuItem("<c 777777>$Suicide$</c>", "", ICN2, clonk, 0, 0, "$SuicideDesc$");}	//Kein Selbstmord
+    AddMenuItem(" ","", NONE,clonk, 0, 0, "", 512, 0, 0);				//Leerzeile
+    AddMenuItem(Format("$Info$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);	//Hinweise
   }
   else
   {
-   AddMenuItem(Format("$Info2$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);	//Falls kein Selbstmord möglich
+    AddMenuItem(Format("$Info2$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);//Falls kein Selbstmord möglich
   }
   AddMenuItem(Format("$DeathCounter$", suicide),"", NONE, clonk, 0, 0, "", 512, 0, 0);	//Zeit bis zum Tod
   if(suicide <= 0)
    Suicide();
   
   if(selection >= 0) SelectMenuItem(selection, clonk);
-  //SetMenuTextProgress(1, clonk); 
 }
 
 /* Selbstmord */
@@ -117,14 +114,15 @@ public func Suicide()
    for(var item in FindObjects(Find_Container(this),Find_Not(Find_OCF(OCF_Alive))))
     RemoveObject(item);
 
-	if(clonk) {
-		//Töten
-		clonk->Kill();
-	 
-		//Leiche "auswerfen" und ausfaden lassen
-		clonk->Exit(0,0,GetObjHeight(clonk)/2);
-		clonk->FadeOut();
-  }
+    if(clonk)
+    {
+      //Töten
+      clonk->Kill();
+
+      //Leiche "auswerfen" und ausfaden lassen
+      clonk->Exit(0,0,GetObjHeight(clonk)/2);
+      clonk->FadeOut();
+    }
 
   //Verschwinden
   RemoveObject();
@@ -134,10 +132,15 @@ public func GetClonk()	{return(clonk);}
 
 /* Zerstörung */
 
-public func Destruction() {
-	while(Contents()) {
-		RemoveObject(Contents(), false);
-	}
+public func Destruction()
+{
+  while(Contents())
+  {
+    RemoveObject(Contents(), false);
+  }
+
+  //Soundloop beenden
+  Sound("FKDT_ClonkDown.ogg", false, clonk, 100, GetOwner(clonk)+1, -1);
 }
 
 /* Wiederbelebung */
@@ -155,14 +158,17 @@ public func Reanimation()
    clonk->Exit(0,0,GetObjHeight(clonk)/2);
 
   //Besitztümer weitergeben
-  if(GetAlive(clonk)) {
-		clonk->GrabContents(this());
-		clonk->RemoveEffect("NoAnnounce", clonk);
+  if(GetAlive(clonk))
+  {
+    clonk->GrabContents(this());
+    clonk->RemoveEffect("NoAnnounce", clonk);
   }
-  else {
-		while(Contents()) {
-			Exit(Contents(),0,+10);
-		}
+  else
+  {
+    while(Contents())
+    {
+      Exit(Contents(),0,+10);
+    }
   }
 
   //Sichtdaten zurücksetzen
