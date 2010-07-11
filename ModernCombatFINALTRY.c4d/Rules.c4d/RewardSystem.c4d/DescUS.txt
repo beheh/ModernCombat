@@ -1,1 +1,1 @@
-Players are beeing rated more exact, allowing to get better insights into the achievements of a player in a round.
+Players are rated with points in one round and can gain achievements over multiple rounds.
