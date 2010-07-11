@@ -969,6 +969,7 @@ public func GetFireTec(int iFM)
 public func SetFireTec(int iFT,int iFM, bool bNoCalls)
 {
   //Nicht mehr weiterfeuern
+  if(IsReloading()) return;
 	if(IsRecharging()) StopAutoFire();
 	RemoveEffect("BurstFire", this());
 	while(GetEffect("Recharge", this)) RemoveEffect("Recharge", this); 

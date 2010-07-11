@@ -22,7 +22,6 @@ protected func Activate(iPlr)
 protected func Initialize()
 {
   _inherited();
-  iChoosePlr = 0;
   LoadRuleCfg();
   iEffectCount = 3;
 }
@@ -57,7 +56,7 @@ protected func OpenMenu()
 
 protected func OpenEffectMenu(id dummy, int iSelection)
 {
-  var pClonk = GetCursor();
+  var pClonk = GetCursor(iChoosePlr);
   // Menü aufmachen
   CreateMenu(GetID(), pClonk, 0,0,0,0, 1);
   // Anzeige
@@ -124,12 +123,12 @@ protected func InitializePlayer(int iPlr, int iX, int iY, object pBase, int iTea
     Eastern(tmp);
     }
   // Spieler 1? Dann Menü öffnen
-  if(GetPlrClientNr(iPlr) == 0)
+  /*if(GetPlrClientNr(iPlr) == 0 && !iChoosePlr)
   {
     EventInfo4K(0,Format("$ChoosingPlayer$", GetTaggedPlayerName(iPlr)), CHOS, 0, 0, 0, "Info.ogg");
   	iChoosePlr = iPlr;
     return(OpenMenu());
-  }
+  }*/
 }
 
 /* Spielziel setzen */
