@@ -1,2 +1,2 @@
-DE:Bordgeschütz
-US:Board MG
+DE:MG-Animation
+US:MG Animation
