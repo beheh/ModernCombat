@@ -74,10 +74,10 @@ protected func Initialize()
   view_mode = true;
   
   //Geschütze
-  /*MGStation = CreateObject(HMGS,0,0,GetOwner());
+  MGStation = CreateObject(H_MA,0,0,GetOwner());
   MGStation -> Set(this);
-  RocketStation = CreateObject(HRKS,0,0,GetOwner());
-  RocketStation -> Set(this);*/
+  //RocketStation = CreateObject(HRKS,0,0,GetOwner());
+  //RocketStation -> Set(this);
 
   //Eingang
   SetEntrance(true);
@@ -366,6 +366,7 @@ public func EnterSeat2(a, object Obj)
 {
   DeleteActualSeatPassenger(Obj);
   Gunner = Obj;
+  Enter(MGStation,Obj);
   Sound("SwitchHUD", false, this(), 100, GetOwner(Obj)+1);
 
   return 1;
