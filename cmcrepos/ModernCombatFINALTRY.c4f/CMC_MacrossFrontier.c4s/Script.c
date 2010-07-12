@@ -212,9 +212,9 @@ func CreateFurniture()
   CreateObject(FRAM, 1520, 360, -1);
 
   //Gasflaschen
-  CreateObject(GSBO, 40, 440, -1)->AutoRespawn();
-  CreateObject(GSBO, 460, 230, -1)->AutoRespawn();
-  CreateObject(GSBO, 1220, 360, -1)->AutoRespawn();
+  CreateObject(GSBL, 40, 440, -1)->AutoRespawn();
+  CreateObject(GSBL, 460, 230, -1)->AutoRespawn();
+  CreateObject(GSBL, 1220, 360, -1)->AutoRespawn();
 
   //Flutlichter
   CreateObject(FLGH, 365, 210, -1)->SetRotation(-30);

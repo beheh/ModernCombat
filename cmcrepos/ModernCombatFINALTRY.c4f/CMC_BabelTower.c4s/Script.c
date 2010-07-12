@@ -257,10 +257,10 @@ func CreateFurniture()
   CreateObject(FRAM, 705, 1800, -1);
 
   //Gasflaschen
-  CreateObject(GSBO, 495, 660, -1)->AutoRespawn();
-  CreateObject(GSBO, 575, 1370, -1)->AutoRespawn();
-  CreateObject(GSBO, 585, 1370, -1)->AutoRespawn();
-  CreateObject(GSBO, 465, 1800, -1)->AutoRespawn();
+  CreateObject(GSBL, 495, 660, -1)->AutoRespawn();
+  CreateObject(GSBL, 575, 1370, -1)->AutoRespawn();
+  CreateObject(GSBL, 585, 1370, -1)->AutoRespawn();
+  CreateObject(GSBL, 470, 1800, -1)->AutoRespawn();
 
   //Tische
   CreateObject(GTBL, 585, 1560, -1);

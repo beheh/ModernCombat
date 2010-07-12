@@ -127,9 +127,9 @@ func CreateFurniture()
   CreateObject(XTNK, 2100, 560, -1)->AutoRespawn();
 
   //Gasflaschen
-  CreateObject(GSBO, 800, 260, -1)->AutoRespawn();
-  CreateObject(GSBO, 820, 390, -1)->AutoRespawn();
-  CreateObject(GSBO, 1760, 370, -1)->AutoRespawn();
+  CreateObject(GSBL, 800, 260, -1)->AutoRespawn();
+  CreateObject(GSBL, 820, 390, -1)->AutoRespawn();
+  CreateObject(GSBL, 1760, 370, -1)->AutoRespawn();
 
   //Steine
   CreateObject(STNE, 170, 435, -1);
