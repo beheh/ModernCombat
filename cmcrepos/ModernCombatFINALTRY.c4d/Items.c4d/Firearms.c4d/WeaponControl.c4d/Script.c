@@ -67,7 +67,7 @@ protected func Initialize()
 
 public func ControlDigDouble(caller)
 {
-  return(FMMenu(caller));
+  return FMMenu(caller);
 }
 
 public func FMMenu(clonk)
@@ -114,19 +114,20 @@ public func FMMenu(clonk)
 		ring->AddBottomInfoItem(szName);
 	}
 	
+	return true;
 }
 
 private func ManualReload(fm)
 {
-  Reload(fm);
-  if(GetSpeedMenu())
-    GetSpeedMenu()->NoClose();
+	if(IsReloading()) return false;
+  return Reload(fm);
 }
 
 private func ManualEmpty(unused,fm)
 {
+	if(IsReloading()) return false;
   Sound("WPN2_Unload.ogg");
-  Empty2(GetSlot(fm));
+  return Empty2(GetSlot(fm));
 }
 
 //Slots
