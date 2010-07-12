@@ -94,10 +94,6 @@ public func Evaluate()
 
 /* Spieler updaten */
 
-public func InitializePlayer(iPlr) {
-  UpdatePlayers();
-}
-
 public func UpdatePlayers() {
   for(var i = 0; i < GetPlayerCount(); i++) {
     var iPlr = GetPlayerByIndex(i);
@@ -107,7 +103,7 @@ public func UpdatePlayers() {
   }
 }
 
-/* Punkte setzen und auslesen */
+/* Werte setzen und auslesen */
 
 static const RWDS_PlayerName = 0;
 static const RWDS_PlayerTeam = 1;
@@ -139,6 +135,20 @@ global func GetPlayerPoints(int iType, int iPlr) {
 
 public func GetData() {
   return aData;
+}
+
+/* Achievements */
+
+global func AwardAchievement(int iPlr, id idAchievement) {
+	var iData = GetPlrExtraData(iPlr, "CMC_Achievements");
+	var aAchievement = DefinitionCall(idAchievement, "AchievementData");
+	if(!aAchievement) return Log("ERROR: Couldn't find Achievement %i", idAchievement);
+	if(iData >> aAchievement[0] & 1) return;
+	SetPlrExtraData(iPlr, "CMC_Achievements", iData ^ 1 << aAchievement[0]);
+	EventInfo4K(0, Format("<c %x>%s</c> hat die Errungenschaft <c ffff33>%s</c> erhalten", GetPlrColorDw(iPlr), GetPlayerName(iPlr), aAchievement[1]), idAchievement);
+	CustomMessage(Format("%s|<c %x>%s</c>", aAchievement[1], RGB(200,200,200), aAchievement[2]), 0, iPlr, -10, -10, RGB(255,255,255), 0, Format("%i", idAchievement), MSG_Right);
+	Sound("Cheer.ogg");
+	return true;
 }
 
 /* Punkteanzeige */
