@@ -212,6 +212,14 @@ func CreateFurniture()
   CreateObject(FLGH, 190, 440, -1)->SetRotation(30);
   CreateObject(FLGH, 2535, 440, -1)->SetRotation(-30);
 
+  //Gasflaschen
+  CreateObject(GSBL, 540, 613, -1)->AutoRespawn();
+  CreateObject(GSBL, 630, 800, -1)->AutoRespawn();
+  CreateObject(GSBL, 990, 440, -1);
+  CreateObject(GSBL, 1735, 440, -1);
+  CreateObject(GSBL, 2100, 800, -1)->AutoRespawn();
+  CreateObject(GSBL, 2190, 613, -1)->AutoRespawn();
+
   //Explosive Kiste
   CreateObject(XWCR, 975, 440, -1)->AutoRespawn();
   CreateObject(XWCR, 1755, 440, -1)->AutoRespawn();
@@ -223,7 +231,6 @@ func CreateFurniture()
   //Explosivfässer
   CreateObject(XBRL, 990, 800, -1)->AutoRespawn();
   CreateObject(XBRL, 1350, 310, -1)->AutoRespawn();
-  CreateObject(XBRL, 1350, 412, -1)->AutoRespawn();
   CreateObject(XBRL, 1370, 310, -1)->AutoRespawn();
   CreateObject(XBRL, 1290, 640, -1)->AutoRespawn();
   CreateObject(XBRL, 1745, 800, -1)->AutoRespawn();
