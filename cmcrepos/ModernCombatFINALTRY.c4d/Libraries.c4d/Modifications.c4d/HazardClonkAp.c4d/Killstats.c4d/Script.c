@@ -4,7 +4,7 @@
 
 static const STAT_Spree = 5;
 
-public func KTMsg(int plr1, int plr2, object clonk)
+public func KTMsg(int plr1, int plr2, object clonk, int plr3)
 {
   if(!plr1 && !plr2)
     return();
@@ -12,12 +12,12 @@ public func KTMsg(int plr1, int plr2, object clonk)
   if(!GetPlayerName(plr1) || !GetPlayerName(plr2))
     return();
 
-  KMsg(plr1,plr2,clonk);
+  KMsg(plr1,plr2,clonk,plr3);
 }
 
 /* Killnachricht */
 
-public func KMsg(int plr1, int plr2, object clonk)
+public func KMsg(int plr1, int plr2, object clonk, int plr3)
 {
   var tp;
   for(var goal in FindObjects(Find_Category(C4D_Goal)))
@@ -64,6 +64,7 @@ public func KMsg(int plr1, int plr2, object clonk)
   //Killer links
   var victim = plr1;
   var killer = plr2;
+  var assist = plr3;
 
 	//Nachricht konstruieren
   msg = Format("{{%i}}",killicon); 
@@ -73,8 +74,18 @@ public func KMsg(int plr1, int plr2, object clonk)
     else
 			msg = Format("%s{{%i}}",msg,typeicon);    	
   msg = Format("%s %s", msg, GetTaggedPlayerName(victim));
-  if(killer != victim)
-	  msg = Format("%s %s", GetTaggedPlayerName(killer), msg);
+  if(killer != victim) {
+  	
+	  var killerstr;
+	  if(assist != -1 && assist != killer && assist != victim) {
+	  	killerstr = Format("%s +<c %x> %s</c>", GetTaggedPlayerName(killer), RGB(180,180,180), GetPlayerName(assist));
+	  }
+	  else {
+	  	Log("%d %d %d", assist, killer, victim);
+	  	killerstr = GetTaggedPlayerName(killer);
+	  }
+	  msg = Format("%s %s", killerstr, msg);
+	}
   
   //Eventnachricht: Spieler eliminiert Spieler
   EventInfo4K(0,msg,0);
