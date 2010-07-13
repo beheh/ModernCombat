@@ -1,1 +1,1 @@
-Spieler werden innerhalb einer Runde mit Punkten bewertet und Spieler können rundenübergreifende Auszeichnungen erhalten.
+Spieler werden innerhalb einer Runde mit Punkten bewertet und können rundenübergreifende Auszeichnungen erhalten.

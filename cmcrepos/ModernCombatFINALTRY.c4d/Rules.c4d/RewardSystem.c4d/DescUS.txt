@@ -1,1 +1,1 @@
-Players are rated with points in one round and can gain achievements over multiple rounds.
+Players are rated with points in a round and can gain achievements over multiple ones.

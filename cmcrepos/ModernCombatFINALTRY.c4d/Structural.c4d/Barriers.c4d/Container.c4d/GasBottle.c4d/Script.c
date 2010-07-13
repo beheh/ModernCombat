@@ -5,8 +5,6 @@
 
 local damaged;
 
-public func IsBulletTarget()		{return 0;}
-
 
 /* Zerstörung */
 
