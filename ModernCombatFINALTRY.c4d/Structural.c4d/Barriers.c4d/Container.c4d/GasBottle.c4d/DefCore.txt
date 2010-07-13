@@ -14,5 +14,6 @@ Value=20
 Mass=50
 Components=METL=2
 Picture=10,0,64,64
+Grab=1
 Rotate=1
 NoStabilize=1
