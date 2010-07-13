@@ -179,7 +179,7 @@ func Hit2(int xDir, int yDir)
 
 /* Killverfolgung */
 
-protected func DeathAnnounce(int plr, object clonk, int killplr, bool fNoPoints)
+protected func DeathAnnounce(int plr, object clonk, int killplr, bool fNoPoints, int assistplusone)
 {
   if(!clonk) clonk = this();
   if(!clonk) return;
@@ -189,7 +189,7 @@ protected func DeathAnnounce(int plr, object clonk, int killplr, bool fNoPoints)
   if(plr == killplr || killplr == -1)
     KILL->SKMsg(plr, clonk);
   else
-    KILL->KTMsg(plr, killplr, clonk);
+    KILL->KTMsg(plr, killplr, clonk, assistplusone-1);
 
   KILL->KillStat(GetCursor(killplr),plr); //hier auch clonk->~KillIcon()? könnte lustig sein :>
   
@@ -198,6 +198,18 @@ protected func DeathAnnounce(int plr, object clonk, int killplr, bool fNoPoints)
   if(!fNoPoints) DoPoints();
   
   return true;
+}
+
+protected func GetAssist() {
+	var highest = CreateArray(2);
+	for(var i = 0; i < GetLength(assistkiller)/2; i++) {
+		if(assistkiller[i*2+1] > highest[0])
+		{
+			highest[0] = assistkiller[i*2+1];
+			highest[1] = assistkiller[i*2];
+		}
+	}
+	return highest[1];
 }
 
 protected func DoPoints() {
@@ -209,21 +221,15 @@ protected func DoPoints() {
       DoPlayerPoints(SuicidePoints(), RWDS_MinusPoints, GetOwner(), this, IC07);
 
   //Ansonsten Killpunkte geben (und Todespunkte (und Assistkills))
-  if(Hostile(killer,GetOwner()) )
+  if(Hostile(killer,GetOwner()))
   {
     DoPlayerPoints(KillPoints(), RWDS_BattlePoints, killer, GetCursor(killer), IC01);
 
     //Dem mit dem meisten angerichteten Schaden neben dem Killer Assistpunkte geben
-    var highest = CreateArray(2);
-    for(var i = 0; i < GetLength(assistkiller)/2; i++)
-      if(assistkiller[i*2+1] > highest[0])
-      {
-        highest[0] = assistkiller[i*2+1];
-        highest[1] = assistkiller[i*2];
-      }
-    if(highest[1] != killer)
+		var assist = GetAssist();
+    if(assist != killer)
     {
-      DoPlayerPoints(AssistPoints(), RWDS_BattlePoints, highest[1], GetCursor(highest[1]), IC02);
+      DoPlayerPoints(AssistPoints(), RWDS_BattlePoints, assist, GetCursor(assist), IC02);
     }  
   }
   
