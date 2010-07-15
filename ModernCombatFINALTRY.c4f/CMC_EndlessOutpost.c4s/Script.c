@@ -646,14 +646,14 @@ func CreateAssaultObjects()
   aTarget[7] -> SetName("$Target8$");
 
   //Ziele einstellen
-  FindObject(GAS_)->AddTarget(aTarget[0],0,500);
-  FindObject(GAS_)->AddTarget(aTarget[1],0,600);
-  FindObject(GAS_)->AddTarget(aTarget[2],0,700);
-  FindObject(GAS_)->AddTarget(aTarget[3],0,350);
-  FindObject(GAS_)->AddTarget(aTarget[4],0,350);
-  FindObject(GAS_)->AddTarget(aTarget[5],0,350);
-  FindObject(GAS_)->AddTarget(aTarget[6],0,350);
-  FindObject(GAS_)->AddTarget(aTarget[7],0,350);
+  FindObject(GAS_)->AddTarget(aTarget[0],0,300);
+  FindObject(GAS_)->AddTarget(aTarget[1],0,300);
+  FindObject(GAS_)->AddTarget(aTarget[2],0,300);
+  FindObject(GAS_)->AddTarget(aTarget[3],0,300);
+  FindObject(GAS_)->AddTarget(aTarget[4],0,300);
+  FindObject(GAS_)->AddTarget(aTarget[5],0,300);
+  FindObject(GAS_)->AddTarget(aTarget[6],0,300);
+  FindObject(GAS_)->AddTarget(aTarget[7],0,300);
 
   return(1);
 }
