@@ -51,6 +51,25 @@ func CreateFurniture()
   CreateObject(LADR, 2235, 421, -1)->Set(18);
   CreateObject(LADR, 2330, 630, -1)->Set(24);
 
+  //Rampen
+  DrawMaterialQuad("Wall-Concrete3",330,440,360,430,360,440,345,440,true);
+  DrawMaterialQuad("Wall-Concrete3",471,440,441,430,441,440,456,440,true);
+
+  DrawMaterialQuad("Wall-Concrete3",331,641,361,631,361,641,346,641,true);
+  DrawMaterialQuad("Wall-Concrete3",470,641,440,631,440,641,455,641,true);
+
+  DrawMaterialQuad("Wall-Concrete3",801,650,771,640,771,650,786,650,true);
+  DrawMaterialQuad("Wall-Concrete3",820,650,850,640,850,650,835,650,true);
+
+  DrawMaterialQuad("Wall-Concrete3",1911,650,1881,640,1881,650,1896,650,true);
+  DrawMaterialQuad("Wall-Concrete3",1930,650,1960,640,1960,650,1945,650,true);
+
+  DrawMaterialQuad("Wall-Concrete3",2261,641,2291,631,2291,641,2276,641,true);
+  DrawMaterialQuad("Wall-Concrete3",2400,641,2370,631,2370,641,2385,641,true);
+
+  DrawMaterialQuad("Wall-Concrete3",2260,440,2290,430,2290,440,2275,440,true);
+  DrawMaterialQuad("Wall-Concrete3",2401,440,2371,430,2371,440,2386,440,true);
+
   //Bodenlucken
   CreateObject(HA4K, 400, 433, -1);
   CreateObject(HA4K, 810, 653, -1);
