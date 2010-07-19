@@ -81,7 +81,6 @@ public func KMsg(int plr1, int plr2, object clonk, int plr3)
 	  	killerstr = Format("%s +<c %x> %s</c>", GetTaggedPlayerName(killer), RGB(180,180,180), GetPlayerName(assist));
 	  }
 	  else {
-	  	Log("%d %d %d", assist, killer, victim);
 	  	killerstr = GetTaggedPlayerName(killer);
 	  }
 	  msg = Format("%s %s", killerstr, msg);
