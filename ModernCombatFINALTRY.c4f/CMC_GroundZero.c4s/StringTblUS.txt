@@ -8,4 +8,4 @@ Flag1=West Warehouse
 Flag2=West Square
 Flag3=Parkway
 Flag4=East Square
-Flag5=East warehouse
+Flag5=East Warehouse

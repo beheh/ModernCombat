@@ -1,8 +1,6 @@
 CreatingFurniture=Creating furniture...
 CreatingEquipment=Placing equipment...
 
-MsgDoor=The security system is rearranging door systems.
-
 Team1=Eurocorps
 Team2=Aggressors
 
