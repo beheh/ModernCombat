@@ -1,6 +1,6 @@
 [DefCore]
-id=_SGN
-Name=Schild
+id=TMNL
+Name=Terminal
 Version=4,9,6
 Category=4
 Picture=25,0,64,64

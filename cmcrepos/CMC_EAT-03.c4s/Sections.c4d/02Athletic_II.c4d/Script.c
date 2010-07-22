@@ -2,11 +2,15 @@
 
 #strict 2
 
+
 /* Erstellung */
 
 global func SetupSection2()
 {
   var tmp;
+
+  //Musiktitel setzen
+  Music("CMC_Showtime.ogg");
 
   //Räume
   tmp = CreateObject(ROOM, 475, 950, -1);
@@ -109,7 +113,7 @@ func Script15()
 
 func Script20()
 {
-  if(FindObject2(Find_ID(PCMK), Find_Action("Crawl")))
+  if(FindObject2(Find_ID(PCMK), Find_InRect(800,840,90,30), Find_Action("Crawl")))
   {
     Sound("RadioConfirm*.ogg");
     TutorialMessage("$TxtS2_03$");
@@ -127,7 +131,7 @@ func Script25()
     Sound("RadioConfirm*.ogg");
     TutorialMessage("$TxtS2_04$");
 
-    SetArrow(920, 770);
+    SetArrow(960, 770);
   }
   else
     goto(24);
@@ -135,7 +139,7 @@ func Script25()
 
 func Script30()
 {
-  if(FindObject2(Find_ID(PCMK), Find_InRect(910,770,20,10)))
+  if(FindObject2(Find_ID(PCMK), Find_InRect(950,760,30,20)))
   {
     Sound("RadioConfirm*.ogg");
     TutorialMessage("$TxtS2_05$");
@@ -218,6 +222,7 @@ func Script60()
   {
     LoadSection(0);
     Sound("Cheer.ogg");
+    TutorialMessage("$WellDone*$");
     unlocked[2] = 2;
     ScriptGo(0);
   }

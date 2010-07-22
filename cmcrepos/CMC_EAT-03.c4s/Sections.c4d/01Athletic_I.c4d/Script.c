@@ -53,7 +53,7 @@ func Script5()
   {
     LoadSection(0);
     Sound("Cheer.ogg");
-    TutorialMessage("$Ace_WellDone2$");
+    TutorialMessage("$WellDone*$");
     unlocked[1] = 2;
     if(unlocked[2] == 0)
       unlocked[2] = 1;
