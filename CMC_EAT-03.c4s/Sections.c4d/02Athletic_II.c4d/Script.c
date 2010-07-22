@@ -69,11 +69,11 @@ global func SetupSection2()
   CreateObject(_HBR, 1175, 702, -1);
 
   //Schilder
-  CreateObject(_SGN, 625, 1050, -1)->SetNewInfo("$Info01$");
-  CreateObject(_SGN, 820, 870, -1)->SetNewInfo("$Info02$");
-  CreateObject(_SGN, 1095, 690, -1)->SetNewInfo("$Info03$");
-  CreateObject(_SGN, 1790, 590, -1)->SetNewInfo("$Info04$");
-  CreateObject(_SGN, 1790, 510, -1)->SetNewInfo("$Info05$");
+  CreateObject(TMNL, 625, 1050, -1)->SetNewInfo("$Info01$");
+  CreateObject(TMNL, 820, 870, -1)->SetNewInfo("$Info02$");
+  CreateObject(TMNL, 1095, 690, -1)->SetNewInfo("$Info03$");
+  CreateObject(TMNL, 1790, 590, -1)->SetNewInfo("$Info04$");
+  CreateObject(TMNL, 1790, 510, -1)->SetNewInfo("$Info05$");
 
   //Sounds
 
