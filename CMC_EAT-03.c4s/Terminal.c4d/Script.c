@@ -1,4 +1,4 @@
-/*-- Informations-Schild --*/
+/*-- Terminal --*/
 
 #strict
 

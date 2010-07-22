@@ -11,10 +11,22 @@ TxtS2_08=<c 8888ff>Michael14</c>: Nicht schlapp machen, durch dieses Durcheinand
 TxtS2_09=<c 8888ff>Michael14</c>: Alles klar, hier ist die letzte Grundlage: Der <c ffff33>Backjump</c>. Laufe und drücke [<c ffff33>Links</c> bzw. in diesem Fall <c ffff33>Rechts+Springen</c>], um in die gegengesetzte Richtung einen Weitsprung auszuführen. Nutze ihn, um auf die andere Seite zu kommen!
 TxtS2_10=<c 8888ff>Michael14</c>: Schön, gehe nun durch den <c ffff33>Ausgang</c> um diese Lektion abzuschließen!
 
-//Schilder
+//Terminaltext
 
-Info01=Schilder wie dieses findest du überall durch das Tutorial hindurch, sie geben dir wichtige Hinweise!
-Info02=Liegend ist der Clonk langsamer und nicht sehr mobil, dafür feuert es sich ausgezeichnet von dieser Position und Gegner haben Probleme, liegende Gegenspieler auszuschalten.
+Info01=Terminals wie dieses findest du überall durch das Trainingsprogramm hindurch, sie geben dir wichtige Hinweise!
+Info02=Liegend ist der Clonk langsamer und nicht sehr mobil, dafür feuert es sich ausgezeichnet von dieser Position und Gegner haben mehr Probleme, liegende Gegenspieler auszuschalten.
 Info03=Wandsprünge erleichtern den Aufstieg in schwierigem Gelände erheblich, nutze sie auch, um schnell ausweichen zu können.
 Info04=Weiße Konsolen steuern bestimmte Objekte die zu deinem taktischen Vorteil genutzt werden können. Diese rechts beispielsweise kontrolliert die Selbstschussanlage (kurz SSA) weiter oben. Du solltest sie deaktivieren bevor du weitergehst!
 Info05=Der Backjump ist nicht nur eine gute Fortbewegungsmöglichkeit, sondern auch eine ausgezeichnete Möglichkeit um gegnerischen Attacken schnell auszuweichen.
+
+//Bestanden-Nachricht
+
+WellDone1=Ausgezeichnet, in kommenden Missionen würdest du nicht mal sofort sterben!
+WellDone2=Herrausragend! Übertreibs aber nicht sonst fängst du mit deinem Kopf noch was auf.
+WellDone3=Sehr schön. Für den Anfang garnicht so gut.
+
+//Versagt-Nachricht
+
+Fail1=Im Ernstfall würde man das wohl als "Epic Fail" bezeichnen.
+Fail2=Sowas würde im richtigen Einsatz Kommentare wie "lol", "woot" oder "noob" einheimsen.
+Fail3=Was war... was war das den... für sowas haben wir nicht mal Text vorbereitet.
