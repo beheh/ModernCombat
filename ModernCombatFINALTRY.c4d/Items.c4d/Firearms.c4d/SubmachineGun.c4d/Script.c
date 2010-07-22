@@ -25,7 +25,7 @@ public func FMData1(int data)
 
   if(data == FM_Auto)		return(true);
   
-  if(data == FM_Damage)		return(6);
+  if(data == FM_Damage)		return(5);
   
   if(data == FM_Slot)		return(1);
   
@@ -66,7 +66,7 @@ public func FMData1T2(int data)
 
   if(data == FM_Auto)		return(false);
 
-  if(data == FM_Damage)		return(9);
+  if(data == FM_Damage)		return(8);
 
   if(data == FM_BurstAmount)	return(3);
   if(data == FM_BurstRecharge)	return(3);
