@@ -9,8 +9,9 @@ global func SetupSection2()
 {
   var tmp;
 
-  //Musiktitel setzen
-  Music("CMC_Showtime.ogg");
+  //Starttitel und Musikliste zusammenstellen
+  SetPlayList("CMC_Showtime.ogg");
+  Music("CMC_Showtime.ogg",1);
 
   //Räume
   tmp = CreateObject(ROOM, 475, 950, -1);
@@ -144,7 +145,7 @@ func Script30()
     Sound("RadioConfirm*.ogg");
     TutorialMessage("$TxtS2_05$");
 
-    RemoveArrow();
+    SetArrow(870, 770);
   }
   else
     goto(29);
@@ -220,10 +221,10 @@ func Script60()
 {
   if(FindObject2(Find_ID(PCMK), Find_InRect(1500,250,300,100), Find_Container(FindObject(ROOM))))
   {
-    LoadSection(0);
     Sound("Cheer.ogg");
     TutorialMessage("$WellDone*$");
     unlocked[2] = 2;
+    LoadSection(0);
     ScriptGo(0);
   }
   else

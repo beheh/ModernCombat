@@ -51,12 +51,12 @@ func Script5()
 {
   if(FindObject2(Find_ID(PCMK),Find_InRect(640,240,160,100)))
   {
-    LoadSection(0);
     Sound("Cheer.ogg");
     TutorialMessage("$WellDone*$");
     unlocked[1] = 2;
     if(unlocked[2] == 0)
       unlocked[2] = 1;
+    LoadSection(0);
     ScriptGo(0);
   }
   if(!FindObject(BBTP) && !sect1told)

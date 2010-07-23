@@ -72,11 +72,15 @@ global func SectionName2()	{return ["$SectionName3$",PCMK,PCMK];}
 
 global func SetupSection0()
 {
+  //Starttitel und Musikliste zusammenstellen
+  SetPlayList("CMC_Base Groove.ogg;CMC_Moving Squad.ogg");
+  Music("CMC_Base Groove.ogg");
+
   //Clonk platzieren
   for(var clonk in FindObjects(Find_OCF(OCF_CrewMember)))
     SetPosition(RandomX(120,180),280,clonk);
-    
-  //Zeug
+
+  //Objekte
   AutoRespawn(1500,0,CreateObject(PBRL,705,53,-1));
   AutoRespawn(1500,0,CreateObject(TRGT,728,51,-1));
   CreateObject(LBDR,96,90,-1);
@@ -135,19 +139,19 @@ global func SetupSection0()
   AutoRespawn(1500,0,CreateObject(HBRL,644,346,-1));
   AutoRespawn(1500,0,CreateObject(HBRL,658,344,-1));
   AutoRespawn(1500,0,CreateObject(TRGT,690,345,-1));
-  
+
   //Ausrüstung
   PlaceSpawnpoint(PSTL,220,280);
-  
+
   PlaceSpawnpoint(SMGN,120,160);
   PlaceSpawnpoint(SGST,150,160);
   PlaceSpawnpoint(PPGN,180,160);
   PlaceSpawnpoint(ASTR,210,160);
-  
+
   PlaceSpawnpoint(MNGN,130,80);
   PlaceSpawnpoint(RTLR,180,80);
   PlaceSpawnpoint(MIAP,260,80);
-  
+
   CreateObject(AMCT, 260, 130, -1)->Set(ABOX);
   CreateObject(AMCT, 300, 130, -1)->Set(GBOX);
 }
