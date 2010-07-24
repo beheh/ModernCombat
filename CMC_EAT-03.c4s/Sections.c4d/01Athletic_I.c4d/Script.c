@@ -14,7 +14,7 @@ global func SetupSection1()
     CreateObject(PARA,0,0,GetOwner(clonk))->Set(clonk);
   }
   
-  TutorialMessage("$Mobility_I_1$");
+  TutorialMessage("$Txt01$");
   ScriptGo(1);
   goto(4);
   sect1told = false;
@@ -52,7 +52,7 @@ func Script5()
   if(FindObject2(Find_ID(PCMK),Find_InRect(640,240,160,100)))
   {
     Sound("Cheer.ogg");
-    TutorialMessage("$WellDone*$");
+    TutorialMessage("$WellDone1$");
     unlocked[1] = 2;
     if(unlocked[2] == 0)
       unlocked[2] = 1;
@@ -61,14 +61,14 @@ func Script5()
   }
   if(!FindObject(BBTP) && !sect1told)
   {
-    TutorialMessage("$Mobility_I_2$");
+    TutorialMessage("$Txt02$");
     sect1told = true;
     wait(3*6);
   }
   if(FindObject2(Find_ID(PCMK),Find_InRect(290,270,140,80)))
-    TutorialMessage("$Mobility_I_3$");
+    TutorialMessage("$Txt03$");
   if(FindObject2(Find_ID(PCMK),Find_InRect(460,40,80,30)))
-    TutorialMessage("$Mobility_I_4$");
+    TutorialMessage("$Txt04$");
     
   goto(4);
 }

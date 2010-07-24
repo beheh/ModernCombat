@@ -69,12 +69,14 @@ global func SetupSection2()
   CreateObject(_HBR, 1015, 792, -1);
   CreateObject(_HBR, 1175, 702, -1);
 
-  //Schilder
+  //Terminals
+  /*
   CreateObject(TMNL, 625, 1050, -1)->SetNewInfo("$Info01$");
   CreateObject(TMNL, 820, 870, -1)->SetNewInfo("$Info02$");
   CreateObject(TMNL, 1095, 690, -1)->SetNewInfo("$Info03$");
   CreateObject(TMNL, 1790, 590, -1)->SetNewInfo("$Info04$");
   CreateObject(TMNL, 1790, 510, -1)->SetNewInfo("$Info05$");
+  */
 
   //Sounds
 
@@ -94,7 +96,7 @@ global func SetupSection2()
 func Script10()
 {
   Sound("RadioConfirm*.ogg");
-  TutorialMessage("$TxtS2_01$");
+  TutorialMessage("$Txt01$");
 
   SetArrow(850, 855);
 }
@@ -104,7 +106,7 @@ func Script15()
   if(FindObject2(Find_ID(PCMK), Find_InRect(810,830,40,80)))
   {
     Sound("RadioConfirm*.ogg");
-    TutorialMessage("$TxtS2_02$");
+    TutorialMessage("$Txt02$");
 
     RemoveArrow();
   }
@@ -114,10 +116,10 @@ func Script15()
 
 func Script20()
 {
-  if(FindObject2(Find_ID(PCMK), Find_InRect(800,840,90,30), Find_Action("Crawl")))
+  if(FindObject2(Find_ID(PCMK), Find_InRect(800,840,100,30), Find_Action("Crawl")))
   {
     Sound("RadioConfirm*.ogg");
-    TutorialMessage("$TxtS2_03$");
+    TutorialMessage("$Txt03$");
 
     SetArrow(1155, 855);
   }
@@ -130,7 +132,7 @@ func Script25()
   if(FindObject2(Find_ID(PCMK), Find_InRect(1140,790,80,80)))
   {
     Sound("RadioConfirm*.ogg");
-    TutorialMessage("$TxtS2_04$");
+    TutorialMessage("$Txt04$");
 
     SetArrow(960, 770);
   }
@@ -143,7 +145,7 @@ func Script30()
   if(FindObject2(Find_ID(PCMK), Find_InRect(950,760,30,20)))
   {
     Sound("RadioConfirm*.ogg");
-    TutorialMessage("$TxtS2_05$");
+    TutorialMessage("$Txt05$");
 
     SetArrow(870, 770);
   }
@@ -153,10 +155,10 @@ func Script30()
 
 func Script35()
 {
-  if(FindObject2(Find_ID(PCMK), Find_Action("Scale"), Find_InRect(850,760,30,30)))
+  if(FindObject2(Find_ID(PCMK), Find_Action("Scale"), Find_InRect(830,740,50,50)))
   {
     Sound("RadioConfirm*.ogg");
-    TutorialMessage("$TxtS2_06$");
+    TutorialMessage("$Txt06$");
 
     SetArrow(1250, 665);
   }
@@ -169,7 +171,7 @@ func Script40()
   if(FindObject2(Find_ID(PCMK), Find_InRect(1220,600,80,90)))
   {
     Sound("RadioConfirm*.ogg");
-    TutorialMessage("$TxtS2_07$");
+    TutorialMessage("$Txt07$");
 
     SetArrow(1240, 480);
   }
@@ -182,7 +184,7 @@ func Script45()
   if(FindObject2(Find_ID(PCMK), Find_InRect(1500,640,100,30)))
   {
     Sound("RadioConfirm*.ogg");
-    TutorialMessage("$TxtS2_08$");
+    TutorialMessage("$Txt08$");
 
     SetArrow(1630, 485);
   }
@@ -195,7 +197,7 @@ func Script50()
   if(FindObject2(Find_ID(PCMK), Find_InRect(1610,450,40,60)))
   {
     Sound("RadioConfirm*.ogg");
-    TutorialMessage("$TxtS2_09$");
+    TutorialMessage("$Txt09$");
 
     SetArrow(1790, 485);
   }
@@ -208,7 +210,7 @@ func Script55()
   if(FindObject2(Find_ID(PCMK), Find_InRect(1760,470,40,60)))
   {
     Sound("RadioConfirm*.ogg");
-    TutorialMessage("$TxtS2_10$");
+    TutorialMessage("$Txt10$");
 
     SetArrow(1770, 280);
   }
@@ -222,8 +224,10 @@ func Script60()
   if(FindObject2(Find_ID(PCMK), Find_InRect(1500,250,300,100), Find_Container(FindObject(ROOM))))
   {
     Sound("Cheer.ogg");
-    TutorialMessage("$WellDone*$");
+    TutorialMessage("$WellDone1$");
     unlocked[2] = 2;
+    if(unlocked[4] == 0)
+      unlocked[4] = 1;
     LoadSection(0);
     ScriptGo(0);
   }
