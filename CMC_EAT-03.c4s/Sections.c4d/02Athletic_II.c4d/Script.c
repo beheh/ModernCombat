@@ -27,8 +27,8 @@ public func SetupSection()
 
   //Selbstschussanlage und Konsole
   tmp = CreateObject (SEGU, 1760, 338, -1);
-  tmp ->Arm(MISA);
-  tmp ->TurnOn();
+  tmp->Arm(MISA);
+  tmp->TurnOn();
   CreateObject(CONS, 1715, 585, -1)->Set(tmp);
 
   //Sprungschanzen
@@ -70,13 +70,11 @@ public func SetupSection()
   CreateObject(_HBR, 1175, 702, -1);
 
   //Terminals
-  /*
   CreateObject(TMNL, 625, 1050, -1)->SetNewInfo("$Info01$");
   CreateObject(TMNL, 820, 870, -1)->SetNewInfo("$Info02$");
   CreateObject(TMNL, 1095, 690, -1)->SetNewInfo("$Info03$");
   CreateObject(TMNL, 1790, 590, -1)->SetNewInfo("$Info04$");
   CreateObject(TMNL, 1790, 510, -1)->SetNewInfo("$Info05$");
-  */
 
   //Sounds
 
@@ -97,7 +95,7 @@ func Script10()
   Sound("RadioConfirm*.ogg");
   TutorialMessage("$Txt01$");
 
-  //SetArrow(850, 855);
+  SetArrow(850, 855);
 }
 
 func Script15()
@@ -107,7 +105,7 @@ func Script15()
     Sound("RadioConfirm*.ogg");
     TutorialMessage("$Txt02$");
 
-    //RemoveArrow();
+    RemoveArrow();
   }
   else
     SectionGoto(14);
