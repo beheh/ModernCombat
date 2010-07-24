@@ -61,8 +61,7 @@ global func LoadSection(Section, id idClonk)
     MakeCrewMember(clonk, GetPlayerByIndex(i));
     SelectCrew(i,clonk);
   }
-  CreateObject(C4Id(Format("SE%02d", Section)), 0, 0, -1);
-  Log("1");
+  CreateObject(C4Id(Format("SE%02d", Section)), AbsX(0), AbsY(0), -1);
 }
 
 //Öffnet das Sektion-Auswahlmenü für den gegebenen Spieler

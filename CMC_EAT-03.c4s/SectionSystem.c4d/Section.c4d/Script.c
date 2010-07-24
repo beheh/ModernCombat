@@ -10,7 +10,6 @@ public func Initialize() {
 	fStop = false;
 	this->~SetupSection();
 	ScheduleCall(this, "Count", 10);
-	Log("2");
 }
 
 public func Count() {
