@@ -36,7 +36,7 @@ protected func Initialize()
 //Lädt die angegebene Sektion und erstellt für alle Spieler einen Clonk des übergebenen Typs
 global func LoadSection(Section, id idClonk)
 {
-  if(GetID())
+  if(this)
   {
     if(Contained())
       Contained()->SetPosition(0,0);
@@ -52,6 +52,7 @@ global func LoadSection(Section, id idClonk)
   for(var alive in FindObjects(Find_OCF(OCF_Alive)))
     SilentKill4K(alive);
   Log("Loading Section %v...",Section);
+  RemoveAll();
   LoadScenarioSection(Format("%v",Section));
   
   for(var i = 0; i < GetPlayerCount(); i++)
@@ -61,6 +62,7 @@ global func LoadSection(Section, id idClonk)
     SelectCrew(i,clonk);
   }
   CreateObject(C4Id(Format("SE%02d", Section)), 0, 0, -1);
+  Log("1");
 }
 
 //Öffnet das Sektion-Auswahlmenü für den gegebenen Spieler
