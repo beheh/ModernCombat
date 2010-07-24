@@ -3,7 +3,7 @@
 /* Dieses System muss in ein Szenarioscript inkludiert werden wie das Standart-Szen-Script
 Eine neue Sektion wird gemacht indem man:
 eine "Sect*.c4g" erstellt. Ersetze den Stern dabei druch die Nummer der Section.
-Eine Funtktion "SetupSection*()" erstellen. Stern durch Nummer der Section ersetzen.
+Eine public Funkttion "SetupSection()" erstellen.
 Diese Funktion wird ausgeführt, sobald eine neue Sektion geladen wurde. Clonks müssen
 nicht extra initialisiert werden, das wird vom System übernommen. Eine neue Sektion
 wird mit "LoadSection(int iSection, idClonk)" geladen. idClonk bestimmt hierbei die
@@ -60,7 +60,7 @@ global func LoadSection(Section, id idClonk)
     MakeCrewMember(clonk, GetPlayerByIndex(i));
     SelectCrew(i,clonk);
   }
-  eval(Format("SetupSection%v()",Section));
+  CreateObject(C4Id(Format("SE%02d", Section)), 0, 0, -1);
 }
 
 //Öffnet das Sektion-Auswahlmenü für den gegebenen Spieler
@@ -68,7 +68,7 @@ global func OpenSectionMenu(int iPlayer)
 {
   var helper = CreateObject(TIM1,0,0,-1);
   
-  CreateMenu(STSY, GetCursor(iPlayer), helper, 0, "Wähle Sektion", 0, C4MN_Style_Context, true);
+  CreateMenu(STSY, GetCursor(iPlayer), helper, 0, "$ChooseSection$", 0, C4MN_Style_Context, true);
   for(var i = 1; i <= SECT_Amount; i++)
   {
     var sect = eval(Format("SectionName%d()",i));

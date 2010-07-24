@@ -1,11 +1,11 @@
 /*-- Abwehrschild --*/
 
 #strict 2
-
+#include SSY2
 
 /* Erstellung */
 
-global func SetupSection()
+public func SetupSection()
 {
   var tmp;
 
