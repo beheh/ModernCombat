@@ -51,8 +51,8 @@ global func LoadSection(Section, id idClonk)
   
   for(var alive in FindObjects(Find_OCF(OCF_Alive)))
     SilentKill4K(alive);
-  Log("Loading Section %v...",Section);
   RemoveAll();
+  Log("Loading Section %v...",Section);
   LoadScenarioSection(Format("%v",Section));
   
   for(var i = 0; i < GetPlayerCount(); i++)

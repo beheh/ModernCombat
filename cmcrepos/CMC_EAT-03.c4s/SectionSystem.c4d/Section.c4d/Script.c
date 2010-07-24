@@ -4,19 +4,24 @@
 
 local iScript;
 
+public func IsSection() {return true;} //Sektionscallback
+
 public func Initialize() {
 	iScript = 0;
 	this->~SetupSection();
-	ScheduleCall(this, "Count", 10);
+	AddEffect("SectionCount", this, 25, 10, this);
 }
 
-public func Count() {
-	if(GetID() != SSY2)
+public func GetScript() {
+	return iScript;
+}
+
+global func FxSectionCountTimer(pTarget) {
+	var iScript = pTarget->GetScript();
 	if(iScript < 0) return;
-	ObjectCall(this, Format("Script%d", iScript));
-	iScript++;
-	ScheduleCall(this, "Count", 10);
-	return true;
+	pTarget->SectionGoto(iScript+1);
+	ObjectCall(pTarget, Format("Script%d", iScript));
+	return FX_OK;
 }
 
 public func SectionGoto(int iTo) {
@@ -27,4 +32,12 @@ public func SectionGoto(int iTo) {
 public func SectionStop() {
 	iScript = -1;
 	return true;
+}
+
+public func Destruction() {
+	ClearScheduleCall(this, "Count");
+}
+
+public func SectionUnload() {
+	RemoveObject();
 }
