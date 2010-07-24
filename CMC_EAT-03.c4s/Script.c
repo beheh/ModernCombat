@@ -19,7 +19,7 @@ func Initialize()
   SetTutorialMessagePos(MSG_Top | MSG_Left | MSG_WidthRel | MSG_XRel, 15, 50, 50);
 
   //Lobby initialisieren
-  CreateObject(SE00);
+  LoadSection(0);
 
   return(1);
 }
