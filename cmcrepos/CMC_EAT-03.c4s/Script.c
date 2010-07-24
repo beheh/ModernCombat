@@ -18,10 +18,12 @@ func Initialize()
   //Nachrichtensystem aktivieren
   SetTutorialMessagePos(MSG_Top | MSG_Left | MSG_WidthRel | MSG_XRel, 15, 50, 50);
 
+  return(1);
+}
+
+func InitializePlayer() {
   //Lobby initialisieren
   LoadSection(0);
-
-  return(1);
 }
 
 /* Sektionen */

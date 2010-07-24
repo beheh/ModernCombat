@@ -97,7 +97,7 @@ func Script10()
   Sound("RadioConfirm*.ogg");
   TutorialMessage("$Txt01$");
 
-  SetArrow(850, 855);
+  //SetArrow(850, 855);
 }
 
 func Script15()
@@ -107,7 +107,7 @@ func Script15()
     Sound("RadioConfirm*.ogg");
     TutorialMessage("$Txt02$");
 
-    RemoveArrow();
+    //RemoveArrow();
   }
   else
     SectionGoto(14);
