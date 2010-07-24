@@ -1,12 +1,13 @@
 /*-- Athletik - I --*/
 
 #strict 2
+#include SSY2
 
 static sect1told;
 
 /* 1 - Athletik I */
 
-global func SetupSection()
+public func SetupSection()
 {
   for(var clonk in FindObjects(Find_ID(PCMK)))
   {
