@@ -232,7 +232,7 @@ func CreateFurniture()
   CreateObject(SCA2, 585, 810, -1);
   CreateObject(SCR3, 530, 840, -1);
   CreateObject(SCR3, 640, 840, -1);
-  CreateObject(SCA2, 585, 1490, -1);
+  CreateObject(SCA2, 585, 1490, -1)->SetAction("Clonk");
   CreateObject(SCR3, 530, 1900, -1);
   CreateObject(SCR3, 640, 1900, -1);
 
