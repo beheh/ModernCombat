@@ -21,3 +21,8 @@ func Collection2(object pObj)
   OpenSectionMenu(GetOwner(pObj));
   return _inherited(...);
 }
+
+func Check() {
+	if(!Contents()) return;
+	if(!GetMenu(Contents()) && !GetCommand(Contents())) SetCommand(Contents(), "Exit");
+}

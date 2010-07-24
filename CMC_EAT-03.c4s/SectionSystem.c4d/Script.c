@@ -68,7 +68,7 @@ global func OpenSectionMenu(int iPlayer)
 {
   var helper = CreateObject(TIM1,0,0,-1);
   
-  CreateMenu(STSY, GetCursor(iPlayer), helper, 0, "Wähle Sektion", 0, C4MN_Style_Context, 1);
+  CreateMenu(STSY, GetCursor(iPlayer), helper, 0, "Wähle Sektion", 0, C4MN_Style_Context, true);
   for(var i = 1; i <= SECT_Amount; i++)
   {
     var sect = eval(Format("SectionName%d()",i));
