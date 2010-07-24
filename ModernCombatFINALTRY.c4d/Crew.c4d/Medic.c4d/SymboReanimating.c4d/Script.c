@@ -15,6 +15,7 @@ public func Set(object target)
   SetVertex(0,0,GetVertex(0,0,target));
   SetVertex(0,1,GetVertex(0,1,target) + GetObjHeight(target)/2+10);
   SetAction("Attach",target);
+ 
 
   SetVisibility(VIS_Allies | VIS_Owner);
 
@@ -30,5 +31,21 @@ public func Update()
   SetClrModulation(RGBa(255,255,255,BoundBy(InvertA1(percent,255),0,255)));
   time -= 3;
   
+  var target = GetActionTarget();
+  var fPaddles = false;
+  var i = target->ContentsCount();
+  while(i--) {
+		if(target->Contents(i)->GetID() == CDBT) {
+			fPaddles = true;
+			break;
+		}
+	}
+	if(fPaddles) {
+		SetGraphics("Arrow", this);
+	}
+	else {
+		SetGraphics(0, this);
+	}		     
+
   ScheduleCall(0,"Update",3);
 }
