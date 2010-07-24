@@ -21,7 +21,7 @@ public func ReadyToFire()	{return(1);}			//Allzeit bereit
 public func IsMachine()		{return(true);}			//Ist eine Elektrische Anlage
 public func IsBulletTarget()	{return(true);}			//Kugelziel
 public func IsAiming()		{return(true);}			//Selbstschussanlage immer am Zielen
-public func IsThreat()		{return(fActive);}		//Status
+public func IsThreat()		{return(fActive && !IsDestroyed());}		//Status
 public func UpdateCharge()	{return(1);}
 
 
