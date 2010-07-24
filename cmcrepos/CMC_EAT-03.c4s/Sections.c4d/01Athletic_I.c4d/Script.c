@@ -6,7 +6,7 @@ static sect1told;
 
 /* 1 - Athletik I */
 
-global func SetupSection1()
+global func SetupSection()
 {
   for(var clonk in FindObjects(Find_ID(PCMK)))
   {
@@ -15,8 +15,7 @@ global func SetupSection1()
   }
   
   TutorialMessage("$Txt01$");
-  ScriptGo(1);
-  goto(4);
+  SectionGoto(4);
   sect1told = false;
   
 
@@ -57,7 +56,7 @@ func Script5()
     if(unlocked[2] == 0)
       unlocked[2] = 1;
     LoadSection(0);
-    ScriptGo(0);
+    SectionStop();
   }
   if(!FindObject(BBTP) && !sect1told)
   {
@@ -70,5 +69,5 @@ func Script5()
   if(FindObject2(Find_ID(PCMK),Find_InRect(460,40,80,30)))
     TutorialMessage("$Txt04$");
     
-  goto(4);
+  SectionGoto(4);
 }

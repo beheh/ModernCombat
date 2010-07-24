@@ -5,7 +5,7 @@
 
 /* Erstellung */
 
-global func SetupSection2()
+global func SetupSection()
 {
   var tmp;
 
@@ -87,8 +87,7 @@ global func SetupSection2()
   CreateObject(SE4K, 1685, 550, -1)->Set("Interior*.ogg",670,105);
   CreateObject(SE4K, 1665, 330, -1)->Set("Interior*.ogg",665,105);
 
-  ScriptGo(true);
-  goto(10);
+  SectionGoto(10);
 }
 
 /* Ablauf */
@@ -111,7 +110,7 @@ func Script15()
     RemoveArrow();
   }
   else
-    goto(14);
+    SectionGoto(14);
 }
 
 func Script20()
@@ -124,7 +123,7 @@ func Script20()
     SetArrow(1155, 855);
   }
   else
-    goto(19);
+    SectionGoto(19);
 }
 
 func Script25()
@@ -137,7 +136,7 @@ func Script25()
     SetArrow(960, 770);
   }
   else
-    goto(24);
+    SectionGoto(24);
 }
 
 func Script30()
@@ -150,7 +149,7 @@ func Script30()
     SetArrow(870, 770);
   }
   else
-    goto(29);
+    SectionGoto(29);
 }
 
 func Script35()
@@ -163,7 +162,7 @@ func Script35()
     SetArrow(1250, 665);
   }
   else
-    goto(34);
+    SectionGoto(34);
 }
 
 func Script40()
@@ -176,7 +175,7 @@ func Script40()
     SetArrow(1240, 480);
   }
   else
-    goto(39);
+    SectionGoto(39);
 }
 
 func Script45()
@@ -189,7 +188,7 @@ func Script45()
     SetArrow(1630, 485);
   }
   else
-    goto(44);
+    SectionGoto(44);
 }
 
 func Script50()
@@ -202,7 +201,7 @@ func Script50()
     SetArrow(1790, 485);
   }
   else
-    goto(49);
+    SectionGoto(49);
 }
 
 func Script55()
@@ -215,7 +214,7 @@ func Script55()
     SetArrow(1770, 280);
   }
   else
-    goto(54);
+    SectionGoto(54);
 }
 
 
@@ -229,8 +228,8 @@ func Script60()
     if(unlocked[4] == 0)
       unlocked[4] = 1;
     LoadSection(0);
-    ScriptGo(0);
+    SectionStop();
   }
   else
-    goto(59);
+    SectionGoto(59);
 }
