@@ -30,6 +30,7 @@ VegetationLevel=0,0,0,100
 InEarthLevel=0,0,0,100
 MapWidth=80,0,64,250
 MapHeight=80,0,40,250
+BottomOpen=1
 NoScan=1
 SkyScrollMode=1
 
