@@ -13,6 +13,6 @@ WellDone3=Joa, passt.
 
 //Versagt-Nachricht
 
-Fail1=[Ace-Humor hier eintragen]
-Fail2=[Ace-Humor hier eintragen]
-Fail3=[Ace-Humor hier eintragen]
+Fail1=Woah. Echt genial. Respekt.
+Fail2=Das gibt für dich ein ein F, wie fersagt.
+Fail3=Sie haben den Eignungstest bestanden! ...sie sind nun CMC-zertifiziertes Kanonenfutter.
