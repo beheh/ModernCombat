@@ -133,6 +133,12 @@ func CreateFurniture()
   CreateObject(ETLT, 750, 770, -1);
   CreateObject(ETLT, 1980, 770, -1);
 
+  //Bildschirme
+  CreateObject(SCR3, 360, 520, -1);
+  CreateObject(SCA2, 680, 765, -1)->SetAction("Clonk");
+  CreateObject(SCA2, 2045, 765, -1)->SetAction("Clonk");
+  CreateObject(SCR3, 2370, 520, -1);
+
   //Monitore
   CreateObject(MONI, 655, 788, -1)->On();
   CreateObject(MONI, 665, 788, -1)->On();
