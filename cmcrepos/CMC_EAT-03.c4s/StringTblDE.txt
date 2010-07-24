@@ -7,7 +7,8 @@ TxtChoose=<c 8888ff>Michael14</c>:Das Menü stellt dir alle zur Verfügung stehend
 
 //Sektionennamen
 
-SectionName1=Lobby
-SectionName2=Athletik I
-SectionName3=Athletik II
-SectionName3=Athletik III
+SectionName0=Lobby
+SectionName1=Athletik I
+SectionName2=Athletik II
+SectionName3=Sprengstoffe I
+SectionName4=Einsatzschild

@@ -6,8 +6,10 @@
 //Die Sektionen
 #include SE01
 #include SE02
+#include SE03
+#include SE04
 
-static const SECT_Amount = 2;
+static const SECT_Amount = 4;
 static unlocked;
 
 
@@ -64,9 +66,11 @@ func Script2()
 
 /* Sektionen */
 
-global func SectionName0()	{return ["$SectionName1$",STSY,PCMK];}
-global func SectionName1()	{return ["$SectionName2$",PCMK,PCMK];}
-global func SectionName2()	{return ["$SectionName3$",PCMK,PCMK];}
+global func SectionName0()	{return ["$SectionName0$",STSY,PCMK];}
+global func SectionName1()	{return ["$SectionName1$",PCMK,PCMK];}
+global func SectionName2()	{return ["$SectionName2$",PCMK,PCMK];}
+global func SectionName3()	{return ["$SectionName3$",PCMK,PCMK];}
+global func SectionName4()	{return ["$SectionName4$",PCMK,PCMK];}
 
 /* 0 - Lobby */
 
