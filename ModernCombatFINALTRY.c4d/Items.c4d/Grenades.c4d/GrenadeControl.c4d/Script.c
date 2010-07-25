@@ -135,7 +135,7 @@ public func Throw()
   SetCategory(C4D_Vehicle);
   Exit();
   SetController(GetOwner(user));
-  SetPosition(GetX(user)+(dir*12),GetY(user));
+  SetPosition(GetX(user)+(dir*3),GetY(user));
 
   SetR(angle);
   SetXDir(+Sin(angle,ThrowSpeed()));
