@@ -218,13 +218,7 @@ public func OnDmg(int iDmg, int iType)
 
 protected func RejectCollect()
 {
-  return(true);
-}
-
-protected func RejectCollect(idObj, pObj)
-{
-  //Verhindert Aufnahme aller nichtpassender Objekte
-  return(1);
+  return(bActive);
 }
 
 public func RejectEntrance(object pObj)

@@ -55,6 +55,13 @@ public func GrabGrenade(id type)
   return(grenade);
 }
 
+public func GrabGrenades(object pInto) {
+	for(var pGrenade in FindObjects(Find_Container(pGrenadeStoring))) {
+		pGrenade->Enter(pInto);
+	}
+	return(true);
+}
+
 public func StoreGrenade(object pGrenade)
 {
   if(!pGrenade) return();

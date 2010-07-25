@@ -39,6 +39,8 @@ public func Set(object pClonk)
 
   //Clonk aufnehmen
   pClonk->Enter(this());
+  //Evtl. Granaten holen
+  pClonk->~GrabGrenades(this);
   //Objekte des Clonks aufnehmen
   GrabContents(pClonk);
   

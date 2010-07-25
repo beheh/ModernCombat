@@ -11,6 +11,7 @@ protected func Activate(iByPlayer)
   if(iByPlayer == 0)
   {
    //Menü aufmachen
+   if(!GetMenu(pClonk)) return;
    CreateMenu(GetID(), pClonk, 0,0,GetName(),0, 1);
    for(var i = 1; i <= 3; i++)
    {AddMenuItem(Format("$EffectLevel$", i), "SetEffectLevel", EFMN, pClonk, 0, i, "$SetEffectLevel$");}
