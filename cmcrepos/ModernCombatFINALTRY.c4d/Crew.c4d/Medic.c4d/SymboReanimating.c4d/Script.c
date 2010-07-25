@@ -24,14 +24,16 @@ public func Set(object target)
 
 public func Update()
 {
-  if( !obj || Hostile(GetOwner(), GetOwner(obj)) || time == 0)
+  var target = GetActionTarget();
+  if(!target) return;
+
+  if( !obj || Hostile(GetOwner(), GetOwner(obj)) || time == 0 || !target)
    RemoveObject();
   
   var percent = time*255/starttime;
   SetClrModulation(RGBa(255,255,255,BoundBy(InvertA1(percent,255),0,255)));
   time -= 3;
   
-  var target = GetActionTarget();
   var fPaddles = false;
   var i = target->ContentsCount();
   while(i--) {
