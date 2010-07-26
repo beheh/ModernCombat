@@ -19,7 +19,7 @@ public func HandSize()		{return(1000);}
 public func HandBarrel()	{return(0);}
 public func BarrelXOffset()	{return(-850);}
 public func BarrelYOffset()	{return(0);}
-func IsEquipment()		{return(true);}
+public func IsEquipment()		{return(true);}
 public func NoArenaRemove()	{return(true);}
 
 
@@ -216,13 +216,9 @@ public func OnDmg(int iDmg, int iType)
 
 /* Sonstiges */
 
-protected func RejectCollect()
-{
-  return(bActive);
-}
-
 public func RejectEntrance(object pObj)
 {
+	if(bActive) return true;
   if(GetOCF(pObj) & OCF_Living)
   {
    if(ContentsCount(GetID(),pObj))

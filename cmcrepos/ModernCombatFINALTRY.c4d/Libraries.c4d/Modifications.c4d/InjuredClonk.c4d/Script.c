@@ -129,8 +129,6 @@ public func Suicide()
       //Töten
       if(GetAlive(clonk)) clonk->Kill();
 
-Log("1");
-
       //Leiche "auswerfen" und ausfaden lassen
       clonk->Exit(0,0,GetObjHeight(clonk)/2);
       clonk->FadeOut();
