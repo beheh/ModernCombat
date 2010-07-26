@@ -45,7 +45,7 @@ public func Set(object pClonk)
   GrabContents(pClonk);
   
   //Aussehen des Clonks imitieren
-  SetGraphics (0,this(),GetID(pClonk),1,GFXOV_MODE_Object,0,0,pClonk);
+  SetGraphics(0,this(),GetID(pClonk),1,GFXOV_MODE_Object,0,0,pClonk);
 
   //Sichtwerte speichern
   oldvisrange = GetObjPlrViewRange(pClonk);
@@ -79,6 +79,8 @@ func DoMenu()
 
 private func DeathMenu()
 {
+	Update();
+
   var selection = GetMenuSelection(clonk);
 
   CloseMenu(clonk);
@@ -89,18 +91,18 @@ private func DeathMenu()
   CreateMenu(FKDT, clonk, this(), 0, Format("$Title$"), C4MN_Style_Dialog, true);	//Titelzeile
   if(FindObject(SICD))
   {
+    AddMenuItem(Format("$Info$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);	//Hinweise
+    AddMenuItem(Format("$DeathCounter$", suicide),"", NONE, clonk, 0, 0, "", 512, 0, 0);	//Zeit bis zum Tod
     if(suicide != FKDT_SuicideTime)
     {AddMenuItem("$Suicide$", "Suicide", ICN2, clonk, 0, 0, "$SuicideDesc$");}		//Selbstmord
     else
     {AddMenuItem("<c 777777>$Suicide$</c>", "", ICN2, clonk, 0, 0, "$SuicideDesc$");}	//Kein Selbstmord
-    AddMenuItem(" ","", NONE,clonk, 0, 0, "", 512, 0, 0);				//Leerzeile
-    AddMenuItem(Format("$Info$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);	//Hinweise
   }
   else
   {
     AddMenuItem(Format("$Info2$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);//Falls kein Selbstmord möglich
+    AddMenuItem(Format("$DeathCounter$", suicide),"", NONE, clonk, 0, 0, "", 512, 0, 0);	//Zeit bis zum Tod
   }
-  AddMenuItem(Format("$DeathCounter$", suicide),"", NONE, clonk, 0, 0, "", 512, 0, 0);	//Zeit bis zum Tod
   if(suicide <= 0)
    Suicide();
   
@@ -108,6 +110,12 @@ private func DeathMenu()
 }
 
 /* Selbstmord */
+
+public func Update() {
+	if(!GetAlive(clonk)) {
+		Suicide();
+	}
+}
 
 public func Suicide()
 {
@@ -119,7 +127,9 @@ public func Suicide()
     if(clonk)
     {
       //Töten
-      clonk->Kill();
+      if(GetAlive(clonk)) clonk->Kill();
+
+Log("1");
 
       //Leiche "auswerfen" und ausfaden lassen
       clonk->Exit(0,0,GetObjHeight(clonk)/2);
@@ -152,9 +162,6 @@ public func Reanimation()
   //Kein Clonk?
   if(!clonk) return();
 
-  //Soundloop beenden
-  Sound("FKDT_ClonkDown.ogg", false, clonk, 100, GetOwner(clonk)+1, -1);
-
   //Clonk "auswerfen"
   if(Contained(clonk) == this())
    clonk->Exit(0,0,GetObjHeight(clonk)/2);
@@ -162,7 +169,11 @@ public func Reanimation()
   //Besitztümer weitergeben
   if(GetAlive(clonk))
   {
-    clonk->GrabContents(this());
+  	clonk->GrabContents(this);
+  	for(var item in FindObjects(Find_Container(clonk), Find_Func("IsGrenade"))) {
+	  	clonk->~StoreGrenade(item);
+	  	if(!Contained(item)) RemoveObject(item);
+    }
     clonk->RemoveEffect("NoAnnounce", clonk);
   }
   else

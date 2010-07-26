@@ -18,17 +18,14 @@ public func Set(object target)
  
 
   SetVisibility(VIS_Allies | VIS_Owner);
-
-  Update();
 }
 
 public func Update()
 {
   var target = GetActionTarget();
-  if(!target) return;
 
-  if( !obj || Hostile(GetOwner(), GetOwner(obj)) || time == 0 || !target)
-   RemoveObject();
+  if(!obj || Hostile(GetOwner(), GetOwner(obj)) || time == 0 || !target || !GetAlive(target->GetClonk()))
+   return RemoveObject();
   
   var percent = time*255/starttime;
   SetClrModulation(RGBa(255,255,255,BoundBy(InvertA1(percent,255),0,255)));
@@ -47,7 +44,5 @@ public func Update()
 	}
 	else {
 		SetGraphics(0, this);
-	}		     
-
-  ScheduleCall(0,"Update",3);
+	}
 }
