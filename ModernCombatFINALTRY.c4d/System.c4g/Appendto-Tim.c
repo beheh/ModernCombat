@@ -4,8 +4,13 @@
 
 #strict
 
+#appendto TIM1
 #appendto TIM2
 
+public func RejectCollect(id idObject) {
+	if(GetCategory(0, idObject) & C4D_Living) return false;
+	return true;
+}
 
 public func Spawn()
 {

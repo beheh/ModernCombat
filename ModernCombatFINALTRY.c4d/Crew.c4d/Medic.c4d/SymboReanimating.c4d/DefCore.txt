@@ -10,3 +10,5 @@ Offset=-17,-17
 Value=0
 Mass=0
 Picture=0,0,35,35
+Timer=3
+TimerCall=Update
