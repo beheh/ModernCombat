@@ -3,17 +3,17 @@
 #strict 2
 
 static iScript;
+static iRespawnX;
+static iRespawnY;
 
 public func IsSection() {return true;} //Sektionscallback
 
 public func Initialize() {
 	iScript = 0;
+	iRespawnX = 0;
+	iRespawnY = 0;
 	this->~SetupSection();
 	AddEffect("SectionCount", this, 25, 10, this);
-}
-
-public func GetScript() {
-	return iScript;
 }
 
 global func FxSectionCountTimer(pTarget) {
@@ -29,6 +29,10 @@ public func SectionGoto(int iTo) {
 	return true;
 }
 
+public func GetScript() {
+	return iScript;
+}
+
 public func SectionStop() {
 	iScript = -1;
 	return true;
@@ -36,4 +40,15 @@ public func SectionStop() {
 
 public func SectionUnload() {
 	RemoveObject();
+}
+
+public func Relaunch(object pClonk) {
+	pClonk->SetPosition(AbsX(iRespawnX), AbsY(iRespawnY));
+	this->~OnRespawn(pClonk);	
+}
+
+public func SetRespawnPosition(int iX, int iY) {
+	iRespawnX = iX;
+	iRespawnY = iY;
+	return true;
 }

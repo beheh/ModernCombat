@@ -9,7 +9,7 @@ static unlocked;
 
 /* Initalisierung */
 
-func Initialize()
+public func Initialize()
 {
   //Sektion 1 freischalten
   unlocked = [0,1,0];
@@ -21,9 +21,24 @@ func Initialize()
   return(1);
 }
 
-func InitializePlayer() {
+public func InitializePlayer() {
   //Lobby initialisieren
   LoadSection(0);
+}
+
+public func RelaunchPlayer(int iPlr, object pCrew)
+{
+	//Clonkerstellung
+  var pClonk = CreateObject(PCMK, 10, 10, iPlr);
+  if(pCrew)
+   GrabObjectInfo(pCrew, pClonk);
+  else
+   MakeCrewMember(pClonk, iPlr);
+
+  DoEnergy(+150, pClonk);
+  SetCursor(iPlr, pClonk);
+  SetPlrView(iPlr, pClonk);
+  FindObject2(Find_Func("IsSection"))->Relaunch(pClonk);
 }
 
 /* Sektionen */
