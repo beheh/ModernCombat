@@ -1,6 +1,7 @@
 [DefCore]
 id=SE02
 Version=4,9,5
+Name=Athletic II
 Category=1
 Width=0
 Height=0

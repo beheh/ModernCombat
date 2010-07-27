@@ -5,7 +5,7 @@
 
 /* 0 - Lobby */
 
-global func SetupSection()
+public func SetupSection()
 {
   //Starttitel und Musikliste zusammenstellen
   SetPlayList("CMC_Base Groove.ogg;CMC_Moving Squad.ogg");
@@ -14,6 +14,7 @@ global func SetupSection()
   //Clonk finden und plazieren
   for(var clonk in FindObjects(Find_ID(PCMK)))
    SetPosition(RandomX(120,180),280,clonk);
+  SetRespawnPosition(RandomX(120,180),280);
    
   //Objekte
   AutoRespawn(1500,0,CreateObject(PBRL,705,53,-1));
@@ -97,7 +98,7 @@ func Script1()
   Sound("EI4K_NewMessage.ogg");
   Sound("RadioConfirm*.ogg");
   ScriptGo(0);
-  wait(5*3);
+  SetArrow(265, 265);
 }
 
 func Script2()

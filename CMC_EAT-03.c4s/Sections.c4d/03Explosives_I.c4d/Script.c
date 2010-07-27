@@ -5,7 +5,7 @@
 
 /* 4 - Explosives I */
 
-global func SetupSection3()
+public func SetupSection()
 {
   for(var clonk in FindObjects(Find_ID(PCMK)))
   {
