@@ -6,7 +6,7 @@ Txt03=<c 8888ff>Michael14</c>: Oh sh..ön... eine <c ffff33>Selbstschussanlage</c
 Txt04=<c 8888ff>Michael14</c>: In Ordnung. Beachte wie dein Clonk bei Anwahl des Schilds auch direkt gleicheres einsetzt. Du bist nun automatisch von <c ffff33>frontalem Projektilbeschuss</c> geschützt. Nutze das Schild um an der Selbstschussanlage vorbeizukommen.
 Txt05=<c 8888ff>Michael14</c>: Das Ding hat sich wohl überhitzt. Mit [<c ffff33>Werfen</c>] kann dein Clonk mit dem Schild zuschlagen. Das hinterlässt nicht nur beim Gegner bleibende Eindrücke, sondern so kann man auch bestimmte <c ffff33>Hindernisse</c> auf Seite schieben. Erklimme nun die Struktur und nutze die <c ffff33>Sprungschanze</c>!
 Txt06=<c 8888ff>Michael14</c>: Ganz nett. Nutze die Kisten jetzt mal taktisch aus um weiterzukommen.
-Txt07=<c 8888ff>Michael14</c>: Hätte auch nicht weniger erwartet. Mach das gleiche Kunststück hier erneut und <c ffff33>suche</c> den um diese Lektion abzuschließen!
+Txt07=<c 8888ff>Michael14</c>: Hätte auch nicht weniger erwartet. Mach das gleiche Kunststück hier erneut und <c ffff33>suche</c> den Ausgang um diese Lektion abzuschließen!
 
 //Terminaltext
 
