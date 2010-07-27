@@ -13,6 +13,9 @@ public func SetupSection()
   SetPlayList("CMC_Showtime.ogg");
   Music("CMC_Showtime.ogg",1);
 
+  //Respawnpunkt
+  SetRespawnPosition(485,1020);
+
   //Räume
   tmp = CreateObject(ROOM, 475, 950, -1);
   tmp ->FadeOut();
@@ -105,6 +108,8 @@ func Script15()
     Sound("RadioConfirm*.ogg");
     TutorialMessage("$Txt02$");
 
+    SetRespawnPosition(835,860);
+
     RemoveArrow();
   }
   else
@@ -131,6 +136,8 @@ func Script25()
     Sound("RadioConfirm*.ogg");
     TutorialMessage("$Txt04$");
 
+    SetRespawnPosition(1170,860);
+
     SetArrow(960, 770);
   }
   else
@@ -143,6 +150,8 @@ func Script30()
   {
     Sound("RadioConfirm*.ogg");
     TutorialMessage("$Txt05$");
+
+    SetRespawnPosition(965,770);
 
     SetArrow(870, 770);
   }
@@ -170,6 +179,8 @@ func Script40()
     Sound("RadioConfirm*.ogg");
     TutorialMessage("$Txt07$");
 
+    SetRespawnPosition(1250,680);
+
     SetArrow(1240, 480);
   }
   else
@@ -182,6 +193,8 @@ func Script45()
   {
     Sound("RadioConfirm*.ogg");
     TutorialMessage("$Txt08$");
+
+    SetRespawnPosition(1550,660);
 
     SetArrow(1630, 485);
   }
@@ -196,6 +209,8 @@ func Script50()
     Sound("RadioConfirm*.ogg");
     TutorialMessage("$Txt09$");
 
+    SetRespawnPosition(1595,580);
+
     SetArrow(1790, 485);
   }
   else
@@ -208,6 +223,8 @@ func Script55()
   {
     Sound("RadioConfirm*.ogg");
     TutorialMessage("$Txt10$");
+
+    SetRespawnPosition(1815,500);
 
     SetArrow(1770, 280);
   }
