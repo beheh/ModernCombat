@@ -2,7 +2,7 @@
 
 #strict 2
 
-local iScript;
+static iScript;
 
 public func IsSection() {return true;} //Sektionscallback
 
@@ -32,10 +32,6 @@ public func SectionGoto(int iTo) {
 public func SectionStop() {
 	iScript = -1;
 	return true;
-}
-
-public func Destruction() {
-	ClearScheduleCall(this, "Count");
 }
 
 public func SectionUnload() {
