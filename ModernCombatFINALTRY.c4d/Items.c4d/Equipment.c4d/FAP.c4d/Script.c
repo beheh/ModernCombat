@@ -254,13 +254,13 @@ public func FxFAPLightTimer(pTarget, iNo, iTime)
 public func FxFAPGrouphealTimer(pTarget, iEffectNumber, iEffectTime)
 {
   //Kriterien
-  if(!Contained())                      return 1;	//Nicht im Freien
-  if(Contained(Contained()))           return 1;	//Container nicht im Freien
-  if(!Contained()->~IsMedic())          return 1;	//Nur Sanitäter
-  if(GetEffect("FAPHeal", this))      return 1;	//Ohne Effekt
-  if(!GetHealPoints())                  return 1;	//Nur wenn noch Punkte da sind
-  if(Contents(0,Contained()) != this) return 1;	//Nur, falls angewählt
-  if(GetID(Contained()) == FKDT)        return 1;	//Im FakeDeath-Objekt?
+  if(!Contained())			return 1;	//Nicht im Freien
+  if(Contained(Contained()))		return 1;	//Container nicht im Freien
+  if(!Contained()->~IsMedic())		return 1;	//Nur Sanitäter
+  if(GetEffect("FAPHeal", this))	return 1;	//Ohne Effekt
+  if(!GetHealPoints())			return 1;	//Nur wenn noch Punkte da sind
+  if(Contents(0,Contained()) != this)	return 1;	//Nur, falls angewählt
+  if(GetID(Contained()) == FKDT)	return 1;	//Im FakeDeath-Objekt?
 
   //Harte Vorauswahl überlebt? Los geht's.
   var heal = 8; //Merke: 8-2 -> 1 Patient
