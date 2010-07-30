@@ -178,7 +178,9 @@ func CreateFurniture()
   //Explosivfässer
   CreateObject(XBRL, 3110, 310, -1)->AutoRespawn();
   CreateObject(XBRL, 3140, 430, -1)->AutoRespawn();
-  CreateObject(XBRL, 3160, 430, -1)->AutoRespawn();
+
+  //Gasflasche
+  CreateObject(GSBL, 3160, 430, -1)->AutoRespawn();
 
   //Explosivkiste
   CreateObject(XWCR, 2815, 310, -1)->AutoRespawn();

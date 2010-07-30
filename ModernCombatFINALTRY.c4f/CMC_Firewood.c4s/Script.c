@@ -186,6 +186,10 @@ func CreateFurniture()
   CreateObject(XBRL, 2520, 390, -1)->AutoRespawn();
   CreateObject(XBRL, 2535, 390, -1)->AutoRespawn();
 
+  //Gasflaschen
+  CreateObject(GSBL, 1175, 525, -1)->AutoRespawn();
+  CreateObject(GSBL, 2105, 525, -1)->AutoRespawn();
+
   //Explosivtanks
   CreateObject(XTNK, 765, 390, -1)->AutoRespawn();
   CreateObject(XTNK, 1555, 510, -1)->AutoRespawn();

@@ -109,8 +109,8 @@ func CreateFurniture()
   CreateObject(_WIN, 1468, 520, -1);
 
   //Satellitenschüsseln
-  CreateObject(RADR, 1020, 310, -1);
-  CreateObject(RADR, 1700, 310, -1);
+  CreateObject(RADR, 1020, 310, -1)->SetClrModulation(RGBa(255,255,255,128));
+  CreateObject(RADR, 1700, 310, -1)->SetClrModulation(RGBa(255,255,255,128));
 
   //Automaten
   CreateObject(SPVM, 615, 800, -1);
@@ -200,8 +200,10 @@ func CreateFurniture()
 
   //Sandsackbarrieren
   CreateObject(SBBA, 790, 800, -1)->Right();
+  CreateObject(SBBA, 960, 640, -1);
   CreateObject(SBBA, 1260, 640, -1);
   CreateObject(SBBA, 1470, 640, -1)->Right();
+  CreateObject(SBBA, 1770, 640, -1)->Right();
   CreateObject(SBBA, 1940, 800, -1);
 
   //Stahlbrücken
@@ -215,13 +217,11 @@ func CreateFurniture()
   CreateObject(_HBR, 1225, 452, -1);
 
   CreateObject(_HBR, 915, 652, -1);
-  CreateObject(_HBR, 1015, 652, -1);
   CreateObject(_HBR, 1115, 652, -1);
   CreateObject(_HBR, 1215, 652, -1);
 
   CreateObject(_HBR, 1515, 652, -1);
   CreateObject(_HBR, 1615, 652, -1);
-  CreateObject(_HBR, 1715, 652, -1);
   CreateObject(_HBR, 1815, 652, -1);
 
   CreateObject(_HBR, 1505, 452, -1);
@@ -240,8 +240,10 @@ func CreateFurniture()
   //Gasflaschen
   CreateObject(GSBL, 540, 613, -1)->AutoRespawn();
   CreateObject(GSBL, 630, 800, -1)->AutoRespawn();
-  CreateObject(GSBL, 990, 440, -1);
-  CreateObject(GSBL, 1735, 440, -1);
+  CreateObject(GSBL, 995, 439, -1);
+  CreateObject(GSBL, 1045, 640, -1)->AutoRespawn();
+  CreateObject(GSBL, 1685, 640, -1)->AutoRespawn();
+  CreateObject(GSBL, 1735, 439, -1);
   CreateObject(GSBL, 2100, 800, -1)->AutoRespawn();
   CreateObject(GSBL, 2190, 613, -1)->AutoRespawn();
 
@@ -336,6 +338,14 @@ func CreateFurniture()
   CreateObject(STNE, 1450, 800, -1);
 
   //Ventillatoren
+  CreateObject(VEN3, 490, 595, -1)->SetCon(20);
+  tmp = CreateObject(VEN3, 510, 595, -1);
+  tmp->SetCon(20);
+  tmp->SetPhase(4);
+  tmp = CreateObject(VEN3, 530, 595, -1);
+  tmp->SetCon(20);
+  tmp->SetPhase(7);
+
   CreateObject(VENT, 975, 595, -1)->SetCon(20);
   CreateObject(VENT, 1075, 595, -1)->SetCon(20);
   CreateObject(VENT, 1175, 595, -1)->SetCon(20);
@@ -343,6 +353,14 @@ func CreateFurniture()
   CreateObject(VENT, 1555, 595, -1)->SetCon(20);
   CreateObject(VENT, 1655, 595, -1)->SetCon(20);
   CreateObject(VENT, 1755, 595, -1)->SetCon(20);
+
+  tmp = CreateObject(VEN3, 2200, 595, -1);
+  tmp->SetCon(20);
+  tmp->SetPhase(7);
+  tmp = CreateObject(VEN3, 2220, 595, -1);
+  tmp->SetCon(20);
+  tmp->SetPhase(4);
+  CreateObject(VEN3, 2240, 595, -1)->SetCon(20);
 
   //Selbstschussanlagen und Konsolen
   aSelfDefense[0] = CreateObject(SEGU, 590, 329, -1);
@@ -354,6 +372,10 @@ func CreateFurniture()
     aSelfDefense[1]->Arm(MISA);
     aSelfDefense[1]->SetAutoRepair(1500);
     CreateObject(CONS, 2430, 525, -1)->Set(aSelfDefense[1]);
+
+   //Grenzen
+   CreateObject(BRDR, 170, 0, -1)->Set(0);
+   CreateObject(BRDR, 2560, 0, -1)->Set(1);
 
   //Sounds
 
