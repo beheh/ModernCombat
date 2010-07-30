@@ -168,6 +168,10 @@ func CreateFurniture()
   CreateObject(HBRL, 440, 450, -1)->AutoRespawn();
   CreateObject(HBRL, 2360, 450, -1)->AutoRespawn();
 
+  //Gasflaschen
+  CreateObject(GSBL, 970, 370, -1)->AutoRespawn();
+  CreateObject(GSBL, 1830, 370, -1)->AutoRespawn();
+
   //Benzintanks
   CreateObject(XTNK, 320, 280, -1)->AutoRespawn();
   CreateObject(XTNK, 2480, 280, -1)->AutoRespawn();
