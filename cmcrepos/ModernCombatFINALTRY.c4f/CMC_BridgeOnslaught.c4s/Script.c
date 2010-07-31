@@ -109,8 +109,8 @@ func CreateFurniture()
   CreateObject(_WIN, 1468, 520, -1);
 
   //Satellitenschüsseln
-  CreateObject(RADR, 1020, 310, -1)->SetClrModulation(RGBa(255,255,255,128));
-  CreateObject(RADR, 1700, 310, -1)->SetClrModulation(RGBa(255,255,255,128));
+  CreateObject(RADR, 1020, 310, -1)->SetClrModulation(RGB(125,125,125));
+  CreateObject(RADR, 1700, 310, -1)->SetClrModulation(RGB(125,125,125));
 
   //Automaten
   CreateObject(SPVM, 615, 800, -1);
@@ -329,7 +329,10 @@ func CreateFurniture()
 
   //Büsche
   CreateObject(BSH2, 505, 515, -1);
-  CreateObject(BSH2, 1475, 550, -1);
+  CreateObject(BSH2, 1350, 815, -1)->SetR(-50);
+  CreateObject(BSH2, 1365, 815, -1)->SetR(90);
+  CreateObject(BSH2, 1390, 820, -1);
+  CreateObject(BSH2, 1455, 570, -1);
   CreateObject(BSH2, 1780, 820, -1);
   CreateObject(BSH2, 2190, 515, -1);
 
@@ -367,11 +370,23 @@ func CreateFurniture()
     aSelfDefense[0]->Arm(MISA);
     aSelfDefense[0]->SetAutoRepair(1500);
     CreateObject(CONS, 300, 525, -1)->Set(aSelfDefense[0]);
-  
-  aSelfDefense[1] = CreateObject(SEGU, 2140, 329, -1);
+
+  aSelfDefense[1] = CreateObject(SEGU, 1252, 546, -1);
+    aSelfDefense[1]->SetR(90);
     aSelfDefense[1]->Arm(MISA);
     aSelfDefense[1]->SetAutoRepair(1500);
-    CreateObject(CONS, 2430, 525, -1)->Set(aSelfDefense[1]);
+    CreateObject(CONS, 1280, 515, -1)->Set(aSelfDefense[1]);
+
+  aSelfDefense[2] = CreateObject(SEGU, 1478, 546, -1);
+    aSelfDefense[2]->SetR(-90);
+    aSelfDefense[2]->Arm(MISA);
+    aSelfDefense[2]->SetAutoRepair(1500);
+    CreateObject(CONS, 1450, 515, -1)->Set(aSelfDefense[2]);
+
+  aSelfDefense[3] = CreateObject(SEGU, 2140, 329, -1);
+    aSelfDefense[3]->Arm(MISA);
+    aSelfDefense[3]->SetAutoRepair(1500);
+    CreateObject(CONS, 2430, 525, -1)->Set(aSelfDefense[3]);
 
    //Grenzen
    CreateObject(BRDR, 170, 0, -1)->Set(0);
@@ -487,8 +502,12 @@ func FlagCaptured(object pPoint, int iTeam)
   if(pPoint == aFlag[0])
    aSelfDefense[0]->SetTeam(iTeam);
 
-  if(pPoint == aFlag[4])
+  if(pPoint == aFlag[2])
    aSelfDefense[1]->SetTeam(iTeam);
+   aSelfDefense[2]->SetTeam(iTeam);
+
+  if(pPoint == aFlag[4])
+   aSelfDefense[3]->SetTeam(iTeam);
 }
 
 /* Regelwähler */
@@ -509,7 +528,7 @@ public func ChooserFinished()
    if(aTeams[1] == true)
    {aSelfDefense[0]->SetTeam(1);}
    if(aTeams[2] == true)
-   {aSelfDefense[1]->SetTeam(2);}
+   {aSelfDefense[3]->SetTeam(2);}
 
    //SSA anschalten
    aSelfDefense[0]->TurnOn();
@@ -528,7 +547,7 @@ public func ChooserFinished()
    if(aTeams[1] == true)
    {aSelfDefense[0]->SetTeam(1);}
    if(aTeams[2] == true)
-   {aSelfDefense[1]->SetTeam(2);}
+   {aSelfDefense[3]->SetTeam(2);}
 
    //SSA anschalten
    aSelfDefense[0]->TurnOn();
