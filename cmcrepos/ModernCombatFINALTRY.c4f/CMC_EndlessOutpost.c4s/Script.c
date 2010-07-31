@@ -11,7 +11,7 @@ static X, Y;
 func ChooserRuleConfig()
 {
   //Standardregelsatz: Belohnungssystem, Kein FriendlyFire, Waffen bleiben, Arena, Klassenwahl
-  return [RWDS,NOFF,WPST,NODR,MCSL];
+  return [RWDS,NOFF,WPST,NODR,MCSL,EFMN];
 }
 
 /* Initalisierung */

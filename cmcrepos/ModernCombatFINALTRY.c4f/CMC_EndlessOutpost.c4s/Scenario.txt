@@ -14,7 +14,7 @@ Definition3=ModernCombatFINALTRY.c4d
 [Game]
 StructNeedEnergy=0
 Goals=GAS_=1
-Rules=CHOS=1;EFMN=1
+Rules=CHOS=1
 
 [Player1]
 Crew=PCMK=1
