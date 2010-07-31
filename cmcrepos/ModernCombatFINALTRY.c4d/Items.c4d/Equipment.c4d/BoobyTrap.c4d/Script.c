@@ -19,7 +19,7 @@ public func HandSize()		{return(1000);}
 public func HandBarrel()	{return(0);}
 public func BarrelXOffset()	{return(-850);}
 public func BarrelYOffset()	{return(0);}
-public func IsEquipment()		{return(true);}
+public func IsEquipment()	{return(true);}
 public func NoArenaRemove()	{return(true);}
 
 
