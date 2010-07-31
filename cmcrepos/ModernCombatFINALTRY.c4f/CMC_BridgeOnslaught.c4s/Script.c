@@ -94,6 +94,19 @@ func CreateFurniture()
   CreateObject(H24K, 1975, 448, -1);
   CreateObject(H24K, 2145, 648, -1);
 
+  //Hydrauliktüren
+  tmp = CreateObject(SLDR, 270, 530, -1);
+  tmp->Lock();
+  tmp->SetMaxDamage(-1);
+
+  tmp = CreateObject(SLDR, 2460, 530, -1);
+  tmp->Lock();
+  tmp->SetMaxDamage(-1);
+
+  //Verbundene Türen
+  var doorw = CreateObject(ROOM, 200, 530, -1);
+  CreateObject(ROOM, 2530, 530, -1)->Connect(doorw);
+
   //Geländer
   CreateObject(RAI1, 505, 270, -1)->SetRail([1,1,1,1,1,1,1,1]);
   CreateObject(RAI1, 725, 440, -1)->SetRail([1,1,1]);
@@ -111,6 +124,12 @@ func CreateFurniture()
   //Satellitenschüsseln
   CreateObject(RADR, 1020, 310, -1)->SetClrModulation(RGB(125,125,125));
   CreateObject(RADR, 1700, 310, -1)->SetClrModulation(RGB(125,125,125));
+
+  //Spinde
+  CreateObject(LCKR, 220, 530, -1);
+  CreateObject(LCKR, 240, 530, -1);
+  CreateObject(LCKR, 2490, 530, -1);
+  CreateObject(LCKR, 2510, 530, -1);
 
   //Automaten
   CreateObject(SPVM, 615, 800, -1);
@@ -152,6 +171,8 @@ func CreateFurniture()
 
   //Explosivtanks
   CreateObject(XTNK, 230, 440, -1)->AutoRespawn();
+  CreateObject(XTNK, 1200, 800, -1)->AutoRespawn();
+  CreateObject(XTNK, 1530, 800, -1)->AutoRespawn();
   CreateObject(XTNK, 2500, 440, -1)->AutoRespawn();
 
   //Container
@@ -201,8 +222,10 @@ func CreateFurniture()
   //Sandsackbarrieren
   CreateObject(SBBA, 790, 800, -1)->Right();
   CreateObject(SBBA, 960, 640, -1);
+  CreateObject(SBBA, 1160, 800, -1);
   CreateObject(SBBA, 1260, 640, -1);
   CreateObject(SBBA, 1470, 640, -1)->Right();
+  CreateObject(SBBA, 1570, 800, -1)->Right();
   CreateObject(SBBA, 1770, 640, -1)->Right();
   CreateObject(SBBA, 1940, 800, -1);
 
@@ -257,12 +280,14 @@ func CreateFurniture()
 
   //Explosivfässer
   CreateObject(XBRL, 990, 800, -1)->AutoRespawn();
+  CreateObject(XBRL, 1225, 800, -1)->AutoRespawn();
   CreateObject(XBRL, 1350, 310, -1)->AutoRespawn();
   CreateObject(XBRL, 1370, 310, -1)->AutoRespawn();
   CreateObject(XBRL, 1290, 640, -1)->AutoRespawn();
+  CreateObject(XBRL, 1505, 800, -1)->AutoRespawn();
   CreateObject(XBRL, 1745, 800, -1)->AutoRespawn();
 
-  //Phosphorfass
+  //Phosphorfässer
   CreateObject(HBRL, 1360, 310, -1)->AutoRespawn();
   CreateObject(HBRL, 1300, 640, -1)->AutoRespawn();
 
@@ -532,7 +557,7 @@ public func ChooserFinished()
 
    //SSA anschalten
    aSelfDefense[0]->TurnOn();
-   aSelfDefense[1]->TurnOn();
+   aSelfDefense[3]->TurnOn();
 
    if(aTeams[1] == true)
    {CreateFlag(1,530,612,GetTeamColor(1));}
@@ -551,7 +576,7 @@ public func ChooserFinished()
 
    //SSA anschalten
    aSelfDefense[0]->TurnOn();
-   aSelfDefense[1]->TurnOn();
+   aSelfDefense[3]->TurnOn();
 
    //Flaggen
    aFlag[0] = CreateObject(OFPL,380,430,NO_OWNER);
