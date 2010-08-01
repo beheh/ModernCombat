@@ -1,9 +1,10 @@
 /*-- Kampfclonk Appendto --*/
 
-#strict
+#strict 2
 #appendto HZCK
 
 local crosshair;
+local aCollected;
 
 protected func Control2Grab(string command)
 {
@@ -20,39 +21,39 @@ protected func Control2Grab(string command)
 
 protected func ControlThrow()
 {
-  if(this->~Control2Grab("ControlThrow")) return(1);
-  return(_inherited(...));
+  if(this->~Control2Grab("ControlThrow")) return true;
+  return _inherited(...);
 }
 
 protected func ControlDigDouble()
 {
-  if(this->~Control2Grab("ControlDigDouble")) return(1);
-  return(_inherited(...));
+  if(this->~Control2Grab("ControlDigDouble")) return true;
+  return _inherited(...);
 }
 
 protected func ControlDownDouble()
 {
-  if(this->~Control2Grab("ControlDownDouble")) return(1);
-  return(_inherited());
+  if(this->~Control2Grab("ControlDownDouble")) return true;
+  return _inherited(...);
 
 }
 
 public func ControlUp()
 {
   RemoveEffect("IntMouseAiming", this);
-  return(_inherited()); 
+  return _inherited(...);
 }
 
 public func ControlDown() 
 {
   RemoveEffect("IntMouseAiming", this);
-  return(_inherited()); 
+  return _inherited(...);
 }
 
 func ResetShowWeapon(object pNew)
 {
   var effect = GetEffect("ShowWeapon",this()); 
-  if(!effect) return(false);
+  if(!effect) return false;
   
   if(pNew)
   {
@@ -65,14 +66,14 @@ func ResetShowWeapon(object pNew)
     EffectVar(1, this(), effect) = 0;
   }
   
-  return(true);
+  return true;
 }
 
 public func DoAiming(int iChange)
 {
   //zielen wir überhaupt?
   if(!IsAiming())
-    return();
+    return;
 
   var angle = Abs(crosshair->GetAngle()) + iChange;
 
@@ -88,7 +89,7 @@ public func DoAiming(int iChange)
   {*/
     // Winkel wird zu groß?
     if(angle > AIM_Max || angle < 0)
-      return();
+      return;
 
     if(GetDir() == DIR_Left)
       angle = 360-angle;
@@ -104,20 +105,20 @@ public func DoAiming(int iChange)
 public func EquipGear(object pGear)
 {
   // überhaupt benutzbar
-  if(!pGear) return(0);
-  if(!(pGear->~IsHazardGear())) return(0);
-  if(!HazardGearSupported(pGear)) return(0);
-  return(_inherited(pGear));
+  if(!pGear) return false;
+  if(!(pGear->~IsHazardGear())) return false;
+  if(!HazardGearSupported(pGear)) return false;
+  return _inherited(pGear);
 }
 
 public func HazardGearSupported(object pGear)//! -> Hazard 2.0
 {
-  return(true);//Standartmäßig alles schlucken.
+  return true;//Standartmäßig alles schlucken.
 }
 
 private func AmmoBagContextCheck()
 {
-  return(!FindObject(NOAM));
+  return !FindObject(NOAM);
 }
 
 /* Munition aus dem Gürtel nehmen */
@@ -140,7 +141,7 @@ protected func ContextAmmobag(object pCaller)
     //Zählervariable erhöhen
     x++;
   }
-  return(1);
+  return true;
 }
 
 protected func PackAmmo(id idType, int iCaller)
@@ -196,10 +197,10 @@ protected func DoAmmoPack(id idType)
 }
 
 public func ReadyToFire() {
-  if(GetAction() eq "Crawl" && Contents())
+  if(GetAction() == "Crawl" && Contents())
     if(Contents()->~CanAim() && Contents()->~IsEquipment())
-      return(true);
-  return(_inherited(...));
+      return true;
+  return _inherited(...);
 }
 
 /* Schaden */
@@ -208,7 +209,7 @@ public func OnHit(int iDmg, int iType, object pFrom)
   this()->~CalcPain(iDmg);
   //this()->~HurtSounds(-iDmg,iType);
     
-  return(_inherited(iDmg,iType,pFrom));
+  return _inherited(iDmg,iType,pFrom);
 }
 
 /* neues Zielsystem */
@@ -230,75 +231,76 @@ local spread, handr;
 
 public func Initialize()
 {
+	aCollected = CreateArray();
   InitCH();
   //if(Contained())
     //HideCH();
-  return(_inherited());
+  return _inherited(...);
 }
 
 /*func HandR()
 {
-  return(0);//return(handr/CH_Spread_Prec);
+  return false;//return handr/CH_Spread_Prec;
 }*/
 
 public func GetCrosshair()
 {
-  return(crosshair);
+  return crosshair;
 }
 
 private func GetSpreadAOff()
 {
   handr = RandomX(-spread/2/CH_Spread_Prec,+spread/2/CH_Spread_Prec);
-  return(handr);
+  return handr;
 }
 
 private func GetSpreadAOff2()
 {
   handr = RandomX(-spread/2/CH_Spread_Prec,+spread/2/CH_Spread_Prec);
-  return(handr*(100/CH_Spread_Prec));
+  return handr*(100/CH_Spread_Prec);
 }
 
 private func TestSpread()
 {
   var proc = GetProcedure();
   
-  if(proc eq "WALK")
+  if(proc == "WALK")
   {
     if(GetComDir())
       if(spread < CH_WalkSpread)
-        return(CH_WalkSpread);
-    return(0);
+        return CH_WalkSpread;
+    return false;
   }
   
-  if(proc eq "SWIM")
+  if(proc == "SWIM")
   {
     if(spread < CH_WalkSpread)
-      return(CH_WalkSpread);
-    return(0);
+      return CH_WalkSpread;
+    return false;
   }
   
-  if(proc eq "FLIGHT")
+  if(proc == "FLIGHT")
   {
     if(spread < CH_JumpSpread)
-      return(CH_JumpSpread);
-    return(0);
+      return CH_JumpSpread;
+    return false;
   }
 
-  if((proc eq "SCALE")||(GetAction() eq "ScaleLadder"))
+  if((proc == "SCALE")||(GetAction() == "ScaleLadder"))
   {
     if(spread < CH_ScaleSpread)
-      return(CH_ScaleSpread);
-    return(0);
+      return CH_ScaleSpread;
+    return false;
   }
   
-  if(proc eq "HANGLE")
+  if(proc == "HANGLE")
   {
     if(spread < CH_HangleSpread)
-      return(CH_HangleSpread);
-    return(0);
+      return CH_HangleSpread;
+    return false;
   }
   
-  return(0);
+  return false;
 }
 
 public func UpdateCH() {
@@ -354,23 +356,23 @@ public func UpdateCharge()
   // Nur wenn ich Cursor bin
   var pCursor = GetCursor(GetOwner());
   if(pCursor && pCursor != this()) pCursor = pCursor->~GetRealCursor(); 
-  if(pCursor != this()) return();
+  if(pCursor != this()) return;
 
-  if(GetOwner() < -1) return();
+  if(GetOwner() < -1) return;
 
   // in Gebäuden/Fahrzeugen
   if(Contained())
     if(Contained()->~UpdateCharge(this()))
-      return(1);
+      return true;
 
   // reitet
   if(this->IsRiding())
     if(GetActionTarget()->~UpdateCharge(this()))
-      return(1);
+      return true;
 
   // ggf. an angefasstes Objekt weiterleiten
   var Content = Contents();
-  if(GetAction() S= "Push")
+  if(GetAction() == "Push")
   	if(GetActionTarget()->~IsWeapon())
   		Content = GetActionTarget();
 
@@ -378,18 +380,18 @@ public func UpdateCharge()
   var hud = GetHUD();
   if(hud) hud->Update(Content, this->AmmoStoring(),this());
 
-  return(1);
+  return true;
 }
 
 global func AimAngleEx(int iMaxAngle, int iRange, bool bSpread)
 {
-  if(!this()) return(0);
+  if(!this()) return false;
 
   var angle = this()->~AimAngle2(iMaxAngle,iRange,bSpread);
   if(!angle)
     angle = this()->AimAngle(iMaxAngle,iRange,bSpread)*100;
     
-  return(angle);
+  return angle;
 }
 
 public func AimAngle2(int iMaxAngle, int iRange, bool bSpread)//Präzision 100. Also von 100 bis 36000.
@@ -413,7 +415,7 @@ public func AimAngle2(int iMaxAngle, int iRange, bool bSpread)//Präzision 100. A
    if(bSpread)
      angle += GetSpreadAOff2();
 
-   return(angle);
+   return angle;
 }
 
 public func AimAngle(int iMaxAngle, int iRange, bool bSpread)
@@ -442,14 +444,14 @@ public func AimAngle(int iMaxAngle, int iRange, bool bSpread)
 	if(bSpread)
 		angle += GetSpreadAOff();
 
-	return(angle);
+	return angle;
 }
 
 public func DoSpread(int iChange, int iMax)
 {
   var wpn = Contents();
-  if(!wpn) return();
-  if(!wpn->~IsWeapon() && !wpn->~IsGrenade()) return();
+  if(!wpn) return;
+  if(!wpn->~IsWeapon() && !wpn->~IsGrenade()) return;
   
   if(iMax) iChange = Max(0,BoundBy(spread+iChange,0,iMax)-spread);
   spread = BoundBy(spread+iChange,0,CH_MaxSpread);
@@ -484,7 +486,7 @@ public func ShowCH()
   if(!crosshair)
     InitCH();
   if(!crosshair)
-    return();
+    return;
 	
   if(crosshair->Contained())
     crosshair->Exit();
@@ -508,7 +510,7 @@ public func ShowCH()
 }
 public func ResetCH()
 {
-  if(!crosshair) return();
+  if(!crosshair) return;
   crosshair->Reset(this());
 
   crosshair->SetSpread(spread);
@@ -523,7 +525,7 @@ public func ResetCH()
 
 public func HideCH()
 {
-  if(!crosshair) return();
+  if(!crosshair) return;
   
   handr = 0;
   crosshair->UnSet();
@@ -544,20 +546,20 @@ public func IsAiming ()
         return true;
   }
 
-  return(_inherited());
+  return _inherited();
 }
 
 public func Entrance(object pContainer)
 {
   HideCH();
   
-  return(_inherited(pContainer));
+  return _inherited(pContainer);
 }
 
 protected func Departure(pContainer)      // Gebäude verlassen
 {
   UpdateCharge();
-  return(_inherited(pContainer,...));
+  return _inherited(pContainer,...);
 }
 
 public func Destruction()
@@ -600,7 +602,7 @@ public func StartSquatAiming() { // Anfangen in der Hocke zu zielen
     SetAction("AimSquat");
     
   SetPhase(this()->~AimAngle2Phase(90));
-  SetComDir(COMD_Stop());
+  SetComDir(COMD_Stop);
 
   InitCrosshair();
   
@@ -627,7 +629,7 @@ public func SetAiming(int iAngle, bool fForceExact)
 {
   //zielen wir überhaupt?
   if(!this()->~IsAiming())
-    return();
+    return;
 
   // Winkel anpassen, wenn keine freie Auswahl (klassische Steuerung)
   if(!GetPlrCoreJumpAndRunControl(GetController()) && !fForceExact)
@@ -635,7 +637,7 @@ public func SetAiming(int iAngle, bool fForceExact)
 
   // Winkel wird zu groß?
   if(iAngle > AIM_Max || iAngle < 0)
-    return();
+    return;
 
   if(GetDir() == DIR_Left)
     iAngle = 360-iAngle;
@@ -654,7 +656,7 @@ private func Fighting()
     else if(!Random(2))
       ControlDig();
   }
-  return(1);
+  return true;
 }
 
 local punchtype;//<-lol
@@ -670,7 +672,7 @@ private func Punching()
   }
   else if(punchtype == 1)
   {
-    if(GetAction(GetActionTarget()) ne "Punch")
+    if(GetAction(GetActionTarget()) != "Punch")
     {
       Fling(GetActionTarget(), 4 * GetDir() - 2, -1);
       Punch(GetActionTarget(),10);
@@ -681,28 +683,28 @@ private func Punching()
 
   SetComDir(COMD_Stop);
 
-  return(1);
+  return true;
 }
 
 public func InCloseCombat()
 {
-  if((GetProcedure() eq "FIGHT") && GetActionTarget())//ToDo: Wirklich? :o
-    return(true);
-  return(false);
+  if((GetProcedure() == "FIGHT") && GetActionTarget())//ToDo: Wirklich? :o
+    return true;
+  return false;
 }
 
 public func ControlThrow()
 {
   if(!InCloseCombat()) return(_inherited(...));
   
-  if(GetAction() ne "Fight")//Nicht in Ausgangsstellung?
-    return(1);
+  if(GetAction() != "Fight")//Nicht in Ausgangsstellung?
+    return true;
     
   if(!Random(3)) Sound("Kime*");
   punchtype = 0;
   SetAction("Punch");
   
-  return(1);
+  return true;
 }
 
 public func ControlThrowSingle()
@@ -721,14 +723,14 @@ public func ControlDig()
 {
   if(!InCloseCombat()) return(_inherited(...));
   
-  if(GetAction() ne "Fight")//Nicht in Ausgangsstellung?
-    return(1);
+  if(GetAction() != "Fight")//Nicht in Ausgangsstellung?
+    return true;
     
   if (!Random(3)) Sound("Kime*");
   punchtype = 1;
   SetAction("Punch");
 
-  return(1);
+  return true;
 }
 
 public func ControlDigSingle()
@@ -751,35 +753,35 @@ public func FxSelectItemTimer(object pTarget, int iEffectNumber, int iEffectTime
 private func Control2Contents(string command)
 {
   // Haben wir was angefasst?
-  if(GetAction() S= "Push")
-    return(0);
+  if(GetAction() == "Push")
+    return false;
   // Pause Reload: nicht wieder anfangen ey!!!
 /*  if(command S= "ControlThrow")
   {
     if(WildcardMatch(GetAction(),"Scale*") || GetAction() S= "Hangle")
-      return(1);
+      return true;
   }*/ //Auskommentiert wegen C4
 	
   //Callback verhindert?
   if(GetEffect("SelectItem",Contents()))
   {
-    if(command eq "ControlUpdate")
+    if(command == "ControlUpdate")
     {
        if(ObjectCall(Contents(), command, this(), Par(1)))
-         return(1);
+         return true;
        else
-         return(0);
+         return false;
     }
     
-    if((command eq "ControlThrow") || (command eq "ControlDig"))
-      return(1);
+    if((command == "ControlThrow") || (command == "ControlDig"))
+      return true;
     else
-      return(0);
+      return false;
   }
   // Getragenes Objekt hat spezielle Steuerungsauswertung
   if(ObjectCall(Contents(), command, this(), Par(1), Par(2), Par(3), Par(4), Par(5), Par(6), Par(7)))
-    return(1);
-  return(0);
+    return true;
+  return false;
 }
 
 protected func ContextQuickInventoryOn(object pCaller) {
@@ -818,6 +820,17 @@ public func SelectQuickInventory(int iIndex) {
 	return true;
 }
 
+public func GetContentsOffset(object pTo) {
+	var i = 0;
+	var j = 0;
+	while(Contents(i) != pTo && j < ContentsCount()) {
+		if(i > ContentsCount()-1) i = 0;
+		i++;
+		j++;
+	}
+	return j;
+}
+
 public func ControlSpecial()
 {
   [$CtrlInventoryDesc$|Image=INVT]
@@ -826,38 +839,29 @@ public func ControlSpecial()
 	if(Contained())
 	{
 	  if(Contained()->~ContainedSpecial(this()))
-	    return(1);
+	    return true;
 	}
 	if(QuickInventoryOn()) {
-		if(!Contents()) return();
+		if(!Contents()) return;
 		if(Contents()->~RejectShift() || Contents()->GetID() == GBRB)
 			return(Sound("Error", false, this, 100, GetOwner()+1));
-  	
-  	//Inventar einsortieren
-  	var aInventory = CreateArray(ContentsCount());
-  	var i = 0;
-  	while(i < ContentsCount()) {
-  		aInventory[i] = Contents(i);
-  		i++;
-  	}
- 
+
   	var ring = CreateSpeedMenu(0, this);
-		
-		if(aInventory[0]) ring->AddThrowItem(GetName(aInventory[0]),"SelectQuickInventory",0,GetID(aInventory[0]));
-		if(aInventory[1]) ring->AddLeftItem(GetName(aInventory[1]),"SelectQuickInventory",1,GetID(aInventory[1]));
-		if(aInventory[2]) ring->AddRightItem(GetName(aInventory[2]),"SelectQuickInventory",2,GetID(aInventory[2]));
-		if(aInventory[3]) ring->AddUpItem(GetName(aInventory[3]),"SelectQuickInventory",3,GetID(aInventory[3]));
-		if(aInventory[4]) ring->AddDownItem(GetName(aInventory[4]),"SelectQuickInventory",4,GetID(aInventory[4]));
+		if(aCollected[0] && aCollected[0]->Contained() == this) ring->AddUpItem(GetName(aCollected[0]),"SelectQuickInventory",GetContentsOffset(aCollected[0]),GetID(aCollected[0]));
+		if(aCollected[1] && aCollected[1]->Contained() == this) ring->AddRightItem(GetName(aCollected[1]),"SelectQuickInventory",GetContentsOffset(aCollected[1]),GetID(aCollected[1]));
+		if(aCollected[2] && aCollected[2]->Contained() == this) ring->AddDownItem(GetName(aCollected[2]),"SelectQuickInventory",GetContentsOffset(aCollected[2]),GetID(aCollected[2]));
+		if(aCollected[3] && aCollected[3]->Contained() == this) ring->AddLeftItem(GetName(aCollected[3]),"SelectQuickInventory",GetContentsOffset(aCollected[3]),GetID(aCollected[3]));
+		if(aCollected[4] && aCollected[4]->Contained() == this) ring->AddThrowItem(GetName(aCollected[4]),"SelectQuickInventory",GetContentsOffset(aCollected[4]),GetID(aCollected[4]));
   }
   else {
 		// Keine Items?
-		if(!Contents()) return();
+		if(!Contents()) return;
 		// Hardcode: BR-Bombe darf man nicht abwählen
 		if(Contents()->GetID() == GBRB)
-		  return();
+		  return;
 		// Manche Sachen dürfen einfach nicht
 		if(Contents()->~RejectShift())
-			return();
+			return;
 		// wenn wir zielen, wollen wir nur Waffen haben
 		if(IsAiming() && Contents(0)->~CanAim())
 		{
@@ -887,6 +891,11 @@ public func ControlSpecial()
 
 public func Collection(object pObj, bool fPut)
 {
+	var i = 0;
+	while(aCollected[i] && aCollected[i]->Contained() == this && aCollected[i] != pObj) {
+		i++;
+	}
+	aCollected[i] = pObj;
   if(pObj->~SelectionTime())
   {
     if(!GetEffect("SelectItem",pObj))
@@ -916,7 +925,7 @@ public func ControlContents(id idTarget)
       if(!GetEffect("SelectItem",target))
         AddEffect("SelectItem",target,20,target->~SelectionTime(),0,GetID());
       ScheduleCall(this, "CheckArmed", 1);
-      return(0);
+      return false;
     }
   }
   return(_inherited(idTarget));
