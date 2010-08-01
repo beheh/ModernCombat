@@ -11,9 +11,7 @@ protected func Control2Grab(string command)
   if(GetProcedure() eq "PUSH")
   {
     if(GetActionTarget())
-      GetActionTarget()->~Control2Grab(command,this,...);
-      
-    return true;
+      return GetActionTarget()->~Control2Grab(command,this,...);
   }
   
   return false;
