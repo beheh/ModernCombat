@@ -133,6 +133,7 @@ protected func Collection2(object pObj)// Einsammeln
       pObj ->~ OnDeselect();
     }
   this()->~UpdateCharge();
+  return _inherited(pObj);
 }
 
 protected func RejectCollect(id idObj, object pObj)
