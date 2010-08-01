@@ -831,7 +831,7 @@ public func SelectQuickInventory(int iIndex) {
 	iIndex--;
 	var aiming = IsAiming() && Contents()->~CanAim();
 	var angle = Abs(AimAngle());
-	StopAiming();
+	if(aiming) StopAiming();
 	while(iIndex-- > 0) {
 		ShiftContents();
 	}
@@ -891,8 +891,7 @@ public func ControlSpecial()
   		}
   		i++;
   	}
-  	ring->AddTopInfoItem("<c ffff00>$QuickInventory$</c>");
-  	ring->AddBottomInfoItem(Format("$ContentsCount$", ContentsCount()));
+  	ring->AddTopInfoItem(Format("<c ffff00>$QuickInventory$</c>|$ContentsCount$", ContentsCount()));
   }
   else {
 		// Keine Items?
