@@ -4,7 +4,7 @@
 
 static const FKDT_SuicideTime = 15; //Standardzeit bei Fake Death
 
-local clonk,oldvisrange,oldvisstate,suicide,szKillstr;
+local clonk,oldvisrange,oldvisstate,suicide;
 
 public func AimAngle()		{return();}
 public func ReadyToFire()	{return();}
@@ -91,29 +91,17 @@ private func DeathMenu()
   CreateMenu(FKDT, clonk, this(), 0, Format("$Title$"), C4MN_Style_Dialog, true);	//Titelzeile
   if(FindObject(SICD))
   {
-  	if(suicide != FKDT_SuicideTime)
-    {
-    	AddMenuItem("$Suicide$", "Suicide", ICN2, clonk, 0, 0, "$SuicideDesc$"); //Selbstmord
-    }
-    else
-    {
-    	AddMenuItem("<c 777777>$Suicide$</c>", "", ICN2, clonk, 0, 0, "$SuicideDesc$");	//Kein Selbstmord
-    }
-    AddMenuItem(" ","", NONE,clonk, 0, 0, "", 512, 0, 0);
- 		//AddMenuItem(Format("$Info$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);	//Hinweise
+    AddMenuItem(Format("$Info$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);	//Hinweise
     AddMenuItem(Format("$DeathCounter$", suicide),"", NONE, clonk, 0, 0, "", 512, 0, 0);	//Zeit bis zum Tod
+    if(suicide != FKDT_SuicideTime)
+    {AddMenuItem("$Suicide$", "Suicide", ICN2, clonk, 0, 0, "$SuicideDesc$");}		//Selbstmord
+    else
+    {AddMenuItem("<c 777777>$Suicide$</c>", "", ICN2, clonk, 0, 0, "$SuicideDesc$");}	//Kein Selbstmord
   }
   else
   {
-    //AddMenuItem(Format("$Info2$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);//Falls kein Selbstmord möglich
+    AddMenuItem(Format("$Info2$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);//Falls kein Selbstmord möglich
     AddMenuItem(Format("$DeathCounter$", suicide),"", NONE, clonk, 0, 0, "", 512, 0, 0);	//Zeit bis zum Tod
-  }
-  AddMenuItem(" ","", NONE,clonk, 0, 0, "", 512, 0, 0);
-  AddMenuItem("$Killer$", "", NONE, clonk, 0, 0, "", 512, 0, 0);
-  AddMenuItem(Format("%s", szKillstr), "", NONE, clonk, 0, 0, "", 512, 0, 0);
-  if(FindObject(RWDS)) {
-	  AddMenuItem(" ","", NONE,clonk, 0, 0, "", 512, 0, 0);
-	  AddMenuItem("$Points$", "", NONE, clonk, 0, 0, "", 512, 0, 0);
   }
   if(suicide <= 0)
    Suicide();
