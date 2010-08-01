@@ -8,7 +8,7 @@ local aCollected;
 
 protected func Control2Grab(string command)
 {
-  if(GetProcedure() == "PUSH")
+  if(GetProcedure() eq "PUSH")
   {
     if(GetActionTarget())
       GetActionTarget()->~Control2Grab(command,this,...);
@@ -22,31 +22,31 @@ protected func Control2Grab(string command)
 protected func ControlThrow()
 {
   if(this->~Control2Grab("ControlThrow")) return true;
-  return _inherited();
+  return(_inherited());
 }
 
 protected func ControlDigDouble()
 {
   if(this->~Control2Grab("ControlDigDouble")) return true;
-  return _inherited();
+  return(_inherited());
 }
 
 protected func ControlDownDouble()
 {
   if(this->~Control2Grab("ControlDownDouble")) return true;
-  return _inherited();
+  return(_inherited());
 }
 
 public func ControlUp()
 {
   RemoveEffect("IntMouseAiming", this);
-  return _inherited(...);
+  return(_inherited(...));
 }
 
 public func ControlDown() 
 {
   RemoveEffect("IntMouseAiming", this);
-  return _inherited(...);
+  return(_inherited(...));
 }
 
 func ResetShowWeapon(object pNew)
@@ -196,7 +196,7 @@ protected func DoAmmoPack(id idType)
 }
 
 public func ReadyToFire() {
-  if(GetAction() == "Crawl" && Contents())
+  if(GetAction() eq "Crawl" && Contents())
     if(Contents()->~CanAim() && Contents()->~IsEquipment())
       return true;
   return _inherited(...);
@@ -263,7 +263,7 @@ private func TestSpread()
 {
   var proc = GetProcedure();
   
-  if(proc == "WALK")
+  if(proc eq "WALK")
   {
     if(GetComDir())
       if(spread < CH_WalkSpread)
@@ -271,28 +271,28 @@ private func TestSpread()
     return false;
   }
   
-  if(proc == "SWIM")
+  if(proc eq "SWIM")
   {
     if(spread < CH_WalkSpread)
       return CH_WalkSpread;
     return false;
   }
   
-  if(proc == "FLIGHT")
+  if(proc eq "FLIGHT")
   {
     if(spread < CH_JumpSpread)
       return CH_JumpSpread;
     return false;
   }
 
-  if((proc == "SCALE")||(GetAction() == "ScaleLadder"))
+  if((proc eq "SCALE")||(GetAction() eq "ScaleLadder"))
   {
     if(spread < CH_ScaleSpread)
       return CH_ScaleSpread;
     return false;
   }
   
-  if(proc == "HANGLE")
+  if(proc eq "HANGLE")
   {
     if(spread < CH_HangleSpread)
       return CH_HangleSpread;
@@ -371,7 +371,7 @@ public func UpdateCharge()
 
   // ggf. an angefasstes Objekt weiterleiten
   var Content = Contents();
-  if(GetAction() == "Push")
+  if(GetAction() eq "Push")
   	if(GetActionTarget()->~IsWeapon())
   		Content = GetActionTarget();
 
@@ -538,7 +538,7 @@ public func IsAiming ()
       return true;
   }
   
-  if(GetProcedure() == "PUSH")
+  if(GetProcedure() eq "PUSH")
   {
     if(GetActionTarget())
       if(GetActionTarget()->~CanAim())
@@ -671,7 +671,7 @@ private func Punching()
   }
   else if(punchtype == 1)
   {
-    if(GetAction(GetActionTarget()) != "Punch")
+    if(GetAction(GetActionTarget()) ne "Punch")
     {
       Fling(GetActionTarget(), 4 * GetDir() - 2, -1);
       Punch(GetActionTarget(),10);
@@ -687,7 +687,7 @@ private func Punching()
 
 public func InCloseCombat()
 {
-  if((GetProcedure() == "FIGHT") && GetActionTarget())//ToDo: Wirklich? :o
+  if((GetProcedure() eq "FIGHT") && GetActionTarget())//ToDo: Wirklich? :o
     return true;
   return false;
 }
@@ -696,33 +696,33 @@ public func ControlThrow()
 {
   if(!InCloseCombat()) return(_inherited(...));
   
-  if(GetAction() != "Fight")//Nicht in Ausgangsstellung?
-    return true;
+  if(GetAction() ne "Fight")//Nicht in Ausgangsstellung?
+    return(1);
     
   if(!Random(3)) Sound("Kime*");
   punchtype = 0;
   SetAction("Punch");
   
-  return true;
+  return(1);
 }
 
 public func ControlThrowSingle()
 {
-  if(InCloseCombat()) return ControlThrow(...);
-  return _inherited(...);
+  if(InCloseCombat()) return(ControlThrow(...));
+  return(_inherited(...));
 }
 
 public func ControlThrowDouble()
 {
-  if(InCloseCombat()) return ControlThrow(...);
-  return _inherited(...);
+  if(InCloseCombat()) return(ControlThrow(...));
+  return(_inherited(...));
 }
 
 public func ControlDig()
 {
   if(!InCloseCombat()) return(_inherited(...));
   
-  if(GetAction() != "Fight")//Nicht in Ausgangsstellung?
+  if(GetAction() ne "Fight")//Nicht in Ausgangsstellung?
     return true;
     
   if (!Random(3)) Sound("Kime*");
@@ -752,7 +752,7 @@ public func FxSelectItemTimer(object pTarget, int iEffectNumber, int iEffectTime
 private func Control2Contents(string command)
 {
   // Haben wir was angefasst?
-  if(GetAction() == "Push")
+  if(GetAction() eq "Push")
     return false;
   // Pause Reload: nicht wieder anfangen ey!!!
 /*  if(command S= "ControlThrow")
@@ -764,7 +764,7 @@ private func Control2Contents(string command)
   //Callback verhindert?
   if(GetEffect("SelectItem",Contents()))
   {
-    if(command == "ControlUpdate")
+    if(command eq "ControlUpdate")
     {
        if(ObjectCall(Contents(), command, this(), Par(1)))
          return true;
@@ -772,7 +772,7 @@ private func Control2Contents(string command)
          return false;
     }
     
-    if((command == "ControlThrow") || (command == "ControlDig"))
+    if((command == "ControlThrow") || (command eq "ControlDig"))
       return true;
     else
       return false;
