@@ -1,1 +1,1 @@
-Ermöglicht das schnelle Umschalten des Inventars.
+Ermöglicht schnelles Umschalten des Inventars.
