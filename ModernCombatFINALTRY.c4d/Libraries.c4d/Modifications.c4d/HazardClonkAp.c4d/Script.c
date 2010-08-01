@@ -781,14 +781,44 @@ private func Control2Contents(string command)
   return false;
 }
 
-protected func ContextQuickInventoryOn(object pCaller) {
-  [$CtxQuickInventoryOn$|Image=QKIN|Condition=QuickInventoryOff]
+protected func NoContext() {
+	return false;
+}
+
+protected func ContextHelpMessagesOn() {
+	[0|Image=ROCK|Condition=NoContext]
+	return _inherited(...);
+}
+
+protected func ContextHelpMessagesOff() {
+	[0|Image=ROCK|Condition=NoContext]
+	return _inherited(...);
+}
+
+protected func ContextSettings(object pCaller) {
+	[$Settings$|Image=CSTR]
+	CreateMenu(CSTR, pCaller, pCaller, 0, "$Settings$", 0, C4MN_Style_Context, false);
+	if(pCaller->QuickInventoryOff()) {
+		AddMenuItem("$CtxQuickInventoryOn$", Format("SetQuickInventoryOn(Object(%d))", ObjectNumber(pCaller)), QKIN, pCaller);
+	}
+	else {
+		AddMenuItem("$CtxQuickInventoryOff$", Format("SetQuickInventoryOff(Object(%d))", ObjectNumber(pCaller)), QKIN, pCaller);
+	}
+	if(pCaller->HelpMessagesOff()) {
+		AddMenuItem("$CtxHelpMessagesOn$", Format("ContextHelpMessagesOn(Object(%d))", ObjectNumber(pCaller)), CXIN, pCaller);
+	}
+	else {
+		AddMenuItem("$CtxHelpMessagesOff$", Format("ContextHelpMessagesOff(Object(%d))", ObjectNumber(pCaller)), CXIN, pCaller);
+	}
+	return true;
+}
+
+public func SetQuickInventoryOn(object pCaller) {
   SetPlrExtraData(GetOwner(), "CMC_QuickInv", true);
   Sound("Click", 1, 0,0, GetOwner()+1);
 }
 
-protected func ContextQuickInventoryOff(object pCaller) {
-  [$CtxQuickInventoryOff$|Image=QKIN|Condition=QuickInventoryOn]
+public func SetQuickInventoryOff(object pCaller) {
   SetPlrExtraData(GetOwner(), "CMC_QuickInv", false);
   Sound("Click", 1, 0,0, GetOwner()+1);
 }
@@ -853,11 +883,16 @@ public func ControlSpecial()
   	while(i <= 4) {
   		j = i+1;
   		if(j == 5) j = 0;
-			if(aCollected[i])
-				if(aCollected[i]->Contained() == this)
-  				ring->Add(j, GetName(aCollected[i]),"SelectQuickInventory",GetContentsOffset(aCollected[i]),GetID(aCollected[i]));
+			if(aCollected[i]) {
+				if(aCollected[i]->Contained() == this) {
+  				var overlay = ring->Add(j, GetName(aCollected[i]),"SelectQuickInventory",GetContentsOffset(aCollected[i]),RICO);
+  				SetGraphics("",ring,GetID(aCollected[i]),overlay,GFXOV_MODE_IngamePicture);
+  			}
+  		}
   		i++;
   	}
+  	ring->AddTopInfoItem("<c ffff00>$QuickInventory$</c>");
+  	ring->AddBottomInfoItem(Format("$ContentsCount$", ContentsCount()));
   }
   else {
 		// Keine Items?

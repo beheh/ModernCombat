@@ -1,5 +1,10 @@
 CtxGrenadeMenu=Granaten
 AmmoBag=Munitionsgürtel
 CtrlInventoryDesc=Inventar
-CtxQuickInventoryOn=Quickmenu an
-CtxQuickInventoryOff=Quickmenu aus
+QuickInventory=QuickInventar
+ContentsCount=%d Objekte im Inventar
+Settings=Einstellungen
+CtxHelpMessagesOn=Hilfen an
+CtxHelpMessagesOff=Hilfen aus
+CtxQuickInventoryOn=QuickInventar an
+CtxQuickInventoryOff=QuickInventar aus

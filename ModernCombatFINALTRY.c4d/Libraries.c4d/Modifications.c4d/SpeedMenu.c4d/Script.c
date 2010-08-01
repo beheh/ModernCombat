@@ -172,7 +172,7 @@ public func Close()
   }
 
   //Letztes Kommando löschen
-  ClearLastPlrCom(GetController(pTargetObject));
+  //ClearLastPlrCom(GetController(pTargetObject));
 
   aItemTitle = [];
   aItemTitle = [SMEN_ItemCount];
