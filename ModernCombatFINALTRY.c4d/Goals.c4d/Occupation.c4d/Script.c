@@ -251,8 +251,8 @@ private func UpdateScoreboard()
   {
     var iTeam = GetTeamByIndex(j);
     if(TeamAlive(iTeam)) {
-      SetScoreboardData(i, GOCC_FlagColumn, Format("<c %x>%s</c>", GetTeamColor(iTeam), GetTeamName(iTeam)), base+2+GetFlagCount(iTeam));
-      SetScoreboardData(i, GOCC_ProgressColumn, Format("%d {{TIKT}}", GetTickets(iTeam)), base+2+GetTickets(iTeam));
+      SetScoreboardData(i, GOCC_FlagColumn, Format("<c %x>%s</c>", GetTeamColor(iTeam), GetTeamName(iTeam)), base+2+GetFlagCount()-GetFlagCount(iTeam));
+      SetScoreboardData(i, GOCC_ProgressColumn, Format("%d {{TIKT}}", GetTickets(iTeam)), base+2+iStartTickets-GetTickets(iTeam));
     }
     else {
       SetScoreboardData(i, GOCC_FlagColumn, 0);
