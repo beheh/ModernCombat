@@ -317,8 +317,8 @@ private func ActivateItem(int iItem)
 
   if(GetAction() == "Closing") return 1;
   
-  if(aItemFunc[iItem])
-    pCallbackObject->Call(aItemFunc[iItem],aItemPar[iItem]);
+  if(aItemFunc[iItem] && GetType(aItemFunc[iItem]) == C4V_String)
+    pCallbackObject->Call(aItemFunc[iItem], aItemPar[iItem]);
 
   CloseDown();
   
