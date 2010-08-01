@@ -844,9 +844,10 @@ public func ControlSpecial()
 	    return true;
 	}
 	if(QuickInventoryOn()) {
-		if(!Contents()) return;
+		if(!Contents() || !aCollected) return;
+		
 		if(Contents()->~RejectShift() || Contents()->GetID() == GBRB)
-			return(Sound("Error", false, this, 100, GetOwner()+1));
+			return;
 
   	var ring = CreateSpeedMenu(0, this);
 		if(aCollected[0]) if(aCollected[0]->Contained() == this) ring->AddUpItem(GetName(aCollected[0]),"SelectQuickInventory",GetContentsOffset(aCollected[0]),GetID(aCollected[0]));
@@ -893,6 +894,18 @@ public func ControlSpecial()
 
 public func Collection(object pObj, bool fPut)
 {
+  if(pObj->~SelectionTime())
+  {
+    if(!GetEffect("SelectItem",pObj))
+      AddEffect("SelectItem",pObj,20,pObj->~SelectionTime(),0,GetID());
+  }
+  return _inherited(pObj,fPut,...);
+}
+
+public func Collection2(object pObj)
+{
+	if(!pObj) return;
+	if(pObj->Contained() != this) return;
 	var i = 0;
 	while(aCollected[i]) {
 		if(aCollected[i]->Contained() == this && aCollected[i] != pObj) {
@@ -903,12 +916,6 @@ public func Collection(object pObj, bool fPut)
 		}
 	}
 	aCollected[i] = pObj;
-  if(pObj->~SelectionTime())
-  {
-    if(!GetEffect("SelectItem",pObj))
-      AddEffect("SelectItem",pObj,20,pObj->~SelectionTime(),0,GetID());
-  }
-  return(_inherited(pObj,fPut,...));
 }
 
 public func Ejection(object pObj)
