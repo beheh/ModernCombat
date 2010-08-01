@@ -4,3 +4,5 @@ SuicideDesc=Gibt dem Clonk den Todesstoﬂ.
 Info=<c ff0000>%s</c> wurde eliminiert. Warte auf einen Sanit‰ter oder gebe den Clonk auf.
 Info2=<c ff0000>%s</c> wurde eliminiert. Warte auf eine Reanimation durch einen Sanit‰ter.
 DeathCounter=Tod in <c ffff33>%d</c> Sekunden.
+Killer=<c ffff33>Killer</c>
+Points=<c ffff33>Punktestand</c>

@@ -1,3 +1,5 @@
 CtxGrenadeMenu=Granaten
 AmmoBag=Munitionsgürtel
 CtrlInventoryDesc=Inventar
+CtxQuickInventoryOn=Quickmenu an
+CtxQuickInventoryOff=Quickmenu aus
