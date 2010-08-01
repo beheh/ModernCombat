@@ -772,7 +772,7 @@ private func Control2Contents(string command)
          return false;
     }
     
-    if((command == "ControlThrow") || (command eq "ControlDig"))
+    if((command eq "ControlThrow") || (command eq "ControlDig"))
       return true;
     else
       return false;
@@ -850,11 +850,16 @@ public func ControlSpecial()
 			return;
 
   	var ring = CreateSpeedMenu(0, this);
-		if(aCollected[0]) if(aCollected[0]->Contained() == this) ring->AddUpItem(GetName(aCollected[0]),"SelectQuickInventory",GetContentsOffset(aCollected[0]),GetID(aCollected[0]));
-		if(aCollected[1]) if(aCollected[1]->Contained() == this) ring->AddRightItem(GetName(aCollected[1]),"SelectQuickInventory",GetContentsOffset(aCollected[1]),GetID(aCollected[1]));
-		if(aCollected[2]) if(aCollected[2]->Contained() == this) ring->AddDownItem(GetName(aCollected[2]),"SelectQuickInventory",GetContentsOffset(aCollected[2]),GetID(aCollected[2]));
-		if(aCollected[3]) if(aCollected[3]->Contained() == this) ring->AddLeftItem(GetName(aCollected[3]),"SelectQuickInventory",GetContentsOffset(aCollected[3]),GetID(aCollected[3]));
-		if(aCollected[4]) if(aCollected[4]->Contained() == this) ring->AddThrowItem(GetName(aCollected[4]),"SelectQuickInventory",GetContentsOffset(aCollected[4]),GetID(aCollected[4]));
+  	var i = 0;
+  	var j = 0;
+  	while(i <= 4) {
+  		j = i+1;
+  		if(j == 5) j = 0;
+			if(aCollected[i])
+				if(aCollected[i]->Contained() == this)
+  				ring->Add(j, GetName(aCollected[i]),"SelectQuickInventory",GetContentsOffset(aCollected[i]),GetID(aCollected[i]));
+  		i++;
+  	}
   }
   else {
 		// Keine Items?
@@ -908,7 +913,8 @@ public func Collection2(object pObj)
 	if(pObj->Contained() != this) return;
 	var i = 0;
 	while(aCollected[i]) {
-		if(aCollected[i]->Contained() == this && aCollected[i] != pObj) {
+		if(aCollected[i]->Contained() == this) {
+			if(aCollected[i] == pObj) return;
 			i++;
 		}
 		else {
