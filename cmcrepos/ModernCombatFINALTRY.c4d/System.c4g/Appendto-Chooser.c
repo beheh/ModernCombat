@@ -153,17 +153,22 @@ protected func ConfigurationFinished2()
 {
   Death = true;
   // Regeln erzeugen
-  var i = 0, j = 0, pCrew, tmp, log = "$Rules$";
+  var i = 0, j = 0, pCrew, tmp, log, def;
+  if (IsStandardSetting())
+    log = "$StdRules$";
+  else
+    log = "$Rules$";
   for(var check in aRules)
     {
     if(check)
       {
-      CreateObject(GetDefinition(i, Chooser_Cat), 10,10, -1);
+      def = GetDefinition(i, Chooser_Cat);
+      CreateObject(def, 10,10, -1);
       if(j != 0) {
-        log = Format("%s, %s", log, GetName(0, GetDefinition(i, Chooser_Cat)));
+        log = Format("%s, <c %x>%s</c>", log, GetRuleColor(def), GetName(0, def));
       }
       else {
-        log = Format("%s%s", log, GetName(0, GetDefinition(i, Chooser_Cat)));
+        log = Format("%s<c %x>%s</c>", log, GetRuleColor(def), GetName(0, def));
       }
       j++;
       }
@@ -171,7 +176,7 @@ protected func ConfigurationFinished2()
     }
   // Dunkelheit erzeugen
   log = Format("%s, %s x%d", log, GetName(0, DARK), iDarkCount);
-  EventInfo4K(0,Format("<c ffcc00>%s</c>",log),CHOS, 0, 0, 0, "Info.ogg");
+  EventInfo4K(0,log,CHOS, 0, 0, 0, "Info.ogg");
   // ein schneller GameCall für Einstellungen
   GameCallEx("ChooserFinished");
 
@@ -196,4 +201,23 @@ protected func ConfigurationFinished2()
   EFSM_SetEffects(iEffectCount);
   // Selber entfernen
   RemoveObject();
+}
+
+private func IsStandardSetting() {
+  var a = GameCall("ChooserRuleConfig"), array = CreateArray(GetLength(aRules)), i;
+  for (var i = 0; i < GetLength(aRules); i++) {
+    if (FindInArray4K(a, GetDefinition(i, Chooser_Cat)) != -1) {
+      if (!aRules[i]) //Regel im Standardsatz, aber nicht ausgewählt
+        return false;
+    }
+    else if (aRules[i]) //Regel ausgewählt, aber nicht Standard
+      return false;
+  }
+  return true;
+}
+
+private func GetRuleColor(id idDef) {
+  if (FindInArray4K(GameCall("ChooserRuleConfig"), idDef) == -1)
+    return RGB(255);
+  return RGB(255,255,255);
 }
