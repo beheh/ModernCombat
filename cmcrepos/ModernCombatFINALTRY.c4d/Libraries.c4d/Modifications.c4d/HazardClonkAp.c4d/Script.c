@@ -1,6 +1,6 @@
 /*-- Kampfclonk Appendto --*/
 
-#strict 2
+#strict
 #appendto HZCK
 
 local crosshair;
@@ -22,20 +22,19 @@ protected func Control2Grab(string command)
 protected func ControlThrow()
 {
   if(this->~Control2Grab("ControlThrow")) return true;
-  return _inherited(...);
+  return _inherited();
 }
 
 protected func ControlDigDouble()
 {
   if(this->~Control2Grab("ControlDigDouble")) return true;
-  return _inherited(...);
+  return _inherited();
 }
 
 protected func ControlDownDouble()
 {
   if(this->~Control2Grab("ControlDownDouble")) return true;
-  return _inherited(...);
-
+  return _inherited();
 }
 
 public func ControlUp()
@@ -709,14 +708,14 @@ public func ControlThrow()
 
 public func ControlThrowSingle()
 {
-  if(InCloseCombat()) return(ControlThrow(...));
-  return(_inherited(...));
+  if(InCloseCombat()) return ControlThrow(...);
+  return _inherited(...);
 }
 
 public func ControlThrowDouble()
 {
-  if(InCloseCombat()) return(ControlThrow(...));
-  return(_inherited(...));
+  if(InCloseCombat()) return ControlThrow(...);
+  return _inherited(...);
 }
 
 public func ControlDig()
@@ -735,14 +734,14 @@ public func ControlDig()
 
 public func ControlDigSingle()
 {
-  if(InCloseCombat()) return(ControlDig(...));
-  return(_inherited(...));
+  if(InCloseCombat()) return ControlDig(...);
+  return _inherited(...);
 }
 
 public func ControlDigDouble()
 {
-  if(InCloseCombat()) return(ControlDig(...));
-  return(_inherited(...));
+  if(InCloseCombat()) return ControlDig(...);
+  return _inherited(...);
 }
 
 public func FxSelectItemTimer(object pTarget, int iEffectNumber, int iEffectTime)
@@ -800,12 +799,14 @@ public func QuickInventoryOn() { return(GetPlrExtraData(GetOwner(), "CMC_QuickIn
 public func QuickInventoryOff() { return(!QuickInventoryOn()); }
 
 public func SelectQuickInventory(int iIndex) {
+	iIndex--;
 	var aiming = IsAiming() && Contents()->~CanAim();
 	var angle = Abs(AimAngle());
 	StopAiming();
-	while(iIndex--) {
+	while(iIndex-- > 0) {
 		ShiftContents();
 	}
+	ShiftContents(0, 0, 0, true);
 	if(Contents(0)->~CanAim() && aiming) {
 		if(this->IsSquatAiming() || Contents()->~GetFMData(FM_Aim) != 1) {
 	 		StartSquatAiming();
@@ -847,11 +848,11 @@ public func ControlSpecial()
 			return(Sound("Error", false, this, 100, GetOwner()+1));
 
   	var ring = CreateSpeedMenu(0, this);
-		if(aCollected[0] && aCollected[0]->Contained() == this) ring->AddUpItem(GetName(aCollected[0]),"SelectQuickInventory",GetContentsOffset(aCollected[0]),GetID(aCollected[0]));
-		if(aCollected[1] && aCollected[1]->Contained() == this) ring->AddRightItem(GetName(aCollected[1]),"SelectQuickInventory",GetContentsOffset(aCollected[1]),GetID(aCollected[1]));
-		if(aCollected[2] && aCollected[2]->Contained() == this) ring->AddDownItem(GetName(aCollected[2]),"SelectQuickInventory",GetContentsOffset(aCollected[2]),GetID(aCollected[2]));
-		if(aCollected[3] && aCollected[3]->Contained() == this) ring->AddLeftItem(GetName(aCollected[3]),"SelectQuickInventory",GetContentsOffset(aCollected[3]),GetID(aCollected[3]));
-		if(aCollected[4] && aCollected[4]->Contained() == this) ring->AddThrowItem(GetName(aCollected[4]),"SelectQuickInventory",GetContentsOffset(aCollected[4]),GetID(aCollected[4]));
+		if(aCollected[0]) if(aCollected[0]->Contained() == this) ring->AddUpItem(GetName(aCollected[0]),"SelectQuickInventory",GetContentsOffset(aCollected[0]),GetID(aCollected[0]));
+		if(aCollected[1]) if(aCollected[1]->Contained() == this) ring->AddRightItem(GetName(aCollected[1]),"SelectQuickInventory",GetContentsOffset(aCollected[1]),GetID(aCollected[1]));
+		if(aCollected[2]) if(aCollected[2]->Contained() == this) ring->AddDownItem(GetName(aCollected[2]),"SelectQuickInventory",GetContentsOffset(aCollected[2]),GetID(aCollected[2]));
+		if(aCollected[3]) if(aCollected[3]->Contained() == this) ring->AddLeftItem(GetName(aCollected[3]),"SelectQuickInventory",GetContentsOffset(aCollected[3]),GetID(aCollected[3]));
+		if(aCollected[4]) if(aCollected[4]->Contained() == this) ring->AddThrowItem(GetName(aCollected[4]),"SelectQuickInventory",GetContentsOffset(aCollected[4]),GetID(aCollected[4]));
   }
   else {
 		// Keine Items?
@@ -892,8 +893,13 @@ public func ControlSpecial()
 public func Collection(object pObj, bool fPut)
 {
 	var i = 0;
-	while(aCollected[i] && aCollected[i]->Contained() == this && aCollected[i] != pObj) {
-		i++;
+	while(aCollected[i]) {
+		if(aCollected[i]->Contained() == this && aCollected[i] != pObj) {
+			i++;
+		}
+		else {
+			break;
+		}
 	}
 	aCollected[i] = pObj;
   if(pObj->~SelectionTime())
