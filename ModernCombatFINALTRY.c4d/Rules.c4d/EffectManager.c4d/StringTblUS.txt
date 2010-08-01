@@ -1,3 +1,4 @@
 EffectLevel=Effect Level %d
 SetEffectLevel=Set effect level
 NewLevel=Effect level has been set to <c ffff33>%d</c>
+Desc=The currently activated effect level is %d. Reducing the effect level may raise the performance of slow network rounds.

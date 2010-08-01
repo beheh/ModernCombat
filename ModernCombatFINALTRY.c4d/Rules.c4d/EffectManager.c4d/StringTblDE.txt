@@ -1,3 +1,4 @@
 EffectLevel=Effektstufe %d
 SetEffectLevel=Effektstufe setzen
 NewLevel=Effektstufe wurde auf <c ffff33>%d</c> gesetzt
+Desc=Die momentan eingestellte Effektstufe ist %d. Das Heruntersetzen der Effektstufe kann bei langsameren Netzwerkrunden gegebenenfalls die Geschwindigkeit erhöhen.
