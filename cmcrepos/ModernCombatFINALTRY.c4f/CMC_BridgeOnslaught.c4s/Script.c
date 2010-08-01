@@ -105,8 +105,6 @@ func CreateFurniture()
   tmp->SetMaxDamage(-1);
   tmp->SetSwitchLock(DIR_Left);
 
-  switchright = CreateObject (SLDR, 968, 251, -1)->SetSwitchLock(DIR_Right);
-
   //Verbundene Türen
   var doorw = CreateObject(ROOM, 200, 530, -1);
   CreateObject(ROOM, 2530, 530, -1)->Connect(doorw);
