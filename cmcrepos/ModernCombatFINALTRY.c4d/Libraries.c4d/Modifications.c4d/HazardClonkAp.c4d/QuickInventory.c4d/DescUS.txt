@@ -1,0 +1,1 @@
+Allows the inventory to be switched quickly.

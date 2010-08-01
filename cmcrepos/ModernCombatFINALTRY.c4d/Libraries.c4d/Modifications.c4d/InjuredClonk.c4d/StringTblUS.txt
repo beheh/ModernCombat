@@ -4,3 +4,5 @@ SuicideDesc=Gives the final death blow to the clonk.
 Info=<c ff0000>%s</c> has been eliminated. Wait for a medic or abandon this clonk.
 Info2=<c ff0000>%s</c> has been eliminated. Wait for a medic to revive you.
 DeathCounter=Dead in <c ffff33>%d</c> seconds.
+Killer=<c ffff33>Killer</c>
+Points=<c ffff33>Points</c>

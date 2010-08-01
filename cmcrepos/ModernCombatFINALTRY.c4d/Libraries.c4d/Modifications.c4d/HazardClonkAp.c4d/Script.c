@@ -34,6 +34,7 @@ protected func ControlDownDouble()
 {
   if(this->~Control2Grab("ControlDownDouble")) return(1);
   return(_inherited());
+
 }
 
 public func ControlUp()
@@ -781,48 +782,107 @@ private func Control2Contents(string command)
   return(0);
 }
 
+protected func ContextQuickInventoryOn(object pCaller) {
+  [$CtxQuickInventoryOn$|Image=QKIN|Condition=QuickInventoryOff]
+  SetPlrExtraData(GetOwner(), "CMC_QuickInv", true);
+  Sound("Click", 1, 0,0, GetOwner()+1);
+}
+
+protected func ContextQuickInventoryOff(object pCaller) {
+  [$CtxQuickInventoryOff$|Image=QKIN|Condition=QuickInventoryOn]
+  SetPlrExtraData(GetOwner(), "CMC_QuickInv", false);
+  Sound("Click", 1, 0,0, GetOwner()+1);
+}
+
+public func QuickInventoryOn() { return(GetPlrExtraData(GetOwner(), "CMC_QuickInv")); }
+public func QuickInventoryOff() { return(!QuickInventoryOn()); }
+
+public func SelectQuickInventory(int iIndex) {
+	var aiming = IsAiming() && Contents()->~CanAim();
+	var angle = Abs(AimAngle());
+	StopAiming();
+	while(iIndex--) {
+		ShiftContents();
+	}
+	if(Contents(0)->~CanAim() && aiming) {
+		if(this->IsSquatAiming() || Contents()->~GetFMData(FM_Aim) != 1) {
+	 		StartSquatAiming();
+		}
+		else {
+			StartAiming();
+		}
+		SetAiming(angle, true);
+  }
+	UpdateCharge();
+	
+	return true;
+}
+
 public func ControlSpecial()
 {
   [$CtrlInventoryDesc$|Image=INVT]
   
-  // ControlSpecial an Container weitergeben (z.B. Fahrzeuge)
-  if(Contained())
-  {
-    if(Contained()->~ContainedSpecial(this()))
-      return(1);
+	// ControlSpecial an Container weitergeben (z.B. Fahrzeuge)
+	if(Contained())
+	{
+	  if(Contained()->~ContainedSpecial(this()))
+	    return(1);
+	}
+	if(QuickInventoryOn()) {
+		if(!Contents()) return();
+		if(Contents()->~RejectShift() || Contents()->GetID() == GBRB)
+			return(Sound("Error", false, this, 100, GetOwner()+1));
+  	
+  	//Inventar einsortieren
+  	var aInventory = CreateArray(ContentsCount());
+  	var i = 0;
+  	while(i < ContentsCount()) {
+  		aInventory[i] = Contents(i);
+  		i++;
+  	}
+ 
+  	var ring = CreateSpeedMenu(0, this);
+		
+		if(aInventory[0]) ring->AddThrowItem(GetName(aInventory[0]),"SelectQuickInventory",0,GetID(aInventory[0]));
+		if(aInventory[1]) ring->AddLeftItem(GetName(aInventory[1]),"SelectQuickInventory",1,GetID(aInventory[1]));
+		if(aInventory[2]) ring->AddRightItem(GetName(aInventory[2]),"SelectQuickInventory",2,GetID(aInventory[2]));
+		if(aInventory[3]) ring->AddUpItem(GetName(aInventory[3]),"SelectQuickInventory",3,GetID(aInventory[3]));
+		if(aInventory[4]) ring->AddDownItem(GetName(aInventory[4]),"SelectQuickInventory",4,GetID(aInventory[4]));
   }
-  // Keine Items?
-  if(!Contents()) return();
-  // Hardcode: BR-Bombe darf man nicht abwählen
-  if(Contents()->GetID() == GBRB)
-    return();
-  // Manche Sachen dürfen einfach nicht
-  if(Contents()->~RejectShift())
-  	return();
-  // wenn wir zielen, wollen wir nur Waffen haben
-  if(IsAiming() && Contents(0)->~CanAim())
-  {
-    var angle = Abs(AimAngle());
-  	// nächste Waffe suchen
-  	for(var i = 1; i < ContentsCount(); i++)
-  		if(Contents(i)->~CanAim())
-  		{
-  			// zur Waffe wechseln
-  			ShiftContents(0,0,Contents(i)->GetID(),true);
-  			break;
-  		}
-    if(this->IsSquatAiming() || Contents()->~GetFMData(FM_Aim) != 1) {
-   		StartSquatAiming();
-    }
-    else {
-    	StartAiming();
-    }
-    SetAiming(angle, true);
+  else {
+		// Keine Items?
+		if(!Contents()) return();
+		// Hardcode: BR-Bombe darf man nicht abwählen
+		if(Contents()->GetID() == GBRB)
+		  return();
+		// Manche Sachen dürfen einfach nicht
+		if(Contents()->~RejectShift())
+			return();
+		// wenn wir zielen, wollen wir nur Waffen haben
+		if(IsAiming() && Contents(0)->~CanAim())
+		{
+		  var angle = Abs(AimAngle());
+			// nächste Waffe suchen
+			for(var i = 1; i < ContentsCount(); i++)
+				if(Contents(i)->~CanAim())
+				{
+					// zur Waffe wechseln
+					ShiftContents(0,0,Contents(i)->GetID(),true);
+					break;
+				}
+		  if(this->IsSquatAiming() || Contents()->~GetFMData(FM_Aim) != 1) {
+		 		StartSquatAiming();
+		  }
+		  else {
+		  	StartAiming();
+		  }
+		  SetAiming(angle, true);
+		}
+		else
+			// Inventory verschieben
+			ShiftContents(0,0,0,true);
+		UpdateCharge();
   }
-  else
-	  // Inventory verschieben
-  	ShiftContents(0,0,0,true);
-  UpdateCharge();
 }
 
 public func Collection(object pObj, bool fPut)

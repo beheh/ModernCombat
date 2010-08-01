@@ -1,3 +1,5 @@
 CtxGrenadeMenu=Grenades
 AmmoBag=Ammobag
 CtrlInventoryDesc=Inventory
+CtxQuickInventoryOn=Quickmenu on
+CtxQuickInventoryOff=Quickmenu off
