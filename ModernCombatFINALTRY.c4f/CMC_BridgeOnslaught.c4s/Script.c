@@ -3,7 +3,7 @@
 #strict
 #include CSTD
 
-static aFlag, aSelfDefense;
+static aFlag, aSelfDefense, switchright, switchleft;
 
 
 /* Initalisierung */
@@ -98,10 +98,14 @@ func CreateFurniture()
   tmp = CreateObject(SLDR, 270, 530, -1);
   tmp->Lock();
   tmp->SetMaxDamage(-1);
+  tmp->SetSwitchLock(DIR_Right);
 
   tmp = CreateObject(SLDR, 2460, 530, -1);
   tmp->Lock();
   tmp->SetMaxDamage(-1);
+  tmp->SetSwitchLock(DIR_Left);
+
+  switchright = CreateObject (SLDR, 968, 251, -1)->SetSwitchLock(DIR_Right);
 
   //Verbundene Türen
   var doorw = CreateObject(ROOM, 200, 530, -1);
@@ -394,7 +398,7 @@ func CreateFurniture()
   aSelfDefense[0] = CreateObject(SEGU, 590, 329, -1);
     aSelfDefense[0]->Arm(MISA);
     aSelfDefense[0]->SetAutoRepair(1500);
-    CreateObject(CONS, 300, 525, -1)->Set(aSelfDefense[0]);
+    CreateObject(CONS, 310, 525, -1)->Set(aSelfDefense[0]);
 
   aSelfDefense[1] = CreateObject(SEGU, 1252, 546, -1);
     aSelfDefense[1]->SetR(90);
@@ -411,7 +415,7 @@ func CreateFurniture()
   aSelfDefense[3] = CreateObject(SEGU, 2140, 329, -1);
     aSelfDefense[3]->Arm(MISA);
     aSelfDefense[3]->SetAutoRepair(1500);
-    CreateObject(CONS, 2430, 525, -1)->Set(aSelfDefense[3]);
+    CreateObject(CONS, 2420, 525, -1)->Set(aSelfDefense[3]);
 
    //Grenzen
    CreateObject(BRDR, 170, 0, -1)->Set(0);
