@@ -1,5 +1,10 @@
 CtxGrenadeMenu=Grenades
 AmmoBag=Ammobag
 CtrlInventoryDesc=Inventory
-CtxQuickInventoryOn=Quickmenu on
-CtxQuickInventoryOff=Quickmenu off
+QuickInventory=QuickInventory
+ContentsCount=%d items in inventory
+Settings=Settings
+CtxHelpMessagesOn=Help messages on
+CtxHelpMessagesOff=Help messages off
+CtxQuickInventoryOn=QuickInventory on
+CtxQuickInventoryOff=QuickInventory off
