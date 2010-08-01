@@ -799,6 +799,7 @@ public func QuickInventoryOn() { return(GetPlrExtraData(GetOwner(), "CMC_QuickIn
 public func QuickInventoryOff() { return(!QuickInventoryOn()); }
 
 public func SelectQuickInventory(int iIndex) {
+	if(!iIndex) return;
 	iIndex--;
 	var aiming = IsAiming() && Contents()->~CanAim();
 	var angle = Abs(AimAngle());
