@@ -827,6 +827,7 @@ public func QuickInventoryOn() { return(GetPlrExtraData(GetOwner(), "CMC_QuickIn
 public func QuickInventoryOff() { return(!QuickInventoryOn()); }
 
 public func SelectQuickInventory(int iIndex) {
+	if(!Contents()) return false;
 	if(!iIndex) return;
 	iIndex--;
 	var aiming = IsAiming() && Contents()->~CanAim();
@@ -945,8 +946,12 @@ public func Collection2(object pObj)
 	if(pObj->Contained() != this) return;
 	var i = 0;
 	while(aCollected[i]) {
+		if(aCollected[i] == pObj) return;
+		i++;
+	}
+	i = 0;
+	while(aCollected[i]) {
 		if(aCollected[i]->Contained() == this) {
-			if(aCollected[i] == pObj) return;
 			i++;
 		}
 		else {
