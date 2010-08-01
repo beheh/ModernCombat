@@ -60,7 +60,7 @@ func InitPlayers()
    InitializePlayer(GetPlayerByIndex(i));
 }
 
-func RelaunchPlayer(int iPlr, object pClonk)
+public func RelaunchPlayer(int iPlr, object pClonk)
 {
   if(!pClonk)
    if(!(pClonk = GetCursor(iPlr)))
