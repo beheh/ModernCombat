@@ -5,4 +5,4 @@ Name=QuickInventory
 Category=C4D_StaticBack
 Width=1
 Height=1
-Picture=0,0,32,32
+Picture=0,0,64,64
