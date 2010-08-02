@@ -108,7 +108,7 @@ public func BlowUp()
   CreateParticle("Blast",0,0,0,0,10*BlastRadius(),RGB(255,255,128));
   
   //Extraschaden für Strukturen
-  for(var obj in FindObjects(Find_Distance(50), Find_Category(C4D_Structure | C4D_Vehicle)))
+  for(var obj in FindObjects(Find_Distance(50), Find_Category(C4D_Structure | C4D_Vehicle), Find_Exclude()))
    DoDmg(BoundBy(InvertA1(ObjectDistance(obj), 100),0,60), DMG_Explosion, obj, 0, GetOwner()+1, GetID());
 
   Explode(BlastRadius());
@@ -142,8 +142,8 @@ func Incineration()
 
 public func OnDmg(int iDmg, int iType)
 {
-  if(iType == DMG_Bio)		return(100);	//Säure und biologische Schadstoffe
-  return(0);
+  if(iType == DMG_Bio)		return 100;	//Säure und biologische Schadstoffe
+  return;
 }
 
 /* Schockwelle */
