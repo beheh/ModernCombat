@@ -28,8 +28,8 @@ public func ControlThrow(object pByObj)
   if(GetPlrDownDouble(GetOwner(pByObj)))
    return _inherited(...);
 
-  //Kein C4 übrig?
-  if(amount <= 0)
+  //Kein C4 übrig oder Wurfverzögerung?
+  if(amount <= 0 || GetEffect("IntC4Cooldown", this))
   {
    return true;
   }
@@ -41,13 +41,14 @@ public func ControlThrow(object pByObj)
   //C4 erstellen und abziehen  
   var c4 = CreateObject(C4EX, x, y, GetOwner(pByObj));
   amount--;
+  AddEffect("IntC4Cooldown", this, 1, 30, this);
 
   //Beim Klettern (aber nicht an Leitern)
   if(WildcardMatch(GetAction(pByObj), "Scale*") && GetAction(pByObj) != "ScaleLadder")
   {
    c4->SetR((GetDir(pByObj)*-180)+90);
    c4->SetPosition(GetX(pByObj)+(GetDir(pByObj)*12)-6,GetY(pByObj));
-   c4->SetActive(this());
+   c4->SetActive(this);
    return true;
   }
 
@@ -66,7 +67,7 @@ public func ControlThrow(object pByObj)
    c4->SetRDir(RandomX(-20,20));
    c4->SetXDir((GetDir(pByObj)*2-1)*20);
    c4->SetYDir(-15);
-   c4->SetActive(this());
+   c4->SetActive(this);
    Sound("GrenadeThrow*.ogg");
    return true;
   }
@@ -77,7 +78,7 @@ public func ControlThrow(object pByObj)
    c4->SetRDir(RandomX(-20,20));
    c4->SetXDir((GetDir(pByObj)*2-1)*20);
    c4->SetYDir(-15);
-   c4->SetActive(this());
+   c4->SetActive(this);
    Sound("GrenadeThrow*.ogg");
    return true;
   }
@@ -86,7 +87,7 @@ public func ControlThrow(object pByObj)
   if(GetAction(pByObj) == "Crawl")
   {
    c4->SetPosition(GetX(pByObj),GetY(pByObj)+5);
-   c4->SetActive(this());
+   c4->SetActive(this);
    return true;
   }
 
@@ -96,7 +97,7 @@ public func ControlThrow(object pByObj)
    c4->SetPosition(GetX(pByObj),GetY(pByObj)+5);
    c4->SetXDir(GetXDir(pByObj)+(GetDir(pByObj)*2-1)*20);
    c4->SetYDir(GetYDir(pByObj)+10);
-   c4->SetActive(this());
+   c4->SetActive(this);
    Sound("GrenadeThrow*.ogg");
    return true;
   }
@@ -104,6 +105,7 @@ public func ControlThrow(object pByObj)
   //Keine Aktion bei unpassender Situation
   RemoveObject(c4);
   amount++;
+  RemoveEffect("IntC4Cooldown", this);
 }
 
 /* Zündung */
