@@ -398,13 +398,13 @@ func CreateFurniture()
     aSelfDefense[0]->SetAutoRepair(1500);
     CreateObject(CONS, 310, 525, -1)->Set(aSelfDefense[0]);
 
-  aSelfDefense[1] = CreateObject(SEGU, 1252, 546, -1);
+  aSelfDefense[1] = CreateObject(SEGU, 1252, 556, -1);
     aSelfDefense[1]->SetR(90);
     aSelfDefense[1]->Arm(MISA);
     aSelfDefense[1]->SetAutoRepair(1500);
     CreateObject(CONS, 1280, 515, -1)->Set(aSelfDefense[1]);
 
-  aSelfDefense[2] = CreateObject(SEGU, 1478, 546, -1);
+  aSelfDefense[2] = CreateObject(SEGU, 1478, 556, -1);
     aSelfDefense[2]->SetR(-90);
     aSelfDefense[2]->Arm(MISA);
     aSelfDefense[2]->SetAutoRepair(1500);
