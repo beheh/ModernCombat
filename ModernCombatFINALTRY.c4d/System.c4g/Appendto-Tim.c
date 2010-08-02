@@ -20,3 +20,8 @@ public func Spawn()
   }
   return(_inherited());
 }
+
+protected func ContainedDown() {
+  _inherited(...);
+  return true;
+}
