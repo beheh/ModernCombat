@@ -799,16 +799,16 @@ protected func ContextSettings(object pCaller) {
 	[$Settings$|Image=CSTR]
 	CreateMenu(CSTR, pCaller, pCaller, 0, "$Settings$", 0, C4MN_Style_Context, false);
 	if(pCaller->QuickInventoryOff()) {
-		AddMenuItem("$CtxQuickInventoryOn$", Format("SetQuickInventoryOn(Object(%d))", ObjectNumber(pCaller)), QKIN, pCaller);
+		AddMenuItem("$CtxQuickInventoryOff$", Format("SetQuickInventoryOn(Object(%d))", ObjectNumber(pCaller)), ICN2, pCaller);
 	}
 	else {
-		AddMenuItem("$CtxQuickInventoryOff$", Format("SetQuickInventoryOff(Object(%d))", ObjectNumber(pCaller)), QKIN, pCaller);
+		AddMenuItem("$CtxQuickInventoryOn$", Format("SetQuickInventoryOff(Object(%d))", ObjectNumber(pCaller)), QKIN, pCaller);
 	}
 	if(pCaller->HelpMessagesOff()) {
-		AddMenuItem("$CtxHelpMessagesOn$", Format("ContextHelpMessagesOn(Object(%d))", ObjectNumber(pCaller)), CXIN, pCaller);
+		AddMenuItem("$CtxHelpMessagesOff$", Format("ContextHelpMessagesOn(Object(%d))", ObjectNumber(pCaller)), ICN2, pCaller);
 	}
 	else {
-		AddMenuItem("$CtxHelpMessagesOff$", Format("ContextHelpMessagesOff(Object(%d))", ObjectNumber(pCaller)), CXIN, pCaller);
+		AddMenuItem("$CtxHelpMessagesOn$", Format("ContextHelpMessagesOff(Object(%d))", ObjectNumber(pCaller)), CXIN, pCaller);
 	}
 	return true;
 }
