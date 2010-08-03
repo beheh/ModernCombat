@@ -1,15 +1,15 @@
 /*-- Abwehrschild --*/
 
-#strict
+#strict 2
 
-public func IsDrawable()	{return(true);}
-public func HandX()		{return(0);}
-public func HandY()		{return(-1200);}
-public func HandR()		{return(45);}
-public func HandSize()		{return(850);}
-public func CanAim()		{return(true);}
-func IsEquipment()		{return(true);}
-public func NoArenaRemove()	{return(true);}
+public func IsDrawable()	{return true;}
+public func HandX()		{}
+public func HandY()		{return -1200;}
+public func HandR()		{return 45;}
+public func HandSize()		{return 850;}
+public func CanAim()		{return true;}
+func IsEquipment()		{return true;}
+public func NoArenaRemove()	{return true;}
 
 local pShield, pUser, iHits;
 local iPrevDir, fAiming, iAimingAngle;
@@ -33,33 +33,33 @@ public func SetUser(object pNewUser)
 
 public func GetUser()
 {
-  return(pUser);
+  return pUser;
 }
 
 public func CheckChange()
 {
 	if(GetUser()) {
 		//Anti-Umfall-Zwischenspeicher-Hack
-		if(GetUser()->GetAction() eq "Tumble") {
-			GetUser()->SetAction("Walk");
-			GetUser()->SetDir(iPrevDir);
+		if(GetAction(GetUser()) == "Tumble") {
+			ObjectSetAction(GetUser(), "Walk");
+			SetDir(iPrevDir, GetUser());
 			if(fAiming) {
 				GetUser()->~StartSquatAiming();
 				GetUser()->~SetAiming(iAimingAngle);
 			}
 		}
-		iPrevDir = GetUser()->GetDir();
+		iPrevDir = GetDir(GetUser());
 		fAiming = false;
 		if(GetUser()->~IsAiming())
 			fAiming = true;
 		iAimingAngle = Abs(GetUser()->~AimAngle());
-   	if(Contents(0,pUser) != this())
+   	if(Contents(0,pUser) != this)
     	RemoveShield();
   }
   else {
     RemoveShield();  
   }
-  return(1);
+  return 1;
 }
 
 /* Steuerung */
@@ -71,7 +71,6 @@ public func ControlThrow(caller)
    pShield->ExecShove();
    return 1;
   }
-  return 0;
 }
 
 /* Ablegen */
@@ -95,11 +94,11 @@ public func Entrance(object pContainer)
   SetUser(pContainer);
 
   //Position setzen
-  SetR(0);
-  SetRDir(0);
+  SetR();
+  SetRDir();
 
   //Schild erstellen wenn aktiv gewählt
-  if(pUser->Contents(0) == this)
+  if(Contents(0, pUser) == this)
    if(GetOCF(pContainer) & OCF_CrewMember)
     CreateShield();
 }
@@ -108,7 +107,7 @@ public func Entrance(object pContainer)
 
 private func CreateShield()
 {
-  if(!GetUser()) return();
+  if(!GetUser()) return;
   
   SetAction("Invis");
   
@@ -127,7 +126,7 @@ private func CreateShield()
 private func RemoveShield()
 {
   //Kein Schild, kein entfernen
-  if(!pShield) return();
+  if(!pShield) return;
 
   SetAction("Idle");
   Sound("RSHL_Hide.ogg");
@@ -151,7 +150,7 @@ public func DoHit(int iHit)
 protected func Hit()
 {
   Sound("BlockOff*.ogg");
-  return(1);
+  return 1;
 }
 
 /* Schildhandling */

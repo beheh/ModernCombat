@@ -2,12 +2,12 @@
 
 #strict 2
 
-public func HandSize()		{return(1000);}
-public func HandX()		{return(4500);}
-public func HandY()		{return(0);}
-public func IsDrawable()	{return(true);}
-public func IsEquipment()	{return(true);}
-public func NoArenaRemove()	{return(true);}
+public func HandSize()		{return 1000;}
+public func HandX()		{return 4500;}
+public func HandY()		{}
+public func IsDrawable()	{return true;}
+public func IsEquipment()	{return true;}
+public func NoArenaRemove()	{return true;}
 
 
 /* Stich setzen */
@@ -15,7 +15,7 @@ public func NoArenaRemove()	{return(true);}
 public func ControlThrow(pByObject)
 {
   Sting(pByObject);
-  return(true);
+  return true;
 }
 
 func Sting(caller)
@@ -28,13 +28,13 @@ func Sting(caller)
    if(GetEffect("*Heal*",obj))
    {
      PlayerMessage(GetOwner(caller), "$AlreadyHealing$",caller);
-     return(1);
+     return 1;
    }
    //Nicht verwundet?
    if(GetEnergy(obj) == GetPhysical("Energy",0, obj)/1000)
    {
      PlayerMessage(GetOwner(caller), "$NotWounded$",caller);
-     return(1);
+     return 1;
    }
 
    //Heileffekt geben
@@ -51,7 +51,7 @@ func Sting(caller)
    //Ins Leere stechen
    Sound("GrenadeThrow*.ogg");
   }
-  return(1);
+  return 1;
 }
 
 /* Aktivierung */
@@ -62,26 +62,26 @@ func Activate(object pByObj)
   if(GetEffect("*Heal*",pByObj))
   {
     PlayerMessage(GetOwner(pByObj), "$AlreadyHealing$",pByObj);
-    return(1);
+    return 1;
   }
   //Nicht verwundet?
   if(GetEnergy(pByObj) == GetPhysical("Energy",0, pByObj)/1000)
   {
     PlayerMessage(GetOwner(pByObj), "$NotWounded$",pByObj);
-    return(1);
+    return 1;
   }
 
   //Heileffekt geben
   AddEffect("DragninHeal",pByObj,20,1,0,GetID(),HealAmount(),HealRate());
   Sound("DGNN_Use.ogg");
   RemoveObject();
-  return(1);
+  return 1;
 }
 
 /* Dragnineffekt */
 
-func HealRate()		{return(2);}
-func HealAmount()	{return(40);}
+func HealRate()		{return 2;}
+func HealAmount()	{return 40;}
 
 func FxDragninHealStart(object pTarget, int iEffectNumber, int iTemp, int iHealAmount, int iHealRate)
 {
@@ -113,17 +113,17 @@ func FxDragninHealTimer(object pTarget, int iEffectNumber, int iEffectTime)
   //Schon voll geheilt?
   if(GetEnergy(pTarget) >= GetPhysical("Energy",0,pTarget)/1000)
   {
-    return(-1);
+    return -1;
   }
   //Schon leer?
   if(!EffectVar(0,pTarget,iEffectNumber))
   {
-    return(-1);
+    return -1;
   }
   //FakeDeath?
   if(Contained(pTarget) && GetID(Contained(pTarget)) == FKDT)
   {
-    return(-1);
+    return -1;
   }
 }
 
@@ -133,7 +133,7 @@ func FxDragninHealDamage(target, no, dmg, dmgtype)
   if(dmg < 0)
     RemoveEffect(0,target,no);
   else
-    return(dmg);
+    return dmg;
 }
 
 public func FxDragninHealStop(object pTarget, no, reason, temp)

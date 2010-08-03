@@ -1,17 +1,17 @@
 /*-- Defibrillator --*/
 
-#strict
+#strict 2
 
 local charge;
 
-public func HandSize()		{return(1000);}
-public func HandX()		{return(4500);}
-public func HandY()		{return(0);}
-public func IsDrawable()	{return(true);}
-public func MaxEnergy()		{return(30);}
+public func HandSize()		{return 1000;}
+public func HandX()		{return 4500;}
+public func HandY()		{}
+public func IsDrawable()	{return true;}
+public func MaxEnergy()		{return 30;}
 
-func IsEquipment()		{return(true);}
-public func NoArenaRemove()	{return(true);}
+func IsEquipment()		{return true;}
+public func NoArenaRemove()	{return true;}
 
 
 /* Initalisierung */
@@ -23,7 +23,7 @@ public func Initialize()
 
 public func GetUser()
 {
-  return(Contained());
+  return Contained();
 }
 
 /* Akkuregeneration */
@@ -40,7 +40,7 @@ public func Timer()
   //Akku um einen Punkt aufladen
   charge = BoundBy(charge+1,0,MaxEnergy());
 
-  return(true);
+  return true;
 }
 
 /* Shocken */
@@ -48,12 +48,12 @@ public func Timer()
 public func ControlThrow(pByObject)
 {
   Use(pByObject);
-  return(true);
+  return true;
 }
 
 public func Activate(pClonk)
 {
-  return(Use(pClonk));
+  return Use(pClonk);
 }
 
 func Use(caller)
@@ -63,14 +63,14 @@ func Use(caller)
    PlayerMessage(GetOwner(caller), "$NotCharged$", Contained(this),ENAM);
 
   //Nicht in Gebäuden
-  if(Contained(caller)) return(false);
+  if(Contained(caller)) return false;
 
   //Nicht schocken wenn nicht bereit
-  if(!Ready()) return(false);
+  if(!Ready()) return false;
 
   //Richtung feststellen
   var dir = +1;
-  if(GetDir(GetUser()) == DIR_Left())
+  if(GetDir(GetUser()) == DIR_Left)
    dir = -1;
 
   //Patienten suchen
@@ -84,9 +84,9 @@ func Use(caller)
     //Patient wiederbeleben
     obj->StopFakeDeath();
     //Energieschub
-    obj->DoEnergy(20);
+    DoEnergy(20, obj);
     //Restliche Energie mit Heilungseffekt übergeben
-    obj->AddEffect("ShockPaddlesHeal",obj,20,1,0,GetID(),HealAmount(),HealRate());
+    AddEffect("ShockPaddlesHeal",obj,20,1,0,GetID(),HealAmount(),HealRate());
 
     //Effekte
     Sound("CDBT_Shock.ogg");
@@ -104,7 +104,7 @@ func Use(caller)
     //Energie entladen
     charge = BoundBy(charge-20,0,MaxEnergy());
 
-    return(1);
+    return 1;
   }
 
   obj=0;
@@ -123,7 +123,7 @@ func Use(caller)
      DoDmg(30+Random(10),DMG_Energy,target,0,GetController(caller)+1,GetID());
      Fling(target,2*dir,-2);
      if(!target)//Könnte ja jetzt weg sein.
-     target = this();
+     target = this;
 
      //Effekte
      Sound("CDBT_Shock.ogg");
@@ -150,13 +150,13 @@ func Use(caller)
   //Nachladen
   SetAction("Reload");
 
-  return(true);
+  return true;
 }
 
 /* Selbstheilungseffekt durch Wiederbelebung */
 
-func HealRate()		{ return(2);  }
-func HealAmount()	{ return(100); }
+func HealRate()		{ return 2;  }
+func HealAmount()	{ return 100; }
 
 func FxShockPaddlesHealStart(object pTarget, int iEffectNumber, int iTemp, int iHealAmount, int iHealRate)
 {
@@ -175,18 +175,18 @@ func FxShockPaddlesHealTimer(object pTarget, int iEffectNumber, int iEffectTime)
   }
   //Schluss wenn komplett geheilt
   if(GetEnergy(pTarget) >= GetPhysical("Energy",0,pTarget)/1000)
-   return(-1);
+   return -1;
   //oder der Effekt aufgebraucht
   if(!EffectVar(0,pTarget,iEffectNumber))
-   return(-1);
+   return -1;
 }
 
 func FxShockPaddlesHealDamage(object pTarget, int iEffectNumber, int iChange)
 {
   //Wenn durch Außeneinwirkung verletzt, Effekt abbrechen
-  if(iChange >= 0) return(iChange);
+  if(iChange >= 0) return iChange;
   RemoveEffect("ShockPaddlesHeal", pTarget);
-  return(iChange);
+  return iChange;
 }
 
 /* Bereitschaft */
@@ -194,14 +194,12 @@ func FxShockPaddlesHealDamage(object pTarget, int iEffectNumber, int iChange)
 func Ready()
 {
   //Nicht wenn am Nachladen
-  if(GetAction() eq "Reload")
-   return(false);
+  if(GetAction() == "Reload")
+   return false;
 
   //Nicht bei zu wenig Spannung
   if(charge >= 10)
-   return(true);
-
-  return(false);
+   return true;
 }
 
 public func RejectEntrance(object pObj)
@@ -209,14 +207,13 @@ public func RejectEntrance(object pObj)
   if(GetOCF(pObj) & OCF_Living)
   {
    if(ContentsCount(GetID(),pObj))
-    return(true);
+    return true;
   }
-  return(false);
 }
 
 /* HUD */
 
-func CustomHUD(){return(true);}
+func CustomHUD(){return true;}
 
 func UpdateHUD(object pHUD)
 {
