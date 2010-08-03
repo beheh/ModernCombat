@@ -8,3 +8,4 @@ CtxHelpMessagesOn=Hilfen
 CtxHelpMessagesOff=<c 525252>Hilfen</c>
 CtxQuickInventoryOn=QuickInventar
 CtxQuickInventoryOff=<c 525252>QuickInventar</c>
+CtxSettingsClose=Schlieﬂen
