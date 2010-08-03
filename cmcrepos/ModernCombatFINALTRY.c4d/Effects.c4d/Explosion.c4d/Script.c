@@ -8,8 +8,8 @@ global func Explode(int iLevel, object pObj, id idEffect, string szEffect)
     if(!(pObj=this))
       return;
   
-  var x = AbsX(pObj->GetX()),
-  	  y = AbsY(pObj->GetY());
+  var x = AbsX(GetX(pObj)),
+  	  y = AbsY(GetY(pObj));
 			
   var boom = FindObject(BOOM);
   if(!boom) boom = CreateObject(BOOM,0,0,-1);
@@ -86,8 +86,8 @@ global func SemiExplode(int iLevel, int incidence)
     var rock = CreateObject(ROCK, 0, 0, GetOwner());
     if(this)
     {
-      rock->SetXDir(GetXDir(this));
-      rock->SetYDir(GetYDir(this));
+      SetXDir(GetXDir(this), rock);
+      SetYDir(GetYDir(this), rock);
     }
     Explode(iLevel,rock); 
   }

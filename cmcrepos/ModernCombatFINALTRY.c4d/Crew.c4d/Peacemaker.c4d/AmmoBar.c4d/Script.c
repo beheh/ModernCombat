@@ -6,8 +6,8 @@ local obj;
 local iBarCount;
 local fActive;
 
-public func IsBar() {	return true; }
-public func BarActive() {	return fActive; }
+public func IsBar() { return true; }
+public func BarActive() { return fActive; }
 public func RejectEntrance()	{ return true;	}
 
 /* Initalisierung */
@@ -16,7 +16,7 @@ protected func Initialize()
 {
 	fActive = false;
 	SetVisibility(VIS_None);
-  SetGraphics("Row", this(), GetID(), 1, 1);
+  SetGraphics("Row", this, GetID(), 1, 1);
 }
 
 /* Einstellung */
@@ -32,7 +32,7 @@ public func Set(object target, int color, int barcount)
   //Und dranmachen
   SetAction("Attach",target);
 
-  SetClrModulation(color,this(),1);
+  SetClrModulation(color,this,1);
   
   return true;
 }
@@ -50,10 +50,10 @@ public func Update()
 	//Schauen, ob wir überhaupt anzeigen brauchen
   if(!obj || !(GetOCF(obj) & OCF_Alive) || Contained(obj) || Hostile(GetOwner(), GetOwner(obj)))
    return;
-  if(!obj->Contents() || !obj->Contents()->~IsWeapon() || !obj->AmmoStoring())
+  if(!Contents(0, obj) || !Contents(0, obj)->~IsWeapon() || !obj->AmmoStoring())
    return;
   //Alles ok? Waffe und Waffendaten holen...
-  var weapon = obj->Contents();
+  var weapon = Contents(0, obj);
   var ammobag = obj->AmmoStoring();
   //Die Munition die wir haben holen
   var ammocount = obj->GetAmmo(weapon->GetFMData(FM_AmmoID));

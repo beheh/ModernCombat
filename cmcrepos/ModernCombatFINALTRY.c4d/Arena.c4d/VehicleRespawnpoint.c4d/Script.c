@@ -24,10 +24,10 @@ global func FxIntVehicleSpawn4KTimer(object pTarget, int iEffectNumber, int iEff
   if(!pVehicle)
   {
    pVehicle = CreateContents(RandomIndex4K(aType),pTarget);
-   pVehicle->SetDir(EffectVar (2,pTarget,iEffectNumber));
+   SetDir(EffectVar (2,pTarget,iEffectNumber), pVehicle);
    if(!pTarget->~Spawn(pVehicle))
-    pVehicle->Exit();
-    pVehicle->SetPosition(GetX(),GetY());
+    Exit(pVehicle);
+    SetPosition(GetX(),GetY(), pVehicle);
   }
   
   var iDistance = EffectVar(3, pTarget, iEffectNumber);
@@ -38,7 +38,7 @@ global func FxIntVehicleSpawn4KTimer(object pTarget, int iEffectNumber, int iEff
   
   EffectVar(1,pTarget,iEffectNumber) = pVehicle;
 
-  return 0;
+  return;
 }
 
 global func FxIntVehicleSpawn4KAddType(object pTarget, int iEffectNumber, id idType)
@@ -47,7 +47,7 @@ global func FxIntVehicleSpawn4KAddType(object pTarget, int iEffectNumber, id idT
   {
    EffectVar(0,pTarget,iEffectNumber)[GetLength(EffectVar(0,pTarget,iEffectNumber))] = idType;
   }
-  return 0;
+  return;
 }
 
 global func FxIntVehicleSpawn4KDelType(object pTarget, int iEffectNumber, id idType)
@@ -70,7 +70,7 @@ global func FxIntVehicleSpawn4KSetDir(object pTarget, int iEffectNumber, int iDi
 global func FxIntVehicleSpawn4KSetDist(object pTarget, int iEffectNumber, int iDistance)
 {
   EffectVar(3,pTarget,iEffectNumber) = iDistance;
-  return 0;
+  return;
 }
 
 
@@ -172,11 +172,11 @@ global func FxIntVehicleUnusedTimer(object pTarget, int iEffectNumber, id idType
     return -1;
   if(!pTarget || !pSpawner)
     return -1;
-  if(pTarget->~GetActionTarget()) {
-    var pCommanders = FindObjects(Find_ActionTarget(pTarget->~GetActionTarget()), Find_OCF(OCF_Alive));
+  if(GetActionTarget(0, pTarget)) {
+    var pCommanders = FindObjects(Find_ActionTarget(GetActionTarget(0, pTarget)), Find_OCF(OCF_Alive));
     var remove = false;
     for(var pCommander in pCommanders) {
-      var iDistance = Distance(GetX(pCommander), GetY(pCommander), GetX(pTarget->~GetActionTarget()), GetY(pTarget->~GetActionTarget()));
+      var iDistance = Distance(GetX(pCommander), GetY(pCommander), GetX(GetActionTarget(0, pTarget)), GetY(GetActionTarget(0, pTarget)));
       if(iDistance < 50) {
         remove = true;
         break;
@@ -203,7 +203,7 @@ public func FxSpawnBeamStart(pTarget, iEffectNumber, temp, iFrames)
 {
   EffectVar(0, pTarget, iEffectNumber) = GetClrModulation(pTarget);
   EffectVar(1, pTarget, iEffectNumber) = iFrames;
-  pTarget->SetClrModulation(RGBa(255, 255, 255, 255));//Unsichtbar.
+  SetClrModulation(RGBa(255, 255, 255, 255), pTarget);//Unsichtbar.
 }
 
 public func FxSpawnBeamTimer(pTarget, iEffectNumber, iTime)
@@ -213,15 +213,15 @@ public func FxSpawnBeamTimer(pTarget, iEffectNumber, iTime)
 
   for(var i = 0; i < 2; ++i)
   {
-   var cur_X = pTarget->GetX() - GetX();
-   var cur_Y = pTarget->GetY() - GetY();
-   var x = RandomX( cur_X - pTarget->GetObjWidth() / 2, cur_X + pTarget->GetObjWidth() / 2);
-   var y = RandomX( cur_Y - pTarget->GetObjHeight() / 2, cur_Y + pTarget->GetObjHeight() / 2);
+   var cur_X = GetX(pTarget) - GetX();
+   var cur_Y = GetY(pTarget) - GetY();
+   var x = RandomX( cur_X - GetObjWidth(pTarget) / 2, cur_X + GetObjWidth(pTarget) / 2);
+   var y = RandomX( cur_Y - GetObjHeight(pTarget) / 2, cur_Y + GetObjHeight(pTarget) / 2);
 
    CreateParticle("LsrSprk",x,y,0,-2,170,RGBa(0, RandomX(128,255), 255, 50));
   }
   var v = 255-(iTime*255/iFrames);
-  pTarget->SetClrModulation(RGBa(255,255,255,v),pTarget);
+  SetClrModulation(RGBa(255,255,255,v),pTarget);
   
   if(iTime >= iFrames)
    return -1;
@@ -229,5 +229,5 @@ public func FxSpawnBeamTimer(pTarget, iEffectNumber, iTime)
 
 public func FxSpawnBeamStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)
 {
-  pTarget->SetClrModulation(EffectVar(0, pTarget, iEffectNumber), pTarget);
+  SetClrModulation(EffectVar(0, pTarget, iEffectNumber), pTarget);
 }

@@ -1,16 +1,16 @@
 /*-- Flaggenposten --*/
 
-#strict
+#strict 2
 
 local team,process,range,flag,attacker,spawnpoints,trend,capt,pAttackers,lastowner;
 
-public func GetAttacker()	{return(attacker);}
-public func GetTeam()		{return(team);}
-public func GetProcess()	{return(process);}
-public func GetTrend()		{return(trend);}
-public func IsFullyCaptured()	{return(capt);}
+public func GetAttacker()	{return attacker;}
+public func GetTeam()		{return team;}
+public func GetProcess()	{return process;}
+public func GetTrend()		{return trend;}
+public func IsFullyCaptured()	{return capt;}
 
-public func IsFlagpole()	{return(true);}
+public func IsFlagpole()	{return true;}
 
 
 /* Initalisierung */
@@ -33,7 +33,7 @@ public func FxIntFlagpoleTimer(object pTarget)
   if(!pTarget)
    return(-1);
   pTarget->Timer();
-  return(0);
+  return;
 }
 
 public func Set(string szName, int iRange, int iSpeed)
@@ -46,8 +46,8 @@ public func Set(string szName, int iRange, int iSpeed)
 
   if(!iSpeed) iSpeed = 10;
 
-  RemoveEffect("IntFlagpole",this());
-  AddEffect("IntFlagpole",this(),10,iSpeed,this());
+  RemoveEffect("IntFlagpole",this);
+  AddEffect("IntFlagpole",this,10,iSpeed,this);
 }
 
 /* Spawnpoint setzen */
@@ -66,7 +66,7 @@ public func GetSpawnPoint(int &iX, int &iY, string &szFunction)
   if(!GetLength(spawnpoints))
   {
    iY = -30;
-   return();
+   return;
   }
 
   var rnd = Random(GetLength(spawnpoints));
@@ -83,9 +83,9 @@ public func IsAttacked()
   {
    if(GetOwner(clonk) == NO_OWNER) continue;
    if(GetPlayerTeam(GetOwner(clonk)) != team)
-    return(true);
+    return true;
   }
-  return(false);
+  return false;
 }
 
 public func IsCaptured(bool pBool)
@@ -218,10 +218,10 @@ public func NoTeam()
 
 public func UpdateFlag()
 {
-  if(!flag) return();
+  if(!flag) return;
 
   if(team) {
-    flag->SetColorDw(RGB(0,0,0));
+    SetColorDw(RGB(0,0,0), flag);
     for(var i = 0; i < GetPlayerCount(); i++) {
       if(GetPlayerTeam(GetPlayerByIndex(i)) != team) continue;
 	    flag->SetOwner(GetPlayerByIndex(i));
@@ -229,8 +229,8 @@ public func UpdateFlag()
     }
   }
   else {
-    flag->SetOwner(NO_OWNER);
-    flag->SetColorDw(RGB(255, 255, 255));
+    SetOwner(NO_OWNER, flag);
+    SetColorDw(RGB(255, 255, 255), flag);
   }
 
   SetFlagPos(process);
@@ -238,7 +238,7 @@ public func UpdateFlag()
 
 protected func SetFlagPos(int iHeight)
 {
-  if(!flag) return();
+  if(!flag) return;
   iHeight = ((((GetDefHeight()+GetDefOffset(GetID(flag),true))*10)/100*(iHeight*10)) / 100)-GetDefOffset(GetID(flag),true);//Prozent umrechnen.
   iHeight = BoundBy(iHeight,0,GetDefHeight()+GetDefOffset(GetID(flag),true)); //Sicherheit ist wichtig.
   SetPosition(GetX(),GetY()-iHeight,flag);//Und setzen.
@@ -292,5 +292,5 @@ public func DoProcess(int iTeam, int iAmount)
 
   UpdateFlag();
 
-  return(process);
+  return process;
 }

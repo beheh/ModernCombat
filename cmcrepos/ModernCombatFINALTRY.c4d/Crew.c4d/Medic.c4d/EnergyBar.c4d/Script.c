@@ -5,8 +5,8 @@
 local obj;
 local fActive;
 
-public func IsBar() {	return true; }
-public func BarActive() {	return fActive; }
+public func IsBar() { return true; }
+public func BarActive() { return fActive; }
 public func RejectEntrance()	{ return true;	}
 
 /* Initalisierung */
@@ -15,7 +15,7 @@ protected func Initialize()
 {
 	fActive = false;
 	SetVisibility(VIS_None);
-  SetGraphics("Row", this(), GetID(), 1, 1);
+  SetGraphics("Row", this, GetID(), 1, 1);
 }
 
 /* Einstellung */
@@ -28,7 +28,7 @@ public func Set(object target, int color)
   SetVertex(0,1,GetVertex(0,1,target) - GetObjHeight(target)/2-10);
   SetAction("Attach",target);
 
-  SetClrModulation(color,this(),1);
+  SetClrModulation(color,this,1);
   
   return true;
 }

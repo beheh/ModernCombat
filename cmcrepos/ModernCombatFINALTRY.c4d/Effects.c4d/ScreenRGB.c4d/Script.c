@@ -77,7 +77,7 @@ public func FxIntRGBFadeStart(object pTarget, int iEffectNumber, int iTemp)
 public func FxIntRGBFadeTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
   a = BoundBy(a+fade,0,255);
-  pTarget->SetClrModulation(RGBa(r,g,b,a));
+  SetClrModulation(RGBa(r,g,b,a), pTarget);
   
   if(a <= 0)
     return -1;

@@ -1,6 +1,6 @@
 /*-- Flaggenwähler --*/
 
-#strict
+#strict 2
 
 local szFunction;
 
@@ -14,13 +14,13 @@ public func Initialize()
 
 global func CreateGOCCSpawner(object pCrew)
 {
-  if(!pCrew) pCrew = this();
-  if(!pCrew) return(false);
+  if(!pCrew) pCrew = this;
+  if(!pCrew) return false;
   
   var spawner = CreateObject(OSPW);
-  pCrew->Enter(spawner);
+  Enter(spawner, pCrew);
   
-  return(spawner);
+  return spawner;
 }
 
 public func FxIntSpawnCounterStart(object pTarget, int iEffectNumber, int iTemp)
@@ -31,28 +31,28 @@ public func FxIntSpawnCounterStart(object pTarget, int iEffectNumber, int iTemp)
   SetCategory(C4D_Foreground, pTarget);
   //Zählen
   SetAction("Counter");
-  return(1);
+  return 1;
 }
 
 public func FxIntSpawnCounterTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
   if(!pTarget)
-    return(-1);
+    return -1;
   
-  var crew = pTarget->Contents();
+  var crew = Contents(0, pTarget);
   Sound("Select.ogg",false,crew,100,GetOwner(crew)+1);
   
   if(iEffectTime >= 35*5)
   {
     pTarget->Spawn();
-    return(-1);
+    return -1;
   }
   else
   {
     SetPhase(iEffectTime/35);
   }
 
-  return(1);
+  return 1;
 }
 
 public func FxIntSpawnCounterStop(object pTarget, int iEffectNumber, int iTemp,iFrames)
@@ -61,14 +61,14 @@ public func FxIntSpawnCounterStop(object pTarget, int iEffectNumber, int iTemp,i
   SetCategory(EffectVar(0, pTarget, iEffectNumber), pTarget);
   //Normale Action
   SetAction("Idle");
-  return(1);
+  return 1;
 }
 
 local spawn,flagpoles,selection,oldvisrange,oldvisstate;
 
 protected func Collection2(object pObject)
 {
-  if(!(GetOCF(pObject) & OCF_CrewMember)) return();
+  if(!(GetOCF(pObject) & OCF_CrewMember)) return;
   SetOwner(GetController(pObject));
 
   //Bei der Initialisierung die Werte speichern.
@@ -124,7 +124,7 @@ global func GetFlagDistance(object pFlag) {
 		  }
     up++;
   }
-  return(dist);
+  return dist;
 }
 
 global func GetBestFlag(int iTeam)
@@ -147,7 +147,7 @@ global func GetBestFlag(int iTeam)
     }
   }
   
-  return(best);
+  return best;
 }
 
 public func AutoSelect()//T0ll für Bots. ;)
@@ -159,9 +159,9 @@ public func AutoSelect()//T0ll für Bots. ;)
 func SpawnOk()
 {
   if(!Contents())
-    return(RemoveObject());
-  if(Contents()->GetOwner() == NO_OWNER)
-    return(RemoveObject());
+    return RemoveObject();
+  if(GetOwner(Contents()) == NO_OWNER)
+    return RemoveObject();
     
   //Sichtdaten zurücksetzen.
   SetFoW(oldvisstate,GetOwner(Contents()));
@@ -169,20 +169,20 @@ func SpawnOk()
 
   spawn = 1;
   CloseMenu(Contents());
-  AddEffect ("IntSpawnCounter",this(),200,35,this(),0);
+  AddEffect ("IntSpawnCounter",this,200,35,this);
 }
 
 // Bitte nicht so hibbelig sein!
-public func ContainedLeft() {return(1);}
-public func ContainedRight() {return(1);}
-public func ContainedDown() {return(1);}
-public func ContainedUp() {return(1);}
-public func ContainedDig() {return(1);}
-public func ContainedThrow() {return(1);}
+public func ContainedLeft() {return 1;}
+public func ContainedRight() {return 1;}
+public func ContainedDown() {return 1;}
+public func ContainedUp() {return 1;}
+public func ContainedDig() {return 1;}
+public func ContainedThrow() {return 1;}
 
 public func Spawn()
 {
-  if(!Contents()) return(RemoveObject());
+  if(!Contents()) return RemoveObject();
 
 	var obj = Contents();
   Exit(obj);
@@ -195,16 +195,16 @@ public func Spawn()
     RemoveObject();
     }
   
-  return(1);
+  return 1;
 }
 
 public func SpawnMenu()
 {
   var crew = Contents();
-  if(!crew) return();
+  if(!crew) return;
   
   var team = GetPlayerTeam(GetOwner(crew));
-  if(!team) return();
+  if(!team) return;
   
   CloseMenu (crew);
   
@@ -216,8 +216,8 @@ public func SpawnMenu()
     tmp = GraphicsHelper(point);
     if(!tmp) continue;
     
-    AddMenuItem (point->GetName(),"SelectFlagpole2",GetID(),crew,point->GetProcess(),ObjectNumber(point),"",4,tmp);
-    tmp->RemoveObject();
+    AddMenuItem (GetName(point),"SelectFlagpole2",GetID(),crew,point->GetProcess(),ObjectNumber(point),"",4,tmp);
+    RemoveObject(tmp);
   }
 
   SelectMenuItem(selection,crew);
@@ -231,12 +231,12 @@ protected func SelectFlagpole2(id unused,int iObject)
 public func SelectFlagpole(object pObject)
 {
   var crew = Contents();
-  if(!crew) return();
+  if(!crew) return;
   
   if((pObject->GetTeam() != GetPlayerTeam(GetOwner(crew))) || (!pObject->IsFullyCaptured()))
   {
     SetPlrViewRange(0,crew);
-    return(Sound("Error",false,crew,100,GetOwner(crew)+1));
+    return Sound("Error",false,crew,100,GetOwner(crew)+1);
   }
 
   SetPlrViewRange(Min(200,oldvisrange),crew);//Nicht mehr als maximal 200px sehen.
@@ -254,12 +254,12 @@ public func SelectFlagpole(object pObject)
 
 protected func Timer()
 {
-  if(spawn) return();
+  if(spawn) return;
 
   var crew = Contents();
-  if(!crew) return();
+  if(!crew) return;
 
-  if(!flagpoles) return();
+  if(!flagpoles) return;
 
   selection = GetMenuSelection (crew); 
   
@@ -278,27 +278,27 @@ global func ShowFlagpole(object pObject, object pCrew, object pContainer, int iM
   if(pObject->GetTeam() != GetPlayerTeam(GetOwner(pCrew)))
   {
     SetPlrViewRange(0,pCrew); //ZENSIERT! :I
-    return();
+    return;
   }
   
   SetPlrViewRange(Min(200,iMaxrange), pCrew); //blah
   
   var obj = pContainer;
   if(!pContainer) pContainer = pCrew;
-  pContainer->SetPosition(GetX(pObject), GetY(pObject));
-  return(true);
+  SetPosition(GetX(pObject), GetY(pObject), pContainer);
+  return true;
 }
 
 protected func MenuQueryCancel()
 {
-  if(spawn) return(false);
-  else      return(true);
+  if(spawn) return false;
+  else      return true;
 }
 
 //Helper
 protected func GraphicsHelper(object pFlagpole)
 {
-  if(!pFlagpole) return();
+  if(!pFlagpole) return;
 
   var tmp = CreateObject(GetID());
   
@@ -325,30 +325,30 @@ protected func GraphicsHelper(object pFlagpole)
       SetGraphics ("UP",tmp,GetID(tmp),2,GFXOV_MODE_Picture);
   }
   
-  return(tmp);
+  return tmp;
 }
 
 protected func GetSelected()
 {
   var crew = Contents();
-  if(!crew) return();
+  if(!crew) return;
   
   if(selection == -1)
-    return();
+    return;
 
   if(selection >= -1)
-    return(flagpoles[selection]);
+    return flagpoles[selection];
 }
 
 protected func SetSelected(object flag)
 {
   var crew = Contents();
-  if(!crew) return();
+  if(!crew) return;
   
-  if(!flag) return();
+  if(!flag) return;
   
   var i = FindFlag(flag);
-  if(i == -1) return();
+  if(i == -1) return;
   
   selection = i;
   SelectMenuItem(selection,crew);
@@ -358,7 +358,7 @@ protected func FindFlag(object flag)
 {
   for(var i = GetLength(flagpoles)-1;i > 0;i--)
     if(flag == flagpoles[i])
-      return(i);
+      return i;
       
-  return(-1);
+  return -1;
 }

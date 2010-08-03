@@ -195,7 +195,7 @@ protected func ConfigurationFinished2()
     }
   // Überschüssiges TIM1-Objekte entfernen (falls Spieler ziwschenzeitlich geflogen sind)
   for(tmp in FindObjects(Find_ID(TIM1)))
-    if(!Contents(tmp))
+    if(!Contents(0, tmp))
       RemoveObject(tmp, 1);
   // Effekte
   EFSM_SetEffects(iEffectCount);
