@@ -41,7 +41,7 @@ public func ControlThrow(object pByObj)
   //C4 erstellen und abziehen  
   var c4 = CreateObject(C4EX, x, y, GetOwner(pByObj));
   amount--;
-  AddEffect("IntC4Cooldown", this, 1, 30, this);
+  AddEffect("IntC4Cooldown", this, 1, 15, this);
 
   //Beim Klettern (aber nicht an Leitern)
   if(WildcardMatch(GetAction(pByObj), "Scale*") && GetAction(pByObj) != "ScaleLadder")
