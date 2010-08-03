@@ -6,11 +6,12 @@ local amount, max, init;
 
 public func HandSize()   	{return 1000;}
 public func HandX()     	{return 3500;}
-public func HandY()     	{return 0;}
+public func HandY()     	{}
 public func IsDrawable()	{return true;}
 public func IsEquipment()	{return true;}
 public func GetPackAmount()	{return amount;}
 public func NoArenaRemove()	{return true;}
+public func CooldownTime()	{return 15;}
 
 /* Initalisierung */
 
@@ -41,7 +42,7 @@ public func ControlThrow(object pByObj)
   //C4 erstellen und abziehen  
   var c4 = CreateObject(C4EX, x, y, GetOwner(pByObj));
   amount--;
-  AddEffect("IntC4Cooldown", this, 1, 15, this);
+  AddEffect("IntC4Cooldown", this, 1, CooldownTime(), this);
 
   //Beim Klettern (aber nicht an Leitern) 
   if(WildcardMatch(GetAction(pByObj), "Scale*") && GetAction(pByObj) != "ScaleLadder")
@@ -122,6 +123,7 @@ func UpdateHUD(object pHUD)
 {
   pHUD->Charge(amount, max);
   pHUD->Ammo(amount, max, GetName(), true);
+  pHUD->Recharge(GetEffect("IntC4Cooldown", this, 0, 6), CooldownTime());
 }
 
 /* Methoden */

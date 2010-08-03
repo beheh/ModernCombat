@@ -98,8 +98,12 @@ public func FxSpawntimerTimer(pTarget, iNo, iTime)
   PlayerMessage(EffectVar(0, pTarget, iNo), "@$TimeTillRespawn$", 0, EffectVar(1, pTarget, iNo));
 
   //Clonk/Behälter weg oder Clonk nicht im Behälter? Weg mit dem Effekt
-  if (!EffectVar(2, pTarget, iNo) || !EffectVar(2, pTarget, iNo) || Contained(EffectVar(2, pTarget, iNo)) != EffectVar(3, pTarget, iNo))
+  if (!EffectVar(2, pTarget, iNo) || !EffectVar(3, pTarget, iNo) || Contained(EffectVar(2, pTarget, iNo)) != EffectVar(3, pTarget, iNo)) {
+    //Behälter noch da und TIM1? Weg damit.
+    if (GetID(EffectVar(3, pTarget, iNo)) == TIM1)
+      RemoveObject(EffectVar(3, pTarget, iNo));
     return -1;
+  }
 
   if(EffectVar(1, pTarget, iNo) <= 0)
   {
