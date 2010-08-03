@@ -39,7 +39,7 @@ public func Timer()
 	SetYDir(GetYDir(0,1000)+GetGravityAccel4K(500),0,1000);
   
   // Lebewesen können im Rauch nix sehen. >:D
-  for(var obj in FindObjects(Find_Distance(GetCon()/2,0,0), Find_NoContainer(), Find_Or(Find_OCF(OCF_Living), Find_OCF(OCF_CrewMember)))) // <- NICHT OCF_Alive ... btw. muss Find_OCF doppelt?
+  for(var obj in FindObjects(Find_Distance(GetCon()/2,0,0), Find_NoContainer(), Find_OCF(OCF_Living | OCF_CrewMember))) // <- NICHT OCF_Alive ... btw. muss Find_OCF doppelt? Re: Nein, muss es nicht. :)
   {
     if(!GetEffect("SmokeGrenade", obj))
       AddEffect("SmokeGrenade", obj, 25, 1, obj);
@@ -52,7 +52,6 @@ public func FxSmokingTimer()
   var alpha = BoundBy((GetActTime()-(iLifeTime-SM4K_FadeTime)) * 255 / SM4K_FadeTime, 0, 255);
   CreateParticle("SmokeGrenadeSmoke", 0, 0, 0, RandomX(-10, +10), GetCon()*10, RGBa(255, 255, 255, alpha));
   CreateParticle("SmokeGrenadeSmoke", 0, 0, 0, RandomX(-10, +10), GetCon()*10, RGBa(255, 255, 255, alpha));
-  return 0;
 }
 
 func Spread()
@@ -96,11 +95,11 @@ protected func ContactRight()
 global func FxSmokeGrenadeStart(object pTarget, int iEffectNumber, int iTemp)
 {
   // KIs brauchen den Sichteffekt nicht.
-  if(GetController(pTarget) == NO_OWNER) return 0;
-  if(GetPlayerType(GetController(pTarget)) == C4PT_Script) return 0;
+  if(GetController(pTarget) == NO_OWNER) return;
+  if(GetPlayerType(GetController(pTarget)) == C4PT_Script) return;
   
   EffectVar(0, pTarget, iEffectNumber) = ScreenRGB(pTarget, RGBa(150, 150, 150, 254), 0, 0, false, SR4K_LayerSmoke);
-  return 0;
+  return;
 }
 
 global func FxSmokeGrenadeTimer(object pTarget, int iEffectNumber, int iEffectTime)
@@ -112,7 +111,7 @@ global func FxSmokeGrenadeTimer(object pTarget, int iEffectNumber, int iEffectTi
   var smoked = false;
   for(var smoke in FindObjects(pTarget->Find_AtPoint(), Find_ID(SM4K)))
   {
-    if(smoke->GetCon()/2 > Distance(GetX(smoke),GetY(smoke),GetX(pTarget),GetY(pTarget)))
+    if(GetCon(smoke)/2 > Distance(GetX(smoke),GetY(smoke),GetX(pTarget),GetY(pTarget)))
     {
       smoked = true;
       break;
@@ -127,14 +126,12 @@ global func FxSmokeGrenadeTimer(object pTarget, int iEffectNumber, int iEffectTi
     if(rgb->GetAlpha() <= 0)
       return -1; // Boing. Wir werden nicht mehr gebraucht!
   }
-  
-  return 0;
 }
 
 global func FxSmokeGrenadeStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)
 {
   if(EffectVar(0,pTarget,iEffectNumber))
-    EffectVar(0,pTarget,iEffectNumber)->RemoveObject();
+    RemoveObject(EffectVar(0,pTarget,iEffectNumber));
 }
 
 public func SetAlpha(int iValue)

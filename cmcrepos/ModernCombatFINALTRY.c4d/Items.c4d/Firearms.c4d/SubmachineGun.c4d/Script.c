@@ -1,47 +1,47 @@
 /*-- Maschinenpistole --*/
 
-#strict
+#strict 2
 #include WPN2
 
-public func HandSize()		{return(800);}
-public func HandX()		{return(2500);}
-public func HandY()		{return(-2000);}
+public func HandSize()		{return 800;}
+public func HandX()		{return 2500;}
+public func HandY()		{return -2000;}
 
-public func BarrelYOffset()	{return(-5500);}
-public func SelectionTime()	{return(30);}
+public func BarrelYOffset()	{return -5500;}
+public func SelectionTime()	{return 30;}
 
 
 /* Kugeln */
 
 public func FMData1(int data)
 {
-  if(data == FM_Name)		return("$Bullets$");
+  if(data == FM_Name)		return "$Bullets$";
     
-  if(data == FM_AmmoID)		return(STAM);
-  if(data == FM_AmmoLoad)	return(30);
+  if(data == FM_AmmoID)		return STAM;
+  if(data == FM_AmmoLoad)	return 30;
   
-  if(data == FM_Reload)		return(70);
-  if(data == FM_Recharge)	return(3);
+  if(data == FM_Reload)		return 70;
+  if(data == FM_Recharge)	return 3;
 
-  if(data == FM_Auto)		return(true);
+  if(data == FM_Auto)		return true;
   
-  if(data == FM_Damage)		return(6);
+  if(data == FM_Damage)		return 6;
   
-  if(data == FM_Slot)		return(1);
+  if(data == FM_Slot)		return 1;
   
-  if(data == FM_SpreadAdd)	return(25);
-  if(data == FM_StartSpread)	return(50);
-  if(data == FM_MaxSpread)	return(350);
+  if(data == FM_SpreadAdd)	return 25;
+  if(data == FM_StartSpread)	return 50;
+  if(data == FM_MaxSpread)	return 350;
 
-  return(Default(data));
+  return Default(data);
 }
 
 /* Kugeln - Automatikfeuer */
 
 public func FMData1T1(int data)
 {
-  if(data == FT_Name)		return("$Auto$");
-  return(FMData1(data));
+  if(data == FT_Name)		return "$Auto$";
+  return FMData1(data);
 }
 
 public func Fire1T1()
@@ -51,29 +51,29 @@ public func Fire1T1()
 
 public func BotData1(int data)
 {
-  if(data == BOT_Range)		return(500);
+  if(data == BOT_Range)		return 500;
 
-  return(Default(data));
+  return Default(data);
 }
 
 /* Kugeln - Stoßfeuer */
 
 public func FMData1T2(int data)
 {
-  if(data == FT_Name)		return("$Burst$");
+  if(data == FT_Name)		return "$Burst$";
 
-  if(data == FM_Recharge)	return(15);
+  if(data == FM_Recharge)	return 15;
 
-  if(data == FM_Auto)		return(false);
+  if(data == FM_Auto)		return false;
 
-  if(data == FM_Damage)		return(8);
+  if(data == FM_Damage)		return 8;
 
-  if(data == FM_BurstAmount)	return(3);
-  if(data == FM_BurstRecharge)	return(3);
+  if(data == FM_BurstAmount)	return 3;
+  if(data == FM_BurstRecharge)	return 3;
 
-  if(data == FM_SpreadAdd)	return(40);
+  if(data == FM_SpreadAdd)	return 40;
 
-  return(FMData1(data));
+  return FMData1(data);
 }
 
 public func Fire1T2()
@@ -85,15 +85,15 @@ public func Fire1T2()
 
 public func FMData1T3(int data)
 {
-  if(data == FT_Name)		return("$Single$");
+  if(data == FT_Name)		return "$Single$";
 
-  if(data == FM_Recharge)	return(7);
+  if(data == FM_Recharge)	return 7;
 
-  if(data == FM_Auto)		return(false);
+  if(data == FM_Auto)		return false;
 
-  if(data == FM_Damage)		return(11);
+  if(data == FM_Damage)		return 11;
 
-  return(FMData1(data));
+  return FMData1(data);
 }
 
 public func Fire1T3()
@@ -111,7 +111,7 @@ public func Fire1()
   var x,y;
   user->WeaponEnd(x,y);
   var ammo = SALaunchBullet(x,y,GetController(user),angle+RandomX(-3,+3),230,450,GetFMData(FM_Damage));
-  ammo->Sound("SMGN_Fire*.ogg");
+  Sound("SMGN_Fire*.ogg", 0, ammo);
 
   // Effekte
   SAMuzzleFlash(RandomX(15,25),user,x,y,angle);

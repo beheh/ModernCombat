@@ -17,7 +17,7 @@ public func Fused()
 
   //Schaden
   Explode(BlastRadius()*2/3);
-  DamageObjects(BlastRadius()*3/2,BlastRadius()*2,this());
+  DamageObjects(BlastRadius()*3/2,BlastRadius()*2,this);
   CastObjects(PSPR, 8, 50);
 
   //Effekte

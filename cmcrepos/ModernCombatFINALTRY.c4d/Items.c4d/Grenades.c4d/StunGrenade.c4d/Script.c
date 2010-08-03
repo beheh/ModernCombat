@@ -97,5 +97,5 @@ public func FxIntFlashbangTimer(object pTarget, int iEffectNumber, int iEffectTi
 public func FxIntFlashbangStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)
 {
   if(EffectVar(1,pTarget,iEffectNumber))
-    EffectVar(1,pTarget,iEffectNumber)->RemoveObject();
+    RemoveObject(EffectVar(1,pTarget,iEffectNumber));
 }

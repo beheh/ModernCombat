@@ -41,12 +41,12 @@ func HitObject(object pObj)
    return;
 
   if(GetOCF(pObj) | OCF_Alive)
-   return;
+    return;
 
   if(pObj->~IsClonk())
    Sound("BodyFall*.ogg");
 
-  pObj->SetAction("Tumble");
+  ObjectSetAction(pObj, "Tumble");
   SetXDir(GetXDir(pObj)+GetXDir()/3,pObj);
   SetYDir(GetYDir(pObj)+GetYDir()/3,pObj);
 
@@ -147,7 +147,7 @@ public func Throw()
   Sound("GrenadeThrow*.ogg");
 
   var nade = user->~GrabGrenade(GetID());
-  user->~ResetShowWeapon(0);
+  user->~ResetShowWeapon();
   if(user->~IsAiming())
   {
    if(!nade) user->StopAiming();
@@ -204,7 +204,7 @@ public func FxIntFuseTimer(object pTarget, int iEffectNumber, int iEffectTime)
   }
   else
   {
-   if(Contained()->Contents() == this)
+   if(Contents(0, Contained()) == this)
     PlayerMessage(GetController(Contained()),"<c %x>•</c>",Contained(),InterpolateRGBa2(RGB(0,255),RGB(255,255),RGB(255,0),0,FuseTime(),iEffectTime));    
   }
 
@@ -230,10 +230,7 @@ public func FxIntFuseTimer(object pTarget, int iEffectNumber, int iEffectTime)
   return -1;
 }
 
-public func FxIntFuseStop(object pTarget)
-{
-  return 0;
-}
+public func FxIntFuseStop(object pTarget) { }
 
 public func Fuse()
 {
@@ -252,8 +249,8 @@ public func Fused2(object pContainer)
   {
    if(GetOCF(pContainer) & OCF_Living)
    {
-    pContainer->Fling(0,-1);
-    pContainer->DoDmg(ContainedDamage(),DMG_Fire);//Autsch! >_<
+    Fling(pContainer,-1);
+    DoDmg(ContainedDamage(),DMG_Fire, pContainer);//Autsch! >_<
    }
   }
   RemoveEffect("HitCheck",this);
@@ -330,8 +327,8 @@ public func FxHitCheckStart(object target, int effect, int temp, object byObj)
   EffectVar(1, target, effect) = GetY(target);
   if(!byObj)
    byObj = target;
-  if(byObj->Contained())
-   byObj = (byObj->Contained());
+  if(Contained(byObj))
+   byObj = (Contained(byObj));
   EffectVar(2, target, effect) = byObj;
   EffectVar(3, target, effect) = GetID(byObj);
   EffectVar(4, target, effect) = false;

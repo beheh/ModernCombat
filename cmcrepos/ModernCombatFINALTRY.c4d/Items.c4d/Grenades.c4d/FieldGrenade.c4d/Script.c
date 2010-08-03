@@ -17,7 +17,7 @@ public func Fused()
 
   //Schaden
   Explode(BlastRadius()*2/3);
-  DamageObjects(BlastRadius()*3/2,BlastRadius()*2,this());
+  DamageObjects(BlastRadius()*3/2,BlastRadius()*2,this);
 
   //Effekte
   CreateParticle("Blast",0,0,0,0,10*BlastRadius(),RGB(255,255,128));
