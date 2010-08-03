@@ -1,15 +1,15 @@
 /*-- Schwerverletzter --*/
 
-#strict
+#strict 2
 
 static const FKDT_SuicideTime = 15; //Standardzeit bei Fake Death
 
 local clonk,oldvisrange,oldvisstate,suicide;
 
-public func AimAngle()		{return();}
-public func ReadyToFire()	{return();}
-public func IsAiming()		{return();}
-public func MenuQueryCancel()	{return(true);}
+public func AimAngle()		{}
+public func ReadyToFire()	{}
+public func IsAiming()		{}
+public func MenuQueryCancel()	{return true;}
 
 /* Initalisierung */
 
@@ -30,7 +30,7 @@ public func Set(object pClonk)
   SetYDir(GetYDir(pClonk));
   
   //Reanimationszeichen erstellen
-  CreateObject(_IN3,0,0,GetOwner(pClonk))->Set(this());
+  CreateObject(_IN3,0,0,GetOwner(pClonk))->Set(this);
   
   //CTF-Flagge entfernen
   for(var content in FindObjects(Find_ActionTarget(pClonk),Find_ID(FLA2)))
@@ -38,14 +38,14 @@ public func Set(object pClonk)
     content->~AttachTargetLost();
 
   //Clonk aufnehmen
-  pClonk->Enter(this());
+  Enter(this, pClonk);
   //Evtl. Granaten holen
   pClonk->~GrabGrenades(this);
   //Objekte des Clonks aufnehmen
   GrabContents(pClonk);
   
   //Aussehen des Clonks imitieren
-  SetGraphics(0,this(),GetID(pClonk),1,GFXOV_MODE_Object,0,0,pClonk);
+  SetGraphics(0,this,GetID(pClonk),1,GFXOV_MODE_Object,0,0,pClonk);
 
   //Sichtwerte speichern
   oldvisrange = GetObjPlrViewRange(pClonk);
@@ -66,7 +66,7 @@ public func Set(object pClonk)
 
   //Verzögert Auswahlmenü öffnen
   DoMenu();
-  ScheduleCall(this(),"DoMenu",35,suicide);
+  ScheduleCall(this,"DoMenu",35,suicide);
 }
 
 /* Auswahlmenü */
@@ -88,7 +88,7 @@ private func DeathMenu()
 	if(GetMenu(clonk)) return;
 
   //Menü erstellen
-  CreateMenu(FKDT, clonk, this(), 0, Format("$Title$"), C4MN_Style_Dialog, true);	//Titelzeile
+  CreateMenu(FKDT, clonk, this, 0, Format("$Title$"), C4MN_Style_Dialog, true);	//Titelzeile
   if(FindObject(SICD))
   {
     AddMenuItem(Format("$Info$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);	//Hinweise
@@ -127,10 +127,10 @@ public func Suicide()
     if(clonk)
     {
       //Töten
-      if(GetAlive(clonk)) clonk->Kill();
+      if(GetAlive(clonk)) Kill(clonk);
 
       //Leiche "auswerfen" und ausfaden lassen
-      clonk->Exit(0,0,GetObjHeight(clonk)/2);
+      Exit(clonk,0,GetObjHeight(clonk)/2);
       clonk->FadeOut();
     }
 
@@ -138,7 +138,7 @@ public func Suicide()
   RemoveObject();
 }
 
-public func GetClonk()	{return(clonk);}
+public func GetClonk()	{return clonk;}
 
 /* Zerstörung */
 
@@ -146,7 +146,7 @@ public func Destruction()
 {
   while(Contents())
   {
-    RemoveObject(Contents(), false);
+    RemoveObject(Contents());
   }
 
   //Soundloop beenden
@@ -158,11 +158,11 @@ public func Destruction()
 public func Reanimation()
 {
   //Kein Clonk?
-  if(!clonk) return();
+  if(!clonk) return;
 
   //Clonk "auswerfen"
-  if(Contained(clonk) == this())
-   clonk->Exit(0,0,GetObjHeight(clonk)/2);
+  if(Contained(clonk) == this)
+   Exit(clonk,0,GetObjHeight(clonk)/2);
 
   //Besitztümer weitergeben
   if(GetAlive(clonk))
@@ -172,7 +172,7 @@ public func Reanimation()
 	  	clonk->~StoreGrenade(item);
 	  	if(!Contained(item)) RemoveObject(item);
     }
-    clonk->RemoveEffect("NoAnnounce", clonk);
+    RemoveEffect("NoAnnounce", clonk);
   }
   else
   {
@@ -191,21 +191,21 @@ public func Reanimation()
 
 public func RejectCollect(id idObj, object pObj)
 {
-  if(!clonk) return();
+  if(!clonk) return;
   var val = clonk->~RejectCollect(idObj,pObj);
-  return(val);
+  return val;
 }
 
 public func ControlDig(object pCaller)
 {
-  if(pCaller == clonk) return(1);
+  if(pCaller == clonk) return 1;
   //Herausnehmen per Graben: Holen-Menü öffnen
-  pCaller->SetCommand(0, "Get", this(), 0, 0, 0, 1);
+  SetCommand(pCaller, "Get", this, 0, 0, 0, 1);
 }
 
 /* Abfrage */
 
 public func GetDeathCountdown()
 {
-  return(suicide);
+  return suicide;
 }
