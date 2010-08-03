@@ -33,11 +33,11 @@ public func SetActive(object pCaller)
   if(!GetXDir() && !GetYDir())
     SetClrModulation(RGBa(255,255,255,100));
   //else
-  //AddEffect("Check", this(), 200, 1, this(), C4EX);
+  //AddEffect("Check", this, 200, 1, this, C4EX);
   
   //Effekte
   Sound("C4PA_Ignition.ogg");
-  CreateParticle("PSpark",0,0,0,0,60,RGBa(255,0,0,0),this());
+  CreateParticle("PSpark",0,0,0,0,60,RGBa(255,0,0,0),this);
 }
 
 /* Prüfungseffekt */
@@ -54,8 +54,8 @@ protected func Timer()
   if(pStickTo)
   {
     SetPosition(GetX(pStickTo)+iStickXOffset, GetY(pStickTo)+iStickYOffset, this, false);
-    SetXDir(0);
-    SetYDir(0);
+    SetXDir();
+    SetYDir();
   }
   else
   {
@@ -68,7 +68,7 @@ protected func Timer()
       iPreviousCategory = GetCategory();
       SetCategory(C4D_Vehicle);
       SetObjectOrder(pStickTo, this);
-      SetRDir(0);
+      SetRDir();
     }
     else
     {
@@ -82,7 +82,7 @@ protected func Timer()
 public func Trigger()
 {
   Sound("C4EX_Ignition.ogg");
-  CreateParticle("PSpark",0,0,0,0,60,RGBa(255,0,0,0),this());
+  CreateParticle("PSpark",0,0,0,0,60,RGBa(255,0,0,0),this);
   ScheduleCall(0, "BlowUp", 10);
 }
 
@@ -143,7 +143,6 @@ func Incineration()
 public func OnDmg(int iDmg, int iType)
 {
   if(iType == DMG_Bio)		return 100;	//Säure und biologische Schadstoffe
-  return;
 }
 
 /* Schockwelle */

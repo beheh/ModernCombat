@@ -1,13 +1,13 @@
 /*-- Gepackter Munitionsclip --*/
 
-#strict
+#strict 2
 
 local ammoid,count;
 
-public func NoWeaponChoice()	{return(true);}
-public func IsAmmoPacket()	{return(true);}
-public func AmmoID()		{return(ammoid);}
-public func AmmoCount()		{return(count);}
+public func NoWeaponChoice()	{return true;}
+public func IsAmmoPacket()	{return true;}
+public func AmmoID()		{return ammoid;}
+public func AmmoCount()		{return count;}
 
 
 public func SetAmmoID(id idType)
@@ -16,16 +16,16 @@ public func SetAmmoID(id idType)
   {
    ammoid = idType;
    SetGraphics(0,0,idType,1,GFXOV_MODE_Picture);
-   SetObjDrawTransform(500, 0, 0, 0, 500, 0, this(), 1);
+   SetObjDrawTransform(500, 0, 0, 0, 500, 0, this, 1);
   }
-  return(false);
+  return false;
 }
 
 public func GetMax()
 {
   var max = ammoid->~MaxAmmo()/10;
   if(!max) max = 50;
-  return(max);
+  return max;
 }
 
 public func SetAmmoCount(int iCount)
@@ -33,10 +33,10 @@ public func SetAmmoCount(int iCount)
   if(!iCount)
   {
    RemoveObject();
-   return(0);
+   return;
   }
   count = BoundBy(iCount,0,GetMax());
-  return(count);
+  return count;
 }
 
 public func DoAmmoCount(int iCount)
@@ -44,38 +44,36 @@ public func DoAmmoCount(int iCount)
   var new = BoundBy(iCount,0,GetMax());
   var dif = new-AmmoCount();
   count   = new;
-  return(dif);
+  return dif;
 }
 
-private func OnTransfer()
-{
-}
+private func OnTransfer() {}
 
 protected func Activate(object pObj)
 {
-  return(TransferAmmo(pObj));
+  return TransferAmmo(pObj);
 }
 
 public func MayTransfer(object pObj)
 {
-  if(!pObj) return(false);
+  if(!pObj) return false;
   var MaxAmmo = AmmoID()->~MaxAmmo();
   if(MaxAmmo)
    if(GetAmmo(AmmoID(),pObj) + AmmoCount() > MaxAmmo)
-    return(false);
-  return(true);
+    return false;
+  return true;
 }
 
 public func TransferAmmo(object pObj)
 {
-  if(!pObj) return(false);
-  if(NoAmmo()) return(false);
+  if(!pObj) return false;
+  if(NoAmmo()) return false;
   
   // nicht wenn er schon zu viel hat
   if(!MayTransfer(pObj))
   {
    PlayerMessage(GetOwner(pObj),"$NotMoreAmmo$",pObj,AmmoID());
-   return();
+   return;
   }
 
   // Nachricht ausgeben
@@ -88,11 +86,11 @@ public func TransferAmmo(object pObj)
   Sound("Resupply.ogg");
   if(!OnTransfer()) RemoveObject();
 
-  return(true);
+  return true;
 }
 
 protected func Hit()
 {
   Sound("Ammobaghit*.ogg");
-  return(1);
+  return 1;
 }

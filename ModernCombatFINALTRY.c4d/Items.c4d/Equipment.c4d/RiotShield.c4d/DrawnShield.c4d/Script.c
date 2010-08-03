@@ -4,7 +4,7 @@
 
 local target, item, angle, last;
 
-public func NoWarp()		{return(true);}
+public func NoWarp()		{return true;}
 public func ShoveTime()		{return 13*3;}
 public func RejectEntrance()	{return true;}
 public func IgnoreTracer()	{return true;}
@@ -66,7 +66,7 @@ public func ExecShove()
   //und verschleudern
   if(victim)
   {
-   Fling(victim, (target->GetDir()*2-1)*2, -1);
+   Fling(victim, (GetDir(target)*2-1)*2, -1);
    //Schaden durch Schlag wenn das Ziel ein Lebewesen ist
    if(GetOCF(victim) & OCF_Living)
     DoDmg(15,DMG_Melee,victim,0,GetController()+1,RSHL);
@@ -101,7 +101,7 @@ public func Update()
   }
 
   angle = Normalize(target->AimAngle());
-  var dir = target->GetDir()*2-1;
+  var dir = GetDir(target)*2-1;
 
   if(GetEffect("Shove",this))
   {
@@ -182,7 +182,7 @@ public func QueryCatchBlow(object pObj)
    ProtectedCall(pObj,"Hit");
    last = pObj;
   }
-  return(true);
+  return true;
 }
 
 /* Schlageffekt */
@@ -197,10 +197,10 @@ private func Hide()
 
   SetAction("Idle");
   SetPosition(10,10);
-  SetR(0);
-  SetRDir(0);
-  SetXDir(0);
-  SetYDir(0);
+  SetR();
+  SetRDir();
+  SetXDir();
+  SetYDir();
   SetCategory(C4D_StaticBack);
   SetVisibility(VIS_None);
 }

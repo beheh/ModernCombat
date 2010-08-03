@@ -10,7 +10,7 @@ public func HandY()     	{return 0;}
 public func IsDrawable()	{return true;}
 public func IsEquipment()	{return true;}
 public func GetPackAmount()	{return amount;}
-public func NoArenaRemove()	{return(true);}
+public func NoArenaRemove()	{return true;}
 
 /* Initalisierung */
 
@@ -46,8 +46,8 @@ public func ControlThrow(object pByObj)
   //Beim Klettern (aber nicht an Leitern)
   if(WildcardMatch(GetAction(pByObj), "Scale*") && GetAction(pByObj) != "ScaleLadder")
   {
-   c4->SetR((GetDir(pByObj)*-180)+90);
-   c4->SetPosition(GetX(pByObj)+(GetDir(pByObj)*12)-6,GetY(pByObj));
+   SetR((GetDir(pByObj)*-180)+90, c4);
+   SetPosition(GetX(pByObj)+(GetDir(pByObj)*12)-6,GetY(pByObj), c4);
    c4->SetActive(this);
    return true;
   }
@@ -55,18 +55,18 @@ public func ControlThrow(object pByObj)
   //Beim Hangeln
   if(GetAction(pByObj) == "Hangle")
   {
-   c4->SetR(180);
-   c4->SetPosition(GetX(pByObj), GetY(pByObj)-8);
-   c4->SetActive(this());
+   SetR(180, c4);
+   SetPosition(GetX(pByObj), GetY(pByObj)-8, c4);
+   c4->SetActive(this);
    return true;
   }
 
   //Beim Laufen
   if(WildcardMatch(GetAction(pByObj), "Walk*"))
   {
-   c4->SetRDir(RandomX(-20,20));
-   c4->SetXDir((GetDir(pByObj)*2-1)*20);
-   c4->SetYDir(-15);
+   SetRDir(RandomX(-20,20), c4);
+   SetXDir((GetDir(pByObj)*2-1)*20, c4);
+   SetYDir(-15, c4);
    c4->SetActive(this);
    Sound("GrenadeThrow*.ogg");
    return true;
@@ -75,9 +75,9 @@ public func ControlThrow(object pByObj)
   //Beim Springen
   if(WildcardMatch(GetAction(pByObj), "Jump*"))
   {
-   c4->SetRDir(RandomX(-20,20));
-   c4->SetXDir((GetDir(pByObj)*2-1)*20);
-   c4->SetYDir(-15);
+   SetRDir(RandomX(-20,20), c4);
+   SetXDir((GetDir(pByObj)*2-1)*20, c4);
+   SetYDir(-15, c4);
    c4->SetActive(this);
    Sound("GrenadeThrow*.ogg");
    return true;
@@ -86,7 +86,7 @@ public func ControlThrow(object pByObj)
   //Beim Kriechen
   if(GetAction(pByObj) == "Crawl")
   {
-   c4->SetPosition(GetX(pByObj),GetY(pByObj)+5);
+   SetPosition(GetX(pByObj),GetY(pByObj)+5, c4);
    c4->SetActive(this);
    return true;
   }
@@ -94,9 +94,9 @@ public func ControlThrow(object pByObj)
   //Beim Schwimmen
   if(GetAction(pByObj) == "Swim")
   {
-   c4->SetPosition(GetX(pByObj),GetY(pByObj)+5);
-   c4->SetXDir(GetXDir(pByObj)+(GetDir(pByObj)*2-1)*20);
-   c4->SetYDir(GetYDir(pByObj)+10);
+   SetPosition(GetX(pByObj),GetY(pByObj)+5, c4);
+   SetXDir(GetXDir(pByObj)+(GetDir(pByObj)*2-1)*20, c4);
+   SetYDir(GetYDir(pByObj)+10, c4);
    c4->SetActive(this);
    Sound("GrenadeThrow*.ogg");
    return true;
@@ -114,7 +114,7 @@ public func Activate(object pActivator)
 {
   for(var c4 in FindObjects(Find_ID(C4EX), Find_Func("GetPacket", this)))
   {
-   c4->SetController(GetOwner(pActivator));
+   SetController(GetOwner(pActivator), c4);
    ScheduleCall(c4, "Trigger", ObjectDistance(c4)/10, 0);
   }
 
@@ -151,7 +151,7 @@ public func Entrance(object pContainer)
 	if(pContainer->~IsSpawnpoint()) return;
 	for(var c4 in FindObjects(Find_ID(C4EX), Find_Func("GetPacket", this)))
     SetOwner(GetOwner(pContainer),c4);
-  for(var obj in FindObjects(Find_Container(pContainer),Find_ID(GetID()),Find_Exclude(this())))
+  for(var obj in FindObjects(Find_Container(pContainer),Find_ID(GetID()),Find_Exclude(this)))
     if(obj->DoPackAmount())
     {
       if(DoPackAmount() >= 8) return;
@@ -167,7 +167,6 @@ public func RejectEntrance(object pObj)
   if(pack = FindObject2(Find_Container(pObj), Find_ID(C4PA)))
    if(pack->DoPackAmount() >= 8)
     return 1;
-  return 0;
 }
 
 /* TimerCall */

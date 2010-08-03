@@ -59,7 +59,7 @@ protected func Activate(caller)
    return 1;
   }
   //Können wir überhaupt?
-  if(!WildcardMatch(caller->GetAction(), "*Walk*"))
+  if(!WildcardMatch(GetAction(caller), "*Walk*"))
   {
     PlayerMessage(GetOwner(caller), "$CantHeal$",caller);
     return 1;
@@ -129,7 +129,7 @@ public func ControlThrow(object pClonk)
     DoHealPoints(-40);
     CreateContents(DGNN,pClonk);
     Sound("FAPK_Dragnin.ogg");
-    while(pClonk->Contents()->GetID() != DGNN) pClonk->ShiftContents();
+    ShiftContents(pClonk, 0, DGNN);
    }
    else
    {
@@ -170,7 +170,7 @@ public func FxFAPHealTimer(pTarget, iEffectNumber, iEffectTime)
   if(!pClonk) return -1;
   
   //Abbruch
-  if((pClonk->GetAction() != "Heal") || (pClonk->GetComDir() != COMD_Stop))
+  if(GetAction(pClonk) != "Heal" || GetComDir(pClonk))
     return -1;
 
   //Fertig geheilt?

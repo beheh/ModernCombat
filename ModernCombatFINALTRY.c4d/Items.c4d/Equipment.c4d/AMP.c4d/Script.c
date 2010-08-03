@@ -20,11 +20,11 @@ public func NoArenaRemove()	{return(true);}
 protected func Initialize()
 {
   //Punkteregeneration
-  AddEffect("AMPKRegenerate",this(),251,20,this(),GetID());
+  AddEffect("AMPKRegenerate",this,251,20,this,GetID());
   //Gruppenaufstockung
-  AddEffect("AMPKRestocking",this(),252,60,this(),GetID());
+  AddEffect("AMPKRestocking",this,252,60,this,GetID());
   //Lichteffekt
-  AddEffect("AMPKLight",this(),250,1,this(),GetID());
+  AddEffect("AMPKLight",this,250,1,this,GetID());
   ammopoints = StartAmmoPoints();
 }
 
@@ -36,7 +36,7 @@ protected func Activate(caller)
   SetComDir(COMD_Stop, caller);
 
   //Munitionsmenü erstellen
-  CreateMenu(GetID(), caller, this(), 0, "$TakeAmmo$", 0, 1);
+  CreateMenu(GetID(), caller, this, 0, "$TakeAmmo$", 0, 1);
    AddMenuItem(GetName(0,STAM), "CreateAmmopack", ABOX, caller, 50);
    AddMenuItem(GetName(0,GRAM), "CreateAmmopack", GBOX, caller, 12);
    AddMenuItem(GetName(0,MIAM), "CreateAmmopack", MIAP, caller, 4);
@@ -47,7 +47,7 @@ protected func Activate(caller)
 private func CreateAmmopack(idAmmo)
 {
   if(!Contained())
-   return 0;
+   return;
 
   //Bei Projektilmunition
   if(idAmmo == ABOX)
@@ -144,7 +144,7 @@ public func FxAMPKLightTimer(pTarget, iNo, iTime)
   if(GetAmmoPoints() < 20) return 1;
   if(!Contained())
    CreateParticle("FapLight", 1, -2, 0, 0, 5*5, RGBa(BoundBy(InvertA1(255*GetAmmoPoints()/300,255)+10,0,255), 255*GetAmmoPoints()/300),this);
-  if(Contents(0,Contained()) == this())
+  if(Contents(0,Contained()) == this)
    if(WildcardMatch(GetAction(Contained()), "*Armed*"))
     CreateParticle("FapLight", (GetDir(Contained())*1), -2, 0, 0, 5*5, RGBa(BoundBy(InvertA1(255*GetAmmoPoints()/300,255)+10,0,255), 255*GetAmmoPoints()/300),this);
 }
@@ -157,7 +157,7 @@ public func FxAMPKRestockingTimer(pTarget, iEffectNumber, iEffectTime)
   if(!Contained())			return 1;	//Nicht im Freien
   if(Contained(Contained()))		return 1;	//Container nicht im Freien
   if(GetAmmoPoints() < 30)		return 1;	//Nur wenn noch Punkte da sind
-  if(Contents(0,Contained()) != this())	return 1;	//Nur, falls angewählt
+  if(Contents(0,Contained()) != this)	return 1;	//Nur, falls angewählt
   if(GetID(Contained()) == FKDT)	return 1;	//Im FakeDeath-Objekt?
 
   //Harte Vorauswahl überlebt? Los geht's.
