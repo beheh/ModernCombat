@@ -1,48 +1,48 @@
 /*-- Slingshot --*/
 
-#strict
+#strict 2
 #include WPN2
 
-public func HandSize()		{return(1050);}
-public func HandX()		{return(4000);}
-public func HandY()		{return(1000);}
+public func HandSize()		{return 1050;}
+public func HandX()		{return 4000;}
+public func HandY()		{return 1000;}
 
-public func BarrelXOffset()	{return(-1000);}
-public func BarrelYOffset()	{return(-2000);}
-public func SelectionTime()	{return(42);}
+public func BarrelXOffset()	{return -1000;}
+public func BarrelYOffset()	{return -2000;}
+public func SelectionTime()	{return 42;}
 
 
 /* Granaten - Explosivgranaten */
 
 public func FMData1(int data)
 {
-  if(data == FM_Name)		return("$Grenades$");
+  if(data == FM_Name)		return "$Grenades$";
 
-  if(data == FM_AmmoID)		return(GRAM);
-  if(data == FM_AmmoLoad)	return(8);
+  if(data == FM_AmmoID)		return GRAM;
+  if(data == FM_AmmoLoad)	return 8;
 
-  if(data == FM_Recharge)	return(50);
+  if(data == FM_Recharge)	return 50;
 
-  if(data == FM_SingleReload)	return(1);
-  if(data == FM_Reload)		return(210);
-  if(data == FM_PrepareReload)	return(30);
-  if(data == FM_FinishReload)	return(25);
+  if(data == FM_SingleReload)	return 1;
+  if(data == FM_Reload)		return 210;
+  if(data == FM_PrepareReload)	return 30;
+  if(data == FM_FinishReload)	return 25;
 
-  if(data == FM_Damage)		return(20);
+  if(data == FM_Damage)		return 20;
 
-  if(data == FM_SpreadAdd)	return(200);
-  if(data == FM_StartSpread)	return(80);
-  if(data == FM_MaxSpread)	return(400);
+  if(data == FM_SpreadAdd)	return 200;
+  if(data == FM_StartSpread)	return 80;
+  if(data == FM_MaxSpread)	return 400;
 
-  return(Default(data));
+  return Default(data);
 }
 
 public func FMData1T1(int data)
 {
-  if(data == FT_Name)		return("$Explosive$");
-  if(data == FM_Icon)		return(ESHL);
+  if(data == FT_Name)		return "$Explosive$";
+  if(data == FM_Icon)		return ESHL;
 
-  return(FMData1(data));
+  return FMData1(data);
 }
 
 public func Fire1T1()
@@ -52,9 +52,9 @@ public func Fire1T1()
 
 public func BotData1(int data)
 {
-  if(data == BOT_Range)		return(500);
+  if(data == BOT_Range)		return 500;
 
-  return(Default(data));
+  return Default(data);
 }
 
 public func LaunchGrenade(id idg, int speed, int angle, int mode)
@@ -83,7 +83,7 @@ public func LaunchGrenade(id idg, int speed, int angle, int mode)
   }
 
   //Effekte
-  grenade->Sound("SGST_Fire.ogg");
+  Sound("SGST_Fire.ogg", 0, grenade);
   CreateParticle("Thrust",x,y,/*GetXDir(user)*/,/*GetYDir(user)*/,30,RGBa(255,200,200,0),0,0);
   for(var i=0; i<10; ++i)
   {
@@ -98,12 +98,12 @@ public func LaunchGrenade(id idg, int speed, int angle, int mode)
 
 public func FMData1T2(int data)
 {
-  if(data == FT_Name)		return("$Cluster$");
-  if(data == FM_Icon)		return(FSHL);
+  if(data == FT_Name)		return "$Cluster$";
+  if(data == FM_Icon)		return FSHL;
 
-  if(data == FM_Damage)		return(5);
+  if(data == FM_Damage)		return 5;
 
-  return(FMData1(data));
+  return FMData1(data);
 }
 
 public func Fire1T2()
@@ -113,20 +113,20 @@ public func Fire1T2()
 
 public func BotData2(int data)
 {
-  if(data == BOT_Range)		return(500);
+  if(data == BOT_Range)		return 500;
 
-  return(Default(data));
+  return Default(data);
 }
 
 /* Granaten - Rauchgranaten */
 
 public func FMData1T3(int data)
 {
-  if(data == FT_Name)		return("$Smoke$");
-  if(data == FM_Icon)		return(SSHL);
+  if(data == FT_Name)		return "$Smoke$";
+  if(data == FM_Icon)		return SSHL;
 
-  if(data == FM_Damage)		return(5);
-  return(FMData1(data));
+  if(data == FM_Damage)		return 5;
+  return FMData1(data);
 }
 
 public func Fire1T3()
@@ -136,9 +136,9 @@ public func Fire1T3()
 
 public func BotData3(int data)
 {
-  if(data == BOT_Range)		return(500);
+  if(data == BOT_Range)		return 500;
 
-  return(Default(data));
+  return Default(data);
 }
 
 /* Nachladen */

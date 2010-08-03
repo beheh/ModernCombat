@@ -1,12 +1,12 @@
 /*-- Rakete --*/
 
-#strict
+#strict 2
 #include MISS
 
-public func Acceleration()	{return(3);}
-public func MaxTime()		{return(200);}
-public func MaxSpeed()		{return(100);}
-protected func SecureDistance()	{return(100);} //Mindestabstand
+public func Acceleration()	{return 3;}
+public func MaxTime()		{return 200;}
+public func MaxSpeed()		{return 100;}
+protected func SecureDistance()	{return 100;} //Mindestabstand
 
 local sx,sy,start;
 
@@ -32,21 +32,21 @@ public func Launch(int iAngle, int iDmg, object pFollow)
   start = FrameCounter();
 
   //Effekte
-  AddEffect("ThrustSound",this(),1,11,this());
-  AddLight(70,RGB(255,200,200),this(),GLOW);
+  AddEffect("ThrustSound",this,1,11,this);
+  AddLight(70,RGB(255,200,200),this,GLOW);
 
   //Treffer- und Steuereffekt einsetzen
-  AddEffect("HitCheck", this(), 1,1, 0, SHT1,shooter);
+  AddEffect("HitCheck", this, 1,1, 0, SHT1,shooter);
   if(pFollow)
-   AddEffect("Follow", this(), 1,1, 0, GetID(),pFollow);
+   AddEffect("Follow", this, 1,1, 0, GetID(),pFollow);
 }
 
 protected func Secure()
 {
   if(Distance(GetX(),GetY(),sx,sy) <= SecureDistance() && FrameCounter() < start+70)
-   return(true);
+   return true;
 
-  return(false);
+  return false;
 }
 
 /* Soundeffekt */
@@ -54,14 +54,14 @@ protected func Secure()
 public func FxThrustSoundTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
   Sound("RPGP_Thrust.ogg",0,0,0,0,+1);
-  return(-1);
+  return -1;
 }
 
 /* Optischer Steuerungseffekt */
 
 public func FxFollowStart(object pTarget, int iEffectNumber, int iTemp, obj)
 {
-  if(!obj) return(-1);
+  if(!obj) return -1;
   EffectVar(0,pTarget,iEffectNumber) = obj;
   EffectVar(1,pTarget,iEffectNumber) = 0;
 }
@@ -115,12 +115,12 @@ public func FxFollowTimer(object pTarget, int iEffectNumber, int iEffectTime)
 	var iDiff = Normalize(iDAngle - iAngle,-180);
 	var iTurn = Min(Abs(iDiff),iMaxTurn);
 
-	pTarget->SetR(iAngle+iTurn*((iDiff > 0)*2-1));
+	SetR(iAngle+iTurn*((iDiff > 0)*2-1), pTarget);
 }
 
 private func Traveling()
 {
-  if(GetActTime() >= MaxTime()) return(Hit());
+  if(GetActTime() >= MaxTime()) return Hit();
   //Im Wasser abstürzen
   if(GBackLiquid()) Fall();
   //Geschwindigkeit erhöhen
@@ -155,7 +155,7 @@ private func Smoking()
    CreateParticle("Smoke3",x,y,xdir,ydir,RandomX(50,70),RGBa(255,255,255,85),0,0);
   }
 
-  CreateParticle("MuzzleFlash2",-maxx,-maxy,+Sin(GetR()+180,500),-Cos(GetR()+180,500),RandomX(80,140),RGBa(255,200),this());
+  CreateParticle("MuzzleFlash2",-maxx,-maxy,+Sin(GetR()+180,500),-Cos(GetR()+180,500),RandomX(80,140),RGBa(255,200),this);
 }
 
 /* Schaden */
@@ -173,7 +173,7 @@ public func Fall()
 {
   SetAction("Idle");
   FadeOut4K(4);
-  AddEffect("Damaged",this(),1,1,this());
+  AddEffect("Damaged",this,1,1,this);
   Sound("RPGP_ShotDown.ogg");
 }
 
@@ -184,7 +184,7 @@ public func FxDamagedTimer(object pTarget, int iEffectNumber, int iEffectTime)
 
 public func Hit()
 {
-  if(GetAction() eq "Idle")
+  if(GetAction() == "Idle")
   {
    Explode(3,0,0,0,1);
    if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("Smoke3",12,10,0,0,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
@@ -198,7 +198,7 @@ public func Hit()
 private func HitObject(pObj)
 {
 
-  if(Secure() || GetAction() eq "Idle")
+  if(Secure() || GetAction() == "Idle")
   {
    if(pObj)
    {
@@ -216,7 +216,7 @@ private func HitObject(pObj)
      CastParticles("Smoke3",12,10,0,0,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
     }
     RemoveObject();
-    return();
+    return;
    }
    else
    {
@@ -224,7 +224,7 @@ private func HitObject(pObj)
     Sparks(30,RGB(255,128));
     CastParticles("Smoke3",12,10,0,0,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
     RemoveObject();
-    return();
+    return;
    }
   }
 
@@ -232,7 +232,7 @@ private func HitObject(pObj)
   Sound("GrenadeExplosion*.ogg");
 
   //Schaden verursachen
-  DamageObjects(iDamage,iDamage/2,this());
+  DamageObjects(iDamage,iDamage/2,this);
   Explode(iDamage*3/2,0,0,0,1);
 }
 
@@ -245,7 +245,6 @@ public func Destruction()
 
 public func OnDmg(int iDmg, int iType)
 {
-  if(iType == DMG_Fire)		return(60);	//Feuer
-  if(iType == DMG_Bio)		return(100);	//Säure und biologische Schadstoffe
-  return(0);
+  if(iType == DMG_Fire)		return 60;	//Feuer
+  if(iType == DMG_Bio)		return 100;	//Säure und biologische Schadstoffe
 }

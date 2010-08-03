@@ -8,7 +8,7 @@ public func HandSize()		{return 850;}
 public func HandX()		{return 1000;}
 public func HandY()		{return -2500;}
 
-public func SelectionTime()	{return(45);}
+public func SelectionTime()	{return 45;}
 
 local pRocket, bGuiding;
 
@@ -28,9 +28,9 @@ public func FMData1(int data)
   if(data == FM_Aim)		return 1;
   if(data == FM_Damage)		return 25;
 
-  if(data == FM_Slot)		return(1);
+  if(data == FM_Slot)		return 1;
 
-  if(data == FM_SpreadAdd)	return(300);
+  if(data == FM_SpreadAdd)	return 300;
 
   return Default(data);
 }
@@ -67,7 +67,7 @@ public func LaunchRocket(id rid, int angle, int dmg)
 
   var rocket = CreateObject(rid,x,y+10,GetController(user));
   rocket->Launch(angle, dmg, user);
-  rocket->SetController(GetController(user));
+  SetController(GetController(user), rocket);
   
   SetPlrView(GetController(user), rocket);
   pRocket = rocket;
@@ -96,8 +96,8 @@ public func HandR()
 {
   var effect = IsReloading();
   if(effect)
-   return Max(Sin(GetEffect(0,this(),effect,6)*90/50,20),0);
-  return 0;
+   return Max(Sin(GetEffect(0,this,effect,6)*90/50,20),0);
+  return;
 }
 
 /* Raketenverfolgung */

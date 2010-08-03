@@ -129,8 +129,8 @@ public func Hit(int iXDir, int iYDir)
     SetYDir(iYDir, 0, 100);
     SetR(Angle(0, 0, iXDir, iYDir));
 
-    pTrail->SetPosition(GetX(),GetY());
-    pTrail->SetSpeed(0,0);
+    SetPosition(GetX(),GetY(), pTrail);
+    SetSpeed(0,0,pTrail);
     pTrail->Remove();
 
     CreateTrail(size,trail_len);
@@ -176,7 +176,7 @@ public func BulletStrike(object pObj)
     if(GetOCF(pObj) & OCF_Alive)
     {
       //Fling(pObj,GetXDir()/20 + GetXDir(pObj),GetYDir()/20 + GetYDir(pObj));
-      pObj->SetAction("Tumble");
+      ObjectSetAction(pObj, "Tumble");
     }
     
     DoDmg(iDamage,DMG_Projectile,pObj,0,0,wpnid);
