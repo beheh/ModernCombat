@@ -9,11 +9,11 @@ local angle;
 static const CH_Distance = 60;
 static const CH_Spread_Prec = 10;
 
-public func NoWarp() {return(true);}
+public func NoWarp() {return true;}
 
 protected func GetUser()
 {
-  return(target);
+  return target;
 }
 
 func Initialize()
@@ -21,24 +21,24 @@ func Initialize()
   angle = 0;
   InitGraphics();
   
-  return(1);
+  return 1;
 }
 
 protected func Check()
 {
   if(!target)
-    return(RemoveObject());
-  if(!target->GetAlive())
-    return(RemoveObject());
+    return RemoveObject();
+  if(!GetAlive(target))
+    return RemoveObject();
 
     
-  var wpn = target->Contents();
+  var wpn = Contents(0, target);
   if(!wpn)
   {
     target->HideCH();//Wegen eine komischen Bug bei UpdateCharge()...
-    return();
+    return;
   }
-  if(!wpn->~IsWeapon() && !wpn->~IsGrenade()) return();
+  if(!wpn->~IsWeapon() && !wpn->~IsGrenade()) return;
     
   var alpha = 0;//Sin(spread*90/CH_MaxSpread,255);
   //var alpha = spread*255/CH_MaxSpread;
@@ -65,7 +65,7 @@ public func Set(object pTarget)
   SetOwner(GetOwner(pTarget));
   SetAction("Attach",pTarget);
   target = pTarget;
-  //Schedule(Format("SetVisibility(%d)",VIS_Owner),1,0,this());
+  //Schedule(Format("SetVisibility(%d)",VIS_Owner),1,0,this);
   //SetVisibility(VIS_None);
   SetVisibility(VIS_Owner);
   Check();
@@ -94,7 +94,7 @@ public func SetAngle(int iAngle)
 
 public func GetAngle()
 {
-  return(GetR());
+  return GetR();
 }
 
 public func ChangeDir()
