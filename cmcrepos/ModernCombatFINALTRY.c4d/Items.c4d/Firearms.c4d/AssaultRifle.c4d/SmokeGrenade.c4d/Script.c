@@ -1,10 +1,10 @@
 /*-- Rauchgranate --*/
 
-#strict
+#strict 2
 #include ESHL
 
-protected func SecureDistance()	{return(0);}
-func ExplodeDelay()		{return(120);}
+protected func SecureDistance()	{}
+func ExplodeDelay()		{return 120;}
 
 
 /* Treffer */

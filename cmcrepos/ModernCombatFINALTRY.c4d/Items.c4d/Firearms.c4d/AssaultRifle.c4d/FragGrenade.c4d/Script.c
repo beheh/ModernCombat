@@ -1,9 +1,9 @@
 /*-- Splittergranate --*/
 
-#strict
+#strict 2
 #include ESHL
 
-func ExplodeDelay()		{return(80);}
+func ExplodeDelay()	{return 80;}
 
 
 /* Treffer */
@@ -27,7 +27,7 @@ func HitObject(object pObj)
      CastParticles("Smoke3",12,10,0,0,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
     }
     RemoveObject();
-    return();
+    return;
    }
    else
    {
@@ -35,7 +35,7 @@ func HitObject(object pObj)
     Sparks(30,RGB(255,128));
     CastParticles("Smoke3",12,10,0,0,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
     RemoveObject();
-    return();
+    return;
    }
   }
   Trigger();
@@ -57,7 +57,7 @@ func Trigger()
   if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",5,100,0,0,20,40,RGB(40,20,20));
   Sparks(15,RGB(255,128));
   Sound("GrenadeExplosion*.ogg");
-  AddLightFlash(50,0,0,RGB(255,255,128),this());
+  AddLightFlash(50,0,0,RGB(255,255,128),this);
 
   //Verschwinden
   RemoveObject();
