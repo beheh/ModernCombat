@@ -787,12 +787,16 @@ protected func NoContext() {
 
 protected func ContextHelpMessagesOn() {
 	[0|Image=ROCK|Condition=NoContext]
-	return _inherited(...);
+	 _inherited(...);
+	ContextSettings(Par());
+	SelectMenuItem(1, Par());
 }
 
 protected func ContextHelpMessagesOff() {
 	[0|Image=ROCK|Condition=NoContext]
-	return _inherited(...);
+	_inherited(...);
+	ContextSettings(Par());
+	SelectMenuItem(1, Par());
 }
 
 protected func ContextSettings(object pCaller) {
@@ -810,17 +814,24 @@ protected func ContextSettings(object pCaller) {
 	else {
 		AddMenuItem("$CtxHelpMessagesOn$", Format("ContextHelpMessagesOff(Object(%d))", ObjectNumber(pCaller)), CXIN, pCaller);
 	}
+	AddMenuItem("$CtxSettingsClose$", "CtxSettingsClose", ICN2, pCaller);
 	return true;
+}
+
+protected func CtxSettingsClose() {
+  CloseMenu();
 }
 
 public func SetQuickInventoryOn(object pCaller) {
   SetPlrExtraData(GetOwner(), "CMC_QuickInv", true);
   Sound("Click", 1, 0,0, GetOwner()+1);
+  ContextSettings(Par());
 }
 
 public func SetQuickInventoryOff(object pCaller) {
   SetPlrExtraData(GetOwner(), "CMC_QuickInv", false);
   Sound("Click", 1, 0,0, GetOwner()+1);
+  ContextSettings(Par());
 }
 
 public func QuickInventoryOn() { return(GetPlrExtraData(GetOwner(), "CMC_QuickInv")); }
