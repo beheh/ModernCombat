@@ -1,20 +1,20 @@
 /*-- Explosivgranate --*/
 
-#strict
+#strict 2
 #include GREN
 
 local active,sx,sy, start;
 
-public func BlastRadius()	{return(30);}
-protected func SecureDistance()	{return(75);}
-func ExplodeDelay()		{return(35*3);}
+public func BlastRadius()	{return 30;}
+protected func SecureDistance()	{return 75;}
+func ExplodeDelay()		{return 35*3;}
 
 
 /* Start */
 
 func Launch(int xdir, int ydir, int iDmg,a,b,c)
 {
-  SetCategory(C4D_Vehicle(),this());
+  SetCategory(C4D_Vehicle);
   active = true;
   sx = GetX();
   sy = GetY();
@@ -25,12 +25,12 @@ func Launch(int xdir, int ydir, int iDmg,a,b,c)
 protected func Secure()
 {
   if(!active)
-   return(true);
+   return true;
 
   if(Distance(GetX(),GetY(),sx,sy) <= SecureDistance() && FrameCounter() < start+70)
-   return(true);
+   return true;
 
-  return(false);
+  return false;
 }
 
 /* Treffer */
@@ -42,7 +42,7 @@ func Hit()
 
 protected func RejectEntrance(pNewContainer)
 {
-  return(1);
+  return 1;
 }
 
 func HitObject(object pObj)
@@ -64,7 +64,7 @@ func HitObject(object pObj)
      CastParticles("Smoke3",12,10,0,0,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
     }
     RemoveObject();
-    return();
+    return;
    }
    else
    {
@@ -72,7 +72,7 @@ func HitObject(object pObj)
     Sparks(30,RGB(255,128));
     CastParticles("Smoke3",12,10,0,0,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
     RemoveObject();
-    return();
+    return;
    }
   }
   Trigger();
@@ -81,7 +81,7 @@ func HitObject(object pObj)
 func Trigger(object pObj)
 {
   Explode(BlastRadius()*2/3);
-  DamageObjects(BlastRadius()*3/2,BlastRadius()/2,this());
+  DamageObjects(BlastRadius()*3/2,BlastRadius()/2,this);
   CreateParticle("Blast",0,0,0,0,10*BlastRadius(),RGB(255,255,128));
   Sound("ShellExplosion*.ogg");
 }
@@ -90,7 +90,7 @@ func Trigger(object pObj)
 
 func FxGrenadeTimer(object target, int effect, int time)
 {
-  if(time > ExplodeDelay()) return(HitObject());
+  if(time > ExplodeDelay()) return HitObject();
   var vel=Abs(GetXDir())+Abs(GetYDir());
   var alpha=Max(0,100-vel);
 
@@ -104,7 +104,7 @@ func FxGrenadeTimer(object target, int effect, int time)
 func IsBulletTarget(id id)
 {
   //Kann von anderen Geschossen getroffen werden
-  return(true);
+  return true;
 }
 
 func Damage()
@@ -123,7 +123,6 @@ func Damage()
 
 public func OnDmg(int iDmg, int iType)
 {
-  if(iType == DMG_Fire)		return(60);	//Feuer
-  if(iType == DMG_Bio)		return(100);	//Säure und biologische Schadstoffe
-  return(0);
+  if(iType == DMG_Fire)		return 60;	//Feuer
+  if(iType == DMG_Bio)		return 100;	//Säure und biologische Schadstoffe
 }

@@ -1,4 +1,4 @@
-#strict
+#strict 2
 
 local fRemove, iSpeed, pShot, w, l, r, x, y,dist;
 
@@ -80,7 +80,7 @@ private func Traveling()
     if(pShot->~TrailColor())
       SetClrModulation(pShot->~TrailColor(GetActTime()));
 
-  if(l == 0) return(RemoveObject());
+  if(!l) return RemoveObject();
 }
 
 public func Remove()
@@ -95,7 +95,7 @@ public func DrawTransform()
 {
 
   // skip because nothing has to be transformed
-  if(!fRemove && l < 10*Distance(x,y,GetX(),GetY())) return(0);
+  if(!fRemove && l < 10*Distance(x,y,GetX(),GetY())) return;
 
   // stretch >-<
   if(fRemove) l = Max(0,l-iSpeed); 
@@ -122,4 +122,4 @@ public func DrawTransform()
   );
 }
 
-func NoWarp() { return(true); }
+func NoWarp() { return true; }
