@@ -1,12 +1,12 @@
 /*-- Klassenwahl --*/
 
-#strict
+#strict 2
 
 local crew;
 local lastclass;
 local selection;
 
-public func IsChooseable()	{return(1);}	//Kann mittels des Spielzielauswählers ausgewählt werden
+public func IsChooseable()	{return 1;}	//Kann mittels des Spielzielauswählers ausgewählt werden
 
 
 /* Initalisierung */
@@ -24,7 +24,7 @@ private func Initialized()
 {
   //Verschwinden wenn Waffenwahl oder InstaGib im Spiel sind
   if(FindObject(WPCH) || FindObject(IGIB))
-   RemoveObject();
+    RemoveObject();
 }
 
 protected func Activate(iPlr)
@@ -40,11 +40,11 @@ func InitializePlayer(int iPlayer)
   if(!pClonk)
   {
    ScheduleCall(0,"InitializePlayer",1,0,iPlayer);
-   return();
+   return;
   }
 
   if(FindObject(CHOS))
-   return();
+   return;
 
   ScheduleCall(0,"InitClassMenu",1,0,pClonk);
 }
@@ -64,28 +64,30 @@ public func RelaunchPlayer(int iPlr, object pClonk)
 {
   if(!pClonk)
    if(!(pClonk = GetCursor(iPlr)))
-    return(ScheduleCall(this(),"RelaunchPlayer",1,0,iPlr,pClonk));
+    return ScheduleCall(this,"RelaunchPlayer",1,0,iPlr,pClonk);
   if(!GetAlive(pClonk))
-   return(ScheduleCall(this(),"RelaunchPlayer",1,0,iPlr));
+   return ScheduleCall(this,"RelaunchPlayer",1,0,iPlr);
 
   //Menü zeitverzögert erstellen
   ScheduleCall(0,"InitClassMenu",10,0,pClonk);
   
-  return();
+  return;
 }
 
 /* Spawntimer */
 
-public func FxSpawntimerStart(pTarget, iNo, iTemp, iPlr)
+public func FxSpawntimerStart(pTarget, iNo, iTemp, iPlr, pClonk, cont)
 {
   if(iTemp)
-   return(-1);
+   return -1;
   if(iPlr < 0)
-   return(-1);
+   return -1;
 
   //EffectVars
   EffectVar(0, pTarget, iNo) = iPlr;	//Spieler
   EffectVar(1, pTarget, iNo) = 15;	//Zeit
+  EffectVar(2, pTarget, iNo) = pClonk;	//Clonk
+  EffectVar(3, pTarget, iNo) = cont;	//Container
 
   PlayerMessage(EffectVar(0, pTarget, iNo), "@$TimeTillRespawn$", 0, EffectVar(1, pTarget, iNo));
 }
@@ -95,11 +97,15 @@ public func FxSpawntimerTimer(pTarget, iNo, iTime)
   EffectVar(1, pTarget, iNo)--;
   PlayerMessage(EffectVar(0, pTarget, iNo), "@$TimeTillRespawn$", 0, EffectVar(1, pTarget, iNo));
 
+  //Clonk/Behälter weg oder Clonk nicht im Behälter? Weg mit dem Effekt
+  if (!EffectVar(2, pTarget, iNo) || !EffectVar(2, pTarget, iNo) || Contained(EffectVar(2, pTarget, iNo)) != EffectVar(3, pTarget, iNo))
+    return -1;
+
   if(EffectVar(1, pTarget, iNo) <= 0)
   {
    SetupClass(selection[EffectVar(0, pTarget, iNo)]-InfoMenuItems(), EffectVar(0, pTarget, iNo));
    PlayerMessage(EffectVar(0, pTarget, iNo), "@");
-   return(-1);
+   return -1;
   }
 }
 
@@ -107,12 +113,9 @@ func InitClassMenu(object pClonk)
 {
   //Kein Clonk?
   if(!pClonk)
-   return(0);
+   return;
 
   var iPlayer = GetOwner(pClonk);
-
-  //Zeitbegrenzung bei LSM und DM
-  if(FindObject(GLMS) || FindObject(GTDM)) AddEffect("Spawntimer", this(), 100, 35, this(), GetID(), iPlayer);
 
   crew[iPlayer] = pClonk;
 
@@ -130,6 +133,9 @@ func InitClassMenu(object pClonk)
    }
    Enter(tmp,pClonk);
   }
+
+  //Zeitbegrenzung bei LMS und DM
+  if(FindObject(GLMS) || FindObject(GTDM)) AddEffect("Spawntimer", this, 100, 35, this, GetID(), iPlayer, pClonk, tmp);
 
   //Bereits ein Menü offen?
   if(GetMenu(pClonk))
@@ -166,15 +172,15 @@ func Finish(object pClonk)
   pClonk->~UpdateCharge();
 
   //Aus Spawnpoint entlassen
-  if(Contained(pClonk) && Contained(pClonk) != this) Contained(pClonk)->RemoveObject(0,true);
+  if(GetID(Contained(pClonk)) == TIM1) RemoveObject(Contained(pClonk),true);
 
   //Sound
   Sound("RSHL_Deploy.ogg", 0, pClonk, 100, GetOwner(pClonk)+1);
 
   //Effekt entfernen
-  for(var i = 0; i < GetEffectCount("Spawntimer", this()); i++)
-    if(EffectVar(0, this(), GetEffect("Spawntimer", this(), i)) == iPlayer)
-      RemoveEffect("Spawntimer", this(), i);
+  for(var i = 0; i < GetEffectCount("Spawntimer", this); i++)
+    if(EffectVar(0, this, GetEffect("Spawntimer", this, i)) == iPlayer)
+      RemoveEffect("Spawntimer", this, i);
   PlayerMessage(iPlayer, "@");
 
   //Broadcasten
@@ -186,9 +192,9 @@ func Finish(object pClonk)
 private func InfoMenuItems()
 {
   if(!FindObject(NOAM))
-  {return(6);}
+  {return 6;}
   else
-  {return(5);}
+  {return 5;}
 }
 
 local bNoMenuUpdate;
@@ -205,7 +211,7 @@ private func OpenMenu(object pClonk, int iSelection)
    iSelection = GetMenuSelection(pClonk);
 
   CloseMenu(pClonk);
-  if(!CreateMenu(GetID(),pClonk,this(),0,0,0,C4MN_Style_Dialog,1)) return(false);
+  if(!CreateMenu(GetID(),pClonk,this,0,0,0,C4MN_Style_Dialog,1)) return false;
 
   var class = iSelection-InfoMenuItems();
 
@@ -251,10 +257,10 @@ private func OpenMenu(object pClonk, int iSelection)
    SelectMenuItem(iSelection,pClonk);
   }
 
-  return(true);
+  return true;
 } 
 
-public func MenuQueryCancel()	{return(1);}
+public func MenuQueryCancel()	{return 1;}
 
 protected func OnMenuSelection(int iIndex, object pClonk)
 {
@@ -277,13 +283,13 @@ static const CData_Facet = 7;
 
 public func GetCData(int iClass,int iData)
 {
-  return(PrivateCall(this(),Format("Class%dInfo",iClass),iData));
+  return PrivateCall(this,Format("Class%dInfo",iClass),iData);
 }
 
 public func SetupClass(int iClass, int iPlayer)
 {
   var oldCrew = crew[iPlayer];
-  crew[iPlayer] = PrivateCall(this(),Format("Class%dSetup",iClass),iPlayer);
+  crew[iPlayer] = PrivateCall(this,Format("Class%dSetup",iClass),iPlayer);
   
   if(Contained(oldCrew))
   {
@@ -317,19 +323,19 @@ public func SetupClass(int iClass, int iPlayer)
 
 private func Default(int iData)
 {
-  if(iData == CData_Name)  return("<Classname>");
-  if(iData == CData_Desc)  return("<Description>");
-  if(iData == CData_Clonk) return(CLNK);
-  if(iData == CData_Ammo)  return("<Ammo>");
-  if(iData == CData_Items) return("<Items>");
-  if(iData == CData_Icon)  return(GetID());
-  if(iData == CData_Facet) return(0);
-  return(true);
+  if(iData == CData_Name)  return "<Classname>";
+  if(iData == CData_Desc)  return "<Description>";
+  if(iData == CData_Clonk) return CLNK;
+  if(iData == CData_Ammo)  return "<Ammo>";
+  if(iData == CData_Items) return "<Items>";
+  if(iData == CData_Icon)  return GetID();
+  if(iData == CData_Facet) return;
+  return true;
 }
 
 public func GetClassAmount()
 {
   var i = 1;
   while(GetCData(i))  i++;
-  return(i);
+  return i;
 }
