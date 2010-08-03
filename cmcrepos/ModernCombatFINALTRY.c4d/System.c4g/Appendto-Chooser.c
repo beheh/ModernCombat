@@ -2,7 +2,7 @@
 
 //Erweitert die Spielregelwahl und erlaubt Voreinstellungen der Regeln in einem Szenario.
 
-#strict
+#strict 2
 
 #appendto CHOS
 
@@ -31,7 +31,7 @@ protected func OpenMenu()
   if(GetLength(aGoals)) return(OpenGoalChooseMenu());
 
   var pClonk = GetCursor(iChoosePlr);
-  if(!pClonk) return(ScheduleCall(this(), "OpenMenu", 1));
+  if(!pClonk) return ScheduleCall(this, "OpenMenu", 1);
 
   if(GetMenu(pClonk))
     CloseMenu(pClonk);
@@ -86,17 +86,17 @@ protected func ChangeEffectConf(id dummy, int iChange)
 
 protected func OpenGoalMenu(id dummy, int iSelection)
 {
-  if(!pGoal) return(OpenMenu());
+  if(!pGoal) return OpenMenu();
   var pClonk = GetCursor();
   if(pGoal->~ConfigMenu(pClonk))
-	return(1);//OpenMenu()
-  return(_inherited(dummy, iSelection,...));
+	return 1;//OpenMenu()
+  return _inherited(dummy, iSelection, ...);
 }
 
 protected func LoadRuleCfg()
 {
   var a = GameCall("ChooserRuleConfig");
-  if(!GetLength(a)) return();
+  if(!GetLength(a)) return;
 
   for(var i=0, idR, def, j, check ; idR = GetDefinition(i, Chooser_Cat) ; i++)
    if(DefinitionCall(idR, "IsChooseable") && !GetLength(FindObjects(Find_ID(idR))))
@@ -112,7 +112,7 @@ protected func InitializePlayer(int iPlr, int iX, int iY, object pBase, int iTea
     for(var i=1 ; i < aAI[iTeam] ; i++)
       CreateClonk(iPlr);
   aAI[iTeam] = 0;
-  if(Death) return();
+  if(Death) return;
   // Alle Clonks des Spielers verstauen
   for(var i=0, pCrew, tmp ; pCrew = GetCrew(iPlr, i) ; i++)
     {
@@ -127,7 +127,7 @@ protected func InitializePlayer(int iPlr, int iX, int iY, object pBase, int iTea
   {
     EventInfo4K(0,Format("$ChoosingPlayer$", GetTaggedPlayerName(iPlr)), CHOS, 0, 0, 0, "Info.ogg");
   	iChoosePlr = iPlr;
-    return(OpenMenu());
+    return OpenMenu();
   }*/
 }
 
@@ -188,14 +188,14 @@ protected func ConfigurationFinished2()
       tmp = Contained(pCrew);
       RemoveObject(tmp, 1);
       
-      pCrew->~Recruitment(pCrew->GetOwner());
+      pCrew->~Recruitment(GetOwner(pCrew));
       }
-    for(var rule in FindObjects(Find_Category(Chooser_Cat), Find_Exclude(this())))
+    for(var rule in FindObjects(Find_Category(Chooser_Cat), Find_Exclude(this)))
       rule->~InitializePlayer(GetPlayerByIndex(i));
     }
   // Überschüssiges TIM1-Objekte entfernen (falls Spieler ziwschenzeitlich geflogen sind)
   for(tmp in FindObjects(Find_ID(TIM1)))
-    if(!(tmp->Contents()))
+    if(!Contents(tmp))
       RemoveObject(tmp, 1);
   // Effekte
   EFSM_SetEffects(iEffectCount);

@@ -2,9 +2,9 @@
 
 //Die Regel Kein Camping ist nicht mehr wählbar.
 
-#strict
+#strict 2
 
 #appendto NOCA
 
 
-public func IsChooseable()	{return(0);}
+public func IsChooseable()	{return;}

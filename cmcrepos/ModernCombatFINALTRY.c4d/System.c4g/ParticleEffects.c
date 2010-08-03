@@ -1,17 +1,17 @@
 /* Globale Partikeleffekte */
 
-#strict
+#strict 2
 
 global func MuzzleFlash(int iSize, object pClonk, int iX, int iY, int iAngle, int iColor)
 {
-  if(!pClonk) pClonk = this();
+  if(!pClonk) pClonk = this;
 
   CreateParticle("MuzzleFlash3",iX,iY,
                  +Sin(iAngle,500),
                  -Cos(iAngle,500),
                  iSize*5,iColor,pClonk);
   if(!IsDark())
-    return();
+    return;
 
   if(!iColor)
     iColor = RGB(255,255,255);
@@ -62,7 +62,7 @@ global func BloodSplatter(int iSize, int iX, int iY, int iColor)
 
   //Nicht in der Luft
   if(GetMaterialVal("Density","Material",GetMaterial(iX,iY)) != 0
-  || GetMaterial(iX,iY) == -1) return();
+  || GetMaterial(iX,iY) == -1) return;
 
   var boom;
   if(!ObjectCount(BOOM)) boom = CreateObject(BOOM,0,0,-1);
@@ -79,7 +79,7 @@ global func BloodSplatter2(int iSize, int iX, int iY, int iAngle, int iColor)
 	if(!GetEffectData(EFSM_Blood)) return;
 
   if(GetMaterialVal("Density","Material",GetMaterial(iX,iY)) != 0
-  || GetMaterial(iX,iY) == -1) return();
+  || GetMaterial(iX,iY) == -1) return;
 
   iAngle += 180;
 
@@ -153,7 +153,7 @@ global func FxDamageEffectStart(object target, int number, int temp, size)
 global func FxDamageEffectTimer(object target, int number, int time)
 {
   //Wenn noch nicht ausreichend beschädigt, lassen
-  var dmg = target->GetDamage();
+  var dmg = GetDamage(target);
   var maxdmg = target->~MaxDamage();
 
   if(dmg < maxdmg/2) return;
@@ -167,6 +167,6 @@ global func FxDamageEffectTimer(object target, int number, int time)
   var smoke = RGBa(220,180,110,BoundBy(maxdmg-dmg,20,255));
   var thrust = RGBa(255,200,200,BoundBy(maxdmg-dmg,40,255));
 
-  CreateParticle("Smoke2",target->GetX()+x,target->GetY()+y,xdir,ydir,RandomX(80*size/100,380*size/100),smoke);
-  CreateParticle("Thrust",target->GetX()+x,target->GetY()+y,xdir,ydir,RandomX(120*size/100,size*2),thrust);
+  CreateParticle("Smoke2",GetX(target)+x,GetY(target)+y,xdir,ydir,RandomX(80*size/100,380*size/100),smoke);
+  CreateParticle("Thrust",GetX(target)+x,GetY(target)+y,xdir,ydir,RandomX(120*size/100,size*2),thrust);
 }

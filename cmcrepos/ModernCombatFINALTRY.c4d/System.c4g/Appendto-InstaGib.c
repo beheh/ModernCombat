@@ -2,9 +2,9 @@
 
 //Die Regel Insta GIB ist nicht mehr wählbar.
 
-#strict
+#strict 2
 
 #appendto IGIB
 
 
-public func IsChooseable()	{return(0);}
+public func IsChooseable()	{return;}

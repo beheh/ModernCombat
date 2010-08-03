@@ -2,7 +2,7 @@
 
 //Erweitert die Düsternis im Zusammenhang mit der "Eingeschränkte Sicht"-Regel.
 
-#strict
+#strict 2
 
 #appendto DARK
 
@@ -16,26 +16,26 @@ public func ChooserFinished()
 
    var tmp = AddLightAmbience(80,pClonk);
    tmp->ChangeColor(RGBa(255,255,255,110));
-   tmp->SetOwner(pClonk->GetOwner());
+   SetOwner(GetOwner(pClonk), tmp);
    SetVisibility(VIS_Owner,tmp);
 
    if(!GameCall("NoFlashlight"))
-    if(GetDarkness() && IsDark() && GetPlayerType(pClonk->GetOwner()) != C4PT_Script)
+    if(GetDarkness() && IsDark() && GetPlayerType(GetOwner(pClonk)) != C4PT_Script)
      CreateContents(FLSH,pClonk);
   }
 }
 
 public func OnClonkRecruitment(object pClonk)
 {
-  if(FindObject(CHOS)) return();
+  if(FindObject(CHOS)) return;
   if(ObjectCount(GetID()) > 1)
-   return(ScheduleCall(this(),"OnClonkRecruitment",1,0,pClonk));
+   return ScheduleCall(this,"OnClonkRecruitment",1,0,pClonk);
 
   if(!GameCallEx("RejectViewRangeChange",700-3*GetDarkness(100)))
    SetPlrViewRange(700-3*GetDarkness(100),pClonk);
 
   var tmp = AddLightAmbience(80,pClonk);
   tmp->ChangeColor(RGBa(255,255,255,110));
-  tmp->SetOwner(pClonk->GetOwner());
+  SetOwner(GetOwner(pClonk), tmp);
   SetVisibility(VIS_Owner,tmp);
 }

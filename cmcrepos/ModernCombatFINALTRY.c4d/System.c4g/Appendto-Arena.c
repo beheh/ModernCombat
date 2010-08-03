@@ -2,7 +2,7 @@
 
 //Optionale Objekte können von der Arena-Regel ignoriert werden, indem diese "NoArenaRemove" wiedergeben.
 
-#strict
+#strict 2
 
 #appendto NODR
 
@@ -16,9 +16,9 @@ protected func Timer()
                                                                  Find_Func("IsUpgrade")),
                                                          Find_Not(Find_Func("IsMine")),
                                                          Find_Not(Find_Func("NoArenaRemove"))))
-    AddEffect("Arena_Remove", pObj, 1, 400, this());
+    AddEffect("Arena_Remove", pObj, 1, 400, this);
   //Spezialsuche: Drohnen
   for(pObj in FindObjects(Find_ID(DRSU), Find_NoContainer()))
-   if(pObj->ActIdle())
-    AddEffect("Arena_Remove", pObj, 1, 530, this());
+   if(ActIdle(pObj))
+    AddEffect("Arena_Remove", pObj, 1, 530, this);
 }
