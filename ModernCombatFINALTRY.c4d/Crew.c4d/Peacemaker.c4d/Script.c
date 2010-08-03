@@ -1,14 +1,14 @@
 /*--- Der Peacemaker ---*/
 
-#strict
+#strict 2
 #include HZCK
 
 #include L_A2 //Verfügt über CMC Agilität
 #include L_ND //Kann Handgranaten einsetzen
 #include L_CR //Kann Liegen und Kriechen
 
-public func WeaponCollectionLimit() { return(3); } //Der Clonk kann drei Waffen tragen
-public func ObjectCollectionLimit() { return(2); } //Und 2 beliebige Zusatzobjekte
+public func WeaponCollectionLimit() { return 3; } //Der Clonk kann drei Waffen tragen
+public func ObjectCollectionLimit() { return 2; } //Und 2 beliebige Zusatzobjekte
 
 public func Initialize() 
 {
@@ -18,13 +18,13 @@ public func Initialize()
 
 public func CanUse(id idObj)
 {
-  if(idObj == HARM) return(0);
-  return(_inherited(idObj,...));
+  if(idObj == HARM) return;
+  return _inherited(idObj,...);
 }
 
 private func AbortWalk()
 {
-  if(GetAction() eq "Dive")
+  if(GetAction() == "Dive")
   {
     var c = Contents();
     if(c)
@@ -37,15 +37,15 @@ private func AbortWalk()
 
 private func CheckArmed()
 {
-  if(GetAction() eq "Swim") return();
-  //if (GetAction() eq "Dive") if (IsArmed2()) return(SetAction("JumpArmed"));
+  if(GetAction() == "Swim") return;
+  //if (GetAction() == "Dive") if (IsArmed2()) return SetAction("JumpArmed");
   
-  return(_inherited());
+  return _inherited();
 }
 
 protected func ContactBottom()
 {
-  return(0);
+  return;
 }
 
 protected func UpdateAmmoBars()
@@ -60,7 +60,7 @@ protected func UpdateAmmoBars()
 		  for(var bar in FindObjects(Find_ID(ABAR), Find_ActionTarget(clonk))) {
 		    if(GetOwner(bar) == GetOwner()) {
 		    	if(!Contents() || GetID(Contents()) != AMPK) {
-		    		bar->RemoveObject();
+		    		RemoveObject(bar);
 		    	}
 		    	else {
 		    		bar->SetBarCount(GetLength(FindObjects(Find_Func("IsBar"), Find_Func("BarActive"), Find_ActionTarget(clonk), Find_Owner(GetOwner()))));

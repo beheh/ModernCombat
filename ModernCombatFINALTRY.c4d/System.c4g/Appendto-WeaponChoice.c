@@ -34,7 +34,7 @@ public func RelaunchPlayer(int iPlr, object pClonk) {
   }
 
 	var obj;
-	while(obj = pClonk->Contents()) {
+	while(obj = Contents(0, pClonk)) {
 	  if(obj) RemoveObject(obj);
 	}
 	

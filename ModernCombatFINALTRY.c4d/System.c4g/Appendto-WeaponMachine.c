@@ -23,7 +23,7 @@ func Initialize()
 
 func ControlThrowDouble(object pByObj)
 {
-  var pItem = Contents(pByObj);
+  var pItem = Contents(0, pByObj);
   if(!pItem) return;
   if(!FindWare(GetID(pItem))) return;
   

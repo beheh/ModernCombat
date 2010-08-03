@@ -1,6 +1,6 @@
 /*-- Patronenhülse --*/
 
-#strict
+#strict 2
 
 
 public func Set(int iSize)
@@ -31,7 +31,7 @@ func Hit(int iXDir, int iYDir)
   if(GBackSolid(-5,0)) SetXDir(-iXDir/12);
   if(GBackSolid(+5,0)) SetXDir(-iXDir/12);
   
-  if(Abs(GetXDir()) < 1 && Abs(GetYDir()) < 1) return();
+  if(Abs(GetXDir()) < 1 && Abs(GetYDir()) < 1) return;
   
   SetRDir();
   SetR();
@@ -43,10 +43,10 @@ global func BulletCasing(int iX, int iY, int iXDir, int iYDir, int iSize, int iC
 	
   var xd,yd;
   
-  if(this())
+  if(this)
   {
-   xd = iXDir + GetXDir(this());
-   yd = iYDir + GetYDir(this());
+   xd = iXDir + GetXDir(this);
+   yd = iYDir + GetYDir(this);
   }
   
   xd = iXDir + RandomX(-3,3);
@@ -55,9 +55,9 @@ global func BulletCasing(int iX, int iY, int iXDir, int iYDir, int iSize, int iC
   if(!iSize) iSize = 5;
 
   var tmp = CreateObject(BHUL,iX,iY,NO_OWNER);
-  tmp->SetXDir(xd);
-  tmp->SetYDir(yd);
+  SetXDir(xd, tmp);
+  SetYDir(yd, tmp);
   if(!iColor) iColor = RGB(255,220,0);
-  tmp->SetClrModulation(DoColorBrightness(iColor,40));
+  SetClrModulation(DoColorBrightness(iColor,40), tmp);
   tmp->Set(iSize);
 }

@@ -30,19 +30,11 @@ public func Update()
   var percent = time*255/starttime;
   SetClrModulation(RGBa(255,255,255,BoundBy(InvertA1(percent,255),0,255)));
   time -= 3;
-  
-  var fPaddles = false;
-  var i = target->ContentsCount();
-  while(i--) {
-		if(target->Contents(i)->GetID() == CDBT) {
-			fPaddles = true;
-			break;
-		}
-	}
-	if(fPaddles) {
-		SetGraphics("Arrow", this);
-	}
-	else {
-		SetGraphics(0, this);
-	}
+
+  if(FindContents(CDBT, target)) {
+    SetGraphics("Arrow", this);
+  }
+  else {
+    SetGraphics(0, this);
+  }
 }
