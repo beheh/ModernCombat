@@ -179,7 +179,7 @@ global func BlastObject(int level, object obj, int cause_plr_plus_one)
 
 global func DamageObjects(int iDistance, int iDamage, object pObject, int iX, int iY)
 {
-  if(!pObject) pObject = this();
+  if(!pObject) pObject = this;
   var x = GetX(pObject)+iX;
   var y = GetY(pObject)+iY;
   var dealer = -1;
@@ -200,9 +200,9 @@ global func FakeExplode(int iLevel, int iControllerPlusOne, object obj) {
 	if(!obj) obj = this;
 	if(!obj) return false;
 	var dummy = CreateObject(GetID(obj), 0, 0, iControllerPlusOne-1);
-	dummy->SetPosition(GetX(), GetY());
-  dummy->SetController(iControllerPlusOne-1);
-  dummy->Explode(iLevel);
-  if(dummy) dummy->RemoveObject();
+	SetPosition(GetX(), GetY(), dummy);
+  SetController(iControllerPlusOne-1, dummy);
+  Explode(iLevel, dummy);
+  if(dummy) RemoveObject(dummy);
 	return true;
 }

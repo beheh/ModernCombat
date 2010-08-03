@@ -2,7 +2,7 @@
 
 //Kann auch Dinge verkaufen.
 
-#strict
+#strict 2
 
 #appendto WPVM
 
@@ -12,7 +12,7 @@
 func Initialize()
 {
   SetPosition();
-  WeaponChoice = CreateArray(0);
+  WeaponChoice = CreateArray();
   WPCH::inherited();
   AddWares("IsWeapon",-1);
   AddWares("IsGrenade",-1);
@@ -23,9 +23,9 @@ func Initialize()
 
 func ControlThrowDouble(object pByObj)
 {
-  var pItem = pByObj->Contents();
-  if(!pItem) return();
-  if(!FindWare(GetID(pItem))) return();
+  var pItem = Contents(pByObj);
+  if(!pItem) return;
+  if(!FindWare(GetID(pItem))) return;
   
   var iPlr = GetController(pByObj);
 

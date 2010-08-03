@@ -5,4 +5,4 @@
 #strict 2
 #appendto SPNP
 
-public func IsSpawnpoint()	{return(true);}
+public func IsSpawnpoint()	{return true;}

@@ -2,17 +2,17 @@
 
 //Die Waffenwahl Regel ist aus technischen Gründen nicht mehr wählbar, wenn bereits die Klassenwahl aktiv ist.
 
-#strict
+#strict 2
 
 #appendto WPCH
 
-public func IsChooseable()	{return(0);}
+public func IsChooseable()	{return;}
 
 
 public func Initialize()
 {
   SetPosition();
-  WeaponChoice = CreateArray(0);
+  WeaponChoice = CreateArray();
   aWare = CreateArray();
   aCount = CreateArray();
   AddWares("IsWeapon2",-1);
@@ -24,9 +24,9 @@ public func Initialize()
 public func RelaunchPlayer(int iPlr, object pClonk) {
   if(!pClonk)
     if(!(pClonk = GetCursor(iPlr)))
-      return(ScheduleCall(this(),"RelaunchPlayer",1,0,iPlr,pClonk));
+      return(ScheduleCall(this,"RelaunchPlayer",1,0,iPlr,pClonk));
   if(!GetAlive(pClonk))
-    return(ScheduleCall(this(),"RelaunchPlayer",1,0,iPlr));
+    return(ScheduleCall(this,"RelaunchPlayer",1,0,iPlr));
 
   if(FindObject(GLMS)) {
 	spawntimer = 10;
@@ -65,7 +65,7 @@ public func RelaunchPlayer(int iPlr, object pClonk) {
 	}
 	
   CreateWpnMenu(pClonk);
-  return();
+  return;
 }
 
 func Finish(id unused, object pClonk, bool bRight) {
