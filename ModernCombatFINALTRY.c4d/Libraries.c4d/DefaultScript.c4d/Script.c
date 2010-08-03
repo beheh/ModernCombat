@@ -137,12 +137,12 @@ public func RelaunchClonk(int iPlr, object pCursor)
   
   //In Spawnpoint verschieben
   var tim = CreateObject(TIM2, LandscapeWidth()/2, LandscapeHeight()/2, -1);
-  pClonk->Enter(tim);
+  Enter(tim, pClonk);
 
   //Clonknamen anzeigen
   PlayerMessage(iPlr, Format("@%s", GetName(pClonk)), tim);
 
-  return(pClonk);
+  return pClonk;
 }
 
 public func RelaunchPosition(& iX, & iY, int iTeam)
@@ -174,7 +174,7 @@ public func OnClonkEquip(object pClonk)
 
 public func RejectRelaunch(int iPlr, int iTeam)
 {
-  return(false);
+  return false;
 }
 
 /* Spieler zuschauen lassen */

@@ -814,12 +814,7 @@ protected func ContextSettings(object pCaller) {
 	else {
 		AddMenuItem("$CtxHelpMessagesOn$", Format("ContextHelpMessagesOff(Object(%d))", ObjectNumber(pCaller)), CXIN, pCaller);
 	}
-	AddMenuItem("$CtxSettingsClose$", "CtxSettingsClose", ICN2, pCaller);
 	return true;
-}
-
-protected func CtxSettingsClose() {
-  CloseMenu();
 }
 
 public func SetQuickInventoryOn(object pCaller) {

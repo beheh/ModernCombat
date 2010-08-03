@@ -64,18 +64,13 @@ public func FxIntRepairTimer(object pTarget, int iEffectNumber, int iEffectTime)
 
   if(!Random(2))
    Sparks(2+Random(5), RGB(187, 214, 224), RandomX(-GetDefWidth()/2,+GetDefWidth()/2), RandomX(-GetDefHeight()/2,+GetDefHeight()/2));
-
-  return 0;
 }
 
 public func FxIntRepairStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)
 {
   Sound("Repair.ogg",false,this,0,0,-1); 
   if(!iReason)
-  {
-   pTarget->SetAction("RepairStop");
-  }
-  return 0;
+    ObjectSetAction(pTarget, "RepairStop");
 }
 
 public func StopRepair()
@@ -108,7 +103,7 @@ public func Damage()
 
 public func OnDmg(int iDmg, int iType)
 {
-  return(50);	//Default
+  return 50;	//Default
 }
 
 public func OnHit(int iDmg, int iType, object pBy)

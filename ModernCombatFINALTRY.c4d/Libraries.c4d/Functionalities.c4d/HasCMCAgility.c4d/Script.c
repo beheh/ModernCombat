@@ -1,17 +1,17 @@
 /*-- CMC Agilität --*/
 
-#strict
+#strict 2
 
-public func FxIntWallJumpTimer(){return(-1);}
+public func FxIntWallJumpTimer(){return -1;}
 
 
 /* Check */
 
 private func MayFlip()
 {
-  if(this()->IsJumping() || GetAction() eq "JetpackFlight")
+  if(this->IsJumping() || GetAction() == "JetpackFlight")
    if(!GetEffect("ExtraJump", this))
-    return(true);
+    return true;
 }
 
 /* Geschwindigkeitsschub */
@@ -34,11 +34,11 @@ protected func BackFlipBoost()
 
 private func StopWallJump()
 {
-  var i = GetEffectCount(0,this());
+  var i = GetEffectCount(0,this);
   var j;
   while(i--)
-   if(j = GetEffect("IntWallJump",this(),i))
-    RemoveEffect(0,this(),j);
+   if(j = GetEffect("IntWallJump",this,i))
+    RemoveEffect(0,this,j);
 }
 
 /* Backflip */
@@ -58,17 +58,17 @@ protected func BackFlip()
 private func ControlAgility(string strControl)
 {
   //Links
-  if(strControl eq "ControlLeft")
+  if(strControl == "ControlLeft")
   {
-   if(this()->IsJumping())
+   if(this->IsJumping())
    {
     SetDir(DIR_Left);
     SetComDir(COMD_Left); 
    }
    else
-   if(GetProcedure() eq "SCALE" && GetDir() != DIR_Left)
+   if(GetProcedure() == "SCALE" && GetDir() != DIR_Left)
    {
-    AddEffect("IntWallJump",this(),10,20,this());
+    AddEffect("IntWallJump",this,10,20,this);
    }
    var iEff = AddEffect("ControlStack", this, 110, 5, this);
    EffectVar(0, this, iEff) = COMD_Left;
@@ -76,17 +76,17 @@ private func ControlAgility(string strControl)
   }
 
   //Rechts
-  if(strControl eq "ControlRight")
+  if(strControl == "ControlRight")
   {
-   if(this()->IsJumping())
+   if(this->IsJumping())
    {
     SetDir(DIR_Right);
     SetComDir(COMD_Right); 
    }
    else
-   if(GetProcedure() eq "SCALE" && GetDir() != DIR_Right)
+   if(GetProcedure() == "SCALE" && GetDir() != DIR_Right)
    {
-    AddEffect("IntWallJump",this(),10,20,this());
+    AddEffect("IntWallJump",this,10,20,this);
    }
 
    var iEff = AddEffect("ControlStack", this, 110, 5, this);
@@ -95,9 +95,9 @@ private func ControlAgility(string strControl)
   }
 
   //Doppellinks
-  if(strControl eq "ControlLeftDouble")
+  if(strControl == "ControlLeftDouble")
   {
-   if(GetEffect("IntWallJump",this()) && !GetContact(this()))
+   if(GetEffect("IntWallJump",this) && !GetContact(this))
    {
     SetAction("Jump");
     SetDir(DIR_Left);
@@ -109,9 +109,9 @@ private func ControlAgility(string strControl)
    }
   }
   //Doppelrechts
-  if(strControl eq "ControlRightDouble")
+  if(strControl == "ControlRightDouble")
   {
-   if(GetEffect("IntWallJump",this()) && !GetContact(this()))
+   if(GetEffect("IntWallJump",this) && !GetContact(this))
    {
     SetAction("Jump");
     SetDir(DIR_Right);
@@ -124,9 +124,9 @@ private func ControlAgility(string strControl)
   }
 
   //Einmal links
-  if(strControl eq "ControlLeftSingle")
+  if(strControl == "ControlLeftSingle")
   {
-   if (this()->IsJumping())
+   if (this->IsJumping())
    {
     SetDir(DIR_Left);
     SetComDir(COMD_Left);
@@ -135,9 +135,9 @@ private func ControlAgility(string strControl)
   }
 
   //Einmal rechts
-  if(strControl eq "ControlLeftSingle")
+  if(strControl == "ControlLeftSingle")
   {
-   if(this()->IsJumping())
+   if(this->IsJumping())
    {
     SetDir(DIR_Right);
     SetComDir(COMD_Right);
@@ -146,7 +146,7 @@ private func ControlAgility(string strControl)
   }
 
   //Springen
-  if(strControl eq "ControlUp")
+  if(strControl == "ControlUp")
   {
    if(WildcardMatch(GetAction(), "Scale*") && GetActTime() < 5)
            EffectVar(2, this, AddEffect("ControlStack", this, 110, 5, this)) = true;
@@ -187,7 +187,7 @@ public func JumpStart(bool bBackflip)
 
 public func ReleaseLadderStop()
 {
-  if(this()->ReleaseLadder(-20*(GetDir()*2-1)))
+  if(this->ReleaseLadder(-20*(GetDir()*2-1)))
   {
    Sound("ClonkAction*.ogg");
    ScheduleCall(0, "BackFlipBoost", 1, 1);
@@ -196,7 +196,7 @@ public func ReleaseLadderStop()
 
 public func FxControlStackEffect(string newEffect, object pTarget, int iNo)
 {
-  if(newEffect ne "ControlStack") return;
+  if(newEffect != "ControlStack") return;
   ChangeEffect(0, pTarget, iNo, 0, -1);
   return -2;
 }
