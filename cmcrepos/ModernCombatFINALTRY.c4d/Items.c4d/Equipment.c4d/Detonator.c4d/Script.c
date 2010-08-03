@@ -43,7 +43,7 @@ public func ControlThrow(object pByObj)
   amount--;
   AddEffect("IntC4Cooldown", this, 1, 15, this);
 
-  //Beim Klettern (aber nicht an Leitern)
+  //Beim Klettern (aber nicht an Leitern) 
   if(WildcardMatch(GetAction(pByObj), "Scale*") && GetAction(pByObj) != "ScaleLadder")
   {
    SetR((GetDir(pByObj)*-180)+90, c4);
@@ -61,19 +61,8 @@ public func ControlThrow(object pByObj)
    return true;
   }
 
-  //Beim Laufen
-  if(WildcardMatch(GetAction(pByObj), "Walk*"))
-  {
-   SetRDir(RandomX(-20,20), c4);
-   SetXDir((GetDir(pByObj)*2-1)*20, c4);
-   SetYDir(-15, c4);
-   c4->SetActive(this);
-   Sound("GrenadeThrow*.ogg");
-   return true;
-  }
-
-  //Beim Springen
-  if(WildcardMatch(GetAction(pByObj), "Jump*"))
+  //Beim Laufen, Springen oder Klettern an Leitern
+  if(WildcardMatch(GetAction(pByObj), "Walk*") || WildcardMatch(GetAction(pByObj), "Jump*") || GetAction(pByObj) == "ScaleLadder")
   {
    SetRDir(RandomX(-20,20), c4);
    SetXDir((GetDir(pByObj)*2-1)*20, c4);

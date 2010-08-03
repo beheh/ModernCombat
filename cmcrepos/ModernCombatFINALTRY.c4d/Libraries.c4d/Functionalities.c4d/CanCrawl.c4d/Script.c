@@ -1,6 +1,6 @@
 /*-- Kriechen --*/
 
-#strict
+#strict 2
 
 static const CRAWL_AIM_Max = 50;
 local crosshair;
@@ -11,30 +11,30 @@ local crosshair;
 public func StartCrawling()
 {
   //Hinlegen
-  if((GetProcedure() eq "WALK") ||
-     (GetProcedure() eq "DIG") ||
-     (GetProcedure() eq "BRIDGE") ||
-     (GetProcedure() eq "BUILD") ||
-     (GetProcedure() eq "PUSH") ||
-     (GetProcedure() eq "CHOP") ||
-     (GetProcedure() eq "LIFT"))
-    return(SetAction("StartCrawl"));
+  if((GetProcedure() == "WALK") ||
+     (GetProcedure() == "DIG") ||
+     (GetProcedure() == "BRIDGE") ||
+     (GetProcedure() == "BUILD") ||
+     (GetProcedure() == "PUSH") ||
+     (GetProcedure() == "CHOP") ||
+     (GetProcedure() == "LIFT"))
+    return SetAction("StartCrawl");
 
-  if(this()->~IsAiming())
+  if(this->~IsAiming())
   {
-   this()->~StopAiming();
-   return(SetAction("StartCrawl"));
+   this->~StopAiming();
+   return SetAction("StartCrawl");
   }
-  return(false);
+  return false;
 }
 
 /* Aufstehen */
 
 public func StopCrawling()
 {
-  if(!IsCrawling() || !CanStandUp2()) return(false);
+  if(!IsCrawling() || !CanStandUp2()) return false;
   SetXDir();
-  return(SetAction("FlatUp")); 
+  return SetAction("FlatUp"); 
 }
 
 /* Kontextmenü (deaktiviert) */
@@ -49,25 +49,25 @@ public func ContextStopCrawl()
 {
   [$CtxStopCrawl$|Image=MCMC|Condition=IsCrawling]
   StopCrawling();
-  return(1);
+  return 1;
 }*/
 
 /* Checks */
 
 public func IsCrawling()
 {
-  return(WildcardMatch(GetAction(), "*Crawl*"));
+  return WildcardMatch(GetAction(), "*Crawl*");
 }
 
 public func Ready2Crawl()
 {
-  return(!GetEffect("NoCrawl") && !IsCrawling() && (GetAction() eq "WalkArmed" || GetAction() eq "Walk"));
+  return !GetEffect("NoCrawl") && !IsCrawling() && (GetAction() == "WalkArmed" || GetAction() == "Walk");
 }
 
 public func CanStandUp()
 {
   //Nur wenn kein Material über dem Clonk ist
-  return(PathFree(GetX(), GetY(), GetX(), GetY()-7-5));
+  return PathFree(GetX(), GetY(), GetX(), GetY()-7-5);
 }
 
 public func CanStandUp2()
@@ -75,9 +75,9 @@ public func CanStandUp2()
   //Aufstehen möglich, wenn Material über Clonk grabbar ist
   if(GBackSolid(0,-7-5))
    if(!GetMaterialVal("DigFree","Material",GetMaterial(0,-7-5)))
-    return(false);
+    return false;
 
-  return(true);
+  return true;
 }
 
 /* Callbacks */
@@ -85,7 +85,7 @@ public func CanStandUp2()
 protected func StartCrawl()
 {
   // Wenn nötig Effekt erzeugen 
-  if(!GetEffect("Crawl", this())) AddEffect("Crawl", this(), 1, 0, this());
+  if(!GetEffect("Crawl", this)) AddEffect("Crawl", this, 1, 0, this);
 }
 
 protected func CheckCrawlFall()
@@ -115,26 +115,26 @@ protected func AbortCrawl()
   var act = GetAction();
 
   // Bei manchen Aktionen nicht abbrechen
-  if(act eq "Scale")  return(SetAction("Crawl")); // Anstoßen an der Wand
-  if(act eq "Hangle") return(SetAction("Crawl")); // Anstoßen an der Decke
-  if(act eq "Tumble") return(SetAction("Crawl")); // Bei Objekttreffern liegen bleiben
-  if(act eq "Walk")   return(SetAction("Crawl")); // Mysteriöse Walk-Aktion
+  if(act == "Scale")  return SetAction("Crawl"); // Anstoßen an der Wand
+  if(act == "Hangle") return SetAction("Crawl"); // Anstoßen an der Decke
+  if(act == "Tumble") return SetAction("Crawl"); // Bei Objekttreffern liegen bleiben
+  if(act == "Walk")   return SetAction("Crawl"); // Mysteriöse Walk-Aktion
 
-  if((act ne "AimCrawl") && WildcardMatch(act, "Aim*"))
+  if(act != "AimCrawl" && WildcardMatch(act, "Aim*"))
   {
    //var phase = GetPhase();
    SetAction("AimCrawl");
    //SetPhase(phase);
-   return(1);
+   return 1;
   }
 
   if(WildcardMatch(act, "*Jump*"))
   {
    if(!CanStandUp())
-    return(SetAction("CrawlFall"));
+    return SetAction("CrawlFall");
    else
    {
-    RemoveEffect("Crawl", this());
+    RemoveEffect("Crawl", this);
 
     if(GetDir() == DIR_Left)
      SetDir(DIR_Right);
@@ -144,7 +144,7 @@ protected func AbortCrawl()
     SetComDir(COMD_Stop);
 
     SetXDir();
-    AddEffect("IntCrawl2Scale",this(),10,1,this());
+    AddEffect("IntCrawl2Scale",this,10,1,this);
 
     var i = 10;
     var dir = -(GetDir()*2-1);
@@ -163,19 +163,19 @@ protected func AbortCrawl()
 
     //SetPosition(GetX()+(GetDir()*2-1)*-4,GetY()+8+5);
     SetAction("Scale");
-    return(1);
+    return 1;
    }
   }
 
-  if(IsCrawling())  return(0);
+  if(IsCrawling())  return;
   // Shape und Vertices zurücksetzen
-  RemoveEffect("Crawl", this());
+  RemoveEffect("Crawl", this);
   SetAction("FlatUp"); 
 }
 
 private func UpdateVertices()
 {
-  if(GetAction() eq "AimCrawl") return();
+  if(GetAction() == "AimCrawl") return;
 
   var x,y,r;
   this->~WeaponAt(x,y,r);
@@ -185,7 +185,7 @@ private func UpdateVertices()
 
 private func ResetVertices()
 {
-  if(GetAction() eq "AimCrawl") return();
+  if(GetAction() == "AimCrawl") return;
 
   SetVertex(0,0,0);
   SetVertex(0,1,0);
@@ -194,23 +194,23 @@ private func ResetVertices()
 public func FxIntCrawl2ScaleTimer()
 {
   SetXDir();
-  return(-1);
+  return -1;
 }
 
 protected func UpdateTransferZone()
 {
   if(IsCrawling()) 
   { 
-   RemoveEffect("Crawl", this());
-   AddEffect("Crawl", this(), 1, 0, this());
+   RemoveEffect("Crawl", this);
+   AddEffect("Crawl", this, 1, 0, this);
   }
-  return(_inherited());
+  return _inherited();
 }
 
 
 /* Kriech-Effekt */
 
-public func FxNoCrawlTimer() { return(-1); }
+public func FxNoCrawlTimer() { return -1; }
 
 public func FxCrawlStart(pClonk, iNum)
 {
@@ -246,38 +246,38 @@ public func FxCrawlStop(pClonk, iNum)
 
 protected func ControlThrow()
 {
-  if(GetAction() eq "StartCrawl")
-    return(1);
+  if(GetAction() == "StartCrawl")
+    return 1;
     
-  if(IsCrawling() && this()->~IsArmed() && !this()->~ReadyToFire() && this()->~ReadyToAim()) {
-    this()->~StartAiming();
-    return(1);
+  if(IsCrawling() && this->~IsArmed() && !this->~ReadyToFire() && this->~ReadyToAim()) {
+    this->~StartAiming();
+    return 1;
   }
   if(this->~IsCrawling() && !this->~IsAiming()) {
-    var obj = Contents(0);
+    var obj = Contents();
     if(obj) {
 			if(!obj->~CanAim()) {
-				if(obj->~ControlThrow(this)) return(1);
+				if(obj->~ControlThrow(this)) return 1;
 				var dir = -(GetDir()*2-1);
 				var angle = -45;
 
-				obj->Exit();
-				obj->SetController(GetOwner(this));
-				obj->SetPosition(GetX(this)-(dir*8),GetY(this));
+				Exit(obj);
+				SetController(GetOwner(this), obj);
+				SetPosition(GetX(this)-(dir*8),GetY(this), obj);
 			
-				obj->SetR(angle);
+				SetR(angle, obj);
 			
-				while(obj->Stuck())
+				while(Stuck(obj))
 					SetPosition(GetX(obj),GetY(obj)-1,obj);
 
-				obj->SetXDir(+Sin(angle,30)*dir);
-				obj->SetYDir(-Cos(angle,30));
-				obj->SetRDir(RandomX(-6,6));
-				return(1);
+				SetXDir(+Sin(angle,30)*dir, obj);
+				SetYDir(-Cos(angle,30), obj);
+				SetRDir(RandomX(-6,6), obj);
+				return 1;
 			}
 			else {
-  			this()->~StartAiming();
-  			return(1);
+  			this->~StartAiming();
+  			return 1;
 			}
 		}
 	}
@@ -286,12 +286,12 @@ protected func ControlThrow()
 
 public func ControlUp()
 {
-  if(IsCrawling() && !this()->~IsAiming())
+  if(IsCrawling() && !this->~IsAiming())
   {
    StopCrawling();
-   return(1);
+   return 1;
   }
-  return(_inherited(...));
+  return _inherited(...);
 }
 
 public func ControlDig()
@@ -299,42 +299,42 @@ public func ControlDig()
   if(GetPlrDownDouble(GetOwner()) && !IsCrawling() && Ready2Crawl() && !Contained())
   {
    StartCrawling();
-   return(true);
+   return true;
   }
-  return(_inherited(...));
+  return _inherited(...);
 }
 
 public func ControlDigSingle()
 {
   //Beim Kriechen kann man nicht graben
-  if(IsCrawling()) return(1);
-  return(_inherited(...));
+  if(IsCrawling()) return 1;
+  return _inherited(...);
 }
 
 public func ReadyToAim()
 {
   var val = _inherited();
-  if(val) return(val);
-  if(/*GetAction() eq "CrawlArmed" || */GetAction() eq "Crawl") return(1);
+  if(val) return val;
+  if(/*GetAction() == "CrawlArmed" || */GetAction() == "Crawl") return 1;
 }
 
 private func CheckArmed()
 {
-  if(GetAction() eq "AimCrawl") if (!this()->~IsArmed2()) return(SetAction("Crawl"));
-  return(_inherited());
+  if(GetAction() == "AimCrawl") if (!this->~IsArmed2()) return SetAction("Crawl");
+  return _inherited();
 }
 
 public func WeaponAt(&x, &y, &r)
 {
-  if(this()->~IsAiming() && (GetAction() eq "AimCrawl"))
+  if(this->~IsAiming() && (GetAction() == "AimCrawl"))
   {
    r = (Abs(crosshair->GetAngle())-90);
    x = 8000;
    y = 7000-5000;
-   return(1);
+   return 1;
   }
 
-  return(_inherited(x,y,r));
+  return _inherited(x,y,r);
 }
 
 public func DoAiming(int iChange)
@@ -361,9 +361,9 @@ public func DoMouseAiming(int iTx, int iTy)
 
 public func StopAiming()
 {
-  if(!IsCrawling()) return(_inherited());
+  if(!IsCrawling()) return _inherited();
   var val = _inherited();
   if(val)
    SetAction("Crawl");
-  return(val);
+  return val;
 }
