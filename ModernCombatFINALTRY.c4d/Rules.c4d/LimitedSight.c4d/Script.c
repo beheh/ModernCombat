@@ -2,7 +2,7 @@
 
 #strict 2
 
-public func IsChooseable()	{return(1);}	//Kann mittels des Spielzielauswählers ausgewählt werden
+public func IsChooseable()	{return 1;}	//Kann mittels des Spielzielauswählers ausgewählt werden
 
 
 protected func Activate(int iPlr)
@@ -33,7 +33,7 @@ protected func Destruction()
 
 public func RejectViewRangeChange(int iNewRange)
 {
-  return(true);
+  return true;
 }
 
 public func OnClonkRecruitment(object pClonk, int iPlr)
@@ -51,7 +51,7 @@ static const L_AS_Range = 50;
 
 private func SightHelperCnt()
 {
-  return (L_AS_Distance-L_AS_Range)/L_AS_Range;
+  return  (L_AS_Distance-L_AS_Range)/L_AS_Range;
 }
 
 public func FxSightStart(object pTarget,int iEffectNumber, int iTemp)
@@ -83,13 +83,13 @@ public func FxSightTimer(object pTarget,int iEffectNumber, int iEffectTime)
 {
   var aSight = EffectVar(0,pTarget,iEffectNumber);
 
-  if(!pTarget->Contained() && pTarget->GetAlive())
+  if(!Contained(pTarget) && GetAlive(pTarget))
   {
    var angle;
    if(!pTarget->~IsAiming())
    {
     angle = 90;
-    if(pTarget->GetDir() == DIR_Left)
+    if(GetDir(pTarget) == DIR_Left)
      angle = 270;
    }
    else
@@ -112,7 +112,7 @@ public func FxSightTimer(object pTarget,int iEffectNumber, int iEffectTime)
   {
    for(var o in aSight)
    {
-    o->SetPosition(pTarget->GetX(), pTarget->GetY());
+    o->SetPosition(GetX(pTarget), GetY(pTarget));
     SetPlrViewRange(0,o); 
    }
   }

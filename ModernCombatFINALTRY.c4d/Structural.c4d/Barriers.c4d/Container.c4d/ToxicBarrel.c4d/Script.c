@@ -28,7 +28,7 @@ func BlowUp(int iPlr)
 
 global func FxGasEffectTimer(object target, int effect, int time)
 {
-  target->SetClrModulation(RGBa(255,255,255,time*255/175));
+  SetClrModulation(RGBa(255,255,255,time*255/175), target);
 
   if(!(time % 8))
   {

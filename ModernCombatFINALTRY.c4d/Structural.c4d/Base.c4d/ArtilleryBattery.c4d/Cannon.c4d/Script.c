@@ -1,6 +1,6 @@
 /*-- Geschütz --*/
 
-#strict
+#strict 2
 
 
 /* Initalisierung */
@@ -10,7 +10,7 @@ func Initialize()
   //Ausfahraktion
   SetAction("Extend");
 
-  return(1);
+  return 1;
 }
 
 /* Hülsenauswurf */

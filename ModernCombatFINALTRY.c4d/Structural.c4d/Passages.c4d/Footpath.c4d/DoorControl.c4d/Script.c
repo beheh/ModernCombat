@@ -60,7 +60,7 @@ public func ControlTransfer(object obj, int x, int y) {
     return false;
   
   var dir = 1;
-  if(obj->GetX() < GetX())
+  if(GetX(obj) < GetX())
     dir = -1;
   
   //Türe zu?

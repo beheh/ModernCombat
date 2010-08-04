@@ -43,7 +43,7 @@ protected func Activate(iByPlayer)
   }
   
   MessageWindow(Format("$ActualPoints$:|%s", szMessage), iByPlayer);
-  return(1);
+  return 1;
 }
 
 /* Auswerten */

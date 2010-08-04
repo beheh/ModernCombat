@@ -4,7 +4,7 @@
 
 local damaged;
 
-public func IsBulletTarget()		{if(!damaged) return 1;}
+public func IsBulletTarget()		{return !damaged;}
 public func IsCraneGrabable()		{return !damaged;}
 public func IgnoreFriendlyFire()	{return 1;}
 
@@ -45,12 +45,12 @@ func IncinerationEx(int iPlr)
 
 func Damage(int iChange, int iPlr)
 {
-  if(!this())
+  if(!this)
    return;
   if(GetDamage() > 1)
    Incinerate();
   
-  if(!this())
+  if(!this)
    return;
   if(GetDamage() < 20) return;
   InstaExplode(iPlr);
@@ -71,10 +71,10 @@ func InstaExplode(int iPlr)
    var inc = GetDefCoreVal("ContactIncinerate",0,GetID(obj));
    if(!inc) continue;
     if(inc == 3)
-     obj->Incinerate();
+     Incinerate(obj);
    else
    if(!Random(inc-3))
-    obj->Incinerate();
+    Incinerate(obj);
   }
   //Explosion
   BlowUp(iPlr);
@@ -96,8 +96,7 @@ func BlowUp(int iPlr)
 
 public func OnDmg(int iDmg, int iType)
 {
-  if(iType == DMG_Bio)		return(100);	//Säure und biologische Schadstoffe
-  return(0);
+  if(iType == DMG_Bio)		return 100;	//Säure und biologische Schadstoffe
 }
 
 /* Aufschlag */ 

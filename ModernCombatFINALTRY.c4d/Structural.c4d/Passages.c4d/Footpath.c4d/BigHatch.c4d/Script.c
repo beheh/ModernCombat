@@ -30,7 +30,7 @@ public func OnClose()
 public func OnDestroyed(iType)
 {
   //Explosion
-  CreateObject(ROCK)->Explode(30);
+  Explode(30, CreateObject(ROCK));
   SetAction("Destroyed");
   var phase = Random(3);
   SetPhase(phase);

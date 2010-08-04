@@ -64,13 +64,13 @@ global func FxMove2DoorStart(object pTarget)
   if(cont)
     if(cont->~IsBackDoor())
       if(cont->GetTarget())
-        pTarget->Enter(cont->GetTarget());
+        Enter(cont->GetTarget(), pTarget);
   return 1;
 }
 
 global func FxMove2DoorTimer(pTarget)
 {
-  pTarget->AddCommand(0,"Exit");
+  AddCommand(pTarget,"Exit");
   return -1;
 }
 

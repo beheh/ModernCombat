@@ -24,7 +24,7 @@ func BlowUp(int iPlr)
   //Langsam verschwinden
   FadeOut();
 
-  //if(Stuck()) return();
+  //if(Stuck()) return;
   
   var iDamage = 25;
     

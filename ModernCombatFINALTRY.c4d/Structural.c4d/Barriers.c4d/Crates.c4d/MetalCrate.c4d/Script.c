@@ -3,7 +3,7 @@
 #strict 2
 #include WCR2
 
-public func IsBulletTarget()	{return 0;}
+public func IsBulletTarget()	{}
 
 
 /* Zerstörung */
