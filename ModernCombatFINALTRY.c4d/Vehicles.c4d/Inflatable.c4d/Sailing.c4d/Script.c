@@ -36,7 +36,7 @@ func SetUp()
 private func UpdateDmg()
 {
   if(!GetActionTarget()) return;
-  GetActionTarget()->DoDamage(GetDamage() - GetActionTarget()->GetDamage());
+  DoDamage(GetDamage() - GetDamage(GetActionTarget()), GetActionTarget());
 }
 
 public func Damage()
@@ -74,9 +74,9 @@ func Incineration()
 
 public func OnDmg(int iDmg, int iType)
 {
-  if(iType == DMG_Fire)		return(60);	//Feuer
-  if(iType == DMG_Bio)		return(100);	//Säure und biologische Schadstoffe
-  return(0);
+  if(iType == DMG_Fire)		return 60;	//Feuer
+  if(iType == DMG_Bio)		return 100;	//Säure und biologische Schadstoffe
+  return;
 }
 
 /* Landung */
@@ -100,7 +100,7 @@ private func Sail()
   if(!FindObject(0,0,0,0,0,0,"Push",motor))
     Stop();
     
-  if(GetComDir() == COMD_None) return ;
+  if(!GetComDir()) return ;
 
   var xdir = Min(Abs(GetXDir())+2,30);
 
@@ -119,8 +119,8 @@ private func Sail()
   var bubble = CreateObject(FXU1,dir*30,+4,-1);
   if(bubble)
   {
-    bubble->SetXDir(8);
-    bubble->SetYDir(5);
+    SetXDir(8, bubble);
+    SetYDir(5, bubble);
   }
   CreateParticle("SlimeGrav",30*dir,-5,(1+Random(4))*dir,-(7+Random(4)) ,xdir*100/30 ,RGBa(100,150,255,100+Random(100)));
   CreateParticle("SlimeGrav",30*dir,-10,(1+Random(4))*dir,-(7+Random(4)) ,xdir*100/30 ,RGBa(100,150,255,100+Random(100)));
@@ -196,12 +196,12 @@ private func SetDirection(int comdir)
 
 private func TurnStart()
 {
-  motor->SetShape(-(GetDefWidth()/2),-(GetDefHeight()/2),GetDefWidth(),GetDefHeight());
+  SetShape(-(GetDefWidth()/2),-(GetDefHeight()/2),GetDefWidth(),GetDefHeight(), motor);
 
   var controllers = CreateArray();
   for(var obj in FindObjects(Find_InRect(-(GetDefWidth()/2),-GetDefHeight(),GetDefWidth(),GetDefHeight()),Find_Category(C4D_Vehicle|C4D_Object|C4D_Living)))
   {
-    if (obj->GetContact(0, -1, 8))
+    if (GetContact(obj, -1, 8))
     {
       controllers[GetLength(controllers)] = obj;
     }
@@ -224,7 +224,7 @@ public func IsTurning() {
 
 protected func FxIntTurnStart(object target, int number, int temp, array controllers)
 {
-  if(temp) return 0;
+  if(temp) return;
 
   // Alle anfassenden Clonks
   EffectVar(0, target, number) = controllers;
@@ -232,7 +232,7 @@ protected func FxIntTurnStart(object target, int number, int temp, array control
   EffectVar(1, target, number) = CreateArray(GetLength(controllers));
   // ... die hier ermittelt wird
   for(var i = 0; i < GetLength(controllers); ++ i)
-    EffectVar(1, target, number)[i] = controllers[i]->GetX() - GetX();
+    EffectVar(1, target, number)[i] = GetX(controllers[i]) - GetX();
   //Anfangsgeschwindigkeit
   EffectVar(2, target, number) = Abs(GetXDir(target));
 }
@@ -260,18 +260,18 @@ protected func FxIntTurnTimer(object target, int number, int time)
 
     // Dir anpassen wenn Haelfte der Turn-Action vorbei
     if(time == delay * phases / 2)
-      controller->SetDir(GetDir());
+      SetDir(GetDir(), controller);
 
     // Neue Position ermitteln (Sinusfoermig um den Luftschiff-Mittelpunkt)
     var pos_t = -pos * 2;
-    controller->SetPosition(GetX() + pos - (pos*2 * pos_phase / 100), controller->GetY());
+    SetPosition(GetX() + pos - (pos*2 * pos_phase / 100), GetY(controller), controller);
   }
   var speed_phase = (time * 180 / (phases * delay)) - 90;
   var xdir = speed_phase * EffectVar(2, target, number) / 90;
   if(GetComDir(target) == COMD_Left)
-    target->SetXDir(-xdir);
+    SetXDir(-xdir, target);
   else if(GetComDir(target) == COMD_Right)
-    target->SetXDir(+xdir);
+    SetXDir(+xdir, target);
 }
 
 protected func FxIntTurnStop(object target, int number, bool temp)
@@ -287,8 +287,8 @@ protected func FxIntTurnStop(object target, int number, bool temp)
 
     // Und an fertige Position tun, zur Sicherheit, wenn es noch Controller sind
     if(!object) continue;
-    if(object->GetAction() == "Push" && object->GetActionTarget() == this)
-      object->SetPosition(GetX() - pos, object->GetY());
+    if(GetAction(object) == "Push" && GetActionTarget(0, object) == this)
+      SetPosition(GetX() - pos, GetY(object), object);
   }
 }
 

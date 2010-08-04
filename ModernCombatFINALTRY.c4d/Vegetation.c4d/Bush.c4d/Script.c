@@ -1,6 +1,6 @@
 /*-- Busch --*/
 
-#strict
+#strict 2
 
 
 /* Initialisierung */
