@@ -21,7 +21,7 @@ public func Initialize()
 private func UpdateDmg()
 {
   if(!GetActionTarget()) return;
-  GetActionTarget()->DoDamage(GetDamage() - GetActionTarget()->GetDamage());
+  DoDamage(GetDamage() - GetDamage(GetActionTarget()), GetActionTarget());
 }
 
 public func Damage()
@@ -31,9 +31,8 @@ public func Damage()
 
 public func OnDmg(int iDmg, int iType)
 {
-  if(iType == DMG_Fire)		return(60);	//Feuer
-  if(iType == DMG_Bio)		return(100);	//Säure und biologische Schadstoffe
-  return(0);
+  if(iType == DMG_Fire)		return 60;	//Feuer
+  if(iType == DMG_Bio)		return 100;	//Säure und biologische Schadstoffe
 }
 
 /* Funktionen */
@@ -59,7 +58,7 @@ func SetUser(object pUser)
   var plr = GetOwner(pUser);
   SetOwner(plr);
   if(GetActionTarget())
-    GetActionTarget()->SetOwner(plr);
+    SetOwner(plr, GetActionTarget());
 }
 
 /* Darstellung */
@@ -72,10 +71,10 @@ public func UpdateShape()
   
   var iXOff;
   
-  if(boat->GetAction() == "Turn")
+  if(GetAction(boat) == "Turn")
   {
-    var phases = boat->GetActMapVal("Length", "Turn")-1;
-    var phase = boat->GetPhase()-1;
+    var phases = GetActMapVal("Length", "Turn", GetID(boat))-1;
+    var phase = GetPhase(boat)-1;
   
     var alpha = (phase * 180 / phases) - 90;
     iXOff = Sin(alpha, -25);
