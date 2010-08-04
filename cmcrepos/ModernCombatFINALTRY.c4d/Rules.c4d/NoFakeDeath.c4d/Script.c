@@ -1,8 +1,8 @@
 /*-- Kein FakeDeath --*/
 
-#strict
+#strict 2
 
-public func IsChooseable()	{return(1);}	//Kann mittels des Spielzielauswählers ausgewählt werden
+public func IsChooseable()	{return 1;}	//Kann mittels des Spielzielauswählers ausgewählt werden
 
 
 /* Infos */
@@ -10,5 +10,5 @@ public func IsChooseable()	{return(1);}	//Kann mittels des Spielzielauswählers a
 protected func Activate(iByPlayer)
 {
   MessageWindow(GetDesc(), iByPlayer);
-  return(1);
+  return 1;
 }

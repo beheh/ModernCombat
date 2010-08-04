@@ -51,13 +51,13 @@ public func InstaExplode(int iPlr)
     
     if(inc <= 2)
     {
-      obj->Incinerate();
+      Incinerate(obj);
       continue; 
     }
     else {
       if(!Random(inc-2))
       {
-        obj->Incinerate();
+        Incinerate(obj);
         continue;
       }
     }

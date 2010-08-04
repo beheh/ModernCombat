@@ -2,7 +2,7 @@
 
 #strict 2
 
-public func IsBulletTarget()	{return(1);}
+public func IsBulletTarget()	{return 1;}
 
 
 /* Schaden */

@@ -10,7 +10,7 @@ public func Damage()
   if(GetDamage() > 10)
   {
    Shatter();
-   return 0;
+   return;
   }
   return 1;
 }

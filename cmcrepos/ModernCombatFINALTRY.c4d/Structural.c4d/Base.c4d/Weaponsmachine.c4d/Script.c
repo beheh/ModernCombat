@@ -113,7 +113,7 @@ private func AddBuyMenuItem(id id, object pClonk, int iCount) {
   //Kann sich der Spieler die Waffe leisten?
   if(GetWealth(iPlayer) < wealth || iCount == 0) {
     name = Format("<c 646464>%s</c>",name);
-    obj->SetClrModulation(RGB(100,100,100));
+    SetClrModulation(RGB(100,100,100), obj);
     bMoney = true;
   }
 

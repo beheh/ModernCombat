@@ -8,8 +8,8 @@ local bRotate, bDirection;
 local iCooldown;
 local byObj;
 
-public func IsMachine()		{return(true);}
-public func MaxDamage()		{return(150);}
+public func IsMachine()		{return true;}
+public func MaxDamage()		{return 150;}
 
 
 /* Initalisierung */
@@ -32,24 +32,24 @@ func Rotation()
   if(IsDestroyed())
   {
     if(FrameCounter()%30 < 3)
-      CreateParticle("PSpark",18,-9,0,0,50,RGB(255,255,0),this());
+      CreateParticle("PSpark",18,-9,0,0,50,RGB(255,255,0),this);
     return;
   }
     
   if(iCooldown <= 0)
-      CreateParticle("PSpark",18,-9,0,0,40,RGB(0,255,0,100),this());
+      CreateParticle("PSpark",18,-9,0,0,40,RGB(0,255,0,100),this);
   else
   {
     iCooldown -= 3;
-      CreateParticle("PSpark",18,-9,0,0,40,RGB(255,0,0,100),this());
+      CreateParticle("PSpark",18,-9,0,0,40,RGB(255,0,0,100),this);
   }
 
-  if(!bRotate) return(0);
+  if(!bRotate) return;
 
-	if(!FindObject2(Find_Action("Push"), Find_ActionTarget(this))) {bRotate = 0; Sound("CannonStop"); return(0);}
+	if(!FindObject2(Find_Action("Push"), Find_ActionTarget(this))) {bRotate = 0; Sound("CannonStop"); return;}
 
-  if(GetR(pCannon)> 80) {bRotate=0; SetR(GetR(pCannon)-1,pCannon); Sound("CannonStop"); return(0);}
-  if(GetR(pCannon)<-80) {bRotate=0; SetR(GetR(pCannon)+1,pCannon); Sound("CannonStop"); return(0);}
+  if(GetR(pCannon)> 80) {bRotate=0; SetR(GetR(pCannon)-1,pCannon); Sound("CannonStop"); return;}
+  if(GetR(pCannon)<-80) {bRotate=0; SetR(GetR(pCannon)+1,pCannon); Sound("CannonStop"); return;}
 
   if(bDirection==0) {Sound("CannonRotation"); SetR(GetR(pCannon)+1,pCannon);}
   if(bDirection==1) {Sound("CannonRotation"); SetR(GetR(pCannon)-1,pCannon);}
@@ -62,7 +62,7 @@ func ControlRight(pByObj)
 {
   //Zerstört?
   if(IsDestroyed())
-    return(PlayerMessage(GetOwner(pByObj),"$Destroyed$", this()));
+    return PlayerMessage(GetOwner(pByObj),"$Destroyed$", this);
     
   bRotate=1;
   bDirection=0;
@@ -72,7 +72,7 @@ func ControlLeft(pByObj)
 {
   //Zerstört?
   if(IsDestroyed())
-    return(PlayerMessage(GetOwner(pByObj),"$Destroyed$", this()));
+    return PlayerMessage(GetOwner(pByObj),"$Destroyed$", this);
     
   bRotate=1;
   bDirection=1;
@@ -82,7 +82,7 @@ func ControlDown(pByObj)
 {
   //Zerstört?
   if(IsDestroyed())
-    return(PlayerMessage(GetOwner(pByObj),"$Destroyed$", this()));
+    return PlayerMessage(GetOwner(pByObj),"$Destroyed$", this);
     
   bRotate=0;
   Sound("CannonStop");
@@ -92,7 +92,7 @@ func ControlUp(pByObj)
 {
   //Zerstört?
   if(IsDestroyed())
-    return(PlayerMessage(GetOwner(pByObj),"$Destroyed$", this()));
+    return PlayerMessage(GetOwner(pByObj),"$Destroyed$", this);
     
   ControlDown();
 }
@@ -101,12 +101,12 @@ func ControlDig(object pByObj)
 {
   //Zerstört?
   if(IsDestroyed())
-    return(PlayerMessage(GetOwner(pByObj),"$Destroyed$", this()));
+    return PlayerMessage(GetOwner(pByObj),"$Destroyed$", this);
 
   //Zielpunkt berechnen
   var iX = -AbsX()+Sin(GetR(pCannon),34), iY = -AbsY()-Cos(GetR(pCannon),34)-3, iXDir = Sin(GetR(pCannon),150), iYDir = -Cos(GetR(pCannon),150);
   if(!SimFlight(iX,iY,iXDir,iYDir,50,50,500,10))
-    return(1);
+    return 1;
 
   //Icon setzen
   var target = CreateObject(ARCR,AbsX(iX),AbsY(iY),GetOwner(pByObj));
@@ -121,15 +121,15 @@ func ControlThrow(object pByObj)
 {
   //Zerstört?
   if(IsDestroyed())
-    return(PlayerMessage(GetOwner(pByObj),"$Destroyed$", this()));
+    return PlayerMessage(GetOwner(pByObj),"$Destroyed$", this);
 
   //Nicht bereit?
-  if(iCooldown > 0) return(PlayerMessage(GetOwner(pByObj),"$Reloading$",this())); 
+  if(iCooldown > 0) return PlayerMessage(GetOwner(pByObj),"$Reloading$",this); 
 
   //-20 Sekunden Feuersalve / 60 Sekunden Cooldown
   iCooldown = 80*35;
   SetController(GetController(pByObj));
-  ScheduleCall(this(),"Shoot",70,10);
+  ScheduleCall(this,"Shoot",70,10);
   ScheduleCall(this, "BeginAttack", 70);
 
   Sound("Acknowledge.ogg", 0, pByObj, 100, GetOwner(pByObj)+1);
@@ -157,7 +157,7 @@ public func Shoot()
   var iY=-Cos(GetR(pCannon),34)-3;
    
   var pProjectile = CreateObject(ABLT,iX,iY,GetOwner(byObj));
-  pProjectile->SetController(GetController());
+  SetController(GetController(), pProjectile);
   SetXDir( Sin(GetR(pCannon),RandomX(135,165)),pProjectile,10);
   SetYDir(-Cos(GetR(pCannon),RandomX(135,165)),pProjectile,10);
 
@@ -169,7 +169,7 @@ public func Shoot()
     CreateParticle("Smoke",iX,iY+RandomX(-20,20),0,0,RandomX(50,100),RGB(96,96,96));
 
   if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("GunSmoke",4,10,0,0,500,100);
-  MuzzleFlash(RandomX(30,75),this(),iX,iY,GetR(pCannon));
+  MuzzleFlash(RandomX(30,75),this,iX,iY,GetR(pCannon));
 }
 
 /* Schaden */
@@ -177,7 +177,7 @@ public func Shoot()
 public func OnDestruction()
 {
   //Waffe entfernen
-  if(pCannon) pCannon->RemoveObject();
+  if(pCannon) RemoveObject(pCannon);
 
   //Cooldown zurücksetzen
   iCooldown = 0;
@@ -192,10 +192,10 @@ public func OnDestruction()
 
 public func OnDmg(int iDmg, int iType)
 {
-  if(iType == DMG_Fire)		return(60);	//Feuer
-  if(iType == DMG_Explosion)	return(0);	//Explosionen und Druckwellen
-  if(iType == DMG_Bio)		return(100);	//Säure und biologische Schadstoffe
-  return(80);
+  if(iType == DMG_Fire)		return 60;	//Feuer
+  if(iType == DMG_Explosion)	return;	//Explosionen und Druckwellen
+  if(iType == DMG_Bio)		return 100;	//Säure und biologische Schadstoffe
+  return 80;
 }
 
 /* Reperatur */
@@ -210,6 +210,6 @@ public func OnRepair()
 
 public func Destruction()
 {
-  if(pCannon) pCannon->RemoveObject();
+  if(pCannon) RemoveObject(pCannon);
   RemoveEffect("ShowWeapon",this); 
 }

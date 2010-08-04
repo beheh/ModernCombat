@@ -10,11 +10,7 @@ local damaged;
 
 func Damage(int iChange, int iPlr)
 {
-  if(damaged) return ;
-
-  if(!this()) return ;
-  
-  if(GetDamage() < 40) return;
+  if(damaged || !this || GetDamage() < 40) return;
   InstaExplode(iPlr);
 }
 

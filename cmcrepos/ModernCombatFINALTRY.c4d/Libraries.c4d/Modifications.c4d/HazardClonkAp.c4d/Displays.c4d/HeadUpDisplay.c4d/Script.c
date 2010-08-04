@@ -277,7 +277,7 @@ public func Recharge(int part, int max)
 
 public func Ammo(int iAmmoCount, int iAmmoLoad, string sftName, bool fShow)
 {
-  if(iAmmoCount == ammoCount && iAmmoLoad == ammoLoad && sftName == ftName) return;
+//  if(iAmmoCount == ammoCount && iAmmoLoad == ammoLoad && sftName == ftName) return;
   ammoCount = iAmmoCount;
   ammoLoad = iAmmoLoad;
   ftName = sftName;

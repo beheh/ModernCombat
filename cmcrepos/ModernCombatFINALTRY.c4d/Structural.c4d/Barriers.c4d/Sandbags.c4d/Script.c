@@ -48,13 +48,9 @@ func Construction(object pByObj)//Wird sofort beim Bauen aufgerufen.
    dir = GetDir(Contained(pByObj));
 
   if(dir)
-  {
-   Right();
-  }
+    Right();
   else
-  {
-   Left();
-  }
+    Left();
 }
 
 func Right()

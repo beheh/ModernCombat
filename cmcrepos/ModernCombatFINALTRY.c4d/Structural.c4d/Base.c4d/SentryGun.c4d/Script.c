@@ -12,17 +12,17 @@ local fActive;
 local GotTarget;
 local last_id;
 
-public func GetAttWeapon()	{return(cur_Attachment);}	//Waffe
-public func MaxRotLeft()	{return(110+GetR());}		//Maximaler Winkel links
-public func MaxRotRight()	{return(250+GetR());}		//Maximaler Winkel rechts
-public func SearchLength()	{return(250);}			//Suchlänge
-public func AimAngle()		{return(aim_angle+GetR());}	//Winkel auf Ziel
-public func ReadyToFire()	{return(1);}			//Allzeit bereit
-public func IsMachine()		{return(true);}			//Ist eine Elektrische Anlage
-public func IsBulletTarget()	{return(true);}			//Kugelziel
-public func IsAiming()		{return(true);}			//Selbstschussanlage immer am Zielen
-public func IsThreat()		{return(fActive && !IsDestroyed());}		//Status
-public func UpdateCharge()	{return(1);}
+public func GetAttWeapon()	{return cur_Attachment;}	//Waffe
+public func MaxRotLeft()	{return 110+GetR();}		//Maximaler Winkel links
+public func MaxRotRight()	{return 250+GetR();}		//Maximaler Winkel rechts
+public func SearchLength()	{return 250;}			//Suchlänge
+public func AimAngle()		{return aim_angle+GetR();}	//Winkel auf Ziel
+public func ReadyToFire()	{return 1;}			//Allzeit bereit
+public func IsMachine()		{return true;}			//Ist eine Elektrische Anlage
+public func IsBulletTarget()	{return true;}			//Kugelziel
+public func IsAiming()		{return true;}			//Selbstschussanlage immer am Zielen
+public func IsThreat()		{return fActive && !IsDestroyed();}		//Status
+public func UpdateCharge()	{return 1;}
 
 
 /* Zerstörung */
@@ -58,12 +58,12 @@ public func BonusPointCondition()
 
 public func OnDmg(int iDmg, int iType)
 {
-  if(iType == DMG_Projectile)	return(40);	//Projektile
-  if(iType == DMG_Fire)		return(60);	//Feuer
-  if(iType == DMG_Explosion)	return(0);	//Explosionen und Druckwellen
-  if(iType == DMG_Energy)	return(50);	//Energiewaffen
-  if(iType == DMG_Bio)		return(100);	//Säure und biologische Schadstoffe
-  return(50);
+  if(iType == DMG_Projectile)	return 40;	//Projektile
+  if(iType == DMG_Fire)		return 60;	//Feuer
+  if(iType == DMG_Explosion)	return;		//Explosionen und Druckwellen
+  if(iType == DMG_Energy)	return 50;	//Energiewaffen
+  if(iType == DMG_Bio)		return 100;	//Säure und biologische Schadstoffe
+  return 50;
 }
 
 /* Aufrufe */
@@ -87,14 +87,14 @@ public func Arm(id idWeapon)
 
   //Ausrüsten mit idWeapon
   var pWeapon = CreateObject(idWeapon, 0, 0, GetOwner());
-  Enter(this(),pWeapon);
+  Enter(this,pWeapon);
    
   //Ordnern
-  SetObjectOrder(this(), pWeapon, 1);
+  SetObjectOrder(this, pWeapon, 1);
   aim_angle = 180;
   iPat_Dir = -1+ Random(2)*2;
   cur_Attachment = pWeapon;
-  LocalN("controller", pWeapon) = this();
+  LocalN("controller", pWeapon) = this;
   Reload();
   
   //Effekt
@@ -106,7 +106,7 @@ public func Disarm()
   while(Contents())
   {
    last_id = GetID(Contents());
-   Contents()->RemoveObject();
+   RemoveObject(Contents());
   }
   RemoveEffect("ShowWeapon", this);
 }
@@ -115,8 +115,8 @@ public func Disarm()
 
 public func Initialize() 
 {
-  AddEffect("ShowWeapon",this(),1,1,this(),GetID());
-  SetGraphics(0,this(),GetID(),3,5,0,0,this());
+  AddEffect("ShowWeapon",this,1,1,this,GetID());
+  SetGraphics(0,this,GetID(),3,5,0,0,this);
 }
 
 public func WeaponAt(&x, &y, &r)
@@ -124,33 +124,33 @@ public func WeaponAt(&x, &y, &r)
   x = Sin(GetR()-180,7000);
   y = -Cos(GetR()-180,7000);
   r = aim_angle+270+GetR();
-  return(1);
+  return 1;
 }
 
 public func WeaponBegin(&x, &y)
 {
-  var number = GetEffect("ShowWeapon",this());
+  var number = GetEffect("ShowWeapon",this);
   if(!number)
-   return(0);
-  x = EffectVar(2, this(), number)/1000;
-  y = EffectVar(3, this(), number)/1000;
+   return;
+  x = EffectVar(2, this, number)/1000;
+  y = EffectVar(3, this, number)/1000;
 }
 
 public func WeaponEnd(&x, &y)
 {
-  var number = GetEffect("ShowWeapon",this());
+  var number = GetEffect("ShowWeapon",this);
   if(!number)
-   return(0);
-  x = EffectVar(4, this(), number)/1000;
-  y = EffectVar(5, this(), number)/1000;
+   return;
+  x = EffectVar(4, this, number)/1000;
+  y = EffectVar(5, this, number)/1000;
 }
 
 public func GetWeaponR()
 {
-  var number = GetEffect("ShowWeapon",this());
+  var number = GetEffect("ShowWeapon",this);
   if(!number)
-   return(0);
-  return(EffectVar(1, this(), number));
+   return;
+  return EffectVar(1, this, number);
 }
 
 public func Activity()
@@ -226,12 +226,12 @@ public func Activity()
 	}
 	else
 	{
-		target_angle = Angle(GetX(), GetY() + 7, GotTarget->GetX(), GotTarget->GetY());
+		target_angle = Angle(GetX(), GetY() + 7, GetX(GotTarget), GetY(GotTarget));
 		if(Abs(AimAngle() - target_angle) < 15)
 		{
 		    Shooting = true;
 		    if(!GetAttWeapon()->IsShooting())
-			    GetAttWeapon()->ControlThrow(this());
+			    GetAttWeapon()->ControlThrow(this);
 	  	    if(GetAmmo(GetAttWeapon()->GetFMData(FM_AmmoID), GetAttWeapon()) < GetAttWeapon()->GetFMData(FM_AmmoUsage))
 				Reload();
 		}
@@ -241,11 +241,11 @@ public func Activity()
    		GetAttWeapon()->StopAutoFire();
 		}
 		
-		if(!CheckTarget(GotTarget,this()))
+		if(!CheckTarget(GotTarget,this))
 			GotTarget = 0;
-		else if(!PathFree(GetX(),GetY()+7,GotTarget->GetX(), GotTarget->GetY()))
+		else if(!PathFree(GetX(),GetY()+7,GetX(GotTarget), GetY(GotTarget)))
 			GotTarget = 0;
-		else if(ObjectDistance(GotTarget,this()) > SearchLength())
+		else if(ObjectDistance(GotTarget,this) > SearchLength())
 			GotTarget = 0;
 	}
 	 
@@ -271,18 +271,18 @@ public func Search(int iX, int iWidth, int iHeight)
 
 	var w,h;
   
-	var Targets = FindTargets(this(), SearchLength());
+	var Targets = FindTargets(this, SearchLength());
   for(pAim in Targets)
   {
 		if(GetOwner() != NO_OWNER)
-			if(pAim->GetOwner() == GetOwner() || !Hostile(pAim->GetOwner(), GetOwner()))
+			if(GetOwner(pAim) == GetOwner() || !Hostile(GetOwner(pAim), GetOwner()))
 				continue;
 
-		if(!CheckTarget(pAim,this()))
+		if(!CheckTarget(pAim,this))
 			continue;
 
 		//Winkel zum Ziel
-		target_angle = Angle(GetX(), GetY() + 7, pAim->GetX(), pAim->GetY());
+		target_angle = Angle(GetX(), GetY() + 7, GetX(pAim), GetY(pAim));
 
 		target_angle = Normalize(target_angle, 0);
 		if(target_angle < MaxRotLeft() || target_angle > MaxRotRight())
@@ -310,14 +310,14 @@ private func Reload()
   // Erzeugen
   Local(0, CreateContents(AmmoID)) = GetAttWeapon()->~GetFMData(FM_AmmoLoad);
   // Waffe soll nachladen
-  GetAttWeapon()->~Reloaded(this());
+  GetAttWeapon()->~Reloaded(this);
   GetAttWeapon()->~Recharge();
   GetAttWeapon()->~StopAutoFire();
 }
 
 public func MaxDamage()
 {
-  return(80);
+  return 80;
 }
 
 /* EMP */
@@ -327,7 +327,7 @@ public func EMPShock()
   EMPShockEffect(20*35);
   if(GetAttWeapon())
    GetAttWeapon()->StopAutoFire();
-  return(1);
+  return 1;
 }
 
 /* Konsolensteuerung */

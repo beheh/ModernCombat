@@ -4,7 +4,7 @@
 
 #include GBDR
 
-public func IsBulletTarget()	{return(false);}
+public func IsBulletTarget()	{return false;}
 
 
 /* Initalisierung */
@@ -95,7 +95,7 @@ public func ControlTransfer(object obj, int x, int y)
     return false;
   
   var dir = 1;
-  if(obj->GetY() < GetY()+GetObjHeight())
+  if(GetY(obj) < GetY()+GetObjHeight())
     dir = -1;
   
   if(!closed) return false;
