@@ -90,7 +90,7 @@ func Use(caller)
 
     //Effekte
     Sound("CDBT_Shock.ogg");
-    obj->Sound("ClonkCough*.ogg");
+    Sound("ClonkCough*.ogg", 0, obj);
     obj->Sparks(10,RGB(250,150,0));
     obj->Sparks(5,RGB(100,100,250));
     obj->AddLightFlash(40+Random(20),0,0,RGB(0,140,255));
@@ -205,10 +205,7 @@ func Ready()
 public func RejectEntrance(object pObj)
 {
   if(GetOCF(pObj) & OCF_Living)
-  {
-   if(ContentsCount(GetID(),pObj))
-    return true;
-  }
+    return ContentsCount(GetID(),pObj);
 }
 
 /* HUD */
@@ -219,6 +216,8 @@ func UpdateHUD(object pHUD)
 {
   pHUD->Charge(charge,MaxEnergy());
   pHUD->Ammo(charge, MaxEnergy(), GetName(), true);
+  if (GetAction() == "Reload")
+    pHUD->Recharge(GetActTime(), 35);
 }
 
 /* Sounds */
