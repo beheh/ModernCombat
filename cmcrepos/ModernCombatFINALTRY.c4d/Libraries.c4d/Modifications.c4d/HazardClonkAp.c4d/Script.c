@@ -145,21 +145,14 @@ protected func PackAmmo(id idType, int iCaller)
 {
   //Wir übersehen mal, das beliebig viel Muni verpackt werden könnte.
   var pCaller = Object(iCaller);
-  
-  var pPack = DoAmmoPack(idType);
-  
-  if(pPack)
-  {
-    var iChange = pPack->AmmoCount();
-  }
-  else
-  {
-    pPack = CreateObject(CUAM,0,0,GetOwner());
 
-    pPack->SetAmmoID(idType);
-    iChange = pPack->DoAmmoCount(GetAmmo(idType));
-    DoAmmo(idType,-iChange);
-  }
+  //Selbstgepackte Munition sollte immer CUAM sein.
+
+  var pPack = CreateObject(CUAM,0,0,GetOwner());
+
+  pPack->SetAmmoID(idType);
+  var iChange = pPack->DoAmmoCount(GetAmmo(idType));
+  DoAmmo(idType,-iChange);
   
   if(!Collect(pPack,this))
   {
