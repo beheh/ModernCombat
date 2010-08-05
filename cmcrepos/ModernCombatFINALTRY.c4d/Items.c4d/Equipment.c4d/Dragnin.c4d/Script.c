@@ -22,7 +22,7 @@ func Sting(caller)
 {
   //Patienten suchen
   var obj;
-  if(obj = FindObject2(Find_InRect(-10,-10,20,20),Find_OCF(OCF_Alive),Find_Exclude(caller),Find_Allied(GetOwner(caller)),Find_NoContainer()))
+  if(obj = FindObject2(Find_InRect(-10,-10,20,20),Find_OCF(OCF_CrewMember),Find_Exclude(caller),Find_Allied(GetOwner(caller)),Find_NoContainer()))
   {
    //Bereits anderweitig am heilen?
    if(GetEffect("*Heal*",obj))
