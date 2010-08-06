@@ -45,12 +45,13 @@ global func SetEffectData(int iData, int iEffect)
 {
   if(!EFSM_Init) EFSM_SetEffects();
   EFSM_CurrentData[iEffect] = iData;
-  OnUpdateEffects();
+  OnUpdateEffects(iEffect);
   return true;
 }
 
-global func OnUpdateEffects()
+global func OnUpdateEffects(int iEffect)
 {
-  if(!GetEffectData(EFSM_Darkness))
-   {RemoveAll(DARK);}
+  //Natürlich nur wenn Darkness geupdatet wird.
+  if(iEffect == EFSM_Darkness && !GetEffectData(EFSM_Darkness))
+    {RemoveAll(DARK);}
 }
