@@ -6,9 +6,9 @@ global func FxIntUnstuck4KStart(object pTarget, int iEffectNumber, int iTemp,iXD
 {
   if(!iXDir && !iYDir)
   {
-    for(var j = 10;j < 60;j+=10)
+    for(var j = 10; j < 60;j+=10)
     {
-      for(var i = -90;i < 360-90;i+=45)//In 45° Schritten testen.
+      for(var i = -180; i < 360-180; i+=45)//In 45° Schritten testen.
       {
         iXDir = Cos(i,j);
         iYDir = Sin(i,j);
