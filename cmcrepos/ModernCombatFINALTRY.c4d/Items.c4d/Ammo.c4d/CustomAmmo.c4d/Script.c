@@ -130,3 +130,7 @@ public func ControlThrow(object caller) {
     }
   return true;
 }
+
+protected func RejectCollect(object pInto) {
+  return ContentsCount(GetID(), pInto);
+}
