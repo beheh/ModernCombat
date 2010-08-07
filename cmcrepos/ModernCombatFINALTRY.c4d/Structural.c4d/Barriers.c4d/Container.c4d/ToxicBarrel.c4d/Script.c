@@ -32,7 +32,8 @@ global func FxGasEffectTimer(object target, int effect, int time)
 
   if(!(time % 8))
   {
-    var flame = target->CreateObject(FFLM,0,0,GetController());
+    var flame = target->CreateObject(FFLM,0,0,-1);
+    flame->SetController(GetController());
     flame->Launch(10-Random(20),10-Random(20),true,30-(time*30/175));
   }
   

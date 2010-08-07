@@ -41,7 +41,8 @@ func BlowUp(int iPlr)
         var flame, x,y;
         x = +Cos(a*z,strength);
         y = -Sin(a*z,strength);
-        var flame = CreateObject(FFLM,x/10,y/10,iPlr);
+        var flame = CreateObject(FFLM,x/10,y/10,NO_OWNER);
+        flame->SetController(iPlr);
         flame->Launch(x,y,0,iDamage/2);
 
         if(!Stuck(flame))

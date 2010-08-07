@@ -52,8 +52,11 @@ func Incineration()
   if(damaged) return;
   damaged = true;
 
-  if(motor) Explode(20,motor);
-
+  if(motor) {
+  	motor->FakeExplode(20);
+		RemoveObject(motor);
+	}
+	
   //Effekte
   CreateParticle("Blast",0,-10,-20,0,5*50,RGB(255,255,128));
   CreateParticle("Blast",0,-10,20,0,5*50,RGB(255,255,128));
