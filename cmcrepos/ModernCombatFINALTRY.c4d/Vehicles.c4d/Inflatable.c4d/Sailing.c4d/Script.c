@@ -53,6 +53,8 @@ func Incineration()
   damaged = true;
 
   if(motor) {
+  	motor->SetOwner(NO_OWNER);
+  	motor->SetController(NO_OWNER);
   	motor->FakeExplode(20);
 		RemoveObject(motor);
 	}
