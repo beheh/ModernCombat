@@ -2,6 +2,7 @@
 
 #strict 2
 
+
 // Lokale Variablen
 
 local closed;       // offen?
@@ -131,9 +132,10 @@ public func Close()					// schließt die Tür
   for(var o in FindObjects(Find_InRect(-GetObjWidth()/2,-GetObjHeight()/2,GetObjWidth(),GetObjHeight()),
                                 Find_Category(C4D_Vehicle | C4D_Living | C4D_Object),
                                 Find_NoContainer(),
-                                Find_Exclude(),
+                                Find_Exclude(this),
 				Find_Not(Find_ID(LADR))))
   {
+  	Message("Unstuck", o);
    AutoUnstuck4K(o);
   }
 }
