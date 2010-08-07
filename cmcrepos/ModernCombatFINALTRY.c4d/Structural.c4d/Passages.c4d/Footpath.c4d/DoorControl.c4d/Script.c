@@ -135,7 +135,6 @@ public func Close()					// schließt die Tür
                                 Find_Exclude(this),
 				Find_Not(Find_ID(LADR))))
   {
-  	Message("Unstuck", o);
    AutoUnstuck4K(o);
   }
 }
