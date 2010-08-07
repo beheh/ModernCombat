@@ -9,14 +9,19 @@ public func IsAmmoPacket()	{return true;}
 public func AmmoID()		{return ammoid;}
 public func AmmoCount()		{return count;}
 
+public func IsDrawable()	{return true;}
+public func HandSize()		{return 800;}
+public func HandX()		{return 6000;}
+public func HandY()		{return -1000;}
+
 
 public func SetAmmoID(id idType)
 {
   if(idType->~IsAmmo())
   {
    ammoid = idType;
-   SetGraphics(0,0,idType,1,GFXOV_MODE_Picture);
-   SetObjDrawTransform(500, 0, 0, 0, 500, 0, this, 1);
+   SetGraphics(0,0,idType,2,GFXOV_MODE_Picture);
+   SetObjDrawTransform(500, 0, 0, 0, 500, 0, this, 2);
   }
   return false;
 }
