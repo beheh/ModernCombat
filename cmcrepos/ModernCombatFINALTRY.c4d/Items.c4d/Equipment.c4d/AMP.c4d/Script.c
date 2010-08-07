@@ -37,64 +37,32 @@ protected func Activate(caller)
 
   //Munitionsmenü erstellen
   CreateMenu(GetID(), caller, this, 0, "$TakeAmmo$", 0, 1);
-   AddMenuItem(GetName(0,STAM), "CreateAmmopack", ABOX, caller, 50);
-   AddMenuItem(GetName(0,GRAM), "CreateAmmopack", GBOX, caller, 12);
-   AddMenuItem(GetName(0,MIAM), "CreateAmmopack", MIAP, caller, 4);
+   AddMenuItem(GetName(0,STAM), "CreateAmmopack", STAM, caller, 50);
+   AddMenuItem(GetName(0,GRAM), "CreateAmmopack", GRAM, caller, 12);
+   AddMenuItem(GetName(0,MIAM), "CreateAmmopack", MIAM, caller, 4);
 
   return 1;
 }
 
-private func CreateAmmopack(idAmmo)
-{
-  if(!Contained())
-   return;
+private func CreateAmmopack(idAmmo) {
+  var count, points;
+  if (idAmmo == STAM) { count = 50; points = 50; }
+  if (idAmmo == GRAM) { count = 12; points = 60; }
+  if (idAmmo == MIAM) { count = 4; points = 60; }
 
-  //Bei Projektilmunition
-  if(idAmmo == ABOX)
-  {
-   if(GetAmmoPoints() >= 50)
-   {
-    CreateContents(idAmmo, Contained());
-    Sound("PackAmmo.ogg",0,0,0,GetOwner(Contained()));
-    DoAmmoPoints(-50);
-   }
-   else
-   {
-    PlayerMessage(GetOwner(Contained()),"$NeededPoints$", Contained(), 50);
-   }
-  }
+  //Zu wenig Punkte?
+  if (GetAmmoPoints() < points)
+    return PlayerMessage(GetOwner(Contained()),"$NeededPoints$", Contained(), points);
 
-  //Bei Granatmunition
-  if(idAmmo == GBOX)
-  {
-   if(GetAmmoPoints() >= 60)
-   {
-    CreateContents(idAmmo, Contained());
-    Sound("PackAmmo.ogg",0,0,0,GetOwner(Contained()));
-    DoAmmoPoints(-60);
-   }
-   else
-   {
-    PlayerMessage(GetOwner(Contained()),"$NeededPoints$", Contained(), 60);
-   }
-  }
+  //Custom-Ammo erstellen und füllen
+  var ammo = CreateContents(CUAM, Contained());
+  ammo->SetAmmoID(idAmmo);
+  ammo->SetAmmoCount(count, true);
+  DoAmmoPoints(-points);
+  Sound("PackAmmo.ogg",0,0,0,GetOwner(Contained()));
 
-  //Bei Raketen
-  if(idAmmo == MIAP)
-  {
-   if(GetAmmoPoints() >= 60)
-   {
-    CreateContents(idAmmo, Contained());
-    Sound("PackAmmo.ogg",0,0,0,GetOwner(Contained()));
-    DoAmmoPoints(-60);
-   }
-   else
-   {
-    PlayerMessage(GetOwner(Contained()),"$NeededPoints$", Contained(), 60);
-   }
-  }
   //Hinwechseln
-  ShiftContents(Contained(),0,idAmmo);
+  ShiftContents(Contained(),0,CUAM);
 }
 
 public func RejectEntrance(object pObj)

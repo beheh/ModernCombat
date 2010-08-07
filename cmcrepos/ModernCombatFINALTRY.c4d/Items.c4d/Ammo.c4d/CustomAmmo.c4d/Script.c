@@ -28,14 +28,16 @@ public func GetMax()
   return max;
 }
 
-public func SetAmmoCount(int iCount)
+public func SetAmmoCount(int iCount, bool fForceCount)
 {
   if(!iCount)
   {
    RemoveObject();
    return;
   }
-  count = BoundBy(iCount,0,GetMax());
+  if (!fForceCount) count = BoundBy(iCount,0,GetMax());
+  //zB MTP
+  else count = iCount;
   return count;
 }
 
@@ -110,4 +112,16 @@ protected func Hit()
 {
   Sound("Ammobaghit*.ogg");
   return 1;
+}
+
+public func ControlThrow(object caller) {
+  //Verbündeten suchen
+  for (var obj in FindObjects(Find_InRect(-10,-10,20,20),Find_OCF(OCF_CrewMember),Find_Exclude(caller),Find_Allied(GetOwner(caller)),Find_NoContainer()))
+    //Kann noch Munition aufnehmen?
+    if (obj->~IsClonk() && MayTransfer(obj)) {
+      //Munition geben und abbrechen.
+      TransferAmmo(obj);
+      break;
+    }
+  return true;
 }
