@@ -35,6 +35,9 @@ protected func Activate(caller)
   //Clonk anhalten
   SetComDir(COMD_Stop, caller);
 
+  //Clonk hat schon eine Box: Geht nicht
+  if (ContentsCount(CUAM, caller)) return true;
+
   //Munitionsmenü erstellen
   CreateMenu(GetID(), caller, this, 0, "$TakeAmmo$", 0, 1);
    AddMenuItem(GetName(0,STAM), "CreateAmmopack", STAM, caller, 50);
