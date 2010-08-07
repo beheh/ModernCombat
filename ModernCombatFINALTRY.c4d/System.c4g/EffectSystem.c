@@ -4,7 +4,7 @@
 
 static EFSM_CurrentData;
 static EFSM_Init;
-
+static EFSM_Level;
 
 /* Effect-Konstanten */
 
@@ -32,6 +32,7 @@ global func EFSM_SetEffects(int iLevel)
   SetEffectData(iLevel>1, EFSM_Enlight);
   SetEffectData(iLevel>2, EFSM_Darkness);
   SetEffectData(iLevel>1, EFSM_Waratmosphere);
+  EFSM_Level = iLevel;
   return true;
 }
 
@@ -44,6 +45,7 @@ global func GetEffectData(int iEffect)
 global func SetEffectData(int iData, int iEffect)
 {
   if(!EFSM_Init) EFSM_SetEffects();
+  EFSM_Level = 0;
   EFSM_CurrentData[iEffect] = iData;
   OnUpdateEffects(iEffect);
   return true;
