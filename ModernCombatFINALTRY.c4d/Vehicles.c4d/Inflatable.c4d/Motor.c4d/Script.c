@@ -56,6 +56,7 @@ protected func UpdateTransferZone()
 func SetUser(object pUser)
 {
   var plr = GetOwner(pUser);
+  //Für die FF-Erkennung
   SetOwner(plr);
   if(GetActionTarget())
     SetOwner(plr, GetActionTarget());
@@ -66,8 +67,7 @@ func SetUser(object pUser)
 public func UpdateShape()
 {
   var boat = GetActionTarget();
-  if(!boat) return false;
-  
+  if(!boat) return false;  
   
   var iXOff;
   
@@ -79,7 +79,6 @@ public func UpdateShape()
     var alpha = (phase * 180 / phases) - 90;
     iXOff = Sin(alpha, -25);
     
-    //Log("phase %d (alpha = %d / xoff = %d)",phase,alpha,iXOff);
   }
   else
     iXOff = -25;
