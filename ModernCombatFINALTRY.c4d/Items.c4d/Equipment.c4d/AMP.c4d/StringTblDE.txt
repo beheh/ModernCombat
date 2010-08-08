@@ -1,3 +1,4 @@
 TakeAmmo=Munition entnehmen
 NeededPoints=Es werden <c ff0000>%d</c> Punkte zum Entpacken benötigt.
 AmmoRecieved=%dx {{%i}} erhalten
+NoSpace=Inventar bereits belegt.

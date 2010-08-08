@@ -1,2 +1,3 @@
 NotMoreAmmo=Kann nicht noch mehr|{{%i}} aufbewahren!
+EnoughAmmo=Ziel hat bereits|genügend {{%i}}.
 Collected=%dx {{%i}} aufgenommen.

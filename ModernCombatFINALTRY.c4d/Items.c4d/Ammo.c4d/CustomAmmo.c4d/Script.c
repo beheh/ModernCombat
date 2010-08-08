@@ -87,9 +87,8 @@ public func TransferAmmo(object pObj)
   PlayerMessage(GetOwner(pObj),"$Collected$",pObj,AmmoCount(),AmmoID());//Das ist mal keine Hilfenachricht, weil niemand wissen kann wieviel da drin ist.
 
   //Packer erhält Munitionspunkte, wenn er im gleichen Team ist
-  if (GetPlayerName(GetOwner()) && GetOwner() != GetOwner(pObj) && !Hostile(GetOwner(), GetOwner(pObj))) {
-
-    //Aus dem MTP geklaut.
+  if (GetPlayerName(GetOwner()) && GetOwner() != GetOwner(pObj) && !Hostile(GetOwner(), GetOwner(pObj)))
+  {
     var factor;
     if(ammoid == STAM)  //Normale Kugeln = 1 Punkt
      factor = 1;
@@ -119,18 +118,40 @@ protected func Hit()
   return 1;
 }
 
-public func ControlThrow(object caller) {
+public func ControlThrow(object caller)
+{
   //Verbündeten suchen
   for (var obj in FindObjects(Find_InRect(-10,-10,20,20),Find_OCF(OCF_CrewMember),Find_Exclude(caller),Find_Allied(GetOwner(caller)),Find_NoContainer()))
     //Kann noch Munition aufnehmen?
-    if (obj->~IsClonk() && MayTransfer(obj)) {
+    if (obj->~IsClonk() && MayTransfer(obj))
+    {
       //Munition geben und abbrechen.
       TransferAmmo(obj);
       break;
     }
+    else
+    {
+      PlayerMessage(GetOwner(caller), "$EnoughAmmo$",caller,AmmoID());
+      return 1;
+    }
   return true;
 }
 
-protected func RejectCollect(object pInto) {
+protected func RejectCollect(object pInto)
+{
   return ContentsCount(GetID(), pInto);
+}
+
+/* Sounds */
+
+protected func Hit()
+{
+  Sound("AmmoBoxHit*.ogg");
+  return 1;
+}
+
+protected func Selection()
+{
+  Sound("FAPK_Charge.ogg");
+  return 1;
 }

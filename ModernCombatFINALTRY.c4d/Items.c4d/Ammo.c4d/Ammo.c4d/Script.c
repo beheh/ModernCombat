@@ -56,3 +56,9 @@ protected func Hit()
   Sound("AmmoBoxHit*.ogg");
   return 1;
 }
+
+protected func Selection()
+{
+  Sound("FAPK_Charge.ogg");
+  return 1;
+}
