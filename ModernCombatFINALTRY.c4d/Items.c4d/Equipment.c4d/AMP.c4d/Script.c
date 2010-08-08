@@ -12,7 +12,7 @@ public func IsDrawable() 	{return true;}
 public func MaxAmmoPoints()	{return 200;}
 public func StartAmmoPoints()	{return 200;}
 public func IsEquipment()	{return true;}
-public func NoArenaRemove()	{return(true);}
+public func NoArenaRemove()	{return true;}
 
 
 /* Initialisierung */
@@ -201,7 +201,7 @@ protected func CalcValue()
 
 /* Ammo-HUD */
 
-func CustomHUD(){return true;}
+func CustomHUD()	{return true;}
 
 func UpdateHUD(object pHUD)
 {
