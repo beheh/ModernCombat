@@ -175,7 +175,7 @@ global func BlastObject(int level, object obj, int cause_plr_plus_one)
   if(!icon) icon = GetID();
   DoDmg(level, DMG_Explosion, obj, 0, cause_plr_plus_one, icon);
   var blastinc = GetDefCoreVal("BlastIncinerate", "DefCore", GetID(obj));
-  if (blastinc && GetDamage(obj)) Incinerate(obj);
+  if (blastinc && GetDamage(obj) > blastinc) Incinerate(obj);
   return true;
 }
 
