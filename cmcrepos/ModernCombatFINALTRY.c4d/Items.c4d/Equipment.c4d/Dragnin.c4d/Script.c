@@ -78,6 +78,16 @@ func Activate(object pByObj)
   return 1;
 }
 
+public func RejectEntrance(object pObj)
+{
+  if(GetOCF(pObj) & OCF_Living)
+  {
+   if(ContentsCount(GetID(),pObj))
+    return true;
+  }
+  return false;
+}
+
 /* Dragnineffekt */
 
 func HealRate()		{return 2;}

@@ -2,17 +2,19 @@
 
 #strict 2
 
+local pShield, pUser, iHits;
+local iPrevDir, fAiming, iAimingAngle;
+
 public func IsDrawable()	{return true;}
 public func HandX()		{}
 public func HandY()		{return -1200;}
 public func HandR()		{return 45;}
 public func HandSize()		{return 850;}
+
 public func CanAim()		{return true;}
 func IsEquipment()		{return true;}
 public func NoArenaRemove()	{return true;}
 
-local pShield, pUser, iHits;
-local iPrevDir, fAiming, iAimingAngle;
 
 /* Initalisierung */
 
@@ -103,6 +105,16 @@ public func Entrance(object pContainer)
     CreateShield();
 }
 
+public func RejectEntrance(object pObj)
+{
+  if(GetOCF(pObj) & OCF_Living)
+  {
+   if(ContentsCount(GetID(),pObj))
+    return true;
+  }
+  return false;
+}
+
 /* Schilderstellung und -entfernung */
 
 private func CreateShield()
@@ -174,8 +186,8 @@ public func Destruction()
 
 /* Liegen */
 
-public func AimStart() {
-	if(Contained()->~IsCrawling() && Contained()->~AimAngle() > 60) {
-		Contained()->SetAiming(60);
-	}
+public func AimStart()
+{
+  if(Contained()->~IsCrawling() && Contained()->~AimAngle() > 60)
+   {Contained()->SetAiming(60);}
 }
