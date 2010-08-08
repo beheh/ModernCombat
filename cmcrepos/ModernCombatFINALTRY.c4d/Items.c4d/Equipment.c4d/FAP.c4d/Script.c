@@ -124,6 +124,10 @@ public func ControlThrow(object pClonk)
   //Sanitäter können mit [Werfen] Dragnin entpacken
   if(pClonk->~IsMedic())
   {
+   //Clonk hat schon eine Dragninspritze: Geht nicht
+   if (ContentsCount(DGNN, pClonk))
+    return PlayerMessage(GetOwner(pClonk), "$NoSpace$",pClonk);
+
    if(GetHealPoints() >= 40)
    {
     DoHealPoints(-40);

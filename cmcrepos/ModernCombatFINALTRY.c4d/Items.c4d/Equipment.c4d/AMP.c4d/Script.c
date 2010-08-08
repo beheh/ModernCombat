@@ -32,11 +32,12 @@ protected func Initialize()
 
 protected func Activate(caller)
 {
+  //Clonk hat schon eine Box: Geht nicht
+  if (ContentsCount(CUAM, caller))
+   return PlayerMessage(GetOwner(caller), "$NoSpace$",caller);
+
   //Clonk anhalten
   SetComDir(COMD_Stop, caller);
-
-  //Clonk hat schon eine Box: Geht nicht
-  if (ContentsCount(CUAM, caller)) return true;
 
   //Munitionsmenü erstellen
   CreateMenu(GetID(), caller, this, 0, "$TakeAmmo$", 0, 1);
@@ -47,17 +48,18 @@ protected func Activate(caller)
   return 1;
 }
 
-private func CreateAmmopack(idAmmo) {
+private func CreateAmmopack(idAmmo)
+{
   var count, points;
-  if (idAmmo == STAM) { count = 50; points = 50; }
-  if (idAmmo == GRAM) { count = 12; points = 60; }
-  if (idAmmo == MIAM) { count = 4; points = 60; }
+  if (idAmmo == STAM)	{count = 50; points = 50;}
+  if (idAmmo == GRAM)	{count = 12; points = 60;}
+  if (idAmmo == MIAM)	{count = 4; points = 60;}
 
   //Zu wenig Punkte?
   if (GetAmmoPoints() < points)
-    return PlayerMessage(GetOwner(Contained()),"$NeededPoints$", Contained(), points);
+   return PlayerMessage(GetOwner(Contained()),"$NeededPoints$", Contained(), points);
 
-  //Custom-Ammo erstellen und füllen
+  //Gepackte Munitionsbox erstellen und füllen
   var ammo = CreateContents(CUAM, Contained());
   ammo->SetAmmoID(idAmmo);
   ammo->SetAmmoCount(count, true);
