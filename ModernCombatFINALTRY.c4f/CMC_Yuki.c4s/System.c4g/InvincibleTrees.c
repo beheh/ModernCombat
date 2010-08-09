@@ -6,8 +6,5 @@
 
 #appendto TREE
 
-
-public func ChopDown()
-{
-  return(0);
-}
+public func ChopDown() {}
+public func OnDmg() {return 100;}
