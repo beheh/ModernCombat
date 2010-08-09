@@ -9,7 +9,7 @@ public func ObjectCollectionLimit() { return 4; } //Und 4 beliebige Zusatzobjekt
 
 public func Death()
 {
-  if(!this->~Redefine2(CLNK))
-    this->~Redefine(CLNK);
+  /*if(!this->~Redefine2(CLNK))
+    this->~Redefine(CLNK);*/
   return _inherited(...);
 }
