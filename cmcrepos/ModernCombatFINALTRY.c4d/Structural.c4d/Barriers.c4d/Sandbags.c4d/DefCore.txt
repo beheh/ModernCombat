@@ -18,5 +18,4 @@ VertexX=-15,15
 VertexY=7,7
 VertexFriction=100,100
 Exclusive=1
-BlastIncinerate=25
 Construction=1 

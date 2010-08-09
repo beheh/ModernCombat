@@ -94,7 +94,7 @@ protected func Destruction()
 protected func Timer()
 {
   //Spieler weg?
-  if(GetOwner() == NO_OWNER || !GetPlayerName(GetOwner())) return RemoveObject();
+  if(GetOwner() == NO_OWNER || !GetPlayerName(GetOwner())) return RemoveHUD();
   //Clonk falsch?
   if(!GetCursor(GetOwner()))
   {
@@ -322,4 +322,13 @@ public func Clear()
   Recharge();
   Ammo();
   MasterAmmo(0, -1);
+}
+
+public func RemoveHUD() {
+  for (var obj in ammoobjs)
+    if (obj)
+      RemoveObject(obj);
+  RemoveObject(info);
+  RemoveObject();
+  return true;
 }
