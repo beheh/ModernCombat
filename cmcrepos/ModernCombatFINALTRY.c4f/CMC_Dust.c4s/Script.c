@@ -83,7 +83,7 @@ func CreateFurniture()
   CreateObject(LBGH, 1340, 645, -1);
 
   //Gasflasche
-  CreateObject(GSBO, 385, 360, -1)->AutoRespawn();
+  CreateObject(GSBL, 385, 360, -1)->AutoRespawn();
 
   //Geländer
   CreateObject(RAI1, 370, 480, -1)->SetRail([1]);
