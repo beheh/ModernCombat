@@ -21,4 +21,3 @@ Rotate=30
 Float=-7
 BorderBound=1
 UprightAttach=8
-BlastIncinerate=35
