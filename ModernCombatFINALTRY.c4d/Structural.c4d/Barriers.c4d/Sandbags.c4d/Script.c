@@ -16,10 +16,17 @@ func Initialize()
 
 public func OnHit(int iDamage, int iType, object pFrom)
 {
-  if(!pFrom) return ;
-  if(iType != DMG_Projectile) return ;
+  CreateParticle ("MaterialBlast",Min(GetX(pFrom)-GetX(),GetDefWidth()/2),Min(GetY(pFrom)-GetY(),GetDefHeight()/2),0,0,Min(iDamage*10,200),RGB(194,155,108),0,false);
+  if (GetDamage() > 30) {
+    SetController(GetOwner(pFrom));
+    if (!permanent)
+      Incinerate();
+  }
+}
 
-  if(GetEffectData(EFSM_BulletEffects) > 1) CreateParticle ("MaterialBlast",Min(GetX(pFrom)-GetX(),GetDefWidth()/2),Min(GetY(pFrom)-GetY(),GetDefHeight()/2),0,0,Min(iDamage*10,200),RGB(194,155,108),0,false);  
+public func OnDmg(int iDamage, int iType) {
+  if (iType == DMG_Explosion) return 50;
+  return 100;
 }
 
 func Incineration()
@@ -30,7 +37,7 @@ func Incineration()
    SetCon(100);
   }
   else
-   CastParticles("Sandbag", 10, 70, 0,0, 35, 45, RGBa(228,228,228,0), RGBa(250,250,250,50));
+   CastParticles("Sandbag", 15, 70, 0,0, 35, 45, RGBa(228,228,228,0), RGBa(250,250,250,50));
 }
 
 func Permanent()
