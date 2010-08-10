@@ -11,7 +11,7 @@ protected func FxIntEndSequenceStop()
 }
 
 protected func CheckTime() {
-  if(!ActIdle() || GetEffect("IntEndsequence")) return 1;
+  if(!ActIdle() || GetEffect("IntEndSequence")) return 1;
   if (ObjectCount(RVLR) && CheckRivalry())
      return 1;
   else
@@ -19,6 +19,9 @@ protected func CheckTime() {
       return 1;
   Sound("Trumpet", 1);
   //GameCall EndSequence
-  AddEffect("IntEndSequence", this, 1, GameCallEx("EndSequence") + 30, this);
+  var time = GameCallEx("EndSequence");
+  //Der GameCall erledigt den Rest
+  if (time == -1) return;
+  AddEffect("IntEndSequence", this, 1, time + 30, this);
   return 1;
 }
