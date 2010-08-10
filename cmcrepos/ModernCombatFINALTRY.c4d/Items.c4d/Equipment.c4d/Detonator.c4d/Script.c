@@ -105,7 +105,7 @@ public func Activate(object pActivator)
   for(var c4 in FindObjects(Find_ID(C4EX), Find_Func("GetPacket", this)))
   {
    SetController(GetOwner(pActivator), c4);
-   ScheduleCall(c4, "Trigger", ObjectDistance(c4)/10, 0);
+   ScheduleCall(c4, "Trigger", Max(ObjectDistance(c4)/10, 1), 0);
   }
 
   //Effekte
