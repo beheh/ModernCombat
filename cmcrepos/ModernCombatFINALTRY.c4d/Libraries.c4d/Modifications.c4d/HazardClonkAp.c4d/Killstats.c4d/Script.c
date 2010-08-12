@@ -88,6 +88,10 @@ public func KMsg(int plr1, int plr2, object clonk, int plr3)
   
   //Eventnachricht: Spieler eliminiert Spieler
   EventInfo4K(0,msg,0);
+
+  //Und an den Toten weiterleiten
+  if (Contained(clonk) && !FindObject(NOFD))
+    Contained(clonk)->~KillMessage(msg);
 }
 
 /* Selbstmordnachricht */
