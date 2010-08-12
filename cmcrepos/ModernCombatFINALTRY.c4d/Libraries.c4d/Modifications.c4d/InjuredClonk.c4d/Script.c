@@ -11,6 +11,7 @@ public func ReadyToFire()	{}
 public func IsAiming()		{}
 public func MenuQueryCancel()	{return true;}
 
+
 /* Initalisierung */
 
 protected func Initialize()
@@ -92,44 +93,47 @@ private func DeathMenu()
 	if(GetMenu(clonk)) return;
 
   //Menü erstellen
-  CreateMenu(FKDT, clonk, this, 0, Format("$Title$"), C4MN_Style_Dialog, true);	//Titelzeile
-  if(FindObject(SICD))
+  CreateMenu(FKDT, clonk, this, 0, Format("$Title$"), C4MN_Style_Dialog, true);			//Titelzeile
+  if(FindObject(SICD))										//Selbstmord möglich?
   {
-    AddMenuItem(Format("$Info$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);	//Hinweise
-    AddMenuItem(Format("$DeathCounter$", suicide),"", NONE, clonk, 0, 0, "", 512, 0, 0);	//Zeit bis zum Tod
+    AddMenuItem(Format("$Info$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);		//Hinweis
+    AddMenuItem(Format("$DeathCounter$", suicide),"", NONE, clonk, 0, 0, "", 512, 0, 0);	//Counter
     if(suicide != FKDT_SuicideTime)
-    {AddMenuItem("$Suicide$", "Suicide", ICN2, clonk, 0, 0, "$SuicideDesc$");}		//Selbstmord
+    {AddMenuItem("$Suicide$", "Suicide", ICN2, clonk, 0, 0, "$SuicideDesc$");}			//Selbstmordbutton
     else
-    {AddMenuItem("<c 777777>$Suicide$</c>", "", ICN2, clonk, 0, 0, "$SuicideDesc$");}	//Kein Selbstmord
+    {AddMenuItem("<c 777777>$Suicide$</c>", "", ICN2, clonk, 0, 0, "$SuicideDesc$");}		//Kein Selbstmordbutton
   }
   else
   {
-    AddMenuItem(Format("$Info2$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);//Falls kein Selbstmord möglich
-    AddMenuItem(Format("$DeathCounter$", suicide),"", NONE, clonk, 0, 0, "", 512, 0, 0);	//Zeit bis zum Tod
+    AddMenuItem(Format("$Info2$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);	//Alternativcounter
+    AddMenuItem(Format("$DeathCounter$", suicide),"", NONE, clonk, 0, 0, "", 512, 0, 0);	//Counter
   }
 
-  //Killer.
   if (GetType(killmsg) == C4V_String)
-    AddMenuItem(killmsg, "", NONE, clonk, 0, 0, "", 512);
+    AddMenuItem(Format("", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);		//Leerzeile
+    AddMenuItem(Format("$Killer$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);	//Titel
+    AddMenuItem(killmsg, "", NONE, clonk, 0, 0, "", 512);					//Killerinformationen
 
-  //Punktestatistik
   var obj;
-  if (obj = FindObject(RWDS)) {
-    //Einsortieren
-    var aList = [], iPlr, aData = obj->~GetData(), szString = "";
-    while(aData[iPlr] != 0) {
-      var iTeam = obj->~GetPlayerData(RWDS_PlayerTeam, iPlr);
-      if(!aList[iTeam]) aList[iTeam] = [];
-      szString = Format("%s: %d", obj->~GetPlayerData(RWDS_PlayerName, iPlr), obj->~GetPlayerPoints(RWDS_TotalPoints, iPlr));
-      aList[iTeam][GetLength(aList[iTeam])] = szString;
-      iPlr++;
-    }
-    //Teamweise ausgeben
-    for (var aTeam in aList)
-      if (aTeam)
-        for (var szString in aTeam)
-          if (GetType(szString) == C4V_String)
-            AddMenuItem(szString, "", NONE, clonk, 0, 0, "", 512);
+  if (obj = FindObject(RWDS))									//Punktestatistik erstellen
+  {
+   AddMenuItem(Format("", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);		//Leerzeile
+   AddMenuItem(Format("$Points$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);	//Titel
+   //Einsortieren
+   var aList = [], iPlr, aData = obj->~GetData(), szString = "";
+   while(aData[iPlr] != 0) {
+     var iTeam = obj->~GetPlayerData(RWDS_PlayerTeam, iPlr);
+     if(!aList[iTeam]) aList[iTeam] = [];
+     szString = Format("%s: %d", obj->~GetPlayerData(RWDS_PlayerName, iPlr), obj->~GetPlayerPoints(RWDS_TotalPoints, iPlr));
+     aList[iTeam][GetLength(aList[iTeam])] = szString;
+     iPlr++;
+  }
+   //Teamweise ausgeben
+   for (var aTeam in aList)
+     if (aTeam)
+       for (var szString in aTeam)
+         if (GetType(szString) == C4V_String)
+           AddMenuItem(szString, "", NONE, clonk, 0, 0, "", 512);
   }
 
   if(suicide <= 0)
@@ -140,10 +144,10 @@ private func DeathMenu()
 
 /* Selbstmord */
 
-public func Update() {
-	if(!GetAlive(clonk)) {
-		Suicide();
-	}
+public func Update()
+{
+  if(!GetAlive(clonk))
+  {Suicide();}
 }
 
 public func Suicide()
