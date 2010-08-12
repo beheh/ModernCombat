@@ -70,7 +70,8 @@ public func Set(object pClonk)
   ScheduleCall(this,"DoMenu",35,suicide);
 }
 
-public func KillMessage(string msg) {
+public func KillMessage(string msg)
+{
   killmsg = msg;
   DeathMenu();
 }
@@ -85,13 +86,13 @@ func DoMenu()
 
 private func DeathMenu()
 {
-	Update();
+  Update();
 
   var selection = GetMenuSelection(clonk);
 
   CloseMenu(clonk);
 
-	if(GetMenu(clonk)) return;
+  if(GetMenu(clonk)) return;
 
   //Menü erstellen
   CreateMenu(FKDT, clonk, this, 0, Format("$Title$"), C4MN_Style_Dialog, true);			//Titelzeile
@@ -101,8 +102,6 @@ private func DeathMenu()
     AddMenuItem(Format("$DeathCounter$", suicide),"", NONE, clonk, 0, 0, "", 512, 0, 0);	//Counter
     if(suicide != FKDT_SuicideTime)
     {AddMenuItem("$Suicide$", "Suicide", ICN2, clonk, 0, 0, "$SuicideDesc$");}			//Selbstmordbutton
-    else
-    {AddMenuItem("<c 777777>$Suicide$</c>", "", ICN2, clonk, 0, 0, "$SuicideDesc$");}		//Kein Selbstmordbutton
   }
   else
   {
@@ -110,7 +109,8 @@ private func DeathMenu()
     AddMenuItem(Format("$DeathCounter$", suicide),"", NONE, clonk, 0, 0, "", 512, 0, 0);	//Counter
   }
 
-  if (GetType(killmsg) == C4V_String) {
+  if (GetType(killmsg) == C4V_String)
+  {
     AddMenuItem(Format("", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);		//Leerzeile
     AddMenuItem(Format("$Killer$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);	//Titel
     AddMenuItem(killmsg, "", NONE, clonk, 0, 0, "", 512);					//Killerinformationen
