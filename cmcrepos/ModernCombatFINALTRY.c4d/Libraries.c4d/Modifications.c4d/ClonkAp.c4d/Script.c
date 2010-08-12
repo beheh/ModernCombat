@@ -405,3 +405,36 @@ func Death(object pTarget)
   //Verschwinden
   FadeOut(pTarget);
 }
+
+protected func GetObject2Drop(object pObj) {
+  if (GetProcedure() == "PUSH" && GetID(GetActionTarget()) == FKDT) {
+    var dropobj, i;
+
+    if (pObj->~IsWeapon()) {
+
+      //Hat die Waffe schon: Geht nicht
+      if (FindContents(GetID(pObj)))
+        return;
+
+      //Pistole? Dann weg damit
+      if (dropobj = FindContents(PSTL))
+        return dropobj;
+
+      //Sonst die hinterste Waffe
+      for (i = 0; i < ContentsCount(); i++)
+        if (Contents(i) && Contents(i)->~IsWeapon())
+          dropobj = Contents(i);
+      return dropobj;
+    }
+
+    //Objekt - hinterstes Objekt rauswerfen
+    else {
+      for (i = 0; i < ContentsCount(); i++)
+        if (Contents(i) && !(Contents(i)->~IsWeapon()))
+          dropobj = Contents(i);
+      return dropobj;
+    }
+  }
+
+  return _inherited(...);
+}
