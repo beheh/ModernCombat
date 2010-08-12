@@ -6,11 +6,10 @@ local bActive, bReady, iDir, controller, laser;
 
 public func IsDrawable()	{return true;}
 public func IsReloading()	{return false;}
-public func CanAim()		{return true;}
+public func CanAim()		{return !bActive;}
 public func IsShooting()	{return false;}
 public func IsRecharging()	{return false;}
 public func IsMine()		{return true;}
-public func NoArenaRemove()	{return bActive;}
 public func Color()		{return RGB(200,200,200);}
 public func IsBulletTarget()	{return !Random(6);}
 public func HandX()		{return 5000;}
