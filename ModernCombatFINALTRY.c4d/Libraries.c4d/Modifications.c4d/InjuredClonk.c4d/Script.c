@@ -4,7 +4,7 @@
 
 static const FKDT_SuicideTime = 15; //Standardzeit bei Fake Death
 
-local clonk,oldvisrange,oldvisstate,suicide;
+local clonk,oldvisrange,oldvisstate,suicide,killmsg;
 
 public func AimAngle()		{}
 public func ReadyToFire()	{}
@@ -69,6 +69,10 @@ public func Set(object pClonk)
   ScheduleCall(this,"DoMenu",35,suicide);
 }
 
+public func KillMessage(string msg) {
+  killmsg = msg;
+}
+
 /* Auswahlmenü */
 
 func DoMenu()
@@ -103,6 +107,31 @@ private func DeathMenu()
     AddMenuItem(Format("$Info2$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);//Falls kein Selbstmord möglich
     AddMenuItem(Format("$DeathCounter$", suicide),"", NONE, clonk, 0, 0, "", 512, 0, 0);	//Zeit bis zum Tod
   }
+
+  //Killer.
+  if (GetType(killmsg) == C4V_String)
+    AddMenuItem(killmsg, "", NONE, clonk, 0, 0, "", 512);
+
+  //Punktestatistik
+  var obj;
+  if (obj = FindObject(RWDS)) {
+    //Einsortieren
+    var aList = [], iPlr, aData = obj->~GetData(), szString = "";
+    while(aData[iPlr] != 0) {
+      var iTeam = obj->~GetPlayerData(RWDS_PlayerTeam, iPlr);
+      if(!aList[iTeam]) aList[iTeam] = [];
+      szString = Format("%s: %d", obj->~GetPlayerData(RWDS_PlayerName, iPlr), obj->~GetPlayerPoints(RWDS_TotalPoints, iPlr));
+      aList[iTeam][GetLength(aList[iTeam])] = szString;
+      iPlr++;
+    }
+    //Teamweise ausgeben
+    for (var aTeam in aList)
+      if (aTeam)
+        for (var szString in aTeam)
+          if (GetType(szString) == C4V_String)
+            AddMenuItem(szString, "", NONE, clonk, 0, 0, "", 512);
+  }
+
   if(suicide <= 0)
    Suicide();
   
