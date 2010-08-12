@@ -72,6 +72,7 @@ public func Set(object pClonk)
 
 public func KillMessage(string msg) {
   killmsg = msg;
+  DeathMenu();
 }
 
 /* Auswahlmenü */
@@ -109,10 +110,11 @@ private func DeathMenu()
     AddMenuItem(Format("$DeathCounter$", suicide),"", NONE, clonk, 0, 0, "", 512, 0, 0);	//Counter
   }
 
-  if (GetType(killmsg) == C4V_String)
+  if (GetType(killmsg) == C4V_String) {
     AddMenuItem(Format("", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);		//Leerzeile
     AddMenuItem(Format("$Killer$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);	//Titel
     AddMenuItem(killmsg, "", NONE, clonk, 0, 0, "", 512);					//Killerinformationen
+  }
 
   var obj;
   if (obj = FindObject(RWDS))									//Punktestatistik erstellen
@@ -127,13 +129,13 @@ private func DeathMenu()
      szString = Format("%s: %d", obj->~GetPlayerData(RWDS_PlayerName, iPlr), obj->~GetPlayerPoints(RWDS_TotalPoints, iPlr));
      aList[iTeam][GetLength(aList[iTeam])] = szString;
      iPlr++;
-  }
-   //Teamweise ausgeben
-   for (var aTeam in aList)
-     if (aTeam)
-       for (var szString in aTeam)
-         if (GetType(szString) == C4V_String)
-           AddMenuItem(szString, "", NONE, clonk, 0, 0, "", 512);
+    }
+    //Teamweise ausgeben
+    for (var aTeam in aList)
+      if (aTeam)
+        for (var szString in aTeam)
+          if (GetType(szString) == C4V_String)
+            AddMenuItem(szString, "", NONE, clonk, 0, 0, "", 512);
   }
 
   if(suicide <= 0)
