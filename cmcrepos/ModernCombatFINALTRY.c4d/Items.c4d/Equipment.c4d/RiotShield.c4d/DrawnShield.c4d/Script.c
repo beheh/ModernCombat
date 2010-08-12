@@ -10,6 +10,7 @@ public func RejectEntrance()	{return true;}
 public func IgnoreTracer()	{return true;}
 public func BlockTracer()	{return true;}
 
+
 /* Erstellung */
 
 public func Set(object pTarget, object pItem)

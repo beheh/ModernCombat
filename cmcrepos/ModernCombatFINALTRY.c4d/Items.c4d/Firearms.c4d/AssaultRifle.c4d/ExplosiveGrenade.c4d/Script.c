@@ -8,6 +8,7 @@ local active,sx,sy, start;
 public func BlastRadius()	{return 30;}
 protected func SecureDistance()	{return 75;}
 func ExplodeDelay()		{return 35*3;}
+public func IgnoreTracer()	{return true;}
 
 
 /* Start */

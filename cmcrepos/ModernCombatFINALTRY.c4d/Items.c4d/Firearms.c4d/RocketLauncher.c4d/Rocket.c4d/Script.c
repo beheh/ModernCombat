@@ -3,12 +3,14 @@
 #strict 2
 #include MISS
 
+local sx,sy,start;
+
 public func Acceleration()	{return 3;}
 public func MaxTime()		{return 200;}
 public func MaxSpeed()		{return 100;}
 protected func SecureDistance()	{return 100;} //Mindestabstand
+public func IgnoreTracer()	{return true;}
 
-local sx,sy,start;
 
 /* Start */
 
