@@ -111,6 +111,12 @@ public func HurtSounds(int iDmg, int iType)
     Sound("ClonkPain*.ogg");
 }
 
+private func Building()
+{
+  if (!Random(2)) Sound("ClonkBuild*.ogg");
+  return(1);
+}
+
 /* Assistkiller abspeichern */
 
 public func OnHit(int iChange, int iType, object pFrom)
