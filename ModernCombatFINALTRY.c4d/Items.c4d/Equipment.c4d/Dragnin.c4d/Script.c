@@ -103,11 +103,11 @@ func FxDragninHealStart(object pTarget, int iEffectNumber, int iTemp, int iHealA
   EffectVar(1,pTarget,iEffectNumber) = iHealRate; //Frames per HP
 
   //Lähmung
-  SetPhysical("Walk", GetPhysical("Walk", 2, pTarget)/3, 2, pTarget);
-  SetPhysical("Jump", GetPhysical("Jump", 2, pTarget)/3, 2, pTarget);
-  SetPhysical("Scale", GetPhysical("Scale", 2, pTarget)/3, 2, pTarget);
-  SetPhysical("Hangle", GetPhysical("Hangle", 2, pTarget)/3, 2, pTarget);
-  SetPhysical("Swim", GetPhysical("Swim", 2, pTarget)/3, 2, pTarget);
+  SetPhysical("Walk", GetPhysical("Walk", 2, pTarget)/3, 3, pTarget);
+  SetPhysical("Jump", GetPhysical("Jump", 2, pTarget)/3, 3, pTarget);
+  SetPhysical("Scale", GetPhysical("Scale", 2, pTarget)/3, 3, pTarget);
+  SetPhysical("Hangle", GetPhysical("Hangle", 2, pTarget)/3, 3, pTarget);
+  SetPhysical("Swim", GetPhysical("Swim", 2, pTarget)/3, 3, pTarget);
 }
 
 func FxDragninHealTimer(object pTarget, int iEffectNumber, int iEffectTime)
@@ -149,11 +149,11 @@ func FxDragninHealDamage(target, no, dmg, dmgtype)
 public func FxDragninHealStop(object pTarget, no, reason, temp)
 {
   //Lähmung rückgängig machen
-  SetPhysical("Walk", GetPhysical("Walk", 2, pTarget)*3, 2, pTarget);
-  SetPhysical("Jump", GetPhysical("Jump", 2, pTarget)*3, 2, pTarget);
-  SetPhysical("Scale", GetPhysical("Scale", 2, pTarget)*3, 2, pTarget);
-  SetPhysical("Hangle", GetPhysical("Hangle", 2, pTarget)*3, 2, pTarget);
-  SetPhysical("Swim", GetPhysical("Swim", 2, pTarget)*3, 2, pTarget);
+  ResetPhysical(pTarget, "Walk");
+  ResetPhysical(pTarget, "Jump");
+  ResetPhysical(pTarget, "Scale");
+  ResetPhysical(pTarget, "Hangle");
+  ResetPhysical(pTarget, "Swim");
 }
 
 /* Sounds */
