@@ -20,7 +20,7 @@ public func HandBarrel()	{return 0;}
 public func BarrelXOffset()	{return 0;}
 public func BarrelYOffset()	{return 0;}
 
-func NoArenaRemove()		{IsFusing();}
+func NoArenaRemove()		{return IsFusing();}
 
 local controller,activated;
 
@@ -192,7 +192,8 @@ public func FxIntFuseStart()
 
 public func FxIntFuseTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
-  if(!Contained())
+  var c = Contained();
+  if(!c)
   {
    var vel=Abs(GetXDir())+Abs(GetYDir());
    var alpha=Max(0,60-vel);
@@ -204,19 +205,22 @@ public func FxIntFuseTimer(object pTarget, int iEffectNumber, int iEffectTime)
   }
   else
   {
-   if(Contents(0, Contained()) == this)
-    PlayerMessage(GetController(Contained()),"<c %x>•</c>",Contained(),InterpolateRGBa2(RGB(0,255),RGB(255,255),RGB(255,0),0,FuseTime(),iEffectTime));    
+   if (!GetAlive(c) || GetID(c) == FKDT || GetID(Contained(c)) == FKDT)
+     Exit(0, 0, 8);
+   else if(Contents(0, Contained()) == this)
+     PlayerMessage(GetController(c),"<c %x>•</c>",c,InterpolateRGBa2(RGB(0,255),RGB(255,255),RGB(255,0),0,FuseTime(),iEffectTime));    
   }
 
-  if(iEffectTime < FuseTime()) return ;
+  if(iEffectTime < FuseTime()) return;
 
-  var c = Contained();
-  if(Contained())
+  //Nochmal falls Clonk gestorben ist und die Granate rausfliegt
+  c = Contained();
+
+  if(c)
   {
-   if(GetID(Contained()) == GRNS)
+   if(GetID(c) == GRNS)
    {
-    var obj = Contained();
-    var user = obj->GetUser();
+    var user = c->GetUser();
     if(!user)
      return false;
 
