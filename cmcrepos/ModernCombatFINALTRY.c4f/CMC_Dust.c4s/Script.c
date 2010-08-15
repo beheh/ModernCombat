@@ -11,8 +11,8 @@ static aFlag;
 func Initialize()
 {
   //Starttitel und Musikliste zusammenstellen
-  SetPlayList("CMC_Base Groove.ogg;CMC_Getaway.ogg;CMC_Offensive.ogg;CMC_Deep Universe.ogg;CMC_Friendly Unit.ogg;CMC_Hacking.ogg;CMC_Moving Squad.ogg;CMC_No Good.ogg;CMC_Obsession.ogg;CMC_Odyssey.ogg;CMC_Rock Go On.ogg;CMC_Techno.ogg;CMC_Your Eyes.ogg");
-  Music("CMC_Odyssey.ogg");
+  SetPlayList("CMC_Base Groove.ogg;CMC_City Lights.ogg;CMC_Friendly Unit.ogg;CMC_Getaway.ogg;CMC_Moving Squad.ogg;CMC_Offensive.ogg;CMC_Showtime.ogg;CMC_Slow Motion.ogg;CMC_Striking Force.ogg");
+  Music("CMC_Slow Motion.ogg");
   //Lichteinstellung
   SetGamma(RGB(3,1,0),RGB(95,83,68),RGB(213,212,187));
   //Flaggen

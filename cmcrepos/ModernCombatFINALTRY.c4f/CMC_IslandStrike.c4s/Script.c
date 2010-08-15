@@ -11,7 +11,7 @@ static aFlag,aSelfDefense;
 func Initialize()
 {
   //Starttitel und Musikliste zusammenstellen
-  SetPlayList("CMC_Base Groove.ogg;CMC_Getaway.ogg;CMC_Offensive.ogg;CMC_Deep Universe.ogg;CMC_Friendly Unit.ogg;CMC_Hacking.ogg;CMC_Moving Squad.ogg;CMC_No Good.ogg;CMC_Obsession.ogg;CMC_Rock Go On.ogg;CMC_Techno.ogg;CMC_Your Eyes.ogg");
+  SetPlayList("CMC_Base Groove.ogg;CMC_City Lights.ogg;CMC_Friendly Unit.ogg;CMC_Getaway.ogg;CMC_Moving Squad.ogg;CMC_Offensive.ogg;CMC_Showtime.ogg;CMC_Slow Motion.ogg;CMC_Striking Force.ogg");
   Music("CMC_Offensive.ogg");
   //Bildschirmfärbung
   SetGamma(RGB(7,6,0), RGB(152,147,128), RGB(255,254,236) );
