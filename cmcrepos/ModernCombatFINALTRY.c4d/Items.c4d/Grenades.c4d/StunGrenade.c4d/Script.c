@@ -31,7 +31,7 @@ public func Fused()
     {
       if(!PathFree(GetX(),GetY(),GetX(obj),GetY(obj))) continue;
     }
-    AddEffect("IntFlashbang",obj,10,1,0,GetID(), intensity); 
+    AddEffect("IntFlashbang",obj,1,1,0,GetID(), intensity); 
   }
 
   //Effekte
