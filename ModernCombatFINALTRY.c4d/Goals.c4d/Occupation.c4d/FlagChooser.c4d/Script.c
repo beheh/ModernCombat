@@ -236,6 +236,7 @@ public func SelectFlagpole(object pObject)
   if((pObject->GetTeam() != GetPlayerTeam(GetOwner(crew))) || (!pObject->IsFullyCaptured()))
   {
     SetPlrViewRange(0,crew);
+    SpawnMenu();
     return Sound("Error",false,crew,100,GetOwner(crew)+1);
   }
 
@@ -267,6 +268,12 @@ protected func Timer()
     ShowFlagpole(GetSelected(), Contents(), this, oldvisrange);//TODO: Wozu wird denn nochmal der Timer gebraucht? Es gibt doch einen Callback dafür?
   
   SpawnMenu();
+}
+
+protected func OnMenuSelection(int iSelection) {
+  var crew;
+  if (spawn || !(crew = Contents()) || !flagpoles) return;
+  selection = iSelection;
 }
 
 global func ShowFlagpole(object pObject, object pCrew, object pContainer, int iMaxrange)
