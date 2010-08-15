@@ -42,7 +42,7 @@ public func Timer()
   for(var obj in FindObjects(Find_Distance(GetCon()/2,0,0), Find_NoContainer(), Find_OCF(OCF_Living | OCF_CrewMember))) // <- NICHT OCF_Alive ... btw. muss Find_OCF doppelt? Re: Nein, muss es nicht. :)
   {
     if(!GetEffect("SmokeGrenade", obj))
-      AddEffect("SmokeGrenade", obj, 25, 1, obj);
+      AddEffect("SmokeGrenade", obj, 1, 1, obj);
   }
 }
 
@@ -50,7 +50,6 @@ public func FxSmokingTimer()
 {
   // Und tolle Partikel-Effekte, damit Leute im Rauch auch nicht gesehen werden. ;)
   var alpha = BoundBy((GetActTime()-(iLifeTime-SM4K_FadeTime)) * 255 / SM4K_FadeTime, 0, 255);
-  CreateParticle("SmokeGrenadeSmoke", 0, 0, 0, RandomX(-10, +10), GetCon()*10, RGBa(255, 255, 255, alpha));
   CreateParticle("SmokeGrenadeSmoke", 0, 0, 0, RandomX(-10, +10), GetCon()*10, RGBa(255, 255, 255, alpha));
 }
 

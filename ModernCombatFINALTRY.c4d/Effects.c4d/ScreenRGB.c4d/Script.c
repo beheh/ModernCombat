@@ -38,7 +38,7 @@ global func ScreenRGB(object pTarget, int dwRGBa, int iAlphaAdd, int iFadeRate, 
 
 public func SameLayer(int iLayer)
 {
-  if(layer) if(iLayer == layer) return true;
+  return layer && layer == iLayer;
 }
 
 public func Set(object pTarget, int dwRGBa, int iAlphaAdd, int iFadeRate, bool bAdditive, int iLayer)
@@ -64,7 +64,7 @@ public func Set(object pTarget, int dwRGBa, int iAlphaAdd, int iFadeRate, bool b
     RemoveEffect("IntRGBFade",this);
   else
     if(!GetEffect("IntRGBFade",this))
-      AddEffect("IntRGBFade",this,25,3,this);
+      AddEffect("IntRGBFade",this,1,3,this);
 }
 
 /* Fade-Effekt */
