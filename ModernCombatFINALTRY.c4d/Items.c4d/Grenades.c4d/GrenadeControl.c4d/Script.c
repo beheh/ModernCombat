@@ -19,6 +19,7 @@ public func HandSize()		{return 1000;}
 public func HandBarrel()	{return 0;}
 public func BarrelXOffset()	{return 0;}
 public func BarrelYOffset()	{return 0;}
+public func ThrowDelay()	{return 20;}
 
 func NoArenaRemove()		{return IsFusing();}
 
@@ -79,6 +80,7 @@ public func ControlThrow(object caller)
 {
   SetUser(caller);
   var user = caller;
+  var delay = GetThrowDelay(GetUser());
   
   if(user->~IsClonk()) {
     if(!user->~IsAiming() && user->~IsCrawling()) {
@@ -88,7 +90,7 @@ public func ControlThrow(object caller)
       }
     }
     else {
-      if(!IsFusing()) {
+      if(!IsFusing() && !delay) {
         Fuse();
         return true;
       }
@@ -98,14 +100,14 @@ public func ControlThrow(object caller)
   if(!Contained(GetUser()))
   {
    GetUser()->~CheckArmed();//Noch einmal schnell prüfen.
-   if(GetUser()->~ReadyToFire())
+   if(GetUser()->~ReadyToFire() && !delay)
    {
     Throw();
     return true;
    }
   }
 
-  return _inherited(...);
+  return delay || _inherited(...);
 }
 
 public func Throw()
@@ -141,6 +143,8 @@ public func Throw()
   SetXDir(+Sin(angle,ThrowSpeed()));
   SetYDir(-Cos(angle,ThrowSpeed()));
   SetRDir(RandomX(-6,6));
+
+  AddThrowDelay(user);
 
   AddEffect("HitCheck",this,1,1,0,SHT1,user);
 
@@ -288,6 +292,7 @@ func UpdateHUD(object pHUD)
   
   pHUD->Charge(user->GrenadeCount(GetID()),(user->MaxGrenades() - user->GrenadeCount()) + user->GrenadeCount(GetID()));
   pHUD->Ammo(user->GrenadeCount(GetID()),(user->MaxGrenades() - user->GrenadeCount()) + user->GrenadeCount(GetID()), GetName(), true);
+  pHUD->Recharge(GetThrowDelayTime(GetUser()), ThrowDelay());
 }
 
 public func ReadyToFire()
@@ -337,4 +342,20 @@ public func FxHitCheckStart(object target, int effect, int temp, object byObj)
   EffectVar(3, target, effect) = GetID(byObj);
   EffectVar(4, target, effect) = false;
   EffectVar(5, target, effect) = byObj;
+}
+
+/* Wurfverzögerung */
+
+public func GetThrowDelay(object pObj) {
+  return GetEffect("IntGrenadeThrowDelay", pObj);
+}
+
+//Muss separat sein, da diese Funktion auch 0 zurückgeben kann
+public func GetThrowDelayTime(object pObj) {
+  return GetEffect("IntGrenadeThrowDelay", pObj, 0, 6);
+}
+
+public func AddThrowDelay(object pObj) {
+  if (!GetThrowDelay(pObj))
+    return AddEffect("IntGrenadeThrowDelay", pObj, 1, ThrowDelay(), 0, GetID());
 }
