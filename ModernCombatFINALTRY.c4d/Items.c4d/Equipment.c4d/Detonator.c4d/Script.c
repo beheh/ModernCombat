@@ -143,7 +143,6 @@ public func Entrance(object pContainer)
 	for(var c4 in FindObjects(Find_ID(C4EX), Find_Func("GetPacket", this)))
     SetOwner(GetOwner(pContainer),c4);
   for(var obj in FindObjects(Find_Container(pContainer),Find_ID(GetID()),Find_Exclude(this)))
-    if(obj->DoPackAmount())
     {
       if(DoPackAmount() >= 8) return;
       var amount = DoPackAmount();
