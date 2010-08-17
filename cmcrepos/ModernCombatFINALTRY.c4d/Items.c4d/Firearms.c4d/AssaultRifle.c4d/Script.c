@@ -13,6 +13,16 @@ public func BarrelYOffset()	{return -2500;}
 public func SelectionTime()	{return 36;}
 
 
+/* Nahkampfangriff */
+
+public func GetMCData(int data)
+{
+  if(data == MC_CanStrike)	return 1;
+  if(data == MC_Damage)		return 20;
+  if(data == MC_Recharge)	return 40;
+  if(data == MC_Power)		return 20;
+}
+
 /* Kugeln */
 
 public func FMData1(int data)
