@@ -596,7 +596,7 @@ public func ControlThrow(caller)
   }
   
   //möglich einen Nahkampfangriff zu machen?
-  if(GetMCData(MC_CanStrike) && WildcardMatch(GetAction(caller),"*Walk*") || WildcardMatch(GetAction(caller),"*Jump*"))
+  if(!IsRecharging() && GetMCData(MC_CanStrike) && WildcardMatch(GetAction(caller),"*Walk*") || WildcardMatch(GetAction(caller),"*Jump*"))
   {
     var dir = GetDir(GetUser());
     var obj = FindObjects(Find_InRect(-20+20*dir,-10,20,20),Find_OCF(OCF_Alive),Find_NoContainer(),Find_Exclude(caller));
@@ -607,20 +607,20 @@ public func ControlThrow(caller)
         if(WildcardMatch(GetAction(target),"*Crawl*")) //kriecht der Feind?
         {
           DoDmg(GetMCData(MC_Damage)*3/2,DMG_Melee,target,0,GetController(GetUser())+1,GetID());
-          GetUser()->SetAction("KneelUp");
+          ObjectSetAction(GetUser(), "KneelUp");
         }
         else //ansonsten normal zuschlagen und schleudern.
         {
           DoDmg(GetMCData(MC_Damage),DMG_Melee,target,0,GetController(GetUser())+1,GetID());
           SetComDir(COMD_Stop,GetUser());
-          GetUser()->SetAction("Chop");
+          ObjectSetAction(GetUser(), "Chop");
           var pwr = GetMCData(MC_Power);
           Fling(target,(-pwr+dir*pwr*2)/10,-pwr/10);
         }
 
         Sound("ClonkMelee*.ogg");
         Sound("WPN2_Punch.ogg");
-        AddEffect("Recharge", this(), 1, 1+Max(1, GetMCData(MC_Recharge)), this());
+        AddEffect("StrikeRecharge", this, 1, 1, this);
         return 1; //Das wars vorerst
       }
     }
@@ -1324,4 +1324,21 @@ global func SAMuzzleFlash(int iSize, object pTarget, int iX, int iY, int iAngle,
   if(!ammoid) ammoid = SHTX;
   
   return ammoid->CustomMuzzleFlash(iSize,pTarget,GetX()+iX,GetY()+iY,iAngle,iColor);
+}
+
+/* Kolbenschlag */
+
+public func IsRecharging() {
+  return _inherited(...) || GetEffect("StrikeRecharge", this);
+}
+
+protected func FxStrikeRechargeTimer() {
+  var iTime = GetEffect("StrikeRecharge", this, 0, 6), iFullTime = GetMCData(MC_Recharge), pHUD;
+  //HUD updaten
+  if(Contained() && Contents(0, Contained()) == this)
+	if (pHUD = FindObject2(Find_ID(1HUD), Find_Owner(GetController(Contained()))))
+	  pHUD->~Recharge(iTime, iFullTime);
+  //Effekt abbrechen?
+  if (iTime >= iFullTime)
+    return -1;
 }
