@@ -29,6 +29,11 @@ static const FT_Icon          = 24; //Icondefinition der Feuertechnik.
 static const FT_IconFacet     = 25; //Facet. Wie bei AddMenuItem.
 static const FT_Condition     = 26; //Wie FM_Condition. Nur eben für Feuertechniken.
 
+static const MC_CanStrike     = 27; //Ob die Waffe schlagen kann
+static const MC_Damage        = 28; //Wie viel Schaden ausgeteilt wird
+static const MC_Recharge      = 29; //Wie lange man braucht um wieder zuschlagen/feuern zu können
+static const MC_Power         = 30; //Wie weit das Ziel geschleudert wird
+
 public func IsWeapon2() {return true;} //Diese Waffe benutzt das neue Waffensystem. Sie includiert also WPN2.
 public func NoWeaponChoice() { return GetID() == WPN2; }
 
@@ -581,6 +586,35 @@ public func ControlThrow(caller)
 
     return 1;
   }
+  
+  // möglich einen Nahkampfangriff zu machen?
+  if(GetMCData(MC_CanStrike) && WildcardMatch(GetAction(caller),"*Walk*") || WildcardMatch(GetAction(caller),"*Jump*"))
+  {
+    var dir = GetDir(GetUser());
+    var obj = FindObjects(Find_InRect(-20+20*dir,-10,20,20),Find_OCF(OCF_Alive),Find_NoContainer(),Find_Exclude(caller));
+    for(var target in obj)
+    {
+      if(target && CheckEnemy(GetUser(),target))
+      {
+        if(WildcardMatch(GetAction(target),"*Crawl*")) // kriecht der Feind?
+        {
+          DoDmg(GetMCData(MC_Damage)*3/2,DMG_Melee,target,0,GetController(GetUser())+1,GetID());
+          GetUser()->SetAction("KneelUp");
+        }
+        else // ansonsten normal zuschlagen und schleudern.
+        {
+          DoDmg(GetMCData(MC_Damage),DMG_Melee,target,0,GetController(GetUser())+1,GetID());
+          SetComDir(COMD_Stop,GetUser());
+          GetUser()->SetAction("Chop");
+          var pwr = GetMCData(MC_Power);
+          Fling(target,(-pwr+dir*pwr*2)/10,-pwr/10);
+        }
+
+        AddEffect("Recharge", this(), 1, 1+Max(1, GetMCData(MC_Recharge)), this());
+        return 1; //Das wars vorerst
+      }
+    }
+  }
 
   // Unterstützt der Schussmodus Zielen, aber wir tuns nicht?
   if(GetFMData(FM_Aim)>0 && !(GetUser()->~IsAiming()) && !(GetUser()->~AimOverride()))
@@ -957,6 +991,17 @@ public func GetFMData(int data, int i, int t)
   }
   
   return value;
+}
+
+/* Nahkampfangriff */
+
+//Defaultwerte, sollte überschrieben werden
+public func GetMCData(int data)
+{
+  if(data == MC_CanStrike) return 1;
+  if(data == MC_Damage) return 20;
+  if(data == MC_Recharge) return 40;
+  if(data == MC_Power) return 20;
 }
 
 /* Feuertechniken (Burst,etc.) */
