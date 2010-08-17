@@ -1147,7 +1147,7 @@ global func FxShowWeaponTimer(object pTarget, int iNumber, int iTime)
   }
   var obj = Contents(0,pTarget), id=GetID(obj);
   // Waffe nicht mehr aktuell
-  if(EffectVar(0, pTarget, iNumber) != id) {
+  if(obj && EffectVar(6, pTarget, iNumber) != obj) {
     // neues Objekt ist Waffe, oder ein Objekt, das gezeichnet werden soll
     if(obj->~IsWeapon() || obj->~IsDrawable())
     {
@@ -1197,8 +1197,8 @@ global func FxShowWeaponTimer(object pTarget, int iNumber, int iTime)
     dir *= -1;
   r *= dir;
 
-  var xfact = size * ObjectCall(obj,"HandX");    // Attachpunkte dazurechnen
-  var yfact = size * ObjectCall(obj,"HandY");
+  var xfact = size * obj->~HandX();    // Attachpunkte dazurechnen
+  var yfact = size * obj->~HandY();
 
   xoff += Cos(r,xfact)/1000 + dir*Sin(r,yfact)/1000;
   yoff -= Cos(r,yfact)/1000 - dir*Sin(r,xfact)/1000;
@@ -1222,8 +1222,8 @@ global func FxShowWeaponTimer(object pTarget, int iNumber, int iTime)
   
   //Daten
   var w = GetDefCoreVal("Width",0,id)/2;
-  var brlx = DefinitionCall(id,"BarrelXOffset");
-  var brly = DefinitionCall(id,"BarrelYOffset");
+  var brlx = id->~BarrelXOffset();
+  var brly = id->~BarrelYOffset();
 
   // abspeichern, damit abrufbar
   r = -r-90;
