@@ -23,6 +23,7 @@ public func IsBulletTarget()	{return !IsDestroyed();}		//Kugelziel wenn nicht ze
 public func IsAiming()		{return true;}				//Selbstschussanlage immer am Zielen
 public func IsThreat()		{return fActive && !IsDestroyed();}	//Status
 public func UpdateCharge()	{return 1;}
+public func AttractTracer(object pTracer) {return GetPlayerTeam(GetController(pTracer)) != GetTeam();}	//Tracer-Ziel, falls anderes Team
 
 
 /* Zerstörung */

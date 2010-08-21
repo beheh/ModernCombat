@@ -20,6 +20,7 @@ public func BarrelXOffset()	{return -850;}
 public func BarrelYOffset()	{return;}
 public func IsEquipment()	{return true;}
 public func NoArenaRemove()	{return true;}
+public func AttractTracer(object pTracer)	{return GetPlayerTeam(GetController()) != GetPlayerTeam(GetController(pTracer));}
 
 
 /* Initalisierung */
