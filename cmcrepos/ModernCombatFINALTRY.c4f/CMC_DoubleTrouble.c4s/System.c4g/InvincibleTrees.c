@@ -8,3 +8,4 @@
 
 public func ChopDown() {}
 public func OnDmg() {return 100;}
+protected func Incineration() {Extinguish();}

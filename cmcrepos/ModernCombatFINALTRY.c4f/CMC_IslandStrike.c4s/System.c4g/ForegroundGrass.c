@@ -1,6 +1,6 @@
 /*-- Rasen im Vordergrund --*/
 
-#strict
+#strict 2
 #appendto GRAS
 
 func Construction()
@@ -8,3 +8,5 @@ func Construction()
   _inherited();
   SetCategory(C4D_Foreground|GetCategory());
 }
+
+protected func Incineration() {Extinguish();}
