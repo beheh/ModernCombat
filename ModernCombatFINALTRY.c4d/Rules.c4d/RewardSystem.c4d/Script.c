@@ -140,13 +140,12 @@ public func GetData() {
 /* Achievements */
 
 global func AwardAchievement(int iPlr, id idAchievement) {
+	if(!idAchievement->IsAchievement()) return false;
 	var iData = GetPlrExtraData(iPlr, "CMC_Achievements");
-	var aAchievement = DefinitionCall(idAchievement, "AchievementData");
-	if(!aAchievement) return Log("ERROR: Couldn't find Achievement %i", idAchievement);
-	if(iData >> aAchievement[0] & 1) return;
-	SetPlrExtraData(iPlr, "CMC_Achievements", iData ^ 1 << aAchievement[0]);
-	EventInfo4K(0, Format("<c %x>%s</c> hat die Errungenschaft <c ffff33>%s</c> erhalten", GetPlrColorDw(iPlr), GetPlayerName(iPlr), aAchievement[1]), idAchievement);
-	CustomMessage(Format("%s|<c %x>%s</c>", aAchievement[1], RGB(200,200,200), aAchievement[2]), 0, iPlr, -10, -10, RGB(255,255,255), 0, Format("%i", idAchievement), MSG_Right);
+	if(iData >> idAchievement->GetSavingSlot() & 1) return;
+	SetPlrExtraData(iPlr, "CMC_Achievements", iData ^ 1 << idAchievement->GetSavingSlot());
+	EventInfo4K(0, Format("<c %x>%s</c> hat die Errungenschaft <c ffff33>%s</c> erhalten", GetPlrColorDw(iPlr), GetPlayerName(iPlr), GetName(0, idAchievement)), RWDS);
+	CreateObject(idAchievement, 0, 0, iPlr);
 	Sound("Cheer.ogg");
 	return true;
 }
