@@ -60,6 +60,10 @@ private func ChangeWinpoints(id dummy, int iChange) {
 /* Effekt */
 
 protected func FxIntAddProgressTimer() {
+  //Keine Flagge?
+  if (!pFlag && !(pFlag = FindObject(OFPL)))
+    return;
+
   //Scoreboard
   UpdateScoreboard();
 
