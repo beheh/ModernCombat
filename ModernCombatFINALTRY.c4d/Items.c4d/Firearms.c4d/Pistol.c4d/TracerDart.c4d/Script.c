@@ -98,6 +98,8 @@ private func GlowColor()
 
 global func FxTracerDartStart(object pTarget, int iEffectNumber, int iTemp, int iOwner)
 {
+  if (iTemp) return;
+  
   //Besitzer des Schusses festlegen (der Schütze)
   EffectVar(0, pTarget, iEffectNumber) = iOwner;
 
@@ -137,8 +139,10 @@ global func FxTracerDartTimer(object pTarget, int iEffectNumber)
   pTarget->CreateParticle("FapLight",0,0,0,0,60, color, this);
 }
 
-global func FxTracerDartStop(object pTarget, int iEffectNumber)
+global func FxTracerDartStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)
 {
+  if (fTemp) return;
+
 	var iPlr = EffectVar(0, pTarget, iEffectNumber);
 	if (!GetPlayerName(iPlr)) return;
 	if(!Hostile(GetKiller(pTarget), iPlr) && GetKiller(pTarget) != iPlr)
