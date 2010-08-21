@@ -8,7 +8,7 @@
 protected func Initialize() 
 {
   // Zufällige Richtung
-  if (Random(2)) SetDir(DIR_Right);
+  SetDir(Random(2));
 
   SetAction("Breeze");
 }
@@ -29,3 +29,5 @@ func Damage()
    RemoveObject();
   }
 }
+
+protected func Incineration() {Extinguish();}
