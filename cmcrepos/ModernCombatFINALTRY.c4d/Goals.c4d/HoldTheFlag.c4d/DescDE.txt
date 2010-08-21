@@ -1,0 +1,3 @@
+Halte die Flagge um zu gewinnen. Das Team, dass die Flagge hält bekommt nach und nach Punkte.
+
+Erreicht als erstes Team die vorgegebene Punktzahl, um zu gewinnen!

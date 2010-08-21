@@ -1,0 +1,3 @@
+MorePoints=More points
+LessPoints=Less points
+Finished=Finished

@@ -1,0 +1,3 @@
+Hold the flag to win. The team which holds the flag gains points.
+
+Be the first team that reaches the set points to win!
