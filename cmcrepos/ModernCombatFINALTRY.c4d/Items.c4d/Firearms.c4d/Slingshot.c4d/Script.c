@@ -20,6 +20,7 @@ public func GetMCData(int data)
   if(data == MC_Damage)		return 20;
   if(data == MC_Recharge)	return 45;
   if(data == MC_Power)		return 20;
+  if(data == MC_Angle)    return 45;
 }
 
 /* Granaten - Explosivgranaten */

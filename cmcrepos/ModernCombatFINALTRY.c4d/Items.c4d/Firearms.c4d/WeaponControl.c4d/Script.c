@@ -33,6 +33,7 @@ static const MC_CanStrike     = 27;	//Ob die Waffe schlagen kann
 static const MC_Damage        = 28;	//Wie viel Schaden ausgeteilt wird
 static const MC_Recharge      = 29;	//Wie lange man braucht um wieder zuschlagen/feuern zu können
 static const MC_Power         = 30;	//Wie weit das Ziel geschleudert wird
+static const MC_Angle         = 31; //In welchem Winkel der Feind geschleudert wird
 
 public func IsWeapon2() {return true;}	//Diese Waffe benutzt das neue Waffensystem. Sie includiert also WPN2
 public func NoWeaponChoice() {return GetID() == WPN2;}
@@ -586,20 +587,12 @@ public func ControlThrow(caller)
 {
   SetUser(caller);
   
-  //autom. Schuss beenden, wenn erneut Werfen gedrückt (klassisch)
-  if(IsRecharging())
-  {
-    if(!GetPlrCoreJumpAndRunControl(GetController(caller)))
-      StopAutoFire();
-
-    return 1;
-  }
-  
+  var meleeattacked;
   //möglich einen Nahkampfangriff zu machen?
-  if(!IsRecharging() && GetMCData(MC_CanStrike) && WildcardMatch(GetAction(caller),"*Walk*") || WildcardMatch(GetAction(caller),"*Jump*"))
+  if(GetMCData(MC_CanStrike) && WildcardMatch(GetAction(caller),"*Walk*") || WildcardMatch(GetAction(caller),"*Jump*"))
   {
     var dir = GetDir(GetUser());
-    var obj = FindObjects(Find_InRect(-20+20*dir,-10,20,20),Find_OCF(OCF_Alive),Find_NoContainer(),Find_Exclude(caller));
+    var obj = FindObjects(Find_InRect(-15+10*dir,-10,20,20),Find_OCF(OCF_Alive),Find_NoContainer(),Find_Exclude(caller));
     for(var target in obj)
     {
       if(target && CheckEnemy(GetUser(),target))
@@ -612,19 +605,33 @@ public func ControlThrow(caller)
         else //ansonsten normal zuschlagen und schleudern.
         {
           DoDmg(GetMCData(MC_Damage),DMG_Melee,target,0,GetController(GetUser())+1,GetID());
-          SetComDir(COMD_Stop,GetUser());
           ObjectSetAction(GetUser(), "Chop");
-          var pwr = GetMCData(MC_Power);
-          Fling(target,(-pwr+dir*pwr*2)/10,-pwr/10);
+          var pwr = GetMCData(MC_Power), angle = GetMCData(MC_Angle);
+          if(!dir)
+           dir--;
+          SetXDir(Sin(angle*dir,pwr),target,10);
+          SetYDir(-Cos(angle*dir,pwr),target,10);
+          ObjectSetAction(target, "Tumble");
         }
 
         Sound("ClonkMelee*.ogg");
         Sound("WPN2_Punch.ogg");
+        meleeattacked = true;
         AddEffect("StrikeRecharge", this, 1, 1, this);
-        return 1; //Das wars vorerst
       }
     }
   }
+  
+  //autom. Schuss beenden, wenn erneut Werfen gedrückt (klassisch)
+  if(IsRecharging())
+  {
+    if(!GetPlrCoreJumpAndRunControl(GetController(caller)))
+      StopAutoFire();
+
+    return 1;
+  }
+  else if(meleeattacked)
+  { return 1; } //Falls ein Nahkampfangriff gemacht wurde, soll danach nicht direkt das Feuern begonnen werden.
 
   //Unterstützt der Schussmodus Zielen, aber wir tuns nicht?
   if(GetFMData(FM_Aim)>0 && !(GetUser()->~IsAiming()) && !(GetUser()->~AimOverride()))
@@ -1012,6 +1019,7 @@ public func GetMCData(int data)
   if(data == MC_Damage) return 20;
   if(data == MC_Recharge) return 40;
   if(data == MC_Power) return 20;
+  if(data == MC_Angle) return 45; //Kann auch Random-Werte enthalten wie RandomX(30,60);
 }
 
 /* Feuertechniken (Burst,etc.) */
