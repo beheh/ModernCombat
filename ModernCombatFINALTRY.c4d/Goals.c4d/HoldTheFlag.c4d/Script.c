@@ -10,7 +10,7 @@ local iGoal;		//So viele Punkte gilt es zu erreichen
 /* Initialisierung */
 
 protected func Initialize() {
-  iGoal = 20;
+  iGoal = 10;
 }
 
 public func ChooserFinished() {
