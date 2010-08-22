@@ -168,7 +168,7 @@ func CreateFurniture()
   CreateObject(CLVM, 510, 710, -1);
 
   //Explosivtank
-  CreateObject(XTNK, 1200, 590, -1)->AutoRespawn();
+  CreateObject(XTNK, 1170, 590, -1)->AutoRespawn();
 
   //Labortisch
   CreateObject(LTBL, 245, 490, -1);
