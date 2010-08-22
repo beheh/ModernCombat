@@ -38,7 +38,10 @@ static const MC_Angle         = 31; //In welchem Winkel der Feind geschleudert w
 public func IsWeapon2() {return true;}	//Diese Waffe benutzt das neue Waffensystem. Sie includiert also WPN2
 public func NoWeaponChoice() {return GetID() == WPN2;}
 
-public func OnSelectFT(int iFireMode, int iFireTec, int iLastFireTec){}
+public func OnSelectFT(int iFireMode, int iFireTec, int iLastFireTec){
+  if (GetFMData(FT_Name) == "$Auto$")
+    stopauto = false;
+}
 
 public func OnSingleReloadStart(int iSlot){}
 public func OnSingleReloadStop(int iSlot){}
@@ -630,8 +633,9 @@ public func ControlThrow(caller)
 
     return 1;
   }
-  else if(meleeattacked)
-  { return 1; } //Falls ein Nahkampfangriff gemacht wurde, soll danach nicht direkt das Feuern begonnen werden.
+  
+  if(meleeattacked)
+    return 1; //Falls ein Nahkampfangriff gemacht wurde, soll danach nicht direkt das Feuern begonnen werden.
 
   //Unterstützt der Schussmodus Zielen, aber wir tuns nicht?
   if(GetFMData(FM_Aim)>0 && !(GetUser()->~IsAiming()) && !(GetUser()->~AimOverride()))
@@ -1356,4 +1360,8 @@ protected func FxStrikeRechargeTimer() {
   //Effekt abbrechen?
   if (iTime >= iFullTime)
     return -1;
+}
+
+protected func FxStrikeRechargeStop() {
+  stopauto = false;
 }
