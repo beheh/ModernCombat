@@ -101,34 +101,6 @@ private func EndAim()
 
 public func IsAiming() { return true; }
 
-// Winkel -> Phase
-private func RtoP(int angle)
-{
-	var phases = GetActMapVal("Length",GetAction());
-
-	// Maximale Drehung nach oben
-	angle = BoundBy(angle,90,270);
-	// 0 bis 180
-	angle -= 90;
-	
-	// umrechnen von 0..2*StartAngle() nach 0..phases-1
-	var p = angle/3;
-	
-	return p;
-}
-
-// Phase -> Winkel
-private func PtoR()
-{
-	var phases = GetActMapVal("Length",GetAction());
-	
-	var a = GetPhase()*3;
-	
-	a += 90;
-	
-	return a;
-}
-
 /** Zielen **/
 
 public func ControlCommand(string strCommand, object pTarget, int iTx, int iTy, object pTarget2, int iData, object pCmdObj)
@@ -150,21 +122,18 @@ public func ControlCommand(string strCommand, object pTarget, int iTx, int iTy, 
 
 public func ContainedLeft()
 {
-    [$TxtLeft$]
 	AimUp(GetUser(), 1, "ControlConf");
 	return true;
 }
 
 public func ContainedRight()
 {
-    [$TxtRight$]
 	AimDown(GetUser(), 1, "ControlConf");
 	return(true);
 }  
 
 public func ContainedThrow(object byObj)
 {
-    [$TxtFire$]
   ControlThrow(byObj);
 }
 
@@ -244,77 +213,3 @@ public func Fire1()
 }
 
 public func NoWeaponChoice() { return(1); }
-
-
-/* ----- Platzwechsel ----- */
-
-//Platz wechseln
-protected func ContainedDigDouble(object ByObj)
-{
-  [$CtrlDigD$]
-  CreateMenu(GetID(),ByObj,this(),0,"$Seats$",0,1);
-    //Ausstieg
-    //Pilot
-    if(LocalN("Pilot",heli))
-      AddMenuItem("<c ff8888>Pilot</c>", "SeatOccupied()",GetID(),ByObj,0,ByObj,"$SeatOccupied$");
-    else
-      AddMenuItem("<c 88ff88>Pilot</c>", "EnterSeat1",GetID(),ByObj,0,ByObj,"$PilotSeat$");
-    //MG-Schütze
-    if(LocalN("Gunner",heli))
-      AddMenuItem("<c ff8888>$Gunner$</c>", "SeatOccupied()",GetID(),ByObj,0,ByObj,"$SeatOccupied$");
-    else
-      AddMenuItem("<c 88ff88>$Gunner$</c>", "EnterSeat2",GetID(),ByObj,0,ByObj,"$GunnerSeat$");
-    //Raketen-Schütze
-    if(LocalN("Rocketeer",heli))
-      AddMenuItem("<c ff8888>$Rocketeer$</c>", "SeatOccupied()",GetID(),ByObj,0,ByObj,"$SeatOccupied$");
-    else
-      AddMenuItem("<c 88ff88>$Rocketeer$</c>", "EnterSeat3",GetID(),ByObj,0,ByObj,"$RocketeerSeat$");
-    //Passagier 1
-    if(LocalN("Passenger1",heli))
-      AddMenuItem("<c ff8888>$Passenger1$</c>", "SeatOccupied()",GetID(),ByObj,0,ByObj,"$SeatOccupied$");
-    else
-      AddMenuItem("<c 88ff88>$Passenger1$</c>", "EnterSeat4",GetID(),ByObj,0,ByObj,"$PassengerSeat$");
-    //Passagier 2
-    if(LocalN("Passenger2",heli))
-      AddMenuItem("<c ff8888>$Passenger2$</c>", "SeatOccupied()",GetID(),ByObj,0,ByObj,"$SeatOccupied$");
-    else
-      AddMenuItem("<c 88ff88>$Passenger2$</c>", "EnterSeat5",GetID(),ByObj,0,ByObj,"$PassengerSeat$");
-      
-  return 1;
-}
-
-//Sitz belegen
-public func EnterSeat1(a, object Obj)
-{
-  heli -> EnterSeat1(a, Obj);
-
-  return 1;
-}
-
-public func EnterSeat2(a, object Obj)
-{
-  heli -> EnterSeat2(a, Obj);
-
-  return 1;
-}
-
-public func EnterSeat3(a, object Obj)
-{
-  heli -> EnterSeat3(a, Obj);
-
-  return 1;
-}
-
-public func EnterSeat4(a, object Obj)
-{
-  heli -> EnterSeat4(a, Obj);
-
-  return 1;
-}
-
-public func EnterSeat5(a, object Obj)
-{
-  heli -> EnterSeat5(a, Obj);
-
-  return 1;
-}

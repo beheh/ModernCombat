@@ -1,17 +1,24 @@
 #Control
-CtrlLeft=Rotate left
-CtrlRight=Rotate right
-CtrlUp=Open throttle
-CtrlDown=Close throttle
-CtrlLeftD=Turn left
-CtrlRightD=Turn right
+CtrlLeft=Left
+CtrlRight=Right
+CtrlUp=Up
+CtrlDown=Down
+CtrlLeftD=Double left
+CtrlRightD=Double right
 CtrlDigD=Change seat
+CtrlUpD=Double up
+CtrlDownD=Double down
+CtrlThrow=Action
 
-#if no more fuel
-MsgNoFuel=No fuel.
+#Seats
+Seats=Seats
+SeatOccupied=Seat occupied!
+PilotSeat=Pilot
+Gunner=Gunner
+Rocketeer=Rocketlauncher
+Passenger1=Passenger1
+Passenger2=Passenger2
 
-#when changing seat
-MsgSeat=-<c %x>  pilot  </c>-|-<c %x>  winch  </c>-|-<c %x>   MG    </c>-|-<c %x> nothing </c>-
-
-#on reload of MG
-TxtNoAmmo=No ammo
+#Other
+TxtNoAmmo=No Ammo
+MsgNoFuel=No Fuel
