@@ -240,6 +240,7 @@ public func IsFulfilled() {
 		    EliminateTeam(team);
 		}
 	  Schedule("GameOver()", 150);
+	  RewardEvaluation();
 	  return true;
     }
 }
