@@ -14,7 +14,7 @@ protected func Initialize() {
 }
 
 public func ChooserFinished() {
-  pFlag = FindObject(OFPL);
+  SetFlag(FindObject(OFLP));
   aTeamPoints = [];
   AddEffect("IntAddProgress", this, 1, 10, this);
 }
@@ -61,7 +61,7 @@ private func ChangeWinpoints(id dummy, int iChange) {
 
 protected func FxIntAddProgressTimer() {
   //Keine Flagge?
-  if (!pFlag && !(pFlag = FindObject(OFPL)))
+  if (!pFlag && !SetFlag(FindObject(OFPL)))
     return;
 
   //Scoreboard
@@ -110,11 +110,31 @@ protected func RelaunchPlayer(int iPlr, object pCrew, int iMurdererPlr, int iTea
     CreateGOCCSpawner(pCrew);
 }
 
+global func GetActiveTeamCount() {
+  var aTeams = [];
+  for (var i; i < GetPlayerCount(); i++)
+    if (GetPlayerName(GetPlayerByIndex(i)))
+      aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = 1;
+  i = 0;
+  for (var item in aTeams)
+    i += item;
+  return i;
+}
+
+global func GetTeamPlayerCount(int iTeam) {
+  for (var i, count; i < GetPlayerCount(); i++)
+    if (GetPlayerTeam(GetPlayerByIndex(i)) == iTeam && GetPlayerName(GetPlayerByIndex(i)))
+	  count++;
+  return count;
+}
+
 public func IsTeamGoal() {return 1;}
 
 public func SetFlag(object pFlagPole) {
-  if (pFlagPole)
-    return pFlag = pFlagPole;
+  pFlag = pFlagPole;
+  if (pFlag)
+    pFlag->~Set(GetName(pFlag), 100, 21/GetActiveTeamCount());
+  return pFlag;
 }
 
 public func GetFlag() {
@@ -170,15 +190,16 @@ public func UpdateScoreboard() {
   //Und... alle Teams...
   var iFlagTeam = pFlag->~GetTeam();
   for (var i, j; i < GetTeamCount(); j++) {
-    //Team gibts gar nicht
-    if (!GetTeamName(j)) {
+    //Team gibts. Hochzählen
+    if (GetTeamName(j))
+	  i++;
+	//Team gibts nicht oder keine Spieler drin
+	if (!GetTeamName(j) || !GetTeamPlayerCount(j)) {
 	  SetScoreboardData(j, GHTF_Name);
 	  SetScoreboardData(j, GHTF_Points);
 	  SetScoreboardData(j, GHTF_Progress);
 	  continue;
 	}
-	//Team gibts. Hochzählen
-	i++;
 	SetScoreboardData(j, GHTF_Name, GetTaggedTeamName(j));
 	SetScoreboardData(j, GHTF_Points, Format("<c %x>%d</c>", GetTeamColor(j), aTeamPoints[j]), aTeamPoints[j]);
 	//Team hat die Flagge
