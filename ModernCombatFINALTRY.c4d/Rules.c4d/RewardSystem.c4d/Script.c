@@ -168,15 +168,22 @@ global func FxPointMessageStart(pTarget, iNo, iTemp, szString)
     return -1;
 
   EffectVar(0,pTarget,iNo) = szString;			//Nachricht
-  EffectVar(1,pTarget,iNo) = CreateObject(ARHL,0,0,-1);	//Helper
-  EffectVar(2,pTarget,iNo) = 0;
+  EffectVar(2,pTarget,iNo) = 0;			//Zeit
   Sound("PointsGet.ogg");				//Sound
 }
 
 global func FxPointMessageTimer(pTarget, iNo)
 {
 	var iTime = EffectVar(2,pTarget,iNo);
-	if(GetEffectCount("PointMessage", pTarget) > 1 && !iTime) return FX_OK;
+	if(!iTime) {
+		var i = 0;
+		var index;
+		while((index = GetEffect("PointMessage", pTarget, i)) != 0) {
+			if(EffectVar(2,pTarget,index) > 0) return FX_OK;
+			i++;
+		}
+		EffectVar(1,pTarget,iNo) = CreateObject(ARHL,0,0,-1);	//Helper
+	}
 	EffectVar(2,pTarget,iNo)++;
   CustomMessage(EffectVar(0,pTarget,iNo),EffectVar(1,pTarget,iNo),NO_OWNER,0,-iTime/2,
                 RGBa(255,255,255,BoundBy(-50+iTime*5,0,255)));
