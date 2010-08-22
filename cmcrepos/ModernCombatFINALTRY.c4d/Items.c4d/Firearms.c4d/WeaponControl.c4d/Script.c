@@ -589,7 +589,7 @@ public func ControlThrow(caller)
   
   var meleeattacked;
   //möglich einen Nahkampfangriff zu machen?
-  if(GetMCData(MC_CanStrike) && WildcardMatch(GetAction(caller),"*Walk*") || WildcardMatch(GetAction(caller),"*Jump*"))
+  if(!GetEffect("StrikeRecharge", this) && GetMCData(MC_CanStrike) && WildcardMatch(GetAction(caller),"*Walk*") || WildcardMatch(GetAction(caller),"*Jump*"))
   {
     var dir = GetDir(GetUser());
     var obj = FindObjects(Find_InRect(-15+10*dir,-10,20,20),Find_OCF(OCF_Alive),Find_NoContainer(),Find_Exclude(caller));
