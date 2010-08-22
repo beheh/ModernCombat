@@ -1,3 +1,5 @@
 MorePoints=More points
 LessPoints=Less points
 Finished=Finished
+MsgFlagLost=Lost flag post <c ffff33>%s</c> to team <c %x>%s</c>
+MsgCaptured=Team <c %x>%s</c> controls flag post <c ffff33>%s</c>

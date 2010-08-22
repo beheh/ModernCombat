@@ -81,6 +81,10 @@ protected func FxIntAddProgressTimer() {
   if ((++iProgress) >= 100) {
     aTeamPoints[team]++;
 	iProgress = 0;
+	//Und jedem Spieler im Team 10 Punkte geben.
+	for (var i; i < GetPlayerCount(); i++)
+	  if (GetPlayerTeam(GetPlayerByIndex(i)) == team)
+	    DoPlayerPoints(10, 13, GetPlayerByIndex(i), GetCrew(GetPlayerByIndex(i)), IC13);
   }
   
   //Gewonnen?
@@ -149,6 +153,11 @@ public func FlagLost(object pFlagPole, int iOldTeam, int iNewTeam, array aAttack
   for (var clonk in aAttackers)
     if (clonk)
 	  DoPlayerPoints(10, 13, GetOwner(clonk), clonk, IC13);
+
+  //Eventmessages
+  for (var i; i < GetPlayerCount(); i++)
+    if (GetPlayerTeam(GetPlayerByIndex(i)) == iOldTeam)
+	  EventInfo4K(GetPlayerByIndex(i), Format("$MsgFlagLost$", GetName(pFlag), GetTeamColor(iNewTeam), GetTeamName(iNewTeam)), OFLG, 0, GetTeamColor(iNewTeam));
 }
 
 public func FlagCaptured(object pFlagPole, int iTeam, array aAttackers, bool fRegained) {
@@ -169,6 +178,9 @@ public func FlagCaptured(object pFlagPole, int iTeam, array aAttackers, bool fRe
 	  }
 	  first = false;
 	}
+
+  //Eventmessages
+  EventInfo4K(0, Format("$MsgCaptured$", GetTeamColor(iTeam), GetTeamName(iTeam), GetName(pFlag)), OFLG, 0, GetTeamColor(iTeam));
 }
 
 /* Scoreboard */
