@@ -1,6 +1,6 @@
 [DefCore]
 id=AC02
-Name=I'll fiy you up!
+Name=I'll fix you up!
 Version=4,9,5
 Category=C4D_StaticBack|C4D_Parallax|C4D_Foreground|C4D_MouseIgnore|C4D_IgnoreFoW
 Width=502
