@@ -4,6 +4,7 @@
 #appendto CLNK
 
 local assistkiller, machinekill;
+local ach_meatshield;
 
 public func IsClonk() { return true; }
 
@@ -40,6 +41,9 @@ protected func Initialize()
   assistkiller = [];
   for(var i=0; i < GetPlayerCount(); i++)
     assistkiller[i*2] = -1;
+
+	//Achievements
+	ach_meatshield = 0;
 
   //Fake Death Effekt einfügen
   if(IsClonk() && (GetOwner() != NO_OWNER) && (GetPlayerType(GetOwner()) != C4PT_Script))
@@ -121,6 +125,15 @@ private func Building()
 
 public func OnHit(int iChange, int iType, object pFrom)
 {
+	//Achievement
+	if(ach_meatshield >= 0 && !IsFakeDeath()) {
+	 	ach_meatshield += iChange;
+	 	if(ach_meatshield > 500) {
+	 		ach_meatshield = -1;
+	 		AwardAchievement(AC12, GetOwner());
+	 	}
+ 	}
+	
   //Treffender eine Maschine?
   if(pFrom)
   {
@@ -341,7 +354,9 @@ global func FakeDeath(object pTarget)
   return true;
 }
 
-public func OnFakeDeath(){}
+public func OnFakeDeath(){
+	ach_meatshield = 0;
+}
 
 global func StopFakeDeath(object pTarget)
 {
