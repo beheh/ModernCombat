@@ -18,6 +18,9 @@ Gunner=Gunner
 Rocketeer=Rocketlauncher
 Passenger1=Passenger1
 Passenger2=Passenger2
+GunnerSeat=A minigun that has to be fired manually.
+RocketeerSeat=A rocketlauncher system with optical guided missiles.
+PassengerSeat=A standart passenger seat.
 
 #Other
 TxtNoAmmo=No Ammo

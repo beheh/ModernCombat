@@ -18,6 +18,9 @@ Gunner=MG-Schütze
 Rocketeer=Raketenwerfer
 Passenger1=Passagier 1
 Passenger2=Passagier 2
+GunnerSeat=Ein Minigungeschütz, welches manuell gesteuert wird.
+RocketeerSeat=Ein Raketenwerfersystem mit optisch gesteuerten Raketen.
+PassengerSeat=Ein ganz normaler Sitzplatz.
 
 #Sonstiges
 TxtNoAmmo=Keine Munition
