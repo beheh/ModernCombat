@@ -1010,6 +1010,13 @@ public func GetFMData(int data, int i, int t)
   return value;
 }
 
+public func GetFMData() {
+  //Bei Einzel- und Stoßfeuer ist JnR zu schnell. Bremsen
+  if (Par() == FM_Recharge && GetPlrCoreJumpAndRunControl(GetController(GetUser())) && GetFMData(FT_Name) != "$Auto$")
+    return _inherited(...)+2;
+  return _inherited(...);
+}
+
 /* Nahkampfangriff */
 
 //Defaultwerte, sollte überschrieben werden
