@@ -154,7 +154,7 @@ global func AwardAchievement(int iPlr, id idAchievement)
   var iData = GetPlrExtraData(iPlr, "CMC_Achievements");
   if(iData >> idAchievement->GetSavingSlot() & 1) return;
   SetPlrExtraData(iPlr, "CMC_Achievements", iData ^ 1 << idAchievement->GetSavingSlot());
-  EventInfo4K(0, Format("$AchievmentUnlocked$", GetPlrColorDw(iPlr), GetPlayerName(iPlr), GetName(0, idAchievement)), RWDS);
+  EventInfo4K(0, Format("$AchievementUnlocked$", GetPlrColorDw(iPlr), GetPlayerName(iPlr), GetName(0, idAchievement)), RWDS);
   CreateObject(idAchievement, 0, 0, iPlr);
   Sound("AchievementGet.ogg");
   return true;
