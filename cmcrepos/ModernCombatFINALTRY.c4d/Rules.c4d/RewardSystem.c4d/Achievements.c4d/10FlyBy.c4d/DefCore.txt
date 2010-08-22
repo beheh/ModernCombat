@@ -1,0 +1,12 @@
+[DefCore]
+id=AC10
+Name=Fly-By
+Version=4,9,5
+Category=C4D_StaticBack|C4D_Parallax|C4D_Foreground|C4D_MouseIgnore|C4D_IgnoreFoW
+Width=502
+Height=143
+Offset=-3,-3
+Value=42
+Picture=0,0,502,143
+Timer=1
+TimerCall=Fade

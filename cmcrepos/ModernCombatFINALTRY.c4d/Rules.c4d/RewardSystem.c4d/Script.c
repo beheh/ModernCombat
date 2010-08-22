@@ -6,6 +6,7 @@ local aData, fEvaluation;
 
 public func IsChooseable()	{return true;}
 
+
 /* Initalisierung */
 
 protected func Initialize()
@@ -30,18 +31,20 @@ protected func Activate(iByPlayer)
     aList[iTeam][GetLength(aList[iTeam])] = szString;
     iPlr++;
   }
-  
+
   //Dann Teamweise ausgeben
   var szMessage = "";
-  
-  for(var aTeam in aList) {
+
+  for(var aTeam in aList)
+  {
     if(!aTeam) continue;
-    for(var szString in aTeam) {
+    for(var szString in aTeam)
+    {
       if(szMessage != "") szMessage = Format("%s|",szMessage);
       szMessage = Format("%s%s", szMessage, szString);
     }
   }
-  
+
   MessageWindow(Format("$ActualPoints$:|%s", szMessage), iByPlayer);
   return 1;
 }
@@ -81,10 +84,12 @@ public func Evaluate()
     iPlr++;
   }
   
-  //Dann Teamweise ausgeben
-  for(var aTeam in aList) {
+  //Dann teamweise ausgeben
+  for(var aTeam in aList)
+  {
     if(!aTeam) continue;
-    for(var aStrings in aTeam) {
+    for(var aStrings in aTeam)
+    {
       AddEvaluationData(aStrings[0], 0);
       AddEvaluationData(aStrings[1], 0);
     }
@@ -95,7 +100,8 @@ public func Evaluate()
 /* Spieler updaten */
 
 public func UpdatePlayers() {
-  for(var i = 0; i < GetPlayerCount(); i++) {
+  for(var i = 0; i < GetPlayerCount(); i++)
+  {
     var iPlr = GetPlayerByIndex(i);
     if(!aData[iPlr]) aData[iPlr] = CreateArray();
     if(!GetPlayerData(RWDS_PlayerName, iPlr)) SetPlayerData(Format("<c %x>%s</c>", GetPlrColorDw(iPlr), GetPlayerName(iPlr)), RWDS_PlayerName, iPlr);
@@ -112,7 +118,8 @@ static const RWDS_BattlePoints = 3;
 static const RWDS_TeamPoints = 4;
 static const RWDS_MinusPoints = 5;
 
-global func DoPlayerPoints(int iPoints, int iType, int iPlr, object pClonk, id idIcon) {
+global func DoPlayerPoints(int iPoints, int iType, int iPlr, object pClonk, id idIcon)
+{
   var db = FindObject2(Find_ID(RWDS));
   if(!db) return;
   if(!iPoints) return;
@@ -127,27 +134,30 @@ global func DoPlayerPoints(int iPoints, int iType, int iPlr, object pClonk, id i
   return db->SetPlayerData(db->GetPlayerPoints(iType, iPlr)+iPoints, iType, iPlr);
 }
 
-global func GetPlayerPoints(int iType, int iPlr) {
+global func GetPlayerPoints(int iType, int iPlr)
+{
   var db = FindObject2(Find_ID(RWDS));
   if(!db) return;
   return db->GetPlayerData(iType, iPlr);
 }
 
-public func GetData() {
+public func GetData()
+{
   return aData;
 }
 
 /* Achievements */
 
-global func AwardAchievement(int iPlr, id idAchievement) {
-	if(!idAchievement->IsAchievement()) return false;
-	var iData = GetPlrExtraData(iPlr, "CMC_Achievements");
-	if(iData >> idAchievement->GetSavingSlot() & 1) return;
-	SetPlrExtraData(iPlr, "CMC_Achievements", iData ^ 1 << idAchievement->GetSavingSlot());
-	EventInfo4K(0, Format("$AchievmentUnlocked$", GetPlrColorDw(iPlr), GetPlayerName(iPlr), GetName(0, idAchievement)), RWDS);
-	CreateObject(idAchievement, 0, 0, iPlr);
-	Sound("Cheer.ogg");
-	return true;
+global func AwardAchievement(int iPlr, id idAchievement)
+{
+  if(!idAchievement->IsAchievement()) return false;
+  var iData = GetPlrExtraData(iPlr, "CMC_Achievements");
+  if(iData >> idAchievement->GetSavingSlot() & 1) return;
+  SetPlrExtraData(iPlr, "CMC_Achievements", iData ^ 1 << idAchievement->GetSavingSlot());
+  EventInfo4K(0, Format("$AchievmentUnlocked$", GetPlrColorDw(iPlr), GetPlayerName(iPlr), GetName(0, idAchievement)), RWDS);
+  CreateObject(idAchievement, 0, 0, iPlr);
+  Sound("AchievementGet.ogg");
+  return true;
 }
 
 /* Punkteanzeige */
@@ -157,9 +167,9 @@ global func FxPointMessageStart(pTarget, iNo, iTemp, szString)
   if(iTemp)
     return -1;
 
-  EffectVar(0,pTarget,iNo) = szString; //Die Message
-  EffectVar(1,pTarget,iNo) = CreateObject(ARHL,0,0,-1);	//Der Helper
-  Sound("PointsGet.ogg");	//Sound
+  EffectVar(0,pTarget,iNo) = szString;			//Nachricht
+  EffectVar(1,pTarget,iNo) = CreateObject(ARHL,0,0,-1);	//Helper
+  Sound("PointsGet.ogg");				//Sound
 }
 
 global func FxPointMessageTimer(pTarget, iNo, iTime)
@@ -175,16 +185,17 @@ global func FxPointMessageTimer(pTarget, iNo, iTime)
 
 /* Internes Handling */
 
-public func SetPlayerData(xData, int iType, int iPlr) {
+public func SetPlayerData(xData, int iType, int iPlr)
+{
   if(iType == RWDS_TotalPoints) return;
   if(!aData[iPlr]) return false;
   aData[iPlr][iType] = xData;
   return true;
 }
 
-public func GetPlayerData(int iType, int iPlr) {
-  if(iType == RWDS_TotalPoints) {
-    return aData[iPlr][RWDS_BattlePoints] + aData[iPlr][RWDS_TeamPoints] + aData[iPlr][RWDS_MinusPoints];
-  }
+public func GetPlayerData(int iType, int iPlr)
+{
+  if(iType == RWDS_TotalPoints)
+  {return aData[iPlr][RWDS_BattlePoints] + aData[iPlr][RWDS_TeamPoints] + aData[iPlr][RWDS_MinusPoints];}
   return aData[iPlr][iType];
 }
