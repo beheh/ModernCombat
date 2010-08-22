@@ -1,11 +1,24 @@
 #Steuerung
-CtrlLeft=Links drehen
-CtrlRight=Rechts drehen
-CtrlUp=Mehr Schub
-CtrlDown=Weniger Schub
-CtrlLeftD=Nach links umdrehen
-CtrlRightD=Nach rechts umdrehen
+CtrlLeft=Links
+CtrlRight=Rechts
+CtrlUp=Oben
+CtrlDown=Unten
+CtrlLeftD=Doppellinks
+CtrlRightD=Doppelrechts
 CtrlDigD=Platz wechseln
+CtrlUpD=Doppeloben
+CtrlDownD=Doppellunten
+CtrlThrow=Aktion
 
-#beim Nachladen des MG
+#Sitze
+Seats=Sitze
+SeatOccupied=Sitz belegt!
+PilotSeat=Pilot
+Gunner=MG-Schütze
+Rocketeer=Raketenwerfer
+Passenger1=Passagier 1
+Passenger2=Passagier 2
+
+#Sonstiges
 TxtNoAmmo=Keine Munition
+MsgNoFuel=Kein Treibstoff

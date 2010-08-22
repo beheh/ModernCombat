@@ -141,130 +141,194 @@ protected func Collection2(object pObj)
                 
 /* ----- Steuerung ----- */
 
-//Nur für Pilot: Mehr Schub
 protected func ContainedUp(object ByObj)
 {
-  //alle anderen außer dem Pilot
-  if (ByObj != Pilot) return true;
-  //Startup-Sequence
-  if (throttle == 0 && (GetAction()=="Stand" || GetAction()=="EngineShutDown"))
-    SetAction("EngineStartUp");
-  //beim Flug mehr Schub
-  if (GetAction()=="Fly" || GetAction()=="Turn")
-    throttle = BoundBy(throttle + throttle_speed, 0, max_throttle);
+  [$CtrlUp$]
+  
+  //Pilot
+  if (ByObj == Pilot)
+  {
+    //Startup-Sequence
+    if (throttle == 0 && (GetAction()=="Stand" || GetAction()=="EngineShutDown"))
+      SetAction("EngineStartUp");
+    //beim Flug mehr Schub
+    if (GetAction()=="Fly" || GetAction()=="Turn")
+      throttle = BoundBy(throttle + throttle_speed, 0, max_throttle);
+  }
+  
+  //Gunner
+  if (ByObj == Gunner)
+    MGStation->~ControlUp(ByObj);
+  //Rocketeer
+  if (ByObj == Rocketeer)
+    RocketStation->~ControlUp(ByObj);
+    
   return true;
 }
 
-//Nur für Pilot: Weniger Schub
 protected func ContainedDown(object ByObj)
 {
-  //alle anderen außer dem Piloten
-  if (ByObj != Pilot)
-    return true;
-  //Motor aus
-  if(throttle == 0 && (GetAction()=="Fly" || GetAction()=="EngineStartUp"))
-    SetAction("EngineShutDown");
-  //vom Gas weg
-  if(GetAction()=="Fly" || GetAction()=="Turn")
-    throttle = BoundBy(throttle - throttle_speed, 0, max_throttle);
-  //aber nicht während dem Flug
+  [$CtrlDown$]
+  
+  //Pilot
+  if (ByObj == Pilot)
+  {
+    //Motor aus
+    if(throttle == 0 && (GetAction()=="Fly" || GetAction()=="EngineStartUp"))
+      SetAction("EngineShutDown");
+    //vom Gas weg
+    if(GetAction()=="Fly" || GetAction()=="Turn")
+      throttle = BoundBy(throttle - throttle_speed, 0, max_throttle);
+  }
+  
+  //Gunner
+  if (ByObj == Gunner)
+    MGStation->~ControlDown(ByObj);
+  //Rocketeer
+  if (ByObj == Rocketeer)
+    RocketStation->~ControlDown(ByObj);
+    
   return true;
 }
 
-//Nur für Pilot: Mehr Schub
 protected func ContainedUpDouble(object ByObj)
 {
-  [$CtrlUp$]
-  //alle anderen außer dem Piloten
-  if(ByObj != Pilot)
+  [$CtrlUpD$]
+  
+  //Pilot
+  if (ByObj == Pilot)
+  {
+    if(throttle == 0 && (GetAction()=="Stand" || GetAction()=="EngineShutDown"))
+      SetAction("EngineStartUp");  
+    if(GetAction()=="Fly")
+      throttle = BoundBy(throttle + throttle_speed*2, 0, 170);
     return true;
-
-  if(throttle == 0 && (GetAction()=="Stand" || GetAction()=="EngineShutDown"))
-    SetAction("EngineStartUp");  
-  if(GetAction()=="Fly")
-    throttle = BoundBy(throttle + throttle_speed*2, 0, 170);
-  return true;
+  }
+  
+  //Gunner
+  if (ByObj == Gunner)
+    MGStation->~ControlUpDouble(ByObj);
+  //Rocketeer
+  if (ByObj == Rocketeer)
+    RocketStation->~ControlUpDouble(ByObj);
 }
 
-//Nur für Pilot: Weniger Schub
 protected func ContainedDownDouble(object ByObj)
 {
-  [$CtrlDown$]
-  //alle anderen außer dem Piloten
-  if (ByObj != Pilot) return true;
-
-  //Motor aus
-  if (throttle == 0 && (GetAction()=="Fly" || GetAction()=="EngineStartUp")) SetAction("EngineShutDown");
-  //vom Gas weg
-  if (GetAction()=="Fly") throttle = BoundBy(throttle - throttle_speed*2, 0, 170);
-  //aber nicht während dem Flug
+  [$CtrlDownD$]
+  
+  //Pilot
+  if (ByObj == Pilot)
+  {
+    //Motor aus
+    if (throttle == 0 && (GetAction()=="Fly" || GetAction()=="EngineStartUp")) SetAction("EngineShutDown");
+    //vom Gas weg
+    if (GetAction()=="Fly") throttle = BoundBy(throttle - throttle_speed*2, 0, 170);
+  }
+  
+  //Gunner
+  if (ByObj == Gunner)
+    MGStation->~ControlDownDouble(ByObj);
+  //Rocketeer
+  if (ByObj == Rocketeer)
+    RocketStation->~ControlDownDouble(ByObj);
+    
   return true;
 }
 
-//Nur für Pilot: Nach links neigen
 protected func ContainedLeft(object ByObj)
 {
-  //alle anderen außer dem Piloten
-  if (ByObj != Pilot) return true;
-
-  if (GetAction()=="Fly" || GetAction()=="Turn") 
-    rotation = BoundBy(rotation - control_speed, -max_rotation, max_rotation);
+  [$CtrlLeft$]
+  
+  //Pilot
+  if (ByObj == Pilot)
+  {
+    if (GetAction()=="Fly" || GetAction()=="Turn") 
+      rotation = BoundBy(rotation - control_speed, -max_rotation, max_rotation);
+  }
+  
+  //Gunner
+  if (ByObj == Gunner)
+    MGStation->~ControlLeft(ByObj);
+  //Rocketeer
+  if (ByObj == Rocketeer)
+    RocketStation->~ControlLeft(ByObj);
+    
   return true;
 }
 
-//Nur für Pilot: Nach rechts neigen
 protected func ContainedRight(object ByObj)
 {
-  //alle anderen außer dem Piloten
-  if (ByObj != Pilot) return true;
-     
-  if (GetAction()=="Fly" || GetAction()=="Turn")
-    rotation = BoundBy(rotation + control_speed, -max_rotation, max_rotation);
+  [$CtrlRight$]
+  
+  //Pilot
+  if (ByObj == Pilot)
+  {
+    if (GetAction()=="Fly" || GetAction()=="Turn")
+      rotation = BoundBy(rotation + control_speed, -max_rotation, max_rotation);
+  }
+  
+  //Gunner
+  if (ByObj == Gunner)
+    MGStation->~ControlRight(ByObj);
+  //Rocketeer
+  if (ByObj == Rocketeer)
+    RocketStation->~ControlRight(ByObj);
+  
   return true;
 }
 
-//Nur für Pilot: Nach links umdrehen
 protected func ContainedLeftDouble(object ByObj)
 {
   [$CtrlLeftD$]
-  //alle anderen außer dem Piloten
-  if (ByObj != Pilot) return true;
-
-  if (GetDir() && GetAction()=="Fly")
+  //Pilot
+  if (ByObj == Pilot)
   {
-    if (GetAction() == "Turn" || GetContact(this(), -1)) return true;
-    SetAction("Turn");
+    if (GetDir() && GetAction()=="Fly")
+    {
+      if (GetAction() == "Turn" || GetContact(this(), -1)) return true;
+      SetAction("Turn");
+    }
   }
+  
+  //Gunner
+  if (ByObj == Gunner)
+    MGStation->~ControlLeftDouble(ByObj);
+  //Rocketeer
+  if (ByObj == Rocketeer)
+    RocketStation->~ControlLeftDouble(ByObj);
+    
   return true;
 }
 
-//Nur für Pilot: Nach rechts umdrehen
 protected func ContainedRightDouble(object ByObj)
 {
   [$CtrlRightD$]
-  //alle anderen außer dem Piloten
-  if (ByObj != Pilot) return true;
-
-  if (!GetDir() && GetAction()=="Fly")
+  
+  //Pilot
+  if (ByObj == Pilot)
   {
-    if (GetAction() == "Turn" || GetContact(this(), -1)) return true;
-    SetAction("Turn");
+    if (!GetDir() && GetAction()=="Fly")
+    {
+      if (GetAction() == "Turn" || GetContact(this(), -1)) return true;
+      SetAction("Turn");
+    }
   }
+  
+  //Gunner
+  if (ByObj == Gunner)
+    MGStation->~ControlRightDouble(ByObj);
+  //Rocketeer
+  if (ByObj == Rocketeer)
+    RocketStation->~ControlRightDouble(ByObj);
+    
   return true;
 }
 
-//eine Funktion, welche einfach nur die Richtung eines Objektes ändert
-protected func ChangeDir()
-{
-  SetDir(!GetDir());
-  SetVertex(0, false, 15*(GetDir()*2-1), this(), 2);
-  return(true);
-}
-
-//HUD an-/ausschalten
 protected func ContainedThrow(object ByObj)
 {
   [Image=KOKR|$CtrlThrow$]
+  
   //nicht wenn kaputt
   if (GetDamage() > MaxDamage()) return(true);
   //der Pilot kriegt eins...
@@ -279,8 +343,23 @@ protected func ContainedThrow(object ByObj)
       RemoveObject(hud);
     return(Sound("SwitchHUD", false, this(), 100, GetOwner(ByObj)+1));
   }
-  //Alle anderen sind traurig :(
-  return(false);
+  
+  //Gunner
+  if (ByObj == Gunner)
+    MGStation->~ControlThrow(ByObj);
+  //Rocketeer
+  if (ByObj == Rocketeer)
+    RocketStation->~ControlThrow(ByObj);
+
+  return true;
+}
+
+//eine Funktion, welche einfach nur die Richtung eines Objektes ändert
+protected func ChangeDir()
+{
+  SetDir(!GetDir());
+  SetVertex(0, false, 15*(GetDir()*2-1), this(), 2);
+  return(true);
 }
 
 
