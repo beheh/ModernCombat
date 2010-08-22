@@ -84,7 +84,7 @@ protected func FxIntAddProgressTimer() {
 	//Und jedem Spieler im Team 10 Punkte geben.
 	for (var i; i < GetPlayerCount(); i++)
 	  if (GetPlayerTeam(GetPlayerByIndex(i)) == team)
-	    DoPlayerPoints(10, 13, GetPlayerByIndex(i), GetCrew(GetPlayerByIndex(i)), IC13);
+	    DoPlayerPoints(10, 12, GetPlayerByIndex(i), GetCrew(GetPlayerByIndex(i)), IC12);
   }
   
   //Gewonnen?
@@ -136,8 +136,13 @@ public func IsTeamGoal() {return 1;}
 
 public func SetFlag(object pFlagPole) {
   pFlag = pFlagPole;
+  //GameCall für Szenarien.
+  //Die Funktion sollte anhand der Anzahl der aktiven Teams (1. Parameter) die Zeit berechnen und zurückgeben.
+  var iTime = GameCall("GetHTFTime", GetActiveTeamCount());
+  if (!iTime)
+    iTime = 15/GetActiveTeamCount();
   if (pFlag)
-    pFlag->~Set(GetName(pFlag), 100, 21/GetActiveTeamCount());
+    pFlag->~Set(GetName(pFlag), 100, iTime);
   return pFlag;
 }
 
