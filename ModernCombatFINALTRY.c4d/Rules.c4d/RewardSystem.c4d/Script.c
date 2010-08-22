@@ -148,7 +148,7 @@ public func GetData()
 
 /* Achievements */
 
-global func AwardAchievement(int iPlr, id idAchievement)
+global func AwardAchievement(id idAchievement, int iPlr)
 {
   if(!idAchievement->IsAchievement()) return false;
   var iData = GetPlrExtraData(iPlr, "CMC_Achievements");
@@ -156,7 +156,7 @@ global func AwardAchievement(int iPlr, id idAchievement)
   SetPlrExtraData(iPlr, "CMC_Achievements", iData ^ 1 << idAchievement->GetSavingSlot());
   EventInfo4K(0, Format("$AchievementUnlocked$", GetPlrColorDw(iPlr), GetPlayerName(iPlr), GetName(0, idAchievement)), RWDS);
   CreateObject(idAchievement, 0, 0, iPlr);
-  Sound("AchievementGet.ogg");
+  Sound("AchievementGet.ogg", true, 0, 0, iPlr+1);
   return true;
 }
 
@@ -169,11 +169,15 @@ global func FxPointMessageStart(pTarget, iNo, iTemp, szString)
 
   EffectVar(0,pTarget,iNo) = szString;			//Nachricht
   EffectVar(1,pTarget,iNo) = CreateObject(ARHL,0,0,-1);	//Helper
+  EffectVar(2,pTarget,iNo) = 0;
   Sound("PointsGet.ogg");				//Sound
 }
 
-global func FxPointMessageTimer(pTarget, iNo, iTime)
+global func FxPointMessageTimer(pTarget, iNo)
 {
+	var iTime = EffectVar(2,pTarget,iNo);
+	if(GetEffectCount("PointMessage", pTarget) > 1 && !iTime) return FX_OK;
+	EffectVar(2,pTarget,iNo)++;
   CustomMessage(EffectVar(0,pTarget,iNo),EffectVar(1,pTarget,iNo),NO_OWNER,0,-iTime/2,
                 RGBa(255,255,255,BoundBy(-50+iTime*5,0,255)));
   if(-50+iTime*5 > 255)
@@ -181,6 +185,7 @@ global func FxPointMessageTimer(pTarget, iNo, iTime)
     RemoveObject(EffectVar(1,pTarget,iNo));
     return -1;
   }
+  return FX_OK;
 }
 
 /* Internes Handling */
