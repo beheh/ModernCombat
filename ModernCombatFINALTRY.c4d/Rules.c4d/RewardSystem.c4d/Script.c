@@ -156,7 +156,7 @@ global func AwardAchievement(id idAchievement, int iPlr)
   SetPlrExtraData(iPlr, "CMC_Achievements", iData ^ 1 << idAchievement->GetSavingSlot());
   EventInfo4K(0, Format("$AchievementUnlocked$", GetPlrColorDw(iPlr), GetPlayerName(iPlr), GetName(0, idAchievement)), RWDS);
   CreateObject(idAchievement, 0, 0, iPlr);
-  Sound("AchievementGet.ogg", true, 0, 0, iPlr+1);
+  Sound("AchievementGet.ogg", true, 0, 100, iPlr+1);
   return true;
 }
 
