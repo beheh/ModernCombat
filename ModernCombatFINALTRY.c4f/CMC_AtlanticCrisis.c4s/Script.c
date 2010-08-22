@@ -470,14 +470,22 @@ public func ChooserFinished()
     aFlag[2]->Set("$Flag3$",0,2);
    }
   }
+
+  //HTF-Spielziel
+  if (FindObject(GHTF))
+  {
+   //Flaggenposten
+   var flag = CreateObject(OFPL, 2990, 280, -1);
+   flag->~Set("$Flag2$");
+  }
 }
 
 /* Relaunch */
 
 public func RelaunchPosition(& iX, & iY, int iTeam)
 {
-  //DM/LMS/CTF-Spielziel
-  if(FindObject(GTDM) || FindObject(GLMS) || FindObject(GCTF))
+  //DM/LMS/CTF/HTF-Spielziel
+  if(FindObject(GTDM) || FindObject(GLMS) || FindObject(GCTF) || FindObject(GHTF))
   {
    if(iTeam == 1)
    {

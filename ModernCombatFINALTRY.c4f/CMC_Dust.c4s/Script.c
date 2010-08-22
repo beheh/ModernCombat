@@ -194,6 +194,19 @@ public func ChooserFinished()
   for(var i = 0; i < GetPlayerCount(); i++)
     aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = true;
 
+  //CTF-Spielziel
+  if(FindObject(GCTF))
+  {
+   if(aTeams[1] == true)
+   {CreateFlag(1,130,680,GetTeamColor(1));}
+   if(aTeams[2] == true)
+   {CreateFlag(2,1720,400,GetTeamColor(2));}
+   if(aTeams[3] == true)
+   {CreateFlag(3,1500,730,GetTeamColor(3));}
+   if(aTeams[4] == true)
+   {CreateFlag(4,145,320,GetTeamColor(4));}
+  }
+
   //OP-Spielziel
   if(FindObject(GOCC))
   {
@@ -266,17 +279,15 @@ public func ChooserFinished()
    }
   }
 
-  //CTF-Spielziel
-  if(FindObject(GCTF))
+  //HTF-Spielziel
+  if (FindObject(GHTF))
   {
-   if(aTeams[1] == true)
-   {CreateFlag(1,130,680,GetTeamColor(1));}
-   if(aTeams[2] == true)
-   {CreateFlag(2,1720,400,GetTeamColor(2));}
-   if(aTeams[3] == true)
-   {CreateFlag(3,1500,730,GetTeamColor(3));}
-   if(aTeams[4] == true)
-   {CreateFlag(4,145,320,GetTeamColor(4));}
+   var flag = CreateObject(OFPL, 830, 850, -1);
+   flag->~Set("$Flag4$");
+
+   //Kisten
+   CreateObject(WCR2, 660, 830, -1);
+   CreateObject(WCR2, 960, 830, -1);
   }
 }
 
@@ -284,8 +295,8 @@ public func ChooserFinished()
 
 public func RelaunchPosition(& iX, & iY, int iTeam)
 {
-  //DM/LMS-Spielziel
-  if(FindObject(GTDM) || FindObject(GLMS))
+  //DM/LMS/HTF-Spielziel
+  if(FindObject(GTDM) || FindObject(GLMS) || FindObject(GHTF))
   {
    if(iTeam == 1)
    {
