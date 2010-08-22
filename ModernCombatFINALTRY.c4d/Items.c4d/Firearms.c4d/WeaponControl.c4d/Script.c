@@ -10,8 +10,6 @@ local aSlot_Amount;			//Hält die Munitionsmenge
 
 local aFM_FireTec;			//Hält die Feuertechnik
 
-local idBulletID;			//Bei Projektielmunition hält dies die ProjektilID
-
 static const FM_Slot          = 13;	//Der Slot vom Feuermodus
 static const FM_SingleReload  = 14;	//Munition wird einzeln nachgeladen (z.B. für Shotguns)
 static const FM_PrepareReload = 15;	//Zeit bevor das eigentliche Nachladen beginnt (nur interessant wenn auch FM_SingleReload benutzt wird)
@@ -386,9 +384,9 @@ public func GetRecharge()
   return (100*time)/GetFMData(FM_Recharge);
 }
 
-public func FxNoFinishReloadStart(object pTarget, int iNumber)
+public func FxNoFinishReloadStart(object pTarget, int iNumber, iTemp, int iTime)
 {
-	EffectVar(0,pTarget,iNumber) = 30;
+	EffectVar(0,pTarget,iNumber) = iTime;
 }
 
 public func FxNoFinishReloadTimer(object pTarget, int iNumber, int iTime)
@@ -427,7 +425,7 @@ public func FxReloadStart(object pTarget, int iNumber, int iTemp, int iTime,iSlo
   
   //Reload-End-Spam verhindern
   if(GetFMData(FM_SingleReload))
-  	AddEffect("NoFinishReload", pTarget, 20, 1, pTarget);
+  	AddEffect("NoFinishReload", pTarget, 20, 1, pTarget, 0, GetFMData(FM_PrepareReload)+(GetFMData(FM_Reload)/GetFMData(FM_AmmoLoad))); //Vorbereitungszeit + 1
 }
 
 public func FxReloadTimer(object pTarget, int iNumber, int iTime)
@@ -438,7 +436,7 @@ public func FxReloadTimer(object pTarget, int iNumber, int iTime)
     //Log("  Nachladen");
     if(GetFMData(FM_SingleReload))
     {
-      if(iTime >= GetFMData(FM_Reload)*EffectVar(3,pTarget,iNumber)/GetFMData(FM_AmmoLoad))
+      if(iTime-GetFMData(FM_PrepareReload) >= GetFMData(FM_Reload)*(EffectVar(3,pTarget,iNumber)+1)/GetFMData(FM_AmmoLoad))
       {
         OnSingleReloadStop(EffectVar(2,pTarget,iNumber));
         EffectVar(3,pTarget,iNumber) += GetFMData(FM_AmmoUsage);
@@ -592,7 +590,7 @@ public func ControlThrow(caller)
   
   var meleeattacked;
   //möglich einen Nahkampfangriff zu machen?
-  if(!GetEffect("StrikeRecharge", this) && GetMCData(MC_CanStrike) && WildcardMatch(GetAction(caller),"*Walk*") || WildcardMatch(GetAction(caller),"*Jump*"))
+  if(!GetEffect("StrikeRecharge", this) && GetMCData(MC_CanStrike) && (WildcardMatch(GetAction(caller),"*Walk*") || WildcardMatch(GetAction(caller),"*Jump*")) && (GetFMData(FM_Aim) == 0 || GetUser()->~IsAiming() || GetUser()->~AimOverride()))
   {
     var dir = GetDir(GetUser());
     var obj = FindObjects(Find_InRect(-15+10*dir,-10,20,20),Find_OCF(OCF_Alive),Find_NoContainer(),Find_Exclude(caller));
@@ -939,8 +937,9 @@ private func CycleFM(int iDir)
 
 public func SetFireMode(int i)
 {
-  if((i > GetFMCount()) || i < 1) {	Message("Feuermodus nicht vorhanden:|{{%i}} FM: %d",this,GetID(),i); return;	}
+  if((i > GetFMCount()) || i < 1) return;
 
+  if(IsReloading()) return;
 	if(IsRecharging()) StopAutoFire();
 	RemoveEffect("BurstFire", this);
 	while(GetEffect("Recharge", this)) RemoveEffect("Recharge", this); 
@@ -1260,7 +1259,11 @@ global func FxShowWeaponTimer(object pTarget, int iNumber, int iTime)
   var dir;            //Richtung in die das Objekt schaut
   
   //schnell noch Rotation dazurechnen oder so!
-  r += ObjectCall(obj,"HandR");
+  var effect = GetEffect("StrikeRecharge", obj);
+  if(effect)
+  	r += -Max(Sin(GetEffect("StrikeRecharge", obj, 0, 6)*90/(ObjectCall(obj, "GetMCData", MC_Recharge)/4),20),0);
+  else
+  	r += ObjectCall(obj,"HandR");
   
   //Variablen mit Werten versehen
   width = height = xskew = yskew = 1;
