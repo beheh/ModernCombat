@@ -4,7 +4,6 @@
 #appendto CLNK
 
 local assistkiller, machinekill;
-local ach_meatshield;
 
 public func IsClonk() { return true; }
 
@@ -41,9 +40,6 @@ protected func Initialize()
   assistkiller = [];
   for(var i=0; i < GetPlayerCount(); i++)
     assistkiller[i*2] = -1;
-
-	//Achievements
-	ach_meatshield = 0;
 
   //Fake Death Effekt einfügen
   if(IsClonk() && (GetOwner() != NO_OWNER) && (GetPlayerType(GetOwner()) != C4PT_Script))
@@ -126,13 +122,7 @@ private func Building()
 public func OnHit(int iChange, int iType, object pFrom)
 {
 	//Achievement
-	if(ach_meatshield >= 0 && !IsFakeDeath()) {
-	 	ach_meatshield += iChange;
-	 	if(ach_meatshield > 500) {
-	 		ach_meatshield = -1;
-	 		AwardAchievement(AC12, GetOwner());
-	 	}
- 	}
+	DoAchievementProgress(iChange, AC12, GetOwner());
 	
   //Treffender eine Maschine?
   if(pFrom)
@@ -249,6 +239,7 @@ protected func DoPoints() {
     if(assist != killer)
     {
       DoPlayerPoints(AssistPoints(), RWDS_BattlePoints, assist, GetCursor(assist), IC02);
+      DoAchievementProgress(1, AC01, assist);
     }  
   }
   
@@ -331,6 +322,10 @@ global func FakeDeath(object pTarget)
   
   pTarget->OnFakeDeath();
 
+  if(GetProcedure(pTarget) == "FLIGHT" && GetProcedure(GetCursor(GetKiller(pTarget))) == "FLIGHT") {
+  	DoAchievementProgress(1, AC10, GetKiller(pTarget));
+  }
+
   //Fake Death erstellen
   if(WildcardMatch(GetAction(pTarget),"*Crawl*"))
   {
@@ -354,9 +349,7 @@ global func FakeDeath(object pTarget)
   return true;
 }
 
-public func OnFakeDeath(){
-	ach_meatshield = 0;
-}
+public func OnFakeDeath() {}
 
 global func StopFakeDeath(object pTarget)
 {
@@ -396,12 +389,14 @@ global func FxFakeDeathDamage(object pTarget, int iEffectNumber, int iDmgEngy, i
   return iDmgEngy;
 }
 
-/* Entgültiger Tod */
+/* Endgültiger Tod */
 
 func Death(object pTarget)
 {
 	if(!pTarget) pTarget = this;
 	if(!pTarget) return;
+ 
+  ResetAchievementProgress(AC12, GetOwner());
   
   //Todesnachricht bei keinem FakeDeath
   if(FindObject(NOFD))

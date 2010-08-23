@@ -98,6 +98,9 @@ func Use(caller)
     //Eventnachricht: Spieler reanimiert Spieler
     EventInfo4K(0,Format("$MsgReanimation$",GetTaggedPlayerName(GetOwner(obj)),GetTaggedPlayerName(GetOwner(caller))),FKDT);
 
+		//Achievement-Fortschritt
+		DoAchievementProgress(1, AC04, GetOwner(caller));
+
     //Punkte bei Belohnungssystem
     DoPlayerPoints(ReanimationPoints(), RWDS_TeamPoints, GetOwner(caller), caller, IC04);
 

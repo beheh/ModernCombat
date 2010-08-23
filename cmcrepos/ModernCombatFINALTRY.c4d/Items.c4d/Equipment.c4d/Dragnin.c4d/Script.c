@@ -43,6 +43,7 @@ func Sting(caller)
 
    //Punkte bei Belohnungssystem
    DoPlayerPoints(DragninPoints(), RWDS_TeamPoints, GetOwner(caller), caller, IC05);
+   DoAchievementProgress(DragninPoints(), AC02, GetOwner(caller));
 
    RemoveObject();
   }

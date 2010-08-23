@@ -11,7 +11,7 @@ public func Initialize() {
  	iSize = 15;
 	szDesc = GetDesc(this);
  	SetVisibility(VIS_Owner);
-	SetPosition(-GetDefWidth(GetID())/2-100, -GetDefHeight(GetID())/2-42);
+	SetPosition(-GetDefWidth(GetID())/2-120, -GetDefHeight(GetID())/2-42);
 	SetClrModulation(RGBa(255,255,255,255));
 	SetObjDrawTransform(10000/iSize,0,-GetDefWidth(GetID())*10000/(2*iSize),0,10000/iSize,-GetDefHeight(GetID())*10000/(2*iSize));
 	//Parallax
@@ -21,6 +21,10 @@ public func Initialize() {
 
 public func IsAchievement() {
 	return true;
+}
+
+public func GetAchievementScore() {
+	return 0;
 }
 
 protected func Fade() {

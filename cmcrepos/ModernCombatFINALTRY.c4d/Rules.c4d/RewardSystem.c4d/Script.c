@@ -2,6 +2,7 @@
 
 #strict 2
 
+static aAchievementProgress;
 local aData, fEvaluation;
 
 public func IsChooseable()	{return true;}
@@ -13,6 +14,7 @@ protected func Initialize()
 {
   aData = CreateArray();
   fEvaluation = false;
+  aAchievementProgress = CreateArray();
 }
 
 protected func Activate(iByPlayer)
@@ -106,6 +108,7 @@ public func UpdatePlayers() {
     if(!aData[iPlr]) aData[iPlr] = CreateArray();
     if(!GetPlayerData(RWDS_PlayerName, iPlr)) SetPlayerData(Format("<c %x>%s</c>", GetPlrColorDw(iPlr), GetPlayerName(iPlr)), RWDS_PlayerName, iPlr);
     if(!GetPlayerData(RWDS_PlayerTeam, iPlr)) SetPlayerData(GetPlayerTeam(iPlr), RWDS_PlayerTeam, iPlr);
+    if(!aAchievementProgress[iPlr]) aAchievementProgress[iPlr] = CreateArray();
   }
 }
 
@@ -150,6 +153,8 @@ public func GetData()
 
 global func AwardAchievement(id idAchievement, int iPlr)
 {
+  if(GetLeague()) return false;
+  if(GetPlayerType(iPlr) != C4PT_User) return false;
   if(!idAchievement->IsAchievement()) return false;
   var iData = GetPlrExtraData(iPlr, "CMC_Achievements");
   if(iData >> idAchievement->GetSavingSlot() & 1) return;
@@ -158,6 +163,32 @@ global func AwardAchievement(id idAchievement, int iPlr)
   CreateObject(idAchievement, 0, 0, iPlr);
   Sound("AchievementGet.ogg", true, 0, 100, iPlr+1);
   return true;
+}
+
+global func ResetAchievementProgress(id idAchievement, int iPlr) {
+	var index = idAchievement->GetSavingSlot();
+  if(aAchievementProgress[iPlr][index]) {
+		aAchievementProgress[iPlr][index] = 0;
+	}
+	return true;
+}
+
+global func DoAchievementProgress(int iProgress, id idAchievement, int iPlr) {
+	var index = idAchievement->GetSavingSlot();
+ 	aAchievementProgress[iPlr][index] += iProgress;
+  if(aAchievementProgress[iPlr][index] >= idAchievement->~GetAchievementScore()) {
+   	ResetAchievementProgress(idAchievement, iPlr);
+  	return AwardAchievement(idAchievement, iPlr);
+  }
+  return true;
+}
+
+global func GetAchievementProgress(id idAchievement, int iPlr) {
+	var index = idAchievement->GetSavingSlot();
+  if(aAchievementProgress[iPlr][index]) {
+		return aAchievementProgress[iPlr][index];
+	}
+	return -1;
 }
 
 /* Punkteanzeige */

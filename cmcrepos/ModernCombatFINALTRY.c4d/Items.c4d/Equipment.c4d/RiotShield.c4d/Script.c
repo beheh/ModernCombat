@@ -151,6 +151,7 @@ private func RemoveShield()
 
 public func DoHit(int iHit)
 {
+  DoAchievementProgress(iHit, AC06, GetController());
   iHits += iHit;
   if(iHits >= 120)
   {
