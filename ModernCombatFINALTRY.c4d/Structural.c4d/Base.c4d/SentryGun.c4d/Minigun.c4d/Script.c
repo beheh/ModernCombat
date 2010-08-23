@@ -8,7 +8,6 @@ public func HandSize()		{return 1000;}
 public func HandX()		{return 7000;}
 public func HandY()		{return 0;}
 public func NoWeaponChoice()	{return true;}
-public func IsMachine()		{return true;}	//Für Killerkennung
 
 
 /* Kugeln - Dauerfeuer */
