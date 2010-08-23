@@ -1046,7 +1046,7 @@ public func SetFireTec(int iFT,int iFM, bool bNoCalls)
   if(IsReloading()) return;
 	if(IsRecharging()) StopAutoFire();
 	RemoveEffect("BurstFire", this);
-	while(GetEffect("Recharge", this)) RemoveEffect("Recharge", this); 
+	if(GetFMData(FM_Auto)) while(GetEffect("Recharge", this)) RemoveEffect("Recharge", this); 
 
   if(!iFM) iFM = firemode;
   if(!GetFMData(FT_Condition,iFM,iFT)) return false;
