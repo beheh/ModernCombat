@@ -606,7 +606,7 @@ public func ControlThrow(caller)
         else //ansonsten normal zuschlagen und schleudern.
         {
           DoDmg(GetMCData(MC_Damage),DMG_Melee,target,0,GetController(GetUser())+1,GetID());
-          ObjectSetAction(GetUser(), "Chop");
+          if(GetProcedure(GetUser()) == "WALK") ObjectSetAction(GetUser(), "Chop");
           var pwr = GetMCData(MC_Power), angle = GetMCData(MC_Angle);
           if(!dir)
            dir--;
