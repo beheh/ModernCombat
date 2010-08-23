@@ -322,9 +322,20 @@ global func FakeDeath(object pTarget)
   
   pTarget->OnFakeDeath();
 
+	//Achievements
+  if(GetKiller(pTarget) != GetOwner(pTarget)) {
+		var data = GetAchievementExtra(AC08, GetKiller(pTarget));
+		if(!data) data = CreateArray();
+		data[GetOwner(pTarget)]++;
+		if(data[GetOwner(pTarget)] >= AC08->GetAchievementScore()) {
+			AwardAchievement(AC08, GetKiller(pTarget));
+		}
+		SetAchievementExtra(data, AC08, GetKiller(pTarget));	
+	}
   if(GetKiller(pTarget) != GetOwner(pTarget))
 	  if(GetProcedure(pTarget) == "FLIGHT" && GetProcedure(GetCursor(GetKiller(pTarget))) == "FLIGHT")
   		DoAchievementProgress(1, AC10, GetKiller(pTarget));
+	if(GBackLiquid()) DoAchievementProgress(1, AC11, GetOwner());
 
   //Fake Death erstellen
   if(WildcardMatch(GetAction(pTarget),"*Crawl*"))
@@ -396,7 +407,16 @@ func Death(object pTarget)
 	if(!pTarget) pTarget = this;
 	if(!pTarget) return;
  
-  if(GBackLiquid()) DoAchievementProgress(1, AC11, GetOwner());
+  if(!IsFakeDeath() && GetKiller(pTarget) != GetOwner(pTarget)) {
+		var data = GetAchievementExtra(AC08, GetKiller(pTarget));
+		if(!data) data = CreateArray();
+		data[GetOwner(pTarget)]++;
+		if(data[GetOwner(pTarget)] >= AC08->GetAchievementScore()) {
+			AwardAchievement(AC08, GetKiller(pTarget));
+		}
+		SetAchievementExtra(data, AC08, GetKiller(pTarget));	
+	}
+  if(!IsFakeDeath()) if(GBackLiquid()) DoAchievementProgress(1, AC11, GetOwner());
   ResetAchievementProgress(AC12, GetOwner());
   
   //Todesnachricht bei keinem FakeDeath
