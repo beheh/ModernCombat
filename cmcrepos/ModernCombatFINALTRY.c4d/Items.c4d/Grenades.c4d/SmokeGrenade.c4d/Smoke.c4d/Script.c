@@ -3,6 +3,7 @@
 #strict 2
 
 local iLifeTime;
+local fSmoking;
 static const SM4K_FadeTime = 175; //5 Sekunden
 
 
@@ -10,6 +11,7 @@ static const SM4K_FadeTime = 175; //5 Sekunden
 
 public func Initialize()
 {
+  fSmoking = true;
   iLifeTime = 35*20+Random(35*5);
   SetCon(5);
   AddEffect("Smoking", this, 25, 2, this);
@@ -27,6 +29,9 @@ public func Timer()
   // Zuende?
   if(GetActTime() > iLifeTime)
    RemoveObject();
+  //Nicht mehr vernebeln?
+  if (GetActTime() > iLifeTime-SM4K_FadeTime/3)
+    fSmoking = false;
   if(GetActTime() > iLifeTime-SM4K_FadeTime) //Rauchen einstellen
    return;
 
@@ -66,6 +71,8 @@ func Spread()
   if(contact & CNAT_Left)
     SetXDir(GetXDir(0,100)+30,0,100);
 }
+
+public func IsSmoking() { return fSmoking; }
 
 /* Kontakt */
 
@@ -108,7 +115,7 @@ global func FxSmokeGrenadeTimer(object pTarget, int iEffectNumber, int iEffectTi
 
   // Sind wir noch im Rauch?
   var smoked = false;
-  for(var smoke in FindObjects(pTarget->Find_AtPoint(), Find_ID(SM4K)))
+  for(var smoke in FindObjects(pTarget->Find_AtPoint(), Find_ID(SM4K), Find_Func("IsSmoking")))
   {
     if(GetCon(smoke)/2 > Distance(GetX(smoke),GetY(smoke),GetX(pTarget),GetY(pTarget)))
     {
