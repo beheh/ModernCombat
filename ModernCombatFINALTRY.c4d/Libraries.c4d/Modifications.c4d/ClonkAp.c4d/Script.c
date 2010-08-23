@@ -396,6 +396,7 @@ func Death(object pTarget)
 	if(!pTarget) pTarget = this;
 	if(!pTarget) return;
  
+  if(GBackLiquid()) DoAchievementProgress(1, AC11, GetOwner());
   ResetAchievementProgress(AC12, GetOwner());
   
   //Todesnachricht bei keinem FakeDeath
