@@ -1,0 +1,19 @@
+[DefCore]
+id=H_MA
+Version=4,9,8,2
+Name=Sentry Gun
+Category=C4D_Object
+Timer=1
+TimerCall=TimerCall
+Width=36
+Height=21
+Offset=-18,-10
+Vertices=1
+VertexX=2
+VertexY=2
+VertexFriction=20
+Value=90
+Mass=170
+Components=METL=6
+Picture=0,24,64,59
+Rotate=1

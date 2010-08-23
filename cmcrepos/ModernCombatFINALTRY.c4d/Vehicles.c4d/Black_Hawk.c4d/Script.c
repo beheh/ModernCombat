@@ -8,7 +8,6 @@
 local throttle,                 //int    - Schub
       rotation,                 //int    - erwartete Drehung
       idle,                     //int    - Motor-Start/Stop Sequenz
-      soundsystem,              //object - für die soundsteuerung
       view_mode;                //bool   - für den Piloten
 
 local hud;                      //object - Anzeige für Pilot
@@ -40,23 +39,6 @@ public func IsMachine() { return 1; }
 public func MaxDamage() { return 300; }
 public func IsBulletTarget() { return 1; }
 
-public func Passengers()
-{
-  var arr = [];
-  if(Pilot)
-    arr[GetLength(arr)] = Pilot;
-  if(Gunner)
-    arr[GetLength(arr)] = Gunner;
-  if(Rocketeer)
-    arr[GetLength(arr)] = Rocketeer;
-  if(Passenger1)
-    arr[GetLength(arr)] = Passenger1;
-  if(Passenger2)
-    arr[GetLength(arr)] = Passenger2;
-  
-  return arr;
-}
-
 
 /* ----- Existenz ----- */
 
@@ -76,6 +58,7 @@ protected func Initialize()
   //Geschütze
   MGStation = CreateObject(H_MA,0,0,GetOwner());
   MGStation -> Set(this);
+  MGStation -> Arm(MISA);
   //RocketStation = CreateObject(HRKS,0,0,GetOwner());
   //RocketStation -> Set(this);
 
@@ -205,9 +188,6 @@ protected func ContainedUpDouble(object ByObj)
     return true;
   }
   
-  //Gunner
-  if (ByObj == Gunner)
-    MGStation->~ControlUpDouble(ByObj);
   //Rocketeer
   if (ByObj == Rocketeer)
     RocketStation->~ControlUpDouble(ByObj);
@@ -226,9 +206,6 @@ protected func ContainedDownDouble(object ByObj)
     if (GetAction()=="Fly") throttle = BoundBy(throttle - throttle_speed*2, 0, 170);
   }
   
-  //Gunner
-  if (ByObj == Gunner)
-    MGStation->~ControlDownDouble(ByObj);
   //Rocketeer
   if (ByObj == Rocketeer)
     RocketStation->~ControlDownDouble(ByObj);
@@ -382,7 +359,7 @@ protected func ContainedDigDouble(object ByObj)
     else
       AddMenuItem("<c 88ff88>$Gunner$</c>", "EnterSeat2",GetID(),ByObj,0,ByObj,"$GunnerSeat$");
     //Raketen-Schütze
-    if(Rocketeer)
+    if(1) //Gesperrt
       AddMenuItem("<c ff8888>$Rocketeer$</c>", "SeatOccupied()",GetID(),ByObj,0,ByObj,"$SeatOccupied$");
     else
       AddMenuItem("<c 88ff88>$Rocketeer$</c>", "EnterSeat3",GetID(),ByObj,0,ByObj,"$RocketeerSeat$");
@@ -420,7 +397,10 @@ private func DeleteActualSeatPassenger(object Obj)
       RemoveObject(hud);
   }
   if(Gunner == Obj)
+  {
     Gunner = 0;
+    MGStation->SetGunner(0);
+  }
   if(Rocketeer == Obj)
     Rocketeer = 0;
   if(Passenger1 == Obj)
@@ -445,7 +425,7 @@ public func EnterSeat2(a, object Obj)
 {
   DeleteActualSeatPassenger(Obj);
   Gunner = Obj;
-  Enter(MGStation,Obj);
+  MGStation->SetGunner(Obj);
   Sound("SwitchHUD", false, this(), 100, GetOwner(Obj)+1);
 
   return 1;
@@ -646,14 +626,14 @@ private func WarningSound()
     if (GetDamage() < MaxDamage()*3/4) 
   {
     //Sound("DamageCritical", false, this());
-    if (!(s_counter%36) && soundsystem)
+    if (!(s_counter%36))
     {
       var obj;
       for (var i; i < ContentsCount(0, this()); i++)
       {
         if (obj = Contents(i, this()))
           if (GetOCF(obj) & OCF_CrewMember)
-           Sound("DamageWarning", false, soundsystem, 100, GetOwner(obj)+1);
+           Sound("DamageWarning", false, 0, 100, GetOwner(obj)+1);
       }
     }
     s_counter++;
@@ -663,7 +643,7 @@ private func WarningSound()
   }
   else
   {
-    if (!(s_counter%20) && soundsystem)
+    if (!(s_counter%20))
     {
       var obj;
       Local(2) = 0;
@@ -671,7 +651,7 @@ private func WarningSound()
       {
         if (obj = Contents(i, this()))
           if (GetOCF(obj) & OCF_CrewMember)
-            Sound("DamageCritical", false, soundsystem, 100, GetOwner(obj)+1);
+            Sound("DamageCritical", false, 0, 100, GetOwner(obj)+1);
 
       }
     }
@@ -726,8 +706,6 @@ protected func EngineStarted()
 {
   Log("%v",this);
   AddEffect("Engine",this,300,1,this,0);
-  soundsystem = CreateObject(H_SS, 0, 0, GetOwner());
-  LocalN("heli", soundsystem) = this;
   throttle = 10;
   rotation =  0;
 }
@@ -736,7 +714,6 @@ protected func EngineStarted()
 protected func StopEngine()
 {
   if (!fuel) PlayerMessage(GetOwner(), "<c ff0000>$MsgNoFuel$</c>", this());
-  if (soundsystem) RemoveObject(soundsystem);
 
   Sound("StopSystem", false, this()); 
   RemoveEffect("Engine",this());
