@@ -253,6 +253,8 @@ public func IsFulfilled() {
 		}
 	  Schedule("GameOver()", 150);
 	  RewardEvaluation();
+	  Message("@$TeamHasWon$", 0, GetTeamColor(i), GetTeamName(i));
+	  Sound("Cheer.ogg", true);
 	  return true;
     }
 }
