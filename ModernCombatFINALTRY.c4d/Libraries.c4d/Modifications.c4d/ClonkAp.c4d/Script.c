@@ -407,15 +407,7 @@ func Death(object pTarget)
 	if(!pTarget) pTarget = this;
 	if(!pTarget) return;
  
-  if(!IsFakeDeath() && GetKiller(pTarget) != GetOwner(pTarget)) {
-		var data = GetAchievementExtra(AC08, GetKiller(pTarget));
-		if(!data) data = CreateArray();
-		data[GetOwner(pTarget)]++;
-		if(data[GetOwner(pTarget)] >= AC08->GetAchievementScore()) {
-			AwardAchievement(AC08, GetKiller(pTarget));
-		}
-		SetAchievementExtra(data, AC08, GetKiller(pTarget));	
-	}
+	ResetAchievementExtra(AC08, GetOwner(pTarget));
   if(!IsFakeDeath()) if(GBackLiquid()) DoAchievementProgress(1, AC11, GetOwner());
   ResetAchievementProgress(AC12, GetOwner());
   
