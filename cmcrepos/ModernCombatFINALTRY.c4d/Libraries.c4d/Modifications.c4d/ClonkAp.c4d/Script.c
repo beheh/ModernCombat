@@ -323,7 +323,7 @@ global func FakeDeath(object pTarget)
   pTarget->OnFakeDeath();
 
   if(GetKiller(pTarget) != GetOwner(pTarget))
-	  if(GetProcedure(pTarget) == "FLIGHT" && GetProcedure(GetCursor(GetKiller(pTarget))) == "FLIGHT") {
+	  if(GetProcedure(pTarget) == "FLIGHT" && GetProcedure(GetCursor(GetKiller(pTarget))) == "FLIGHT")
   		DoAchievementProgress(1, AC10, GetKiller(pTarget));
 
   //Fake Death erstellen
