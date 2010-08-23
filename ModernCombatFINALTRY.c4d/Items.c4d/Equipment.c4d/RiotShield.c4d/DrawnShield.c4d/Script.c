@@ -40,7 +40,7 @@ public func ExecShove()
 
   //Schwingeffekt
   AddEffect("Shove",this,10,ShoveTime(),this);
-  Sound("ClonkAction*.ogg",target);
+  Sound("ClonkMelee*.ogg",target);
 
   var px,py,dx,dy;
   if(target)
@@ -154,7 +154,7 @@ public func OnHit(int iDamage, int iType, object pFrom)
 {
   if(Hostile(GetController(pFrom), GetController())) item->DoHit(iDamage);
   //Effekte
-  Sound("BlockOff*.ogg");
+  Sound("MetalHit*.ogg");
   if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("Glas", 1+Random(3), 40, 0,0, 40,10, RGBa(200,200,200), RGBa(2,2,200));
   if(GetEffectData(EFSM_ExplosionEffects) > 0) if(!Random(5)) Sparks(Random(2)+6,RGB(255,255,Random(5)+255));
 }

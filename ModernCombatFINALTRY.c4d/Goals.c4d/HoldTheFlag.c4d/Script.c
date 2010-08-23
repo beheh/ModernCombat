@@ -50,7 +50,7 @@ private func ChangeWinpoints(id dummy, int iChange) {
   //Stand verändern
   iGoal = BoundBy(iGoal+iChange,1,100); //100 ist Maximum.
   //Geräusch
-  Sound("Grab", 1,0,0,1);
+  Sound("PointGet.ogg", 1,0,0,1);
   //Menü wieder öffnen
   var iSel = 1;
   if(iChange == -1) iSel = 2;
