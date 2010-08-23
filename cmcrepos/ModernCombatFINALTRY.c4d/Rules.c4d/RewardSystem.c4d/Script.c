@@ -2,7 +2,7 @@
 
 #strict 2
 
-static aAchievementProgress;
+static aAchievementProgress, aAchievementExtra;
 local aData, fEvaluation;
 
 public func IsChooseable()	{return true;}
@@ -15,6 +15,7 @@ protected func Initialize()
   aData = CreateArray();
   fEvaluation = false;
   aAchievementProgress = CreateArray();
+  aAchievementExtra = CreateArray();
 }
 
 protected func Activate(iByPlayer)
@@ -109,6 +110,7 @@ public func UpdatePlayers() {
     if(!GetPlayerData(RWDS_PlayerName, iPlr)) SetPlayerData(Format("<c %x>%s</c>", GetPlrColorDw(iPlr), GetPlayerName(iPlr)), RWDS_PlayerName, iPlr);
     if(!GetPlayerData(RWDS_PlayerTeam, iPlr)) SetPlayerData(GetPlayerTeam(iPlr), RWDS_PlayerTeam, iPlr);
     if(!aAchievementProgress[iPlr]) aAchievementProgress[iPlr] = CreateArray();
+    if(!aAchievementExtra[iPlr]) aAchievementExtra[iPlr] = CreateArray();
   }
 }
 
@@ -123,6 +125,7 @@ static const RWDS_MinusPoints = 5;
 
 global func DoPlayerPoints(int iPoints, int iType, int iPlr, object pClonk, id idIcon)
 {
+	DoAchievementProgress(iPoints, AC13, iPlr);
   var db = FindObject2(Find_ID(RWDS));
   if(!db) return;
   if(!iPoints) return;
@@ -153,6 +156,7 @@ public func GetData()
 
 global func AwardAchievement(id idAchievement, int iPlr)
 {
+	if(!FindObject(RWDS)) return;
   if(GetLeague()) return false;
   if(GetPlayerType(iPlr) != C4PT_User) return false;
   if(!idAchievement->IsAchievement()) return false;
@@ -166,6 +170,7 @@ global func AwardAchievement(id idAchievement, int iPlr)
 }
 
 global func ResetAchievementProgress(id idAchievement, int iPlr) {
+	if(!FindObject(RWDS)) return;
 	var index = idAchievement->GetSavingSlot();
   if(aAchievementProgress[iPlr][index]) {
 		aAchievementProgress[iPlr][index] = 0;
@@ -174,6 +179,7 @@ global func ResetAchievementProgress(id idAchievement, int iPlr) {
 }
 
 global func DoAchievementProgress(int iProgress, id idAchievement, int iPlr) {
+	if(!FindObject(RWDS)) return;
 	var index = idAchievement->GetSavingSlot();
  	aAchievementProgress[iPlr][index] += iProgress;
   if(aAchievementProgress[iPlr][index] >= idAchievement->~GetAchievementScore()) {
@@ -184,11 +190,35 @@ global func DoAchievementProgress(int iProgress, id idAchievement, int iPlr) {
 }
 
 global func GetAchievementProgress(id idAchievement, int iPlr) {
+	if(!FindObject(RWDS)) return;
 	var index = idAchievement->GetSavingSlot();
   if(aAchievementProgress[iPlr][index]) {
 		return aAchievementProgress[iPlr][index];
 	}
-	return -1;
+	return 0;
+}
+
+global func ResetAchievementExtraData(id idAchievement, int iPlr) {
+	if(!FindObject(RWDS)) return;
+	var index = idAchievement->GetSavingSlot();
+ 	aAchievementExtra[iPlr][index] = 0;
+	return true;
+}
+
+global func SetAchievementExtraData(data, id idAchievement, int iPlr) {
+	if(!FindObject(RWDS)) return;
+	var index = idAchievement->GetSavingSlot();
+ 	aAchievementExtra[iPlr][index] = data;
+	return true;
+}
+
+global func GetAchievementExtraData(id idAchievement, int iPlr) {
+	if(!FindObject(RWDS)) return;
+	var index = idAchievement->GetSavingSlot();
+  if(aAchievementExtra[iPlr][index]) {
+		return aAchievementExtra[iPlr][index];
+	}
+	return false;
 }
 
 /* Punkteanzeige */
