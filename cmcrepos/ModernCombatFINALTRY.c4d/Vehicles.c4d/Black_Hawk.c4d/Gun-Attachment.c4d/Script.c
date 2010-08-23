@@ -9,6 +9,7 @@ local pController;
 local last_id;
 local iPat_Dir;
 local heli,vis;
+local Crosshair;
 
 public func GetAttWeapon()	{return cur_Attachment;}		//Waffe
 public func MaxRotLeft()	{return 100+GetR();}			//Maximaler Winkel links
@@ -33,6 +34,12 @@ public func SetGunner(pObj)
   cur_Attachment->~StopAutoFire();
   SetController(GetOwner(pObj));
   iPat_Dir = 0;
+  
+  //Zielen
+  if(!pObj)
+    EndAim();
+  else
+    InitAim();
 }
 
 public func Arm(id idWeapon)
@@ -163,6 +170,10 @@ public func TimerCall()
   	aim_angle += iPat_Dir*2;
   }
   
+  //Crosshair nachziehen
+  if(Crosshair)
+    Crosshair->SetAngle(AimAngle());
+  
   /* Ans Heli anpassen */
   
   //nur sichtbar, wenn nicht drehend
@@ -204,6 +215,24 @@ private func Reload()
   GetAttWeapon()->~Reloaded(this);
   GetAttWeapon()->~Recharge();
   GetAttWeapon()->~StopAutoFire();
+}
+
+/* Zielzeug */
+
+private func InitAim()
+{
+	if(Crosshair)
+		RemoveObject(Crosshair);
+	
+	Crosshair = CreateObject(HCRH); // Owner wird in Init gesetzt
+	Crosshair->Init(this());
+	Crosshair->SetAngle(AimAngle());
+} 
+
+private func EndAim()
+{
+	if(Crosshair)
+		RemoveObject(Crosshair);
 }
 
 

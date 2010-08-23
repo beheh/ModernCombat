@@ -348,6 +348,7 @@ protected func ContainedDigDouble(object ByObj)
   [$CtrlDigD$]
   CreateMenu(GetID(),ByObj,this(),0,"$Seats$",0,1);
     //Ausstieg
+    AddMenuItem("Exit", "ExitClonk",DOOR,ByObj,0,ByObj,"Bringt den Clonk dazu auszusteigen.");
     //Pilot
     if(Pilot)
       AddMenuItem("<c ff8888>Pilot</c>", "SeatOccupied()",GetID(),ByObj,0,ByObj,"$SeatOccupied$");
@@ -377,10 +378,15 @@ protected func ContainedDigDouble(object ByObj)
   return 1;
 }
 
+private func ExitClonk(a,ByObj)
+{
+  SetCommand(ByObj,"Exit");
+  Message("OMGZ, no rope!",ByObj);
+}
+
 //Sitz besetzt?
 private func SeatOccupied(a,ByObj)
 {
-  Log("%v %v",a,ByObj);
   PlayerMessage(GetOwner(ByObj),"$SeatOccupied$",ByObj);
   Sound("Error",0,0,0,GetOwner(ByObj)+1);
   ContainedDigDouble(ByObj);
@@ -413,7 +419,6 @@ private func DeleteActualSeatPassenger(object Obj)
 //Sitz belegen
 public func EnterSeat1(a, object Obj)
 {
-  Log("%v %v",a,Obj);
   DeleteActualSeatPassenger(Obj);
   Pilot = Obj;
   Sound("SwitchHUD", false, this(), 100, GetOwner(Obj)+1);
@@ -584,6 +589,11 @@ protected func RejectCollect(id ID, object ByObj)
 //für Warnsounds und Grafik zuständig
 protected func TimerCall()
 {
+  //Langsam absinken, falls kein Pilot da.
+  if(!Pilot)
+    if(throttle)
+      throttle--;
+      
   //unter Wasser stirbt der Motor ab
   Water();
 
