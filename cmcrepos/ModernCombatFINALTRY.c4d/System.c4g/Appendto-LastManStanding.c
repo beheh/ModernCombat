@@ -39,3 +39,16 @@ private func InitScoreboard()
   }
   return _inherited();
 }
+
+//Auswertung
+
+local rewarded;
+
+public func IsFulfilled() {
+  if (_inherited(...)) {
+    if (!rewarded)
+      RewardEvaluation();
+    rewarded = true;
+	return true;
+  }
+}
