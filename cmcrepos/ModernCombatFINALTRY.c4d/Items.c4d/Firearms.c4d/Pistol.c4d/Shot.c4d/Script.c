@@ -4,7 +4,7 @@
 
 local iTime, lx, ly, pTrail, iDamage,speed,max_dst,dst,fb;
 local shooter,wpnid; // Dingens/Clonk das den Schuss abgefeuert hat.
-
+local redfact;
 
 func Construction(object byObj)
 {
@@ -21,6 +21,13 @@ func Construction(object byObj)
   //Team?
   if(shooter->GetTeam())
   	SetTeam(shooter->GetTeam());
+  
+  if(GetOwner(shooter) != NO_OWNER && !GetLeague() && FindObject(RWDS)) {
+	  redfact = 1000/Max(GetPlayerPoints(RWDS_TotalPoints, GetOwner(shooter))/400, 1);
+  }
+  else {
+		redfact = 1000;
+	}
 }
 
 public func Initialize()
@@ -400,18 +407,18 @@ public func BulletStrike(object pObj)
 private func Color(int iATime)
 {
   var iPrg = 100*iATime/iTime;
-  return RGBa(255,255-iPrg*2,255-iPrg*2,iPrg*2);
+  return RGBa(255,Max(255-iPrg*1000/redfact,0),Max(255-iPrg*1000/redfact,0),iPrg*2);
 }
 
 public func TrailColor(int iATime)
 {
   var iPrg = 100*iATime/iTime;
-  return RGBa(255,255-iPrg*2,255-iPrg*2,iPrg*2);
+  return RGBa(255,Max(255-iPrg*2*1000/redfact,0),Max(255-iPrg*1000/redfact,0),iPrg*2);
 }
 
 public func GlowColor(int iATime)
 {
-  return RGBa(255,190,0,50);
+  return RGBa(255,Max(190*redfact/1000,0),0,50);
 }
 
 // Dummy-func
