@@ -291,6 +291,7 @@ public func FxFAPGrouphealTimer(pTarget, iEffectNumber, iEffectTime)
    else
    {
     DoEnergy(heal, clonk);
+    DoAchievementProgress(heal, AC02, GetOwner(Contained()));
     healed += heal;
     clonk->CreateParticle("ShockWave",0,0,0,0,5*GetObjHeight(clonk)+5*5,RGB(210,20,20),clonk);
     clonk->CreateParticle("ShockWave",0,0,0,0,5*GetObjHeight(clonk)+10*5,RGB(210,20,120),clonk);

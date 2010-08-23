@@ -327,10 +327,12 @@ public func FlagCaptured(object pFlag, int iTeam, array pAttackers, bool fRegain
     for(var pClonk in pAttackers)  {
       if(!i) {
         DoPlayerPoints(BonusPoints("OPConquer"), RWDS_TeamPoints, GetOwner(pClonk), pClonk, IC10);
+        DoAchievementProgress(1, AC07, GetOwner(pClonk));
         DoWealth(GetOwner(pClonk), 30);
       }
       else {
         DoPlayerPoints(BonusPoints("OPAssist"), RWDS_TeamPoints, GetOwner(pClonk), pClonk, IC13);
+        DoAchievementProgress(1, AC07, GetOwner(pClonk));
         DoWealth(GetOwner(pClonk), 20);
       }
       i++;
