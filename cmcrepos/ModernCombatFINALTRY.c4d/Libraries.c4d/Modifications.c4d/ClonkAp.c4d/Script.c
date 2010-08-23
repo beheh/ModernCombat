@@ -322,9 +322,9 @@ global func FakeDeath(object pTarget)
   
   pTarget->OnFakeDeath();
 
-  if(GetProcedure(pTarget) == "FLIGHT" && GetProcedure(GetCursor(GetKiller(pTarget))) == "FLIGHT") {
-  	DoAchievementProgress(1, AC10, GetKiller(pTarget));
-  }
+  if(GetKiller(pTarget) != GetOwner(pTarget))
+	  if(GetProcedure(pTarget) == "FLIGHT" && GetProcedure(GetCursor(GetKiller(pTarget))) == "FLIGHT") {
+  		DoAchievementProgress(1, AC10, GetKiller(pTarget));
 
   //Fake Death erstellen
   if(WildcardMatch(GetAction(pTarget),"*Crawl*"))
