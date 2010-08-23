@@ -78,6 +78,7 @@ protected func FxIntAddProgressTimer() {
   }
 
   //Punkte vergeben
+  var warning = BoundBy(iGoal*3/4, iGoal-5, iGoal-1);
   if ((++iProgress) >= 100) {
     aTeamPoints[team]++;
 	iProgress = 0;
@@ -87,6 +88,10 @@ protected func FxIntAddProgressTimer() {
 	    DoPlayerPoints(10, 12, GetPlayerByIndex(i), GetCrew(GetPlayerByIndex(i)), IC12);
 		Sound("Info.ogg", true, 0, 0, GetPlayerByIndex(i)+1);
 	  }
+	  //Die anderen warnen falls nötig
+	  else
+	    if (aTeamPoints[team] == warning)
+		  EventInfo4K(GetPlayerByIndex(i)+1, Format("$TeamReachingGoal$", GetTaggedTeamName(team), GetTeamColor(team), iGoal-warning), GHTF, 0, 0, 0, "Alarm.ogg");
   }
   
   //Gewonnen?

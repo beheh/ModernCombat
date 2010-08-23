@@ -3,3 +3,4 @@ LessPoints=Weniger Punkte
 Finished=Fertig
 MsgFlagLost=Flaggenposten <c ffff33>%s</c> an Team <c %x>%s</c> verloren
 MsgCaptured=Team <c %x>%s</c> kontrolliert Flaggenposten <c ffff33>%s</c>
+TeamReachingGoal=Team %s fehlen nur noch <c %x>%d</c> Punkte zum Sieg! Beeilung!
