@@ -198,21 +198,21 @@ global func GetAchievementProgress(id idAchievement, int iPlr) {
 	return 0;
 }
 
-global func ResetAchievementExtraData(id idAchievement, int iPlr) {
+global func ResetAchievementExtra(id idAchievement, int iPlr) {
 	if(!FindObject(RWDS)) return;
 	var index = idAchievement->GetSavingSlot();
  	aAchievementExtra[iPlr][index] = 0;
 	return true;
 }
 
-global func SetAchievementExtraData(data, id idAchievement, int iPlr) {
+global func SetAchievementExtra(data, id idAchievement, int iPlr) {
 	if(!FindObject(RWDS)) return;
 	var index = idAchievement->GetSavingSlot();
  	aAchievementExtra[iPlr][index] = data;
 	return true;
 }
 
-global func GetAchievementExtraData(id idAchievement, int iPlr) {
+global func GetAchievementExtra(id idAchievement, int iPlr) {
 	if(!FindObject(RWDS)) return;
 	var index = idAchievement->GetSavingSlot();
   if(aAchievementExtra[iPlr][index]) {
