@@ -28,7 +28,10 @@ public func GetAchievementScore() {
 }
 
 protected func Fade() {
-	if(!iTime && FindObject2(Find_Func("IsAchievement"), Find_Exclude(), Find_Owner(GetOwner()))) return;
+	if(!iTime)
+		for(var ach in FindObjects(Find_Func("IsAchievement"), Find_Exclude(), Find_Owner(GetOwner())))
+			if(ach->IsRunning())
+				return;
 	iTime++;
 	if(iTime < 1*32) {
 		SetClrModulation(RGBa(255,255,255,255-(iTime*8)));
@@ -51,4 +54,8 @@ protected func Fade() {
 protected func Desc(int alpha) {
 	CustomMessage(Format("@<c %x>%s</c>", RGBa(255,255,255,255-alpha),szDesc), this, GetOwner(), (GetDefWidth(GetID())*10/(2*2*iSize)), (GetDefHeight(GetID())*10/(2*iSize))+115, 0, 0, 0, MSG_NoLinebreak);
 	return true;
+}
+
+protected func IsRunning() {
+	return iTime > 0;
 }
