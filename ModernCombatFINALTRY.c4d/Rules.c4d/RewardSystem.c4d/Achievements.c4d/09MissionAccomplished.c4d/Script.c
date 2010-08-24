@@ -11,5 +11,10 @@ public func GetSavingSlot()
 
 public func GetAchievementScore()
 {
-  return 7;	//Benötigte Punktzahl einfügen
+  return 0;	//Benötigte Punktzahl einfügen
+}
+
+
+public func GetIDs() {
+	return [ASTR, MNGN, PSTL, RTLR, PPGN, SGST, SMGN];
 }

@@ -1030,7 +1030,14 @@ public func GetReanimationTarget(pFrom, &body, &defi, fUnderAttack) {
 	if(fUnderAttack) distance = 50;
 	body = FindObject2(Find_Func("IsFakeDeath"), Find_Category(C4D_Living), Find_Distance(distance, AbsX(GetX(pFrom)), AbsY(GetY(pFrom))), Find_Allied(GetOwner(pFrom)), Sort_Distance(AbsX(GetX(pFrom)), AbsY(GetY(pFrom))));
 	if(body) {
-		defi = FindObject2(Find_ID(CDBT), Find_Or(Find_Container(Contained(body)), Find_Container(pFrom), Find_NoContainer()), Find_Func("Ready"), Find_Distance(distance, AbsX(GetX(pFrom)), AbsY(GetY(pFrom))), Sort_Distance(AbsX(GetX(pFrom)), AbsY(GetY(pFrom))));
+		if(ContentsCount(CDBT, pFrom)) {
+			defi = FindObject2(Find_ID(CDBT), Find_Container(pFrom));
+			if(!defi->~Ready()) {
+				pFrom->~DropObject(defi);
+				defi = false;
+			}
+		}
+		if(!defi) defi = FindObject2(Find_ID(CDBT), Find_Or(Find_Container(Contained(body)), Find_Container(pFrom), Find_NoContainer()), Find_Func("Ready"), Find_Distance(distance, AbsX(GetX(pFrom)), AbsY(GetY(pFrom))), Sort_Distance(AbsX(GetX(pFrom)), AbsY(GetY(pFrom))));
 		if(defi) {
 			return true;
 		}
@@ -1048,7 +1055,6 @@ public func FxAggroTimer(object pTarget, int no)
 	if(body) {
 		if(IsAiming()) StopAiming();
 		if(Contents() == defi && GetProcedure(pTarget) && ObjectDistance(body, pTarget) < 10) {
-			if(GetProcedure(pTarget) == "PUST") SetAction("Walk");
 			ScheduleCall(defi, "Activate", 1, 0, pTarget);
 		}
 		else {
@@ -1059,11 +1065,14 @@ public func FxAggroTimer(object pTarget, int no)
 				ShiftContents(pTarget, 0, CDBT);
 			}
 			else {
-				SetCommand(pTarget, "MoveTo", body);
+				//SetCommand(pTarget, "MoveTo", body);
+				SetMacroCommand(pTarget, "MoveTo", body, 0,0,0, EffectVar(0, pTarget, no));
 			}
-			//SetMacroCommand(pTarget, "MoveTo", body, 0,0,0, pTarget->GetAggroLevel());
 			return(1);
 		}
+	}
+	else {
+	  AddMacroCommand(0, "MoveTo", 0, EffectVar(3, this(), no),EffectVar(4, this(), no), 0, EffectVar(0, this(), no));
 	}
 	// Verletzt?
 	if(!pTarget->~IsHealing() && pTarget->GetEnergy() < pTarget->GetPhysical("Energy") * 2/3 / 1000) {
@@ -1077,8 +1086,10 @@ public func FxAggroTimer(object pTarget, int no)
 		var pDragnin = FindObject2(Find_ID(DGNN), Find_Container(pTarget));
 			if(pDragnin) pDragnin->Activate(pTarget);
 	}
+	// Okay - und sonst noch wer in meiner Nähe stark verletzt?
+	
   // Wir haben ein Ziel?
-  if(EffectVar(1, this(), no) && (pTarget->~GetSpread() < 30 || ObjectDistance(pTarget, EffectVar(1, this(), no))) < 50) { EffectCall(this(), no, "Fire"); return(1); }
+  if(EffectVar(1, this(), no) && (pTarget->~GetSpread() < 80 || ObjectDistance(pTarget, EffectVar(1, this(), no))) < 30) { EffectCall(this(), no, "Fire"); return(1); }
   // Zielen beenden
   if(IsAiming()) StopAiming();
 //  Message("@No target", this());
@@ -1106,7 +1117,6 @@ public func FxAggroTimer(object pTarget, int no)
     }
     // -> Waffen durchchecken
     CheckIdleWeapon();
-    CheckInventory();
     return;
   }
   // Super
