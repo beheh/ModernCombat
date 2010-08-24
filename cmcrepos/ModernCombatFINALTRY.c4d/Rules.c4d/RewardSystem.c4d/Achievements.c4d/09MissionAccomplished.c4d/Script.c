@@ -16,5 +16,5 @@ public func GetAchievementScore()
 
 
 public func GetIDs() {
-	return [ASTR, MNGN, PSTL, RTLR, PPGN, SGST, SMGN];
+	return [ASTR, MNGN, PSTL, PPGN, SMGN];
 }
