@@ -336,7 +336,7 @@ global func FakeDeath(object pTarget)
 		if(data[GetOwner(pTarget)] >= AC08->GetAchievementScore()) {
 			AwardAchievement(AC08, GetKiller(pTarget));
 		}
-		SetAchievementExtra(data, AC08, GetKiller(pTarget));	
+		SetAchievementExtra(data, AC08, GetKiller(pTarget));
 	}
 	if(Hostile(GetKiller(pTarget), GetOwner(pTarget))) {
 		var killicon = pTarget->~KillIcon();
@@ -431,9 +431,17 @@ func Death(object pTarget)
 	if(!pTarget) pTarget = this;
 	if(!pTarget) return;
  
+	//Achievements
 	ResetAchievementExtra(AC08, GetOwner(pTarget));
+	var data = GetAchievementExtra(AC08, GetKiller(pTarget));
+	if(!data) data = CreateArray();
+	data[GetOwner(pTarget)] = 0;
+	if(data[GetOwner(pTarget)] >= AC08->GetAchievementScore()) {
+		AwardAchievement(AC08, GetKiller(pTarget));
+	}
+	SetAchievementExtra(data, AC08, GetKiller(pTarget));
   if(!IsFakeDeath()) if(GBackLiquid()) DoAchievementProgress(1, AC11, GetOwner());
-  ResetAchievementProgress(AC12, GetOwner());
+	ResetAchievementProgress(AC12, GetOwner());
   
   //Todesnachricht bei keinem FakeDeath
   if(FindObject(NOFD))
