@@ -26,6 +26,10 @@ public func GetUser()
   return Contained();
 }
 
+public func Ready() {
+	return charge >= 10;
+}
+
 /* Akkuregeneration */
 
 public func Timer()
@@ -235,4 +239,8 @@ protected func Hit()
 protected func Selection()
 {
   Sound("CDBT_Charge.ogg");
+}
+
+public func AI_Inventory(object pClonk) {
+	return true;
 }

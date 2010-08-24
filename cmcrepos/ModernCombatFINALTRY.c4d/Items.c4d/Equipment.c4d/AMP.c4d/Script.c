@@ -225,3 +225,7 @@ protected func Selection()
   Sound("FAPK_Charge.ogg");
   return 1;
 }
+
+public func AI_Inventory(object pClonk) {
+	return 1;
+}
