@@ -42,7 +42,7 @@ public func CheckChange()
 {
 	if(GetUser()) {
 		//Anti-Umfall-Zwischenspeicher-Hack
-		if(GetAction(GetUser()) == "Tumble") {
+		if(GetAction(GetUser()) == "Tumble" && this == Contents(0, GetUser())) {
 			ObjectSetAction(GetUser(), "Walk");
 			SetDir(iPrevDir, GetUser());
 			if(fAiming) {
