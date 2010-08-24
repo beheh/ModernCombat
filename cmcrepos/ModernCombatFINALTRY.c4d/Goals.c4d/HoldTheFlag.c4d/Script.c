@@ -116,7 +116,13 @@ global func GetTaggedTeamName(int iTeam) {
   return Format("<c %x>%s</c>", GetTeamColor(iTeam), GetTeamName(iTeam));
 }
 
-protected func RelaunchPlayer(int iPlr, object pCrew, int iMurdererPlr, int iTeam, no_relaunch) {
+protected func RelaunchPlayer(int iPlr, object pCrew, int iKiller, int iTeam, no_relaunch) {
+  //Selbstmord
+  if (iPlr == iKiller || iKiller == -1) DoWealth(iPlr, -30);
+  //Teamkill
+  else if (GetPlayerTeam(iPlr) == GetPlayerTeam(iKiller)) DoWealth(iKiller, -50);
+  //Gegner
+  else if (GetPlayerTeam(iPlr) != GetPlayerTeam(iKiller)) DoWealth(iKiller, 50);
   if(!FindObject(CHOS) && !FindObject(MCSL))
     CreateGOCCSpawner(pCrew);
 }
@@ -169,7 +175,7 @@ public func FlagLost(object pFlagPole, int iOldTeam, int iNewTeam, array aAttack
   //Eventmessages
   for (var i; i < GetPlayerCount(); i++)
     if (GetPlayerTeam(GetPlayerByIndex(i)) == iOldTeam)
-	  EventInfo4K(GetPlayerByIndex(i), Format("$MsgFlagLost$", GetName(pFlag), GetTeamColor(iNewTeam), GetTeamName(iNewTeam)), OFLG, 0, GetTeamColor(iNewTeam), 0, "Info.ogg");
+	  EventInfo4K(GetPlayerByIndex(i)+1, Format("$MsgFlagLost$", GetName(pFlag), GetTeamColor(iNewTeam), GetTeamName(iNewTeam)), OFLG, 0, GetTeamColor(iNewTeam), 0, "Info.ogg");
 }
 
 public func FlagCaptured(object pFlagPole, int iTeam, array aAttackers, bool fRegained) {
@@ -207,7 +213,7 @@ public func UpdateScoreboard() {
     return;
 	
   //Titelzeile
-  SetScoreboardData(SBRD_Caption, GHTF_Name, Format("%s (%d)", GetName(), iGoal));
+  SetScoreboardData(SBRD_Caption, GHTF_Name, Format("%d $Points$", iGoal));
   SetScoreboardData(SBRD_Caption, GHTF_Points, "{{GHTF}}");
   SetScoreboardData(SBRD_Caption, GHTF_Progress, "{{OFPL}}");
   
