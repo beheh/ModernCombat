@@ -344,7 +344,12 @@ global func FakeDeath(object pTarget)
 			var wpn = GetAchievementExtra(AC09, GetKiller(pTarget));
 			if(!wpn) wpn = CreateArray();
 			wpn[FindInArray4K(AC09->GetIDs(), killicon)] = true;
-			if(GetLength(wpn) >= GetLength(AC09->GetIDs())) {
+			var i = 0, count = 0;
+			while(i <= GetLength(AC09->GetIDs())-1) {
+				if(wpn[i]) count++;
+				i++;
+			}
+			if(count >= GetLength(AC09->GetIDs())) {
 				AwardAchievement(AC09, GetKiller(pTarget));
 			}
 			SetAchievementExtra(wpn, AC09, GetKiller(pTarget));

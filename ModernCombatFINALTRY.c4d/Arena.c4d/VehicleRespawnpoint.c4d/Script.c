@@ -176,7 +176,7 @@ global func FxIntVehicleUnusedTimer(object pTarget, int iEffectNumber, id idType
     var pCommanders = FindObjects(Find_ActionTarget(GetActionTarget(0, pTarget)), Find_OCF(OCF_Alive));
     var remove = false;
     for(var pCommander in pCommanders) {
-      var iDistance = Distance(GetX(pCommander), GetY(pCommander), GetX(GetActionTarget(0, pTarget)), GetY(GetActionTarget(0, pTarget)));
+      var iDistance = ObjectDistance(pCommander, GetActionTarget(0, pTarget));
       if(iDistance < 50) {
         remove = true;
         break;
