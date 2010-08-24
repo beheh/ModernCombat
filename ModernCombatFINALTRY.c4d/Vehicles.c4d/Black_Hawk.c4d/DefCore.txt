@@ -1,9 +1,9 @@
 [DefCore]
 id=H_HE
-Name=Black Hawk
+Name=Blackhawk
 Category=260
 Version=4,9,5
-Picture=0,240,240,90
+Picture=0,240,176,59
 Offset=-60,-30
 Vertices=13
 Width=120
