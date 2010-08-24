@@ -1,9 +1,0 @@
-TxtConnect=Seil an %s knoten
-TxtTieUp=%s fesseln
-TxtPickUp=Seil abnehmen
-TxtPickUpHook=Enterhaken freirütteln
-TxtPickUpImpossible=Nur am angeknoteten Objekt möglich!
-TxtExtend=Seil geben
-TxtPull=Seil ziehen
-TxtHold=Seil festhalten
-TxtWinch=Es ist schon ein Seil auf der Seilwinde!

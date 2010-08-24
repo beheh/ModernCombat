@@ -1,3 +1,0 @@
-The pulley of a rope. 'Dig double' for knot the rope to an object or change the rope length.
-
-With the control keys the clonk can climb or rope down.
