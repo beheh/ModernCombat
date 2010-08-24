@@ -1,6 +1,0 @@
-[DefCore]
-id=H_00
-Name=Global Scripts
-Category=1
-Version=4,9,5
-Picture=0,0,35,35
