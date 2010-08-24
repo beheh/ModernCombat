@@ -36,8 +36,21 @@ static const max_rotation = 30; //int    - stärkste erlaubte Neigung
 /* ----- Callbacks ----- */
 
 public func IsMachine() { return 1; }
-public func MaxDamage() { return 300; }
-public func IsBulletTarget() { return 1; }
+public func MaxDamage() { return 200; }
+
+//Ha, einfacher und effektiver
+public func IsBulletTarget(id idBullet, object pBullet)
+{
+  if(idBullet == MISS || idBullet == HMIS || idBullet == ROKT || idBullet == ESHL)
+  {
+    if(ObjectDistance(pBullet) < 40)
+      return 1;
+    else
+      return 0;
+  }
+  
+  return 1;
+}
 
 
 /* ----- Existenz ----- */
@@ -533,8 +546,8 @@ public func OnDmg(int iDmg, int iType) {
 	if(iType == DMG_Bio)		return(100);
 	if(iType == DMG_Melee)		return(80);
 	if(iType == DMG_Fire)		return(50);
-	if(iType == DMG_Explosion)	return(-30);
-	if(iType == DMG_Projectile)	return(70);
+	if(iType == DMG_Explosion)	return(-50);
+	if(iType == DMG_Projectile)	return(80);
 	
 	return(50);
 }
@@ -755,10 +768,9 @@ private func DrawFire()
 
 private func Water()
 {
-  if (GBackLiquid(0,10) && GetEffect("Engine", this()))
+  if (GBackLiquid(0,10) )
   {
     DoDamage(5);
-    SetAction("EngineShutDown");
   }  
 }
 
