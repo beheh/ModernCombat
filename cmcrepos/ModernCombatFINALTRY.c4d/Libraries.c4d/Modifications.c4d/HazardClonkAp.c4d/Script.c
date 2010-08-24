@@ -5,6 +5,12 @@
 
 local crosshair;
 local aCollected;
+local HUDTarget;
+
+public func SetHUDTarget(pTarget)
+{
+  HUDTarget = pTarget;
+}
 
 protected func Control2Grab(string command)
 {
@@ -365,6 +371,13 @@ public func UpdateCharge()
   if(GetAction() == "Push")
   	if(GetActionTarget()->~IsWeapon())
   		Content = GetActionTarget();
+  // ggf. an Gebäude/Fahrzeug weiterleten
+  if(Contained())
+  	if(Contained()->~IsWeapon())
+  		Content = Contained();
+  // ggf. speziell zugewiesenes Objekt
+  if(HUDTarget)
+    Content = HUDTarget;
 
   // HUD
   var hud = GetHUD();

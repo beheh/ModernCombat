@@ -36,7 +36,7 @@ static const max_rotation = 30; //int    - stärkste erlaubte Neigung
 /* ----- Callbacks ----- */
 
 public func IsMachine() { return 1; }
-public func MaxDamage() { return 300; }
+public func MaxDamage() { return 200; }
 public func IsBulletTarget() { return 1; }
 
 
@@ -57,10 +57,11 @@ protected func Initialize()
   
   //Geschütze
   MGStation = CreateObject(H_MA,0,0,GetOwner());
-  MGStation -> Set(this);
-  MGStation -> Arm(MISA);
-  //RocketStation = CreateObject(HRKS,0,0,GetOwner());
-  //RocketStation -> Set(this);
+  MGStation -> Set(this,10,90,90,270);
+  MGStation -> Arm(HMSA);
+  RocketStation = CreateObject(H_MA,0,0,GetOwner());
+  RocketStation -> Set(this,40,10,210,270);
+  RocketStation -> Arm(RLSA);
 
   //Eingang
   SetEntrance(true);
@@ -187,10 +188,6 @@ protected func ContainedUpDouble(object ByObj)
       throttle = BoundBy(throttle + throttle_speed*2, 0, 170);
     return true;
   }
-  
-  //Rocketeer
-  if (ByObj == Rocketeer)
-    RocketStation->~ControlUpDouble(ByObj);
 }
 
 protected func ContainedDownDouble(object ByObj)
@@ -205,10 +202,6 @@ protected func ContainedDownDouble(object ByObj)
     //vom Gas weg
     if (GetAction()=="Fly") throttle = BoundBy(throttle - throttle_speed*2, 0, 170);
   }
-  
-  //Rocketeer
-  if (ByObj == Rocketeer)
-    RocketStation->~ControlDownDouble(ByObj);
     
   return true;
 }
@@ -313,8 +306,8 @@ protected func ContainedThrow(object ByObj)
   {
     if (!hud)
     {
-      hud = CreateObject(H_H0, 0, 0, GetOwner());
-      LocalN("heli", hud) = this();
+      hud = CreateObject(H_H0, 0, 0, GetOwner(ByObj));
+      LocalN("heli", hud) = this;
     }
     else
       RemoveObject(hud);
@@ -360,7 +353,7 @@ protected func ContainedDigDouble(object ByObj)
     else
       AddMenuItem("<c 88ff88>$Gunner$</c>", "EnterSeat2",GetID(),ByObj,0,ByObj,"$GunnerSeat$");
     //Raketen-Schütze
-    if(1) //Gesperrt
+    if(Rocketeer)
       AddMenuItem("<c ff8888>$Rocketeer$</c>", "SeatOccupied()",GetID(),ByObj,0,ByObj,"$SeatOccupied$");
     else
       AddMenuItem("<c 88ff88>$Rocketeer$</c>", "EnterSeat3",GetID(),ByObj,0,ByObj,"$RocketeerSeat$");
@@ -382,6 +375,7 @@ private func ExitClonk(a,ByObj)
 {
   SetCommand(ByObj,"Exit");
   Message("OMGZ, no rope!",ByObj);
+  DeleteActualSeatPassenger(ByObj);
 }
 
 //Sitz besetzt?
@@ -408,7 +402,10 @@ private func DeleteActualSeatPassenger(object Obj)
     MGStation->SetGunner(0);
   }
   if(Rocketeer == Obj)
+  {
     Rocketeer = 0;
+    RocketStation->SetGunner(0);
+  }
   if(Passenger1 == Obj)
     Passenger1 = 0;
   if(Passenger2 == Obj)
@@ -421,6 +418,8 @@ public func EnterSeat1(a, object Obj)
 {
   DeleteActualSeatPassenger(Obj);
   Pilot = Obj;
+  hud = CreateObject(H_H0, 0, 0, GetOwner(Obj));
+  LocalN("heli", hud) = this;
   Sound("SwitchHUD", false, this(), 100, GetOwner(Obj)+1);
 
   return 1;
@@ -440,6 +439,7 @@ public func EnterSeat3(a, object Obj)
 {
   DeleteActualSeatPassenger(Obj);
   Rocketeer = Obj;
+  RocketStation->SetGunner(Obj);
   Sound("SwitchHUD", false, this(), 100, GetOwner(Obj)+1);
 
   return 1;
@@ -589,10 +589,10 @@ protected func RejectCollect(id ID, object ByObj)
 //für Warnsounds und Grafik zuständig
 protected func TimerCall()
 {
-  //Langsam absinken, falls kein Pilot da.
+  //Absinken, falls kein Pilot da.
   if(!Pilot)
     if(throttle)
-      throttle--;
+      throttle-=3;
       
   //unter Wasser stirbt der Motor ab
   Water();
@@ -714,7 +714,6 @@ protected func StartEngine()
 //Motor läuft
 protected func EngineStarted()
 {
-  Log("%v",this);
   AddEffect("Engine",this,300,1,this,0);
   throttle = 10;
   rotation =  0;
