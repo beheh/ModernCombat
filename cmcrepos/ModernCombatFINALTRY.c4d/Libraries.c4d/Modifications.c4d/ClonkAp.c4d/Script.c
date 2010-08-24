@@ -350,9 +350,10 @@ global func FakeDeath(object pTarget)
 			SetAchievementExtra(wpn, AC09, GetKiller(pTarget));
 		}
 	}
-  if(GetKiller(pTarget) != GetOwner(pTarget))
+  if(Hostile(GetKiller(pTarget), GetOwner(pTarget))) {
 	  if(GetProcedure(pTarget) == "FLIGHT" && GetProcedure(GetCursor(GetKiller(pTarget))) == "FLIGHT")
   		DoAchievementProgress(1, AC10, GetKiller(pTarget));
+ 	}
 	if(GBackLiquid()) DoAchievementProgress(1, AC11, GetOwner());
 
   //Fake Death erstellen

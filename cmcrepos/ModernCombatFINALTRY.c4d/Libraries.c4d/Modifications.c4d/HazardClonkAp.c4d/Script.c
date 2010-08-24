@@ -1065,8 +1065,8 @@ public func FxAggroTimer(object pTarget, int no)
 				ShiftContents(pTarget, 0, CDBT);
 			}
 			else {
-				//SetCommand(pTarget, "MoveTo", body);
-				SetMacroCommand(pTarget, "MoveTo", body, 0,0,0, EffectVar(0, pTarget, no));
+				SetCommand(pTarget, "MoveTo", body);
+				//SetMacroCommand(pTarget, "MoveTo", body, 0,0,0, EffectVar(0, pTarget, no));
 			}
 			return(1);
 		}
