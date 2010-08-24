@@ -125,10 +125,10 @@ static const RWDS_MinusPoints = 5;
 
 global func DoPlayerPoints(int iPoints, int iType, int iPlr, object pClonk, id idIcon)
 {
-	DoAchievementProgress(iPoints, AC13, iPlr);
-  var db = FindObject2(Find_ID(RWDS));
+	var db = FindObject2(Find_ID(RWDS));
   if(!db) return;
   if(!iPoints) return;
+  DoAchievementProgress(iPoints, AC13, iPlr);
   if(pClonk) {
     if(!idIcon) idIcon = CLNK;
     var szMsg;
