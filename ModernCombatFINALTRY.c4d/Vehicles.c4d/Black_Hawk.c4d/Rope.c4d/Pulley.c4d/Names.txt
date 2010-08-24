@@ -1,0 +1,2 @@
+DE:Seilrolle
+US:Pulley

@@ -50,6 +50,7 @@ public func SetGunner(pObj)
   //Besitzer, Vorbereitung, etc...
   pController = pObj;
   cur_Attachment->~StopAutoFire();
+  SetOwner(GetOwner(Obj));
   SetController(GetOwner(pObj));
   iPat_Dir = 0;
 }

@@ -36,7 +36,7 @@ static const max_rotation = 30; //int    - stärkste erlaubte Neigung
 /* ----- Callbacks ----- */
 
 public func IsMachine() { return 1; }
-public func MaxDamage() { return 200; }
+public func MaxDamage() { return 300; }
 public func IsBulletTarget() { return 1; }
 
 
@@ -371,13 +371,6 @@ protected func ContainedDigDouble(object ByObj)
   return 1;
 }
 
-private func ExitClonk(a,ByObj)
-{
-  SetCommand(ByObj,"Exit");
-  Message("OMGZ, no rope!",ByObj);
-  DeleteActualSeatPassenger(ByObj);
-}
-
 //Sitz besetzt?
 private func SeatOccupied(a,ByObj)
 {
@@ -463,6 +456,66 @@ public func EnterSeat5(object Obj)
   return 1;
 }
 
+/* Ausstieg per Seil */
+
+private func ExitClonk(a,ByObj)
+{
+  SetCommand(ByObj,"Exit");
+  if(ByObj != Pilot && PathFree(GetX(),GetY(),GetX(),GetY()+50))
+  {
+    var rope = CreateObject(CK5P,0,0,-1);
+    rope->ConnectObjects(this,ByObj);
+    Local(8,rope) = true;
+    AddEffect("CheckGround",ByObj,30,3,this,GetID(),rope,this);
+  }
+  DeleteActualSeatPassenger(ByObj);
+}
+
+protected func FxCheckGroundStart(pTarget, iNo, iTemp, pRope, pHeli)
+{
+  if(iTemp)
+    return -1;
+  EffectVar(0, pTarget, iNo) = pRope; //Das Seil
+  EffectVar(1, pTarget, iNo) = pHeli; //Der Heli
+}
+
+protected func FxCheckGroundTimer(pTarget, iNo, iTime)
+{
+  //Knapp über dem Boden, Seil zu lang oder zu lang die Dauer? Abspringen, Seil zurück zum Heli schicken.
+  if(!PathFree(GetX(pTarget),GetY(pTarget),GetX(pTarget),GetY(pTarget)+20) || EffectVar(0, pTarget, iNo)->GetRopeLength() > 300 || iTime > 300)
+  {
+    //var pulley = CreateObject(ROCK,AbsX(GetX(pTarget)),AbsY(GetY(pTarget)),-1);
+    //SetCategory(C4D_Vehicle,pulley);
+    RemoveObject(EffectVar(0, pTarget, iNo));
+    //EffectVar(0, pTarget, iNo)=CreateObject(CK5P,0,0,-1);
+    //EffectVar(0, pTarget, iNo)->ConnectObjects(EffectVar(1, pTarget, iNo),pulley);
+    //AddEffect("CheckEnd", pulley, 30, 3, EffectVar(1, pTarget, iNo), 0, EffectVar(0, pTarget, iNo), EffectVar(1, pTarget, iNo));
+    return -1;
+  }
+  else
+    LocalN("iLength",EffectVar(0, pTarget, iNo)) = iTime/3;
+  //Sounds fürs Abseilen?
+}
+
+/*protected func FxCheckEndStart(pTarget, iNo, iTemp, pHeli, pRope)
+{
+  if(iTemp)
+    return -1;
+  EffectVar(0, pTarget, iNo) = pRope; //Das Seil
+  EffectVar(1, pTarget, iNo) = pHeli; //Der Heli
+}
+
+protected func FxCheckEndTimer(pTarget, iNo, iTime)
+{
+  if(ObjectDistance(EffectVar(1, pTarget, iNo),pTarget) <= 10 || iTime > 300)
+  {
+    RemoveObject(EffectVar(0, pTarget, iNo));
+    RemoveObject(pTarget);
+    return -1;
+  }
+}
+*/
+
 
 /* ----- Schaden ----- */
 
@@ -493,7 +546,7 @@ func DestroyHeli()
     Exit(obj, 0, 0, Random(360), RandomX(-10,10), RandomX(-5,12), Random(10));
     
   Explode(60);
-  Sound("MainHelicopterExplosion", false, this());
+  Sound("MainHelicopterExplosion", false, this);
 
   //zum Wrack machen
   var obj;
@@ -527,7 +580,7 @@ protected func ContactTop()
       CreateParticle("Blast", GetVertex(i), GetVertex(i, true),
                      0, 0, 50, RGB(255,255,255));
   }
-  Sound("Collision*");
+  Sound("Collision*", false, MGStation);
 }
 
 //die Räder halten mehr aus
@@ -542,7 +595,7 @@ protected func ContactBottom()
                        0, 0, 50, RGB(255,255,255));
     }
     DoDamage(GetYDir()/2);
-    Sound("Collision*");
+    Sound("Collision*", false, MGStation);
   }
 }
 
@@ -558,7 +611,7 @@ protected func ContactLeft()
                        0, 0, 50, RGB(255,255,255));
     }
     DoDamage(Abs(GetXDir())+Abs(GetYDir()));
-    Sound("Collision*");
+    Sound("Collision*", false, MGStation);
   }
 }
 
@@ -591,8 +644,17 @@ protected func TimerCall()
 {
   //Absinken, falls kein Pilot da.
   if(!Pilot)
-    if(throttle)
-      throttle-=3;
+  {
+    if(!Random(3))
+    {
+      if(throttle > 100)
+        throttle--;
+      else if(throttle > 75)
+        throttle-=2;
+      else if(throttle > 50)
+        throttle-=3;
+    }
+  }
       
   //unter Wasser stirbt der Motor ab
   Water();
@@ -643,7 +705,7 @@ private func WarningSound()
       {
         if (obj = Contents(i, this()))
           if (GetOCF(obj) & OCF_CrewMember)
-           Sound("DamageWarning", false, 0, 100, GetOwner(obj)+1);
+           Sound("DamageWarning", false, MGStation, 100, GetOwner(obj)+1);
       }
     }
     s_counter++;
@@ -661,7 +723,7 @@ private func WarningSound()
       {
         if (obj = Contents(i, this()))
           if (GetOCF(obj) & OCF_CrewMember)
-            Sound("DamageCritical", false, 0, 100, GetOwner(obj)+1);
+            Sound("DamageCritical", false, MGStation, 100, GetOwner(obj)+1);
 
       }
     }
