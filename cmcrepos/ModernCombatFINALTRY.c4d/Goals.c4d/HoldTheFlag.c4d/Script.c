@@ -106,12 +106,14 @@ protected func Activate(iPlr) {
 }
 
 protected func RelaunchPlayer(int iPlr, object pCrew, int iKiller, int iTeam, no_relaunch) {
-  //Selbstmord
-  if (iPlr == iKiller || iKiller == -1) DoWealth(iPlr, -30);
-  //Teamkill
-  else if (GetPlayerTeam(iPlr) == GetPlayerTeam(iKiller)) DoWealth(iKiller, -50);
-  //Gegner
-  else if (GetPlayerTeam(iPlr) != GetPlayerTeam(iKiller)) DoWealth(iKiller, 50);
+  if (iKiller != -1) {
+    //Teamkill
+    if (GetPlayerTeam(iPlr) == GetPlayerTeam(iKiller)) DoWealth(iKiller, -GetValue(pCrew));
+    //Gegner
+    else if (GetPlayerTeam(iPlr) != GetPlayerTeam(iKiller)) DoWealth(iKiller, GetValue(pCrew));
+  }
+  DoWealth(iPlr, GetValue(pCrew)/2);
+
   if(!FindObject(CHOS) && !FindObject(MCSL))
     CreateGOCCSpawner(pCrew);
 }
