@@ -1,6 +1,7 @@
 /*-- Hold the Flag --*/
 
 #strict 2
+#include TEAM
 
 local pFlag;		//Diese Flagge gilt es zu erobern
 local aTeamPoints;	//Die Punkte jedes Teams
@@ -11,6 +12,8 @@ local iGoal;		//So viele Punkte gilt es zu erreichen
 
 protected func Initialize() {
   iGoal = 10;
+  aKill = [];
+  aDeath = [];
 }
 
 public func ChooserFinished() {
@@ -106,13 +109,11 @@ protected func Activate(iPlr) {
 }
 
 protected func RelaunchPlayer(int iPlr, object pCrew, int iKiller, int iTeam, no_relaunch) {
-  if (iKiller != -1) {
-    //Teamkill
-    if (GetPlayerTeam(iPlr) == GetPlayerTeam(iKiller)) DoWealth(iKiller, -GetValue(pCrew));
-    //Gegner
-    else if (GetPlayerTeam(iPlr) != GetPlayerTeam(iKiller)) DoWealth(iKiller, GetValue(pCrew));
-  }
-  DoWealth(iPlr, GetValue(pCrew)/2);
+  Money(iPlr, pCrew, iKiller);
+
+  aDeath[iPlr]++;
+  if (iKiller != -1 && GetPlayerTeam(iKiller) != GetPlayerTeam(iPlr))
+    aKill[iKiller]++;
 
   if(!FindObject(CHOS) && !FindObject(MCSL))
     CreateGOCCSpawner(pCrew);
@@ -220,7 +221,10 @@ public func UpdateScoreboard() {
 
 /* Sieg */
 
+local fulfilled;
+
 public func IsFulfilled() {
+  if (fulfilled) return true;
   for (var i; i < GetLength(aTeamPoints); i++)
     if (aTeamPoints[i] >= iGoal) {
 	  //Team hat gewonnen. Alle anderen durchgehen und eliminieren
@@ -234,6 +238,18 @@ public func IsFulfilled() {
 	  RewardEvaluation();
 	  Message("@$TeamHasWon$", 0, GetTeamColor(i), GetTeamName(i));
 	  Sound("Cheer.ogg", true);
-	  return true;
+	  return fulfilled = true;
     }
 }
+
+/* Zeug aus TEAM */
+
+private func InitScoreboard() {}
+private func InitMultiplayerTeam(int iTeam) {}
+private func RemoveMultiplayerTeam(int iTeam) {}
+private func InitSingleplayerTeam(int iPlr) {}
+private func RemoveSingleplayerTeam(int iPlr) {}
+private func InitPlayer(int iPlr) {}
+private func RemoveScoreboardPlayer(int iPlr) {}
+public func WinScoreChange(int iNewScore) {}
+private func SortTeamScoreboard()	{}
