@@ -119,11 +119,17 @@ private func Building()
 
 /* Assistkiller abspeichern */
 
+public func DoHitPoints(int iPoints) {
+	if(!GetAlive()) return;
+	DoAchievementProgress(iPoints, AC12, GetOwner());
+	return true;
+}
+
 public func OnHit(int iChange, int iType, object pFrom)
 {
 	//Achievement
-	DoAchievementProgress(iChange, AC12, GetOwner());
-	
+	ScheduleCall(this, "DoHitPoints", 1, 0, iChange);	
+		
   //Treffender eine Maschine?
   if(pFrom)
   {
@@ -136,7 +142,7 @@ public func OnHit(int iChange, int iType, object pFrom)
     machinekill = false;
 
   var iByPlayer = GetController(pFrom);
-  if(iByPlayer == GetOwner()) return _inherited(...); //Yay, Selfassist!11
+  if(iByPlayer == GetOwner() || !Hostile(iByPlayer, GetOwner())) return _inherited(...); //Yay, Selfassist!11
   for(var i=0; i < GetLength(assistkiller)/2; i++)
   {
     if(assistkiller[i*2] == iByPlayer)
@@ -323,7 +329,7 @@ global func FakeDeath(object pTarget)
   pTarget->OnFakeDeath();
 
 	//Achievements
-  if(GetKiller(pTarget) != GetOwner(pTarget)) {
+  if(Hostile(GetKiller(pTarget), GetOwner(pTarget))) {
 		var data = GetAchievementExtra(AC08, GetKiller(pTarget));
 		if(!data) data = CreateArray();
 		data[GetOwner(pTarget)]++;
@@ -331,6 +337,18 @@ global func FakeDeath(object pTarget)
 			AwardAchievement(AC08, GetKiller(pTarget));
 		}
 		SetAchievementExtra(data, AC08, GetKiller(pTarget));	
+	}
+	if(Hostile(GetKiller(pTarget), GetOwner(pTarget))) {
+		var killicon = pTarget->~KillIcon();
+		if(killicon && killicon->~IsWeapon()) {
+			var wpn = GetAchievementExtra(AC09, GetKiller(pTarget));
+			if(!wpn) wpn = CreateArray();
+			wpn[FindInArray4K(AC09->GetIDs(), killicon)] = true;
+			if(GetLength(wpn) >= GetLength(AC09->GetIDs())) {
+				AwardAchievement(AC09, GetKiller(pTarget));
+			}
+			SetAchievementExtra(wpn, AC09, GetKiller(pTarget));
+		}
 	}
   if(GetKiller(pTarget) != GetOwner(pTarget))
 	  if(GetProcedure(pTarget) == "FLIGHT" && GetProcedure(GetCursor(GetKiller(pTarget))) == "FLIGHT")
