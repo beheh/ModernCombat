@@ -143,6 +143,10 @@ public func ControlThrow(object pClonk)
   return true;
 }
 
+public func CanUnpack(object pClonk) {
+	return pClonk->~IsMedic() && GetHealPoints() >= 40;
+}
+
 func Deselection(object pClonk)
 {
   if(GetEffect("FAPHeal", this))
@@ -338,4 +342,17 @@ protected func Selection()
 {
   Sound("FAPK_Charge.ogg");
   return 1;
+}
+
+// KI-Behandlung
+protected func AI_Inventory(object pClonk)
+{
+  // Benutzen, wenn der Clonk weniger als volles Leben hat
+  if(!pClonk->~IsHealing() && pClonk->GetEnergy() < pClonk->GetPhysical("Energy") / 1000) {
+  	ShiftContents(pClonk, 0, GetID());
+    // Benutzen (verzögert einsetzen)
+    ScheduleCall(this, "Activate", 1, 0, pClonk);
+  }
+  // übernehmen wir
+  return(1);
 }

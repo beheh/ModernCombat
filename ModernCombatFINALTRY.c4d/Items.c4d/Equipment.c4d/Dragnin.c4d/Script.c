@@ -168,3 +168,15 @@ func Selection()
 {
   Sound("DGNN_Charge.ogg");
 }
+
+protected func AI_Inventory(object pClonk)
+{
+  // Benutzen, wenn der Clonk weniger als 2/3 Leben hat
+  if(!pClonk->~IsHealing() && pClonk->GetEnergy() < pClonk->GetPhysical("Energy") * 2/3 / 1000) {
+  	ShiftContents(pClonk, 0, GetID());
+    // Benutzen (verzögert einsetzen)
+    ScheduleCall(this, "Activate", 1, 0, pClonk);
+  }
+  // übernehmen wir
+  return(1);
+}
