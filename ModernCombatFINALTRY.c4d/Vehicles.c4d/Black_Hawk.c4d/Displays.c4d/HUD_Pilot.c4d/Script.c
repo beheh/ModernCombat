@@ -15,6 +15,7 @@ protected func Initialize()
 {
   //leicht durchsichtig machen
   SetClrModulation(RGBa(0,200,0,50), this());
+  SetVisibility(VIS_None);
   //standard: grün
   fRed = false;
   Color = "green";
