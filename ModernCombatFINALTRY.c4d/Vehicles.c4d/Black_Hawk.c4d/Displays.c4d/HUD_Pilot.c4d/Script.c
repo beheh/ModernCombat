@@ -31,23 +31,18 @@ protected func TimerFunc()
 {
   //ohne Heli entfernen
   if (!heli) return(RemoveObject());
-  if (!(LocalN("Pilot1", heli) || LocalN("Pilot2", heli))) return(RemoveObject());
+  if (!(LocalN("Pilot", heli))) return(RemoveObject());
   //Sichtbarkeit setzen
   SetVisibility(VIS_Local);
-  if (LocalN("Pilot1", heli))
+  if (LocalN("Pilot", heli))
   {
-    if (LocalN("Pilot1", heli) == GetCursor(GetOwner(LocalN("Pilot1", heli))))
-      Local(0) = 2**GetOwner(LocalN("Pilot1", heli));
+    if (LocalN("Pilot", heli) == GetCursor(GetOwner(LocalN("Pilot", heli))))
+      Local(0) = 2**GetOwner(LocalN("Pilot", heli));
     else
       Local(0) = 0;
   }
   else
     Local(0) = 0;
-  if (LocalN("Pilot2", heli))
-  {
-    if (LocalN("Pilot2", heli) == GetCursor(GetOwner(LocalN("Pilot2", heli))))
-      Local(0) = Local(0) + 2**GetOwner(LocalN("Pilot2", heli));
-  }
   //Position an Heli anpassen
   SetPosition(BoundBy(GetX(heli), 185, LandscapeWidth()-186),
               BoundBy(GetY(heli),  90, LandscapeHeight()-91), this());

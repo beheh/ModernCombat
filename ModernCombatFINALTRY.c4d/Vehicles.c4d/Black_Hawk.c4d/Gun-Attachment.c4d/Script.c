@@ -10,11 +10,13 @@ local last_id;
 local iPat_Dir;
 local heli,vis;
 local Crosshair;
+local Rad,Ang;
+local rot_left,rot_right;
 
 public func GetAttWeapon()	{return cur_Attachment;}		//Waffe
-public func MaxRotLeft()	{return 100+GetR();}			//Maximaler Winkel links
-public func MaxRotRight()	{return 260+GetR();}			//Maximaler Winkel rechts
-public func AimAngle()		{return aim_angle+GetR();}		//Winkel auf Ziel
+public func MaxRotLeft()	{return rot_left+GetDir(heli)*(180-rot_right+180-rot_left);}			//Maximaler Winkel links
+public func MaxRotRight()	{return rot_right+GetDir(heli)*(180-rot_right+180-rot_left);}			//Maximaler Winkel rechts
+public func AimAngle()		{return aim_angle;}		//Winkel auf Ziel
 public func ReadyToFire()	{return 1;}				//Allzeit bereit
 public func IsAiming()		{return true;}				//Geschütz immer am Zielen
 public func IsThreat()		{return pController;}	//Status
@@ -23,23 +25,33 @@ public func UpdateCharge()	{return 1;}
 
 /* Aufrufe */
 
-public func Set(pTarget)
+public func Set(pTarget, iRad, iAng, iRotLeft, iRotRight)
 {
+  Rad = iRad;
+  Ang = iAng;
+  rot_left = iRotLeft;
+  rot_right = iRotRight;
   heli = pTarget;
 }
 
 public func SetGunner(pObj)
 {
+  //Zielen & HUD
+  if(pController)
+    pController->SetHUDTarget(0);
+  if(!pObj)
+    EndAim();
+  else
+  {
+    InitAim();
+    pObj->SetHUDTarget(GetAttWeapon());
+  }
+  
+  //Besitzer, Vorbereitung, etc...
   pController = pObj;
   cur_Attachment->~StopAutoFire();
   SetController(GetOwner(pObj));
   iPat_Dir = 0;
-  
-  //Zielen
-  if(!pObj)
-    EndAim();
-  else
-    InitAim();
 }
 
 public func Arm(id idWeapon)
@@ -76,7 +88,7 @@ public func Disarm()
 /* Steuerung */
 public func ControlUp(pByObj)
 {
-  iPat_Dir = 0;
+  Reload();
   return true;
 }
 
@@ -159,13 +171,19 @@ public func TimerCall()
   // alle 2 Frames
   if(!(GetActTime()%2))
   {
-	  //Zu weit links?
-	  if( AimAngle() <= MaxRotLeft() )
+	  //links?
+	  if( AimAngle() < MaxRotLeft() )
+	  {
+	    aim_angle = MaxRotLeft();
 	    iPat_Dir = 0; //Anhalten
+	  }
 	    
-	  //Oder zu weit rechts?
-	  else if( AimAngle() >= MaxRotRight() )
+	  //rechts?
+	  else if( AimAngle() > MaxRotRight() )
+	  {
+	    aim_angle = MaxRotRight();
 	    iPat_Dir = 0; //Anhalten
+	  }
 	    
   	aim_angle += iPat_Dir*2;
   }
@@ -195,14 +213,14 @@ public func TimerCall()
     }
     
   //Drehung des Heli abfragen
-  var rot = GetR(heli)+(GetDir(heli)*2-1)*90+(GetDir(heli)*2-1)*30;
+  var rot = GetR(heli)+(GetDir(heli)*2-1)*(90)+(GetDir(heli)*2-1)*(Ang);
   //und in die Positionsbestimmung einfließen lassen
-  SetPosition(GetX(heli) + Sin(rot, 12),
-              GetY(heli) - Cos(rot, 5), this());
+  SetPosition(GetX(heli) + Sin(rot, Rad),
+              GetY(heli) - Cos(rot, Rad), this());
   SetXDir(GetXDir(heli));
   SetYDir(GetYDir(heli));
   SetR(GetR(heli));
-  SetRDir(GetRDir(heli));
+  //SetRDir(GetRDir(heli));
 }
 
 private func Reload()
@@ -212,9 +230,8 @@ private func Reload()
   // Erzeugen
   Local(0, CreateContents(AmmoID)) = GetAttWeapon()->~GetFMData(FM_AmmoLoad);
   // Waffe soll nachladen
-  GetAttWeapon()->~Reloaded(this);
-  GetAttWeapon()->~Recharge();
   GetAttWeapon()->~StopAutoFire();
+  GetAttWeapon()->~Reload(this);
 }
 
 /* Zielzeug */
@@ -259,7 +276,7 @@ public func Destruction()
 public func Initialize() 
 {
   AddEffect("ShowWeapon",this,1,1,this,GetID());
-  SetGraphics(0,this,GetID(),3,5,0,0,this);
+  //SetGraphics(0,this,GetID(),3,5,0,0,this);
 }
 
 public func WeaponAt(&x, &y, &r)
