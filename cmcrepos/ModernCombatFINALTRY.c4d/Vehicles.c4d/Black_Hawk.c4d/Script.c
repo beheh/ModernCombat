@@ -388,6 +388,7 @@ private func DeleteActualSeatPassenger(object Obj)
     Pilot = 0;
     if(hud)
       RemoveObject(hud);
+    SetGraphics(0);
   }
   if(Gunner == Obj)
   {
@@ -411,7 +412,9 @@ public func EnterSeat1(a, object Obj)
 {
   SetOwner(GetOwner(Obj));
   DeleteActualSeatPassenger(Obj);
+  SetGraphics(0,this,GetID(),1,GFXOV_MODE_Object,0,GFX_BLIT_Additive,this);
   Pilot = Obj;
+  SetGraphics("2");
   hud = CreateObject(H_H0, 0, 0, GetOwner(Obj));
   LocalN("heli", hud) = this;
   Sound("SwitchHUD", false, this(), 100, GetOwner(Obj)+1);
