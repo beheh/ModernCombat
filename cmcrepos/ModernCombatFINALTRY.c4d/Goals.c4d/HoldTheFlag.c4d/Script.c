@@ -105,17 +105,6 @@ protected func Activate(iPlr) {
   return MessageWindow(GetDesc(), iPlr);
 }
 
-global func EliminateTeam(int iTeam) {
-  for(var i; i < GetPlayerCount(); i++)
-    if(GetPlayerTeam(GetPlayerByIndex(i)) == iTeam)
-      EliminatePlayer(GetPlayerByIndex(i));
-}
-
-global func GetTaggedTeamName(int iTeam) {
-  if (!GetTeamName(iTeam)) return;
-  return Format("<c %x>%s</c>", GetTeamColor(iTeam), GetTeamName(iTeam));
-}
-
 protected func RelaunchPlayer(int iPlr, object pCrew, int iKiller, int iTeam, no_relaunch) {
   //Selbstmord
   if (iPlr == iKiller || iKiller == -1) DoWealth(iPlr, -30);
@@ -125,24 +114,6 @@ protected func RelaunchPlayer(int iPlr, object pCrew, int iKiller, int iTeam, no
   else if (GetPlayerTeam(iPlr) != GetPlayerTeam(iKiller)) DoWealth(iKiller, 50);
   if(!FindObject(CHOS) && !FindObject(MCSL))
     CreateGOCCSpawner(pCrew);
-}
-
-global func GetActiveTeamCount() {
-  var aTeams = [];
-  for (var i; i < GetPlayerCount(); i++)
-    if (GetPlayerName(GetPlayerByIndex(i)))
-      aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = 1;
-  i = 0;
-  for (var item in aTeams)
-    i += item;
-  return i;
-}
-
-global func GetTeamPlayerCount(int iTeam) {
-  for (var i, count; i < GetPlayerCount(); i++)
-    if (GetPlayerTeam(GetPlayerByIndex(i)) == iTeam && GetPlayerName(GetPlayerByIndex(i)))
-	  count++;
-  return count;
 }
 
 public func IsTeamGoal() {return 1;}
