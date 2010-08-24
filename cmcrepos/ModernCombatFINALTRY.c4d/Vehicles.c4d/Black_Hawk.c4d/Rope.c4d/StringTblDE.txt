@@ -1,0 +1,3 @@
+TxtConnect=Seil an %s knoten
+TxtTieUp=%s fesseln
+TxtWinch=Es ist schon ein Seil auf der Seilwinde!

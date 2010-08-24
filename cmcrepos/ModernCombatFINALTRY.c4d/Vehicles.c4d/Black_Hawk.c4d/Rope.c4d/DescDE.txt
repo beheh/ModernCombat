@@ -1,0 +1,1 @@
+Ein aufgewickeltes Seil. Mit 'Doppelgraben' kann das Seil an Objekte geknotet oder wieder abgenommen werden.

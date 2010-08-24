@@ -1,0 +1,3 @@
+Eine Seilrolle. Über 'Doppelgraben' kann das Seil an ein Objekt geknotet werden oder die Länge des Seils verändert werden.
+
+Mit den Steuerungstasten kann der Clonk am Seil klettern oder sich abseilen.

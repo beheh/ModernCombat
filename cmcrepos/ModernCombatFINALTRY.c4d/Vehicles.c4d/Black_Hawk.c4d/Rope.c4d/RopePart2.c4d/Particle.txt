@@ -1,0 +1,12 @@
+[Particle]
+Name=Rope2
+MaxCount=10000
+InitFn=StdInit
+ExecFn=StdExec
+DrawFn=Std
+Face=0,0,25,25,-13,-13
+Repeats=1
+Delay=2
+VertexCount=1
+Attach=1
+RByV=2
