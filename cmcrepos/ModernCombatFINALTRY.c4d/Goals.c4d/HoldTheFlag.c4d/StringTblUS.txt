@@ -4,4 +4,4 @@ Finished=Finished
 MsgFlagLost=Lost flag post <c ffff33>%s</c> to team <c %x>%s</c>
 MsgCaptured=Team <c %x>%s</c> controls flag post <c ffff33>%s</c>
 TeamReachingGoal=Team %s needs only <c %x>%d</c> more points to win! Hurry up!
-TeamHasWon=<c %x>Team %s has won this battle!</c>
+TeamHasWon=Team <c %x>%s</c> has won this battle!
