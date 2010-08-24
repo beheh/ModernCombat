@@ -409,6 +409,7 @@ private func DeleteActualSeatPassenger(object Obj)
 //Sitz belegen
 public func EnterSeat1(a, object Obj)
 {
+  SetOwner(GetOwner(Obj));
   DeleteActualSeatPassenger(Obj);
   Pilot = Obj;
   hud = CreateObject(H_H0, 0, 0, GetOwner(Obj));
@@ -481,12 +482,16 @@ protected func FxCheckGroundStart(pTarget, iNo, iTemp, pRope, pHeli)
 
 protected func FxCheckGroundTimer(pTarget, iNo, iTime)
 {
-  //Knapp über dem Boden, Seil zu lang oder zu lang die Dauer? Abspringen, Seil zurück zum Heli schicken.
-  if(!PathFree(GetX(pTarget),GetY(pTarget),GetX(pTarget),GetY(pTarget)+20) || EffectVar(0, pTarget, iNo)->GetRopeLength() > 300 || iTime > 300)
-  {
+  //Knapp über dem Boden, Seil zu lang, zu lang die Dauer oder falsche Aktion?
+  if(!PathFree(GetX(pTarget),GetY(pTarget),GetX(pTarget),GetY(pTarget)+30)
+     || EffectVar(0, pTarget, iNo)->GetRopeLength() > 300
+     || iTime > 300
+     || !WildcardMatch(GetAction(pTarget),"*Jump*"))
+  {  //Abspringen, Seil zurück zum Heli schicken.
     //var pulley = CreateObject(ROCK,AbsX(GetX(pTarget)),AbsY(GetY(pTarget)),-1);
     //SetCategory(C4D_Vehicle,pulley);
     RemoveObject(EffectVar(0, pTarget, iNo));
+    SetYDir(20,pTarget);
     //EffectVar(0, pTarget, iNo)=CreateObject(CK5P,0,0,-1);
     //EffectVar(0, pTarget, iNo)->ConnectObjects(EffectVar(1, pTarget, iNo),pulley);
     //AddEffect("CheckEnd", pulley, 30, 3, EffectVar(1, pTarget, iNo), 0, EffectVar(0, pTarget, iNo), EffectVar(1, pTarget, iNo));

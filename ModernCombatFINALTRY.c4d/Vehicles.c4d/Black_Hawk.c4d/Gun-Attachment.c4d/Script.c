@@ -43,6 +43,7 @@ public func SetGunner(pObj)
     EndAim();
   else
   {
+    SetController(GetOwner(pObj));
     InitAim();
     pObj->SetHUDTarget(GetAttWeapon());
   }
@@ -50,8 +51,6 @@ public func SetGunner(pObj)
   //Besitzer, Vorbereitung, etc...
   pController = pObj;
   cur_Attachment->~StopAutoFire();
-  SetOwner(GetOwner(Obj));
-  SetController(GetOwner(pObj));
   iPat_Dir = 0;
 }
 
