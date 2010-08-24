@@ -1,9 +1,0 @@
-TxtConnect=Connect rope with %s
-TxtTieUp=Tie up %s
-TxtPickUp=Pick up rope
-TxtPickUpHook=Shake hook free
-TxtPickUpImpossible=Only possible at connected object!
-TxtExtend=Extend rope
-TxtPull=Pull rope
-TxtHold=Hold rope
-TxtWinch=There is already a rope on the winch!
