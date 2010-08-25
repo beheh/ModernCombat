@@ -8,8 +8,8 @@ Value=200
 Mass=1500
 MaxUserSelect=2
 Height=60
-Width=230
-Offset=-120,-30
+Width=120
+Offset=-60,-30
 Entrance=-25,0,40,30
 Collection=-100,-24,200,16
 ContactCalls=1
@@ -38,8 +38,6 @@ VertexY=26,26,22,21,20,22,14,2,-14,-14,-14,-4,-14,-14,-26,-12,4,16,-4,8
 VertexFriction=20,20,50,50,50,50,50,50,100,100,100,50,100,100,100,100,100,50,50,50
 VertexCNAT=8,8,8,8,8,9,9,5,5,4,4,4,4,4,7,14,10,10,4,4
 Components=METL=10;RTLR=1;MNGN=1;
-SolidMask=0,0,120,60
-RotatedSolidmasks=1
 
 [Physical]
 Float=600
