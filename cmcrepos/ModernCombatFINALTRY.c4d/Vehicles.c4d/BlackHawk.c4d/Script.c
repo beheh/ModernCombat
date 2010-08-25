@@ -103,6 +103,10 @@ public func GetPilot() {
 	return Pilot;
 }
 
+public func GetThrottle() {
+	return throttle;
+}
+
 /* Autopilot - betreten auf eigene Gefahr! - Eltern haften für ihre Kinder */
 
 public func SetAutopilot(object pTarget, int iX, int iY) {
@@ -219,6 +223,7 @@ protected func ControlCommand(string Command, object Target, int TargetX, int Ta
 		  AddEffect("CheckGround",ByObj,30,3,this,GetID(),rope,this);
 		}
 		DeleteActualSeatPassenger(ByObj);
+    Sound("CockpitRadio.ogg", true, 0, 100, GetOwner(ByObj)+1, -1);
     var rot = GetDir()*180-90 + GetR() + GetDir()*120-60;
     Exit(ByObj, Sin(rot,25), -Cos(rot,25), GetR(), GetXDir(0,1), GetYDir(0,1), GetRDir());
     return true;
@@ -239,6 +244,7 @@ protected func Collection2(object pObj)
   {
     if(!Hostile(GetOwner(this),GetOwner(pObj)))
     {
+	    Sound("CockpitRadio.ogg", true, 0, 100, GetOwner(pObj)+1, +1);
       if(!Pilot)
         return EnterSeat1(0,pObj); //Blöde Platzhalter :/
       if(!Gunner)
@@ -251,7 +257,7 @@ protected func Collection2(object pObj)
         return EnterSeat5(0,pObj);
     }
     else //Feindliche Clonks kommen nicht rein.
-      Exit(pObj);
+      SetCommand(pObj, "Exit");
   }
 }
                 
@@ -323,7 +329,7 @@ protected func ContainedUpDouble(object ByObj)
     if(throttle == 0 && (GetAction()=="Stand" || GetAction()=="EngineShutDown"))
       SetAction("EngineStartUp");  
     if(GetAction()=="Fly")
-      throttle = BoundBy(throttle + throttle_speed*2, 0, 170);
+      throttle = BoundBy(throttle + throttle_speed*2, 0, max_throttle);
     return true;
   }
 }
@@ -492,30 +498,30 @@ protected func ContainedDigDouble(object ByObj)
   [$CtrlDigD$]
   CreateMenu(GetID(),ByObj,this(),0,"$Seats$",0,1);
     //Ausstieg
-    AddMenuItem("Exit", "ExitClonk",DOOR,ByObj,0,ByObj,"Bringt den Clonk dazu auszusteigen.");
+    AddMenuItem("$Exit$", "ExitClonk",STDR,ByObj,0,ByObj,"Bringt den Clonk dazu auszusteigen.");
     //Pilot
     if(Pilot)
-      AddMenuItem("<c ff8888>Pilot</c>", "SeatOccupied()",GetID(),ByObj,0,ByObj,"$SeatOccupied$");
+      AddMenuItem("<c ff8888>Pilot</c>", "SeatOccupied",GetID(),ByObj,0,ByObj,"$SeatOccupied$");
     else
       AddMenuItem("<c 88ff88>Pilot</c>", "EnterSeat1",GetID(),ByObj,0,ByObj,"$PilotSeat$");
     //MG-Schütze
     if(Gunner)
-      AddMenuItem("<c ff8888>$Gunner$</c>", "SeatOccupied()",GetID(),ByObj,0,ByObj,"$SeatOccupied$");
+      AddMenuItem("<c ff8888>$Gunner$</c>", "SeatOccupied",GetID(),ByObj,0,ByObj,"$SeatOccupied$");
     else
       AddMenuItem("<c 88ff88>$Gunner$</c>", "EnterSeat2",GetID(),ByObj,0,ByObj,"$GunnerSeat$");
     //Raketen-Schütze
     if(Rocketeer)
-      AddMenuItem("<c ff8888>$Rocketeer$</c>", "SeatOccupied()",GetID(),ByObj,0,ByObj,"$SeatOccupied$");
+      AddMenuItem("<c ff8888>$Rocketeer$</c>", "SeatOccupied",GetID(),ByObj,0,ByObj,"$SeatOccupied$");
     else
       AddMenuItem("<c 88ff88>$Rocketeer$</c>", "EnterSeat3",GetID(),ByObj,0,ByObj,"$RocketeerSeat$");
     //Passagier 1
     if(Passenger1)
-      AddMenuItem("<c ff8888>$Passenger1$</c>", "SeatOccupied()",GetID(),ByObj,0,ByObj,"$SeatOccupied$");
+      AddMenuItem("<c ff8888>$Passenger1$</c>", "SeatOccupied",GetID(),ByObj,0,ByObj,"$SeatOccupied$");
     else
       AddMenuItem("<c 88ff88>$Passenger1$</c>", "EnterSeat4",GetID(),ByObj,0,ByObj,"$PassengerSeat$");
     //Passagier 2
     if(Passenger2)
-      AddMenuItem("<c ff8888>$Passenger2$</c>", "SeatOccupied()",GetID(),ByObj,0,ByObj,"$SeatOccupied$");
+      AddMenuItem("<c ff8888>$Passenger2$</c>", "SeatOccupied",GetID(),ByObj,0,ByObj,"$SeatOccupied$");
     else
       AddMenuItem("<c 88ff88>$Passenger2$</c>", "EnterSeat5",GetID(),ByObj,0,ByObj,"$PassengerSeat$");
       

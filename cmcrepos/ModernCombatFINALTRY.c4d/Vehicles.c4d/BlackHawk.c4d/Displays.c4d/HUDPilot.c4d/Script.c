@@ -8,7 +8,7 @@ static const BHUD_Error = 2;
 
 local pHelicopter;
 local iState;
-local pRotation;
+local pRotation, pThrottle, pAltitude;
 
 public func Initialize() 
 {
@@ -63,6 +63,14 @@ protected func Timer()
 		return true;
 	}
 	Align();
+	//Farbe
+	if(pHelicopter->GetDamage() > pHelicopter->MaxDamage()*3/4) {
+		SetState(BHUD_Error);	
+	}
+	else {
+		SetState(BHUD_Ready);
+	}
+	
 	//Rotation anzeigen
 	if(!pRotation)
 	{
@@ -73,16 +81,41 @@ protected func Timer()
 	}
 	SetPosition(GetX(), GetY()+56, pRotation);
 	pRotation->SetR(GetR(pHelicopter));
-	if(GetAction(pHelicopter) == "Turn") {
-		pRotation->SetObjDrawTransform(Abs(((GetActTime(pHelicopter)-20)*1000)/40*2),0,0,0,1000,0);
+	/*if(GetAction(pHelicopter) == "Turn") {
+		pRotation->SetObjDrawTransform(Abs(((GetActTime(pHelicopter)-40/2)*1000)/40*2),0,0,0,1000,0);
 	}
 	else {
 		pRotation->SetObjDrawTransform(1000,0,0,0,1000,0);
+	}*/
+	//Throttle anzeigen
+	if(!pThrottle) {
+		pThrottle = CreateObject(BARW,0,0,GetOwner());
+		pThrottle->SetOwner(GetOwner());
+		pThrottle->SetVisibility(VIS_Owner);
+		pThrottle->SetClrModulation(RGBa(255,204,0,50));
 	}
-  return true;
+	SetPosition(GetX()-180, GetY()+70-BoundBy((((140*1000)/max_throttle)*pHelicopter->GetThrottle())/1000, 0, 140), pThrottle);
+	//Höhe anzeigen
+	if(!pAltitude) {
+		pAltitude = CreateObject(BARW,0,0,GetOwner());
+		pAltitude->SetR(180);
+		pAltitude->SetOwner(GetOwner());
+		pAltitude->SetVisibility(VIS_Owner);
+		pAltitude->SetClrModulation(RGBa(255,204,0,50));
+	}
+	/*var iDist = GetY(pHelicopter);
+	while(!pHelicopter->GBackSolid(0, iDist) && !pHelicopter->GBackLiquid(0, iDist) && iDist < LandscapeHeight()) {
+		iDist += 5;
+	}
+	SetPosition(GetX()+180, GetY()+64-BoundBy((((140*1000)/(GetY(pHelicopter)+iDist))*iDist)/1000, 0, 140), pAltitude);*/
+	SetPosition(GetX()+180, GetY()+64-BoundBy(140-((((140*1000)/LandscapeHeight())*GetY(pHelicopter))/1000), 0, 140), pAltitude);
+	return true;
 }
 
 public func Destruction() {
+	SetState(BHUD_Ready);
 	if(pRotation) RemoveObject(pRotation);
+	if(pThrottle) RemoveObject(pThrottle);
+	if(pAltitude) RemoveObject(pAltitude);
 	return true;
 }
