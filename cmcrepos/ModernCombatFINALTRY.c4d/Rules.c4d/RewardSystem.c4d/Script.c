@@ -158,6 +158,17 @@ public func GetData()
 
 /* Achievements */
 
+global func ResetAllPlayerAchievements() {
+	for(var i = 0; i < GetPlayerCount(); i++)
+		ResetPlayerAchievements(GetPlayerByIndex(i));
+	return true;
+}
+
+global func ResetPlayerAchievements(int iPlr) {
+	SetPlrExtraData(iPlr, "CMC_Achievements", 0);
+  return true;
+}
+
 global func AwardAchievement(id idAchievement, int iPlr)
 {
 	if(!FindObject(RWDS)) return;
