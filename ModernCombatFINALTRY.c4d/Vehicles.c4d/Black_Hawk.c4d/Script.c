@@ -34,7 +34,7 @@ static const max_throttle = 200;//int    - höchste Schubeinstellung
 static const max_rotation = 30; //int    - stärkste erlaubte Neigung
 static const auto_throttle_speed = 1;
 static const auto_max_throttle = 150;
-static const auto_max_rotation = 15;
+static const auto_max_rotation = 10;
 
 /* ----- Callbacks ----- */
 
@@ -146,15 +146,20 @@ protected func FxBlackhawkAutopilotStart(object pTarget, int iNumber, iTemp, int
 protected func FxBlackhawkAutopilotTimer(object pTarget, int iNumber, int iTime) {
 	var iX = EffectVar(0, pTarget, iNumber);
 	var iY = EffectVar(1, pTarget, iNumber);
-	if(GetY(pTarget) < iY+20) {
-		if(GetYDir(pTarget) < -2) {
+	if(GetY(pTarget) < iY-50) {
+		if(GetYDir(pTarget) < 3 || GetContact(this(), -1, CNAT_Bottom)) {
 			//vom Gas weg
 			if(GetAction()=="Fly" || GetAction()=="Turn")
 			throttle = BoundBy(throttle - auto_throttle_speed, 0, auto_max_throttle);
+			//Motor aus
+	    if (throttle == 0 && (GetAction()=="Fly" || GetAction()=="EngineStartUp")) {
+	    	SetAction("EngineShutDown");
+	   		return(pTarget->ResetAutopilot());
+	   	}
 	  }
 	}
-	else if(GetY(pTarget) > iY-20) {
-		if(GetYDir(pTarget) > 2) {
+	else if(GetY(pTarget) > iY+50) {
+		if(GetYDir(pTarget) > -3) {
 			if (throttle == 0 && (GetAction()=="Stand" || GetAction()=="EngineShutDown"))
 			SetAction("EngineStartUp");
 			//beim Flug mehr Schub
@@ -174,7 +179,7 @@ protected func FxBlackhawkAutopilotTimer(object pTarget, int iNumber, int iTime)
 			throttle = BoundBy(throttle - auto_throttle_speed, 0, auto_max_throttle);
 		}
 	}
-	if(GetX(pTarget) > iX-20) {
+	if(GetX(pTarget) > iX+50) {
 		 if (GetAction()=="Fly" || GetAction()=="Turn") 
       rotation = BoundBy(rotation - control_speed, -auto_max_rotation, auto_max_rotation);
      if (rotation < 0 && GetDir() && GetAction()=="Fly")
@@ -183,7 +188,7 @@ protected func FxBlackhawkAutopilotTimer(object pTarget, int iNumber, int iTime)
 			  SetAction("Turn");
 			}
 	}
-	else if(GetX(pTarget) < iX+20){
+	else if(GetX(pTarget) < iX-50){
 		 if (GetAction()=="Fly" || GetAction()=="Turn") 
       rotation = BoundBy(rotation + control_speed, -auto_max_rotation, auto_max_rotation);
       if (rotation > 0 && !GetDir() && GetAction()=="Fly")
@@ -191,6 +196,22 @@ protected func FxBlackhawkAutopilotTimer(object pTarget, int iNumber, int iTime)
 			  if (GetAction() == "Turn" || GetContact(this(), -1)) return true;
 			  SetAction("Turn");
 			}
+	}
+	else if(GetXDir() != 0) {
+		if(GetXDir(pTarget) < -1) {
+    	rotation = BoundBy(rotation + control_speed, 0, auto_max_rotation);
+		}
+		else if(GetXDir(pTarget) > 1) {
+    	rotation = BoundBy(rotation - control_speed, -auto_max_rotation, 0);
+		}
+		else {
+			if(GetXDir(pTarget) < 0) {
+		  	rotation = BoundBy(rotation - control_speed, 0, auto_max_rotation);
+			}
+			else if(GetXDir(pTarget) > 0) {
+		  	rotation = BoundBy(rotation + control_speed, -auto_max_rotation, 0);
+			}
+		}
 	}
 	return FX_OK;
 }
