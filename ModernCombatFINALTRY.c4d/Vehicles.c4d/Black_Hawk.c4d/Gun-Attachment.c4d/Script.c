@@ -85,6 +85,13 @@ public func Disarm()
   RemoveEffect("ShowWeapon", this);
 }
 
+public func StopAutoFire()
+{
+  //An Waffe weiterleiten
+  if (cur_Attachment)
+    return cur_Attachment->~StopAutoFire(...);
+}
+
 /* Steuerung */
 public func ControlUp(pByObj)
 {
