@@ -50,3 +50,10 @@ func OnReload()
 {
   Sound("MNGN_Reload.ogg");
 }
+
+public func StopAutoFire()
+{
+  //Nur wenn er auch wirklich feuert
+  if (IsRecharging())
+    return _inherited(...);
+}
