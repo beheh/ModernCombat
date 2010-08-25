@@ -87,7 +87,7 @@ protected func Initialize()
   //Geschütze
   MGStation = CreateObject(H_MA,0,0,GetOwner());
   MGStation -> Set(this,10,90,90,270);
-  MGStation -> Arm(HMSA);
+  MGStation -> Arm(ACCN);
   RocketStation = CreateObject(H_MA,0,0,GetOwner());
   RocketStation -> Set(this,40,10,210,270);
   RocketStation -> Arm(RLSA);
@@ -116,10 +116,6 @@ protected func Destruction()
   if(RocketStation)
     RemoveObject(RocketStation,true);
   return true;
-}
-
-public func GetPilot() {
-	return Pilot;
 }
 
 /* Autopilot - betreten auf eigene Gefahr! - Eltern haften für ihre Kinder */
@@ -361,9 +357,7 @@ protected func ContainedDownDouble(object ByObj)
     //vom Gas weg
     if (GetAction()=="Fly") throttle = BoundBy(throttle - throttle_speed*2, 0, 170);
   }
-  if(ByObj == Passenger1 || ByObj == Passenger2) {
- 	  SetCommand(ByObj,"Exit");
-  }
+    
   return true;
 }
 
@@ -475,9 +469,8 @@ protected func ContainedThrow(object ByObj)
   {
     if (!hud)
     {
-      hud = CreateObject(BHUD, 0, 0, GetOwner(ByObj));
-      hud->SetHelicopter(this);
-      hud->SetOwner(GetOwner());
+      hud = CreateObject(H_H0, 0, 0, GetOwner(ByObj));
+      LocalN("heli", hud) = this;
     }
     else
       RemoveObject(hud);
@@ -585,8 +578,8 @@ public func EnterSeat1(a, object Obj)
   SetGraphics(0,this,GetID(),1,GFXOV_MODE_Object,0,GFX_BLIT_Additive,this);
   Pilot = Obj;
   SetGraphics("2");
-  hud = CreateObject(BHUD, 0, 0, GetOwner(Obj));
-	hud->SetHelicopter(this);
+  hud = CreateObject(H_H0, 0, 0, GetOwner(Obj));
+  LocalN("heli", hud) = this;
   Sound("SwitchHUD", false, this(), 100, GetOwner(Obj)+1);
 
   return 1;
@@ -634,7 +627,7 @@ public func EnterSeat5(a, object Obj)
 
 private func ExitClonk(a,ByObj)
 {
-  SetCommand(ByObj, "Exit");
+  SetCommand(ByObj,"Exit");
 }
 
 protected func FxCheckGroundStart(pTarget, iNo, iTemp, pRope, pHeli)
@@ -754,7 +747,7 @@ protected func ContactTop()
       CreateParticle("Blast", GetVertex(i), GetVertex(i, true),
                      0, 0, 50, RGB(255,255,255));
   }
-  Sound("Collision*", false, MGStation);
+  Sound("HeavyHit*.ogg", false, MGStation);
   SetYDir(GetYDir()*-1/2);
 }
 
@@ -770,7 +763,7 @@ protected func ContactBottom()
                        0, 0, 50, RGB(255,255,255));
     }
     DoDamage(GetYDir()/2);
-    Sound("Collision*", false, MGStation);
+    Sound("HeavyHit*.ogg", false, MGStation);
     SetYDir(GetYDir()*-1/3);
   }
 }
@@ -786,7 +779,7 @@ protected func ContactLeft()
                        0, 0, 50, RGB(255,255,255));
     }
     DoDamage(Abs(GetXDir())+Abs(GetYDir()));
-    Sound("Collision*", false, MGStation);
+    Sound("HeavyHit*.ogg", false, MGStation);
   }
   SetXDir(GetXDir()*-1/2); //Abprallen
 }
@@ -802,7 +795,7 @@ protected func ContactRight()
                        0, 0, 50, RGB(255,255,255));
     }
     DoDamage(Abs(GetXDir())+Abs(GetYDir()));
-    Sound("Collision*", false, MGStation);
+    Sound("HeavyHit*.ogg", false, MGStation);
   }
   SetXDir(GetXDir()*-1/2); //Abprallen
 }
@@ -891,7 +884,7 @@ private func WarningSound()
 {
     if (GetDamage() < MaxDamage()*3/4) 
   {
-    //Sound("DamageCritical", false, this());
+    //Sound("DamageCritical.ogg", false, this());
     if (!(s_counter%36))
     {
       var obj;
@@ -917,7 +910,7 @@ private func WarningSound()
       {
         if (obj = Contents(i, this()))
           if (GetOCF(obj) & OCF_CrewMember)
-            Sound("DamageCritical", false, MGStation, 100, GetOwner(obj)+1);
+            Sound("DamageCritical.ogg", false, MGStation, 100, GetOwner(obj)+1);
 
       }
     }
@@ -982,7 +975,7 @@ private func Smoking()
 //Motor anlassen
 protected func StartEngine()
 {
-  Sound("StartSystem", false, this());
+  Sound("StartSystem.ogg", false, this());
 }
 
 //Motor läuft
@@ -998,7 +991,7 @@ protected func StopEngine()
 {
   if (!fuel) PlayerMessage(GetOwner(), "<c ff0000>$MsgNoFuel$</c>", this());
 
-  Sound("StopSystem", false, this()); 
+  Sound("StopSystem.ogg", false, this()); 
   RemoveEffect("Engine",this());
 }
 
