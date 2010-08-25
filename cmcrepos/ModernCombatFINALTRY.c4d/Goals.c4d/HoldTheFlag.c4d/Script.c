@@ -94,7 +94,7 @@ protected func FxIntAddProgressTimer() {
 	  //Die anderen warnen falls nötig
 	  else
 	    if (aTeamPoints[team] == warning)
-		  EventInfo4K(GetPlayerByIndex(i)+1, Format("$TeamReachingGoal$", GetTaggedTeamName(team), GetTeamColor(team), iGoal-warning), GHTF, 0, 0, 0, "Alarm.ogg");
+		  EventInfo4K(GetPlayerByIndex(i)+1, Format("$TeamReachingGoal$", GetTaggedTeamName(team), iGoal-warning), GHTF, 0, 0, 0, "Alarm.ogg");
   }
   
   //Gewonnen?
