@@ -1,7 +1,6 @@
 /*-- Kampfclonk Appendto --*/
 
 #strict 2
-#include HZCK
 #appendto HZCK
 
 local crosshair;
@@ -1025,6 +1024,13 @@ public func IsHealing () { return(WildcardMatch(GetAction(), "*Heal*")); }
 /* KI-Erweiterung */
 //Reanimiert jetzt sogar Verbündete, foll toll!11
 
+protected func ContextGuard(object pCaller) {
+  [$CtxGuard$|Image=FLA2|Condition=Outside]
+  // Bewachen
+  SetAggroLevel(Aggro_Guard, 200);
+  Sound("Confirm*");
+}
+
 public func GetReanimationTarget(pFrom, &body, &defi, fUnderAttack) {
 	var distance = 200;
 	if(fUnderAttack) distance = 50;
@@ -1065,14 +1071,10 @@ public func FxAggroTimer(object pTarget, int no)
 				ShiftContents(pTarget, 0, CDBT);
 			}
 			else {
-				SetCommand(pTarget, "MoveTo", body);
-				//SetMacroCommand(pTarget, "MoveTo", body, 0,0,0, EffectVar(0, pTarget, no));
+				SetMacroCommand(pTarget, "MoveTo", body, 0,0,0, EffectVar(0, pTarget, no));
 			}
 			return(1);
 		}
-	}
-	else {
-	  AddMacroCommand(0, "MoveTo", 0, EffectVar(3, this(), no),EffectVar(4, this(), no), 0, EffectVar(0, this(), no));
 	}
 	// Verletzt?
 	if(!pTarget->~IsHealing() && pTarget->GetEnergy() < pTarget->GetPhysical("Energy") * 2/3 / 1000) {
@@ -1087,7 +1089,28 @@ public func FxAggroTimer(object pTarget, int no)
 			if(pDragnin) pDragnin->Activate(pTarget);
 	}
 	// Okay - und sonst noch wer in meiner Nähe stark verletzt?
-	
+	//var friends;
+	for(var friend in FindObjects(Find_Category(OCF_Living), Find_NoContainer(), Find_Distance(50, AbsX(GetX(pTarget)), AbsY(GetY(pTarget))), Sort_Distance())) {
+		if(!friend->~IsHealing() && friend->GetEnergy() < friend->GetPhysical("Energy") * 1/3 / 1000) {
+			// Medic, FAP dabei und kein Dragnin? Entpacken!
+			if(!ContentsCount(DGNN, pTarget) && ContentsCount(FAPK, pTarget)) {
+				var pFAP = FindObject2(Find_ID(FAPK), Find_Container(pTarget), Find_Func("CanUnpack", pTarget));
+				if(pFAP)
+					pFAP->ControlThrow(pTarget);
+			}
+			// Und schnell mal nach Dragnin suchen
+			var pDragnin = FindObject2(Find_ID(DGNN), Find_Container(pTarget));
+			if(pDragnin) {
+				if(ObjectDistance(friend, pTarget) < 10) {
+					pDragnin->ControlThrow(pTarget);
+				}
+				else {
+					SetMacroCommand(pTarget, "MoveTo", friend, 0,0,0, EffectVar(0, pTarget, no));
+				}
+			}
+			break;
+		}
+	}
   // Wir haben ein Ziel?
   if(EffectVar(1, this(), no) && (pTarget->~GetSpread() < 80 || ObjectDistance(pTarget, EffectVar(1, this(), no))) < 30) { EffectCall(this(), no, "Fire"); return(1); }
   // Zielen beenden
@@ -1227,4 +1250,14 @@ public func SelectWeapon(int iLevel, object pTarget, bool fFireModes)
       fav->SetFireMode(favmode);
   if(ContentsCount() == 1) return(1);
   return(ShiftContents(0,0,fav->GetID()));
+}
+
+protected func MacroComMoveTo()
+{
+	var x, y;
+	x = GetMacroCommand(0,2);
+	y = GetMacroCommand(0,3);
+	if(!inherited()) return;
+	SetCommand(this, "MoveTo", 0, x, y);
+	return;
 }
