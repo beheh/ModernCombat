@@ -118,6 +118,10 @@ protected func Destruction()
   return true;
 }
 
+public func GetPilot() {
+	return Pilot;
+}
+
 /* Autopilot - betreten auf eigene Gefahr! - Eltern haften für ihre Kinder */
 
 public func SetAutopilot(object pTarget, int iX, int iY) {
@@ -357,7 +361,9 @@ protected func ContainedDownDouble(object ByObj)
     //vom Gas weg
     if (GetAction()=="Fly") throttle = BoundBy(throttle - throttle_speed*2, 0, 170);
   }
-    
+  if(ByObj == Passenger1 || ByObj == Passenger2) {
+ 	  SetCommand(ByObj,"Exit");
+  }
   return true;
 }
 
@@ -469,8 +475,9 @@ protected func ContainedThrow(object ByObj)
   {
     if (!hud)
     {
-      hud = CreateObject(H_H0, 0, 0, GetOwner(ByObj));
-      LocalN("heli", hud) = this;
+      hud = CreateObject(BHUD, 0, 0, GetOwner(ByObj));
+      hud->SetHelicopter(this);
+      hud->SetOwner(GetOwner());
     }
     else
       RemoveObject(hud);
@@ -578,8 +585,8 @@ public func EnterSeat1(a, object Obj)
   SetGraphics(0,this,GetID(),1,GFXOV_MODE_Object,0,GFX_BLIT_Additive,this);
   Pilot = Obj;
   SetGraphics("2");
-  hud = CreateObject(H_H0, 0, 0, GetOwner(Obj));
-  LocalN("heli", hud) = this;
+  hud = CreateObject(BHUD, 0, 0, GetOwner(Obj));
+	hud->SetHelicopter(this);
   Sound("SwitchHUD", false, this(), 100, GetOwner(Obj)+1);
 
   return 1;
@@ -627,7 +634,7 @@ public func EnterSeat5(a, object Obj)
 
 private func ExitClonk(a,ByObj)
 {
-  SetCommand(ByObj,"Exit");
+  SetCommand(ByObj, "Exit");
 }
 
 protected func FxCheckGroundStart(pTarget, iNo, iTemp, pRope, pHeli)
