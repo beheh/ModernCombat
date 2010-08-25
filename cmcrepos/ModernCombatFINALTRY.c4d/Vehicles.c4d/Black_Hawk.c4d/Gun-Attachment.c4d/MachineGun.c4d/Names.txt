@@ -1,2 +1,0 @@
-DE:Maschinengewehr
-US:Machine Gun
