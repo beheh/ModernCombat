@@ -601,7 +601,7 @@ public func ControlThrow(caller)
         if(WildcardMatch(GetAction(target),"*Crawl*")) //kriecht der Feind?
         {
           DoDmg(GetMCData(MC_Damage)*3/2,DMG_Melee,target,0,GetController(GetUser())+1,GetID());
-          ObjectSetAction(GetUser(), "KneelUp");
+          ObjectSetAction(target, "KneelUp");
         }
         else //ansonsten normal zuschlagen und schleudern.
         {
@@ -616,8 +616,8 @@ public func ControlThrow(caller)
           ObjectSetAction(target, "Tumble");
         }
 
-        Sound("ClonkMelee*.ogg");
-        Sound("WPN2_Punch.ogg");
+        Sound("ClonkMelee*.ogg", 0, this);
+        Sound("WPN2_Punch.ogg", 0, this);
         meleeattacked = true;
         AddEffect("StrikeRecharge", this, 1, 1, this);
       }
