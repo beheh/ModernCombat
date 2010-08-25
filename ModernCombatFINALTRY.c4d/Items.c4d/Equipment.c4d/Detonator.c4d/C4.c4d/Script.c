@@ -118,9 +118,7 @@ public func BlowUp()
 
 public func IsBulletTarget(ID)
 {
-  if(ID == C4EX)
-    return false;
-  return true;
+  return ID != SHT1 && ID != SHTX && ID != C4EX;
 }
 
 public func OnHit(int iDamage, int iType, object pFrom)
