@@ -245,9 +245,10 @@ protected func DoPoints() {
     if(assist != killer)
     {
       DoPlayerPoints(AssistPoints(), RWDS_BattlePoints, assist, GetCursor(assist), IC02);
-      DoAchievementProgress(1, AC01, assist);
+      if(!Hostile(assist, killer)) DoAchievementProgress(1, AC01, assist);
     }  
   }
+  if(GBackLiquid()) DoAchievementProgress(1, AC11, GetOwner());
   
   //Teamkiller
   if(!Hostile(killer,GetOwner()) && killer != GetOwner() && !(killer < 0))
@@ -359,8 +360,7 @@ global func FakeDeath(object pTarget)
 	  if(GetProcedure(pTarget) == "FLIGHT" && GetProcedure(GetCursor(GetKiller(pTarget))) == "FLIGHT")
   		DoAchievementProgress(1, AC10, GetKiller(pTarget));
  	}
-	if(GBackLiquid()) DoAchievementProgress(1, AC11, GetOwner());
-
+	
   //Fake Death erstellen
   if(WildcardMatch(GetAction(pTarget),"*Crawl*"))
   {
@@ -440,7 +440,6 @@ func Death(object pTarget)
 		AwardAchievement(AC08, GetKiller(pTarget));
 	}
 	SetAchievementExtra(data, AC08, GetKiller(pTarget));
-  if(!IsFakeDeath()) if(GBackLiquid()) DoAchievementProgress(1, AC11, GetOwner());
 	ResetAchievementProgress(AC12, GetOwner());
   
   //Todesnachricht bei keinem FakeDeath
