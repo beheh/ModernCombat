@@ -128,16 +128,20 @@ global func DoPlayerPoints(int iPoints, int iType, int iPlr, object pClonk, id i
 	var db = FindObject2(Find_ID(RWDS));
   if(!db) return;
   if(!iPoints) return;
-  DoAchievementProgress(iPoints, AC13, iPlr);
-  if(pClonk) {
-    if(!idIcon) idIcon = CLNK;
-    var szMsg;
-    if(iPoints < 0) szMsg = Format("{{%i}} <c ff0000>%d</c>", idIcon, iPoints);
-    if(iPoints > 0) szMsg = Format("{{%i}} <c 00ff00>+%d</c>", idIcon, iPoints);
-    if(iPoints == 0) szMsg = Format("{{%i}} <c ffff00>+%d</c>", idIcon, iPoints);
-    pClonk->AddEffect("PointMessage", pClonk, 130, 1, pClonk, 0, szMsg);
+  if(iType != RWDS_BattlePoints || iType != RWDS_TeamPoints || iType != RWDS_MinusPoints) return;
+  if(db->SetPlayerData(db->GetPlayerPoints(iType, iPlr)+iPoints, iType, iPlr)) {
+		DoAchievementProgress(iPoints, AC13, iPlr);
+		if(pClonk) {
+			if(!idIcon) idIcon = RWDS;
+			var szMsg;
+			if(iPoints < 0) szMsg = Format("{{%i}} <c ff0000>%d</c>", idIcon, iPoints);
+			if(iPoints > 0) szMsg = Format("{{%i}} <c 00ff00>+%d</c>", idIcon, iPoints);
+			if(iPoints == 0) szMsg = Format("{{%i}} <c ffff00>+%d</c>", idIcon, iPoints);
+			pClonk->AddEffect("PointMessage", pClonk, 130, 1, pClonk, 0, szMsg);
+			return true;
+		}
   }
-  return db->SetPlayerData(db->GetPlayerPoints(iType, iPlr)+iPoints, iType, iPlr);
+  return;
 }
 
 global func GetPlayerPoints(int iType, int iPlr)
