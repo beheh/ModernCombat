@@ -80,7 +80,7 @@ protected func Initialize()
   //Stuff.
   fuel = 999999; //Blar?
   SetAction("Stand");
-
+  
   //Pilot
   view_mode = true;
   
@@ -614,7 +614,7 @@ public func EnterSeat4(a, object Obj)
   return 1;
 }
 
-public func EnterSeat5(object Obj)
+public func EnterSeat5(a, object Obj)
 {
   DeleteActualSeatPassenger(Obj);
   Passenger2 = Obj;
@@ -847,6 +847,8 @@ protected func TimerCall()
   //Piloten anpassen
   DrawPilot();
 
+	DrawGroundParticles();
+
   //bis 50% nichts
   if (GetDamage() < MaxDamage()*1/2) return(false);
 
@@ -919,6 +921,19 @@ private func WarningSound()
   }
 }
 
+private func DrawGroundParticles() {
+	/*var iY = 0;
+	while(!GBackSolid(0, iY) && !GBackLiquid(0, iY)) {
+		iY += 5;
+	}
+	while(GBackSolid(0, iY) && GBackLiquid(0, iY)) {
+		iY -= 1;
+	}
+	Log("%d %d", AbsX(0), AbsY(iY));
+  CreateParticle("SlimeGra1v",30,-iY,(1+Random(4)),(7+Random(4)) ,100/30 ,RGBa(100,150,255,100+Random(100)));
+  CreateParticle("SlimeGrav",-30,-iY,-(1+Random(4)),-(7+Random(4)) ,-100/30 ,RGBa(100,150,255,100+Random(100)));*/
+}
+
 private func DrawFire()
 {
   var dir = GetDir()*2-1;
@@ -926,6 +941,12 @@ private func DrawFire()
   {
     CreateParticle("Blast",-Sin(GetR()+dir*80, 25),
                            +Cos(GetR()+dir*80, 25),
+  			             0, -10, 100+Random(20), RGB(255,255,255), this());
+  }
+  if (!GBackLiquid(-Sin(GetR()+dir*80, 25), +Cos(GetR()+dir*80, 25)))
+  {
+    CreateParticle("Blast",-Sin(GetR()-dir*60, 25),
+                           +Cos(GetR()+dir*100, 25),
   			             0, -10, 100+Random(20), RGB(255,255,255), this());
   }
 }

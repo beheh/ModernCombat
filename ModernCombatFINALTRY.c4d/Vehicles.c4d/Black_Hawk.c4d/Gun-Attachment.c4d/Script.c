@@ -12,6 +12,7 @@ local heli,vis;
 local Crosshair;
 local Rad,Ang;
 local rot_left,rot_right;
+local blinkspeed;
 
 public func GetAttWeapon()	{return cur_Attachment;}		//Waffe
 public func MaxRotLeft()	{return rot_left+GetDir(heli)*(180-rot_right+180-rot_left);}			//Maximaler Winkel links
@@ -32,6 +33,7 @@ public func Set(pTarget, iRad, iAng, iRotLeft, iRotRight)
   rot_left = iRotLeft;
   rot_right = iRotRight;
   heli = pTarget;
+  blinkspeed = RandomX(27,33);
 }
 
 public func SetGunner(pObj)
@@ -160,13 +162,13 @@ public func TimerCall()
   //Owner updaten
   cur_Attachment->SetTeam(GetTeam());
 
-  // alle 30 Frames
-  if(!(GetActTime()%30) && pController)
+  // alle X Frames
+  if(!(GetActTime()%blinkspeed) && pController)
   {
-    if(GetTeam())
-      var rgb = GetTeamColor(GetTeam());
-    else if(GetOwner())
-      var rgb = GetPlrColorDw(GetOwner());
+    if(heli->GetTeam())
+      var rgb = GetTeamColor(heli->GetTeam());
+    else if(heli->GetOwner())
+      var rgb = GetPlrColorDw(heli->GetOwner());
     else
       var rgb = RGB(255,255,255);
     CreateParticle("FapLight",0,4,0,0,5*15,rgb,this);
