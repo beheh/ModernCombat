@@ -21,6 +21,7 @@ Passenger2=Passagier 2
 GunnerSeat=Ein Minigungeschütz, welches manuell gesteuert wird.
 RocketeerSeat=Ein Raketenwerfersystem mit optisch gesteuerten Raketen.
 PassengerSeat=Ein ganz normaler Sitzplatz.
+Exit=Verlassen
 
 #Sonstiges
 TxtNoAmmo=Keine Munition
