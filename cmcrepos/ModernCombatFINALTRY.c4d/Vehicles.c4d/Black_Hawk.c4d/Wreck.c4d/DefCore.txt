@@ -7,10 +7,8 @@ Picture=0,40,136,48
 Offset=-60,-20
 Vertices=6
 VertexY=-18,-18,-18,16,16,16
-MaxUserSelect=5
 Width=120
 Height=40
-Value=50
 Mass=500
 Components=METL=6;
 VertexX=-75,0,75,-75,0,75
@@ -18,7 +16,3 @@ VertexFriction=100,100,100,100
 Rotate=1
 SmokeRate=20
 NoBurnDecay=1
-Grab=1
-AttractLightning=1
-
-[Physical]
