@@ -126,7 +126,10 @@ public func ControlThrow(pByObj)
 {
   if(!cur_Attachment)
     return true;
-  GetAttWeapon()->ControlThrow(this);
+  if(GetAttWeapon()->IsShooting())
+    GetAttWeapon()->StopAutoFire();
+  else
+    GetAttWeapon()->ControlThrow(this);
   return true;
 }
 
