@@ -140,8 +140,9 @@ public func ResetAutopilot() {
 }
 
 protected func FxBlackhawkAutopilotStart(object pTarget, int iNumber, iTemp, int iX, int iY) {
+	if(GBackLiquid(AbsX(iX), AbsY(iY))) return -1;
 	EffectVar(0, pTarget, iNumber) = iX;
-	EffectVar(1, pTarget, iNumber) = iY;
+	EffectVar(1, pTarget, iNumber) = iY;	
 }
 
 protected func FxBlackhawkAutopilotTimer(object pTarget, int iNumber, int iTime) {
@@ -225,13 +226,23 @@ protected func ControlCommand(string Command, object Target, int TargetX, int Ta
 {
   if (Command == "Exit")
   {
+		if(ByObj != Pilot && PathFree(GetX(),GetY(),GetX(),GetY()+50))
+		{
+		  var rope = CreateObject(CK5P,0,0,-1);
+		  rope->ConnectObjects(this,ByObj);
+		  Local(8,rope) = true;
+		  AddEffect("CheckGround",ByObj,30,3,this,GetID(),rope,this);
+		}
+		DeleteActualSeatPassenger(ByObj);
     var rot = GetDir()*180-90 + GetR() + GetDir()*120-60;
     Exit(ByObj, Sin(rot,25), -Cos(rot,25), GetR(), GetXDir(0,1), GetYDir(0,1), GetRDir());
     return true;
   }
   if (Command == "MoveTo")
   {
-  	SetAutopilot(Target, TargetX, TargetY);
+  	if(ByObj == Pilot) {
+  		SetAutopilot(Target, TargetX, TargetY);
+  	}
   	return true;
   }
   return false;
@@ -617,14 +628,6 @@ public func EnterSeat5(object Obj)
 private func ExitClonk(a,ByObj)
 {
   SetCommand(ByObj,"Exit");
-  if(ByObj != Pilot && PathFree(GetX(),GetY(),GetX(),GetY()+50))
-  {
-    var rope = CreateObject(CK5P,0,0,-1);
-    rope->ConnectObjects(this,ByObj);
-    Local(8,rope) = true;
-    AddEffect("CheckGround",ByObj,30,3,this,GetID(),rope,this);
-  }
-  DeleteActualSeatPassenger(ByObj);
 }
 
 protected func FxCheckGroundStart(pTarget, iNo, iTemp, pRope, pHeli)
