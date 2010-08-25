@@ -121,6 +121,7 @@ protected func Destruction()
 /* Autopilot - betreten auf eigene Gefahr! - Eltern haften für ihre Kinder */
 
 public func SetAutopilot(object pTarget, int iX, int iY) {
+	if(!Pilot) return false;
 	ResetAutopilot();
 	var xto, yto;
 	if(pTarget) {
@@ -144,6 +145,7 @@ protected func FxBlackhawkAutopilotStart(object pTarget, int iNumber, iTemp, int
 }
 
 protected func FxBlackhawkAutopilotTimer(object pTarget, int iNumber, int iTime) {
+  if(!Pilot) return pTarget->ResetAutopilot();
 	var iX = EffectVar(0, pTarget, iNumber);
 	var iY = EffectVar(1, pTarget, iNumber);
 	if(GetY(pTarget) < iY-50) {
@@ -466,26 +468,12 @@ protected func ContainedThrow(object ByObj)
   
   //Gunner
   if (ByObj == Gunner)
-    if (!GetPlrCoreJumpAndRunControl(GetController(ByObj)))
-      MGStation->~ControlThrow(ByObj);
+    MGStation->~ControlThrow(ByObj);
   //Rocketeer
   if (ByObj == Rocketeer)
     RocketStation->~ControlThrow(ByObj);
 
   return true;
-}
-
-protected func ContainedUpdate(object ByObj, int dir, bool dig, bool throw)
-{
-  if (GetDamage() > MaxDamage())
-    return true;
-  //Gunner
-  if (ByObj == Gunner) {
-    if (throw)
-	  return MGStation->~ControlThrow(ByObj);
-    else
-	  return MGStation->~StopAutoFire();
-  }
 }
 
 //eine Funktion, welche einfach nur die Richtung eines Objektes ändert
