@@ -1044,6 +1044,7 @@ protected func FxEngineTimer(object Target, int EffectNumber, int EffectTime)
   g = GetGravity();
   Fg = (m + mh) * g;
   Fw = GetWind(0, -20, false) * 200;
+ 	if(GetContact(this(), -1, CNAT_Bottom)) Fw = 0;
  
   //Hubkraft und vertikale Beschleunigung berechnen
   Fv  = - Cos(GetR(Target), 1500*thr);

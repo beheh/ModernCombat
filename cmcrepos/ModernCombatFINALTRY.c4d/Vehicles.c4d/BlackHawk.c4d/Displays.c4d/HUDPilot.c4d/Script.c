@@ -8,7 +8,7 @@ static const BHUD_Error = 2;
 
 local pHelicopter;
 local iState;
-local pRotation, pThrottle, pAltitude;
+local pRotation, pThrottle, pAltitude, pWind;
 
 public func Initialize() 
 {
@@ -109,6 +109,15 @@ protected func Timer()
 	}
 	SetPosition(GetX()+180, GetY()+64-BoundBy((((140*1000)/(GetY(pHelicopter)+iDist))*iDist)/1000, 0, 140), pAltitude);*/
 	SetPosition(GetX()+180, GetY()+64-BoundBy(140-((((140*1000)/LandscapeHeight())*GetY(pHelicopter))/1000), 0, 140), pAltitude);
+	//Wind anzeigen
+	if(!pWind) {
+		pWind = CreateObject(BARW,0,0,GetOwner());
+		pWind->SetR(90);
+		pWind->SetOwner(GetOwner());
+		pWind->SetVisibility(VIS_Owner);
+		pWind->SetClrModulation(RGBa(255,204,0,50));
+	}
+	SetPosition(GetX()-4+BoundBy((1400*GetWind(AbsX(GetX(pHelicopter)), AbsY(GetY(pHelicopter))))/1000, -69, 71), GetY()-98, pWind);
 	return true;
 }
 
@@ -117,5 +126,6 @@ public func Destruction() {
 	if(pRotation) RemoveObject(pRotation);
 	if(pThrottle) RemoveObject(pThrottle);
 	if(pAltitude) RemoveObject(pAltitude);
+	if(pWind) RemoveObject(pWind);
 	return true;
 }
