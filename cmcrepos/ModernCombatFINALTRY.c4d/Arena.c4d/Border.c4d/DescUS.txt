@@ -1,1 +1,1 @@
-Player who trespass this border will get eliminated in a few seconds and therefore can't leave the playing field.
+This border object eliminates players in a few seconds who trespass specific coordinates thus preventing them from leaving the playing field.
