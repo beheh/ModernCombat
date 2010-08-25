@@ -68,7 +68,7 @@ protected func Initialize()
   //Geschütze
   MGStation = CreateObject(H_MA,0,0,GetOwner());
   MGStation -> Set(this,10,90,90,270);
-  MGStation -> Arm(HMSA);
+  MGStation -> Arm(ACCN);
   RocketStation = CreateObject(H_MA,0,0,GetOwner());
   RocketStation -> Set(this,40,10,210,270);
   RocketStation -> Arm(RLSA);
@@ -735,7 +735,7 @@ protected func ContactTop()
       CreateParticle("Blast", GetVertex(i), GetVertex(i, true),
                      0, 0, 50, RGB(255,255,255));
   }
-  Sound("Collision*", false, MGStation);
+  Sound("HeavyHit*.ogg", false, MGStation);
   SetYDir(GetYDir()*-1/2);
 }
 
@@ -751,7 +751,7 @@ protected func ContactBottom()
                        0, 0, 50, RGB(255,255,255));
     }
     DoDamage(GetYDir()/2);
-    Sound("Collision*", false, MGStation);
+    Sound("HeavyHit*.ogg", false, MGStation);
     SetYDir(GetYDir()*-1/3);
   }
 }
@@ -767,7 +767,7 @@ protected func ContactLeft()
                        0, 0, 50, RGB(255,255,255));
     }
     DoDamage(Abs(GetXDir())+Abs(GetYDir()));
-    Sound("Collision*", false, MGStation);
+    Sound("HeavyHit*.ogg", false, MGStation);
   }
   SetXDir(GetXDir()*-1/2); //Abprallen
 }
@@ -783,7 +783,7 @@ protected func ContactRight()
                        0, 0, 50, RGB(255,255,255));
     }
     DoDamage(Abs(GetXDir())+Abs(GetYDir()));
-    Sound("Collision*", false, MGStation);
+    Sound("HeavyHit*.ogg", false, MGStation);
   }
   SetXDir(GetXDir()*-1/2); //Abprallen
 }
@@ -872,7 +872,7 @@ private func WarningSound()
 {
     if (GetDamage() < MaxDamage()*3/4) 
   {
-    //Sound("DamageCritical", false, this());
+    //Sound("DamageCritical.ogg", false, this());
     if (!(s_counter%36))
     {
       var obj;
@@ -898,7 +898,7 @@ private func WarningSound()
       {
         if (obj = Contents(i, this()))
           if (GetOCF(obj) & OCF_CrewMember)
-            Sound("DamageCritical", false, MGStation, 100, GetOwner(obj)+1);
+            Sound("DamageCritical.ogg", false, MGStation, 100, GetOwner(obj)+1);
 
       }
     }
@@ -963,7 +963,7 @@ private func Smoking()
 //Motor anlassen
 protected func StartEngine()
 {
-  Sound("StartSystem", false, this());
+  Sound("StartSystem.ogg", false, this());
 }
 
 //Motor läuft
@@ -979,7 +979,7 @@ protected func StopEngine()
 {
   if (!fuel) PlayerMessage(GetOwner(), "<c ff0000>$MsgNoFuel$</c>", this());
 
-  Sound("StopSystem", false, this()); 
+  Sound("StopSystem.ogg", false, this()); 
   RemoveEffect("Engine",this());
 }
 
