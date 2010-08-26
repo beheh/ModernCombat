@@ -88,7 +88,7 @@ protected func FxIntAddProgressTimer() {
 	//Und jedem Spieler im Team 10 Punkte geben.
 	for (var i; i < GetPlayerCount(); i++)
 	  if (GetPlayerTeam(GetPlayerByIndex(i)) == team) {
-	    DoPlayerPoints(10, 12, GetPlayerByIndex(i), GetCrew(GetPlayerByIndex(i)), IC12);
+	    DoPlayerPoints(10, RWDS_TeamPoints, GetPlayerByIndex(i), GetCrew(GetPlayerByIndex(i)), IC12);
 		Sound("Info.ogg", true, 0, 0, GetPlayerByIndex(i)+1);
 	  }
 	  //Die anderen warnen falls nötig
@@ -144,7 +144,7 @@ public func FlagLost(object pFlagPole, int iOldTeam, int iNewTeam, array aAttack
   //Punkte für die Angreifer
   for (var clonk in aAttackers)
     if (clonk)
-	  DoPlayerPoints(10, 13, GetOwner(clonk), clonk, IC13);
+	  DoPlayerPoints(10, RWDS_TeamPoints, GetOwner(clonk), clonk, IC13);
 
   //Eventmessages
   for (var i; i < GetPlayerCount(); i++)
@@ -161,12 +161,12 @@ public func FlagCaptured(object pFlagPole, int iTeam, array aAttackers, bool fRe
   for (var clonk in aAttackers)
     if (clonk) {
 	  if (fRegained)
-	    DoPlayerPoints(30, 12, GetOwner(clonk), clonk, IC12);
+	    DoPlayerPoints(30, RWDS_TeamPoints, GetOwner(clonk), clonk, IC12);
 	  else {
 	    if (first)
-	      DoPlayerPoints(50, 10, GetOwner(clonk), clonk, IC10);
+	      DoPlayerPoints(50, RWDS_TeamPoints, GetOwner(clonk), clonk, IC10);
 		else
-		  DoPlayerPoints(10, 11, GetOwner(clonk), clonk, IC11);
+		  DoPlayerPoints(10, RWDS_TeamPoints, GetOwner(clonk), clonk, IC11);
 	  }
 	  first = false;
 	}

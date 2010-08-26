@@ -128,7 +128,7 @@ global func DoPlayerPoints(int iPoints, int iType, int iPlr, object pClonk, id i
 	var db = FindObject2(Find_ID(RWDS));
   if(!db) return;
   if(!iPoints) return;
-  if(iType != RWDS_BattlePoints || iType != RWDS_TeamPoints || iType != RWDS_MinusPoints) return;
+  if(iType != RWDS_BattlePoints && iType != RWDS_TeamPoints && iType != RWDS_MinusPoints) return;
   if(db->SetPlayerData(db->GetPlayerPoints(iType, iPlr)+iPoints, iType, iPlr)) {
 		DoAchievementProgress(iPoints, AC13, iPlr);
 		if(pClonk) {
