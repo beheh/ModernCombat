@@ -13,7 +13,7 @@ global func FxIntVehicleSpawn4KStart(object pTarget, int iEffectNumber, int iTem
   EffectVar(2, pTarget, iEffectNumber) = DIR_Right; //Aktuelle Dir
   EffectVar(3, pTarget, iEffectNumber) = 100; //Sichere Zone
   EffectVar(4, pTarget, iEffectNumber) = 1; //Erstes Mal
-  EffectCall();
+ 	EffectCall(pTarget, iEffectNumber, "Spawn");
   return 1;
 }
 
