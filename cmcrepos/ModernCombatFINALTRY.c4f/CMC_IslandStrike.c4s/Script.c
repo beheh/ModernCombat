@@ -45,6 +45,7 @@ func CreateFurniture()
   CreateObject(LFTP, 6405, 555, -1);
 
   //Leitern
+  CreateObject(LADR, 695, 504, -1)->Set(7);
   CreateObject(LADR, 925, 453, -1)->Set(22);
   CreateObject(LADR, 1295, 494, -1)->Set(6);
   CreateObject(LADR, 1405, 494, -1)->Set(6);
@@ -68,7 +69,7 @@ func CreateFurniture()
   CreateObject(LADR, 7320, 502, -1)->Set(8);
   CreateObject(LADR, 7365, 440, -1)->Set(12);
   CreateObject(LADR, 7425, 478, -1)->Set(14);
-  CreateObject(LADR, 7665, 374, -1)->Set(6);
+  CreateObject(LADR, 7670, 375, -1)->Set(6);
 
   //Bodenlucken
   CreateObject(HA4K, 2960, 373, -1);
@@ -82,13 +83,16 @@ func CreateFurniture()
   CreateObject(HA4K, 7240, 433, -1);
   CreateObject(HA4K, 7280, 433, -1);
   CreateObject(HA4K, 7320, 433, -1);
+  CreateObject(HA4K, 7670, 323, -1);
 
   //Orientierungslichter
+  CreateObject(OLGH, 595, 440, -1)->Set(4, 15, 1, 1, 30);
   CreateObject(OLGH, 1025, 210, -1)->Set(3, 15, 1, 1, 30);
   CreateObject(OLGH, 1500, 290, -1)->Set(4, 15, 1, 1, 30);
   CreateObject(OLGH, 2560, 340, -1)->Set(2, 15, 1, 1, 40);
   CreateObject(OLGH, 2960, 280, -1)->Set(2, 15, 1, 1, 40);
   CreateObject(OLGH, 6590, 340, -1)->Set(2, 15, 1, 1, 40);
+  CreateObject(OLGH, 7755, 320, -1)->Set(4, 15, 1, 1, 30);
 
   //Rampen
   DrawMaterialQuad("Wall-Concrete3",1150,400,1180,390,1180,400,1165,400,true);
@@ -163,6 +167,8 @@ func CreateFurniture()
   CreateObject(XWCR, 7550, 492, -1);
 
   //Benzinfässer
+  CreateObject(PBRL, 520, 440, -1)->AutoRespawn();
+  CreateObject(PBRL, 530, 440, -1)->AutoRespawn();
   CreateObject(PBRL, 1475, 400, -1)->AutoRespawn();
   CreateObject(PBRL, 1485, 400, -1)->AutoRespawn();
   CreateObject(PBRL, 1100, 270, -1)->AutoRespawn();
@@ -178,6 +184,9 @@ func CreateFurniture()
 
   CreateObject(PBRL, 6220, 510, -1)->AutoRespawn();
   CreateObject(PBRL, 6445, 410, -1)->AutoRespawn();
+
+  CreateObject(PBRL, 7790, 320, -1)->AutoRespawn();
+  CreateObject(PBRL, 7800, 320, -1)->AutoRespawn();
 
   //Explosivfässer
   CreateObject(XBRL, 1255, 400, -1)->AutoRespawn();
@@ -378,6 +387,7 @@ func CreateFurniture()
   CreateObject(SBBA, 6490, 340, -1)->Right();
 
   //Geländer
+  CreateObject(RAI1, 510, 440, -1)->SetRail([1,1,1,1,1,1,1,1,1]);
   CreateObject(RAI1, 930, 270, -1)->SetRail([1,1]);
   CreateObject(RAI1, 1075, 270, -1)->SetRail([1,1]);
   CreateObject(RAI1, 1300, 440, -1)->SetRail([1,1,1,1,1]);
@@ -389,6 +399,7 @@ func CreateFurniture()
   CreateObject(RAI1, 7140, 360, -1)->SetRail([1,1,1,1,1,1,1,1,1]);
   CreateObject(RAI1, 7395, 360, -1)->SetRail([1]);
   CreateObject(RAI1, 7480, 510, -1)->SetRail([1,1,1,1,1,1]);
+  CreateObject(RAI1, 7660, 320, -1)->SetRail([1,1,1,1,1,1,1,1,1]);
 
   //Zäune
   CreateObject(FENC, 2850, 410, -1);
@@ -600,6 +611,10 @@ func CreateEquipment()
   SetupVehicleSpawn([INFL],DIR_Left,CreateObject(VSPW,5565,560,-1),10*10);
 
   SetupVehicleSpawn([INFL],DIR_Left,CreateObject(VSPW,7440,520,-1),10*10);
+
+  //Blackhawks
+  SetupVehicleSpawn([H_HE],DIR_Right,CreateObject(VSPW,590,410,-1),100*21);
+  SetupVehicleSpawn([H_HE],DIR_Left,CreateObject(VSPW,7750,290,-1),100*21);
 }
 
 /* Bei Flaggenübernahme */
@@ -716,7 +731,7 @@ public func ChooserFinished()
 
    //Grenzen
    CreateObject(BRDR, 440, 0, -1)->Set(0);
-   CreateObject(BRDR, 7690, 0, -1)->Set(1);
+   CreateObject(BRDR, 7860, 0, -1)->Set(1);
 
    //Flaggen
    aFlag[0] = CreateObject(OFPL,1205,390,NO_OWNER);
