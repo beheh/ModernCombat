@@ -66,6 +66,9 @@ protected func Initialize()
   RocketStation = CreateObject(H_MA,0,0,GetOwner());
   RocketStation -> Set(this,40,10,210,270);
   RocketStation -> Arm(RLSA);
+  
+  //Vertices richtig drehen
+  ScheduleCall(this,"ChangeDir",1,2);
 
   //Eingang
   SetEntrance(true);
