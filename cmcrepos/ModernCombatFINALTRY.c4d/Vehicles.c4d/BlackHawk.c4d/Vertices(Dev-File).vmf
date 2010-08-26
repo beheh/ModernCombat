@@ -74,12 +74,6 @@ Vertex: 6
 50
 True
 9
-Vertex: 7
-64
-32
-50
-True
-5
 Vertex: 8
 8
 16
@@ -96,12 +90,6 @@ Vertex: 10
 94
 16
 100
-True
-4
-Vertex: 11
-82
-26
-50
 True
 4
 Vertex: 12
@@ -128,27 +116,9 @@ Vertex: 15
 100
 True
 14
-Vertex: 16
-212
-34
-100
-True
-10
 Vertex: 17
 200
 46
 50
 True
 10
-Vertex: 18
-114
-27
-50
-True
-4
-Vertex: 19
-154
-38
-50
-True
-4
