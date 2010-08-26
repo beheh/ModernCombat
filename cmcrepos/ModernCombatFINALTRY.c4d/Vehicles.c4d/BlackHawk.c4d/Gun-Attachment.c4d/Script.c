@@ -243,7 +243,7 @@ private func Reload()
   Local(0, CreateContents(AmmoID)) = GetAttWeapon()->~GetFMData(FM_AmmoLoad);
   // Waffe soll nachladen
   GetAttWeapon()->~StopAutoFire();
-  GetAttWeapon()->~Reload(this);
+  GetAttWeapon()->~Reload();
 }
 
 /* Zielzeug */
