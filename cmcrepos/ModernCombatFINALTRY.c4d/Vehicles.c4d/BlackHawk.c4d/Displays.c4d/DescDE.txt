@@ -1,1 +1,1 @@
-Die HUDs sind für die verschiedenen Anzeigen zuständig.
+Die verschiedenen Head-up-Displays vereinfachen die Bedienung des Blackhawk.

@@ -1,2 +1,2 @@
-DE:Pfeil
-US:Arrow
+DE:Rotationsanzeige
+US:Rotation Display

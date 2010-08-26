@@ -1,6 +1,9 @@
-/* Pfeil */
+/*-- Pfeil --*/
 
 #strict 2
+
+
+/* Initalisierung */
 
 public func Initialize() 
 {

@@ -1,1 +1,1 @@
-The HUDs are responsible for many displays.
+Various head-up-displays simplify the control of an blackhawk.

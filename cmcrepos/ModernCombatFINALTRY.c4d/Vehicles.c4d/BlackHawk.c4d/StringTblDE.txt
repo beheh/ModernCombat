@@ -12,17 +12,16 @@ CtrlThrow=Aktion
 
 #Sitze
 Seats=Sitze
-SeatOccupied=Sitz belegt!
+SeatOccupied=Sitz bereits belegt.
 PilotSeat=Pilot
 Gunner=MG-Schütze
-Rocketeer=Raketenwerfer
-Passenger1=Passagier 1
-Passenger2=Passagier 2
-GunnerSeat=Ein Minigungeschütz, welches manuell gesteuert wird.
-RocketeerSeat=Ein Raketenwerfersystem mit optisch gesteuerten Raketen.
-PassengerSeat=Ein ganz normaler Sitzplatz.
-Exit=Verlassen
+Coordinator=Koordinator
+Passenger1=Passagier
+Passenger2=Passagier
+GunnerSeat=Übernehme die Kontrolle über die außen angebrachte Maschinenkanone.
+CoordinatorSeat=Steuere das Raketenwerfersystem mit optisch lenkbaren Raketen.
+PassengerSeat=Ein Sitzplatz mit Seil zum Ausklinken.
+Exit=Aussteigen
 
 #Sonstiges
 TxtNoAmmo=Keine Munition
-MsgNoFuel=Kein Treibstoff

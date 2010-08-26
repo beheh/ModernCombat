@@ -1,6 +1,9 @@
-/* Rotation */
+/*-- Rotationsanzeige --*/
 
 #strict 2
+
+
+/* Initalisierung */
 
 public func Initialize() 
 {
