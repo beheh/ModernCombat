@@ -2,7 +2,7 @@
 
 #strict 2
 
-#include WEPN
+#include WPN2
 
 public func HandSize()		{return 1000;}
 public func HandX()		{return 1000;}
