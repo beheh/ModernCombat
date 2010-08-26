@@ -12,32 +12,39 @@ global func FxIntVehicleSpawn4KStart(object pTarget, int iEffectNumber, int iTem
   EffectVar(1, pTarget, iEffectNumber) = 0; //aktuelles Fahrzeug
   EffectVar(2, pTarget, iEffectNumber) = DIR_Right; //Aktuelle Dir
   EffectVar(3, pTarget, iEffectNumber) = 100; //Sichere Zone
+  EffectVar(4, pTarget, iEffectNumber) = 1; //Erstes Mal
+  EffectCall();
   return 1;
+}
+
+global func FxIntVehicleSpawn4KSpawn(object pTarget, int iEffectNumber) {
+  var pVehicle = EffectVar(1,pTarget,iEffectNumber);
+	var aType = EffectVar(0,pTarget,iEffectNumber);
+	pVehicle = CreateContents(RandomIndex4K(aType),pTarget);
+	SetDir(EffectVar (2,pTarget,iEffectNumber), pVehicle);
+	if(EffectVar(4, pTarget, iEffectNumber) || !pTarget->~Spawn(pVehicle)) {
+		EffectVar(4, pTarget, iEffectNumber) = 0;
+		Exit(pVehicle);
+		SetPosition(GetX(),GetY(), pVehicle);
+	}
+  EffectVar(1,pTarget,iEffectNumber) = pVehicle;
+	return true;
 }
 
 global func FxIntVehicleSpawn4KTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
   var aType = EffectVar(0,pTarget,iEffectNumber);
   if(!GetLength(aType)) return 0;
-
-  var pVehicle = EffectVar (1,pTarget,iEffectNumber);
-  if(!pVehicle)
-  {
-   pVehicle = CreateContents(RandomIndex4K(aType),pTarget);
-   SetDir(EffectVar (2,pTarget,iEffectNumber), pVehicle);
-   if(!pTarget->~Spawn(pVehicle))
-    Exit(pVehicle);
-    SetPosition(GetX(),GetY(), pVehicle);
+  var pVehicle = EffectVar(1,pTarget,iEffectNumber);
+  if(!pVehicle) {
+		EffectCall(pTarget, iEffectNumber, "Spawn");
   }
-  
-  var iDistance = EffectVar(3, pTarget, iEffectNumber);
-
-  if(iDistance > 0 && Distance(GetX(pVehicle), GetY(pVehicle), GetX(this), GetY(this)) > iDistance) {
-    AddEffect("IntVehicleUnused", pVehicle, 51, 10, pVehicle, 0, this, iDistance);
+  else {		
+		var iDistance = EffectVar(3, pTarget, iEffectNumber);
+		if(iDistance > 0 && Distance(GetX(pVehicle), GetY(pVehicle), GetX(this), GetY(this)) > iDistance) {
+		  AddEffect("IntVehicleUnused", pVehicle, 51, 10, pVehicle, 0, this, iDistance);
+		}
   }
-  
-  EffectVar(1,pTarget,iEffectNumber) = pVehicle;
-
   return;
 }
 
@@ -196,7 +203,6 @@ public func Spawn(object pObj)
 {
   AddEffect("SpawnBeam", pObj, 120, 1, 0, GetID(), 70);
   Exit(pObj);
-  //pObj->SetPosition(GetX(),GetY()+GetDefOffset(GetID(pObj),1));
 }
 
 public func FxSpawnBeamStart(pTarget, iEffectNumber, temp, iFrames)
