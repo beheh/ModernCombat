@@ -5,10 +5,12 @@
 static const BHUD_Ready = 0;
 static const BHUD_Warning = 1;
 static const BHUD_Error = 2;
+static const BHUD_Disabled = 3;
 
 local pHelicopter;
 local iState;
 local pRotation, pThrottle, pAltitude, pWind;
+local fDamage, iDamageRemaining;
 
 public func Initialize() 
 {
@@ -30,10 +32,19 @@ public func SetState(int iNewState) {
 	if(iState == BHUD_Warning)
 	{
 		SetClrModulation(RGBa(255,153,0,50));
+		Sound("WarningLockon.ogg", true, 0, 100, GetOwner()+1, +1);
 	}
+	else {
+		Sound("WarningLockon.ogg", true, 0, 100, GetOwner()+1, -1);
+	}
+
 	if(iState == BHUD_Ready)
 	{
 		SetClrModulation(RGBa(0,153,255,50));
+	}
+	if(iState == BHUD_Disabled)
+	{
+		SetClrModulation(RGBa(122,122,122,50));
 	}
 	return true;
 }
@@ -44,10 +55,11 @@ public func SetHelicopter(object pNewHelicopter) {
 	return true;
 }
 
-public func DamageRecieved()
+public func DamageReceived()
 {
-	iState = BHUD_Error;
-  return true;
+	fDamage = true;
+	iDamageRemaining = 10;
+	return true;
 }
 
 protected func Align() {
@@ -64,13 +76,41 @@ protected func Timer()
 	}
 	Align();
 	//Farbe
-	if(pHelicopter->GetDamage() > pHelicopter->MaxDamage()*3/4) {
+	if(fDamage || pHelicopter->GetDamage() > pHelicopter->MaxDamage()*3/4) {
 		SetState(BHUD_Error);	
 	}
 	else {
-		SetState(BHUD_Ready);
+		var aRockets = FindObjects(Find_ID(ROKT), Find_Distance(800, AbsX(GetX(pHelicopter)), AbsY(GetY(pHelicopter))));
+		var fRocket = false;
+		for(var pCheck in aRockets) {
+			if(ObjectDistance(pCheck, pHelicopter) < 300) {
+				fRocket = true;
+			}
+			else {
+				var aObj = FindObjects(Find_ID(GetID(pHelicopter)), Find_OnLine(AbsX(GetX(pCheck)), AbsY(GetY(pCheck)), AbsX(GetX(pCheck)+Sin(GetR(pCheck), 800)), AbsX(GetX(pCheck)-Cos(GetR(pCheck), 800))));
+				for(var pCheck in aObj) {
+					if(pCheck == pHelicopter) {
+						fRocket = true;
+						break;
+					}
+				}
+			}
+			if(fRocket) break;
+		}
+		if(fRocket) {
+			SetState(BHUD_Warning);
+		}
+		else {
+			if(pHelicopter->GetAutopilot()) {
+				SetState(BHUD_Disabled);
+			}
+			else {
+				SetState(BHUD_Ready);
+			}
+		}
 	}
-	
+	if(iDamageRemaining > 0) iDamageRemaining--;
+	if(!iDamageRemaining) fDamage = false;
 	//Rotation anzeigen
 	if(!pRotation)
 	{

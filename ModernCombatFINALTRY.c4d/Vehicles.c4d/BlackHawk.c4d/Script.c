@@ -109,6 +109,10 @@ public func GetThrottle() {
 
 /* Autopilot - betreten auf eigene Gefahr! - Eltern haften für ihre Kinder */
 
+public func GetAutopilot() {
+	return GetEffect("BlackhawkAutopilot", this) != false;
+}
+
 public func SetAutopilot(object pTarget, int iX, int iY) {
 	if(!Pilot) return false;
 	ResetAutopilot();
@@ -210,21 +214,25 @@ protected func FxBlackhawkAutopilotTimer(object pTarget, int iNumber, int iTime)
 
 /* ----- Eingangssteuerung ----- */
 
+protected func Ejection(object ByObj) {
+	if(ByObj != Pilot && PathFree(GetX(),GetY(),GetX(),GetY()+50))
+	{
+	  var rope = CreateObject(CK5P,0,0,-1);
+	  rope->ConnectObjects(this,ByObj);
+	  Local(8,rope) = true;
+	  AddEffect("CheckGround",ByObj,30,3,this,GetID(),rope,this);
+	}
+	DeleteActualSeatPassenger(ByObj);
+  Sound("CockpitRadio.ogg", true, 0, 100, GetOwner(ByObj)+1, -1);
+  return true;
+}
+
 //herausgeworfene Objekte sollen vor der Tür erscheinen
 protected func ControlCommand(string Command, object Target, int TargetX, int TargetY, object target2, int Data, object ByObj)
 {
   if (Command == "Exit")
   {
-		if(ByObj != Pilot && PathFree(GetX(),GetY(),GetX(),GetY()+50))
-		{
-		  var rope = CreateObject(CK5P,0,0,-1);
-		  rope->ConnectObjects(this,ByObj);
-		  Local(8,rope) = true;
-		  AddEffect("CheckGround",ByObj,30,3,this,GetID(),rope,this);
-		}
-		DeleteActualSeatPassenger(ByObj);
-    Sound("CockpitRadio.ogg", true, 0, 100, GetOwner(ByObj)+1, -1);
-    var rot = GetDir()*180-90 + GetR() + GetDir()*120-60;
+		var rot = GetDir()*180-90 + GetR() + GetDir()*120-60;
     Exit(ByObj, Sin(rot,25), -Cos(rot,25), GetR(), GetXDir(0,1), GetYDir(0,1), GetRDir());
     return true;
   }
@@ -690,6 +698,8 @@ public func OnDmg(int iDmg, int iType) {
 
 public func Damage()
 {
+	if(hud)	hud->DamageReceived();
+	if(GetContact(this, -1)) ResetAutopilot();
 	if(GetDamage() < MaxDamage()) return;
 
 	DestroyHeli();
@@ -703,6 +713,7 @@ func DestroyHeli()
   {
     DeleteActualSeatPassenger(obj);
     DoDamage(200,obj);
+    Sound("CockpitRadio.ogg", true, 0, 100, GetOwner(obj)+1, -1);
     Exit(obj, 0, 0, Random(360), RandomX(-5,5), RandomX(-4,8), Random(10));
   }
   
