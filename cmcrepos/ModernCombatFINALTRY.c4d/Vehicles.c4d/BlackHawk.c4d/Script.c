@@ -856,13 +856,13 @@ protected func RejectCollect(id ID, object ByObj)
   if (Contained(ByObj))
     return(false);
   //von außen heißt es: Schaden!!!
-  if (GetAction()!="Stand")
+  if (GetRotorSpeed() > 0)
   {
     var dir = (!GetDir())*2-1;
     DoDamage(GetMass(ByObj));
     ProtectedCall(ByObj, "Hit");
     SetXDir((Random(30)+30)*dir, ByObj);
-    SetYDir(   RandomX(-20,-20), ByObj);
+    SetYDir(RandomX(-25,-15), ByObj);
     return(true);
   }
   else if (GetOCF(ByObj) & OCF_HitSpeed2)
@@ -896,7 +896,16 @@ protected func TimerCall()
   //Piloten anpassen
   DrawPilot();
 
+	//Bodenpartikel zeichnen
 	DrawGroundParticles();
+
+	//Lebewesen schrappneln
+	if(GetRotorSpeed() > 0) {
+		for(var pClonk in FindObjects(Find_InRect(-100,-24,200,16), Find_NoContainer(), Find_OCF(OCF_Alive))) {
+			Fling(pClonk, RandomX(2,3)+GetRotorSpeed()/100*((GetR() > 0 && GetR() <= 180)*2-1), RandomX(-2, -1)-GetRotorSpeed()/100);
+			DoDmg(GetRotorSpeed()/3, DMG_Projectile, pClonk, 0, GetOwner()+1);
+		}
+	}
 
   //bis 50% nichts
   if (GetDamage() < MaxDamage()*1/2) return(false);
