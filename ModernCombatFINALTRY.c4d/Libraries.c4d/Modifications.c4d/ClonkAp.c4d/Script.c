@@ -51,8 +51,9 @@ protected func Initialize()
 public func Incineration()
 {
   Extinguish();
-  Sound("ClonkBurn*.ogg");
-  if(IsFakeDeath()) return(0); //Fakedeath
+  if (GetAlive()) 
+    Sound("ClonkBurn*.ogg");
+  if(IsFakeDeath()) return; //Fakedeath
   Schedule("DoDmg(5,DMG_Fire,0,1)",1,20,this);
   AddFireEffect(this,30,FIRE_Red,1);
 }
@@ -61,7 +62,7 @@ public func Incineration()
 
 public func OnDmg(int iDmg, int iType)
 {
-  if(!IsFakeDeath()) {
+  if(!IsFakeDeath() && GetAlive()) {
   	HurtSounds(iDmg,iType);
   }
   return _inherited(...);
@@ -114,7 +115,7 @@ public func HurtSounds(int iDmg, int iType)
 private func Building()
 {
   if (!Random(2)) Sound("ClonkBuild*.ogg");
-  return(1);
+  return 1;
 }
 
 /* Assistkiller abspeichern */
@@ -171,7 +172,7 @@ protected func ControlContents(idTarget)
 
 func Hit2(int xDir, int yDir)
 { 
-  if(IsFakeDeath()) return(_inherited(xDir,yDir,...));
+  if(IsFakeDeath() || !GetAlive(this)) return _inherited(xDir,yDir,...);
   
   var hit = Distance(xDir,yDir);//Max(xDir,yDir);
 
@@ -180,12 +181,10 @@ func Hit2(int xDir, int yDir)
   else if(hit >= 600)
     Sound("ClonkFall*.ogg");
 
-  if(!FindObject(FDMG)) return(_inherited(xDir,yDir,...));
-	if(!GetAlive(this)) return(_inherited(xDir,yDir,...));
- 	
-  if(hit <= 700) return(_inherited(xDir,yDir,...));
+  if(!FindObject(FDMG) || hit <= 700) return _inherited(xDir,yDir,...);
+
   DoDmg((hit-700)*2/10,DMG_Melee,this);
-  
+
   if(GetAlive(this))
     Sound("ClonkPain*.ogg");
   
@@ -260,9 +259,7 @@ local killicon;
 public func KillIcon(id idKillIcon)
 {
   if(idKillIcon)
-    killicon = idKillIcon;
-    
-  return(killicon);
+    return killicon = idKillIcon;
 }
 
 /* Inventar */
