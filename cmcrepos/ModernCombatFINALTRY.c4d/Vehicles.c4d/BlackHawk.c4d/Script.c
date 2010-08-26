@@ -25,8 +25,6 @@ local s_counter,                //int    - eine kleine Counter-Variable für Warn
 
 local destroyed;                //bool   - ob der Heli schon zerstört ist
 
-local fuel;
-
 static const throttle_speed = 5;//int    - "Feinfühligkeit"
 static const rot_speed = 1;     //int    - Drehgeschwindigkeit / frame
 static const control_speed = 3; //int    - "Feinfühligkeit"
@@ -59,7 +57,6 @@ protected func Initialize()
   throttle = 0;
   rotation = 0; 
   //Stuff.
-  fuel = 999999; //Blar?
   SetAction("Stand");
   
   //Pilot
@@ -107,6 +104,20 @@ public func GetThrottle() {
 	return throttle;
 }
 
+public func GetRotorSpeed() {
+	var iSpeed = throttle;
+	if(GetAction() == "EngineStartUp") iSpeed = GetActTime();
+	if(GetAction() == "EngineStartUp2") iSpeed = 95/(45+24)*(45+GetActTime());
+	if(GetAction() == "EngineStartUp3") iSpeed = 95/(45+24+16)*(45+24+GetActTime());
+	if(GetAction() == "EngineShutDown") iSpeed = 95-GetActTime();
+	if(GetAction() == "EngineShutDown2") iSpeed = 95-60/(30+30)*(30+GetActTime());
+	if(GetAction() == "EngineShutDown3") iSpeed = 95-90/(30+30+30)*(30+30+GetActTime());
+	if(GetAction() == "Fly" || GetAction() == "Turn") {
+		iSpeed += 95;
+	}
+	return iSpeed;
+}
+
 public func GetRocket() {
 	var aRockets = FindObjects(Find_ID(ROKT), Find_Distance(800, AbsX(GetX()), AbsY(GetY())));
 	var fRocket = false;
@@ -130,7 +141,7 @@ public func GetRocket() {
 	return fRocket;
 }
 
-/* Autopilot - betreten auf eigene Gefahr! - Eltern haften für ihre Kinder */
+/* Autopilot */
 
 public func GetAutopilot() {
 	return GetEffect("BlackhawkAutopilot", this) != false;
@@ -749,7 +760,7 @@ func DestroyHeli()
     	Kill(obj);
     }
     else {
-    	DoDmg(80,obj);
+    	DoDmg(80,DMG_Explosion, obj);
     }
     Sound("CockpitRadio.ogg", true, 0, 100, GetOwner(obj)+1, -1);
     Exit(obj, 0, 0, Random(360), RandomX(-5,5), RandomX(-4,8), Random(10));
@@ -963,7 +974,7 @@ private func WarningSound()
         if (obj = Contents(i, this()))
           if (GetOCF(obj) & OCF_CrewMember)
            	if(obj != Pilot)
-           		Sound("DamageCritical.ogg", false, this, 100, GetOwner(obj)+1);
+           		Sound("WarningDamageCritical.ogg", false, this, 100, GetOwner(obj)+1);
 
       }
     }
@@ -975,16 +986,43 @@ private func WarningSound()
 }
 
 private func DrawGroundParticles() {
-	/*var iY = 0;
-	while(!GBackSolid(0, iY) && !GBackLiquid(0, iY)) {
-		iY += 5;
-	}
-	while(GBackSolid(0, iY) && GBackLiquid(0, iY)) {
-		iY -= 1;
-	}
-	Log("%d %d", AbsX(0), AbsY(iY));
-  CreateParticle("SlimeGra1v",30,-iY,(1+Random(4)),(7+Random(4)) ,100/30 ,RGBa(100,150,255,100+Random(100)));
-  CreateParticle("SlimeGrav",-30,-iY,-(1+Random(4)),-(7+Random(4)) ,-100/30 ,RGBa(100,150,255,100+Random(100)));*/
+	if(!GetRotorSpeed()) return;
+	if(GBackLiquid() || GBackSolid()) return;
+	var rot = GetDir()*180-90 + GetR();
+  for (var i; i < 30; i++)
+  {
+    if (GetMaterial(0, i*5) == Material("Earth"))
+      return(CreateDust(i*5, GetRotorSpeed(), RGB(150, 86, 22)));
+    if ((Material("Wall") != -1 && GetMaterial(0, i*5) == Material("Wall")) || GetMaterial(0, i*5) == Material("Vehicle"))                    
+      return(CreateDust(i*5, GetRotorSpeed(), RGB(150,150,150)));
+    if (GetMaterial(0, i*5) == Material("Snow"))                    
+      return(CreateDust(i*5, GetRotorSpeed(), RGB(255,255,255)));
+    if (GetMaterial(0, i*5) == Material("Sand"))                    
+      return(CreateDust(i*5, GetRotorSpeed(), RGB(247,236,157)));
+    if (GetMaterial(0, i*5) == Material("Ashes"))                    
+      return(CreateDust(i*5, GetRotorSpeed(), RGB( 64, 55, 36)));
+    if (GBackSolid(0, i*5))
+      return true;
+
+    if (GetMaterial(0, i*5) == Material("Water")) {
+      return(CreateDust(i*5, GetRotorSpeed(), RGB(176,194,208)));
+     }
+  }
+  return false;
+}
+
+private func CreateDust(int Y, int Power, int Color)
+{
+	Power = Min(Power, 130);
+  CreateParticle("Smoke3", -3, Y, -(70-Y/3), RandomX(-5,5),
+                 RandomX(30,15+(14-Y/10)*Power/5), Color);//nach links
+  CreateParticle("Smoke3", +3, Y, (70-Y/3), RandomX(-5,5),
+                 RandomX(30,15+(14-Y/10)*Power/5), Color);//nach rechts
+  CreateParticle("Smoke3", -3, Y-3, RandomX(-30,-(70-Y)), -2,
+                 RandomX(30,15+(14-Y/10)*Power/5), Color);//nach links oben
+  CreateParticle("Smoke3", +3, Y-3, RandomX(30,(70-Y)), -2,
+                 RandomX(30,15+(14-Y/10)*Power/5), Color);//nach rechts oben
+  return(true);
 }
 
 private func DrawFire()
@@ -1035,15 +1073,13 @@ protected func StartEngine()
 protected func EngineStarted()
 {
   AddEffect("Engine",this,300,1,this,0);
-  throttle = 10;
+  throttle = 0;
   rotation =  0;
 }
 
 //Motor abstellen/ abgestorben
 protected func StopEngine()
 {
-  if (!fuel) PlayerMessage(GetOwner(), "<c ff0000>$MsgNoFuel$</c>", this());
-
   Sound("StopSystem.ogg", false, this()); 
   RemoveEffect("Engine",this());
 }
@@ -1089,13 +1125,6 @@ protected func FxEngineTimer(object Target, int EffectNumber, int EffectTime)
   else
   {
     LocalN("rotation", Target) = GetR(Target);
-  }
-  //Treibstoff verbrauchen
-  if (!(EffectTime % 10) && !ObjectCount(H_NP))
-  {
-    LocalN("fuel", Target) -= thr;
-    if (LocalN("fuel", Target) <= 0)
-      Target -> SetAction("EngineShutDown");
   }
 
   //Gewichtskraft berechnen
