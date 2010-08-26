@@ -1,2 +1,2 @@
-DE:HUD
-US:HUD
+DE:Pilot HUD
+US:Pilot HUD

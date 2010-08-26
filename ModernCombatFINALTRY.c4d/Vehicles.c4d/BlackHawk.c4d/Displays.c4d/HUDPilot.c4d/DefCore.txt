@@ -1,6 +1,6 @@
 [DefCore]
 id=BHUD
-Name=HUD
+Name=Pilot HUD
 Category=C4D_StaticBack|C4D_Foreground|C4D_MouseIgnore|C4D_IgnoreFoW
 Width=332
 Height=177
