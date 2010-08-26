@@ -538,7 +538,8 @@ public func ContainedUpdate(object ByObj, int comdir, bool dig, bool throw)
 protected func ChangeDir()
 {
   SetDir(!GetDir());
-  SetVertex(0, false, 15*(GetDir()*2-1), this(), 2);
+  for (var i = 0; i < GetDefCoreVal("Vertices", "DefCore", GetID()); i++)
+    SetVertex(i, 0, (GetDir()*2-1)*GetDefCoreVal("VertexX", "DefCore", GetID(), i), this, 1);
   return(true);
 }
 
