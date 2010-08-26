@@ -1,43 +1,47 @@
-/*-- Blackhawk --*/
+/* Helicopter */
 
 #strict 2
 
 
 /* ----- Variablen ----- */
 
-local throttle,				//int    - Schub
-      rotation,				//int    - erwartete Drehung
-      idle,				//int    - Motor-Start/Stop Sequenz
-      view_mode;			//bool   - für den Piloten
+local throttle,                 //int    - Schub
+      rotation,                 //int    - erwartete Drehung
+      idle,                     //int    - Motor-Start/Stop Sequenz
+      view_mode;                //bool   - für den Piloten
 
-local hud;				//object - Anzeige für Pilot
+local hud;                      //object - Anzeige für Pilot
 
-local Pilot,				//object - Pilot
-      Gunner,				//object - Schütze
-      Coordinator,			//object - Koordinator
-      Passenger1, Passenger2;		//object - 2 Passagiere
+local Pilot,                    //object - Pilot
+      Gunner,                   //object - Schütze
+      Rocketeer,                //object - Raketenschütze
+      Passenger1, Passenger2;   //object - verschiedene Sitzplätze im Heli
 
-local MGStation,			//object - Das MG-Objekt
-      RocketStation;			//object - Das Raketenwerfer-Objekt
+local MGStation,                //object - Das MG-Objekt
+      RocketStation;            //object - Das Raketenwerfer-Objekt
 
-local s_counter,			//int    - eine kleine Counter-Variable für Warnsounds
-      d_counter;			//int    - eine kleine Counter-Variable für die Zerstörung
+local s_counter,                //int    - eine kleine Counter-Variable für Warnsounds
+      d_counter;                //int    - eine kleine Counter-Variable für die Zerstörung
 
-local destroyed;			//bool   - ob der Heli schon zerstört ist
+local destroyed;                //bool   - ob der Heli schon zerstört ist
 
-static const throttle_speed = 5;	//int    - "Feinfühligkeit"
-static const rot_speed = 1;		//int    - Drehgeschwindigkeit / frame
-static const control_speed = 3;		//int    - "Feinfühligkeit"
-static const max_throttle = 200;	//int    - höchste Schubeinstellung
-static const max_rotation = 30;		//int    - stärkste erlaubte Neigung
+local fuel;
+
+static const throttle_speed = 5;//int    - "Feinfühligkeit"
+static const rot_speed = 1;     //int    - Drehgeschwindigkeit / frame
+static const control_speed = 3; //int    - "Feinfühligkeit"
+static const max_throttle = 200;//int    - höchste Schubeinstellung
+static const max_rotation = 30; //int    - stärkste erlaubte Neigung
 static const auto_throttle_speed = 1;
 static const auto_max_throttle = 150;
 static const auto_max_rotation = 10;
 
 /* ----- Callbacks ----- */
 
-public func IsMachine()		{return 1;}
-public func MaxDamage()		{return 200;}
+public func IsMachine() { return 1; }
+public func MaxDamage() { return 200; }
+
+//Ha, einfacher und effektiver
 public func IsBulletTarget(id idBullet, object pBullet)
 {
   if(idBullet == MISS || idBullet == HMIS || idBullet == ROKT || idBullet == ESHL)
@@ -45,21 +49,23 @@ public func IsBulletTarget(id idBullet, object pBullet)
   return 1;
 }
 
+
 /* ----- Existenz ----- */
 
-/* Initialisierung */
-
+//Initialisierung
 protected func Initialize()
 {
   //Steuerung initialisieren
   throttle = 0;
   rotation = 0; 
+  //Stuff.
+  fuel = 999999; //Blar?
   SetAction("Stand");
-
+  
   //Pilot
   view_mode = true;
-
-  //Geschütze aufstellen
+  
+  //Geschütze
   MGStation = CreateObject(H_MA,0,0,GetOwner());
   MGStation -> Set(this,10,90,90,270);
   MGStation -> Arm(ACCN);
@@ -81,8 +87,7 @@ func IsReady()
   return GetDamage() < MaxDamage() && GetContact(this(), -1, CNAT_Bottom) && !destroyed;
 }
 
-/* Zerstörung */
-
+//alle dazugehörigen Objekte löschen
 protected func Destruction()
 {
   if(hud)
@@ -94,48 +99,69 @@ protected func Destruction()
   return true;
 }
 
-public func GetPilot()
-{return Pilot;}
-
-public func GetThrottle()
-{return throttle;}
-
-/* Autopilot */
-
-public func GetAutopilot()
-{return GetEffect("BlackhawkAutopilot", this) != false;}
-
-public func SetAutopilot(object pTarget, int iX, int iY)
-{
-  if(!Pilot) return false;
-  ResetAutopilot();
-  var xto, yto;
-  if(pTarget)
-  {
-   xto = AbsX(GetX(pTarget));
-   yto = AbsY(GetY(pTarget));
-  }
-  xto += iX;
-  yto += iY;
-  AddEffect("BlackhawkAutopilot", this, 10, 1, this, 0, xto, yto);
-  return true;
+public func GetPilot() {
+	return Pilot;
 }
 
-public func ResetAutopilot()
-{
-  while(GetEffect("BlackhawkAutopilot", this)) RemoveEffect("BlackhawkAutopilot", this);
-  return true;
+public func GetThrottle() {
+	return throttle;
 }
 
-protected func FxBlackhawkAutopilotStart(object pTarget, int iNumber, iTemp, int iX, int iY)
-{
-  if(GBackLiquid(AbsX(iX), AbsY(iY))) return -1;
-  EffectVar(0, pTarget, iNumber) = iX;
-  EffectVar(1, pTarget, iNumber) = iY;	
+public func GetRocket() {
+	var aRockets = FindObjects(Find_ID(ROKT), Find_Distance(800, AbsX(GetX()), AbsY(GetY())));
+	var fRocket = false;
+	for(var pCheck in aRockets) {
+		if(!FindObject(NOFF) && !Hostile(GetOwner(ROKT), GetOwner())) continue;
+		if(ObjectDistance(pCheck, this) < 300) {
+			fRocket = true;
+			break;
+		}
+		else {
+			var aObj = FindObjects(Find_ID(GetID()), Find_OnLine(AbsX(GetX(pCheck)), AbsY(GetY(pCheck)), AbsX(GetX(pCheck)+Sin(GetR(pCheck), 800)), AbsX(GetX(pCheck)-Cos(GetR(pCheck), 800))));
+			for(var pCheck in aObj) {
+				if(pCheck == this) {
+					fRocket = true;
+					break;
+				}
+			}
+			if(fRocket) break;
+		}
+	}
+	return fRocket;
 }
 
-protected func FxBlackhawkAutopilotTimer(object pTarget, int iNumber, int iTime)
-{
+/* Autopilot - betreten auf eigene Gefahr! - Eltern haften für ihre Kinder */
+
+public func GetAutopilot() {
+	return GetEffect("BlackhawkAutopilot", this) != false;
+}
+
+public func SetAutopilot(object pTarget, int iX, int iY) {
+	if(!Pilot) return false;
+	ResetAutopilot();
+	var xto, yto;
+	if(pTarget) {
+		xto = AbsX(GetX(pTarget));
+		yto = AbsY(GetY(pTarget));
+	}
+	xto += iX;
+	yto += iY;
+	AddEffect("BlackhawkAutopilot", this, 10, 1, this, 0, xto, yto);
+	return true;
+}
+
+public func ResetAutopilot() {
+	while(GetEffect("BlackhawkAutopilot", this)) RemoveEffect("BlackhawkAutopilot", this);
+	return true;
+}
+
+protected func FxBlackhawkAutopilotStart(object pTarget, int iNumber, iTemp, int iX, int iY) {
+	if(GBackLiquid(AbsX(iX), AbsY(iY))) return -1;
+	EffectVar(0, pTarget, iNumber) = iX;
+	EffectVar(1, pTarget, iNumber) = iY;	
+}
+
+protected func FxBlackhawkAutopilotTimer(object pTarget, int iNumber, int iTime) {
   if(!Pilot) return pTarget->ResetAutopilot();
 	var iX = EffectVar(0, pTarget, iNumber);
 	var iY = EffectVar(1, pTarget, iNumber);
@@ -206,21 +232,20 @@ protected func FxBlackhawkAutopilotTimer(object pTarget, int iNumber, int iTime)
 			}
 		}
 	}
-  return FX_OK;
+	return FX_OK;
 }
 
 /* ----- Eingangssteuerung ----- */
 
-protected func Ejection(object ByObj)
-{
-  if(ByObj != Pilot && PathFree(GetX(),GetY(),GetX(),GetY()+50))
-  {
-   var rope = CreateObject(CK5P,0,0,-1);
-   rope->ConnectObjects(this,ByObj);
-   Local(8,rope) = true;
-   AddEffect("CheckGround",ByObj,30,3,this,GetID(),rope,this);
-  }
-  DeleteActualSeatPassenger(ByObj);
+protected func Ejection(object ByObj) {
+	if(ByObj != Pilot && PathFree(GetX(),GetY(),GetX(),GetY()+50))
+	{
+	  var rope = CreateObject(CK5P,0,0,-1);
+	  rope->ConnectObjects(this,ByObj);
+	  Local(8,rope) = true;
+	  AddEffect("CheckGround",ByObj,30,3,this,GetID(),rope,this);
+	}
+	DeleteActualSeatPassenger(ByObj);
   Sound("CockpitRadio.ogg", true, 0, 100, GetOwner(ByObj)+1, -1);
   return true;
 }
@@ -255,7 +280,7 @@ protected func Collection2(object pObj)
         return EnterSeat1(0,pObj); //Blöde Platzhalter :/
       if(!Gunner)
         return EnterSeat2(0,pObj);
-      if(!Coordinator)
+      if(!Rocketeer)
         return EnterSeat3(0,pObj);        
       if(!Passenger1)
         return EnterSeat4(0,pObj);        
@@ -272,7 +297,7 @@ protected func Collection2(object pObj)
 protected func ContainedUp(object ByObj)
 {
   [$CtrlUp$]
-
+  
   //Pilot
   if (ByObj == Pilot)
   {
@@ -289,8 +314,8 @@ protected func ContainedUp(object ByObj)
   //Gunner
   if (ByObj == Gunner)
     MGStation->~ControlUp(ByObj);
-  //Coordinator
-  if (ByObj == Coordinator)
+  //Rocketeer
+  if (ByObj == Rocketeer)
     RocketStation->~ControlUp(ByObj);
     
   return true;
@@ -299,7 +324,7 @@ protected func ContainedUp(object ByObj)
 protected func ContainedDown(object ByObj)
 {
   [$CtrlDown$]
-
+  
   //Pilot
   if (ByObj == Pilot)
   {
@@ -316,8 +341,8 @@ protected func ContainedDown(object ByObj)
   //Gunner
   if (ByObj == Gunner)
     MGStation->~ControlDown(ByObj);
-  //Coordinator
-  if (ByObj == Coordinator)
+  //Rocketeer
+  if (ByObj == Rocketeer)
     RocketStation->~ControlDown(ByObj);
     
   return true;
@@ -343,7 +368,7 @@ protected func ContainedUpDouble(object ByObj)
 protected func ContainedDownDouble(object ByObj)
 {
   [$CtrlDownD$]
-
+  
   //Pilot
   if (ByObj == Pilot)
   {
@@ -363,7 +388,7 @@ protected func ContainedDownDouble(object ByObj)
 protected func ContainedLeft(object ByObj)
 {
   [$CtrlLeft$]
-
+  
   //Pilot
   if (ByObj == Pilot)
   {
@@ -376,8 +401,8 @@ protected func ContainedLeft(object ByObj)
   //Gunner
   if (ByObj == Gunner)
     MGStation->~ControlLeft(ByObj);
-  //Coordinator
-  if (ByObj == Coordinator)
+  //Rocketeer
+  if (ByObj == Rocketeer)
     RocketStation->~ControlLeft(ByObj);
     
   return true;
@@ -399,8 +424,8 @@ protected func ContainedRight(object ByObj)
   //Gunner
   if (ByObj == Gunner)
     MGStation->~ControlRight(ByObj);
-  //Coordinator
-  if (ByObj == Coordinator)
+  //Rocketeer
+  if (ByObj == Rocketeer)
     RocketStation->~ControlRight(ByObj);
   
   return true;
@@ -424,8 +449,8 @@ protected func ContainedLeftDouble(object ByObj)
   //Gunner
   if (ByObj == Gunner)
     MGStation->~ControlLeftDouble(ByObj);
-  //Coordinator
-  if (ByObj == Coordinator)
+  //Rocketeer
+  if (ByObj == Rocketeer)
     RocketStation->~ControlLeftDouble(ByObj);
     
   return true;
@@ -450,8 +475,8 @@ protected func ContainedRightDouble(object ByObj)
   //Gunner
   if (ByObj == Gunner)
     MGStation->~ControlRightDouble(ByObj);
-  //Coordinator
-  if (ByObj == Coordinator)
+  //Rocketeer
+  if (ByObj == Rocketeer)
     RocketStation->~ControlRightDouble(ByObj);
     
   return true;
@@ -481,14 +506,14 @@ protected func ContainedThrow(object ByObj)
   if (ByObj == Gunner)
     if (!GetPlrCoreJumpAndRunControl(GetController(ByObj)))
       MGStation->~ControlThrow(ByObj);
-  //Coordinator
-  if (ByObj == Coordinator)
+  //Rocketeer
+  if (ByObj == Rocketeer)
     RocketStation->~ControlThrow(ByObj);
 
   return true;
 }
 
-public func ContainedUpdate(object ByObj, int comdir, bool dig, bool throw)
+protected func ContainedUpdate(object ByObj, int comdir, bool dig, bool throw)
 {
   if (ByObj == Gunner)
     if (throw)
@@ -526,10 +551,10 @@ protected func ContainedDigDouble(object ByObj)
     else
       AddMenuItem("<c 88ff88>$Gunner$</c>", "EnterSeat2",GetID(),ByObj,0,ByObj,"$GunnerSeat$");
     //Raketen-Schütze
-    if(Coordinator)
-      AddMenuItem("<c ff8888>$Coordinator$</c>", "SeatOccupied",GetID(),ByObj,0,ByObj,"$SeatOccupied$");
+    if(Rocketeer)
+      AddMenuItem("<c ff8888>$Rocketeer$</c>", "SeatOccupied",GetID(),ByObj,0,ByObj,"$SeatOccupied$");
     else
-      AddMenuItem("<c 88ff88>$Coordinator$</c>", "EnterSeat3",GetID(),ByObj,0,ByObj,"$CoordinatorSeat$");
+      AddMenuItem("<c 88ff88>$Rocketeer$</c>", "EnterSeat3",GetID(),ByObj,0,ByObj,"$RocketeerSeat$");
     //Passagier 1
     if(Passenger1)
       AddMenuItem("<c ff8888>$Passenger1$</c>", "SeatOccupied",GetID(),ByObj,0,ByObj,"$SeatOccupied$");
@@ -568,9 +593,9 @@ private func DeleteActualSeatPassenger(object Obj)
     Gunner = 0;
     MGStation->SetGunner(0);
   }
-  if(Coordinator == Obj)
+  if(Rocketeer == Obj)
   {
-    Coordinator = 0;
+    Rocketeer = 0;
     RocketStation->SetGunner(0);
   }
   if(Passenger1 == Obj)
@@ -608,7 +633,7 @@ public func EnterSeat2(a, object Obj)
 public func EnterSeat3(a, object Obj)
 {
   DeleteActualSeatPassenger(Obj);
-  Coordinator = Obj;
+  Rocketeer = Obj;
   RocketStation->SetGunner(Obj);
   Sound("SwitchHUD", false, this(), 100, GetOwner(Obj)+1);
 
@@ -666,7 +691,7 @@ protected func FxCheckGroundTimer(pTarget, iNo, iTime)
     return -1;
   }
   else
-    LocalN("iLength",EffectVar(0, pTarget, iNo)) = iTime/3;
+    LocalN("iLength",EffectVar(0, pTarget, iNo)) = iTime/6;
   //Sounds fürs Abseilen?
 }
 
@@ -689,45 +714,51 @@ protected func FxCheckEndTimer(pTarget, iNo, iTime)
 }
 */
 
+
 /* ----- Schaden ----- */
 
-public func OnDmg(int iDmg, int iType)
-{
-  if(iType == DMG_Energy)	return(-20);
-  if(iType == DMG_Bio)		return(100);
-  if(iType == DMG_Melee)	return(80);
-  if(iType == DMG_Fire)		return(50);
-  if(iType == DMG_Explosion)	return(-50);
-  if(iType == DMG_Projectile)	return(80);
-
-  return(50);
+public func OnDmg(int iDmg, int iType) {
+	
+	if(iType == DMG_Energy)		return(-20);
+	if(iType == DMG_Bio)		return(100);
+	if(iType == DMG_Melee)		return(80);
+	if(iType == DMG_Fire)		return(50);
+	if(iType == DMG_Explosion)	return(-50);
+	if(iType == DMG_Projectile)	return(80);
+	
+	return(50);
 }
 
 public func Damage()
 {
-  if(hud)			hud->DamageReceived();
-  if(GetContact(this, -1))	ResetAutopilot();
-  if(GetDamage() < MaxDamage())	return;
+	if(hud)	hud->DamageReceived();
+	if(GetContact(this, -1)) ResetAutopilot();
+	if(GetDamage() < MaxDamage()) return;
 
-  DestroyHeli();
+	DestroyHeli();
 }
 
+//hier wird der Heli effektreich zerstört
 func DestroyHeli()
 {
-  //Inhalt auswerfen und töten bzw. zerstören
+  //alles raus und tot/kaputt
   for(var obj in FindObjects(Find_Container(this)))
   {
     DeleteActualSeatPassenger(obj);
-    DoDamage(200,obj);
+    if(GetOCF(obj) & OCF_Alive) {
+    	Kill(obj);
+    }
+    else {
+    	DoDmg(80,obj);
+    }
     Sound("CockpitRadio.ogg", true, 0, 100, GetOwner(obj)+1, -1);
     Exit(obj, 0, 0, Random(360), RandomX(-5,5), RandomX(-4,8), Random(10));
   }
-
-  //Explosion
+  
   Explode(60);
   Sound("MainHelicopterExplosion", false, this);
 
-  //Wrack erstellen
+  //zum Wrack machen
   var obj;
   obj = CreateObject(H_HW, 0, 20, -1);
   obj -> Incinerate();
@@ -825,7 +856,7 @@ protected func RejectCollect(id ID, object ByObj)
     DoDamage(GetMass(ByObj));
     ProtectedCall(ByObj, "Hit");
     SetXDir((Random(30)+30)*dir, ByObj);
-    SetYDir(   RandomX(-20,-20), ByObj);
+    SetYDir(RandomX(-20,-20), ByObj);
     return(true);
   }
   else if (GetOCF(ByObj) & OCF_HitSpeed2)
@@ -859,7 +890,15 @@ protected func TimerCall()
   //Piloten anpassen
   DrawPilot();
 
+	//Bodenpartikel zeichnen
 	DrawGroundParticles();
+
+	//Lebewesen shrappneln
+	if(GetAction() == "Fly" || GetAction() == "Turn")
+		for(var pClonk in FindObjects(Find_InRect(-100,-24,200,16), Find_NoContainer(), Find_OCF(OCF_Alive))) {
+			Fling(pClonk, RandomX(2, 3)*((GetR() > 0 && GetR() <= 180)*2-1), -3*(Abs(GetR()/15)+1));
+			DoDmg(45, DMG_Projectile, pClonk, 0, GetOwner()+1);
+		}	
 
   //bis 50% nichts
   if (GetDamage() < MaxDamage()*1/2) return(false);
@@ -896,7 +935,7 @@ private func WarningSound()
 {
     if (GetDamage() < MaxDamage()*3/4) 
   {
-    //Sound("WarningDamageCritical.ogg", false, this());
+    //Sound("DamageCritical.ogg", false, this());
     if (!(s_counter%36))
     {
       var obj;
@@ -904,7 +943,8 @@ private func WarningSound()
       {
         if (obj = Contents(i, this()))
           if (GetOCF(obj) & OCF_CrewMember)
-           Sound("DamageWarning", false, MGStation, 100, GetOwner(obj)+1);
+          	if(obj != Pilot)
+			        Sound("DamageWarning", false, this, 100, GetOwner(obj)+1);
       }
     }
     s_counter++;
@@ -922,7 +962,8 @@ private func WarningSound()
       {
         if (obj = Contents(i, this()))
           if (GetOCF(obj) & OCF_CrewMember)
-            Sound("WarningDamageCritical.ogg", false, MGStation, 100, GetOwner(obj)+1);
+           	if(obj != Pilot)
+           		Sound("DamageCritical.ogg", false, this, 100, GetOwner(obj)+1);
 
       }
     }
@@ -984,11 +1025,13 @@ private func Smoking()
 
 /* ----- Physik ----- */
 
+//Motor anlassen
 protected func StartEngine()
 {
   Sound("StartSystem.ogg", false, this());
 }
 
+//Motor läuft
 protected func EngineStarted()
 {
   AddEffect("Engine",this,300,1,this,0);
@@ -996,17 +1039,22 @@ protected func EngineStarted()
   rotation =  0;
 }
 
+//Motor abstellen/ abgestorben
 protected func StopEngine()
 {
+  if (!fuel) PlayerMessage(GetOwner(), "<c ff0000>$MsgNoFuel$</c>", this());
+
   Sound("StopSystem.ogg", false, this()); 
   RemoveEffect("Engine",this());
 }
 
+//Motor aus
 protected func EngineStopped()
 {
   throttle = 0;
   rotation = 0;
 }
+
 
 /* ----- Effekt: Engine ----- */
 
@@ -1041,6 +1089,13 @@ protected func FxEngineTimer(object Target, int EffectNumber, int EffectTime)
   else
   {
     LocalN("rotation", Target) = GetR(Target);
+  }
+  //Treibstoff verbrauchen
+  if (!(EffectTime % 10) && !ObjectCount(H_NP))
+  {
+    LocalN("fuel", Target) -= thr;
+    if (LocalN("fuel", Target) <= 0)
+      Target -> SetAction("EngineShutDown");
   }
 
   //Gewichtskraft berechnen

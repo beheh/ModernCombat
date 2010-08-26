@@ -14,38 +14,46 @@ local fDamage, iDamageRemaining;
 
 public func Initialize() 
 {
-  SetVisibility(VIS_Owner);
+  SetVisibility(VIS_None);
   SetState(BHUD_Ready);
   return true;
 }
 
 public func SetState(int iNewState) {
 	iState = iNewState;
+	var dwArrowColor;
 	if(iState == BHUD_Error)
 	{
 		SetClrModulation(RGBa(255,0,0,50));
-		Sound("DamageWarning", true, 0, 100, GetOwner()+1, +1);
+		dwArrowColor = RGBa(255,0,0,50);
+		Sound("DamageWarning", false, pHelicopter, 100, GetOwner()+1, +1);
 	}
 	else {
-		Sound("DamageWarning", true, 0, 100, GetOwner()+1, -1);
+		Sound("DamageWarning", false, pHelicopter, 100, GetOwner()+1, -1);
 	}
 	if(iState == BHUD_Warning)
 	{
 		SetClrModulation(RGBa(255,153,0,50));
-		Sound("WarningLockon.ogg", true, 0, 100, GetOwner()+1, +1);
+		dwArrowColor = RGBa(255,153,0,50);
+		Sound("WarningLockon.ogg", false, pHelicopter, 100, GetOwner()+1, +1);
 	}
 	else {
-		Sound("WarningLockon.ogg", true, 0, 100, GetOwner()+1, -1);
+		Sound("WarningLockon.ogg", false, pHelicopter, 100, GetOwner()+1, -1);
 	}
-
 	if(iState == BHUD_Ready)
 	{
 		SetClrModulation(RGBa(0,153,255,50));
+		dwArrowColor = RGBa(255,204,0,50);
 	}
 	if(iState == BHUD_Disabled)
 	{
 		SetClrModulation(RGBa(122,122,122,50));
+		dwArrowColor = RGBa(255,204,0,50);
 	}
+	if(pRotation) pRotation->SetClrModulation(dwArrowColor);
+	if(pThrottle) pThrottle->SetClrModulation(dwArrowColor);
+	if(pAltitude) pAltitude->SetClrModulation(dwArrowColor);
+	if(pWind) pWind->SetClrModulation(dwArrowColor);
 	return true;
 }
 
@@ -74,43 +82,8 @@ protected func Timer()
 		RemoveObject();
 		return true;
 	}
+	//Ausrichten
 	Align();
-	//Farbe
-	if(fDamage || pHelicopter->GetDamage() > pHelicopter->MaxDamage()*3/4) {
-		SetState(BHUD_Error);	
-	}
-	else {
-		var aRockets = FindObjects(Find_ID(ROKT), Find_Distance(800, AbsX(GetX(pHelicopter)), AbsY(GetY(pHelicopter))));
-		var fRocket = false;
-		for(var pCheck in aRockets) {
-			if(ObjectDistance(pCheck, pHelicopter) < 300) {
-				fRocket = true;
-			}
-			else {
-				var aObj = FindObjects(Find_ID(GetID(pHelicopter)), Find_OnLine(AbsX(GetX(pCheck)), AbsY(GetY(pCheck)), AbsX(GetX(pCheck)+Sin(GetR(pCheck), 800)), AbsX(GetX(pCheck)-Cos(GetR(pCheck), 800))));
-				for(var pCheck in aObj) {
-					if(pCheck == pHelicopter) {
-						fRocket = true;
-						break;
-					}
-				}
-			}
-			if(fRocket) break;
-		}
-		if(fRocket) {
-			SetState(BHUD_Warning);
-		}
-		else {
-			if(pHelicopter->GetAutopilot()) {
-				SetState(BHUD_Disabled);
-			}
-			else {
-				SetState(BHUD_Ready);
-			}
-		}
-	}
-	if(iDamageRemaining > 0) iDamageRemaining--;
-	if(!iDamageRemaining) fDamage = false;
 	//Rotation anzeigen
 	if(!pRotation)
 	{
@@ -158,6 +131,27 @@ protected func Timer()
 		pWind->SetClrModulation(RGBa(255,204,0,50));
 	}
 	SetPosition(GetX()-4+BoundBy((1400*GetWind(AbsX(GetX(pHelicopter)), AbsY(GetY(pHelicopter))))/1000, -69, 71), GetY()-98, pWind);
+	//Status setzen
+	if(fDamage || pHelicopter->GetDamage() >= pHelicopter->MaxDamage()*3/4) {
+		SetState(BHUD_Error);	
+	}
+	else {
+		if(pHelicopter->GetRocket()) {
+			SetState(BHUD_Warning);
+		}
+		else {
+			if(pHelicopter->GetAutopilot()) {
+				SetState(BHUD_Disabled);
+			}
+			else {
+				SetState(BHUD_Ready);
+			}
+		}
+	}
+	if(iDamageRemaining > 0) iDamageRemaining--;
+	if(!iDamageRemaining) fDamage = false;
+	//Sicht
+  SetVisibility(VIS_Owner);
 	return true;
 }
 
