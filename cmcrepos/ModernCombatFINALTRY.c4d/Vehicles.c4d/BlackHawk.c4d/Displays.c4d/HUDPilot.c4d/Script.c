@@ -14,8 +14,9 @@ local fDamage, iDamageRemaining;
 
 public func Initialize() 
 {
-  SetVisibility(VIS_None);
+	SetVisibility(VIS_None);
   SetState(BHUD_Ready);
+  Schedule("SetVisibility(VIS_Owner)", 1, 0, this);
   return true;
 }
 
@@ -89,39 +90,28 @@ protected func Timer()
 	{
 		pRotation = CreateObject(BRTN,0,0,GetOwner());
 		pRotation->SetOwner(GetOwner());
-		pRotation->SetVisibility(VIS_Owner);
 		pRotation->SetClrModulation(RGBa(255,204,0,50));
 	}
 	SetPosition(GetX(), GetY()+56, pRotation);
+	pRotation->SetVisibility(GetVisibility());
 	pRotation->SetR(GetR(pHelicopter));
-	/*if(GetAction(pHelicopter) == "Turn") {
-		pRotation->SetObjDrawTransform(Abs(((GetActTime(pHelicopter)-40/2)*1000)/40*2),0,0,0,1000,0);
-	}
-	else {
-		pRotation->SetObjDrawTransform(1000,0,0,0,1000,0);
-	}*/
 	//Throttle anzeigen
 	if(!pThrottle) {
 		pThrottle = CreateObject(BARW,0,0,GetOwner());
 		pThrottle->SetOwner(GetOwner());
-		pThrottle->SetVisibility(VIS_Owner);
 		pThrottle->SetClrModulation(RGBa(255,204,0,50));
 	}
 	SetPosition(GetX()-180, GetY()+70-BoundBy((((140*1000)/max_throttle)*pHelicopter->GetThrottle())/1000, 0, 140), pThrottle);
+	pThrottle->SetVisibility(GetVisibility());
 	//Höhe anzeigen
 	if(!pAltitude) {
 		pAltitude = CreateObject(BARW,0,0,GetOwner());
 		pAltitude->SetR(180);
 		pAltitude->SetOwner(GetOwner());
-		pAltitude->SetVisibility(VIS_Owner);
 		pAltitude->SetClrModulation(RGBa(255,204,0,50));
 	}
-	/*var iDist = GetY(pHelicopter);
-	while(!pHelicopter->GBackSolid(0, iDist) && !pHelicopter->GBackLiquid(0, iDist) && iDist < LandscapeHeight()) {
-		iDist += 5;
-	}
-	SetPosition(GetX()+180, GetY()+64-BoundBy((((140*1000)/(GetY(pHelicopter)+iDist))*iDist)/1000, 0, 140), pAltitude);*/
 	SetPosition(GetX()+180, GetY()+64-BoundBy(140-((((140*1000)/LandscapeHeight())*GetY(pHelicopter))/1000), 0, 140), pAltitude);
+	pAltitude->SetVisibility(GetVisibility());
 	//Wind anzeigen
 	if(!pWind) {
 		pWind = CreateObject(BARW,0,0,GetOwner());
@@ -131,6 +121,7 @@ protected func Timer()
 		pWind->SetClrModulation(RGBa(255,204,0,50));
 	}
 	SetPosition(GetX()-4+BoundBy((1400*GetWind(AbsX(GetX(pHelicopter)), AbsY(GetY(pHelicopter))))/1000, -69, 71), GetY()-98, pWind);
+	pWind->SetVisibility(GetVisibility());
 	//Status setzen
 	if(fDamage || pHelicopter->GetDamage() >= pHelicopter->MaxDamage()*3/4) {
 		SetState(BHUD_Error);	
@@ -150,8 +141,6 @@ protected func Timer()
 	}
 	if(iDamageRemaining > 0) iDamageRemaining--;
 	if(!iDamageRemaining) fDamage = false;
-	//Sicht
-  SetVisibility(VIS_Owner);
 	return true;
 }
 
