@@ -481,12 +481,22 @@ protected func ContainedThrow(object ByObj)
   
   //Gunner
   if (ByObj == Gunner)
-    MGStation->~ControlThrow(ByObj);
+    if (!GetPlrCoreJumpAndRunControl(GetController(ByObj)))
+      MGStation->~ControlThrow(ByObj);
   //Rocketeer
   if (ByObj == Rocketeer)
     RocketStation->~ControlThrow(ByObj);
 
   return true;
+}
+
+public func ContainedUpdate(object ByObj, int comdir, bool dig, bool throw)
+{
+  if (ByObj == Gunner)
+    if (throw)
+	  return MGStation->ControlThrow(ByObj);
+	else
+	  return MGStation->StopAutoFire();
 }
 
 //eine Funktion, welche einfach nur die Richtung eines Objektes ändert
