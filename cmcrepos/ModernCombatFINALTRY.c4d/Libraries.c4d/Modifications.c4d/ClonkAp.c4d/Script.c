@@ -259,7 +259,8 @@ local killicon;
 public func KillIcon(id idKillIcon)
 {
   if(idKillIcon)
-    return killicon = idKillIcon;
+    killicon = idKillIcon;
+  return killicon;
 }
 
 /* Inventar */
