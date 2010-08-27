@@ -127,11 +127,12 @@ public func FxAMPKLightTimer(pTarget, iNo, iTime)
 public func FxAMPKRestockingTimer(pTarget, iEffectNumber, iEffectTime)
 {
   //Kriterien
-  if(!Contained())			return 1;	//Nicht im Freien
-  if(Contained(Contained()))		return 1;	//Container nicht im Freien
-  if(GetAmmoPoints() < 30)		return 1;	//Nur wenn noch Punkte da sind
+  if(!Contained())						return 1;	//Nicht im Freien
+  if(!Contained()->~IsClonk())			return 1;	//Nur wenn von einem Clonk getragen
+  if(Contained(Contained()))			return 1;	//Container nicht im Freien
+  if(GetAmmoPoints() < 30)				return 1;	//Nur wenn noch Punkte da sind
   if(Contents(0,Contained()) != this)	return 1;	//Nur, falls angewählt
-  if(GetID(Contained()) == FKDT)	return 1;	//Im FakeDeath-Objekt?
+  if(GetID(Contained()) == FKDT)		return 1;	//Im FakeDeath-Objekt?
 
   //Harte Vorauswahl überlebt? Los geht's.
   for(var target in FindObjects(Find_OCF(OCF_Alive),			//Ziel am Leben?
