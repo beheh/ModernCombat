@@ -186,11 +186,8 @@ public func Close()
   RemoveEffect("IntSMENCheck",pTargetObject);
 
   //Löschen
-  if(FindObject2(Find_ID(SMEN),Find_Owner(GetOwner(pTargetObject))) != this)//Pro Spieler wird nur ein Speedmenü erhalten.
-  {
+  if(FindObject2(Find_ID(SMEN),Find_Owner(GetOwner(pTargetObject)), Find_Exclude(this)))//Pro Spieler wird nur ein Speedmenü erhalten.
     RemoveObject();
-    //Schedule(Format("RemoveObject(Object(%d))", ObjectNumber(this)), 1);
-  }
   else
   {
     SetPosition(1,1);
