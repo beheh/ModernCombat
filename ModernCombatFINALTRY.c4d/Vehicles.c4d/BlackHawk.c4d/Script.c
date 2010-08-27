@@ -143,11 +143,11 @@ public func GetRocket() {
 /* Autopilot */
 
 public func GetAutopilot()
-{return GetEffect("BlackhawkAutopilot", this) != false;}
+{return GetEffect("BlackhawkAutopilot", this);}
 
 public func SetAutopilot(object pTarget, int iX, int iY)
 {
-  if(!Pilot) return false;
+  if(!Pilot) return;
   ResetAutopilot();
   var xto, yto;
   if(pTarget)
@@ -187,7 +187,7 @@ protected func FxBlackhawkAutopilotTimer(object pTarget, int iNumber, int iTime)
 			//Motor aus
 	    if (throttle == 0 && (GetAction()=="Fly" || GetAction()=="EngineStartUp")) {
 	    	SetAction("EngineShutDown");
-	   		return(pTarget->ResetAutopilot());
+	   		return pTarget->ResetAutopilot();
 	   	}
 	  }
 	}
@@ -270,18 +270,17 @@ protected func ControlCommand(string Command, object Target, int TargetX, int Ta
 {
   if (Command == "Exit")
   {
-		var rot = GetDir()*180-90 + GetR() + GetDir()*120-60;
+	var rot = GetDir()*180-90 + GetR() + GetDir()*120-60;
     Exit(ByObj, Sin(rot,25), -Cos(rot,25), GetR(), GetXDir(0,1), GetYDir(0,1), GetRDir());
     return true;
   }
   if (Command == "MoveTo")
   {
-  	if(ByObj == Pilot) {
+  	if(ByObj == Pilot)
   		SetAutopilot(Target, TargetX, TargetY);
-  	}
   	return true;
   }
-  return false;
+  return;
 }
 
 protected func Collection2(object pObj)
@@ -502,7 +501,7 @@ protected func ContainedThrow(object ByObj)
   [Image=KOKR|$CtrlThrow$]
   
   //nicht wenn kaputt
-  if (GetDamage() > MaxDamage()) return(true);
+  if (GetDamage() > MaxDamage()) return true;
   //der Pilot kriegt eins...
   if (ByObj == Pilot)
   {
@@ -510,16 +509,15 @@ protected func ContainedThrow(object ByObj)
     {
       hud = CreateObject(BHUD, 0, 0, GetOwner(ByObj));
       hud->SetHelicopter(this);
-      hud->SetOwner(GetOwner());
+      SetOwner(GetOwner(), hud);
     }
     else
       if(GetVisibility(hud) & VIS_Owner) {
-      	hud->SetVisibility(VIS_None);
-      }
-      else {
-	      hud->SetVisibility(VIS_Owner);
-      }
-    return(Sound("SwitchHUD", false, this, 100, GetOwner(ByObj)+1));
+      	SetVisibility(VIS_None, hud);
+	  }
+      else
+	    SetVisibility(VIS_Owner, hud);
+    return Sound("SwitchHUD", false, this, 100, GetOwner(ByObj)+1);
   }
   
   //Gunner
@@ -548,7 +546,7 @@ protected func ChangeDir()
   for (var i = 0; i < GetDefCoreVal("Vertices", "DefCore", GetID()); i++)
     SetVertex(i, 0, (GetDir()*2-1)*GetDefCoreVal("VertexX", "DefCore", GetID(), i), this, 2);
   SetDir(!GetDir());
-  return(true);
+  return true;
 }
 
 
@@ -739,14 +737,14 @@ protected func FxCheckEndTimer(pTarget, iNo, iTime)
 
 public func OnDmg(int iDmg, int iType)
 {
-  if(iType == DMG_Energy)	return(-20);
-  if(iType == DMG_Bio)		return(100);
-  if(iType == DMG_Melee)	return(80);
-  if(iType == DMG_Fire)		return(50);
-  if(iType == DMG_Explosion)	return(-50);
-  if(iType == DMG_Projectile)	return(80);
+  if(iType == DMG_Energy)	return -20;
+  if(iType == DMG_Bio)		return 100;
+  if(iType == DMG_Melee)	return 80;
+  if(iType == DMG_Fire)		return 50;
+  if(iType == DMG_Explosion)	return -50;
+  if(iType == DMG_Projectile)	return 80;
 
-  return(50);
+  return 50;
 }
 
 public func Damage()
@@ -761,17 +759,18 @@ public func Damage()
 func DestroyHeli()
 {
   //Inhalt auswerfen und töten bzw. zerstören
-  for(var obj in FindObjects(Find_Container(this)))
+  for(var obj in FindObjects(Find_Container(this), Find_Not(Find_ID(FKDT))))
   {
     DeleteActualSeatPassenger(obj);
-    if(GetOCF(obj) & OCF_Alive) {
+    if(GetOCF(obj) & OCF_Alive && GetID(Contained(obj)) != FKDT) {
     	DoDmg(200, DMG_Explosion, obj);
     }
     else {
     	DoDamage(200,obj);
     }
     Sound("CockpitRadio.ogg", true, 0, 100, GetOwner(obj)+1, -1);
-    Exit(obj, 0, 0, Random(360), RandomX(-5,5), RandomX(-4,8), Random(10));
+	if (Contained(obj) == this)
+      Exit(obj, 0, 0, Random(360), RandomX(-5,5), RandomX(-4,8), Random(10));
   }
 
   //Explosion
@@ -781,11 +780,11 @@ func DestroyHeli()
   //Wrack erstellen
   var obj;
   obj = CreateObject(H_HW, 0, 20, -1);
-  obj -> Incinerate();
-  obj -> SetR(GetR());
-  obj -> SetXDir(GetXDir());
-  obj -> SetYDir(GetYDir());
-  obj -> SetRDir(GetRDir());
+  Incinerate(obj);
+  SetR(GetR(), obj);
+  SetXDir(GetXDir(), obj);
+  SetYDir(GetYDir(), obj);
+  SetRDir(GetRDir(), obj);
   for (var i; i < 7; i++)
   {
     ScheduleCall(obj, "BlastPar", i*2, 0, Sin(Random(360), 10*i), -Cos(Random(360), 10*i), 200, RGB(255,255,255));
@@ -795,13 +794,13 @@ func DestroyHeli()
     ScheduleCall(obj, "BlastPar", i*2, 0, Sin(Random(360), 10*i), -Cos(Random(360), 10*i), 200, RGB(255,255,255));
     ScheduleCall(obj, "BlastPar", i*2, 0, Sin(Random(360), 10*i), -Cos(Random(360), 10*i), 200, RGB(255,255,255)); 
   }
-  return(RemoveObject());
+  return RemoveObject();
 }
 
 //Kontakt am Rotor: Schaden!
 protected func ContactTop()
 {
-  if (!(GetCon() == 100)) return(false);
+  if (GetCon() != 100) return;
   //sehr viel schaden
   DoDamage(25, this);
   for (var i; i < GetVertexNum(); i++)
@@ -868,7 +867,7 @@ protected func RejectCollect(id ID, object ByObj)
 {
   //man soll schon Objekte im Heli ablegen können
   if (Contained(ByObj))
-    return(false);
+    return;
   //von außen heißt es: Schaden!!!
   if (GetRotorSpeed() > 0)
   {
@@ -877,14 +876,14 @@ protected func RejectCollect(id ID, object ByObj)
     ProtectedCall(ByObj, "Hit");
     SetXDir((Random(30)+30)*dir, ByObj);
     SetYDir(RandomX(-25,-15), ByObj);
-    return(true);
+    return true;
   }
   else if (GetOCF(ByObj) & OCF_HitSpeed2)
   {
     ProtectedCall(ByObj, "Hit");
-    return(true);
+    return true;
   }
-  return(true);
+  return true;
 }
                            
 //für Warnsounds und Grafik zuständig
@@ -915,24 +914,24 @@ protected func TimerCall()
 
 	//Lebewesen schrappneln
 	if(GetRotorSpeed() > 0) {
-		for(var pClonk in FindObjects(Find_InRect(-100,-24,200,16), Find_NoContainer(), Find_OCF(OCF_Alive))) {
+		for(var pClonk in FindObjects(Find_InRect(-100,-24,200,16), Find_NoContainer(), Find_OCF(OCF_Alive), Find_Not(Find_ID(FKDT)))) {
 			Fling(pClonk, RandomX(2,3)+GetRotorSpeed()/100*((GetR() > 0 && GetR() <= 180)*2-1), RandomX(-2, -1)-GetRotorSpeed()/100);
 			DoDmg(GetRotorSpeed()/3, DMG_Projectile, pClonk, 0, GetOwner()+1);
 		}
 	}
 
   //bis 50% nichts
-  if (GetDamage() < MaxDamage()*1/2) return(false);
+  if (GetDamage() < MaxDamage()*1/2) return;
 
   // ab 50% rauchen
   Smoking();
 
-  if (GetDamage() < MaxDamage()*3/4) return(false);
+  if (GetDamage() < MaxDamage()*3/4) return;
 
   // ab 25% Feuer
   DrawFire();
 
-  if (!GetEffect("Engine", this)) return(false);
+  if (!GetEffect("Engine", this)) return;
   
   //Warnsound
   WarningSound();
@@ -958,39 +957,26 @@ private func WarningSound()
   {
     //Sound("WarningDamageCritical.ogg", false, this);
     if (!(s_counter%36))
-    {
-      var obj;
-      for (var i; i < ContentsCount(0, this); i++)
-      {
-        if (obj = Contents(i, this))
-          if (GetOCF(obj) & OCF_CrewMember)
-           Sound("DamageWarning", false, MGStation, 100, GetOwner(obj)+1);
-      }
-    }
+	  for (var obj in FindObjects(Find_OCF(OCF_CrewMember), Find_Container(this)))
+        Sound("DamageWarning", false, MGStation, 100, GetOwner(obj)+1);
     s_counter++;
     if (s_counter >= 100) s_counter = 0;
     
-    return(false);
+    return;
   }
   else
   {
     if (!(s_counter%20))
     {
-      var obj;
       Local(2) = 0;
-      for (var i; i < ContentsCount(0, this); i++)
-      {
-        if (obj = Contents(i, this))
-          if (GetOCF(obj) & OCF_CrewMember)
-           	if(obj != Pilot)
-            Sound("WarningDamageCritical.ogg", false, MGStation, 100, GetOwner(obj)+1);
-
-      }
+      for (var obj in FindObjects(Find_OCF(OCF_CrewMember), Find_Container(this)))
+        if(obj != Pilot)
+          Sound("WarningDamageCritical.ogg", false, MGStation, 100, GetOwner(obj)+1);
     }
     s_counter++;
     if (s_counter >= 100) s_counter = 0;
 
-    return(false);
+    return;
   }
 }
 
@@ -1001,38 +987,28 @@ private func DrawGroundParticles() {
   for (var i; i < 30; i++)
   {
     if (GetMaterial(0, i*5) == Material("Earth"))
-      return(CreateDust(i*5, GetRotorSpeed(), RGB(150, 86, 22)));
+      return CreateDust(i*5, GetRotorSpeed(), RGB(150, 86, 22));
     if ((Material("Wall") != -1 && GetMaterial(0, i*5) == Material("Wall")) || GetMaterial(0, i*5) == Material("Vehicle"))                    
-      return(CreateDust(i*5, GetRotorSpeed(), RGB(150,150,150)));
+      return CreateDust(i*5, GetRotorSpeed(), RGB(150,150,150));
     if (GetMaterial(0, i*5) == Material("Snow"))                    
-      return(CreateDust(i*5, GetRotorSpeed(), RGB(255,255,255)));
+      return CreateDust(i*5, GetRotorSpeed(), RGB(255,255,255));
     if (GetMaterial(0, i*5) == Material("Sand"))                    
-      return(CreateDust(i*5, GetRotorSpeed(), RGB(247,236,157)));
+      return CreateDust(i*5, GetRotorSpeed(), RGB(247,236,157));
     if (GetMaterial(0, i*5) == Material("Ashes"))                    
-      return(CreateDust(i*5, GetRotorSpeed(), RGB( 64, 55, 36)));
+      return CreateDust(i*5, GetRotorSpeed(), RGB( 64, 55, 36));
     if (GBackSolid(0, i*5))
       return true;
 
     if (GetMaterial(0, i*5) == Material("Water")) {
-      return(CreateDust(i*5, GetRotorSpeed(), RGB(176,194,208)));
+      return CreateDust(i*5, GetRotorSpeed(), RGB(176,194,208));
      }
   }
-  return false;
-
-
-
-
-
-
-
-
-
-
+  return;
 }
 
 private func CreateDust(int Y, int Power, int Color)
 {
-	Power = Min(Power, 130);
+  Power = Min(Power, 130);
   CreateParticle("Smoke3", -3, Y, -(70-Y/3), RandomX(-5,5),
                  RandomX(30,15+(14-Y/10)*Power/5), Color);//nach links
   CreateParticle("Smoke3", +3, Y, (70-Y/3), RandomX(-5,5),
@@ -1063,10 +1039,8 @@ private func DrawFire()
 
 private func Water()
 {
-  if (GBackLiquid(0,10) )
-  {
+  if (GBackLiquid(0,10))
     DoDamage(5);
-  }  
 }
 
 private func Smoking()
@@ -1074,10 +1048,8 @@ private func Smoking()
   var dir = GetDir()*2-1;
 
   for (var a = 0; a < 3; a++)
-  { 
     if (!GBackLiquid(-Sin(GetR()+dir*80, 25), +Cos(GetR()+dir*80, 25)))
       Smoke(-Sin(GetR()+dir*80, 25), +Cos(GetR()+dir*80, 25), Random(10));
-  }
 }
 
 /* ----- Physik ----- */
@@ -1091,7 +1063,6 @@ protected func EngineStarted()
 {
   AddEffect("Engine",this,300,1,this,0);
   throttle = 0;
-
   rotation =  0;
 }
 
@@ -1111,12 +1082,12 @@ protected func EngineStopped()
 
 protected func FxEngineStart(object Target, int EffectNumber, int Temp, Var1, Var2, Var3, Var4)
 {
-  if (Temp) return(true);
+  if (Temp) return true;
 }
 
 protected func FxEngineStop(object Target, int EffectNumber, int Reason, bool Temp)
 {
-  if (Temp) return(true);
+  if (Temp) return true;
 }
 
 //hier wird das Flugverhalten gesteuert
@@ -1164,11 +1135,11 @@ protected func FxEngineTimer(object Target, int EffectNumber, int EffectTime)
   SetYDir(GetYDir(Target, 95) + av, Target, 100);
   SetXDir(GetXDir(Target, 95) + ah, Target, 100);
 
-  return(true);
+  return true;
 }
 
 //eine neue Funktion: Tangens = Sinus / Kosins
 global func Tan(int angle, int radius)
 {
-  return(Sin(angle, radius, 10) / Cos(angle, radius, 10));
+  return Sin(angle, radius, 10) / Cos(angle, radius, 10);
 }
