@@ -2,16 +2,11 @@
 
 #strict 2
 
-public func FxIntWallJumpTimer(){return -1;}
-
-
 /* Check */
 
 private func MayFlip()
 {
-  if(this->IsJumping() || GetAction() == "JetpackFlight")
-   if(!GetEffect("ExtraJump", this))
-    return true;
+  return (this->IsJumping() || GetAction() == "JetpackFlight") && !GetEffect("ExtraJump", this);
 }
 
 /* Geschwindigkeitsschub */
@@ -46,17 +41,17 @@ private func StopWallJump()
 protected func BackFlip()
 {
   Sound("ClonkAction*.ogg");
-  if(GetComDir() == COMD_Left)
-    SetComDir(COMD_Right);
-  else
-    SetComDir(COMD_Left);
-	ScheduleCall(0, "BackFlipBoost", 1, 1);
+  SetComDir(!GetComDir());
+  ScheduleCall(0, "BackFlipBoost", 1, 1);
 }
 
 /* Agilität */
 
 private func ControlAgility(string strControl)
 {
+  //In Flüssigkeiten geht das Ganze nicht.
+  if (InLiquid()) return;
+
   //Links
   if(strControl == "ControlLeft")
   {
@@ -67,12 +62,10 @@ private func ControlAgility(string strControl)
    }
    else
    if(GetProcedure() == "SCALE" && GetDir() != DIR_Left)
-   {
-    AddEffect("IntWallJump",this,10,20,this);
-   }
+     AddEffect("IntWallJump",this,10,20,this);
    var iEff = AddEffect("ControlStack", this, 110, 5, this);
    EffectVar(0, this, iEff) = COMD_Left;
-   return 0;
+   return;
   }
 
   //Rechts
@@ -85,13 +78,11 @@ private func ControlAgility(string strControl)
    }
    else
    if(GetProcedure() == "SCALE" && GetDir() != DIR_Right)
-   {
     AddEffect("IntWallJump",this,10,20,this);
-   }
 
    var iEff = AddEffect("ControlStack", this, 110, 5, this);
    EffectVar(0, this, iEff) = COMD_Right;
-   return 0;
+   return;
   }
 
   //Doppellinks
@@ -154,7 +145,7 @@ private func ControlAgility(string strControl)
    if(GetEffect("ControlStack", this))
            EffectVar(1, this, GetEffect("ControlStack", this)) = COMD_Up;
 
-   return 0;
+   return;
   }
 }
 
@@ -164,7 +155,7 @@ private func ControlAgility(string strControl)
 public func JumpStart(bool bBackflip)
 {
   var iEff, iComd;
-  if(iEff = GetEffect("ControlStack", this))
+  if((iEff = GetEffect("ControlStack", this)))
   {
    if(EffectVar(1, this, iEff) != COMD_Up && !bBackflip) return;
    iComd = EffectVar(0, this, iEff);

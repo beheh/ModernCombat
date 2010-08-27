@@ -14,13 +14,8 @@ public func SetHUDTarget(pTarget)
 
 protected func Control2Grab(string command)
 {
-  if(GetProcedure() == "PUSH")
-  {
-    if(GetActionTarget())
+  if(GetProcedure() == "PUSH" && GetActionTarget())
       return GetActionTarget()->~Control2Grab(command,this,...);
-  }
-  
-  return false;
 }
 
 protected func ControlThrow()
@@ -108,15 +103,13 @@ public func DoAiming(int iChange)
 public func EquipGear(object pGear)
 {
   // überhaupt benutzbar
-  if(!pGear) return false;
-  if(!(pGear->~IsHazardGear())) return false;
-  if(!HazardGearSupported(pGear)) return false;
+  if(!pGear || !pGear->~IsHazardGear() || !HazardGearSupported(pGear)) return false;
   return _inherited(pGear);
 }
 
 public func HazardGearSupported(object pGear)//! -> Hazard 2.0
 {
-  return true;//Standartmäßig alles schlucken.
+  return true; //Standartmäßig alles schlucken.
 }
 
 private func AmmoBagContextCheck()
@@ -132,13 +125,13 @@ protected func ContextAmmobag(object pCaller)
   //Menü erzeugen
   CreateMenu(ABOX,this,0,0,GetName(0,ABAG),0,1,1);
   
-  var ambg = LocalN("ammobag");
+  var ambg = ammobag;
   
   //Munition finden und hinzufügen
   while(ammo = Contents(x,ambg))
   {
     // nur Ammo
-    if(!(ammo ->~IsAmmo())) continue;
+    if(!ammo ->~IsAmmo()) continue;
     //hinzufügen
     AddMenuItem(GetName(ammo),"PackAmmo", GetID(ammo), this, GetAmmo(GetID(ammo)),ObjectNumber(pCaller),GetDesc(ammo));
     //Zählervariable erhöhen
@@ -163,7 +156,7 @@ protected func PackAmmo(id idType, int iCaller)
   if(!Collect(pPack,this))
   {
     DoAmmo(idType,+iChange); 
-    RemoveObject(pPack);//What a fail. :C
+    RemoveObject(pPack); //What a fail. :C
   }
   else
     Sound("PackAmmo.ogg");
@@ -193,8 +186,7 @@ protected func DoAmmoPack(id idType)
 }
 
 public func ReadyToFire() {
-  if(GetAction() == "Crawl" && Contents())
-    if(Contents()->~CanAim() && Contents()->~IsEquipment())
+  if(GetAction() == "Crawl" && Contents() && Contents()->~CanAim() && Contents()->~IsEquipment())
       return true;
   return _inherited(...);
 }
@@ -262,9 +254,8 @@ private func TestSpread()
   
   if(proc == "WALK")
   {
-    if(GetComDir())
-      if(spread < CH_WalkSpread)
-        return CH_WalkSpread;
+    if(GetComDir() && spread < CH_WalkSpread)
+      return CH_WalkSpread;
     return false;
   }
   
@@ -300,7 +291,7 @@ private func TestSpread()
 }
 
 public func UpdateCH() {
-  if(!this->~ReadyToFire() || !this->~IsArmed() || (GetCursor(GetOwner()) != this))
+  if(!this->~ReadyToFire() || !this->~IsArmed() || GetCursor(GetOwner()) != this)
     {
       HideCH();
       return;
@@ -320,16 +311,12 @@ public func UpdateCH() {
 
     
   if(this->~IsAiming())
-  {
     if(this->~IsCrawling())
       DoSpread(-(CH_CrawlSpreadReduction+unspread));
     else
       DoSpread(-(CH_AimSpreadReduction+unspread));
-  }
   else
-  {
     DoSpread(-(CH_StandSpreadReduction+unspread));
-  }
 
   this->~UpdateAiming();
 }
@@ -357,24 +344,20 @@ public func UpdateCharge()
   if(GetOwner() < -1) return;
 
   // in Gebäuden/Fahrzeugen
-  if(Contained())
-    if(Contained()->~UpdateCharge(this))
-      return true;
+  if(Contained() && Contained()->~UpdateCharge(this))
+    return true;
 
   // reitet
-  if(this->IsRiding())
-    if(GetActionTarget()->~UpdateCharge(this))
-      return true;
+  if(this->IsRiding() && GetActionTarget()->~UpdateCharge(this))
+    return true;
 
   // ggf. an angefasstes Objekt weiterleiten
   var Content = Contents();
-  if(GetAction() == "Push")
-  	if(GetActionTarget()->~IsWeapon())
-  		Content = GetActionTarget();
+  if(GetAction() == "Push" && GetActionTarget()->~IsWeapon())
+  	Content = GetActionTarget();
   // ggf. an Gebäude/Fahrzeug weiterleten
-  if(Contained())
-  	if(Contained()->~IsWeapon())
-  		Content = Contained();
+  if(Contained() && Contained()->~IsWeapon())
+  	Content = Contained();
   // ggf. speziell zugewiesenes Objekt
   if(HUDTarget)
     Content = HUDTarget;
@@ -433,19 +416,18 @@ public func AimAngle(int iMaxAngle, int iRange, bool bSpread)
 			if(Contents()->~IsGrenade())
 				angle = (60+r)*(GetDir()*2-1);
 	}
-	else {
-		angle = crosshair->GetAngle();
-	}
+	else
+	  angle = crosshair->GetAngle();
 
 	if(iRange)
 	{
-		var target = this->~GetTarget(angle,iMaxAngle,iRange);
-		if(target)
-			angle = Angle(GetX(),GetY(),GetX(target),GetY(target));
+	  var target = this->~GetTarget(angle,iMaxAngle,iRange);
+	  if(target)
+		angle = Angle(GetX(),GetY(),GetX(target),GetY(target));
 	}
 	 
 	if(bSpread)
-		angle += GetSpreadAOff();
+	  angle += GetSpreadAOff();
 
 	return angle;
 }
@@ -491,10 +473,10 @@ public func ShowCH()
   if(!crosshair)
     return;
 	
-  if(crosshair->Contained())
-    crosshair->Exit();
+  if(Contained(crosshair))
+    Exit(crosshair);
     
-  if(crosshair->GetActionTarget() != this)
+  if(GetActionTarget(0, crosshair) != this)
     crosshair->Reset(this);
    
   if(!this->~IsAiming())
@@ -505,7 +487,7 @@ public func ShowCH()
     var dummy1, dummy2, r;
     this->WeaponAt(dummy1, dummy2, r);
       
-    if(GetDir() == DIR_Left)
+    if(!GetDir())
       crosshair->SetAngle(-90-r);
     else
       crosshair->SetAngle(+90+r);
@@ -534,20 +516,13 @@ public func HideCH()
   crosshair->UnSet();
 }
 
-public func IsAiming ()
+public func IsAiming()
 {
-  if(Contained())
-  {
-    if(Contained()->~CanAim())
-      return true;
-  }
+  if(Contained() && Contained()->~CanAim())
+    return true;
   
-  if(GetProcedure() == "PUSH")
-  {
-    if(GetActionTarget())
-      if(GetActionTarget()->~CanAim())
-        return true;
-  }
+  if(GetProcedure() == "PUSH" && GetActionTarget()->~CanAim())
+    return true;
 
   return _inherited();
 }
@@ -555,14 +530,13 @@ public func IsAiming ()
 public func Entrance(object pContainer)
 {
   HideCH();
-  
   return _inherited(pContainer);
 }
 
-protected func Departure(pContainer)      // Gebäude verlassen
+protected func Departure()      // Gebäude verlassen
 {
   UpdateCharge();
-  return _inherited(pContainer,...);
+  return _inherited(...);
 }
 
 public func Destruction()
@@ -576,9 +550,9 @@ public func StartAiming() //Wegen fehlendem Hazard-Feature.
 {
   if(Contained()) return Contained()->~StartAiming();
 
-  SetXDir(0);
+  SetXDir();
 
-  if(Contents(0)->~GetFMData(FM_Aim) == 2 || Contents(0)->~GetFMData(FM_Aim) == 0)
+  if(Contents()->~GetFMData(FM_Aim) == 2 || Contents()->~GetFMData(FM_Aim) == 0)
     SetAction("AimLow");
   else
     SetAction("Aim");
@@ -591,15 +565,15 @@ public func StartAiming() //Wegen fehlendem Hazard-Feature.
   ScheduleCall(this,"UpdateAiming",1);
 
   // Callback
-  if(Contents(0)) Contents(0)->~AimStart();
+  if(Contents()) Contents()->~AimStart();
 }
 
 public func StartSquatAiming() { // Anfangen in der Hocke zu zielen
 
   if(Contained()) return Contained()->~StartAiming();
 
-  SetXDir(0);
-  if(Contents(0)->~GetFMData(FM_Aim) == 2 || Contents(0)->~GetFMData(FM_Aim) == 0)
+  SetXDir();
+  if(Contents()->~GetFMData(FM_Aim) == 2 || Contents()->~GetFMData(FM_Aim) == 0)
     SetAction("AimSquatLow");
   else
     SetAction("AimSquat");
@@ -612,7 +586,7 @@ public func StartSquatAiming() { // Anfangen in der Hocke zu zielen
   ScheduleCall(this,"UpdateAiming",1);
 
   // Callback
-  if(Contents(0)) Contents(0)->~AimStart();
+  if(Contents()) Contents()->~AimStart();
 }
 
 public func StopAiming()
@@ -620,7 +594,7 @@ public func StopAiming()
   if(crosshair)
   {
     ResetCH();
-    if(GetDir() == DIR_Left)
+    if(!GetDir())
       crosshair->SetAngle(-90);
     else
       crosshair->SetAngle(+90);
@@ -652,7 +626,7 @@ public func SetAiming(int iAngle, bool fForceExact)
 /* Nahkampfsystem */
 private func Fighting()
 {
-  if((GetCursor(GetOwner()) != this) || (GetPlayerType(GetController()) == C4PT_Script))//Rudimentäre KI Selbstverteidigung.
+  if(GetCursor(GetOwner()) != this || GetPlayerType(GetController()) == C4PT_Script)//Rudimentäre KI Selbstverteidigung.
   {
     if(!Random(2))
      ControlThrow();
@@ -662,17 +636,15 @@ private func Fighting()
   return true;
 }
 
-local punchtype;//<-lol
+local punchtype; //<-lol
 
 private func Punching()
 {
   if (!Random(3)) Sound("Kime*");
   Sound("Punch*");
   
-  if(punchtype == 0)
-  {
+  if(!punchtype)
     Punch(GetActionTarget());
-  }
   else if(punchtype == 1)
   {
     if(GetAction(GetActionTarget()) != "Punch")
@@ -691,9 +663,7 @@ private func Punching()
 
 public func InCloseCombat()
 {
-  if((GetProcedure() == "FIGHT") && GetActionTarget())//ToDo: Wirklich? :o
-    return true;
-  return false;
+  return GetProcedure() == "FIGHT" && GetActionTarget();
 }
 
 public func ControlThrow()
@@ -748,11 +718,6 @@ public func ControlDigDouble()
   return _inherited(...);
 }
 
-public func FxSelectItemTimer(object pTarget, int iEffectNumber, int iEffectTime)
-{
-  return -1;
-}
-
 private func Control2Contents(string command)
 {
   // Haben wir was angefasst?
@@ -769,27 +734,15 @@ private func Control2Contents(string command)
   if(GetEffect("SelectItem",Contents()))
   {
     if(command == "ControlUpdate")
-    {
-       if(ObjectCall(Contents(), command, this, Par(1)))
-         return true;
-       else
-         return false;
-    }
+      return Contents()->~ControlUpdate(this, Par(1));
     
-    if((command == "ControlThrow") || (command == "ControlDig"))
-      return true;
-    else
-      return false;
+    return command == "ControlThrow" || command == "ControlDig";
   }
   // Getragenes Objekt hat spezielle Steuerungsauswertung
-  if(ObjectCall(Contents(), command, this, Par(1), Par(2), Par(3), Par(4), Par(5), Par(6), Par(7)))
-    return true;
-  return false;
+  return ObjectCall(Contents(), command, this, Par(1), Par(2), Par(3), Par(4), Par(5), Par(6), Par(7));
 }
 
-protected func NoContext() {
-	return false;
-}
+protected func NoContext() {}
 
 protected func ContextHelpMessagesOn() {
 	[0|Image=ROCK|Condition=NoContext]
@@ -808,18 +761,14 @@ protected func ContextHelpMessagesOff() {
 protected func ContextSettings(object pCaller) {
 	[$Settings$|Image=CSTR]
 	CreateMenu(CSTR, pCaller, pCaller, 0, "$Settings$", 0, C4MN_Style_Context, false);
-	if(pCaller->QuickInventoryOff()) {
-		AddMenuItem("$CtxQuickInventoryOff$", Format("SetQuickInventoryOn(Object(%d))", ObjectNumber(pCaller)), ICN2, pCaller);
-	}
-	else {
-		AddMenuItem("$CtxQuickInventoryOn$", Format("SetQuickInventoryOff(Object(%d))", ObjectNumber(pCaller)), QKIN, pCaller);
-	}
-	if(pCaller->HelpMessagesOff()) {
-		AddMenuItem("$CtxHelpMessagesOff$", Format("ContextHelpMessagesOn(Object(%d))", ObjectNumber(pCaller)), ICN2, pCaller);
-	}
-	else {
-		AddMenuItem("$CtxHelpMessagesOn$", Format("ContextHelpMessagesOff(Object(%d))", ObjectNumber(pCaller)), CXIN, pCaller);
-	}
+	if(pCaller->QuickInventoryOff())
+	  AddMenuItem("$CtxQuickInventoryOff$", Format("SetQuickInventoryOn(Object(%d))", ObjectNumber(pCaller)), ICN2, pCaller);
+	else
+	  AddMenuItem("$CtxQuickInventoryOn$", Format("SetQuickInventoryOff(Object(%d))", ObjectNumber(pCaller)), QKIN, pCaller);
+	if(pCaller->HelpMessagesOff())
+	  AddMenuItem("$CtxHelpMessagesOff$", Format("ContextHelpMessagesOn(Object(%d))", ObjectNumber(pCaller)), ICN2, pCaller);
+	else
+	  AddMenuItem("$CtxHelpMessagesOn$", Format("ContextHelpMessagesOff(Object(%d))", ObjectNumber(pCaller)), CXIN, pCaller);
 	return true;
 }
 
@@ -879,16 +828,13 @@ public func ControlSpecial()
   [$CtrlInventoryDesc$|Image=INVT]
   
 	// ControlSpecial an Container weitergeben (z.B. Fahrzeuge)
-	if(Contained())
-	{
-	  if(Contained()->~ContainedSpecial(this))
-	    return true;
-	}
+	if(Contained() && Contained()->~ContainedSpecial(this))
+	  return true;
 	if(QuickInventoryOn()) {
 		if(!Contents() || !aCollected) return;
 		
-		if(Contents()->~RejectShift() || Contents()->GetID() == GBRB)
-			return;
+		if(Contents()->~RejectShift() || GetID(Contents()) == GBRB)
+		  return;
 
   	var ring = CreateSpeedMenu(0, this);
   	var i = 0;
@@ -910,13 +856,13 @@ public func ControlSpecial()
 		// Keine Items?
 		if(!Contents()) return;
 		// Hardcode: BR-Bombe darf man nicht abwählen
-		if(Contents()->GetID() == GBRB)
+		if(GetID(Contents()) == GBRB)
 		  return;
 		// Manche Sachen dürfen einfach nicht
 		if(Contents()->~RejectShift())
 			return;
 		// wenn wir zielen, wollen wir nur Waffen haben
-		if(IsAiming() && Contents(0)->~CanAim())
+		if(IsAiming() && Contents()->~CanAim())
 		{
 		  var angle = Abs(AimAngle());
 			// nächste Waffe suchen
@@ -954,8 +900,7 @@ public func Collection(object pObj, bool fPut)
 
 public func Collection2(object pObj)
 {
-	if(!pObj) return;
-	if(pObj->Contained() != this) return;
+	if(!pObj || Contained(pObj) != this) return;
 	var i = 0;
 	while(aCollected[i]) {
 		if(aCollected[i] == pObj) return;
@@ -963,7 +908,7 @@ public func Collection2(object pObj)
 	}
 	i = 0;
 	while(aCollected[i]) {
-		if(aCollected[i]->Contained() == this) {
+		if(Contained(aCollected[i]) == this) {
 			i++;
 		}
 		else {
@@ -982,9 +927,7 @@ public func Ejection(object pObj)
 public func ControlContents(id idTarget)
 {
   if(Contents())
-  {
     RemoveEffect("SelectItem",Contents());
-  }
 
   var target = FindContents(idTarget);
   if(target)
@@ -1010,7 +953,7 @@ protected func ContentsDestruction()      // Wenn Inhaltsobjekte verschwinden
 }
 
 protected func CheckContentsDestruction() {
-  if(Contents(0)) Contents(0)->~Selection(this);
+  if(Contents()) Contents()->~Selection(this);
 }
 
 protected func ScalingLadder() {
@@ -1019,7 +962,7 @@ protected func ScalingLadder() {
 
 /* Gibt jetzt auch FAPHeal und so*/
 
-public func IsHealing () { return(WildcardMatch(GetAction(), "*Heal*")); }
+public func IsHealing () { return WildcardMatch(GetAction(), "*Heal*"); }
 
 /* KI-Erweiterung */
 //Reanimiert jetzt sogar Verbündete, foll toll!11
@@ -1112,7 +1055,7 @@ public func FxAggroTimer(object pTarget, int no)
 		}
 	}
   // Wir haben ein Ziel?
-  if(EffectVar(1, this(), no) && (pTarget->~GetSpread() < 80 || ObjectDistance(pTarget, EffectVar(1, this(), no))) < 30) { EffectCall(this(), no, "Fire"); return(1); }
+  if(EffectVar(1, this, no) && (pTarget->~GetSpread() < 80 || ObjectDistance(pTarget, EffectVar(1, this, no))) < 30) { EffectCall(this(), no, "Fire"); return 1; }
   // Zielen beenden
   if(IsAiming()) StopAiming();
 //  Message("@No target", this());
