@@ -1189,36 +1189,10 @@ global func FxShowWeaponTimer(object pTarget, int iNumber, int iTime)
   var xoff, yoff, r;  //Offset, Winkel
   //kein Inventar oder falsche Aktion
   if(!Contents(0,pTarget))
-  {
-    EffectVar(0, pTarget, iNumber) = 0;
-    if(EffectVar(6, pTarget, iNumber))
-    {
-      SetObjDrawTransform(1000,0,0,0,1000,0,EffectVar(6,pTarget,iNumber));
-      
-      //Silencer
-      SetObjDrawTransform(1000,0, EffectVar(6,pTarget,iNumber)->~BarrelXOffset()-(GetDefWidth()*1000/2),0,1000, EffectVar(6,pTarget,iNumber)->~BarrelYOffset(),EffectVar(6,pTarget,iNumber),1);
-
-      EffectVar(6, pTarget, iNumber) = 0;
-    }
-    SetGraphics(0, pTarget, 0, WeaponDrawLayer);
-    return FX_OK;
-  }
+    return EffectCall(pTarget, iNumber, "Reset");
   //Die Waffe momentan überhaupt anzeigen?
   if(!(pTarget->~WeaponAt(xoff, yoff, r)))
-  {
-    EffectVar(0, pTarget, iNumber) = 0;
-    if(EffectVar(6, pTarget, iNumber))
-    {
-      SetObjDrawTransform(1000,0,0,0,1000,0,EffectVar(6,pTarget,iNumber));
-      
-      //Silencer
-      SetObjDrawTransform(1000,0, EffectVar(6,pTarget,iNumber)->~BarrelXOffset()-(GetDefWidth()*1000/2),0,1000, EffectVar(6,pTarget,iNumber)->~BarrelYOffset(),EffectVar(6,pTarget,iNumber),1);
-      
-      EffectVar(6, pTarget, iNumber) = 0;
-    }
-    SetGraphics(0, pTarget, 0, WeaponDrawLayer);
-    return FX_OK;
-  }
+    return EffectCall(pTarget, iNumber, "Reset");
   var obj = Contents(0,pTarget), id=GetID(obj);
   //Waffe nicht mehr aktuell
   if(obj && EffectVar(6, pTarget, iNumber) != obj) {
@@ -1231,17 +1205,7 @@ global func FxShowWeaponTimer(object pTarget, int iNumber, int iTime)
     }
     //neues Objekt ist keine Waffe
     else
-    {
-      EffectVar(0, pTarget, iNumber) = 0;
-      if(EffectVar(6, pTarget, iNumber))
-      {
-        SetObjDrawTransform(1000,0,0,0,1000,0,EffectVar(6,pTarget,iNumber));
-        
-        EffectVar(6, pTarget, iNumber) = 0;
-      }
-      SetGraphics(0, pTarget, 0, WeaponDrawLayer);
-      return FX_OK;
-    }
+      return EffectCall(pTarget, iNumber, "Reset");
   }
 
   id = EffectVar(0, pTarget, iNumber);
@@ -1260,11 +1224,13 @@ global func FxShowWeaponTimer(object pTarget, int iNumber, int iTime)
   var dir;            //Richtung in die das Objekt schaut
   
   //schnell noch Rotation dazurechnen oder so!
-  var effect = GetEffect("StrikeRecharge", obj);
-  if(effect)
-  	r += -Max(Sin(GetEffect("StrikeRecharge", obj, 0, 6)*90/(ObjectCall(obj, "GetMCData", MC_Recharge)/4),20),0);
+  if(GetEffect("StrikeRecharge", obj))
+  	r += -Max(Sin(GetEffect("StrikeRecharge", obj, 0, 6)*90/(obj->~GetMCData(MC_Recharge)/4),20),0);
   else
-  	r += ObjectCall(obj,"HandR");
+  	r += obj->~HandR();
+	
+  if (r == EffectVar(1, pTarget, iNumber) && GetDir(pTarget) == EffectVar(7, pTarget, iNumber) && GetAction(pTarget) == EffectVar(8, pTarget, iNumber))
+    return;
   
   //Variablen mit Werten versehen
   width = height = xskew = yskew = 1;
@@ -1282,11 +1248,7 @@ global func FxShowWeaponTimer(object pTarget, int iNumber, int iTime)
   yoff -= Cos(r,yfact)/1000 - dir*Sin(r,xfact)/1000;
 
   if(dir == 1) 
-  {
-    height = -1;
-    xskew = -1;
-    yskew = -1;
-  }
+    height = xskew = yskew = -1;
 
   r = -90*dir-r-90;
   height *= width *= Cos(r, size);
@@ -1312,6 +1274,22 @@ global func FxShowWeaponTimer(object pTarget, int iNumber, int iTime)
   EffectVar(3, pTarget, iNumber) = yoff+Cos(r,size*w);
   EffectVar(4, pTarget, iNumber) = xoff+Sin(r+r2,size*(dist))/1000;
   EffectVar(5, pTarget, iNumber) = yoff-Cos(r+r2,size*(dist))/1000;
+  EffectVar(7, pTarget, iNumber) = GetDir(pTarget);
+  EffectVar(8, pTarget, iNumber) = GetAction(pTarget);
+}
+
+global func FxShowWeaponReset(object pTarget, int iNumber) {
+  EffectVar(0, pTarget, iNumber) = 0;
+  var wpn = EffectVar(6, pTarget, iNumber);
+  if(wpn)
+  {
+    SetObjDrawTransform(1000,0,0,0,1000,0,wpn);
+    //Silencer
+    SetObjDrawTransform(1000,0, wpn->~BarrelXOffset()-(GetDefWidth()*500),0,1000, wpn->~BarrelYOffset(),wpn,1);
+    EffectVar(6, pTarget, iNumber) = 0;
+  }
+  SetGraphics(0, pTarget, 0, WeaponDrawLayer);
+  return FX_OK;
 }
 
 func Hit()
