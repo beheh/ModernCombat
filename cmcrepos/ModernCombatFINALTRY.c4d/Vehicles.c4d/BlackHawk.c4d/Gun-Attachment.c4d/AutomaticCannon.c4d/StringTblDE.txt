@@ -1,3 +1,2 @@
 Bullets=Kugeln
 Auto=Automatikfeuer
-Burst=Stoﬂfeuer

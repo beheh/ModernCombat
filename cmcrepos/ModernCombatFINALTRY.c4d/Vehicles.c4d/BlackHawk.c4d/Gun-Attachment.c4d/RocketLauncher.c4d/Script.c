@@ -16,23 +16,43 @@ local pRocket, bGuiding;
 
 public func FMData1(int data)
 {
-  if(data == FM_Name)		return "$Optical$";
+  if(data == FM_Name)		return "$Missiles$";
 
   if(data == FM_AmmoID)		return MIAM;
   if(data == FM_AmmoLoad)	return 1;
 
-  if(data == FM_Reload)		return 120;
-  if(data == FM_Recharge)	return 120;
+  if(data == FM_Reload)		return 190;
 
+  if(data == FM_Aim)		return 1;
   if(data == FM_Damage)		return 30;
+
+  if(data == FM_Slot)		return 1;
+
+  if(data == FM_SpreadAdd)	return 300;
 
   return Default(data);
 }
 
-public func Fire1()
+public func FMData1T1(int data)
+{
+  if(data == FT_Name)		return "$Optical$";
+  return FMData1(data);
+}
+
+public func Fire1T1()
 {
   LaunchRocket(ROKT,Contained()->~AimAngle(10), GetFMData(FM_Damage,1));
 }
+
+public func BotData1(int data)
+{
+  if(data == BOT_Range)		return 600;
+  if(data == BOT_DmgType)	return DMG_Explosion;
+
+  return Default(data);
+}
+
+/* Raketen - Abschuss */
 
 public func LaunchRocket(id rid, int angle, int dmg)
 {
@@ -80,10 +100,5 @@ private func Check()
 
 public func OnReload()
 {
-  Sound("RTLR_Reload.ogg");
-}
-
-public func OnSelect()
-{
-  Sound("RTLR_Charge.ogg");
+  Sound("RLSA_Reload.ogg");
 }
