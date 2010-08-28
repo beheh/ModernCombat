@@ -51,13 +51,15 @@ public func Timer()
 
 public func ControlThrow(pByObject)
 {
-  Use(pByObject);
+  if (Use(pByObject))
+    SetAction("Reload");
   return true;
 }
 
 public func Activate(pClonk)
 {
-  return Use(pClonk);
+  if (Use(pClonk))
+    return SetAction("Reload");
 }
 
 func Use(caller)
@@ -142,6 +144,7 @@ func Use(caller)
 
      //Energie entladen
      charge = BoundBy(charge-20,0,MaxEnergy());
+	 return true;
     }
    }
   }
@@ -155,11 +158,8 @@ func Use(caller)
 
    //Energie entladen
    charge = BoundBy(charge-10,0,MaxEnergy());//Schock ins Leere kostet weniger Energiepunkte
+   return true;
   }
-  //Nachladen
-  SetAction("Reload");
-
-  return true;
 }
 
 /* Selbstheilungseffekt durch Wiederbelebung */
