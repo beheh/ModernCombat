@@ -90,6 +90,12 @@ public func Throw()
   else if (GetAction(user) == "ScaleLadder")
     doplace = 1;
   
+  //Laufen
+  else if (GetProcedure(user) == "WALK") {
+    doplace = 1;
+    y = 10;
+  }
+  
   //Sonst: Bereit zu feuern?
   else if (user->~ReadyToFire())
     doplace = 1;
@@ -145,7 +151,9 @@ private func FinFuse()
     laser -> SetClrModulation(DoRGBaValue(GetPlrColorDw(GetOwner()), 180, 0));
     laser ->~ Destruction();
   }
-  CreateObject(MFLG,0,1,controller)->Set(this);
+  var flag = CreateObject(MFLG,0,1,controller);
+  flag->Set(this);
+  SetDir(BoundBy(-iDir, 0, 1), flag);
 
   bReady=true;
   Sound("BBTP_Alarm.ogg", 0, 0, 50);
@@ -190,6 +198,7 @@ private func Defuse()
   SetObjDrawTransform(1000,0,0,0,1000);
   Sound("BBTP_Charge.ogg");
   bReady=false;
+  SetR();
   return 1;
 }
 
