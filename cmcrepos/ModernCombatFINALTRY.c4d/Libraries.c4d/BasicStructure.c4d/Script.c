@@ -18,6 +18,7 @@ public func IsDestroyed()		{return fDestroyed;}
 public func IsCMCStructure()		{return true;}
 public func AutoRepairWait()		{return iAutorepairWait;}
 
+
 /* Initialisierung */
 
 public func Initialize()
@@ -119,7 +120,7 @@ public func OnHit(int iDmg, int iType, object pBy)
 
 public func Destroyed()
 {
-	//Status setzen
+  //Status setzen
   SetAction("Destroyed");
   fDestroyed = true;
 
@@ -127,15 +128,15 @@ public func Destroyed()
   if(BonusPointCondition() && iLastAttacker != -1)
     if((GetOwner() != -1 && Hostile(GetOwner(), iLastAttacker)) || (GetOwner() == -1 && !GetTeam(this)) || (GetTeam(this) != GetPlayerTeam(iLastAttacker)))
 		  DoPlayerPoints(BonusPoints("Destruction"), RWDS_BattlePoints, iLastAttacker, GetCursor(iLastAttacker), IC03);
-	
+
   //Explosion
-	FakeExplode(20, iLastAttacker+1);	
-		  
+  FakeExplode(20, iLastAttacker+1);
+
   //Sound
   Sound("Blast2", false, this);
 
-	//Letzen Angreifer zurücksetzen
-	iLastAttacker = -1;
+  //Letzen Angreifer zurücksetzen
+  iLastAttacker = -1;
 
   //Callback
   OnDestruction();

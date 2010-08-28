@@ -115,10 +115,10 @@ protected func AbortCrawl()
   var act = GetAction();
 
   // Bei manchen Aktionen nicht abbrechen
-  if(act == "Scale")  return SetAction("Crawl"); // Anstoßen an der Wand
-  if(act == "Hangle") return SetAction("Crawl"); // Anstoßen an der Decke
-  if(act == "Tumble") return SetAction("Crawl"); // Bei Objekttreffern liegen bleiben
-  if(act == "Walk")   return SetAction("Crawl"); // Mysteriöse Walk-Aktion
+  if(act == "Scale")  return SetAction("Crawl");	//Anstoßen an der Wand
+  if(act == "Hangle") return SetAction("Crawl");	//Anstoßen an der Decke
+  if(act == "Tumble") return SetAction("Crawl");	//Bei Objekttreffern liegen bleiben
+  if(act == "Walk")   return SetAction("Crawl");	//Mysteriöse Walk-Aktion
 
   if(act != "AimCrawl" && WildcardMatch(act, "Aim*"))
   {
@@ -206,7 +206,6 @@ protected func UpdateTransferZone()
   }
   return _inherited();
 }
-
 
 /* Kriech-Effekt */
 
