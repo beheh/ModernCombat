@@ -25,6 +25,32 @@ public func FMData1(int data)
 
   if(data == FM_Damage)		return 9;
 
+  if(data == FM_Slot)		return 1;
+
+  if(data == FM_SpreadAdd)	return 25;
+  if(data == FM_StartSpread)	return 100;
+  if(data == FM_MaxSpread)	return 400;
+
+  return Default(data);
+}
+
+/* Kugeln - Automatikfeuer */
+
+public func FMData1T1(int data)
+{
+  if(data == FT_Name)		return "$Auto$";
+  return FMData1(data);
+}
+
+public func Fire1T1()
+{
+  Fire1();
+}
+
+public func BotData1(int data)
+{
+  if(data == BOT_Range)		return 500;
+
   return Default(data);
 }
 

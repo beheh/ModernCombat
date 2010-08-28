@@ -4,7 +4,7 @@
 
 local motor, motoridle, turn_end_dir, damaged;
 
-public func MaxDamage()	{return 80;}
+public func MaxDamage()	{return 150;}
 
 
 /* Initalisierung */

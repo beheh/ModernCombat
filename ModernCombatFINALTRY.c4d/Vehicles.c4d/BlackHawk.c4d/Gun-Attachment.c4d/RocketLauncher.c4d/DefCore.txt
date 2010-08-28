@@ -14,6 +14,6 @@ VertexFriction=100,100
 Value=120
 Mass=20
 Components=METL=4;KLAS=1
-Picture=0,10,64,64
+Picture=0,10,134,132
 Timer=1
 TimerCall=Check
