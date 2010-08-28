@@ -58,7 +58,7 @@ func CreateFurniture()
   CreateObject(LADR, 3605, 384, -1)->Set(6);
   CreateObject(LADR, 4445, 360, -1)->Set(3);
   CreateObject(LADR, 4680, 538, -1)->Set(8);
-  CreateObject(LADR, 4780, 430, -1)->Set(12);
+  CreateObject(LADR, 4780, 424, -1)->Set(12);
 
   CreateObject(LADR, 5120, 537, -1)->Set(16);
   CreateObject(LADR, 5525, 536, -1)->Set(16);
