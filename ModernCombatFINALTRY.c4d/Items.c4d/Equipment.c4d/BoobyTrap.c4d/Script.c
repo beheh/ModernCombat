@@ -4,23 +4,17 @@
 
 local bActive, bReady, iDir, controller, laser;
 
-public func IsDrawable()	{return true;}
-public func IsReloading()	{return false;}
-public func CanAim()		{return !bActive;}
-public func IsShooting()	{return false;}
-public func IsRecharging()	{return false;}
-public func IsMine()		{return true;}
-public func Color()			{return RGB(200,200,200);}
-public func IsBulletTarget(){return !Random(6);}
-public func HandX()			{return 5000;}
-public func HandY()			{return;}
-public func HandSize()		{return 1000;}
-public func HandBarrel()	{return;}
-public func BarrelXOffset()	{return -850;}
-public func BarrelYOffset()	{return;}
-public func IsEquipment()	{return true;}
-public func NoArenaRemove()	{return true;}
-public func AttractTracer(object pTracer)	{return GetPlayerTeam(GetController()) != GetPlayerTeam(GetController(pTracer));}
+public func IsDrawable()		{return true;}
+public func CanAim()			{return !bActive;}
+public func IsMine()			{return true;}
+public func Color()				{return RGB(200,200,200);}
+public func IsBulletTarget()	{return !Random(6);}
+public func HandX()				{return 5000;}
+public func HandSize()			{return 1000;}
+public func BarrelXOffset()		{return -850;}
+public func IsEquipment()		{return true;}
+public func NoArenaRemove()		{return true;}
+public func AttractTracer(pT)	{return GetPlayerTeam(GetController()) != GetPlayerTeam(GetController(pT));}
 
 /* Initalisierung */
 
@@ -57,7 +51,9 @@ public func Throw()
   var user = Contained();
   iDir = user->AimAngle();
   
-  var x, y, doplace, vtx, vty;
+  var x, y,			//X-/Y-Austrittsposition
+  doplace,			//1: Normales Aufstellen, 2: Nach Winkel drehen
+  vtx, vty;			//Offset für Zusatzvertex
 
   //Kriechen
   if (user->~IsCrawling()) {
@@ -70,14 +66,14 @@ public func Throw()
   
   //Klettern
   else if (GetProcedure(user) == "SCALE") {
-    x = 4;
+    x = 3;
 	iDir = -90;
     if (!GetDir(user)) {
-	  x = -4;
-	  iDir = -90;
+	  x = -3;
+	  iDir = 90;
 	}
 	vtx = x;
-	doplace = 1;
+	doplace = 2;
   }
   
   //Hangeln
@@ -86,7 +82,7 @@ public func Throw()
 	iDir = 160;
 	if (!GetDir(user))
 	  iDir = -160;
-	doplace = 1;
+	doplace = 2;
 	vty = -2;
   }
   
@@ -112,13 +108,21 @@ public func Throw()
 
   //Grafik setzen
   SetAction("Fused");
-  if(Inside(iDir,-180,-130)) SetPhase(3);
-  if(Inside(iDir,-129,-78))  SetPhase(0);
-  if(Inside(iDir,-77 ,-27))  SetPhase(1);
-  if(Inside(iDir,-26 ,25))   SetPhase(2);
-  if(Inside(iDir,26  ,76))   SetPhase(3);
-  if(Inside(iDir,77  ,128))  SetPhase(0);
-  if(Inside(iDir,129 ,179))  SetPhase(1);
+  if (doplace == 1) {
+    if(Inside(iDir,-180,-130)) SetPhase(3);
+    if(Inside(iDir,-129,-78))  SetPhase(0);
+    if(Inside(iDir,-77 ,-27))  SetPhase(1);
+    if(Inside(iDir,-26 ,25))   SetPhase(2);
+    if(Inside(iDir,26  ,76))   SetPhase(3);
+    if(Inside(iDir,77  ,128))  SetPhase(0);
+    if(Inside(iDir,129 ,179))  SetPhase(1);
+  }
+  
+  if (doplace == 2) {
+    SetPhase();
+	var s = Sin(-iDir, 1000), c = Cos(-iDir, 1000);
+	SetObjDrawTransform(c, s, 0, -s, c);
+  }
   
   //Vertex zur besseren Haftung
   if (vtx || vty)
@@ -183,6 +187,7 @@ private func Defuse()
   var flag = FindObject2(Find_ID(MFLG),Find_ActionTarget(this));
   if(flag) RemoveObject(flag);
   SetClrModulation();
+  SetObjDrawTransform(1000,0,0,0,1000);
   Sound("BBTP_Charge.ogg");
   bReady=false;
   return 1;
