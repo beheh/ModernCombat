@@ -58,6 +58,7 @@ func CreateFurniture()
   CreateObject(LADR, 3605, 384, -1)->Set(6);
   CreateObject(LADR, 4445, 360, -1)->Set(3);
   CreateObject(LADR, 4680, 538, -1)->Set(8);
+  CreateObject(LADR, 4780, 430, -1)->Set(12);
 
   CreateObject(LADR, 5120, 537, -1)->Set(16);
   CreateObject(LADR, 5525, 536, -1)->Set(16);
@@ -75,6 +76,7 @@ func CreateFurniture()
   CreateObject(HA4K, 2960, 373, -1);
   CreateObject(HA4K, 2890, 513, -1);
   CreateObject(HA4K, 1100, 473, -1);
+  CreateObject(HA4K, 4780, 323, -1);
   CreateObject(HA4K, 5120, 403, -1);
   CreateObject(HA4K, 5760, 353, -1);
   CreateObject(HA4K, 5760, 403, -1);
@@ -91,6 +93,7 @@ func CreateFurniture()
   CreateObject(OLGH, 1500, 290, -1)->Set(4, 15, 1, 1, 30);
   CreateObject(OLGH, 2560, 340, -1)->Set(2, 15, 1, 1, 40);
   CreateObject(OLGH, 2960, 280, -1)->Set(2, 15, 1, 1, 40);
+  CreateObject(OLGH, 4750, 320, -1)->Set(5, 15, 1, 1, 30);
   CreateObject(OLGH, 6590, 340, -1)->Set(2, 15, 1, 1, 40);
   CreateObject(OLGH, 7755, 320, -1)->Set(4, 15, 1, 1, 30);
 
@@ -394,6 +397,7 @@ func CreateFurniture()
   CreateObject(RAI1, 1600, 440, -1)->SetRail([1,1,1,1,1]);
   CreateObject(RAI1, 3700, 410, -1)->SetRail([1,1,1,1,1,1]);
   CreateObject(RAI1, 4190, 410, -1)->SetRail([1,1,1,1,1,1]);
+  CreateObject(RAI1, 4660, 320, -1)->SetRail([1,1,1,1,1,1,1,1,1]);
   CreateObject(RAI1, 5063, 400, -1)->SetRail([1,1,1,1,1,1]);
   CreateObject(RAI1, 5530, 400, -1)->SetRail([1,1,1,1]);
   CreateObject(RAI1, 7140, 360, -1)->SetRail([1,1,1,1,1,1,1,1,1]);
@@ -440,6 +444,7 @@ func CreateFurniture()
   //Explosivtanks
   CreateObject(XTNK, 1335, 440, -1)->AutoRespawn();
   CreateObject(XTNK, 4345, 330, -1)->AutoRespawn();
+  CreateObject(XTNK, 4690, 320, -1)->AutoRespawn();
 
   //Phosphortanks
   CreateObject(PTNK, 1635, 440, -1)->AutoRespawn();
@@ -613,8 +618,9 @@ func CreateEquipment()
   SetupVehicleSpawn([INFL],DIR_Left,CreateObject(VSPW,7440,520,-1),10*10);
 
   //Blackhawks
-  SetupVehicleSpawn([H_HE],DIR_Right,CreateObject(VSPW,590,410,-1),100*21);
-  SetupVehicleSpawn([H_HE],DIR_Left,CreateObject(VSPW,7750,290,-1),100*21);
+  //SetupVehicleSpawn([H_HE],DIR_Right,CreateObject(VSPW,590,410,-1),100*21);
+  SetupVehicleSpawn([H_HE],DIR_Left,CreateObject(VSPW,4700,290,-1),100*21);
+  //SetupVehicleSpawn([H_HE],DIR_Left,CreateObject(VSPW,7750,290,-1),100*21);
 }
 
 /* Bei Flaggenübernahme */

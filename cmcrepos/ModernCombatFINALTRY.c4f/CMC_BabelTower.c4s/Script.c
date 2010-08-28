@@ -650,6 +650,21 @@ public func ChooserFinished()
     warn->SetR(-180);
     AddWarnEffect(warn,aFlag[6]);
   }
+
+  //HTF-Spielziel
+  if (FindObject(GHTF))
+  {
+   //Flaggenposten
+   var flag = CreateObject(OFPL, 585, 320, -1);
+   flag->~Set("$Flag1$");
+
+   //Kiste
+   CreateObject(WCR2, 400, 1490, -1)->AutoRespawn();
+
+  //Sandsackbarrieren
+  CreateObject(SBBA, 441, 320, -1);
+  CreateObject(SBBA, 730, 320, -1)->Right();
+  }
 }
 
 /* Relaunch */
@@ -675,6 +690,29 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
      { iX = 500; iY = 1680; }
     if(!--rand)
      { iX = 670; iY = 1680; }
+    return(1);
+   }
+  }
+
+  //HTF-Spielziel
+  if(FindObject(GHTF))
+  {
+   if(iTeam == 1)
+   {
+    var rand = Random(2);
+    if(!rand)
+     { iX = 145; iY = 1430; }
+    if(!--rand)
+     { iX = 255; iY = 1510; }
+    return(1);
+   }
+   if(iTeam == 2)
+   {
+    var rand = Random(2);
+    if(!rand)
+     { iX = 1025; iY = 1430; }
+    if(!--rand)
+     { iX = 915; iY = 1510; }
     return(1);
    }
   }
