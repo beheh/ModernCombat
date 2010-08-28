@@ -4,8 +4,10 @@
 #appendto CLNK
 
 local assistkiller, machinekill;
+local killicon;
 
-public func IsClonk() { return true; }
+public func IsClonk()	{return true;}
+
 
 /* Erstellung */
 
@@ -27,7 +29,7 @@ protected func Construction()
   return _inherited(...);
 }
 
-/* Initalisierung */
+/* Initialisierung */
 
 protected func Initialize()
 {
@@ -62,8 +64,9 @@ public func Incineration()
 
 public func OnDmg(int iDmg, int iType)
 {
-  if(!IsFakeDeath() && GetAlive()) {
-  	HurtSounds(iDmg,iType);
+  if(!IsFakeDeath() && GetAlive())
+  {
+    HurtSounds(iDmg,iType);
   }
   return _inherited(...);
 }
@@ -120,17 +123,18 @@ private func Building()
 
 /* Assistkiller abspeichern */
 
-public func DoHitPoints(int iPoints) {
-	if(!GetAlive()) return;
-	DoAchievementProgress(iPoints, AC12, GetOwner());
-	return true;
+public func DoHitPoints(int iPoints)
+{
+  if(!GetAlive()) return;
+  DoAchievementProgress(iPoints, AC12, GetOwner());
+  return true;
 }
 
 public func OnHit(int iChange, int iType, object pFrom)
 {
-	//Achievement
-	ScheduleCall(this, "DoHitPoints", 1, 0, iChange);	
-		
+  //Achievement
+  ScheduleCall(this, "DoHitPoints", 1, 0, iChange);	
+
   //Treffender eine Maschine?
   if(pFrom)
   {
@@ -199,6 +203,7 @@ protected func DeathAnnounce(int plr, object clonk, int killplr, bool fNoPoints,
   if(!clonk) return;
   if(!GetAlive(clonk) && IsFakeDeath(clonk)) return; //FakeDeath-Hack
   if(GetEffect("NoAnnounce", clonk)) return;
+
   //Selfkill?
   if(plr == killplr || killplr == -1)
     KILL->SKMsg(plr, clonk);
@@ -214,19 +219,22 @@ protected func DeathAnnounce(int plr, object clonk, int killplr, bool fNoPoints,
   return true;
 }
 
-protected func GetAssist() {
-	var highest = CreateArray(2);
-	for(var i = 0; i < GetLength(assistkiller)/2; i++) {
-		if(assistkiller[i*2+1] > highest[0])
-		{
-			highest[0] = assistkiller[i*2+1];
-			highest[1] = assistkiller[i*2];
-		}
-	}
-	return highest[1];
+protected func GetAssist()
+{
+  var highest = CreateArray(2);
+  for(var i = 0; i < GetLength(assistkiller)/2; i++)
+  {
+    if(assistkiller[i*2+1] > highest[0])
+    {
+      highest[0] = assistkiller[i*2+1];
+      highest[1] = assistkiller[i*2];
+    }
+  }
+  return highest[1];
 }
 
-protected func DoPoints() {
+protected func DoPoints()
+{
   //Punkte vergeben
   var killer = GetKiller();
 
@@ -254,8 +262,6 @@ protected func DoPoints() {
     DoPlayerPoints(TeamkillPoints(), RWDS_MinusPoints, killer, GetCursor(killer), IC06);
 }
 
-local killicon;
-
 public func KillIcon(id idKillIcon)
 {
   if(idKillIcon)
@@ -265,7 +271,7 @@ public func KillIcon(id idKillIcon)
 
 /* Inventar */
 
-public func MaxContentsCount() { return 3; }
+public func MaxContentsCount()	{return 3;}
 
 /* Steuerungs-Callbacks */
 
@@ -276,7 +282,7 @@ protected func ControlSpecial()
     if(Contained()->~ContainedSpecial(this))
       return 1;
   }
-  
+
   return _inherited(...);
 }
 
@@ -382,7 +388,7 @@ global func FakeDeath(object pTarget)
   return true;
 }
 
-public func OnFakeDeath() {}
+public func OnFakeDeath()	{}
 
 global func StopFakeDeath(object pTarget)
 {
@@ -426,24 +432,25 @@ global func FxFakeDeathDamage(object pTarget, int iEffectNumber, int iDmgEngy, i
 
 func Death(object pTarget)
 {
-	if(!pTarget) pTarget = this;
-	if(!pTarget) return;
- 
-	//Achievements
-	ResetAchievementExtra(AC08, GetOwner(pTarget));
-	var data = GetAchievementExtra(AC08, GetKiller(pTarget));
-	if(!data) data = CreateArray();
-	data[GetOwner(pTarget)] = 0;
-	if(data[GetOwner(pTarget)] >= AC08->GetAchievementScore()) {
-		AwardAchievement(AC08, GetKiller(pTarget));
-	}
-	SetAchievementExtra(data, AC08, GetKiller(pTarget));
-	ResetAchievementProgress(AC12, GetOwner());
-  
+  if(!pTarget) pTarget = this;
+  if(!pTarget) return;
+
+  //Achievements
+  ResetAchievementExtra(AC08, GetOwner(pTarget));
+  var data = GetAchievementExtra(AC08, GetKiller(pTarget));
+  if(!data) data = CreateArray();
+  data[GetOwner(pTarget)] = 0;
+  if(data[GetOwner(pTarget)] >= AC08->GetAchievementScore())
+  {
+    AwardAchievement(AC08, GetKiller(pTarget));
+  }
+  SetAchievementExtra(data, AC08, GetKiller(pTarget));
+  ResetAchievementProgress(AC12, GetOwner());
+
   //Todesnachricht bei keinem FakeDeath
   if(FindObject(NOFD))
     pTarget->DeathAnnounce(GetOwner(pTarget), pTarget, GetKiller(pTarget));
-  
+
   if(IsFakeDeath())
   {
     SetPhase(5);//Fallanimation überspringen
@@ -453,12 +460,13 @@ func Death(object pTarget)
   {
    Sound("ClonkDie*.ogg", false, pTarget);
   }
-  
+
   //Verschwinden
   FadeOut(pTarget);
 }
 
-protected func GetObject2Drop(object pObj) {
+protected func GetObject2Drop(object pObj)
+{
   if (GetProcedure() == "PUSH" && GetID(GetActionTarget()) == FKDT) {
     var dropobj, i;
 

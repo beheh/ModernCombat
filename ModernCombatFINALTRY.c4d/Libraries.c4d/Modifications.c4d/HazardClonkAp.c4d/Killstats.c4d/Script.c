@@ -4,6 +4,7 @@
 
 static const STAT_Spree = 5;
 
+
 public func KTMsg(int plr1, int plr2, object clonk, int plr3)
 {
   if(!plr1 && !plr2)

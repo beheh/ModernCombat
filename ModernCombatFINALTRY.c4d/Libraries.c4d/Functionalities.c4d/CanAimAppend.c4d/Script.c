@@ -5,6 +5,7 @@
 
 local crosshair;
 
+
 public func DoMouseAiming(int iTx, int iTy)
 {
   if(!Contained())

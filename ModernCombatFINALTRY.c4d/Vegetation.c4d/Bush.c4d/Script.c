@@ -30,4 +30,4 @@ func Damage()
   }
 }
 
-protected func Incineration() {Extinguish();}
+protected func Incineration()	{Extinguish();}
