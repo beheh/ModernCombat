@@ -10,10 +10,10 @@ public func CanAim()		{return !bActive;}
 public func IsShooting()	{return false;}
 public func IsRecharging()	{return false;}
 public func IsMine()		{return true;}
-public func Color()		{return RGB(200,200,200);}
-public func IsBulletTarget()	{return !Random(6);}
-public func HandX()		{return 5000;}
-public func HandY()		{return;}
+public func Color()			{return RGB(200,200,200);}
+public func IsBulletTarget(){return !Random(6);}
+public func HandX()			{return 5000;}
+public func HandY()			{return;}
 public func HandSize()		{return 1000;}
 public func HandBarrel()	{return;}
 public func BarrelXOffset()	{return -850;}
@@ -21,7 +21,6 @@ public func BarrelYOffset()	{return;}
 public func IsEquipment()	{return true;}
 public func NoArenaRemove()	{return true;}
 public func AttractTracer(object pTracer)	{return GetPlayerTeam(GetController()) != GetPlayerTeam(GetController(pTracer));}
-
 
 /* Initalisierung */
 
@@ -38,22 +37,18 @@ public func ControlThrow(object caller)
 {
   //Wird nicht getragen: Werfen gesperrt
   if(!Contained()) return;
+  
+  //Normales Ablegen
+  if (GetPlrDownDouble(GetController(caller)))
+    return _inherited(...);
 
   //Träger = Besitzer
   controller = GetOwner(caller);
   SetController(controller);
   SetOwner(controller);
 
-  if(!Contained(caller))
-  {
-    caller->~CheckArmed();
-    if(Contained()->~ReadyToFire())
-    {
-      Throw();
-      return true;
-    }
-  }
-  return _inherited(...);
+  Throw();
+  return true;
 }
 
 public func Throw()
@@ -61,15 +56,51 @@ public func Throw()
   //Winkel übernehmen
   var user = Contained();
   iDir = user->AimAngle();
+  
+  var x, y, doplace, vtx, vty;
 
-  //Clonk verlassen
-  if(GetAction(user) == "Crawl")
-    if(GetDir(user) == DIR_Left)
-      Exit(0,-10,5);
-    else
-      Exit(0,10,5);
-  else
-    Exit(0,0,10);
+  //Kriechen
+  if (user->~IsCrawling()) {
+    x = 10;
+    if (!GetDir(user))
+      x = -10;
+	y = 5;
+	doplace = 1;
+  }
+  
+  //Klettern
+  else if (GetProcedure(user) == "SCALE") {
+    x = 4;
+	iDir = -90;
+    if (!GetDir(user)) {
+	  x = -4;
+	  iDir = -90;
+	}
+	vtx = x;
+	doplace = 1;
+  }
+  
+  //Hangeln
+  else if (GetProcedure(user) == "HANGLE") {
+    y = -2;
+	iDir = 160;
+	if (!GetDir(user))
+	  iDir = -160;
+	doplace = 1;
+	vty = -2;
+  }
+  
+  //Klettern an Leitern
+  else if (GetAction(user) == "ScaleLadder")
+    doplace = 1;
+  
+  //Sonst: Bereit zu feuern?
+  else if (user->~ReadyToFire())
+    doplace = 1;
+
+  //Keine richtige Aktion. :/
+  if (!doplace) return;
+  Exit(this, x, y);
 
   //Effekte
   Sound("BBTP_Activate.ogg", 0, 0, 50);
@@ -88,6 +119,10 @@ public func Throw()
   if(Inside(iDir,26  ,76))   SetPhase(3);
   if(Inside(iDir,77  ,128))  SetPhase(0);
   if(Inside(iDir,129 ,179))  SetPhase(1);
+  
+  //Vertex zur besseren Haftung
+  if (vtx || vty)
+    AddVertex(vtx, vty);
   
   var nextmine = user->~GrabGrenade(GetID());
   user->~ResetShowWeapon();
@@ -163,7 +198,7 @@ private func Check()
   var pVictim;
   if( ObjectCount2(Find_OnLine(0,0,Sin(iDir,80,1),-Cos(iDir,80,1)), 
       Find_Func("CheckEnemy",this,0,true),
-      Find_Not(Find_Distance(20)),
+      Find_Not(Find_Distance(10)),
       Find_OCF(OCF_Alive),
       Find_NoContainer()) )
     Detonate();
