@@ -187,7 +187,7 @@ public func FxAMPKRestockingTimer(pTarget, iEffectNumber, iEffectTime)
     Sound("Resupply.ogg");
     DoAmmoPoints(-ammoID->MaxAmmo()/10*factor);
 
-		//Achievement-Fortschritt
+	//Achievement-Fortschritt
     DoAchievementProgress(ammoID->MaxAmmo()/10*factor, AC03, GetOwner(Contained()));
 		
     //Punkte bei Belohnungssystem
