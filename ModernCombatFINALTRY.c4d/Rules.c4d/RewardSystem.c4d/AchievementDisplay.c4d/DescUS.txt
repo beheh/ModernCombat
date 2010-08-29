@@ -1,1 +1,1 @@
-Shows achievements.
+Displays achievements.
