@@ -1,6 +1,3 @@
 MsgScore=Soldier %s scored for team %s!
 
-MsgKillingSpree=["Killing Spree","Rampage","Godlike","matthes?!?"]
-MsgSpreeEnd=%s's Killing Spree was ended.
-
 MsgMultikill=["Doublekill","Triplekill","Multikill","Ultrakill","Monsterkill","Firemonsterkill","Wipfkill","Wtf?"]
