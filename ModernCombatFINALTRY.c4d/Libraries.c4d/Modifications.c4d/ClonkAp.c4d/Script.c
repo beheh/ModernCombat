@@ -125,7 +125,7 @@ private func Building()
 
 public func DoHitPoints(int iPoints)
 {
-  if(!GetAlive()) return;
+  if(!GetAlive() || IsFakeDeath()) return;
   DoAchievementProgress(iPoints, AC12, GetOwner());
   return true;
 }

@@ -100,6 +100,7 @@ public func TransferAmmo(object pObj)
      factor = 2;
 
     DoPlayerPoints(BonusPoints("Restocking",count*factor), RWDS_TeamPoints, GetOwner(), GetCursor(GetOwner()), IC14);
+	DoAchievementProgress(ammoID->MaxAmmo()/10*factor, AC03, GetOwner());
   }
 
   var old = count;
