@@ -125,7 +125,7 @@ public func GetRocket()
   var fRocket = false;
   for(var pCheck in aRockets)
   {
-    if(!FindObject(NOFF) && !Hostile(GetOwner(ROKT), GetOwner())) continue;
+    if(FindObject(NOFF) && !Hostile(GetOwner(pCheck), GetOwner())) continue;
     if(ObjectDistance(pCheck, this) < 300)
     {
       fRocket = true;
