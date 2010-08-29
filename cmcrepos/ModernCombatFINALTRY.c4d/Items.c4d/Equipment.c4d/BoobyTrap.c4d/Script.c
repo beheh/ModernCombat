@@ -91,8 +91,8 @@ public func Throw()
   else if (GetAction(user) == "ScaleLadder")
     doplace = 1;
   
-  //Laufen
-  else if (GetProcedure(user) == "WALK") {
+  //Laufen und Zielen
+  else if (GetProcedure(user) == "WALK" || user->~IsAiming()) {
     doplace = 1;
     y = 10;
   }
