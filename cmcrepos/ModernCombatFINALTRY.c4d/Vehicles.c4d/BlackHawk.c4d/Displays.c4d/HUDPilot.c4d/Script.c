@@ -12,6 +12,9 @@ local iState;
 local pRotation, pThrottle, pAltitude, pWind;
 local fDamage, iDamageRemaining;
 
+
+/* Initialisierung */
+
 public func Initialize() 
 {
 	SetVisibility(VIS_None);
@@ -20,17 +23,18 @@ public func Initialize()
   return true;
 }
 
-public func SetState(int iNewState) {
+public func SetState(int iNewState)
+{
 	iState = iNewState;
 	var dwArrowColor;
 	if(iState == BHUD_Error)
 	{
 		SetClrModulation(RGBa(255,0,0,50));
 		dwArrowColor = RGBa(255,0,0,50);
-		Sound("DamageWarning", false, pHelicopter, 100, GetOwner()+1, +1);
+		Sound("WarningDamage.ogg", false, pHelicopter, 100, GetOwner()+1, +1);
 	}
 	else {
-		Sound("DamageWarning", false, pHelicopter, 100, GetOwner()+1, -1);
+		Sound("WarningDamage.ogg", false, pHelicopter, 100, GetOwner()+1, -1);
 	}
 	if(iState == BHUD_Warning)
 	{
@@ -58,23 +62,25 @@ public func SetState(int iNewState) {
 	return true;
 }
 
-public func SetHelicopter(object pNewHelicopter) {
-	pHelicopter = pNewHelicopter;
-	Align();
-	return true;
+public func SetHelicopter(object pNewHelicopter)
+{
+  pHelicopter = pNewHelicopter;
+  Align();
+  return true;
 }
 
 public func DamageReceived()
 {
-	fDamage = true;
-	iDamageRemaining = 10;
-	return true;
+  fDamage = true;
+  iDamageRemaining = 10;
+  return true;
 }
 
-protected func Align() {
-	SetPosition(BoundBy(GetX(pHelicopter), GetDefWidth(GetID())/2, LandscapeWidth()-GetDefWidth(GetID())/2),
-		          BoundBy(GetY(pHelicopter), GetDefHeight(GetID())/2, LandscapeHeight()-GetDefHeight(GetID())/2));
-	return true;
+protected func Align()
+{
+  SetPosition(BoundBy(GetX(pHelicopter), GetDefWidth(GetID())/2, LandscapeWidth()-GetDefWidth(GetID())/2),
+    BoundBy(GetY(pHelicopter), GetDefHeight(GetID())/2, LandscapeHeight()-GetDefHeight(GetID())/2));
+  return true;
 }
 
 protected func Timer()
@@ -144,11 +150,12 @@ protected func Timer()
 	return true;
 }
 
-public func Destruction() {
-	SetState(BHUD_Ready);
-	if(pRotation) RemoveObject(pRotation);
-	if(pThrottle) RemoveObject(pThrottle);
-	if(pAltitude) RemoveObject(pAltitude);
-	if(pWind) RemoveObject(pWind);
-	return true;
+public func Destruction()
+{
+  SetState(BHUD_Ready);
+  if(pRotation) RemoveObject(pRotation);
+  if(pThrottle) RemoveObject(pThrottle);
+  if(pAltitude) RemoveObject(pAltitude);
+  if(pWind) RemoveObject(pWind);
+  return true;
 }

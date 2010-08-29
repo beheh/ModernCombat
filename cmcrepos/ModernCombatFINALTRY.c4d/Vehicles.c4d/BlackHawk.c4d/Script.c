@@ -821,11 +821,12 @@ func DestroyHeli()
 
   //Explosion
   Explode(60);
-  Sound("MainHelicopterExplosion", false, this);
+  Sound("BigExplosion.ogg", false, this);
+  Sound("StructuralDamage*.ogg", false, this);
 
   //Wrack erstellen
   var obj;
-  obj = CreateObject(H_HW, 0, 20, -1);
+  obj = CreateObject(BHWK, 0, 20, -1);
   Incinerate(obj);
   SetR(GetR(), obj);
   SetXDir(GetXDir(), obj);
@@ -1005,7 +1006,7 @@ private func WarningSound()
     //Sound("WarningDamageCritical.ogg", false, this);
     if (!(s_counter%36))
 	  for (var obj in FindObjects(Find_OCF(OCF_CrewMember), Find_Container(this)))
-        Sound("DamageWarning", false, MGStation, 100, GetOwner(obj)+1);
+        Sound("WarningDamage.ogg", false, MGStation, 100, GetOwner(obj)+1);
     s_counter++;
     if (s_counter >= 100) s_counter = 0;
     
