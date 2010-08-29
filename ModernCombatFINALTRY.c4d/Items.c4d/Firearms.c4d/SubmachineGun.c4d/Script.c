@@ -19,7 +19,7 @@ public func GetMCData(int data)
   if(data == MC_Damage)		return 15;
   if(data == MC_Recharge)	return 38;
   if(data == MC_Power)		return 18;
-  if(data == MC_Angle)    return 45;
+  if(data == MC_Angle)		return 45;
 }
 
 /* Kugeln */
