@@ -7,14 +7,15 @@ local bActive, bReady, iDir, controller, laser;
 public func IsDrawable()		{return true;}
 public func CanAim()			{return !bActive;}
 public func IsMine()			{return true;}
-public func Color()				{return RGB(200,200,200);}
-public func IsBulletTarget()	{return !Random(6);}
-public func HandX()				{return 5000;}
+public func Color()			{return RGB(200,200,200);}
+public func IsBulletTarget()		{return !Random(6);}
+public func HandX()			{return 5000;}
 public func HandSize()			{return 1000;}
 public func BarrelXOffset()		{return -850;}
 public func IsEquipment()		{return true;}
 public func NoArenaRemove()		{return true;}
-public func AttractTracer(pT)	{return GetPlayerTeam(GetController()) != GetPlayerTeam(GetController(pT));}
+public func AttractTracer(pT)		{return GetPlayerTeam(GetController()) != GetPlayerTeam(GetController(pT));}
+
 
 /* Initalisierung */
 
