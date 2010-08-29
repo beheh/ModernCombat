@@ -19,6 +19,10 @@ protected func Initialize()
 
 public func ConnectObjects(pObj1, pObj2)
 {
+	var p1 = pObj1->~GetRopeAttach(this);
+	if(p1) pObj1 = p1;
+	var p2 = pObj2->~GetRopeAttach(this);
+	if(p2) pObj2 = p2;
   iVtx1 = GetMiddlestVertex(pObj1);
   iVtx2 = GetMiddlestVertex(pObj2);
   SetPoint(0, GetX(pObj1) + GetVertex (iVtx1, 0, pObj1), GetY(pObj1) + GetVertex(iVtx1, 1, pObj1));
@@ -262,6 +266,8 @@ private func PullObject(iToX, iToY, iLength, pObj, pObj2, iVtx) // pObj wird ver
 {
   if(!pObj || !pObj2) return 0;
   // Außnahmen:
+  // will nicht :(
+  if(pObj->~RejectPull(this)) return;
   // gefesselte Clonks lassen sich abführen
   if(GetEffect("IntTied", pObj2))
     return 0;

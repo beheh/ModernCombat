@@ -147,7 +147,7 @@ public func GetAutopilot()
 
 public func SetAutopilot(object pTarget, int iX, int iY)
 {
-  if(!Pilot) return;
+  if(!GetPilot()) return;
   ResetAutopilot();
   var xto, yto;
   if(pTarget)
@@ -176,7 +176,7 @@ protected func FxBlackhawkAutopilotStart(object pTarget, int iNumber, iTemp, int
 
 protected func FxBlackhawkAutopilotTimer(object pTarget, int iNumber, int iTime)
 {
-  if(!Pilot) return pTarget->ResetAutopilot();
+	//if(!GetPilot()) return;
 	var iX = EffectVar(0, pTarget, iNumber);
 	var iY = EffectVar(1, pTarget, iNumber);
 	if(GetY(pTarget) < iY-50) {
@@ -253,15 +253,13 @@ protected func FxBlackhawkAutopilotTimer(object pTarget, int iNumber, int iTime)
 
 protected func Ejection(object ByObj)
 {
-  if(ByObj != Pilot && PathFree(GetX(),GetY(),GetX(),GetY()+50))
-  {
-   var rope = CreateObject(CK5P,0,0,-1);
-   rope->ConnectObjects(this,ByObj);
-   Local(8,rope) = true;
-   AddEffect("CheckGround",ByObj,30,3,this,GetID(),rope,this);
-  }
-  DeleteActualSeatPassenger(ByObj);
   Sound("CockpitRadio.ogg", true, 0, 100, GetOwner(ByObj)+1, -1);
+  DeleteActualSeatPassenger(ByObj);
+	if(GetDamage() >= MaxDamage()) return;
+  if(ByObj != GetPilot() && PathFree(GetX(),GetY(),GetX(),GetY()+50))
+  {
+   AddEffect("CheckGround",ByObj,30,3,this,GetID(),this);
+  }
   return true;
 }
 
@@ -408,8 +406,14 @@ protected func ContainedLeft(object ByObj)
   {
    	//Autopilot aus
   	ResetAutopilot();
-    if (GetAction()=="Fly" || GetAction()=="Turn") 
-      rotation = BoundBy(rotation - control_speed, -max_rotation, max_rotation);
+    if (GetAction()=="Fly" || GetAction()=="Turn") {
+      /*if(GetPlrCoreJumpAndRunControl(GetController(ByObj))) {
+				rotation = -max_rotation;
+			}
+			else {*/
+				rotation = BoundBy(rotation - control_speed, -max_rotation, max_rotation);
+			//}
+		}
   }
   
   //Gunner
@@ -422,7 +426,7 @@ protected func ContainedLeft(object ByObj)
   return true;
 }
 
-protected func ContainedRight(object ByObj)
+protected func ContainedRight(object ByObj, fRelease)
 {
   [$CtrlRight$]
   
@@ -431,8 +435,17 @@ protected func ContainedRight(object ByObj)
   {
    	//Autopilot aus
   	ResetAutopilot();
-    if (GetAction()=="Fly" || GetAction()=="Turn")
-      rotation = BoundBy(rotation + control_speed, -max_rotation, max_rotation);
+		if(fRelease) {
+			rotation = GetR();
+		}
+    else if (GetAction()=="Fly" || GetAction()=="Turn") {
+      /*if(GetPlrCoreJumpAndRunControl(GetController(ByObj))) {
+				rotation = max_rotation;
+			}
+			else {*/
+				rotation = BoundBy(rotation + control_speed, -max_rotation, max_rotation);
+			//}
+		}
   }
   
   //Gunner
@@ -679,30 +692,38 @@ public func EnterSeat5(a, object Obj)
 
 /* Ausstieg per Seil */
 
+public func GetRopeAttach() {
+	return MGStation;
+}
+
 private func ExitClonk(a,ByObj)
 {
   SetCommand(ByObj, "Exit");
 }
 
-protected func FxCheckGroundStart(pTarget, iNo, iTemp, pRope, pHeli)
+protected func FxCheckGroundStart(pTarget, iNo, iTemp, pHeli)
 {
   if(iTemp)
     return -1;
+	if(!pHeli) return;
+	var pRope = CreateObject(CK5P,0,0,GetOwner(pTarget));
+  pRope->ConnectObjects(pHeli ,pTarget);
+	pRope->SetRopeLength(10);
   EffectVar(0, pTarget, iNo) = pRope; //Das Seil
   EffectVar(1, pTarget, iNo) = pHeli; //Der Heli
 }
 
 protected func FxCheckGroundTimer(pTarget, iNo, iTime)
 {
+	var pRope = EffectVar(0, pTarget, iNo);
   //Knapp über dem Boden, Seil zu lang, zu lang die Dauer oder falsche Aktion?
   if(!PathFree(GetX(pTarget),GetY(pTarget),GetX(pTarget),GetY(pTarget)+30)
-     || EffectVar(0, pTarget, iNo)->GetRopeLength() > 300
-     || iTime > 300
+     || pRope->GetRopeLength() > 300
      || !WildcardMatch(GetAction(pTarget),"*Jump*"))
   {  //Abspringen, Seil zurück zum Heli schicken.
     //var pulley = CreateObject(ROCK,AbsX(GetX(pTarget)),AbsY(GetY(pTarget)),-1);
     //SetCategory(C4D_Vehicle,pulley);
-    RemoveObject(EffectVar(0, pTarget, iNo));
+    RemoveObject(pRope);
     SetYDir(20,pTarget);
     //EffectVar(0, pTarget, iNo)=CreateObject(CK5P,0,0,-1);
     //EffectVar(0, pTarget, iNo)->ConnectObjects(EffectVar(1, pTarget, iNo),pulley);
@@ -710,7 +731,7 @@ protected func FxCheckGroundTimer(pTarget, iNo, iTime)
     return -1;
   }
   else
-    LocalN("iLength",EffectVar(0, pTarget, iNo)) = iTime/3;
+		pRope->SetRopeLength(iTime*2+10);
   //Sounds fürs Abseilen?
 }
 
@@ -890,7 +911,7 @@ protected func RejectCollect(id ID, object ByObj)
 protected func TimerCall()
 {
   //Absinken, falls kein Pilot da.
-  if(!Pilot)
+  if(!GetPilot() && !GetAutopilot())
   {
     if(!Random(3))
     {
@@ -939,12 +960,12 @@ protected func TimerCall()
 
 private func DrawPilot()
 {
-  if (view_mode && !Pilot)
+  if (view_mode && !GetPilot())
   {
     view_mode = false;
     SetColorDw(RGBa(200,200,200,255));
   }
-  else if (!view_mode && Pilot)
+  else if (!view_mode && GetPilot())
   {
     view_mode = true;
     SetColorDw(RGBa(200,200,200,0));
@@ -970,7 +991,7 @@ private func WarningSound()
     {
       Local(2) = 0;
       for (var obj in FindObjects(Find_OCF(OCF_CrewMember), Find_Container(this)))
-        if(obj != Pilot)
+        if(obj != GetPilot())
           Sound("WarningDamageCritical.ogg", false, MGStation, 100, GetOwner(obj)+1);
     }
     s_counter++;
@@ -1099,11 +1120,9 @@ protected func FxEngineTimer(object Target, int EffectNumber, int EffectTime)
   var Fg, Fv, Fh, Fw, Fs, dFv, dFh, m, mh, g, av, ah;  //physikalische Kräfte
   
   //Überprüfung, ob überhaupt noch ein Pilot drin...
-  var has_pilot = (LocalN("Pilot", Target));
-
-  //Rotation anpassen
-  if (has_pilot)
+  if (Target->GetPilot() || Target->GetAutopilot())
   {
+	  //Rotation anpassen
     var speed;
     speed = BoundBy(rot-GetR(Target), -rot_speed, rot_speed);
     SetRDir(speed, Target);
