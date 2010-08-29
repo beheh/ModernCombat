@@ -1014,7 +1014,8 @@ public func GetFMData(int data, int i, int t)
   return value;
 }
 
-public func GetFMData() {
+public func GetFMData()
+{
   //Bei Einzel- und Stoßfeuer ist JnR zu schnell. Bremsen
   if (Par() == FM_Recharge && GetPlrCoreJumpAndRunControl(GetController(GetUser())) && GetFMData(FT_Name) != "$Auto$")
     return _inherited(...)+2;
@@ -1026,11 +1027,11 @@ public func GetFMData() {
 //Defaultwerte, sollte überschrieben werden
 public func GetMCData(int data)
 {
-  if(data == MC_CanStrike) return 1;
-  if(data == MC_Damage) return 20;
-  if(data == MC_Recharge) return 40;
-  if(data == MC_Power) return 20;
-  if(data == MC_Angle) return 45; //Kann auch Random-Werte enthalten wie RandomX(30,60);
+  if(data == MC_CanStrike)	return 1;
+  if(data == MC_Damage)		return 20;
+  if(data == MC_Recharge)	return 40;
+  if(data == MC_Power)		return 20;
+  if(data == MC_Angle)		return 45;	//Kann auch Random-Werte enthalten wie RandomX(30,60);
 }
 
 /* Feuertechniken (Burst,etc.) */
@@ -1104,7 +1105,8 @@ private func Shoot(object caller)//Feuern mit Feuermodus
     var x,y;
     user->WeaponEnd(x,y);
     
-    if(!PathFree(GetX(),GetY(),GetX()+x,GetY()+y) && !GBackSolid(x, y)) {
+    if(!PathFree(GetX(),GetY(),GetX()+x,GetY()+y) && !GBackSolid(x, y))
+    {
       PlayerMessage(GetOwner(user), "$NotAbleToShoot$", user);
       return false;
     }
@@ -1278,7 +1280,8 @@ global func FxShowWeaponTimer(object pTarget, int iNumber, int iTime)
   EffectVar(8, pTarget, iNumber) = GetAction(pTarget);
 }
 
-global func FxShowWeaponReset(object pTarget, int iNumber) {
+global func FxShowWeaponReset(object pTarget, int iNumber)
+{
   EffectVar(0, pTarget, iNumber) = 0;
   var wpn = EffectVar(6, pTarget, iNumber);
   if(wpn)
@@ -1329,21 +1332,24 @@ global func SAMuzzleFlash(int iSize, object pTarget, int iX, int iY, int iAngle,
 
 /* Kolbenschlag */
 
-public func IsRecharging() {
+public func IsRecharging()
+{
   return _inherited(...) || GetEffect("StrikeRecharge", this);
 }
 
-protected func FxStrikeRechargeTimer() {
+protected func FxStrikeRechargeTimer()
+{
   var iTime = GetEffect("StrikeRecharge", this, 0, 6), iFullTime = GetMCData(MC_Recharge), pHUD;
   //HUD updaten
   if(Contained() && Contents(0, Contained()) == this)
-	if (pHUD = FindObject2(Find_ID(1HUD), Find_Owner(GetController(Contained()))))
-	  pHUD->~Recharge(iTime, iFullTime);
+    if (pHUD = FindObject2(Find_ID(1HUD), Find_Owner(GetController(Contained()))))
+      pHUD->~Recharge(iTime, iFullTime);
   //Effekt abbrechen?
   if (iTime >= iFullTime)
     return -1;
 }
 
-protected func FxStrikeRechargeStop() {
+protected func FxStrikeRechargeStop()
+{
   stopauto = false;
 }
