@@ -1,1 +1,1 @@
-Zeigt Achievements.
+Blendet Auszeichnungen ein und aus.
