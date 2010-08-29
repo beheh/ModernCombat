@@ -184,7 +184,7 @@ protected func FxBlackhawkAutopilotStart(object pTarget, int iNumber, iTemp, int
 
 protected func FxBlackhawkAutopilotTimer(object pTarget, int iNumber, int iTime)
 {
-	if(!pTarget->GetPilot()) return;
+	if(!pTarget->GetPilot()) return -1;
 	var iX = EffectVar(0, pTarget, iNumber);
 	var iY = EffectVar(1, pTarget, iNumber);
 	if(GetY(pTarget) < iY-50) {
