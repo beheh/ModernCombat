@@ -184,7 +184,7 @@ protected func FxBlackhawkAutopilotStart(object pTarget, int iNumber, iTemp, int
 
 protected func FxBlackhawkAutopilotTimer(object pTarget, int iNumber, int iTime)
 {
-	//if(!GetPilot()) return;
+	if(!pTarget->GetPilot()) return;
 	var iX = EffectVar(0, pTarget, iNumber);
 	var iY = EffectVar(1, pTarget, iNumber);
 	if(GetY(pTarget) < iY-50) {
@@ -961,6 +961,7 @@ protected func TimerCall()
 	//Lebewesen schrappneln
 	if(GetRotorSpeed() > 0) {
 		for(var pClonk in FindObjects(Find_InRect(-100,-24,200,16), Find_NoContainer(), Find_OCF(OCF_Alive), Find_Not(Find_ID(FKDT)))) {
+			if(GetOwner(pClonk) != NO_OWNER && GetOwner() != NO_OWNER && !Hostile(GetOwner(), GetOwner(pClonk))) continue;
 			Fling(pClonk, RandomX(2,3)+GetRotorSpeed()/100*((GetR() > 0 && GetR() <= 180)*2-1), RandomX(-2, -1)-GetRotorSpeed()/100);
 			DoDmg(GetRotorSpeed()/3, DMG_Projectile, pClonk, 0, GetOwner()+1);
 		}
