@@ -967,7 +967,7 @@ public func IsHealing () { return WildcardMatch(GetAction(), "*Heal*"); }
 /* KI-Erweiterung */
 //Reanimiert jetzt sogar Verbündete, foll toll!11
 
-protected func ContextGuard(object pCaller) {
+/*protected func ContextGuard(object pCaller) {
   [$CtxGuard$|Image=FLA2|Condition=Outside]
   // Bewachen
   SetAggroLevel(Aggro_Guard, 200);
@@ -1203,4 +1203,4 @@ protected func MacroComMoveTo()
 	if(!inherited()) return;
 	SetCommand(this, "MoveTo", 0, x, y);
 	return;
-}
+}*/
