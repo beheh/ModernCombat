@@ -13,15 +13,13 @@ CtrlThrow=Action
 #Seats
 Seats=Seats
 SeatOccupied=Seat already occupied.
-PilotSeat=Pilot
-Gunner=Gunner
-Coordinator=Coordinator
-Passenger1=Passenger
-Passenger2=Passenger
-GunnerSeat=Take control over the outside automatic cannon.
-CoordinatorSeat=Control the rocketlauncher system with optical guided missiles.
-PassengerSeat=A seat with rope to opt out.
 Exit=Exit
-
-#Other
-TxtNoAmmo=No Ammo
+ExitDesc=Disembark out of the helicopter.
+Pilot=Pilot
+PilotDesc=Pilot the helicopter.
+Gunner=Gunner
+GunnerDesc=Take control over the outside automatic cannon.
+Coordinator=Coordinator
+CoordinatorDesc=Control the rocketlauncher system with optical guided missiles.
+Passenger=Passenger
+PassengerSeat=A seat with rope to opt out.
