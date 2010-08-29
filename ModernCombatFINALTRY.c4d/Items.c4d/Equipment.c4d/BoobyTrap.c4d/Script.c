@@ -51,57 +51,62 @@ public func Throw()
   //Winkel übernehmen
   var user = Contained();
   iDir = user->AimAngle();
-  
+
   var x, y,			//X-/Y-Austrittsposition
   doplace,			//1: Normales Aufstellen, 2: Nach Winkel drehen
   vtx, vty;			//Offset für Zusatzvertex
 
   //Kriechen
-  if (user->~IsCrawling()) {
+  if (user->~IsCrawling())
+  {
     x = 10;
     if (!GetDir(user))
       x = -10;
-	y = 5;
-	doplace = 1;
+        y = 5;
+        doplace = 1;
   }
-  
+
   //Klettern
-  else if (GetProcedure(user) == "SCALE") {
+  else if (GetProcedure(user) == "SCALE")
+  {
     x = 3;
-	iDir = -90;
-    if (!GetDir(user)) {
-	  x = -3;
-	  iDir = 90;
-	}
-	vtx = x;
-	doplace = 2;
+      iDir = -90;
+    if (!GetDir(user))
+    {
+      x = -3;
+      iDir = 90;
+    }
+    vtx = x;
+    doplace = 2;
   }
-  
+
   //Hangeln
-  else if (GetProcedure(user) == "HANGLE") {
+  else if (GetProcedure(user) == "HANGLE")
+  {
     y = -2;
-	iDir = 160;
-	if (!GetDir(user))
-	  iDir = -160;
-	doplace = 2;
-	vty = -2;
+      iDir = 160;
+      if (!GetDir(user))
+        iDir = -160;
+      doplace = 2;
+      vty = -2;
   }
-  
+
   //Klettern an Leitern
   else if (GetAction(user) == "ScaleLadder")
     doplace = 1;
-  
+
   //Laufen und Zielen
-  else if (GetProcedure(user) == "WALK" || user->~IsAiming()) {
+  else if (GetProcedure(user) == "WALK" || user->~IsAiming())
+  {
     doplace = 1;
     y = 10;
   }
-  
+
   //Sonst: Bereit zu feuern?
   else if (user->~ReadyToFire())
     doplace = 1;
 
-  //Keine richtige Aktion. :/
+  //Bei nicht identifizierbarer Aktion
   if (!doplace) return;
   Exit(this, x, y);
 
@@ -115,7 +120,8 @@ public func Throw()
 
   //Grafik setzen
   SetAction("Fused");
-  if (doplace == 1) {
+  if (doplace == 1)
+  {
     if(Inside(iDir,-180,-130)) SetPhase(3);
     if(Inside(iDir,-129,-78))  SetPhase(0);
     if(Inside(iDir,-77 ,-27))  SetPhase(1);
@@ -124,17 +130,18 @@ public func Throw()
     if(Inside(iDir,77  ,128))  SetPhase(0);
     if(Inside(iDir,129 ,179))  SetPhase(1);
   }
-  
-  if (doplace == 2) {
+
+  if (doplace == 2)
+  {
     SetPhase();
-	var s = Sin(-iDir, 1000), c = Cos(-iDir, 1000);
-	SetObjDrawTransform(c, s, 0, -s, c);
+      var s = Sin(-iDir, 1000), c = Cos(-iDir, 1000);
+      SetObjDrawTransform(c, s, 0, -s, c);
   }
-  
+
   //Vertex zur besseren Haftung
   if (vtx || vty)
     AddVertex(vtx, vty);
-  
+
   var nextmine = user->~GrabGrenade(GetID());
   user->~ResetShowWeapon();
   if(user->~IsAiming())
@@ -148,7 +155,8 @@ private func FinFuse()
   CreateParticle("PSpark",0,0,0,0,60,GetPlrColorDw(GetOwner()),this);
   laser = CreateObject(LASR,0,0,controller);
   laser -> Set(iDir,3,60,0,0,this());
-  if(laser) { //Falls er im Boden steckt
+  if(laser)
+  {
     laser -> SetClrModulation(DoRGBaValue(GetPlrColorDw(GetOwner()), 180, 0));
     laser ->~ Destruction();
   }
@@ -176,16 +184,16 @@ public func ControlUp(object pObjBy)
   SetController(controller);
   SetOwner(controller);
 
+  //Deaktivieren
   bActive=false;
-  
+
+  //Aufnahme
   Enter(pObjBy);
 
   //Eventuell sichern
   if(bReady)
    Defuse();
-  //Aufnehmen
-  Collect(pObjBy);
-  
+
   return 1;
 }
 

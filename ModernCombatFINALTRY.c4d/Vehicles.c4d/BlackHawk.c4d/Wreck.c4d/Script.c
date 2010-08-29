@@ -2,10 +2,8 @@
 
 #strict
 
-local damaged;
 
-
-/* Initalisierung */
+/* Initialisierung */
 
 protected func Initialize()
 {
@@ -15,34 +13,15 @@ protected func Initialize()
 
 /* Aufschlag */
 
-protected func Hit2()
-{
-  DestroyWreck();
-}
-
 protected func Hit()
 {
   Sound("Collision*");
-}
-
-/* Schaden */
-
-func Damage(int iChange, int iPlr)
-{
-  if(damaged) return();
-
-  SetController(iPlr);
-  if(GetDamage() >= 60)
-   DestroyWreck();
 }
 
 /* Zerstörung */
 
 func DestroyWreck()
 {
-  if(damaged) return();
-  damaged = true;
-
   //Effekte
   CastParticles("GunSmoke",15,35,-20,0,300,500);
   CastParticles("GunSmoke",15,35,20,0,300,500);
@@ -51,7 +30,7 @@ func DestroyWreck()
   Sound("StructuralDamage*.ogg", false, this());
 
   //Explosion
-  FakeExplode(40);
+  Explode(40);
 
   //Löschen und ausblenden
   Extinguish();
