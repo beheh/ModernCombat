@@ -1,6 +1,6 @@
 /*-- Killstatistiken --*/
 
-#strict
+#strict 2
 
 static const STAT_Spree = 5;
 
@@ -8,10 +8,10 @@ static const STAT_Spree = 5;
 public func KTMsg(int plr1, int plr2, object clonk, int plr3)
 {
   if(!plr1 && !plr2)
-    return();
+    return;
 
   if(!GetPlayerName(plr1) || !GetPlayerName(plr2))
-    return();
+    return;
 
   KMsg(plr1,plr2,clonk,plr3);
 }
@@ -26,10 +26,10 @@ public func KMsg(int plr1, int plr2, object clonk, int plr3)
       tp = true;
       
   if(!tp)
-    return();
+    return;
 
   //Kein Clonk?
-  if(!clonk) return();
+  if(!clonk) return;
 	if(!GetPlayerName(plr1)) return;
 
   var msg;
@@ -129,10 +129,10 @@ public func KillStat(object pClonk, int killedplr)
   //nein, die Engine darf keine Kills machen. >:(
   if(!pClonk)
    if(!(pClonk = this()))
-    return();
+    return;
   //Nein, Teamkills bringen keine Punkte. :(
   if(GetPlayerTeam(killedplr) == GetPlayerTeam(GetController(pClonk)))
-   return();
+   return;
   AddEffect("KillStats",pClonk,23,10,this(),HHKS);
 }
 
@@ -157,7 +157,7 @@ func FxKillStatsTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
   //Haben wir gerade Killingtime?
   if(!EffectVar(3, pTarget, iEffectNumber))
-   return();
+   return;
   //Schon lange genug gewartet?
   if(iEffectTime - EffectVar(1, pTarget, iEffectNumber) > 126) { //Die dreifache Wahrheit! 
    EffectVar(2, pTarget, iEffectNumber) = 0;
@@ -170,7 +170,7 @@ func FxKillStatsStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)
 {
   //Auswerten?
   if(iReason != 3 && iReason != 4)
-   return();
+   return;
 
   if(EffectVar(0, pTarget, iEffectNumber) >= STAT_Spree)
    if(GetName(pTarget))
@@ -180,7 +180,7 @@ func FxKillStatsStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)
 //Kill++
 func FxKillStatsEffect(string szNewEffectName, object pTarget, int iEffectNumber, int iNewEffectNumber)
 {
-  if(szNewEffectName S= "KillStats")
+  if(szNewEffectName == "KillStats")
    return(-3);
 }
 
@@ -192,16 +192,9 @@ func FxKillStatsAdd(object pTarget, int iEffectNumber, string szNewEffectName, i
   EffectVar(1, pTarget, iEffectNumber) = GetEffect("KillStats", pTarget, 0, 6);
   EffectVar(3, pTarget, iEffectNumber) = 1;
 
-  //Auf Killfolgen prüfen
-  var msg = $MsgKillingSpree$;
-  var t = GetLength(msg);
-  if(!(total%STAT_Spree) && total/STAT_Spree <= t) {
-   Log(Format("%s (%s)", msg[Min(total/STAT_Spree-1,t-1)],GetName(pTarget)));
-  }
-
   //auf Multikills prüfen
   if(running >= 2) {
-   msg = $MsgMultikill$;
+   var msg = $MsgMultikill$;
    Message("<c ff0000>%s</c>",pTarget, msg[Min(running-2,GetLength(msg)-1)]);
   }
 }
