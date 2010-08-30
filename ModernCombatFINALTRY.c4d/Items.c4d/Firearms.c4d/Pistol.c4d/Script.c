@@ -95,7 +95,7 @@ public func FMData2(int data)
   if(data == FM_AmmoID)		return STAM;
   if(data == FM_AmmoLoad)	return 1;
 
-  if(data == FM_Reload)		return 120;
+  if(data == FM_Reload)		return 90;
 
   if(data == FM_Auto)		return false;
   
