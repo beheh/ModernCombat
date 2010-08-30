@@ -2,32 +2,34 @@
 
 #strict 2
 
-//Indikator
-public func IsSpawnpoint() { return true; }
+public func IsSpawnpoint()	{return true;}
+
 
 global func FxIntVehicleSpawn4KStart(object pTarget, int iEffectNumber, int iTemp)
 {
   if(iTemp) return;
-  EffectVar(0, pTarget, iEffectNumber) = CreateArray(); //Spawn-IDs
-  EffectVar(1, pTarget, iEffectNumber) = 0; //aktuelles Fahrzeug
-  EffectVar(2, pTarget, iEffectNumber) = DIR_Right; //Aktuelle Dir
-  EffectVar(3, pTarget, iEffectNumber) = 100; //Sichere Zone
-  EffectVar(4, pTarget, iEffectNumber) = true; //Erstes Mal
- 	return 1;
+  EffectVar(0, pTarget, iEffectNumber) = CreateArray();	//Spawn-IDs
+  EffectVar(1, pTarget, iEffectNumber) = 0;		//aktuelles Fahrzeug
+  EffectVar(2, pTarget, iEffectNumber) = DIR_Right;	//Aktuelle Dir
+  EffectVar(3, pTarget, iEffectNumber) = 100;		//Sichere Zone
+  EffectVar(4, pTarget, iEffectNumber) = true;		//Erstes Mal
+  return 1;
 }
 
-global func FxIntVehicleSpawn4KSpawn(object pTarget, int iEffectNumber) {
+global func FxIntVehicleSpawn4KSpawn(object pTarget, int iEffectNumber)
+{
   var pVehicle = EffectVar(1,pTarget,iEffectNumber);
-	var aType = EffectVar(0,pTarget,iEffectNumber);
-	pVehicle = CreateContents(RandomIndex4K(aType),pTarget);
-	SetDir(EffectVar (2,pTarget,iEffectNumber), pVehicle);
-	if(EffectVar(4, pTarget, iEffectNumber) || !pTarget->~Spawn(pVehicle)) {
-		EffectVar(4, pTarget, iEffectNumber) = 0;
-		Exit(pVehicle);
-		SetPosition(GetX(),GetY(), pVehicle);
+        var aType = EffectVar(0,pTarget,iEffectNumber);
+        pVehicle = CreateContents(RandomIndex4K(aType),pTarget);
+        SetDir(EffectVar (2,pTarget,iEffectNumber), pVehicle);
+        if(EffectVar(4, pTarget, iEffectNumber) || !pTarget->~Spawn(pVehicle))
+        {
+          EffectVar(4, pTarget, iEffectNumber) = 0;
+          Exit(pVehicle);
+          SetPosition(GetX(),GetY(), pVehicle);
 	}
   EffectVar(1,pTarget,iEffectNumber) = pVehicle;
-	return true;
+  return true;
 }
 
 global func FxIntVehicleSpawn4KTimer(object pTarget, int iEffectNumber, int iEffectTime)
@@ -35,14 +37,17 @@ global func FxIntVehicleSpawn4KTimer(object pTarget, int iEffectNumber, int iEff
   var aType = EffectVar(0,pTarget,iEffectNumber);
   if(!GetLength(aType)) return 0;
   var pVehicle = EffectVar(1,pTarget,iEffectNumber);
-  if(!pVehicle) {
-		EffectCall(pTarget, iEffectNumber, "Spawn");
+  if(!pVehicle)
+  {
+    EffectCall(pTarget, iEffectNumber, "Spawn");
   }
-  else {		
-		var iDistance = EffectVar(3, pTarget, iEffectNumber);
-		if(iDistance > 0 && Distance(GetX(pVehicle), GetY(pVehicle), GetX(this), GetY(this)) > iDistance) {
-		  AddEffect("IntVehicleUnused", pVehicle, 51, 10, pVehicle, 0, this, iDistance);
-		}
+  else
+  {
+    var iDistance = EffectVar(3, pTarget, iEffectNumber);
+    if(iDistance > 0 && Distance(GetX(pVehicle), GetY(pVehicle), GetX(this), GetY(this)) > iDistance)
+    {
+      AddEffect("IntVehicleUnused", pVehicle, 51, 10, pVehicle, 0, this, iDistance);
+    }
   }
   return;
 }
@@ -61,8 +66,8 @@ global func FxIntVehicleSpawn4KDelType(object pTarget, int iEffectNumber, id idT
   var i = FindInArray4K(EffectVar (0,pTarget,iEffectNumber), idType);
   if(i != -1)
   {
-   EffectVar(0,pTarget,iEffectNumber)[i] = 0;
-   CleanArray4K(EffectVar(0,pTarget,iEffectNumber));
+    EffectVar(0,pTarget,iEffectNumber)[i] = 0;
+    CleanArray4K(EffectVar(0,pTarget,iEffectNumber));
   }
   return 0;
 }
@@ -99,8 +104,8 @@ global func SetupVehicleSpawn(array aType, int iDir, object pTarget, int iFrames
 
   if(GetLength(aType))
   {
-   for(var i = 0; i < GetLength(aType); i++)
-    EffectCall (pTarget,effect,"AddType", aType[i]);
+    for(var i = 0; i < GetLength(aType); i++)
+     EffectCall(pTarget,effect,"AddType", aType[i]);
   }
   EffectCall(pTarget, effect, "Spawn");
   return true;
@@ -165,9 +170,10 @@ global func VehicleSpawn_SetDist(int iDistance, object pTarget)
 
 /* Unbenutze Beschädigen */
 
-global func FxIntVehicleUnusedStart(object pTarget, int iEffectNumber, id idType, object pSpawner, int iDistance) {
-  EffectVar(0, pTarget, iEffectNumber) = pSpawner; //Spawner
-  EffectVar(1, pTarget, iEffectNumber) = iDistance; //Sichere Zone
+global func FxIntVehicleUnusedStart(object pTarget, int iEffectNumber, id idType, object pSpawner, int iDistance)
+{
+  EffectVar(0, pTarget, iEffectNumber) = pSpawner;	//Spawner
+  EffectVar(1, pTarget, iEffectNumber) = iDistance;	//Sichere Zone
   return 1;
 }
 
