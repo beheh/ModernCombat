@@ -185,20 +185,18 @@ global func FxIntVehicleUnusedTimer(object pTarget, int iEffectNumber, id idType
     return -1;
   if(!pTarget || !pSpawner)
     return -1;
-  if(GetActionTarget(0, pTarget)) {
-    var pCommanders = FindObjects(Find_ActionTarget(GetActionTarget(0, pTarget)), Find_OCF(OCF_Alive));
-    var remove = false;
-    for(var pCommander in pCommanders) {
-      var iDistance = ObjectDistance(pCommander, GetActionTarget(0, pTarget));
-      if(iDistance < 50) {
-        remove = true;
-        break;
-      }
-    }
-    if(remove) return -1;
-  }
   if(Distance(GetX(pTarget), GetY(pTarget), GetX(pSpawner), GetY(pSpawner)) < iDistance)
     return -1;
+  var pCommanders = FindObjects(Find_Or(Find_ActionTarget(pTarget), Find_ActionTarget(GetActionTarget(0, pTarget))), Find_OCF(OCF_Alive));
+  var remove = false;
+  for(var pCommander in pCommanders) {
+    var iDistance = ObjectDistance(pCommander, GetActionTarget(0, pTarget));
+    if(iDistance < 50) {
+      remove = true;
+      break;
+    }
+  }
+  if(remove) return -1;
   DoDmg(1, DMG_Melee, pTarget);
   return 1;
 }
