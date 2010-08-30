@@ -14,7 +14,7 @@ public func GetAchievementScore()
   return 0;	//Benötigte Punktzahl einfügen
 }
 
-
-public func GetIDs() {
-	return [ASTR, MNGN, PSTL, PPGN, SMGN];
+public func GetIDs()
+{
+  return [ASTR, MNGN, PSTL, PPGN, SMGN];
 }
