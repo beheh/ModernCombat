@@ -1,5 +1,5 @@
 [Particle]
-Name=Smoke3
+Name=GroundSmoke
 MaxCount=600
 InitFn=StdInit
 ExecFn=StdExec
