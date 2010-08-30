@@ -1058,13 +1058,13 @@ private func DrawGroundParticles()
 private func CreateDust(int Y, int Power, int Color)
 {
   Power = Min(Power, 130);
-  CreateParticle("Smoke3", -3, Y, -(70-Y/3), RandomX(-5,5),
+  CreateParticle("GroundSmoke", -3, Y, -(70-Y/3), RandomX(-5,5),
                  RandomX(30,15+(14-Y/10)*Power/5), Color);//nach links
-  CreateParticle("Smoke3", +3, Y, (70-Y/3), RandomX(-5,5),
+  CreateParticle("GroundSmoke", +3, Y, (70-Y/3), RandomX(-5,5),
                  RandomX(30,15+(14-Y/10)*Power/5), Color);//nach rechts
-  CreateParticle("Smoke3", -3, Y-3, RandomX(-30,-(70-Y)), -2,
+  CreateParticle("GroundSmoke", -3, Y-3, RandomX(-30,-(70-Y)), -2,
                  RandomX(30,15+(14-Y/10)*Power/5), Color);//nach links oben
-  CreateParticle("Smoke3", +3, Y-3, RandomX(30,(70-Y)), -2,
+  CreateParticle("GroundSmoke", +3, Y-3, RandomX(30,(70-Y)), -2,
                  RandomX(30,15+(14-Y/10)*Power/5), Color);//nach rechts oben
   return true;
 }
