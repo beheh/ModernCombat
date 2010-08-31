@@ -1189,6 +1189,7 @@ global func FxShowWeaponTimer(object pTarget, int iNumber, int iTime)
 {
   //Waffe aktualisieren:
   var xoff, yoff, r;  //Offset, Winkel
+  var dodraw;
   //kein Inventar oder falsche Aktion
   if(!Contents(0,pTarget))
     return EffectCall(pTarget, iNumber, "Reset");
@@ -1201,6 +1202,7 @@ global func FxShowWeaponTimer(object pTarget, int iNumber, int iTime)
     //neues Objekt ist Waffe, oder ein Objekt, das gezeichnet werden soll
     if(obj->~IsWeapon() || obj->~IsDrawable())
     {
+	  dodraw = true;
       EffectVar(0, pTarget, iNumber) = id;
       EffectVar(6, pTarget, iNumber) = obj;
       SetGraphics(0, pTarget,id, WeaponDrawLayer, GFXOV_MODE_Object,0,GFX_BLIT_Parent,obj);
@@ -1231,7 +1233,7 @@ global func FxShowWeaponTimer(object pTarget, int iNumber, int iTime)
   else
   	r += obj->~HandR();
 	
-  if (r == EffectVar(1, pTarget, iNumber) && GetDir(pTarget) == EffectVar(7, pTarget, iNumber) && GetAction(pTarget) == EffectVar(8, pTarget, iNumber))
+  if (!dodraw && r == EffectVar(1, pTarget, iNumber) && GetDir(pTarget) == EffectVar(7, pTarget, iNumber) && GetAction(pTarget) == EffectVar(8, pTarget, iNumber))
     return;
   
   //Variablen mit Werten versehen
