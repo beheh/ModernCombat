@@ -240,6 +240,15 @@ public func IsFulfilled() {
 	  Sound("Cheer.ogg", true);
 	  return fulfilled = true;
     }
+  //Nur noch eins übrig Oo
+  if (GetActiveTeamCount() <= 1) {
+    var i = GetPlayerTeam(GetPlayerByIndex());
+	Schedule("GameOver()", 150);
+	RewardEvaluation();
+	Message("@$TeamHasWon$", 0, GetTeamColor(i), GetTeamName(i));
+	Sound("Cheer.ogg", true);
+	return fulfilled = true;  
+  }
 }
 
 /* Zeug aus TEAM */
