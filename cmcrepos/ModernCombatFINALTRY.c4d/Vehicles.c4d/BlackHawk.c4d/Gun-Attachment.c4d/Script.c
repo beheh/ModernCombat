@@ -167,11 +167,11 @@ public func TimerCall()
   {
     if(heli->GetTeam())
       var rgb = GetTeamColor(heli->GetTeam());
-    else if(heli->GetOwner())
+    else if(heli->GetOwner() != NO_OWNER)
       var rgb = GetPlrColorDw(heli->GetOwner());
     else
       var rgb = RGB(255,255,255);
-    CreateParticle("FapLight",0,4,0,0,5*15,rgb,this);
+    CreateParticle("FlashLight",0,4,0,0,3*15,rgb,this);
   }
   
   //Nötig nachzuladen?

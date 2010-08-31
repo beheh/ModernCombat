@@ -956,6 +956,18 @@ protected func TimerCall()
   //Piloten anpassen
   DrawPilot();
 
+	//Blinken
+	/*if(!(GetActTime()%45) && GetPilot() || GetAutopilot())
+  {
+    if(GetTeam())
+      var rgb = GetTeamColor(GetTeam());
+    else if(GetOwner() != NO_OWNER)
+      var rgb = GetPlrColorDw(GetOwner());
+    else
+      var rgb = RGB(255,255,255);
+    CreateParticle("FlashLight",-104*(GetDir()*2-1),-13,0,0,3*15,rgb,this);
+  }*/
+	
 	//Bodenpartikel zeichnen
 	DrawGroundParticles();
 
