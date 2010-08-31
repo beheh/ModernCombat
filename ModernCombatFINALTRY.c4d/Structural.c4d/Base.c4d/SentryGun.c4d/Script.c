@@ -308,10 +308,8 @@ private func Reload()
 {
   // Munitionsart
   var AmmoID = GetAttWeapon()->~GetFMData(FM_AmmoID);
-  // Contents
-  for(var obj in FindObjects(Find_Container(this), Find_Func("IsAmmo"))) RemoveObject(obj);
   // Erzeugen
-  CreateContents(AmmoID, this, GetAttWeapon()->~GetFMData(FM_AmmoLoad));
+  Local(0, CreateContents(AmmoID)) = GetAttWeapon()->~GetFMData(FM_AmmoLoad);
   // Waffe soll nachladen
   GetAttWeapon()->~Reloaded(this);
   GetAttWeapon()->~Recharge();
