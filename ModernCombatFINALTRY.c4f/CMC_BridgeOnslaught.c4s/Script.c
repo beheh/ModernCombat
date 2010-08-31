@@ -11,7 +11,7 @@ static aFlag, aSelfDefense, switchright, switchleft;
 func Initialize()
 {
   //Starttitel und Musikliste zusammenstellen
-  SetPlayList("CMC_Base Groove.ogg;CMC_City Lights.ogg;CMC_Friendly Unit.ogg;CMC_Getaway.ogg;CMC_Moving Squad.ogg;CMC_Offensive.ogg;CMC_Showtime.ogg;CMC_Slow Motion.ogg;CMC_Striking Force.ogg;CMC_No Good.ogg;CMC_Obsession.ogg");
+  SetPlayList("CMC_Base Groove.ogg;CMC_Firehawk.ogg;CMC_Friendly Unit.ogg;CMC_Getaway.ogg;CMC_Moving Squad.ogg;CMC_Offensive.ogg;CMC_Showtime.ogg;CMC_Slow Motion.ogg;CMC_Striking Force.ogg;CMC_No Good.ogg;CMC_Obsession.ogg");
   Music("CMC_Getaway.ogg");
   //Hintergrundbewegung
   SetSkyParallax(0,15,15);
@@ -644,6 +644,13 @@ public func ChooserFinished()
    //SSA anschalten
    aSelfDefense[0]->TurnOn();
    aSelfDefense[3]->TurnOn();
+
+   //Munitionskiste (Kugeln)
+   var tmp = CreateObject(AMCT, 1330, 640, -1);
+   tmp->Set(ABOX);
+
+   //Raketen
+   PlaceSpawnpoint(MIAP, 1330, 305);
   }
 }
 

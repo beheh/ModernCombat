@@ -18,7 +18,7 @@ public func OccupationDir()
 func Initialize()
 {
   //Starttitel und Musikliste zusammenstellen
-  SetPlayList("CMC_Base Groove.ogg;CMC_City Lights.ogg;CMC_Friendly Unit.ogg;CMC_Getaway.ogg;CMC_Moving Squad.ogg;CMC_Offensive.ogg;CMC_Showtime.ogg;CMC_Slow Motion.ogg;CMC_Striking Force.ogg;CMC_No Good.ogg;CMC_Obsession.ogg");
+  SetPlayList("CMC_Base Groove.ogg;CMC_Firehawk.ogg;CMC_Friendly Unit.ogg;CMC_Getaway.ogg;CMC_Moving Squad.ogg;CMC_Offensive.ogg;CMC_Showtime.ogg;CMC_Slow Motion.ogg;CMC_Striking Force.ogg;CMC_No Good.ogg;CMC_Obsession.ogg");
   Music("CMC_Friendly Unit.ogg");
   //Bildschirmfärbung
   SetGamma(RGB(15,15,15),RGB(118,118,118),RGB(215,215,215));
@@ -661,9 +661,9 @@ public func ChooserFinished()
    //Kiste
    CreateObject(WCR2, 400, 1490, -1)->AutoRespawn();
 
-  //Sandsackbarrieren
-  CreateObject(SBBA, 441, 320, -1);
-  CreateObject(SBBA, 730, 320, -1)->Right();
+   //Sandsackbarrieren
+   CreateObject(SBBA, 441, 320, -1);
+   CreateObject(SBBA, 730, 320, -1)->Right();
   }
 }
 

@@ -9,7 +9,7 @@
 func Initialize()
 {
   //Starttitel und Musikliste zusammenstellen
-  SetPlayList("CMC_Base Groove.ogg;CMC_City Lights.ogg;CMC_Friendly Unit.ogg;CMC_Getaway.ogg;CMC_Moving Squad.ogg;CMC_Offensive.ogg;CMC_Showtime.ogg;CMC_Slow Motion.ogg;CMC_Striking Force.ogg;CMC_No Good.ogg;CMC_Obsession.ogg");
+  SetPlayList("CMC_Base Groove.ogg;CMC_Firehawk.ogg;CMC_Friendly Unit.ogg;CMC_Getaway.ogg;CMC_Moving Squad.ogg;CMC_Offensive.ogg;CMC_Showtime.ogg;CMC_Slow Motion.ogg;CMC_Striking Force.ogg;CMC_No Good.ogg;CMC_Obsession.ogg");
   Music("CMC_Friendly Unit.ogg");
   //Szenario einrichten
   CreateFurniture();
@@ -389,6 +389,26 @@ public func ChooserFinished()
     CreateFlag(1,110,440,GetTeamColor(1)); 
     CreateFlag(2,1440,360,GetTeamColor(2)); 
   }
+
+  //HTF-Spielziel
+  if (FindObject(GHTF))
+  {
+   //Flaggenposten
+   var flag = CreateObject(OFPL, 795,360, -1);
+   flag->~Set("$Flag1$");
+
+   //SSA entfernen
+   RemoveAll(SEGU);
+
+   //Jumppads entfernen
+   RemoveAll(JPTP);
+   RemoveAll(JMPD);
+
+   //Munitionskiste (Kugeln)
+   var tmp = CreateObject (AMCT, 760, 440, -1);
+   tmp->Set(ABOX);
+   tmp->SetGraphics("Normal");
+  }
 }
 
 /* Relaunch */
@@ -428,6 +448,25 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
     if(!--rand)
       { iX = 1295; iY = 120; }
    }
+   return(1);
+  }
+
+  //HTF-Spielziel
+  if(FindObject(GHTF))
+  {
+   var rand = Random(6);
+   if(!rand)
+     { iX = 340; iY = 220; }
+   if(!--rand)
+     { iX = 340; iY = 340; }
+   if(!--rand)
+     { iX = 340; iY = 430; }
+   if(!--rand)
+     { iX = 1210; iY = 140; }
+   if(!--rand)
+     { iX = 1210; iY = 260; }
+   if(!--rand)
+     { iX = 1210; iY = 350; }
    return(1);
   }
 

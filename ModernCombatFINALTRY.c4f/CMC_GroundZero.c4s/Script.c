@@ -11,7 +11,7 @@ static aFlag, aSelfDefense;
 func Initialize()
 {
   //Starttitel und Musikliste zusammenstellen
-  SetPlayList("CMC_Base Groove.ogg;CMC_City Lights.ogg;CMC_Friendly Unit.ogg;CMC_Getaway.ogg;CMC_Moving Squad.ogg;CMC_Offensive.ogg;CMC_Showtime.ogg;CMC_Slow Motion.ogg;CMC_Striking Force.ogg;CMC_No Good.ogg;CMC_Obsession.ogg");
+  SetPlayList("CMC_Base Groove.ogg;CMC_Firehawk.ogg;CMC_Friendly Unit.ogg;CMC_Getaway.ogg;CMC_Moving Squad.ogg;CMC_Offensive.ogg;CMC_Showtime.ogg;CMC_Slow Motion.ogg;CMC_Striking Force.ogg;CMC_No Good.ogg;CMC_Obsession.ogg");
   Music("CMC_City Lights.ogg");
   //Himmel
   SetSkyParallax(0,45,24,0,0,0,0);
@@ -516,6 +516,18 @@ public func ChooserFinished()
    //Flaggenposten
    var flag = CreateObject(OFPL, 1400,420, -1);
    flag->~Set("$Flag3$");
+
+   //Projektilmunition
+   PlaceSpawnpoint(ABOX, 1370, 415);
+
+   //Raketen
+   PlaceSpawnpoint(MIAP, 1430, 415);
+
+   //Sandsackbarrieren
+   CreateObject(SBBA, 1221, 440, -1);
+   CreateObject(SBBA, 1281, 430, -1);
+   CreateObject(SBBA, 1520, 430, -1)->Right();
+   CreateObject(SBBA, 1580, 440, -1)->Right();
 
    //Grenzen
    CreateObject(BRDR, 440, 0, -1)->Set(0);

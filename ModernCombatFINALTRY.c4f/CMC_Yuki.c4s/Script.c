@@ -11,7 +11,7 @@ static aDoor1, aDoor2, aLamp1, aLamp2, aLamp3, aFlag;
 func Initialize()
 {
   //Starttitel und Musikliste zusammenstellen
-  SetPlayList("CMC_Base Groove.ogg;CMC_City Lights.ogg;CMC_Friendly Unit.ogg;CMC_Getaway.ogg;CMC_Moving Squad.ogg;CMC_Offensive.ogg;CMC_Showtime.ogg;CMC_Slow Motion.ogg;CMC_Striking Force.ogg;CMC_No Good.ogg;CMC_Obsession.ogg");
+  SetPlayList("CMC_Base Groove.ogg;CMC_Firehawk.ogg;CMC_Friendly Unit.ogg;CMC_Getaway.ogg;CMC_Moving Squad.ogg;CMC_Offensive.ogg;CMC_Showtime.ogg;CMC_Slow Motion.ogg;CMC_Striking Force.ogg;CMC_No Good.ogg;CMC_Obsession.ogg");
   Music("CMC_Striking Force.ogg");
   //Türenteam1
   aDoor1 = [];
@@ -609,14 +609,30 @@ public func ChooserFinished()
     aFlag[4]->Set("$Flag5$",0,2);
    }
   }
+
+  //HTF-Spielziel
+  if (FindObject(GHTF))
+  {
+   //Flaggenposten
+   var flag = CreateObject(OFPL, 860,680, -1);
+   flag->~Set("$Flag3$");
+
+   //Waffenautomat entfernen
+   RemoveAll(WPVM);
+
+   //Munitionskiste (Kugeln)
+   var tmp = CreateObject (AMCT, 1010, 660, -1);
+   tmp->Set(ABOX);
+   tmp->SetGraphics("Normal");
+  }
 }
 
 /* Relaunch */
 
 public func RelaunchPosition(& iX, & iY, int iTeam)
 {
-  //DM/LMS-Spielziel
-  if(FindObject(GTDM) || FindObject(GLMS))
+  //DM/LMS/HTF-Spielziel
+  if(FindObject(GTDM) || FindObject(GLMS) || FindObject(GHTF))
   {
    if(iTeam == 1)
    {
