@@ -189,7 +189,7 @@ public func Activity()
   // alle 5 Frames
   if(!(GetActTime()%5)) {
 	  //Zu weit links?
-	  if( AimAngle() <= MaxRotLeft() )
+	  if(AimAngle() <= MaxRotLeft())
 	  {
 	    //Wir fahren zurück
 	    iPat_Dir = 1;
@@ -197,7 +197,7 @@ public func Activity()
 	    GotTarget = 0;
 	  }
 	  //Oder zu weit rechts?
-	  else if( AimAngle() >= MaxRotRight() )
+	  else if(AimAngle() >= MaxRotRight())
 	  {
 	    //Hinfahren
 	    iPat_Dir = -1;
@@ -211,7 +211,6 @@ public func Activity()
   //Das Fahren selber ;)
   if(GotTarget)
   	aim_angle += BoundBy(target_angle-AimAngle(),-1,1);
-  
        
   /* Feinde suchen */
   
@@ -222,8 +221,7 @@ public func Activity()
 	    Shooting = false;
    		GetAttWeapon()->StopAutoFire();
   	}
-  		
-	  GotTarget = Search();
+ 		GotTarget = Search();
 	}
 	else
 	{
@@ -232,9 +230,9 @@ public func Activity()
 		{
 		    Shooting = true;
 		    if(!GetAttWeapon()->IsShooting())
-			    GetAttWeapon()->ControlThrow(this);
-	  	    if(GetAmmo(GetAttWeapon()->GetFMData(FM_AmmoID), GetAttWeapon()) < GetAttWeapon()->GetFMData(FM_AmmoUsage))
-				Reload();
+			    GetAttWeapon()->Fire(this);
+	  	  if(GetAmmo(GetAttWeapon()->GetFMData(FM_AmmoID), GetAttWeapon()) < GetAttWeapon()->GetFMData(FM_AmmoUsage))
+					Reload();
 		}
 		else
 		{
@@ -273,6 +271,7 @@ public func Search(int iX, int iWidth, int iHeight)
 	var w,h;
   
 	var Targets = FindTargets(this, SearchLength());
+	var pTarget = 0;
   for(pAim in Targets)
   {
 		if(GetOwner() != NO_OWNER)
@@ -289,19 +288,20 @@ public func Search(int iX, int iWidth, int iHeight)
 		if(target_angle < MaxRotLeft() || target_angle > MaxRotRight())
 			continue;
 
+		var pTarget = pAim;
 		break;
   }
   
-	if(Shooting && !pAim)
+	if(Shooting && !pTarget)
 	{
 		Shooting = false;
 		GetAttWeapon()->StopAutoFire();
 	}
 
-	if(!pAim)
+	if(!pTarget)
   	GotTarget = true;
 
-  return pAim;
+  return pTarget;
 }
 
 private func Reload()
