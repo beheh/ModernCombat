@@ -253,3 +253,7 @@ private func InitPlayer(int iPlr) {}
 private func RemoveScoreboardPlayer(int iPlr) {}
 public func WinScoreChange(int iNewScore) {}
 private func SortTeamScoreboard()	{}
+
+private func TeamGetScore(int iTeam) {
+  return aTeamPoints[iTeam];
+}
