@@ -171,10 +171,6 @@ func FxKillStatsStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)
   //Auswerten?
   if(iReason != 3 && iReason != 4)
    return;
-
-  if(EffectVar(0, pTarget, iEffectNumber) >= STAT_Spree)
-   if(GetName(pTarget))
-    Log("$MsgSpreeEnd$", GetName(pTarget));
 }
 
 //Kill++

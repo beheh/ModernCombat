@@ -967,12 +967,7 @@ public func IsHealing () { return WildcardMatch(GetAction(), "*Heal*"); }
 /* KI-Erweiterung */
 //Reanimiert jetzt sogar Verbündete, foll toll!11
 
-/*protected func ContextGuard(object pCaller) {
-  [$CtxGuard$|Image=FLA2|Condition=Outside]
-  // Bewachen
-  SetAggroLevel(Aggro_Guard, 200);
-  Sound("Confirm*");
-}
+/*
 
 public func GetReanimationTarget(pFrom, &body, &defi, fUnderAttack) {
 	var distance = 200;
