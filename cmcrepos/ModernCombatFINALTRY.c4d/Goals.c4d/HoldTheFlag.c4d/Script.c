@@ -175,11 +175,16 @@ public func FlagCaptured(object pFlagPole, int iTeam, array aAttackers, bool fRe
   EventInfo4K(0, Format("$MsgCaptured$", GetTeamColor(iTeam), GetTeamName(iTeam), GetName(pFlag)), OFLG, 0, GetTeamColor(iTeam), 0, "Info.ogg");
 }
 
+private func Interpolate(val1, val2, step, max) {
+  return val1+(val2-val1)*step/max;
+}
+
 /* Scoreboard */
 
 static const GHTF_Name = SBRD_Caption;
 static const GHTF_Points = 0;
 static const GHTF_Progress = 1;
+static const GHTF_FlagRow = 1024;
 
 public func UpdateScoreboard() {
   //Wird noch eingestellt
@@ -190,6 +195,22 @@ public func UpdateScoreboard() {
   SetScoreboardData(SBRD_Caption, GHTF_Name, Format("%d $Points$", iGoal));
   SetScoreboardData(SBRD_Caption, GHTF_Points, "{{GHTF}}");
   SetScoreboardData(SBRD_Caption, GHTF_Progress, "{{OFPL}}");
+  
+  //Flaggenzeile
+  var color = GetTeamColor(pFlag->GetTeam()),
+  prog = pFlag->GetProcess();
+  color = RGBa(Interpolate(64, GetRGBaValue(color, 1), prog, 100), Interpolate(64, GetRGBaValue(color, 2), prog, 100), Interpolate(64, GetRGBaValue(color, 3), prog, 100));
+  SetScoreboardData(GHTF_FlagRow, GHTF_Name, Format("<c %x>%s</c>", color, GetName(pFlag)));
+  SetScoreboardData(GHTF_FlagRow, GHTF_Progress, Format("<c %x>%d%</c>", color, prog), GHTF_FlagRow);
+  var icon, trend = pFlag->GetTrend();
+  if (!trend) icon = IC12;
+  if (trend == -1) icon = IC13;
+  if (trend == 1) icon = IC10;
+  SetScoreboardData(GHTF_FlagRow, GHTF_Points, Format("{{%i}}", icon), GHTF_FlagRow-1);
+  
+  //Leere Zeile
+  SetScoreboardData(GHTF_FlagRow-1, GHTF_Progress, "", GHTF_FlagRow-1);
+  SetScoreboardData(GHTF_FlagRow-1, GHTF_Points, "", GHTF_FlagRow-1);
   
   //Und... alle Teams...
   var iFlagTeam = pFlag->~GetTeam();
