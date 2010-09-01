@@ -15,7 +15,7 @@ func Damage()
   {
    if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("WoodCrateSplinter", 4, 50, 0,0, 141);
    if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("WoodSplinter", 4, 40, 0,0, 50, 75, RGBa(255,255,255,0), RGBa(255,255,255,0));
-   Sound("CrateCrack");
+   Sound("CrateCrack.ogg");
    RemoveObject(0, 1);
   }
 }
