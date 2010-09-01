@@ -828,6 +828,7 @@ func DestroyHeli()
   var obj;
   obj = CreateObject(BHWK, 0, 20, -1);
   Incinerate(obj);
+  SetDir(GetDir(), obj);
   SetR(GetR(), obj);
   SetXDir(GetXDir(), obj);
   SetYDir(GetYDir(), obj);
