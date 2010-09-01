@@ -156,7 +156,7 @@ public func Suicide()
 {
   //Clonkinventar löschen sofern Arenaregel aktiv
   if(FindObject(NODR))
-   for(var item in FindObjects(Find_Container(this),Find_Not(Find_OCF(OCF_Alive))))
+   for(var item in FindObjects(Find_Container(this),Find_Not(Find_OCF(OCF_Living))))
     RemoveObject(item);
 
     if(clonk)
