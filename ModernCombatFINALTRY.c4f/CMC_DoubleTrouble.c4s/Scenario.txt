@@ -37,4 +37,4 @@ NoScan=1
 SkyScrollMode=1
 
 [Animals]
-Animal=BIRD=2;LENS=1;SLSK=3
+Animal=BIRD=2;LENS=1;SLSK=3;DARK=1
