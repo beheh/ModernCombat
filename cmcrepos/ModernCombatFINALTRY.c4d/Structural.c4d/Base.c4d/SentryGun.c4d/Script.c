@@ -15,15 +15,16 @@ local last_id;
 public func GetAttWeapon()	{return cur_Attachment;}		//Waffe
 public func MaxRotLeft()	{return 110+GetR();}			//Maximaler Winkel links
 public func MaxRotRight()	{return 250+GetR();}			//Maximaler Winkel rechts
-public func SearchLength()	{return 250;}				//Suchlänge
+public func SearchLength()	{return 250;}					//Suchlänge
 public func AimAngle()		{return aim_angle+GetR();}		//Winkel auf Ziel
-public func ReadyToFire()	{return 1;}				//Allzeit bereit
-public func IsMachine()		{return true;}				//Ist eine Elektrische Anlage
-public func IsBulletTarget()	{return !IsDestroyed();}		//Kugelziel wenn nicht zerstört
-public func IsAiming()		{return true;}				//Selbstschussanlage immer am Zielen
+public func ReadyToFire()	{return 1;}						//Allzeit bereit
+public func IsMachine()		{return true;}					//Ist eine Elektrische Anlage
+public func IsBulletTarget()	{return !IsDestroyed();}	//Kugelziel wenn nicht zerstört
+public func IsAiming()		{return true;}					//Selbstschussanlage immer am Zielen
 public func IsThreat()		{return fActive && !IsDestroyed();}	//Status
 public func UpdateCharge()	{return 1;}
-public func AttractTracer(object pTracer) {return GetPlayerTeam(GetController(pTracer)) != GetTeam();}	//Tracer-Ziel, falls anderes Team
+public func AttractTracer(object pTracer) {return GetPlayerTeam(GetController(pTracer)) != GetTeam() && !IsDestroyed();}
+public func RemoveTracer()	{return IsDestroyed();}		//Tracer entfernen, wenn zerstört
 
 
 /* Zerstörung */
