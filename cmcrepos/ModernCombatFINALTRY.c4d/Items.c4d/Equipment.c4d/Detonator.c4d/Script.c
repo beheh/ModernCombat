@@ -167,6 +167,9 @@ public func Entrance(object pContainer)
     if(DoPackAmount() >= 8) return;
     var amount = DoPackAmount();
     obj->DoPackAmount(amount);
+	//Alles C4 dem neuen Zünder geben
+	for (var c4 in FindObjects(Find_ID(C4EX), Find_Func("GetPacket", this)))
+	  c4->SetPacket(obj);
     RemoveObject();
   }
 }

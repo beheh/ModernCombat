@@ -20,6 +20,12 @@ public func GetPacket(pObj)
   return pObj == fuse;
 }
 
+public func SetPacket(pObj)
+{
+  if (pObj)
+    return fuse = pObj;
+}
+
 public func SetActive(object pCaller)
 {
   if(!pCaller)
