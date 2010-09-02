@@ -125,6 +125,10 @@ global func FxTracerDartTimer(object pTarget, int iEffectNumber)
   if (team && team == EffectVar(2, pTarget, iEffectNumber))
     return -1;
 
+  //Objekt will den Tracer entfernen
+  if (pTarget && pTarget->~RemoveTracer(this))
+    return -1;
+
   //Haftzeit verringern
   EffectVar(1, pTarget, iEffectNumber)--;
   //Haftzeit zuende? Entfernen.
