@@ -1,1 +1,1 @@
-Eliminiere in einer Runde mit jeder Projektilwaffe jeweils einen Feind.
+Eliminiere in einer Runde mit jeder Projektilwaffe einen Feind.

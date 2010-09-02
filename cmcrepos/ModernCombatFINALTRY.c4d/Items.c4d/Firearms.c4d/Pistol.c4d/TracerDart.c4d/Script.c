@@ -103,8 +103,8 @@ global func FxTracerDartStart(object pTarget, int iEffectNumber, int iTemp, int 
   //Besitzer des Schusses festlegen (der Schütze)
   EffectVar(0, pTarget, iEffectNumber) = iOwner;
 
-  //Haftzeit festsetzen (40 Sekunden)
-  EffectVar(1, pTarget, iEffectNumber) = 40*38;
+  //Haftzeit festsetzen (30 Sekunden)
+  EffectVar(1, pTarget, iEffectNumber) = 30*38;
   
   //Team speichern
   EffectVar(2, pTarget, iEffectNumber) = GetPlayerTeam(iOwner);

@@ -44,7 +44,13 @@ public func ControlThrow(object pByObj)
   amount--;
   AddEffect("IntC4Cooldown", this, 1, CooldownTime(), this);
 
-  //Beim Klettern (aber nicht an Leitern) 
+  //Bild ändern wenn kein C4 übrig
+  if(amount <= 0)
+  {
+   SetPicture(10,5,39,64);
+  }
+
+  //Beim Klettern
   if(WildcardMatch(GetAction(pByObj), "Scale*") && GetAction(pByObj) != "ScaleLadder")
   {
    SetR((GetDir(pByObj)*-180)+90, c4);
@@ -109,10 +115,16 @@ public func Activate(object pActivator)
   }
 
   //Effekte
-  SetPicture(10,5,39,64);
-  Schedule("SetPicture(64,6,64,64)", 25);
-  Sound("C4PA_Ignition.ogg");
+  CreateParticle("FlashLight",0,0,0,0,60,RGBa(255,0,0,0),this);
+  Sound("C4PA_Activate.ogg");
   Check();
+
+  //Bild ändern wenn C4 übrig
+  if(amount > 0)
+  {
+   SetPicture(10,5,39,64);
+   Schedule("SetPicture(64,6,64,64)", 25);
+  }
 }
 
 /* HUD */
