@@ -141,9 +141,17 @@ func UpdateHUD(object pHUD)
 /* Methoden */
 
 public func DoPackAmount(int iAmount)
-{ 
+{
+  //Anzahl errechnen
   if((amount = BoundBy(amount + iAmount,0,8)) > max)
-   max = amount;
+    max = amount;
+
+  //Bild ändern wenn C4 übrig
+  if(amount > 0)
+  {
+   SetPicture(64,6,64,64);
+  }
+
   return amount;
 }
 
@@ -151,31 +159,31 @@ public func DoPackAmount(int iAmount)
 
 public func Entrance(object pContainer)
 {
-	if(pContainer->~IsSpawnpoint()) return;
-	for(var c4 in FindObjects(Find_ID(C4EX), Find_Func("GetPacket", this)))
+  if(pContainer->~IsSpawnpoint()) return;
+  for(var c4 in FindObjects(Find_ID(C4EX), Find_Func("GetPacket", this)))
     SetOwner(GetOwner(pContainer),c4);
   for(var obj in FindObjects(Find_Container(pContainer),Find_ID(GetID()),Find_Exclude(this)))
-    {
-      if(DoPackAmount() >= 8) return;
-      var amount = DoPackAmount();
-      obj->DoPackAmount(amount);
-      RemoveObject();
-    }
+  {
+    if(DoPackAmount() >= 8) return;
+    var amount = DoPackAmount();
+    obj->DoPackAmount(amount);
+    RemoveObject();
+  }
 }
 
 public func RejectEntrance(object pObj)
 {
   var pack;
   if(pack = FindObject2(Find_Container(pObj), Find_ID(C4PA)))
-   if(pack->DoPackAmount() >= 8)
-    return 1;
+    if(pack->DoPackAmount() >= 8)
+      return 1;
 }
 
 /* TimerCall */
 
 protected func Check()
 {
-	if(!init) return;
+  if(!init) return;
   //Grund zum existieren?
   if(amount <= 0 && !FindObject2(Find_ID(C4EX), Find_Func("GetPacket", this)))
     RemoveObject();
