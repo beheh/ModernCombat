@@ -36,8 +36,14 @@ func ResetRotation()
 
 func SearchObjects()
 {
-  if(!fHit && FindObject2(Find_AtPoint(), Find_Exclude(this), Find_Func("IsBulletTarget", GetID(), this, 0, GetX(), GetY())))
+	if(fHit) return;
+	var target = FindObject2(Find_AtPoint(), Find_Exclude(this), Find_Func("IsBulletTarget", GetID(), this, 0, GetX(), GetY()));
+  if(target) {
+  	if(GetOCF(target) & OCF_Alive && Hostile(GetOwner(target), GetController())) {
+  		DoAchievementProgress(1, AC16, GetController());
+  	}
     Hit();
+  }
 }
 
 /* Schaden */
