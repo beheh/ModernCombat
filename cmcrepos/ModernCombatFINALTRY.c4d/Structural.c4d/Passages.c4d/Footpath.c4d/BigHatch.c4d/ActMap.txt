@@ -42,14 +42,3 @@ FlipDir=0
 Delay=2
 Reverse=1
 NextAction=Closed
-
-[Action]
-Name=Destroyed
-Procedure=NONE
-Facet=240,0,30,30
-Directions=1
-Length=3
-FlipDir=1
-NoOtherAction=1
-ObjectDisabled=1
-NextAction=Hold
