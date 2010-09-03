@@ -615,6 +615,8 @@ public func ControlThrow(caller)
           SetYDir(-Cos(angle*dir,pwr),target,10);
           ObjectSetAction(target, "Tumble");
         }
+        if(!GetAlive(target) || IsFakeDeath(target))
+     			DoAchievementProgress(1, AC14, GetOwner(GetUser()));
 
         Sound("ClonkMelee*.ogg", 0, this);
         Sound("WPN2_Punch.ogg", 0, this);
