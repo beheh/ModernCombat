@@ -98,7 +98,7 @@ public func FMData1T3(int data)
 {
   if(data == FT_Name)		return "$Single$";
 
-  if(data == FM_Recharge)	return 7;
+  if(data == FM_Recharge)	return 8;
 
   if(data == FM_Auto)		return false;
 
