@@ -797,10 +797,14 @@ public func Damage()
   if(GetContact(this, -1))	ResetAutopilot();
   if(GetDamage() < MaxDamage())	return;
 
-  DestroyHeli();
+  Destroy();
 }
 
-func DestroyHeli()
+public func OnHit(int iDamage, int iType, object pFrom) {
+	SetController(GetController(pFrom));
+}
+
+public func Destroy()
 {
   //Inhalt auswerfen und töten bzw. zerstören
   for(var obj in FindObjects(Find_Container(this), Find_Not(Find_ID(FKDT))))
