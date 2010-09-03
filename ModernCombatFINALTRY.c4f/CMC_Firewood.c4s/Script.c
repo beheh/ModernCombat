@@ -293,9 +293,9 @@ func CreateEquipment()
   PlaceSpawnpoint(DGNN, 1640, 300);
 
   //Motorboote
-  SetupVehicleSpawn([INFL],DIR_Right,CreateObject(VSPW,670,620,-1),10*10);
-  SetupVehicleSpawn([INFL],DIR_Right,CreateObject(VSPW,1640,620,-1),10*10);
-  SetupVehicleSpawn([INFL],DIR_Left,CreateObject(VSPW,2590,620,-1),10*10);
+  SetupVehicleSpawn([INFL],DIR_Right,CreateObject(VSPW,670,620,-1),50*21,300);
+  SetupVehicleSpawn([INFL],DIR_Right,CreateObject(VSPW,1640,620,-1),50*21,300);
+  SetupVehicleSpawn([INFL],DIR_Left,CreateObject(VSPW,2590,620,-1),50*21,300);
 }
 
 /* Regelwähler */

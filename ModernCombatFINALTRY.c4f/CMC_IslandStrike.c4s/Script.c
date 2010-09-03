@@ -609,18 +609,18 @@ func CreateEquipment()
   CreateObject(ATBY,7360,310,-1);
 
   //Motorboote
-  SetupVehicleSpawn([INFL],DIR_Right,CreateObject(VSPW,1245,520,-1),10*10);
-  SetupVehicleSpawn([INFL],DIR_Left,CreateObject(VSPW,2195,520,-1),10*10);
+  SetupVehicleSpawn([INFL],DIR_Right,CreateObject(VSPW,1245,520,-1),50*21,300);
+  SetupVehicleSpawn([INFL],DIR_Left,CreateObject(VSPW,2195,520,-1),50*21,300);
 
-  SetupVehicleSpawn([INFL],DIR_Right,CreateObject(VSPW,4640,560,-1),10*10);
-  SetupVehicleSpawn([INFL],DIR_Left,CreateObject(VSPW,5565,560,-1),10*10);
+  SetupVehicleSpawn([INFL],DIR_Right,CreateObject(VSPW,4640,560,-1),50*21,300);
+  SetupVehicleSpawn([INFL],DIR_Left,CreateObject(VSPW,5565,560,-1),50*21,300);
 
-  SetupVehicleSpawn([INFL],DIR_Left,CreateObject(VSPW,7440,520,-1),10*10);
+  SetupVehicleSpawn([INFL],DIR_Left,CreateObject(VSPW,7440,520,-1),50*21,200);
 
   //Blackhawks
-  //SetupVehicleSpawn([H_HE],DIR_Right,CreateObject(VSPW,590,410,-1),100*21);
-  SetupVehicleSpawn([H_HE],DIR_Left,CreateObject(VSPW,4700,290,-1),100*21);
-  //SetupVehicleSpawn([H_HE],DIR_Left,CreateObject(VSPW,7750,290,-1),100*21);
+  //SetupVehicleSpawn([H_HE],DIR_Right,CreateObject(VSPW,590,410,-1),100*21,300);
+  SetupVehicleSpawn([H_HE],DIR_Left,CreateObject(VSPW,4700,290,-1),100*21,300);
+  //SetupVehicleSpawn([H_HE],DIR_Left,CreateObject(VSPW,7750,290,-1),100*21,300);
 }
 
 /* Bei Flaggenübernahme */
