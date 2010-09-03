@@ -364,6 +364,8 @@ global func FakeDeath(object pTarget)
 	  if(GetProcedure(pTarget) == "FLIGHT" && GetProcedure(GetCursor(GetKiller(pTarget))) == "FLIGHT")
   		DoAchievementProgress(1, AC10, GetKiller(pTarget));
  	}
+	ResetAchievementProgress(AC12, GetOwner());
+	ResetAchievementProgress(AC14, GetOwner());
 	
   //Fake Death erstellen
   if(WildcardMatch(GetAction(pTarget),"*Crawl*"))
@@ -446,6 +448,7 @@ func Death(object pTarget)
   }
   SetAchievementExtra(data, AC08, GetKiller(pTarget));
   ResetAchievementProgress(AC12, GetOwner());
+	if(!IsFakeDeath()) ResetAchievementProgress(AC14, GetOwner());
 
   //Todesnachricht bei keinem FakeDeath
   if(FindObject(NOFD))

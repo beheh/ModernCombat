@@ -130,7 +130,7 @@ func Use(caller)
     {
      //Schaden durch elektrischen Schlag (und Schleudern)
      DoDmg(30+Random(10),DMG_Energy,target,0,GetController(caller)+1,GetID());
-     if(!GetAlive(target) && !IsFakeDeath(target))
+     if(!GetAlive(target) || IsFakeDeath(target))
      	DoAchievementProgress(1, AC05, GetOwner(GetUser()));
      Fling(target,2*dir,-2);
      if(!target)//Könnte ja jetzt weg sein.
