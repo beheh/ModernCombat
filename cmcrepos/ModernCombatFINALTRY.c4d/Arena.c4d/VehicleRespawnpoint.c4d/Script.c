@@ -177,7 +177,7 @@ global func FxIntVehicleUnusedStart(object pTarget, int iEffectNumber, id idType
   return 1;
 }
 
-global func FxIntVehicleUnusedTimer(object pTarget, int iEffectNumber, id idType)
+global func FxIntVehicleUnusedTimer(object pTarget, int iEffectNumber, int iTime)
 {
   var pSpawner = EffectVar(0,pTarget,iEffectNumber);
   var iDistance = EffectVar(1,pTarget,iEffectNumber);
@@ -197,7 +197,7 @@ global func FxIntVehicleUnusedTimer(object pTarget, int iEffectNumber, id idType
     }
   }
   if(remove) return -1;
-  DoDmg(1, DMG_Melee, pTarget);
+  DoDmg(Max(1, (iTime/10)*2), DMG_Melee, pTarget);
   return 1;
 }
 
