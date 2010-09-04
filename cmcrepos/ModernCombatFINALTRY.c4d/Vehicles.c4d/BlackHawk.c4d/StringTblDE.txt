@@ -22,4 +22,4 @@ GunnerDesc=Übernehme die Kontrolle über die außen angebrachte Maschinenkanone.
 Coordinator=Koordinator
 CoordinatorDesc=Steuere das Raketenwerfersystem mit optisch lenkbaren Raketen.
 Passenger=Passagier
-PassengerSeat=Ein Sitzplatz mit Seil zum Ausklinken.
+PassengerDesc=Ein Sitzplatz mit Seil zum Ausklinken.
