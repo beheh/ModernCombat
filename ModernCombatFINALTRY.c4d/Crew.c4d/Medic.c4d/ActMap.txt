@@ -321,7 +321,7 @@ Delay=3
 Facet=0,300,16,20,0,0
 NextAction=Hold
 StartCall=JumpStart
-InLiquidAction=Swim
+InLiquidAction=SwimArmed
 
 [Action]
 Name=Aim

@@ -3,10 +3,11 @@
 #strict 2
 #include PCMK
 
-public func WeaponCollectionLimit() { return 2; } // max. Waffen im Inventar
-public func ObjectCollectionLimit() { return 3; } // max. Objekte im Inventar
+public func WeaponCollectionLimit()	{return 2;}	//Anzahl Waffen im Inventar
+public func ObjectCollectionLimit()	{return 3;}	//Anzahl Objekte im Inventar
 
-protected func IsMedic() { return 1; } //Diese eine Zeile macht den Clonk so besonders.
+protected func IsMedic()		{return 1;}
+
 
 public func HazardGearSupported(object pGear)
 {

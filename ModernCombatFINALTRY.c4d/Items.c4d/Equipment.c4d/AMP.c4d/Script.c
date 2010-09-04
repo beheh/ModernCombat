@@ -19,6 +19,9 @@ public func NoArenaRemove()	{return true;}
 
 protected func Initialize()
 {
+  //Keine Munition Regel: Kein Existenzgrund
+  if(FindObject(NOAM)) Schedule("RemoveObject()", 1);
+
   //Punkteregeneration
   AddEffect("AMPKRegenerate",this,251,20,this,GetID());
   //Gruppenaufstockung
@@ -127,12 +130,12 @@ public func FxAMPKLightTimer(pTarget, iNo, iTime)
 public func FxAMPKRestockingTimer(pTarget, iEffectNumber, iEffectTime)
 {
   //Kriterien
-  if(!Contained())						return 1;	//Nicht im Freien
-  if(!Contained()->~IsClonk())			return 1;	//Nur wenn von einem Clonk getragen
-  if(Contained(Contained()))			return 1;	//Container nicht im Freien
-  if(GetAmmoPoints() < 30)				return 1;	//Nur wenn noch Punkte da sind
+  if(!Contained())			return 1;	//Nicht im Freien
+  if(!Contained()->~IsClonk())		return 1;	//Nur wenn von einem Clonk getragen
+  if(Contained(Contained()))		return 1;	//Container nicht im Freien
+  if(GetAmmoPoints() < 30)		return 1;	//Nur wenn noch Punkte da sind
   if(Contents(0,Contained()) != this)	return 1;	//Nur, falls angewählt
-  if(GetID(Contained()) == FKDT)		return 1;	//Im FakeDeath-Objekt?
+  if(GetID(Contained()) == FKDT)	return 1;	//Im FakeDeath-Objekt?
 
   //Harte Vorauswahl überlebt? Los geht's.
   for(var target in FindObjects(Find_OCF(OCF_Alive),			//Ziel am Leben?
@@ -141,7 +144,6 @@ public func FxAMPKRestockingTimer(pTarget, iEffectNumber, iEffectTime)
                                 Find_Allied(GetOwner(Contained())),	//Verbündet?
                                 Find_Exclude(Contained())))  		//Nicht der selbe Clonk?
   {
-
     if(!(target->~IsClonk()))						//Ziel ein Clonk?
      continue;
 
@@ -187,7 +189,7 @@ public func FxAMPKRestockingTimer(pTarget, iEffectNumber, iEffectTime)
     Sound("Resupply.ogg");
     DoAmmoPoints(-ammoID->MaxAmmo()/10*factor);
 
-	//Achievement-Fortschritt
+    //Achievement-Fortschritt
     DoAchievementProgress(ammoID->MaxAmmo()/10*factor, AC03, GetOwner(Contained()));
 		
     //Punkte bei Belohnungssystem
@@ -227,6 +229,7 @@ protected func Selection()
   return 1;
 }
 
-public func AI_Inventory(object pClonk) {
-	return 1;
+public func AI_Inventory(object pClonk)
+{
+  return 1;
 }
