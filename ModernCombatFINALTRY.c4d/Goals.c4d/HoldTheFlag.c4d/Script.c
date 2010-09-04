@@ -8,15 +8,18 @@ local aTeamPoints;	//Die Punkte jedes Teams
 local iProgress;	//Bei 100% bekommt das Team einen Punkt
 local iGoal;		//So viele Punkte gilt es zu erreichen
 
+
 /* Initialisierung */
 
-protected func Initialize() {
+protected func Initialize()
+{
   iGoal = 10;
   aKill = [];
   aDeath = [];
 }
 
-public func ChooserFinished() {
+public func ChooserFinished()
+{
   SetFlag(FindObject(OFLP));
   aTeamPoints = [];
   AddEffect("IntAddProgress", this, 1, 10, this);
@@ -24,20 +27,23 @@ public func ChooserFinished() {
 
 /* Konfiguration */
 
-public func IsConfigurable() { return true; }
+public func IsConfigurable()		{return true;}
 
-public func ConfigMenu(object pCaller) {
+public func ConfigMenu(object pCaller)
+{
   OpenGoalMenu();
   return 1;
 }
 
-private func ConfigFinished() {
+private func ConfigFinished()
+{
   var chos = FindObject(CHOS);
   if(chos)
     chos->OpenMenu();
 }
 
-private func OpenGoalMenu(id dummy, int iSelection) {
+private func OpenGoalMenu(id dummy, int iSelection)
+{
   var pClonk = GetCursor();
   CreateMenu(GetID(),pClonk,0,0,0,0,1);
 
@@ -49,11 +55,12 @@ private func OpenGoalMenu(id dummy, int iSelection) {
   SelectMenuItem(iSelection, pClonk);
 }
 
-private func ChangeWinpoints(id dummy, int iChange) {
+private func ChangeWinpoints(id dummy, int iChange)
+{
   //Stand verändern
   iGoal = BoundBy(iGoal+iChange,1,100); //100 ist Maximum.
-  //Geräusch
-  Sound("PointGet.ogg", 1,0,0,1);
+  //Sound
+  Sound("Grab", 1,0,0,1);
   //Menü wieder öffnen
   var iSel = 1;
   if(iChange == -1) iSel = 2;
@@ -62,7 +69,8 @@ private func ChangeWinpoints(id dummy, int iChange) {
 
 /* Effekt */
 
-protected func FxIntAddProgressTimer() {
+protected func FxIntAddProgressTimer()
+{
   //Keine Flagge?
   if (!pFlag && !SetFlag(FindObject(OFPL)))
     return;
@@ -74,7 +82,8 @@ protected func FxIntAddProgressTimer() {
   //Keiner hat sie?
   if (team == -1) return;
   //Nicht vollständig eingenommen?
-  if (!pFlag->IsFullyCaptured()) {
+  if (!pFlag->IsFullyCaptured())
+  {
     iProgress = 0;
 	//Nochmal updaten damit nicht das falsche Team die Prozente zugeschrieben bekommt
 	return UpdateScoreboard();
@@ -87,28 +96,31 @@ protected func FxIntAddProgressTimer() {
 	iProgress = 0;
 	//Und jedem Spieler im Team 10 Punkte geben.
 	for (var i; i < GetPlayerCount(); i++)
-	  if (GetPlayerTeam(GetPlayerByIndex(i)) == team) {
+	  if (GetPlayerTeam(GetPlayerByIndex(i)) == team)
+          {
 	    DoPlayerPoints(10, RWDS_TeamPoints, GetPlayerByIndex(i), GetCrew(GetPlayerByIndex(i)), IC12);
-		Sound("Info.ogg", true, 0, 0, GetPlayerByIndex(i)+1);
+	      Sound("Info.ogg", true, 0, 0, GetPlayerByIndex(i)+1);
 	  }
 	  //Die anderen warnen falls nötig
 	  else
-	    if (aTeamPoints[team] == warning)
-		  EventInfo4K(GetPlayerByIndex(i)+1, Format("$TeamReachingGoal$", GetTaggedTeamName(team), iGoal-warning), GHTF, 0, 0, 0, "Alarm.ogg");
+	    if(aTeamPoints[team] == warning)
+	      EventInfo4K(GetPlayerByIndex(i)+1, Format("$TeamReachingGoal$", GetTaggedTeamName(team), iGoal-warning), GHTF, 0, 0, 0, "Alarm.ogg");
   }
-  
+
   //Gewonnen?
-  if (!EffectVar(0, Par(), Par(1))) //Bla.
+  if (!EffectVar(0, Par(), Par(1)))
     EffectVar(0, Par(), Par(1)) = IsFulfilled();
 }
 
 /* Zeug */
 
-protected func Activate(iPlr) {
+protected func Activate(iPlr)
+{
   return MessageWindow(GetDesc(), iPlr);
 }
 
-protected func RelaunchPlayer(int iPlr, object pCrew, int iKiller, int iTeam, no_relaunch) {
+protected func RelaunchPlayer(int iPlr, object pCrew, int iKiller, int iTeam, no_relaunch)
+{
   Money(iPlr, pCrew, iKiller);
 
   aDeath[iPlr]++;
@@ -119,9 +131,10 @@ protected func RelaunchPlayer(int iPlr, object pCrew, int iKiller, int iTeam, no
     CreateGOCCSpawner(pCrew);
 }
 
-public func IsTeamGoal() {return 1;}
+public func IsTeamGoal()		{return 1;}
 
-public func SetFlag(object pFlagPole) {
+public func SetFlag(object pFlagPole)
+{
   pFlag = pFlagPole;
   //GameCall für Szenarien.
   //Die Funktion sollte anhand der Anzahl der aktiven Teams (1. Parameter) die Zeit berechnen und zurückgeben.
@@ -133,49 +146,55 @@ public func SetFlag(object pFlagPole) {
   return pFlag;
 }
 
-public func GetFlag() {
+public func GetFlag()
+{
   return pFlag;
 }
 
-public func FlagLost(object pFlagPole, int iOldTeam, int iNewTeam, array aAttackers) {
+public func FlagLost(object pFlagPole, int iOldTeam, int iNewTeam, array aAttackers)
+{
   //Ist es die Flagge?
   if (pFlagPole != pFlag)
     return;
   //Punkte für die Angreifer
   for (var clonk in aAttackers)
-    if (clonk)
-	  DoPlayerPoints(10, RWDS_TeamPoints, GetOwner(clonk), clonk, IC13);
+    if(clonk)
+      DoPlayerPoints(10, RWDS_TeamPoints, GetOwner(clonk), clonk, IC13);
 
   //Eventmessages
   for (var i; i < GetPlayerCount(); i++)
     if (GetPlayerTeam(GetPlayerByIndex(i)) == iOldTeam)
-	  EventInfo4K(GetPlayerByIndex(i)+1, Format("$MsgFlagLost$", GetName(pFlag), GetTeamColor(iNewTeam), GetTeamName(iNewTeam)), OFLG, 0, GetTeamColor(iNewTeam), 0, "Info.ogg");
+      EventInfo4K(GetPlayerByIndex(i)+1, Format("$MsgFlagLost$", GetName(pFlag), GetTeamColor(iNewTeam), GetTeamName(iNewTeam)), OFLG, 0, GetTeamColor(iNewTeam), 0, "Info.ogg");
 }
 
-public func FlagCaptured(object pFlagPole, int iTeam, array aAttackers, bool fRegained) {
+public func FlagCaptured(object pFlagPole, int iTeam, array aAttackers, bool fRegained)
+{
   //Ist es die Flagge?
   if (pFlagPole != pFlag)
-	return;
-	
+    return;
+
   var first = true; //Der erste bekommt mehr Punkte, der Rest bekommt Assistpunkte
   for (var clonk in aAttackers)
-    if (clonk) {
-	  if (fRegained)
-	    DoPlayerPoints(30, RWDS_TeamPoints, GetOwner(clonk), clonk, IC12);
-	  else {
-	    if (first)
-	      DoPlayerPoints(50, RWDS_TeamPoints, GetOwner(clonk), clonk, IC10);
-		else
-		  DoPlayerPoints(10, RWDS_TeamPoints, GetOwner(clonk), clonk, IC11);
-	  }
-	  first = false;
-	}
+    if (clonk)
+    {
+      if (fRegained)
+        DoPlayerPoints(30, RWDS_TeamPoints, GetOwner(clonk), clonk, IC12);
+      else
+      {
+        if(first)
+          DoPlayerPoints(50, RWDS_TeamPoints, GetOwner(clonk), clonk, IC10);
+          else
+          DoPlayerPoints(10, RWDS_TeamPoints, GetOwner(clonk), clonk, IC11);
+      }
+      first = false;
+    }
 
-  //Eventmessages
+  //Nachricht über Flaggeneroberung
   EventInfo4K(0, Format("$MsgCaptured$", GetTeamColor(iTeam), GetTeamName(iTeam), GetName(pFlag)), OFLG, 0, GetTeamColor(iTeam), 0, "Info.ogg");
 }
 
-private func Interpolate(val1, val2, step, max) {
+private func Interpolate(val1, val2, step, max)
+{
   return val1+(val2-val1)*step/max;
 }
 
@@ -186,16 +205,17 @@ static const GHTF_Points = 0;
 static const GHTF_Progress = 1;
 static const GHTF_FlagRow = 1024;
 
-public func UpdateScoreboard() {
+public func UpdateScoreboard()
+{
   //Wird noch eingestellt
   if (FindObject(CHOS))
     return;
-	
+
   //Titelzeile
   SetScoreboardData(SBRD_Caption, GHTF_Name, Format("%d $Points$", iGoal));
   SetScoreboardData(SBRD_Caption, GHTF_Points, "{{GHTF}}");
   SetScoreboardData(SBRD_Caption, GHTF_Progress, "{{OFPL}}");
-  
+
   //Flaggenzeile
   var color = GetTeamColor(pFlag->GetTeam()),
   prog = pFlag->GetProcess();
@@ -207,19 +227,21 @@ public func UpdateScoreboard() {
   if (trend == -1) icon = IC13;
   if (trend == 1) icon = IC10;
   SetScoreboardData(GHTF_FlagRow, GHTF_Points, Format("{{%i}}", icon), GHTF_FlagRow-1);
-  
+
   //Leere Zeile
   SetScoreboardData(GHTF_FlagRow-1, GHTF_Progress, "", GHTF_FlagRow-1);
   SetScoreboardData(GHTF_FlagRow-1, GHTF_Points, "", GHTF_FlagRow-1);
-  
-  //Und... alle Teams...
+
+  //Alle Teams
   var iFlagTeam = pFlag->~GetTeam();
-  for (var i, j; i < GetTeamCount(); j++) {
+  for (var i, j; i < GetTeamCount(); j++)
+  {
     //Team gibts. Hochzählen
     if (GetTeamName(j))
 	  i++;
 	//Team gibts nicht oder keine Spieler drin
-	if (!GetTeamName(j) || !GetTeamPlayerCount(j)) {
+	if (!GetTeamName(j) || !GetTeamPlayerCount(j))
+        {
 	  SetScoreboardData(j, GHTF_Name);
 	  SetScoreboardData(j, GHTF_Points);
 	  SetScoreboardData(j, GHTF_Progress);
@@ -233,7 +255,7 @@ public func UpdateScoreboard() {
 	else
 	  SetScoreboardData(j, GHTF_Progress, Format("<c %x>00%</c>", GetTeamColor(j)), -1);
   }
-  
+
   //So... Erstmal nach Flaggenstatus sortieren
   SortScoreboard(GHTF_Progress, true);
   //Und dann nochmal nach Punkten. Damit bei gleicher Punktzahl das Team vorne ist, das gerade die Flagge hält
@@ -244,46 +266,67 @@ public func UpdateScoreboard() {
 
 local fulfilled;
 
-public func IsFulfilled() {
+public func IsFulfilled()
+{
   if (fulfilled) return true;
   for (var i; i < GetLength(aTeamPoints); i++)
-    if (aTeamPoints[i] >= iGoal) {
-	  //Team hat gewonnen. Alle anderen durchgehen und eliminieren
-	  for (var team, j = GetTeamCount(); j; team++)
-	    if (GetTeamName(team)) {
-		  j--;
-		  if (team != i)
-		    EliminateTeam(team);
-		}
-	  Schedule("GameOver()", 150);
-	  RewardEvaluation();
-	  Message("@$TeamHasWon$", 0, GetTeamColor(i), GetTeamName(i));
-	  Sound("Cheer.ogg", true);
-	  return fulfilled = true;
+    if (aTeamPoints[i] >= iGoal)
+    {
+      //Team hat gewonnen. Alle anderen durchgehen und eliminieren
+      for (var team, j = GetTeamCount(); j; team++)
+      if (GetTeamName(team))
+      {
+        j--;
+        if (team != i)
+          EliminateTeam(team);
+      }
+      //Spielende planen
+      Schedule("GameOver()", 150);
+
+      //Auswertung
+      RewardEvaluation();
+
+      //Nachricht über Gewinner
+      Message("@$TeamHasWon$", 0, GetTeamColor(i), GetTeamName(i));
+
+      //Sound
+      Sound("Cheer.ogg", true);
+
+      return fulfilled = true;
     }
-  //Nur noch eins übrig Oo
-  if (GetActiveTeamCount() <= 1) {
+  //Nur noch eins übrig
+  if (GetActiveTeamCount() <= 1)
+  {
     var i = GetPlayerTeam(GetPlayerByIndex());
-	Schedule("GameOver()", 150);
-	RewardEvaluation();
-	Message("@$TeamHasWon$", 0, GetTeamColor(i), GetTeamName(i));
-	Sound("Cheer.ogg", true);
-	return fulfilled = true;  
+    //Spielende planen
+    Schedule("GameOver()", 150);
+
+    //Auswertung
+    RewardEvaluation();
+
+    //Nachricht über Gewinner
+    Message("@$TeamHasWon$", 0, GetTeamColor(i), GetTeamName(i));
+
+    //Sound
+    Sound("Cheer.ogg", true);
+
+    return fulfilled = true;  
   }
 }
 
-/* Zeug aus TEAM */
+/* Ungenutze Funktionen */
 
-private func InitScoreboard() {}
-private func InitMultiplayerTeam(int iTeam) {}
-private func RemoveMultiplayerTeam(int iTeam) {}
-private func InitSingleplayerTeam(int iPlr) {}
-private func RemoveSingleplayerTeam(int iPlr) {}
-private func InitPlayer(int iPlr) {}
-private func RemoveScoreboardPlayer(int iPlr) {}
-public func WinScoreChange(int iNewScore) {}
-private func SortTeamScoreboard()	{}
+private func InitScoreboard()			{}
+private func InitMultiplayerTeam(int iTeam)	{}
+private func RemoveMultiplayerTeam(int iTeam)	{}
+private func InitSingleplayerTeam(int iPlr)	{}
+private func RemoveSingleplayerTeam(int iPlr)	{}
+private func InitPlayer(int iPlr)		{}
+private func RemoveScoreboardPlayer(int iPlr)	{}
+public func WinScoreChange(int iNewScore)	{}
+private func SortTeamScoreboard()		{}
 
-private func TeamGetScore(int iTeam) {
+private func TeamGetScore(int iTeam)
+{
   return aTeamPoints[iTeam];
 }

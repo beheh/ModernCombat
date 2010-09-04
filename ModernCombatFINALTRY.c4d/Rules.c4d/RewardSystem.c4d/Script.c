@@ -83,7 +83,7 @@ public func Evaluate()
                    db->GetPlayerPoints(RWDS_TeamPoints, iPlr),
                    db->GetPlayerPoints(RWDS_MinusPoints, iPlr));
     aList[GetPlayerTeam(iPlr)][GetLength(aList[GetPlayerTeam(iPlr)])] = [szTotal, szComplete];
-    AddEvaluationData(Format("{{WCR2}}$Points$: %d", db->GetPlayerPoints(RWDS_TotalPoints, iPlr)), iPlr+1);
+    AddEvaluationData(Format("{{IC01}}$Points$: %d", db->GetPlayerPoints(RWDS_TotalPoints, iPlr)), iPlr+1);
     iPlr++;
   }
   

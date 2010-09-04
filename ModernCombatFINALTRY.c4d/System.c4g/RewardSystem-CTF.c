@@ -1,8 +1,10 @@
 /*-- CTF --*/
+
 //Punkte für Flaggen stehlen und zurückbringen.
 
 #strict 2
 #appendto RWDS
+
 
 public func FlagScored(int iTeam, int iCTeam, object pClonk)
 {
