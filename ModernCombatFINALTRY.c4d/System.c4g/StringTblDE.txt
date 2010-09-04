@@ -49,3 +49,8 @@ NewTeam=Neues Team
 FairTeams=Faire Teams
 FairTeamsInfo=Alle Teams auffüllen, so dass überall die gleiche Anzahl Clonks vorhanden ist
 OnlyDeleteLastTeam=Das letzte Team muss als erstes entfernt werden!
+
+// Team
+
+Kills=Kills
+Death=Tode

@@ -49,3 +49,8 @@ NewTeam=New Team
 FairTeams=Fair Teams
 FairTeamsInfo=Fair match
 OnlyDeleteLastTeam=The last team has to be removed first!
+
+// Team
+
+Kills=Kills
+Death=Death

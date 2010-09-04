@@ -22,4 +22,4 @@ GunnerDesc=Take control over the outside automatic cannon.
 Coordinator=Coordinator
 CoordinatorDesc=Control the rocketlauncher system with optical guided missiles.
 Passenger=Passenger
-PassengerSeat=A seat with rope to opt out.
+PassengerDesc=A seat with rope to opt out.
