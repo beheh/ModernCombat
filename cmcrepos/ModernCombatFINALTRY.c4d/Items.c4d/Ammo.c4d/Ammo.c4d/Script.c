@@ -3,8 +3,8 @@
 #strict 2
 
 public func IsAmmoPacket()	{return GetID() != MCAM;}
-public func AmmoID()      	{return STAM;}
-public func AmmoCount()   	{return 100;}
+public func AmmoID()		{return STAM;}
+public func AmmoCount()		{return 100;}
 public func NoArenaRemove()	{return true;}
 
 
