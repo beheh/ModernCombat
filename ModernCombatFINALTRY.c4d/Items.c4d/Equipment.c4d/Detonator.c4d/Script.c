@@ -88,7 +88,7 @@ public func ControlThrow(object pByObj)
   }
 
   //Beim Schwimmen
-  if(GetAction(pByObj) == "Swim")
+  if(GetProcedure(pByObj) == "SWIM")
   {
    SetPosition(GetX(pByObj),GetY(pByObj)+5, c4);
    SetXDir(GetXDir(pByObj)+(GetDir(pByObj)*2-1)*20, c4);
