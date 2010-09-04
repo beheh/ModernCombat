@@ -186,6 +186,8 @@ protected func DoAmmoPack(id idType)
 }
 
 public func ReadyToFire() {
+  if (GetProcedure() == "SWIM")
+    return;
   if(GetAction() == "Crawl" && Contents() && Contents()->~CanAim() && Contents()->~IsEquipment())
       return true;
   return _inherited(...);
