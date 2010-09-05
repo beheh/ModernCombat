@@ -379,9 +379,9 @@ func CreateEquipment()
   SetupVehicleSpawn([INFL],DIR_Left,CreateObject(VSPW,2990,520,-1),50*21,300);
   SetupVehicleSpawn([INFL],DIR_Left,CreateObject(VSPW,4310,520,-1),50*21,300);
 
-  //Blackhawks
-  SetupVehicleSpawn([H_HE],DIR_Right,CreateObject(VSPW,1655,270,-1),100*21,300);
-  SetupVehicleSpawn([H_HE],DIR_Left,CreateObject(VSPW,4355,270,-1),100*21,300);
+  //Blackhawks?
+  //SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,1655,270,-1),100*21,300);
+  //SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,4355,270,-1),100*21,300);
 
   //Automaten
   var store = CreateObject(WPVM,1500, 430,-1);
