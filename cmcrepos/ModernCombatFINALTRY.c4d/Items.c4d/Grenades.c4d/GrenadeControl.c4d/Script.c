@@ -57,7 +57,7 @@ func HitObject(object pObj)
 
 func Hit(int iXDir, int iYDir)
 {
-  //Geräusch3
+  //Sound
   HitSound();
 
   //Entsprechende Hüpfbewegung
@@ -69,7 +69,8 @@ func Hit(int iXDir, int iYDir)
 
 /* Aimstart */
 
-public func AimStart() {
+public func AimStart()
+{
   if(!Contained()) return;
   Contained()->~DoAiming(-30);
 }
@@ -82,15 +83,20 @@ public func ControlThrow(object caller)
   var user = caller;
   var delay = GetThrowDelay(GetUser());
   
-  if(user->~IsClonk()) {
-    if(!user->~IsAiming() && user->~IsCrawling()) {
-      if(user->~IsCrawling() && user->~ReadyToAim()) {
+  if(user->~IsClonk())
+  {
+    if(!user->~IsAiming() && user->~IsCrawling())
+    {
+      if(user->~IsCrawling() && user->~ReadyToAim())
+      {
         user->~StartAiming();
         return 1;
       }
     }
-    else {
-      if(!IsFusing() && !delay) {
+    else
+    {
+      if(!IsFusing() && !delay)
+      {
         Fuse();
         return true;
       }
@@ -99,7 +105,7 @@ public func ControlThrow(object caller)
 
   if(!Contained(GetUser()))
   {
-   GetUser()->~CheckArmed();//Noch einmal schnell prüfen.
+   GetUser()->~CheckArmed();
    if(GetUser()->~ReadyToFire() && !delay)
    {
     Throw();
@@ -114,13 +120,17 @@ public func Throw()
 {
   var user = GetUser();
 
-  if(user->~IsClonk()) {
-    if(!user->~IsAiming()) {
-      if(user->~IsCrawling() && user->~ReadyToAim()) {
+  if(user->~IsClonk())
+  {
+    if(!user->~IsAiming())
+    {
+      if(user->~IsCrawling() && user->~ReadyToAim())
+      {
         user->~StartAiming();
         return 1;
       }
-      else {
+      else
+      {
         if((user->GetProcedure() == "WALK")||(user->GetProcedure() == "THROW"))
           user->SetAction("Throw");
       }
@@ -238,7 +248,7 @@ public func FxIntFuseTimer(object pTarget, int iEffectNumber, int iEffectTime)
   return -1;
 }
 
-public func FxIntFuseStop(object pTarget) { }
+public func FxIntFuseStop(object pTarget)	{}
 
 public func Fuse()
 {
@@ -258,7 +268,7 @@ public func Fused2(object pContainer)
    if(GetOCF(pContainer) & OCF_Living)
    {
     Fling(pContainer,-1);
-    DoDmg(ContainedDamage(),DMG_Fire, pContainer);//Autsch! >_<
+    DoDmg(ContainedDamage(),DMG_Fire, pContainer);
    }
   }
   RemoveEffect("HitCheck",this);
@@ -283,13 +293,14 @@ func GetCharge()
   return user->GrenadeCount(GetID())+1;
 }
 
-func CustomHUD() {return true;}
+func CustomHUD()	{return true;}
+
 func UpdateHUD(object pHUD)
 {
   var user = GetUser();
   if(!user) return ;
   if(!user->~MaxGrenades()) return 0;
-  
+
   pHUD->Charge(user->GrenadeCount(GetID()),(user->MaxGrenades() - user->GrenadeCount()) + user->GrenadeCount(GetID()));
   pHUD->Ammo(user->GrenadeCount(GetID()),(user->MaxGrenades() - user->GrenadeCount()) + user->GrenadeCount(GetID()), GetName(), true);
   pHUD->Recharge(GetThrowDelayTime(GetUser()), ThrowDelay());
@@ -303,9 +314,9 @@ public func ReadyToFire()
 public func GetUser()
 {
   if(!controller)
-   if(Contained())
-    if(GetOCF(Contained()) & OCF_Alive)//*grummel* nicht sooo toll
-     controller = Contained();
+    if(Contained())
+      if(GetOCF(Contained()) & OCF_Alive)//*grummel* nicht sooo toll
+        controller = Contained();
 
   return controller;
 }
@@ -335,9 +346,9 @@ public func FxHitCheckStart(object target, int effect, int temp, object byObj)
   EffectVar(0, target, effect) = GetX(target);
   EffectVar(1, target, effect) = GetY(target);
   if(!byObj)
-   byObj = target;
+    byObj = target;
   if(Contained(byObj))
-   byObj = (Contained(byObj));
+    byObj = (Contained(byObj));
   EffectVar(2, target, effect) = byObj;
   EffectVar(3, target, effect) = GetID(byObj);
   EffectVar(4, target, effect) = false;
@@ -346,16 +357,19 @@ public func FxHitCheckStart(object target, int effect, int temp, object byObj)
 
 /* Wurfverzögerung */
 
-public func GetThrowDelay(object pObj) {
+public func GetThrowDelay(object pObj)
+{
   return GetEffect("IntGrenadeThrowDelay", pObj);
 }
 
 //Muss separat sein, da diese Funktion auch 0 zurückgeben kann
-public func GetThrowDelayTime(object pObj) {
+public func GetThrowDelayTime(object pObj)
+{
   return GetEffect("IntGrenadeThrowDelay", pObj, 0, 6);
 }
 
-public func AddThrowDelay(object pObj) {
+public func AddThrowDelay(object pObj)
+{
   if (!GetThrowDelay(pObj))
     return AddEffect("IntGrenadeThrowDelay", pObj, 1, ThrowDelay(), 0, GetID());
 }
