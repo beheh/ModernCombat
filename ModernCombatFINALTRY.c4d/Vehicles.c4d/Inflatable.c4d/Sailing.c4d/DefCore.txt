@@ -16,7 +16,6 @@ TopFace=0,22,80,22
 BlastIncinerate=35
 Rebuy=1
 Float=-7
-#UprightAttach=8
 BorderBound=1
 Vertices=5
 VertexX=0,36,-34,36,-34
