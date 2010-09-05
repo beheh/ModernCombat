@@ -590,7 +590,7 @@ public func ControlThrow(caller)
   
   var meleeattacked;
   //möglich einen Nahkampfangriff zu machen?
-  if(!GetEffect("StrikeRecharge", this) && GetMCData(MC_CanStrike) && (WildcardMatch(GetAction(caller),"*Walk*") || WildcardMatch(GetAction(caller),"*Jump*") || WildcardMatch(GetAction(caller),"*Swim*")) && (GetFMData(FM_Aim) == 0 || GetUser()->~IsAiming() || GetUser()->~AimOverride()))
+  if(!GetEffect("StrikeRecharge", this) && GetMCData(MC_CanStrike) && (caller->~ReadyToFire() || caller->~ReadyToAttack()) && !caller->~IsAiming() && (GetFMData(FM_Aim) == 0 || GetUser()->~IsAiming() || GetUser()->~AimOverride()))
   {
     var dir = GetDir(GetUser());
     var obj = FindObjects(Find_InRect(-15+10*dir,-10,20,20),Find_OCF(OCF_Alive),Find_NoContainer(),Find_Exclude(caller));
@@ -617,8 +617,9 @@ public func ControlThrow(caller)
 		        ObjectSetAction(target, "Tumble");
           }
         }
-        if(!GetAlive(target) || IsFakeDeath(target))
-     			DoAchievementProgress(1, AC14, GetOwner(GetUser()));
+        if(GetOwner(target) != NO_OWNER && Hostile(GetOwner(target), GetController(GetUser())))
+	        if(!GetAlive(target) || IsFakeDeath(target))
+  	   			DoAchievementProgress(1, AC14, GetOwner(GetUser()));
 
         Sound("ClonkMelee*.ogg", 0, this);
         Sound("WPN2_Punch.ogg", 0, this);
