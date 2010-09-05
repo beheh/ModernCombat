@@ -78,8 +78,8 @@ public func DamageReceived()
 
 protected func Align()
 {
-  SetPosition(BoundBy(GetX(pHelicopter), GetDefWidth(GetID())/2, LandscapeWidth()-GetDefWidth(GetID())/2),
-    BoundBy(GetY(pHelicopter), GetDefHeight(GetID())/2, LandscapeHeight()-GetDefHeight(GetID())/2));
+  SetPosition(BoundBy(GetX(pHelicopter), GetDefWidth(GetID())/2+GetDefWidth(BARW), LandscapeWidth()-GetDefWidth(GetID())/2-GetDefWidth(BARW)),
+    BoundBy(GetY(pHelicopter), GetDefHeight(GetID())/2+GetDefHeight(BARW), LandscapeHeight()-GetDefHeight(GetID())/2-GetDefHeight(BARW)));
   return true;
 }
 
