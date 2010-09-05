@@ -501,3 +501,10 @@ protected func GetObject2Drop(object pObj)
 
   return _inherited(...);
 }
+
+protected func ContextStatistics(object pCaller) {
+  [$CtxStatistics$|Image=RWDS|Condition=RewardsActive]
+  var db = FindObject(RWDS);
+  if(db) return db->Activate(GetOwner(pCaller));
+  return false;
+}

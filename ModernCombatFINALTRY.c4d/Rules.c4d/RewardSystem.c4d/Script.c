@@ -52,6 +52,10 @@ protected func Activate(iByPlayer)
   return 1;
 }
 
+global func RewardsActive() {
+	return FindObject(RWDS);
+}
+
 /* Auswerten */
 
 global func RewardEvaluation()

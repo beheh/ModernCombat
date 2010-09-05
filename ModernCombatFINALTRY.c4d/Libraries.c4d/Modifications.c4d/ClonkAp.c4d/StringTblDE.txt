@@ -4,3 +4,4 @@ CtxHomeDesc=Zurück zur Basis
 CtxChop=Fällen
 CtrlMenuDesc=Menü
 TxtEnergysupply=Energieversorgung
+CtxStatistics=Statistiken
