@@ -501,7 +501,7 @@ public func IsFulfilled()
 
 private func TeamAlive(int iTeam)
 {
-  var alive = [], poles = [];
+  var alive = [], poles = [], fakedeath = [];
   var i = iTeam;
   
   //Regelwähler-Hack
@@ -522,22 +522,30 @@ private func TeamAlive(int iTeam)
     for(var clonk in FindObjects(Find_OCF(OCF_Alive), Find_OCF(OCF_CrewMember)))
       if(GetPlayerTeam(GetOwner(clonk)) == i)
       {
+      	if(IsFakeDeath(clonk)) {
+      		fakedeath[i]++;
+      	}
         if(Contained(clonk))
         {
           if((GetID(Contained(clonk)) == OSPW && GetAction(Contained(clonk)) != "Counter") || GetID(Contained(clonk)) == TIM1 || GetID(Contained(clonk)) == TIM2)
             continue;
           alive[i]++;
-          break;
         }
         alive[i]++;
       }
   }
-  else
+  else {
     //Keine Spieler in einem Team?
-    for(var j = 0; j < GetPlayerCount(); j++)
-      if(GetPlayerTeam(GetPlayerByIndex(j)) == i)
-        alive[i]++;
-  if(alive[i] > 0) return true;
+		for(var j = 0; j < GetPlayerCount(); j++) {
+			if(GetPlayerTeam(GetPlayerByIndex(j)) == i) {
+				alive[i]++;
+			}
+			if(IsFakeDeath(clonk)) {
+				fakedeath[i]++;
+			}
+		}
+	}
+  if(alive[i] > 0 && alive[i] > fakedeath[i]) return true;
   return false;
 }
 
