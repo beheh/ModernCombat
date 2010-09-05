@@ -501,8 +501,7 @@ public func IsFulfilled()
 
 private func TeamAlive(int iTeam)
 {
-  var alive = [], poles = [], fakedeath = [];
-  var i = iTeam;
+  var alive = 0, poles = 0, fakedeath = 0;
   
   //Regelwähler-Hack
   if(FindObject(CHOS))
@@ -511,41 +510,37 @@ private func TeamAlive(int iTeam)
   }
 
   //Zwei Siegbedingungen: Alle Spieler eines Teams eliminiert und alle Flaggen des Teams eingenommen
-  poles[i] = 0;
+  poles = 0;
   for(var pole in FindObjects(Find_ID(OFPL)))
-    if(pole->GetTeam() == i && pole->IsFullyCaptured())
-      poles[i]++;
+    if(pole->GetTeam() == iTeam && pole->IsFullyCaptured())
+      poles++;
   //Keine Flaggen?
-  if(poles[i] == 0)
+  if(poles == 0)
   {
-    alive[i] = 0;
+    alive = 0;
     for(var clonk in FindObjects(Find_OCF(OCF_Alive), Find_OCF(OCF_CrewMember)))
-      if(GetPlayerTeam(GetOwner(clonk)) == i)
+      if(GetPlayerTeam(GetOwner(clonk)) == iTeam)
       {
       	if(IsFakeDeath(clonk)) {
-      		fakedeath[i]++;
+      		fakedeath++;
       	}
         if(Contained(clonk))
         {
           if((GetID(Contained(clonk)) == OSPW && GetAction(Contained(clonk)) != "Counter") || GetID(Contained(clonk)) == TIM1 || GetID(Contained(clonk)) == TIM2)
             continue;
-          alive[i]++;
         }
-        alive[i]++;
+        alive++;
       }
   }
   else {
     //Keine Spieler in einem Team?
 		for(var j = 0; j < GetPlayerCount(); j++) {
-			if(GetPlayerTeam(GetPlayerByIndex(j)) == i) {
-				alive[i]++;
-			}
-			if(IsFakeDeath(clonk)) {
-				fakedeath[i]++;
+			if(GetPlayerTeam(GetPlayerByIndex(j)) == iTeam) {
+				alive++;
 			}
 		}
 	}
-  if(alive[i] > 0 && alive[i] > fakedeath[i]) return true;
+  if(alive > 0 && alive > fakedeath) return true;
   return false;
 }
 
