@@ -71,8 +71,10 @@ func Incineration()
   Sound("StructuralDamage*.ogg");
 
   //Verschwinden
-  Schedule("ChangeDef(INFB)",1);
+  ChangeDef(INFB);
+  SetAction("Destroyed");
   FadeOut();
+  return;
 }
 
 /* Schaden */
