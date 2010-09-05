@@ -1,1 +1,1 @@
-In one round, heal allies with 400 energy points.
+In one round, heal allies with 500 energy points.

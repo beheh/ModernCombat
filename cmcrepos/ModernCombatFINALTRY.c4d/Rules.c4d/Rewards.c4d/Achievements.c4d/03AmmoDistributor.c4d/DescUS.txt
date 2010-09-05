@@ -1,1 +1,1 @@
-In one round, resupply allies with 400 ammo points.
+In one round, resupply allies with 500 ammo points.
