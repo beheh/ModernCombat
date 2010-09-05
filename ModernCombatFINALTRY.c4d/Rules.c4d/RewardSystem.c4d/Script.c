@@ -20,6 +20,14 @@ protected func Initialize()
 
 protected func Activate(iByPlayer)
 {
+	var pClonk = GetCursor(iByPlayer);
+	if(!pClonk) {
+		
+		return;
+	}
+	CloseMenu();
+  CreateMenu(GetID(),pClonk,this,0,0,0,C4MN_Style_Dialog,1);
+
   var szMessage = Format("$ActualPoints$|");
   
   //Erst mal einsortieren
@@ -48,7 +56,17 @@ protected func Activate(iByPlayer)
     }
   }
 
+	var iData = GetPlrExtraData(iByPlayer, "CMC_Achievements");
+  for(var i = 1; i <= 32; i++) {
+
+  	if(!(iData >> i & 1)) continue;
+		var idAchievement = C4Id(Format("AC%02d", i));
+		szString = Format("%s|", GetName(0, idAchievement));
+		szMessage = Format("%s%s", szMessage, szString);
+  }
+
   MessageWindow(Format("$ActualPoints$:|%s", szMessage), iByPlayer);
+    
   return 1;
 }
 
