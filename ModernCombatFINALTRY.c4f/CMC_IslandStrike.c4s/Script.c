@@ -617,10 +617,8 @@ func CreateEquipment()
 
   SetupVehicleSpawn([INFL],DIR_Left,CreateObject(VSPW,7440,520,-1),50*21,200);
 
-  //Blackhawks
-  //SetupVehicleSpawn([H_HE],DIR_Right,CreateObject(VSPW,590,410,-1),100*21,300);
-  SetupVehicleSpawn([H_HE],DIR_Left,CreateObject(VSPW,4700,290,-1),100*21,300);
-  //SetupVehicleSpawn([H_HE],DIR_Left,CreateObject(VSPW,7750,290,-1),100*21,300);
+  //Blackhawk?
+  //SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,4700,290,-1),100*21,300);
 }
 
 /* Bei Flaggenübernahme */

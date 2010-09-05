@@ -505,6 +505,10 @@ func CreateEquipment()
   //EHP
   PlaceSpawnpoint(FAPK, 1365, 805);
 
+  //Blackhawks?
+  //SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,580,240,-1),100*21,300);
+  //SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,2150,240,-1),100*21,300);
+
   //Automat
   var store = CreateObject(WPVM,1365, 520,-1);
   store->AddWare(C4PA,-1);
