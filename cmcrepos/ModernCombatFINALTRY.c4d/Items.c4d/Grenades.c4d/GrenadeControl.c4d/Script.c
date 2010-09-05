@@ -106,7 +106,7 @@ public func ControlThrow(object caller)
   if(!Contained(GetUser()))
   {
    GetUser()->~CheckArmed();
-   if(GetUser()->~ReadyToFire() && !delay)
+   if(GetUser()->~ReadyToFire() || GetUser()->~ReadyToAttack() && !delay)
    {
     Throw();
     return true;

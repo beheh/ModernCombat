@@ -185,6 +185,13 @@ protected func DoAmmoPack(id idType)
   return pack;
 }
 
+public func ReadyToAttack() {
+	if(ReadyToFire()) return true;
+	if(Contents())
+		if(Contents()->~IsGrenade() && GetProcedure() == "SWIM") return true;
+	return false;
+}
+
 public func ReadyToFire() {
   if (GetProcedure() == "SWIM")
     return;
@@ -293,7 +300,7 @@ private func TestSpread()
 }
 
 public func UpdateCH() {
-  if(!this->~ReadyToFire() || !this->~IsArmed() || GetCursor(GetOwner()) != this)
+  if((!this->~ReadyToFire() && !this->~ReadyToAttack()) || !this->~IsArmed() || GetCursor(GetOwner()) != this)
     {
       HideCH();
       return;
@@ -321,6 +328,7 @@ public func UpdateCH() {
     DoSpread(-(CH_StandSpreadReduction+unspread));
 
   this->~UpdateAiming();
+  return true;
 }
 
 local pIcon;

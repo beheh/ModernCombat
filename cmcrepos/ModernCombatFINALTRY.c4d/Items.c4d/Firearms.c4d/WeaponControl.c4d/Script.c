@@ -590,7 +590,7 @@ public func ControlThrow(caller)
   
   var meleeattacked;
   //möglich einen Nahkampfangriff zu machen?
-  if(!GetEffect("StrikeRecharge", this) && GetMCData(MC_CanStrike) && (WildcardMatch(GetAction(caller),"*Walk*") || WildcardMatch(GetAction(caller),"*Jump*")) && (GetFMData(FM_Aim) == 0 || GetUser()->~IsAiming() || GetUser()->~AimOverride()))
+  if(!GetEffect("StrikeRecharge", this) && GetMCData(MC_CanStrike) && (WildcardMatch(GetAction(caller),"*Walk*") || WildcardMatch(GetAction(caller),"*Jump*") || WildcardMatch(GetAction(caller),"*Swim*")) && (GetFMData(FM_Aim) == 0 || GetUser()->~IsAiming() || GetUser()->~AimOverride()))
   {
     var dir = GetDir(GetUser());
     var obj = FindObjects(Find_InRect(-15+10*dir,-10,20,20),Find_OCF(OCF_Alive),Find_NoContainer(),Find_Exclude(caller));
@@ -609,11 +609,13 @@ public func ControlThrow(caller)
           SetCommand(GetUser(), "");
           SetComDir(COMD_None, GetUser());
           var pwr = GetMCData(MC_Power), angle = GetMCData(MC_Angle);
-          if(!dir)
-           dir--;
-          SetXDir(Sin(angle*dir,pwr),target,10);
-          SetYDir(-Cos(angle*dir,pwr),target,10);
-          ObjectSetAction(target, "Tumble");
+          if(GetProcedure(target) != "SWIM") {
+		        if(!dir)
+		         dir--;
+		        SetXDir(Sin(angle*dir,pwr),target,10);
+		        SetYDir(-Cos(angle*dir,pwr),target,10);
+		        ObjectSetAction(target, "Tumble");
+          }
         }
         if(!GetAlive(target) || IsFakeDeath(target))
      			DoAchievementProgress(1, AC14, GetOwner(GetUser()));
