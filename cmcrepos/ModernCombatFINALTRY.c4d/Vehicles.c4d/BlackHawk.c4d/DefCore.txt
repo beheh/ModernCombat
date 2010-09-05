@@ -1,5 +1,5 @@
 [DefCore]
-id=H_HE
+id=BKHK
 Name=Blackhawk
 Category=260
 Version=4,9,5
@@ -37,7 +37,7 @@ VertexX=-40,63,-12,16,42,-56,-72,-112,-74,-26,16,61,89,104,80
 VertexY=26,26,22,21,20,22,14,-14,-14,-14,-14,-14,-26,-12,16
 VertexFriction=20,20,50,50,50,50,50,100,100,100,100,100,100,100,50
 VertexCNAT=8,8,8,8,8,9,9,5,4,4,4,4,7,14,10
-Components=METL=10;RTLR=1;MNGN=1;
+Components=METL=10;RLSA=1;ACCN=1;
 
 [Physical]
 Float=600

@@ -9,7 +9,7 @@ Offset=-15,-25
 Value=20
 Mass=100
 Components=METL=4;
-Picture=0,60,64,64
+Picture=0,60,64,42
 Vertices=2
 VertexX=-16,+16
 VertexFriction=100,100

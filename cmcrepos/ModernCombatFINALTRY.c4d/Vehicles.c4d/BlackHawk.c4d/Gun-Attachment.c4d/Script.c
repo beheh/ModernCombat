@@ -14,13 +14,13 @@ local Rad,Ang;
 local rot_left,rot_right;
 local blinkspeed;
 
-public func GetAttWeapon()	{return cur_Attachment;}		//Waffe
+public func GetAttWeapon()	{return cur_Attachment;}					//Waffe
 public func MaxRotLeft()	{return rot_left+GetDir(heli)*(180-rot_right+180-rot_left);}			//Maximaler Winkel links
 public func MaxRotRight()	{return rot_right+GetDir(heli)*(180-rot_right+180-rot_left);}			//Maximaler Winkel rechts
-public func AimAngle()		{return aim_angle;}		//Winkel auf Ziel
-public func ReadyToFire()	{return 1;}				//Allzeit bereit
-public func IsAiming()		{return true;}				//Geschütz immer am Zielen
-public func IsThreat()		{return pController;}	//Status
+public func AimAngle()		{return aim_angle;}						//Winkel auf Ziel
+public func ReadyToFire()	{return 1;}							//Allzeit bereit
+public func IsAiming()		{return true;}							//Geschütz immer am Zielen
+public func IsThreat()		{return pController;}						//Status
 public func UpdateCharge()	{return 1;}
 
 
@@ -246,22 +246,22 @@ private func Reload()
   GetAttWeapon()->~Reload();
 }
 
-/* Zielzeug */
+/* Fadenkreuz */
 
 private func InitAim()
 {
-	if(Crosshair)
-		RemoveObject(Crosshair);
-	
-	Crosshair = CreateObject(HCRH); // Owner wird in Init gesetzt
-	Crosshair->Init(this());
-	Crosshair->SetAngle(AimAngle());
+  if(Crosshair)
+    RemoveObject(Crosshair);
+
+  Crosshair = CreateObject(HCRH); // Owner wird in Init gesetzt
+  Crosshair->Init(this());
+  Crosshair->SetAngle(AimAngle());
 } 
 
 private func EndAim()
 {
-	if(Crosshair)
-		RemoveObject(Crosshair);
+  if(Crosshair)
+    RemoveObject(Crosshair);
 }
 
 
@@ -303,7 +303,7 @@ public func WeaponBegin(&x, &y)
 {
   var number = GetEffect("ShowWeapon",this);
   if(!number)
-   return;
+    return;
   x = EffectVar(2, this, number)/1000;
   y = EffectVar(3, this, number)/1000;
 }
@@ -312,7 +312,7 @@ public func WeaponEnd(&x, &y)
 {
   var number = GetEffect("ShowWeapon",this);
   if(!number)
-   return;
+    return;
   x = EffectVar(4, this, number)/1000;
   y = EffectVar(5, this, number)/1000;
 }
@@ -321,6 +321,6 @@ public func GetWeaponR()
 {
   var number = GetEffect("ShowWeapon",this);
   if(!number)
-   return;
+    return;
   return EffectVar(1, this, number);
 }

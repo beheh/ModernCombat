@@ -1,11 +1,16 @@
-/* Builder */
+/*-- Baustelle --*/
 
 #strict
 
 
+/* Initialisierung */
+
 protected func Initialize()
 {
-  CreateObject(H_HE, 0, 30, GetOwner());
+  //Blackhawk erstellen
+  CreateObject(BKHK, 0, 30, GetOwner());
+
+  //Verschwinden
   RemoveObject();
   return(true);
 }
