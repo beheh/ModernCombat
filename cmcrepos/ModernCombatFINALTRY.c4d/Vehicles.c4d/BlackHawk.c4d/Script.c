@@ -954,7 +954,7 @@ protected func TimerCall()
         throttle-=5;
     }
   }
-      
+
   //unter Wasser stirbt der Motor ab
   Water();
 
@@ -984,6 +984,9 @@ protected func TimerCall()
 			DoDmg(GetRotorSpeed()/3, DMG_Projectile, pClonk, 0, GetOwner()+1);
 		}
 	}
+
+	//Stuck?
+	if(Stuck()) DoDamage(100);
 
   //bis 50% nichts
   if (GetDamage() < MaxDamage()*1/2) return;
