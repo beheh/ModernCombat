@@ -11,9 +11,6 @@ global func Explode(int iLevel, object pObj, id idEffect, string szEffect)
   var x = AbsX(GetX(pObj)),
   	  y = AbsY(GetY(pObj));
 			
-  var boom = FindObject(BOOM);
-  if(!boom) boom = CreateObject(BOOM,0,0,-1);
-			
 	var xdir = GetXDir(pObj) + GetWind(GetX(pObj),GetY(pObj))/20;
 	var ydir = GetYDir(pObj);
 	
@@ -98,9 +95,6 @@ global func SemiExplode(int iLevel, int incidence)
 global func CreateBurnMark(int iX, int iY, int iLevel, int Count) 
 {
 	if(GetEffectData(EFSM_ExplosionEffects) < 1) return;
-  var boom;
-  if(!ObjectCount(BOOM)) boom = CreateObject(BOOM,0,0,-1);
-  else boom = FindObject(BOOM);
   
   var angle=Random(360/Count); //variablen für die überprüfung
   var type;
@@ -119,7 +113,7 @@ global func CreateBurnMark(int iX, int iY, int iLevel, int Count)
     var sin = Sin(angle,(size-iLevel)/2+iLevel+Random(3));
     var cos = Cos(angle,(size-iLevel)/2+iLevel+Random(3));
 
-    CreateParticle("BurnMark",iX+cos,iY+sin,Cos(angle+RandomX(-5,5),50),Sin(angle+RandomX(-5,5),50),size*5+Random(25),RGBa(0,0,0,64),boom,1); 
+    CreateParticle("BurnMark",iX+cos,iY+sin,Cos(angle+RandomX(-5,5),50),Sin(angle+RandomX(-5,5),50),size*5+Random(25),RGBa(0,0,0,64)); 
   }
 }
 
