@@ -1,2 +1,2 @@
-DE:Belohnungssystem
-US:Reward System
+DE:Belohnungen
+US:Rewards
