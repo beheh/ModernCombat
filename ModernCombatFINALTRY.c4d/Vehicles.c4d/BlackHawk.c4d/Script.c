@@ -1,7 +1,7 @@
 /*-- Blackhawk --*/
 
 #strict 2
-
+#include CVHC
 
 /* ----- Variablen ----- */
 
@@ -791,20 +791,14 @@ public func OnDmg(int iDmg, int iType)
   return 50;
 }
 
-public func Damage()
+public func OnDamage()
 {
   if(hud)			hud->DamageReceived();
   if(GetContact(this, -1))	ResetAutopilot();
-  if(GetDamage() < MaxDamage())	return;
-
-  Destroy();
+	return true;
 }
 
-public func OnHit(int iDamage, int iType, object pFrom) {
-	SetController(GetController(pFrom));
-}
-
-public func Destroy()
+public func OnDestruction()
 {
   //Inhalt auswerfen und töten bzw. zerstören
   for(var obj in FindObjects(Find_Container(this), Find_Not(Find_ID(FKDT))))
@@ -824,7 +818,7 @@ public func Destroy()
   }
 
   //Explosion
-  Explode(60);
+	FakeExplode(60, GetLastAttacker());
   Sound("BigExplosion.ogg", false, this);
   Sound("StructuralDamage*.ogg", false, this);
 
@@ -846,7 +840,7 @@ public func Destroy()
     ScheduleCall(obj, "BlastPar", i*2, 0, Sin(Random(360), 10*i), -Cos(Random(360), 10*i), 200, RGB(255,255,255));
     ScheduleCall(obj, "BlastPar", i*2, 0, Sin(Random(360), 10*i), -Cos(Random(360), 10*i), 200, RGB(255,255,255)); 
   }
-  return RemoveObject();
+  return;
 }
 
 //Kontakt am Rotor: Schaden!
@@ -941,6 +935,9 @@ protected func RejectCollect(id ID, object ByObj)
 //für Warnsounds und Grafik zuständig
 protected func TimerCall()
 {
+	//Zerstört?
+	if(IsDestroyed()) return;	
+	
   //Absinken, falls kein Pilot da.
   if(!GetPilot() && !GetAutopilot())
   {

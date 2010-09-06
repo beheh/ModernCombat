@@ -1,8 +1,9 @@
 /*-- Schlauchboot --*/
 
 #strict 2
+#include CVHC
 
-local motor, motoridle, turn_end_dir, damaged;
+local motor, motoridle, turn_end_dir;
 
 public func MaxDamage()	{return 150;}
 
@@ -39,26 +40,18 @@ private func UpdateDmg()
   DoDamage(GetDamage() - GetDamage(GetActionTarget()), GetActionTarget());
 }
 
-public func Damage()
+public func OnDamage()
 {
   UpdateDmg();
-  if(GetDamage() < MaxDamage()) return;
-  Incineration();
 }
 
-func Incineration()
+public func OnDestruction()
 {
-  if(GetID(this) != INFS) return;
-  if(damaged) return;
-  damaged = true;
-
   if(motor) {
-  	motor->SetOwner(NO_OWNER);
-  	motor->SetController(NO_OWNER);
-  	motor->FakeExplode(20);
-		RemoveObject(motor);
-	}
-	
+  	motor->FakeExplode(20, GetLastAttacker());
+	RemoveObject(motor);
+  }
+
   //Effekte
   CreateParticle("Blast",0,-10,-20,0,5*50,RGB(255,255,128));
   CreateParticle("Blast",0,-10,20,0,5*50,RGB(255,255,128));
@@ -71,9 +64,11 @@ func Incineration()
   Sound("StructuralDamage*.ogg");
 
   //Verschwinden
-  ChangeDef(INFB);
-  SetAction("Destroyed");
-  FadeOut();
+  var obj = CreateObject(INFB);
+  obj->SetDir(GetDir());
+  obj->SetAction("Destroyed");
+  obj->FadeOut();
+  RemoveObject();
   return;
 }
 
