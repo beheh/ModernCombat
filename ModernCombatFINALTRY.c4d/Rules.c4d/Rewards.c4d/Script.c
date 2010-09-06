@@ -22,15 +22,15 @@ protected func Activate(iByPlayer)
 {
 	var pClonk = GetCursor(iByPlayer);
 	if(!pClonk) {
-		
+		MessageWindow(GetDesc(), iByPlayer);
 		return;
 	}
-	CloseMenu();
-  CreateMenu(GetID(),pClonk,this,0,0,0,C4MN_Style_Dialog,1);
+
+  if(!CreateMenu(GetID(),pClonk,this,0,0,0,C4MN_Style_Dialog,1)) return;
 
   var szMessage = Format("$ActualPoints$|");
   
-  //Erst mal einsortieren
+  /*//Erst mal einsortieren
   var aList = CreateArray();
   var iPlr, szString;
   var iPlr = 0;
@@ -54,19 +54,23 @@ protected func Activate(iByPlayer)
       if(szMessage != "") szMessage = Format("%s|",szMessage);
       szMessage = Format("%s%s", szMessage, szString);
     }
-  }
-
+  }*/
+  
 	var iData = GetPlrExtraData(iByPlayer, "CMC_Achievements");
+	var aAchievements = CreateArray();
   for(var i = 1; i <= 32; i++) {
-
   	if(!(iData >> i & 1)) continue;
-		var idAchievement = C4Id(Format("AC%02d", i));
-		szString = Format("%s|", GetName(0, idAchievement));
-		szMessage = Format("%s%s", szMessage, szString);
+		aAchievements[GetLength(aAchievements)] = C4Id(Format("AC%02d", i));
   }
 
-  MessageWindow(Format("$ActualPoints$:|%s", szMessage), iByPlayer);
-    
+  AddMenuItem(" | ", "", RWDS, pClonk, 0, 0, "", 514, 0, 0);
+	AddMenuItem("<c ffff33>$Achievements$</c>", "", NONE, pClonk, 0, 0, "", 0, 0, 0);
+	AddMenuItem(Format("$AchievementsUnlocked$", GetLength(aAchievements)), "", NONE, pClonk, 0, 0, "", 0, 0, 0);
+	
+  for(var idAchievement in aAchievements) {
+   	AddMenuItem(Format("%s - <i>%s</i>", GetName(0, idAchievement), GetDesc(0, idAchievement)), "", RWDS, pClonk, 0, 0, "", 0, 0, 0);
+  }
+ 
   return 1;
 }
 

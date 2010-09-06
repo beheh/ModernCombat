@@ -3,3 +3,5 @@ Points=Points
 Total=%s  Total: <c ffbb00>%d</c>
 Complete=Battle: <c 00ff00>+%d</c>  Team: <c 00ff00>+%d</c>  Minus: <c ff0000>%d</c>
 AchievementUnlocked=<c %x>%s</c> has unlocked the achievement <c ffff33>%s</c>
+Achievements=Achievements
+AchievementsUnlocked=%d Achievements unlocked:
