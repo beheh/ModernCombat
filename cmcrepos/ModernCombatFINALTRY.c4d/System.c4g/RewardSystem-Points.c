@@ -30,7 +30,7 @@ global func BonusPoints(string szType, extraData)
   if(szType == "Destruction")	return 50;		//Punkte für zerstörte feindliche Struktur oder Fahrzeug
   if(szType == "TracerSet")	return 10;		//Punkte für angebrachten Tracer
   if(szType == "TracerAssist")	return 20;		//Punkte für Tracerkill
-  if(szType == "VehicleDamage)  return 10;		//Schaden an einem Fahrzeug gemacht
+  if(szType == "VehicleDamage")  return 10;		//Schaden an einem Fahrzeug gemacht
 
   //if("IncinerateClonk")	return 20;		//Bonuspunkte für das anzünden gegnerischer Clonks
   //if("DestroyHomebase")	return 100;		//Bonuspunkte für die Zerstörung gegnerischer Heimatbasen

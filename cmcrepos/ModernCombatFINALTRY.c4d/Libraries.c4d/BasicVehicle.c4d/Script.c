@@ -47,6 +47,8 @@ public func OnHit(int iDmg, int iType, object pBy)
 	var iPlr = GetController(pBy);
 	if(!IsDestroyed())
 	  iLastAttacker = iPlr;
+	if(!aDealers)
+		aDealers = CreateArray();
 	if(Hostile(iPlr, GetController())) {
 		if(!aDealers[iPlr]) aDealers[iPlr] = 0;
 		aDealers[iPlr] += iDmg;
