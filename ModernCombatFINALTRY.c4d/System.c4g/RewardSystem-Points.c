@@ -25,7 +25,7 @@ global func BonusPoints(string szType, extraData)
   if(szType == "OPAssist")	return 10;		//Hilfe bei Eroberung/Neutralisierung
   if(szType == "CTFSteal")	return 50;		//Flagge stehlen
   if(szType == "CTFRegain")	return 30;		//Flagge zurückgeholt
-  if(szType == "TechnicalTask")	return 30;		//Sprengsatz entschärft
+  if(szType == "TechnicalTask")	return 20;		//Sprengsatz entschärft
   if(szType == "Protection")	return 10;		//Punkte für Schildabwehr
   if(szType == "Destruction")	return 50;		//Punkte für zerstörte feindliche Struktur oder Fahrzeug
   if(szType == "TracerSet")	return 10;		//Punkte für angebrachten Tracer
