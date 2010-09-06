@@ -14,4 +14,3 @@ FireModeBack=Previous fire mode
 FireModeForward=Next fire mode
 FireTecBack=Previous shooting technique
 FireTecForward=Next shooting technique
-Auto=Auto

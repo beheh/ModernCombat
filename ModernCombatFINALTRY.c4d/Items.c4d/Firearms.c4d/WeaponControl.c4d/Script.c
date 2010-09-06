@@ -37,7 +37,7 @@ public func IsWeapon2() {return true;}	//Diese Waffe benutzt das neue Waffensyst
 public func NoWeaponChoice() {return GetID() == WPN2;}
 
 public func OnSelectFT(int iFireMode, int iFireTec, int iLastFireTec){
-  if (GetFMData(FT_Name) == "$Auto$")
+  if (GetFMData(FM_Auto))
     stopauto = false;
 }
 
@@ -1022,7 +1022,7 @@ public func GetFMData(int data, int i, int t)
 public func GetFMData()
 {
   //Bei Einzel- und Stoﬂfeuer ist JnR zu schnell. Bremsen
-  if (Par() == FM_Recharge && GetPlrCoreJumpAndRunControl(GetController(GetUser())) && GetFMData(FT_Name) != "$Auto$")
+  if (Par() == FM_Recharge && GetPlrCoreJumpAndRunControl(GetController(GetUser())) && !GetFMData(FM_Auto))
     return _inherited(...)+2;
   return _inherited(...);
 }
