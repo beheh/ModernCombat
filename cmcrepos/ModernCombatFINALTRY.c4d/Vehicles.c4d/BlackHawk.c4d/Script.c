@@ -802,11 +802,11 @@ public func OnDestruction()
 {
   //Inhalt auswerfen und töten bzw. zerstören
   for(var obj in FindObjects(Find_Container(this), Find_Not(Find_ID(FKDT))))
-  {
+   {
     DeleteActualSeatPassenger(obj);
     if(GetOCF(obj) & OCF_Alive && GetID(Contained(obj)) != FKDT)
     {
-      DoDmg(200, DMG_Explosion, obj);
+      DoDmg(200, DMG_Explosion, obj, 0, GetLastAttacker()+1);
     }
     else
     {
