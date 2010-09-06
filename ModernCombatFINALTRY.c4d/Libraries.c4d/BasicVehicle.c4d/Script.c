@@ -4,6 +4,7 @@
 
 local fDestroyed;
 local iLastAttacker;
+local aDealers;
 
 public func OnDamage()		{}		//Beim Erhalten von Schaden
 public func OnDestruction()		{}		//Bei der Zerstörung des Fahzeugs
@@ -20,19 +21,20 @@ public func IsCMCVehicle()		{return true;}
 public func Initialize()
 {
 	fDestroyed = false;
-  iLastAttacker = -1;
-  return true;
+	iLastAttacker = -1;
+	aDealers = CreateArray();
+	return true;
 }
 
 /* Schaden */
 
 public func Damage()
 {
-  if(GetDamage() > MaxDamage() && !IsDestroyed())
-  {
-   Destroyed();
-  }
-  OnDamage();
+	if(GetDamage() > MaxDamage() && !IsDestroyed())
+	{
+		Destroyed();
+	}
+	OnDamage();
 }
 
 public func OnDmg(int iDmg, int iType)
@@ -42,8 +44,17 @@ public func OnDmg(int iDmg, int iType)
 
 public func OnHit(int iDmg, int iType, object pBy)
 {
-	if(!IsDestroyed())	
-	  iLastAttacker = GetController(pBy);
+	var iPlr = GetController(pBy);
+	if(!IsDestroyed())
+	  iLastAttacker = iPlr;
+	if(Hostile(iPlr, GetController())) {
+		if(!aDealers[iPlr]) aDealers[iPlr] = 0;
+		aDealers[iPlr] += iDmg;
+		while(aDealers[iPlr] >= 50) {
+			DoPlayerPoints(BonusPoints("VehicleAssist"), RWDS_BattlePoints, iPlr, pBy, IC18);
+			aDealers[iPlr] -= 50;
+		}
+	}
 	return true;
 }
 
