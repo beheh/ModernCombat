@@ -55,11 +55,25 @@ public func OnHit(int iDmg, int iType, object pBy)
         aDealers[iPlr] += iDmg;
         while(aDealers[iPlr] >= 50)
         {
-          DoPlayerPoints(BonusPoints("VehicleAssist"), RWDS_BattlePoints, iPlr, pBy, IC18);
-          aDealers[iPlr] -= 50;
+			DoPlayerPoints(BonusPoints("VehicleDamage"), RWDS_BattlePoints, iLastAttacker, GetCursor(iLastAttacker), IC03);
+        	aDealers[iPlr] -= 50;
         }
     }
   return true;
+	var iPlr = GetController(pBy);
+	if(!IsDestroyed())
+	  iLastAttacker = iPlr;
+	if(!aDealers)
+		aDealers = CreateArray();
+	if(Hostile(iPlr, GetController())) {
+		if(!aDealers[iPlr]) aDealers[iPlr] = 0;
+		aDealers[iPlr] += iDmg;
+		while(aDealers[iPlr] >= 50) {
+			DoPlayerPoints(BonusPoints("VehicleDamage"), RWDS_BattlePoints, iLastAttacker, GetCursor(iLastAttacker), IC03);
+			aDealers[iPlr] -= 50;
+		}
+	}
+	return true;
 }
 
 /* Zerstörung */
@@ -77,9 +91,9 @@ public func Destroyed()
   //Sound
   Sound("Blast2", false, this);
 
-  //Letzen Angreifer zurücksetzen
-  iLastAttacker = -1;
-
   //Callback
   OnDestruction();
+
+  //Letzen Angreifer zurücksetzen
+  iLastAttacker = -1;
 }
