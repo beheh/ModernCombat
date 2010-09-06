@@ -25,7 +25,7 @@ local s_counter,			//int    - eine kleine Counter-Variable für Warnsounds
 
 local destroyed;			//bool   - ob der Heli schon zerstört ist
 
-static const throttle_speed = 5;	//int    - "Feinfühligkeit"
+static const throttle_speed 4= 5;	//int    - "Feinfühligkeit"
 static const rot_speed = 1;		//int    - Drehgeschwindigkeit / frame
 static const control_speed = 3;		//int    - "Feinfühligkeit"
 static const max_throttle = 200;	//int    - höchste Schubeinstellung
@@ -819,6 +819,7 @@ public func OnDestruction()
 
   //Explosion
 	FakeExplode(60, GetLastAttacker());
+	RemoveObject();
   Sound("BigExplosion.ogg", false, this);
   Sound("StructuralDamage*.ogg", false, this);
 
