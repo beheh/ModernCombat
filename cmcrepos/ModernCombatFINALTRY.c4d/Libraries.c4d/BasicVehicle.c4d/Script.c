@@ -8,7 +8,7 @@ local iLastAttacker;
 public func OnDamage()		{}		//Beim Erhalten von Schaden
 public func OnDestruction()		{}		//Bei der Zerstörung des Fahzeugs
 public func MaxDamage()			{return 100;}		//Maximalschaden
-public func BonusPointCondition()			{return true;}			//Ob bei der Zerstörung Punkte vergeben werden
+public func BonusPointCondition()			{return Hostile(GetLastAttacker(),GetController());}			//Ob bei der Zerstörung Punkte vergeben werden
 
 public func GetLastAttacker()		{return iLastAttacker;}
 public func IsDestroyed()		{return fDestroyed;}
