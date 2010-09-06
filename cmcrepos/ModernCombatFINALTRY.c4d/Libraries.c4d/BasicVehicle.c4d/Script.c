@@ -5,8 +5,10 @@
 local fDestroyed;
 local iLastAttacker;
 
-public func OnDestruction()		{}		//Bei der Zerstörung des Gebäudes, aber folgenden Reparatur
-public func MaxDamage()			{return 100;}	//Maximalschaden
+public func OnDamage()		{}		//Beim Erhalten von Schaden
+public func OnDestruction()		{}		//Bei der Zerstörung des Fahzeugs
+public func MaxDamage()			{return 100;}		//Maximalschaden
+public func BonusPointCondition()			{return true;}			//Ob bei der Zerstörung Punkte vergeben werden
 
 public func GetLastAttacker()		{return iLastAttacker;}
 public func IsDestroyed()		{return fDestroyed;}
@@ -30,6 +32,7 @@ public func Damage()
   {
    Destroyed();
   }
+  OnDamage();
 }
 
 public func OnDmg(int iDmg, int iType)
@@ -55,9 +58,6 @@ public func Destroyed()
   if(BonusPointCondition() && iLastAttacker != -1)
     if((GetOwner() != -1 && Hostile(GetOwner(), iLastAttacker)) || (GetOwner() == -1 && !GetTeam(this)) || (GetTeam(this) != GetPlayerTeam(iLastAttacker)))
 		  DoPlayerPoints(BonusPoints("Destruction"), RWDS_BattlePoints, iLastAttacker, GetCursor(iLastAttacker), IC03);
-
-  //Explosion
-  FakeExplode(20, iLastAttacker+1);
 
   //Sound
   Sound("Blast2", false, this);
