@@ -3,7 +3,7 @@
 #strict 2
 
 static aAchievementProgress, aAchievementExtra;
-local aData, fEvaluation;
+local aData, fEvaluation, aStats;
 
 public func IsChooseable()	{return true;}
 
@@ -14,47 +14,24 @@ protected func Initialize()
 {
   aData = CreateArray();
   fEvaluation = false;
+  aStats = CreateArray();
   aAchievementProgress = CreateArray();
   aAchievementExtra = CreateArray();
 }
 
 protected func Activate(iByPlayer)
 {
-	var pClonk = GetCursor(iByPlayer);
+	StatsMenu(iByPlayer);
+	return 1;
+	/*var pClonk = GetCursor(iByPlayer);
 	if(!pClonk) {
 		MessageWindow(GetDesc(), iByPlayer);
 		return;
 	}
 
-  if(!CreateMenu(GetID(),pClonk,this,0,0,0,C4MN_Style_Dialog,1)) return;
+  if(!CreateMenu(GetID(),pClonk,this,0,0,0,C4MN_Style_Dialog)) return;
 
   var szMessage = Format("$ActualPoints$|");
-  
-  /*//Erst mal einsortieren
-  var aList = CreateArray();
-  var iPlr, szString;
-  var iPlr = 0;
-  while(aData[iPlr] != 0)
-  {
-    var iTeam = GetPlayerData(RWDS_PlayerTeam, iPlr);
-    if(!aList[iTeam]) aList[iTeam] = CreateArray();
-    szString = Format("%s: %d $Points$", GetPlayerData(RWDS_PlayerName, iPlr), GetPlayerPoints(RWDS_TotalPoints, iPlr));
-    aList[iTeam][GetLength(aList[iTeam])] = szString;
-    iPlr++;
-  }
-
-  //Dann Teamweise ausgeben
-  var szMessage = "";
-
-  for(var aTeam in aList)
-  {
-    if(!aTeam) continue;
-    for(var szString in aTeam)
-    {
-      if(szMessage != "") szMessage = Format("%s|",szMessage);
-      szMessage = Format("%s%s", szMessage, szString);
-    }
-  }*/
   
 	var iData = GetPlrExtraData(iByPlayer, "CMC_Achievements");
 	var aAchievements = CreateArray();
@@ -68,10 +45,94 @@ protected func Activate(iByPlayer)
 	AddMenuItem(Format("$AchievementsUnlocked$", GetLength(aAchievements)), "", NONE, pClonk, 0, 0, "", 0, 0, 0);
 	
   for(var idAchievement in aAchievements) {
-   	AddMenuItem(Format("%s - <i>%s</i>", GetName(0, idAchievement), GetDesc(0, idAchievement)), "", RWDS, pClonk, 0, 0, "", 0, 0, 0);
+   	
   }
- 
-  return 1;
+  
+  AddMenuItem("Weiter", "OpenMenu", NONE, pClonk, 0, 0, "", 0, 0, 0);
+ */
+}
+
+public func StatsMenu(int iPlr, bool fBack) {
+	if(!aStats[iPlr]) aStats[iPlr] = 0;
+	var pClonk = GetCursor(iPlr);
+	var iSelect = aStats[iPlr];
+
+	if(!CreateMenu(GetID(),pClonk,this,0,0,0,C4MN_Style_Dialog)) return;
+	AddMenuItem(" | ", "", RWDS, pClonk, 0, 0, "", 514, 0, 0);
+	if(iSelect) {
+		var iData = GetPlrExtraData(iPlr, "CMC_Achievements");
+		var iIndex = iSelect;
+		if(!(iData >> iSelect & 1)) {
+			AddMenuItem(Format("<c ffff33>$Achievement$ %d</c>", iIndex), "", NONE, pClonk, 0, 0, "", 0, 0, 0);
+			AddMenuItem("<i>????????</i>", "", NONE, pClonk, 0, 0, "", 0, 0, 0);
+		}
+		else {
+			var idAchievement = C4Id(Format("AC%02d", iIndex));
+			AddMenuItem(Format("<c ffff33>%s</c>", GetName(0, idAchievement)), "", NONE, pClonk, 0, 0, "", 0, 0, 0);
+			AddMenuItem(Format("<i>%s</i>", GetDesc(0, idAchievement)), "", NONE, pClonk, 0, 0, "", 0, 0, 0);
+		}
+	}
+	else {	
+		//Erst mal einsortieren
+		var aList = CreateArray();
+		var szString;
+		var iPlayer = 0;
+		while(aData[iPlayer] != 0) {
+		  var iTeam = GetPlayerData(RWDS_PlayerTeam, iPlayer);
+		  if(!aList[iTeam]) aList[iTeam] = CreateArray();
+		  szString = Format("%s: %d $Points$", GetPlayerData(RWDS_PlayerName, iPlayer), GetPlayerPoints(RWDS_TotalPoints, iPlayer));
+		  aList[iTeam][GetLength(aList[iTeam])] = szString;
+		  iPlayer++;
+		}
+
+		//Nach Team ausgeben
+		var szMessage = "";
+
+		for(var aTeam in aList)
+		{
+		  if(!aTeam) continue;
+		  for(var szString in aTeam)
+		  {
+		    if(szMessage != "") szMessage = Format("%s|",szMessage);
+		    szMessage = Format("%s%s", szMessage, szString);
+		  }
+		}
+		AddMenuItem("<c ffff33>$ActualPoints$</c>", "", NONE, pClonk, 0, 0, "", 0, 0, 0);
+		AddMenuItem(Format("%s", szMessage), "", NONE, pClonk, 0, 0, "", 0, 0, 0);
+	}
+	
+	//Leerzeile
+	AddMenuItem(" ", "", NONE, pClonk, 0, iSelect+1, "", 0, 0, 0);
+	
+	
+	//Navigation
+	if(iSelect+1 > 16) {
+		AddMenuItem("<c 525252>$Continue$</c>", "StatsContinue", NONE, pClonk, 0, iPlr, "", 0, 0, 0);
+	}
+	else {
+		AddMenuItem("$Continue$", "StatsContinue", NONE, pClonk, 0, iPlr, "", 0, 0, 0);
+	}
+	if(!fBack) SelectMenuItem(4, pClonk);
+	if(iSelect-1 < 0) {
+		AddMenuItem("<c 525252>$Back$</c>", "StatsBack", NONE, pClonk, 0, iPlr, "", 0, 0, 0);
+	}
+	else {
+		AddMenuItem("$Back$", "StatsBack", NONE, pClonk, 0, iPlr, "", 0, 0, 0);
+	}
+	if(fBack) SelectMenuItem(5, pClonk);
+	return true;
+}
+
+public func StatsContinue(temp, int iPlr) {
+	if(!aStats[iPlr]) aStats[iPlr] = 0;
+	aStats[iPlr] = BoundBy(aStats[iPlr]+1, 0, 16);
+	return StatsMenu(iPlr, false);
+}
+
+public func StatsBack(temp, int iPlr) {
+	if(!aStats[iPlr]) aStats[iPlr] = 0;
+	aStats[iPlr] = BoundBy(aStats[iPlr]-1, 0, 16);
+	return StatsMenu(iPlr, true);
 }
 
 global func RewardsActive() {
@@ -132,12 +193,13 @@ public func UpdatePlayers() {
   for(var i = 0; i < GetPlayerCount(); i++)
   {
     var iPlr = GetPlayerByIndex(i);
+    SetPlayerData(Format("<c %x>%s</c>", GetPlrColorDw(iPlr), GetPlayerName(iPlr)), RWDS_PlayerName, iPlr);
+    SetPlayerData(GetPlayerTeam(iPlr), RWDS_PlayerTeam, iPlr);
     if(!aData[iPlr]) aData[iPlr] = CreateArray();
-    if(!GetPlayerData(RWDS_PlayerName, iPlr)) SetPlayerData(Format("<c %x>%s</c>", GetPlrColorDw(iPlr), GetPlayerName(iPlr)), RWDS_PlayerName, iPlr);
-    if(!GetPlayerData(RWDS_PlayerTeam, iPlr)) SetPlayerData(GetPlayerTeam(iPlr), RWDS_PlayerTeam, iPlr);
     if(!aAchievementProgress[iPlr]) aAchievementProgress[iPlr] = CreateArray();
     if(!aAchievementExtra[iPlr]) aAchievementExtra[iPlr] = CreateArray();
   }
+  return 1;
 }
 
 /* Werte setzen und auslesen */
