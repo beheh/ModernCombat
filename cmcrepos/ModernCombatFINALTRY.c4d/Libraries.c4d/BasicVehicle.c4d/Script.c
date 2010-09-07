@@ -62,27 +62,12 @@ public func OnDmg(int iDmg, int iType)
 
 public func OnHit(int iDmg, int iType, object pBy)
 {
-  var iPlr = GetController(pBy);
-  if(!IsDestroyed())
-    iLastAttacker = iPlr;
-  if(!aDealers)
-    aDealers = CreateArray();
-    if(Hostile(iPlr, GetController()))
-    {
-      if(!aDealers[iPlr]) aDealers[iPlr] = 0;
-        aDealers[iPlr] += iDmg;
-        while(aDealers[iPlr] >= 50) {
-					DoPlayerPoints(BonusPoints("VehicleDamage"), RWDS_BattlePoints, iLastAttacker, GetCursor(iLastAttacker), IC03);
-        	aDealers[iPlr] -= 50;
-        }
-    }
-  return true;
-	var iPlr = GetController(pBy);
+ 	var iPlr = GetController(pBy);
 	if(!IsDestroyed())
 	  iLastAttacker = iPlr;
 	if(!aDealers)
 		aDealers = CreateArray();
-	if(Hostile(iPlr, GetController())) {
+	if(Hostile(iPlr, GetController()) && !IsDestroyed()) {
 		if(!aDealers[iPlr]) aDealers[iPlr] = 0;
 		aDealers[iPlr] += iDmg;
 		while(aDealers[iPlr] >= 50) {
@@ -101,8 +86,7 @@ public func Destroyed()
   fDestroyed = true;
 
   //Punkte bei Belohnungssystem
-  if(BonusPointCondition() && iLastAttacker != -1)
-    if((GetOwner() != -1 && Hostile(GetOwner(), iLastAttacker)) || (GetOwner() == -1 && !GetTeam(this)) || (GetTeam(this) != GetPlayerTeam(iLastAttacker)))
+  if(BonusPointCondition() && iLastAttacker != -1 && GetOwner() != -1 && Hostile(GetOwner(), iLastAttacker))
 		  DoPlayerPoints(BonusPoints("Destruction"), RWDS_BattlePoints, iLastAttacker, GetCursor(iLastAttacker), IC03);
 
   //Sound

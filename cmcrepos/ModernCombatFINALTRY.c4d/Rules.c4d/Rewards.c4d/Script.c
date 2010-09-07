@@ -362,7 +362,7 @@ global func FxPointMessageTimer(pTarget, iNo)
       if(EffectVar(2,pTarget,index) > 0) return FX_OK;
       i++;
     }
-    Sound("PointsGet.ogg");					//Sound
+    Sound("PointsGet.ogg", 0, pTarget, 100);	//Sound
     EffectVar(1,pTarget,iNo) = CreateObject(ARHL,0,0,-1);	//Helper
   }
   EffectVar(2,pTarget,iNo)++;
