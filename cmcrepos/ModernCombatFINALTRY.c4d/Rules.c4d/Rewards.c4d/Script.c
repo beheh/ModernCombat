@@ -23,33 +23,6 @@ protected func Activate(iByPlayer)
 {
   StatsMenu(iByPlayer);
   return 1;
-
-  /Altes Menü
-  /*var pClonk = GetCursor(iByPlayer);
-  if(!pClonk)
-  {
-    MessageWindow(GetDesc(), iByPlayer);
-    return;
-  }
-
-  if(!CreateMenu(GetID(),pClonk,this,0,0,0,C4MN_Style_Dialog)) return;
-
-  var szMessage = Format("$ActualPoints$|");
-	var iData = GetPlrExtraData(iByPlayer, "CMC_Achievements");
-	var aAchievements = CreateArray();
-  for(var i = 1; i <= 32; i++)
-  {
-    if(!(iData >> i & 1)) continue;
-    aAchievements[GetLength(aAchievements)] = C4Id(Format("AC%02d", i));
-  }
-
-  AddMenuItem(" | ", "", RWDS, pClonk, 0, 0, "", 514, 0, 0);
-	AddMenuItem("<c ffff33>$Achievements$</c>", "", NONE, pClonk, 0, 0, "", 0, 0, 0);
-	AddMenuItem(Format("$AchievementsUnlocked$", GetLength(aAchievements)), "", NONE, pClonk, 0, 0, "", 0, 0, 0);
-	
-  for(var idAchievement in aAchievements) {}
-  AddMenuItem("Weiter", "OpenMenu", NONE, pClonk, 0, 0, "", 0, 0, 0);
- */
 }
 
 public func StatsMenu(int iPlr, bool fBack)
@@ -64,14 +37,14 @@ public func StatsMenu(int iPlr, bool fBack)
   {
     var iData = GetPlrExtraData(iPlr, "CMC_Achievements");
     var iIndex = iSelect;
+    var idAchievement = C4Id(Format("AC%02d", iIndex));
     if(!(iData >> iSelect & 1))
     {
-      AddMenuItem(Format("<c ffff33>$Achievement$ %d</c>", iIndex), "", NONE, pClonk, 0, 0, "", 0, 0, 0);
+      AddMenuItem(Format("<c ffff33>%s</c>", GetName(0, idAchievement)), "", NONE, pClonk, 0, 0, "", 0, 0, 0);
       AddMenuItem("<i>$AchievementLocked$</i>", "", NONE, pClonk, 0, 0, "", 0, 0, 0);
     }
     else
     {
-      var idAchievement = C4Id(Format("AC%02d", iIndex));
       AddMenuItem(Format("<c ffff33>%s</c>", GetName(0, idAchievement)), "", NONE, pClonk, 0, 0, "", 0, 0, 0);
       AddMenuItem(Format("<i>%s</i>", GetDesc(0, idAchievement)), "", NONE, pClonk, 0, 0, "", 0, 0, 0);
     }
@@ -113,7 +86,7 @@ public func StatsMenu(int iPlr, bool fBack)
   //Navigation
   if(iSelect+1 > 16)
   {
-    AddMenuItem("<c 525252>$Continue$</c>", "StatsContinue", NONE, pClonk, 0, iPlr, "", 0, 0, 0);
+    AddMenuItem("<c 777777>$Continue$</c>", "StatsContinue", NONE, pClonk, 0, iPlr, "", 0, 0, 0);
   }
   else
   {
@@ -122,7 +95,7 @@ public func StatsMenu(int iPlr, bool fBack)
   if(!fBack) SelectMenuItem(4, pClonk);
   if(iSelect-1 < 0)
   {
-    AddMenuItem("<c 525252>$Back$</c>", "StatsBack", NONE, pClonk, 0, iPlr, "", 0, 0, 0);
+    AddMenuItem("<c 777777>$Back$</c>", "StatsBack", NONE, pClonk, 0, iPlr, "", 0, 0, 0);
   }
   else
   {
@@ -135,6 +108,12 @@ public func StatsMenu(int iPlr, bool fBack)
 public func StatsContinue(temp, int iPlr)
 {
   if(!aStats[iPlr]) aStats[iPlr] = 0;
+  if(aStats[iPlr]+1 > 16) {
+		Sound("Error", 1, 0, 100, iPlr+1);
+	}
+	else {
+		Sound("Grab", 1, 0, 100, iPlr+1);
+	}
   aStats[iPlr] = BoundBy(aStats[iPlr]+1, 0, 16);
   return StatsMenu(iPlr, false);
 }
@@ -142,6 +121,12 @@ public func StatsContinue(temp, int iPlr)
 public func StatsBack(temp, int iPlr)
 {
   if(!aStats[iPlr]) aStats[iPlr] = 0;
+  if(aStats[iPlr]-1 < 0) {
+		Sound("Error", 1, 0, 100, iPlr+1);
+	}
+	else {
+		Sound("Grab", 1, 0, 100, iPlr+1);
+	}
   aStats[iPlr] = BoundBy(aStats[iPlr]-1, 0, 16);
   return StatsMenu(iPlr, true);
 }
