@@ -242,6 +242,9 @@ protected func DoPoints()
     if(killer < 0 || killer == GetOwner())
       DoPlayerPoints(SuicidePoints(), RWDS_MinusPoints, GetOwner(), this, IC07);
 
+	var aDoomBoom = GetAchievementExtra(AC15, killer);
+	if(!aDoomBoom) aDoomBoom = CreateArray();
+
   //Ansonsten Killpunkte geben (und Todespunkte (und Assistkills))
   if(Hostile(killer,GetOwner()))
   {
@@ -253,13 +256,31 @@ protected func DoPoints()
     {
       DoPlayerPoints(AssistPoints(), RWDS_BattlePoints, assist, GetCursor(assist), IC02);
       if(!Hostile(assist, killer)) DoAchievementProgress(1, AC01, assist);
-    }  
+    }
+    if(this->~LastDamageType() == DMG_Explosion) {
+		  if(!aDoomBoom[1]) aDoomBoom[1] = 0;
+		  aDoomBoom[1]++;
+	  }
   }
   if(GBackLiquid()) DoAchievementProgress(1, AC11, GetOwner());
   
+  //Selfkill
+  if(this->~LastDamageType() == DMG_Explosion && killer == GetOwner()) {
+    if(!aDoomBoom[0]) aDoomBoom[0] = true;
+  }
+
+  //DoomBoom-Check
+  if(this->~LastDamageType() == DMG_Explosion) {
+		if(aDoomBoom[0] && aDoomBoom[1])
+			if(aDoomBoom[0] == true && aDoomBoom[1] >= AC15->~GetAchievementScore())
+				AwardAchievement(AC15, killer);
+		SetAchievementExtra(aDoomBoom, AC15, killer);
+		Schedule(Format("ResetAchievementExtra(AC15, %d)", killer), 10);
+	}
+  
   //Teamkiller
   if(!Hostile(killer,GetOwner()) && killer != GetOwner() && !(killer < 0))
-    DoPlayerPoints(TeamkillPoints(), RWDS_MinusPoints, killer, GetCursor(killer), IC06);
+    DoPlayerPoints(TeamkillPoints(), RWDS_MinusPoints, killer, GetCursor(killer), IC06);	
 }
 
 public func KillIcon(id idKillIcon)
