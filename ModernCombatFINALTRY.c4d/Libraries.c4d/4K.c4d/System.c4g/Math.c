@@ -12,6 +12,11 @@ global func Interpolate(y1,y2,x1,x2,x3)
   return(Interpolate4K(y1,y2,x1,x2,x3));
 }
 
+//*faul* Nochmal alte Funktion
+global func Interpolate2(val1, val2, step, max)
+{
+  return val1+(val2-val1)*step/max;
+}
 
 //Interpoliert 2 Farben.
 global func InterpolateRGBa(RGBa_1,RGBa_2,x1,x2,x3)

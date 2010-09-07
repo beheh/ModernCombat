@@ -237,23 +237,15 @@ private func UpdateScoreboard()
   for(var flag in GetGOCCFlags())
   {
     //Erst mal weiß annehmen
-    var color = RGB(255,255,255);
-    if(flag->GetTeam())
-      if(flag->GetProcess() >= 100)
-      {
-        color = GetTeamColor(flag->GetTeam());
-      }
-      else
-      {
-        color = SetRGBaValue(GetTeamColor(flag->GetTeam()), 180, 0);
-      }
-
+    var color = GetTeamColor(flag->GetTeam()),
+	  prog = flag->GetProcess();
+		color = RGBa(Interpolate2(255, GetRGBaValue(color, 1), prog, 100), Interpolate2(255, GetRGBaValue(color, 2), prog, 100), Interpolate2(255, GetRGBaValue(color, 3), prog, 100));
     if(GetGOCCDirection() == GOCC_Horizontal)
       data = GetX(flag);
     if(GetGOCCDirection() == GOCC_Vertical)
       data = GetY(flag);
     SetScoreboardData(i, GOCC_FlagColumn, Format("<c %x>%s</c>", color, GetName(flag)), data);
-    SetScoreboardData(i, GOCC_ProgressColumn, Format("%d%", flag->GetProcess()), flag->GetProcess());
+    SetScoreboardData(i, GOCC_ProgressColumn, Format("<c %x>%d%</c>", color, flag->GetProcess()), flag->GetProcess());
     i++;
   }
   var base;
