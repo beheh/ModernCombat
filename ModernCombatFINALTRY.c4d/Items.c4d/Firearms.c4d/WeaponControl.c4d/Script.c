@@ -36,11 +36,7 @@ static const MC_Angle         = 31; //In welchem Winkel der Feind geschleudert w
 public func IsWeapon2() {return true;}	//Diese Waffe benutzt das neue Waffensystem. Sie includiert also WPN2
 public func NoWeaponChoice() {return GetID() == WPN2;}
 
-public func OnSelectFT(int iFireMode, int iFireTec, int iLastFireTec){
-  if (GetFMData(FM_Auto))
-    stopauto = false;
-}
-
+public func OnSelectFT(int iFireMode, int iFireTec, int iLastFireTec){}
 public func OnSingleReloadStart(int iSlot){}
 public func OnSingleReloadStop(int iSlot){}
 public func OnPrepareReloadStop(int iSlot){}
@@ -414,15 +410,12 @@ public func FxReloadStart(object pTarget, int iNumber, int iTemp, int iTime,iSlo
   if(iTemp) return;
   
   EffectVar(0,pTarget,iNumber) = GetFMData(FM_Reload)*(GetFMData(FM_AmmoLoad)-GetAmmo2(iSlot))/GetFMData(FM_AmmoLoad);
-  EffectVar(4,pTarget,iNumber) = EffectVar(0,pTarget,iNumber);
+  EffectVar(1,pTarget,iNumber) = 0; //Vorbereiten.
   EffectVar(2,pTarget,iNumber) = iSlot;
-  
-  //Vorbereiten.
-  EffectVar(1,pTarget,iNumber) = 0;
-  
-  //Log("Vorbereiten - Start");
+  EffectVar(3,pTarget,iNumber) = 0;  
+  EffectVar(4,pTarget,iNumber) = EffectVar(0,pTarget,iNumber);
   EffectVar(5,pTarget,iNumber) = -1;
-  
+
   //Reload-End-Spam verhindern
   if(GetFMData(FM_SingleReload))
   	AddEffect("NoFinishReload", pTarget, 20, 1, pTarget, 0, GetFMData(FM_PrepareReload)+(GetFMData(FM_Reload)/GetFMData(FM_AmmoLoad))); //Vorbereitungszeit + 1
@@ -773,7 +766,7 @@ public func FxRechargeStop(object pTarget, int iNumber, int iReason, bool fTemp)
       if(GetFMData(FM_Auto, firemode, GetFireTec(firemode)))
         OnAutoStop(firemode);
 
-      stopauto = false;
+      if(!GetEffect("Recharge", pTarget)) stopauto = false;
       shooting = false;
     }
     else {
@@ -1043,14 +1036,14 @@ public func GetMCData(int data)
 
 public func GetFireTec(int iFM)
 {
-  if(!iFM) iFM = firemode;
-  return aFM_FireTec[iFM-1];
+	if(!iFM) iFM = firemode;
+	return aFM_FireTec[iFM-1];
 }
 
 public func SetFireTec(int iFT,int iFM, bool bNoCalls)
 {
-  //Nicht mehr weiterfeuern
-  if(IsReloading()) return;
+	//Nicht mehr weiterfeuern
+	if(IsReloading()) return;
 	if(IsRecharging()) StopAutoFire();
 	RemoveEffect("BurstFire", this);
 	if(GetFMData(FM_Auto)) while(GetEffect("Recharge", this)) RemoveEffect("Recharge", this); 
@@ -1063,6 +1056,9 @@ public func SetFireTec(int iFT,int iFM, bool bNoCalls)
   
   //diverse sachen aktualisieren
   ratecount = GetFMData(FM_AmmoRate, iFM);
+  
+  if (GetFMData(FM_Auto) && !GetFMData(FM_BurstAmount, 0, last))
+    stopauto = false;
   
   if(!bNoCalls && (last != iFT))
   {
