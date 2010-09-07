@@ -13,6 +13,7 @@ public func MaxDamage()	{return 150;}
 protected func Initialize()
 {
   SetUp();
+  return _inherited();
 }
 
 func SetUp()

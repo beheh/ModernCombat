@@ -72,10 +72,12 @@ protected func Initialize()
 
   //Eingang
   SetEntrance(true);
+  
   //Solidmask
   SetSolidMask();
+  
   //fertig
-  return true;
+  return _inherited();
 }
 
 //wird genutzt, den Landport davon abzuhalten, den zerstörten Heli zu versorgen
