@@ -102,7 +102,7 @@ protected func Grabbed(object pByObject, bool fGrab)
   {
    Sound("MotorStart.ogg");
    boat -> Sound("MotorIdleLoop.ogg",false,motoridle,100,0,+1);
-   SetOwner(GetOwner(pByObject), this);
+   SetOwner(GetOwner(pByObject), boat);
   }
   else
   {

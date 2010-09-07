@@ -28,20 +28,21 @@ public func Initialize()
 }
 
 global func FxBasicVehicleUnusedStart(object pTarget, int iEffectNumber) {
-	EffectVar(0, pTarget, iEffectNumber) = 0;
+	EffectVar(0, pTarget, iEffectNumber) = 38*15;
 }
 
-global func FxBasicVehicleUnusedTimer(object pTarget, int iTime, int iEffectNumber) {
-	Log("1");
+global func FxBasicVehicleUnusedTimer(object pTarget, int iEffectNumber, int iTime) {
 	if(GetOwner(pTarget) == NO_OWNER) return FX_OK;
-	EffectVar(0, pTarget, iEffectNumber)++;
-	if(EffectVar(0, pTarget, iEffectNumber) < 38*15) return FX_OK;
-	if(!FindObject2(Find_Container(pTarget), Find_Or(Find_Distance(50, AbsX(GetX(pTarget)), AbsY(GetY(pTarget))), Find_ActionTarget(pTarget), Find_ActionTarget(GetActionTarget(0, pTarget))), Find_Not(Find_Func("IsFakeDeath")), Find_Func("IsClonk"), Find_OCF(OCF_Alive))) {
-		SetOwner(NO_OWNER, pTarget);
+	var pClonk = FindObject2(Find_Container(pTarget), Find_Or(Find_Distance(50, AbsX(GetX(pTarget)), AbsY(GetY(pTarget))), Find_ActionTarget(pTarget), Find_ActionTarget(GetActionTarget(0, pTarget))), Find_Not(Find_Func("IsFakeDeath")), Find_Func("IsClonk"), Find_OCF(OCF_Alive));
+	if(!pClonk) {
+		EffectVar(0, pTarget, iEffectNumber)--;
 	}
 	else {
-		EffectVar(0, pTarget, iEffectNumber) = 0;
+		SetOwner(GetOwner(pClonk), pTarget);
+		EffectVar(0, pTarget, iEffectNumber) = 38*15;
 	}
+	if(EffectVar(0, pTarget, iEffectNumber) > 0) return FX_OK;
+	SetOwner(NO_OWNER, pTarget);
 	return FX_OK;
 }
 
@@ -50,9 +51,7 @@ global func FxBasicVehicleUnusedTimer(object pTarget, int iTime, int iEffectNumb
 public func Damage()
 {
   if(GetDamage() > MaxDamage() && !IsDestroyed())
-  {
     Destroyed();
-  }
   OnDamage();
 }
 
@@ -72,9 +71,8 @@ public func OnHit(int iDmg, int iType, object pBy)
     {
       if(!aDealers[iPlr]) aDealers[iPlr] = 0;
         aDealers[iPlr] += iDmg;
-        while(aDealers[iPlr] >= 50)
-        {
-			DoPlayerPoints(BonusPoints("VehicleDamage"), RWDS_BattlePoints, iLastAttacker, GetCursor(iLastAttacker), IC03);
+        while(aDealers[iPlr] >= 50) {
+					DoPlayerPoints(BonusPoints("VehicleDamage"), RWDS_BattlePoints, iLastAttacker, GetCursor(iLastAttacker), IC03);
         	aDealers[iPlr] -= 50;
         }
     }

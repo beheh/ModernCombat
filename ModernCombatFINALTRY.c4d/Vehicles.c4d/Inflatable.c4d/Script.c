@@ -51,6 +51,6 @@ private func Floating()
   {
     ChangeDef(INFS);
     SetAction("LowerSail");
-    this->~SetUp();
+    this->~Initialize();
   }
 }
