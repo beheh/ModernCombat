@@ -23,7 +23,26 @@ public func Initialize()
   fDestroyed = false;
   iLastAttacker = -1;
   aDealers = CreateArray();
+  AddEffect("BasicVehicleUnused", this, 50, 1, this, 0);
   return true;
+}
+
+global func FxBasicVehicleUnusedStart(object pTarget, int iEffectNumber) {
+	EffectVar(0, pTarget, iEffectNumber) = 0;
+}
+
+global func FxBasicVehicleUnusedTimer(object pTarget, int iTime, int iEffectNumber) {
+	Log("1");
+	if(GetOwner(pTarget) == NO_OWNER) return FX_OK;
+	EffectVar(0, pTarget, iEffectNumber)++;
+	if(EffectVar(0, pTarget, iEffectNumber) < 38*15) return FX_OK;
+	if(!FindObject2(Find_Container(pTarget), Find_Or(Find_Distance(50, AbsX(GetX(pTarget)), AbsY(GetY(pTarget))), Find_ActionTarget(pTarget), Find_ActionTarget(GetActionTarget(0, pTarget))), Find_Not(Find_Func("IsFakeDeath")), Find_Func("IsClonk"), Find_OCF(OCF_Alive))) {
+		SetOwner(NO_OWNER, pTarget);
+	}
+	else {
+		EffectVar(0, pTarget, iEffectNumber) = 0;
+	}
+	return FX_OK;
 }
 
 /* Schaden */
