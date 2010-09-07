@@ -187,16 +187,7 @@ global func FxIntVehicleUnusedTimer(object pTarget, int iEffectNumber, int iTime
     return -1;
   if(Distance(GetX(pTarget), GetY(pTarget), GetX(pSpawner), GetY(pSpawner)) < iDistance)
     return -1;
-  var pCommanders = FindObjects(Find_Or(Find_Distance(50, AbsX(GetX(pTarget)), AbsY(GetY(pTarget))), Find_ActionTarget(pTarget), Find_ActionTarget(GetActionTarget(0, pTarget))), Find_Not(Find_Func("IsFakeDeath")), Find_Func("IsClonk"), Find_OCF(OCF_Alive));
-  var remove = false;
-  for(var pCommander in pCommanders) {
-    var iDistance = ObjectDistance(pCommander, GetActionTarget(0, pTarget));
-    if(iDistance < 50) {
-      remove = true;
-      break;
-    }
-  }
-  if(remove) return -1;
+  if(GetOwner(pTarget) != NO_OWNER) return -1;
   DoDmg(Max(1, (iTime/10)*2), DMG_Melee, pTarget);
   return 1;
 }
