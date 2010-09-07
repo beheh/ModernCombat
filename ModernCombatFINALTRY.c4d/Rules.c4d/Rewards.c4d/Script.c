@@ -280,7 +280,7 @@ global func AwardAchievement(id idAchievement, int iPlr)
 global func ResetAchievementProgress(id idAchievement, int iPlr)
 {
   if(!FindObject(RWDS)) return;
-    var index = idAchievement->GetSavingSlot();
+  var index = idAchievement->GetSavingSlot();
   if(aAchievementProgress[iPlr][index])
   {
     aAchievementProgress[iPlr][index] = 0;
