@@ -81,7 +81,7 @@ protected func Collection2(object pObject)
   if(!flagpoles) {
     flagpoles = GetGOCCFlags();
     if(!flagpoles) {
-      Log("ERROR: Could not find any flags");
+      ErrorLog("Couldn't find any flags");
       GameOver();
     }
   }

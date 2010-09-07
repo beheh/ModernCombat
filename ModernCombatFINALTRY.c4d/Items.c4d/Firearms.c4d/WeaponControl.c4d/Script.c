@@ -426,7 +426,6 @@ public func FxReloadTimer(object pTarget, int iNumber, int iTime)
   //Normales Nachladen...
   if(EffectVar(1,pTarget,iNumber))
   {
-    //Log("  Nachladen");
     if(GetFMData(FM_SingleReload))
     {
       if(iTime-GetFMData(FM_PrepareReload) >= GetFMData(FM_Reload)*(EffectVar(3,pTarget,iNumber)+1)/GetFMData(FM_AmmoLoad))
