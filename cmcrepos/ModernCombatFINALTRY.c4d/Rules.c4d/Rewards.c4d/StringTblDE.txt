@@ -6,5 +6,6 @@ AchievementUnlocked=<c %x>%s</c> hat die Errungenschaft <c ffff33>%s</c> erhalte
 Achievement=Errungenschaft
 Achievements=Errungenschaften
 AchievementsUnlocked=%d Errungenschaften freigeschaltet:
+AchievementLocked=<c 777777>Du hast diese Errungenschaft noch nicht erreicht.</c>
 Continue=Weiter
 Back=Zurück
