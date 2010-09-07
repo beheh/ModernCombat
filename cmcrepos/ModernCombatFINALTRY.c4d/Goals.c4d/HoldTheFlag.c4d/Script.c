@@ -193,11 +193,6 @@ public func FlagCaptured(object pFlagPole, int iTeam, array aAttackers, bool fRe
   EventInfo4K(0, Format("$MsgCaptured$", GetTeamColor(iTeam), GetTeamName(iTeam), GetName(pFlag)), OFLG, 0, GetTeamColor(iTeam), 0, "Info.ogg");
 }
 
-private func Interpolate(val1, val2, step, max)
-{
-  return val1+(val2-val1)*step/max;
-}
-
 /* Scoreboard */
 
 static const GHTF_Name = SBRD_Caption;
@@ -219,7 +214,7 @@ public func UpdateScoreboard()
   //Flaggenzeile
   var color = GetTeamColor(pFlag->GetTeam()),
   prog = pFlag->GetProcess();
-  color = RGBa(Interpolate(64, GetRGBaValue(color, 1), prog, 100), Interpolate(64, GetRGBaValue(color, 2), prog, 100), Interpolate(64, GetRGBaValue(color, 3), prog, 100));
+  color = RGBa(Interpolate2(255, GetRGBaValue(color, 1), prog, 100), Interpolate2(255, GetRGBaValue(color, 2), prog, 100), Interpolate2(255, GetRGBaValue(color, 3), prog, 100));
   SetScoreboardData(GHTF_FlagRow, GHTF_Name, Format("<c %x>%s</c>", color, GetName(pFlag)));
   SetScoreboardData(GHTF_FlagRow, GHTF_Progress, Format("<c %x>%d%</c>", color, prog), GHTF_FlagRow);
   var icon, trend = pFlag->GetTrend();
