@@ -6,5 +6,6 @@ AchievementUnlocked=<c %x>%s</c> has unlocked the achievement <c ffff33>%s</c>
 Achievement=Achievement
 Achievements=Achievements
 AchievementsUnlocked=%d Achievements unlocked:
+AchievementLocked=<c 777777>You haven't unlock this achievement yet.</c>
 Continue=Continue
 Back=Back

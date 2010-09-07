@@ -21,122 +21,134 @@ protected func Initialize()
 
 protected func Activate(iByPlayer)
 {
-	StatsMenu(iByPlayer);
-	return 1;
-	/*var pClonk = GetCursor(iByPlayer);
-	if(!pClonk) {
-		MessageWindow(GetDesc(), iByPlayer);
-		return;
-	}
+  StatsMenu(iByPlayer);
+  return 1;
+
+  /Altes Menü
+  /*var pClonk = GetCursor(iByPlayer);
+  if(!pClonk)
+  {
+    MessageWindow(GetDesc(), iByPlayer);
+    return;
+  }
 
   if(!CreateMenu(GetID(),pClonk,this,0,0,0,C4MN_Style_Dialog)) return;
 
   var szMessage = Format("$ActualPoints$|");
-  
 	var iData = GetPlrExtraData(iByPlayer, "CMC_Achievements");
 	var aAchievements = CreateArray();
-  for(var i = 1; i <= 32; i++) {
-  	if(!(iData >> i & 1)) continue;
-		aAchievements[GetLength(aAchievements)] = C4Id(Format("AC%02d", i));
+  for(var i = 1; i <= 32; i++)
+  {
+    if(!(iData >> i & 1)) continue;
+    aAchievements[GetLength(aAchievements)] = C4Id(Format("AC%02d", i));
   }
 
   AddMenuItem(" | ", "", RWDS, pClonk, 0, 0, "", 514, 0, 0);
 	AddMenuItem("<c ffff33>$Achievements$</c>", "", NONE, pClonk, 0, 0, "", 0, 0, 0);
 	AddMenuItem(Format("$AchievementsUnlocked$", GetLength(aAchievements)), "", NONE, pClonk, 0, 0, "", 0, 0, 0);
 	
-  for(var idAchievement in aAchievements) {
-   	
-  }
-  
+  for(var idAchievement in aAchievements) {}
   AddMenuItem("Weiter", "OpenMenu", NONE, pClonk, 0, 0, "", 0, 0, 0);
  */
 }
 
-public func StatsMenu(int iPlr, bool fBack) {
-	if(!aStats[iPlr]) aStats[iPlr] = 0;
-	var pClonk = GetCursor(iPlr);
-	var iSelect = aStats[iPlr];
+public func StatsMenu(int iPlr, bool fBack)
+{
+  if(!aStats[iPlr]) aStats[iPlr] = 0;
+  var pClonk = GetCursor(iPlr);
+  var iSelect = aStats[iPlr];
 
-	if(!CreateMenu(GetID(),pClonk,this,0,0,0,C4MN_Style_Dialog)) return;
-	AddMenuItem(" | ", "", RWDS, pClonk, 0, 0, "", 514, 0, 0);
-	if(iSelect) {
-		var iData = GetPlrExtraData(iPlr, "CMC_Achievements");
-		var iIndex = iSelect;
-		if(!(iData >> iSelect & 1)) {
-			AddMenuItem(Format("<c ffff33>$Achievement$ %d</c>", iIndex), "", NONE, pClonk, 0, 0, "", 0, 0, 0);
-			AddMenuItem("<i>????????</i>", "", NONE, pClonk, 0, 0, "", 0, 0, 0);
-		}
-		else {
-			var idAchievement = C4Id(Format("AC%02d", iIndex));
-			AddMenuItem(Format("<c ffff33>%s</c>", GetName(0, idAchievement)), "", NONE, pClonk, 0, 0, "", 0, 0, 0);
-			AddMenuItem(Format("<i>%s</i>", GetDesc(0, idAchievement)), "", NONE, pClonk, 0, 0, "", 0, 0, 0);
-		}
-	}
-	else {	
-		//Erst mal einsortieren
-		var aList = CreateArray();
-		var szString;
-		var iPlayer = 0;
-		while(aData[iPlayer] != 0) {
-		  var iTeam = GetPlayerData(RWDS_PlayerTeam, iPlayer);
-		  if(!aList[iTeam]) aList[iTeam] = CreateArray();
-		  szString = Format("%s: %d $Points$", GetPlayerData(RWDS_PlayerName, iPlayer), GetPlayerPoints(RWDS_TotalPoints, iPlayer));
-		  aList[iTeam][GetLength(aList[iTeam])] = szString;
-		  iPlayer++;
-		}
+  if(!CreateMenu(GetID(),pClonk,this,0,0,0,C4MN_Style_Dialog)) return;
+  AddMenuItem(" | ", "", RWDS, pClonk, 0, 0, "", 514, 0, 0);
+  if(iSelect)
+  {
+    var iData = GetPlrExtraData(iPlr, "CMC_Achievements");
+    var iIndex = iSelect;
+    if(!(iData >> iSelect & 1))
+    {
+      AddMenuItem(Format("<c ffff33>$Achievement$ %d</c>", iIndex), "", NONE, pClonk, 0, 0, "", 0, 0, 0);
+      AddMenuItem("<i>$AchievementLocked$</i>", "", NONE, pClonk, 0, 0, "", 0, 0, 0);
+    }
+    else
+    {
+      var idAchievement = C4Id(Format("AC%02d", iIndex));
+      AddMenuItem(Format("<c ffff33>%s</c>", GetName(0, idAchievement)), "", NONE, pClonk, 0, 0, "", 0, 0, 0);
+      AddMenuItem(Format("<i>%s</i>", GetDesc(0, idAchievement)), "", NONE, pClonk, 0, 0, "", 0, 0, 0);
+    }
+  }
+  else
+  {
+    //Erst mal einsortieren
+    var aList = CreateArray();
+    var szString;
+    var iPlayer = 0;
+    while(aData[iPlayer] != 0)
+    {
+      var iTeam = GetPlayerData(RWDS_PlayerTeam, iPlayer);
+      if(!aList[iTeam]) aList[iTeam] = CreateArray();
+      szString = Format("%s: %d $Points$", GetPlayerData(RWDS_PlayerName, iPlayer), GetPlayerPoints(RWDS_TotalPoints, iPlayer));
+                 aList[iTeam][GetLength(aList[iTeam])] = szString;
+                 iPlayer++;
+    }
 
-		//Nach Team ausgeben
-		var szMessage = "";
+    //Nach Team ausgeben
+    var szMessage = "";
 
-		for(var aTeam in aList)
-		{
-		  if(!aTeam) continue;
-		  for(var szString in aTeam)
-		  {
-		    if(szMessage != "") szMessage = Format("%s|",szMessage);
-		    szMessage = Format("%s%s", szMessage, szString);
-		  }
-		}
-		AddMenuItem("<c ffff33>$ActualPoints$</c>", "", NONE, pClonk, 0, 0, "", 0, 0, 0);
-		AddMenuItem(Format("%s", szMessage), "", NONE, pClonk, 0, 0, "", 0, 0, 0);
-	}
-	
-	//Leerzeile
-	AddMenuItem(" ", "", NONE, pClonk, 0, iSelect+1, "", 0, 0, 0);
-	
-	
-	//Navigation
-	if(iSelect+1 > 16) {
-		AddMenuItem("<c 525252>$Continue$</c>", "StatsContinue", NONE, pClonk, 0, iPlr, "", 0, 0, 0);
-	}
-	else {
-		AddMenuItem("$Continue$", "StatsContinue", NONE, pClonk, 0, iPlr, "", 0, 0, 0);
-	}
-	if(!fBack) SelectMenuItem(4, pClonk);
-	if(iSelect-1 < 0) {
-		AddMenuItem("<c 525252>$Back$</c>", "StatsBack", NONE, pClonk, 0, iPlr, "", 0, 0, 0);
-	}
-	else {
-		AddMenuItem("$Back$", "StatsBack", NONE, pClonk, 0, iPlr, "", 0, 0, 0);
-	}
-	if(fBack) SelectMenuItem(5, pClonk);
-	return true;
+    for(var aTeam in aList)
+    {
+      if(!aTeam) continue;
+      for(var szString in aTeam)
+      {
+        if(szMessage != "") szMessage = Format("%s|",szMessage);
+        szMessage = Format("%s%s", szMessage, szString);
+      }
+    }
+    AddMenuItem("<c ffff33>$ActualPoints$</c>", "", NONE, pClonk, 0, 0, "", 0, 0, 0);
+    AddMenuItem(Format("%s", szMessage), "", NONE, pClonk, 0, 0, "", 0, 0, 0);
+  }
+
+  //Leerzeile
+  AddMenuItem(" ", "", NONE, pClonk, 0, iSelect+1, "", 0, 0, 0);
+
+  //Navigation
+  if(iSelect+1 > 16)
+  {
+    AddMenuItem("<c 525252>$Continue$</c>", "StatsContinue", NONE, pClonk, 0, iPlr, "", 0, 0, 0);
+  }
+  else
+  {
+    AddMenuItem("$Continue$", "StatsContinue", NONE, pClonk, 0, iPlr, "", 0, 0, 0);
+  }
+  if(!fBack) SelectMenuItem(4, pClonk);
+  if(iSelect-1 < 0)
+  {
+    AddMenuItem("<c 525252>$Back$</c>", "StatsBack", NONE, pClonk, 0, iPlr, "", 0, 0, 0);
+  }
+  else
+  {
+    AddMenuItem("$Back$", "StatsBack", NONE, pClonk, 0, iPlr, "", 0, 0, 0);
+  }
+  if(fBack) SelectMenuItem(5, pClonk);
+  return true;
 }
 
-public func StatsContinue(temp, int iPlr) {
-	if(!aStats[iPlr]) aStats[iPlr] = 0;
-	aStats[iPlr] = BoundBy(aStats[iPlr]+1, 0, 16);
-	return StatsMenu(iPlr, false);
+public func StatsContinue(temp, int iPlr)
+{
+  if(!aStats[iPlr]) aStats[iPlr] = 0;
+  aStats[iPlr] = BoundBy(aStats[iPlr]+1, 0, 16);
+  return StatsMenu(iPlr, false);
 }
 
-public func StatsBack(temp, int iPlr) {
-	if(!aStats[iPlr]) aStats[iPlr] = 0;
-	aStats[iPlr] = BoundBy(aStats[iPlr]-1, 0, 16);
-	return StatsMenu(iPlr, true);
+public func StatsBack(temp, int iPlr)
+{
+  if(!aStats[iPlr]) aStats[iPlr] = 0;
+  aStats[iPlr] = BoundBy(aStats[iPlr]-1, 0, 16);
+  return StatsMenu(iPlr, true);
 }
 
-global func RewardsActive() {
-	return FindObject(RWDS);
+global func RewardsActive()
+{
+  return FindObject(RWDS);
 }
 
 /* Auswerten */
@@ -145,7 +157,7 @@ global func RewardEvaluation()
 {
   var db = FindObject(RWDS);
   if(!db) return;
-  
+
   db->Evaluate();
 }
 
@@ -189,7 +201,8 @@ public func Evaluate()
 
 /* Spieler updaten */
 
-public func UpdatePlayers() {
+public func UpdatePlayers()
+{
   for(var i = 0; i < GetPlayerCount(); i++)
   {
     var iPlr = GetPlayerByIndex(i);
@@ -213,22 +226,24 @@ static const RWDS_MinusPoints = 5;
 
 global func DoPlayerPoints(int iPoints, int iType, int iPlr, object pClonk, id idIcon)
 {
-	var db = FindObject2(Find_ID(RWDS));
+  var db = FindObject2(Find_ID(RWDS));
+
   if(!db) return;
   if(!iPoints) return;
   if(iType != RWDS_BattlePoints && iType != RWDS_TeamPoints && iType != RWDS_MinusPoints)
-  	return ErrorLog("Invalid points type for %d points at %v", iPoints, pClonk);
+    return ErrorLog("Invalid points type for %d points at %v", iPoints, pClonk);
   if(db->SetPlayerData(db->GetPlayerPoints(iType, iPlr)+iPoints, iType, iPlr)) {
-		DoAchievementProgress(iPoints, AC13, iPlr);
-		if(pClonk) {
-			if(!idIcon) idIcon = RWDS;
-			var szMsg;
-			if(iPoints < 0) szMsg = Format("{{%i}} <c ff0000>%d</c>", idIcon, iPoints);
-			if(iPoints > 0) szMsg = Format("{{%i}} <c 00ff00>+%d</c>", idIcon, iPoints);
-			if(iPoints == 0) szMsg = Format("{{%i}} <c ffff00>+%d</c>", idIcon, iPoints);
-			pClonk->AddEffect("PointMessage", pClonk, 130, 1, pClonk, 0, szMsg);
-			return true;
-		}
+    DoAchievementProgress(iPoints, AC13, iPlr);
+    if(pClonk)
+    {
+      if(!idIcon) idIcon = RWDS;
+      var szMsg;
+      if(iPoints < 0) szMsg = Format("{{%i}} <c ff0000>%d</c>", idIcon, iPoints);
+      if(iPoints > 0) szMsg = Format("{{%i}} <c 00ff00>+%d</c>", idIcon, iPoints);
+      if(iPoints == 0) szMsg = Format("{{%i}} <c ffff00>+%d</c>", idIcon, iPoints);
+      pClonk->AddEffect("PointMessage", pClonk, 130, 1, pClonk, 0, szMsg);
+      return true;
+    }
   }
   return;
 }
@@ -247,20 +262,24 @@ public func GetData()
 
 /* Achievements */
 
-global func ResetAllPlayerAchievements() {
-	for(var i = 0; i < GetPlayerCount(); i++)
-		ResetPlayerAchievements(GetPlayerByIndex(i));
-	return true;
+global func ResetAllPlayerAchievements()
+{
+  for(var i = 0; i < GetPlayerCount(); i++)
+    ResetPlayerAchievements(GetPlayerByIndex(i));
+  return true;
 }
 
-global func ResetPlayerAchievements(int iPlr) {
-	SetPlrExtraData(iPlr, "CMC_Achievements", 0);
+global func ResetPlayerAchievements(int iPlr)
+{
+  SetPlrExtraData(iPlr, "CMC_Achievements", 0);
   return true;
 }
 
 global func AwardAchievement(id idAchievement, int iPlr)
 {
-	if(!FindObject(RWDS)) return;
+  //Keine Belohnungen?
+  if(!FindObject(RWDS)) return;
+
   if(GetLeague()) return false;
   if(GetPlayerType(iPlr) != C4PT_User) return false;
   if(!idAchievement->IsAchievement()) return false;
@@ -273,56 +292,66 @@ global func AwardAchievement(id idAchievement, int iPlr)
   return true;
 }
 
-global func ResetAchievementProgress(id idAchievement, int iPlr) {
-	if(!FindObject(RWDS)) return;
-	var index = idAchievement->GetSavingSlot();
-  if(aAchievementProgress[iPlr][index]) {
-		aAchievementProgress[iPlr][index] = 0;
-	}
-	return true;
-}
-
-global func DoAchievementProgress(int iProgress, id idAchievement, int iPlr) {
-	if(!FindObject(RWDS)) return;
-	var index = idAchievement->GetSavingSlot();
- 	aAchievementProgress[iPlr][index] += iProgress;
-  if(aAchievementProgress[iPlr][index] >= idAchievement->~GetAchievementScore()) {
-   	ResetAchievementProgress(idAchievement, iPlr);
-  	return AwardAchievement(idAchievement, iPlr);
+global func ResetAchievementProgress(id idAchievement, int iPlr)
+{
+  if(!FindObject(RWDS)) return;
+    var index = idAchievement->GetSavingSlot();
+  if(aAchievementProgress[iPlr][index])
+  {
+    aAchievementProgress[iPlr][index] = 0;
   }
   return true;
 }
 
-global func GetAchievementProgress(id idAchievement, int iPlr) {
-	if(!FindObject(RWDS)) return;
-	var index = idAchievement->GetSavingSlot();
-  if(aAchievementProgress[iPlr][index]) {
-		return aAchievementProgress[iPlr][index];
-	}
-	return 0;
+global func DoAchievementProgress(int iProgress, id idAchievement, int iPlr)
+{
+  if(!FindObject(RWDS)) return;
+  var index = idAchievement->GetSavingSlot();
+   aAchievementProgress[iPlr][index] += iProgress;
+  if(aAchievementProgress[iPlr][index] >= idAchievement->~GetAchievementScore())
+  {
+    ResetAchievementProgress(idAchievement, iPlr);
+    return AwardAchievement(idAchievement, iPlr);
+  }
+  return true;
 }
 
-global func ResetAchievementExtra(id idAchievement, int iPlr) {
-	if(!FindObject(RWDS)) return;
-	var index = idAchievement->GetSavingSlot();
- 	aAchievementExtra[iPlr][index] = 0;
-	return true;
+global func GetAchievementProgress(id idAchievement, int iPlr)
+{
+  if(!FindObject(RWDS)) return;
+  var index = idAchievement->GetSavingSlot();
+  if(aAchievementProgress[iPlr][index])
+  {
+    return aAchievementProgress[iPlr][index];
+  }
+  return 0;
 }
 
-global func SetAchievementExtra(data, id idAchievement, int iPlr) {
-	if(!FindObject(RWDS)) return;
-	var index = idAchievement->GetSavingSlot();
- 	aAchievementExtra[iPlr][index] = data;
-	return true;
+global func ResetAchievementExtra(id idAchievement, int iPlr)
+{
+  if(!FindObject(RWDS)) return;
+  var index = idAchievement->GetSavingSlot();
+  aAchievementExtra[iPlr][index] = 0;
+  return true;
 }
 
-global func GetAchievementExtra(id idAchievement, int iPlr) {
-	if(!FindObject(RWDS)) return;
-	var index = idAchievement->GetSavingSlot();
-  if(aAchievementExtra[iPlr][index]) {
-		return aAchievementExtra[iPlr][index];
-	}
-	return false;
+global func SetAchievementExtra(data, id idAchievement, int iPlr)
+{
+  if(!FindObject(RWDS)) return;
+  var index = idAchievement->GetSavingSlot();
+  aAchievementExtra[iPlr][index] = data;
+  return true;
+}
+
+global func GetAchievementExtra(id idAchievement, int iPlr)
+{
+  if(!FindObject(RWDS)) return;
+  var index = idAchievement->GetSavingSlot();
+  if(aAchievementExtra[iPlr][index])
+  {
+    return aAchievementExtra[iPlr][index];
+  }
+  return false;
 }
 
 /* Punkteanzeige */
@@ -338,18 +367,20 @@ global func FxPointMessageStart(pTarget, iNo, iTemp, szString)
 
 global func FxPointMessageTimer(pTarget, iNo)
 {
-	var iTime = EffectVar(2,pTarget,iNo);
-	if(!iTime) {
-		var i = 0;
-		var index;
-		while((index = GetEffect("PointMessage", pTarget, i)) != 0) {
-			if(EffectVar(2,pTarget,index) > 0) return FX_OK;
-			i++;
-		}
-	  Sound("PointsGet.ogg"); //Sound
-		EffectVar(1,pTarget,iNo) = CreateObject(ARHL,0,0,-1);	//Helper
-	}
-	EffectVar(2,pTarget,iNo)++;
+  var iTime = EffectVar(2,pTarget,iNo);
+  if(!iTime)
+  {
+    var i = 0;
+    var index;
+    while((index = GetEffect("PointMessage", pTarget, i)) != 0)
+    {
+      if(EffectVar(2,pTarget,index) > 0) return FX_OK;
+      i++;
+    }
+    Sound("PointsGet.ogg");					//Sound
+    EffectVar(1,pTarget,iNo) = CreateObject(ARHL,0,0,-1);	//Helper
+  }
+  EffectVar(2,pTarget,iNo)++;
   CustomMessage(EffectVar(0,pTarget,iNo),EffectVar(1,pTarget,iNo),NO_OWNER,0,-iTime/2,
                 RGBa(255,255,255,BoundBy(-50+iTime*5,0,255)));
   if(-50+iTime*5 > 255)

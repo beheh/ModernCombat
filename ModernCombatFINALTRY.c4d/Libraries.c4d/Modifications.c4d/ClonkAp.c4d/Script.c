@@ -333,40 +333,47 @@ global func FakeDeath(object pTarget)
   
   pTarget->OnFakeDeath();
 
-	//Achievements
-  if(Hostile(GetKiller(pTarget), GetOwner(pTarget))) {
-		var data = GetAchievementExtra(AC08, GetKiller(pTarget));
-		if(!data) data = CreateArray();
-		data[GetOwner(pTarget)]++;
-		if(data[GetOwner(pTarget)] >= AC08->GetAchievementScore()) {
-			AwardAchievement(AC08, GetKiller(pTarget));
-		}
-		SetAchievementExtra(data, AC08, GetKiller(pTarget));
-	}
-	if(Hostile(GetKiller(pTarget), GetOwner(pTarget))) {
-		var killicon = pTarget->~KillIcon();
-		if(killicon && killicon->~IsWeapon()) {
-			var wpn = GetAchievementExtra(AC09, GetKiller(pTarget));
-			if(!wpn) wpn = CreateArray();
-			wpn[FindInArray4K(AC09->GetIDs(), killicon)] = true;
-			var i = 0, count = 0;
-			while(i <= GetLength(AC09->GetIDs())-1) {
-				if(wpn[i]) count++;
-				i++;
-			}
-			if(count >= GetLength(AC09->GetIDs())) {
-				AwardAchievement(AC09, GetKiller(pTarget));
-			}
-			SetAchievementExtra(wpn, AC09, GetKiller(pTarget));
-		}
-	}
-  if(Hostile(GetKiller(pTarget), GetOwner(pTarget))) {
-	  if(GetProcedure(pTarget) == "FLIGHT" && GetProcedure(GetCursor(GetKiller(pTarget))) == "FLIGHT")
-  		DoAchievementProgress(1, AC10, GetKiller(pTarget));
- 	}
-	ResetAchievementProgress(AC12, GetOwner());
-	ResetAchievementProgress(AC14, GetOwner());
-	
+  //Achievements
+  if(Hostile(GetKiller(pTarget), GetOwner(pTarget)))
+  {
+    var data = GetAchievementExtra(AC08, GetKiller(pTarget));
+    if(!data) data = CreateArray();
+    data[GetOwner(pTarget)]++;
+    if(data[GetOwner(pTarget)] >= AC08->GetAchievementScore())
+    {
+      AwardAchievement(AC08, GetKiller(pTarget));
+    }
+    SetAchievementExtra(data, AC08, GetKiller(pTarget));
+  }
+  if(Hostile(GetKiller(pTarget), GetOwner(pTarget)))
+  {
+    var killicon = pTarget->~KillIcon();
+    if(killicon && killicon->~IsWeapon())
+    {
+      var wpn = GetAchievementExtra(AC09, GetKiller(pTarget));
+      if(!wpn) wpn = CreateArray();
+      wpn[FindInArray4K(AC09->GetIDs(), killicon)] = true;
+      var i = 0, count = 0;
+      while(i <= GetLength(AC09->GetIDs())-1)
+      {
+        if(wpn[i]) count++;
+        i++;
+      }
+      if(count >= GetLength(AC09->GetIDs()))
+      {
+        AwardAchievement(AC09, GetKiller(pTarget));
+      }
+      SetAchievementExtra(wpn, AC09, GetKiller(pTarget));
+    }
+  }
+  if(Hostile(GetKiller(pTarget), GetOwner(pTarget)))
+  {
+    if(GetProcedure(pTarget) == "FLIGHT" && GetProcedure(GetCursor(GetKiller(pTarget))) == "FLIGHT")
+      DoAchievementProgress(1, AC10, GetKiller(pTarget));
+  }
+  ResetAchievementProgress(AC12, GetOwner());
+  ResetAchievementProgress(AC14, GetOwner());
+
   //Fake Death erstellen
   if(WildcardMatch(GetAction(pTarget),"*Crawl*"))
   {
@@ -502,7 +509,8 @@ protected func GetObject2Drop(object pObj)
   return _inherited(...);
 }
 
-protected func ContextStatistics(object pCaller) {
+protected func ContextStatistics(object pCaller)
+{
   [$CtxStatistics$|Image=RWDS|Condition=RewardsActive]
   var db = FindObject(RWDS);
   if(db) return db->Activate(GetOwner(pCaller));
