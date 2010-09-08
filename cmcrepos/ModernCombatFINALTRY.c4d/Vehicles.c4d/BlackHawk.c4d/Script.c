@@ -123,7 +123,7 @@ public func GetRotorSpeed()
 
 public func GetRocket()
 {
-  var aRockets = FindObjects(Find_ID(ROKT), Find_Distance(800, AbsX(GetX()), AbsY(GetY())));
+  var aRockets = FindObjects(Find_ID(ROKT), Find_Distance(800, AbsX(GetX()), AbsY(GetY())), Find_Not(Find_Func("IsDamaged")));
   var fRocket = false;
   for(var pCheck in aRockets)
   {

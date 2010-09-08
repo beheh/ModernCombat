@@ -10,7 +10,7 @@ public func MaxTime()		{return 200;}
 public func MaxSpeed()		{return 100;}
 protected func SecureDistance()	{return 100;} //Mindestabstand
 public func IgnoreTracer()	{return true;}
-
+public func IsDamaged()	{return GetEffect("Damaged", this);}
 
 /* Start */
 
@@ -175,7 +175,6 @@ public func Damage()
 public func Fall()
 {
   SetAction("Idle");
-  FadeOut4K(4);
   AddEffect("Damaged",this,1,1,this);
   Sound("RPGP_ShotDown.ogg");
 }

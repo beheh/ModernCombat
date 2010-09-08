@@ -27,11 +27,11 @@ public func Initialize()
   return true;
 }
 
-global func FxBasicVehicleUnusedStart(object pTarget, int iEffectNumber) {
+public func FxBasicVehicleUnusedStart(object pTarget, int iEffectNumber) {
 	EffectVar(0, pTarget, iEffectNumber) = 38*15;
 }
 
-global func FxBasicVehicleUnusedTimer(object pTarget, int iEffectNumber, int iTime) {
+public func FxBasicVehicleUnusedTimer(object pTarget, int iEffectNumber, int iTime) {
 	if(GetOwner(pTarget) == NO_OWNER) return FX_OK;
 	var pClonk = FindObject2(Find_Container(pTarget), Find_Or(Find_Distance(50, AbsX(GetX(pTarget)), AbsY(GetY(pTarget))), Find_ActionTarget(pTarget), Find_ActionTarget(GetActionTarget(0, pTarget))), Find_Not(Find_Func("IsFakeDeath")), Find_Func("IsClonk"), Find_OCF(OCF_Alive));
 	if(!pClonk) {
