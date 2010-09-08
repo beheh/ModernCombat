@@ -505,19 +505,18 @@ private func TeamAlive(int iTeam)
   poles = 0;
   for(var pole in FindObjects(Find_ID(OFPL)))
     if(pole->GetTeam() == iTeam && pole->IsFullyCaptured())
-	  //Team hat noch Flaggen: Eliminiert, falls keine Spieler im Team
-      return GetTeamPlayerCount(iTeam);
+			poles++;
   alive = 0;
   for(var clonk in FindObjects(Find_OCF(OCF_CrewMember)))
     if(GetPlayerTeam(GetOwner(clonk)) == iTeam)
     {
-	  if(IsFakeDeath(clonk))
-		fakedeath++;
-	  if(Contained(clonk) && (GetID(Contained(clonk)) == OSPW && GetAction(Contained(clonk)) != "Counter") || GetID(Contained(clonk)) == TIM1 || GetID(Contained(clonk)) == TIM2)
-		continue;
-      alive++;
+			if(IsFakeDeath(clonk))
+				fakedeath++;
+			if(Contained(clonk) && ((GetID(Contained(clonk)) == OSPW && GetAction(Contained(clonk)) != "Counter") || GetID(Contained(clonk)) == TIM1 || GetID(Contained(clonk)) == TIM2))
+				continue;
+		   alive++;
     }
-  if(alive > 0 && alive > fakedeath)
+  if(alive > 0 && (alive > fakedeath || poles > 0))
     return true;
 }
 
