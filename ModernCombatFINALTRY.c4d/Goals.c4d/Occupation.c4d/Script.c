@@ -510,13 +510,15 @@ private func TeamAlive(int iTeam)
   for(var clonk in FindObjects(Find_OCF(OCF_Alive), Find_OCF(OCF_CrewMember)))
     if(GetPlayerTeam(GetOwner(clonk)) == iTeam)
     {
-    	if(IsFakeDeath(clonk)) {
-    		fakedeath++;
-    	}
-      if(Contained(clonk) && !poles)
-      {
-        if((GetID(Contained(clonk)) == OSPW && GetAction(Contained(clonk)) != "Counter") || GetID(Contained(clonk)) == TIM1 || GetID(Contained(clonk)) == TIM2)
-          continue;
+    	if(poles) {
+		  	if(IsFakeDeath(clonk)) {
+		  		fakedeath++;
+		  	}
+		    if(Contained(clonk))
+		    {
+		      if((GetID(Contained(clonk)) == OSPW && GetAction(Contained(clonk)) != "Counter") || GetID(Contained(clonk)) == TIM1 || GetID(Contained(clonk)) == TIM2)
+		        continue;
+		    }
       }
       alive++;
     }
