@@ -505,7 +505,7 @@ private func TeamAlive(int iTeam)
   poles = 0;
   for(var pole in FindObjects(Find_ID(OFPL)))
     if(pole->GetTeam() == iTeam && pole->IsFullyCaptured())
-			poles++;
+	  return GetTeamPlayerCount(iTeam) && GetTickets(iTeam);
   alive = 0;
   for(var clonk in FindObjects(Find_OCF(OCF_CrewMember)))
     if(GetPlayerTeam(GetOwner(clonk)) == iTeam)
