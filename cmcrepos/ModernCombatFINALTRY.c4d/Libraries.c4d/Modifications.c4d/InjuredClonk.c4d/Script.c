@@ -159,15 +159,16 @@ public func Suicide()
    for(var item in FindObjects(Find_Container(this),Find_Not(Find_OCF(OCF_Living))))
     RemoveObject(item);
 
-    if(clonk)
-    {
-      //Töten
-      if(GetAlive(clonk)) Kill(clonk);
+  if(clonk)
+  {
+    //Töten
+    if(GetAlive(clonk)) Kill(clonk);
 
-      //Leiche "auswerfen" und ausfaden lassen
-      Exit(clonk,0,GetObjHeight(clonk)/2);
-      clonk->FadeOut();
-    }
+    //Leiche "auswerfen" und ausfaden lassen
+    Exit(clonk,0,GetObjHeight(clonk)/2);
+    clonk->InstantDie();
+    clonk->FadeOut();
+  }
 
   //Verschwinden
   RemoveObject();
