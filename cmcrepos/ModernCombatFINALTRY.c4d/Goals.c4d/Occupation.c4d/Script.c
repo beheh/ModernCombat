@@ -513,7 +513,7 @@ private func TeamAlive(int iTeam)
     	if(IsFakeDeath(clonk)) {
     		fakedeath++;
     	}
-      if(Contained(clonk))
+      if(Contained(clonk) && !poles)
       {
         if((GetID(Contained(clonk)) == OSPW && GetAction(Contained(clonk)) != "Counter") || GetID(Contained(clonk)) == TIM1 || GetID(Contained(clonk)) == TIM2)
           continue;
