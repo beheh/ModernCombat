@@ -506,32 +506,20 @@ private func TeamAlive(int iTeam)
   for(var pole in FindObjects(Find_ID(OFPL)))
     if(pole->GetTeam() == iTeam && pole->IsFullyCaptured())
       poles++;
-  //Keine Flaggen?
-  if(poles == 0)
-  {
-    alive = 0;
-    for(var clonk in FindObjects(Find_OCF(OCF_Alive), Find_OCF(OCF_CrewMember)))
-      if(GetPlayerTeam(GetOwner(clonk)) == iTeam)
+  alive = 0;
+  for(var clonk in FindObjects(Find_OCF(OCF_Alive), Find_OCF(OCF_CrewMember)))
+    if(GetPlayerTeam(GetOwner(clonk)) == iTeam)
+    {
+    	if(IsFakeDeath(clonk)) {
+    		fakedeath++;
+    	}
+      if(Contained(clonk))
       {
-      	if(IsFakeDeath(clonk)) {
-      		fakedeath++;
-      	}
-        if(Contained(clonk))
-        {
-          if((GetID(Contained(clonk)) == OSPW && GetAction(Contained(clonk)) != "Counter") || GetID(Contained(clonk)) == TIM1 || GetID(Contained(clonk)) == TIM2)
-            continue;
-        }
-        alive++;
+        if((GetID(Contained(clonk)) == OSPW && GetAction(Contained(clonk)) != "Counter") || GetID(Contained(clonk)) == TIM1 || GetID(Contained(clonk)) == TIM2)
+          continue;
       }
-  }
-  else {
-    //Keine Spieler in einem Team?
-		for(var j = 0; j < GetPlayerCount(); j++) {
-			if(GetPlayerTeam(GetPlayerByIndex(j)) == iTeam) {
-				alive++;
-			}
-		}
-	}
+      alive++;
+    }
   if(alive > 0 && alive > fakedeath) return true;
   return false;
 }
