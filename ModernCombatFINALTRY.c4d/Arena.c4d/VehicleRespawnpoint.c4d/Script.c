@@ -53,7 +53,7 @@ global func FxIntVehicleSpawn4KTimer(object pTarget, int iEffectNumber, int iEff
 	    EffectVar(6, pTarget, iEffectNumber)++;
   	}
     var iDistance = EffectVar(3, pTarget, iEffectNumber);
-    if(iDistance > 0 && Distance(GetX(pVehicle), GetY(pVehicle), GetX(this), GetY(this)) > iDistance)
+    if(iDistance > 0 && Distance(GetX(pVehicle), GetY(pVehicle), GetX(this), GetY(this)) > iDistance && !GetEffect("IntVehicleUnused", pVehicle))
     {
       AddEffect("IntVehicleUnused", pVehicle, 51, 10, pVehicle, 0, this, iDistance);
     }
@@ -204,7 +204,7 @@ global func FxIntVehicleUnusedTimer(object pTarget, int iEffectNumber, int iTime
   if(Distance(GetX(pTarget), GetY(pTarget), GetX(pSpawner), GetY(pSpawner)) < iDistance)
     return -1;
   if(GetOwner(pTarget) != NO_OWNER) return -1;
-  DoDmg(Max(1, (iTime/10)*2), DMG_Melee, pTarget);
+  DoDmg(Max(1, (iTime/100)*2), DMG_Melee, pTarget);
   return 1;
 }
 
