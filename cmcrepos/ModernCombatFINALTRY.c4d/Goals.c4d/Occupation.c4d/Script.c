@@ -512,7 +512,7 @@ private func TeamAlive(int iTeam)
     {
 			if(IsFakeDeath(clonk))
 				fakedeath++;
-			if(Contained(clonk) && ((GetID(Contained(clonk)) == OSPW && GetAction(Contained(clonk)) != "Counter") || GetID(Contained(clonk)) == TIM1 || GetID(Contained(clonk)) == TIM2))
+			if(Contained(clonk) && ((GetID(Contained(clonk)) == OSPW && GetAction(Contained(clonk)) != "Counter" && !GetTickets(GetPlayerTeam(GetOwner(clonk)))) || GetID(Contained(clonk)) == TIM1 || GetID(Contained(clonk)) == TIM2))
 				continue;
 		   alive++;
     }
