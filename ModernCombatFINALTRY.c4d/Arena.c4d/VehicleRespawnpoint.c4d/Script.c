@@ -13,22 +13,28 @@ global func FxIntVehicleSpawn4KStart(object pTarget, int iEffectNumber, int iTem
   EffectVar(2, pTarget, iEffectNumber) = DIR_Right;	//Aktuelle Dir
   EffectVar(3, pTarget, iEffectNumber) = 100;		//Sichere Zone
   EffectVar(4, pTarget, iEffectNumber) = true;		//Erstes Mal
+  EffectVar(5, pTarget, iEffectNumber) = 0;		//Frames
+  EffectVar(6, pTarget, iEffectNumber) = 0;	//Getane Frames
   return 1;
 }
 
 global func FxIntVehicleSpawn4KSpawn(object pTarget, int iEffectNumber)
 {
   var pVehicle = EffectVar(1,pTarget,iEffectNumber);
-        var aType = EffectVar(0,pTarget,iEffectNumber);
-        pVehicle = CreateContents(RandomIndex4K(aType),pTarget);
-        SetDir(EffectVar (2,pTarget,iEffectNumber), pVehicle);
-        if(EffectVar(4, pTarget, iEffectNumber) || !pTarget->~Spawn(pVehicle))
-        {
-          EffectVar(4, pTarget, iEffectNumber) = 0;
-          Exit(pVehicle);
-          SetPosition(GetX(),GetY(), pVehicle);
+  var aType = EffectVar(0,pTarget,iEffectNumber);
+  pVehicle = CreateContents(RandomIndex4K(aType),pTarget);
+  SetDir(EffectVar (2,pTarget,iEffectNumber), pVehicle);
+  if(EffectVar(4, pTarget, iEffectNumber))
+  {
+    EffectVar(4, pTarget, iEffectNumber) = false;
+    Exit(pVehicle);
 	}
+	else {
+		SpawnEffect(pVehicle);
+	}
+  SetPosition(GetX(),GetY(), pVehicle);
   EffectVar(1,pTarget,iEffectNumber) = pVehicle;
+  EffectVar(6, pTarget, iEffectNumber) = 0;
   return true;
 }
 
@@ -37,12 +43,15 @@ global func FxIntVehicleSpawn4KTimer(object pTarget, int iEffectNumber, int iEff
   var aType = EffectVar(0,pTarget,iEffectNumber);
   if(!GetLength(aType)) return 0;
   var pVehicle = EffectVar(1,pTarget,iEffectNumber);
-  if(!pVehicle)
+  if(!pVehicle && EffectVar(6, pTarget, iEffectNumber) >= EffectVar(5, pTarget, iEffectNumber))
   {
     EffectCall(pTarget, iEffectNumber, "Spawn");
   }
   else
   {
+  	if(!pVehicle) {
+	    EffectVar(6, pTarget, iEffectNumber)++;
+  	}
     var iDistance = EffectVar(3, pTarget, iEffectNumber);
     if(iDistance > 0 && Distance(GetX(pVehicle), GetY(pVehicle), GetX(this), GetY(this)) > iDistance)
     {
@@ -84,6 +93,12 @@ global func FxIntVehicleSpawn4KSetDist(object pTarget, int iEffectNumber, int iD
   return;
 }
 
+global func FxIntVehicleSpawn4KSetFrames(object pTarget, int iEffectNumber, int iFrames)
+{
+  EffectVar(5,pTarget,iEffectNumber) = iFrames;
+  return;
+}
+
 
 global func FxIntVehicleSpawn4KStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)
 {
@@ -97,10 +112,11 @@ global func SetupVehicleSpawn(array aType, int iDir, object pTarget, int iFrames
   if(!iFrames) iFrames = 70;
   if(!iDistance) iDistance = 100;
 
-  var effect = AddEffect("IntVehicleSpawn4K",pTarget,50,iFrames,pTarget); 
+  var effect = AddEffect("IntVehicleSpawn4K",pTarget,50,1,pTarget); 
 
   EffectCall(pTarget, effect, "SetDir", iDir);
   EffectCall(pTarget, effect, "SetDist", iDistance);
+  EffectCall(pTarget, effect, "SetFrames", iFrames);
 
   if(GetLength(aType))
   {
@@ -194,24 +210,24 @@ global func FxIntVehicleUnusedTimer(object pTarget, int iEffectNumber, int iTime
 
 /* Objektspzifische Funktionen */
 
-public func Spawn(object pObj)
+global func SpawnEffect(object pObj)
 {
-  AddEffect("SpawnBeam", pObj, 120, 1, 0, GetID(), 70);
+  AddEffect("SpawnBeam", pObj, 120, 1, 0, GetID());
   Exit(pObj);
 }
 
-public func FxSpawnBeamStart(pTarget, iEffectNumber, temp, iFrames)
+global func FxSpawnBeamStart(pTarget, iEffectNumber, temp)
 {
   EffectVar(0, pTarget, iEffectNumber) = GetClrModulation(pTarget);
-  EffectVar(1, pTarget, iEffectNumber) = iFrames;
+  EffectVar(1, pTarget, iEffectNumber) = 70;
   SetClrModulation(RGBa(255, 255, 255, 255), pTarget);//Unsichtbar.
 }
 
-public func FxSpawnBeamTimer(pTarget, iEffectNumber, iTime)
+global func FxSpawnBeamTimer(pTarget, iEffectNumber, iTime)
 {
   var end_mod = EffectVar(0, pTarget, iEffectNumber);
   var iFrames = EffectVar(1, pTarget, iEffectNumber);
-
+	
   for(var i = 0; i < 2; ++i)
   {
    var cur_X = GetX(pTarget) - GetX();
@@ -228,7 +244,7 @@ public func FxSpawnBeamTimer(pTarget, iEffectNumber, iTime)
    return -1;
 }
 
-public func FxSpawnBeamStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)
+global func FxSpawnBeamStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)
 {
   SetClrModulation(EffectVar(0, pTarget, iEffectNumber), pTarget);
 }
