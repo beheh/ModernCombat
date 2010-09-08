@@ -485,8 +485,7 @@ func Death(object pTarget)
 
   if(IsFakeDeath())
   {
-    SetPhase(5);//Fallanimation überspringen
-    Sound("Death", false, pTarget);
+		pTarget->InstantDie();
   }
   else
   {
@@ -495,6 +494,14 @@ func Death(object pTarget)
 
   //Verschwinden
   FadeOut(pTarget);
+}
+
+public func InstantDie(object pTarget) {
+	if(!pTarget) pTarget = this;
+	if(!pTarget) return;
+  SetPhase(5);//Fallanimation überspringen
+  Sound("Death", false, pTarget);
+  return true;
 }
 
 protected func GetObject2Drop(object pObj)
