@@ -489,7 +489,7 @@ func Death(object pTarget)
   }
   else
   {
-   Sound("ClonkDie*.ogg", false, pTarget);
+   ScheduleCall(pTarget, "DeathSound", 1, 0, pTarget);
   }
 
   //Verschwinden
@@ -501,7 +501,14 @@ public func InstantDie(object pTarget) {
 	if(!pTarget) return;
   SetPhase(5);//Fallanimation überspringen
   Sound("Death", false, pTarget);
+  ClearScheduleCall(pTarget, "DeathSound");
   return true;
+}
+
+public func DeathSound(object pTarget) {
+	if(!pTarget) pTarget = this;
+	if(!pTarget) return;
+	Sound("ClonkDie*.ogg", false, pTarget);
 }
 
 protected func GetObject2Drop(object pObj)
