@@ -390,7 +390,8 @@ global func FakeDeath(object pTarget)
   if(Hostile(GetKiller(pTarget), GetOwner(pTarget)))
   {
     if(GetProcedure(pTarget) == "FLIGHT" && GetProcedure(GetCursor(GetKiller(pTarget))) == "FLIGHT")
-      DoAchievementProgress(1, AC10, GetKiller(pTarget));
+    	if(GetActTime(pTarget) > 10 && GetActTime(GetCursor(GetKiller(pTarget))) > 10)
+      	DoAchievementProgress(1, AC10, GetKiller(pTarget));
   }
   ResetAchievementProgress(AC12, GetOwner());
   ResetAchievementProgress(AC14, GetOwner());
