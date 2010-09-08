@@ -133,7 +133,7 @@ public func StatsBack(temp, int iPlr)
 
 global func RewardsActive()
 {
-  return FindObject(RWDS);
+  return FindObject2(Find_ID(RWDS)) != false;
 }
 
 /* Auswerten */
@@ -263,7 +263,7 @@ global func ResetPlayerAchievements(int iPlr)
 global func AwardAchievement(id idAchievement, int iPlr)
 {
   //Keine Belohnungen?
-  if(!FindObject(RWDS)) return;
+  if(!RewardsActive()) return;
 
   if(GetLeague()) return false;
   if(GetPlayerType(iPlr) != C4PT_User) return false;
@@ -290,9 +290,13 @@ global func ResetAchievementProgress(id idAchievement, int iPlr)
 
 global func DoAchievementProgress(int iProgress, id idAchievement, int iPlr)
 {
-  if(!FindObject(RWDS)) return;
-  var index = idAchievement->GetSavingSlot();
-   aAchievementProgress[iPlr][index] += iProgress;
+  if(!RewardsActive()) return;
+  var index = idAchievement->~GetSavingSlot();
+  if(!index) {
+  	ErrorLog("Achievement %v without SavingSlot", idAchievement);
+  	return;
+  }
+  aAchievementProgress[iPlr][index] += iProgress;
   if(aAchievementProgress[iPlr][index] >= idAchievement->~GetAchievementScore())
   {
     ResetAchievementProgress(idAchievement, iPlr);
@@ -303,7 +307,7 @@ global func DoAchievementProgress(int iProgress, id idAchievement, int iPlr)
 
 global func GetAchievementProgress(id idAchievement, int iPlr)
 {
-  if(!FindObject(RWDS)) return;
+  if(!RewardsActive()) return;
   var index = idAchievement->GetSavingSlot();
   if(aAchievementProgress[iPlr][index])
   {
@@ -314,7 +318,7 @@ global func GetAchievementProgress(id idAchievement, int iPlr)
 
 global func ResetAchievementExtra(id idAchievement, int iPlr)
 {
-  if(!FindObject(RWDS)) return;
+  if(!RewardsActive()) return;
   var index = idAchievement->GetSavingSlot();
   aAchievementExtra[iPlr][index] = 0;
   return true;
@@ -322,7 +326,7 @@ global func ResetAchievementExtra(id idAchievement, int iPlr)
 
 global func SetAchievementExtra(data, id idAchievement, int iPlr)
 {
-  if(!FindObject(RWDS)) return;
+  if(!RewardsActive()) return;
   var index = idAchievement->GetSavingSlot();
   aAchievementExtra[iPlr][index] = data;
   return true;
@@ -330,7 +334,7 @@ global func SetAchievementExtra(data, id idAchievement, int iPlr)
 
 global func GetAchievementExtra(id idAchievement, int iPlr)
 {
-  if(!FindObject(RWDS)) return;
+  if(!RewardsActive()) return;
   var index = idAchievement->GetSavingSlot();
   if(aAchievementExtra[iPlr][index])
   {
