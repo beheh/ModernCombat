@@ -63,16 +63,18 @@ public func OnDmg(int iDmg, int iType)
 public func OnHit(int iDmg, int iType, object pBy)
 {
  	var iPlr = GetController(pBy);
-	if(!IsDestroyed())
+	if(!IsDestroyed()) {
 	  iLastAttacker = iPlr;
-	if(!aDealers)
-		aDealers = CreateArray();
-	if(Hostile(iPlr, GetController()) && !IsDestroyed()) {
-		if(!aDealers[iPlr]) aDealers[iPlr] = 0;
-		aDealers[iPlr] += iDmg;
-		while(aDealers[iPlr] >= 50) {
-			DoPlayerPoints(BonusPoints("VehicleDamage"), RWDS_BattlePoints, iLastAttacker, GetCursor(iLastAttacker), IC18);
-			aDealers[iPlr] -= 50;
+		if(Hostile(iPlr, GetController())) {
+			if(!aDealers)
+				aDealers = CreateArray();
+			if(!aDealers[iPlr])
+				aDealers[iPlr] = 0;
+			aDealers[iPlr] += iDmg;
+			while(aDealers[iPlr] >= 50) {
+				DoPlayerPoints(BonusPoints("VehicleDamage"), RWDS_BattlePoints, iLastAttacker, GetCursor(iLastAttacker), IC18);
+				aDealers[iPlr] -= 50;
+			}
 		}
 	}
 	return true;

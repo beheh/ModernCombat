@@ -29,6 +29,10 @@ public func Damage()
   UpdateDmg();
 }
 
+public func OnHit() {
+	return GetActionTarget()->OnHit(...);
+}
+
 public func OnDmg(int iDmg, int iType)
 {
   if(iType == DMG_Fire)		return 60;	//Feuer
