@@ -188,6 +188,7 @@ public func Evaluate()
 
 public func UpdatePlayers()
 {
+	if(!RewardsActive()) return;
   for(var i = 0; i < GetPlayerCount(); i++)
   {
     var iPlr = GetPlayerByIndex(i);
@@ -212,7 +213,6 @@ static const RWDS_MinusPoints = 5;
 global func DoPlayerPoints(int iPoints, int iType, int iPlr, object pClonk, id idIcon)
 {
   var db = FindObject2(Find_ID(RWDS));
-
   if(!db) return;
   if(!iPoints) return;
   if(iType != RWDS_BattlePoints && iType != RWDS_TeamPoints && iType != RWDS_MinusPoints)
