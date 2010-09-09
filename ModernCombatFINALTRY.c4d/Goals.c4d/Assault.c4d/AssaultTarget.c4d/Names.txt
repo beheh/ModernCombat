@@ -1,0 +1,2 @@
+DE:Assault-Ziel
+US:Assault Target
