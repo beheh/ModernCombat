@@ -20,6 +20,10 @@ func Initialize()
 
 func Timer()
 {
+  //Steckt irgendwo drin: Raus da
+  if (Contained())
+    Exit(this, GetX(Contained())-GetX(), GetY(Contained())-GetY());
+
   var speed = Distance(GetXDir(),GetYDir());
   speed += Random(3);
 
@@ -32,7 +36,8 @@ func Timer()
   var rgb = RGB(speed,BoundBy(speed,140,255),255);
 
   SetClrModulation(rgb);
-  light->ChangeColor (rgb);
+  if (light)
+    light->ChangeColor(rgb);
   /*if(last_size != size)
     light->ChangeSize (size);
 
