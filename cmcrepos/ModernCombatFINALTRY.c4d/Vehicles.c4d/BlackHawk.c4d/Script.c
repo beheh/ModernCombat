@@ -942,7 +942,7 @@ protected func TimerCall()
 	if(IsDestroyed()) return;	
 	
   //Absinken, falls kein Pilot da.
-  if(!GetPilot() && !GetAutopilot())
+  if(!GetPilot() && !GetAutopilot() || GetY() < 0)
   {
     if(!Random(3))
     {
