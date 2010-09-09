@@ -53,7 +53,7 @@ public func SetState(int iNewState)
 	if(iState == BHUD_Disabled)
 	{
 		SetClrModulation(RGBa(122,122,122,50));
-		dwArrowColor = RGBa(255,204,0,50);
+		dwArrowColor = RGBa(122,122,122,50);
 	}
 	if(pRotation) pRotation->SetClrModulation(dwArrowColor);
 	if(pThrottle) pThrottle->SetClrModulation(dwArrowColor);
