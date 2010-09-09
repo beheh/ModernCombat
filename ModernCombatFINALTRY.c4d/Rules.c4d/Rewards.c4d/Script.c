@@ -30,6 +30,7 @@ public func StatsMenu(int iPlr, bool fBack)
   if(!aStats[iPlr]) aStats[iPlr] = 0;
   var pClonk = GetCursor(iPlr);
   var iSelect = aStats[iPlr];
+  var extra;
 
   if(!CreateMenu(GetID(),pClonk,this,0,0,0,C4MN_Style_Dialog)) return;
   AddMenuItem(" | ", "", RWDS, pClonk, 0, 0, "", 514, 0, 0);
@@ -51,6 +52,7 @@ public func StatsMenu(int iPlr, bool fBack)
   }
   else
   {
+    extra = -1;
     //Erst mal einsortieren
     var aList = CreateArray();
     var szString;
@@ -65,19 +67,16 @@ public func StatsMenu(int iPlr, bool fBack)
     }
 
     //Nach Team ausgeben
-    var szMessage = "";
-
-    for(var aTeam in aList)
-    {
-      if(!aTeam) continue;
-      for(var szString in aTeam)
-      {
-        if(szMessage != "") szMessage = Format("%s|",szMessage);
-        szMessage = Format("%s%s", szMessage, szString);
-      }
-    }
+	
     AddMenuItem("<c ffff33>$ActualPoints$</c>", "", NONE, pClonk, 0, 0, "", 0, 0, 0);
-    AddMenuItem(Format("%s", szMessage), "", NONE, pClonk, 0, 0, "", 0, 0, 0);
+	
+    for(var aTeam in aList)
+      if(aTeam)
+        for(var szString in aTeam)
+		{
+		  extra++;
+		  AddMenuItem(szString, "", NONE, pClonk, 0, 0, "", 0, 0, 0);
+		}
   }
 
   //Leerzeile
@@ -92,7 +91,7 @@ public func StatsMenu(int iPlr, bool fBack)
   {
     AddMenuItem("$Continue$", "StatsContinue", NONE, pClonk, 0, iPlr, "", 0, 0, 0);
   }
-  if(!fBack) SelectMenuItem(4, pClonk);
+  if(!fBack) SelectMenuItem(4+extra, pClonk);
   if(iSelect-1 < 0)
   {
     AddMenuItem("<c 777777>$Back$</c>", "StatsBack", NONE, pClonk, 0, iPlr, "", 0, 0, 0);
@@ -101,7 +100,7 @@ public func StatsMenu(int iPlr, bool fBack)
   {
     AddMenuItem("$Back$", "StatsBack", NONE, pClonk, 0, iPlr, "", 0, 0, 0);
   }
-  if(fBack) SelectMenuItem(5, pClonk);
+  if(fBack) SelectMenuItem(5+extra, pClonk);
   return true;
 }
 
