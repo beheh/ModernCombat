@@ -986,7 +986,7 @@ protected func TimerCall()
 	}
 
 	//Stuck?
-	if(Stuck()) DoDamage(100);
+	if(Stuck()) DoDamage(5);
 
   //bis 50% nichts
   if (GetDamage() < MaxDamage()*1/2) return;
