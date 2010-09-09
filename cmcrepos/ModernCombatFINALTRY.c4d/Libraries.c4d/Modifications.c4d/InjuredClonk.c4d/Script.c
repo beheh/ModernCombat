@@ -4,7 +4,7 @@
 
 static const FKDT_SuicideTime = 15; //Standardzeit bei Fake Death
 
-local clonk,oldvisrange,oldvisstate,suicide,killmsg;
+local clonk,oldvisrange,oldvisstate,suicide,killmsg,szTip;
 
 public func AimAngle()		{}
 public func ReadyToFire()	{}
@@ -111,15 +111,19 @@ private func DeathMenu()
 
   if (GetType(killmsg) == C4V_String)
   {
-    AddMenuItem(Format("", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);		//Leerzeile
+    AddMenuItem("", "", NONE, clonk, 0, 0, "", 512, 0, 0);		//Leerzeile
     AddMenuItem(Format("$Killer$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);	//Titel
     AddMenuItem(killmsg, "", NONE, clonk, 0, 0, "", 512);					//Killerinformationen
   }
 
+  AddMenuItem("", "", NONE, clonk, 0, 0, "", 512, 0, 0);		//Leerzeile
+  AddMenuItem("$Tip$","", NONE, clonk, 0, 0, "", 512, 0, 0);	//Tipp
+	AddMenuItem(GetTip(),"", NONE, clonk, 0, 0, "", 512, 0, 0);
+
   var obj;
   if (obj = FindObject(RWDS))									//Punktestatistik erstellen
   {
-   AddMenuItem(Format("", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);		//Leerzeile
+   AddMenuItem("", "", NONE, clonk, 0, 0, "", 512, 0, 0);		//Leerzeile
    AddMenuItem(Format("$Points$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);	//Titel
    //Einsortieren
    var aList = [], iPlr, aData = obj->~GetData(), szString = "";
@@ -142,6 +146,18 @@ private func DeathMenu()
    Suicide();
   
   if(selection >= 0) SelectMenuItem(selection, clonk);
+}
+
+public func GetTip() {
+	if(!szTip) szTip = CreateTip();
+	return szTip;
+}
+
+public func CreateTip() {
+	var szNewTip;
+	var aTips = $Tips$;
+	if(!szNewTip) szNewTip = aTips[Random(GetLength(aTips))];
+	return szNewTip;
 }
 
 /* Selbstmord */

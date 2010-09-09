@@ -6,3 +6,5 @@ Info2=<c ff0000>%s</c> wurde eliminiert. Warte auf eine Reanimation durch einen 
 DeathCounter=Tod in <c ffff33>%d</c> Sekunden.
 Killer=<c ffff33>Killer</c>
 Points=<c ffff33>Punktestand</c>
+Tip=<c ffff33>Tipp</c>
+Tips=["An dieser Stelle stehen zufällige Tipps."]
