@@ -757,6 +757,8 @@ public func FxRechargeStop(object pTarget, int iNumber, int iReason, bool fTemp)
   //Waffentr‰ger weg?
   if(!GetUser()) return;
   if(!GetAlive(GetUser()) && GetCategory(GetUser())&C4D_Living) return;
+  if (GetEffect("ForceNoStop", this))
+    stopauto = true;
   //automatisch weiterschieﬂen, mit JnR-Control auch bei normalen Waffen
   if(GetFMData(FM_Auto, firemode, GetFireTec(firemode)) || GetPlrCoreJumpAndRunControl(GetController(pTarget))) {
     //... auﬂer wenn abgebrochen oder keine Munition mehr (!)
@@ -771,6 +773,11 @@ public func FxRechargeStop(object pTarget, int iNumber, int iReason, bool fTemp)
     else {
       Shoot(pTarget);
     }
+  }
+  if (GetEffect("ForceNoStop", this))
+  {
+    stopauto = false;
+	RemoveEffect("ForceNoStop", this);
   }
 }
 
@@ -1056,8 +1063,11 @@ public func SetFireTec(int iFT,int iFM, bool bNoCalls)
   //diverse sachen aktualisieren
   ratecount = GetFMData(FM_AmmoRate, iFM);
   
-  if (GetFMData(FM_Auto) && !GetFMData(FM_BurstAmount, 0, last))
-    stopauto = false;
+  if (GetFMData(FM_Auto, iFM, iFT))
+    if (!GetEffect("Recharge", this))
+      stopauto = false;
+	else
+	  AddEffect("ForceNoStop", this);
   
   if(!bNoCalls && (last != iFT))
   {
