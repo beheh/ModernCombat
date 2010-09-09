@@ -482,12 +482,16 @@ public func ChooserFinished()
    var flag = CreateObject(OFPL, 2990, 280, -1);
    flag->~Set("$Flag2$");
 
-   //Munitionskiste (Kugeln)
-   var tmp = CreateObject(AMCT, 2965, 360, -1);
-   tmp->Set(ABOX);
+   //Zusätzliche Munition
+   if(!FindObject(NOAM))
+   {
+    //Munitionskiste (Kugeln)
+    var tmp = CreateObject(AMCT, 2965, 360, -1);
+    tmp->Set(ABOX);
 
-   //Raketen
-   PlaceSpawnpoint(MIAP, 2890, 425);
+    //Raketen
+    PlaceSpawnpoint(MIAP, 2890, 425);
+   }
   }
 }
 

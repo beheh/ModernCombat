@@ -650,12 +650,16 @@ public func ChooserFinished()
    aSelfDefense[0]->TurnOn();
    aSelfDefense[3]->TurnOn();
 
-   //Munitionskiste (Kugeln)
-   var tmp = CreateObject(AMCT, 1330, 640, -1);
-   tmp->Set(ABOX);
+   //Zusätzliche Munition
+   if(!FindObject(NOAM))
+   {
+    //Munitionskiste (Kugeln)
+    var tmp = CreateObject(AMCT, 1330, 640, -1);
+    tmp->Set(ABOX);
 
-   //Raketen
-   PlaceSpawnpoint(MIAP, 1330, 305);
+    //Raketen
+    PlaceSpawnpoint(MIAP, 1330, 305);
+   }
   }
 }
 

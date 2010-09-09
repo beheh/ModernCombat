@@ -517,11 +517,15 @@ public func ChooserFinished()
    var flag = CreateObject(OFPL, 1400,420, -1);
    flag->~Set("$Flag3$");
 
-   //Projektilmunition
-   PlaceSpawnpoint(ABOX, 1370, 415);
+   //Zusätzliche Munition
+   if(!FindObject(NOAM))
+   {
+    //Projektilmunition
+    PlaceSpawnpoint(ABOX, 1370, 415);
 
-   //Raketen
-   PlaceSpawnpoint(MIAP, 1430, 415);
+    //Raketen
+    PlaceSpawnpoint(MIAP, 1430, 415);
+   }
 
    //Sandsackbarrieren
    CreateObject(SBBA, 1221, 440, -1);

@@ -404,10 +404,14 @@ public func ChooserFinished()
    RemoveAll(JPTP);
    RemoveAll(JMPD);
 
-   //Munitionskiste (Kugeln)
-   var tmp = CreateObject (AMCT, 760, 440, -1);
-   tmp->Set(ABOX);
-   tmp->SetGraphics("Normal");
+   //Zusätzliche Munition
+   if(!FindObject(NOAM))
+   {
+    //Munitionskiste (Kugeln)
+    var tmp = CreateObject (AMCT, 760, 440, -1);
+    tmp->Set(ABOX);
+    tmp->SetGraphics("Normal");
+   }
   }
 }
 
