@@ -289,11 +289,15 @@ public func ChooserFinished()
    CreateObject(WCR2, 660, 830, -1);
    CreateObject(WCR2, 960, 830, -1);
 
-   //Projektilmunition
-   PlaceSpawnpoint(ABOX, 825, 655);
+   //Zusätzliche Munition
+   if(!FindObject(NOAM))
+   {
+    //Projektilmunition
+    PlaceSpawnpoint(ABOX, 825, 655);
 
-   //Raketen
-   PlaceSpawnpoint(MIAP, 1000, 695);
+    //Raketen
+    PlaceSpawnpoint(MIAP, 1000, 695);
+   }
   }
 }
 

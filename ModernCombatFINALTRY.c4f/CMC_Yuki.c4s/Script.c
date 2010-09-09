@@ -620,10 +620,14 @@ public func ChooserFinished()
    //Waffenautomat entfernen
    RemoveAll(WPVM);
 
-   //Munitionskiste (Kugeln)
-   var tmp = CreateObject (AMCT, 1010, 660, -1);
-   tmp->Set(ABOX);
-   tmp->SetGraphics("Normal");
+   //Zusätzliche Munition
+   if(!FindObject(NOAM))
+   {
+    //Munitionskiste (Kugeln)
+    var tmp = CreateObject (AMCT, 1010, 660, -1);
+    tmp->Set(ABOX);
+    tmp->SetGraphics("Normal");
+   }
   }
 }
 
