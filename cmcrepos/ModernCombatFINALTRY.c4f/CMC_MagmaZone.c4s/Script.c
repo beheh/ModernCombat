@@ -402,3 +402,14 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   //Startsicht
   iX = 1545; iY = 350;
 }
+
+/* Assault */
+
+public func CreateAssaultTargets() {
+  AddAssaultTarget(CLVM, 780, 390, 300, 1);
+  AddAssaultTarget(SADH, 680, 150, 300, 1, 0, 1);
+  AddAssaultTarget(WPVM, 180, 300, 400, 1, 0, 2);
+  AddAssaultTarget(CLVM, 1710, 330, 300, 2);
+  AddAssaultTarget(SADH, 1840, 130, 300, 2, 0, 1);
+  AddAssaultTarget(WPVM, 2280, 210, 400, 2, 0, 2);
+}
