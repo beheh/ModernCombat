@@ -1,0 +1,1 @@
+Ermöglicht es, jede Objektdefinition grafisch als Assault-Ziel zu verwenden.

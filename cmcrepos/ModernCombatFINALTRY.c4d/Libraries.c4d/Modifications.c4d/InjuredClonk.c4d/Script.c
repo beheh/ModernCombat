@@ -4,7 +4,7 @@
 
 static const FKDT_SuicideTime = 15; //Standardzeit bei Fake Death
 
-local clonk,oldvisrange,oldvisstate,suicide,killmsg,szTip;
+local clonk,oldvisrange,oldvisstate,suicide,killmsg,szTipp;
 
 public func AimAngle()		{}
 public func ReadyToFire()	{}
@@ -72,7 +72,15 @@ public func Set(object pClonk)
 
 public func KillMessage(string msg)
 {
+  //Killnachricht setzen
   killmsg = msg;
+  
+  //Spieler hat Hilfen aktiviert: Quicktipp geben
+  if (clonk && !GetPlrExtraData(GetOwner(clonk), "Hazard_NoHelpMsg")) {
+    var array = GetQuickTipp(this);
+    szTipp = Format("{{%i}} %s", array[0], array[1]);
+  }
+
   DeathMenu();
 }
 
@@ -116,9 +124,11 @@ private func DeathMenu()
     AddMenuItem(killmsg, "", NONE, clonk, 0, 0, "", 512);					//Killerinformationen
   }
 
-  AddMenuItem("", "", NONE, clonk, 0, 0, "", 512, 0, 0);		//Leerzeile
-  AddMenuItem("$Tip$","", NONE, clonk, 0, 0, "", 512, 0, 0);	//Tipp
-	AddMenuItem(GetTip(),"", NONE, clonk, 0, 0, "", 512, 0, 0);
+  if (szTipp) {
+    AddMenuItem("", "", NONE, clonk, 0, 0, "", 512, 0, 0);		//Leerzeile
+    AddMenuItem("$Tip$","", NONE, clonk, 0, 0, "", 512, 0, 0);	//Tipp
+    AddMenuItem(szTipp,"", NONE, clonk, 0, 0, "", 512, 0, 0);
+  }
 
   var obj;
   if (obj = FindObject(RWDS))									//Punktestatistik erstellen
@@ -148,16 +158,39 @@ private func DeathMenu()
   if(selection >= 0) SelectMenuItem(selection, clonk);
 }
 
-public func GetTip() {
-	if(!szTip) szTip = CreateTip();
-	return szTip;
+private func GetQuickTipp(object pFake) {
+  //Standard-Tipp
+  if (!Random(8) || !ContentsCount(0, pFake))
+    return GetRandomTipp([[FGRN, "Den Granatengürtel findest du im Kontextmenü."], [CSTR, "Im Kontextmenü kannst du Einstellungen vornehmen."], [QKIN, "Das QuickInventory gibt dir schnelleren Inventarzugriff."]]);
+  //Sonst Tipps zu Inventarobjekten
+  var array = [], id = [], tipp;
+    for (var obj in FindObjects(Find_Container(pFake))) {
+	  //Hat schon so einen Tipp
+	  if (GetIndexOf(GetID(obj), id) != -1 || !(tipp = GetRandomTipp(0, GetID(obj))))
+	    continue;
+	  //Tipp hinzufügen
+	  id[GetLength(id)] = GetID(obj);
+	  array[GetLength(array)] = tipp;
+	}
+  return GetRandomTipp(array);
 }
 
-public func CreateTip() {
-	var szNewTip;
-	var aTips = $Tips$;
-	if(!szNewTip) szNewTip = aTips[Random(GetLength(aTips))];
-	return szNewTip;
+//TODO: In StringTbl packen, nach ID und Index sortiert, zB PPGN0, PPGN1
+private func GetRandomTipp(array a, id id) {
+  if (a)
+    return a[Random(GetLength(a))];
+  //Waffen
+  if (id == PSTL) return GetRandomTipp([[PSTL, "Nutze die Pistole, während deine Primärwaffe nachlädt."], [PSTL, "Mit dem Peilsender kannst du Gegner als Raketenziele markieren."]]);
+  if (id == RTLR) return GetRandomTipp([[ROKT, "Raketen eignen sich für große Distanzen und sind perfekt gegen Fahrzeuge."], [RTLR, "Fordere deine Mitspieler auf, Gegner mit Peilsendern zu markieren."]]);
+  if (id == PPGN) return GetRandomTipp([[PPGN, "Suche mit der Schrotflinte den Nahkampf."]]);
+  //Equipment
+  if (id == AMPK) return GetRandomTipp([[AMPK, "Halte das MTP in der Hand, um Verbündete mit Munition zu versorgen."]]);
+  if (id == BBTP) return GetRandomTipp([[BBTP, "Sprengfallen lassen sich auch an Decken und Wänden anbringen."], [BBTP, "Stelle Sprengfallen an vielbelaufenen Stellen auf."]]);
+  if (id == DRGN) return GetRandomTipp([[DRGN, "Du kannst Dragnin per [Werfen] verletzten Verbündeten injizieren."], [DRGN, "Der Heileffekt stoppt, wenn du Schaden erhältst."]]);
+  if (id == FAPK) return GetRandomTipp([[FAPK, "Per [Werfen] kannst du als Sanitäter aus dem EHP Dragnin entnehmen."]]);
+  if (id == RSHL) return GetRandomTipp([[RSHL, "Der Schild lässt sich auch beim Liegen und Schwimmen benutzen."], [RSHL, "Stell dich in den Kugelhagel und schütze dein Team."]]);
+  if (id == CDBT) return GetRandomTipp([[CDBT, "Du kannst mit dem Defibrillator auch Gegner schocken."], [CDBT, "Achte darauf, dass der Wiederbelebte nicht sofort wieder erschossen wird."]]);
+  if (id == CUAM) return GetRandomTipp([[CUAM, "Du kannst Verbündeten per [Werfen] Munition geben."]]);
 }
 
 /* Selbstmord */
