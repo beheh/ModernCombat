@@ -12,6 +12,7 @@ public func GetKillIcon()			{return idImitation;}
 
 protected func Initialize() {
   aDamage = [];
+  iLastDamager = -1;
 }
 
 public func OnDmg(int iDmg, int iType) {

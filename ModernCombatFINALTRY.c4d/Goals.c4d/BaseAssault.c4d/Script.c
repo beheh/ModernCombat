@@ -4,22 +4,23 @@
 #include TEAM
 
 local aTargets;		//Die Ziele
+local aSpawn;		//Spawnpoints
 
 
 /* Initialisierung */
 
 protected func Initialize()
 {
-  aDeath = [];
+  aTargets = [];
   aKill = [];
+  aDeath = [];
+  aSpawn = [];
 }
 
 protected func ChooserFinished()
 {
-  aTargets = [];
-  GameCall("CreateAssaultTargets");
   AddEffect("IntGoal", this, 1, 5, this);
-  
+
   //Keine Klassenwahl? Alle relaunchen
   if (!FindObject(MCSL))
     for (var obj in FindObjects(Find_Func("IsClonk")))
@@ -30,14 +31,14 @@ protected func ChooserFinished()
 
 global func ReportAssaultTargetDestruction()
 {
-  var goal = FindObject2(Find_ID(GASS));
+  var goal = FindObject2(Find_ID(GBAS));
   if (goal)
     return goal->ReportAssaultTargetDestruction(...);
 }
 
 global func AddAssaultTarget()
 {
-  var goal = FindObject(GASS);
+  var goal = FindObject2(Find_ID(GBAS));
   if (goal)
     return goal->AddAssaultTarget(...);
 }
@@ -55,7 +56,7 @@ global func Find_InArray(array a)
 
 /* Zeug */
 
-public func AddAssaultTarget(id idTarget, int iX, int iY, int iMaxDamage, int iTeam, string szName, int iIndex, bool fNoBar) {
+public func AddAssaultTarget(id idTarget, int iX, int iY, int iMaxDamage, int iTeam, string szName, int iIndex, array aSpawns, bool fNoBar) {
   //Grundobjekt erstellen
   var fake = CreateObject(STCR, iX, iY+GetDefCoreVal("Offset", 0, idTarget, 1)+2, -1);
   //Und Original imitieren
@@ -73,14 +74,21 @@ public func AddAssaultTarget(id idTarget, int iX, int iY, int iMaxDamage, int iT
   if (!aTargets[iTeam])
     aTargets[iTeam] = [];
   aTargets[iTeam][iIndex] = fake;
+  //Relaunchpositionen
+  if (!aSpawn[iTeam])
+    aSpawn[iTeam] = [];
+  aSpawn[iTeam][iIndex] = aSpawns;
   //Assault-Effekt
   AddEffect("IntAssaultTarget", fake, 1, 1, this, 0, iMaxDamage, fNoBar, idTarget);
+  //Done.
+  return true;
 }
 
 public func ReportAssaultTargetDestruction(object pTarget, int iTeam)
 {
   if (FindInArray4K(aTargets[iTeam], pTarget) == -1)
     return;
+
   if (GetID(pTarget) == STCR)
   {
     var aDmg = pTarget->GetDamager();
@@ -88,11 +96,12 @@ public func ReportAssaultTargetDestruction(object pTarget, int iTeam)
 	aDmg = aDmg[0];
 	//Der letzte Killer bekommt 50 Punkte. -50 wenn er im selben Team war.
 	if (GetPlayerTeam(iPlr) == iTeam)
-        {
+    {
 	  DoPlayerPoints(-50, RWDS_MinusPoints, iPlr, GetCrew(iPlr), IC03);
 	  DoWealth(iPlr, -50);
 	}
-	else {
+	else
+	{
 	  DoPlayerPoints(50, RWDS_TeamPoints, iPlr, GetCrew(iPlr), IC03);
 	  DoWealth(iPlr, 50);
 	}
@@ -111,16 +120,18 @@ public func ReportAssaultTargetDestruction(object pTarget, int iTeam)
 		}
 	  }
   }
+
   //Und gleich mal bekanntgeben
-  EventInfo4K(0, Format("$TargetDestruction$", GetTeamColor(iTeam), GetName(pTarget)), GASS, 0, 0, 0, "Info4.ogg");
+  EventInfo4K(0, Format("$TargetDestruction$", GetTeamColor(iTeam), GetName(pTarget)), GBAS, 0, 0, 0, "Info4.ogg");
   GameCall("OnAssaultTargetDestruction", pTarget, iTeam, FindInArray4K(aTargets[iTeam], pTarget));
   if (pTarget)
     Explode(50, pTarget);
+
   //Alle Ziele des Teams wurden zerstört! Warnung ausgeben
   if (!ObjectCount2(Find_InArray(aTargets[iTeam])))
     for (var i = 0; i < GetPlayerCount(); i++)
 	  if (GetPlayerTeam(GetPlayerByIndex(i)) == iTeam)
-	    EventInfo4K(GetPlayerByIndex(i)+1, "$NoTargets$", GASS, 0, 0, 0, "Alarm.ogg");
+	    EventInfo4K(GetPlayerByIndex(i)+1, "$NoTargets$", GBAS, 0, 0, 0, "Alarm.ogg");
 }
 
 public func IsTeamGoal()	{return true;}
@@ -143,24 +154,29 @@ protected func FxIntAssaultTargetStart(object pTarget, int iEffect, int iTemp, i
 
 protected func FxIntAssaultTargetTimer(object pTarget, int iEffect)
 {
+  //Ziel will keine Leiste
   if (EffectVar(1, pTarget, iEffect))
     return;
+
   //Erstmal die Leiste prüfen
   if (!EffectVar(2, pTarget, iEffect))
     EffectVar(2, pTarget, iEffect) = CreateObject(EBAR, GetX(pTarget), GetY(pTarget)+GetDefHeight(EffectVar(4, pTarget, iEffect))/2+10, -1);
   var bar = EffectVar(2, pTarget, iEffect);
+
   //Schaden
   if (EffectVar(3, pTarget, iEffect) < GetDamage(pTarget))
     EffectVar(3, pTarget, iEffect)++;
   var dmg = EffectVar(3, pTarget, iEffect), maxdmg = EffectVar(0, pTarget, iEffect), team = pTarget->~GetTeam();
+
   //Bei zu viel Schaden zerstören
   if (GetDamage(pTarget) > maxdmg)
     return ReportAssaultTargetDestruction(pTarget, team);
+
   //Und die Leiste füllen...
   SetPosition(GetX(pTarget), GetY(pTarget)+GetDefHeight(EffectVar(4, pTarget, iEffect))/2+10, bar);
   SetGraphics("Row", bar, GetID(bar), 1, 1, 0, 4);
   var permill = 1000*(maxdmg-dmg)/maxdmg;
-  SetObjDrawTransform(permill, 0, (permill-1000)*GetDefWidth(GetID(bar))*9/20, 0, 1000, 0, bar, 1);
+  SetObjDrawTransform(permill, 0, (permill-1000)*GetDefWidth(GetID(bar))/2, 0, 1000, 0, bar, 1);
   SetClrModulation(GetTeamColor(team), bar, 1);
 }
 
@@ -180,16 +196,17 @@ protected func FxIntGoalTimer()
 
 /* Scoreboard */
 
-static const GASS_Name = -1;
-static const GASS_Count = 0;
-static const GASS_Clonks = 1;
+static const GBAS_Name = -1;
+static const GBAS_Count = 0;
+static const GBAS_Clonks = 1;
 
 public func UpdateScoreboard()
 {
   //Titelleiste
-  SetScoreboardData(SBRD_Caption, GASS_Name, GetName());
-  SetScoreboardData(SBRD_Caption, GASS_Count, "{{GASS}}");
-  SetScoreboardData(SBRD_Caption, GASS_Clonks, "{{PCMK}}");
+  SetScoreboardData(SBRD_Caption, GBAS_Name, GetName());
+  SetScoreboardData(SBRD_Caption, GBAS_Count, "{{GBAS}}");
+  SetScoreboardData(SBRD_Caption, GBAS_Clonks, "{{PCMK}}");
+
   //Alle Teams durchgehen...
   for (var i, team; i < GetTeamCount(); team++)
   {
@@ -198,16 +215,18 @@ public func UpdateScoreboard()
 	//Team ist raus
 	if (!GetTeamName(team) || !GetTeamPlayerCount(team))
         {
-	  SetScoreboardData(team, GASS_Name);
-	  SetScoreboardData(team, GASS_Count);
-	  SetScoreboardData(team, GASS_Clonks);
+	  SetScoreboardData(team, GBAS_Name);
+	  SetScoreboardData(team, GBAS_Count);
+	  SetScoreboardData(team, GBAS_Clonks);
 	  continue;
 	}
 	var count = ObjectCount2(Find_InArray(aTargets[team]));
-	SetScoreboardData(team, GASS_Name, GetTaggedTeamName(team));
-	SetScoreboardData(team, GASS_Count, Format("<c %x>%d</c>", GetTeamColor(team), count), count);
+	SetScoreboardData(team, GBAS_Name, GetTaggedTeamName(team));
+	SetScoreboardData(team, GBAS_Count, Format("<c %x>%d</c>", GetTeamColor(team), count), count);
+	SetScoreboardData(team, GBAS_Clonks, Format("<c %x>%d</c>", GetTeamColor(team), GetTeamPlayerCount(team)), GetTeamPlayerCount(team));
   }
-  SortScoreboard(GASS_Count, true);
+  SortScoreboard(GBAS_Clonks, true);
+  SortScoreboard(GBAS_Count, true);
 }
 
 /* Sieg */
@@ -218,6 +237,7 @@ public func IsFulfilled()
 {
   if (FindObject(CHOS)) return;
   if (fulfilled) return 1;
+  
   //Teams durchgehen.
   for (var i; i < GetTeamCount(); i++)
   {
@@ -225,13 +245,12 @@ public func IsFulfilled()
 	if (!GetTeamPlayerCount(team))
 	  EliminateTeam(team);
   }
-  //Gegen Camping während Klassenwahl
-  if (FindObject(MCSL))
-  {
-    for (var obj in FindObjects(Find_Func("IsClonk")))
-      if (GetID(Contained(obj)) == TIM1 && !ObjectCount2(Find_InArray(aTargets[GetPlayerTeam(GetOwner(obj))])))
-        EliminatePlayer(GetOwner(obj));
-  }
+  
+  //Gegen Camping während Klassenwahl oder im Menü
+  for (var obj in FindObjects(Find_Func("IsClonk")))
+    if ((GetID(Contained(obj)) == TIM1 || GetID(Contained(obj)) == TIM2) && !ObjectCount2(Find_InArray(aTargets[GetPlayerTeam(GetOwner(obj))])))
+      EliminatePlayer(GetOwner(obj));
+
   //Nur noch ein Team übrig - Sieg!
   if (GetActiveTeamCount() == 1)
   {
@@ -284,7 +303,7 @@ public func OpenRelaunchMenu(object pCrew, int iSelection)
   //Zwischendurch alle Ziele vernichtet? Stirb!
   if (!ObjectCount2(Find_InArray(aTargets[GetPlayerTeam(GetOwner(pCrew))])))
     return EliminatePlayer(GetOwner(pCrew));
-  CreateMenu(GASS, pCrew, this, 0, "$ChoosePoint$", 0, 3, 0, GASS);
+  CreateMenu(GBAS, pCrew, this, 0, "$ChoosePoint$", 0, 3, 0, GBAS);
   //Alle vorhandenen Ziele ins Menü setzen
   for (var obj in FindObjects(Find_InArray(aTargets[GetPlayerTeam(GetOwner(pCrew))])))
   {
@@ -309,7 +328,7 @@ public func OnMenuSelection(int iSelection, object pCrew)
 
 public func MenuQueryCancel(int iSelection, object pCrew)
 {
-  return GetMenu(pCrew) == GASS;
+  return GetMenu(pCrew) == GBAS;
 }
 
 public func DoRelaunch(object pCrew, object pTarget)
@@ -322,7 +341,21 @@ public func DoRelaunch(object pCrew, object pTarget)
   //Fake?
   if (id == STCR)
     id = pTarget->GetImitationID();
-  SetPosition(GetX(pTarget), GetY(pTarget)+GetDefHeight(id)/2-10, Contained(pCrew));
+  //Relaunchposition
+  var x, y, iTeam = pTarget->GetTeam(), array = aSpawn[iTeam];
+  if (GetType(array) == C4V_Array)
+    array = array[GetIndexOf(pTarget, aTargets[iTeam])];
+  //Da ist kein Array? Dann am Objekt respawnen lassen
+  if (GetType(array) != C4V_Array) {
+    x = GetX(pTarget);
+    y = GetY(pTarget)+GetDefHeight(id)/2-10;
+  }
+  else {
+    var i = Random(GetLength(array));
+    x = array[i][0];
+    y = array[i][1]-10;
+  }
+  SetPosition(x, y, Contained(pCrew));
   container->Spawn();
   SetPlrViewRange(500, pCrew);
 }
