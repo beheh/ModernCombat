@@ -1,3 +1,4 @@
+#DeathMenu
 Title=Clonk <c ff0000>eliminated</c>!
 Suicide=Suicide
 SuicideDesc=Gives the final death blow to the clonk.
@@ -5,29 +6,51 @@ Info=<c ff0000>%s</c> has been eliminated. Wait for a medic or abandon this clon
 Info2=<c ff0000>%s</c> has been eliminated. Wait for a medic to revive you.
 DeathCounter=Death in <c ffff33>%d</c> seconds.
 Killer=<c ffff33>Killer</c>
+Tip=<c ffff33>Tip</c>
 Points=<c ffff33>Points</c>
 
 #Tips
-Tip=<c ffff33>Tip</c>
+
 #General
-NONE0=You can find the grenade belt in the context menu.
-NONE1=You can find different settings in the context menu.
-NONE2=The QuickInventory grants you faster inventory access.
-NONE3=Press [Throw] in front of an enemy to hit him with your weapon.
+NONE0=You can find your grenades in the context menu under [<c 33ccff>Grenades</c>].
+NONE1=You can change your settings in the context menu under [<c 33ccff>Settings</c>].
+NONE2=<c 33ccff>QuickInventory</c> grants you alternative and fast inventory access.
+NONE3=If you have a weapon selected, press [<c 33ccff>Throw</c>] in front of an enemy to hit him.
 
 #Weapons
-PSTL0=Use the pistol while your primary weapon is reloading.
-PSTL1=You can mark enemies with the tracer dart.
-RTLR0=Rockets are perfect for greater distances and against vehicles.
-RTLR1=Ask your teammates to mark enemies.
-PPGN0=Use the pumpgun in close combat.
-SGST0=Some grenade times can travel further than others.
-SMGN0=The submachine gun ist the fastest weapon.
+PSTL0=Use your <c 33ccff>pistol</c> while your primary weapon is reloading in order to keep on shooting.
+PSTL1=The pistols secondary fire mode shoots <c 33ccff>tracer darts</c> which mark enemies and guide friendly rockets into them.
+RTLR0=<c 33ccff>Rockets</c> are perfect for greater distances and against vehicles and structures.
+RTLR1=Ask your teammates to mark enemies with <c 33ccff>tracer darts</c> to support you.
+PPGN0=Use the pumpgun in <c 33ccff>close combat</c> to cause maximum damage.
+SGST0=Different grenade types reach different <c 33ccff>distances</c>.
+SMGN0=The submachine gun is the <c 33ccff>fastest</c> weapon equally to its ammo consumption.
 
 #Grenades
-NADE0=A grenade exploding in your hand causes much damage to you.
-FGRN0=Well placed grenades can be instant kills.
-FRAG0=Frag grenades cover a large area.
-FRAG1=Shrapnels rebound from walls and are deadly in narrow passages.
-PGRN0=Phosphor attaches to clonks an burns them for a while.
-STUN0=Teammates are less affected by stun grenades.
+NADE0=Throw <c 33ccff>activated</c> grenades as fast as possible, grenades exploding in your hand cause high damage.
+FGRN0=<c 33ccff>Well placed</c> field grenades can eliminate enemies or cause great damage, making it easy to kill them.
+FRAG0=Frag grenades cover a <c 33ccff>large area</c>.
+FRAG1=Shrapnels rebound from walls and are deadly in <c 33ccff>narrow passages</c>.
+PGRN0=Phosphor <c 33ccff>attaches</c> to clonks an burns them for a while.
+STUN0=Teammates are <c 33ccff>less</c> affected by stun grenades.
+STUN1=Face yourself away from exploding stun grenades to <c 33ccff>weaken</c> its effects.
+
+#Equipment
+AMPK0=Hold the MTP in the hand to <c 33ccff>automatically</c> restock ammo of allies.
+BBTP0=You can also place booby traps on <c 33ccff>ceilings</c> and <c 33ccff>walls</c>.
+BBTP1=Place booby traps preferably <c 33ccff>hidden</c> at <c 33ccff>often used</c> places.
+BBTP2=Touch booby traps and tap [<c 33ccff>Jump</c>] to disarm them.
+C4PA0=You can place C4 while climbing on <c 33ccff>walls</c> or <c 33ccff>ceilings</c> or while <c 33ccff>crawling</c>.
+C4PA1=The further you are away from C4, the longer it takes to <c 33ccff>ignite</c> it.
+DRGN0=You can use dragnin on wounded allies by tapping [<c 33ccff>Throw</c>].
+DRGN1=The healing effect of dragnin stops if you <c 33ccff>take damage</c>.
+FAPK0=As a medic, tap [<c 33ccff>Throw</c>] to unpack dragnin out of a FAP.
+FAPK1=If you use an empty FAP it will be <c 33ccff>destroyed</c>.
+FAPK2=FAPs will slowly reload when carried by a <c 33ccff>medic</c>.
+RSHL0=The riot shield can also be used while <c 33ccff>crawling</c> and <c 33ccff>swimming</c>.
+RSHL1=Stand between the enemy and your allies while using the riot shield, <c 33ccff>protect</c> your team while they take down the enemy.
+RSHL2=The riot shield is useless <c 33ccff>against</c> explosive weapons.
+RSHL3=You <c 33ccff>can't fall down</c> while holding a riot shield.
+CDBT0=You can also shock <c 33ccff>enemies</c> with shock paddles.
+CDBT1=Revived clonks recover slowly, <c 33ccff>defend them</c> while that happens because damage will stop the healing effect.
+CUAM0=You can give packed ammo to allies by tapping [<c 33ccff>Throw</c>].
