@@ -532,6 +532,16 @@ protected func GetObject2Drop(object pObj)
           dropobj = Contents(i);
       return dropobj;
     }
+	
+	//Granate?
+	if (pObj->~IsGrenade()) {
+	  //Hat schon genug Granaten
+	  if (this->~GrenadeCount() >= this->~MaxGrenades()) //so weird
+	    return;
+	  //Granate in den Gürtel verfrachten
+	  pObj->~Activate(this);
+	  return;
+	}
 
     //Objekt - hinterstes Objekt rauswerfen
     else {
