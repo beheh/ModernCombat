@@ -1,1 +1,0 @@
-Zeigt den Zustand von Strukturen an.
