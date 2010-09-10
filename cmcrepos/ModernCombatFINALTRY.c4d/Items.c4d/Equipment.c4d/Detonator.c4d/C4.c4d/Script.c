@@ -57,7 +57,7 @@ private func CheckFuse()
 protected func Timer()
 {
   CheckFuse();
-  if(pStickTo)
+  if(pStickTo && !Contained(pStickTo))
   {
     SetPosition(GetX(pStickTo)+iStickXOffset, GetY(pStickTo)+iStickYOffset, this, false);
     SetXDir();

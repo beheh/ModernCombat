@@ -50,7 +50,7 @@ private func Check()
     {
      if(Contained(clonk))
      {
-      if(GetID(Contained(clonk)) == FKDT || GetID(Contained(clonk)) == TIM2 || GetID(Contained(clonk)) == GOCC)
+      if(IsFakeDeath(clonk))
        continue;
       else
        AddEffect("Border", clonk, 50, 35, this);
@@ -84,7 +84,7 @@ public func FxBorderTimer(pTarget, iNo, iTime)
     danger = 1;
 
   //Ziel wieder im sicheren?
-  if(!danger)
+  if(!danger || IsFakeDeath(pTarget))
   {
    PlayerMessage(GetOwner(pTarget),"@",pTarget);
    return -1;
