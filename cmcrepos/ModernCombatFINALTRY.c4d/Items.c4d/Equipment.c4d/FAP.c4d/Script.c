@@ -96,27 +96,44 @@ public func RejectShift()
 
 public func RejectEntrance(object pObj)
 {
-  if(GetOCF(pObj) & OCF_Living)
+  //Gebäude etc geht immer
+  if (!(GetOCF(pObj) & OCF_Living))
+    return;
+  //Hat schon eins: Zusammenlegen?
+  var obj = FindContents(GetID(), pObj);
+  if (obj)
   {
-   if(ContentsCount(GetID(),pObj))
-    return true;
+    JoinPacket(obj);
+	return true;
   }
-  return false;
 }
 
 public func Entrance(object pContainer)
 {
-  for(var obj in FindObjects(Find_Container(pContainer),Find_ID(GetID()),Find_Exclude(this)))
-  {
-   if(obj->GetHealPoints() < obj->MaxHealPoints())
-   {
-    var cnt = obj->GetHealPoints();
-    var new = obj->DoHealPoints(healpoints);
+  //Mehrere drin? Zusammenlegen
+  if (ContentsCount(GetID(), pContainer) > 1)
+    for (var obj in FindObjects(Find_Container(pContainer), Find_ID(GetID()), Find_Exclude(this)))
+      if (this)
+        JoinPacket(obj);
+}
 
-    if(!DoHealPoints(cnt-new))
-     Schedule("RemoveObject",1);
-   }
-  }
+public func JoinPacket(object pInto, object pPack)
+{
+  if ((!pPack && !(pPack = this)) || !pInto)
+    return;
+  var change = Min(MaxHealPoints()-pInto->~GetHealPoints(), GetHealPoints(pPack));
+  pInto->~DoHealPoints(change);
+  if (!pPack->~DoHealPoints(-change))
+    RemoveObject(pPack);
+  //Kurzer Call für Hilfsnachricht
+  if (change)
+    pInto->~PacketJoined(change);
+  return true;
+}
+
+public func PacketJoined(int iChange) {
+  if (Contained() && Contained()->~IsClonk())
+    return HelpMessage(GetController(Contained()), "$PacketJoined$", Contained(), iChange);
 }
 
 public func ControlThrow(object pClonk)
