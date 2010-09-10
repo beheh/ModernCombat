@@ -161,7 +161,7 @@ private func DeathMenu()
 private func GetQuickTipp(object pFake) {
   //Standard-Tipp
   if (!Random(8) || !ContentsCount(0, pFake))
-    return GetRandomTipp([[FGRN, "Den Granatengürtel findest du im Kontextmenü."], [CSTR, "Im Kontextmenü kannst du Einstellungen vornehmen."], [QKIN, "Das QuickInventory gibt dir schnelleren Inventarzugriff."]]);
+    return GetGeneralTipp();
   //Sonst Tipps zu Inventarobjekten
   var array = [], id = [], tipp;
     for (var obj in FindObjects(Find_Container(pFake))) {
@@ -172,25 +172,40 @@ private func GetQuickTipp(object pFake) {
 	  id[GetLength(id)] = GetID(obj);
 	  array[GetLength(array)] = tipp;
 	}
+  //Keine Tipps? Oo
+  if (!array || GetType(array) != C4V_Array || !GetLength(array))
+    return GetGeneralTipp();
   return GetRandomTipp(array);
 }
 
-//TODO: In StringTbl packen, nach ID und Index sortiert, zB PPGN0, PPGN1
+private func GetGeneralTipp() {
+  return GetRandomTipp([[FGRN, "$NONE0$"], [CSTR, "$NONE1$"], [QKIN, "$NONE2$"], [ICFT, "$NONE3$"]]);
+}
+
 private func GetRandomTipp(array a, id id) {
   if (a)
     return a[Random(GetLength(a))];
   //Waffen
-  if (id == PSTL) return GetRandomTipp([[PSTL, "Nutze die Pistole, während deine Primärwaffe nachlädt."], [PSTL, "Mit dem Peilsender kannst du Gegner als Raketenziele markieren."]]);
-  if (id == RTLR) return GetRandomTipp([[ROKT, "Raketen eignen sich für große Distanzen und sind perfekt gegen Fahrzeuge."], [RTLR, "Fordere deine Mitspieler auf, Gegner mit Peilsendern zu markieren."]]);
-  if (id == PPGN) return GetRandomTipp([[PPGN, "Suche mit der Schrotflinte den Nahkampf."]]);
+  if (id == PSTL) return GetRandomTipp([[PSTL, "$PSTL0$"], [PSTL, "$PSTL1$"]]);
+  if (id == RTLR) return GetRandomTipp([[ROKT, "$RTLR0$"], [RTLR, "$RTLR1$"]]);
+  if (id == PPGN) return GetRandomTipp([[PPGN, "$PPGN0$"]]);
+  if (id == SGST) return GetRandomTipp([[SGST, "$SGST0$"]]);
+  if (id == SMGN) return GetRandomTipp([[SMGN, "$SMGN0$"]]);
+  //Granaten
+  if (id->~IsGrenade() && !Random(6)) return GetRandomTipp([[BOOM, "$NADE0$"]]);
+  if (id == FGRN) return GetRandomTipp([[FGRN, "$FGRN0$"]]);
+  if (id == FRAG) return GetRandomTipp([[FRAG, "$FRAG0$"], [SHRP, "$FRAG1$"]]);
+  if (id == PGRN) return GetRandomTipp([[PGRN, "$PGRN0$"]]);
+  if (id == STUN) return GetRandomTipp([[STUN, "$STUN0$"], [STUN, "$STUN1$"]]);
   //Equipment
-  if (id == AMPK) return GetRandomTipp([[AMPK, "Halte das MTP in der Hand, um Verbündete mit Munition zu versorgen."]]);
-  if (id == BBTP) return GetRandomTipp([[BBTP, "Sprengfallen lassen sich auch an Decken und Wänden anbringen."], [BBTP, "Stelle Sprengfallen an vielbelaufenen Stellen auf."]]);
-  if (id == DRGN) return GetRandomTipp([[DRGN, "Du kannst Dragnin per [Werfen] verletzten Verbündeten injizieren."], [DRGN, "Der Heileffekt stoppt, wenn du Schaden erhältst."]]);
-  if (id == FAPK) return GetRandomTipp([[FAPK, "Per [Werfen] kannst du als Sanitäter aus dem EHP Dragnin entnehmen."]]);
-  if (id == RSHL) return GetRandomTipp([[RSHL, "Der Schild lässt sich auch beim Liegen und Schwimmen benutzen."], [RSHL, "Stell dich in den Kugelhagel und schütze dein Team."]]);
-  if (id == CDBT) return GetRandomTipp([[CDBT, "Du kannst mit dem Defibrillator auch Gegner schocken."], [CDBT, "Achte darauf, dass der Wiederbelebte nicht sofort wieder erschossen wird."]]);
-  if (id == CUAM) return GetRandomTipp([[CUAM, "Du kannst Verbündeten per [Werfen] Munition geben."]]);
+  if (id == AMPK) return GetRandomTipp([[AMPK, "$AMPK0$"]]);
+  if (id == BBTP) return GetRandomTipp([[BBTP, "$BBTP0$"], [BBTP, "$BBTP1$"], [BBTP, "$BBTP2$"]]);
+  if (id == C4PA) return GetRandomTipp([[C4PA, "$C4PA0$"], [C4PA, "$C4PA1$"]]);
+  if (id == DRGN) return GetRandomTipp([[DRGN, "$DRGN0$"], [DRGN, "$DRGN1$"]]);
+  if (id == FAPK) return GetRandomTipp([[FAPK, "$FAPK0$"], [FAPK, "$FAPK1$"], [FAPK, "$FAPK2$"]]);
+  if (id == RSHL) return GetRandomTipp([[RSHL, "$RSHL0$"], [RSHL, "$RSHL1$"], [RSHL, "$RSHL2$"], [RSHL, "$RSHL3$"]]);
+  if (id == CDBT) return GetRandomTipp([[CDBT, "$CDBT0$"], [CDBT, "$CDBT1$"]]);
+  if (id == CUAM) return GetRandomTipp([[CUAM, "$CUAM0$"]]);
 }
 
 /* Selbstmord */

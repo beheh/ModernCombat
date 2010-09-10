@@ -6,5 +6,28 @@ Info2=<c ff0000>%s</c> has been eliminated. Wait for a medic to revive you.
 DeathCounter=Death in <c ffff33>%d</c> seconds.
 Killer=<c ffff33>Killer</c>
 Points=<c ffff33>Points</c>
-Tip=<c ffff33>Hint</c>
-Tips=["Random hints will be schon here."]
+
+#Tips
+Tip=<c ffff33>Tip</c>
+#General
+NONE0=You can find the grenade belt in the context menu.
+NONE1=You can find different settings in the context menu.
+NONE2=The QuickInventory grants you faster inventory access.
+NONE3=Press [Throw] in front of an enemy to hit him with your weapon.
+
+#Weapons
+PSTL0=Use the pistol while your primary weapon is reloading.
+PSTL1=You can mark enemies with the tracer dart.
+RTLR0=Rockets are perfect for greater distances and against vehicles.
+RTLR1=Ask your teammates to mark enemies.
+PPGN0=Use the pumpgun in close combat.
+SGST0=Some grenade times can travel further than others.
+SMGN0=The submachine gun ist the fastest weapon.
+
+#Grenades
+NADE0=A grenade exploding in your hand causes much damage to you.
+FGRN0=Well placed grenades can be instant kills.
+FRAG0=Frag grenades cover a large area.
+FRAG1=Shrapnels rebound from walls and are deadly in narrow passages.
+PGRN0=Phosphor attaches to clonks an burns them for a while.
+STUN0=Teammates are less affected by stun grenades.

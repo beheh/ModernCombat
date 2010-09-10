@@ -6,5 +6,49 @@ Info2=<c ff0000>%s</c> wurde eliminiert. Warte auf eine Reanimation durch einen 
 DeathCounter=Tod in <c ffff33>%d</c> Sekunden.
 Killer=<c ffff33>Killer</c>
 Points=<c ffff33>Punktestand</c>
+
+#Tipps
 Tip=<c ffff33>Tipp</c>
-Tips=["An dieser Stelle stehen zufällige Tipps."]
+#Allgemein
+NONE0=Den Granatengürtel findest du im Kontextmenü.
+NONE1=Im Kontextmenü kannst du Einstellungen vornehmen.
+NONE2=Das QuickInventory gibt dir schnelleren Inventarzugriff.
+NONE3=Drücke vor einem Gegner [Werfen], um mit der Waffe zu schlagen.
+
+#Waffen
+PSTL0=Nutze die Pistole, während deine Primärwaffe nachlädt.
+PSTL1=Mit dem Peilsender kannst du Gegner als Raketenziele markieren.
+RTLR0=Raketen eignen sich für große Distanzen und sind perfekt gegen Fahrzeuge.
+RTLR1=Fordere deine Mitspieler auf, Gegner mit Peilsendern zu markieren.
+PPGN0=Suche mit der Schrotflinte den Nahkampf.
+SGST0=Unterschiedliche Granatentypen fliegen unterschiedlich weit.
+SMGN0=Die Maschinenpistole ist die schnellste unter den Waffen.
+
+#Granaten
+NADE0=Wenn eine Granate in deiner Hand zündet, trägst du viel Schaden davon.
+FGRN0=Gut platzierte Feldgranaten bedeuten sehr leicht den Tod.
+FRAG0=Splittergranaten decken eine sehr große Fläche ab.
+FRAG1=Splitter prallen an Wänden ab und sind in engen Gängen extrem gefährlich.
+PGRN0=Phosphor bleibt an Clonks haften und verbrennt sie einige Zeit lang.
+STUN0=Blendgranaten blenden Verbündete weniger stark als Gegner.
+STUN1=Wenn du dich von der Granate wegdrehst, wirst du weniger stark geblendet.
+
+#Equipment
+AMPK0=Halte das MTP in der Hand, um Verbündete mit Munition zu versorgen.
+BBTP0=Sprengfallen lassen sich auch an Decken und Wänden anbringen.
+BBTP1=Stelle Sprengfallen an vielbelaufenen Stellen auf.
+BBTP2=Fasse eine Sprengfalle an und drücke [Springen], um sie zu entschärfen.
+C4PA0=Du kannst C4 auch im Hangeln, Klettern und Kriechen anbringen.
+C4PA1=Je größer die Distanz zum C4, desto länger dauert es, bis es zündet.
+DRGN0=Du kannst Dragnin per [Werfen] verletzten Verbündeten injizieren.
+DRGN1=Der Heileffekt stoppt, wenn du Schaden erhältst.
+FAPK0=Per [Werfen] kannst du als Sanitäter aus dem EHP Dragnin entnehmen.
+FAPK1=Wenn du ein leeres EHP benutzt, wird es zerstört.
+FAPK2=In den Händen eines Sanitäters füllt sich das EHP langsam wieder auf.
+RSHL0=Der Schild lässt sich auch beim Liegen und Schwimmen benutzen.
+RSHL1=Stell dich in den Kugelhagel und schütze dein Team.
+RSHL2=Gegen Explosivwaffen ist der Schild nutzlos.
+RSHL3=Mit dem Schild in der Hand kannst du nicht umfallen.
+CDBT0=Du kannst mit dem Defibrillator auch Gegner schocken.
+CDBT1=Achte darauf, dass der Wiederbelebte nicht sofort wieder erschossen wird.
+CUAM0=Du kannst Verbündeten per [Werfen] Munition geben.
