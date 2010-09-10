@@ -1,6 +1,6 @@
 [DefCore]
-id=GASS
-Name=Assault
+id=GBAS
+Name=Base Assault
 Version=4,9,10,3
 Category=C4D_Goal|C4D_StaticBack
 Width=1
