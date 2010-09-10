@@ -2,7 +2,7 @@
 
 #strict 2
 
-local fuse, active, thrown, pStickTo, iStickXOffset, iStickYOffset, iPreviousCategory;
+local fuse, active, thrown, pStickTo, iStickXOffset, iStickYOffset, iStickROffset, iPreviousCategory;
 
 
 /* Initalisierung */
@@ -57,11 +57,12 @@ private func CheckFuse()
 protected func Timer()
 {
   CheckFuse();
-  if(pStickTo && !Contained(pStickTo))
+  if(pStickTo && !Contained(pStickTo) && pStickTo->~IsBulletTarget(GetID()))
   {
     SetPosition(GetX(pStickTo)+iStickXOffset, GetY(pStickTo)+iStickYOffset, this, false);
     SetXDir();
     SetYDir();
+    SetR(GetR(pStickTo)+iStickROffset);
   }
   else
   {
@@ -71,6 +72,7 @@ protected func Timer()
       Sound("C4EX_Attach.ogg");
       iStickXOffset = GetX()-GetX(pStickTo);
       iStickYOffset = GetY()-GetY(pStickTo);
+      iStickROffset = GetR()-GetR(pStickTo);
       iPreviousCategory = GetCategory();
       SetCategory(C4D_Vehicle);
       SetObjectOrder(pStickTo, this);

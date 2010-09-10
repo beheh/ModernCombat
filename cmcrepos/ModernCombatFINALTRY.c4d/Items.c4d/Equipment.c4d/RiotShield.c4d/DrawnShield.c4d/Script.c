@@ -9,7 +9,7 @@ public func ShoveTime()		{return 13*3;}
 public func RejectEntrance()	{return true;}
 public func IgnoreTracer()	{return true;}
 public func BlockTracer()	{return true;}
-
+public func RejectC4Attach() {return true;}
 
 /* Erstellung */
 
@@ -129,12 +129,15 @@ public func Update()
 
 public func IsBulletTarget(id idBullet, object pBullet, object pShooter, int oldx, int oldy)
 {
+	if(GetAction() != "Attach")
+		return;
+
   if(!pBullet && !pShooter)
-   return true;
+  	return true;
 
   if(pBullet)
-   if(pBullet->~IsGrenade())
-    return true;
+  	if(pBullet->~IsGrenade())
+  		return true;
 
   var r;
   if(pBullet && oldx && oldy)
@@ -161,10 +164,12 @@ public func OnHit(int iDamage, int iType, object pFrom)
 
 public func QueryCatchBlow(object pObj) 
 {
+	if(GetAction() != "Attach")
+		return;
   if(pObj == last)
-   return;
+  	return;
   if(!Hostile(GetController(pObj),GetController(this)))
-   return;
+  	return;
 
   var iPower = BoundBy(GetMass(pObj),0,50) * Distance(GetXDir(pObj),GetYDir(pObj)) * Distance(GetXDir(pObj),GetYDir(pObj));
   if(iPower/3 < 30000)
@@ -197,11 +202,6 @@ private func Hide()
   if(ActIdle()) return;
 
   SetAction("Idle");
-  SetPosition(10,10);
-  SetR();
-  SetRDir();
-  SetXDir();
-  SetYDir();
   SetCategory(C4D_StaticBack);
   SetVisibility(VIS_None);
 }

@@ -14,6 +14,7 @@ Picture=12,0,64,64
 Vertices=4
 Rebuy=1
 Collectible=1
+CollectionLimit=1
 Timer=1
 TimerCall=CheckChange
 Rotate=1
