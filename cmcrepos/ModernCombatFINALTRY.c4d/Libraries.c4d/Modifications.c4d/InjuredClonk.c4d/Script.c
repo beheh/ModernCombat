@@ -124,16 +124,17 @@ private func DeathMenu()
     AddMenuItem(killmsg, "", NONE, clonk, 0, 0, "", 512);					//Killerinformationen
   }
 
-  if (szTipp) {
-    AddMenuItem("", "", NONE, clonk, 0, 0, "", 512, 0, 0);		//Leerzeile
-    AddMenuItem("$Tip$","", NONE, clonk, 0, 0, "", 512, 0, 0);	//Tipp
+  if (szTipp)
+  {
+    AddMenuItem("", "", NONE, clonk, 0, 0, "", 512, 0, 0);					//Leerzeile
+    AddMenuItem("$Tip$","", NONE, clonk, 0, 0, "", 512, 0, 0);					//Zufälliger Tipp
     AddMenuItem(szTipp,"", NONE, clonk, 0, 0, "", 512, 0, 0);
   }
 
   var obj;
   if (obj = FindObject(RWDS))									//Punktestatistik erstellen
   {
-   AddMenuItem("", "", NONE, clonk, 0, 0, "", 512, 0, 0);		//Leerzeile
+   AddMenuItem("", "", NONE, clonk, 0, 0, "", 512, 0, 0);					//Leerzeile
    AddMenuItem(Format("$Points$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);	//Titel
    //Einsortieren
    var aList = [], iPlr, aData = obj->~GetData(), szString = "";
@@ -158,45 +159,52 @@ private func DeathMenu()
   if(selection >= 0) SelectMenuItem(selection, clonk);
 }
 
-private func GetQuickTipp(object pFake) {
+private func GetQuickTipp(object pFake)
+{
   //Standard-Tipp
   if (!Random(8) || !ContentsCount(0, pFake))
     return GetGeneralTipp();
   //Sonst Tipps zu Inventarobjekten
   var array = [], id = [], tipp;
-    for (var obj in FindObjects(Find_Container(pFake))) {
-	  //Hat schon so einen Tipp
-	  if (GetIndexOf(GetID(obj), id) != -1 || !(tipp = GetRandomTipp(0, GetID(obj))))
-	    continue;
-	  //Tipp hinzufügen
-	  id[GetLength(id)] = GetID(obj);
-	  array[GetLength(array)] = tipp;
-	}
+    for (var obj in FindObjects(Find_Container(pFake)))
+    {
+      //Hat schon so einen Tipp
+      if (GetIndexOf(GetID(obj), id) != -1 || !(tipp = GetRandomTipp(0, GetID(obj))))
+        continue;
+      //Tipp hinzufügen
+      id[GetLength(id)] = GetID(obj);
+      array[GetLength(array)] = tipp;
+    }
   //Keine Tipps? Oo
   if (!array || GetType(array) != C4V_Array || !GetLength(array))
     return GetGeneralTipp();
   return GetRandomTipp(array);
 }
 
-private func GetGeneralTipp() {
+private func GetGeneralTipp()
+{
   return GetRandomTipp([[FGRN, "$NONE0$"], [CSTR, "$NONE1$"], [QKIN, "$NONE2$"], [ICFT, "$NONE3$"]]);
 }
 
-private func GetRandomTipp(array a, id id) {
+private func GetRandomTipp(array a, id id)
+{
   if (a)
     return a[Random(GetLength(a))];
+
   //Waffen
   if (id == PSTL) return GetRandomTipp([[PSTL, "$PSTL0$"], [PSTL, "$PSTL1$"]]);
   if (id == RTLR) return GetRandomTipp([[ROKT, "$RTLR0$"], [RTLR, "$RTLR1$"]]);
   if (id == PPGN) return GetRandomTipp([[PPGN, "$PPGN0$"]]);
   if (id == SGST) return GetRandomTipp([[SGST, "$SGST0$"]]);
   if (id == SMGN) return GetRandomTipp([[SMGN, "$SMGN0$"]]);
+
   //Granaten
   if (id->~IsGrenade() && !Random(6)) return GetRandomTipp([[BOOM, "$NADE0$"]]);
   if (id == FGRN) return GetRandomTipp([[FGRN, "$FGRN0$"]]);
   if (id == FRAG) return GetRandomTipp([[FRAG, "$FRAG0$"], [SHRP, "$FRAG1$"]]);
   if (id == PGRN) return GetRandomTipp([[PGRN, "$PGRN0$"]]);
   if (id == STUN) return GetRandomTipp([[STUN, "$STUN0$"], [STUN, "$STUN1$"]]);
+
   //Equipment
   if (id == AMPK) return GetRandomTipp([[AMPK, "$AMPK0$"]]);
   if (id == BBTP) return GetRandomTipp([[BBTP, "$BBTP0$"], [BBTP, "$BBTP1$"], [BBTP, "$BBTP2$"]]);
