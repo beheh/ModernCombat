@@ -279,17 +279,6 @@ private func UpdateScoreboard()
   SortScoreboard(1);
 }
 
-/* Ungenutzte Funktionen */
-
-private func InitMultiplayerTeam(int iTeam)	{}
-private func RemoveMultiplayerTeam(int iTeam)	{}
-private func InitSingleplayerTeam(int iPlr)	{}
-private func RemoveSingleplayerTeam(int iPlr)	{}
-private func InitPlayer(int iPlr)		{}
-private func RemoveScoreboardPlayer(int iPlr)	{}
-public func WinScoreChange(int iNewScore)	{}
-private func SortTeamScoreboard()		{}
-
 /* GameCalls */
 
 public func FlagAttacked(object pFlag, int iTeam)
@@ -688,3 +677,14 @@ public func OnClassSelection(object pClonk)
 
   CreateGOCCSpawner(pClonk);
 }
+
+/* Ungenutzte Funktionen */
+
+private func InitMultiplayerTeam(int iTeam)	{}
+private func RemoveMultiplayerTeam(int iTeam)	{}
+private func InitSingleplayerTeam(int iPlr)	{}
+private func RemoveSingleplayerTeam(int iPlr)	{}
+private func InitPlayer(int iPlr)		{}
+private func RemoveScoreboardPlayer(int iPlr)	{}
+public func WinScoreChange(int iNewScore)	{}
+private func SortTeamScoreboard()		{}

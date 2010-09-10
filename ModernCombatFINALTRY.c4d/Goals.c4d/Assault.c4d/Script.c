@@ -1,18 +1,21 @@
-/* Assault */
+/*-- Assault --*/
 
 #strict 2
 #include TEAM
 
 local aTargets;		//Die Ziele
 
+
 /* Initialisierung */
 
-protected func Initialize() {
+protected func Initialize()
+{
   aDeath = [];
   aKill = [];
 }
 
-protected func ChooserFinished() {
+protected func ChooserFinished()
+{
   aTargets = [];
   GameCall("CreateAssaultTargets");
   AddEffect("IntGoal", this, 1, 5, this);
@@ -25,21 +28,24 @@ protected func ChooserFinished() {
 
 /* Globales Zeug */
 
-global func ReportAssaultTargetDestruction() {
+global func ReportAssaultTargetDestruction()
+{
   var goal = FindObject2(Find_ID(GASS));
   if (goal)
     return goal->ReportAssaultTargetDestruction(...);
 }
 
-global func AddAssaultTarget() {
+global func AddAssaultTarget()
+{
   var goal = FindObject(GASS);
   if (goal)
     return goal->AddAssaultTarget(...);
 }
 
-global func IsAssaultTarget() {return GetEffect("IntAssaultTarget", this);}
+global func IsAssaultTarget()	{return GetEffect("IntAssaultTarget", this);}
 
-global func Find_InArray(array a) {
+global func Find_InArray(array a)
+{
   var end = [C4FO_Or];
   for (var i; i < GetLength(a); i++)
     if (GetType(a[i]) == C4V_C4Object)
@@ -51,7 +57,7 @@ global func Find_InArray(array a) {
 
 public func AddAssaultTarget(id idTarget, int iX, int iY, int iMaxDamage, int iTeam, string szName, int iIndex, bool fNoBar) {
   //Grundobjekt erstellen
-  var fake = CreateObject(AS_T, iX, iY+GetDefCoreVal("Offset", 0, idTarget, 1)+2, -1);
+  var fake = CreateObject(STCR, iX, iY+GetDefCoreVal("Offset", 0, idTarget, 1)+2, -1);
   //Und Original imitieren
   SetShape(GetDefCoreVal("Offset", 0, idTarget), GetDefCoreVal("Offset", 0, idTarget, 1), GetDefCoreVal("Width", 0, idTarget), GetDefCoreVal("Height", 0, idTarget), fake);
   SetGraphics(0, fake, idTarget, 1, 1);
@@ -71,15 +77,18 @@ public func AddAssaultTarget(id idTarget, int iX, int iY, int iMaxDamage, int iT
   AddEffect("IntAssaultTarget", fake, 1, 1, this, 0, iMaxDamage, fNoBar, idTarget);
 }
 
-public func ReportAssaultTargetDestruction(object pTarget, int iTeam) {
+public func ReportAssaultTargetDestruction(object pTarget, int iTeam)
+{
   if (FindInArray4K(aTargets[iTeam], pTarget) == -1)
     return;
-  if (GetID(pTarget) == AS_T) {
+  if (GetID(pTarget) == STCR)
+  {
     var aDmg = pTarget->GetDamager();
     var iPlr = aDmg[1];
 	aDmg = aDmg[0];
 	//Der letzte Killer bekommt 50 Punkte. -50 wenn er im selben Team war.
-	if (GetPlayerTeam(iPlr) == iTeam) {
+	if (GetPlayerTeam(iPlr) == iTeam)
+        {
 	  DoPlayerPoints(-50, RWDS_MinusPoints, iPlr, GetCrew(iPlr), IC03);
 	  DoWealth(iPlr, -50);
 	}
@@ -95,7 +104,8 @@ public func ReportAssaultTargetDestruction(object pTarget, int iTeam) {
 		  DoPlayerPoints(-20, RWDS_MinusPoints, i, GetCrew(i), IC03);
 		  DoWealth(i, -20);
 		}
-		else {
+		else
+                {
 		  DoPlayerPoints(20, RWDS_TeamPoints, i, GetCrew(i), IC03);
 		  DoWealth(i, 20);
 		}
@@ -113,7 +123,7 @@ public func ReportAssaultTargetDestruction(object pTarget, int iTeam) {
 	    EventInfo4K(GetPlayerByIndex(i)+1, "$NoTargets$", GASS, 0, 0, 0, "Alarm.ogg");
 }
 
-public func IsTeamGoal() { return true; }
+public func IsTeamGoal()	{return true;}
 
 /* Assault-Effekt */
 
@@ -124,13 +134,15 @@ public func IsTeamGoal() { return true; }
 //3: Aktuell angezeigter Schaden (für "flüssige" Leiste)
 //4: ID. Wichtig für FakeTarget
 
-protected func FxIntAssaultTargetStart(object pTarget, int iEffect, int iTemp, int iDmg, bool fNoBar, id idTarget) {
+protected func FxIntAssaultTargetStart(object pTarget, int iEffect, int iTemp, int iDmg, bool fNoBar, id idTarget)
+{
   EffectVar(0, pTarget, iEffect) = iDmg;
   EffectVar(1, pTarget, iEffect) = fNoBar;
   EffectVar(4, pTarget, iEffect) = idTarget;
 }
 
-protected func FxIntAssaultTargetTimer(object pTarget, int iEffect) {
+protected func FxIntAssaultTargetTimer(object pTarget, int iEffect)
+{
   if (EffectVar(1, pTarget, iEffect))
     return;
   //Erstmal die Leiste prüfen
@@ -152,14 +164,16 @@ protected func FxIntAssaultTargetTimer(object pTarget, int iEffect) {
   SetClrModulation(GetTeamColor(team), bar, 1);
 }
 
-protected func FxIntAssaultTargetStop(object pTarget, int iEffect, int iCause, bool fTemp) {
+protected func FxIntAssaultTargetStop(object pTarget, int iEffect, int iCause, bool fTemp)
+{
   if (!fTemp && EffectVar(2, pTarget, iEffect))
     RemoveObject(EffectVar(2, pTarget, iEffect));
 }
 
 /* Timer */
 
-protected func FxIntGoalTimer() {
+protected func FxIntGoalTimer()
+{
   UpdateScoreboard();
   IsFulfilled();
 }
@@ -170,17 +184,20 @@ static const GASS_Name = -1;
 static const GASS_Count = 0;
 static const GASS_Clonks = 1;
 
-public func UpdateScoreboard() {
+public func UpdateScoreboard()
+{
   //Titelleiste
   SetScoreboardData(SBRD_Caption, GASS_Name, GetName());
   SetScoreboardData(SBRD_Caption, GASS_Count, "{{GASS}}");
   SetScoreboardData(SBRD_Caption, GASS_Clonks, "{{PCMK}}");
   //Alle Teams durchgehen...
-  for (var i, team; i < GetTeamCount(); team++) {
+  for (var i, team; i < GetTeamCount(); team++)
+  {
     if (GetTeamName(team))
 	  i++;
 	//Team ist raus
-	if (!GetTeamName(team) || !GetTeamPlayerCount(team)) {
+	if (!GetTeamName(team) || !GetTeamPlayerCount(team))
+        {
 	  SetScoreboardData(team, GASS_Name);
 	  SetScoreboardData(team, GASS_Count);
 	  SetScoreboardData(team, GASS_Clonks);
@@ -197,48 +214,59 @@ public func UpdateScoreboard() {
 
 local fulfilled;
 
-public func IsFulfilled() {
+public func IsFulfilled()
+{
   if (FindObject(CHOS)) return;
   if (fulfilled) return 1;
   //Teams durchgehen.
-  for (var i; i < GetTeamCount(); i++) {
+  for (var i; i < GetTeamCount(); i++)
+  {
     var team = GetTeamByIndex(i);
 	if (!GetTeamPlayerCount(team))
 	  EliminateTeam(team);
   }
   //Gegen Camping während Klassenwahl
-  if (FindObject(MCSL)) {
+  if (FindObject(MCSL))
+  {
     for (var obj in FindObjects(Find_Func("IsClonk")))
       if (GetID(Contained(obj)) == TIM1 && !ObjectCount2(Find_InArray(aTargets[GetPlayerTeam(GetOwner(obj))])))
-	    EliminatePlayer(GetOwner(obj));
+        EliminatePlayer(GetOwner(obj));
   }
   //Nur noch ein Team übrig - Sieg!
-  if (GetActiveTeamCount() == 1) {
+  if (GetActiveTeamCount() == 1)
+  {
+    //Spielende planen
     Schedule("GameOver()", 150);
-	RewardEvaluation();
-	RemoveAll(GOAL);
-	Sound("Cheer.ogg", true);
-	Message("@$TeamHasWon$", 0, GetTaggedTeamName(team));
-	return fulfilled = true;
+
+    //Auswertung
+    RewardEvaluation();
+
+    RemoveAll(GOAL);
+    Sound("Cheer.ogg", true);
+    Message("@$TeamHasWon$", 0, GetTaggedTeamName(team));
+    return fulfilled = true;
   }
 }
 
 /* Relaunch */
 
-public func OnClassSelection(object pCrew) {
+public func OnClassSelection(object pCrew)
+{
   RelaunchPlayer(GetOwner(pCrew), 0, -2);
 }
 
-public func RelaunchPlayer(int iPlr, pClonk, int iKiller) {
-  if (iKiller != -2) {
+public func RelaunchPlayer(int iPlr, pClonk, int iKiller)
+{
+  if (iKiller != -2)
+  {
     aDeath[iPlr]++;
-	if (iKiller != -1 && GetPlayerTeam(iPlr) != GetPlayerTeam(iKiller))
-	  aKill[iKiller]++;
+    if (iKiller != -1 && GetPlayerTeam(iPlr) != GetPlayerTeam(iKiller))
+      aKill[iKiller]++;
   }
-  
+
   var pCrew = GetCrew(iPlr);
   if (!pCrew || iPlr == -1) return;
-  
+
   //Team hat keine Ziele mehr - Spieler eliminieren
   if (!ObjectCount2(Find_InArray(aTargets[GetPlayerTeam(iPlr)])))
     return EliminatePlayer(iPlr);
@@ -250,23 +278,26 @@ public func RelaunchPlayer(int iPlr, pClonk, int iKiller) {
   OpenRelaunchMenu(pCrew);
 }
 
-public func OpenRelaunchMenu(object pCrew, int iSelection) {
+public func OpenRelaunchMenu(object pCrew, int iSelection)
+{
   SetPlrViewRange(200, pCrew);
   //Zwischendurch alle Ziele vernichtet? Stirb!
   if (!ObjectCount2(Find_InArray(aTargets[GetPlayerTeam(GetOwner(pCrew))])))
     return EliminatePlayer(GetOwner(pCrew));
   CreateMenu(GASS, pCrew, this, 0, "$ChoosePoint$", 0, 3, 0, GASS);
   //Alle vorhandenen Ziele ins Menü setzen
-  for (var obj in FindObjects(Find_InArray(aTargets[GetPlayerTeam(GetOwner(pCrew))]))) {
-	var dmg = EffectVar(0, obj, GetEffect("IntAssaultTarget", obj));
-	var id = GetID(obj);
-	if (id == AS_T) id = obj->GetImitationID();
+  for (var obj in FindObjects(Find_InArray(aTargets[GetPlayerTeam(GetOwner(pCrew))])))
+  {
+    var dmg = EffectVar(0, obj, GetEffect("IntAssaultTarget", obj));
+    var id = GetID(obj);
+    if (id == STCR) id = obj->GetImitationID();
     AddMenuItem(GetName(obj), Format("DoRelaunch(Object(%d), Object(%d))", ObjectNumber(pCrew), ObjectNumber(obj)), id, pCrew, 100*(dmg-GetDamage(obj))/dmg, 0, GetName(obj));
   }
   SelectMenuItem(iSelection, pCrew);
 }
 
-public func OnMenuSelection(int iSelection, object pCrew) {
+public func OnMenuSelection(int iSelection, object pCrew)
+{
   var array = FindObjects(Find_InArray(aTargets[GetPlayerTeam(GetOwner(pCrew))]));
   var obj = array[iSelection];
   //Ziel zerstört? Menü neu öffnen
@@ -276,32 +307,34 @@ public func OnMenuSelection(int iSelection, object pCrew) {
   SetPosition(GetX(obj), GetY(obj), Contained(pCrew));
 }
 
-public func MenuQueryCancel(int iSelection, object pCrew) {
+public func MenuQueryCancel(int iSelection, object pCrew)
+{
   return GetMenu(pCrew) == GASS;
 }
 
-public func DoRelaunch(object pCrew, object pTarget) {
+public func DoRelaunch(object pCrew, object pTarget)
+{
   //Ziel weg? Neu öffnen
   if (!pTarget)
     return OpenRelaunchMenu(pCrew);
   var container = Contained(pCrew);
   var id = GetID(pTarget);
   //Fake?
-  if (id == AS_T)
+  if (id == STCR)
     id = pTarget->GetImitationID();
   SetPosition(GetX(pTarget), GetY(pTarget)+GetDefHeight(id)/2-10, Contained(pCrew));
   container->Spawn();
   SetPlrViewRange(500, pCrew);
 }
 
-/* Unbenötigtes */
+/* Ungenutzte Funktionen */
 
-private func InitScoreboard() {}
-private func InitMultiplayerTeam(int iTeam) {}
-private func RemoveMultiplayerTeam(int iTeam) {}
-private func InitSingleplayerTeam(int iPlr) {}
-private func RemoveSingleplayerTeam(int iPlr) {}
-private func InitPlayer(int iPlr) {}
-private func RemoveScoreboardPlayer(int iPlr) {}
-public func WinScoreChange(int iNewScore) {}
-private func SortTeamScoreboard()	{}
+private func InitScoreboard()			{}
+private func InitMultiplayerTeam(int iTeam)	{}
+private func RemoveMultiplayerTeam(int iTeam)	{}
+private func InitSingleplayerTeam(int iPlr)	{}
+private func RemoveSingleplayerTeam(int iPlr)	{}
+private func InitPlayer(int iPlr)		{}
+private func RemoveScoreboardPlayer(int iPlr)	{}
+public func WinScoreChange(int iNewScore)	{}
+private func SortTeamScoreboard()		{}
