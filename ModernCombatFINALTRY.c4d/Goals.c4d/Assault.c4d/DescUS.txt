@@ -1,1 +1,3 @@
-The goal is to destroy all hostile structures.
+Every team starts with multiple structures which they have to defend. The goal is to destroy the enemies structures and their occupation to win.
+
+Structures are spawnpoints. If a team looses all its structures, fallen teammates can't join in anymore.

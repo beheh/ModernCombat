@@ -1,1 +1,3 @@
-Ziel ist es, alle gegnerischen Strukturen zu vernichten.
+Jedes Team startet mit mehreren Strukturen die es zu verteidigen gilt. Das Ziel ist die Zerstörung aller gegnerischen Strukturen und die Besatzung, um zu gewinnen.
+
+Eine Struktur gilt als Spawnpoint, verliert ein Team alle eigenen Strukturen, können gefallene Teammitglieder nicht mehr beitreten.

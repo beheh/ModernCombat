@@ -52,5 +52,5 @@ RSHL1=Stelle dich mit dem Einsatzschild zwischen Freund und Feind und <c 33ccff>
 RSHL2=Gegen Explosivwaffen ist der Schild <c 33ccff>nutzlos</c>.
 RSHL3=Mit dem Schild in der Hand kannst du <c 33ccff>nicht umfallen</c>.
 CDBT0=Du kannst mit dem Defibrillator auch <c 33ccff>Gegner</c> schocken.
-CDBT1=Wiederbelebte erholen sich, <c 33ccff>schütze sie</c> während dieser Zeit vor Schaden welcher diesen Heilungsprozess sonst abbricht.
+CDBT1=Wiederbelebte erholen sich, <c 33ccff>schütze sie</c> während dieser Zeit damit Schaden den Heilungsprozess nicht abbricht.
 CUAM0=Du kannst Verbündeten per [<c 33ccff>Werfen</c>] gepackte Munition übergeben.
