@@ -1,6 +1,6 @@
 [DefCore]
-id=AS_T
-Name=Assault Target
+id=STCR
+Name=Structure
 Version=4,9,10, 3
 Category=C4D_StaticBack
 Width=1
