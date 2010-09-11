@@ -74,6 +74,9 @@ public func FxIntEventInfoStart(object pTarget, int iEffectNumber, int iTemp)
 
 public func FxIntEventInfoTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
+  //Spieler tot, Nachricht weg.
+  if (!GetPlayerName(GetOwner(pTarget)))
+    return -1;
   var a = 255-Sin(900+(iEffectTime*900/MaxTime()),255*2,10)/2;
   
   if(icon) SetClrModulation(RGBa(255,255,255,a),this,1); 
