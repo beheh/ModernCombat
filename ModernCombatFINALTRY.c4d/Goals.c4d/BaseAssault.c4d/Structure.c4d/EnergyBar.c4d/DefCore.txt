@@ -6,5 +6,5 @@ Category=C4D_StaticBack|C4D_Foreground
 Width=80
 Height=10
 Offset=-40,-5
-Picture=0,0,110,20
+Picture=0,0,80,10
 ColorByOwner=1
