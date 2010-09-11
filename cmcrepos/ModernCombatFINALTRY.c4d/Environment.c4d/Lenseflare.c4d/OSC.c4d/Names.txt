@@ -1,2 +1,2 @@
 DE:Bildschirmfärbung
-US:Screen Coloration
+US:On Screen Coloration

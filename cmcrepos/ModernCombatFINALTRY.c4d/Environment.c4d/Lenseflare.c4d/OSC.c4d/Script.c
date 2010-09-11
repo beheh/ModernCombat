@@ -1,10 +1,15 @@
-/* OnScreenColorfading */
+/*-- On Screen Coloration --*/
 
 #strict 2
 
 local R,G,B,a;
 local Trans;
 local iADir;
+
+public func IsHUD()	{return true;}
+
+
+/* Initialisierung */
 
 public func Initialize()
 {
@@ -69,5 +74,3 @@ public func Timer()
   }
   SetClrModulation(RGBa(R,G,B,255-(a*Trans/1000)));
 }
-
-public func IsHUD(){return true;}

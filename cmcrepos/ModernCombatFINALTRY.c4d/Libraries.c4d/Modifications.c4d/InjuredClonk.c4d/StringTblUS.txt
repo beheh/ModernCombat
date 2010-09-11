@@ -18,6 +18,9 @@ NONE2=<c 33ccff>QuickInventory</c> grants you alternative and fast inventory acc
 NONE3=If you have a weapon selected, press [<c 33ccff>Throw</c>] in front of an enemy to hit him.
 
 #Weapons
+ASTR0=Use <c 33ccff>single shots</c> to shoot effective bullets at enemies far away with the assault rifle.
+ASTR1=Use the assault rilfe <c 33ccff>grenade launcher</c> to get additional fire power.
+MNGN0=<c 33ccff>Machine guns</c> used while prone can be used the longest without spraying to much.
 PSTL0=Use your <c 33ccff>pistol</c> while your primary weapon is reloading in order to keep on shooting.
 PSTL1=The pistols secondary fire mode shoots <c 33ccff>tracer darts</c> which mark enemies and guide friendly rockets into them.
 RTLR0=<c 33ccff>Rockets</c> are perfect for greater distances and against vehicles and structures.

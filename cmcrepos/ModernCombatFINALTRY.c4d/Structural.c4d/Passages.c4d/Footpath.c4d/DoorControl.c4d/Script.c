@@ -5,38 +5,24 @@
 
 // Lokale Variablen
 
-local closed;       // offen?
-local lock;         // Tür ist verschließbar (geht nicht automatisch auf)
-local destroyed;    // zerstört
+local closed;							//Offen?
+local lock;							//Tür ist verschließbar (geht nicht automatisch auf)
+local destroyed;						//zerstört
 local maxdmg;
 
-// Einstellungen und Eigenschaften:
+public func GetMaxDamage()	{return maxdmg;}		//max. Schaden
+public func IsDestroyable()	{return maxdmg != -1;}		//zerstörbar?
+public func SetMaxDamage(int m)	{ maxdmg = m; }
+public func Lock(bool aut)	{lock = 1; if(aut) lock = 2;}	//Tür öffnet sich nicht mehr automtisch
+public func Unlock()		{lock = 0;}
+public func IsSideDoor()	{return true;}
 
-public func GetMaxDamage()		// max. Schaden
-	{ return maxdmg; }	
-
-public func IsDestroyable()	// zerstörbar?
-	{ return maxdmg != -1; }
-
-public func SetMaxDamage(int m)
-	{ maxdmg = m; }
-
-public func Lock(bool aut)	{	// Tür öffnet sich nicht mehr automtisch
-	lock = 1;
-	if(aut) lock = 2;
-}
-
-public func Unlock()
-	{ lock = 0; }
-
-// Callbacks
-
-func OnDestroyed()	{ return 1; }	// zerstört
-func OnOpen()		{ return 1; }	// geöffnet
-func OnClose()		{ return 1; }	// geschlossen
+func OnDestroyed()	{return 1;}				//Zerstört
+func OnOpen()		{return 1;}				//Geöffnet
+func OnClose()		{return 1;}				//Geschlossen
 
 
-// Initialisieren
+/* Initialisierung */
 
 public func Initialize()
 {
@@ -53,11 +39,10 @@ public func UpdateTransferZone()
   SetTransferZone(-15,-GetObjWidth()/2,30,GetObjWidth());
 }
 
-//Hänschen klein, ging allein...
-public func ControlTransfer(object obj, int x, int y) {
+public func ControlTransfer(object obj, int x, int y)
+{
   //Versperrt und Türe zu!
   if(lock && closed)
-    //wir können nicht durch. :(
     return false;
   
   var dir = 1;
@@ -73,9 +58,9 @@ public func ControlTransfer(object obj, int x, int y) {
   
 }
 
-// Ein Schloss hinzufügen
+/* Schlossfunktionen */
 
-public func SetKeycardLock(int iID, int dir)		// per Keycard
+public func SetKeycardLock(int iID, int dir)		//Per Keycard
 {
   var x = (dir*2-1)*(GetObjWidth()/2+15);
   var konsole = CreateObject(LKEY,x,0,GetOwner());
@@ -84,7 +69,7 @@ public func SetKeycardLock(int iID, int dir)		// per Keycard
   return konsole;
 }
 
-public func SetPasscodeLock(int a, int dir)		// per Eingabecode
+public func SetPasscodeLock(int a, int dir)		//Per Eingabecode
 {
   var x = (dir*2-1)*(GetObjWidth()/2+10);
   var konsole = CreateObject(PKEY,x,0,GetOwner());
@@ -93,7 +78,7 @@ public func SetPasscodeLock(int a, int dir)		// per Eingabecode
   return konsole;
 }
 
-public func SetSwitchLock(int dir)			// per Schalter
+public func SetSwitchLock(int dir)			//Per Schalter
 {
   var x = (dir*2-1)*(GetObjWidth()/2+8);
   var konsole = CreateObject(SWTH,x,0,GetOwner());
@@ -102,19 +87,20 @@ public func SetSwitchLock(int dir)			// per Schalter
   return konsole;
 }
 
-public func Access() {
+public func Access()
+{
   if(closed)
     Open();
   else if(lock != 2)
     Close();
 }
 
-public func SwitchOn()	{ Open(); }
-public func SwitchOff()	{ Close(); }
+public func SwitchOn()		{Open();}
+public func SwitchOff()		{Close();}
 
-// Öffnen & Schließen
+/* Aktionen */
 
-public func Open()					// öffnet die Tür
+public func Open()
 {
   if(destroyed) return ;
   if(!closed) return ;
@@ -122,7 +108,7 @@ public func Open()					// öffnet die Tür
   closed = false;
 }
 
-public func Close()					// schließt die Tür
+public func Close()
 {
   if(destroyed) return ;
   if(closed) return ;
@@ -140,9 +126,9 @@ public func Close()					// schließt die Tür
 }
 
 
-// Enginecalls
+/* Schaden */
 
-protected func Damage(int iChange, int iByPlayer)	// Schaden
+protected func Damage(int iChange, int iByPlayer)
 {
   // kapusch
   if(GetDamage() > GetMaxDamage() && IsDestroyable() && !destroyed)
@@ -154,17 +140,17 @@ protected func Damage(int iChange, int iByPlayer)	// Schaden
   }
 }
 
-public func IsBulletTarget()				// kann getroffen werden
+public func IsBulletTarget()
 {
-    // kann nur beschossen werdne wenn zu
+    // kann nur beschossen werden wenn zu
     if(!closed || destroyed)
         return false;
     return true;
 }
 
-// Türsteuerung - automatisches öffnen und schließen
+/* Türsteuerung */
 
-public func FxCheckOpenTimer()				// Clonks suchen und Tür öffnen
+public func FxCheckOpenTimer()
 {
   // Wenn kaputt, dann gar nix mehr
   if(destroyed) return -1;
@@ -177,14 +163,15 @@ public func FxCheckOpenTimer()				// Clonks suchen und Tür öffnen
       Close();
   }
   // öffnen
-  else if(!lock) {
+  else if(!lock)
+  {
     if(SomeonesApproaching())
       Open();
   }
 }
 
-private func SomeonesApproaching() {			// such ankommene Clonks
-
+private func SomeonesApproaching()
+{
   var aClonks = CreateArray();
 
   for(var i = 0; i < 2; ++i)
@@ -203,18 +190,17 @@ private func SomeonesApproaching() {			// such ankommene Clonks
   return false;
 }
 
-public func IsSideDoor() { return true; }
-
 /* Serialisierung */
 
 public func Serialize(array& extra)
 {
-	extra[GetLength(extra)] = Format("SetMaxDmg(%d)", maxdmg);
-	if (lock)
-		extra[GetLength(extra)] = Format("Lock(%v)", (lock == 2));
-	if (destroyed) {
-		extra[GetLength(extra)] = "SetSolidMask()";
-		extra[GetLength(extra)] = "RemoveEffect(\"CheckOpen\",this,0)";
-		extra[GetLength(extra)] = "LocalN(\"destroyed\")=true";
-	}
+  extra[GetLength(extra)] = Format("SetMaxDmg(%d)", maxdmg);
+  if (lock)
+    extra[GetLength(extra)] = Format("Lock(%v)", (lock == 2));
+  if (destroyed)
+  {
+    extra[GetLength(extra)] = "SetSolidMask()";
+    extra[GetLength(extra)] = "RemoveEffect(\"CheckOpen\",this,0)";
+    extra[GetLength(extra)] = "LocalN(\"destroyed\")=true";
+  }
 }

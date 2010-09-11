@@ -18,6 +18,9 @@ NONE2=<c 33ccff>QuickInventory</c> gibt dir einen alternativen und schnellen Inv
 NONE3=Hast du eine Waffe in der Hand, drücke vor einem Gegner [<c 33ccff>Werfen</c>], um ihn zu schlagen.
 
 #Waffen
+ASTR0=Nutze den <c 33ccff>Einzelfeuermodus</c> des Sturmgewehrs, um präzise Schüsse auf weit entfernte Gegner abzufeuern.
+ASTR1=Nutze den <c 33ccff>Granatenwerfer</c> des Sturmgewehrs für zusätzliche Feuerkraft.
+MNGN0=Das <c 33ccff>Maschinengewehr</c> lässt sich liegend am längsten im Dauerfeuer bedienen ohne schnell zu verziehen.
 PSTL0=Nutze deine <c 33ccff>Pistole</c> während deine Primärwaffe nachlädt um weiter feuern zu können.
 PSTL1=Der sekundäre Feuermodus der Pistole verschießt <c 33ccff>Peilsender</c>, diese markieren Gegner und führen verbündete Raketen zu ihnen.
 RTLR0=<c 33ccff>Raketen</c> eignen sich für große Distanzen und sind perfekt gegen Fahrzeuge und Strukturen.
