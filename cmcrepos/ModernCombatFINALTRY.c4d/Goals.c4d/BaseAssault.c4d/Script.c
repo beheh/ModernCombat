@@ -160,7 +160,7 @@ protected func FxIntAssaultTargetTimer(object pTarget, int iEffect)
 
   //Erstmal die Leiste prüfen
   if (!EffectVar(2, pTarget, iEffect))
-    EffectVar(2, pTarget, iEffect) = CreateObject(EBAR, GetX(pTarget), GetY(pTarget)+GetDefHeight(EffectVar(4, pTarget, iEffect))/2+10, -1);
+    EffectVar(2, pTarget, iEffect) = CreateObject(EBR2, GetX(pTarget), GetY(pTarget)+GetDefHeight(EffectVar(4, pTarget, iEffect))/2+10, -1);
   var bar = EffectVar(2, pTarget, iEffect);
 
   //Schaden
