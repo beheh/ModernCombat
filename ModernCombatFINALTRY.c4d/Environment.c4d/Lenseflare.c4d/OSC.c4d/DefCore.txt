@@ -1,6 +1,6 @@
 [DefCore]
 id=OSCF
-Name=Screen Coloration
+Name=On Screen Coloration
 Category=60817409
 Width=250
 Height=250

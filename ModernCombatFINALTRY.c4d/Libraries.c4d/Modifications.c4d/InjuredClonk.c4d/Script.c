@@ -192,6 +192,8 @@ private func GetRandomTipp(array a, id id)
     return a[Random(GetLength(a))];
 
   //Waffen
+  if (id == ASTR) return GetRandomTipp([[ASTR, "$ASTR0$"], [ASTR, "$ASTR1$"]]);
+  if (id == MNGN) return GetRandomTipp([[MNGN, "$MNGN0$"]]);
   if (id == PSTL) return GetRandomTipp([[PSTL, "$PSTL0$"], [PSTL, "$PSTL1$"]]);
   if (id == RTLR) return GetRandomTipp([[ROKT, "$RTLR0$"], [RTLR, "$RTLR1$"]]);
   if (id == PPGN) return GetRandomTipp([[PPGN, "$PPGN0$"]]);
