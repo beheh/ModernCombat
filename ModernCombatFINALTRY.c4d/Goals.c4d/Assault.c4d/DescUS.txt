@@ -1,1 +1,3 @@
-A new object definition.
+There are attackers and a team of defenders. The goal of the attackers is to destroy all HUB stations of the defenders to win. In turn the defenders have to hold the attackers of and eliminate them. Also all tickets of the attackers have to be depleted in order for the defenders to win.
+
+The destruction of certain HUB stations resets the attackers tickets so that they can advance further. Defenders again have unlimited tickets and can respawn infinite.

@@ -1,6 +1,10 @@
+LastStation=This is our <c ff0000>last HUB-Station</c>, don't let it get destroyed!
+TargetDestruction=HUB-Station <c %x>%s</c> destroyed.
+TeamHasWon=Team %s has won this battle!
+
+#Soll entfernt werden
+
 MoreTickets=More tickets
 LessTickets=Less tickets
 Finished=Finished!
-TargetDestruction=Structure <c %x>%s</c> destroyed.
 NoTargets=All our structures were destroyed! Start fighting or we will lose!
-TeamHasWon=Team %s has won this battle!
