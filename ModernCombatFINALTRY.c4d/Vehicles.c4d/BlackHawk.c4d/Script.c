@@ -955,6 +955,17 @@ protected func TimerCall()
     }
   }
 
+	//Verbündete über den Piloten informieren
+	for(var i = 0; i < GetPlayerCount(); i++) {
+		var iPlr = GetPlayerByIndex(i);
+		if(Pilot && !Hostile(GetOwner(Pilot), GetOwner(GetCursor(iPlr))) && Contained(GetCursor(iPlr)) != this) {
+			CustomMessage(Format("@<c %x>%s (%s)</c>", GetPlrColorDw(GetOwner(Pilot)), GetName(Pilot), GetPlayerName(GetOwner(Pilot))), this, GetOwner(GetCursor(iPlr)), 22*(GetDir()*2-1), 15);
+		}
+		else {
+			CustomMessage("@", this, GetOwner(GetCursor(iPlr)));
+		}
+	}
+
   //unter Wasser stirbt der Motor ab
   Water();
 
