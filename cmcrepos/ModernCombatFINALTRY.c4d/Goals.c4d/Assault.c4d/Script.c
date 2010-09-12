@@ -87,7 +87,7 @@ public func ReportAssaultTargetDestruction(object pTarget, int iTeam)
   if (GetIndexOf(pTarget, aTargets[iTeam]) == -1)
     return;
 
-  _inherited(...);
+  _inherited(pTarget, iTeam, ...);
 
   //Und gleich mal bekanntgeben
   EventInfo4K(0, Format("$TargetDestruction$", GetTeamColor(iTeam), GetName(pTarget)), GBAS, 0, 0, 0, "Info4.ogg");
@@ -217,15 +217,18 @@ public func UpdateScoreboard()
 
   //Titelzeile
   SetScoreboardData(SBRD_Caption, SBRD_Caption, GetName());
+  SetScoreboardData(SBRD_Caption, GASS_Icon, Format("{{%i}}", GetID()));
+  SetScoreboardData(SBRD_Caption, GASS_Name, Format("<c %x>$Targets$</c>", GetTeamColor(iDefender)));
+  SetScoreboardData(SBRD_Caption, GASS_Count, Format("<c %x>%d</c>", GetTeamColor(iDefender), ObjectCount2(Find_InArray(aTargets[iDefender]))));
 
-  //Zeile fürs Ziel
+  //Zeile fürs nächste Ziel
   if (obj)
   {
     SetScoreboardData(0, GASS_Icon, Format("{{%i}}", obj->GetImitationID()));
-	SetScoreboardData(0, GASS_Name, GetName(obj));
+	SetScoreboardData(0, GASS_Name, Format("<c %x>%s</c>", GetTeamColor(iDefender), GetName(obj)));
 	var effect = GetEffect("IntAssaultTarget", obj);
 	var percent = 100-GetDamage(obj)*100/EffectVar(0, obj, effect);
-	SetScoreboardData(0, GASS_Count, Format("%d", percent));
+	SetScoreboardData(0, GASS_Count, Format("<c %x>%d%</c>", GetTeamColor(iDefender), percent));
   }
   else
   { 
@@ -238,8 +241,20 @@ public func UpdateScoreboard()
   SetScoreboardData(1, 0, "<c ffffffff> </c>");
 
   //Tickets
+  var string = Format("<c %x>$Attackers$</c>", RGB(255, 255, 255));
+  var color = RGB(255, 255, 255);
+  var team = GetTeamByIndex();
+  //Nur ein Angreiferteam
+  if (GetActiveTeamCount() == 2)
+  {
+    if (team == iDefender)
+	  team = GetTeamByIndex(1);
+	string = GetTaggedTeamName(team);
+	color = GetTeamColor(team);
+  }
   SetScoreboardData(2, GASS_Icon, "{{TIKT}}");
-  SetScoreboardData(2, GASS_Count, Format("%d", iTickets));
+  SetScoreboardData(2, GASS_Name, string);
+  SetScoreboardData(2, GASS_Count, Format("<c %x>%d</c>", color, iTickets));
 }
 
 /* Ziel */
