@@ -1,6 +1,8 @@
 LastStation=This is our <c ff0000>last HUB-Station</c>, don't let it get destroyed!
 TargetDestruction=HUB-Station <c %x>%s</c> destroyed.
 TeamHasWon=Team %s has won this battle!
+Targets=Stations
+Attackers=Attackers
 
 #Soll entfernt werden
 
