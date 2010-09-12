@@ -1,8 +1,0 @@
-[DefCore]
-id=STCR
-Name=Structure
-Version=4,9,10, 3
-Category=C4D_StaticBack
-Width=1
-Height=1
-Picture=0,0,64,64
