@@ -892,6 +892,38 @@ public func ChooserFinished()
    warn = CreateObject (ALGH, 7410, 360, -1);
     AddWarnEffect(warn,aFlag[6]);
   }
+  
+  //Assault
+  if (FindObject(GASS))
+  {
+    //Erstes Ziel
+    AddAssaultTarget(CCP1, 1200, 390, 250, 2, 0, 0, [[[1080, 270], [1140, 400], [1140, 470]], [[560, 440], [610, 440], [660, 440]]]);
+	aSelfDefense[0]->SetTeam(2);
+	
+	//Zweites Ziel
+	AddAssaultTarget(CGLO, 2720, 340, 300, 2, 0, 1, [[[2670, 410], [2790, 410], [2940, 370]], [[2290, 510], [2080, 420]]]);
+	aSelfDefense[1]->SetTeam(2);
+	
+	//Drittes Ziel
+	AddAssaultTarget(CCP2, 3580, 630, 300, 2, 0, 2, [[[3610, 410], [3720, 530], [3710, 470]], [[3100, 630], [3030, 350], [3100, 530]]]);
+  }
+}
+
+public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
+{
+  //Erstes Ziel
+  if (!iIndex)
+  {
+    aSelfDefense[0]->Disarm();
+	Explode(30, aSelfDefense[0]);
+  }
+
+  //Zweites Ziel
+  if (iIndex == 1)
+  {
+    aSelfDefense[1]->Disarm();
+	Explode(30, aSelfDefense[1]);  
+  }
 }
 
 /* Relaunch */
