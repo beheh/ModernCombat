@@ -1,0 +1,6 @@
+MoreTickets=More tickets
+LessTickets=Less tickets
+Finished=Finished!
+TargetDestruction=Structure <c %x>%s</c> destroyed.
+NoTargets=All our structures were destroyed! Start fighting or we will lose!
+TeamHasWon=Team %s has won this battle!

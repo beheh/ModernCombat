@@ -1,1 +1,0 @@
-Allows to use each definition as an assault target.
