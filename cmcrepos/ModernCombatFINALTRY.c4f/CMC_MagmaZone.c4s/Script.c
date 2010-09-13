@@ -260,6 +260,19 @@ public func ChooserFinished()
    {CreateFlag(2,2010,310,GetTeamColor(2));}
   }
 
+  //Base Assault-Spielziel
+  if(FindObject(GBAS))
+  {
+   //Strukturen
+   AddAssaultTarget(HBSN, 780, 390, 300, 1, "$Flag3$", 0, [[730, 520], [825, 580], [605, 520]]);
+   AddAssaultTarget(HBSN, 680, 150, 300, 1, "$Flag2$", 1, [[610, 300], [840, 260], [880, 270]]);
+   AddAssaultTarget(HBSN, 180, 300, 400, 1, "$Flag1$", 2, [[350, 460], [245, 550], [550, 350]]);
+
+   AddAssaultTarget(HBSN, 2280, 210, 400, 2, "$Flag6$", 2, [[2100, 310], [2000, 310], [1900, 320]]);
+   AddAssaultTarget(HBSN, 1840, 130, 300, 2, "$Flag4$", 1, [[1845, 240], [1770, 220]]);
+   AddAssaultTarget(HBSN, 1710, 330, 300, 2, "$Flag5$", 0, [[1610, 500], [1820, 450], [1885, 475]]);
+  }
+
   //OP-Spielziel
   if(FindObject(GOCC))
   {
@@ -314,19 +327,6 @@ public func ChooserFinished()
    {
     aFlag[5]->Set("$Flag6$",0,2);
    }
-  }
-
-  //Base Assault-Spielziel
-  if(FindObject(GBAS))
-  {
-   //Strukturen
-   AddAssaultTarget(HBSN, 780, 390, 300, 1, "$Flag3$", 0, [[730, 520], [825, 580], [605, 520]]);
-   AddAssaultTarget(HBSN, 680, 150, 300, 1, "$Flag2$", 1, [[610, 300], [840, 260], [880, 270]]);
-   AddAssaultTarget(HBSN, 180, 300, 400, 1, "$Flag1$", 2, [[350, 460], [245, 550], [550, 350]]);
-
-   AddAssaultTarget(HBSN, 2280, 210, 400, 2, "$Flag6$", 2, [[2100, 310], [2000, 310], [1900, 320]]);
-   AddAssaultTarget(HBSN, 1840, 130, 300, 2, "$Flag4$", 1, [[1845, 240], [1770, 220]]);
-   AddAssaultTarget(HBSN, 1710, 330, 300, 2, "$Flag5$", 0, [[1610, 500], [1820, 450], [1885, 475]]);
   }
 }
 
