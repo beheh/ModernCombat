@@ -7,23 +7,6 @@
 
 public func ChooserFinished()
 {
-  //"Insta Gib"-Regel
-  if(FindObject(IGIB))
-  {
-   //Spawnpoints entfernen
-   for(var spwn in FindObjects(Find_ID(SPNP)))
-    RemoveObject(spwn);
-
-   //Eventuelle Clonkausrüstung entfernen
-   for(var clonk in FindObjects(Find_OCF(OCF_CrewMember)))
-    while(Contents(0, clonk))
-     RemoveObject(Contents(0, clonk));
-
-   //Munitionskisten entfernen
-   for(var ammobox in FindObjects(Find_ID(AMCT)))
-    RemoveObject(ammobox);
-  }
-
   //"Keine Munition"-Regel
   if(FindObject(NOAM))
   {
@@ -39,23 +22,9 @@ public func ChooserFinished()
       RemoveObject(ammobox);
   }
 
-  //Waffenwahl/Klassenwahl-Regel
-  if(FindObject(WPCH) || FindObject(MCSL))
-  {
-   //Waffenspawnpoints entfernen
-   for(var spwn in FindObjects(Find_ID(SPNP)))
-    if(Contents(0, spwn)->~IsWeapon())
-     RemoveObject(spwn);
-
-   //Ausrüstungsspawnpoints entfernen
-   for(var spwn in FindObjects(Find_ID(SPNP)))
-    if(Contents(0, spwn)->~IsEquipment())
-     RemoveObject(spwn);
-  }
-    
-  //Effektmanager
+  //Effektmanager erstellen
   CreateObject(EFMN);
-    
+
   //Ohne Klassenwahl
   if(!FindObject(MCSL))
   {
@@ -74,7 +43,7 @@ public func ChooserFinished()
 func ChooserRuleConfig()
 {
   //Standardregelsatz: Belohnungssystem, Kein FriendlyFire, Waffen bleiben, Arena, Klassenwahl
-  return [RWDS,NOFF,WPST,NODR,MCSL];
+  return [RWDS,NOFF,WPST,NODR];
 }
 
 /* Spielerinitalisierung */
@@ -92,33 +61,32 @@ public func RelaunchPlayer(int iPlr, object pCrew, object pKiller, int iTeam, bo
   //Kein ordentlicher Spieler?
   if(GetOwner(pCrew) == NO_OWNER || iPlr == NO_OWNER || !GetPlayerName(iPlr))
    return;
-    
+
   //Kein Team?
   if(!iTeam) iTeam = GetPlayerTeam(iPlr);
-  
+
   //Reject?
   if(!bFirst)
    if(RejectRelaunch(iPlr,iTeam))
     return;
-  
+
   //Clonk tot?
   if(!GetAlive(pCrew))
    pCrew = RelaunchClonk(iPlr, pCrew);
 
   //Ausrüsten
-  if(!FindObject(IGIB))
-   OnClonkEquip(pCrew);
-  
+  OnClonkEquip(pCrew);
+
   //Zufallsposition setzen
   var iX, iY;
   RelaunchPosition(iX, iY, iTeam);
-  
+
   if(Contained(pCrew))
    SetPosition(iX, iY, Contained(pCrew));
   else
    SetPosition(iX, iY, pCrew);
 
-  if(!FindObject(MCSL) && !FindObject(WPCH) && !FindObject(CHOS))
+  if(!FindObject(MCSL) && !FindObject(CHOS))
    GameCallEx("OnClassSelection",pCrew);
 }
 

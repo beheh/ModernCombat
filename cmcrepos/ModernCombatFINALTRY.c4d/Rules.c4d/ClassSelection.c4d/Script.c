@@ -6,8 +6,6 @@ local crew;
 local lastclass;
 local selection;
 
-public func IsChooseable()	{return 1;}	//Kann mittels des Spielzielauswählers ausgewählt werden
-
 
 /* Initalisierung */
 
