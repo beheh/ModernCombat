@@ -436,6 +436,34 @@ public func ChooserFinished()
    {CreateFlag(2,4490,500,GetTeamColor(2));}
   }
 
+  //HTF-Spielziel
+  if (FindObject(GHTF))
+  {
+   //Flaggenposten
+   var flag = CreateObject(OFPL, 2990, 280, -1);
+   flag->~Set("$Flag2$");
+
+   //Zusätzliche Munition
+   if(!FindObject(NOAM))
+   {
+    //Munitionskiste (Kugeln)
+    var tmp = CreateObject(AMCT, 2965, 360, -1);
+    tmp->Set(ABOX);
+
+    //Raketen
+    PlaceSpawnpoint(MIAP, 2890, 425);
+   }
+  }
+
+  //Base Assault-Spielziel
+  if(FindObject(GBAS))
+  {
+   //Strukturen
+   AddAssaultTarget(HBSN, 1650, 300, 500, 1, "$Flag1$", 2, [[1500, 500], [1680, 440], [1340, 400]]);
+
+   AddAssaultTarget(HBSN, 4350, 300, 500, 2, "$Flag3$", 0, [[4330, 440], [4490, 500], [4690, 400]]);
+  }
+
   //OP-Spielziel
   if(FindObject(GOCC))
   {
@@ -472,25 +500,6 @@ public func ChooserFinished()
    else
    {
     aFlag[2]->Set("$Flag3$",0,2);
-   }
-  }
-
-  //HTF-Spielziel
-  if (FindObject(GHTF))
-  {
-   //Flaggenposten
-   var flag = CreateObject(OFPL, 2990, 280, -1);
-   flag->~Set("$Flag2$");
-
-   //Zusätzliche Munition
-   if(!FindObject(NOAM))
-   {
-    //Munitionskiste (Kugeln)
-    var tmp = CreateObject(AMCT, 2965, 360, -1);
-    tmp->Set(ABOX);
-
-    //Raketen
-    PlaceSpawnpoint(MIAP, 2890, 425);
    }
   }
 }

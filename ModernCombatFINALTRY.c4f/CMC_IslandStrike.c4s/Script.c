@@ -724,6 +724,43 @@ public func ChooserFinished()
    CreateObject(SGNP, 6855, 510, -1);
   }
 
+  //Assault-Spielziel
+  if (FindObject(GASS))
+  {
+   //Grenzen
+   CreateObject(BRDR, 440, 0, -1)->Set(0,1);
+   CreateObject(BRDR, 1750, 0, -1)->Set(1,1);
+
+   //SSA Besitzer setzen
+   aSelfDefense[0]->SetTeam(2);
+   aSelfDefense[1]->SetTeam(2);
+   aSelfDefense[3]->SetTeam(2);
+
+   //SSA entfernen
+   aSelfDefense[2]->RemoveObject();
+
+   //Ziel 1
+   AddAssaultTarget(HBSN, 1200, 390, 250, 2, 0, 0, [[[1550, 400], [1670, 440], [1370, 440]], [[560, 440], [610, 440], [660, 440]]]);
+
+   //Ziel 2
+   AddAssaultTarget(HBSN, 2720, 340, 250, 2, 0, 1, [[[2870, 410], [2980, 370], [2970, 510]], [[1670, 440], [1790, 430], [1880, 420]]]);
+
+   //Ziel 3
+   AddAssaultTarget(HBSN, 3580, 630, 300, 2, 0, 2, [[[3795, 410], [3795, 530], [3690, 330]], [[2690, 410], [2710, 510], [2840, 592]]]);
+
+   //Ziel 4
+   AddAssaultTarget(HBSN, 4520, 390, 300, 2, 0, 3, [[[4760, 460], [4870, 440], [5000, 390]], [[3570, 330], [3600, 410], [3470, 630]]]);
+
+   //Ziel 5
+   AddAssaultTarget(HBSN, 5640, 340, 350, 2, 0, 4, [[[6040, 380], [6040, 570], [6180, 380]], [[3570, 330], [3600, 410], [3470, 630]]]);
+
+   //Ziel 6
+   AddAssaultTarget(HBSN, 6440, 340, 350, 2, 0, 5, [[[6560, 410], [6880, 510], [6520, 640]], [[5630, 400], [5630, 470], [5730, 550]]]);
+
+   //Ziel 7
+   AddAssaultTarget(HBSN, 6440, 340, 350, 2, 0, 6, [[[7580, 510], [7565, 410], [7750, 320]], [[6410, 340], [6460, 510], [6370, 510]]]);
+  }
+
   //OP-Spielziel
   if(FindObject(GOCC))
   {
@@ -892,37 +929,72 @@ public func ChooserFinished()
    warn = CreateObject (ALGH, 7410, 360, -1);
     AddWarnEffect(warn,aFlag[6]);
   }
-  
-  //Assault
-  if (FindObject(GASS))
-  {
-    //Erstes Ziel
-    AddAssaultTarget(CCP1, 1200, 390, 250, 2, 0, 0, [[[1080, 270], [1140, 400], [1140, 470]], [[560, 440], [610, 440], [660, 440]]]);
-	aSelfDefense[0]->SetTeam(2);
-	
-	//Zweites Ziel
-	AddAssaultTarget(CGLO, 2720, 340, 300, 2, 0, 1, [[[2670, 410], [2790, 410], [2940, 370]], [[2290, 510], [2080, 420]]]);
-	aSelfDefense[1]->SetTeam(2);
-	
-	//Drittes Ziel
-	AddAssaultTarget(CCP2, 3580, 630, 300, 2, 0, 2, [[[3610, 410], [3720, 530], [3710, 470]], [[3100, 630], [3030, 350], [3100, 530]]]);
-  }
 }
+
+/* Assault Zerstörung */
 
 public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
 {
-  //Erstes Ziel
+  //Ziel 1
   if (!iIndex)
   {
-    aSelfDefense[0]->Disarm();
-	Explode(30, aSelfDefense[0]);
+   //Grenzen neu setzen
+   RemoveAll(BRDR);
+   CreateObject(BRDR, 440, 0, -1)->Set(0,1);
+   CreateObject(BRDR, 3100, 0, -1)->Set(1,1);
+
+   //SSA zerstören
+   aSelfDefense[0]->Disarm();
+   Explode(30, aSelfDefense[0]);
   }
 
-  //Zweites Ziel
+  //Ziel 2
   if (iIndex == 1)
   {
-    aSelfDefense[1]->Disarm();
-	Explode(30, aSelfDefense[1]);  
+   //Grenzen neu setzen
+   RemoveAll(BRDR);
+   CreateObject(BRDR, 1750, 0, -1)->Set(0,1);
+   CreateObject(BRDR, 3900, 0, -1)->Set(1,1);
+
+   //SSA zerstören
+   aSelfDefense[1]->Disarm();
+   Explode(30, aSelfDefense[1]);
+  }
+
+  //Ziel 3
+  if (iIndex == 2)
+  {
+   //Grenzen neu setzen
+   RemoveAll(BRDR);
+   CreateObject(BRDR, 2600, 0, -1)->Set(0,1);
+   CreateObject(BRDR, 5040, 0, -1)->Set(1,1);
+  }
+
+  //Ziel 4
+  if (iIndex == 3)
+  {
+   //Grenzen neu setzen
+   RemoveAll(BRDR);
+   CreateObject(BRDR, 3200, 0, -1)->Set(0,1);
+   CreateObject(BRDR, 6210, 0, -1)->Set(1,1);
+  }
+
+  //Ziel 5
+  if (iIndex == 4)
+  {
+   //Grenzen neu setzen
+   RemoveAll(BRDR);
+   CreateObject(BRDR, 4190, 0, -1)->Set(0,1);
+   CreateObject(BRDR, 6950, 0, -1)->Set(1,1);
+  }
+
+  //Ziel 6
+  if (iIndex == 5)
+  {
+   //Grenzen neu setzen
+   RemoveAll(BRDR);
+   CreateObject(BRDR, 5040, 0, -1)->Set(0,1);
+   CreateObject(BRDR, 7850, 0, -1)->Set(1,1);
   }
 }
 
