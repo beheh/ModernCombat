@@ -2,7 +2,7 @@
 
 #strict 2
 
-global func Explode(int iLevel, object pObj, id idEffect, string szEffect)
+global func Explode(int iLevel, object pObj, id idEffect, string szEffect, bool fDeco)
 {
   if(!pObj)
     if(!(pObj=this))
@@ -73,7 +73,8 @@ global func Explode(int iLevel, object pObj, id idEffect, string szEffect)
 	CreateParticle("Blast",x,y,0,0,iLevel*11);
 
 	///Standart-Verhalten...
-  return inherited(iLevel, pObj, idEffect, szEffect);
+  if (!fDeco)
+    return inherited(iLevel, pObj, idEffect, szEffect);
 }
 
 global func SemiExplode(int iLevel, int incidence)

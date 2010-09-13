@@ -208,3 +208,19 @@ global func FakeExplode(int iLevel, int iControllerPlusOne, object obj) {
   if(dummy) RemoveObject(dummy);
 	return true;
 }
+
+global func DecoExplode(int iLevel, object pObj)
+{
+  if (!pObj && !(pObj = this))
+    return;
+
+  Explode(iLevel, pObj, 0, 0, true);
+
+  var x = GetX(pObj)-GetX(), y = GetY(pObj)-GetY();
+
+  CreateParticle("Blast", x, y, 0, 0, 10*iLevel);
+  CastParticles("FSpark", iLevel/5+1, iLevel, x, y, iLevel*5+10, iLevel*10+10, RGBa(255), RGBa(255,20,20,255));
+  
+  Sound(Format("Blast%d", BoundBy(iLevel/10-1, 1, 3)), 0, pObj);
+  RemoveObject(pObj);
+}
