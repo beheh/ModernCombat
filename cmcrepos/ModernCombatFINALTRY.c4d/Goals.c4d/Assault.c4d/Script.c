@@ -274,6 +274,10 @@ private func IsFulfilled()
   if (fulfilled)
     return fulfilled;
 
+  //Keine Ziele mehr -> Verteidiger eliminiert
+  if (!ObjectCount2(Find_InArray(aTargets[iDefender])))
+    EliminateTeam(iDefender);
+
   //Nur noch ein Team übrig - Sieg!
   if (GetActiveTeamCount() == 1)
   {
