@@ -354,13 +354,13 @@ public func ChooserFinished()
   if(FindObject(GBAS))
   {
    //Strukturen
-   AddAssaultTarget(CLVM, 780, 390, 300, 1, 0, 0, [[680, 400], [620, 380], [730, 520]]);
-   AddAssaultTarget(SADH, 680, 150, 300, 1, 0, 1, [[810, 140], [590, 140]]);
-   AddAssaultTarget(WPVM, 180, 300, 400, 1, 0, 2, [[330, 330], [350, 460], [460, 330]]);
+   AddAssaultTarget(HBSN, 780, 390, 300, 1, "$Flag3$", 0, [[730, 520], [825, 580], [605, 520]]);
+   AddAssaultTarget(HBSN, 680, 150, 300, 1, "$Flag2$", 1, [[610, 300], [840, 260], [880, 270]]);
+   AddAssaultTarget(HBSN, 180, 300, 400, 1, "$Flag1$", 2, [[350, 460], [245, 550], [550, 350]]);
 
-   AddAssaultTarget(CLVM, 1710, 330, 300, 2, 0, 0, [[1770, 290], [1720, 370], [1740, 460]]);
-   AddAssaultTarget(SADH, 1840, 130, 300, 2, 0, 1, [[1950, 140], [1660, 160]]);
-   AddAssaultTarget(WPVM, 2280, 210, 400, 2, 0, 2, [[2160, 240], [2080, 240], [2090, 310]]);
+   AddAssaultTarget(HBSN, 2280, 210, 400, 2, "$Flag6$", 2, [[2100, 310], [2000, 310], [1900, 320]]);
+   AddAssaultTarget(HBSN, 1840, 130, 300, 2, "$Flag4$", 1, [[1845, 240], [1770, 220]]);
+   AddAssaultTarget(HBSN, 1710, 330, 300, 2, "$Flag5$", 0, [[1610, 500], [1820, 450], [1885, 475]]);
   }
 }
 

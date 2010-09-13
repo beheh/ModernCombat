@@ -523,6 +523,21 @@ public func ChooserFinished()
   for(var i = 0; i < GetPlayerCount(); i++)
     aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = true;
 
+  //HTF-Spielziel
+  if (FindObject(GHTF))
+  {
+   //Flaggenposten
+   var flag = CreateObject(OFPL, 585, 320, -1);
+   flag->~Set("$Flag1$");
+
+   //Kiste
+   CreateObject(WCR2, 400, 1490, -1)->AutoRespawn();
+
+   //Sandsackbarrieren
+   CreateObject(SBBA, 441, 320, -1);
+   CreateObject(SBBA, 730, 320, -1)->Right();
+  }
+
   //OP-Spielziel
   if(FindObject(GOCC))
   {
@@ -649,21 +664,6 @@ public func ChooserFinished()
    warn = CreateObject (ALGH, 790, 1889, -1);
     warn->SetR(-180);
     AddWarnEffect(warn,aFlag[6]);
-  }
-
-  //HTF-Spielziel
-  if (FindObject(GHTF))
-  {
-   //Flaggenposten
-   var flag = CreateObject(OFPL, 585, 320, -1);
-   flag->~Set("$Flag1$");
-
-   //Kiste
-   CreateObject(WCR2, 400, 1490, -1)->AutoRespawn();
-
-   //Sandsackbarrieren
-   CreateObject(SBBA, 441, 320, -1);
-   CreateObject(SBBA, 730, 320, -1)->Right();
   }
 }
 
