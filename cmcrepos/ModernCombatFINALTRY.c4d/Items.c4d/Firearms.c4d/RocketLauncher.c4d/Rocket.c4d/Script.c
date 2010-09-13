@@ -188,7 +188,7 @@ public func Hit()
 {
   if(GetAction() == "Idle")
   {
-   Explode(3,0,0,0,1);
+   Explode(3);
    if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("Smoke3",12,10,0,0,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
   }
   else
@@ -235,7 +235,7 @@ private func HitObject(pObj)
 
   //Schaden verursachen
   DamageObjects(iDamage,iDamage/2,this);
-  Explode(iDamage*3/2,0,0,0,1);
+  Explode(iDamage*3/2);
 }
 
 public func Destruction()
