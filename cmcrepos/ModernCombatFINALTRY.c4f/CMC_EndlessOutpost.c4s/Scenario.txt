@@ -13,7 +13,7 @@ Definition3=ModernCombatFINALTRY.c4d
 
 [Game]
 StructNeedEnergy=0
-Goals=GAS_=1
+Goals=GOCC=1;GASS=1
 Rules=MCSL=1;CHOS=1
 
 [Player1]

@@ -6,7 +6,7 @@
 static aFlag,aSelfDefense,aArtillery;
 
 
-/* Initalisierung */
+/* Initialisierung */
 
 func Initialize()
 {
@@ -711,7 +711,7 @@ public func ChooserFinished()
    AddAssaultTarget(HBSN, 4520, 390, 300, 2, 0, 3, [[[4760, 460], [4870, 440], [5000, 390]], [[3570, 330], [3600, 410], [3470, 630]]]);
 
    //Ziel 5
-   AddAssaultTarget(HBSN, 5640, 340, 300, 2, 0, 4, [[[6040, 380], [6040, 570], [6180, 380]], [[3570, 330], [3600, 410], [3470, 630]]]);
+   AddAssaultTarget(HBSN, 5640, 340, 300, 2, 0, 4, [[[6040, 380], [6040, 570], [6180, 380]], [[4290, 410], [4320, 470], [4320, 580]]]);
 
    //Ziel 6
    AddAssaultTarget(HBSN, 6440, 340, 350, 2, 0, 5, [[[6560, 410], [6880, 510], [6520, 640]], [[5630, 400], [5630, 470], [5730, 550]]]);
@@ -939,6 +939,10 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
    RemoveAll(BRDR);
    CreateObject(BRDR, 3200, 0, -1)->Set(0,1);
    CreateObject(BRDR, 6210, 0, -1)->Set(1,1);
+
+   //Spawnpoints entfernen
+   RemoveObject(FindObject2(Find_ID(VSPW),Find_AtPoint(4700,290)));
+   RemoveObject(FindObject2(Find_ID(VSPW),Find_InRect(4699, 289, 2, 2)));
   }
 
   //Ziel 5
@@ -1015,9 +1019,8 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   }
 
   //Assault-Spielziel
-  if (FindObject(GASS))
-    if (FindObject(GASS)->GetRespawnPoint(iX, iY, iTeam))
-	  return 1;
+  if(FindObject(GASS))
+  {if(FindObject(GASS)->GetRespawnPoint(iX, iY, iTeam)) return 1;}
 
   //Startsicht
   iX = 4690; iY = 450;

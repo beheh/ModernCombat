@@ -1,20 +1,12 @@
 /*-- Endless Outpost --*/
 
 #strict
+#include CSTD
 
-static aDoor, aTarget, aSelfDefense, aLamp, aLamp2;
-static X, Y;
+static aDoor, aSelfDefense, aLamp, aLamp2;
 
 
-/* Regelvoreinstellung */
-
-func ChooserRuleConfig()
-{
-  //Standardregelsatz: Belohnungssystem, Kein FriendlyFire, Waffen bleiben, Arena, Klassenwahl
-  return [RWDS,NOFF,WPST,NODR,EFMN];
-}
-
-/* Initalisierung */
+/* Initialisierung */
 
 func Initialize()
 {
@@ -25,8 +17,6 @@ func Initialize()
   SetGamma(RGB(0,0,0), RGB(80,80,80), RGB(200,200,200));
   //Türen
   aDoor = [];
-  //Ziele
-  aTarget = [];
   //Selbstschussanlagen
   aSelfDefense = [];
   //Lampen
@@ -37,13 +27,16 @@ func Initialize()
   CreateFurniture();
   //Equipment plazieren
   CreateEquipment();
-  //Spawnpointplazierungen
-  X=CreateArray(2);
-  Y=CreateArray(2);
-  X[AS_GetAttackerTeam()]=130;
-  Y[AS_GetAttackerTeam()]=340;
-  X[AS_GetDefenderTeam()]=1320;
-  Y[AS_GetDefenderTeam()]=250;
+  return(1);
+}
+
+/* Plazierungslisten */
+
+func CreateFurniture()
+{
+  var tmp;
+  Log("$CreatingFurniture$");
+  //Alle Objekte folglich von links nach rechts
 
   //Rampen
   DrawMaterialQuad("Wall-Concrete1",580,450,610,440,610,450,595,450,true);
@@ -74,17 +67,6 @@ func Initialize()
   CreateParticle("Fog", 515, 610,0,0,500+Random(100));
   CreateParticle("Fog", 590, 570,0,0,1000+Random(100));
   CreateParticle("Fog", 710, 550,0,0,500+Random(100));
-
-  return(1);
-}
-
-/* Plazierungslisten */
-
-func CreateFurniture()
-{
-  var tmp;
-  Log("$CreatingFurniture$");
-  //Alle Objekte folglich von links nach rechts
 
   //Sternenhimmel
   CreateObject(SLSY, 10, 10, -1);
@@ -495,6 +477,64 @@ func CreateFurniture()
   CreateObject(ETLT, 1480, 170, -1);
   CreateObject(ETLT, 2530, 395, -1);
 
+  //Türen
+  aDoor[0] = CreateObject(SEDR,1225, 560,-1);
+   aDoor[0]->Lock();
+   aDoor[0]->SetMaxDamage(-1);
+  aDoor[1] = CreateObject(SEDR,1245, 430,-1);
+   aDoor[1]->Lock();
+   aDoor[1]->SetMaxDamage(-1);
+  aDoor[2] = CreateObject(SEDR,1355, 260,-1);
+   aDoor[2]->Lock();
+   aDoor[2]->SetMaxDamage(-1);
+  aDoor[3] = CreateObject(H24K, 1205, 208, -1);
+   aDoor[3]->Lock();
+   aDoor[3]->SetMaxDamage(-1);
+  aDoor[4] = CreateObject(HA4K, 850, 163, -1);
+   aDoor[4]->Lock();
+   aDoor[4]->SetMaxDamage(-1);
+  aDoor[5] = CreateObject(HNG2,1355,550,-1);
+  aDoor[6] = CreateObject(HNG2,1905,490,-1);
+  aDoor[7] = CreateObject(SEDR,1850,110,-1);
+   aDoor[7]->Lock();
+   aDoor[7]->SetMaxDamage(-1);
+  aDoor[8] = CreateObject(HA4K, 1440, 323, -1);
+   aDoor[8]->Lock();
+   aDoor[8]->SetMaxDamage(-1);
+  aDoor[9] = CreateObject(HA4K, 1650, 293, -1);
+   aDoor[9]->Lock();
+   aDoor[9]->SetMaxDamage(-1);
+
+  //Lampen
+  aLamp[0]=CreateObject(BLGH,880,300,-1);
+  aLamp[1]=CreateObject(BLGH,980,300,-1);
+  aLamp[2]=CreateObject(CLGH,1045,475,-1);
+  aLamp[3]=CreateObject(CLGH,1125,475,-1);
+  aLamp[4]=CreateObject(LLGH,1183,380,-1);
+  aLamp[5]=CreateObject(LLGH,1227,295,-1);
+  aLamp[6]=CreateObject(STLH,1430,225,-1);
+  aLamp[7]=CreateObject(STLH,1650,95,-1);
+  aLamp2[0]=CreateObject(BLGH,1300,305,-1);
+  aLamp2[1]=CreateObject(BLGH,1300,390,-1);
+  aLamp2[2]=CreateObject(BLGH,1865,270,-1);
+  aLamp2[3]=CreateObject(LBGH,1565,340,-1);
+  aLamp2[4]=CreateObject(LBGH,1705,340,-1);
+  aLamp2[5]=CreateObject(STLH,1955,360,-1);
+
+  //Selbstschussanlagen und Konsolen
+  aSelfDefense[0]=CreateObject(SEGU,945,249,-1);
+  aSelfDefense[0]->Arm(MISA);
+  aSelfDefense[0]->TurnOn();
+  aSelfDefense[0]->SetAutoRepair(1500);
+  aSelfDefense[0]->SetTeam(AS_GetDefenderTeam());
+  CreateObject(CONS, 1050, 550, -1)->Set(aSelfDefense[0]);
+
+  aSelfDefense[1]=CreateObject(SEGU,1495,369,-1);
+  aSelfDefense[1]->Arm(MISA);
+  aSelfDefense[1]->TurnOn();
+  aSelfDefense[1]->SetAutoRepair(1500);
+  aSelfDefense[1]->SetTeam(AS_GetDefenderTeam());
+
   //Sounds
 
   //Wind
@@ -522,495 +562,324 @@ func CreateEquipment()
   Log("$CreatingEquipment$");
   //Alle Objekte folglich von links oben nach rechts unten
 
+   //Munitionskisten (Kugeln)
+   var tmp = CreateObject (AMCT, 105, 450, -1);
+   tmp->Set(GBOX);
+   tmp->SetGraphics("Normal");
+   var tmp = CreateObject (AMCT, 135, 450, -1);
+   tmp->Set(ABOX);
+   tmp->SetGraphics("Normal");
+   var tmp = CreateObject (AMCT, 1090, 260, -1);
+   tmp->Set(ABOX);
+   tmp->SetGraphics("Normal");
+   var tmp = CreateObject (AMCT, 1090, 430, -1);
+   tmp->Set(GBOX);
+   tmp->SetGraphics("Normal");
+   var tmp = CreateObject (AMCT, 1280, 550, -1);
+   tmp->Set(ABOX);
+   tmp->SetGraphics("Normal");
+   var tmp = CreateObject (AMCT, 1720, 210, -1);
+   tmp->Set(ABOX);
+   tmp->SetGraphics("Normal");
+   var tmp = CreateObject (AMCT, 1835, 490, -1);
+   tmp->Set(ABOX);
+   tmp->SetGraphics("Normal");
+   var tmp = CreateObject (AMCT, 2375, 530, -1);
+   tmp->Set(ABOX);
+   tmp->SetGraphics("Normal");
+
   //Munitionskisten (Splittergranaten)
   var tmp = CreateObject(AMCT, 2030, 210, -1);
   tmp->Set(FRAG);
 }
 
-func CreateAssaultObjects()
+/* Regelwähler */
+
+public func ChooserFinished()
 {
-  Log("$CreatingAssaultObjects$");
-  //Alle Objekte folglich von links nach rechts
-  
+  inherited();
+
+  //Teams abfragen
+  var aTeams = [false,false,false,false,false];
+  for(var i = 0; i < GetPlayerCount(); i++)
+    aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = true;
+
+  //Assault-Spielziel
+  if (FindObject(GASS))
+  {
+   //SSA Besitzer setzen
+   aSelfDefense[0]->SetTeam(2);
+   aSelfDefense[1]->SetTeam(2);
+
+   //SSA entfernen
+   RemoveObject(aSelfDefense[2]);
+
+   //Ziel 1
+   AddAssaultTarget(CGLO, 1120, 362, 250, 2, $Target1$, 0, [[[1320, 260], [1300, 260], [1130, 260]], [[130, 350], [170, 350], [150, 450]]]);
+
+   //Ziel 2
+   AddAssaultTarget(MVNT, 1865, 250, 250, 2, $Target2$, 1, [[[1570, 70], [1590, 70], [1830, 110]], [[1100, 430], [1140, 430], [1280, 550]]]);
+
+   //Ziel 3
+   AddAssaultTarget(LBPC, 1795, 492, 300, 2, $Target3$, 2, [[[1980, 400]], [[1280, 430], [1280, 550]]]);
+
+   //Ziel 4
+   AddAssaultTarget(HBSN, 2180, 512, 300, 2, $Target4$, 3, [[[1880, 110], [2050, 110]], [[1840, 490], [1880, 490]]]);
+
+   //Ziel 5
+   AddAssaultTarget(HBSN, 2200, 322, 300, 2, $Target5$, 4, [[[1880, 110], [2050, 110]], [[1840, 490], [1880, 490]]]);
+
+   //Ziel 6
+   AddAssaultTarget(HBSN, 2350, 212, 300, 2, $Target6$, 5, [[[1880, 110], [2050, 110]], [[1840, 490], [1880, 490]]]);
+
+   //Ziel 7
+   AddAssaultTarget(HBSN, 2460, 322, 350, 2, $Target7$, 6, [[[1880, 110], [2050, 110]], [[1840, 490], [1880, 490]]]);
+
+   //Ziel 8
+   AddAssaultTarget(HBSN, 2455, 502, 350, 2, $Target8$, 7, [[[1880, 110], [2050, 110]], [[1840, 490], [1880, 490]]]);
+  }
+}
+
+/* Assault Zerstörung */
+
+public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
+{
   //Ziel 1
-  aTarget[0] = CreateObject(CGLO,1120,362,-1);
-  aTarget[0] -> SetName("$Target1$");
+  if (!iIndex)
+  {
+   //Rauch
+   CreateParticle("GunSmoke",925,340,0,-10,350,1);
+   Smoke(925, 340, 30);
 
-  aDoor[0] = CreateObject(SEDR,1225, 560,-1);
-   aDoor[0]->Lock();
-   aDoor[0]->SetMaxDamage(-1);
-  aDoor[1] = CreateObject(SEDR,1245, 430,-1);
-   aDoor[1]->Lock();
-   aDoor[1]->SetMaxDamage(-1);
-  aDoor[2] = CreateObject(SEDR,1355, 260,-1);
-   aDoor[2]->Lock();
-   aDoor[2]->SetMaxDamage(-1);
-  aDoor[3] = CreateObject(H24K, 1205, 208, -1);
-   aDoor[3]->Lock();
-   aDoor[3]->SetMaxDamage(-1);
-  aDoor[4] = CreateObject(HA4K, 850, 163, -1);
-   aDoor[4]->Lock();
-   aDoor[4]->SetMaxDamage(-1);
+   //Türen öffnen
+   aDoor[0]->Open();
+   aDoor[1]->Open();
+   aDoor[2]->Open();
+   aDoor[3]->Unlock();
+   aDoor[4]->Open();
 
-  aSelfDefense[0]=CreateObject(SEGU,945,249,-1);
-  aSelfDefense[0]->Arm(MISA);
-  aSelfDefense[0]->TurnOn();
-  aSelfDefense[0]->SetAutoRepair(1500);
-  aSelfDefense[0]->SetTeam(AS_GetDefenderTeam());
-  CreateObject(CONS, 1050, 550, -1)
-  ->Set(aSelfDefense[0]);
+   //SSA zerstören
+   aSelfDefense[0]->Disarm();
+   DecoExplode(30, aSelfDefense[0]);
 
-  aLamp[0]=CreateObject(BLGH,880,300,-1);
-  aLamp[1]=CreateObject(BLGH,980,300,-1);
-  aLamp[2]=CreateObject(CLGH,1045,475,-1);
-  aLamp[3]=CreateObject(CLGH,1125,475,-1);
+   //Lampen deaktivieren
+   aLamp[0]->EMPShock();
+   aLamp[1]->EMPShock();
+   aLamp[2]->EMPShock();
+   aLamp[3]->EMPShock();
+
+   Sound("Announce1.ogg");
+  }
 
   //Ziel 2
-  aTarget[1] = CreateObject(MVNT,1865,250,-1);
-  aTarget[1] -> SetName("$Target2$");
+  if (iIndex == 1)
+  {
+   //Rauch
+   CreateParticle("GunSmoke",1820,170,0,-10,200,1);
+   Smoke(1825, 170, 30);
+   CreateParticle("GunSmoke",1845,170,0,-10,250,1);
+   CreateParticle("GunSmoke",1860,170,0,-10,190,1);
+   Smoke(1870, 170, 30);
+   CreateParticle("GunSmoke",1880,170,0,-10,210,1);
+   CreateParticle("GunSmoke",1885,170,0,-10,270,1);
 
-  aDoor[5] = CreateObject(HNG2,1355,550,-1);
-  aDoor[8] = CreateObject(HA4K, 1440, 323, -1);
-   aDoor[8]->Lock();
-   aDoor[8]->SetMaxDamage(-1);
-  aDoor[9] = CreateObject(HA4K, 1650, 293, -1);
-   aDoor[9]->Lock();
-   aDoor[9]->SetMaxDamage(-1);
+   CreateParticle("GunSmoke",1825,290,0,-10,260,1);
+   Smoke(1830, 290, 30);
+   CreateParticle("GunSmoke",1845,290,0,-10,220,1);
+   CreateParticle("GunSmoke",1855,290,0,-10,240,1);
+   CreateParticle("GunSmoke",1875,290,0,-10,230,1);
+   Smoke(1870, 1880, 30);
+   CreateParticle("GunSmoke",1900,290,0,-10,210,1);
 
-  aLamp[4]=CreateObject(LLGH,1183,380,-1);
-  aLamp[5]=CreateObject(LLGH,1227,295,-1);
-  aLamp[6]=CreateObject(STLH,1430,225,-1);
-  aLamp[7]=CreateObject(STLH,1650,95,-1);
-  aLamp2[0]=CreateObject(BLGH,1300,305,-1);
-  aLamp2[1]=CreateObject(BLGH,1300,390,-1);
-  aLamp2[2]=CreateObject(BLGH,1865,270,-1);
+   //Türen öffnen
+   aDoor[5]->Open();
+   aDoor[8]->Open();
+   aDoor[9]->Open();
+
+   //Lampen ausschalten
+   aLamp[4]->EMPShock();
+   aLamp[5]->EMPShock();
+   aLamp[6]->EMPShock();
+   aLamp[7]->EMPShock();
+   aLamp2[0]->EMPShock();
+   aLamp2[1]->EMPShock();
+   aLamp2[2]->EMPShock();
+
+   //Risse
+   CreateObject(FAUD, 1845, 170, -1)->Set(2);
+   CreateObject(FAUD, 1900, 180, -1)->Set(1);
+   CreateObject(FAUD, 1850, 225, -1)->Set(3);
+   CreateObject(FAUD, 1840, 280, -1)->Set(2);
+   CreateObject(FAUD, 1890, 290, -1)->Set(3);
+
+   Sound("Announce3.ogg");
+  }
 
   //Ziel 3
-  aTarget[2] = CreateObject(LBPC,1795,492,-1);
-  aTarget[2] -> SetName("$Target3$");
+  if (iIndex == 2)
+  {
+   //Rauch
+   CreateParticle("GunSmoke",1430,435,0,-10,350,1);
+   Smoke(1430, 435, 30);
+   CreateParticle("GunSmoke",1650,435,0,-10,350,1);
+   Smoke(1650, 435, 30);
+   CreateParticle("GunSmoke",1870,435,0,-10,350,1);
+   Smoke(1870, 435, 30);
 
-  aDoor[6] = CreateObject(HNG2,1905,490,-1);
-  aDoor[7] = CreateObject(SEDR,1850,110,-1);
-   aDoor[7]->Lock();
-   aDoor[7]->SetMaxDamage(-1);
+   //Türen öffnen
+   aDoor[6]->Open();
+   aDoor[7]->Open();
 
-  aSelfDefense[1]=CreateObject(SEGU,1495,369,-1);
-  aSelfDefense[1]->Arm(MISA);
-  aSelfDefense[1]->TurnOn();
-  aSelfDefense[1]->SetAutoRepair(1500);
-  aSelfDefense[1]->SetTeam(AS_GetDefenderTeam());
+   //SSA zerstören
+   aSelfDefense[1]->Disarm();
+   DecoExplode(30, aSelfDefense[1]);
 
-  aLamp2[3]=CreateObject(LBGH,1565,340,-1);
-  aLamp2[4]=CreateObject(LBGH,1705,340,-1);
-  aLamp2[5]=CreateObject(STLH,1955,360,-1);
+   //Lampen deaktivieren
+   aLamp2[3]->EMPShock();
+   aLamp2[4]->EMPShock();
+   aLamp2[5]->EMPShock();
+
+   //Risse
+   CreateObject(FAUD, 1805, 430, -1)->Set(2);
+   CreateObject(FAUD, 1750, 470, -1)->Set(1);
+   CreateObject(FAUD, 1860, 460, -1)->Set(3);
+
+   Sound("Announce4.ogg");
+  }
 
   //Ziel 4
-  aTarget[3] = CreateObject(CCP1,2180,512,-1);
-  aTarget[3] -> SetName("$Target4$");
+  if (iIndex == 3)
+  {
+   //Risse
+   CreateObject(FAUD, 2140, 490, -1)->Set(2);
+   CreateObject(FAUD, 2185, 470, -1)->Set(1);
+   CreateObject(FAUD, 2200, 520, -1)->Set(3);
+   CreateObject(FAUD, 2220, 495, -1)->Set(2);
+   CreateObject(FAUD, 2260, 485, -1)->Set(3);
+
+   //Rauch
+   CreateParticle("GunSmoke",2130,510,0,-10,450,1);
+   CreateParticle("GunSmoke",2160,510,0,-10,450,1);
+   CreateParticle("GunSmoke",2190,510,0,-10,450,1);
+   CreateParticle("GunSmoke",2130,520,0,-10,250,1);
+   CreateParticle("GunSmoke",2160,520,-10,250,1);
+   CreateParticle("GunSmoke",2190,520,0,-10,250,1);
+   Smoke(2180, 490, 50);
+
+   Sound("Announce1.ogg");
+  }
 
   //Ziel 5
-  aTarget[4] = CreateObject(CCP1,2200,322,-1);
-  aTarget[4] -> SetName("$Target5$");
+  if (iIndex == 4)
+  {
+   //Risse
+   CreateObject(FAUD, 2150, 290, -1)->Set(3);
+   CreateObject(FAUD, 2200, 310, -1)->Set(1);
+
+   //Rauch
+   CreateParticle("GunSmoke",2165,320,0,-10,450,1);
+   CreateParticle("GunSmoke",2195,320,0,-10,450,1);
+   CreateParticle("GunSmoke",2225,320,0,-10,450,1);
+
+   CreateParticle("GunSmoke",2165,330,0,-10,250,1);
+   CreateParticle("GunSmoke",2195,330,0,-10,250,1);
+   CreateParticle("GunSmoke",2225,330,0,-10,250,1);
+   Smoke(2200, 305, 50);
+
+   Sound("Announce4.ogg");
+  }
 
   //Ziel 6
-  aTarget[5] = CreateObject(CCP1,2350,212,-1);
-  aTarget[5] -> SetName("$Target6$");
+  if (iIndex == 5)
+  {
+   //Risse
+   CreateObject(FAUD, 2300, 215, -1)->Set(2);
+   CreateObject(FAUD, 2405, 270, -1)->Set(3);
+
+   //Rauch
+   CreateParticle("GunSmoke",2330,210,0,-10,450,1);
+   CreateParticle("GunSmoke",2350,210,0,-10,450,1);
+   CreateParticle("GunSmoke",2370,210,0,-10,450,1);
+
+   CreateParticle("GunSmoke",2330,230,0,-10,250,1);
+   CreateParticle("GunSmoke",2350,230,0,-10,250,1);
+   CreateParticle("GunSmoke",2370,230,0,-10,250,1);
+   Smoke(2355, 210, 50);
+
+   Sound("Announce3.ogg");
+  }
 
   //Ziel 7
-  aTarget[6] = CreateObject(CCP1,2460,322,-1);
-  aTarget[6] -> SetName("$Target7$");
+  if (iIndex == 6)
+  {
+   //Risse
+   CreateObject(FAUD, 2450, 325, -1)->Set(1);
+   CreateObject(FAUD, 2470, 410, -1)->Set(2);
+
+   //Rauch
+   CreateParticle("GunSmoke",2400,320,0,-10,450,1);
+   CreateParticle("GunSmoke",2430,320,0,-10,450,1);
+   CreateParticle("GunSmoke",2460,320,0,-10,450,1);
+
+   CreateParticle("GunSmoke",2400,330,0,-10,250,1);
+   CreateParticle("GunSmoke",2430,330,0,-10,250,1);
+   CreateParticle("GunSmoke",2460,330,0,-10,250,1);
+   Smoke(2440, 310, 50);
+
+   Sound("Announce4.ogg");
+  }
 
   //Ziel 8
-  aTarget[7] = CreateObject(CCP1,2455,502,-1);
-  aTarget[7] -> SetName("$Target8$");
-
-  //Ziele einstellen
-  FindObject(GAS_)->AddTarget(aTarget[0],0,300);
-  FindObject(GAS_)->AddTarget(aTarget[1],0,300);
-  FindObject(GAS_)->AddTarget(aTarget[2],0,300);
-  FindObject(GAS_)->AddTarget(aTarget[3],0,300);
-  FindObject(GAS_)->AddTarget(aTarget[4],0,300);
-  FindObject(GAS_)->AddTarget(aTarget[5],0,300);
-  FindObject(GAS_)->AddTarget(aTarget[6],0,300);
-  FindObject(GAS_)->AddTarget(aTarget[7],0,300);
-
-  return(1);
-}
-
-/* Zielzerstörung */
-
-func OnTarget1Destruction()
-{
-  //Positionen
-  X[AS_GetAttackerTeam()]=1140;
-  Y[AS_GetAttackerTeam()]=420;
-  X[AS_GetDefenderTeam()]=1610;
-  Y[AS_GetDefenderTeam()]=60;
-
-  //Rauch
-  CreateParticle("GunSmoke",925,340,0,-10,350,1);
-  Smoke(925, 340, 30);
-
-  //Türen öffnen
-  aDoor[0]->Open();
-  aDoor[1]->Open();
-  aDoor[2]->Open();
-  aDoor[3]->Unlock();
-  aDoor[4]->Open();
-
-  //Abwehranlage deaktivieren, sofern vorhanden
-  if(aSelfDefense[0])
+  if (iIndex == 7)
   {
-   aSelfDefense[0]->SetAutoRepair(0);
-   aSelfDefense[0]->Destroyed();
-   aSelfDefense[0]->TurnOff();
-  }
+   //Risse
+   CreateObject(FAUD, 2410, 500, -1)->Set(2);
+   CreateObject(FAUD, 2460, 510, -1)->Set(1);
 
-  //Lampen deaktivieren
-  aLamp[0]->EMPShock();
-  aLamp[1]->EMPShock();
-  aLamp[2]->EMPShock();
-  aLamp[3]->EMPShock();
+   //Rauch
+   CreateParticle("GunSmoke",2410,500,0,-10,450,1);
+   CreateParticle("GunSmoke",2440,500,0,-10,450,1);
+   CreateParticle("GunSmoke",2470,500,0,-10,450,1);
 
-  Sound("Announce1.ogg");
-}
+   CreateParticle("GunSmoke",2410,510,0,-10,250,1);
+   CreateParticle("GunSmoke",2440,510,0,-10,250,1);
+   CreateParticle("GunSmoke",2470,510,0,-10,250,1);
+   Smoke(2455, 490, 50);
 
-func OnTarget2Destruction()
-{
-  //Positionen
-  X[AS_GetAttackerTeam()]=1290;
-  Y[AS_GetAttackerTeam()]=420;
-  X[AS_GetDefenderTeam()]=1990;
-  Y[AS_GetDefenderTeam()]=390;
-
-  //Rauch
-  CreateParticle("GunSmoke",1820,170,0,-10,200,1);
-  Smoke(1825, 170, 30);
-  CreateParticle("GunSmoke",1845,170,0,-10,250,1);
-  CreateParticle("GunSmoke",1860,170,0,-10,190,1);
-  Smoke(1870, 170, 30);
-  CreateParticle("GunSmoke",1880,170,0,-10,210,1);
-  CreateParticle("GunSmoke",1885,170,0,-10,270,1);
-
-  CreateParticle("GunSmoke",1825,290,0,-10,260,1);
-  Smoke(1830, 290, 30);
-  CreateParticle("GunSmoke",1845,290,0,-10,220,1);
-  CreateParticle("GunSmoke",1855,290,0,-10,240,1);
-  CreateParticle("GunSmoke",1875,290,0,-10,230,1);
-  Smoke(1870, 1880, 30);
-  CreateParticle("GunSmoke",1900,290,0,-10,210,1);
-
-  //Türen öffnen
-  aDoor[5]->Open();
-  aDoor[8]->Open();
-  aDoor[9]->Open();
-
-  //Lampen ausschalten
-  aLamp[4]->EMPShock();
-  aLamp[5]->EMPShock();
-  aLamp[6]->EMPShock();
-  aLamp[7]->EMPShock();
-  aLamp2[0]->EMPShock();
-  aLamp2[1]->EMPShock();
-  aLamp2[2]->EMPShock();
-
-  //Risse
-  CreateObject(FAUD, 1845, 170, -1)->Set(2);
-  CreateObject(FAUD, 1900, 180, -1)->Set(1);
-  CreateObject(FAUD, 1850, 225, -1)->Set(3);
-  CreateObject(FAUD, 1840, 280, -1)->Set(2);
-  CreateObject(FAUD, 1890, 290, -1)->Set(3);
-
-  Sound("Announce3.ogg");
-}
-
-func OnTarget3Destruction()
-{
-  //Positionen
-  X[AS_GetAttackerTeam()]=1960;
-  Y[AS_GetAttackerTeam()]=390;
-  X[AS_GetDefenderTeam()]=1825;
-  Y[AS_GetDefenderTeam()]=100;
-
-  //Rauch
-  CreateParticle("GunSmoke",1430,435,0,-10,350,1);
-  Smoke(1430, 435, 30);
-  CreateParticle("GunSmoke",1650,435,0,-10,350,1);
-  Smoke(1650, 435, 30);
-  CreateParticle("GunSmoke",1870,435,0,-10,350,1);
-  Smoke(1870, 435, 30);
-
-  //Türen öffnen
-  aDoor[6]->Open();
-  aDoor[7]->Open();
-
-  //Abwehranlage deaktivieren, sofern vorhanden
-  if(aSelfDefense[1])
-  {
-   aSelfDefense[0]->SetAutoRepair(0);
-   aSelfDefense[1]->Destroyed();
-   aSelfDefense[1]->TurnOff();
-  }
-
-  //Lampen deaktivieren
-  //aLamp2[3]->EMPShock();
-  //aLamp2[4]->EMPShock();
-  aLamp2[5]->EMPShock();
-
-  //Risse
-  CreateObject(FAUD, 1805, 430, -1)->Set(2);
-  CreateObject(FAUD, 1750, 470, -1)->Set(1);
-  CreateObject(FAUD, 1860, 460, -1)->Set(3);
-
-  Sound("Announce4.ogg");
-}
-
-func OnTarget4Destruction()
-{
-  //Risse
-  CreateObject(FAUD, 2140, 490, -1)->Set(2);
-  CreateObject(FAUD, 2185, 470, -1)->Set(1);
-  CreateObject(FAUD, 2200, 520, -1)->Set(3);
-  CreateObject(FAUD, 2220, 495, -1)->Set(2);
-  CreateObject(FAUD, 2260, 485, -1)->Set(3);
-
-  //Rauch
-  CreateParticle("GunSmoke",2130,510,0,-10,450,1);
-  CreateParticle("GunSmoke",2160,510,0,-10,450,1);
-  CreateParticle("GunSmoke",2190,510,0,-10,450,1);
-  CreateParticle("GunSmoke",2130,520,0,-10,250,1);
-  CreateParticle("GunSmoke",2160,520,-10,250,1);
-  CreateParticle("GunSmoke",2190,520,0,-10,250,1);
-  Smoke(2180, 490, 50);
-
-  Sound("Announce1.ogg");
-}
-
-func OnTarget5Destruction()
-{
-  //Risse
-  CreateObject(FAUD, 2150, 290, -1)->Set(3);
-  CreateObject(FAUD, 2200, 310, -1)->Set(1);
-
-  //Rauch
-  CreateParticle("GunSmoke",2165,320,0,-10,450,1);
-  CreateParticle("GunSmoke",2195,320,0,-10,450,1);
-  CreateParticle("GunSmoke",2225,320,0,-10,450,1);
-
-  CreateParticle("GunSmoke",2165,330,0,-10,250,1);
-  CreateParticle("GunSmoke",2195,330,0,-10,250,1);
-  CreateParticle("GunSmoke",2225,330,0,-10,250,1);
-  Smoke(2200, 305, 50);
-
-  Sound("Announce4.ogg");
-}
-
-func OnTarget6Destruction()
-{
-  //Risse
-  CreateObject(FAUD, 2300, 215, -1)->Set(2);
-  CreateObject(FAUD, 2405, 270, -1)->Set(3);
-
-  //Rauch
-  CreateParticle("GunSmoke",2330,210,0,-10,450,1);
-  CreateParticle("GunSmoke",2350,210,0,-10,450,1);
-  CreateParticle("GunSmoke",2370,210,0,-10,450,1);
-
-  CreateParticle("GunSmoke",2330,230,0,-10,250,1);
-  CreateParticle("GunSmoke",2350,230,0,-10,250,1);
-  CreateParticle("GunSmoke",2370,230,0,-10,250,1);
-  Smoke(2355, 210, 50);
-
-  Sound("Announce3.ogg");
-}
-
-func OnTarget7Destruction()
-{
-  //Risse
-  CreateObject(FAUD, 2450, 325, -1)->Set(1);
-  CreateObject(FAUD, 2470, 410, -1)->Set(2);
-
-  //Rauch
-  CreateParticle("GunSmoke",2400,320,0,-10,450,1);
-  CreateParticle("GunSmoke",2430,320,0,-10,450,1);
-  CreateParticle("GunSmoke",2460,320,0,-10,450,1);
-
-  CreateParticle("GunSmoke",2400,330,0,-10,250,1);
-  CreateParticle("GunSmoke",2430,330,0,-10,250,1);
-  CreateParticle("GunSmoke",2460,330,0,-10,250,1);
-  Smoke(2440, 310, 50);
-
-  Sound("Announce4.ogg");
-}
-
-func OnTarget8Destruction()
-{
-  //Risse
-  CreateObject(FAUD, 2410, 500, -1)->Set(2);
-  CreateObject(FAUD, 2460, 510, -1)->Set(1);
-
-  //Rauch
-  CreateParticle("GunSmoke",2410,500,0,-10,450,1);
-  CreateParticle("GunSmoke",2440,500,0,-10,450,1);
-  CreateParticle("GunSmoke",2470,500,0,-10,450,1);
-
-  CreateParticle("GunSmoke",2410,510,0,-10,250,1);
-  CreateParticle("GunSmoke",2440,510,0,-10,250,1);
-  CreateParticle("GunSmoke",2470,510,0,-10,250,1);
-  Smoke(2455, 490, 50);
-
-  Sound("Announce4.ogg");
-}
-
-/* Resets */
-
-func PreResetAssault()
-{
-  X[AS_GetAttackerTeam()]=130;
-  Y[AS_GetAttackerTeam()]=340;
-  X[AS_GetDefenderTeam()]=1320;
-  Y[AS_GetDefenderTeam()]=250;
-}
-
-func ResetAssault()
-{
-  CreateFurniture();
-  CreateAssaultObjects();
-  CreateEquipment();
-
-  if(!FindObject(NOAM))
-  {
-   //Munitionskisten (Kugeln)
-   var tmp = CreateObject (AMCT, 105, 450, -1);
-   tmp->Set(GBOX);
-   tmp->SetGraphics("Normal");
-   var tmp = CreateObject (AMCT, 135, 450, -1);
-   tmp->Set(ABOX);
-   tmp->SetGraphics("Normal");
-   var tmp = CreateObject (AMCT, 1090, 260, -1);
-   tmp->Set(ABOX);
-   tmp->SetGraphics("Normal");
-   var tmp = CreateObject (AMCT, 1090, 430, -1);
-   tmp->Set(GBOX);
-   tmp->SetGraphics("Normal");
-   var tmp = CreateObject (AMCT, 1280, 550, -1);
-   tmp->Set(ABOX);
-   tmp->SetGraphics("Normal");
-   var tmp = CreateObject (AMCT, 1720, 210, -1);
-   tmp->Set(ABOX);
-   tmp->SetGraphics("Normal");
-   var tmp = CreateObject (AMCT, 1835, 490, -1);
-   tmp->Set(ABOX);
-   tmp->SetGraphics("Normal");
-   var tmp = CreateObject (AMCT, 2375, 530, -1);
-   tmp->Set(ABOX);
-   tmp->SetGraphics("Normal");
-  }
-}
-
-func ChooserFinished()
-{
-  CreateAssaultObjects();
-
-  if(!FindObject(NOAM))
-  {
-   //Munitionskisten (Kugeln)
-   var tmp = CreateObject (AMCT, 105, 450, -1);
-   tmp->Set(GBOX);
-   tmp->SetGraphics("Normal");
-   var tmp = CreateObject (AMCT, 135, 450, -1);
-   tmp->Set(ABOX);
-   tmp->SetGraphics("Normal");
-   var tmp = CreateObject (AMCT, 1090, 260, -1);
-   tmp->Set(ABOX);
-   tmp->SetGraphics("Normal");
-   var tmp = CreateObject (AMCT, 1090, 430, -1);
-   tmp->Set(GBOX);
-   tmp->SetGraphics("Normal");
-   var tmp = CreateObject (AMCT, 1280, 550, -1);
-   tmp->Set(ABOX);
-   tmp->SetGraphics("Normal");
-   var tmp = CreateObject (AMCT, 1720, 210, -1);
-   tmp->Set(ABOX);
-   tmp->SetGraphics("Normal");
-   var tmp = CreateObject (AMCT, 1835, 490, -1);
-   tmp->Set(ABOX);
-   tmp->SetGraphics("Normal");
-   var tmp = CreateObject (AMCT, 2375, 530, -1);
-   tmp->Set(ABOX);
-   tmp->SetGraphics("Normal");
-  }
-}
-
-func Reset(obj, iTeam)
-{
-  var x=X[iTeam];
-  var y=Y[iTeam];
-  SetPosition(x,y,obj);
-
-  DoEnergy(150,obj);
-}
-
-func ResetContents(obj)
-{
-
-  //obj->~StopAiming();
-  var con, cnt;
-  while(con = Contents(cnt++,obj))
-  {
-   RemoveObject(con);
-   ClearScheduleCall(obj,"Contents(0)->~Selection(this());");
+   Sound("Announce4.ogg");
   }
 }
 
 /* Relaunch */
 
-protected func InitializePlayer(int iPlr, int iX, int iY, object pBase, int iTeam)
+public func RelaunchPosition(& iX, & iY, int iTeam)
 {
-  RelaunchPlayer(iPlr, GetCrew(iPlr), 0, iTeam);
-  DoScoreboardShow(1,iPlr);
-}
+  //CTF-Spielziel
+  if(FindObject(GCTF))
+  {
+   if(iTeam == 1)
+   {
+    var rand = Random(2);
+    if(!rand)
+     { iX = 3600; iY = 400; }
+    if(!--rand)
+     { iX = 3675; iY = 320; }
+   }
+   if(iTeam == 2)
+   {
+    var rand = Random(2);
+    if(!rand)
+     { iX = 6325; iY = 500; }
+    if(!--rand)
+     { iX = 6460; iY = 500; }
+   }
+   return(1);
+  }
 
-public func RelaunchPlayer(int iPlr, object pCrew, object pKiller, int iTeam)
-{
-  // Kein ordentlicher Spieler?
-  if(GetOwner(pCrew) == NO_OWNER || iPlr == NO_OWNER || !GetPlayerName(iPlr))
-    return();
-  // Kein Team
-  if(!iTeam) iTeam = GetPlayerTeam(iPlr);
-  // Clonk tot?
-  if(!GetAlive(pCrew))
-    pCrew = RelaunchClonk(iPlr, pCrew);
+  //Assault-Spielziel
+  if(FindObject(GASS))
+  {if(FindObject(GASS)->GetRespawnPoint(iX, iY, iTeam)) return 1;}
 
-  for(var i=0 ; pCrew = GetCrew(iPlr, i) ; i++)    
-    {
-    if(Contained(pCrew))
-      Reset(Contained(pCrew),iTeam);
-    else
-      Reset(pCrew,iTeam);
-    }
-}
-
-public func RelaunchClonk(int iPlr, object pCursor)
-{
-  var pClonk = CreateObject(PCMK, 10, 10, iPlr);
-  if(pCursor)
-    GrabObjectInfo(pCursor, pClonk);
-  else
-    MakeCrewMember(pClonk, iPlr);
-
-  DoEnergy(+150, pClonk);
-  SetCursor(iPlr, pClonk);
-  SetPlrView(iPlr, pClonk);
-
-  // Geldspritze
-  if(FindObject(WPCH))
-    DoWealth(iPlr, +25);
-
-  // Wegstecken
-  var tim = CreateObject(TIM2, 10, 10, -1);
-  pClonk->Enter(tim);
-  PlayerMessage(iPlr, Format("@%s", GetName(pClonk)), tim);
-
-  return(pClonk);
+  //Startsicht
+  iX = 700; iY = 300;
 }
