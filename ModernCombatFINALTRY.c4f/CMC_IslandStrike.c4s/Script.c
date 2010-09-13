@@ -1014,6 +1014,11 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
    return(1);
   }
 
+  //Assault-Spielziel
+  if (FindObject(GASS))
+    if (FindObject(GASS)->GetRespawnPoint(iX, iY, iTeam))
+	  return 1;
+
   //Startsicht
   iX = 4690; iY = 450;
 }
