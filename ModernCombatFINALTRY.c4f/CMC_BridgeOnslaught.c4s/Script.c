@@ -277,7 +277,7 @@ func CreateFurniture()
   CreateObject(XWCR, 1755, 440, -1)->AutoRespawn();
 
   //Giftfässer
-  CreateObject(TBRL, 435, 430, -1)->AutoRespawn();
+  CreateObject(TBRL, 365, 430, -1)->AutoRespawn();
   CreateObject(TBRL, 2295, 430, -1)->AutoRespawn();
 
   //Explosivfässer
@@ -529,6 +529,46 @@ public func ChooserFinished()
    {CreateFlag(2,2200,612,GetTeamColor(2));}
   }
 
+  //HTF-Spielziel
+  if (FindObject(GHTF))
+  {
+   //Flaggenposten
+   var flag = CreateObject(OFPL, 1365,413, -1);
+   flag->~Set("$Flag3$");
+
+   //SSA Besitzer setzen
+   if(aTeams[1] == true)
+   {aSelfDefense[0]->SetTeam(1);}
+   if(aTeams[2] == true)
+   {aSelfDefense[3]->SetTeam(2);}
+
+   //SSA anschalten
+   aSelfDefense[0]->TurnOn();
+   aSelfDefense[3]->TurnOn();
+
+   //Zusätzliche Munition
+   if(!FindObject(NOAM))
+   {
+    //Munitionskiste (Kugeln)
+    var tmp = CreateObject(AMCT, 1330, 640, -1);
+    tmp->Set(ABOX);
+
+    //Raketen
+    PlaceSpawnpoint(MIAP, 1330, 305);
+   }
+  }
+
+  //Base Assault-Spielziel
+  if(FindObject(GBAS))
+  {
+   //Strukturen
+   AddAssaultTarget(HBSN, 710, 800, 400, 1, "$Flag2$", 2, [[640, 640], [420, 630]]);
+   AddAssaultTarget(HBSN, 425, 430, 300, 1, "$Flag1$", 0, [[230, 440], [330, 530]]);
+
+   AddAssaultTarget(HBSN, 2010, 800, 400, 2, "$Flag4$", 2, [[2090, 640], [2310, 630]]);
+   AddAssaultTarget(HBSN, 2305, 430, 300, 2, "$Flag5$", 1, [[2400, 530], [2500, 440]]);
+  }
+
   //OP-Spielziel
   if(FindObject(GOCC))
   {
@@ -587,35 +627,6 @@ public func ChooserFinished()
    else
    {
     aFlag[4]->Set("$Flag5$",0,2);
-   }
-  }
-
-  //HTF-Spielziel
-  if (FindObject(GHTF))
-  {
-   //Flaggenposten
-   var flag = CreateObject(OFPL, 1365,413, -1);
-   flag->~Set("$Flag3$");
-
-   //SSA Besitzer setzen
-   if(aTeams[1] == true)
-   {aSelfDefense[0]->SetTeam(1);}
-   if(aTeams[2] == true)
-   {aSelfDefense[3]->SetTeam(2);}
-
-   //SSA anschalten
-   aSelfDefense[0]->TurnOn();
-   aSelfDefense[3]->TurnOn();
-
-   //Zusätzliche Munition
-   if(!FindObject(NOAM))
-   {
-    //Munitionskiste (Kugeln)
-    var tmp = CreateObject(AMCT, 1330, 640, -1);
-    tmp->Set(ABOX);
-
-    //Raketen
-    PlaceSpawnpoint(MIAP, 1330, 305);
    }
   }
 }
