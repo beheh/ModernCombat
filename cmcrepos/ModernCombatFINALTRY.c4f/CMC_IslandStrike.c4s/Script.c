@@ -697,7 +697,6 @@ public func ChooserFinished()
 
    //Artillerie entfernen
    RemoveObject(aArtillery[0]);
-   RemoveObject(aArtillery[3]);
 
    //Ziel 1
    AddAssaultTarget(HBSN, 1200, 390, 250, 2, 0, 0, [[[1550, 400], [1670, 440], [1370, 440]], [[560, 440], [610, 440], [660, 440]]]);
@@ -712,13 +711,13 @@ public func ChooserFinished()
    AddAssaultTarget(HBSN, 4520, 390, 300, 2, 0, 3, [[[4760, 460], [4870, 440], [5000, 390]], [[3570, 330], [3600, 410], [3470, 630]]]);
 
    //Ziel 5
-   AddAssaultTarget(HBSN, 5640, 340, 350, 2, 0, 4, [[[6040, 380], [6040, 570], [6180, 380]], [[3570, 330], [3600, 410], [3470, 630]]]);
+   AddAssaultTarget(HBSN, 5640, 340, 300, 2, 0, 4, [[[6040, 380], [6040, 570], [6180, 380]], [[3570, 330], [3600, 410], [3470, 630]]]);
 
    //Ziel 6
    AddAssaultTarget(HBSN, 6440, 340, 350, 2, 0, 5, [[[6560, 410], [6880, 510], [6520, 640]], [[5630, 400], [5630, 470], [5730, 550]]]);
 
    //Ziel 7
-   AddAssaultTarget(HBSN, 6440, 340, 350, 2, 0, 6, [[[7580, 510], [7565, 410], [7750, 320]], [[6410, 340], [6460, 510], [6370, 510]]]);
+   AddAssaultTarget(HBSN, 7230, 360, 350, 2, 0, 6, [[[7580, 510], [7565, 410], [7750, 320]], [[6410, 340], [6460, 510], [6370, 510]]]);
   }
 
   //OP-Spielziel
@@ -918,7 +917,7 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
 
    //SSA zerstören
    aSelfDefense[1]->Disarm();
-   Explode(30, aSelfDefense[1]);
+   aSelfDefense[1]->DecoExplode(30);
   }
 
   //Ziel 3
@@ -928,6 +927,9 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
    RemoveAll(BRDR);
    CreateObject(BRDR, 2600, 0, -1)->Set(0,1);
    CreateObject(BRDR, 5040, 0, -1)->Set(1,1);
+
+   //Artillerie entfernen
+   aArtillery[1]->DecoExplode(45);
   }
 
   //Ziel 4
@@ -946,6 +948,9 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
    RemoveAll(BRDR);
    CreateObject(BRDR, 4190, 0, -1)->Set(0,1);
    CreateObject(BRDR, 6950, 0, -1)->Set(1,1);
+
+   //Artillerie entfernen
+   aArtillery[2]->DecoExplode(45);
   }
 
   //Ziel 6
@@ -955,6 +960,9 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
    RemoveAll(BRDR);
    CreateObject(BRDR, 5040, 0, -1)->Set(0,1);
    CreateObject(BRDR, 7850, 0, -1)->Set(1,1);
+
+   //Artillerie entfernen
+   aArtillery[3]->DecoExplode(45);
   }
 }
 
