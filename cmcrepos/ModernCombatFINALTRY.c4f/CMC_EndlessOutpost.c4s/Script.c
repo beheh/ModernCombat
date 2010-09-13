@@ -11,7 +11,7 @@ static X, Y;
 func ChooserRuleConfig()
 {
   //Standardregelsatz: Belohnungssystem, Kein FriendlyFire, Waffen bleiben, Arena, Klassenwahl
-  return [RWDS,NOFF,WPST,NODR,MCSL,EFMN];
+  return [RWDS,NOFF,WPST,NODR,EFMN];
 }
 
 /* Initalisierung */
@@ -525,27 +525,6 @@ func CreateEquipment()
   //Munitionskisten (Splittergranaten)
   var tmp = CreateObject(AMCT, 2030, 210, -1);
   tmp->Set(FRAG);
-
-  //Abwehrschilder
-  PlaceSpawnpoint(RSHL, 190, 340);
-  PlaceSpawnpoint(RSHL, 1935, 390);
-  PlaceSpawnpoint(RSHL, 2035, 100);
-
-  //EHPs
-  PlaceSpawnpoint(FAPK, 895, 150);
-  PlaceSpawnpoint(FAPK, 1965, 310);
-
-  //Splittergranaten
-  PlaceSpawnpoint(FRAG, 170, 340);
-  PlaceSpawnpoint(FRAG, 1725, 105);
-
-  //Feldgranaten
-  PlaceSpawnpoint(FGRN, 400, 640);
-  PlaceSpawnpoint(FGRN, 1080, 550);
-  PlaceSpawnpoint(FGRN, 1330, 310);
-
-  //Blendgranate
-  PlaceSpawnpoint(STUN, 1140, 190);
 }
 
 func CreateAssaultObjects()

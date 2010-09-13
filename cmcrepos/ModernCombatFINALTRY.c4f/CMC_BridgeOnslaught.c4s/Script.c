@@ -462,49 +462,6 @@ func CreateEquipment()
   PlaceSpawnpoint(MIAP, 755, 715);
   PlaceSpawnpoint(MIAP, 1975, 715);
 
-  //Feldgranaten
-  PlaceSpawnpoint(FGRN, 755, 795);
-  PlaceSpawnpoint(FGRN, 1975, 795);
-
-  //Splittergranaten
-  PlaceSpawnpoint(FRAG, 730, 435);
-  PlaceSpawnpoint(FRAG, 2000, 435);
-
-  //Blendgranaten
-  PlaceSpawnpoint(STUN, 400, 510);
-  PlaceSpawnpoint(STUN, 2330, 510);
-
-  //Sturmgewehr
-  PlaceSpawnpoint(ASTR, 640, 265);
-  PlaceSpawnpoint(ASTR, 2090, 265);
-
-  //Maschinengewehre
-  PlaceSpawnpoint(MNGN, 875, 435);
-  PlaceSpawnpoint(MNGN, 1855, 435);
-
-  //Raketenwerfer
-  PlaceSpawnpoint(RTLR, 790, 715);
-  PlaceSpawnpoint(RTLR, 1940, 715);
-
-  //Shotgun
-  PlaceSpawnpoint(PPGN, 1330, 635);
-
-  //Slingshot
-  PlaceSpawnpoint(SGST, 1365, 408);
-
-  //Maschinenpistolen
-  PlaceSpawnpoint(SMGN, 380, 625);
-  PlaceSpawnpoint(SMGN, 2350, 625);
-
-  //Abwehrschild
-  PlaceSpawnpoint(RSHL, 1075, 795);
-
-  //Sprengfalle
-  PlaceSpawnpoint(BBTP, 1655, 795);
-
-  //EHP
-  PlaceSpawnpoint(FAPK, 1365, 805);
-
   //Blackhawks
   SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,580,240,-1),100*21,300);
   SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,2150,240,-1),100*21,300);
