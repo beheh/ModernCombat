@@ -15,6 +15,7 @@ global func EventInfo4K(int iPlrPlusOne)
     }
     //Godmode. Nur wenns sowieso jeder sieht.
     msg = CreateObject(EI4K,0,0,-1);
+	msg->SetAsGlobal();
     msg->Set(...);
     return msg;
   }
@@ -35,7 +36,7 @@ protected func Initialize()
   SetColorDw(RGB(255,255,255));
 }
 
-local text,icon,color,graphics;
+local text,icon,color,graphics,fGlobal;
 
 public func Set(string szText, id idIcon, int dwTextColor, int dwIconColor, string szGraphics, string szSound)
 {
@@ -62,6 +63,8 @@ public func Set(string szText, id idIcon, int dwTextColor, int dwIconColor, stri
   AddEffect("IntEventInfo",this,10,1,this,EI4K);
 }
 
+public func SetAsGlobal() { fGlobal = true; }
+
 public func FxIntEventInfoStart(object pTarget, int iEffectNumber, int iTemp)
 {
   if(iTemp) return;
@@ -75,7 +78,7 @@ public func FxIntEventInfoStart(object pTarget, int iEffectNumber, int iTemp)
 public func FxIntEventInfoTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
   //Spieler tot, Nachricht weg.
-  if (!GetPlayerName(GetOwner(pTarget)))
+  if (!fGlobal && !GetPlayerName(GetOwner(pTarget)))
     return -1;
   var a = 255-Sin(900+(iEffectTime*900/MaxTime()),255*2,10)/2;
   
