@@ -183,6 +183,7 @@ protected func FxIntAssaultTargetStop(object pTarget, int iEffect, int iCause, b
 /* Relaunch */
 
 public func OnClassSelection() {}
+public func GetRespawnPoint(int &iX, int &iY, int iTeam) {}
 
 /* Ungenutzte Funktionen */
 

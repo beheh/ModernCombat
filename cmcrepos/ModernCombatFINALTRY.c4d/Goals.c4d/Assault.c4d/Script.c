@@ -197,6 +197,32 @@ protected func WaitForJoin(int iPlr)
   EliminatePlayer(iPlr);
 }
 
+public func GetRespawnPoint(int &iX, int &iY, int iTeam)
+{
+  var index = GASS_Spawn_Att;
+  if (iTeam == iDefender)
+    index = GASS_Spawn_Def;
+
+  //Erstmal checken
+  if (GetType(aTargets) != C4V_Array || !GetLength(aTargets))
+    return;
+
+  //Nächstes Ziel suchen
+  var target;
+  if (ObjectCount2(Find_InArray(aTargets[iDefender])))
+    for (target = 0; target < GetLength(aTargets); target++)
+	  if (aTargets[iDefender][target])
+	    break;
+
+  //Kein Ziel? Einfach 0 zurückgeben
+  if (!aTargets[iDefender][target])
+    return;
+
+  iX = aSpawns[target][index][0][0];
+  iY = aSpawns[target][index][0][1];
+  return true;
+}
+
 /* Scoreboard */
 
 static const GASS_Icon = 0;
