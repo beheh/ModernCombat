@@ -6,7 +6,7 @@
 static aFlag;
 
 
-/* Initalisierung */
+/* Initialisierung */
 
 func Initialize()
 {

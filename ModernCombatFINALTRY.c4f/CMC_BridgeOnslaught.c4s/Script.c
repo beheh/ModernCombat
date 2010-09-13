@@ -6,7 +6,7 @@
 static aFlag, aSelfDefense, switchright, switchleft;
 
 
-/* Initalisierung */
+/* Initialisierung */
 
 func Initialize()
 {

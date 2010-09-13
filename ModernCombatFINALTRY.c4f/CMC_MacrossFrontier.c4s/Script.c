@@ -4,7 +4,7 @@
 #include CSTD
 
 
-/* Initalisierung */
+/* Initialisierung */
 
 func Initialize()
 {

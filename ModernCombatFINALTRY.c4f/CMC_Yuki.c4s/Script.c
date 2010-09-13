@@ -6,7 +6,7 @@
 static aDoor1, aDoor2, aLamp1, aLamp2, aLamp3, aFlag;
 
 
-/* Initalisierung */
+/* Initialisierung */
 
 func Initialize()
 {

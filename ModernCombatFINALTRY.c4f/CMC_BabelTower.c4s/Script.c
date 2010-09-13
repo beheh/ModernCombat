@@ -13,7 +13,7 @@ public func OccupationDir()
   return GOCC_Vertical;
 }
 
-/* Initalisierung */
+/* Initialisierung */
 
 func Initialize()
 {
