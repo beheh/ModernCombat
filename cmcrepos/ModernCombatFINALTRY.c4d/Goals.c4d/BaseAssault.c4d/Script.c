@@ -147,7 +147,7 @@ public func OpenRelaunchMenu(object pCrew, int iSelection)
   {
     var dmg = EffectVar(0, obj, GetEffect("IntAssaultTarget", obj));
     var id = GetID(obj);
-    if (id == STCR) id = obj->GetImitationID();
+    if (id == HUBS) id = obj->GetImitationID();
     AddMenuItem(GetName(obj), Format("DoRelaunch(Object(%d), Object(%d))", ObjectNumber(pCrew), ObjectNumber(obj)), id, pCrew, 100*(dmg-GetDamage(obj))/dmg, 0, GetName(obj));
   }
   SelectMenuItem(iSelection, pCrew);
@@ -177,7 +177,7 @@ public func DoRelaunch(object pCrew, object pTarget)
   var container = Contained(pCrew);
   var id = GetID(pTarget);
   //Fake?
-  if (id == STCR)
+  if (id == HUBS)
     id = pTarget->GetImitationID();
   //Relaunchposition
   var x, y, iTeam = pTarget->GetTeam(), array = aSpawn[iTeam];

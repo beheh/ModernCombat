@@ -1,0 +1,1 @@
+Stellt Grundfunktionen für Assault Runden zur Verfügung.
