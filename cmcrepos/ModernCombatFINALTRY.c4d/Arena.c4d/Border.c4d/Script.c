@@ -7,7 +7,7 @@ local x,y,xh,yh;
 
 /* Einstellung */
 
-public func Set(iDir)
+public func Set(iDir, bool fKeepSpawns)
 {
   if(iDir == 0)
   {
@@ -37,26 +37,22 @@ public func Set(iDir)
    xh = LandscapeWidth();
    yh = LandscapeHeight()-GetY();
   }
-  for(var obj in FindObjects(Find_InRect(x,y,xh,yh),Find_Func("IsSpawnpoint")))
-   RemoveObject(obj);
+  if (!fKeepSpawns)
+    for(var obj in FindObjects(Find_InRect(x,y,xh,yh),Find_Func("IsSpawnpoint")))
+      RemoveObject(obj);
 }
 
 /* Grenzüberschreiter suchen */
 
 private func Check()
 {
-  for(var clonk in FindObjects(Find_InRect(x,y,xh,yh),Find_OCF(OCF_CrewMember),Find_OCF(OCF_Alive)))
+  var id;
+  for(var clonk in FindObjects(Find_InRect(x,y,xh,yh),Find_OCF(OCF_CrewMember)))
     if(!GetEffect("Border", clonk))
     {
-     if(Contained(clonk))
-     {
-      if(IsFakeDeath(clonk))
-       continue;
-      else
-       AddEffect("Border", clonk, 50, 35, this);
-     }
-     else
-      AddEffect("Border", clonk, 50, 35, this);
+     if(Contained(clonk) && (id = GetID(clonk)) && (id == TIM1 || id == TIM2 || id == FKDT))
+	  continue;
+     AddEffect("Border", clonk, 50, 35, this);
     }
   for(var flag in FindObjects(Find_InRect(x,y,xh,yh),Find_ID(FLA2),Find_Action("Lost")))
    RemoveObject(flag);
