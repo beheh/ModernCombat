@@ -1,1 +1,0 @@
-Stellt die wichtigsten Assault-Grundfunktionen zur Verfügung.

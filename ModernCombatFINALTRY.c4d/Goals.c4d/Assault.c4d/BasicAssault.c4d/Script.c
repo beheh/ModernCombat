@@ -1,10 +1,14 @@
-/*-- Grund-Assault --*/
+/*-- Basis-Assault --*/
 
 #strict 2
 #include TEAM
 
-local aSpawn;		//Spawnpunkte
-local aTargets;		//Ziele
+local aSpawn;			//Spawnpunkte
+local aTargets;			//Ziele
+
+global func IsAssaultTarget()	{return GetEffect("IntAssaultTarget", this);}
+public func IsCMCAssaultGoal()	{return GetID() != CASS;}
+
 
 /* Initialisierung */
 
@@ -26,7 +30,7 @@ protected func ChooserFinished()
       ScheduleCall(this, "OnClassSelection", 1, 0, obj);
 }
 
-/* Globales Zeug */
+/* Globale Funktionen */
 
 global func ReportAssaultTargetDestruction()
 {
@@ -42,8 +46,6 @@ global func AddAssaultTarget()
     return goal->AddAssaultTarget(...);
 }
 
-global func IsAssaultTarget()	{return GetEffect("IntAssaultTarget", this);}
-
 global func Find_InArray(array a)
 {
   var end = [C4FO_Or];
@@ -53,13 +55,11 @@ global func Find_InArray(array a)
   return end;
 }
 
-/* Zeug */
-
-public func IsCMCAssaultGoal() {return GetID() != CASS;}
+/* HUB-Station Funktionen */
 
 public func AddAssaultTarget(id idTarget, int iX, int iY, int iMaxDamage, int iTeam, string szName, int iIndex, array aSpawns, bool fNoBar) {
   //Grundobjekt erstellen
-  var fake = CreateObject(STCR, iX, iY+GetDefCoreVal("Offset", 0, idTarget, 1)+2, -1);
+  var fake = CreateObject(HUBS, iX, iY+GetDefCoreVal("Offset", 0, idTarget, 1)+2, -1);
   //Und Original imitieren
   SetShape(GetDefCoreVal("Offset", 0, idTarget), GetDefCoreVal("Offset", 0, idTarget, 1), GetDefCoreVal("Width", 0, idTarget), GetDefCoreVal("Height", 0, idTarget), fake);
   SetGraphics(0, fake, idTarget, 1, 1);
@@ -90,7 +90,7 @@ public func ReportAssaultTargetDestruction(object pTarget, int iTeam)
   if (GetIndexOf(pTarget, aTargets[iTeam]) == -1)
     return;
 
-  if (GetID(pTarget) == STCR)
+  if (GetID(pTarget) == HUBS)
   {
     var aDmg = pTarget->GetDamager();
     var iPlr = aDmg[1];
@@ -195,4 +195,4 @@ private func InitPlayer(int iPlr)		{}
 private func RemoveScoreboardPlayer(int iPlr)	{}
 public func WinScoreChange(int iNewScore)	{}
 private func SortTeamScoreboard()		{}
-private func TeamGetScore()	{}
+private func TeamGetScore()			{}

@@ -1,1 +1,0 @@
-Provides basic functions for assault goals.
