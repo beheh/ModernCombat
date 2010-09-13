@@ -339,42 +339,6 @@ func CreateEquipment()
 
   //Raketen
   PlaceSpawnpoint(MIAP, 1645, 170);
-
-  //Feldgranaten
-  PlaceSpawnpoint(FGRN, 620, 700);
-  PlaceSpawnpoint(FGRN, 1535, 300);
-
-  //Blendgranatenspawnpoints
-  PlaceSpawnpoint(STUN, 570, 560);
-  PlaceSpawnpoint(STUN, 1360, 410);
-
-  //Sturmgewehr
-  PlaceSpawnpoint(ASTR, 190, 705);
-
-  //Maschinengewehr
-  PlaceSpawnpoint(MNGN, 840, 330);
-
-  //Raketenwerfer
-  PlaceSpawnpoint(RTLR, 1625, 175);
-
-  //Shotgun
-  PlaceSpawnpoint(PPGN, 1085, 140);
-
-  //Slingshot
-  PlaceSpawnpoint(SGST, 1460, 580);
-
-  //Maschinenpistolen
-  PlaceSpawnpoint(SMGN, 365, 495);
-  PlaceSpawnpoint(SMGN, 1225, 290);
-
-  //Abwehrschild
-  PlaceSpawnpoint(RSHL, 450, 355);
-
-  //Sprengfalle
-  PlaceSpawnpoint(BBTP, 1160, 820);
-
-  //Dragnin
-  PlaceSpawnpoint(DGNN, 1190, 585);
 }
 
 /* Relaunch */

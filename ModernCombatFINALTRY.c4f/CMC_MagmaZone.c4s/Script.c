@@ -202,40 +202,6 @@ func CreateEquipment()
   //Raketen
   PlaceSpawnpoint(MIAP, 1360, 330);
 
-  //Sturmgewehr
-  PlaceSpawnpoint(ASTR, 1070, 235);
-
-  //Maschinengewehr
-  PlaceSpawnpoint(MNGN, 895, 115);
-
-  //Raketenwerfer
-  PlaceSpawnpoint(RTLR, 1390, 335);
-
-  //Shotguns
-  PlaceSpawnpoint(PPGN, 245, 545);
-  PlaceSpawnpoint(PPGN, 1835, 445);
-
-  //Slingshot
-  PlaceSpawnpoint(SGST, 1315, 100);
-
-  //Maschinenpistolen
-  PlaceSpawnpoint(SMGN, 680, 145);
-  PlaceSpawnpoint(SMGN, 1845, 125);
-
-  //C4
-  PlaceSpawnpoint(C4PA, 1500, 525);
-
-  //Sprengfalle
-  PlaceSpawnpoint(BBTP, 1250, 530);
-
-  //Dragnin
-  PlaceSpawnpoint(DGNN, 670, 645);
-  PlaceSpawnpoint(DGNN, 1560, 155);
-
-  //Feldgranaten
-  PlaceSpawnpoint(FGRN, 560, 525);
-  PlaceSpawnpoint(FGRN, 1875, 255);
-
   //Automat
   var store = CreateObject(WPVM,1305, 300,-1);
   store->AddWare(FAPK,-1);

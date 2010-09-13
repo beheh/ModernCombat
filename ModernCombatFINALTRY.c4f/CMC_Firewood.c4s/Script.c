@@ -262,36 +262,6 @@ func CreateEquipment()
   tmp = CreateObject(AMCT, 1615, 210, -1);
   tmp->Set(MIAP);
 
-  //Sturmgewehre
-  PlaceSpawnpoint(ASTR, 565, 555);
-  PlaceSpawnpoint(ASTR, 2710, 555);
-
-  //Maschinengewehr
-  PlaceSpawnpoint(MNGN, 1735, 115);
-
-  //Raketenwerfer
-  PlaceSpawnpoint(RTLR, 1565, 205);
-
-  //Shotgun
-  PlaceSpawnpoint(PPGN, 1475, 495);
-
-  //Slingshot
-  PlaceSpawnpoint(SGST, 1815, 495);
-
-  //Maschinenpistolen
-  PlaceSpawnpoint(SMGN, 580, 235);
-  PlaceSpawnpoint(SMGN, 2700, 235);
-
-  //C4
-  PlaceSpawnpoint(C4PA, 1215, 460);
-  PlaceSpawnpoint(C4PA, 2065, 460);
-
-  //Abwehrschild
-  PlaceSpawnpoint(RSHL, 1640, 410);
-
-  //Dragnin
-  PlaceSpawnpoint(DGNN, 1640, 300);
-
   //Motorboote
   SetupVehicleSpawn([INFL],DIR_Right,CreateObject(VSPW,670,620,-1),50*21,300);
   SetupVehicleSpawn([INFL],DIR_Right,CreateObject(VSPW,1640,620,-1),50*21,300);
