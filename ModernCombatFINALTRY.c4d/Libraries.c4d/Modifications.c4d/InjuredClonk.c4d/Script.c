@@ -4,7 +4,7 @@
 
 static const FKDT_SuicideTime = 15; //Standardzeit bei Fake Death
 
-local clonk,oldvisrange,oldvisstate,suicide,killmsg,szTipp;
+local clonk,oldvisrange,oldvisstate,suicide,killmsg,szTipp,idTipp;
 
 public func AimAngle()		{}
 public func ReadyToFire()	{}
@@ -78,7 +78,8 @@ public func KillMessage(string msg)
   //Spieler hat Hilfen aktiviert: Quicktipp geben
   if (clonk && !GetPlrExtraData(GetOwner(clonk), "Hazard_NoHelpMsg")) {
     var array = GetQuickTipp(this);
-    szTipp = Format("{{%i}} %s", array[0], array[1]);
+	idTipp = array[0];
+    szTipp = array[1];
   }
 
   DeathMenu();
@@ -127,7 +128,7 @@ private func DeathMenu()
   if (szTipp)
   {
     AddMenuItem("", "", NONE, clonk, 0, 0, "", 512, 0, 0);					//Leerzeile
-    AddMenuItem("$Tip$","", NONE, clonk, 0, 0, "", 512, 0, 0);					//Zufälliger Tipp
+    AddMenuItem(Format("{{%i}} $Tip$", idTipp),"", NONE, clonk, 0, 0, "", 512, 0, 0);			//Zufälliger Tipp
     AddMenuItem(szTipp,"", NONE, clonk, 0, 0, "", 512, 0, 0);
   }
 
