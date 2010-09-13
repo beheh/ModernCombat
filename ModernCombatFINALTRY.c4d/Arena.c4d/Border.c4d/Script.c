@@ -50,7 +50,7 @@ private func Check()
   for(var clonk in FindObjects(Find_InRect(x,y,xh,yh),Find_OCF(OCF_CrewMember)))
     if(!GetEffect("Border", clonk))
     {
-     if(Contained(clonk) && (id = GetID(clonk)) && (id == TIM1 || id == TIM2 || id == FKDT))
+     if(Contained(clonk) && (id = GetID(Contained(clonk))) && (id == TIM1 || id == TIM2 || id == FKDT))
 	  continue;
      AddEffect("Border", clonk, 50, 35, this);
     }
