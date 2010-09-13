@@ -3,7 +3,7 @@
 #strict
 #include CSTD
 
-static aFlag,aSelfDefense;
+static aFlag,aSelfDefense,aArtillery;
 
 
 /* Initalisierung */
@@ -19,6 +19,8 @@ func Initialize()
   aFlag = [];
   //Selbstschussanlagen
   aSelfDefense = [];
+  //Artillerie
+  aArtillery = [];
   //Szenario einrichten
   CreateFurniture();
   //Ausrüstung plazieren
@@ -603,10 +605,10 @@ func CreateEquipment()
   PlaceSpawnpoint(DGNN, 6050, 375);
 
   //Artilleriebatterien
-  CreateObject(ATBY,1025,210,-1);
-  CreateObject(ATBY,3640,330,-1);
-  CreateObject(ATBY,5720,340,-1);
-  CreateObject(ATBY,7360,310,-1);
+  aArtillery[0] = CreateObject(ATBY,1025,210,-1);
+  aArtillery[1] = CreateObject(ATBY,3640,330,-1);
+  aArtillery[2] = CreateObject(ATBY,5720,340,-1);
+  aArtillery[3] = CreateObject(ATBY,7360,310,-1);
 
   //Motorboote
   SetupVehicleSpawn([INFL],DIR_Right,CreateObject(VSPW,1245,520,-1),50*21,300);
@@ -737,7 +739,11 @@ public func ChooserFinished()
    aSelfDefense[3]->SetTeam(2);
 
    //SSA entfernen
-   aSelfDefense[2]->RemoveObject();
+   RemoveObject(aSelfDefense[2]);
+
+   //Artillerie entfernen
+   RemoveObject(aArtillery[0]);
+   RemoveObject(aArtillery[3]);
 
    //Ziel 1
    AddAssaultTarget(HBSN, 1200, 390, 250, 2, 0, 0, [[[1550, 400], [1670, 440], [1370, 440]], [[560, 440], [610, 440], [660, 440]]]);
