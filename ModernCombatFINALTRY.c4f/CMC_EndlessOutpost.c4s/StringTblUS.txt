@@ -5,6 +5,11 @@ CreatingAssaultObjects=Placing goal objects...
 Attacker=Assault Troop
 Defender=Base Crew
 
+Flag1=Entrance
+Flag2=Lobby
+Flag3=Depot
+Flag4=Office Block
+
 Target1=Control Unit
 Target2=Cooling System
 Target3=Energy Converter

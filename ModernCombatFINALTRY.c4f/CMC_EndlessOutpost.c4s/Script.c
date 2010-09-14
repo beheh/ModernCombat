@@ -3,7 +3,7 @@
 #strict
 #include CSTD
 
-static aDoor, aSelfDefense, aLamp, aLamp2;
+static aFlag,aDoor,aSelfDefense,aLamp,aLamp2;
 
 
 /* Initialisierung */
@@ -15,6 +15,8 @@ func Initialize()
   Music("CMC_Striking Force.ogg");
   //Bildschirmfärbung
   SetGamma(RGB(0,0,0), RGB(80,80,80), RGB(200,200,200));
+  //Flaggen
+  aFlag = [];
   //Türen
   aDoor = [];
   //Selbstschussanlagen
@@ -133,16 +135,16 @@ func CreateFurniture()
   //Metallkisten
   CreateObject(MWCR, 1190, 570, -1);
   CreateObject(MWCR, 1210, 570, -1);
-  CreateObject(MWCR, 1910, 320, -1);
+  CreateObject(MWCR, 1910, 320, -1)->AutoRespawn();
 
   //Kisten
-  CreateObject(WCR2, 10, 350, -1);
-  CreateObject(WCR2, 355, 450, -1);
-  CreateObject(WCR2, 1100, 362, -1);
+  CreateObject(WCR2, 10, 350, -1)->AutoRespawn();
+  CreateObject(WCR2, 355, 450, -1)->AutoRespawn();
+  CreateObject(WCR2, 1100, 360, -1);
   CreateObject(WCR2, 1460, 52, -1);
   CreateObject(WCR2, 1460, 70, -1);
-  CreateObject(WCR2, 1540, 70, -1);
-  CreateObject(WCR2, 1505, 200, -1);
+  CreateObject(WCR2, 1505, 200, -1)->AutoRespawn();
+  CreateObject(WCR2, 1540, 70, -1)->AutoRespawn();
   CreateObject(WCR2, 2000, 456, -1);
   CreateObject(WCR2, 2000, 474, -1);
   CreateObject(WCR2, 2000, 492, -1);
@@ -157,9 +159,13 @@ func CreateFurniture()
   CreateObject(WCR2, 2405, 320, -1);
   CreateObject(WCR2, 2415, 500, -1);
 
+  //Gasflaschen
+  CreateObject(GSBL, 1020, 430, -1)->AutoRespawn();
+  CreateObject(GSBL, 1640, 520, -1)->AutoRespawn();
+
   //Explosive Kisten
-  CreateObject(XWCR, 1545, 320, -1);
-  CreateObject(XWCR, 2150, 210, -1);
+  CreateObject(XWCR, 1545, 320, -1)->AutoRespawn();
+  CreateObject(XWCR, 2150, 210, -1)->AutoRespawn();
   CreateObject(XWCR, 2670, 410, -1);
 
   //Benzinfässer
@@ -167,19 +173,19 @@ func CreateFurniture()
   CreateObject(PBRL, 2325, 530, -1);
 
   //Explosivfässer
-  CreateObject(XBRL, 1260, 550, -1);
-  CreateObject(XBRL, 1890, 320, -1);
+  CreateObject(XBRL, 1260, 550, -1)->AutoRespawn();
+  CreateObject(XBRL, 1890, 320, -1)->AutoRespawn();
   CreateObject(XBRL, 2335, 530, -1);
   CreateObject(XBRL, 2420, 320, -1);
   CreateObject(XBRL, 2430, 320, -1);
 
   //Phosphorfässer
-  CreateObject(HBRL, 1720, 290, -1);
+  CreateObject(HBRL, 1720, 290, -1)->AutoRespawn();
   CreateObject(HBRL, 2165, 320, -1);
 
   //Benzintanks
-  CreateObject(XTNK, 1610, 520, -1);
-  CreateObject(XTNK, 1740, 210, -1);
+  CreateObject(XTNK, 1610, 520, -1)->AutoRespawn();
+  CreateObject(XTNK, 1740, 210, -1)->AutoRespawn();
   CreateObject(XTNK, 2800, 410, -1);
 
   //Container
@@ -591,6 +597,17 @@ func CreateEquipment()
   tmp->Set(FRAG);
 }
 
+/* Bei Flaggenübernahme */
+
+func FlagCaptured(object pPoint, int iTeam)
+{
+  if(pPoint == aFlag[1])
+   aSelfDefense[0]->SetTeam(iTeam);
+
+  if(pPoint == aFlag[2])
+   aSelfDefense[1]->SetTeam(iTeam);
+}
+
 /* Regelwähler */
 
 public func ChooserFinished()
@@ -621,6 +638,81 @@ public func ChooserFinished()
    AddAssaultTarget(CMSN, 2350, 212, 300, 2, "$Target6$", 5, [[[1880, 110], [2050, 110]], [[1840, 490], [1880, 490]]]);
    AddAssaultTarget(CMSN, 2460, 322, 350, 2, "$Target7$", 6, [[[1880, 110], [2050, 110]], [[1840, 490], [1880, 490]]]);
    AddAssaultTarget(CMSN, 2455, 502, 350, 2, "$Target8$", 7, [[[1880, 110], [2050, 110]], [[1840, 490], [1880, 490]]]);
+  }
+
+  //OP-Spielziel
+  if(FindObject(GOCC))
+  {
+   //Grenze
+   CreateObject(BRDR, 2010, 0, -1)->Set(1);
+
+   //Flaggen
+   aFlag[0] = CreateObject(OFPL,160,350,NO_OWNER);
+   aFlag[0] -> AddSpawnPoint(120,640);
+   aFlag[0] -> AddSpawnPoint(355,690);
+   aFlag[0] -> AddSpawnPoint(400,650);
+   if(aTeams[1] == true)
+   {
+    aFlag[0]->Set("$Flag1$",100,2);
+    aFlag[0]->Capture(1,1);
+   }
+   else
+   {
+    aFlag[0]->Set("$Flag1$",0,2);
+   }
+
+   aFlag[1] = CreateObject(OFPL,910,430,NO_OWNER);
+   aFlag[1] -> AddSpawnPoint(930,150);
+   aFlag[1] -> AddSpawnPoint(1050,190);
+   aFlag[1] -> AddSpawnPoint(1140,190);
+   aFlag[1]->Set("$Flag2$",0,2);
+
+   aFlag[2] = CreateObject(OFPL,1670,493,NO_OWNER);
+   aFlag[2] -> AddSpawnPoint(1940,390);
+   aFlag[2] -> AddSpawnPoint(1980,390);
+   aFlag[2] -> AddSpawnPoint(1780,480);
+   aFlag[2]->Set("$Flag3$",0,2);
+
+   aFlag[3] = CreateObject(OFPL,1585,290,NO_OWNER);
+   aFlag[3] -> AddSpawnPoint(1830,310);
+   aFlag[3] -> AddSpawnPoint(1620,60);
+   aFlag[3] -> AddSpawnPoint(1790,100);
+   if(aTeams[1] == true)
+   {
+    aFlag[3]->Set("$Flag4$",100,2);
+    aFlag[3]->Capture(2,1);
+   }
+   else
+   {
+    aFlag[3]->Set("$Flag4$",0,2);
+   }
+
+   //Türen öffnen
+   aDoor[0]->Unlock();
+   aDoor[1]->Unlock();
+   aDoor[2]->Unlock();
+   aDoor[3]->Unlock();
+   aDoor[4]->Unlock();
+   aDoor[5]->Open();
+   aDoor[8]->Unlock();
+   aDoor[9]->Unlock();
+
+   //Metallkisten
+   CreateObject(MWCR, 1730, 490, -1);
+   CreateObject(MWCR, 1750, 490, -1);
+   CreateObject(MWCR, 1860, 490, -1);
+   CreateObject(MWCR, 1880, 454, -1);
+   CreateObject(MWCR, 1880, 472, -1);
+   CreateObject(MWCR, 1880, 490, -1);
+
+   //Kisten
+   CreateObject(WCR2, 740, 410, -1);
+   CreateObject(WCR2, 760, 410, -1);
+   CreateObject(WCR2, 1120, 324, -1);
+   CreateObject(WCR2, 1120, 342, -1);
+   CreateObject(WCR2, 1120, 360, -1);
+   CreateObject(WCR2, 1310, 180, -1);
+   CreateObject(WCR2, 1740, 472, -1);
   }
 }
 
@@ -831,39 +923,16 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
    Smoke(2455, 490, 50);
 
    Sound("Announce4.ogg");
-  }
 }
 
 /* Relaunch */
 
 public func RelaunchPosition(& iX, & iY, int iTeam)
 {
-  //CTF-Spielziel
-  if(FindObject(GCTF))
-  {
-   if(iTeam == 1)
-   {
-    var rand = Random(2);
-    if(!rand)
-     { iX = 3600; iY = 400; }
-    if(!--rand)
-     { iX = 3675; iY = 320; }
-   }
-   if(iTeam == 2)
-   {
-    var rand = Random(2);
-    if(!rand)
-     { iX = 6325; iY = 500; }
-    if(!--rand)
-     { iX = 6460; iY = 500; }
-   }
-   return(1);
-  }
-
   //Assault-Spielziel
   if(FindObject(GASS))
   {if(FindObject(GASS)->GetRespawnPoint(iX, iY, iTeam)) return 1;}
 
   //Startsicht
-  iX = 700; iY = 300;
+  iX =760; iY = 300;
 }
