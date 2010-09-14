@@ -1,4 +1,4 @@
-/* ScreenRGB */
+/*-- ScreenRGB --*/
 
 #strict 2
 
@@ -8,8 +8,14 @@ local target,layer,fade;
 static const SR4K_LayerSmoke = 1;
 static const SR4K_LayerLight = 2;
 
+public func GetTargetCursor()		{}
+public func IsOverlayScreen()		{return true;}
+public func NoWarp()			{return true;}
+public func IsHUD()			{return true;}
+public func GetAlpha()			{return a;}
 
-/* Initalisierung */
+
+/* Initialisierung */
 
 public func Initialize()
 {
@@ -28,10 +34,10 @@ global func ScreenRGB(object pTarget, int dwRGBa, int iAlphaAdd, int iFadeRate, 
   var obj;
   if(iLayer)
     obj = FindObject2(Find_ID(S24K),Find_Owner(GetOwner(pTarget)),Find_Func("SameLayer",iLayer));
-    
+
   if(!obj)
     obj = CreateObject(S24K,0,0,GetOwner(pTarget));
-    
+
   obj->Set(pTarget,dwRGBa,iAlphaAdd,iFadeRate,bAdditive,iLayer);
   return obj;
 }
@@ -53,13 +59,13 @@ public func Set(object pTarget, int dwRGBa, int iAlphaAdd, int iFadeRate, bool b
 
   if(bAdditive)//Additiv zeichnen?
     SetObjectBlitMode(GFX_BLIT_Additive);
-    
+
   fade = Max(fade,iFadeRate);
-  
+
   var a_save = a;
   SplitRGBaValue(dwRGBa,r,g,b,a);
   a = BoundBy(a_save-iAlphaAdd,0,255);
-    
+
   if(!fade)
     RemoveEffect("IntRGBFade",this);
   else
@@ -78,7 +84,7 @@ public func FxIntRGBFadeTimer(object pTarget, int iEffectNumber, int iEffectTime
 {
   a = BoundBy(a+fade,0,255);
   SetClrModulation(RGBa(r,g,b,a), pTarget);
-  
+
   if(a <= 0)
     return -1;
 
@@ -91,14 +97,12 @@ public func FxIntRGBFadeStop(object pTarget, int iEffectNumber, int iReason, boo
   return 0;
 }
 
-public func GetAlpha(){return a;}
-
 public func SetAlpha(int iValue)
 {
   a = BoundBy(iValue,0,255);
   SetClrModulation(RGBa(r,g,b,a));
-  
-  if(a >= 255) RemoveObject();// !!!
+
+  if(a >= 255) RemoveObject();
 }
 
 public func DoAlpha(int iValue, int iMin, int iMax)
@@ -106,20 +110,22 @@ public func DoAlpha(int iValue, int iMin, int iMax)
   if(!iMax) iMax = 255;
   a = BoundBy(a-iValue,Max(iMin,0),Min(iMax,255));
   SetClrModulation(RGBa(r,g,b,a));
-  
-  if(a >= 255) RemoveObject();// !!!
+
+  if(a >= 255) RemoveObject();
 }
 
 func CursorCheck()
 {
   var cursor = false;
-  if(GetCursor(GetOwner())) {
-	  if(GetCursor(GetOwner()) == target)
-	    cursor = true;
-	  if(GetCursor(GetOwner())->~GetRealCursor() == target)
-	    cursor = true;
-	}
-  else {
+  if(GetCursor(GetOwner()))
+  {
+    if(GetCursor(GetOwner()) == target)
+      cursor = true;
+    if(GetCursor(GetOwner())->~GetRealCursor() == target)
+      cursor = true;
+  }
+  else
+  {
     cursor = true;
   }
   if(cursor)
@@ -127,8 +133,3 @@ func CursorCheck()
   else
     SetVisibility(VIS_None);
 }
-
-public func GetTargetCursor(){;}
-public func IsOverlayScreen(){return true;}
-public func NoWarp(){return true;}
-public func IsHUD(){return true;}

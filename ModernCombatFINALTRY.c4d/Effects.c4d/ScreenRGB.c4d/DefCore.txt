@@ -5,4 +5,5 @@ Category=60817409
 Width=250
 Height=250
 Offset=0,0
+Picture=250,0,64,64
 Oversize=1

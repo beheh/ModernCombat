@@ -1,1 +1,1 @@
-Färbt die Spielersicht.
+Kontrolliert Färbungen der Spielersicht.
