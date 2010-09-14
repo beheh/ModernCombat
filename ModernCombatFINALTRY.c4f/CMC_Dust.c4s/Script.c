@@ -168,6 +168,27 @@ public func ChooserFinished()
    {CreateFlag(4,145,320,GetTeamColor(4));}
   }
 
+  //HTF-Spielziel
+  if (FindObject(GHTF))
+  {
+   var flag = CreateObject(OFPL, 830, 850, -1);
+   flag->~Set("$Flag4$");
+
+   //Kisten
+   CreateObject(WCR2, 660, 830, -1);
+   CreateObject(WCR2, 960, 830, -1);
+
+   //Zusätzliche Munition
+   if(!FindObject(NOAM))
+   {
+    //Projektilmunition
+    PlaceSpawnpoint(ABOX, 825, 655);
+
+    //Raketen
+    PlaceSpawnpoint(MIAP, 1000, 695);
+   }
+  }
+
   //OP-Spielziel
   if(FindObject(GOCC))
   {
@@ -237,27 +258,6 @@ public func ChooserFinished()
    else
    {
     aFlag[5]->Set("$Flag6$",0,2);
-   }
-  }
-
-  //HTF-Spielziel
-  if (FindObject(GHTF))
-  {
-   var flag = CreateObject(OFPL, 830, 850, -1);
-   flag->~Set("$Flag4$");
-
-   //Kisten
-   CreateObject(WCR2, 660, 830, -1);
-   CreateObject(WCR2, 960, 830, -1);
-
-   //Zusätzliche Munition
-   if(!FindObject(NOAM))
-   {
-    //Projektilmunition
-    PlaceSpawnpoint(ABOX, 825, 655);
-
-    //Raketen
-    PlaceSpawnpoint(MIAP, 1000, 695);
    }
   }
 }
