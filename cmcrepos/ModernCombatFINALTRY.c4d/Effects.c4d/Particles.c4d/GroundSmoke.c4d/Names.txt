@@ -1,2 +1,2 @@
-DE:Rauch
-US:Smoke
+DE:Bodenrauch
+US:Ground Smoke
