@@ -278,7 +278,7 @@ public func UpdateScoreboard()
 	string = GetTaggedTeamName(team);
 	color = GetTeamColor(team);
   }
-  SetScoreboardData(2, GASS_Icon, "{{IC03}}");
+  SetScoreboardData(2, GASS_Icon, "{{SM03}}");
   SetScoreboardData(2, GASS_Name, string);
   SetScoreboardData(2, GASS_Count, Format("<c %x>%d</c>", color, iTickets));
 }

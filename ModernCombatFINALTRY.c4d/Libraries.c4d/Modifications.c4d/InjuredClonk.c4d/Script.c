@@ -31,7 +31,7 @@ public func Set(object pClonk)
   SetYDir(GetYDir(pClonk));
   
   //Reanimationszeichen erstellen
-  CreateObject(IC01,0,0,GetOwner(pClonk))->Set(this);
+  CreateObject(SM01,0,0,GetOwner(pClonk))->Set(this);
   
   //CTF-Flagge entfernen
   for(var content in FindObjects(Find_ActionTarget(pClonk),Find_ID(FLA2)))
@@ -110,7 +110,7 @@ private func DeathMenu()
     AddMenuItem(Format("$Info$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);		//Hinweis
     AddMenuItem(Format("$DeathCounter$", suicide),"", NONE, clonk, 0, 0, "", 512, 0, 0);	//Counter
     if(suicide != FKDT_SuicideTime)
-    {AddMenuItem("$Suicide$", "Suicide", IC06, clonk, 0, 0, "$SuicideDesc$");}			//Selbstmordbutton
+    {AddMenuItem("$Suicide$", "Suicide", SM06, clonk, 0, 0, "$SuicideDesc$");}			//Selbstmordbutton
   }
   else
   {
@@ -184,7 +184,7 @@ private func GetQuickTipp(object pFake)
 
 private func GetGeneralTipp()
 {
-  return GetRandomTipp([[FGRN, "$NONE0$"], [CSTR, "$NONE1$"], [IC05, "$NONE2$"], [IC04, "$NONE3$"]]);
+  return GetRandomTipp([[FGRN, "$NONE0$"], [CSTR, "$NONE1$"], [SM05, "$NONE2$"], [SM04, "$NONE3$"]]);
 }
 
 private func GetRandomTipp(array a, id id)

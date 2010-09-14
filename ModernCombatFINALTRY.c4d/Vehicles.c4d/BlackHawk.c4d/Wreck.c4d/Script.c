@@ -15,7 +15,8 @@ protected func Initialize()
 
 protected func Hit()
 {
-  Sound("Collision*");
+  if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("GunSmoke",15,35,-20,0,300,500);
+  Sound("HeavyHit*.ogg");
 }
 
 /* Zerstörung */
