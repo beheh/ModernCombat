@@ -1,8 +1,8 @@
-DefendLastStation=Das ist unsere <c ff0000>letzte HUB-Station</c>, lasst keinen an sie ran!
-DestroyLastStation=Nurnoch <c ffff33>eine</c> HUB Station und wir haben gewonnen, lasst nicht locker!
-TargetDestruction=HUB-Station <c %x>%s</c> wurde zerstört.
+DefendLastStation=Das ist unsere <c ff0000>letztes</c> Zielobjekt, lasst keinen ran!
+DestroyLastStation=Nurnoch <c ffff33>ein</c> Zielobjekt und wir haben gewonnen, lasst nicht locker!
+TargetDestruction=Zielobjekt <c %x>%s</c> wurde zerstört.
 TeamHasWon=Team %s hat diese Schlacht gewonnen!
-Targets=Stationen
+Targets=Zielobjekte
 Attackers=Angreifer
 
 #Soll entfernt werden
@@ -10,4 +10,4 @@ Attackers=Angreifer
 MoreTickets=Mehr Tickets
 LessTickets=Weniger Tickets
 Finished=Fertig!
-NoTargets=Alle unsere Strukturen wurden zerstört! Fangt an zu kämpfen oder wir werden verlieren!
+NoTargets=Alle unsere Zielobjekte wurden zerstört! Fangt an zu kämpfen oder wir werden verlieren!

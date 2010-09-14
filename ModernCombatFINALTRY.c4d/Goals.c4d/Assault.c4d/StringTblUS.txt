@@ -1,8 +1,8 @@
-DefendLastStation=This is our <c ff0000>last HUB-Station</c>, don't let it get destroyed!
-DestroyLastStation=Only <c ffff33>one</c> HUB station left to win this, keep at it!
-TargetDestruction=HUB-Station <c %x>%s</c> destroyed.
+DefendLastStation=This is our <c ff0000>last</c> target, don't let it get destroyed!
+DestroyLastStation=Only <c ffff33>one</c> target left to win this, keep at it!
+TargetDestruction=Target <c %x>%s</c> destroyed.
 TeamHasWon=Team %s has won this battle!
-Targets=Stations
+Targets=Targets
 Attackers=Attackers
 
 #Soll entfernt werden
@@ -10,4 +10,4 @@ Attackers=Attackers
 MoreTickets=More tickets
 LessTickets=Less tickets
 Finished=Finished!
-NoTargets=All our structures were destroyed! Start fighting or we will lose!
+NoTargets=All our targets were destroyed! Start fighting or we will lose!

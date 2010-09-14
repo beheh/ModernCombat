@@ -55,11 +55,11 @@ global func Find_InArray(array a)
   return end;
 }
 
-/* HUB-Station Funktionen */
+/* Zielobjekt Funktionen */
 
 public func AddAssaultTarget(id idTarget, int iX, int iY, int iMaxDamage, int iTeam, string szName, int iIndex, array aSpawns, bool fNoBar) {
   //Grundobjekt erstellen
-  var fake = CreateObject(HUBS, iX, iY+GetDefCoreVal("Offset", 0, idTarget, 1)+2, -1);
+  var fake = CreateObject(AHBS, iX, iY+GetDefCoreVal("Offset", 0, idTarget, 1)+2, -1);
   //Und Original imitieren
   SetShape(GetDefCoreVal("Offset", 0, idTarget), GetDefCoreVal("Offset", 0, idTarget, 1), GetDefCoreVal("Width", 0, idTarget), GetDefCoreVal("Height", 0, idTarget), fake);
   SetGraphics(0, fake, idTarget, 1, 1);
@@ -90,7 +90,7 @@ public func ReportAssaultTargetDestruction(object pTarget, int iTeam)
   if (GetIndexOf(pTarget, aTargets[iTeam]) == -1)
     return;
 
-  if (GetID(pTarget) == HUBS)
+  if (GetID(pTarget) == AHBS)
   {
     var aDmg = pTarget->GetDamager();
     var iPlr = aDmg[1];

@@ -1,4 +1,4 @@
-/*-- HUB-Station --*/
+/*-- Zielobjekt --*/
 
 #strict 2
 

@@ -1,2 +1,0 @@
-DE:HUB-Station
-US:HUB Station
