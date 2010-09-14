@@ -5,6 +5,11 @@ CreatingAssaultObjects=Spielzielobjekte werden plaziert...
 Attacker=Sturmtruppe
 Defender=Basisbesatzung
 
+Flag1=Eingang
+Flag2=Lobby
+Flag3=Lagerhalle
+Flag4=Bürokomplex
+
 Target1=Steuerungseinheit
 Target2=Lüftungssystem
 Target3=Energieumwandler
