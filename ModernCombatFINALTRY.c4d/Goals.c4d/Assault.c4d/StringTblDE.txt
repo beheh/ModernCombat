@@ -1,4 +1,5 @@
-LastStation=Das ist unsere <c ff0000>letzte HUB-Station</c>, lasst keinen an sie ran!
+DefendLastStation=Das ist unsere <c ff0000>letzte HUB-Station</c>, lasst keinen an sie ran!
+DestroyLastStation=Nurnoch <c ffff33>eine</c> HUB Station und wir haben gewonnen, lasst nicht locker!
 TargetDestruction=HUB-Station <c %x>%s</c> wurde zerstört.
 TeamHasWon=Team %s hat diese Schlacht gewonnen!
 Targets=Stationen

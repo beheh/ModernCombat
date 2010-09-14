@@ -1,4 +1,4 @@
 TargetDestruction=HUB-Station <c %x>%s</c> wurde zerstört.
 ChoosePoint=Wähle einen <c ffff33>Einstiegspunkt</c>
-NoTargets=Alle unsere HUB-Stationen wurden zerstört! Fangt an zu kämpfen oder wir werden verlieren!
+NoTargets=Alle unsere HUB-Stationen wurden <c ff0000>zerstört</c>! Fangt an zu kämpfen oder wir werden verlieren!
 TeamHasWon=Team %s hat diese Schlacht gewonnen!
