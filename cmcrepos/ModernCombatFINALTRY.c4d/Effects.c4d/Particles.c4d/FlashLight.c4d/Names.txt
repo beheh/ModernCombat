@@ -1,2 +1,0 @@
-DE:Blitzlicht
-US:Flashlight
