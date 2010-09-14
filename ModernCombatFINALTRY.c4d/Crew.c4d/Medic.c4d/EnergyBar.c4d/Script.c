@@ -5,16 +5,18 @@
 local obj;
 local fActive;
 
-public func IsBar() { return true; }
-public func BarActive() { return fActive; }
-public func RejectEntrance()	{ return true;	}
+public func IsBar()		{return true;}
+public func BarActive()		{return fActive;}
+public func RejectEntrance()	{return true;}
 
-/* Initalisierung */
+
+/* Initialisierung */
 
 protected func Initialize()
 {
-	fActive = false;
-	SetVisibility(VIS_None);
+  fActive = false;
+  SetVisibility(VIS_None);
+
   SetGraphics("Row", this, GetID(), 1, 1);
 }
 
@@ -35,8 +37,9 @@ public func Set(object target, int color)
 
 public func Update()
 {
-	SetVisibility(VIS_None);
-	fActive = false;
+  SetVisibility(VIS_None);
+  fActive = false;
+
   if(!obj || !(GetOCF(obj) & OCF_Alive) || Contained(obj) || Hostile(GetOwner(), GetOwner(obj)))
    return;
   var cursor = GetCursor(GetOwner());
