@@ -44,7 +44,7 @@ public func KMsg(int plr1, int plr2, object clonk, int plr3)
    if(type == DMG_Fire)
     typeicon = GSAM;
    else if(type == DMG_Melee)
-   	typeicon = ICFT;
+   	typeicon = IC04;
    else if(type == DMG_Explosion)
     typeicon = BOOM;
    else if(type == DMG_Energy)
