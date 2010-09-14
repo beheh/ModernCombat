@@ -12,8 +12,8 @@ public func ReportAssaultTargetDestruction(object pTarget, int iTeam)
   
   //Und gleich mal bekanntgeben
   EventInfo4K(0, Format("$TargetDestruction$", GetTeamColor(iTeam), GetName(pTarget)), GBAS, 0, 0, 0, "Info4.ogg");
-  GameCall("OnAssaultTargetDestruction", pTarget, iTeam, FindInArray4K(aTargets[iTeam], pTarget));
-  if (pTarget)
+  var extra = GameCall("OnAssaultTargetDestruction", pTarget, iTeam, FindInArray4K(aTargets[iTeam], pTarget));
+  if (pTarget && !(extra & AS_NoDestruction))
     Explode(50, pTarget);
 
   //Alle Ziele des Teams wurden zerstört! Warnung ausgeben
