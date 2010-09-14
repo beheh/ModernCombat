@@ -520,12 +520,11 @@ public func ChooserFinished()
   //Base Assault-Spielziel
   if(FindObject(GBAS))
   {
-   //Strukturen
-   AddAssaultTarget(HBSN, 150, 520, 350, 1, "$Flag1$", 0, [[170, 650], [210, 230], [330, 270]]);
-   AddAssaultTarget(HBSN, 610, 350, 300, 1, "$Flag2$", 1, [[350, 270], [300, 400], [380, 420]]);
-
-   AddAssaultTarget(HBSN, 1840, 480, 350, 2, "$Flag5$", 3, [[1810, 580], [1580, 510], [1670, 610]]);
-   AddAssaultTarget(HBSN, 1430, 380, 300, 2, "$Flag4$", 2, [[1470, 250], [1415, 190]]);
+   //Zielobjekte
+   AddAssaultTarget(CMSN, 150, 520, 350, 1, "$Flag1$", 0, [[170, 650], [210, 230], [330, 270]]);
+   AddAssaultTarget(CMSN, 610, 350, 300, 1, "$Flag2$", 1, [[350, 270], [300, 400], [380, 420]]);
+   AddAssaultTarget(CMSN, 1840, 480, 350, 2, "$Flag5$", 3, [[1810, 580], [1580, 510], [1670, 610]]);
+   AddAssaultTarget(CMSN, 1430, 380, 300, 2, "$Flag4$", 2, [[1470, 250], [1415, 190]]);
   }
 
   //OP-Spielziel
