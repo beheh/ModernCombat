@@ -57,7 +57,7 @@ func Hit()
 
   //Explosion
   DamageObjects(50,30,this);
-  Explode(30+Random(10),0,0,0,1);
+  Explode(30+Random(10));
 
   //Effekte
   if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("Smoke3",15,10,0,0,300,700);
