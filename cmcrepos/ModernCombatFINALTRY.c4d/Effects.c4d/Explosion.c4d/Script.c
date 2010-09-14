@@ -49,7 +49,8 @@ global func Explode(int iLevel, object pObj, id idEffect, string szEffect, bool 
         CreateParticle("BlastDirt", smokex, smokey, +Sin(a,level+RandomX(-20,+20)), -Cos(a,level+RandomX(-20,+20)), level*RandomX(7,12));
       }
     }
-    CreateSmokeTrail(level,angle,smokex,smokey,pObj);
+    //Deaktiviert
+    //CreateSmokeTrail(level,angle,smokex,smokey,pObj);
     count--;
   }
 
@@ -69,7 +70,8 @@ global func Explode(int iLevel, object pObj, id idEffect, string szEffect, bool 
   angle = Interpolate4K(0,opt_angle,0,120,speed);
   angle -= 180;
   CreateParticle("BlastBg",0,0,+Sin(angle,100),-Cos(angle,100),iLevel*20);
-  CreateParticle("BlastBg",0,0,0,-1,iLevel*20);
+  //Deaktiviert
+  //CreateParticle("BlastBg",0,0,0,-1,iLevel*20);
 
 
   //Der eigentliche, klassische Blast-Partikel

@@ -64,7 +64,7 @@ public func ChooserFinished()
   return _inherited(...);
 }
 
-/* Zeug */
+/* Funktionen */
 
 static const GASS_Spawn_Def = 0;
 static const GASS_Spawn_Att = 1;

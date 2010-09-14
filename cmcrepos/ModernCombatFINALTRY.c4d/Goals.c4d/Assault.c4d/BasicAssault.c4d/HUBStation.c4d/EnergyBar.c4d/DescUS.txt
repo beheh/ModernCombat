@@ -1,1 +1,0 @@
-Shows the state of HUB stations.
