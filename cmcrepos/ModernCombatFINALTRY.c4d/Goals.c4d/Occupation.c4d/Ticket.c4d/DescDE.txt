@@ -1,1 +1,0 @@
-Repräsentiert eine Einheit.

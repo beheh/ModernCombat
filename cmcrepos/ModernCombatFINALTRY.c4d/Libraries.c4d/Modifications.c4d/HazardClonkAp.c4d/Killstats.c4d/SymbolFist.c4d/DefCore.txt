@@ -1,0 +1,10 @@
+[DefCore]
+id=IC04
+Version=4,9,5
+Name=Symbol
+Category=1
+Width=64
+Height=64
+Offset=-32,-32
+Picture=0,0,64,64
+ 
