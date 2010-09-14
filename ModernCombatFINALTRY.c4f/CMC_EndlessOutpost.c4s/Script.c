@@ -517,8 +517,8 @@ func CreateFurniture()
   aLamp2[0]=CreateObject(BLGH,1300,305,-1);
   aLamp2[1]=CreateObject(BLGH,1300,390,-1);
   aLamp2[2]=CreateObject(BLGH,1865,270,-1);
-  aLamp2[3]=CreateObject(LBGH,1565,340,-1);
-  aLamp2[4]=CreateObject(LBGH,1705,340,-1);
+  aLamp2[3]=CreateObject(BLGH,1540,440,-1);
+  aLamp2[4]=CreateObject(BLGH,1760,440,-1);
   aLamp2[5]=CreateObject(STLH,1955,360,-1);
 
   //Selbstschussanlagen und Konsolen
@@ -526,14 +526,12 @@ func CreateFurniture()
   aSelfDefense[0]->Arm(MISA);
   aSelfDefense[0]->TurnOn();
   aSelfDefense[0]->SetAutoRepair(1500);
-  aSelfDefense[0]->SetTeam(AS_GetDefenderTeam());
   CreateObject(CONS, 1050, 550, -1)->Set(aSelfDefense[0]);
 
   aSelfDefense[1]=CreateObject(SEGU,1495,369,-1);
   aSelfDefense[1]->Arm(MISA);
   aSelfDefense[1]->TurnOn();
   aSelfDefense[1]->SetAutoRepair(1500);
-  aSelfDefense[1]->SetTeam(AS_GetDefenderTeam());
 
   //Sounds
 
@@ -721,9 +719,9 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
    DecoExplode(30, aSelfDefense[1]);
 
    //Lampen deaktivieren
-   aLamp2[3]->EMPShock();
-   aLamp2[4]->EMPShock();
-   aLamp2[5]->EMPShock();
+   aLamp2[3]->TurnOff();
+   aLamp2[4]->TurnOff();
+   aLamp2[5]->TurnOff();
 
    //Risse
    CreateObject(FAUD, 1805, 430, -1)->Set(2);
