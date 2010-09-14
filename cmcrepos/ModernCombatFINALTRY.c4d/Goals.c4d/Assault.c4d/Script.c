@@ -91,8 +91,8 @@ public func ReportAssaultTargetDestruction(object pTarget, int iTeam)
 
   //Und gleich mal bekanntgeben
   EventInfo4K(0, Format("$TargetDestruction$", GetTeamColor(iTeam), GetName(pTarget)), GBAS, 0, 0, 0, "Info4.ogg");
-  GameCall("OnAssaultTargetDestruction", pTarget, iTeam, FindInArray4K(aTargets[iTeam], pTarget));
-  if (pTarget)
+  var extra = GameCall("OnAssaultTargetDestruction", pTarget, iTeam, FindInArray4K(aTargets[iTeam], pTarget));
+  if (pTarget && !(extra & AS_NoDestruction))
     Explode(50, pTarget);
 
   //Verteidiger haben keine Ziele mehr
@@ -102,7 +102,8 @@ public func ReportAssaultTargetDestruction(object pTarget, int iTeam)
 	    EventInfo4K(GetPlayerByIndex(i)+1, "$NoTargets$", GASS, 0, 0, 0, "Alarm.ogg");
 
   //Tickets resetten
-  iTickets = iStartTickets;
+  if (!(extra & AS_NoTicketReset))
+    iTickets = iStartTickets;
 }
 
 public func TeamGetScore(int iTeam)
