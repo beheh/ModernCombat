@@ -219,7 +219,7 @@ protected func InitScoreboard()
   //Überschriften
   SetScoreboardData(SBRD_Caption, SBRD_Caption, Format("%s",GetName()), SBRD_Caption);
   SetScoreboardData(SBRD_Caption, GOCC_FlagColumn, "{{OSPW}}", SBRD_Caption);
-  SetScoreboardData(SBRD_Caption, GOCC_ProgressColumn, "{{IC02}}", SBRD_Caption);
+  SetScoreboardData(SBRD_Caption, GOCC_ProgressColumn, "{{SM02}}", SBRD_Caption);
 
   UpdateScoreboard();
 
@@ -267,7 +267,7 @@ private func UpdateScoreboard()
     if(TeamAlive(iTeam))
     {
       SetScoreboardData(i, GOCC_FlagColumn, Format("<c %x>%s</c>", GetTeamColor(iTeam), GetTeamName(iTeam)), base+2+GetFlagCount()-GetFlagCount(iTeam));
-      SetScoreboardData(i, GOCC_ProgressColumn, Format("%d {{IC03}}", GetTickets(iTeam)), base+2+iStartTickets-GetTickets(iTeam));
+      SetScoreboardData(i, GOCC_ProgressColumn, Format("%d {{SM03}}", GetTickets(iTeam)), base+2+iStartTickets-GetTickets(iTeam));
     }
     else
     {
@@ -413,7 +413,7 @@ public func TicketsLow(int iRemaining, int iTeam)
     if(GetPlayerTeam(GetPlayerByIndex(i)) == iTeam)
     {
       //Nachricht über Tickettiefstand
-      EventInfo4K(GetPlayerByIndex(i)+1,Format("$MsgTicketsLow$",iRemaining),IC03,0,0,0,"Alarm.ogg");
+      EventInfo4K(GetPlayerByIndex(i)+1,Format("$MsgTicketsLow$",iRemaining),SM03,0,0,0,"Alarm.ogg");
     }
   }
   return true;
@@ -426,7 +426,7 @@ public func NoTickets(int iTeam)
     if(GetPlayerTeam(GetPlayerByIndex(i)) == iTeam)
     {
       //Nachricht über Verlust aller Tickets
-      EventInfo4K(GetPlayerByIndex(i)+1,Format("$MsgNoTickets$"),IC03,0,0,0,"Alarm.ogg");
+      EventInfo4K(GetPlayerByIndex(i)+1,Format("$MsgNoTickets$"),SM03,0,0,0,"Alarm.ogg");
     }
   }
   return true;

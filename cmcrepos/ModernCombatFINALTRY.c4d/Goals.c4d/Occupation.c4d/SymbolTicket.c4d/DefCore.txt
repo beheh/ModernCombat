@@ -1,5 +1,5 @@
 [DefCore]
-id=IC03
+id=SM03
 Name=Symbol
 Version=4,9,5
 Category=1
