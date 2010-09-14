@@ -1,1 +1,1 @@
-Colors the players view.
+Controls the colouring of player views.

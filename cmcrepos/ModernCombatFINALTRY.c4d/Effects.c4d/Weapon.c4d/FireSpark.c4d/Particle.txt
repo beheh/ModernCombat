@@ -1,0 +1,11 @@
+[Particle]
+Name=FireSpark
+MaxCount=500
+InitFn=StdInit
+ExecFn=StdExec
+DrawFn=Std
+Face=0,0,32,32,-16,-16
+GravityAcc=0
+Additive=1
+Attach=1
+AlphaFade=20
