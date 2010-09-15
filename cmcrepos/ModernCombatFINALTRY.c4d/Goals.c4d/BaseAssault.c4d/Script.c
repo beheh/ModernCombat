@@ -15,6 +15,7 @@ public func ReportAssaultTargetDestruction(object pTarget, int iTeam)
   var extra = GameCall("OnAssaultTargetDestruction", pTarget, iTeam, FindInArray4K(aTargets[iTeam], pTarget));
   if (pTarget && !(extra & AS_NoDestruction))
     Explode(50, pTarget);
+  RemoveEffect("IntAssaultTarget", pTarget);
 
   //Alle Ziele des Teams wurden zerstört! Warnung ausgeben
   if (!ObjectCount2(Find_InArray(aTargets[iTeam])))
