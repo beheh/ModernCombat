@@ -703,9 +703,18 @@ public func ChooserFinished()
    AddAssaultTarget(CMSN, 2720, 340, 250, 2, "$Flag2$", 1, [[[2870, 410], [2980, 370], [2970, 510]], [[1670, 440], [1790, 430], [1880, 420]]]);
    AddAssaultTarget(CMSN, 3580, 630, 300, 2, "$Flag3$", 2, [[[3795, 410], [3795, 530], [3690, 330]], [[2690, 410], [2710, 510], [2840, 592]]]);
    AddAssaultTarget(CMSN, 4520, 390, 300, 2, "$Flag4$", 3, [[[4760, 460], [4870, 440], [5000, 390]], [[3570, 330], [3600, 410], [3470, 630]]]);
-   AddAssaultTarget(CMSN, 5640, 340, 300, 2, "$Flag5$", 4, [[[6040, 380], [6040, 570], [6180, 380]], [[4290, 410], [4320, 470], [4320, 580]]]);
+   AddAssaultTarget(CMSN, 5720, 550, 300, 2, "$Flag5$", 4, [[[6040, 380], [6040, 570], [6180, 380]], [[4290, 410], [4320, 470], [4320, 580]]]);
    AddAssaultTarget(CMSN, 6440, 340, 350, 2, "$Flag6$", 5, [[[6560, 410], [6880, 510], [6520, 640]], [[5630, 400], [5630, 470], [5730, 550]]]);
-   AddAssaultTarget(CMSN, 7230, 360, 350, 2, "$Flag7$", 6, [[[7580, 510], [7565, 410], [7750, 320]], [[6410, 340], [6460, 510], [6370, 510]]]);
+   AddAssaultTarget(CMSN, 7210, 430, 350, 2, "$Flag7$", 6, [[[7580, 510], [7565, 410], [7750, 320]], [[6410, 340], [6460, 510], [6370, 510]]]);
+
+   //Spinds entfernen
+   RemoveObject(FindObject2(Find_ID(LCKR),Find_InRect(5680, 510, 80, 80)));
+
+   //Automat entfernen
+   RemoveObject(FindObject2(Find_ID(CLVM),Find_InRect(7200, 390, 40, 40)));
+
+   //Spawnpoint entfernen
+   RemoveObject(FindObject2(Find_ID(RSPT),Find_InRect(7224, 419, 3, 3)));
   }
 
   //OP-Spielziel
@@ -929,7 +938,6 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
    CreateObject(BRDR, 6210, 0, -1)->Set(1,1);
 
    //Spawnpoints entfernen
-   RemoveObject(FindObject2(Find_ID(VSPW),Find_AtPoint(4700,290)));
    RemoveObject(FindObject2(Find_ID(VSPW),Find_InRect(4699, 289, 2, 2)));
   }
 

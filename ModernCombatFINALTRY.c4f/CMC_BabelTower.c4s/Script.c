@@ -333,13 +333,11 @@ func CreateFurniture()
   //Basis 2
   aSelfDefense[0] = CreateObject (SEGU, 465, 698, -1);
   aSelfDefense[0]->Arm(MISA);
-  aSelfDefense[0]->TurnOn();
   aSelfDefense[0]->SetAutoRepair(1500);
   CreateObject(CONS, 465, 645, -1)->Set(aSelfDefense[0]);
 
   aSelfDefense[1] = CreateObject (SEGU, 705, 698, -1);
   aSelfDefense[1]->Arm(MISA);
-  aSelfDefense[1]->TurnOn();
   aSelfDefense[1]->SetAutoRepair(1500);
   CreateObject(CONS, 705, 645, -1)->Set(aSelfDefense[1]);
 
@@ -503,6 +501,10 @@ public func ChooserFinished()
    //SSA Besitzer setzen
    if(aTeams[1] == true)
    {aSelfDefense[0]->SetTeam(1); aSelfDefense[1]->SetTeam(1);}
+
+   //SSA anschalten
+   aSelfDefense[0]->TurnOn();
+   aSelfDefense[1]->TurnOn();
 
    //Flaggen
    aFlag[0] = CreateObject(OFPL,585,160,NO_OWNER);
