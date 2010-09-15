@@ -490,10 +490,11 @@ func FlagCaptured(object pPoint, int iTeam)
   if(pPoint == aFlag[0])
    aSelfDefense[0]->SetTeam(iTeam);
 
-  if(pPoint == aFlag[2]) {
+  if(pPoint == aFlag[2])
+  {
    aSelfDefense[1]->SetTeam(iTeam);
    aSelfDefense[2]->SetTeam(iTeam);
-	}
+  }
 
   if(pPoint == aFlag[4])
    aSelfDefense[3]->SetTeam(iTeam);
