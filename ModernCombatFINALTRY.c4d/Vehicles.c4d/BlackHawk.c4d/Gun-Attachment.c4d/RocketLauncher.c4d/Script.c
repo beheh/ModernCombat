@@ -19,16 +19,20 @@ public func FMData1(int data)
   if(data == FM_Name)		return "$Missiles$";
 
   if(data == FM_AmmoID)		return MIAM;
-  if(data == FM_AmmoLoad)	return 1;
+  if(data == FM_AmmoLoad)	return 4;
 
   if(data == FM_Reload)		return 190;
 
-  if(data == FM_Aim)		return 1;
-  if(data == FM_Damage)		return 30;
+  if(data == FM_BurstAmount)	return 4;
+  if(data == FM_BurstRecharge)	return 10;
+
+  if(data == FM_Damage)		return 10;
 
   if(data == FM_Slot)		return 1;
 
   if(data == FM_SpreadAdd)	return 300;
+  if(data == FM_StartSpread)	return 100;
+  if(data == FM_MaxSpread)	return 400;
 
   return Default(data);
 }
@@ -62,13 +66,13 @@ public func LaunchRocket(id rid, int angle, int dmg)
 
   var rocket = CreateObject(rid,x,y+10,GetController(user));
   rocket->Launch(angle, dmg, user);
+  rocket->Sound("RLSA_Fire*.ogg");
   SetController(GetController(user), rocket);
   
   SetPlrView(GetController(user), rocket);
   pRocket = rocket;
 
   //Effekte
-  Sound("RTLR_Launch*.ogg");
   var ax, ay, xdir, ydir;
   user->WeaponBegin(ax,ay);
   xdir = ax-x;
