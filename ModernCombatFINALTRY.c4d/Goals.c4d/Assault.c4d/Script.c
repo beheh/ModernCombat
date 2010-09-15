@@ -7,6 +7,7 @@ local iDefender;		//Verteidiger-Team
 local iTickets;			//Tickets für die Angreifer
 local iStartTickets;
 local aSpawns;			//Spawnpunkte
+local Connected;		//Verbundene Ziele
 
 /* Initialisierung */
 
@@ -15,6 +16,7 @@ protected func Initialize()
   iDefender = -1;
   iStartTickets = 10;
   aSpawns = [[],[]];
+  Connected = [];
   return _inherited(...);
 }
 
@@ -94,6 +96,7 @@ public func ReportAssaultTargetDestruction(object pTarget, int iTeam)
   var extra = GameCall("OnAssaultTargetDestruction", pTarget, iTeam, FindInArray4K(aTargets[iTeam], pTarget));
   if (pTarget && !(extra & AS_NoDestruction))
     Explode(50, pTarget);
+  RemoveEffect("IntAssaultTarget", pTarget);
 
   //Verteidiger haben keine Ziele mehr
   if (!ObjectCount2(Find_InArray(aTargets[iTeam])))
@@ -111,6 +114,26 @@ public func TeamGetScore(int iTeam)
   if (iTeam == iDefender)
     return ObjectCount2(Find_InArray(aTargets[iDefender]));
   return iTickets;
+}
+
+global func ConnectAssaultTargets()
+{
+  var goal = FindObject2(Find_Func("IsCMCAssaultGoal"));
+  if (goal)
+    return goal->~ConnectAssaultTargets(...);
+}
+
+public func ConnectAssaultTargets(array a)
+{
+  for (var i in a)
+  {
+    if (!Connected[i])
+	  Connected[i] = [];
+	for (var j in a)
+	  if (j != i)
+	    Connected[i][GetLength(Connected[i])] = j;
+  }
+  return true;
 }
 
 /* Relaunch */
@@ -229,12 +252,16 @@ public func GetRespawnPoint(int &iX, int &iY, int iTeam)
 static const GASS_Icon = 0;
 static const GASS_Name = 1;
 static const GASS_Count = 2;
+static const GASS_TargetRow = 4;
 
 public func UpdateScoreboard()
 {
   //Wird noch eingestellt
   if (FindObject(CHOS))
     return;
+
+  //Komplett leeren
+  ClearScoreboard();
 
   //Erst das nächste Ziel raussuchen
   var obj;
@@ -246,26 +273,22 @@ public func UpdateScoreboard()
   SetScoreboardData(SBRD_Caption, SBRD_Caption, GetName());
   SetScoreboardData(SBRD_Caption, GASS_Icon, Format("{{%i}}", GetID()));
   SetScoreboardData(SBRD_Caption, GASS_Name, Format("<c %x>$Targets$</c>", GetTeamColor(iDefender)));
-  SetScoreboardData(SBRD_Caption, GASS_Count, Format("<c %x>%d</c>", GetTeamColor(iDefender), ObjectCount2(Find_InArray(aTargets[iDefender]))));
+  SetScoreboardData(SBRD_Caption, GASS_Count, Format("<c %x>%d</c>", GetTeamColor(iDefender), ObjectCount2(Find_InArray(aTargets[iDefender]))), 0);
 
   //Zeile fürs nächste Ziel
   if (obj)
   {
-    SetScoreboardData(0, GASS_Icon, Format("{{%i}}", obj->GetImitationID()));
-	SetScoreboardData(0, GASS_Name, Format("<c %x>%s</c>", GetTeamColor(iDefender), GetName(obj)));
-	var effect = GetEffect("IntAssaultTarget", obj);
-	var percent = 100-GetDamage(obj)*100/EffectVar(0, obj, effect);
-	SetScoreboardData(0, GASS_Count, Format("<c %x>%d%</c>", GetTeamColor(iDefender), percent));
-  }
-  else
-  { 
-    SetScoreboardData(0, GASS_Icon);
-    SetScoreboardData(0, GASS_Name);
-	SetScoreboardData(0, GASS_Count);
+    //Ziel und zusammenhängende Ziele anzeigen
+	index = GetIndexOf(obj, aTargets[iDefender]);
+	AddScoreboardTarget(obj, index);
+	if (GetType(Connected[index]) == C4V_Array)
+	  for (var i; i < GetLength(Connected[index]); i++)
+	    if (Connected[index][i])
+		  AddScoreboardTarget(aTargets[iDefender][Connected[index][i]], Connected[index][i]);
   }
 
   //Leerzeile
-  SetScoreboardData(1, 0, "<c ffffffff> </c>");
+  SetScoreboardData(1, GASS_Count, "<c ffffffff> </c>", 2);
 
   //Tickets
   var string = Format("<c %x>$Attackers$</c>", RGB(255, 255, 255));
@@ -281,7 +304,28 @@ public func UpdateScoreboard()
   }
   SetScoreboardData(2, GASS_Icon, "{{SM03}}");
   SetScoreboardData(2, GASS_Name, string);
-  SetScoreboardData(2, GASS_Count, Format("<c %x>%d</c>", color, iTickets));
+  SetScoreboardData(2, GASS_Count, Format("<c %x>%d</c>", color, iTickets), 3);
+  
+  //Sortieren
+  SortScoreboard(GASS_Count);
+}
+
+private func ClearScoreboard()
+{
+  for (var i = 0; i < 32; i++)
+    for (var j = 0; j < 4; j++)
+	  SetScoreboardData(i,j);
+}
+
+private func AddScoreboardTarget(object pTarget, int iRow)
+{
+  if (!pTarget)
+    return;
+  SetScoreboardData(iRow+GASS_TargetRow, GASS_Icon, Format("{{%i}}", pTarget->GetImitationID()));
+  SetScoreboardData(iRow+GASS_TargetRow, GASS_Name, Format("<c %x>%s</c>", GetTeamColor(iDefender), GetName(pTarget)));
+  var effect = GetEffect("IntAssaultTarget", pTarget);
+  var percent = 100-GetDamage(pTarget)*100/EffectVar(0, pTarget, effect);
+  SetScoreboardData(iRow+GASS_TargetRow, GASS_Count, Format("<c %x>%d%</c>", GetTeamColor(iDefender), percent), 1);
 }
 
 /* Ziel */
