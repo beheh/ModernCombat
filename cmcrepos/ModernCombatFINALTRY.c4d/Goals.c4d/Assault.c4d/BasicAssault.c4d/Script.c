@@ -9,10 +9,6 @@ local aTargets;			//Ziele
 global func IsAssaultTarget()	{return GetEffect("IntAssaultTarget", this);}
 public func IsCMCAssaultGoal()	{return GetID() != CASS;}
 
-//OnAssaultTargetDestruction: Rückgabewerte
-static const AS_NoTicketReset = 2;
-static const AS_NoDestruction = 4;
-
 /* Initialisierung */
 
 protected func Initialize()

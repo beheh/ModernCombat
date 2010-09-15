@@ -86,27 +86,26 @@ public func AddAssaultTarget(id idTarget, int iX, int iY, int iMaxDamage, int iT
 
 public func ReportAssaultTargetDestruction(object pTarget, int iTeam)
 {
-  if (GetIndexOf(pTarget, aTargets[iTeam]) == -1)
+  var index = GetIndexOf(pTarget, aTargets[iTeam]);
+  if (index == -1)
     return;
 
   _inherited(pTarget, iTeam, ...);
 
   //Und gleich mal bekanntgeben
   EventInfo4K(0, Format("$TargetDestruction$", GetTeamColor(iTeam), GetName(pTarget)), GBAS, 0, 0, 0, "Info4.ogg");
-  var extra = GameCall("OnAssaultTargetDestruction", pTarget, iTeam, FindInArray4K(aTargets[iTeam], pTarget));
-  if (pTarget && !(extra & AS_NoDestruction))
+  GameCall("OnAssaultTargetDestruction", pTarget, iTeam, FindInArray4K(aTargets[iTeam], pTarget));
+  if (pTarget)
     Explode(50, pTarget);
-  RemoveEffect("IntAssaultTarget", pTarget);
 
-  //Verteidiger haben keine Ziele mehr
-  if (!ObjectCount2(Find_InArray(aTargets[iTeam])))
-    for (var i = 0; i < GetPlayerCount(); i++)
-	  if (GetPlayerTeam(GetPlayerByIndex(i)) == iTeam)
-	    EventInfo4K(GetPlayerByIndex(i)+1, "$NoTargets$", GASS, 0, 0, 0, "Alarm.ogg");
-
-  //Tickets resetten
-  if (!(extra & AS_NoTicketReset))
+  //Tickets resetten, bei verbundenen nur wenn alle Ziele zerstört sind
+  if (GetType(Connected[index]) != C4V_Array)
     iTickets = iStartTickets;
+  else
+    for (var i in Connected[index])
+	  if (aTargets[iDefender][i])
+	    return;
+  iTickets = iStartTickets;
 }
 
 public func TeamGetScore(int iTeam)
@@ -287,8 +286,9 @@ public func UpdateScoreboard()
 		  AddScoreboardTarget(aTargets[iDefender][Connected[index][i]], Connected[index][i]);
   }
 
-  //Leerzeile
-  SetScoreboardData(1, GASS_Count, "<c ffffffff> </c>", 2);
+  //Leerzeilen
+  SetScoreboardData(0, GASS_Count, "<c ffffffff> </c>", 1);
+  SetScoreboardData(1, GASS_Count, "<c ffffffff> </c>", 3);
 
   //Tickets
   var string = Format("<c %x>$Attackers$</c>", RGB(255, 255, 255));
@@ -304,7 +304,7 @@ public func UpdateScoreboard()
   }
   SetScoreboardData(2, GASS_Icon, "{{SM03}}");
   SetScoreboardData(2, GASS_Name, string);
-  SetScoreboardData(2, GASS_Count, Format("<c %x>%d</c>", color, iTickets), 3);
+  SetScoreboardData(2, GASS_Count, Format("<c %x>%d</c>", color, iTickets), 4);
   
   //Sortieren
   SortScoreboard(GASS_Count);
@@ -312,8 +312,8 @@ public func UpdateScoreboard()
 
 private func ClearScoreboard()
 {
-  for (var i = 0; i < 32; i++)
-    for (var j = 0; j < 4; j++)
+  for (var i = 0; i < 20; i++)
+    for (var j = 0; j < 3; j++)
 	  SetScoreboardData(i,j);
 }
 
@@ -325,7 +325,7 @@ private func AddScoreboardTarget(object pTarget, int iRow)
   SetScoreboardData(iRow+GASS_TargetRow, GASS_Name, Format("<c %x>%s</c>", GetTeamColor(iDefender), GetName(pTarget)));
   var effect = GetEffect("IntAssaultTarget", pTarget);
   var percent = 100-GetDamage(pTarget)*100/EffectVar(0, pTarget, effect);
-  SetScoreboardData(iRow+GASS_TargetRow, GASS_Count, Format("<c %x>%d%</c>", GetTeamColor(iDefender), percent), 1);
+  SetScoreboardData(iRow+GASS_TargetRow, GASS_Count, Format("<c %x>%d%</c>", GetTeamColor(iDefender), percent), 2);
 }
 
 /* Ziel */
