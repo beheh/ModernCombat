@@ -638,6 +638,8 @@ public func ChooserFinished()
    AddAssaultTarget(CMSN, 2350, 212, 300, 2, "$Target6$", 5, [[[1880, 110], [2050, 110]], [[1840, 490], [1880, 490]]]);
    AddAssaultTarget(CMSN, 2460, 322, 350, 2, "$Target7$", 6, [[[1880, 110], [2050, 110]], [[1840, 490], [1880, 490]]]);
    AddAssaultTarget(CMSN, 2455, 502, 350, 2, "$Target8$", 7, [[[1880, 110], [2050, 110]], [[1840, 490], [1880, 490]]]);
+   
+   ConnectAssaultTargets([3, 4, 5, 6, 7]);
   }
 
   //OP-Spielziel
@@ -923,6 +925,7 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
    Smoke(2455, 490, 50);
 
    Sound("Announce4.ogg");
+  }
 }
 
 /* Relaunch */
