@@ -1,0 +1,11 @@
+CreatingFurniture=Creating furniture...
+CreatingEquipment=Placing equipment...
+
+Team1=Aggressors
+Team2=Eurocorps
+
+Flag1=Eurocorps Airbase
+Flag2=West Depot
+Flag3=East Depot
+Flag4=Aggressors' Base
+Flag5=Shooter Bunker

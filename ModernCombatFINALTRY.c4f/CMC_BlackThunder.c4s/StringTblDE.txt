@@ -1,0 +1,11 @@
+CreatingFurniture=Szenario wird eingerichtet...
+CreatingEquipment=Ausrüstung wird plaziert...
+
+Team1=Aggressoren
+Team2=Eurocorps
+
+Flag1=Eurocorps Luftwaffenbasis
+Flag2=Westliches Depot
+Flag3=Östliches Depot
+Flag4=Aggressorenstützpunkt
+Flag5=Schützenbunker
