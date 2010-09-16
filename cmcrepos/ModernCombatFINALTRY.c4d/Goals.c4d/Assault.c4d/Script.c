@@ -135,6 +135,14 @@ public func ConnectAssaultTargets(array a)
   return true;
 }
 
+private func GetNextTarget()
+{
+  for (var i; i < GetLength(aTargets[iDefender]); i++)
+    if (aTargets[iDefender][i])
+	  return i;
+  return -1;
+}
+
 /* Relaunch */
 
 public func OnClassSelection(object pCrew)
@@ -152,6 +160,10 @@ public func RelaunchPlayer(int iPlr, pClonk, int iKiller)
 	Money(iPlr, pClonk, iKiller);
   }
 
+  //Noch gar keine Ziele: Kurz warten
+  if (!GetLength(aTargets[iDefender]))
+    return;
+
   var index = GASS_Spawn_Att;
   //Verteidiger?
   if (GetPlayerTeam(iPlr) == iDefender)
@@ -166,12 +178,13 @@ public func RelaunchPlayer(int iPlr, pClonk, int iKiller)
   }
   else
     //Verteidiger: Keine Ziele?
-	if (!ObjectCount2(Find_InArray(aTargets[iDefender])))
-	  return EliminatePlayer(iPlr);
+	if (GetLength(aTargets))
+	  if (!ObjectCount2(Find_InArray(aTargets[iDefender])))
+	    return EliminatePlayer(iPlr);
 
   //Kein Verteidiger? Ticket-Abzug
   if (GetPlayerTeam(iPlr) != iDefender && iKiller != -2)
-	iTickets = Max(iTickets-1);	  
+	iTickets = Max(iTickets-1);
 	
   //Clonk wegstecken
   var pCrew = GetCrew(iPlr);
@@ -185,11 +198,7 @@ public func RelaunchPlayer(int iPlr, pClonk, int iKiller)
 
   //Spawnpunkt raussuchen
   if (ObjectCount2(Find_InArray(aTargets[iDefender])))
-  {
-    for (var target_index; target_index < GetLength(aTargets[iDefender]); target_index++)
-      if (aTargets[iDefender][target_index])
-	    break;
-  }
+    var target_index = GetNextTarget();
   else
     var target_index = GetLength(aTargets[iDefender])-1;
 
@@ -201,8 +210,17 @@ public func RelaunchPlayer(int iPlr, pClonk, int iKiller)
 protected func WaitForJoin(int iPlr)
 {
   //Es gibt wieder Tickets!
-  if (iTickets)
+  if (iTickets || !ObjectCount2(Find_InArray(aTargets[iDefender])))
     return RelaunchPlayer(iPlr, GetCrew(iPlr), -2);
+
+  //Wegstecken falls nötig
+  if (!Contained(GetCrew(iPlr)))
+  {
+    var target = aTargets[iDefender][GetNextTarget()];
+    var tim = CreateObject(TIM1, GetX(target)-GetX(), GetY(target)-GetY(), -1);
+	Enter(tim, GetCrew(iPlr));
+	SetPlrViewRange(150, tim);
+  }
 
   //Alle anderen Angreifer sind tot -> verloren!
   var alive;
@@ -227,22 +245,20 @@ public func GetRespawnPoint(int &iX, int &iY, int iTeam)
     index = GASS_Spawn_Def;
 
   //Erstmal checken
-  if (GetType(aTargets) != C4V_Array || !GetLength(aTargets))
+  if (GetType(aTargets) != C4V_Array || !GetLength(aTargets[iDefender]))
     return;
 
   //Nächstes Ziel suchen
   var target;
   if (ObjectCount2(Find_InArray(aTargets[iDefender])))
-    for (target = 0; target < GetLength(aTargets); target++)
-	  if (aTargets[iDefender][target])
-	    break;
+    target = GetNextTarget();
 
   //Kein Ziel? Einfach 0 zurückgeben
   if (!aTargets[iDefender][target])
     return;
 
   iX = aSpawns[target][index][0][0];
-  iY = aSpawns[target][index][0][1];
+  iY = aSpawns[target][index][0][1]-10;
   return true;
 }
 
@@ -263,10 +279,7 @@ public func UpdateScoreboard()
   ClearScoreboard();
 
   //Erst das nächste Ziel raussuchen
-  var obj;
-  for (var index; index < GetLength(aTargets[iDefender]); index++)
-    if (obj = aTargets[iDefender][index])
-	  break;
+  var obj = aTargets[iDefender][GetNextTarget()];
 
   //Titelzeile
   SetScoreboardData(SBRD_Caption, SBRD_Caption, GetName());
@@ -278,7 +291,7 @@ public func UpdateScoreboard()
   if (obj)
   {
     //Ziel und zusammenhängende Ziele anzeigen
-	index = GetIndexOf(obj, aTargets[iDefender]);
+	var index = GetIndexOf(obj, aTargets[iDefender]);
 	AddScoreboardTarget(obj, index);
 	if (GetType(Connected[index]) == C4V_Array)
 	  for (var i; i < GetLength(Connected[index]); i++)

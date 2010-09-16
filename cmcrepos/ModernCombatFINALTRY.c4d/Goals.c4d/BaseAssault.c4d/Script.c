@@ -122,11 +122,13 @@ public func RelaunchPlayer(int iPlr, pClonk, int iKiller)
   }
 
   var pCrew = GetCrew(iPlr);
+
   if (!pCrew || iPlr == -1) return;
 
   //Team hat keine Ziele mehr - Spieler eliminieren
-  if (!ObjectCount2(Find_InArray(aTargets[GetPlayerTeam(iPlr)])))
-    return EliminatePlayer(iPlr);
+  if (GetLength(aTargets))
+    if (!ObjectCount2(Find_InArray(aTargets[GetPlayerTeam(iPlr)])))
+      return EliminatePlayer(iPlr);
 
   //Clonk wegstecken
   var tim = CreateObject(TIM2, LandscapeWidth()/2, LandscapeHeight()/2, -1);
