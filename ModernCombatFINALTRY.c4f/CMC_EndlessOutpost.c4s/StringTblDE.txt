@@ -10,11 +10,11 @@ Flag2=Lobby
 Flag3=Lagerhalle
 Flag4=Bürokomplex
 
-Target1=Steuerungseinheit
-Target2=Lüftungssystem
-Target3=Energieumwandler
-Target4=Kontrollanzeige
+Target1=Radaranlage
+Target2=Kommunikationsserver
+Target3=Überwachungssystem
+Target4=Wasserfilter
 Target5=Generator
 Target6=Zentralserver
-Target7=Verteiler
-Target8=Backupserver
+Target7=Sekundäre Radaranlage
+Target8=Datenserver
