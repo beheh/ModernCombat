@@ -68,12 +68,12 @@ public func LaunchRocket(id rid, int angle, int dmg)
   var rocket = CreateObject(rid,x,y+10,GetController(user));
   rocket->Launch(angle, dmg, user);
   SetController(GetController(user), rocket);
-  
+
   SetPlrView(GetController(user), rocket);
   pRocket = rocket;
 
   //Effekte
-  Sound("RTLR_Launch*.ogg");
+  Sound("RTLR_Launch*.ogg", rocket);
   var ax, ay, xdir, ydir;
   user->WeaponBegin(ax,ay);
   xdir = ax-x;

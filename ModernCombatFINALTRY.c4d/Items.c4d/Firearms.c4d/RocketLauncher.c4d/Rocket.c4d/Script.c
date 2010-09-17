@@ -10,7 +10,7 @@ public func MaxTime()		{return 200;}
 public func MaxSpeed()		{return 100;}
 protected func SecureDistance()	{return 100;} //Mindestabstand
 public func IgnoreTracer()	{return true;}
-public func IsDamaged()	{return GetEffect("Damaged", this);}
+public func IsDamaged()		{return GetEffect("Damaged", this);}
 
 /* Start */
 
@@ -71,63 +71,72 @@ public func FxFollowStart(object pTarget, int iEffectNumber, int iTemp, obj)
 public func FxFollowTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
   //Ziel noch gültig?
-  if(EffectVar(1,pTarget,iEffectNumber)) {
+  if(EffectVar(1,pTarget,iEffectNumber))
+  {
     var pEnemy = EffectVar(1,pTarget,iEffectNumber);
     var del = false;
-  	if(!GetEffect("TracerDart", pEnemy)) del = true;
-		if(!PathFree(GetX(pTarget), GetY(pTarget), GetX(pEnemy), GetY(pEnemy))) del = true;
-		if(del) EffectVar(1,pTarget,iEffectNumber) = 0;
+      if(!GetEffect("TracerDart", pEnemy)) del = true;
+        if(!PathFree(GetX(pTarget), GetY(pTarget), GetX(pEnemy), GetY(pEnemy))) del = true;
+          if(del) EffectVar(1,pTarget,iEffectNumber) = 0;
   }
   //Haben wir noch ein Ziel?
-  if(!EffectVar(1,pTarget,iEffectNumber)) {
-  	var pEnemies = FindObjects(Find_Distance(300, GetX(pTarget), GetY(pTarget)), Sort_Distance(GetX(pTarget), GetY(pTarget)));
-		for(var pEnemy in pEnemies) {
-		  var iEffectTracer = GetEffect("TracerDart", pEnemy);
-		  if(!iEffectTracer) continue;
-		  var iPlr = EffectVar(0, pEnemy, iEffectTracer);
-		  var iTeam = EffectVar(2, pEnemy, iEffectTracer);
-      if(iTeam != GetPlayerTeam(GetController(pTarget))) continue;
-		  if(!PathFree(GetX(pTarget), GetY(pTarget), GetX(pEnemy), GetY(pEnemy))) continue;
-		  EffectVar(1, pTarget, iEffectNumber) = pEnemy;
-      Sound("BBTP_Alarm.ogg", false, this);
-		  break;
-		}
+  if(!EffectVar(1,pTarget,iEffectNumber))
+  {
+    var pEnemies = FindObjects(Find_Distance(300, GetX(pTarget), GetY(pTarget)), Sort_Distance(GetX(pTarget), GetY(pTarget)));
+      for(var pEnemy in pEnemies)
+      {
+        var iEffectTracer = GetEffect("TracerDart", pEnemy);
+        if(!iEffectTracer) continue;
+          var iPlr = EffectVar(0, pEnemy, iEffectTracer);
+          var iTeam = EffectVar(2, pEnemy, iEffectTracer);
+        if(iTeam != GetPlayerTeam(GetController(pTarget))) continue;
+          if(!PathFree(GetX(pTarget), GetY(pTarget), GetX(pEnemy), GetY(pEnemy))) continue;
+          EffectVar(1, pTarget, iEffectNumber) = pEnemy;
+        Sound("BBTP_Alarm.ogg", false, this);
+        break;
+      }
   }
   //Soll-Winkel
   var iDAngle;
   var iMaxTurn;
-  //Sonst anvisieren!
-  if(EffectVar(1,pTarget,iEffectNumber)) {
-  	var pEnemy = EffectVar(1,pTarget,iEffectNumber);
-  	iDAngle = Angle(AbsX(GetX(pTarget)), AbsY(GetY(pTarget)), AbsX(GetX(pEnemy)), AbsY(GetY(pEnemy)));
-  	iMaxTurn = 8;
+  //Sonst anvisieren
+  if(EffectVar(1,pTarget,iEffectNumber))
+  {
+    var pEnemy = EffectVar(1,pTarget,iEffectNumber);
+    iDAngle = Angle(AbsX(GetX(pTarget)), AbsY(GetY(pTarget)), AbsX(GetX(pEnemy)), AbsY(GetY(pEnemy)));
+    iMaxTurn = 8;
   }
-  else {
+  else
+  {
     var obj = EffectVar(0,pTarget,iEffectNumber);
-		if(!obj)
-		 return;
-		//Schütze nicht mehr am Zielen?
-		if(!obj->~IsAiming())
-		 return;
+      if(!obj)
+        return;
+    //Schütze nicht mehr am Zielen?
+    if(!obj->~IsAiming())
+      return;
 
-		iDAngle = obj->AimAngle();
-		iMaxTurn = 6;
+    iDAngle = obj->AimAngle();
+    iMaxTurn = 6;
   }
-	var iAngle = GetR(pTarget);
+  var iAngle = GetR(pTarget);
 
-	var iDiff = Normalize(iDAngle - iAngle,-180);
-	var iTurn = Min(Abs(iDiff),iMaxTurn);
+  var iDiff = Normalize(iDAngle - iAngle,-180);
+  var iTurn = Min(Abs(iDiff),iMaxTurn);
 
-	SetR(iAngle+iTurn*((iDiff > 0)*2-1), pTarget);
+  SetR(iAngle+iTurn*((iDiff > 0)*2-1), pTarget);
 }
 
 private func Traveling()
 {
+  //Maximalflugzeit erreicht? Explodieren
   if(GetActTime() >= MaxTime()) return Hit();
+
   //Im Wasser abstürzen
   if(GBackLiquid()) Fall();
+
   //Geschwindigkeit erhöhen
   Accelerate();
+
   //Rauchspur
   if(!GBackLiquid())Smoking();
 }
@@ -148,14 +157,14 @@ private func Smoking()
 
   for(var i=0; i<dist; i+=ptrdist)
   {
-   var x = -maxx*i/dist;
-   var y = -maxy*i/dist;
+    var x = -maxx*i/dist;
+    var y = -maxy*i/dist;
 
-   var rand = RandomX(-10,10);
-   var xdir = +Sin(GetR()+rand,8);
-   var ydir = -Cos(GetR()+rand,8);
+    var rand = RandomX(-10,10);
+    var xdir = +Sin(GetR()+rand,8);
+    var ydir = -Cos(GetR()+rand,8);
 
-   CreateParticle("Smoke3",x,y,xdir,ydir,RandomX(50,70),RGBa(255,255,255,85),0,0);
+    CreateParticle("Smoke3",x,y,xdir,ydir,RandomX(50,70),RGBa(255,255,255,85),0,0);
   }
 
   CreateParticle("MuzzleFlash2",-maxx,-maxy,+Sin(GetR()+180,500),-Cos(GetR()+180,500),RandomX(80,140),RGBa(255,200),this);
@@ -168,7 +177,7 @@ public func Damage()
   //Rakete abschießbar
   if(GetDamage() > 5 && !exploding)
   {
-   Fall();
+    Fall();
   }
 }
 
@@ -188,12 +197,12 @@ public func Hit()
 {
   if(GetAction() == "Idle")
   {
-   Explode(3);
-   if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("Smoke3",12,10,0,0,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
+    Explode(3);
+    if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("Smoke3",12,10,0,0,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
   }
   else
   {
-   HitObject();
+    HitObject();
   }
 }
 
@@ -202,33 +211,33 @@ private func HitObject(pObj)
 
   if(Secure() || GetAction() == "Idle")
   {
-   if(pObj)
-   {
-    DoDmg(Distance(GetXDir(),GetYDir())/5,DMG_Projectile,pObj);
-    if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("Smoke3",12,10,0,0,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
-    if(GetOCF(pObj) & OCF_Living)
+    if(pObj)
     {
-     Sound("SharpnelImpact*.ogg");
-     Fling(pObj,GetXDir()/15,GetYDir()/15-1);
+      DoDmg(Distance(GetXDir(),GetYDir())/5,DMG_Projectile,pObj);
+      if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("Smoke3",12,10,0,0,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
+      if(GetOCF(pObj) & OCF_Living)
+      {
+        Sound("SharpnelImpact*.ogg");
+        Fling(pObj,GetXDir()/15,GetYDir()/15-1);
+      }
+      else
+      {
+        Sound("BlockOff*.ogg");
+        Sparks(30,RGB(255,128));
+        if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("Smoke3",12,10,0,0,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
+      }
+      RemoveObject();
+      return;
     }
     else
     {
-     Sound("BlockOff*.ogg");
+     Sound("GrenadeHit*.ogg");
      Sparks(30,RGB(255,128));
      if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("Smoke3",12,10,0,0,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
+     RemoveObject();
+     return;
     }
-    RemoveObject();
-    return;
    }
-   else
-   {
-    Sound("GrenadeHit*.ogg");
-    Sparks(30,RGB(255,128));
-    if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("Smoke3",12,10,0,0,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
-    RemoveObject();
-    return;
-   }
-  }
 
   exploding = true;
   Sound("GrenadeExplosion*.ogg");
