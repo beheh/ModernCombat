@@ -159,7 +159,7 @@ protected func AbortCrawl()
      SetPosition(GetX()+dir,GetY());
     }
 
-		if(Stuck()) AutoUnstuck(this);
+		if(Stuck()) AutoUnstuck(this,0,-10);
 
     //SetPosition(GetX()+(GetDir()*2-1)*-4,GetY()+8+5);
     SetAction("Scale");
@@ -194,6 +194,7 @@ private func ResetVertices()
 public func FxIntCrawl2ScaleTimer()
 {
   SetXDir();
+  if(Stuck()) AutoUnstuck(this,0,-10);
   return -1;
 }
 
