@@ -38,18 +38,19 @@ func CreateFurniture()
 
   //Leitern
   CreateObject(LADR, 460, 540, -1)->Set(4);
-  CreateObject(LADR, 790, 750, -1)->Set(20);
+  CreateObject(LADR, 790, 750, -1)->Set(19);
   CreateObject(LADR, 1250, 844, -1)->Set(27);
 
   CreateObject(LADR, 2020, 850, -1)->Set(19);
   CreateObject(LADR, 2220, 850, -1)->Set(19);
 
   CreateObject(LADR, 2990, 844, -1)->Set(27);
-  CreateObject(LADR, 3450, 750, -1)->Set(20);
+  CreateObject(LADR, 3450, 750, -1)->Set(19);
   CreateObject(LADR, 3780, 540, -1)->Set(4);
 
   //Bodenlucken
   CreateObject(HA4K, 460, 503, -1);
+  CreateObject(HA4K, 790, 593, -1);
 
   CreateObject(HA4K, 1250, 623, -1);
   CreateObject(HA4K, 1250, 673, -1);
@@ -57,6 +58,7 @@ func CreateFurniture()
   CreateObject(HA4K, 2990, 623, -1);
   CreateObject(HA4K, 2990, 673, -1);
 
+  CreateObject(HA4K, 3450, 593, -1);
   CreateObject(HA4K, 3780, 503, -1);
 
   //Stahltüren
@@ -94,11 +96,14 @@ func CreateFurniture()
   CreateObject(RAI3, 350, 560, -1)->SetRail([1,1]);
   CreateObject(RAI1, 630, 590, -1)->SetRail([1,1,1,1,1,1,1,1]);
   CreateObject(RAI3, 1090, 670, -1);
-  CreateObject(RAI1, 1125, 620, -1)->SetRail([1,1,1,1,1,1,1,1]);
+
+  CreateObject(RAI1, 1125, 620, -1)->SetRail([1,1,1,1,1,1]);
+  CreateObject(RAI1, 1255, 620, -1);
   CreateObject(RAI3, 1440, 670, -1);
 
   CreateObject(RAI3, 2770, 670, -1);
-  CreateObject(RAI1, 2965, 620, -1)->SetRail([1,1,1,1,1,1,1,1]);
+  CreateObject(RAI1, 2960, 620, -1);
+  CreateObject(RAI1, 3000, 620, -1)->SetRail([1,1,1,1,1,1]);
   CreateObject(RAI3, 3120, 670, -1);
   CreateObject(RAI1, 3460, 590, -1)->SetRail([1,1,1,1,1,1,1,1]);
   CreateObject(RAI3, 3847, 560, -1)->SetRail([1,1]);
@@ -301,10 +306,10 @@ public func ChooserFinished()
    }
 
    //Zielobjekte
-   AddAssaultTarget(SADH, 485, 500, 400, 1, "$Flag1$", 0, [[480, 630], [510, 720], [585, 680]]);
-   AddAssaultTarget(CMSN, 1330, 670, 300, 1, "$Flag2$", 1, [[1160, 660], [1300, 840], [1455, 660]]);
-   AddAssaultTarget(SADH, 3755, 500, 400, 2, "$Flag4$", 2, [[3760, 630], [3730, 720], [3655, 680]]);
-   AddAssaultTarget(CMSN, 2910, 670, 300, 2, "$Flag3$", 3, [[3080, 660], [2940, 840], [2785, 660]]);
+   AddAssaultTarget(RADR, 485, 500, 400, 1, "$Flag1$", 0, [[480, 640], [510, 730], [585, 690]]);
+   AddAssaultTarget(CMSN, 1330, 670, 300, 1, "$Flag2$", 1, [[1160, 670], [1300, 850], [1455, 670]]);
+   AddAssaultTarget(RADR, 3755, 500, 400, 2, "$Flag4$", 2, [[3760, 640], [3730, 730], [3655, 690]]);
+   AddAssaultTarget(CMSN, 2910, 670, 300, 2, "$Flag3$", 3, [[3080, 670], [2940, 850], [2785, 670]]);
   }
 
   //OP-Spielziel
