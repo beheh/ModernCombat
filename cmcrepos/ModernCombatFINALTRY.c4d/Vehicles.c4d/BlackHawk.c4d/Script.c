@@ -45,9 +45,7 @@ public func IsBulletTarget(id idBullet, object pBullet)
   return 1;
 }
 
-/* ----- Existenz ----- */
-
-/* Initialisierung */
+/* ----- Initialisierung ----- */
 
 protected func Initialize()
 {
@@ -66,44 +64,23 @@ protected func Initialize()
   RocketStation = CreateObject(H_MA,0,0,GetOwner());
   RocketStation -> Set(this,40,10,210,270);
   RocketStation -> Arm(RLSA);
-  
+
   //Vertices richtig drehen
   ScheduleCall(this,"ChangeDir",1,2);
 
   //Eingang
   SetEntrance(true);
-  
+
   //Solidmask
   SetSolidMask();
-  
-  //fertig
+
   return _inherited();
 }
 
-//wird genutzt, den Landport davon abzuhalten, den zerstörten Heli zu versorgen
-func IsReady()
-{
-  return GetDamage() < MaxDamage() && GetContact(this, -1, CNAT_Bottom) && !destroyed;
-}
+/* ----- Erfassung ----- */
 
-/* Zerstörung */
-
-protected func Destruction()
-{
-  if(hud)
-    RemoveObject(hud);
-  if(MGStation)
-    RemoveObject(MGStation,true);
-  if(RocketStation)
-    RemoveObject(RocketStation,true);
-  return true;
-}
-
-public func GetPilot()
-{return Pilot;}
-
-public func GetThrottle()
-{return throttle;}
+public func GetPilot()		{return Pilot;}
+public func GetThrottle()	{return throttle;}
 
 public func GetRotorSpeed()
 {
@@ -150,10 +127,9 @@ public func GetRocket()
   return fRocket;
 }
 
-/* Autopilot */
+/* ----- Autopilot ----- */
 
-public func GetAutopilot()
-{return GetEffect("BlackhawkAutopilot", this);}
+public func GetAutopilot()	{return GetEffect("BlackhawkAutopilot", this);}
 
 public func SetAutopilot(object pTarget, int iX, int iY)
 {
@@ -162,8 +138,8 @@ public func SetAutopilot(object pTarget, int iX, int iY)
   var xto, yto;
   if(pTarget)
   {
-   xto = AbsX(GetX(pTarget));
-   yto = AbsY(GetY(pTarget));
+    xto = AbsX(GetX(pTarget));
+    yto = AbsY(GetY(pTarget));
   }
   xto += iX;
   yto += iY;
@@ -186,76 +162,95 @@ protected func FxBlackhawkAutopilotStart(object pTarget, int iNumber, iTemp, int
 
 protected func FxBlackhawkAutopilotTimer(object pTarget, int iNumber, int iTime)
 {
-	if(!pTarget->GetPilot()) return -1;
-	var iX = EffectVar(0, pTarget, iNumber);
-	var iY = EffectVar(1, pTarget, iNumber);
-	if(GetY(pTarget) < iY-50) {
-		if(GetYDir(pTarget) < 3 || GetContact(this, -1, CNAT_Bottom)) {
-			//vom Gas weg
-			if(GetAction()=="Fly" || GetAction()=="Turn")
-			throttle = BoundBy(throttle - auto_throttle_speed, 0, auto_max_throttle);
-			//Motor aus
-	    if (throttle == 0 && (GetAction()=="Fly" || GetAction()=="EngineStartUp")) {
-	    	SetAction("EngineShutDown");
-	   		return pTarget->ResetAutopilot();
-	   	}
-	  }
-	}
-	else if(GetY(pTarget) > iY+50) {
-		if(GetYDir(pTarget) > -3) {
-			if (throttle == 0 && (GetAction()=="Stand" || GetAction()=="EngineShutDown"))
-			SetAction("EngineStartUp");
-			//beim Flug mehr Schub
-			if (GetAction()=="Fly" || GetAction()=="Turn")
-			throttle = BoundBy(throttle + auto_throttle_speed, 0, auto_max_throttle);
-	  }
-	}
-	else {
-		if(!(iTime % BoundBy(5-GetYDir(pTarget), 5, 0)) && GetYDir(pTarget) > 0) {
-			//beim Flug mehr Schub
-			if (GetAction()=="Fly" || GetAction()=="Turn")
-			throttle = BoundBy(throttle + auto_throttle_speed, 0, auto_max_throttle);
-		}
-		else if(!(iTime % BoundBy(GetYDir(pTarget), 5, 0)) && GetYDir(pTarget) < 0) {
-			//vom Gas weg
-			if(GetAction()=="Fly" || GetAction()=="Turn")
-			throttle = BoundBy(throttle - auto_throttle_speed, 0, auto_max_throttle);
-		}
-	}
-	if(GetX(pTarget) > iX+50) {
-		 if (GetAction()=="Fly" || GetAction()=="Turn") 
-      rotation = BoundBy(rotation - control_speed, -auto_max_rotation, auto_max_rotation);
-     if (rotation < 0 && GetDir() && GetAction()=="Fly")
-			{
-			  if (GetAction() == "Turn" || GetContact(this, -1)) return true;
-			  SetAction("Turn");
-			}
-	}
-	else if(GetX(pTarget) < iX-50){
-		 if (GetAction()=="Fly" || GetAction()=="Turn") 
-      rotation = BoundBy(rotation + control_speed, -auto_max_rotation, auto_max_rotation);
-      if (rotation > 0 && !GetDir() && GetAction()=="Fly")
-			{
-			  if (GetAction() == "Turn" || GetContact(this, -1)) return true;
-			  SetAction("Turn");
-			}
-	}
-	else if(GetXDir() != 0) {
-		if(GetXDir(pTarget) < -1) {
-    	rotation = BoundBy(rotation + control_speed, 0, auto_max_rotation);
-		}
-		else if(GetXDir(pTarget) > 1) {
-    	rotation = BoundBy(rotation - control_speed, -auto_max_rotation, 0);
-		}
-		else {
-			if(GetXDir(pTarget) < 0) {
-		  	rotation = BoundBy(rotation - control_speed, 0, auto_max_rotation);
-			}
-			else if(GetXDir(pTarget) > 0) {
-		  	rotation = BoundBy(rotation + control_speed, -auto_max_rotation, 0);
-			}
-		}
-	}
+  if(!pTarget->GetPilot()) return -1;
+  var iX = EffectVar(0, pTarget, iNumber);
+  var iY = EffectVar(1, pTarget, iNumber);
+  if(GetY(pTarget) < iY-50)
+  {
+    if(GetYDir(pTarget) < 3 || GetContact(this, -1, CNAT_Bottom))
+    {
+      //vom Gas weg
+      if(GetAction()=="Fly" || GetAction()=="Turn")
+      throttle = BoundBy(throttle - auto_throttle_speed, 0, auto_max_throttle);
+      //Motor aus
+      if(throttle == 0 && (GetAction()=="Fly" || GetAction()=="EngineStartUp"))
+      {
+        SetAction("EngineShutDown");
+        return pTarget->ResetAutopilot();
+      }
+    }
+  }
+  else if(GetY(pTarget) > iY+50)
+  {
+    if(GetYDir(pTarget) > -3)
+    {
+      if(throttle == 0 && (GetAction()=="Stand" || GetAction()=="EngineShutDown"))
+      SetAction("EngineStartUp");
+      //beim Flug mehr Schub
+      if(GetAction()=="Fly" || GetAction()=="Turn")
+      throttle = BoundBy(throttle + auto_throttle_speed, 0, auto_max_throttle);
+    }
+  }
+  else
+  {
+    if(!(iTime % BoundBy(5-GetYDir(pTarget), 5, 0)) && GetYDir(pTarget) > 0)
+    {
+      //beim Flug mehr Schub
+      if(GetAction()=="Fly" || GetAction()=="Turn")
+      throttle = BoundBy(throttle + auto_throttle_speed, 0, auto_max_throttle);
+    }
+    else
+    if(!(iTime % BoundBy(GetYDir(pTarget), 5, 0)) && GetYDir(pTarget) < 0)
+    {
+      //vom Gas weg
+      if(GetAction()=="Fly" || GetAction()=="Turn")
+      throttle = BoundBy(throttle - auto_throttle_speed, 0, auto_max_throttle);
+    }
+  }
+  if(GetX(pTarget) > iX+50)
+  {
+    if (GetAction()=="Fly" || GetAction()=="Turn")
+    rotation = BoundBy(rotation - control_speed, -auto_max_rotation, auto_max_rotation);
+    if (rotation < 0 && GetDir() && GetAction()=="Fly")
+    {
+      if (GetAction() == "Turn" || GetContact(this, -1)) return true;
+      SetAction("Turn");
+    }
+  }
+  else
+  if(GetX(pTarget) < iX-50)
+  {
+    if (GetAction()=="Fly" || GetAction()=="Turn") 
+    rotation = BoundBy(rotation + control_speed, -auto_max_rotation, auto_max_rotation);
+    if (rotation > 0 && !GetDir() && GetAction()=="Fly")
+    {
+      if(GetAction() == "Turn" || GetContact(this, -1)) return true;
+      SetAction("Turn");
+    }
+  }
+  else
+  if(GetXDir() != 0)
+  {
+    if(GetXDir(pTarget) < -1)
+    {
+      rotation = BoundBy(rotation + control_speed, 0, auto_max_rotation);
+    }
+    else if(GetXDir(pTarget) > 1)
+    {
+      rotation = BoundBy(rotation - control_speed, -auto_max_rotation, 0);
+    }
+    else
+    {
+      if(GetXDir(pTarget) < 0)
+      {
+        rotation = BoundBy(rotation - control_speed, 0, auto_max_rotation);
+      }
+      else if(GetXDir(pTarget) > 0)
+      {
+        rotation = BoundBy(rotation + control_speed, -auto_max_rotation, 0);
+      }
+    }
+  }
   return FX_OK;
 }
 
@@ -263,9 +258,15 @@ protected func FxBlackhawkAutopilotTimer(object pTarget, int iNumber, int iTime)
 
 protected func Ejection(object ByObj)
 {
+  //Soundschleife übergeben
   Sound("CockpitRadio.ogg", true, 0, 100, GetOwner(ByObj)+1, -1);
+
+  //Sitz freimachen
   DeleteActualSeatPassenger(ByObj);
+
+  //Nicht bei Schaden
   if(GetDamage() >= MaxDamage()) return;
+
   if(ByObj != GetPilot() && PathFree(GetX(),GetY(),GetX(),GetY()+50))
   {
     AddEffect("CheckGround",ByObj,30,3,this,GetID(),this);
@@ -273,7 +274,6 @@ protected func Ejection(object ByObj)
   return true;
 }
 
-//herausgeworfene Objekte sollen vor der Tür erscheinen
 protected func ControlCommand(string Command, object Target, int TargetX, int TargetY, object target2, int Data, object ByObj)
 {
   if (Command == "Exit")
@@ -295,12 +295,15 @@ protected func Collection2(object pObj)
 {
   if(GetOCF(pObj) & OCF_Alive && GetOCF(pObj) & OCF_CrewMember)
   {
+    //Freund: Rein. Feind: Raus
     if(!Hostile(GetOwner(this),GetOwner(pObj)))
     {
       //Soundschleife übergeben
       Sound("CockpitRadio.ogg", true, 0, 100, GetOwner(pObj)+1, +1);
+
+      //Freien Sitz belegen
       if(!Pilot)
-        return EnterSeat1(0,pObj); //Blöde Platzhalter :/
+        return EnterSeat1(0,pObj);
       if(!Gunner)
         return EnterSeat2(0,pObj);
       if(!Coordinator)
@@ -310,7 +313,7 @@ protected func Collection2(object pObj)
       if(!Passenger2)
         return EnterSeat5(0,pObj);
     }
-    else //Feindliche Clonks kommen nicht rein.
+    else
       SetCommand(pObj, "Exit");
   }
 }
@@ -364,7 +367,7 @@ protected func ContainedDown(object ByObj)
   //Schütze
   if(ByObj == Gunner)
     MGStation->~ControlDown(ByObj);
-  //Coordinator
+  //Koordinator
   if(ByObj == Coordinator)
     RocketStation->~ControlDown(ByObj);
 
@@ -550,7 +553,7 @@ protected func ContainedThrow(object ByObj)
       }
       else
         SetVisibility(VIS_Owner, hud);
-    return Sound("SwitchHUD", false, this, 100, GetOwner(ByObj)+1);
+    return Sound("BKHK_Switch.ogg", false, this, 100, GetOwner(ByObj)+1);
   }
 
   //Schütze: Feuer eröffnen/einstellen
@@ -582,13 +585,13 @@ protected func ChangeDir()
   return true;
 }
 
-/* ----- Platzwechsel ----- */
+/* ----- Sitzsteuerung ----- */
 
-//Platz wechseln
 protected func ContainedDigDouble(object ByObj)
 {
   [$CtrlDigD$]
   CreateMenu(GetID(),ByObj,this,0,"$Seats$",0,1);
+
     //Ausstieg
     AddMenuItem("$Exit$", "ExitClonk",STDR,ByObj,0,ByObj,"$ExitDesc$");
 
@@ -604,7 +607,7 @@ protected func ContainedDigDouble(object ByObj)
     else
       AddMenuItem("<c 88ff88>$Gunner$</c>", "EnterSeat2",GetID(),ByObj,0,ByObj,"$GunnerDesc$");
 
-    //Raketen-Schütze
+    //Koordinator
     if(Coordinator)
       AddMenuItem("<c ff8888>$Coordinator$</c>", "SeatOccupied",GetID(),ByObj,0,ByObj,"$SeatOccupied$");
     else
@@ -621,20 +624,24 @@ protected func ContainedDigDouble(object ByObj)
       AddMenuItem("<c ff8888>$Passenger$</c>", "SeatOccupied",GetID(),ByObj,0,ByObj,"$SeatOccupied$");
     else
       AddMenuItem("<c 88ff88>$Passenger$</c>", "EnterSeat5",GetID(),ByObj,0,ByObj,"$PassengerDesc$");
-      
+
   return 1;
 }
 
-//Sitz besetzt?
 private func SeatOccupied(a,ByObj)
 {
+  //Hinweis
   PlayerMessage(GetOwner(ByObj),"$SeatOccupied$",ByObj);
-  Sound("Error",0,0,0,GetOwner(ByObj)+1);
+
+  //Sound
+  Sound("BKHK_SwitchFail.ogg",0,0,0,GetOwner(ByObj)+1);
+
+  //Menü wiedereröffnen
   ContainedDigDouble(ByObj);
+
   return 1;
 }
 
-//Sitz reinigen *hrhr*
 private func DeleteActualSeatPassenger(object Obj)
 {
   if(Pilot == Obj)
@@ -661,16 +668,21 @@ private func DeleteActualSeatPassenger(object Obj)
   return 1;
 }
 
-//Sitz belegen
 public func EnterSeat1(a, object Obj)
 {
+  //Besitz ergreifen
   SetOwner(GetOwner(Obj));
+
+  //Altbesitzer entfernen
   DeleteActualSeatPassenger(Obj);
+
   SetGraphics(0,this,GetID(),1,GFXOV_MODE_Object,0,GFX_BLIT_Additive,this);
   Pilot = Obj;
   SetGraphics("2");
   hud = CreateObject(BHUD, 0, 0, GetOwner(Obj));
 	hud->SetHelicopter(this);
+
+  //Sound
   Sound("RSHL_Deploy.ogg", true, this, 100, GetOwner(Obj)+1);
 
   return 1;
@@ -714,7 +726,7 @@ public func EnterSeat5(a, object Obj)
   return 1;
 }
 
-/* Ausstieg per Seil */
+/* ----- Ausstieg per Seil ----- */
 
 public func GetRopeAttach()
 {
@@ -779,6 +791,19 @@ protected func FxCheckEndTimer(pTarget, iNo, iTime)
 }
 */
 
+/* ----- Zerstörung ----- */
+
+protected func Destruction()
+{
+  if(hud)
+    RemoveObject(hud);
+  if(MGStation)
+    RemoveObject(MGStation,true);
+  if(RocketStation)
+    RemoveObject(RocketStation,true);
+  return true;
+}
+
 /* ----- Schaden ----- */
 
 public func OnDmg(int iDmg, int iType)
@@ -795,9 +820,11 @@ public func OnDmg(int iDmg, int iType)
 
 public func OnDamage()
 {
-  if(hud)			hud->DamageReceived();
-  if(GetContact(this, -1))	ResetAutopilot();
-	return true;
+  if(hud)
+    hud->DamageReceived();
+  if(GetContact(this, -1))
+    ResetAutopilot();
+  return true;
 }
 
 public func OnDestruction()
@@ -846,7 +873,7 @@ public func OnDestruction()
   return;
 }
 
-/*----- Kollisionsverhalten -----*/
+/* ----- Kollisionsverhalten ----- */
 
 protected func ContactTop()
 {
