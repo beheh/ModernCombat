@@ -76,7 +76,7 @@ Length=20
 Delay=1
 Facet=0,0,230,60,-55
 NextAction=Fly
-Sound=IdleSystem.ogg
+Sound=BKHK_IdleSystem.ogg
 
 [Action]
 Name=Stand
@@ -96,4 +96,4 @@ Delay=2
 Facet=0,120,230,60,-55
 NextAction=Fly
 EndCall=ChangeDir
-Sound=IdleSystem.ogg
+Sound=BKHK_IdleSystem.ogg

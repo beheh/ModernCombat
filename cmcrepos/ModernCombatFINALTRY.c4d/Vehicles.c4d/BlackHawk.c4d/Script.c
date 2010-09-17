@@ -820,8 +820,8 @@ public func OnDestruction()
   }
 
   //Explosion
-	FakeExplode(60, GetLastAttacker());
-	RemoveObject();
+  FakeExplode(60, GetLastAttacker());
+  RemoveObject();
   Sound("BigExplosion.ogg", false, this);
   Sound("StructuralDamage*.ogg", false, this);
 
@@ -846,34 +846,38 @@ public func OnDestruction()
   return;
 }
 
-//Kontakt am Rotor: Schaden!
+/*----- Kollisionsverhalten -----*/
+
 protected func ContactTop()
 {
   if (GetCon() != 100) return;
-  //sehr viel schaden
-  DoDamage(25, this);
+
+  //Schaden
+  DoDamage(20, this);
+
+  //Partikeleffekt
   for (var i; i < GetVertexNum(); i++)
   {
-    if (GetContact(0, i))
-      CreateParticle("Blast", GetVertex(i), GetVertex(i, true),
-                     0, 0, 50, RGB(255,255,255));
+    if(GetContact(0, i))
+      CreateParticle("Blast", GetVertex(i), GetVertex(i, true), 0, 0, 50, RGB(255,255,255));
   }
+
+  //Sound
   Sound("HeavyHit*.ogg", false, MGStation);
   SetYDir(GetYDir()*-1/2);
 }
 
-//die Räder halten mehr aus
 protected func ContactBottom()
 {
   if (GetYDir() > 25)
   {
+    DoDamage(GetYDir()/2);
+
     for (var i; i < GetVertexNum(); i++)
     {
       if (GetContact(0, i))
-        CreateParticle("Blast", GetVertex(i), GetVertex(i, true),
-                       0, 0, 50, RGB(255,255,255));
+        CreateParticle("Blast", GetVertex(i), GetVertex(i, true), 0, 0, 50, RGB(255,255,255));
     }
-    DoDamage(GetYDir()/2);
     Sound("HeavyHit*.ogg", false, MGStation);
     SetYDir(GetYDir()*-1/3);
   }
@@ -883,16 +887,17 @@ protected func ContactLeft()
 {
   if (Abs(GetXDir()) > 20 || Abs(GetYDir()) > 20)
   {
+    DoDamage(Abs(GetXDir())+Abs(GetYDir()));
+
     for (var i; i < GetVertexNum(); i++)
     {
       if (GetContact(0, i))
-        CreateParticle("Blast", GetVertex(i), GetVertex(i, true),
-                       0, 0, 50, RGB(255,255,255));
+        CreateParticle("Blast", GetVertex(i), GetVertex(i, true), 0, 0, 50, RGB(255,255,255));
     }
-    DoDamage(Abs(GetXDir())+Abs(GetYDir()));
     Sound("HeavyHit*.ogg", false, MGStation);
   }
-  SetXDir(GetXDir()*-1/2); //Abprallen
+  //Abprallen
+  SetXDir(GetXDir()*-1/2);
 }
 
 protected func ContactRight()
@@ -902,13 +907,12 @@ protected func ContactRight()
     for (var i; i < GetVertexNum(); i++)
     {
       if (GetContact(0, i))
-        CreateParticle("Blast", GetVertex(i), GetVertex(i, true),
-                       0, 0, 50, RGB(255,255,255));
+        CreateParticle("Blast", GetVertex(i), GetVertex(i, true), 0, 0, 50, RGB(255,255,255));
     }
     DoDamage(Abs(GetXDir())+Abs(GetYDir()));
     Sound("HeavyHit*.ogg", false, MGStation);
   }
-  SetXDir(GetXDir()*-1/2); //Abprallen
+  SetXDir(GetXDir()*-1/2);
 }
 
 //Objekt, die in den Rotor geraten, verursachen Schaden
@@ -938,10 +942,10 @@ protected func RejectCollect(id ID, object ByObj)
 //für Warnsounds und Grafik zuständig
 protected func TimerCall()
 {
-	//Zerstört?
-	if(IsDestroyed()) return;	
-	
-  //Absinken, falls kein Pilot da.
+  //Zerstört?
+  if(IsDestroyed()) return;	
+
+  //Absinken, wenn kein Pilot
   if(!GetPilot() && !GetAutopilot() || GetY() < 0)
   {
     if(!Random(3))
@@ -955,25 +959,28 @@ protected func TimerCall()
     }
   }
 
-	//Verbündete über den Piloten informieren
-	for(var i = 0; i < GetPlayerCount(); i++) {
-		var iPlr = GetPlayerByIndex(i);
-		if(Pilot && !Hostile(GetOwner(Pilot), GetOwner(GetCursor(iPlr))) && Contained(GetCursor(iPlr)) != this) {
-			CustomMessage(Format("@<c %x>%s (%s)</c>", GetPlrColorDw(GetOwner(Pilot)), GetName(Pilot), GetPlayerName(GetOwner(Pilot))), this, GetOwner(GetCursor(iPlr)), 22*(GetDir()*2-1), 15);
-		}
-		else {
-			CustomMessage("@", this, GetOwner(GetCursor(iPlr)));
-		}
-	}
+  //Namensanzeige für Verbündete
+  for(var i = 0; i < GetPlayerCount(); i++)
+  {
+    var iPlr = GetPlayerByIndex(i);
+    if(Pilot && !Hostile(GetOwner(Pilot), GetOwner(GetCursor(iPlr))) && Contained(GetCursor(iPlr)) != this)
+    {
+      CustomMessage(Format("@<c %x>%s (%s)</c>", GetPlrColorDw(GetOwner(Pilot)), GetName(Pilot), GetPlayerName(GetOwner(Pilot))), this, GetOwner(GetCursor(iPlr)), 22*(GetDir()*2-1), 15);
+    }
+    else
+    {
+      CustomMessage("@", this, GetOwner(GetCursor(iPlr)));
+    }
+  }
 
-  //unter Wasser stirbt der Motor ab
+  //Bei Wasser abschalten
   Water();
 
   //Piloten anpassen
   DrawPilot();
 
-	//Blinken
-	/*if(!(GetActTime()%45) && GetPilot() || GetAutopilot())
+  //Blinken
+  /*if(!(GetActTime()%45) && GetPilot() || GetAutopilot())
   {
     if(GetTeam())
       var rgb = GetTeamColor(GetTeam());
@@ -983,31 +990,32 @@ protected func TimerCall()
       var rgb = RGB(255,255,255);
     CreateParticle("FlashLight",-104*(GetDir()*2-1),-13,0,0,3*15,rgb,this);
   }*/
-	
-	//Bodenpartikel zeichnen
-	DrawGroundParticles();
 
-	//Lebewesen schrappneln
-	if(GetRotorSpeed() > 0) {
-		for(var pClonk in FindObjects(Find_InRect(-100,-24,200,16), Find_NoContainer(), Find_OCF(OCF_Alive), Find_Not(Find_ID(FKDT)))) {
-			if(GetOwner(pClonk) != NO_OWNER && GetOwner() != NO_OWNER && !Hostile(GetOwner(), GetOwner(pClonk))) continue;
-			Fling(pClonk, RandomX(2,3)+GetRotorSpeed()/100*((GetR() > 0 && GetR() <= 180)*2-1), RandomX(-2, -1)-GetRotorSpeed()/100);
-			DoDmg(GetRotorSpeed()/3, DMG_Projectile, pClonk, 0, GetOwner()+1);
-		}
-	}
+  //Bodenpartikel zeichnen
+  DrawGroundParticles();
 
-	//Stuck?
-	if(Stuck()) DoDamage(5);
+  //Lebewesen schrappneln
+  if(GetRotorSpeed() > 0)
+  {
+    for(var pClonk in FindObjects(Find_InRect(-100,-24,200,16), Find_NoContainer(), Find_OCF(OCF_Alive), Find_Not(Find_ID(FKDT))))
+    {
+      if(GetOwner(pClonk) != NO_OWNER && GetOwner() != NO_OWNER && !Hostile(GetOwner(), GetOwner(pClonk))) continue;
+      Fling(pClonk, RandomX(2,3)+GetRotorSpeed()/100*((GetR() > 0 && GetR() <= 180)*2-1), RandomX(-2, -1)-GetRotorSpeed()/100);
+      DoDmg(GetRotorSpeed()/4, DMG_Projectile, pClonk, 0, GetOwner()+1);
+      Sound("BKHK_RotorHit*.ogg", pClonk);
+    }
+  }
 
+  //Schadensverhalten
   //bis 50% nichts
   if (GetDamage() < MaxDamage()*1/2) return;
 
-  // ab 50% rauchen
+  //ab 50% rauchen
   Smoking();
 
   if (GetDamage() < MaxDamage()*3/4) return;
 
-  // ab 25% Feuer
+  //ab 25% Feuer
   DrawFire();
 
   if (!GetEffect("Engine", this)) return;
@@ -1032,7 +1040,7 @@ private func DrawPilot()
 
 private func WarningSound()
 {
-    if (GetDamage() < MaxDamage()*3/4) 
+  if(GetDamage() < MaxDamage()*3/4) 
   {
     //Sound("WarningDamageCritical.ogg", false, this);
     if (!(s_counter%36))
@@ -1079,9 +1087,10 @@ private func DrawGroundParticles()
     if (GBackSolid(0, i*5))
       return true;
 
-    if (GetMaterial(0, i*5) == Material("Water")) {
+    if (GetMaterial(0, i*5) == Material("Water"))
+    {
       return CreateDust(i*5, GetRotorSpeed(), RGB(176,194,208));
-     }
+    }
   }
   return;
 }
@@ -1090,13 +1099,13 @@ private func CreateDust(int Y, int Power, int Color)
 {
   Power = Min(Power, 130);
   CreateParticle("GroundSmoke", -3, Y, -(70-Y/3), RandomX(-5,5),
-                 RandomX(30,15+(14-Y/10)*Power/5), Color);//nach links
+                 RandomX(30,15+(14-Y/10)*Power/5), Color);		//nach links
   CreateParticle("GroundSmoke", +3, Y, (70-Y/3), RandomX(-5,5),
-                 RandomX(30,15+(14-Y/10)*Power/5), Color);//nach rechts
+                 RandomX(30,15+(14-Y/10)*Power/5), Color);		//nach rechts
   CreateParticle("GroundSmoke", -3, Y-3, RandomX(-30,-(70-Y)), -2,
-                 RandomX(30,15+(14-Y/10)*Power/5), Color);//nach links oben
+                 RandomX(30,15+(14-Y/10)*Power/5), Color);		//nach links oben
   CreateParticle("GroundSmoke", +3, Y-3, RandomX(30,(70-Y)), -2,
-                 RandomX(30,15+(14-Y/10)*Power/5), Color);//nach rechts oben
+                 RandomX(30,15+(14-Y/10)*Power/5), Color);		//nach rechts oben
   return true;
 }
 
@@ -1119,7 +1128,7 @@ private func DrawFire()
 
 private func Water()
 {
-  if (GBackLiquid(0,10))
+  if(GBackLiquid(0,10))
     DoDamage(5);
 }
 
@@ -1136,7 +1145,7 @@ private func Smoking()
 
 protected func StartEngine()
 {
-  Sound("StartSystem.ogg", false, this);
+  Sound("BKHK_StartSystem.ogg", false, this);
 }
 
 protected func EngineStarted()
@@ -1148,7 +1157,7 @@ protected func EngineStarted()
 
 protected func StopEngine()
 {
-  Sound("StopSystem.ogg", false, this); 
+  Sound("BKHK_StopSystem.ogg", false, this); 
   RemoveEffect("Engine",this);
 }
 
