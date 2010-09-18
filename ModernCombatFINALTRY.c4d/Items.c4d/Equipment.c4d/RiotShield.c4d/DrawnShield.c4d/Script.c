@@ -184,7 +184,7 @@ public func QueryCatchBlow(object pObj)
    SetYDir(-Cos(exitAngle,rad)*2/3, pObj); 
 
    if(GetMass(pObj) >= 10) Sound("ClonkHit*");
-   if(GetMass(pObj) < 10)  Sound("ArmorImpact*",false,0,50);
+   if(GetMass(pObj) < 10)  Sound("RSHL_Shove.ogg",false,0,50);
    ProtectedCall(pObj,"Hit");
    last = pObj;
   }
