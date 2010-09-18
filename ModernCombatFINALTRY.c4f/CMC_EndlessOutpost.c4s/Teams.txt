@@ -13,4 +13,4 @@ TeamColors=1
   [Team]
   id=2
   Name=$Defender$
-  Color=16053492
+  Color=8388736
