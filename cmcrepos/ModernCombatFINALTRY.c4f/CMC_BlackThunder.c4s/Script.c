@@ -6,7 +6,7 @@
 static aFlag,aSelfDefense,aArtillery;
 
 
-/* Initalisierung */
+/* Initialisierung */
 
 func Initialize()
 {
