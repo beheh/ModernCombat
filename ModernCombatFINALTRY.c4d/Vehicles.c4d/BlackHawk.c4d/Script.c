@@ -261,16 +261,19 @@ protected func Ejection(object ByObj)
   //Soundschleife übergeben
   Sound("CockpitRadio.ogg", true, 0, 100, GetOwner(ByObj)+1, -1);
 
-  //Sitz freimachen
-  DeleteActualSeatPassenger(ByObj);
-
   //Nicht bei Schaden
   if(GetDamage() >= MaxDamage()) return;
-
-  if(ByObj != GetPilot() && PathFree(GetX(),GetY(),GetX(),GetY()+50))
-  {
+  
+  if(!PathFree(GetX(),GetY(),GetX(),GetY()+50))
+    return;
+    
+  if(ByObj == Pilot || GetDamage() >= MaxDamage()*3/4)
+    CreateObject(PARA,GetX(ByObj),GetY(ByObj),GetOwner(ByObj))->Set(ByObj);
+  else
     AddEffect("CheckGround",ByObj,30,3,this,GetID(),this);
-  }
+  
+  //Sitz freimachen
+  DeleteActualSeatPassenger(ByObj);
   return true;
 }
 
