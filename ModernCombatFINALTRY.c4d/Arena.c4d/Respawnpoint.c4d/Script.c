@@ -35,7 +35,7 @@ func Set(int iFrames, int iDistance, object pTarget)
 {
   if(!pTarget) return RemoveObject();
   if(!iFrames) iFrames = 35*30;
-  SetVisibility(VIS_God);
+  SetVisibility(VIS_None);
   SetGraphics(0, this, GetID(pTarget), 1, GFXOV_MODE_Base, 0, GFX_BLIT_Additive);
   SetOwner(GetOwner(pTarget));
   SetPosition(GetX(pTarget), GetY(pTarget));
