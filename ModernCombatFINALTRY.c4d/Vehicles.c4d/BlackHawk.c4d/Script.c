@@ -990,13 +990,15 @@ protected func TimerCall()
   for(var i = 0; i < GetPlayerCount(); i++)
   {
     var iPlr = GetPlayerByIndex(i);
-    if(Pilot && !Hostile(GetOwner(Pilot), GetOwner(GetCursor(iPlr))) && Contained(GetCursor(iPlr)) != this)
-    {
-      CustomMessage(Format("@<c %x>%s (%s)</c>", GetPlrColorDw(GetOwner(Pilot)), GetName(Pilot), GetPlayerName(GetOwner(Pilot))), this, GetOwner(GetCursor(iPlr)), 22*(GetDir()*2-1), 15);
+    var iFlags;
+    if(i != 0) iFlags = MSG_Multiple;
+    if(Pilot && !Hostile(GetOwner(Pilot), iPlr) && Contained(GetCursor(iPlr)) != this) {
+      var szStr = Format("@%s (%s)", GetName(Pilot), GetPlayerName(GetOwner(Pilot)));
+     CustomMessage(szStr, this, iPlr, 0, 15, SetRGBaValue(GetPlrColorDw(GetOwner(Pilot)), 128, 0), 0, 0, iFlags);
     }
     else
     {
-      CustomMessage("@", this, GetOwner(GetCursor(iPlr)));
+      CustomMessage("@", this, iPlr, 0, 0, 0, 0, 0, iFlags);
     }
   }
 
