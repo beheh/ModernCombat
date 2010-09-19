@@ -936,9 +936,6 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
    RemoveAll(BRDR);
    CreateObject(BRDR, 3200, 0, -1)->Set(0,1);
    CreateObject(BRDR, 6210, 0, -1)->Set(1,1);
-
-   //Spawnpoints entfernen
-   RemoveObject(FindObject2(Find_ID(VSPW),Find_InRect(4699, 289, 2, 2)));
   }
 
   //Ziel 5
@@ -948,6 +945,9 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
    RemoveAll(BRDR);
    CreateObject(BRDR, 4190, 0, -1)->Set(0,1);
    CreateObject(BRDR, 6950, 0, -1)->Set(1,1);
+
+   //Spawnpoint entfernen
+   RemoveObject(FindObject2(Find_ID(VSPW),Find_InRect(4699, 289, 2, 2)));
 
    //Artillerie entfernen
    aArtillery[2]->DecoExplode(45);
