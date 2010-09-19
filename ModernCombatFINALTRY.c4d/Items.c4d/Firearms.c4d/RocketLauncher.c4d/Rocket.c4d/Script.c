@@ -92,7 +92,7 @@ public func FxFollowTimer(object pTarget, int iEffectNumber, int iEffectTime)
         if(iTeam != GetPlayerTeam(GetController(pTarget))) continue;
           if(!PathFree(GetX(pTarget), GetY(pTarget), GetX(pEnemy), GetY(pEnemy))) continue;
           EffectVar(1, pTarget, iEffectNumber) = pEnemy;
-        Sound("BBTP_Alarm.ogg", false, this);
+        Sound("BBTP_Alarm.ogg", 0, pTarget);
         break;
       }
   }
