@@ -320,6 +320,19 @@ protected func Collection2(object pObj)
                 
 /* ----- Steuerung ----- */
 
+protected func FxBlackhawkChangeThrottleStart(object pTarget, int iNumber, iTemp, int iChange)
+{
+  EffectVar(0, pTarget, iNumber) = iChange;
+}
+
+protected func FxBlackhawkChangeThrottleTimer(object pTarget, int iNumber, int iTime)
+{
+	var old = throttle;
+  throttle = BoundBy(throttle + EffectVar(0, pTarget, iNumber), 0, max_throttle);
+  if(old == throttle) return -1;
+  return FX_OK;
+}
+
 protected func ContainedUp(object ByObj)
 {
   [$CtrlUp$]
@@ -334,7 +347,12 @@ protected func ContainedUp(object ByObj)
       SetAction("EngineStartUp");
     //beim Flug mehr Schub
     if(GetAction()=="Fly" || GetAction()=="Turn")
-      throttle = BoundBy(throttle + throttle_speed, 0, max_throttle);
+    	if(GetPlrCoreJumpAndRunControl(GetOwner(Pilot)) && !GetAutopilot()) {
+    		AddEffect("BlackhawkChangeThrottle", this, 50, 3, this, GetID(), throttle_speed);
+    	}
+    	else {
+      	throttle = BoundBy(throttle + throttle_speed, 0, max_throttle);
+      }
   }
   
   //Schütze
@@ -357,11 +375,16 @@ protected func ContainedDown(object ByObj)
     //Autopilot aus
     ResetAutopilot();
     //Motor aus
-    if(throttle == 0 && (GetAction()=="Fly" || GetAction()=="EngineStartUp"))
+    if(throttle == 0 && (GetAction()=="Fly" || GetAction() == "EngineStartUp"))
       SetAction("EngineShutDown");
     //vom Gas weg
     if(GetAction()=="Fly" || GetAction()=="Turn")
-      throttle = BoundBy(throttle - throttle_speed, 0, max_throttle);
+    	if(GetPlrCoreJumpAndRunControl(GetOwner(Pilot)) && !GetAutopilot()) {
+    		AddEffect("BlackhawkChangeThrottle", this, 50, 3, this, GetID(), -throttle_speed);
+    	}
+    	else {
+      	throttle = BoundBy(throttle - throttle_speed, 0, max_throttle);
+      }
   }
   
   //Schütze
@@ -372,6 +395,20 @@ protected func ContainedDown(object ByObj)
     RocketStation->~ControlDown(ByObj);
 
   return true;
+}
+
+protected func ContainedUpReleased(object ByObj) {
+	if(ByObj == Pilot)
+		RemoveEffect("BlackhawkChangeThrottle", this);
+
+	return true;
+}
+
+protected func ContainedDownReleased(object ByObj) {
+	if(ByObj == Pilot)
+		RemoveEffect("BlackhawkChangeThrottle", this);
+
+	return true;
 }
 
 protected func ContainedUpDouble(object ByObj)
@@ -423,14 +460,14 @@ protected func ContainedLeft(object ByObj)
     ResetAutopilot();
     if (GetAction()=="Fly" || GetAction()=="Turn")
     {
-      /*if(GetPlrCoreJumpAndRunControl(GetController(ByObj)))
+      if(GetPlrCoreJumpAndRunControl(GetController(ByObj)))
       {
         rotation = -max_rotation;
       }
       else
-      {*/
+      {
         rotation = BoundBy(rotation - control_speed, -max_rotation, max_rotation);
-      //}
+      }
     }
   }
 
@@ -442,6 +479,11 @@ protected func ContainedLeft(object ByObj)
     RocketStation->~ControlLeft(ByObj);
 
   return true;
+}
+
+protected func ContainedLeftReleased(object ByObj) {
+  if(ByObj == Pilot)
+  	rotation = GetR();
 }
 
 protected func ContainedRight(object ByObj, fRelease)
@@ -459,14 +501,14 @@ protected func ContainedRight(object ByObj, fRelease)
     }
     else if (GetAction()=="Fly" || GetAction()=="Turn")
     {
-      /*if(GetPlrCoreJumpAndRunControl(GetController(ByObj)))
+      if(GetPlrCoreJumpAndRunControl(GetController(ByObj)))
       {
         rotation = max_rotation;
       }
       else
-      {*/
+      {
         rotation = BoundBy(rotation + control_speed, -max_rotation, max_rotation);
-      //}
+      }
     }
   }
 
@@ -503,6 +545,11 @@ protected func ContainedLeftDouble(object ByObj)
     RocketStation->~ControlLeftDouble(ByObj);
 
   return true;
+}
+
+protected func ContainedRightReleased(object ByObj) {
+  if(ByObj == Pilot)
+  	rotation = GetR();
 }
 
 protected func ContainedRightDouble(object ByObj)
