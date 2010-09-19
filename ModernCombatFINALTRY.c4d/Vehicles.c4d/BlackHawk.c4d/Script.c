@@ -587,7 +587,20 @@ protected func ContainedThrow(object ByObj)
   //Piloten-HUD
   if (ByObj == Pilot)
   {
-    
+    if (!hud)
+    {
+      hud = CreateObject(BHUD, 0, 0, GetOwner(ByObj));
+      hud->SetHelicopter(this);
+      SetOwner(GetOwner(), hud);
+    }
+    else
+      if(GetVisibility(hud) & VIS_Owner)
+      {
+        SetVisibility(VIS_None, hud);
+      }
+      else
+        SetVisibility(VIS_Owner, hud);
+    return Sound("BKHK_Switch.ogg", false, this, 100, GetOwner(ByObj)+1);
   }
 
   //Schütze: Feuer eröffnen/einstellen
