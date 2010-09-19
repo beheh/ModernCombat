@@ -39,7 +39,7 @@ global func FxIntUnstuck4KTimer(object pTarget, int iEffectNumber, int iEffectTi
     return(-1);
 
   if(iEffectTime > 12) {
-  	AutoUnstuck4K(pTarget);
+    AutoUnstuck4K(pTarget, EffectVar (0,pTarget,iEffectNumber), EffectVar (1,pTarget,iEffectNumber));
     return(-1);
   }
 
