@@ -323,6 +323,7 @@ protected func Collection2(object pObj)
 protected func FxBlackhawkChangeThrottleStart(object pTarget, int iNumber, iTemp, int iChange)
 {
   EffectVar(0, pTarget, iNumber) = iChange;
+  EffectCall(pTarget, iNumber, "Timer");
 }
 
 protected func FxBlackhawkChangeThrottleTimer(object pTarget, int iNumber, int iTime)
