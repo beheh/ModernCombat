@@ -540,20 +540,7 @@ protected func ContainedThrow(object ByObj)
   //Piloten-HUD
   if (ByObj == Pilot)
   {
-    if (!hud)
-    {
-      hud = CreateObject(BHUD, 0, 0, GetOwner(ByObj));
-      hud->SetHelicopter(this);
-      SetOwner(GetOwner(), hud);
-    }
-    else
-      if(GetVisibility(hud) & VIS_Owner)
-      {
-        SetVisibility(VIS_None, hud);
-      }
-      else
-        SetVisibility(VIS_Owner, hud);
-    return Sound("BKHK_Switch.ogg", false, this, 100, GetOwner(ByObj)+1);
+    
   }
 
   //Schütze: Feuer eröffnen/einstellen
@@ -841,13 +828,12 @@ public func OnDestruction()
     {
       DoDamage(200,obj);
     }
-    Sound("CockpitRadio.ogg", true, 0, 100, GetOwner(obj)+1, -1);
     if(Contained(obj) == this)
       Exit(obj, 0, 0, Random(360), RandomX(-5,5), RandomX(-4,8), Random(10));
   }
 
   //Explosion
-  FakeExplode(60, GetLastAttacker());
+  FakeExplode(70, GetLastAttacker());
   RemoveObject();
   Sound("BigExplosion.ogg", false, this);
   Sound("StructuralDamage*.ogg", false, this);
@@ -860,7 +846,7 @@ public func OnDestruction()
   SetR(GetR(), obj);
   SetXDir(GetXDir(), obj);
   SetYDir(GetYDir(), obj);
-  SetRDir(GetRDir(), obj);
+  SetRDir(GetRDir(), obj);/*
   for (var i; i < 7; i++)
   {
     ScheduleCall(obj, "BlastPar", i*2, 0, Sin(Random(360), 10*i), -Cos(Random(360), 10*i), 200, RGB(255,255,255));
@@ -869,7 +855,7 @@ public func OnDestruction()
     ScheduleCall(obj, "BlastPar", i*2, 0, Sin(Random(360), 10*i), -Cos(Random(360), 10*i), 200, RGB(255,255,255));
     ScheduleCall(obj, "BlastPar", i*2, 0, Sin(Random(360), 10*i), -Cos(Random(360), 10*i), 200, RGB(255,255,255));
     ScheduleCall(obj, "BlastPar", i*2, 0, Sin(Random(360), 10*i), -Cos(Random(360), 10*i), 200, RGB(255,255,255)); 
-  }
+  }*/
   return;
 }
 
