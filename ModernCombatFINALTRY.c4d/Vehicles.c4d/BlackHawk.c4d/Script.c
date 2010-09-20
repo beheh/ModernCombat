@@ -25,6 +25,8 @@ local s_counter,			//int    - eine kleine Counter-Variable für Warnsounds
 
 local destroyed;			//bool   - ob der Heli schon zerstört ist
 
+local passengercnt;		//int    - Anzahl der Clonks im Heli
+
 static const throttle_speed = 5;	//int    - "Feinfühligkeit"
 static const rot_speed = 1;		//int    - Drehgeschwindigkeit / frame
 static const control_speed = 3;		//int    - "Feinfühligkeit"
@@ -33,6 +35,9 @@ static const max_rotation = 30;		//int    - stärkste erlaubte Neigung
 static const auto_throttle_speed = 1;
 static const auto_max_throttle = 150;
 static const auto_max_rotation = 10;
+
+static const BKHK_PilotLayer = 2;
+static const BKHK_GunnerLayer = 3;
 
 /* ----- Callbacks ----- */
 
@@ -265,7 +270,7 @@ protected func Ejection(object ByObj)
   if(GetDamage() >= MaxDamage()) return;
   
   if(!PathFree(GetX(),GetY(),GetX(),GetY()+50))
-    return;
+    return DeleteActualSeatPassenger(ByObj); //Trozdem Sitz freimachen
     
   if(ByObj == Pilot || GetDamage() >= MaxDamage()*3/4)
     CreateObject(PARA,GetX(ByObj),GetY(ByObj),GetOwner(ByObj))->Set(ByObj);
@@ -344,6 +349,8 @@ protected func ContainedUp(object ByObj)
   //Pilot
   if (ByObj == Pilot)
   {
+    if(GetY() < 0)
+      return;
     //Autopilot aus
     ResetAutopilot();
     //Startup-Sequence
@@ -422,6 +429,8 @@ protected func ContainedUpDouble(object ByObj)
   //Pilot
   if (ByObj == Pilot)
   {
+    if(GetY() < 0)
+      return;
     //Autopilot aus
     ResetAutopilot();
     if(throttle == 0 && (GetAction()=="Stand" || GetAction()=="EngineShutDown"))
@@ -700,22 +709,34 @@ private func DeleteActualSeatPassenger(object Obj)
     Pilot = 0;
     if(hud)
       RemoveObject(hud);
-    SetGraphics(0);
+    SetGraphics(0,this,EFMN,BKHK_PilotLayer,GFXOV_MODE_Object,0,GFX_BLIT_Additive,this);
+    passengercnt--;
   }
   if(Gunner == Obj)
   {
     Gunner = 0;
     MGStation->SetGunner(0);
+    passengercnt--;
   }
   if(Coordinator == Obj)
   {
     Coordinator = 0;
     RocketStation->SetGunner(0);
+    passengercnt--;
   }
   if(Passenger1 == Obj)
+  {
     Passenger1 = 0;
+    passengercnt--;
+  }
   if(Passenger2 == Obj)
+  {
     Passenger2 = 0;
+    passengercnt--;
+  }
+  //Falls keine Passagiere außer Pilot mehr da
+  if((passengercnt == 0 && !Pilot) || (passengercnt == 1 && Pilot))
+    SetGraphics(0,this,EFMN,BKHK_GunnerLayer,GFXOV_MODE_Object,0,GFX_BLIT_Additive,this);
   return 1;
 }
 
@@ -727,11 +748,12 @@ public func EnterSeat1(a, object Obj)
   //Altbesitzer entfernen
   DeleteActualSeatPassenger(Obj);
 
-  SetGraphics(0,this,GetID(),1,GFXOV_MODE_Object,0,GFX_BLIT_Additive,this);
+  SetGraphics("Pilot",this,GetID(),BKHK_PilotLayer,GFXOV_MODE_ExtraGraphics,0,GFX_BLIT_Additive,this);
   Pilot = Obj;
-  SetGraphics("2");
   hud = CreateObject(BHUD, 0, 0, GetOwner(Obj));
 	hud->SetHelicopter(this);
+	
+	passengercnt++;
 
   //Sound
   Sound("RSHL_Deploy.ogg", true, this, 100, GetOwner(Obj)+1);
@@ -742,9 +764,12 @@ public func EnterSeat1(a, object Obj)
 public func EnterSeat2(a, object Obj)
 {
   DeleteActualSeatPassenger(Obj);
+  SetGraphics("Gunner",this,GetID(),BKHK_GunnerLayer,GFXOV_MODE_ExtraGraphics,0,GFX_BLIT_Additive,this);
   Gunner = Obj;
   MGStation->SetGunner(Obj);
   Sound("RSHL_Deploy.ogg", false, this, 100, GetOwner(Obj)+1);
+  
+  passengercnt++;
 
   return 1;
 }
@@ -752,9 +777,12 @@ public func EnterSeat2(a, object Obj)
 public func EnterSeat3(a, object Obj)
 {
   DeleteActualSeatPassenger(Obj);
+  SetGraphics("Gunner",this,GetID(),BKHK_GunnerLayer,GFXOV_MODE_ExtraGraphics,0,GFX_BLIT_Additive,this);
   Coordinator = Obj;
   RocketStation->SetGunner(Obj);
   Sound("RSHL_Deploy.ogg", false, this, 100, GetOwner(Obj)+1);
+  
+  passengercnt++;
 
   return 1;
 }
@@ -762,8 +790,11 @@ public func EnterSeat3(a, object Obj)
 public func EnterSeat4(a, object Obj)
 {
   DeleteActualSeatPassenger(Obj);
+  SetGraphics("Gunner",this,GetID(),BKHK_GunnerLayer,GFXOV_MODE_ExtraGraphics,0,GFX_BLIT_Additive,this);
   Passenger1 = Obj;
   Sound("RSHL_Deploy.ogg", false, this, 100, GetOwner(Obj)+1);
+  
+  passengercnt++;
 
   return 1;
 }
@@ -771,8 +802,11 @@ public func EnterSeat4(a, object Obj)
 public func EnterSeat5(a, object Obj)
 {
   DeleteActualSeatPassenger(Obj);
+  SetGraphics("Gunner",this,GetID(),BKHK_GunnerLayer,GFXOV_MODE_ExtraGraphics,0,GFX_BLIT_Additive,this);
   Passenger2 = Obj;
   Sound("RSHL_Deploy.ogg", false, this, 100, GetOwner(Obj)+1);
+  
+  passengercnt++;
 
   return 1;
 }

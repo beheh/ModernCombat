@@ -31,6 +31,7 @@ Exclusive=0
 Timer=1
 TimerCall=TimerCall
 IncompleteActivity=1
+ColorByOwner=1
 Placement=0
 Vertices=15
 VertexX=-40,63,-12,16,42,-56,-72,-112,-74,-26,16,61,89,104,80
