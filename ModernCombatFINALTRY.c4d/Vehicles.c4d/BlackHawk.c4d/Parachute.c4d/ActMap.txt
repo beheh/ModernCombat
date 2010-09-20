@@ -32,3 +32,4 @@ Procedure=ATTACH
 FacetBase=1
 StartCall=Opening
 NextAction=Open
+Sound=ParachuteOpen*.ogg
