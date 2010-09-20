@@ -1,10 +1,14 @@
 /*-- Fallschirm --*/
+
 #strict
+
+
+/* Initialisierung */
 
 protected func Initialize()
 {
   SetGraphics("Fade");
-	return(1);
+  return(1);
 }
 
 //Einklinken und Ausklinken
@@ -19,14 +23,15 @@ public func Set(object pObj)
   SetAction("Open",pObj);
 }
 
-//Fall abbremsen
 private func Fly()
 {
+  //Windbeeinflussung
   SetXDir(GetWind(GetX(),GetY())/8,GetAttObj());
-  
-	var speed = GetYDir(GetAttObj(),10);
+
+  //Fall verlangsamen
+  var speed = GetYDir(GetAttObj(),10);
   SetYDir(30,GetAttObj(),10);
-    
+
   if(GetPlrDownDouble(GetController(GetAttObj())) || (Abs(speed) < 2))
     Close();
 }
@@ -36,8 +41,9 @@ public func GetAttObj()
   return(GetActionTarget());
 }
 
-//Effekte
-private func Opening()//auf
+/* Aktionen */
+
+private func Opening()
 {
   if(GetActTime() > 25)
   {
@@ -53,10 +59,13 @@ private func Opening()//auf
 
 public func Close()
 {
+  //Zusammenfallen
   SetAction("Fold",GetActionTarget());
+  Sound("ParachuteClose.ogg");
 }
 
 private func Folded()
 {
+  //Verschwinden
   FadeOut();
 }

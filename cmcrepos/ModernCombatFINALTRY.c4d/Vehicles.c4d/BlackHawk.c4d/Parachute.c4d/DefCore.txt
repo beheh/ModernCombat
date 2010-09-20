@@ -7,7 +7,7 @@ Width=72
 Height=55
 Offset=-36,-55
 Mass=10
-Components=PARA=1
+Components=WOOD=5
 Picture=0,0,72,55
 Vertices=1
 IncompleteActivity=1
