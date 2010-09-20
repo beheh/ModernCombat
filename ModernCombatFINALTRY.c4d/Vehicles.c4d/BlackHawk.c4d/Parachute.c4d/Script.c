@@ -7,7 +7,6 @@
 
 protected func Initialize()
 {
-  SetGraphics("Fade");
   return(1);
 }
 
