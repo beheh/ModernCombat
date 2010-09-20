@@ -377,8 +377,8 @@ public func ChooserFinished()
 
 public func RelaunchPosition(& iX, & iY, int iTeam)
 {
-  //DM/LMS/HTF-Spielziel
-  if(FindObject(GTDM) || FindObject(GLMS) || FindObject(GHTF))
+  //LMS/HTF-Spielziel
+  if(FindObject(GLMS) || FindObject(GHTF))
   {
    if(iTeam == 1)
    {
