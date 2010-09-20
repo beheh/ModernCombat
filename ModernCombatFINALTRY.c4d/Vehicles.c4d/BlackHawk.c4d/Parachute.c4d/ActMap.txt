@@ -8,11 +8,29 @@ StartCall=Fly
 NextAction=Fly
 
 [Action]
+Name=FlyFree
+Length=1
+Delay=1
+Procedure=ATTACH
+Facet=0,55,360,55
+StartCall=Fly
+NextAction=Fly
+
+[Action]
 Name=Fold
 Length=20
 Delay=2
 Procedure=NONE
 Facet=0,0,72,55
+EndCall=Folded
+NextAction=Lie
+
+[Action]
+Name=FoldFree
+Length=20
+Delay=6
+Procedure=NONE
+Facet=0,55,72,55
 EndCall=Folded
 NextAction=Lie
 
@@ -32,4 +50,3 @@ Procedure=ATTACH
 FacetBase=1
 StartCall=Opening
 NextAction=Open
-Sound=ParachuteOpen*.ogg
