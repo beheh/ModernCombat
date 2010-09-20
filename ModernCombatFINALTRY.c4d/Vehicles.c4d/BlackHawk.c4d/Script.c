@@ -37,7 +37,7 @@ static const auto_max_throttle = 150;
 static const auto_max_rotation = 10;
 
 static const BKHK_PilotLayer = 2;
-static const BKHK_GunnerLayer = 3;
+static const BKHK_PassengerLayer = 3;
 
 /* ----- Callbacks ----- */
 
@@ -736,7 +736,7 @@ private func DeleteActualSeatPassenger(object Obj)
   }
   //Falls keine Passagiere außer Pilot mehr da
   if((passengercnt == 0 && !Pilot) || (passengercnt == 1 && Pilot))
-    SetGraphics(0,this,EFMN,BKHK_GunnerLayer,GFXOV_MODE_Object,0,GFX_BLIT_Additive,this);
+    SetGraphics(0,this,EFMN,BKHK_PassengerLayer,GFXOV_MODE_Object,0,GFX_BLIT_Additive,this);
   return 1;
 }
 
@@ -764,7 +764,7 @@ public func EnterSeat1(a, object Obj)
 public func EnterSeat2(a, object Obj)
 {
   DeleteActualSeatPassenger(Obj);
-  SetGraphics("Gunner",this,GetID(),BKHK_GunnerLayer,GFXOV_MODE_ExtraGraphics,0,GFX_BLIT_Additive,this);
+  SetGraphics("Passenger",this,GetID(),BKHK_PassengerLayer,GFXOV_MODE_ExtraGraphics,0,GFX_BLIT_Additive,this);
   Gunner = Obj;
   MGStation->SetGunner(Obj);
   Sound("RSHL_Deploy.ogg", false, this, 100, GetOwner(Obj)+1);
@@ -777,7 +777,7 @@ public func EnterSeat2(a, object Obj)
 public func EnterSeat3(a, object Obj)
 {
   DeleteActualSeatPassenger(Obj);
-  SetGraphics("Gunner",this,GetID(),BKHK_GunnerLayer,GFXOV_MODE_ExtraGraphics,0,GFX_BLIT_Additive,this);
+  SetGraphics("Passenger",this,GetID(),BKHK_PassengerLayer,GFXOV_MODE_ExtraGraphics,0,GFX_BLIT_Additive,this);
   Coordinator = Obj;
   RocketStation->SetGunner(Obj);
   Sound("RSHL_Deploy.ogg", false, this, 100, GetOwner(Obj)+1);
@@ -790,7 +790,7 @@ public func EnterSeat3(a, object Obj)
 public func EnterSeat4(a, object Obj)
 {
   DeleteActualSeatPassenger(Obj);
-  SetGraphics("Gunner",this,GetID(),BKHK_GunnerLayer,GFXOV_MODE_ExtraGraphics,0,GFX_BLIT_Additive,this);
+  SetGraphics("Passenger",this,GetID(),BKHK_PassengerLayer,GFXOV_MODE_ExtraGraphics,0,GFX_BLIT_Additive,this);
   Passenger1 = Obj;
   Sound("RSHL_Deploy.ogg", false, this, 100, GetOwner(Obj)+1);
   
@@ -802,7 +802,7 @@ public func EnterSeat4(a, object Obj)
 public func EnterSeat5(a, object Obj)
 {
   DeleteActualSeatPassenger(Obj);
-  SetGraphics("Gunner",this,GetID(),BKHK_GunnerLayer,GFXOV_MODE_ExtraGraphics,0,GFX_BLIT_Additive,this);
+  SetGraphics("Passenger",this,GetID(),BKHK_PassengerLayer,GFXOV_MODE_ExtraGraphics,0,GFX_BLIT_Additive,this);
   Passenger2 = Obj;
   Sound("RSHL_Deploy.ogg", false, this, 100, GetOwner(Obj)+1);
   
