@@ -231,7 +231,7 @@ func UpdateHUD(object pHUD)
     pHUD->Recharge(GetActTime(), 35);
 }
 
-/* Sounds */
+/* Allgemein */
 
 protected func Hit()
 {
@@ -242,6 +242,8 @@ protected func Selection()
 {
   Sound("CDBT_Charge.ogg");
 }
+
+/* KI Funktion */
 
 public func AI_Inventory(object pClonk)
 {

@@ -215,7 +215,7 @@ func UpdateHUD(object pHUD)
   pHUD->Ammo(ammopoints, MaxAmmoPoints(), GetName(), true);
 }
 
-/* Sounds */
+/* Allgemein */
 
 protected func Hit()
 {
@@ -228,6 +228,8 @@ protected func Selection()
   Sound("FAPK_Charge.ogg");
   return 1;
 }
+
+/* KI Funktion */
 
 public func AI_Inventory(object pClonk)
 {

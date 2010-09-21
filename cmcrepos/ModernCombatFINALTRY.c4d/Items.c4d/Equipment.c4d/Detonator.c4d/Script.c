@@ -6,7 +6,6 @@ local amount, max, init;
 
 public func HandSize()   	{return 1000;}
 public func HandX()     	{return 3500;}
-public func HandY()     	{}
 public func IsDrawable()	{return true;}
 public func IsEquipment()	{return true;}
 public func GetPackAmount()	{return amount;}
@@ -20,14 +19,6 @@ protected func Initialize()
   amount = 3;
   max = 3;
   init = true;
-}
-
-/* Infos */
-
-protected func CalcValue()
-{
-  //Wert errechnen
-  return amount*50/3;
 }
 
 /* Benutzung */
@@ -200,7 +191,15 @@ protected func Check()
     RemoveObject();
 }
 
-/* Sounds */
+/* Wert */
+
+protected func CalcValue()
+{
+  //Wert errechnen
+  return amount*50/3;
+}
+
+/* Allgemein */
 
 protected func Hit()
 {
