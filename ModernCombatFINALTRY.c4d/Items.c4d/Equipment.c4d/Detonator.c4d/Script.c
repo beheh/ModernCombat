@@ -22,6 +22,14 @@ protected func Initialize()
   init = true;
 }
 
+/* Infos */
+
+protected func CalcValue()
+{
+  //Wert errechnen
+  return amount*50/3;
+}
+
 /* Benutzung */
 
 public func ControlThrow(object pByObj)

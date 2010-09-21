@@ -1,5 +1,5 @@
 [DefCore]
-id=CIVC
+id=CLNK
 Version=4,9,5
 Name=Clonk
 Category=2056
