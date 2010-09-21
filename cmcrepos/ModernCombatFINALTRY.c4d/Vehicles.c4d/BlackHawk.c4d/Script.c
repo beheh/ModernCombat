@@ -748,7 +748,7 @@ public func EnterSeat1(a, object Obj)
   //Altbesitzer entfernen
   DeleteActualSeatPassenger(Obj);
 
-  SetGraphics("Pilot",this,GetID(),BKHK_PilotLayer,GFXOV_MODE_ExtraGraphics,0,GFX_BLIT_Additive,this);
+  SetGraphics("Pilot",this,GetID(),BKHK_PilotLayer,GFXOV_MODE_ExtraGraphics,0,GFX_BLIT_Custom,this);
   Pilot = Obj;
   hud = CreateObject(BHUD, 0, 0, GetOwner(Obj));
 	hud->SetHelicopter(this);
@@ -764,7 +764,7 @@ public func EnterSeat1(a, object Obj)
 public func EnterSeat2(a, object Obj)
 {
   DeleteActualSeatPassenger(Obj);
-  SetGraphics("Passenger",this,GetID(),BKHK_PassengerLayer,GFXOV_MODE_ExtraGraphics,0,GFX_BLIT_Additive,this);
+  SetGraphics("Passenger",this,GetID(),BKHK_PassengerLayer,GFXOV_MODE_ExtraGraphics,0,GFX_BLIT_Custom,this);
   Gunner = Obj;
   MGStation->SetGunner(Obj);
   Sound("RSHL_Deploy.ogg", false, this, 100, GetOwner(Obj)+1);
@@ -777,7 +777,7 @@ public func EnterSeat2(a, object Obj)
 public func EnterSeat3(a, object Obj)
 {
   DeleteActualSeatPassenger(Obj);
-  SetGraphics("Passenger",this,GetID(),BKHK_PassengerLayer,GFXOV_MODE_ExtraGraphics,0,GFX_BLIT_Additive,this);
+  SetGraphics("Passenger",this,GetID(),BKHK_PassengerLayer,GFXOV_MODE_ExtraGraphics,0,GFX_BLIT_Custom,this);
   Coordinator = Obj;
   RocketStation->SetGunner(Obj);
   Sound("RSHL_Deploy.ogg", false, this, 100, GetOwner(Obj)+1);
@@ -790,7 +790,7 @@ public func EnterSeat3(a, object Obj)
 public func EnterSeat4(a, object Obj)
 {
   DeleteActualSeatPassenger(Obj);
-  SetGraphics("Passenger",this,GetID(),BKHK_PassengerLayer,GFXOV_MODE_ExtraGraphics,0,GFX_BLIT_Additive,this);
+  SetGraphics("Passenger",this,GetID(),BKHK_PassengerLayer,GFXOV_MODE_ExtraGraphics,0,GFX_BLIT_Custom,this);
   Passenger1 = Obj;
   Sound("RSHL_Deploy.ogg", false, this, 100, GetOwner(Obj)+1);
   
@@ -802,7 +802,7 @@ public func EnterSeat4(a, object Obj)
 public func EnterSeat5(a, object Obj)
 {
   DeleteActualSeatPassenger(Obj);
-  SetGraphics("Passenger",this,GetID(),BKHK_PassengerLayer,GFXOV_MODE_ExtraGraphics,0,GFX_BLIT_Additive,this);
+  SetGraphics("Passenger",this,GetID(),BKHK_PassengerLayer,GFXOV_MODE_ExtraGraphics,0,GFX_BLIT_Custom,this);
   Passenger2 = Obj;
   Sound("RSHL_Deploy.ogg", false, this, 100, GetOwner(Obj)+1);
   
@@ -1259,10 +1259,12 @@ private func Smoking()
 protected func StartEngine()
 {
   Sound("BKHK_StartSystem.ogg", false, this);
+  Sound("BKHK_RotorSpin*.ogg",false,0,0,0,1);
 }
 
 protected func EngineStarted()
 {
+  Sound("BKHK_RotorSpin*.ogg",false,0,0,0,-1);
   AddEffect("Engine",this,300,1,this,0);
   throttle = 0;
   rotation =  0;
@@ -1271,6 +1273,7 @@ protected func EngineStarted()
 protected func StopEngine()
 {
   Sound("BKHK_StopSystem.ogg", false, this); 
+  Sound("BKHK_RotorSpin*.ogg",false,0,0,0,1);
   RemoveEffect("Engine",this);
 }
 
@@ -1278,6 +1281,7 @@ protected func EngineStopped()
 {
   throttle = 0;
   rotation = 0;
+  Sound("BKHK_RotorSpin*.ogg",false,0,0,0,-1);
 }
 
 /* ----- Effekt: Engine ----- */
