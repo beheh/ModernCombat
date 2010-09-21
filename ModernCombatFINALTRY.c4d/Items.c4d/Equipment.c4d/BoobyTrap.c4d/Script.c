@@ -271,7 +271,7 @@ public func OnDmg(int iDmg, int iType)
   if(iType == DMG_Bio)	return 100;	//Säure und biologische Schadstoffe
 }
 
-/* Sonstiges */
+/* Aufnahme */
 
 public func RejectEntrance(object pObj)
 {
@@ -283,6 +283,8 @@ public func RejectEntrance(object pObj)
   }
   return false;
 }
+
+/* Allgemein */
 
 protected func Selection()
 {

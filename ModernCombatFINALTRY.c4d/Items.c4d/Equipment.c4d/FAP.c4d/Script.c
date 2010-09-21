@@ -329,7 +329,7 @@ public func FxFAPGrouphealTimer(pTarget, iEffectNumber, iEffectTime)
   }
 }
 
-/* Infos */
+/* Wert */
 
 protected func CalcValue()
 {
@@ -339,7 +339,7 @@ protected func CalcValue()
 
 /* EHP-HUD */
 
-func CustomHUD(){return true;}
+func CustomHUD()	{return true;}
 
 func UpdateHUD(object pHUD)
 {
@@ -361,15 +361,16 @@ protected func Selection()
   return 1;
 }
 
-// KI-Behandlung
+/* KI Funktion */
+
 protected func AI_Inventory(object pClonk)
 {
-  // Benutzen, wenn der Clonk weniger als volles Leben hat
-  if(!pClonk->~IsHealing() && pClonk->GetEnergy() < pClonk->GetPhysical("Energy") / 1000) {
-  	ShiftContents(pClonk, 0, GetID());
-    // Benutzen (verzögert einsetzen)
+  //Benutzen, wenn der Clonk weniger als volles Leben hat
+  if(!pClonk->~IsHealing() && pClonk->GetEnergy() < pClonk->GetPhysical("Energy") / 1000)
+  {
+    ShiftContents(pClonk, 0, GetID());
+    //Benutzen (verzögert einsetzen)
     ScheduleCall(this, "Activate", 1, 0, pClonk);
   }
-  // übernehmen wir
   return(1);
 }
