@@ -5,10 +5,10 @@
 
 local sx,sy,start;
 
-public func Acceleration()	{return 3;}
-public func MaxTime()		{return 200;}
-public func MaxSpeed()		{return 100;}
-protected func SecureDistance()	{return 100;} //Mindestabstand
+public func Acceleration()	{return 3;}				//Verschnellerungsrate
+public func MaxTime()		{return 200;}				//Maximale Flugzeigt
+public func MaxSpeed()		{return 100;}				//Maximale Geschwindigkeit
+protected func SecureDistance()	{return 100;}				//Mindestabstand
 public func IgnoreTracer()	{return true;}
 public func IsDamaged()		{return GetEffect("Damaged", this);}
 
@@ -40,13 +40,13 @@ public func Launch(int iAngle, int iDmg, object pFollow)
   //Treffer- und Steuereffekt einsetzen
   AddEffect("HitCheck", this, 1,1, 0, SHT1,shooter);
   if(pFollow)
-   AddEffect("Follow", this, 1,1, 0, GetID(),pFollow);
+    AddEffect("Follow", this, 1,1, 0, GetID(),pFollow);
 }
 
 protected func Secure()
 {
   if(Distance(GetX(),GetY(),sx,sy) <= SecureDistance() && FrameCounter() < start+70)
-   return true;
+    return true;
 
   return false;
 }
