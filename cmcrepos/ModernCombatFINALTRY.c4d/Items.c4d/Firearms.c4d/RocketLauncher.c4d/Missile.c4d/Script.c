@@ -3,27 +3,34 @@
 #strict 2
 #include MISS
 
-local sx,sy;
+local sx, sy, pLauncher;
 
-public func MaxTime()		{return 200;}			//Maximale Flugzeigt
+public func MaxTime()		{return 200;}		//Maximale Flugzeigt
 
 public func StartSpeed()	{return 5;}			//Startgeschwindigkeit
 public func Acceleration()	{return 3;}			//Beschleunigung
-public func MaxSpeed()		{return 100;}			//Maximale Geschwindigkeit
+public func MaxSpeed()		{return 100;}		//Maximale Geschwindigkeit
 
-public func SecureTime()	{return 70;}			//Mindestflugzeit
-public func SecureDistance()	{return 100;}			//Mindestabstand
+public func SecureTime()	{return 70;}		//Mindestflugzeit
+public func SecureDistance()	{return 100;}	//Mindestabstand
 public func MaxDamage()		{return 5;}			//Maximalschaden bis Absturz
 
-public func ExplosionDamage()	{return 25;}			//Explosionsschaden
-public func ExplosionRadius()	{return 25;}			//Radius
+public func ExplosionDamage()	{return 25;}	//Explosionsschaden
+public func ExplosionRadius()	{return 25;}	//Radius
 
-public func TracerCompatible()	{return true;}			//Peilsendersuchende Rakete
+public func TracerCompatible()	{return true;}	//Peilsendersuchende Rakete
+public func Guideable()		{return true;}		//Kann gesteuert werden
 public func IgnoreTracer()	{return true;}
 public func IsDamaged()		{return GetEffect("Damaged", this);}
 
 
 /* Start */
+
+protected func Construction(object pBy)
+{
+  if (pBy && pBy->~IsWeapon())
+    pLauncher = pBy;
+}
 
 public func Launch(int iAngle, object pFollow)
 {
@@ -50,19 +57,16 @@ public func Launch(int iAngle, object pFollow)
   //Treffer- und Steuereffekt einsetzen
   AddEffect("HitCheck", this, 1,1, 0, SHT1,shooter);
   if(pFollow)
-    AddEffect("Follow", this, 1,1, 0, GetID(),pFollow);
+    AddEffect("Follow", this, 1,1, this, 0, pFollow);
 
   //Gesichert losfliegen
   if (SecureTime())
     AddEffect("IntSecureTime", this, 1, SecureTime(), this);
 }
 
-protected func Secure()
+public func Secure()
 {
-  if(Distance(GetX(),GetY(),sx,sy) <= SecureDistance() && GetEffect("IntSecureTime", this))
-    return true;
-
-  return false;
+  return Distance(GetX(), GetY(), sx, sy) <= SecureDistance() && GetEffect("IntSecureTime", this);
 }
 
 /* Soundeffekt */
@@ -91,10 +95,10 @@ public func FxFollowTimer(object pTarget, int iEffectNumber, int iEffectTime)
     if(EffectVar(1,pTarget,iEffectNumber))
     {
       var pEnemy = EffectVar(1,pTarget,iEffectNumber);
-      var del = false;
-        if(!GetEffect("TracerDart", pEnemy)) del = true;
-          if(!PathFree(GetX(pTarget), GetY(pTarget), GetX(pEnemy), GetY(pEnemy))) del = true;
-            if(del) EffectVar(1,pTarget,iEffectNumber) = 0;
+      var del;
+      if(!GetEffect("TracerDart", pEnemy)) del = true;
+      if(!PathFree(GetX(pTarget), GetY(pTarget), GetX(pEnemy), GetY(pEnemy))) del = true;
+      if(del) EffectVar(1,pTarget,iEffectNumber) = 0;
     }
     //Haben wir noch ein markiertes Ziel?
     if(!EffectVar(1,pTarget,iEffectNumber))
@@ -126,12 +130,18 @@ public func FxFollowTimer(object pTarget, int iEffectNumber, int iEffectTime)
   }
   else
   {
+    //Kann nicht gesteuert werden
+	if (!Guideable())
+	  return;
     var obj = EffectVar(0,pTarget,iEffectNumber);
-      if(!obj)
-        return;
+    if(!obj)
+      return;
     //Schütze nicht mehr am Zielen?
     if(!obj->~IsAiming())
       return;
+	//Schütze kann mit der Waffe nicht zielen
+	if (pLauncher && Contents(0, obj) != pLauncher)
+	  return;
 
     iDAngle = obj->AimAngle();
     iMaxTurn = 6;

@@ -10,7 +10,7 @@ public func HandY()		{return -2500;}
 
 public func SelectionTime()	{return 45;}
 
-local pRocket, bGuiding;
+local pRocket;
 
 
 /* Raketen - Optische Steuerung */
@@ -71,7 +71,7 @@ public func LaunchRocket(id rid, int angle)
   var rocket = CreateObject(rid,x,y+10,GetController(user));
   //Winkel, Schaden und Besitzer setzen
   rocket->Launch(angle, user);
-  rocket->Sound("RTLR_Launch*.ogg");
+  Sound("RTLR_Launch*.ogg", 0, rocket);
   SetController(GetController(user), rocket);
 
   //Sicht auf Rakete  
@@ -109,12 +109,19 @@ public func HandR()
 
 private func Check()
 {
-  if(!Contained()) return;
+  if(!Contained() || Contents(0, Contained()) != this) return;
 
   //Sicht auf existierende Rakete setzen
   if(Contained()->~IsAiming())
     if(pRocket)
       SetPlrView(GetOwner(Contained()), pRocket);
+}
+
+public func RejectSwitch()
+{
+  //Sicht wegnehmen
+  if (!_inherited(...) && pRocket)
+    SetPlrView(GetOwner(Contained()), Contained());
 }
 
 /* Allgemein */
