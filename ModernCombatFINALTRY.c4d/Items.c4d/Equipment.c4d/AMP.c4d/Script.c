@@ -21,7 +21,6 @@ protected func Initialize()
 {
   //Keine Munition Regel: Kein Existenzgrund
   if(FindObject(NOAM)) Schedule("RemoveObject()", 1);
-
   //Punkteregeneration
   AddEffect("AMPKRegenerate",this,251,20,this,GetID());
   //Gruppenaufstockung
@@ -36,17 +35,17 @@ protected func Initialize()
 protected func Activate(caller)
 {
   //Clonk hat schon eine Box: Geht nicht
-  if (ContentsCount(CUAM, caller))
-   return PlayerMessage(GetOwner(caller), "$NoSpace$",caller);
+  if(ContentsCount(CUAM, caller))
+    return PlayerMessage(GetOwner(caller), "$NoSpace$",caller);
 
   //Clonk anhalten
   SetComDir(COMD_Stop, caller);
 
   //Munitionsmenü erstellen
   CreateMenu(GetID(), caller, this, 0, "$TakeAmmo$", 0, 1);
-   AddMenuItem(GetName(0,STAM), "CreateAmmopack", STAM, caller, 50);
-   AddMenuItem(GetName(0,GRAM), "CreateAmmopack", GRAM, caller, 12);
-   AddMenuItem(GetName(0,MIAM), "CreateAmmopack", MIAM, caller, 4);
+    AddMenuItem(GetName(0,STAM), "CreateAmmopack", STAM, caller, 50);
+    AddMenuItem(GetName(0,GRAM), "CreateAmmopack", GRAM, caller, 12);
+    AddMenuItem(GetName(0,MIAM), "CreateAmmopack", MIAM, caller, 4);
 
   return 1;
 }
@@ -59,8 +58,8 @@ private func CreateAmmopack(idAmmo)
   if (idAmmo == MIAM)	{count = 4; points = 60;}
 
   //Zu wenig Punkte?
-  if (GetAmmoPoints() < points)
-   return PlayerMessage(GetOwner(Contained()),"$NeededPoints$", Contained(), points);
+  if(GetAmmoPoints() < points)
+    return PlayerMessage(GetOwner(Contained()),"$NeededPoints$", Contained(), points);
 
   //Gepackte Munitionsbox erstellen und füllen
   var ammo = CreateContents(CUAM, Contained());
@@ -77,8 +76,8 @@ public func RejectEntrance(object pObj)
 {
   if(GetOCF(pObj) & OCF_Living)
   {
-   if(ContentsCount(GetID(),pObj))
-    return true;
+    if(ContentsCount(GetID(),pObj))
+      return true;
   }
   return false;
 }
@@ -108,7 +107,7 @@ public func FxAMPKRegenerateTimer(pTarget, iEffectNumber, iEffectTime)
 {
   if(!Contained()) return 1;
   if(GetAmmoPoints() < MaxAmmoPoints())
-   DoAmmoPoints(1);
+    DoAmmoPoints(1);
 
   return 1;
 }
@@ -119,10 +118,10 @@ public func FxAMPKLightTimer(pTarget, iNo, iTime)
 {
   if(GetAmmoPoints() < 20) return 1;
   if(!Contained())
-   CreateParticle("FapLight", 1, -2, 0, 0, 5*5, RGBa(BoundBy(InvertA1(255*GetAmmoPoints()/300,255)+10,0,255), 255*GetAmmoPoints()/300),this);
+    CreateParticle("FapLight", 1, -2, 0, 0, 5*5, RGBa(BoundBy(InvertA1(255*GetAmmoPoints()/300,255)+10,0,255), 255*GetAmmoPoints()/300),this);
   if(Contents(0,Contained()) == this)
-   if(WildcardMatch(GetAction(Contained()), "*Armed*"))
-    CreateParticle("FapLight", (GetDir(Contained())*1), -2, 0, 0, 5*5, RGBa(BoundBy(InvertA1(255*GetAmmoPoints()/300,255)+10,0,255), 255*GetAmmoPoints()/300),this);
+    if(WildcardMatch(GetAction(Contained()), "*Armed*"))
+      CreateParticle("FapLight", (GetDir(Contained())*1), -2, 0, 0, 5*5, RGBa(BoundBy(InvertA1(255*GetAmmoPoints()/300,255)+10,0,255), 255*GetAmmoPoints()/300),this);
 }
 
 /* Gruppenaufstockung */
@@ -145,43 +144,43 @@ public func FxAMPKRestockingTimer(pTarget, iEffectNumber, iEffectTime)
                                 Find_Exclude(Contained())))  		//Nicht der selbe Clonk?
   {
     if(!(target->~IsClonk()))						//Ziel ein Clonk?
-     continue;
+      continue;
 
     //Munitionsbedarf feststellen
     var highestammo = 0, ammoID = 0;
     for(var i = 0; i < ContentsCount(0,target); i++)
-     if(Contents(i,target)->~IsWeapon())
-      for(var j = 0; j < Contents(i,target)->GetFMCount(); j++)
-      {
-       var ammocount, weapon = Contents(i,target);
-       if(weapon->GetFMData(FM_AmmoLoad,j) <= 3)
-        ammocount = weapon->GetFMData(FM_AmmoLoad,j)*10;
-       else
-        ammocount = weapon->GetFMData(FM_AmmoLoad,j)*3;
-       if(GetAmmo(weapon->GetFMData(FM_AmmoID,j),target) < ammocount)
-       {
-        if(!ammoID)
-         ammoID = weapon->GetFMData(FM_AmmoID,j);
-        if(highestammo < ammocount)
-         highestammo = ammocount;
-       }
-      }
+      if(Contents(i,target)->~IsWeapon())
+        for(var j = 0; j < Contents(i,target)->GetFMCount(); j++)
+        {
+          var ammocount, weapon = Contents(i,target);
+          if(weapon->GetFMData(FM_AmmoLoad,j) <= 3)
+            ammocount = weapon->GetFMData(FM_AmmoLoad,j)*10;
+          else
+          ammocount = weapon->GetFMData(FM_AmmoLoad,j)*3;
+          if(GetAmmo(weapon->GetFMData(FM_AmmoID,j),target) < ammocount)
+          {
+            if(!ammoID)
+              ammoID = weapon->GetFMData(FM_AmmoID,j);
+            if(highestammo < ammocount)
+              highestammo = ammocount;
+          }
+        }
 
     if(!ammoID)
-     break;
+      break;
 
     //Munition hinzufügen
     var factor;
     if(ammoID == STAM)  //Normale Kugeln = 1 Punkt
-     factor = 1;
+      factor = 1;
     if(ammoID == GRAM)  //Granaten = 5 Punkte
-     factor = 5;
+      factor = 5;
     if(ammoID == MIAM)  //Raketen = 10 Punkte
-     factor = 10;
+      factor = 10;
     if(!factor)         //Alles andere = 2 Punkte
-     factor = 2;
+      factor = 2;
     if(ammoID->MaxAmmo()/10*factor > GetAmmoPoints() || GetAmmo(ammoID,target) >= highestammo)
-     break;
+      break;
 
     PlayerMessage(GetOwner(Contained()),"$AmmoRecieved$", target, ammoID->MaxAmmo()/10, ammoID);
     PlayerMessage(GetOwner(target),"$AmmoRecieved$", target, ammoID->MaxAmmo()/10, ammoID);
