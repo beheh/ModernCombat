@@ -1,7 +1,6 @@
 /*-- Langstreckenrakete --*/
 
 #strict 2
-#include MISS
 #include MISL
 
 
