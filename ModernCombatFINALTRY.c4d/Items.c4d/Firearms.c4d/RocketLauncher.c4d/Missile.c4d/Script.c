@@ -5,22 +5,23 @@
 
 local sx, sy, pLauncher;
 
-public func MaxTime()		{return 200;}		//Maximale Flugzeigt
+public func MaxTime()		{return 200;}			//Maximale Flugzeigt
 
 public func StartSpeed()	{return 5;}			//Startgeschwindigkeit
 public func Acceleration()	{return 3;}			//Beschleunigung
-public func MaxSpeed()		{return 100;}		//Maximale Geschwindigkeit
+public func MaxSpeed()		{return 100;}			//Maximale Geschwindigkeit
 
-public func SecureTime()	{return 70;}		//Mindestflugzeit
-public func SecureDistance()	{return 100;}	//Mindestabstand
+public func SecureTime()	{return 70;}			//Mindestflugzeit
+public func SecureDistance()	{return 100;}			//Mindestabstand
 public func MaxDamage()		{return 5;}			//Maximalschaden bis Absturz
 
-public func ExplosionDamage()	{return 25;}	//Explosionsschaden
-public func ExplosionRadius()	{return 25;}	//Radius
+public func ExplosionDamage()	{return 25;}			//Explosionsschaden
+public func ExplosionRadius()	{return 25;}			//Radius
 
-public func TracerCompatible()	{return true;}	//Peilsendersuchende Rakete
-public func Guideable()		{return true;}		//Kann gesteuert werden
-public func IgnoreTracer()	{return true;}
+public func TracerCompatible()	{return true;}			//Peilsendersuchende Rakete
+public func Guideable()		{return true;}			//Kann gesteuert werden
+
+public func IgnoreTracer()	{return false;}
 public func IsDamaged()		{return GetEffect("Damaged", this);}
 
 
