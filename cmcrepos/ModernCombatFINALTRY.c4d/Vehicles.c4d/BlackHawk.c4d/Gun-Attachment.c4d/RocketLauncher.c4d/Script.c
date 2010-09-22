@@ -45,7 +45,7 @@ public func FMData1T1(int data)
 
 public func Fire1T1()
 {
-  LaunchRocket(ROKT,Contained()->~AimAngle(10), GetFMData(FM_Damage,1));
+  LaunchRocket(LRML,Contained()->~AimAngle(10), GetFMData(FM_Damage,1));
 }
 
 public func BotData1(int data)

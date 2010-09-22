@@ -1,6 +1,6 @@
 [DefCore]
-id=MISL
-Name=Missile
+id=LRML
+Name=Long-range Missile
 Version=4,9,5
 Category=C4D_Object
 Width=4

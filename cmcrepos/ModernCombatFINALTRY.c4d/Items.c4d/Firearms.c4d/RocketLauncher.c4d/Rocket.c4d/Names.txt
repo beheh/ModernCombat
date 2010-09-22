@@ -1,2 +1,2 @@
 DE:Rakete
-US:Rocket
+US:Missile
