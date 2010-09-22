@@ -45,7 +45,7 @@ public func IsMachine()		{return 1;}
 public func MaxDamage()		{return 200;}
 public func IsBulletTarget(id idBullet, object pBullet)
 {
-  if(idBullet == MISS || idBullet == HMIS || idBullet == ROKT || idBullet == ESHL)
+  if(idBullet == MISS || idBullet == HMIS || idBullet == MISL || idBullet == LRML || idBullet == ESHL)
     return ObjectDistance(pBullet) < 40;
   return 1;
 }
