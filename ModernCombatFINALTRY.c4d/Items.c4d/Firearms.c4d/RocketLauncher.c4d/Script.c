@@ -26,7 +26,6 @@ public func FMData1(int data)
   if(data == FM_Recharge)	return 200;
 
   if(data == FM_Aim)		return 1;
-  if(data == FM_Damage)		return 25;
 
   if(data == FM_Slot)		return 1;
 
@@ -56,10 +55,10 @@ public func BotData1(int data)
 
 public func Fire1()
 {
-  LaunchRocket(MISL,Contained()->~AimAngle(10), GetFMData(FM_Damage,1));
+  LaunchRocket(MISL,Contained()->~AimAngle(10));
 }
 
-public func LaunchRocket(id rid, int angle, int dmg)
+public func LaunchRocket(id rid, int angle)
 {
   //Besitzer setzen
   var user = Contained();
@@ -71,7 +70,7 @@ public func LaunchRocket(id rid, int angle, int dmg)
   //Rakete abfeuern
   var rocket = CreateObject(rid,x,y+10,GetController(user));
   //Winkel, Schaden und Besitzer setzen
-  rocket->Launch(angle, dmg, user);
+  rocket->Launch(angle, user);
   rocket->Sound("RTLR_Launch*.ogg");
   SetController(GetController(user), rocket);
 
@@ -91,8 +90,8 @@ public func LaunchRocket(id rid, int angle, int dmg)
   {
    var rand = RandomX(-10,+10);
    CreateParticle("Smoke2",ax+Sin(angle,rand),ay-Cos(angle,rand),
-                  RandomX(0,2*xdir),RandomX(0,2*ydir),
-                  RandomX(80,140),RGBa(220,200,180,0),0,0);
+		  RandomX(0,2*xdir),RandomX(0,2*ydir),
+		  RandomX(80,140),RGBa(220,200,180,0),0,0);
   }
 }
 
