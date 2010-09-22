@@ -7,36 +7,39 @@ local sx,sy;
 
 public func MaxTime()		{return 200;}			//Maximale Flugzeigt
 
-public func StartSpeed()	{return 5;}				//Startgeschwindigkeit
-public func Acceleration()	{return 3;}				//Beschleunigung
+public func StartSpeed()	{return 5;}			//Startgeschwindigkeit
+public func Acceleration()	{return 3;}			//Beschleunigung
 public func MaxSpeed()		{return 100;}			//Maximale Geschwindigkeit
 
 public func SecureTime()	{return 70;}			//Mindestflugzeit
-public func SecureDistance(){return 100;}			//Mindestabstand
-public func MaxDamage()		{return 5;}				//Maximalschaden bis Absturz
+public func SecureDistance()	{return 100;}			//Mindestabstand
+public func MaxDamage()		{return 5;}			//Maximalschaden bis Absturz
 
-public func ExplosionDamage(){return 25;}			//Explosionsschaden
-public func ExplosionRadius(){return 25;}			//Radius
+public func ExplosionDamage()	{return 25;}			//Explosionsschaden
+public func ExplosionRadius()	{return 25;}			//Radius
 
-
+public func TracerCompatible()	{return true;}			//Peilsendersuchende Rakete
 public func IgnoreTracer()	{return true;}
 public func IsDamaged()		{return GetEffect("Damaged", this);}
+
 
 /* Start */
 
 public func Launch(int iAngle, int iDmg, object pFollow)
 {
-  //Werte setzen
+  //Geschwindigkeit setzen
   iSpeed = StartSpeed();
 
+  //Winkel setzen
   SetR(iAngle);
   SetXDir(+Sin(iAngle,iSpeed));
   SetYDir(-Cos(iAngle,iSpeed));
   SetAction("Travel");
-  
+
+  //Sicht setzen
   SetPlrViewRange(120);
   SetCategory(C4D_Vehicle);
-  
+
   sx = GetX();
   sy = GetY();
 
@@ -81,31 +84,35 @@ public func FxFollowStart(object pTarget, int iEffectNumber, int iTemp, obj)
 
 public func FxFollowTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
-  //Ziel noch gültig?
-  if(EffectVar(1,pTarget,iEffectNumber))
+  //Rakete unterstützt Peilsender?
+  if(TracerCompatible())
   {
-    var pEnemy = EffectVar(1,pTarget,iEffectNumber);
-    var del = false;
-      if(!GetEffect("TracerDart", pEnemy)) del = true;
-        if(!PathFree(GetX(pTarget), GetY(pTarget), GetX(pEnemy), GetY(pEnemy))) del = true;
-          if(del) EffectVar(1,pTarget,iEffectNumber) = 0;
-  }
-  //Haben wir noch ein Ziel?
-  if(!EffectVar(1,pTarget,iEffectNumber))
-  {
-    var pEnemies = FindObjects(Find_Distance(300, GetX(pTarget), GetY(pTarget)), Sort_Distance(GetX(pTarget), GetY(pTarget)));
-      for(var pEnemy in pEnemies)
-      {
-        var iEffectTracer = GetEffect("TracerDart", pEnemy);
-        if(!iEffectTracer) continue;
-          var iPlr = EffectVar(0, pEnemy, iEffectTracer);
-          var iTeam = EffectVar(2, pEnemy, iEffectTracer);
-        if(iTeam != GetPlayerTeam(GetController(pTarget))) continue;
-          if(!PathFree(GetX(pTarget), GetY(pTarget), GetX(pEnemy), GetY(pEnemy))) continue;
-          EffectVar(1, pTarget, iEffectNumber) = pEnemy;
-        Sound("BBTP_Alarm.ogg", 0, pTarget);
-        break;
-      }
+    //Gültigkeit des Ziels prüfen
+    if(EffectVar(1,pTarget,iEffectNumber))
+    {
+      var pEnemy = EffectVar(1,pTarget,iEffectNumber);
+      var del = false;
+        if(!GetEffect("TracerDart", pEnemy)) del = true;
+          if(!PathFree(GetX(pTarget), GetY(pTarget), GetX(pEnemy), GetY(pEnemy))) del = true;
+            if(del) EffectVar(1,pTarget,iEffectNumber) = 0;
+    }
+    //Haben wir noch ein markiertes Ziel?
+    if(!EffectVar(1,pTarget,iEffectNumber))
+    {
+      var pEnemies = FindObjects(Find_Distance(300, GetX(pTarget), GetY(pTarget)), Sort_Distance(GetX(pTarget), GetY(pTarget)));
+        for(var pEnemy in pEnemies)
+        {
+          var iEffectTracer = GetEffect("TracerDart", pEnemy);
+          if(!iEffectTracer) continue;
+            var iPlr = EffectVar(0, pEnemy, iEffectTracer);
+            var iTeam = EffectVar(2, pEnemy, iEffectTracer);
+          if(iTeam != GetPlayerTeam(GetController(pTarget))) continue;
+            if(!PathFree(GetX(pTarget), GetY(pTarget), GetX(pEnemy), GetY(pEnemy))) continue;
+            EffectVar(1, pTarget, iEffectNumber) = pEnemy;
+          Sound("BBTP_Alarm.ogg", 0, pTarget);
+          break;
+        }
+    }
   }
   //Soll-Winkel
   var iDAngle;
