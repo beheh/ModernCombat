@@ -3,12 +3,22 @@
 #strict 2
 #include MISS
 
-local sx,sy,start;
+local sx,sy;
 
-public func Acceleration()	{return 3;}				//Verschnellerungsrate
-public func MaxTime()		{return 200;}				//Maximale Flugzeigt
-public func MaxSpeed()		{return 100;}				//Maximale Geschwindigkeit
-protected func SecureDistance()	{return 100;}				//Mindestabstand
+public func MaxTime()		{return 200;}			//Maximale Flugzeigt
+
+public func StartSpeed()	{return 5;}				//Startgeschwindigkeit
+public func Acceleration()	{return 3;}				//Beschleunigung
+public func MaxSpeed()		{return 100;}			//Maximale Geschwindigkeit
+
+public func SecureTime()	{return 70;}			//Mindestflugzeit
+public func SecureDistance(){return 100;}			//Mindestabstand
+public func MaxDamage()		{return 5;}				//Maximalschaden bis Absturz
+
+public func ExplosionDamage(){return 25;}			//Explosionsschaden
+public func ExplosionRadius(){return 25;}			//Radius
+
+
 public func IgnoreTracer()	{return true;}
 public func IsDamaged()		{return GetEffect("Damaged", this);}
 
@@ -17,11 +27,9 @@ public func IsDamaged()		{return GetEffect("Damaged", this);}
 public func Launch(int iAngle, int iDmg, object pFollow)
 {
   //Werte setzen
-  iSpeed = 5;
-  iDamage = iDmg;
-  if(!iDamage) iDamage = 35;
+  iSpeed = StartSpeed();
 
-  SetR(+iAngle);
+  SetR(iAngle);
   SetXDir(+Sin(iAngle,iSpeed));
   SetYDir(-Cos(iAngle,iSpeed));
   SetAction("Travel");
@@ -31,7 +39,6 @@ public func Launch(int iAngle, int iDmg, object pFollow)
   
   sx = GetX();
   sy = GetY();
-  start = FrameCounter();
 
   //Effekte
   AddEffect("ThrustSound",this,1,11,this);
@@ -41,11 +48,15 @@ public func Launch(int iAngle, int iDmg, object pFollow)
   AddEffect("HitCheck", this, 1,1, 0, SHT1,shooter);
   if(pFollow)
     AddEffect("Follow", this, 1,1, 0, GetID(),pFollow);
+
+  //Gesichert losfliegen
+  if (SecureTime())
+    AddEffect("IntSecureTime", this, 1, SecureTime(), this);
 }
 
 protected func Secure()
 {
-  if(Distance(GetX(),GetY(),sx,sy) <= SecureDistance() && FrameCounter() < start+70)
+  if(Distance(GetX(),GetY(),sx,sy) <= SecureDistance() && GetEffect("IntSecureTime", this))
     return true;
 
   return false;
@@ -175,10 +186,8 @@ private func Smoking()
 public func Damage()
 {
   //Rakete abschießbar
-  if(GetDamage() > 5 && !exploding)
-  {
+  if(GetDamage() > MaxDamage() && !exploding)
     Fall();
-  }
 }
 
 public func Fall()
@@ -190,14 +199,14 @@ public func Fall()
 
 public func FxDamagedTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
-  pTarget->CreateParticle("Thrust",0,0,0,0,70+Random(30),RGBa(255,255,255,0),0,0);
+  CreateParticle("Thrust",0,0,0,0,70+Random(30),RGBa(255,255,255,0),0,0);
 }
 
 public func Hit()
 {
   if(GetAction() == "Idle")
   {
-    Explode(3);
+    Explode(ExplosionDamage()/8);
     if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("Smoke3",12,10,0,0,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
   }
   else
@@ -243,8 +252,8 @@ private func HitObject(pObj)
   Sound("GrenadeExplosion*.ogg");
 
   //Schaden verursachen
-  DamageObjects(iDamage,iDamage/2,this);
-  Explode(iDamage*3/2);
+  DamageObjects(ExplosionRadius(), ExplosionDamage()/2, this);
+  Explode(ExplosionDamage()*3/2);
 }
 
 public func Destruction()
