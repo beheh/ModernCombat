@@ -61,19 +61,25 @@ public func Fire1()
 
 public func LaunchRocket(id rid, int angle, int dmg)
 {
+  //Besitzer setzen
   var user = Contained();
+
+  //Raketenende setzen
   var x,y;
   user->WeaponEnd(x,y);
 
+  //Rakete abfeuern
   var rocket = CreateObject(rid,x,y+10,GetController(user));
+  //Winkel, Schaden und Besitzer setzen
   rocket->Launch(angle, dmg, user);
+  rocket->Sound("RTLR_Launch*.ogg");
   SetController(GetController(user), rocket);
 
+  //Sicht auf Rakete  
   SetPlrView(GetController(user), rocket);
   pRocket = rocket;
 
   //Effekte
-  Sound("RTLR_Launch*.ogg", rocket);
   var ax, ay, xdir, ydir;
   user->WeaponBegin(ax,ay);
   xdir = ax-x;
@@ -105,7 +111,8 @@ public func HandR()
 private func Check()
 {
   if(!Contained()) return;
-  
+
+  //Sicht auf existierende Rakete setzen
   if(Contained()->~IsAiming())
     if(pRocket)
       SetPlrView(GetOwner(Contained()), pRocket);
