@@ -26,8 +26,6 @@ public func FMData1(int data)
   if(data == FM_BurstAmount)	return 4;
   if(data == FM_BurstRecharge)	return 10;
 
-  if(data == FM_Damage)		return 10;
-
   if(data == FM_Slot)		return 1;
 
   if(data == FM_SpreadAdd)	return 300;
@@ -45,7 +43,7 @@ public func FMData1T1(int data)
 
 public func Fire1T1()
 {
-  LaunchRocket(LRML,Contained()->~AimAngle(10), GetFMData(FM_Damage,1));
+  LaunchRocket(LRML,Contained()->~AimAngle(10));
 }
 
 public func BotData1(int data)
@@ -58,14 +56,14 @@ public func BotData1(int data)
 
 /* Raketen - Abschuss */
 
-public func LaunchRocket(id rid, int angle, int dmg)
+public func LaunchRocket(id rid, int angle)
 {
   var user = Contained();
   var x,y;
   user->WeaponEnd(x,y);
 
   var rocket = CreateObject(rid,x,y+10,GetController(user));
-  rocket->Launch(angle, dmg, user);
+  rocket->Launch(angle, user);
   rocket->Sound("RLSA_Fire*.ogg");
   SetController(GetController(user), rocket);
   

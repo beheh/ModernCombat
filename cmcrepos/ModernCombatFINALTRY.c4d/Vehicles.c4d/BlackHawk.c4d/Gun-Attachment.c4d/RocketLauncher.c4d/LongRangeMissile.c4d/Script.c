@@ -4,7 +4,6 @@
 #include MISS
 #include MISL
 
-local sx,sy;
 
 public func MaxTime()		{return 400;}			//Maximale Flugzeigt
 

@@ -25,7 +25,7 @@ public func IsDamaged()		{return GetEffect("Damaged", this);}
 
 /* Start */
 
-public func Launch(int iAngle, int iDmg, object pFollow)
+public func Launch(int iAngle, object pFollow)
 {
   //Geschwindigkeit setzen
   iSpeed = StartSpeed();
