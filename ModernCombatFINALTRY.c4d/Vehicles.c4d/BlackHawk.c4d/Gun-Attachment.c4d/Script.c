@@ -264,7 +264,6 @@ private func EndAim()
     RemoveObject(Crosshair);
 }
 
-
 /* Zerstörung */
 
 public func OnDestruction()

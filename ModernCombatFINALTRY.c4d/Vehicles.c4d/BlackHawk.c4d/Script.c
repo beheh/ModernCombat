@@ -63,10 +63,10 @@ protected func Initialize()
   view_mode = true;
 
   //Geschütze aufstellen
-  MGStation = CreateObject(H_MA,0,0,GetOwner());
+  MGStation = CreateObject(BGAT,0,0,GetOwner());
   MGStation -> Set(this,10,90,90,270);
   MGStation -> Arm(ACCN);
-  RocketStation = CreateObject(H_MA,0,0,GetOwner());
+  RocketStation = CreateObject(BGAT,0,0,GetOwner());
   RocketStation -> Set(this,40,10,210,270);
   RocketStation -> Arm(RLSA);
 
