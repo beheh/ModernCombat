@@ -20,6 +20,10 @@ public func ExplosionRadius()	{return 25;}			//Radius
 
 public func TracerCompatible()	{return true;}			//Peilsendersuchende Rakete
 public func Guideable()		{return true;}			//Kann gesteuert werden
+public func TracerRadius()	{return 300;}
+
+public func MaxTurn()		{return 6;}				//max. Drehung
+public func MaxTracerTurn()	{return 8;}				//max. Drehung bei Zielverfolgung
 
 public func IgnoreTracer()	{return false;}
 public func IsDamaged()		{return GetEffect("Damaged", this);}
@@ -57,8 +61,7 @@ public func Launch(int iAngle, object pFollow)
 
   //Treffer- und Steuereffekt einsetzen
   AddEffect("HitCheck", this, 1,1, 0, SHT1,shooter);
-  if(pFollow)
-    AddEffect("Follow", this, 1,1, this, 0, pFollow);
+  AddEffect("Follow", this, 1,1, this, 0, pFollow);
 
   //Gesichert losfliegen
   if (SecureTime())
@@ -82,15 +85,16 @@ public func FxThrustSoundTimer(object pTarget, int iEffectNumber, int iEffectTim
 
 public func FxFollowStart(object pTarget, int iEffectNumber, int iTemp, obj)
 {
-  if(!obj) return -1;
+  //if(!obj) return -1;
   EffectVar(0,pTarget,iEffectNumber) = obj;
   EffectVar(1,pTarget,iEffectNumber) = 0;
 }
 
 public func FxFollowTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
+  var x = GetX(pTarget)-GetX(), y = GetY(pTarget)-GetY();
   //Rakete unterstützt Peilsender?
-  if(TracerCompatible())
+  if(pTarget->~TracerCompatible())
   {
     //Gültigkeit des Ziels prüfen
     if(EffectVar(1,pTarget,iEffectNumber))
@@ -103,21 +107,18 @@ public func FxFollowTimer(object pTarget, int iEffectNumber, int iEffectTime)
     }
     //Haben wir noch ein markiertes Ziel?
     if(!EffectVar(1,pTarget,iEffectNumber))
-    {
-      var pEnemies = FindObjects(Find_Distance(300, GetX(pTarget), GetY(pTarget)), Sort_Distance(GetX(pTarget), GetY(pTarget)));
-        for(var pEnemy in pEnemies)
-        {
-          var iEffectTracer = GetEffect("TracerDart", pEnemy);
-          if(!iEffectTracer) continue;
-            var iPlr = EffectVar(0, pEnemy, iEffectTracer);
-            var iTeam = EffectVar(2, pEnemy, iEffectTracer);
-          if(iTeam != GetPlayerTeam(GetController(pTarget))) continue;
-            if(!PathFree(GetX(pTarget), GetY(pTarget), GetX(pEnemy), GetY(pEnemy))) continue;
-            EffectVar(1, pTarget, iEffectNumber) = pEnemy;
-          Sound("BBTP_Alarm.ogg", 0, pTarget);
-          break;
-        }
-    }
+      for(var pEnemy in FindObjects(Find_Distance(TracerRadius(), x, y), Sort_Distance(x, y)))
+      {
+        var iEffectTracer = GetEffect("TracerDart", pEnemy);
+        if(!iEffectTracer) continue;
+        var iPlr = EffectVar(0, pEnemy, iEffectTracer);
+        var iTeam = EffectVar(2, pEnemy, iEffectTracer);
+        if(iTeam != GetPlayerTeam(GetController())) continue;
+        if(!PathFree(GetX(), GetY(), GetX(pEnemy), GetY(pEnemy))) continue;
+        EffectVar(1, pTarget, iEffectNumber) = pEnemy;
+        Sound("BBTP_Alarm.ogg", 0, pTarget);
+        break;
+      }
   }
   //Soll-Winkel
   var iDAngle;
@@ -126,8 +127,8 @@ public func FxFollowTimer(object pTarget, int iEffectNumber, int iEffectTime)
   if(EffectVar(1,pTarget,iEffectNumber))
   {
     var pEnemy = EffectVar(1,pTarget,iEffectNumber);
-    iDAngle = Angle(AbsX(GetX(pTarget)), AbsY(GetY(pTarget)), AbsX(GetX(pEnemy)), AbsY(GetY(pEnemy)));
-    iMaxTurn = 8;
+    iDAngle = Angle(GetX(), GetY(), GetX(pEnemy), GetY(pEnemy));
+    iMaxTurn = MaxTracerTurn();
   }
   else
   {
@@ -145,14 +146,14 @@ public func FxFollowTimer(object pTarget, int iEffectNumber, int iEffectTime)
 	  return;
 
     iDAngle = obj->AimAngle();
-    iMaxTurn = 6;
+    iMaxTurn = MaxTurn();
   }
-  var iAngle = GetR(pTarget);
+  var iAngle = GetR();
 
   var iDiff = Normalize(iDAngle - iAngle,-180);
   var iTurn = Min(Abs(iDiff),iMaxTurn);
 
-  SetR(iAngle+iTurn*((iDiff > 0)*2-1), pTarget);
+  SetR(iAngle+iTurn*((iDiff > 0)*2-1));
 }
 
 private func Traveling()
