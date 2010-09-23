@@ -1,7 +1,7 @@
 [DefCore]
-id=H_MA
+id=BGAT
 Version=4,9,8,2
-Name=Sentry Gun
+Name=Gun Attachement
 Category=C4D_Vehicle
 Timer=1
 TimerCall=TimerCall

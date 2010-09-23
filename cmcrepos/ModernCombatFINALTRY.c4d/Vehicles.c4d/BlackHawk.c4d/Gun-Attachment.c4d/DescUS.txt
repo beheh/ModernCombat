@@ -1,1 +1,1 @@
-A rack for a stationary gun.
+A weapon rack allowing to control the gun from the secure inside of the Blackhawk.
