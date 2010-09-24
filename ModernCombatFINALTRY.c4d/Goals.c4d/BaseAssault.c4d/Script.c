@@ -3,6 +3,9 @@
 #strict 2
 #include CASS
 
+
+/* Bekanntgabe */
+
 public func ReportAssaultTargetDestruction(object pTarget, int iTeam)
 {
   if (GetIndexOf(pTarget, aTargets[iTeam]) == -1)
@@ -11,7 +14,7 @@ public func ReportAssaultTargetDestruction(object pTarget, int iTeam)
   _inherited(pTarget, iTeam, ...);
   
   //Und gleich mal bekanntgeben
-  EventInfo4K(0, Format("$TargetDestruction$", GetTeamColor(iTeam), GetName(pTarget)), GBAS, 0, 0, 0, "Info4.ogg");
+  EventInfo4K(0, Format("$TargetDestruction$", GetTeamColor(iTeam), GetName(pTarget)), GBAS, 0, 0, 0, "Info.ogg");
   GameCall("OnAssaultTargetDestruction", pTarget, iTeam, FindInArray4K(aTargets[iTeam], pTarget));
   if (pTarget)
     Explode(50, pTarget);
