@@ -61,16 +61,19 @@ public func BulletStrike(object pObj)
         	var fRocketLauncher = false;
         	var j = GetCrewCount(iPlr);
         	while(j--) {
-			fRocketLauncher = FindContents(RTLR, GetCrew(iPlr, j));
+						fRocketLauncher = FindContents(RTLR, GetCrew(iPlr, j));
 		      	if(fRocketLauncher) break;
         	}
         	if(fRocketLauncher) {
 		        EventInfo4K(iPlr+1, Format("$TargetMarked$", GetPlrColorDw(GetController()), GetPlayerName(GetController())), TRDT, 0, 0, 0, "RadioConfirm*.ogg");
 	        }
-	}
+				}
 				
-	//Punkte
-	DoPlayerPoints(BonusPoints("TracerSet"), RWDS_TeamPoints, GetController(), GetCursor(GetController()), IC17);
+				//Punkte & Achievement
+				Hostile(GetOwner(pObj), GetController()) {
+					DoPlayerPoints(BonusPoints("TracerSet"), RWDS_TeamPoints, GetController(), GetCursor(GetController()), IC17);
+					DoAchievementProgress(1, AC19, GetController());
+				}
         return 1;
       }
     }
