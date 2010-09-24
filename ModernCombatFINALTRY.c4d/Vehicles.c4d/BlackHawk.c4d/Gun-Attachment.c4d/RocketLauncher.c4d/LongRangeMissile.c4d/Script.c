@@ -15,3 +15,6 @@ public func SecureDistance()	{return 50;}			//Mindestabstand
 
 public func ExplosionDamage()	{return 10;}			//Explosionsschaden
 public func ExplosionRadius()	{return 25;}			//Radius
+
+public func MaxTurn()		{return 7;}			//max. Drehung
+public func MaxTracerTurn()	{return 9;}			//max. Drehung bei Zielverfolgung

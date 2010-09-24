@@ -22,8 +22,8 @@ public func TracerCompatible()	{return true;}			//Peilsendersuchende Rakete
 public func Guideable()		{return true;}			//Kann gesteuert werden
 public func TracerRadius()	{return 300;}
 
-public func MaxTurn()		{return 6;}				//max. Drehung
-public func MaxTracerTurn()	{return 8;}				//max. Drehung bei Zielverfolgung
+public func MaxTurn()		{return 6;}			//max. Drehung
+public func MaxTracerTurn()	{return 8;}			//max. Drehung bei Zielverfolgung
 
 public func IgnoreTracer()	{return false;}
 public func IsDamaged()		{return GetEffect("Damaged", this);}
