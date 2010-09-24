@@ -11,3 +11,8 @@ Flag4=Control Room
 Flag5=Right Stage
 Flag6=Left lower Stage
 Flag7=Lobby
+
+Target1=Communication Server
+Target2=Data Server
+Target3=Generator
+Target4=Console
