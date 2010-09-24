@@ -11,3 +11,8 @@ Flag4=Kontrollraum
 Flag5=Rechtes Gerüst
 Flag6=Linkes unteres Gerüst
 Flag7=Lobby
+
+Target1=Kommunikationsserver
+Target2=Datenserver
+Target3=Generator
+Target4=Steuerungskonsole

@@ -495,6 +495,37 @@ public func ChooserFinished()
    CreateObject(SBBA, 730, 320, -1)->Right();
   }
 
+  //Assault-Spielziel
+  if (FindObject(GASS))
+  {
+   //Grenze setzen
+   CreateObject(BRDR, 0, 1370, -1)->Set(2,1);
+
+   //SSA Besitzer setzen
+   aSelfDefense[0]->SetTeam(2);
+   aSelfDefense[1]->SetTeam(2);
+   aSelfDefense[2]->SetTeam(2);
+   aSelfDefense[3]->SetTeam(2);
+
+   //SSA anschalten
+   aSelfDefense[0]->TurnOn();
+   aSelfDefense[1]->TurnOn();
+   aSelfDefense[2]->TurnOn();
+   aSelfDefense[3]->TurnOn();
+
+   //Zielobjekte
+   AddAssaultTarget(CMSN, 440, 1610, 250, 2, "$Target1$", 0, [[[420, 1490], [750, 1490]], [[440, 1940], [585, 1920], [730, 1940]]]);
+   AddAssaultTarget(CCP1, 730, 1610, 250, 2, "$Target2$", 1, [[[420, 1490], [750, 1490]], [[440, 1940], [585, 1920], [730, 1940]]]);
+   AddAssaultTarget(LBPC, 585, 1250, 300, 2, "$Target3$", 2, [[[475, 980], [695, 980]], [[430, 1610], [740, 1610]]]);
+   AddAssaultTarget(CCP2, 585, 870,  350, 2, "$Target4$", 3, [[[445, 660], [585, 590], [725, 660]], [[280, 1260], [890, 1260]]]);
+
+   //Pflanze entfernen
+   RemoveObject(FindObject2(Find_ID(PLT3),Find_InRect(570, 820, 40, 40)));
+
+   //Ziele verbinden
+   ConnectAssaultTargets([0, 1]);
+  }
+
   //OP-Spielziel
   if(FindObject(GOCC))
   {
@@ -628,6 +659,53 @@ public func ChooserFinished()
   }
 }
 
+/* Assault Zerstörung */
+
+public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
+{
+  //Ziel 1
+  if (iIndex == 0)
+  {
+   if (!iIndex == 1)
+   {
+    //Grenze neu setzen
+    RemoveAll(BRDR);
+    CreateObject(BRDR, 0, 920, -1)->Set(2,1);
+
+    Sound("Announce1.ogg");
+   }
+  }
+
+  //Ziel 2
+  if (!iIndex == 1)
+  {
+   if (iIndex == 0)
+   {
+    //Grenze neu setzen
+    RemoveAll(BRDR);
+    CreateObject(BRDR, 0, 920, -1)->Set(2,1);
+
+    Sound("Announce2.ogg");
+   }
+  }
+
+  //Ziel 3
+  if (iIndex == 2)
+  {
+   //SSA zerstören
+   aSelfDefense[2]->Disarm();
+   DecoExplode(30, aSelfDefense[2]);
+   aSelfDefense[3]->Disarm();
+   DecoExplode(30, aSelfDefense[3]);
+
+   //Grenze neu setzen
+   RemoveAll(BRDR);
+   CreateObject(BRDR, 0, 520, -1)->Set(2,1);
+
+   Sound("Announce3.ogg");
+  }
+}
+
 /* Relaunch */
 
 public func RelaunchPosition(& iX, & iY, int iTeam)
@@ -677,6 +755,10 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
     return(1);
    }
   }
+
+  //Assault-Spielziel
+  if(FindObject(GASS))
+  {if(FindObject(GASS)->GetRespawnPoint(iX, iY, iTeam)) return 1;}
 
   //Startsicht
   iX = 585; iY = 1310;
