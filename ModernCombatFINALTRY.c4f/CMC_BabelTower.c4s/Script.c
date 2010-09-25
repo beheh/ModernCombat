@@ -664,14 +664,16 @@ public func ChooserFinished()
 public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bool fConnectedDestroyed)
 {
   //Ziel 1 und 2
-  if (!iIndex || iIndex == 1) {
-    if (fConnectedDestroyed) {
-	  //Grenze neu setzen
-      RemoveAll(BRDR);
-      CreateObject(BRDR, 0, 920, -1)->Set(2,1);
+  if (!iIndex || iIndex == 1)
+  {
+   if(fConnectedDestroyed)
+   {
+    //Grenze neu setzen
+    RemoveAll(BRDR);
+    CreateObject(BRDR, 0, 920, -1)->Set(2,1);
 
-      Sound("Announce2.ogg");
-	}
+    Sound("Announce2.ogg");
+   }
   }
 
   //Ziel 3
