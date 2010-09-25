@@ -26,6 +26,10 @@ public func ReportAssaultTargetDestruction(object pTarget, int iTeam)
 	    EventInfo4K(GetPlayerByIndex(i)+1, "$NoTargets$", GBAS, 0, 0, 0, "Alarm.ogg");
 }
 
+public func GetAssaultTarget(int iIndex, int iTeam) {
+  return aTargets[iTeam][iIndex];
+}
+
 /* Timer */
 
 protected func FxIntGoalTimer()
