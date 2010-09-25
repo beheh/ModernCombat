@@ -20,17 +20,9 @@ public func KTMsg(int plr1, int plr2, object clonk, int plr3)
 
 public func KMsg(int plr1, int plr2, object clonk, int plr3)
 {
-  var tp;
-  for(var goal in FindObjects(Find_Category(C4D_Goal)))
-    if(goal->~IsTeamGoal())
-      tp = true;
-      
-  if(!tp)
-    return;
-
   //Kein Clonk?
   if(!clonk) return;
-	if(!GetPlayerName(plr1)) return;
+  if(!GetPlayerName(plr1)) return;
 
   var msg;
   var typeicon,type = clonk->~LastDamageType();
@@ -78,7 +70,7 @@ public func KMsg(int plr1, int plr2, object clonk, int plr3)
   if(killer != victim) {
   	
 	  var killerstr;
-	  if(assist != -1 && assist != killer && assist != victim) {
+	  if(assist != -1 && GetPlayerName(assist) && assist != killer && assist != victim) {
 	  	killerstr = Format("%s +<c %x> %s</c>", GetTaggedPlayerName(killer), RGB(180,180,180), GetPlayerName(assist));
 	  }
 	  else {
