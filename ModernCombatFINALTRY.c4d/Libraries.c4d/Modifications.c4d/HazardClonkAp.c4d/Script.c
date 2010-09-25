@@ -779,13 +779,16 @@ protected func ContextSettings(object pCaller) {
 	[$Settings$|Image=CSTR]
 	CreateMenu(CSTR, pCaller, pCaller, 0, "$Settings$", 0, C4MN_Style_Context, false);
 	if(pCaller->QuickInventoryOff())
-	  AddMenuItem("$CtxQuickInventoryOff$", Format("SetQuickInventoryOn(Object(%d))", ObjectNumber(pCaller)), IC06, pCaller);
+	  AddMenuItem("$CtxQuickInventoryOff$", Format("SetQuickInventoryOn(Object(%d))", ObjectNumber(pCaller)), SM06, pCaller);
 	else
-	  AddMenuItem("$CtxQuickInventoryOn$", Format("SetQuickInventoryOff(Object(%d))", ObjectNumber(pCaller)), IC05, pCaller);
+	  AddMenuItem("$CtxQuickInventoryOn$", Format("SetQuickInventoryOff(Object(%d))", ObjectNumber(pCaller)), SM05, pCaller);
 	if(pCaller->HelpMessagesOff())
-	  AddMenuItem("$CtxHelpMessagesOff$", Format("ContextHelpMessagesOn(Object(%d))", ObjectNumber(pCaller)), IC06, pCaller);
+	  AddMenuItem("$CtxHelpMessagesOff$", Format("ContextHelpMessagesOn(Object(%d))", ObjectNumber(pCaller)), SM06, pCaller);
 	else
 	  AddMenuItem("$CtxHelpMessagesOn$", Format("ContextHelpMessagesOff(Object(%d))", ObjectNumber(pCaller)), CXIN, pCaller);
+
+	AddMenuItem("$CtxResetAch$", "ContextResetAch", RWDS, pCaller, 0, 0, "$CtxResetAch$");
+
 	return true;
 }
 
@@ -803,6 +806,21 @@ public func SetQuickInventoryOff(object pCaller) {
 
 public func QuickInventoryOn() { return GetPlrExtraData(GetOwner(), "CMC_QuickInv"); }
 public func QuickInventoryOff() { return !QuickInventoryOn(); }
+
+protected func ContextResetAch() {
+  [0|Image=RWDS|Condition=NoContext]
+  CreateMenu(RWDS, this, this, 0, GetName(0, RWDS), 0, C4MN_Style_Dialog);
+  AddMenuItem("$ResetAchInfo$", 0, RWDS, this, 0, 0, " ");
+  AddMenuItem("$ResetAchYes$", "ContextResetAchYes", CHOS, this, 0, 0, " ", 2, 3);
+  AddMenuItem("$ResetAchNo$", "NoContext", SM06, this, 0, 0, " ");
+  SelectMenuItem(2);
+}
+
+protected func ContextResetAchYes() {
+  [0|Image=RWDS|Condition=NoContext]
+  ResetPlayerAchievements(GetOwner());
+  PlayerMessage(GetOwner(), "$ResetAchDone$", this);
+}
 
 public func SelectQuickInventory(int iIndex) {
 	if(!Contents()) return false;
