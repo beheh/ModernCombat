@@ -150,7 +150,8 @@ private func GetNextTarget()
   return -1;
 }
 
-public func GetAssaultTarget(int iIndex, int iTeam) {
+public func GetAssaultTarget(int iIndex, int iTeam)
+{
   return aTargets[iDefender][iIndex];
 }
 
@@ -163,16 +164,16 @@ public func OnClassSelection(object pCrew)
 
 public func RelaunchPlayer(int iPlr, pClonk, int iKiller)
 {
-  if (iKiller != -2)
+  if(iKiller != -2)
   {
     aDeath[iPlr]++;
     if (iKiller != -1 && GetPlayerTeam(iPlr) != GetPlayerTeam(iKiller))
       aKill[iKiller]++;
-	Money(iPlr, pClonk, iKiller);
+        Money(iPlr, pClonk, iKiller);
   }
 
   //Noch gar keine Ziele: Kurz warten
-  if (!GetLength(aTargets[iDefender]))
+  if(!GetLength(aTargets[iDefender]))
     return;
 
   var index = GASS_Spawn_Att;
@@ -181,22 +182,22 @@ public func RelaunchPlayer(int iPlr, pClonk, int iKiller)
     index = GASS_Spawn_Def;
 
   //Spieler darf gar nicht mehr joinen?
-  if (index == GASS_Spawn_Att)
+  if(index == GASS_Spawn_Att)
   {
     //Angreifer: Keine Tickets?
-	if (!iTickets)
-	  return ScheduleCall(this, "WaitForJoin", 5, 0, iPlr);
+    if(!iTickets)
+      return ScheduleCall(this, "WaitForJoin", 5, 0, iPlr);
   }
   else
-    //Verteidiger: Keine Ziele?
-	if (GetLength(aTargets))
-	  if (!ObjectCount2(Find_InArray(aTargets[iDefender])))
-	    return EliminatePlayer(iPlr);
+  //Verteidiger: Keine Ziele?
+  if(GetLength(aTargets))
+    if(!ObjectCount2(Find_InArray(aTargets[iDefender])))
+      return EliminatePlayer(iPlr);
 
   //Kein Verteidiger? Ticket-Abzug
-  if (GetPlayerTeam(iPlr) != iDefender && iKiller != -2)
-	iTickets = Max(iTickets-1);
-	
+  if(GetPlayerTeam(iPlr) != iDefender && iKiller != -2)
+    iTickets = Max(iTickets-1);
+
   //Clonk wegstecken
   var pCrew = GetCrew(iPlr);
   if (!pCrew)
@@ -221,7 +222,7 @@ public func RelaunchPlayer(int iPlr, pClonk, int iKiller)
 protected func WaitForJoin(int iPlr)
 {
   //Es gibt wieder Tickets!
-  if (iTickets || !ObjectCount2(Find_InArray(aTargets[iDefender])))
+  if(iTickets || !ObjectCount2(Find_InArray(aTargets[iDefender])))
     return RelaunchPlayer(iPlr, GetCrew(iPlr), -2);
 
   //Wegstecken falls nötig
@@ -239,9 +240,9 @@ protected func WaitForJoin(int iPlr)
   {
     var iPlr = GetOwner(obj);
     if (GetPlayerTeam(iPlr) == iDefender)
-	  continue;
-	if (GetAlive(obj) && GetID(Contained(obj)) != TIM1 && GetID(Contained(obj)) != TIM2)
-	  alive = true;
+      continue;
+    if (GetAlive(obj) && GetID(Contained(obj)) != TIM1 && GetID(Contained(obj)) != TIM2)
+      alive = true;
   }
 
   if (alive)

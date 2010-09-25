@@ -45,7 +45,8 @@ global func AddAssaultTarget()
     return goal->AddAssaultTarget(...);
 }
 
-global func GetAssaultTarget() {
+global func GetAssaultTarget()
+{
   var goal = FindObject2(Find_Func("IsCMCAssaultGoal"));
   if (goal)
     return goal->AddAssaultTarget(...);
@@ -62,7 +63,8 @@ global func Find_InArray(array a)
 
 /* Zielobjekt Funktionen */
 
-public func AddAssaultTarget(id idTarget, int iX, int iY, int iMaxDamage, int iTeam, string szName, int iIndex, array aSpawns, bool fNoBar) {
+public func AddAssaultTarget(id idTarget, int iX, int iY, int iMaxDamage, int iTeam, string szName, int iIndex, array aSpawns, bool fNoBar)
+{
   //Grundobjekt erstellen
   var fake = CreateObject(AHBS, iX, iY+GetDefCoreVal("Offset", 0, idTarget, 1)+2, -1);
   //Und Original imitieren
@@ -92,39 +94,41 @@ public func AddAssaultTarget(id idTarget, int iX, int iY, int iMaxDamage, int iT
 
 public func ReportAssaultTargetDestruction(object pTarget, int iTeam)
 {
-  if (GetIndexOf(pTarget, aTargets[iTeam]) == -1)
+  if(GetIndexOf(pTarget, aTargets[iTeam]) == -1)
     return;
 
-  if (GetID(pTarget) == AHBS)
+  if(GetID(pTarget) == AHBS)
   {
     var aDmg = pTarget->GetDamager();
     var iPlr = aDmg[1];
-	aDmg = aDmg[0];
-	//Der letzte Killer bekommt 50 Punkte. -50 wenn er im selben Team war.
-	if (GetPlayerTeam(iPlr) == iTeam)
+        aDmg = aDmg[0];
+    //Der letzte Killer bekommt 50 Punkte. -50 wenn er im selben Team war.
+    if (GetPlayerTeam(iPlr) == iTeam)
     {
-	  DoPlayerPoints(-50, RWDS_MinusPoints, iPlr, GetCrew(iPlr), IC03);
-	  DoWealth(iPlr, -50);
-	}
-	else
-	{
-	  DoPlayerPoints(50, RWDS_TeamPoints, iPlr, GetCrew(iPlr), IC03);
-	  DoWealth(iPlr, 50);
-	}
+      DoPlayerPoints(-50, RWDS_MinusPoints, iPlr, GetCrew(iPlr), IC03);
+      DoWealth(iPlr, -50);
+    }
+    else
+    {
+      DoPlayerPoints(50, RWDS_TeamPoints, iPlr, GetCrew(iPlr), IC03);
+      DoWealth(iPlr, 50);
+    }
 
-	//Array durchgehen. Jeder gegnerische Helfer bekommt 20 Punkte, jeder Teamabschuss -20
-	for (var i; i < GetLength(aDmg); i++)
-	  if (GetPlayerName(i) && i != iPlr && aDmg[i]) {
-        if (GetPlayerTeam(i) == iTeam) {
-		  DoPlayerPoints(-20, RWDS_MinusPoints, i, GetCrew(i), IC03);
-		  DoWealth(i, -20);
-		}
-		else
-                {
-		  DoPlayerPoints(20, RWDS_TeamPoints, i, GetCrew(i), IC03);
-		  DoWealth(i, 20);
-		}
-	  }
+    //Array durchgehen. Jeder gegnerische Helfer bekommt 20 Punkte, jeder Teamabschuss -20
+    for (var i; i < GetLength(aDmg); i++)
+    if(GetPlayerName(i) && i != iPlr && aDmg[i])
+    {
+      if(GetPlayerTeam(i) == iTeam)
+      {
+        DoPlayerPoints(-20, RWDS_MinusPoints, i, GetCrew(i), IC03);
+        DoWealth(i, -20);
+      }
+      else
+      {
+        DoPlayerPoints(20, RWDS_TeamPoints, i, GetCrew(i), IC03);
+        DoWealth(i, 20);
+      }
+    }
   }
 
   return true;
@@ -187,8 +191,8 @@ protected func FxIntAssaultTargetStop(object pTarget, int iEffect, int iCause, b
 
 /* Relaunch */
 
-public func OnClassSelection() {}
-public func GetRespawnPoint(int &iX, int &iY, int iTeam) {}
+public func OnClassSelection()				{}
+public func GetRespawnPoint(int &iX, int &iY, int iTeam){}
 
 /* Ungenutzte Funktionen */
 
