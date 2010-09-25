@@ -181,22 +181,25 @@ public func RelaunchPlayer(int iPlr, pClonk, int iKiller)
   if (GetPlayerTeam(iPlr) == iDefender)
     index = GASS_Spawn_Def;
 
-  //Spieler darf gar nicht mehr joinen?
-  if(index == GASS_Spawn_Att)
+  if (iKiller != -2)
   {
-    //Angreifer: Keine Tickets?
-    if(!iTickets)
-      return ScheduleCall(this, "WaitForJoin", 5, 0, iPlr);
-  }
-  else
-  //Verteidiger: Keine Ziele?
-  if(GetLength(aTargets))
-    if(!ObjectCount2(Find_InArray(aTargets[iDefender])))
-      return EliminatePlayer(iPlr);
+    //Spieler darf gar nicht mehr joinen?
+    if(index == GASS_Spawn_Att)
+    {
+      //Angreifer: Keine Tickets?
+      if(!iTickets)
+        return ScheduleCall(this, "WaitForJoin", 5, 0, iPlr);
+    }
+    else
+      //Verteidiger: Keine Ziele?
+      if(GetLength(aTargets))
+        if(!ObjectCount2(Find_InArray(aTargets[iDefender])))
+          return EliminatePlayer(iPlr);
 
-  //Kein Verteidiger? Ticket-Abzug
-  if(GetPlayerTeam(iPlr) != iDefender && iKiller != -2)
-    iTickets = Max(iTickets-1);
+    //Kein Verteidiger? Ticket-Abzug
+    if(GetPlayerTeam(iPlr) != iDefender && iKiller != -2)
+      iTickets = Max(iTickets-1);
+  }
 
   //Clonk wegstecken
   var pCrew = GetCrew(iPlr);
@@ -217,6 +220,8 @@ public func RelaunchPlayer(int iPlr, pClonk, int iKiller)
   var rand = Random(GetLength(aSpawns[target_index][index]));
   SetPosition(aSpawns[target_index][index][rand][0], aSpawns[target_index][index][rand][1]-10, tim);
   tim->Spawn();
+  if (tim)
+    RemoveObject(tim);
 }
 
 protected func WaitForJoin(int iPlr)
@@ -232,16 +237,17 @@ protected func WaitForJoin(int iPlr)
     var tim = CreateObject(TIM1, GetX(target)-GetX(), GetY(target)-GetY(), -1);
 	Enter(tim, GetCrew(iPlr));
 	SetPlrViewRange(150, tim);
+	AddEffect("IntAssaultWaitObject", tim, 1, 0, tim);
   }
 
   //Alle anderen Angreifer sind tot -> verloren!
-  var alive;
+  var alive = false;
   for (var obj in FindObjects(Find_Func("IsClonk")))
   {
-    var iPlr = GetOwner(obj);
-    if (GetPlayerTeam(iPlr) == iDefender)
+    if (GetPlayerTeam(GetOwner(obj)) == iDefender)
       continue;
-    if (GetAlive(obj) && GetID(Contained(obj)) != TIM1 && GetID(Contained(obj)) != TIM2)
+	
+    if (GetAlive(obj) && !GetEffect("IntAssaultWaitObject", Contained(obj)))
       alive = true;
   }
 
