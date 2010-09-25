@@ -45,6 +45,12 @@ global func AddAssaultTarget()
     return goal->AddAssaultTarget(...);
 }
 
+global func GetAssaultTarget() {
+  var goal = FindObject2(Find_Func("IsCMCAssaultGoal"));
+  if (goal)
+    return goal->AddAssaultTarget(...);
+}
+
 global func Find_InArray(array a)
 {
   var end = [C4FO_Or];

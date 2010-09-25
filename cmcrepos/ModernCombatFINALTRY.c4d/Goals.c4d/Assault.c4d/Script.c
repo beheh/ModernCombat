@@ -93,9 +93,17 @@ public func ReportAssaultTargetDestruction(object pTarget, int iTeam)
 
   _inherited(pTarget, iTeam, ...);
 
+  var fConnectedDestruction = true;;
+  if (GetType(Connected[index]) != C4V_Array)
+    fConnectedDestruction = false;
+  else
+    for (var i in Connected[index])
+	  if (aTargets[iDefender][i])
+	    fConnectedDestruction = false;
+
   //Und gleich mal bekanntgeben
   EventInfo4K(0, Format("$TargetDestruction$", GetTeamColor(iTeam), GetName(pTarget)), GBAS, 0, 0, 0, "Info.ogg");
-  GameCall("OnAssaultTargetDestruction", pTarget, iTeam, FindInArray4K(aTargets[iTeam], pTarget));
+  GameCall("OnAssaultTargetDestruction", pTarget, iTeam, FindInArray4K(aTargets[iTeam], pTarget), fConnectedDestruction);
   if (pTarget)
     Explode(50, pTarget);
 
@@ -103,10 +111,8 @@ public func ReportAssaultTargetDestruction(object pTarget, int iTeam)
   if (GetType(Connected[index]) != C4V_Array)
     iTickets = iStartTickets;
   else
-    for (var i in Connected[index])
-	  if (aTargets[iDefender][i])
-	    return;
-  iTickets = iStartTickets;
+    if (fConnectedDestruction)
+	  iTickets = iStartTickets;
 }
 
 public func TeamGetScore(int iTeam)
@@ -142,6 +148,10 @@ private func GetNextTarget()
     if (aTargets[iDefender][i])
 	  return i;
   return -1;
+}
+
+public func GetAssaultTarget(int iIndex, int iTeam) {
+  return aTargets[iDefender][iIndex];
 }
 
 /* Relaunch */
