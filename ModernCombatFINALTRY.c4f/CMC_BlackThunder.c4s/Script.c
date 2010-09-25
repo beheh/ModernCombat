@@ -327,9 +327,6 @@ public func ChooserFinished()
     aSelfDefense[3]->SetTeam(2);
    }
 
-   //Grenze
-   CreateObject(BRDR, 2010, 0, -1)->Set(1);
-
    //Flaggen
    aFlag[0] = CreateObject(OFPL,630,590,NO_OWNER);
    aFlag[0] -> AddSpawnPoint(460,740);
