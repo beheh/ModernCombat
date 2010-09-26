@@ -16,5 +16,5 @@ Target3=Energy Converter
 Target4=Control Display
 Target5=Generator
 Target6=Central Server
-Target7=Distributor
+Target7=Fuel Depot
 Target8=Backup Server

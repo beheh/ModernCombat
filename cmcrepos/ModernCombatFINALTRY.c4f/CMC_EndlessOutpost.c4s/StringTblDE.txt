@@ -16,5 +16,5 @@ Target3=Überwachungssystem
 Target4=Wasserfilter
 Target5=Generator
 Target6=Zentralserver
-Target7=Sekundäre Radaranlage
+Target7=Treibstofflager
 Target8=Datenserver
