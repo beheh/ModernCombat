@@ -103,18 +103,16 @@ func ControlDig(object pByObj)
   if(IsDestroyed())
     return PlayerMessage(GetOwner(pByObj),"$Destroyed$", this);
 
-  //Zielpunkt berechnen
-  var iX = -AbsX()+Sin(GetR(pCannon),34), iY = -AbsY()-Cos(GetR(pCannon),34)-3, iXDir = Sin(GetR(pCannon),150), iYDir = -Cos(GetR(pCannon),150);
-  if(!SimFlight(iX,iY,iXDir,iYDir,50,50,500,10))
-    return 1;
+  //Flugbahn berechnen
+  var iX = Sin(GetR(pCannon),34), iY = -Cos(GetR(pCannon),34)-3, iXDir = Sin(GetR(pCannon),150), iYDir = -Cos(GetR(pCannon),150);
 
-  //Icon setzen
-  var target = CreateObject(ARCR,AbsX(iX),AbsY(iY),GetOwner(pByObj));
-  SetVisibility(VIS_Owner,target);
-
-  //Sicht zentrieren
-  SetPlrView(GetOwner(pByObj),target);
-  Sound("CatapultSet");
+  if (SimFlight2(iX, iY, iXDir, iYDir))
+  {
+    var target = CreateObject(ARCR, iX, iY, GetOwner(pByObj));
+    SetVisibility(VIS_Owner, target);
+    SetPlrView(GetOwner(pByObj), target);
+    Sound("CatapultSet");
+  }
 }
 
 func ControlThrow(object pByObj)
