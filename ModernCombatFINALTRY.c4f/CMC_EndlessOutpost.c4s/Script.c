@@ -70,12 +70,6 @@ func CreateFurniture()
   CreateParticle("Fog", 590, 570,0,0,1000+Random(100));
   CreateParticle("Fog", 710, 550,0,0,500+Random(100));
 
-  //Sternenhimmel
-  CreateObject(SLSY, 10, 10, -1);
-  CreateObject(SLSY, 10, 10, -1);
-  CreateObject(SLSY, 10, 10, -1);
-  CreateObject(SLSY, 10, 10, -1);
-
   //Leitern
   CreateObject(LADR, 70, 622, -1)->Set(33);
   CreateObject(LADR, 720, 530, -1)->Set(14);
