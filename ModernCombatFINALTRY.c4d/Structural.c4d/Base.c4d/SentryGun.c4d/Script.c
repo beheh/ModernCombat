@@ -12,19 +12,19 @@ local fActive;
 local GotTarget;
 local last_id;
 
-public func GetAttWeapon()	{return cur_Attachment;}		//Waffe
-public func MaxRotLeft()	{return 110+GetR();}			//Maximaler Winkel links
-public func MaxRotRight()	{return 250+GetR();}			//Maximaler Winkel rechts
-public func SearchLength()	{return 250;}					//Suchlänge
-public func AimAngle()		{return aim_angle+GetR();}		//Winkel auf Ziel
-public func ReadyToFire()	{return 1;}						//Allzeit bereit
-public func IsMachine()		{return true;}					//Ist eine Elektrische Anlage
-public func IsBulletTarget()	{return !IsDestroyed();}	//Kugelziel wenn nicht zerstört
-public func IsAiming()		{return true;}					//Selbstschussanlage immer am Zielen
-public func IsThreat()		{return fActive && !IsDestroyed();}	//Status
-public func UpdateCharge()	{return 1;}
-public func AttractTracer(object pTracer) {return GetPlayerTeam(GetController(pTracer)) != GetTeam() && !IsDestroyed();}
-public func RemoveTracer()	{return IsDestroyed();}		//Tracer entfernen, wenn zerstört
+public func GetAttWeapon()			{return cur_Attachment;}		//Waffe
+public func MaxRotLeft()			{return 110+GetR();}			//Maximaler Winkel links
+public func MaxRotRight()			{return 250+GetR();}			//Maximaler Winkel rechts
+public func SearchLength()			{return 250;}				//Suchlänge
+public func AimAngle()				{return aim_angle+GetR();}		//Winkel auf Ziel
+public func ReadyToFire()			{return 1;}				//Allzeit bereit
+public func IsMachine()				{return true;}				//Ist eine Elektrische Anlage
+public func IsBulletTarget()			{return !IsDestroyed();}		//Kugelziel wenn nicht zerstört
+public func IsAiming()				{return true;}				//Selbstschussanlage immer am Zielen
+public func IsThreat()				{return fActive && !IsDestroyed();}	//Status
+public func UpdateCharge()			{return 1;}
+public func AttractTracer(object pTracer)	{return GetPlayerTeam(GetController(pTracer)) != GetTeam() && !IsDestroyed();}
+public func RemoveTracer()			{return IsDestroyed();}			//Tracer entfernen, wenn zerstört
 
 
 /* Zerstörung */
@@ -46,7 +46,7 @@ public func Destruction()
 
 public func OnRepair()
 {
-	Arm(last_id);
+  Arm(last_id);
 }
 
 /* Bonus-Punkte */
@@ -188,25 +188,27 @@ public func Activity()
   /* Patroullie fahren */
   
   // alle 5 Frames
-  if(!(GetActTime()%5)) {
-	  //Zu weit links?
-	  if(AimAngle() <= MaxRotLeft())
-	  {
-	    //Wir fahren zurück
-	    iPat_Dir = 1;
-	    target_angle = MaxRotRight();
-	    GotTarget = 0;
-	  }
-	  //Oder zu weit rechts?
-	  else if(AimAngle() >= MaxRotRight())
-	  {
-	    //Hinfahren
-	    iPat_Dir = -1;
-	    target_angle = MaxRotLeft();
-	    GotTarget = 0;
-	  }
-	  if(!GotTarget) {
-  		aim_angle += iPat_Dir*3;
+  if(!(GetActTime()%5))
+  {
+    //Zu weit links?
+    if(AimAngle() <= MaxRotLeft())
+    {
+      //Wir fahren zurück
+      iPat_Dir = 1;
+      target_angle = MaxRotRight();
+      GotTarget = 0;
+    }
+    //Oder zu weit rechts?
+    else if(AimAngle() >= MaxRotRight())
+    {
+      //Hinfahren
+      iPat_Dir = -1;
+      target_angle = MaxRotLeft();
+      GotTarget = 0;
+    }
+    if(!GotTarget)
+    {
+      aim_angle += iPat_Dir*3;
     }
   }
   //Das Fahren selber ;)
@@ -336,32 +338,32 @@ public func EMPShock()
 
 public func ConsoleControl(int i)
 {
-    if(i == 1)
-    {
-      if(fActive) return "$TurnOff$";
-      else
-          return "$TurnOn$";
-    }
-    if(i == 2)
-      if(GetAction() == "Destroyed")
-        return "$Repair$";
+  if(i == 1)
+  {
+    if(fActive) return "$TurnOff$";
+    else
+    return "$TurnOn$";
+  }
+  if(i == 2)
+    if(GetAction() == "Destroyed")
+      return "$Repair$";
 }
 
 public func ConsoleControlled(int i)
 {
-    if(i == 1)
+  if(i == 1)
+  {
+    if(fActive) TurnOff();
+    else
     {
-        if(fActive) TurnOff();
-        else
-        {
-            TurnOn();
-        }
+      TurnOn();
     }
-    if(i == 2)
-    {
-      if(GetAction() == "Destroyed")
-        StartRepair();
-    }
+  }
+  if(i == 2)
+  {
+    if(GetAction() == "Destroyed")
+      StartRepair();
+  }
 }
 
 /* Serialisierung */
@@ -370,12 +372,13 @@ public func RejectContainedSerialize(object foo)	{return !false;} //weg mit den 
 
 public func Serialize(array& extra)
 {
-	extra[GetLength(extra)] = Format("SetTeam(%d)", GetTeam());
-	if (fActive)
-		extra[GetLength(extra)] = "TurnOn()";
-	if (cur_Attachment) {
-		extra[GetLength(extra)] = Format("Arm(%i)", GetID(cur_Attachment));
-		extra[GetLength(extra)] = Format("LocalN(\"aim_angle\")=%d", aim_angle);
-		extra[GetLength(extra)] = Format("LocalN(\"iPat_Dir\")=%d", iPat_Dir);
-	}
+  extra[GetLength(extra)] = Format("SetTeam(%d)", GetTeam());
+  if (fActive)
+    extra[GetLength(extra)] = "TurnOn()";
+  if (cur_Attachment)
+  {
+    extra[GetLength(extra)] = Format("Arm(%i)", GetID(cur_Attachment));
+    extra[GetLength(extra)] = Format("LocalN(\"aim_angle\")=%d", aim_angle);
+    extra[GetLength(extra)] = Format("LocalN(\"iPat_Dir\")=%d", iPat_Dir);
+  }
 }

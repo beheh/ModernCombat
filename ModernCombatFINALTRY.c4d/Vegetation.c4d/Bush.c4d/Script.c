@@ -2,12 +2,14 @@
 
 #strict 2
 
+#include TREE
+
 
 /* Initialisierung */
 
 protected func Initialize() 
 {
-  // Zufällige Richtung
+  //Zufällige Richtung
   SetDir(Random(2));
 
   SetAction("Breeze");
@@ -29,5 +31,3 @@ func Damage()
    RemoveObject();
   }
 }
-
-protected func Incineration()	{Extinguish();}
