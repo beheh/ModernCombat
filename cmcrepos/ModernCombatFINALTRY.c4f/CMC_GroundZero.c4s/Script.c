@@ -125,10 +125,10 @@ func CreateFurniture()
   CreateObject(BLGH, 1860, 305, -1);
 
   //Büsche
-  CreateObject(BUSH, 1230, 445, -1);
-  CreateObject(BUSH, 1245, 445, -1);
-  CreateObject(BUSH, 1550, 445, -1);
-  CreateObject(BUSH, 1565, 445, -1);
+  CreateObject(BSH2, 1230, 450, -1);
+  CreateObject(BSH2, 1245, 450, -1);
+  CreateObject(BSH2, 1550, 450, -1);
+  CreateObject(BSH2, 1565, 450, -1);
 
   //Bäume
   CreateObject(TRE3, 1300, 433, -1);
