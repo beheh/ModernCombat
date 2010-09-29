@@ -8,5 +8,5 @@
 
 
 public func ChopDown()		{}
-public func OnDmg()		{return 100;}
 protected func Incineration()	{Extinguish();}
+public func OnDmg()		{if (GetID() != BSH2) return 100;}
