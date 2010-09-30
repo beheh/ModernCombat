@@ -546,13 +546,13 @@ protected func GetObject2Drop(object pObj)
     //Objekt - hinterstes Objekt rauswerfen
     else {
       for (i = 0; i < ContentsCount(); i++)
-        if (Contents(i) && !(Contents(i)->~IsWeapon()))
+        if (Contents(i) && !(Contents(i)->~IsWeapon()) && !Contents(i)->~IsGrenade())
           dropobj = Contents(i);
       return dropobj;
     }
   }
 
-  return _inherited(...);
+  return _inherited(pObj, ...);
 }
 
 protected func ContextStatistics(object pCaller)
