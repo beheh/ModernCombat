@@ -13,6 +13,7 @@ Length=1
 Delay=35
 Facet=264,0,24,18
 NextAction=Open
+EndCall=CheckGrab
 
 [Action]
 Name=Closing
