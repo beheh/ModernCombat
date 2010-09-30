@@ -1,4 +1,4 @@
-DefendLastStation=Das ist unsere <c ff0000>letztes</c> Zielobjekt, lasst keinen ran!
+DefendLastStation=Das ist unser <c ff0000>letztes</c> Zielobjekt, lasst keinen ran!
 DestroyLastStation=Nurnoch <c ffff33>ein</c> Zielobjekt und wir haben gewonnen, lasst nicht locker!
 TargetDestruction=Zielobjekt <c %x>%s</c> wurde zerstört.
 TeamHasWon=Team %s hat diese Schlacht gewonnen!

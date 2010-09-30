@@ -107,6 +107,15 @@ public func ReportAssaultTargetDestruction(object pTarget, int iTeam)
   if (pTarget)
     Explode(50, pTarget);
 
+  //Letztes Ziel
+  if (ObjectCount2(Find_InArray(aTargets[iDefender])) == 1)
+    for (var i, j; i < GetPlayerCount(); i++)
+	  if (GetPlayerTeam(j = GetPlayerByIndex(i)) == iDefender)
+	    EventInfo4K(j+1, "$DefendLastStation$", GetID(), 0, 0, 0, "Alarm.ogg");
+	  else
+	    EventInfo4K(j+1, "$DestroyLastStation$", GetID(), 0, 0, 0, "Alarm.ogg");
+	    
+
   //Tickets resetten, bei verbundenen nur wenn alle Ziele zerstört sind
   if (GetType(Connected[index]) != C4V_Array)
     iTickets = iStartTickets;
@@ -296,6 +305,9 @@ public func UpdateScoreboard()
   //Komplett leeren
   ClearScoreboard();
 
+  if (IsFulfilled())
+    return;
+
   //Erst das nächste Ziel raussuchen
   var obj = aTargets[iDefender][GetNextTarget()];
 
@@ -364,7 +376,6 @@ private func AddScoreboardTarget(object pTarget, int iRow)
 protected func FxIntGoalTimer()
 {
   UpdateScoreboard();
-  IsFulfilled();
 }
 
 local fulfilled;
