@@ -126,25 +126,25 @@ public func GetRealCursor()
 /* Hilfen */
 
 public func AddThrowItem(string szTitle, string szFunc, Parameter, id idIcon)
-            { return Add(0,szTitle,szFunc,Parameter,idIcon); }
+{ return Add(0,szTitle,szFunc,Parameter,idIcon); }
             
 public func AddUpItem(string szTitle, string szFunc, Parameter, id idIcon)
-            { return Add(1,szTitle,szFunc,Parameter,idIcon); }
+{ return Add(1,szTitle,szFunc,Parameter,idIcon); }
             
 public func AddRightItem(string szTitle, string szFunc, Parameter, id idIcon)
-            { return Add(2,szTitle,szFunc,Parameter,idIcon); }
+{ return Add(2,szTitle,szFunc,Parameter,idIcon); }
             
 public func AddDownItem(string szTitle, string szFunc, Parameter, id idIcon)
-            { return Add(3,szTitle,szFunc,Parameter,idIcon); }
+{ return Add(3,szTitle,szFunc,Parameter,idIcon); }
             
 public func AddLeftItem(string szTitle, string szFunc, Parameter, id idIcon)
-            { return Add(4,szTitle,szFunc,Parameter,idIcon); }
+{ return Add(4,szTitle,szFunc,Parameter,idIcon); }
 
 public func AddTopInfoItem(string szItem)
-						{ return aTopInfo[GetLength(aTopInfo)] = szItem; }
+{ return aTopInfo[GetLength(aTopInfo)] = szItem; }
 
 public func AddBottomInfoItem(string szItem)
-						{ return aBottomInfo[GetLength(aBottomInfo)] = szItem; }
+{ return aBottomInfo[GetLength(aBottomInfo)] = szItem; }
 
 public func CloseDown()
 {
@@ -203,7 +203,7 @@ protected func CrewSelection(bool fDeselect, bool fCursor)
   //Bei Crewabwahl schließen (mit Verzögerung)
   if(fDeselect)
   {
-    SetViewCursor(GetOwner());// ViewCursor zurücksetzen
+    SetViewCursor(GetOwner()); //ViewCursor zurücksetzen
     SetAction("Closing");
   }
   return 1;
@@ -217,7 +217,7 @@ protected func FxIntSMENCheckTimer(object pTarget)
 protected func FxIntSMENCheckStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)
 {
   if(fTemp) return 0;
-  if(iReason == 0) return 0;//Bei RemoveEffect nichts machen.
+  if(iReason == 0) return 0; //Bei RemoveEffect nichts machen.
   Close();
 }
 
@@ -332,15 +332,18 @@ protected func Opening()
     SetAction("Open");
 }
 
-protected func Open() {
+protected func Open()
+{
   Message(" ", this, GetOwner());
   var i = -(GetLength(aTopInfo)-1)*RMEN_TextDistance;
-  for(var szItem in aTopInfo) {
+  for(var szItem in aTopInfo)
+  {
     CustomMessage(Format("@%s", szItem), this, GetOwner(), 0, i, 0, 0, 0, MSG_Multiple);
     i += RMEN_TextDistance;
   }
   var i = 190;
-  for(var szItem in aBottomInfo) {
+  for(var szItem in aBottomInfo)
+  {
     CustomMessage(Format("@%s", szItem), this, GetOwner(), 0, i, 0, 0, 0, MSG_Multiple);
     i += RMEN_TextDistance;
   }
