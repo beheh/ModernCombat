@@ -3,7 +3,7 @@
 #strict 2
 #include CVHC
 
-/* ----- Variablen ----- */
+/*----- Variablen -----*/
 
 local throttle,				//int    - Schub
       rotation,				//int    - erwartete Drehung
@@ -25,7 +25,7 @@ local s_counter,			//int    - eine kleine Counter-Variable für Warnsounds
 
 local destroyed;			//bool   - ob der Heli schon zerstört ist
 
-local passengercnt;		//int    - Anzahl der Clonks im Heli
+local passengercnt;			//int    - Anzahl der Clonks im Heli
 
 static const throttle_speed = 5;	//int    - "Feinfühligkeit"
 static const rot_speed = 1;		//int    - Drehgeschwindigkeit / frame
@@ -39,10 +39,10 @@ static const auto_max_rotation = 10;
 static const BKHK_PilotLayer = 2;
 static const BKHK_PassengerLayer = 3;
 
-/* ----- Callbacks ----- */
+/*----- Callbacks -----*/
 
-public func IsMachine()		{return 1;}
-public func MaxDamage()		{return 200;}
+public func IsMachine()			{return 1;}
+public func MaxDamage()			{return 200;}
 public func IsBulletTarget(id idBullet, object pBullet)
 {
   if(idBullet == MISS || idBullet == HMIS || idBullet == MISL || idBullet == LRML || idBullet == ESHL)
@@ -50,7 +50,7 @@ public func IsBulletTarget(id idBullet, object pBullet)
   return 1;
 }
 
-/* ----- Initialisierung ----- */
+/*----- Initialisierung -----*/
 
 protected func Initialize()
 {
@@ -82,7 +82,7 @@ protected func Initialize()
   return _inherited();
 }
 
-/* ----- Erfassung ----- */
+/*----- Erfassung -----*/
 
 public func GetPilot()		{return Pilot;}
 public func GetThrottle()	{return throttle;}
@@ -132,7 +132,7 @@ public func GetRocket()
   return fRocket;
 }
 
-/* ----- Autopilot ----- */
+/*----- Autopilot -----*/
 
 public func GetAutopilot()	{return GetEffect("BlackhawkAutopilot", this);}
 
@@ -259,7 +259,7 @@ protected func FxBlackhawkAutopilotTimer(object pTarget, int iNumber, int iTime)
   return FX_OK;
 }
 
-/* ----- Eingangssteuerung ----- */
+/*----- Eingangssteuerung -----*/
 
 protected func Ejection(object ByObj)
 {
@@ -326,7 +326,7 @@ protected func Collection2(object pObj)
   }
 }
                 
-/* ----- Steuerung ----- */
+/*----- Steuerung -----*/
 
 protected func FxBlackhawkChangeThrottleStart(object pTarget, int iNumber, iTemp, int iChange)
 {
@@ -408,18 +408,20 @@ protected func ContainedDown(object ByObj)
   return true;
 }
 
-protected func ContainedUpReleased(object ByObj) {
-	if(ByObj == Pilot)
-		RemoveEffect("BlackhawkChangeThrottle", this);
+protected func ContainedUpReleased(object ByObj)
+{
+  if(ByObj == Pilot)
+    RemoveEffect("BlackhawkChangeThrottle", this);
 
-	return true;
+  return true;
 }
 
-protected func ContainedDownReleased(object ByObj) {
-	if(ByObj == Pilot)
-		RemoveEffect("BlackhawkChangeThrottle", this);
+protected func ContainedDownReleased(object ByObj)
+{
+  if(ByObj == Pilot)
+    RemoveEffect("BlackhawkChangeThrottle", this);
 
-	return true;
+  return true;
 }
 
 protected func ContainedUpDouble(object ByObj)
@@ -494,9 +496,10 @@ protected func ContainedLeft(object ByObj)
   return true;
 }
 
-protected func ContainedLeftReleased(object ByObj) {
+protected func ContainedLeftReleased(object ByObj)
+{
   if(ByObj == Pilot)
-  	rotation = GetR();
+    rotation = GetR();
 }
 
 protected func ContainedRight(object ByObj, fRelease)
@@ -560,9 +563,10 @@ protected func ContainedLeftDouble(object ByObj)
   return true;
 }
 
-protected func ContainedRightReleased(object ByObj) {
+protected func ContainedRightReleased(object ByObj)
+{
   if(ByObj == Pilot)
-  	rotation = GetR();
+    rotation = GetR();
 }
 
 protected func ContainedRightDouble(object ByObj)
@@ -645,7 +649,7 @@ protected func ChangeDir()
   return true;
 }
 
-/* ----- Sitzsteuerung ----- */
+/*----- Sitzsteuerung -----*/
 
 protected func ContainedDigDouble(object ByObj)
 {
@@ -811,7 +815,7 @@ public func EnterSeat5(a, object Obj)
   return 1;
 }
 
-/* ----- Ausstieg per Seil ----- */
+/*----- Ausstieg per Seil -----*/
 
 public func GetRopeAttach()
 {
@@ -876,7 +880,7 @@ protected func FxCheckEndTimer(pTarget, iNo, iTime)
 }
 */
 
-/* ----- Zerstörung ----- */
+/*----- Zerstörung -----*/
 
 protected func Destruction()
 {
@@ -889,7 +893,7 @@ protected func Destruction()
   return true;
 }
 
-/* ----- Schaden ----- */
+/*----- Schaden -----*/
 
 public func OnDmg(int iDmg, int iType)
 {
@@ -957,7 +961,7 @@ public func OnDestruction()
   return;
 }
 
-/* ----- Kollisionsverhalten ----- */
+/*----- Kollisionsverhalten -----*/
 
 protected func ContactTop()
 {
@@ -1254,7 +1258,7 @@ private func Smoking()
       Smoke(-Sin(GetR()+dir*80, 25), +Cos(GetR()+dir*80, 25), Random(10));
 }
 
-/* ----- Physik ----- */
+/*----- Physik -----*/
 
 protected func StartEngine()
 {
@@ -1284,7 +1288,7 @@ protected func EngineStopped()
   Sound("BKHK_RotorSpin*.ogg",false,0,0,0,-1);
 }
 
-/* ----- Effekt: Engine ----- */
+/*----- Effekt: Engine -----*/
 
 protected func FxEngineStart(object Target, int EffectNumber, int Temp, Var1, Var2, Var3, Var4)
 {
