@@ -40,37 +40,97 @@ protected func FxIntGoalTimer()
 
 /* Scoreboard */
 
-static const GBAS_Name = -1;
-static const GBAS_Count = 0;
-static const GBAS_Clonks = 1;
+static const GBAS_Name = 0;
+static const GBAS_Status = 1;
+static const GBAS_MaxTargetCount = 8;	//8 Ziele darf jedes Team maximal haben
+
+local aScoreboardTeams;
 
 public func UpdateScoreboard()
 {
-  //Titelleiste
-  SetScoreboardData(SBRD_Caption, GBAS_Name, GetName());
-  SetScoreboardData(SBRD_Caption, GBAS_Count, "{{GBAS}}");
-  SetScoreboardData(SBRD_Caption, GBAS_Clonks, "{{PCMK}}");
+  if (!aScoreboardTeams)
+    aScoreboardTeams = [];
 
-  //Alle Teams durchgehen...
-  for (var i, team; i < GetTeamCount(); team++)
+  //Titelleiste
+  SetScoreboardData(SBRD_Caption, SBRD_Caption, GetName());
+
+  //Alle Teams durchgehen
+  for(var i, iTeam; i < GetTeamCount(); i++)
   {
-    if (GetTeamName(team))
-	  i++;
-	//Team ist raus
-	if (!GetTeamName(team) || !GetTeamPlayerCount(team))
-        {
-	  SetScoreboardData(team, GBAS_Name);
-	  SetScoreboardData(team, GBAS_Count);
-	  SetScoreboardData(team, GBAS_Clonks);
+    //Team eliminiert
+	if (!GetTeamName(iTeam = GetTeamByIndex(i)) || !GetTeamPlayerCount(iTeam))
+	{
+	  if (aScoreboardTeams[iTeam])
+	    RemoveScoreboardTeam(iTeam);
 	  continue;
 	}
-	var count = ObjectCount2(Find_InArray(aTargets[team]));
-	SetScoreboardData(team, GBAS_Name, GetTaggedTeamName(team));
-	SetScoreboardData(team, GBAS_Count, Format("<c %x>%d</c>", GetTeamColor(team), count), count);
-	SetScoreboardData(team, GBAS_Clonks, Format("<c %x>%d</c>", GetTeamColor(team), GetTeamPlayerCount(team)), GetTeamPlayerCount(team));
+
+	aScoreboardTeams[iTeam] = true;
+	//Team hat noch Ziele
+	if (ObjectCount2(Find_InArray(aTargets[iTeam])))
+	{
+	  for (var k = 0; k < GetLength(aTargets[iTeam]); k++)
+	  {
+	    var target = aTargets[iTeam][k];
+	    //Ziel zerstört?
+		if (!target)
+		{
+		  SetScoreboardData(k, 2 * iTeam + GBAS_Name, "<c ffffff>$Destroyed$</c>");
+		  SetScoreboardData(k, 2 * iTeam + GBAS_Status);
+		}
+		else
+		{
+		  SetScoreboardData(k, 2 * iTeam + GBAS_Name, Format("<c %x>%s</c>", GetTeamColor(iTeam), GetName(target)));
+		  SetScoreboardData(k, 2 * iTeam + GBAS_Status, Format("<c %x>%d%</c>", GetTeamColor(iTeam), Interpolate2(100, 0, GetDamage(target), EffectVar(0, target, GetEffect("IntAssaultTarget", target)))));
+		}
+	  }
+	}
+	//Keine Ziele mehr. Clonks anzeigen
+	else
+	{
+	  //Vorerst säubern
+	  RemoveScoreboardTeam(iTeam);
+	  aScoreboardTeams[iTeam] = true;
+	  //Spieler abklappern
+	  for (var l = 0, iPlr; l < GetTeamPlayerCount(iTeam); l++)
+	  {
+		iPlr = GetTeamPlayerByIndex(l, iTeam);
+		var clonk = GetCrew(iPlr);
+		//Kein Clonk?
+		if (!clonk || !GetPlayerName(iPlr))
+		  continue;
+		//Tot?
+		var symbol = GetID(clonk);
+		if (GetID(Contained(clonk)) == FKDT || !GetAlive(clonk))
+		  symbol = CDBT;
+		SetScoreboardData(l, 2 * iTeam + GBAS_Name, GetTaggedPlayerName(iPlr));
+		SetScoreboardData(l, 2 * iTeam + GBAS_Status, Format("{{%i}}", symbol));
+	  }
+	}
   }
-  SortScoreboard(GBAS_Clonks, true);
-  SortScoreboard(GBAS_Count, true);
+}
+
+private func GetTeamPlayerByIndex(int iPlr, int iTeam)
+{
+  for (var i; i < GetPlayerCount(); i++)
+    if (GetPlayerTeam(GetPlayerByIndex(i)) == iTeam)
+	{
+	  if (!iPlr)
+	    return GetPlayerByIndex(i);
+	  --iPlr;
+	}
+  return -1;
+}
+
+public func RemoveScoreboardTeam(int iTeam)
+{
+  aScoreboardTeams[iTeam] = false;
+  //Uff.
+  for (var i; i < GBAS_MaxTargetCount; i++)
+  {
+    SetScoreboardData(i, iTeam * 2 + GBAS_Name);
+	SetScoreboardData(i, iTeam * 2 + GBAS_Status);
+  }
 }
 
 /* Sieg */
@@ -152,7 +212,9 @@ public func OpenRelaunchMenu(object pCrew, int iSelection)
     return EliminatePlayer(GetOwner(pCrew));
   CreateMenu(GBAS, pCrew, this, 0, "$ChoosePoint$", 0, 3, 0, GBAS);
   //Alle vorhandenen Ziele ins Menü setzen
-  for (var obj in FindObjects(Find_InArray(aTargets[GetPlayerTeam(GetOwner(pCrew))])))
+  var array = FindObjects(Find_InArray(aTargets[GetPlayerTeam(GetOwner(pCrew))]));
+  SortTargets(array);
+  for (var obj in array)
   {
     var dmg = EffectVar(0, obj, GetEffect("IntAssaultTarget", obj));
     var id = GetID(obj);
@@ -160,6 +222,65 @@ public func OpenRelaunchMenu(object pCrew, int iSelection)
     AddMenuItem(GetName(obj), Format("DoRelaunch(Object(%d), Object(%d))", ObjectNumber(pCrew), ObjectNumber(obj)), id, pCrew, 100*(dmg-GetDamage(obj))/dmg, 0, GetName(obj));
   }
   SelectMenuItem(iSelection, pCrew);
+}
+
+//Sortieren ist immer so weird...
+private func SortTargets(array &a)
+{
+  var result = [], array = a, next, val, dir = GameCall("OccupationDir");
+  CleanArray4K(array);
+  if (!dir)
+    dir = GOCC_Horizontal;
+
+  if (dir == GOCC_Horizontal)
+  {
+    while (GetLength(array))
+	{
+      val = next = 0;
+	  for (var obj in array)
+	  {
+	    if (!next)
+		{
+		  val = Abs(GetX(obj) - LandscapeWidth()/2);
+		  next = obj;
+		}
+		else
+		  if (Abs(GetX(obj) - LandscapeWidth()/2) < val)
+		  {
+			val = Abs(GetX(obj) - LandscapeWidth()/2);
+			next = obj;
+		  }
+	  }
+	  result[GetLength(result)] = next;
+	  DelArrayItem4K(array, GetIndexOf(next, array));
+	}
+  }
+
+  if (dir == GOCC_Vertical)
+  {
+    while (GetLength(array))
+	{
+      val = next = 0;
+	  for (var obj in array)
+	  {
+	    if (!next)
+		{
+		  val = Abs(GetY(obj) - LandscapeHeight()/2);
+		  next = obj;
+		}
+		else
+		  if (Abs(GetY(obj) - LandscapeHeight()/2) < val)
+		  {
+			val = Abs(GetY(obj) - LandscapeHeight()/2);
+			next = obj;
+		  }
+	  }
+	  result[GetLength(result)] = next;
+	  DelArrayItem4K(array, GetIndexOf(next, array));
+	}
+  }
+
+  return a = result;
 }
 
 public func OnMenuSelection(int iSelection, object pCrew)
