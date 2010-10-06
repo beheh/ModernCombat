@@ -9,7 +9,7 @@ public func HandX()		{return 1000;}
 public func HandY()		{return -2500;}
 public func NoWeaponChoice()	{return true;}
 
-local pRocket, bGuiding;
+local aRockets, fView;
 
 
 /* Raketen - Optische Steuerung */
@@ -66,9 +66,13 @@ public func LaunchRocket(id rid, int angle)
   rocket->Launch(angle, user);
   rocket->Sound("RLSA_Fire*.ogg");
   SetController(GetController(user), rocket);
-  
+
+  if (!aRockets || GetLength(aRockets) == FMData1(FM_BurstAmount))
+    aRockets = [];
+
   SetPlrView(GetController(user), rocket);
-  pRocket = rocket;
+  aRockets[GetLength(aRockets)] = rocket;
+  fView = true;
 
   //Effekte
   var ax, ay, xdir, ydir;
@@ -91,11 +95,25 @@ public func LaunchRocket(id rid, int angle)
 
 private func Check()
 {
-  if(!Contained()) return;
-  
+  if(!Contained() || !fView) return;
+
+  var pRocket;
+  for (var i; i < GetLength(aRockets); i++)
+    if (pRocket = aRockets[i])
+	  break;
+
   if(Contained()->~IsThreat()) //Für Waffengeschütz
-    if(pRocket)
+    if(pRocket && fView)
       SetPlrView(GetController(Contained()), pRocket);
+}
+
+public func ControlDig(object pBy)
+{
+  fView = !fView;
+  if (!fView)
+    SetPlrView(GetController(pBy), pBy);
+  else
+    Check();
 }
 
 /* Allgemein */

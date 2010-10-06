@@ -631,6 +631,12 @@ protected func ContainedThrow(object ByObj)
   return true;
 }
 
+protected func ContainedDig(object pBy)
+{
+  if (pBy == Coordinator)
+    RocketStation->~ControlDig(pBy);
+}
+
 public func ContainedUpdate(object ByObj, int comdir, bool dig, bool throw)
 {
   if(ByObj == Gunner)
