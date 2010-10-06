@@ -142,6 +142,12 @@ public func ControlThrow(pByObj)
   return true;
 }
 
+public func ControlDig()
+{
+  if (GetAttWeapon())
+    GetAttWeapon()->~ControlDig(...);
+}
+
 
 public func TimerCall()
 {
