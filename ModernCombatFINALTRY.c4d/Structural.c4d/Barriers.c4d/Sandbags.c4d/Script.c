@@ -24,7 +24,8 @@ public func OnHit(int iDamage, int iType, object pFrom)
   }
 }
 
-public func OnDmg(int iDamage, int iType) {
+public func OnDmg(int iDamage, int iType)
+{
   if (iType == DMG_Explosion) return 50;
   return 100;
 }
