@@ -2,3 +2,4 @@ TargetDestruction=Target <c %x>%s</c> destroyed.
 ChoosePoint=Choose an <c ffff33>access point</c>
 NoTargets=All our targets were <c ff0000>destroyed</c>! Start fighting or we will lose!
 TeamHasWon=Team %s has won this battle!
+Destroyed=Destroyed
