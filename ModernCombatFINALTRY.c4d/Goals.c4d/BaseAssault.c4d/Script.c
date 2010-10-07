@@ -64,33 +64,26 @@ public func UpdateScoreboard()
 	    RemoveScoreboardTeam(iTeam);
 	  continue;
 	}
-
+	RemoveScoreboardTeam(iTeam);
 	aScoreboardTeams[iTeam] = true;
 	//Team hat noch Ziele
 	if (ObjectCount2(Find_InArray(aTargets[iTeam])))
 	{
-	  for (var k = 0; k < GetLength(aTargets[iTeam]); k++)
+	  for (var k = 0, row = 0; k < GetLength(aTargets[iTeam]); k++)
 	  {
 	    var target = aTargets[iTeam][k];
-	    //Ziel zerstört?
-		if (!target)
+	    //Ziel noch da?
+		if (target)
 		{
-		  SetScoreboardData(k, 2 * iTeam + GBAS_Name, "<c ffffff>$Destroyed$</c>");
-		  SetScoreboardData(k, 2 * iTeam + GBAS_Status);
-		}
-		else
-		{
-		  SetScoreboardData(k, 2 * iTeam + GBAS_Name, Format("<c %x>%s</c>", GetTeamColor(iTeam), GetName(target)));
-		  SetScoreboardData(k, 2 * iTeam + GBAS_Status, Format("<c %x>%d%</c>", GetTeamColor(iTeam), Interpolate2(100, 0, GetDamage(target), EffectVar(0, target, GetEffect("IntAssaultTarget", target)))));
+		  SetScoreboardData(row, 2 * iTeam + GBAS_Name, Format("<c %x>%s</c>", GetTeamColor(iTeam), GetName(target)));
+		  SetScoreboardData(row, 2 * iTeam + GBAS_Status, Format("<c %x>%d%</c>", GetTeamColor(iTeam), Interpolate2(100, 0, GetDamage(target), EffectVar(0, target, GetEffect("IntAssaultTarget", target)))));
+		  ++row;
 		}
 	  }
 	}
 	//Keine Ziele mehr. Clonks anzeigen
 	else
 	{
-	  //Vorerst säubern
-	  RemoveScoreboardTeam(iTeam);
-	  aScoreboardTeams[iTeam] = true;
 	  //Spieler abklappern
 	  for (var l = 0, iPlr; l < GetTeamPlayerCount(iTeam); l++)
 	  {
@@ -101,7 +94,7 @@ public func UpdateScoreboard()
 		  continue;
 		//Tot?
 		var symbol = GetID(clonk);
-		if (GetID(Contained(clonk)) == FKDT || !GetAlive(clonk))
+		if (GetID(Contained(clonk)) == FKDT || !GetAlive(clonk) || GetID(Contained(clonk)) == TIM1 || GetID(Contained(clonk)) == TIM2)
 		  symbol = CDBT;
 		SetScoreboardData(l, 2 * iTeam + GBAS_Name, GetTaggedPlayerName(iPlr));
 		SetScoreboardData(l, 2 * iTeam + GBAS_Status, Format("{{%i}}", symbol));
