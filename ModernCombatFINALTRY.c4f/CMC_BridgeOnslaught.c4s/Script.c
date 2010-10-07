@@ -563,9 +563,10 @@ public func ChooserFinished()
   if(FindObject(GBAS))
   {
    //Zielobjekte
-   AddAssaultTarget(CMSN, 710, 800, 400, 1, "$Flag2$", 2, [[640, 640], [420, 630]]);
-   AddAssaultTarget(CCP2, 425, 430, 300, 1, "$Flag1$", 0, [[230, 440], [330, 530]]);
-   AddAssaultTarget(CMSN, 2010, 800, 400, 2, "$Flag4$", 2, [[2090, 640], [2310, 630]]);
+   AddAssaultTarget(CMSN, 710, 800, 400, 1, "$Flag2$", 0, [[640, 640], [420, 630]]);
+   AddAssaultTarget(CCP2, 425, 430, 300, 1, "$Flag1$", 1, [[230, 440], [330, 530]]);
+
+   AddAssaultTarget(CMSN, 2010, 800, 400, 2, "$Flag4$", 0, [[2090, 640], [2310, 630]]);
    AddAssaultTarget(CCP2, 2305, 430, 300, 2, "$Flag5$", 1, [[2400, 530], [2500, 440]]);
   }
 

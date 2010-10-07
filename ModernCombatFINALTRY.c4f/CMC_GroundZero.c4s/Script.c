@@ -460,8 +460,8 @@ public func ChooserFinished()
    AddAssaultTarget(CCP2, 100, 390, 400, 1, "$Flag1$", 0, [[130, 540], [200, 540], [260, 560]]);
    AddAssaultTarget(CMSN, 990, 520, 300, 1, "$Flag2$", 1, [[930, 320], [1120, 320], [1000, 170]]);
 
-   AddAssaultTarget(CCP2, 2700, 390, 400, 2, "$Flag5$", 2, [[2670, 540], [2600, 540], [2540, 560]]);
-   AddAssaultTarget(CMSN, 1810, 520, 300, 2, "$Flag4$", 3, [[1870, 320], [1680, 320], [1800, 170]]);
+   AddAssaultTarget(CCP2, 2700, 390, 400, 2, "$Flag5$", 0, [[2670, 540], [2600, 540], [2540, 560]]);
+   AddAssaultTarget(CMSN, 1810, 520, 300, 2, "$Flag4$", 1, [[1870, 320], [1680, 320], [1800, 170]]);
   }
 
   //OP-Spielziel
