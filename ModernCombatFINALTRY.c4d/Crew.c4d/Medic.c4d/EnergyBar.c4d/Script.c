@@ -43,7 +43,7 @@ public func Update()
   if(!obj || !(GetOCF(obj) & OCF_Alive) || Contained(obj) || Hostile(GetOwner(), GetOwner(obj)))
    return;
   var cursor = GetCursor(GetOwner());
-  if (!cursor || (GetID(cursor) != MDIC && GetID(cursor->~GetRealCursor()) != MDIC))
+  if (!cursor || (GetID(cursor) != MDIC && GetID(cursor->~GetRealCursor()) != MDIC) || cursor == obj)
     return;
   var percent = BoundBy(GetEnergy(obj)*100/(GetDefCoreVal("Energy","Physical",GetID(obj))/1000),0,100);
   if(percent > 95)
