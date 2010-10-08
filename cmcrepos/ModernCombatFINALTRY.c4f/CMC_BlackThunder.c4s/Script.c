@@ -37,16 +37,24 @@ func CreateFurniture()
   //Alle Objekte folglich von links nach rechts
 
   //Leitern
+  CreateObject(LADR, 430, 930, -1)->Set(22);
+  CreateObject(LADR, 460, 1240, -1)->Set(35);
+
   CreateObject(LADR, 460, 540, -1)->Set(4);
   CreateObject(LADR, 790, 750, -1)->Set(19);
   CreateObject(LADR, 1250, 844, -1)->Set(27);
 
   CreateObject(LADR, 2020, 850, -1)->Set(19);
+  CreateObject(LADR, 2040, 1170, -1)->Set(39);
+  CreateObject(LADR, 2200, 1170, -1)->Set(39);
   CreateObject(LADR, 2220, 850, -1)->Set(19);
 
   CreateObject(LADR, 2990, 844, -1)->Set(27);
   CreateObject(LADR, 3450, 750, -1)->Set(19);
   CreateObject(LADR, 3780, 540, -1)->Set(4);
+
+  CreateObject(LADR, 3810, 930, -1)->Set(22);
+  CreateObject(LADR, 3780, 1240, -1)->Set(35);
 
   //Bodenlucken
   CreateObject(HA4K, 460, 503, -1);
@@ -139,7 +147,7 @@ func CreateFurniture()
   CreateObject(OLGH, 3540, 590, -1)->Set(4, 15, 1, 1, 30);
 
   //Grenzen
-  CreateObject(BRDR, 0, 1100, -1)->Set(3);
+  CreateObject(BRDR, 0, 1110, -1)->Set(3);
 
   //Verbundene Türen
   var doorw = CreateObject(ROOM, 740, 760, -1);
