@@ -5,7 +5,6 @@
 
 local iDefender;		//Verteidiger-Team
 local iTickets;			//Tickets für die Angreifer
-local iStartTickets;
 local aSpawns;			//Spawnpunkte
 local Connected;		//Verbundene Ziele
 
@@ -21,49 +20,9 @@ protected func Initialize()
   return _inherited(...);
 }
 
-public func IsConfigurable()		{return true;}
-
-public func ConfigMenu(object pCaller)
-{
-  OpenGoalMenu();
-  return 1;
-}
-
-private func ConfigFinished()
-{
-  var chos = FindObject(CHOS);
-  if(chos)
-    chos->OpenMenu();
-}
-
-private func OpenGoalMenu(id dummy, int iSelection)
-{
-  var pClonk = GetCursor();
-  CreateMenu(GetID(),pClonk,0,0,0,0,1);
-
-  AddMenuItem(" ", "OpenGoalMenu", GetID(), pClonk, iStartTickets, 0, " ");
-  AddMenuItem("$MoreTickets$", "ChangeTickets", CHOS, pClonk, 0, +1, "$MoreTickets$",2,1);
-  AddMenuItem("$LessTickets$", "ChangeTickets", CHOS, pClonk, 0, -1, "$LessTickets$",2,2);
-  AddMenuItem("$Finished$", "ConfigFinished", CHOS, pClonk,0,0,"$Finished$",2,3);
-
-  SelectMenuItem(iSelection, pClonk);
-}
-
-protected func ChangeTickets(id dummy, int iChange)
-{
-  //Stand verändern
-  iStartTickets = BoundBy(iStartTickets+iChange,3,30);
-  //Sound
-  Sound("Grab", 1,0,0,1);
-  //Menü wieder öffnen
-  var iSel = 1;
-  if(iChange == -1) iSel = 2;
-  OpenGoalMenu(0, iSel);
-}
-
 public func ChooserFinished()
 {
-  iTickets = iStartTickets;
+  iTickets = CalcTickets();
   return _inherited(...);
 }
 
@@ -71,6 +30,17 @@ public func ChooserFinished()
 
 static const GASS_Spawn_Def = 0;
 static const GASS_Spawn_Att = 1;
+
+public func CalcTickets()
+{
+  var A, D;
+  for (var i; i < GetPlayerCount(i++); i++)
+    if (GetPlayerTeam(GetPlayerByIndex(i)) == iDefender)
+	  D++;
+	else
+	  A++;
+  return D + (5 + A + D + 2 * D * D) / (A + 1);
+}
 
 public func AddAssaultTarget(id idTarget, int iX, int iY, int iMaxDamage, int iTeam, string szName, int iIndex, array aSpawn, bool fNoBar)
 {
@@ -118,10 +88,10 @@ public func ReportAssaultTargetDestruction(object pTarget, int iTeam)
 
   //Tickets resetten, bei verbundenen nur wenn alle Ziele zerstört sind
   if (GetType(Connected[index]) != C4V_Array)
-    iTickets = iStartTickets;
+    iTickets = CalcTickets();
   else
     if (fConnectedDestruction)
-	  iTickets = iStartTickets;
+	  iTickets = CalcTickets();
 }
 
 public func TeamGetScore(int iTeam)
