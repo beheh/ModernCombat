@@ -11,19 +11,5 @@ CtxHelpMessagesOn=Help messages on
 CtxHelpMessagesOff=Help messages off
 CtxGrenadeMenu=Grenades
 
-# HealMenu
-CtxHealMenu=Treatment
-MenHealSingle=Single Treatment
-DescHealSingle=Treat a single clonk.
-MenHealGroup=Group Treatment
-DescHealGroup=Treat multiple clonks.
-MenReanimate=Reanimation
-DescReanimate=Reanimate a highly injured clonk.
-
 # Other
-MsgYourOk=Your good now.
 AmmoBag=Ammobag
-
-# Reanimation
-MsgReanimation=["%s rescues %s's bootie.","%s wakes %s out of his coma.","%s flashs %s back to reality!","%s plays hero ans rescues %s!"]
-MsgReanimationCrew=["%s rescues one of his own.","%s reanimates his favorite clonk.","%s flashs his clonk back to reality!","%s doesn't abandon his clonk!"]
