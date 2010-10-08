@@ -38,6 +38,15 @@ global func InterpolateRGBa2(RGBa_1,RGBa_2,RGBa_3,x1,x2,x3)
     return(InterpolateRGBa(RGBa_2,RGBa_3,Average4K(x1,x2),x2,x3));
 }
 
+global func InterpolateRGBa3(int dwRGBa1, int dwRGBa2)
+{
+  return RGBa(
+  Interpolate2(GetRGBaValue(dwRGBa1, 1), GetRGBaValue(dwRGBa2, 1), ...),
+  Interpolate2(GetRGBaValue(dwRGBa1, 2), GetRGBaValue(dwRGBa2, 2), ...),
+  Interpolate2(GetRGBaValue(dwRGBa1, 3), GetRGBaValue(dwRGBa2, 3), ...),
+  Interpolate2(GetRGBaValue(dwRGBa1), GetRGBaValue(dwRGBa2), ...)  );
+}
+
 //Gibt den Duchschnittswert zurück.
 global func Average4K(int A, int B)
 {
