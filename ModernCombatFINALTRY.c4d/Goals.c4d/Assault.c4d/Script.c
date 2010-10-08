@@ -14,7 +14,6 @@ local Connected;		//Verbundene Ziele
 protected func Initialize()
 {
   iDefender = -1;
-  iStartTickets = 10;
   aSpawns = [[],[]];
   Connected = [];
   return _inherited(...);
@@ -22,7 +21,8 @@ protected func Initialize()
 
 public func ChooserFinished()
 {
-  iTickets = CalcTickets();
+  //Sicherheitshalber einen Frame verzögert
+  Schedule("iTickets = CalcTickets();", 1);
   return _inherited(...);
 }
 
@@ -34,7 +34,7 @@ static const GASS_Spawn_Att = 1;
 public func CalcTickets()
 {
   var A, D;
-  for (var i; i < GetPlayerCount(i++); i++)
+  for (var i; i < GetPlayerCount(i); i++)
     if (GetPlayerTeam(GetPlayerByIndex(i)) == iDefender)
 	  D++;
 	else
@@ -334,11 +334,13 @@ private func AddScoreboardTarget(object pTarget, int iRow)
 {
   if (!pTarget)
     return;
-  SetScoreboardData(iRow+GASS_TargetRow, GASS_Icon, Format("{{%i}}", pTarget->GetImitationID()));
-  SetScoreboardData(iRow+GASS_TargetRow, GASS_Name, Format("<c %x>%s</c>", GetTeamColor(iDefender), GetName(pTarget)));
   var effect = GetEffect("IntAssaultTarget", pTarget);
   var percent = 100-GetDamage(pTarget)*100/EffectVar(0, pTarget, effect);
-  SetScoreboardData(iRow+GASS_TargetRow, GASS_Count, Format("<c %x>%d%</c>", GetTeamColor(iDefender), percent), 2);
+  var color = InterpolateRGBa3(RGB(255, 255, 255), GetTeamColor(iDefender), percent, 100);
+
+  SetScoreboardData(iRow+GASS_TargetRow, GASS_Icon, Format("{{%i}}", pTarget->~GetImitationID()));
+  SetScoreboardData(iRow+GASS_TargetRow, GASS_Name, Format("<c %x>%s</c>", color, GetName(pTarget)));
+  SetScoreboardData(iRow+GASS_TargetRow, GASS_Count, Format("<c %x>%d%</c>", color, percent), 2);
 }
 
 /* Ziel */
