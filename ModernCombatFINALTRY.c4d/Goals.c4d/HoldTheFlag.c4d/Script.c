@@ -142,7 +142,7 @@ public func SetFlag(object pFlagPole)
   if (!iTime)
     iTime = 15/GetActiveTeamCount();
   if (pFlag)
-    pFlag->~Set(GetName(pFlag), 100, iTime);
+    pFlag->~Set(GetName(pFlag), 100, Max(iTime, 1));
   return pFlag;
 }
 
@@ -212,9 +212,9 @@ public func UpdateScoreboard()
   SetScoreboardData(SBRD_Caption, GHTF_Progress, "{{OFPL}}");
 
   //Flaggenzeile
-  var color = GetTeamColor(pFlag->GetTeam()),
+  var color = GetTeamFlagColor(pFlag->GetTeam()),
   prog = pFlag->GetProcess();
-  color = RGBa(Interpolate2(255, GetRGBaValue(color, 1), prog, 100), Interpolate2(255, GetRGBaValue(color, 2), prog, 100), Interpolate2(255, GetRGBaValue(color, 3), prog, 100));
+  color = InterpolateRGBa3(RGBa(255, 255, 255), color, prog, 100);
   SetScoreboardData(GHTF_FlagRow, GHTF_Name, Format("<c %x>%s</c>", color, GetName(pFlag)));
   SetScoreboardData(GHTF_FlagRow, GHTF_Progress, Format("<c %x>%d%</c>", color, prog), GHTF_FlagRow);
   var icon, trend = pFlag->GetTrend();
@@ -242,19 +242,31 @@ public func UpdateScoreboard()
 	  SetScoreboardData(j, GHTF_Progress);
 	  continue;
 	}
-	SetScoreboardData(j, GHTF_Name, GetTaggedTeamName(j));
-	SetScoreboardData(j, GHTF_Points, Format("<c %x>%d</c>", GetTeamColor(j), aTeamPoints[j]), aTeamPoints[j]);
+	SetScoreboardData(j, GHTF_Name, Format("<c %x>%s</c>", GetTeamFlagColor(j), GetTeamName(j)));
+	SetScoreboardData(j, GHTF_Points, Format("<c %x>%d</c>", GetTeamFlagColor(j), aTeamPoints[j]), aTeamPoints[j]);
 	//Team hat die Flagge
 	if (j == iFlagTeam)
-	  SetScoreboardData(j, GHTF_Progress, Format("<c %x>%02d%</c>", GetTeamColor(j), iProgress), iProgress);
+	  SetScoreboardData(j, GHTF_Progress, Format("<c %x>%02d%</c>", GetTeamFlagColor(j), iProgress), iProgress);
 	else
-	  SetScoreboardData(j, GHTF_Progress, Format("<c %x>00%</c>", GetTeamColor(j)), -1);
+	  SetScoreboardData(j, GHTF_Progress, Format("<c %x>00%</c>", GetTeamFlagColor(j)), -1);
   }
 
   //So... Erstmal nach Flaggenstatus sortieren
   SortScoreboard(GHTF_Progress, true);
   //Und dann nochmal nach Punkten. Damit bei gleicher Punktzahl das Team vorne ist, das gerade die Flagge hält
   SortScoreboard(GHTF_Points, true);
+}
+
+public func GetTeamFlagColor(int iTeam)
+{
+  //Team hat mehrere Spieler: Teamfarbe
+  if (GetTeamPlayerCount(iTeam) != 1)
+    return GetTeamColor(iTeam);
+  //Ein Spieler: Dessen Spielerfarbe
+  for (var i; i < GetPlayerCount(i); i++)
+    if (GetPlayerTeam(GetPlayerByIndex(i)) == iTeam)
+	  return GetPlrColorDw(GetPlayerByIndex(i));
+  return GetTeamColor(iTeam);
 }
 
 /* Sieg */

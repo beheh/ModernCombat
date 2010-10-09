@@ -5,12 +5,12 @@
 
 /* Entzündung */
 
-func Incineration(int iPlr)
+func Incineration()
 {
-  ScheduleCall(this, "BlowUp", 20+Random(80),0,iPlr);
+  ScheduleCall(this, "BlowUp", 20+Random(80));
 }
 
-func IncinerationEx(int iPlr)
+func IncinerationEx()
 {
   ClearScheduleCall(this, "BlowUp");
 }
@@ -24,7 +24,7 @@ func Damage(int iChange, int iPlr)
    Incinerate();
 }
 
-func BlowUp(int iPlr)
+func BlowUp()
 {
   //Effekte
   if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("MetalCrateSplinter", 15+Random(5), 100, 0,0, 60,100,RGB(250,0,0));
