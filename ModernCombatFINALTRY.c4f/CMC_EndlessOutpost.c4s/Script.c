@@ -3,7 +3,7 @@
 #strict
 #include CSTD
 
-static aFlag,aDoor,aSelfDefense,aLamp,aLamp2;
+static aFlag,aDoor,aSelfDefense,aLamp;
 
 
 /* Initialisierung */
@@ -23,8 +23,6 @@ func Initialize()
   aSelfDefense = [];
   //Lampen
   aLamp = [];
-  //Lampen2
-  aLamp2 = [];
   //Szenario einrichten
   CreateFurniture();
   //Equipment plazieren
@@ -506,20 +504,20 @@ func CreateFurniture()
    aDoor[9]->SetMaxDamage(-1);
 
   //Lampen
-  aLamp[0]=CreateObject(BLGH,880,300,-1);
-  aLamp[1]=CreateObject(BLGH,980,300,-1);
-  aLamp[2]=CreateObject(CLGH,1045,475,-1);
-  aLamp[3]=CreateObject(CLGH,1125,475,-1);
-  aLamp[4]=CreateObject(LLGH,1183,380,-1);
-  aLamp[5]=CreateObject(LLGH,1227,295,-1);
-  aLamp[6]=CreateObject(STLH,1430,225,-1);
-  aLamp[7]=CreateObject(STLH,1650,95,-1);
-  aLamp2[0]=CreateObject(BLGH,1300,305,-1);
-  aLamp2[1]=CreateObject(BLGH,1300,390,-1);
-  aLamp2[2]=CreateObject(BLGH,1865,270,-1);
-  aLamp2[3]=CreateObject(BLGH,1540,440,-1);
-  aLamp2[4]=CreateObject(BLGH,1760,440,-1);
-  aLamp2[5]=CreateObject(STLH,1955,360,-1);
+  aLamp[00]=CreateObject(BLGH,880,300,-1);
+  aLamp[01]=CreateObject(BLGH,980,300,-1);
+  aLamp[02]=CreateObject(CLGH,1045,475,-1);
+  aLamp[03]=CreateObject(CLGH,1125,475,-1);
+  aLamp[04]=CreateObject(LLGH,1183,380,-1);
+  aLamp[05]=CreateObject(LLGH,1227,295,-1);
+  aLamp[06]=CreateObject(STLH,1430,225,-1);
+  aLamp[07]=CreateObject(STLH,1650,95,-1);
+  aLamp[08]=CreateObject(BLGH,1300,305,-1);
+  aLamp[09]=CreateObject(BLGH,1300,390,-1);
+  aLamp[10]=CreateObject(BLGH,1865,270,-1);
+  aLamp[11]=CreateObject(BLGH,1540,440,-1);
+  aLamp[12]=CreateObject(BLGH,1760,440,-1);
+  aLamp[13]=CreateObject(STLH,1955,360,-1);
 
   //Selbstschussanlagen und Konsolen
   aSelfDefense[0]=CreateObject(SEGU,945,249,-1);
@@ -812,10 +810,10 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
    DecoExplode(30, aSelfDefense[0]);
 
    //Lampen deaktivieren
-   aLamp[0]->EMPShock();
-   aLamp[1]->EMPShock();
-   aLamp[2]->EMPShock();
-   aLamp[3]->EMPShock();
+   aLamp[00]->EMPShock();
+   aLamp[01]->EMPShock();
+   aLamp[02]->EMPShock();
+   aLamp[03]->EMPShock();
 
    Sound("Announce1.ogg");
   }
@@ -849,13 +847,13 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
    aDoor[9]->Open();
 
    //Lampen ausschalten
-   aLamp[4]->EMPShock();
-   aLamp[5]->EMPShock();
-   aLamp[6]->EMPShock();
-   aLamp[7]->EMPShock();
-   aLamp2[0]->EMPShock();
-   aLamp2[1]->EMPShock();
-   aLamp2[2]->EMPShock();
+   aLamp[04]->EMPShock();
+   aLamp[05]->EMPShock();
+   aLamp[06]->EMPShock();
+   aLamp[07]->EMPShock();
+   aLamp[08]->EMPShock();
+   aLamp[09]->EMPShock();
+   aLamp[10]->EMPShock();
 
    //Risse
    CreateObject(FAUD, 1845, 170, -1)->Set(2);
@@ -891,9 +889,9 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
    DecoExplode(30, aSelfDefense[1]);
 
    //Lampen deaktivieren
-   aLamp2[3]->TurnOff();
-   aLamp2[4]->TurnOff();
-   aLamp2[5]->TurnOff();
+   aLamp[11]->TurnOff();
+   aLamp[12]->TurnOff();
+   aLamp[13]->TurnOff();
 
    //Risse
    CreateObject(FAUD, 1805, 430, -1)->Set(2);
