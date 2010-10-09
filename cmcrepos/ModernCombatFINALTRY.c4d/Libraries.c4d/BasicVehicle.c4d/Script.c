@@ -9,7 +9,7 @@ local aDealers;
 public func OnDamage()			{}							//Beim Erhalten von Schaden
 public func OnDestruction()		{}							//Bei der Zerstörung des Fahzeugs
 public func MaxDamage()			{return 100;}						//Maximalschaden
-public func BonusPointCondition()	{return Hostile(GetLastAttacker(),GetController());}			//Ob bei der Zerstörung Punkte vergeben werden
+public func BonusPointCondition()	{return Hostile(GetLastAttacker(),GetController());}	//Ob bei der Zerstörung Punkte vergeben werden
 
 public func GetLastAttacker()		{return iLastAttacker;}
 public func IsDestroyed()		{return fDestroyed;}
@@ -27,23 +27,27 @@ public func Initialize()
   return true;
 }
 
-global func FxBasicVehicleUnusedStart(object pTarget, int iEffectNumber) {
-	EffectVar(0, pTarget, iEffectNumber) = 38*15;
+global func FxBasicVehicleUnusedStart(object pTarget, int iEffectNumber)
+{
+  EffectVar(0, pTarget, iEffectNumber) = 38*15;
 }
 
-global func FxBasicVehicleUnusedTimer(object pTarget, int iEffectNumber, int iTime) {
-	if(GetOwner(pTarget) == NO_OWNER) return FX_OK;
-	var pClonk = FindObject2(Find_Container(pTarget), Find_Or(Find_Distance(50, AbsX(GetX(pTarget)), AbsY(GetY(pTarget))), Find_ActionTarget(pTarget), Find_ActionTarget(GetActionTarget(0, pTarget))), Find_Not(Find_Func("IsFakeDeath")), Find_Func("IsClonk"), Find_OCF(OCF_Alive));
-	if(!pClonk) {
-		EffectVar(0, pTarget, iEffectNumber)--;
-	}
-	else {
-		SetOwner(GetOwner(pClonk), pTarget);
-		EffectVar(0, pTarget, iEffectNumber) = 38*15;
-	}
-	if(EffectVar(0, pTarget, iEffectNumber) > 0) return FX_OK;
-	SetOwner(NO_OWNER, pTarget);
-	return FX_OK;
+global func FxBasicVehicleUnusedTimer(object pTarget, int iEffectNumber, int iTime)
+{
+  if(GetOwner(pTarget) == NO_OWNER) return FX_OK;
+  var pClonk = FindObject2(Find_Container(pTarget), Find_Or(Find_Distance(50, AbsX(GetX(pTarget)), AbsY(GetY(pTarget))), Find_ActionTarget(pTarget), Find_ActionTarget(GetActionTarget(0, pTarget))), Find_Not(Find_Func("IsFakeDeath")), Find_Func("IsClonk"), Find_OCF(OCF_Alive));
+  if(!pClonk)
+  {
+    EffectVar(0, pTarget, iEffectNumber)--;
+  }
+  else
+  {
+    SetOwner(GetOwner(pClonk), pTarget);
+    EffectVar(0, pTarget, iEffectNumber) = 38*15;
+  }
+  if(EffectVar(0, pTarget, iEffectNumber) > 0) return FX_OK;
+  SetOwner(NO_OWNER, pTarget);
+  return FX_OK;
 }
 
 /* Schaden */
@@ -62,22 +66,25 @@ public func OnDmg(int iDmg, int iType)
 
 public func OnHit(int iDmg, int iType, object pBy)
 {
- 	var iPlr = GetController(pBy);
-	if(!IsDestroyed()) {
-	  iLastAttacker = iPlr;
-		if(Hostile(iPlr, GetController())) {
-			if(!aDealers)
-				aDealers = CreateArray();
-			if(!aDealers[iPlr])
-				aDealers[iPlr] = 0;
-			aDealers[iPlr] += iDmg;
-			while(aDealers[iPlr] >= 50) {
-				DoPlayerPoints(BonusPoints("VehicleDamage"), RWDS_BattlePoints, iLastAttacker, GetCursor(iLastAttacker), IC18);
-				aDealers[iPlr] -= 50;
-			}
-		}
-	}
-	return true;
+  var iPlr = GetController(pBy);
+  if(!IsDestroyed())
+  {
+    iLastAttacker = iPlr;
+    if(Hostile(iPlr, GetController()))
+    {
+      if(!aDealers)
+        aDealers = CreateArray();
+      if(!aDealers[iPlr])
+        aDealers[iPlr] = 0;
+      aDealers[iPlr] += iDmg;
+      while(aDealers[iPlr] >= 50)
+      {
+        DoPlayerPoints(BonusPoints("VehicleDamage"), RWDS_BattlePoints, iLastAttacker, GetCursor(iLastAttacker), IC18);
+        aDealers[iPlr] -= 50;
+      }
+    }
+  }
+  return true;
 }
 
 /* Zerstörung */
