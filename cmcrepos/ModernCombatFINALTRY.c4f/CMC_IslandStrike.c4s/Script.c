@@ -3,7 +3,7 @@
 #strict
 #include CSTD
 
-static aFlag,aSelfDefense,aArtillery;
+static aFlag,aSelfDefense,aLamp,aArtillery;
 
 
 /* Initialisierung */
@@ -19,6 +19,8 @@ func Initialize()
   aFlag = [];
   //Selbstschussanlagen
   aSelfDefense = [];
+  //Lampen
+  aLamp = [];
   //Artillerie
   aArtillery = [];
   //Szenario einrichten
@@ -360,25 +362,6 @@ func CreateFurniture()
   CreateObject(LCKR, 5725, 550, -1);
   CreateObject(LCKR, 5745, 550, -1);
 
-  //Wandlampen
-  CreateObject(BLGH, 1025, 260, -1);
-  CreateObject(BLGH, 1160, 445, -1);
-  CreateObject(BLGH, 2690, 390, -1);
-  CreateObject(BLGH, 3585, 475, -1);
-  CreateObject(BLGH, 4335, 385, -1);
-  CreateObject(BLGH, 4335, 525, -1);
-  CreateObject(BLGH, 5725, 505, -1);
-  CreateObject(BLGH, 6445, 385, -1);
-
-  //Laborlampen
-  CreateObject(LLGH, 1035, 520, -1);
-  CreateObject(LLGH, 1250, 490, -1);
-  CreateObject(LLGH, 1340, 490, -1);
-  CreateObject(LLGH, 1500, 490, -1);
-  CreateObject(LLGH, 1655, 490, -1);
-  CreateObject(LLGH, 5120, 540, -1);
-  CreateObject(LLGH, 7280, 410, -1);
-
   //Sandsackbarrieren
   CreateObject(SBBA, 1380, 440, -1)->Right();
   CreateObject(SBBA, 1690, 440, -1)->Right();
@@ -452,6 +435,23 @@ func CreateFurniture()
   CreateObject(PTNK, 1635, 440, -1)->AutoRespawn();
   CreateObject(PTNK, 2855, 410, -1)->AutoRespawn();
   CreateObject(PTNK, 6295, 410, -1)->AutoRespawn();
+
+  //Lampen
+  aLamp[00]=CreateObject(BLGH, 1025, 260, -1);
+  aLamp[01]=CreateObject(LLGH, 1035, 520, -1);
+  aLamp[02]=CreateObject(BLGH, 1160, 445, -1);
+  aLamp[03]=CreateObject(LLGH, 1250, 490, -1);
+  aLamp[04]=CreateObject(LLGH, 1340, 490, -1);
+  aLamp[05]=CreateObject(LLGH, 1500, 490, -1);
+  aLamp[06]=CreateObject(LLGH, 1655, 490, -1);
+  aLamp[07]=CreateObject(BLGH, 2690, 390, -1);
+  aLamp[08]=CreateObject(BLGH, 3585, 475, -1);
+  aLamp[09]=CreateObject(BLGH, 4335, 385, -1);
+  aLamp[10]=CreateObject(BLGH, 4335, 525, -1);
+  aLamp[11]=CreateObject(LLGH, 5120, 540, -1);
+  aLamp[12]=CreateObject(BLGH, 5725, 505, -1);
+  aLamp[13]=CreateObject(BLGH, 6445, 385, -1);
+  aLamp[14]=CreateObject(LLGH, 7280, 410, -1);
 
   //Sounds
 
@@ -901,7 +901,21 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
 
    //SSA zerstören
    aSelfDefense[0]->Disarm();
-   Explode(30, aSelfDefense[0]);
+   aSelfDefense[0]->DecoExplode(30);
+
+   //Lampen deaktivieren
+   aLamp[00]->EMPShock();
+   aLamp[01]->EMPShock();
+   aLamp[02]->EMPShock();
+   aLamp[03]->EMPShock();
+   aLamp[04]->EMPShock();
+   aLamp[05]->EMPShock();
+   aLamp[06]->EMPShock();
+
+   //Rauch
+   CreateParticle("GunSmoke",1155,540,0,-10,100,1);
+   CreateParticle("GunSmoke",1160,540,0,-10,250,1);
+   CreateParticle("GunSmoke",1165,540,0,-10,350,1);
   }
 
   //Ziel 2
@@ -915,6 +929,14 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
    //SSA zerstören
    aSelfDefense[1]->Disarm();
    aSelfDefense[1]->DecoExplode(30);
+
+   //Lampe deaktivieren
+   aLamp[07]->EMPShock();
+
+   //Rauch
+   CreateParticle("GunSmoke",2780,510,0,-10,100,1);
+   CreateParticle("GunSmoke",2785,510,0,-10,250,1);
+   CreateParticle("GunSmoke",2790,510,0,-10,350,1);
   }
 
   //Ziel 3
@@ -927,6 +949,9 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
 
    //Artillerie entfernen
    aArtillery[1]->DecoExplode(45);
+
+   //Lampe deaktivieren
+   aLamp[08]->EMPShock();
   }
 
   //Ziel 4
@@ -936,6 +961,10 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
    RemoveAll(BRDR);
    CreateObject(BRDR, 3200, 0, -1)->Set(0,1);
    CreateObject(BRDR, 6210, 0, -1)->Set(1,1);
+
+   //Lampen deaktivieren
+   aLamp[09]->EMPShock();
+   aLamp[10]->EMPShock();
   }
 
   //Ziel 5
@@ -951,6 +980,10 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
 
    //Artillerie entfernen
    aArtillery[2]->DecoExplode(45);
+
+   //Lampen deaktivieren
+   aLamp[11]->EMPShock();
+   aLamp[12]->EMPShock();
   }
 
   //Ziel 6
@@ -961,8 +994,22 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
    CreateObject(BRDR, 5040, 0, -1)->Set(0,1);
    CreateObject(BRDR, 7850, 0, -1)->Set(1,1);
 
+   //Lampe deaktivieren
+   aLamp[13]->EMPShock();
+  }
+
+  //Ziel 7
+  if (iIndex == 6)
+  {
    //Artillerie entfernen
    aArtillery[3]->DecoExplode(45);
+
+   //SSA zerstören
+   aSelfDefense[3]->Disarm();
+   aSelfDefense[3]->DecoExplode(30);
+
+   //Lampe deaktivieren
+   aLamp[14]->EMPShock();
   }
 }
 
