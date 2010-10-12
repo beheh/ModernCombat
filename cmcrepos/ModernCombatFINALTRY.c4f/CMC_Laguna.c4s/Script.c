@@ -3,7 +3,7 @@
 #strict
 #include CSTD
 
-static aFlag;
+static aFlag,aLamp,aArtillery;
 
 
 /* Initialisierung */
@@ -19,6 +19,10 @@ func Initialize()
   SetSkyAdjust(RGBa(255,255,255,220));
   //Flaggen
   aFlag = [];
+  //Lampen
+  aLamp = [];
+  //Artillerie
+  aArtillery = [];
   //Szenario einrichten
   CreateFurniture();
   //Equipment plazieren
@@ -120,16 +124,6 @@ func CreateFurniture()
   CreateObject(CLVM, 700, 540, -1);
   CreateObject(SPVM, 2840, 420, -1);
 
-  //Wandlampen
-  CreateObject(BLGH, 560, 290, -1);
-  CreateObject(BLGH, 560, 430, -1);
-
-  CreateObject(BLGH, 690, 290, -1);
-  CreateObject(BLGH, 690, 430, -1);
-
-  CreateObject(BLGH, 2850, 370, -1);
-  CreateObject(BLGH, 2940, 370, -1);
-
   //Bojen
   CreateObject(BUOY, 230, 663,  -1);
 
@@ -224,6 +218,14 @@ func CreateFurniture()
   CreateObject(BRDR, 200, 0, -1)->Set(0);
   CreateObject(BRDR, 3245, 0, -1)->Set(1);
 
+  //Lampen
+  aLamp[00]=CreateObject(BLGH, 560, 290, -1);
+  aLamp[01]=CreateObject(BLGH, 560, 430, -1);
+  aLamp[02]=CreateObject(BLGH, 690, 290, -1);
+  aLamp[03]=CreateObject(BLGH, 690, 430, -1);
+  aLamp[04]=CreateObject(BLGH, 2850, 370, -1);
+  aLamp[05]=CreateObject(BLGH, 2940, 370, -1);
+
   //Sounds
 
   //Wind
@@ -267,8 +269,8 @@ func CreateEquipment()
   PlaceSpawnpoint(MIAP, 2920, 505);
 
   //Artilleriebatterien
-  CreateObject(ATBY,1855,340,-1);
-  CreateObject(ATBY,2130,320,-1);
+  aArtillery[0] = CreateObject(ATBY,1855,340,-1);
+  aArtillery[1] = CreateObject(ATBY,2130,320,-1);
 
   //Motorboote
   SetupVehicleSpawn([INFL],DIR_Right,CreateObject(VSPW,770,650,-1),10*10);
@@ -333,6 +335,28 @@ public func ChooserFinished()
    RemoveAll(BKHK);
   }
 
+  //Assault-Spielziel
+  if (FindObject(GASS))
+  {
+   //Grenzen
+   CreateObject(BRDR, 230, 0, -1)->Set(0,1);
+   CreateObject(BRDR, 1820, 0, -1)->Set(1,1);
+
+   //Automat entfernen
+   RemoveAll(SPVM);
+
+   //Zielobjekte
+   AddAssaultTarget(RADR, 1450, 490, 250, 2, "$Target1$", 0, [[[1730, 480], [1730, 580]], [[580, 140], [580, 140], [580, 490]]]);
+   AddAssaultTarget(CMSN, 1410, 590, 250, 2, "$Target2$", 1, [[[1730, 480], [1730, 580]], [[580, 140], [580, 140], [580, 490]]]);
+   AddAssaultTarget(CCP2, 2050, 610, 300, 2, "$Target3$", 2, [[[2210, 400], [2060, 320]], [[1210, 410], [1190, 580]]]);
+   AddAssaultTarget(GSTA, 2815, 600, 300, 2, "$Target4$", 3, [[[3080, 280], [3220, 450], [3130, 500]], [[1910, 430], [1855, 580], [1905, 300]]]);
+   AddAssaultTarget(LBPC, 2850, 420, 300, 2, "$Target5$", 4, [[[3080, 280], [3220, 450], [3130, 500]], [[1910, 430], [1855, 580], [1905, 300]]]);
+
+   //Ziele verbinden
+   ConnectAssaultTargets([0, 1]);
+   ConnectAssaultTargets([3, 4]);
+  }
+
   //OP-Spielziel
   if(FindObject(GOCC))
   {
@@ -388,6 +412,56 @@ public func ChooserFinished()
   }
 }
 
+/* Assault Zerstörung */
+
+public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bool fConnectedDestroyed)
+{
+  //Ziel 1 und 2
+  if (!iIndex || iIndex == 1)
+  {
+   if(fConnectedDestroyed)
+   {
+    //Grenze neu setzen
+    RemoveAll(BRDR);
+    CreateObject(BRDR, 510, 0, -1)->Set(0,1);
+    CreateObject(BRDR, 2430, 0, -1)->Set(1,1);
+
+    //Lampen deaktivieren
+    aLamp[00]->EMPShock();
+    aLamp[01]->EMPShock();
+    aLamp[02]->EMPShock();
+    aLamp[03]->EMPShock();
+   }
+  }
+
+  //Ziel 3
+  if (iIndex == 2)
+  {
+   //Grenzen neu setzen
+   RemoveAll(BRDR);
+   CreateObject(BRDR, 1250, 0, -1)->Set(0,1);
+
+   //Artillerie entfernen
+   aArtillery[0]->DecoExplode(45);
+  }
+
+  //Ziel 4 und 5
+  if (!iIndex || iIndex == 4)
+  {
+   if(fConnectedDestroyed)
+   {
+    //Rauch
+    CreateParticle("GunSmoke",2940,340,0,-10,100,1);
+    CreateParticle("GunSmoke",2810,290,0,-10,250,1);
+    CreateParticle("GunSmoke",2980,290,0,-10,350,1);
+
+    //Lampen deaktivieren
+    aLamp[04]->EMPShock();
+    aLamp[05]->EMPShock();
+   }
+  }
+}
+
 /* Relaunch */
 
 public func RelaunchPosition(& iX, & iY, int iTeam)
@@ -413,6 +487,10 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
    }
    return(1);
   }
+
+  //Assault-Spielziel
+  if(FindObject(GASS))
+  {if(FindObject(GASS)->GetRespawnPoint(iX, iY, iTeam)) return 1;}
 
   //Startsicht
   iX = 410; iY = 470;

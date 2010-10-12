@@ -8,3 +8,9 @@ Flag1=Lighthouse
 Flag2=Cliffs Path
 Flag3=Defence Base
 Flag4=Landing Field
+
+Target1=Radar Unit
+Target2=Communication Server
+Target3=Surveillance System
+Target4=Water Filter
+Target5=Generator
