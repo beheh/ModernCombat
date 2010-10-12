@@ -519,11 +519,11 @@ public func ChooserFinished()
    AddAssaultTarget(LBPC, 585, 1250, 300, 2, "$Target3$", 2, [[[475, 980], [695, 980]], [[430, 1610], [740, 1610]]]);
    AddAssaultTarget(CCP2, 585, 870,  350, 2, "$Target4$", 3, [[[445, 660], [585, 590], [725, 660]], [[280, 1260], [890, 1260]]]);
 
-   //Pflanze entfernen
-   RemoveObject(FindObject2(Find_ID(PLT3),Find_InRect(570, 820, 40, 40)));
-
    //Ziele verbinden
    ConnectAssaultTargets([0, 1]);
+
+   //Pflanze entfernen
+   RemoveObject(FindObject2(Find_ID(PLT3),Find_InRect(570, 820, 40, 40)));
   }
 
   //OP-Spielziel
