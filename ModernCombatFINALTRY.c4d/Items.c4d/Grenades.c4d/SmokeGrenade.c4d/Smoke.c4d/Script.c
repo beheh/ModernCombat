@@ -4,18 +4,24 @@
 
 local iLifeTime;
 local fSmoking;
-static const SM4K_FadeTime = 175; //5 Sekunden
+static const SM4K_FadeTime = 175;	//5 Sekunden
+
+public func IsSmoking()		{return fSmoking;}
 
 
-/* Initalisierung */
+/* Initialisierung */
 
 public func Initialize()
 {
   fSmoking = true;
+
+  //Lebenszeit und Größe setzen
   iLifeTime = 35*20+Random(35*5);
   SetCon(5);
-  AddEffect("Smoking", this, 25, 2, this);
   SetAction("Be");
+
+  //Raucheffekt
+  AddEffect("Smoking", this, 25, 3, this);
 }
 
 /* Timecall */
@@ -24,28 +30,29 @@ public func Timer()
 {
   //In Wasser auflösen
   if(InLiquid())
-   RemoveObject();
+    RemoveObject();
 
-  // Zuende?
+  //Zuende?
   if(GetActTime() > iLifeTime)
-   RemoveObject();
+    RemoveObject();
   //Nicht mehr vernebeln?
-  if (GetActTime() > iLifeTime-SM4K_FadeTime/3)
+  if (GetActTime() > iLifeTime-SM4K_FadeTime/2)
     fSmoking = false;
   if(GetActTime() > iLifeTime-SM4K_FadeTime) //Rauchen einstellen
-   return;
+    return;
 
-  // Rauchwolken vergrößern sich etwas...
+  //Rauchwolke auf bestimmte Größe anwachsen lassen
   if(GetCon() < 50)
     DoCon(6);
-  
-  // Und werden langsamer... in Abhängigkeit zur Größe natürlich ;)
+
+  //Größenabhängig verlangsamen
   Damp(GetCon());
-	SetYDir(GetYDir(0,1000)+GetGravityAccel4K(500),0,1000);
-  
-  // Lebewesen können im Rauch nix sehen. >:D
-  for(var obj in FindObjects(Find_Distance(GetCon()/2,0,0), Find_NoContainer(), Find_OCF(OCF_Living | OCF_CrewMember))) // <- NICHT OCF_Alive ... btw. muss Find_OCF doppelt? Re: Nein, muss es nicht. :)
+    SetYDir(GetYDir(0,1000)+GetGravityAccel4K(500),0,1000);
+
+  //Zu blendende Objekte suchen
+  for(var obj in FindObjects(Find_Distance(GetCon()/2,0,0), Find_NoContainer(), Find_OCF(OCF_Living | OCF_CrewMember)))
   {
+    //Raucheffekt hinzufügen falls nicht vorhanden
     if(!GetEffect("SmokeGrenade", obj))
       AddEffect("SmokeGrenade", obj, 1, 1, obj);
   }
@@ -53,26 +60,9 @@ public func Timer()
 
 public func FxSmokingTimer()
 {
-  // Und tolle Partikel-Effekte, damit Leute im Rauch auch nicht gesehen werden. ;)
   var alpha = BoundBy((GetActTime()-(iLifeTime-SM4K_FadeTime)) * 255 / SM4K_FadeTime, 0, 255);
   CreateParticle("SmokeGrenadeSmoke", 0, 0, 0, RandomX(-10, +10), GetCon()*10, RGBa(255, 255, 255, alpha));
 }
-
-func Spread()
-{
-  var contact = GetContact(this,-1);
-  if(!contact) return;
-  if(contact & CNAT_Bottom)
-    SetYDir(GetYDir(0,100)-30,0,100);
-  if(contact & CNAT_Top)
-    SetYDir(GetYDir(0,100)+30,0,100);
-  if(contact & CNAT_Right)
-    SetXDir(GetXDir(0,100)-30,0,100);
-  if(contact & CNAT_Left)
-    SetXDir(GetXDir(0,100)+30,0,100);
-}
-
-public func IsSmoking() { return fSmoking; }
 
 /* Kontakt */
 
@@ -96,11 +86,25 @@ protected func ContactRight()
   Spread();
 }
 
+func Spread()
+{
+  var contact = GetContact(this,-1);
+  if(!contact) return;
+  if(contact & CNAT_Bottom)
+    SetYDir(GetYDir(0,100)-30,0,100);
+  if(contact & CNAT_Top)
+    SetYDir(GetYDir(0,100)+30,0,100);
+  if(contact & CNAT_Right)
+    SetXDir(GetXDir(0,100)-30,0,100);
+  if(contact & CNAT_Left)
+    SetXDir(GetXDir(0,100)+30,0,100);
+}
+
 /* Raucheffekt */
 
 global func FxSmokeGrenadeStart(object pTarget, int iEffectNumber, int iTemp)
 {
-  // KIs brauchen den Sichteffekt nicht.
+  //Besitzerlose Ziele nicht blenden
   if(GetController(pTarget) == NO_OWNER) return;
   if(GetPlayerType(GetController(pTarget)) == C4PT_Script) return;
   
@@ -110,10 +114,11 @@ global func FxSmokeGrenadeStart(object pTarget, int iEffectNumber, int iTemp)
 
 global func FxSmokeGrenadeTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
-  var rgb = EffectVar(0, pTarget, iEffectNumber); // Haben wir denn einen Sichteffekt?
+  //Keine Blendung übrig? Verschwinden
+  var rgb = EffectVar(0, pTarget, iEffectNumber);
   if(!rgb) return 0;
 
-  // Sind wir noch im Rauch?
+  //Noch im Rauch?
   var smoked = false;
   for(var smoke in FindObjects(pTarget->Find_AtPoint(), Find_ID(SM4K), Find_Func("IsSmoking")))
   {
@@ -123,14 +128,14 @@ global func FxSmokeGrenadeTimer(object pTarget, int iEffectNumber, int iEffectTi
       break;
     }
   }
-  
+
   if(smoked)
     rgb->DoAlpha(+10, 0, 254);
   else
   {
     rgb->DoAlpha(-10, 0, 254);
     if(rgb->GetAlpha() <= 0)
-      return -1; // Boing. Wir werden nicht mehr gebraucht!
+      return -1;
   }
 }
 

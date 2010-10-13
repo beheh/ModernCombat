@@ -14,13 +14,11 @@ public func Color()		{return 0;}
 public func IsDangerous4AI()	{return IsFusing();}
 public func ThrowSpeed()	{return 60;}
 public func HandX()		{return 3000;}
-public func HandY()		{return 0;}
 public func HandSize()		{return 1000;}
-public func HandBarrel()	{return 0;}
-public func BarrelXOffset()	{return 0;}
-public func BarrelYOffset()	{return 0;}
 public func ThrowDelay()	{return 20;}
-
+func IsBouncy()			{return true;}
+func IsReloading()		{return false;}
+func IsShooting()		{return false;}
 func NoArenaRemove()		{return IsFusing();}
 
 local controller,activated;
@@ -265,11 +263,11 @@ public func Fused2(object pContainer)
 {
   if(pContainer && ContainedDamage())
   {
-   if(GetOCF(pContainer) & OCF_Living)
-   {
-    Fling(pContainer,-1);
-    DoDmg(ContainedDamage(),DMG_Fire, pContainer);
-   }
+    if(GetOCF(pContainer) & OCF_Living)
+    {
+      Fling(pContainer,-1);
+      DoDmg(ContainedDamage(),DMG_Fire, pContainer);
+     }
   }
   RemoveEffect("HitCheck",this);
   Fused();
@@ -293,7 +291,7 @@ func GetCharge()
   return user->GrenadeCount(GetID())+1;
 }
 
-func CustomHUD()	{return true;}
+func CustomHUD()		{return true;}
 
 func UpdateHUD(object pHUD)
 {
@@ -315,7 +313,7 @@ public func GetUser()
 {
   if(!controller)
     if(Contained())
-      if(GetOCF(Contained()) & OCF_Alive)//*grummel* nicht sooo toll
+      if(GetOCF(Contained()) & OCF_Alive)
         controller = Contained();
 
   return controller;
@@ -326,10 +324,6 @@ public func SetUser(object pUser)
   controller = pUser;
   SetController(GetController(pUser));
 }
-
-func IsBouncy()		{return true;}
-func IsReloading()	{return false;}
-func IsShooting()	{return false;}
 
 /* Effekt für Trefferüberprüfung */
 
@@ -362,7 +356,6 @@ public func GetThrowDelay(object pObj)
   return GetEffect("IntGrenadeThrowDelay", pObj);
 }
 
-//Muss separat sein, da diese Funktion auch 0 zurückgeben kann
 public func GetThrowDelayTime(object pObj)
 {
   return GetEffect("IntGrenadeThrowDelay", pObj, 0, 6);
@@ -370,6 +363,6 @@ public func GetThrowDelayTime(object pObj)
 
 public func AddThrowDelay(object pObj)
 {
-  if (!GetThrowDelay(pObj))
+  if(!GetThrowDelay(pObj))
     return AddEffect("IntGrenadeThrowDelay", pObj, 1, ThrowDelay(), 0, GetID());
 }

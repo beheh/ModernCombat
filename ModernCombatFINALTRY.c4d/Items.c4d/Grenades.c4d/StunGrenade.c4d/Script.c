@@ -7,10 +7,7 @@ public func Color()		{return RGB(0,128,255);}
 public func ContainedDamage()	{return 20;}
 
 
-func HitSound()
-{
-  Sound("SGRN_Hit*.ogg");
-}
+
 
 public func Fused()
 {
@@ -119,4 +116,9 @@ public func FxIntFlashbangStop(object pTarget, int iEffectNumber, int iReason, b
 {
   if(EffectVar(1,pTarget,iEffectNumber))
     RemoveObject(EffectVar(1,pTarget,iEffectNumber));
+}
+
+func HitSound()
+{
+  Sound("SGRN_Hit*.ogg");
 }
