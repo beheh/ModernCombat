@@ -6,7 +6,6 @@ local charge;
 
 public func HandSize()		{return 1000;}
 public func HandX()		{return 4500;}
-public func HandY()		{}
 public func IsDrawable()	{return true;}
 public func MaxEnergy()		{return 30;}
 

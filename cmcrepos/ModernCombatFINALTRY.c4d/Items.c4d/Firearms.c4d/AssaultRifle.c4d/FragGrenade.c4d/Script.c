@@ -14,7 +14,7 @@ func HitObject(object pObj)
   {
    if(pObj)
    {
-    DoDmg(Distance(GetXDir(),GetYDir())/5,DMG_Projectile,pObj); 
+    DoDmg(Distance(GetXDir(),GetYDir())/5,DMG_Projectile,pObj);
     CastParticles("Smoke3",12,10,0,0,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
     if(GetOCF(pObj) & OCF_Living)
     {
