@@ -145,8 +145,8 @@ public func Fire2T1()
 }
 
 public func Fire2()
-{  
-  LaunchGrenade(ESHL, 90,Contained()->~AimAngle(0,0,true)+0);
+{
+  LaunchGrenade(ESHL, 90,Contained()->~AimAngle(0,0,true));
 }
 
 public func BotData2(int data)
@@ -167,8 +167,8 @@ public func FMData2T2(int data)
 }
 
 public func Fire2T2()
-{  
-  LaunchGrenade(FSHL, 90,Contained()->~AimAngle(0,0,true)+0);
+{
+  LaunchGrenade(FSHL, 90,Contained()->~AimAngle(0,0,true));
 }
 
 /* Granaten - Rauchgranaten */
@@ -182,8 +182,8 @@ public func FMData2T3(int data)
 }
 
 public func Fire2T3()
-{  
-  LaunchGrenade(SSHL, 90,Contained()->~AimAngle(0,0,true)+0);
+{
+  LaunchGrenade(SSHL, 90,Contained()->~AimAngle(0,0,true));
 }
 
 /* Granaten - Schuss */
@@ -193,10 +193,9 @@ public func LaunchGrenade(id idg, int speed, int angle, int mode)
   var user = Contained();
   var dir = GetDir(user)*2-1;
 
-  //Angle anpassen
+  //Anpassung des Winkels
   angle = BoundBy(angle/*+GetYDir(user)*/+dir,-360,360);
-
-  //Geschwindigkeit anpassen
+  //Geschwindigkeit einstellen
   var xdir = Sin(angle,speed);
   var ydir = -Cos(angle,speed);
 
@@ -206,7 +205,14 @@ public func LaunchGrenade(id idg, int speed, int angle, int mode)
   //Erstellen und Abfeuern
   var grenade=CreateObject(idg, x+xdir/10, y+ydir/10, GetController(user));
   SetController(GetController(user), grenade);
-  grenade->Launch(xdir+GetXDir(user)/10, ydir/*+GetYDir(user)/20*/, GetFMData(FM_Damage,2));
+  grenade->Launch(xdir+GetXDir(user)/5, ydir/*+GetYDir(user)/10*/, GetFMData(FM_Damage,2));
+
+  //Sicht auf Granate wenn der Schütze zielt
+  if(!(user ->~ IsMachine()) && user->~IsAiming())
+  {
+    SetPlrView(GetController(user),grenade);
+    SetPlrViewRange(100, grenade);
+  }
 
   //Effekte
   Sound("ASTR_LauncherFire*.ogg", 0, grenade);

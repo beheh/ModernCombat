@@ -259,6 +259,8 @@ public func IsFusing()
   return GetEffect("IntFuse",this);
 }
 
+/* Zündung */
+
 public func Fused2(object pContainer)
 {
   if(pContainer && ContainedDamage())
@@ -365,4 +367,18 @@ public func AddThrowDelay(object pObj)
 {
   if(!GetThrowDelay(pObj))
     return AddEffect("IntGrenadeThrowDelay", pObj, 1, ThrowDelay(), 0, GetID());
+}
+
+/* Schaden */
+
+protected func Damage(int iChange) 
+{
+  //Zündung durch Schaden
+  if(GetDamage() < 10) return ;
+  Fused();
+}
+
+public func OnDmg(int iDmg, int iType)
+{
+  if(iType == DMG_Bio)		return 100;	//Säure und biologische Schadstoffe
 }

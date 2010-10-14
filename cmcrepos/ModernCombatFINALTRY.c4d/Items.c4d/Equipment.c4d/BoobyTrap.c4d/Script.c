@@ -230,18 +230,6 @@ private func Check()
 
 /* Zerstörung */
 
-protected func Damage(int iChange) 
-{
-  //Zündung durch Schaden
-  if(GetDamage() < 5) return ;
-  Sound("BBTP_Alarm.ogg");
-  //Zündung verzögert
-  ScheduleCall(this, "Detonate",20);
-  //Sofortige Zündung bei hohem Schaden
-  if(GetDamage() < 10) return ;
-  Detonate();
-}
-
 public func Detonate()
 {
   //Splitter verschleudern
@@ -265,6 +253,18 @@ public func Detonate()
 }
 
 /* Schaden */
+
+protected func Damage(int iChange) 
+{
+  //Zündung durch Schaden
+  if(GetDamage() < 5) return ;
+  Sound("BBTP_Alarm.ogg");
+  //Zündung verzögert
+  ScheduleCall(this, "Detonate",20);
+  //Sofortige Zündung bei hohem Schaden
+  if(GetDamage() < 10) return ;
+  Detonate();
+}
 
 public func OnDmg(int iDmg, int iType)
 {

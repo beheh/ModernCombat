@@ -3,7 +3,7 @@
 #strict 2
 #include NADE
 
-public func Color()		{return RGB(255,130,0);}
+public func Color()		{return RGB(255,0,0);}
 public func ContainedDamage()	{return 100;}
 public func BlastRadius()	{return 10;}
 
