@@ -82,8 +82,9 @@ public func LaunchGrenade(id idg, int speed, int angle, int mode)
   var x,y;
   user->WeaponEnd(x,y);
 
-  //Granate abfeuern
+  //Erstellen und Abfeuern
   var grenade=CreateObject(idg, x+xdir/10, y+ydir/10, GetController(user));
+  SetController(GetController(user), grenade);
   grenade->Launch(xdir/*+GetXDir(user)/2*/, ydir/*+GetYDir(user)/4*/, GetFMData(FM_Damage,2));
   
   //Sicht auf Granate wenn der Schütze zielt
@@ -118,8 +119,8 @@ public func FMData1T2(int data)
 }
 
 public func Fire1T2()
-{  
-  LaunchGrenade(FSHL, 100,Contained()->~AimAngle(0,0,true)+RandomX( -3, 3));
+{
+  LaunchGrenade(FSHL, 100+Random(40),Contained()->~AimAngle(0,0,true));
 }
 
 public func BotData2(int data)
@@ -141,8 +142,8 @@ public func FMData1T3(int data)
 }
 
 public func Fire1T3()
-{  
-  LaunchGrenade(SSHL, 100,Contained()->~AimAngle(0,0,true)+RandomX( -3, 3));
+{
+  LaunchGrenade(SSHL, 100+Random(40),Contained()->~AimAngle(0,0,true));
 }
 
 public func BotData3(int data)

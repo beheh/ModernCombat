@@ -7,8 +7,6 @@ public func Color()		{return RGB(0,128,255);}
 public func ContainedDamage()	{return 20;}
 
 
-
-
 public func Fused()
 {
   //Zu blendende Objekte suchen

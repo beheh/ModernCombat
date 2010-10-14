@@ -5,8 +5,8 @@
 
 local time;
 
+public func Color()		{return RGB(0,128,255);}
 public func FuseTime()		{return 2*35;}
-public func Color()		{return RGB(128,255,0);}
 public func ContainedDamage()	{return 20;}
 
 

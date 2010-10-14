@@ -33,7 +33,7 @@ public func IsDamaged()		{return GetEffect("Damaged", this);}
 
 protected func Construction(object pBy)
 {
-  if (pBy && pBy->~IsWeapon())
+  if(pBy && pBy->~IsWeapon())
     pLauncher = pBy;
 }
 
@@ -64,7 +64,7 @@ public func Launch(int iAngle, object pFollow)
   AddEffect("Follow", this, 1,1, this, 0, pFollow);
 
   //Gesichert losfliegen
-  if (SecureTime())
+  if(SecureTime())
     AddEffect("IntSecureTime", this, 1, SecureTime(), this);
 }
 
@@ -133,17 +133,17 @@ public func FxFollowTimer(object pTarget, int iEffectNumber, int iEffectTime)
   else
   {
     //Kann nicht gesteuert werden
-	if (!Guideable())
-	  return;
+    if(!Guideable())
+      return;
     var obj = EffectVar(0,pTarget,iEffectNumber);
     if(!obj)
       return;
     //Schütze nicht mehr am Zielen?
     if(!obj->~IsAiming())
       return;
-	//Schütze kann mit der Waffe nicht zielen
-	if (pLauncher && Contents(0, obj) != pLauncher)
-	  return;
+    //Schütze kann mit der Waffe nicht zielen
+    if(pLauncher && Contents(0, obj) != pLauncher)
+      return;
 
     iDAngle = obj->AimAngle();
     iMaxTurn = MaxTurn();
@@ -158,11 +158,15 @@ public func FxFollowTimer(object pTarget, int iEffectNumber, int iEffectTime)
 
 private func Traveling()
 {
+  //Nichts unternehmen wenn deaktiviert
+  if(GetAction() == "Idle")
+    return;
+
   //Maximalflugzeit erreicht? Explodieren
-  if(GetActTime() >= MaxTime()) return Hit();
+  if(GetActTime() >= MaxTime()) return Fall();
 
   //Im Wasser abstürzen
-  if(GBackLiquid()) Fall();
+  if(GBackLiquid()) return Fall();
 
   //Geschwindigkeit erhöhen
   Accelerate();
@@ -204,16 +208,26 @@ private func Smoking()
 
 public func Damage()
 {
-  //Rakete abschießbar
+  //Explodieren wenn bereits deaktiviert
+  if(GetAction() == "Idle")
+    return Hit();
+
+  //Deaktivieren wenn Schaden erhalten und nicht detonierend
   if(GetDamage() > MaxDamage() && !exploding)
+  {
+    //Effekte
+    if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",2,80,0,0,45,20,RGB(40,20,20));
+    Sound("RPGP_ShotDown.ogg");
+
+    //Rakete deaktivieren
     Fall();
+  }
 }
 
 public func Fall()
 {
   SetAction("Idle");
   AddEffect("Damaged",this,1,1,this);
-  Sound("RPGP_ShotDown.ogg");
 }
 
 public func FxDamagedTimer(object pTarget, int iEffectNumber, int iEffectTime)

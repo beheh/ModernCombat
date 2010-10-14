@@ -3,6 +3,7 @@
 #strict 2
 #include ESHL
 
+public func Color()	{return RGB(255,255,0);}
 func ExplodeDelay()	{return 80;}
 
 

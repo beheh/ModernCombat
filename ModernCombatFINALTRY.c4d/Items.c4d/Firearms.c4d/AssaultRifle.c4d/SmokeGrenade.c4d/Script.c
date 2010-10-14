@@ -3,6 +3,7 @@
 #strict 2
 #include ESHL
 
+public func Color()		{return RGB(0,128,255);}
 protected func SecureDistance()	{}
 func ExplodeDelay()		{return 120;}
 

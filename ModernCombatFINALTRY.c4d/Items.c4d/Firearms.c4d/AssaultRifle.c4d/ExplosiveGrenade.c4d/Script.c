@@ -5,6 +5,7 @@
 
 local active,sx,sy, start;
 
+public func Color()		{return RGB(255,0,0);}
 public func BlastRadius()	{return 30;}
 protected func SecureDistance()	{return 75;}
 func ExplodeDelay()		{return 35*3;}
@@ -91,12 +92,19 @@ func Trigger(object pObj)
 
 func FxGrenadeTimer(object target, int effect, int time)
 {
+  //Bei aufgebrauchter Flugzeit explodieren
   if(time > ExplodeDelay()) return HitObject();
   var vel=Abs(GetXDir())+Abs(GetYDir());
   var alpha=Max(0,100-vel);
 
-  CreateParticle("Smoke2", -GetXDir()/6, -GetYDir()/6, RandomX(-15, 15), -5,
-                       vel/6+RandomX(10, 30), RGBa(100,100,100,50+alpha));
+  //Raucheffekt
+  var vel=Abs(GetXDir())+Abs(GetYDir());
+  var alpha=Max(0,60-vel);
+  var rgb = Color();
+  if(!rgb) rgb = RGB(100,100,100);
+
+  CreateParticle("Smoke2", -GetXDir()/6, -GetYDir()/6, RandomX(-10, 10), -5,
+                       vel/3+RandomX(10, 20), SetRGBaValue(rgb,alpha)); 
   SetR(Angle (0,0,GetXDir(),GetYDir()));
 }
 

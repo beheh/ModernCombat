@@ -8,7 +8,7 @@ local fHit;
 public func IsBulletTarget()	{return true;}
 
 
-/* Initalisierung */
+/* Initialisierung */
 
 func Initialize()
 {
@@ -22,13 +22,13 @@ func Initialize()
 func ResetRotation()
 {
   SetR(Angle(GetX(),GetY(),GetX()+GetXDir(),GetY()+GetYDir()),this);
-    
+
   if(GetYDir() > 2 && !fSounded)
   {
     fSounded = true;
     Sound("Artillery*.ogg");
   }
-  
+
   SearchObjects();
 }
 
@@ -36,12 +36,14 @@ func ResetRotation()
 
 func SearchObjects()
 {
-	if(fHit) return;
-	var target = FindObject2(Find_AtPoint(), Find_Exclude(this), Find_Func("IsBulletTarget", GetID(), this, 0, GetX(), GetY()));
-  if(target) {
-  	if(GetOCF(target) & OCF_Alive && Hostile(GetOwner(target), GetController())) {
-  		DoAchievementProgress(1, AC16, GetController());
-  	}
+  if(fHit) return;
+  var target = FindObject2(Find_AtPoint(), Find_Exclude(this), Find_Func("IsBulletTarget", GetID(), this, 0, GetX(), GetY()));
+  if(target)
+  {
+    if(GetOCF(target) & OCF_Alive && Hostile(GetOwner(target), GetController()))
+    {
+      DoAchievementProgress(1, AC16, GetController());
+    }
     Hit();
   }
 }
@@ -51,7 +53,7 @@ func SearchObjects()
 func Hit()
 {
   if(fHit) return;
-	
+
   //Schon getroffen
   fHit = true;
 
