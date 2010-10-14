@@ -1,5 +1,7 @@
 /*-- Leitergrafiken --*/
 
+//Leitergrafiken werden überschrieben.
+
 #strict
 #appendto LADR
 
@@ -17,10 +19,10 @@ func Initialize()
   if(GetY() < 435) AddGraphics("Part1",LADR);
   else
   {
-      AddGraphics(0,_LDR);
-      AddGraphics("1",_LDR);
-      AddGraphics("2",_LDR);
-      AddGraphics("3",_LDR);
+    AddGraphics(0,_LDR);
+    AddGraphics("1",_LDR);
+    AddGraphics("2",_LDR);
+    AddGraphics("3",_LDR);
   }
   AddPart();
   AdjustSize();
@@ -32,10 +34,10 @@ public func UpdateTransferZone()
   if(GetY() < 300) AddGraphics("Part1",LADR);
   else
   {
-   AddGraphics(0,_LDR);
-   AddGraphics("1",_LDR);
-   AddGraphics("2",_LDR);
-   AddGraphics("3",_LDR);
+    AddGraphics(0,_LDR);
+    AddGraphics("1",_LDR);
+    AddGraphics("2",_LDR);
+    AddGraphics("3",_LDR);
   }
   AdjustSize();
   Redraw();

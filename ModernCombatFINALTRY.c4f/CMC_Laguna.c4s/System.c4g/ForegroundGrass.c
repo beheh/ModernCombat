@@ -1,7 +1,12 @@
-/*-- Rasen im Vordergrund --*/
+/*-- Grass --*/
 
-#strict
+//Grass ist immer im Vordergrund.
+
+#strict 2
 #appendto GRAS
+
+
+protected func Incineration() {Extinguish();}
 
 func Construction()
 {
