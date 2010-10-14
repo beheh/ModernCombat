@@ -200,7 +200,7 @@ func CreateEquipment()
   PlaceSpawnpoint(GBOX, 1290, 80);
 
   //Raketen
-  PlaceSpawnpoint(MIAP, 1360, 330);
+  PlaceSpawnpoint(MBOX, 1360, 330);
 
   //Automat
   var store = CreateObject(WPVM,1305, 300,-1);

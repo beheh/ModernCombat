@@ -250,11 +250,11 @@ func CreateEquipment()
   tmp->SetGraphics("Normal");
 
   //Raketen
-  PlaceSpawnpoint(MIAP, 420, 645);
-  PlaceSpawnpoint(MIAP, 1360, 665);
+  PlaceSpawnpoint(MBOX, 420, 645);
+  PlaceSpawnpoint(MBOX, 1360, 665);
 
-  PlaceSpawnpoint(MIAP, 2880, 665);
-  PlaceSpawnpoint(MIAP, 3820, 645);
+  PlaceSpawnpoint(MBOX, 2880, 665);
+  PlaceSpawnpoint(MBOX, 3820, 645);
 
   //Artilleriebatterie
   aArtillery[0] = CreateObject(ATBY,2120,690,-1);
@@ -278,6 +278,18 @@ public func ChooserFinished()
   for(var i = 0; i < GetPlayerCount(); i++)
     aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = true;
 
+  //SSA Besitzer setzen
+  if(aTeams[1] == true)
+  {
+   aSelfDefense[0]->SetTeam(1);
+   aSelfDefense[1]->SetTeam(1);
+  }
+  if(aTeams[2] == true)
+  {
+   aSelfDefense[2]->SetTeam(2);
+   aSelfDefense[3]->SetTeam(2);
+  }
+
   //HTF-Spielziel
   if (FindObject(GHTF))
   {
@@ -294,25 +306,13 @@ public func ChooserFinished()
     PlaceSpawnpoint(ABOX, 2010, 845);
 
     //Raketen
-    PlaceSpawnpoint(MIAP, 2230, 845);
+    PlaceSpawnpoint(MBOX, 2230, 845);
    }
   }
 
   //Base Assault-Spielziel
   if(FindObject(GBAS))
   {
-   //SSA Besitzer setzen
-   if(aTeams[1] == true)
-   {
-    aSelfDefense[0]->SetTeam(1);
-    aSelfDefense[1]->SetTeam(1);
-   }
-   if(aTeams[2] == true)
-   {
-    aSelfDefense[2]->SetTeam(2);
-    aSelfDefense[3]->SetTeam(2);
-   }
-
    //Zielobjekte
    AddAssaultTarget(RADR, 485, 500, 400, 1, "$Flag1$", 0, [[480, 640], [510, 730], [585, 690]]);
    AddAssaultTarget(CMSN, 1330, 670, 300, 1, "$Flag2$", 1, [[1160, 670], [1300, 850], [1455, 670]]);
@@ -324,18 +324,6 @@ public func ChooserFinished()
   //OP-Spielziel
   if(FindObject(GOCC))
   {
-   //SSA Besitzer setzen
-   if(aTeams[1] == true)
-   {
-    aSelfDefense[0]->SetTeam(1);
-    aSelfDefense[1]->SetTeam(1);
-   }
-   if(aTeams[2] == true)
-   {
-    aSelfDefense[2]->SetTeam(2);
-    aSelfDefense[3]->SetTeam(2);
-   }
-
    //Flaggen
    aFlag[0] = CreateObject(OFPL,630,590,NO_OWNER);
    aFlag[0] -> AddSpawnPoint(460,740);

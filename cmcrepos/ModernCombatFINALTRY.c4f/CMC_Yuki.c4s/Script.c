@@ -482,7 +482,7 @@ func CreateEquipment()
   tmp->SetGraphics("Normal");
 
   //Raketen
-  PlaceSpawnpoint(MIAP, 1020, 575);
+  PlaceSpawnpoint(MBOX, 1020, 575);
 
   //Automat
   var store = CreateObject(WPVM,860, 680,-1);

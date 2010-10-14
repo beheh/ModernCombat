@@ -459,8 +459,8 @@ func CreateEquipment()
   tmp->SetGraphics("Normal");
 
   //Raketen
-  PlaceSpawnpoint(MIAP, 755, 715);
-  PlaceSpawnpoint(MIAP, 1975, 715);
+  PlaceSpawnpoint(MBOX, 755, 715);
+  PlaceSpawnpoint(MBOX, 1975, 715);
 
   //Blackhawks
   SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,580,240,-1),100*21,300);
@@ -555,7 +555,7 @@ public func ChooserFinished()
     tmp->Set(ABOX);
 
     //Raketen
-    PlaceSpawnpoint(MIAP, 1330, 305);
+    PlaceSpawnpoint(MBOX, 1330, 305);
    }
   }
 

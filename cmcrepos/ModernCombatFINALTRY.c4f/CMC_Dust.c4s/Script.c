@@ -141,7 +141,7 @@ func CreateEquipment()
   PlaceSpawnpoint(ABOX, 1255, 805);
 
   //Raketen
-  PlaceSpawnpoint(MIAP, 740, 420);
+  PlaceSpawnpoint(MBOX, 740, 420);
 }
 
 /* Regelwähler */
@@ -185,7 +185,7 @@ public func ChooserFinished()
     PlaceSpawnpoint(ABOX, 825, 655);
 
     //Raketen
-    PlaceSpawnpoint(MIAP, 1000, 695);
+    PlaceSpawnpoint(MBOX, 1000, 695);
    }
   }
 

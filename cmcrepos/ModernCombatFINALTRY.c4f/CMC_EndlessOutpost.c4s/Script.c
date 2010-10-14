@@ -658,8 +658,8 @@ public func ChooserFinished()
    if(!FindObject(NOAM))
    {
     //Raketen
-    PlaceSpawnpoint(MIAP, 830, 155);
-    PlaceSpawnpoint(MIAP, 1430, 385);
+    PlaceSpawnpoint(MBOX, 830, 155);
+    PlaceSpawnpoint(MBOX, 1430, 385);
 
     //Granaten
     PlaceSpawnpoint(GBOX, 1530, 545);
@@ -778,8 +778,8 @@ public func ChooserFinished()
    if(!FindObject(NOAM))
    {
     //Raketen
-    PlaceSpawnpoint(MIAP, 830, 155);
-    PlaceSpawnpoint(MIAP, 1430, 385);
+    PlaceSpawnpoint(MBOX, 830, 155);
+    PlaceSpawnpoint(MBOX, 1430, 385);
 
     //Granaten
     PlaceSpawnpoint(GBOX, 1530, 545);
