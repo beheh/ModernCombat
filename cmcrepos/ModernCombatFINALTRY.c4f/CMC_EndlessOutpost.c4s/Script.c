@@ -731,7 +731,7 @@ public func ChooserFinished()
    aFlag[3] -> AddSpawnPoint(1830,310);
    aFlag[3] -> AddSpawnPoint(1620,60);
    aFlag[3] -> AddSpawnPoint(1790,100);
-   if(aTeams[1] == true)
+   if(aTeams[2] == true)
    {
     aFlag[3]->Set("$Flag4$",100,2);
     aFlag[3]->Capture(2,1);
