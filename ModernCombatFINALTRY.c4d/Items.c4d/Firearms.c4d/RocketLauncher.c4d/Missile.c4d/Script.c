@@ -92,6 +92,12 @@ public func FxFollowStart(object pTarget, int iEffectNumber, int iTemp, obj)
 
 public func FxFollowTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
+  //Nichts unternehmen wenn abgeschossen
+  if(GetAction(pTarget) == "Fall")
+    return;
+  if(GetAction(pTarget) == "Idle")
+    return;
+
   var x = GetX(pTarget)-GetX(), y = GetY(pTarget)-GetY();
   //Rakete unterstützt Peilsender?
   if(pTarget->~TracerCompatible())
@@ -158,21 +164,25 @@ public func FxFollowTimer(object pTarget, int iEffectNumber, int iEffectTime)
 
 private func Traveling()
 {
-  //Nichts unternehmen wenn deaktiviert
+  //Nichts unternehen wenn erstört
   if(GetAction() == "Idle")
     return;
 
-  //Maximalflugzeit erreicht? Explodieren
-  if(GetActTime() >= MaxTime()) return Fall();
-
   //Im Wasser abstürzen
-  if(GBackLiquid()) return Fall();
+  if(GBackLiquid()) return GetDamaged();
+
+  //Nichts weiter unternehmen wenn deaktiviert
+  if(GetAction() == "Fall")
+    return;
+
+  //Fallen wenn Maximalflugzeit erreicht
+  if(GetActTime() >= MaxTime()) return SetAction("Fall");
 
   //Geschwindigkeit erhöhen
   Accelerate();
 
   //Rauchspur
-  if(!GBackLiquid())Smoking();
+  if(!GBackLiquid()) Smoking();
 }
 
 private func StopThrust()
@@ -208,7 +218,7 @@ private func Smoking()
 
 public func Damage()
 {
-  //Explodieren wenn bereits deaktiviert
+  //Zerstören wenn bereits deaktiviert
   if(GetAction() == "Idle")
     return Hit();
 
@@ -217,17 +227,19 @@ public func Damage()
   {
     //Effekte
     if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",2,80,0,0,45,20,RGB(40,20,20));
-    Sound("RPGP_ShotDown.ogg");
 
     //Rakete deaktivieren
-    Fall();
+    GetDamaged();
   }
 }
 
-public func Fall()
+public func GetDamaged()
 {
-  SetAction("Idle");
+  //Schadenseffekt
   AddEffect("Damaged",this,1,1,this);
+
+  Sound("RPGP_ShotDown.ogg");
+  SetAction("Idle");
 }
 
 public func FxDamagedTimer(object pTarget, int iEffectNumber, int iEffectTime)
