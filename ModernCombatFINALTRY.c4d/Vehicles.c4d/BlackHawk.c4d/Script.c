@@ -43,6 +43,7 @@ static const BKHK_PassengerLayer = 3;
 
 public func IsMachine()			{return 1;}
 public func MaxDamage()			{return 200;}
+public func IsThreat()			{return 1;}
 public func IsBulletTarget(id idBullet, object pBullet)
 {
   if(idBullet == MISS || idBullet == HMIS || idBullet == MISL || idBullet == LRML || idBullet == ESHL)
@@ -263,6 +264,11 @@ protected func FxBlackhawkAutopilotTimer(object pTarget, int iNumber, int iTime)
 
 protected func Ejection(object ByObj)
 {
+  if(!ByObj)
+    return;
+  if(!(GetOCF(ByObj) & OCF_Alive))
+    return;
+    
   //Soundschleife übergeben
   Sound("CockpitRadio.ogg", true, 0, 100, GetOwner(ByObj)+1, -1);
 
@@ -1123,9 +1129,11 @@ protected func TimerCall()
     for(var pClonk in FindObjects(Find_InRect(-100,-24,200,16), Find_NoContainer(), Find_OCF(OCF_Alive), Find_Not(Find_ID(FKDT))))
     {
       if(GetOwner(pClonk) != NO_OWNER && GetOwner() != NO_OWNER && !Hostile(GetOwner(), GetOwner(pClonk))) continue;
-      Fling(pClonk, RandomX(2,3)+GetRotorSpeed()/100*((GetR() > 0 && GetR() <= 180)*2-1), RandomX(-2, -1)-GetRotorSpeed()/100);
+      if(GetEffect("NoRotorHit",pClonk)) continue;
+      Fling(pClonk, GetXDir(pClonk,1)*2+RandomX(-1,1), RandomX(-3, -2)-GetRotorSpeed()/100);
       DoDmg(GetRotorSpeed()/4, DMG_Projectile, pClonk, 0, GetOwner()+1);
       Sound("BKHK_RotorHit*.ogg", pClonk);
+      AddEffect("NoRotorHit",pClonk,1,20,pClonk);
     }
   }
 
@@ -1145,6 +1153,12 @@ protected func TimerCall()
   
   //Warnsound
   WarningSound();
+}
+
+//Helfer
+public func FxNoRotorHitTimer(pTarget,iNo,iTime)
+{
+  return -1;
 }
 
 private func DrawPilot()
