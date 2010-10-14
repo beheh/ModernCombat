@@ -53,7 +53,7 @@ private func Opening()
   var w = Sin(90*(1000*GetActTime()/(25))/1000,1000);
   var h = 1000*GetActTime()/(25);
 
-  SetObjDrawTransform(w,0,0,0,h,(500*GetObjHeight())-((1000*GetObjHeight())*h/1000),this());
+  SetObjDrawTransform(w,0,0,0,h,InvertA1(500*GetObjHeight()*h/1000,1000*GetObjHeight())-500*GetObjHeight(),this());
 }
 
 public func Close()
