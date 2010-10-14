@@ -343,7 +343,7 @@ func CreateEquipment()
   PlaceSpawnpoint(GBOX, 770, 490);
 
   //Raketen
-  PlaceSpawnpoint(MIAP, 785, 355);
+  PlaceSpawnpoint(MBOX, 785, 355);
 }
 
 /* Regelwähler */

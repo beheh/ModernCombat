@@ -265,8 +265,8 @@ func CreateEquipment()
   PlaceSpawnpoint(GBOX, 2215, 545);
 
   //Raketen
-  PlaceSpawnpoint(MIAP, 680, 135);
-  PlaceSpawnpoint(MIAP, 2920, 505);
+  PlaceSpawnpoint(MBOX, 680, 135);
+  PlaceSpawnpoint(MBOX, 2920, 505);
 
   //Artilleriebatterien
   aArtillery[0] = CreateObject(ATBY,1855,340,-1);
@@ -321,7 +321,7 @@ public func ChooserFinished()
    PlaceSpawnpoint(ABOX, 2070, 605);
 
    //Raketen
-   PlaceSpawnpoint(MIAP, 1930, 500);
+   PlaceSpawnpoint(MBOX, 1930, 500);
 
    //Grenzen
    CreateObject(BRDR, 1300, 0, -1)->Set(0);

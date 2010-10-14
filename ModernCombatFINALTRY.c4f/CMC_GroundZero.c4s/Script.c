@@ -344,8 +344,8 @@ func CreateEquipment()
   PlaceSpawnpoint(GBOX, 1580, 615);
 
   //Raketen
-  PlaceSpawnpoint(MIAP, 950, 250);
-  PlaceSpawnpoint(MIAP, 1850, 250);
+  PlaceSpawnpoint(MBOX, 950, 250);
+  PlaceSpawnpoint(MBOX, 1850, 250);
 
   //Artilleriebatterien
   CreateObject(ATBY,725,320,-1);
@@ -423,7 +423,7 @@ public func ChooserFinished()
     PlaceSpawnpoint(ABOX, 1370, 415);
 
     //Raketen
-    PlaceSpawnpoint(MIAP, 1430, 415);
+    PlaceSpawnpoint(MBOX, 1430, 415);
    }
 
    //Sandsackbarrieren
