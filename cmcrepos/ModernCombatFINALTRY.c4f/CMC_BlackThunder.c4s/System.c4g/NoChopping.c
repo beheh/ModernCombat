@@ -1,7 +1,10 @@
-/*-- Kein Fällen --*/
+/*-- Hazardclonk --*/
+
+//Clonks können keine Bäume fällen.
 
 #strict
 #appendto HZCK
+
 
 func Initialize()
 {
