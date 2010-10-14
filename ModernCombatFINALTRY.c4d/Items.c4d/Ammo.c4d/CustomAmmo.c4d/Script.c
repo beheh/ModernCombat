@@ -113,12 +113,6 @@ public func TransferAmmo(object pObj)
   return true;
 }
 
-protected func Hit()
-{
-  Sound("Ammobaghit*.ogg");
-  return 1;
-}
-
 public func ControlThrow(object caller)
 {
   //Verbündeten suchen
@@ -143,7 +137,7 @@ protected func RejectCollect(object pInto)
   return ContentsCount(GetID(), pInto);
 }
 
-/* Sounds */
+/* Allgemein */
 
 protected func Hit()
 {
