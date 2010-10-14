@@ -32,7 +32,7 @@ private func Fly()
   SetYDir(30,GetAttObj(),10);
 
   if(GetPlrDownDouble(GetController(GetAttObj())) || (Abs(speed) < 2))
-    Close();
+    SetAction("FlyFree");
 }
 
 public func GetAttObj()
