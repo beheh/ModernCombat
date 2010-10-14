@@ -1130,7 +1130,7 @@ protected func TimerCall()
     {
       if(GetOwner(pClonk) != NO_OWNER && GetOwner() != NO_OWNER && !Hostile(GetOwner(), GetOwner(pClonk))) continue;
       if(GetEffect("NoRotorHit",pClonk)) continue;
-      Fling(pClonk, GetXDir(pClonk,1)*2+RandomX(-1,1), RandomX(-3, -2)-GetRotorSpeed()/100);
+      Fling(pClonk, GetXDir(pClonk,1)*3/2+RandomX(-1,1), RandomX(-3, -2)-GetRotorSpeed()/100);
       DoDmg(GetRotorSpeed()/4, DMG_Projectile, pClonk, 0, GetOwner()+1);
       Sound("BKHK_RotorHit*.ogg", pClonk);
       AddEffect("NoRotorHit",pClonk,1,20,pClonk);
