@@ -34,7 +34,7 @@ protected func Activate(iPlr)
 
 func InitializePlayer(int iPlayer)
 {
-  var pClonk = GetCursor(iPlayer);
+  var pClonk = GetCrew(iPlayer);
   if(!pClonk)
   {
    ScheduleCall(0,"InitializePlayer",1,0,iPlayer);
@@ -61,7 +61,7 @@ func InitPlayers()
 public func RelaunchPlayer(int iPlr, object pClonk)
 {
   if(!pClonk)
-   if(!(pClonk = GetCursor(iPlr)))
+   if(!(pClonk = GetCrew(iPlr)))
     return ScheduleCall(this,"RelaunchPlayer",1,0,iPlr,pClonk);
   if(!GetAlive(pClonk))
    return ScheduleCall(this,"RelaunchPlayer",1,0,iPlr);

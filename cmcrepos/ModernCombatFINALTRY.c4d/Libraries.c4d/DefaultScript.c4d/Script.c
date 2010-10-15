@@ -35,7 +35,7 @@ public func ChooserFinished()
 
   //Nochmal alle Spieler relaunchen
   for(var i = 0; i < GetPlayerCount(); i++)
-    RelaunchPlayer(GetPlayerByIndex(i),GetCursor(GetPlayerByIndex(i)), 0, GetPlayerTeam(GetPlayerByIndex(i)));
+    RelaunchPlayer(GetPlayerByIndex(i),GetCrew(GetPlayerByIndex(i)), 0, GetPlayerTeam(GetPlayerByIndex(i)));
 }
 
 /* Regelvoreinstellung */
@@ -64,6 +64,10 @@ public func RelaunchPlayer(int iPlr, object pCrew, object pKiller, int iTeam, bo
 
   //Kein Team?
   if(!iTeam) iTeam = GetPlayerTeam(iPlr);
+
+  //Falscher Cursor?
+  if (!pCrew || !pCrew->~IsClonk())
+    pCrew = GetCrew(iPlr);
 
   //Reject?
   if(!bFirst)
