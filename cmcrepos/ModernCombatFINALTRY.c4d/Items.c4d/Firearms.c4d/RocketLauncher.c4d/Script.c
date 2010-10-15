@@ -95,6 +95,13 @@ public func LaunchRocket(id rid, int angle)
   }
 }
 
+public func AimAngleChange(bool fJNR)
+{
+  //Schnelleres Zielen
+  if (fJNR)
+    return 5;
+}
+
 /* Handeffekt */
 
 public func HandR()

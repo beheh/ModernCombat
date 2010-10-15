@@ -67,6 +67,23 @@ func ResetShowWeapon(object pNew)
   return true;
 }
 
+public func ControlConf(int conf)
+{
+  var jnr = GetPlrCoreJumpAndRunControl(GetController());
+
+  var iChange;
+  if (Contents())
+  iChange = Contents()->~AimAngleChange(jnr) * conf;
+
+  if (!iChange)
+    if (jnr)
+	  iChange = conf * 2;
+	else
+	  iChange = conf * 10;
+
+  DoAiming(iChange);
+}
+
 public func DoAiming(int iChange)
 {
   //zielen wir überhaupt?
@@ -75,23 +92,10 @@ public func DoAiming(int iChange)
 
   var angle = Abs(crosshair->GetAngle()) + iChange;
 
-  // Winkel anpassen, wenn keine freie Auswahl (klassische Steuerung)
-  if(!GetPlrCoreJumpAndRunControl(GetController()))
-    angle = angle-angle%AIM_Step;
-    
-  /*if(ControlledCanAim())
-  {
-    angle = GetControlled()->SetAimAngle(angle);
-  }
-  else
-  {*/
-    // Winkel wird zu groß?
-    if(angle > AIM_Max || angle < 0)
-      return;
-
-    if(GetDir() == DIR_Left)
-      angle = 360-angle;
-  //}
+  if(angle > AIM_Max || angle < 0)
+    return;
+  if(GetDir() == DIR_Left)
+    angle = 360-angle;
 
   crosshair->SetAngle(angle);
   this->~UpdateAiming();
