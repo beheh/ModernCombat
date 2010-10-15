@@ -8,13 +8,20 @@ StartCall=Fly
 NextAction=Fly
 
 [Action]
+Name=StartFlyFree
+Length=6
+Delay=2
+Facet=0,55,72,55
+StartCall=Fly
+NextAction=FlyFree
+
+[Action]
 Name=FlyFree
 Length=1
 Delay=1
-Procedure=ATTACH
-Facet=0,55,360,55
+Facet=360,55,72,55
 StartCall=Fly
-NextAction=Fly
+NextAction=FlyFree
 
 [Action]
 Name=Fold
@@ -28,9 +35,9 @@ NextAction=Lie
 [Action]
 Name=FoldFree
 Length=20
-Delay=6
+Delay=2
 Procedure=NONE
-Facet=0,55,72,55
+Facet=0,110,72,55
 EndCall=Folded
 NextAction=Lie
 
