@@ -1009,7 +1009,7 @@ protected func ContactBottom()
     SetYDir(GetYDir()*-2/3);
   }
   if(GetContact(0,-1,CNAT_Left|CNAT_Right))
-    SetYDir(Max(GetYDir(),40)*-2/3);
+    SetYDir(Max(GetYDir(),20)*-2/3);
 }
 
 protected func ContactLeft()
@@ -1075,7 +1075,7 @@ protected func TimerCall()
   if(IsDestroyed()) return;	
 
   //Absinken, wenn kein Pilot
-  if(!GetPilot() && !GetAutopilot() || GetY() < 0 || throttle == 0)
+  if((!GetPilot() && !GetAutopilot() || GetY() < 0) && throttle != 0)
   {
     if(!Random(3))
     {
