@@ -92,7 +92,7 @@ public func FMMenu(clonk)
   SetGraphics("1",ring,RICO,overlay,GFXOV_MODE_IngamePicture);
 
   overlay = ring->AddLeftItem("$FireTecBack$","CycleFT",-1,RICO);
-  SetGraphics("4",ring,RICO,overlay,GFXOV_MODE_IngamePicture);
+  SetGraphics("5",ring,RICO,overlay,GFXOV_MODE_IngamePicture);
 
   overlay = ring->AddRightItem("$FireTecForward$","CycleFT",+1,RICO);
   SetGraphics("4",ring,RICO,overlay,GFXOV_MODE_IngamePicture);
