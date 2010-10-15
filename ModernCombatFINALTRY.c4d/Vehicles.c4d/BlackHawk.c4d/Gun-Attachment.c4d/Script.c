@@ -17,7 +17,7 @@ local blinkspeed;
 public func GetAttWeapon()	{return cur_Attachment;}					//Waffe
 public func MaxRotLeft()	{return rot_left+GetDir(heli)*(180-rot_right+180-rot_left);}			//Maximaler Winkel links
 public func MaxRotRight()	{return rot_right+GetDir(heli)*(180-rot_right+180-rot_left);}			//Maximaler Winkel rechts
-public func AimAngle()		{return aim_angle;}						//Winkel auf Ziel
+public func AimAngle()		{return aim_angle+GetR();}						//Winkel auf Ziel
 public func ReadyToFire()	{return 1;}							//Allzeit bereit
 public func IsAiming()		{return true;}							//Geschütz immer am Zielen
 public func IsThreat()		{return pController;}						//Status

@@ -31,8 +31,10 @@ private func Fly()
   var speed = GetYDir(GetAttObj(),10);
   SetYDir(30,GetAttObj(),10);
 
-  if(GetPlrDownDouble(GetController(GetAttObj())) || (Abs(speed) < 2))
+  if(GetPlrDownDouble(GetController(GetAttObj())))
     SetAction("FlyFree");
+  if((Abs(speed) < 2))
+    Close();
 }
 
 public func GetAttObj()

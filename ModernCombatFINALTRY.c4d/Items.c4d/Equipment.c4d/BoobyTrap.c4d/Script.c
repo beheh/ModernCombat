@@ -33,6 +33,12 @@ public func ControlThrow(object caller)
   //Wird nicht getragen: Werfen gesperrt
   if(!Contained()) return;
   
+  //Nur die Sprengfalle mit dem ersten Index in einem Objekt wird benutzt
+  var index;
+  for(index = 0; Contents(index) == this; index++);
+  for(var i = 0; GetID(Contents(i)) == GetID() && Contents(i) != this && index > i; i++)
+    return; 
+  
   //Normales Ablegen
   if (GetPlrDownDouble(GetController(caller)))
     return _inherited(...);
@@ -129,6 +135,7 @@ public func Throw()
     if(Inside(iDir,26  ,76))   SetPhase(3);
     if(Inside(iDir,77  ,128))  SetPhase(0);
     if(Inside(iDir,129 ,179))  SetPhase(1);
+    SetObjDrawTransform(1000,0,0,0,1000,0);
   }
 
   if (doplace == 2)
@@ -151,13 +158,12 @@ public func Throw()
 private func FinFuse()
 {
   if(!bActive) return;
-  SetClrModulation(RGBa(255,255,255,80));
   CreateParticle("PSpark",0,0,0,0,60,GetPlrColorDw(GetOwner()),this);
   laser = CreateObject(LASR,0,0,controller);
   laser -> Set(iDir,3,60,0,0,this());
   if(laser)
   {
-    laser -> SetClrModulation(DoRGBaValue(GetPlrColorDw(GetOwner()), 180, 0));
+    laser -> SetClrModulation(DoRGBaValue(GetPlrColorDw(GetOwner()), 210, 0));
     laser ->~ Destruction();
   }
   var flag = CreateObject(MFLG,0,1,controller);
@@ -219,12 +225,13 @@ private func Check()
   if(!bReady) return;
 
   var pVictim;
-  if( ObjectCount2(Find_OnLine(0,0,Sin(iDir,80,1),-Cos(iDir,80,1)), 
-      Find_Func("CheckEnemy",this,0,true),
-      Find_Not(Find_Distance(10)),
-      Find_OCF(OCF_Alive),
-      Find_NoContainer()) )
-    Detonate();
+  for( var pVictim in FindObjects(Find_OnLine(0,0,Sin(iDir,80,1),-Cos(iDir,80,1)), 
+       Find_Func("CheckEnemy",this,0,true),
+       Find_Not(Find_Distance(10)),
+       Find_OCF(OCF_Alive),
+       Find_NoContainer()) )
+    if(PathFree(GetX(),GetY(),GetX(pVictim),GetY(pVictim)))
+      Detonate();
   return 1;
 }
 
@@ -268,6 +275,7 @@ protected func Damage(int iChange)
 
 public func OnDmg(int iDmg, int iType)
 {
+  if(iType == DMG_Fire) return 90; //Feuer
   if(iType == DMG_Bio)	return 100;	//Säure und biologische Schadstoffe
 }
 
@@ -276,11 +284,6 @@ public func OnDmg(int iDmg, int iType)
 public func RejectEntrance(object pObj)
 {
 	if(bActive) return true;
-  if(GetOCF(pObj) & OCF_Living)
-  {
-   if(ContentsCount(GetID(),pObj))
-    return true;
-  }
   return false;
 }
 
