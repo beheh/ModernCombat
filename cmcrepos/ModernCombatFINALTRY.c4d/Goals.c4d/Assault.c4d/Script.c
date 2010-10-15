@@ -39,7 +39,7 @@ public func CalcTickets()
 	  D++;
 	else
 	  A++;
-  return D + (5 + A + D + 2 * D * D) / (A + 1);
+  return D + (A + D + D * D) / (A + 1);
 }
 
 public func AddAssaultTarget(id idTarget, int iX, int iY, int iMaxDamage, int iTeam, string szName, int iIndex, array aSpawn, bool fNoBar)
