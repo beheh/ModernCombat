@@ -986,12 +986,12 @@ protected func ContactTop()
   for (var i; i < GetVertexNum(); i++)
   {
     if(GetContact(0, i))
-      CreateParticle("Blast", GetVertex(i), GetVertex(i, true), 0, 0, 50, RGB(255,255,255));
+      CreateParticle("Blast", GetVertex(i), GetVertex(i, true), 0, 0, RandomX(50,100), RGB(255,255,255));
   }
 
   //Sound
   Sound("HeavyHit*.ogg", false, MGStation);
-  SetYDir(Max(GetYDir(),40)*-1/2);
+  SetYDir(Min(GetYDir(),-40)*-1/2);
 }
 
 protected func ContactBottom()
@@ -1003,11 +1003,13 @@ protected func ContactBottom()
     for (var i; i < GetVertexNum(); i++)
     {
       if (GetContact(0, i))
-        CreateParticle("Blast", GetVertex(i), GetVertex(i, true), 0, 0, 50, RGB(255,255,255));
+        CreateParticle("Blast", GetVertex(i), GetVertex(i, true), 0, 0, RandomX(50,100), RGB(255,255,255));
     }
     Sound("HeavyHit*.ogg", false, MGStation);
-    SetYDir(GetYDir()*-1/3);
+    SetYDir(GetYDir()*-2/3);
   }
+  if(GetContact(0,-1,CNAT_Left|CNAT_Right))
+    SetYDir(Max(GetYDir(),40)*-2/3);
 }
 
 protected func ContactLeft()
@@ -1019,7 +1021,7 @@ protected func ContactLeft()
     for (var i; i < GetVertexNum(); i++)
     {
       if (GetContact(0, i))
-        CreateParticle("Blast", GetVertex(i), GetVertex(i, true), 0, 0, 50, RGB(255,255,255));
+        CreateParticle("Blast", GetVertex(i), GetVertex(i, true), 0, 0, RandomX(50,100), RGB(255,255,255));
     }
     Sound("HeavyHit*.ogg", false, MGStation);
   }
@@ -1034,7 +1036,7 @@ protected func ContactRight()
     for (var i; i < GetVertexNum(); i++)
     {
       if (GetContact(0, i))
-        CreateParticle("Blast", GetVertex(i), GetVertex(i, true), 0, 0, 50, RGB(255,255,255));
+        CreateParticle("Blast", GetVertex(i), GetVertex(i, true), 0, 0, RandomX(50,100), RGB(255,255,255));
     }
     DoDamage(Abs(GetXDir())+Abs(GetYDir()));
     Sound("HeavyHit*.ogg", false, MGStation);
@@ -1073,16 +1075,23 @@ protected func TimerCall()
   if(IsDestroyed()) return;	
 
   //Absinken, wenn kein Pilot
-  if(!GetPilot() && !GetAutopilot() || GetY() < 0)
+  if(!GetPilot() && !GetAutopilot() || GetY() < 0 || throttle == 0)
   {
     if(!Random(3))
     {
       if(throttle > 100)
-        throttle--;
-      else if(throttle > 75)
         throttle-=3;
+      else if(throttle > 75)
+        throttle--;
       else if(throttle > 50)
         throttle-=5;
+      else
+        throttle-=10;
+      if(throttle <= 0)
+      {
+        throttle = 0;
+        SetAction("EngineShutDown");
+      }
     }
   }
 
@@ -1251,15 +1260,15 @@ private func DrawFire()
   var dir = GetDir()*2-1;
   if (!GBackLiquid(-Sin(GetR()+dir*80, 25), +Cos(GetR()+dir*80, 25)))
   {
-    CreateParticle("Blast",-Sin(GetR()+dir*80, 25),
-                           +Cos(GetR()+dir*80, 25),
-  			             0, -10, 100+Random(20), RGB(255,255,255), this);
+    CreateParticle("Blast",-Sin(GetR()+dir*80, 25)+RandomX(-10,10),
+                           +Cos(GetR()+dir*80, 25)+RandomX(-10,10),
+  			             0, -10, 100+Random(30), RGB(255,255,255), this);
   }
   if (!GBackLiquid(-Sin(GetR()+dir*80, 25), +Cos(GetR()+dir*80, 25)))
   {
-    CreateParticle("Blast",-Sin(GetR()-dir*60, 25),
-                           +Cos(GetR()+dir*100, 25),
-  			             0, -10, 100+Random(20), RGB(255,255,255), this);
+    CreateParticle("Blast",-Sin(GetR()-dir*60, 25)+RandomX(-10,10),
+                           +Cos(GetR()+dir*100, 25)+RandomX(-10,10),
+  			             0, -10, 100+Random(30), RGB(255,255,255), this);
   }
 }
 

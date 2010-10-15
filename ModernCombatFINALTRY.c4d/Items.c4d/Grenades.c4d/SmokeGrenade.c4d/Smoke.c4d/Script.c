@@ -21,7 +21,7 @@ public func Initialize()
   SetAction("Be");
 
   //Raucheffekt
-  AddEffect("Smoking", this, 25, 3, this);
+  AddEffect("Smoking", this, 25, 5, this);
 }
 
 /* Timecall */
@@ -119,22 +119,29 @@ global func FxSmokeGrenadeTimer(object pTarget, int iEffectNumber, int iEffectTi
 
   //Noch im Rauch?
   var smoked = false, friend;
-  for(var smoke in FindObjects(pTarget->Find_AtPoint(), Find_ID(SM4K), Find_Func("IsSmoking")))
+  for(var smoke in FindObjects(pTarget->Find_AtPoint(), Find_ID(SM4K), Find_Func("IsSmoking"),Find_Hostile(GetOwner(pTarget))))
+  {
+    if(GetCon(smoke)/2 > Distance(GetX(smoke),GetY(smoke),GetX(pTarget),GetY(pTarget)))
+    {   
+      smoked = true;
+      break;
+    }
+  }
+  if(!smoked)
+  for(var smoke in FindObjects(pTarget->Find_AtPoint(), Find_ID(SM4K), Find_Func("IsSmoking"),))
   {
     if(GetCon(smoke)/2 > Distance(GetX(smoke),GetY(smoke),GetX(pTarget),GetY(pTarget)))
     {
-      if(GetPlayerTeam(GetOwner(pTarget)) == GetPlayerTeam(GetOwner(smoke)))
-        friend = 1;
-        
+      friend = 1;
       smoked = true;
       break;
     }
   }
   
   if(smoked) //Weird shit, jo.
-    rgb->DoAlpha(+10, friend*128, !friend*254);
+    rgb->DoAlpha(+20, friend*128, !friend*254);
   else
-    rgb->DoAlpha(-10, 0, 254);
+    rgb->DoAlpha(-20, 0, 254);
 }
 
 global func FxSmokeGrenadeStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)
