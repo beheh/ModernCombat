@@ -21,7 +21,7 @@ public func Fused()
   Sound("SGRN_Fused.ogg");
   if(!GBackLiquid())
   {
-   if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("Smoke3",8,50,0,0,120,150,RGBa(255,255,255,120),RGBa(255,255,255,150));
+    if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("Smoke3",8,50,0,0,120,150,RGBa(255,255,255,120),RGBa(255,255,255,150));
   }
 
   //Verschwinden
@@ -37,7 +37,7 @@ func Smoke()
   var smoke = CreateObject(SM4K, 0, 0, GetController());
   SetXDir((GetXDir() / 3 * 2) + (time * RandomX(-30, +30)),smoke,100);
   SetYDir((GetYDir() / 3 * 2) - (time * (10 + Random(20))),smoke,100);
-  
+
   time++;
 }
 

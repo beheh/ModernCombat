@@ -137,8 +137,9 @@ global func FxSmokeGrenadeTimer(object pTarget, int iEffectNumber, int iEffectTi
       break;
     }
   }
-  
-  if(smoked) //Weird shit, jo.
+
+  //Intensität je nach Freund/Feind
+  if(smoked)
     rgb->DoAlpha(+20, friend*128, !friend*254);
   else
     rgb->DoAlpha(-20, 0, 254);
