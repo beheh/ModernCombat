@@ -4,7 +4,7 @@
 
 local iLifeTime;
 local fSmoking;
-static const SM4K_FadeTime = 175;	//5 Sekunden
+static const SM4K_FadeTime = 105;	//3 Sekunden
 
 public func IsSmoking()		{return fSmoking;}
 
@@ -16,7 +16,7 @@ public func Initialize()
   fSmoking = true;
 
   //Lebenszeit und Größe setzen
-  iLifeTime = 35*20+Random(35*5);
+  iLifeTime = 35*25+Random(35*2);
   SetCon(5);
   SetAction("Be");
 
@@ -54,7 +54,7 @@ public func Timer()
   {
     //Raucheffekt hinzufügen falls nicht vorhanden
     if(!GetEffect("SmokeGrenade", obj))
-      AddEffect("SmokeGrenade", obj, 1, 1, obj);
+      AddEffect("SmokeGrenade", obj, 1, 2, this);
   }
 }
 
@@ -107,8 +107,11 @@ global func FxSmokeGrenadeStart(object pTarget, int iEffectNumber, int iTemp)
   //Besitzerlose Ziele nicht blenden
   if(GetController(pTarget) == NO_OWNER) return;
   if(GetPlayerType(GetController(pTarget)) == C4PT_Script) return;
-  
-  EffectVar(0, pTarget, iEffectNumber) = ScreenRGB(pTarget, RGBa(150, 150, 150, 254), 0, 0, false, SR4K_LayerSmoke);
+  if(GetPlayerTeam(GetOwner(pTarget)) == GetPlayerTeam(GetOwner(this)))
+    var maxsmoke = 180;
+  else
+    var maxsmoke = 254;
+  EffectVar(0, pTarget, iEffectNumber) = ScreenRGB(pTarget, RGBa(150, 150, 150, maxsmoke), 0, 0, false, SR4K_LayerSmoke);
   return;
 }
 
@@ -116,27 +119,28 @@ global func FxSmokeGrenadeTimer(object pTarget, int iEffectNumber, int iEffectTi
 {
   //Keine Blendung übrig? Verschwinden
   var rgb = EffectVar(0, pTarget, iEffectNumber);
-  if(!rgb) return 0;
+  if(!rgb) return -1;
 
   //Noch im Rauch?
-  var smoked = false;
+  var smoked = false, maxsmoke;
   for(var smoke in FindObjects(pTarget->Find_AtPoint(), Find_ID(SM4K), Find_Func("IsSmoking")))
   {
     if(GetCon(smoke)/2 > Distance(GetX(smoke),GetY(smoke),GetX(pTarget),GetY(pTarget)))
     {
+      if(GetPlayerTeam(GetOwner(pTarget)) == GetPlayerTeam(GetOwner(smoke)))
+        maxsmoke = 180;
+      else
+        maxsmoke = 254;
+        
       smoked = true;
       break;
     }
   }
-
+  
   if(smoked)
-    rgb->DoAlpha(+10, 0, 254);
+    rgb->DoAlpha(+10, maxsmoke);
   else
-  {
-    rgb->DoAlpha(-10, 0, 254);
-    if(rgb->GetAlpha() <= 0)
-      return -1;
-  }
+    rgb->DoAlpha(-10, 0);
 }
 
 global func FxSmokeGrenadeStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)
@@ -159,6 +163,7 @@ public func DoAlpha(int iValue, int iMin, int iMax)
   var r,g,b,a;
   SplitRGBaValue(iValue,r,g,b,a);
   a = BoundBy(a-iValue,Max(iMin,0),Min(iMax,255));
+  Log("%v",a);
   SetClrModulation(RGBa(r,g,b,a));
 }
 
