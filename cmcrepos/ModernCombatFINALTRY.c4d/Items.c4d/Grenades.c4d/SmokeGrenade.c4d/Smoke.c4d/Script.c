@@ -101,17 +101,13 @@ func Spread()
 }
 
 /* Raucheffekt */
-
+friend*128
 global func FxSmokeGrenadeStart(object pTarget, int iEffectNumber, int iTemp)
 {
   //Besitzerlose Ziele nicht blenden
   if(GetController(pTarget) == NO_OWNER) return;
   if(GetPlayerType(GetController(pTarget)) == C4PT_Script) return;
-  if(GetPlayerTeam(GetOwner(pTarget)) == GetPlayerTeam(GetOwner(this)))
-    var maxsmoke = 180;
-  else
-    var maxsmoke = 254;
-  EffectVar(0, pTarget, iEffectNumber) = ScreenRGB(pTarget, RGBa(150, 150, 150, maxsmoke), 0, 0, false, SR4K_LayerSmoke);
+  EffectVar(0, pTarget, iEffectNumber) = ScreenRGB(pTarget, RGBa(150, 150, 150, 255), 0, 0, false, SR4K_LayerSmoke);
   return;
 }
 
@@ -122,25 +118,23 @@ global func FxSmokeGrenadeTimer(object pTarget, int iEffectNumber, int iEffectTi
   if(!rgb) return -1;
 
   //Noch im Rauch?
-  var smoked = false, maxsmoke;
+  var smoked = false, friend;
   for(var smoke in FindObjects(pTarget->Find_AtPoint(), Find_ID(SM4K), Find_Func("IsSmoking")))
   {
     if(GetCon(smoke)/2 > Distance(GetX(smoke),GetY(smoke),GetX(pTarget),GetY(pTarget)))
     {
       if(GetPlayerTeam(GetOwner(pTarget)) == GetPlayerTeam(GetOwner(smoke)))
-        maxsmoke = 180;
-      else
-        maxsmoke = 254;
+        friend = 1;
         
       smoked = true;
       break;
     }
   }
   
-  if(smoked)
-    rgb->DoAlpha(+10, maxsmoke);
+  if(smoked) //Weird shit, jo.
+    rgb->DoAlpha(+10, friend*128, !friend*254);
   else
-    rgb->DoAlpha(-10, 0);
+    rgb->DoAlpha(-10, 0, 254);
 }
 
 global func FxSmokeGrenadeStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)
