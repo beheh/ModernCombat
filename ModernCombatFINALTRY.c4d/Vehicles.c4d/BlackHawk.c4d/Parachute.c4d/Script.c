@@ -1,13 +1,13 @@
 /*-- Fallschirm --*/
 
-#strict
+#strict 2
 
 
 /* Initialisierung */
 
 protected func Initialize()
 {
-  return(1);
+  return 1;
 }
 
 //Einklinken und Ausklinken
@@ -18,28 +18,38 @@ public func ControlDigDouble(pObj)
 
 public func Set(object pObj)
 {
-  Sound("Click");
+  Sound("ParachuteOpen*.ogg");
   SetAction("Open",pObj);
 }
 
 private func Fly()
 {
-  //Windbeeinflussung
-  SetXDir(GetWind(GetX(),GetY())/8,GetAttObj());
+  if(WildcardMatch(GetAction(),"*Free*"))
+  {
+    SetXDir(GetWind(GetX(),GetY())/8);
+    SetYDir(30,0,10);
+    if(GetContact(0,-1,CNAT_Bottom))
+    {
+      SetAction("FoldFree");
+      Sound("ParachuteClose.ogg");
+    }
+  }
+  else
+  {
+    var targ = GetActionTarget();
+    
+    //Windbeeinflussung
+    SetXDir(GetWind(GetX(),GetY())/8,targ);
 
-  //Fall verlangsamen
-  var speed = GetYDir(GetAttObj(),10);
-  SetYDir(30,GetAttObj(),10);
+    //Fall verlangsamen
+    SetYDir(30,targ,10);
 
-  if(GetPlrDownDouble(GetController(GetAttObj())))
-    SetAction("FlyFree");
-  if((Abs(speed) < 2))
-    Close();
-}
-
-public func GetAttObj()
-{
-  return(GetActionTarget());
+    if(GetPlrDownDouble(GetController(targ)))
+      SetAction("StartFlyFree");
+    
+    if(GetContact(0,-1,CNAT_Bottom) || GetContact(targ,-1,CNAT_Bottom))
+      Close();
+  }
 }
 
 /* Aktionen */
@@ -50,7 +60,7 @@ private func Opening()
   {
     SetObjDrawTransform(1000,0,0,0,1000,0,this());
     SetAction("Fly",GetActionTarget());
-    return();
+    return;
   }
   var w = Sin(90*(1000*GetActTime()/(25))/1000,1000);
   var h = 1000*GetActTime()/(25);
