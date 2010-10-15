@@ -980,7 +980,7 @@ protected func ContactTop()
   if (GetCon() != 100) return;
 
   //Schaden
-  DoDamage(20, this);
+  DoDamage(10, this);
 
   //Partikeleffekt
   for (var i; i < GetVertexNum(); i++)
@@ -991,7 +991,7 @@ protected func ContactTop()
 
   //Sound
   Sound("HeavyHit*.ogg", false, MGStation);
-  SetYDir(GetYDir()*-1/2);
+  SetYDir(Max(GetYDir(),40)*-1/2);
 }
 
 protected func ContactBottom()
@@ -1024,7 +1024,7 @@ protected func ContactLeft()
     Sound("HeavyHit*.ogg", false, MGStation);
   }
   //Abprallen
-  SetXDir(GetXDir()*-1/2);
+  SetXDir(Max(GetXDir(),40)*-1/2,this);
 }
 
 protected func ContactRight()
@@ -1039,7 +1039,7 @@ protected func ContactRight()
     DoDamage(Abs(GetXDir())+Abs(GetYDir()));
     Sound("HeavyHit*.ogg", false, MGStation);
   }
-  SetXDir(GetXDir()*-1/2);
+  SetXDir(Max(GetXDir(),40)*-1/2,this);
 }
 
 //Objekt, die in den Rotor geraten, verursachen Schaden

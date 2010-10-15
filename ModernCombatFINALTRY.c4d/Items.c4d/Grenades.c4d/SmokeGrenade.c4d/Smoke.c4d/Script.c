@@ -101,7 +101,7 @@ func Spread()
 }
 
 /* Raucheffekt */
-friend*128
+
 global func FxSmokeGrenadeStart(object pTarget, int iEffectNumber, int iTemp)
 {
   //Besitzerlose Ziele nicht blenden
