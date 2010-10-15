@@ -3,7 +3,7 @@
 #strict
 #include CSTD
 
-static aFlag,aSelfDefense,aArtillery;
+static aFlag,aArtillery;
 
 
 /* Initialisierung */
@@ -17,8 +17,6 @@ func Initialize()
   SetSkyParallax(0,15,15);
   //Flaggen
   aFlag = [];
-  //Selbstschussanlagen
-  aSelfDefense = [];
   //Artillerie
   aArtillery = [];
   //Szenario einrichten
@@ -161,31 +159,6 @@ func CreateFurniture()
   var doorw = CreateObject(ROOM, 3500, 760, -1);
   CreateObject(ROOM, 3080, 760, -1)->Connect(doorw);
 
-  //Selbstschussanlagen
-  aSelfDefense[0] = CreateObject(SEGU, 420, 472, -1);
-    aSelfDefense[0]->SetR(180);
-    aSelfDefense[0]->Arm(MISA);
-    aSelfDefense[0]->TurnOn();
-    aSelfDefense[0]->SetAutoRepair(1000);
-
-  aSelfDefense[1] = CreateObject(SEGU, 1410, 612, -1);
-    aSelfDefense[1]->SetR(180);
-    aSelfDefense[1]->Arm(MISA);
-    aSelfDefense[1]->TurnOn();
-    aSelfDefense[1]->SetAutoRepair(1000);
-
-  aSelfDefense[2] = CreateObject(SEGU, 2830, 612, -1);
-    aSelfDefense[2]->SetR(180);
-    aSelfDefense[2]->Arm(MISA);
-    aSelfDefense[2]->TurnOn();
-    aSelfDefense[2]->SetAutoRepair(1000);
-
-  aSelfDefense[3] = CreateObject(SEGU, 3820, 472, -1);
-    aSelfDefense[3]->SetR(180);
-    aSelfDefense[3]->Arm(MISA);
-    aSelfDefense[3]->TurnOn();
-    aSelfDefense[3]->SetAutoRepair(1000);
-
   //Sounds
 
   //Wind
@@ -277,18 +250,6 @@ public func ChooserFinished()
   var aTeams = [false,false,false,false,false];
   for(var i = 0; i < GetPlayerCount(); i++)
     aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = true;
-
-  //SSA Besitzer setzen
-  if(aTeams[1] == true)
-  {
-   aSelfDefense[0]->SetTeam(1);
-   aSelfDefense[1]->SetTeam(1);
-  }
-  if(aTeams[2] == true)
-  {
-   aSelfDefense[2]->SetTeam(2);
-   aSelfDefense[3]->SetTeam(2);
-  }
 
   //HTF-Spielziel
   if (FindObject(GHTF))
