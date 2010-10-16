@@ -170,15 +170,7 @@ public func FxAMPKRestockingTimer(pTarget, iEffectNumber, iEffectTime)
       break;
 
     //Munition hinzufügen
-    var factor;
-    if(ammoID == STAM)  //Normale Kugeln = 1 Punkt
-      factor = 1;
-    if(ammoID == GRAM)  //Granaten = 5 Punkte
-      factor = 5;
-    if(ammoID == MIAM)  //Raketen = 10 Punkte
-      factor = 10;
-    if(!factor)         //Alles andere = 2 Punkte
-      factor = 2;
+    var factor = ammoID->~GetPointFactor();
     if(ammoID->MaxAmmo()/10*factor > GetAmmoPoints() || GetAmmo(ammoID,target) >= highestammo)
       break;
 

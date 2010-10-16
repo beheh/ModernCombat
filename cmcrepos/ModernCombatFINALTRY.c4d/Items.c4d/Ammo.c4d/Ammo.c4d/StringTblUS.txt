@@ -1,2 +1,3 @@
 NotMoreAmmo=Can not store more {{%i}}!
 Collected=%dx {{%i}} collected.
+EnoughAmmo=Target already has|enough {{%i}}.

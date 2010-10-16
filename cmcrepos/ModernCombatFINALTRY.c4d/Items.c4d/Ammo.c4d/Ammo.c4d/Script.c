@@ -7,6 +7,10 @@ public func AmmoID()		{return STAM;}
 public func AmmoCount()		{return 100;}
 public func NoArenaRemove()	{return true;}
 
+public func IsDrawable()	{return true;}
+public func HandSize()		{return 800;}
+public func HandX()		{return 6000;}
+public func HandY()		{return -1000;}
 
 /* Initalisierung */
 
@@ -49,13 +53,40 @@ public func TransferAmmo(object pObj)
     return;
   }
 
+  //Punkte, wenn jemandem anders gegeben
+  var clonk = Contained(),
+  factor = AmmoID()->~GetPointFactor();
+  if (clonk && clonk->~IsClonk() && factor && GetOwner(clonk) != GetOwner(pObj)) {
+    DoPlayerPoints(BonusPoints("Restocking", AmmoCount()*factor), RWDS_TeamPoints, GetOwner(clonk), GetCursor(GetOwner(clonk)), IC14);
+    DoAchievementProgress(AmmoID()->~MaxAmmo()/10*factor, AC03, GetOwner(clonk));
+  }
+
   //Nachricht ausgeben
-  HelpMessage(GetOwner(pObj),"$Collected$",pObj,AmmoCount(),AmmoID());
-  DoAmmo(AmmoID(),AmmoCount(),pObj);
+  HelpMessage(GetOwner(pObj), "$Collected$", pObj, AmmoCount(), AmmoID());
+  DoAmmo(AmmoID(), AmmoCount(), pObj);
   pObj->~AmmoTransferred();
   Sound("Resupply.ogg");
   if(!OnTransfer()) RemoveObject();
 
+  return true;
+}
+
+public func ControlThrow(object caller)
+{
+  //Verbündeten suchen
+  for (var obj in FindObjects(Find_InRect(-10,-10,20,20),Find_OCF(OCF_CrewMember),Find_Exclude(caller),Find_Allied(GetOwner(caller)),Find_NoContainer()))
+    //Kann noch Munition aufnehmen?
+    if (obj->~IsClonk() && MayTransfer(obj))
+    {
+      //Munition geben und abbrechen.
+      TransferAmmo(obj);
+      break;
+    }
+    else
+    {
+      PlayerMessage(GetOwner(caller), "$EnoughAmmo$",caller,AmmoID());
+      return 1;
+    }
   return true;
 }
 
