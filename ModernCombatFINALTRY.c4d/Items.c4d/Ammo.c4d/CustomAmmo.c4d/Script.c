@@ -84,23 +84,17 @@ public func TransferAmmo(object pObj)
   }
 
   // Nachricht ausgeben
-  PlayerMessage(GetOwner(pObj),"$Collected$",pObj,AmmoCount(),AmmoID());//Das ist mal keine Hilfenachricht, weil niemand wissen kann wieviel da drin ist.
+  PlayerMessage(GetOwner(pObj),"$Collected$",pObj,AmmoCount(), AmmoID());
 
   //Packer erhält Munitionspunkte, wenn er im gleichen Team ist
   if (GetPlayerName(GetOwner()) && GetOwner() != GetOwner(pObj) && !Hostile(GetOwner(), GetOwner(pObj)))
   {
-    var factor;
-    if(ammoid == STAM)  //Normale Kugeln = 1 Punkt
-     factor = 1;
-    if(ammoid == GRAM)  //Granaten = 5 Punkte
-     factor = 5;
-    if(ammoid == MIAM)  //Raketen = 10 Punkte
-     factor = 10;
-    if(!factor)         //Alles andere = 2 Punkte
-     factor = 2;
+    var factor = AmmoID()->~GetPointFactor();
+    if(!factor)
+      factor = 2;
 
-    DoPlayerPoints(BonusPoints("Restocking",count*factor), RWDS_TeamPoints, GetOwner(), GetCursor(GetOwner()), IC14);
-	DoAchievementProgress(ammoid->MaxAmmo()/10*factor, AC03, GetOwner());
+    DoPlayerPoints(BonusPoints("Restocking", count*factor), RWDS_TeamPoints, GetOwner(), GetCursor(GetOwner()), IC14);
+	DoAchievementProgress(AmmoID()->MaxAmmo()/10*factor, AC03, GetOwner());
   }
 
   var old = count;
