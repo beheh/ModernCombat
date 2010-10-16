@@ -5,7 +5,7 @@
 local target, item, angle, last;
 
 public func NoWarp()		{return true;}
-public func ShoveTime()		{return 13*3;}
+public func ShoveTime()		{return 12*2;}
 public func RejectEntrance()	{return true;}
 public func IgnoreTracer()	{return true;}
 public func BlockTracer()	{return true;}
@@ -52,7 +52,7 @@ public func ExecShove()
   }
 
   //Objekt finden
-  var victim = FindObject2(Find_AtPoint(px,py),
+  var victim = FindObject2(Find_Or(Find_AtPoint(px,py),Find_AtPoint(px/2,py/2)),
                  Find_Exclude(this()),
                  Find_NoContainer(),
                  Find_Or
@@ -62,7 +62,7 @@ public func ExecShove()
                  ),
                  Find_Category(C4D_Living|C4D_Vehicle),
                  Find_Func("CheckEnemy",this),
-                 Sort_Distance(dx,dy));
+                 Sort_Distance(dx-GetX(target),dy-GetY(target)));
 
   //und verschleudern
   if(victim)
