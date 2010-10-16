@@ -946,8 +946,9 @@ public func OnDestruction()
       Exit(obj, 0, 0, Random(360), RandomX(-5,5), RandomX(-4,8), Random(10));
   }
 
-  //Explosion
+  //Explosion (booom!)
   FakeExplode(70, GetLastAttacker());
+  FakeExplode(50, GetLastAttacker());
   RemoveObject();
   Sound("BigExplosion.ogg", false, this);
   Sound("StructuralDamage*.ogg", false, this);
@@ -1008,7 +1009,7 @@ protected func ContactBottom()
     Sound("HeavyHit*.ogg", false, MGStation);
     SetYDir(GetYDir()*-2/3);
   }
-  if(GetContact(0,-1,CNAT_Left|CNAT_Right))
+  if(GetContact(0,-1,CNAT_Left|CNAT_Right) && throttle)
     SetYDir(Max(GetYDir(),20)*-2/3);
 }
 
