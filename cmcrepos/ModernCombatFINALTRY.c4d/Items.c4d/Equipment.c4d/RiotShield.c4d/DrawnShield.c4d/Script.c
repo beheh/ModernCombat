@@ -5,11 +5,12 @@
 local target, item, angle, last;
 
 public func NoWarp()		{return true;}
-public func ShoveTime()		{return 12*2;}
+public func ShoveTime()		{return 10*3;}
 public func RejectEntrance()	{return true;}
 public func IgnoreTracer()	{return true;}
 public func BlockTracer()	{return true;}
-public func RejectC4Attach() {return true;}
+public func RejectC4Attach()	{return true;}
+
 
 /* Erstellung */
 
