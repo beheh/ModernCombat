@@ -75,8 +75,10 @@ public func UpdateScoreboard()
 	    //Ziel noch da?
 		if (target)
 		{
-		  SetScoreboardData(row, 2 * iTeam + GBAS_Name, Format("<c %x>%s</c>", GetTeamColor(iTeam), GetName(target)));
-		  SetScoreboardData(row, 2 * iTeam + GBAS_Status, Format("<c %x>%d%</c>", GetTeamColor(iTeam), Interpolate2(100, 0, GetDamage(target), EffectVar(0, target, GetEffect("IntAssaultTarget", target)))));
+		  var dmg = Interpolate2(100, 0, GetDamage(target), EffectVar(0, target, GetEffect("IntAssaultTarget", target))),
+		  clr = InterpolateRGBa3(GetTeamColor(iTeam), RGB(255, 255, 255), 100 - dmg, 100);
+		  SetScoreboardData(row + iTeam * GBAS_MaxTargetCount, GBAS_Name, Format("<c %x>%s</c>", clr, GetName(target)), iTeam);
+		  SetScoreboardData(row + iTeam * GBAS_MaxTargetCount, GBAS_Status, Format("<c %x>%d%</c>", clr, dmg), dmg);
 		  ++row;
 		}
 	  }
@@ -93,14 +95,20 @@ public func UpdateScoreboard()
 		if (!clonk || !GetPlayerName(iPlr))
 		  continue;
 		//Tot?
-		var symbol = GetID(clonk);
+		var symbol = GetID(clonk),
+		dmg = 1;
 		if (GetID(Contained(clonk)) == FKDT || !GetAlive(clonk) || GetID(Contained(clonk)) == TIM1 || GetID(Contained(clonk)) == TIM2)
+		{
 		  symbol = CDBT;
-		SetScoreboardData(l, 2 * iTeam + GBAS_Name, GetTaggedPlayerName(iPlr));
-		SetScoreboardData(l, 2 * iTeam + GBAS_Status, Format("{{%i}}", symbol));
+		  dmg = 0;
+		}
+		SetScoreboardData(l + iTeam * GBAS_MaxTargetCount, GBAS_Name, GetTaggedPlayerName(iPlr), iTeam);
+		SetScoreboardData(l + iTeam * GBAS_MaxTargetCount, GBAS_Status, Format("{{%i}}", symbol), dmg);
 	  }
 	}
   }
+  SortScoreboard(GBAS_Status);
+  SortScoreboard(GBAS_Name);
 }
 
 private func GetTeamPlayerByIndex(int iPlr, int iTeam)
@@ -121,8 +129,8 @@ public func RemoveScoreboardTeam(int iTeam)
   //Uff.
   for (var i; i < GBAS_MaxTargetCount; i++)
   {
-    SetScoreboardData(i, iTeam * 2 + GBAS_Name);
-	SetScoreboardData(i, iTeam * 2 + GBAS_Status);
+    SetScoreboardData(i + iTeam * GBAS_MaxTargetCount, GBAS_Name);
+	SetScoreboardData(i + iTeam * GBAS_MaxTargetCount, GBAS_Status);
   }
 }
 
