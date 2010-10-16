@@ -87,42 +87,59 @@ public func FMMenu(clonk)
   var ring = CreateSpeedMenu(0,clonk);
   
   var overlay;
-  
-  overlay = ring->AddThrowItem("$Reload$","ManualReload",firemode,RICO);
-  SetGraphics("1",ring,RICO,overlay,GFXOV_MODE_IngamePicture);
 
-  overlay = ring->AddLeftItem("$FireTecBack$","CycleFT",-1,RICO);
-  SetGraphics("5",ring,RICO,overlay,GFXOV_MODE_IngamePicture);
-
-  overlay = ring->AddRightItem("$FireTecForward$","CycleFT",+1,RICO);
-  SetGraphics("4",ring,RICO,overlay,GFXOV_MODE_IngamePicture);
-
-  overlay = ring->AddUpItem("$FireModeForward$","CycleFM",+1,RICO);
-  SetGraphics("3",ring,RICO,overlay,GFXOV_MODE_IngamePicture);
-  
-  overlay = ring->AddDownItem("$AmmoType$","ManualEmpty",firemode,RICO);
-  SetGraphics("2",ring,RICO,overlay,GFXOV_MODE_IngamePicture);
-  
-  var szName = "";
-  for(var i = 1; i <= GetFMCount(); i++)
+  //Manuell nachladen
+  if (GetAmmoCount(GetSlot()) < GetFMData(FM_AmmoLoad) && clonk->~GetAmmo(GetFMData(FM_AmmoID)))
   {
-    szName = GetFMData(FM_Name, i, 1);
-      if(!szName) continue;
-    if(i == firemode) 
-      szName = Format("<c ffff00>%s</c>", szName);
-    else
-    szName = Format("<c eeeeee>%s</c>", szName);
-    ring->AddTopInfoItem(szName);
+    overlay = ring->AddThrowItem("$Reload$", "ManualReload",firemode,RICO);
+    SetGraphics("1",ring,RICO,overlay,GFXOV_MODE_IngamePicture);
   }
-  for(var i = 1; i <= GetFTCount(firemode); i++)
+
+  //Manuell entladen
+  if (GetAmmoCount(GetSlot()))
   {
-    szName = GetFMData(FT_Name, firemode, i);
-    if(!szName) continue;
-    if(i == GetFireTec(firemode))
-      szName = Format("<c ffff00>%s</c>", szName);
-    else
-      szName = Format("<c eeeeee>%s</c>", szName);	
-      ring->AddBottomInfoItem(szName);
+  	overlay = ring->AddDownItem("$AmmoType$","ManualEmpty",firemode,RICO);
+    SetGraphics("2",ring,RICO,overlay,GFXOV_MODE_IngamePicture);
+  }
+
+  //Feuertechniken durchwechseln
+  if (GetFTCount() > 2)
+  {
+    overlay = ring->AddLeftItem("$FireTecBack$","CycleFT",-1,RICO);
+    SetGraphics("5",ring,RICO,overlay,GFXOV_MODE_IngamePicture);
+
+    overlay = ring->AddRightItem("$FireTecForward$","CycleFT",+1,RICO);
+    SetGraphics("4",ring,RICO,overlay,GFXOV_MODE_IngamePicture);
+
+	for(var i = 1; i <= GetFTCount(firemode); i++)
+    {
+      szName = GetFMData(FT_Name, firemode, i);
+      if(!szName) continue;
+      if(i == GetFireTec(firemode))
+        szName = Format("<c ffff00>%s</c>", szName);
+      else
+        szName = Format("<c eeeeee>%s</c>", szName);	
+        ring->AddBottomInfoItem(szName);
+    }
+  }
+
+  //Feuermodus
+  if (GetFMCount() > 1)
+  {
+    overlay = ring->AddUpItem("$FireModeForward$","CycleFM",+1,RICO);
+    SetGraphics("3",ring,RICO,overlay,GFXOV_MODE_IngamePicture);
+	
+	var szName = "";
+    for(var i = 1; i <= GetFMCount(); i++)
+    {
+      szName = GetFMData(FM_Name, i, 1);
+        if(!szName) continue;
+      if(i == firemode) 
+        szName = Format("<c ffff00>%s</c>", szName);
+      else
+      szName = Format("<c eeeeee>%s</c>", szName);
+      ring->AddTopInfoItem(szName);
+    }
   }
 
   return true;

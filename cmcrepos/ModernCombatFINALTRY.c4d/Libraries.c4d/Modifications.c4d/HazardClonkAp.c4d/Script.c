@@ -160,17 +160,13 @@ protected func PackAmmo(id idType, int iCaller)
   if(!Collect(pPack,this))
   {
     DoAmmo(idType,+iChange); 
-    RemoveObject(pPack); //What a fail. :C
+    return RemoveObject(pPack); //What a fail. :C
   }
-  else
-    Sound("PackAmmo.ogg");
-  
-  if(this->~AmmoBagContextCheck())
-  {
-    var sel = GetMenuSelection(pCaller);
-    ContextAmmobag(pCaller);
-    SelectMenuItem(sel,pCaller);
-  }
+
+  Sound("PackAmmo.ogg");
+
+  //Menü schließen, mehr als eine Box kann eh nicht getragen werden
+  CloseMenu(pCaller);
 }
 
 protected func DoAmmoPack(id idType)
