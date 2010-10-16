@@ -148,7 +148,11 @@ public func IsFulfilled()
   {
     var team = GetTeamByIndex(i);
 	if (!GetTeamPlayerCount(team))
+	{
+	  for (var obj in FindObjects(Find_InArray(aTargets[team])))
+	    Explode(50, obj);
 	  EliminateTeam(team);
+	}
   }
   
   //Gegen Camping während Klassenwahl oder im Menü

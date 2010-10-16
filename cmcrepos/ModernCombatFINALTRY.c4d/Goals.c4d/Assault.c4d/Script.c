@@ -134,6 +134,24 @@ public func GetAssaultTarget(int iIndex, int iTeam)
   return aTargets[iDefender][iIndex];
 }
 
+/* Assault-Effekt */
+
+protected func FxIntAssaultTargetDamage(object pTarget, int iEffect, int iDamage)
+{
+  //Nur durchlassen, wenn das Ziel an der Reihe ist
+  var iTarget = GetIndexOf(pTarget, aTargets[iDefender]),
+  iNext = GetNextTarget();
+  if (iTarget == iNext || (GetType(Connected[iNext]) == C4V_Array && GetIndexOf(iTarget, Connected[iNext]) != -1))
+    return iDamage;
+  var id = pTarget->~GetImitationID();
+  if (!id)
+    id = GetID(pTarget);
+  var size = Distance(0, 0, GetDefWidth(id), GetDefHeight(id)) * 5;
+  CreateParticle("FxShield", GetX(pTarget) - GetX(), GetY(pTarget) - GetY(), 0, 0, size, RGB(255, 255, 255));
+  Sound("Shield", false, pTarget);
+  return 0;
+}
+
 /* Relaunch */
 
 public func OnClassSelection(object pCrew)
@@ -301,7 +319,7 @@ public func UpdateScoreboard()
 
   //Leerzeilen
   SetScoreboardData(0, GASS_Count, "<c ffffffff> </c>", 1);
-  SetScoreboardData(1, GASS_Count, "<c ffffffff> </c>", 3);
+  SetScoreboardData(1, GASS_Count, "<c ffffffff> </c>", 102);
 
   //Tickets
   var string = Format("<c %x>$Attackers$</c>", RGB(255, 255, 255));
@@ -317,7 +335,7 @@ public func UpdateScoreboard()
   }
   SetScoreboardData(2, GASS_Icon, "{{SM03}}");
   SetScoreboardData(2, GASS_Name, string);
-  SetScoreboardData(2, GASS_Count, Format("<c %x>%d</c>", color, iTickets), 4);
+  SetScoreboardData(2, GASS_Count, Format("<c %x>%d</c>", color, iTickets), 103);
   
   //Sortieren
   SortScoreboard(GASS_Count);
@@ -340,7 +358,7 @@ private func AddScoreboardTarget(object pTarget, int iRow)
 
   SetScoreboardData(iRow+GASS_TargetRow, GASS_Icon, Format("{{%i}}", pTarget->~GetImitationID()));
   SetScoreboardData(iRow+GASS_TargetRow, GASS_Name, Format("<c %x>%s</c>", color, GetName(pTarget)));
-  SetScoreboardData(iRow+GASS_TargetRow, GASS_Count, Format("<c %x>%d%</c>", color, percent), 2);
+  SetScoreboardData(iRow+GASS_TargetRow, GASS_Count, Format("<c %x>%d%</c>", color, percent), percent + 1);
 }
 
 /* Ziel */
