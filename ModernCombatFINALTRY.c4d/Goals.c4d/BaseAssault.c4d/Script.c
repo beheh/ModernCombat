@@ -203,6 +203,7 @@ public func OpenRelaunchMenu(object pCrew, int iSelection)
   //Zwischendurch alle Ziele vernichtet? Stirb!
   if (!ObjectCount2(Find_InArray(aTargets[GetPlayerTeam(GetOwner(pCrew))])))
     return EliminatePlayer(GetOwner(pCrew));
+  CloseMenu(pCrew);
   CreateMenu(GBAS, pCrew, this, 0, "$ChoosePoint$", 0, 3, 0, GBAS);
   //Alle vorhandenen Ziele ins Menü setzen
   var array = FindObjects(Find_InArray(aTargets[GetPlayerTeam(GetOwner(pCrew))]));
