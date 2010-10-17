@@ -77,7 +77,7 @@ func CreateFurniture()
   //Sandsackbarrieren
   CreateObject(SBBA, 360, 560, -1);
   CreateObject(SBBA, 401, 440, -1);
-  CreateObject(SBBA, 450, 440, -1)->Right();
+  CreateObject(SBBA, 440, 440, -1)->Right();
   CreateObject(SBBA, 710, 760, -1);
   CreateObject(SBBA, 780, 760, -1)->Right();
 
@@ -151,6 +151,12 @@ func CreateFurniture()
 
   CreateObject(OLGH, 3040, 620, -1)->Set(4, 15, 1, 1, 30);
   CreateObject(OLGH, 3540, 590, -1)->Set(4, 15, 1, 1, 30);
+
+  //Notausgangslichter
+  CreateObject(ETLT, 410, 540, -1);
+  CreateObject(ETLT, 1410, 655, -1);
+  CreateObject(ETLT, 2830, 655, -1);
+  CreateObject(ETLT, 3830, 540, -1);
 
   //Grenzen
   CreateObject(BRDR, 0, 1110, -1)->Set(3);
