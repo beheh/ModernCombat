@@ -6,9 +6,9 @@
 
 /* Die Sturmeinheit */
 
-private func Class1Info(int iData)
+private func Class1Info(int iData, int iPlr)
 {
-  if(iData == CData_Name)  return "<c ffff33>$assault$</c>";
+  if(iData == CData_Name)  return "$assault$";
   if(iData == CData_Desc)  return "$assault_desc$";
   if(iData == CData_Clonk) return PCMK;
   if(iData == CData_Ammo)  return "90x {{STAM}}8x {{GRAM}}";
@@ -34,10 +34,10 @@ private func Class1Setup(int iPlr)
 
 /* Der Sanitäter */
 
-private func Class2Info(int iData)
+private func Class2Info(int iData, int iPlr)
 {
 
-  if(iData == CData_Name)  return "<c ffff33>$medic$</c>";
+  if(iData == CData_Name)  return "$medic$";
   if(iData == CData_Desc)  return "$medic_desc$";
   if(iData == CData_Clonk) return MDIC;
   if(iData == CData_Ammo)  return "80x {{STAM}}";
@@ -62,9 +62,9 @@ private func Class2Setup(int iPlr)
 
 /* Der Unterstützer */
 
-private func Class3Info(int iData)
+private func Class3Info(int iData, int iPlr)
 {
-  if(iData == CData_Name)  return "<c ffff33>$support$</c>";
+  if(iData == CData_Name)  return "$support$";
   if(iData == CData_Desc)  return "$support_desc$";
   if(iData == CData_Clonk) return PCMK;
   if(iData == CData_Ammo)  return "200x {{STAM}}4x {{MIAM}}";
@@ -94,10 +94,10 @@ private func Class3Setup(int iPlr)
 
 /* Der Antiskill */
 
-private func Class4Info(int iData)
+private func Class4Info(int iData, int iPlr)
 {
 
-  if(iData == CData_Name)  return "<c ffff33>$antiskill$</c>";
+  if(iData == CData_Name)  return "$antiskill$";
   if(iData == CData_Desc)  return "$antiskill_desc$";
   if(iData == CData_Clonk) return PCMK;
   if(iData == CData_Ammo)  return "70x {{STAM}}";
@@ -123,9 +123,9 @@ private func Class4Setup(int iPlr)
 
 /* Der Artillerist */
 
-private func Class5Info(int iData)
+private func Class5Info(int iData, int iPlr)
 {
-  if(iData == CData_Name)  return "<c ffff33>$artillerist$</c>";
+  if(iData == CData_Name)  return "$artillerist$";
   if(iData == CData_Desc)  return "$artillerist_desc$";
   if(iData == CData_Clonk) return PCMK;
   if(iData == CData_Ammo)  return "50x {{STAM}}30x {{GRAM}}";
@@ -148,4 +148,47 @@ private func Class5Setup(int iPlr)
   CreateObject(FGRN,0,0,iPlr)->Activate(new);
   CreateObject(FGRN,0,0,iPlr)->Activate(new);
   return new;
+}
+
+/* Der Commander */
+
+private func Class6Info(int iData, int iPlr)
+{
+  if(iData == CData_Name)  return "$commander$";
+  if(iData == CData_Desc)  return "$commander_desc$";
+  if(iData == CData_Clonk) return PCMK;
+  if(iData == CData_Ammo)  return "45x {{STAM}}";
+  if(iData == CData_Items) return "1x {{RDST}}     1x {{PSTL}}|1x {{C4PA}}     1x {{DGNN}}|2x {{SGRN}}";
+  if(iData == CData_Condition)  return !GetCommander(GetPlayerTeam(iPlr));
+  if(iData == CData_DisplayCondition)  return true;
+  if(iData == CData_Facet) return 6;
+  return Default(iData);
+}
+
+private func Class6Setup(int iPlr)
+{
+  var new = CreateObject(PCMK,0,0,iPlr);
+  DoAmmo(STAM,45,new);
+  CreateContents(RDST, new);
+  CreateContents(PSTL, new);
+  CreateContents(C4PA, new);
+  CreateContents(DGNN, new);
+  CreateObject(SGRN,0,0,iPlr)->Activate(new);
+  CreateObject(SGRN,0,0,iPlr)->Activate(new);
+  return new;
+}
+
+private func GetCommander(int iTeam) {
+  for(var pClonk in FindObjects(Find_Func("IsClonk"))) {
+	  if(GetPlayerTeam(GetOwner(pClonk)) == iTeam) {
+	  	if(IsCommander(pClonk)) return true;
+		}
+	}
+	return false;
+}
+
+global func IsCommander(object pClonk) {
+	if(!pClonk) pClonk = this;
+	if(!pClonk) return;
+	return ContentsCount(RDST, pClonk) > 0;
 }

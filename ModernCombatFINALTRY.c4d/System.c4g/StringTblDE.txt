@@ -10,7 +10,9 @@ antiskill=Antiskill
 antiskill_desc=Bilden die Spezialeinheiten, welche|effektiv mit Einsatzschildern vor|Feindbeschuss schützen und schnell|mit Shotguns Angriffe starten.
 artillerist=Artillerist
 artillerist_desc=Mit einem starken Granatenwerfer|ausgerüstet, agiert diese Einheit|hinter der Frontlinie und feuert|tödliche Artillerie auf den Feind.
-
+commander=Commander
+commander_desc=Obwohl nur bedingt kampftauglich, kann der Commander taktische Hilfen in den Kampf rufen und die Angriffe seines Teams koordinieren.
+alreadycommander=Es gibt bereits einen Commander!
 
 // CTF
 

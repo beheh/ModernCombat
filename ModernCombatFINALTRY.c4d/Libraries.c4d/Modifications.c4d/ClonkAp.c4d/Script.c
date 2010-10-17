@@ -6,9 +6,6 @@
 local assistkiller, machinekill;
 local killicon;
 
-public func IsClonk()	{return true;}
-
-
 /* Erstellung */
 
 protected func Construction()

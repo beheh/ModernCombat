@@ -105,7 +105,9 @@ public func FxSpawntimerTimer(pTarget, iNo, iTime)
 
   if(EffectVar(1, pTarget, iNo) <= 0)
   {
-   SetupClass(selection[EffectVar(0, pTarget, iNo)]-InfoMenuItems(), EffectVar(0, pTarget, iNo));
+   var class = selection[EffectVar(0, pTarget, iNo)]-InfoMenuItems();
+	 if(!GetCData(class, CData_Condition, GetOwner(pTarget))) class = 1;
+   SetupClass(class, EffectVar(0, pTarget, iNo));
    PlayerMessage(EffectVar(0, pTarget, iNo), "@");
    return -1;
   }
@@ -222,7 +224,7 @@ private func OpenMenu(object pClonk, int iSelection)
 
   //Klassenname und -beschreibung
   //34 Zeichen pro Zeile! (Ohne Icon!)
-  AddMenuItem(Format("%s|%s", GetCData(class,CData_Name), GetCData(class,CData_Desc)),
+  AddMenuItem(Format("<c ffff33>%s</c>|%s", GetCData(class,CData_Name), GetCData(class,CData_Desc)),
               "", NONE, pClonk, 0, 0, "", 512, 0, 0);
 
   //Leerzeile
@@ -249,7 +251,14 @@ private func OpenMenu(object pClonk, int iSelection)
   var i = 1;
   while(GetCData(i))
   {
-   AddMenuItem (GetCData(i,CData_Name),Format("SetupClass(%d,%d)",i,GetOwner(pClonk)),GetCData(i,CData_Icon),pClonk,0,pClonk,0,2,GetCData(i,CData_Facet));
+   var szName = GetCData(i,CData_Name);
+   if(!GetCData(i, CData_Condition, GetOwner(pClonk))) {
+    szName = Format("<c 777777>%s</c>", szName);
+   }
+   else {
+    szName = Format("<c ffff33>%s</c>", szName);
+   }
+   AddMenuItem (szName,Format("SetupClass(%d,%d)",i,GetOwner(pClonk)),GetCData(i,CData_Icon),pClonk,0,pClonk,0,2,GetCData(i,CData_Facet));
    i++;
   }
 
@@ -275,21 +284,25 @@ protected func OnMenuSelection(int iIndex, object pClonk)
 
 /* Klassen */
 
-static const CData_Name  = 1;
-static const CData_Desc  = 2;
-static const CData_Clonk = 3;
-static const CData_Ammo  = 4;
-static const CData_Items = 5;
-static const CData_Icon  = 6;
-static const CData_Facet = 7;
+static const CData_Name             = 1;
+static const CData_Desc             = 2;
+static const CData_Clonk            = 3;
+static const CData_Ammo             = 4;
+static const CData_Items            = 5;
+static const CData_Icon             = 6;
+static const CData_Condition        = 7;
+static const CData_DisplayCondition = 8;
+static const CData_Facet            = 9;
 
-public func GetCData(int iClass,int iData)
+public func GetCData(int iClass,int iData,int iPlayer)
 {
-  return PrivateCall(this,Format("Class%dInfo",iClass),iData);
+  return PrivateCall(this,Format("Class%dInfo",iClass),iData,iPlayer);
 }
 
 public func SetupClass(int iClass, int iPlayer)
 {
+	if(!GetCData(iClass, CData_Condition, iPlayer)) return;
+
   var oldCrew = crew[iPlayer];
   crew[iPlayer] = PrivateCall(this,Format("Class%dSetup",iClass),iPlayer);
   
@@ -331,6 +344,8 @@ private func Default(int iData)
   if(iData == CData_Ammo)  return "<Ammo>";
   if(iData == CData_Items) return "<Items>";
   if(iData == CData_Icon)  return GetID();
+  if(iData == CData_Condition)  return true;
+  if(iData == CData_DisplayCondition)  return true;
   if(iData == CData_Facet) return;
   return true;
 }
