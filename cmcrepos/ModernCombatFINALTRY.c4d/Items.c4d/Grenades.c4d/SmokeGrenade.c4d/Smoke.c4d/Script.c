@@ -140,7 +140,7 @@ global func FxSmokeGrenadeTimer(object pTarget, int iEffectNumber, int iEffectTi
 
   //Intensität je nach Freund/Feind
   if(smoked)
-    rgb->DoAlpha(+20, friend*128, !friend*254);
+    rgb->DoAlpha(+20, friend*128, 254);
   else
     rgb->DoAlpha(-20, 0, 254);
 }
@@ -149,31 +149,6 @@ global func FxSmokeGrenadeStop(object pTarget, int iEffectNumber, int iReason, b
 {
   if(EffectVar(0,pTarget,iEffectNumber))
     RemoveObject(EffectVar(0,pTarget,iEffectNumber));
-}
-
-public func SetAlpha(int iValue)
-{
-  var a = BoundBy(iValue,0,255);
-  var r,g,b;
-  SplitRGBaValue(iValue,r,g,b);
-  SetClrModulation(RGBa(r,g,b,a));
-}
-
-public func DoAlpha(int iValue, int iMin, int iMax)
-{
-  if(!iMax) iMax = 255;
-  var r,g,b,a;
-  SplitRGBaValue(iValue,r,g,b,a);
-  a = BoundBy(a-iValue,Max(iMin,0),Min(iMax,255));
-  Log("%v",a);
-  SetClrModulation(RGBa(r,g,b,a));
-}
-
-public func GetAlpha()
-{
-  var a;
-  SplitRGBaValue(GetClrModulation(),0,0,0,a);
-  return a;
 }
 
 /* Geschwindigkeitsdämpfung */

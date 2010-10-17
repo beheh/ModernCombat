@@ -89,7 +89,7 @@ public func FMMenu(clonk)
   var overlay;
 
   //Manuell nachladen
-  if (GetAmmoCount(GetSlot()) < GetFMData(FM_AmmoLoad) && clonk->~GetAmmo(GetFMData(FM_AmmoID)))
+  if (GetAmmoCount(GetSlot()) < GetFMData(FM_AmmoLoad) && (clonk->~GetAmmo(GetFMData(FM_AmmoID)) >= GetFMData(FM_AmmoUsage) || FindObject(NOAM)))
   {
     overlay = ring->AddThrowItem("$Reload$", "ManualReload",firemode,RICO);
     SetGraphics("1",ring,RICO,overlay,GFXOV_MODE_IngamePicture);
