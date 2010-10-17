@@ -167,7 +167,7 @@ public func FxFollowTimer(object pTarget, int iEffectNumber, int iEffectTime)
 
 private func Traveling()
 {
-  //Nichts unternehen wenn erstört
+  //Nichts unternehmen wenn zerstört
   if(GetAction() == "Idle")
     return;
 
