@@ -1,0 +1,1 @@
+Das Funkgerät, mit dessen Hilfe der Commander taktische Hilfen anfordern kann.
