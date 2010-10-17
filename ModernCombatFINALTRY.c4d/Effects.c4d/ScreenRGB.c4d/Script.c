@@ -88,13 +88,13 @@ public func FxIntRGBFadeTimer(object pTarget, int iEffectNumber, int iEffectTime
   if(a <= 0)
     return -1;
 
-  return 0;
+  if (!GetPlayerName(GetOwner(pTarget)))
+    return -1;
 }
 
 public func FxIntRGBFadeStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)
 {
   RemoveObject();
-  return 0;
 }
 
 public func SetAlpha(int iValue)
