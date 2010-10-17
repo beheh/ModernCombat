@@ -3,7 +3,7 @@
 #strict 2
 #include MISS
 
-local sx, sy, pLauncher;
+local sx, sy, pLauncher, pLight;
 
 public func MaxTime()		{return 200;}			//Maximale Flugzeigt
 
@@ -57,7 +57,7 @@ public func Launch(int iAngle, object pFollow)
 
   //Effekte
   AddEffect("ThrustSound",this,1,11,this);
-  AddLight(70,RGB(255,200,200),this,GLOW);
+  pLight = AddLight(70,RGB(255,200,200),this,GLOW);
 
   //Treffer- und Steuereffekt einsetzen
   AddEffect("HitCheck", this, 1,1, 0, SHT1,shooter);
@@ -93,10 +93,13 @@ public func FxFollowStart(object pTarget, int iEffectNumber, int iTemp, obj)
 public func FxFollowTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
   //Nichts unternehmen wenn abgeschossen
-  if(GetAction(pTarget) == "Fall")
-    return;
-  if(GetAction(pTarget) == "Idle")
-    return;
+  if(GetAction(pTarget) != "Travel")
+  {
+    //Licht entfernen?
+	if (pLight)
+	  RemoveObject(pLight);
+	return;
+  }
 
   var x = GetX(pTarget)-GetX(), y = GetY(pTarget)-GetY();
   //Rakete unterstützt Peilsender?
