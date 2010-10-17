@@ -5,7 +5,7 @@
 local bActive, bReady, iDir, controller, laser;
 
 public func IsDrawable()		{return true;}
-public func CanAim()			{return !bActive;}
+public func CanAim()			{return !bActive && Contained();}
 public func IsMine()			{return true;}
 public func Color()			{return RGB(200,200,200);}
 public func IsBulletTarget()		{return !Random(6);}
@@ -283,8 +283,7 @@ public func OnDmg(int iDmg, int iType)
 
 public func RejectEntrance(object pObj)
 {
-	if(bActive) return true;
-  return false;
+  return bActive;
 }
 
 /* Allgemein */
