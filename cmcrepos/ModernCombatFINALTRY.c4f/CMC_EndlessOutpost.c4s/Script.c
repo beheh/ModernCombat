@@ -681,11 +681,11 @@ public func ChooserFinished()
    AddAssaultTarget(CGLO, 1120, 362, 250, 2, "$Target1$", 0, [[[1320, 260], [1300, 260], [1130, 260]], [[130, 350], [170, 350], [150, 450]]]);
    AddAssaultTarget(MVNT, 1865, 250, 250, 2, "$Target2$", 1, [[[1570, 70], [1590, 70], [1830, 110]], [[1100, 430], [1140, 430], [1280, 550]]]);
    AddAssaultTarget(LBPC, 1795, 492, 300, 2, "$Target3$", 2, [[[1980, 400]], [[1280, 430], [1280, 550]]]);
-   AddAssaultTarget(CCP2, 2180, 512, 300, 2, "$Target4$", 3, [[[1880, 110], [2050, 110]], [[1950, 400], [1550, 550], [1500, 490]]]);
-   AddAssaultTarget(LBPC, 2200, 322, 300, 2, "$Target5$", 4, [[[1880, 110], [2050, 110]], [[1950, 400], [1550, 550], [1500, 490]]]);
-   AddAssaultTarget(CMSN, 2350, 212, 300, 2, "$Target6$", 5, [[[1880, 110], [2050, 110]], [[1950, 400], [1550, 550], [1500, 490]]]);
-   AddAssaultTarget(GSTA, 2460, 322, 350, 2, "$Target7$", 6, [[[1880, 110], [2050, 110]], [[1950, 400], [1550, 550], [1500, 490]]]);
-   AddAssaultTarget(CCP1, 2455, 502, 350, 2, "$Target8$", 7, [[[1880, 110], [2050, 110]], [[1950, 400], [1550, 550], [1500, 490]]]);
+   AddAssaultTarget(CCP2, 2180, 512, 200, 2, "$Target4$", 3, [[[1880, 110], [2050, 110]], [[1950, 400], [1550, 550], [1500, 490]]]);
+   AddAssaultTarget(LBPC, 2200, 322, 200, 2, "$Target5$", 4, [[[1880, 110], [2050, 110]], [[1950, 400], [1550, 550], [1500, 490]]]);
+   AddAssaultTarget(CMSN, 2350, 212, 200, 2, "$Target6$", 5, [[[1880, 110], [2050, 110]], [[1950, 400], [1550, 550], [1500, 490]]]);
+   AddAssaultTarget(GSTA, 2460, 322, 200, 2, "$Target7$", 6, [[[1880, 110], [2050, 110]], [[1950, 400], [1550, 550], [1500, 490]]]);
+   AddAssaultTarget(CCP1, 2455, 502, 200, 2, "$Target8$", 7, [[[1880, 110], [2050, 110]], [[1950, 400], [1550, 550], [1500, 490]]]);
 
    //Ziele verbinden
    ConnectAssaultTargets([3, 4, 5, 6, 7]);
@@ -694,8 +694,8 @@ public func ChooserFinished()
   //OP-Spielziel
   if(FindObject(GOCC))
   {
-   //SSA anschalten
-   aSelfDefense[1]->TurnOn();
+   //Konsole erstellen
+   CreateObject(CONS, 1810, 485, -1)->Set(aSelfDefense[1]);
 
    //Grenze
    CreateObject(BRDR, 2010, 0, -1)->Set(1);
