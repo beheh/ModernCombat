@@ -105,11 +105,17 @@ public func FxSpawntimerTimer(pTarget, iNo, iTime)
 
   if(EffectVar(1, pTarget, iNo) <= 0)
   {
-   var class = selection[EffectVar(0, pTarget, iNo)]-InfoMenuItems();
-	 if(!GetCData(class, CData_Condition, GetOwner(pTarget))) class = 1;
-   SetupClass(class, EffectVar(0, pTarget, iNo));
-   PlayerMessage(EffectVar(0, pTarget, iNo), "@");
-   return -1;
+	var iPlr = EffectVar(0, pTarget, iNo),
+	class = selection[iPlr]-InfoMenuItems();
+	PlayerMessage(iPlr, "@");
+	if(SetupClass(class, iPlr))
+	  return -1;
+	class = lastclass[iPlr];
+	if (class && SetupClass(class, iPlr))
+	  return -1;
+	class = 1;
+	SetupClass(class, iPlr);
+	return -1;
   }
 }
 
@@ -334,6 +340,8 @@ public func SetupClass(int iClass, int iPlayer)
   lastclass[iPlayer] = iClass;
 
   Finish(crew[iPlayer]);
+
+  return true;
 }
 
 private func Default(int iData)
