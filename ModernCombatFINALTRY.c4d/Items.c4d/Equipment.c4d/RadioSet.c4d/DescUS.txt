@@ -1,0 +1,1 @@
+A radio with which the commander can call Tactical Aids.
