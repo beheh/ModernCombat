@@ -34,7 +34,7 @@ static const GASS_Spawn_Att = 1;
 public func CalcTickets()
 {
   var A, D;
-  for (var i; i < GetPlayerCount(i); i++)
+  for (var i; i < GetPlayerCount(); i++)
     if (GetPlayerTeam(GetPlayerByIndex(i)) == iDefender)
 	  D++;
 	else
