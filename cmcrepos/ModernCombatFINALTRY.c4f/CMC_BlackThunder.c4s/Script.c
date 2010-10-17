@@ -76,12 +76,16 @@ func CreateFurniture()
 
   //Sandsackbarrieren
   CreateObject(SBBA, 360, 560, -1);
+  CreateObject(SBBA, 401, 440, -1);
+  CreateObject(SBBA, 450, 440, -1)->Right();
   CreateObject(SBBA, 710, 760, -1);
   CreateObject(SBBA, 780, 760, -1)->Right();
 
   CreateObject(SBBA, 1100, 670, -1);
   CreateObject(SBBA, 1100, 760, -1);
   CreateObject(SBBA, 1350, 850, -1)->Right();
+  CreateObject(SBBA, 1391, 590, -1);
+  CreateObject(SBBA, 1430, 590, -1)->Right();
   CreateObject(SBBA, 1460, 670, -1)->Right();
 
   CreateObject(SBBA, 1960, 750, -1);
@@ -90,12 +94,16 @@ func CreateFurniture()
   CreateObject(SBBA, 2280, 850, -1)->Right();
 
   CreateObject(SBBA, 2780, 670, -1);
+  CreateObject(SBBA, 2811, 590, -1);
+  CreateObject(SBBA, 2850, 590, -1)->Right();
   CreateObject(SBBA, 2890, 850, -1);
   CreateObject(SBBA, 3140, 670, -1)->Right();
   CreateObject(SBBA, 3140, 760, -1)->Right();
 
   CreateObject(SBBA, 3460, 760, -1);
   CreateObject(SBBA, 3530, 760, -1)->Right();
+  CreateObject(SBBA, 3801, 440, -1);
+  CreateObject(SBBA, 3840, 440, -1)->Right();
   CreateObject(SBBA, 3880, 560, -1)->Right();
 
   //Geländer
@@ -189,7 +197,7 @@ func CreateEquipment()
   //Alle Objekte folglich von links oben nach rechts unten
 
   //Munitionskisten (Kugeln)
-  var tmp = CreateObject (AMCT, 460, 560, -1);
+  var tmp = CreateObject (AMCT, 415, 500, -1);
   tmp->Set(ABOX);
   tmp->SetGraphics("Normal");
 
@@ -201,7 +209,7 @@ func CreateEquipment()
   tmp->Set(ABOX);
   tmp->SetGraphics("Normal");
 
-  var tmp = CreateObject (AMCT, 3780, 560, -1);
+  var tmp = CreateObject (AMCT, 3830, 500, -1);
   tmp->Set(ABOX);
   tmp->SetGraphics("Normal");
 
@@ -223,11 +231,11 @@ func CreateEquipment()
   tmp->SetGraphics("Normal");
 
   //Raketen
-  PlaceSpawnpoint(MBOX, 420, 645);
-  PlaceSpawnpoint(MBOX, 1360, 665);
+  PlaceSpawnpoint(MBOX, 430, 645);
+  PlaceSpawnpoint(MBOX, 1410, 585);
 
-  PlaceSpawnpoint(MBOX, 2880, 665);
-  PlaceSpawnpoint(MBOX, 3820, 645);
+  PlaceSpawnpoint(MBOX, 2830, 585);
+  PlaceSpawnpoint(MBOX, 3810, 645);
 
   //Artilleriebatterie
   aArtillery[0] = CreateObject(ATBY,2120,690,-1);
