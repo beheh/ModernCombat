@@ -1,2 +1,2 @@
 TimeTillRespawn=<c ff0000>%d</c> seconds till respawn.
-PlayerChoosedClass=%s joins as %s
+PlayerChoosedClass=%s joins as <c ffff33>%s</c>

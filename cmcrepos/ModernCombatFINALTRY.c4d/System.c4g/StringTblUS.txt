@@ -10,7 +10,9 @@ antiskill=Antiskill
 antiskill_desc=Part of the special forces which|effectivly use riotshield to fend|of enemy fire. Use Shotguns to|quickly start counterattacks.
 artillerist=Artillerist
 artillerist_desc=Equipped with a powerful grenade|launcher, this unit acts behind|the battlefield and fires deadly|artillery onto the enemy.
-
+commander=Commander
+commander_desc=Although he is lightly armed, the commander can call Tactical Aids and coordinate the actions of his team for more efficiency.
+alreadycommander=There is already a commander!
 
 // CTF
 

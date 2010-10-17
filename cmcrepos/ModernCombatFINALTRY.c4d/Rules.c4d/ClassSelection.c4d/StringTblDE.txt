@@ -1,2 +1,2 @@
 TimeTillRespawn=Noch <c ff0000>%d Sekunden</c> bis zum Respawn.
-PlayerChoosedClass=%s steigt als %s ein
+PlayerChoosedClass=%s steigt als <c ffff33>%s</c> ein
