@@ -1,6 +1,6 @@
 /*-- Fadenkreuz --*/
 
-#strict
+#strict 2
 
 local target;//soll jetzt dauernd benutzt werden ... daher ist eine lokale variable angebracht
 local spread;

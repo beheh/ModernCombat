@@ -5,8 +5,7 @@
 
 local assistkiller, machinekill;
 local killicon;
-
-public func IsClonk() {return true;}
+local LastDmgType;
 
 /* Erstellung */
 
@@ -14,8 +13,8 @@ protected func Construction()
 {
   if(GetID() == CLNK)
   {
-    if(!this->~Redefine2(CIVC))
-      if(!this->~Redefine(CIVC))
+    if(!Redefine2(CIVC))
+      if(!Redefine(CIVC))
         if(GetOCF(this) & OCF_Alive)
         {
           ChangeDef(CIVC,this);
@@ -161,6 +160,12 @@ public func OnHit(int iChange, int iType, object pFrom)
   _inherited(...);
 }
 
+public func LastDamageType(int type) {
+  if(type)
+    LastDmgType = type;
+  return LastDmgType;
+}
+
 /* Reject Shift */
 
 protected func ControlContents(idTarget)
@@ -256,7 +261,7 @@ protected func DoPoints()
       DoPlayerPoints(AssistPoints(), RWDS_BattlePoints, assist, GetCursor(assist), IC02);
       if(!Hostile(assist, killer)) DoAchievementProgress(1, AC01, assist);
     }
-    if(this->~LastDamageType() == DMG_Explosion) {
+    if(LastDamageType() == DMG_Explosion) {
 		  if(!aDoomBoom[1]) aDoomBoom[1] = 0;
 		  aDoomBoom[1]++;
 	  }
@@ -264,12 +269,12 @@ protected func DoPoints()
   if(GBackLiquid()) DoAchievementProgress(1, AC11, GetOwner());
   
   //Selfkill
-  if(this->~LastDamageType() == DMG_Explosion && killer == GetOwner()) {
+  if(LastDamageType() == DMG_Explosion && killer == GetOwner()) {
     if(!aDoomBoom[0]) aDoomBoom[0] = true;
   }
 
   //DoomBoom-Check
-  if(this->~LastDamageType() == DMG_Explosion) {
+  if(LastDamageType() == DMG_Explosion) {
 		if(aDoomBoom[0] && aDoomBoom[1])
 			if(aDoomBoom[0] == true && aDoomBoom[1] >= AC15->~GetAchievementScore())
 				AwardAchievement(AC15, killer);
@@ -508,50 +513,6 @@ public func DeathSound(object pTarget) {
 	if(!pTarget) pTarget = this;
 	if(!pTarget) return;
 	Sound("ClonkDie*.ogg", false, pTarget);
-}
-
-protected func GetObject2Drop(object pObj)
-{
-  if (GetProcedure() == "PUSH" && GetID(GetActionTarget()) == FKDT) {
-    var dropobj, i;
-
-    if (pObj->~IsWeapon()) {
-
-      //Hat die Waffe schon: Geht nicht
-      if (FindContents(GetID(pObj)))
-        return;
-
-      //Pistole? Dann weg damit
-      if (dropobj = FindContents(PSTL))
-        return dropobj;
-
-      //Sonst die hinterste Waffe
-      for (i = 0; i < ContentsCount(); i++)
-        if (Contents(i) && Contents(i)->~IsWeapon())
-          dropobj = Contents(i);
-      return dropobj;
-    }
-	
-	//Granate?
-	if (pObj->~IsGrenade()) {
-	  //Hat schon genug Granaten
-	  if (this->~GrenadeCount() >= this->~MaxGrenades()) //so weird
-	    return;
-	  //Granate in den Gürtel verfrachten
-	  pObj->~Activate(this);
-	  return;
-	}
-
-    //Objekt - hinterstes Objekt rauswerfen
-    else {
-      for (i = 0; i < ContentsCount(); i++)
-        if (Contents(i) && !(Contents(i)->~IsWeapon()) && !Contents(i)->~IsGrenade())
-          dropobj = Contents(i);
-      return dropobj;
-    }
-  }
-
-  return _inherited(pObj, ...);
 }
 
 protected func ContextStatistics(object pCaller)

@@ -1,3 +1,10 @@
+#Clonk
+
+CtxStatistics=Statistiken
+CtrlMenuDesc=Menü
+
+#Hazard-Clonk
+
 CtxGrenadeMenu=Granaten
 AmmoBag=Munitionsgürtel
 CtrlInventoryDesc=Inventar

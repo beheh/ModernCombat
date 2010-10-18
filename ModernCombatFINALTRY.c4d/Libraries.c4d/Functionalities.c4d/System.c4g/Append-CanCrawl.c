@@ -2,6 +2,8 @@
 
 #strict 2
 
+#appendto HZCK
+
 static const CRAWL_AIM_Max = 50;
 local crosshair;
 
@@ -20,9 +22,9 @@ public func StartCrawling()
      (GetProcedure() == "LIFT"))
     return SetAction("StartCrawl");
 
-  if(this->~IsAiming())
+  if(IsAiming())
   {
-   this->~StopAiming();
+   StopAiming();
    return SetAction("StartCrawl");
   }
   return false;
@@ -178,7 +180,7 @@ private func UpdateVertices()
   if(GetAction() == "AimCrawl") return;
 
   var x,y,r;
-  this->~WeaponAt(x,y,r);
+  WeaponAt(x,y,r);
   SetVertex(0,0,x/1000 * (GetDir()*2-1),0,2);
   SetVertex(0,1,y/1000,0,2);
 }
@@ -249,11 +251,11 @@ protected func ControlThrow()
   if(GetAction() == "StartCrawl")
     return 1;
     
-  if(IsCrawling() && this->~IsArmed() && !this->~ReadyToFire() && this->~ReadyToAim()) {
-    this->~StartAiming();
+  if(IsCrawling() && IsArmed() && !ReadyToFire() && ReadyToAim()) {
+    StartAiming();
     return 1;
   }
-  if(this->~IsCrawling() && !this->~IsAiming()) {
+  if(IsCrawling() && !IsAiming()) {
     var obj = Contents();
     if(obj) {
 			if(!obj->~CanAim()) {
@@ -276,7 +278,7 @@ protected func ControlThrow()
 				return 1;
 			}
 			else {
-  			this->~StartAiming();
+  			StartAiming();
   			return 1;
 			}
 		}
@@ -286,7 +288,7 @@ protected func ControlThrow()
 
 public func ControlUp()
 {
-  if(IsCrawling() && !this->~IsAiming())
+  if(IsCrawling() && !IsAiming())
   {
    StopCrawling();
    return 1;
@@ -320,13 +322,13 @@ public func ReadyToAim()
 
 private func CheckArmed()
 {
-  if(GetAction() == "AimCrawl") if (!this->~IsArmed2()) return SetAction("Crawl");
+  if(GetAction() == "AimCrawl") if (!IsArmed2()) return SetAction("Crawl");
   return _inherited();
 }
 
 public func WeaponAt(&x, &y, &r)
 {
-  if(this->~IsAiming() && (GetAction() == "AimCrawl"))
+  if(IsAiming() && (GetAction() == "AimCrawl"))
   {
    r = (Abs(crosshair->GetAngle())-90);
    x = 8000;

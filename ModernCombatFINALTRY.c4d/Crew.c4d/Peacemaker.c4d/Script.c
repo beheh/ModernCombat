@@ -3,10 +3,6 @@
 #strict 2
 #include HZCK
 
-#include L_A2 //Verfügt über CMC Agilität
-#include L_ND //Kann Handgranaten einsetzen
-#include L_CR //Kann Liegen und Kriechen
-
 public func WeaponCollectionLimit() { return 3; } //Der Clonk kann drei Waffen tragen
 public func ObjectCollectionLimit() { return 2; } //Und 2 beliebige Zusatzobjekte
 

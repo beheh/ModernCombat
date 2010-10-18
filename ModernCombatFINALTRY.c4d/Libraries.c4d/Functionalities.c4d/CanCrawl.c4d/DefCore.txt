@@ -1,5 +1,0 @@
-[DefCore]
-id=L_CR
-Name=Can Crawl
-Version=4,9,5
-Category=1

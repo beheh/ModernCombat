@@ -1,0 +1,8 @@
+#CanCrawl
+
+CtxStopCrawl=Stand up
+CtxStartCrawl=Lay down
+
+#UseGrenades
+
+CtxGrenadeMenu=Grenades
