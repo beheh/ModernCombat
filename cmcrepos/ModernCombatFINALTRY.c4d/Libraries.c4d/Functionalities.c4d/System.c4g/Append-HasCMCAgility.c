@@ -2,11 +2,13 @@
 
 #strict 2
 
+#appendto HZCK
+
 /* Check */
 
 private func MayFlip()
 {
-  return (this->IsJumping() || GetAction() == "JetpackFlight") && !GetEffect("ExtraJump", this);
+  return (IsJumping() || GetAction() == "JetpackFlight") && !GetEffect("ExtraJump", this);
 }
 
 /* Geschwindigkeitsschub */
@@ -55,7 +57,7 @@ private func ControlAgility(string strControl)
   //Links
   if(strControl == "ControlLeft")
   {
-   if(this->IsJumping())
+   if(IsJumping())
    {
     SetDir(DIR_Left);
     SetComDir(COMD_Left); 
@@ -71,7 +73,7 @@ private func ControlAgility(string strControl)
   //Rechts
   if(strControl == "ControlRight")
   {
-   if(this->IsJumping())
+   if(IsJumping())
    {
     SetDir(DIR_Right);
     SetComDir(COMD_Right); 
@@ -117,7 +119,7 @@ private func ControlAgility(string strControl)
   //Einmal links
   if(strControl == "ControlLeftSingle")
   {
-   if (this->IsJumping())
+   if (IsJumping())
    {
     SetDir(DIR_Left);
     SetComDir(COMD_Left);
@@ -128,7 +130,7 @@ private func ControlAgility(string strControl)
   //Einmal rechts
   if(strControl == "ControlLeftSingle")
   {
-   if(this->IsJumping())
+   if(IsJumping())
    {
     SetDir(DIR_Right);
     SetComDir(COMD_Right);
@@ -178,7 +180,7 @@ public func JumpStart(bool bBackflip)
 
 public func ReleaseLadderStop()
 {
-  if(this->ReleaseLadder(-20*(GetDir()*2-1)))
+  if(ReleaseLadder(-20*(GetDir()*2-1)))
   {
    Sound("ClonkAction*.ogg");
    ScheduleCall(0, "BackFlipBoost", 1, 1);

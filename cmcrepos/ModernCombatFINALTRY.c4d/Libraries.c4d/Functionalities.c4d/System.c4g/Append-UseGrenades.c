@@ -2,6 +2,8 @@
 
 #strict 2
 
+#appendto HZCK
+
 local aGear;
 
 public func MaxGrenades(){return 4;}	//Maximale Granaten im Inventar und Gürtel
@@ -130,7 +132,7 @@ protected func Collection2(object pObj)// Einsammeln
       ShiftContents(0,0,0,0);
       pObj ->~ OnDeselect();
     }
-  this->~UpdateCharge();
+  UpdateCharge();
   return _inherited(pObj);
 }
 
@@ -146,7 +148,7 @@ protected func RejectCollect(id idObj, object pObj)
   // Munitionspaket?
   if(pObj ->~ IsAmmoPacket())
     // Davon kann man in jeden Fall _eines_ im Inventar haben
-    if(!this->~CustomContentsCount("IsAmmoPacket"))
+    if(!CustomContentsCount("IsAmmoPacket"))
       return;
   
   //Waffe?
@@ -157,7 +159,7 @@ protected func RejectCollect(id idObj, object pObj)
     {
       //nein. Standardprozedur:
       //schon so eine Waffe im Inventar? Oder bereits 3 andere Waffen?
-      if(ContentsCount(idObj) || this->~CustomContentsCount("IsWeapon") >= this->~WeaponCollectionLimit())
+      if(ContentsCount(idObj) || CustomContentsCount("IsWeapon") >= WeaponCollectionLimit())
         return 1;  //Ja, nicht aufnehmen
       else
         return;
@@ -178,7 +180,7 @@ protected func RejectCollect(id idObj, object pObj)
         return 1;
       }
       
-      if(this->~CustomContentsCount("IsGrenade"))
+      if(CustomContentsCount("IsGrenade"))
         ScheduleCall(pObj,"Activate",1,0,this);//Oha...
 
       return;
@@ -190,7 +192,7 @@ protected func RejectCollect(id idObj, object pObj)
     return 1;*/
 
   //Wieviel haben wir denn schon im inventar?
-  if(ContentsCount() - (this->~CustomContentsCount("IsWeapon") + this->~CustomContentsCount("IsGrenade")) >= this->~ObjectCollectionLimit())
+  if(ContentsCount() - (CustomContentsCount("IsWeapon") + CustomContentsCount("IsGrenade")) >= ObjectCollectionLimit())
     return 1;
   
   // nicht angelegte Ausrüstung nochmal aufsammeln
@@ -208,7 +210,7 @@ private func ChangeWeapon(object pTarget)
 	if(pTarget->~IsWeapon() || pTarget->~IsGrenade())
   {
 		var phase = GetPhase();
-    if(this->~IsCrawling())
+    if(IsCrawling())
     {
       SetAction("AimCrawl");
     }
@@ -230,7 +232,7 @@ private func ChangeWeapon(object pTarget)
 	}
 	else
   {
-		this->~StopAiming();
+		StopAiming();
 	}
 }
 
@@ -249,7 +251,7 @@ private func ChangeWeapon(object pTarget)
   
   // Zielaktion abbrechen (Spezial: außer wenn mit anwählbarem 
   // Objekt auch gezielt werden kann...)
-  if(this->~IsAiming())
+  if(IsAiming())
   {
      var phase = GetPhase();
      // Zielaktion anpassen
@@ -269,7 +271,7 @@ private func ChangeWeapon(object pTarget)
      }
      else
      {
-       this->~StopAiming();
+       StopAiming();
      }
   }
   // Hast du noch einen letzten Wunsch, Contents(0)??!
@@ -277,7 +279,7 @@ private func ChangeWeapon(object pTarget)
   // Rotieren
   if (!ShiftContents(0, 0, idTarget)) return 1;
   // Waffe ziehen/wegstecken
-  this->~CheckArmed();
+  CheckArmed();
   // Munitionsanzeige updaten
   UpdateCharge();
   // Objekt benachrichtigen

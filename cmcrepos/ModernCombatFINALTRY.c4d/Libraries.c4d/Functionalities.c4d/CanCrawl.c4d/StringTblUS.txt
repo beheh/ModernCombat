@@ -1,2 +1,0 @@
-CtxStopCrawl=Stand up
-CtxStartCrawl=Lay down

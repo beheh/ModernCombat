@@ -20,19 +20,19 @@ protected func Control2Grab(string command)
 
 protected func ControlThrow()
 {
-  if(this->~Control2Grab("ControlThrow")) return true;
+  if(Control2Grab("ControlThrow")) return true;
   return _inherited();
 }
 
 protected func ControlDigDouble()
 {
-  if(this->~Control2Grab("ControlDigDouble")) return true;
+  if(Control2Grab("ControlDigDouble")) return true;
   return _inherited();
 }
 
 protected func ControlDownDouble()
 {
-  if(this->~Control2Grab("ControlDownDouble")) return true;
+  if(Control2Grab("ControlDownDouble")) return true;
   return _inherited();
 }
 
@@ -98,7 +98,7 @@ public func DoAiming(int iChange)
     angle = 360-angle;
 
   crosshair->SetAngle(angle);
-  this->~UpdateAiming();
+  UpdateAiming();
 }
 
 /* HazardGear */
@@ -207,15 +207,6 @@ public func ReadyToGrenade() {
 	return false;
 }
 
-/* Schaden */
-public func OnHit(int iDmg, int iType, object pFrom)
-{
-  this->~CalcPain(iDmg);
-  //this->~HurtSounds(-iDmg,iType);
-    
-  return _inherited(iDmg,iType,pFrom);
-}
-
 /* neues Zielsystem */
 static const CH_ShowAlways = 1;
 
@@ -307,7 +298,7 @@ private func TestSpread()
 }
 
 public func UpdateCH() {
-  if((!this->~ReadyToFire() && !this->~ReadyToGrenade()) || !this->~IsArmed() || GetCursor(GetOwner()) != this)
+  if((!ReadyToFire() && !ReadyToGrenade()) || !IsArmed() || GetCursor(GetOwner()) != this)
     {
       HideCH();
       return;
@@ -326,15 +317,15 @@ public func UpdateCH() {
     unspread = c->~UnSpread();
 
     
-  if(this->~IsAiming())
-    if(this->~IsCrawling())
+  if(IsAiming())
+    if(IsCrawling())
       DoSpread(-(CH_CrawlSpreadReduction+unspread));
     else
       DoSpread(-(CH_AimSpreadReduction+unspread));
   else
     DoSpread(-(CH_StandSpreadReduction+unspread));
 
-  this->~UpdateAiming();
+  UpdateAiming();
   return true;
 }
 
@@ -344,8 +335,8 @@ protected func DeathAnnounce(int plr, object clonk, int killplr)
 {
   if(!clonk) clonk = this;
   if(!clonk) return;
-  var r = CLNK->DeathAnnounce(plr, clonk, killplr, true, this->~GetAssist()+1);
-  if(r) this->DoPoints();
+  var r = CLNK->DeathAnnounce(plr, clonk, killplr, true, GetAssist()+1);
+  if(r) DoPoints();
   return r;
 }
 
@@ -365,7 +356,7 @@ public func UpdateCharge()
     return true;
 
   // reitet
-  if(this->IsRiding() && GetActionTarget()->~UpdateCharge(this))
+  if(IsRiding() && GetActionTarget()->~UpdateCharge(this))
     return true;
 
   // ggf. an angefasstes Objekt weiterleiten
@@ -381,18 +372,18 @@ public func UpdateCharge()
 
   // HUD
   var hud = GetHUD();
-  if(hud) hud->Update(Content, this->AmmoStoring(),this);
+  if(hud) hud->Update(Content, AmmoStoring(),this);
 
   return true;
 }
 
-global func AimAngleEx(int iMaxAngle, int iRange, bool bSpread)
+public func AimAngleEx(int iMaxAngle, int iRange, bool bSpread)
 {
   if(!this) return false;
 
-  var angle = this->~AimAngle2(iMaxAngle,iRange,bSpread);
+  var angle = AimAngle2(iMaxAngle,iRange,bSpread);
   if(!angle)
-    angle = this->AimAngle(iMaxAngle,iRange,bSpread)*100;
+    angle = AimAngle(iMaxAngle,iRange,bSpread)*100;
     
   return angle;
 }
@@ -401,16 +392,16 @@ public func AimAngle2(int iMaxAngle, int iRange, bool bSpread)//Präzision 100. A
 {
    var angle;
    var x,y,r;
-   this->~WeaponAt(x,y,r);
+   WeaponAt(x,y,r);
    
-   if(!this->~IsAiming())
+   if(!IsAiming())
      angle = (90+r)*(GetDir()*2-1);
    else
      angle = crosshair->GetAngle();
   
    if(iRange)
    {
-     var target = this->~GetTarget(angle,iMaxAngle,iRange);
+     var target = GetTarget(angle,iMaxAngle,iRange);
      if(target)
        angle = Angle(GetX(),GetY(),GetX(target),GetY(target));
    }
@@ -425,7 +416,7 @@ public func AimAngle(int iMaxAngle, int iRange, bool bSpread)
 {
 	var angle;
 	var x,y,r;
-	this->~WeaponAt(x,y,r);
+	WeaponAt(x,y,r);
 
 	if(!IsAiming()) {
 		angle = (90+r)*(GetDir()*2-1);
@@ -438,7 +429,7 @@ public func AimAngle(int iMaxAngle, int iRange, bool bSpread)
 
 	if(iRange)
 	{
-	  var target = this->~GetTarget(angle,iMaxAngle,iRange);
+	  var target = GetTarget(angle,iMaxAngle,iRange);
 	  if(target)
 		angle = Angle(GetX(),GetY(),GetX(target),GetY(target));
 	}
@@ -496,13 +487,13 @@ public func ShowCH()
   if(GetActionTarget(0, crosshair) != this)
     crosshair->Reset(this);
    
-  if(!this->~IsAiming())
+  if(!IsAiming())
   {
     //if((crosshair->GetAngle() != -90) || (crosshair->GetAngle() != +90))
       //ResetCH();
 
     var dummy1, dummy2, r;
-    this->WeaponAt(dummy1, dummy2, r);
+    WeaponAt(dummy1, dummy2, r);
       
     if(!GetDir())
       crosshair->SetAngle(-90-r);
@@ -574,7 +565,7 @@ public func StartAiming() //Wegen fehlendem Hazard-Feature.
   else
     SetAction("Aim");
 
-  SetPhase(this->~AimAngle2Phase(90));
+  SetPhase(AimAngle2Phase(90));
   SetComDir(COMD_Stop);
 
   InitCrosshair();
@@ -595,7 +586,7 @@ public func StartSquatAiming() { // Anfangen in der Hocke zu zielen
   else
     SetAction("AimSquat");
     
-  SetPhase(this->~AimAngle2Phase(90));
+  SetPhase(AimAngle2Phase(90));
   SetComDir(COMD_Stop);
 
   InitCrosshair();
@@ -622,7 +613,7 @@ public func StopAiming()
 public func SetAiming(int iAngle, bool fForceExact)
 {
   //zielen wir überhaupt?
-  if(!this->~IsAiming())
+  if(!IsAiming())
     return;
 
   // Winkel anpassen, wenn keine freie Auswahl (klassische Steuerung)
@@ -637,7 +628,7 @@ public func SetAiming(int iAngle, bool fForceExact)
     iAngle = 360-iAngle;
   crosshair->SetAngle(iAngle);
 
-  this->~UpdateAiming();
+  UpdateAiming();
 }
 
 /* Nahkampfsystem */
@@ -834,7 +825,7 @@ public func SelectQuickInventory(int iIndex) {
 	}
 	ShiftContents(0, 0, 0, true);
 	if(Contents(0)->~CanAim() && aiming) {
-		if(this->IsSquatAiming() || Contents()->~GetFMData(FM_Aim) != 1) {
+		if(IsSquatAiming() || Contents()->~GetFMData(FM_Aim) != 1) {
 	 		StartSquatAiming();
 		}
 		else {
@@ -908,7 +899,7 @@ public func ControlSpecial()
 					ShiftContents(0,0,Contents(i)->GetID(),true);
 					break;
 				}
-		  if(this->IsSquatAiming() || Contents()->~GetFMData(FM_Aim) != 1) {
+		  if(IsSquatAiming() || Contents()->~GetFMData(FM_Aim) != 1) {
 		 		StartSquatAiming();
 		  }
 		  else {
@@ -992,7 +983,51 @@ protected func CheckContentsDestruction() {
 }
 
 protected func ScalingLadder() {
-	return this->Hangling(); //Funktional identisch
+	return Hangling(); //Funktional identisch
+}
+
+protected func GetObject2Drop(object pObj)
+{
+  if (GetProcedure() == "PUSH" && GetID(GetActionTarget()) == FKDT) {
+    var dropobj, i;
+
+    if (pObj->~IsWeapon()) {
+
+      //Hat die Waffe schon: Geht nicht
+      if (FindContents(GetID(pObj)))
+        return;
+
+      //Pistole? Dann weg damit
+      if (dropobj = FindContents(PSTL))
+        return dropobj;
+
+      //Sonst die hinterste Waffe
+      for (i = 0; i < ContentsCount(); i++)
+        if (Contents(i) && Contents(i)->~IsWeapon())
+          dropobj = Contents(i);
+      return dropobj;
+    }
+	
+	//Granate?
+	if (pObj->~IsGrenade()) {
+	  //Hat schon genug Granaten
+	  if (GrenadeCount() >= MaxGrenades())
+	    return;
+	  //Granate in den Gürtel verfrachten
+	  pObj->~Activate(this);
+	  return;
+	}
+
+    //Objekt - hinterstes Objekt rauswerfen
+    else {
+      for (i = 0; i < ContentsCount(); i++)
+        if (Contents(i) && !(Contents(i)->~IsWeapon()) && !Contents(i)->~IsGrenade())
+          dropobj = Contents(i);
+      return dropobj;
+    }
+  }
+
+  return _inherited(pObj, ...);
 }
 
 /* Gibt jetzt auch FAPHeal und so*/

@@ -1,2 +1,0 @@
-CtxStopCrawl=Aufstehen
-CtxStartCrawl=Hinlegen
