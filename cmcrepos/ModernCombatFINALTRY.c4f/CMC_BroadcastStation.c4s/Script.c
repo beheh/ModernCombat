@@ -33,7 +33,6 @@ func CreateFurniture()
   CreateObject(LFTP, 1265, 710, -1);
   var liftp = CreateObject(LFTP, 1500, 194, -1);
   liftp->DisableVertical();
-  liftp->ContactLeft();
 
   //Leitern
   CreateObject(LADR, 190, 690, -1)->Set(24);
