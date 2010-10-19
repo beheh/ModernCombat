@@ -34,8 +34,5 @@ MapHeight=94,0,40,250
 NoScan=1
 SkyScrollMode=1
 
-[Weather]
-Wind=20,4,-100,100
-
 [Environment]
 Objects=DARK=1

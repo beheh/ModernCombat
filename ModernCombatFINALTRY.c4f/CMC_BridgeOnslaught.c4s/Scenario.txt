@@ -39,10 +39,7 @@ SkyScrollMode=1
 
 [Weather]
 Climate=94,3,0,100
-StartSeason=91,0,0,100
-YearSpeed=0,0,0,100
 Rain=3,0,0,100
-Wind=-1,0,-100,100
 
 [Environment]
 Objects=OWL1=1;DOFO=1;EGLN=3;ELGT=1;DARK=1
