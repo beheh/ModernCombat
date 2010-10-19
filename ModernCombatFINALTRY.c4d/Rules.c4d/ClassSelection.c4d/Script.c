@@ -37,12 +37,12 @@ func InitializePlayer(int iPlayer)
   var pClonk = GetCrew(iPlayer);
   if(!pClonk)
   {
-   ScheduleCall(0,"InitializePlayer",1,0,iPlayer);
-   return;
+    ScheduleCall(0,"InitializePlayer",1,0,iPlayer);
+    return;
   }
 
   if(FindObject(CHOS))
-   return;
+    return;
 
   ScheduleCall(0,"InitClassMenu",1,0,pClonk);
 }
@@ -55,16 +55,16 @@ func ChooserFinished()
 func InitPlayers()
 {
   for(var i = 0; i < GetPlayerCount(); i++)
-   InitializePlayer(GetPlayerByIndex(i));
+    InitializePlayer(GetPlayerByIndex(i));
 }
 
 public func RelaunchPlayer(int iPlr, object pClonk)
 {
   if(!pClonk)
-   if(!(pClonk = GetCrew(iPlr)))
-    return ScheduleCall(this,"RelaunchPlayer",1,0,iPlr,pClonk);
+    if(!(pClonk = GetCrew(iPlr)))
+      return ScheduleCall(this,"RelaunchPlayer",1,0,iPlr,pClonk);
   if(!GetAlive(pClonk))
-   return ScheduleCall(this,"RelaunchPlayer",1,0,iPlr);
+    return ScheduleCall(this,"RelaunchPlayer",1,0,iPlr);
 
   //Menü zeitverzögert erstellen
   ScheduleCall(0,"InitClassMenu",10,0,pClonk);
@@ -77,9 +77,9 @@ public func RelaunchPlayer(int iPlr, object pClonk)
 public func FxSpawntimerStart(pTarget, iNo, iTemp, iPlr, pClonk, cont)
 {
   if(iTemp)
-   return -1;
+    return -1;
   if(iPlr < 0)
-   return -1;
+    return -1;
 
   //EffectVars
   EffectVar(0, pTarget, iNo) = iPlr;	//Spieler
@@ -105,17 +105,17 @@ public func FxSpawntimerTimer(pTarget, iNo, iTime)
 
   if(EffectVar(1, pTarget, iNo) <= 0)
   {
-	var iPlr = EffectVar(0, pTarget, iNo),
-	class = selection[iPlr]-InfoMenuItems();
-	PlayerMessage(iPlr, "@");
-	if(SetupClass(class, iPlr))
-	  return -1;
-	class = lastclass[iPlr];
-	if (class && SetupClass(class, iPlr))
-	  return -1;
-	class = 1;
-	SetupClass(class, iPlr);
-	return -1;
+    var iPlr = EffectVar(0, pTarget, iNo),
+    class = selection[iPlr]-InfoMenuItems();
+    PlayerMessage(iPlr, "@");
+    if(SetupClass(class, iPlr))
+      return -1;
+    class = lastclass[iPlr];
+    if (class && SetupClass(class, iPlr))
+      return -1;
+    class = 1;
+    SetupClass(class, iPlr);
+    return -1;
   }
 }
 
@@ -123,7 +123,7 @@ func InitClassMenu(object pClonk)
 {
   //Kein Clonk?
   if(!pClonk)
-   return;
+    return;
 
   var iPlayer = GetOwner(pClonk);
 
@@ -132,16 +132,18 @@ func InitClassMenu(object pClonk)
   //Clonk in Spawnpoint verschieben
   if(GetID(Contained(pClonk)) != TIM1)
   {
-   var tmp = CreateObject(TIM1,AbsX(GetX(pClonk)),AbsY(GetY(pClonk)),iPlayer);
-   SetCategory(GetCategory(tmp) | C4D_Foreground,tmp);
-   SetGraphics(0,tmp,GetID(pClonk),1,5,0,1,pClonk);
-   if(FindObject(GOCC)) {
-     SetVisibility(VIS_None, tmp);
-   }
-   else {
-     SetVisibility(VIS_Owner, tmp);
-   }
-   Enter(tmp,pClonk);
+    var tmp = CreateObject(TIM1,AbsX(GetX(pClonk)),AbsY(GetY(pClonk)),iPlayer);
+    SetCategory(GetCategory(tmp) | C4D_Foreground,tmp);
+    SetGraphics(0,tmp,GetID(pClonk),1,5,0,1,pClonk);
+    if(FindObject(GOCC))
+    {
+      SetVisibility(VIS_None, tmp);
+    }
+    else
+    {
+      SetVisibility(VIS_Owner, tmp);
+    }
+    Enter(tmp,pClonk);
   }
 
   //Zeitbegrenzung bei LMS und DM
@@ -150,7 +152,7 @@ func InitClassMenu(object pClonk)
   //Bereits ein Menü offen?
   if(GetMenu(pClonk))
   {
-		CloseMenu(pClonk); //Menü schließen
+    CloseMenu(pClonk); //Menü schließen
   }
   OpenMenu(pClonk);
 }
@@ -166,17 +168,18 @@ func Finish(object pClonk)
   //Alle Waffen auffüllen
   for(var wpn in FindObjects(Find_Container(pClonk), Find_Func("IsWeapon")))
   {
-		while(wpn->CycleFM(+1))
-		{
-			var ammo = wpn->GetFMData(FM_AmmoID);
-			var load = wpn->GetFMData(FM_AmmoLoad);
-			if(wpn->GetAmmo(ammo) == load) break;
-			//erst entladen
-			DoAmmo(ammo,-load, wpn);
-			//dann neu reinladen
-			DoAmmo(ammo, load, wpn);
-		}
-		wpn->CycleFM(+1); //Noch ein letztes Mal
+    while(wpn->CycleFM(+1))
+    {
+      var ammo = wpn->GetFMData(FM_AmmoID);
+      var load = wpn->GetFMData(FM_AmmoLoad);
+      if(wpn->GetAmmo(ammo) == load) break;
+      //erst entladen
+      DoAmmo(ammo,-load, wpn);
+      //dann neu reinladen
+      DoAmmo(ammo, load, wpn);
+    }
+    //noch ein letztes Mal
+    wpn->CycleFM(+1);
   }
 
   pClonk->~UpdateCharge();
@@ -212,13 +215,13 @@ local bNoMenuUpdate;
 private func OpenMenu(object pClonk, int iSelection)
 {
   if(!iSelection)
-   if(lastclass[GetOwner(pClonk)] > 0)
-    iSelection = lastclass[GetOwner(pClonk)]+InfoMenuItems();
-   else
+    if(lastclass[GetOwner(pClonk)] > 0)
+      iSelection = lastclass[GetOwner(pClonk)]+InfoMenuItems();
+  else
     iSelection = InfoMenuItems()+1;
 
   if(GetMenu(pClonk))
-   iSelection = GetMenuSelection(pClonk);
+    iSelection = GetMenuSelection(pClonk);
 
   CloseMenu(pClonk);
   if(!CreateMenu(GetID(),pClonk,this,0,0,0,C4MN_Style_Dialog,1)) return false;
@@ -243,35 +246,37 @@ private func OpenMenu(object pClonk, int iSelection)
   //Klassenmunition
   if(!FindObject(NOAM))
   {
-   AddMenuItem(Format("%s",GetCData(class,CData_Ammo)),
-              "", NONE, pClonk, 0, 0, "", 512, 0, 0);}
+    AddMenuItem(Format("%s",GetCData(class,CData_Ammo)),
+               "", NONE, pClonk, 0, 0, "", 512, 0, 0);}
 
-  //Klassenausrüstung
-  AddMenuItem(Format("%s",GetCData(class,CData_Items)),
-              "", NONE, pClonk, 0, 0, "", 512, 0, 0);
+    //Klassenausrüstung
+    AddMenuItem(Format("%s",GetCData(class,CData_Items)),
+                "", NONE, pClonk, 0, 0, "", 512, 0, 0);
 
-  //Leerzeile
-  AddMenuItem(" ","", NONE,pClonk, 0, 0, "", 512, 0, 0);
+    //Leerzeile
+    AddMenuItem(" ","", NONE,pClonk, 0, 0, "", 512, 0, 0);
 
-  //Auswahlliste der Klassen
-  var i = 1;
-  while(GetCData(i))
-  {
-   var szName = GetCData(i,CData_Name);
-   if(!GetCData(i, CData_Condition, GetOwner(pClonk))) {
-    szName = Format("<c 777777>%s</c>", szName);
-   }
-   else {
-    szName = Format("<c ffff33>%s</c>", szName);
-   }
-   AddMenuItem (szName,Format("SetupClass(%d,%d)",i,GetOwner(pClonk)),GetCData(i,CData_Icon),pClonk,0,pClonk,0,2,GetCData(i,CData_Facet));
-   i++;
-  }
+    //Auswahlliste der Klassen
+    var i = 1;
+    while(GetCData(i))
+    {
+      var szName = GetCData(i,CData_Name);
+      if(!GetCData(i, CData_Condition, GetOwner(pClonk)))
+      {
+        szName = Format("<c 777777>%s</c>", szName);
+      }
+      else
+      {
+        szName = Format("<c ffff33>%s</c>", szName);
+      }
+      AddMenuItem (szName,Format("SetupClass(%d,%d)",i,GetOwner(pClonk)),GetCData(i,CData_Icon),pClonk,0,pClonk,0,2,GetCData(i,CData_Facet));
+      i++;
+    }
 
   if(!bNoMenuUpdate && iSelection >= 0)
   {
-   bNoMenuUpdate = true;
-   SelectMenuItem(iSelection,pClonk);
+    bNoMenuUpdate = true;
+    SelectMenuItem(iSelection,pClonk);
   }
 
   return true;
@@ -283,9 +288,9 @@ protected func OnMenuSelection(int iIndex, object pClonk)
 {
   selection[GetOwner(pClonk)] = iIndex;
   if(bNoMenuUpdate)
-   bNoMenuUpdate = false;
+    bNoMenuUpdate = false;
   else
-   OpenMenu(pClonk,iIndex);
+    OpenMenu(pClonk,iIndex);
 }
 
 /* Klassen */
@@ -307,16 +312,16 @@ public func GetCData(int iClass,int iData,int iPlayer)
 
 public func SetupClass(int iClass, int iPlayer)
 {
-	if(!GetCData(iClass, CData_Condition, iPlayer)) return;
+  if(!GetCData(iClass, CData_Condition, iPlayer)) return;
 
   var oldCrew = crew[iPlayer];
   crew[iPlayer] = PrivateCall(this,Format("Class%dSetup",iClass),iPlayer);
   
   if(Contained(oldCrew))
   {
-   var tmp = Contained(oldCrew);
-   SetGraphics(0,tmp,GetID(crew[iPlayer]),1,5,0,1,crew[iPlayer]);
-   Enter(tmp,crew[iPlayer]);
+    var tmp = Contained(oldCrew);
+    SetGraphics(0,tmp,GetID(crew[iPlayer]),1,5,0,1,crew[iPlayer]);
+    Enter(tmp,crew[iPlayer]);
   }
 
   if(GetID(oldCrew) == GetID(crew[iPlayer]))
@@ -330,11 +335,11 @@ public func SetupClass(int iClass, int iPlayer)
 
   //Nachricht
   for(var i = 0; i < GetPlayerCount(); i++)
-   if(GetPlayerTeam(i) == GetPlayerTeam(iPlayer))
-    EventInfo4K(i+1, 
-     Format("$PlayerChoosedClass$", GetTaggedPlayerName(iPlayer), GetCData(iClass,CData_Name)),
-     GetCData(iClass,CData_Icon),
-     RGB(220,220,220));
+    if(GetPlayerTeam(i) == GetPlayerTeam(iPlayer))
+      EventInfo4K(i+1, 
+        Format("$PlayerChoosedClass$", GetTaggedPlayerName(iPlayer), GetCData(iClass,CData_Name)),
+        GetCData(iClass,CData_Icon),
+        RGB(220,220,220));
 
   //Speichern
   lastclass[iPlayer] = iClass;
