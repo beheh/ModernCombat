@@ -219,7 +219,7 @@ func CreateEquipment()
   tmp->Set(ABOX);
   tmp->SetGraphics("Normal");
 
-  //Munitionskiste (Granaten)
+  //Munitionskisten (Granaten)
   var tmp = CreateObject (AMCT, 490, 560, -1);
   tmp->Set(GBOX);
   tmp->SetGraphics("Normal");

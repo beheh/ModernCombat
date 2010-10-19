@@ -39,7 +39,6 @@ func CreateFurniture()
   CreateObject(LFTP, 1025, 390, -1);
   var liftp = CreateObject (LFTP, 1105, 185, -1);
   liftp->DisableVertical();
-  liftp->ContactLeft();
   CreateObject(LFTP, 1775, 400, -1);
   CreateObject(LFTP, 2185, 405, -1);
   CreateObject(LFTP, 2635, 435, -1);

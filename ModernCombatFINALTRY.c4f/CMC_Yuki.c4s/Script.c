@@ -264,7 +264,7 @@ func CreateFurniture()
   CreateObject(MVNT, 1105, 230, -1)->SetCon(50);
   CreateObject(MVNT, 1535, 230, -1)->SetCon(50);
 
-  //Glasröhre
+  //Glasröhren
   CreateObject(GLST, 250, 400, -1);
   CreateObject(GLST, 275, 400, -1);
   CreateObject(GLST, 300, 400, -1);
