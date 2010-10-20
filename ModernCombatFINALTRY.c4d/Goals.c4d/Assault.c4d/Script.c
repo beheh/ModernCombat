@@ -39,6 +39,7 @@ public func CalcTickets()
 	  D++;
 	else
 	  A++;
+  //return 4 * A + ((D - A) * D);
   return D + (A + D + D * D) / (A + 1);
 }
 
