@@ -452,43 +452,8 @@ func CreateFurniture()
   aLamp[13]=CreateObject(BLGH, 6445, 385, -1);
   aLamp[14]=CreateObject(LLGH, 7280, 410, -1);
 
-  //Sounds
-
-  //Möven
-  CreateObject(SE4K, 865, 480, -1)->Set("SeaSounds*.ogg",140,35);
-  CreateObject(SE4K, 2290, 500, -1)->Set("SeaSounds*.ogg",140,35);
-  CreateObject(SE4K, 2480, 460, -1)->Set("SeaSounds*.ogg",140,35);
-  CreateObject(SE4K, 4775, 460, -1)->Set("SeaSounds*.ogg",140,35);
-  CreateObject(SE4K, 5120, 420, -1)->Set("SeaSounds*.ogg",140,35);
-  CreateObject(SE4K, 6660, 450, -1)->Set("SeaSounds*.ogg",140,35);
-  CreateObject(SE4K, 6850, 500, -1)->Set("SeaSounds*.ogg",140,35);
-  CreateObject(SE4K, 7560, 275, -1)->Set("SeaSounds*.ogg",140,35);
-
-  //Wellen
-  CreateObject(SE4K, 240, 510, -1)->Set("Wave*.ogg",105,35);
-  CreateObject(SE4K, 640, 510, -1)->Set("Wave*.ogg",105,35);
-  CreateObject(SE4K, 1620, 510, -1)->Set("Wave*.ogg",105,35);
-  CreateObject(SE4K, 2090, 510, -1)->Set("Wave*.ogg",105,35);
-  CreateObject(SE4K, 4000, 530, -1)->Set("Wave*.ogg",105,35);
-
-  CreateObject(SE4K, 4910, 550, -1)->Set("Wave*.ogg",105,35);
-  CreateObject(SE4K, 5370, 550, -1)->Set("Wave*.ogg",105,35);
-  CreateObject(SE4K, 7050, 510, -1)->Set("Wave*.ogg",105,35);
-  CreateObject(SE4K, 7660, 510, -1)->Set("Wave*.ogg",105,35);
-
-  //Jungel
-  CreateObject(SE4K, 3160, 290, -1)->Set("Jungle*.ogg",140,70);
-  CreateObject(SE4K, 3375, 360, -1)->Set("Jungle*.ogg",140,70);
-  CreateObject(SE4K, 5850, 340, -1)->Set("Jungle*.ogg",140,70);
-
-  //Lautsprecher
-  CreateObject(SE4K, 1140, 330, -1)->Set("Announce*.ogg",1500,130);
-  CreateObject(SE4K, 4000, 430, -1)->Set("Announce*.ogg",1500,130);
-  CreateObject(SE4K, 7215, 280, -1)->Set("Announce*.ogg",1500,130);
-
   //Kran
-  var cran = CreateObject(CRN1, 4000, 359, -1);
-  cran->Set(42);
+  CreateObject(CRN1, 4000, 359, -1)->Set(42);
   
   //Tore und Konsolen
   var autod = CreateObject (HNG2, 2780, 620, -1);
@@ -531,6 +496,41 @@ func CreateFurniture()
     aSelfDefense[3]->TurnOn();
     aSelfDefense[3]->SetAutoRepair(1500);
     CreateObject(CONS, 7260, 420, -1)->Set(aSelfDefense[3]);
+
+  //Sounds
+
+  //Möven
+  CreateObject(SE4K, 865, 480, -1)->Set("SeaSounds*.ogg",140,35);
+  CreateObject(SE4K, 2290, 500, -1)->Set("SeaSounds*.ogg",140,35);
+  CreateObject(SE4K, 2480, 460, -1)->Set("SeaSounds*.ogg",140,35);
+  CreateObject(SE4K, 4775, 460, -1)->Set("SeaSounds*.ogg",140,35);
+  CreateObject(SE4K, 5120, 420, -1)->Set("SeaSounds*.ogg",140,35);
+  CreateObject(SE4K, 6660, 450, -1)->Set("SeaSounds*.ogg",140,35);
+  CreateObject(SE4K, 6850, 500, -1)->Set("SeaSounds*.ogg",140,35);
+  CreateObject(SE4K, 7560, 275, -1)->Set("SeaSounds*.ogg",140,35);
+
+  //Wellen
+  CreateObject(SE4K, 240, 510, -1)->Set("Wave*.ogg",105,35);
+  CreateObject(SE4K, 640, 510, -1)->Set("Wave*.ogg",105,35);
+  CreateObject(SE4K, 1620, 510, -1)->Set("Wave*.ogg",105,35);
+  CreateObject(SE4K, 2090, 510, -1)->Set("Wave*.ogg",105,35);
+  CreateObject(SE4K, 4000, 530, -1)->Set("Wave*.ogg",105,35);
+
+  CreateObject(SE4K, 4910, 550, -1)->Set("Wave*.ogg",105,35);
+  CreateObject(SE4K, 5370, 550, -1)->Set("Wave*.ogg",105,35);
+  CreateObject(SE4K, 7050, 510, -1)->Set("Wave*.ogg",105,35);
+  CreateObject(SE4K, 7660, 510, -1)->Set("Wave*.ogg",105,35);
+
+  //Jungel
+  CreateObject(SE4K, 3160, 290, -1)->Set("Jungle*.ogg",140,70);
+  CreateObject(SE4K, 3375, 360, -1)->Set("Jungle*.ogg",140,70);
+  CreateObject(SE4K, 5850, 340, -1)->Set("Jungle*.ogg",140,70);
+
+  //Lautsprecher
+  CreateObject(SE4K, 1140, 330, -1)->Set("Announce*.ogg",1500,130);
+  CreateObject(SE4K, 4000, 430, -1)->Set("Announce*.ogg",1500,130);
+  CreateObject(SE4K, 7215, 280, -1)->Set("Announce*.ogg",1500,130);
+
 }
 
 func CreateEquipment()
