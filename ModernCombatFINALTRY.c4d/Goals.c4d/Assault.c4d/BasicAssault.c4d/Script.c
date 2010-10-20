@@ -49,7 +49,7 @@ global func GetAssaultTarget()
 {
   var goal = FindObject2(Find_Func("IsCMCAssaultGoal"));
   if (goal)
-    return goal->AddAssaultTarget(...);
+    return goal->GetAssaultTarget(...);
 }
 
 global func Find_InArray(array a)
