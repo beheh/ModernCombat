@@ -495,7 +495,6 @@ public func FxReloadTimer(object pTarget, int iNumber, int iTime)
       EffectVar(5,pTarget,iNumber)++;
       if(EffectVar(5,pTarget,iNumber) >= GetFMData(FM_FinishReload))
       {
-        OnFinishReloadStop(EffectVar(2,pTarget,iNumber));
         if(GetFMData(FM_SingleReload))
         	OnSingleReloadStop(EffectVar(2,pTarget,iNumber));
 				return -1;
