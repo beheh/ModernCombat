@@ -470,10 +470,7 @@ public func FxReloadTimer(object pTarget, int iNumber, int iTime)
       EffectVar(1,pTarget,iNumber) = 0;
       EffectVar(5,pTarget,iNumber) = +1; //Jetzt wird beendet.
       OnFinishReloadStart(EffectVar(2,pTarget,iNumber));
-      
-      if(GetFMData(FM_SingleReload))
-        OnSingleReloadStop(EffectVar(2,pTarget,iNumber));
-      return -1;
+      return;
     }
   }
   else //Ansonsten bereitet er vor oder beendet?
@@ -500,7 +497,9 @@ public func FxReloadTimer(object pTarget, int iNumber, int iTime)
       EffectVar(5,pTarget,iNumber)++;
       if(EffectVar(5,pTarget,iNumber) >= GetFMData(FM_FinishReload))
       {
-        return -1;
+        if(GetFMData(FM_SingleReload))
+        	OnSingleReloadStop(EffectVar(2,pTarget,iNumber));
+				return -1;
       }
     }
   }
