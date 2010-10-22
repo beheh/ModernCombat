@@ -41,7 +41,6 @@ public func OnSingleReloadStart(int iSlot){}
 public func OnSingleReloadStop(int iSlot){}
 public func OnPrepareReloadStop(int iSlot){}
 public func OnFinishReloadStart(int iSlot){}
-public func OnFinishReloadStop(int iSlot){}
 
 /*----- Initalisierung -----*/
 
@@ -482,7 +481,6 @@ public func FxReloadTimer(object pTarget, int iNumber, int iTime)
       {
         EffectVar(5,pTarget,iNumber) = 0;//Jetzt wird nachgeladen.
         EffectVar(1,pTarget,iNumber) = 1;
-        OnPrepareReloadStop(EffectVar(2,pTarget,iNumber));
         
         if(GetFMData(FM_SingleReload))
           OnSingleReloadStart(EffectVar(2,pTarget,iNumber));
