@@ -20,3 +20,6 @@ ResetAchInfo=Wirklich zurücksetzen?|<c 777777>Das endgültige Zurücksetzen erfolg
 ResetAchYes=Zurücksetzen
 ResetAchNo=Nicht zurücksetzen
 ResetAchDone=Errungenschaften wurden zurückgesetzt.
+
+#General
+Grenades=Granaten

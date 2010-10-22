@@ -1,8 +1,0 @@
-#CanCrawl
-
-CtxStopCrawl=Aufstehen
-CtxStartCrawl=Hinlegen
-
-#UseGrenades
-
-CtxGrenadeMenu=Granaten

@@ -20,3 +20,6 @@ ResetAchInfo=Reset?|<c 777777>The reset is completed after saving.</c>
 ResetAchYes=Reset
 ResetAchNo=Keep achievements
 ResetAchDone=Achievements have been resetted.
+
+#General
+Grenades=Grenades
