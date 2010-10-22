@@ -41,7 +41,7 @@ public func OnSingleReloadStart(int iSlot){}
 public func OnSingleReloadStop(int iSlot){}
 public func OnPrepareReloadStop(int iSlot){}
 public func OnFinishReloadStart(int iSlot){}
-
+public func OnFinishReloadStop(int iSlot){}
 
 /*----- Initalisierung -----*/
 
@@ -497,6 +497,7 @@ public func FxReloadTimer(object pTarget, int iNumber, int iTime)
       EffectVar(5,pTarget,iNumber)++;
       if(EffectVar(5,pTarget,iNumber) >= GetFMData(FM_FinishReload))
       {
+        OnFinishReloadStop(EffectVar(2,pTarget,iNumber));
         if(GetFMData(FM_SingleReload))
         	OnSingleReloadStop(EffectVar(2,pTarget,iNumber));
 				return -1;
@@ -1253,7 +1254,6 @@ private func CycleFT(int iDir)
 public func SetFireTec(int iFT,int iFM, bool bNoCalls)
 {
   //Nicht mehr weiterfeuern
-  if(IsReloading()) return;
   if(IsRecharging()) StopAutoFire();
   RemoveEffect("BurstFire", this);
   if(GetFMData(FM_Auto)) while(GetEffect("Recharge", this)) RemoveEffect("Recharge", this); 
