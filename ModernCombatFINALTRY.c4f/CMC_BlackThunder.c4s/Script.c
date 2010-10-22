@@ -263,7 +263,7 @@ public func ChooserFinished()
   //Teams abfragen
   var aTeams = [false,false,false,false,false];
   for(var i = 0; i < GetPlayerCount(); i++)
-    aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = true;
+   aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = true;
 
   //HTF-Spielziel
   if (FindObject(GHTF))
