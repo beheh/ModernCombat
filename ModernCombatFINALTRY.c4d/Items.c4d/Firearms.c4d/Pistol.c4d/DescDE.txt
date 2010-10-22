@@ -1,1 +1,1 @@
-Die Pistole ist die Standardwaffe für jede Einheit. Schnelligkeit, Genauigkeit und Effektivität zeichnen die Pistole aus und eignet sich so für jede Situation gleichermaßen. Peilsender erlauben das Markieren von Zielen.
+Die Pistole ist die Standardwaffe für jede Einheit. Schnelligkeit, Genauigkeit und Effektivität zeichnen die Pistole aus und eignet sich so für jede Situation gleichermaßen. Peilsender erlauben dem Schützen das Markieren von Zielen.
