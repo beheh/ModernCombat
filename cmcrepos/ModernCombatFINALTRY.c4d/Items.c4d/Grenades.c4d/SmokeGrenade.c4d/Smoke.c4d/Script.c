@@ -50,7 +50,7 @@ public func Timer()
     SetYDir(GetYDir(0,1000)+GetGravityAccel4K(500),0,1000);
 
   //Zu blendende Objekte suchen
-  for(var obj in FindObjects(Find_Distance(GetCon()/2,0,0), Find_NoContainer(), Find_OCF(OCF_Living | OCF_CrewMember)))
+  for(var obj in FindObjects(Find_Distance(GetCon()/2,0,0), Find_NoContainer(), Find_OCF(OCF_Living | OCF_CrewMember), Find_Not(Find_Allied(GetOwner()))))
   {
     //Raucheffekt hinzufügen falls nicht vorhanden
     if(!GetEffect("SmokeGrenade", obj))
@@ -118,8 +118,8 @@ global func FxSmokeGrenadeTimer(object pTarget, int iEffectNumber, int iEffectTi
   if(!rgb) return -1;
 
   //Noch im Rauch?
-  var smoked = false, friend;
-  for(var smoke in FindObjects(pTarget->Find_AtPoint(), Find_ID(SM4K), Find_Func("IsSmoking"),Find_Hostile(GetOwner(pTarget))))
+  var smoked = false;
+  for(var smoke in FindObjects(pTarget->Find_AtPoint(), Find_ID(SM4K), Find_Func("IsSmoking")))
   {
     if(GetCon(smoke)/2 > Distance(GetX(smoke),GetY(smoke),GetX(pTarget),GetY(pTarget)))
     {   
@@ -127,20 +127,9 @@ global func FxSmokeGrenadeTimer(object pTarget, int iEffectNumber, int iEffectTi
       break;
     }
   }
-  if(!smoked)
-  for(var smoke in FindObjects(pTarget->Find_AtPoint(), Find_ID(SM4K), Find_Func("IsSmoking"),))
-  {
-    if(GetCon(smoke)/2 > Distance(GetX(smoke),GetY(smoke),GetX(pTarget),GetY(pTarget)))
-    {
-      friend = 1;
-      smoked = true;
-      break;
-    }
-  }
 
-  //Intensität je nach Freund/Feind
   if(smoked)
-    rgb->DoAlpha(+20, friend*128, 254);
+    rgb->DoAlpha(+20, 0, 254);
   else
     rgb->DoAlpha(-20, 0, 254);
 }
