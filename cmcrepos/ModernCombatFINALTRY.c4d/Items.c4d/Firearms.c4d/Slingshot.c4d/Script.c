@@ -37,7 +37,7 @@ public func FMData1(int data)
   if(data == FM_SingleReload)	return 1;
   if(data == FM_Reload)		return 210;
   if(data == FM_PrepareReload)	return 30;
-  if(data == FM_FinishReload)	return 25;
+  if(data == FM_FinishReload)	return 35;
 
   if(data == FM_Damage)		return 20;
 
@@ -165,7 +165,7 @@ func OnSingleReloadStart()
   Sound("SGST_Loading.ogg");
 }
 
-func OnReloaded()
+func OnFinishReloadStart()
 {
   Sound("SGST_ReloadStop.ogg");
 }
