@@ -132,28 +132,24 @@ func InitClassMenu(object pClonk)
   //Clonk in Spawnpoint verschieben
   if(GetID(Contained(pClonk)) != TIM1)
   {
-    var tmp = CreateObject(TIM1,AbsX(GetX(pClonk)),AbsY(GetY(pClonk)),iPlayer);
-    SetCategory(GetCategory(tmp) | C4D_Foreground,tmp);
-    SetGraphics(0,tmp,GetID(pClonk),1,5,0,1,pClonk);
+    var tmp = CreateObject(TIM1, AbsX(GetX(pClonk)), AbsY(GetY(pClonk)), iPlayer);
+    SetCategory(GetCategory(tmp) | C4D_Foreground, tmp);
+    SetGraphics(0, tmp, GetID(pClonk), 1, GFXOV_MODE_Object, 0, 1, pClonk);
     if(FindObject(GOCC))
-    {
       SetVisibility(VIS_None, tmp);
-    }
     else
-    {
       SetVisibility(VIS_Owner, tmp);
-    }
     Enter(tmp,pClonk);
   }
 
-  //Zeitbegrenzung bei LMS und DM
-  if(FindObject(GLMS) || FindObject(GTDM)) AddEffect("Spawntimer", this, 100, 35, this, GetID(), iPlayer, pClonk, tmp);
+  //Zeitbegrenzung bei LMS, DM und AS
+  if(FindObject(GLMS) || FindObject(GTDM) || FindObject(GASS))
+    AddEffect("Spawntimer", this, 100, 35, this, GetID(), iPlayer, pClonk, tmp);
 
   //Bereits ein Menü offen?
   if(GetMenu(pClonk))
-  {
     CloseMenu(pClonk); //Menü schließen
-  }
+
   OpenMenu(pClonk);
 }
 
