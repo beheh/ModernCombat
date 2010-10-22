@@ -1,6 +1,6 @@
-#strict 2
-
 /* SimFlight2 berücksichtigt Solidmasks */
+
+#strict 2
 
 static const SIM_Precision = 1000;
 static const SIM_StepPrecision = 2;
