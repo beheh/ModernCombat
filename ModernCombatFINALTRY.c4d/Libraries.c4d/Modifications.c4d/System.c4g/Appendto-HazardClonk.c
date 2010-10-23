@@ -7,6 +7,21 @@ local crosshair;
 local aCollected;
 local HUDTarget;
 
+public func IsHealing()		{return WildcardMatch(GetAction(), "*Heal*");}
+public func MaxGrenades()	{return 4;}					//Maximal im Inventar und Gürtel tragbare Granaten
+
+
+/* Initialisierung */
+
+public func Initialize()
+{
+  aCollected = CreateArray();
+  InitCH();
+  //if(Contained())
+    //HideCH();
+  return _inherited(...);
+}
+
 public func SetHUDTarget(pTarget)
 {
   HUDTarget = pTarget;
@@ -15,7 +30,7 @@ public func SetHUDTarget(pTarget)
 protected func Control2Grab(string command)
 {
   if(GetProcedure() == "PUSH" && GetActionTarget())
-      return GetActionTarget()->~Control2Grab(command,this,...);
+  return GetActionTarget()->~Control2Grab(command,this,...);
 }
 
 protected func ControlThrow()
@@ -77,9 +92,9 @@ public func ControlConf(int conf)
 
   if (!iChange)
     if (jnr)
-	  iChange = conf * 2;
-	else
-	  iChange = conf * 10;
+      iChange = conf * 2;
+    else
+      iChange = conf * 10;
 
   DoAiming(iChange);
 }
@@ -101,7 +116,8 @@ public func DoAiming(int iChange)
   UpdateAiming();
 }
 
-/* HazardGear */
+/*----- HazardGear -----*/
+
 //Nicht jede Clonkart kann alles tragen. (z.B. Sanitäter)
 
 public func EquipGear(object pGear)
@@ -116,29 +132,33 @@ public func HazardGearSupported(object pGear)//! -> Hazard 2.0
   return true; //Standartmäßig alles schlucken.
 }
 
-public func ReadyToFire() {
+public func ReadyToFire()
+{
   if (GetProcedure() == "SWIM")
     return;
   if(GetAction() == "Crawl" && Contents() && Contents()->~CanAim() && Contents()->~IsEquipment())
-      return true;
+    return true;
   return _inherited(...);
 }
 
 //Wegen SwimArmed
-public func ReadyToAttack() {
-	if(ReadyToFire()) return true;
-	if(GetProcedure() == "SWIM") return true;
-	return false;
+public func ReadyToAttack()
+{
+  if(ReadyToFire()) return true;
+  if(GetProcedure() == "SWIM") return true;
+  return false;
 }
 
-public func ReadyToGrenade() {
-	if(!ReadyToAttack()) return;
-	if(Contents())
-		if(Contents()->~IsGrenade()) return true;
-	return false;
+public func ReadyToGrenade()
+{
+  if(!ReadyToAttack()) return;
+  if(Contents())
+    if(Contents()->~IsGrenade()) return true;
+  return false;
 }
 
-/* neues Zielsystem */
+/*----- CMC Zielsystem -----*/
+
 static const CH_ShowAlways = 1;
 
 static const CH_MaxSpread = 500;
@@ -154,15 +174,6 @@ static const CH_StandSpreadReduction = 3;
 
 local crosshair,ammobag;
 local spread, handr;
-
-public func Initialize()
-{
-	aCollected = CreateArray();
-  InitCH();
-  //if(Contained())
-    //HideCH();
-  return _inherited(...);
-}
 
 /*func HandR()
 {
@@ -189,21 +200,21 @@ private func GetSpreadAOff2()
 private func TestSpread()
 {
   var proc = GetProcedure();
-  
+
   if(proc == "WALK")
   {
     if(GetComDir() && spread < CH_WalkSpread)
       return CH_WalkSpread;
     return false;
   }
-  
+
   if(proc == "SWIM")
   {
     if(spread < CH_WalkSpread)
       return CH_WalkSpread;
     return false;
   }
-  
+
   if(proc == "FLIGHT")
   {
     if(spread < CH_JumpSpread)
@@ -217,7 +228,7 @@ private func TestSpread()
       return CH_ScaleSpread;
     return false;
   }
-  
+
   if(proc == "HANGLE")
   {
     if(spread < CH_HangleSpread)
@@ -228,26 +239,27 @@ private func TestSpread()
   return false;
 }
 
-public func UpdateCH() {
+public func UpdateCH()
+{
   if((!ReadyToFire() && !ReadyToGrenade()) || !IsArmed() || GetCursor(GetOwner()) != this)
-    {
-      HideCH();
-      return;
-    }
-  
+  {
+    HideCH();
+    return;
+  }
+
   var c = Contents();
 
   ShowCH();
-  
+
   DoSpread(BoundBy(TestSpread()-spread,0,10));
-  
+
   var unspread;
   if(c->~IsWeapon())
     unspread = c->GetFMData(FM_UnSpread);
   else
     unspread = c->~UnSpread();
 
-    
+
   if(IsAiming())
     if(IsCrawling())
       DoSpread(-(CH_CrawlSpreadReduction+unspread));
@@ -345,30 +357,31 @@ public func AimAngle2(int iMaxAngle, int iRange, bool bSpread)//Präzision 100. A
 
 public func AimAngle(int iMaxAngle, int iRange, bool bSpread)
 {
-	var angle;
-	var x,y,r;
-	WeaponAt(x,y,r);
+  var angle;
+  var x,y,r;
+  WeaponAt(x,y,r);
 
-	if(!IsAiming()) {
-		angle = (90+r)*(GetDir()*2-1);
-		if(Contents())
-			if(Contents()->~IsGrenade())
-				angle = (60+r)*(GetDir()*2-1);
-	}
-	else
-	  angle = crosshair->GetAngle();
+  if(!IsAiming())
+  {
+    angle = (90+r)*(GetDir()*2-1);
+    if(Contents())
+      if(Contents()->~IsGrenade())
+        angle = (60+r)*(GetDir()*2-1);
+  }
+  else
+    angle = crosshair->GetAngle();
 
-	if(iRange)
-	{
-	  var target = GetTarget(angle,iMaxAngle,iRange);
-	  if(target)
-		angle = Angle(GetX(),GetY(),GetX(target),GetY(target));
-	}
-	 
-	if(bSpread)
-	  angle += GetSpreadAOff();
+  if(iRange)
+  {
+    var target = GetTarget(angle,iMaxAngle,iRange);
+    if(target)
+      angle = Angle(GetX(),GetY(),GetX(target),GetY(target));
+  }
 
-	return angle;
+  if(bSpread)
+    angle += GetSpreadAOff();
+
+  return angle;
 }
 
 public func DoSpread(int iChange, int iMax)
@@ -472,7 +485,7 @@ public func Entrance(object pContainer)
   return _inherited(pContainer);
 }
 
-protected func Departure()      // Gebäude verlassen
+protected func Departure()      //Gebäude verlassen
 {
   UpdateCharge();
   return _inherited(...);
@@ -507,8 +520,8 @@ public func StartAiming() //Wegen fehlendem Hazard-Feature.
   if(Contents()) Contents()->~AimStart();
 }
 
-public func StartSquatAiming() { // Anfangen in der Hocke zu zielen
-
+public func StartSquatAiming() // Anfangen in der Hocke zu zielen
+{
   if(Contained()) return Contained()->~StartAiming();
 
   SetXDir();
@@ -524,7 +537,7 @@ public func StartSquatAiming() { // Anfangen in der Hocke zu zielen
   
   ScheduleCall(this,"UpdateAiming",1);
 
-  // Callback
+  //Callback
   if(Contents()) Contents()->~AimStart();
 }
 
@@ -562,20 +575,21 @@ public func SetAiming(int iAngle, bool fForceExact)
   UpdateAiming();
 }
 
-/* Nahkampfsystem */
+/*----- Nahkampfsystem -----*/
+
 private func Fighting()
 {
   if(GetCursor(GetOwner()) != this || GetPlayerType(GetController()) == C4PT_Script)//Rudimentäre KI Selbstverteidigung.
   {
     if(!Random(2))
-     ControlThrow();
+      ControlThrow();
     else if(!Random(2))
       ControlDig();
   }
   return true;
 }
 
-local punchtype; //<-lol
+local punchtype;
 
 private func Punching()
 {
@@ -681,57 +695,63 @@ private func Control2Contents(string command)
   return ObjectCall(Contents(), command, this, Par(1), Par(2), Par(3), Par(4), Par(5), Par(6), Par(7));
 }
 
-/* Kontextmenü */
+/*----- Kontextmenü -----*/
 
 protected func NoContext() {}
 
-protected func ContextHelpMessagesOn() {
-	[0|Image=ROCK|Condition=NoContext]
-	 _inherited(...);
-	ContextSettings(Par());
-	SelectMenuItem(1, Par());
+protected func ContextHelpMessagesOn()
+{
+  [0|Image=ROCK|Condition=NoContext]
+  _inherited(...);
+  ContextSettings(Par());
+  SelectMenuItem(1, Par());
 }
 
-protected func ContextHelpMessagesOff() {
-	[0|Image=ROCK|Condition=NoContext]
-	_inherited(...);
-	ContextSettings(Par());
-	SelectMenuItem(1, Par());
+protected func ContextHelpMessagesOff()
+{
+  [0|Image=ROCK|Condition=NoContext]
+  _inherited(...);
+  ContextSettings(Par());
+  SelectMenuItem(1, Par());
 }
 
-protected func ContextSettings(object pCaller) {
-	[$Settings$|Image=CSTR]
-	CreateMenu(CSTR, pCaller, pCaller, 0, "$Settings$", 0, C4MN_Style_Context, false);
-	if(pCaller->QuickInventoryOff())
-	  AddMenuItem("$CtxQuickInventoryOff$", Format("SetQuickInventoryOn(Object(%d))", ObjectNumber(pCaller)), SM06, pCaller);
-	else
-	  AddMenuItem("$CtxQuickInventoryOn$", Format("SetQuickInventoryOff(Object(%d))", ObjectNumber(pCaller)), SM05, pCaller);
-	if(pCaller->HelpMessagesOff())
-	  AddMenuItem("$CtxHelpMessagesOff$", Format("ContextHelpMessagesOn(Object(%d))", ObjectNumber(pCaller)), SM06, pCaller);
-	else
-	  AddMenuItem("$CtxHelpMessagesOn$", Format("ContextHelpMessagesOff(Object(%d))", ObjectNumber(pCaller)), CXIN, pCaller);
+protected func ContextSettings(object pCaller)
+{
+  [$Settings$|Image=CSTR]
+  CreateMenu(CSTR, pCaller, pCaller, 0, "$Settings$", 0, C4MN_Style_Context, false);
+  if(pCaller->QuickInventoryOff())
+    AddMenuItem("$CtxQuickInventoryOff$", Format("SetQuickInventoryOn(Object(%d))", ObjectNumber(pCaller)), SM06, pCaller);
+  else
+    AddMenuItem("$CtxQuickInventoryOn$", Format("SetQuickInventoryOff(Object(%d))", ObjectNumber(pCaller)), SM05, pCaller);
+  if(pCaller->HelpMessagesOff())
+    AddMenuItem("$CtxHelpMessagesOff$", Format("ContextHelpMessagesOn(Object(%d))", ObjectNumber(pCaller)), SM06, pCaller);
+  else
+    AddMenuItem("$CtxHelpMessagesOn$", Format("ContextHelpMessagesOff(Object(%d))", ObjectNumber(pCaller)), CXIN, pCaller);
 
-	AddMenuItem("$CtxResetAch$", "ContextResetAch", RWDS, pCaller, 0, 0, "$CtxResetAch$");
+  AddMenuItem("$CtxResetAch$", "ContextResetAch", RWDS, pCaller, 0, 0, "$CtxResetAch$");
 
-	return true;
+  return true;
 }
 
-public func SetQuickInventoryOn(object pCaller) {
+public func SetQuickInventoryOn(object pCaller)
+{
   SetPlrExtraData(GetOwner(), "CMC_QuickInv", true);
   Sound("Click", 1, 0,0, GetOwner()+1);
   ContextSettings(Par());
 }
 
-public func SetQuickInventoryOff(object pCaller) {
+public func SetQuickInventoryOff(object pCaller)
+{
   SetPlrExtraData(GetOwner(), "CMC_QuickInv", false);
   Sound("Click", 1, 0,0, GetOwner()+1);
   ContextSettings(Par());
 }
 
-public func QuickInventoryOn() { return GetPlrExtraData(GetOwner(), "CMC_QuickInv"); }
-public func QuickInventoryOff() { return !QuickInventoryOn(); }
+public func QuickInventoryOn()	{return GetPlrExtraData(GetOwner(), "CMC_QuickInv");}
+public func QuickInventoryOff()	{return !QuickInventoryOn();}
 
-protected func ContextResetAch() {
+protected func ContextResetAch()
+{
   [0|Image=RWDS|Condition=NoContext]
   CreateMenu(RWDS, this, this, 0, GetName(0, RWDS), 0, C4MN_Style_Dialog);
   AddMenuItem("$ResetAchInfo$", 0, RWDS, this, 0, 0, " ");
@@ -740,7 +760,8 @@ protected func ContextResetAch() {
   SelectMenuItem(2);
 }
 
-protected func ContextResetAchYes() {
+protected func ContextResetAchYes()
+{
   [0|Image=RWDS|Condition=NoContext]
   ResetPlayerAchievements(GetOwner());
   PlayerMessage(GetOwner(), "$ResetAchDone$", this);
@@ -751,7 +772,8 @@ private func AmmoBagContextCheck()
   return !FindObject(NOAM);
 }
 
-/* Munition aus dem Gürtel nehmen */
+/*----- Gürtelmunitionsentnahme -----*/
+
 protected func ContextAmmobag(object pCaller)
 {
   [$AmmoBag$|Image=ABOX|Condition=AmmoBagContextCheck]
@@ -764,7 +786,7 @@ protected func ContextAmmobag(object pCaller)
   //Munition finden und hinzufügen
   while(ammo = Contents(x,ambg))
   {
-    // nur Ammo
+    //Nur Munition
     if(!ammo ->~IsAmmo()) continue;
     //hinzufügen
     AddMenuItem(GetName(ammo),"PackAmmo", GetID(ammo), this, GetAmmo(GetID(ammo)),ObjectNumber(pCaller),GetDesc(ammo));
@@ -776,11 +798,9 @@ protected func ContextAmmobag(object pCaller)
 
 protected func PackAmmo(id idType, int iCaller)
 {
-  //Wir übersehen mal, das beliebig viel Muni verpackt werden könnte.
   var pCaller = Object(iCaller);
 
-  //Selbstgepackte Munition sollte immer CUAM sein.
-
+  //Selbstgepackte Munition als CUAM erstellen
   var pPack = CreateObject(CUAM,0,0,GetOwner());
 
   pPack->SetAmmoID(idType);
@@ -790,12 +810,12 @@ protected func PackAmmo(id idType, int iCaller)
   if(!Collect(pPack,this))
   {
     DoAmmo(idType,+iChange); 
-    return RemoveObject(pPack); //What a fail. :C
+    return RemoveObject(pPack);
   }
 
   Sound("PackAmmo.ogg");
 
-  //Menü schließen, mehr als eine Box kann eh nicht getragen werden
+  //Menü schließen (nicht mehr als eine Munitionsbox tragbar)
   CloseMenu(pCaller);
 }
 
@@ -815,104 +835,118 @@ protected func DoAmmoPack(id idType)
   return pack;
 }
 
-public func SelectQuickInventory(int iIndex) {
-	if(!Contents()) return false;
-	if(!iIndex) return;
-	iIndex--;
-	var aiming = IsAiming() && Contents()->~CanAim();
-	var angle = Abs(AimAngle());
-	if(aiming) StopAiming();
-	while(iIndex-- > 0) {
-		ShiftContents();
-	}
-	ShiftContents(0, 0, 0, true);
-	if(Contents(0)->~CanAim() && aiming) {
-		if(IsSquatAiming() || Contents()->~GetFMData(FM_Aim) != 1) {
-	 		StartSquatAiming();
-		}
-		else {
-			StartAiming();
-		}
-		SetAiming(angle, true);
+public func SelectQuickInventory(int iIndex)
+{
+  if(!Contents()) return false;
+  if(!iIndex) return;
+  iIndex--;
+  var aiming = IsAiming() && Contents()->~CanAim();
+  var angle = Abs(AimAngle());
+  if(aiming) StopAiming();
+  while(iIndex-- > 0)
+  {
+    ShiftContents();
   }
-	UpdateCharge();
-	
-	return true;
+  ShiftContents(0, 0, 0, true);
+  if(Contents(0)->~CanAim() && aiming)
+  {
+    if(IsSquatAiming() || Contents()->~GetFMData(FM_Aim) != 1)
+    {
+      StartSquatAiming();
+    }
+    else
+    {
+      StartAiming();
+    }
+    SetAiming(angle, true);
+  }
+  UpdateCharge();
+
+  return true;
 }
 
-public func GetContentsOffset(object pTo) {
-	var i = 0;
-	var j = 0;
-	while(Contents(i) != pTo && j < ContentsCount()) {
-		if(i > ContentsCount()-1) i = 0;
-		i++;
-		j++;
-	}
-	return j;
+public func GetContentsOffset(object pTo)
+{
+  var i = 0;
+  var j = 0;
+  while(Contents(i) != pTo && j < ContentsCount())
+  {
+    if(i > ContentsCount()-1) i = 0;
+    i++;
+    j++;
+  }
+  return j;
 }
 
 public func ControlSpecial()
 {
   [$CtrlInventoryDesc$|Image=INVT]
   
-	// ControlSpecial an Container weitergeben (z.B. Fahrzeuge)
-	if(Contained() && Contained()->~ContainedSpecial(this))
-	  return true;
-	if(QuickInventoryOn()) {
-		if(!Contents() || !aCollected) return;
-		
-		if(Contents()->~RejectShift() || GetID(Contents()) == GBRB)
-		  return;
+  //ControlSpecial an Container weitergeben (z.B. Fahrzeuge)
+  if(Contained() && Contained()->~ContainedSpecial(this))
+    return true;
+  if(QuickInventoryOn())
+  {
+    if(!Contents() || !aCollected) return;
 
-  	var ring = CreateSpeedMenu(0, this);
-  	var i = 0;
-  	var j = 0;
-  	while(i <= 4) {
-  		j = i+1;
-  		if(j == 5) j = 0;
-			if(aCollected[i]) {
-				if(aCollected[i]->Contained() == this) {
-  				var overlay = ring->Add(j, GetName(aCollected[i]),"SelectQuickInventory",GetContentsOffset(aCollected[i]),RICO);
-  				SetGraphics("",ring,GetID(aCollected[i]),overlay,GFXOV_MODE_IngamePicture);
-  			}
-  		}
-  		i++;
-  	}
-  	ring->AddTopInfoItem(Format("<c ffff00>$QuickInventory$</c>|$ContentsCount$", ContentsCount()));
+    if(Contents()->~RejectShift() || GetID(Contents()) == GBRB)
+      return;
+
+    var ring = CreateSpeedMenu(0, this);
+    var i = 0;
+    var j = 0;
+    while(i <= 4)
+    {
+      j = i+1;
+      if(j == 5) j = 0;
+        if(aCollected[i])
+        {
+          if(aCollected[i]->Contained() == this)
+          {
+            var overlay = ring->Add(j, GetName(aCollected[i]),"SelectQuickInventory",GetContentsOffset(aCollected[i]),RICO);
+            SetGraphics("",ring,GetID(aCollected[i]),overlay,GFXOV_MODE_IngamePicture);
+          }
+        }
+      i++;
+    }
+    ring->AddTopInfoItem(Format("<c ffff00>$QuickInventory$</c>|$ContentsCount$", ContentsCount()));
   }
-  else {
-		// Keine Items?
-		if(!Contents()) return;
-		// Hardcode: BR-Bombe darf man nicht abwählen
-		if(GetID(Contents()) == GBRB)
-		  return;
-		// Manche Sachen dürfen einfach nicht
-		if(Contents()->~RejectShift())
-			return;
-		// wenn wir zielen, wollen wir nur Waffen haben
-		if(IsAiming() && Contents()->~CanAim())
-		{
-		  var angle = Abs(AimAngle());
-			// nächste Waffe suchen
-			for(var i = 1; i < ContentsCount(); i++)
-				if(Contents(i)->~CanAim())
-				{
-					// zur Waffe wechseln
-					ShiftContents(0,0,Contents(i)->GetID(),true);
-					break;
-				}
-		  if(IsSquatAiming() || Contents()->~GetFMData(FM_Aim) != 1) {
-		 		StartSquatAiming();
-		  }
-		  else {
-		  	StartAiming();
-		  }
-		  SetAiming(angle, true);
-		}
-		else
-			// Inventory verschieben
-			ShiftContents(0,0,0,true);
-		UpdateCharge();
+  else
+  {
+    //Keine Items?
+    if(!Contents()) return;
+    //Hardcode: BR-Bombe darf man nicht abwählen
+    if(GetID(Contents()) == GBRB)
+      return;
+    //Manche Sachen dürfen einfach nicht
+    if(Contents()->~RejectShift())
+      return;
+    //Wenn wir zielen, wollen wir nur Waffen haben
+    if(IsAiming() && Contents()->~CanAim())
+    {
+      var angle = Abs(AimAngle());
+      // nächste Waffe suchen
+      for(var i = 1; i < ContentsCount(); i++)
+      if(Contents(i)->~CanAim())
+      {
+        //Zur Waffe wechseln
+        ShiftContents(0,0,Contents(i)->GetID(),true);
+        break;
+      }
+      if(IsSquatAiming() || Contents()->~GetFMData(FM_Aim) != 1)
+      {
+        StartSquatAiming();
+      }
+      else
+      {
+        StartAiming();
+      }
+      SetAiming(angle, true);
+    }
+    else
+    //Inventar verschieben
+    ShiftContents(0,0,0,true);
+    UpdateCharge();
   }
 }
 
@@ -928,22 +962,26 @@ public func Collection(object pObj, bool fPut)
 
 public func Collection2(object pObj)
 {
-	if(!pObj || Contained(pObj) != this) return;
-	var i = 0;
-	while(aCollected[i]) {
-		if(aCollected[i] == pObj) return;
-		i++;
-	}
-	i = 0;
-	while(aCollected[i]) {
-		if(Contained(aCollected[i]) == this) {
-			i++;
-		}
-		else {
-			break;
-		}
-	}
-	aCollected[i] = pObj;
+  if(!pObj || Contained(pObj) != this) return;
+  var i = 0;
+  while(aCollected[i])
+  {
+    if(aCollected[i] == pObj) return;
+    i++;
+  }
+  i = 0;
+  while(aCollected[i])
+  {
+    if(Contained(aCollected[i]) == this)
+    {
+      i++;
+    }
+    else
+    {
+      break;
+    }
+  }
+  aCollected[i] = pObj;
 }
 
 public func Ejection(object pObj)
@@ -973,28 +1011,31 @@ public func ControlContents(id idTarget)
 
 protected func ContentsDestruction()      // Wenn Inhaltsobjekte verschwinden
 {
-  // nach Waffe suchen
+  //Nach Waffe suchen
   ScheduleCall(this, "CheckArmed", 1);
   UpdateCharge();
-  // nächstes Objekt benachrichtigen
+  //Nächstes Objekt benachrichtigen
   Schedule("CheckContentsDestruction();", 1);
 }
 
-protected func CheckContentsDestruction() {
+protected func CheckContentsDestruction()
+{
   if(Contents()) Contents()->~Selection(this);
 }
 
-protected func ScalingLadder() {
-	return Hangling(); //Funktional identisch
+protected func ScalingLadder()
+{
+  return Hangling(); //Funktional identisch
 }
 
 protected func GetObject2Drop(object pObj)
 {
-  if (GetProcedure() == "PUSH" && GetID(GetActionTarget()) == FKDT) {
+  if (GetProcedure() == "PUSH" && GetID(GetActionTarget()) == FKDT)
+  {
     var dropobj, i;
 
-    if (pObj->~IsWeapon()) {
-
+    if (pObj->~IsWeapon())
+    {
       //Hat die Waffe schon: Geht nicht
       if (FindContents(GetID(pObj)))
         return;
@@ -1009,42 +1050,31 @@ protected func GetObject2Drop(object pObj)
           dropobj = Contents(i);
       return dropobj;
     }
-	
-	//Granate?
-	if (pObj->~IsGrenade()) {
-	  //Hat schon genug Granaten
-	  if (GrenadeCount() >= MaxGrenades())
-	    return;
-	  //Granate in den Gürtel verfrachten
-	  pObj->~Activate(this);
-	  return;
-	}
+
+    //Granate?
+    if (pObj->~IsGrenade())
+    {
+      //Hat schon genug Granaten
+      if (GrenadeCount() >= MaxGrenades())
+        return;
+      //Granate in den Gürtel verfrachten
+      pObj->~Activate(this);
+      return;
+    }
 
     //Objekt - hinterstes Objekt rauswerfen
-    else {
+    else
+    {
       for (i = 0; i < ContentsCount(); i++)
         if (Contents(i) && !(Contents(i)->~IsWeapon()) && !Contents(i)->~IsGrenade())
           dropobj = Contents(i);
       return dropobj;
     }
   }
-
   return _inherited(pObj, ...);
 }
 
-/* Gibt jetzt auch FAPHeal und so*/
-
-public func IsHealing () { return WildcardMatch(GetAction(), "*Heal*"); }
-
-
-
-
-/*-- Use Grenades --*/
-
-public func MaxGrenades(){return 4;}	//Maximale Granaten im Inventar und Gürtel
-
-
-/* Allgemeines */
+/*----- Allgemeines -----*/
 
 local pGrenadeStoring;
 
@@ -1090,11 +1120,13 @@ public func GrabGrenade(id type)
   return grenade;
 }
 
-public func GrabGrenades(object pInto) {
-	for(var pGrenade in FindObjects(Find_Container(pGrenadeStoring))) {
-		Enter(pInto, pGrenade);
-	}
-	return true;
+public func GrabGrenades(object pInto)
+{
+  for(var pGrenade in FindObjects(Find_Container(pGrenadeStoring)))
+  {
+    Enter(pInto, pGrenade);
+  }
+  return true;
 }
 
 public func StoreGrenade(object pGrenade)
@@ -1129,7 +1161,7 @@ public func GetGrenadeStoring()
   return pGrenadeStoring;
 }
 
-/* Overloads */
+/*----- Overloads -----*/
 
 protected func Initialize()
 {
@@ -1160,27 +1192,28 @@ public func IsArmed()
 
 protected func Collection2(object pObj)// Einsammeln
 {
-  // das neue Item nach hinten verschieben (außer es ist Ammo oder eine Granate)
+  //Das neue Item nach hinten verschieben (außer es ist Munition oder Granaten)
   if(!(pObj->~IsAmmoPacket()) || !(pObj->~IsGrenade()) || NoAmmo())
     if (1 == ContentsCount(GetID(pObj)))
-      if(!(GetOCF(pObj) & OCF_Living)) {
-      ShiftContents(0,0,0,0);
-      pObj ->~ OnDeselect();
-    }
+      if(!(GetOCF(pObj) & OCF_Living))
+      {
+        ShiftContents(0,0,0,0);
+        pObj ->~ OnDeselect();
+      }
   UpdateCharge();
   return _inherited(pObj);
 }
 
 protected func RejectCollect(id idObj, object pObj)
 {
-  // Für die KI
+  //Für die KI
   var effect;
   if(effect = GetEffect("CollectionException", pObj))
     if(EffectVar(0, pObj, effect) == this)
       return 1;
-  // Spawnpunkt-Hack
+  //Spawnpunkt-Hack
   if(idObj == SPNP) return;
-  // Munitionspaket?
+  //Munitionspaket?
   if(pObj ->~ IsAmmoPacket())
     // Davon kann man in jeden Fall _eines_ im Inventar haben
     if(!CustomContentsCount("IsAmmoPacket"))
@@ -1270,7 +1303,7 @@ private func ChangeWeapon(object pTarget)
 
 
 
-/*-- CMC Agilität --*/
+/*----- CMC Agilität -----*/
 
 /* Check */
 
@@ -1462,10 +1495,7 @@ public func FxControlStackEffect(string newEffect, object pTarget, int iNo)
   return -2;
 }
 
-
-
-
-/*-- Kriechen --*/
+/* Kriechen */
 
 static const CRAWL_AIM_Max = 50;
 local crosshair;
@@ -1660,7 +1690,7 @@ protected func UpdateTransferZone()
 
 /* Kriech-Effekt */
 
-public func FxNoCrawlTimer() { return -1; }
+public func FxNoCrawlTimer()	{return -1;}
 
 public func FxCrawlStart(pClonk, iNum)
 {
@@ -1699,7 +1729,8 @@ protected func ControlThrow()
   if(GetAction() == "StartCrawl")
     return 1;
     
-  if(IsCrawling() && IsArmed() && !ReadyToFire() && ReadyToAim()) {
+  if(IsCrawling() && IsArmed() && !ReadyToFire() && ReadyToAim())
+  {
     StartAiming();
     return 1;
   }
