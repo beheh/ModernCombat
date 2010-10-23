@@ -26,7 +26,8 @@ public func ReportAssaultTargetDestruction(object pTarget, int iTeam)
 	    EventInfo4K(GetPlayerByIndex(i)+1, "$NoTargets$", GBAS, 0, 0, 0, "Alarm.ogg");
 }
 
-public func GetAssaultTarget(int iIndex, int iTeam) {
+public func GetAssaultTarget(int iIndex, int iTeam)
+{
   return aTargets[iTeam][iIndex];
 }
 
@@ -73,14 +74,14 @@ public func UpdateScoreboard()
 	  {
 	    var target = aTargets[iTeam][k];
 	    //Ziel noch da?
-		if (target)
-		{
-		  var dmg = Interpolate2(100, 0, GetDamage(target), EffectVar(0, target, GetEffect("IntAssaultTarget", target))),
-		  clr = InterpolateRGBa3(GetTeamColor(iTeam), RGB(255, 255, 255), 100 - dmg, 100);
-		  SetScoreboardData(row + iTeam * GBAS_MaxTargetCount, GBAS_Name, Format("<c %x>%s</c>", clr, GetName(target)), iTeam);
-		  SetScoreboardData(row + iTeam * GBAS_MaxTargetCount, GBAS_Status, Format("<c %x>%d%</c>", clr, dmg), dmg);
-		  ++row;
-		}
+	    if (target)
+	    {
+	      var dmg = Interpolate2(100, 0, GetDamage(target), EffectVar(0, target, GetEffect("IntAssaultTarget", target))),
+	      clr = InterpolateRGBa3(GetTeamColor(iTeam), RGB(255, 255, 255), 100 - dmg, 100);
+	      SetScoreboardData(row + iTeam * GBAS_MaxTargetCount, GBAS_Name, Format("<c %x>%s</c>", clr, GetName(target)), iTeam);
+	      SetScoreboardData(row + iTeam * GBAS_MaxTargetCount, GBAS_Status, Format("<c %x>%d%</c>", clr, dmg), dmg);
+	      ++row;
+	    }
 	  }
 	}
 	//Keine Ziele mehr. Clonks anzeigen
@@ -89,21 +90,21 @@ public func UpdateScoreboard()
 	  //Spieler abklappern
 	  for (var l = 0, iPlr; l < GetTeamPlayerCount(iTeam); l++)
 	  {
-		iPlr = GetTeamPlayerByIndex(l, iTeam);
-		var clonk = GetCrew(iPlr);
-		//Kein Clonk?
-		if (!clonk || !GetPlayerName(iPlr))
-		  continue;
-		//Tot?
-		var symbol = GetID(clonk),
-		dmg = 1;
-		if (GetID(Contained(clonk)) == FKDT || !GetAlive(clonk) || GetID(Contained(clonk)) == TIM1 || GetID(Contained(clonk)) == TIM2)
-		{
-		  symbol = CDBT;
-		  dmg = 0;
-		}
-		SetScoreboardData(l + iTeam * GBAS_MaxTargetCount, GBAS_Name, GetTaggedPlayerName(iPlr), iTeam);
-		SetScoreboardData(l + iTeam * GBAS_MaxTargetCount, GBAS_Status, Format("{{%i}}", symbol), dmg);
+	    iPlr = GetTeamPlayerByIndex(l, iTeam);
+	    var clonk = GetCrew(iPlr);
+	    //Kein Clonk?
+	    if (!clonk || !GetPlayerName(iPlr))
+	      continue;
+	    //Tot?
+	    var symbol = GetID(clonk),
+	    dmg = 1;
+	    if (GetID(Contained(clonk)) == FKDT || !GetAlive(clonk) || GetID(Contained(clonk)) == TIM1 || GetID(Contained(clonk)) == TIM2)
+	    {
+	      symbol = CDBT;
+	      dmg = 0;
+	    }
+	    SetScoreboardData(l + iTeam * GBAS_MaxTargetCount, GBAS_Name, GetTaggedPlayerName(iPlr), iTeam);
+	    SetScoreboardData(l + iTeam * GBAS_MaxTargetCount, GBAS_Status, Format("{{%i}}", symbol), dmg);
 	  }
 	}
   }
@@ -115,22 +116,21 @@ private func GetTeamPlayerByIndex(int iPlr, int iTeam)
 {
   for (var i; i < GetPlayerCount(); i++)
     if (GetPlayerTeam(GetPlayerByIndex(i)) == iTeam)
-	{
-	  if (!iPlr)
-	    return GetPlayerByIndex(i);
-	  --iPlr;
-	}
+    {
+      if (!iPlr)
+        return GetPlayerByIndex(i);
+       --iPlr;
+    }
   return -1;
 }
 
 public func RemoveScoreboardTeam(int iTeam)
 {
   aScoreboardTeams[iTeam] = false;
-  //Uff.
   for (var i; i < GBAS_MaxTargetCount; i++)
   {
     SetScoreboardData(i + iTeam * GBAS_MaxTargetCount, GBAS_Name);
-	SetScoreboardData(i + iTeam * GBAS_MaxTargetCount, GBAS_Status);
+    SetScoreboardData(i + iTeam * GBAS_MaxTargetCount, GBAS_Status);
   }
 }
 
@@ -143,16 +143,16 @@ public func IsFulfilled()
   if (FindObject(CHOS)) return;
   if (fulfilled) return 1;
   
-  //Teams durchgehen.
+  //Teams durchgehen
   for (var i; i < GetTeamCount(); i++)
   {
     var team = GetTeamByIndex(i);
-	if (!GetTeamPlayerCount(team))
-	{
-	  for (var obj in FindObjects(Find_InArray(aTargets[team])))
-	    Explode(50, obj);
-	  EliminateTeam(team);
-	}
+    if (!GetTeamPlayerCount(team))
+    {
+      for (var obj in FindObjects(Find_InArray(aTargets[team])))
+        DecoExplode(50, obj);
+      EliminateTeam(team);
+    }
   }
   
   //Gegen Camping während Klassenwahl oder im Menü
