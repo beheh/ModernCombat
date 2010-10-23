@@ -24,7 +24,7 @@ public func Fused()
 
       //Clonk "schaut" in Detonationsrichtung? Intensität hinzuaddieren
       if(((GetDir(obj) == DIR_Left) && (GetX() < GetX(obj))) || ((GetDir(obj) == DIR_Right) && (GetX(obj) > GetX(obj))))
-        intensity = Max(intensity+80);
+        intensity = Min(intensity+80,255);
 
       //Clonk freundlich? Intensität halbieren
       if(!Hostile(GetOwner(obj), GetController()))
