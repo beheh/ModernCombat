@@ -204,7 +204,7 @@ public func RelaunchPlayer(int iPlr, pClonk, int iKiller)
   if (!pCrew)
     return;
   var cont = Contained(pCrew);
-  var tim = CreateObject(TIM2, 0, 0, -1);
+  var tim = CreateObject(TIM2, 0, 0, iPlr);
   Enter(tim, pCrew);
   if (cont)
     RemoveObject(cont);
@@ -232,7 +232,7 @@ protected func WaitForJoin(int iPlr)
   if (!Contained(GetCrew(iPlr)))
   {
     var target = aTargets[iDefender][GetNextTarget()];
-    var tim = CreateObject(TIM1, GetX(target)-GetX(), GetY(target)-GetY(), -1);
+    var tim = CreateObject(TIM1, GetX(target)-GetX(), GetY(target)-GetY(), iPlr);
 	Enter(tim, GetCrew(iPlr));
 	SetPlrViewRange(150, tim);
 	AddEffect("IntAssaultWaitObject", tim, 1, 0, tim);
