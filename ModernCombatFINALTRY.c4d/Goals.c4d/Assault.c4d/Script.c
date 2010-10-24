@@ -217,9 +217,15 @@ public func RelaunchPlayer(int iPlr, pClonk, int iKiller)
 
   var rand = Random(GetLength(aSpawns[target_index][index]));
   SetPosition(aSpawns[target_index][index][rand][0], aSpawns[target_index][index][rand][1]-10, tim);
-  tim->Spawn();
-  if (tim)
-    RemoveObject(tim);
+  AddEffect("IntAssaultSpawn", tim, 1, 1, this);
+}
+
+protected func FxIntAssaultSpawnTimer(object pTarget)
+{
+  if (Contents(0, pTarget))
+    pTarget->~Spawn();
+  if (pTarget)
+    RemoveObject(pTarget);
 }
 
 protected func WaitForJoin(int iPlr)
@@ -320,7 +326,7 @@ public func UpdateScoreboard()
 
   //Leerzeilen
   SetScoreboardData(0, GASS_Count, "<c ffffffff> </c>", 1);
-  SetScoreboardData(1, GASS_Count, "<c ffffffff> </c>", 102);
+  SetScoreboardData(1, GASS_Count, "<c ffffffff> </c>", 200);
 
   //Tickets
   var string = Format("<c %x>$Attackers$</c>", RGB(255, 255, 255));
@@ -336,7 +342,7 @@ public func UpdateScoreboard()
   }
   SetScoreboardData(2, GASS_Icon, "{{SM03}}");
   SetScoreboardData(2, GASS_Name, string);
-  SetScoreboardData(2, GASS_Count, Format("<c %x>%d</c>", color, iTickets), 103);
+  SetScoreboardData(2, GASS_Count, Format("<c %x>%d</c>", color, iTickets), 201);
   
   //Sortieren
   SortScoreboard(GASS_Count);
@@ -359,7 +365,7 @@ private func AddScoreboardTarget(object pTarget, int iRow)
 
   SetScoreboardData(iRow+GASS_TargetRow, GASS_Icon, Format("{{%i}}", pTarget->~GetImitationID()));
   SetScoreboardData(iRow+GASS_TargetRow, GASS_Name, Format("<c %x>%s</c>", color, GetName(pTarget)));
-  SetScoreboardData(iRow+GASS_TargetRow, GASS_Count, Format("<c %x>%d%</c>", color, percent), percent + 1);
+  SetScoreboardData(iRow+GASS_TargetRow, GASS_Count, Format("<c %x>%d%</c>", color, percent), percent + 50);
 }
 
 /* Ziel */
