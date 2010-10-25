@@ -23,6 +23,7 @@ public func ChooserFinished()
   SetFlag(FindObject(OFLP));
   aTeamPoints = [];
   AddEffect("IntAddProgress", this, 1, 10, this);
+  UpdateHUDs();
 }
 
 /* Konfiguration */
@@ -94,6 +95,7 @@ protected func FxIntAddProgressTimer()
   if ((++iProgress) >= 100) {
     aTeamPoints[team]++;
 	iProgress = 0;
+    UpdateHUDs();
 	//Und jedem Spieler im Team 10 Punkte geben.
 	for (var i; i < GetPlayerCount(); i++)
 	  if (GetPlayerTeam(GetPlayerByIndex(i)) == team)

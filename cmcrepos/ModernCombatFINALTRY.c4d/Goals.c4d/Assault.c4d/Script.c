@@ -102,6 +102,14 @@ public func TeamGetScore(int iTeam)
   return iTickets;
 }
 
+public func GetHUDInfo(int iPlayer)
+{
+  var clr = GetTeamColor(iDefender), team = GetPlayerTeam(iPlayer);
+  if (team!= iDefender)
+    clr = GetTeamColor(team);
+  return Format("<c %x>%d</c>", clr, TeamGetScore(team));
+}
+
 global func ConnectAssaultTargets()
 {
   var goal = FindObject2(Find_Func("IsCMCAssaultGoal"));

@@ -27,8 +27,24 @@ protected func Initialize()
 
 private func UpdateHUD()
 {
-  if(FindObject(GOAL)) return;
+  if(FindObject(CHOS)) return;
   return inherited(...);
+}
+
+private func GetGoalHUD(player) {
+  if(player <= -1) return;
+  
+  var bar = FindObjectOwner(3HUD, player);
+  if(!bar)
+  {
+    // init the base hud object
+    bar = CreateObject(3HUD, 0,0, player);
+	SetPosition(-100, -20, bar);
+    SetGraphics(0, bar, GetID(), 1,4);
+    SetObjDrawTransform(1500, 0, 0, 0, 1500, -120000, bar, 1);
+    SetVisibility(VIS_None, bar);
+  }
+  return bar;
 }
 
 //Globales für Ziele und Teams
