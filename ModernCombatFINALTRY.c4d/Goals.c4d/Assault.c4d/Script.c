@@ -52,7 +52,6 @@ public func AddAssaultTarget(id idTarget, int iX, int iY, int iMaxDamage, int iT
 	  iDefender = iTeam;
 	//Spawnpunkte anders behandeln
 	aSpawns[iIndex] = aSpawn;
-    UpdateHUDs();
 	return true;
   }
 }
@@ -94,8 +93,6 @@ public func ReportAssaultTargetDestruction(object pTarget, int iTeam)
   else
     if (fConnectedDestruction)
 	  iTickets = CalcTickets();
-
-  UpdateHUDs();
 }
 
 public func TeamGetScore(int iTeam)
@@ -229,12 +226,11 @@ public func RelaunchPlayer(int iPlr, pClonk, int iKiller)
   var rand = Random(GetLength(aSpawns[target_index][index]));
   SetPosition(aSpawns[target_index][index][rand][0], aSpawns[target_index][index][rand][1]-10, tim);
   AddEffect("IntAssaultSpawn", tim, 1, 1, this);
-  UpdateHUDs();
 }
 
 protected func FxIntAssaultSpawnTimer(object pTarget)
 {
-  if (Contents(0, pTarget))
+  if (Contents(0, pTarget) && GetAlive(Contents(0, pTarget)))
     pTarget->~Spawn();
   if (pTarget)
     RemoveObject(pTarget);
