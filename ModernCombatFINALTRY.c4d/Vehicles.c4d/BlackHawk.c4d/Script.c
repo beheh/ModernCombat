@@ -355,7 +355,7 @@ protected func ContainedUp(object ByObj)
   //Pilot
   if (ByObj == Pilot)
   {
-    if(GetY() < 100)
+    if(GetY() < 80)
       return;
     //Autopilot aus
     ResetAutopilot();
@@ -439,7 +439,7 @@ protected func ContainedUpDouble(object ByObj)
   //Pilot
   if (ByObj == Pilot)
   {
-    if(GetY() < 100)
+    if(GetY() < 80)
       return;
     //Autopilot aus
     ResetAutopilot();
