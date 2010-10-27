@@ -355,7 +355,7 @@ protected func ContainedUp(object ByObj)
   //Pilot
   if (ByObj == Pilot)
   {
-    if(GetY() < 0)
+    if(GetY() < 100)
       return;
     //Autopilot aus
     ResetAutopilot();
@@ -364,21 +364,23 @@ protected func ContainedUp(object ByObj)
       SetAction("EngineStartUp");
     //beim Flug mehr Schub
     if(GetAction()=="Fly" || GetAction()=="Turn")
-    	if(GetPlrCoreJumpAndRunControl(GetOwner(Pilot)) && !GetAutopilot()) {
-    		AddEffect("BlackhawkChangeThrottle", this, 50, 3, this, GetID(), throttle_speed);
-    	}
-    	else {
-      	throttle = BoundBy(throttle + throttle_speed, 0, max_throttle);
+      if(GetPlrCoreJumpAndRunControl(GetOwner(Pilot)) && !GetAutopilot())
+      {
+        AddEffect("BlackhawkChangeThrottle", this, 50, 3, this, GetID(), throttle_speed);
+      }
+      else
+      {
+        throttle = BoundBy(throttle + throttle_speed, 0, max_throttle);
       }
   }
-  
+
   //Schütze
   if (ByObj == Gunner)
     MGStation->~ControlUp(ByObj);
   //Coordinator
   if (ByObj == Coordinator)
     RocketStation->~ControlUp(ByObj);
-    
+
   return true;
 }
 
@@ -437,7 +439,7 @@ protected func ContainedUpDouble(object ByObj)
   //Pilot
   if (ByObj == Pilot)
   {
-    if(GetY() < 0)
+    if(GetY() < 100)
       return;
     //Autopilot aus
     ResetAutopilot();
@@ -1076,7 +1078,7 @@ protected func TimerCall()
   if(IsDestroyed()) return;	
 
   //Absinken, wenn kein Pilot
-  if((!GetPilot() && !GetAutopilot() || GetY() < 0) && throttle != 0)
+  if((!GetPilot() && !GetAutopilot() || GetY() < 100) && throttle != 0)
   {
     if(!Random(3))
     {
