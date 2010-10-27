@@ -53,32 +53,37 @@ public func BulletStrike(object pObj)
 
         //Verschwinden
         Remove();
-        
+
         //Broadcast
-        for(var i = 0; i < GetPlayerCount(); i++) {
-        	var iPlr = GetPlayerByIndex(i);
-        	if(Hostile(GetController(), iPlr)) continue;
-        	var fRocketLauncher = false;
-        	var j = GetCrewCount(iPlr);
-        	while(j--) {
-						fRocketLauncher = FindContents(RTLR, GetCrew(iPlr, j));
-		      	if(fRocketLauncher) break;
-        	}
-        	if(fRocketLauncher) {
-		        EventInfo4K(iPlr+1, Format("$TargetMarked$", GetPlrColorDw(GetController()), GetPlayerName(GetController())), TRDT, 0, 0, 0, "RadioConfirm*.ogg");
-	        }
-				}
-				
-				//Punkte & Achievement
-				if(Hostile(GetOwner(pObj), GetController())) {
-					DoPlayerPoints(BonusPoints("TracerSet"), RWDS_TeamPoints, GetController(), GetCursor(GetController()), IC17);
-					DoAchievementProgress(1, AC19, GetController());
-				}
+        for(var i = 0; i < GetPlayerCount(); i++)
+        {
+          var iPlr = GetPlayerByIndex(i);
+          if(Hostile(GetController(), iPlr)) continue;
+          var fRocketLauncher = false;
+          var j = GetCrewCount(iPlr);
+          while(j--)
+          {
+            fRocketLauncher = FindContents(RTLR, GetCrew(iPlr, j));
+            if(fRocketLauncher) break;
+          }
+          if(fRocketLauncher)
+          {
+            EventInfo4K(iPlr+1, Format("$TargetMarked$", GetPlrColorDw(GetController()), GetPlayerName(GetController())), TRDT, 0, 0, 0, "RadioConfirm*.ogg");
+          }
+        }
+
+        //Punkte & Achievement
+        if(Hostile(GetOwner(pObj), GetController()))
+        {
+          DoPlayerPoints(BonusPoints("TracerSet"), RWDS_TeamPoints, GetController(), GetCursor(GetController()), IC17);
+          DoAchievementProgress(1, AC19, GetController());
+        }
         return 1;
       }
     }
-    if(pObj->~BlockTracer()) {
-    	Remove();
+    if(pObj->~BlockTracer())
+    {
+      Remove();
     }
   }
   return 1;
@@ -102,47 +107,47 @@ private func GlowColor()
 global func FxTracerDartStart(object pTarget, int iEffectNumber, int iTemp, int iOwner)
 {
   if (iTemp) return;
-  
+
   //Besitzer des Schusses festlegen (der Schütze)
   EffectVar(0, pTarget, iEffectNumber) = iOwner;
 
   //Haftzeit festsetzen (30 Sekunden)
   EffectVar(1, pTarget, iEffectNumber) = 30*38;
-  
+
   //Team speichern
   EffectVar(2, pTarget, iEffectNumber) = GetPlayerTeam(iOwner);
 }
 
 global func FxTracerDartTimer(object pTarget, int iEffectNumber)
 {
-  //FakeDeath?
+  //Zerstörung wenn Ziel in einem Schwerverletzten liegt
   if(Contained(pTarget) && GetID(Contained(pTarget)) == FKDT || GetAction(pTarget) == "Dead") return -1;
 
-  //Zielobjekt im Wasser? Entfernen.
+  //Zerstörung bei Wasserkontakt
   if(GBackLiquid(AbsX(GetX(pTarget)), AbsY(GetY(pTarget)))) return -1;
-  
-  //Objekt ist nicht mehr feindlich? (zB eingenommene SSA)
+
+  //Zerstörung wenn Ziel nicht mehr feindlich (z.B. eingenommene SSA)
   var team;
   if (pTarget && !(team = pTarget->~GetTeam()))
     team = GetPlayerTeam(GetController(pTarget));
   if (team && team == EffectVar(2, pTarget, iEffectNumber))
     return -1;
 
-  //Objekt will den Tracer entfernen
+  //Ziel ordnet Zerstörung an
   if (pTarget && pTarget->~RemoveTracer(this))
     return -1;
 
   //Haftzeit verringern
   EffectVar(1, pTarget, iEffectNumber)--;
-  //Haftzeit zuende? Entfernen.
+  //Zerstörung bei Ende der Haftzeit
   if(EffectVar(1, pTarget, iEffectNumber) <= 0) return -1;
 
-  //Erstmal Farbe prüfen
+  //Farbe überprüfen
   var color = GetPlrColorDw(EffectVar(0, pTarget, iEffectNumber));
   if (GetTeamColor(EffectVar(2, pTarget, iEffectNumber)))
     color = GetTeamColor(EffectVar(2, pTarget, iEffectNumber));
-  
-  //Blinkeffekt
+
+  //Lichteffekt
   pTarget->CreateParticle("FapLight",0,0,0,0,60, color, this);
 }
 
@@ -150,9 +155,9 @@ global func FxTracerDartStop(object pTarget, int iEffectNumber, int iReason, boo
 {
   if (fTemp) return;
 
-	var iPlr = EffectVar(0, pTarget, iEffectNumber);
-	if (!GetPlayerName(iPlr)) return;
-	if(!Hostile(GetKiller(pTarget), iPlr) && GetKiller(pTarget) != iPlr)
-		if(Contained(pTarget) && GetID(Contained(pTarget)) == FKDT || GetAction(pTarget) == "Dead")
-			DoPlayerPoints(BonusPoints("TracerAssist"), RWDS_TeamPoints, iPlr, GetCursor(iPlr), IC02);
+  var iPlr = EffectVar(0, pTarget, iEffectNumber);
+  if (!GetPlayerName(iPlr)) return;
+  if(!Hostile(GetKiller(pTarget), iPlr) && GetKiller(pTarget) != iPlr)
+    if(Contained(pTarget) && GetID(Contained(pTarget)) == FKDT || GetAction(pTarget) == "Dead")
+      DoPlayerPoints(BonusPoints("TracerAssist"), RWDS_TeamPoints, iPlr, GetCursor(iPlr), IC02);
 }

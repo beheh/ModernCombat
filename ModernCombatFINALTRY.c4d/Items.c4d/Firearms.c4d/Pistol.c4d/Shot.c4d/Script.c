@@ -5,27 +5,32 @@
 local iTime, lx, ly, pTrail, iDamage,speed,max_dst,dst,fb;
 local shooter,wpnid; // Dingens/Clonk das den Schuss abgefeuert hat.
 
+func NoWarp()	{return true;}
+func IsBullet()	{return true;}
 
-func Construction(object byObj)
-{
-  // nichts? :C
-  if(!byObj)
-    return;
-    
-  //WaffenID?
-  wpnid = GetID(byObj);
-    
-  //Waffe?
-  shooter = GetShooter(byObj);
-  
-  //Team?
-  if(shooter->GetTeam())
-  	SetTeam(shooter->GetTeam());
-}
+
+/* Initialisierung */
 
 public func Initialize()
 {
   SetObjectBlitMode(1);
+}
+
+func Construction(object byObj)
+{
+  //Nichts?
+  if(!byObj)
+    return;
+
+  //WaffenID?
+  wpnid = GetID(byObj);
+
+  //Waffe?
+  shooter = GetShooter(byObj);
+
+  //Team?
+  if(shooter->GetTeam())
+    SetTeam(shooter->GetTeam());
 }
 
 public func Fast()
@@ -47,11 +52,10 @@ public func Launch(int iAngle, int iSpeed, int iDist, int iSize, int iTrail, int
 
   if(!iSize)    iSize = 8;
   if(!iTrail)   iTrail = 300;
-  
+
   speed = iSpeed;
 
   iSize = Min(iSize+2,GetDefWidth());
-
 
   DoCon(100*iSize/GetDefWidth()-100);
 
@@ -59,13 +63,14 @@ public func Launch(int iAngle, int iSpeed, int iDist, int iSize, int iTrail, int
   ly = GetY();
 
   iTime = 10*iDist/iSpeed;
-  
+
   if(!iTime)
     return RemoveObject();
 
   var self = this;
   SetAction("Travel");
-  if(!self) return;   // Kleiner Sicherheitscheck, ob die Kugel nicht sofort verschwindet
+  //Kleiner Sicherheitscheck, ob die Kugel nicht sofort verschwindet
+  if(!self) return;
 
   SetXDir(+Sin(iAngle,iSpeed));
   SetYDir(-Cos(iAngle,iSpeed));
@@ -83,20 +88,19 @@ public func LaunchFB(int iAngle, int iSpeed, int iDist, int iSize, int iTrail, i
   else iDamage = iDmg;
 
   SetPosition(GetX(),GetY()+GetDefWidth()/2);
-  
+
   SetXDir(+Sin(iAngle,iSpeed));
   SetYDir(-Cos(iAngle,iSpeed));
   SetR(iAngle);//Vielleicht wird das iwo benutzt?
   DoCon(100*iSize/GetDefWidth()-100);//Und das?
-  
+
   SetAction("Travel");
-  
+
   max_dst = iDist;
   speed = iSpeed;
   iTime = 1;
   fb = true;
-  
-  //Jetzt wirds spannend. :>
+
   HitCheck(iAngle,iDist);
 
   /*if(iSize)
@@ -123,13 +127,12 @@ public func LaunchFB(int iAngle, int iSpeed, int iDist, int iSize, int iTrail, i
       }
     }
   }*/
-  
+
   //SetVisibility(VIS_None);
-  
+
   Remove(iRemoveTime);
 }
 
-//Für bessere Richtungsbestimmung. :>
 public func SetAngle(int iAngle, int iAPrec)
 {
   if(!iAPrec) iAPrec = 1;
@@ -138,7 +141,6 @@ public func SetAngle(int iAngle, int iAPrec)
   SetR(iAngle/iAPrec,0);
 }
 
-// Extern für Überladung
 private func CreateTrail(int iSize, int iTrail)
 {
   pTrail = CreateObject(TRAI,0,0,-1);
@@ -157,15 +159,14 @@ private func Traveling()
 
   var iATime = GetActTime();
 
-  // ausfaden
+  //Ausfaden
   SetClrModulation(Color(iATime));
-  // löschen
+  //Löschen
   if(iATime >= iTime) return Remove();
-  
-  // außerhalb der Landschaft: löschen
+
+  //Bei Verlassen der Map entfernen
   if(GetY()<0) return Remove();
 }
-
 
 /* Querschläger usw. */
 
@@ -182,19 +183,18 @@ public func OffsetX(int iA, int iB)
   {
     var da = -iA;
     var db = -iB;
-    
+
     if(iA > 180)
       da = 360-iA;
 
     if(iB > 180)
       db = 360-iB;
-      
+
     iA = 180+db;
     iB = 180+da;
-      
+
     off = Offset(iA,iB);
   }
-  
   return off;
 }
 
@@ -223,20 +223,20 @@ public func Ricochet(int iX, int iY)
   var A = SurfaceNormal4K(iX,iY,2);
   var O = Wrap4K(Flip(A,I-180),0,360);
   var H = Wrap4K(OffsetX(O,I),0,360);
-  
+
   /*Log("In:%d] Surface:%d] Abprallwinkel:%d] Reflektionswinkel:%d]",I,A,H,O);
-  
+
   DrawParticleLine ("PSpark",0,0,Sin(I,100),-Cos(I,100),4,30,RGB(0,255),RGB(0,255));
   DrawParticleLine ("PSpark",0,0,Sin(A,100),-Cos(A,100),2,20,RGB(255),RGB(255));
   DrawParticleLine ("PSpark",0,0,Sin(O,100),-Cos(O,100),4,30,RGB(0,128,255),RGB(0,128,255));
   DrawParticleLine ("PSpark",0,0,Sin(H,100),-Cos(H,100),2,20,RGB(0,128,255),RGB(255,255,255));*/
-  
+
   if(H <= RicochetAngle())//Winkel okay?
   {
     var O = A+(A-I)+180;
     iDamage = iDamage-iDamage*(H*50/RicochetAngle())/100;//Maximal 50% abziehen.
     Sound("Ricochet*.ogg");
-    
+
     if(Fast())
     {
       HitCheck(O,max_dst-dst);
@@ -246,7 +246,7 @@ public func Ricochet(int iX, int iY)
       SetXDir(+Sin(O,speed));
       SetYDir(-Cos(O,speed));
       SetR(O);
-      
+
       var effect = GetEffect("HitCheck",this);
       if(effect)
       {
@@ -256,20 +256,18 @@ public func Ricochet(int iX, int iY)
 
       var oldtrail = pTrail;
       CreateTrail(oldtrail->LocalN("w")/1000*20, oldtrail->LocalN("l")/1000*100);
-      
+
       oldtrail->SetPosition(GetX()+iX,GetY()+iY);
       oldtrail->SetXDir();
       oldtrail->SetYDir();
       //oldtrail->RemoveObject();
     }
-    
     return true;
   }
 }
 
 private func Hit()
 {
-  //*hrhrhr*
   if(!Fast())
     HitLandscape();
 }
@@ -284,14 +282,14 @@ private func HitLandscape()
   }
   OnHitLandscape(x,y);
 
-  // umliegende Objekte beschädigen.
+  //Umliegende Objekte beschädigen
   var objs = FindObjects(Find_AtPoint(), Find_NoContainer(), Find_Or(Find_Func("IsBulletTarget",GetID(),this,shooter), Find_OCF(OCF_Alive)), Find_Func("CheckEnemy",this), Find_Not(Find_Func(ObjectCall(this,"HitExclude"))));  
   {
     for(var pTarget in objs)
       HitObject(pTarget);
   }
 
-  HitObject();//Wuff! Hier kann CoD4-Like Materialdurchschlag ansetzen.  O_O
+  HitObject();
 }
 
 public func OnHitLandscape(int iX, int iY)
@@ -301,7 +299,7 @@ public func OnHitLandscape(int iX, int iY)
     var tmp = CreateObject(TRAI,iX,iY,-1);
     Sound("BulletHit*.ogg", 0, tmp);
     RemoveObject(tmp);
-    
+
     var rgb = 0;
 
     if(GBackSolid(iX,iY))
@@ -312,7 +310,7 @@ public func OnHitLandscape(int iX, int iY)
                 GetMaterialColor(mat,rand,1),
                 GetMaterialColor(mat,rand,2));
     }
-    
+
     if(rgb)
     {
       //Partikeleffekte
@@ -326,7 +324,6 @@ public func OnHitLandscape(int iX, int iY)
     Sound("BulletHit*.ogg");
   }
 }
-
 
 public func HitObject(object pObject)
 {
@@ -343,7 +340,7 @@ public func HitObject(object pObject)
       y = ly;
     }
     OnBulletHit(pObject,x,y);
-    
+
     Remove();
     return true;
   }
@@ -363,14 +360,13 @@ public func OnBulletHit(object pObject, int iX, int iY)
     {
       Sound("BulletImpact*.ogg");
     }
-    
     if(GetOCF(pObject) & OCF_Living)//Für Lebewesen keine Funken-Effekte.
       return;
   }
-  
-  // Partikel verschleudern
+
+  //Partikel verschleudern
   var iAngle, iSpeed, iSize;
-  
+
   for( var i=0; i < (30*GetCon()/100); ++i)
   {
     iAngle = (GetR()-180)+RandomX(-20,+20);
@@ -379,14 +375,13 @@ public func OnBulletHit(object pObject, int iX, int iY)
     CreateParticle("Frazzle",iX+Sin(iAngle,2),iY-Cos(iAngle,2),+Sin(iAngle,iSpeed),-Cos(iAngle,iSpeed),iSize,GlowColor(iTime));
   }
 
-  //....peng!
   var alphamod, sizemod, iColor = GlowColor(iTime);
   CalcLight(alphamod, sizemod);
-  
+
   var r,g,b,a;
   SplitRGBaValue(iColor,r,g,b,a);
   iColor = RGBa(r,g,b,Min(a+alphamod,255));
-  
+
   if(GetEffectData(EFSM_BulletEffects) > 0) CreateParticle("Flare",iX,iY,RandomX(-1000,+1000),RandomX(-1000,+1000),(100*GetCon()/100)*5*sizemod/100,iColor);
 }
 
@@ -414,8 +409,7 @@ public func GlowColor(int iATime)
   return RGBa(255,190,0,50);
 }
 
-// Dummy-func
-func HitExclude() {}
+func HitExclude()	{}
 
 public func Remove(int iRemoveTime)
 {
@@ -424,16 +418,16 @@ public func Remove(int iRemoveTime)
     SetPosition(GetX(),GetY(),pTrail);
     pTrail->Remove();
   }
-  
+
   if(Fast())
   {
     if(!GetEffect("Remove",this))
     {
-      BulletParticle();//Tataa. *effekt*
+      BulletParticle();
       //SetVisibility(VIS_None);
       SetXDir();
       SetYDir();
-      SetClrModulation(RGBa(255,255,255,255));//Unsichtbar... - Lol, wie hackig.
+      SetClrModulation(RGBa(255,255,255,255));
       AddEffect("Remove",this,1,Max(1,iRemoveTime),0,GetID());
     }
   }
@@ -477,12 +471,12 @@ public func FxHitCheckTimer(object target, int effect, int time)
   var dist = Distance(oldx, oldy, newx, newy);
   EffectVar(0, target, effect) = GetX(target);
   EffectVar(1, target, effect) = GetY(target);
-  
-  // Schuss schon Scharf?
+
+  //Schuss schon Scharf?
   var exclude = EffectVar(2, target, effect);
-  // Ja, wir treffen nur uns selbst nicht (ja, Workaround .)
+  //Selbst nicht treffbar
   if(EffectVar(4, target, effect)) exclude = target;
-  
+
   //DrawParticleLine("NoGravSpark",newx-oldx, newy-oldy,0,0,1,25,RGB(255,0,0),RGB(0,0,255));
   // Wir suchen nach Objekten entlang der Linie die wir uns seit dem letzten Check
   // bewegt haben. Und sortieren sie nach Distanz (entfernten zuerst, da wir die zuerst passieren)
@@ -490,51 +484,38 @@ public func FxHitCheckTimer(object target, int effect, int time)
                          Find_NoContainer(),
                          Sort_Distance(oldx, oldy)))
   {
-		// Excludes
-		if(obj == target) continue;
-		if(obj == exclude) continue;
-		
-		// CheckEnemy
-		if(!CheckEnemy(obj,target)) continue;
-
-		// IsBulletTarget oder Alive
-		if(obj->~IsBulletTarget(GetID(target),target,EffectVar(2, target, effect), oldx, oldy) || GetOCF(obj) & OCF_Alive) {
-			DebugLog("%s IsBulletTarget: %i, %s, %s","HitCheck",GetName(obj),GetID(target),GetName(target),GetName(EffectVar(2, target, effect)));
-			return target-> ~HitObject(obj);
-	  }
+    if(obj == target) continue;
+    if(obj == exclude) continue;
+    if(!CheckEnemy(obj,target)) continue;
+    if(obj->~IsBulletTarget(GetID(target),target,EffectVar(2, target, effect), oldx, oldy) || GetOCF(obj) & OCF_Alive)
+    {
+      DebugLog("%s IsBulletTarget: %i, %s, %s","HitCheck",GetName(obj),GetID(target),GetName(target),GetName(EffectVar(2, target, effect)));
+      return target-> ~HitObject(obj);
+    }
   }
 
   EffectVar(0, target, effect) = GetX(target);
   EffectVar(1, target, effect) = GetY(target);
 
-  //verdammt, kommentier doch mal... Also:
-  // Der Schuss wird erst "scharf gemacht", d.h. kann den Schützen selbst treffen, wenn
-  // der Schuss einmal die Shape des Schützen verlassen hat.
-  
-  // OKOK, Ich hab sogar das Restzeug kommentiert. :P
-  if(!EffectVar(5,target,effect)) {
-	  if(!EffectVar(4, target, effect)) {
-	    // ready gibt an, ob wir schon "scharf" sind. True = Scharf
-	    var ready = true;
-	    // Wir suchen alle Objekte mit der ID unseres Schützens an unserer momentanen Stelle
-	    for(var foo in FindObjects(Find_AtPoint(GetX(target),GetY(target)),Find_ID(EffectVar(3, target, effect))))
-	    	// und schauen, ob es der Schütze ist.
-	      if(foo == EffectVar(2, target, effect))
-	        // wir haben den Schützen gefunden -> Er ist noch an unserer Position
-	        ready = false;
-	    // wir haben den Schützen nicht gefunden
-	    if(ready)
-	      // -> Wir treffen ihn ab jetzt.
-	      EffectVar(4, target, effect) = true;
-	  }
+  //Der Schuss wird erst "scharf gemacht", d.h. kann den Schützen selbst treffen, wenn der Schuss einmal die Shape des Schützen verlassen hat.
+
+  if(!EffectVar(5,target,effect))
+  {
+    if(!EffectVar(4, target, effect))
+    {
+      //Scharf?
+      var ready = true;
+      //Check nach Objekten mit ID des Schützen an momentaner Stelle
+      for(var foo in FindObjects(Find_AtPoint(GetX(target),GetY(target)),Find_ID(EffectVar(3, target, effect))))
+      //Gefundenes der Schütze?
+      if(foo == EffectVar(2, target, effect))
+        ready = false;
+      if(ready)
+      //Treffbarkeit einstellen
+      EffectVar(4, target, effect) = true;
+    }
   }
 }
-
-// Ist ein Schuss! Nicht warpen!
-func NoWarp() { return true; }
-// Ist ein Schuss!
-func IsBullet() { return true; }
-
 
 private func HitCheck(int r, int d)
 {
@@ -542,7 +523,7 @@ private func HitCheck(int r, int d)
   var mx = +Sin(r,d),
       my = -Cos(r,d),
       ml = 0;
-      
+
   while(++ml)
   {
     if(GBackSolid(mx*ml/d,my*ml/d))
@@ -550,7 +531,7 @@ private func HitCheck(int r, int d)
     if(ml>=d)
       break;
   }
-  
+
   mx = +Sin(r,ml);
   my = -Cos(r,ml);
 
@@ -578,10 +559,10 @@ private func HitCheck(int r, int d)
       }
     }
   }
-  
+
   lx = mx;
   ly = my;
-  
+
   if(ml < d)//Nicht in der Luft. :O
     HitLandscape(mx,my);
 
@@ -614,7 +595,7 @@ public func BulletParticle()
   var l = Distance(lx,ly)-20;//-hinten
   if(l < 40) return;//hinten + vorne
   //if(Random((200-Min(l,200))) < 100) return;
-  
+
   var p = 20+Random(l-20);
   var s = 30+Random(10);
 
@@ -629,32 +610,30 @@ global func GetShooter(object weapon)
   var shooter;
 
   if(!weapon) return;
-  
-  // Waffe?
+
+  //Waffe?
   if(weapon->~IsWeapon())
   {
     shooter = weapon->GetUser();
-	// Schütze ist irgendwo drin
-	if(Contained(shooter))
-	  shooter = Contained(shooter);
-	//oder fässt was an
-	if(shooter)
-	  if(GetActionTarget(0, shooter) && (GetProcedure(shooter) == "PUSH"))//!!!
-	    shooter = GetActionTarget();
+    //Schütze ist irgendwo drin
+    if(Contained(shooter))
+      shooter = Contained(shooter);
+    //oder fasst was an
+    if(shooter)
+      if(GetActionTarget(0, shooter) && (GetProcedure(shooter) == "PUSH"))
+        shooter = GetActionTarget();
   }
-  
-  // noch immer nichst gefunden?
+
+  //Wenn immernoch kein Schütze identifiziert, stattdessen Waffe nehmen
   if(!shooter)
-    // dann einfach weapon nehmen.
     shooter = weapon;
-	
-	return shooter;
+      return shooter;
 }
 
 /* SpecialAmmo-System */
 
-//public func IsSpecialAmmo(){return SHTX == GetID();}
-public func IsSpecialAmmo(){return true;}//Fun mit Sharpnelz! xD
+//public func IsSpecialAmmo()	{return SHTX == GetID();}
+public func IsSpecialAmmo()	{return true;}
 
 public func CustomLaunch(int iAngle, int iSpeed, int iDist, int iSize, int iTrail, int iDmg, int iRemoveTime)
 {
