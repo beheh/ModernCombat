@@ -562,6 +562,16 @@ public func ChooserFinished()
   //Base Assault-Spielziel
   if(FindObject(GBAS))
   {
+   //SSA Besitzer setzen
+   if(aTeams[1] == true)
+   {aSelfDefense[0]->SetTeam(1);}
+   if(aTeams[2] == true)
+   {aSelfDefense[3]->SetTeam(2);}
+
+   //SSA anschalten
+   aSelfDefense[0]->TurnOn();
+   aSelfDefense[3]->TurnOn();
+
    //Zielobjekte
    AddAssaultTarget(CMSN, 710, 800, 400, 1, "$Flag2$", 0, [[640, 640], [420, 630]]);
    AddAssaultTarget(CCP2, 425, 430, 300, 1, "$Flag1$", 1, [[230, 440], [330, 530]]);

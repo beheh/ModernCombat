@@ -687,9 +687,8 @@ public func ChooserFinished()
    CreateObject(BRDR, 1750, 0, -1)->Set(1,1);
 
    //SSA Besitzer setzen
-   aSelfDefense[0]->SetTeam(2);
-   aSelfDefense[1]->SetTeam(2);
-   aSelfDefense[3]->SetTeam(2);
+   if(aTeams[2] == true)
+   {aSelfDefense[0]->SetTeam(2); aSelfDefense[1]->SetTeam(2); aSelfDefense[3]->SetTeam(2);}
 
    //SSA entfernen
    RemoveObject(aSelfDefense[2]);
