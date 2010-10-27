@@ -502,10 +502,8 @@ public func ChooserFinished()
    CreateObject(BRDR, 0, 1370, -1)->Set(2,1);
 
    //SSA Besitzer setzen
-   aSelfDefense[0]->SetTeam(2);
-   aSelfDefense[1]->SetTeam(2);
-   aSelfDefense[2]->SetTeam(2);
-   aSelfDefense[3]->SetTeam(2);
+   if(aTeams[2] == true)
+   {aSelfDefense[0]->SetTeam(2); aSelfDefense[1]->SetTeam(2); aSelfDefense[2]->SetTeam(2); aSelfDefense[3]->SetTeam(2);}
 
    //SSA anschalten
    aSelfDefense[0]->TurnOn();
