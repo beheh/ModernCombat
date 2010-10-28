@@ -5,12 +5,13 @@
 
 public func TrailColor(int iATime)	{return Color(iATime);}
 
+local iShotAngle, iShotSpeed;
 
 /* Schuss */
 
 private func CreateTrail(int iSize, int iTrail)
 {
-  pTrail = CreateObject(TRAI,0,0,-1);
+//  pTrail = CreateObject(TRAI,0,0,-1);
   if(pTrail)
   {
     pTrail->Set(iSize+1,iTrail,this);
@@ -19,11 +20,37 @@ private func CreateTrail(int iSize, int iTrail)
   }
 }
 
+public func Launch()
+{
+  iShotAngle = Par();
+  iShotSpeed = Par(1);
+  var i = _inherited(...);
+  SetPosition(GetX(), GetY() - GetDefCoreVal("Offset", "DefCore", GetID(), 1) / 2);
+  if (!GetEffect("TracerTrail", this))
+    AddEffect("TracerTrail", this, 1, 1, this);
+  return i;
+}
+
+protected func FxTracerTrailTimer()
+{
+  var iX = -Sin(iShotAngle, iShotSpeed/10),
+  iY = Cos(iShotAngle, iShotSpeed/10),
+  iDist = -1,
+  iClr = TrailColor(GetActTime());
+  while (++iDist < iShotSpeed/10)
+    CreateParticle("Flare", iX + Sin(iShotAngle, iDist) + Random(5) - 2, iY - Cos(iShotAngle, iDist) + Random(5) - 2, Sin(Random(360), Random(10)), Sin(Random(360), Random(10)), 60 + Random(51), iClr);
+}
+
 /* Treffer */
 
-func Hit()
+func Hit(int iXDir, int iYDir)
 {
-  //Bei Materialaufprall entfernen
+  //Erst nochmal zeichnen
+  SetXDir(iXDir, this, 100);
+  SetYDir(iYDir, this, 100);
+  EffectCall(this, GetEffect("TracerTrail", this), "Timer");
+  LaserLight(30, SetRGBaValue(Color(GetActTime())), 0, 0, 10);
+  //Entfernen
   Remove();
 }
 
@@ -31,75 +58,71 @@ private func HitObject(object pObject)
 {
   if(BulletStrike(pObject))
   {
-    LaserLight(30, Color(GetActTime()),0,0,10);
+    LaserLight(30, SetRGBaValue(Color(GetActTime())), 0, 0, 10);
   }
 }
 
 public func BulletStrike(object pObj)
 {
-  if(pObj)
-  {
-    //Passendes Ziel vorhanden?
-    if(Hostile(GetOwner(pObj), GetController()) || pObj->~AttractTracer(this))
+  if(!pObj)
+    return false;
+
+  //Passendes Ziel vorhanden?
+  if((Hostile(GetOwner(pObj), GetController()) || pObj->~AttractTracer(this)) && !InLiquid(pObj))
+    //Nicht bereits markiert?
+    if(!GetEffect("TracerDart",pObj) && !pObj->~IgnoreTracer())
     {
-      //Nicht bereits markiert?
-      if(!GetEffect("TracerDart",pObj) && !pObj->~IgnoreTracer())
-      {
-        //Treffergeräusch
-        Sound("TRDT_Attach.ogg");
+      //Treffergeräusch
+      Sound("TRDT_Attach.ogg");
 
-        //Effekt übergeben
-        AddEffect("TracerDart", pObj, 20, 1, 0, 0, GetController());
+      //Effekt übergeben
+      AddEffect("TracerDart", pObj, 20, 1, 0, 0, GetController());
 
-        //Verschwinden
-        Remove();
-
-        //Broadcast
-        for(var i = 0; i < GetPlayerCount(); i++)
-        {
-          var iPlr = GetPlayerByIndex(i);
-          if(Hostile(GetController(), iPlr)) continue;
-          var fRocketLauncher = false;
-          var j = GetCrewCount(iPlr);
-          while(j--)
-          {
-            fRocketLauncher = FindContents(RTLR, GetCrew(iPlr, j));
-            if(fRocketLauncher) break;
-          }
-          if(fRocketLauncher)
-          {
-            EventInfo4K(iPlr+1, Format("$TargetMarked$", GetPlrColorDw(GetController()), GetPlayerName(GetController())), TRDT, 0, 0, 0, "RadioConfirm*.ogg");
-          }
-        }
-
-        //Punkte & Achievement
-        if(Hostile(GetOwner(pObj), GetController()))
-        {
-          DoPlayerPoints(BonusPoints("TracerSet"), RWDS_TeamPoints, GetController(), GetCursor(GetController()), IC17);
-          DoAchievementProgress(1, AC19, GetController());
-        }
-        return 1;
-      }
-    }
-    if(pObj->~BlockTracer())
-    {
+      //Verschwinden
       Remove();
+
+      //Broadcast
+      for(var i = 0; i < GetPlayerCount(); i++)
+      {
+        var iPlr = GetPlayerByIndex(i);
+        if(Hostile(GetController(), iPlr))
+          continue;
+        var pRocketLauncher = 0;
+        var j = GetCrewCount(iPlr);
+        while(j--)
+        {
+          pRocketLauncher = FindContents(RTLR, GetCrew(iPlr, j));
+          if(pRocketLauncher) break;
+        }
+        if(pRocketLauncher)
+          EventInfo4K(iPlr+1, Format("$TargetMarked$", GetPlrColorDw(GetController()), GetPlayerName(GetController())), TRDT, 0, 0, 0, "RadioConfirm*.ogg");
+      }
+
+      //Punkte & Achievement
+      if(Hostile(GetOwner(pObj), GetController()))
+      {
+        DoPlayerPoints(BonusPoints("TracerSet"), RWDS_TeamPoints, GetController(), GetCursor(GetController()), IC17);
+        DoAchievementProgress(1, AC19, GetController());
+      }
+      return true;
     }
-  }
-  return 1;
+
+  if(pObj->~BlockTracer())
+    Remove();
+  return false;
 }
 
 /* Farbeffekt */
 
 private func Color(int iATime)
 {
-  var iPrg = 100*iATime/iTime;
-  return GetPlrColorDw(GetController());
+  var iAlpha = Interpolate2(0, 128, iATime, iTime) + Random(32);
+  return SetRGBaValue(GetPlrColorDw(GetController()), iAlpha);
 }
 
 private func GlowColor()
 {
-  return RGB(255,90,110);
+  return Color(...);
 }
 
 /* Peilsendereffekt */
