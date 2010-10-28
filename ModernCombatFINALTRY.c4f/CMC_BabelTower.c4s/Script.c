@@ -498,6 +498,15 @@ public func ChooserFinished()
   //Assault-Spielziel
   if (FindObject(GASS))
   {
+   //Zielobjekte
+   AddAssaultTarget(CMSN, 440, 1610, 250, 2, "$Target1$", 0, [[[420, 1490], [750, 1490]], [[440, 1940], [585, 1920], [730, 1940]]]);
+   AddAssaultTarget(CCP1, 730, 1610, 250, 2, "$Target2$", 1, [[[420, 1490], [750, 1490]], [[440, 1940], [585, 1920], [730, 1940]]]);
+   AddAssaultTarget(LBPC, 585, 1250, 300, 2, "$Target3$", 2, [[[475, 980], [695, 980]], [[430, 1610], [740, 1610]]]);
+   AddAssaultTarget(CCP2, 585, 870,  350, 2, "$Target4$", 3, [[[445, 660], [585, 590], [725, 660]], [[280, 1260], [890, 1260]]]);
+
+   //Ziele verbinden
+   ConnectAssaultTargets([0, 1]);
+
    //Grenze setzen
    CreateObject(BRDR, 0, 1370, -1)->Set(2,1);
 
@@ -511,15 +520,6 @@ public func ChooserFinished()
    aSelfDefense[2]->TurnOn();
    aSelfDefense[3]->TurnOn();
 
-   //Zielobjekte
-   AddAssaultTarget(CMSN, 440, 1610, 250, 2, "$Target1$", 0, [[[420, 1490], [750, 1490]], [[440, 1940], [585, 1920], [730, 1940]]]);
-   AddAssaultTarget(CCP1, 730, 1610, 250, 2, "$Target2$", 1, [[[420, 1490], [750, 1490]], [[440, 1940], [585, 1920], [730, 1940]]]);
-   AddAssaultTarget(LBPC, 585, 1250, 300, 2, "$Target3$", 2, [[[475, 980], [695, 980]], [[430, 1610], [740, 1610]]]);
-   AddAssaultTarget(CCP2, 585, 870,  350, 2, "$Target4$", 3, [[[445, 660], [585, 590], [725, 660]], [[280, 1260], [890, 1260]]]);
-
-   //Ziele verbinden
-   ConnectAssaultTargets([0, 1]);
-
    //Pflanze entfernen
    RemoveObject(FindObject2(Find_ID(PLT3),Find_InRect(570, 820, 40, 40)));
   }
@@ -527,15 +527,7 @@ public func ChooserFinished()
   //OP-Spielziel
   if(FindObject(GOCC))
   {
-   //SSA Besitzer setzen
-   if(aTeams[1] == true)
-   {aSelfDefense[0]->SetTeam(1); aSelfDefense[1]->SetTeam(1);}
-
-   //SSA anschalten
-   aSelfDefense[0]->TurnOn();
-   aSelfDefense[1]->TurnOn();
-
-   //Flaggen
+   //Flaggenposten
    aFlag[0] = CreateObject(OFPL,585,160,NO_OWNER);
    aFlag[0] -> AddSpawnPoint(270, 520);
    aFlag[0] -> AddSpawnPoint(610, 490);
@@ -626,20 +618,28 @@ public func ChooserFinished()
     aFlag[6]->Set("$Flag7$",0,2);
    }
 
+   //SSA Besitzer setzen
+   if(aTeams[1] == true)
+   {aSelfDefense[0]->SetTeam(1); aSelfDefense[1]->SetTeam(1);}
+
+   //SSA anschalten
+   aSelfDefense[0]->TurnOn();
+   aSelfDefense[1]->TurnOn();
+
    //Alarmleuchten
-   //Basis 1
+   //Flaggenposten 1
    var warn = CreateObject (ALGH, 525, 320, -1);
     AddWarnEffect(warn,aFlag[0]);
    warn = CreateObject (ALGH, 645, 320, -1);
     AddWarnEffect(warn,aFlag[0]);
 
-   //Basis 2
+   //Flaggenposten 2
    warn = CreateObject (ALGH, 380, 700, -1);
     AddWarnEffect(warn,aFlag[1]);
    warn = CreateObject (ALGH, 790, 700, -1);
     AddWarnEffect(warn,aFlag[1]);
 
-   //Basis 4
+   //Flaggenposten 4
    warn = CreateObject (ALGH, 490, 1189, -1);
     warn->SetR(-180);
     AddWarnEffect(warn,aFlag[3]);
@@ -647,7 +647,7 @@ public func ChooserFinished()
     warn->SetR(-180);
     AddWarnEffect(warn,aFlag[3]);
 
-   //Basis 7
+   //Flaggenposten 7
    warn = CreateObject (ALGH, 380, 1889, -1);
     warn->SetR(-180);
     AddWarnEffect(warn,aFlag[6]);

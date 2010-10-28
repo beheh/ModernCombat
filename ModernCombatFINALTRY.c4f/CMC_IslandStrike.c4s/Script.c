@@ -571,9 +571,6 @@ func CreateEquipment()
   SetupVehicleSpawn([INFL],DIR_Left,CreateObject(VSPW,5565,560,-1),50*21,300);
 
   SetupVehicleSpawn([INFL],DIR_Left,CreateObject(VSPW,7440,520,-1),50*21,200);
-
-  //Blackhawk
-  SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,4700,290,-1),100*21,300);
 }
 
 /* Bei Flaggenübernahme */
@@ -644,7 +641,7 @@ public func ChooserFinished()
   //DM/LMS-Spielziel
   if(FindObject(GTDM) || FindObject(GLMS))
   {
-   //Grenzen
+   //Grenzen setzen
    CreateObject(BRDR, 3370, 0, -1)->Set(0);
    CreateObject(BRDR, 5980, 0, -1)->Set(1);
 
@@ -656,17 +653,21 @@ public func ChooserFinished()
    CreateObject(SGNP, 5865, 350, -1);
    CreateObject(SGNP, 5885, 510, -1);
    CreateObject(SGNP, 5950, 350, -1);
+
+   //Blackhawk
+   SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,4700,290,-1),100*21,300);
   }
 
   //CTF-Spielziel
   if(FindObject(GCTF))
   {
+   //Flaggen
    if(aTeams[1] == true)
    {CreateFlag(1,3580,630,GetTeamColor(1));}
    if(aTeams[2] == true)
    {CreateFlag(2,6430,340,GetTeamColor(2));}
 
-   //Grenzen
+   //Grenzen setzen
    CreateObject(BRDR, 3370, 0, -1)->Set(0);
    CreateObject(BRDR, 6870, 0, -1)->Set(1);
 
@@ -682,7 +683,16 @@ public func ChooserFinished()
   //Assault-Spielziel
   if (FindObject(GASS))
   {
-   //Grenzen
+   //Zielobjekte
+   AddAssaultTarget(RADR, 1200, 390, 250, 2, "$Target1$", 0, [[[1550, 400], [1670, 440], [1370, 440]], [[560, 440], [610, 440], [660, 440]]]);
+   AddAssaultTarget(CMSN, 2720, 340, 250, 2, "$Target2$", 1, [[[2870, 410], [2980, 370], [2970, 510]], [[1670, 440], [1790, 430], [1880, 420]]]);
+   AddAssaultTarget(CCP2, 3580, 630, 300, 2, "$Target3$", 2, [[[3795, 410], [3795, 530], [3690, 330]], [[2690, 410], [2710, 510], [2840, 592]]]);
+   AddAssaultTarget(GSTA, 4520, 390, 300, 2, "$Target4$", 3, [[[4760, 460], [4870, 440], [5000, 390]], [[3570, 330], [3600, 410], [3470, 630]]]);
+   AddAssaultTarget(LBPC, 5720, 550, 300, 2, "$Target5$", 4, [[[6040, 380], [6040, 570], [6180, 380]], [[4290, 410], [4320, 470], [4320, 580]]]);
+   AddAssaultTarget(RADR, 6440, 340, 350, 2, "$Target6$", 5, [[[6560, 410], [6880, 510], [6520, 640]], [[5630, 400], [5630, 470], [5730, 550]]]);
+   AddAssaultTarget(CMSN, 7210, 430, 350, 2, "$Target7$", 6, [[[7580, 510], [7565, 410], [7750, 320]], [[6410, 340], [6460, 510], [6370, 510]]]);
+
+   //Grenzen setzen
    CreateObject(BRDR, 440, 0, -1)->Set(0,1);
    CreateObject(BRDR, 1750, 0, -1)->Set(1,1);
 
@@ -696,15 +706,6 @@ public func ChooserFinished()
    //Artillerie entfernen
    RemoveObject(aArtillery[0]);
 
-   //Zielobjekte
-   AddAssaultTarget(RADR, 1200, 390, 250, 2, "$Target1$", 0, [[[1550, 400], [1670, 440], [1370, 440]], [[560, 440], [610, 440], [660, 440]]]);
-   AddAssaultTarget(CMSN, 2720, 340, 250, 2, "$Target2$", 1, [[[2870, 410], [2980, 370], [2970, 510]], [[1670, 440], [1790, 430], [1880, 420]]]);
-   AddAssaultTarget(CCP2, 3580, 630, 300, 2, "$Target3$", 2, [[[3795, 410], [3795, 530], [3690, 330]], [[2690, 410], [2710, 510], [2840, 592]]]);
-   AddAssaultTarget(GSTA, 4520, 390, 300, 2, "$Target4$", 3, [[[4760, 460], [4870, 440], [5000, 390]], [[3570, 330], [3600, 410], [3470, 630]]]);
-   AddAssaultTarget(LBPC, 5720, 550, 300, 2, "$Target5$", 4, [[[6040, 380], [6040, 570], [6180, 380]], [[4290, 410], [4320, 470], [4320, 580]]]);
-   AddAssaultTarget(RADR, 6440, 340, 350, 2, "$Target6$", 5, [[[6560, 410], [6880, 510], [6520, 640]], [[5630, 400], [5630, 470], [5730, 550]]]);
-   AddAssaultTarget(CMSN, 7210, 430, 350, 2, "$Target7$", 6, [[[7580, 510], [7565, 410], [7750, 320]], [[6410, 340], [6460, 510], [6370, 510]]]);
-
    //Spinde entfernen
    RemoveAll(LCKR);
 
@@ -713,22 +714,15 @@ public func ChooserFinished()
 
    //Spawnpoint entfernen
    RemoveObject(FindObject2(Find_ID(RSPT),Find_InRect(7224, 419, 3, 3)));
+
+   //Blackhawk
+   SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,4700,290,-1),100*21,300);
   }
 
   //OP-Spielziel
   if(FindObject(GOCC))
   {
-   //SSA Besitzer setzen
-   if(aTeams[1] == true)
-   {aSelfDefense[0]->SetTeam(1); aSelfDefense[1]->SetTeam(1);}
-   if(aTeams[2] == true)
-   {aSelfDefense[2]->SetTeam(2); aSelfDefense[3]->SetTeam(2);}
-
-   //Grenzen
-   CreateObject(BRDR, 440, 0, -1)->Set(0);
-   CreateObject(BRDR, 7860, 0, -1)->Set(1);
-
-   //Flaggen
+   //Flaggenposten
    aFlag[0] = CreateObject(OFPL,1205,390,NO_OWNER);
    aFlag[0] -> AddSpawnPoint(950,260);
    aFlag[0] -> AddSpawnPoint(985,460);
@@ -819,8 +813,21 @@ public func ChooserFinished()
     aFlag[6]->Set("$Flag7$",0,2);
    }
 
+   //SSA Besitzer setzen
+   if(aTeams[1] == true)
+   {aSelfDefense[0]->SetTeam(1); aSelfDefense[1]->SetTeam(1);}
+   if(aTeams[2] == true)
+   {aSelfDefense[2]->SetTeam(2); aSelfDefense[3]->SetTeam(2);}
+
+   //Grenzen setzen
+   CreateObject(BRDR, 440, 0, -1)->Set(0);
+   CreateObject(BRDR, 7860, 0, -1)->Set(1);
+
+   //Blackhawk
+   SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,4700,290,-1),100*21,300);
+
    //Alarmleuchten
-   //Basis 1
+   //Flaggenposten 1
    var warn = CreateObject (ALGH, 935, 299, -1);
     warn->SetR(-180);
     AddWarnEffect(warn,aFlag[0]);
@@ -831,7 +838,7 @@ public func ChooserFinished()
     warn->SetR(-180);
     AddWarnEffect(warn,aFlag[0]);
 
-   //Basis 2
+   //Flaggenposten 2
    warn = CreateObject (ALGH, 2525, 369, -1);
     warn->SetR(-180);
     AddWarnEffect(warn,aFlag[1]);
@@ -842,7 +849,7 @@ public func ChooserFinished()
     warn->SetR(-180);
     AddWarnEffect(warn,aFlag[1]);
 
-   //Basis 3
+   //Flaggenposten 3
    warn = CreateObject (ALGH, 3570, 369, -1);
     warn->SetR(-180);
     AddWarnEffect(warn,aFlag[2]);
@@ -850,7 +857,7 @@ public func ChooserFinished()
     warn->SetR(-180);
     AddWarnEffect(warn,aFlag[2]);
 
-   //Basis 4
+   //Flaggenposten 4
    warn = CreateObject (ALGH, 4245, 499, -1);
     warn->SetR(-180);
     AddWarnEffect(warn,aFlag[3]);
@@ -858,7 +865,7 @@ public func ChooserFinished()
     warn->SetR(-180);
     AddWarnEffect(warn,aFlag[3]);
 
-   //Basis 5
+   //Flaggenposten 5
    warn = CreateObject (ALGH, 5705, 379, -1);
     warn->SetR(-180);
     AddWarnEffect(warn,aFlag[4]);
@@ -866,7 +873,7 @@ public func ChooserFinished()
     warn->SetR(-180);
     AddWarnEffect(warn,aFlag[4]);
 
-   //Basis 6
+   //Flaggenposten 6
    warn = CreateObject (ALGH, 6555, 369, -1);
     warn->SetR(-180);
     AddWarnEffect(warn,aFlag[5]);
@@ -877,7 +884,7 @@ public func ChooserFinished()
     warn->SetR(-180);
     AddWarnEffect(warn,aFlag[5]);
 
-   //Basis 7
+   //Flaggenposten 7
    warn = CreateObject (ALGH, 7150, 360, -1);
     AddWarnEffect(warn,aFlag[6]);
    warn = CreateObject (ALGH, 7410, 360, -1);

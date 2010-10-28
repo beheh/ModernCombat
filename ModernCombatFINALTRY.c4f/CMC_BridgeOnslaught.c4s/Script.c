@@ -200,11 +200,13 @@ func CreateFurniture()
   CreateObject(MWCR, 295, 640, -1);
 
   CreateObject(MWCR, 570, 800, -1)->AutoRespawn();
+  CreateObject(MWCR, 650, 270, -1)->AutoRespawn();
   CreateObject(MWCR, 1065, 640, -1)->AutoRespawn();
 
   CreateObject(MWCR, 1395, 310, -1)->AutoRespawn();
 
   CreateObject(MWCR, 1665, 640, -1)->AutoRespawn();
+  CreateObject(MWCR, 2082, 270, -1)->AutoRespawn();
   CreateObject(MWCR, 2160, 800, -1)->AutoRespawn();
 
   CreateObject(MWCR, 2635, 440, -1);
@@ -462,10 +464,6 @@ func CreateEquipment()
   PlaceSpawnpoint(MBOX, 755, 715);
   PlaceSpawnpoint(MBOX, 1975, 715);
 
-  //Blackhawks
-  SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,580,240,-1),100*21,300);
-  SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,2150,240,-1),100*21,300);
-
   //Automat
   var store = CreateObject(WPVM,1365, 520,-1);
   store->AddWare(C4PA,-1);
@@ -514,6 +512,12 @@ public func ChooserFinished()
   //CTF-Spielziel
   if(FindObject(GCTF))
   {
+   //Flaggen
+   if(aTeams[1] == true)
+   {CreateFlag(1,530,612,GetTeamColor(1));}
+   if(aTeams[2] == true)
+   {CreateFlag(2,2200,612,GetTeamColor(2));}
+
    //SSA Besitzer setzen
    if(aTeams[1] == true)
    {aSelfDefense[0]->SetTeam(1);}
@@ -523,11 +527,6 @@ public func ChooserFinished()
    //SSA anschalten
    aSelfDefense[0]->TurnOn();
    aSelfDefense[3]->TurnOn();
-
-   if(aTeams[1] == true)
-   {CreateFlag(1,530,612,GetTeamColor(1));}
-   if(aTeams[2] == true)
-   {CreateFlag(2,2200,612,GetTeamColor(2));}
   }
 
   //HTF-Spielziel
@@ -562,27 +561,13 @@ public func ChooserFinished()
   //Base Assault-Spielziel
   if(FindObject(GBAS))
   {
-   //SSA Besitzer setzen
-   if(aTeams[1] == true)
-   {aSelfDefense[0]->SetTeam(1);}
-   if(aTeams[2] == true)
-   {aSelfDefense[3]->SetTeam(2);}
-
-   //SSA anschalten
-   aSelfDefense[0]->TurnOn();
-   aSelfDefense[3]->TurnOn();
-
    //Zielobjekte
    AddAssaultTarget(CMSN, 710, 800, 400, 1, "$Flag2$", 0, [[640, 640], [420, 630]]);
    AddAssaultTarget(CCP2, 425, 430, 300, 1, "$Flag1$", 1, [[230, 440], [330, 530]]);
 
    AddAssaultTarget(CMSN, 2010, 800, 400, 2, "$Flag4$", 0, [[2090, 640], [2310, 630]]);
    AddAssaultTarget(CCP2, 2305, 430, 300, 2, "$Flag5$", 1, [[2400, 530], [2500, 440]]);
-  }
 
-  //OP-Spielziel
-  if(FindObject(GOCC))
-  {
    //SSA Besitzer setzen
    if(aTeams[1] == true)
    {aSelfDefense[0]->SetTeam(1);}
@@ -592,8 +577,12 @@ public func ChooserFinished()
    //SSA anschalten
    aSelfDefense[0]->TurnOn();
    aSelfDefense[3]->TurnOn();
+  }
 
-   //Flaggen
+  //OP-Spielziel
+  if(FindObject(GOCC))
+  {
+   //Flaggenposten
    aFlag[0] = CreateObject(OFPL,380,430,NO_OWNER);
    aFlag[0] -> AddSpawnPoint(330,520);
    aFlag[0] -> AddSpawnPoint(540,260);
@@ -639,6 +628,16 @@ public func ChooserFinished()
    {
     aFlag[4]->Set("$Flag5$",0,2);
    }
+
+   //SSA Besitzer setzen
+   if(aTeams[1] == true)
+   {aSelfDefense[0]->SetTeam(1);}
+   if(aTeams[2] == true)
+   {aSelfDefense[3]->SetTeam(2);}
+
+   //SSA anschalten
+   aSelfDefense[0]->TurnOn();
+   aSelfDefense[3]->TurnOn();
   }
 }
 

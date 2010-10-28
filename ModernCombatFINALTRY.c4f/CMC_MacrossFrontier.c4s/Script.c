@@ -355,8 +355,9 @@ public func ChooserFinished()
   //CTF-Spielziel
   if(FindObject(GCTF))
   {
-    CreateFlag(1,110,440,GetTeamColor(1)); 
-    CreateFlag(2,1440,360,GetTeamColor(2)); 
+   //Flaggen
+   CreateFlag(1,110,440,GetTeamColor(1)); 
+   CreateFlag(2,1440,360,GetTeamColor(2)); 
   }
 
   //HTF-Spielziel

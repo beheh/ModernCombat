@@ -618,7 +618,7 @@ public func ChooserFinished()
    RemoveObject(aSelfDefense[0]);
    RemoveObject(aSelfDefense[1]);
 
-   //Grenze
+   //Grenze setzen
    CreateObject(BRDR, 2010, 0, -1)->Set(1);
 
    //Türen öffnen
@@ -669,14 +669,6 @@ public func ChooserFinished()
   //Assault-Spielziel
   if (FindObject(GASS))
   {
-   //SSA Besitzer setzen
-   if(aTeams[2] == true)
-   {aSelfDefense[0]->SetTeam(2); aSelfDefense[1]->SetTeam(2);}
-
-   //SSA anschalten
-   aSelfDefense[0]->TurnOn();
-   aSelfDefense[1]->TurnOn();
-
    //Zielobjekte
    AddAssaultTarget(CGLO, 1120, 362, 250, 2, "$Target1$", 0, [[[1320, 260], [1300, 260], [1130, 260]], [[130, 350], [170, 350], [150, 450]]]);
    AddAssaultTarget(MVNT, 1865, 250, 250, 2, "$Target2$", 1, [[[1570, 70], [1590, 70], [1830, 110]], [[1100, 430], [1140, 430], [1280, 550]]]);
@@ -689,18 +681,20 @@ public func ChooserFinished()
 
    //Ziele verbinden
    ConnectAssaultTargets([3, 4, 5, 6, 7]);
+
+   //SSA Besitzer setzen
+   if(aTeams[2] == true)
+   {aSelfDefense[0]->SetTeam(2); aSelfDefense[1]->SetTeam(2);}
+
+   //SSA anschalten
+   aSelfDefense[0]->TurnOn();
+   aSelfDefense[1]->TurnOn();
   }
 
   //OP-Spielziel
   if(FindObject(GOCC))
   {
-   //Konsole erstellen
-   CreateObject(CONS, 1810, 485, -1)->Set(aSelfDefense[1]);
-
-   //Grenze
-   CreateObject(BRDR, 2010, 0, -1)->Set(1);
-
-   //Flaggen
+   //Flaggenposten
    aFlag[0] = CreateObject(OFPL,160,350,NO_OWNER);
    aFlag[0] -> AddSpawnPoint(120,640);
    aFlag[0] -> AddSpawnPoint(355,690);
@@ -740,6 +734,12 @@ public func ChooserFinished()
    {
     aFlag[3]->Set("$Flag4$",0,2);
    }
+
+   //Konsole erstellen
+   CreateObject(CONS, 1810, 485, -1)->Set(aSelfDefense[1]);
+
+   //Grenze setzen
+   CreateObject(BRDR, 2010, 0, -1)->Set(1);
 
    //Türen öffnen
    aDoor[0]->Unlock();
