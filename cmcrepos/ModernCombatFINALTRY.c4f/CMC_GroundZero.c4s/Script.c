@@ -377,7 +377,7 @@ public func ChooserFinished()
   //DM/LMS-Spielziel
   if(FindObject(GTDM) || FindObject(GLMS))
   {
-   //Grenzen
+   //Grenzen setzen
    CreateObject(BRDR, 700, 0, -1)->Set(0);
    CreateObject(BRDR, 2100, 0, -1)->Set(1);
 
@@ -392,12 +392,13 @@ public func ChooserFinished()
   //CTF-Spielziel
   if(FindObject(GCTF))
   {
+   //Flaggen
    if(aTeams[1] == true)
    {CreateFlag(1,790,450,GetTeamColor(1));}
    if(aTeams[2] == true)
    {CreateFlag(2,2010,450,GetTeamColor(2));}
 
-   //Grenzen
+   //Grenzen setzen
    CreateObject(BRDR, 440, 0, -1)->Set(0);
    CreateObject(BRDR, 2360, 0, -1)->Set(1);
 
@@ -415,6 +416,22 @@ public func ChooserFinished()
    var flag = CreateObject(OFPL, 1400,420, -1);
    flag->~Set("$Flag3$");
 
+   //Grenzen setzen
+   CreateObject(BRDR, 440, 0, -1)->Set(0);
+   CreateObject(BRDR, 2360, 0, -1)->Set(1);
+
+   //Sandsackbarrieren
+   CreateObject(SBBA, 1221, 440, -1);
+   CreateObject(SBBA, 1281, 430, -1);
+   CreateObject(SBBA, 1520, 430, -1)->Right();
+   CreateObject(SBBA, 1580, 440, -1)->Right();
+
+   //Warnschilder
+   CreateObject(SGNP, 410, 290, -1);
+   CreateObject(SGNP, 460, 450, -1);
+   CreateObject(SGNP, 2340, 450, -1);
+   CreateObject(SGNP, 2385, 290, -1);
+
    //Zusätzliche Munition
    if(!FindObject(NOAM))
    {
@@ -424,48 +441,18 @@ public func ChooserFinished()
     //Raketen
     PlaceSpawnpoint(MBOX, 1430, 415);
    }
-
-   //Sandsackbarrieren
-   CreateObject(SBBA, 1221, 440, -1);
-   CreateObject(SBBA, 1281, 430, -1);
-   CreateObject(SBBA, 1520, 430, -1)->Right();
-   CreateObject(SBBA, 1580, 440, -1)->Right();
-
-   //Grenzen
-   CreateObject(BRDR, 440, 0, -1)->Set(0);
-   CreateObject(BRDR, 2360, 0, -1)->Set(1);
-
-   //Warnschilder
-   CreateObject(SGNP, 410, 290, -1);
-   CreateObject(SGNP, 460, 450, -1);
-   CreateObject(SGNP, 2340, 450, -1);
-   CreateObject(SGNP, 2385, 290, -1);
   }
 
   //Base Assault-Spielziel
   if(FindObject(GBAS))
   {
-   //SSA Besitzer setzen
-   if(aTeams[1] == true)
-   {aSelfDefense[0]->SetTeam(1);}
-   if(aTeams[2] == true)
-   {aSelfDefense[1]->SetTeam(2);}
-
-   //SSA anschalten
-   aSelfDefense[0]->TurnOn();
-   aSelfDefense[1]->TurnOn();
-
    //Strukturen
    AddAssaultTarget(CCP2, 100, 390, 400, 1, "$Flag1$", 0, [[130, 540], [200, 540], [260, 560]]);
    AddAssaultTarget(CMSN, 990, 520, 300, 1, "$Flag2$", 1, [[930, 320], [1120, 320], [1000, 170]]);
 
    AddAssaultTarget(CCP2, 2700, 390, 400, 2, "$Flag5$", 0, [[2670, 540], [2600, 540], [2540, 560]]);
    AddAssaultTarget(CMSN, 1810, 520, 300, 2, "$Flag4$", 1, [[1870, 320], [1680, 320], [1800, 170]]);
-  }
 
-  //OP-Spielziel
-  if(FindObject(GOCC))
-  {
    //SSA Besitzer setzen
    if(aTeams[1] == true)
    {aSelfDefense[0]->SetTeam(1);}
@@ -475,8 +462,12 @@ public func ChooserFinished()
    //SSA anschalten
    aSelfDefense[0]->TurnOn();
    aSelfDefense[1]->TurnOn();
+  }
 
-   //Flaggen
+  //OP-Spielziel
+  if(FindObject(GOCC))
+  {
+   //Flaggenposten
    aFlag[0] = CreateObject(OFPL,100,390,NO_OWNER);
    aFlag[0] -> AddSpawnPoint(100,570);
    aFlag[0] -> AddSpawnPoint(110,210);
@@ -523,6 +514,16 @@ public func ChooserFinished()
    {
     aFlag[4]->Set("$Flag5$",0,2);
    }
+
+   //SSA Besitzer setzen
+   if(aTeams[1] == true)
+   {aSelfDefense[0]->SetTeam(1);}
+   if(aTeams[2] == true)
+   {aSelfDefense[1]->SetTeam(2);}
+
+   //SSA anschalten
+   aSelfDefense[0]->TurnOn();
+   aSelfDefense[1]->TurnOn();
   }
 }
 

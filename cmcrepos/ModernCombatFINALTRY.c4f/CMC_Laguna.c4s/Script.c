@@ -214,10 +214,6 @@ func CreateFurniture()
   CreateObject(STDR, 735, 340, -1);
   CreateObject(STDR, 735, 540, -1);
 
-  //Grenzen
-  CreateObject(BRDR, 200, 0, -1)->Set(0);
-  CreateObject(BRDR, 3245, 0, -1)->Set(1);
-
   //Lampen
   aLamp[00]=CreateObject(BLGH, 560, 290, -1);
   aLamp[01]=CreateObject(BLGH, 560, 430, -1);
@@ -279,9 +275,6 @@ func CreateEquipment()
   SetupVehicleSpawn([INFL],DIR_Right,CreateObject(VSPW,1485,650,-1),10*10);
 
   SetupVehicleSpawn([INFL],DIR_Left,CreateObject(VSPW,2605,650,-1),10*10);
-
-  //Blackhawk
-  SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,2895,260,-1),100*21);
 }
 
 /* Regelwähler */
@@ -298,16 +291,13 @@ public func ChooserFinished()
   //DM/LMS-Spielziel
   if(FindObject(GTDM) || FindObject(GLMS))
   {
-   //Grenzen
+   //Grenzen setzen
    CreateObject(BRDR, 1300, 0, -1)->Set(0);
    CreateObject(BRDR, 2770, 0, -1)->Set(1);
 
    //Warnschilder
    CreateObject(SGNP, 1255, 440, -1);
    CreateObject(SGNP, 2745, 420, -1);
-
-   //Blackhawk entfernen
-   RemoveAll(BKHK);
   }
 
   //HTF-Spielziel
@@ -317,13 +307,7 @@ public func ChooserFinished()
    var flag = CreateObject(OFPL, 2015,610, -1);
    flag->~Set("$Flag3$");
 
-   //Projektilmunition
-   PlaceSpawnpoint(ABOX, 2070, 605);
-
-   //Raketen
-   PlaceSpawnpoint(MBOX, 1930, 500);
-
-   //Grenzen
+   //Grenzen setzen
    CreateObject(BRDR, 1300, 0, -1)->Set(0);
    CreateObject(BRDR, 2770, 0, -1)->Set(1);
 
@@ -331,20 +315,20 @@ public func ChooserFinished()
    CreateObject(SGNP, 1255, 440, -1);
    CreateObject(SGNP, 2745, 420, -1);
 
-   //Blackhawk entfernen
-   RemoveAll(BKHK);
+   //Zusätzliche Munition
+   if(!FindObject(NOAM))
+   {
+    //Projektilmunition
+    PlaceSpawnpoint(ABOX, 2070, 605);
+
+    //Raketen
+    PlaceSpawnpoint(MBOX, 1930, 500);
+   }
   }
 
   //Assault-Spielziel
   if (FindObject(GASS))
   {
-   //Grenzen
-   CreateObject(BRDR, 230, 0, -1)->Set(0,1);
-   CreateObject(BRDR, 1820, 0, -1)->Set(1,1);
-
-   //Automat entfernen
-   RemoveAll(SPVM);
-
    //Zielobjekte
    AddAssaultTarget(RADR, 1450, 490, 250, 2, "$Target1$", 0, [[[1730, 480], [1730, 580]], [[580, 140], [580, 140], [580, 490]]]);
    AddAssaultTarget(CMSN, 1410, 590, 250, 2, "$Target2$", 1, [[[1730, 480], [1730, 580]], [[580, 140], [580, 140], [580, 490]]]);
@@ -355,12 +339,22 @@ public func ChooserFinished()
    //Ziele verbinden
    ConnectAssaultTargets([0, 1]);
    ConnectAssaultTargets([3, 4]);
+
+   //Grenzen setzen
+   CreateObject(BRDR, 230, 0, -1)->Set(0,1);
+   CreateObject(BRDR, 1820, 0, -1)->Set(1,1);
+
+   //Automat entfernen
+   RemoveAll(SPVM);
+
+   //Blackhawk
+   SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,2895,260,-1),100*21);
   }
 
   //OP-Spielziel
   if(FindObject(GOCC))
   {
-   //Flaggen
+   //Flaggenposten
    aFlag[0] = CreateObject(OFPL,580,340,NO_OWNER);
    aFlag[0] -> AddSpawnPoint(700,190);
    aFlag[0] -> AddSpawnPoint(560,530);
@@ -409,6 +403,13 @@ public func ChooserFinished()
    {
     aFlag[3]->Set("$Flag4$",0,2);
    }
+
+   //Grenzen setzen
+   CreateObject(BRDR, 200, 0, -1)->Set(0);
+   CreateObject(BRDR, 3245, 0, -1)->Set(1);
+
+   //Blackhawk
+   SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,2895,260,-1),100*21);
   }
 }
 

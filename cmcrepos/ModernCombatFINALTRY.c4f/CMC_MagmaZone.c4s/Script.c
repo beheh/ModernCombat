@@ -236,7 +236,7 @@ public func ChooserFinished()
   //DM/LMS-Spielziel
   if(FindObject(GTDM) || FindObject(GLMS))
   {
-   //Grenzen
+   //Grenzen setzen
    CreateObject(BRDR, 510, 0, -1)->Set(0);
    CreateObject(BRDR, 1965, 0, -1)->Set(1);
 
@@ -254,6 +254,7 @@ public func ChooserFinished()
   //CTF-Spielziel
   if(FindObject(GCTF))
   {
+   //Flaggen
    if(aTeams[1] == true)
    {CreateFlag(1,455,330,GetTeamColor(1));}
    if(aTeams[2] == true)
@@ -276,7 +277,7 @@ public func ChooserFinished()
   //OP-Spielziel
   if(FindObject(GOCC))
   {
-   //Flaggen
+   //Flaggenposten
    aFlag[0] = CreateObject(OFPL,165,300,NO_OWNER);
    aFlag[0] -> AddSpawnPoint(300,490);
    aFlag[0] -> AddSpawnPoint(355,450);

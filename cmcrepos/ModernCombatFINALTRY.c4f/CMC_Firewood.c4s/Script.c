@@ -282,6 +282,7 @@ public func ChooserFinished()
   //CTF-Spielziel
   if(FindObject(GCTF))
   {
+   //Flaggen
    if(aTeams[1] == true)
    {CreateFlag(1,465,300,GetTeamColor(1));}
    if(aTeams[2] == true)
@@ -295,7 +296,7 @@ public func ChooserFinished()
   //OP-Spielziel
   if(FindObject(GOCC))
   {
-   //Flaggen
+   //Flaggenposten
    aFlag[0] = CreateObject(OFPL,465,300,NO_OWNER);
    aFlag[0] -> AddSpawnPoint(190,380);
    aFlag[0] -> AddSpawnPoint(430,380);

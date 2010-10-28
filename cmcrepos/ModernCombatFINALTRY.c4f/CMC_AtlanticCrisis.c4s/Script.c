@@ -353,10 +353,6 @@ func CreateEquipment()
   SetupVehicleSpawn([INFL],DIR_Left,CreateObject(VSPW,2990,620,-1),50*21,300);
   SetupVehicleSpawn([INFL],DIR_Left,CreateObject(VSPW,4310,620,-1),50*21,300);
 
-  //Blackhawks
-  SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,1655,370,-1),100*21,300);
-  SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,4355,370,-1),100*21,300);
-
   //Automaten
   var store = CreateObject(WPVM,1500, 530,-1);
   store->AddWare(C4PA,-1);
@@ -404,6 +400,7 @@ public func ChooserFinished()
   //CTF-Spielziel
   if(FindObject(GCTF))
   {
+   //Flaggen
    if(aTeams[1] == true)
    {CreateFlag(1,1520,600,GetTeamColor(1));}
    if(aTeams[2] == true)
@@ -416,6 +413,10 @@ public func ChooserFinished()
    //Flaggenposten
    var flag = CreateObject(OFPL, 2990, 380, -1);
    flag->~Set("$Flag2$");
+
+   //Blackhawks
+   SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,1655,370,-1),100*21,300);
+   SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,4355,370,-1),100*21,300);
 
    //Zusätzliche Munition
    if(!FindObject(NOAM))
@@ -436,12 +437,16 @@ public func ChooserFinished()
    AddAssaultTarget(CMSN, 1610, 600, 500, 1, "$Flag1$", 0, [[1680, 540], [1340, 500]]);
 
    AddAssaultTarget(CMSN, 4400, 600, 500, 2, "$Flag3$", 1, [[4330, 540], [4690, 500]]);
+
+   //Blackhawks
+   SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,1655,370,-1),100*21,300);
+   SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,4355,370,-1),100*21,300);
   }
 
   //OP-Spielziel
   if(FindObject(GOCC))
   {
-   //Flaggen
+   //Flaggenposten
    aFlag[0] = CreateObject(OFPL,1320,500,NO_OWNER);
    aFlag[0] -> AddSpawnPoint(1500, 590);
    aFlag[0] -> AddSpawnPoint(1610, 390);
@@ -475,6 +480,10 @@ public func ChooserFinished()
    {
     aFlag[2]->Set("$Flag3$",0,2);
    }
+
+   //Blackhawks
+   SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,1655,370,-1),100*21,300);
+   SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,4355,370,-1),100*21,300);
   }
 }
 

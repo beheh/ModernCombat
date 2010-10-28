@@ -268,6 +268,7 @@ public func ChooserFinished()
   //HTF-Spielziel
   if (FindObject(GHTF))
   {
+   //Flaggenposten
    var flag = CreateObject(OFPL, 2120, 690, -1);
    flag->~Set("$Flag5$");
 
@@ -299,7 +300,7 @@ public func ChooserFinished()
   //OP-Spielziel
   if(FindObject(GOCC))
   {
-   //Flaggen
+   //Flaggenposten
    aFlag[0] = CreateObject(OFPL,630,590,NO_OWNER);
    aFlag[0] -> AddSpawnPoint(460,740);
    aFlag[0] -> AddSpawnPoint(580,680);
