@@ -32,7 +32,7 @@ public func OnDmg(int iDmg, int iType)
 public func OnDestroyed(iType)
 {
   //Effekte
-  if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("WoodSplinter", 3, 80, 0,0, 70, 155, RGBa(255,255,255,0), RGBa(255,0,0,0));
+  if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("WoodSplinter", 3, 80, 0,0, 70, 155);
   Sound("CrateCrack.ogg");
 
   SetAction("Destroyed");
