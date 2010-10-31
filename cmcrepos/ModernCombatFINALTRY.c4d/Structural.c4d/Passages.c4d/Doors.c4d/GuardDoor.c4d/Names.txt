@@ -1,0 +1,2 @@
+DE:Schutztür
+US:Guard Door

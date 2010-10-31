@@ -1,0 +1,70 @@
+/*-- Schutzt¸r --*/
+
+#strict
+
+#include GBDR
+
+local Status;
+
+
+/* Initialisierung */
+
+public func Initialize()
+{
+  SetAction("Close");
+  _inherited();
+  //Maximalschaden festlegen
+  SetMaxDamage(80);
+  //Standardfarbe: Rot
+  SetColorDw(HSL(250, 210, 100, 127));
+}
+
+/* Schaden */
+
+public func OnDmg(int iDmg, int iType)
+{
+  if(iType == DMG_Projectile)	return 50;	//Projektile
+  if(iType == DMG_Melee)	return 50;	//Nahkampf
+  if(iType == DMG_Energy)	return 50;	//Energie
+  if(iType == DMG_Bio)		return 100;	//S‰ure und biologische Schadstoffe
+}
+
+public func OnDestroyed(iType)
+{
+  //Effekte
+  if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("WoodSplinter", 3, 80, 0,0, 70, 155, RGBa(255,255,255,0), RGBa(255,0,0,0));
+  Sound("CrateCrack.ogg");
+
+  SetAction("Destroyed");
+}
+
+/* ÷ffnen und Schlieﬂen */
+
+public func OnOpen()
+{
+  if( GetAction() eq "Open" || Status) return(0);
+
+  SetAction("Open");
+  SetSolidMask(0);
+  Status = true;
+
+  Sound("GDDR_Open*.ogg");
+}
+
+public func OnClose()
+{
+  if( GetAction() eq "Close"|| !Status) return(0);  
+  SetAction("Close");
+  Status = false;
+  SetSolidMask(12, 0, 10, 30, 12, 0);
+
+  Sound("GDDR_Close*.ogg");
+}
+
+/* Serialisierung */
+
+public func Serialize(array& extra)
+{
+  if (destroyed)
+    extra[GetLength(extra)] = "SetAction(\"Destroyed\")";
+}
