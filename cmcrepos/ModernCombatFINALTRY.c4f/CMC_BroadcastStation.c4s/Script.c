@@ -67,7 +67,12 @@ func CreateFurniture()
   tmp->Lock();
   tmp->SetMaxDamage(-1);
 
-  //Tür
+  //Schutztüren
+  CreateObject(GDDR, 690, 510, -1);
+  CreateObject(GDDR, 1388, 300, -1);
+  CreateObject(GDDR, 1553, 180, -1);
+
+  //Raum
   CreateObject(ROM2, 50, 490, -1);
 
   //Alarmlampen
@@ -137,11 +142,6 @@ func CreateFurniture()
   CreateObject(FRAM, 400, 500, -1);
   CreateObject(FRAM, 420, 500, -1);
   CreateObject(FRAM, 440, 500, -1);
-
-  //Türen
-  CreateObject(STDR, 690, 510, -1);
-  CreateObject(STDR, 1388, 300, -1);
-  CreateObject(STDR, 1553, 180, -1);
 
   ///Rampen
   DrawMaterialQuad("Backwall-Marble1",311,490,281,480,281,490,296,490,true);

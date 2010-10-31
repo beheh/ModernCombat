@@ -156,13 +156,13 @@ func CreateFurniture()
   CreateObject(FRAM, 2675, 380, -1);
   CreateObject(FRAM, 2705, 380, -1);
 
-  //Stahltüren
-  CreateObject(STDR, 405, 390, -1);
-  CreateObject(STDR, 675, 390, -1);
-  CreateObject(STDR, 1485, 210, -1);
-  CreateObject(STDR, 1795, 210, -1);
-  CreateObject(STDR, 2605, 390, -1);
-  CreateObject(STDR, 2875, 390, -1);
+  //Schutztüren
+  CreateObject(GDDR, 405, 390, -1)->SetColorDw(HSL(145, 210, 100, 127));
+  CreateObject(GDDR, 675, 390, -1)->SetColorDw(HSL(145, 210, 100, 127));
+  CreateObject(GDDR, 1485, 210, -1)->SetColorDw(HSL(40, 210, 100, 127));
+  CreateObject(GDDR, 1795, 210, -1)->SetColorDw(HSL(40, 210, 100, 127));
+  CreateObject(GDDR, 2605, 390, -1);
+  CreateObject(GDDR, 2875, 390, -1);
 
   //Metallkisten
   CreateObject(MWCR, 720, 390, -1);

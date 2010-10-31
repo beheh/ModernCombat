@@ -277,15 +277,15 @@ func CreateFurniture()
   CreateObject(VENT, 500, 1670, -1)->SetCon(20);
   CreateObject(VENT, 670, 1670, -1)->SetCon(20);
 
-  //Einfache Türen
-  CreateObject(LBDR, 450, 870, -1);
-  CreateObject(LBDR, 720, 870, -1);
-  CreateObject(LBDR, 450, 980, -1);
-  CreateObject(LBDR, 720, 980, -1);
-  CreateObject(LBDR, 475, 1490, -1);
-  CreateObject(LBDR, 695, 1490, -1);
-  CreateObject(LBDR, 475, 1610, -1);
-  CreateObject(LBDR, 695, 1610, -1);
+  //Schutztüren
+  CreateObject(GDDR, 450, 870, -1);
+  CreateObject(GDDR, 720, 870, -1)->SetColorDw(HSL(145, 210, 100, 127));
+  CreateObject(GDDR, 450, 980, -1);
+  CreateObject(GDDR, 720, 980, -1)->SetColorDw(HSL(145, 210, 100, 127));
+  CreateObject(GDDR, 475, 1490, -1);
+  CreateObject(GDDR, 695, 1490, -1)->SetColorDw(HSL(145, 210, 100, 127));
+  CreateObject(GDDR, 475, 1610, -1);
+  CreateObject(GDDR, 695, 1610, -1)->SetColorDw(HSL(145, 210, 100, 127));
 
   //Tore und Konsolen
   var autod = CreateObject (HNG2, 450, 1250, -1);

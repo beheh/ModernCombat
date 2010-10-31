@@ -122,11 +122,11 @@ func CreateFurniture()
   CreateObject(BSH2, 2770, 570, -1);
   CreateObject(BSH2, 3180, 425, -1);
 
-  //Stahltüren
-  CreateObject(STDR, 2795, 530, -1);
-  CreateObject(STDR, 2875, 460, -1);
-  CreateObject(STDR, 3105, 460, -1);
-  CreateObject(STDR, 3185, 530, -1);
+  //Schutztüren
+  CreateObject(GDDR, 2795, 530, -1);
+  CreateObject(GDDR, 2875, 460, -1);
+  CreateObject(GDDR, 3105, 460, -1);
+  CreateObject(GDDR, 3185, 530, -1);
 
   //Bojen
   CreateObject(BUOY, 1180, 633, -1);
