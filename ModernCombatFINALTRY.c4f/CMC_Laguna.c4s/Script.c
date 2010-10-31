@@ -207,12 +207,12 @@ func CreateFurniture()
   CreateObject(ETLT, 705, 320, -1);
   CreateObject(ETLT, 2960, 390, -1);
 
-  //Stahltüren
-  CreateObject(STDR, 515, 340, -1);
-  CreateObject(STDR, 515, 540, -1);
+  //Schutztüren
+  CreateObject(GDDR, 515, 340, -1);
+  CreateObject(GDDR, 515, 540, -1);
 
-  CreateObject(STDR, 735, 340, -1);
-  CreateObject(STDR, 735, 540, -1);
+  CreateObject(GDDR, 735, 340, -1);
+  CreateObject(GDDR, 735, 540, -1);
 
   //Lampen
   aLamp[00]=CreateObject(BLGH, 560, 290, -1);

@@ -107,7 +107,7 @@ func CreateFurniture()
   CreateObject (JMPD, 705, 440, -1)->Set(85, -9);
   CreateObject (JMPD, 840, 360, -1)->Set(91, 13);
 
-  //Tür
+  //Raum
   CreateObject(ROOM, 895, 500, -1);
 
   //Labortische

@@ -180,14 +180,14 @@ func CreateFurniture()
   CreateObject(RADR, 5, 90, -1);
   CreateObject(RADR, 1635, 90, -1);
 
-  //Stahltüren
-  CreateObject(STDR, 450, 520, -1);
-  CreateObject(STDR, 595, 600, -1);
-  CreateObject(STDR, 595, 700, -1);
+  //Schutztüren
+  CreateObject(GDDR, 450, 520, -1);
+  CreateObject(GDDR, 595, 600, -1);
+  CreateObject(GDDR, 595, 700, -1);
 
-  CreateObject(STDR, 1045, 600, -1);
-  CreateObject(STDR, 1045, 700, -1);
-  CreateObject(STDR, 1190, 520, -1);
+  CreateObject(GDDR, 1045, 600, -1);
+  CreateObject(GDDR, 1045, 700, -1);
+  CreateObject(GDDR, 1190, 520, -1);
 
   //Dekoschleusen
   CreateObject(GAT1, 40, 480, -1);
@@ -318,7 +318,7 @@ func CreateFurniture()
   CreateObject(ROM3, 60, 520, -1);
   CreateObject(ROM3, 1510, 520, -1);
 
-  //Verbundene Türen
+  //Verbundene Räume
   var doorw = CreateObject(ROOM, 70, 170, -1);
   CreateObject(ROOM, 270, 680, -1)->Connect(doorw);
 

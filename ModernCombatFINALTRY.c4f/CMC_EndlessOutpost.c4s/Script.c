@@ -100,21 +100,21 @@ func CreateFurniture()
   CreateObject(H24K, 1205, 448, -1);
   CreateObject(H24K, 1985, 118, -1);
 
-  //Stahltüren
-  CreateObject(STDR, 815, 410, -1)->Lock();
-  CreateObject(STDR, 875, 550, -1);
-  CreateObject(STDR, 965, 550, -1);
-  CreateObject(STDR, 1065, 260, -1);
-  CreateObject(STDR, 1065, 430, -1);
-  CreateObject(STDR, 1165, 260, -1);
-  CreateObject(STDR, 1245, 260, -1);
-  CreateObject(STDR, 1445, 200, -1);
-  CreateObject(STDR, 1695, 290, -1);
-  CreateObject(STDR, 1795, 210, -1);
-  CreateObject(STDR, 1795, 290, -1);
-  CreateObject(STDR, 1905, 400, -1);
+  //Schutztüren
+  CreateObject(GDDR, 815, 410, -1)->Lock();
+  CreateObject(GDDR, 875, 550, -1);
+  CreateObject(GDDR, 965, 550, -1)->SetColorDw(HSL(200, 150, 100, 127));
+  CreateObject(GDDR, 1065, 260, -1)->SetColorDw(HSL(200, 150, 100, 127));
+  CreateObject(GDDR, 1065, 430, -1)->SetColorDw(HSL(200, 150, 100, 127));
+  CreateObject(GDDR, 1165, 260, -1)->SetColorDw(HSL(200, 150, 100, 127));
+  CreateObject(GDDR, 1245, 260, -1)->SetColorDw(HSL(200, 150, 100, 127));
+  CreateObject(GDDR, 1445, 200, -1);
+  CreateObject(GDDR, 1695, 290, -1)->SetColorDw(HSL(200, 150, 100, 127));
+  CreateObject(GDDR, 1795, 210, -1)->SetColorDw(HSL(200, 150, 100, 127));
+  CreateObject(GDDR, 1795, 290, -1)->SetColorDw(HSL(200, 150, 100, 127));
+  CreateObject(GDDR, 1905, 400, -1)->SetColorDw(HSL(200, 150, 100, 127));
 
-  //Geschlossene Stahltüren
+  //Hydrauliktüren
   CreateObject(SEDR,2070, 110,-1)->Lock();
   CreateObject(SEDR,2560, 410,-1)->Lock();
 
@@ -475,7 +475,7 @@ func CreateFurniture()
   CreateObject(ETLT, 1480, 170, -1);
   CreateObject(ETLT, 2530, 395, -1);
 
-  //Türen
+  //Hydrauliküren
   aDoor[0] = CreateObject(SEDR,1225, 560,-1);
    aDoor[0]->Lock();
    aDoor[0]->SetMaxDamage(-1);

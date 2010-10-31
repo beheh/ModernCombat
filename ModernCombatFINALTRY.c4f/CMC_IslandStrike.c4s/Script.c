@@ -284,30 +284,28 @@ func CreateFurniture()
   CreateObject(MSGN, 6535, 410, -1);
   CreateObject(MSGN, 6545, 410, -1);
 
-  //Einfache Türen
-  CreateObject(LBDR, 975, 270, -1);
-  CreateObject(LBDR, 1063, 270, -1);
-  CreateObject(LBDR, 7304, 360, -1);
-
-  //Stahltüren
-  CreateObject(STDR, 2650, 410, -1);
-  CreateObject(STDR, 2700, 620, -1);
-  CreateObject(STDR, 2810, 410, -1);
-  CreateObject(STDR, 2990, 510, -1);
-  CreateObject(STDR, 2990, 620, -1);
-  CreateObject(STDR, 3420, 630, -1);
-  CreateObject(STDR, 3450, 520, -1);
-  CreateObject(STDR, 3690, 530, -1);
-  CreateObject(STDR, 4310, 410, -1);
-  CreateObject(STDR, 4430, 390, -1);
-  CreateObject(STDR, 4520, 580, -1);
-  CreateObject(STDR, 5610, 400, -1);
-  CreateObject(STDR, 5860, 510, -1);
-  CreateObject(STDR, 6160, 510, -1);
-  CreateObject(STDR, 6160, 620, -1);
-  CreateObject(STDR, 6340, 410, -1);
-  CreateObject(STDR, 6450, 620, -1);
-  CreateObject(STDR, 6500, 410, -1);
+  //Schutztüren
+  CreateObject(GDDR, 990, 270, -1);
+  CreateObject(GDDR, 1060, 270, -1);
+  CreateObject(GDDR, 2650, 410, -1);
+  CreateObject(GDDR, 2700, 620, -1);
+  CreateObject(GDDR, 2810, 410, -1);
+  CreateObject(GDDR, 2990, 510, -1);
+  CreateObject(GDDR, 2990, 620, -1);
+  CreateObject(GDDR, 3420, 630, -1);
+  CreateObject(GDDR, 3450, 520, -1);
+  CreateObject(GDDR, 3690, 530, -1);
+  CreateObject(GDDR, 4310, 410, -1);
+  CreateObject(GDDR, 4430, 390, -1);
+  CreateObject(GDDR, 4520, 580, -1);
+  CreateObject(GDDR, 5610, 400, -1);
+  CreateObject(GDDR, 5860, 510, -1);
+  CreateObject(GDDR, 6160, 510, -1);
+  CreateObject(GDDR, 6160, 620, -1);
+  CreateObject(GDDR, 6340, 410, -1);
+  CreateObject(GDDR, 6450, 620, -1);
+  CreateObject(GDDR, 6500, 410, -1);
+  CreateObject(GDDR, 7320, 360, -1);
 
   //Pflanzen
   CreateObject(PLNT, 1120, 525, -1);
@@ -337,7 +335,7 @@ func CreateFurniture()
   CreateObject(STNE, 6640, 670, -1);
   CreateObject(STNE, 7410, 570, -1);
 
-  //Verbundene Türen
+  //Verbundene Räume
   var doorw = CreateObject(GAT1, 2960, 333, -1);
   CreateObject(ROOM, 3570, 410, -1)->Connect(doorw);
   doorw = CreateObject(GAT1, 3845, 685, -1);

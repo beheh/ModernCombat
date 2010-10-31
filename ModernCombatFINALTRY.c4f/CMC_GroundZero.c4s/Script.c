@@ -242,41 +242,38 @@ func CreateFurniture()
   CreateObject(ETLT, 325, 430, -1);
   CreateObject(ETLT, 2475, 430, -1);
 
-  //Stahltüren
-  CreateObject(SLDR, 585, 320, -1);
-  CreateObject(SLDR, 645, 320, -1);
+  //Schutztüren
+  CreateObject(GDDR, 230, 290, -1);
+  CreateObject(GDDR, 350, 390, -1);
+  CreateObject(GDDR, 350, 460, -1);
 
-  CreateObject(SLDR, 2155, 320, -1);
-  CreateObject(SLDR, 2215, 320, -1);
+  CreateObject(GDDR, 530, 450, -1);
+  CreateObject(GDDR, 540, 390, -1);
+  CreateObject(GDDR, 580, 320, -1);
+  CreateObject(GDDR, 650, 320, -1);
+  CreateObject(GDDR, 690, 390, -1);
+  CreateObject(GDDR, 700, 450, -1);
 
-  //Einfache Türen
-  CreateObject(LBDR, 225, 290, -1);
-  CreateObject(LBDR, 345, 390, -1);
-  CreateObject(LBDR, 345, 460, -1);
+  CreateObject(GDDR, 990, 260, -1)->SetColorDw(HSL(0, 0, 120, 127));
+  CreateObject(GDDR, 990, 370, -1)->SetColorDw(HSL(0, 0, 120, 127));
+  CreateObject(GDDR, 1060, 260, -1)->SetColorDw(HSL(0, 0, 120, 127));
+  CreateObject(GDDR, 1060, 370, -1)->SetColorDw(HSL(0, 0, 120, 127));
 
-  CreateObject(LBDR, 535, 390, -1);
-  CreateObject(LBDR, 525, 450, -1);
-  CreateObject(LBDR, 685, 390, -1);
-  CreateObject(LBDR, 695, 450, -1);
+  CreateObject(GDDR, 1740, 260, -1)->SetColorDw(HSL(0, 0, 120, 127));
+  CreateObject(GDDR, 1740, 370, -1)->SetColorDw(HSL(0, 0, 120, 127));
+  CreateObject(GDDR, 1810, 260, -1)->SetColorDw(HSL(0, 0, 120, 127));
+  CreateObject(GDDR, 1810, 370, -1)->SetColorDw(HSL(0, 0, 120, 127));
 
-  CreateObject(LBDR, 985, 260, -1);
-  CreateObject(LBDR, 985, 370, -1);
-  CreateObject(LBDR, 1055, 260, -1);
-  CreateObject(LBDR, 1055, 370, -1);
+  CreateObject(GDDR, 2100, 450, -1);
+  CreateObject(GDDR, 2110, 390, -1);
+  CreateObject(GDDR, 2150, 320, -1);
+  CreateObject(GDDR, 2220, 320, -1);
+  CreateObject(GDDR, 2260, 390, -1);
+  CreateObject(GDDR, 2270, 450, -1);
 
-  CreateObject(LBDR, 1735, 260, -1);
-  CreateObject(LBDR, 1735, 370, -1);
-  CreateObject(LBDR, 1805, 260, -1);
-  CreateObject(LBDR, 1805, 370, -1);
-
-  CreateObject(LBDR, 2095, 450, -1);
-  CreateObject(LBDR, 2105, 390, -1);
-  CreateObject(LBDR, 2255, 390, -1);
-  CreateObject(LBDR, 2265, 450, -1);
-
-  CreateObject(LBDR, 2565, 290, -1);
-  CreateObject(LBDR, 2445, 390, -1);
-  CreateObject(LBDR, 2445, 460, -1);
+  CreateObject(GDDR, 2450, 390, -1);
+  CreateObject(GDDR, 2450, 460, -1);
+  CreateObject(GDDR, 2570, 290, -1);
 
   //Hintergründe (Docks)
   CreateObject(_DCK,220,550,-1);

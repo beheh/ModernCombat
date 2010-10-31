@@ -67,12 +67,12 @@ func CreateFurniture()
   CreateObject(HA4K, 3450, 593, -1);
   CreateObject(HA4K, 3780, 503, -1);
 
-  //Stahltüren
-  CreateObject(STDR, 1125, 670, -1);
-  CreateObject(STDR, 1275, 670, -1);
+  //Schutztüren
+  CreateObject(GDDR, 1125, 670, -1);
+  CreateObject(GDDR, 1275, 670, -1);
 
-  CreateObject(STDR, 2965, 670, -1);
-  CreateObject(STDR, 3115, 670, -1);
+  CreateObject(GDDR, 2965, 670, -1)->SetColorDw(HSL(145, 210, 100, 127));
+  CreateObject(GDDR, 3115, 670, -1)->SetColorDw(HSL(145, 210, 100, 127));
 
   //Sandsackbarrieren
   CreateObject(SBBA, 360, 560, -1);
@@ -161,7 +161,7 @@ func CreateFurniture()
   //Grenzen
   CreateObject(BRDR, 0, 1110, -1)->Set(3);
 
-  //Verbundene Türen
+  //Verbundene Räume
   var doorw = CreateObject(ROOM, 740, 760, -1);
   CreateObject(ROOM, 1160, 760, -1)->Connect(doorw);
 

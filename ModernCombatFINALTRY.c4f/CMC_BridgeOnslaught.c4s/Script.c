@@ -105,7 +105,7 @@ func CreateFurniture()
   tmp->SetMaxDamage(-1);
   tmp->SetSwitchLock(DIR_Left);
 
-  //Verbundene Türen
+  //Verbundene Räume
   var doorw = CreateObject(ROOM, 200, 530, -1);
   CreateObject(ROOM, 2530, 530, -1)->Connect(doorw);
 
