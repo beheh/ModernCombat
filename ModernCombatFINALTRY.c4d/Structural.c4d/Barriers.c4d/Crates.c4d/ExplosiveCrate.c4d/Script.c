@@ -22,24 +22,27 @@ func IncinerationEx(int iPlr)
 
 func Damage(int iChange, int iPlr)
 {
+  SetController(iPlr);
   if(GetDamage() > 0)
-      Incinerate();
-      
+    Incinerate();
+
   if(GetDamage() < 70) return;
-  
+
   ScheduleCall(this, "InstaExplode", 1, 0, iPlr);
 }
 
 public func InstaExplode(int iPlr)
 {
-	if(blasted) return;
-	blasted = true;
-	
+  if(blasted) return;
+  blasted = true;
+
+  SetController(iPlr);
+
   //Effektgehasche
   if(GetEffectData(EFSM_ExplosionEffects) > 1)
   {
-   CastParticles("WoodenCrateSplinter", 4, 50, 0,0, 141, RGBa(80,0,0,0), RGBa(30,0,0,0));
-   CastParticles("WoodSplinter", 10, 200, 0,0, 50, 75, RGBa(80,0,0,0), RGBa(30,0,0,0));
+    CastParticles("WoodenCrateSplinter", 4, 50, 0,0, 141, RGBa(80,0,0,0), RGBa(30,0,0,0));
+    CastParticles("WoodSplinter", 10, 200, 0,0, 50, 75, RGBa(80,0,0,0), RGBa(30,0,0,0));
   }
   Sound("CrateCrack.ogg");
 
@@ -48,13 +51,14 @@ public func InstaExplode(int iPlr)
   {
     var inc = GetDefCoreVal("ContactIncinerate",0,GetID(obj));
     if(!inc) continue;
-    
+
     if(inc <= 2)
     {
       Incinerate(obj);
       continue; 
     }
-    else {
+    else
+    {
       if(!Random(inc-2))
       {
         Incinerate(obj);
@@ -63,9 +67,8 @@ public func InstaExplode(int iPlr)
     }
   }
   AddLightFlash(50, 0,0, RGBa(255,255,200,100));
-  
+
   //Explosion
-  SetController(iPlr);
   FakeExplode(45, iPlr+1);
   FakeExplode(30, iPlr+1);
   RemoveObject(this);
