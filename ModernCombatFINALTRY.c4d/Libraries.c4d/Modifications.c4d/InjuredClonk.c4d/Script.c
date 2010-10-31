@@ -12,7 +12,7 @@ public func IsAiming()		{}
 public func MenuQueryCancel()	{return true;}
 
 
-/* Initalisierung */
+/* Initialisierung */
 
 protected func Initialize()
 {
@@ -29,14 +29,14 @@ public func Set(object pClonk)
   SetPosition(GetX(pClonk),GetY(pClonk));
   SetXDir(GetXDir(pClonk));
   SetYDir(GetYDir(pClonk));
-  
+
   //Reanimationszeichen erstellen
   CreateObject(SM01,0,0,GetOwner(pClonk))->Set(this);
-  
+
   //CTF-Flagge entfernen
   for(var content in FindObjects(Find_ActionTarget(pClonk),Find_ID(FLA2)))
-   if(GetID(content) == FLA2)
-    content->~AttachTargetLost();
+    if(GetID(content) == FLA2)
+      content->~AttachTargetLost();
 
   //Clonk aufnehmen
   Enter(this, pClonk);
@@ -44,7 +44,7 @@ public func Set(object pClonk)
   pClonk->~GrabGrenades(this);
   //Objekte des Clonks aufnehmen
   GrabContents(pClonk);
-  
+
   //Aussehen des Clonks imitieren
   SetGraphics(0,this,GetID(pClonk),1,GFXOV_MODE_Object,0,0,pClonk);
 
@@ -74,11 +74,12 @@ public func KillMessage(string msg)
 {
   //Killnachricht setzen
   killmsg = msg;
-  
+
   //Spieler hat Hilfen aktiviert: Quicktipp geben
-  if (clonk && !GetPlrExtraData(GetOwner(clonk), "Hazard_NoHelpMsg")) {
+  if (clonk && !GetPlrExtraData(GetOwner(clonk), "Hazard_NoHelpMsg"))
+  {
     var array = GetQuickTipp(this);
-	idTipp = array[0];
+      idTipp = array[0];
     szTipp = array[1];
   }
 
@@ -128,23 +129,24 @@ private func DeathMenu()
   if (szTipp)
   {
     AddMenuItem("", "", NONE, clonk, 0, 0, "", 512, 0, 0);					//Leerzeile
-    AddMenuItem(Format("{{%i}} $Tip$", idTipp),"", NONE, clonk, 0, 0, "", 512, 0, 0);			//Zufälliger Tipp
+    AddMenuItem(Format("{{%i}} $Tip$", idTipp),"", NONE, clonk, 0, 0, "", 512, 0, 0);		//Zufälliger Tipp
     AddMenuItem(szTipp,"", NONE, clonk, 0, 0, "", 512, 0, 0);
   }
 
   var obj;
   if (obj = FindObject(RWDS))									//Punktestatistik erstellen
   {
-   AddMenuItem("", "", NONE, clonk, 0, 0, "", 512, 0, 0);					//Leerzeile
-   AddMenuItem(Format("$Points$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);	//Titel
-   //Einsortieren
-   var aList = [], iPlr, aData = obj->~GetData(), szString = "";
-   while(aData[iPlr] != 0) {
-     var iTeam = obj->~GetPlayerData(RWDS_PlayerTeam, iPlr);
-     if(!aList[iTeam]) aList[iTeam] = [];
-     szString = Format("%s: %d", obj->~GetPlayerData(RWDS_PlayerName, iPlr), obj->~GetPlayerPoints(RWDS_TotalPoints, iPlr));
-     aList[iTeam][GetLength(aList[iTeam])] = szString;
-     iPlr++;
+    AddMenuItem("", "", NONE, clonk, 0, 0, "", 512, 0, 0);					//Leerzeile
+    AddMenuItem(Format("$Points$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);	//Titel
+    //Einsortieren
+    var aList = [], iPlr, aData = obj->~GetData(), szString = "";
+    while(aData[iPlr] != 0)
+    {
+      var iTeam = obj->~GetPlayerData(RWDS_PlayerTeam, iPlr);
+      if(!aList[iTeam]) aList[iTeam] = [];
+      szString = Format("%s: %d", obj->~GetPlayerData(RWDS_PlayerName, iPlr), obj->~GetPlayerPoints(RWDS_TotalPoints, iPlr));
+      aList[iTeam][GetLength(aList[iTeam])] = szString;
+      iPlr++;
     }
     //Teamweise ausgeben
     for (var aTeam in aList)
@@ -155,8 +157,8 @@ private func DeathMenu()
   }
 
   if(suicide <= 0)
-   Suicide();
-  
+    Suicide();
+
   if(selection >= 0) SelectMenuItem(selection, clonk);
 }
 
@@ -176,7 +178,7 @@ private func GetQuickTipp(object pFake)
       id[GetLength(id)] = GetID(obj);
       array[GetLength(array)] = tipp;
     }
-  //Keine Tipps? Oo
+  //Keine Tipps
   if (!array || GetType(array) != C4V_Array || !GetLength(array))
     return GetGeneralTipp();
   return GetRandomTipp(array);
@@ -231,8 +233,8 @@ public func Suicide()
 {
   //Clonkinventar löschen sofern Arenaregel aktiv
   if(FindObject(NODR))
-   for(var item in FindObjects(Find_Container(this),Find_Not(Find_OCF(OCF_Living))))
-    RemoveObject(item);
+    for(var item in FindObjects(Find_Container(this),Find_Not(Find_OCF(OCF_Living))))
+      RemoveObject(item);
 
   if(clonk)
   {
@@ -249,7 +251,7 @@ public func Suicide()
   RemoveObject();
 }
 
-public func GetClonk()	{return clonk;}
+public func GetClonk()		{return clonk;}
 
 /* Zerstörung */
 
@@ -278,10 +280,11 @@ public func Reanimation()
   //Besitztümer weitergeben
   if(GetAlive(clonk))
   {
-  	clonk->GrabContents(this);
-  	for(var item in FindObjects(Find_Container(clonk), Find_Func("IsGrenade"))) {
-	  	clonk->~StoreGrenade(item);
-	  	if(!Contained(item)) RemoveObject(item);
+    clonk->GrabContents(this);
+    for(var item in FindObjects(Find_Container(clonk), Find_Func("IsGrenade")))
+    {
+      clonk->~StoreGrenade(item);
+      if(!Contained(item)) RemoveObject(item);
     }
     RemoveEffect("NoAnnounce", clonk);
   }
@@ -296,7 +299,7 @@ public func Reanimation()
   //Sichtdaten zurücksetzen
   SetFoW(oldvisstate,GetOwner(clonk));
   SetPlrViewRange(oldvisrange,clonk);
-  
+
   RemoveObject();
 }
 
