@@ -8,22 +8,23 @@ public func IsBulletTarget()		{return !damaged;}
 public func IsCraneGrabable()		{return !damaged;}
 public func IgnoreFriendlyFire()	{return 1;}
 
+
 /* Aufrichtung */
 
 public func FloatUpright()
 {
   if(GBackLiquid())
   {
-   if(GetR() >= 0)
-   {
-    if(GetR() < 90) {SetR(GetR()+1);}
-    if(GetR() > 90) {SetR(GetR()-1);}
-   }
-   else
-   {
-    if(GetR() < -90) {SetR(GetR()+1);}
-    if(GetR() > -90) {SetR(GetR()-1);}		
-   }
+    if(GetR() >= 0)
+    {
+      if(GetR() < 90) {SetR(GetR()+1);}
+      if(GetR() > 90) {SetR(GetR()-1);}
+    }
+    else
+    {
+      if(GetR() < -90) {SetR(GetR()+1);}
+      if(GetR() > -90) {SetR(GetR()-1);}		
+    }
   }
 }
 
@@ -46,13 +47,13 @@ func IncinerationEx(int iPlr)
 func Damage(int iChange, int iPlr)
 {
   if(!this)
-   return;
+    return;
   SetController(iPlr);
   if(GetDamage() > 1)
-   Incinerate();
+    Incinerate();
   
   if(!this)
-   return;
+    return;
   if(GetDamage() < 20) return;
   InstaExplode(iPlr);
 }
@@ -69,13 +70,13 @@ func InstaExplode(int iPlr)
   //Umliegende Objekte anzünden
   for(var obj in FindObjects(Find_Distance(30+Random(20)),Find_Exclude(this),Find_Not(Find_Category(C4D_StaticBack))))
   {
-   var inc = GetDefCoreVal("ContactIncinerate",0,GetID(obj));
-   if(!inc) continue;
-    if(inc == 3)
-     Incinerate(obj);
-   else
-   if(!Random(inc-3))
-    Incinerate(obj);
+    var inc = GetDefCoreVal("ContactIncinerate",0,GetID(obj));
+    if(!inc) continue;
+      if(inc == 3)
+        Incinerate(obj);
+    else
+    if(!Random(inc-3))
+      Incinerate(obj);
   }
   //Explosion
   BlowUp(iPlr);
