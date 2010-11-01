@@ -302,11 +302,11 @@ func CreateFurniture()
   CreateObject (HNG2, 2555, 440, -1);
 
   //Zäune
-  CreateObject(FENC, 210, 440, -1);
-  CreateObject(FENC, 270, 440, -1);
-  CreateObject(FENC, 330, 440, -1);
+  CreateObject(FENC, 210, 440, -1)->Set(5);
+  CreateObject(FENC, 270, 440, -1)->Set(3);
+  CreateObject(FENC, 330, 440, -1)->Set(3);
 
-  CreateObject(FENC, 470, 640, -1);
+  CreateObject(FENC, 470, 640, -1)->Set(4);
   CreateObject(FENC, 530, 640, -1);
   CreateObject(FENC, 590, 640, -1);
   CreateObject(FENC, 650, 640, -1);
@@ -316,11 +316,11 @@ func CreateFurniture()
   CreateObject(FENC, 2080, 640, -1);
   CreateObject(FENC, 2140, 640, -1);
   CreateObject(FENC, 2200, 640, -1);
-  CreateObject(FENC, 2260, 640, -1);
+  CreateObject(FENC, 2260, 640, -1)->Set(4);
 
-  CreateObject(FENC, 2400, 440, -1);
-  CreateObject(FENC, 2460, 440, -1);
-  CreateObject(FENC, 2520, 440, -1);
+  CreateObject(FENC, 2400, 440, -1)->Set(3);
+  CreateObject(FENC, 2460, 440, -1)->Set(3);
+  CreateObject(FENC, 2520, 440, -1)->Set(5);
 
   //Regale
   CreateObject(FRAM, 755, 800, -1);

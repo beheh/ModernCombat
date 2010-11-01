@@ -163,17 +163,17 @@ func CreateFurniture()
   CreateParticle("Fog", 1685, 595,0,0,500+Random(100));
 
   //Zäune
-  CreateObject(FENC, 260, 400, -1);
+  CreateObject(FENC, 260, 400, -1)->Set(4);
 
   CreateObject(FENC, 600, 610, -1);
 
-  CreateObject(FENC, 990, 750, -1);
-  CreateObject(FENC, 1050, 750, -1);
-  CreateObject(FENC, 1160, 750, -1);
+  CreateObject(FENC, 990, 750, -1)->Set(3);
+  CreateObject(FENC, 1050, 750, -1)->Set(4);
+  CreateObject(FENC, 1160, 750, -1)->Set(3);
 
-  CreateObject(FENC, 1480, 380, -1);
-  CreateObject(FENC, 1590, 380, -1);
-  CreateObject(FENC, 1650, 380, -1);
+  CreateObject(FENC, 1480, 380, -1)->Set(3);
+  CreateObject(FENC, 1590, 380, -1)->Set(4);
+  CreateObject(FENC, 1650, 380, -1)->Set(3);
 
   //Regale
   CreateObject(FRAM, 560, 750, -1);
