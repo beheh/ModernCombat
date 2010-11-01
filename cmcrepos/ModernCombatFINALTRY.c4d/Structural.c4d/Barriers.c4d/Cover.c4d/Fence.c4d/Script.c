@@ -2,19 +2,23 @@
 
 #strict 2
 
+local damaged;
+
 
 /* Zerstörung */
 
 func Damage(int iChange)
 {
-  if(!this)
-    return;
+  if(damaged) return ;
   if(GetDamage() < 70) return;
   Destruct();
 }
 
 func Destruct()
 {
+  if(damaged) return ;
+  damaged = true;
+
   //Effekte
   Sound("FenceDestruct.ogg");
   if(GetEffectData(EFSM_ExplosionEffects) > 1)
@@ -30,8 +34,7 @@ func Destruct()
     CastParticles("MetalSplinter",4,100,0,0,20,70);
   }
 
-  //Entfernung
-  RemoveObject();
+  SetGraphics("Destroyed");
 }
 
 /* Aussehen festlegen */
