@@ -9,8 +9,7 @@ local damaged;
 
 func Damage(int iChange, int iPlr)
 {
-  if(!this)
-    return;
+  if(damaged) return ;
   SetController(iPlr);
   if(GetDamage() < 150) return;
   InstaExplode(iPlr);
@@ -26,7 +25,7 @@ func InstaExplode(int iPlr)
   if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",5,40,-10,0,0,200,20);
 
   //Explosion
-  SetAction("Wreck");
+  SetGraphics("Destroyed");
   SetController(iPlr);
   FakeExplode(30, iPlr+1);
 
