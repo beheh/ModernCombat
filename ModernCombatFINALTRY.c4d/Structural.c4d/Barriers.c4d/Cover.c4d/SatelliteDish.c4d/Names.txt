@@ -1,2 +1,2 @@
 DE:Satellitenschüssel
-US:Satellite dish
+US:Satellite Dish
