@@ -420,7 +420,7 @@ func CreateFurniture()
   CreateObject(STNE, 220, 690, -1);
   CreateObject(STNE, 735, 665, -1);
 
-  //Satellitenschüssel
+  //Radare
   CreateObject(RADR, 855, 160, -1);
   CreateObject(RADR, 1785, 30, -1);
 

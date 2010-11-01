@@ -143,7 +143,7 @@ func CreateFurniture()
   CreateObject(XBRL, 560, 1370, -1)->AutoRespawn();
   CreateObject(XBRL, 490, 1690, -1)->AutoRespawn();
 
-  //Satellitenschüsseln
+  //Radare
   CreateObject(RADR, 460, 320, -1);
   CreateObject(RADR, 710, 320, -1);
 

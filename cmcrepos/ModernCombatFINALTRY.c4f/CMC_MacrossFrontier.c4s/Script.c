@@ -195,7 +195,7 @@ func CreateFurniture()
   CreateObject(XTNK, 515, 230, -1)->AutoRespawn();
   CreateObject(XTNK, 1190, 150, -1)->AutoRespawn();
 
-  //Satellitenschüsseln
+  //Radare
   CreateObject(RADR, 575, 170, -1);
   CreateObject(RADR, 925, 90, -1);
 
@@ -280,9 +280,6 @@ func CreateFurniture()
 
   //Schild
   CreateObject(ESGN, 805, 430, -1);
-
-  //Satellitenschüssel
-  CreateObject(SHDH, 1185, 150, -1);
 
   //Ventillatoren
   CreateObject(VENT, 350, 335, -1)->SetCon(40);

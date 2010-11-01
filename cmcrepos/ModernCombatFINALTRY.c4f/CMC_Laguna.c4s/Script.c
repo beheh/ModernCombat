@@ -113,7 +113,7 @@ func CreateFurniture()
   CreateObject(_WIN, 2792, 340, -1);
   CreateObject(_WIN, 2998, 340, -1);
 
-  //Satellitenschüssel
+  //Radar
   CreateObject(RADR, 2985, 220, -1)->SetClrModulation(RGB(125,125,125));
 
   //Orientierungslichter

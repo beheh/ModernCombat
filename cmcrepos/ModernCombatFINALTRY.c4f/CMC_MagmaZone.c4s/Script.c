@@ -62,7 +62,7 @@ func CreateFurniture()
   CreateObject(MSGN, 2240, 210, -1);
   CreateObject(MSGN, 2340, 210, -1);
 
-  //Satellitenschüsseln
+  //Radar
   CreateObject(RADR, 2085, 240, -1);
 
   //Feuerlöcher
