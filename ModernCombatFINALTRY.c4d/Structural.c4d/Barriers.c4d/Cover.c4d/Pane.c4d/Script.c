@@ -9,8 +9,8 @@ public func Damage()
 {
   if(GetDamage() > 10)
   {
-   Shatter();
-   return;
+    Shatter();
+    return;
   }
   return 1;
 }
@@ -28,14 +28,14 @@ public func Shatter(int iPower, object pFrom)
   
   if(pFrom)
   {
-   angle = ObjectAngle(pFrom);
-   spread = 60;
+    angle = ObjectAngle(pFrom);
+    spread = 60;
   }
   
   // Zersplittern
   Sound("GlassBreak*.ogg");
   for(var i = 0 ; i < GetDefHeight()/3 ; i++)
-   CreateParticle ("GlassSplinter", 0, i*3-GetDefHeight()/2, +Sin(angle+(Random(spread)-spread/2),iPower), -Cos(angle+(Random(spread)-spread/2),iPower), 20);
+    CreateParticle ("GlassSplinter", 0, i*3-GetDefHeight()/2, +Sin(angle+(Random(spread)-spread/2),iPower), -Cos(angle+(Random(spread)-spread/2),iPower), 20);
 
   if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("Glas", 2+Random(4), 50, 0,0, 60,10, RGBa(200,200,200), RGBa(200,200,200));
   RemoveObject();
