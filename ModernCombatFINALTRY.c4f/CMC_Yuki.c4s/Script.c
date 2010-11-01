@@ -130,9 +130,9 @@ func CreateFurniture()
   //Automat
   CreateObject(CLVM, 1440, 830, -1);
 
-  //Satellitenschüssel
-  CreateObject(RADR, 200, 170, -1);
-  CreateObject(RADR, 1535, 180, -1);
+  //Radare
+  CreateObject(RADR, 200, 170, -1)->SetClrModulation(RGB(125,125,125));
+  CreateObject(RADR, 1535, 180, -1)->SetClrModulation(RGB(125,125,125));
 
   //Nebel
   CreateParticle("Fog", 90, 500,0,0,400+Random(100));

@@ -101,7 +101,7 @@ func CreateFurniture()
   CreateObject(_WIN, 1888, 370, -1);
   CreateObject(_WIN, 1888, 420, -1);
 
-  //Satellitenschüsseln
+  //Radare
   CreateObject(RADR, 170, 220, -1);
   CreateObject(RADR, 2630, 220, -1);
 

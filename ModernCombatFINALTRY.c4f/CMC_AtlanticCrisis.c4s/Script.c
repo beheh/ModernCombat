@@ -138,6 +138,10 @@ func CreateFurniture()
   //Satellitenschüssel
   CreateObject(SADH, 2840, 410, -1);
 
+  //Radare
+  CreateObject(RADR, 1610, 400, -1);
+  CreateObject(RADR, 4400, 400, -1);
+
   //Kisten
   CreateObject(WCR2, 2120, 520, -1)->AutoRespawn();
   CreateObject(WCR2, 2910, 460, -1)->AutoRespawn();
@@ -232,10 +236,6 @@ func CreateFurniture()
   CreateObject(VEN3, 2410, 500, -1)->SetCon(30);
   CreateObject(VEN3, 3600, 500, -1)->SetCon(30);
   CreateObject(VENT, 4630, 590, -1)->SetCon(30);
-
-  //Satellitenschüsseln
-  CreateObject(RADR, 1610, 400, -1);
-  CreateObject(RADR, 4400, 400, -1);
 
   //Dekoschleusen
   CreateObject(GAT1, 2800, 590, -1);
