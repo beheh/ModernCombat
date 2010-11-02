@@ -180,6 +180,9 @@ func CreateFurniture()
   CreateObject(XTNK, 1740, 210, -1)->AutoRespawn();
   CreateObject(XTNK, 2800, 410, -1);
 
+  //Palette
+  CreateObject(PLLT, 890, 160, -1);
+
   //Container
   CreateObject(CON1, 220, 450, -1);
   CreateObject(CON1, 457, 450, -1)->SetPerspective(2);

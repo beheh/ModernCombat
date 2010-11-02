@@ -125,6 +125,9 @@ func CreateFurniture()
   CreateObject(RADR, 500, 360, -1);
   CreateObject(RADR, 1210, 190, -1);
 
+  //Palette
+  CreateObject(PLLT, 895, 710, -1);
+
   //Zäune
   CreateObject(FENC, 1070, 710, -1)->Set(2);
   CreateObject(FENC, 1130, 710, -1)->Set(2);
