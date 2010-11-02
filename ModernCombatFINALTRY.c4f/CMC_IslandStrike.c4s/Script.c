@@ -148,8 +148,6 @@ func CreateFurniture()
   CreateObject(BUOY, 5200, 573, -1);
   CreateObject(BUOY, 7665, 533, -1);
 
-
-
   //Metallkiste
   CreateObject(MWCR, 1530, 400, -1)->AutoRespawn();
   CreateObject(MWCR, 4570, 390, -1)->AutoRespawn();

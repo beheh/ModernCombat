@@ -94,21 +94,6 @@ func CreateFurniture()
   CreateObject(H24K, 1975, 448, -1);
   CreateObject(H24K, 2145, 648, -1);
 
-  //Hydrauliktüren
-  tmp = CreateObject(SLDR, 270, 530, -1);
-  tmp->Lock();
-  tmp->SetMaxDamage(-1);
-  tmp->SetSwitchLock(DIR_Right);
-
-  tmp = CreateObject(SLDR, 2460, 530, -1);
-  tmp->Lock();
-  tmp->SetMaxDamage(-1);
-  tmp->SetSwitchLock(DIR_Left);
-
-  //Verbundene Räume
-  var doorw = CreateObject(ROOM, 200, 530, -1);
-  CreateObject(ROOM, 2530, 530, -1)->Connect(doorw);
-
   //Geländer
   CreateObject(RAI1, 505, 270, -1)->SetRail([1,1,1,1,1,1,1,1]);
   CreateObject(RAI1, 725, 440, -1)->SetRail([1,1,1]);
@@ -295,6 +280,10 @@ func CreateFurniture()
   CreateObject(HBRL, 1360, 310, -1)->AutoRespawn();
   CreateObject(HBRL, 1300, 640, -1)->AutoRespawn();
 
+  //Paletten
+  CreateObject(PLLT, 560, 270, -1);
+  CreateObject(PLLT, 2170, 270, -1);
+
   //Tore
   CreateObject (HNG2, 175, 440, -1);
   CreateObject (HNG2, 365, 630, -1);
@@ -393,6 +382,21 @@ func CreateFurniture()
   tmp->SetCon(20);
   tmp->SetPhase(4);
   CreateObject(VEN3, 2240, 595, -1)->SetCon(20);
+
+  //Hydrauliktüren
+  tmp = CreateObject(SLDR, 270, 530, -1);
+  tmp->Lock();
+  tmp->SetMaxDamage(-1);
+  tmp->SetSwitchLock(DIR_Right);
+
+  tmp = CreateObject(SLDR, 2460, 530, -1);
+  tmp->Lock();
+  tmp->SetMaxDamage(-1);
+  tmp->SetSwitchLock(DIR_Left);
+
+  //Verbundene Räume
+  var doorw = CreateObject(ROOM, 200, 530, -1);
+  CreateObject(ROOM, 2530, 530, -1)->Connect(doorw);
 
   //Selbstschussanlagen und Konsolen
   aSelfDefense[0] = CreateObject(SEGU, 590, 329, -1);
