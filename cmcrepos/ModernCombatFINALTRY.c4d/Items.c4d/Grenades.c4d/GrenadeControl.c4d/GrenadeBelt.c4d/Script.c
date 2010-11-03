@@ -4,6 +4,9 @@
 
 local pUser;
 
+
+/* Initialisierung */
+
 func Initialize()
 {
   SetPosition();

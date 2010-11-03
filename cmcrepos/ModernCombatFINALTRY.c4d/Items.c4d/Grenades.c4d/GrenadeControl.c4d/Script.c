@@ -34,16 +34,16 @@ func HitSound()
 func HitObject(object pObj)
 {
   if(!pObj)
-   return;
+    return;
 
   if(pObj->~QueryCatchBlow(this))
-   return;
+    return;
 
   if(GetOCF(pObj) | OCF_Alive)
     return;
 
   if(pObj->~IsClonk())
-   Sound("BodyFall*.ogg");
+    Sound("BodyFall*.ogg");
 
   ObjectSetAction(pObj, "Tumble");
   SetXDir(GetXDir(pObj)+GetXDir()/3,pObj);
@@ -80,7 +80,7 @@ public func ControlThrow(object caller)
   SetUser(caller);
   var user = caller;
   var delay = GetThrowDelay(GetUser());
-  
+
   if(user->~IsClonk())
   {
     if(!user->~IsAiming() && user->~IsCrawling())
@@ -103,11 +103,11 @@ public func ControlThrow(object caller)
 
   if(!Contained(GetUser()))
   {
-   GetUser()->~CheckArmed();
-   if(GetUser()->~ReadyToFire() || GetUser()->~ReadyToAttack() && !delay)
-   {
-    Throw();
-    return true;
+    GetUser()->~CheckArmed();
+    if(GetUser()->~ReadyToFire() || GetUser()->~ReadyToAttack() && !delay)
+    {
+      Throw();
+      return true;
    }
   }
 
@@ -162,8 +162,8 @@ public func Throw()
   user->~ResetShowWeapon();
   if(user->~IsAiming())
   {
-   if(!nade) user->StopAiming();
-   else user->SetAiming(angle);
+    if(!nade) user->StopAiming();
+    else user->SetAiming(angle);
   }
   return 1;
 }
@@ -184,7 +184,7 @@ public func RejectEntrance()
 public func Collection(object pObj)
 {
   if(GetCategory(pObj) & C4D_Living)
-   Sound("GrenadeCharge.ogg");
+    Sound("GrenadeCharge.ogg");
 }
 
 public func Departure(object pObj)
@@ -207,20 +207,20 @@ public func FxIntFuseTimer(object pTarget, int iEffectNumber, int iEffectTime)
   var c = Contained();
   if(!c)
   {
-   var vel=Abs(GetXDir())+Abs(GetYDir());
-   var alpha=Max(0,60-vel);
-   var rgb = Color();
-   if(!rgb) rgb = RGB(100,100,100);
+    var vel=Abs(GetXDir())+Abs(GetYDir());
+    var alpha=Max(0,60-vel);
+    var rgb = Color();
+    if(!rgb) rgb = RGB(100,100,100);
 
-    CreateParticle("Smoke2", -GetXDir()/6, -GetYDir()/6, RandomX(-10, 10), -5,
-                         vel/3+RandomX(10, 20), SetRGBaValue(rgb,alpha)); 
+     CreateParticle("Smoke2", -GetXDir()/6, -GetYDir()/6, RandomX(-10, 10), -5,
+                          vel/3+RandomX(10, 20), SetRGBaValue(rgb,alpha)); 
   }
   else
   {
-   if (!GetAlive(c) || GetID(c) == FKDT || GetID(Contained(c)) == FKDT)
-     Exit(0, 0, 8);
-   else if(Contents(0, Contained()) == this)
-     PlayerMessage(GetController(c),"<c %x>•</c>",c,InterpolateRGBa2(RGB(0,255),RGB(255,255),RGB(255,0),0,FuseTime(),iEffectTime));    
+    if (!GetAlive(c) || GetID(c) == FKDT || GetID(Contained(c)) == FKDT)
+      Exit(0, 0, 8);
+    else if(Contents(0, Contained()) == this)
+      PlayerMessage(GetController(c),"<c %x>•</c>",c,InterpolateRGBa2(RGB(0,255),RGB(255,255),RGB(255,0),0,FuseTime(),iEffectTime));    
   }
 
   if(iEffectTime < FuseTime()) return;
@@ -230,17 +230,17 @@ public func FxIntFuseTimer(object pTarget, int iEffectNumber, int iEffectTime)
 
   if(c)
   {
-   if(GetID(c) == GRNS)
-   {
-    var user = c->GetUser();
-    if(!user)
-     return false;
+    if(GetID(c) == GRNS)
+    {
+      var user = c->GetUser();
+      if(!user)
+        return false;
 
-    Exit();
-    SetPosition(GetX(user),GetY(user));
-   }
-   else
-    Exit();
+      Exit();
+      SetPosition(GetX(user),GetY(user));
+    }
+    else
+      Exit();
   }
   pTarget->Fused2(c);
   return -1;
@@ -269,7 +269,7 @@ public func Fused2(object pContainer)
     {
       Fling(pContainer,-1);
       DoDmg(ContainedDamage(),DMG_Fire, pContainer);
-     }
+    }
   }
   RemoveEffect("HitCheck",this);
   Fused();
@@ -289,7 +289,7 @@ func GetCharge()
   var user = GetUser();
   if(!user) return 0;
   if(!user->~MaxGrenades()) return 0;
-  
+
   return user->GrenadeCount(GetID())+1;
 }
 

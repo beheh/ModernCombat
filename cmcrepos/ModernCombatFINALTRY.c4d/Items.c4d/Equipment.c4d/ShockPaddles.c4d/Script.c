@@ -8,12 +8,11 @@ public func HandSize()		{return 1000;}
 public func HandX()		{return 4500;}
 public func IsDrawable()	{return true;}
 public func MaxEnergy()		{return 30;}
-
 func IsEquipment()		{return true;}
 public func NoArenaRemove()	{return true;}
 
 
-/* Initalisierung */
+/* Initialisierung */
 
 public func Initialize()
 {
@@ -51,14 +50,14 @@ public func Timer()
 
 public func ControlThrow(pByObject)
 {
-  if (Use(pByObject))
+  if(Use(pByObject))
     SetAction("Reload");
   return true;
 }
 
 public func Activate(pClonk)
 {
-  if (Use(pClonk))
+  if(Use(pClonk))
     return SetAction("Reload");
 }
 
@@ -165,7 +164,7 @@ func Use(caller)
 
 /* Selbstheilungseffekt durch Wiederbelebung */
 
-func HealRate()		{return 2; }
+func HealRate()		{return 2;}
 func HealAmount()	{return 100;}
 
 func FxShockPaddlesHealStart(object pTarget, int iEffectNumber, int iTemp, int iHealAmount, int iHealRate)
@@ -180,8 +179,8 @@ func FxShockPaddlesHealTimer(object pTarget, int iEffectNumber, int iEffectTime)
   //Heilungseffekt
   if(!(iEffectTime % EffectVar(1, pTarget, iEffectNumber)))
   {
-   DoEnergy(1, pTarget);
-   EffectVar(0,pTarget,iEffectNumber)--;
+    DoEnergy(1, pTarget);
+    EffectVar(0,pTarget,iEffectNumber)--;
   }
   //Schluss wenn komplett geheilt
   if(GetEnergy(pTarget) >= GetPhysical("Energy",0,pTarget)/1000)

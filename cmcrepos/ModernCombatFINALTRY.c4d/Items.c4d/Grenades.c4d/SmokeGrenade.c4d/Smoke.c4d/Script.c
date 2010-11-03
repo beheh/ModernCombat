@@ -6,7 +6,7 @@ local iLifeTime;
 local fSmoking;
 static const SM4K_FadeTime = 105;	//3 Sekunden
 
-public func IsSmoking()		{return fSmoking;}
+public func IsSmoking()	{return fSmoking;}
 
 
 /* Initialisierung */

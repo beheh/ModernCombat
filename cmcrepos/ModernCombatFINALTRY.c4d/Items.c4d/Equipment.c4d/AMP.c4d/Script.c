@@ -182,7 +182,7 @@ public func FxAMPKRestockingTimer(pTarget, iEffectNumber, iEffectTime)
 
     //Achievement-Fortschritt
     DoAchievementProgress(ammoID->MaxAmmo()/10*factor, AC03, GetOwner(Contained()));
-		
+
     //Punkte bei Belohnungssystem
     DoPlayerPoints(BonusPoints("Restocking",ammoID->MaxAmmo()/10*factor), RWDS_TeamPoints, GetOwner(Contained()), Contained(), IC14);
   }

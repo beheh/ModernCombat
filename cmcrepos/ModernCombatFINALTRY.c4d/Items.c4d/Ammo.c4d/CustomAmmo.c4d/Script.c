@@ -8,7 +8,6 @@ public func NoWeaponChoice()	{return true;}
 public func IsAmmoPacket()	{return true;}
 public func AmmoID()		{return ammoid;}
 public func AmmoCount()		{return count;}
-
 public func IsDrawable()	{return true;}
 public func HandSize()		{return 800;}
 public func HandX()		{return 6000;}
@@ -19,9 +18,9 @@ public func SetAmmoID(id idType)
 {
   if(idType->~IsAmmo())
   {
-   ammoid = idType;
-   SetGraphics(0,0,idType,2,GFXOV_MODE_Picture);
-   SetObjDrawTransform(500, 0, 0, 0, 500, 0, this, 2);
+    ammoid = idType;
+    SetGraphics(0,0,idType,2,GFXOV_MODE_Picture);
+    SetObjDrawTransform(500, 0, 0, 0, 500, 0, this, 2);
   }
   return false;
 }
@@ -37,11 +36,11 @@ public func SetAmmoCount(int iCount, bool fForceCount)
 {
   if(!iCount)
   {
-   RemoveObject();
-   return;
+    RemoveObject();
+    return;
   }
   if (!fForceCount) count = BoundBy(iCount,0,GetMax());
-  //zB MTP
+  //z.B. MTP
   else count = iCount;
   return count;
 }
@@ -54,7 +53,7 @@ public func DoAmmoCount(int iCount)
   return dif;
 }
 
-private func OnTransfer() {}
+private func OnTransfer()	{}
 
 protected func Activate(object pObj)
 {
@@ -66,8 +65,8 @@ public func MayTransfer(object pObj)
   if(!pObj) return false;
   var MaxAmmo = AmmoID()->~MaxAmmo();
   if(MaxAmmo)
-   if(GetAmmo(AmmoID(),pObj) + AmmoCount() > MaxAmmo)
-    return false;
+    if(GetAmmo(AmmoID(),pObj) + AmmoCount() > MaxAmmo)
+      return false;
   return true;
 }
 
@@ -75,15 +74,15 @@ public func TransferAmmo(object pObj)
 {
   if(!pObj) return false;
   if(NoAmmo()) return false;
-  
-  // nicht wenn er schon zu viel hat
+
+  //Nicht wenn das Ziel schon zu viel hat
   if(!MayTransfer(pObj))
   {
-   PlayerMessage(GetOwner(pObj),"$NotMoreAmmo$",pObj,AmmoID());
-   return;
+    PlayerMessage(GetOwner(pObj),"$NotMoreAmmo$",pObj,AmmoID());
+    return;
   }
 
-  // Nachricht ausgeben
+  //Nachricht ausgeben
   PlayerMessage(GetOwner(pObj),"$Collected$",pObj,AmmoCount(), AmmoID());
 
   //Packer erhält Munitionspunkte, wenn er im gleichen Team ist
@@ -94,12 +93,12 @@ public func TransferAmmo(object pObj)
       factor = 2;
 
     DoPlayerPoints(BonusPoints("Restocking", count*factor), RWDS_TeamPoints, GetOwner(), GetCursor(GetOwner()), IC14);
-	DoAchievementProgress(AmmoID()->MaxAmmo()/10*factor, AC03, GetOwner());
+      DoAchievementProgress(AmmoID()->MaxAmmo()/10*factor, AC03, GetOwner());
   }
 
   var old = count;
   SetAmmoCount(old-DoAmmo(AmmoID(),AmmoCount(),pObj));
-  
+
   pObj->~AmmoTransferred();
   Sound("Resupply.ogg");
   if(!OnTransfer()) RemoveObject();
@@ -114,7 +113,7 @@ public func ControlThrow(object caller)
     //Kann noch Munition aufnehmen?
     if (obj->~IsClonk() && MayTransfer(obj))
     {
-      //Munition geben und abbrechen.
+      //Munition geben und abbrechen
       TransferAmmo(obj);
       break;
     }

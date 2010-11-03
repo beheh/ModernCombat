@@ -36,27 +36,27 @@ protected func Activate(caller)
   //Zerstören wenn leer
   if(!GetHealPoints())
   {
-   Sound("FAPK_Hit*.ogg");
-   CastParticles("Paper", RandomX(4,8), 40, 0, 0, 4*5, 7*5, RGBa(180,180,180,0), RGBa(240,240,240,150));
-   return RemoveObject();
+    Sound("FAPK_Hit*.ogg");
+    CastParticles("Paper", RandomX(4,8), 40, 0, 0, 4*5, 7*5, RGBa(180,180,180,0), RGBa(240,240,240,150));
+    return RemoveObject();
   }
   //Bereits am Heilen? Dann Stoppen
   if(GetEffect("FAPHeal",this))
   {
-   RemoveEffect("FAPHeal",this);
-   return 1;
+    RemoveEffect("FAPHeal",this);
+    return 1;
   }
   //Bereits anderweitig am heilen?
   if(GetEffect("*Heal*",caller))
   {
-    PlayerMessage(GetOwner(caller), "$AlreadyHealing$",caller);
-    return 1;
+     PlayerMessage(GetOwner(caller), "$AlreadyHealing$",caller);
+     return 1;
   }
   //Nicht verwundet?
   if(GetEnergy(caller) == GetPhysical("Energy",0, caller)/1000)
   {
-   PlayerMessage(GetOwner(caller), "$NotWounded$",caller);
-   return 1;
+    PlayerMessage(GetOwner(caller), "$NotWounded$",caller);
+    return 1;
   }
   //Können wir überhaupt?
   if(!WildcardMatch(GetAction(caller), "*Walk*"))
@@ -71,7 +71,7 @@ protected func Activate(caller)
     DoHealPoints(-30);
     Extinguish(caller);
   }
-  
+
   //Clonk anhalten
   SetComDir(COMD_Stop, caller);
 
@@ -104,7 +104,7 @@ public func RejectEntrance(object pObj)
   if(obj)
   {
     JoinPacket(obj);
-	return true;
+      return true;
   }
 }
 
@@ -142,21 +142,21 @@ public func ControlThrow(object pClonk)
   //Sanitäter können mit [Werfen] Dragnin entpacken
   if(pClonk->~IsMedic())
   {
-   //Clonk hat schon eine Dragninspritze: Geht nicht
-   if (ContentsCount(DGNN, pClonk))
-     return PlayerMessage(GetOwner(pClonk), "$NoSpace$",pClonk);
+    //Clonk hat schon eine Dragninspritze: Geht nicht
+    if (ContentsCount(DGNN, pClonk))
+      return PlayerMessage(GetOwner(pClonk), "$NoSpace$",pClonk);
 
-   if(GetHealPoints() >= 40)
-   {
-     DoHealPoints(-40);
-     CreateContents(DGNN,pClonk);
-     Sound("FAPK_Dragnin.ogg");
-     ShiftContents(pClonk, 0, DGNN);
-   }
-   else
-   {
-     PlayerMessage(GetOwner(pClonk), "$NotEnoughPoints$",pClonk);
-   }
+    if(GetHealPoints() >= 40)
+    {
+      DoHealPoints(-40);
+      CreateContents(DGNN,pClonk);
+      Sound("FAPK_Dragnin.ogg");
+      ShiftContents(pClonk, 0, DGNN);
+    }
+    else
+    {
+      PlayerMessage(GetOwner(pClonk), "$NotEnoughPoints$",pClonk);
+    }
   }
   return true;
 }
@@ -195,7 +195,7 @@ public func FxFAPHealTimer(pTarget, iEffectNumber, iEffectTime)
 {
   var pClonk = EffectVar(0, pTarget, iEffectNumber);
   if(!pClonk) return -1;
-  
+
   //Abbruch
   if(GetAction(pClonk) != "Heal" || GetComDir(pClonk))
     return -1;
@@ -203,19 +203,19 @@ public func FxFAPHealTimer(pTarget, iEffectNumber, iEffectTime)
   //Fertig geheilt?
   if(GetEnergy(pClonk) >= GetPhysical("Energy",0,pClonk)/1000)
     return -1;
-    
+
   //Effekte
   pClonk->CreateParticle("ShockWave",0,0,Random(10),Random(10),5*GetObjHeight(pClonk)+25+Sin(iEffectTime*5,35),RGB(210,20,20),pClonk);
-  
+
   if(!(iEffectTime % 40))	//Alle 40 Frames
    Sound("FAPK_Healing*.ogg");
-  
+
   if(!(iEffectTime % 6))	//Alle 6 Frames
   {
    //Eigentliches Heilen
    DoEnergy(2,pClonk);  
    if(pTarget->DoHealPoints(-1) <= 0)
-    return -1;
+     return -1;
   }
 
   return 1;
@@ -239,7 +239,6 @@ public func GetHealPoints()	{return healpoints;}
 public func DoHealPoints(int iChange)
 {
   healpoints = BoundBy(healpoints+iChange,0,MaxHealPoints());
-
   return healpoints;
 }
 
@@ -258,7 +257,7 @@ public func FxFAPRegenerateTimer(pTarget, iEffectNumber, iEffectTime)
 
   //Oder wenn bereits voll
   if(GetHealPoints() < MaxHealPoints())
-   DoHealPoints(1);
+    DoHealPoints(1);
 
   return 1;
 }

@@ -24,33 +24,33 @@ func Sting(caller)
   var obj;
   if(obj = FindObject2(Find_InRect(-10,-10,20,20),Find_OCF(OCF_CrewMember),Find_Exclude(caller),Find_Allied(GetOwner(caller)),Find_NoContainer()))
   {
-   //Bereits anderweitig am heilen?
-   if(GetEffect("*Heal*",obj))
-   {
-     PlayerMessage(GetOwner(caller), "$AlreadyHealing$",caller);
-     return 1;
-   }
-   //Nicht verwundet?
-   if(GetEnergy(obj) == GetPhysical("Energy",0, obj)/1000)
-   {
-     PlayerMessage(GetOwner(caller), "$NotWounded$",caller);
-     return 1;
-   }
+    //Bereits anderweitig am heilen?
+    if(GetEffect("*Heal*",obj))
+    {
+      PlayerMessage(GetOwner(caller), "$AlreadyHealing$",caller);
+      return 1;
+    }
+    //Nicht verwundet?
+    if(GetEnergy(obj) == GetPhysical("Energy",0, obj)/1000)
+    {
+      PlayerMessage(GetOwner(caller), "$NotWounded$",caller);
+      return 1;
+    }
 
-   //Heileffekt geben
-   AddEffect("DragninHeal",obj,20,1,0,GetID(),HealAmount(),HealRate());
-   Sound("DGNN_Use.ogg");
+    //Heileffekt geben
+    AddEffect("DragninHeal",obj,20,1,0,GetID(),HealAmount(),HealRate());
+    Sound("DGNN_Use.ogg");
 
-   //Punkte bei Belohnungssystem
-   DoPlayerPoints(DragninPoints(), RWDS_TeamPoints, GetOwner(caller), caller, IC05);
-   DoAchievementProgress(DragninPoints(), AC02, GetOwner(caller));
+    //Punkte bei Belohnungssystem
+    DoPlayerPoints(DragninPoints(), RWDS_TeamPoints, GetOwner(caller), caller, IC05);
+    DoAchievementProgress(DragninPoints(), AC02, GetOwner(caller));
 
-   RemoveObject();
+    RemoveObject();
   }
   else
   {
-   //Ins Leere stechen
-   Sound("GrenadeThrow*.ogg");
+    //Ins Leere stechen
+    Sound("GrenadeThrow*.ogg");
   }
   return 1;
 }
@@ -83,8 +83,8 @@ public func RejectEntrance(object pObj)
 {
   if(GetOCF(pObj) & OCF_Living)
   {
-   if(ContentsCount(GetID(),pObj))
-    return true;
+    if(ContentsCount(GetID(),pObj))
+      return true;
   }
   return false;
 }
@@ -171,12 +171,12 @@ func Selection()
 
 protected func AI_Inventory(object pClonk)
 {
-  // Benutzen, wenn der Clonk weniger als 2/3 Leben hat
-  if(!pClonk->~IsHealing() && pClonk->GetEnergy() < pClonk->GetPhysical("Energy") * 2/3 / 1000) {
-  	ShiftContents(pClonk, 0, GetID());
-    // Benutzen (verzögert einsetzen)
+  //Benutzen, wenn der Clonk weniger als 2/3 Leben hat
+  if(!pClonk->~IsHealing() && pClonk->GetEnergy() < pClonk->GetPhysical("Energy") * 2/3 / 1000)
+  {
+    ShiftContents(pClonk, 0, GetID());
+    //Benutzen (verzögert einsetzen)
     ScheduleCall(this, "Activate", 1, 0, pClonk);
   }
-  // übernehmen wir
   return(1);
 }
