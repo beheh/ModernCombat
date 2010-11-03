@@ -6,17 +6,15 @@ local pShield, pUser, iHits;
 local iPrevDir, fAiming, iAimingAngle;
 
 public func IsDrawable()	{return true;}
-public func HandX()		{}
 public func HandY()		{return -1200;}
 public func HandR()		{return 45;}
 public func HandSize()		{return 850;}
-
 public func CanAim()		{return true;}
 func IsEquipment()		{return true;}
 public func NoArenaRemove()	{return true;}
 
 
-/* Initalisierung */
+/* Initialisierung */
 
 protected func Initialize()
 {
@@ -40,25 +38,29 @@ public func GetUser()
 
 public func CheckChange()
 {
-	if(GetUser()) {
-		//Anti-Umfall-Zwischenspeicher-Hack
-		if(GetAction(GetUser()) == "Tumble" && this == Contents(0, GetUser())) {
-			ObjectSetAction(GetUser(), "Walk");
-			SetDir(iPrevDir, GetUser());
-			if(fAiming) {
-				GetUser()->~StartSquatAiming();
-				GetUser()->~SetAiming(iAimingAngle);
-			}
-		}
-		iPrevDir = GetDir(GetUser());
-		fAiming = false;
-		if(GetUser()->~IsAiming())
-			fAiming = true;
-		iAimingAngle = Abs(GetUser()->~AimAngle());
-   	if(Contents(0,pUser) != this)
-    	RemoveShield();
+  if(GetUser())
+  {
+    //Anti-Umfall-Zwischenspeicher-Hack
+    if(GetAction(GetUser()) == "Tumble" && this == Contents(0, GetUser()))
+    {
+      ObjectSetAction(GetUser(), "Walk");
+      SetDir(iPrevDir, GetUser());
+      if(fAiming)
+      {
+        GetUser()->~StartSquatAiming();
+        GetUser()->~SetAiming(iAimingAngle);
+      }
+    }
+    iPrevDir = GetDir(GetUser());
+    fAiming = false;
+    if(GetUser()->~IsAiming())
+      fAiming = true;
+    iAimingAngle = Abs(GetUser()->~AimAngle());
+    if(Contents(0,pUser) != this)
+      RemoveShield();
   }
-  else {
+  else
+  {
     RemoveShield();  
   }
   return 1;
@@ -70,8 +72,8 @@ public func ControlThrow(caller)
 {
   if(pShield)
   {
-   pShield->ExecShove();
-   return 1;
+    pShield->ExecShove();
+    return 1;
   }
 }
 
@@ -101,16 +103,16 @@ public func Entrance(object pContainer)
 
   //Schild erstellen wenn aktiv gewählt
   if(Contents(0, pUser) == this)
-   if(GetOCF(pContainer) & OCF_CrewMember)
-    CreateShield();
+    if(GetOCF(pContainer) & OCF_CrewMember)
+      CreateShield();
 }
 
 public func RejectEntrance(object pObj)
 {
   if(GetOCF(pObj) & OCF_Living)
   {
-   if(ContentsCount(GetID(),pObj))
-    return true;
+    if(ContentsCount(GetID(),pObj))
+      return true;
   }
   return false;
 }
@@ -120,18 +122,18 @@ public func RejectEntrance(object pObj)
 private func CreateShield()
 {
   if(!GetUser()) return;
-  
+
   SetAction("Invis");
-  
+
   if(pShield)
   {
-   pShield->Set(GetUser(),this);
+    pShield->Set(GetUser(),this);
   }
   else
   {
-   pShield = CreateObject(RSLH,0,0,GetOwner(GetUser()));
-   pShield->Set(GetUser(),this);
-   Sound("RSHL_Deploy.ogg");
+    pShield = CreateObject(RSLH,0,0,GetOwner(GetUser()));
+    pShield->Set(GetUser(),this);
+    Sound("RSHL_Deploy.ogg");
   }
 }
 
@@ -190,5 +192,7 @@ public func Destruction()
 public func AimStart()
 {
   if(Contained()->~IsCrawling() && Contained()->~AimAngle() > 60)
-   {Contained()->SetAiming(60);}
+  {
+    Contained()->SetAiming(60);
+  }
 }

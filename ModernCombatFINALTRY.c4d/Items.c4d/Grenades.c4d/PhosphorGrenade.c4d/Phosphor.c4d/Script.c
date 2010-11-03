@@ -5,7 +5,7 @@
 local light,last_size,life;
 
 
-/* Initalisierung */
+/* Initialisierung */
 
 func Initialize()
 {
@@ -50,8 +50,8 @@ func Timer()
 
   if(GetEffectData(EFSM_ExplosionEffects) > 0) 
   {
-   if(!Random(20))
-    CastObjects(SPRK, 1, 20);
+    if(!Random(20))
+      CastObjects(SPRK, 1, 20);
   }
 
   life--;
@@ -81,13 +81,13 @@ func BurnObjects()
 func HitObject(pObj)
 {
   if(GetOCF(pObj) & OCF_Living)
-   AddEffect("Phosphored", pObj, 50, 20, this, GetID());
+    AddEffect("Phosphored", pObj, 50, 20, this, GetID());
   DoDmg(3, DMG_Fire, pObj, 1);
   AddFireEffect(pObj,50,FIRE_Red,1);
   //Anzündbares anzünden, aber nicht Lebewesen
   if(pObj) //existiert es überhaupt noch?
-   if(GetOCF(pObj) & OCF_Inflammable && !(GetOCF(pObj) & OCF_Living))
-    Incinerate(pObj);
+    if(GetOCF(pObj) & OCF_Inflammable && !(GetOCF(pObj) & OCF_Living))
+      Incinerate(pObj);
   return true;
 }
 
@@ -109,8 +109,8 @@ public func FxPhosphoredStart(pTarget, iNo, iTemp, pPhosphor)
   if(iTemp)
     return -1;
   if(GetLength(FindObjects(Find_ID(GetID()), Find_ActionTarget(pTarget))) > 3)
-  	return -1;
-	EffectVar(0, pTarget, iNo) = this; //Der Klumpen
+    return -1;
+    EffectVar(0, pTarget, iNo) = this; //Der Klumpen
   SetAction("AGlobbing", pTarget);
 }
 
@@ -121,11 +121,11 @@ public func FxPhosphoredTimer(pTarget, iNo, iTime)
 
   if(iTime >= 60)
     return -1;
-    
+
   if(iTime >= 40)
     AttachTargetLost();
 }
-     
+
 protected func AttachTargetLost()
 {
   SetAction("Idle");

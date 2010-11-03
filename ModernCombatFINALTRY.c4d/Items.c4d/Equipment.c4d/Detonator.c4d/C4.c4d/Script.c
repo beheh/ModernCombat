@@ -5,7 +5,7 @@
 local fuse, active, thrown, pStickTo, iStickXOffset, iStickYOffset, iStickROffset, iPreviousCategory;
 
 
-/* Initalisierung */
+/* Initialisierung */
 
 public func Initialize()
 {
@@ -30,17 +30,17 @@ public func SetActive(object pCaller)
 {
   if(!pCaller)
     return;
-    
+
   fuse = pCaller;
   active = true;
-  
+
   SetController(GetOwner(pCaller));
   
   if(!GetXDir() && !GetYDir())
     SetClrModulation(RGBa(255,255,255,100));
   //else
   //AddEffect("Check", this, 200, 1, this, C4EX);
-  
+
   //Effekte
   Sound("C4PA_Ignition.ogg");
   CreateParticle("PSpark",0,0,0,0,60,RGBa(255,0,0,0),this);
@@ -51,7 +51,7 @@ public func SetActive(object pCaller)
 private func CheckFuse()
 {
   if(!fuse)
-   FadeOut();
+    FadeOut();
 }
 
 protected func Timer()
@@ -102,22 +102,22 @@ public func BlowUp()
 {
   if(GBackLiquid())
   {
-   Sound("C4EX_WaterDetonation.ogg");
+    Sound("C4EX_WaterDetonation.ogg");
   }
   else
   {
-   Sound("C4EX_Detonation*.ogg");
-   if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("Smoke3",15,20,0,0,220,500);
+    Sound("C4EX_Detonation*.ogg");
+    if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("Smoke3",15,20,0,0,220,500);
   }
 
   //Effekte
   var helper = CreateObject(TIM1,0,0,-1);
   AddEffect("IntShockWave",helper,10,1,0,GetID()); 
   CreateParticle("Blast",0,0,0,0,10*BlastRadius(),RGB(255,255,128));
-  
+
   //Extraschaden für Strukturen
   for(var obj in FindObjects(Find_Distance(50), Find_Category(C4D_Structure | C4D_Vehicle), Find_Exclude()))
-   DoDmg(BoundBy(InvertA1(ObjectDistance(obj), 100),0,60), DMG_Explosion, obj, 0, GetOwner()+1, GetID());
+    DoDmg(BoundBy(InvertA1(ObjectDistance(obj), 100),0,60), DMG_Explosion, obj, 0, GetOwner()+1, GetID());
 
   Explode(BlastRadius());
 }
@@ -133,9 +133,9 @@ public func OnHit(int iDamage, int iType, object pFrom)
 {
   if((iType == DMG_Fire || iType == DMG_Explosion) && iDamage > 10)
   {
-   SetController(GetController(pFrom));
-   SetOwner(GetOwner(pFrom));
-   Trigger();
+    SetController(GetController(pFrom));
+    SetOwner(GetOwner(pFrom));
+    Trigger();
   }
 }
 

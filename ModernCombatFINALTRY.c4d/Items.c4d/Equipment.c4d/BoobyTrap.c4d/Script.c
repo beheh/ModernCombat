@@ -4,20 +4,20 @@
 
 local bActive, bReady, iDir, controller, laser;
 
-public func IsDrawable()		{return true;}
-public func CanAim()			{return !bActive && Contained();}
-public func IsMine()			{return true;}
-public func Color()			{return RGB(200,200,200);}
-public func IsBulletTarget()		{return !Random(6);}
-public func HandX()			{return 5000;}
-public func HandSize()			{return 1000;}
-public func BarrelXOffset()		{return -850;}
-public func IsEquipment()		{return true;}
-public func NoArenaRemove()		{return true;}
-public func AttractTracer(pT)		{return GetPlayerTeam(GetController()) != GetPlayerTeam(GetController(pT));}
+public func IsDrawable()	{return true;}
+public func CanAim()		{return !bActive && Contained();}
+public func IsMine()		{return true;}
+public func Color()		{return RGB(200,200,200);}
+public func IsBulletTarget()	{return !Random(6);}
+public func HandX()		{return 5000;}
+public func HandSize()		{return 1000;}
+public func BarrelXOffset()	{return -850;}
+public func IsEquipment()	{return true;}
+public func NoArenaRemove()	{return true;}
+public func AttractTracer(pT)	{return GetPlayerTeam(GetController()) != GetPlayerTeam(GetController(pT));}
 
 
-/* Initalisierung */
+/* Initialisierung */
 
 func Initialize()
 {
@@ -32,13 +32,13 @@ public func ControlThrow(object caller)
 {
   //Wird nicht getragen: Werfen gesperrt
   if(!Contained()) return;
-  
+
   //Nur die Sprengfalle mit dem ersten Index in einem Objekt wird benutzt
   var index;
   for(index = 0; Contents(index) == this; index++);
   for(var i = 0; GetID(Contents(i)) == GetID() && Contents(i) != this && index > i; i++)
     return; 
-  
+
   //Normales Ablegen
   if (GetPlrDownDouble(GetController(caller)))
     return _inherited(...);
@@ -158,7 +158,10 @@ public func Throw()
 private func FinFuse()
 {
   if(!bActive) return;
+
+  //Blinkeffekt
   CreateParticle("PSpark",0,0,0,0,60,GetPlrColorDw(GetOwner()),this);
+  //Laser erstellen
   laser = CreateObject(LASR,0,0,controller);
   laser -> Set(iDir,3,60,0,0,this());
   if(laser)
@@ -166,6 +169,7 @@ private func FinFuse()
     laser -> SetClrModulation(DoRGBaValue(GetPlrColorDw(GetOwner()), 210, 0));
     laser ->~ Destruction();
   }
+  //Hinweisflagge erstellen
   var flag = CreateObject(MFLG,0,1,controller);
   flag->Set(this);
   SetDir(BoundBy(-iDir, 0, 1), flag);
@@ -180,7 +184,7 @@ public func ControlUp(object pObjBy)
 {
   if(Contained()) return;
   if(pObjBy->~RejectCollect(GetID(), this)) return;
-  
+
   //Punkte bei Belohnungssystem
   if(Hostile(GetOwner(),GetOwner(pObjBy))) 
     DoPlayerPoints(BonusPoints("TechnicalTask"), RWDS_TeamPoints, GetOwner(pObjBy), pObjBy, IC15);
@@ -198,17 +202,21 @@ public func ControlUp(object pObjBy)
 
   //Eventuell sichern
   if(bReady)
-   Defuse();
+    Defuse();
 
   return 1;
 }
 
 private func Defuse()
 {
+  //Deaktivieren
   SetAction("Defused");
+  //Laser entfernen
   RemoveObject(laser);
+  //Hinweisflagge entfernen
   var flag = FindObject2(Find_ID(MFLG),Find_ActionTarget(this));
   if(flag) RemoveObject(flag);
+
   SetClrModulation();
   SetObjDrawTransform(1000,0,0,0,1000);
   Sound("BBTP_Charge.ogg");

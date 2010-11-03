@@ -17,7 +17,9 @@ public func CooldownTime()	{return 15;}
 
 protected func Initialize()
 {
+  //3 Ladungen inklusive
   amount = 3;
+  //Anfangsmaximalladungen
   max = 3;
   init = true;
   DoPackAmount();

@@ -21,7 +21,7 @@ public func Set(object pTarget, object pItem)
 
   SetOwner(GetOwner(pTarget));
   SetController(GetController(pTarget));
-  
+
   Show();
 }
 
@@ -46,10 +46,10 @@ public func ExecShove()
   var px,py,dx,dy;
   if(target)
   {
-   px = (GetX()-GetX(target))*5/4;
-   py = (GetY()-GetY(target))*5/4;
-   dx = GetX(target)-GetX();
-   dy = GetY(target)-GetY();
+    px = (GetX()-GetX(target))*5/4;
+    py = (GetY()-GetY(target))*5/4;
+    dx = GetX(target)-GetX();
+    dy = GetY(target)-GetY();
   }
 
   //Objekt finden
@@ -65,19 +65,19 @@ public func ExecShove()
                  Find_Func("CheckEnemy",this),
                  Sort_Distance(dx-GetX(target),dy-GetY(target)));
 
-  //und verschleudern
+  //Und verschleudern
   if(victim)
   {
-   Fling(victim, (GetDir(target)*2-1)*2, -1);
-   //Schaden durch Schlag wenn das Ziel ein Lebewesen ist
-   if(GetOCF(victim) & OCF_Living)
-    DoDmg(15,DMG_Melee,victim,0,GetController()+1,RSHL);
-   Sound("RSHL_Shove.ogg", 0, victim);
+    Fling(victim, (GetDir(target)*2-1)*2, -1);
+    //Schaden durch Schlag wenn das Ziel ein Lebewesen ist
+    if(GetOCF(victim) & OCF_Living)
+      DoDmg(15,DMG_Melee,victim,0,GetController()+1,RSHL);
+    Sound("RSHL_Shove.ogg", 0, victim);
   }
   else
   {
-   //Luft schlagen
-   Sound("GrenadeThrow*.ogg");
+    //Luft schlagen
+    Sound("GrenadeThrow*.ogg");
   }
 }
 
@@ -87,19 +87,19 @@ public func Update()
 {
   if(!target)
   {
-   item->RemoveShield();
-   return;
+    item->RemoveShield();
+    return;
   }
 
   var x,y,r;
   if(!target->WeaponAt(x,y,r))
   {
-   Hide();
-   return;
+    Hide();
+    return;
   }
   else
   {
-   Show();
+    Show();
   }
 
   angle = Normalize(target->AimAngle());
@@ -107,51 +107,47 @@ public func Update()
 
   if(GetEffect("Shove",this))
   {
-   var t = GetEffect("Shove",this,0,6);
+    var t = GetEffect("Shove",this,0,6);
 
-   if(t > ShoveTime()/3)
-    t = 35+((t-35)*2/3);
+    if(t > ShoveTime()/3)
+      t = 35+((t-35)*2/3);
 
-   angle -= Max(Sin(t*90/(ShoveTime()/3), 40),0) * dir;
+    angle -= Max(Sin(t*90/(ShoveTime()/3), 40),0) * dir;
   }
 
   SetVertexXY(0,-Sin(angle,7),+Cos(angle,7));
 
   //Nur optisch drehen
   var fsin = -Sin(angle,1000), fcos = +Cos(angle,1000);
-  SetObjDrawTransform
-  (
-   dir*-fcos, +fsin, 0,
-   dir*+fsin, +fcos, 0
-  );
+  SetObjDrawTransform(dir*-fcos, +fsin, 0,dir*+fsin, +fcos, 0);
 }
 
 /* Trefferverhalten */
 
 public func IsBulletTarget(id idBullet, object pBullet, object pShooter, int oldx, int oldy)
 {
-	if(GetAction() != "Attach")
-		return;
+  if(GetAction() != "Attach")
+    return;
 
   if(!pBullet && !pShooter)
-  	return true;
+    return true;
 
   if(pBullet)
-  	if(pBullet->~IsGrenade())
-  		return true;
+    if(pBullet->~IsGrenade())
+      return true;
 
   var r;
   if(pBullet && oldx && oldy)
-   r = Angle(GetX(),GetY(),oldx,oldy);
+    r = Angle(GetX(),GetY(),oldx,oldy);
   else
-   r = Angle(GetX(),GetY(),GetX(pShooter),GetY(pShooter));
+    r = Angle(GetX(),GetY(),GetX(pShooter),GetY(pShooter));
 
   r = AngleOffset4K(angle,r);
 
   if(Abs(r) > 45)
-   return false;
+    return false;
   else
-   return true;
+    return true;
 }
 
 public func OnHit(int iDamage, int iType, object pFrom)
@@ -165,29 +161,29 @@ public func OnHit(int iDamage, int iType, object pFrom)
 
 public func QueryCatchBlow(object pObj) 
 {
-	if(GetAction() != "Attach")
-		return;
+  if(GetAction() != "Attach")
+    return;
   if(pObj == last)
-  	return;
+    return;
   if(!Hostile(GetController(pObj),GetController(this)))
-  	return;
+    return;
 
   var iPower = BoundBy(GetMass(pObj),0,50) * Distance(GetXDir(pObj),GetYDir(pObj)) * Distance(GetXDir(pObj),GetYDir(pObj));
   if(iPower/3 < 30000)
   {
-   //if(GetXDir(pObj) < 0) if(GetX(pObj) < GetX() + 6) SetPosition(GetX() + 9, GetY(pObj) - GetYDir(pObj) / 3, pObj); 
-   //if(GetXDir(pObj) > 0) if(GetX(pObj) > GetX() - 6) SetPosition(GetX() - 9, GetY(pObj) - GetYDir(pObj) / 3, pObj);
-   //Hochkomplizierte Berechnungen
-   var rad = Distance(GetX(),GetY(),GetX()+GetXDir(pObj),GetY()+GetYDir(pObj));
-   var enterAngle = Angle(GetX(),GetY(),GetX()+GetXDir(pObj),GetY()+GetYDir(pObj))-target->AimAngle();
-   var exitAngle = -enterAngle+target->AimAngle()+180;
-   SetXDir(Sin(exitAngle,rad)*2/3, pObj);
-   SetYDir(-Cos(exitAngle,rad)*2/3, pObj); 
+    //if(GetXDir(pObj) < 0) if(GetX(pObj) < GetX() + 6) SetPosition(GetX() + 9, GetY(pObj) - GetYDir(pObj) / 3, pObj); 
+    //if(GetXDir(pObj) > 0) if(GetX(pObj) > GetX() - 6) SetPosition(GetX() - 9, GetY(pObj) - GetYDir(pObj) / 3, pObj);
+    //Hochkomplizierte Berechnungen
+    var rad = Distance(GetX(),GetY(),GetX()+GetXDir(pObj),GetY()+GetYDir(pObj));
+    var enterAngle = Angle(GetX(),GetY(),GetX()+GetXDir(pObj),GetY()+GetYDir(pObj))-target->AimAngle();
+    var exitAngle = -enterAngle+target->AimAngle()+180;
+    SetXDir(Sin(exitAngle,rad)*2/3, pObj);
+    SetYDir(-Cos(exitAngle,rad)*2/3, pObj); 
 
-   if(GetMass(pObj) >= 10) Sound("ClonkHit*");
-   if(GetMass(pObj) < 10)  Sound("RSHL_Shove.ogg",false,0,50);
-   ProtectedCall(pObj,"Hit");
-   last = pObj;
+    if(GetMass(pObj) >= 10) Sound("ClonkHit*");
+    if(GetMass(pObj) < 10)  Sound("RSHL_Shove.ogg",false,0,50);
+    ProtectedCall(pObj,"Hit");
+    last = pObj;
   }
   return true;
 }

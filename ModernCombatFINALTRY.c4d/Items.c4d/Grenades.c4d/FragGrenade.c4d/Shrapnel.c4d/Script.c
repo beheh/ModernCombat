@@ -5,7 +5,7 @@
 
 local hitcnt,size,trail_len;
 
-public func IsSpecialAmmo(){return false;}
+public func IsSpecialAmmo()	{return false;}
 
 
 public func Fast()
@@ -17,16 +17,15 @@ public func Launch(int iAngle, int iSpeed, int iDist, int iSize, int iTrail, int
 {
   if(!iDmg)     iDamage = 3;
   else iDamage = iDmg;
-  
+
   SetPosition(GetX(),GetY()+GetDefWidth()/2);
 
   if(!iSize)    iSize = 8;
   if(!iTrail)   iTrail = 300;
-  
+
   speed = iSpeed;
 
   iSize = Min(iSize+2,GetDefWidth());
-
 
   DoCon(100*iSize/GetDefWidth()-100);
 
@@ -34,13 +33,13 @@ public func Launch(int iAngle, int iSpeed, int iDist, int iSize, int iTrail, int
   ly = GetY();
 
   iTime = 10*iDist/iSpeed;
-  
+
   if(!iTime)
     return RemoveObject();
 
   var self = this;
   SetAction("Travel");
-  if(!self) return ;   // Kleiner Sicherheitscheck, ob die Kugel nicht sofort verschwindet
+  if(!self) return ; //Kleiner Sicherheitscheck, ob die Kugel nicht sofort verschwindet
 
   SetXDir(+Sin(iAngle,iSpeed));
   SetYDir(-Cos(iAngle,iSpeed));
@@ -61,7 +60,7 @@ private func CreateTrail(int iSize, int iTrail)
   {
     pTrail->Set(iSize-2,iTrail,this);
     SetGraphics("Trail",pTrail,GetID());
-    
+
     SetObjectBlitMode(GetObjectBlitMode(),pTrail);
   }
 }
@@ -70,12 +69,12 @@ private func Traveling()
 {
   var iATime = GetActTime();
 
-  // ausfaden
+  //Ausfaden
   SetClrModulation(Color(iATime));
-  // löschen
+  //Löschen
   if(iATime >= iTime) return Remove();
 
-  // außerhalb der Landschaft: löschen
+  //Außerhalb der Landschaft: löschen
   if(GetY()<0) return Remove();
 }
 
@@ -145,11 +144,11 @@ private func HitObject(object pObject)
   if(shooter && pObject)
     if(pObject == shooter)
       return false;//>:O
-      
+
   if(BulletStrike(pObject))
   {
     hitcnt++;
-  
+
     var x,y;
     OnShrapnelHit(pObject,x,y);
 
@@ -169,21 +168,19 @@ public func BulletStrike(object pObj)
     {
       return false;
     }
-    
 
     AddEffect("IntShrapnelHit",pObj,1,10,0,GetID());
-    
+
     if(GetOCF(pObj) & OCF_Alive)
     {
       //Fling(pObj,GetXDir()/20 + GetXDir(pObj),GetYDir()/20 + GetYDir(pObj));
       ObjectSetAction(pObj, "Tumble");
     }
-    
+
     DoDmg(iDamage,DMG_Projectile,pObj,0,0,wpnid);
-    
+
     return true;
   }
-    
   return true;
 }
 
