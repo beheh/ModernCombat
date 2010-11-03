@@ -228,6 +228,7 @@ Length=8
 Delay=15
 Facet=128,140,16,20,0,0
 NextAction=Push
+InLiquidAction=Swim
 
 [Action]
 Name=Chop
