@@ -40,7 +40,7 @@ public func CalcTickets()
 	else
 	  A++;
   //return 4 * A + ((D - A) * D);
-  return D + (A + D + D * D) / (A + 1);
+  return D + (A + 2 * D + D * D) / (A + 1);
 }
 
 public func AddAssaultTarget(id idTarget, int iX, int iY, int iMaxDamage, int iTeam, string szName, int iIndex, array aSpawn, bool fNoBar)
@@ -259,7 +259,7 @@ protected func WaitForJoin(int iPlr)
     if (GetPlayerTeam(GetOwner(obj)) == iDefender)
       continue;
 	
-    if (GetAlive(obj) && !GetEffect("IntAssaultWaitObject", Contained(obj)))
+    if (GetAlive(obj) && !GetEffect("IntAssaultWaitObject", Contained(obj)) && GetMenu(obj) != MCSL)
       alive = true;
   }
 
