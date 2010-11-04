@@ -1335,8 +1335,8 @@ private func StopWallJump()
   var i = GetEffectCount(0,this);
   var j;
   while(i--)
-   if(j = GetEffect("IntWallJump",this,i))
-    RemoveEffect(0,this,j);
+    if(j = GetEffect("IntWallJump",this,i))
+      RemoveEffect(0,this,j);
 }
 
 /* Backflip */
@@ -1358,97 +1358,90 @@ private func ControlAgility(string strControl)
   //Links
   if(strControl == "ControlLeft")
   {
-   if(IsJumping())
-   {
-    SetDir(DIR_Left);
-    SetComDir(COMD_Left); 
-   }
-   else
-   if(GetProcedure() == "SCALE" && GetDir() != DIR_Left)
-     AddEffect("IntWallJump",this,10,20,this);
-   var iEff = AddEffect("ControlStack", this, 110, 5, this);
-   EffectVar(0, this, iEff) = COMD_Left;
-   return;
+    if(IsJumping())
+    {
+      SetDir(DIR_Left);
+      SetComDir(COMD_Left); 
+    }
+    else
+      if(GetProcedure() == "SCALE" && GetDir() != DIR_Left)
+        AddEffect("IntWallJump",this,10,20,this);
+    var iEff = AddEffect("ControlStack", this, 110, 5, this);
+    EffectVar(0, this, iEff) = COMD_Left;
+    return;
   }
 
   //Rechts
   if(strControl == "ControlRight")
   {
-   if(IsJumping())
-   {
-    SetDir(DIR_Right);
-    SetComDir(COMD_Right); 
-   }
-   else
-   if(GetProcedure() == "SCALE" && GetDir() != DIR_Right)
-    AddEffect("IntWallJump",this,10,20,this);
+    if(IsJumping())
+    {
+      SetDir(DIR_Right);
+      SetComDir(COMD_Right); 
+    }
+    else
+      if(GetProcedure() == "SCALE" && GetDir() != DIR_Right)
+        AddEffect("IntWallJump",this,10,20,this);
 
-   var iEff = AddEffect("ControlStack", this, 110, 5, this);
-   EffectVar(0, this, iEff) = COMD_Right;
-   return;
+    var iEff = AddEffect("ControlStack", this, 110, 5, this);
+    EffectVar(0, this, iEff) = COMD_Right;
+    return;
   }
 
   //Doppellinks
   if(strControl == "ControlLeftDouble")
-  {
-   if(GetEffect("IntWallJump",this) && !GetContact(this))
-   {
-    SetAction("Jump");
-    SetDir(DIR_Left);
-    SetComDir(COMD_Left);
-    WallJumpBoost();
-    Sound("ClonkAction*.ogg");
-    StopWallJump();
-    return 1;
-   }
-  }
+    if(GetEffect("IntWallJump",this) && !GetContact(this))
+    {
+      SetAction("Jump");
+      SetDir(DIR_Left);
+      SetComDir(COMD_Left);
+      WallJumpBoost();
+      Sound("ClonkAction*.ogg");
+      StopWallJump();
+      return 1;
+    }
+
   //Doppelrechts
   if(strControl == "ControlRightDouble")
-  {
-   if(GetEffect("IntWallJump",this) && !GetContact(this))
-   {
-    SetAction("Jump");
-    SetDir(DIR_Right);
-    SetComDir(COMD_Right);
-    WallJumpBoost();
-    Sound("ClonkAction*.ogg");
-    StopWallJump();
-    return 1;
-   }
-  }
+    if(GetEffect("IntWallJump",this) && !GetContact(this))
+    {
+      SetAction("Jump");
+      SetDir(DIR_Right);
+      SetComDir(COMD_Right);
+      WallJumpBoost();
+      Sound("ClonkAction*.ogg");
+      StopWallJump();
+      return 1;
+    }
 
   //Einmal links
   if(strControl == "ControlLeftSingle")
-  {
-   if (IsJumping())
-   {
-    SetDir(DIR_Left);
-    SetComDir(COMD_Left);
-    return 1;
-   }
-  }
+    if (IsJumping())
+    {
+      SetDir(DIR_Left);
+      SetComDir(COMD_Left);
+      return 1;
+    }
 
   //Einmal rechts
   if(strControl == "ControlLeftSingle")
-  {
-   if(IsJumping())
-   {
-    SetDir(DIR_Right);
-    SetComDir(COMD_Right);
-    return 1;
-   }
-  }
+    if(IsJumping())
+    {
+      SetDir(DIR_Right);
+      SetComDir(COMD_Right);
+      return 1;
+    }
 
   //Springen
   if(strControl == "ControlUp")
   {
-   if(WildcardMatch(GetAction(), "Scale*") && GetActTime() < 5)
-           EffectVar(2, this, AddEffect("ControlStack", this, 110, 5, this)) = true;
+    if(WildcardMatch(GetAction(), "Scale*") && GetActTime() < 5)
+      EffectVar(2, this, AddEffect("ControlStack", this, 110, 5, this)) = true;
 
-   if(GetEffect("ControlStack", this))
-           EffectVar(1, this, GetEffect("ControlStack", this)) = COMD_Up;
+    if(GetEffect("ControlStack", this))
+      EffectVar(1, this, GetEffect("ControlStack", this)) = COMD_Up;
 
-   return;
+    return;
   }
 }
 
@@ -1460,20 +1453,20 @@ public func JumpStart(bool bBackflip)
   var iEff, iComd;
   if((iEff = GetEffect("ControlStack", this)))
   {
-   if(EffectVar(1, this, iEff) != COMD_Up && !bBackflip) return;
-   iComd = EffectVar(0, this, iEff);
+    if(EffectVar(1, this, iEff) != COMD_Up && !bBackflip) return;
+    iComd = EffectVar(0, this, iEff);
 
-   RemoveEffect(0, this, iEff);
-   if(iComd == COMD_Left)
-   {
-    if(GetDir() == DIR_Right)
-     BackFlip();
-   }
-   if(iComd == COMD_Right)
-   {
-    if(GetDir() == DIR_Left)
-     BackFlip();
-   }
+    RemoveEffect(0, this, iEff);
+    if(iComd == COMD_Left)
+    {
+      if(GetDir() == DIR_Right)
+        BackFlip();
+    }
+    if(iComd == COMD_Right)
+    {
+      if(GetDir() == DIR_Left)
+        BackFlip();
+    }
   }
   //Für Leiter
   _inherited(bBackflip);
@@ -1483,8 +1476,8 @@ public func ReleaseLadderStop()
 {
   if(ReleaseLadder(-20*(GetDir()*2-1)))
   {
-   Sound("ClonkAction*.ogg");
-   ScheduleCall(0, "BackFlipBoost", 1, 1);
+    Sound("ClonkAction*.ogg");
+    ScheduleCall(0, "BackFlipBoost", 1, 1);
   }
 }
 

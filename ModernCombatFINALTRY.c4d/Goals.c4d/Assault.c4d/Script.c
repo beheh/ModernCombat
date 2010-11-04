@@ -155,8 +155,8 @@ protected func FxIntAssaultTargetDamage(object pTarget, int iEffect, int iDamage
   var id = pTarget->~GetImitationID();
   if (!id)
     id = GetID(pTarget);
-  var size = Distance(0, 0, GetDefWidth(id), GetDefHeight(id)) * 5;
-  CreateParticle("FxShield", GetX(pTarget) - GetX(), GetY(pTarget) - GetY(), 0, 0, size, RGB(255, 255, 255));
+  var size = Distance(0, 0, GetDefWidth(id), GetDefHeight(id)) * 6;
+  CreateParticle("TargetShield", GetX(pTarget) - GetX(), GetY(pTarget) - GetY(), Sin(Random(360), 10), -Cos(Random(360), 10), size, InterpolateRGBa3(RGB(255, 255, 255), GetTeamColor(iDefender), 3, 4));
   Sound("Shield", false, pTarget);
   return 0;
 }
