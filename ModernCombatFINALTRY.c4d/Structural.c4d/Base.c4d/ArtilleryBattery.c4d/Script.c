@@ -19,6 +19,7 @@ func Initialize()
   //Kanone erstellen
   pCannon = CreateObject(CNON,0,32,-1);
   iCooldown = 0;
+  LocalN("arty",pCannon) = this;
   SetR(0, pCannon);
 
   return inherited();
