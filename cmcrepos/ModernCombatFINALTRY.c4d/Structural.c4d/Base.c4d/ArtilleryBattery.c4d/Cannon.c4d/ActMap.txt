@@ -1,22 +1,30 @@
 [Action]
 Name=Extend
-Facet=60,0,6,68,0,0
+Procedure=ATTACH
+Facet=60,0,6,68
 Length=11
 Delay=3
-NextAction=Idle
+NextAction=Aim
 Sound=CannonRotation
 
 [Action]
+Name=Aim
+Procedure=ATTACH
+Facet=0,0,6,68
+
+[Action]
 Name=Backdraft
-Facet=0,0,6,68,0,0
+Procedure=ATTACH
+Facet=0,0,6,68
 Length=4
 Delay=1
 NextAction=Redraft
 
 [Action]
 Name=Redraft
-Facet=24,0,6,68,0,0
+Procedure=ATTACH
+Facet=24,0,6,68
 Length=6
 Delay=3
-NextAction=Idle
+NextAction=Aim
 EndCall=EjectBullet

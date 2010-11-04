@@ -19,7 +19,7 @@ func Initialize()
   //Kanone erstellen
   pCannon = CreateObject(CNON,0,32,-1);
   iCooldown = 0;
-  LocalN("arty",pCannon) = this;
+  pCannon->~Attach(this, 4);
   SetR(0, pCannon);
 
   return inherited();
@@ -128,7 +128,7 @@ func ControlThrow(object pByObj)
   //-20 Sekunden Feuersalve / 60 Sekunden Cooldown
   iCooldown = 80*35;
   SetController(GetController(pByObj));
-  ScheduleCall(this,"Shoot",70,10);
+  ScheduleCall(this, "Shoot",70,10);
   ScheduleCall(this, "BeginAttack", 70);
 
   Sound("Acknowledge.ogg", 0, pByObj, 100, GetOwner(pByObj)+1);
@@ -162,7 +162,7 @@ public func Shoot()
 
   //Effekte
   Sound("ATBY_Fire*.ogg");
-  ObjectSetAction(pCannon,"Backdraft");
+  ObjectSetAction(pCannon, "Backdraft", this);
   CreateParticle("LightFlash",iX,iY,0,0,500,RGBa(255,255,255,32));
   for(var i = 0; i < 14; i++)
     CreateParticle("Smoke",iX,iY+RandomX(-20,20),0,0,RandomX(50,100),RGB(96,96,96));
@@ -181,7 +181,7 @@ public func OnDestruction()
   //Cooldown zurücksetzen
   iCooldown = 0;
 
-  RemoveEffect("ShowWeapon",this); 
+  RemoveEffect("ShowWeapon", this); 
 
   //Effekte
   if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("Smoke3",15,20,0,0,220,500);
@@ -202,7 +202,8 @@ public func OnDmg(int iDmg, int iType)
 public func OnRepair()
 {
   //Neue Kanone
-  pCannon = CreateObject(CNON,0,32,-1);
+  pCannon = CreateObject(CNON,0, 32, -1);
+  pCannon->~Attach(this, 4);
 }
 
 /* Normale Entfernung */
