@@ -12,7 +12,7 @@ static unlocked;
 public func Initialize()
 {
   //Sektion 1 freischalten
-  unlocked = [0,1,0];
+  unlocked = [0,1,1,1,1];
   wait(3);
 
   //Nachrichtensystem aktivieren

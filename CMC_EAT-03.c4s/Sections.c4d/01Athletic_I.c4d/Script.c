@@ -63,7 +63,7 @@ func Script5()
   {
     TutorialMessage("$Txt02$");
     sect1told = true;
-    wait(3*6);
+    wait(36*6);
   }
   if(FindObject2(Find_ID(PCMK),Find_InRect(290,270,140,80)))
     TutorialMessage("$Txt03$");

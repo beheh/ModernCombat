@@ -1,6 +1,0 @@
-[Landscape]
-Sky=Default
-SkyFade=100,100,100,0,0,0
-
-[Environment]
-Objects=ELGT=1;DOFO=1
