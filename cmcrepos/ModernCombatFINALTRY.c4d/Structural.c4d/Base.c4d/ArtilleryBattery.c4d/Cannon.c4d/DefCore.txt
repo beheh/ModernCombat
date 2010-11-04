@@ -15,3 +15,5 @@ Mass=150
 Components=METL=2
 Picture=0,0,6,68
 Rotate=1
+Timer=1
+TimerCall=Timer
