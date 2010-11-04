@@ -1,0 +1,36 @@
+<html>
+  <head>
+    <title>ConnectAssaultTargets - CMC Dokumentation</title>
+	<link rel="stylesheet" type="text/css" href="..\..\CSS.css">
+  </head>
+  
+  <body>
+    <h1>ConnectAssaultTargets</h1>
+	
+	<p><b>Kategorie:</b> Ziele (global)</p>
+
+	<h2>Beschreibung</h2>
+	<div class="Text">Verbindet mehrere Zielobjekte im Spielziel <a href="..\Assault.html">Assault</a>. Verbundene Ziele werden gleichzeitig im Scoreboard angezeigt. Der Ticket-Reset findet erst statt, wenn alle verbundenen Ziele vernichtet wurden.</div>
+
+	<h2>Syntax</h2>
+	<div class="fnsyntax"><span class="type">bool</span> ConnectAssaultTargets (<span class="type">array</span> aTargets);</div>
+
+	<h2>Parameter</h2>
+	<div class="parn">aTargets:</div>
+	<div class="part">Array der zu verbindenden Zielobjekt-Indizes, die jeweils bei <a href="AddAssaultTarget.html">AddAssaultTarget</a> angegeben wurden.</div>
+
+	<h2>Anmerkung</h2>
+	<div class="Text">Es wird weiterhin für jedes Ziel einzeln <a href="..\Calls\OnAssaultTargetDestruction.html">OnAssaultTargetDestruction</a> aufgerufen. Wird das letzte verbundene Ziel zerstört, ist jedoch der Parameter fConnectedDestruction true.</div>
+
+	<h2>Beispiel</h2>
+	<pre class="code">ConnectAssaultTargets( [2, 3, 4] );</pre>
+	<div class="Text">Verbindet die Ziele mit den Indizes 2, 3 und 4.</div>
+
+	<h2>Siehe auch</h2>
+	<div class="Text"><b>Objekte:</b> <a href="..\Assault.html">Assault</a></div>
+	<div class="Text"><b>Funktionen:</b> <a href="AddAssaultTarget.html">AddAssaultTarget</a>, <a href="GetAssaultTarget.html">GetAssaultTarget</a></div>
+	<div class="Text"><b>Calls:</b> <a href="..\Calls\OnAssaultTargetDestruction.html">OnAssaultTargetDestruction</a></div>
+
+	<div class="Author">Limeox, Oktober 2010</div>
+  </body>
+</html>

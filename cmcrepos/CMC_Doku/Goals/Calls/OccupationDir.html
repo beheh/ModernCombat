@@ -1,0 +1,33 @@
+<html>
+  <head>
+    <title>OccupationDir - CMC Dokumentation</title>
+	<link rel="stylesheet" type="text/css" href="..\..\CSS.css">
+  </head>
+  
+  <body>
+    <h1>OccupationDir</h1>
+	
+	<p><b>Kategorie:</b> Ziele (Calls)</p>
+
+	<h2>Beschreibung</h2>
+	<div class="Text">Wird von den Zielen <a href="..\Occupation.html">Besitznahme</a> und <a href="..\BaseAssault.html">Base Assault</a> im Szenarienscript aufgerufen, um festzustellen, in welche Richtung das Spielgeschehen verläuft.</div>
+
+	<h2>Syntax</h2>
+	<div class="fnsyntax"><span class="type">public func</span> OccupationDir ()</div>
+
+	<h2>Rückgabewerte</h2>
+	<div class="parn">GOCC_Horizontal:</div>
+	<div class="part">Spiel verläuft horizontal (zB Island Strike).</div>
+	<div class="parn">GOCC_Vertical:</div>
+	<div class="part">Spiel verläuft vertikal (zB Babel Tower).</div>
+
+	<h2>Anmerkung</h2>
+	<div class="Text">Bei Rückgabewert 0 wird automatisch GOCC_Horizontal angenommen.</div>
+	<div class="Text">Die Richtung wird verwendet, um das Relaunch-Menü und ggf. das Scoreboard zu sortieren.</div>
+	
+	<h2>Siehe auch</h2>
+	<div class="Text"><b>Objekte:</b> <a href="..\BaseAssault.html">Base Assault</a>, <a href="..\Occupation.html">Besitznahme</a></div>
+
+	<div class="Author">Limeox, Oktober 2010</div>
+  </body>
+</html>
