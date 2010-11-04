@@ -301,12 +301,17 @@ public func IsFulfilled()
       //Sound
       Sound("Cheer.ogg", true);
 
+      //Endtitel
+      Music();
+      Sound("CMC_End of War.ogg", true);
+
       return fulfilled = true;
     }
   //Nur noch eins übrig
   if (GetActiveTeamCount() <= 1)
   {
     var i = GetPlayerTeam(GetPlayerByIndex());
+
     //Spielende planen
     Schedule("GameOver()", 150);
 
@@ -318,6 +323,10 @@ public func IsFulfilled()
 
     //Sound
     Sound("Cheer.ogg", true);
+
+    //Endtitel
+    Music();
+    Sound("CMC_End of War.ogg", true);
 
     return fulfilled = true;  
   }

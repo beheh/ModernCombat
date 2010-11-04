@@ -449,6 +449,9 @@ public func IsFulfilled()
 
     if(LosersAlive(iWinningTeam)) return;
 
+    //Spielende planen
+    Schedule("GameOver()",150);
+
     //Auswertung
     Evaluation();
 
@@ -458,8 +461,10 @@ public func IsFulfilled()
     //Sounds
     Sound("Cheer.ogg", true);
 
-    //Spielende planen
-    Schedule("GameOver()",150);
+    //Endtitel
+    Music();
+    Sound("CMC_End of War.ogg", true);
+
     return true;
   }
 
@@ -471,11 +476,16 @@ public func IsFulfilled()
     if(LosersAlive(0))
       return false;
 
+    //Spielende planen
+    Schedule("GameOver()",150);
+
     //Auswertung
     Evaluation();
 
-    //Spielende planen
-    Schedule("GameOver()",150);
+    //Endtitel
+    Music();
+    Sound("CMC_End of War.ogg", true);
+
     return true;
   }
 }
