@@ -1,41 +1,42 @@
 <html>
   <head>
     <title>Klassen erstellen - CMC Dokumentation</title>
-	<link rel="stylesheet" type="text/css" href="..\CSS.css">
+    <link rel="stylesheet" type="text/css" href="..\CSS.css">
   </head>
 
   <body>
     <h1>Klassen erstellen</h1>
 
-	<p><b>Kategorie:</b> Tutorial</p>
+    <p><b>Kategorie:</b> Tutorial</p>
 
-	<h2>Script</h2>
-	<div class="Text">Neue Klassen müssen im Script der Klassenwahl stehen. Am einfachsten wird dies erreicht, wenn man eine neue Scriptdatei im Ordner System.c4g erstellt und diese an den Klassenwahl-Script (MCSL) anhängt.</div>
-	<div class="Text">In diesem Script müssen zwei Funktionen definiert sein: Class*Info und Class*Setup, wobei der * durch die Nummer der Klasse zu ersetzen ist. Die Nummer ist so zu wählen, dass keine Lücken entstehen. Die letzte Klasse im Originalpack ist der Artillerist (Nummer 5), die nächste Klasse muss also die Nummer 6 tragen.</div>
+    <h2>Script</h2>
+    <div class="Text">Neue Klassen müssen im Script der Klassenwahl stehen. Am einfachsten wird dies erreicht, wenn man eine neue Scriptdatei im Ordner System.c4g erstellt und diese an den Klassenwahl-Script (MCSL) anhängt.</div>
+    <div class="Text">In diesem Script müssen zwei Funktionen definiert sein: Class*Info und Class*Setup, wobei der * durch die Nummer der Klasse zu ersetzen ist. Die Nummer ist so zu wählen, dass keine Lücken entstehen. Die letzte Klasse im Originalpack ist der Artillerist (Nummer 5), die nächste Klasse muss also die Nummer 6 tragen.</div>
 
-	<h2>Class*Info</h2>
-	<div class="Text">Hier werden nacheinander verschiedene Werte über die Klasse abgefragt. Bei Bedarf können Standardwerte per Default() zurückgegeben werden.</div>
-	<div class="fnsyntax"><span class="type">private func</span> Class*Info (<span class="type">int</span> iData, <span class="type">int</span> iPlr)</div>
-	<div class="parn">iData:</div>
-	<div class="part">Daten, die abgefragt werden. Die Konstanten sind unten aufgelistet.</div>
-	<div class="parn">iPlr:</div>
-	<div class="part">Spieler, für den die Daten abgefragt werden.</div>
-	<div class="Text">Folgende iData-Konstanten sind definiert:</div>
-	<div class="Text"><b>CData_Name:</b> Name der Klasse (String).</div>
-	<div class="Text"><b>CData_Desc:</b> Beschreibung der Klasse (String).</div>
-	<div class="Text"><b>CData_Clonk:</b> ID des Clonktyps, der für die Klasse verwendet wird (C4ID).</div>
-	<div class="Text"><b>CData_Ammo:</b> Munition, die die Klasse besitzt (String).</div>
-	<div class="Text"><b>CData_Items:</b> Ausrüstung, die die Klasse besitzt (String).</div>
-	<div class="Text"><b>CData_Facet:</b> Picture-Facet, welches die Klasse repräsentiert. Diverse Icons sind in der Graphics.png der Klassenwahl enthalten. (Int)</div>
-	
-	<h2>Class*Setup</h2>
-	<div class="Text">Diese Funktion wird aufgerufen, wenn ein Spieler die Klasse auswählt. Hierbei sollte ein neuer Clonk erstellt und vollständig ausgerüstet werden. Zurückgegeben werden muss der neue Clonk.</div>
-	<div class="fnsyntax"><span class="type">private func</span> Class*Setup (<span class="type">int</span> iPlr)</div>
-	<div class="parn">iPlr:</div>
-	<div class="part">Spieler, der die Klasse gewählt hat.</div>
+    <h2>Class*Info</h2>
+    <div class="Text">Hier werden nacheinander verschiedene Werte über die Klasse abgefragt. Bei Bedarf können Standardwerte per Default() zurückgegeben werden.</div>
+    <div class="fnsyntax"><span class="type">private func</span> Class*Info (<span class="type">int</span> iData, <span class="type">int</span> iPlr)</div>
+    <div class="parn">iData:</div>
+    <div class="part">Daten, die abgefragt werden. Die Konstanten sind unten aufgelistet.</div>
+    <div class="parn">iPlr:</div>
+    <div class="part">Spieler, für den die Daten abgefragt werden.</div>
+    <div class="Text">Folgende iData-Konstanten sind definiert:</div>
+    <div class="Text"><b>CData_Name:</b> Name der Klasse (String).</div>
+    <div class="Text"><b>CData_Desc:</b> Beschreibung der Klasse (String).</div>
+    <div class="Text"><b>CData_Clonk:</b> ID des Clonktyps, der für die Klasse verwendet wird (C4ID).</div>
+    <div class="Text"><b>CData_Ammo:</b> Munition, die die Klasse besitzt (Array, s. Anmerkung).</div>
+    <div class="Text"><b>CData_Items:</b> Ausrüstung, die die Klasse besitzt (Array, s. Anmerkung).</div>
+    <div class="Text"><b>CData_Grenades:</b> Granaten, die die Klasse besitzt (Array, s. Anmerkung).</div>
+    <div class="Text"><b>CData_Icon:</b> Definition, aus der das Klassen-Icon geladen wird (C4ID).</div>
+    <div class="Text"><b>CData_Condition:</b> Klasse kann nur gewählt werden, wenn diese Bedingung wahr ist (Bool).</div>
+    <div class="Text"><b>CData_Facet:</b> Picture-Facet, welches die Klasse repräsentiert. Diverse Icons sind in der Graphics.png der Klassenwahl enthalten. (Int)</div>
 
-	<h2>Beispiel</h2>
-	<pre class="code">
+
+    <h2>Anmerkung</h2>
+    <div class="Text">Die Werte CData_Ammo, CData_Items und CData_Grenades erwarten jeweils ein zweidimensionales Array. In der ersten Dimension können beliebig viele Einträge der Form [idItem, iCount] stehen, d.h. es werden iCount Objekte des Typs idItem für die Klasse erstellt (s. Beispiel).</div>
+
+    <h2>Beispiel</h2>
+    <pre class="code">
 <b>#strict 2</b>
 <b>#appendto</b> MCSL
 
@@ -46,33 +47,14 @@
   <b>if</b> (iData == CData_Name) <b>return</b> <i class="string">"Michael"</i>;
   <b>if</b> (iData == CData_Desc) <b>return</b> <i class="string">"Unschlagbar in allen Situationen."</i>;
   <b>if</b> (iData == CData_Clonk) <b>return</b> PCMK;
-  <b>if</b> (iData == CData_Ammo) <b>return</b> <i class="string">"60x {{STAM}}30x {{GRAM}}8x {{MIAM}}"</i>;
-  <b>if</b> (iData == CData_Items) <b>return</b> <i class="string">"1x {{ASTR}}     1x {{RTLR}}|2x {{C4PA}}     1x {{FAPK}}|2x {{PGRN}}     2x {{FGRN}}"</i>;
+  <b>if</b> (iData == CData_Ammo) <b>return</b> [ [STAM, 60], [GRAM, 30], [MIAM, 8] ];
+  <b>if</b> (iData == CData_Items) <b>return</b> [ [ASTR, 1], [RTLR, 1], [C4PA, 2], [FAPK, 1] ];
+  <b>if</b> (iData == CData_Grenades) <b>return</b> [ [PGRN, 2], [FGRN, 2] ];
   <b>if</b> (iData == CData_Facet) <b>return</b> 7;
   <b>return</b> Default(iData, iPlr);
 }
+</pre>
 
-<b>private func</b> Class6Setup(<b>int</b> iPlr)
-{
-  <b>var</b> new = CreateObject(PCMK, 0, 0, iPlr);
-  <i class="string">//Munition</i>
-  DoAmmo(STAM, 60, new);
-  DoAmmo(GRAM, 30, new);
-  DoAmmo(MIAM, 8, new);
-  <i class="string">//Ausrüstung</i>
-  CreateContents(ASTR, new);
-  CreateContents(RTLR, new);
-  CreateContents(C4PA, new);
-  CreateContents(C4PA, new);
-  CreateContents(FAPK, new);
-  <i class="string">//Granaten</i>
-  CreateObject(PGRN, 0, 0, iPlr)->Activate(new);
-  CreateObject(PGRN, 0, 0, iPlr)->Activate(new);
-  CreateObject(FGRN, 0, 0, iPlr)->Activate(new);
-  CreateObject(FGRN, 0, 0, iPlr)->Activate(new);
-  <b>return</b> new;
-}</pre>
-
-	<div class="Author">Limeox, Oktober 2010</div>
+    <div class="Author">Limeox, Oktober 2010</div>
   </body>
 </html>
