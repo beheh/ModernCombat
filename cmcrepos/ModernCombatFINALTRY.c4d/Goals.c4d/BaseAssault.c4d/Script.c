@@ -169,9 +169,17 @@ public func IsFulfilled()
     //Auswertung
     RewardEvaluation();
 
-    RemoveAll(GOAL);
-    Sound("Cheer.ogg", true);
+    //Nachricht über Gewinner
     Message("@$TeamHasWon$", 0, GetTaggedTeamName(team));
+
+    //Sound
+    Sound("Cheer.ogg", true);
+
+    //Endtitel
+    Music();
+    Sound("CMC_End of War.ogg", true);
+
+    RemoveAll(GOAL);
     return fulfilled = true;
   }
 }
