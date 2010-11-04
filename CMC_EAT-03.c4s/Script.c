@@ -7,7 +7,7 @@ static const SECT_Amount = 4;
 static unlocked;
 
 
-/* Initalisierung */
+/* Initialisierung */
 
 public func Initialize()
 {
@@ -21,19 +21,20 @@ public func Initialize()
   return(1);
 }
 
-public func InitializePlayer() {
+public func InitializePlayer()
+{
   //Lobby initialisieren
   LoadSection(0);
 }
 
 public func RelaunchPlayer(int iPlr, object pCrew)
 {
-	//Clonkerstellung
+  //Clonkerstellung
   var pClonk = CreateObject(PCMK, 10, 10, iPlr);
   if(pCrew)
-   GrabObjectInfo(pCrew, pClonk);
+    GrabObjectInfo(pCrew, pClonk);
   else
-   MakeCrewMember(pClonk, iPlr);
+    MakeCrewMember(pClonk, iPlr);
 
   DoEnergy(+150, pClonk);
   SetCursor(iPlr, pClonk);
