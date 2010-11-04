@@ -2,7 +2,7 @@
 Title=CMC - EAT-03
 Loader=Loader_CMC*
 MaxPlayer=1
-MaxPlayerLeague=12
+MaxPlayerLeague=1
 Origin=ModernCombat.c4f
 
 [Definitions]
