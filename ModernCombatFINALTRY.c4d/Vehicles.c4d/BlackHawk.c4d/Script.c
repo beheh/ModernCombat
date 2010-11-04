@@ -46,6 +46,9 @@ public func MaxDamage()			{return 200;}
 public func IsThreat()			{return 1;}
 public func IsBulletTarget(id idBullet, object pBullet)
 {
+  if(GetOwner() == -1) //Nicht treffen, falls es niemandem gehört.
+    return 0;
+    
   if(idBullet == MISS || idBullet == HMIS || idBullet == MISL || idBullet == LRML || idBullet == ESHL)
     return ObjectDistance(pBullet) < 40;
   return 1;

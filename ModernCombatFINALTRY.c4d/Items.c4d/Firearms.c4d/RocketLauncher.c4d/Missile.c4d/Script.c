@@ -170,6 +170,10 @@ private func Traveling()
   //Nichts unternehmen wenn zerstört
   if(GetAction() == "Idle")
     return;
+  
+  //Falls zu hoch über der Karte -> zerstören
+  if(GetY() < -500)
+    return Hit();
 
   //Im Wasser abstürzen
   if(GBackLiquid()) return GetDamaged();
