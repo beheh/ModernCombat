@@ -1,0 +1,11 @@
+[Particle]
+Name=TargetShield
+MaxCount=600
+InitFn=StdInit
+ExecFn=StdExec
+DrawFn=Std
+Face=0,0,40,40,-20,-20
+RByV=2
+Additive=1
+AlphaFade=6
+Attach=1
