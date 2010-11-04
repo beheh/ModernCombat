@@ -4,14 +4,11 @@
 
 local arty;
 
-/* Initalisierung */
-
-func Initialize()
+public func Attach(object pObj, int iVertex)
 {
-  //Ausfahraktion
-  SetAction("Extend");
-
-  return 1;
+  SetAction("Extend", arty = pObj);
+  //Am dritten Vertex festmachen
+  SetActionData((3 << 8) + iVertex);
 }
 
 /* Hülsenauswurf */
@@ -19,11 +16,4 @@ func Initialize()
 func EjectBullet()
 {
   SABulletCasing(0, 0, RandomX(-20,-10), RandomX(-30,-20), 12, RGB(200,200,200));
-}
-
-/* Attachment */
-
-protected func Timer()
-{
-  SetPosition(GetX(arty)+1,GetY(arty)-2);
 }
