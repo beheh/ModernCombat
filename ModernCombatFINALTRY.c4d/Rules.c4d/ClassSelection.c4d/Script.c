@@ -119,6 +119,12 @@ public func FxSpawntimerTimer(pTarget, iNo, iTime)
   }
 }
 
+public func FxSpawnTimerStop(pTarget, iNo, iReason, fTemp)
+{
+  if (!fTemp)
+    PlayerMessage(EffectVar(0, pTarget, iNo), "@");
+}
+
 func InitClassMenu(object pClonk)
 {
   //Kein Clonk?
@@ -200,83 +206,102 @@ func Finish(object pClonk)
 
 private func InfoMenuItems()
 {
-  if(!FindObject(NOAM))
-  {return 6;}
-  else
-  {return 5;}
+  return 5 + !FindObject(NOAM);
 }
 
 local bNoMenuUpdate;
 
 private func OpenMenu(object pClonk, int iSelection)
 {
-  if(!iSelection)
-    if(lastclass[GetOwner(pClonk)] > 0)
-      iSelection = lastclass[GetOwner(pClonk)]+InfoMenuItems();
+  var iOwner = GetOwner(pClonk);
+  
+  //Auswahl updaten
+  if (!iSelection && lastclass[iOwner] > 0)
+    iSelection = lastclass[iOwner];
   else
-    iSelection = InfoMenuItems()+1;
-
-  if(GetMenu(pClonk))
+    iSelection = InfoMenuItems() + 1;
+  if (GetMenu(pClonk))
     iSelection = GetMenuSelection(pClonk);
 
+  var iClass = iSelection - InfoMenuItems();
+
+  //Menü öffnen
   CloseMenu(pClonk);
-  if(!CreateMenu(GetID(),pClonk,this,0,0,0,C4MN_Style_Dialog,1)) return false;
+  CreateMenu(GetID(), pClonk, this, 0, 0, 0, C4MN_Style_Dialog, true);
 
-  var class = iSelection-InfoMenuItems();
+  //Icon
+  AddMenuItem(" | ", 0, GetCData(iClass, CData_Icon), pClonk, 0, 0, " ", 2, GetCData(iClass, CData_Facet));
 
-  //Klassenicon
-  AddMenuItem(" | ", "", GetCData(class,CData_Icon), pClonk, 0, 0, "", 514, GetCData(class,CData_Facet), 0);
-
-  //Klassenname und -beschreibung
-  //34 Zeichen pro Zeile! (Ohne Icon!)
-  AddMenuItem(Format("<c ffff33>%s</c>|%s", GetCData(class,CData_Name), GetCData(class,CData_Desc)),
-              "", NONE, pClonk, 0, 0, "", 512, 0, 0);
+  //Name
+  AddMenuItem(Format("<c ffff33>%s</c>|%s", GetCData(iClass, CData_Name), GetCData(iClass, CData_Desc)), 0, NONE, pClonk, 0, 0, " ");
 
   //Leerzeile
-  AddMenuItem(" ","", NONE,pClonk, 0, 0, "", 512, 0, 0);
+  AddMenuItem(" ", 0, NONE, pClonk, 0, 0, " ");
 
-  //Clonkicon und -name
-  AddMenuItem(Format("{{%i}}%s",GetCData(class,CData_Clonk),GetName(0,GetCData(class,CData_Clonk))),
-              "", NONE, pClonk, 0, 0, "", 512, 0, 0);
+  //Clonktyp
+  AddMenuItem(Format("{{%i}} %s", GetCData(iClass, CData_Clonk), GetName(0, GetCData(iClass, CData_Clonk)), 0, NONE, pClonk, 0, 0, " "));
 
-  //Klassenmunition
-  if(!FindObject(NOAM))
+  //Munition
+  if (!FindObject(NOAM))
   {
-    AddMenuItem(Format("%s",GetCData(class,CData_Ammo)),
-               "", NONE, pClonk, 0, 0, "", 512, 0, 0);}
-
-    //Klassenausrüstung
-    AddMenuItem(Format("%s",GetCData(class,CData_Items)),
-                "", NONE, pClonk, 0, 0, "", 512, 0, 0);
-
-    //Leerzeile
-    AddMenuItem(" ","", NONE,pClonk, 0, 0, "", 512, 0, 0);
-
-    //Auswahlliste der Klassen
-    var i = 1;
-    while(GetCData(i))
+    var szAmmo = "", aAmmo = GetCData(iClass, CData_Ammo);
+    for (var aEntry in aAmmo)
     {
-      var szName = GetCData(i,CData_Name);
-      if(!GetCData(i, CData_Condition, GetOwner(pClonk)))
-      {
-        szName = Format("<c 777777>%s</c>", szName);
-      }
-      else
-      {
-        szName = Format("<c ffff33>%s</c>", szName);
-      }
-      AddMenuItem (szName,Format("SetupClass(%d,%d)",i,GetOwner(pClonk)),GetCData(i,CData_Icon),pClonk,0,pClonk,0,2,GetCData(i,CData_Facet));
-      i++;
+      if (GetType(aEntry) != C4V_Array || GetType(aEntry[0]) != C4V_C4ID || !aEntry[0]->~IsAmmo())
+        continue;
+      szAmmo = Format("%s%2dx {{%i}}", szAmmo, aEntry[1], aEntry[0]);
     }
+    AddMenuItem(szAmmo, 0, NONE, pClonk, 0, 0, " ");
+  }
+
+  //Ausrüstung
+  var szItems = "", aItems = GetCData(iClass, CData_Items), nextline = false, first = true;
+  for (var aEntry in aItems)
+  {
+    if (GetType(aEntry) != C4V_Array || GetType(aEntry[0]) != C4V_C4ID)
+      continue;
+    szItems = Format("%s%2dx {{%i}}     ", szItems, aEntry[1], aEntry[0]);
+    //Nach jedem zweiten Item umbrechen, außer beim letzten
+    if (!first && (nextline = !nextline) && GetIndexOf(aEntry, aItems) < GetLength(aItems) - 1)
+      szItems = Format("%s|", szItems);
+    first = false;
+  }
+  AddMenuItem(szItems, 0, NONE, pClonk, 0, 0, " ");
+
+  //Granaten
+  var szGrenades = "", aGrenades = GetCData(iClass, CData_Grenades);
+  for (var aEntry in aGrenades)
+  {
+    if (GetType(aEntry) != C4V_Array || GetType(aEntry[0]) != C4V_C4ID || !aEntry[0]->~IsGrenade())
+      continue;
+    szGrenades = Format("%s%2dx {{%i}}     ", szGrenades, aEntry[1], aEntry[0]);
+  }
+  AddMenuItem(szGrenades, 0, NONE, pClonk, 0, 0, " ");
+
+  //Leerzeile
+  AddMenuItem(" ", 0, NONE, pClonk, 0, 0, " ");
+
+  //Die Klassen
+  var i = 0;
+  while(GetCData(++i, CData_Name))
+  {
+    var szName = GetCData(i, CData_Name);
+    if (!GetCData(i, CData_Condition, iOwner))
+      szName = Format("<c 777777>%s</c>", szName);
+    else
+      szName = Format("<c ffff33>%s</c>", szName);
+
+    AddMenuItem(szName, Format("SetupClass(%d, %d)", i, iOwner), GetCData(i, CData_Icon), pClonk, 0, 0, 0, 2, GetCData(i, CData_Facet));
+  }
 
   if(!bNoMenuUpdate && iSelection >= 0)
   {
     bNoMenuUpdate = true;
-    SelectMenuItem(iSelection,pClonk);
+    SelectMenuItem(iSelection, pClonk);
   }
 
   return true;
-} 
+}
 
 public func MenuQueryCancel()	{return 1;}
 
@@ -296,66 +321,93 @@ static const CData_Desc             = 2;
 static const CData_Clonk            = 3;
 static const CData_Ammo             = 4;
 static const CData_Items            = 5;
-static const CData_Icon             = 6;
-static const CData_Condition        = 7;
-static const CData_DisplayCondition = 8;
-static const CData_Facet            = 9;
+static const CData_Grenades         = 6;
+static const CData_Icon             = 7;
+static const CData_Condition        = 8;
+static const CData_DisplayCondition = 9;
+static const CData_Facet            = 10;
 
-public func GetCData(int iClass,int iData,int iPlayer)
+public func GetCData(int iClass, int iData, int iPlr)
 {
-  return PrivateCall(this,Format("Class%dInfo",iClass),iData,iPlayer);
+  return PrivateCall(this, Format("Class%dInfo", iClass), iData, iPlr);
 }
 
-public func SetupClass(int iClass, int iPlayer)
+public func SetupClass(int iClass, int iPlr)
 {
-  if(!GetCData(iClass, CData_Condition, iPlayer)) return;
+  //Geht nicht
+  if(!GetCData(iClass, CData_Condition, iPlr))
+    return;
 
-  var oldCrew = crew[iPlayer];
-  crew[iPlayer] = PrivateCall(this,Format("Class%dSetup",iClass),iPlayer);
-  
+  var oldCrew = crew[iPlr];
+
+  //Neuer Clonk
+  var pCrew = crew[iPlr] = CreateObject(GetCData(iClass, CData_Clonk, iPlr), 0, 0, iPlr);
+
   if(Contained(oldCrew))
   {
     var tmp = Contained(oldCrew);
-    SetGraphics(0,tmp,GetID(crew[iPlayer]),1,5,0,1,crew[iPlayer]);
-    Enter(tmp,crew[iPlayer]);
+    SetGraphics(0, tmp, GetID(pCrew), 1, GFXOV_MODE_Object, 0, 1, pCrew);
+    Enter(tmp, pCrew);
   }
 
-  if(GetID(oldCrew) == GetID(crew[iPlayer]))
-    GrabObjectInfo(oldCrew, crew[iPlayer]);
+  //Infosektion holen
+  if(GetID(oldCrew) == GetID(pCrew))
+    GrabObjectInfo(oldCrew, pCrew);
   else
-    MakeCrewMember(crew[iPlayer], iPlayer);
+    MakeCrewMember(pCrew, iPlr);
   SilentKill4K(oldCrew);
-  SelectCrew(iPlayer,crew[iPlayer],1);
-  SetPlrView(iPlayer,crew[iPlayer]);
-  SetCursor(iPlayer,crew[iPlayer],true,false); 
+
+  //Auswählen
+  SelectCrew(iPlr, pCrew, 1);
+  SetPlrView(iPlr, pCrew);
+  SetCursor(iPlr, pCrew, true, false); 
+
+  //Ausrüsten...
+  //Munition
+  if (!FindObject(NOAM))
+  {
+    var aAmmo = GetCData(iClass, CData_Ammo);
+    for (var aEntry in aAmmo)
+      if (GetType(aEntry) == C4V_Array && GetType(aEntry[0]) == C4V_C4ID && aEntry[0]->~IsAmmo())
+        DoAmmo(aEntry[0], aEntry[1], pCrew);
+  }
+  //Items
+  var aItems = GetCData(iClass, CData_Items);
+  for (var aEntry in aItems)
+    if (GetType(aEntry) == C4V_Array && GetType(aEntry[0]) == C4V_C4ID)
+      CreateContents(aEntry[0], pCrew, aEntry[1]);
+  //Granaten
+  var aGrenades = GetCData(iClass, CData_Grenades);
+  for (var aEntry in aGrenades)
+    if (GetType(aEntry) == C4V_Array && GetType(aEntry[0]) == C4V_C4ID && aEntry[0]->~IsGrenade())
+      while (aEntry[1]--)
+        CreateObject(aEntry[0], 0, 0, iPlr)->~Activate(pCrew);
 
   //Nachricht
   for(var i = 0; i < GetPlayerCount(); i++)
-    if(GetPlayerTeam(i) == GetPlayerTeam(iPlayer))
-      EventInfo4K(i+1, 
-        Format("$PlayerChoosedClass$", GetTaggedPlayerName(iPlayer), GetCData(iClass,CData_Name)),
-        GetCData(iClass,CData_Icon),
-        RGB(220,220,220));
+    if(GetPlayerTeam(i) == GetPlayerTeam(iPlr))
+      EventInfo4K(i+1, Format("$PlayerChoosedClass$", GetTaggedPlayerName(iPlr), GetCData(iClass, CData_Name)), GetID(), RGB(220, 220, 220));
 
   //Speichern
-  lastclass[iPlayer] = iClass;
+  lastclass[iPlr] = iClass;
 
-  Finish(crew[iPlayer]);
+  Finish(pCrew);
 
   return true;
 }
 
 private func Default(int iData)
 {
-  if(iData == CData_Name)  return "<Classname>";
-  if(iData == CData_Desc)  return "<Description>";
-  if(iData == CData_Clonk) return CLNK;
-  if(iData == CData_Ammo)  return "<Ammo>";
-  if(iData == CData_Items) return "<Items>";
-  if(iData == CData_Icon)  return GetID();
-  if(iData == CData_Condition)  return true;
-  if(iData == CData_DisplayCondition)  return true;
-  if(iData == CData_Facet) return;
+  if(iData == CData_Name)           return "<Classname>";
+  if(iData == CData_Desc)           return "<Description>";
+  if(iData == CData_Clonk)          return CIVC;
+  if(iData == CData_Ammo)           return [[STAM, 30]];
+  if(iData == CData_Items)          return [[PSTL, 1]];
+  if(iData == CData_Grenades)       return [[FGRN, 1]];
+  if(iData == CData_Icon)           return GetID();
+  if(iData == CData_Condition)      return true;
+  if(iData == CData_DisplayCondition)return true;
+  if(iData == CData_Facet)          return;
   return true;
 }
 

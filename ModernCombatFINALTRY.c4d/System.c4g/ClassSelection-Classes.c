@@ -8,28 +8,14 @@
 
 private func Class1Info(int iData, int iPlr)
 {
-  if(iData == CData_Name)  return "$assault$";
-  if(iData == CData_Desc)  return "$assault_desc$";
-  if(iData == CData_Clonk) return PCMK;
-  if(iData == CData_Ammo)  return "90x {{STAM}}8x {{GRAM}}";
-  if(iData == CData_Items) return "1x {{ASTR}}     1x {{PSTL}}|1x {{C4PA}}     1x {{DGNN}}|2x {{STUN}}     1x {{SGRN}}";
-  if(iData == CData_Facet) return 1;
+  if(iData == CData_Name)       return "$assault$";
+  if(iData == CData_Desc)       return "$assault_desc$";
+  if(iData == CData_Clonk)      return PCMK;
+  if(iData == CData_Ammo)       return [[STAM, 90], [GRAM, 8]];
+  if(iData == CData_Items)      return [[ASTR, 1], [PSTL, 1], [C4PA, 1], [DGNN, 1]];
+  if(iData == CData_Grenades)   return [[STUN, 2], [SGRN, 1]];
+  if(iData == CData_Facet)      return 1;
   return Default(iData);
-}
-
-private func Class1Setup(int iPlr)
-{
-  var new = CreateObject(PCMK,0,0,iPlr);
-  DoAmmo(STAM,90,new);
-  DoAmmo(GRAM,8,new);
-  CreateContents(ASTR, new);
-  CreateContents(PSTL, new);
-  CreateContents(C4PA, new);
-  CreateContents(DGNN, new);
-  CreateObject(STUN,0,0,iPlr)->Activate(new);
-  CreateObject(STUN,0,0,iPlr)->Activate(new);
-  CreateObject(SGRN,0,0,iPlr)->Activate(new);
-  return new;
 }
 
 /* Der Sanitäter */
@@ -37,59 +23,32 @@ private func Class1Setup(int iPlr)
 private func Class2Info(int iData, int iPlr)
 {
 
-  if(iData == CData_Name)  return "$medic$";
-  if(iData == CData_Desc)  return "$medic_desc$";
-  if(iData == CData_Clonk) return MDIC;
-  if(iData == CData_Ammo)  return "80x {{STAM}}";
-  if(iData == CData_Items) return "1x {{SMGN}}     1x {{PSTL}}|1x {{CDBT}}     1x {{FAPK}}|1x {{FGRN}}     2x {{FRAG}}";
-  if(iData == CData_Facet) return 2 ;
+  if(iData == CData_Name)       return "$medic$";
+  if(iData == CData_Desc)       return "$medic_desc$";
+  if(iData == CData_Clonk)      return MDIC;
+  if(iData == CData_Ammo)       return [[STAM, 80]];
+  if(iData == CData_Items)      return [[SMGN, 1], [PSTL, 1], [CDBT, 1], [FAPK, 1]];
+  if(iData == CData_Grenades)   return [[FGRN, 1], [FRAG, 2]];
+  if(iData == CData_Facet)      return 2 ;
   return Default(iData);
-}
-
-private func Class2Setup(int iPlr)
-{
-  var new = CreateObject(MDIC,0,0,iPlr);
-  DoAmmo(STAM,80,new);
-  CreateContents(SMGN, new);
-  CreateContents(PSTL, new);
-  CreateContents(CDBT, new);
-  CreateContents(FAPK, new);
-  CreateObject(FGRN,0,0,iPlr)->Activate(new);
-  CreateObject(FRAG,0,0,iPlr)->Activate(new);
-  CreateObject(FRAG,0,0,iPlr)->Activate(new);
-  return new;
 }
 
 /* Der Unterstützer */
 
 private func Class3Info(int iData, int iPlr)
 {
-  if(iData == CData_Name)  return "$support$";
-  if(iData == CData_Desc)  return "$support_desc$";
-  if(iData == CData_Clonk) return PCMK;
-  if(iData == CData_Ammo)  return "200x {{STAM}}4x {{MIAM}}";
-  if(!FindObject(NOAM))
-  {if(iData == CData_Items) return "1x {{MNGN}}     1x {{RTLR}}|1x {{AMPK}}     1x {{DGNN}}|2x {{STUN}}     1x{{SGRN}}";}
-  else
-  {if(iData == CData_Items) return "1x {{MNGN}}     1x {{RTLR}}|1x {{DGNN}}     --|2x {{STUN}}     1x{{SGRN}}";}
-  if(iData == CData_Facet) return 3;
+  if(iData == CData_Name)       return "$support$";
+  if(iData == CData_Desc)       return "$support_desc$";
+  if(iData == CData_Clonk)      return PCMK;
+  if(iData == CData_Ammo)       return [[STAM, 200], [MIAM, 4]];
+  if(iData == CData_Items)
+    if (FindObject(NOAM))
+      return [[MNGN, 1], [RTLR, 1], [DGNN, 1]];
+    else
+      return [[MNGN, 1], [RTLR, 1], [AMPK, 1], [DGNN, 1]];
+  if(iData == CData_Grenades)   return [[STUN, 2], [SGRN, 2]];
+  if(iData == CData_Facet)      return 3;
   return Default(iData);
-}
-
-private func Class3Setup(int iPlr)
-{
-  var new = CreateObject(PCMK,0,0,iPlr);
-  DoAmmo(STAM,200,new);
-  DoAmmo(MIAM,4,new);
-  CreateContents(MNGN, new);
-  CreateContents(RTLR, new);
-  if(!FindObject(NOAM))
-  {CreateContents(AMPK, new);}
-  CreateContents(DGNN, new);
-  CreateObject(STUN,0,0,iPlr)->Activate(new);
-  CreateObject(STUN,0,0,iPlr)->Activate(new);
-  CreateObject(SGRN,0,0,iPlr)->Activate(new);
-  return new;
 }
 
 /* Der Antiskill */
@@ -97,56 +56,26 @@ private func Class3Setup(int iPlr)
 private func Class4Info(int iData, int iPlr)
 {
 
-  if(iData == CData_Name)  return "$antiskill$";
-  if(iData == CData_Desc)  return "$antiskill_desc$";
-  if(iData == CData_Clonk) return PCMK;
-  if(iData == CData_Ammo)  return "70x {{STAM}}";
-  if(iData == CData_Items) return "1x {{PPGN}}     1x {{PSTL}}|1x {{RSHL}}     1x {{DGNN}}|2x {{PGRN}}     2x{{STUN}}";
-  if(iData == CData_Facet) return 4;
+  if(iData == CData_Name)       return "$antiskill$";
+  if(iData == CData_Desc)       return "$antiskill_desc$";
+  if(iData == CData_Clonk)      return PCMK;
+  if(iData == CData_Ammo)       return [[STAM, 40]];
+  if(iData == CData_Items)      return [[PPGN, 1], [PSTL, 1], [RSHL, 1], [DGNN, 1]];
+  if(iData == CData_Grenades)   return [[PGRN, 1], [STUN, 2]];
+  if(iData == CData_Facet)      return 4;
   return Default(iData);
-}
-
-private func Class4Setup(int iPlr)
-{
-  var new = CreateObject(PCMK,0,0,iPlr);
-  DoAmmo(STAM,70,new);
-  CreateContents(PPGN, new);
-  CreateContents(PSTL, new);
-  CreateContents(RSHL, new);
-  CreateContents(DGNN, new);
-  CreateObject(PGRN,0,0,iPlr)->Activate(new);
-  CreateObject(PGRN,0,0,iPlr)->Activate(new);
-  CreateObject(STUN,0,0,iPlr)->Activate(new);
-  CreateObject(STUN,0,0,iPlr)->Activate(new);
-  return new;
 }
 
 /* Der Artillerist */
 
 private func Class5Info(int iData, int iPlr)
 {
-  if(iData == CData_Name)  return "$artillerist$";
-  if(iData == CData_Desc)  return "$artillerist_desc$";
-  if(iData == CData_Clonk) return PCMK;
-  if(iData == CData_Ammo)  return "50x {{STAM}}30x {{GRAM}}";
-  if(iData == CData_Items) return "1x {{SGST}}     1x {{PSTL}}|2x {{BBTP}}     1x {{DGNN}}|2x {{PGRN}}     2x {{FGRN}}";
-  if(iData == CData_Facet) return 5;
+  if(iData == CData_Name)       return "$artillerist$";
+  if(iData == CData_Desc)       return "$artillerist_desc$";
+  if(iData == CData_Clonk)      return PCMK;
+  if(iData == CData_Ammo)       return [[STAM, 50], [GRAM, 30]];
+  if(iData == CData_Items)      return [[SGST, 1], [PSTL, 1], [BBTP, 2], [DGNN, 1]];
+  if(iData == CData_Grenades)   return [[PGRN, 2], [STUN, 2]];
+  if(iData == CData_Facet)      return 5;
   return Default(iData);
-}
-
-private func Class5Setup(int iPlr)
-{
-  var new = CreateObject(PCMK,0,0,iPlr);
-  DoAmmo(STAM,50,new);
-  DoAmmo(GRAM,30,new);
-  CreateContents(SGST, new);
-  CreateContents(PSTL, new);
-  CreateContents(BBTP, new);
-  CreateContents(BBTP, new);
-  CreateContents(DGNN, new);
-  CreateObject(PGRN,0,0,iPlr)->Activate(new);
-  CreateObject(PGRN,0,0,iPlr)->Activate(new);
-  CreateObject(FGRN,0,0,iPlr)->Activate(new);
-  CreateObject(FGRN,0,0,iPlr)->Activate(new);
-  return new;
 }
