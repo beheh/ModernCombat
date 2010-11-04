@@ -170,8 +170,8 @@ private func Traveling()
   //Nichts unternehmen wenn zerstört
   if(GetAction() == "Idle")
     return;
-  
-  //Falls zu hoch über der Karte -> zerstören
+
+  //Bei zu hoher Flughöhe außerhalb der Landschaft explodieren
   if(GetY() < -500)
     return Hit();
 
