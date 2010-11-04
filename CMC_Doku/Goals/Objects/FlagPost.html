@@ -1,0 +1,55 @@
+<html>
+  <head>
+    <title>Flaggenposten - CMC Dokumentation</title>
+	<link rel="stylesheet" type="text/css" href="..\..\CSS.css">
+  </head>
+
+  <body>
+    <h1>Flaggenposten</h1>
+
+	<p><b>Kategorie:</b> Ziele (Objekt)</p>
+	<p><b>ID:</b> OFPL</b>
+
+	<h2>Beschreibung</h2>
+	<img src="FlagPost.png" id="cpem"></img>
+	<div class="Text">Flaggenposten werden von den Zielen <a href="..\Occupation.html">Besitznahme</a> und <a href="..\HoldTheFlag.html">Hold The Flag</a> verwendet.</div>
+	<div class="Text">Flaggenposten können von einem Team eingenommen werden.</div>
+
+	<h2>Anwendung</h2>
+	<div class="Text">Für das Spielziel <a href="..\HoldTheFlag.html">Hold The Flag</a> reicht es aus, einen Flaggenposten in der Landschaft zu platzieren. Dabei kann optional noch der Name des Postens über SetName gesetzt werden. Die Geschwindigkeit, mit der die Flagge eingenommen wird, kann über <a href="..\Calls\GetHTFTime.html">GetHTFTime</a> bestimmt werden.</div>
+
+	<h2>Set</h2>
+	<div class="Text">Benötigt jeder <a href="..\Occupation.html">Besitznahme</a>-Flaggenposten.</div>
+	<div class="fnsyntax"><span class="type">void</span> Set (<span class="type">string</span> szName, <span class="type">int</span> iRange, <span class="type">int</span> iSpeed);</div>
+	<div class="parn">[opt] szName:</div>
+	<div class="part">Name des Postens. Standard ist "Alpha".</div>
+	<div class="parn">[opt] iRange:</div>
+	<div class="part">Entfernung, in der nach Clonks gesucht wird. Standard ist 100.</div>
+	<div class="parn">[opt] iSpeed:</div>
+	<div class="part">Geschwindigkeit, mit der der Posten eingenommen wird. Standard ist 10.</div>
+
+	<h2>Capture</h2>
+	<div class="Text">Sorgt dafür, dass ein Flaggenposten einem Team zugewiesen wird.</div>
+	<div class="fnsyntax"><span class="type">void</span> Capture (<span class="type">int</span> iTeam, <span class="type">bool</span> fSilent);</div>
+	<div class="parn">iTeam:</div>
+	<div class="part">Team, das den Posten erhalten soll.</div>
+	<div class="parn">[opt] fSilent:</div>
+	<div class="part">Wenn wahr, wird keine Event-Message ausgegeben.</div>
+
+	<h2>AddSpawnpoint</h2>
+	<div class="Text">Fügt einem Flaggenposten einen neuen Spawnpunkt hinzu.</div>
+	<div class="fnsyntax"><span class="type">void</span> AddSpawnPoint (<span class="type">int</span> iX, <span class="type">int</span> iY, <span class="type">string</span> szFunction);</div>
+	<div class="parn">iX:</div>
+	<div class="part">X-Position des neuen Spawnpunkts.</div>
+	<div class="parn">iY:</div>
+	<div class="part">Y-Position des neuen Spawnpunkts.</div>
+	<div class="parn">[opt] szFunction:</div>
+	<div class="part">Wenn angegeben, wird diese Funktion im Szenarienscript aufgerufen. Der erste Parameter ist der spawnende Clonk. So sind zB Fallschirmsprünge als Spawn möglich. Bei Rückgabewert 0 (oder wenn die Funktion nicht existiert) wird der Clonk normal gespawnt.</div>
+
+	<h2>Siehe auch</h2>
+	<div class="Text"><b>Objekte:</b> <a href="..\Occupation.html">Besitznahme</a>, <a href="..\HoldTheFlag.html">Hold The Flag</a></div>
+	<div class="Text"><b>Calls:</b> <a href="..\Calls\FlagAttacked.html">FlagAttacked</a>, <a href="..\Calls\FlagCaptured.html">FlagCaptured</a>, <a href="..\Calls\FlagLost.html">FlagLost</a>, <a href="..\Calls\GetHTFTime.html">GetHTFTime</a></div>
+
+	<div class="Author">Limeox, Oktober 2010</div>
+  </body>
+</html>
