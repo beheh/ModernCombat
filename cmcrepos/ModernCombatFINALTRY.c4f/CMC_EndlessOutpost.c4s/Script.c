@@ -428,7 +428,7 @@ func CreateFurniture()
   CreateObject(RADR, 1785, 30, -1);
 
   //Zäune
-  CreateObject(FENC, 30, 450, -1)->Set(4);
+  CreateObject(FENC, 30, 450, -1)->Set(2);
   CreateObject(FENC, 90, 450, -1);
 
   CreateObject(FENC, 990, 200, -1);

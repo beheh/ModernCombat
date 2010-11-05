@@ -216,8 +216,8 @@ func CreateFurniture()
   CreateObject(EXSN, 2600, 380, -1);
 
   //Zäune
-  CreateObject(FENC, 630, 260, -1)->Set(4);
-  CreateObject(FENC, 2170, 260, -1)->Set(4);
+  CreateObject(FENC, 630, 260, -1);
+  CreateObject(FENC, 2170, 260, -1);
 
   //Topfpflanzen
   CreateObject(PLT3, 580, 390, -1);

@@ -201,8 +201,8 @@ func CreateFurniture()
 
   //Zäune
   CreateObject(FENC, 410, 230, -1);
-  CreateObject(FENC, 470, 230, -1)->Set(3);
-  CreateObject(FENC, 1030, 150, -1)->Set(3);
+  CreateObject(FENC, 470, 230, -1);
+  CreateObject(FENC, 1030, 150, -1);
   CreateObject(FENC, 1090, 150, -1);
 
   //Regale

@@ -129,10 +129,10 @@ func CreateFurniture()
   CreateObject(PLLT, 895, 710, -1);
 
   //Zäune
-  CreateObject(FENC, 1070, 710, -1)->Set(2);
-  CreateObject(FENC, 1130, 710, -1)->Set(2);
-  CreateObject(FENC, 1190, 710, -1)->Set(2);
-  CreateObject(FENC, 1340, 710, -1)->Set(2);
+  CreateObject(FENC, 1070, 710, -1);
+  CreateObject(FENC, 1130, 710, -1);
+  CreateObject(FENC, 1190, 710, -1);
+  CreateObject(FENC, 1340, 710, -1);
 
   //Regale
   CreateObject(FRAM, 20, 490, -1);
