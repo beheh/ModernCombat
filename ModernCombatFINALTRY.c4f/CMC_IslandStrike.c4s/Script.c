@@ -390,8 +390,8 @@ func CreateFurniture()
 
   //Zäune
   CreateObject(FENC, 2850, 410, -1);
-  CreateObject(FENC, 4470, 390, -1)->Set(4);
-  CreateObject(FENC, 4531, 390, -1)->Set(4);
+  CreateObject(FENC, 4470, 390, -1)->Set(2);
+  CreateObject(FENC, 4531, 390, -1)->Set(2);
   CreateObject(FENC, 6300, 410, -1);
 
   //Bildschirme
