@@ -220,7 +220,7 @@ private func OpenMenu(object pClonk, int iSelection)
   
   //Auswahl updaten
   if (!iSelection && lastclass[iOwner] > 0)
-    iSelection = lastclass[iOwner];
+    iSelection = lastclass[iOwner] + InfoMenuItems();
   else
     iSelection = InfoMenuItems() + 1;
   if (GetMenu(pClonk))
