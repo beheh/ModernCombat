@@ -48,6 +48,7 @@ func CreateFurniture()
   CreateObject(LFTP, 6405, 555, -1);
 
   //Leitern
+  CreateObject(LADR, 495, 504, -1)->Set(7);
   CreateObject(LADR, 695, 504, -1)->Set(7);
   CreateObject(LADR, 925, 453, -1)->Set(22);
   CreateObject(LADR, 1295, 494, -1)->Set(6);
@@ -682,7 +683,7 @@ public func ChooserFinished()
   if (FindObject(GASS))
   {
    //Zielobjekte
-   AddAssaultTarget(RADR, 1200, 390, 250, 2, "$Target1$", 0, [[[1550, 400], [1670, 440], [1370, 440]], [[560, 440], [610, 440], [660, 440]]]);
+   AddAssaultTarget(RADR, 1200, 390, 250, 2, "$Target1$", 0, [[[1550, 400], [1670, 440], [1370, 440]], [[560, 440], [610, 440], [650, 440]]]);
    AddAssaultTarget(CMSN, 2720, 340, 250, 2, "$Target2$", 1, [[[2870, 410], [2980, 370], [2970, 510]], [[1670, 440], [1790, 430], [1880, 420]]]);
    AddAssaultTarget(CCP2, 3580, 630, 300, 2, "$Target3$", 2, [[[3795, 410], [3795, 530], [3690, 330]], [[2690, 410], [2710, 510], [2840, 592]]]);
    AddAssaultTarget(GSTA, 4520, 390, 300, 2, "$Target4$", 3, [[[4760, 460], [4870, 440], [5000, 390]], [[3570, 330], [3600, 410], [3470, 630]]]);
@@ -704,6 +705,9 @@ public func ChooserFinished()
    //Artillerie entfernen
    RemoveObject(aArtillery[0]);
 
+   //Leiter entfernen
+   RemoveObject(FindObject2(Find_ID(LADR),Find_InRect(915, 270, 20, 190)));
+
    //Spinde entfernen
    RemoveAll(LCKR);
 
@@ -712,6 +716,18 @@ public func ChooserFinished()
 
    //Spawnpoint entfernen
    RemoveObject(FindObject2(Find_ID(RSPT),Find_InRect(7224, 419, 3, 3)));
+
+   //Stahlbrücke
+   CreateObject(_HBR, 775, 522, -1);
+
+   //Metallkisten
+   CreateObject(MWCR, 790, 510, -1);
+   CreateObject(MWCR, 1070, 470, -1);
+
+   //Kisten
+   CreateObject(WCR2, 785, 492, -1);
+   CreateObject(WCR2, 1310, 440, -1);
+   CreateObject(WCR2, 1330, 440, -1);
 
    //Blackhawk
    SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,4700,290,-1),100*21,300);
