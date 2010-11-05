@@ -122,7 +122,7 @@ public func FxSpawntimerTimer(pTarget, iNo, iTime)
   }
 }
 
-public func FxSpawnTimerStop(pTarget, iNo, iReason, fTemp)
+public func FxSpawntimerStop(pTarget, iNo, iReason, fTemp)
 {
   if (!fTemp)
     PlayerMessage(EffectVar(0, pTarget, iNo), "@");
@@ -162,7 +162,7 @@ func InitClassMenu(object pClonk)
   OpenMenu(pClonk);
 }
 
-func Finish(object pClonk)
+func Finish(object pClonk, int iClass)
 {
   if(!pClonk || !Contained(pClonk)) return;
   var iPlayer = GetOwner(pClonk);
@@ -202,7 +202,7 @@ func Finish(object pClonk)
   PlayerMessage(iPlayer, "@");
 
   //Broadcasten
-  GameCallEx("OnClassSelection",crew[iPlayer]);
+  GameCallEx("OnClassSelection", crew[iPlayer], iClass);
 }
 
 /* Menü */
@@ -394,7 +394,7 @@ public func SetupClass(int iClass, int iPlr)
   //Speichern
   lastclass[iPlr] = iClass;
 
-  Finish(pCrew);
+  Finish(pCrew, iClass);
 
   return true;
 }
