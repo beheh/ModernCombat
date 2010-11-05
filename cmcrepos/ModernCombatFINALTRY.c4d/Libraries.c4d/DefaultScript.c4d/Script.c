@@ -42,8 +42,12 @@ public func ChooserFinished()
 
 func ChooserRuleConfig()
 {
-  //Standardregelsatz: Belohnungssystem, Kein FriendlyFire, Waffen bleiben, Arena, Klassenwahl
-  return [RWDS,NOFF,WPST,NODR];
+  //Standardregelsatz: Belohnungssystem, Kein FriendlyFire, Waffen bleiben, Arena
+  var array = [RWDS, NOFF, WPST, NODR];
+  //Wenn nicht schon platziert, Klassenwahl ebenfalls
+  if (!ObjectCount(MCSL))
+    array[GetLength(array)] = MCSL;
+  return array;
 }
 
 /* Spielerinitalisierung */
