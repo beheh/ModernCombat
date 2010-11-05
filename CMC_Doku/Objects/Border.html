@@ -1,0 +1,30 @@
+<html>
+  <head>
+    <title>Grenzobjekt - CMC Dokumentation</title>
+    <link rel="stylesheet" type="text/css" href="..\CSS.css">
+  </head>
+
+  <body>
+    <h1>Grenzobjekt</h1>
+
+    <p><b>Kategorie:</b> Objekte</p>
+    <p><b>ID:</b> BRDR</p>
+
+    <h2>Beschreibung</h2>
+    <img src="Border.png" id="cpem"></img>
+    <div class="Text">Grenzobjekte können benutzt werden, um den Aktionsraum von Spielern einzuschränken.</div>
+    <div class="Text">Dabei wird eine nicht sichtbare Grenze gezogen. Jeder Spieler, der diese Grenze übertritt, wird nach einer Warnungszeit von 10 Sekunden getötet.</div>
+    
+    <h2>Anwendung</h2>
+    <div class="Text">Grenzobjekte sollten - der Einheitlichkeit halber - jeweils am Spielfeldrand oben oder links platziert werden. Anschließend müssen sie per Set() eingestellt werden.</div>
+
+    <h2>Set</h2>
+    <div class="fnSyntax"><span class="type">void</span> Set (<span class="type">int</span> iDir, <span class="type">bool</span> fKeepSpawns);</div>
+    <div class="parn">iDir:</div>
+    <div class="part">Richtung, in welche das Grenzobjekt prüft (0: links, 1: rechts, 2: unten, 3: oben)</div>
+    <div class="parn">[opt] fKeepSpawns:</div>
+    <div class="part">Standardmäßig werden alle Spawnpoints im abgesperrten Bereich gelöscht. Ist dieser Parameter true, wird dies nicht getan.</div>
+
+    <div class="Author">Limeox, November 2010</div>
+  </body>
+</html>
