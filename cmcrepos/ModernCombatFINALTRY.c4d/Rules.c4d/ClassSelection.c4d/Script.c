@@ -7,10 +7,7 @@ local lastclass;
 local selection;
 
 
-//Wählbar, wenn nicht schon im Spiel
-public func IsChooseable() { return !ObjectCount(GetID()); }
-
-/* Initalisierung */
+/* Initialisierung */
 
 protected func Initialize()
 {

@@ -96,7 +96,7 @@ public func Destroyed()
 
   //Punkte bei Belohnungssystem
   if(BonusPointCondition() && iLastAttacker != -1 && GetOwner() != -1 && Hostile(GetOwner(), iLastAttacker))
-		  DoPlayerPoints(BonusPoints("Destruction"), RWDS_BattlePoints, iLastAttacker, GetCursor(iLastAttacker), IC03);
+    DoPlayerPoints(BonusPoints("Destruction"), RWDS_BattlePoints, iLastAttacker, GetCursor(iLastAttacker), IC03);
 
   //Sound
   Sound("Blast2", false, this);

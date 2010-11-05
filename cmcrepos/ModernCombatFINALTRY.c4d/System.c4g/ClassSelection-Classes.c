@@ -42,7 +42,7 @@ private func Class3Info(int iData, int iPlr)
   if(iData == CData_Clonk)      return PCMK;
   if(iData == CData_Ammo)       return [[STAM, 200], [MIAM, 4]];
   if(iData == CData_Items)
-    if (FindObject(NOAM))
+    if(FindObject(NOAM))
       return [[MNGN, 1], [RTLR, 1], [DGNN, 1]];
     else
       return [[MNGN, 1], [RTLR, 1], [AMPK, 1], [DGNN, 1]];

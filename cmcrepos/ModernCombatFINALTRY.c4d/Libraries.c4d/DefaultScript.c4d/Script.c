@@ -10,27 +10,26 @@ public func ChooserFinished()
   //"Keine Munition"-Regel
   if(FindObject(NOAM))
   {
-   //Munitionsspawnpoints entfernen
-   for(var spwn in FindObjects(Find_ID(SPNP)))
-    if(Contents(0, spwn)->~IsAmmoPacket())
-     RemoveObject(spwn);
+    //Munitionsspawnpoints entfernen
+    for(var spwn in FindObjects(Find_ID(SPNP)))
+      if(Contents(0, spwn)->~IsAmmoPacket())
+        RemoveObject(spwn);
 
-   //Munitionskisten mit Munition entfernen
-   for(var ammobox in FindObjects(Find_ID(AMCT)))
-    if(ammobox->GetSpawnID())
-     if(ammobox->GetSpawnID()->~IsAmmoPacket())
-      RemoveObject(ammobox);
+    //Munitionskisten mit Munition entfernen
+    for(var ammobox in FindObjects(Find_ID(AMCT)))
+      if(ammobox->GetSpawnID())
+        if(ammobox->GetSpawnID()->~IsAmmoPacket())
+          RemoveObject(ammobox);
   }
-
   //Effektmanager erstellen
   CreateObject(EFMN);
 
   //Ohne Klassenwahl
   if(!FindObject(MCSL))
   {
-   for(var i = 0; i < GetPlayerCount(); i++)
-    for(var j = 0, pCrew; pCrew = GetCrew(GetPlayerByIndex(i), j) ; j++)
-     GameCallEx("OnClassSelection",pCrew);
+    for(var i = 0; i < GetPlayerCount(); i++)
+      for(var j = 0, pCrew; pCrew = GetCrew(GetPlayerByIndex(i), j) ; j++)
+        GameCallEx("OnClassSelection",pCrew);
   }
 
   //Nochmal alle Spieler relaunchen
@@ -44,9 +43,6 @@ func ChooserRuleConfig()
 {
   //Standardregelsatz: Belohnungssystem, Kein FriendlyFire, Waffen bleiben, Arena
   var array = [RWDS, NOFF, WPST, NODR];
-  //Wenn nicht schon platziert, Klassenwahl ebenfalls
-  if (!ObjectCount(MCSL))
-    array[GetLength(array)] = MCSL;
   return array;
 }
 
@@ -55,7 +51,7 @@ func ChooserRuleConfig()
 protected func InitializePlayer(int iPlr, int iX, int iY, object pBase, int iTeam)
 {
   for(var i=0, pCrew ; pCrew = GetCrew(iPlr, i) ; i++)
-   RelaunchPlayer(iPlr, pCrew, 0, iTeam, true);
+    RelaunchPlayer(iPlr, pCrew, 0, iTeam, true);
 }
 
 /* Relaunch */
@@ -64,7 +60,7 @@ public func RelaunchPlayer(int iPlr, object pCrew, object pKiller, int iTeam, bo
 {
   //Kein ordentlicher Spieler?
   if(GetOwner(pCrew) == NO_OWNER || iPlr == NO_OWNER || !GetPlayerName(iPlr))
-   return;
+    return;
 
   //Kein Team?
   if(!iTeam) iTeam = GetPlayerTeam(iPlr);
@@ -75,12 +71,12 @@ public func RelaunchPlayer(int iPlr, object pCrew, object pKiller, int iTeam, bo
 
   //Reject?
   if(!bFirst)
-   if(RejectRelaunch(iPlr,iTeam))
-    return;
+    if(RejectRelaunch(iPlr,iTeam))
+      return;
 
   //Clonk tot?
   if(!GetAlive(pCrew))
-   pCrew = RelaunchClonk(iPlr, pCrew);
+    pCrew = RelaunchClonk(iPlr, pCrew);
 
   //Ausrüsten
   OnClonkEquip(pCrew);
@@ -90,12 +86,12 @@ public func RelaunchPlayer(int iPlr, object pCrew, object pKiller, int iTeam, bo
   RelaunchPosition(iX, iY, iTeam);
 
   if(Contained(pCrew))
-   SetPosition(iX, iY, Contained(pCrew));
+    SetPosition(iX, iY, Contained(pCrew));
   else
-   SetPosition(iX, iY, pCrew);
+    SetPosition(iX, iY, pCrew);
 
   if(!FindObject(MCSL) && !FindObject(CHOS))
-   GameCallEx("OnClassSelection",pCrew);
+    GameCallEx("OnClassSelection",pCrew);
 }
 
 public func RelaunchClonk(int iPlr, object pCursor)
@@ -103,14 +99,14 @@ public func RelaunchClonk(int iPlr, object pCursor)
   //Clonkerstellung
   var pClonk = CreateObject(PCMK, 10, 10, iPlr);
   if(pCursor)
-   GrabObjectInfo(pCursor, pClonk);
+    GrabObjectInfo(pCursor, pClonk);
   else
-   MakeCrewMember(pClonk, iPlr);
+    MakeCrewMember(pClonk, iPlr);
 
   DoEnergy(+150, pClonk);
   SetCursor(iPlr, pClonk);
   SetPlrView(iPlr, pClonk);
-  
+
   //In Spawnpoint verschieben
   var tim = CreateObject(TIM2, LandscapeWidth()/2, LandscapeHeight()/2, -1);
   Enter(tim, pClonk);

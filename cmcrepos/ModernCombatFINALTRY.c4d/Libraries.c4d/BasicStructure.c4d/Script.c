@@ -38,8 +38,8 @@ public func StartRepair()
   ClearScheduleCall(this, "StartRepair");
   if(!fRepairing)
   {
-   fRepairing = true;
-   SetAction("RepairStart");
+    fRepairing = true;
+    SetAction("RepairStart");
   }
 }
 
@@ -61,10 +61,10 @@ public func FxIntRepairStart(object pTarget, int iEffectNumber, int iTemp)
 public func FxIntRepairTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
   if(iEffectTime >= AutoRepairDuration())
-   return -1;
+    return -1;
 
   if(!Random(2))
-   Sparks(2+Random(5), RGB(187, 214, 224), RandomX(-GetDefWidth()/2,+GetDefWidth()/2), RandomX(-GetDefHeight()/2,+GetDefHeight()/2));
+    Sparks(2+Random(5), RGB(187, 214, 224), RandomX(-GetDefWidth()/2,+GetDefWidth()/2), RandomX(-GetDefHeight()/2,+GetDefHeight()/2));
 }
 
 public func FxIntRepairStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)
@@ -98,7 +98,7 @@ public func Damage()
 {
   if(GetDamage() > MaxDamage() && !IsDestroyed())
   {
-   Destroyed();
+    Destroyed();
   }
 }
 
@@ -109,8 +109,8 @@ public func OnDmg(int iDmg, int iType)
 
 public func OnHit(int iDmg, int iType, object pBy)
 {
-	if(!IsDestroyed())	
-	  iLastAttacker = GetController(pBy);
+  if(!IsDestroyed())	
+    iLastAttacker = GetController(pBy);
 
   if(fRepairing && iType == DMG_Projectile)
    Sound("BlockOff*.ogg");
@@ -127,7 +127,7 @@ public func Destroyed()
   //Punkte bei Belohnungssystem
   if(BonusPointCondition() && iLastAttacker != -1)
     if((GetOwner() != -1 && Hostile(GetOwner(), iLastAttacker)) || (GetOwner() == -1 && !GetTeam(this)) || (GetTeam(this) != GetPlayerTeam(iLastAttacker)))
-		  DoPlayerPoints(BonusPoints("Destruction"), RWDS_BattlePoints, iLastAttacker, GetCursor(iLastAttacker), IC03);
+      DoPlayerPoints(BonusPoints("Destruction"), RWDS_BattlePoints, iLastAttacker, GetCursor(iLastAttacker), IC03);
 
   //Explosion
   FakeExplode(20, iLastAttacker+1);
