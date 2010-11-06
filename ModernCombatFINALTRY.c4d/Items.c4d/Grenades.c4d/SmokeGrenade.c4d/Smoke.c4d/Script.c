@@ -19,9 +19,19 @@ public func Initialize()
   iLifeTime = 35*25+Random(35*2);
   SetCon(5);
   SetAction("Be");
+  
+  //Peilsendereffekte entfernen
+  ScheduleCall(this,"DestroyTracers",35);
 
   //Raucheffekt
   AddEffect("Smoking", this, 25, 5, this);
+}
+
+private func DestroyTracers()
+{
+  for(var obj in FindObjects(Find_Distance(40), Find_Category(C4D_Living | C4D_Structure | C4D_Vehicle)))
+    if(GetEffect("TracerDart",obj))
+      RemoveEffect("TracerDart",obj);
 }
 
 /* Timecall */
