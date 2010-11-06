@@ -1,5 +1,4 @@
-PleaseEnterEHP=<c ff0000>Bitte nur EHPs einlegen!</c>
-AlreadyCharging=<c ff0000>EHP wird bereits aufgeladen!</c>
-NoChargeNeeded=<c ff0000>EHP ist voll aufgeladen!</c>
-NotEnoughFunds=<c ff0000>Nicht genug Credits vorhanden!</c>
-SuccessfullyCharged=<c 00ff00>Erfolgreich aufgeladen!</c>
+EnterEHP=Kein EHP!
+AlreadyCharging=Automat bereits belegt.
+NoChargeNeeded=EHP bereits voll.
+NotEnoughFunds=Nicht genug Credits!
