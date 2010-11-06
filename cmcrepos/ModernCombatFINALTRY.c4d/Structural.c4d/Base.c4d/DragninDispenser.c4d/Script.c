@@ -11,7 +11,7 @@ public func RejectCollect(id idObj, object pObj)
 {
   //Objekt kein EHP?
   if(idObj != FAPK)
-    return PlayerMessage(GetOwner(pObj), "$PleaseEnterEHP$", this);
+    return PlayerMessage(GetOwner(pObj), "$EnterEHP$", this);
   //Bereits besetzt?
   if(packet)
     return PlayerMessage(GetOwner(pObj), "$AlreadyCharging$", this);
@@ -37,7 +37,6 @@ public func FxChargePacketTimer(pTarget, iNo, iTime)
 {
   if(pTarget->GetHealPoints() >= 150)
   {
-    PlayerMessage(GetOwner(), "$SuccessfullyCharged$",this);
     Exit(pTarget,-3,5);
     SetAction("Idle");
     packet = 0;
