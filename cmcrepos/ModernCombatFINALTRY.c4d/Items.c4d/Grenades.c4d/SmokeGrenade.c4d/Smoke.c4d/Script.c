@@ -29,7 +29,9 @@ public func Initialize()
 
 private func DestroyTracers()
 {
-  for(var obj in FindObjects(Find_Distance(40), Find_Category(C4D_Living | C4D_Structure | C4D_Vehicle)))
+  for(var obj in FindObjects(Find_Distance(40),
+                             Find_Category(C4D_Living | C4D_Structure | C4D_Vehicle),
+                             Find_Allied(GetOwner())))
     if(GetEffect("TracerDart",obj))
       RemoveEffect("TracerDart",obj);
 }

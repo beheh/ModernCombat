@@ -37,12 +37,12 @@ public func FxChargePacketTimer(pTarget, iNo, iTime)
 {
   if(pTarget->GetHealPoints() >= 150)
   {
-    PlayerMessage(GetOwner(), "$SuccessfullyCharged$");
-    Exit(pTarget,0,12);
+    PlayerMessage(GetOwner(), "$SuccessfullyCharged$",this);
+    Exit(pTarget,-3,5);
     SetAction("Idle");
     packet = 0;
     return -1;
   }
   pTarget->DoHealPoints(1);
-  CreateParticle("FapLight", 0, +7, 0, 0, 5*6, RGBa(BoundBy(InvertA1(255*(pTarget->GetHealPoints())/150,255)+10,0,255), 255*(pTarget->GetHealPoints())/150));
+  CreateParticle("FapLight", -2, +2, 0, 0, 5*6, RGBa(BoundBy(InvertA1(255*(pTarget->GetHealPoints())/150,255)+10,0,255), 255*(pTarget->GetHealPoints())/150));
 }
