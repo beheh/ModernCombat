@@ -1,0 +1,4 @@
+PleaseEnterEHP=<c ff0000>Please enter a FAP!</c>
+AlreadyCharging=<c ff0000>FAP is already charging!</c>
+NoChargeNeeded=<c ff0000>FAP is fully charged!</c>
+NotEnoughFunds=<c ff0000>Not enough credits!</c>

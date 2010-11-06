@@ -1,0 +1,8 @@
+[Action]
+Name=Load
+Length=1
+Delay=1
+FacetBase=1
+Facet=20,0,20,30,0,0
+NextAction=Load
+Sound=DGNN_Use.ogg
