@@ -18,7 +18,7 @@ protected func Initialize()
   aKill = CreateArray();
   aDeath = CreateArray();
   if(!FindObject(CHOS))
-   ChooserFinished();
+    ChooserFinished();
 
   if(!FindObject(GOAL)) CreateObject(GOAL,0,0,-1);
 

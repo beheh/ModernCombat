@@ -1,6 +1,6 @@
 /*-- Capture the Flag --*/
 
-//CTF Spielziel zeigt Spielevents nun mit dem Eventsystem an statt im Log.
+//CTF Spielziel zeigt Spielevents nun mit dem Eventsystem anstatt im Log.
 
 #strict 2
 
@@ -11,9 +11,9 @@ protected func Collected(pClonk)
 {
   EventInfo4K(0, Format("$HasTheFlag$", GetTaggedPlayerName(GetOwner(pClonk)), GetTeamColor(team), GetTeamName(team)), FLA2, 0, GetTeamColor(team));
   SetAction("Attach", pClonk);
-  
+
   cteam = GetPlayerTeam(GetOwner(pClonk));
-  
+
   // game call: FlagCaptured(flagTeam, captureTeam, clonk)
   // flagTeam: The team to which the flag belongs to
   // captureTeam: The team that captured the flag
@@ -27,8 +27,9 @@ protected func AttachTargetLost()
   SetAction("Lost");
   SetActionTargets();
   SetDir();
-  // falls sie festsitzt, wird sie sofort zurückgebracht
-  if(GBackSolid()) {
+  //Falls sie festsitzt, wird sie sofort zurückgebracht
+  if(GBackSolid())
+  {
     RemoveObject();
     return;
   }
@@ -67,7 +68,7 @@ protected func CheckFlag(pClonk)
 
 public func Destruction()
 {
-  // Flaggen dürfen nicht einfach weg sein
+  //Flaggen dürfen nicht einfach weg sein
   var nFlag = CreateObject(FLA2, 0,0, GetOwner());
   nFlag->Activate(base, team, GetColorDw());
   // game call: FlagReturned(flagTeam)

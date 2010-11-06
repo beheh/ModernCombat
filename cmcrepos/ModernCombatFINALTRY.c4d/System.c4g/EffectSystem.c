@@ -8,14 +8,15 @@ static EFSM_Level;
 
 /* Effect-Konstanten */
 
-static const EFSM_Blood = 1;	//1/0
+static const EFSM_Blood = 1;		//1/0
 static const EFSM_BulletCasing = 2;	//1/0
 static const EFSM_BulletEffects = 3;	//0/1/2
-static const EFSM_Fog = 4;	//0/1
+static const EFSM_Fog = 4;		//0/1
 static const EFSM_ExplosionEffects = 5;	//0/1/2
-static const EFSM_Enlight = 6;	//0/1
-static const EFSM_Darkness = 7;	//0/1
+static const EFSM_Enlight = 6;		//0/1
+static const EFSM_Darkness = 7;		//0/1
 static const EFSM_Waratmosphere = 8;	//0/1
+
 
 /* Globale Effektstufe setzen */
 

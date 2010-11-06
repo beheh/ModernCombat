@@ -1,6 +1,7 @@
-/* Globale Schadensfunktionen */
+/*-- Globale Schadensfunktionen --*/
 
 #strict 2
+
 
 global func DoDmg(int iDmg, int iType, object pTarget, int iPrecision, int dmgplayer, id idKillIcon)
 {

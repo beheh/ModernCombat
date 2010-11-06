@@ -23,16 +23,16 @@ private func SwimStart()
   var pPrey;
   if (pPrey = FindPrey())
   {
-   //Immer von hinten mit einem Abstand angreifen
-   var iFromSide = +1; if (GetDir(pPrey)) iFromSide = -1;
-   SetCommand(this, "MoveTo", 0, GetX(pPrey) + 10 * iFromSide, GetY(pPrey));
+    //Immer von hinten mit einem Abstand angreifen
+    var iFromSide = +1; if (GetDir(pPrey)) iFromSide = -1;
+    SetCommand(this, "MoveTo", 0, GetX(pPrey) + 10 * iFromSide, GetY(pPrey));
   }
 
   //Booten aus dem Weg gehen
   var boot;
   if(boot = FindObject2(Find_Or(Find_ID(INFL), Find_ID(INFS)),Find_Distance(200)))
-   if(GetY(boot) - GetY() < 40)
-    SetComDir(BoundBy(GetComDir(), COMD_DownRight, COMD_DownLeft));
+    if(GetY(boot) - GetY() < 40)
+      SetComDir(BoundBy(GetComDir(), COMD_DownRight, COMD_DownLeft));
 }
 
 private func FindPrey()
@@ -43,12 +43,12 @@ private func FindPrey()
   // ...dann auch andere Beute im Wasser suchen (z.B. stehende Aquaclonks)
   if (!prey)
   {
-   while (prey = FindObject(0, -SearchRange(), -100, SearchRange()*2, 200, OCF_Prey, 0, 0, NoContainer(), prey))
-    if (GetAlive(prey))
-     if (InLiquid(prey))
-      break;
+    while (prey = FindObject(0, -SearchRange(), -100, SearchRange()*2, 200, OCF_Prey, 0, 0, NoContainer(), prey))
+      if (GetAlive(prey))
+        if (InLiquid(prey))
+          break;
   }
-  // Gefundene Beute zurückliefern
+  //Gefundene Beute zurückliefern
   return prey;  
 }
 
@@ -75,6 +75,6 @@ protected func Activity()
   //Booten aus dem Weg gehen
   var boot;
   if(boot = FindObject2(Find_ID(INFL),Find_Distance(200)))
-   if(GetY(boot) - GetY() < 40)
-    SetComDir(BoundBy(GetComDir(), COMD_DownRight, COMD_DownLeft));
+    if(GetY(boot) - GetY() < 40)
+      SetComDir(BoundBy(GetComDir(), COMD_DownRight, COMD_DownLeft));
 }

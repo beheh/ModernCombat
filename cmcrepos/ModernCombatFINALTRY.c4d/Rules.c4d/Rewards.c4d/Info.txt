@@ -1,0 +1,29 @@
+Erweitertes Belohnungssystem
+
+Dieses System ermöglicht es Spieler und deren Leistung genauer bewerten zu können. Dazu werden Punkte vergeben, welche am Ende der Runde ausgewertet werden. Es ist komplett dynamisch und kann je nach Bedarf verändert und erweitert werden.
+
+Standardliche Punkteliste:
+
+Kill					50
+Assist-Kill				30
+Selbstmord				-30
+Teamkill				-80
+Reanimation				50
+Dragnininjektion an Verbündeten		10
+Munitionierung				[Anzahl]/3
+Heilung					[Anzahl]/4
+Flaggenneutralisierung			10
+Flaggeneroberung			50
+Flaggenrückeroberung			30
+Hilfe bei Eroberung/Neutralisierung	10
+Flagge stehlen				50
+Flagge zurückgeholt			30
+Sprengfalle entschärft			20
+Schildabwehr				10
+Fahrzeug/Strukturzerstörung		50
+Peilsendermarkierung			10
+Assist-Kill mit Peilsender		20
+Fahrzeugschädigung			10
+
+Es gibt außerdem diverse optionale Bonuspunkte für Aktionen wie das Zerstören einer gegnerischen Heimbasis oder das Anzünden von gegnerischen Clonks.
+Alle Werte können unter System.c4g\RewardSystem-Points.c verändert werden.

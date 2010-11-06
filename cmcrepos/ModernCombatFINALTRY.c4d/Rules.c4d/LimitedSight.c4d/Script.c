@@ -14,8 +14,8 @@ public func ChooserFinished()
 {
   for(var pObj in FindObjects(Find_OCF(OCF_CrewMember), Find_Func("IsClonk")))
   {
-   if(!GetEffect("Sight",pObj))
-    AddEffect("Sight", pObj, 10, 1, this, GetID());
+    if(!GetEffect("Sight",pObj))
+      AddEffect("Sight", pObj, 10, 1, this, GetID());
   }
 }
 
@@ -24,10 +24,10 @@ protected func Destruction()
   var i, iEffect;
   for(var pObj in FindObjects(Find_OCF(OCF_CrewMember), Find_Func("IsClonk")))
   {
-   i = GetEffectCount(0,pObj);
-   while(i--)
-    if(iEffect = GetEffect("Sight", pObj, i))
-     RemoveEffect(0, pObj, iEffect);
+    i = GetEffectCount(0,pObj);
+    while(i--)
+      if(iEffect = GetEffect("Sight", pObj, i))
+        RemoveEffect(0, pObj, iEffect);
   }
 }
 
@@ -41,7 +41,7 @@ public func OnClonkRecruitment(object pClonk, int iPlr)
   if(FindObject(CHOS)) return;
 
   if(!GetEffect("Sight",pClonk))
-   AddEffect("Sight", pClonk, 10, 1, this, GetID());
+    AddEffect("Sight", pClonk, 10, 1, this, GetID());
 }
 
 /* Funktionalität */
@@ -69,9 +69,9 @@ public func FxSightStart(object pTarget,int iEffectNumber, int iTemp)
   var aSight = CreateArray(SightHelperCnt());
   for(var i = 0; i < SightHelperCnt(); i++)
   {
-   if(aSight[i]) RemoveObject(aSight[i]);//Reset.
-   aSight[i] = CreateObject(SHLP,0,0,GetOwner(pTarget));//Erstellen.
-   aSight[i]->SetController(GetOwner(pTarget));
+    if(aSight[i]) RemoveObject(aSight[i]);//Reset.
+    aSight[i] = CreateObject(SHLP,0,0,GetOwner(pTarget));//Erstellen.
+    aSight[i]->SetController(GetOwner(pTarget));
   }
 
   EffectVar(0,pTarget,iEffectNumber) = aSight;
@@ -85,43 +85,43 @@ public func FxSightTimer(object pTarget,int iEffectNumber, int iEffectTime)
 
   if(!Contained(pTarget) && GetAlive(pTarget))
   {
-   var angle;
-   if(!pTarget->~IsAiming())
-   {
-    angle = 90;
-    if(GetDir(pTarget) == DIR_Left)
-     angle = 270;
-   }
-   else
-   {
-    angle = pTarget->~AimAngle();
-   }
+    var angle;
+    if(!pTarget->~IsAiming())
+    {
+      angle = 90;
+      if(GetDir(pTarget) == DIR_Left)
+        angle = 270;
+    }
+    else
+    {
+      angle = pTarget->~AimAngle();
+    }
 
-   var mx = +Sin(angle,L_AS_Distance),
-       my = -Cos(angle,L_AS_Distance),
-       ml = 0;
+    var mx = +Sin(angle,L_AS_Distance),
+        my = -Cos(angle,L_AS_Distance),
+        ml = 0;
 
-   for(var i = 0; i < GetLength(aSight); i++)
-   {
-    ml += L_AS_Range;
-    SetPlrViewRange(L_AS_Range,aSight[i]);
-    aSight[i]->SetPosition(pTarget->GetX() + (mx*ml/L_AS_Distance), pTarget->GetY() + (my*ml/L_AS_Distance));
-   }
+    for(var i = 0; i < GetLength(aSight); i++)
+    {
+      ml += L_AS_Range;
+      SetPlrViewRange(L_AS_Range,aSight[i]);
+      aSight[i]->SetPosition(pTarget->GetX() + (mx*ml/L_AS_Distance), pTarget->GetY() + (my*ml/L_AS_Distance));
+    }
   }
   else
   {
-   for(var o in aSight)
-   {
-    o->SetPosition(GetX(pTarget), GetY(pTarget));
-    SetPlrViewRange(0,o); 
-   }
+    for(var o in aSight)
+    {
+      o->SetPosition(GetX(pTarget), GetY(pTarget));
+      SetPlrViewRange(0,o); 
+    }
   }
 }
 
 public func FxSightStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)
 {
   for(var o in EffectVar(0,pTarget,iEffectNumber))
-   RemoveObject(o);
+    RemoveObject(o);
 
   SetFoW(EffectVar(1,pTarget,iEffectNumber),GetOwner(pTarget)); 
   SetPlrViewRange(EffectVar(2,pTarget,iEffectNumber),pTarget);
