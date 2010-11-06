@@ -21,7 +21,8 @@ public func Initialize()
   SortWare("IsWeapon2","IsGrenade","IsCMCEquipment");
 }
 
-public func RelaunchPlayer(int iPlr, object pClonk) {
+public func RelaunchPlayer(int iPlr, object pClonk)
+{
   if(!pClonk)
     if(!(pClonk = GetCursor(iPlr)))
       return(ScheduleCall(this,"RelaunchPlayer",1,0,iPlr,pClonk));

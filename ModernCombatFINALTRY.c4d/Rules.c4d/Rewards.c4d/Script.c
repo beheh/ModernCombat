@@ -8,7 +8,7 @@ local aData, fEvaluation, aStats;
 public func IsChooseable()	{return true;}
 
 
-/* Initalisierung */
+/* Initialisierung */
 
 protected func Initialize()
 {
@@ -65,18 +65,16 @@ public func StatsMenu(int iPlr, bool fBack)
                  aList[iTeam][GetLength(aList[iTeam])] = szString;
                  iPlayer++;
     }
-
     //Nach Team ausgeben
-	
     AddMenuItem("<c ffff33>$ActualPoints$</c>", "", NONE, pClonk, 0, 0, "", 0, 0, 0);
-	
+
     for(var aTeam in aList)
       if(aTeam)
         for(var szString in aTeam)
-		{
-		  extra++;
-		  AddMenuItem(szString, "", NONE, pClonk, 0, 0, "", 0, 0, 0);
-		}
+	{
+	  extra++;
+	  AddMenuItem(szString, "", NONE, pClonk, 0, 0, "", 0, 0, 0);
+	}
   }
 
   //Leerzeile
@@ -107,12 +105,14 @@ public func StatsMenu(int iPlr, bool fBack)
 public func StatsContinue(temp, int iPlr)
 {
   if(!aStats[iPlr]) aStats[iPlr] = 0;
-  if(aStats[iPlr]+1 > 16) {
-		Sound("Error", 1, 0, 100, iPlr+1);
-	}
-	else {
-		Sound("Grab", 1, 0, 100, iPlr+1);
-	}
+  if(aStats[iPlr]+1 > 16)
+  {
+    Sound("Error", 1, 0, 100, iPlr+1);
+  }
+  else
+  {
+    Sound("Grab", 1, 0, 100, iPlr+1);
+  }
   aStats[iPlr] = BoundBy(aStats[iPlr]+1, 0, 16);
   return StatsMenu(iPlr, false);
 }
@@ -120,12 +120,14 @@ public func StatsContinue(temp, int iPlr)
 public func StatsBack(temp, int iPlr)
 {
   if(!aStats[iPlr]) aStats[iPlr] = 0;
-  if(aStats[iPlr]-1 < 0) {
-		Sound("Error", 1, 0, 100, iPlr+1);
-	}
-	else {
-		Sound("Grab", 1, 0, 100, iPlr+1);
-	}
+  if(aStats[iPlr]-1 < 0)
+  {
+    Sound("Error", 1, 0, 100, iPlr+1);
+  }
+  else
+  {
+    Sound("Grab", 1, 0, 100, iPlr+1);
+  }
   aStats[iPlr] = BoundBy(aStats[iPlr]-1, 0, 16);
   return StatsMenu(iPlr, true);
 }
@@ -169,7 +171,7 @@ public func Evaluate()
     AddEvaluationData(Format("{{IC01}}$Points$: %d", db->GetPlayerPoints(RWDS_TotalPoints, iPlr)), iPlr+1);
     iPlr++;
   }
-  
+
   //Dann teamweise ausgeben
   for(var aTeam in aList)
   {
@@ -187,7 +189,7 @@ public func Evaluate()
 
 public func UpdatePlayers()
 {
-	if(!RewardsActive()) return;
+  if(!RewardsActive()) return;
   for(var i = 0; i < GetPlayerCount(); i++)
   {
     var iPlr = GetPlayerByIndex(i);

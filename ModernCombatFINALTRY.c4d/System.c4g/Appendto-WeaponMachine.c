@@ -26,7 +26,7 @@ func ControlThrowDouble(object pByObj)
   var pItem = Contents(0, pByObj);
   if(!pItem) return;
   if(!FindWare(GetID(pItem))) return;
-  
+
   var iPlr = GetController(pByObj);
 
   //Geld abziehen
@@ -34,6 +34,6 @@ func ControlThrowDouble(object pByObj)
   Sound("UnCash",0,0,0,iPlr+1);
 
   DoWare(GetID(pItem), +1);
-  
+
   RemoveObject(pItem);
 }

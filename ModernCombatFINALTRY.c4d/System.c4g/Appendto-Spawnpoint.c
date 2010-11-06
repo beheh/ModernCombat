@@ -18,7 +18,8 @@ public func RejectEntrance(object pClonk)
   {
     var pObj = CreateContents(GetID(Contents()));
     // Kann der Clonk einsammeln?
-    if(pObj->~IsAmmoPacket()) {
+    if(pObj->~IsAmmoPacket())
+    {
       if(!(pObj->MayTransfer(pClonk)))
         return 1;
       if(NoAmmo()) return 1;

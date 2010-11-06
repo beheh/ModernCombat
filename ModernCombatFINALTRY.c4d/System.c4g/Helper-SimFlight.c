@@ -1,4 +1,6 @@
-/* SimFlight2 berücksichtigt Solidmasks */
+/*-- SimFlight --*/
+
+//SimFlight2 berücksichtigt Solidmasks.
 
 #strict 2
 

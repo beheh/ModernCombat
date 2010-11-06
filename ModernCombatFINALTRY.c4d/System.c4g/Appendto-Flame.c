@@ -20,8 +20,6 @@ func GetKillIcon()
   return;
 }
 
-//Säure zündet nichts an
-
 public func HitObject(object pObj)
 {
   var color = FIRE_Green;
@@ -29,20 +27,24 @@ public func HitObject(object pObj)
   var schwaecher = Max(100 - hits*20,0);
 
   // Energie abziehen und langsamer machen
-  if(!slimy) {
+  if(!slimy)
+  {
     color = FIRE_Red;
     DoDmg(iDamage*schwaecher/100, DMG_Fire, pObj,1);
   }
-  else {
+  else
+  {
     DoDmg(iDamage*schwaecher/100, DMG_Bio, pObj, 1);
   }
 
   hits++;
-  
-  //anzündbares anzünden, aber nicht lebewesen.
-  if(pObj) //existiert es überhaupt noch?
-    if(GetOCF(pObj) & OCF_Inflammable) {
-      if(!(GetOCF(pObj) & OCF_Living)) {
+
+  //Anzündbares anzünden, aber nicht Lebewesen
+  if(pObj) //Existiert es überhaupt noch?
+    if(GetOCF(pObj) & OCF_Inflammable)
+    {
+      if(!(GetOCF(pObj) & OCF_Living))
+      {
         if (!slimy)
           Incinerate(pObj);
       }

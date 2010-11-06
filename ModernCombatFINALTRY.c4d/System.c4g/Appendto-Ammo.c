@@ -6,4 +6,5 @@
 
 #appendto STAM
 
+
 public func AmmoPackID()	{return(ABOX);}

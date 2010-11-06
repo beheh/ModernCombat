@@ -1,8 +1,10 @@
 /*-- Taschenlampe --*/
 
+//Anpassungen in Rotation.
 
 #strict 2
 #appendto FLSH
+
 
 public func GearEffect(object pClonk)
 {
@@ -14,13 +16,16 @@ public func GearEffect(object pClonk)
   Sound("Click");
 }
 
-private func CheckRotation() {
-  if (Contained(user)) {
+private func CheckRotation()
+{
+  if (Contained(user))
+  {
     if (light)
       RemoveObject(light);
     return;
   }
-  if (!light) {
+  if (!light)
+  {
     light = AddLightCone(1000,RGBa(255,255,220,90),user);
     light->ChangeSizeXY(1900,6000);
     light->ChangeOffset(0,-2, true);

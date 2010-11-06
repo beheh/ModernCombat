@@ -9,21 +9,22 @@
 local iEffectCount;
 local iChoosePlr;
 
-/* Nur eine Mitteilung für Neugierige */
 
-protected func Activate(iPlr)
-{
-  if(!iPlr) return(OpenMenu());
-  MessageWindow(Format("$Choosing$", GetPlayerName(iChoosePlr)),iPlr);
-}
-
-/* Initalisierung */
+/* Initialisierung */
 
 protected func Initialize()
 {
   _inherited();
   LoadRuleCfg();
   iEffectCount = 3;
+}
+
+/* Nur eine Mitteilung für Neugierige */
+
+protected func Activate(iPlr)
+{
+  if(!iPlr) return(OpenMenu());
+  MessageWindow(Format("$Choosing$", GetPlayerName(iChoosePlr)),iPlr);
 }
 
 protected func OpenMenu()
@@ -204,10 +205,12 @@ protected func ConfigurationFinished2()
   RemoveObject();
 }
 
-private func IsStandardSetting() {
+private func IsStandardSetting()
+{
   var a = GameCall("ChooserRuleConfig"), array = CreateArray(GetLength(aRules)), i;
   for (var i = 0; i < GetLength(aRules); i++) {
-    if (FindInArray4K(a, GetDefinition(i, Chooser_Cat)) != -1) {
+    if (FindInArray4K(a, GetDefinition(i, Chooser_Cat)) != -1)
+    {
       if (!aRules[i]) //Regel im Standardsatz, aber nicht ausgewählt
         return false;
     }
@@ -217,7 +220,8 @@ private func IsStandardSetting() {
   return true;
 }
 
-private func GetRuleColor(id idDef) {
+private func GetRuleColor(id idDef)
+{
   if (FindInArray4K(GameCall("ChooserRuleConfig"), idDef) == -1)
     return RGB(255);
   return RGB(255,255,255);
