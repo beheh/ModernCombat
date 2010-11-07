@@ -31,10 +31,17 @@ func CreateFurniture()
   Log("$CreatingFurniture$");
   //Alle Objekte folglich von links oben nach rechts unten
 
+  //Rampen
+  DrawMaterialQuad("Wall-Unknown1",1390,491,1390,511,1440,491,1390,491,true);
+  DrawMaterialQuad("Wall-Unknown1",1450,520,1450,500,1400,520,1450,520,true);
+  DrawMaterialQuad("Wall-Unknown1",1831,520,1831,500,1881,520,1831,520,true);
+  DrawMaterialQuad("Wall-Unknown1",1890,491,1890,511,1840,491,1890,491,true);
+
   //Leitern
   CreateObject(LADR, 160, 490, -1)->Set(12);
   CreateObject(LADR, 530, 388, -1)->Set(10);
   CreateObject(LADR, 600, 298, -1)->Set(15);
+  CreateObject(LADR, 780, 582, -1)->Set(23);
 
   CreateObject(LADR, 1170, 510, -1)->Set(12);
   CreateObject(LADR, 1485, 360, -1)->Set(9);
@@ -47,18 +54,22 @@ func CreateFurniture()
   CreateObject(LADR, 1795, 360, -1)->Set(9);
   CreateObject(LADR, 2110, 510, -1)->Set(12);
 
+  CreateObject(LADR, 2500, 582, -1)->Set(23);
   CreateObject(LADR, 2680, 298, -1)->Set(15);
   CreateObject(LADR, 2750, 388, -1)->Set(10);
   CreateObject(LADR, 3120, 490, -1)->Set(12);
+
 
   //Bodenlucken
   CreateObject(HA4K, 530, 303, -1);
   CreateObject(HA4K, 600, 173, -1);
   CreateObject(HA4K, 600, 243, -1);
+  CreateObject(HA4K, 780, 393, -1);
   CreateObject(HA4K, 1590, 123, -1);
   CreateObject(HA4K, 1640, 213, -1);
   CreateObject(HA4K, 1640, 523, -1);
   CreateObject(HA4K, 1690, 123, -1);
+  CreateObject(HA4K, 2500, 393, -1);
   CreateObject(HA4K, 2680, 173, -1);
   CreateObject(HA4K, 2680, 243, -1);
   CreateObject(HA4K, 2750, 303, -1);
@@ -313,7 +324,7 @@ public func ChooserFinished()
 
    aFlag[1] = CreateObject(OFPL,1115,510,NO_OWNER);
    aFlag[1] -> AddSpawnPoint(945,450);
-   aFlag[1] -> AddSpawnPoint(1050,400);
+   aFlag[1] -> AddSpawnPoint(1035,400);
    aFlag[1] -> AddSpawnPoint(1265,560);
    aFlag[1]->Set("$Flag2$",0,2);
 
@@ -347,7 +358,7 @@ public func ChooserFinished()
    }
 
    aFlag[4] = CreateObject(OFPL,2165,510,NO_OWNER);
-   aFlag[4] -> AddSpawnPoint(2235,400);
+   aFlag[4] -> AddSpawnPoint(2245,400);
    aFlag[4] -> AddSpawnPoint(2355,460);
    aFlag[4] -> AddSpawnPoint(2015,560);
    aFlag[4]->Set("$Flag5$",0,2);
