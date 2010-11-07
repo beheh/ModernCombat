@@ -17,6 +17,7 @@ NONE1=You can change your settings in the context menu under [<c 33ccff>Settings
 NONE2=<c 33ccff>QuickInventory</c> grants you alternative and fast inventory access.
 NONE3=If you have a weapon selected, press [<c 33ccff>Throw</c>] in front of an enemy to hit him.
 NONE4=Think highly of your <c 33ccff>environment</c> and use furniture against enemies or preventively destroy it.
+NONE5=Lay down by hitting [<c 33ccff>Double Stop + Dig</c>] to take cover from enemy fire or moving through narrow spaces.
 
 #Weapons
 ASTR0=Use <c 33ccff>single shots</c> to shoot effective bullets at enemies far away with the assault rifle.
@@ -26,6 +27,7 @@ PSTL0=Use your <c 33ccff>pistol</c> while your primary weapon is reloading in or
 PSTL1=The pistols secondary fire mode shoots <c 33ccff>tracer darts</c> which mark enemies and guide friendly rockets into them.
 RTLR0=<c 33ccff>Rockets</c> are perfect for greater distances and against vehicles and structures.
 RTLR1=Ask your teammates to mark enemies with <c 33ccff>tracer darts</c> to support you.
+RTLR2=<c 33ccff>Guide</c> fired missiles by aiming in the corresponding direction using the rocket launcher.
 PPGN0=Use the pumpgun in <c 33ccff>close combat</c> to cause maximum damage.
 SGST0=Different grenade types reach different <c 33ccff>distances</c>.
 SMGN0=The submachine gun is the <c 33ccff>fastest</c> weapon equally to its ammo consumption.

@@ -17,6 +17,7 @@ NONE1=Im Kontextmenü kannst du unter [<c 33ccff>Einstellungen</c>] Funktionen (d
 NONE2=<c 33ccff>QuickInventory</c> gibt dir einen alternativen und schnellen Inventarzugriff.
 NONE3=Hast du eine Waffe in der Hand, drücke vor einem Gegner [<c 33ccff>Werfen</c>], um ihn zu schlagen.
 NONE4=Nutze und achte auf deine <c 33ccff>Umgebung</c>, setze Einrichtungen gegen deine Feinde ein oder zerstöre sie vorsorglich.
+NONE5=Lege dich mit [Doppelstop + Graben] hin um vor feindlichem Feuer in Deckung zu gehen oder um Engpässe zu passieren.
 
 #Waffen
 ASTR0=Nutze den <c 33ccff>Einzelfeuermodus</c> des Sturmgewehrs, um präzise Schüsse auf weit entfernte Gegner abzufeuern.
@@ -26,6 +27,7 @@ PSTL0=Nutze deine <c 33ccff>Pistole</c> während deine Primärwaffe nachlädt um we
 PSTL1=Der sekundäre Feuermodus der Pistole verschießt <c 33ccff>Peilsender</c>, diese markieren Gegner und führen verbündete Raketen zu ihnen.
 RTLR0=<c 33ccff>Raketen</c> eignen sich für große Distanzen und sind perfekt gegen Fahrzeuge und Strukturen.
 RTLR1=Fordere deine Mitspieler auf, Gegner mit <c 33ccff>Peilsendern</c> zu markieren, um dich zu unterstützen.
+RTLR2=<c 33ccff>Lenke</c> abgefeuerte Raketen, indem du mit dem Raketenwerfer in die entsprechende Richtung zielst.
 PPGN0=Suche mit der Schrotflinte den <c 33ccff>Nahkampf</c> um maximalen Schaden zu verursachen.
 SGST0=Unterschiedliche Granatentypen fliegen unterschiedlich <c 33ccff>weit</c>.
 SMGN0=Die Maschinenpistole ist die <c 33ccff>schnellste</c> unter den Waffen, verbraucht aber ebenso schnell ihre Munition.

@@ -186,7 +186,7 @@ private func GetQuickTipp(object pFake)
 
 private func GetGeneralTipp()
 {
-  return GetRandomTipp([[FGRN, "$NONE0$"], [CSTR, "$NONE1$"], [SM05, "$NONE2$"], [XBRL, "$NONE4$"], [SM04, "$NONE3$"]]);
+  return GetRandomTipp([[FGRN, "$NONE0$"], [CSTR, "$NONE1$"], [SM05, "$NONE2$"], [SM04, "$NONE3$"], [XBRL, "$NONE4$"], [PCMK, "$NONE5$"]]);
 }
 
 private func GetRandomTipp(array a, id id)
@@ -198,7 +198,7 @@ private func GetRandomTipp(array a, id id)
   if (id == ASTR) return GetRandomTipp([[ASTR, "$ASTR0$"], [ASTR, "$ASTR1$"]]);
   if (id == MNGN) return GetRandomTipp([[MNGN, "$MNGN0$"]]);
   if (id == PSTL) return GetRandomTipp([[PSTL, "$PSTL0$"], [PSTL, "$PSTL1$"]]);
-  if (id == RTLR) return GetRandomTipp([[MISL, "$RTLR0$"], [RTLR, "$RTLR1$"]]);
+  if (id == RTLR) return GetRandomTipp([[MISL, "$RTLR0$"], [RTLR, "$RTLR1$"], [MISL, "$RTLR2$"]]);
   if (id == PPGN) return GetRandomTipp([[PPGN, "$PPGN0$"]]);
   if (id == SGST) return GetRandomTipp([[SGST, "$SGST0$"]]);
   if (id == SMGN) return GetRandomTipp([[SMGN, "$SMGN0$"]]);
