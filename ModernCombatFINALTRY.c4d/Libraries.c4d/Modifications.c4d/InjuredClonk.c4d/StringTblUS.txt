@@ -16,6 +16,7 @@ NONE0=You can find your grenades in the context menu under [<c 33ccff>Grenades</
 NONE1=You can change your settings in the context menu under [<c 33ccff>Settings</c>].
 NONE2=<c 33ccff>QuickInventory</c> grants you alternative and fast inventory access.
 NONE3=If you have a weapon selected, press [<c 33ccff>Throw</c>] in front of an enemy to hit him.
+NONE4=Think highly of your <c 33ccff>environment</c> and use furniture against enemies or preventively destroy it.
 
 #Weapons
 ASTR0=Use <c 33ccff>single shots</c> to shoot effective bullets at enemies far away with the assault rifle.
@@ -37,6 +38,7 @@ FRAG1=Shrapnels rebound from walls and are deadly in <c 33ccff>narrow passages</
 PGRN0=Phosphor <c 33ccff>attaches</c> to clonks an burns them for a while.
 STUN0=Teammates are <c 33ccff>less</c> affected by stun grenades.
 STUN1=Face yourself away from exploding stun grenades to <c 33ccff>weaken</c> its effects.
+SGRN1=Smoke has a useful side effect that <c 33ccff>destroys</c> enemy tracer darts when deployed.
 
 #Equipment
 AMPK0=Hold the MTP in the hand to <c 33ccff>automatically</c> restock ammo of allies.

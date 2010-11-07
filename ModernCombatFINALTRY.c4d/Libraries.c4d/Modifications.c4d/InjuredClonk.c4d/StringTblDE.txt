@@ -16,6 +16,7 @@ NONE0=Deine Granaten findest du im Kontextmenü unter [<c 33ccff>Granaten</c>].
 NONE1=Im Kontextmenü kannst du unter [<c 33ccff>Einstellungen</c>] Funktionen (de)aktivieren.
 NONE2=<c 33ccff>QuickInventory</c> gibt dir einen alternativen und schnellen Inventarzugriff.
 NONE3=Hast du eine Waffe in der Hand, drücke vor einem Gegner [<c 33ccff>Werfen</c>], um ihn zu schlagen.
+NONE4=Nutze und achte auf deine <c 33ccff>Umgebung</c>, setze Einrichtungen gegen deine Feinde ein oder zerstöre sie vorsorglich.
 
 #Waffen
 ASTR0=Nutze den <c 33ccff>Einzelfeuermodus</c> des Sturmgewehrs, um präzise Schüsse auf weit entfernte Gegner abzufeuern.
@@ -37,6 +38,7 @@ FRAG1=Splitter prallen an Wänden ab und sind in <c 33ccff>engen Gängen</c> extre
 PGRN0=Phosphor bleibt an Clonks <c 33ccff>haften</c> und verbrennt sie einige Zeit lang.
 STUN0=Blendgranaten blenden Verbündete <c 33ccff>weniger</c> stark als Gegner.
 STUN1=Wenn du dich von zündenden Blendgranaten wegdrehst, wirst du <c 33ccff>weniger</c> stark geblendet.
+SGRN1=Rauch hat den nützlichen Nebeneffekt, bei seiner Erstellung feindliche Peilsender zu <c 33ccff>zerstören</c>.
 
 #Equipment
 AMPK0=Halte das MTP in der Hand, um Verbündete <c 33ccff>automatisch</c> mit Munition zu versorgen.
