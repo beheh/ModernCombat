@@ -29,7 +29,7 @@ RTLR0=<c 33ccff>Raketen</c> eignen sich für große Distanzen und sind perfekt geg
 RTLR1=Fordere deine Mitspieler auf, Gegner mit <c 33ccff>Peilsendern</c> zu markieren, um dich zu unterstützen.
 RTLR2=<c 33ccff>Lenke</c> abgefeuerte Raketen, indem du mit dem Raketenwerfer in die entsprechende Richtung zielst.
 PPGN0=Suche mit der Schrotflinte den <c 33ccff>Nahkampf</c> um maximalen Schaden zu verursachen.
-SGST0=Unterschiedliche Granatentypen fliegen unterschiedlich <c 33ccff>weit</c>.
+SGST0=<c 33ccff>Explosivgranaten</c> richten hohen Schaden an, <c 33ccff>Splittergranaten</c> setzen Feinde fest.
 SMGN0=Die Maschinenpistole ist die <c 33ccff>schnellste</c> unter den Waffen, verbraucht aber ebenso schnell ihre Munition.
 
 #Granaten
@@ -40,6 +40,7 @@ FRAG1=Splitter prallen an Wänden ab und sind in <c 33ccff>engen Gängen</c> extre
 PGRN0=Phosphor bleibt an Clonks <c 33ccff>haften</c> und verbrennt sie einige Zeit lang.
 STUN0=Blendgranaten blenden Verbündete <c 33ccff>weniger</c> stark als Gegner.
 STUN1=Wenn du dich von zündenden Blendgranaten wegdrehst, wirst du <c 33ccff>weniger</c> stark geblendet.
+SGRN0=Rauch blendet <c 33ccff>keine</c> Verbündeten.
 SGRN1=Rauch hat den nützlichen Nebeneffekt, bei seiner Erstellung feindliche Peilsender zu <c 33ccff>zerstören</c>.
 
 #Equipment
