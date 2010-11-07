@@ -186,7 +186,7 @@ private func GetQuickTipp(object pFake)
 
 private func GetGeneralTipp()
 {
-  return GetRandomTipp([[FGRN, "$NONE0$"], [CSTR, "$NONE1$"], [SM05, "$NONE2$"], [SM04, "$NONE3$"]]);
+  return GetRandomTipp([[FGRN, "$NONE0$"], [CSTR, "$NONE1$"], [SM05, "$NONE2$"], [XBRL, "$NONE4$"], [SM04, "$NONE3$"]]);
 }
 
 private func GetRandomTipp(array a, id id)
@@ -209,6 +209,7 @@ private func GetRandomTipp(array a, id id)
   if (id == FRAG) return GetRandomTipp([[FRAG, "$FRAG0$"], [SHRP, "$FRAG1$"]]);
   if (id == PGRN) return GetRandomTipp([[PGRN, "$PGRN0$"]]);
   if (id == STUN) return GetRandomTipp([[STUN, "$STUN0$"], [STUN, "$STUN1$"]]);
+  if (id == SGRN) return GetRandomTipp([[SGRN, "$SGRN0$"]]);
 
   //Equipment
   if (id == AMPK) return GetRandomTipp([[AMPK, "$AMPK0$"]]);
