@@ -41,7 +41,7 @@ func CreateFurniture()
   CreateObject(LADR, 160, 490, -1)->Set(12);
   CreateObject(LADR, 530, 388, -1)->Set(10);
   CreateObject(LADR, 600, 298, -1)->Set(15);
-  CreateObject(LADR, 780, 582, -1)->Set(23);
+  CreateObject(LADR, 800, 582, -1)->Set(23);
 
   CreateObject(LADR, 1170, 510, -1)->Set(12);
   CreateObject(LADR, 1485, 360, -1)->Set(9);
@@ -54,7 +54,7 @@ func CreateFurniture()
   CreateObject(LADR, 1795, 360, -1)->Set(9);
   CreateObject(LADR, 2110, 510, -1)->Set(12);
 
-  CreateObject(LADR, 2500, 582, -1)->Set(23);
+  CreateObject(LADR, 2480, 582, -1)->Set(23);
   CreateObject(LADR, 2680, 298, -1)->Set(15);
   CreateObject(LADR, 2750, 388, -1)->Set(10);
   CreateObject(LADR, 3120, 490, -1)->Set(12);
@@ -64,12 +64,12 @@ func CreateFurniture()
   CreateObject(HA4K, 530, 303, -1);
   CreateObject(HA4K, 600, 173, -1);
   CreateObject(HA4K, 600, 243, -1);
-  CreateObject(HA4K, 780, 393, -1);
+  CreateObject(HA4K, 800, 393, -1);
   CreateObject(HA4K, 1590, 123, -1);
   CreateObject(HA4K, 1640, 213, -1);
   CreateObject(HA4K, 1640, 523, -1);
   CreateObject(HA4K, 1690, 123, -1);
-  CreateObject(HA4K, 2500, 393, -1);
+  CreateObject(HA4K, 2480, 393, -1);
   CreateObject(HA4K, 2680, 173, -1);
   CreateObject(HA4K, 2680, 243, -1);
   CreateObject(HA4K, 2750, 303, -1);
@@ -81,10 +81,10 @@ func CreateFurniture()
   //Sandsackbarrieren
   CreateObject(SBBA, 490, 300, -1)->Right();
   CreateObject(SBBA, 440, 300, -1);
-  CreateObject(SBBA, 815, 390, -1)->Right();
+  CreateObject(SBBA, 827, 390, -1)->Right();
   CreateObject(SBBA, 1665, 100, -1)->Right();
   CreateObject(SBBA, 1615, 100, -1);
-  CreateObject(SBBA, 2465, 390, -1);
+  CreateObject(SBBA, 2453, 390, -1);
   CreateObject(SBBA, 2830, 300, -1)->Right();
   CreateObject(SBBA, 2785, 300, -1);
 
@@ -176,8 +176,8 @@ func CreateFurniture()
   CreateObject(GDDR, 2875, 390, -1);
 
   //Metallkisten
-  CreateObject(MWCR, 720, 390, -1);
-  CreateObject(MWCR, 2560, 390, -1);
+  CreateObject(MWCR, 710, 390, -1);
+  CreateObject(MWCR, 2570, 390, -1);
 
   //Kisten
   CreateObject(WCR2, 1570, 120, -1);
@@ -190,22 +190,22 @@ func CreateFurniture()
   CreateObject(PBRL, 2660, 170, -1)->AutoRespawn();
 
   //Explosivfässer
-  CreateObject(XBRL, 740, 390, -1)->AutoRespawn();
-  CreateObject(XBRL, 755, 390, -1)->AutoRespawn();
+  CreateObject(XBRL, 730, 390, -1)->AutoRespawn();
+  CreateObject(XBRL, 745, 390, -1)->AutoRespawn();
   CreateObject(XBRL, 1540, 510, -1)->AutoRespawn();
   CreateObject(XBRL, 1740, 510, -1)->AutoRespawn();
-  CreateObject(XBRL, 2520, 390, -1)->AutoRespawn();
-  CreateObject(XBRL, 2535, 390, -1)->AutoRespawn();
+  CreateObject(XBRL, 2530, 390, -1)->AutoRespawn();
+  CreateObject(XBRL, 2545, 390, -1)->AutoRespawn();
 
   //Gasflaschen
   CreateObject(GSBL, 1175, 525, -1)->AutoRespawn();
   CreateObject(GSBL, 2105, 525, -1)->AutoRespawn();
 
   //Explosivtanks
-  CreateObject(XTNK, 765, 390, -1)->AutoRespawn();
+  CreateObject(XTNK, 750, 390, -1)->AutoRespawn();
   CreateObject(XTNK, 1555, 510, -1)->AutoRespawn();
   CreateObject(XTNK, 1720, 510, -1)->AutoRespawn();
-  CreateObject(XTNK, 2505, 390, -1)->AutoRespawn();
+  CreateObject(XTNK, 2525, 390, -1)->AutoRespawn();
 
   //Stahlbrücken
   CreateObject(_HBR, 865, 402, -1);
@@ -311,7 +311,7 @@ public func ChooserFinished()
    aFlag[0] = CreateObject(OFPL,465,300,NO_OWNER);
    aFlag[0] -> AddSpawnPoint(190,380);
    aFlag[0] -> AddSpawnPoint(430,380);
-   aFlag[0] -> AddSpawnPoint(690,380);
+   aFlag[0] -> AddSpawnPoint(660,380);
    if(aTeams[1] == true)
    {
     aFlag[0]->Set("$Flag1$",100,2);
@@ -364,7 +364,7 @@ public func ChooserFinished()
    aFlag[4]->Set("$Flag5$",0,2);
 
    aFlag[5] = CreateObject(OFPL,2810,300,NO_OWNER);
-   aFlag[5] -> AddSpawnPoint(2585,380);
+   aFlag[5] -> AddSpawnPoint(2620,380);
    aFlag[5] -> AddSpawnPoint(2850,380);
    aFlag[5] -> AddSpawnPoint(3090,380);
    if(aTeams[2] == true)
