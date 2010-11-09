@@ -92,6 +92,12 @@ FullscreenBG=1
 	OverlayImage=Overlay14.png
 
 
+	[Scenario]
+	File=CMC_ColdCash.c4s
+	Area=291,317,253,25
+	OverlayImage=Overlay8.png
+
+
 
 
 	[Scenario]

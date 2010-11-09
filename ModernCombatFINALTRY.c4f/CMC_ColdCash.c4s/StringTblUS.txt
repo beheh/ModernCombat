@@ -1,0 +1,12 @@
+CreatingFurniture=Creating furniture...
+CreatingEquipment=Placing equipment...
+
+Team1=Eurocorps
+Team2=Aggressors
+
+Flag1=West Base
+Flag2=Drilling Platform
+Flag3=East Base
+
+Target1=Communication Server
+Target2=Antenna
