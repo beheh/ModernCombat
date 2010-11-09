@@ -100,7 +100,7 @@ public func Fire1()
   var angle = user->AimAngle(10,0,true);
   var x,y;
   user->WeaponEnd(x,y);
-  var ammo = SALaunchBullet(x,y,GetController(user),angle,250,800,GetFMData(FM_Damage));
+  var ammo = SALaunchBullet(x,y,GetController(user),angle,270,800,GetFMData(FM_Damage));
   Sound("ASTR_Fire*.ogg", 0, ammo);
 
   // Effekte

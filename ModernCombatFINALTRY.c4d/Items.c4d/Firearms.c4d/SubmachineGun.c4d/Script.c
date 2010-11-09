@@ -73,14 +73,14 @@ public func FMData1T2(int data)
 {
   if(data == FT_Name)		return "$Burst$";
 
-  if(data == FM_Recharge)	return 15;
+  if(data == FM_Recharge)	return 7;
 
   if(data == FM_Auto)		return false;
 
   if(data == FM_Damage)		return 8;
 
   if(data == FM_BurstAmount)	return 3;
-  if(data == FM_BurstRecharge)	return 3;
+  if(data == FM_BurstRecharge)	return 2;
 
   if(data == FM_SpreadAdd)	return 40;
 
@@ -121,7 +121,7 @@ public func Fire1()
   var angle = user->AimAngle(15,0,true);
   var x,y;
   user->WeaponEnd(x,y);
-  var ammo = SALaunchBullet(x,y,GetController(user),angle+RandomX(-3,+3),230,450,GetFMData(FM_Damage));
+  var ammo = SALaunchBullet(x,y,GetController(user),angle+RandomX(-3,+3),270,550,GetFMData(FM_Damage));
   Sound("SMGN_Fire*.ogg", 0, ammo);
 
   // Effekte

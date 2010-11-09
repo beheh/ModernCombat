@@ -100,7 +100,7 @@ public func Fire1()
   var angle = user->AimAngle(10,0,true);
   var x,y;
   user->WeaponEnd(x,y);
-  var ammo = SALaunchBullet(x,y,GetController(user),angle+RandomX(-1,+1),250,750,GetFMData(FM_Damage));
+  var ammo = SALaunchBullet(x,y,GetController(user),angle+RandomX(-1,+1),270,750,GetFMData(FM_Damage));
   Sound("MNGN_Fire.ogg", 0, ammo);
 
   // Effekte
