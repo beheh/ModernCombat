@@ -79,7 +79,7 @@ public func Fire1()
   var j = GetFMData(FM_Damage, 1)/10;
   for(var i; i < j; i++)
   {
-   ammo = SALaunchBullet(x,y,GetController(user),angle+RandomX(-6,+6),220+Random(60),300,10);
+   ammo = SALaunchBullet(x,y,GetController(user),angle+RandomX(-6,+6),250+Random(20),300,10);
   }
   Sound("PPGN_Fire*.ogg", 0, ammo);
 
