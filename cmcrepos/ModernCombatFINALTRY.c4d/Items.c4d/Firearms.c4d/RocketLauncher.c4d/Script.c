@@ -100,7 +100,7 @@ public func AimAngleChange(bool fJNR)
 {
   //Schnelleres Zielen
   if (fJNR)
-    return 5;
+    return 4;
 }
 
 /* Handeffekt */
