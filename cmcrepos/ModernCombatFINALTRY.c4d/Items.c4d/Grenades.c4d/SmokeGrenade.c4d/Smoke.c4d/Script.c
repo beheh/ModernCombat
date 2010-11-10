@@ -136,9 +136,13 @@ global func FxSmokeGrenadeTimer(object pTarget, int iEffectNumber, int iEffectTi
     if(GetCon(smoke)/2 > Distance(GetX(smoke),GetY(smoke),GetX(pTarget),GetY(pTarget)))
     {   
       smoked = true;
-      break;
+      break; 
     }
   }
+  
+  //Irgendwo drin? Nicht rauchen.
+  if(Contained(pTarget))
+    smoked = false;
 
   if(smoked)
     rgb->DoAlpha(+20, 0, 254);
