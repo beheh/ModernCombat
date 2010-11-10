@@ -20,18 +20,21 @@
     <div class="part">Daten, die abgefragt werden. Die Konstanten sind unten aufgelistet.</div>
     <div class="parn">iPlr:</div>
     <div class="part">Spieler, für den die Daten abgefragt werden.</div>
-    <div class="Text">Folgende iData-Konstanten sind definiert:</div>
-    <div class="Text"><b>CData_Name:</b> Name der Klasse (String).</div>
-    <div class="Text"><b>CData_Desc:</b> Beschreibung der Klasse (String).</div>
-    <div class="Text"><b>CData_Clonk:</b> ID des Clonktyps, der für die Klasse verwendet wird (C4ID).</div>
-    <div class="Text"><b>CData_Ammo:</b> Munition, die die Klasse besitzt (Array, s. Anmerkung).</div>
-    <div class="Text"><b>CData_Items:</b> Ausrüstung, die die Klasse besitzt (Array, s. Anmerkung).</div>
-    <div class="Text"><b>CData_Grenades:</b> Granaten, die die Klasse besitzt (Array, s. Anmerkung).</div>
-    <div class="Text"><b>CData_Icon:</b> Definition, aus der das Klassen-Icon geladen wird (C4ID).</div>
-    <div class="Text"><b>CData_Condition:</b> Klasse kann nur gewählt werden, wenn diese Bedingung wahr ist (Bool).</div>
-    <div class="Text"><b>CData_DisplayCondition:</b> Klasse wird im Auswahlmenü nur angezeit, wenn diese Bedingung wahr ist (Bool).</div>
-    <div class="Text"><b>CData_Facet:</b> Picture-Facet, welches die Klasse repräsentiert. Diverse Icons sind in der Graphics.png der Klassenwahl enthalten. (Int)</div>
 
+    <h2>CData-Konstanten</h2>
+<div class="text"><table>
+<tr class="dark"><th>Konstante</th><th>Wert</th><th>Beschreibung</th></tr>
+<tr><td>CData_Name</td><td>1</td><td>Name der Klasse (String).</td></tr>
+<tr class="dark"><td>CData_Desc</td><td>2</td><td>Beschreibung der Klasse (String).</td></tr>
+<tr><td>CData_Clonk</td><td>3</td><td>Clonktyp, der für die Klasse verwendet wird (C4ID).</td></tr>
+<tr class="dark"><td>CData_Ammo</td><td>4</td><td>Munition, die die Klasse besitzt (Array, s. Anmerkung).</td></tr>
+<tr><td>CData_Items</td><td>5</td><td>Ausrüstung, die die Klasse besitzt (Array, s. Anmerkung).</td></tr>
+<tr class="dark"><td>CData_Grenades</td><td>6</td><td>Granaten, die die Klasse besitzt (Array, s. Anmerkung).</td></tr>
+<tr><td>CData_Icon</td><td>7</td><td>Definition, aus der das Klassen-Icon geladen wird (C4ID).</td></tr>
+<tr class="dark"><td>CData_Condition</td><td>8</td><td>Klasse kann nur gewählt werden, wenn diese Bedingung wahr ist (Bool).</td></tr>
+<tr><td>CData_DisplayCondition</td><td>9</td><td>Klasse wird im Auswahlmenü nur angezeit, wenn diese Bedingung wahr ist (Bool).</td></tr>
+<tr class="dark"><td>CData_Facet</td><td>10</td><td>Picture-Facet, welches die Klasse repräsentiert. Diverse Icons sind in der Graphics.png der Klassenwahl enthalten. (Int)</td></tr>
+</table></div>
 
     <h2>Anmerkung</h2>
     <div class="Text">Die Werte CData_Ammo, CData_Items und CData_Grenades erwarten jeweils ein zweidimensionales Array. In der ersten Dimension können beliebig viele Einträge der Form [idItem, iCount] stehen, d.h. es werden iCount Objekte des Typs idItem für die Klasse erstellt (s. Beispiel).</div>
