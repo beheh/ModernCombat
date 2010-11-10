@@ -53,25 +53,25 @@ FullscreenBG=1
 	[Scenario]
 	File=CMC_GroundZero.c4s
 	Area=25,437,253,25
-	OverlayImage=Overlay9.png
+	OverlayImage=Overlay8.png
 
 
 	[Scenario]
 	File=CMC_Firewood.c4s
 	Area=25,477,253,25
-	OverlayImage=Overlay10.png
+	OverlayImage=Overlay9.png
 
 
 	[Scenario]
 	File=CMC_MagmaZone.c4s
 	Area=291,117,253,25
-	OverlayImage=Overlay11.png
+	OverlayImage=Overlay10.png
 
 
 	[Scenario]
 	File=CMC_DoubleTrouble.c4s
 	Area=291,157,253,25
-	OverlayImage=Overlay12.png
+	OverlayImage=Overlay11.png
 
 
 	[Scenario]
@@ -83,13 +83,13 @@ FullscreenBG=1
 	[Scenario]
 	File=CMC_BlackThunder.c4s
 	Area=291,237,253,25
-	OverlayImage=Overlay13.png
+	OverlayImage=Overlay12.png
 
 
 	[Scenario]
 	File=CMC_Laguna.c4s
 	Area=291,277,253,25
-	OverlayImage=Overlay14.png
+	OverlayImage=Overlay13.png
 
 
 	[Scenario]
