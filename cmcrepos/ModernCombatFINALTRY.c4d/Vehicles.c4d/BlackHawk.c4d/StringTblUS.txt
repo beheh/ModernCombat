@@ -23,3 +23,9 @@ Coordinator=Coordinator
 CoordinatorDesc=Control the rocketlauncher system with optical guided missiles.
 Passenger=Passenger
 PassengerDesc=A seat with rope to opt out.
+
+#Actions
+Flares=Counter-Missile-Measures
+Smoke=Smokescreen
+HUD=HUD on/off
+SmokeReload=Smokescreen reloads for </c ff0000>%d</C> seconds!
