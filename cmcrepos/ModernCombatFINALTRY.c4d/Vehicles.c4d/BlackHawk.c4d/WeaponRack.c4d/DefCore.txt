@@ -1,7 +1,7 @@
 [DefCore]
-id=BGAT
+id=WNRK
 Version=4,9,8,2
-Name=Gun Attachement
+Name=Weapon Rack
 Category=C4D_Vehicle
 Timer=1
 TimerCall=TimerCall
@@ -15,5 +15,5 @@ VertexFriction=20
 Value=0
 Mass=170
 Components=METL=6
-Picture=0,24,64,59
+Picture=0,21,94,33
 Rotate=1

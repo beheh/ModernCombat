@@ -1,4 +1,4 @@
-/*-- Waffen-Attachment --*/
+/*-- Waffengestell --*/
 
 #strict 2
 #include CSTR
@@ -15,9 +15,9 @@ local rot_left,rot_right;
 local blinkspeed;
 
 public func GetAttWeapon()	{return cur_Attachment;}					//Waffe
-public func MaxRotLeft()	{return rot_left+GetDir(heli)*(180-rot_right+180-rot_left);}			//Maximaler Winkel links
-public func MaxRotRight()	{return rot_right+GetDir(heli)*(180-rot_right+180-rot_left);}			//Maximaler Winkel rechts
-public func AimAngle()		{return aim_angle+GetR();}						//Winkel auf Ziel
+public func MaxRotLeft()	{return rot_left+GetDir(heli)*(180-rot_right+180-rot_left);}	//Maximaler Winkel links
+public func MaxRotRight()	{return rot_right+GetDir(heli)*(180-rot_right+180-rot_left);}	//Maximaler Winkel rechts
+public func AimAngle()		{return aim_angle+GetR();}					//Winkel auf Ziel
 public func ReadyToFire()	{return 1;}							//Allzeit bereit
 public func IsAiming()		{return true;}							//Geschütz immer am Zielen
 public func IsThreat()		{return pController;}						//Status
@@ -152,23 +152,20 @@ public func ControlDig()
 public func TimerCall()
 {
   var iHeight, iWidth, iAngle;
-  //Wuah, haben wir eine Waffe?
+  //Waffe vorhanden?
   if(!GetAttWeapon()) return;
-  //Wenn nicht schon gesetzt: Turn-Action
-  if(GetAction() != "Turn")
-    SetAction("Turn");
-    
-  //Kein Heli vorhanden?
+
+  //Hosthelikopter vorhanden?
   if(!heli)
   {
     OnDestruction();
     return RemoveObject();
   }
-    
-  //Owner updaten
+
+  //Besitzer aktualisieren
   cur_Attachment->SetTeam(GetTeam());
 
-  // alle X Frames
+  //Alle X Frames
   if(!(GetActTime()%blinkspeed) && pController)
   {
     if(heli->GetTeam())
@@ -179,40 +176,39 @@ public func TimerCall()
       var rgb = RGB(255,255,255);
     CreateParticle("FlashLight",0,4,0,0,3*15,rgb,this);
   }
-  
+
   //Nötig nachzuladen?
   if(GetAmmo(GetAttWeapon()->GetFMData(FM_AmmoID), GetAttWeapon()) < GetAttWeapon()->GetFMData(FM_AmmoUsage))
     Reload();
-  
+
   /* Geschütz fahren */
-  
+
   // alle 2 Frames
   if(!(GetActTime()%2))
   {
-	  //links?
-	  if( AimAngle() < MaxRotLeft() )
-	  {
-	    aim_angle = MaxRotLeft();
-	    iPat_Dir = 0; //Anhalten
-	  }
+    //links?
+    if( AimAngle() < MaxRotLeft())
+    {
+      aim_angle = MaxRotLeft();
+      iPat_Dir = 0; //Anhalten
+    }
 	    
-	  //rechts?
-	  else if( AimAngle() > MaxRotRight() )
-	  {
-	    aim_angle = MaxRotRight();
-	    iPat_Dir = 0; //Anhalten
-	  }
-	    
-  	aim_angle += iPat_Dir*2;
+    //rechts?
+    else if( AimAngle() > MaxRotRight())
+    {
+      aim_angle = MaxRotRight();
+      iPat_Dir = 0; //Anhalten
+    }
+    aim_angle += iPat_Dir*2;
   }
-  
+
   //Crosshair nachziehen
   if(Crosshair)
     Crosshair->SetAngle(AimAngle());
-  
-  /* Ans Heli anpassen */
-  
-  //nur sichtbar, wenn nicht drehend
+
+  //An Helikopterrotation anpassen
+
+  //Nur sichtbar, wenn Helikopter nicht drehend
   if (GetAction(heli) == "Turn")
   {
     if (vis)
@@ -229,10 +225,10 @@ public func TimerCall()
       SetVisibility(VIS_All);
       vis = true;
     }
-    
-  //Drehung des Heli abfragen
+
+  //Rotation des Heli abfragen
   var rot = GetR(heli)+(GetDir(heli)*2-1)*(90)+(GetDir(heli)*2-1)*(Ang);
-  //und in die Positionsbestimmung einfließen lassen
+  //Und in die Positionsbestimmung einfließen lassen
   SetPosition(GetX(heli) + Sin(rot, Rad),
               GetY(heli) - Cos(rot, Rad), this());
   SetXDir(GetXDir(heli));
@@ -243,11 +239,11 @@ public func TimerCall()
 
 private func Reload()
 {
-  // Munitionsart
+  //Munitionsart bestimmen
   var AmmoID = GetAttWeapon()->~GetFMData(FM_AmmoID);
-  // Erzeugen
+  //Munition erzeugen
   Local(0, CreateContents(AmmoID)) = GetAttWeapon()->~GetFMData(FM_AmmoLoad);
-  // Waffe soll nachladen
+  //Feuer einstellen und nachladen
   GetAttWeapon()->~StopAutoFire();
   GetAttWeapon()->~Reload();
 }
@@ -259,7 +255,8 @@ private func InitAim()
   if(Crosshair)
     RemoveObject(Crosshair);
 
-  Crosshair = CreateObject(HCRH); // Owner wird in Init gesetzt
+  //Besitzer wird in Init gesetzt
+  Crosshair = CreateObject(HCRH);
   Crosshair->Init(this());
   Crosshair->SetAngle(AimAngle());
 } 
@@ -287,8 +284,6 @@ public func Destruction()
   Disarm();
   RemoveEffect("ShowWeapon", this);
 }
-
-/* Script */
 
 public func Initialize() 
 {

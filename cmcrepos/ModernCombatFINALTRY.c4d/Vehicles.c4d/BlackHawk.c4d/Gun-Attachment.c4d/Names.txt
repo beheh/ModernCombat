@@ -1,2 +1,0 @@
-DE:Waffengestell
-US:Weapon-Attachment
