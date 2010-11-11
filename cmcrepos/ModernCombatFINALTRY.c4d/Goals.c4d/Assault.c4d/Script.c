@@ -259,7 +259,7 @@ protected func WaitForJoin(int iPlr)
     if (GetPlayerTeam(GetOwner(obj)) == iDefender)
       continue;
 	
-    if (GetAlive(obj) && !GetEffect("IntAssaultWaitObject", Contained(obj)) && GetMenu(obj) != MCSL)
+    if (GetAlive(obj) && !GetEffect("IntAssaultWaitObject", Contained(obj)) && (GetOwner(obj) != iPlr || GetMenu(obj) != MCSL))
       alive = true;
   }
 
@@ -341,7 +341,7 @@ public func UpdateScoreboard()
   var color = RGB(255, 255, 255);
   var team = GetTeamByIndex();
   //Nur ein Angreiferteam
-  if (GetActiveTeamCount() == 2)
+  if (GetActiveTeamCount() == 2 - !GetTeamPlayerCount(iDefender))
   {
     if (team == iDefender)
 	  team = GetTeamByIndex(1);
