@@ -26,6 +26,9 @@ local s_counter,			//int    - eine kleine Counter-Variable für Warnsounds
 local destroyed;			//bool   - ob der Heli schon zerstört ist
 
 local passengercnt;			//int    - Anzahl der Clonks im Heli
+ 
+local smokereload;     //int    - Zeit bis Rauch nachgeladen hat
+local flarereload;     //int    - Zeit bis Flares nachgeladen hat
 
 static const throttle_speed = 5;	//int    - "Feinfühligkeit"
 static const rot_speed = 1;		//int    - Drehgeschwindigkeit / frame
@@ -616,19 +619,10 @@ protected func ContainedThrow(object ByObj)
   //Piloten-HUD
   if (ByObj == Pilot)
   {
-    if (!hud)
-    {
-      hud = CreateObject(BHUD, 0, 0, GetOwner(ByObj));
-      hud->SetHelicopter(this);
-      SetOwner(GetOwner(), hud);
-    }
-    else
-      if(GetVisibility(hud) & VIS_Owner)
-      {
-        SetVisibility(VIS_None, hud);
-      }
-      else
-        SetVisibility(VIS_Owner, hud);
+    var ring = CreateSpeedMenu(this, ByObj);
+    ring->AddThrowItem("$Flares$", "DeployFlares", ByObj, MISL);
+    ring->AddLeftItem("$Smoke$", "DeploySmoke", ByObj, SM4K);
+    ring->AddRightItem("$HUD$", "SwitchHUD", ByObj, ROCK);
     return Sound("BKHK_Switch.ogg", false, this, 100, GetOwner(ByObj)+1);
   }
 
@@ -665,6 +659,53 @@ protected func ChangeDir()
     SetVertex(i, 0, (GetDir()*2-1)*GetDefCoreVal("VertexX", "DefCore", GetID(), i), this, 2);
   SetDir(!GetDir());
   return true;
+}
+
+/*----- Piloten-Fähigkeiten -----*/
+public func SwitchHUD()
+{
+  if (!hud)
+  {
+    hud = CreateObject(BHUD, 0, 0, GetOwner(Pilot));
+    hud->SetHelicopter(this);
+    SetOwner(GetOwner(), hud);
+  }
+  else
+  {
+    if(GetVisibility(hud) & VIS_Owner)
+      SetVisibility(VIS_None, hud);
+    else
+      SetVisibility(VIS_Owner, hud);
+  }
+  Sound("BKHK_Switch.ogg", false, this, 100, GetOwner(Pilot)+1);
+  return true;
+}
+
+public func DeploySmoke()
+{
+  if(smokereload)
+  {
+    PlayerMessage(GetOwner(Pilot),"$SmokeReloading$",this,smokereload/35);
+    Sound("BKHK_Switch.ogg", false, this, 100, GetOwner(Pilot)+1);
+    return false;
+  }
+  
+  CastParticles("Smoke3",GetEffectData(EFSM_ExplosionEffects)*6+1,80,0,0,120,150,RGBa(255,255,255,120),RGBa(255,255,255,150));
+  for(var i = -4; i < 9; i++)
+  {
+    var smoke = CreateObject(SM4K, 0, 0, GetController());
+    SetXDir((GetXDir() * 2/3) + (i * RandomX(2, 4)),smoke,10);
+    SetYDir((GetYDir() * 2/3) + RandomX(10,20),smoke,10);
+  }
+  Sound("SGRN_Fused.ogg");
+  smokereload = 35*30;
+  
+  return true;
+}
+
+public func DeployFlares()
+{
+  PlayerMessage(GetOwner(Pilot),"Dummy!",this);
 }
 
 /*----- Sitzsteuerung -----*/
@@ -875,7 +916,7 @@ protected func FxCheckGroundTimer(pTarget, iNo, iTime)
     return -1;
   }
   else
-    pRope->SetRopeLength(iTime*2+10);
+    pRope->SetRopeLength(iTime*4+10);
   //Sounds fürs Abseilen?
 }
 
@@ -1152,6 +1193,10 @@ protected func TimerCall()
       AddEffect("NoRotorHit",pClonk,1,20,pClonk);
     }
   }
+  
+  //Nachladezeit reduzieren
+  if(smokereload) 
+    smokereload--;
 
   //Schadensverhalten
   //bis 50% nichts
