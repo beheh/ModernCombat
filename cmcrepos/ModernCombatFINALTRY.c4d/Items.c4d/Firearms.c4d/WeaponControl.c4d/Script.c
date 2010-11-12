@@ -90,25 +90,25 @@ public func FMMenu(clonk)
   //Manuell nachladen
   if (GetAmmoCount(GetSlot()) < GetFMData(FM_AmmoLoad) && (clonk->~GetAmmo(GetFMData(FM_AmmoID)) >= GetFMData(FM_AmmoUsage) || FindObject(NOAM)))
   {
-    overlay = ring->AddThrowItem("$Reload$", "ManualReload",firemode,RICO);
-    SetGraphics("1",ring,RICO,overlay,GFXOV_MODE_IngamePicture);
+    overlay = ring->AddThrowItem("$Reload$", "ManualReload",firemode,SMIN);
+    SetGraphics("1",ring,SMIN,overlay,GFXOV_MODE_IngamePicture);
   }
 
   //Manuell entladen
   if (GetAmmoCount(GetSlot()))
   {
-  	overlay = ring->AddDownItem("$AmmoType$","ManualEmpty",firemode,RICO);
-    SetGraphics("2",ring,RICO,overlay,GFXOV_MODE_IngamePicture);
+  	overlay = ring->AddDownItem("$AmmoType$","ManualEmpty",firemode,SMIN);
+    SetGraphics("2",ring,SMIN,overlay,GFXOV_MODE_IngamePicture);
   }
 
   //Feuertechniken durchwechseln
   if (GetFTCount() > 2)
   {
-    overlay = ring->AddLeftItem("$FireTecBack$","CycleFT",-1,RICO);
-    SetGraphics("5",ring,RICO,overlay,GFXOV_MODE_IngamePicture);
+    overlay = ring->AddLeftItem("$FireTecBack$","CycleFT",-1,SMIN);
+    SetGraphics("5",ring,SMIN,overlay,GFXOV_MODE_IngamePicture);
 
-    overlay = ring->AddRightItem("$FireTecForward$","CycleFT",+1,RICO);
-    SetGraphics("4",ring,RICO,overlay,GFXOV_MODE_IngamePicture);
+    overlay = ring->AddRightItem("$FireTecForward$","CycleFT",+1,SMIN);
+    SetGraphics("4",ring,SMIN,overlay,GFXOV_MODE_IngamePicture);
 
 	for(var i = 1; i <= GetFTCount(firemode); i++)
     {
@@ -125,8 +125,8 @@ public func FMMenu(clonk)
   //Feuermodus
   if (GetFMCount() > 1)
   {
-    overlay = ring->AddUpItem("$FireModeForward$","CycleFM",+1,RICO);
-    SetGraphics("3",ring,RICO,overlay,GFXOV_MODE_IngamePicture);
+    overlay = ring->AddUpItem("$FireModeForward$","CycleFM",+1,SMIN);
+    SetGraphics("3",ring,SMIN,overlay,GFXOV_MODE_IngamePicture);
 	
 	var szName = "";
     for(var i = 1; i <= GetFMCount(); i++)
