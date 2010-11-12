@@ -970,13 +970,13 @@ public func Collection2(object pObj)
 {
   if(!pObj || Contained(pObj) != this) return;
   var i = 0;
-  while(aCollected[i])
+  while(i < GetLength(aCollected))
   {
     if(aCollected[i] == pObj) return;
     i++;
   }
   i = 0;
-  while(aCollected[i])
+  while(i < GetLength(aCollected))
   {
     if(Contained(aCollected[i]) == this)
     {
