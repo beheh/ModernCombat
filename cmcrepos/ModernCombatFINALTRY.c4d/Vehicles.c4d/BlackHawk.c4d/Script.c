@@ -710,7 +710,8 @@ public func DeployFlares()
 
   //Sound
   Sound("BKHK_Switch.ogg", false, this, 100, GetOwner(Pilot)+1);
-  
+  Sound("BKHK_DeployFlares.ogg");
+
   //Flareladezeit setzen
   flarereload = 35*10;
 }
