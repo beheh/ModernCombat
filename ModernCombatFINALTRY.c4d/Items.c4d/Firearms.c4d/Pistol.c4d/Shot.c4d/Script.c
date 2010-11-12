@@ -103,33 +103,6 @@ public func LaunchFB(int iAngle, int iSpeed, int iDist, int iSize, int iTrail, i
 
   HitCheck(iAngle,iDist);
 
-  /*if(iSize)
-  {
-    if(dst < max_dst)
-    {
-      var t = CreateObject(TRAI,lx,ly,-1);
-      if(t)
-      {
-        t->SetFB(iSize,iTrail,this);
-        SetObjectBlitMode(GetObjectBlitMode(), t);
-      }
-    }
-    else
-    {
-      if(!Random(2))
-      {
-        var t = CreateObject(TRAI,0,0,-1);
-        if(t)
-        {
-          t->SetFB(iSize,iTrail,this,iDist);
-          SetObjectBlitMode(GetObjectBlitMode(), t);
-        }
-      }
-    }
-  }*/
-
-  //SetVisibility(VIS_None);
-
   Remove(iRemoveTime);
 }
 
@@ -352,7 +325,7 @@ public func OnBulletHit(object pObject, int iX, int iY)
   {
     if(Fast())
     {
-      var tmp = CreateObject(TRAI,iX,iY,-1);
+      var tmp = CreateObject(TRAI, iX, iY, NO_OWNER);
       Sound("BulletImpact*.ogg", 0, tmp);
       RemoveObject(tmp);
     }
@@ -367,28 +340,29 @@ public func OnBulletHit(object pObject, int iX, int iY)
   //Partikel verschleudern
   var iAngle, iSpeed, iSize;
 
-  for( var i=0; i < (30*GetCon()/100); ++i)
+  for( var i = 0; i < 3 * GetCon() / 10; ++i)
   {
-    iAngle = (GetR()-180)+RandomX(-20,+20);
-    iSpeed = RandomX(0,speed/9);
-    iSize = RandomX(10,40);
-    CreateParticle("Frazzle",iX+Sin(iAngle,2),iY-Cos(iAngle,2),+Sin(iAngle,iSpeed),-Cos(iAngle,iSpeed),iSize,GlowColor(iTime));
+    iAngle = GetR() - 200 + Random(41);
+    iSpeed = Random(speed / 9 + 1);
+    iSize = Random(31) + 10;
+    CreateParticle("Frazzle", iX + Sin(iAngle, 2), iY - Cos(iAngle, 2), Sin(iAngle, iSpeed), -Cos(iAngle, iSpeed), iSize, GlowColor(iTime));
   }
 
   var alphamod, sizemod, iColor = GlowColor(iTime);
   CalcLight(alphamod, sizemod);
 
-  var r,g,b,a;
-  SplitRGBaValue(iColor,r,g,b,a);
-  iColor = RGBa(r,g,b,Min(a+alphamod,255));
+  var r, g, b, a;
+  SplitRGBaValue(iColor, r, g, b, a);
+  iColor = RGBa(r, g, b, Min(a + alphamod, 255));
 
-  if(GetEffectData(EFSM_BulletEffects) > 0) CreateParticle("Flare",iX,iY,RandomX(-1000,+1000),RandomX(-1000,+1000),(100*GetCon()/100)*5*sizemod/100,iColor);
+  if(GetEffectData(EFSM_BulletEffects) > 0)
+    CreateParticle("Flare", iX, iY, Random(201)- 100, Random(201) - 100, GetCon() * sizemod / 20, iColor);
 }
 
 public func BulletStrike(object pObj)
 {
   if(pObj)
-    DoDmg(iDamage,DMG_Projectile,pObj,0,0,0,wpnid);
+    DoDmg(iDamage, DMG_Projectile, pObj, 0, 0, 0, wpnid);
   return true;
 }
 
