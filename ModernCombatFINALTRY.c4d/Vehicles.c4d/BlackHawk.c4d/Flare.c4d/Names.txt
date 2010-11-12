@@ -1,2 +1,2 @@
-DE:Leuchtkörper
+DE:Täuschkörper
 US:Flare
