@@ -285,12 +285,6 @@ public func Destruction()
   RemoveEffect("ShowWeapon", this);
 }
 
-public func Initialize() 
-{
-  AddEffect("ShowWeapon",this,1,1,this,GetID());
-  //SetGraphics(0,this,GetID(),3,5,0,0,this);
-}
-
 public func WeaponAt(&x, &y, &r)
 {
   x = Sin(GetR()-180,7000);

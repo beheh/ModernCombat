@@ -992,9 +992,9 @@ protected func Destruction()
   if(hud)
     RemoveObject(hud);
   if(MGStation)
-    RemoveObject(MGStation,true);
+    RemoveObject(MGStation);
   if(RocketStation)
-    RemoveObject(RocketStation,true);
+    RemoveObject(RocketStation);
   return true;
 }
 

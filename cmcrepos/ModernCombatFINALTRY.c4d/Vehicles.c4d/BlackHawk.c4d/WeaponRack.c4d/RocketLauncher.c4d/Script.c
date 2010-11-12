@@ -11,6 +11,11 @@ public func NoWeaponChoice()	{return true;}
 
 local aRockets, fView;
 
+protected func Construction()
+{
+  AddEffect("IntNoSound", this, 1, 5);
+  return _inherited(...);
+}
 
 /* Raketen - Optische Steuerung */
 
@@ -120,5 +125,6 @@ public func ControlDig(object pBy)
 
 public func OnReload()
 {
-  Sound("RLSA_Reload.ogg");
+  if (!GetEffect("IntNoSound", this))
+    Sound("RLSA_Reload.ogg", false, this);
 }

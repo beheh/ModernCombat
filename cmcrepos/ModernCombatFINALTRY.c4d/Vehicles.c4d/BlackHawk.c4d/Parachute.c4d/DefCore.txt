@@ -16,3 +16,4 @@ VertexY=-1
 VertexCNAT=8
 VertexFriction=20
 ColorByOwner=1
+Float=1
