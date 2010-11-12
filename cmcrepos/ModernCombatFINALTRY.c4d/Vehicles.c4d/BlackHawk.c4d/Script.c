@@ -44,18 +44,28 @@ static const BKHK_PassengerLayer = 3;
 
 /*----- Callbacks -----*/
 
-public func IsMachine()			{return 1;}
+public func IsMachine()			{return true;}
 public func MaxDamage()			{return 200;}
-public func IsThreat()			{return 1;}
+public func IsThreat()			{return true;}
+
 public func IsBulletTarget(id idBullet, object pBullet)
 {
-  //Nicht treffbar wenn neutral
-  if(GetOwner() == -1)
-    return 0;
+  //Nicht treffbar wenn neutral, auﬂer bei FF
+  if(ObjectCount(NOFF) && GetOwner() == NO_OWNER)
+    return false;
+
+  if (EffectVar(0, pBullet, GetEffect("IntHeliProtection", pBullet)) == this)
+    return false;
 
   if(idBullet == MISS || idBullet == HMIS || idBullet == MISL || idBullet == LRML || idBullet == ESHL)
     return ObjectDistance(pBullet) < 40;
-  return 1;
+  return true;
+}
+
+protected func FxIntHeliProtectionStart(object pTarget, int iEffect, int iTemp, object pObj)
+{
+  if (!iTemp)
+    EffectVar(0, pTarget, iEffect) = pObj;
 }
 
 /*----- Initialisierung -----*/

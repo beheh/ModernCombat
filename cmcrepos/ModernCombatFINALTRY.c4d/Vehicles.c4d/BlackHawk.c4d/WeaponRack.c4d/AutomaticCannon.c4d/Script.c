@@ -68,8 +68,11 @@ public func Fire1()
   var angle = user->AimAngle(10,0,true);
   var x,y;
   user->WeaponEnd(x,y);
-  var ammo = SALaunchBullet(x,y,GetController(user),angle+RandomX(-2,+2),250,750,GetFMData(FM_Damage));
+  var ammo = CreateObject(SHTX, x, y, GetController(user));
+  AddEffect("IntHeliProtection", ammo, 5, 0, 0, BKHK, LocalN("heli", Contained()));
+  ammo->CustomLaunch(angle + Random(5) - 2, 250, 750, 2, GetFMData(FM_Damage) * 10, GetFMData(FM_Damage));
   Sound("ACCN_Fire.ogg", 0, ammo);
+  
 
   // Effekte
   SAMuzzleFlash(RandomX(35,50),user,x,y,angle);
