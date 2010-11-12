@@ -7,4 +7,4 @@ DrawFn=Std
 Face=0,0,32,32,-15,-15
 AlphaFade=18
 Additive=1
-RByV=3
+RByV=2
