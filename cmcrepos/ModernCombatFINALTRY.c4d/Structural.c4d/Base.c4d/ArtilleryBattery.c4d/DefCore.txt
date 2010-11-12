@@ -15,7 +15,7 @@ VertexFriction=60,60,60,60
 Value=300
 Mass=500
 Components=METL=4
-Picture=0,67,47,36
+Picture=0,66,47,36
 Construction=1
 Grab=2
 Timer=3
