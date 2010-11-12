@@ -110,7 +110,7 @@ public func FxFollowTimer(object pTarget, int iEffectNumber, int iEffectTime)
     {
       var pEnemy = EffectVar(1,pTarget,iEffectNumber);
       var del;
-      if(!GetEffect("TracerDart", pEnemy)) del = true;
+      if(!GetEffect("TracerDart", pEnemy) || GetID(pEnemy) != FLRE) del = true;
       if(!PathFree(GetX(pTarget), GetY(pTarget), GetX(pEnemy), GetY(pEnemy))) del = true;
       if(del) EffectVar(1,pTarget,iEffectNumber) = 0;
     }

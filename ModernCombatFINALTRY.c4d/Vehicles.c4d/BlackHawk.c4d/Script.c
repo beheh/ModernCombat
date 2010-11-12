@@ -626,8 +626,12 @@ protected func ContainedThrow(object ByObj)
     var overlay;
 
     //Flareabwurf
-    overlay = ring->AddThrowItem("$Flares$", "DeployFlares",ByObj,SMIN);
-    SetGraphics("6",ring,SMIN,overlay,GFXOV_MODE_IngamePicture);
+    //Nur wenn geladen
+    if(!flarereload)
+    {
+      overlay = ring->AddThrowItem("$Flares$", "DeployFlares",ByObj,SMIN);
+      SetGraphics("6",ring,SMIN,overlay,GFXOV_MODE_IngamePicture);
+    }
 
     //Rauchwand
     //Nur wenn geladen
@@ -685,11 +689,20 @@ protected func ChangeDir()
 
 public func DeployFlares()
 {
-  //Testnachricht
-  PlayerMessage(GetOwner(Pilot),"Dummy!",this);
+  //Flares erstellen
+  CastParticles("Smoke3",GetEffectData(EFSM_ExplosionEffects)*4+1,50,0,0,120,150,RGBa(255,255,255,120),RGBa(255,255,255,150));
+  for(var i = -3; i < 3; i++)
+  {
+    var flare = CreateObject(FLRE, i * 10, 20, GetOwner(Pilot));
+    SetXDir((GetXDir() * 2/3) + (i * RandomX(20, 30)),flare,10);
+    SetYDir((GetYDir() * 2/3) + (i * RandomX(-10, 0)),flare,10);
+  }
 
   //Sound
   Sound("BKHK_Switch.ogg", false, this, 100, GetOwner(Pilot)+1);
+  
+  //Flareladezeit setzen
+  flarereload = 35*10;
 }
 
 /* Rauchwand */
@@ -698,9 +711,9 @@ public func DeploySmoke()
 {
   //Rauch erstellen
   CastParticles("Smoke3",GetEffectData(EFSM_ExplosionEffects)*6+1,80,0,0,120,150,RGBa(255,255,255,120),RGBa(255,255,255,150));
-  for(var i = -4; i < 9; i++)
+  for(var i = -5; i < 5; i++)
   {
-    var smoke = CreateObject(SM4K, 0, 0, GetController());
+    var smoke = CreateObject(SM4K, 0, 0, GetOwner(Pilot));
     SetXDir((GetXDir() * 2/3) + (i * RandomX(2, 4)),smoke,10);
     SetYDir((GetYDir() * 2/3) + RandomX(10,20),smoke,10);
   }
@@ -1230,6 +1243,8 @@ protected func TimerCall()
   //Nachladezeit reduzieren
   if(smokereload) 
     smokereload--;
+  if(flarereload)
+    flarereload--;
 
   //Schadensverhalten
   //bis 50% nichts
