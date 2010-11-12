@@ -1,0 +1,14 @@
+[DefCore]
+id=FLRE
+Name=Flare
+Version=4,9,5
+Category=C4D_Vehicle
+Width=20
+Height=20
+Offset=-10,-10
+Mass=2
+Picture=0,0,50,50
+Vertices=1
+VertexY=1
+VertexFriction=20
+ 
