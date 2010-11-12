@@ -895,17 +895,24 @@ public func ControlSpecial()
     var ring = CreateSpeedMenu(0, this);
     var i = 0; //Index der Items
     var j = 1; //Position im Menü
-    while(j <= 5 && i < GetLength(aCollected))
+    var aUsed = CreateArray(5);
+    while(i < GetLength(aCollected) && j <= 6)
     {
-      if(aCollected[i])
+      if(aCollected[i] && Contained(aCollected[i]) == this)
       {
-        if(aCollected[i]->Contained() == this)
-        {
-          var overlay = ring->Add(j%5, GetName(aCollected[i]),"SelectQuickInventory",GetContentsOffset(aCollected[i]),RICO);
-          SetGraphics("",ring,GetID(aCollected[i]),overlay,GFXOV_MODE_IngamePicture);
-          j++;
+        if(j >= 6) { //Am Ende? Dann versuchen wir ein neues zu finden
+          for(var c = 0; c <= 4; c++) {
+          	if(!aUsed[c]) {
+          		j = c+1;
+          		break;
+          	}
+          }
         }
+        var overlay = ring->Add(j%5, GetName(aCollected[i]),"SelectQuickInventory",GetContentsOffset(aCollected[i]),RICO);
+        SetGraphics("",ring,GetID(aCollected[i]),overlay,GFXOV_MODE_IngamePicture);
+        aUsed[j-1] = true;
       }
+      j++;
       i++;
     }
     ring->AddTopInfoItem(Format("<c ffff00>$QuickInventory$</c>|$ContentsCount$", ContentsCount()));
