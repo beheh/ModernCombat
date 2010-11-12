@@ -8,6 +8,11 @@ public func HandX()		{return 5000;}
 public func HandY()		{return 600;}
 public func NoWeaponChoice()	{return true;}
 
+protected func Construction()
+{
+  AddEffect("IntNoSound", this, 1, 5);
+  return _inherited(...);
+}
 
 /* Kugeln */
 
@@ -75,7 +80,8 @@ public func Fire1()
 
 func OnReload()
 {
-  Sound("ACCN_Reload.ogg");
+  if (!GetEffect("IntNoSound", this))
+    Sound("ACCN_Reload.ogg", false, this);
 }
 
 public func StopAutoFire()
