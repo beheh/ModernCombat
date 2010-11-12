@@ -27,8 +27,8 @@ local destroyed;			//bool   - ob der Heli schon zerstört ist
 
 local passengercnt;			//int    - Anzahl der Clonks im Heli
  
-local smokereload;     //int    - Zeit bis Rauch nachgeladen hat
-local flarereload;     //int    - Zeit bis Flares nachgeladen hat
+local smokereload;			//int    - Nachladezeit für Rauchwand
+local flarereload;			//int    - Nachladezeit für Flareabwurf
 
 static const throttle_speed = 5;	//int    - "Feinfühligkeit"
 static const rot_speed = 1;		//int    - Drehgeschwindigkeit / frame
@@ -92,8 +92,8 @@ protected func Initialize()
 
 /*----- Erfassung -----*/
 
-public func GetPilot()		{return Pilot;}
-public func GetThrottle()	{return throttle;}
+public func GetPilot()			{return Pilot;}
+public func GetThrottle()		{return throttle;}
 
 public func GetRotorSpeed()
 {
@@ -384,7 +384,7 @@ protected func ContainedUp(object ByObj)
   //Schütze
   if (ByObj == Gunner)
     MGStation->~ControlUp(ByObj);
-  //Coordinator
+  //Koordinator
   if (ByObj == Coordinator)
     RocketStation->~ControlUp(ByObj);
 
@@ -403,16 +403,18 @@ protected func ContainedDown(object ByObj)
     //Motor aus
     if(throttle == 0 && (GetAction()=="Fly" || GetAction() == "EngineStartUp"))
       SetAction("EngineShutDown");
-    //vom Gas weg
+    //Vom Gas weg
     if(GetAction()=="Fly" || GetAction()=="Turn")
-    	if(GetPlrCoreJumpAndRunControl(GetOwner(Pilot)) && !GetAutopilot()) {
-    		AddEffect("BlackhawkChangeThrottle", this, 50, 3, this, GetID(), -throttle_speed);
-    	}
-    	else {
+      if(GetPlrCoreJumpAndRunControl(GetOwner(Pilot)) && !GetAutopilot())
+      {
+        AddEffect("BlackhawkChangeThrottle", this, 50, 3, this, GetID(), -throttle_speed);
+      }
+      else
+      {
       	throttle = BoundBy(throttle - throttle_speed, 0, max_throttle);
       }
   }
-  
+
   //Schütze
   if(ByObj == Gunner)
     MGStation->~ControlDown(ByObj);
@@ -469,7 +471,7 @@ protected func ContainedDownDouble(object ByObj)
     ResetAutopilot();
     //Motor aus
     if (throttle == 0 && (GetAction()=="Fly" || GetAction()=="EngineStartUp")) SetAction("EngineShutDown");
-    //vom Gas weg
+    //Vom Gas weg
     if (GetAction()=="Fly") throttle = BoundBy(throttle - throttle_speed*2, 0, 170);
   }
   if(ByObj == Passenger1 || ByObj == Passenger2)
@@ -504,7 +506,7 @@ protected func ContainedLeft(object ByObj)
   //Schütze
   if(ByObj == Gunner)
     MGStation->~ControlLeft(ByObj);
-  //Coordinator
+  //Koordinator
   if(ByObj == Coordinator)
     RocketStation->~ControlLeft(ByObj);
 
@@ -546,7 +548,7 @@ protected func ContainedRight(object ByObj, fRelease)
   //Schütze
   if(ByObj == Gunner)
     MGStation->~ControlRight(ByObj);
-  //Coordinator
+  //Koordinator
   if(ByObj == Coordinator)
     RocketStation->~ControlRight(ByObj);
 
@@ -571,7 +573,7 @@ protected func ContainedLeftDouble(object ByObj)
   //Schütze
   if(ByObj == Gunner)
     MGStation->~ControlLeftDouble(ByObj);
-  //Coordinator
+  //Koordinator
   if(ByObj == Coordinator)
     RocketStation->~ControlLeftDouble(ByObj);
 
@@ -603,7 +605,7 @@ protected func ContainedRightDouble(object ByObj)
   //Schütze
   if(ByObj == Gunner)
     MGStation->~ControlRightDouble(ByObj);
-  //Coordinator
+  //Koordinator
   if(ByObj == Coordinator)
     RocketStation->~ControlRightDouble(ByObj);
 
@@ -616,13 +618,29 @@ protected func ContainedThrow(object ByObj)
   
   //nicht wenn kaputt
   if (GetDamage() > MaxDamage()) return true;
-  //Piloten-HUD
+  //Piloten-Speedmenü
   if (ByObj == Pilot)
   {
-    var ring = CreateSpeedMenu(this, ByObj);
-    ring->AddThrowItem("$Flares$", "DeployFlares", ByObj, MISL);
-    ring->AddLeftItem("$Smoke$", "DeploySmoke", ByObj, SM4K);
-    ring->AddRightItem("$HUD$", "SwitchHUD", ByObj, ROCK);
+    var ring = CreateSpeedMenu(this,ByObj);
+
+    var overlay;
+
+    //Flareabwurf
+    overlay = ring->AddThrowItem("$Flares$", "DeployFlares",ByObj,SMIN);
+    SetGraphics("6",ring,SMIN,overlay,GFXOV_MODE_IngamePicture);
+
+    //Rauchwand
+    //Nur wenn geladen
+    if(!smokereload)
+    {
+      overlay = ring->AddLeftItem("$Smoke$", "DeploySmoke",ByObj,SMIN);
+      SetGraphics("7",ring,SMIN,overlay,GFXOV_MODE_IngamePicture);
+    }
+
+    //HUD ein- oder ausblenden
+    overlay = ring->AddRightItem("$HUD$", "SwitchHUD",ByObj,SMIN);
+    SetGraphics("8",ring,SMIN,overlay,GFXOV_MODE_IngamePicture);
+
     return Sound("BKHK_Switch.ogg", false, this, 100, GetOwner(ByObj)+1);
   }
 
@@ -661,35 +679,24 @@ protected func ChangeDir()
   return true;
 }
 
-/*----- Piloten-Fähigkeiten -----*/
-public func SwitchHUD()
+/*----- Pilotenfähigkeiten -----*/
+
+/* Flareabwurf */
+
+public func DeployFlares()
 {
-  if (!hud)
-  {
-    hud = CreateObject(BHUD, 0, 0, GetOwner(Pilot));
-    hud->SetHelicopter(this);
-    SetOwner(GetOwner(), hud);
-  }
-  else
-  {
-    if(GetVisibility(hud) & VIS_Owner)
-      SetVisibility(VIS_None, hud);
-    else
-      SetVisibility(VIS_Owner, hud);
-  }
+  //Testnachricht
+  PlayerMessage(GetOwner(Pilot),"Dummy!",this);
+
+  //Sound
   Sound("BKHK_Switch.ogg", false, this, 100, GetOwner(Pilot)+1);
-  return true;
 }
+
+/* Rauchwand */
 
 public func DeploySmoke()
 {
-  if(smokereload)
-  {
-    PlayerMessage(GetOwner(Pilot),"$SmokeReloading$",this,smokereload/35);
-    Sound("BKHK_Switch.ogg", false, this, 100, GetOwner(Pilot)+1);
-    return false;
-  }
-  
+  //Rauch erstellen
   CastParticles("Smoke3",GetEffectData(EFSM_ExplosionEffects)*6+1,80,0,0,120,150,RGBa(255,255,255,120),RGBa(255,255,255,150));
   for(var i = -4; i < 9; i++)
   {
@@ -697,15 +704,41 @@ public func DeploySmoke()
     SetXDir((GetXDir() * 2/3) + (i * RandomX(2, 4)),smoke,10);
     SetYDir((GetYDir() * 2/3) + RandomX(10,20),smoke,10);
   }
-  Sound("SGRN_Fused.ogg");
+
+  //Sound
+  Sound("BKHK_Switch.ogg", false, this, 100, GetOwner(Pilot)+1);
+  Sound("BKHK_DeploySmoke.ogg");
+
+  //Rauchwandladezeit setzen
   smokereload = 35*30;
-  
+
   return true;
 }
 
-public func DeployFlares()
+/* HUD (de)aktivieren */
+
+public func SwitchHUD()
 {
-  PlayerMessage(GetOwner(Pilot),"Dummy!",this);
+  //Kein HUD? Erstellen
+  if(!hud)
+  {
+    hud = CreateObject(BHUD, 0, 0, GetOwner(Pilot));
+    hud->SetHelicopter(this);
+    SetOwner(GetOwner(), hud);
+  }
+  else
+  {
+    //Sichtbar? Dann ausblenden
+    if(GetVisibility(hud) & VIS_Owner)
+      SetVisibility(VIS_None, hud);
+    //Ansonsten einblenden
+    else
+      SetVisibility(VIS_Owner, hud);
+  }
+
+  //Sound
+  Sound("BKHK_Switch.ogg", false, this, 100, GetOwner(Pilot)+1);
+  return true;
 }
 
 /*----- Sitzsteuerung -----*/
