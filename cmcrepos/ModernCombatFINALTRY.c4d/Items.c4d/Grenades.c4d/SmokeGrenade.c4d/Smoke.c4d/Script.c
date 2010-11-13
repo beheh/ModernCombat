@@ -114,7 +114,7 @@ func Spread()
 
 /* Raucheffekt */
 
-global func FxSmokeGrenadeStart(object pTarget, int iEffectNumber, int iTemp)
+protected func FxSmokeGrenadeStart(object pTarget, int iEffectNumber, int iTemp)
 {
   //Besitzerlose Ziele nicht blenden
   if(GetController(pTarget) == NO_OWNER) return;
@@ -123,7 +123,7 @@ global func FxSmokeGrenadeStart(object pTarget, int iEffectNumber, int iTemp)
   return;
 }
 
-global func FxSmokeGrenadeTimer(object pTarget, int iEffectNumber, int iEffectTime)
+protected func FxSmokeGrenadeTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
   //Keine Blendung übrig? Verschwinden
   var rgb = EffectVar(0, pTarget, iEffectNumber);
@@ -150,7 +150,7 @@ global func FxSmokeGrenadeTimer(object pTarget, int iEffectNumber, int iEffectTi
     rgb->DoAlpha(-20, 0, 254);
 }
 
-global func FxSmokeGrenadeStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)
+protected func FxSmokeGrenadeStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)
 {
   if(EffectVar(0,pTarget,iEffectNumber))
     RemoveObject(EffectVar(0,pTarget,iEffectNumber));
