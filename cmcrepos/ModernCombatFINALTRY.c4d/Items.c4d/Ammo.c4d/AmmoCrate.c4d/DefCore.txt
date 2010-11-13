@@ -20,4 +20,3 @@ VertexX=-11,-11,8,8
 VertexY=-5,4,-5,4
 VertexCNAT=5,9,6,10
 VertexFriction=50,100,50,100
-
