@@ -166,7 +166,7 @@ public func RejectCollect(id idObj)
     return true;
 
   if(idSpawn)
-    return idSpawn != idObj || ContentsCount() >= iMaxCount);
+    return idSpawn != idObj || ContentsCount() >= iMaxCount;
   else
     return ContentsCount() >= 10;
 

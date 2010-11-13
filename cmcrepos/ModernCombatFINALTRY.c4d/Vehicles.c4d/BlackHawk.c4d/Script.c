@@ -704,8 +704,8 @@ public func DeployFlares()
   for(var i = -3; i < 3; i++)
   {
     var flare = CreateObject(FLRE, i * 10, 20, GetOwner(Pilot));
-    SetXDir((GetXDir() * 2/3) + (i * RandomX(20, 30)),flare,10);
-    SetYDir((GetYDir() * 2/3) + (i * RandomX(-10, 0)),flare,10);
+    SetXDir((GetXDir() * 2/3) + (i * RandomX(18, 25)),flare,10);
+    SetYDir((GetYDir() * 2/3) + (i * RandomX(-5, 0)),flare,10);
   }
 
   //Sound
