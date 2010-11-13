@@ -4,10 +4,15 @@
 
 public func IsBulletTarget()	{return true;}
 
+protected func Initialize()
+{
+  AddLight(80,RGBa(230,230,255,60));
+}
+
 
 /* Timer */
 
-protected func Timer()
+protected func TimerCall()
 {
   //Bei Bodenkontakt verschwinden
   if(GetContact(this, -1, CNAT_Bottom))
@@ -17,8 +22,9 @@ protected func Timer()
   SetYDir(GetYDir()-GetGravity()/70);
 
   //Effekte
-  CreateParticle("Flare",0,0,GetXDir()/3,GetYDir()/3,RandomX(15,25)*5,RGB(255,255,255));
-  if(GetEffectData(EFSM_ExplosionEffects) > 0) CreateParticle("Smoke2",0,0,0,0,RandomX(20,35)*5,RGB(200,200,200));
+  CreateParticle("Flare",0,0,GetXDir()/3,GetYDir()/3,RandomX(30,40)*5,RGB(255,255,255));
+  if(GetEffectData(EFSM_ExplosionEffects) > 0) CreateParticle("GroundSmoke",0,0,0,0,RandomX(30,40)*5,RGB(180,180,180));
+  if(GetEffectData(EFSM_ExplosionEffects) > 1) CreateParticle("GroundSmoke",0,0,0,0,RandomX(20,30)*5,RGB(150,150,150));
 }
 
 /* Schaden */
