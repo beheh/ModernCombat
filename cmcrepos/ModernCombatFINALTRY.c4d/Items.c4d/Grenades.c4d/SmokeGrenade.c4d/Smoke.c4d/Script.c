@@ -62,7 +62,7 @@ public func Timer()
     SetYDir(GetYDir(0,1000)+GetGravityAccel4K(500),0,1000);
 
   //Zu blendende Objekte suchen
-  for(var obj in FindObjects(Find_Distance(GetCon()/2,0,0), Find_NoContainer(), Find_OCF(OCF_Living | OCF_CrewMember), Find_Not(Find_Allied(GetOwner()))))
+  for(var obj in FindObjects(Find_Distance(GetCon()/2,0,0), Find_NoContainer(), Find_OCF(OCF_Living | OCF_CrewMember)))
   {
     //Raucheffekt hinzufügen falls nicht vorhanden
     if(!GetEffect("SmokeGrenade", obj))
