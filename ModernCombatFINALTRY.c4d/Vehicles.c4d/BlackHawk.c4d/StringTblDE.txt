@@ -23,6 +23,8 @@ Coordinator=Koordinator
 CoordinatorDesc=Steuere das Raketenwerfersystem mit optisch lenkbaren Raketen.
 Passenger=Passagier
 PassengerDesc=Ein Sitzplatz mit Seil zum Ausklinken.
+ExitRope=Abseilen
+ExitRopeDesc=Verlasse den Helikopter durch Abseilen.
 
 #Aktionen
 Flares=Flareabwurf

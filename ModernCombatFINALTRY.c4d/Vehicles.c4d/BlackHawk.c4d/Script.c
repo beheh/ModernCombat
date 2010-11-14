@@ -292,13 +292,11 @@ protected func Ejection(object ByObj)
   //Nicht bei Schaden
   if(GetDamage() >= MaxDamage()) return;
   
-  if(!PathFree(GetX(),GetY(),GetX(),GetY()+50))
+  if(!PathFree(GetX(),GetY(),GetX(),GetY()+100))
     return DeleteActualSeatPassenger(ByObj); //Trozdem Sitz freimachen
-    
-  if(ByObj == Pilot || GetDamage() >= MaxDamage()*3/4)
+
+  if(!GetEffect("CheckGround",ByObj))
     CreateObject(PARA,GetX(ByObj),GetY(ByObj),GetOwner(ByObj))->Set(ByObj);
-  else
-    AddEffect("CheckGround",ByObj,30,3,this,GetID(),this);
   
   //Sitz freimachen
   DeleteActualSeatPassenger(ByObj);
@@ -804,6 +802,9 @@ protected func ContainedDigDouble(object ByObj)
       AddMenuItem("<c ff8888>$Passenger$</c>", "SeatOccupied",GetID(),ByObj,0,ByObj,"$SeatOccupied$");
     else
       AddMenuItem("<c 88ff88>$Passenger$</c>", "EnterSeat5",GetID(),ByObj,0,ByObj,"$PassengerDesc$");
+    
+    //Ausstieg per Seil
+    AddMenuItem("$ExitRope$", "ExitClonkByRope",CK5P,ByObj,0,ByObj,"$ExitRopeDesc$");
 
   return 1;
 }
@@ -941,6 +942,12 @@ public func GetRopeAttach()
 private func ExitClonk(a,ByObj)
 {
   SetCommand(ByObj, "Exit");
+}
+
+private func ExitClonkByRope(a,ByObj)
+{
+  AddEffect("CheckGround",ByObj,30,3,this,GetID(),this);
+  SetCommand(ByObj,"Exit");
 }
 
 protected func FxCheckGroundStart(pTarget, iNo, iTemp, pHeli)
