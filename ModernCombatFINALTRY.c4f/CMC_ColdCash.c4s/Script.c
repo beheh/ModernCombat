@@ -231,9 +231,6 @@ func CreateEquipment()
   //Raketen
   PlaceSpawnpoint(MIAP, 1310, 355);
   PlaceSpawnpoint(MIAP, 4230, 355);
-
-  //Blackhawk
-  SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,2770,480,-1),100*21,300);
 }
 
 /* Regelwähler */
@@ -247,6 +244,13 @@ public func ChooserFinished()
   for(var i = 0; i < GetPlayerCount(); i++)
     aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = true;
 
+  //DM/LMS-Spielziel
+  if(FindObject(GTDM) || FindObject(GLMS))
+  {
+   //Blackhawk
+   SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,2770,480,-1),100*21,300);
+  }
+
   //CTF-Spielziel
   if(FindObject(GCTF))
   {
@@ -255,6 +259,9 @@ public func ChooserFinished()
    {CreateFlag(1,1480,510,GetTeamColor(1));}
    if(aTeams[2] == true)
    {CreateFlag(2,4060,510,GetTeamColor(2));}
+
+   //Blackhawk
+   SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,2770,480,-1),100*21,300);
   }
 
   //HTF-Spielziel
@@ -264,11 +271,8 @@ public func ChooserFinished()
    var flag = CreateObject(OFPL, 2770, 630, -1);
    flag->~Set("$Flag2$");
 
-   //Spawnpoint entfernen
-   RemoveObject(FindObject2(Find_ID(VSPW),Find_InRect(2769, 479, 3, 3)));
-
-   //Blackhawk entfernen
-   RemoveAll(BKHK);
+   //Blackhawk
+   SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,2770,480,-1),100*21,300);
 
    //Zusätzliche Munition
    if(!FindObject(NOAM))
@@ -291,6 +295,9 @@ public func ChooserFinished()
 
    AddAssaultTarget(CMSN, 4060, 510, 300, 2, "$Target1$", 3, [[4290, 580], [4440, 580]]);
    AddAssaultTarget(RADR, 3970, 320, 400, 2, "$Target2$", 2, [[4180, 360], [4250, 470]]);
+
+   //Blackhawk
+   SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,2770,480,-1),100*21,300);
   }
 
   //OP-Spielziel
@@ -328,6 +335,9 @@ public func ChooserFinished()
    {
     aFlag[2]->Set("$Flag3$",0,2);
    }
+
+   //Blackhawk
+   SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,2770,480,-1),100*21,300);
   }
 }
 
