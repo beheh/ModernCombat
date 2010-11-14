@@ -463,6 +463,8 @@ public func FxHitCheckTimer(object target, int effect, int time)
     if(!CheckEnemy(obj,target)) continue;
     if(obj->~IsBulletTarget(GetID(target),target,EffectVar(2, target, effect), oldx, oldy) || GetOCF(obj) & OCF_Alive)
     {
+      if(!target)
+        return -1;
       DebugLog("%s IsBulletTarget: %i, %s, %s","HitCheck",GetName(obj),GetID(target),GetName(target),GetName(EffectVar(2, target, effect)));
       return target-> ~HitObject(obj);
     }
