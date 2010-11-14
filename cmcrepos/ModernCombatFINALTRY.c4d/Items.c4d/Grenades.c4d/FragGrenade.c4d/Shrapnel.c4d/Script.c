@@ -168,8 +168,9 @@ public func BulletStrike(object pObj)
     {
       return false;
     }
-
-    AddEffect("IntShrapnelHit",pObj,1,10,0,GetID());
+    
+    if(GetID(pObj) != RSLH)
+      AddEffect("IntShrapnelHit",pObj,1,10,0,GetID());
 
     if(GetOCF(pObj) & OCF_Alive)
     {

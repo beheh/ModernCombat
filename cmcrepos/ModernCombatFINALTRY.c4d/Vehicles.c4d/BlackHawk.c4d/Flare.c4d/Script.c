@@ -41,7 +41,12 @@ public func OnDmg(int iDmg, int iType)
 protected func Damage()
 {
   if(GetDamage() > 20)
+  {
+    //Punkte bei Belohnungssystem
+    DoPlayerPoints(BonusPoints("Protection"), RWDS_TeamPoints, GetOwner(), GetOwner(GetCursor()), IC16);
+    
     Hit();
+  }
 }
 
 protected func Hit()
