@@ -62,6 +62,7 @@ public func ExecShove()
                   Find_OCF(OCF_Alive)
                  ),
                  Find_Category(C4D_Living|C4D_Vehicle),
+                 Find_Not(Find_ID(BKHK)),
                  Find_Func("CheckEnemy",this),
                  Sort_Distance(dx-GetX(target),dy-GetY(target)));
 
@@ -147,7 +148,11 @@ public func IsBulletTarget(id idBullet, object pBullet, object pShooter, int old
   if(Abs(r) > 45)
     return false;
   else
+  {
+    if(idBullet == SHRP)
+      RemoveObject(pBullet);
     return true;
+  }
 }
 
 public func OnHit(int iDamage, int iType, object pFrom)

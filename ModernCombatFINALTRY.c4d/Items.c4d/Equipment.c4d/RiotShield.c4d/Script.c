@@ -158,7 +158,7 @@ public func DoHit(int iHit)
   if(iHits >= 120)
   {
     iHits = 0;
-    DoPlayerPoints(BonusPoints("Protection"), RWDS_BattlePoints, GetOwner(Contained()), Contained(), IC16);
+    DoPlayerPoints(BonusPoints("Protection"), RWDS_TeamPoints, GetOwner(Contained()), Contained(), IC16);
   }
 }
 
