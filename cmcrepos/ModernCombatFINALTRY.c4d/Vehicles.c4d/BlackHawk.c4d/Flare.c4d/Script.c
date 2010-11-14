@@ -44,7 +44,6 @@ protected func Damage()
   {
     //Punkte bei Belohnungssystem
     DoPlayerPoints(BonusPoints("Protection"), RWDS_TeamPoints, GetOwner(), GetOwner(GetCursor()), IC16);
-    
     Hit();
   }
 }
