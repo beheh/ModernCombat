@@ -125,7 +125,7 @@ protected func FxSmokeGrenadeStart(object pTarget, int iEffectNumber, int iTemp)
 
 protected func FxSmokeGrenadeTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
-	//Rauch weg?
+	//Clonk weg?
 	if(!pTarget) return -1;
 
   //Keine Blendung übrig? Verschwinden
