@@ -1020,22 +1020,26 @@ protected func Destruction()
 
 public func OnDmg(int iDmg, int iType)
 {
-  if(iType == DMG_Energy)	return -20;
-  if(iType == DMG_Bio)		return 100;
-  if(iType == DMG_Melee)	return 80;
-  if(iType == DMG_Fire)		return 50;
-  if(iType == DMG_Explosion)	return -50;
-  if(iType == DMG_Projectile)	return 80;
+  if(iType == DMG_Energy)	return -20;	//Energie
+  if(iType == DMG_Bio)		return 100;	//Säure und biologische Schadstoffe
+  if(iType == DMG_Melee)	return 80;	//Nahkampf
+  if(iType == DMG_Fire)		return 50;	//Feuer
+  if(iType == DMG_Explosion)	return -70;	//Explosionen
+  if(iType == DMG_Projectile)	return 80;	//Projektile
 
   return 50;
 }
 
 public func OnDamage()
 {
+  //Schaden dem HUD melden
   if(hud)
     hud->DamageReceived();
   if(GetContact(this, -1))
     ResetAutopilot();
+  //Sound
+  Sound("MetalHit*.ogg");
+
   return true;
 }
 
