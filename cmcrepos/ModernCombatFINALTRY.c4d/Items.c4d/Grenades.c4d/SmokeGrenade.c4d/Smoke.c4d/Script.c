@@ -125,8 +125,8 @@ protected func FxSmokeGrenadeStart(object pTarget, int iEffectNumber, int iTemp)
 
 protected func FxSmokeGrenadeTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
-	//Clonk weg?
-	if(!pTarget) return -1;
+  //Clonk weg?
+  if(!pTarget) return -1;
 
   //Keine Blendung übrig? Verschwinden
   var rgb = EffectVar(0, pTarget, iEffectNumber);
@@ -143,7 +143,7 @@ protected func FxSmokeGrenadeTimer(object pTarget, int iEffectNumber, int iEffec
     }
   }
   
-  //Irgendwo drin? Nicht rauchen.
+  //Nicht rauchen wenn irgendwo drin
   if(Contained(pTarget))
     smoked = false;
 
