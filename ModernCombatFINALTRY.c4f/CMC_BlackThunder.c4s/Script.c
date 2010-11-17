@@ -67,6 +67,19 @@ func CreateFurniture()
   CreateObject(HA4K, 3450, 593, -1);
   CreateObject(HA4K, 3780, 503, -1);
 
+  //Gerüste
+  CreateObject(SFFG, 1580, 770, -1)->Set(2);
+  CreateObject(SFFG, 1580, 820, -1);
+  CreateObject(SFFG, 1645, 820, -1);
+  CreateObject(SFFG, 1775, 820, -1);
+  CreateObject(SFFG, 1840, 820, -1);
+
+  CreateObject(SFFG, 2460, 820, -1);
+  CreateObject(SFFG, 2510, 820, -1);
+  CreateObject(SFFG, 2610, 820, -1);
+  CreateObject(SFFG, 2660, 770, -1)->Set(3);
+  CreateObject(SFFG, 2660, 820, -1);
+
   //Schutztüren
   CreateObject(GDDR, 1125, 670, -1);
   CreateObject(GDDR, 1275, 670, -1);
@@ -132,6 +145,8 @@ func CreateFurniture()
 
   //Zäune
   CreateObject(FENC, 1310, 670, -1);
+  CreateObject(FENC, 1645, 770, -1);
+  CreateObject(FENC, 2610, 770, -1);
   CreateObject(FENC, 2930, 670, -1);
 
   //Markierungsschilder
