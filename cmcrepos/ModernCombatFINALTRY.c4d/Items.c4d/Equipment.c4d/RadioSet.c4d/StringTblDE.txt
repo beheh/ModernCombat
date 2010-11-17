@@ -1,7 +1,0 @@
-NonDestructive=Unterstützungsmaßnahmen
-Selective=Gezielte Schläge
-Indiscriminate=Unterschiedslose Schläge
-TacticalAid=Taktische Hilfen
-GoHere=Hierhin begeben!
-DefendHere=Hier verteidigen!
-Retreat=Zurückziehen!

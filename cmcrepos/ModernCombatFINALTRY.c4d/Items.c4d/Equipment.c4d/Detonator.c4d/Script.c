@@ -125,7 +125,7 @@ public func Activate(object pActivator)
   //Bild ändern wenn C4 übrig
   if(amount > 0)
   {
-    SetPicture(10,5,39,64);
+    SetPicture(0,6,64,64);
     Schedule("SetPicture(64,6,64,64)", 25);
   }
 }
