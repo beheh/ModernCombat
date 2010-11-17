@@ -243,8 +243,8 @@ func CreateFurniture()
   CreateObject (JMPD, 300, 920, -1)->Set(100, 10);
   CreateObject (JMPD, 870, 920, -1)->Set(100, -10);
 
-  CreateObject (JMPD, 240, 2090, -1)->Set(100, 10);
-  CreateObject (JMPD, 930, 2090, -1)->Set(100, -10);
+  CreateObject (JMPD, 240, 2090, -1)->Set(90, 15);
+  CreateObject (JMPD, 930, 2090, -1)->Set(90, -15);
 
   //Glasscheiben
   //Links
