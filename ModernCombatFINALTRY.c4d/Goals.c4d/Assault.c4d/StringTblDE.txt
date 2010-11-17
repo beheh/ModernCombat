@@ -4,6 +4,7 @@ TargetDestruction=Zielobjekt <c %x>%s</c> wurde zerstört.
 TeamHasWon=Team %s hat diese Schlacht gewonnen!
 Targets=Zielobjekte
 Attackers=Angreifer
+NoTickets=Unsere Verstärkung ist <c ff0000>aufgebraucht</c>.
 
 #Soll entfernt werden
 
