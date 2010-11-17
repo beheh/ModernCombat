@@ -9,7 +9,7 @@ Height=4
 Offset=-4,-2
 Value=50
 Mass=35
-Components=C4__=4;
+Components=C4EX=3;
 Picture=64,4,64,64
 Vertices=2
 VertexX=3,-3

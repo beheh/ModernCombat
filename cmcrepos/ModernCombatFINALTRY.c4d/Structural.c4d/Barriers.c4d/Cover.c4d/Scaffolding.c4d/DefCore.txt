@@ -1,0 +1,14 @@
+[DefCore]
+id=SFFG
+Name=Scaffolding
+Version=4,9,5,0
+Category=C4D_StaticBack
+Width=80
+Height=50
+Offset=-40,-25
+Value=40
+Mass=100
+Components=METL=4
+Picture=80,0,85,83
+SolidMask=0,100,80,50
+TopFace=0,50,80,50
