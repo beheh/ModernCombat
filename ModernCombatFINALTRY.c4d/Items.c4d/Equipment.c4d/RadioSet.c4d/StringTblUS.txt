@@ -1,7 +1,0 @@
-NonDestructive=Non-Destructive Tactical Aids
-Selective=Selective Strikes
-Indiscriminate=Indiscriminate Strikes
-TacticalAid=Tactical Aids
-GoHere=Go here!
-DefendHere=Defend here!
-Retreat=Retreat!
