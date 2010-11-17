@@ -48,6 +48,9 @@ func CreateFurniture()
   //Große Bodenlucke
   CreateObject(H24K, 425, 228, -1);
 
+  //Gerüst
+  CreateObject(SFFG, 1340, 620, -1)->Set(5);
+
   ///Rampe
   DrawMaterialQuad("Wall-Bricks1",1471,730,1441,720,1441,730,1456,730,true);
   DrawMaterialQuad("Wall-Bricks1",1751,410,1721,400,1721,410,1736,410,true);
