@@ -65,6 +65,168 @@ func CreateFurniture()
   CreateObject(HA4K, 440, 1493, -1);
   CreateObject(HA4K, 730, 1493, -1);
 
+  //Gerüste
+  CreateObject(SFFG, 145, 740, -1)->Set(4);
+  CreateObject(SFFG, 145, 790, -1)->Set(5);
+  CreateObject(SFFG, 145, 840, -1)->Set(4);
+  CreateObject(SFFG, 145, 890, -1)->Set(5);
+  CreateObject(SFFG, 145, 940, -1)->Set(4);
+  CreateObject(SFFG, 145, 990, -1)->Set(5);
+  CreateObject(SFFG, 145, 1040, -1)->Set(5);
+  CreateObject(SFFG, 145, 1090, -1)->Set(5);
+  CreateObject(SFFG, 145, 1140, -1)->Set(5);
+  CreateObject(SFFG, 145, 1190, -1)->Set(5);
+  CreateObject(SFFG, 145, 1240, -1)->Set(5);
+  CreateObject(SFFG, 145, 1290, -1)->Set(5);
+  CreateObject(SFFG, 145, 1340, -1)->Set(5);
+  CreateObject(SFFG, 145, 1390, -1)->Set(4);
+  CreateObject(SFFG, 145, 1440, -1)->Set(5);
+  CreateObject(SFFG, 145, 1490, -1)->Set(4);
+  CreateObject(SFFG, 145, 1540, -1)->Set(5);
+  CreateObject(SFFG, 145, 1590, -1)->Set(5);
+  CreateObject(SFFG, 145, 1640, -1)->Set(5);
+  CreateObject(SFFG, 145, 1690, -1)->Set(5);
+  CreateObject(SFFG, 145, 1740, -1)->Set(5);
+  CreateObject(SFFG, 145, 1790, -1)->Set(5);
+  CreateObject(SFFG, 145, 1840, -1)->Set(5);
+  CreateObject(SFFG, 145, 1890, -1)->Set(5);
+  CreateObject(SFFG, 145, 1940, -1)->Set(5);
+
+  CreateObject(SFFG, 145, 2010, -1)->Set(5);
+  CreateObject(SFFG, 145, 2060, -1)->Set(4);
+  CreateObject(SFFG, 145, 2110, -1)->Set(5);
+  CreateObject(SFFG, 145, 2160, -1)->Set(5);
+  CreateObject(SFFG, 145, 2210, -1)->Set(5);
+  CreateObject(SFFG, 145, 2260, -1)->Set(5);
+  CreateObject(SFFG, 145, 2310, -1)->Set(5);
+  CreateObject(SFFG, 145, 2360, -1)->Set(5);
+  CreateObject(SFFG, 145, 2410, -1)->Set(5);
+  CreateObject(SFFG, 145, 2460, -1)->Set(5);
+
+
+  CreateObject(SFFG, 285, 520, -1)->Set(4);
+  CreateObject(SFFG, 285, 570, -1)->Set(4);
+  CreateObject(SFFG, 285, 620, -1)->Set(4);
+  CreateObject(SFFG, 285, 670, -1);
+  CreateObject(SFFG, 285, 720, -1)->Set(5);
+  CreateObject(SFFG, 285, 770, -1)->Set(5);
+  CreateObject(SFFG, 285, 820, -1)->Set(5);
+  CreateObject(SFFG, 285, 870, -1)->Set(5);
+  CreateObject(SFFG, 285, 920, -1)->Set(5);
+
+  CreateObject(SFFG, 285, 990, -1)->Set(5);
+  CreateObject(SFFG, 285, 1040, -1)->Set(4);
+  CreateObject(SFFG, 285, 1090, -1)->Set(5);
+  CreateObject(SFFG, 285, 1140, -1)->Set(4);
+  CreateObject(SFFG, 285, 1190, -1)->Set(5);
+  CreateObject(SFFG, 285, 1240, -1)->Set(5);
+  CreateObject(SFFG, 285, 1290, -1)->Set(4);
+  CreateObject(SFFG, 285, 1340, -1)->Set(5);
+  CreateObject(SFFG, 285, 1390, -1)->Set(5);
+  CreateObject(SFFG, 285, 1440, -1)->Set(5);
+  CreateObject(SFFG, 285, 1490, -1)->Set(5);
+  CreateObject(SFFG, 285, 1540, -1)->Set(5);
+  CreateObject(SFFG, 285, 1590, -1)->Set(4);
+  CreateObject(SFFG, 285, 1640, -1)->Set(5);
+  CreateObject(SFFG, 285, 1690, -1)->Set(5);
+  CreateObject(SFFG, 285, 1740, -1)->Set(5);
+  CreateObject(SFFG, 285, 1790, -1)->Set(4);
+  CreateObject(SFFG, 285, 1840, -1)->Set(5);
+  CreateObject(SFFG, 285, 1890, -1)->Set(4);
+  CreateObject(SFFG, 285, 1940, -1)->Set(5);
+  CreateObject(SFFG, 285, 1990, -1)->Set(5);
+  CreateObject(SFFG, 285, 2040, -1)->Set(5);
+  CreateObject(SFFG, 285, 2090, -1)->Set(5);
+
+  CreateObject(SFFG, 285, 2160, -1)->Set(5);
+  CreateObject(SFFG, 285, 2210, -1)->Set(5);
+  CreateObject(SFFG, 285, 2260, -1)->Set(5);
+  CreateObject(SFFG, 285, 2310, -1)->Set(5);
+  CreateObject(SFFG, 285, 2360, -1)->Set(5);
+  CreateObject(SFFG, 285, 2410, -1)->Set(5);
+  CreateObject(SFFG, 285, 2460, -1)->Set(5);
+
+
+  CreateObject(SFFG, 885, 520, -1)->Set(4);
+  CreateObject(SFFG, 885, 570, -1)->Set(4);
+  CreateObject(SFFG, 885, 620, -1)->Set(4);
+  CreateObject(SFFG, 885, 670, -1);
+  CreateObject(SFFG, 885, 720, -1)->Set(5);
+  CreateObject(SFFG, 885, 770, -1)->Set(5);
+  CreateObject(SFFG, 885, 820, -1)->Set(5);
+  CreateObject(SFFG, 885, 870, -1)->Set(5);
+  CreateObject(SFFG, 885, 920, -1)->Set(5);
+
+  CreateObject(SFFG, 885, 990, -1)->Set(5);
+  CreateObject(SFFG, 885, 1040, -1)->Set(4);
+  CreateObject(SFFG, 885, 1090, -1)->Set(5);
+  CreateObject(SFFG, 885, 1140, -1)->Set(4);
+  CreateObject(SFFG, 885, 1190, -1)->Set(5);
+  CreateObject(SFFG, 885, 1240, -1)->Set(5);
+  CreateObject(SFFG, 885, 1290, -1)->Set(4);
+  CreateObject(SFFG, 885, 1340, -1)->Set(5);
+  CreateObject(SFFG, 885, 1390, -1)->Set(5);
+  CreateObject(SFFG, 885, 1440, -1)->Set(5);
+  CreateObject(SFFG, 885, 1490, -1)->Set(5);
+  CreateObject(SFFG, 885, 1540, -1)->Set(5);
+  CreateObject(SFFG, 885, 1590, -1)->Set(4);
+  CreateObject(SFFG, 885, 1640, -1)->Set(5);
+  CreateObject(SFFG, 885, 1690, -1)->Set(5);
+  CreateObject(SFFG, 885, 1740, -1)->Set(5);
+  CreateObject(SFFG, 885, 1790, -1)->Set(4);
+  CreateObject(SFFG, 885, 1840, -1)->Set(5);
+  CreateObject(SFFG, 885, 1890, -1)->Set(4);
+  CreateObject(SFFG, 885, 1940, -1)->Set(5);
+  CreateObject(SFFG, 885, 1990, -1)->Set(5);
+  CreateObject(SFFG, 885, 2040, -1)->Set(5);
+  CreateObject(SFFG, 885, 2090, -1)->Set(5);
+
+  CreateObject(SFFG, 885, 2160, -1)->Set(5);
+  CreateObject(SFFG, 885, 2210, -1)->Set(5);
+  CreateObject(SFFG, 885, 2260, -1)->Set(5);
+  CreateObject(SFFG, 885, 2310, -1)->Set(5);
+  CreateObject(SFFG, 885, 2360, -1)->Set(5);
+  CreateObject(SFFG, 885, 2410, -1)->Set(5);
+  CreateObject(SFFG, 885, 2460, -1)->Set(5);
+
+
+  CreateObject(SFFG, 1025, 740, -1)->Set(4);
+  CreateObject(SFFG, 1025, 790, -1)->Set(5);
+  CreateObject(SFFG, 1025, 840, -1)->Set(4);
+  CreateObject(SFFG, 1025, 890, -1)->Set(5);
+  CreateObject(SFFG, 1025, 940, -1)->Set(4);
+  CreateObject(SFFG, 1025, 990, -1)->Set(5);
+  CreateObject(SFFG, 1025, 1040, -1)->Set(5);
+  CreateObject(SFFG, 1025, 1090, -1)->Set(5);
+  CreateObject(SFFG, 1025, 1140, -1)->Set(5);
+  CreateObject(SFFG, 1025, 1190, -1)->Set(5);
+  CreateObject(SFFG, 1025, 1240, -1)->Set(5);
+  CreateObject(SFFG, 1025, 1290, -1)->Set(5);
+  CreateObject(SFFG, 1025, 1340, -1)->Set(5);
+  CreateObject(SFFG, 1025, 1390, -1)->Set(4);
+  CreateObject(SFFG, 1025, 1440, -1)->Set(5);
+  CreateObject(SFFG, 1025, 1490, -1)->Set(4);
+  CreateObject(SFFG, 1025, 1540, -1)->Set(5);
+  CreateObject(SFFG, 1025, 1590, -1)->Set(5);
+  CreateObject(SFFG, 1025, 1640, -1)->Set(5);
+  CreateObject(SFFG, 1025, 1690, -1)->Set(5);
+  CreateObject(SFFG, 1025, 1740, -1)->Set(5);
+  CreateObject(SFFG, 1025, 1790, -1)->Set(5);
+  CreateObject(SFFG, 1025, 1840, -1)->Set(5);
+  CreateObject(SFFG, 1025, 1890, -1)->Set(5);
+  CreateObject(SFFG, 1025, 1940, -1)->Set(5);
+
+  CreateObject(SFFG, 1025, 2010, -1)->Set(5);
+  CreateObject(SFFG, 1025, 2060, -1)->Set(4);
+  CreateObject(SFFG, 1025, 2110, -1)->Set(5);
+  CreateObject(SFFG, 1025, 2160, -1)->Set(5);
+  CreateObject(SFFG, 1025, 2210, -1)->Set(5);
+  CreateObject(SFFG, 1025, 2260, -1)->Set(5);
+  CreateObject(SFFG, 1025, 2310, -1)->Set(5);
+  CreateObject(SFFG, 1025, 2360, -1)->Set(5);
+  CreateObject(SFFG, 1025, 2410, -1)->Set(5);
+  CreateObject(SFFG, 1025, 2460, -1)->Set(5);
+
   //Orientierungslichter
   CreateObject(OLGH, 585, 760, -1)->Set(3, 15, 1, 1, 40);
   CreateObject(OLGH, 585, 1400, -1)->Set(5, 15, 1, 1, 40);
@@ -323,11 +485,11 @@ func CreateFurniture()
   //Hangartore und Konsolen
   autod = CreateObject (HNG1, 270, 1950, -1);
   autod->Open();
-  CreateObject(CONS, 135, 1935, -1)->Set(autod);
+  CreateObject(CONS, 115, 1935, -1)->Set(autod);
   
   autod = CreateObject (HNG1, 900, 1950, -1);
   autod->Open();
-  CreateObject (CONS, 1025, 1935, -1)->Set(autod);
+  CreateObject (CONS, 1045, 1935, -1)->Set(autod);
   
   //Selbstschussanlagen und Konsolen
   //Basis 2
@@ -395,7 +557,7 @@ func CreateEquipment()
 
   //Granatmunition
   PlaceSpawnpoint(GBOX, 300, 465);
-  PlaceSpawnpoint(GBOX, 930, 1785);
+  PlaceSpawnpoint(GBOX, 870, 1835);
 
   //Raketen
   PlaceSpawnpoint(MBOX, 585, 490);
@@ -480,21 +642,6 @@ public func ChooserFinished()
   for(var i = 0; i < GetPlayerCount(); i++)
    aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = true;
 
-  //HTF-Spielziel
-  if (FindObject(GHTF))
-  {
-   //Flaggenposten
-   var flag = CreateObject(OFPL, 585, 320, -1);
-   flag->~Set("$Flag1$");
-
-   //Kiste
-   CreateObject(WCR2, 400, 1490, -1)->AutoRespawn();
-
-   //Sandsackbarrieren
-   CreateObject(SBBA, 441, 320, -1);
-   CreateObject(SBBA, 730, 320, -1)->Right();
-  }
-
   //Assault-Spielziel
   if (FindObject(GASS))
   {
@@ -502,7 +649,7 @@ public func ChooserFinished()
    AddAssaultTarget(CMSN, 440, 1610, 250, 2, "$Target1$", 0, [[[420, 1490], [750, 1490]], [[440, 1940], [585, 1920], [730, 1940]]]);
    AddAssaultTarget(CCP1, 730, 1610, 250, 2, "$Target2$", 1, [[[420, 1490], [750, 1490]], [[440, 1940], [585, 1920], [730, 1940]]]);
    AddAssaultTarget(LBPC, 585, 1250, 300, 2, "$Target3$", 2, [[[475, 980], [695, 980]], [[430, 1610], [740, 1610]]]);
-   AddAssaultTarget(CCP2, 585, 870,  350, 2, "$Target4$", 3, [[[445, 660], [585, 590], [725, 660]], [[280, 1260], [890, 1260]]]);
+   AddAssaultTarget(CCP2, 585, 870,  350, 2, "$Target4$", 3, [[[445, 660], [585, 590], [725, 660]], [[280, 1240], [890, 1260]]]);
 
    //Ziele verbinden
    ConnectAssaultTargets([0, 1]);
@@ -529,9 +676,9 @@ public func ChooserFinished()
   {
    //Flaggenposten
    aFlag[0] = CreateObject(OFPL,585,160,NO_OWNER);
-   aFlag[0] -> AddSpawnPoint(270, 520);
+   aFlag[0] -> AddSpawnPoint(270, 510);
    aFlag[0] -> AddSpawnPoint(610, 490);
-   aFlag[0] -> AddSpawnPoint(890, 460);
+   aFlag[0] -> AddSpawnPoint(890, 510);
    if(aTeams[1] == true)
    {
     aFlag[0]->Set("$Flag1$",100,2);
@@ -545,7 +692,7 @@ public func ChooserFinished()
    aFlag[1] = CreateObject(OFPL,585,720,NO_OWNER);
    aFlag[1] -> AddSpawnPoint(400, 800);
    aFlag[1] -> AddSpawnPoint(770, 800);
-   aFlag[1] -> AddSpawnPoint(1025, 690);
+   aFlag[1] -> AddSpawnPoint(1025, 680);
    if(aTeams[1] == true)
    {
     aFlag[1]->Set("$Flag2$",100,2);
@@ -556,16 +703,15 @@ public func ChooserFinished()
     aFlag[1]->Set("$Flag2$",0,2);
    }
 
-   aFlag[2] = CreateObject(OFPL,145,880,NO_OWNER);
-   aFlag[2] -> AddSpawnPoint(145, 770);
-   aFlag[2] -> AddSpawnPoint(240, 990);
-   aFlag[2] -> AddSpawnPoint(270, 990);
+   aFlag[2] = CreateObject(OFPL,145,890,NO_OWNER);
+   aFlag[2] -> AddSpawnPoint(145, 780);
+   aFlag[2] -> AddSpawnPoint(270, 980);
    aFlag[2]->Set("$Flag3$",0,2);
 
    aFlag[3] = CreateObject(OFPL,585,1250,NO_OWNER);
-   aFlag[3] -> AddSpawnPoint(270, 1250);
+   aFlag[3] -> AddSpawnPoint(270, 1230);
    aFlag[3] -> AddSpawnPoint(700, 1110);
-   aFlag[3] -> AddSpawnPoint(900, 1250);
+   aFlag[3] -> AddSpawnPoint(900, 1230);
    if(aTeams[2] == true)
    {
     aFlag[3]->Set("$Flag4$",100,2);
@@ -578,8 +724,8 @@ public func ChooserFinished()
 
    aFlag[4] = CreateObject(OFPL,1025,1440,NO_OWNER);
    aFlag[4] -> AddSpawnPoint(750, 1480);
-   aFlag[4] -> AddSpawnPoint(900, 1510);
-   aFlag[4] -> AddSpawnPoint(930, 1510);
+   aFlag[4] -> AddSpawnPoint(900, 1530);
+   aFlag[4] -> AddSpawnPoint(1030, 1330);
    if(aTeams[2] == true)
    {
     aFlag[4]->Set("$Flag5$",100,2);
@@ -591,9 +737,9 @@ public func ChooserFinished()
    }
 
    aFlag[5] = CreateObject(OFPL,145,1940,NO_OWNER);
-   aFlag[5] -> AddSpawnPoint(145, 2010);
-   aFlag[5] -> AddSpawnPoint(240, 1780);
-   aFlag[5] -> AddSpawnPoint(270, 1680);
+   aFlag[5] -> AddSpawnPoint(145, 2000);
+   aFlag[5] -> AddSpawnPoint(270, 1730);
+   aFlag[5] -> AddSpawnPoint(270, 1830);
    if(aTeams[2] == true)
    {
     aFlag[5]->Set("$Flag6$",100,2);
@@ -714,29 +860,6 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
      { iX = 500; iY = 1680; }
     if(!--rand)
      { iX = 670; iY = 1680; }
-    return(1);
-   }
-  }
-
-  //HTF-Spielziel
-  if(FindObject(GHTF))
-  {
-   if(iTeam == 1)
-   {
-    var rand = Random(2);
-    if(!rand)
-     { iX = 145; iY = 1430; }
-    if(!--rand)
-     { iX = 255; iY = 1510; }
-    return(1);
-   }
-   if(iTeam == 2)
-   {
-    var rand = Random(2);
-    if(!rand)
-     { iX = 1025; iY = 1430; }
-    if(!--rand)
-     { iX = 915; iY = 1510; }
     return(1);
    }
   }
