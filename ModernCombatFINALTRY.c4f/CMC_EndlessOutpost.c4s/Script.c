@@ -100,6 +100,15 @@ func CreateFurniture()
   CreateObject(H24K, 1205, 448, -1);
   CreateObject(H24K, 1985, 118, -1);
 
+  //Gerüste
+  CreateObject(SFFG, 10, 300, -1)->Set(5);
+  CreateObject(SFFG, 10, 350, -1)->Set(5);
+  CreateObject(SFFG, 90, 300, -1)->Set(2);
+  CreateObject(SFFG, 90, 350, -1)->Set(3);
+  CreateObject(SFFG, 170, 250, -1)->Set(3);
+  CreateObject(SFFG, 170, 300, -1);
+  CreateObject(SFFG, 170, 350, -1);
+
   //Schutztüren
   CreateObject(GDDR, 815, 410, -1)->Lock();
   CreateObject(GDDR, 875, 550, -1);
@@ -698,9 +707,9 @@ public func ChooserFinished()
   if(FindObject(GOCC))
   {
    //Flaggenposten
-   aFlag[0] = CreateObject(OFPL,160,350,NO_OWNER);
+   aFlag[0] = CreateObject(OFPL,230,422,NO_OWNER);
+   aFlag[0] -> AddSpawnPoint(40,340);
    aFlag[0] -> AddSpawnPoint(120,640);
-   aFlag[0] -> AddSpawnPoint(355,690);
    aFlag[0] -> AddSpawnPoint(400,640);
    if(aTeams[1] == true)
    {

@@ -70,13 +70,13 @@ func CreateFurniture()
   //Gerüste
   CreateObject(SFFG, 1580, 770, -1)->Set(2);
   CreateObject(SFFG, 1580, 820, -1);
-  CreateObject(SFFG, 1645, 820, -1);
-  CreateObject(SFFG, 1775, 820, -1);
-  CreateObject(SFFG, 1840, 820, -1);
+  CreateObject(SFFG, 1660, 820, -1);
+  CreateObject(SFFG, 1800, 820, -1);
+  CreateObject(SFFG, 1880, 820, -1);
 
-  CreateObject(SFFG, 2460, 820, -1);
-  CreateObject(SFFG, 2510, 820, -1);
-  CreateObject(SFFG, 2610, 820, -1);
+  CreateObject(SFFG, 2360, 820, -1);
+  CreateObject(SFFG, 2440, 820, -1);
+  CreateObject(SFFG, 2580, 820, -1);
   CreateObject(SFFG, 2660, 770, -1)->Set(3);
   CreateObject(SFFG, 2660, 820, -1);
 
@@ -101,8 +101,8 @@ func CreateFurniture()
   CreateObject(SBBA, 1430, 590, -1)->Right();
   CreateObject(SBBA, 1460, 670, -1)->Right();
 
-  CreateObject(SBBA, 1960, 750, -1);
-  CreateObject(SBBA, 1960, 850, -1);
+  CreateObject(SBBA, 1961, 750, -1);
+  CreateObject(SBBA, 1961, 850, -1);
   CreateObject(SBBA, 2280, 750, -1)->Right();
   CreateObject(SBBA, 2280, 850, -1)->Right();
 
@@ -145,8 +145,8 @@ func CreateFurniture()
 
   //Zäune
   CreateObject(FENC, 1310, 670, -1);
-  CreateObject(FENC, 1645, 770, -1);
-  CreateObject(FENC, 2610, 770, -1);
+  CreateObject(FENC, 1660, 770, -1);
+  CreateObject(FENC, 2580, 770, -1);
   CreateObject(FENC, 2930, 670, -1);
 
   //Markierungsschilder
