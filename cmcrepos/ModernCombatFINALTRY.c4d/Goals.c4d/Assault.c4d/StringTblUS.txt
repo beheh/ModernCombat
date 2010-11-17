@@ -4,6 +4,7 @@ TargetDestruction=Target <c %x>%s</c> destroyed.
 TeamHasWon=Team %s has won this battle!
 Targets=Targets
 Attackers=Attackers
+NoTickets=Our reinforcements are  <c ff0000>exhausted</c>.
 
 #Soll entfernt werden
 

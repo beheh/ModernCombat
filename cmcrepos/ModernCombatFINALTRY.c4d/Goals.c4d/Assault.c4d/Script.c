@@ -204,7 +204,14 @@ public func RelaunchPlayer(int iPlr, pClonk, int iKiller)
 
     //Kein Verteidiger? Ticket-Abzug
     if(GetPlayerTeam(iPlr) != iDefender && iKiller != -2)
+    {
       iTickets = Max(iTickets-1);
+      //Keine Tickets mehr?
+      if (!iTickets)
+        for (var i = 0; i < GetPlayerCount(); i++)
+          if (GetPlayerTeam(GetPlayerByIndex(i)) != iDefender)
+            EventInfo4K(i+1, "$NoTickets$", GBAS, 0, 0, 0, "Alarm.ogg");
+    }
   }
 
   //Clonk wegstecken
