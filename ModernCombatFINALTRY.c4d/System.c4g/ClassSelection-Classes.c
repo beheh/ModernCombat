@@ -74,7 +74,7 @@ private func Class5Info(int iData, int iPlr)
   if(iData == CData_Desc)       return "$artillerist_desc$";
   if(iData == CData_Clonk)      return PCMK;
   if(iData == CData_Ammo)       return [[STAM, 50], [GRAM, 30]];
-  if(iData == CData_Items)      return [[SGST, 1], [PSTL, 1], [BBTP, 2], [DGNN, 1]];
+  if(iData == CData_Items)      return [[SGST, 1], [PSTL, 1], [BBTP, 2]];
   if(iData == CData_Grenades)   return [[PGRN, 2], [FGRN, 2]];
   if(iData == CData_Facet)      return 5;
   return Default(iData);
