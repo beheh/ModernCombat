@@ -74,20 +74,20 @@ func CreateFurniture()
   CreateObject(SFFG, 145, 990, -1)->Set(5);
   CreateObject(SFFG, 145, 1040, -1)->Set(5);
   CreateObject(SFFG, 145, 1090, -1)->Set(5);
-  CreateObject(SFFG, 145, 1140, -1)->Set(5);
-  CreateObject(SFFG, 145, 1190, -1)->Set(5);
-  CreateObject(SFFG, 145, 1240, -1)->Set(5);
-  CreateObject(SFFG, 145, 1290, -1)->Set(5);
+  CreateObject(SFFG, 145, 1140, -1)->Set(2);
+  CreateObject(SFFG, 145, 1190, -1)->Set(3);
+  CreateObject(SFFG, 145, 1240, -1)->Set(2);
+  CreateObject(SFFG, 145, 1290, -1)->Set(3);
   CreateObject(SFFG, 145, 1340, -1)->Set(5);
   CreateObject(SFFG, 145, 1390, -1)->Set(4);
   CreateObject(SFFG, 145, 1440, -1)->Set(5);
   CreateObject(SFFG, 145, 1490, -1)->Set(4);
   CreateObject(SFFG, 145, 1540, -1)->Set(5);
-  CreateObject(SFFG, 145, 1590, -1)->Set(5);
-  CreateObject(SFFG, 145, 1640, -1)->Set(5);
-  CreateObject(SFFG, 145, 1690, -1)->Set(5);
-  CreateObject(SFFG, 145, 1740, -1)->Set(5);
-  CreateObject(SFFG, 145, 1790, -1)->Set(5);
+  CreateObject(SFFG, 145, 1590, -1)->Set(3);
+  CreateObject(SFFG, 145, 1640, -1)->Set(2);
+  CreateObject(SFFG, 145, 1690, -1)->Set(3);
+  CreateObject(SFFG, 145, 1740, -1)->Set(2);
+  CreateObject(SFFG, 145, 1790, -1);
   CreateObject(SFFG, 145, 1840, -1)->Set(5);
   CreateObject(SFFG, 145, 1890, -1)->Set(5);
   CreateObject(SFFG, 145, 1940, -1)->Set(5);
@@ -198,20 +198,21 @@ func CreateFurniture()
   CreateObject(SFFG, 1025, 990, -1)->Set(5);
   CreateObject(SFFG, 1025, 1040, -1)->Set(5);
   CreateObject(SFFG, 1025, 1090, -1)->Set(5);
-  CreateObject(SFFG, 1025, 1140, -1)->Set(5);
-  CreateObject(SFFG, 1025, 1190, -1)->Set(5);
-  CreateObject(SFFG, 1025, 1240, -1)->Set(5);
-  CreateObject(SFFG, 1025, 1290, -1)->Set(5);
+  CreateObject(SFFG, 1025, 1140, -1)->Set(3);
+  CreateObject(SFFG, 1025, 1190, -1)->Set(2);
+  CreateObject(SFFG, 1025, 1240, -1)->Set(3);
+  CreateObject(SFFG, 1025, 1290, -1)->Set(2);
   CreateObject(SFFG, 1025, 1340, -1)->Set(5);
   CreateObject(SFFG, 1025, 1390, -1)->Set(4);
   CreateObject(SFFG, 1025, 1440, -1)->Set(5);
   CreateObject(SFFG, 1025, 1490, -1)->Set(4);
   CreateObject(SFFG, 1025, 1540, -1)->Set(5);
-  CreateObject(SFFG, 1025, 1590, -1)->Set(5);
-  CreateObject(SFFG, 1025, 1640, -1)->Set(5);
-  CreateObject(SFFG, 1025, 1690, -1)->Set(5);
-  CreateObject(SFFG, 1025, 1740, -1)->Set(5);
-  CreateObject(SFFG, 1025, 1790, -1)->Set(5);
+
+  CreateObject(SFFG, 1025, 1590, -1)->Set(2);
+  CreateObject(SFFG, 1025, 1640, -1)->Set(3);
+  CreateObject(SFFG, 1025, 1690, -1)->Set(2);
+  CreateObject(SFFG, 1025, 1740, -1)->Set(3);
+  CreateObject(SFFG, 1025, 1790, -1);
   CreateObject(SFFG, 1025, 1840, -1)->Set(5);
   CreateObject(SFFG, 1025, 1890, -1)->Set(5);
   CreateObject(SFFG, 1025, 1940, -1)->Set(5);
@@ -281,11 +282,13 @@ func CreateFurniture()
   CreateObject(MWCR, 515, 660, -1)->AutoRespawn();
 
   //Kisten
+  CreateObject(WCR2, 260, 620, -1);
   CreateObject(WCR2, 655, 870, -1)->AutoRespawn();
   CreateObject(WCR2, 585, 1120, -1)->AutoRespawn();
   CreateObject(WCR2, 605, 1370, -1)->AutoRespawn();
   CreateObject(WCR2, 775, 1490, -1)->AutoRespawn();
   CreateObject(WCR2, 470, 1690, -1)->AutoRespawn();
+  CreateObject(WCR2, 910, 620, -1);
 
   //Explosive Kisten
   CreateObject(XWCR, 620, 320, -1)->AutoRespawn();
@@ -295,15 +298,15 @@ func CreateFurniture()
 
   //Benzinfässer
   CreateObject(PBRL, 640, 720, -1)->AutoRespawn();
-
   CreateObject(PBRL, 625, 1120, -1)->AutoRespawn();
   CreateObject(PBRL, 635, 1120, -1)->AutoRespawn();
-
   CreateObject(PBRL, 400, 1610, -1)->AutoRespawn();
 
   //Explosivfass
+  CreateObject(XBRL, 170, 1090, -1);
   CreateObject(XBRL, 560, 1370, -1)->AutoRespawn();
   CreateObject(XBRL, 490, 1690, -1)->AutoRespawn();
+  CreateObject(XBRL, 1000, 1090, -1);
 
   //Radare
   CreateObject(RADR, 460, 320, -1);

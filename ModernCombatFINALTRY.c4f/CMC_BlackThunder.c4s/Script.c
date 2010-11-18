@@ -119,6 +119,10 @@ func CreateFurniture()
   CreateObject(SBBA, 3840, 440, -1)->Right();
   CreateObject(SBBA, 3880, 560, -1)->Right();
 
+  //Metallkisten
+  CreateObject(MWCR, 1840, 770, -1);
+  CreateObject(MWCR, 2400, 770, -1);
+
   //Geländer
   CreateObject(RAI3, 350, 560, -1)->SetRail([1,1]);
   CreateObject(RAI1, 630, 590, -1)->SetRail([1,1,1,1,1,1,1,1]);
