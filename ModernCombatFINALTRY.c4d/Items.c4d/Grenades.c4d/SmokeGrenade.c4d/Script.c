@@ -19,10 +19,11 @@ public func Fused()
 
   //Effekte
   Sound("SGRN_Fused.ogg");
-  if(!GBackLiquid())
-  {
-    if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("Smoke3",8,50,0,0,120,150,RGBa(255,255,255,120),RGBa(255,255,255,150));
-  }
+  if(GetEffectData(EFSM_ExplosionEffects) > 0)
+    if(!GBackLiquid())
+      CastParticles("Smoke3",8,50,0,0,120,150,RGBa(255,255,255,120),RGBa(255,255,255,150));
+    else
+      CastObjects(FXU1,10,20);
 
   //Verschwinden
   FadeOut();
