@@ -5,6 +5,7 @@
 
 local blasted;
 
+
 /* Entzündung */
 
 func Incineration(int iPlr)

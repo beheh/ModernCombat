@@ -103,6 +103,7 @@ public func BlowUp()
   if(GBackLiquid())
   {
     Sound("C4EX_WaterDetonation.ogg");
+    if(GetEffectData(EFSM_ExplosionEffects) > 0) CastObjects(FXU1,6,20);
   }
   else
   {
