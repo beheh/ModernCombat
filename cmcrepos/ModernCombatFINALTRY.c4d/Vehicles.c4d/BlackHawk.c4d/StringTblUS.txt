@@ -23,6 +23,8 @@ Coordinator=Coordinator
 CoordinatorDesc=Control the rocketlauncher system with optical guided missiles.
 Passenger=Passenger
 PassengerDesc=A seat with rope to opt out.
+ExitRope=Rappel
+ExitRopeDesc=Rappel out of the helicopter.
 
 #Actions
 Flares=Flare Drop
