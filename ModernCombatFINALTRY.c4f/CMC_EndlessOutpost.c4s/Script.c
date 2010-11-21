@@ -86,7 +86,8 @@ func CreateFurniture()
   CreateObject(LADR, 2120, 480, -1)->Set(20);
   CreateObject(LADR, 2280, 490, -1)->Set(21);
   CreateObject(LADR, 2310, 490, -1)->Set(34);
-  CreateObject(LADR, 2490, 500, -1)->Set(10);
+  CreateObject(LADR, 2490, 500, -1)->Set(11);
+  CreateObject(LADR, 2540, 500, -1)->Set(36);
 
   //Bodenlucken
   CreateObject(HA4K, 70, 353, -1);
@@ -94,6 +95,8 @@ func CreateFurniture()
   CreateObject(HA4K, 720, 413, -1);
   CreateObject(HA4K, 1480, 203, -1);
   CreateObject(HA4K, 2080, 213, -1);
+  CreateObject(HA4K, 2540, 353, -1);
+  CreateObject(HA4K, 2540, 413, -1);
 
   //Große Bodenlucken
   CreateObject(H24K, 985, 438, -1);
@@ -109,6 +112,16 @@ func CreateFurniture()
   CreateObject(SFFG, 170, 300, -1);
   CreateObject(SFFG, 170, 350, -1);
 
+  CreateObject(SFFG, 2170, 410, -1)->Set(5);
+  CreateObject(SFFG, 2170, 460, -1)->Set(3);
+  CreateObject(SFFG, 2170, 510, -1)->Set(4);
+
+  CreateObject(SFFG, 2440, 450, -1);
+  CreateObject(SFFG, 2440, 500, -1)->Set(4);
+
+  CreateObject(SFFG, 2760, 110, -1)->Set(3);
+  CreateObject(SFFG, 2840, 110, -1);
+
   //Schutztüren
   CreateObject(GDDR, 815, 410, -1)->Lock();
   CreateObject(GDDR, 875, 550, -1);
@@ -122,6 +135,9 @@ func CreateFurniture()
   CreateObject(GDDR, 1795, 210, -1)->SetColorDw(HSL(200, 150, 100, 127));
   CreateObject(GDDR, 1795, 290, -1)->SetColorDw(HSL(200, 150, 100, 127));
   CreateObject(GDDR, 1905, 400, -1)->SetColorDw(HSL(200, 150, 100, 127));
+  CreateObject(GDDR, 2515, 210, -1)->SetColorDw(HSL(200, 150, 100, 127));
+  CreateObject(GDDR, 2515, 410, -1)->SetColorDw(HSL(200, 150, 100, 127));
+  CreateObject(GDDR, 2515, 500, -1)->SetColorDw(HSL(200, 150, 100, 127));
 
   //Hydrauliktüren
   CreateObject(SEDR,2070, 110,-1)->Lock();
@@ -132,6 +148,7 @@ func CreateFurniture()
   CreateObject(_HBR, 405, 462, -1);
   CreateObject(_HBR, 505, 462, -1);
   CreateObject(_HBR, 2355, 332, -1);
+  CreateObject(_HBR, 2465, 222, -1);
 
   //Metallkisten
   CreateObject(MWCR, 1190, 570, -1);
@@ -682,14 +699,14 @@ public func ChooserFinished()
   if (FindObject(GASS))
   {
    //Zielobjekte
-   AddAssaultTarget(CGLO, 1120, 362, 250, 2, "$Target1$", 0, [[[1320, 260], [1300, 260], [1130, 260]], [[130, 350], [170, 350], [150, 450]]]);
+   AddAssaultTarget(CGLO, 1120, 360, 250, 2, "$Target1$", 0, [[[1320, 260], [1300, 260], [1130, 260]], [[130, 350], [170, 350], [150, 450]]]);
    AddAssaultTarget(MVNT, 1865, 250, 250, 2, "$Target2$", 1, [[[1570, 70], [1590, 70], [1830, 110]], [[1100, 430], [1140, 430], [1280, 550]]]);
-   AddAssaultTarget(LBPC, 1795, 492, 300, 2, "$Target3$", 2, [[[1980, 400]], [[1280, 430], [1280, 550]]]);
-   AddAssaultTarget(CCP2, 2180, 512, 200, 2, "$Target4$", 3, [[[1880, 110], [2050, 110]], [[1950, 400], [1550, 550], [1500, 490]]]);
-   AddAssaultTarget(LBPC, 2200, 322, 200, 2, "$Target5$", 4, [[[1880, 110], [2050, 110]], [[1950, 400], [1550, 550], [1500, 490]]]);
-   AddAssaultTarget(CMSN, 2350, 212, 200, 2, "$Target6$", 5, [[[1880, 110], [2050, 110]], [[1950, 400], [1550, 550], [1500, 490]]]);
-   AddAssaultTarget(GSTA, 2460, 322, 200, 2, "$Target7$", 6, [[[1880, 110], [2050, 110]], [[1950, 400], [1550, 550], [1500, 490]]]);
-   AddAssaultTarget(CCP1, 2455, 502, 200, 2, "$Target8$", 7, [[[1880, 110], [2050, 110]], [[1950, 400], [1550, 550], [1500, 490]]]);
+   AddAssaultTarget(LBPC, 1795, 490, 300, 2, "$Target3$", 2, [[[1980, 400]], [[1280, 430], [1280, 550]]]);
+   AddAssaultTarget(CCP2, 2180, 510, 150, 2, "$Target4$", 3, [[[1880, 110], [2050, 110]], [[1950, 400], [1550, 550], [1500, 490]]]);
+   AddAssaultTarget(LBPC, 2200, 320, 150, 2, "$Target5$", 4, [[[1880, 110], [2050, 110]], [[1950, 400], [1550, 550], [1500, 490]]]);
+   AddAssaultTarget(CMSN, 2350, 210, 150, 2, "$Target6$", 5, [[[1880, 110], [2050, 110]], [[1950, 400], [1550, 550], [1500, 490]]]);
+   AddAssaultTarget(GSTA, 2460, 320, 150, 2, "$Target7$", 6, [[[1880, 110], [2050, 110]], [[1950, 400], [1550, 550], [1500, 490]]]);
+   AddAssaultTarget(CCP1, 2455, 500, 150, 2, "$Target8$", 7, [[[1880, 110], [2050, 110]], [[1950, 400], [1550, 550], [1500, 490]]]);
 
    //Ziele verbinden
    ConnectAssaultTargets([3, 4, 5, 6, 7]);
