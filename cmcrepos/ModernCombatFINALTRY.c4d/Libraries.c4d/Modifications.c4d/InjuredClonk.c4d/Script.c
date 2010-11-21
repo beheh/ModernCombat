@@ -53,8 +53,8 @@ public func Set(object pClonk)
   oldvisstate = GetPlrFogOfWar(GetOwner(pClonk));
 
   //Sichtwerte für den FakeDeath setzen
-  SetPlrViewRange(100,pClonk);
   SetFoW(true,GetOwner(pClonk)); 
+  SetPlrViewRange(100,pClonk);
 
   //Lebenszeit setzen
   suicide = FKDT_SuicideTime + 1;
