@@ -249,14 +249,14 @@ protected func DoPoints()
 	var aDoomBoom = GetAchievementExtra(AC15, killer);
 	if(!aDoomBoom) aDoomBoom = CreateArray();
 
-  //Ansonsten Killpunkte geben (und Todespunkte (und Assistkills))
+  //Ansonsten Killpunkte geben (und Assistkills)
   if(Hostile(killer,GetOwner()))
   {
     DoPlayerPoints(KillPoints(), RWDS_BattlePoints, killer, GetCursor(killer), IC01);
 
     //Dem mit dem meisten angerichteten Schaden neben dem Killer Assistpunkte geben
 		var assist = GetAssist();
-    if(assist != killer)
+    if(assist != killer && GetPlayerName(assist))
     {
       DoPlayerPoints(AssistPoints(), RWDS_BattlePoints, assist, GetCursor(assist), IC02);
       if(!Hostile(assist, killer)) DoAchievementProgress(1, AC01, assist);
