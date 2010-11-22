@@ -40,8 +40,7 @@ FRAG1=Shrapnels rebound from walls and therfore are deadly in <c 33ccff>narrow s
 PGRN0=Phosphor <c 33ccff>attaches</c> to clonks an burns them for a while.
 STUN0=Teammates are <c 33ccff>less</c> affected by stun grenades.
 STUN1=Face yourself away from exploding stun grenades to <c 33ccff>weaken</c> its effects.
-SGRN0=Smoke does <c 33ccff>not</c> blind allies, making it a useful ambush tool.
-SGRN1=Smoke has a useful side effect that <c 33ccff>destroys</c> enemy tracer darts when deployed.
+SGRN0=Smoke has a useful side effect that <c 33ccff>destroys</c> enemy tracer darts when deployed.
 
 #Equipment
 AMPK0=Hold the MTP in the hand to <c 33ccff>automatically</c> restock ammo of allies.
