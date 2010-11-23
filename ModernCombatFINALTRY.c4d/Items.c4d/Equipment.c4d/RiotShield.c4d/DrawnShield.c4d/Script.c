@@ -148,11 +148,7 @@ public func IsBulletTarget(id idBullet, object pBullet, object pShooter, int old
   if(Abs(r) > 45)
     return false;
   else
-  {
-    if(idBullet == SHRP)
-      RemoveObject(pBullet);
     return true;
-  }
 }
 
 public func OnHit(int iDamage, int iType, object pFrom)
