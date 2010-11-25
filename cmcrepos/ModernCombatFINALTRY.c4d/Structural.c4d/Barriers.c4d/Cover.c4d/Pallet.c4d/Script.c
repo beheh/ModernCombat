@@ -23,7 +23,7 @@ func Damage()
       CastParticles("WoodSplinter",4,100,-20,-15,100,80);
       CastParticles("WoodSplinter",4,100,20,-15,100,80);
     }
-    Sound("CrateCrack.ogg");
+    Sound("WoodCrack*.ogg");
 
     //Verschwinden
     RemoveObject();
@@ -51,7 +51,7 @@ func Damage()
     //Effekte
     if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("Smoke3",3,10,-20,-10,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
     if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("WoodSplinter",4,100,-22,-12,100,80);
-    Sound("CrateCrack.ogg");
+    Sound("WoodCrack*.ogg");
 
     iStatus = 3;
     return(1);
