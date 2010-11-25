@@ -35,7 +35,7 @@ func Trigger()
   //Effekte
   CreateParticle("Blast",0,0,0,0,5*10,RGB(255,255,128));
   if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("Smoke3",8,50,0,0,120,150,RGBa(255,255,255,120),RGBa(255,255,255,150));
-  Sound("SGRN_Fused.ogg");
+  Sound("SmokeShellExplosion*.ogg");
 
   //Rauch erzeugen
   CastObjects(SM4K,3,10);
