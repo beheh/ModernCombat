@@ -1,7 +1,7 @@
 [DefCore]
-id=INFS
+id=SPBT
 Version=4,9,8
-Name=Inflatable
+Name=Patrol Boat
 Category=C4D_Vehicle
 MaxUserSelect=2
 Width=80
@@ -17,6 +17,7 @@ BlastIncinerate=35
 Rebuy=1
 Float=-7
 BorderBound=1
+ColorByOwner=1
 Vertices=5
 VertexX=0,36,-34,36,-34
 VertexY=-12,-5,-5,-4,-4

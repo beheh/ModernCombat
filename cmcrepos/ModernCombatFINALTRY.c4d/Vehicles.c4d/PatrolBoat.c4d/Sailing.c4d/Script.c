@@ -1,14 +1,14 @@
-/*-- Schlauchboot --*/
+/*-- Patrouillenboot --*/
 
 #strict 2
 #include CVHC
 
 local motor, motoridle, turn_end_dir;
 
-public func MaxDamage()	{return 150;}
+public func MaxDamage()	{return 200;}
 
 
-/* Initalisierung */
+/* Initialisierung */
 
 protected func Initialize()
 {
@@ -48,9 +48,10 @@ public func OnDamage()
 
 public func OnDestruction()
 {
-  if(motor) {
-  	motor->FakeExplode(20, GetLastAttacker());
-	RemoveObject(motor);
+  if(motor)
+  {
+    motor->FakeExplode(20, GetLastAttacker());
+    RemoveObject(motor);
   }
 
   //Effekte
@@ -65,10 +66,11 @@ public func OnDestruction()
   Sound("StructuralDamage*.ogg");
 
   //Verschwinden
-  var obj = CreateObject(INFB);
+  var obj = CreateObject(BPBT);
   obj->SetDir(GetDir());
   obj->SetAction("Destroyed");
   obj->FadeOut();
+  obj->AddFireEffect(this,50,RGB(0,0,0),true,30);
   RemoveObject();
   return;
 }
@@ -88,7 +90,7 @@ private func LandOn()
 {  
   Stop();
   RemoveObject(motor);
-  ChangeDef(INFL);
+  ChangeDef(PBOT);
   SetAction("JustLanded");
   Sound("MotorIdleLoop.ogg",false,motoridle,100,0,-1);
 }
@@ -102,14 +104,14 @@ private func Sail()
 {
   if(!FindObject(0,0,0,0,0,0,"Push",motor))
     Stop();
-    
+
   if(!GetComDir()) return ;
 
   var xdir = Min(Abs(GetXDir())+2,30);
 
   Sound("MotorLoop.ogg",false,motor,100,0,+1);
   Sound("MotorIdleLoop.ogg",false,motoridle,100,0,-1);
-  
+
   if(!IsTurning())
     if(GetComDir() == COMD_Left)
       SetXDir(-xdir);
@@ -170,7 +172,7 @@ public func GetActionTarget()
 private func SetDirection(int comdir)
 {
   // Richtungsaenderung nach oben/unten geht auch mit "Turn", aber eine
-  // ComDir-Aenderung, die wieder eine Turn-Action erfordern wuerde muss
+  // ComDir-Aenderung, die wieder eine Turn-Action erfordern würde muss
   // warten, bis die jetzige Turn-Action fertig ist.
   if(GetAction() == "Turn")
   {
@@ -181,7 +183,7 @@ private func SetDirection(int comdir)
     }
   }
 
-  // ComDir uebernehmen
+  // ComDir übernehmen
   SetComDir(comdir);
 
   if(ComDirLike(comdir, COMD_Right) && GetDir() == DIR_Left)
@@ -209,9 +211,9 @@ private func TurnStart()
       controllers[GetLength(controllers)] = obj;
     }
   }
-  
+
   //controllers = FindObjects(Find_InRect(-(GetDefWidth()/2),-GetDefHeight(),GetDefWidth(),GetDefHeight()),Find_Category(C4D_Vehicle|C4D_Object|C4D_Living));
-  
+
   AddEffect("IntTurn", this, 1, 1, this, 0, controllers);
 }
 
@@ -221,7 +223,8 @@ private func Turning()
     motor->UpdateShape();
 }
 
-public func IsTurning() {
+public func IsTurning()
+{
   return (GetEffect("IntTurn", this) != 0);
 }
 
@@ -229,11 +232,11 @@ protected func FxIntTurnStart(object target, int number, int temp, array control
 {
   if(temp) return;
 
-  // Alle anfassenden Clonks
+  //Alle anfassenden Clonks
   EffectVar(0, target, number) = controllers;
-  // Deren initiale Position...
+  //Deren initiale Position...
   EffectVar(1, target, number) = CreateArray(GetLength(controllers));
-  // ... die hier ermittelt wird
+  //... die hier ermittelt wird
   for(var i = 0; i < GetLength(controllers); ++ i)
     EffectVar(1, target, number)[i] = GetX(controllers[i]) - GetX();
   //Anfangsgeschwindigkeit
@@ -242,13 +245,12 @@ protected func FxIntTurnStart(object target, int number, int temp, array control
 
 protected func FxIntTurnTimer(object target, int number, int time)
 {
-  // Laenge der Turn-Action bestimmen
+  //Länge der Turn-Action bestimmen
   var delay = GetActMapVal("Delay", "Turn");
   var phases = GetActMapVal("Length", "Turn");
-  // Schon vorbei
+  //Schon vorbei
   if(time == delay * phases) return -1;
-  // Eine Sinus-Kurve von -90 bis +90 Grad hernehmen um die neue Position
-  // der Clonks zu bestimmen.
+  //Eine Sinus-Kurve von -90 bis +90 Grad hernehmen um die neue Position der Clonks zu bestimmen.
   var sin_phase = (time * 180 / (phases * delay)) - 90;
   var pos_phase = Sin(sin_phase, 50) + 50;
   // Clonkpositionen anpassen
@@ -258,14 +260,14 @@ protected func FxIntTurnTimer(object target, int number, int time)
     var controller = EffectVar(0, target, number)[i];
     var pos = EffectVar(1, target, number)[i];
 
-    // Koennte sein, dass ein Controller verloren geht
+    // Könnte sein, dass ein Controller verloren geht
     if(!controller) continue;
 
-    // Dir anpassen wenn Haelfte der Turn-Action vorbei
+    //Dir anpassen wenn Hälfte der Turn-Action vorbei
     if(time == delay * phases / 2)
       SetDir(GetDir(), controller);
 
-    // Neue Position ermitteln (Sinusfoermig um den Luftschiff-Mittelpunkt)
+    //Neue Position ermitteln (Sinusförmig um den Mittelpunkt)
     var pos_t = -pos * 2;
     SetPosition(GetX() + pos - (pos*2 * pos_phase / 100), GetY(controller), controller);
   }
@@ -282,13 +284,13 @@ protected func FxIntTurnStop(object target, int number, bool temp)
   if(temp) return 0;
   var length = GetLength(EffectVar(0, target, number));
 
-  // Nochmal alle Controller durchgehen
+  //Nochmal alle Controller durchgehen
   for(var i = 0; i < length; ++ i)
   {
     var object = EffectVar(0, target, number)[i];
     var pos = EffectVar(1, target, number)[i];
 
-    // Und an fertige Position tun, zur Sicherheit, wenn es noch Controller sind
+    //Und an fertige Position tun, zur Sicherheit, wenn es noch Controller sind
     if(!object) continue;
     if(GetAction(object) == "Push" && GetActionTarget(0, object) == this)
       SetPosition(GetX() - pos, GetY(object), object);
@@ -302,6 +304,5 @@ private func TurnEnd()
     SetDirection(turn_end_dir);
     turn_end_dir = -1;
   }
-  
   motor->UpdateShape();
 }
