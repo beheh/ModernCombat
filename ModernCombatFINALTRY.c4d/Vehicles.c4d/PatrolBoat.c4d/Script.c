@@ -1,11 +1,11 @@
-/*-- Schlauchboot (inaktiv) --*/
+/*-- Patrouillenboot (inaktiv) --*/
 
 #strict 2
 
 local damaged;
 
 
-/* Initalisierung */
+/* Initialisierung */
 
 protected func Initialize()
 {
@@ -20,9 +20,6 @@ func Incineration()
   if(damaged) return;
   damaged = true;
 
-  //Brennen
-  Incinerate();
-
   //Effekte
   CreateParticle("Blast",0,-10,-20,0,5*50,RGB(255,255,128));
   CreateParticle("Blast",0,-10,20,0,5*50,RGB(255,255,128));
@@ -33,7 +30,7 @@ func Incineration()
   Sound("StructuralDamage*.ogg");
 
   //Verschwinden
-  ChangeDef(INFB);
+  ChangeDef(BPBT);
   FadeOut();
 }
 
@@ -41,15 +38,15 @@ func Incineration()
 
 private func Floating()
 {
-  // Aufrichten
+  //Aufrichten
   SetRDir(BoundBy(GetR(),-20,+20)/-5);
-  // Nicht mehr im Wasser
-  if (!(GetOCF()&OCF_InLiquid)) 
+  //Nicht mehr im Wasser
+  if(!(GetOCF()&OCF_InLiquid)) 
     return SetAction("OnLand");
-  // Segeln, wenn aufgerichtet
-  if (Inside(GetR(),-5,+5))
+  //Segeln, wenn aufgerichtet
+  if(Inside(GetR(),-5,+5))
   {
-    ChangeDef(INFS);
+    ChangeDef(SPBT);
     SetAction("LowerSail");
     this->~Initialize();
   }
