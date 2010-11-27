@@ -10,9 +10,8 @@ static aFlag,aLamp,aArtillery;
 
 func Initialize()
 {
-  //Starttitel und Musikliste zusammenstellen
+  //Musikliste festlegen
   SetPlayList("CMC_Base Groove.ogg;CMC_Firehawk.ogg;CMC_Friendly Unit.ogg;CMC_Getaway.ogg;CMC_Moving Squad.ogg;CMC_Offensive.ogg;CMC_Showtime.ogg;CMC_Slow Motion.ogg;CMC_Striking Force.ogg;CMC_No Good.ogg;CMC_Obsession.ogg");
-  Music("CMC_Firehawk.ogg");
   //Himmel
   SetSkyParallax(0,45,24,0,0,0,0);
   //Hintergrundfärbung
