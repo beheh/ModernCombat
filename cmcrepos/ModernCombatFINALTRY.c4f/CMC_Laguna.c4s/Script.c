@@ -268,13 +268,11 @@ func CreateEquipment()
   aArtillery[0] = CreateObject(ATBY,1855,490,-1);
   aArtillery[1] = CreateObject(ATBY,2130,470,-1);
 
-  //Motorboote
-  SetupVehicleSpawn([INFL],DIR_Right,CreateObject(VSPW,770,800,-1),10*10);
-
-  SetupVehicleSpawn([INFL],DIR_Left,CreateObject(VSPW,1265,800,-1),10*10);
-  SetupVehicleSpawn([INFL],DIR_Right,CreateObject(VSPW,1485,800,-1),10*10);
-
-  SetupVehicleSpawn([INFL],DIR_Left,CreateObject(VSPW,2605,800,-1),10*10);
+  //Patrouillenboote
+  SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,770,800,-1),10*10);
+  SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,1265,800,-1),10*10);
+  SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1485,800,-1),10*10);
+  SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2605,800,-1),10*10);
 }
 
 /* Regelwähler */

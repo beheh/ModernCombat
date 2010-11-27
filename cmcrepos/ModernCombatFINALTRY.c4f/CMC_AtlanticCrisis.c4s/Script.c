@@ -348,10 +348,10 @@ func CreateEquipment()
   CreateObject(ATBY,2231,520,-1);
   CreateObject(ATBY,3775,520,-1);
 
-  //Motorboote
-  SetupVehicleSpawn([INFL],DIR_Right,CreateObject(VSPW,1710,620,-1),50*21,300);
-  SetupVehicleSpawn([INFL],DIR_Left,CreateObject(VSPW,2990,620,-1),50*21,300);
-  SetupVehicleSpawn([INFL],DIR_Left,CreateObject(VSPW,4310,620,-1),50*21,300);
+  //Patrouillenboote
+  SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1710,620,-1),50*21,300);
+  SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2990,620,-1),50*21,300);
+  SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,4310,620,-1),50*21,300);
 
   //Automaten
   var store = CreateObject(WPVM,1500, 530,-1);

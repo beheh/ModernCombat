@@ -562,14 +562,12 @@ func CreateEquipment()
   aArtillery[2] = CreateObject(ATBY,5720,340,-1);
   aArtillery[3] = CreateObject(ATBY,7360,310,-1);
 
-  //Motorboote
-  SetupVehicleSpawn([INFL],DIR_Right,CreateObject(VSPW,1245,520,-1),50*21,300);
-  SetupVehicleSpawn([INFL],DIR_Left,CreateObject(VSPW,2195,520,-1),50*21,300);
-
-  SetupVehicleSpawn([INFL],DIR_Right,CreateObject(VSPW,4640,560,-1),50*21,300);
-  SetupVehicleSpawn([INFL],DIR_Left,CreateObject(VSPW,5565,560,-1),50*21,300);
-
-  SetupVehicleSpawn([INFL],DIR_Left,CreateObject(VSPW,7440,520,-1),50*21,200);
+  //Patrouillenboote
+  SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1245,520,-1),50*21,300);
+  SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2195,520,-1),50*21,300);
+  SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,4640,560,-1),50*21,300);
+  SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,5565,560,-1),50*21,300);
+  SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,7440,520,-1),50*21,200);
 }
 
 /* Bei Flaggenübernahme */

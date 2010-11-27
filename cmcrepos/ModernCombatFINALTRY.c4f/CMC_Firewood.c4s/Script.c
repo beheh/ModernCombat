@@ -273,10 +273,10 @@ func CreateEquipment()
   tmp = CreateObject(AMCT, 1615, 210, -1);
   tmp->Set(MBOX);
 
-  //Motorboote
-  SetupVehicleSpawn([INFL],DIR_Right,CreateObject(VSPW,670,620,-1),50*21,300);
-  SetupVehicleSpawn([INFL],DIR_Right,CreateObject(VSPW,1640,620,-1),50*21,300);
-  SetupVehicleSpawn([INFL],DIR_Left,CreateObject(VSPW,2590,620,-1),50*21,300);
+  //Patrouillenboote
+  SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,670,620,-1),50*21,300);
+  SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1640,620,-1),50*21,300);
+  SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2590,620,-1),50*21,300);
 }
 
 /* Regelwähler */
