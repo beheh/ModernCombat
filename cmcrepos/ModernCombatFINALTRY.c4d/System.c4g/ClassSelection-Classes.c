@@ -46,7 +46,7 @@ private func Class3Info(int iData, int iPlr)
       return [[MNGN, 1], [RTLR, 1], [DGNN, 1]];
     else
       return [[MNGN, 1], [RTLR, 1], [AMPK, 1], [DGNN, 1]];
-  if(iData == CData_Grenades)   return [[STUN, 2], [SGRN, 2]];
+  if(iData == CData_Grenades)   return [[STUN, 2], [SGRN, 1]];
   if(iData == CData_Facet)      return 3;
   return Default(iData);
 }
@@ -59,9 +59,9 @@ private func Class4Info(int iData, int iPlr)
   if(iData == CData_Name)       return "$antiskill$";
   if(iData == CData_Desc)       return "$antiskill_desc$";
   if(iData == CData_Clonk)      return PCMK;
-  if(iData == CData_Ammo)       return [[STAM, 40]];
+  if(iData == CData_Ammo)       return [[STAM, 70]];
   if(iData == CData_Items)      return [[PPGN, 1], [PSTL, 1], [RSHL, 1], [DGNN, 1]];
-  if(iData == CData_Grenades)   return [[PGRN, 1], [STUN, 2]];
+  if(iData == CData_Grenades)   return [[PGRN, 2], [STUN, 2]];
   if(iData == CData_Facet)      return 4;
   return Default(iData);
 }
