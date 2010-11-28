@@ -10,8 +10,9 @@ static aFlag,aLamp,aArtillery;
 
 func Initialize()
 {
-  //Musikliste festlegen
+  //Starttitel und Musikliste zusammenstellen
   SetPlayList("CMC_Base Groove.ogg;CMC_Firehawk.ogg;CMC_Friendly Unit.ogg;CMC_Getaway.ogg;CMC_Moving Squad.ogg;CMC_Offensive.ogg;CMC_Showtime.ogg;CMC_Slow Motion.ogg;CMC_Striking Force.ogg;CMC_No Good.ogg;CMC_Obsession.ogg");
+  Music("CMC_Firehawk.ogg");
   //Himmel
   SetSkyParallax(0,45,24,0,0,0,0);
   //Hintergrundfärbung
@@ -327,11 +328,11 @@ public func ChooserFinished()
   if (FindObject(GASS))
   {
    //Zielobjekte
-   AddAssaultTarget(RADR, 1450, 640, 250, 2, "$Target1$", 0, [[[1730, 480], [1730, 580]], [[580, 140], [580, 140], [580, 490]]]);
-   AddAssaultTarget(CMSN, 1410, 740, 250, 2, "$Target2$", 1, [[[1730, 480], [1730, 580]], [[580, 140], [580, 140], [580, 490]]]);
-   AddAssaultTarget(CCP2, 2050, 760, 300, 2, "$Target3$", 2, [[[2210, 400], [2060, 320]], [[1210, 410], [1190, 580]]]);
-   AddAssaultTarget(GSTA, 2815, 750, 300, 2, "$Target4$", 3, [[[3080, 280], [3220, 450], [3130, 500]], [[1910, 430], [1855, 580], [1905, 300]]]);
-   AddAssaultTarget(LBPC, 2850, 570, 300, 2, "$Target5$", 4, [[[3080, 280], [3220, 450], [3130, 500]], [[1910, 430], [1855, 580], [1905, 300]]]);
+   AddAssaultTarget(RADR, 1450, 640, 250, 2, "$Target1$", 0, [[[1730, 630], [1730, 730]], [[580, 290], [580, 350], [580, 490]]]);
+   AddAssaultTarget(CMSN, 1410, 740, 250, 2, "$Target2$", 1, [[[1730, 630], [1730, 730]], [[580, 290], [580, 350], [580, 490]]]);
+   AddAssaultTarget(CCP2, 2050, 760, 300, 2, "$Target3$", 2, [[[2210, 550], [2060, 470]], [[1210, 560], [1190, 730]]]);
+   AddAssaultTarget(GSTA, 2815, 750, 300, 2, "$Target4$", 3, [[[3080, 430], [3220, 600], [3130, 650]], [[1910, 580], [1855, 730], [1905, 450]]]);
+   AddAssaultTarget(LBPC, 2850, 570, 300, 2, "$Target5$", 4, [[[3080, 430], [3220, 600], [3130, 650]], [[1910, 580], [1855, 730], [1905, 450]]]);
 
    //Ziele verbinden
    ConnectAssaultTargets([0, 1]);
