@@ -627,7 +627,7 @@ func AddWarnEffect(object pTarget, object pPoint)
   AddEffect ("IntWarn",pTarget,100,35,pTarget,0,pPoint);
 }
 
-/* Jetpack bei Ausrüstung */
+/* Bei Relaunch */
 
 public func OnClassSelection(object pClonk)
 {
