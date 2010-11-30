@@ -624,6 +624,30 @@ func AddWarnEffect(object pTarget, object pPoint)
   AddEffect ("IntWarn",pTarget,100,35,pTarget,0,pPoint);
 }
 
+/* Bei Relaunch */
+ 
+public func OnClassSelection(object pClonk, int iTeam)
+{
+  //Assault-Spielziel
+  if (FindObject(GASS))
+  {
+   if(GetPlayerTeam(GetOwner(pClonk)) == 1)
+   {
+    if(GetAssaultTarget(0,1) || GetAssaultTarget(1,1) || GetAssaultTarget(2,1))
+    {
+     AddEffect("IntPara", pClonk, 1, 1);
+     Sound("Airstrike2", 0, pClonk);
+    }
+   }
+  }
+}
+ 
+global func FxIntParaTimer(object pTarget)
+{
+  CreateObject(PARA,0,0,GetOwner(pTarget))->Set(pTarget);
+  return -1;
+}
+
 /* Regelwähler */
 
 public func ChooserFinished()
@@ -681,9 +705,9 @@ public func ChooserFinished()
   if (FindObject(GASS))
   {
    //Zielobjekte
-   AddAssaultTarget(RADR, 1200, 390, 250, 2, "$Target1$", 0, [[[1550, 400], [1670, 440], [1370, 440]], [[560, 440], [610, 440], [650, 440]]]);
-   AddAssaultTarget(CMSN, 2720, 340, 250, 2, "$Target2$", 1, [[[2870, 410], [2980, 370], [2970, 510]], [[1670, 440], [1790, 430], [1880, 420]]]);
-   AddAssaultTarget(CCP2, 3580, 630, 300, 2, "$Target3$", 2, [[[3795, 410], [3795, 530], [3690, 330]], [[2690, 410], [2710, 510], [2840, 592]]]);
+   AddAssaultTarget(RADR, 1200, 390, 250, 2, "$Target1$", 0, [[[1550, 400], [1670, 440], [1370, 440]], [[560, 0], [610, 0], [650, 0]]]);
+   AddAssaultTarget(CMSN, 2720, 340, 250, 2, "$Target2$", 1, [[[2870, 410], [2980, 370], [2970, 510]], [[1650, 0], [1670, 0], [1750, 0]]]);
+   AddAssaultTarget(CCP2, 3580, 630, 300, 2, "$Target3$", 2, [[[3795, 410], [3795, 530], [3690, 330]], [[2570, 0], [2700, 0], [2800, 0]]]);
    AddAssaultTarget(GSTA, 4520, 390, 300, 2, "$Target4$", 3, [[[4760, 460], [4870, 440], [5000, 390]], [[3570, 330], [3600, 410], [3470, 630]]]);
    AddAssaultTarget(LBPC, 5720, 550, 300, 2, "$Target5$", 4, [[[6040, 380], [6040, 570], [6180, 380]], [[4290, 410], [4320, 470], [4320, 580]]]);
    AddAssaultTarget(RADR, 6440, 340, 350, 2, "$Target6$", 5, [[[6560, 410], [6880, 510], [6520, 640]], [[5630, 400], [5630, 470], [5730, 550]]]);
@@ -724,6 +748,7 @@ public func ChooserFinished()
 
    //Kisten
    CreateObject(WCR2, 785, 492, -1);
+   CreateObject(WCR2, 890, 480, -1);
    CreateObject(WCR2, 1310, 440, -1);
    CreateObject(WCR2, 1330, 440, -1);
 
@@ -940,7 +965,7 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
   {
    //Grenzen neu setzen
    RemoveAll(BRDR);
-   CreateObject(BRDR, 1750, 0, -1)->Set(0,1);
+   CreateObject(BRDR, 1560, 0, -1)->Set(0,1);
    CreateObject(BRDR, 3900, 0, -1)->Set(1,1);
 
    //SSA zerstören
