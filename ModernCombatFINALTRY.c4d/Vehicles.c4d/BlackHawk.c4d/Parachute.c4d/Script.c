@@ -2,7 +2,9 @@
 
 #strict 2
 
-//Einklinken und Ausklinken
+
+/* Erstellung */
+
 public func ControlDigDouble(pObj)
 {
   Set(pObj);
@@ -14,12 +16,17 @@ public func Set(object pObj)
   SetAction("Open", pObj);
 }
 
+/* Timer */
+
 protected func Fly()
 {
+  //Freiflug oder mit Objektanhang?
   if(WildcardMatch(GetAction(),"*Free*"))
   {
+    //Windbeeinflussung
     SetXDir(GetWind(GetX(), GetY()) / 8);
     SetYDir(30, 0, 10);
+    //In Wasser zusammenfallen
     if(GetContact(0,-1, CNAT_Bottom) || InLiquid())
     {
       SetAction("FoldFree");
@@ -29,22 +36,24 @@ protected func Fly()
   else
   {
     var targ = GetActionTarget();
-    
+
     //Windbeeinflussung
     SetXDir(GetWind(GetX(), GetY()) /8 , targ);
 
     //Fall verlangsamen
     SetYDir(30,targ,10);
 
+    //Manuelles Losmachen durch [Doppelstop] des Objektanhangs
     if(GetPlrDownDouble(GetController(targ)))
       SetAction("StartFlyFree");
-    
+
+    //Bei Wasser- oder Bodenkontakt zusammenfallen
     if(GetContact(0, -1, CNAT_Bottom) || GetContact(targ, -1, CNAT_Bottom) || InLiquid() || InLiquid(targ))
       Close();
   }
 }
 
-/* Aktionen */
+/* Auf- und einklappen */
 
 protected func Opening()
 {
@@ -62,7 +71,6 @@ protected func Opening()
 
 public func Close()
 {
-  //Zusammenfallen
   SetAction("Fold", GetActionTarget());
   Sound("ParachuteClose.ogg");
 }
