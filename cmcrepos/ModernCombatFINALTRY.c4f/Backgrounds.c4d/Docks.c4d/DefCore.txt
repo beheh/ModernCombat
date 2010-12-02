@@ -1,5 +1,5 @@
 [DefCore]
-id=_DCK
+id=BD04
 Name=Docks
 Version=4,9,5
 Category=1

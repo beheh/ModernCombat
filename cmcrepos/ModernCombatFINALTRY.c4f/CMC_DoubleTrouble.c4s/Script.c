@@ -314,7 +314,7 @@ func CreateFurniture()
   tmp->Lock();
   tmp->SetMaxDamage(-1);
 
-  //Aufzugstüren
+  //Räume
   CreateObject(ROM3, 60, 520, -1);
   CreateObject(ROM3, 1510, 520, -1);
 
