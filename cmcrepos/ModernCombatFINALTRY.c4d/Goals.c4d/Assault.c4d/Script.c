@@ -23,7 +23,22 @@ public func ChooserFinished()
 {
   //Sicherheitshalber einen Frame verzögert
   Schedule("iTickets = CalcTickets();", 1);
+
+  //Ebenfalls einen Frame verzögert, da der Szenarienscript die Zielobjekte erst noch setzt
+  ScheduleCall(this, "LogTask", 1);    
+
   return _inherited(...);
+}
+
+protected func LogTask()
+{
+  for (var i = 0, j; i < GetPlayerCount(); i++)
+  {
+    var szTask = "$AttackTargets$";
+    if (GetPlayerTeam(j = GetPlayerByIndex(i)) == iDefender)
+      szTask = "$DefendTargets$";
+    EventInfo4K(j + 1, szTask, GetID());
+  }
 }
 
 /* Funktionen */
