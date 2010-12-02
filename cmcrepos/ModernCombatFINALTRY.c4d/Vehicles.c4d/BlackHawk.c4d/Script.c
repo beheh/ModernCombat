@@ -1062,8 +1062,8 @@ public func OnDestruction()
   }
 
   //Explosion (booom!)
-  FakeExplode(70, GetLastAttacker());
-  FakeExplode(50, GetLastAttacker());
+  FakeExplode(70, GetLastAttacker() + 1);
+  FakeExplode(50, GetLastAttacker() + 1);
   RemoveObject();
   Sound("BigExplosion.ogg", false, this);
   Sound("StructuralDamage*.ogg", false, this);
