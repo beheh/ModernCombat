@@ -126,7 +126,7 @@ protected func GrabLost(object pClonk)
 private func CheckGrab()
 {
   // Die Truhe soll sich selbst öffnen, wenn (mindestens) ein Clonk sie anfasst
-  if (FindObjects(Find_OCF(OCF_CrewMember), Find_Action("Push"), Find_ActionTarget(this))[0]!=0)
+  if (FindObject2(Find_OCF(OCF_CrewMember), Find_Action("Push"), Find_ActionTarget(this)))
   {
     Open();
     return true;
