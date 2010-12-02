@@ -214,6 +214,10 @@ func CreateFurniture()
   CreateObject(GDDR, 735, 490, -1);
   CreateObject(GDDR, 735, 690, -1);
 
+  //Hintergründe
+  CreateObject(BD05,1200,800,-1)->SetClrModulation(RGB(125,125,125));
+  CreateObject(BD03,1250,530,-1)->SetClrModulation(RGB(125,125,125));
+
   //Lampen
   aLamp[00]=CreateObject(BLGH, 560, 440, -1);
   aLamp[01]=CreateObject(BLGH, 560, 580, -1);
