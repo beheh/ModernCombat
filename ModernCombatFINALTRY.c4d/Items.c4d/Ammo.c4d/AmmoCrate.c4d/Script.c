@@ -4,7 +4,7 @@
 
 local idSpawn, iMaxCount, iRespawnTime, iTakeTime;
 
-public func IsSpawnpoint()  {return true;}
+public func IsSpawnpoint()	{return true;}
 
 
 /* Initialisierung */
@@ -105,7 +105,7 @@ protected func Open()
 protected func Close()
 {
   if (GetAction() == "Open")
-    return SetAction("Closing");        
+    return SetAction("Closing");
 }
 
 /* Anfassen und Loslassen */
