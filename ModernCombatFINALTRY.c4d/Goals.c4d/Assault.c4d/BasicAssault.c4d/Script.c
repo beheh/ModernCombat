@@ -141,6 +141,9 @@ protected func Activate(int iPlr)
 
 /* Assault-Effekt */
 
+//Leisten-Offset in Pixeln, damit bei sich leerender Leiste die Grafik nicht verrutscht
+static const CASS_BarOffset = 4;
+
 //Effekt-Vars
 //0: Maximalschaden
 //1: Leiste oder nicht
@@ -179,7 +182,7 @@ protected func FxIntAssaultTargetTimer(object pTarget, int iEffect)
   SetPosition(GetX(pTarget), GetY(pTarget)+GetDefHeight(EffectVar(4, pTarget, iEffect))/2+10, bar);
   SetGraphics("Row", bar, GetID(bar), 1, 1, 0, 4);
   var permill = 1000*(maxdmg-dmg)/maxdmg;
-  SetObjDrawTransform(permill, 0, (permill-1000)*GetDefWidth(GetID(bar))/2, 0, 1000, 0, bar, 1);
+  SetObjDrawTransform(permill, 0, (permill - 1000) * GetDefWidth(GetID(bar)) / 2 + (1000 - permill) * CASS_BarOffset, 0, 1000, 0, bar, 1);
   SetClrModulation(GetTeamColor(team), bar, 1);
 }
 

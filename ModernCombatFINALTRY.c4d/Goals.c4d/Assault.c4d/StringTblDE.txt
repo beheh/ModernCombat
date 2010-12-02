@@ -5,10 +5,5 @@ TeamHasWon=Team %s hat diese Schlacht gewonnen!
 Targets=Zielobjekte
 Attackers=Angreifer
 NoTickets=Unsere Verstärkung ist <c ff0000>aufgebraucht</c>.
-
-#Soll entfernt werden
-
-MoreTickets=Mehr Tickets
-LessTickets=Weniger Tickets
-Finished=Fertig!
-NoTargets=Alle unsere Zielobjekte wurden zerstört! Fangt an zu kämpfen oder wir werden verlieren!
+DefendTargets=Verteidige die <c ffff33>Zielobjekte</c>!
+AttackTargets=Zerstöre die <c ffff33>Zielobjekte</c>!

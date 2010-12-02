@@ -5,10 +5,5 @@ TeamHasWon=Team %s has won this battle!
 Targets=Targets
 Attackers=Attackers
 NoTickets=Our reinforcements are  <c ff0000>exhausted</c>.
-
-#Soll entfernt werden
-
-MoreTickets=More tickets
-LessTickets=Less tickets
-Finished=Finished!
-NoTargets=All our targets were destroyed! Start fighting or we will lose!
+DefendTargets=Defend the <c ffff33>targets</c>!
+AttackTargets=Destroy the <c ffff33>targets</c>!
