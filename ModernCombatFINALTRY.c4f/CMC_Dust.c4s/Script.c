@@ -106,6 +106,9 @@ func CreateFurniture()
   CreateObject(STNE, 540, 380, -1);
   CreateObject(STNE, 1290, 820, -1);
 
+  //Hintergrund
+  CreateObject(BD07,600,930,-1);
+
   //Sounds
 
   //Wind

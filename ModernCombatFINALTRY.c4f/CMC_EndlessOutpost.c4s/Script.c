@@ -104,6 +104,7 @@ func CreateFurniture()
   CreateObject(H24K, 1985, 118, -1);
 
   //Gerüste
+  CreateObject(SFFG, 1080, 560, -1)->Set(3);
   CreateObject(SFFG, 10, 300, -1)->Set(5);
   CreateObject(SFFG, 10, 350, -1)->Set(5);
   CreateObject(SFFG, 90, 300, -1)->Set(2);
