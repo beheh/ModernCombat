@@ -463,7 +463,7 @@ public func FxReloadTimer(object pTarget, int iNumber, int iTime)
       }
     }
     
-    GetUser()->~UpdateCharge();
+    //GetUser()->~UpdateCharge();
     if(EffectVar(4,pTarget,iNumber)-- <= 0) //Fertig?
     {
       EffectVar(1,pTarget,iNumber) = 0;
