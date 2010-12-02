@@ -4,7 +4,7 @@
 
 local idSpawn, iMaxCount, iRespawnTime, iTakeTime;
 
-public func IsSpawnpoint()	{return true;}
+public func IsSpawnpoint()  {return true;}
 
 
 /* Initialisierung */
@@ -105,7 +105,7 @@ protected func Open()
 protected func Close()
 {
   if (GetAction() == "Open")
-    return SetAction("Closing");	    
+    return SetAction("Closing");        
 }
 
 /* Anfassen und Loslassen */
@@ -126,7 +126,7 @@ protected func GrabLost(object pClonk)
 private func CheckGrab()
 {
   // Die Truhe soll sich selbst öffnen, wenn (mindestens) ein Clonk sie anfasst
-  if (FindObjects(Find_OCF(OCF_CrewMember), Find_Action("Push"), Find_ActionTarget(this)))
+  if (FindObjects(Find_OCF(OCF_CrewMember), Find_Action("Push"), Find_ActionTarget(this))[0]!=0)
   {
     Open();
     return true;
