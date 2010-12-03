@@ -33,8 +33,10 @@ public func ChooserFinished()
   }
 
   //Nochmal alle Spieler relaunchen
-  for(var i = 0; i < GetPlayerCount(); i++)
+  for(var i = 0; i < GetPlayerCount(); i++) {
     RelaunchPlayer(GetPlayerByIndex(i),GetCrew(GetPlayerByIndex(i)), 0, GetPlayerTeam(GetPlayerByIndex(i)));
+    SetFoW(true, GetPlayerByIndex(i));
+  }
 }
 
 /* Regelvoreinstellung */
