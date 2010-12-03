@@ -52,10 +52,10 @@ global func FxIntVehicleSpawn4KTimer(object pTarget, int iEffectNumber, int iEff
   	if(!pVehicle) {
 	    EffectVar(6, pTarget, iEffectNumber)++;
   	}
-    var iDistance = EffectVar(3, pTarget, iEffectNumber);
-    if(iDistance > 0 && Distance(GetX(pVehicle), GetY(pVehicle), GetX(this), GetY(this)) > iDistance && !GetEffect("IntVehicleUnused", pVehicle))
-    {
-      AddEffect("IntVehicleUnused", pVehicle, 51, 10, pVehicle, 0, this, iDistance);
+  	else {
+  		if(!GetEffect("IntVehicleUnused", pVehicle)) {
+    		AddEffect("IntVehicleUnused", pVehicle, 51, 10, pVehicle, 0, this, EffectVar(3, pTarget, iEffectNumber));
+    	}
     }
   }
   return;
@@ -190,21 +190,37 @@ global func FxIntVehicleUnusedStart(object pTarget, int iEffectNumber, id idType
 {
   EffectVar(0, pTarget, iEffectNumber) = pSpawner;	//Spawner
   EffectVar(1, pTarget, iEffectNumber) = iDistance;	//Sichere Zone
+  EffectVar(2, pTarget, iEffectNumber) = 0;	//Timer
   return 1;
 }
 
 global func FxIntVehicleUnusedTimer(object pTarget, int iEffectNumber, int iTime)
 {
   var pSpawner = EffectVar(0,pTarget,iEffectNumber);
+	//Spawner-Check
+	if(!pSpawner)
+  	return -1;
+	//Timer
+  EffectVar(2, pTarget, iEffectNumber)++;
+	//Damage-Checks
   var iDistance = EffectVar(1,pTarget,iEffectNumber);
+  var damage = true;
   if(iDistance < 0)
-    return -1;
-  if(!pTarget || !pSpawner)
-    return -1;
+  	damage = false;
   if(Distance(GetX(pTarget), GetY(pTarget), GetX(pSpawner), GetY(pSpawner)) < iDistance)
-    return -1;
-  if(GetOwner(pTarget) != NO_OWNER) return -1;
-  DoDmg(Max(1, (iTime/100)*2), DMG_Melee, pTarget);
+  	damage = false;
+  if(GetOwner(pTarget) != NO_OWNER)
+  	damage = false;
+  if(FindObject2(Find_Func("IsClonk"), Find_Or(Find_Distance(100, AbsX(GetX(pTarget)), AbsY(GetY(pTarget))), Find_Container(pTarget))))
+  	damage = false;
+ 	//Damage
+  if(damage) {
+  	if(EffectVar(2, pTarget, iEffectNumber) < 30) return;
+  	DoDmg(Max(1, EffectVar(2, pTarget, iEffectNumber)/10), DMG_Melee, pTarget);
+  }
+  else {
+  	EffectVar(2, pTarget, iEffectNumber) = 0;
+  }
   return 1;
 }
 
