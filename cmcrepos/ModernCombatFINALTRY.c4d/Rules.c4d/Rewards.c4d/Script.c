@@ -2,7 +2,7 @@
 
 #strict 2
 
-static aAchievementProgress, aAchievementExtra;
+static aAchievementProgress, aAchievementExtra, iAchievementCount;
 local aData, fEvaluation, aStats;
 
 public func IsChooseable()	{return true;}
@@ -17,6 +17,10 @@ protected func Initialize()
   aStats = CreateArray();
   aAchievementProgress = CreateArray();
   aAchievementExtra = CreateArray();
+  iAchievementCount = 0;
+  while(GetName(0, C4Id(Format("AC%02d", iAchievementCount+1)))) {
+  	iAchievementCount++;
+  }
 }
 
 protected func Activate(iByPlayer)
@@ -81,7 +85,7 @@ public func StatsMenu(int iPlr, bool fBack)
   AddMenuItem(" ", "", NONE, pClonk, 0, iSelect+1, "", 0, 0, 0);
 
   //Navigation
-  if(iSelect+1 > 16)
+  if(iSelect+1 > iAchievementCount)
   {
     AddMenuItem("<c 777777>$Continue$</c>", "StatsContinue", NONE, pClonk, 0, iPlr, "", 0, 0, 0);
   }
@@ -105,7 +109,7 @@ public func StatsMenu(int iPlr, bool fBack)
 public func StatsContinue(temp, int iPlr)
 {
   if(!aStats[iPlr]) aStats[iPlr] = 0;
-  if(aStats[iPlr]+1 > 16)
+  if(aStats[iPlr]+1 > iAchievementCount)
   {
     Sound("Error", 1, 0, 100, iPlr+1);
   }
@@ -113,7 +117,7 @@ public func StatsContinue(temp, int iPlr)
   {
     Sound("Grab", 1, 0, 100, iPlr+1);
   }
-  aStats[iPlr] = BoundBy(aStats[iPlr]+1, 0, 16);
+  aStats[iPlr] = BoundBy(aStats[iPlr]+1, 0, iAchievementCount);
   return StatsMenu(iPlr, false);
 }
 
@@ -128,7 +132,7 @@ public func StatsBack(temp, int iPlr)
   {
     Sound("Grab", 1, 0, 100, iPlr+1);
   }
-  aStats[iPlr] = BoundBy(aStats[iPlr]-1, 0, 16);
+  aStats[iPlr] = BoundBy(aStats[iPlr]-1, 0, iAchievementCount);
   return StatsMenu(iPlr, true);
 }
 
