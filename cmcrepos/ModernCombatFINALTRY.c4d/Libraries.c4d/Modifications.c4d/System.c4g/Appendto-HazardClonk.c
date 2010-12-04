@@ -116,6 +116,15 @@ public func DoAiming(int iChange)
   UpdateAiming();
 }
 
+public func Incineration() {
+  Extinguish();
+  var iPlr = -1, i;
+  if (i = GetEffect("Fire", this))
+    iPlr = EffectVar(0, this, i);
+  Schedule(Format("DoDmg(5, DMG_Fire, 0, 1, %d)", iPlr + 1), 1, 20, this);
+  AddFireEffect(this, 30, FIRE_Red, 1);
+}
+
 /*----- HazardGear -----*/
 
 //Nicht jede Clonkart kann alles tragen. (z.B. Sanitäter)
