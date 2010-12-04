@@ -23,6 +23,7 @@ public func Initialize()
   fDestroyed = false;
   iLastAttacker = -1;
   aDealers = CreateArray();
+  SetColorDw(RGB(255,255,255));
   //AddEffect("BasicVehicleUnused", this, 50, 1, this, 0);
   return true;
 }
