@@ -116,7 +116,8 @@ public func DoAiming(int iChange)
   UpdateAiming();
 }
 
-public func Incineration() {
+public func Incineration()
+{
   Extinguish();
   var iPlr = -1, i;
   if (i = GetEffect("Fire", this))

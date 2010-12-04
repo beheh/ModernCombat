@@ -110,27 +110,30 @@ public func Destroyed()
 
 /* Umfärbung */
 
-global func SetOwnerFade(int iPlr, object pTarget, int iDuration) {
-	if(!pTarget) pTarget = this;
-	if(!pTarget) return 0;
-	if(GetOwner(pTarget) == iPlr) return true;
-	if(GetOwner(pTarget) == -1 && GetColorDw(pTarget) == 0) SetColorDw(RGB(0,0,255), pTarget);	
-	var clrOld = GetColorDw(pTarget);
-	SetColorDwFade(GetPlrColorDw(iPlr), pTarget, iDuration);
+global func SetOwnerFade(int iPlr, object pTarget, int iDuration)
+{
+  if(!pTarget) pTarget = this;
+  if(!pTarget) return 0;
+  if(GetOwner(pTarget) == iPlr) return true;
+    if(GetOwner(pTarget) == -1 && GetColorDw(pTarget) == 0) SetColorDw(RGB(0,0,255), pTarget);	
+      var clrOld = GetColorDw(pTarget);
+      SetColorDwFade(GetPlrColorDw(iPlr), pTarget, iDuration);
   SetOwner(iPlr, pTarget);
   SetColorDw(clrOld, pTarget);
-	return true;
+  return true;
 }
 
-global func SetColorDwFade(int clrNew, object pTarget, int iDuration) {
-	if(!iDuration) iDuration = 50;
-	if(!pTarget) pTarget = this;
-	if(!pTarget) return 0;
+global func SetColorDwFade(int clrNew, object pTarget, int iDuration)
+{
+  if(!iDuration) iDuration = 50;
+  if(!pTarget) pTarget = this;
+  if(!pTarget) return 0;
+
   var clrOld = GetColorDw(pTarget);
   RemoveEffect("UpdateOwnerColor", pTarget);
   SetColorDw(clrOld, pTarget);
-	AddEffect("UpdateOwnerColor", pTarget, 50, 1, pTarget, 0, clrOld, clrNew, iDuration);
-	return true;
+  AddEffect("UpdateOwnerColor", pTarget, 50, 1, pTarget, 0, clrOld, clrNew, iDuration);
+  return true;
 }
 
 global func FxUpdateOwnerColorStart(pTarget, iNo, iTemp, clrOld, clrNew, iDuration)
@@ -144,15 +147,15 @@ global func FxUpdateOwnerColorStart(pTarget, iNo, iTemp, clrOld, clrNew, iDurati
     
 global func FxUpdateOwnerColorTimer(pTarget, iNo, iTime)
 {
-	var clrOld = EffectVar(0, pTarget, iNo);
-	var clrNew = EffectVar(1, pTarget, iNo);
-	var iDuration = EffectVar(2, pTarget, iNo);
+  var clrOld = EffectVar(0, pTarget, iNo);
+  var clrNew = EffectVar(1, pTarget, iNo);
+  var iDuration = EffectVar(2, pTarget, iNo);
   var color = RGBa(Interpolate2(GetRGBaValue(clrOld, 1), GetRGBaValue(clrNew, 1), iTime, iDuration), Interpolate2(GetRGBaValue(clrOld, 2), GetRGBaValue(clrNew, 2), iTime, iDuration), Interpolate2(GetRGBaValue(clrOld, 3), GetRGBaValue(clrNew, 3), iTime, iDuration));
-	SetColorDw(color, pTarget);
-	if(iTime >= iDuration) return -1;
+  SetColorDw(color, pTarget);
+  if(iTime >= iDuration) return -1;
 }
 
 global func FxUpdateOwnerColorStop(pTarget, iNo, iReason, fTemp)
 {
-	SetColorDw(EffectVar(1, pTarget, iNo), pTarget);
+  SetColorDw(EffectVar(1, pTarget, iNo), pTarget);
 }
