@@ -16,7 +16,7 @@ func Damage(int iChange, int iPlr)
 
 func InstaExplode(int iPlr)
 {
-  if(damaged) return ;
+  if(damaged) return;
   damaged = true;
 
   //Effekte

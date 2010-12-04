@@ -71,7 +71,7 @@ public func KMsg(int plr1, int plr2, object clonk, int plr3)
   	
 	  var killerstr;
 	  if(assist != -1 && GetPlayerName(assist) && assist != killer && assist != victim) {
-	  	killerstr = Format("%s +<c %x> %s</c>", GetTaggedPlayerName(killer), RGB(180,180,180), GetPlayerName(assist));
+	  	killerstr = Format("%s + <c %x>%s</c>", GetTaggedPlayerName(killer), RGB(180,180,180), GetPlayerName(assist));
 	  }
 	  else {
 	  	killerstr = GetTaggedPlayerName(killer);
