@@ -67,9 +67,10 @@ protected func UpdateTransferZone()
 func SetUser(object pUser)
 {
   var plr = GetOwner(pUser);
+  if(GetActionTarget()) {
+    SetOwnerFade(plr, GetActionTarget());
+  }
   SetOwner(plr);
-  if(GetActionTarget())
-    SetOwner(plr, GetActionTarget());
 }
 
 /* Darstellung */
@@ -111,7 +112,7 @@ protected func Grabbed(object pByObject, bool fGrab)
   {
     Sound("MotorStart.ogg");
     boat -> Sound("MotorIdleLoop.ogg",false,motoridle,100,0,+1);
-    SetOwner(GetOwner(pByObject), boat);
+    SetUser(pByObject);
   }
   else
   {
