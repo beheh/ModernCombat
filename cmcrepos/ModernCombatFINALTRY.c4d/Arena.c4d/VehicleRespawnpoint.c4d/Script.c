@@ -209,8 +209,6 @@ global func FxIntVehicleUnusedTimer(object pTarget, int iEffectNumber, int iTime
   	damage = false;
   if(Distance(GetX(pTarget), GetY(pTarget), GetX(pSpawner), GetY(pSpawner)) < iDistance)
   	damage = false;
-  if(GetOwner(pTarget) != NO_OWNER)
-  	damage = false;
   if(FindObject2(Find_Func("IsClonk"), Find_Or(Find_Distance(100, AbsX(GetX(pTarget)), AbsY(GetY(pTarget))), Find_Container(pTarget))))
   	damage = false;
  	//Damage
