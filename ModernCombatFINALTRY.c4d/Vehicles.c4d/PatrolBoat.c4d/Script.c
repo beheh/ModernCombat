@@ -11,6 +11,7 @@ protected func Initialize()
 {
   SetDir(Random(2));
   SetAction("OnLand");
+  SetColorDw(RGB(255,255,255));
 }
 
 /* Zerstörung */
