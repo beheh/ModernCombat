@@ -35,7 +35,9 @@ func BlowUp()
   Sound("StructuralDamage*.ogg");
 
   //Phosphor verschleudern
-  CastObjects(PSPR, 20, 50);
+  for(var i = 0; i <= 20; i++) {
+		CreateObject(PSPR, AbsX(GetX()), AbsY(GetY())-GetDefHeight(GetID())/2, GetController())->SetSpeed(RandomX(-50,50), RandomX(-50,50));
+  }
 
   //Explosion
   Explode(20);
