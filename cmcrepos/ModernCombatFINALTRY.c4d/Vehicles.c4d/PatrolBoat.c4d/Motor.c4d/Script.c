@@ -67,7 +67,8 @@ protected func UpdateTransferZone()
 func SetUser(object pUser)
 {
   var plr = GetOwner(pUser);
-  if(GetActionTarget()) {
+  if(GetActionTarget())
+  {
     SetOwnerFade(plr, GetActionTarget());
   }
   SetOwner(plr);
