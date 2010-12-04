@@ -322,10 +322,14 @@ protected func ControlCommand(string Command, object Target, int TargetX, int Ta
 
 protected func Collection2(object pObj)
 {
+	if(GetOwner() == -1) {
+		//Besitz ergreifen
+		SetOwnerFade(GetOwner(pObj));
+  }
   if(GetOCF(pObj) & OCF_Alive && GetOCF(pObj) & OCF_CrewMember)
   {
     //Freund: Rein. Feind: Raus
-    if(!Hostile(GetOwner(this),GetOwner(pObj)))
+    if(!Hostile(GetOwner(this),GetOwner(pObj)) || (GetOwner() == -1))
     {
       //Soundschleife übergeben
       Sound("CockpitRadio.ogg", true, 0, 100, GetOwner(pObj)+1, +1);
@@ -342,8 +346,10 @@ protected func Collection2(object pObj)
       if(!Passenger2)
         return EnterSeat5(0,pObj);
     }
-    else
+    else {
       SetCommand(pObj, "Exit");
+      return -1;
+    }
   }
 }
                 
@@ -863,9 +869,6 @@ private func DeleteActualSeatPassenger(object Obj)
 
 public func EnterSeat1(a, object Obj)
 {
-  //Besitz ergreifen
-  SetOwner(GetOwner(Obj));
-
   //Altbesitzer entfernen
   DeleteActualSeatPassenger(Obj);
 
