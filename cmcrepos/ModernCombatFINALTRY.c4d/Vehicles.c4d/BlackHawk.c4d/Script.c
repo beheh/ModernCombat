@@ -415,7 +415,7 @@ protected func ContainedDown(object ByObj)
     //Autopilot aus
     ResetAutopilot();
     //Motor aus
-    if(throttle == 0 && (GetAction()=="Fly" || GetAction() == "EngineStartUp"))
+    if(throttle == 0 && (GetAction()=="Fly" || GetAction() == "EngineStartUp") && GetContact(0,-1,CNAT_Bottom))
       SetAction("EngineShutDown");
     //Vom Gas weg
     if(GetAction()=="Fly" || GetAction()=="Turn")
