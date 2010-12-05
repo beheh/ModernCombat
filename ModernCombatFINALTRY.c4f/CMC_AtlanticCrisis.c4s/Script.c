@@ -330,13 +330,13 @@ func CreateEquipment()
   Log("$CreatingEquipment$");
   //Alle Objekte folglich von links oben nach rechts unten
 
-  //Munitionskisten (Kugeln)
+  //Versorgungskisten (Kugeln)
   tmp = CreateObject(AMCT, 1680, 400, -1);
   tmp->Set(ABOX);
   tmp = CreateObject(AMCT, 4330, 400, -1);
   tmp->Set(ABOX);
 
-  //Munitionskiste (Granaten)
+  //Versorgungskiste (Gewehrgranaten)
   var tmp = CreateObject (AMCT, 3020, 460, -1);
   tmp->Set(GBOX);
 
@@ -421,7 +421,7 @@ public func ChooserFinished()
    //Zusätzliche Munition
    if(!FindObject(NOAM))
    {
-    //Munitionskiste (Kugeln)
+    //Versorgungskiste (Kugeln)
     var tmp = CreateObject(AMCT, 2965, 460, -1);
     tmp->Set(ABOX);
 

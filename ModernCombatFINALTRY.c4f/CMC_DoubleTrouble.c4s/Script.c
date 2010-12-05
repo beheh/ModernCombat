@@ -352,13 +352,13 @@ func CreateEquipment()
   Log("$CreatingEquipment$");
   //Alle Objekte folglich von links oben nach rechts unten
 
-  //Munitionskisten (Kugeln)
+  //Versorgungskisten (Kugeln)
   tmp = CreateObject(AMCT, 40, 170, -1);
   tmp->Set(ABOX);
   tmp = CreateObject(AMCT, 1605, 170, -1);
   tmp->Set(ABOX);
 
-  //Granatenmunition
+  //Gewehrgranaten
   PlaceSpawnpoint(GBOX, 490, 590);
 
   //Raketen

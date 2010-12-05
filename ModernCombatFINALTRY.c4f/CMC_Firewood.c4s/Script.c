@@ -257,21 +257,26 @@ func CreateEquipment()
   Log("$CreatingEquipment$");
   //Alle Objekte folglich von links oben nach rechts unten
 
-  //Munitionskisten (Kugeln)
+  //Versorgungskisten (Kugeln)
   tmp = CreateObject(AMCT, 555, 300, -1);
+  tmp->Set(ABOX);
+  tmp = CreateObject(AMCT, 1615, 210, -1);
   tmp->Set(ABOX);
   tmp = CreateObject(AMCT, 2725, 300, -1);
   tmp->Set(ABOX);
 
-  //Munitionskisten (Handgranaten)
+  //Versorgungskisten (Handgranaten)
   tmp = CreateObject(AMCT, 1340, 520, -1);
   tmp->Set(FRAG);
   tmp = CreateObject(AMCT, 1945, 520, -1);
   tmp->Set(FRAG);
 
-  //Munitionskiste (Raketen)
-  tmp = CreateObject(AMCT, 1615, 210, -1);
-  tmp->Set(MBOX);
+  //Raketen
+  PlaceSpawnpoint(MBOX, 580, 235);
+  PlaceSpawnpoint(MBOX, 2700, 235);
+
+  //Gewehrgranaten
+  PlaceSpawnpoint(GBOX, 1640, 580);
 
   //Patrouillenboote
   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,670,620,-1),50*21,300);
