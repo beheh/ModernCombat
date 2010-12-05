@@ -327,11 +327,11 @@ protected func Collection2(object pObj)
     //Freund: Rein. Feind: Raus
     if(!Hostile(GetOwner(this),GetOwner(pObj)) || (GetOwner() == -1) || !passengercnt)
     {
-    	if(GetOwner(pObj) != GetOwner(this) && GetOwner(pObj) != -1) {
-	    	//Besitz ergreifen
-				SetOwnerFade(GetOwner(pObj));
-    	}
-    	
+      if(GetOwner(pObj) != GetOwner(this) && GetOwner(pObj) != -1)
+      {
+        //Besitz ergreifen
+        SetOwnerFade(GetOwner(pObj));
+      }
       //Soundschleife übergeben
       Sound("CockpitRadio.ogg", true, 0, 100, GetOwner(pObj)+1, +1);
 
@@ -347,7 +347,8 @@ protected func Collection2(object pObj)
       if(!Passenger2)
         return EnterSeat5(0,pObj);
     }
-    else {
+    else
+    {
       SetCommand(pObj, "Exit");
       return -1;
     }
