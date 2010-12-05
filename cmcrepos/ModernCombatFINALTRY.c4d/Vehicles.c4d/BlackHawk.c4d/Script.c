@@ -1222,9 +1222,10 @@ protected func TimerCall()
     var iPlr = GetPlayerByIndex(i);
     var iFlags;
     if(i != 0) iFlags = MSG_Multiple;
-    if(Pilot && !Hostile(GetOwner(Pilot), iPlr) && Contained(GetCursor(iPlr)) != this) {
+    if(Pilot && !Hostile(GetOwner(Pilot), iPlr) && Contained(GetCursor(iPlr)) != this)
+    {
       var szStr = Format("@%s (%s)", GetName(Pilot), GetPlayerName(GetOwner(Pilot)));
-     CustomMessage(szStr, this, iPlr, 0, 15, SetRGBaValue(GetPlrColorDw(GetOwner(Pilot)), 128, 0), 0, 0, iFlags);
+      CustomMessage(szStr, this, iPlr, 0, 15, SetRGBaValue(GetPlrColorDw(GetOwner(Pilot)), 128, 0), 0, 0, iFlags);
     }
     else
     {
