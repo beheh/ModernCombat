@@ -1,0 +1,2 @@
+DE:Versorgungskiste
+US:Supply Crate
