@@ -433,10 +433,6 @@ private func IsFulfilled()
     //Sound
     Sound("Cheer.ogg", true);
 
-    //Endtitel
-    Music();
-    Sound("CMC_End of War.ogg", true);
-
     RemoveAll(GOAL);
     return fulfilled = true;
   }

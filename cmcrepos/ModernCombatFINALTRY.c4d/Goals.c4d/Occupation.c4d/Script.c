@@ -461,10 +461,6 @@ public func IsFulfilled()
     //Sounds
     Sound("Cheer.ogg", true);
 
-    //Endtitel
-    Music();
-    Sound("CMC_End of War.ogg", true);
-
     return true;
   }
 
@@ -481,10 +477,6 @@ public func IsFulfilled()
 
     //Auswertung
     Evaluation();
-
-    //Endtitel
-    Music();
-    Sound("CMC_End of War.ogg", true);
 
     return true;
   }
