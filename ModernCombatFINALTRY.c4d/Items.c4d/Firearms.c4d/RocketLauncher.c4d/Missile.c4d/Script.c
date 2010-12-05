@@ -25,7 +25,7 @@ public func TracerRadius()	{return 300;}
 public func MaxTurn()		{return 6;}			//max. Drehung
 public func MaxTracerTurn()	{return 8;}			//max. Drehung bei Zielverfolgung
 
-public func IgnoreTracer()	{return false;}
+public func IgnoreTracer()	{return true;}
 public func IsDamaged()		{return GetEffect("Damaged", this);}
 
 

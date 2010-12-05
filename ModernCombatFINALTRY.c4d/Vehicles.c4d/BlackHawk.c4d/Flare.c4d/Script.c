@@ -3,13 +3,14 @@
 #strict 2
 
 public func IsBulletTarget()	{return true;}
+public func IgnoreTracer()	{return true;}
 
 
 /* Initialisierung */
 
 protected func Initialize()
 {
-  //Lichte rstellen
+  //Licht erstellen
   AddLight(80,RGBa(230,230,255,60));
 }
 
