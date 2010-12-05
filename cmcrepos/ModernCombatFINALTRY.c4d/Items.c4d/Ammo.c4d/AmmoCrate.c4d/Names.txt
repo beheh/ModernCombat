@@ -1,2 +1,0 @@
-DE:Munitionskiste
-US:Ammo Crate

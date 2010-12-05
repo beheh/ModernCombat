@@ -1,4 +1,4 @@
-/*-- Munitionskiste --*/
+/*-- Versorgungskiste --*/
 
 #strict 2
 
@@ -11,18 +11,26 @@ public func IsSpawnpoint()	{return true;}
 
 protected func Initialize()
 {
+  //Anfangs geschlossen
   SetAction("Closed");
+
+  //Zeit bis zum Objektrespawn
   iRespawnTime = 35 * 30;
+  //Zeit zum Herausnehmen
   iTakeTime = 35 * 3;
+  //Maximalmenge an Objekten
   iMaxCount = 3;
+  //Kein ID
   idSpawn = NONE;
+  //Standardfarbe: Grün
+  SetColorDw(HSL(80, 250, 150, 180));
 }
 
-/* Respawn bestimmen */
+/* Konfiguration */
 
 private func PreDef(id idType)
 {
-  //Default
+  //Standardwerte
   iRespawnTime = 35 * 30;
   iTakeTime = 35 * 2;
   iMaxCount = 4;
@@ -30,36 +38,54 @@ private func PreDef(id idType)
   if(!idType)
     return;
 
-  if(idType->~IsRifleLaunchedGrenade())
+  //Waffen
+  if(idType->~IsWeapon2() || idType->~IsWeapon())
   {
-    iRespawnTime = 35 * 20;
-    iTakeTime = 35 * 1;
-    iMaxCount = 4;
+    iRespawnTime = 40 * 20;
+    iTakeTime = 35 * 2;
+    iMaxCount = 2;
+
+    //Weiß
+    SetColorDw(HSL(100, 250, 250, 0));
   }
-  else if(idType->~IsAmmoPacket())
+  //Munitionspakete
+  if(idType->~IsAmmoPacket())
   {
     iRespawnTime = 35 * 20;
     iTakeTime = 35 * 2;
     iMaxCount = 3;
+
+    //Gelb
+    SetColorDw(HSL(40, 250, 160, 250));
   }
+  //Handgranaten
   else if(idType->~IsGrenade())
   {
     iRespawnTime = 35 * 30;
     iTakeTime = 35 * 2;
     iMaxCount = 3;
+
+    //Grün
+    SetColorDw(HSL(80, 250, 150, 180));
   }
-  else if(idType == FAPK || idType == CDBT)
+  //EHPs oder Defibrillatoren
+  else if(idType == FAPK || idType == CDBT || idType == DGNN)
   {
     iRespawnTime = 35 * 30;
     iTakeTime = 35 * 3;
     iMaxCount = 2;
+
+    //Rot
+    SetColorDw(HSL(250, 250, 160, 150));
   }
 }
 
 public func Set(id idType, int iMax, int iTake, int iRespawn)
 {
+  //Standardwerte anwenden
   PreDef(idType);
 
+  //Externe Informationen übernehmen
   if(iRespawn) iRespawnTime = iRespawn;
   if(iTake) iTakeTime = iTake;
   if(iMax) iMaxCount = iMax;
@@ -68,9 +94,11 @@ public func Set(id idType, int iMax, int iTake, int iRespawn)
 
   RemoveEffect("IntRespawn", this);
 
+  //Spawneffekt erstellen
   if(iRespawnTime && idSpawn)
     AddEffect("IntRespawn", this, 10, iRespawnTime, this);
 
+  //Icon übernehmen  
   if(idSpawn->~IsAmmoPacket())
     SetIcon(idSpawn->AmmoID());
   else
@@ -79,14 +107,16 @@ public func Set(id idType, int iMax, int iTake, int iRespawn)
   return this;
 }
 
+/* Icondarstellung */
+
 public func SetIcon(id idIcon)
 {
   if(idIcon)
   {
     SetGraphics(0, 0, idIcon, 1, GFXOV_MODE_IngamePicture);
 
-    var w = 7 * 1000 / GetObjHeight(); 
-    var h = 7 * 1000 / GetObjHeight();
+    var w = 8 * 1000 / GetObjHeight(); 
+    var h = 8 * 1000 / GetObjHeight();
 
     SetObjDrawTransform(w, 0, 4000, 0, h, 0, this, 1);
   }
@@ -105,16 +135,16 @@ protected func Open()
 protected func Close()
 {
   if (GetAction() == "Open")
-    return SetAction("Closing");
+    return SetAction("Closing");	    
 }
 
 /* Anfassen und Loslassen */
 
 protected func Grabbed(object pClonk, bool fGrab)
 {
-  if (!CheckGrab())
+  if(!CheckGrab())
     return;
-  if (idSpawn && pClonk && fGrab && GetAction() == "Open")
+  if(idSpawn && pClonk && fGrab && GetAction() == "Open")
     CheckResupply(pClonk,false);
 }
 
@@ -125,8 +155,8 @@ protected func GrabLost(object pClonk)
 
 private func CheckGrab()
 {
-  // Die Truhe soll sich selbst öffnen, wenn (mindestens) ein Clonk sie anfasst
-  if (FindObject2(Find_OCF(OCF_CrewMember), Find_Action("Push"), Find_ActionTarget(this)))
+  //Öffnet sich bzw. offen, wenn (mindestens) ein Clonk es anfasst
+  if(FindObject2(Find_OCF(OCF_CrewMember), Find_Action("Push"), Find_ActionTarget(this)))
   {
     Open();
     return true;
@@ -144,7 +174,7 @@ protected func Opened()
   if (!CheckGrab() || !idSpawn)
     return;
 
-  //Allen Clonks die die Kiste anfassen und noch keinen Resupply-Effekt haben, einen geben.
+  //Alle anfassenden Spieler mit Effekt belegen sofern noch nicht vorhanden
   for (var pClonk in FindObjects(Find_OCF(OCF_CrewMember), Find_Action("Push"), Find_ActionTarget(this)))
     CheckResupply(pClonk, true);
 }
@@ -159,6 +189,8 @@ protected func Closing()
 {
   Sound("AMCT_Close.ogg", false, this);
 }
+
+/* Aufnahme */
 
 public func RejectCollect(id idObj)
 {
@@ -263,11 +295,12 @@ public func FxIntResupplyTimer(object pTarget, int iEffectNumber, int iEffectTim
   if(!obj)
     return -1;
 
+  //Platz für Munition?
   if(obj->~IsAmmoPacket())
     if(!obj->~MayTransfer(pTarget))
       return -1;
 
-  //Granate? In den Gürtel packen
+  //Platz für Handgranaten?
   if(obj->~IsGrenade())
   {
     if(!pTarget->~StoreGrenade(obj))
@@ -278,14 +311,16 @@ public func FxIntResupplyTimer(object pTarget, int iEffectNumber, int iEffectTim
     if(!Collect(obj, pTarget))
       return -1;
 
-    //Waffe? Laden
+    //Waffen direkt laden
     if(obj->~IsWeapon())
       DoAmmo(obj->GetFMData(FM_AmmoID), obj->GetFMData(FM_AmmoLoad), obj);
 
-    //Munition? Aufnehmen
+    //Munition direkt in den Munitionsgürtel
     if(obj->~IsAmmoPacket())
       obj->~TransferAmmo(pTarget);
   }
+
+  Sound("AMCT_Take.ogg");
 
   if(!Contents(0, crate))
   {
@@ -301,4 +336,12 @@ public func FxIntResupplyStop(object pTarget, int iEffectNumber, int iReason, bo
 {
   if(!EffectVar(1, pTarget, iEffectNumber))
     PlayerMessage(GetController(pTarget), "", pTarget);
+}
+
+/* Aufschlag */ 
+  
+protected func Hit()
+{
+  Sound("CrateImpact*.ogg");
+  return 1;
 }
