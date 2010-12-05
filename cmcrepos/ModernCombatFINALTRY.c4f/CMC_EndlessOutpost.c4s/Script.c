@@ -586,35 +586,27 @@ func CreateEquipment()
   Log("$CreatingEquipment$");
   //Alle Objekte folglich von links oben nach rechts unten
 
-   //Munitionskisten (Kugeln)
+   //Versorgungskisten (Kugeln)
    var tmp = CreateObject (AMCT, 135, 450, -1);
    tmp->Set(ABOX);
-   tmp->SetGraphics("Normal");
    var tmp = CreateObject (AMCT, 1090, 260, -1);
    tmp->Set(ABOX);
-   tmp->SetGraphics("Normal");
    var tmp = CreateObject (AMCT, 1280, 550, -1);
    tmp->Set(ABOX);
-   tmp->SetGraphics("Normal");
    var tmp = CreateObject (AMCT, 1720, 210, -1);
    tmp->Set(ABOX);
-   tmp->SetGraphics("Normal");
    var tmp = CreateObject (AMCT, 1835, 490, -1);
    tmp->Set(ABOX);
-   tmp->SetGraphics("Normal");
    var tmp = CreateObject (AMCT, 2375, 530, -1);
    tmp->Set(ABOX);
-   tmp->SetGraphics("Normal");
 
-   //Munitionskisten (Granaten)
+   //Versorgungskisten (Gewehrgranaten)
    var tmp = CreateObject (AMCT, 105, 450, -1);
    tmp->Set(GBOX);
-   tmp->SetGraphics("Normal");
    var tmp = CreateObject (AMCT, 1090, 430, -1);
    tmp->Set(GBOX);
-   tmp->SetGraphics("Normal");
 
-  //Munitionskisten (Splittergranaten)
+  //Versorgungskiste (Splittergranaten)
   var tmp = CreateObject(AMCT, 2030, 210, -1);
   tmp->Set(FRAG);
 }
@@ -681,7 +673,7 @@ public func ChooserFinished()
    CreateObject(WCR2, 1310, 180, -1);
    CreateObject(WCR2, 1740, 472, -1);
 
-   //Munitionskiste entfernen
+   //Versorgungskiste entfernen
    RemoveObject(FindObject2(Find_ID(AMCT),Find_InRect(1080, 240, 40, 40)));
 
    //Zusätzliche Munition
@@ -691,7 +683,7 @@ public func ChooserFinished()
     PlaceSpawnpoint(MBOX, 830, 155);
     PlaceSpawnpoint(MBOX, 1430, 385);
 
-    //Granaten
+    //Gewehrgranaten
     PlaceSpawnpoint(GBOX, 1530, 545);
    }
   }
@@ -801,7 +793,7 @@ public func ChooserFinished()
    CreateObject(WCR2, 1310, 180, -1);
    CreateObject(WCR2, 1740, 472, -1);
 
-   //Munitionskiste entfernen
+   //Versorgungskiste entfernen
    RemoveObject(FindObject2(Find_ID(AMCT),Find_InRect(1080, 240, 40, 40)));
 
    //Zusätzliche Munition
@@ -811,7 +803,7 @@ public func ChooserFinished()
     PlaceSpawnpoint(MBOX, 830, 155);
     PlaceSpawnpoint(MBOX, 1430, 385);
 
-    //Granaten
+    //Gewehrgranaten
     PlaceSpawnpoint(GBOX, 1530, 545);
    }
   }

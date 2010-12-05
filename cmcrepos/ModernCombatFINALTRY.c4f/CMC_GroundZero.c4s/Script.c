@@ -329,13 +329,13 @@ func CreateEquipment()
   Log("$CreatingEquipment$");
   //Alle Objekte folglich von links oben nach rechts unten
 
-  //Projektilmunition
+  //Kugeln
   PlaceSpawnpoint(ABOX, 130, 285);
   PlaceSpawnpoint(ABOX, 1100, 250);
   PlaceSpawnpoint(ABOX, 1700, 250);
   PlaceSpawnpoint(ABOX, 2670, 285);
 
-  //Granatenmunition
+  //Gewehrgranaten
   PlaceSpawnpoint(GBOX, 1100, 615);
   PlaceSpawnpoint(GBOX, 1580, 615);
 
@@ -432,7 +432,7 @@ public func ChooserFinished()
    //Zusätzliche Munition
    if(!FindObject(NOAM))
    {
-    //Projektilmunition
+    //Kugeln
     PlaceSpawnpoint(ABOX, 1370, 415);
 
     //Raketen
