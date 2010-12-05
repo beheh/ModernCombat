@@ -322,15 +322,16 @@ protected func ControlCommand(string Command, object Target, int TargetX, int Ta
 
 protected func Collection2(object pObj)
 {
-	if(GetOwner() == -1) {
-		//Besitz ergreifen
-		SetOwnerFade(GetOwner(pObj));
-  }
   if(GetOCF(pObj) & OCF_Alive && GetOCF(pObj) & OCF_CrewMember)
   {
     //Freund: Rein. Feind: Raus
-    if(!Hostile(GetOwner(this),GetOwner(pObj)) || (GetOwner() == -1))
+    if(!Hostile(GetOwner(this),GetOwner(pObj)) || (GetOwner() == -1) || !passengercnt)
     {
+    	if(GetOwner(pObj) != GetOwner(this) && GetOwner(pObj) != -1) {
+	    	//Besitz ergreifen
+				SetOwnerFade(GetOwner(pObj));
+    	}
+    	
       //Soundschleife übergeben
       Sound("CockpitRadio.ogg", true, 0, 100, GetOwner(pObj)+1, +1);
 
@@ -1300,12 +1301,12 @@ private func DrawPilot()
   if (view_mode && !GetPilot())
   {
     view_mode = false;
-    SetColorDw(RGBa(200,200,200,255));
+    //SetColorDw(RGBa(200,200,200,255));
   }
   else if (!view_mode && GetPilot())
   {
     view_mode = true;
-    SetColorDw(RGBa(200,200,200,0));
+    //SetColorDw(RGBa(200,200,200,0));
   }
 }
 
