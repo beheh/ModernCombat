@@ -133,10 +133,6 @@ func CreateFurniture()
   CreateObject(TRE3, 1300, 433, -1);
   CreateObject(TRE3, 1500, 433, -1);
 
-  //Schornsteine
-  CreateObject(FNNL,230,120,-1)->SetCon(100);
-  CreateObject(FNNL,2130,160,-1)->SetCon(100);
-
   //Metallkisten
   CreateObject(MWCR, 510, 320, -1);
   CreateObject(MWCR, 2290, 320, -1);

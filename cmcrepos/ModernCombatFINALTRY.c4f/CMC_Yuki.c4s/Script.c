@@ -310,6 +310,9 @@ func CreateFurniture()
   //Stahlbrücke
   CreateObject(_HBR, 1245, 762, -1);
 
+  //Hintergrund
+  CreateObject(BD01,400,1000,-1)->SetClrModulation(RGB(125,125,125));
+
   //Türenteam 1
 
   aDoor1[0] = CreateObject(SLDR, 205, 400, -1);

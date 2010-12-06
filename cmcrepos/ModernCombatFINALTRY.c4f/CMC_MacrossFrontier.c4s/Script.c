@@ -285,6 +285,10 @@ func CreateFurniture()
   CreateObject(VENT, 350, 335, -1)->SetCon(40);
   CreateObject(VENT, 1200, 260, -1)->SetCon(40);
 
+  //Hintergründe
+  CreateObject(BD08,400,530,-1)->SetClrModulation(RGB(125,125,125));
+  CreateObject(BD08,1300,530,-1)->SetClrModulation(RGB(125,125,125));
+
   //Selbstschussanlagen und Konsolen
   var selfd = CreateObject(SEGU, 700, 219, -1);
   selfd->Arm(MISA);
