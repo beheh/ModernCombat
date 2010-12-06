@@ -1,1 +1,3 @@
-Contains medicaments, bandage material, dragnin and more equipment to supply wounded clonks. Press [Throw] to extract dragnin injections as a medic and hold it in hands to heal wounded close by.
+Contains medicaments, bandage material, dragnin and more equipment to supply wounded clonks.
+
+Press [Throw] to extract dragnin injections as a medic and hold it in hands to heal wounded close by.

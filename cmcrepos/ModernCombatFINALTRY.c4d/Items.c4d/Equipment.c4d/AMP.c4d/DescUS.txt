@@ -1,1 +1,3 @@
-Contains all needed sorts of ammunition. Take ammo for own purposes by pressing [Double Dig] and hold it in hands to resupply friendly units near by.
+Contains all needed sorts of ammunition.
+
+Take ammo for own purposes by pressing [Double Dig] and hold it in hands to resupply friendly units near by.
