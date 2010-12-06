@@ -631,7 +631,7 @@ public func ControlThrow(caller)
     for(var target in obj)
     {
       //Ziel feindlich?
-      if(target && Hostile(GetOwner(GetUser()),GetOwner(target))) //Hier bewusst kein CheckEnemy, da wir auf FF-Checks verzichten
+      if(target && (Hostile(GetOwner(GetUser()),GetOwner(target)) || GetOwner(target) == NO_OWNER)) //Hier bewusst kein CheckEnemy, da wir auf FF-Checks verzichten
       {
         //Ziel am kriechen?
         if(WildcardMatch(GetAction(target),"*Crawl*")) //kriecht der Feind?

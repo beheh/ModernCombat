@@ -25,7 +25,7 @@ public func Initialize()
   aDealers = CreateArray();
 
   //Neutrale Fahrzeuge sind weiﬂ
-  if(!GetOwner()) SetColorDw(RGB(255,255,255));
+  if(GetOwner() == NO_OWNER) SetColorDw(RGB(255,255,255));
 
   return true;
 }
