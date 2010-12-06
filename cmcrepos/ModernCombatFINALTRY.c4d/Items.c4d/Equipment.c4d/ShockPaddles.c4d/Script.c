@@ -71,7 +71,10 @@ func Use(caller)
 {
   //Hinweis bei fehlender Spannung
   if(charge <= 9)
+  {
     PlayerMessage(GetOwner(caller), "$NotCharged$", Contained(this),ENAM);
+    Sound("WPN2_Empty.ogg");
+  }
 
   //Nicht schocken wenn nicht bereit
   if(!Ready()) return false;
