@@ -37,7 +37,7 @@ public func Timer()
   if(GetUser())
     if(charge == 9)
     {
-      Sound("CDBT_Reload*.ogg");
+      ScheduleCall(0, "Beep", 15);
       SetAction("Reload");
     }
   //Akku um einen Punkt aufladen
@@ -51,14 +51,20 @@ public func Timer()
 public func ControlThrow(pByObject)
 {
   if(Use(pByObject))
+  {
+    ScheduleCall(0, "Beep", 20);
     SetAction("Reload");
+  }
   return true;
 }
 
 public func Activate(pClonk)
 {
   if(Use(pClonk))
+  {
+    ScheduleCall(0, "Beep", 20);
     return SetAction("Reload");
+  }
 }
 
 func Use(caller)
@@ -67,11 +73,11 @@ func Use(caller)
   if(charge <= 9)
     PlayerMessage(GetOwner(caller), "$NotCharged$", Contained(this),ENAM);
 
-  //Nicht in Gebäuden
-  if(Contained(caller)) return false;
-
   //Nicht schocken wenn nicht bereit
   if(!Ready()) return false;
+
+  //Nicht in Gebäuden
+  if(Contained(caller)) return false;
 
   //Richtung feststellen
   var dir = +1;
@@ -87,7 +93,7 @@ func Use(caller)
     obj = obj->GetClonk();
 
     //Patient wiederbeleben
-    obj->StopFakeDeath();
+    StopFakeDeath(obj);
     //Energieschub
     DoEnergy(20, obj);
     //Restliche Energie mit Heilungseffekt übergeben
@@ -101,7 +107,7 @@ func Use(caller)
     obj->AddLightFlash(40+Random(20),0,0,RGB(0,140,255));
 
     //Eventnachricht: Spieler reanimiert Spieler
-    EventInfo4K(0,Format("$MsgReanimation$",GetTaggedPlayerName(GetOwner(obj)),GetTaggedPlayerName(GetOwner(caller))),FKDT);
+    EventInfo4K(0,Format("$MsgReanimation$",GetTaggedPlayerName(GetOwner(caller)), GetTaggedPlayerName(GetOwner(obj))),FKDT);
 
     //Achievement-Fortschritt
     DoAchievementProgress(1, AC04, GetOwner(caller));
@@ -156,8 +162,8 @@ func Use(caller)
     Sparks(10,RGB(100,100,250), (GetDir(Contained())*2-1)*HandX()*2/1000);
     AddLightFlash(40+Random(20),0,0,RGB(0,140,255));
 
-    //Energie entladen
-    charge = BoundBy(charge-10,0,MaxEnergy());//Schock ins Leere kostet weniger Energiepunkte
+    //Energie entladen (Schock ins Leere kostet weniger Energiepunkte)
+    charge = BoundBy(charge-10,0,MaxEnergy());
     return true;
   }
 }
@@ -211,6 +217,12 @@ func Ready()
     return true;
 }
 
+public func Beep()
+{
+  if(charge <= 9) return false;
+  Sound("CDBT_Ready.ogg");
+}
+
 public func RejectEntrance(object pObj)
 {
   if(GetOCF(pObj) & OCF_Living)
@@ -225,7 +237,7 @@ func UpdateHUD(object pHUD)
 {
   pHUD->Charge(charge,MaxEnergy());
   pHUD->Ammo(charge, MaxEnergy(), GetName(), true);
-  if (GetAction() == "Reload")
+  if(GetAction() == "Reload")
     pHUD->Recharge(GetActTime(), 35);
 }
 
@@ -238,6 +250,7 @@ protected func Hit()
 
 protected func Selection()
 {
+  ScheduleCall(0, "Beep", 15);
   Sound("CDBT_Charge.ogg");
 }
 

@@ -1,1 +1,3 @@
-Ermöglichst die Wiederbelebung von Schwerverletzten mithilfe von elektrischen Schlägen. Zweckentfremdet auch als Waffe nutzbar.
+Ermöglichst die Wiederbelebung von Schwerverletzten mithilfe von elektrischen Schlägen.
+
+Shock austeilen mit [Werfen] oder [Doppelgraben], die Nutzung an gesunden Patienten ist nicht empfohlen.

@@ -1,1 +1,3 @@
-Das taktische Einsatzschild schützt zuverlässig vor Projektilbeschuss. Aufdringliche Gegner können mit Schlägen zurückgedrängt werden.
+Das taktische Einsatzschild schützt zuverlässig vor Projektilbeschuss.
+
+Aufdringliche Gegner können mit Schlägen per [Werfen] zurückgedrängt werden. [Dreifachstopp] zum Zielen.

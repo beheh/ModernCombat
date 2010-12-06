@@ -1,1 +1,3 @@
 Eine vielseitig verwendbare Sprengfalle die primär dazu genutzt wird, Versorgungswege zu sichern. Ein Infrarotlaser erkennt feindliche Einheiten und schleudert mit einer Explosion mehrere Projektile in das zuvor gesetzte Zielgebiet.
+
+Drücke [Werfen] um sie in Laufrichtung zu legen oder [Dreifachstopp], um sie im Zielmodus auszurichten.
