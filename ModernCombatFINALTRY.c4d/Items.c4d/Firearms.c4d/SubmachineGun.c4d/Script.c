@@ -40,7 +40,7 @@ public func FMData1(int data)
   
   if(data == FM_Slot)		return 1;
   
-  if(data == FM_SpreadAdd)	return 20;
+  if(data == FM_SpreadAdd)	return 15;
   if(data == FM_StartSpread)	return 50;
   if(data == FM_MaxSpread)	return 350;
 
@@ -73,7 +73,7 @@ public func FMData1T2(int data)
 {
   if(data == FT_Name)		return "$Burst$";
 
-  if(data == FM_Recharge)	return 7;
+  if(data == FM_Recharge)	return 6;
 
   if(data == FM_Auto)		return false;
 
@@ -82,7 +82,7 @@ public func FMData1T2(int data)
   if(data == FM_BurstAmount)	return 3;
   if(data == FM_BurstRecharge)	return 2;
 
-  if(data == FM_SpreadAdd)	return 30;
+  if(data == FM_SpreadAdd)	return 25;
 
   return FMData1(data);
 }

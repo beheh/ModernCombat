@@ -39,7 +39,7 @@ public func FMData1(int data)
   
   if(data == FM_Damage)		return 8;
   
-  if(data == FM_SpreadAdd)	return 25;
+  if(data == FM_SpreadAdd)	return 30;
   if(data == FM_StartSpread)	return 200;
   if(data == FM_MaxSpread)	return 400;
 
@@ -81,7 +81,7 @@ public func FMData1T2(int data)
 
   if(data == FM_Damage)		return 10;
 
-  if(data == FM_SpreadAdd)	return 45;
+  if(data == FM_SpreadAdd)	return 40;
 
   return FMData1(data);
 }
