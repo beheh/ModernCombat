@@ -320,7 +320,7 @@ public func FxIntResupplyTimer(object pTarget, int iEffectNumber, int iEffectTim
       obj->~TransferAmmo(pTarget);
   }
 
-  Sound("AMCT_Take.ogg");
+  Sound("AMCT_Take.ogg", false, pTarget); 
 
   if(!Contents(0, crate))
   {
