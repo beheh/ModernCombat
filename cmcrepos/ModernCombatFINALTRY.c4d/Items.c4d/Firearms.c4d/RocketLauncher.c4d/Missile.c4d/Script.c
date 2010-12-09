@@ -5,7 +5,7 @@
 
 local sx, sy, pLauncher, pLight;
 
-public func MaxTime()		{return 200;}			//Maximale Flugzeigt
+public func MaxTime()		{return 200;}			//Maximale Flugzeit
 
 public func StartSpeed()	{return 5;}			//Startgeschwindigkeit
 public func Acceleration()	{return 3;}			//Beschleunigung
