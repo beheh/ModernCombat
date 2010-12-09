@@ -177,7 +177,7 @@ func CreateFurniture()
   CreateObject(ETLT, 2830, 655, -1);
   CreateObject(ETLT, 3830, 540, -1);
 
-  //Grenzen
+  //Grenze
   CreateObject(BRDR, 0, 1110, -1)->Set(3);
 
   //Verbundene Räume
