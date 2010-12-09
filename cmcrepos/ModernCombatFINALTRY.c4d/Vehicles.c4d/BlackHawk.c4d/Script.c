@@ -486,7 +486,8 @@ protected func ContainedDownDouble(object ByObj)
     //Autopilot aus
     ResetAutopilot();
     //Motor aus
-    if (throttle == 0 && (GetAction()=="Fly" || GetAction()=="EngineStartUp")) SetAction("EngineShutDown");
+    if (throttle == 0 && (GetAction()=="Fly" || GetAction()=="EngineStartUp") && GetContact(0,-1,CNAT_Bottom))
+      SetAction("EngineShutDown");
     //Vom Gas weg
     if (GetAction()=="Fly") throttle = BoundBy(throttle - throttle_speed*2, 0, 170);
   }
