@@ -5,6 +5,8 @@
 
 local sx, sy, pLauncher, pLight;
 
+public func IsRocket()		{return true;}			//Ist eine Rakete
+
 public func MaxTime()		{return 200;}			//Maximale Flugzeit
 
 public func StartSpeed()	{return 5;}			//Startgeschwindigkeit
