@@ -26,8 +26,34 @@ public func Initialize()
 
   //Neutrale Fahrzeuge sind weiß
   if(GetOwner() == NO_OWNER) SetColorDw(RGB(255,255,255));
+	AddEffect("VehicleNoOwner", this, 50, 38, this);
 
   return true;
+}
+
+
+/* Unbenutzt */
+
+global func FxVehicleNoOwnerStart(object pTarget, int iEffectNumber)
+{
+  EffectVar(0, pTarget, iEffectNumber) = 10;
+}
+
+global func FxVehicleNoOwnerTimer(object pTarget, int iEffectNumber, int iTime)
+{
+  if(GetOwner(pTarget) == NO_OWNER) return FX_OK;
+  var pClonk = FindObject2(Find_Allied(GetOwner(pTarget)), Find_Or(Find_Container(pTarget), Find_Distance(50, AbsX(GetX(pTarget)), AbsY(GetY(pTarget)))),  Find_Func("IsClonk"), Find_OCF(OCF_Alive));
+  if(!pClonk)
+  {
+    EffectVar(0, pTarget, iEffectNumber)--;
+  }
+  else
+  {
+    EffectVar(0, pTarget, iEffectNumber) = 10;
+  }
+  if(EffectVar(0, pTarget, iEffectNumber) > 0) return FX_OK;
+  SetOwnerFade(NO_OWNER, pTarget);
+  return FX_OK;
 }
 
 /* Schaden */
@@ -92,12 +118,15 @@ public func Destroyed()
 
 global func SetOwnerFade(int iPlr, object pTarget, int iDuration)
 {
+	var clrOld = 0;
+	var clrNew = RGB(255,255,255);
   if(!pTarget) pTarget = this;
   if(!pTarget) return 0;
   if(GetOwner(pTarget) == iPlr) return true;
     if(GetOwner(pTarget) == -1 && GetColorDw(pTarget) == 0) SetColorDw(RGB(0,0,255), pTarget);	
-      var clrOld = GetColorDw(pTarget);
-      SetColorDwFade(GetPlrColorDw(iPlr), pTarget, iDuration);
+      clrOld = GetColorDw(pTarget);
+  if(iPlr != NO_OWNER) clrNew = GetPlrColorDw(iPlr);
+  SetColorDwFade(clrNew, pTarget, iDuration);
   SetOwner(iPlr, pTarget);
   SetColorDw(clrOld, pTarget);
   return true;
