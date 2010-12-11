@@ -27,10 +27,10 @@ func Launch(int xdir, int ydir, int iDmg,a,b,c)
 protected func Secure()
 {
   if(!active)
-   return true;
+    return true;
 
   if(Distance(GetX(),GetY(),sx,sy) <= SecureDistance() && FrameCounter() < start+70)
-   return true;
+    return true;
 
   return false;
 }
@@ -51,31 +51,38 @@ func HitObject(object pObj)
 {
   if(Secure())
   {
-   if(pObj)
-   {
-    DoDmg(Distance(GetXDir(),GetYDir())/5,DMG_Projectile,pObj);
-    CastParticles("Smoke3",12,10,0,0,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
-    if(GetOCF(pObj) & OCF_Living)
+    if(pObj)
     {
-     Sound("SharpnelImpact*.ogg");
+      DoDmg(20,DMG_Projectile,pObj);
+      if(GetEffectData(EFSM_ExplosionEffects) > 0)
+        if(!GBackLiquid())
+          CastParticles("Smoke3",12,10,0,0,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
+        else
+          CastObjects(FXU1,6,20);
+      if(GetOCF(pObj) & OCF_Living)
+      {
+        Sound("SharpnelImpact*.ogg");
+      }
+      else
+      {
+        Sound("BlockOff*.ogg");
+        Sparks(30,RGB(255,128));
+      }
+      RemoveObject();
+      return;
     }
     else
     {
-     Sound("BlockOff*.ogg");
-     Sparks(30,RGB(255,128));
-     CastParticles("Smoke3",12,10,0,0,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
+      Sound("GrenadeHit*.ogg");
+      Sparks(30,RGB(255,128));
+      if(GetEffectData(EFSM_ExplosionEffects) > 0)
+        if(!GBackLiquid())
+          CastParticles("Smoke3",12,10,0,0,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
+        else
+          CastObjects(FXU1,6,20);
+      RemoveObject();
+      return;
     }
-    RemoveObject();
-    return;
-   }
-   else
-   {
-    Sound("GrenadeHit*.ogg");
-    Sparks(30,RGB(255,128));
-    CastParticles("Smoke3",12,10,0,0,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
-    RemoveObject();
-    return;
-   }
   }
   Trigger();
 }
@@ -103,8 +110,11 @@ func FxGrenadeTimer(object target, int effect, int time)
   var rgb = Color();
   if(!rgb) rgb = RGB(100,100,100);
 
-  CreateParticle("Smoke2", -GetXDir()/6, -GetYDir()/6, RandomX(-10, 10), -5,
-                       vel/3+RandomX(10, 20), SetRGBaValue(rgb,alpha)); 
+  if(!GBackLiquid())
+    CreateParticle("Smoke2", -GetXDir()/6, -GetYDir()/6, RandomX(-10, 10), -5, vel/3+RandomX(10, 20), SetRGBaValue(rgb,alpha)); 
+  else
+    CastObjects(FXU1,2,6);
+
   SetR(Angle (0,0,GetXDir(),GetYDir()));
 }
 
@@ -120,11 +130,11 @@ func Damage()
 {
   if(GetDamage() > 10)
   {
-   //Effekte
-   CastParticles("MetalSplinter",3,80,0,0,45,50,RGB(40,20,20));
-   Sparks(8,RGB(255,128));
-   Sound("BlockOff*.ogg");
-   Trigger();
+    //Effekte
+    CastParticles("MetalSplinter",3,80,0,0,45,50,RGB(40,20,20));
+    Sparks(8,RGB(255,128));
+    Sound("BlockOff*.ogg");
+    Trigger();
   }
 }
 
