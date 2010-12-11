@@ -194,9 +194,11 @@ public func Evaluate()
 public func UpdatePlayers()
 {
   if(!RewardsActive()) return;
-  for(var i = 0; i < GetPlayerCount(); i++)
+  var iOffset = 0;
+  for(var i = 0; i < GetPlayerCount()+iOffset; i++)
   {
     var iPlr = GetPlayerByIndex(i);
+    if(!GetPlayerName(iPlr) && GetPlayerData(RWDS_PlayerName, iPlr)) iOffset++;
     SetPlayerData(Format("<c %x>%s</c>", GetPlrColorDw(iPlr), GetPlayerName(iPlr)), RWDS_PlayerName, iPlr);
     SetPlayerData(GetPlayerTeam(iPlr), RWDS_PlayerTeam, iPlr);
     if(!aData[iPlr]) aData[iPlr] = CreateArray();
@@ -221,7 +223,7 @@ global func DoPlayerPoints(int iPoints, int iType, int iPlr, object pClonk, id i
   if(!db) return;
   if(!iPoints) return;
   if(iType != RWDS_BattlePoints && iType != RWDS_TeamPoints && iType != RWDS_MinusPoints)
-    return ErrorLog("Invalid points type for %d points at %v", iPoints, pClonk);
+    return ErrorLog("Invalid points type %d for %d points at %v", iType, iPoints, pClonk);
   if(db->SetPlayerData(db->GetPlayerPoints(iType, iPlr)+iPoints, iType, iPlr)) {
     DoAchievementProgress(iPoints, AC13, iPlr);
     if(pClonk)
