@@ -128,24 +128,16 @@ public func GetRocket()
   for(var pCheck in aRockets)
   {
     if(FindObject(NOFF) && !Hostile(GetOwner(pCheck), GetOwner())) continue;
-    if(ObjectDistance(pCheck, this) < 300)
+    var aObj = FindObjects(Find_ID(GetID()), Find_OnLine(AbsX(GetX(pCheck)), AbsY(GetY(pCheck)), AbsX(GetX(pCheck)+Sin(GetR(pCheck), 800)), AbsX(GetX(pCheck)-Cos(GetR(pCheck), 800))));
+    for(var pCheck in aObj)
     {
-      fRocket = true;
-      break;
-    }
-    else
-    {
-      var aObj = FindObjects(Find_ID(GetID()), Find_OnLine(AbsX(GetX(pCheck)), AbsY(GetY(pCheck)), AbsX(GetX(pCheck)+Sin(GetR(pCheck), 800)), AbsX(GetX(pCheck)-Cos(GetR(pCheck), 800))));
-      for(var pCheck in aObj)
+      if(pCheck == this)
       {
-        if(pCheck == this)
-        {
-          fRocket = true;
-          break;
-        }
+        fRocket = true;
+        break;
       }
-      if(fRocket) break;
     }
+    if(fRocket) break;
   }
   return fRocket;
 }
