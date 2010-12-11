@@ -123,7 +123,7 @@ public func GetRotorSpeed()
 
 public func GetRocket()
 {
-  var aRockets = FindObjects(Find_ID(ROKT), Find_Distance(800, AbsX(GetX()), AbsY(GetY())), Find_Not(Find_Func("IsDamaged")));
+  var aRockets = FindObjects(Find_Func("IsRocket"), Find_Distance(800, AbsX(GetX()), AbsY(GetY())), Find_Not(Find_Func("IsDamaged")));
   var fRocket = false;
   for(var pCheck in aRockets)
   {
@@ -1209,7 +1209,7 @@ protected func TimerCall()
         throttle-=5;
       else if(throttle > 0)
         throttle-=10;
-      if(throttle <= 0)
+      if(throttle <= 0 && (GetPilot() || GetAutopilot()))
       {
         throttle = 0;
         SetAction("EngineShutDown");
