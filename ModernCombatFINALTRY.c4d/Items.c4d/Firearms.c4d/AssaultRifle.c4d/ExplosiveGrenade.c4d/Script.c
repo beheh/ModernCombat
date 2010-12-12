@@ -54,11 +54,8 @@ func HitObject(object pObj)
     if(pObj)
     {
       DoDmg(20,DMG_Projectile,pObj);
-      if(GetEffectData(EFSM_ExplosionEffects) > 0)
-        if(!GBackLiquid())
-          CastParticles("Smoke3",12,10,0,0,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
-        else
-          CastObjects(FXU1,6,20);
+      
+      if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",12, 10, 0, 0, 100, 200, RGBa(255,255,255,100), RGBa(255,255,255,130));
       if(GetOCF(pObj) & OCF_Living)
       {
         Sound("SharpnelImpact*.ogg");
@@ -75,11 +72,7 @@ func HitObject(object pObj)
     {
       Sound("GrenadeHit*.ogg");
       Sparks(30,RGB(255,128));
-      if(GetEffectData(EFSM_ExplosionEffects) > 0)
-        if(!GBackLiquid())
-          CastParticles("Smoke3",12,10,0,0,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
-        else
-          CastObjects(FXU1,6,20);
+      if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",12, 10, 0, 0, 100, 200, RGBa(255,255,255,100), RGBa(255,255,255,130));
       RemoveObject();
       return;
     }

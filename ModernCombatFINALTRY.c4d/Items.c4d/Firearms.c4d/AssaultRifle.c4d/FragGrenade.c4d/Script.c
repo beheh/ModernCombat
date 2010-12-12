@@ -19,11 +19,7 @@ func Trigger()
 
   //Effekte
   CreateParticle("Blast",0,0,0,0,5*10,RGB(255,255,128));
-  if(GetEffectData(EFSM_ExplosionEffects) > 0)
-    if(!GBackLiquid())
-      CastParticles("Smoke3",10,15,0,0,300,50,RGBa(255,255,255,120),RGBa(255,255,255,150));
-    else
-      CastObjects(FXU1,6,20);
+  if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",10,15,0,0,300,50,RGBa(255,255,255,120),RGBa(255,255,255,150));
   if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",5,100,0,0,20,40,RGB(40,20,20));
   Sparks(15,RGB(255,128));
   Sound("GrenadeExplosion*.ogg");
