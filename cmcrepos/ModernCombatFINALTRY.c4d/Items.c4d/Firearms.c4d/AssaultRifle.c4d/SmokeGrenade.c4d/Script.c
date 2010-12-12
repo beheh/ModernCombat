@@ -16,10 +16,7 @@ func HitObject(object pObj)
   {
     DoDmg(30,DMG_Projectile,pObj);
     if(GetEffectData(EFSM_ExplosionEffects) > 0)
-      if(!GBackLiquid())
-        CastParticles("Smoke3",12,10,0,0,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
-      else
-        CastObjects(FXU1,6,20);
+      CastSmoke(150, 10, 12, 0, 0, RGBa(255,255,255,100), RGBa(255,255,255,130));
     if(GetOCF(pObj) & OCF_Living)
     {
       Sound("SharpnelImpact*.ogg");
@@ -38,10 +35,7 @@ func Trigger()
   //Effekte
   CreateParticle("Blast",0,0,0,0,5*10,RGB(255,255,128));
   if(GetEffectData(EFSM_ExplosionEffects) > 0)
-    if(!GBackLiquid())
-      CastParticles("Smoke3",8,50,0,0,120,150,RGBa(255,255,255,120),RGBa(255,255,255,150));
-    else
-      CastObjects(FXU1,6,20);
+    CastSmoke(130, 50, 8, 0, 0, RGBa(255,255,255,120), RGBa(255,255,255,150));
   Sound("SmokeShellExplosion*.ogg");
 
   //Rauch erzeugen

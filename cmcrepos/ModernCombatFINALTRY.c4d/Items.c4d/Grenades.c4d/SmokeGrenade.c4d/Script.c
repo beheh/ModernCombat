@@ -19,10 +19,8 @@ public func Fused()
 
   //Effekte
   Sound("SGRN_Fused.ogg");
-  if(!GBackLiquid())
-  {
-   if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("Smoke3",8,50,0,0,120,150,RGBa(255,255,255,120),RGBa(255,255,255,150));
-  }
+  if(GetEffectData(EFSM_ExplosionEffects) > 0)
+    CastSmoke(130, 50, 8, 0, 0, RGBa(255,255,255,120), RGBa(255,255,255,150));
 
   //Verschwinden
   FadeOut();
@@ -32,7 +30,7 @@ public func Fused()
 
 func Smoke()
 {
-  CastParticles("Smoke3", 2, 5, 0, 0, 30, 100, RGBa(255, 255, 255, 130), RGBa(255, 255, 255, 200));
+  CastSmoke(RandomX(40,90), 5, 2, 0, 0, RGBa(255,255,255,130), RGBa(255,255,255,200));
 
   var smoke = CreateObject(SM4K, 0, 0, GetController());
   SetXDir((GetXDir() / 3 * 2) + (time * RandomX(-30, +30)),smoke,100);
