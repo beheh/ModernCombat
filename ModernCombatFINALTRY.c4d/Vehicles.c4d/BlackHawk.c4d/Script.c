@@ -1258,7 +1258,7 @@ protected func TimerCall()
   //Lebewesen schrappneln
   if(GetRotorSpeed() > 0)
   {
-    for(var pClonk in FindObjects(Find_OnLine(GetVertex(8),GetVertex(8, true),GetVertex(13),GetVertex(13, true)) , Find_NoContainer(), Find_OCF(OCF_Alive), Find_Not(Find_ID(FKDT))))
+    for(var pClonk in FindObjects(Find_OnLine(GetVertex(7),GetVertex(7, true),GetVertex(11),GetVertex(11, true)) , Find_NoContainer(), Find_OCF(OCF_Alive), Find_Not(Find_ID(FKDT))))
     {
     	//Find_InRect(-100,-24,200,16);
       if(GetOwner(pClonk) != NO_OWNER && GetOwner() != NO_OWNER && !Hostile(GetOwner(), GetOwner(pClonk))) continue;
