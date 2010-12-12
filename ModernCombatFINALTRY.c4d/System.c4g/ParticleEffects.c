@@ -23,6 +23,20 @@ global func MuzzleFlash(int iSize, object pClonk, int iX, int iY, int iAngle, in
   AddLightFlash(iSize*25, iX, iY, iColor);
 }
 
+//Falls Wasser am Punkt, werden Blubberblasen anstatt Rauch verschleudert.
+global func CastSmoke(int iSize, int iLevel, int iCount, int iX, int iY, int dwColor, int dwColor2)
+{
+  if(!dwColor)
+    dwColor = RGBa(255,255,255,120);
+  if(!dwColor2)
+    dwColor2 = dwColor;
+    
+  if(!GBackLiquid(iX,iY))
+    CastParticles("Smoke3",iCount,iLevel,iX,iY,iSize*5/6,iSize*7/6,dwColor,dwColor2);
+  else
+    CastObjects(FXU1,iCount*2/3,25,iX,iY);
+}
+
 global func SmokeBurst(int iSize, int iX, int iY, int iAngle, object pAttach, int dwColor)
 {
 	if(GetEffectData(EFSM_BulletEffects) < 1) return;
