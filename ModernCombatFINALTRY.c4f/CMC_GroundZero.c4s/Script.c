@@ -23,6 +23,8 @@ func Initialize()
   CreateFurniture();
   //Equipment plazieren
   CreateEquipment();
+  //Dekoration plazieren
+  CreateDecoration();
   return(1); 
 }
 
@@ -271,11 +273,6 @@ func CreateFurniture()
   CreateObject(GDDR, 2450, 460, -1);
   CreateObject(GDDR, 2570, 290, -1);
 
-  //Hintergründe
-  CreateObject(BD04,220,550,-1);
-  CreateObject(BD04,727,550,-1);
-  CreateObject(BD04,1234,550,-1);
-
   //Selbstschussanlagen und Konsolen
   aSelfDefense[0] = CreateObject(SEGU, 415, 329, -1);
     aSelfDefense[0]->Arm(MISA);
@@ -343,6 +340,14 @@ func CreateEquipment()
   CreateObject(ATBY,725,320,-1);
   CreateObject(ATBY,2073,320,-1);
 
+}
+
+func CreateDecoration()
+{
+  //Hintergründe
+  CreateObject(BD04,220,550,-1);
+  CreateObject(BD04,727,550,-1);
+  CreateObject(BD04,1234,550,-1);
 }
 
 /* Bei Flaggenübernahme */

@@ -23,6 +23,8 @@ func Initialize()
   CreateFurniture();
   //Ausrüstung plazieren
   CreateEquipment();
+  //Dekoration plazieren
+  CreateDecoration();
   return(1);
 }
 
@@ -188,11 +190,6 @@ func CreateFurniture()
   CreateObject(ENGT, 4140, 510, -1)->SetCon(70);
   CreateObject(ENGT, 4170, 510, -1)->SetCon(70);
 
-  //Hintergründe
-  CreateObject(BD02,1750,580,-1);
-  CreateObject(BD03,1250,680,-1);
-  CreateObject(BD01,1250,680,-1);
-
   //Grenzen
   CreateObject(BRDR, 940, 0, -1)->Set(0);
   CreateObject(BRDR, 4600, 0, -1)->Set(1);
@@ -236,6 +233,14 @@ func CreateEquipment()
   //Raketen
   PlaceSpawnpoint(MIAP, 1310, 355);
   PlaceSpawnpoint(MIAP, 4230, 355);
+}
+
+func CreateDecoration()
+{
+  //Hintergründe
+  CreateObject(BD02,1750,580,-1);
+  CreateObject(BD03,1250,680,-1);
+  CreateObject(BD01,1250,680,-1);
 }
 
 /* Regelwähler */

@@ -27,6 +27,8 @@ func Initialize()
   CreateFurniture();
   //Equipment plazieren
   CreateEquipment();
+  //Dekoration plazieren
+  CreateDecoration();
   return(1); 
 }
 
@@ -214,10 +216,6 @@ func CreateFurniture()
   CreateObject(GDDR, 735, 490, -1);
   CreateObject(GDDR, 735, 690, -1);
 
-  //Hintergründe
-  CreateObject(BD05,1200,800,-1)->SetClrModulation(RGB(125,125,125));
-  CreateObject(BD03,1250,530,-1)->SetClrModulation(RGB(125,125,125));
-
   //Lampen
   aLamp[00]=CreateObject(BLGH, 560, 440, -1);
   aLamp[01]=CreateObject(BLGH, 560, 580, -1);
@@ -274,6 +272,13 @@ func CreateEquipment()
   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,1265,800,-1),10*10);
   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1485,800,-1),10*10);
   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2605,800,-1),10*10);
+}
+
+func CreateDecoration()
+{
+  //Hintergründe
+  CreateObject(BD05,1200,800,-1)->SetClrModulation(RGB(125,125,125));
+  CreateObject(BD03,1250,530,-1)->SetClrModulation(RGB(125,125,125));
 }
 
 /* Regelwähler */
