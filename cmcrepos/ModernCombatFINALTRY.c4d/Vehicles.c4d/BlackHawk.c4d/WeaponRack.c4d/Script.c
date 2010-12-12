@@ -161,6 +161,16 @@ public func TimerCall()
     OnDestruction();
     return RemoveObject();
   }
+  
+  //Rotation des Heli abfragen
+  var rot = GetR(heli)+(GetDir(heli)*2-1)*(90)+(GetDir(heli)*2-1)*(Ang);
+  //Und in die Positionsbestimmung einflieﬂen lassen
+  SetPosition(GetX(heli) + Sin(rot, Rad),
+              GetY(heli) - Cos(rot, Rad), this());
+  SetXDir(GetXDir(heli));
+  SetYDir(GetYDir(heli));
+  SetR(GetR(heli));
+  //SetRDir(GetRDir(heli));
 
   //Besitzer aktualisieren
   SetOwner(GetOwner(heli));
@@ -229,16 +239,6 @@ public func TimerCall()
       SetVisibility(VIS_All);
       vis = true;
     }
-
-  //Rotation des Heli abfragen
-  var rot = GetR(heli)+(GetDir(heli)*2-1)*(90)+(GetDir(heli)*2-1)*(Ang);
-  //Und in die Positionsbestimmung einflieﬂen lassen
-  SetPosition(GetX(heli) + Sin(rot, Rad),
-              GetY(heli) - Cos(rot, Rad), this());
-  SetXDir(GetXDir(heli));
-  SetYDir(GetYDir(heli));
-  SetR(GetR(heli));
-  //SetRDir(GetRDir(heli));
 }
 
 private func Reload()
