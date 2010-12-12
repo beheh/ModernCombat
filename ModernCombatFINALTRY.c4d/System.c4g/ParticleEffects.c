@@ -32,7 +32,7 @@ global func MuzzleFlash(int iSize, object pClonk, int iX, int iY, int iAngle, in
 
 //Überprüft auf Wasser und erstellt in gleichem Luftblasen statt Rauch.
 
-global func CastSmoke(int iSize, int iLevel, int iCount, int iX, int iY, int dwColor, int dwColor2)
+global func CastSmoke(string szParticle, int iAmount, int iLevel, int iX, int iY, int iSize1, int iSize2, int dwColor, int dwColor2)
 {
   if(!dwColor)
     dwColor = RGBa(255,255,255,120);
@@ -40,9 +40,9 @@ global func CastSmoke(int iSize, int iLevel, int iCount, int iX, int iY, int dwC
     dwColor2 = dwColor;
 
   if(!GBackLiquid(iX,iY))
-    CastParticles("Smoke3",iCount,iLevel,iX,iY,iSize*5/6,iSize*7/6,dwColor,dwColor2);
+    CastParticles(szParticle, iAmount, iLevel, iX, iY, iSize1, iSize2, dwColor, dwColor2);
   else
-    CastObjects(FXU1,iCount*2/3,25,iX,iY);
+    CastObjects(FXU1,iAmount*2/3,25,iX,iY);
 }
 
 global func SmokeBurst(int iSize, int iX, int iY, int iAngle, object pAttach, int dwColor)
