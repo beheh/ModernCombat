@@ -166,8 +166,8 @@ public func TimerCall()
   SetOwner(GetOwner(heli));
   cur_Attachment->SetOwner(GetOwner());
 
-	//Transparenz anpassen
-	SetClrModulation(GetClrModulation(heli));
+  //Transparenz anpassen
+  SetClrModulation(GetClrModulation(heli));
 
   //Alle X Frames
   if(!(GetActTime()%blinkspeed) && pController)
