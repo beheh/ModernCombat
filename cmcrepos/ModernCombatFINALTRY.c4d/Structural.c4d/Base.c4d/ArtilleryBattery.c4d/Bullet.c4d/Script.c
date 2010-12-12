@@ -62,7 +62,7 @@ func Hit()
   Explode(30+Random(10));
 
   //Effekte
-  if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("Smoke3",15,10,0,0,300,700);
+  if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",15,10,0,0,300,700, RGBa(255,255,255,0));
   Sound("C4EX_Detonation*.ogg");
 }
 

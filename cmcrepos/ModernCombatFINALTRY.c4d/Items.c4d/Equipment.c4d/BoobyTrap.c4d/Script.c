@@ -257,8 +257,7 @@ public func Detonate()
   }
 
   //Effekte
-  if(GetEffectData(EFSM_ExplosionEffects) > 0)
-    CastSmoke("Smoke3",12, 10, 0, 0, 150, 200, RGBa(255,255,255,100), RGBa(255,255,255,130));
+  if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",12, 10, 0, 0, 150, 200, RGBa(255,255,255,100), RGBa(255,255,255,130));
   if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",2,150,0,0,45,30,RGB(40,20,20));
   if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",2,100,0,0,30,80);
   Sound("BBTP_Explosion.ogg");

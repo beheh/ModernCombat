@@ -100,8 +100,7 @@ public func BlastRadius()	{return 50;}
 
 public func BlowUp()
 {
-  if(GetEffectData(EFSM_ExplosionEffects) > 0)
-    CastSmoke("Smoke3",15, 20, 0, 0, 220, 500, RGBa(255,255,255,255));
+  if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",15,20,0,0,220,500, RGBa(255,255,255,0));
   
   if(GBackLiquid())
     Sound("C4EX_WaterDetonation.ogg");

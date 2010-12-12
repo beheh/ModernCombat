@@ -23,11 +23,7 @@ func InstaExplode(int iPlr)
   Sound("BarrelImpact*.ogg");
   Sound("Fuse.wav");
   if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("MetalSplinter", 2+Random(3), 100, 0,0, 30,100,RGB(250,0,0));
-  if(GetEffectData(EFSM_ExplosionEffects) > 0)
-    if(!GBackLiquid())
-      CastParticles("Smoke3",4,30,0,0,100,300,RGBa(255,255,255,100),RGBa(255,255,255,130));
-    else
-      CastObjects(FXU1,10,20);
+  if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",4,30,0,0,100,300,RGBa(255,255,255,100),RGBa(255,255,255,130));
   if(GetEffectData(EFSM_ExplosionEffects) > 1) AddEffect("GSBL_Smoke",this,251,1,this);
 
   //Nach oben schleudern
@@ -63,23 +59,24 @@ func BlowUp(int iPlr)
 
 protected func FxGSBL_SmokeTimer(pTarget, iNo, iTime)
 {
-  var dist = Distance(0,0,GetXDir(),GetYDir());
-  var maxx = +Sin(GetR(),dist/10);
-  var maxy = -Cos(GetR(),dist/10);
-  var ptrdist = 50;
-
-  for(var i=0; i<dist; i+=ptrdist)
+  if(!GBackLiquid(pTarget))
   {
-   var x = -maxx*i/dist;
-   var y = -maxy*i/dist;
+    var dist = Distance(0,0,GetXDir(),GetYDir());
+    var maxx = +Sin(GetR(),dist/10);
+    var maxy = -Cos(GetR(),dist/10);
+    var ptrdist = 50;
 
-   var rand = RandomX(-10,10);
-   var xdir = +Sin(GetR()+rand,8);
-   var ydir = -Cos(GetR()+rand,8);
+    for(var i=0; i<dist; i+=ptrdist)
+    {
+      var x = -maxx*i/dist;
+      var y = -maxy*i/dist;
 
-   CreateParticle("Smoke3",x,y,xdir,ydir,RandomX(50,70),RGBa(255,255,255,100),0,0);
-  }
+      var rand = RandomX(-10,10);
+      var xdir = +Sin(GetR()+rand,8);
+      var ydir = -Cos(GetR()+rand,8);
 
+      CreateParticle("Smoke3",x,y,xdir,ydir,RandomX(50,70),RGBa(255,255,255,100),0,0);
+    }
 }
 
 /* Aufschlag */ 
