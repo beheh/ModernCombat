@@ -77,6 +77,7 @@ protected func FxGSBL_SmokeTimer(pTarget, iNo, iTime)
 
       CreateParticle("Smoke3",x,y,xdir,ydir,RandomX(50,70),RGBa(255,255,255,100),0,0);
     }
+  }
 }
 
 /* Aufschlag */ 
