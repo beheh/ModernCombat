@@ -1265,7 +1265,7 @@ protected func TimerCall()
       if(GetEffect("NoRotorHit",pClonk)) continue;
       Fling(pClonk, GetXDir(pClonk,1)*3/2+RandomX(-1,1), RandomX(-3, -2)-GetRotorSpeed()/100);
       DoDmg(GetRotorSpeed()/4, DMG_Projectile, pClonk, 0, GetOwner()+1);
-      Sound("BKHK_RotorHit*.ogg", pClonk);
+      Sound("BKHK_RotorHit*.ogg", false, pClonk);
       AddEffect("NoRotorHit",pClonk,1,20,pClonk);
     }
   }
