@@ -163,7 +163,11 @@ public func TimerCall()
   }
 
   //Besitzer aktualisieren
-  cur_Attachment->SetTeam(GetTeam());
+  SetOwner(GetOwner(heli));
+  cur_Attachment->SetOwner(GetOwner());
+
+	//Transparenz anpassen
+	SetClrModulation(GetClrModulation(heli));
 
   //Alle X Frames
   if(!(GetActTime()%blinkspeed) && pController)
