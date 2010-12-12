@@ -13,7 +13,7 @@ public func MaxSpeed()		{return 150;}			//Maximale Geschwindigkeit
 public func SecureTime()	{return 50;}			//Mindestflugzeit
 public func SecureDistance()	{return 50;}			//Mindestabstand
 
-public func ExplosionDamage()	{return 18;}			//Explosionsschaden
+public func ExplosionDamage()	{return 20;}			//Explosionsschaden
 
 public func MaxTurn()		{return 7;}			//max. Drehung
 public func MaxTracerTurn()	{return 9;}			//max. Drehung bei Zielverfolgung
