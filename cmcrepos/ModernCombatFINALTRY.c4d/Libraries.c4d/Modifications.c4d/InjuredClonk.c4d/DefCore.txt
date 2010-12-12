@@ -18,6 +18,6 @@ Float=1
 Grab=1
 GrabPutGet=C4D_GrabGet|C4D_GrabPut
 NoSell=1
-ClosedContainer=1
+ClosedContainer=2
 Timer=36
 TimerCall=DeathMenu
