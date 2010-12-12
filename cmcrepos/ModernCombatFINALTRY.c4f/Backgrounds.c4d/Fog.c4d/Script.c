@@ -1,7 +1,8 @@
-/*-- Schneeberg --*/
+/*-- Nebel --*/
 
 #strict 2
 
+public func IsBackground() { return true; }
 
 /* Initialisierung */
 
