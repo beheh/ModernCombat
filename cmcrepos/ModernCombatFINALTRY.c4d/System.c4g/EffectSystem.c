@@ -16,6 +16,7 @@ static const EFSM_ExplosionEffects = 5;	//0/1/2
 static const EFSM_Enlight = 6;		//0/1
 static const EFSM_Darkness = 7;		//0/1
 static const EFSM_Waratmosphere = 8;	//0/1
+static const EFSM_Backgrounds = 9;    //0/1
 
 
 /* Globale Effektstufe setzen */
@@ -33,6 +34,7 @@ global func EFSM_SetEffects(int iLevel)
   SetEffectData(iLevel>1, EFSM_Enlight);
   SetEffectData(iLevel>2, EFSM_Darkness);
   SetEffectData(iLevel>1, EFSM_Waratmosphere);
+  SetEffectData(iLevel>1, EFSM_Backgrounds);
   EFSM_Level = iLevel;
   return true;
 }
@@ -57,4 +59,13 @@ global func OnUpdateEffects(int iEffect)
   //Natürlich nur wenn Darkness geupdatet wird.
   if(iEffect == EFSM_Darkness && !GetEffectData(EFSM_Darkness))
     {RemoveAll(DARK);}
+  
+  //Hintergründe reintun/raustun
+  if(iEffect == EFSM_Backgrounds && !GetEffectData(EFSM_Darkness))
+  {
+    for(var back in FindObjects(Find_Func("IsBackground")))
+      RemoveObject(back);
+  }
+  if(iEffect == EFSM_Backgrounds && GetEffectData(EFSM_Darkness) && !FindObjects(Find_Func("IsBackground")))
+    GameCall("CreateBackgrounds");
 }
