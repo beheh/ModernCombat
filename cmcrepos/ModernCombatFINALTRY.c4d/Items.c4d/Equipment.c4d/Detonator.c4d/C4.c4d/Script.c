@@ -100,16 +100,13 @@ public func BlastRadius()	{return 50;}
 
 public func BlowUp()
 {
+  if(GetEffectData(EFSM_ExplosionEffects) > 0)
+    CastSmoke("Smoke3",15, 20, 0, 0, 220, 500, RGBa(255,255,255,255));
+  
   if(GBackLiquid())
-  {
     Sound("C4EX_WaterDetonation.ogg");
-    if(GetEffectData(EFSM_ExplosionEffects) > 0) CastObjects(FXU1,6,20);
-  }
   else
-  {
     Sound("C4EX_Detonation*.ogg");
-    if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("Smoke3",15,20,0,0,220,500);
-  }
 
   //Effekte
   var helper = CreateObject(TIM1,0,0,-1);
