@@ -51,7 +51,7 @@ func Damage(int iChange, int iPlr)
   SetController(iPlr);
   if(GetDamage() > 1)
     Incinerate();
-  
+
   if(!this)
     return;
   if(GetDamage() < 20) return;

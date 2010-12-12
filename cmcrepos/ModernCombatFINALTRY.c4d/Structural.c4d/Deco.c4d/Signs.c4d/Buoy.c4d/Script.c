@@ -5,7 +5,7 @@
 local sway,dir,max;
 
 
-/* Initalisierung */
+/* Initialisierung */
 
 func Initialize()
 {
@@ -22,7 +22,7 @@ func CalcMax()
 
 func Timer()
 {
-  if(GBackLiquid(0,+2) != GBackLiquid (0,-2))//Sollte schwimmen.
+  if(GBackLiquid(0,+2) != GBackLiquid (0,-2))
   {
     if(sway == 0)
       CalcMax();

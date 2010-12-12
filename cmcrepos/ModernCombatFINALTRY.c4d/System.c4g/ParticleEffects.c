@@ -1,15 +1,20 @@
 /* Globale Partikeleffekte */
 
+//Stellt global nutzbare Effekte zur Verfügung.
+
 #strict 2
+
+
+/* Mündungsfeuer */
 
 global func MuzzleFlash(int iSize, object pClonk, int iX, int iY, int iAngle, int iColor)
 {
   if(!pClonk) pClonk = this;
 
   CreateParticle("MuzzleFlash3",iX,iY,
-                 +Sin(iAngle,500),
-                 -Cos(iAngle,500),
-                 iSize*5,iColor,pClonk);
+		+Sin(iAngle,500),
+		-Cos(iAngle,500),
+		iSize*5,iColor,pClonk);
   if(!IsDark())
     return;
 
@@ -23,14 +28,17 @@ global func MuzzleFlash(int iSize, object pClonk, int iX, int iY, int iAngle, in
   AddLightFlash(iSize*25, iX, iY, iColor);
 }
 
-//Falls Wasser am Punkt, werden Blubberblasen anstatt Rauch verschleudert.
+/* Rauch */
+
+//Überprüft auf Wasser und erstellt in gleichem Luftblasen statt Rauch.
+
 global func CastSmoke(int iSize, int iLevel, int iCount, int iX, int iY, int dwColor, int dwColor2)
 {
   if(!dwColor)
     dwColor = RGBa(255,255,255,120);
   if(!dwColor2)
     dwColor2 = dwColor;
-    
+
   if(!GBackLiquid(iX,iY))
     CastParticles("Smoke3",iCount,iLevel,iX,iY,iSize*5/6,iSize*7/6,dwColor,dwColor2);
   else
@@ -39,31 +47,35 @@ global func CastSmoke(int iSize, int iLevel, int iCount, int iX, int iY, int dwC
 
 global func SmokeBurst(int iSize, int iX, int iY, int iAngle, object pAttach, int dwColor)
 {
-	if(GetEffectData(EFSM_BulletEffects) < 1) return;
+  if(GetEffectData(EFSM_BulletEffects) < 1) return;
 
   if(!pAttach)
   {
-   if(!ObjectCount(BOOM)) pAttach = CreateObject(BOOM,0,0,-1);
-   else pAttach = FindObject(BOOM);
+    if(!ObjectCount(BOOM)) pAttach = CreateObject(BOOM,0,0,-1);
+    else pAttach = FindObject(BOOM);
   }
 
   if(!dwColor)
   {
-   dwColor = RGB(255,255,255);
+    dwColor = RGB(255,255,255);
   }
 
   var mx = +Sin(iAngle,6),
-      my = -Cos(iAngle,6);
+	my = -Cos(iAngle,6);
 
   CreateParticle("GunSmoke",iX,iY,0,0,
-                 iSize*5,dwColor,pAttach,1);
-                 
+		iSize*5,dwColor,pAttach,1);
+
   CreateParticle("GunSmoke",iX,iY,mx/2,my/2,
-                 iSize*4,SetRGBaValue(dwColor,64,0),pAttach,1);
+		iSize*4,SetRGBaValue(dwColor,64,0),pAttach,1);
 
   CreateParticle("GunSmoke",iX,iY,mx,my,
-                 iSize*3,SetRGBaValue(dwColor,128,0),pAttach,1);
+		iSize*3,SetRGBaValue(dwColor,128,0),pAttach,1);
 }
+
+/* Blut */
+
+static const SplatterScale = 50;
 
 global func BloodBurst(int iSize, int iX, int iY, int iColor)
 {
@@ -72,7 +84,7 @@ global func BloodBurst(int iSize, int iX, int iY, int iColor)
 
 global func BloodSplatter(int iSize, int iX, int iY, int iColor)
 {
-	if(!GetEffectData(EFSM_Blood)) return;
+  if(!GetEffectData(EFSM_Blood)) return;
 
   //Nicht in der Luft
   if(GetMaterialVal("Density","Material",GetMaterial(iX,iY)) != 0
@@ -90,7 +102,7 @@ global func BloodSplatter(int iSize, int iX, int iY, int iColor)
 
 global func BloodSplatter2(int iSize, int iX, int iY, int iAngle, int iColor)
 {
-	if(!GetEffectData(EFSM_Blood)) return;
+  if(!GetEffectData(EFSM_Blood)) return;
 
   if(GetMaterialVal("Density","Material",GetMaterial(iX,iY)) != 0
   || GetMaterial(iX,iY) == -1) return;
@@ -102,11 +114,9 @@ global func BloodSplatter2(int iSize, int iX, int iY, int iAngle, int iColor)
   else boom = FindObject(BOOM);
 
   CreateParticle("BloodSplatter2",iX+Sin(iAngle,iSize/2-5),iY-Cos(iAngle,iSize/2-5),
-                                  Sin(iAngle,100),-Cos(iAngle,100),
-                                  iSize*5,iColor, boom, 1);
+				Sin(iAngle,100),-Cos(iAngle,100),
+				iSize*5,iColor, boom, 1);
 }
-
-static const SplatterScale = 50;
 
 global func Splatter(int iDmg, int iType, object pFrom, int iColor)
 {
@@ -116,19 +126,19 @@ global func Splatter(int iDmg, int iType, object pFrom, int iColor)
 
   if(iDmg < 10)
   {
-   if(!Random(5-iDmg/2))
-    return 0;//_inherited(iDmg,iType,pFrom);
-   else
-   {
-    x = RandomX(-GetDefWidth(GetID())/3,+GetDefWidth(GetID())/3);
-    y = RandomX(-GetDefHeight(GetID())/3,+GetDefHeight(GetID())/3);
-   }
+    if(!Random(5-iDmg/2))
+      return 0;//_inherited(iDmg,iType,pFrom);
+    else
+    {
+      x = RandomX(-GetDefWidth(GetID())/3,+GetDefWidth(GetID())/3);
+      y = RandomX(-GetDefHeight(GetID())/3,+GetDefHeight(GetID())/3);
+    }
   }
 
-	if(!iColor)
+  if(!iColor)
     iColor = RGB(80+Random(105));
   var size = BoundBy(iDmg,8,80);
-  
+
   if(pFrom)
   {
     if((iType == DMG_Explosion)||
@@ -144,10 +154,11 @@ global func Splatter(int iDmg, int iType, object pFrom, int iColor)
       BloodSplatter2(Min(size*2,100),x,y,angle,iColor);
     }
   }
-  
   BloodSplatter(Min(size*3,100),x,y,iColor);
   BloodBurst(Min(size*3,100),x,y,iColor);
 }
+
+/* Schadenseffekt */
 
 global func AddDamageEffect(object target, int size)
 {
