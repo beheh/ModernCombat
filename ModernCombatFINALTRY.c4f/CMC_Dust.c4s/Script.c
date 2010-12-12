@@ -31,7 +31,6 @@ func Initialize()
 func CreateFurniture()
 {
   Log("$CreatingFurniture$");
-  //Alle Objekte folglich von links nach rechts
 
   //Brückensegment
   CreateObject(BRDG, 1210, 455, -1);
@@ -125,7 +124,6 @@ func CreateFurniture()
 func CreateEquipment()
 {
   Log("$CreatingEquipment$");
-  //Alle Objekte folglich von links oben nach rechts unten
 
   //Versorgungskisten (Kugeln)
   var tmp = CreateObject(AMCT, 350, 540, -1);
@@ -147,6 +145,8 @@ func CreateEquipment()
 
 func CreateDecoration()
 {
+  Log("$CreatingDecoration$");
+
   //Hintergrund
   CreateObject(BD07,600,930,-1);
 }

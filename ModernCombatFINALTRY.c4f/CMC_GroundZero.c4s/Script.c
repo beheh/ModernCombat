@@ -33,7 +33,6 @@ func Initialize()
 func CreateFurniture()
 {
   Log("$CreatingFurniture$");
-  //Alle Objekte folglich von links oben nach rechts unten
 
   //Aufzüge
   CreateObject(LFTP, 165, 500, -1);
@@ -320,7 +319,6 @@ func CreateFurniture()
 func CreateEquipment()
 {
   Log("$CreatingEquipment$");
-  //Alle Objekte folglich von links oben nach rechts unten
 
   //Kugeln
   PlaceSpawnpoint(ABOX, 130, 285);
@@ -344,6 +342,8 @@ func CreateEquipment()
 
 func CreateDecoration()
 {
+  Log("$CreatingDecoration$");
+
   //Hintergründe
   CreateObject(BD04,220,550,-1);
   CreateObject(BD04,727,550,-1);

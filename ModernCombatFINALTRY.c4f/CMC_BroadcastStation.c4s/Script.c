@@ -26,7 +26,6 @@ func CreateFurniture()
 {
   var tmp;
   Log("$CreatingFurniture$");
-  //Alle Objekte folglich von links nach rechts
 
   //Aufzüge
   CreateObject(LFTP, 845, 510, -1);
@@ -326,7 +325,6 @@ func CreateFurniture()
 func CreateEquipment()
 {
   Log("$CreatingEquipment$");
-  //Alle Objekte folglich von links oben nach rechts unten
 
   //Versorgungskisten (Kugeln)
   var tmp = CreateObject (AMCT, 370, 683, -1);
