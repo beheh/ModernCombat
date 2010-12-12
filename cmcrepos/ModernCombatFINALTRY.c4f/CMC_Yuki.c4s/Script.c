@@ -29,6 +29,8 @@ func Initialize()
   CreateFurniture();
   //Equipment plazieren
   CreateEquipment();
+  //Dekoration plazieren
+  CreateDecoration();
   //Script starten
   ScriptGo(1);
   return(1);
@@ -310,9 +312,6 @@ func CreateFurniture()
   //Stahlbrücke
   CreateObject(_HBR, 1245, 762, -1);
 
-  //Hintergrund
-  CreateObject(BD01,400,1000,-1)->SetClrModulation(RGB(125,125,125));
-
   //Türenteam 1
 
   aDoor1[0] = CreateObject(SLDR, 205, 400, -1);
@@ -495,6 +494,12 @@ func CreateEquipment()
   store->AddWare(PGRN,-1);
   store->AddWare(SGRN,-1);
   store->AddWare(STUN,-1);
+}
+
+func CreateDecoration()
+{
+  //Hintergrund
+  CreateObject(BD01,400,1000,-1)->SetClrModulation(RGB(125,125,125));
 }
 
 /* Regelwähler */

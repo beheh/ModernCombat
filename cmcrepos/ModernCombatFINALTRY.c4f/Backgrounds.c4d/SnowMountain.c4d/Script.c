@@ -2,7 +2,8 @@
 
 #strict 2
 
-public func IsBackground() { return true; }
+public func IsDeco()	{return true;}
+
 
 /* Initialisierung */
 

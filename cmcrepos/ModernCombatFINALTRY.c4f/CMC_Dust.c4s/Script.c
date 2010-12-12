@@ -21,6 +21,8 @@ func Initialize()
   CreateFurniture();
   //Ausrüstung plazieren
   CreateEquipment();
+  //Dekoration plazieren
+  CreateDecoration();
   return(1);
 }
 
@@ -106,9 +108,6 @@ func CreateFurniture()
   CreateObject(STNE, 540, 380, -1);
   CreateObject(STNE, 1290, 820, -1);
 
-  //Hintergrund
-  CreateObject(BD07,600,930,-1);
-
   //Sounds
 
   //Wind
@@ -144,6 +143,12 @@ func CreateEquipment()
 
   //Raketen
   PlaceSpawnpoint(MBOX, 740, 420);
+}
+
+func CreateDecoration()
+{
+  //Hintergrund
+  CreateObject(BD07,600,930,-1);
 }
 
 /* Regelwähler */
