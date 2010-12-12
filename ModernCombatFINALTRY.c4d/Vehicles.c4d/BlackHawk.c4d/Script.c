@@ -23,8 +23,6 @@ local MGStation,			//object - Das MG-Objekt
 local s_counter,			//int    - eine kleine Counter-Variable für Warnsounds
       d_counter;			//int    - eine kleine Counter-Variable für die Zerstörung
 
-local destroyed;			//bool   - ob der Heli schon zerstört ist
-
 local passengercnt;			//int    - Anzahl der Clonks im Heli
  
 local smokereload;			//int    - Nachladezeit für Rauchwand
@@ -35,9 +33,9 @@ static const rot_speed = 1;		//int    - Drehgeschwindigkeit / frame
 static const control_speed = 3;		//int    - "Feinfühligkeit"
 static const max_throttle = 200;	//int    - höchste Schubeinstellung
 static const max_rotation = 30;		//int    - stärkste erlaubte Neigung
-static const auto_throttle_speed = 1;
-static const auto_max_throttle = 150;
-static const auto_max_rotation = 10;
+static const BKHK_AutoThrottleSpeed = 1;
+static const BKHK_AutoMaxThrottle = 150;
+static const BKHK_AutoMaxRotation = 10;
 
 static const BKHK_PilotLayer = 2;
 static const BKHK_PassengerLayer = 3;
@@ -98,6 +96,14 @@ protected func Initialize()
   SetSolidMask();
 
   return _inherited();
+}
+
+/* Positionsberechnung von Objekten */
+
+public func GetPosition(int iVertex, int& iX, int& iY) {
+	iX = GetVertex(iVertex, false);
+	iY = GetVertex(iVertex, true);
+	return true;
 }
 
 /*----- Erfassung -----*/
@@ -185,10 +191,10 @@ protected func FxBlackhawkAutopilotTimer(object pTarget, int iNumber, int iTime)
     if(GetYDir(pTarget) < 3 || GetContact(this, -1, CNAT_Bottom))
     {
       //vom Gas weg
-      if(GetAction()=="Fly" || GetAction()=="Turn")
-      throttle = BoundBy(throttle - auto_throttle_speed, 0, auto_max_throttle);
-      //Motor aus
-      if(throttle == 0 && (GetAction()=="Fly" || GetAction()=="EngineStartUp"))
+      if(GetAction() == "Fly" || GetAction() == "Turn") {
+      	throttle = BoundBy(throttle - BKHK_AutoThrottleSpeed, 0, BKHK_AutoMaxThrottle);
+     	}
+      else if(throttle != 0 && GetAction() == "Fly")
       {
         SetAction("EngineShutDown");
         return pTarget->ResetAutopilot();
@@ -199,11 +205,13 @@ protected func FxBlackhawkAutopilotTimer(object pTarget, int iNumber, int iTime)
   {
     if(GetYDir(pTarget) > -3)
     {
-      if(throttle == 0 && (GetAction()=="Stand" || GetAction()=="EngineShutDown"))
-      SetAction("EngineStartUp");
-      //beim Flug mehr Schub
-      if(GetAction()=="Fly" || GetAction()=="Turn")
-      throttle = BoundBy(throttle + auto_throttle_speed, 0, auto_max_throttle);
+	    if(GetAction() == "Fly" || GetAction() == "Turn") {
+      	throttle = BoundBy(throttle + BKHK_AutoThrottleSpeed, 0, BKHK_AutoMaxThrottle);
+      }
+      else if(throttle == 0 && GetAction() == "Stand") {
+      	SetAction("EngineStartUp");
+      	return FX_OK;
+      }
     }
   }
   else
@@ -212,20 +220,20 @@ protected func FxBlackhawkAutopilotTimer(object pTarget, int iNumber, int iTime)
     {
       //beim Flug mehr Schub
       if(GetAction()=="Fly" || GetAction()=="Turn")
-      throttle = BoundBy(throttle + auto_throttle_speed, 0, auto_max_throttle);
+      throttle = BoundBy(throttle + BKHK_AutoThrottleSpeed, 0, BKHK_AutoMaxThrottle);
     }
     else
     if(!(iTime % BoundBy(GetYDir(pTarget), 5, 0)) && GetYDir(pTarget) < 0)
     {
       //vom Gas weg
       if(GetAction()=="Fly" || GetAction()=="Turn")
-      throttle = BoundBy(throttle - auto_throttle_speed, 0, auto_max_throttle);
+      throttle = BoundBy(throttle - BKHK_AutoThrottleSpeed, 0, BKHK_AutoMaxThrottle);
     }
   }
   if(GetX(pTarget) > iX+50)
   {
     if (GetAction()=="Fly" || GetAction()=="Turn")
-    rotation = BoundBy(rotation - control_speed, -auto_max_rotation, auto_max_rotation);
+    rotation = BoundBy(rotation - control_speed, -BKHK_AutoMaxRotation, BKHK_AutoMaxRotation);
     if (rotation < 0 && GetDir() && GetAction()=="Fly")
     {
       if (GetAction() == "Turn" || GetContact(this, -1)) return true;
@@ -236,7 +244,7 @@ protected func FxBlackhawkAutopilotTimer(object pTarget, int iNumber, int iTime)
   if(GetX(pTarget) < iX-50)
   {
     if (GetAction()=="Fly" || GetAction()=="Turn") 
-    rotation = BoundBy(rotation + control_speed, -auto_max_rotation, auto_max_rotation);
+    rotation = BoundBy(rotation + control_speed, -BKHK_AutoMaxRotation, BKHK_AutoMaxRotation);
     if (rotation > 0 && !GetDir() && GetAction()=="Fly")
     {
       if(GetAction() == "Turn" || GetContact(this, -1)) return true;
@@ -248,21 +256,21 @@ protected func FxBlackhawkAutopilotTimer(object pTarget, int iNumber, int iTime)
   {
     if(GetXDir(pTarget) < -1)
     {
-      rotation = BoundBy(rotation + control_speed, 0, auto_max_rotation);
+      rotation = BoundBy(rotation + control_speed, 0, BKHK_AutoMaxRotation);
     }
     else if(GetXDir(pTarget) > 1)
     {
-      rotation = BoundBy(rotation - control_speed, -auto_max_rotation, 0);
+      rotation = BoundBy(rotation - control_speed, -BKHK_AutoMaxRotation, 0);
     }
     else
     {
       if(GetXDir(pTarget) < 0)
       {
-        rotation = BoundBy(rotation - control_speed, 0, auto_max_rotation);
+        rotation = BoundBy(rotation - control_speed, 0, BKHK_AutoMaxRotation);
       }
       else if(GetXDir(pTarget) > 0)
       {
-        rotation = BoundBy(rotation + control_speed, -auto_max_rotation, 0);
+        rotation = BoundBy(rotation + control_speed, -BKHK_AutoMaxRotation, 0);
       }
     }
   }
@@ -295,21 +303,21 @@ protected func Ejection(object ByObj)
   return true;
 }
 
-protected func ControlCommand(string Command, object Target, int TargetX, int TargetY, object target2, int Data, object ByObj)
+protected func ControlCommand(string szCommand, object Target, int TargetX, int TargetY, object target2, int Data, object ByObj)
 {
-  if (Command == "Exit")
+  if (szCommand == "Exit")
   {
     var rot = GetDir()*180-90 + GetR() + GetDir()*120-60;
     Exit(ByObj, Sin(rot,25), -Cos(rot,25), GetR(), GetXDir(0,1), GetYDir(0,1), GetRDir());
     return true;
   }
-  if (Command == "MoveTo")
+  if (szCommand == "MoveTo" || szCommand == "Attack")
   {
-    if(ByObj == Pilot)
-    SetAutopilot(Target, TargetX, TargetY);
+    if(ByObj == Pilot) {
+    	SetAutopilot(Target, TargetX, TargetY);
+    }
     return true;
   }
-  return;
 }
 
 protected func Collection2(object pObj)
@@ -1233,15 +1241,15 @@ protected func TimerCall()
   DrawPilot();
 
   //Blinken
-  /*if(!(GetActTime()%45) && GetPilot() || GetAutopilot())
+  /*if(!(GetActTime()%45) && (GetPilot() || GetAutopilot()))
   {
-    if(GetTeam())
-      var rgb = GetTeamColor(GetTeam());
-    else if(GetOwner() != NO_OWNER)
+		if(GetOwner() != NO_OWNER)
       var rgb = GetPlrColorDw(GetOwner());
     else
       var rgb = RGB(255,255,255);
-    CreateParticle("FlashLight",-104*(GetDir()*2-1),-13,0,0,3*15,rgb,this);
+    var iX, iY;
+    GetPosition(iX,iY);
+    CreateParticle("FlashLight",iX,iY,0,0,45,rgb,this);
   }*/
 
   //Bodenpartikel zeichnen
@@ -1250,8 +1258,9 @@ protected func TimerCall()
   //Lebewesen schrappneln
   if(GetRotorSpeed() > 0)
   {
-    for(var pClonk in FindObjects(Find_InRect(-100,-24,200,16), Find_NoContainer(), Find_OCF(OCF_Alive), Find_Not(Find_ID(FKDT))))
+    for(var pClonk in FindObjects(Find_OnLine(GetVertex(8),GetVertex(8, true),GetVertex(13),GetVertex(13, true)) , Find_NoContainer(), Find_OCF(OCF_Alive), Find_Not(Find_ID(FKDT))))
     {
+    	//Find_InRect(-100,-24,200,16);
       if(GetOwner(pClonk) != NO_OWNER && GetOwner() != NO_OWNER && !Hostile(GetOwner(), GetOwner(pClonk))) continue;
       if(GetEffect("NoRotorHit",pClonk)) continue;
       Fling(pClonk, GetXDir(pClonk,1)*3/2+RandomX(-1,1), RandomX(-3, -2)-GetRotorSpeed()/100);
