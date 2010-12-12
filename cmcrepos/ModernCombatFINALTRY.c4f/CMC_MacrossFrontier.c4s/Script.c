@@ -26,7 +26,6 @@ func CreateFurniture()
 {
   var tmp;
   Log("$CreatingFurniture$");
-  //Alle Objekte folglich von links nach rechts
 
   //Leitern
   CreateObject(LADR, 95, 438, -1)->Set(10);
@@ -328,7 +327,6 @@ func CreateFurniture()
 func CreateEquipment()
 {
   Log("$CreatingEquipment$");
-  //Alle Objekte folglich von links oben nach rechts unten
 
   //Versorgungskisten (Kugeln)
   var tmp = CreateObject (AMCT, 75, 350, -1);
@@ -345,6 +343,8 @@ func CreateEquipment()
 
 func CreateDecoration()
 {
+  Log("$CreatingDecoration$");
+
   //Hintergründe
   CreateObject(BD08,400,530,-1)->SetClrModulation(RGB(125,125,125));
   CreateObject(BD08,1300,530,-1)->SetClrModulation(RGB(125,125,125));

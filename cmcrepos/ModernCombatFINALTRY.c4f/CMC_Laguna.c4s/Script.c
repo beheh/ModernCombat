@@ -37,7 +37,6 @@ func Initialize()
 func CreateFurniture()
 {
   Log("$CreatingFurniture$");
-  //Alle Objekte folglich von links oben nach rechts unten
 
   //Rampen
   DrawMaterialQuad("Wall-Concrete3",771,500,741,490,741,500,756,500,true);
@@ -245,7 +244,6 @@ func CreateFurniture()
 func CreateEquipment()
 {
   Log("$CreatingEquipment$");
-  //Alle Objekte folglich von links oben nach rechts unten
 
   //Versorgungskisten (Kugeln)
   var tmp = CreateObject (AMCT, 600, 690, -1);
@@ -276,6 +274,8 @@ func CreateEquipment()
 
 func CreateDecoration()
 {
+  Log("$CreatingDecoration$");
+
   //Hintergründe
   CreateObject(BD05,1200,800,-1)->SetClrModulation(RGB(125,125,125));
   CreateObject(BD03,1250,530,-1)->SetClrModulation(RGB(125,125,125));

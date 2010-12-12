@@ -29,7 +29,6 @@ func Initialize()
 func CreateFurniture()
 {
   Log("$CreatingFurniture$");
-  //Alle Objekte folglich von links nach rechts
 
   //Bodenlucken
   CreateObject(HA4K, 410, 333, -1);
@@ -190,7 +189,6 @@ func CreateEquipment()
 {
   var tmp;
   Log("$CreatingEquipment$");
-  //Alle Objekte folglich von links oben nach rechts unten
 
   //Versorgungskiste (Kugeln)
   tmp = CreateObject(AMCT, 1315, 460, -1);
