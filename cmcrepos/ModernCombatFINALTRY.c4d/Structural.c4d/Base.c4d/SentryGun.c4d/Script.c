@@ -27,6 +27,14 @@ public func AttractTracer(object pTracer)	{return GetPlayerTeam(GetController(pT
 public func RemoveTracer()			{return IsDestroyed();}			//Tracer entfernen, wenn zerstört
 
 
+/* Initialisierung */
+
+public func Initialize() 
+{
+  AddEffect("ShowWeapon",this,1,1,this,GetID());
+  SetGraphics(0,this,GetID(),3,5,0,0,this);
+}
+
 /* Zerstörung */
 
 public func OnDestruction()
@@ -35,7 +43,7 @@ public func OnDestruction()
   Disarm();
 
   //Effekte
-  if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("Smoke3",3,20,0,0,220,500);
+  if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",3,20,0,0,220,500);
   if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("ConcreteSplinter",4,100,0,0,40,15,RGB(40,20,20));
 }
 
@@ -113,13 +121,7 @@ public func Disarm()
   RemoveEffect("ShowWeapon", this);
 }
 
-/* Script */
-
-public func Initialize() 
-{
-  AddEffect("ShowWeapon",this,1,1,this,GetID());
-  SetGraphics(0,this,GetID(),3,5,0,0,this);
-}
+/* Positionsbestimmung */
 
 public func WeaponAt(&x, &y, &r)
 {
@@ -211,7 +213,6 @@ public func Activity()
       aim_angle += iPat_Dir*3;
     }
   }
-  //Das Fahren selber ;)
   if(GotTarget)
   	aim_angle += BoundBy(target_angle-AimAngle(),-1,1);
        

@@ -14,9 +14,9 @@ func Damage()
     //Effekte
     if(GetEffectData(EFSM_ExplosionEffects) > 0)
     {
-      CastParticles("Smoke3",3,10,-20,0,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
-      CastParticles("Smoke3",4,10,0,0,150,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
-      CastParticles("Smoke3",3,10,20,0,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
+      CastSmoke("Smoke3",3,10,-20,0,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
+      CastSmoke("Smoke3",4,10,0,0,150,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
+      CastSmoke("Smoke3",3,10,20,0,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
     }
     if(GetEffectData(EFSM_ExplosionEffects) > 1)
     {
@@ -35,7 +35,7 @@ func Damage()
     SetGraphics("5");
 
     //Effekte
-    if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("Smoke3",4,13,0,-10,250,100,RGBa(255,255,255,100),RGBa(255,255,255,130));
+    if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",4,13,0,-10,250,100,RGBa(255,255,255,100),RGBa(255,255,255,130));
     if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",4,150,0,-15,140,70,RGB(0,250,0));
     Sound("BarrelImpact*.ogg");
 
@@ -49,7 +49,7 @@ func Damage()
     SetGraphics("4");
 
     //Effekte
-    if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("Smoke3",3,10,-20,-10,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
+    if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",3,10,-20,-10,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
     if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("WoodSplinter",4,100,-22,-12,100,80);
     Sound("WoodCrack*.ogg");
 
@@ -63,7 +63,7 @@ func Damage()
     SetGraphics("3");
 
     //Effekte
-    if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("Smoke3",3,10,-10,-20,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
+    if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",3,10,-10,-20,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
     if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",4,100,-10,-25,80,50);
     Sound("MetalHit*");
 
@@ -77,7 +77,7 @@ func Damage()
     SetGraphics("2");
 
     //Effekte
-    if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("Smoke3",3,10,20,-10,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
+    if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",3,10,20,-10,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
     if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("WoodSplinter",4,100,20,-15,100,80);
     Sound("CrateCrack.ogg");
 

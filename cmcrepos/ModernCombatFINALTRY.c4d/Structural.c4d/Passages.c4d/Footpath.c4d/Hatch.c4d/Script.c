@@ -7,7 +7,7 @@
 public func IsBulletTarget()	{return false;}
 
 
-/* Initalisierung */
+/* Initialisierung */
 
 public func Initialize() 
 {
@@ -51,21 +51,19 @@ private func SomeonesApproaching()
 
   //Clonks suchen
   aClonks = FindObjects(Find_InRect(-(GetObjWidth()/2),0,GetObjWidth(),20),
- 		        Find_NoContainer(),
- 		        Find_OCF(OCF_Alive),
- 		        Find_Not(Find_Func("IsAlien")) );
+  			Find_NoContainer(),
+  			Find_OCF(OCF_Alive),
+  			Find_Not(Find_Func("IsAlien")) );
   if(!closed)
   {
     if(!GetLength(aClonks))
     {
       aClonks = FindObjects(Find_InRect(-(GetObjWidth()/2),-20,GetObjWidth(),20),
-   		          Find_NoContainer(),
- 		            Find_OCF(OCF_Alive),
- 		            Find_Not(Find_Func("IsAlien")) );
+      				Find_NoContainer(),
+      				Find_OCF(OCF_Alive),
+      				Find_Not(Find_Func("IsAlien")) );
     }
   }
-
-  //Etwas gefunden?
   if(GetLength(aClonks) > 0)
     return true;
   return false;
@@ -93,13 +91,13 @@ public func ControlTransfer(object obj, int x, int y)
 {
   if(lock && closed)
     return false;
-  
+
   var dir = 1;
   if(GetY(obj) < GetY()+GetObjHeight())
     dir = -1;
-  
+
   if(!closed) return false;
-  
+
   if(dir == -1)
   {
     if(GetProcedure(obj) != "PUSH")

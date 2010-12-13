@@ -27,7 +27,7 @@ func Timer()
     if(sway == 0)
       CalcMax();
   
-    if(dir == 0)//Herumdümpeln.
+    if(dir == 0)
     {
       sway++;
       if(sway >= max)

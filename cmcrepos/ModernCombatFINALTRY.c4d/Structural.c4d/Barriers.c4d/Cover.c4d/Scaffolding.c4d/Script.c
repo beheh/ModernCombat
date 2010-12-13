@@ -36,7 +36,7 @@ func Destruct()
   {
     //Effekte
     Sound("WoodCrack*.ogg");
-    if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("Smoke3",3,20,0,-25,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
+    if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",3,20,0,-25,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
 
     if(GetEffectData(EFSM_ExplosionEffects) > 1)
     {
@@ -51,7 +51,7 @@ func Destruct()
   {
     //Effekte
     Sound("WoodCrack*.ogg");
-    if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("Smoke3",3,20,0,-25,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
+    if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",3,20,0,-25,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
 
     if(GetEffectData(EFSM_ExplosionEffects) > 1)
     {
@@ -65,7 +65,7 @@ func Destruct()
   {
     //Effekte
     Sound("WoodCrack*.ogg");
-    if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("Smoke3",3,20,0,-25,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
+    if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",3,20,0,-25,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
 
     if(GetEffectData(EFSM_ExplosionEffects) > 1)
     {

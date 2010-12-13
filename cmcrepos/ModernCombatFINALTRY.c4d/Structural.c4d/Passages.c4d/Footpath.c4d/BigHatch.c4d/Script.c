@@ -6,7 +6,7 @@
 #include HA4K
 
 
-/* Initalisierung */
+/* Initialisierung */
 
 public func Initialize() 
 {
