@@ -2,9 +2,9 @@
 
 #strict 2
 
-public func IsAmmoPacket()	{return GetID() != MCAM;}
-public func AmmoID()		{return STAM;}
-public func AmmoCount()		{return 100;}
+public func IsAmmoPacket()	{return GetID() != MCAM;}	//Ist Munition
+public func AmmoID()		{return STAM;}			//ID der Munition
+public func AmmoCount()		{return 100;}			//Munitionmenge
 public func NoArenaRemove()	{return true;}
 public func IsDrawable()	{return true;}
 public func HandSize()		{return 800;}
@@ -46,7 +46,7 @@ public func TransferAmmo(object pObj)
   if(!pObj) return false;
   if(NoAmmo()) return false;
 
-  //nicht wenn er schon zu viel hat
+  //Transfer abbrechen wenn das Ziel genug besitzt
   if(!MayTransfer(pObj))
   {
     PlayerMessage(GetOwner(pObj),"$NotMoreAmmo$",pObj,AmmoID());
@@ -79,7 +79,7 @@ public func ControlThrow(object caller)
     //Kann noch Munition aufnehmen?
     if (obj->~IsClonk() && MayTransfer(obj))
     {
-      //Munition geben und abbrechen.
+      //Munition geben und abbrechen
       TransferAmmo(obj);
       break;
     }

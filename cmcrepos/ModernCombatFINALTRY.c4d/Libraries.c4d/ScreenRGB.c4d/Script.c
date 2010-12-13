@@ -57,7 +57,8 @@ public func Set(object pTarget, int dwRGBa, int iAlphaAdd, int iFadeRate, bool b
   else
     SetAction("CursorCheck");
 
-  if(bAdditive)//Additiv zeichnen?
+  //Additiv zeichnen?
+  if(bAdditive)
     SetObjectBlitMode(GFX_BLIT_Additive);
 
   fade = Max(fade,iFadeRate);

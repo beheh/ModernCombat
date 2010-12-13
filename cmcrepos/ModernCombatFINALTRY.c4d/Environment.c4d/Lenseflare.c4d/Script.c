@@ -8,7 +8,7 @@ static const CALC_Shadow=false;
 local SonneX, SonneY, Screen;
 
 
-/* Initalisierung */
+/* Initialisierung */
 
 protected func Initialize()
 {

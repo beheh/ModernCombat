@@ -7,13 +7,13 @@ local iLastAttacker;
 local aDealers;
 
 public func OnDamage()			{}							//Beim Erhalten von Schaden
-public func OnDestruction()		{}							//Bei der Zerstörung des Fahzeugs
+public func OnDestruction()		{}							//Bei der Zerstörung des Fahrzeugs
 public func MaxDamage()			{return 100;}						//Maximalschaden
 public func BonusPointCondition()	{return Hostile(GetLastAttacker(),GetController());}	//Ob bei der Zerstörung Punkte vergeben werden
 
-public func GetLastAttacker()		{return iLastAttacker;}
-public func IsDestroyed()		{return fDestroyed;}
-public func IsCMCVehicle()		{return true;}
+public func GetLastAttacker()		{return iLastAttacker;}					//Letzer Angreifer
+public func IsDestroyed()		{return fDestroyed;}					//Zerstört
+public func IsCMCVehicle()		{return true;}						//Ist ein CMC Fahrzeug
 
 
 /* Initialisierung */
@@ -26,11 +26,10 @@ public func Initialize()
 
   //Neutrale Fahrzeuge sind weiß
   if(GetOwner() == NO_OWNER) SetColorDw(RGB(255,255,255));
-	AddEffect("VehicleNoOwner", this, 50, 38, this);
+    AddEffect("VehicleNoOwner", this, 50, 38, this);
 
   return true;
 }
-
 
 /* Unbenutzt */
 
@@ -118,8 +117,8 @@ public func Destroyed()
 
 global func SetOwnerFade(int iPlr, object pTarget, int iDuration)
 {
-	var clrOld = 0;
-	var clrNew = RGB(255,255,255);
+  var clrOld = 0;
+  var clrNew = RGB(255,255,255);
   if(!pTarget) pTarget = this;
   if(!pTarget) return 0;
   if(GetOwner(pTarget) == iPlr) return true;

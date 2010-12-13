@@ -11,15 +11,15 @@ public func Set(string szSoundSet, int iInterval, int iVariation, int iFalloff)
 {
   soundset = szSoundSet;
   if(!soundset) soundset = "Wave*.ogg";
-  
+
   interval = iInterval;
   //if(!interval) interval = 100;
-  
+
   variation = iVariation;
   //if(!variation) variation = 40;
   
   falloff = iFalloff;
-  
+
   if(iInterval)
     StartSoundEffect();
   else
@@ -60,8 +60,8 @@ protected func StartSoundEffect()
   Sound(soundset,g,this,0,0,0,0,f);
 
   AddEffect("IntDoSound",this,50,
-            interval+RandomX(-variation,+variation),
-            this,0,soundset); 
+  		interval+RandomX(-variation,+variation),
+  		this,0,soundset); 
 }
 
 public func FxIntDoSoundStart(object pTarget, int iEffectNumber, int iTemp,szsound)

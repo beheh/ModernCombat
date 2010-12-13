@@ -3,8 +3,6 @@
 #strict 2
 
 
-/* Infos */
-
 protected func Activate(iByPlayer)
 {
   var pClonk = GetCursor(iByPlayer);
