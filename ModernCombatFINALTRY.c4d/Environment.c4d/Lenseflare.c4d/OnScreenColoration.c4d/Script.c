@@ -27,7 +27,8 @@ public func Set(int iPlayer, int dwRGBa, bool bAdditive,int iTrans)
   else
     SetVisibility(VIS_All);
 
-  if(bAdditive)// Additiv zeichnen?
+  //Additiv zeichnen?
+  if(bAdditive)
     SetObjectBlitMode(GFX_BLIT_Additive);
 
   SplitRGBaValue(dwRGBa,R,G,B,a);
@@ -42,7 +43,6 @@ public func SetClr(int dwRGBa)
   a=255-a;
 }
 
-// In Promille
 public func SetTrans(alpha)
 {
   Trans=alpha;
@@ -53,7 +53,6 @@ public func GetTrans()
   return Trans;
 }
 
-// In Promille pro Frame
 public func SetFading(dir)
 {
   iADir=dir;

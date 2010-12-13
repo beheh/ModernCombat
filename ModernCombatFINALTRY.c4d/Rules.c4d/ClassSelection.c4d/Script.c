@@ -68,7 +68,7 @@ public func RelaunchPlayer(int iPlr, object pClonk)
 
   //Menü zeitverzögert erstellen
   ScheduleCall(0,"InitClassMenu",10,0,pClonk);
-  
+
   return;
 }
 
@@ -95,9 +95,9 @@ public func FxSpawntimerTimer(pTarget, iNo, iTime)
   EffectVar(1, pTarget, iNo)--;
   PlayerMessage(EffectVar(0, pTarget, iNo), "@$TimeTillRespawn$", 0, EffectVar(1, pTarget, iNo));
 
-  //Clonk/Behälter weg oder Clonk nicht im Behälter? Weg mit dem Effekt
+  //Verschwinden wenn Clonk/Behälter weg oder Clonk nicht im Behälter
   if (!EffectVar(2, pTarget, iNo) || !EffectVar(3, pTarget, iNo) || Contained(EffectVar(2, pTarget, iNo)) != EffectVar(3, pTarget, iNo)) {
-    //Behälter noch da und TIM1? Weg damit.
+    //Verschwinden wenn Behälter noch vorhanden und TIM1
     if (GetID(EffectVar(3, pTarget, iNo)) == TIM1)
       RemoveObject(EffectVar(3, pTarget, iNo));
     return -1;

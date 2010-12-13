@@ -7,16 +7,16 @@ local fRepairing;
 local iAutorepairWait;
 local iLastAttacker;
 
-public func OnDestruction()		{}		//Bei der Zerstörung des Gebäudes, aber folgenden Reparatur
-public func OnRepair()			{}		//Nach der Wiederinstandsetzung
-public func AutoRepairDuration()	{return 36*20;}	//Dauer der Reparatur
-public func BonusPointCondition()	{return true;}	//Zusätzlicher Callback, ob Punkte vergeben werden
-public func MaxDamage()			{return 100;}	//Maximalschaden
+public func OnDestruction()		{}				//Bei der Zerstörung des Gebäudes, aber folgenden Reparatur
+public func OnRepair()			{}				//Nach der Wiederinstandsetzung
+public func AutoRepairDuration()	{return 36*20;}			//Dauer der Reparatur
+public func BonusPointCondition()	{return true;}			//Zusätzlicher Callback, ob Punkte vergeben werden
+public func MaxDamage()			{return 100;}			//Maximalschaden
+public func AutoRepairWait()		{return iAutorepairWait;}	//Zeit bis zu Autoreparatur
 
-public func IsRepairing()		{return fRepairing;}
-public func IsDestroyed()		{return fDestroyed;}
-public func IsCMCStructure()		{return true;}
-public func AutoRepairWait()		{return iAutorepairWait;}
+public func IsRepairing()		{return fRepairing;}		//Reparierend
+public func IsDestroyed()		{return fDestroyed;}		//Zerstört
+public func IsCMCStructure()		{return true;}			//Ist eine CMC Struktur
 
 
 /* Initialisierung */

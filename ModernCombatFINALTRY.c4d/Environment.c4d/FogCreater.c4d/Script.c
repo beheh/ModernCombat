@@ -5,15 +5,14 @@
 local vel;
 
 
-/* Initalisierung */
+/* Initialisierung */
 
 protected func Initialize()
 {
   SetPosition();
-  
   vel = 30;
-  
-  //Startnebel
+
+  //Nebel auf Landschaft plazieren
   for(var i = LandscapeWidth()/10; i > 0; i--)
    DoFog(i*10);
 }
@@ -22,9 +21,11 @@ protected func Initialize()
 
 protected func Timer()
 {
-	if(!GetEffectData(EFSM_Fog)) return;
+  //Effektmanager beachten
+  if(!GetEffectData(EFSM_Fog)) return;
+
   DoFog();
-  
+
   if(!Random(100))
     if(!GetEffect("IntPush",this))
       AddEffect ("IntPush", this, 50, 1, this, GetID(), 35*(3+Random(10)));
@@ -32,13 +33,13 @@ protected func Timer()
 
 protected func DoFog(x)
 {
-  //atmosphärischen Nebel an den Kartenrändern machen
+  //Atmosphärischen Nebel an den Kartenrändern erstellen
   var grey = 100+Random(155);
-  
+
   var obj = this;
   if(!Random(3))
     obj = 0;
-    
+
   CreateParticle ("Fog", x, Random(LandscapeHeight()), vel+Random(15), 0, 300+Random(600), RGBa(grey,grey,grey,Random(100)), obj, false); 
 }
 
@@ -50,9 +51,9 @@ public func FxIntPushStart(object pTarget, int iEffectNumber, int iTemp, duratio
 public func FxIntPushTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
   var duration = EffectVar(0,pTarget,iEffectNumber);
-  
+
   if(iEffectTime >= duration) return -1;
-  
+
   if(iEffectTime < duration/3)
   {
     vel+=2;
