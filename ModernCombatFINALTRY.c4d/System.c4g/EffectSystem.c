@@ -16,7 +16,7 @@ static const EFSM_ExplosionEffects = 5;	//0/1/2
 static const EFSM_Enlight = 6;		//0/1
 static const EFSM_Darkness = 7;		//0/1
 static const EFSM_Waratmosphere = 8;	//0/1
-static const EFSM_Deco = 9;	//0/1
+static const EFSM_Deco = 9;		//0/1
 
 
 /* Globale Effektstufe setzen */
