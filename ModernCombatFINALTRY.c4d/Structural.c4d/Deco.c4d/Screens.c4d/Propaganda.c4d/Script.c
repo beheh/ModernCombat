@@ -2,7 +2,11 @@
 
 #strict 2
 
-func Initialize() {
+
+/* Intialisierung */
+
+func Initialize()
+{
   SetAction("Animate");
   AddFrame();
 }

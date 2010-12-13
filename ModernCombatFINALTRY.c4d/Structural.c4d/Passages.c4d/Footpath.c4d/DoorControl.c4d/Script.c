@@ -10,8 +10,8 @@ local lock;							//Tür ist verschließbar (geht nicht automatisch auf)
 local destroyed;						//zerstört
 local maxdmg;
 
-public func GetMaxDamage()	{return maxdmg;}		//max. Schaden
-public func IsDestroyable()	{return maxdmg != -1;}		//zerstörbar?
+public func GetMaxDamage()	{return maxdmg;}		//Maximaler Schaden
+public func IsDestroyable()	{return maxdmg != -1;}		//Zerstörbar?
 public func SetMaxDamage(int m)	{ maxdmg = m; }
 public func Lock(bool aut)	{lock = 1; if(aut) lock = 2;}	//Tür öffnet sich nicht mehr automtisch
 public func Unlock()		{lock = 0;}
@@ -116,21 +116,19 @@ public func Close()
   closed = true;
   if(!GetDefCoreVal("SolidMask",0,GetID(),3)) return;
   for(var o in FindObjects(Find_InRect(-GetObjWidth()/2,-GetObjHeight()/2,GetObjWidth(),GetObjHeight()),
-                                Find_Category(C4D_Vehicle | C4D_Living | C4D_Object),
-                                Find_NoContainer(),
-                                Find_Exclude(this),
-				Find_Not(Find_ID(LADR))))
+  				Find_Category(C4D_Vehicle | C4D_Living | C4D_Object),
+  				Find_NoContainer(),
+  				Find_Exclude(this),
+  				Find_Not(Find_ID(LADR))))
   {
    AutoUnstuck4K(o);
   }
 }
 
-
 /* Schaden */
 
 protected func Damage(int iChange, int iByPlayer)
 {
-  // kapusch
   if(GetDamage() > GetMaxDamage() && IsDestroyable() && !destroyed)
   {
     SetSolidMask(0);
@@ -142,27 +140,23 @@ protected func Damage(int iChange, int iByPlayer)
 
 public func IsBulletTarget()
 {
-    // kann nur beschossen werden wenn zu
-    if(!closed || destroyed)
-        return false;
-    return true;
+  if(!closed || destroyed)
+    return false;
+  return true;
 }
 
 /* Türsteuerung */
 
 public func FxCheckOpenTimer()
 {
-  // Wenn kaputt, dann gar nix mehr
   if(destroyed) return -1;
-  // wenn verschließbar, Tür öffnet und schließt nicht automatisch
   if(lock == 1) return ;
 
-  // wieder schließen
-  if(!closed) {
+  if(!closed)
+  {
     if(!SomeonesApproaching())
       Close();
   }
-  // öffnen
   else if(!lock)
   {
     if(SomeonesApproaching())
@@ -176,16 +170,14 @@ private func SomeonesApproaching()
 
   for(var i = 0; i < 2; ++i)
   {
-     // Suchen wir mal rum.
-     aClonks = FindObjects(Find_InRect(-35 * i, -GetObjHeight() / 2, 35, GetObjHeight()),
-			   Find_NoContainer(),
-			   Find_OCF(OCF_Alive),
-			   Find_Not(Find_Func("IsAlien")) );
-     // Irgendwas gefunden?
-     if(GetLength(aClonks) > 0)
-     {
-       return true;
-     }
+    aClonks = FindObjects(Find_InRect(-35 * i, -GetObjHeight() / 2, 35, GetObjHeight()),
+    				Find_NoContainer(),
+    				Find_OCF(OCF_Alive),
+    				Find_Not(Find_Func("IsAlien")) );
+    if(GetLength(aClonks) > 0)
+    {
+      return true;
+    }
   }
   return false;
 }

@@ -12,7 +12,7 @@ public func IsMachine()		{return true;}
 public func MaxDamage()		{return 150;}
 
 
-/* Initalisierung */
+/* Initialisierung */
 
 func Initialize()
 {
@@ -165,9 +165,9 @@ public func Shoot()
   ObjectSetAction(pCannon, "Backdraft", this);
   CreateParticle("LightFlash",iX,iY,0,0,500,RGBa(255,255,255,32));
   for(var i = 0; i < 14; i++)
-    CreateParticle("Smoke",iX,iY+RandomX(-20,20),0,0,RandomX(50,100),RGB(96,96,96));
+    CastSmoke("Smoke",iX,iY+RandomX(-20,20),0,0,RandomX(50,100),RGB(96,96,96));
 
-  if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("GunSmoke",4,10,0,0,500,100);
+  if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("GunSmoke",4,10,0,0,500,100);
   MuzzleFlash(RandomX(30,75),this,iX,iY,GetR(pCannon));
 }
 
@@ -184,7 +184,7 @@ public func OnDestruction()
   RemoveEffect("ShowWeapon", this); 
 
   //Effekte
-  if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("Smoke3",15,20,0,0,220,500);
+  if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",15,20,0,0,220,500);
   if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("ConcreteSplinter",4,110,0,0,40,100);
   if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("ConcreteSplinter",8,150,0,0,40,15,RGB(40,20,20));
 }
@@ -192,7 +192,7 @@ public func OnDestruction()
 public func OnDmg(int iDmg, int iType)
 {
   if(iType == DMG_Fire)		return 60;	//Feuer
-  if(iType == DMG_Explosion)	return;	//Explosionen und Druckwellen
+  if(iType == DMG_Explosion)	return;		//Explosionen und Druckwellen
   if(iType == DMG_Bio)		return 100;	//Säure und biologische Schadstoffe
   return 80;
 }

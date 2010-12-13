@@ -11,11 +11,11 @@ public func IsMachine()	{return 1;}
 
 protected func Timer(pClonk)
 {
-  //Kein zu steuerndes Objekt mehr? Selbstzerstörung.
+  //Selsbtzerstörung wenn kein zu steuerndes Objekt mehr
   if(!target)
   {
    if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",4,50,0,0,40,150);
-   CastParticles("Smoke3",5,10,0,0,50,200);
+   CastSmoke("Smoke3",5,10,0,0,50,200, RGBa(255,255,255,0));
    Sound("StructuralDamage*.ogg");
    return RemoveObject();
   }

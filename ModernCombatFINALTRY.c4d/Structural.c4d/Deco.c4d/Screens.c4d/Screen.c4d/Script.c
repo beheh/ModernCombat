@@ -3,7 +3,7 @@
 #strict 2
 
 
-/* Initalisierung */
+/* Initialisierung */
 
 func Initialize()
 {

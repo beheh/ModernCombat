@@ -1,7 +1,11 @@
 /*-- Rampe --*/
+
 #strict 2
 
 local x,y,mat;
+
+
+/* Initialisierung */
 
 protected func Initialize()
 {
@@ -67,4 +71,4 @@ protected func Update()
   SetClrModulation (rgb);
 }
 
-protected func UpdateTransferZone(){Update();}
+protected func UpdateTransferZone()	{Update();}

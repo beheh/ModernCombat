@@ -5,7 +5,7 @@
 local light,count,distance,left,right;
 
 
-/* Initalisierung */
+/* Initialisierung */
 
 func Initialize()
 {
@@ -28,14 +28,14 @@ func SetType(bool bLeft,bool bRight)
   right = bRight;
 }
 
-func GetLeft(){return left;}
-func GetRight(){return right;}
+func GetLeft()			{return left;}
+func GetRight()			{return right;}
 
-func SetCount(int iCount){count = iCount;}
-func GetCount(){return count;}
+func SetCount(int iCount)	{count = iCount;}
+func GetCount()			{return count;}
 
-func SetDistance(int iDist){distance = iDist;}
-func GetDistance(){return distance;}
+func SetDistance(int iDist)	{distance = iDist;}
+func GetDistance()	{return distance;}
 
 func Set(int iCount, int iDist, bool bLeft, bool bRight, int iTimer)
 {
@@ -45,7 +45,7 @@ func Set(int iCount, int iDist, bool bLeft, bool bRight, int iTimer)
   distance = iDist;
   count = BoundBy(count,0,distance);
   if(!iTimer) iTimer = 35;
-  
+
   RemoveEffect("IntOLights");
   AddEffect("IntOLights",this,50,iTimer,this,GetID()); 
 }
@@ -54,10 +54,10 @@ func Timer()
 {
   light--;
   if(light <= 0) light=count;
-  
+
   if(left)
     CreateParticle ("NoGravSpark", -light*distance, 0, 0, 0, 20, RGBa(250,170,100,0));
-    
+
   if(right)
     CreateParticle ("NoGravSpark", +light*distance, 0, 0, 0, 20, RGBa(250,170,100,0)); 
 }

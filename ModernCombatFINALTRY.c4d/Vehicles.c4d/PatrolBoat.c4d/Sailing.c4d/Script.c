@@ -57,7 +57,7 @@ public func OnDestruction()
   //Effekte
   CreateParticle("Blast",0,-10,-20,0,5*50,RGB(255,255,128));
   CreateParticle("Blast",0,-10,20,0,5*50,RGB(255,255,128));
-  if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("Smoke3",15,15,0,-10,100,200,RGBa(0,0,0,100));
+  if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",15,15,0,-10,100,200,RGBa(0,0,0,100));
   if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",4,100,0,0,20,170,RGB(50,250,50));
   if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",2,100,0,0,30,100,RGB(0,0,0));
   Sound("MotorIdleLoop.ogg",false,motoridle,100,0,-1);
@@ -171,7 +171,7 @@ public func GetActionTarget()
 
 private func SetDirection(int comdir)
 {
-  // Richtungsaenderung nach oben/unten geht auch mit "Turn", aber eine
+  // Richtungsänderung nach oben/unten geht auch mit "Turn", aber eine
   // ComDir-Aenderung, die wieder eine Turn-Action erfordern würde muss
   // warten, bis die jetzige Turn-Action fertig ist.
   if(GetAction() == "Turn")
