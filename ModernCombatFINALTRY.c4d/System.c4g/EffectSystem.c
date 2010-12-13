@@ -66,6 +66,6 @@ global func OnUpdateEffects(int iEffect)
     for(var back in FindObjects(Find_Func("IsDeco")))
       RemoveObject(back);
   }
-  if(iEffect == EFSM_Deco && GetEffectData(EFSM_Deco) && !FindObjects(Find_Func("IsDeco")))
+  if(iEffect == EFSM_Deco && GetEffectData(EFSM_Deco) && !FindObject2(Find_Func("IsDeco")))
     GameCall("CreateDecoration");
 }
