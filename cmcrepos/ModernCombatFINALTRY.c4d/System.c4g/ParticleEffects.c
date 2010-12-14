@@ -12,9 +12,9 @@ global func MuzzleFlash(int iSize, object pClonk, int iX, int iY, int iAngle, in
   if(!pClonk) pClonk = this;
 
   CreateParticle("MuzzleFlash3",iX,iY,
-		+Sin(iAngle,500),
-		-Cos(iAngle,500),
-		iSize*5,iColor,pClonk);
+  		+Sin(iAngle,500),
+  		-Cos(iAngle,500),
+  		iSize*5,iColor,pClonk);
   if(!IsDark())
     return;
 
@@ -79,6 +79,8 @@ static const SplatterScale = 50;
 
 global func BloodBurst(int iSize, int iX, int iY, int iColor)
 {
+  if(!iColor)
+    iColor = RGB(80+Random(105));
   CreateParticle("BloodBurst",iX,iY,0,1,iSize*5,iColor);
 }
 
@@ -94,6 +96,8 @@ global func BloodSplatter(int iSize, int iX, int iY, int iColor)
   if(!ObjectCount(BOOM)) boom = CreateObject(BOOM,0,0,-1);
   else boom = FindObject(BOOM);
 
+  if(!iColor)
+    iColor = RGB(80+Random(105));
   var r = Random(360);
   var xdir = Sin(r,100);
   var ydir = -Cos(r,100);
@@ -108,14 +112,16 @@ global func BloodSplatter2(int iSize, int iX, int iY, int iAngle, int iColor)
   || GetMaterial(iX,iY) == -1) return;
 
   iAngle += 180;
+  if(!iColor)
+    iColor = RGB(80+Random(105));
 
   var boom;
   if(!ObjectCount(BOOM)) boom = CreateObject(BOOM,0,0,-1);
   else boom = FindObject(BOOM);
 
   CreateParticle("BloodSplatter2",iX+Sin(iAngle,iSize/2-5),iY-Cos(iAngle,iSize/2-5),
-				Sin(iAngle,100),-Cos(iAngle,100),
-				iSize*5,iColor, boom, 1);
+  				Sin(iAngle,100),-Cos(iAngle,100),
+  				iSize*5,iColor, boom, 1);
 }
 
 global func Splatter(int iDmg, int iType, object pFrom, int iColor)
@@ -185,8 +191,7 @@ global func FxDamageEffectTimer(object target, int number, int time)
 
   var x, y, size = EffectVar(0,target,number);
   target->~GetDmgEffectPos(x,y);
-	
-  //Occupacy of the smoke is dependend on damage taken
+
   var xdir = +RandomX(-10,10);
   var ydir = -RandomX(-15,10);
   var smoke = RGBa(220,180,110,BoundBy(maxdmg-dmg,20,255));

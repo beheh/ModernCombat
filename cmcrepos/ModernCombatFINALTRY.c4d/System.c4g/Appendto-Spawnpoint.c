@@ -7,6 +7,7 @@
 
 public func IsSpawnpoint()	{return true;}
 
+
 public func RejectEntrance(object pClonk)
 {
   // Objekt ist ein Clonk?

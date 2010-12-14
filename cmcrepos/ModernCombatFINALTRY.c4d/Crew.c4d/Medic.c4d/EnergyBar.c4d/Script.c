@@ -31,7 +31,7 @@ public func Set(object target, int color)
   SetAction("Attach",target);
 
   SetClrModulation(color,this,1);
-  
+
   return true;
 }
 
@@ -41,13 +41,13 @@ public func Update()
   fActive = false;
 
   if(!obj || !(GetOCF(obj) & OCF_Alive) || Contained(obj) || Hostile(GetOwner(), GetOwner(obj)))
-   return;
+    return;
   var cursor = GetCursor(GetOwner());
   if (!cursor || (GetID(cursor) != MDIC && GetID(cursor->~GetRealCursor()) != MDIC) || cursor == obj)
     return;
   var percent = BoundBy(GetEnergy(obj)*100/(GetDefCoreVal("Energy","Physical",GetID(obj))/1000),0,100);
   if(percent > 95)
-   return;
+    return;
   SetVisibility(VIS_Owner);
   fActive = true;
   SetObjDrawTransform(10*percent,0,-160*(100-percent),0,1000,0,0,1);

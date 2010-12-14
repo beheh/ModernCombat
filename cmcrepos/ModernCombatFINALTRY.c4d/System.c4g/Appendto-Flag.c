@@ -14,10 +14,10 @@ protected func Collected(pClonk)
 
   cteam = GetPlayerTeam(GetOwner(pClonk));
 
-  // game call: FlagCaptured(flagTeam, captureTeam, clonk)
-  // flagTeam: The team to which the flag belongs to
-  // captureTeam: The team that captured the flag
-  // clonk: the clonk who did it
+  //game call: FlagCaptured(flagTeam, captureTeam, clonk)
+  //flagTeam: The team to which the flag belongs to
+  //captureTeam: The team that captured the flag
+  //clonk: the clonk who did it
   GameCallEx("FlagCaptured",team, GetPlayerTeam(GetOwner(pClonk)), pClonk);
   return 1;
 }
@@ -44,9 +44,9 @@ protected func Return2Base(pClonk, nolog)
   SetAction("Fly", base);
   if(!nolog)
     EventInfo4K(0, Format("$ReturnedTheFlag$", GetTaggedPlayerName(GetOwner(pClonk))), FLA2, 0, GetTeamColor(team));
-  // game call: FlagReturned(flagTeam, clonk)
-  // flagTeam: The team to which the flag belongs to
-  // clonk: the clonk who did it
+  //game call: FlagReturned(flagTeam, clonk)
+  //flagTeam: The team to which the flag belongs to
+  //clonk: the clonk who did it
   GameCallEx("FlagReturned",team, pClonk);
 }
 
@@ -59,10 +59,10 @@ protected func CheckFlag(pClonk)
   DoWealth(GetOwner(pClonk), 50); // Geld!
   DoTeamScore(GetPlayerTeam(GetOwner(pClonk)), 1);
   flag->~Return2Base(0,1);
-  // game call: FlagScored(flagTeam, scoreTeam, clonk)
-  // flagTeam: The team to which the flag belongs to
-  // scoreTeam: the team that just scored
-  // clonk: the clonk who did it
+  //game call: FlagScored(flagTeam, scoreTeam, clonk)
+  //flagTeam: The team to which the flag belongs to
+  //scoreTeam: the team that just scored
+  //clonk: the clonk who did it
   GameCallEx("FlagScored",team, GetPlayerTeam(GetOwner(pClonk)), pClonk);
 }
 
@@ -71,8 +71,8 @@ public func Destruction()
   //Flaggen dürfen nicht einfach weg sein
   var nFlag = CreateObject(FLA2, 0,0, GetOwner());
   nFlag->Activate(base, team, GetColorDw());
-  // game call: FlagReturned(flagTeam)
-  // flagTeam: The team to which the flag belongs to
+  //game call: FlagReturned(flagTeam)
+  //flagTeam: The team to which the flag belongs to
   GameCallEx("FlagReturned",team);
   EventInfo4K(0, Format("$FlagReturned$", GetTeamColor(team), GetTeamName(team)), FLA2, 0, GetTeamColor(team));
 }

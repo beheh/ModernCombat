@@ -6,6 +6,7 @@
 
 #appendto TEAM
 
+
 private func InitScoreboard()
 {
   if(FindObject(CHOS)) return;

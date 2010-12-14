@@ -226,3 +226,23 @@ private func GetRuleColor(id idDef)
     return RGB(255);
   return RGB(255,255,255);
 }
+
+/* Easteregg Textnachrichten */
+
+private func Eastern(object P)
+{
+  var rand = Random(13);
+  if(!rand) SetName(GetPlayerName(GetPlayerByIndex(Random(GetPlayerCount()))), P);
+  if(rand == 1) SetName("$Emptiness$", P);
+  if(rand == 2) SetName("$YourBrain$", P);
+  if(rand == 3) SetName("$Nothing$", P);
+  if(rand == 4) SetName("$Freezer$", P);
+  if(rand == 5) SetName("$Space$", P);
+  if(rand == 6) SetName("$YourGun$", P);
+  if(rand == 7) SetName("$YourWallet$", P);
+  if(rand == 8) SetName("$YourCookieJar$", P);
+  if(rand == 9) SetName("$ThisWindow$", P);
+  if(rand == 10) SetName("$YourStomach$", P);
+  if(rand == 11) SetName("$EverythingEmpty$", P);
+  if(rand == 12) SetName("$Barrel$", P);
+}

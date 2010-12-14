@@ -1,5 +1,7 @@
 /*-- Globale Schadensfunktionen --*/
 
+//Erweitert das Schadenssystem.
+
 #strict 2
 
 
@@ -14,7 +16,7 @@ global func DoDmg(int iDmg, int iType, object pTarget, int iPrecision, int dmgpl
   var dmg, dmgdealer = dmgplayer-1;
 
   if(dmgdealer < 0)
-  	dmgdealer = GetController(pTarget);
+    dmgdealer = GetController(pTarget);
 
   var red = pTarget->~OnDmg(iDmg, iType); //reduction
   dmg = iDmg*(100-red)*iPrecision;
@@ -24,7 +26,7 @@ global func DoDmg(int iDmg, int iType, object pTarget, int iPrecision, int dmgpl
   // Killer setzen
   if(this && pTarget->GetOCF() & OCF_CrewMember || dmgplayer)
     SetKiller(dmgdealer, pTarget);
-  
+
   if(GetOCF(pTarget) & OCF_CrewMember)
   {
     if(!idKillIcon && this)//Kein Killicon?
@@ -37,7 +39,6 @@ global func DoDmg(int iDmg, int iType, object pTarget, int iPrecision, int dmgpl
       if(idKillIcon->~IsClonk())
         idKillIcon = 0;      
     }
-    
     if(!idKillIcon)
       {
         if(iType)

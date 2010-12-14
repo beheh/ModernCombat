@@ -1,10 +1,10 @@
 /*--- Der Clonk ---*/
 
 #strict 2
-#include PCMK //inkludiert Peacemaker für CMC Agilität
+#include PCMK
 
-public func WeaponCollectionLimit() { return 1; } //Der Clonk kann eine Waffe tragen
-public func ObjectCollectionLimit() { return 4; } //Und 4 beliebige Zusatzobjekte
+public func WeaponCollectionLimit()	{return 1;}	//Der Clonk kann eine Waffe tragen
+public func ObjectCollectionLimit()	{return 4;}	//Und 4 beliebige Zusatzobjekte
 
 
 public func Death()

@@ -74,7 +74,7 @@ protected func Activity()
 
   //Booten aus dem Weg gehen
   var boot;
-  if(boot = FindObject2(Find_ID(INFL),Find_Distance(200)))
+  if(boot = FindObject2(Find_ID(SPBT),Find_Distance(200)))
     if(GetY(boot) - GetY() < 40)
       SetComDir(BoundBy(GetComDir(), COMD_DownRight, COMD_DownLeft));
 }

@@ -10,7 +10,8 @@ public func IsBar()		{return true;}
 public func BarActive()		{return fActive;}
 public func RejectEntrance()	{return true;}
 
-/* Initalisierung */
+
+/* Initialisierung */
 
 protected func Initialize()
 {
@@ -58,14 +59,12 @@ public func Update()
   if(!Contents(0, obj) || !Contents(0, obj)->~IsWeapon() || !obj->AmmoStoring())
     return;
 
-  //Alles ok? Waffe und Waffendaten holen
+  //Waffendaten einholen
   var weapon = Contents(0, obj);
   var ammobag = obj->AmmoStoring();
 
-  //Die Munition die wir haben holen
+  //Munitionsdaten einholen
   var ammocount = obj->GetAmmo(weapon->GetFMData(FM_AmmoID));
-
-  //Und die Munition, die die Waffe aufnehmen kann
   var ammomax = weapon->GetFMData(FM_AmmoLoad);
 
   //Falls maximal 1 im Magazin, 10fach als 100%, ansonsten 3fach
