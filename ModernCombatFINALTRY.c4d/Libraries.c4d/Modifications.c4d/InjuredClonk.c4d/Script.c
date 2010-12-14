@@ -2,9 +2,9 @@
 
 #strict 2
 
-static const FKDT_SuicideTime = 15; //Standardzeit bei Fake Death
+static const FKDT_SuicideTime = 15; //Standardzeit bei Fake Death in Sekunden
 
-local clonk,oldvisrange,oldvisstate,suicide,killmsg,szTipp,idTipp;
+local clonk,oldvisrange,oldvisstate,killmsg,szTipp,idTipp;
 
 public func AimAngle()		{}
 public func ReadyToFire()	{}
@@ -56,9 +56,6 @@ public func Set(object pClonk)
   SetFoW(true,GetOwner(pClonk)); 
   SetPlrViewRange(100,pClonk);
 
-  //Lebenszeit setzen
-  suicide = FKDT_SuicideTime + 1;
-
   //Etwas Lebensenergie
   DoEnergy(10, pClonk);
 
@@ -66,8 +63,7 @@ public func Set(object pClonk)
   Sound("FKDT_ClonkDown.ogg", false, pClonk, 100, GetOwner(pClonk)+1, +1);
 
   //Verzögert Auswahlmenü öffnen
-  DoMenu();
-  ScheduleCall(this,"DoMenu",35,suicide);
+  AddEffect("IntFakeDeathMenu", this, 1, 10, this);
 }
 
 public func KillMessage(string msg)
@@ -79,18 +75,42 @@ public func KillMessage(string msg)
   if (clonk && !GetPlrExtraData(GetOwner(clonk), "Hazard_NoHelpMsg"))
   {
     var array = GetQuickTipp(this);
-      idTipp = array[0];
+    idTipp = array[0];
     szTipp = array[1];
   }
 
   DeathMenu();
 }
 
+protected func FxIntFakeDeathMenuTimer(object pTarget, int iEffect, int iTime)
+{
+  pTarget->~DoMenu();
+
+  //Tot :C
+  if (iTime >= FKDT_SuicideTime * 35)
+    return pTarget->~Suicide();
+
+  var pClonk = pTarget->~GetClonk();
+  if (!pClonk)
+    return;
+  var iAlpha = Interpolate2(255, 0, iTime, FKDT_SuicideTime * 35), pScreen = GetScreenRGB(GetOwner(pClonk), SR4K_LayerFakeDeath);
+  if (pScreen)
+    pScreen->~SetAlpha(iAlpha);
+  else
+    ScreenRGB(pClonk, GetScenarioVal("FoWColor"), iAlpha, 0, false, SR4K_LayerFakeDeath);
+}
+
+protected func FxIntFakeDeathMenuStop(object pTarget)
+{
+  var pScreen = GetScreenRGB(GetOwner(pTarget), SR4K_LayerFakeDeath);
+  if (pScreen)
+    RemoveObject(pScreen);
+}
+
 /* Auswahlmenü */
 
 func DoMenu()
 {
-  suicide--;
   DeathMenu();
 }
 
@@ -105,19 +125,13 @@ private func DeathMenu()
   if(GetMenu(clonk)) return;
 
   //Menü erstellen
-  CreateMenu(FKDT, clonk, this, 0, Format("$Title$"), C4MN_Style_Dialog, true);			//Titelzeile
-  if(FindObject(SICD))										//Selbstmord möglich?
-  {
-    AddMenuItem(Format("$Info$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);		//Hinweis
-    AddMenuItem(Format("$DeathCounter$", suicide),"", NONE, clonk, 0, 0, "", 512, 0, 0);	//Counter
-    if(suicide != FKDT_SuicideTime)
-    {AddMenuItem("$Suicide$", "Suicide", SM06, clonk, 0, 0, "$SuicideDesc$");}			//Selbstmordbutton
-  }
-  else
-  {
-    AddMenuItem(Format("$Info2$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);	//Alternativcounter
-    AddMenuItem(Format("$DeathCounter$", suicide),"", NONE, clonk, 0, 0, "", 512, 0, 0);	//Counter
-  }
+  CreateMenu(FKDT, clonk, this, 0, Format("$Title$"), C4MN_Style_Dialog, true);			    //Titelzeile
+
+  AddMenuItem(Format("$Info$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);		//Hinweis
+  AddMenuItem(Format("$DeathCounter$", 1 + TimeLeft() / 35),"", NONE, clonk, 0, 0, "", 512, 0, 0);	    //Counter
+
+  if (FindObject(SICD) && TimeLeft() < (FKDT_SuicideTime - 1) * 35)
+    AddMenuItem("$Suicide$", "Suicide", SM06, clonk, 0, 0, "$SuicideDesc$");
 
   if (GetType(killmsg) == C4V_String)
   {
@@ -155,9 +169,6 @@ private func DeathMenu()
           if (GetType(szString) == C4V_String)
             AddMenuItem(szString, "", NONE, clonk, 0, 0, "", 512);
   }
-
-  if(suicide <= 0)
-    Suicide();
 
   if(selection >= 0) SelectMenuItem(selection, clonk);
 }
@@ -252,7 +263,11 @@ public func Suicide()
   RemoveObject();
 }
 
+/* Calls */
+
 public func GetClonk()		{return clonk;}
+
+public func TimeLeft() {return FKDT_SuicideTime * 35 - GetEffect("IntFakeDeathMenu", this, 0, 6);}
 
 /* Zerstörung */
 
@@ -316,11 +331,4 @@ public func ControlDig(object pCaller)
   if(pCaller == clonk) return 1;
   //Herausnehmen per Graben: Holen-Menü öffnen
   SetCommand(pCaller, "Get", this, 0, 0, 0, 1);
-}
-
-/* Abfrage */
-
-public func GetDeathCountdown()
-{
-  return suicide;
 }
