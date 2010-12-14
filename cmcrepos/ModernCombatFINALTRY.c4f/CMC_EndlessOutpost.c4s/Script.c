@@ -235,7 +235,7 @@ func CreateFurniture()
   tmp->SetClrModulation(RGB(255,255,255));
   tmp = CreateObject(SCR3, 2200, 210, -1);
   tmp->SetClrModulation(RGB(255,255,255));
-  tmp = CreateObject(SCA2, 2200, 400, -1);
+  tmp = CreateObject(SCA2, 2435, 400, -1);
   tmp->SetAction("Scan2");
   tmp = CreateObject(SCR3, 2445, 450, -1);
   tmp->SetClrModulation(RGB(255,255,255));
