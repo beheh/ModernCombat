@@ -222,8 +222,15 @@ func Ready()
 
 public func Beep()
 {
-  if(charge <= 9) return false;
+  //Erst nach Ablauf des letzten Beeps
+  if(GetEffect("IntWait", this)) return;
+
+  if(charge <= 9) return;
+
   Sound("CDBT_Ready.ogg");
+
+  //Einen Moment lang nicht mehr beepen
+  AddEffect("IntWait", this, 1, 20, this);
 }
 
 public func RejectEntrance(object pObj)
