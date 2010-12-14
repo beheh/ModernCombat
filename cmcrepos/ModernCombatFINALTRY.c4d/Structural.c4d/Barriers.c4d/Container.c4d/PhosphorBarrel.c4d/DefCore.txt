@@ -1,6 +1,6 @@
 [DefCore]
 id=HBRL
-Name=ToxicBarrel
+Name=PhosphorBarrel
 Version=4,9,5,0
 Category=C4D_Vehicle
 Width=11
