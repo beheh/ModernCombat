@@ -5,8 +5,10 @@
 local r,g,b,a;
 local target,layer,fade;
 
-static const SR4K_LayerSmoke = 1;
-static const SR4K_LayerLight = 2;
+static const SR4K_LayerSmoke     = 1;
+static const SR4K_LayerLight     = 2;
+static const SR4K_LayerDamage    = 3;
+static const SR4K_LayerFakeDeath = 4;
 
 public func GetTargetCursor()		{}
 public func IsOverlayScreen()		{return true;}
@@ -33,13 +35,18 @@ global func ScreenRGB(object pTarget, int dwRGBa, int iAlphaAdd, int iFadeRate, 
 {
   var obj;
   if(iLayer)
-    obj = FindObject2(Find_ID(S24K),Find_Owner(GetOwner(pTarget)),Find_Func("SameLayer",iLayer));
+    obj = GetScreenRGB(GetOwner(pTarget), iLayer);
 
   if(!obj)
     obj = CreateObject(S24K,0,0,GetOwner(pTarget));
 
   obj->Set(pTarget,dwRGBa,iAlphaAdd,iFadeRate,bAdditive,iLayer);
   return obj;
+}
+
+global func GetScreenRGB(int iPlr, int iLayer)
+{
+  return FindObject2(Find_ID(S24K), Find_Func("SameLayer", iLayer), Find_Owner(iPlr));
 }
 
 public func SameLayer(int iLayer)
@@ -61,7 +68,7 @@ public func Set(object pTarget, int dwRGBa, int iAlphaAdd, int iFadeRate, bool b
   if(bAdditive)
     SetObjectBlitMode(GFX_BLIT_Additive);
 
-  fade = Max(fade,iFadeRate);
+  fade = Max(fade, iFadeRate);
 
   var a_save = a;
   SplitRGBaValue(dwRGBa,r,g,b,a);

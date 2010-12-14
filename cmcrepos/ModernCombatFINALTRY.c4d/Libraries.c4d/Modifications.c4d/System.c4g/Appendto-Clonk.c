@@ -66,7 +66,7 @@ public func OnDmg(int iDmg, int iType)
   {
     HurtSounds(iDmg,iType);
   }
-  return _inherited(...);
+  return _inherited(iDmg, iType, ...);
 }
 
 public func HurtSounds(int iDmg, int iType)
@@ -341,6 +341,22 @@ protected func ControlSpecial2()
   // Ansonsten das Kontextmenü des Clonks öffnen
   ExecuteCommand();
   return SetCommand(this,"Context",0,0,0,this);
+}
+
+/* Screenfärbung bei Schaden */
+
+global func FxDmgCheckDamage(object pTarget, int iEffect, int iDmg)
+{
+  if (!IsFakeDeath(pTarget) && iDmg < 0)
+  {
+    var iMaxAlpha = 160;
+    var iAlpha = BoundBy(iDmg / -200, 0, iMaxAlpha), pScreen = GetScreenRGB(GetOwner(pTarget), SR4K_LayerDamage);
+    if (pScreen)
+      pScreen->~DoAlpha(iAlpha, iMaxAlpha, 255);
+    else
+      ScreenRGB(pTarget, RGB(255), iAlpha, 4, false, SR4K_LayerDamage);
+  }
+  return _inherited(pTarget, iEffect, iDmg, ...);
 }
 
 /* Fake Death */
