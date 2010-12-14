@@ -5,6 +5,7 @@
 #strict 2
 #appendto MISS
 
+
 private func HitObject(object pObject)
 {
   exploding = true;

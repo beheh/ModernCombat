@@ -3,8 +3,8 @@
 #strict 2
 #include HZCK
 
-public func WeaponCollectionLimit() { return 3; } //Der Clonk kann drei Waffen tragen
-public func ObjectCollectionLimit() { return 2; } //Und 2 beliebige Zusatzobjekte
+public func WeaponCollectionLimit()	{return 3;}	//Der Clonk kann drei Waffen tragen
+public func ObjectCollectionLimit()	{return 2;}	//Und 2 beliebige Zusatzobjekte
 
 
 /* Initialisierung */
@@ -77,152 +77,170 @@ protected func UpdateAmmoBars()
 
 /* KI-Erweiterung */
 
-public func GetReanimationTarget(pFrom, &body, &defi, fUnderAttack) {
-	var distance = 200;
-	if(fUnderAttack) distance = 50;
-	body = FindObject2(Find_Func("IsFakeDeath"), Find_Category(C4D_Living), Find_Distance(distance, AbsX(GetX(pFrom)), AbsY(GetY(pFrom))), Find_Allied(GetOwner(pFrom)), Sort_Distance(AbsX(GetX(pFrom)), AbsY(GetY(pFrom))));
-	if(body) {
-		if(ContentsCount(CDBT, pFrom)) {
-			defi = FindObject2(Find_ID(CDBT), Find_Container(pFrom));
-			if(!defi->~Ready()) {
-				pFrom->~DropObject(defi);
-				defi = false;
-			}
-		}
-		if(!defi) defi = FindObject2(Find_ID(CDBT), Find_Or(Find_Container(Contained(body)), Find_Container(pFrom), Find_NoContainer()), Find_Func("Ready"), Find_Distance(distance, AbsX(GetX(pFrom)), AbsY(GetY(pFrom))), Sort_Distance(AbsX(GetX(pFrom)), AbsY(GetY(pFrom))));
-		if(defi) {
-			return true;
-		}
-	}
-	body = false;
-	return false;
+public func GetReanimationTarget(pFrom, &body, &defi, fUnderAttack)
+{
+  var distance = 200;
+  if(fUnderAttack) distance = 50;
+  body = FindObject2(Find_Func("IsFakeDeath"), Find_Category(C4D_Living), Find_Distance(distance, AbsX(GetX(pFrom)), AbsY(GetY(pFrom))), Find_Allied(GetOwner(pFrom)), Sort_Distance(AbsX(GetX(pFrom)), AbsY(GetY(pFrom))));
+  if(body)
+  {
+    if(ContentsCount(CDBT, pFrom))
+    {
+      defi = FindObject2(Find_ID(CDBT), Find_Container(pFrom));
+      if(!defi->~Ready())
+      {
+        pFrom->~DropObject(defi);
+        defi = false;
+      }
+    }
+    if(!defi) defi = FindObject2(Find_ID(CDBT), Find_Or(Find_Container(Contained(body)), Find_Container(pFrom), Find_NoContainer()), Find_Func("Ready"), Find_Distance(distance, AbsX(GetX(pFrom)), AbsY(GetY(pFrom))), Sort_Distance(AbsX(GetX(pFrom)), AbsY(GetY(pFrom))));
+    if(defi)
+    {
+      return true;
+    }
+  }
+  body = false;
+  return false;
 }
 
 public func FxAggroTimer(object pTarget, int no)
 {
   if(Contained()) return;
-	// Erst mal schauen ob wir dringend helfen können
-	var body, defi;
-	GetReanimationTarget(pTarget, body, defi, EffectVar(1, this(), no)); //Checkt auch nach Defi
-	if(body) {
-		if(IsAiming()) StopAiming();
-		if(Contents() == defi && GetProcedure(pTarget) && ObjectDistance(body, pTarget) < 10) {
-			ScheduleCall(defi, "Activate", 1, 0, pTarget);
-		}
-		else {
-			if(!Contained(defi) || Contained(defi) != pTarget) {
-				if(GetCommand(pTarget) != "Get") SetCommand(pTarget, "Get", defi);
-			}
-			else if(Contents() != defi) { //Nicht ausgewählt?
-				ShiftContents(pTarget, 0, CDBT);
-			}
-			else {
-				SetMacroCommand(pTarget, "MoveTo", body, 0,0,0, EffectVar(0, pTarget, no));
-			}
-			return(1);
-		}
-	}
-	// Verletzt?
-	if(!pTarget->~IsHealing() && pTarget->GetEnergy() < pTarget->GetPhysical("Energy") * 2/3 / 1000) {
-		// Medic, FAP dabei und kein Dragnin? Entpacken!
-		if(!ContentsCount(DGNN, pTarget) && ContentsCount(FAPK, pTarget)) {
-			var pFAP = FindObject2(Find_ID(FAPK), Find_Container(pTarget), Find_Func("CanUnpack", pTarget));
-			if(pFAP)
-				pFAP->ControlThrow(pTarget);
-		}
-		// Und schnell mal nach Dragnin suchen
-		var pDragnin = FindObject2(Find_ID(DGNN), Find_Container(pTarget));
-			if(pDragnin) pDragnin->Activate(pTarget);
-	}
-	// Okay - und sonst noch wer in meiner Nähe stark verletzt?
-	//var friends;
-	for(var friend in FindObjects(Find_Category(OCF_Living), Find_NoContainer(), Find_Distance(50, AbsX(GetX(pTarget)), AbsY(GetY(pTarget))), Sort_Distance())) {
-		if(!friend->~IsHealing() && friend->GetEnergy() < friend->GetPhysical("Energy") * 1/3 / 1000) {
-			// Medic, FAP dabei und kein Dragnin? Entpacken!
-			if(!ContentsCount(DGNN, pTarget) && ContentsCount(FAPK, pTarget)) {
-				var pFAP = FindObject2(Find_ID(FAPK), Find_Container(pTarget), Find_Func("CanUnpack", pTarget));
-				if(pFAP)
-					pFAP->ControlThrow(pTarget);
-			}
-			// Und schnell mal nach Dragnin suchen
-			var pDragnin = FindObject2(Find_ID(DGNN), Find_Container(pTarget));
-			if(pDragnin) {
-				if(ObjectDistance(friend, pTarget) < 10) {
-					pDragnin->ControlThrow(pTarget);
-				}
-				else {
-					SetMacroCommand(pTarget, "MoveTo", friend, 0,0,0, EffectVar(0, pTarget, no));
-				}
-			}
-			break;
-		}
-	}
-  // Wir haben ein Ziel?
-  if(EffectVar(1, this, no) && (pTarget->~GetSpread() < 80 || ObjectDistance(pTarget, EffectVar(1, this, no))) < 30) { EffectCall(this(), no, "Fire"); return 1; }
-  // Zielen beenden
+  //Hilfsbedürftige in der Nähe?
+  var body, defi;
+  GetReanimationTarget(pTarget, body, defi, EffectVar(1, this(), no)); //Checkt auch nach Defi
+  if(body)
+  {
+    if(IsAiming()) StopAiming();
+    if(Contents() == defi && GetProcedure(pTarget) && ObjectDistance(body, pTarget) < 10)
+    {
+      ScheduleCall(defi, "Activate", 1, 0, pTarget);
+    }
+    else
+    {
+      if(!Contained(defi) || Contained(defi) != pTarget)
+      {
+        if(GetCommand(pTarget) != "Get") SetCommand(pTarget, "Get", defi);
+      }
+      else
+      //Nicht ausgewählt?
+      if(Contents() != defi)
+      {
+        ShiftContents(pTarget, 0, CDBT);
+      }
+      else
+      {
+        SetMacroCommand(pTarget, "MoveTo", body, 0,0,0, EffectVar(0, pTarget, no));
+      }
+      return(1);
+    }
+  }
+  //Verletzter in der Nähe?
+  if(!pTarget->~IsHealing() && pTarget->GetEnergy() < pTarget->GetPhysical("Energy") * 2/3 / 1000)
+  {
+    //Ist Sanitäter, besitzt FAP und kein Dragnin? Entpacken!
+    if(!ContentsCount(DGNN, pTarget) && ContentsCount(FAPK, pTarget))
+    {
+      var pFAP = FindObject2(Find_ID(FAPK), Find_Container(pTarget), Find_Func("CanUnpack", pTarget));
+      if(pFAP)
+        pFAP->ControlThrow(pTarget);
+    }
+    //Dragnin suchen
+    var pDragnin = FindObject2(Find_ID(DGNN), Find_Container(pTarget));
+      if(pDragnin) pDragnin->Activate(pTarget);
+  }
+  //Weitere Verletzte?
+  //var friends;
+  for(var friend in FindObjects(Find_Category(OCF_Living), Find_NoContainer(), Find_Distance(50, AbsX(GetX(pTarget)), AbsY(GetY(pTarget))), Sort_Distance()))
+  {
+    if(!friend->~IsHealing() && friend->GetEnergy() < friend->GetPhysical("Energy") * 1/3 / 1000)
+    {
+      //Ist Sanitäter, besitzt FAP und kein Dragnin? Entpacken!
+      if(!ContentsCount(DGNN, pTarget) && ContentsCount(FAPK, pTarget))
+      {
+        var pFAP = FindObject2(Find_ID(FAPK), Find_Container(pTarget), Find_Func("CanUnpack", pTarget));
+        if(pFAP)
+          pFAP->ControlThrow(pTarget);
+      }
+      //Dragnin suchen
+      var pDragnin = FindObject2(Find_ID(DGNN), Find_Container(pTarget));
+      if(pDragnin)
+      {
+        if(ObjectDistance(friend, pTarget) < 10)
+        {
+          pDragnin->ControlThrow(pTarget);
+        }
+        else
+        {
+          SetMacroCommand(pTarget, "MoveTo", friend, 0,0,0, EffectVar(0, pTarget, no));
+        }
+      }
+      break;
+    }
+  }
+  //Ziel vorhanden?
+  if(EffectVar(1, this, no) && (pTarget->~GetSpread() < 80 || ObjectDistance(pTarget, EffectVar(1, this, no))) < 30)	{EffectCall(this(), no, "Fire"); return 1;}
+  //Zielen beenden
   if(IsAiming()) StopAiming();
-//  Message("@No target", this());
-  // Ziel suchen
+  // Message("@No target", this());
+  //Ziel suchen
   var dir = GetDir()*2-1;
-  // Vorne
+  //Vorne
   var target = GetTarget(90*dir, 90);
-  // Hinten
+  //Hinten
   if(!target)
     if((!GetCommand() && !GetMacroCommand()) || EffectVar(0, this(), no) != 1)
       target = GetTarget(-90*dir, 90);
-  // Gefunden?
+  //Gefunden?
   if(!target)
   {
-  	// Nichts gefunden :(
-    // -> Bescheid geben!
+    //Nichts gefunden
     if(EffectVar(99, this(), no))
     {
       if(Contained())
         Contained()->~HandleAggroFinished(this());
       else if(IsRiding())
         GetActionTarget()->~HandleAggroFinished(this());
-      
       EffectVar(99, this(), no);
     }
-    // -> Waffen durchchecken
+    //Waffen prüfen
     CheckIdleWeapon();
     return;
   }
-  // Super
   EffectVar(1, this(), no) = target;
-  EffectVar(99,this(), no) = true; // wir haben ein Ziel \o/
+  //Ziel vorhanden
+  EffectVar(99,this(), no) = true;
 }
 
-// Wenn iLevel = 1 (Aggro_Shoot) werden keine Waffen mit FM_Aim ausgewählt
+//Wenn iLevel = 1 (Aggro_Shoot) werden keine Waffen mit FM_Aim ausgewählt
 public func SelectWeapon(int iLevel, object pTarget, bool fFireModes)
 {
-  // Entfernung zum Ziel
+  //Entfernung zum Ziel
   var dist = ObjectDistance(pTarget);
-  // Keine Waffen in Inventar?
+  //Keine Waffen in Inventar?
   if(!CustomContentsCount("IsWeapon")) return;
-  // Bevorzugten Schadenstyp bestimmen
+  //Bevorzugten Schadenstyp bestimmen
   var preftype = GetPrefDmgType(pTarget), type;
-  // Alle durchgehen und passende prüfen
+  //Alle durchgehen und passende prüfen
   for(var i=0,obj,fav,mode,favmode ; obj = Contents(i) ; mode++)
   {
-    // Nix Waffe
-    if(!(obj->~IsWeapon())) { i++; mode = -1; continue; }
-    // Feuermodus
-    if(mode && !fFireModes) { i++; mode = -1; continue; }
-    if(!(obj->GetFMData(FM_Name, mode))) { i++; mode = -1; continue; }
-    if(mode == obj->GetFireMode() && mode) continue;
-    // Nix gut
+    //Keine Waffe
+    if(!(obj->~IsWeapon()))			{i++; mode = -1; continue;}
+    //Feuermodus
+    if(mode && !fFireModes)			{i++; mode = -1; continue;}
+    if(!(obj->GetFMData(FM_Name, mode)))	{i++; mode = -1; continue;}
+    if(mode == obj->GetFireMode() && mode)	continue;
     if(obj->GetFMData(FM_Aim, mode)>0)
       if(iLevel == 1 || !WildcardMatch(GetAction(), "*Walk*"))
         continue;
-    // Keine Munition dafür?
+    //Keine Munition?
     if(!NoAmmo() && !(obj->GetCharge()) && !GetAmmo(obj->GetFMData(FM_AmmoID, mode)))
       continue;
-    // EMP nur gegen Maschinen
+    //EMP nur gegen Maschinen
     if(obj->GetBotData(BOT_EMP, mode))
       if(!(pTarget->~IsMachine()))
         continue;
-    // Kein Favorit bisher?
+    //Kein Favorit bisher?
     if(!fav)
     {
       fav = obj;
@@ -231,10 +249,10 @@ public func SelectWeapon(int iLevel, object pTarget, bool fFireModes)
     }
     else
     {
-      // Favorit hat nicht genug Reichweite
+      //Favorit hat nicht genug Reichweite
       if(fav->GetBotData(BOT_Range, favmode) < dist)
       {
-        // Neue Waffe hat mehr
+        //Neue Waffe hat mehr
         if(obj->GetBotData(BOT_Range, mode) > dist)
         {
           fav = obj;
@@ -244,34 +262,34 @@ public func SelectWeapon(int iLevel, object pTarget, bool fFireModes)
       }
       else
       {
-        // Favorit hat genug Reichweite -> nur wechseln, wenn Schadenstyp besser
+        //Favorit hat genug Reichweite -> nur wechseln, wenn Schadenstyp besser
         if(pTarget->~OnDmg(obj->GetBotData(BOT_DmgType, mode)) < pTarget->~OnDmg(type) &&
-          // Allerdings darf die Waffe nicht zu schwach sein
+          //Allerdings darf die Waffe nicht zu schwach sein
           fav->GetBotData(BOT_Power, favmode)-1 <= obj->GetBotData(BOT_Power, mode))
         {
-          // Neuer Favorit
+          //Neuer Favorit
           fav = obj;
           type = fav->GetBotData(BOT_DmgType);
           favmode = mode;
         }
         else
         {
-          // Stärke der neuen Waffe ist größer oder Favorit ist ein Langlader
+          //Stärke der neuen Waffe ist größer oder Favorit ist ein Langlader
           if(fav->GetBotData(BOT_Power, favmode) < obj->GetBotData(BOT_Power, mode) ||
              (fav->GetBotData(BOT_Power, favmode) == BOT_Power_LongLoad && (fav->IsReloading() || !(fav->GetCharge()))))
           {
-            // Waffe hat keine extralange Nachladezeit
+            //Waffe hat keine extralange Nachladezeit
             if(obj->GetBotData(BOT_Power, mode) != BOT_Power_LongLoad)
             {
-              // Neuer Favorit
+              //Neuer Favorit
               fav = obj;
               type = fav->GetBotData(BOT_DmgType);
               favmode = mode;
             }
-            // Waffe sollte nicht nachladen und nicht leer sein
+            //Waffe sollte nicht nachladen und nicht leer sein
             else if(obj->GetCharge() != 0 && !(obj->IsReloading()))
               {
-                // Neuer Favorit
+                //Neuer Favorit
                 fav = obj;
                 type = fav->GetBotData(BOT_DmgType);
                 favmode = mode;
@@ -279,7 +297,7 @@ public func SelectWeapon(int iLevel, object pTarget, bool fFireModes)
           }
         } 
       }
-      // Reichweite passt
+      //Reichweite passt
       if(fav->GetBotData(BOT_Range, favmode) >= dist)
         // Schadenstyp auch
         if(preftype == type)
@@ -288,9 +306,9 @@ public func SelectWeapon(int iLevel, object pTarget, bool fFireModes)
               break;
     }
   }
-  // Auswählen
+  //Auswählen
   if(!fav) return;
-  // Feuermodus wechseln?
+  //Feuermodus wechseln?
   if(fFireModes)
     if(favmode && favmode != fav->GetFireMode())
       fav->SetFireMode(favmode);
@@ -300,10 +318,10 @@ public func SelectWeapon(int iLevel, object pTarget, bool fFireModes)
 
 protected func MacroComMoveTo()
 {
-	var x, y;
-	x = GetMacroCommand(0,2);
-	y = GetMacroCommand(0,3);
-	if(!inherited()) return;
-	SetCommand(this, "MoveTo", 0, x, y);
-	return;
+  var x, y;
+  x = GetMacroCommand(0,2);
+  y = GetMacroCommand(0,3);
+  if(!inherited()) return;
+  SetCommand(this, "MoveTo", 0, x, y);
+  return;
 }

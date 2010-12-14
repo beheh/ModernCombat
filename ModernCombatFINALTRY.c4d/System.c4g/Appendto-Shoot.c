@@ -23,11 +23,11 @@ public func FxHitCheckTimer(object target, int effect, int time)
   if(EffectVar(4, target, effect)) exclude = target;
 
   //DrawParticleLine("NoGravSpark",newx-oldx, newy-oldy,0,0,1,25,RGB(255,0,0),RGB(0,0,255));
-  // Wir suchen nach Objekten entlang der Linie die wir uns seit dem letzten Check
-  // bewegt haben. Und sortieren sie nach Distanz (nähere zuerst)
+  //Wir suchen nach Objekten entlang der Linie die wir uns seit dem letzten Check
+  //bewegt haben. Und sortieren sie nach Distanz (nähere zuerst)
   for(obj in FindObjects(Find_OnLine(oldx,oldy,newx,newy),
-                         Find_NoContainer(),
-                         Sort_Distance(oldx, oldy)))
+  			Find_NoContainer(),
+  			Sort_Distance(oldx, oldy)))
   {
     //Excludes
     if(obj == target) continue;
@@ -47,11 +47,9 @@ public func FxHitCheckTimer(object target, int effect, int time)
   EffectVar(0, target, effect) = GetX(target);
   EffectVar(1, target, effect) = GetY(target);
 
-  //verdammt, kommentier doch mal... Also:
-  // Der Schuss wird erst "scharf gemacht", d.h. kann den Schützen selbst treffen, wenn
-  // der Schuss einmal die Shape des Schützen verlassen hat.
+  //Der Schuss wird erst "scharf gemacht", d.h. kann den Schützen selbst treffen, wenn
+  //der Schuss einmal die Shape des Schützen verlassen hat.
 
-  // OKOK, Ich hab sogar das Restzeug kommentiert. :P
   if(!EffectVar(5,target,effect))
   {
     if(!EffectVar(4, target, effect))

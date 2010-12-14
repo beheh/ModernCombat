@@ -53,3 +53,18 @@ OnlyDeleteLastTeam=Das letzte Team muss als erstes entfernt werden!
 
 Kills=Kills
 Death=Tode
+
+// Easteregg
+
+Emptiness=Die Leere
+YourBrain=Dein Gehirn
+Nothing=Nichts
+Freezer=Der Kühlschrank
+Space=Die unendliche Weite
+YourGun=Deine Waffe
+YourWallet=Dein Portemonnaie
+YourCookieJar=Deine Keksdose
+ThisWindow=Du wirst es kaum glauben aber die absolute, großartige Wahrheit von allem ist: Dieses Fenster
+YourStomach=Dein Magen
+EverythingEmpty=Dein EHP, MTP und Defibrillator
+Barrel=Das Phosphorfass

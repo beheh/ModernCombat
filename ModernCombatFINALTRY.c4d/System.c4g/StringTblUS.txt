@@ -53,3 +53,18 @@ OnlyDeleteLastTeam=The last team has to be removed first!
 
 Kills=Kills
 Death=Death
+
+// Easteregg
+
+Emptiness=The emptiness
+YourBrain=Your brain
+Nothing=Nothing
+Freezer=The freezer
+Space=The space
+YourGun=Your gun
+YourWallet=Your wallet
+YourCookieJar=Your cookie jar
+ThisWindow=You probably won't believe it but the absolute and great truth of it all is: This window
+YourStomach=Your stomach
+EverythingEmpty=Your FAP, AMP and shock paddles
+Barrel=The phosphor barrel
