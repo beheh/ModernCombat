@@ -5,10 +5,10 @@
 local r,g,b,a;
 local target,layer,fade;
 
-static const SR4K_LayerSmoke     = 1;
-static const SR4K_LayerLight     = 2;
-static const SR4K_LayerDamage    = 3;
-static const SR4K_LayerFakeDeath = 4;
+static const SR4K_LayerSmoke		= 1;
+static const SR4K_LayerLight		= 2;
+static const SR4K_LayerDamage		= 3;
+static const SR4K_LayerFakeDeath	= 4;
 
 public func GetTargetCursor()		{}
 public func IsOverlayScreen()		{return true;}

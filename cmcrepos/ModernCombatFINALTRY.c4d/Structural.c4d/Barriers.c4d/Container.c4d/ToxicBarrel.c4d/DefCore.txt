@@ -1,6 +1,6 @@
 [DefCore]
 id=TBRL
-Name=ToxicBarrel
+Name=Toxic Barrel
 Version=4,9,5,0
 Category=C4D_Vehicle
 Width=11
