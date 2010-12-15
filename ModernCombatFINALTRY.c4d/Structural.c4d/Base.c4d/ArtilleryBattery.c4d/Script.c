@@ -165,9 +165,9 @@ public func Shoot()
   ObjectSetAction(pCannon, "Backdraft", this);
   CreateParticle("LightFlash",iX,iY,0,0,500,RGBa(255,255,255,32));
   for(var i = 0; i < 14; i++)
-    CastSmoke("Smoke",iX,iY+RandomX(-20,20),0,0,RandomX(50,100),RGB(96,96,96));
+    CreateParticle("Smoke",iX,iY+RandomX(-20,20),0,0,RandomX(50,100),RGB(96,96,96));
 
-  if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("GunSmoke",4,10,0,0,500,100);
+  if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("GunSmoke",4,10,0,0,500,100,RGBa(255,255,255,0));
   MuzzleFlash(RandomX(30,75),this,iX,iY,GetR(pCannon));
 }
 
