@@ -70,6 +70,9 @@ protected func FxBorderStart(pTarget, iNo, iTemp)
   Sound("Alarm.ogg", 0, pTarget, 0, GetOwner(pTarget));
   //Hinweisnachricht
   PlayerMessage(GetOwner(pTarget), "@$Warning$", pTarget, EffectVar(0, pTarget, iNo));
+
+  //Overlay
+  EffectVar(1, pTarget, iNo) = ScreenRGB(pTarget, RGB(1), 128, 0, 0, SR4K_LayerBorder);
 }
     
 protected func FxBorderTimer(pTarget, iNo, iTime)
@@ -95,7 +98,11 @@ protected func FxBorderTimer(pTarget, iNo, iTime)
 protected func FxBorderStop(pTarget, iNo, iReason, fTemp)
 {
   if (!fTemp)
+  {
     PlayerMessage(GetOwner(pTarget), "@", pTarget);
+    if (EffectVar(1, pTarget, iNo))
+      RemoveObject(EffectVar(1, pTarget, iNo));
+  }
 }
 
 protected func Destruction()
