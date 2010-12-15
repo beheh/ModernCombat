@@ -21,14 +21,9 @@ public func GetAlpha()			{return a;}
 
 public func Initialize()
 {
-  SetObjDrawTransform(1000*1000,0,0,0,1000*1000,0,0,0);
-
-  SetPosition(0,0);
-
-  SetClrModulation (RGBa(0,0,0,255));
-  a = 255;
-
-  return 1;
+  SetObjDrawTransform(2000 * LandscapeWidth() / GetDefWidth(GetID()), 0, 0, 0, 2000 * LandscapeHeight() / GetDefHeight(GetID()));
+  SetPosition();
+  SetClrModulation (RGBa(0, 0, 0, a = 255));
 }
 
 global func ScreenRGB(object pTarget, int dwRGBa, int iAlphaAdd, int iFadeRate, bool bAdditive, int iLayer)
