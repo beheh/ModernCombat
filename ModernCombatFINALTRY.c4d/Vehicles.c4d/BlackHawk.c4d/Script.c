@@ -872,6 +872,9 @@ private func DeleteActualSeatPassenger(object Obj)
 
 public func EnterSeat1(a, object Obj)
 {
+  //Erstmal schauen, ob nicht schon besetzt
+  if(Pilot)
+    SeatOccupied(a, Obj)
   //Altbesitzer entfernen
   DeleteActualSeatPassenger(Obj);
 
@@ -890,6 +893,8 @@ public func EnterSeat1(a, object Obj)
 
 public func EnterSeat2(a, object Obj)
 {
+  if(Gunner)
+    SeatOccupied(a, Obj)
   DeleteActualSeatPassenger(Obj);
   SetGraphics("Passenger",this,GetID(),BKHK_PassengerLayer,GFXOV_MODE_ExtraGraphics,0,GFX_BLIT_Custom,this);
   Gunner = Obj;
@@ -903,6 +908,8 @@ public func EnterSeat2(a, object Obj)
 
 public func EnterSeat3(a, object Obj)
 {
+  if(Coordinator)
+    SeatOccupied(a, Obj)
   DeleteActualSeatPassenger(Obj);
   SetGraphics("Passenger",this,GetID(),BKHK_PassengerLayer,GFXOV_MODE_ExtraGraphics,0,GFX_BLIT_Custom,this);
   Coordinator = Obj;
@@ -916,6 +923,8 @@ public func EnterSeat3(a, object Obj)
 
 public func EnterSeat4(a, object Obj)
 {
+  if(Passenger1)
+    SeatOccupied(a, Obj)
   DeleteActualSeatPassenger(Obj);
   SetGraphics("Passenger",this,GetID(),BKHK_PassengerLayer,GFXOV_MODE_ExtraGraphics,0,GFX_BLIT_Custom,this);
   Passenger1 = Obj;
@@ -928,6 +937,8 @@ public func EnterSeat4(a, object Obj)
 
 public func EnterSeat5(a, object Obj)
 {
+  if(Passenger2)
+    SeatOccupied(a, Obj)
   DeleteActualSeatPassenger(Obj);
   SetGraphics("Passenger",this,GetID(),BKHK_PassengerLayer,GFXOV_MODE_ExtraGraphics,0,GFX_BLIT_Custom,this);
   Passenger2 = Obj;
@@ -1232,6 +1243,21 @@ protected func TimerCall()
     {
       CustomMessage("@", this, iPlr, 0, 0, 0, 0, 0, iFlags);
     }
+  }
+  
+  //Alle 50 Frames nach Leichen im Heli suchen und löschen.
+  if(! GetActTime() % 50)
+  {
+    if(!GetAlive(Pilot))
+      Pilot = 0;
+    if(!GetAlive(Gunner))
+      Gunner = 0;
+    if(!GetAlive(Coordinator))
+      Coordinator = 0;
+    if(!GetAlive(Passenger1))
+      Passenger1 = 0;
+    if(!GetAlive(Passenger2))
+      Passenger2 = 0;
   }
 
   //Bei Wasser abschalten
