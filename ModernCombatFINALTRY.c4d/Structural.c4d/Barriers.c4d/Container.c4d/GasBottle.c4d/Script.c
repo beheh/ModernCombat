@@ -59,7 +59,7 @@ func BlowUp(int iPlr)
 
 protected func FxGSBL_SmokeTimer(pTarget, iNo, iTime)
 {
-  if(!GBackLiquid(pTarget))
+  if(!GBackLiquid())
   {
     var dist = Distance(0,0,GetXDir(),GetYDir());
     var maxx = +Sin(GetR(),dist/10);
