@@ -94,10 +94,10 @@ protected func FxIntFakeDeathMenuTimer(object pTarget, int iEffect, int iTime)
   if (!pClonk)
     return;
   var iAlpha = Interpolate2(255, 0, iTime, FKDT_SuicideTime * 35), pScreen = GetScreenRGB(GetOwner(pClonk), SR4K_LayerFakeDeath);
+  if (!pScreen)
+    pScreen = ScreenRGB(pClonk, GetScenarioVal("FoWColor"), iAlpha, 0, false, SR4K_LayerFakeDeath);
   if (pScreen)
-    pScreen->~SetAlpha(iAlpha);
-  else
-    ScreenRGB(pClonk, GetScenarioVal("FoWColor"), iAlpha, 0, false, SR4K_LayerFakeDeath);
+    pScreen->~SetAlpha(iAlpha);    
 }
 
 protected func FxIntFakeDeathMenuStop(object pTarget)
