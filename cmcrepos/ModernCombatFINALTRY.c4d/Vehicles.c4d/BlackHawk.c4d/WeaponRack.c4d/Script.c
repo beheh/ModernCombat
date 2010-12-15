@@ -15,8 +15,8 @@ local rot_left,rot_right;
 local blinkspeed;
 
 public func GetAttWeapon()	{return cur_Attachment;}					//Waffe
-public func MaxRotLeft()	{return rot_left+GetDir(heli)*(180-rot_right+180-rot_left);}	//Maximaler Winkel links
-public func MaxRotRight()	{return rot_right+GetDir(heli)*(180-rot_right+180-rot_left);}	//Maximaler Winkel rechts
+public func MaxRotLeft()	{return rot_left+GetDir(heli)*(180-rot_right+180-rot_left)+GetR();}	//Maximaler Winkel links
+public func MaxRotRight()	{return rot_right+GetDir(heli)*(180-rot_right+180-rot_left)+GetR();}	//Maximaler Winkel rechts
 public func AimAngle()		{return aim_angle+GetR();}					//Winkel auf Ziel
 public func ReadyToFire()	{return 1;}							//Allzeit bereit
 public func IsAiming()		{return true;}							//Geschütz immer am Zielen
@@ -197,28 +197,25 @@ public func TimerCall()
 
   /* Geschütz fahren */
 
-  // alle 2 Frames
-  if(!(GetActTime()%2))
+  // jedes Frame
+  //links?
+  if( AimAngle() < MaxRotLeft())
   {
-    //links?
-    if( AimAngle() < MaxRotLeft())
-    {
-      aim_angle = MaxRotLeft();
-      iPat_Dir = 0; //Anhalten
-    }
-	    
-    //rechts?
-    else if( AimAngle() > MaxRotRight())
-    {
-      aim_angle = MaxRotRight();
-      iPat_Dir = 0; //Anhalten
-    }
-    aim_angle += iPat_Dir*2;
+    aim_angle = MaxRotLeft()-GetR();
+    iPat_Dir = 0; //Anhalten
   }
+	    
+  //rechts?
+  else if( AimAngle() > MaxRotRight())
+  {
+    aim_angle = MaxRotRight()-GetR();
+    iPat_Dir = 0; //Anhalten
+  }
+  aim_angle += iPat_Dir;
 
   //Crosshair nachziehen
   if(Crosshair)
-    Crosshair->SetAngle(AimAngle());
+    Crosshair->SetAngle(AimAngle()-GetR());
 
   //An Helikopterrotation anpassen
 
