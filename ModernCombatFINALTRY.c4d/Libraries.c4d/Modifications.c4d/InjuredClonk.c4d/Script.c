@@ -267,7 +267,7 @@ public func Suicide()
 
 public func GetClonk()		{return clonk;}
 
-public func TimeLeft() {return FKDT_SuicideTime * 35 - GetEffect("IntFakeDeathMenu", this, 0, 6);}
+public func TimeLeft()		{return FKDT_SuicideTime * 35 - GetEffect("IntFakeDeathMenu", this, 0, 6);}
 
 /* Zerstörung */
 
