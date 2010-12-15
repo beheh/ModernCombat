@@ -9,6 +9,7 @@ static const SR4K_LayerSmoke		= 1;
 static const SR4K_LayerLight		= 2;
 static const SR4K_LayerDamage		= 3;
 static const SR4K_LayerFakeDeath	= 4;
+static const SR4K_LayerBorder		= 5;
 
 public func GetTargetCursor()		{}
 public func IsOverlayScreen()		{return true;}
@@ -70,7 +71,10 @@ public func Set(object pTarget, int dwRGBa, int iAlphaAdd, int iFadeRate, bool b
   a = BoundBy(a_save-iAlphaAdd,0,255);
 
   if(!fade)
+  {
     RemoveEffect("IntRGBFade",this);
+    SetClrModulation(RGBa(r, g, b, a));
+  }
   else
     if(!GetEffect("IntRGBFade",this))
       AddEffect("IntRGBFade",this,1,3,this);
