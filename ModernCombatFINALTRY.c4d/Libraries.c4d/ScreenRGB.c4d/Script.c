@@ -64,7 +64,7 @@ public func Set(object pTarget, int dwRGBa, int iAlphaAdd, int iFadeRate, bool b
   if(bAdditive)
     SetObjectBlitMode(GFX_BLIT_Additive);
 
-  fade = Max(fade, iFadeRate);
+  fade = iFadeRate;
 
   var a_save = a;
   SplitRGBaValue(dwRGBa,r,g,b,a);
