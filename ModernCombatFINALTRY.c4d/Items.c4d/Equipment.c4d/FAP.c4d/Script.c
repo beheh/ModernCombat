@@ -34,7 +34,7 @@ protected func Initialize()
 protected func Activate(caller)
 {
   //Zerstören wenn leer und kein Medic
-  if(!GetHealPoints() && !pClonk->~IsMedic())
+  if(!GetHealPoints() && !caller->~IsMedic())
   {
     Sound("FAPK_Hit*.ogg");
     CastParticles("Paper", RandomX(4,8), 40, 0, 0, 4*5, 7*5, RGBa(180,180,180,0), RGBa(240,240,240,150));
