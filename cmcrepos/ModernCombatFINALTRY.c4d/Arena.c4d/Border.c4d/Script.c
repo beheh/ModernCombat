@@ -72,7 +72,7 @@ protected func FxBorderStart(pTarget, iNo, iTemp)
   PlayerMessage(GetOwner(pTarget), "@$Warning$", pTarget, EffectVar(0, pTarget, iNo));
 
   //Overlay
-  EffectVar(1, pTarget, iNo) = ScreenRGB(pTarget, RGB(1), 128, 0, 0, SR4K_LayerBorder);
+  EffectVar(1, pTarget, iNo) = ScreenRGB(pTarget, 1, 1, -10, 0, SR4K_LayerBorder);
 }
     
 protected func FxBorderTimer(pTarget, iNo, iTime)
@@ -93,6 +93,13 @@ protected func FxBorderTimer(pTarget, iNo, iTime)
 
   EffectVar(0, pTarget, iNo)--;
   PlayerMessage(GetOwner(pTarget), "@$Warning$", pTarget, EffectVar(0, pTarget, iNo));
+
+  var obj = EffectVar(1, pTarget, iNo);
+  if (obj)
+  {
+    RemoveEffect("IntRGBFade", obj, 0, true);
+    obj->~SetAlpha(128);
+  }
 }
 
 protected func FxBorderStop(pTarget, iNo, iReason, fTemp)
@@ -101,7 +108,7 @@ protected func FxBorderStop(pTarget, iNo, iReason, fTemp)
   {
     PlayerMessage(GetOwner(pTarget), "@", pTarget);
     if (EffectVar(1, pTarget, iNo))
-      RemoveObject(EffectVar(1, pTarget, iNo));
+      ScreenRGB(pTarget, RGB(0, 0, 1, 128), 0, 10, 0, SR4K_LayerBorder);
   }
 }
 
