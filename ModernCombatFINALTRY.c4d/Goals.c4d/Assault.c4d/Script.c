@@ -54,14 +54,9 @@ public func CalcTickets()
 	  D++;
 	else
 	  A++;
-  //return 4 * A + ((D - A) * D);
+
   //return D + (A + 2 * D + D * D) / (A + 1);
-
-  //Für jeden Angreifer gibt es 4 Tickets. Gibt es mehr Angreifer als Verteidiger, werden für jeden überschüssigen
-  //Angreifer 3 Tickets abgezogen. Gibt es mehr Verteidiger als Angreifer, werden für jeden überschüssigen
-  //Verteidiger 3 Tickets hinzugefügt.
-
-  return 4 * A + (D * 3) - (A * 3);
+  return D + (D * (4 + (20 - D) * D / 12)) / (A + 1);;
 }
 
 public func AddAssaultTarget(id idTarget, int iX, int iY, int iMaxDamage, int iTeam, string szName, int iIndex, array aSpawn, bool fNoBar)
