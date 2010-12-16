@@ -125,33 +125,33 @@ private func DeathMenu()
   if(GetMenu(clonk)) return;
 
   //Menü erstellen
-  CreateMenu(FKDT, clonk, this, 0, Format("$Title$"), C4MN_Style_Dialog, true);			    //Titelzeile
+  CreateMenu(FKDT, clonk, this, 0, Format("$Title$"), C4MN_Style_Dialog, true);				//Titelzeile
 
-  AddMenuItem(Format("$Info$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);		//Hinweis
-  AddMenuItem(Format("$DeathCounter$", 1 + TimeLeft() / 35),"", NONE, clonk, 0, 0, "", 512, 0, 0);	    //Counter
+  AddMenuItem(Format("$Info$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);			//Hinweis
+  AddMenuItem(Format("$DeathCounter$", 1 + TimeLeft() / 35),"", NONE, clonk, 0, 0, "", 512, 0, 0);	//Counter
 
   if (FindObject(SICD) && TimeLeft() < (FKDT_SuicideTime - 1) * 35)
     AddMenuItem("$Suicide$", "Suicide", SM06, clonk, 0, 0, "$SuicideDesc$");
 
   if (GetType(killmsg) == C4V_String)
   {
-    AddMenuItem("", "", NONE, clonk, 0, 0, "", 512, 0, 0);		//Leerzeile
-    AddMenuItem(Format("$Killer$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);	//Titel
-    AddMenuItem(killmsg, "", NONE, clonk, 0, 0, "", 512);					//Killerinformationen
+    AddMenuItem("", "", NONE, clonk, 0, 0, "", 512, 0, 0);						//Leerzeile
+    AddMenuItem(Format("$Killer$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);		//Titel
+    AddMenuItem(killmsg, "", NONE, clonk, 0, 0, "", 512);						//Killerinformationen
   }
 
   if (szTipp)
   {
-    AddMenuItem("", "", NONE, clonk, 0, 0, "", 512, 0, 0);					//Leerzeile
-    AddMenuItem(Format("{{%i}} $Tip$", idTipp),"", NONE, clonk, 0, 0, "", 512, 0, 0);		//Zufälliger Tipp
+    AddMenuItem("", "", NONE, clonk, 0, 0, "", 512, 0, 0);						//Leerzeile
+    AddMenuItem(Format("{{%i}} $Tip$", idTipp),"", NONE, clonk, 0, 0, "", 512, 0, 0);			//Zufälliger Tipp
     AddMenuItem(szTipp,"", NONE, clonk, 0, 0, "", 512, 0, 0);
   }
 
   var obj;
-  if (obj = FindObject(RWDS))									//Punktestatistik erstellen
+  if (obj = FindObject(RWDS))										//Punktestatistik erstellen
   {
-    AddMenuItem("", "", NONE, clonk, 0, 0, "", 512, 0, 0);					//Leerzeile
-    AddMenuItem(Format("$Points$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);	//Titel
+    AddMenuItem("", "", NONE, clonk, 0, 0, "", 512, 0, 0);						//Leerzeile
+    AddMenuItem(Format("$Points$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);		//Titel
     //Einsortieren
     var aList = [], iPlr, aData = obj->~GetData(), szString = "";
     while(aData[iPlr] != 0)
@@ -311,7 +311,6 @@ public func Reanimation()
       Exit(Contents(),0,+10);
     }
   }
-
   //Sichtdaten zurücksetzen
   SetFoW(oldvisstate,GetOwner(clonk));
   SetPlrViewRange(oldvisrange,clonk);
