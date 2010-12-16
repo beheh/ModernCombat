@@ -84,25 +84,29 @@ public func KillMessage(string msg)
 
 protected func FxIntFakeDeathMenuTimer(object pTarget, int iEffect, int iTime)
 {
-  pTarget->~DoMenu();
-
+  if (!pTarget)
+    return -1;
   //Tot :C
-  if (iTime >= FKDT_SuicideTime * 35)
-    return pTarget->~Suicide();
+  if (!clonk || !GetAlive(clonk) || iTime >= FKDT_SuicideTime * 35)
+  {
+    pTarget->~Suicide();
+    return -1;
+  }
+  pTarget->~DoMenu();
 
   var pClonk = pTarget->~GetClonk();
   if (!pClonk)
     return;
-  var iAlpha = Interpolate2(255, 0, iTime, FKDT_SuicideTime * 35), pScreen = GetScreenRGB(GetOwner(pClonk), SR4K_LayerFakeDeath);
+  var iAlpha = Interpolate2(255, 0, iTime, FKDT_SuicideTime * 35), pScreen = EffectVar(0, pTarget, iEffect);
   if (!pScreen)
-    pScreen = ScreenRGB(pClonk, GetScenarioVal("FoWColor"), iAlpha, 0, false, SR4K_LayerFakeDeath);
+    pScreen = EffectVar(0, pTarget, iEffect) = ScreenRGB(pClonk, GetScenarioVal("FoWColor"), iAlpha, 0, false, SR4K_LayerFakeDeath);
   if (pScreen)
-    pScreen->~SetAlpha(iAlpha);    
+    pScreen->~SetAlpha(iAlpha);
 }
 
-protected func FxIntFakeDeathMenuStop(object pTarget)
+protected func FxIntFakeDeathMenuStop(object pTarget, int iEffect)
 {
-  var pScreen = GetScreenRGB(GetOwner(pTarget), SR4K_LayerFakeDeath);
+  var pScreen = EffectVar(0, pTarget, iEffect);
   if (pScreen)
     RemoveObject(pScreen);
 }
