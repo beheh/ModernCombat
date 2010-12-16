@@ -623,7 +623,7 @@ public func ControlThrow(caller)
 
   var meleeattacked;
   //Nahkampfangriff möglich?
-  if(!GetEffect("StrikeRecharge", this) && GetMCData(MC_CanStrike) && (caller->~ReadyToFire() || caller->~ReadyToAttack()) && !caller->~IsAiming() && (GetFMData(FM_Aim) == 0 || GetUser()->~IsAiming() || GetUser()->~AimOverride()))
+  if(!GetEffect("StrikeRecharge", caller) && GetMCData(MC_CanStrike) && (caller->~ReadyToFire() || caller->~ReadyToAttack()) && !caller->~IsAiming() && (GetFMData(FM_Aim) == 0 || GetUser()->~IsAiming() || GetUser()->~AimOverride()))
   {
     var dir = GetDir(GetUser());
     //Ziele finden
@@ -667,7 +667,7 @@ public func ControlThrow(caller)
         Sound("ClonkMelee*.ogg", 0, this);
         Sound("WPN2_Punch.ogg", 0, this);
         meleeattacked = true;
-        AddEffect("StrikeRecharge", this, 1, 1, this);
+        AddEffect("StrikeRecharge", caller, 75, 1, caller);
       }
     }
   }
@@ -1193,24 +1193,34 @@ public func GetFMData()
 
 public func IsRecharging()
 {
-  return _inherited(...) || GetEffect("StrikeRecharge", this);
+  return _inherited(...) || GetEffect("StrikeRecharge", GetUser());
 }
 
-protected func FxStrikeRechargeTimer()
+global func FxStrikeRechargeStart(object pTarget, int iNumber) {
+	EffectVar(0, pTarget, iNumber) = Contents(0, pTarget);
+	EffectVar(1, pTarget, iNumber) = EffectVar(0, pTarget, iNumber)->~GetMCData(MC_Recharge);
+	return true;
+}
+
+global func FxStrikeRechargeTimer(object pTarget, int iNumber)
 {
-  var iTime = GetEffect("StrikeRecharge", this, 0, 6), iFullTime = GetMCData(MC_Recharge), pHUD;
+	var iFullTime = EffectVar(1, pTarget, iNumber);
+  var iTime = GetEffect("StrikeRecharge", this, 0, 6);
+  var pHUD;
   //HUD updaten
-  if(Contained() && Contents(0, Contained()) == this)
-    if (pHUD = FindObject2(Find_ID(1HUD), Find_Owner(GetController(Contained()))))
+  if(Contents(0, pTarget)->~IsWeapon2())
+    if (pHUD = FindObject2(Find_ID(1HUD), Find_Owner(GetController(EffectVar(1, pTarget, iNumber)->GetUser()))))
       pHUD->~Recharge(iTime, iFullTime);
   //Effekt abbrechen?
   if (iTime >= iFullTime)
     return -1;
+  return true;
 }
 
-protected func FxStrikeRechargeStop()
+global func FxStrikeRechargeStop(object pTarget, int iNumber)
 {
-  stopauto = false;
+  LocalN("stopauto", EffectVar(0, pTarget, iNumber)) = false;
+  return true;
 }
 
 /* Kolbenschlagstandardwerte */
@@ -1392,8 +1402,8 @@ global func FxShowWeaponTimer(object pTarget, int iNumber, int iTime)
   var dir;            //Richtung in die das Objekt schaut
   
   //schnell noch Rotation dazurechnen oder so!
-  if(GetEffect("StrikeRecharge", obj))
-  	r += -Max(Sin(GetEffect("StrikeRecharge", obj, 0, 6)*90/(obj->~GetMCData(MC_Recharge)/4),20),0);
+  if(obj->~IsWeapon2() && GetEffect("StrikeRecharge", obj->GetUser()))
+  	r += -Max(Sin(GetEffect("StrikeRecharge", obj->GetUser(), 0, 6)*90/(obj->~EffectVar(0, obj, GetEffect("StrikeRecharge", obj->GetUser()))/4),20),0);
   else
   	r += obj->~HandR();
 	
