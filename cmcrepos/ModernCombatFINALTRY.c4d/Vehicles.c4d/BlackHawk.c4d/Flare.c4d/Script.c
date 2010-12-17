@@ -39,12 +39,13 @@ public func OnDmg(int iDmg, int iType)
   if(iType == DMG_Bio)		return 100;	//Säure und biologische Schadstoffe
 }
 
-protected func Damage()
+protected func Damage(iChange, iByPlr)
 {
   if(GetDamage() > 20)
   {
     //Punkte bei Belohnungssystem
-    DoPlayerPoints(BonusPoints("Protection"), RWDS_TeamPoints, GetOwner(), GetCursor(GetOwner()), IC16);
+    if(Hostile(iByPlr,GetOwner()))
+      DoPlayerPoints(BonusPoints("Protection"), RWDS_TeamPoints, GetOwner(), GetCursor(GetOwner()), IC16);
     Hit();
   }
 }
