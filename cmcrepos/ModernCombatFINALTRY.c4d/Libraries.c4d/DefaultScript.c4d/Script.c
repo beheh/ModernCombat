@@ -168,6 +168,14 @@ public func OnGameOver()
   //RewardEvaluation();
 }
 
+/* Spieler verlässt die Runde */
+
+protected func RemovePlayer(iPlr)
+{
+  if(!GetCursor(iPlr)->IsFakeDeath()) return;
+  GetCursor(iPlr)->Kill();
+}
+
 /* Zusatzfunktionen */
 
 public func OnClassSelection()
@@ -175,10 +183,3 @@ public func OnClassSelection()
 
 public func OnWeaponChoice()
 {}
-
-/* Wenn ein Spieler das Spiel verlässt */
-protected func RemovePlayer(iPlr)
-{
-  if(!GetCursor(iPlr)->IsFakeDeath()) return;
-  GetCursor(iPlr)->Kill();
-}
