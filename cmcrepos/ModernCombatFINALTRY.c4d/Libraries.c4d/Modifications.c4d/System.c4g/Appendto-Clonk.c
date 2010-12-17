@@ -284,7 +284,20 @@ protected func DoPoints()
   
   //Teamkiller
   if(!Hostile(killer,GetOwner()) && killer != GetOwner() && !(killer < 0))
-    DoPlayerPoints(TeamkillPoints(), RWDS_MinusPoints, killer, GetCursor(killer), IC06);	
+    DoPlayerPoints(TeamkillPoints(), RWDS_MinusPoints, killer, GetCursor(killer), IC06);
+  
+  //Punkte für Einräucherer/Blender
+  var effectno;
+  if(effectno = GetEffect("SmokeGrenade", this))
+  {
+    if(Hostile(EffectVar(1, this, effectno),GetOwner()) && killer != EffectVar(1, this, effectno))
+      DoPlayerPoints(BonusPoints("VisualAssist"), RWDS_TeamPoints, EffectVar(1, this, effectno), GetCursor(EffectVar(1, this, effectno)), IC19);
+  }
+  if(effectno = GetEffect("IntFlashbang", this))
+  {
+    if(Hostile(EffectVar(2, this, effectno),GetOwner()) && killer != EffectVar(2, this, effectno))
+      DoPlayerPoints(BonusPoints("VisualAssist"), RWDS_TeamPoints, EffectVar(2, this, effectno), GetCursor(EffectVar(2, this, effectno)), IC19);
+  }
 }
 
 public func KillIcon(id idKillIcon)

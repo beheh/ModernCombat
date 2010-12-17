@@ -27,14 +27,14 @@ public func Fused()
         intensity = Min(intensity+80,255);
 
       //Clonk freundlich? Intensität halbieren
-      if(!Hostile(GetOwner(obj), GetController()))
+      if(!Hostile(GetOwner(obj), GetOwner(GetUser())))
         intensity = intensity/2;
     }
     else
     {
       if(!PathFree(GetX(),GetY(),GetX(obj),GetY(obj))) continue;
     }
-    AddEffect("IntFlashbang",obj,1,1,0,GetID(), intensity); 
+    AddEffect("IntFlashbang",obj,1,1,0,GetID(), intensity, GetOwner(GetUser())); 
   }
 
   //Effekte
@@ -48,12 +48,13 @@ public func Fused()
 
 /* Blendeffekt */
 
-public func FxIntFlashbangStart(object pTarget, int iEffectNumber, int iTemp, intensity)
+public func FxIntFlashbangStart(object pTarget, int iEffectNumber, int iTemp, intensity, owner)
 {
   //Keine Intensität?
   if(!intensity) return -1;
 
   EffectVar(0,pTarget,iEffectNumber) = intensity;
+  EffectVar(2,pTarget,iEffectNumber) = owner; //Zur Punkteberechnung
 
   //Blendung stark genug? Dann auch hörbar
   if(intensity > 38) Sound("STUN_Bang.ogg", false, pTarget, 100, GetOwner(pTarget)+1);
