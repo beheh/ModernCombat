@@ -61,7 +61,7 @@ public func Timer()
   for(var obj in FindObjects(Find_Distance(GetCon()/2,0,0), Find_NoContainer(), Find_OCF(OCF_Living | OCF_CrewMember))) // <- NICHT OCF_Alive ... btw. muss Find_OCF doppelt? Re: Nein, muss es nicht. :)
   {
     if(!GetEffect("SmokeGrenade", obj))
-      AddEffect("SmokeGrenade", obj, 1, 1, obj);
+      AddEffect("SmokeGrenade", obj, 1, 1, obj, 0, GetOwner());
   }
 }
 
@@ -112,8 +112,11 @@ protected func ContactRight()
 
 /* Raucheffekt */
 
-global func FxSmokeGrenadeStart(object pTarget, int iEffectNumber, int iTemp)
+global func FxSmokeGrenadeStart(object pTarget, int iEffectNumber, int iTemp, owner)
 {
+  //Zur Punkteberechnung
+  EffectVar(1, pTarget, iEffectNumber) = owner;
+  
   // KIs brauchen den Sichteffekt nicht.
   if(GetController(pTarget) == NO_OWNER) return;
   if(GetPlayerType(GetController(pTarget)) == C4PT_Script) return;
