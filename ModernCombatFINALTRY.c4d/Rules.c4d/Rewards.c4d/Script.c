@@ -18,8 +18,9 @@ protected func Initialize()
   aAchievementProgress = CreateArray();
   aAchievementExtra = CreateArray();
   iAchievementCount = 0;
-  while(GetName(0, C4Id(Format("AC%02d", iAchievementCount+1)))) {
-  	iAchievementCount++;
+  while(GetName(0, C4Id(Format("AC%02d", iAchievementCount+1))))
+  {
+    iAchievementCount++;
   }
 }
 
@@ -210,12 +211,12 @@ public func UpdatePlayers()
 
 /* Werte setzen und auslesen */
 
-static const RWDS_PlayerName = 0;
-static const RWDS_PlayerTeam = 1;
-static const RWDS_TotalPoints = 2;
-static const RWDS_BattlePoints = 3;
-static const RWDS_TeamPoints = 4;
-static const RWDS_MinusPoints = 5;
+static const RWDS_PlayerName	= 0;
+static const RWDS_PlayerTeam	= 1;
+static const RWDS_TotalPoints	= 2;
+static const RWDS_BattlePoints	= 3;
+static const RWDS_TeamPoints	= 4;
+static const RWDS_MinusPoints	= 5;
 
 global func DoPlayerPoints(int iPoints, int iType, int iPlr, object pClonk, id idIcon)
 {
@@ -274,7 +275,7 @@ global func AwardAchievement(id idAchievement, int iPlr)
 
   if(GetLeague()) return false;
   if(GetPlayerType(iPlr) != C4PT_User) return false;
-  if(!idAchievement->IsAchievement()) return false;
+  if(!idAchievement->IsInfoObject()) return false;
   var iData = GetPlrExtraData(iPlr, "CMC_Achievements");
   if(iData >> idAchievement->GetSavingSlot() & 1) return;
   SetPlrExtraData(iPlr, "CMC_Achievements", iData ^ 1 << idAchievement->GetSavingSlot());

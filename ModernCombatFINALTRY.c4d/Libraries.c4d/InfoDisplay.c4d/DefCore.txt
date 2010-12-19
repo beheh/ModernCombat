@@ -1,6 +1,6 @@
 [DefCore]
 id=ACHH
-Name=Achievement Display
+Name=Info Display
 Version=4,9,5
 Category=C4D_StaticBack
 Width=1

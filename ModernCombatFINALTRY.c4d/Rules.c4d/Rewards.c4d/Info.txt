@@ -24,6 +24,10 @@ Fahrzeug/Strukturzerstörung		50
 Peilsendermarkierung			10
 Assist-Kill mit Peilsender		20
 Fahrzeugschädigung			10
+Assist-Kill durch Blendung		10
+Projektil abgewehrt			10
+Assist-Kill aus Fahrzeug heraus		20
+
 
 Es gibt außerdem diverse optionale Bonuspunkte für Aktionen wie das Zerstören einer gegnerischen Heimbasis oder das Anzünden von gegnerischen Clonks.
 Alle Werte können unter System.c4g\RewardSystem-Points.c verändert werden.

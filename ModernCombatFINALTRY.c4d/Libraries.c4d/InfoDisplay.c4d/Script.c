@@ -1,4 +1,4 @@
-/*-- Auszeichungsanzeige --*/
+/*-- Infoanzeige --*/
 
 #strict 2
 
@@ -23,7 +23,7 @@ public func Initialize()
   Local(1) = 0;
 }
 
-public func IsAchievement()
+public func IsInfoObject()
 {
   return true;
 }
@@ -36,7 +36,7 @@ public func GetAchievementScore()
 protected func Fade()
 {
   if(!iTime)
-    for(var ach in FindObjects(Find_Func("IsAchievement"), Find_Exclude(), Find_Owner(GetOwner())))
+    for(var ach in FindObjects(Find_Func("IsInfoObject"), Find_Exclude(), Find_Owner(GetOwner())))
       if(ach->IsRunning())
         return;
   iTime++;

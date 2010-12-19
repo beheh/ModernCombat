@@ -3,13 +3,93 @@
 #strict 2
 #include TEAM
 
+local iStartTickets;
+local iWarningTickets;
+local aTicket;
+
 static const GOCC_Horizontal = 1;
 static const GOCC_Vertical = 2;
 static const GOCC_FlagColumn = 1;
 static const GOCC_ProgressColumn = 2;
 
 private func StartTickets()		{return 15;}	//Standardticketzahl
+public func IsConfigurable()		{return true;}
 
+
+/* Initialisierung */
+
+protected func Initialize()
+{
+  aTicket = [];
+  //Ticketzahl vorgeben
+  iStartTickets = StartTickets();
+
+  return _inherited();
+}
+
+public func Activate(iPlr)
+{
+  var szText = "";
+  if(GetWinningTeam() > 0)
+  {
+    if(GetWinningTeam() == GetPlayerTeam(iPlr))
+    {
+      szText = "$MsgGoalFulfilled$";
+    }
+    else
+    {
+      szText = "$MsgGoalLost$";
+    }
+  }
+  else
+  {
+    //Alle Teamtickets anzeigen
+    for(var i = 0; i < GetTeamCount(); i++)
+    {
+      var iTeam = GetTeamByIndex(i);
+      if(TeamAlive(iTeam)) szText = Format("%s<c %x>%s</c>: %d $Tickets$|", szText, GetTeamColor(iTeam), GetTeamName(iTeam), GetTickets(iTeam));
+    }
+  }
+  return MessageWindow(szText ,iPlr);
+}
+
+public func ChooserFinished()
+{
+  ScheduleCall(this(),"InitScoreboard",1);
+
+  //Ticketalarm an Ticketzahl anpassen
+  if(iStartTickets < 4)
+  {
+    iWarningTickets = 0;
+  }
+  else
+  {
+    iWarningTickets = Max(iStartTickets/4, 5);
+  }
+  //Bei Klassenwahl Spawnsystem anpassen
+  if(!FindObject(MCSL))
+    ScheduleCall(0,"CreateSpawners",1);
+
+  //Tickets verteilen
+  for(var i = 0; i < GetTeamCount(); i++)
+    DoTickets(GetTeamByIndex(i), iStartTickets);
+
+  //Scoreboards und Spielzielhinweise erstellen
+  for(var i = 0; i < GetPlayerCount(); i++)
+  {
+    DoScoreboardShow(1, GetPlayerByIndex(i)+1);
+    CreateObject(TK01, 0, 0, GetPlayerByIndex(i));
+    Sound("RadioConfirm*.ogg", true, 0, 100, GetPlayerByIndex(i));
+  }
+}
+
+public func CreateSpawners()
+{
+  for(var i = 0; i < GetPlayerCount(); i++)
+  {
+    CreateGOCCSpawner(GetCrew(GetPlayerByIndex(i)));
+  }
+}
 
 /* Globale Funktionen */
 
@@ -73,81 +153,6 @@ public func GetFlagCount(int iTeam, bool bCountBlankFlags)
   return count;
 }
 
-/* Allgemein */
-
-local iStartTickets;
-local iWarningTickets;
-local aTicket;
-
-/* Initialisierung */
-
-protected func Initialize()
-{
-  aTicket = [];
-  //Ticketzahl vorgeben
-  iStartTickets = StartTickets();
-
-  return _inherited();
-}
-
-public func Activate(iPlr)
-{
-  var szText = "";
-  if(GetWinningTeam() > 0)
-  {
-    if(GetWinningTeam() == GetPlayerTeam(iPlr))
-    {
-      szText = "$MsgGoalFulfilled$";
-    }
-    else
-    {
-      szText = "$MsgGoalLost$";
-    }
-  }
-  else
-  {
-    //Alle Teamtickets anzeigen
-    for(var i = 0; i < GetTeamCount(); i++)
-    {
-      var iTeam = GetTeamByIndex(i);
-      if(TeamAlive(iTeam)) szText = Format("%s<c %x>%s</c>: %d $Tickets$|", szText, GetTeamColor(iTeam), GetTeamName(iTeam), GetTickets(iTeam));
-    }
-  }
-  return MessageWindow(szText ,iPlr);
-}
-
-public func ChooserFinished()
-{
-  ScheduleCall(this(),"InitScoreboard",1);
-  if(iStartTickets < 4)
-  {
-    iWarningTickets = 0;
-  }
-  else
-  {
-    iWarningTickets = Max(iStartTickets/4, 5);
-  }
-  //Klassenwahl?
-  if(!FindObject(MCSL))
-    ScheduleCall(0,"CreateSpawners",1);
-
-  for(var i = 0; i < GetTeamCount(); i++)
-    DoTickets(GetTeamByIndex(i), iStartTickets);
-
-  for(var i = 0; i < GetPlayerCount(); i++)
-  {
-    DoScoreboardShow(1, GetPlayerByIndex(i)+1);
-  }
-}
-
-public func CreateSpawners()
-{
-  for(var i = 0; i < GetPlayerCount(); i++)
-  {
-    CreateGOCCSpawner(GetCrew(GetPlayerByIndex(i)));
-  }
-}
-
 /* HUD */
 
 public func GetHUDInfo(int player, object hud)
@@ -168,8 +173,6 @@ public func GetHUDInfo(int player, object hud)
 }
 
 /* Konfiguration */
-
-public func IsConfigurable()		{return true;}
 
 public func ConfigMenu(object pCaller)
 {
