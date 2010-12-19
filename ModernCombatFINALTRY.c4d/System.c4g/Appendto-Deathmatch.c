@@ -19,22 +19,6 @@ public func RelaunchPlayer(int iPlr, object pClonk, int iMurdererPlr)
   inherited(iPlr, pClonk, iMurdererPlr);
 }
 
-public func GetHUDInfo(int player)
-{
-  var team = GetPlayerTeam(player);
-
-  //Rückstand
-  var diff;
-  diff = Max(TeamGetScore(team)) - BestTeamGetScore(team);
-
-  var secondstring;
-  if(!diff) secondstring= "";
-  if(diff > 0) secondstring = Format("(+%d)", diff);
-  if(diff < 0) secondstring = Format("(%d)", diff);
-
-  return Format("%d Kills %s", TeamGetKills(team), secondstring);
-}
-
 public func ChooserFinished()
 {
   //Spielzielhinweise erstellen
