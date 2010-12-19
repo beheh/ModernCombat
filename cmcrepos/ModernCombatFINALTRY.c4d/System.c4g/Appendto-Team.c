@@ -7,11 +7,11 @@
 #appendto TEAM
 
 
-private func InitScoreboard()
+/*private func InitScoreboard()
 {
   if(FindObject(CHOS)) return;
   return _inherited();
-}
+}*/
 
 protected func Initialize()
 {
