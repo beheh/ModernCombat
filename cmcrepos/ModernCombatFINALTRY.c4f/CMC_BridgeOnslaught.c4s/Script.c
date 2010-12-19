@@ -584,7 +584,7 @@ public func ChooserFinished()
    //Flaggenposten
    aFlag[0] = CreateObject(OFPL,380,430,NO_OWNER);
    aFlag[0] -> AddSpawnPoint(330,520);
-   aFlag[0] -> AddSpawnPoint(540,260);
+   aFlag[0] -> AddSpawnPoint(520,260);
    aFlag[0] -> AddSpawnPoint(780,430);
    if(aTeams[1] == true)
    {
@@ -617,7 +617,7 @@ public func ChooserFinished()
    aFlag[4] = CreateObject(OFPL,2350,430,NO_OWNER);
    aFlag[4] -> AddSpawnPoint(2400,520);
    aFlag[4] -> AddSpawnPoint(1950,430);
-   aFlag[4] -> AddSpawnPoint(2190,260);
+   aFlag[4] -> AddSpawnPoint(2210,260);
    if(aTeams[2] == true)
    {
     aFlag[4]->Set("$Flag5$",100,2);
