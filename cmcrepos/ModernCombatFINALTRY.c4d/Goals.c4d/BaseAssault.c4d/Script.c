@@ -4,6 +4,18 @@
 #include CASS
 
 
+/* Initialisierung */
+
+public func ChooserFinished()
+{
+  //Spielzielhinweise erstellen
+  for(var i = 0; i < GetPlayerCount(); i++)
+  {
+    CreateObject(TK04, 0, 0, GetPlayerByIndex(i));
+    Sound("RadioConfirm*.ogg", true, 0, 100, GetPlayerByIndex(i));
+  }
+}
+
 /* Bekanntgabe */
 
 public func ReportAssaultTargetDestruction(object pTarget, int iTeam)

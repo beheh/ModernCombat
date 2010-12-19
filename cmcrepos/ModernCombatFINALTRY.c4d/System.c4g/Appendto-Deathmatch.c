@@ -1,6 +1,6 @@
 /*-- Deathmatch --*/
 
-//Das Eliminieren von Teammitgliedern oder sich selbst zieht einen Punkt ab.
+//Das Eliminieren von Teammitgliedern oder sich selbst zieht einen Punkt ab. Zudem werden Spielzielhinweise bei Rundenstart erstellt.
 
 #strict 2
 
@@ -33,4 +33,15 @@ public func GetHUDInfo(int player)
   if(diff < 0) secondstring = Format("(%d)", diff);
 
   return Format("%d Kills %s", TeamGetKills(team), secondstring);
+}
+
+public func ChooserFinished()
+{
+  //Spielzielhinweise erstellen
+  for(var i = 0; i < GetPlayerCount(); i++)
+  {
+    DoScoreboardShow(1, GetPlayerByIndex(i)+1);
+    CreateObject(TK07, 0, 0, GetPlayerByIndex(i));
+    Sound("RadioConfirm*.ogg", true, 0, 100, GetPlayerByIndex(i));
+  }
 }

@@ -1,6 +1,6 @@
 /*-- Last Man Standing --*/
 
-//Last Man Standing Fehler überladen und korrigiert.
+//Last Man Standing Fehler überladen und korrigiert. Erstellt zudem bei Spielstart Spielzielhinweise.
 
 #strict 2
 #appendto GLMS
@@ -52,5 +52,16 @@ public func IsFulfilled()
       RewardEvaluation();
     rewarded = true;
     return true;
+  }
+}
+
+public func ChooserFinished()
+{
+  //Spielzielhinweise erstellen
+  for(var i = 0; i < GetPlayerCount(); i++)
+  {
+    DoScoreboardShow(1, GetPlayerByIndex(i)+1);
+    CreateObject(TK08, 0, 0, GetPlayerByIndex(i));
+    Sound("RadioConfirm*.ogg", true, 0, 100, GetPlayerByIndex(i));
   }
 }

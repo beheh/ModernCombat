@@ -34,10 +34,11 @@ protected func LogTask()
 {
   for (var i = 0, j; i < GetPlayerCount(); i++)
   {
-    var szTask = "$AttackTargets$";
+    var TaskID = TK02;
     if (GetPlayerTeam(j = GetPlayerByIndex(i)) == iDefender)
-      szTask = "$DefendTargets$";
-    EventInfo4K(j + 1, szTask, GetID());
+      TaskID = TK03;
+    CreateObject(TaskID, 0, 0, GetPlayerByIndex(i));
+    Sound("RadioConfirm*.ogg", true, 0, 100, GetPlayerByIndex(i));
   }
 }
 

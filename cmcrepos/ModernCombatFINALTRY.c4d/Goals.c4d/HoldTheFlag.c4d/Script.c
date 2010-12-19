@@ -24,6 +24,13 @@ public func ChooserFinished()
   aTeamPoints = [];
   AddEffect("IntAddProgress", this, 1, 10, this);
   UpdateHUDs();
+
+  //Spielzielhinweise erstellen
+  for(var i = 0; i < GetPlayerCount(); i++)
+  {
+    CreateObject(TK05, 0, 0, GetPlayerByIndex(i));
+    Sound("RadioConfirm*.ogg", true, 0, 100, GetPlayerByIndex(i));
+  }
 }
 
 /* Konfiguration */
