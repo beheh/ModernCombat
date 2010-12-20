@@ -2,9 +2,15 @@
 
 #strict 2
 
-public func IsBulletTarget()	{return true;}
 public func IgnoreTracer()	{return true;}
 
+public func IsBulletTarget(id idBullet, object pBullet, object pShooter)
+{
+  if(Hostile(GetOwner(pShooter),GetOwner()))
+    return true;
+  else
+    return false;
+}
 
 /* Initialisierung */
 
@@ -39,13 +45,12 @@ public func OnDmg(int iDmg, int iType)
   if(iType == DMG_Bio)		return 100;	//Säure und biologische Schadstoffe
 }
 
-protected func Damage(iChange, iByPlr)
+public func Damage()
 {
   if(GetDamage() > 20)
   {
     //Punkte bei Belohnungssystem
-    if(Hostile(iByPlr,GetOwner()))
-      DoPlayerPoints(BonusPoints("Protection"), RWDS_TeamPoints, GetOwner(), GetCursor(GetOwner()), IC16);
+    DoPlayerPoints(BonusPoints("Protection"), RWDS_TeamPoints, GetOwner(), GetCursor(GetOwner()), IC16);
     Hit();
   }
 }
