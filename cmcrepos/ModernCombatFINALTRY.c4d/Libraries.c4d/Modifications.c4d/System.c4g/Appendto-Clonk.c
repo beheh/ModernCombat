@@ -253,6 +253,14 @@ protected func DoPoints()
   if(Hostile(killer,GetOwner()))
   {
     DoPlayerPoints(KillPoints(), RWDS_BattlePoints, killer, GetCursor(killer), IC01);
+    
+    //Einem eventuellem Piloten Assistpunkte geben (aber verzögert!)
+    if(Contained(killer) && GetID(Contained(killer)) == BKHK)
+    {
+      var pilot = LocalN("Pilot",Contained(killer));
+      Schedule(Format("DoPlayerPoints(%d, %d, GetOwner(Object(%d)), Object(%d), IC02)",
+                      AssistPoints(), RWDS_TeamPoints, ObjectNumber(pilot), ObjectNumber(pilot)), 30);
+    }
 
     //Dem mit dem meisten angerichteten Schaden neben dem Killer Assistpunkte geben
 		var assist = GetAssist();
