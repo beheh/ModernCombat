@@ -7,29 +7,28 @@ local damaged;
 
 /* Zerstörung */
 
-func Damage(int iChange, int iPlr)
+func Damage()
 {
   if(damaged) return ;
-  SetController(iPlr);
   if(GetDamage() < 150) return;
-  InstaExplode(iPlr);
+  InstaExplode();
 }
 
-func InstaExplode(int iPlr)
+func InstaExplode()
 {
   if(damaged) return ;
   damaged = true;
 
   //Effekte
   Sound("StructuralDamage*.ogg");
-  if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",5,40,-10,0,0,200,20);
+  if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",8,15,0,-5,250,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
+  if(GetEffectData(EFSM_ExplosionEffects) > 1)
+  {
+    CastParticles("MetalSplinter",5,40,-10,0,0,200,20);
+    CastParticles("MetalSplinter",4,100,0,-15,140,70);
+  }
 
-  //Explosion
   SetGraphics("Destroyed");
-  SetController(iPlr);
-  FakeExplode(30, iPlr+1);
-
-  SetRDir(RandomX(-40,+40));
   AddFireEffect(this,50,RGB(80,80,80),true,30);
 }
 
