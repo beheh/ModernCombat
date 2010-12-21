@@ -26,7 +26,7 @@ Assist-Kill mit Peilsender		20
 Fahrzeugschädigung			10
 Assist-Kill durch Blendung		10
 Projektil abgewehrt			10
-Assist-Kill aus Fahrzeug heraus		20
+Assist-Kill aus Fahrzeug heraus		30
 
 
 Es gibt außerdem diverse optionale Bonuspunkte für Aktionen wie das Zerstören einer gegnerischen Heimbasis oder das Anzünden von gegnerischen Clonks.
