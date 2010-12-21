@@ -10,6 +10,7 @@ static const SR4K_LayerLight		= 2;
 static const SR4K_LayerDamage		= 3;
 static const SR4K_LayerFakeDeath	= 4;
 static const SR4K_LayerBorder		= 5;
+static const SR4K_LayerMedicament	= 6;
 
 public func GetTargetCursor()		{}
 public func IsOverlayScreen()		{return true;}
