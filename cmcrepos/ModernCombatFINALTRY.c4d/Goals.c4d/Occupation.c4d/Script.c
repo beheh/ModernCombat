@@ -93,22 +93,22 @@ public func CreateSpawners()
 
 /* Globale Funktionen */
 
-global func GetGOCCDirection()
+public func GetDirection()
 {
   var call = GameCall("OccupationDir");
   if(call) return call;
   return GOCC_Horizontal;
 }
 
-global func GetGOCCFlags()
+public func GetFlags()
 {
   var list = [];
   var iPos = 0;
   for(var pFlag in FindObjects(Find_Func("IsFlagpole")))
   {
-    if(GetGOCCDirection() == GOCC_Horizontal)
+    if(GetDirection() == GOCC_Horizontal)
       iPos = GetX(pFlag);
-    if(GetGOCCDirection() == GOCC_Vertical)
+    if(GetDirection() == GOCC_Vertical)
       iPos = GetY(pFlag);
     list[iPos] = pFlag;
   }
@@ -237,24 +237,24 @@ private func UpdateScoreboard()
   var i = 0;
   var data;
   //Flaggen
-  for(var flag in GetGOCCFlags())
+  for(var flag in GetFlags())
   {
     //Erst mal weiß annehmen
     var color = GetTeamColor(flag->GetTeam()),
 	  prog = flag->GetProcess();
 		color = RGBa(Interpolate2(255, GetRGBaValue(color, 1), prog, 100), Interpolate2(255, GetRGBaValue(color, 2), prog, 100), Interpolate2(255, GetRGBaValue(color, 3), prog, 100));
-    if(GetGOCCDirection() == GOCC_Horizontal)
+    if(GetDirection() == GOCC_Horizontal)
       data = GetX(flag);
-    if(GetGOCCDirection() == GOCC_Vertical)
+    if(GetDirection() == GOCC_Vertical)
       data = GetY(flag);
     SetScoreboardData(i, GOCC_FlagColumn, Format("<c %x>%s</c>", color, GetName(flag)), data);
     SetScoreboardData(i, GOCC_ProgressColumn, Format("<c %x>%d%</c>", color, flag->GetProcess()), flag->GetProcess());
     i++;
   }
   var base;
-  if(GetGOCCDirection() == GOCC_Horizontal)
+  if(GetDirection() == GOCC_Horizontal)
     base = LandscapeWidth();
-  if(GetGOCCDirection() == GOCC_Vertical)
+  if(GetDirection() == GOCC_Vertical)
     base = LandscapeHeight();
   if(i != 1)
   {
