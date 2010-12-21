@@ -131,10 +131,6 @@ func CursorCheck()
     if(GetCursor(GetOwner())->~GetRealCursor() == target)
       cursor = true;
   }
-  else
-  {
-    cursor = true;
-  }
   if(cursor)
     SetVisibility(VIS_Owner);
   else
