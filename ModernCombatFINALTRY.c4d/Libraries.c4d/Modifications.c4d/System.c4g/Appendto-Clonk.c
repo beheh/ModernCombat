@@ -260,7 +260,7 @@ protected func DoPoints()
     	var pClonk = GetCursor(killer);
     	if(Contained(pClonk) && Contained(pClonk)->~GetPilot()) {
       	var pPilot = Contained(pClonk)->~GetPilot();
-      	if(pPilot != pClonk) {
+      	if(GetOwner(pPilot) != GetOwner(pClonk)) {
       		DoPlayerPoints(AssistPoints(), RWDS_TeamPoints, GetOwner(pPilot), pPilot, IC02);      	
       	}
       }
