@@ -39,7 +39,7 @@ func Sting(caller)
 
     //Heileffekt geben
     AddEffect("DragninHeal",obj,20,1,0,GetID(),HealAmount(),HealRate());
-    ScreenRGB(obj,RGBa(0,230,255,190),50,5,50, SR4K_LayerMedicament);
+    ScreenRGB(obj,RGBa(0,230,255,190),50,5,true, SR4K_LayerMedicament);
     Sound("DGNN_Use.ogg");
 
     //Punkte bei Belohnungssystem

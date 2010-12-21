@@ -206,6 +206,7 @@ public func FxFAPHealTimer(pTarget, iEffectNumber, iEffectTime)
 
   //Effekte
   pClonk->CreateParticle("ShockWave",0,0,Random(10),Random(10),5*GetObjHeight(pClonk)+25+Sin(iEffectTime*5,35),RGB(0,230,255),pClonk);
+  ScreenRGB(pClonk,RGBa(0,230,255,190),50,5,false, SR4K_LayerMedicament);
 
   if(!(iEffectTime % 40))	//Alle 40 Frames
    Sound("FAPK_Healing*.ogg");
