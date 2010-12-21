@@ -1,6 +1,0 @@
-[Action]
-Name=Tied
-Procedure=ATTACH
-Length=1
-FacetBase=1
-NextAction=Tied
