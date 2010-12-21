@@ -21,7 +21,7 @@ func Damage(int iChange, int iPlr)
 {
   SetController(iPlr);
   if(GetDamage() >= 100)
-    Incinerate();
+    Incinerate(this, iPlr+1);
 }
 
 func BlowUp()
