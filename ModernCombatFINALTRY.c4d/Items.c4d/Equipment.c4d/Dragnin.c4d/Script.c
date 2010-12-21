@@ -39,6 +39,7 @@ func Sting(caller)
 
     //Heileffekt geben
     AddEffect("DragninHeal",obj,20,1,0,GetID(),HealAmount(),HealRate());
+    ScreenRGB(obj,RGBa(0,230,255,190),50,5,50, SR4K_LayerMedicament);
     Sound("DGNN_Use.ogg");
 
     //Punkte bei Belohnungssystem
@@ -74,6 +75,7 @@ func Activate(object pByObj)
 
   //Heileffekt geben
   AddEffect("DragninHeal",pByObj,20,1,0,GetID(),HealAmount(),HealRate());
+  ScreenRGB(pByObj,RGBa(0,230,255,190),50,5,50, SR4K_LayerMedicament);
   Sound("DGNN_Use.ogg");
   RemoveObject();
   return 1;
@@ -114,7 +116,7 @@ func FxDragninHealStart(object pTarget, int iEffectNumber, int iTemp, int iHealA
 func FxDragninHealTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
   //Effekt
-  pTarget->CreateParticle("ShockWave",0,0,Random(10),Random(10),5*GetObjHeight(pTarget)+25+Sin(iEffectTime*5,35),RGB(220,20,150),pTarget);
+  pTarget->CreateParticle("ShockWave",0,0,Random(10),Random(10),5*GetObjHeight(pTarget)+25+Sin(iEffectTime*5,35),RGB(0,230,255),pTarget);
   //Heilen
   if(!(iEffectTime % EffectVar(1, pTarget, iEffectNumber)))
   {
