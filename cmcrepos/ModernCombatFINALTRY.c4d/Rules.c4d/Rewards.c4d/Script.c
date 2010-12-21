@@ -367,16 +367,30 @@ global func FxPointMessageTimer(pTarget, iNo)
   var iTime = EffectVar(2,pTarget,iNo);
   if(!iTime)
   {
-    var pContainer = pTarget;
-    while(Contained(pContainer)) pContainer = Contained(pContainer);
-    var i = 0;
-    var index;
-    while((index = GetEffect("PointMessage", pContainer, i)) != 0)
-    {
-      if(EffectVar(2,pContainer,index) > 0) return FX_OK;
-      i++;
+  	var pObject, index;
+  	if(Contained(pTarget)) {
+  		var pContainer = Contained(pTarget);
+  		var j = 0;
+  		while((pObject = Contents(j, pContainer)) != false) {
+	 		  var i = 0;
+				while((index = GetEffect("PointMessage", pObject, i)) != 0)
+				{
+				  if(EffectVar(2,pObject,index) > 0) return FX_OK;
+				  i++;
+				}
+  			j++;
+    	}
     }
-    Sound("PointsGet.ogg", 0, pTarget, 100);	//Sound
+    else {
+    	pObject = pTarget;
+ 		  var i = 0;
+		  while((index = GetEffect("PointMessage", pObject, i)) != 0)
+		  {
+		    if(EffectVar(2,pObject,index) > 0) return FX_OK;
+		    i++;
+		  }
+    }
+    Sound("PointsGet.ogg", 0, pContainer, 100);	//Sound
     EffectVar(1,pTarget,iNo) = CreateObject(ARHL,0,0,-1);	//Helper
   }
   EffectVar(2,pTarget,iNo)++;
