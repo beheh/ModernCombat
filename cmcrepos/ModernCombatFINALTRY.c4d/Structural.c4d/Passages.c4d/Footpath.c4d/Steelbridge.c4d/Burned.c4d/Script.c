@@ -2,8 +2,6 @@
 
 #strict 2
 
-local hitground;
-
 
 /* Aufschlag */
 
