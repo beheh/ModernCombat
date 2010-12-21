@@ -2,6 +2,7 @@
 
 #strict 2
 
+static const BHUD_Off = -1;
 static const BHUD_Ready = 0;
 static const BHUD_Warning = 1;
 static const BHUD_Error = 2;
@@ -18,6 +19,7 @@ local fDamage, iDamageRemaining;
 public func Initialize() 
 {
   SetVisibility(VIS_None);
+  iState = -1;
   SetState(BHUD_Ready);
   Schedule("SetVisibility(VIS_Owner)", 1, 0, this);
   return true;
@@ -25,8 +27,13 @@ public func Initialize()
 
 public func SetState(int iNewState)
 {
+	if(iState == iNewState) return;
   iState = iNewState;
   var dwArrowColor;
+  if(iState == BHUD_Off) {
+  	SetClrModulation(RGBa(0,0,0,255));
+    dwArrowColor = RGBa(0,0,0,255);
+  }
   if(iState == BHUD_Error)
   {
     SetClrModulation(RGBa(255,0,0,50));
@@ -135,9 +142,27 @@ protected func Timer()
   SetPosition(GetX()-4+BoundBy((1400*GetWind(AbsX(GetX(pHelicopter)), AbsY(GetY(pHelicopter))))/1000, -69, 71), GetY()-98, pWind);
   pWind->SetVisibility(GetVisibility());
   //Status setzen
+  SetObjDrawTransform(1000,0,0,0,1000,0);
   if(fDamage || pHelicopter->GetDamage() >= pHelicopter->MaxDamage()*3/4)
   {
-    SetState(BHUD_Error);	
+  	var fDisable = false;
+  	if(iDamageRemaining == 0 && Random(5)) {
+	  	SetState(BHUD_Error);
+	  }
+	  else {
+	  	if(iDamageRemaining == 0) fDisable = true;
+	  	if(!Random(5) && fDisable) {
+				SetState(BHUD_Off);
+			}
+			else if(!Random(3)) {
+			  SetState(BHUD_Error);
+			  if(!Random(2)) {
+			  	var val = RandomX(0,300);
+			  	if(!Random(1)) val *= -1;
+					SetObjDrawTransform(RandomX(800, 1200),val,RandomX(-5,5)*1000,val,RandomX(800, 1200),RandomX(-5,5)*1000);
+				}
+			}
+  	}
   }
   else
   {
