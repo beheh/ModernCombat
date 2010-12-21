@@ -25,7 +25,7 @@ func Damage(int iChange, int iPlr)
 {
   SetController(iPlr);
   if(GetDamage() > 0)
-    Incinerate();
+    Incinerate(this, iPlr+1);
 
   if(GetDamage() < 70) return;
 
@@ -52,14 +52,14 @@ public func InstaExplode(int iPlr)
 
     if(inc <= 2)
     {
-      Incinerate(obj);
+      Incinerate(obj, iPlr+1);
       continue; 
     }
     else
     {
       if(!Random(inc-2))
       {
-        Incinerate(obj);
+        Incinerate(obj, iPlr+1);
         continue;
       }
     }
