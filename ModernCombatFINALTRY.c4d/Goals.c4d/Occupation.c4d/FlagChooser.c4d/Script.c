@@ -79,7 +79,7 @@ protected func Collection2(object pObject)
 	SetPlrViewRange(0, pObject);
 
   if(!flagpoles) {
-    flagpoles = GetGOCCFlags();
+    flagpoles = GameCall("GetGOCCFlags");
     if(!flagpoles) {
       ErrorLog("Couldn't find any flags");
       GameOver();
@@ -98,7 +98,7 @@ private func SelectBestFlag()
 }
 
 global func GetFlagDistance(object pFlag) {
-  var flags = GetGOCCFlags();  
+  var flags = GameCall("GetGOCCFlags");  
   var i = 0;
   while(i < GetLength(flags)-1) {
     if(pFlag == flags[i]) {
@@ -133,7 +133,7 @@ global func GetBestFlag(int iTeam)
   var best;
   var dist;
   
-  var flags = GetGOCCFlags();  
+  var flags = GameCall("GetGOCCFlags");
   for(var flag in flags)
   {
     if(flag->GetTeam() == iTeam)
