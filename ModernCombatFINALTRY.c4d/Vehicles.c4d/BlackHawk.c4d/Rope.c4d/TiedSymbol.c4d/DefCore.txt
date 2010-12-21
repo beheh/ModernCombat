@@ -1,8 +1,0 @@
-[DefCore]
-id=CY5P
-Version=4,9,10,2
-Name=TiedSymbol
-Category=C4D_Living
-Width=7
-Height=7
-Offset=-3,-20
