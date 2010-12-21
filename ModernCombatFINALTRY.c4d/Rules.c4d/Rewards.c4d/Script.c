@@ -234,7 +234,9 @@ global func DoPlayerPoints(int iPoints, int iType, int iPlr, object pClonk, id i
       if(iPoints < 0) szMsg = Format("{{%i}} <c ff0000>%d</c>", idIcon, iPoints);
       if(iPoints > 0) szMsg = Format("{{%i}} <c 00ff00>+%d</c>", idIcon, iPoints);
       if(iPoints == 0) szMsg = Format("{{%i}} <c ffff00>+%d</c>", idIcon, iPoints);
-      pClonk->AddEffect("PointMessage", pClonk, 130, 1, pClonk, 0, szMsg);
+      var pContainer = pClonk;
+      while(Contained(pContainer)) pContainer = Contained(pContainer);
+      pContainer->AddEffect("PointMessage", pContainer, 130, 1, pContainer, 0, szMsg);
       return true;
     }
   }
