@@ -234,9 +234,7 @@ global func DoPlayerPoints(int iPoints, int iType, int iPlr, object pClonk, id i
       if(iPoints < 0) szMsg = Format("{{%i}} <c ff0000>%d</c>", idIcon, iPoints);
       if(iPoints > 0) szMsg = Format("{{%i}} <c 00ff00>+%d</c>", idIcon, iPoints);
       if(iPoints == 0) szMsg = Format("{{%i}} <c ffff00>+%d</c>", idIcon, iPoints);
-      var pContainer = pClonk;
-      while(Contained(pContainer)) pContainer = Contained(pContainer);
-      pContainer->AddEffect("PointMessage", pContainer, 130, 1, pContainer, 0, szMsg);
+      pClonk->AddEffect("PointMessage", pClonk, 130, 1, pClonk, 0, szMsg);
       return true;
     }
   }
@@ -369,11 +367,13 @@ global func FxPointMessageTimer(pTarget, iNo)
   var iTime = EffectVar(2,pTarget,iNo);
   if(!iTime)
   {
+    var pContainer = pTarget;
+    while(Contained(pContainer)) pContainer = Contained(pContainer);
     var i = 0;
     var index;
-    while((index = GetEffect("PointMessage", pTarget, i)) != 0)
+    while((index = GetEffect("PointMessage", pContainer, i)) != 0)
     {
-      if(EffectVar(2,pTarget,index) > 0) return FX_OK;
+      if(EffectVar(2,pContainer,index) > 0) return FX_OK;
       i++;
     }
     Sound("PointsGet.ogg", 0, pTarget, 100);	//Sound
