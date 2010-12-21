@@ -87,7 +87,7 @@ public func LaunchFB(int iAngle, int iSpeed, int iDist, int iSize, int iTrail, i
   if(!iDmg) iDamage = 3;
   else iDamage = iDmg;
 
-  SetPosition(GetX(),GetY()+2, GetDefWidth()/2);
+  SetPosition(GetX(),GetY()+GetDefWidth()/2);
 
   SetXDir(+Sin(iAngle,iSpeed));
   SetYDir(-Cos(iAngle,iSpeed));
