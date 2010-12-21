@@ -3,7 +3,6 @@
 #strict 2
 
 public func IgnoreTracer()	{return true;}
-
 public func IsBulletTarget(id idBullet, object pBullet, object pShooter)
 {
   if(Hostile(GetOwner(pShooter),GetOwner()))
@@ -11,6 +10,7 @@ public func IsBulletTarget(id idBullet, object pBullet, object pShooter)
   else
     return false;
 }
+
 
 /* Initialisierung */
 
