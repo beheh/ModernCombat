@@ -12,6 +12,7 @@ func Initialize()
   life = 300+Random(100);
   light = AddLight(40,RGB());
   AddFireEffect(this,0,RGB(0,255,255),0,-5 - Random(15));
+  SetController(GetOwner());
   Timer();
   return 1;
 }
@@ -87,7 +88,7 @@ func HitObject(pObj)
   //Anzündbares anzünden, aber nicht Lebewesen
   if(pObj) //existiert es überhaupt noch?
     if(GetOCF(pObj) & OCF_Inflammable && !(GetOCF(pObj) & OCF_Living))
-      Incinerate(pObj);
+      Incinerate(pObj, GetController()+1);
   return true;
 }
 
