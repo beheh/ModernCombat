@@ -50,7 +50,7 @@ func Damage(int iChange, int iPlr)
     return;
   SetController(iPlr);
   if(GetDamage() > 1)
-    Incinerate();
+    Incinerate(this, iPlr+1);
 
   if(!this)
     return;
@@ -73,10 +73,10 @@ func InstaExplode(int iPlr)
     var inc = GetDefCoreVal("ContactIncinerate",0,GetID(obj));
     if(!inc) continue;
       if(inc == 3)
-        Incinerate(obj);
+        Incinerate(obj, iPlr+1);
     else
     if(!Random(inc-3))
-      Incinerate(obj);
+      Incinerate(obj, iPlr+1);
   }
   //Explosion
   BlowUp(iPlr);
