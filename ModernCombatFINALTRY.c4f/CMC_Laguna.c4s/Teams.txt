@@ -1,6 +1,5 @@
 [Teams]
-LastTeamID=2
-TeamColors=true
+TeamColors=1
 AllowTeamSwitch=0
 TeamDistribution=Host
 
