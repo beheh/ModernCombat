@@ -1,7 +1,14 @@
+/*-- Zusatzeffekte --*/
+
+//Mehrere Zusatzeffekte für Objekte.
+
 #strict
 
-/* Unstuck-Effect */
-/*Effekt der Objekte augenfreundlich aus Materialien herauszieht.*/
+
+/* Unstuck-Effekt */
+
+//Effekt, der Objekte aus Materialien herauszieht.
+
 global func FxIntUnstuck4KStart(object pTarget, int iEffectNumber, int iTemp, int iXDir, int iYDir)
 {
   if(!iXDir && !iYDir)
@@ -38,7 +45,8 @@ global func FxIntUnstuck4KTimer(object pTarget, int iEffectNumber, int iEffectTi
   if(!Stuck(pTarget))
     return(-1);
 
-  if(iEffectTime > 12) {
+  if(iEffectTime > 12)
+  {
     AutoUnstuck4K(pTarget, EffectVar (0,pTarget,iEffectNumber), EffectVar (1,pTarget,iEffectNumber));
     return(-1);
   }
@@ -62,8 +70,10 @@ global func AutoUnstuck4K(pTarget,iXDir,iYDir)
 }
 
 
-/* Rauch-Effect */
-/*Effekt der Wraks schön rauchen und brennen lässt.*/
+/* Raucheffekt */
+
+//Effekt der Objekte rauchen und brennen lässt.
+
 global func FxIntWreckSmoke4KStart(object pTarget, int iEffectNumber, int iTemp,iP,iX,iY,bF)
 {
   EffectVar (0,pTarget,iEffectNumber) = iP;
@@ -105,7 +115,8 @@ global func AddSmokeEffect4K(iStrength,iX,iY,bBurning,pTarget)
 }
 
 
-/*SpeedSecure®-Effekt*/
+/* SpeedSecure®-Effekt */
+
 //Das Objekt kann bei hohen Geschwindigkeiten nicht eingesammelt werden.
 
 global func FxIntSpeedSecure4KStart(object pTarget, int iEffectNumber, int iTemp,max_speed)
@@ -139,7 +150,10 @@ global func SetSpeedSecure(iMaxSpeed,pTarget)
   AddEffect ("IntSpeedSecure4K",pTarget,200,5,pTarget,0,iMaxSpeed); 
 }
 
-/* Neue Aus- und Einfade-Effekte (Original gabs im Hazard-Pack.) */
+/* Fade-Effekt */
+
+//Neue Aus- und Einfade-Effekte (Original im Hazard-Pack).
+
 global func FxFadeOut4KStart(target, no, temp, speed)
 {
   EffectVar(0, target, no) = 0;
@@ -205,7 +219,8 @@ global func FadeIn4K(int iSpeed, object pObject)
 }
 
 
-/* TimedMessage-Effekt */
+/* Timed Message-Effekt */
+
 //Wie Message(), nur das ein Parameter die Anzeigezeit festlegt.
 
 global func FxIntTimedMessage4KStart(object pTarget, int iEffectNumber, int iTemp,szMessage)
@@ -237,7 +252,9 @@ global func TimedMessage4K(string szMessage, object pTarget, int iTime)
   AddEffect("IntTimedMessage4K",pTarget,10,iTime,pTarget,0,Format(szMessage,...)); 
 }
 
+
 /* TimedPlayerMessage-Effekt */
+
 //Wie Message(), nur das ein Parameter die Anzeigezeit festlegt.
 
 global func FxIntTimedPlayerMessage4KStart(object pTarget, int iEffectNumber, int iTemp,szMessage,iPlr)
