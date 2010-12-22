@@ -28,7 +28,7 @@ public func Initialize()
   SetClrModulation (RGBa(0, 0, 0, a = 255));
 }
 
-global func ScreenRGB(object pTarget, int dwRGBa, int iAlphaAdd, int iFadeRate, bool bAdditive, int iLayer)
+global func ScreenRGB(object pTarget, int dwRGBa, int iAlphaAdd, int iFadeRate, bool bAdditive, int iLayer, int iMin)
 {
   var obj;
   if(iLayer)
@@ -37,7 +37,7 @@ global func ScreenRGB(object pTarget, int dwRGBa, int iAlphaAdd, int iFadeRate, 
   if(!obj)
     obj = CreateObject(S24K,0,0,GetOwner(pTarget));
 
-  obj->Set(pTarget,dwRGBa,iAlphaAdd,iFadeRate,bAdditive,iLayer);
+  obj->Set(pTarget,dwRGBa,iAlphaAdd,iFadeRate,bAdditive,iLayer,iMin);
   return obj;
 }
 
@@ -51,7 +51,7 @@ public func SameLayer(int iLayer)
   return layer && layer == iLayer;
 }
 
-public func Set(object pTarget, int dwRGBa, int iAlphaAdd, int iFadeRate, bool bAdditive, int iLayer)
+public func Set(object pTarget, int dwRGBa, int iAlphaAdd, int iFadeRate, bool bAdditive, int iLayer, int iMin)
 {
   target = pTarget;
   layer = iLayer;
@@ -69,7 +69,7 @@ public func Set(object pTarget, int dwRGBa, int iAlphaAdd, int iFadeRate, bool b
 
   var a_save = a;
   SplitRGBaValue(dwRGBa,r,g,b,a);
-  a = BoundBy(a_save-iAlphaAdd,0,255);
+  a = BoundBy(a_save-iAlphaAdd,iMin,255);
 
   if(!fade)
   {
