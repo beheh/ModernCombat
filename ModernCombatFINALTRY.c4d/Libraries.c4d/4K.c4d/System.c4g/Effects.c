@@ -2,7 +2,7 @@
 
 /* Unstuck-Effect */
 /*Effekt der Objekte augenfreundlich aus Materialien herauszieht.*/
-global func FxIntUnstuck4KStart(object pTarget, int iEffectNumber, int iTemp,iXDir,iYDir)
+global func FxIntUnstuck4KStart(object pTarget, int iEffectNumber, int iTemp, int iXDir, int iYDir)
 {
   if(!iXDir && !iYDir)
   {
