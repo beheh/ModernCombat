@@ -1,9 +1,9 @@
 /*-- Killstatistiken --*/
 
 #strict 2
+#appendto HHKS
 
 static const STAT_Spree = 5;
-
 
 public func KTMsg(int plr1, int plr2, object clonk, int plr3)
 {
@@ -145,7 +145,7 @@ func FxKillStatsStart(object pTarget, int iEffectNumber, int iTemp)
 }
 
 //Schaun ob die Killzeit schon abgelaufen ist
-func FxKillStatsTimer(object pTarget, int iEffectNumber, int iEffectTime)
+public func FxKillStatsTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
   //Haben wir gerade Killingtime?
   if(!EffectVar(3, pTarget, iEffectNumber))
@@ -158,7 +158,7 @@ func FxKillStatsTimer(object pTarget, int iEffectNumber, int iEffectTime)
 }
 
 //Auswertung der Statistik beim Tod
-func FxKillStatsStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)
+public func FxKillStatsStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)
 {
   //Auswerten?
   if(iReason != 3 && iReason != 4)
@@ -166,13 +166,13 @@ func FxKillStatsStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)
 }
 
 //Kill++
-func FxKillStatsEffect(string szNewEffectName, object pTarget, int iEffectNumber, int iNewEffectNumber)
+public func FxKillStatsEffect(string szNewEffectName, object pTarget, int iEffectNumber, int iNewEffectNumber)
 {
   if(szNewEffectName == "KillStats")
    return(-3);
 }
 
-func FxKillStatsAdd(object pTarget, int iEffectNumber, string szNewEffectName, int iNewEffectTimer)
+public func FxKillStatsAdd(object pTarget, int iEffectNumber, string szNewEffectName, int iNewEffectTimer)
 {
   //Neue Daten speichern
   var total = ++EffectVar(0, pTarget, iEffectNumber);
@@ -185,4 +185,6 @@ func FxKillStatsAdd(object pTarget, int iEffectNumber, string szNewEffectName, i
    var msg = $MsgMultikill$;
    Message("<c ff0000>%s</c>",pTarget, msg[Min(running-2,GetLength(msg)-1)]);
   }
+  
+  return true;
 }
