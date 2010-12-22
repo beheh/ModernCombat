@@ -254,11 +254,16 @@ protected func DoPoints()
   {
     DoPlayerPoints(KillPoints(), RWDS_BattlePoints, killer, GetCursor(killer), IC01);
     
-
+    //Achievements und Punkte für den Killer
     if(GetCursor(killer))
     {
     	var pClonk = GetCursor(killer);
      	if(pClonk->~GetRealCursor()) pClonk = pClonk->~GetRealCursor();
+     	//Marksman
+      if(ObjectDistance(pClonk, this) >= 350) {
+        DoAchievementProgress(1,AC17,killer);
+      }
+     	//Helikopter-Sachen
     	if(Contained(pClonk) && Contained(pClonk)->~IsHelicopter()) {
     	  if(LastDamageType() == DMG_Projectile || LastDamageType() == DMG_Explosion) {
     	  	DoAchievementProgress(1,AC18,killer);
@@ -286,6 +291,8 @@ protected func DoPoints()
 		  aDoomBoom[1]++;
 	  }
   }
+  
+  //Non-swimmer
   if(GBackLiquid()) DoAchievementProgress(1, AC11, GetOwner());
   
   //Selfkill
