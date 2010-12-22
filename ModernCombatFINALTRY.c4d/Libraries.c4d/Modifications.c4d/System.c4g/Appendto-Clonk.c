@@ -254,16 +254,22 @@ protected func DoPoints()
   {
     DoPlayerPoints(KillPoints(), RWDS_BattlePoints, killer, GetCursor(killer), IC01);
     
-    //Einem eventuellem Piloten Assistpunkte geben
+
     if(GetCursor(killer))
     {
     	var pClonk = GetCursor(killer);
      	if(pClonk->~GetRealCursor()) pClonk = pClonk->~GetRealCursor();
-    	if(Contained(pClonk) && Contained(pClonk)->~GetPilot()) {
-      	var pPilot = Contained(pClonk)->~GetPilot();
-      	if(pPilot->~GetRealCursor()) pPilot = pPilot->~GetRealCursor();
-      	if(GetOwner(pPilot) != GetOwner(pClonk)) {
-      		DoPlayerPoints(AssistPoints(), RWDS_TeamPoints, GetOwner(pPilot), pPilot, IC02);      	
+    	if(Contained(pClonk) && Contained(pClonk)->~IsHelicopter()) {
+    	  if(LastDamageType() == DMG_Projectile || LastDamageType() == DMG_Explosion) {
+    	  	DoAchievementProgress(1,AC18,killer);
+    	  }
+    	  if(Contained(pClonk)->~GetPilot()) {
+    	    //Einem eventuellem Piloten Assistpunkte geben
+        	var pPilot = Contained(pClonk)->~GetPilot();
+        	if(pPilot->~GetRealCursor()) pPilot = pPilot->~GetRealCursor();
+        	if(GetOwner(pPilot) != GetOwner(pClonk)) {
+        		DoPlayerPoints(AssistPoints(), RWDS_TeamPoints, GetOwner(pPilot), pPilot, IC02);      	
+        	}
       	}
       }
     }

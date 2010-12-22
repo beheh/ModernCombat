@@ -45,6 +45,7 @@ static const BKHK_PassengerLayer = 3;
 public func IsMachine()			{return true;}
 public func MaxDamage()			{return 200;}
 public func IsThreat()			{return true;}
+public func IsHelicopter()      {return true;}
 
 public func IsBulletTarget(id idBullet, object pBullet)
 {
