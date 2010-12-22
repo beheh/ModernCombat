@@ -1,9 +1,7 @@
 /*-- Hintergrundtürsteuerung --*/
 
 #strict 2
-#appendto GAT1
-#appendto ROOM
-#appendto ROM2
+#include DOOR
 
 local lock;
 local target;
