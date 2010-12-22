@@ -7,5 +7,6 @@ Achievement=Achievement
 Achievements=Achievements
 AchievementsUnlocked=%d Achievements unlocked:
 AchievementLocked=<c 777777>You haven't unlock this achievement yet.</c>
-Continue=Continue
+ShowAchievements=Show achievements
+ShowPoints=Show points
 Back=Back
