@@ -25,7 +25,7 @@ public func Initialize()
   return true;
 }
 
-public func SetState(int iNewState)
+public func SetState(int iNewState, bool fKeepSound)
 {
 	if(iState == iNewState) return;
   iState = iNewState;
@@ -40,7 +40,7 @@ public func SetState(int iNewState)
     dwArrowColor = RGBa(255,0,0,50);
     Sound("WarningDamage.ogg", false, pHelicopter, 100, GetOwner()+1, +1);
   }
-  else
+  else if(!fKeepSound)
   {
     Sound("WarningDamage.ogg", false, pHelicopter, 100, GetOwner()+1, -1);
   }
@@ -50,7 +50,7 @@ public func SetState(int iNewState)
     dwArrowColor = RGBa(255,153,0,50);
     Sound("WarningLockon.ogg", false, pHelicopter, 100, GetOwner()+1, +1);
   }
-  else
+  else if(!fKeepSound)
   {
     Sound("WarningLockon.ogg", false, pHelicopter, 100, GetOwner()+1, -1);
   }
@@ -152,7 +152,7 @@ protected func Timer()
 	  else {
 	  	if(iDamageRemaining == 0) fDisable = true;
 	  	if(!Random(5) && fDisable) {
-				SetState(BHUD_Off);
+				SetState(BHUD_Off, true);
 			}
 			else if(!Random(3)) {
 			  SetState(BHUD_Error);
