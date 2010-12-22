@@ -1373,7 +1373,6 @@ private func DrawGroundParticles()
 {
   if(!GetRotorSpeed()) return;
   if(GBackLiquid() || GBackSolid()) return;
-  var rot = GetDir()*180-90 + GetR();
   for (var i; i < 30; i++)
   {
     if (GetMaterial(0, i*5) == Material("Earth"))

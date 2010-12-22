@@ -1151,7 +1151,7 @@ public func GetFMData(int data, int i, int t)
   }
   else
   {
-    value = ObjectCall(this, Format("FMData%d",i), data);//Abwärtskomplatiblität
+    value = ObjectCall(this, Format("FMData%d",i), data);//Abwärtskompatiblität
     ammoid = ObjectCall(this, Format("FMData%d",i), FM_AmmoID);
   }
 
@@ -1201,7 +1201,7 @@ protected func FxStrikeRechargeTimer()
   var iTime = GetEffect("StrikeRecharge", this, 0, 6), iFullTime = GetMCData(MC_Recharge), pHUD;
   //HUD updaten
   if(Contained() && Contents(0, Contained()) == this)
-    if (pHUD = FindObject2(Find_ID(1HUD), Find_Owner(GetController(Contained()))))
+    if (pHUD = FindObject2(Find_ID(CHUD), Find_Owner(GetController(Contained()))))
       pHUD->~Recharge(iTime, iFullTime);
   //Effekt abbrechen?
   if (iTime >= iFullTime)
@@ -1388,7 +1388,6 @@ global func FxShowWeaponTimer(object pTarget, int iNumber, int iTime)
   var xskew, yskew;   //Zerrung der Waffe, wird zur Rotation gebraucht
   var size;           //Größe der Waffe in der Hand: 1000 = 100%
   //Variablen für die Position
-  var xaim, yaim;     //Offset, dass sich durch zielen ergibt
   var dir;            //Richtung in die das Objekt schaut
   
   //schnell noch Rotation dazurechnen oder so!

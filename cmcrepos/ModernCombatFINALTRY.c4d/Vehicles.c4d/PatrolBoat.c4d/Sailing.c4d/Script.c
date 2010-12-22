@@ -268,7 +268,6 @@ protected func FxIntTurnTimer(object target, int number, int time)
       SetDir(GetDir(), controller);
 
     //Neue Position ermitteln (Sinusförmig um den Mittelpunkt)
-    var pos_t = -pos * 2;
     SetPosition(GetX() + pos - (pos*2 * pos_phase / 100), GetY(controller), controller);
   }
   var speed_phase = (time * 180 / (phases * delay)) - 90;

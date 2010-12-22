@@ -151,7 +151,6 @@ public func ControlDig()
 
 public func TimerCall()
 {
-  var iHeight, iWidth, iAngle;
   //Waffe vorhanden?
   if(!GetAttWeapon()) return;
 

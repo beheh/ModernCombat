@@ -128,7 +128,6 @@ public func Fire2T1()
 public func Fire2()
 {
   var user = GetUser();
-  var dir = GetDir(user)*2-1;
   var angle = user->AimAngle(20,0,true);
   var x,y;
   user->WeaponEnd(x,y);

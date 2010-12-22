@@ -159,7 +159,6 @@ public func GetWeaponR()
 
 public func Activity()
 {
-  var iHeight, iWidth, iAngle;
   //Wuah, haben wir eine Waffe?
   if(!GetAttWeapon()) return;
   //Sind wir im Eimer?
@@ -272,8 +271,6 @@ public func Search(int iX, int iWidth, int iHeight)
   /*DrawParticleLine("PSpark", 0, 0, -70 + Sin(aim_angle, SearchLength()), SearchLength(), 10, 80, RGB(255, 0, 0));
   DrawParticleLine("PSpark", 0, 0, 70 + Sin(aim_angle, SearchLength()), SearchLength(), 10, 80, RGB(255, 0, 0));*/ 
 
-	var w,h;
-  
 	var Targets = FindTargets(this, SearchLength());
 	var pTarget = 0;
   for(pAim in Targets)
