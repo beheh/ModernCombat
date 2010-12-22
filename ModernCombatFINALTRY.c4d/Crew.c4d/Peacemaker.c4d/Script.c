@@ -3,17 +3,8 @@
 #strict 2
 #include HZCK
 
-//Der Clonk kann drei Waffen tragen
-public func WeaponCollectionLimit()
-{
-	return 3;
-}
-
-//Und 2 beliebige Zusatzobjekte
-public func ObjectCollectionLimit()
-{
-	return 2;
-}
+public func WeaponCollectionLimit() {	return 3; } //Der Clonk kann drei Waffen tragen
+public func ObjectCollectionLimit() { return 2; } //Und 2 beliebige Zusatzobjekte
 
 
 /* Initialisierung */
