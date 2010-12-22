@@ -623,7 +623,18 @@ public func ControlThrow(caller)
 
   var meleeattacked;
   //Nahkampfangriff möglich?
-  if(!GetEffect("StrikeRecharge", this) && GetMCData(MC_CanStrike) && (caller->~ReadyToFire() || caller->~ReadyToAttack()) && !caller->~IsAiming() && (GetFMData(FM_Aim) == 0 || GetUser()->~IsAiming() || GetUser()->~AimOverride()))
+  var fWait = false, i = 0, obj;
+  if(Contained()) {
+	  while((obj = Contents(i, Contained(this))) != false) {
+	  	i++;
+	  	if(!obj->~IsWeapon2()) continue;
+	  	if(GetEffect("StrikeRecharge", obj)) {
+		  	fWait = true;
+		  	break;
+	  	}
+	  }
+	}
+  if(!fWait && GetMCData(MC_CanStrike) && (caller->~ReadyToFire() || caller->~ReadyToAttack()) && !caller->~IsAiming() && (GetFMData(FM_Aim) == 0 || GetUser()->~IsAiming() || GetUser()->~AimOverride()))
   {
     var dir = GetDir(GetUser());
     //Ziele finden
@@ -682,7 +693,7 @@ public func ControlThrow(caller)
   }
 
   //Kein Feuer erlauben wenn Kolbenschlag ausgeführt
-  if(meleeattacked)
+  if(meleeattacked || fWait)
     return 1;
 
   //Unterstützt der Schussmodus das zielen aber es wird nicht gezielt?
@@ -1198,6 +1209,8 @@ public func IsRecharging()
 
 protected func FxStrikeRechargeTimer()
 {
+	//Abbruch?
+	if(!Contained()) return -1;
   var iTime = GetEffect("StrikeRecharge", this, 0, 6), iFullTime = GetMCData(MC_Recharge), pHUD;
   //HUD updaten
   if(Contained() && Contents(0, Contained()) == this)
