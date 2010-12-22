@@ -3,10 +3,11 @@
 #strict 2
 #include CASS
 
-local iDefender;		//Verteidiger-Team
-local iTickets;			//Tickets für die Angreifer
-local aSpawns;			//Spawnpunkte
-local Connected;		//Verbundene Ziele
+local iDefender;		   //Verteidiger-Team
+local iTickets;			   //Tickets für die Angreifer
+local iWarningTickets; //Tickets bei denen gewarnt wird
+local aSpawns;			   //Spawnpunkte
+local Connected;		   //Verbundene Ziele
 
 
 /* Initialisierung */
@@ -22,12 +23,25 @@ protected func Initialize()
 public func ChooserFinished()
 {
   //Sicherheitshalber einen Frame verzögert
-  Schedule("iTickets = CalcTickets();", 1);
+  ScheduleCall(this, "InitializeTickets", 1);
 
   //Ebenfalls einen Frame verzögert, da der Szenarienscript die Zielobjekte erst noch setzt
   ScheduleCall(this, "LogTask", 1);    
 
   return _inherited(...);
+}
+
+protected func InitializeTickets() {
+  iTickets = CalcTickets();
+  if(iTickets < 4)
+  {
+    iWarningTickets = 0;
+  }
+  else
+  {
+    iWarningTickets = Max(iTickets/4, 5);
+  }
+  return true;
 }
 
 protected func LogTask()
@@ -106,10 +120,10 @@ public func ReportAssaultTargetDestruction(object pTarget, int iTeam)
 
   //Tickets resetten, bei verbundenen nur wenn alle Ziele zerstört sind
   if (GetType(Connected[index]) != C4V_Array)
-    iTickets = CalcTickets();
+    InitializeTickets();
   else
     if (fConnectedDestruction)
-	  iTickets = CalcTickets();
+	    InitializeTickets();
 }
 
 public func TeamGetScore(int iTeam)
@@ -224,10 +238,12 @@ public func RelaunchPlayer(int iPlr, pClonk, int iKiller)
     {
       iTickets = Max(iTickets-1);
       //Keine Tickets mehr?
-      if (!iTickets)
-        for (var i = 0; i < GetPlayerCount(); i++)
-          if (GetPlayerTeam(GetPlayerByIndex(i)) != iDefender)
-            EventInfo4K(i+1, "$NoTickets$", GBAS, 0, 0, 0, "Alarm.ogg");
+      if (iTickets != 0 && iTickets == iWarningTickets) {
+        Schedule(Format("GameCallEx(\"TicketsLow\", %d, %d)", iTickets, iDefender), 1);
+      }
+      if (iTickets == 0) {
+      	Schedule(Format("GameCallEx(\"NoTickets\", %d)", iDefender), 1);
+      }
     }
   }
 
@@ -250,6 +266,34 @@ public func RelaunchPlayer(int iPlr, pClonk, int iKiller)
   var rand = Random(GetLength(aSpawns[target_index][index]));
   SetPosition(aSpawns[target_index][index][rand][0], aSpawns[target_index][index][rand][1]-10, tim);
   AddEffect("IntAssaultSpawn", tim, 1, 1, this);
+}
+
+/* EventInfos */
+
+public func TicketsLow(int iRemaining, int iTeam)
+{
+  for(var i = 0; i < GetPlayerCount(); i++)
+  {
+    if(GetPlayerTeam(GetPlayerByIndex(i)) == iTeam)
+    {
+      //Nachricht über Tickettiefstand
+      EventInfo4K(GetPlayerByIndex(i)+1,Format("$MsgTicketsLow$",iRemaining),SM03,0,0,0,"Alarm.ogg");
+    }
+  }
+  return true;
+}
+
+public func NoTickets(int iTeam)
+{
+  for(var i = 0; i < GetPlayerCount(); i++)
+  {
+    if(GetPlayerTeam(GetPlayerByIndex(i)) == iTeam)
+    {
+      //Nachricht über Verlust aller Tickets
+      EventInfo4K(GetPlayerByIndex(i)+1,Format("$MsgNoTickets$"),SM03,0,0,0,"Alarm.ogg");
+    }
+  }
+  return true;
 }
 
 protected func FxIntAssaultSpawnTimer(object pTarget)

@@ -400,7 +400,7 @@ public func DoTickets(int iTeam, int iChange, bool fNoWarn)
     }
     if(aTicket[iTeam-1] == 0)
     {
-      Schedule(Format("GameCallEx(\"NoTickets\", %d, %d)", iTeam), 1);
+      Schedule(Format("GameCallEx(\"NoTickets\", %d)", iTeam), 1);
     }
   }
   return true;
