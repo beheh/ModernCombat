@@ -13,7 +13,6 @@ public func FxHitCheckTimer(object target, int effect, int time)
   var oldy = EffectVar(1, target, effect);
   var newx = GetX(target);
   var newy = GetY(target);
-  var dist = Distance(oldx, oldy, newx, newy);
   EffectVar(0, target, effect) = GetX(target);
   EffectVar(1, target, effect) = GetY(target);
   

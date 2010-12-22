@@ -157,7 +157,6 @@ public func GetFlagCount(int iTeam, bool bCountBlankFlags)
 
 public func GetHUDInfo(int player, object hud)
 {
-  var team = GetPlayerTeam(player);
   var str;
 
   if(GetTeamCount() > 0)
@@ -529,8 +528,7 @@ private func TeamAlive(int iTeam)
 
 private func GetWinningTeam()
 {
-  var alive = [], poles = [];
-  var add, id;
+  var alive = [];
 
   //Zwei Siegbedingungen: Alle Spieler eines Teams eliminiert und alle Flaggen des Teams eingenommen
   for(var i = 0; i < GetTeamCount(); i++)

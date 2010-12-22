@@ -121,7 +121,6 @@ public func FxFollowTimer(object pTarget, int iEffectNumber, int iEffectTime)
       {
         var iEffectTracer = GetEffect("TracerDart", pEnemy);
         if(!iEffectTracer) continue;
-        var iPlr = EffectVar(0, pEnemy, iEffectTracer);
         var iTeam = EffectVar(2, pEnemy, iEffectTracer);
         if(iTeam != GetPlayerTeam(GetController())) continue;
         if(!PathFree(GetX(), GetY(), GetX(pEnemy), GetY(pEnemy))) continue;

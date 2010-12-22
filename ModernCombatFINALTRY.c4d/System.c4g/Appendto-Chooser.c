@@ -100,7 +100,7 @@ protected func LoadRuleCfg()
   var a = GameCall("ChooserRuleConfig");
   if(!GetLength(a)) return;
 
-  for(var i=0, idR, def, j, check ; idR = GetDefinition(i, Chooser_Cat) ; i++)
+  for(var i=0, idR; idR = GetDefinition(i, Chooser_Cat) ; i++)
    if(DefinitionCall(idR, "IsChooseable") && !GetLength(FindObjects(Find_ID(idR))))
    {
     if(FindInArray4K(a,idR) > -1)
@@ -207,7 +207,7 @@ protected func ConfigurationFinished2()
 
 private func IsStandardSetting()
 {
-  var a = GameCall("ChooserRuleConfig"), array = CreateArray(GetLength(aRules)), i;
+  var a = GameCall("ChooserRuleConfig"), i;
   for (var i = 0; i < GetLength(aRules); i++) {
     if (FindInArray4K(a, GetDefinition(i, Chooser_Cat)) != -1)
     {

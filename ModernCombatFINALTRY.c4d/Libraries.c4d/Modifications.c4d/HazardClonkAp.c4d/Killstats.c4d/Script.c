@@ -175,7 +175,7 @@ public func FxKillStatsEffect(string szNewEffectName, object pTarget, int iEffec
 public func FxKillStatsAdd(object pTarget, int iEffectNumber, string szNewEffectName, int iNewEffectTimer)
 {
   //Neue Daten speichern
-  var total = ++EffectVar(0, pTarget, iEffectNumber);
+  ++EffectVar(0, pTarget, iEffectNumber);
   var running = ++EffectVar(2, pTarget, iEffectNumber);
   EffectVar(1, pTarget, iEffectNumber) = GetEffect("KillStats", pTarget, 0, 6);
   EffectVar(3, pTarget, iEffectNumber) = 1;

@@ -239,7 +239,6 @@ global func FxSpawnBeamStart(pTarget, iEffectNumber, temp)
 
 global func FxSpawnBeamTimer(pTarget, iEffectNumber, iTime)
 {
-  var end_mod = EffectVar(0, pTarget, iEffectNumber);
   var iFrames = EffectVar(1, pTarget, iEffectNumber);
 	
   for(var i = 0; i < 2; ++i)

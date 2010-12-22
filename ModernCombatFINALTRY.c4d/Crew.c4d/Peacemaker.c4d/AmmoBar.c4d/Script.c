@@ -70,7 +70,6 @@ public func Update()
 
 	//Waffendaten einholen
 	var weapon = Contents(0, obj);
-	var ammobag = obj->AmmoStoring();
 
 	//Munitionsdaten einholen
 	var ammocount = obj->GetAmmo(weapon->GetFMData(FM_AmmoID));

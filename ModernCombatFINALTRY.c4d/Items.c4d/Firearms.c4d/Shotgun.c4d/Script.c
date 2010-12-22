@@ -70,7 +70,6 @@ public func BotData1(int data)
 public func Fire1()
 {
   var user = GetUser();
-  var dir = GetDir(user)*2-1;
   var angle = user->AimAngle(10,0,true);
   var x,y;
   user->WeaponEnd(x,y);

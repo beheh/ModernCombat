@@ -104,7 +104,7 @@ private func VerticeLength(i, pTarget1, pTarget2)
 
 private func Timer()
 {
-  var i, iAmount, iSize = 10;
+  var i, iAmount;
   // Partikel-Effekt
   while(i < GetPointNum() - 1)
   {
@@ -150,7 +150,7 @@ private func DrawParticleLine2 (szKind, x0, y0, x1, y1, prtdist, a, b0, b1, iYDi
 
 func MoveRope(pObj1, pObj2)
 {
-  var a, b, d1, d2;
+  var a, b;
   // Wir brauchen mindesten 3 Vertices, damit die Algorithmen funktionieren
   if(GetPointNum () < 3)
     InsertPoint(1, (GetPoint(0) + GetPoint(1)) / 2, (GetPoint(0, 1) + GetPoint(1, 1)) / 2);
