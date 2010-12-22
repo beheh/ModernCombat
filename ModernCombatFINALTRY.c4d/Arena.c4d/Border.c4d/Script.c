@@ -72,7 +72,7 @@ protected func FxBorderStart(pTarget, iNo, iTemp)
   PlayerMessage(GetOwner(pTarget), "@$Warning$", pTarget, EffectVar(0, pTarget, iNo));
 
   //Overlay
-  EffectVar(1, pTarget, iNo) = ScreenRGB(pTarget, 1, 1, -10, 0, SR4K_LayerBorder);
+  EffectVar(1, pTarget, iNo) = ScreenRGB(pTarget, 1, 1, -10, false, SR4K_LayerBorder);
 }
     
 protected func FxBorderTimer(pTarget, iNo, iTime)

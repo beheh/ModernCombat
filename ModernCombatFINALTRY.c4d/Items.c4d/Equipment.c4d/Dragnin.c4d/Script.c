@@ -39,7 +39,6 @@ func Sting(caller)
 
     //Heileffekt geben
     AddEffect("DragninHeal",obj,20,1,0,GetID(),HealAmount(),HealRate());
-    ScreenRGB(obj,RGBa(0,230,255,190),50,5,true, SR4K_LayerMedicament);
     Sound("DGNN_Use.ogg");
 
     //Punkte bei Belohnungssystem
@@ -111,6 +110,7 @@ func FxDragninHealStart(object pTarget, int iEffectNumber, int iTemp, int iHealA
   SetPhysical("Scale", GetPhysical("Scale", 2, pTarget)/3, 3, pTarget);
   SetPhysical("Hangle", GetPhysical("Hangle", 2, pTarget)/3, 3, pTarget);
   SetPhysical("Swim", GetPhysical("Swim", 2, pTarget)/3, 3, pTarget);
+  ScreenRGB(pTarget,RGBa(0, 230, 255, 190), 80, 3,false, SR4K_LayerMedicament, 200);
 }
 
 func FxDragninHealTimer(object pTarget, int iEffectNumber, int iEffectTime)
@@ -137,6 +137,9 @@ func FxDragninHealTimer(object pTarget, int iEffectNumber, int iEffectTime)
   if(Contained(pTarget) && GetID(Contained(pTarget)) == FKDT)
   {
     return -1;
+  }
+  if(!(iEffectTime % 20)) {
+  	ScreenRGB(pTarget,RGBa(0, 230, 255, 190), 80, 3,false, SR4K_LayerMedicament, 200);
   }
 }
 

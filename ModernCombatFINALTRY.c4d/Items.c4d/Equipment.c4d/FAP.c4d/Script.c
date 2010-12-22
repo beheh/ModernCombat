@@ -188,6 +188,9 @@ public func FxFAPHealStart(pTarget, iEffectNumber, iTemp, pClonk)
   Sound("FAPK_HealStart.ogg");
   ObjectSetAction(pClonk, "Heal");
 
+	//Anfangsflash
+	ScreenRGB(pClonk,RGBa(0, 230, 255, 190), 80, 3,false, SR4K_LayerMedicament, 200);
+
   return 1;
 }
 
@@ -206,7 +209,7 @@ public func FxFAPHealTimer(pTarget, iEffectNumber, iEffectTime)
 
   //Effekte
   pClonk->CreateParticle("ShockWave",0,0,Random(10),Random(10),5*GetObjHeight(pClonk)+25+Sin(iEffectTime*5,35),RGB(0,230,255),pClonk);
-  if(!(iEffectTime % 20)) ScreenRGB(pClonk,RGBa(0,230,255,190), 50, 3,false, SR4K_LayerMedicament, 200);
+  if(!(iEffectTime % 20)) ScreenRGB(pClonk,RGBa(0, 230, 255, 190), 80, 3,false, SR4K_LayerMedicament, 200);
 
   if(!(iEffectTime % 40))	//Alle 40 Frames
    Sound("FAPK_Healing*.ogg");
@@ -318,6 +321,7 @@ public func FxFAPGrouphealTimer(pTarget, iEffectNumber, iEffectTime)
       clonk->CreateParticle("ShockWave",0,0,0,0,5*GetObjHeight(clonk)+5*5,RGB(0,230,255),clonk);
       clonk->CreateParticle("ShockWave",0,0,0,0,5*GetObjHeight(clonk)+10*5,RGB(0,230,255),clonk);
       clonk->CreateParticle("ShockWave",0,0,0,0,5*GetObjHeight(clonk)+15*5,RGB(0,230,255),clonk);
+      ScreenRGB(clonk,RGBa(0, 230, 255, 190), 80, 3,false, SR4K_LayerMedicament, 200);
       DoHealPoints(-heal/2);
       Sound("FAPK_Healing*.ogg");
     }
