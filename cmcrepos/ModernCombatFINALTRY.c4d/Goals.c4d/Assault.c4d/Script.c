@@ -239,10 +239,10 @@ public func RelaunchPlayer(int iPlr, pClonk, int iKiller)
       iTickets = Max(iTickets-1);
       //Keine Tickets mehr?
       if (iTickets != 0 && iTickets == iWarningTickets) {
-        Schedule(Format("GameCallEx(\"TicketsLow\", %d, %d)", iTickets, iDefender), 1);
+        Schedule(Format("GameCallEx(\"TicketsLow\", %d, %d, true)", iTickets, iDefender), 1);
       }
-      if (iTickets == 0) {
-      	Schedule(Format("GameCallEx(\"NoTickets\", %d)", iDefender), 1);
+      if (!iTickets) {
+      	Schedule(Format("GameCallEx(\"NoTickets\", %d, true)", iDefender), 1);
       }
     }
   }
@@ -270,11 +270,11 @@ public func RelaunchPlayer(int iPlr, pClonk, int iKiller)
 
 /* EventInfos */
 
-public func TicketsLow(int iRemaining, int iTeam)
+public func TicketsLow(int iRemaining, int iTeam, bool fExclude)
 {
   for(var i = 0; i < GetPlayerCount(); i++)
   {
-    if(GetPlayerTeam(GetPlayerByIndex(i)) == iTeam)
+    if((!fExclude && GetPlayerTeam(GetPlayerByIndex(i)) == iTeam) || (fExclude && GetPlayerTeam(GetPlayerByIndex(i)) != iTeam))
     {
       //Nachricht über Tickettiefstand
       EventInfo4K(GetPlayerByIndex(i)+1,Format("$MsgTicketsLow$",iRemaining),SM03,0,0,0,"Alarm.ogg");
@@ -283,11 +283,11 @@ public func TicketsLow(int iRemaining, int iTeam)
   return true;
 }
 
-public func NoTickets(int iTeam)
+public func NoTickets(int iTeam, bool fExclude)
 {
   for(var i = 0; i < GetPlayerCount(); i++)
   {
-    if(GetPlayerTeam(GetPlayerByIndex(i)) == iTeam)
+    if((!fExclude && GetPlayerTeam(GetPlayerByIndex(i)) == iTeam) || (fExclude && GetPlayerTeam(GetPlayerByIndex(i)) != iTeam))
     {
       //Nachricht über Verlust aller Tickets
       EventInfo4K(GetPlayerByIndex(i)+1,Format("$MsgNoTickets$"),SM03,0,0,0,"Alarm.ogg");
