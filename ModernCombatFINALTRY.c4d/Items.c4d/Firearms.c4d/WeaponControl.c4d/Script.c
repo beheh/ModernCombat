@@ -442,6 +442,7 @@ public func FxReloadStart(object pTarget, int iNumber, int iTemp, int iTime,iSlo
   EffectVar(3,pTarget,iNumber) = 0;  
   EffectVar(4,pTarget,iNumber) = EffectVar(0,pTarget,iNumber);
   EffectVar(5,pTarget,iNumber) = -1;
+  EffectVar(6,pTarget,iNumber) = 0;
 
   //Reload-End-Spam verhindern
   if(GetFMData(FM_SingleReload))
@@ -464,9 +465,12 @@ public func FxReloadTimer(object pTarget, int iNumber, int iTime)
     }
     
     //GetUser()->~UpdateCharge();
-    if(EffectVar(4,pTarget,iNumber)-- <= 0) //Fertig?
+    if(EffectVar(4,pTarget,iNumber)-- <= 0 || EffectVar(6,pTarget,iNumber)) //Fertig?
     {
       EffectVar(1,pTarget,iNumber) = 0;
+      if(EffectVar(6,pTarget,iNumber)) {
+        EffectVar(4,pTarget,iNumber) = 0;
+      }
       EffectVar(5,pTarget,iNumber) = +1; //Jetzt wird beendet.
       OnFinishReloadStart(EffectVar(2,pTarget,iNumber));
       return;
@@ -1000,7 +1004,8 @@ public func FinishReload(int iSlot)
   if(!iSlot)
   {
     var effect = GetEffect("Reload",this);
-    EffectVar(4,this,effect) = 0;//Färtig!11
+    EffectVar(6,this,effect) = 1;
+    //EffectVar(4,this,effect) = 0;//Färtig!11
     return true;
   }
   
@@ -1009,7 +1014,8 @@ public func FinishReload(int iSlot)
     if(EffectVar(2,this,GetEffect("Reload",this,i))==iSlot)
     {
       var effect = GetEffect("Reload",this,i);
-      EffectVar(4,this,effect) = 0;//Färtig!11
+      //EffectVar(4,this,effect) = 0;//Färtig!11
+      EffectVar(6,this,effect) = 1;
       return true;
     }
   }
