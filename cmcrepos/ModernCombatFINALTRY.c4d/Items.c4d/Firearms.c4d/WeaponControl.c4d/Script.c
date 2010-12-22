@@ -585,7 +585,7 @@ public func Reload(int iFM)
   if(IsRecharging()) RemoveEffect("Recharge", this);
   
   //Hat schon genug?!
-  if(GetAmmo2(iSlot,ammoid) >= GetFMData(FM_AmmoLoad))
+  if(GetAmmo2(iSlot, this) >= GetFMData(FM_AmmoLoad))
     return false;
 
   //Nicht genug Munition um nachzuladen
