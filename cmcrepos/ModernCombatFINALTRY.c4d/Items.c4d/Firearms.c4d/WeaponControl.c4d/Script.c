@@ -595,7 +595,7 @@ public func Reload(int iFM)
     return false;
 
   //Entleeren falls noch voll
-  if(!GetFMData(FM_SingleReload,iFM) || !CheckAmmo(ammoid,GetFMData(FM_AmmoLoad,iFM),GetUser()))
+  if(!GetFMData(FM_SingleReload,iFM))
     if(CheckAmmo2(iSlot,ammoid,ammousage,this))
       Empty2(iSlot);
 
