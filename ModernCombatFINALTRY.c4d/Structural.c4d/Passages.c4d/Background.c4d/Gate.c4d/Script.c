@@ -1,8 +1,7 @@
 /*-- Tor --*/
 
 #strict 2
-#include DOOR
-
+#include BDOR
 
 /* Sounds */
 
