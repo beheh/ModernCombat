@@ -172,8 +172,11 @@ public func OnGameOver()
 
 protected func RemovePlayer(iPlr)
 {
-  if(!GetCursor(iPlr)->IsFakeDeath()) return;
-  GetCursor(iPlr)->Kill();
+	var pCursor = GetCursor(iPlr);
+	if(!pCursor) return;
+	if(pCursor->~GetRealCursor()) pCursor = pCursor->~GetRealCursor();
+  if(!pCursor->~IsFakeDeath()) return;
+  pCursor->Kill();
 }
 
 /* Zusatzfunktionen */
