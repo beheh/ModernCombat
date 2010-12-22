@@ -14,7 +14,6 @@ protected func Initialize()
 {
   aData = CreateArray();
   fEvaluation = false;
-  aStats = CreateArray();
   aAchievementProgress = CreateArray();
   aAchievementExtra = CreateArray();
   iAchievementCount = 0;
@@ -26,115 +25,101 @@ protected func Initialize()
 
 protected func Activate(iByPlayer)
 {
-  StatsMenu(iByPlayer);
+  StatsPoints(iByPlayer);
   return 1;
 }
 
-public func StatsMenu(int iPlr, bool fBack)
+public func StatsPoints(int iPlr)
 {
-  if(!aStats[iPlr]) aStats[iPlr] = 0;
   var pClonk = GetCursor(iPlr);
-  var iSelect = aStats[iPlr];
-  var extra;
-
+  if(GetMenu(pClonk)) CloseMenu(pClonk);
   if(!CreateMenu(GetID(),pClonk,this,0,0,0,C4MN_Style_Dialog)) return;
   AddMenuItem(" | ", "", RWDS, pClonk, 0, 0, "", 514, 0, 0);
-  if(iSelect)
+  
+  //Erst mal einsortieren
+  var aList = CreateArray();
+  var szString;
+  var iPlayer = 0;
+  while(aData[iPlayer] != 0)
   {
-    var iData = GetPlrExtraData(iPlr, "CMC_Achievements");
-    var iIndex = iSelect;
-    var idAchievement = C4Id(Format("AC%02d", iIndex));
-    if(!(iData >> iSelect & 1))
-    {
-      AddMenuItem(Format("<c ffff33>%s</c>", GetName(0, idAchievement)), "", NONE, pClonk, 0, 0, "", 0, 0, 0);
-      AddMenuItem("<i>$AchievementLocked$</i>", "", NONE, pClonk, 0, 0, "", 0, 0, 0);
-    }
-    else
-    {
-      AddMenuItem(Format("<c ffff33>%s</c>", GetName(0, idAchievement)), "", NONE, pClonk, 0, 0, "", 0, 0, 0);
-      AddMenuItem(Format("<i>%s</i>", GetDesc(0, idAchievement)), "", NONE, pClonk, 0, 0, "", 0, 0, 0);
-    }
+    var iTeam = GetPlayerData(RWDS_PlayerTeam, iPlayer);
+    if(!aList[iTeam]) aList[iTeam] = CreateArray();
+    szString = Format("%s: %d $Points$", GetPlayerData(RWDS_PlayerName, iPlayer), GetPlayerPoints(RWDS_TotalPoints, iPlayer));
+               aList[iTeam][GetLength(aList[iTeam])] = szString;
+               iPlayer++;
   }
-  else
-  {
-    extra = -1;
-    //Erst mal einsortieren
-    var aList = CreateArray();
-    var szString;
-    var iPlayer = 0;
-    while(aData[iPlayer] != 0)
-    {
-      var iTeam = GetPlayerData(RWDS_PlayerTeam, iPlayer);
-      if(!aList[iTeam]) aList[iTeam] = CreateArray();
-      szString = Format("%s: %d $Points$", GetPlayerData(RWDS_PlayerName, iPlayer), GetPlayerPoints(RWDS_TotalPoints, iPlayer));
-                 aList[iTeam][GetLength(aList[iTeam])] = szString;
-                 iPlayer++;
-    }
-    //Nach Team ausgeben
-    AddMenuItem("<c ffff33>$ActualPoints$</c>", "", NONE, pClonk, 0, 0, "", 0, 0, 0);
+  //Nach Team ausgeben
+  AddMenuItem("<c ffff33>$ActualPoints$</c>", "", NONE, pClonk, 0, 0, "", 0, 0, 0);
 
-    for(var aTeam in aList)
-      if(aTeam)
-        for(var szString in aTeam)
-	{
-	  extra++;
-	  AddMenuItem(szString, "", NONE, pClonk, 0, 0, "", 0, 0, 0);
-	}
+  for(var aTeam in aList) {
+    if(aTeam) {
+      for(var szString in aTeam)
+			  if(szString) AddMenuItem(szString, "", NONE, pClonk, 0, 0, "", 0, 0, 0);
+		}
   }
+  
+  //Leerzeile
+  AddMenuItem(" ", "", NONE, pClonk, 0, 0, "", 0, 0, 0);
+ 
+  //Eigene Errungenschaften anzeigen
+	AddMenuItem("$ShowAchievements$", "StatsList", NONE, pClonk, 0, iPlr, "", 0, 0, 0);
+}
+
+public func StatsList(int iPlr, int iIndex) {
+  
+  var pClonk = GetCursor(iPlr);
+  if(GetMenu(pClonk)) CloseMenu(pClonk);
+  if(!CreateMenu(GetID(),pClonk,this,0,0,0,C4MN_Style_Dialog)) return;
+  AddMenuItem(" | ", "", RWDS, pClonk, 0, 0, "", 514, 0, 0);
+  
+  var iData = GetPlrExtraData(iPlr, "CMC_Achievements");
+  
+  //Liste
+  var i = 1;
+  var idAchievement;
+  while(i <= iAchievementCount) {
+    idAchievement = C4Id(Format("AC%02d", i));
+    if(iData >> i & 1) {
+      AddMenuItem(Format("<c ffff33>%s</c>", GetName(0, idAchievement)), Format("StatsAchievement(%d, %d)", iPlr, i), NONE, pClonk, 0, 0, "", 0, 0, 0);
+    }
+    else {
+      AddMenuItem("<c 777777>???</c>", Format("StatsAchievement(%d, %d)", iPlr, i), NONE, pClonk, 0, 0, "", 0, 0, 0);
+    }
+    i++;
+  }
+  if(iIndex) SelectMenuItem(iIndex, pClonk);
 
   //Leerzeile
-  AddMenuItem(" ", "", NONE, pClonk, 0, iSelect+1, "", 0, 0, 0);
+  AddMenuItem(" ", "", NONE, pClonk, 0, 0, "", 0, 0, 0);
+    
+  //Zurück
+  AddMenuItem("$ShowPoints$", "StatsPoints", NONE, pClonk, 0, iPlr, "", 0, 0, 0);
+}
 
-  //Navigation
-  if(iSelect+1 > iAchievementCount)
-  {
-    AddMenuItem("<c 777777>$Continue$</c>", "StatsContinue", NONE, pClonk, 0, iPlr, "", 0, 0, 0);
-  }
-  else
-  {
-    AddMenuItem("$Continue$", "StatsContinue", NONE, pClonk, 0, iPlr, "", 0, 0, 0);
-  }
-  if(!fBack) SelectMenuItem(4+extra, pClonk);
-  if(iSelect-1 < 0)
-  {
-    AddMenuItem("<c 777777>$Back$</c>", "StatsBack", NONE, pClonk, 0, iPlr, "", 0, 0, 0);
-  }
-  else
-  {
-    AddMenuItem("$Back$", "StatsBack", NONE, pClonk, 0, iPlr, "", 0, 0, 0);
-  }
-  if(fBack) SelectMenuItem(5+extra, pClonk);
+public func StatsAchievement(int iPlr, int iSelect) {
+  var pClonk = GetCursor(iPlr);
+  if(GetMenu(pClonk)) CloseMenu(pClonk);
+  if(!CreateMenu(GetID(),pClonk,this,0,0,0,C4MN_Style_Dialog)) return;
+  AddMenuItem(" | ", "", RWDS, pClonk, 0, 0, "", 514, 0, 0);
+
+  var iData = GetPlrExtraData(iPlr, "CMC_Achievements");
+	var iIndex = iSelect;
+	var idAchievement = C4Id(Format("AC%02d", iIndex));
+	if(iData >> iSelect & 1) {
+    AddMenuItem(Format("<c ffff33>%s</c>", GetName(0, idAchievement)), "", NONE, pClonk, 0, 0, "", 0, 0, 0);
+	  AddMenuItem(Format("%s", GetDesc(0, idAchievement)), "", NONE, pClonk, 0, 0, "", 0, 0, 0);
+	}
+	else {
+	  Sound("Error", true, 0, 100, iPlr);
+		return StatsList(iPlr, iSelect);
+	}
+	
+	//Leerzeile
+	AddMenuItem(" ", "", NONE, pClonk, 0, 0, "", 0, 0, 0);
+	
+	//Zurück
+	AddMenuItem("$Back$", Format("StatsList(%d, %d)", iPlr, iSelect), NONE, pClonk, 0, 0, "", 0, 0, 0);
   return true;
-}
-
-public func StatsContinue(temp, int iPlr)
-{
-  if(!aStats[iPlr]) aStats[iPlr] = 0;
-  if(aStats[iPlr]+1 > iAchievementCount)
-  {
-    Sound("Error", 1, 0, 100, iPlr+1);
-  }
-  else
-  {
-    Sound("Grab", 1, 0, 100, iPlr+1);
-  }
-  aStats[iPlr] = BoundBy(aStats[iPlr]+1, 0, iAchievementCount);
-  return StatsMenu(iPlr, false);
-}
-
-public func StatsBack(temp, int iPlr)
-{
-  if(!aStats[iPlr]) aStats[iPlr] = 0;
-  if(aStats[iPlr]-1 < 0)
-  {
-    Sound("Error", 1, 0, 100, iPlr+1);
-  }
-  else
-  {
-    Sound("Grab", 1, 0, 100, iPlr+1);
-  }
-  aStats[iPlr] = BoundBy(aStats[iPlr]-1, 0, iAchievementCount);
-  return StatsMenu(iPlr, true);
 }
 
 global func RewardsActive()

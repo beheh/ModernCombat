@@ -7,5 +7,6 @@ Achievement=Errungenschaft
 Achievements=Errungenschaften
 AchievementsUnlocked=%d Errungenschaften freigeschaltet:
 AchievementLocked=<c 777777>Du hast diese Errungenschaft noch nicht erreicht.</c>
-Continue=Weiter
+ShowAchievements=Eigene Errungenschaften anzeigen
+ShowPoints=Punktetabelle anzeigen
 Back=Zurück
