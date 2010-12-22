@@ -1214,7 +1214,7 @@ protected func FxStrikeRechargeTimer()
   var iTime = GetEffect("StrikeRecharge", this, 0, 6), iFullTime = GetMCData(MC_Recharge), pHUD;
   //HUD updaten
   if(Contained() && Contents(0, Contained()) == this)
-    if (pHUD = FindObject2(Find_ID(CHUD), Find_Owner(GetController(Contained()))))
+    if (pHUD = FindObject2(Find_ID(1HUD), Find_Owner(GetController(Contained()))))
       pHUD->~Recharge(iTime, iFullTime);
   //Effekt abbrechen?
   if (iTime >= iFullTime)
