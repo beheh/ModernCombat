@@ -135,6 +135,7 @@ public func GetRocket()
   for(var pCheck in aRockets)
   {
     if(FindObject(NOFF) && !Hostile(GetOwner(pCheck), GetOwner())) continue;
+    if(ObjectDistance(pCheck, this) <= 150) fRocket = true;
     var aObj = FindObjects(Find_ID(GetID()), Find_OnLine(AbsX(GetX(pCheck)), AbsY(GetY(pCheck)), AbsX(GetX(pCheck)+Sin(GetR(pCheck), 800)), AbsX(GetX(pCheck)-Cos(GetR(pCheck), 800))));
     for(var pCheck in aObj)
     {
@@ -630,6 +631,14 @@ protected func ContainedRightDouble(object ByObj)
   return true;
 }
 
+public func CanDeployFlares() {
+  return !flarereload;
+}
+
+public func CanDeploySmokeWall() {
+  return !smokereload;
+}
+
 protected func ContainedThrow(object ByObj)
 {
   [Image=KOKR|$CtrlThrow$]
@@ -645,7 +654,7 @@ protected func ContainedThrow(object ByObj)
 
     //Flareabwurf
     //Nur wenn geladen
-    if(!flarereload)
+    if(CanDeployFlares())
     {
       overlay = ring->AddThrowItem("$Flares$", "DeployFlares",ByObj,SMIN);
       SetGraphics("6",ring,SMIN,overlay,GFXOV_MODE_IngamePicture);
@@ -653,7 +662,7 @@ protected func ContainedThrow(object ByObj)
 
     //Rauchwand
     //Nur wenn geladen
-    if(!smokereload)
+    if(CanDeploySmokeWall())
     {
       overlay = ring->AddLeftItem("$Smoke$", "DeploySmoke",ByObj,SMIN);
       SetGraphics("7",ring,SMIN,overlay,GFXOV_MODE_IngamePicture);
@@ -1221,7 +1230,7 @@ protected func TimerCall()
         throttle-=5;
       else if(throttle > 0)
         throttle-=10;
-      if(throttle <= 0 && (GetPilot() || GetAutopilot()))
+      if(throttle <= 0 && !GetPilot() && !GetAutopilot())
       {
         throttle = 0;
         SetAction("EngineShutDown");
