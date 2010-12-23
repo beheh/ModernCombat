@@ -18,3 +18,4 @@ Mass=240
 Components=WPVM=1
 Picture=0,0,48,40
 Grab=2
+NoPushEnter=1

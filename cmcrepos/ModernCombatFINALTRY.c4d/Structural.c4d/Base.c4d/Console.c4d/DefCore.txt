@@ -18,3 +18,4 @@ Mass=50
 Components=METL=3;MONI=1
 Picture=0,0,22,10
 Grab=2
+NoPushEnter=1
