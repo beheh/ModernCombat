@@ -447,6 +447,7 @@ public func FxReloadStart(object pTarget, int iNumber, int iTemp, int iTime,iSlo
   EffectVar(1,pTarget,iNumber) = 0; //Vorbereiten.
   EffectVar(2,pTarget,iNumber) = iSlot;
   EffectVar(3,pTarget,iNumber) = 0;  
+  //if(GetFMData(FM_SingleReload)) EffectVar(3,pTarget,iNumber) = GetAmmo2(iSlot, pTarget);
   EffectVar(4,pTarget,iNumber) = EffectVar(0,pTarget,iNumber);
   EffectVar(5,pTarget,iNumber) = -1;
   EffectVar(6,pTarget,iNumber) = 0;
@@ -522,7 +523,7 @@ public func FxReloadStop(object pTarget, int iNumber, int iReason, bool fTemp)
   //Temporäre Aufrufe ignorieren
   if(fTemp) return;
   Message(" ",pTarget);
-  
+
   if(iReason == 0)
   {
     if(!GetFMData(FM_SingleReload))
@@ -1086,8 +1087,10 @@ private func Reloaded(caller,slot,amount)
 {
   //Munitionsart identifizieren
   var ammoid = GetFMData(FM_AmmoID);
+  
   //Munitionsmenge feststellen
-  amount = Min(amount,MaxReloadAmount(caller)-GetAmmo2(slot));
+  amount = Min(amount,MaxReloadAmount(caller));
+
   //Munitionsmenge an Waffe übergeben
   DoAmmo2(slot, ammoid, amount, this);
   //Munition aus Clonk entfernen
