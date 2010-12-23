@@ -391,6 +391,11 @@ public func GetCharge()
   return charge;
 }
 
+public func IsRecharging() {
+  if(IsCanceling()) return true;
+  return _inherited();
+}
+
 public func GetRecharge()
 {
   if(IsCanceling())
@@ -535,7 +540,7 @@ public func IsCanceling(int iSlot)
   var effect = IsReloading(iSlot);
   if(effect)
   {
-    if(EffectVar(5,this,effect) == +1)
+    if(EffectVar(5,this,effect) >= +1)
       return true;
   }
 }
