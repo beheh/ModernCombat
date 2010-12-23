@@ -4,6 +4,7 @@
 
 local arty;
 
+
 public func Attach(object pObj, int iVertex)
 {
   SetAction("Extend", arty = pObj);
@@ -16,11 +17,4 @@ public func Attach(object pObj, int iVertex)
 func EjectBullet()
 {
   SABulletCasing(0, 0, RandomX(-20,-10), RandomX(-30,-20), 12, RGB(200,200,200));
-}
-
-/* Kein Hineinversetzen in andere Sachen */
-
-public func RejectEntrance()
-{
-  return 1;
 }
