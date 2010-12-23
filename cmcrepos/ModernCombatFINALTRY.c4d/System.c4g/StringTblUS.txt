@@ -68,3 +68,7 @@ ThisWindow=You probably won't believe it but the absolute and great truth of it 
 YourStomach=Your stomach
 EverythingEmpty=Your FAP, AMP and shock paddles
 Barrel=The phosphor barrel
+Beer=The beer
+YourGlance=Your glance
+YourHarddrive=Your harddrive
+YourChat=Your chat window
