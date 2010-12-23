@@ -98,6 +98,12 @@ FullscreenBG=1
 	OverlayImage=Overlay8.png
 
 
+	[Scenario]
+	File=CMC_Oasis.c4s
+	Area=291,357,253,25
+	OverlayImage=Overlay14.png
+
+
 
 
 	[Scenario]
