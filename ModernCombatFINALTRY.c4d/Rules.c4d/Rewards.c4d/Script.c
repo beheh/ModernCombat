@@ -184,7 +184,10 @@ public func UpdatePlayers()
   for(var i = 0; i < GetPlayerCount()+iOffset; i++)
   {
     var iPlr = GetPlayerByIndex(i);
-    if(!GetPlayerName(iPlr) && GetPlayerData(RWDS_PlayerName, iPlr)) iOffset++;
+    if(!GetPlayerName(iPlr) && GetPlayerData(RWDS_PlayerName, iPlr)) {
+      iOffset++;
+      continue;
+    }
     SetPlayerData(Format("<c %x>%s</c>", GetPlrColorDw(iPlr), GetPlayerName(iPlr)), RWDS_PlayerName, iPlr);
     SetPlayerData(GetPlayerTeam(iPlr), RWDS_PlayerTeam, iPlr);
     if(!aData[iPlr]) aData[iPlr] = CreateArray();
