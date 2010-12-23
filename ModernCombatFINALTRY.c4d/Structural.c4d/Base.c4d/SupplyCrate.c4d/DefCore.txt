@@ -13,6 +13,7 @@ Picture=0,18,64,64
 Vertices=4
 NoBurnDecay=1
 Grab=2
+NoPushEnter=1
 GrabPutGet=3
 ContainBlast=1
 VertexX=-11,-11,8,8

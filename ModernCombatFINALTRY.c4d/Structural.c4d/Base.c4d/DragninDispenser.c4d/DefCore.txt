@@ -16,4 +16,5 @@ Mass=150
 Components=METL=3;MONI=1
 Picture=40,0,40,83
 Grab=2
+NoPushEnter=1
 GrabPutGet=C4D_GrabPut
