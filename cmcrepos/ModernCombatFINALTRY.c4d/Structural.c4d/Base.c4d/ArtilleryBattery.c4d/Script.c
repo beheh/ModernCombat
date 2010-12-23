@@ -8,8 +8,8 @@ local bRotate, bDirection;
 local iCooldown;
 local byObj;
 
-public func IsMachine()     {return true;}
-public func MaxDamage()     {return 150;}
+public func IsMachine()		{return true;}
+public func MaxDamage()		{return 150;}
 
 
 /* Initialisierung */
@@ -47,7 +47,7 @@ func Rotation()
 
   if(!bRotate) return;
 
-    if(!FindObject2(Find_Action("Push"), Find_ActionTarget(this))) {bRotate = 0; Sound("CannonStop"); return;}
+	if(!FindObject2(Find_Action("Push"), Find_ActionTarget(this))) {bRotate = 0; Sound("CannonStop"); return;}
 
   if(GetR(pCannon)> 80) {bRotate=0; SetR(GetR(pCannon)-1,pCannon); Sound("CannonStop"); return;}
   if(GetR(pCannon)<-80) {bRotate=0; SetR(GetR(pCannon)+1,pCannon); Sound("CannonStop"); return;}
@@ -151,7 +151,7 @@ public func Shoot()
 {
   //Zerstört?
   if(IsDestroyed()) return;
-    
+	
   var iX=Sin(GetR(pCannon),34);
   var iY=-Cos(GetR(pCannon),34)-3;
    
@@ -191,9 +191,9 @@ public func OnDestruction()
 
 public func OnDmg(int iDmg, int iType)
 {
-  if(iType == DMG_Fire)     return 60;  //Feuer
-  if(iType == DMG_Explosion)    return;     //Explosionen und Druckwellen
-  if(iType == DMG_Bio)      return 100; //Säure und biologische Schadstoffe
+  if(iType == DMG_Fire)		return 60;	//Feuer
+  if(iType == DMG_Explosion)	return;		//Explosionen und Druckwellen
+  if(iType == DMG_Bio)		return 100;	//Säure und biologische Schadstoffe
   return 80;
 }
 
@@ -212,11 +212,4 @@ public func Destruction()
 {
   if(pCannon) RemoveObject(pCannon);
   RemoveEffect("ShowWeapon",this); 
-}
-
-/* Kein Hineinversetzen in andere Sachen */
-
-public func RejectEntrance()
-{
-  return 1;
 }
