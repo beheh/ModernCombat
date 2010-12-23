@@ -260,7 +260,7 @@ protected func DoPoints()
     	var pClonk = GetCursor(killer);
      	if(pClonk->~GetRealCursor()) pClonk = pClonk->~GetRealCursor();
      	//Marksman
-      if(ObjectDistance(pClonk, this) >= 350) {
+      if(ObjectDistance(pClonk, this) >= 350 && LastDamageType() == DMG_Projectile && !Contained(pClonk)) {
         DoAchievementProgress(1,AC17,killer);
       }
      	//Helikopter-Sachen
