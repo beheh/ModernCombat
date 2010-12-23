@@ -8,11 +8,16 @@ static const BHUD_Warning = 1;
 static const BHUD_Error = 2;
 static const BHUD_Disabled = 3;
 
+static const BHUD_Overlay_Flares = 1;
+static const BHUD_Overlay_SmokeWall = 2;
+static const BHUD_Overlay_Warning = 3;
+static const BHUD_Overlay_Failure = 4;
+
 local pHelicopter;
 local iState;
 local pRotation, pThrottle, pAltitude, pWind;
 local fDamage, iDamageRemaining;
-
+local fFlares, fSmokeWall;
 
 /* Initialisierung */
 
@@ -20,14 +25,22 @@ public func Initialize()
 {
   SetVisibility(VIS_None);
   iState = -1;
-  SetState(BHUD_Ready);
   Schedule("SetVisibility(VIS_Owner)", 1, 0, this);
+  SetGraphics("Flares", this, GetID(), BHUD_Overlay_Flares, GFXOV_MODE_Base);
+  SetGraphics("SmokeWall", this, GetID(), BHUD_Overlay_SmokeWall, GFXOV_MODE_Base);
+  SetGraphics("Warning", this, GetID(), BHUD_Overlay_Warning, GFXOV_MODE_Base);
+  SetGraphics("Failure", this, GetID(), BHUD_Overlay_Failure, GFXOV_MODE_Base);
+  SetClrModulation(RGBa(255,255,255,255), this, BHUD_Overlay_Flares);
+  SetClrModulation(RGBa(255,255,255,255), this, BHUD_Overlay_SmokeWall);
+  SetClrModulation(RGBa(255,255,255,255), this, BHUD_Overlay_Warning);
+  SetClrModulation(RGBa(255,255,255,255), this, BHUD_Overlay_Failure);
+  SetState(BHUD_Ready);
   return true;
 }
 
 public func SetState(int iNewState, bool fKeepSound)
 {
-	if(iState == iNewState) return;
+	//if(iState == iNewState) return;
   iState = iNewState;
   var dwArrowColor;
   if(iState == BHUD_Off) {
@@ -37,22 +50,30 @@ public func SetState(int iNewState, bool fKeepSound)
   if(iState == BHUD_Error)
   {
     SetClrModulation(RGBa(255,0,0,50));
+    SetClrModulation(RGBa(255,0,0,50), this, BHUD_Overlay_Failure);
     dwArrowColor = RGBa(255,0,0,50);
     Sound("WarningDamage.ogg", false, pHelicopter, 100, GetOwner()+1, +1);
   }
-  else if(!fKeepSound)
-  {
-    Sound("WarningDamage.ogg", false, pHelicopter, 100, GetOwner()+1, -1);
+  else {
+  	SetClrModulation(RGBa(255,255,255,255), this, BHUD_Overlay_Failure);
+    if(!fKeepSound)
+    {
+      Sound("WarningDamage.ogg", false, pHelicopter, 100, GetOwner()+1, -1);
+    }
   }
   if(iState == BHUD_Warning)
   {
     SetClrModulation(RGBa(255,153,0,50));
+    SetClrModulation(RGBa(255,153,0,50), this, BHUD_Overlay_Warning);
     dwArrowColor = RGBa(255,153,0,50);
     Sound("WarningLockon.ogg", false, pHelicopter, 100, GetOwner()+1, +1);
   }
-  else if(!fKeepSound)
-  {
-    Sound("WarningLockon.ogg", false, pHelicopter, 100, GetOwner()+1, -1);
+  else {
+    SetClrModulation(RGBa(255,255,255,255), this, BHUD_Overlay_Warning);
+    if(!fKeepSound)
+    {
+      Sound("WarningLockon.ogg", false, pHelicopter, 100, GetOwner()+1, -1);
+    }
   }
   if(iState == BHUD_Ready)
   {
@@ -63,6 +84,18 @@ public func SetState(int iNewState, bool fKeepSound)
   {
     SetClrModulation(RGBa(122,122,122,50));
     dwArrowColor = RGBa(122,122,122,50);
+  }
+    if(fFlares) {
+    SetClrModulation(dwArrowColor, this, BHUD_Overlay_Flares);
+  }
+  else {
+    SetClrModulation(RGBa(255,255,255,255), this, BHUD_Overlay_Flares);
+  }
+  if(fSmokeWall) {
+    SetClrModulation(dwArrowColor, this, BHUD_Overlay_SmokeWall);
+  }
+  else {
+    SetClrModulation(RGBa(255,255,255,255), this, BHUD_Overlay_SmokeWall);
   }
   if(pRotation) pRotation->SetClrModulation(dwArrowColor);
   if(pThrottle) pThrottle->SetClrModulation(dwArrowColor);
@@ -141,6 +174,9 @@ protected func Timer()
   }
   SetPosition(GetX()-4+BoundBy((1400*GetWind(AbsX(GetX(pHelicopter)), AbsY(GetY(pHelicopter))))/1000, -69, 71), GetY()-98, pWind);
   pWind->SetVisibility(GetVisibility());
+  //Flares und SmokeWall
+  fFlares = pHelicopter->CanDeployFlares();
+  fSmokeWall = pHelicopter->CanDeploySmokeWall();
   //Status setzen
   SetObjDrawTransform(1000,0,0,0,1000,0);
   if(fDamage || pHelicopter->GetDamage() >= pHelicopter->MaxDamage()*3/4)
@@ -154,11 +190,11 @@ protected func Timer()
 	  	if(!Random(5) && fDisable) {
 				SetState(BHUD_Off, true);
 			}
-			else if(!Random(3)) {
+			else if(!Random(2)) {
 			  SetState(BHUD_Error);
 			  if(!Random(2)) {
 			  	var val = RandomX(0,300);
-			  	if(!Random(1)) val *= -1;
+			  	if(!Random(2)) val *= -1;
 					SetObjDrawTransform(RandomX(800, 1200),val,RandomX(-5,5)*1000,val,RandomX(800, 1200),RandomX(-5,5)*1000);
 				}
 			}
