@@ -1,1 +1,0 @@
-Various head-up-displays simplify the control of an blackhawk.
