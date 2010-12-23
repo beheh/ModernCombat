@@ -231,7 +231,7 @@ private func GetRuleColor(id idDef)
 
 private func Eastern(object P)
 {
-  var rand = Random(13);
+  var rand = Random(17);
   if(!rand) SetName(GetPlayerName(GetPlayerByIndex(Random(GetPlayerCount()))), P);
   if(rand == 1) SetName("$Emptiness$", P);
   if(rand == 2) SetName("$YourBrain$", P);
@@ -245,4 +245,8 @@ private func Eastern(object P)
   if(rand == 10) SetName("$YourStomach$", P);
   if(rand == 11) SetName("$EverythingEmpty$", P);
   if(rand == 12) SetName("$Barrel$", P);
+  if(rand == 13) SetName("$Beer$", P);
+  if(rand == 14) SetName("$YourGlance$", P);
+  if(rand == 15) SetName("$YourHarddrive$", P);
+  if(rand == 16) SetName("$YourChat$", P);
 }
