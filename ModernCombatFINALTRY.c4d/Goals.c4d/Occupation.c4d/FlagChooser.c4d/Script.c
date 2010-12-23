@@ -98,7 +98,9 @@ private func SelectBestFlag()
 }
 
 global func GetFlagDistance(object pFlag) {
-  var flags = FindObject(GOCC)->GetFlags();  
+  var flags = [];
+  var gocc = FindObject2(Find_ID(GOCC));
+  if(gocc) flags = gocc->GetFlags();
   var i = 0;
   while(i < GetLength(flags)-1) {
     if(pFlag == flags[i]) {
@@ -132,8 +134,10 @@ global func GetBestFlag(int iTeam)
   var capture;
   var best;
   var dist;
+  var flags = [];
   
-  var flags = FindObject(GOCC)->GetFlags();
+  var gocc = FindObject2(Find_ID(GOCC));
+  if(gocc) flags = gocc->GetFlags();
   for(var flag in flags)
   {
     if(flag->GetTeam() == iTeam)
