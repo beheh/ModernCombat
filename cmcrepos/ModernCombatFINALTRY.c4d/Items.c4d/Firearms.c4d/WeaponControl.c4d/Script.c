@@ -441,7 +441,9 @@ public func FxReloadStart(object pTarget, int iNumber, int iTemp, int iTime,iSlo
 {
   if(iTemp) return;
   
-  EffectVar(0,pTarget,iNumber) = GetFMData(FM_Reload)*BoundBy(GetFMData(FM_AmmoLoad)-GetAmmo2(iSlot), 0, GetAmmo(GetFMData(FM_AmmoID),GetUser()))/GetFMData(FM_AmmoLoad);
+  var i = 0;
+  if(NoAmmo()) i += GetFMData(FM_AmmoLoad);
+  EffectVar(0,pTarget,iNumber) = GetFMData(FM_Reload)*BoundBy(GetFMData(FM_AmmoLoad)-GetAmmo2(iSlot), 0, i+GetAmmo(GetFMData(FM_AmmoID),GetUser()))/GetFMData(FM_AmmoLoad);
   EffectVar(1,pTarget,iNumber) = 0; //Vorbereiten.
   EffectVar(2,pTarget,iNumber) = iSlot;
   EffectVar(3,pTarget,iNumber) = 0;  
