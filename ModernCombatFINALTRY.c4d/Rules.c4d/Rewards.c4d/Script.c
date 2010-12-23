@@ -292,6 +292,7 @@ global func DoAchievementProgress(int iProgress, id idAchievement, int iPlr)
   	ErrorLog("Achievement %v without SavingSlot", idAchievement);
   	return;
   }
+  if(!aAchievementProgress[iPlr]) aAchievementProgress[iPlr] = CreateArray();
   aAchievementProgress[iPlr][index] += iProgress;
   if(aAchievementProgress[iPlr][index] >= idAchievement->~GetAchievementScore())
   {
@@ -332,6 +333,7 @@ global func GetAchievementExtra(id idAchievement, int iPlr)
 {
   if(!RewardsActive()) return;
   var index = idAchievement->GetSavingSlot();
+  if(!aAchievementExtra[iPlr]) aAchievementExtra[iPlr] = CreateArray();
   if(aAchievementExtra[iPlr][index])
   {
     return aAchievementExtra[iPlr][index];
@@ -396,14 +398,15 @@ global func FxPointMessageTimer(pTarget, iNo)
 
 public func SetPlayerData(xData, int iType, int iPlr)
 {
+  if(!aData[iPlr]) aData[iPlr] = CreateArray();
   if(iType == RWDS_TotalPoints) return;
-  if(!aData[iPlr]) return false;
   aData[iPlr][iType] = xData;
   return true;
 }
 
 public func GetPlayerData(int iType, int iPlr)
 {
+  if(!aData[iPlr]) aData[iPlr] = CreateArray();
   if(iType == RWDS_TotalPoints)
   {return aData[iPlr][RWDS_BattlePoints] + aData[iPlr][RWDS_TeamPoints] + aData[iPlr][RWDS_MinusPoints];}
   return aData[iPlr][iType];
