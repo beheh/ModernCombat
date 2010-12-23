@@ -21,6 +21,7 @@ protected func Initialize()
   {
     iAchievementCount++;
   }
+  UpdatePlayers();
 }
 
 protected func Activate(iByPlayer)
