@@ -298,7 +298,7 @@ public func NoTickets(int iTeam, bool fExclude)
 
 protected func FxIntAssaultSpawnTimer(object pTarget)
 {
-  if (Contents(0, pTarget) && GetAlive(Contents(0, pTarget)))
+  if (GetAlive(Contents(0, pTarget)))
     pTarget->~Spawn();
   if (pTarget)
     RemoveObject(pTarget);
@@ -318,6 +318,7 @@ protected func WaitForJoin(int iPlr)
 	Enter(tim, GetCrew(iPlr));
 	SetPlrViewRange(150, tim);
 	AddEffect("IntAssaultWaitObject", tim, 1, 0, tim);
+    RemoveEffect("Spawn", GetCrew(iPlr));
   }
 
   //Alle anderen Angreifer sind tot -> verloren!
@@ -327,7 +328,7 @@ protected func WaitForJoin(int iPlr)
     if (GetPlayerTeam(GetOwner(obj)) == iDefender)
       continue;
 	
-    if (GetAlive(obj) && !GetEffect("IntAssaultWaitObject", Contained(obj)) && (GetOwner(obj) != iPlr || GetMenu(obj) != MCSL))
+    if (GetAlive(obj) && !GetEffect("IntAssaultWaitObject", Contained(obj))/* && (GetOwner(obj) != iPlr || GetMenu(obj) != MCSL)*/)
       alive = true;
   }
 
