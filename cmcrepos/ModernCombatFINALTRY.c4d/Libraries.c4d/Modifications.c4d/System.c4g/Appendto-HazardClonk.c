@@ -1340,7 +1340,9 @@ protected func WallJumpBoost()
 protected func BackFlipBoost()
 {
   var jump = GetPhysical("Jump", 0) * 100 / GetPhysical("Jump", 0,0, GetID());
-  SetXDir(42*((GetXDir()>0)*2-1) * jump / 100);
+  var jnr = 1;
+  if(GetPlrCoreJumpAndRunControl(GetController())) jnr *= -1;
+  SetXDir(jnr*42*((GetXDir()>0)*2-1) * jump / 100);
   SetYDir(-22 * jump / 100);
 }
 
@@ -1473,6 +1475,7 @@ public func JumpStart(bool bBackflip)
     iComd = EffectVar(0, this, iEff);
 
     RemoveEffect(0, this, iEff);
+
     if(iComd == COMD_Left)
     {
       if(GetDir() == DIR_Right)
@@ -1500,7 +1503,7 @@ public func ReleaseLadderStop()
 public func FxControlStackEffect(string newEffect, object pTarget, int iNo)
 {
   if(newEffect != "ControlStack") return;
-  ChangeEffect(0, pTarget, iNo, 0, -1);
+  RemoveEffect(0, pTarget, iNo);
   return -2;
 }
 
