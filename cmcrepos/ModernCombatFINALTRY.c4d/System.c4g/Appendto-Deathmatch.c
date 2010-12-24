@@ -9,7 +9,7 @@
 
 public func RelaunchPlayer(int iPlr, object pClonk, int iMurdererPlr)
 {
-  if(iMurdererPlr == -1)
+  if(iMurdererPlr == -1 && GetPlayerName(GetOwner(pClonk)))
     DoTeamScore(GetPlayerTeam(GetOwner(pClonk)),-1);  
   //Teamkill?
   if(GetPlayerTeam(iPlr) == GetPlayerTeam(iMurdererPlr))
