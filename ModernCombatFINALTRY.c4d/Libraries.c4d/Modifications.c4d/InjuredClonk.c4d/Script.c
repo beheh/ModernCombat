@@ -131,7 +131,11 @@ private func DeathMenu()
   //Menü erstellen
   CreateMenu(FKDT, clonk, this, 0, Format("$Title$"), C4MN_Style_Dialog, true);				//Titelzeile
 
-  AddMenuItem(Format("$Info$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);			//Hinweis
+  if (FindObject(SICD))											//Hinweis
+    AddMenuItem(Format("$Info$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);
+  else
+    AddMenuItem(Format("$Info2$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);
+
   AddMenuItem(Format("$DeathCounter$", 1 + TimeLeft() / 35),"", NONE, clonk, 0, 0, "", 512, 0, 0);	//Counter
 
   if (FindObject(SICD) && TimeLeft() < (FKDT_SuicideTime - 1) * 35)
