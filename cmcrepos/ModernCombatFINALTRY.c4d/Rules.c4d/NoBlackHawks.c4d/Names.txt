@@ -1,2 +1,2 @@
-DE:Keine Black-Hawks
-US:No Black Hawks
+DE:Keine Blackhawks
+US:No Blackhawks

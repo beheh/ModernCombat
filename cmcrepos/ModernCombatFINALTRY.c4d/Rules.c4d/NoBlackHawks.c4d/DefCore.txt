@@ -1,6 +1,6 @@
 [DefCore]
 id=NOBH
-Name=No Black Hawks
+Name=No Blackhawks
 Version=4,9,10,4
 Category=524289
 MaxUserSelect=1

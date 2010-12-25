@@ -1,9 +1,10 @@
-/*-- Keine Blachhawks --*/
+/*-- Keine Blackhawks --*/
 
 #strict 2
 
-global func NoBlackHawks()      { return FindObject(NOBH); }
-public func IsChooseable()      { return true; }
+global func NoBlackHawks()      {return FindObject(NOBH);}
+public func IsChooseable()      {return true;}
+
 
 public func ChooserFinished()
 {
@@ -12,6 +13,7 @@ public func ChooserFinished()
 
 public func Execute()
 {
+  //Blackhawkfahrzeugspawns suchen und entfernen
   for (var obj in FindObjects(Find_ID(VSPW)))
   {
     var i = GetEffect("IntVehicleSpawn4K", obj);
@@ -22,6 +24,7 @@ public func Execute()
       DelArrayItem4K(array, entry);
     EffectVar(0, obj, i) = array;
   }
+  //Blackhawks suchen und entfernen
   for (var obj in FindObjects(Find_ID(BKHK)))
     RemoveObject(obj, true);
 }
