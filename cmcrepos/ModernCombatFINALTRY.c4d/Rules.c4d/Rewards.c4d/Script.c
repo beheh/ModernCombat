@@ -63,10 +63,11 @@ public func StatsPoints(int iPlr)
   AddMenuItem(" ", "", NONE, pClonk, 0, 0, "", 0, 0, 0);
  
   //Eigene Errungenschaften anzeigen
-	AddMenuItem("$ShowAchievements$", "StatsList", NONE, pClonk, 0, iPlr, "", 0, 0, 0);
+	AddMenuItem("$ShowAchievements$", Format("StatsList(%d)", iPlr), NONE, pClonk, 0, 0, "", 0, 0, 0);
 }
 
-public func StatsList(int iPlr, int iIndex) {
+public func StatsList(int iPlr, int iIndex)
+{
   
   var pClonk = GetCursor(iPlr);
   if(GetMenu(pClonk)) CloseMenu(pClonk);
