@@ -71,6 +71,9 @@ protected func FxIntHeliProtectionStart(object pTarget, int iEffect, int iTemp, 
 
 protected func Initialize()
 {
+  if (NoBlackHawks())
+    return RemoveObject();
+
   //Steuerung initialisieren
   throttle = 0;
   rotation = 0; 
