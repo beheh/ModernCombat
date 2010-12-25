@@ -61,16 +61,13 @@ public func Fire1()
 
 public func LaunchRocket(id rid, int angle)
 {
-  //Besitzer setzen
-  var user = Contained();
-
-  //Raketenende setzen
+  //Austritt bestimmen
+  var user = GetUser();
   var x,y;
   user->WeaponEnd(x,y);
 
   //Rakete abfeuern
   var rocket = CreateObject(rid,x,y+10,GetController(user));
-  //Winkel, Schaden und Besitzer setzen
   rocket->Launch(angle, user);
   Sound("RTLR_Launch*.ogg", 0, rocket);
   SetController(GetController(user), rocket);
@@ -99,7 +96,7 @@ public func LaunchRocket(id rid, int angle)
 public func AimAngleChange(bool fJNR)
 {
   //Schnelleres Zielen
-  if (fJNR)
+  if(fJNR)
     return 4;
 }
 

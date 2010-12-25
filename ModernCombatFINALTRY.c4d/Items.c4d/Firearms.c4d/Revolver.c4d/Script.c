@@ -65,14 +65,17 @@ public func BotData1(int data)
 
 public func Fire1()
 {
+  //Austritt bestimmen
   var user = GetUser();
   var angle = user->AimAngle(20,0,true);
   var x,y;
   user->WeaponEnd(x,y);
-  var ammo = SALaunchBullet(x,y,GetController(user),angle+RandomX(-1,+1),250,400,GetFMData(FM_Damage));
-  ammo->Sound("RVLR_Fire.ogg");
 
-  //Effekt
+  //Kugel abfeuern
+  var ammo = SALaunchBullet(x,y,GetController(user),angle+RandomX(-1,+1),250,400,GetFMData(FM_Damage));
+
+  //Effekte
+  Sound("RVLR_Fire.ogg", 0, ammo);
   SAMuzzleFlash(RandomX(35,40),user,x,y,angle);
 
   casings++;
