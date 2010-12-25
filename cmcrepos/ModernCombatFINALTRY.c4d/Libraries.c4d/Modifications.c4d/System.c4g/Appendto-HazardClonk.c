@@ -118,6 +118,7 @@ public func DoAiming(int iChange)
 
 public func Incineration(int iPlr)
 {
+  Extinguish();
   Schedule(Format("DoDmg(5, DMG_Fire, 0, 1, %d)", iPlr + 1), 1, 20, this);
   AddFireEffect(this, 30, FIRE_Red, 1);
 }
