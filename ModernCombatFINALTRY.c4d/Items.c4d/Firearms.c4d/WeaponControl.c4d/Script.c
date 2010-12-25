@@ -283,7 +283,11 @@ global func DoAmmo2(int slot, id ammoid, int change, object target)
     truechange= Max(oldammoamount+change, 0);
   else
     truechange= Max(Min(maxamount, oldammoamount+change), 0);
-    
+  
+  var ammoload = target->~GetFMData(FM_AmmoLoad);
+  if(ammoload)
+	truechange = Min(ammoload, truechange);
+  
   //Neuer Wert dem Objekt geben
   target->SetAmmoCount(slot,truechange);
   target->SetAmmoType(slot,ammoid);
@@ -1090,7 +1094,7 @@ private func Reloaded(caller,slot,amount)
   
   //Munitionsmenge feststellen
   amount = Min(amount,MaxReloadAmount(caller));
-
+  
   //Munitionsmenge an Waffe übergeben
   DoAmmo2(slot, ammoid, amount, this);
   //Munition aus Clonk entfernen
