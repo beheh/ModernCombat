@@ -5,7 +5,7 @@
 
 public func HandSize()		{return 1000;}
 public func HandX()		{return 5000;}
-public func HandY()		{return 1000;}
+public func HandY()		{return -500;}
 public func BarrelYOffset()	{return -2000;}
 public func SelectionTime()	{return 20;}
 
@@ -69,20 +69,23 @@ public func BotData1(int data)
 
 public func Fire1()
 {
+  //Austritt bestimmen
   var user = GetUser();
   var angle = user->AimAngle(10,0,true);
   var x,y;
   user->WeaponEnd(x,y);
 
+  //Kugeln abfeuern
   var ammo;
   var j = GetFMData(FM_Damage, 1)/10;
   for(var i; i < j; i++)
   {
    ammo = SALaunchBullet(x,y,GetController(user),angle+RandomX(-6,+6),250+Random(20),300,10);
   }
-  Sound("PPGN_Fire*.ogg", 0, ammo);
 
-  // Effekte
+  //Effekte
+  Sound("PPGN_Fire*.ogg", 0, ammo);
+  Schedule("Sound(\"PPGN_Echo*.ogg\")", 10);
   SAMuzzleFlash(RandomX(40,55),user,x,y,angle);
   AddEffect("Pump", this, 1, 1+GetFMData(FM_Recharge, 1)-25, this);
 }
@@ -107,12 +110,12 @@ func OnFinishReloadStart()
 
 func OnSingleReloadStart()
 {
-  Sound("PPGN_Reload.ogg");
+  Sound("PPGN_Reload*.ogg");
 }
 
 public func FxPumpStop(object pTarget)
 {
-  Sound("PPGN_Pump*.ogg");
+  Sound("PPGN_Pump.ogg");
 
   if(!GetAmmo()) return;
 
@@ -126,7 +129,7 @@ public func FxPumpStop(object pTarget)
 func OnSelect()
 {
   if(GetAmmo())
-    Sound("PPGN_Pump*.ogg");
+    Sound("PPGN_Pump.ogg");
   else
-  Sound("MNGN_Charge.ogg");
+    Sound("MNGN_Charge.ogg");
 }

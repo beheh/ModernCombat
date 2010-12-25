@@ -70,8 +70,11 @@ public func BotData1(int data)
 
 public func LaunchGrenade(id idg, int speed, int angle, int mode)
 {
-  var user = Contained();
+  //Austritt bestimmen
+  var user = GetUser();
   var dir = GetDir(user)*2-1;
+  var x,y;
+  user->WeaponEnd(x,y);
 
   //Anpassung des Winkels
   angle = BoundBy(angle/*+GetYDir(user)*/+dir,-360,360);
@@ -79,10 +82,7 @@ public func LaunchGrenade(id idg, int speed, int angle, int mode)
   var xdir = Sin(angle,speed);
   var ydir = -Cos(angle,speed);
 
-  var x,y;
-  user->WeaponEnd(x,y);
-
-  //Erstellen und Abfeuern
+  //Granate abfeuern
   var grenade=CreateObject(idg, x, y, GetController(user));
   if(!Stuck(grenade)) SetPosition(GetX(grenade)+xdir/10,GetY(grenade)+ydir/10,grenade);
   SetController(GetController(user), grenade);
@@ -97,14 +97,14 @@ public func LaunchGrenade(id idg, int speed, int angle, int mode)
 
   //Effekte
   Sound("SGST_Fire.ogg", 0, grenade);
+  Schedule("Sound(\"SGST_Pump.ogg\")", 5);
   CreateParticle("Thrust",x,y,/*GetXDir(user)*/,/*GetYDir(user)*/,30,RGBa(255,200,200,0),0,0);
   for(var i=0; i<10; ++i)
   {
-   CreateParticle("Smoke2",x+RandomX(-3,+3),y+RandomX(-3,+3),
-                   /*GetXDir(user)+*/RandomX(0,xdir/8),/*GetYDir(user)+*/RandomX(0,ydir/8),
-		   RandomX(30,80),RGBa(200,200,200,0),0,0);
+    CreateParticle("Smoke2",x+RandomX(-3,+3),y+RandomX(-3,+3),
+    			/*GetXDir(user)+*/RandomX(0,xdir/8),/*GetYDir(user)+*/RandomX(0,ydir/8),
+    			RandomX(30,80),RGBa(200,200,200,0),0,0);
   }
-  Sound("SGST_Pump.ogg");
 }
 
 /* Granaten - Splittergranaten */

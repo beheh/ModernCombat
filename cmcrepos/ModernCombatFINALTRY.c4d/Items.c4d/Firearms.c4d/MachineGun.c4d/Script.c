@@ -95,15 +95,18 @@ public func Fire1T2()
 
 public func Fire1()
 {
+  //Austritt bestimmen
   var user = GetUser();
   var dir = GetDir(user)*2-1;
   var angle = user->AimAngle(10,0,true);
   var x,y;
   user->WeaponEnd(x,y);
+
+  //Kugel abfeuern
   var ammo = SALaunchBullet(x,y,GetController(user),angle+RandomX(-1,+1),270,750,GetFMData(FM_Damage));
-  Sound("MNGN_Fire.ogg", 0, ammo);
 
   // Effekte
+  Sound("MNGN_Fire.ogg", 0, ammo);
   SAMuzzleFlash(RandomX(35,50),user,x,y,angle);
   SABulletCasing(x/3,y/3,-dir*14*(Random(1)+1),-(13+Random(2)),5);
 }
