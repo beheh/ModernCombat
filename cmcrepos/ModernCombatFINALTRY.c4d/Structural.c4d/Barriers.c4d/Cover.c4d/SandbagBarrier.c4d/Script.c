@@ -2,7 +2,7 @@
 
 #strict 2
 
-local left,permanent;
+local left;
 
 
 /* Initialisierung */
@@ -14,15 +14,10 @@ func Initialize()
 
 /* Schaden */
 
-public func OnHit(int iDamage, int iType, object pFrom)
+func Damage(int iChange)
 {
-  CreateParticle ("MaterialBlast",Min(GetX(pFrom)-GetX(),GetDefWidth()/2),Min(GetY(pFrom)-GetY(),GetDefHeight()/2),0,0,Min(iDamage*10,200),RGB(194,155,108),0,false);
-  if(GetDamage() > 30)
-  {
-    SetController(GetOwner(pFrom));
-    if(!permanent)
-      Incinerate();
-  }
+  if(GetDamage() < 30) return;
+  Destruct();
 }
 
 public func OnDmg(int iDamage, int iType)
@@ -31,25 +26,19 @@ public func OnDmg(int iDamage, int iType)
   return 100;
 }
 
-func Incineration()
+func Destruct()
 {
-  if(permanent)
-  {
-    Extinguish();
-    SetCon(100);
-  }
-  else
-    CastParticles("Sandbag", 15, 70, 0,0, 35, 45, RGBa(228,228,228,0), RGBa(250,250,250,50));
-}
+  //Effekte
+  Sound("FenceDestruct.ogg");
+  if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",8,15,0,-5,250,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
+  CastParticles("Sandbag", 15, 70, 0,0, 35, 45, RGBa(228,228,228,0), RGBa(250,250,250,50));
 
-func Permanent()
-{
-  permanent = true;
+  RemoveObject();
 }
 
 /* Konstruktion */
 
-func Construction(object pByObj)//Wird sofort beim Bauen aufgerufen.
+func Construction(object pByObj)
 {
   var dir = GetDir(pByObj);
 
