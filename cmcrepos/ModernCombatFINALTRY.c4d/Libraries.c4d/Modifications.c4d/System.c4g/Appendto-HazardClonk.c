@@ -1341,7 +1341,9 @@ protected func BackFlipBoost()
 {
   var jump = GetPhysical("Jump", 0) * 100 / GetPhysical("Jump", 0,0, GetID());
   var jnr = 1;
-  if(GetPlrCoreJumpAndRunControl(GetController())) jnr *= -1;
+  if(GetPlrCoreJumpAndRunControl(GetController())) 
+    if(GetComDir() & COMD_Left && GetComDir() & COMD_Right)
+      jnr *= -1;
   SetXDir(jnr*42*((GetXDir()>0)*2-1) * jump / 100);
   SetYDir(-22 * jump / 100);
 }
