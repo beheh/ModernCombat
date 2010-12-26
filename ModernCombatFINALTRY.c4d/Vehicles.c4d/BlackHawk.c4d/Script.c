@@ -1233,7 +1233,7 @@ protected func TimerCall()
         throttle-=5;
       else if(throttle > 0)
         throttle-=10;
-      if(throttle <= 0 && !GetPilot() && !GetAutopilot() && !GetContact())
+      if(throttle <= 0 && !GetPilot() && !GetAutopilot())
       {
         throttle = 0;
         SetAction("EngineShutDown");
