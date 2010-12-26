@@ -77,9 +77,9 @@ public func ChooserFinished()
   //Scoreboards und Spielzielhinweise erstellen
   for(var i = 0; i < GetPlayerCount(); i++)
   {
-    DoScoreboardShow(1, GetPlayerByIndex(i)+1);
+    DoScoreboardShow(1, GetPlayerByIndex(i) + 1);
     CreateObject(TK01, 0, 0, GetPlayerByIndex(i));
-    Sound("RadioConfirm*.ogg", true, 0, 100, GetPlayerByIndex(i));
+    Sound("RadioConfirm*.ogg", true, 0, 100, GetPlayerByIndex(i) + 1);
   }
 }
 
