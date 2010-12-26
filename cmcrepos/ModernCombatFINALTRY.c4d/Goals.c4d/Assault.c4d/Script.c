@@ -34,13 +34,9 @@ public func ChooserFinished()
 protected func InitializeTickets() {
   iTickets = CalcTickets();
   if(iTickets < 4)
-  {
     iWarningTickets = 0;
-  }
   else
-  {
-    iWarningTickets = Max(iTickets/4, 5);
-  }
+    iWarningTickets = BoundBy(iTickets/4, 1, 5);
   return true;
 }
 
@@ -52,7 +48,7 @@ protected func LogTask()
     if (GetPlayerTeam(j = GetPlayerByIndex(i)) == iDefender)
       TaskID = TK03;
     CreateObject(TaskID, 0, 0, GetPlayerByIndex(i));
-    Sound("RadioConfirm*.ogg", true, 0, 100, GetPlayerByIndex(i));
+    Sound("RadioConfirm*.ogg", true, 0, 100, GetPlayerByIndex(i) + 1);
   }
 }
 
