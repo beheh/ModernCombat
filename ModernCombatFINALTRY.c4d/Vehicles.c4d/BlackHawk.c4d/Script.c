@@ -793,40 +793,40 @@ protected func ContainedDigDouble(object ByObj)
   CreateMenu(GetID(),ByObj,this,0,"$Seats$",0,1);
 
     //Ausstieg
-    AddMenuItem("$Exit$", "ExitClonk",STDR,ByObj,0,ByObj,"$ExitDesc$");
+    AddMenuItem("<c ffff33>$Exit$</c>", "ExitClonk",STDR,ByObj,0,ByObj,"$ExitDesc$");
 
     //Pilot
     if(Pilot)
-      AddMenuItem("<c ff8888>$Pilot$</c>", "SeatOccupied",GetID(),ByObj,0,ByObj,"$SeatOccupied$");
+      AddMenuItem("<c 777777>$Pilot$</c>", "SeatOccupied",GetID(),ByObj,0,ByObj,"$SeatOccupied$");
     else
-      AddMenuItem("<c 88ff88>$Pilot$</c>", "EnterSeat1",GetID(),ByObj,0,ByObj,"$PilotDesc$");
+      AddMenuItem("<c ffffff>$Pilot$</c>", "EnterSeat1",GetID(),ByObj,0,ByObj,"$PilotDesc$");
 
     //Schütze
     if(Gunner)
-      AddMenuItem("<c ff8888>$Gunner$</c>", "SeatOccupied",GetID(),ByObj,0,ByObj,"$SeatOccupied$");
+      AddMenuItem("<c 777777>$Gunner$</c>", "SeatOccupied",GetID(),ByObj,0,ByObj,"$SeatOccupied$");
     else
-      AddMenuItem("<c 88ff88>$Gunner$</c>", "EnterSeat2",GetID(),ByObj,0,ByObj,"$GunnerDesc$");
+      AddMenuItem("<c ffffff>$Gunner$</c>", "EnterSeat2",GetID(),ByObj,0,ByObj,"$GunnerDesc$");
 
     //Koordinator
     if(Coordinator)
-      AddMenuItem("<c ff8888>$Coordinator$</c>", "SeatOccupied",GetID(),ByObj,0,ByObj,"$SeatOccupied$");
+      AddMenuItem("<c 777777>$Coordinator$</c>", "SeatOccupied",GetID(),ByObj,0,ByObj,"$SeatOccupied$");
     else
-      AddMenuItem("<c 88ff88>$Coordinator$</c>", "EnterSeat3",GetID(),ByObj,0,ByObj,"$CoordinatorDesc$");
+      AddMenuItem("<c ffffff>$Coordinator$</c>", "EnterSeat3",GetID(),ByObj,0,ByObj,"$CoordinatorDesc$");
 
     //Passagier 1
     if(Passenger1)
-      AddMenuItem("<c ff8888>$Passenger$</c>", "SeatOccupied",GetID(),ByObj,0,ByObj,"$SeatOccupied$");
+      AddMenuItem("<c 777777>$Passenger$</c>", "SeatOccupied",GetID(),ByObj,0,ByObj,"$SeatOccupied$");
     else
-      AddMenuItem("<c 88ff88>$Passenger$</c>", "EnterSeat4",GetID(),ByObj,0,ByObj,"$PassengerDesc$");
+      AddMenuItem("<c ffffff>$Passenger$</c>", "EnterSeat4",GetID(),ByObj,0,ByObj,"$PassengerDesc$");
 
     //Passagier 2
     if(Passenger2)
-      AddMenuItem("<c ff8888>$Passenger$</c>", "SeatOccupied",GetID(),ByObj,0,ByObj,"$SeatOccupied$");
+      AddMenuItem("<c 777777>$Passenger$</c>", "SeatOccupied",GetID(),ByObj,0,ByObj,"$SeatOccupied$");
     else
-      AddMenuItem("<c 88ff88>$Passenger$</c>", "EnterSeat5",GetID(),ByObj,0,ByObj,"$PassengerDesc$");
+      AddMenuItem("<c ffffff>$Passenger$</c>", "EnterSeat5",GetID(),ByObj,0,ByObj,"$PassengerDesc$");
     
     //Ausstieg per Seil
-    AddMenuItem("$ExitRope$", "ExitClonkByRope",CK5P,ByObj,0,ByObj,"$ExitRopeDesc$");
+    AddMenuItem("<c ffff33>$ExitRope$</c>", "ExitClonkByRope",CK5P,ByObj,0,ByObj,"$ExitRopeDesc$");
 
   return 1;
 }
@@ -1126,7 +1126,7 @@ protected func ContactTop()
   if (GetCon() != 100) return;
 
   //Schaden
-  DoDamage(10, this);
+  DoDmg(10, 0, this, 1,  GetController(GetPilot())+1);
 
   //Partikeleffekt
   for (var i; i < GetVertexNum(); i++)
