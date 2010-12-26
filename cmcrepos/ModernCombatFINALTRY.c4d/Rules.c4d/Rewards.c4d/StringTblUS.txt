@@ -9,4 +9,6 @@ AchievementsUnlocked=%d Achievements unlocked:
 AchievementLocked=<c 777777>You haven't unlock this achievement yet.</c>
 ShowAchievements=Show achievements
 ShowPoints=Show points
+NextPage=Next page
+LastPage=Last page
 Back=Back

@@ -9,4 +9,6 @@ AchievementsUnlocked=%d Errungenschaften freigeschaltet:
 AchievementLocked=<c 777777>Du hast diese Errungenschaft noch nicht erreicht.</c>
 ShowAchievements=Eigene Errungenschaften anzeigen
 ShowPoints=Punktetabelle anzeigen
+NextPage=Nächste Seite
+LastPage=Letzte Seite
 Back=Zurück
