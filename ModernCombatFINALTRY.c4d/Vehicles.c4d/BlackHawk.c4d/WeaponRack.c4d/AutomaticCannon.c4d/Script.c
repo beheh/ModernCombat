@@ -90,6 +90,6 @@ func OnReload()
 public func StopAutoFire()
 {
   //Nur wenn er auch wirklich feuert
-  if (IsRecharging())
+  if (IsRecharging() && !IsReloading())
     return _inherited(...);
 }
