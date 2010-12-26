@@ -260,7 +260,7 @@ protected func DoPoints()
     	var pClonk = GetCursor(killer);
      	if(pClonk->~GetRealCursor()) pClonk = pClonk->~GetRealCursor();
      	//Marksman
-      if(ObjectDistance(pClonk, this) >= 350 && LastDamageType() == DMG_Projectile && !Contained(pClonk)) {
+      if(ObjectDistance(pClonk, this) >= 350 && LastDamageType() == DMG_Projectile && KillIcon()->~IsWeapon2() && !Contained(pClonk)) {
         DoAchievementProgress(1,AC17,killer);
       }
      	//Helikopter-Sachen
@@ -292,7 +292,7 @@ protected func DoPoints()
 	  }
   }
   
-  //Non-swimmer
+  //Nonswimmer
   if(GBackLiquid()) DoAchievementProgress(1, AC11, GetOwner());
   
   //Selfkill
