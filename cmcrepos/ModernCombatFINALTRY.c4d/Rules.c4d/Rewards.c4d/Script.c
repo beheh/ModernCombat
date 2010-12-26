@@ -50,77 +50,79 @@ public func StatsPoints(int iPlr)
                iPlayer++;
   }
   //Nach Team ausgeben
-  AddMenuItem("<c ffff33>$ActualPoints$</c>", "", NONE, pClonk, 0, 0, "", 0, 0, 0);
+  AddMenuItem("<c ffff33>$ActualPoints$</c>", 0, NONE, pClonk);
 
-  for(var aTeam in aList) {
-    if(aTeam) {
+  for(var aTeam in aList)
+    if(aTeam)
       for(var szString in aTeam)
-			  if(szString) AddMenuItem(szString, "", NONE, pClonk, 0, 0, "", 0, 0, 0);
-		}
-  }
-  
+        if(szString)
+          AddMenuItem(szString, 0, NONE, pClonk);
+
   //Leerzeile
-  AddMenuItem(" ", "", NONE, pClonk, 0, 0, "", 0, 0, 0);
- 
+  AddMenuItem(" ", 0, NONE, pClonk);
+
   //Eigene Errungenschaften anzeigen
-	AddMenuItem("$ShowAchievements$", Format("StatsList(%d)", iPlr), NONE, pClonk, 0, 0, "", 0, 0, 0);
+  AddMenuItem("$ShowAchievements$", Format("StatsList(%d)", iPlr), NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
 }
 
 public func StatsList(int iPlr, int iIndex)
 {
-  
   var pClonk = GetCursor(iPlr);
-  if(GetMenu(pClonk)) CloseMenu(pClonk);
-  if(!CreateMenu(GetID(),pClonk,this,0,0,0,C4MN_Style_Dialog)) return;
-  AddMenuItem(" | ", "", RWDS, pClonk, 0, 0, "", 514, 0, 0);
-  
+  if(GetMenu(pClonk))
+    CloseMenu(pClonk);
+  if(!CreateMenu(GetID(), pClonk, this, 0, 0, 0, C4MN_Style_Dialog)) return;
+  AddMenuItem(" | ", 0, RWDS, pClonk, 0, 0, "", 514, 0, 0);
+
   var iData = GetPlrExtraData(iPlr, "CMC_Achievements");
-  
+
   //Liste
   var i = 1;
   var idAchievement;
-  while(i <= iAchievementCount) {
+  while(i <= iAchievementCount)
+  {
     idAchievement = C4Id(Format("AC%02d", i));
-    if(iData >> i & 1) {
-      AddMenuItem(Format("<c ffff33>%s</c>", GetName(0, idAchievement)), Format("StatsAchievement(%d, %d)", iPlr, i), NONE, pClonk, 0, 0, "", 0, 0, 0);
-    }
-    else {
-      AddMenuItem("<c 777777>???</c>", Format("StatsAchievement(%d, %d)", iPlr, i), NONE, pClonk, 0, 0, "", 0, 0, 0);
-    }
+    if(iData >> i & 1)
+      AddMenuItem(Format("<c ffff33>%s</c>", GetName(0, idAchievement)), Format("StatsAchievement(%d, %d)", iPlr, i), NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
+    else
+      AddMenuItem("<c 777777>???</c>", 0, NONE, pClonk, 0, 0, "", 0, 0, 0);
     i++;
   }
-  if(iIndex) SelectMenuItem(iIndex, pClonk);
+  if(iIndex)
+    SelectMenuItem(iIndex, pClonk);
 
   //Leerzeile
-  AddMenuItem(" ", "", NONE, pClonk, 0, 0, "", 0, 0, 0);
-    
+  AddMenuItem(" ", 0, NONE, pClonk);
+
   //Zurück
-  AddMenuItem("$ShowPoints$", "StatsPoints", NONE, pClonk, 0, iPlr, "", 0, 0, 0);
+  AddMenuItem("$ShowPoints$", Format("StatsPoints(%d)", iPlr), NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
 }
 
-public func StatsAchievement(int iPlr, int iSelect) {
+public func StatsAchievement(int iPlr, int iSelect)
+{
   var pClonk = GetCursor(iPlr);
   if(GetMenu(pClonk)) CloseMenu(pClonk);
   if(!CreateMenu(GetID(),pClonk,this,0,0,0,C4MN_Style_Dialog)) return;
-  AddMenuItem(" | ", "", RWDS, pClonk, 0, 0, "", 514, 0, 0);
+  AddMenuItem(" | ", 0, RWDS, pClonk, 0, 0, "", 514);
 
   var iData = GetPlrExtraData(iPlr, "CMC_Achievements");
-	var iIndex = iSelect;
-	var idAchievement = C4Id(Format("AC%02d", iIndex));
-	if(iData >> iSelect & 1) {
-    AddMenuItem(Format("<c ffff33>%s</c>", GetName(0, idAchievement)), "", NONE, pClonk, 0, 0, "", 0, 0, 0);
-	  AddMenuItem(Format("%s", GetDesc(0, idAchievement)), "", NONE, pClonk, 0, 0, "", 0, 0, 0);
-	}
-	else {
-	  Sound("Error", true, 0, 100, iPlr);
-		return StatsList(iPlr, iSelect);
-	}
-	
-	//Leerzeile
-	AddMenuItem(" ", "", NONE, pClonk, 0, 0, "", 0, 0, 0);
-	
-	//Zurück
-	AddMenuItem("$Back$", Format("StatsList(%d, %d)", iPlr, iSelect), NONE, pClonk, 0, 0, "", 0, 0, 0);
+  var iIndex = iSelect;
+  var idAchievement = C4Id(Format("AC%02d", iIndex));
+  if(iData >> iSelect & 1)
+  {
+    AddMenuItem(Format("<c ffff33>%s</c>", GetName(0, idAchievement)), 0, NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
+    AddMenuItem(Format("%s", GetDesc(0, idAchievement)), 0, NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
+  }
+  else
+  {
+    Sound("Error", true, 0, 100, iPlr + 1);
+    return StatsList(iPlr, iSelect);
+  }
+
+  //Leerzeile
+  AddMenuItem(" ", 0, NONE, pClonk);
+
+  //Zurück
+  AddMenuItem("$Back$", Format("StatsList(%d, %d)", iPlr, iSelect), NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
   return true;
 }
 
