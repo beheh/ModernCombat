@@ -65,7 +65,7 @@ public func StatsPoints(int iPlr)
   AddMenuItem("$ShowAchievements$", Format("StatsList(%d)", iPlr), NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
 }
 
-public func StatsList(int iPlr, int iIndex)
+public func StatsList(int iPlr, int iIndex, int iOffset)
 {
   var pClonk = GetCursor(iPlr);
   if(GetMenu(pClonk))
@@ -76,28 +76,40 @@ public func StatsList(int iPlr, int iIndex)
   var iData = GetPlrExtraData(iPlr, "CMC_Achievements");
 
   //Liste
-  var i = 1;
+  var i = 1+iOffset;
   var idAchievement;
-  while(i <= iAchievementCount)
+  while(i <= iAchievementCount && i <= 10+iOffset)
   {
     idAchievement = C4Id(Format("AC%02d", i));
     if(iData >> i & 1)
-      AddMenuItem(Format("<c ffff33>%s</c>", GetName(0, idAchievement)), Format("StatsAchievement(%d, %d)", iPlr, i), NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
+      AddMenuItem(Format("<c ffff33>%s</c>", GetName(0, idAchievement)), Format("StatsAchievement(%d, %d, %d)", iPlr, i, iOffset), NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
     else
-      AddMenuItem("<c 777777>???</c>", 0, NONE, pClonk, 0, 0, "", 0, 0, 0);
+      AddMenuItem(Format("<c 777777>%s</c>", GetName(0, idAchievement)), Format("StatsAchievement(%d, %d, %d)", iPlr, i, iOffset), NONE, pClonk, 0, 0, "", 0, 0, 0);
     i++;
   }
-  if(iIndex)
-    SelectMenuItem(iIndex, pClonk);
 
   //Leerzeile
   AddMenuItem(" ", 0, NONE, pClonk);
 
+  //Weiter
+  if(iOffset+10 <= iAchievementCount)
+    AddMenuItem("$NextPage$", Format("StatsList(%d, %d, %d)", iPlr, 0, BoundBy(iOffset+10, 0, iAchievementCount)), NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
   //Zurück
+  if(iOffset > 0)
+    AddMenuItem("$LastPage$", Format("StatsList(%d, %d, %d)", iPlr, 0, BoundBy(iOffset-10, 0, iAchievementCount)), NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
+
+  //Zurück zur Punkteübersicht
   AddMenuItem("$ShowPoints$", Format("StatsPoints(%d)", iPlr), NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
+
+  if(iIndex)
+    SelectMenuItem(iIndex, pClonk);  
+  else
+    SelectMenuItem(i-iOffset+1, pClonk);
+    
+  return true;
 }
 
-public func StatsAchievement(int iPlr, int iSelect)
+public func StatsAchievement(int iPlr, int iSelect, int iOffset)
 {
   var pClonk = GetCursor(iPlr);
   if(GetMenu(pClonk)) CloseMenu(pClonk);
@@ -115,14 +127,14 @@ public func StatsAchievement(int iPlr, int iSelect)
   else
   {
     Sound("Error", true, 0, 100, iPlr + 1);
-    return StatsList(iPlr, iSelect);
+    return StatsList(iPlr, iSelect-iOffset, iOffset);
   }
 
   //Leerzeile
   AddMenuItem(" ", 0, NONE, pClonk);
 
   //Zurück
-  AddMenuItem("$Back$", Format("StatsList(%d, %d)", iPlr, iSelect), NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
+  AddMenuItem("$Back$", Format("StatsList(%d, %d, %d)", iPlr, iSelect-iOffset, iOffset), NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
   return true;
 }
 
