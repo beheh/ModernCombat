@@ -146,7 +146,7 @@ global func FxSmokeGrenadeTimer(object pTarget, int iEffectNumber, int iEffectTi
   else
   {
     rgb->DoAlpha(-10, 0, 254);
-    if(rgb->GetAlpha() <= 0)
+    if(rgb->GetAlpha() >= 254)
       return -1; // Boing. Wir werden nicht mehr gebraucht!
   }
 }
