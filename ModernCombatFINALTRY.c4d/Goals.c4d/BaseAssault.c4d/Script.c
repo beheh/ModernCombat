@@ -309,6 +309,7 @@ private func SortTargets(array &a)
 public func OnMenuSelection(int iSelection, object pCrew)
 {
   var array = FindObjects(Find_InArray(aTargets[GetPlayerTeam(GetOwner(pCrew))]));
+  SortTargets(array);
   var obj = array[iSelection];
   //Ziel zerstört? Menü neu öffnen
   if (!obj)
