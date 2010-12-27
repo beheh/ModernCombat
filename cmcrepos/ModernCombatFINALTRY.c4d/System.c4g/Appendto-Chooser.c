@@ -391,7 +391,7 @@ protected func FxEvaluateGoalVoteTimer()
   //Und zufällig eins auswählen
   var idGoal = array[Random(GetLength(array))];
   if (idGoal)
-    CreateGoal(idGoal, GetIndexOf(idGoal, aGoals));
+    CreateGoal(idGoal, aTempGoalSave[GetIndexOf(idGoal, aGoals)]);
   else
     OpenGoalChooseMenu();
   return -1;
