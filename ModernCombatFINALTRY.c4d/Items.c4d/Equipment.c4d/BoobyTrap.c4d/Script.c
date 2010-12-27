@@ -68,33 +68,33 @@ public func Throw()
     x = 10;
     if (!GetDir(user))
       x = -10;
-        y = 5;
-        doplace = 1;
+    y = 1;
+    doplace = 1;
   }
 
   //Klettern
   else if (GetProcedure(user) == "SCALE")
   {
     x = 3;
-      iDir = -90;
+    iDir = -90;
     if (!GetDir(user))
     {
       x = -3;
       iDir = 90;
     }
-    vtx = x;
+    vtx = x * 4 / 3;
     doplace = 2;
   }
 
   //Hangeln
   else if (GetProcedure(user) == "HANGLE")
   {
-    y = -2;
-      iDir = 160;
-      if (!GetDir(user))
-        iDir = -160;
-      doplace = 2;
-      vty = -2;
+    y = -6;
+    iDir = 160;
+    if (!GetDir(user))
+      iDir = -160;
+    doplace = 2;
+    vty = -2;
   }
 
   //Klettern an Leitern
@@ -105,7 +105,7 @@ public func Throw()
   else if (GetProcedure(user) == "WALK" || user->~IsAiming())
   {
     doplace = 1;
-    y = 10;
+    y = 6;
   }
 
   //Sonst: Bereit zu feuern?
@@ -114,35 +114,35 @@ public func Throw()
 
   //Bei nicht identifizierbarer Aktion
   if (!doplace) return;
-  Exit(this, x, y);
+  Exit(this, x, y - GetDefOffset(GetID(), 1));
 
   //Effekte
   Sound("BBTP_Activate.ogg", 0, 0, 50);
-  CreateParticle("PSpark",0,0,0,0,60,GetPlrColorDw(GetOwner()),this);
+  CreateParticle("PSpark", 0, 0, 0, 0, 60, GetPlrColorDw(GetOwner()), this);
 
   //Aktivierung
-  bActive=true;
-  ScheduleCall(0,"FinFuse", 2*36);
+  bActive = true;
+  ScheduleCall(0, "FinFuse", 2 * 36);
 
   //Grafik setzen
   SetAction("Fused");
   if (doplace == 1)
   {
-    if(Inside(iDir,-180,-130)) SetPhase(3);
-    if(Inside(iDir,-129,-78))  SetPhase(0);
-    if(Inside(iDir,-77 ,-27))  SetPhase(1);
-    if(Inside(iDir,-26 ,25))   SetPhase(2);
-    if(Inside(iDir,26  ,76))   SetPhase(3);
-    if(Inside(iDir,77  ,128))  SetPhase(0);
-    if(Inside(iDir,129 ,179))  SetPhase(1);
-    SetObjDrawTransform(1000,0,0,0,1000,0);
+    if(Inside(iDir, -180, -130)) SetPhase(3);
+    if(Inside(iDir, -129, -78))  SetPhase(0);
+    if(Inside(iDir, -77 , -27))  SetPhase(1);
+    if(Inside(iDir, -26 , 25))   SetPhase(2);
+    if(Inside(iDir, 26  , 76))   SetPhase(3);
+    if(Inside(iDir, 77  , 128))  SetPhase(0);
+    if(Inside(iDir, 129 , 179))  SetPhase(1);
+    SetObjDrawTransform(1000, 0, 0, 0, 1000, 0);
   }
 
   if (doplace == 2)
   {
     SetPhase();
-      var s = Sin(-iDir, 1000), c = Cos(-iDir, 1000);
-      SetObjDrawTransform(c, s, 0, -s, c);
+    var s = Sin(-iDir, 1000), c = Cos(-iDir, 1000);
+    SetObjDrawTransform(c, s, 0, -s, c);
   }
 
   //Vertex zur besseren Haftung
@@ -152,7 +152,8 @@ public func Throw()
   var nextmine = user->~GrabGrenade(GetID());
   user->~ResetShowWeapon();
   if(user->~IsAiming())
-    if(!nextmine) user->StopAiming();
+    if(!nextmine)
+      user->StopAiming();
 }
 
 private func FinFuse()
