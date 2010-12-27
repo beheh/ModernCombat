@@ -52,7 +52,7 @@ RandomGoal=Random goal
 GoalRandomChoose=Choose goal randomly
 Back=Back
 VoteGoal=Goal voting
-GoalVoteBegins=You can vote, which goal should be chosen. You have <c ffff33>%d</c> seconds to vote.
+GoalVoteBegins=The host has started a goal election, you have <c ffff33>%d</c> seconds to choose your favorite(s)!
 
 // Team
 
