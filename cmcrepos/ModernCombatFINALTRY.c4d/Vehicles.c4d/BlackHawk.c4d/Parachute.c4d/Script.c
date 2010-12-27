@@ -20,7 +20,7 @@ public func Set(object pObj)
 
 protected func Fly()
 {
-  //Freiflug oder mit Objektanhang?
+  //Freiflug
   if(WildcardMatch(GetAction(),"*Free*"))
   {
     //Windbeeinflussung
@@ -33,15 +33,22 @@ protected func Fly()
       Sound("ParachuteClose.ogg");
     }
   }
+  //Mit Objekt
   else
   {
     var targ = GetActionTarget();
+    if (!targ)
+    {
+      SetAction("StartFlyFree");
+      return;
+    }
 
     //Windbeeinflussung
     SetXDir(GetWind(GetX(), GetY()) /8 , targ);
 
     //Fall verlangsamen
-    SetYDir(30,targ,10);
+    var y = Interpolate2(GetYDir(targ, 100), 300, 1, 5);
+    SetYDir(y, targ, 100);
 
     //Manuelles Losmachen durch [Doppelstop] des Objektanhangs
     if(GetPlrDownDouble(GetController(targ)))
@@ -51,8 +58,19 @@ protected func Fly()
     if(GetContact(0, -1, CNAT_Bottom) || GetContact(targ, -1, CNAT_Bottom) || InLiquid() || InLiquid(targ))
       Close();
 
-    if (GetProcedure(targ) != "FLOAT" && GetProcedure(targ) != "FLIGHT")
-      Close();
+    //Lebewesen
+    if (GetCategory(targ) & C4D_Living)
+      if (GetID(Contained(targ)) == FKDT)
+        SetActionTargets(targ = Contained(targ));
+      else
+        if (GetID(targ) != FKDT && GetProcedure(targ) != "FLOAT" && GetProcedure(targ) != "FLIGHT")
+          Close();
+
+    if (Contained())
+    {
+      Exit();
+      SetAction("Fly", targ, 0, true);
+    }
   }
 }
 
