@@ -50,6 +50,9 @@ protected func Fly()
     //Bei Wasser- oder Bodenkontakt zusammenfallen
     if(GetContact(0, -1, CNAT_Bottom) || GetContact(targ, -1, CNAT_Bottom) || InLiquid() || InLiquid(targ))
       Close();
+
+    if (GetProcedure(targ) != "FLOAT" && GetProcedure(targ) != "FLIGHT")
+      Close();
   }
 }
 
