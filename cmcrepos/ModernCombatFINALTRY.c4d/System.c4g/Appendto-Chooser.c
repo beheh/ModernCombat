@@ -23,16 +23,19 @@ protected func Initialize()
 
 protected func Activate(iPlr)
 {
-  if(!iPlr) return(OpenMenu());
-  MessageWindow(Format("$Choosing$", GetPlayerName(iChoosePlr)),iPlr);
+  if(!iPlr)
+    return OpenMenu();
+  MessageWindow(Format("$Choosing$", GetPlayerName(iChoosePlr)), iPlr);
 }
 
 protected func OpenMenu()
 {
-  if(GetLength(aGoals)) return(OpenGoalChooseMenu());
+  if(GetLength(aGoals))
+    return OpenGoalChooseMenu();
 
   var pClonk = GetCursor(iChoosePlr);
-  if(!pClonk) return ScheduleCall(this, "OpenMenu", 1);
+  if(!pClonk)
+    return ScheduleCall(this, "OpenMenu", 1);
 
   if(GetMenu(pClonk))
     CloseMenu(pClonk);
@@ -47,9 +50,11 @@ protected func OpenMenu()
   if(IsDark())
     AddMenuItem("%s", "OpenDarknessMenu", DARK, pClonk,0,0,"$DarknessChose$");
   // Spielziel
-  if(GoalIsCompatible() && !GetLeague()) AddMenuItem("%s", "OpenGoalMenu", GetID(pGoal), pClonk,0,0,"$GoalChose$");
+  if(GoalIsCompatible() && !GetLeague())
+    AddMenuItem("%s", "OpenGoalMenu", GetID(pGoal), pClonk,0,0,"$GoalChose$");
   // KI
-  if(ObjectCount(WAYP) && !GetLeague()) AddMenuItem("$AIMenu$", "OpenAIMenu", HZCK, pClonk, 0,0, "$AIInfo$");
+  if(ObjectCount(WAYP) && !GetLeague())
+    AddMenuItem("$AIMenu$", "OpenAIMenu", HZCK, pClonk, 0,0, "$AIInfo$");
   // Effekte
   AddMenuItem("$Effects$", "OpenEffectMenu", EFMN, pClonk, 0,0, "$EffectInfo$");
   // Fertig
@@ -88,49 +93,42 @@ protected func ChangeEffectConf(id dummy, int iChange)
 
 protected func OpenGoalMenu(id dummy, int iSelection)
 {
-  if(!pGoal) return OpenMenu();
+  if(!pGoal)
+    return OpenMenu();
   var pClonk = GetCursor();
   if(pGoal->~ConfigMenu(pClonk))
-	return 1;//OpenMenu()
+	return 1;
   return _inherited(dummy, iSelection, ...);
 }
 
 protected func LoadRuleCfg()
 {
   var a = GameCall("ChooserRuleConfig");
-  if(!GetLength(a)) return;
+  if(!GetLength(a))
+    return;
 
   for(var i=0, idR; idR = GetDefinition(i, Chooser_Cat) ; i++)
    if(DefinitionCall(idR, "IsChooseable") && !GetLength(FindObjects(Find_ID(idR))))
-   {
-    if(FindInArray4K(a,idR) > -1)
-     aRules[i] = true;
-   }
+     if(FindInArray4K(a, idR) > -1)
+       aRules[i] = true;
 }
 
 protected func InitializePlayer(int iPlr, int iX, int iY, object pBase, int iTeam, id idExtra)
 {
   if(GetPlayerType(iPlr) == C4PT_Script)
-    for(var i=1 ; i < aAI[iTeam] ; i++)
+    for(var i = 1 ; i < aAI[iTeam] ; i++)
       CreateClonk(iPlr);
   aAI[iTeam] = 0;
   if(Death) return;
   // Alle Clonks des Spielers verstauen
   for(var i=0, pCrew, tmp ; pCrew = GetCrew(iPlr, i) ; i++)
-    {
+  {
     tmp = CreateObject(TIM1, GetX(pCrew), GetY(pCrew), -1);
     SetCategory(GetCategory(tmp) | C4D_Foreground,tmp);
     SetGraphics(0, tmp, GetID(pCrew), 1, 5, 0, 1, pCrew);
     Enter(tmp, pCrew);
     Eastern(tmp);
-    }
-  // Spieler 1? Dann Menü öffnen
-  /*if(GetPlrClientNr(iPlr) == 0 && !iChoosePlr)
-  {
-    EventInfo4K(0,Format("$ChoosingPlayer$", GetTaggedPlayerName(iPlr)), CHOS, 0, 0, 0, "Info.ogg");
-  	iChoosePlr = iPlr;
-    return OpenMenu();
-  }*/
+  }
 }
 
 /* Spielziel setzen */
@@ -161,21 +159,19 @@ protected func ConfigurationFinished2()
   else
     log = "$Rules$";
   for(var check in aRules)
-    {
+  {
     if(check)
-      {
+    {
       def = GetDefinition(i, Chooser_Cat);
       CreateObject(def, 10,10, -1);
-      if(j != 0) {
+      if(j)
         log = Format("%s, <c %x>%s</c>", log, GetRuleColor(def), GetName(0, def));
-      }
-      else {
+      else
         log = Format("%s<c %x>%s</c>", log, GetRuleColor(def), GetName(0, def));
-      }
       j++;
-      }
-    i++;
     }
+    i++;
+  }
   // Dunkelheit erzeugen
   log = Format("%s, %s x%d", log, GetName(0, DARK), iDarkCount);
   EventInfo4K(0,log,CHOS, 0, 0, 0, "Info.ogg");
@@ -184,17 +180,16 @@ protected func ConfigurationFinished2()
 
   // Spieler freilassen
   for(i = 0 ; i < GetPlayerCount() ; i++)
-    {
+  {
     for(j = 0 ; pCrew = GetCrew(GetPlayerByIndex(i), j) ; j++)
-      {
+    {
       tmp = Contained(pCrew);
       RemoveObject(tmp, 1);
-      
       pCrew->~Recruitment(GetOwner(pCrew));
-      }
+    }
     for(var rule in FindObjects(Find_Category(Chooser_Cat), Find_Exclude(this)))
       rule->~InitializePlayer(GetPlayerByIndex(i));
-    }
+  }
   // Überschüssiges TIM1-Objekte entfernen (falls Spieler ziwschenzeitlich geflogen sind)
   for(tmp in FindObjects(Find_ID(TIM1)))
     if(!Contents(0, tmp))
@@ -209,7 +204,7 @@ private func IsStandardSetting()
 {
   var a = GameCall("ChooserRuleConfig"), i;
   for (var i = 0; i < GetLength(aRules); i++) {
-    if (FindInArray4K(a, GetDefinition(i, Chooser_Cat)) != -1)
+    if (GetIndexOf(GetDefinition(i, Chooser_Cat), a) != -1)
     {
       if (!aRules[i]) //Regel im Standardsatz, aber nicht ausgewählt
         return false;
@@ -222,7 +217,7 @@ private func IsStandardSetting()
 
 private func GetRuleColor(id idDef)
 {
-  if (FindInArray4K(GameCall("ChooserRuleConfig"), idDef) == -1)
+  if (GetIndexOf(idDef, GameCall("ChooserRuleConfig")) == -1)
     return RGB(255);
   return RGB(255,255,255);
 }
@@ -249,4 +244,160 @@ private func Eastern(object P)
   if(rand == 14) SetName("$YourGlance$", P);
   if(rand == 15) SetName("$YourHarddrive$", P);
   if(rand == 16) SetName("$YourChat$", P);
+}
+
+/* Spielzielwahl */
+
+protected func OpenGoalChooseMenu()
+{
+  var pClonk = GetCursor();
+  if (!pClonk || !GetLength(aGoals))
+    return ScheduleCall(this, "OpenMenu", 1);
+
+  CloseMenu(pClonk);
+
+  if(GetLength(aGoals) == 1)
+    return CreateGoal(aGoals[0], aTempGoalSave[0]);
+
+  CreateMenu(GetID(), pClonk, 0, 0, 0, 0, 1);
+
+  var i;
+  for(var goal in aGoals)
+  {
+    AddMenuItem("%s", "CreateGoal", goal, pClonk, 0, aTempGoalSave[i]);
+    i++;
+  }
+  //Zufall
+  AddMenuItem("$RandomGoal$", "OpenGoalRandomMenu", GetID(), pClonk, 0, pClonk, "$RandomGoal$");
+  //Abstimmung
+  AddMenuItem("$VoteGoal$", "OpenGoalVoteMenu", GetID(), pClonk, 0, pClonk, "$VoteGoal$");
+}
+
+/* Random */
+
+local aGoalsChecked;
+
+protected func OpenGoalRandomMenu(id id, object pClonk)
+{
+  CreateMenu(GetID(), pClonk, 0, 0, 0, 0, C4MN_Style_Context);
+  if (!aGoalsChecked)
+    aGoalsChecked = [];
+  var fChecked = false;
+  for (var i = 0; i < GetLength(aGoals); i++)
+  {
+    if (!aGoals[i])
+      continue;
+    if (aGoalsChecked[i])
+    {
+      AddMenuItem("%s", "CheckRandomGoal", aGoals[i], pClonk, 0, pClonk, GetDesc(0, aGoals[i]));
+      fChecked = true;
+    }
+    else
+      AddMenuItem("<c 777777>%s</c>", "CheckRandomGoal", aGoals[i], pClonk, 0, pClonk, GetDesc(0, aGoals[i]));
+  }
+  if (fChecked)
+    AddMenuItem("$GoalRandomChoose$", "GoalRandomChoose", GetID(), pClonk, 0, pClonk, "$GoalRandomChoose$", 2, 3);
+  else
+    AddMenuItem("<c 777777>$GoalRandomChoose$</c>", 0, GetID(), pClonk, 0, pClonk, "$GoalRandomChoose$", 2, 3);
+  AddMenuItem("$Back$", "OpenGoalChooseMenu", 0, pClonk, 0, pClonk, "$Back$");
+}
+
+protected func CheckRandomGoal(id idGoal, object pClonk)
+{
+  var iIndex = GetIndexOf(idGoal, aGoals);
+  aGoalsChecked[iIndex] = !aGoalsChecked[iIndex];
+  OpenGoalRandomMenu(0, pClonk);
+  SelectMenuItem(iIndex, pClonk);
+  Sound("Grab", true, 0, 0, GetOwner(pClonk) + 1);
+}
+
+protected func GoalRandomChoose(id id, object pClonk)
+{
+  var array = [];
+  for (var i = 0; i < GetLength(aGoals); i++)
+    if (aGoalsChecked[i])
+      array[GetLength(array)] = aGoals[i];
+  var idGoal = array[Random(GetLength(array))];
+  if (!idGoal)
+    return OpenGoalRandomMenu(0, pClonk);
+  return CreateGoal(idGoal, aTempGoalSave[GetIndexOf(idGoal, aGoals)]);
+}
+
+/* Voting */
+
+local aGoalsVoted;
+static const CHOS_GoalVotingTime = 15;
+
+protected func OpenGoalVoteMenu(id id, object pClonk)
+{
+  if (!aGoalsVoted)
+    aGoalsVoted = [];
+  for (var i = 0; i < GetPlayerCount(); i++)
+    GoalVoteMenu(0, 0, GetPlayerByIndex(i));
+  AddEffect("EvaluateGoalVote", this, 1, 35 * CHOS_GoalVotingTime, this);
+  EventInfo4K(0, Format("$GoalVoteBegins$", CHOS_GoalVotingTime), GetID(), 0, 0, 0, "Info.ogg");
+}
+
+protected func GoalVoteMenu(id id, object pClonk, int iPlr)
+{
+  if (!pClonk)
+    pClonk = GetCursor(iPlr);
+  iPlr = GetOwner(pClonk);
+  CloseMenu(pClonk);
+  CreateMenu(GetID(), pClonk, 0, 0, 0, 0, C4MN_Style_Context);
+  if (!aGoalsVoted[iPlr])
+    aGoalsVoted[iPlr] = [];
+  for (var i = 0; i < GetLength(aGoals); i++)
+    if (aGoalsVoted[iPlr][i])
+      AddMenuItem("%s", "CheckVoteGoal", aGoals[i], pClonk, 0, pClonk, GetDesc(0, aGoals[i]));
+    else
+      AddMenuItem("<c 777777>%s</c>", "CheckVoteGoal", aGoals[i], pClonk, 0, pClonk, GetDesc(0, aGoals[i]));
+}
+
+protected func CheckVoteGoal(id idGoal, object pClonk)
+{
+  var iIndex = GetIndexOf(idGoal, aGoals), iPlr = GetOwner(pClonk);
+  aGoalsVoted[iPlr][iIndex] = !aGoalsVoted[iPlr][iIndex];
+  GoalVoteMenu(0, pClonk, iPlr);
+  SelectMenuItem(iIndex, pClonk);
+  Sound("Grab", true, 0, 0, iPlr + 1);
+}
+
+protected func FxEvaluateGoalVoteTimer()
+{
+  for (var i = 0; i < GetPlayerCount(); i++)
+    CloseMenu(GetCursor(GetPlayerByIndex(i)));
+  var aGoalsChosen = [];
+  //Spieler durchgehen
+  for (var array in aGoalsVoted)
+  {
+    if (GetType(array) != C4V_Array)
+      continue;
+    for (var i = 0; i < GetLength(array); i++)
+      aGoalsChosen[i] += array[i];
+  }
+  //Alle Ziele mit dem höchsten Wert raussuchen
+  var highest;
+  for (var i in aGoalsChosen)
+    highest = Max(highest, i);
+  array = [];
+  for (var i = 0; i < GetLength(aGoals); i++)
+    if (aGoalsChosen[i] == highest)
+      array[GetLength(array)] = aGoals[i];
+/*  Log("Goals: %v", aGoals);
+  Log("Chosen: %v", aGoalsChosen);
+  Log("Voting: %v", aGoalsVoted);
+  Log("Highest: %v (%d)", array, highest);*/
+  //Und zufällig eins auswählen
+  var idGoal = array[Random(GetLength(array))];
+  if (idGoal)
+    CreateGoal(idGoal, GetIndexOf(idGoal, aGoals));
+  else
+    OpenGoalChooseMenu();
+  return -1;
+}
+
+protected func MenuQueryCancel()
+{
+  return _inherited(...) || GetEffect("EvaluateGoalVote", this);
 }
