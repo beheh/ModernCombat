@@ -50,15 +50,15 @@ func Collection2(object pObj)
   if(!GetEffect("Move2Door",pObj))
     if(target)
     {
-      AddEffect("Move2Door",pObj,200,15);
+      AddEffect("Move2Door", pObj, 200, 15, this);
       //return();
     }
   return _inherited(...);
 }
 
-global func FxMove2DoorStart(object pTarget)
+protected func FxMove2DoorStart(object pTarget)
 {
-  var cont = pTarget->Contained();
+  var cont = Contained(pTarget);
   if(cont)
     if(cont->~IsBackDoor())
       if(cont->GetTarget())
@@ -66,13 +66,19 @@ global func FxMove2DoorStart(object pTarget)
   return 1;
 }
 
-global func FxMove2DoorTimer(pTarget)
+protected func FxMove2DoorTimer(pTarget)
 {
-  AddCommand(pTarget,"Exit");
-  return -1;
+  if (Contained(pTarget) == GetTarget())
+    AddCommand(pTarget,"Exit");
+  else
+    return -1;
 }
 
 private func SoundDoorLocked()
 {
   Sound("MetalHit1");
 }
+
+public func ContainedLeft()     {return true;}
+public func ContainedRight()    {return true;}
+public func RejectContents()    {return true;}
