@@ -67,7 +67,7 @@ protected func FxBorderStart(pTarget, iNo, iTemp)
 
   //Countdown
   EffectVar(0, pTarget, iNo) = 10;
-  Sound("Alarm.ogg", 0, pTarget, 0, GetOwner(pTarget));
+  Sound("Alarm.ogg", 0, pTarget, 0, GetOwner(pTarget) + 1);
   //Hinweisnachricht
   PlayerMessage(GetOwner(pTarget), "@$Warning$", pTarget, EffectVar(0, pTarget, iNo));
 
