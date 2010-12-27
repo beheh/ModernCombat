@@ -229,8 +229,8 @@ func CreateEquipment()
   tmp->Set(GBOX);
 
   //Raketen
-  PlaceSpawnpoint(MIAP, 1310, 355);
-  PlaceSpawnpoint(MIAP, 4230, 355);
+  PlaceSpawnpoint(MBOX, 1310, 355);
+  PlaceSpawnpoint(MBOX, 4230, 355);
 }
 
 func CreateDecoration()
@@ -292,7 +292,7 @@ public func ChooserFinished()
     tmp->Set(ABOX);
 
     //Raketen
-    PlaceSpawnpoint(MIAP, 2860, 645);
+    PlaceSpawnpoint(MBOX, 2860, 645);
    }
   }
 
