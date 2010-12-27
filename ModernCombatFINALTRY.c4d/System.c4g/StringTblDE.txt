@@ -48,6 +48,12 @@ NewTeam=Neues Team
 FairTeams=Faire Teams
 FairTeamsInfo=Alle Teams auffüllen, so dass überall die gleiche Anzahl Clonks vorhanden ist
 OnlyDeleteLastTeam=Das letzte Team muss als erstes entfernt werden!
+RandomGoal=Zufallsziel
+GoalRandomChoose=Ziel auswürfeln
+Back=Zurück
+VoteGoal=Über Ziel abstimmen
+GoalVoteBegins=Der Host lässt abstimmen, welches Spielziel gewählt werden soll! Ihr habt <c ffff33>%d</c> Sekunden Zeit.
+
 
 // Team
 
