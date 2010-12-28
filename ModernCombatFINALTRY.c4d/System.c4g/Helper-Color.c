@@ -21,3 +21,18 @@ global func DoColorBrightness(int color, int value)
   }
   return color;
 }
+
+global func LightenColor(int dwClr, int iMinLight)
+{
+  if (!iMinLight)
+    iMinLight = 127;
+  var r, g, b, a;
+  SplitRGBaValue(dwClr, r, g, b, a);
+  var iLight = 50 * r + 87 * g + 27 * b;
+  if (iLight < iMinLight * 164)
+  {
+    var iIncrease = (iMinLight * 164 - iLight) / 164;
+    dwClr = RGB(Min(r + iIncrease, 255), Min(g + iIncrease, 255), Min(b + iIncrease, 255));
+  }
+  return dwClr;
+}
