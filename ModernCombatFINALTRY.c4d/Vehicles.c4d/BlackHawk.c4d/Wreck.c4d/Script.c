@@ -35,8 +35,7 @@ func DestroyWreck()
   //Effekte
   CastParticles("GunSmoke", 15, 35, -20, 0, 300, 500);
   CastParticles("GunSmoke", 15, 35, 20, 0, 300, 500);
-  if(GetEffectData(EFSM_ExplosionEffects) > 1)
-    CastParticles("MetalSplinter", 8, 200, 0, 0, 100,50, RGB(40, 20, 20));
+  if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter", 8, 200, 0, 0, 100,50, RGB(40, 20, 20));
   Sound("C4EX_Detonation*.ogg");
   Sound("StructuralDamage*.ogg");
 
