@@ -158,18 +158,18 @@ public func Throw()
 
 private func FinFuse()
 {
-  if(!bActive) return;
+  if(!bActive)
+    return;
+
+  var iColor = LightenColor(GetPlrColorDw(controller), 192);
 
   //Blinkeffekt
-  CreateParticle("PSpark",0,0,0,0,60,GetPlrColorDw(GetOwner()),this);
+  CreateParticle("PSpark", 0, 0, 0, 0, 60, iColor, this);
   //Laser erstellen
-  laser = CreateObject(LASR,0,0,controller);
-  laser -> Set(iDir,3,60,0,0,this());
-  if(laser)
-  {
-    laser -> SetClrModulation(DoRGBaValue(GetPlrColorDw(GetOwner()), 210, 0));
-    laser ->~ Destruction();
-  }
+  laser = CreateObject(LASR, 0, 0, controller);
+  laser -> Set(iDir, 3, 60, 0, 0, this, 0, true);
+  SetClrModulation(SetRGBaValue(iColor, 210), laser);
+  laser ->~ Destruction();
   //Hinweisflagge erstellen
   var flag = CreateObject(MFLG,0,1,controller);
   flag->Set(this);

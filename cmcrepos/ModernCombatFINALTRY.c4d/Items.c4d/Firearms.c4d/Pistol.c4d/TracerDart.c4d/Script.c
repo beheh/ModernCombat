@@ -134,8 +134,9 @@ public func BulletStrike(object pObj)
 
 private func Color(int iATime)
 {
-  var iAlpha = Interpolate2(0, 128, iATime, iTime) + Random(32);
-  return SetRGBaValue(GetPlrColorDw(GetController()), iAlpha);
+  var iAlpha = Interpolate2(0, 128, iATime, iTime) + Random(32),
+  iColor = LightenColor(GetPlrColorDw(GetController()), 92);
+  return SetRGBaValue(iColor, iAlpha);
 }
 
 private func GlowColor()
