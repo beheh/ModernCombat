@@ -41,6 +41,24 @@ protected func FxTracerTrailTimer()
     CreateParticle("Flare", iX + Sin(iShotAngle, iDist) + Random(5) - 2, iY - Cos(iShotAngle, iDist) + Random(5) - 2, Sin(Random(360), Random(10)), Sin(Random(360), Random(10)), 60 + Random(51), iClr);
 }
 
+/* Timer */
+
+private func Traveling()
+{
+  //In Wasser zerstören
+  if(InLiquid()) return Remove();
+
+  var iATime = GetActTime();
+
+  //Ausfaden
+  SetClrModulation(Color(iATime));
+  //Löschen
+  if(iATime >= iTime) return Remove();
+
+  //Bei Verlassen der Map entfernen
+  if(GetY()<0) return Remove();
+}
+
 /* Treffer */
 
 func Hit(int iXDir, int iYDir)
