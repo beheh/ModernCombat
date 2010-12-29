@@ -1204,7 +1204,8 @@ protected func TimerCall()
 
   //Lebewesen schrappneln
   if(GetRotorSpeed() > 0)
-    for(var pClonk in FindObjects(Find_OnLine(GetVertex(7),GetVertex(7, true),GetVertex(11),GetVertex(11, true)) , Find_NoContainer(), Find_OCF(OCF_Alive), Find_Not(Find_ID(FKDT))))
+  {
+    for(var pClonk in FindObjects(Find_OnLine(GetVertex(7), GetVertex(7, true), GetVertex(11), GetVertex(11, true)) , Find_NoContainer(), Find_OCF(OCF_Alive), Find_Not(Find_ID(FKDT))))
     {
       if(GetOwner(pClonk) != NO_OWNER && GetOwner() != NO_OWNER && !Hostile(GetOwner(), GetOwner(pClonk)))
         continue;
@@ -1215,6 +1216,11 @@ protected func TimerCall()
       Sound("BKHK_RotorHit*.ogg", false, pClonk);
       AddEffect("NoRotorHit", pClonk, 1, 20, pClonk);
     }
+
+    //Festes Material im Rotor tut weh, wird von Contact-Calls bei Stillstand nicht erfasst
+    if (!PathFree(GetX() + GetVertex(7), GetY() + GetVertex(7, true), GetX() + GetVertex(11), GetY() + GetVertex(11, true)))
+      DoDamage(1, this, FX_Call_DmgScript, GetController(GetPilot()) + 1);
+  }
   
   //Nachladezeit reduzieren
   if(smokereload) 
