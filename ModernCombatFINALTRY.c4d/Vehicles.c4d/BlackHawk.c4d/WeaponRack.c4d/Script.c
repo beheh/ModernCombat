@@ -34,6 +34,7 @@ public func Set(pTarget, iRad, iAng, iRotLeft, iRotRight)
   rot_right = iRotRight;
   heli = pTarget;
   blinkspeed = RandomX(27,33);
+  AddEffect("IntTimer", this, 1, 1, this);
 }
 
 public func SetGunner(pObj)
@@ -150,10 +151,11 @@ public func ControlDig()
 }
 
 
-public func TimerCall()
+protected func FxIntTimerTimer(object pTarget, int iEffect, int iTime)
 {
   //Waffe vorhanden?
-  if(!GetAttWeapon()) return;
+  if(!GetAttWeapon())
+    return;
 
   //Hosthelikopter vorhanden?
   if(!heli)
@@ -163,7 +165,7 @@ public func TimerCall()
   }
   
   //Rotation des Heli abfragen
-  var rot = GetR(heli)+(GetDir(heli)*2-1)*(90)+(GetDir(heli)*2-1)*(Ang);
+  var rot = GetR(heli) + (GetDir(heli) * 2 - 1) * (90 + Ang);
   //Und in die Positionsbestimmung einfließen lassen
   SetPosition(GetX(heli) + Sin(rot, Rad),
               GetY(heli) - Cos(rot, Rad), this());
@@ -180,15 +182,15 @@ public func TimerCall()
   SetClrModulation(GetClrModulation(heli));
 
   //Alle X Frames
-  if(!(GetActTime()%blinkspeed) && pController)
+  if(!(iTime % blinkspeed) && pController)
   {
     if(heli->GetTeam())
       var rgb = GetTeamColor(heli->GetTeam());
-    else if(heli->GetOwner() != NO_OWNER)
+    else if(GetOwner(heli) != NO_OWNER)
       var rgb = GetPlrColorDw(heli->GetOwner());
     else
-      var rgb = RGB(255,255,255);
-    CreateParticle("FlashLight",0,4,0,0,3*15,rgb,this);
+      var rgb = RGB(255, 255, 255);
+    CreateParticle("FapLight", 0, 4, 0, 0, 60, LightenColor(rgb), this);
   }
 
   //Nötig nachzuladen?
@@ -199,14 +201,14 @@ public func TimerCall()
 
   // jedes Frame
   //links?
-  if( AimAngle() < MaxRotLeft())
+  if(AimAngle() < MaxRotLeft())
   {
     aim_angle = MaxRotLeft()-GetR();
     iPat_Dir = 0; //Anhalten
   }
 	    
   //rechts?
-  else if( AimAngle() > MaxRotRight())
+  else if(AimAngle() > MaxRotRight())
   {
     aim_angle = MaxRotRight()-GetR();
     iPat_Dir = 0; //Anhalten
@@ -224,7 +226,7 @@ public func TimerCall()
   {
     if (vis)
     {
-      SetVisibility(VIS_None,GetAttWeapon());
+      SetVisibility(VIS_None, GetAttWeapon());
       SetVisibility(VIS_None);
       vis = false;
     }
@@ -232,7 +234,7 @@ public func TimerCall()
   else
     if (!vis)
     {
-      SetVisibility(VIS_All,GetAttWeapon());
+      SetVisibility(VIS_All, GetAttWeapon());
       SetVisibility(VIS_All);
       vis = true;
     }
