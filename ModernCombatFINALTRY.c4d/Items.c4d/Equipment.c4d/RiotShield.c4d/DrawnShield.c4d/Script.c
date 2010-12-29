@@ -87,40 +87,28 @@ public func ExecShove()
 public func Update()
 {
   if(!target)
-  {
-    item->RemoveShield();
-    return;
-  }
+    return item->RemoveShield();
 
   var x,y,r;
   if(!target->WeaponAt(x,y,r))
-  {
-    Hide();
-    return;
-  }
+    return Hide();
   else
-  {
     Show();
-  }
 
   angle = Normalize(target->AimAngle());
-  var dir = GetDir(target)*2-1;
+  var dir = GetDir(target) * 2 - 1;
 
-  if(GetEffect("Shove",this))
+  if(GetEffect("Shove", this))
   {
-    var t = GetEffect("Shove",this,0,6);
-
-    if(t > ShoveTime()/3)
-      t = 35+((t-35)*2/3);
-
-    angle -= Max(Sin(t*90/(ShoveTime()/3), 40),0) * dir;
+    var t = Sin(GetEffect("Shove", this, 0, 6) * 90 / ShoveTime(), ShoveTime());
+    angle -= dir * Sin(t * 180 / ShoveTime(), 40);
   }
 
-  SetVertexXY(0,-Sin(angle,7),+Cos(angle,7));
+  SetVertexXY(0, -Sin(angle, 7), Cos(angle, 7));
 
   //Nur optisch drehen
-  var fsin = -Sin(angle,1000), fcos = +Cos(angle,1000);
-  SetObjDrawTransform(dir*-fcos, +fsin, 0,dir*+fsin, +fcos, 0);
+  var fsin = -Sin(angle, 1000), fcos = Cos(angle, 1000);
+  SetObjDrawTransform(dir * -fcos, fsin, 0, dir * fsin, fcos);
 }
 
 /* Trefferverhalten */
