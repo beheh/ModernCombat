@@ -656,6 +656,9 @@ public func ChooserFinished()
    //Grenze setzen
    CreateObject(BRDR, 0, 1370, -1)->Set(2,1);
 
+   //Objekt entfernen
+   RemoveObject(FindObject2(Find_ID(PLT3),Find_InRect(570, 820, 40, 40)));
+
    //SSA Besitzer setzen
    if(aTeams[2] == true)
    {aSelfDefense[0]->SetTeam(2); aSelfDefense[1]->SetTeam(2); aSelfDefense[2]->SetTeam(2); aSelfDefense[3]->SetTeam(2);}
@@ -665,9 +668,6 @@ public func ChooserFinished()
    aSelfDefense[1]->TurnOn();
    aSelfDefense[2]->TurnOn();
    aSelfDefense[3]->TurnOn();
-
-   //Pflanze entfernen
-   RemoveObject(FindObject2(Find_ID(PLT3),Find_InRect(570, 820, 40, 40)));
   }
 
   //OP-Spielziel

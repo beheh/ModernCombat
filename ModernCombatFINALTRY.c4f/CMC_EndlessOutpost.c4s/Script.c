@@ -634,10 +634,6 @@ public func ChooserFinished()
   //DM/LMS-Spielziel
   if(FindObject(GTDM) || FindObject(GLMS))
   {
-   //SSA entfernen
-   RemoveObject(aSelfDefense[0]);
-   RemoveObject(aSelfDefense[1]);
-
    //Grenze setzen
    CreateObject(BRDR, 2010, 0, -1)->Set(1);
 
@@ -650,6 +646,11 @@ public func ChooserFinished()
    aDoor[5]->Open();
    aDoor[8]->Unlock();
    aDoor[9]->Unlock();
+
+   //Objekte entfernen
+   RemoveObject(aSelfDefense[0]);
+   RemoveObject(aSelfDefense[1]);
+   RemoveObject(FindObject2(Find_ID(AMCT),Find_InRect(1080, 240, 40, 40)));
 
    //Leiter
    CreateObject(LADR, 1650, 457, -1)->Set(20);
@@ -671,9 +672,6 @@ public func ChooserFinished()
    CreateObject(WCR2, 1310, 180, -1);
    CreateObject(WCR2, 1740, 472, -1);
 
-   //Versorgungskiste entfernen
-   RemoveObject(FindObject2(Find_ID(AMCT),Find_InRect(1080, 240, 40, 40)));
-
    //Zusätzliche Munition
    if(!FindObject(NOAM))
    {
@@ -690,7 +688,7 @@ public func ChooserFinished()
   if (FindObject(GASS))
   {
    //Zielobjekte
-   AddAssaultTarget(CGLO, 1120, 360, 250, 2, "$Target1$", 0, [[[1320, 260], [1300, 260], [1130, 260]], [[130, 350], [170, 350], [150, 450]]]);
+   AddAssaultTarget(CCP2, 1120, 360, 250, 2, "$Target1$", 0, [[[1320, 260], [1300, 260], [1130, 260]], [[130, 350], [170, 350], [150, 450]]]);
    AddAssaultTarget(MVNT, 1865, 250, 250, 2, "$Target2$", 1, [[[1570, 70], [1590, 70], [1830, 110]], [[1100, 430], [1140, 430], [1280, 550]]]);
    AddAssaultTarget(LBPC, 1795, 490, 300, 2, "$Target3$", 2, [[[1980, 400]], [[1280, 430], [1280, 550]]]);
    AddAssaultTarget(CCP2, 2180, 510, 150, 2, "$Target4$", 3, [[[1880, 110], [2050, 110]], [[1950, 400], [1550, 550], [1500, 490]]]);
@@ -755,9 +753,6 @@ public func ChooserFinished()
     aFlag[3]->Set("$Flag4$",0,2);
    }
 
-   //Konsole erstellen
-   CreateObject(CONS, 1810, 485, -1)->Set(aSelfDefense[1]);
-
    //Grenze setzen
    CreateObject(BRDR, 2010, 0, -1)->Set(1);
 
@@ -770,6 +765,12 @@ public func ChooserFinished()
    aDoor[5]->Open();
    aDoor[8]->Unlock();
    aDoor[9]->Unlock();
+
+   //Objekt entfernen
+   RemoveObject(FindObject2(Find_ID(AMCT),Find_InRect(1080, 240, 40, 40)));
+
+   //Konsole erstellen
+   CreateObject(CONS, 1810, 485, -1)->Set(aSelfDefense[1]);
 
    //Leiter
    CreateObject(LADR, 1650, 457, -1)->Set(20);
@@ -790,9 +791,6 @@ public func ChooserFinished()
    CreateObject(WCR2, 1120, 360, -1);
    CreateObject(WCR2, 1310, 180, -1);
    CreateObject(WCR2, 1740, 472, -1);
-
-   //Versorgungskiste entfernen
-   RemoveObject(FindObject2(Find_ID(AMCT),Find_InRect(1080, 240, 40, 40)));
 
    //Zusätzliche Munition
    if(!FindObject(NOAM))

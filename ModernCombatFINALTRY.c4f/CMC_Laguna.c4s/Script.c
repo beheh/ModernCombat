@@ -264,12 +264,6 @@ func CreateEquipment()
   //Artilleriebatterien
   aArtillery[0] = CreateObject(ATBY,1855,490,-1);
   aArtillery[1] = CreateObject(ATBY,2130,470,-1);
-
-  //Patrouillenboote
-  SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,770,800,-1),10*10);
-  SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,1265,800,-1),10*10);
-  SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1485,800,-1),10*10);
-  SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2605,800,-1),10*10);
 }
 
 func CreateDecoration()
@@ -302,6 +296,10 @@ public func ChooserFinished()
    //Warnschilder
    CreateObject(SGNP, 1255, 590, -1);
    CreateObject(SGNP, 2745, 570, -1);
+
+   //Patrouillenboote
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1485,800,-1),10*10);
+   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2605,800,-1),10*10);
   }
 
   //HTF-Spielziel
@@ -328,6 +326,10 @@ public func ChooserFinished()
     //Raketen
     PlaceSpawnpoint(MBOX, 1930, 650);
    }
+
+   //Patrouillenboote
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1485,800,-1),10*10);
+   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2605,800,-1),10*10);
   }
 
   //Assault-Spielziel
@@ -348,11 +350,17 @@ public func ChooserFinished()
    CreateObject(BRDR, 230, 0, -1)->Set(0,1);
    CreateObject(BRDR, 1820, 0, -1)->Set(1,1);
 
-   //Automat entfernen
+   //Objekt entfernen
    RemoveAll(SPVM);
 
    //Blackhawk
    SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,2895,410,-1),100*21);
+
+   //Patrouillenboote
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,770,800,-1),10*10);
+   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,1265,800,-1),10*10);
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1485,800,-1),10*10);
+   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2605,800,-1),10*10);
   }
 
   //OP-Spielziel
@@ -414,6 +422,12 @@ public func ChooserFinished()
 
    //Blackhawk
    SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,2895,410,-1),100*21);
+
+   //Patrouillenboote
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,770,800,-1),10*10);
+   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,1265,800,-1),10*10);
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1485,800,-1),10*10);
+   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2605,800,-1),10*10);
   }
 }
 

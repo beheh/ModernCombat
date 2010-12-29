@@ -557,13 +557,6 @@ func CreateEquipment()
   aArtillery[1] = CreateObject(ATBY,3640,330,-1);
   aArtillery[2] = CreateObject(ATBY,5720,340,-1);
   aArtillery[3] = CreateObject(ATBY,7360,310,-1);
-
-  //Patrouillenboote
-  SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1245,520,-1),50*21,300);
-  SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2195,520,-1),50*21,300);
-  SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,4640,560,-1),50*21,300);
-  SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,5565,560,-1),50*21,300);
-  SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,7440,520,-1),50*21,200);
 }
 
 /* Bei Flaggenübernahme */
@@ -673,6 +666,10 @@ public func ChooserFinished()
 
    //Blackhawk
    SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,4700,290,-1),100*21,300);
+
+   //Patrouillenboote
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,4640,560,-1),50*21,300);
+   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,5565,560,-1),50*21,300);
   }
 
   //CTF-Spielziel
@@ -695,6 +692,10 @@ public func ChooserFinished()
 
    CreateObject(SGNP, 6725, 510, -1);
    CreateObject(SGNP, 6855, 510, -1);
+
+   //Patrouillenboote
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,4640,560,-1),50*21,300);
+   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,5565,560,-1),50*21,300);
   }
 
   //Assault-Spielziel
@@ -717,39 +718,46 @@ public func ChooserFinished()
    if(aTeams[2] == true)
    {aSelfDefense[0]->SetTeam(2); aSelfDefense[1]->SetTeam(2); aSelfDefense[3]->SetTeam(2);}
 
-   //SSA entfernen
+   //Objekte entfernen
    RemoveObject(aSelfDefense[2]);
-
-   //Artillerie entfernen
    RemoveObject(aArtillery[0]);
-
-   //Leiter entfernen
-   RemoveObject(FindObject2(Find_ID(LADR),Find_InRect(915, 270, 20, 190)));
-
-   //Spinde entfernen
    RemoveAll(LCKR);
-
-   //Automat entfernen
+   RemoveObject(FindObject2(Find_ID(LADR),Find_InRect(915, 270, 20, 190)));
+   RemoveObject(FindObject2(Find_ID(BUOY),Find_InRect(5160, 520, 100, 100)));
    RemoveObject(FindObject2(Find_ID(CLVM),Find_InRect(7200, 390, 40, 40)));
-
-   //Spawnpoint entfernen
    RemoveObject(FindObject2(Find_ID(RSPT),Find_InRect(7224, 419, 3, 3)));
 
-   //Stahlbrücke
+   //Stahlbrücken
+   CreateObject(_HBR, 705, 522, -1);
    CreateObject(_HBR, 775, 522, -1);
+   CreateObject(_HBR, 5230, 562, -1);
+   CreateObject(_HBR, 5300, 562, -1);
+   CreateObject(_HBR, 5370, 562, -1);
+   CreateObject(_HBR, 5440, 562, -1);
 
    //Metallkisten
+   CreateObject(MWCR, 670, 440, -1);
    CreateObject(MWCR, 790, 510, -1);
    CreateObject(MWCR, 1070, 470, -1);
+   CreateObject(MWCR, 5400, 550, -1);
 
    //Kisten
    CreateObject(WCR2, 785, 492, -1);
    CreateObject(WCR2, 890, 480, -1);
    CreateObject(WCR2, 1310, 440, -1);
    CreateObject(WCR2, 1330, 440, -1);
+   CreateObject(WCR2, 5288, 550, -1);
+   CreateObject(WCR2, 5270, 550, -1);
+   CreateObject(WCR2, 5400, 532, -1);
 
    //Blackhawk
    SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,4700,290,-1),100*21,300);
+
+   //Patrouillenboote
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1245,520,-1),50*21,300);
+   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2195,520,-1),50*21,300);
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,4640,560,-1),50*21,300);
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,6945,520,-1),50*21,200);
   }
 
   //OP-Spielziel
@@ -858,6 +866,13 @@ public func ChooserFinished()
 
    //Blackhawk
    SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,4700,290,-1),100*21,300);
+
+   //Patrouillenboote
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1245,520,-1),50*21,300);
+   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2195,520,-1),50*21,300);
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,4640,560,-1),50*21,300);
+   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,5565,560,-1),50*21,300);
+   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,7440,520,-1),50*21,200);
 
    //Alarmleuchten
    //Flaggenposten 1

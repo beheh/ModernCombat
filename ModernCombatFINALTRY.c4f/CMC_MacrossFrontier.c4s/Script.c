@@ -371,10 +371,8 @@ public func ChooserFinished()
    var flag = CreateObject(OFPL, 795,360, -1);
    flag->~Set("$Flag1$");
 
-   //SSA entfernen
+   //Objekte entfernen
    RemoveAll(SEGU);
-
-   //Jumppads entfernen
    RemoveAll(JPTP);
    RemoveAll(JMPD);
 

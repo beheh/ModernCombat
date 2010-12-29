@@ -229,6 +229,11 @@ func CreateFurniture()
 
   //Sounds
 
+  //Wind
+  CreateObject(SE4K, 400, 400, -1)->Set("WindSound*.ogg",775,250);
+  CreateObject(SE4K, 1780, 400, -1)->Set("WindSound*.ogg",775,250);
+  CreateObject(SE4K, 5060, 400, -1)->Set("WindSound*.ogg",775,250);
+  CreateObject(SE4K, 6410, 400, -1)->Set("WindSound*.ogg",775,250);
 }
 
 func CreateEquipment()

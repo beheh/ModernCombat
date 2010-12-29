@@ -534,6 +534,25 @@ public func ChooserFinished()
    AddAssaultTarget(CMSN, 1430, 380, 300, 2, "$Flag4$", 1, [[1470, 250], [1415, 190]]);
   }
 
+  //HTF-Spielziel
+  if (FindObject(GHTF))
+  {
+   //Flaggenposten
+   var flag = CreateObject(OFPL, 860,680, -1);
+   flag->~Set("$Flag3$");
+
+   //Waffenautomat entfernen
+   RemoveAll(WPVM);
+
+   //Zusätzliche Munition
+   if(!FindObject(NOAM))
+   {
+    //Versorgungskiste (Kugeln)
+    var tmp = CreateObject (AMCT, 1010, 660, -1);
+    tmp->Set(ABOX);
+   }
+  }
+
   //OP-Spielziel
   if(FindObject(GOCC))
   {
@@ -582,25 +601,6 @@ public func ChooserFinished()
    else
    {
     aFlag[4]->Set("$Flag5$",0,2);
-   }
-  }
-
-  //HTF-Spielziel
-  if (FindObject(GHTF))
-  {
-   //Flaggenposten
-   var flag = CreateObject(OFPL, 860,680, -1);
-   flag->~Set("$Flag3$");
-
-   //Waffenautomat entfernen
-   RemoveAll(WPVM);
-
-   //Zusätzliche Munition
-   if(!FindObject(NOAM))
-   {
-    //Versorgungskiste (Kugeln)
-    var tmp = CreateObject (AMCT, 1010, 660, -1);
-    tmp->Set(ABOX);
    }
   }
 }
