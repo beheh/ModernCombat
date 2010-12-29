@@ -270,7 +270,7 @@ public func ChooserFinished()
    var flag = CreateObject(OFPL, 2120, 690, -1);
    flag->~Set("$Flag5$");
 
-   //Artillerie entfernen
+   //Objekt entfernen
    RemoveObject(aArtillery[0]);
 
    //Zusätzliche Munition
