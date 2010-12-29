@@ -76,7 +76,7 @@ public func LaunchRocket(id rid, int angle)
   if (!aRockets || GetLength(aRockets) == FMData1(FM_BurstAmount))
     aRockets = [];
 
-  SetPlrView(GetController(user), rocket);
+  SetPlrView(GetOwner(user), rocket);
   aRockets[GetLength(aRockets)] = rocket;
   fView = true;
 
@@ -110,7 +110,7 @@ private func Check()
 
   if(Contained()->~IsThreat()) //Für Waffengeschütz
     if(pRocket && fView)
-      SetPlrView(GetController(Contained()), pRocket);
+      SetPlrView(GetOwner(GetUser()), pRocket);
 }
 
 public func ControlDig(object pBy)
@@ -119,7 +119,10 @@ public func ControlDig(object pBy)
   if (!fView)
     SetPlrView(GetController(pBy), pBy);
   else
+  {
+    SetUser(pBy);
     Check();
+  }
 }
 
 /* Allgemein */
