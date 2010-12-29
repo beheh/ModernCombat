@@ -53,6 +53,7 @@ public func SetGunner(pObj)
   //Besitzer, Vorbereitung, etc...
   pController = pObj;
   cur_Attachment->~StopAutoFire();
+  cur_Attachment->~SetUser(pObj);
   iPat_Dir = 0;
 }
 
@@ -138,7 +139,7 @@ public func ControlThrow(pByObj)
   if(GetAttWeapon()->IsShooting())
     GetAttWeapon()->StopAutoFire();
   else
-    GetAttWeapon()->ControlThrow(this);
+    GetAttWeapon()->ControlThrow(pByObj);
   return true;
 }
 
