@@ -1182,15 +1182,15 @@ protected func TimerCall()
   if(!(GetActTime() % 50))
   {
     if(!GetAlive(GetPilot()))
-      GetPilot() = 0;
+      DeleteActualSeatPassenger(GetPilot());
     if(!GetAlive(GetGunner()))
-      GetGunner() = 0;
+      DeleteActualSeatPassenger(GetGunner());
     if(!GetAlive(GetCoordinator()))
-      GetCoordinator() = 0;
+      DeleteActualSeatPassenger(GetCoordinator());
     if(!GetAlive(GetPassenger1()))
-      GetPassenger1() = 0;
+      DeleteActualSeatPassenger(GetPassenger1());
     if(!GetAlive(GetPassenger2()))
-      GetPassenger2() = 0;
+      DeleteActualSeatPassenger(GetPassenger2());
   }
 
   //Bei Wasser abschalten
