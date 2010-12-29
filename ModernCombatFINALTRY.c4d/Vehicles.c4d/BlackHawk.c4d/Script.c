@@ -562,7 +562,7 @@ protected func ContainedRight(object ByObj, fRelease)
     MGStation->~ControlRight(ByObj);
   //Koordinator
   if(ByObj == GetCoordinator())
-    RocketStation->~GetCoordinator();
+    RocketStation->~ControlRight(ByObj);
 
   return true;
 }

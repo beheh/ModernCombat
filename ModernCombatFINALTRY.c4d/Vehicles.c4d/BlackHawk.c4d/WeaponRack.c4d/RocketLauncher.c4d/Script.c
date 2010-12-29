@@ -71,12 +71,12 @@ public func LaunchRocket(id rid, int angle)
   AddEffect("IntHeliProtection", rocket, 1, 20, 0, BKHK, LocalN("heli", Contained()));
   rocket->Launch(angle, user);
   rocket->Sound("RLSA_Fire*.ogg");
-  SetController(GetController(user), rocket);
+  SetController(GetController(), rocket);
 
   if (!aRockets || GetLength(aRockets) == FMData1(FM_BurstAmount))
     aRockets = [];
 
-  SetPlrView(GetOwner(user), rocket);
+  SetPlrView(GetController(), rocket);
   aRockets[GetLength(aRockets)] = rocket;
   fView = true;
 
@@ -110,7 +110,7 @@ private func Check()
 
   if(Contained()->~IsThreat()) //Für Waffengeschütz
     if(pRocket && fView)
-      SetPlrView(GetOwner(GetUser()), pRocket);
+      SetPlrView(GetController(), pRocket);
 }
 
 public func ControlDig(object pBy)
@@ -120,7 +120,7 @@ public func ControlDig(object pBy)
     SetPlrView(GetController(pBy), pBy);
   else
   {
-    SetUser(pBy);
+    SetController(GetController(pBy));
     Check();
   }
 }
