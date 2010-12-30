@@ -23,7 +23,7 @@ public func GetAlpha()			{return a;}
 
 public func Initialize()
 {
-  SetObjDrawTransform(2000 * LandscapeWidth() / GetDefWidth(GetID()), 0, 0, 0, 2000 * LandscapeHeight() / GetDefHeight(GetID()));
+  SetObjDrawTransform(2000 * Max(LandscapeWidth(), 4000) / GetDefWidth(GetID()), 0, 0, 0, 2000 * Max(LandscapeHeight(), 2000) / GetDefHeight(GetID()));
   SetPosition();
   SetClrModulation (RGBa(0, 0, 0, a = 255));
 }
