@@ -7,6 +7,7 @@ local aMoney;
 local iGoal;
 local fFulfilled;
 
+
 /* Initialisierung */
 
 public func ChooserFinished()
@@ -188,6 +189,7 @@ public func OnDeathAnnounce(object pCrew, int iKiller, int iAssist)
 
   //Effekte
   Sound("GetCash*.ogg", false, pCrew);
+  Sound("PaperFly*.ogg", false, pCrew);
   while ((iChange++) < 0)
     CreateParticle("Paper2", GetX(pCrew) - GetX() + Random(13) - 6, GetY(pCrew) - GetY() - Random(4), Random(7) - 3, -Random(6), 40 + Random(16), HSLa(Random(256), 192 + Random(64), 96 + Random(64)));
 }

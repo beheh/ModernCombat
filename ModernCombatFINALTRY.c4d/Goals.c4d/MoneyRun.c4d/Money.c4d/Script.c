@@ -2,8 +2,8 @@
 
 #strict 2
 
-local Money;        //Array oder Int
-local iCurrent;     //Momentanes Geld
+local Money;	//Array oder Int
+local iCurrent;	//Momentanes Geld
 
 
 /* Initialisierung */
