@@ -209,17 +209,20 @@ protected func DeathAnnounce(int plr, object clonk, int killplr, bool fNoPoints,
   if(GetEffect("NoAnnounce", clonk)) return;
 
   //Selfkill?
-  if(plr == killplr || killplr == -1)
+  if(plr == killplr || killplr == NO_OWNER)
     KILL->SKMsg(plr, clonk);
   else
-    KILL->KTMsg(plr, killplr, clonk, assistplusone-1);
+    KILL->KTMsg(plr, killplr, clonk, assistplusone - 1);
 
   KILL->KillStat(GetCursor(killplr),plr); //hier auch clonk->~KillIcon()? könnte lustig sein :>
-  
-  clonk->AddEffect("NoAnnounce", clonk, 1);
-    
-  if(!fNoPoints) DoPoints();
-  
+
+  AddEffect("NoAnnounce", clonk, 1);
+
+  if(!fNoPoints)
+    DoPoints();
+
+  GameCallEx("OnDeathAnnounce", clonk, killplr, assistplusone - 1);
+
   return true;
 }
 

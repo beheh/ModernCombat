@@ -1,0 +1,2 @@
+DE:Geldspawn
+US:Money Spawn
