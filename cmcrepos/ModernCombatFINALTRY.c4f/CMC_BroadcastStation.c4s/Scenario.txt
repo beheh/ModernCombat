@@ -13,7 +13,7 @@ Definition3=ModernCombatFINALTRY.c4d
 
 [Game]
 StructNeedEnergy=0
-Goals=GLMS=5;GTDM=10
+Goals=GMNR=1;GLMS=5;GTDM=10
 Rules=MCSL=1;CHOS=1
 FoWColor=13816530
 

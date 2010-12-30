@@ -555,6 +555,7 @@ public func ChooserFinished()
     //Raketen
     PlaceSpawnpoint(MBOX, 1330, 305);
    }
+
   }
 
   //Base Assault-Spielziel
@@ -638,14 +639,24 @@ public func ChooserFinished()
    aSelfDefense[0]->TurnOn();
    aSelfDefense[3]->TurnOn();
   }
+
+  //MR-Spielziel
+  if (FindObject(GMNR))
+  {
+   //Geldsäcke
+   AddMoneySpawn(1075, 435, [5, 10]);
+   AddMoneySpawn(1365, 305, [10, 15, 20]);
+   AddMoneySpawn(1365, 805, [10, 15, 20]);
+   AddMoneySpawn(1655, 435, [5, 10]);
+  }
 }
 
 /* Relaunch */
 
 public func RelaunchPosition(& iX, & iY, int iTeam)
 {
-  //DM/LMS/HTF-Spielziel
-  if(FindObject(GTDM) || FindObject(GLMS) || FindObject(GHTF))
+  //DM/LMS/HTF/MR-Spielziel
+  if(FindObject(GTDM) || FindObject(GLMS) || FindObject(GHTF) || FindObject(GMNR))
   {
    if(iTeam == 1)
    {

@@ -339,12 +339,29 @@ func CreateEquipment()
   PlaceSpawnpoint(MBOX, 1645, 170);
 }
 
+/* Regelwähler */
+
+public func ChooserFinished()
+{
+  inherited();
+
+  //MR-Spielziel
+  if (FindObject(GMNR))
+  {
+    //Geldsäcke
+    AddMoneySpawn(490, 355, [5, 10]);
+    AddMoneySpawn(850, 705, [5, 10]);
+    AddMoneySpawn(1090, 145, [5, 10]);
+    AddMoneySpawn(1320, 845, [5, 10]);
+  }
+}
+
 /* Relaunch */
 
 public func RelaunchPosition(& iX, & iY, int iTeam)
 {
-  //DM/LMS-Spielziel
-  if(FindObject(GTDM) || FindObject(GLMS))
+  //DM/LMS/MR-Spielziel
+  if(FindObject(GTDM) || FindObject(GLMS) || FindObject(GMNR))
   {
    var rand = Random(5);
    if(!rand)
