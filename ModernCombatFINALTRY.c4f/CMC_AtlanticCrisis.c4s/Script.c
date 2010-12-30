@@ -441,6 +441,15 @@ public func ChooserFinished()
    SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,4355,370,-1),100*21,300);
   }
 
+  //Money Run
+  if (FindObject(GMNR))
+  {
+    AddMoneySpawn(2335, 510, [5, 10]);
+    AddMoneySpawn(2785, 450, [10, 15, 20]);
+    AddMoneySpawn(3195, 450, [10, 15, 20]);
+    AddMoneySpawn(3675, 510, [5, 10]);
+  }
+
   //OP-Spielziel
   if(FindObject(GOCC))
   {

@@ -384,6 +384,15 @@ public func ChooserFinished()
     tmp->Set(ABOX);
    }
   }
+
+  //Money Run
+  if (FindObject(GMNR))
+  {
+    AddMoneySpawn(780, 50, [10, 15]);
+    AddMoneySpawn(610, 240, [5, 10]);
+    AddMoneySpawn(940, 160, [5, 10]);
+    AddMoneySpawn(810, 430, [5, 10]);
+  }
 }
 
 /* Relaunch */
