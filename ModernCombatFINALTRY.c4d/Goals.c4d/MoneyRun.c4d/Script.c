@@ -33,6 +33,14 @@ public func ChooserFinished()
   //Geldsäcke verzögert füllen
   AddEffect("IntMoneyCollected", 0, 1, 1);
 
+  //Spielzielhinweise erstellen
+  for(var i = 0; i < GetPlayerCount(); i++)
+  {
+    DoScoreboardShow(1, GetPlayerByIndex(i) + 1);
+    CreateObject(TK09, 0, 0, GetPlayerByIndex(i));
+    Sound("RadioConfirm*.ogg", true, 0, 100, GetPlayerByIndex(i) + 1);
+  }
+
   return _inherited(...);
 }
 
@@ -181,7 +189,7 @@ public func OnDeathAnnounce(object pCrew, int iKiller, int iAssist)
       GoalMoney(iKiller, Max(-iChange, 5));
     }
 
-  //Clunker verteilen
+  //Credits verteilen
   Money(iPlr, pCrew, iKiller);
 
   //Scoreboard
