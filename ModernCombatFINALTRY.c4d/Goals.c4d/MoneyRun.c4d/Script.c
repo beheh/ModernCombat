@@ -247,8 +247,12 @@ public func IsFulfilled()
             EliminatePlayer(GetPlayerByIndex(j));
         return fFulfilled = true;
       }
+    //Keiner hat gewonnen. Unentschieden?
+    if (GetActiveTeamCount() == 1)
+      return fFulfilled = true;
   }
   else
+  {
     for (var i = 0; i < GetPlayerCount(); i++)
       if (aMoney[GetPlayerByIndex(i)] >= iGoal)
       {
@@ -258,6 +262,10 @@ public func IsFulfilled()
             EliminatePlayer(GetPlayerByIndex(j));
         return fFulfilled = true;
       }
+    //Keiner hat gewonnen. Unentschieden?
+    if (GetPlayerCount() == 1)
+      return fFulfilled = true;
+  }
 
   return false;
 }
