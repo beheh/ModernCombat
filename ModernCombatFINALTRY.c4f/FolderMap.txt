@@ -24,7 +24,7 @@ FullscreenBG=1
 	[Scenario]
 	File=CMC_BabelTower.c4s
 	Area=25,237,253,25
-	OverlayImage=Overlay4.png
+	OverlayImage=Overlay3.png
 
 	[Scenario]
 	File=CMC_Dust.c4s

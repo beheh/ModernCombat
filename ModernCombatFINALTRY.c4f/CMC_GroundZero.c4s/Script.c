@@ -523,6 +523,26 @@ public func ChooserFinished()
    aSelfDefense[0]->TurnOn();
    aSelfDefense[1]->TurnOn();
   }
+
+  //MR-Spielziel
+  if (FindObject(GMNR))
+  {
+   //Grenzen setzen
+   CreateObject(BRDR, 440, 0, -1)->Set(0);
+   CreateObject(BRDR, 2360, 0, -1)->Set(1);
+
+   //Warnschilder
+   CreateObject(SGNP, 410, 290, -1);
+   CreateObject(SGNP, 460, 450, -1);
+   CreateObject(SGNP, 2340, 450, -1);
+   CreateObject(SGNP, 2385, 290, -1);
+
+   //Geldsäcke
+   AddMoneySpawn(1100, 545, [5, 10]);
+   AddMoneySpawn(1400, 165, [10, 15, 20]);
+   AddMoneySpawn(1400, 415, [10, 15, 20]);
+   AddMoneySpawn(1700, 545, [5, 10]);
+  }
 }
 
 /* Relaunch */
@@ -547,8 +567,8 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
    return(1);
   }
 
-  //CTF/HTF-Spielziel
-  if(FindObject(GCTF) || FindObject(GHTF))
+  //CTF/HTF/MR-Spielziel
+  if(FindObject(GCTF) || FindObject(GHTF) || FindObject(GMNR))
   {
    if(iTeam == 1)
    {

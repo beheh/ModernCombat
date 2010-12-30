@@ -349,14 +349,23 @@ public func ChooserFinished()
    //Blackhawk
    SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,2770,480,-1),100*21,300);
   }
+
+  //MR-Spielziel
+  if (FindObject(GMNR))
+  {
+    //Geldsäcke
+    AddMoneySpawn(2180, 455, [5, 10]);
+    AddMoneySpawn(2770, 625, [10, 15, 20]);
+    AddMoneySpawn(3360, 455, [5, 10]);
+  }
 }
 
 /* Relaunch */
 
 public func RelaunchPosition(& iX, & iY, int iTeam)
 {
-  //DM/LMS/CTF/HTF-Spielziel
-  if(FindObject(GTDM) || FindObject(GLMS) || FindObject(GCTF) || FindObject(GHTF))
+  //DM/LMS/CTF/HTF/MR-Spielziel
+  if(FindObject(GTDM) || FindObject(GLMS) || FindObject(GCTF) || FindObject(GHTF) || FindObject(GMNR))
   {
    if(iTeam == 1)
    {

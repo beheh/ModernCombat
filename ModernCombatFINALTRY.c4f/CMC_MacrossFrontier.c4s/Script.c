@@ -385,9 +385,10 @@ public func ChooserFinished()
    }
   }
 
-  //Money Run
+  //MR-Spielziel
   if (FindObject(GMNR))
   {
+    //Geldsäcke
     AddMoneySpawn(780, 50, [10, 15]);
     AddMoneySpawn(610, 240, [5, 10]);
     AddMoneySpawn(940, 160, [5, 10]);
@@ -399,8 +400,8 @@ public func ChooserFinished()
 
 public func RelaunchPosition(& iX, & iY, int iTeam)
 {
-  //DM/LMS-Spielziel
-  if(FindObject(GTDM) || FindObject(GLMS))
+  //DM/LMS/MR-Spielziel
+  if(FindObject(GTDM) || FindObject(GLMS) || FindObject(GMNR))
   {
    var rand = Random(4);
    if(!rand)
