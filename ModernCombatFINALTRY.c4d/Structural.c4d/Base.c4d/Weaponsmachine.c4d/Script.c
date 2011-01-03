@@ -120,15 +120,18 @@ private func AddBuyMenuItem(id id, object pClonk, int iCount) {
   //Hiermit können andere sachen, die den Waffenautomaten includen, noch Grafisches Zeugs mit den Icons machen
   this->~AdaptMenuItem(obj, iPlayer);
 
+  var func = "BuyItem";
+  if (obj->~IsPack())
+    func = "BuyPack";
   //hinzufügen
   if(!iCount)
-    AddMenuItem(Format("%3d$: %s",wealth,name),"BuyItem",id,pClonk,0,pClonk,GetDesc(0,id),4|C4MN_Add_ForceCount, obj);
+    AddMenuItem(Format("%3d$: %s",wealth,name),func,id,pClonk,0,pClonk,GetDesc(0,id),4|C4MN_Add_ForceCount, obj);
   else if(bMoney)
-    AddMenuItem(Format("%3d$: %s",wealth,name),"BuyItem",id,pClonk,0,pClonk,GetDesc(0,id),4, obj);
+    AddMenuItem(Format("%3d$: %s",wealth,name),func,id,pClonk,0,pClonk,GetDesc(0,id),4, obj);
   else if(iCount < 0)
-    AddMenuItem(Format("%3d$: %s",wealth,name),"BuyItem",id,pClonk,0,pClonk,GetDesc(0,id),4, obj);
+    AddMenuItem(Format("%3d$: %s",wealth,name),func,id,pClonk,0,pClonk,GetDesc(0,id),4, obj);
   else
-    AddMenuItem(Format("%3d$: %s",wealth,name),"BuyItem",id,pClonk,iCount,pClonk,GetDesc(0,id),4, obj);
+    AddMenuItem(Format("%3d$: %s",wealth,name),func,id,pClonk,iCount,pClonk,GetDesc(0,id),4, obj);
     
   RemoveObject(obj); //Hilfsobjekt löschen
 }
@@ -143,24 +146,26 @@ private func BuyAble(id Item, int Plr) {
   return true;
 }
 
-private func BuyItem(id Item, object pClonk) {
+private func BuyItem(id Item, object pClonk)
+{
   var iPlr = GetOwner(pClonk);
   //kaufbar?
   if(!BuyAble(Item,iPlr))
-    return Sound("Error",0,0,0,iPlr);
+    return Sound("Error", 0, 0, 0, iPlr + 1);
   
   //Objekt erzeugen
-  var tmp = CreateObject(Item,0,0,GetOwner(pClonk));
+  var tmp = CreateObject(Item, 0, -GetDefOffset(GetID(), 1), iPlr);
   //einsammelbar?
-  if(pClonk->~RejectCollect(Item,tmp)) {
+  if(pClonk->~RejectCollect(Item, tmp))
+  {
     RemoveObject(tmp);
     //nein. :(
-    return Sound("Error",0,0,0,iPlr);
+    return Sound("Error", 0, 0, 0, iPlr + 1);
   }
   //Kaufen!
   else
   {
-     //Waffe?
+    //Waffe?
     if(tmp->~IsWeapon())
       //n bisschen Muni gibts gratis dazu!
       tmp->DoAmmo(tmp->GetFMData(FM_AmmoID), tmp->GetFMData(FM_AmmoLoad));
@@ -170,9 +175,9 @@ private func BuyItem(id Item, object pClonk) {
   
   
   //Geld abziehn
-  DoWealth(iPlr,-GetDefValue(Item));
+  DoWealth(iPlr, -GetDefValue(Item));
   //*Ca-Ching*
-  Sound("Cash",0,0,0,iPlr);
+  Sound("Cash", 0, 0, 0, iPlr + 1);
 
   DoWare(Item, -1);
 
@@ -182,12 +187,28 @@ private func BuyItem(id Item, object pClonk) {
   SelectMenuItem(sel,pClonk);
 }
 
+protected func BuyPack(id idPack, object pClonk)
+{
+  var iPlr = GetOwner(pClonk);
+  if(!BuyAble(idPack, iPlr))
+    return Sound("Error", 0, 0, 0, iPlr + 1);
 
+  //Pack erstellen und einsammeln lassen
+  var obj = CreateObject(idPack, 0, -GetDefOffset(GetID(), 1), iPlr);
+  Collect(obj, pClonk);
 
+  //Geld abziehn
+  DoWealth(iPlr, -Value(idPack));
+  //*Ca-Ching*
+  Sound("Cash", 0, 0, 0, iPlr + 1);
 
+  DoWare(idPack, -1);
 
-
-
+  var sel = GetMenuSelection(pClonk);
+  CloseMenu(pClonk);
+  CreateBuyMenu(pClonk);
+  SelectMenuItem(sel, pClonk);
+}
 
 /* Warenhandling-Funktionen */
 
