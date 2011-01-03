@@ -185,8 +185,12 @@ public func OnDeathAnnounce(object pCrew, int iKiller, int iAssist)
       //10%, mindestens aber 10 Clunker abziehen
       iChange = GoalMoney(iPlr, -Max(10, aMoney[GetPlayerTeam(iPlr)] / 10));
 
-      //Killer bekommt das Geld, mindestens aber 5 Clunker
-      GoalMoney(iKiller, Max(-iChange, 5));
+      //Killer bekommt 80%, mindestens aber 5 Clunker
+      var iToKiller = Max(-iChange * 4 / 5, 4);
+      //Assist bekommt 20%, mindestens aber 1 Clunker
+      var iToAssist = Max(-iChange - iToKiller, 1);
+      GoalMoney(iKiller, iToKiller);
+      GoalMoney(iAssist, iToAssist);
     }
 
   //Credits verteilen
