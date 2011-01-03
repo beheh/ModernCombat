@@ -43,6 +43,8 @@ public func ExecShove()
   AddEffect("Shove",this,10,ShoveTime(),this);
   Sound("ClonkMelee*.ogg",0,target);
 
+  SetController(GetController(target));
+
   var px,py,dx,dy;
   if(target)
   {
