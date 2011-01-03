@@ -5,18 +5,19 @@
 
 static const C4PA_Cooldown = 15;
 
-public func IsDrawable()        {return true;}
-public func HandSize()          {return 1000;}
-public func HandX()             {return 3500;}
+public func IsDrawable()	{return true;}
+public func HandSize()		{return 1000;}
+public func HandX()		{return 3500;}
 
-public func MaxPoints()         {return 8;}
-public func StartPoints()       {return 3;}
+public func MaxPoints()		{return 8;}
+public func StartPoints()	{return 3;}
 
-public func TeamSupportTime()   {return 0;}
+public func TeamSupportTime()	{return 0;}
 
-public func PackLight()         {return false;}
+public func PackLight()		{return false;}
 
-public func DestroyEmptyPack()  {return !GetC4();}
+public func DestroyEmptyPack()	{return !GetC4();}
+
 
 public func GetC4()
 {
