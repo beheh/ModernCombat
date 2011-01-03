@@ -3,7 +3,7 @@
 #strict 2
 
 public func IsPack()				{return true;}
-public func IsEquipment()			{return true;}
+public func IsEquipment()			{return GetID() != PACK;}
 public func NoArenaRemove()			{return true;}
 
 public func StartPoints()			{return 100;}

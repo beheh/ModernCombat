@@ -15,13 +15,15 @@ public func RefillTime()        {return 20;}
 
 public func TeamSupportTime()   {return 60;}
 
+public func IsEquipment()       {return !NoAmmo();}
+
 /* Initialisierung */
 
 protected func Initialize()
 {
   //Regel "Keine Munition" - Wird nicht gebraucht
   if (NoAmmo())
-    return RemoveObject();
+    return ScheduleCall(this, "RemoveObject", 1);
   return _inherited(...);
 }
 
