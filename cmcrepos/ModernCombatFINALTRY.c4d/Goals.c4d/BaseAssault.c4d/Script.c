@@ -54,6 +54,7 @@ protected func FxIntGoalTimer()
 
 /* Scoreboard */
 
+static const GBAS_Icon = -1;
 static const GBAS_Name = 0;
 static const GBAS_Status = 1;
 static const GBAS_MaxTargetCount = 8;	//8 Ziele darf jedes Team maximal haben
@@ -91,6 +92,7 @@ public func UpdateScoreboard()
 	    {
 	      var dmg = Interpolate2(100, 0, GetDamage(target), EffectVar(0, target, GetEffect("IntAssaultTarget", target))),
 	      clr = InterpolateRGBa3(GetTeamColor(iTeam), RGB(255, 255, 255), 100 - dmg, 100);
+          SetScoreboardData(row + iTeam * GBAS_MaxTargetCount, GBAS_Icon, Format("{{%i}}", target->~GetImitationID() || GetID(target)));
 	      SetScoreboardData(row + iTeam * GBAS_MaxTargetCount, GBAS_Name, Format("<c %x>%s</c>", clr, GetName(target)), iTeam);
 	      SetScoreboardData(row + iTeam * GBAS_MaxTargetCount, GBAS_Status, Format("<c %x>%d%</c>", clr, dmg), dmg);
 	      ++row;
@@ -116,8 +118,9 @@ public func UpdateScoreboard()
 	      symbol = CDBT;
 	      dmg = 0;
 	    }
+        SetScoreboardData(l + iTeam * GBAS_MaxTargetCount, GBAS_Icon, Format("{{%i}}", symbol));
 	    SetScoreboardData(l + iTeam * GBAS_MaxTargetCount, GBAS_Name, GetTaggedPlayerName(iPlr), iTeam);
-	    SetScoreboardData(l + iTeam * GBAS_MaxTargetCount, GBAS_Status, Format("{{%i}}", symbol), dmg);
+        SetScoreboardData(l + iTeam * GBAS_MaxTargetCount, GBAS_Status, "", dmg);
 	  }
 	}
   }
@@ -142,6 +145,7 @@ public func RemoveScoreboardTeam(int iTeam)
   aScoreboardTeams[iTeam] = false;
   for (var i; i < GBAS_MaxTargetCount; i++)
   {
+    SetScoreboardData(i + iTeam * GBAS_MaxTargetCount, GBAS_Icon);
     SetScoreboardData(i + iTeam * GBAS_MaxTargetCount, GBAS_Name);
     SetScoreboardData(i + iTeam * GBAS_MaxTargetCount, GBAS_Status);
   }
