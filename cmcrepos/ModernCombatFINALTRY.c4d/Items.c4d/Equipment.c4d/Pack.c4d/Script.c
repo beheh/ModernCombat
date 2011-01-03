@@ -128,8 +128,12 @@ public func JoinPack(object pInto, object pMsgObject)
   //Und hier abziehen
   DoPackPoints(-iChange);
   //Mitteilung ausgeben
-  if (iChange && pMsgObject)
-    PlayerMessage(GetOwner(pMsgObject), "$Refilled$", pMsgObject, GetID(), iChange);
+  if (iChange)
+  {
+    if (pMsgObject)
+      PlayerMessage(GetOwner(pMsgObject), "$Refilled$", pMsgObject, GetID(), iChange);
+    Sound("Merge.ogg", false, pInto);
+  }
   //Wir sind leer?
   if (!GetPackPoints() && DestroyEmptyPack())
     RemoveObject();
