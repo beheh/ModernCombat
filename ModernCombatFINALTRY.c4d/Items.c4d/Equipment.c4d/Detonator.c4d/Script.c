@@ -135,6 +135,12 @@ public func JoinPack(object pInto, object pMsgObj)
 
 /* Sonstiges */
 
+public func UpdateHUD(object pHUD)
+{
+  _inherited(pHUD, ...);
+  pHUD->Recharge(GetEffect("IntC4Cooldown", this, 0, 6), C4PA_Cooldown);
+}
+
 public func OnRefill()
 {
   if (!GetPackPoints())
