@@ -16,7 +16,7 @@ public func RejectCollect(id idObj, object pObj)
   if(packet)
     return PlayerMessage(GetOwner(pObj), "$AlreadyCharging$", this);
   //Schon voll?
-  if(pObj->GetHealPoints() >= 150)
+  if(pObj->GetPackPoints() >= 150)
     return PlayerMessage(GetOwner(pObj), "$NoChargeNeeded$", this);
   //Nicht genug Geld?
   if(GetWealth(GetOwner(pObj)) < GetValue(0,FAPK) - GetValue(pObj))
@@ -35,13 +35,13 @@ public func Collection(pEHP)
 
 public func FxChargePacketTimer(pTarget, iNo, iTime)
 {
-  if(pTarget->GetHealPoints() >= 150)
+  if(pTarget->GetPackPoints() >= 150)
   {
     Exit(pTarget,-3,5);
     SetAction("Idle");
     packet = 0;
     return -1;
   }
-  pTarget->DoHealPoints(1);
-  CreateParticle("FapLight", -2, +2, 0, 0, 5*6, RGBa(BoundBy(InvertA1(255*(pTarget->GetHealPoints())/150,255)+10,0,255), 255*(pTarget->GetHealPoints())/150));
+  pTarget->DoPackPoints(1);
+  CreateParticle("FapLight", -2, +2, 0, 0, 30, RGBa(BoundBy(InvertA1(255 * (pTarget->GetPackPoints()) / 150, 255) + 10, 0, 255), 255 * (pTarget->GetPackPoints()) / 150));
 }

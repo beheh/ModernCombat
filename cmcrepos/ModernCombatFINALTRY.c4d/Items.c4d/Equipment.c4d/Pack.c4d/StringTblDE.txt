@@ -1,0 +1,1 @@
+Refilled={{%i}} zusammengelegt.|%d Punkte aufgefüllt.

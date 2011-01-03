@@ -10,14 +10,7 @@ global func RandomIndex4K(array ids)
 //Wenn nichts gefinden wurde wird -1 zurückgegeben.
 global func FindInArray4K(array a, v)
 {
-  for(var i = GetLength(a); i >= 0; i--)
-  {
-    if(a[i] == v)
-    {
-      return(i);
-    }
-  }
-  return(-1);
+  return GetIndexOf(v, a);
 }
 
 //Löscht alle leeren Einträge aus einem Array.

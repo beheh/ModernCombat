@@ -1,381 +1,247 @@
-/*-- Erste Hilfe Pack --*/
+/*-- EHP --*/
 
 #strict 2
+#include PACK
 
-local healpoints, healed;
+public func IsDrawable() 	    {return true;}
+public func HandX()     	    {return 4000;}
+public func HandY()     	    {return 10;}
+public func HandSize()   	    {return 1000;}
 
-public func HandSize()   	{return 1000;}
-public func HandX()     	{return 4000;}
-public func HandY()     	{return 10;}
-public func IsDrawable() 	{return true;} 
+public func StartPoints()       {return 150;}
+public func MaxPoints()         {return 150;}
 
-public func MaxHealPoints()	{return 150;}
-public func StartHealPoints()	{return 150;}
-public func IsEquipment()	{return true;}
-public func NoArenaRemove()	{return true;}
+public func RefillTime()        {return 30;}
 
+public func TeamSupportTime()   {return 20;}
 
-/* Initialisierung */
+local iHealed;
 
-protected func Initialize()
+/* Auffüllen */
+
+public func CanRefill()
 {
-  healed = 0;
-  //Punkteregeneration
-  AddEffect("FAPRegenerate",this,251,30,this,GetID());
-  //Gruppenheilung
-  AddEffect("FAPGroupheal",this,252,20,this,GetID());
-  //Lichteffekt
-  AddEffect("FAPLight",this,250,1,this,GetID());
-  healpoints = StartHealPoints();
+  //Nur wenn Träger ein Sanitäter ist und Pack momentan nicht benutzt wird
+  return Contained()->~IsMedic() && !GetEffect("FAPHeal", this);
 }
 
-/* Selbst heilen */
+/* Selbstheilung */
 
-protected func Activate(caller)
+public func Activate(object pCaller)
 {
-  //Zerstören wenn leer und kein Medic
-  if(!GetHealPoints() && !caller->~IsMedic())
+  //Leeres Pack zerstören
+  if (!GetPackPoints() && !pCaller->~IsMedic())
   {
-    Sound("FAPK_Hit*.ogg");
-    CastParticles("Paper", RandomX(4,8), 40, 0, 0, 4*5, 7*5, RGBa(180,180,180,0), RGBa(240,240,240,150));
-    return RemoveObject();
+    Sound("FAPK_Hit.ogg", false, this);
+    CastParticles("Paper", RandomX(4, 8), 40, 0, 0, 20, 35, RGB(180, 180, 180), RGBa(240, 240, 240, 150));
+    RemoveObject();
+    return true;
   }
-  //Bereits am Heilen? Dann Stoppen
-  if(GetEffect("FAPHeal",this))
+  //Heilt bereits: Stoppen
+  if (GetEffect("FAPHeal", this))
   {
-    RemoveEffect("FAPHeal",this);
-    return 1;
+    RemoveEffect("FAPHeal", this);
+    return true;
   }
-  //Bereits anderweitig am heilen?
-  if(GetEffect("*Heal*",caller))
+  //Wird schon geheilt
+  if (GetEffect("*Heal*", pCaller))
   {
-     PlayerMessage(GetOwner(caller), "$AlreadyHealing$",caller);
-     return 1;
+    PlayerMessage(GetOwner(pCaller), "$AlreadyHealing$", pCaller);
+    return true;
   }
-  //Nicht verwundet?
-  if(GetEnergy(caller) == GetPhysical("Energy",0, caller)/1000)
+  //Ist nicht verwundet
+  if (GetEnergy(pCaller) == GetPhysical("Energy", PHYS_Current, pCaller) / 1000)
   {
-    PlayerMessage(GetOwner(caller), "$NotWounded$",caller);
-    return 1;
+    PlayerMessage(GetOwner(pCaller), "$NotWounded$", pCaller);
+    return true;
   }
-  //Können wir überhaupt?
-  if(!WildcardMatch(GetAction(caller), "*Walk*"))
+  //Geht nicht
+  if (!WildcardMatch(GetAction(pCaller), "*Walk*"))
   {
-    PlayerMessage(GetOwner(caller), "$CantHeal$",caller);
-    return 1;
+    PlayerMessage(GetOwner(pCaller), "$CantHeal$", pCaller);
+    return true;
   }
   //Brennende Clonks löschen
-  if(OnFire(caller))
+  if (OnFire(pCaller) && GetPackPoints() >= 30)
   {
-    caller->Sound("Extinguish");
-    DoHealPoints(-30);
-    Extinguish(caller);
+    Sound("Extinguish", false, pCaller);
+    DoPackPoints(-30);
+    Extinguish(pCaller);
   }
-
   //Clonk anhalten
-  SetComDir(COMD_Stop, caller);
-
-  //Heilungseffekt auflegen
-  AddEffect("FAPHeal",this,250,2,this,GetID(),caller);
-
-  return 1;
-}
-
-func Departure(object pClonk)
-{
-  //Heilungseffekt bei Verlassen des Patienten entfernen
-  if(GetEffect("FAPHeal", this))
-    RemoveEffect("FAPHeal",this);
-}
-
-public func RejectShift()
-{
-  //Wegwurf bei Nutzung verhindern
-  return GetEffect("FAPHeal",this);
-}
-
-public func RejectEntrance(object pObj)
-{
-  //Gebäude etc geht immer
-  if(!(GetOCF(pObj) & OCF_Living))
-    return;
-  //Hat schon eins: Zusammenlegen?
-  var obj = FindContents(GetID(), pObj);
-  if(obj)
-  {
-    JoinPacket(obj);
-      return true;
-  }
-}
-
-public func Entrance(object pContainer)
-{
-  //Mehrere drin? Zusammenlegen
-  if(ContentsCount(GetID(), pContainer) > 1)
-    for (var obj in FindObjects(Find_Container(pContainer), Find_ID(GetID()), Find_Exclude(this)))
-      if(this)
-        JoinPacket(obj);
-}
-
-public func JoinPacket(object pInto, object pPack)
-{
-  if((!pPack && !(pPack = this)) || !pInto)
-    return;
-  var change = Min(MaxHealPoints()-pInto->~GetHealPoints(), GetHealPoints(pPack));
-  pInto->~DoHealPoints(change);
-  if(!pPack->~DoHealPoints(-change))
-    RemoveObject(pPack);
-  //Kurzer Call für Hilfsnachricht
-  if(change)
-    pInto->~PacketJoined(change);
+  SetComDir(COMD_Stop, pCaller);
+  //Heilen
+  AddEffect("FAPHeal", this, 250, 2, this);
   return true;
 }
 
-public func PacketJoined(int iChange)
-{
-  if(Contained() && Contained()->~IsClonk())
-    return HelpMessage(GetController(Contained()), "$PacketJoined$", Contained(), iChange);
-}
+/* Dragnin entnehmen */
 
-public func ControlThrow(object pClonk)
+public func ControlThrow(object pCaller)
 {
   //Sanitäter können mit [Werfen] Dragnin entpacken
-  if(pClonk->~IsMedic())
+  if(pCaller->~IsMedic())
   {
     //Clonk hat schon eine Dragninspritze: Geht nicht
-    if (ContentsCount(DGNN, pClonk))
-      return PlayerMessage(GetOwner(pClonk), "$NoSpace$",pClonk);
+    if (ContentsCount(DGNN, pCaller))
+      return PlayerMessage(GetOwner(pCaller), "$NoSpace$", pCaller);
 
-    if(GetHealPoints() >= 40)
+    if(GetPackPoints() >= 40)
     {
-      DoHealPoints(-40);
-      CreateContents(DGNN,pClonk);
+      DoPackPoints(-40);
+      CreateContents(DGNN, pCaller);
       Sound("FAPK_Dragnin.ogg");
-      ShiftContents(pClonk, 0, DGNN);
+      ShiftContents(pCaller, 0, DGNN);
     }
     else
-    {
-      PlayerMessage(GetOwner(pClonk), "$NotEnoughPoints$",pClonk);
-    }
+      PlayerMessage(GetOwner(pCaller), "$NotEnoughPoints$", pCaller);
   }
   return true;
 }
 
-public func CanUnpack(object pClonk)
+/* Team-Heilung */
+
+public func DoTeamSupport(array aClonks)
 {
-  return pClonk->~IsMedic() && GetHealPoints() >= 40;
+  //Können nur Sanitäter
+  if (!Contained()->~IsMedic())
+    return;
+  //Wenn nicht gerade in Gebrauch
+  if (GetEffect("FAPHeal", this))
+    return;
+
+  var a = [];
+  //Zuerst die mit vollem Leben aussortieren
+  for (var pClonk in aClonks)
+    if (GetEnergy(pClonk) < GetPhysical("Energy", PHYS_Current, pClonk) / 1000)
+      a[GetLength(a)] = pClonk;
+  aClonks = a;
+  //Keiner mehr übrig
+  if (!GetLength(aClonks))
+    return;
+  //Je mehr geheilt werden, desto schwächer
+  var heal = Max(2, 8 - 2 * GetLength(aClonks));
+
+  for (var pClonk in aClonks)
+  {
+    DoEnergy(heal, pClonk);
+    DoAchievementProgress(heal, AC02, GetOwner(Contained()));
+    iHealed += heal;
+    CreateParticle("ShockWave", GetX(pClonk) - GetX(), GetY(pClonk) - GetY(), 0, 0, 5 * (5  + GetObjHeight(pClonk)), RGB(0, 230, 255), pClonk);
+    CreateParticle("ShockWave", GetX(pClonk) - GetX(), GetY(pClonk) - GetY(), 0, 0, 5 * (10 + GetObjHeight(pClonk)), RGB(0, 230, 255), pClonk);
+    CreateParticle("ShockWave", GetX(pClonk) - GetX(), GetY(pClonk) - GetY(), 0, 0, 5 * (15 + GetObjHeight(pClonk)), RGB(0, 230, 255), pClonk);
+    ScreenRGB(pClonk, RGBa(0, 230, 255, 190), 80, 3, false, SR4K_LayerMedicament, 200);
+    DoPackPoints(heal / -2);
+    Sound("FAPK_Healing*.ogg");
+  }
+  //Bonus!
+  while (iHealed >= 40)
+  {
+    iHealed -= 40;
+    DoPlayerPoints(BonusPoints("Healing", 40), RWDS_TeamPoints, GetOwner(Contained()), Contained(), IC05);
+  }
 }
 
-func Deselection(object pClonk)
+/* Heil-Effekt */
+
+protected func FxFAPHealStart(object pTarget, int iEffect, int iTemp)
 {
-  if(GetEffect("FAPHeal", this))
-    ScheduleCall(this,"SelectFAP",1);
-}
-
-protected func SelectFAP()
-{
-  ShiftContents(Contained(),0,GetID());
-}
-
-/* Heileffekt */
-
-public func FxFAPHealStart(pTarget, iEffectNumber, iTemp, pClonk)
-{
-  //Kein Clonk?
-  if(!pClonk) return -1;
-
-  EffectVar(0, pTarget, iEffectNumber) = pClonk;
-  Sound("FAPK_HealStart.ogg");
+  if (iTemp)
+    return;
+  //Clonk?
+  var pClonk = Contained();
+  if (!pClonk || !pClonk->~IsClonk())
+    return -1;
+  //Heil-Aktion
   ObjectSetAction(pClonk, "Heal");
-
-	//Anfangsflash
-	ScreenRGB(pClonk,RGBa(0, 230, 255, 190), 80, 3,false, SR4K_LayerMedicament, 200);
-
-  return 1;
+  Sound("FAPK_HealStart.ogg", false, this);
+  ScreenRGB(pClonk, RGBa(0, 230, 255, 190), 80, 3, false, SR4K_LayerMedicament, 200);
 }
 
-public func FxFAPHealTimer(pTarget, iEffectNumber, iEffectTime)
+protected func FxFAPHealTimer(object pTarget, int iEffect, int iTime)
 {
-  var pClonk = EffectVar(0, pTarget, iEffectNumber);
-  if(!pClonk) return -1;
-
-  //Abbruch
-  if(GetAction(pClonk) != "Heal" || GetComDir(pClonk))
+  //Clonk?
+  var pClonk = Contained();
+  if (!pClonk || !pClonk->~IsClonk())
     return -1;
 
-  //Fertig geheilt?
-  if(GetEnergy(pClonk) >= GetPhysical("Energy",0,pClonk)/1000)
+  //Clonk heilt nicht mehr
+  if (GetAction(pClonk) != "Heal" || GetComDir(pClonk) != COMD_Stop)
     return -1;
 
-  //Effekte
-  pClonk->CreateParticle("ShockWave",0,0,Random(10),Random(10),5*GetObjHeight(pClonk)+25+Sin(iEffectTime*5,35),RGB(0,230,255),pClonk);
-  if(!(iEffectTime % 20)) ScreenRGB(pClonk,RGBa(0, 230, 255, 190), 80, 3,false, SR4K_LayerMedicament, 200);
+  //Pack nicht mehr ausgewählt
+  if (Contents(0, pClonk) != this)
+    return -1;
 
-  if(!(iEffectTime % 40))	//Alle 40 Frames
+  //Keine Punkte mehr
+  if (!GetPackPoints())
+    return -1;
+
+  //Vollständig geheilt?
+  if (GetEnergy(pClonk) >= GetPhysical("Energy", PHYS_Current, pClonk) / 1000)
+    return -1;
+
+  //Effekt
+  CreateParticle("ShockWave", GetX(pClonk) - GetX(), GetY(pClonk) - GetY(), Random(10), Random(10), 5 * GetObjHeight(pClonk) + 25 + Sin(iTime * 5, 35), RGB(0, 230, 255), pClonk);
+
+  //Alle 20 Frames
+  if (!(iTime % 20))
+    ScreenRGB(pClonk, RGBa(0, 230, 255, 190), 80, 3, false, SR4K_LayerMedicament, 200);
+
+  //Alle 40 Frames
+  if (!(iTime % 40))
    Sound("FAPK_Healing*.ogg");
 
-  if(!(iEffectTime % 6))	//Alle 6 Frames
+  //Alle 6 Frames: Heilen
+  if (!(iTime % 6))
   {
-   //Eigentliches Heilen
-   DoEnergy(2,pClonk);  
-   if(pTarget->DoHealPoints(-1) <= 0)
-     return -1;
+    DoEnergy(2, pClonk);
+    DoPackPoints(-1);
   }
-
-  return 1;
 }
 
-public func FxFAPHealStop(target, no, reason, temp)
+protected func FxFAPHealStop(object pTarget, int iEffect, int iReason, bool fTemp)
 {
-  var clonk = EffectVar(0, target, no);
+  if (fTemp)
+    return;
 
-  if(!reason && clonk)
-    Sound("FAPK_HealEnd.ogg");
+  //Clonk?
+  var pClonk = Contained();
+  if (!pClonk || !pClonk->~IsClonk())
+    return;
+
+  Sound("FAPK_HealEnd.ogg");
 
   //Clonk zurücksetzen
-  clonk->~StopHealing();
+  pClonk->~StopHealing();
 }
 
-/* Heilpunkte */
+/* Sonstiges */
 
-public func GetHealPoints()	{return healpoints;}
-
-public func DoHealPoints(int iChange)
+protected func RejectShift()
 {
-  healpoints = BoundBy(healpoints+iChange,0,MaxHealPoints());
-  return healpoints;
+  //Wegwurf bei Nutzung verhindern
+  return GetEffect("FAPHeal", this);
 }
-
-/* Regenerierungseffekt */
-
-public func FxFAPRegenerateTimer(pTarget, iEffectNumber, iEffectTime)
-{
-  //Nicht wenn im Freien
-  if(!Contained()) return 1;
-
-  //Oder wenn Halter kein Sanitäter
-  if(!Contained()->~IsMedic()) return 1;
-
-  //Oder momentan in Nutzung
-  if(GetEffect("FAPHeal", this)) return 1;
-
-  //Oder wenn bereits voll
-  if(GetHealPoints() < MaxHealPoints())
-    DoHealPoints(1);
-
-  return 1;
-}
-
-/* Lämpcheneffekt */
-
-public func FxFAPLightTimer(pTarget, iNo, iTime)
-{
-  if(GetHealPoints() < 10) return 1;
-  if(!Contained())
-    CreateParticle("FapLight", 1, -2, 0, 0, 5*5, RGBa(BoundBy(InvertA1(255*GetHealPoints()/150,255)+10,0,255), 255*GetHealPoints()/150),this);
-  if(Contents(0,Contained()) == this)
-    if(WildcardMatch(GetAction(Contained()), "*Armed*"))
-      CreateParticle("FapLight", (GetDir(Contained())*1), -2, 0, 0, 5*5, RGBa(BoundBy(InvertA1(255*GetHealPoints()/150,255)+10,0,255), 255*GetHealPoints()/150),this);
-}
-
-/* Gruppenheilung */
-
-public func FxFAPGrouphealTimer(pTarget, iEffectNumber, iEffectTime)
-{
-  //Kriterien
-  if(!Contained())			return 1;	//Nicht im Freien
-  if(Contained(Contained()))		return 1;	//Container nicht im Freien
-  if(!Contained()->~IsMedic())		return 1;	//Nur Sanitäter
-  if(GetEffect("FAPHeal", this))	return 1;	//Ohne Effekt
-  if(!GetHealPoints())			return 1;	//Nur wenn noch Punkte da sind
-  if(Contents(0,Contained()) != this)	return 1;	//Nur, falls angewählt
-  if(GetID(Contained()) == FKDT)	return 1;	//Im FakeDeath-Objekt?
-
-  //Harte Vorauswahl überlebt? Los geht's.
-  var heal = 8; //Merke: 8-2 -> 1 Patient
-  var Patients = [];
-  for(var patient in FindObjects(Find_OCF(OCF_Alive),			//Patient am Leben?
-                                 Find_Distance(80),			//In Reichweite?
-                                 Find_NoContainer(),			//Im Freien?
-                                 Find_Allied(GetOwner(Contained()))))	//Verbündet?
-  if(patient->~IsClonk())						//Patient ein Clonk?
-  {
-    if(GetEnergy(patient) < GetPhysical("Energy",0, patient)/1000)
-    {
-      if(patient == Contained()) continue;
-      //Bewirkt, dass bei mehr Patienten weniger gut geheilt wird
-      heal = Max(heal-2, 2);
-      Patients[GetLength(Patients)] = patient;
-    }
-  }
-
-  for(var clonk in Patients)
-  {
-    if(!clonk)
-      continue;
-    else
-    {
-      DoEnergy(heal, clonk);
-      DoAchievementProgress(heal, AC02, GetOwner(Contained()));
-      healed += heal;
-      clonk->CreateParticle("ShockWave",0,0,0,0,5*GetObjHeight(clonk)+5*5,RGB(0,230,255),clonk);
-      clonk->CreateParticle("ShockWave",0,0,0,0,5*GetObjHeight(clonk)+10*5,RGB(0,230,255),clonk);
-      clonk->CreateParticle("ShockWave",0,0,0,0,5*GetObjHeight(clonk)+15*5,RGB(0,230,255),clonk);
-      ScreenRGB(clonk,RGBa(0, 230, 255, 190), 80, 3,false, SR4K_LayerMedicament, 200);
-      DoHealPoints(-heal/2);
-      Sound("FAPK_Healing*.ogg");
-    }
-  }
-  if(healed >= 40)
-  {
-    healed = 0;
-    //Punkte bei Belohnungssystem
-    DoPlayerPoints(BonusPoints("Healing",40), RWDS_TeamPoints, GetOwner(Contained()), Contained(), IC05);
-  }
-}
-
-/* Wert */
-
-protected func CalcValue()
-{
-  //Wert errechnen
-  return healpoints*(GetValue(0,GetID())/(StartHealPoints()/MaxHealPoints()))/MaxHealPoints();
-}
-
-/* EHP-HUD */
-
-func CustomHUD()	{return true;}
-
-func UpdateHUD(object pHUD)
-{
-  pHUD->Charge(healpoints,MaxHealPoints());
-  pHUD->Ammo(healpoints, MaxHealPoints(), GetName(), true);
-}
-
-/* Sounds */
 
 protected func Hit()
 {
-  Sound("FAPK_Hit*.ogg");
-  return 1;
+  Sound("FAPK_Hit*.ogg", false, this);
 }
 
 protected func Selection()
 {
-  Sound("FAPK_Charge.ogg");
-  return 1;
+  Sound("FAPK_Charge.ogg", false, this);
 }
 
-/* KI Funktion */
-
-protected func AI_Inventory(object pClonk)
+public func AI_Inventory(object pClonk)
 {
   //Benutzen, wenn der Clonk weniger als volles Leben hat
-  if(!pClonk->~IsHealing() && pClonk->GetEnergy() < pClonk->GetPhysical("Energy") / 1000)
+  if(!pClonk->~IsHealing() && GetEnergy(pClonk) < GetPhysical("Energy" / 1000, PHYS_Current, pClonk))
   {
     ShiftContents(pClonk, 0, GetID());
     //Benutzen (verzögert einsetzen)
     ScheduleCall(this, "Activate", 1, 0, pClonk);
   }
-  return(1);
+  return true;
 }

@@ -1043,8 +1043,8 @@ protected func ScalingLadder()
 
 protected func GetObject2Drop(object pObj)
 {
-  if (GetProcedure() == "PUSH" && GetID(GetActionTarget()) == FKDT)
-  {
+//if (GetProcedure() == "PUSH" && GetID(GetActionTarget()) == FKDT)
+//{
     var dropobj, i;
 
     if (pObj->~IsWeapon())
@@ -1075,15 +1075,23 @@ protected func GetObject2Drop(object pObj)
       return;
     }
 
-    //Objekt - hinterstes Objekt rauswerfen
-    else
+    //Pack? Versuchen, zusammenzulegen
+    if (pObj->~IsPack())
     {
-      for (i = 0; i < ContentsCount(); i++)
-        if (Contents(i) && !(Contents(i)->~IsWeapon()) && !Contents(i)->~IsGrenade())
-          dropobj = Contents(i);
-      return dropobj;
+      var other = FindContents(GetID(pObj), this);
+      if (other)
+      {
+        pObj->~JoinPack(other, this);
+        return;
+      }
     }
-  }
+
+    //Objekt - hinterstes Objekt rauswerfen
+    for (i = 0; i < ContentsCount(); i++)
+      if (Contents(i) && !(Contents(i)->~IsWeapon()) && !Contents(i)->~IsGrenade())
+        dropobj = Contents(i);
+    return dropobj;
+//}
   return _inherited(pObj, ...);
 }
 
@@ -1265,6 +1273,17 @@ protected func RejectCollect(id idObj, object pObj)
         ScheduleCall(pObj,"Activate",1,0,this);//Oha...
 
       return;
+    }
+  }
+
+  //Pack?
+  if (pObj->~IsPack())
+  {
+    var other = FindContents(idObj);
+    if (other)
+    {
+      pObj->~JoinPack(other, this);
+      return true;
     }
   }
 

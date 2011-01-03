@@ -1,28 +1,26 @@
 /*-- Zünder --*/
 
 #strict 2
+#include PACK
 
-local amount, max, init;
+static const C4PA_Cooldown = 15;
 
-public func HandSize()   	{return 1000;}
-public func HandX()     	{return 3500;}
-public func IsDrawable()	{return true;}
-public func IsEquipment()	{return true;}
-public func GetPackAmount()	{return amount;}
-public func NoArenaRemove()	{return true;}
-public func CooldownTime()	{return 15;}
+public func IsDrawable()        {return true;}
+public func HandSize()          {return 1000;}
+public func HandX()             {return 3500;}
 
+public func MaxPoints()         {return 8;}
+public func StartPoints()       {return 3;}
 
-/* Initalisierung */
+public func TeamSupportTime()   {return 0;}
 
-protected func Initialize()
+public func PackLight()         {return false;}
+
+public func DestroyEmptyPack()  {return !GetC4();}
+
+public func GetC4()
 {
-  //3 Ladungen inklusive
-  amount = 3;
-  //Anfangsmaximalladungen
-  max = 3;
-  init = true;
-  DoPackAmount();
+  return FindObjects(Find_ID(C4EX), Find_Func("GetPacket", this));
 }
 
 /* Benutzung */
@@ -33,31 +31,21 @@ public func ControlThrow(object pByObj)
     return _inherited(...);
 
   //Kein C4 übrig oder Wurfverzögerung?
-  if(amount <= 0 || GetEffect("IntC4Cooldown", this))
-  {
+  if(!GetPackPoints() || GetEffect("IntC4Cooldown", this))
     return true;
-  }
 
-  var x,y;
-  x = (GetDir(pByObj)*8)-8;
-  y = -9;
+  var x = (GetDir(pByObj) * 8) - 8, y = -9;
 
   //C4 erstellen und abziehen  
   var c4 = CreateObject(C4EX, x, y, GetOwner(pByObj));
-  amount--;
-  AddEffect("IntC4Cooldown", this, 1, CooldownTime(), this);
-
-  //Bild ändern wenn kein C4 übrig
-  if(amount <= 0)
-  {
-    SetPicture(10,5,39,64);
-  }
+  DoPackPoints(-1);
+  AddEffect("IntC4Cooldown", this, 1, C4PA_Cooldown, this);
 
   //Beim Klettern
   if(WildcardMatch(GetAction(pByObj), "Scale*") && GetAction(pByObj) != "ScaleLadder")
   {
-    SetR((GetDir(pByObj)*-180)+90, c4);
-    SetPosition(GetX(pByObj)+(GetDir(pByObj)*12)-6,GetY(pByObj), c4);
+    SetR((GetDir(pByObj) * -180) + 90, c4);
+    SetPosition(GetX(pByObj) + (GetDir(pByObj) * 12) - 6, GetY(pByObj), c4);
     c4->SetActive(this);
     return true;
   }
@@ -66,7 +54,7 @@ public func ControlThrow(object pByObj)
   if(GetAction(pByObj) == "Hangle")
   {
     SetR(180, c4);
-    SetPosition(GetX(pByObj), GetY(pByObj)-8, c4);
+    SetPosition(GetX(pByObj), GetY(pByObj) - 8, c4);
     c4->SetActive(this);
     return true;
   }
@@ -74,8 +62,8 @@ public func ControlThrow(object pByObj)
   //Beim Laufen, Springen oder Klettern an Leitern
   if(WildcardMatch(GetAction(pByObj), "Walk*") || WildcardMatch(GetAction(pByObj), "Jump*") || GetAction(pByObj) == "ScaleLadder")
   {
-    SetRDir(RandomX(-20,20), c4);
-    SetXDir((GetDir(pByObj)*2-1)*20, c4);
+    SetRDir(RandomX(-20, 20), c4);
+    SetXDir((GetDir(pByObj) * 2 - 1) * 20, c4);
     SetYDir(-15, c4);
     c4->SetActive(this);
     Sound("GrenadeThrow*.ogg");
@@ -85,7 +73,7 @@ public func ControlThrow(object pByObj)
   //Beim Kriechen
   if(GetAction(pByObj) == "Crawl")
   {
-    SetPosition(GetX(pByObj),GetY(pByObj)+5, c4);
+    SetPosition(GetX(pByObj), GetY(pByObj) + 5, c4);
     c4->SetActive(this);
     return true;
   }
@@ -93,9 +81,9 @@ public func ControlThrow(object pByObj)
   //Beim Schwimmen
   if(GetProcedure(pByObj) == "SWIM")
   {
-    SetPosition(GetX(pByObj),GetY(pByObj)+5, c4);
-    SetXDir(GetXDir(pByObj)+(GetDir(pByObj)*2-1)*20, c4);
-    SetYDir(GetYDir(pByObj)+10, c4);
+    SetPosition(GetX(pByObj), GetY(pByObj) + 5, c4);
+    SetXDir(GetXDir(pByObj) + (GetDir(pByObj) * 2 - 1) * 20, c4);
+    SetYDir(GetYDir(pByObj) + 10, c4);
     c4->SetActive(this);
     Sound("GrenadeThrow*.ogg");
     return true;
@@ -103,7 +91,7 @@ public func ControlThrow(object pByObj)
 
   //Keine Aktion bei unpassender Situation
   RemoveObject(c4);
-  amount++;
+  DoPackPoints(1);
   RemoveEffect("IntC4Cooldown", this);
 }
 
@@ -111,100 +99,61 @@ public func ControlThrow(object pByObj)
 
 public func Activate(object pActivator)
 {
-  for(var c4 in FindObjects(Find_ID(C4EX), Find_Func("GetPacket", this)))
+  for (var c4 in GetC4())
   {
     SetController(GetOwner(pActivator), c4);
-    ScheduleCall(c4, "Trigger", Max(ObjectDistance(c4)/10, 1), 0);
+    ScheduleCall(c4, "Trigger", Max(ObjectDistance(c4) / 10, 1));
   }
 
   //Effekte
-  CreateParticle("FlashLight",0,0,0,0,60,RGBa(255,0,0,0),this);
+  CreateParticle("FlashLight", 0, 0, 0, 0, 60, RGBa(255), this);
   Sound("C4PA_Activate.ogg");
+
+  //Bild ändern wenn C4 übrig
+  if (GetPackPoints())
+  {
+    SetPicture(0, 4, 64, 64);
+    Schedule("SetPicture(64, 4, 64, 64)", 25);
+  }
+}
+
+/* Zusammenlegen */
+
+public func JoinPack(object pInto, object pMsgObj)
+{
+  var i = _inherited(pInto, pMsgObj);
+  if (i)
+  {
+    //C4 übertragen
+    for (var obj in GetC4())
+      obj->~SetPacket(pInto);
+  }
+  pInto->~Check();
   Check();
-
-  //Bild ändern wenn C4 übrig
-  if(amount > 0)
-  {
-    SetPicture(0,6,64,64);
-    Schedule("SetPicture(64,6,64,64)", 25);
-  }
+  return i;
 }
 
-/* HUD */
+/* Sonstiges */
 
-func CustomHUD()	{return true;}
-
-func UpdateHUD(object pHUD)
+public func OnRefill()
 {
-  pHUD->Charge(amount, max);
-  pHUD->Ammo(amount, max, GetName(), true);
-  pHUD->Recharge(GetEffect("IntC4Cooldown", this, 0, 6), CooldownTime());
+  if (!GetPackPoints())
+    SetPicture(0, 4, 64, 64);
+  else
+    SetPicture(64, 4, 64, 64);
 }
-
-/* Methoden */
-
-public func DoPackAmount(int iAmount)
-{
-  //Anzahl errechnen
-  if((amount = BoundBy(amount + iAmount,0,8)) > max)
-    max = amount;
-
-  //Bild ändern wenn C4 übrig
-  if(amount > 0)
-  {
-    SetPicture(64,6,64,64);
-  }
-
-  return amount;
-}
-
-/* Aufnahme */
-
-public func Entrance(object pContainer)
-{
-  if(pContainer->~IsSpawnpoint()) return;
-  for(var c4 in FindObjects(Find_ID(C4EX), Find_Func("GetPacket", this)))
-    SetOwner(GetOwner(pContainer),c4);
-  for(var obj in FindObjects(Find_Container(pContainer),Find_ID(GetID()),Find_Exclude(this)))
-  {
-    if(DoPackAmount() >= 8) return;
-    var amount = DoPackAmount();
-    HelpMessage(GetOwner(pContainer),"$Collected$",pContainer,BoundBy(amount, 0, 8-obj->DoPackAmount()),C4EX);
-    obj->DoPackAmount(amount);
-    //Alles C4 dem neuen Zünder geben
-    for (var c4 in FindObjects(Find_ID(C4EX), Find_Func("GetPacket", this)))
-      c4->SetPacket(obj);
-    RemoveObject();
-  }
-}
-
-public func RejectEntrance(object pObj)
-{
-  var pack;
-  if(pack = FindObject2(Find_Container(pObj), Find_ID(C4PA)))
-    if(pack->DoPackAmount() >= 8)
-      return 1;
-}
-
-/* TimerCall */
 
 protected func Check()
 {
-  if(!init) return;
-  //Grund zum existieren?
-  if(amount <= 0 && !FindObject2(Find_ID(C4EX), Find_Func("GetPacket", this)))
-    RemoveObject();
+  //Grund zum Existieren?
+  if (!GetPackPoints() && !GetLength(GetC4()))
+    return RemoveObject();
 }
-
-/* Wert */
 
 protected func CalcValue()
 {
-  //Wert errechnen
-  return amount*50/3;
+  return Interpolate2(0, Value(GetID()), GetPackPoints(), 3);
 }
-
-/* Allgemein */
 
 protected func Hit()
 {
