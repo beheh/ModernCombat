@@ -162,13 +162,14 @@ private func FinFuse()
     return;
 
   var iColor = LightenColor(GetPlrColorDw(controller), 192);
+  SetClrModulation(RGBa(255, 255, 255, 80));
 
   //Blinkeffekt
   CreateParticle("PSpark", 0, 0, 0, 0, 60, iColor, this);
   //Laser erstellen
   laser = CreateObject(LASR, 0, 0, controller);
   laser -> Set(iDir, 3, 60, 0, 0, this, 0, true);
-  SetClrModulation(SetRGBaValue(iColor, 210), laser);
+  SetClrModulation(SetRGBaValue(iColor, 180), laser);
   laser ->~ Destruction();
   //Hinweisflagge erstellen
   var flag = CreateObject(MFLG,0,1,controller);
