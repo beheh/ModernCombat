@@ -17,7 +17,7 @@ global func AutoRespawn(int iFrames, int iDistance, object pTarget)
   if(!pTarget) pTarget = this;
   if(!pTarget) return;
 
-  CreateObject(RSPT,0,GetDefCoreVal("Height",0,GetID(pTarget)),NO_OWNER)->Set(iFrames,iDistance,pTarget);
+  CreateObject(RSPT, 0, 0, NO_OWNER)->Set(iFrames, iDistance, pTarget);
 
   return pTarget;
 }
@@ -38,7 +38,7 @@ func Set(int iFrames, int iDistance, object pTarget)
   SetVisibility(VIS_None);
   SetGraphics(0, this, GetID(pTarget), 1, GFXOV_MODE_Base, 0, GFX_BLIT_Additive);
   SetOwner(GetOwner(pTarget));
-  SetPosition(GetX(pTarget), GetY(pTarget));
+  SetPosition(GetX(pTarget), GetY(pTarget) - GetDefOffset(GetID(pTarget), 1));
   SetClrModulation(GetClrModulation(pTarget)); 
   xdir = GetXDir(pTarget);
   ydir = GetYDir(pTarget);
