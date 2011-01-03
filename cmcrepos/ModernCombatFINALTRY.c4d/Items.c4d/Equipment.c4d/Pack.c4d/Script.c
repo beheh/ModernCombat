@@ -2,28 +2,28 @@
 
 #strict 2
 
-public func IsPack()            {return true;}
-public func IsEquipment()       {return true;}
-public func NoArenaRemove()     {return true;}
+public func IsPack()				{return true;}
+public func IsEquipment()			{return true;}
+public func NoArenaRemove()			{return true;}
 
-public func StartPoints()       {return 100;}
-public func MaxPoints()         {return 100;}
+public func StartPoints()			{return 100;}
+public func MaxPoints()				{return 100;}
 
-public func RefillTime()        {return 0;}
-public func CanRefill()         {return true;}
+public func RefillTime()			{return 0;}
+public func CanRefill()				{return true;}
 
-public func TeamSupportTime()   {return 30;}
-public func TeamSupportRange()  {return 80;}
+public func TeamSupportTime()			{return 30;}
+public func TeamSupportRange()			{return 80;}
 
-public func PackLight()         {return true;}
+public func PackLight()				{return true;}
 
-public func DestroyEmptyPack()  {return true;}
+public func DestroyEmptyPack()			{return true;}
 
-public func IsDrawable()        {return false;}
+public func IsDrawable()			{return false;}
 
+public func OnRefill(int iChange)		{}
+public func DoTeamSupport(array aClonks)	{}
 
-public func OnRefill(int iChange)           {}
-public func DoTeamSupport(array aClonks)    {}
 
 /* Initialisierung */
 
@@ -84,7 +84,7 @@ protected func FxIntPackLightTimer()
 
 /* HUD */
 
-public func CustomHUD()     {return true;}
+public func CustomHUD()	{return true;}
 
 public func UpdateHUD(object pHUD)
 {
