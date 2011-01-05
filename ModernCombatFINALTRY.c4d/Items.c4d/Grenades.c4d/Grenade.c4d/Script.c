@@ -251,6 +251,7 @@ public func FxIntFuseStop(object pTarget)	{}
 public func Fuse()
 {
   Sound("GrenadeActivate.ogg");
+  SetGraphics("Active");
   return AddEffect ("IntFuse",this,200,1,this);
 }
 

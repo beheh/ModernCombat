@@ -15,6 +15,7 @@ public func ContainedDamage()	{return 20;}
 public func Fuse()
 {
   Sound("SGRN_Activate.ogg");
+  SetGraphics("Active");
   return AddEffect ("IntFuse",this,200,1,this);
 }
 
