@@ -10,7 +10,13 @@ public func Color()		{return RGB(128,255,0);}
 public func ContainedDamage()	{return 20;}
 
 
-/* Explosion */
+/* Aktivierung */
+
+public func Fuse()
+{
+  Sound("SGRN_Activate.ogg");
+  return AddEffect ("IntFuse",this,200,1,this);
+}
 
 public func Fused()
 {

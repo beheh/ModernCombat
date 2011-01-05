@@ -7,6 +7,14 @@ public func Color()		{return RGB(0,128,255);}
 public func ContainedDamage()	{return 20;}
 
 
+/* Aktivierung */
+
+public func Fuse()
+{
+  Sound("STUN_Activate.ogg");
+  return AddEffect ("IntFuse",this,200,1,this);
+}
+
 public func Fused()
 {
   //Zu blendende Objekte suchen
@@ -114,7 +122,9 @@ public func FxIntFlashbangStop(object pTarget, int iEffectNumber, int iReason, b
     RemoveObject(EffectVar(1,pTarget,iEffectNumber));
 }
 
+/* Aufprall */
+
 func HitSound()
 {
-  Sound("SGRN_Hit*.ogg");
+  Sound("STUN_Hit*.ogg");
 }

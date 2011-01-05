@@ -8,7 +8,13 @@ public func ContainedDamage()	{return 100;}
 public func BlastRadius()	{return 10;}
 
 
-/* Explosion */
+/* Aktivierung */
+
+public func Fuse()
+{
+  Sound("SGRN_Activate.ogg");
+  return AddEffect ("IntFuse",this,200,1,this);
+}
 
 public func Fused()
 {
@@ -43,4 +49,11 @@ public func FxIntShockWaveTimer(object pTarget, int iEffectNumber, int iEffectTi
 public func FxIntShockWaveStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)
 {
   RemoveObject(pTarget);
+}
+
+/* Aufprall */
+
+func HitSound()
+{
+  Sound("SGRN_Hit*.ogg");
 }
