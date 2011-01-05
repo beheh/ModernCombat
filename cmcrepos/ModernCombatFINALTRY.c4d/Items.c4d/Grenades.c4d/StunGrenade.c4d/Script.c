@@ -12,6 +12,7 @@ public func ContainedDamage()	{return 20;}
 public func Fuse()
 {
   Sound("STUN_Activate.ogg");
+  SetGraphics("Active");
   return AddEffect ("IntFuse",this,200,1,this);
 }
 
