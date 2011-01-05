@@ -185,7 +185,6 @@ private func FinFuse()
 public func ControlUp(object pObjBy)
 {
   if(Contained()) return;
-  if(pObjBy->~RejectCollect(GetID(), this)) return;
 
   //Punkte bei Belohnungssystem
   if(Hostile(GetOwner(),GetOwner(pObjBy))) 
@@ -199,12 +198,13 @@ public func ControlUp(object pObjBy)
   //Deaktivieren
   bActive=false;
 
-  //Aufnahme
-  Enter(pObjBy);
-
   //Eventuell sichern
   if(bReady)
     Defuse();
+
+  //Aufnahme sofern Platz
+  if(pObjBy->~RejectCollect(GetID(), this)) return;
+  Enter(pObjBy);
 
   return 1;
 }
