@@ -8,7 +8,7 @@ public func ContainedDamage()	{return 120;}
 public func BlastRadius()	{return 40;}
 
 
-/* Explosion */
+/* Aktivierung */
 
 public func Fused()
 {

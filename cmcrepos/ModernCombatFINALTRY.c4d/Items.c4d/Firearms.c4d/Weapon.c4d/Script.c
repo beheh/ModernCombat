@@ -1,4 +1,4 @@
-/*-- Waffensteuerung --*/
+/*-- Waffe --*/
 
 #strict 2
 #include WEPN
@@ -41,6 +41,7 @@ public func OnSingleReloadStart(int iSlot){}
 public func OnSingleReloadStop(int iSlot){}
 public func OnPrepareReloadStop(int iSlot){}
 public func OnFinishReloadStart(int iSlot){}
+
 
 /*----- Initalisierung -----*/
 

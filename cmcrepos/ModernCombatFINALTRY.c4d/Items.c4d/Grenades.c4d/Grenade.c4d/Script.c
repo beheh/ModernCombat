@@ -1,4 +1,4 @@
-/*-- Granatensteuerung --*/
+/*-- Granate --*/
 
 #strict 2
 

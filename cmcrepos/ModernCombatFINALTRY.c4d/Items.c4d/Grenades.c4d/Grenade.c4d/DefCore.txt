@@ -1,5 +1,5 @@
 [DefCore]
 id=NADE
-Name=Grenade control
+Name=Grenade
 Category=1
 Picture=0,0,64,64
