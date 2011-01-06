@@ -1,0 +1,1 @@
+HasWon=%s has won this battle!
