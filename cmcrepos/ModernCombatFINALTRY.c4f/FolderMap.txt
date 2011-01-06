@@ -108,5 +108,5 @@ FullscreenBG=1
 
 	[Scenario]
 	File=Credits.c4f
-	Area=652,50,83,14
+	Area=653,50,83,14
 	OverlayImage=OverlayCredits.png
