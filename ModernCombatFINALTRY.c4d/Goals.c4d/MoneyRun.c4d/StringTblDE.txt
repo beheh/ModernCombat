@@ -1,0 +1,1 @@
+HasWon=%s hat diese Schlacht gewonnen!
