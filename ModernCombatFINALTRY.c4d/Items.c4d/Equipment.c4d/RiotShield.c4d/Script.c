@@ -70,11 +70,13 @@ public func CheckChange()
 
 public func ControlThrow(caller)
 {
-  if(pShield)
+  if(pShield && (WildcardMatch(GetAction(caller), "*Armed*") || caller->~IsAiming()))
   {
     pShield->ExecShove();
-    return 1;
+    return true;
   }
+  else
+    return !GetPlrDownDouble(GetController(caller));
 }
 
 /* Ablegen */
