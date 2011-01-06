@@ -375,7 +375,7 @@ public func AddThrowDelay(object pObj)
 protected func Damage(int iChange) 
 {
   //Zündung durch Schaden
-  if(GetDamage() < 10) return ;
+  if(GetDamage() < 10 || activated) return ;
   Fused();
 }
 
