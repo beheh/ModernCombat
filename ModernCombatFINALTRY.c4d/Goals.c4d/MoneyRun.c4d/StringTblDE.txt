@@ -1,1 +1,1 @@
-HasWon=%s hat diese Schlacht gewonnen!
+TeamHasWon=Team <c %x>%s</c> hat diese Schlacht gewonnen!
