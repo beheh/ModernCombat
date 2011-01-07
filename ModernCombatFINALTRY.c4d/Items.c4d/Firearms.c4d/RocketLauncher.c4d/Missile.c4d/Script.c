@@ -86,7 +86,8 @@ public func FxThrustSoundTimer(object pTarget, int iEffectNumber, int iEffectTim
 
 public func FxFollowStart(object pTarget, int iEffectNumber, int iTemp, obj)
 {
-  //if(!obj) return -1;
+  if (iTemp)
+    return;
   EffectVar(0,pTarget,iEffectNumber) = obj;
   EffectVar(1,pTarget,iEffectNumber) = 0;
 }
@@ -268,11 +269,12 @@ public func Hit()
 
 private func HitObject(pObj)
 {
-
   if(Secure() || GetAction() == "Idle")
   {
     if(pObj)
     {
+      if (pObj == EffectVar(0, this, GetEffect("Follow", this)))
+        return;
       DoDmg(Distance(GetXDir(),GetYDir())/5,DMG_Projectile,pObj);
       if(GetEffectData(EFSM_ExplosionEffects) > 0)  CastSmoke("Smoke3",12,10,0,0,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
       if(GetOCF(pObj) & OCF_Living)
