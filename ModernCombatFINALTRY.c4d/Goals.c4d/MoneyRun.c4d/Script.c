@@ -249,7 +249,7 @@ public func IsFulfilled()
         for (var j = GetPlayerCount(); j >= 0; j--)
           if (GetPlayerTeam(GetPlayerByIndex(j)) != GetTeamByIndex(i))
             EliminatePlayer(GetPlayerByIndex(j));
-        Message("<c %x>Team $TeamHasWon$</c>", 0, GetTeamColor(GetTeamByIndex(i)), GetTeamName(GetTeamByIndex(i)));
+        Message("<c %x>Team %s</c> $HasWon$", 0, GetTeamColor(GetTeamByIndex(i)), GetTeamName(GetTeamByIndex(i)));
         return fFulfilled = true;
       }
     //Keiner hat gewonnen. Unentschieden?
@@ -265,7 +265,7 @@ public func IsFulfilled()
         for (var j = GetPlayerCount(); j >= 0; j--)
           if (GetPlayerByIndex(j) != GetPlayerByIndex(i))
             EliminatePlayer(GetPlayerByIndex(j));
-        Message("<c %x>$TeamHasWon$</c>", 0, GetPlrColorDw(GetPlayerByIndex(i)), GetPlayerName(GetPlayerByIndex(i)));
+        Message("<c %x>%s</c> $HasWon$</c>", 0, GetPlrColorDw(GetPlayerByIndex(i)), GetPlayerName(GetPlayerByIndex(i)));
         return fFulfilled = true;
       }
     //Keiner hat gewonnen. Unentschieden?
