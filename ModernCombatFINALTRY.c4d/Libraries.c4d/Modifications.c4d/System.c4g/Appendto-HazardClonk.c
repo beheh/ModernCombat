@@ -1116,7 +1116,7 @@ public func GrenadeMenu(object pCaller)
   CreateMenu(GRNS,pCaller,this,0,"$CtxGrenadeMenu$",0,C4MN_Style_Context);
   
   var id_list = CreateArray();
-  for(var nade in FindObjects(Find_Container(pGrenadeStoring)))
+  for(var nade in FindObjects(Find_Container(pGrenadeStoring), Sort_Reverse()))
   {
     if(FindInArray4K(id_list,GetID(nade)) != -1) continue;
     id_list[GetLength(id_list)] = GetID(nade);
