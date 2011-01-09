@@ -177,6 +177,8 @@ func Selection()
 
 /* KI-Behandlung */
 
+protected func AI_IdleInventory(object pClonk)	{return AI_Inventory(pClonk);}
+
 protected func AI_Inventory(object pClonk)
 {
   //Benutzen, wenn der Clonk weniger als 2/3 Leben hat
@@ -187,8 +189,4 @@ protected func AI_Inventory(object pClonk)
     ScheduleCall(this, "Activate", 1, 0, pClonk);
   }
   return(1);
-}
-
-protected func AI_IdleInventory(object pClonk) {
-	return AI_Inventory(pClonk);
 }
