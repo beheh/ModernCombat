@@ -1,1 +1,4 @@
 HasWon=has won this battle!
+MsgGoalFulfilled=We have a winner!
+MsgGoalLost=Alas! You have lost.
+MsgGoalUnfulfilled=You still have to get %d credits.

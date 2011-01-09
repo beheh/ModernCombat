@@ -1,1 +1,4 @@
 HasWon=hat diese Schlacht gewonnen!
+MsgGoalFulfilled=Und wir haben einen Gewinner!
+MsgGoalLost=Leider verloren.
+MsgGoalUnfulfilled=Dein Team muss noch %d Credits erkämpfen.
