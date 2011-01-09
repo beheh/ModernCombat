@@ -1,0 +1,21 @@
+[DefCore]
+id=SRBL
+Name=Sensor Ball
+Category=3600
+MaxUserSelect=4
+Width=6
+Height=6
+Offset=-3,-3
+Value=15
+Mass=10
+Components=METL=2;
+Picture=6,0,133,132
+Vertices=4
+VertexX=-3,-3,3,3
+VertexY=-3,3,-3,3
+VertexFriction=300,300,300,300
+Rebuy=1
+Collectible=1
+Float=1
+Timer=5
+TimerCall=Sense
