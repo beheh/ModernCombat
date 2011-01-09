@@ -334,7 +334,7 @@ protected func OpenGoalVoteMenu(id id, object pClonk)
     aGoalsVoted = [];
   for (var i = 0; i < GetPlayerCount(); i++)
     GoalVoteMenu(0, 0, GetPlayerByIndex(i));
-  AddEffect("EvaluateGoalVote", this, 1, 35 * CHOS_GoalVotingTime, this);
+  AddEffect("EvaluateGoalVote", this, 1, 35, this);
   EventInfo4K(0, Format("$GoalVoteBegins$", CHOS_GoalVotingTime), GetID(), 0, 0, 0, "Info.ogg");
 }
 
@@ -363,10 +363,17 @@ protected func CheckVoteGoal(id idGoal, object pClonk)
   Sound("Grab", true, 0, 0, iPlr + 1);
 }
 
-protected func FxEvaluateGoalVoteTimer()
+protected func FxEvaluateGoalVoteTimer(temp1, temp2, iEffectTime)
 {
-  for (var i = 0; i < GetPlayerCount(); i++)
-    CloseMenu(GetCursor(GetPlayerByIndex(i)));
+  if(CHOS_GoalVotingTime - (iEffectTime / 35) < 5) {
+    Sound("Select.ogg", true, 0);
+  }
+  if(iEffectTime / 35 < CHOS_GoalVotingTime)
+    return true;
+  for (var i = 0; i < GetPlayerCount(); i++) {
+  	if(GetMenu(GetCursor(GetPlayerByIndex(i))))
+	    CloseMenu(GetCursor(GetPlayerByIndex(i)));
+  }
   var aGoalsChosen = [];
   //Spieler durchgehen
   for (var array in aGoalsVoted)
