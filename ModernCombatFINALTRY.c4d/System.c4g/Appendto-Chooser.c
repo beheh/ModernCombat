@@ -129,6 +129,9 @@ protected func InitializePlayer(int iPlr, int iX, int iY, object pBase, int iTea
     Enter(tmp, pCrew);
     Eastern(tmp);
   }
+  //Falls ein Spieler während der Abstimmung beitritt
+  if(GetEffect("EvaluateGoalVote", this))
+  	GoalVoteMenu(0, 0, iPlr);
 }
 
 /* Spielziel setzen */
@@ -342,8 +345,13 @@ protected func GoalVoteMenu(id id, object pClonk, int iPlr)
 {
   if (!pClonk)
     pClonk = GetCursor(iPlr);
-  iPlr = GetOwner(pClonk);
-  CloseMenu(pClonk);
+  if (!pClonk)
+    pClonk = GetCrew(iPlr);
+  if (!pClonk) return false;
+  if (iPlr == NO_OWNER)
+    iPlr = GetOwner(pClonk);
+  if (iPlr == NO_OWNER) return false;
+  if(GetMenu(pClonk)) CloseMenu(pClonk);
   CreateMenu(GetID(), pClonk, 0, 0, 0, 0, C4MN_Style_Context);
   if (!aGoalsVoted[iPlr])
     aGoalsVoted[iPlr] = [];
@@ -352,6 +360,7 @@ protected func GoalVoteMenu(id id, object pClonk, int iPlr)
       AddMenuItem("%s", "CheckVoteGoal", aGoals[i], pClonk, 0, pClonk, GetDesc(0, aGoals[i]));
     else
       AddMenuItem("<c 777777>%s</c>", "CheckVoteGoal", aGoals[i], pClonk, 0, pClonk, GetDesc(0, aGoals[i]));
+  return true;
 }
 
 protected func CheckVoteGoal(id idGoal, object pClonk)
