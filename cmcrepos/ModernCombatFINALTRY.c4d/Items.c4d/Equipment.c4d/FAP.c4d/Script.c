@@ -3,19 +3,20 @@
 #strict 2
 #include PACK
 
-public func IsDrawable() 	    {return true;}
-public func HandX()     	    {return 4000;}
-public func HandY()     	    {return 10;}
-public func HandSize()   	    {return 1000;}
+public func IsDrawable()	{return true;}
+public func HandX()		{return 4000;}
+public func HandY()		{return 10;}
+public func HandSize()		{return 1000;}
 
-public func StartPoints()       {return 150;}
-public func MaxPoints()         {return 150;}
+public func StartPoints()	{return 150;}
+public func MaxPoints()		{return 150;}
 
-public func RefillTime()        {return 30;}
+public func RefillTime()	{return 30;}
 
-public func TeamSupportTime()   {return 20;}
+public func TeamSupportTime()	{return 20;}
 
 local iHealed;
+
 
 /* Auffüllen */
 
@@ -236,6 +237,8 @@ protected func Selection()
 
 /* KI-Behandlung */
 
+protected func AI_IdleInventory(object pClonk)	{return AI_Inventory(pClonk);}
+
 protected func AI_Inventory(object pClonk)
 {
   //Benutzen, wenn der Clonk weniger als volles Leben hat und genug Punkte da sind
@@ -246,8 +249,4 @@ protected func AI_Inventory(object pClonk)
     ScheduleCall(this, "Activate", 1, 0, pClonk);
   }
   return true;
-}
-
-protected func AI_IdleInventory(object pClonk) {
-  return AI_Inventory(pClonk);
 }
