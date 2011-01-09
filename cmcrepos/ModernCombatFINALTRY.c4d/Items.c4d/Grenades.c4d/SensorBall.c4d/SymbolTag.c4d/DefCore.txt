@@ -1,0 +1,12 @@
+[DefCore]
+id=SM08
+Name=Symbol
+Version=4,9,5
+Category=C4D_StaticBack|C4D_Foreground
+Width=25
+Height=25
+Offset=-12,-12
+Picture=25,0,25,25
+Timer=3
+TimerCall=Update
+ColorByOwner=1

@@ -28,7 +28,7 @@ private func Class2Info(int iData, int iPlr)
   if(iData == CData_Clonk)      return MDIC;
   if(iData == CData_Ammo)       return [[STAM, 80]];
   if(iData == CData_Items)      return [[SMGN, 1], [PSTL, 1], [CDBT, 1], [FAPK, 1]];
-  if(iData == CData_Grenades)   return [[FGRN, 1], [FRAG, 2]];
+  if(iData == CData_Grenades)   return [[FGRN, 1], [FRAG, 2], [SRBL, 1]];
   if(iData == CData_Facet)      return 2 ;
   return Default(iData);
 }
@@ -61,7 +61,7 @@ private func Class4Info(int iData, int iPlr)
   if(iData == CData_Clonk)      return PCMK;
   if(iData == CData_Ammo)       return [[STAM, 80]];
   if(iData == CData_Items)      return [[PPGN, 1], [PSTL, 1], [RSHL, 1], [DGNN, 1]];
-  if(iData == CData_Grenades)   return [[PGRN, 2], [STUN, 2]];
+  if(iData == CData_Grenades)   return [[PGRN, 2], [STUN, 1], [SRBL, 1]];
   if(iData == CData_Facet)      return 4;
   return Default(iData);
 }
