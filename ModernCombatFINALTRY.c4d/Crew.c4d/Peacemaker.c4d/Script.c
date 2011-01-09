@@ -84,6 +84,7 @@ protected func UpdateAmmoBars()
 
 public func GetReanimationTarget(pFrom, & body, & defi, fUnderAttack)
 {
+	var olddefi;
 	var distance = 200;
 	if (fUnderAttack)
 		distance = 50;
@@ -95,14 +96,16 @@ public func GetReanimationTarget(pFrom, & body, & defi, fUnderAttack)
 			defi = FindObject2(Find_ID(CDBT), Find_Container(pFrom));
 			if (!defi->~Ready())
 			{
-				pFrom->~DropObject(defi);
-				defi = false;
+				olddefi = defi;
 			}
 		}
 		if (!defi)
 			defi = FindObject2(Find_ID(CDBT), Find_Or(Find_Container(Contained(body)), Find_Container(pFrom), Find_NoContainer()), Find_Func("Ready"), Find_Distance(distance, AbsX(GetX(pFrom)), AbsY(GetY(pFrom))), Sort_Distance(AbsX(GetX(pFrom)), AbsY(GetY(pFrom))));
 		if (defi)
 		{
+			if(olddefi) {
+				pFrom->~DropObject(olddefi);
+			}
 			return true;
 		}
 	}
@@ -143,7 +146,7 @@ public func FxAggroTimer(object pTarget, int no)
 			return 1;
 		}
 	}
-	//Verletzter in der Nähe?
+	//Verletzt?
 	if (!pTarget->~IsHealing() && pTarget->GetEnergy() < pTarget->GetPhysical("Energy") * 2 / 3 / 1000)
 	{
 		if (!ContentsCount(DGNN, pTarget) && ContentsCount(FAPK, pTarget))
@@ -157,115 +160,40 @@ public func FxAggroTimer(object pTarget, int no)
 			pDragnin->Activate(pTarget);
 	}
 	//Weitere Verletzte?
-	//var friends;
-	for (var friend in FindObjects(Find_Category(OCF_Living), Find_NoContainer(), Find_Distance(50, AbsX(GetX(pTarget)), AbsY(GetY(pTarget))), Sort_Distance())) 
-	{
-		if (!friend->~IsHealing() && friend->GetEnergy() < friend->GetPhysical("Energy") * 1 / 3 / 1000)
+	if(pTarget->~IsMedic()) {
+		for (var friend in FindObjects(Find_Category(OCF_Living), Find_Allied(GetOwner(pTarget)), Find_NoContainer(), Find_Distance(50, AbsX(GetX(pTarget)), AbsY(GetY(pTarget))), Sort_Distance(AbsX(GetX(pTarget)), AbsY(GetY(pTarget))))) 
 		{
-			if (!ContentsCount(DGNN, pTarget) && ContentsCount(FAPK, pTarget))
+			if (!friend->~IsHealing() && friend->GetEnergy() < friend->GetPhysical("Energy") * 1 / 3 / 1000)
 			{
-				var pFAP = FindObject2(Find_ID(FAPK), Find_Container(pTarget), Find_Func("CanUnpack", pTarget));
-				if (pFAP)
-					pFAP->ControlThrow(pTarget);
-			}
-			var pDragnin = FindObject2(Find_ID(DGNN), Find_Container(pTarget));
-			if (pDragnin)
-			{
-				if (ObjectDistance(friend, pTarget) < 10)
+				if (!ContentsCount(DGNN, pTarget) && ContentsCount(FAPK, pTarget))
 				{
-					pDragnin->ControlThrow(pTarget);
+					var pFAP = FindObject2(Find_ID(FAPK), Find_Container(pTarget), Find_Func("CanUnpack", pTarget));
+					if (pFAP)
+						pFAP->ControlThrow(pTarget);
 				}
-				else 
+				var pDragnin = FindObject2(Find_ID(DGNN), Find_Container(pTarget));
+				if (pDragnin)
 				{
-					SetMacroCommand(pTarget, "MoveTo", friend, 0, 0, 0, EffectVar(0, pTarget, no));
+					if (ObjectDistance(friend, pTarget) < 10)
+					{
+						pDragnin->ControlThrow(pTarget);
+					}
+					else 
+					{
+						SetMacroCommand(pTarget, "MoveTo", friend, 0, 0, 0, EffectVar(0, pTarget, no));
+					}
 				}
+				break;
 			}
-			break;
 		}
 	}
 	//Ziel vorhanden?
-	if (EffectVar(1, this, no) && (pTarget->~GetSpread() < 80 || ObjectDistance(pTarget, EffectVar(1, this, no))) < 30)
+	if (EffectVar(1, this, no) && !EffectVar(1, this, no)->~IsFakeDeath() && !Contained(EffectVar(1, this, no)) && (pTarget->~GetSpread() < 80 || ObjectDistance(pTarget, EffectVar(1, this, no))) < 30)
 	{
 		EffectCall(this(), no, "Fire");
 		return 1;
 	}
 	//Zielen beenden
-	// Erst mal schauen ob wir dringend helfen können
-	var body, defi;
-	GetReanimationTarget(pTarget, body, defi, EffectVar(1, this(), no)); //Checkt auch nach Defi
-	if (body)
-	{
-		if (IsAiming())
-			StopAiming();
-		if (Contents() == defi && GetProcedure(pTarget) && ObjectDistance(body, pTarget) < 10)
-		{
-			ScheduleCall(defi, "Activate", 1, 0, pTarget);
-			return true;
-		}
-		else 
-		{
-			if (!Contained(defi) || Contained(defi) != pTarget)
-			{
-				if (GetCommand(pTarget) != "Get")
-					SetCommand(pTarget, "Get", defi);
-			}
-			else if (Contents() != defi)
-			{
-				ShiftContents(pTarget, 0, CDBT);
-			}
-			else 
-			{
-				SetMacroCommand(pTarget, "MoveTo", body, 0, 0, 0, EffectVar(0, pTarget, no));
-			}
-			return true;
-		}
-	}
-	// Verletzt?
-	if (!pTarget->~IsHealing() && pTarget->GetEnergy() < pTarget->GetPhysical("Energy") * 2 / 3 / 1000)
-	{
-		if (!ContentsCount(DGNN, pTarget) && ContentsCount(FAPK, pTarget))
-		{
-			var pFAP = FindObject2(Find_ID(FAPK), Find_Container(pTarget), Find_Func("CanUnpack", pTarget));
-			if (pFAP)
-				pFAP->ControlThrow(pTarget);
-		}
-		var pDragnin = FindObject2(Find_ID(DGNN), Find_Container(pTarget));
-		if (pDragnin)
-			pDragnin->Activate(pTarget);
-	}
-	// Okay - und sonst noch wer in meiner Nähe stark verletzt?
-	for (var friend in FindObjects(Find_Category(OCF_Living), Find_NoContainer(), Find_Distance(50, AbsX(GetX(pTarget)), AbsY(GetY(pTarget))), Sort_Distance())) 
-	{
-		if (!friend->~IsHealing() && friend->GetEnergy() < friend->GetPhysical("Energy") * 1 / 3 / 1000)
-		{
-			if (!ContentsCount(DGNN, pTarget) && ContentsCount(FAPK, pTarget))
-			{
-				var pFAP = FindObject2(Find_ID(FAPK), Find_Container(pTarget), Find_Func("CanUnpack", pTarget));
-				if (pFAP)
-					pFAP->ControlThrow(pTarget);
-			}
-			var pDragnin = FindObject2(Find_ID(DGNN), Find_Container(pTarget));
-			if (pDragnin)
-			{
-				if (ObjectDistance(friend, pTarget) < 10)
-				{
-					pDragnin->ControlThrow(pTarget);
-				}
-				else 
-				{
-					SetMacroCommand(pTarget, "MoveTo", friend, 0, 0, 0, EffectVar(0, pTarget, no));
-				}
-			}
-			break;
-		}
-	}
-	// Wir haben ein Ziel?
-	if (EffectVar(1, this, no) && (pTarget->~GetSpread() < 80 || ObjectDistance(pTarget, EffectVar(1, this, no))) < 30)
-	{
-		EffectCall(this(), no, "Fire");
-		return 1;
-	}
-	// Zielen beenden
 	if (IsAiming())
 		StopAiming();
 	//Ziel suchen
@@ -287,12 +215,35 @@ public func FxAggroTimer(object pTarget, int no)
 				GetActionTarget()->~HandleAggroFinished(this());
 			EffectVar(99, this(), no);
 		}
+		//Kein Ziel gefunden, also andere Sachen tun
+		CheckIdleInventory();
 		CheckIdleWeapon();
 		return;
 	}
 	EffectVar(1, this(), no) = target;
 	//Ziel vorhanden
 	EffectVar(99, this(), no) = true;
+}
+
+//Wie haben nichts zu tun und spielen mit dem Inventar rum
+public func CheckIdleInventory()
+{
+  for(var i=0,obj ; obj = Contents(i) ; i++)
+  {
+  	// Irgendwas spezielles?
+    if(obj->~AI_IdleInventory(this))
+      continue;
+    // Waffe
+    if(obj->~IsWeapon())
+      continue;
+    // Munition
+    if(obj->~IsAmmoPacket())
+    {
+      ActivateAmmo(obj);
+      continue;
+    }
+    //Nichts weiter tun
+  }
 }
 
 //Wenn iLevel = 1 (Aggro_Shoot) werden keine Waffen mit FM_Aim ausgewählt
