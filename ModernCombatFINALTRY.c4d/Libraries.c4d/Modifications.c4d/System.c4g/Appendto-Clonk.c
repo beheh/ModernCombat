@@ -63,7 +63,7 @@ public func Incineration()
 public func HurtSounds(int iDmg, int iType)
 {
   if(iDmg <= 0) return;
-  Message("Argh!", this);
+
   //Projektile
   if(iType == DMG_Projectile)
   {
