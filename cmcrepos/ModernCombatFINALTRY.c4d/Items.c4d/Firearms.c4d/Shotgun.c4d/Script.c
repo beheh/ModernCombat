@@ -61,7 +61,8 @@ public func Fire1T1()
 
 public func BotData1(int data)
 {
-  if(data == BOT_Range)		return 400;
+  if(data == BOT_Range)		return 100;
+  if(data == BOT_Power)   return(BOT_Power_3);
   return Default(data);
 }
 
