@@ -138,6 +138,7 @@ func FxDragninHealTimer(object pTarget, int iEffectNumber, int iEffectTime)
   {
     return -1;
   }
+  //Bildschirm Effekt
   if(!(iEffectTime % 20)) {
   	ScreenRGB(pTarget,RGBa(0, 230, 255, 190), 80, 3,false, SR4K_LayerMedicament, 200);
   }
@@ -174,14 +175,20 @@ func Selection()
   Sound("DGNN_Charge.ogg");
 }
 
+/* KI-Behandlung */
+
 protected func AI_Inventory(object pClonk)
 {
   //Benutzen, wenn der Clonk weniger als 2/3 Leben hat
-  if(!pClonk->~IsHealing() && pClonk->GetEnergy() < pClonk->GetPhysical("Energy") * 2/3 / 1000)
+  if(!pClonk->~IsHealing() && GetEnergy(pClonk) < GetPhysical("Energy", PHYS_Current, pClonk) * 2/3 / 1000)
   {
     ShiftContents(pClonk, 0, GetID());
     //Benutzen (verzögert einsetzen)
     ScheduleCall(this, "Activate", 1, 0, pClonk);
   }
   return(1);
+}
+
+protected func AI_IdleInventory(object pClonk) {
+	return AI_Inventory(pClonk);
 }

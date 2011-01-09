@@ -234,14 +234,20 @@ protected func Selection()
   Sound("FAPK_Charge.ogg", false, this);
 }
 
-public func AI_Inventory(object pClonk)
+/* KI-Behandlung */
+
+protected func AI_Inventory(object pClonk)
 {
-  //Benutzen, wenn der Clonk weniger als volles Leben hat
-  if(!pClonk->~IsHealing() && GetEnergy(pClonk) < GetPhysical("Energy" / 1000, PHYS_Current, pClonk))
+  //Benutzen, wenn der Clonk weniger als volles Leben hat und genug Punkte da sind
+  if(!pClonk->~IsHealing() && GetPackPoints() > 30 && GetEnergy(pClonk) < GetPhysical("Energy", PHYS_Current, pClonk) / 1000)
   {
     ShiftContents(pClonk, 0, GetID());
     //Benutzen (verzögert einsetzen)
     ScheduleCall(this, "Activate", 1, 0, pClonk);
   }
   return true;
+}
+
+protected func AI_IdleInventory(object pClonk) {
+  return AI_Inventory(pClonk);
 }
