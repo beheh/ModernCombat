@@ -1102,7 +1102,7 @@ private func Reloaded(caller,slot,amount)
   DoAmmo(ammoid, -amount, caller);
 
   //Geladene Munitionsmenge angeben
-  HelpMessage(GetOwner(caller),"$Reloaded$",caller,amount,ammoid);
+  if(amount > 0) HelpMessage(GetOwner(caller),"$Reloaded$",caller,amount,ammoid);
 
   //Callback
   OnReloaded(firemode,slot);
