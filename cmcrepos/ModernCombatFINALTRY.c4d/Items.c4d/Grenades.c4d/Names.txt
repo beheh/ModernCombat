@@ -1,2 +1,2 @@
-DE:Sprengstoff
-US:Explosives
+DE:Granaten
+US:Grenades
