@@ -60,18 +60,10 @@ public func Incineration()
 
 /* Soundauswahl */
 
-public func OnDmg(int iDmg, int iType)
-{
-  if(!IsFakeDeath() && GetAlive())
-  {
-    HurtSounds(iDmg,iType);
-  }
-  return _inherited(iDmg, iType, ...);
-}
-
 public func HurtSounds(int iDmg, int iType)
 {
   if(iDmg <= 0) return;
+  Message("Argh!", this);
   //Projektile
   if(iType == DMG_Projectile)
   {
@@ -130,6 +122,12 @@ public func DoHitPoints(int iPoints)
 
 public func OnHit(int iChange, int iType, object pFrom)
 {
+  //Geräusche machen
+  if(!IsFakeDeath() && GetAlive())
+  {
+    HurtSounds(iChange, iType);
+  }
+
   //Achievement
   ScheduleCall(this, "DoHitPoints", 1, 0, iChange);	
 
