@@ -152,7 +152,7 @@ public func DoTeamSupport(array aClonks)
 
 /* Sonstiges */
 
-protected func ControlThrow()   {return true;}
+public func ControlThrow()   {return true;}
 
 protected func Hit()
 {

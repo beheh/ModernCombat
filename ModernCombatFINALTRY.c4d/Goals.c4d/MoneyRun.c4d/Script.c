@@ -7,16 +7,17 @@ local aMoney;
 local iGoal;
 local fFulfilled;
 
-protected func Activate(iPlr) // Defaultnachrichten
+protected func Activate(int iPlr)
 {
+  var iIndex = iPlr;
+  if (Teams())
+    iIndex = GetPlayerTeam(iPlr);
   if (IsFulfilled())
-  {
-    if(aMoney[GetPlayerTeam(iPlr)] >= iGoal)
-      return(MessageWindow("$MsgGoalFulfilled$",iPlr));
+    if(aMoney[iIndex] >= iGoal)
+      return MessageWindow("$MsgGoalFulfilled$", iPlr);
     else
-      return(MessageWindow("$MsgGoalLost$",iPlr));
-  }
-  return(MessageWindow(Format("$MsgGoalUnfulfilled$", iGoal - aMoney[GetPlayerTeam(iPlr)]),iPlr));
+      return MessageWindow("$MsgGoalLost$", iPlr);
+  return MessageWindow(Format("$MsgGoalUnfulfilled$", iGoal - aMoney[iIndex]), iPlr);
 }
 
 /* Initialisierung */
