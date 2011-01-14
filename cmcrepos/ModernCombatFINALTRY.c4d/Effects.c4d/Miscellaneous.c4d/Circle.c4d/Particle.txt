@@ -1,0 +1,12 @@
+[Particle]
+Name=Circle
+MaxCount=50
+InitFn=StdInit
+ExecFn=StdExec
+DrawFn=Std
+Face=0,0,397,397,-198,-198
+GravityAcc=0
+AlphaFade=5
+Additive=1
+Attach=1
+RByV=2

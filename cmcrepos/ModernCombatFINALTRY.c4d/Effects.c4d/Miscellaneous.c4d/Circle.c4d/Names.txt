@@ -1,0 +1,2 @@
+DE:Kreis
+US:Circle
