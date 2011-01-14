@@ -6,7 +6,7 @@
 public func Color()		{return RGBa(255,255,255,0);}
 public func ContainedDamage()	{return 0;}
 public func FuseTime()		{return 2*30;}
-public func SensorDistance()	{return 200;}
+public func SensorDistance()	{return 190;}
 
 local active;
 
@@ -72,6 +72,7 @@ public func Beep()
 
   //Effekte
   CreateParticle("PSpark", 0, 0, 0, 0, 60, GetPlrColorDw(GetOwner()), this);
+  CreateParticle("Circle", 0, 0, 0, 0, 1950, GetPlrColorDw(GetOwner()), this);
   Sound("SNSR_Beep.ogg");
 
   //Einen Moment lang nicht mehr beepen
