@@ -15,7 +15,6 @@ Definition3=ModernCombatFINALTRY.c4d
 StructNeedEnergy=0
 Goals=GOCC=1;GHTF=1;GLMS=10;GCTF=3;GTDM=10
 Rules=MCSL=1;CHOS=1
-FoWColor=13816530
 
 [Player1]
 Crew=PCMK=1
