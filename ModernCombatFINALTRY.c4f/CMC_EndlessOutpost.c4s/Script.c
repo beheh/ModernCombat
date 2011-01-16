@@ -84,9 +84,12 @@ func CreateFurniture()
   CreateObject(LADR, 2080, 480, -1)->Set(33);
   CreateObject(LADR, 2120, 480, -1)->Set(20);
   CreateObject(LADR, 2280, 490, -1)->Set(21);
+  CreateObject(LADR, 2285, 221, -1)->Set(13);
   CreateObject(LADR, 2310, 490, -1)->Set(34);
   CreateObject(LADR, 2490, 500, -1)->Set(11);
   CreateObject(LADR, 2540, 500, -1)->Set(36);
+  CreateObject(LADR, 2600, 320, -1)->Set(13);
+  CreateObject(LADR, 2620, 210, -1)->Set(12);
 
   //Bodenlucken
   CreateObject(HA4K, 70, 353, -1);
@@ -96,11 +99,15 @@ func CreateFurniture()
   CreateObject(HA4K, 2080, 213, -1);
   CreateObject(HA4K, 2540, 353, -1);
   CreateObject(HA4K, 2540, 413, -1);
+  CreateObject(HA4K, 2600, 213, -1);
+  CreateObject(HA4K, 2620, 113, -1);
 
   //Große Bodenlucken
   CreateObject(H24K, 985, 438, -1);
   CreateObject(H24K, 1205, 448, -1);
   CreateObject(H24K, 1985, 118, -1);
+  CreateObject(H24K, 2285, 118, -1);
+  CreateObject(H24K, 2475, 118, -1);
 
   //Gerüste
   CreateObject(SFFG, 1080, 560, -1)->Set(3);
@@ -135,6 +142,8 @@ func CreateFurniture()
   CreateObject(GDDR, 1795, 210, -1)->SetColorDw(HSL(200, 150, 100, 127));
   CreateObject(GDDR, 1795, 290, -1)->SetColorDw(HSL(200, 150, 100, 127));
   CreateObject(GDDR, 1905, 400, -1)->SetColorDw(HSL(200, 150, 100, 127));
+  CreateObject(GDDR, 2250, 110, -1)->SetColorDw(HSL(200, 150, 100, 127));
+  CreateObject(GDDR, 2510, 110, -1)->SetColorDw(HSL(200, 150, 100, 127));
   CreateObject(GDDR, 2515, 210, -1)->SetColorDw(HSL(200, 150, 100, 127));
   CreateObject(GDDR, 2515, 410, -1)->SetColorDw(HSL(200, 150, 100, 127));
   CreateObject(GDDR, 2515, 500, -1)->SetColorDw(HSL(200, 150, 100, 127));
@@ -154,6 +163,7 @@ func CreateFurniture()
   CreateObject(MWCR, 1190, 570, -1);
   CreateObject(MWCR, 1210, 570, -1);
   CreateObject(MWCR, 1910, 320, -1)->AutoRespawn();
+  CreateObject(MWCR, 2710, 110, -1);
 
   //Kisten
   CreateObject(WCR2, 10, 350, -1)->AutoRespawn();
@@ -176,10 +186,13 @@ func CreateFurniture()
   CreateObject(WCR2, 2255, 320, -1);
   CreateObject(WCR2, 2405, 320, -1);
   CreateObject(WCR2, 2415, 500, -1);
+  CreateObject(WCR2, 2560, 110, -1);
 
   //Gasflaschen
   CreateObject(GSBL, 1020, 430, -1)->AutoRespawn();
   CreateObject(GSBL, 1640, 520, -1)->AutoRespawn();
+  CreateObject(GSBL, 2205, 110, -1)->AutoRespawn();
+  CreateObject(GSBL, 2790, 110, -1);
 
   //Explosive Kisten
   CreateObject(XWCR, 1545, 320, -1)->AutoRespawn();
@@ -200,6 +213,7 @@ func CreateFurniture()
   //Phosphorfässer
   CreateObject(HBRL, 1720, 290, -1)->AutoRespawn();
   CreateObject(HBRL, 2165, 320, -1);
+  CreateObject(HBRL, 2220, 110, -1)->AutoRespawn();
 
   //Benzintanks
   CreateObject(XTNK, 1610, 520, -1)->AutoRespawn();
@@ -216,8 +230,8 @@ func CreateFurniture()
   CreateObject(CON1, 1495, 520, -1)->SetPerspective(2);
   CreateObject(CON1, 1680, 520, -1);
   CreateObject(CON1, 2170, 110, -1);
-  CreateObject(CON1, 2570, 110, -1);
   CreateObject(CON1, 2670, 110, -1);
+  CreateObject(CON1, 2690, 83, -1);
   CreateObject(CON1, 2720, 410, -1);
 
   //Bildschirme
@@ -306,6 +320,7 @@ func CreateFurniture()
   CreateObject(RAI2, 2320, 210, -1)->SetRail([1,1,1]);
   CreateObject(RAI2, 2390, 320, -1)->SetRail([1,1,1,1,1]);
   CreateObject(RAI2, 2400, 500, -1)->SetRail([1,1,1,1,1]);
+  CreateObject(RAI1, 2305, 110, -1)->SetRail([1,1,1,1,1,1,1,1]);
 
   //Dekoschleusen
   CreateObject(GAT1, 925, 350, -1);
@@ -317,6 +332,7 @@ func CreateFurniture()
   CreateObject(ENGT, 1615, 70, -1);
   CreateObject(ENGT, 1650, 440, -1);
   CreateObject(ENGT, 1870, 440, -1);
+  CreateObject(ENGT, 2590, 110, -1);
 
   //Automat
   CreateObject(CLVM, 1895, 110, -1);
@@ -695,11 +711,11 @@ public func ChooserFinished()
    AddAssaultTarget(CCP2, 1120, 360, 250, 2, "$Target1$", 0, [[[1320, 260], [1300, 260], [1130, 260]], [[130, 350], [170, 350], [150, 450]]]);
    AddAssaultTarget(MVNT, 1865, 250, 250, 2, "$Target2$", 1, [[[1570, 70], [1590, 70], [1830, 110]], [[1100, 430], [1140, 430], [1280, 550]]]);
    AddAssaultTarget(LBPC, 1795, 490, 300, 2, "$Target3$", 2, [[[1980, 400]], [[1280, 430], [1280, 550]]]);
-   AddAssaultTarget(CCP2, 2180, 510, 150, 2, "$Target4$", 3, [[[1880, 110], [2050, 110]], [[1950, 400], [1550, 550], [1500, 490]]]);
-   AddAssaultTarget(LBPC, 2200, 320, 150, 2, "$Target5$", 4, [[[1880, 110], [2050, 110]], [[1950, 400], [1550, 550], [1500, 490]]]);
-   AddAssaultTarget(CMSN, 2350, 210, 150, 2, "$Target6$", 5, [[[1880, 110], [2050, 110]], [[1950, 400], [1550, 550], [1500, 490]]]);
-   AddAssaultTarget(GSTA, 2460, 320, 150, 2, "$Target7$", 6, [[[1880, 110], [2050, 110]], [[1950, 400], [1550, 550], [1500, 490]]]);
-   AddAssaultTarget(CCP1, 2455, 500, 150, 2, "$Target8$", 7, [[[1880, 110], [2050, 110]], [[1950, 400], [1550, 550], [1500, 490]]]);
+   AddAssaultTarget(CCP2, 2180, 510, 120, 2, "$Target4$", 3, [[[1880, 110], [2050, 110]], [[1950, 400], [1550, 550], [1500, 490]]]);
+   AddAssaultTarget(LBPC, 2200, 320, 120, 2, "$Target5$", 4, [[[1880, 110], [2050, 110]], [[1950, 400], [1550, 550], [1500, 490]]]);
+   AddAssaultTarget(CMSN, 2350, 210, 120, 2, "$Target6$", 5, [[[1880, 110], [2050, 110]], [[1950, 400], [1550, 550], [1500, 490]]]);
+   AddAssaultTarget(GSTA, 2460, 320, 120, 2, "$Target7$", 6, [[[1880, 110], [2050, 110]], [[1950, 400], [1550, 550], [1500, 490]]]);
+   AddAssaultTarget(CCP1, 2455, 500, 120, 2, "$Target8$", 7, [[[1880, 110], [2050, 110]], [[1950, 400], [1550, 550], [1500, 490]]]);
 
    //Ziele verbinden
    ConnectAssaultTargets([3, 4, 5, 6, 7]);
