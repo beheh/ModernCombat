@@ -722,6 +722,9 @@ public func ChooserFinished()
    if(aTeams[2] == true)
    {aSelfDefense[0]->SetTeam(2); aSelfDefense[1]->SetTeam(2); aSelfDefense[3]->SetTeam(2);}
 
+   //Boden
+   DrawMaterialQuad("Wall-Bricks2", 7230,430, 7250,430, 7250,460, 7230,460);
+
    //Objekte entfernen
    RemoveObject(aSelfDefense[2]);
    RemoveObject(aArtillery[0]);
@@ -730,6 +733,15 @@ public func ChooserFinished()
    RemoveObject(FindObject2(Find_ID(BUOY),Find_InRect(5160, 520, 100, 100)));
    RemoveObject(FindObject2(Find_ID(CLVM),Find_InRect(7200, 390, 40, 40)));
    RemoveObject(FindObject2(Find_ID(RSPT),Find_InRect(7224, 419, 3, 3)));
+   RemoveObject(FindObject2(Find_ID(HA4K),Find_InRect(7225, 410, 20, 30)));
+   RemoveObject(FindObject2(Find_ID(LADR),Find_InRect(7230, 430, 20, 30)));
+   RemoveObject(FindObject2(Find_ID(CONS),Find_InRect(7245, 410, 20, 20)));
+
+   //Konsole
+   CreateObject(CONS, 7635, 365, -1)->Set(aSelfDefense[3]);
+
+   //Leiter
+   CreateObject(LADR, 7700, 490, -1)->Set(13);
 
    //Stahlbrücken
    CreateObject(_HBR, 705, 522, -1);
