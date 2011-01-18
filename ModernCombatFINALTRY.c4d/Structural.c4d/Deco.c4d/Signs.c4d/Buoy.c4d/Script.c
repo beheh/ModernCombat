@@ -49,7 +49,7 @@ func Timer()
     SetDTRotation (0,0,0,this);
 }
 
-protected func SetDTRotation (int r, int xoff, int yoff, object obj)//*hrhrhrhr*
+protected func SetDTRotation (int r, int xoff, int yoff, object obj)
 {
   var fsin=Sin(r, 1000), fcos=Cos(r, 1000);
 
