@@ -357,6 +357,16 @@ func CreateFurniture()
   CreateObject(STNE, 1290, 800, -1);
   CreateObject(STNE, 1450, 800, -1);
 
+  //Hinweisschilder
+  CreateObject(SGNP, 990, 640, -1)->SetPhase(1);
+  CreateObject(SGNP, 1740, 640, -1)->SetPhase(1);
+  tmp = CreateObject(SNPT, 400, 430, -1);
+  tmp->SetAction("Sign2");
+  tmp->Light();
+  tmp = CreateObject(SNPT, 2330, 430, -1);
+  tmp->SetAction("Sign2");
+  tmp->Light();
+
   //Ventillatoren
   CreateObject(VEN3, 490, 595, -1)->SetCon(20);
   tmp = CreateObject(VEN3, 510, 595, -1);

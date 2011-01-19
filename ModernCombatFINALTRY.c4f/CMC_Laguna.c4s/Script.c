@@ -297,7 +297,7 @@ public func ChooserFinished()
    CreateObject(BRDR, 1300, 0, -1)->Set(0);
    CreateObject(BRDR, 2770, 0, -1)->Set(1);
 
-   //Warnschilder
+   //Hinweisschilder
    CreateObject(SGNP, 1255, 590, -1);
    CreateObject(SGNP, 2745, 570, -1);
 
@@ -317,7 +317,7 @@ public func ChooserFinished()
    CreateObject(BRDR, 1300, 0, -1)->Set(0);
    CreateObject(BRDR, 2770, 0, -1)->Set(1);
 
-   //Warnschilder
+   //Hinweisschilder
    CreateObject(SGNP, 1255, 590, -1);
    CreateObject(SGNP, 2745, 570, -1);
 
@@ -353,6 +353,9 @@ public func ChooserFinished()
    //Grenzen setzen
    CreateObject(BRDR, 230, 0, -1)->Set(0,1);
    CreateObject(BRDR, 1820, 0, -1)->Set(1,1);
+
+   //Hinweisschild
+   CreateObject(SGNP, 2920, 440, -1)->SetPhase(2);
 
    //Objekt entfernen
    RemoveAll(SPVM);
@@ -423,6 +426,9 @@ public func ChooserFinished()
    //Grenzen setzen
    CreateObject(BRDR, 200, 0, -1)->Set(0);
    CreateObject(BRDR, 3245, 0, -1)->Set(1);
+
+   //Hinweisschilder
+   CreateObject(SGNP, 2920, 440, -1)->SetPhase(2);
 
    //Blackhawk
    SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,2895,410,-1),100*21);

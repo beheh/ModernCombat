@@ -176,6 +176,12 @@ func CreateFurniture()
   CreateObject(ETLT, 2830, 655, -1);
   CreateObject(ETLT, 3830, 540, -1);
 
+  //Hinweisschilder
+  CreateObject(SNPT, 630, 590, -1)->SetAction("Sign3");
+  CreateObject(SGNP, 1290, 670, -1)->SetPhase(2);
+  CreateObject(SGNP, 2940, 670, -1)->SetPhase(2);
+  CreateObject(SNPT, 3610, 590, -1)->SetAction("Sign3");
+
   //Grenze
   CreateObject(BRDR, 0, 1110, -1)->Set(3);
 

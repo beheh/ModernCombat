@@ -214,11 +214,13 @@ func CreateFurniture()
   CreateObject(XTNK, 3415, 530, -1);
   CreateObject(XTNK, 5525, 530, -1)->AutoRespawn();
 
-  //Warnschilder
+  //Hinweisschilder
   CreateObject(SGNP, 70, 480, -1);
   CreateObject(SGNP, 360, 520, -1);
   CreateObject(SGNP, 635, 530, -1);
+  CreateObject(SGNP, 940, 600, -1)->SetPhase(2);
 
+  CreateObject(SGNP, 5890, 600, -1)->SetPhase(2);
   CreateObject(SGNP, 6195, 530, -1);
   CreateObject(SGNP, 6445, 520, -1);
   CreateObject(SGNP, 6780, 490, -1);
