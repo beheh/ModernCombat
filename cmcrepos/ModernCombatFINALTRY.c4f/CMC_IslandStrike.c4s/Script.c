@@ -659,14 +659,19 @@ public func ChooserFinished()
    CreateObject(BRDR, 3370, 0, -1)->Set(0);
    CreateObject(BRDR, 5980, 0, -1)->Set(1);
 
-   //Warnschilder
+   //Hinweisschilder
+   var sign = CreateObject(SNPT, 1460, 400, -1);
+   sign->SetAction("Sign2");
+   sign->SetMode(1);
+   CreateObject(SGNP, 2530, 470, -1)->SetPhase(1);
    CreateObject(SGNP, 3295, 370, -1);
    CreateObject(SGNP, 3415, 370, -1);
    CreateObject(SGNP, 3320, 580, -1);
-
+   CreateObject(SGNP, 4800, 320, -1)->SetPhase(2);
    CreateObject(SGNP, 5865, 350, -1);
    CreateObject(SGNP, 5885, 510, -1);
    CreateObject(SGNP, 5950, 350, -1);
+   CreateObject(SGNP, 6620, 470, -1)->SetPhase(1);
 
    //Blackhawk
    SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,4700,290,-1),100*21,300);
@@ -686,14 +691,18 @@ public func ChooserFinished()
    {CreateFlag(2,6430,340,GetTeamColor(2));}
 
    //Grenzen setzen
+   CreateObject(SGNP, 2530, 470, -1)->SetPhase(1);
    CreateObject(BRDR, 3370, 0, -1)->Set(0);
    CreateObject(BRDR, 6870, 0, -1)->Set(1);
 
-   //Warnschilder
+   //Hinweisschilder
+   var sign = CreateObject(SNPT, 1460, 400, -1);
+   sign->SetAction("Sign2");
+   sign->SetMode(1);
    CreateObject(SGNP, 3295, 370, -1);
    CreateObject(SGNP, 3415, 370, -1);
    CreateObject(SGNP, 3320, 580, -1);
-
+   CreateObject(SGNP, 6620, 470, -1)->SetPhase(1);
    CreateObject(SGNP, 6725, 510, -1);
    CreateObject(SGNP, 6855, 510, -1);
 
@@ -765,6 +774,14 @@ public func ChooserFinished()
    CreateObject(WCR2, 5288, 550, -1);
    CreateObject(WCR2, 5270, 550, -1);
    CreateObject(WCR2, 5400, 532, -1);
+
+   //Hinweisschilder
+   var sign = CreateObject(SNPT, 1460, 400, -1);
+   sign->SetAction("Sign2");
+   sign->SetMode(1);
+   CreateObject(SGNP, 2530, 470, -1)->SetPhase(1);
+   CreateObject(SGNP, 4800, 320, -1)->SetPhase(2);
+   CreateObject(SGNP, 6620, 470, -1)->SetPhase(1);
 
    //Blackhawk
    SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,4700,290,-1),100*21,300);
@@ -879,6 +896,13 @@ public func ChooserFinished()
    //Grenzen setzen
    CreateObject(BRDR, 440, 0, -1)->Set(0);
    CreateObject(BRDR, 7860, 0, -1)->Set(1);
+
+   //Hinweisschilder
+   var sign = CreateObject(SNPT, 1460, 400, -1);
+   sign->SetAction("Sign2");
+   sign->SetMode(1);
+   CreateObject(SGNP, 2530, 470, -1)->SetPhase(1);
+   CreateObject(SGNP, 6620, 470, -1)->SetPhase(1);
 
    //Blackhawk
    SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,4700,290,-1),100*21,300);

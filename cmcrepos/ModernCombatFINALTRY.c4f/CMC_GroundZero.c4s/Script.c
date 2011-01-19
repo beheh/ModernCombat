@@ -239,6 +239,10 @@ func CreateFurniture()
   CreateObject(ETLT, 325, 430, -1);
   CreateObject(ETLT, 2475, 430, -1);
 
+  //Hinweisschilder
+  CreateObject(SGNP, 480, 450, -1)->SetPhase(1);
+  CreateObject(SGNP, 2320, 450, -1)->SetPhase(1);
+
   //Schutztüren
   CreateObject(GDDR, 230, 290, -1);
   CreateObject(GDDR, 350, 390, -1);
@@ -383,7 +387,7 @@ public func ChooserFinished()
    CreateObject(BRDR, 700, 0, -1)->Set(0);
    CreateObject(BRDR, 2100, 0, -1)->Set(1);
 
-   //Warnschilder
+   //Hinweisschilder
    CreateObject(SGNP, 720, 390, -1);
    CreateObject(SGNP, 720, 450, -1);
 
@@ -404,7 +408,7 @@ public func ChooserFinished()
    CreateObject(BRDR, 440, 0, -1)->Set(0);
    CreateObject(BRDR, 2360, 0, -1)->Set(1);
 
-   //Warnschilder
+   //Hinweisschilder
    CreateObject(SGNP, 410, 290, -1);
    CreateObject(SGNP, 460, 450, -1);
    CreateObject(SGNP, 2340, 450, -1);
@@ -428,7 +432,7 @@ public func ChooserFinished()
    CreateObject(SBBA, 1520, 430, -1)->Right();
    CreateObject(SBBA, 1580, 440, -1)->Right();
 
-   //Warnschilder
+   //Hinweisschilder
    CreateObject(SGNP, 410, 290, -1);
    CreateObject(SGNP, 460, 450, -1);
    CreateObject(SGNP, 2340, 450, -1);
@@ -535,7 +539,7 @@ public func ChooserFinished()
    CreateObject(BRDR, 440, 0, -1)->Set(0);
    CreateObject(BRDR, 2360, 0, -1)->Set(1);
 
-   //Warnschilder
+   //Hinweisschilder
    CreateObject(SGNP, 410, 290, -1);
    CreateObject(SGNP, 460, 450, -1);
    CreateObject(SGNP, 2340, 450, -1);

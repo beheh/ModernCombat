@@ -520,6 +520,10 @@ func CreateFurniture()
   CreateObject(ETLT, 1480, 170, -1);
   CreateObject(ETLT, 2530, 395, -1);
 
+  //Hinweisschilder
+  CreateObject(SGNP, 780, 410, -1)->SetPhase(1);
+  CreateObject(SGNP, 1410, 550, -1)->SetPhase(1);
+
   //Hydrauliküren
   aDoor[0] = CreateObject(SEDR,1225, 560,-1);
    aDoor[0]->Lock();

@@ -360,9 +360,21 @@ public func ChooserFinished()
   SetPlayList("CMC_Base Groove.ogg;CMC_Firehawk.ogg;CMC_Friendly Unit.ogg;CMC_Getaway.ogg;CMC_Moving Squad.ogg;CMC_Offensive.ogg;CMC_Showtime.ogg;CMC_Slow Motion.ogg;CMC_Striking Force.ogg;CMC_No Good.ogg;CMC_Obsession.ogg;CMC_Your Eyes.ogg");
   Music("CMC_Friendly Unit.ogg");
 
+  //DM/LMS-Spielziel
+  if(FindObject(GTDM) || FindObject(GLMS))
+  {
+   //Hinweisschilder
+   CreateObject(SGNP, 560, 480, -1)->SetPhase(1);
+   CreateObject(SGNP, 990, 400, -1)->SetPhase(1);
+  }
+
   //CTF-Spielziel
   if(FindObject(GCTF))
   {
+   //Hinweisschilder
+   CreateObject(SGNP, 560, 480, -1)->SetPhase(1);
+   CreateObject(SGNP, 990, 400, -1)->SetPhase(1);
+
    //Flaggen
    CreateFlag(1,110,440,GetTeamColor(1)); 
    CreateFlag(2,1440,360,GetTeamColor(2)); 
@@ -392,6 +404,10 @@ public func ChooserFinished()
   //MR-Spielziel
   if (FindObject(GMNR))
   {
+    //Hinweisschilder
+    CreateObject(SGNP, 560, 480, -1)->SetPhase(1);
+    CreateObject(SGNP, 990, 400, -1)->SetPhase(1);
+
     //Geldsäcke
     AddMoneySpawn(780, 50, [10, 15]);
     AddMoneySpawn(610, 240, [5, 10]);

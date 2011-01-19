@@ -189,6 +189,10 @@ func CreateFurniture()
   CreateObject(ENGT, 4140, 510, -1)->SetCon(70);
   CreateObject(ENGT, 4170, 510, -1)->SetCon(70);
 
+  //Hinweisschilder
+  CreateObject(SNPT, 950, 520, -1);
+  CreateObject(SNPT, 4600, 520, -1);
+
   //Grenzen
   CreateObject(BRDR, 940, 0, -1)->Set(0);
   CreateObject(BRDR, 4600, 0, -1)->Set(1);
@@ -261,6 +265,10 @@ public func ChooserFinished()
   //DM/LMS-Spielziel
   if(FindObject(GTDM) || FindObject(GLMS))
   {
+   //Hinweisschilder
+   CreateObject(SGNP, 2655, 550, -1)->SetPhase(2);
+   CreateObject(SGNP, 2885, 550, -1)->SetPhase(2);
+
    //Blackhawk
    SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,2770,480,-1),100*21,300);
   }
@@ -274,6 +282,10 @@ public func ChooserFinished()
    if(aTeams[2] == true)
    {CreateFlag(2,4060,510,GetTeamColor(2));}
 
+   //Hinweisschilder
+   CreateObject(SGNP, 2655, 550, -1)->SetPhase(2);
+   CreateObject(SGNP, 2885, 550, -1)->SetPhase(2);
+
    //Blackhawk
    SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,2770,480,-1),100*21,300);
   }
@@ -284,6 +296,10 @@ public func ChooserFinished()
    //Flaggenposten
    var flag = CreateObject(OFPL, 2770, 630, -1);
    flag->~Set("$Flag2$");
+
+   //Hinweisschilder
+   CreateObject(SGNP, 2655, 550, -1)->SetPhase(2);
+   CreateObject(SGNP, 2885, 550, -1)->SetPhase(2);
 
    //Blackhawk
    SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,2770,480,-1),100*21,300);
@@ -309,6 +325,10 @@ public func ChooserFinished()
 
    AddAssaultTarget(CMSN, 4060, 510, 300, 2, "$Target1$", 3, [[4290, 580], [4440, 580]]);
    AddAssaultTarget(RADR, 3970, 320, 400, 2, "$Target2$", 2, [[4180, 360], [4250, 470]]);
+
+   //Hinweisschilder
+   CreateObject(SGNP, 2655, 550, -1)->SetPhase(2);
+   CreateObject(SGNP, 2885, 550, -1)->SetPhase(2);
 
    //Blackhawk
    SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,2770,480,-1),100*21,300);
@@ -349,6 +369,10 @@ public func ChooserFinished()
    {
     aFlag[2]->Set("$Flag3$",0,2);
    }
+
+   //Hinweisschilder
+   CreateObject(SGNP, 2655, 550, -1)->SetPhase(2);
+   CreateObject(SGNP, 2885, 550, -1)->SetPhase(2);
 
    //Blackhawk
    SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,2770,480,-1),100*21,300);

@@ -162,6 +162,9 @@ func CreateFurniture()
   CreateObject(RAI1, 2080, 560, -1)->SetRail([1,3,1,3,1,3,1]);
   CreateObject(RAI1, 2250, 210, -1)->SetRail([1,3,1,3,1,3,1]);
 
+  //Hinweisschild
+  CreateObject(SGNP, 1390, 460, -1)->SetPhase(1);
+
   //Selbstschussanlage und Konsole
   aSelfDefense[0] = CreateObject(SEGU, 1305, 369, -1);
     aSelfDefense[0]->Arm(MISA);
@@ -242,7 +245,7 @@ public func ChooserFinished()
    CreateObject(BRDR, 510, 0, -1)->Set(0);
    CreateObject(BRDR, 1965, 0, -1)->Set(1);
 
-   //Warnschilder
+   //Hinweisschilder
    CreateObject(SGNP, 525, 350, -1);
    CreateObject(SGNP, 585, 650, -1);
    CreateObject(SGNP, 600, 520, -1);
