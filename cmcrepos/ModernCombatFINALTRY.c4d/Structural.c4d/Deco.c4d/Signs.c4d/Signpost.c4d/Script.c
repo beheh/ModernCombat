@@ -41,7 +41,7 @@ func Light()
   else
   {
     pLight = AddLightCone(3000,RGBa(255,255,255,70),this());
-    pLight -> ChangeOffset(0,-80);
+    pLight -> ChangeOffset(15,-80);
     pLight -> ChangeR(180);
     pLight -> TurnOn();
   }
