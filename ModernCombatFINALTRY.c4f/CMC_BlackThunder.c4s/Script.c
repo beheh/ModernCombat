@@ -39,6 +39,7 @@ func CreateFurniture()
 
   CreateObject(LADR, 460, 540, -1)->Set(4);
   CreateObject(LADR, 790, 750, -1)->Set(19);
+  CreateObject(LADR, 1220, 1178, -1)->Set(40);
   CreateObject(LADR, 1250, 844, -1)->Set(27);
 
   CreateObject(LADR, 2020, 850, -1)->Set(19);
@@ -47,6 +48,7 @@ func CreateFurniture()
   CreateObject(LADR, 2220, 850, -1)->Set(19);
 
   CreateObject(LADR, 2990, 844, -1)->Set(27);
+  CreateObject(LADR, 3020, 1178, -1)->Set(40);
   CreateObject(LADR, 3450, 750, -1)->Set(19);
   CreateObject(LADR, 3780, 540, -1)->Set(4);
 
@@ -177,10 +179,15 @@ func CreateFurniture()
   CreateObject(ETLT, 3830, 540, -1);
 
   //Hinweisschilder
+  CreateObject(SNPT, 280, 1210, -1);
   CreateObject(SNPT, 630, 590, -1)->SetAction("Sign3");
+  CreateObject(SGNP, 1190, 1200, -1);
   CreateObject(SGNP, 1290, 670, -1)->SetPhase(2);
+  CreateObject(SNPT, 1930, 1170, -1);
   CreateObject(SGNP, 2940, 670, -1)->SetPhase(2);
+  CreateObject(SGNP, 2960, 1270, -1);
   CreateObject(SNPT, 3610, 590, -1)->SetAction("Sign3");
+  CreateObject(SNPT, 3710, 1280, -1);
 
   //Grenze
   CreateObject(BRDR, 0, 1110, -1)->Set(3);
