@@ -1,0 +1,16 @@
+[DefCore]
+id=SNPT
+Name=Signpost
+Version=4,9,5
+Category=C4D_Structure
+Width=80
+Height=90
+Offset=-40,-45
+Value=30
+Mass=100
+Components=METL=3;
+Picture=0,0,80,90
+Vertices=2
+VertexX=-15,15
+VertexY=44,44
+VertexFriction=100
