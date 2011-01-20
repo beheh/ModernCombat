@@ -19,20 +19,22 @@ func Initialize()
   aFlag = [];
   //Selbstschussanlagen
   aSelfDefense = [];
-  //Szenario einrichten
-  CreateFurniture();
-  //Equipment plazieren
+  //Einrichtung plazieren
+  CreateInterior();
+  //Ausrüstung plazieren
   CreateEquipment();
   //Dekoration plazieren
   CreateDecoration();
+  //Optionale Objekte plazieren
+  CreateOptionalFeatures();
   return(1); 
 }
 
 /* Plazierungslisten */
 
-func CreateFurniture()
+func CreateInterior()
 {
-  Log("$CreatingFurniture$");
+  Log("$CreatingInterior$");
 
   //Aufzüge
   CreateObject(LFTP, 165, 500, -1);
@@ -72,15 +74,6 @@ func CreateFurniture()
   CreateObject(_HBR, 305, 352, -1);
   CreateObject(_HBR, 2495, 352, -1);
 
-  //Geländer
-  CreateObject(RAI1, 0, 120, -1)->SetRail([1,1,1]);
-  CreateObject(RAI1, 360, 390, -1)->SetRail([1]);
-  CreateObject(RAI1, 360, 460, -1)->SetRail([1]);
-  CreateObject(RAI1, 1330, 420, -1)->SetRail([1,1,1,1,1,1,1]);
-  CreateObject(RAI1, 2415, 390, -1)->SetRail([1]);
-  CreateObject(RAI1, 2415, 460, -1)->SetRail([1]);
-  CreateObject(RAI1, 2740, 120, -1)->SetRail([1,1,1]);
-
   //Glasscheiben
   CreateObject(_WIN, 912, 320, -1);
   CreateObject(_WIN, 912, 370, -1);
@@ -102,37 +95,9 @@ func CreateFurniture()
   CreateObject(_WIN, 1888, 370, -1);
   CreateObject(_WIN, 1888, 420, -1);
 
-  //Radare
-  CreateObject(RADR, 170, 220, -1);
-  CreateObject(RADR, 2630, 220, -1);
-
-  //Automaten
-  CreateObject(CLVM, 225, 460, -1);
-  CreateObject(SPVM, 2570, 460, -1);
-
-  //Glastische
-  CreateObject(GTBL, 300, 460, -1);
-  CreateObject(GTBL, 2500, 460, -1);
-
   //Explosivtanks
   CreateObject(XTNK, 300, 390, -1)->AutoRespawn();
   CreateObject(XTNK, 2500, 390, -1)->AutoRespawn();
-
-  //Wandlampen
-  CreateObject(BLGH, 940, 310, -1);
-  CreateObject(BLGH, 1110, 310, -1);
-  CreateObject(BLGH, 1690, 305, -1);
-  CreateObject(BLGH, 1860, 305, -1);
-
-  //Büsche
-  CreateObject(BSH2, 1230, 450, -1);
-  CreateObject(BSH2, 1245, 450, -1);
-  CreateObject(BSH2, 1550, 450, -1);
-  CreateObject(BSH2, 1565, 450, -1);
-
-  //Bäume
-  CreateObject(TRE3, 1300, 433, -1);
-  CreateObject(TRE3, 1500, 433, -1);
 
   //Metallkisten
   CreateObject(MWCR, 510, 320, -1);
@@ -181,63 +146,6 @@ func CreateFurniture()
   CreateObject(SBBA, 1345, 420, -1);
   CreateObject(SBBA, 1455, 420, -1)->Right();
   CreateObject(SBBA, 2375, 290, -1);
-
-  //Lüftungsgitter
-  CreateObject(ENGT, 165, 510, -1);
-  CreateObject(ENGT, 2635, 510, -1);
-
-  //Topfpflanzen
-  CreateObject(PLT2, 260, 290, -1);
-  CreateObject(PLT2, 2540, 290, -1);
-
-  //Scheinwerfer
-  CreateObject(FLGH, 1370, 420, -1);
-  CreateObject(FLGH, 1430, 420, -1);
-
-  //Monitore
-  CreateObject(MONI, 310, 448, -1);
-  CreateObject(MONI, 2485, 448, -1);
-
-  //Pflanzen
-  CreateObject(PLNT, 200, 460, -1);
-  CreateObject(PLNT, 1010, 310, -1);
-  CreateObject(PLNT, 1790, 310, -1);
-  CreateObject(PLNT, 2600, 460, -1);
-
-  //Dekoschleusen
-  CreateObject(GAT1, 105, 340, -1);
-  CreateObject(GAT1, 2695, 340, -1);
-
-  //Warnschild
-  CreateObject(EXSN, 200, 380, -1);
-  CreateObject(EXSN, 2600, 380, -1);
-
-  //Zäune
-  CreateObject(FENC, 630, 260, -1);
-  CreateObject(FENC, 2170, 260, -1);
-
-  //Topfpflanzen
-  CreateObject(PLT3, 580, 390, -1);
-  CreateObject(PLT3, 2150, 390, -1);
-
-  //Regale
-  CreateObject(FRAM, 555, 440, -1);
-  CreateObject(FRAM, 675, 440, -1);
-  CreateObject(FRAM, 985, 420, -1);
-  CreateObject(FRAM, 985, 440, -1);
-  CreateObject(FRAM, 1065, 420, -1);
-  CreateObject(FRAM, 1065, 440, -1);
-
-  CreateObject(FRAM, 1735, 420, -1);
-  CreateObject(FRAM, 1735, 440, -1);
-  CreateObject(FRAM, 1815, 420, -1);
-  CreateObject(FRAM, 1815, 440, -1);
-  CreateObject(FRAM, 2125, 440, -1);
-  CreateObject(FRAM, 2245, 440, -1);
-
-  //Notausgangslichter
-  CreateObject(ETLT, 325, 430, -1);
-  CreateObject(ETLT, 2475, 430, -1);
 
   //Hinweisschilder
   CreateObject(SGNP, 480, 450, -1)->SetPhase(1);
@@ -348,6 +256,107 @@ func CreateDecoration()
 {
   Log("$CreatingDecoration$");
 
+  //Geländer
+  CreateObject(RAI1, 0, 120, -1)->SetRail([1,1,1]);
+  CreateObject(RAI1, 360, 390, -1)->SetRail([1]);
+  CreateObject(RAI1, 360, 460, -1)->SetRail([1]);
+  CreateObject(RAI1, 1330, 420, -1)->SetRail([1,1,1,1,1,1,1]);
+  CreateObject(RAI1, 2415, 390, -1)->SetRail([1]);
+  CreateObject(RAI1, 2415, 460, -1)->SetRail([1]);
+  CreateObject(RAI1, 2740, 120, -1)->SetRail([1,1,1]);
+
+  //Radare
+  CreateObject(RADR, 170, 220, -1);
+  CreateObject(RADR, 2630, 220, -1);
+
+  //Automaten
+  CreateObject(CLVM, 225, 460, -1);
+  CreateObject(SPVM, 2570, 460, -1);
+
+  //Glastische
+  CreateObject(GTBL, 300, 460, -1);
+  CreateObject(GTBL, 2500, 460, -1);
+
+  //Wandlampen
+  CreateObject(BLGH, 940, 310, -1);
+  CreateObject(BLGH, 1110, 310, -1);
+  CreateObject(BLGH, 1690, 305, -1);
+  CreateObject(BLGH, 1860, 305, -1);
+
+  //Büsche
+  CreateObject(BSH2, 1230, 450, -1);
+  CreateObject(BSH2, 1245, 450, -1);
+  CreateObject(BSH2, 1550, 450, -1);
+  CreateObject(BSH2, 1565, 450, -1);
+
+  //Bäume
+  CreateObject(TRE3, 1300, 433, -1);
+  CreateObject(TRE3, 1500, 433, -1);
+
+  //Lüftungsgitter
+  CreateObject(ENGT, 165, 510, -1);
+  CreateObject(ENGT, 2635, 510, -1);
+
+  //Topfpflanzen
+  CreateObject(PLT2, 260, 290, -1);
+  CreateObject(PLT2, 2540, 290, -1);
+
+  //Scheinwerfer
+  CreateObject(FLGH, 1370, 420, -1);
+  CreateObject(FLGH, 1430, 420, -1);
+
+  //Flaschen
+  CreateObject(BOTL, 290, 448, -1);
+  CreateObject(BOTL, 2510, 448, -1);
+
+  //Monitore
+  CreateObject(MNI2, 310, 448, -1);
+  CreateObject(MNI2, 2485, 448, -1);
+
+  //Pflanzen
+  CreateObject(PLNT, 200, 460, -1);
+  CreateObject(PLNT, 1010, 310, -1);
+  CreateObject(PLNT, 1790, 310, -1);
+  CreateObject(PLNT, 2600, 460, -1);
+
+  //Dekoschleusen
+  CreateObject(GAT1, 105, 340, -1);
+  CreateObject(GAT1, 2695, 340, -1);
+
+  //Warnschilder
+  CreateObject(EXSN, 200, 380, -1);
+  CreateObject(EXSN, 2600, 380, -1);
+
+  //Zäune
+  CreateObject(FENC, 630, 260, -1);
+  CreateObject(FENC, 2170, 260, -1);
+
+  //Topfpflanzen
+  CreateObject(PLT3, 580, 390, -1);
+  CreateObject(PLT3, 2150, 390, -1);
+
+  //Regale
+  CreateObject(FRAM, 555, 440, -1);
+  CreateObject(FRAM, 675, 440, -1);
+  CreateObject(FRAM, 985, 420, -1);
+  CreateObject(FRAM, 985, 440, -1);
+  CreateObject(FRAM, 1065, 420, -1);
+  CreateObject(FRAM, 1065, 440, -1);
+
+  CreateObject(FRAM, 1735, 420, -1);
+  CreateObject(FRAM, 1735, 440, -1);
+  CreateObject(FRAM, 1815, 420, -1);
+  CreateObject(FRAM, 1815, 440, -1);
+  CreateObject(FRAM, 2125, 440, -1);
+  CreateObject(FRAM, 2245, 440, -1);
+
+  //Notausgangslichter
+  CreateObject(ETLT, 325, 430, -1);
+  CreateObject(ETLT, 2475, 430, -1);
+}
+
+func CreateOptionalFeatures()
+{
   //Hintergründe
   CreateObject(BD04,220,550,-1);
   CreateObject(BD04,727,550,-1);

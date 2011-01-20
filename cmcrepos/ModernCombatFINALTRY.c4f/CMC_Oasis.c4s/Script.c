@@ -23,21 +23,22 @@ func Initialize()
   aLamp = [];
   //Artillerie
   aArtillery = [];
-  //Szenario einrichten
-  CreateFurniture();
+  //Einrichtung plazieren
+  CreateInterior();
   //Ausrüstung plazieren
   CreateEquipment();
   //Dekoration plazieren
   CreateDecoration();
+  //Optionale Objekte plazieren
+  CreateOptionalFeatures();
   return(1); 
 }
 
 /* Plazierungslisten */
 
-func CreateFurniture()
+func CreateInterior()
 {
-  Log("$CreatingFurniture$");
-  //Alle Objekte folglich von links oben nach rechts unten
+  Log("$CreatingInterior$");
 
   //Leitern
   CreateObject(LADR, 1420, 532, -1)->Set(8);
@@ -64,10 +65,6 @@ func CreateFurniture()
 
   //Große Bodenlucke
   CreateObject(H24K, 3415, 538, -1);
-
-  //Orientierungslichter
-  CreateObject(OLGH, 845, 600, -1)->Set(8, 10, 1, 1, 15);
-  CreateObject(OLGH, 5990, 600, -1)->Set(8, 10, 1, 1, 15);
 
   //Stahlbrücken
   CreateObject(_HBR, 1495, 472, -1);
@@ -168,46 +165,9 @@ func CreateFurniture()
   CreateObject(GSBL, 3700, 580, -1);
   CreateObject(GSBL, 5410, 550, -1)->AutoRespawn();
 
-  //Regale
-  CreateObject(FRAM, 1440, 460, -1);
-  CreateObject(FRAM, 5390, 460, -1);
-
-  //Satellitenschüssel
-  CreateObject(SADH, 7625, 320, -1);
-
-  //Radare
-  CreateObject(RADR, 890, 460, -1);
-  CreateObject(RADR, 5940, 460, -1);
-
-  //Büsche
-  CreateObject(BSH2, 920, 510, -1);
-  CreateObject(BSH2, 2650, 670, -1);
-  CreateObject(BSH2, 3520, 560, -1);
-  CreateObject(BSH2, 5370, 500, -1);
-
-  //Dekoschleusen
-  CreateObject(GAT1, 890, 540, -1);
-  CreateObject(GAT1, 5940, 540, -1);
-
   //Sandsackbarrieren
   CreateObject(SBBA, 2790, 600, -1)->Right();
   CreateObject(SBBA, 4041, 600, -1);
-
-  //Geländer
-  CreateObject(RAI1, 3320, 530, -1)->SetRail([1,1,1,1,1,1,1,1,1,1]);
-
-  //Zäune
-  CreateObject(FENC, 790, 600, -1);
-  CreateObject(FENC, 850, 600, -1);
-  CreateObject(FENC, 910, 600, -1);
-
-  CreateObject(FENC, 5920, 600, -1);
-  CreateObject(FENC, 5980, 600, -1);
-  CreateObject(FENC, 6040, 600, -1);
-
-  //Lüftungsgitter
-  CreateObject(ENGT, 2760, 660, -1);
-  CreateObject(ENGT, 4070, 660, -1);
 
   //Explosivtanks
   CreateObject(XTNK, 1305, 530, -1)->AutoRespawn();
@@ -287,6 +247,50 @@ func CreateDecoration()
 {
   Log("$CreatingDecoration$");
 
+  //Orientierungslichter
+  CreateObject(OLGH, 845, 600, -1)->Set(8, 10, 1, 1, 15);
+  CreateObject(OLGH, 5990, 600, -1)->Set(8, 10, 1, 1, 15);
+
+  //Regale
+  CreateObject(FRAM, 1440, 460, -1);
+  CreateObject(FRAM, 5390, 460, -1);
+
+  //Satellitenschüssel
+  CreateObject(SADH, 7625, 320, -1);
+
+  //Radare
+  CreateObject(RADR, 890, 460, -1);
+  CreateObject(RADR, 5940, 460, -1);
+
+  //Büsche
+  CreateObject(BSH2, 920, 510, -1);
+  CreateObject(BSH2, 2650, 670, -1);
+  CreateObject(BSH2, 3520, 560, -1);
+  CreateObject(BSH2, 5370, 500, -1);
+
+  //Dekoschleusen
+  CreateObject(GAT1, 890, 540, -1);
+  CreateObject(GAT1, 5940, 540, -1);
+
+  //Geländer
+  CreateObject(RAI1, 3320, 530, -1)->SetRail([1,1,1,1,1,1,1,1,1,1]);
+
+  //Zäune
+  CreateObject(FENC, 790, 600, -1);
+  CreateObject(FENC, 850, 600, -1);
+  CreateObject(FENC, 910, 600, -1);
+
+  CreateObject(FENC, 5920, 600, -1);
+  CreateObject(FENC, 5980, 600, -1);
+  CreateObject(FENC, 6040, 600, -1);
+
+  //Lüftungsgitter
+  CreateObject(ENGT, 2760, 660, -1);
+  CreateObject(ENGT, 4070, 660, -1);
+}
+
+func CreateOptionalFeatures()
+{
   //Hintergründe
   CreateObject(BD09,0,730,-1);
   CreateObject(BD09,1020,730,-1);

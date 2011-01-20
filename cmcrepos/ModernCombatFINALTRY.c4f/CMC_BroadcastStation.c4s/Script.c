@@ -13,19 +13,21 @@ func Initialize()
   Music("CMC_WaitingforSpawn.ogg",1);
   //Bildschirmfärbung
   SetSkyAdjust(RGBa(255,255,255,128),RGB(64,196,255));
-  //Szenario einrichten
-  CreateFurniture();
-  //Equipment plazieren
+  //Einrichtung plazieren
+  CreateInterior();
+  //Ausrüstung plazieren
   CreateEquipment();
+  //Dekoration plazieren
+  CreateDecoration();
   return(1);
 }
 
 /* Plazierungslisten */
 
-func CreateFurniture()
+func CreateInterior()
 {
   var tmp;
-  Log("$CreatingFurniture$");
+  Log("$CreatingInterior$");
 
   //Aufzüge
   CreateObject(LFTP, 845, 510, -1);
@@ -71,13 +73,6 @@ func CreateFurniture()
   CreateObject(GDDR, 1388, 300, -1);
   CreateObject(GDDR, 1553, 180, -1);
 
-  //Raum
-  CreateObject(ROM2, 50, 490, -1);
-
-  //Alarmlampen
-  CreateObject(ALGH, 905, 340, -1);
-  CreateObject(ALGH, 1035, 150, -1)->TurnOn();
-
   //Metallkisten
   CreateObject(MWCR, 880, 340, -1)->AutoRespawn();
   CreateObject(MWCR, 1215, 590, -1)->AutoRespawn();
@@ -120,32 +115,10 @@ func CreateFurniture()
   CreateObject(HBRL, 440, 710, -1)->AutoRespawn();
   CreateObject(HBRL, 1130, 710, -1)->AutoRespawn();
 
-  //Radare
-  CreateObject(RADR, 500, 360, -1);
-  CreateObject(RADR, 1210, 190, -1);
-
   //Palette
   CreateObject(PLLT, 895, 710, -1);
 
-  //Zäune
-  CreateObject(FENC, 1070, 710, -1);
-  CreateObject(FENC, 1130, 710, -1);
-  CreateObject(FENC, 1190, 710, -1);
-  CreateObject(FENC, 1340, 710, -1);
-
-  //Regale
-  CreateObject(FRAM, 20, 490, -1);
-  CreateObject(FRAM, 85, 490, -1);
-  CreateObject(FRAM, 105, 490, -1);
-
-  CreateObject(FRAM, 340, 500, -1);
-  CreateObject(FRAM, 360, 500, -1);
-  CreateObject(FRAM, 380, 500, -1);
-  CreateObject(FRAM, 400, 500, -1);
-  CreateObject(FRAM, 420, 500, -1);
-  CreateObject(FRAM, 440, 500, -1);
-
-  ///Rampen
+  //Rampen
   DrawMaterialQuad("Backwall-Marble1",311,490,281,480,281,490,296,490,true);
   DrawMaterialQuad("Backwall-Marble1",561,500,531,490,531,500,546,500,true);
 
@@ -154,90 +127,18 @@ func CreateFurniture()
   DrawMaterialQuad("Wall-Concrete3",1300,590,1330,580,1330,590,1315,590,true);
   DrawMaterialQuad("Wall-Concrete3",1290,190,1320,180,1320,190,1305,190,true);
 
-  //Rohr
-  CreateObject(PIPL, 670, 665, -1)->Right()->Right()->Right()->Right()->Right()->Down()->Down()->Down()->Down()->Down()->Down();
-
-  //Feuerlöcher
-  CreateObject(FIEX, 540, 700, -1);
-  CreateObject(FIEX, 1380, 290, -1);
-
   //Sandsackbarrieren
   CreateObject(SBBA, 635, 710, -1)->Right();
   CreateObject(SBBA, 1125, 590, -1)->Left();
 
-  //Automat
-  CreateObject(CLVM, 510, 710, -1);
-
   //Explosivtank
   CreateObject(XTNK, 1170, 590, -1)->AutoRespawn();
-
-  //Labortisch
-  CreateObject(LTBL, 245, 490, -1);
-
-  //Monitore
-  CreateObject(MONI, 230, 478, -1);
-  CreateObject(MONI, 245, 478, -1);
-
-  //Apparaturen
-  CreateObject(GADG, 660, 510, -1);
-  CreateObject(GADG, 1340, 580, -1)->Set(1);
-  CreateObject(GADG, 1730, 180, -1)->Set(1);
-
-  //Markierungsschilder
-  CreateObject(MSGN, 765, 710, -1);
-  CreateObject(MSGN, 850, 710, -1);
-  CreateObject(MSGN, 940, 710, -1);
-  CreateObject(MSGN, 1025, 710, -1);
-
-  //Notausgangslichter
-  CreateObject(ETLT, 160, 475, -1);
-  CreateObject(ETLT, 1635, 165, -1);
 
   //Gasflaschen
   CreateObject(GSBL, 320, 500, -1)->AutoRespawn();
   CreateObject(GSBL, 1180, 710, -1)->AutoRespawn();
   CreateObject(GSBL, 1330, 300, -1)->AutoRespawn();
   CreateObject(GSBL, 1690, 180, -1);
-
-  //Flutlichter
-  CreateObject(FLGH, 475, 360, -1)->SetRotation(-50);
-  CreateObject(FLGH, 790, 340, -1)->SetRotation(40);
-  CreateObject(FLGH, 1110, 150, -1)->SetRotation(-70);
-
-  //Spinde
-  CreateObject(LCKR, 1140, 710, -1);
-  CreateObject(LCKR, 1160, 710, -1);
-  CreateObject(LCKR, 1400, 300, -1);
-
-  //Topfpflanze
-  CreateObject(PLT2, 520, 500, -1);
-
-  //Geländer
-  CreateObject(RAI1, 1, 490, -1)->SetRail([1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]);
-  CreateObject(RAI1, 390, 360, -1)->SetRail([1,1,1,1,1,1,1,1]);
-  CreateObject(RAI1, 700, 510, -1)->SetRail([1,1]);
-  CreateObject(RAI1, 670, 710, -1)->SetRail([1,1,1,1,1]);
-  CreateObject(RAI1, 1110, 590, -1)->SetRail([1,1,1,1,1,1,1]);
-  CreateObject(RAI1, 1080, 190, -1)->SetRail([1,1,1,1,1,1,1,1,1,1,1]);
-  CreateObject(RAI1, 1730, 180, -1)->SetRail([1,1,1,1,1,1,1,1,1,1]);
-
-  //Bildschirme
-  tmp = CreateObject(SCR3, 340, 480, -1);
-  tmp->SetClrModulation(RGB(255,255,255));
-  CreateObject(SCR3, 390, 480, -1);
-  tmp = CreateObject(SCR3, 485, 480, -1);
-  tmp->SetClrModulation(RGB(255,255,255));
-  tmp = CreateObject(SCR3, 630, 485, -1);
-  tmp->SetClrModulation(RGB(255,255,255));
-
-  tmp = CreateObject(SCR3, 1770, 170, -1);
-  tmp->SetClrModulation(RGB(255,255,255));
-  tmp = CreateObject(SCR3, 1860, 170, -1);
-  tmp->SetClrModulation(RGB(255,255,255));
-
-  //Ventillatoren
-  CreateObject(MVNT, 135, 700, -1)->SetCon(80);
-  CreateObject(MVNT, 625, 700, -1)->SetCon(80);
 
   //Tore
   CreateObject(HNG2, 100, 710, -1);
@@ -247,48 +148,11 @@ func CreateFurniture()
   tmp = CreateObject(HNG2, 660, 710, -1);
   tmp->Opened();
 
-  //Anlagen
-  CreateObject(CCP2, 75, 710, -1);
-  CreateObject(CGLO, 630, 510, -1);
-  CreateObject(CCP1, 1170, 190, -1);
-
-  //Büsche
-  CreateObject(BSH2, 115, 340, -1);
-  CreateObject(BSH2, 315, 325, -1);
-  CreateObject(BSH2, 530, 385, -1);
-  CreateObject(BSH2, 710, 555, -1);
-  CreateObject(BSH2, 1150, 245, -1);
-  CreateObject(BSH2, 1190, 830, -1);
-  CreateObject(BSH2, 1325, 520, -1);
-  CreateObject(BSH2, 1490, 565, -1);
-  CreateObject(BSH2, 1600, 365, -1);
-
   //Steine
   CreateObject(STNE, 1015, 820, -1);
   CreateObject(STNE, 1580, 345, -1);
   CreateObject(STNE, 1715, 430, -1);
   CreateObject(STNE, 1805, 800, -1);
-
-  //Dekoschleusen
-  CreateObject(GAT1, 390, 670, -1);
-  CreateObject(GAT1, 845, 590, -1);
-  CreateObject(GAT1, 1700, 175, -1);
-
-  //Deckenlampen
-  CreateObject(CLGH, 40, 625, -1);
-  CreateObject(CLGH, 100, 465, -1);
-  CreateObject(CLGH, 200, 465, -1);
-  CreateObject(CLGH, 280, 625, -1);
-  CreateObject(CLGH, 300, 465, -1);
-  CreateObject(CLGH, 340, 625, -1);
-  CreateObject(CLGH, 400, 625, -1);
-  CreateObject(CLGH, 460, 625, -1);
-  CreateObject(CLGH, 575, 465, -1);
-  CreateObject(CLGH, 1230, 655, -1);
-  CreateObject(CLGH, 1300, 655, -1);
-  CreateObject(CLGH, 1360, 275, -1);
-  CreateObject(CLGH, 1595, 155, -1);
-  CreateObject(CLGH, 1815, 155, -1);
 
   //Stahlbrücken
   CreateObject(_HBR, 775, 522, -1);
@@ -337,6 +201,154 @@ func CreateEquipment()
 
   //Raketen
   PlaceSpawnpoint(MBOX, 1645, 170);
+}
+
+func CreateDecoration()
+{
+  var tmp;
+  Log("$CreatingDecoration$");
+
+  //Raum
+  CreateObject(ROM2, 50, 490, -1);
+
+  //Alarmlampen
+  CreateObject(ALGH, 905, 340, -1);
+  CreateObject(ALGH, 1035, 150, -1)->TurnOn();
+
+  //Radare
+  CreateObject(RADR, 500, 360, -1);
+  CreateObject(RADR, 1210, 190, -1);
+
+  //Zäune
+  CreateObject(FENC, 1070, 710, -1);
+  CreateObject(FENC, 1130, 710, -1);
+  CreateObject(FENC, 1190, 710, -1);
+  CreateObject(FENC, 1340, 710, -1);
+
+  //Regale
+  CreateObject(FRAM, 20, 490, -1);
+  CreateObject(FRAM, 85, 490, -1);
+  CreateObject(FRAM, 105, 490, -1);
+
+  CreateObject(FRAM, 340, 500, -1);
+  CreateObject(FRAM, 360, 500, -1);
+  CreateObject(FRAM, 380, 500, -1);
+  CreateObject(FRAM, 400, 500, -1);
+  CreateObject(FRAM, 420, 500, -1);
+  CreateObject(FRAM, 440, 500, -1);
+
+  //Rohr
+  CreateObject(PIPL, 670, 665, -1)->Right()->Right()->Right()->Right()->Right()->Down()->Down()->Down()->Down()->Down()->Down();
+
+  //Feuerlöcher
+  CreateObject(FIEX, 540, 700, -1);
+  CreateObject(FIEX, 1380, 290, -1);
+
+  //Automat
+  CreateObject(CLVM, 510, 710, -1);
+
+  //Labortisch
+  CreateObject(LTBL, 245, 490, -1);
+
+  //Monitore
+  CreateObject(MNI2, 235, 478, -1);
+  CreateObject(MNI2, 255, 478, -1)->Off();
+
+  //Flaschen
+  CreateObject(BOTL, 1290, 140, -1);
+  CreateObject(BOTL, 1295, 140, -1);
+
+  //Apparaturen
+  CreateObject(GADG, 660, 510, -1);
+  CreateObject(GADG, 1340, 580, -1)->Set(1);
+  CreateObject(GADG, 1730, 180, -1)->Set(1);
+
+  //Markierungsschilder
+  CreateObject(MSGN, 765, 710, -1);
+  CreateObject(MSGN, 850, 710, -1);
+  CreateObject(MSGN, 940, 710, -1);
+  CreateObject(MSGN, 1025, 710, -1);
+
+  //Notausgangslichter
+  CreateObject(ETLT, 160, 475, -1);
+  CreateObject(ETLT, 1635, 165, -1);
+
+  //Flutlichter
+  CreateObject(FLGH, 475, 360, -1)->SetRotation(-50);
+  CreateObject(FLGH, 790, 340, -1)->SetRotation(40);
+  CreateObject(FLGH, 1110, 150, -1)->SetRotation(-70);
+
+  //Spinde
+  CreateObject(LCKR, 1140, 710, -1);
+  CreateObject(LCKR, 1160, 710, -1);
+  CreateObject(LCKR, 1400, 300, -1);
+
+  //Topfpflanze
+  CreateObject(PLT2, 520, 500, -1);
+
+  //Geländer
+  CreateObject(RAI1, 1, 490, -1)->SetRail([1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]);
+  CreateObject(RAI1, 390, 360, -1)->SetRail([1,1,1,1,1,1,1,1]);
+  CreateObject(RAI1, 700, 510, -1)->SetRail([1,1]);
+  CreateObject(RAI1, 670, 710, -1)->SetRail([1,1,1,1,1]);
+  CreateObject(RAI1, 1110, 590, -1)->SetRail([1,1,1,1,1,1,1]);
+  CreateObject(RAI1, 1080, 190, -1)->SetRail([1,1,1,1,1,1,1,1,1,1,1]);
+  CreateObject(RAI1, 1730, 180, -1)->SetRail([1,1,1,1,1,1,1,1,1,1]);
+
+  //Bildschirme
+  tmp = CreateObject(SCR3, 340, 480, -1);
+  tmp->SetClrModulation(RGB(255,255,255));
+  CreateObject(SCR3, 390, 480, -1);
+  tmp = CreateObject(SCR3, 485, 480, -1);
+  tmp->SetClrModulation(RGB(255,255,255));
+  tmp = CreateObject(SCR3, 630, 485, -1);
+  tmp->SetClrModulation(RGB(255,255,255));
+
+  tmp = CreateObject(SCR3, 1770, 170, -1);
+  tmp->SetClrModulation(RGB(255,255,255));
+  tmp = CreateObject(SCR3, 1860, 170, -1);
+  tmp->SetClrModulation(RGB(255,255,255));
+
+  //Ventillatoren
+  CreateObject(MVNT, 135, 700, -1)->SetCon(80);
+  CreateObject(MVNT, 625, 700, -1)->SetCon(80);
+
+  //Anlagen
+  CreateObject(CCP2, 75, 710, -1);
+  CreateObject(CGLO, 630, 510, -1);
+  CreateObject(CCP1, 1170, 190, -1);
+
+  //Büsche
+  CreateObject(BSH2, 115, 340, -1);
+  CreateObject(BSH2, 315, 325, -1);
+  CreateObject(BSH2, 530, 385, -1);
+  CreateObject(BSH2, 710, 555, -1);
+  CreateObject(BSH2, 1150, 245, -1);
+  CreateObject(BSH2, 1190, 830, -1);
+  CreateObject(BSH2, 1325, 520, -1);
+  CreateObject(BSH2, 1490, 565, -1);
+  CreateObject(BSH2, 1600, 365, -1);
+
+  //Dekoschleusen
+  CreateObject(GAT1, 390, 670, -1);
+  CreateObject(GAT1, 845, 590, -1);
+  CreateObject(GAT1, 1700, 175, -1);
+
+  //Deckenlampen
+  CreateObject(CLGH, 40, 625, -1);
+  CreateObject(CLGH, 100, 465, -1);
+  CreateObject(CLGH, 200, 465, -1);
+  CreateObject(CLGH, 280, 625, -1);
+  CreateObject(CLGH, 300, 465, -1);
+  CreateObject(CLGH, 340, 625, -1);
+  CreateObject(CLGH, 400, 625, -1);
+  CreateObject(CLGH, 460, 625, -1);
+  CreateObject(CLGH, 575, 465, -1);
+  CreateObject(CLGH, 1230, 655, -1);
+  CreateObject(CLGH, 1300, 655, -1);
+  CreateObject(CLGH, 1360, 275, -1);
+  CreateObject(CLGH, 1595, 155, -1);
+  CreateObject(CLGH, 1815, 155, -1);
 }
 
 /* Regelwähler */

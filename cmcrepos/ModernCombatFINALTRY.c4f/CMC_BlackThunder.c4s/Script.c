@@ -19,19 +19,21 @@ func Initialize()
   aFlag = [];
   //Artillerie
   aArtillery = [];
-  //Szenario einrichten
-  CreateFurniture();
-  //Equipment plazieren
+  //Einrichtung plazieren
+  CreateInterior();
+  //Ausrüstung plazieren
   CreateEquipment();
+  //Dekoration plazieren
+  CreateDecoration();
   return(1);
 }
 
 /* Plazierungslisten */
 
-func CreateFurniture()
+func CreateInterior()
 {
   var tmp;
-  Log("$CreatingFurniture$");
+  Log("$CreatingInterior$");
 
   //Leitern
   CreateObject(LADR, 430, 930, -1)->Set(22);
@@ -124,22 +126,6 @@ func CreateFurniture()
   CreateObject(MWCR, 1840, 770, -1);
   CreateObject(MWCR, 2400, 770, -1);
 
-  //Geländer
-  CreateObject(RAI3, 350, 560, -1)->SetRail([1,1]);
-  CreateObject(RAI1, 630, 590, -1)->SetRail([1,1,1,1,1,1,1,1]);
-  CreateObject(RAI3, 1090, 670, -1);
-
-  CreateObject(RAI1, 1125, 620, -1)->SetRail([1,1,1,1,1,1]);
-  CreateObject(RAI1, 1255, 620, -1);
-  CreateObject(RAI3, 1440, 670, -1);
-
-  CreateObject(RAI3, 2770, 670, -1);
-  CreateObject(RAI1, 2960, 620, -1);
-  CreateObject(RAI1, 3000, 620, -1)->SetRail([1,1,1,1,1,1]);
-  CreateObject(RAI3, 3120, 670, -1);
-  CreateObject(RAI1, 3460, 590, -1)->SetRail([1,1,1,1,1,1,1,1]);
-  CreateObject(RAI3, 3847, 560, -1)->SetRail([1,1]);
-
   //Phosphorfässer
   CreateObject(HBRL, 1385, 670, -1)->AutoRespawn();
   CreateObject(HBRL, 2855, 670, -1)->AutoRespawn();
@@ -147,36 +133,6 @@ func CreateFurniture()
   //Gasflaschen
   CreateObject(GSBL, 720, 760, -1)->AutoRespawn();
   CreateObject(GSBL, 3520, 760, -1)->AutoRespawn();
-
-  //Zäune
-  CreateObject(FENC, 1310, 670, -1);
-  CreateObject(FENC, 1660, 770, -1);
-  CreateObject(FENC, 2580, 770, -1);
-  CreateObject(FENC, 2930, 670, -1);
-
-  //Markierungsschilder
-  CreateObject(MSGN, 775, 760, -1);
-  CreateObject(MSGN, 1125, 760, -1);
-  CreateObject(MSGN, 2015, 850, -1);
-
-  CreateObject(MSGN, 2235, 850, -1);
-  CreateObject(MSGN, 3125, 760, -1);
-  CreateObject(MSGN, 3475, 760, -1);
-
-  //Orientierungslichter
-  CreateObject(OLGH, 700, 590, -1)->Set(4, 15, 1, 1, 30);
-  CreateObject(OLGH, 1200, 620, -1)->Set(4, 15, 1, 1, 30);
-
-  CreateObject(OLGH, 2120, 700, -1)->Set(2, 30, 1, 1, 30);
-
-  CreateObject(OLGH, 3040, 620, -1)->Set(4, 15, 1, 1, 30);
-  CreateObject(OLGH, 3540, 590, -1)->Set(4, 15, 1, 1, 30);
-
-  //Notausgangslichter
-  CreateObject(ETLT, 410, 540, -1);
-  CreateObject(ETLT, 1410, 655, -1);
-  CreateObject(ETLT, 2830, 655, -1);
-  CreateObject(ETLT, 3830, 540, -1);
 
   //Hinweisschilder
   CreateObject(SNPT, 280, 1210, -1);
@@ -263,6 +219,57 @@ func CreateEquipment()
 
   SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,3055,590,-1),60*21,300);
   SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,3540,560,-1),60*21,300);
+}
+
+func CreateDecoration()
+{
+  Log("$CreatingDecoration$");
+
+  //Geländer
+  CreateObject(RAI3, 350, 560, -1)->SetRail([1,1]);
+  CreateObject(RAI1, 630, 590, -1)->SetRail([1,1,1,1,1,1,1,1]);
+  CreateObject(RAI3, 1090, 670, -1);
+
+  CreateObject(RAI1, 1125, 620, -1)->SetRail([1,1,1,1,1,1]);
+  CreateObject(RAI1, 1255, 620, -1);
+  CreateObject(RAI3, 1440, 670, -1);
+
+  CreateObject(RAI3, 2770, 670, -1);
+  CreateObject(RAI1, 2960, 620, -1);
+  CreateObject(RAI1, 3000, 620, -1)->SetRail([1,1,1,1,1,1]);
+  CreateObject(RAI3, 3120, 670, -1);
+  CreateObject(RAI1, 3460, 590, -1)->SetRail([1,1,1,1,1,1,1,1]);
+  CreateObject(RAI3, 3847, 560, -1)->SetRail([1,1]);
+
+  //Zäune
+  CreateObject(FENC, 1310, 670, -1);
+  CreateObject(FENC, 1660, 770, -1);
+  CreateObject(FENC, 2580, 770, -1);
+  CreateObject(FENC, 2930, 670, -1);
+
+  //Markierungsschilder
+  CreateObject(MSGN, 775, 760, -1);
+  CreateObject(MSGN, 1125, 760, -1);
+  CreateObject(MSGN, 2015, 850, -1);
+
+  CreateObject(MSGN, 2235, 850, -1);
+  CreateObject(MSGN, 3125, 760, -1);
+  CreateObject(MSGN, 3475, 760, -1);
+
+  //Orientierungslichter
+  CreateObject(OLGH, 700, 590, -1)->Set(4, 15, 1, 1, 30);
+  CreateObject(OLGH, 1200, 620, -1)->Set(4, 15, 1, 1, 30);
+
+  CreateObject(OLGH, 2120, 700, -1)->Set(2, 30, 1, 1, 30);
+
+  CreateObject(OLGH, 3040, 620, -1)->Set(4, 15, 1, 1, 30);
+  CreateObject(OLGH, 3540, 590, -1)->Set(4, 15, 1, 1, 30);
+
+  //Notausgangslichter
+  CreateObject(ETLT, 410, 540, -1);
+  CreateObject(ETLT, 1410, 655, -1);
+  CreateObject(ETLT, 2830, 655, -1);
+  CreateObject(ETLT, 3830, 540, -1);
 }
 
 /* Regelwähler */

@@ -19,20 +19,22 @@ func Initialize()
   SetSkyParallax(0,15,15);
   //Flaggen
   aFlag = [];
-  //Szenario einrichten
-  CreateFurniture();
+  //Einrichtung plazieren
+  CreateInterior();
   //Ausrüstung plazieren
   CreateEquipment();
   //Dekoration plazieren
   CreateDecoration();
+  //Optionale Objekte plazieren
+  CreateOptionalFeatures();
   return(1);
 }
 
 /* Plazierungslisten */
 
-func CreateFurniture()
+func CreateInterior()
 {
-  Log("$CreatingFurniture$");
+  Log("$CreatingInterior$");
 
   //Leitern
   CreateObject(LADR, 1185, 520, -1)->Set(6);
@@ -76,45 +78,6 @@ func CreateFurniture()
   CreateObject(_WIN, 3822, 470, -1);
   CreateObject(_WIN, 4258, 410, -1);
 
-  //Orientierungslichter
-  CreateObject(OLGH, 1500, 360, -1)->Set(8, 15, 1, 1, 60);
-  CreateObject(OLGH, 2770, 510, -1)->Set(30, 11, 1, 1, 20);
-  CreateObject(OLGH, 4040, 360, -1)->Set(8, 15, 1, 1, 60);
-
-  //Büsche
-  CreateObject(BSH2, 1150, 550, -1);
-  CreateObject(BSH2, 1170, 550, -1)->SetR(180);
-
-  CreateObject(BSH2, 2170, 470, -1);
-  CreateObject(BSH2, 2180, 470, -1)->SetR(90);
-  CreateObject(BSH2, 2200, 470, -1);
-
-  CreateObject(BSH2, 2480, 590, -1);
-  CreateObject(BSH2, 2500, 590, -1);
-
-  CreateObject(BSH2, 3040, 590, -1);
-  CreateObject(BSH2, 3060, 590, -1);
-
-  CreateObject(BSH2, 3340, 470, -1);
-  CreateObject(BSH2, 3360, 470, -1)->SetR(90);
-  CreateObject(BSH2, 3380, 470, -1);
-
-  CreateObject(BSH2, 4360, 550, -1)->SetR(180);
-  CreateObject(BSH2, 4370, 550, -1);
-
-  //Bojen
-  CreateObject(BUOY, 840, 540, -1)->SetR(40);
-  CreateObject(BUOY, 4700, 540, -1)->SetR(-20);
-
-  //Radar
-  CreateObject(RADR, 2820, 430, -1);
-
-  //Kaputtes U-Boot
-  CreateObject(SUBB, 480, 680, -1);
-
-  //Kaputtes Boot
-  CreateObject(SLBB, 4850, 525, -1);
-
   //Schutztüren
   CreateObject(GDDR, 1290, 510, -1)->SetColorDw(HSL(145, 210, 100, 127));
   CreateObject(GDDR, 1430, 510, -1)->SetColorDw(HSL(145, 210, 100, 127));
@@ -146,13 +109,6 @@ func CreateFurniture()
   CreateObject(PLLT, 1440, 360, -1);
   CreateObject(PLLT, 4100, 360, -1);
 
-  //Ventillatoren
-  CreateObject(VENT, 1500, 490, -1)->SetCon(60);
-  CreateObject(VENT, 4040, 490, -1)->SetCon(60);
-
-  //Dekoschleuse
-  CreateObject(GAT1, 2820, 480, -1);
-
   //Sandsackbarrieren
   CreateObject(SBBA, 1280, 360, -1);
   CreateObject(SBBA, 1720, 360, -1)->Right();
@@ -161,15 +117,6 @@ func CreateFurniture()
   CreateObject(SBBA, 3820, 360, -1);
   CreateObject(SBBA, 4260, 360, -1)->Right();
 
-  //Geländer
-  CreateObject(RAI1, 1355, 360, -1)->SetRail([1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]);
-  CreateObject(RAI1, 2660, 510, -1)->SetRail([1,1,1,1,1,1,1,1,1,1,1,1]);
-  CreateObject(RAI1, 3895, 360, -1)->SetRail([1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]);
-
-  //Zäune
-  CreateObject(FENC, 1250, 470, -1);
-  CreateObject(FENC, 4290, 470, -1);
-
   //Explosivtanks
   CreateObject(XTNK, 1615, 360, -1)->AutoRespawn();
   CreateObject(XTNK, 3925, 360, -1)->AutoRespawn();
@@ -177,17 +124,6 @@ func CreateFurniture()
   //Phosphortanks
   CreateObject(PTNK, 2730, 510, -1)->AutoRespawn();
   CreateObject(PTNK, 2810, 510, -1)->AutoRespawn();
-
-  //Lüftungsgitter
-  CreateObject(ENGT, 1370, 510, -1)->SetCon(70);
-  CreateObject(ENGT, 1400, 510, -1)->SetCon(70);
-  CreateObject(ENGT, 1600, 510, -1)->SetCon(70);
-  CreateObject(ENGT, 1630, 510, -1)->SetCon(70);
-
-  CreateObject(ENGT, 3910, 510, -1)->SetCon(70);
-  CreateObject(ENGT, 3940, 510, -1)->SetCon(70);
-  CreateObject(ENGT, 4140, 510, -1)->SetCon(70);
-  CreateObject(ENGT, 4170, 510, -1)->SetCon(70);
 
   //Hinweisschilder
   CreateObject(SNPT, 950, 520, -1);
@@ -241,6 +177,79 @@ func CreateDecoration()
 {
   Log("$CreatingDecoration$");
 
+  //Orientierungslichter
+  CreateObject(OLGH, 1500, 360, -1)->Set(8, 15, 1, 1, 60);
+  CreateObject(OLGH, 2770, 510, -1)->Set(30, 11, 1, 1, 20);
+  CreateObject(OLGH, 4040, 360, -1)->Set(8, 15, 1, 1, 60);
+
+  //Büsche
+  CreateObject(BSH2, 1150, 550, -1);
+  CreateObject(BSH2, 1170, 550, -1)->SetR(180);
+
+  CreateObject(BSH2, 2170, 470, -1);
+  CreateObject(BSH2, 2180, 470, -1)->SetR(90);
+  CreateObject(BSH2, 2200, 470, -1);
+
+  CreateObject(BSH2, 2480, 590, -1);
+  CreateObject(BSH2, 2500, 590, -1);
+
+  CreateObject(BSH2, 3040, 590, -1);
+  CreateObject(BSH2, 3060, 590, -1);
+
+  CreateObject(BSH2, 3340, 470, -1);
+  CreateObject(BSH2, 3360, 470, -1)->SetR(90);
+  CreateObject(BSH2, 3380, 470, -1);
+
+  CreateObject(BSH2, 4360, 550, -1)->SetR(180);
+  CreateObject(BSH2, 4370, 550, -1);
+
+  //Bojen
+  CreateObject(BUOY, 840, 540, -1)->SetR(40);
+  CreateObject(BUOY, 4700, 540, -1)->SetR(-20);
+
+  //Radar
+  CreateObject(RADR, 2820, 430, -1);
+
+  //Kaputtes U-Boot
+  CreateObject(SUBB, 480, 680, -1);
+
+  //Kaputtes Boot
+  CreateObject(SLBB, 4850, 525, -1);
+
+  //Ventillatoren
+  CreateObject(VENT, 1500, 490, -1)->SetCon(60);
+  CreateObject(VENT, 4040, 490, -1)->SetCon(60);
+
+  //Dekoschleuse
+  CreateObject(GAT1, 2820, 480, -1);
+
+  //Monitore
+  CreateObject(MNI2, 1530, 492, -1);
+  CreateObject(MNI2, 4010, 492, -1);
+
+  //Geländer
+  CreateObject(RAI1, 1355, 360, -1)->SetRail([1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]);
+  CreateObject(RAI1, 2660, 510, -1)->SetRail([1,1,1,1,1,1,1,1,1,1,1,1]);
+  CreateObject(RAI1, 3895, 360, -1)->SetRail([1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]);
+
+  //Zäune
+  CreateObject(FENC, 1250, 470, -1);
+  CreateObject(FENC, 4290, 470, -1);
+
+  //Lüftungsgitter
+  CreateObject(ENGT, 1370, 510, -1)->SetCon(70);
+  CreateObject(ENGT, 1400, 510, -1)->SetCon(70);
+  CreateObject(ENGT, 1600, 510, -1)->SetCon(70);
+  CreateObject(ENGT, 1630, 510, -1)->SetCon(70);
+
+  CreateObject(ENGT, 3910, 510, -1)->SetCon(70);
+  CreateObject(ENGT, 3940, 510, -1)->SetCon(70);
+  CreateObject(ENGT, 4140, 510, -1)->SetCon(70);
+  CreateObject(ENGT, 4170, 510, -1)->SetCon(70);
+}
+
+func CreateOptionalFeatures()
+{
   //Hintergründe
   CreateObject(BD02,1750,580,-1);
   CreateObject(BD03,1250,680,-1);
