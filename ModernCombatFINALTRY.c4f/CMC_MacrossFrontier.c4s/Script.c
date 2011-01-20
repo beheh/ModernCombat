@@ -11,9 +11,9 @@ func Initialize()
   //Wartemusik einstellen
   SetPlayList("CMC_WaitingforSpawn.ogg");
   Music("CMC_WaitingforSpawn.ogg",1);
-  //Szenario einrichten
-  CreateFurniture();
-  //Equipment plazieren
+  //Einrichtung plazieren
+  CreateInterior();
+  //Ausrüstung plazieren
   CreateEquipment();
   //Dekoration plazieren
   CreateDecoration();
@@ -22,10 +22,10 @@ func Initialize()
 
 /* Plazierungslisten */
 
-func CreateFurniture()
+func CreateInterior()
 {
   var tmp;
-  Log("$CreatingFurniture$");
+  Log("$CreatingInterior$");
 
   //Leitern
   CreateObject(LADR, 95, 438, -1)->Set(10);
@@ -64,7 +64,7 @@ func CreateFurniture()
   tmp->Lock();
   tmp->SetMaxDamage(-1);
 
-  ///Rampen
+  //Rampen
   DrawMaterialQuad("Wall-Concrete2",360,350,390,340,390,350,375,350,true);
   DrawMaterialQuad("Wall-Concrete2",451,350,421,340,421,350,436,350,true);
 
@@ -108,28 +108,6 @@ func CreateFurniture()
   CreateObject (JMPD, 705, 440, -1)->Set(85, -9);
   CreateObject (JMPD, 840, 360, -1)->Set(91, 13);
 
-  //Raum
-  CreateObject(ROOM, 895, 500, -1);
-
-  //Labortische
-  CreateObject(LTBL, 185, 440, -1);
-  CreateObject(LTBL, 1370, 360, -1);
-
-  //Monitore
-  CreateObject(MONI, 175, 428, -1);
-  CreateObject(MONI, 185, 428, -1);
-  CreateObject(MONI, 195, 428, -1);
-  CreateObject(MONI, 1360, 348, -1);
-  CreateObject(MONI, 1370, 348, -1);
-  CreateObject(MONI, 1380, 348, -1);
-
-  //Apparaturen
-  CreateObject(GADG, 210, 440, -1);
-  CreateObject(GADG, 560, 420, -1);
-  CreateObject(GADG, 920, 500, -1)->Set(1);
-  CreateObject(GADG, 990, 340, -1);
-  CreateObject(GADG, 1340, 360, -1);
-
   //Glasscheiben
   CreateObject(_WIN, 115, 340, -1);
   CreateObject(_WIN, 115, 370, -1);
@@ -139,28 +117,6 @@ func CreateFurniture()
 
   CreateObject(_WIN, 1430, 260, -1);
   CreateObject(_WIN, 1430, 290, -1);
-
-  //Markierungsschilder
-  CreateObject(MSGN, 600, 470, -1);
-  CreateObject(MSGN, 630, 460, -1);
-  CreateObject(MSGN, 660, 450, -1);
-
-  CreateObject(MSGN, 890, 370, -1);
-  CreateObject(MSGN, 920, 380, -1);
-  CreateObject(MSGN, 950, 390, -1);
-
-  //Notausgangslichter
-  CreateObject(ETLT, 20, 425, -1);
-  CreateObject(ETLT, 895, 460, -1);
-  CreateObject(ETLT, 1520, 345, -1);
-
-  //Warnschilder
-  CreateObject(EXSN, 440, 450, -1);
-  CreateObject(EXSN, 1125, 370, -1);
-
-  //Alarmlampen
-  CreateObject(ALGH, 710, 170, -1)->TurnOn();
-  CreateObject(ALGH, 840, 90, -1)->TurnOn();
 
   //Metallkisten
   CreateObject(MWCR, 305, 440, -1)->AutoRespawn();
@@ -196,6 +152,117 @@ func CreateFurniture()
   CreateObject(XTNK, 515, 230, -1)->AutoRespawn();
   CreateObject(XTNK, 1190, 150, -1)->AutoRespawn();
 
+  //Gasflaschen
+  CreateObject(GSBL, 40, 440, -1)->AutoRespawn();
+  CreateObject(GSBL, 460, 230, -1)->AutoRespawn();
+  CreateObject(GSBL, 1220, 360, -1)->AutoRespawn();
+
+  //Steine
+  CreateObject(STNE, 145, 55, -1);
+  CreateObject(STNE, 1390, 40, -1);
+
+  //Selbstschussanlagen und Konsolen
+  var selfd = CreateObject(SEGU, 700, 219, -1);
+  selfd->Arm(MISA);
+  selfd->SetAutoRepair(1500);
+  CreateObject(CONS, 570, 225, -1)->Set(selfd);
+
+  var selfd = CreateObject (SEGU, 850, 139, -1);
+  selfd->Arm(MISA);
+  selfd->SetAutoRepair(1500);
+  CreateObject (CONS, 975, 140, -1)->Set(selfd);
+
+  //Tore und Konsolen
+  var autod = CreateObject (HNG2, 610, 340, -1);
+  autod->Open();
+  CreateObject (CONS, 470, 340, -1)
+  ->Set(autod);
+  var autod = CreateObject (HNG2, 940, 260, -1);
+  autod->Open();
+  CreateObject (CONS, 1080, 260, -1)
+  ->Set(autod);
+
+  //Sounds
+
+  //Wind
+  CreateObject(SE4K, 585, 150, -1)->Set("WindSound*.ogg",775,250);
+
+  //Rush Hour
+  CreateObject(SE4K, 20, 60, -1)->Set("Traffic*.ogg",245,70);
+  CreateObject(SE4K, 1510, 40, -1)->Set("Traffic*.ogg",245,70);
+
+  //Hallen
+  CreateObject(SE4K, 490, 390, -1)->Set("Interior*.ogg",665,105);
+  CreateObject(SE4K, 1060, 310, -1)->Set("Interior*.ogg",665,105);
+
+  //Lautsprecher
+  CreateObject(SE4K, 780, 250, -1)->Set("Announce*.ogg",1500,130);
+}
+
+func CreateEquipment()
+{
+  Log("$CreatingEquipment$");
+
+  //Versorgungskisten (Kugeln)
+  var tmp = CreateObject (AMCT, 75, 350, -1);
+  tmp->Set(ABOX);
+  var tmp = CreateObject (AMCT, 1475, 260, -1);
+  tmp->Set(ABOX);
+
+  //Gewehrgranaten
+  PlaceSpawnpoint(GBOX, 770, 490);
+
+  //Raketen
+  PlaceSpawnpoint(MBOX, 785, 355);
+}
+
+func CreateDecoration()
+{
+  var tmp;
+  Log("$CreatingDecoration$");
+
+  //Raum
+  CreateObject(ROOM, 895, 500, -1);
+
+  //Labortische
+  CreateObject(LTBL, 185, 440, -1);
+  CreateObject(LTBL, 1370, 360, -1);
+
+  //Monitore
+  CreateObject(MNI2, 175, 428, -1);
+  CreateObject(MNI2, 195, 428, -1);
+  CreateObject(MNI2, 1360, 348, -1);
+  CreateObject(MNI2, 1380, 348, -1);
+
+  //Apparaturen
+  CreateObject(GADG, 210, 440, -1);
+  CreateObject(GADG, 560, 420, -1);
+  CreateObject(GADG, 920, 500, -1)->Set(1);
+  CreateObject(GADG, 990, 340, -1);
+  CreateObject(GADG, 1340, 360, -1);
+
+  //Markierungsschilder
+  CreateObject(MSGN, 600, 470, -1);
+  CreateObject(MSGN, 630, 460, -1);
+  CreateObject(MSGN, 660, 450, -1);
+
+  CreateObject(MSGN, 890, 370, -1);
+  CreateObject(MSGN, 920, 380, -1);
+  CreateObject(MSGN, 950, 390, -1);
+
+  //Notausgangslichter
+  CreateObject(ETLT, 20, 425, -1);
+  CreateObject(ETLT, 895, 460, -1);
+  CreateObject(ETLT, 1520, 345, -1);
+
+  //Warnschilder
+  CreateObject(EXSN, 440, 450, -1);
+  CreateObject(EXSN, 1125, 370, -1);
+
+  //Alarmlampen
+  CreateObject(ALGH, 710, 170, -1)->TurnOn();
+  CreateObject(ALGH, 840, 90, -1)->TurnOn();
+
   //Radare
   CreateObject(RADR, 575, 170, -1);
   CreateObject(RADR, 925, 90, -1);
@@ -211,11 +278,6 @@ func CreateFurniture()
   CreateObject(FRAM, 760, 500, -1);
   CreateObject(FRAM, 780, 500, -1);
   CreateObject(FRAM, 1520, 360, -1);
-
-  //Gasflaschen
-  CreateObject(GSBL, 40, 440, -1)->AutoRespawn();
-  CreateObject(GSBL, 460, 230, -1)->AutoRespawn();
-  CreateObject(GSBL, 1220, 360, -1)->AutoRespawn();
 
   //Flutlichter
   CreateObject(FLGH, 365, 210, -1)->SetRotation(-30);
@@ -275,76 +337,16 @@ func CreateFurniture()
   CreateObject(BSH2, 745, 200, -1);
   CreateObject(BSH2, 1300, 120, -1);
 
-  //Steine
-  CreateObject(STNE, 145, 55, -1);
-  CreateObject(STNE, 1390, 40, -1);
-
   //Schild
   CreateObject(ESGN, 805, 430, -1);
 
   //Ventillatoren
   CreateObject(VENT, 350, 335, -1)->SetCon(40);
   CreateObject(VENT, 1200, 260, -1)->SetCon(40);
-
-  //Selbstschussanlagen und Konsolen
-  var selfd = CreateObject(SEGU, 700, 219, -1);
-  selfd->Arm(MISA);
-  selfd->SetAutoRepair(1500);
-  CreateObject(CONS, 570, 225, -1)->Set(selfd);
-
-  var selfd = CreateObject (SEGU, 850, 139, -1);
-  selfd->Arm(MISA);
-  selfd->SetAutoRepair(1500);
-  CreateObject (CONS, 975, 140, -1)->Set(selfd);
-
-  //Tore und Konsolen
-  var autod = CreateObject (HNG2, 610, 340, -1);
-  autod->Open();
-  CreateObject (CONS, 470, 340, -1)
-  ->Set(autod);
-  var autod = CreateObject (HNG2, 940, 260, -1);
-  autod->Open();
-  CreateObject (CONS, 1080, 260, -1)
-  ->Set(autod);
-
-  //Sounds
-
-  //Wind
-  CreateObject(SE4K, 585, 150, -1)->Set("WindSound*.ogg",775,250);
-
-  //Rush Hour
-  CreateObject(SE4K, 20, 60, -1)->Set("Traffic*.ogg",245,70);
-  CreateObject(SE4K, 1510, 40, -1)->Set("Traffic*.ogg",245,70);
-
-  //Hallen
-  CreateObject(SE4K, 490, 390, -1)->Set("Interior*.ogg",665,105);
-  CreateObject(SE4K, 1060, 310, -1)->Set("Interior*.ogg",665,105);
-
-  //Lautsprecher
-  CreateObject(SE4K, 780, 250, -1)->Set("Announce*.ogg",1500,130);
 }
 
-func CreateEquipment()
+func CreateOptionalFeatures()
 {
-  Log("$CreatingEquipment$");
-
-  //Versorgungskisten (Kugeln)
-  var tmp = CreateObject (AMCT, 75, 350, -1);
-  tmp->Set(ABOX);
-  var tmp = CreateObject (AMCT, 1475, 260, -1);
-  tmp->Set(ABOX);
-
-  //Gewehrgranaten
-  PlaceSpawnpoint(GBOX, 770, 490);
-
-  //Raketen
-  PlaceSpawnpoint(MBOX, 785, 355);
-}
-
-func CreateDecoration()
-{
-  Log("$CreatingDecoration$");
-
   //Hintergründe
   CreateObject(BD08,400,530,-1)->SetClrModulation(RGB(125,125,125));
   CreateObject(BD08,1300,530,-1)->SetClrModulation(RGB(125,125,125));

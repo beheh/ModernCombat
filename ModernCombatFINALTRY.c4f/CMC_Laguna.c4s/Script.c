@@ -23,20 +23,22 @@ func Initialize()
   aLamp = [];
   //Artillerie
   aArtillery = [];
-  //Szenario einrichten
-  CreateFurniture();
-  //Equipment plazieren
+  //Einrichtung plazieren
+  CreateInterior();
+  //Ausrüstung plazieren
   CreateEquipment();
   //Dekoration plazieren
   CreateDecoration();
+  //Optionale Objekte plazieren
+  CreateOptionalFeatures();
   return(1); 
 }
 
 /* Plazierungslisten */
 
-func CreateFurniture()
+func CreateInterior()
 {
-  Log("$CreatingFurniture$");
+  Log("$CreatingInterior$");
 
   //Rampen
   DrawMaterialQuad("Wall-Concrete3",771,500,741,490,741,500,756,500,true);
@@ -92,18 +94,6 @@ func CreateFurniture()
   CreateObject(SHRK, 730, 850, -1)->AutoRespawn();
   CreateObject(SHRK, 1030, 850, -1)->AutoRespawn();
 
-  //Geländer
-  CreateObject(RAI1, 515, 290, -1)->SetRail([1,1,1,1,1,1,1,1,1,1,1,1]);
-  CreateObject(RAI1, 515, 350, -1)->SetRail([1,1,1,1,1,1,1,1,1,1,1,1]);
-  CreateObject(RAI1, 515, 490, -1)->SetRail([1,1,1,1,1,1,1,1,1,1,1,1]);
-  CreateObject(RAI1, 515, 640, -1)->SetRail([1,1,1,1,1,1]);
-  CreateObject(RAI1, 515, 690, -1)->SetRail([1,1,1,1,1,1,1,1,1,1,1,1]);
-
-  CreateObject(RAI1, 1910, 580, -1)->SetRail([1,1,1]);
-  CreateObject(RAI1, 2060, 580, -1)->SetRail([1,1,1]);
-
-  CreateObject(RAI1, 2800, 440, -1)->SetRail([1,1,1,1,1,1,1,1,1,1]);
-
   //Glasscheiben
   CreateObject(_WIN, 512, 440, -1);
   CreateObject(_WIN, 512, 640, -1);
@@ -113,25 +103,6 @@ func CreateFurniture()
 
   CreateObject(_WIN, 2792, 490, -1);
   CreateObject(_WIN, 2998, 490, -1);
-
-  //Radar
-  CreateObject(RADR, 2985, 370, -1)->SetClrModulation(RGB(125,125,125));
-
-  //Orientierungslichter
-  CreateObject(OLGH, 625, 290, -1)->Set(7, 15, 1, 1, 40);
-  CreateObject(OLGH, 2895, 440, -1)->Set(6, 15, 1, 1, 40);
-
-  //Automaten
-  CreateObject(CLVM, 700, 690, -1);
-  CreateObject(SPVM, 2840, 570, -1);
-
-  //Bojen
-  CreateObject(BUOY, 230, 813,  -1);
-
-  CreateObject(BUOY, 1900, 813,  -1);
-  CreateObject(BUOY, 2130, 813,  -1);
-
-  CreateObject(BUOY, 2535, 813,  -1);
 
   //Metallkisten
   CreateObject(MWCR, 532, 240, -1);
@@ -183,30 +154,6 @@ func CreateFurniture()
 
   CreateObject(SBBA, 2801, 440, -1);
   CreateObject(SBBA, 2990, 440, -1)->Right();
-
-  //Lüftungsgitter
-  CreateObject(ENGT, 605, 460, -1);
-  CreateObject(ENGT, 605, 600, -1);
-
-  //Scheinwerfer
-  CreateObject(FLGH, 560, 290, -1)->SetRotation(-90);
-  CreateObject(FLGH, 705, 290, -1)->SetRotation(90);
-
-  //Dekoschleusen
-  CreateObject(GAT1, 690, 645, -1);
-  CreateObject(GAT1, 2940, 495, -1);
-
-  //Warnschild
-  CreateObject(EXSN, 560, 690, -1);
-
-  //Regale
-  CreateObject(FRAM, 580, 690, -1);
-  CreateObject(FRAM, 600, 690, -1);
-  CreateObject(FRAM, 620, 690, -1);
-
-  //Notausgangslichter
-  CreateObject(ETLT, 705, 470, -1);
-  CreateObject(ETLT, 2960, 540, -1);
 
   //Schutztüren
   CreateObject(GDDR, 515, 490, -1);
@@ -270,6 +217,64 @@ func CreateDecoration()
 {
   Log("$CreatingDecoration$");
 
+  //Geländer
+  CreateObject(RAI1, 515, 290, -1)->SetRail([1,1,1,1,1,1,1,1,1,1,1,1]);
+  CreateObject(RAI1, 515, 350, -1)->SetRail([1,1,1,1,1,1,1,1,1,1,1,1]);
+  CreateObject(RAI1, 515, 490, -1)->SetRail([1,1,1,1,1,1,1,1,1,1,1,1]);
+  CreateObject(RAI1, 515, 640, -1)->SetRail([1,1,1,1,1,1]);
+  CreateObject(RAI1, 515, 690, -1)->SetRail([1,1,1,1,1,1,1,1,1,1,1,1]);
+
+  CreateObject(RAI1, 1910, 580, -1)->SetRail([1,1,1]);
+  CreateObject(RAI1, 2060, 580, -1)->SetRail([1,1,1]);
+
+  CreateObject(RAI1, 2800, 440, -1)->SetRail([1,1,1,1,1,1,1,1,1,1]);
+
+  //Radar
+  CreateObject(RADR, 2985, 370, -1)->SetClrModulation(RGB(125,125,125));
+
+  //Orientierungslichter
+  CreateObject(OLGH, 625, 290, -1)->Set(7, 15, 1, 1, 40);
+  CreateObject(OLGH, 2895, 440, -1)->Set(6, 15, 1, 1, 40);
+
+  //Automaten
+  CreateObject(CLVM, 700, 690, -1);
+  CreateObject(SPVM, 2840, 570, -1);
+
+  //Bojen
+  CreateObject(BUOY, 230, 813,  -1);
+
+  CreateObject(BUOY, 1900, 813,  -1);
+  CreateObject(BUOY, 2130, 813,  -1);
+
+  CreateObject(BUOY, 2535, 813,  -1);
+
+  //Lüftungsgitter
+  CreateObject(ENGT, 605, 460, -1);
+  CreateObject(ENGT, 605, 600, -1);
+
+  //Scheinwerfer
+  CreateObject(FLGH, 560, 290, -1)->SetRotation(-90);
+  CreateObject(FLGH, 705, 290, -1)->SetRotation(90);
+
+  //Dekoschleusen
+  CreateObject(GAT1, 690, 645, -1);
+  CreateObject(GAT1, 2940, 495, -1);
+
+  //Warnschild
+  CreateObject(EXSN, 560, 690, -1);
+
+  //Regale
+  CreateObject(FRAM, 580, 690, -1);
+  CreateObject(FRAM, 600, 690, -1);
+  CreateObject(FRAM, 620, 690, -1);
+
+  //Notausgangslichter
+  CreateObject(ETLT, 705, 470, -1);
+  CreateObject(ETLT, 2960, 540, -1);
+}
+
+func CreateOptionalFeatures()
+{
   //Hintergründe
   CreateObject(BD05,1200,800,-1)->SetClrModulation(RGB(125,125,125));
   CreateObject(BD03,1250,530,-1)->SetClrModulation(RGB(125,125,125));

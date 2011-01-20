@@ -23,19 +23,21 @@ func Initialize()
   aSelfDefense = [];
   //Lampen
   aLamp = [];
-  //Szenario einrichten
-  CreateFurniture();
-  //Equipment plazieren
+  //Einrichtung plazieren
+  CreateInterior();
+  //Ausrüstung plazieren
   CreateEquipment();
+  //Dekoration plazieren
+  CreateDecoration();
   return(1);
 }
 
 /* Plazierungslisten */
 
-func CreateFurniture()
+func CreateInterior()
 {
+  Log("$CreatingInterior$");
   var tmp;
-  Log("$CreatingFurniture$");
 
   //Rampen
   DrawMaterialQuad("Wall-Concrete1",580,450,610,440,610,450,595,450,true);
@@ -57,15 +59,6 @@ func CreateFurniture()
   DrawMaterialQuad("Wall-Metal2",1981,510,1951,500,1951,510,1966,510,true);
   DrawMaterialQuad("Wall-Metal2",1951,500,1921,490,1921,500,1936,500,true);
   DrawMaterialQuad("Wall-Metal2",2261,520,2231,510,2231,520,2246,520,true);
-
-  //Nebel
-  CreateParticle("Fog", 110, 600,0,0,900+Random(100));
-  CreateParticle("Fog", 180, 640,0,0,400+Random(100));
-  CreateParticle("Fog", 260, 630,0,0,700+Random(100));
-  CreateParticle("Fog", 390, 610,0,0,1000+Random(100));
-  CreateParticle("Fog", 515, 610,0,0,500+Random(100));
-  CreateParticle("Fog", 590, 570,0,0,1000+Random(100));
-  CreateParticle("Fog", 710, 550,0,0,500+Random(100));
 
   //Leitern
   CreateObject(LADR, 70, 622, -1)->Set(33);
@@ -234,6 +227,148 @@ func CreateFurniture()
   CreateObject(CON1, 2690, 83, -1);
   CreateObject(CON1, 2720, 410, -1);
 
+  //Glasscheiben
+  CreateObject(_WIN, 802, 240, -1);
+  CreateObject(_WIN, 802, 300, -1);
+  CreateObject(_WIN, 802, 360, -1);
+
+  CreateObject(_WIN, 1082, 310, -1);
+  CreateObject(_WIN, 1082, 335, -1);
+  CreateObject(_WIN, 1082, 360, -1);
+
+  CreateObject(_WIN, 1147, 310, -1);
+  CreateObject(_WIN, 1147, 335, -1);
+  CreateObject(_WIN, 1147, 360, -1);
+
+  CreateObject(_WIN, 1442, 140, -1);
+
+  //Steine
+  CreateObject(STNE, 220, 690, -1);
+  CreateObject(STNE, 735, 665, -1);
+
+  //Hinweisschilder
+  CreateObject(SGNP, 780, 410, -1)->SetPhase(1);
+  CreateObject(SGNP, 1410, 550, -1)->SetPhase(1);
+
+  //Hydrauliküren
+  aDoor[0] = CreateObject(SEDR,1225, 560,-1);
+   aDoor[0]->Lock();
+   aDoor[0]->SetMaxDamage(-1);
+  aDoor[1] = CreateObject(SEDR,1245, 430,-1);
+   aDoor[1]->Lock();
+   aDoor[1]->SetMaxDamage(-1);
+  aDoor[2] = CreateObject(SEDR,1355, 260,-1);
+   aDoor[2]->Lock();
+   aDoor[2]->SetMaxDamage(-1);
+  aDoor[3] = CreateObject(H24K, 1205, 208, -1);
+   aDoor[3]->Lock();
+   aDoor[3]->SetMaxDamage(-1);
+  aDoor[4] = CreateObject(HA4K, 850, 163, -1);
+   aDoor[4]->Lock();
+   aDoor[4]->SetMaxDamage(-1);
+  aDoor[5] = CreateObject(HNG2,1355,550,-1);
+  aDoor[6] = CreateObject(HNG2,1905,490,-1);
+  aDoor[7] = CreateObject(SEDR,1850,110,-1);
+   aDoor[7]->Lock();
+   aDoor[7]->SetMaxDamage(-1);
+  aDoor[8] = CreateObject(HA4K, 1440, 323, -1);
+   aDoor[8]->Lock();
+   aDoor[8]->SetMaxDamage(-1);
+  aDoor[9] = CreateObject(HA4K, 1650, 293, -1);
+   aDoor[9]->Lock();
+   aDoor[9]->SetMaxDamage(-1);
+
+  //Lampen
+  aLamp[00]=CreateObject(BLGH,880,300,-1);
+  aLamp[01]=CreateObject(BLGH,980,300,-1);
+  aLamp[02]=CreateObject(CLGH,1045,475,-1);
+  aLamp[03]=CreateObject(CLGH,1125,475,-1);
+  aLamp[04]=CreateObject(LLGH,1183,380,-1);
+  aLamp[05]=CreateObject(LLGH,1227,295,-1);
+  aLamp[06]=CreateObject(STLH,1430,225,-1);
+  aLamp[07]=CreateObject(STLH,1650,95,-1);
+  aLamp[08]=CreateObject(BLGH,1300,305,-1);
+  aLamp[09]=CreateObject(BLGH,1300,390,-1);
+  aLamp[10]=CreateObject(BLGH,1865,270,-1);
+  aLamp[11]=CreateObject(BLGH,1540,440,-1);
+  aLamp[12]=CreateObject(BLGH,1760,440,-1);
+  aLamp[13]=CreateObject(STLH,1955,360,-1);
+
+  //Selbstschussanlagen und Konsolen
+  aSelfDefense[0]=CreateObject(SEGU,945,249,-1);
+  aSelfDefense[0]->Arm(MISA);
+  aSelfDefense[0]->SetAutoRepair(1500);
+  CreateObject(CONS, 1050, 550, -1)->Set(aSelfDefense[0]);
+
+  aSelfDefense[1]=CreateObject(SEGU,1495,369,-1);
+  aSelfDefense[1]->Arm(MISA);
+  aSelfDefense[1]->SetAutoRepair(1500);
+
+  //Sounds
+
+  //Wind
+  CreateObject(SE4K, 310, 380, -1)->Set("WindSound*.ogg",775,250);
+  CreateObject(SE4K, 540, 380, -1)->Set("WindSound*.ogg",775,250);
+
+  //Hallen
+  CreateObject(SE4K, 1000, 330, -1)->Set("Interior*.ogg",665,105);
+  CreateObject(SE4K, 1320, 380, -1)->Set("Interior*.ogg",670,105);
+  CreateObject(SE4K, 1570, 440, -1)->Set("Interior*.ogg",665,105);
+  CreateObject(SE4K, 1650, 190, -1)->Set("Interior*.ogg",670,105);
+  CreateObject(SE4K, 2040, 280, -1)->Set("Interior*.ogg",665,105);
+  CreateObject(SE4K, 2365, 400, -1)->Set("Interior*.ogg",670,105);
+
+  //Eule
+  CreateObject(SE4K, 210, 620, -1)->Set("Owl.wav",1400,35);
+
+  //Erdrutsche
+  CreateObject(SE4K, 30, 560, -1)->Set("FallingDirt*.ogg",950,250);
+  CreateObject(SE4K, 760, 580, -1)->Set("FallingDirt*.ogg",850,250);
+}
+
+func CreateEquipment()
+{
+  Log("$CreatingEquipment$");
+
+   //Versorgungskisten (Kugeln)
+   var tmp = CreateObject (AMCT, 135, 450, -1);
+   tmp->Set(ABOX);
+   var tmp = CreateObject (AMCT, 1090, 260, -1);
+   tmp->Set(ABOX);
+   var tmp = CreateObject (AMCT, 1280, 550, -1);
+   tmp->Set(ABOX);
+   var tmp = CreateObject (AMCT, 1720, 210, -1);
+   tmp->Set(ABOX);
+   var tmp = CreateObject (AMCT, 1835, 490, -1);
+   tmp->Set(ABOX);
+   var tmp = CreateObject (AMCT, 2375, 530, -1);
+   tmp->Set(ABOX);
+
+   //Versorgungskisten (Gewehrgranaten)
+   var tmp = CreateObject (AMCT, 105, 450, -1);
+   tmp->Set(GBOX);
+   var tmp = CreateObject (AMCT, 1090, 430, -1);
+   tmp->Set(GBOX);
+
+  //Versorgungskiste (Splittergranaten)
+  var tmp = CreateObject(AMCT, 2030, 210, -1);
+  tmp->Set(FRAG);
+}
+
+func CreateDecoration()
+{
+  var tmp;
+  Log("$CreatingDecoration$");
+
+  //Nebel
+  CreateParticle("Fog", 110, 600,0,0,900+Random(100));
+  CreateParticle("Fog", 180, 640,0,0,400+Random(100));
+  CreateParticle("Fog", 260, 630,0,0,700+Random(100));
+  CreateParticle("Fog", 390, 610,0,0,1000+Random(100));
+  CreateParticle("Fog", 515, 610,0,0,500+Random(100));
+  CreateParticle("Fog", 590, 570,0,0,1000+Random(100));
+  CreateParticle("Fog", 710, 550,0,0,500+Random(100));
+
   //Bildschirme
   CreateObject(SCA1, 995, 350, -1);
   tmp = CreateObject(SCR3, 995, 380, -1);
@@ -261,29 +396,20 @@ func CreateFurniture()
   CreateObject(LTBL,1610, 290, -1);
   CreateObject(LTBL,2300, 530, -1);
 
-  //Glasscheiben
-  CreateObject(_WIN, 802, 240, -1);
-  CreateObject(_WIN, 802, 300, -1);
-  CreateObject(_WIN, 802, 360, -1);
-
-  CreateObject(_WIN, 1082, 310, -1);
-  CreateObject(_WIN, 1082, 335, -1);
-  CreateObject(_WIN, 1082, 360, -1);
-
-  CreateObject(_WIN, 1147, 310, -1);
-  CreateObject(_WIN, 1147, 335, -1);
-  CreateObject(_WIN, 1147, 360, -1);
-
-  CreateObject(_WIN, 1442, 140, -1);
+  //Flaschen
+  CreateObject(BOTL, 10, 332, -1);
+  CreateObject(BOTL, 1625, 278, -1);
+  CreateObject(BOTL, 2575, 110, -1);
+  CreateObject(BOTL, 2580, 110, -1);
 
   //Monitore
-  CreateObject(MONI, 1420, 308, -1);
-  CreateObject(MONI, 1510, 308, -1);
-  CreateObject(MONI, 1520, 308, -1);
-  CreateObject(MONI, 1600, 278, -1);
-  CreateObject(MONI, 2285, 518, -1);
-  CreateObject(MONI, 2295, 518, -1);
-  CreateObject(MONI, 2305, 518, -1);
+  CreateObject(MNI2, 1420, 308, -1);
+  CreateObject(MNI2, 1500, 308, -1);
+  CreateObject(MNI2, 1520, 308, -1)->Off();
+  CreateObject(MNI2, 1600, 278, -1);
+  CreateObject(MNI2, 2290, 518, -1);
+  CreateObject(MNI2, 2305, 518, -1)->Off();
+  CreateObject(MNI2, 2555, 92, -1);
 
   //Tische
   CreateObject(GTBL, 940, 430, -1);
@@ -461,10 +587,6 @@ func CreateFurniture()
   CreateObject(BSH2, 1515, 630, -1);
   CreateObject(BSH2, 2320, 610, -1);
 
-  //Steine
-  CreateObject(STNE, 220, 690, -1);
-  CreateObject(STNE, 735, 665, -1);
-
   //Radare
   CreateObject(RADR, 855, 160, -1);
   CreateObject(RADR, 1785, 30, -1);
@@ -519,114 +641,6 @@ func CreateFurniture()
   CreateObject(ETLT, 1220, 235, -1);
   CreateObject(ETLT, 1480, 170, -1);
   CreateObject(ETLT, 2530, 395, -1);
-
-  //Hinweisschilder
-  CreateObject(SGNP, 780, 410, -1)->SetPhase(1);
-  CreateObject(SGNP, 1410, 550, -1)->SetPhase(1);
-
-  //Hydrauliküren
-  aDoor[0] = CreateObject(SEDR,1225, 560,-1);
-   aDoor[0]->Lock();
-   aDoor[0]->SetMaxDamage(-1);
-  aDoor[1] = CreateObject(SEDR,1245, 430,-1);
-   aDoor[1]->Lock();
-   aDoor[1]->SetMaxDamage(-1);
-  aDoor[2] = CreateObject(SEDR,1355, 260,-1);
-   aDoor[2]->Lock();
-   aDoor[2]->SetMaxDamage(-1);
-  aDoor[3] = CreateObject(H24K, 1205, 208, -1);
-   aDoor[3]->Lock();
-   aDoor[3]->SetMaxDamage(-1);
-  aDoor[4] = CreateObject(HA4K, 850, 163, -1);
-   aDoor[4]->Lock();
-   aDoor[4]->SetMaxDamage(-1);
-  aDoor[5] = CreateObject(HNG2,1355,550,-1);
-  aDoor[6] = CreateObject(HNG2,1905,490,-1);
-  aDoor[7] = CreateObject(SEDR,1850,110,-1);
-   aDoor[7]->Lock();
-   aDoor[7]->SetMaxDamage(-1);
-  aDoor[8] = CreateObject(HA4K, 1440, 323, -1);
-   aDoor[8]->Lock();
-   aDoor[8]->SetMaxDamage(-1);
-  aDoor[9] = CreateObject(HA4K, 1650, 293, -1);
-   aDoor[9]->Lock();
-   aDoor[9]->SetMaxDamage(-1);
-
-  //Lampen
-  aLamp[00]=CreateObject(BLGH,880,300,-1);
-  aLamp[01]=CreateObject(BLGH,980,300,-1);
-  aLamp[02]=CreateObject(CLGH,1045,475,-1);
-  aLamp[03]=CreateObject(CLGH,1125,475,-1);
-  aLamp[04]=CreateObject(LLGH,1183,380,-1);
-  aLamp[05]=CreateObject(LLGH,1227,295,-1);
-  aLamp[06]=CreateObject(STLH,1430,225,-1);
-  aLamp[07]=CreateObject(STLH,1650,95,-1);
-  aLamp[08]=CreateObject(BLGH,1300,305,-1);
-  aLamp[09]=CreateObject(BLGH,1300,390,-1);
-  aLamp[10]=CreateObject(BLGH,1865,270,-1);
-  aLamp[11]=CreateObject(BLGH,1540,440,-1);
-  aLamp[12]=CreateObject(BLGH,1760,440,-1);
-  aLamp[13]=CreateObject(STLH,1955,360,-1);
-
-  //Selbstschussanlagen und Konsolen
-  aSelfDefense[0]=CreateObject(SEGU,945,249,-1);
-  aSelfDefense[0]->Arm(MISA);
-  aSelfDefense[0]->SetAutoRepair(1500);
-  CreateObject(CONS, 1050, 550, -1)->Set(aSelfDefense[0]);
-
-  aSelfDefense[1]=CreateObject(SEGU,1495,369,-1);
-  aSelfDefense[1]->Arm(MISA);
-  aSelfDefense[1]->SetAutoRepair(1500);
-
-  //Sounds
-
-  //Wind
-  CreateObject(SE4K, 310, 380, -1)->Set("WindSound*.ogg",775,250);
-  CreateObject(SE4K, 540, 380, -1)->Set("WindSound*.ogg",775,250);
-
-  //Hallen
-  CreateObject(SE4K, 1000, 330, -1)->Set("Interior*.ogg",665,105);
-  CreateObject(SE4K, 1320, 380, -1)->Set("Interior*.ogg",670,105);
-  CreateObject(SE4K, 1570, 440, -1)->Set("Interior*.ogg",665,105);
-  CreateObject(SE4K, 1650, 190, -1)->Set("Interior*.ogg",670,105);
-  CreateObject(SE4K, 2040, 280, -1)->Set("Interior*.ogg",665,105);
-  CreateObject(SE4K, 2365, 400, -1)->Set("Interior*.ogg",670,105);
-
-  //Eule
-  CreateObject(SE4K, 210, 620, -1)->Set("Owl.wav",1400,35);
-
-  //Erdrutsche
-  CreateObject(SE4K, 30, 560, -1)->Set("FallingDirt*.ogg",950,250);
-  CreateObject(SE4K, 760, 580, -1)->Set("FallingDirt*.ogg",850,250);
-}
-
-func CreateEquipment()
-{
-  Log("$CreatingEquipment$");
-
-   //Versorgungskisten (Kugeln)
-   var tmp = CreateObject (AMCT, 135, 450, -1);
-   tmp->Set(ABOX);
-   var tmp = CreateObject (AMCT, 1090, 260, -1);
-   tmp->Set(ABOX);
-   var tmp = CreateObject (AMCT, 1280, 550, -1);
-   tmp->Set(ABOX);
-   var tmp = CreateObject (AMCT, 1720, 210, -1);
-   tmp->Set(ABOX);
-   var tmp = CreateObject (AMCT, 1835, 490, -1);
-   tmp->Set(ABOX);
-   var tmp = CreateObject (AMCT, 2375, 530, -1);
-   tmp->Set(ABOX);
-
-   //Versorgungskisten (Gewehrgranaten)
-   var tmp = CreateObject (AMCT, 105, 450, -1);
-   tmp->Set(GBOX);
-   var tmp = CreateObject (AMCT, 1090, 430, -1);
-   tmp->Set(GBOX);
-
-  //Versorgungskiste (Splittergranaten)
-  var tmp = CreateObject(AMCT, 2030, 210, -1);
-  tmp->Set(FRAG);
 }
 
 /* Bei Flaggenübernahme */

@@ -17,18 +17,20 @@ func Initialize()
   aFlag = [];
   //Selbstschussanlage
   aSelfDefense = [];
-  //Szenario einrichten
-  CreateFurniture();
+  //Einrichtung plazieren
+  CreateInterior();
   //Ausrüstung plazieren
   CreateEquipment();
+  //Dekoration plazieren
+  CreateDecoration();
   return(1);
 }
 
 /* Plazierungslisten */
 
-func CreateFurniture()
+func CreateInterior()
 {
-  Log("$CreatingFurniture$");
+  Log("$CreatingInterior$");
 
   //Bodenlucken
   CreateObject(HA4K, 410, 333, -1);
@@ -49,6 +51,106 @@ func CreateFurniture()
   CreateObject (JMPD, 365, 330, -1)->Set(105, 20);
   CreateObject (JMPD, 1375, 300, -1)->Set(85, 10);
   CreateObject (JMPD, 1690, 370, -1)->Set(85, -80);
+
+  //Stahlbrücken
+  CreateObject(_HBR, 785, 660, -1);
+  CreateObject(_HBR, 1740, 475, -1);
+  CreateObject(_HBR, 1925, 510, -1);
+
+  //Benzinfässer
+  CreateObject(PBRL, 625, 520, -1)->AutoRespawn();
+  CreateObject(PBRL, 1790, 290, -1)->AutoRespawn();
+
+  //Giftfässer
+  CreateObject(TBRL, 1380, 340, -1)->AutoRespawn();
+  CreateObject(TBRL, 1395, 340, -1)->AutoRespawn();
+
+  //Explosivfässer
+  CreateObject(XBRL, 2065, 480, -1)->AutoRespawn();
+  CreateObject(XBRL, 2100, 560, -1)->AutoRespawn();
+  CreateObject(XBRL, 2115, 560, -1)->AutoRespawn();
+
+  //Explosivtank
+  CreateObject(XTNK, 2100, 560, -1)->AutoRespawn();
+
+  //Gasflaschen
+  CreateObject(GSBL, 800, 260, -1)->AutoRespawn();
+  CreateObject(GSBL, 820, 390, -1)->AutoRespawn();
+  CreateObject(GSBL, 1760, 370, -1)->AutoRespawn();
+
+  //Steine
+  CreateObject(STNE, 170, 435, -1);
+  CreateObject(STNE, 400, 655, -1);
+  CreateObject(STNE, 830, 165, -1);
+  CreateObject(STNE, 1140, 435, -1);
+  CreateObject(STNE, 1645, 495, -1);
+  CreateObject(STNE, 2270, 375, -1);
+
+  //Kisten
+  CreateObject(WCR2, 760, 260, -1)->AutoRespawn();
+  CreateObject(WCR2, 770, 242, -1);
+  CreateObject(WCR2, 780, 260, -1)->AutoRespawn();
+  CreateObject(WCR2, 840, 390, -1)->AutoRespawn();
+  CreateObject(WCR2, 844, 370, -1);
+  CreateObject(WCR2, 1290, 460, -1)->AutoRespawn();
+  CreateObject(WCR2, 1780, 370, -1)->AutoRespawn();
+
+  //Hinweisschild
+  CreateObject(SGNP, 1390, 460, -1)->SetPhase(1);
+
+  //Selbstschussanlage und Konsole
+  aSelfDefense[0] = CreateObject(SEGU, 1305, 369, -1);
+    aSelfDefense[0]->Arm(MISA);
+    aSelfDefense[0]->SetAutoRepair(1500);
+    CreateObject(CONS, 1300, 330, -1)->Set(aSelfDefense[0]);
+
+  //Sounds
+
+  //Erdrutsche
+  CreateObject(SE4K, 470, 480, -1)->Set("FallingDirt*.ogg",800,250);
+  CreateObject(SE4K, 1200, 200, -1)->Set("FallingDirt*.ogg",800,250);
+  CreateObject(SE4K, 2240, 450, -1)->Set("FallingDirt*.ogg",800,250);
+
+  //Hallen
+  CreateObject(SE4K, 290, 250, -1)->Set("Interior*.ogg",665,105);
+  CreateObject(SE4K, 1275, 395, -1)->Set("Interior*.ogg",765,105);
+  CreateObject(SE4K, 2170, 290, -1)->Set("Interior*.ogg",665,105);
+
+  //Lautsprecher
+  CreateObject(SE4K, 545, 250, -1)->Set("Announce*.ogg",1500,130);
+  CreateObject(SE4K, 1925, 210, -1)->Set("Announce*.ogg",1500,130);
+}
+
+func CreateEquipment()
+{
+  var tmp;
+  Log("$CreatingEquipment$");
+
+  //Versorgungskiste (Kugeln)
+  tmp = CreateObject(AMCT, 1315, 460, -1);
+  tmp->Set(ABOX);
+
+  //Gewehrgranaten
+  PlaceSpawnpoint(GBOX, 1290, 80);
+
+  //Raketen
+  PlaceSpawnpoint(MBOX, 1360, 330);
+
+  //Automat
+  var store = CreateObject(WPVM,1305, 300,-1);
+  store->AddWare(FAPK,-1);
+  store->AddWare(RSHL,-1);
+  store->AddWare(CDBT,-1);
+  store->AddWare(FGRN,-1);
+  store->AddWare(FRAG,-1);
+  store->AddWare(PGRN,-1);
+  store->AddWare(SGRN,-1);
+  store->AddWare(STUN,-1);
+}
+
+func CreateDecoration()
+{
+  Log("$CreatingDecoration$");
 
   //Alarmlampen
   CreateObject(ALGH, 185, 260, -1)->TurnOn();
@@ -104,49 +206,6 @@ func CreateFurniture()
   CreateObject(BSH2, 295, 130, -1);
   CreateObject(BSH2, 2305, 515, -1);
 
-  //Stahlbrücken
-  CreateObject(_HBR, 785, 660, -1);
-  CreateObject(_HBR, 1740, 475, -1);
-  CreateObject(_HBR, 1925, 510, -1);
-
-  //Benzinfässer
-  CreateObject(PBRL, 625, 520, -1)->AutoRespawn();
-  CreateObject(PBRL, 1790, 290, -1)->AutoRespawn();
-
-  //Giftfässer
-  CreateObject(TBRL, 1380, 340, -1)->AutoRespawn();
-  CreateObject(TBRL, 1395, 340, -1)->AutoRespawn();
-
-  //Explosivfässer
-  CreateObject(XBRL, 2065, 480, -1)->AutoRespawn();
-  CreateObject(XBRL, 2100, 560, -1)->AutoRespawn();
-  CreateObject(XBRL, 2115, 560, -1)->AutoRespawn();
-
-  //Explosivtank
-  CreateObject(XTNK, 2100, 560, -1)->AutoRespawn();
-
-  //Gasflaschen
-  CreateObject(GSBL, 800, 260, -1)->AutoRespawn();
-  CreateObject(GSBL, 820, 390, -1)->AutoRespawn();
-  CreateObject(GSBL, 1760, 370, -1)->AutoRespawn();
-
-  //Steine
-  CreateObject(STNE, 170, 435, -1);
-  CreateObject(STNE, 400, 655, -1);
-  CreateObject(STNE, 830, 165, -1);
-  CreateObject(STNE, 1140, 435, -1);
-  CreateObject(STNE, 1645, 495, -1);
-  CreateObject(STNE, 2270, 375, -1);
-
-  //Kisten
-  CreateObject(WCR2, 760, 260, -1)->AutoRespawn();
-  CreateObject(WCR2, 770, 242, -1);
-  CreateObject(WCR2, 780, 260, -1)->AutoRespawn();
-  CreateObject(WCR2, 840, 390, -1)->AutoRespawn();
-  CreateObject(WCR2, 844, 370, -1);
-  CreateObject(WCR2, 1290, 460, -1)->AutoRespawn();
-  CreateObject(WCR2, 1780, 370, -1)->AutoRespawn();
-
   //Flutlichter
   CreateObject(FLGH, 445, 330, -1)->SetRotation(20);
   CreateObject(FLGH, 1775, 290, -1)->SetRotation(-80);
@@ -161,58 +220,6 @@ func CreateFurniture()
   CreateObject(RAI1, 2080, 240, -1)->SetRail([1,3,1,3,1,3,1]);
   CreateObject(RAI1, 2080, 560, -1)->SetRail([1,3,1,3,1,3,1]);
   CreateObject(RAI1, 2250, 210, -1)->SetRail([1,3,1,3,1,3,1]);
-
-  //Hinweisschild
-  CreateObject(SGNP, 1390, 460, -1)->SetPhase(1);
-
-  //Selbstschussanlage und Konsole
-  aSelfDefense[0] = CreateObject(SEGU, 1305, 369, -1);
-    aSelfDefense[0]->Arm(MISA);
-    aSelfDefense[0]->SetAutoRepair(1500);
-    CreateObject(CONS, 1300, 330, -1)->Set(aSelfDefense[0]);
-
-  //Sounds
-
-  //Erdrutsche
-  CreateObject(SE4K, 470, 480, -1)->Set("FallingDirt*.ogg",800,250);
-  CreateObject(SE4K, 1200, 200, -1)->Set("FallingDirt*.ogg",800,250);
-  CreateObject(SE4K, 2240, 450, -1)->Set("FallingDirt*.ogg",800,250);
-
-  //Hallen
-  CreateObject(SE4K, 290, 250, -1)->Set("Interior*.ogg",665,105);
-  CreateObject(SE4K, 1275, 395, -1)->Set("Interior*.ogg",765,105);
-  CreateObject(SE4K, 2170, 290, -1)->Set("Interior*.ogg",665,105);
-
-  //Lautsprecher
-  CreateObject(SE4K, 545, 250, -1)->Set("Announce*.ogg",1500,130);
-  CreateObject(SE4K, 1925, 210, -1)->Set("Announce*.ogg",1500,130);
-}
-
-func CreateEquipment()
-{
-  var tmp;
-  Log("$CreatingEquipment$");
-
-  //Versorgungskiste (Kugeln)
-  tmp = CreateObject(AMCT, 1315, 460, -1);
-  tmp->Set(ABOX);
-
-  //Gewehrgranaten
-  PlaceSpawnpoint(GBOX, 1290, 80);
-
-  //Raketen
-  PlaceSpawnpoint(MBOX, 1360, 330);
-
-  //Automat
-  var store = CreateObject(WPVM,1305, 300,-1);
-  store->AddWare(FAPK,-1);
-  store->AddWare(RSHL,-1);
-  store->AddWare(CDBT,-1);
-  store->AddWare(FGRN,-1);
-  store->AddWare(FRAG,-1);
-  store->AddWare(PGRN,-1);
-  store->AddWare(SGRN,-1);
-  store->AddWare(STUN,-1);
 }
 
 /* Bei Flaggenübernahme */

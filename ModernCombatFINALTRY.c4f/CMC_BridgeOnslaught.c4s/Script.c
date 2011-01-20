@@ -19,19 +19,21 @@ func Initialize()
   aFlag = [];
   //Selbstschussanlagen
   aSelfDefense = [];
-  //Szenario einrichten
-  CreateFurniture();
-  //Equipment plazieren
+  //Einrichtung plazieren
+  CreateInterior();
+  //Ausrüstung plazieren
   CreateEquipment();
+  //Dekoration plazieren
+  CreateDecoration();
   return(1);
 }
 
 /* Plazierungslisten */
 
-func CreateFurniture()
+func CreateInterior()
 {
   var tmp;
-  Log("$CreatingFurniture$");
+  Log("$CreatingInterior$");
 
   //Leitern
   CreateObject(LADR, 400, 630, -1)->Set(24);
@@ -93,67 +95,12 @@ func CreateFurniture()
   CreateObject(H24K, 1975, 448, -1);
   CreateObject(H24K, 2145, 648, -1);
 
-  //Geländer
-  CreateObject(RAI1, 505, 270, -1)->SetRail([1,1,1,1,1,1,1,1]);
-  CreateObject(RAI1, 725, 440, -1)->SetRail([1,1,1]);
-  CreateObject(RAI1, 1227, 310, -1)->SetRail([1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]);
-  CreateObject(RAI1, 1945, 440, -1)->SetRail([1,1,1]);
-  CreateObject(RAI1, 2075, 270, -1)->SetRail([1,1,1,1,1,1,1,1]);
-
   //Glasscheiben
   CreateObject(_WIN, 1262, 510, -1);
   CreateObject(_WIN, 1262, 520, -1);
 
   CreateObject(_WIN, 1468, 510, -1);
   CreateObject(_WIN, 1468, 520, -1);
-
-  //Radare
-  CreateObject(RADR, 1020, 310, -1)->SetClrModulation(RGB(125,125,125));
-  CreateObject(RADR, 1700, 310, -1)->SetClrModulation(RGB(125,125,125));
-
-  //Spinde
-  CreateObject(LCKR, 220, 530, -1);
-  CreateObject(LCKR, 240, 530, -1);
-  CreateObject(LCKR, 2490, 530, -1);
-  CreateObject(LCKR, 2510, 530, -1);
-
-  //Automaten
-  CreateObject(SPVM, 615, 800, -1);
-  CreateObject(CLVM, 2115, 800, -1);
-
-  //Glastische
-  CreateObject(GTBL, 660, 800, -1);
-  CreateObject(GTBL, 2065, 800, -1);
-
-  //Wandlampen
-  CreateObject(BLGH, 635, 400, -1);
-  CreateObject(BLGH, 635, 600, -1);
-  CreateObject(BLGH, 1075, 400, -1);
-
-  CreateObject(BLGH, 1655, 400, -1);
-  CreateObject(BLGH, 2095, 400, -1);
-  CreateObject(BLGH, 2095, 600, -1);
-
-  //Notausgangslichter
-  CreateObject(ETLT, 750, 770, -1);
-  CreateObject(ETLT, 1980, 770, -1);
-
-  //Bildschirme
-  CreateObject(SCR3, 360, 520, -1);
-  CreateObject(SCA2, 680, 765, -1)->SetAction("Clonk");
-  CreateObject(SCA2, 2045, 765, -1)->SetAction("Clonk");
-  CreateObject(SCR3, 2370, 520, -1);
-
-  //Monitore
-  CreateObject(MONI, 655, 788, -1)->On();
-  CreateObject(MONI, 665, 788, -1)->On();
-
-  CreateObject(MONI, 2055, 788, -1)->On();
-  CreateObject(MONI, 2065, 788, -1)->On();
-
-  //Dekoschleusen
-  CreateObject(GAT1, 1075, 520, -1);
-  CreateObject(GAT1, 1655, 520, -1);
 
   //Explosivtanks
   CreateObject(XTNK, 230, 440, -1)->AutoRespawn();
@@ -179,7 +126,7 @@ func CreateFurniture()
   CreateObject(CON1, 2530, 640, -1);
   CreateObject(CON1, 2680, 440, -1)->SetPerspective(3);
 
-  //Metallkiste
+  //Metallkisten
   CreateObject(MWCR, 75, 413, -1);
   CreateObject(MWCR, 295, 640, -1);
 
@@ -244,10 +191,6 @@ func CreateFurniture()
   CreateObject(_HBR, 2045, 452, -1);
   CreateObject(_HBR, 2135, 452, -1);
 
-  //Flutlichter
-  CreateObject(FLGH, 190, 440, -1)->SetRotation(30);
-  CreateObject(FLGH, 2535, 440, -1)->SetRotation(-30);
-
   //Gasflaschen
   CreateObject(GSBL, 540, 613, -1)->AutoRespawn();
   CreateObject(GSBL, 630, 800, -1)->AutoRespawn();
@@ -288,6 +231,186 @@ func CreateFurniture()
   CreateObject (HNG2, 365, 630, -1);
   CreateObject (HNG2, 2365, 630, -1);
   CreateObject (HNG2, 2555, 440, -1);
+
+  //Steine
+  CreateObject(STNE, 1290, 800, -1);
+  CreateObject(STNE, 1450, 800, -1);
+
+  //Hydrauliktüren
+  tmp = CreateObject(SLDR, 270, 530, -1);
+  tmp->Lock();
+  tmp->SetMaxDamage(-1);
+  tmp->SetSwitchLock(DIR_Right);
+
+  tmp = CreateObject(SLDR, 2460, 530, -1);
+  tmp->Lock();
+  tmp->SetMaxDamage(-1);
+  tmp->SetSwitchLock(DIR_Left);
+
+  //Verbundene Räume
+  var doorw = CreateObject(ROOM, 200, 530, -1);
+  CreateObject(ROOM, 2530, 530, -1)->Connect(doorw);
+
+  //Selbstschussanlagen und Konsolen
+  aSelfDefense[0] = CreateObject(SEGU, 590, 329, -1);
+    aSelfDefense[0]->Arm(MISA);
+    aSelfDefense[0]->SetAutoRepair(1500);
+    CreateObject(CONS, 310, 525, -1)->Set(aSelfDefense[0]);
+
+  aSelfDefense[1] = CreateObject(SEGU, 1252, 556, -1);
+    aSelfDefense[1]->SetR(90);
+    aSelfDefense[1]->Arm(MISA);
+    aSelfDefense[1]->SetAutoRepair(1500);
+    CreateObject(CONS, 1280, 515, -1)->Set(aSelfDefense[1]);
+
+  aSelfDefense[2] = CreateObject(SEGU, 1478, 556, -1);
+    aSelfDefense[2]->SetR(-90);
+    aSelfDefense[2]->Arm(MISA);
+    aSelfDefense[2]->SetAutoRepair(1500);
+    CreateObject(CONS, 1450, 515, -1)->Set(aSelfDefense[2]);
+
+  aSelfDefense[3] = CreateObject(SEGU, 2140, 329, -1);
+    aSelfDefense[3]->Arm(MISA);
+    aSelfDefense[3]->SetAutoRepair(1500);
+    CreateObject(CONS, 2420, 525, -1)->Set(aSelfDefense[3]);
+
+  //Hinweisschilder
+  CreateObject(SGNP, 990, 640, -1)->SetPhase(1);
+  CreateObject(SGNP, 1740, 640, -1)->SetPhase(1);
+  tmp = CreateObject(SNPT, 400, 430, -1);
+  tmp->SetAction("Sign2");
+  tmp->Light();
+  tmp = CreateObject(SNPT, 2330, 430, -1);
+  tmp->SetAction("Sign2");
+  tmp->Light();
+
+  //Grenzen
+  CreateObject(BRDR, 170, 0, -1)->Set(0);
+  CreateObject(BRDR, 2560, 0, -1)->Set(1);
+
+  //Sounds
+
+  //Wind
+  CreateObject(SE4K, 580, 170, -1)->Set("WindSound*.ogg",775,250);
+  CreateObject(SE4K, 1365, 170, -1)->Set("WindSound*.ogg",775,250);
+  CreateObject(SE4K, 2150, 170, -1)->Set("WindSound*.ogg",775,250);
+
+  //Hallen
+  CreateObject(SE4K, 90, 410, -1)->Set("Interior*.ogg",665,105);
+  CreateObject(SE4K, 540, 560, -1)->Set("Interior*.ogg",670,105);
+  CreateObject(SE4K, 960, 670, -1)->Set("Interior*.ogg",670,105);
+  CreateObject(SE4K, 1365, 550, -1)->Set("Interior*.ogg",665,105);
+  CreateObject(SE4K, 1770, 670, -1)->Set("Interior*.ogg",670,105);
+  CreateObject(SE4K, 2190, 560, -1)->Set("Interior*.ogg",670,105);
+  CreateObject(SE4K, 2635, 410, -1)->Set("Interior*.ogg",665,105);
+
+  //Rush Hour
+  CreateObject(SE4K, 1075, 880, -1)->Set("Traffic*.ogg",245,70);
+  CreateObject(SE4K, 1655, 880, -1)->Set("Traffic*.ogg",245,70);
+}
+
+func CreateEquipment()
+{
+  Log("$CreatingEquipment$");
+
+  //Versorgungskisten (Kugeln)
+  var tmp = CreateObject (AMCT, 530, 730, -1);
+  tmp->Set(ABOX);
+  var tmp = CreateObject (AMCT, 2200, 730, -1);
+  tmp->Set(ABOX);
+
+  //Versorgungskiste (Gewehrgranaten)
+  var tmp = CreateObject (AMCT, 1380, 411, -1);
+  tmp->Set(GBOX);
+
+  //Raketen
+  PlaceSpawnpoint(MBOX, 755, 715);
+  PlaceSpawnpoint(MBOX, 1975, 715);
+
+  //Automaten
+  var store = CreateObject(WPVM,1365, 520,-1);
+  store->AddWare(C4PA,-1);
+  store->AddWare(FAPK,-1);
+  store->AddWare(RSHL,-1);
+  store->AddWare(CDBT,-1);
+  store->AddWare(FGRN,-1);
+  store->AddWare(FRAG,-1);
+  store->AddWare(PGRN,-1);
+  store->AddWare(SGRN,-1);
+  store->AddWare(STUN,-1);
+
+  //Artilleriebatterien
+  CreateObject(ATBY,1260,310,-1);
+  CreateObject(ATBY,1470,310,-1);
+}
+
+func CreateDecoration()
+{
+  var tmp;
+  Log("$CreatingDecoration$");
+
+  //Geländer
+  CreateObject(RAI1, 505, 270, -1)->SetRail([1,1,1,1,1,1,1,1]);
+  CreateObject(RAI1, 725, 440, -1)->SetRail([1,1,1]);
+  CreateObject(RAI1, 1227, 310, -1)->SetRail([1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]);
+  CreateObject(RAI1, 1945, 440, -1)->SetRail([1,1,1]);
+  CreateObject(RAI1, 2075, 270, -1)->SetRail([1,1,1,1,1,1,1,1]);
+
+  //Radare
+  CreateObject(RADR, 1020, 310, -1)->SetClrModulation(RGB(125,125,125));
+  CreateObject(RADR, 1700, 310, -1)->SetClrModulation(RGB(125,125,125));
+
+  //Spinde
+  CreateObject(LCKR, 220, 530, -1);
+  CreateObject(LCKR, 240, 530, -1);
+  CreateObject(LCKR, 2490, 530, -1);
+  CreateObject(LCKR, 2510, 530, -1);
+
+  //Automaten
+  CreateObject(SPVM, 615, 800, -1);
+  CreateObject(CLVM, 2115, 800, -1);
+
+  //Glastische
+  CreateObject(GTBL, 660, 800, -1);
+  CreateObject(GTBL, 2065, 800, -1);
+
+  //Wandlampen
+  CreateObject(BLGH, 635, 400, -1);
+  CreateObject(BLGH, 635, 600, -1);
+  CreateObject(BLGH, 1075, 400, -1);
+
+  CreateObject(BLGH, 1655, 400, -1);
+  CreateObject(BLGH, 2095, 400, -1);
+  CreateObject(BLGH, 2095, 600, -1);
+
+  //Notausgangslichter
+  CreateObject(ETLT, 750, 770, -1);
+  CreateObject(ETLT, 1980, 770, -1);
+
+  //Bildschirme
+  CreateObject(SCR3, 360, 520, -1);
+  CreateObject(SCA2, 680, 765, -1)->SetAction("Clonk");
+  CreateObject(SCA2, 2045, 765, -1)->SetAction("Clonk");
+  CreateObject(SCR3, 2370, 520, -1);
+
+  //Monitore
+  CreateObject(MNI2, 650, 788, -1);
+  CreateObject(MNI2, 665, 788, -1);
+  CreateObject(MNI2, 2055, 788, -1);
+  CreateObject(MNI2, 2070, 788, -1);
+
+  //Flaschen
+  CreateObject(BOTL, 550, 612, -1);
+  CreateObject(BOTL, 1360, 412, -1);
+  CreateObject(BOTL, 2180, 612, -1);
+
+  //Dekoschleusen
+  CreateObject(GAT1, 1075, 520, -1);
+  CreateObject(GAT1, 1655, 520, -1);
+
+  //Flutlichter
+  CreateObject(FLGH, 190, 440, -1)->SetRotation(30);
+  CreateObject(FLGH, 2535, 440, -1)->SetRotation(-30);
 
   //Zäune
   CreateObject(FENC, 210, 440, -1)->Set(2);
@@ -353,20 +476,6 @@ func CreateFurniture()
   CreateObject(BSH2, 1780, 820, -1);
   CreateObject(BSH2, 2190, 515, -1);
 
-  //Steine
-  CreateObject(STNE, 1290, 800, -1);
-  CreateObject(STNE, 1450, 800, -1);
-
-  //Hinweisschilder
-  CreateObject(SGNP, 990, 640, -1)->SetPhase(1);
-  CreateObject(SGNP, 1740, 640, -1)->SetPhase(1);
-  tmp = CreateObject(SNPT, 400, 430, -1);
-  tmp->SetAction("Sign2");
-  tmp->Light();
-  tmp = CreateObject(SNPT, 2330, 430, -1);
-  tmp->SetAction("Sign2");
-  tmp->Light();
-
   //Ventillatoren
   CreateObject(VEN3, 490, 595, -1)->SetCon(20);
   tmp = CreateObject(VEN3, 510, 595, -1);
@@ -391,103 +500,6 @@ func CreateFurniture()
   tmp->SetCon(20);
   tmp->SetPhase(4);
   CreateObject(VEN3, 2240, 595, -1)->SetCon(20);
-
-  //Hydrauliktüren
-  tmp = CreateObject(SLDR, 270, 530, -1);
-  tmp->Lock();
-  tmp->SetMaxDamage(-1);
-  tmp->SetSwitchLock(DIR_Right);
-
-  tmp = CreateObject(SLDR, 2460, 530, -1);
-  tmp->Lock();
-  tmp->SetMaxDamage(-1);
-  tmp->SetSwitchLock(DIR_Left);
-
-  //Verbundene Räume
-  var doorw = CreateObject(ROOM, 200, 530, -1);
-  CreateObject(ROOM, 2530, 530, -1)->Connect(doorw);
-
-  //Selbstschussanlagen und Konsolen
-  aSelfDefense[0] = CreateObject(SEGU, 590, 329, -1);
-    aSelfDefense[0]->Arm(MISA);
-    aSelfDefense[0]->SetAutoRepair(1500);
-    CreateObject(CONS, 310, 525, -1)->Set(aSelfDefense[0]);
-
-  aSelfDefense[1] = CreateObject(SEGU, 1252, 556, -1);
-    aSelfDefense[1]->SetR(90);
-    aSelfDefense[1]->Arm(MISA);
-    aSelfDefense[1]->SetAutoRepair(1500);
-    CreateObject(CONS, 1280, 515, -1)->Set(aSelfDefense[1]);
-
-  aSelfDefense[2] = CreateObject(SEGU, 1478, 556, -1);
-    aSelfDefense[2]->SetR(-90);
-    aSelfDefense[2]->Arm(MISA);
-    aSelfDefense[2]->SetAutoRepair(1500);
-    CreateObject(CONS, 1450, 515, -1)->Set(aSelfDefense[2]);
-
-  aSelfDefense[3] = CreateObject(SEGU, 2140, 329, -1);
-    aSelfDefense[3]->Arm(MISA);
-    aSelfDefense[3]->SetAutoRepair(1500);
-    CreateObject(CONS, 2420, 525, -1)->Set(aSelfDefense[3]);
-
-   //Grenzen
-   CreateObject(BRDR, 170, 0, -1)->Set(0);
-   CreateObject(BRDR, 2560, 0, -1)->Set(1);
-
-  //Sounds
-
-  //Wind
-  CreateObject(SE4K, 580, 170, -1)->Set("WindSound*.ogg",775,250);
-  CreateObject(SE4K, 1365, 170, -1)->Set("WindSound*.ogg",775,250);
-  CreateObject(SE4K, 2150, 170, -1)->Set("WindSound*.ogg",775,250);
-
-  //Hallen
-  CreateObject(SE4K, 90, 410, -1)->Set("Interior*.ogg",665,105);
-  CreateObject(SE4K, 540, 560, -1)->Set("Interior*.ogg",670,105);
-  CreateObject(SE4K, 960, 670, -1)->Set("Interior*.ogg",670,105);
-  CreateObject(SE4K, 1365, 550, -1)->Set("Interior*.ogg",665,105);
-  CreateObject(SE4K, 1770, 670, -1)->Set("Interior*.ogg",670,105);
-  CreateObject(SE4K, 2190, 560, -1)->Set("Interior*.ogg",670,105);
-  CreateObject(SE4K, 2635, 410, -1)->Set("Interior*.ogg",665,105);
-
-  //Rush Hour
-  CreateObject(SE4K, 1075, 880, -1)->Set("Traffic*.ogg",245,70);
-  CreateObject(SE4K, 1655, 880, -1)->Set("Traffic*.ogg",245,70);
-}
-
-func CreateEquipment()
-{
-  Log("$CreatingEquipment$");
-
-  //Versorgungskisten (Kugeln)
-  var tmp = CreateObject (AMCT, 530, 730, -1);
-  tmp->Set(ABOX);
-  var tmp = CreateObject (AMCT, 2200, 730, -1);
-  tmp->Set(ABOX);
-
-  //Versorgungskiste (Gewehrgranaten)
-  var tmp = CreateObject (AMCT, 1380, 411, -1);
-  tmp->Set(GBOX);
-
-  //Raketen
-  PlaceSpawnpoint(MBOX, 755, 715);
-  PlaceSpawnpoint(MBOX, 1975, 715);
-
-  //Automaten
-  var store = CreateObject(WPVM,1365, 520,-1);
-  store->AddWare(C4PA,-1);
-  store->AddWare(FAPK,-1);
-  store->AddWare(RSHL,-1);
-  store->AddWare(CDBT,-1);
-  store->AddWare(FGRN,-1);
-  store->AddWare(FRAG,-1);
-  store->AddWare(PGRN,-1);
-  store->AddWare(SGRN,-1);
-  store->AddWare(STUN,-1);
-
-  //Artilleriebatterien
-  CreateObject(ATBY,1260,310,-1);
-  CreateObject(ATBY,1470,310,-1);
 }
 
 /* Bei Flaggenübernahme */

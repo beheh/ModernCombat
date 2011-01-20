@@ -17,8 +17,8 @@ func Initialize()
   SetGamma(RGB(3,1,0),RGB(95,83,68),RGB(213,212,187));
   //Flaggen
   aFlag = [];
-  //Szenario einrichten
-  CreateFurniture();
+  //Einrichtung plazieren
+  CreateInterior();
   //Ausrüstung plazieren
   CreateEquipment();
   //Dekoration plazieren
@@ -28,9 +28,9 @@ func Initialize()
 
 /* Plazierungslisten */
 
-func CreateFurniture()
+func CreateInterior()
 {
-  Log("$CreatingFurniture$");
+  Log("$CreatingInterior$");
 
   //Brückensegment
   CreateObject(BRDG, 1210, 455, -1);
@@ -52,7 +52,7 @@ func CreateFurniture()
   //Gerüst
   CreateObject(SFFG, 1340, 620, -1)->Set(5);
 
-  ///Rampe
+  //Rampen
   DrawMaterialQuad("Wall-Bricks1",1471,730,1441,720,1441,730,1456,730,true);
   DrawMaterialQuad("Wall-Bricks1",1751,410,1721,400,1721,410,1736,410,true);
 
@@ -79,29 +79,8 @@ func CreateFurniture()
   CreateObject(XBRL, 1405, 720, -1)->AutoRespawn();
   CreateObject(XBRL, 1630, 400, -1)->AutoRespawn();
 
-  //Flutlichter
-  CreateObject(FLGH, 455, 630, -1)->SetRotation(30);
-  CreateObject(FLGH, 975, 470, -1)->SetRotation(100);
-
-  //Glühbirne
-  CreateObject(LBGH, 1340, 645, -1);
-
   //Gasflasche
   CreateObject(GSBL, 385, 360, -1)->AutoRespawn();
-
-  //Geländer
-  CreateObject(RAI1, 370, 480, -1)->SetRail([1]);
-  CreateObject(RAI1, 350, 540, -1)->SetRail([1,1]);
-  CreateObject(RAI1, 1250, 690, -1)->SetRail([1,1]);
-  CreateObject(RAI1, 1360, 720, -1)->SetRail([1,1,1,1]);
-  CreateObject(RAI1, 1480, 730, -1)->SetRail([1,1]);
-
-  //Büsche
-  CreateObject(BSH2, 320, 470, -1);
-  CreateObject(BSH2, 650, 560, -1);
-  CreateObject(BSH2, 1275, 825, -1);
-  CreateObject(BSH2, 1550, 600, -1);
-  CreateObject(BSH2, 1730, 350, -1);
 
   //Steine
   CreateObject(STNE, 540, 380, -1);
@@ -149,6 +128,32 @@ func CreateDecoration()
 
   //Hintergrund
   CreateObject(BD07,600,930,-1);
+}
+
+func CreateDecoration()
+{
+  Log("$CreatingDecoration$");
+
+  //Flutlichter
+  CreateObject(FLGH, 455, 630, -1)->SetRotation(30);
+  CreateObject(FLGH, 975, 470, -1)->SetRotation(100);
+
+  //Glühbirne
+  CreateObject(LBGH, 1340, 645, -1);
+
+  //Geländer
+  CreateObject(RAI1, 370, 480, -1)->SetRail([1]);
+  CreateObject(RAI1, 350, 540, -1)->SetRail([1,1]);
+  CreateObject(RAI1, 1250, 690, -1)->SetRail([1,1]);
+  CreateObject(RAI1, 1360, 720, -1)->SetRail([1,1,1,1]);
+  CreateObject(RAI1, 1480, 730, -1)->SetRail([1,1]);
+
+  //Büsche
+  CreateObject(BSH2, 320, 470, -1);
+  CreateObject(BSH2, 650, 560, -1);
+  CreateObject(BSH2, 1275, 825, -1);
+  CreateObject(BSH2, 1550, 600, -1);
+  CreateObject(BSH2, 1730, 350, -1);
 }
 
 /* Regelwähler */

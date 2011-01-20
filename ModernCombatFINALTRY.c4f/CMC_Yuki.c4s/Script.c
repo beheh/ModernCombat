@@ -25,9 +25,9 @@ func Initialize()
   aLamp3 = [];
   //Flaggen
   aFlag = [];
-  //Szenario einrichten
-  CreateFurniture();
-  //Equipment plazieren
+  //Einrichtung plazieren
+  CreateInterior();
+  //Ausrüstung plazieren
   CreateEquipment();
   //Dekoration plazieren
   CreateDecoration();
@@ -36,10 +36,10 @@ func Initialize()
 
 /* Plazierungslisten */
 
-func CreateFurniture()
+func CreateInterior()
 {
   var tmp;
-  Log("$CreatingFurniture$");
+  Log("$CreatingInterior$");
 
   //Leitern
   CreateObject(LADR, 110, 710, -1)->Set(25);
@@ -96,215 +96,11 @@ func CreateFurniture()
   CreateObject(HBRL, 1025, 430, -1)->AutoRespawn();
   CreateObject(HBRL, 1420, 560, -1);
 
-  //Labortisch
-  CreateObject(LTBL, 1480, 380, -1);
-
-  //Monitore
-  CreateObject(MONI, 1475, 368, -1);
-  CreateObject(MONI, 1490, 368, -1);
-
-  //Bildschirme
-  tmp = CreateObject(SCA2, 330, 660, -1);
-  tmp->SetClrModulation(RGB(255,255,255));
-  CreateObject(SCR3, 1165, 725, -1);
-
-  //Orientierungslichter
-  CreateObject(OLGH, 205, 170, -1)->Set(2, 15, 1, 1, 40);
-  CreateObject(OLGH, 655, 180, -1)->Set(2, 15, 1, 1, 40);
-  CreateObject(OLGH, 1105, 180, -1)->Set(2, 15, 1, 1, 40);
-  CreateObject(OLGH, 1535, 180, -1)->Set(2, 15, 1, 1, 40);
-
-  //Anlagen
-  CreateObject(CCP2, 310, 540, -1);
-  CreateObject(CGLO, 1155, 590, -1);
-  CreateObject(CCP1, 1575, 640, -1);
-
-  //Risse
-  CreateObject(FAUD, 560, 345, -1)->Set(2);
-  CreateObject(FAUD, 585, 340, -1)->Set(1);
-  CreateObject(FAUD, 610, 320, -1)->Set(3);
-  CreateObject(FAUD, 1005, 580, -1)->Set(2);
-  CreateObject(FAUD, 1480, 640, -1)->Set(3);
-
-  //Automat
-  CreateObject(CLVM, 1440, 830, -1);
-
-  //Radare
-  CreateObject(RADR, 200, 170, -1)->SetClrModulation(RGB(125,125,125));
-  CreateObject(RADR, 1535, 180, -1)->SetClrModulation(RGB(125,125,125));
-
-  //Nebel
-  CreateParticle("Fog", 90, 500,0,0,400+Random(100));
-  CreateParticle("Fog", 95, 530,0,0,900+Random(100));
-  CreateParticle("Fog", 105, 495,0,0,400+Random(100));
-  CreateParticle("Fog", 155, 500,0,0,200+Random(100));
-
-  CreateParticle("Fog", 355, 270,0,0,900+Random(100));
-  CreateParticle("Fog", 395, 280,0,0,400+Random(100));
-  CreateParticle("Fog", 395, 280,0,0,900+Random(100));
-  CreateParticle("Fog", 410, 250,0,0,450+Random(100));
-  CreateParticle("Fog", 450, 250,0,0,500+Random(100));
-
-  CreateParticle("Fog", 810, 200,0,0,850+Random(100));
-  CreateParticle("Fog", 850, 160,0,0,900+Random(100));
-  CreateParticle("Fog", 855, 180,0,0,400+Random(100));
-  CreateParticle("Fog", 860, 220,0,0,500+Random(100));
-  CreateParticle("Fog", 860, 255,0,0,250+Random(100));
-  CreateParticle("Fog", 885, 255,0,0,300+Random(100));
-  CreateParticle("Fog", 870, 270,0,0,450+Random(100));
-  CreateParticle("Fog", 910, 205,0,0,950+Random(100));
-
-  CreateParticle("Fog", 1605, 595,0,0,900+Random(100));
-  CreateParticle("Fog", 1610, 630,0,0,400+Random(100));
-  CreateParticle("Fog", 1630, 600,0,0,500+Random(100));
-  CreateParticle("Fog", 1640, 620,0,0,300+Random(100));
-  CreateParticle("Fog", 1640, 640,0,0,950+Random(100));
-  CreateParticle("Fog", 1685, 595,0,0,500+Random(100));
-
-  //Zäune
-  CreateObject(FENC, 260, 400, -1)->Set(2);
-
-  CreateObject(FENC, 600, 610, -1);
-
-  CreateObject(FENC, 990, 750, -1);
-  CreateObject(FENC, 1050, 750, -1)->Set(2);
-  CreateObject(FENC, 1160, 750, -1);
-
-  CreateObject(FENC, 1480, 380, -1);
-  CreateObject(FENC, 1590, 380, -1)->Set(2);
-  CreateObject(FENC, 1650, 380, -1);
-
-  //Regale
-  CreateObject(FRAM, 560, 750, -1);
-  CreateObject(FRAM, 580, 750, -1);
-  CreateObject(FRAM, 600, 750, -1);
-
-  CreateObject(FRAM, 910, 625, -1);
-  CreateObject(FRAM, 910, 640, -1);
-  CreateObject(FRAM, 910, 655, -1);
-  CreateObject(FRAM, 910, 670, -1);
-
-  CreateObject(FRAM, 950, 625, -1);
-  CreateObject(FRAM, 950, 640, -1);
-  CreateObject(FRAM, 950, 655, -1);
-  CreateObject(FRAM, 950, 670, -1);
-
-  CreateObject(FRAM, 1000, 580, -1);
-  CreateObject(FRAM, 1020, 580, -1);
-
-  CreateObject(FRAM, 1370, 800, -1);
-  CreateObject(FRAM, 1390, 800, -1);
-  CreateObject(FRAM, 1410, 800, -1);
-
-  CreateObject(FRAM, 1570, 380, -1);
-  CreateObject(FRAM, 1590, 380, -1);
-
-  //Feuerlöcher
-  CreateObject(FIEX, 1135, 745, -1);
-  CreateObject(FIEX, 1695, 475, -1);
-
   //Benzintank
   CreateObject(XTNK, 600, 610, -1);
 
   //Phosphortank
   CreateObject(PTNK, 1000, 750, -1)->AutoRespawn();
-
-  //Apparaturen
-  CreateObject(GADG, 1195, 750, -1)->Set(1);
-  CreateObject(GADG, 1500, 380, -1)->Set(1);
-
-  //Markierungsschilder
-  CreateObject(MSGN, 250, 720, -1);
-  CreateObject(MSGN, 280, 720, -1);
-
-  CreateObject(MSGN, 1310, 750, -1);
-  CreateObject(MSGN, 1340, 750, -1);
-
-  //Gasflaschen
-  CreateObject(GSBL, 585, 610, -1)->AutoRespawn();
-  CreateObject(GSBL, 1000, 580, -1)->AutoRespawn();
-  CreateObject(GSBL, 1500, 660, -1);
-
-  //Flutlichter
-  CreateObject(FLGH, 240, 720, -1)->SetRotation(30);
-  CreateObject(FLGH, 525, 550, -1)->SetRotation(-40);
-  CreateObject(FLGH, 1415, 560, -1)->SetRotation(-15);
-  CreateObject(FLGH, 1870, 480, -1)->SetRotation(-55);
-
-  //Glühbirnen
-  CreateObject(LAT1, 75, 465, -1);
-  CreateObject(LAT1, 85, 170, -1);
-
-  CreateObject(LAT1, 770, 470, -1);
-  CreateObject(LAT1, 835, 470, -1);
-  CreateObject(LAT1, 865, 430, -1);
-
-  CreateObject(LAT1, 1230, 395, -1);
-  CreateObject(LAT1, 1270, 595, -1);
-  CreateObject(LAT1, 1285, 405, -1);
-  CreateObject(LAT1, 1340, 375, -1);
-
-  CreateObject(LAT1, 1775, 160, -1);
-  CreateObject(LAT1, 1825, 180, -1);
-
-  //Spinde
-  CreateObject(LCKR, 140, 725, -1);
-  CreateObject(LCKR, 1300, 810, -1);
-
-  //Geländer
-  CreateObject(RAI1, 230, 720, -1)->SetRail([1,1,1]);
-  CreateObject(RAI1, 830, 680, -1)->SetRail([1,1,1]);
-  CreateObject(RAI1, 1220, 560, -1)->SetRail([1,1,1]);
-  CreateObject(RAI1, 1630, 480, -1)->SetRail([1,1,1]);
-
-  //Ventillatoren
-  CreateObject(MVNT, 205, 220, -1)->SetCon(50);
-  CreateObject(MVNT, 655, 230, -1)->SetCon(50);
-  CreateObject(MVNT, 1105, 230, -1)->SetCon(50);
-  CreateObject(MVNT, 1535, 230, -1)->SetCon(50);
-
-  //Glasröhren
-  CreateObject(GLST, 250, 400, -1);
-  CreateObject(GLST, 275, 400, -1);
-  CreateObject(GLST, 300, 400, -1);
-
-  CreateObject(GLST, 695, 750, -1);
-  CreateObject(GLST, 730, 750, -1);
-
-  CreateObject(GLST, 1145, 750, -1);
-  CreateObject(GLST, 1180, 750, -1);
-
-  CreateObject(GLST, 1450, 380, -1);
-
-  //Computer
-  CreateObject(LBPC, 990, 430, -1);
-
-  //Büsche
-  CreateObject(BSH2, 90, 355, -1);
-  CreateObject(BSH2, 435, 600, -1);
-  CreateObject(BSH2, 695, 800, -1);
-  CreateObject(BSH2, 1240, 620, -1);
-  CreateObject(BSH2, 1475, 455, -1);
-  CreateObject(BSH2, 1570, 510, -1);
-  CreateObject(BSH2, 1920, 465, -1);
-
-  //Notausgangslichter
-  CreateObject(ETLT, 320, 500, -1);
-  CreateObject(ETLT, 1050, 705, -1);
-  CreateObject(ETLT, 1365, 495, -1);
-
-  //Warnschild
-  CreateObject(EXSN, 550, 520, -1);
-
-  //Steine
-  CreateObject(STNE, 100, 735, -1);
-  CreateObject(STNE, 450, 310, -1);
-  CreateObject(STNE, 510, 800, -1);
-  CreateObject(STNE, 1220, 840, -1);
-  CreateObject(STNE, 1800, 490, -1);
-
-  //Dekoschleuse
-  CreateObject(GAT1, 1160, 690, -1);
 
   //Stahlbrücke
   CreateObject(_HBR, 1245, 762, -1);
@@ -494,8 +290,216 @@ func CreateEquipment()
 
 func CreateDecoration()
 {
+  var tmp;
   Log("$CreatingDecoration$");
 
+  //Labortisch
+  CreateObject(LTBL, 1480, 380, -1);
+
+  //Monitore
+  CreateObject(MNI2, 1470, 368, -1);
+  CreateObject(MNI2, 1490, 368, -1)->Off();
+
+  //Bildschirme
+  tmp = CreateObject(SCA2, 330, 660, -1);
+  tmp->SetClrModulation(RGB(255,255,255));
+  CreateObject(SCR3, 1165, 725, -1);
+
+  //Orientierungslichter
+  CreateObject(OLGH, 205, 170, -1)->Set(2, 15, 1, 1, 40);
+  CreateObject(OLGH, 655, 180, -1)->Set(2, 15, 1, 1, 40);
+  CreateObject(OLGH, 1105, 180, -1)->Set(2, 15, 1, 1, 40);
+  CreateObject(OLGH, 1535, 180, -1)->Set(2, 15, 1, 1, 40);
+
+  //Anlagen
+  CreateObject(CCP2, 310, 540, -1);
+  CreateObject(CGLO, 1155, 590, -1);
+  CreateObject(CCP1, 1575, 640, -1);
+
+  //Risse
+  CreateObject(FAUD, 560, 345, -1)->Set(2);
+  CreateObject(FAUD, 585, 340, -1)->Set(1);
+  CreateObject(FAUD, 610, 320, -1)->Set(3);
+  CreateObject(FAUD, 1005, 580, -1)->Set(2);
+  CreateObject(FAUD, 1480, 640, -1)->Set(3);
+
+  //Automat
+  CreateObject(CLVM, 1440, 830, -1);
+
+  //Radare
+  CreateObject(RADR, 200, 170, -1)->SetClrModulation(RGB(125,125,125));
+  CreateObject(RADR, 1535, 180, -1)->SetClrModulation(RGB(125,125,125));
+
+  //Nebel
+  CreateParticle("Fog", 90, 500,0,0,400+Random(100));
+  CreateParticle("Fog", 95, 530,0,0,900+Random(100));
+  CreateParticle("Fog", 105, 495,0,0,400+Random(100));
+  CreateParticle("Fog", 155, 500,0,0,200+Random(100));
+
+  CreateParticle("Fog", 355, 270,0,0,900+Random(100));
+  CreateParticle("Fog", 395, 280,0,0,400+Random(100));
+  CreateParticle("Fog", 395, 280,0,0,900+Random(100));
+  CreateParticle("Fog", 410, 250,0,0,450+Random(100));
+  CreateParticle("Fog", 450, 250,0,0,500+Random(100));
+
+  CreateParticle("Fog", 810, 200,0,0,850+Random(100));
+  CreateParticle("Fog", 850, 160,0,0,900+Random(100));
+  CreateParticle("Fog", 855, 180,0,0,400+Random(100));
+  CreateParticle("Fog", 860, 220,0,0,500+Random(100));
+  CreateParticle("Fog", 860, 255,0,0,250+Random(100));
+  CreateParticle("Fog", 885, 255,0,0,300+Random(100));
+  CreateParticle("Fog", 870, 270,0,0,450+Random(100));
+  CreateParticle("Fog", 910, 205,0,0,950+Random(100));
+
+  CreateParticle("Fog", 1605, 595,0,0,900+Random(100));
+  CreateParticle("Fog", 1610, 630,0,0,400+Random(100));
+  CreateParticle("Fog", 1630, 600,0,0,500+Random(100));
+  CreateParticle("Fog", 1640, 620,0,0,300+Random(100));
+  CreateParticle("Fog", 1640, 640,0,0,950+Random(100));
+  CreateParticle("Fog", 1685, 595,0,0,500+Random(100));
+
+  //Zäune
+  CreateObject(FENC, 260, 400, -1)->Set(2);
+
+  CreateObject(FENC, 600, 610, -1);
+
+  CreateObject(FENC, 990, 750, -1);
+  CreateObject(FENC, 1050, 750, -1)->Set(2);
+  CreateObject(FENC, 1160, 750, -1);
+
+  CreateObject(FENC, 1480, 380, -1);
+  CreateObject(FENC, 1590, 380, -1)->Set(2);
+  CreateObject(FENC, 1650, 380, -1);
+
+  //Regale
+  CreateObject(FRAM, 560, 750, -1);
+  CreateObject(FRAM, 580, 750, -1);
+  CreateObject(FRAM, 600, 750, -1);
+
+  CreateObject(FRAM, 910, 625, -1);
+  CreateObject(FRAM, 910, 640, -1);
+  CreateObject(FRAM, 910, 655, -1);
+  CreateObject(FRAM, 910, 670, -1);
+
+  CreateObject(FRAM, 950, 625, -1);
+  CreateObject(FRAM, 950, 640, -1);
+  CreateObject(FRAM, 950, 655, -1);
+  CreateObject(FRAM, 950, 670, -1);
+
+  CreateObject(FRAM, 1000, 580, -1);
+  CreateObject(FRAM, 1020, 580, -1);
+
+  CreateObject(FRAM, 1370, 800, -1);
+  CreateObject(FRAM, 1390, 800, -1);
+  CreateObject(FRAM, 1410, 800, -1);
+
+  CreateObject(FRAM, 1570, 380, -1);
+  CreateObject(FRAM, 1590, 380, -1);
+
+  //Feuerlöcher
+  CreateObject(FIEX, 1135, 745, -1);
+  CreateObject(FIEX, 1695, 475, -1);
+
+  //Apparaturen
+  CreateObject(GADG, 1195, 750, -1)->Set(1);
+  CreateObject(GADG, 1500, 380, -1)->Set(1);
+
+  //Markierungsschilder
+  CreateObject(MSGN, 250, 720, -1);
+  CreateObject(MSGN, 280, 720, -1);
+
+  CreateObject(MSGN, 1310, 750, -1);
+  CreateObject(MSGN, 1340, 750, -1);
+
+  //Flutlichter
+  CreateObject(FLGH, 240, 720, -1)->SetRotation(30);
+  CreateObject(FLGH, 525, 550, -1)->SetRotation(-40);
+  CreateObject(FLGH, 1415, 560, -1)->SetRotation(-15);
+  CreateObject(FLGH, 1870, 480, -1)->SetRotation(-55);
+
+  //Glühbirnen
+  CreateObject(LAT1, 75, 465, -1);
+  CreateObject(LAT1, 85, 170, -1);
+
+  CreateObject(LAT1, 770, 470, -1);
+  CreateObject(LAT1, 835, 470, -1);
+  CreateObject(LAT1, 865, 430, -1);
+
+  CreateObject(LAT1, 1230, 395, -1);
+  CreateObject(LAT1, 1270, 595, -1);
+  CreateObject(LAT1, 1285, 405, -1);
+  CreateObject(LAT1, 1340, 375, -1);
+
+  CreateObject(LAT1, 1775, 160, -1);
+  CreateObject(LAT1, 1825, 180, -1);
+
+  //Spinde
+  CreateObject(LCKR, 140, 725, -1);
+  CreateObject(LCKR, 1300, 810, -1);
+
+  //Geländer
+  CreateObject(RAI1, 230, 720, -1)->SetRail([1,1,1]);
+  CreateObject(RAI1, 830, 680, -1)->SetRail([1,1,1]);
+  CreateObject(RAI1, 1220, 560, -1)->SetRail([1,1,1]);
+  CreateObject(RAI1, 1630, 480, -1)->SetRail([1,1,1]);
+
+  //Ventillatoren
+  CreateObject(MVNT, 205, 220, -1)->SetCon(50);
+  CreateObject(MVNT, 655, 230, -1)->SetCon(50);
+  CreateObject(MVNT, 1105, 230, -1)->SetCon(50);
+  CreateObject(MVNT, 1535, 230, -1)->SetCon(50);
+
+  //Glasröhren
+  CreateObject(GLST, 250, 400, -1);
+  CreateObject(GLST, 275, 400, -1);
+  CreateObject(GLST, 300, 400, -1);
+
+  CreateObject(GLST, 695, 750, -1);
+  CreateObject(GLST, 730, 750, -1);
+
+  CreateObject(GLST, 1145, 750, -1);
+  CreateObject(GLST, 1180, 750, -1);
+
+  CreateObject(GLST, 1450, 380, -1);
+
+  //Computer
+  CreateObject(LBPC, 990, 430, -1);
+
+  //Büsche
+  CreateObject(BSH2, 90, 355, -1);
+  CreateObject(BSH2, 435, 600, -1);
+  CreateObject(BSH2, 695, 800, -1);
+  CreateObject(BSH2, 1240, 620, -1);
+  CreateObject(BSH2, 1475, 455, -1);
+  CreateObject(BSH2, 1570, 510, -1);
+  CreateObject(BSH2, 1920, 465, -1);
+
+  //Notausgangslichter
+  CreateObject(ETLT, 320, 500, -1);
+  CreateObject(ETLT, 1050, 705, -1);
+  CreateObject(ETLT, 1365, 495, -1);
+
+  //Warnschild
+  CreateObject(EXSN, 550, 520, -1);
+
+  //Dekoschleuse
+  CreateObject(GAT1, 1160, 690, -1);
+
+  //Gasflaschen
+  CreateObject(GSBL, 585, 610, -1)->AutoRespawn();
+  CreateObject(GSBL, 1000, 580, -1)->AutoRespawn();
+  CreateObject(GSBL, 1500, 660, -1);
+
+  //Steine
+  CreateObject(STNE, 100, 735, -1);
+  CreateObject(STNE, 450, 310, -1);
+  CreateObject(STNE, 510, 800, -1);
+  CreateObject(STNE, 1220, 840, -1);
+  CreateObject(STNE, 1800, 490, -1);
+}
+
+func CreateOptionalFeatures()
+{
   //Hintergrund
   CreateObject(BD01,400,1000,-1)->SetClrModulation(RGB(125,125,125));
 }
