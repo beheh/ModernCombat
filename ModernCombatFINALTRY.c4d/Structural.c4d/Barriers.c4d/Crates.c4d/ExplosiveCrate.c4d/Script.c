@@ -43,6 +43,7 @@ public func InstaExplode(int iPlr)
   CastParticles("WoodenCrateSplinter", 4, 50, 0,0, 141, RGBa(80,0,0,0), RGBa(30,0,0,0));
   if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("WoodSplinter", 10, 200, 0,0, 50, 75, RGBa(80,0,0,0), RGBa(30,0,0,0));
   Sound("CrateCrack.ogg");
+  Sound("WoodCrack*.ogg");
 
   //Umliegende Objekte anzünden
   for(var obj in FindObjects(Find_Distance(40+Random(20)),Find_Exclude(this),Find_Not(Find_Category(C4D_StaticBack))))
