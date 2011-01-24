@@ -33,3 +33,11 @@ Facet=17,14,17,7,1,1
 Delay=5
 Length=21
 EndCall=ChooseActivity
+
+[Action]
+Name=Activity4
+FacetBase=1
+Facet=17,21,17,7,1,1
+Delay=5
+Length=32
+EndCall=ChooseActivity
