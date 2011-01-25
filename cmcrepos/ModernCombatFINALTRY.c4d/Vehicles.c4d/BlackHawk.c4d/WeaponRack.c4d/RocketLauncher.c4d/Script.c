@@ -86,14 +86,23 @@ public func LaunchRocket(id rid, int angle)
   xdir = ax-x;
   ydir = ay-y;
 
-  CreateParticle("Thrust",ax,ay,xdir/2,ydir/2,80,RGBa(255,200,200,0),0,0);
-
-  for(var i=0; i<20; ++i)
+  if(GetEffectData(EFSM_ExplosionEffects) > 1) Sparks(5,RGB(255,128),ax-x,ay-y);
+  if(GetEffectData(EFSM_ExplosionEffects) > 0)
   {
-   var rand = RandomX(-10,+10);
-   CreateParticle("Smoke2",ax+Sin(angle,rand),ay-Cos(angle,rand),
-                  RandomX(0,2*xdir),RandomX(0,2*ydir),
-                  RandomX(80,140),RGBa(220,200,180,0),0,0);
+    CreateParticle("Thrust",ax,ay,xdir/2,ydir/2,80,RGBa(255,200,200,0),0,0);
+
+    for(var i=0; i<20; ++i)
+    {
+      var rand = RandomX(-10,+10);
+      CreateParticle("Smoke2",ax+Sin(angle,rand),ay-Cos(angle,rand),
+      		RandomX(0,2*xdir),RandomX(0,2*ydir),
+      		RandomX(80,140),RGBa(220,200,180,0),0,0);
+
+      var rand = RandomX(-10,+10);
+      CreateParticle("BlastSpark1",ax+Sin(angle,rand),ay-Cos(angle,rand),
+      		RandomX(0,2*xdir),RandomX(0,2*ydir),
+      		RandomX(40,70),RGBa(220,200,180,0),0,0);
+    }
   }
 }
 
