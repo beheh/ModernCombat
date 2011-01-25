@@ -8,7 +8,6 @@ local casings, casings2;
 public func HandSize()		{return(800);}
 public func HandX()		{return(4000);}
 public func HandY()		{return(-700);}
-
 public func BarrelYOffset()	{return(-5000);}
 public func SelectionTime()	{return(15);}
 
@@ -75,9 +74,10 @@ public func Fire1()
   var ammo = SALaunchBullet(x,y,GetController(user),angle+RandomX(-1,+1),250,400,GetFMData(FM_Damage));
 
   //Effekte
-  Sound("RVLR_Fire.ogg", 0, ammo);
   SAMuzzleFlash(RandomX(35,40),user,x,y,angle);
+  Sound("RVLR_Fire.ogg", 0, ammo);
 
+  //Patronenhülse hinzufügen
   casings++;
 }
 
@@ -128,8 +128,9 @@ public func Fire2()
   user->WeaponEnd(x,y);
   var ammo = CreateObject(TRDT,x,y,GetController(user));
   ammo->Launch(angle,180,800,20,1000);
-  ammo->Sound("PSTL_TracerFire.ogg");
+  Sound("PSTL_TracerFire.ogg", 0, ammo);
 
+  //Patronenhülse vorhanden
   casings2 = 1;
 }
 

@@ -8,7 +8,6 @@ local casing;
 public func HandSize()		{return 1000;}
 public func HandX()		{return 5000;}
 public func HandY()		{return 1000;}
-
 public func BarrelYOffset()	{return -2500;}
 public func SelectionTime()	{return 36;}
 
@@ -105,10 +104,10 @@ public func Fire1()
   //Kugel abfeuern
   var ammo = SALaunchBullet(x,y,GetController(user),angle,270,800,GetFMData(FM_Damage));
 
-  // Effekte
-  Sound("ASTR_Fire*.ogg", 0, ammo);
+  //Effekte
   SAMuzzleFlash(RandomX(30,40),user,x,y,angle);
   SABulletCasing(x/3,y/3,-dir*14*(Random(1)+1),-(13+Random(2)),5);
+  Sound("ASTR_Fire*.ogg", 0, ammo);
 }
 
 /* Granaten - Explosivgranaten */
@@ -218,14 +217,22 @@ public func LaunchGrenade(id idg, int speed, int angle, int mode)
   }
 
   //Effekte
-  Sound("ASTR_LauncherFire*.ogg", 0, grenade);
-  CreateParticle("Thrust",x,y,GetXDir(user),GetYDir(user),80,RGBa(255,200,200,0),0,0);
-  for(var i=0; i<20; ++i)
+  if(GetEffectData(EFSM_ExplosionEffects) > 0)
   {
-    CreateParticle("Smoke2",x+RandomX(-5,+5),y+RandomX(-5,+5),
-                   GetXDir(user)+RandomX(0,xdir/4),GetYDir(user)+RandomX(0,ydir/4),
-                   RandomX(80,140),RGBa(200,200,200,0),0,0);
+    CreateParticle("Thrust",x,y,GetXDir(user),GetYDir(user),80,RGBa(255,200,200,0),0,0);
+
+    for(var i=0; i<20; ++i)
+    {
+      CreateParticle("Smoke2",x+RandomX(-5,+5),y+RandomX(-5,+5),
+      		GetXDir(user)+RandomX(0,xdir/4),GetYDir(user)+RandomX(0,ydir/4),
+      		RandomX(80,140),RGBa(200,200,200,0),0,0);
+
+      CreateParticle("BlastSpark1",x+RandomX(-5,+5),y+RandomX(-5,+5),
+      		GetXDir(user)+RandomX(0,xdir/4),GetYDir(user)+RandomX(0,ydir/4),
+      		RandomX(40,70),RGBa(200,200,200,0),0,0);
+    }
   }
+  Sound("ASTR_LauncherFire*.ogg", 0, grenade);
 
   //Patronenhülse vorhanden
   casing = 1;

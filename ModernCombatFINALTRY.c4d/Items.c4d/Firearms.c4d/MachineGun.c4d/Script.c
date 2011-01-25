@@ -6,7 +6,6 @@
 public func HandSize()		{return 800;}
 public func HandX()		{return 5000;}
 public func HandY()		{return 800;}
-
 public func BarrelXOffset()	{return -1000;}
 public func BarrelYOffset()	{return -2000;}
 public func SelectionTime()	{return 36;}
@@ -105,10 +104,10 @@ public func Fire1()
   //Kugel abfeuern
   var ammo = SALaunchBullet(x,y,GetController(user),angle+RandomX(-1,+1),270,750,GetFMData(FM_Damage));
 
-  // Effekte
-  Sound("MNGN_Fire.ogg", 0, ammo);
+  //Effekte
   SAMuzzleFlash(RandomX(35,50),user,x,y,angle);
   SABulletCasing(x/3,y/3,-dir*14*(Random(1)+1),-(13+Random(2)),5);
+  Sound("MNGN_Fire.ogg", 0, ammo);
 }
 
 /* Allgemein */

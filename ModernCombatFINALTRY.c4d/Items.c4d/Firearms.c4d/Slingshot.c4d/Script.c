@@ -6,7 +6,6 @@
 public func HandSize()		{return 1050;}
 public func HandX()		{return 4000;}
 public func HandY()		{return 1000;}
-
 public func BarrelXOffset()	{return -1000;}
 public func BarrelYOffset()	{return -2000;}
 public func SelectionTime()	{return 42;}
@@ -97,15 +96,23 @@ public func LaunchGrenade(id idg, int speed, int angle, int mode)
   }
 
   //Effekte
-  Sound("SGST_Fire.ogg", 0, grenade);
   Schedule("Sound(\"SGST_Pump.ogg\")", 5);
-  CreateParticle("Thrust",x,y,/*GetXDir(user)*/,/*GetYDir(user)*/,30,RGBa(255,200,200,0),0,0);
-  for(var i=0; i<10; ++i)
+  if(GetEffectData(EFSM_ExplosionEffects) > 0)
   {
-    CreateParticle("Smoke2",x+RandomX(-3,+3),y+RandomX(-3,+3),
-    			/*GetXDir(user)+*/RandomX(0,xdir/8),/*GetYDir(user)+*/RandomX(0,ydir/8),
-    			RandomX(30,80),RGBa(200,200,200,0),0,0);
+    CreateParticle("Thrust",x,y,GetXDir(user),GetYDir(user),80,RGBa(255,200,200,0),0,0);
+
+    for(var i=0; i<20; ++i)
+    {
+      CreateParticle("Smoke2",x+RandomX(-5,+5),y+RandomX(-5,+5),
+      		GetXDir(user)+RandomX(0,xdir/4),GetYDir(user)+RandomX(0,ydir/4),
+      		RandomX(100,160),RGBa(200,200,200,0),0,0);
+
+      CreateParticle("BlastSpark1",x+RandomX(-5,+5),y+RandomX(-5,+5),
+      		GetXDir(user)+RandomX(0,xdir/4),GetYDir(user)+RandomX(0,ydir/4),
+      		RandomX(60,90),RGBa(200,200,200,0),0,0);
+    }
   }
+  Sound("SGST_Fire.ogg", 0, grenade);
 }
 
 /* Granaten - Splittergranaten */

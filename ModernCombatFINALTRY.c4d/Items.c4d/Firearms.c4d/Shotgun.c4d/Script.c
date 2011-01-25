@@ -81,14 +81,14 @@ public func Fire1()
   var j = GetFMData(FM_Damage, 1)/10;
   for(var i; i < j; i++)
   {
-   ammo = SALaunchBullet(x,y,GetController(user),angle+RandomX(-6,+6),250+Random(20),300,10);
+    ammo = SALaunchBullet(x,y,GetController(user),angle+RandomX(-6,+6),250+Random(20),300,10);
   }
 
   //Effekte
-  Sound("PPGN_Fire*.ogg", 0, ammo);
   Schedule("Sound(\"PPGN_Echo*.ogg\")", 10);
   SAMuzzleFlash(RandomX(40,55),user,x,y,angle);
   AddEffect("Pump", this, 1, 1+GetFMData(FM_Recharge, 1)-25, this);
+  Sound("PPGN_Fire*.ogg", 0, ammo);
 }
 
 /* Nachladen */
