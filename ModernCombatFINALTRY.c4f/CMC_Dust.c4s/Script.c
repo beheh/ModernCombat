@@ -56,14 +56,14 @@ func CreateInterior()
   DrawMaterialQuad("Wall-Bricks1",1471,730,1441,720,1441,730,1456,730,true);
   DrawMaterialQuad("Wall-Bricks1",1751,410,1721,400,1721,410,1736,410,true);
 
-  //Metallkisten
-  CreateObject(MWCR, 160, 680, -1)->AutoRespawn();
-  CreateObject(MWCR, 1255, 440, -1)->AutoRespawn();
-
   //Kisten
   CreateObject(WCR2, 335, 740, -1)->AutoRespawn();
   CreateObject(WCR2, 463, 290, -1)->AutoRespawn();
   CreateObject(WCR2, 790, 450, -1)->AutoRespawn();
+
+  //Metallkisten
+  CreateObject(MWCR, 160, 680, -1)->AutoRespawn();
+  CreateObject(MWCR, 1255, 440, -1)->AutoRespawn();
 
   //Explosive Kiste
   CreateObject(XWCR, 1090, 740, -1)->AutoRespawn();

@@ -126,24 +126,7 @@ func CreateInterior()
   CreateObject(CON1, 2530, 640, -1);
   CreateObject(CON1, 2680, 440, -1)->SetPerspective(3);
 
-  //Metallkisten
-  CreateObject(MWCR, 75, 413, -1);
-  CreateObject(MWCR, 295, 640, -1);
-
-  CreateObject(MWCR, 570, 800, -1)->AutoRespawn();
-  CreateObject(MWCR, 650, 270, -1)->AutoRespawn();
-  CreateObject(MWCR, 1065, 640, -1)->AutoRespawn();
-
-  CreateObject(MWCR, 1395, 310, -1)->AutoRespawn();
-
-  CreateObject(MWCR, 1665, 640, -1)->AutoRespawn();
-  CreateObject(MWCR, 2082, 270, -1)->AutoRespawn();
-  CreateObject(MWCR, 2160, 800, -1)->AutoRespawn();
-
-  CreateObject(MWCR, 2635, 440, -1);
-
   //Kisten
-  CreateObject(WCR2, 590, 800, -1);
   CreateObject(WCR2, 610, 640, -1)->AutoRespawn();
   CreateObject(WCR2, 915, 640, -1);
   CreateObject(WCR2, 1270, 440, -1)->AutoRespawn();
@@ -152,7 +135,22 @@ func CreateInterior()
   CreateObject(WCR2, 1405, 622, -1);
   CreateObject(WCR2, 1815, 640, -1);
   CreateObject(WCR2, 2120, 640, -1)->AutoRespawn();
-  CreateObject(WCR2, 2140, 800, -1);
+
+  //Metallkisten
+  CreateObject(MWCR, 75, 413, -1);
+  CreateObject(MWCR, 295, 640, -1);
+  CreateObject(MWCR, 570, 800, -1)->AutoRespawn();
+  CreateObject(MWCR, 650, 270, -1)->AutoRespawn();
+  CreateObject(MWCR, 1065, 640, -1)->AutoRespawn();
+  CreateObject(MWCR, 1395, 310, -1)->AutoRespawn();
+  CreateObject(MWCR, 1665, 640, -1)->AutoRespawn();
+  CreateObject(MWCR, 2082, 270, -1)->AutoRespawn();
+  CreateObject(MWCR, 2160, 800, -1)->AutoRespawn();
+  CreateObject(MWCR, 2635, 440, -1);
+
+  //Verbandskisten
+  CreateObject(BECR, 590, 800, -1)->AutoRespawn();
+  CreateObject(BECR, 2140, 800, -1)->AutoRespawn();
 
   //Sandsackbarrieren
   CreateObject(SBBA, 790, 800, -1)->Right();
