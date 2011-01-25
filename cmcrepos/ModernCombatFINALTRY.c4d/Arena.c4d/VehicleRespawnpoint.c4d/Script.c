@@ -5,6 +5,30 @@
 public func IsSpawnpoint()	{return true;}
 
 
+/* Globale Aufruffunktion */
+
+global func SetupVehicleSpawn(array aType, int iDir, object pTarget, int iFrames, int iDistance)
+{
+  if(!pTarget) pTarget = this;
+  if(!pTarget) return false;
+  if(!iFrames) iFrames = 70;
+  if(!iDistance) iDistance = 100;
+
+  var effect = AddEffect("IntVehicleSpawn4K",pTarget,50,1,pTarget); 
+
+  EffectCall(pTarget, effect, "SetDir", iDir);
+  EffectCall(pTarget, effect, "SetDist", iDistance);
+  EffectCall(pTarget, effect, "SetFrames", iFrames);
+
+  if(GetLength(aType))
+  {
+    for(var i = 0; i < GetLength(aType); i++)
+     EffectCall(pTarget,effect,"AddType", aType[i]);
+  }
+  EffectCall(pTarget, effect, "Spawn");
+  return true;
+}
+
 global func FxIntVehicleSpawn4KStart(object pTarget, int iEffectNumber, int iTemp)
 {
   if(iTemp) return;
@@ -103,28 +127,6 @@ global func FxIntVehicleSpawn4KSetFrames(object pTarget, int iEffectNumber, int 
 global func FxIntVehicleSpawn4KStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)
 {
   return -1;
-}
-
-global func SetupVehicleSpawn(array aType, int iDir, object pTarget, int iFrames, int iDistance)
-{
-  if(!pTarget) pTarget = this;
-  if(!pTarget) return false;
-  if(!iFrames) iFrames = 70;
-  if(!iDistance) iDistance = 100;
-
-  var effect = AddEffect("IntVehicleSpawn4K",pTarget,50,1,pTarget); 
-
-  EffectCall(pTarget, effect, "SetDir", iDir);
-  EffectCall(pTarget, effect, "SetDist", iDistance);
-  EffectCall(pTarget, effect, "SetFrames", iFrames);
-
-  if(GetLength(aType))
-  {
-    for(var i = 0; i < GetLength(aType); i++)
-     EffectCall(pTarget,effect,"AddType", aType[i]);
-  }
-  EffectCall(pTarget, effect, "Spawn");
-  return true;
 }
 
 global func RemoveVehicleSpawn(object pTarget)
