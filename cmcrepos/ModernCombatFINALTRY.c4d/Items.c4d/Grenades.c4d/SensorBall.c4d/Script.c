@@ -57,7 +57,7 @@ protected func Sense()
       continue;
 
     //Ansonsten markieren
-    CreateObject(SM08, 0, 0, GetOwner())->Set(pObj, this);
+    CreateObject(SM08, GetX(pObj), GetY(pObj), GetOwner())->Set(pObj, this);
   }
   return 1;
 }

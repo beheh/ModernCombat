@@ -17,3 +17,5 @@ VertexFriction=300,300,300,300
 Rebuy=1
 Collectible=1
 Rotate=1
+ContactIncinerate=1
+NoBurnDecay=1
