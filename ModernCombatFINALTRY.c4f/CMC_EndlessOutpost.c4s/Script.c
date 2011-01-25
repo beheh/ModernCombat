@@ -170,7 +170,6 @@ func CreateInterior()
   CreateObject(WCR2, 2255, 320, -1);
   CreateObject(WCR2, 2405, 320, -1);
   CreateObject(WCR2, 2415, 500, -1);
-  CreateObject(WCR2, 2560, 110, -1);
 
   //Metallkisten
   CreateObject(MWCR, 1190, 570, -1);
@@ -182,7 +181,8 @@ func CreateInterior()
   CreateObject(BECR, 355, 450, -1)->AutoRespawn();
   CreateObject(BECR, 1460, 52, -1);
   CreateObject(BECR, 2020, 510, -1);
-  CreateObject(BECR, 2410, 510, -1);
+  CreateObject(BECR, 2410, 450, -1);
+  CreateObject(BECR, 2560, 110, -1);
 
   //Gasflaschen
   CreateObject(GSBL, 1020, 430, -1)->AutoRespawn();
