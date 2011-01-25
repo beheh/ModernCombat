@@ -144,11 +144,6 @@ func CreateInterior()
   CreateObject(BUOY, 5200, 573, -1);
   CreateObject(BUOY, 7665, 533, -1);
 
-  //Metallkiste
-  CreateObject(MWCR, 1530, 400, -1)->AutoRespawn();
-  CreateObject(MWCR, 4570, 390, -1)->AutoRespawn();
-  CreateObject(MWCR, 7560, 510, -1)->AutoRespawn();
-
   //Kisten
   CreateObject(WCR2, 1510, 400, -1);
   CreateObject(WCR2, 1275, 400, -1)->AutoRespawn();
@@ -156,10 +151,17 @@ func CreateInterior()
   CreateObject(WCR2, 3775, 410, -1)->AutoRespawn();
   CreateObject(WCR2, 4250, 410, -1);
   CreateObject(WCR2, 4265, 410, -1)->AutoRespawn();
-  CreateObject(WCR2, 4400, 330, -1)->AutoRespawn();
   CreateObject(WCR2, 6290, 620, -1)->AutoRespawn();
   CreateObject(WCR2, 6310, 620, -1)->AutoRespawn();
   CreateObject(WCR2, 7325, 310, -1)->AutoRespawn();
+
+  //Metallkiste
+  CreateObject(MWCR, 1530, 400, -1)->AutoRespawn();
+  CreateObject(MWCR, 4570, 390, -1)->AutoRespawn();
+  CreateObject(MWCR, 7560, 510, -1)->AutoRespawn();
+
+  //Verbandskiste
+  CreateObject(BECR, 4400, 330, -1)->AutoRespawn();
 
   //Explosive Kiste
   CreateObject(XWCR, 5560, 400, -1)->AutoRespawn();
@@ -773,13 +775,15 @@ public func ChooserFinished()
    CreateObject(MWCR, 5400, 550, -1);
 
    //Kisten
-   CreateObject(WCR2, 785, 492, -1);
    CreateObject(WCR2, 890, 480, -1);
    CreateObject(WCR2, 1310, 440, -1);
    CreateObject(WCR2, 1330, 440, -1);
    CreateObject(WCR2, 5288, 550, -1);
-   CreateObject(WCR2, 5270, 550, -1);
    CreateObject(WCR2, 5400, 532, -1);
+
+   //Verbandskisten
+   CreateObject(BECR, 785, 492, -1);
+   CreateObject(BECR, 5270, 550, -1);
 
    //Hinweisschilder
    var sign = CreateObject(SNPT, 1460, 400, -1);

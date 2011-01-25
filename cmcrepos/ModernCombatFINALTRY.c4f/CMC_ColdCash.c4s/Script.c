@@ -93,6 +93,10 @@ func CreateInterior()
   CreateObject(MWCR, 1530, 510, -1)->AutoRespawn();
   CreateObject(MWCR, 4010, 510, -1)->AutoRespawn();
 
+  //Verbandskisten
+  CreateObject(BECR, 1040, 550, -1)->AutoRespawn();
+  CreateObject(BECR, 4500, 550, -1)->AutoRespawn();
+
   //Benzinfässer
   CreateObject(PBRL, 1240, 470, -1)->AutoRespawn();
   CreateObject(PBRL, 4300, 470, -1)->AutoRespawn();

@@ -92,8 +92,10 @@ func CreateInterior()
   CreateObject(WCR2, 780, 260, -1)->AutoRespawn();
   CreateObject(WCR2, 840, 390, -1)->AutoRespawn();
   CreateObject(WCR2, 844, 370, -1);
-  CreateObject(WCR2, 1290, 460, -1)->AutoRespawn();
   CreateObject(WCR2, 1780, 370, -1)->AutoRespawn();
+
+  //Verbandskiste
+  CreateObject(BECR, 1290, 460, -1)->AutoRespawn();
 
   //Hinweisschild
   CreateObject(SGNP, 1390, 460, -1)->SetPhase(1);

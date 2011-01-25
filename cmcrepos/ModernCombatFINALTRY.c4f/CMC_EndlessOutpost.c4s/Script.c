@@ -152,17 +152,9 @@ func CreateInterior()
   CreateObject(_HBR, 2355, 332, -1);
   CreateObject(_HBR, 2465, 222, -1);
 
-  //Metallkisten
-  CreateObject(MWCR, 1190, 570, -1);
-  CreateObject(MWCR, 1210, 570, -1);
-  CreateObject(MWCR, 1910, 320, -1)->AutoRespawn();
-  CreateObject(MWCR, 2710, 110, -1);
-
   //Kisten
   CreateObject(WCR2, 10, 350, -1)->AutoRespawn();
-  CreateObject(WCR2, 355, 450, -1)->AutoRespawn();
   CreateObject(WCR2, 1100, 360, -1);
-  CreateObject(WCR2, 1460, 52, -1);
   CreateObject(WCR2, 1460, 70, -1);
   CreateObject(WCR2, 1505, 200, -1)->AutoRespawn();
   CreateObject(WCR2, 1540, 70, -1)->AutoRespawn();
@@ -171,7 +163,6 @@ func CreateInterior()
   CreateObject(WCR2, 2000, 492, -1);
   CreateObject(WCR2, 2000, 510, -1);
   CreateObject(WCR2, 2020, 492, -1);
-  CreateObject(WCR2, 2020, 510, -1);
   CreateObject(WCR2, 2040, 510, -1);
   CreateObject(WCR2, 2060, 510, -1);
   CreateObject(WCR2, 2110, 110, -1);
@@ -180,6 +171,18 @@ func CreateInterior()
   CreateObject(WCR2, 2405, 320, -1);
   CreateObject(WCR2, 2415, 500, -1);
   CreateObject(WCR2, 2560, 110, -1);
+
+  //Metallkisten
+  CreateObject(MWCR, 1190, 570, -1);
+  CreateObject(MWCR, 1210, 570, -1);
+  CreateObject(MWCR, 1910, 320, -1)->AutoRespawn();
+  CreateObject(MWCR, 2710, 110, -1);
+
+  //Verbandskisten
+  CreateObject(BECR, 355, 450, -1)->AutoRespawn();
+  CreateObject(BECR, 1460, 52, -1);
+  CreateObject(BECR, 2020, 510, -1);
+  CreateObject(BECR, 2410, 510, -1);
 
   //Gasflaschen
   CreateObject(GSBL, 1020, 430, -1)->AutoRespawn();
