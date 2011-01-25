@@ -19,3 +19,5 @@ Rebuy=1
 Grab=2
 Timer=2
 TimerCall=Check
+ContactIncinerate=1
+NoBurnDecay=1
