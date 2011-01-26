@@ -19,3 +19,5 @@ Collectible=1
 Float=1
 Timer=5
 TimerCall=Sense
+ContactIncinerate=1
+NoBurnDecay=1

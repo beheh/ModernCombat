@@ -102,7 +102,24 @@ public func Entrance(object pObj)
   SetOwner(GetOwner(pObj));
 }
 
-/* Aufschlag */
+/* Schaden */
+
+protected func Damage(int iChange) 
+{
+  //Zündung durch Schaden
+  if(GetDamage() < 40 || activated) return ;
+
+  //Effekte
+  Sparks(2,RGB(250,100));
+  Sparks(2,RGB(0,200));
+  if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("BlastDirt",2,10,0,0,400,100);
+  if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("BlastFlame",2,10,0,0,150,100);
+  Sound("BBTP_Hit*.ogg");
+
+  RemoveObject();
+}
+
+/* Aufprall */
 
 func HitSound()
 {
