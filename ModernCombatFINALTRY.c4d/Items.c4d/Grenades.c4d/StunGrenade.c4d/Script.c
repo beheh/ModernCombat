@@ -123,6 +123,17 @@ public func FxIntFlashbangStop(object pTarget, int iEffectNumber, int iReason, b
     RemoveObject(EffectVar(1,pTarget,iEffectNumber));
 }
 
+/* Schaden */
+
+protected func Damage(int iChange) 
+{
+  //Zündung durch Schaden
+  if(GetDamage() < 10 || activated) return ;
+
+  Fused();
+  RemoveObject();
+}
+
 /* Aufprall */
 
 func HitSound()

@@ -240,7 +240,7 @@ private func Check()
 				Find_Not(Find_Distance(10)),				//Nah genug?
 				Find_OCF(OCF_Alive),					//Lebewesen?
 				Find_NoContainer()) )					//Im Freien?
-    if(PathFree(GetX(),GetY(),GetX(pVictim),GetY(pVictim)))
+    if(PathFree(GetX(),GetY(),GetX(pVictim),GetY(pVictim)))				//Freies Schussfeld?
       Detonate();
   return 1;
 }
@@ -259,7 +259,8 @@ public func Detonate()
   }
 
   //Effekte
-  if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",12, 10, 0, 0, 150, 200, RGBa(255,255,255,100), RGBa(255,255,255,130));
+  if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("BlastDirt",5,10,0,0,400,100);
+  if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("BlastFlame",4,20,0,0,150,100);
   if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",2,150,0,0,45,30,RGB(40,20,20));
   if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",2,100,0,0,30,80);
   Sound("BBTP_Explosion.ogg");
