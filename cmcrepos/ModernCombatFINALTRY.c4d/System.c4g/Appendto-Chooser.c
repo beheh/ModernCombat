@@ -343,55 +343,55 @@ protected func OpenGoalVoteMenu(id id, object pClonk)
 
 protected func GoalVoteMenu(id id, object pClonk, int iPlr)
 {
-  if (!pClonk)
-    pClonk = GetCursor(iPlr);
-  if (!pClonk)
-    pClonk = GetCrew(iPlr);
-  if (!pClonk) return false;
-  if (iPlr == NO_OWNER)
-    iPlr = GetOwner(pClonk);
-  if (iPlr == NO_OWNER) return false;
-  if(GetMenu(pClonk)) CloseMenu(pClonk);
+  if (!pClonk && !(pClonk = GetCrew(iPlr)))
+    return;
+  if (iPlr == NO_OWNER && (iPlr = GetOwner(pClonk)) == NO_OWNER)
+    return false;
+  var iSelection = GetMenuSelection(pClonk);
+  CloseMenu(pClonk);
+
+  var iTime = GetEffect("EvaluateGoalVote", this, 0, 6);
+  if (iTime >= CHOS_GoalVotingTime * 35)
+    return false;
+
   CreateMenu(GetID(), pClonk, 0, 0, 0, 0, C4MN_Style_Context);
   if (!aGoalsVoted[iPlr])
     aGoalsVoted[iPlr] = [];
+
+  AddMenuItem(Format("$VoteGoal$ (%d)", CHOS_GoalVotingTime - iTime / 35), 0, GetID(), pClonk, 0, 0, 0, C4MN_Add_ForceNoDesc);
   for (var i = 0; i < GetLength(aGoals); i++)
     if (aGoalsVoted[iPlr][i])
       AddMenuItem("%s", "CheckVoteGoal", aGoals[i], pClonk, 0, pClonk, GetDesc(0, aGoals[i]));
     else
       AddMenuItem("<c 777777>%s</c>", "CheckVoteGoal", aGoals[i], pClonk, 0, pClonk, GetDesc(0, aGoals[i]));
+  SelectMenuItem(iSelection, pClonk);
   return true;
 }
 
 protected func CheckVoteGoal(id idGoal, object pClonk)
 {
-  var iIndex = GetIndexOf(idGoal, aGoals), iPlr = GetOwner(pClonk);
+  var iIndex = 1 + GetIndexOf(idGoal, aGoals), iPlr = GetOwner(pClonk);
   aGoalsVoted[iPlr][iIndex] = !aGoalsVoted[iPlr][iIndex];
   GoalVoteMenu(0, pClonk, iPlr);
   SelectMenuItem(iIndex, pClonk);
   Sound("Grab", true, 0, 0, iPlr + 1);
 }
 
-protected func FxEvaluateGoalVoteTimer(temp1, temp2, iEffectTime)
+protected func FxEvaluateGoalVoteTimer(pTarget, iEffect, iTime)
 {
-  if(CHOS_GoalVotingTime - (iEffectTime / 35) < 5) {
-    Sound("Select.ogg", true, 0);
-  }
-  if(iEffectTime / 35 < CHOS_GoalVotingTime)
-    return true;
-  for (var i = 0; i < GetPlayerCount(); i++) {
-  	if(GetMenu(GetCursor(GetPlayerByIndex(i))))
-	    CloseMenu(GetCursor(GetPlayerByIndex(i)));
-  }
+  if (CHOS_GoalVotingTime - (iTime / 35) < 5)
+    Sound("Select.ogg", true);
+  for (var i = 0; i < GetPlayerCount(); i++)
+    GoalVoteMenu(0, GetCrew(GetPlayerByIndex(i)), GetPlayerByIndex(i));
+
+  if (iTime / 35 < CHOS_GoalVotingTime)
+    return;
   var aGoalsChosen = [];
   //Spieler durchgehen
   for (var array in aGoalsVoted)
-  {
-    if (GetType(array) != C4V_Array)
-      continue;
-    for (var i = 0; i < GetLength(array); i++)
-      aGoalsChosen[i] += array[i];
-  }
+    if (GetType(array) == C4V_Array)
+      for (var i = 0; i < GetLength(array); i++)
+        aGoalsChosen[i] += array[i];
   //Alle Ziele mit dem höchsten Wert raussuchen
   var highest;
   for (var i in aGoalsChosen)
@@ -400,10 +400,6 @@ protected func FxEvaluateGoalVoteTimer(temp1, temp2, iEffectTime)
   for (var i = 0; i < GetLength(aGoals); i++)
     if (aGoalsChosen[i] == highest)
       array[GetLength(array)] = aGoals[i];
-/*  Log("Goals: %v", aGoals);
-  Log("Chosen: %v", aGoalsChosen);
-  Log("Voting: %v", aGoalsVoted);
-  Log("Highest: %v (%d)", array, highest);*/
   //Und zufällig eins auswählen
   var idGoal = array[Random(GetLength(array))];
   if (idGoal)
@@ -415,5 +411,9 @@ protected func FxEvaluateGoalVoteTimer(temp1, temp2, iEffectTime)
 
 protected func MenuQueryCancel()
 {
-  return _inherited(...) || GetEffect("EvaluateGoalVote", this);
+  //return _inherited(...) || GetEffect("EvaluateGoalVote", this);
+
+  //Menüs sollten immer geöffnet bleiben, sodass zB der Host sie nicht
+  //wegdrücken kann und erst umständlich übers Regelmenü öffnen muss
+  return true;
 }
