@@ -36,9 +36,9 @@ protected func Initialize()
   SetColorDw(RGB(255,255,255));
 }
 
-local text,icon,color,graphics,fGlobal;
+local text, icon, color, graphics, action, fGlobal;
 
-public func Set(string szText, id idIcon, int dwTextColor, int dwIconColor, string szGraphics, string szSound)
+public func Set(string szText, id idIcon, int dwTextColor, int dwIconColor, string szGraphics, string szSound, string szAction)
 {
   if(!idIcon && !szGraphics)
     szGraphics = "Default";
@@ -53,6 +53,7 @@ public func Set(string szText, id idIcon, int dwTextColor, int dwIconColor, stri
   icon = idIcon;
   color = dwTextColor;
   graphics = szGraphics;
+  action = szAction;
   SetColorDw(dwIconColor);
 
   if (GetOwner() != NO_OWNER) {
@@ -60,19 +61,24 @@ public func Set(string szText, id idIcon, int dwTextColor, int dwIconColor, stri
     Sound(szSound,true,0,0,GetOwner()+1);
   }
   
-  AddEffect("IntEventInfo",this,10,1,this,EI4K);
+  AddEffect("IntEventInfo", this, 10, 1, this, EI4K);
 }
 
 public func SetAsGlobal() { fGlobal = true; }
 
 public func FxIntEventInfoStart(object pTarget, int iEffectNumber, int iTemp)
 {
-  if(iTemp) return;
-
   SortByActTime();
-  if(icon)
-    SetGraphics(graphics,0,icon,1,GFXOV_MODE_IngamePicture);
-  FxIntEventInfoTimer(pTarget,iEffectNumber,0);
+  if (icon)
+    if (action)
+    {
+      SetGraphics(graphics, pTarget, icon, 1, GFXOV_MODE_Action, action);
+      var size = pTarget->~IconSize() * 1000 / Max(GetActMapVal("Facet", action, icon, 2), GetActMapVal("Facet", action, icon, 4));
+      SetObjDrawTransform(size, 0, 0, 0, size, 0, pTarget, 1);
+    }
+    else
+      SetGraphics(graphics, pTarget, icon, 1, GFXOV_MODE_IngamePicture);
+  FxIntEventInfoTimer(pTarget, iEffectNumber, 0);
 }
 
 public func FxIntEventInfoTimer(object pTarget, int iEffectNumber, int iEffectTime)
@@ -93,17 +99,17 @@ public func FxIntEventInfoStop(object pTarget, int iEffectNumber, int iReason, b
     RemoveObject(pTarget);
 }
 
-private func Destruction()//*hack*
+private func Destruction()
 {
   SortByActTime(this);
 }
 
 private func SortByActTime(object pExclude)
 {
-  var aSymbols = FindObjects(Find_Owner(GetOwner()),Find_ID(GetID()),Find_Exclude(pExclude));
+  var aSymbols = FindObjects(Find_Owner(GetOwner()), Find_ID(GetID()), Find_Exclude(pExclude), Sort_Reverse());
   var temp;
   
-  if(!pExclude)//*cheat*
+  if(!pExclude)
     aSymbols[GetLength(aSymbols)] = this;
 
   //Sortieren.

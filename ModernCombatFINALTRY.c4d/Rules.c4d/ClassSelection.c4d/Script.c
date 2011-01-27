@@ -384,9 +384,12 @@ public func SetupClass(int iClass, int iPlr)
         CreateObject(aEntry[0], 0, 0, iPlr)->~Activate(pCrew);
 
   //Nachricht
+  var szAction = Format("%d", GetCData(iClass, CData_Facet));
+  if (!GetActMapVal("Name", szAction, GetCData(iClass, CData_Icon)))
+    szAction = 0;
   for(var i = 0; i < GetPlayerCount(); i++)
     if(GetPlayerTeam(i) == GetPlayerTeam(iPlr))
-      EventInfo4K(i+1, Format("$PlayerChoosedClass$", GetTaggedPlayerName(iPlr), GetCData(iClass, CData_Name)), GetID(), RGB(220, 220, 220));
+      EventInfo4K(i+1, Format("$PlayerChoosedClass$", GetTaggedPlayerName(iPlr), GetCData(iClass, CData_Name)), GetCData(iClass, CData_Icon), RGB(220, 220, 220), 0, 0, 0, szAction);
 
   //Speichern
   lastclass[iPlr] = iClass;
