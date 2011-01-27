@@ -202,11 +202,10 @@ public func ControlUp(object pObjBy)
   if(bReady)
     Defuse();
 
-  //Aufnahme sofern Platz
-  if(pObjBy->~RejectCollect(GetID(), this)) return;
-  Enter(pObjBy);
-
-  return 1;
+  //Einsammeln wenn möglich, sonst zumindest loslassen
+  if (!Collect(this, pObjBy))
+    SetCommand(pObjBy, "UnGrab");
+  return true;
 }
 
 private func Defuse()
