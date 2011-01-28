@@ -73,7 +73,7 @@ public func FxIntEventInfoStart(object pTarget, int iEffectNumber, int iTemp)
     if (action)
     {
       SetGraphics(graphics, pTarget, icon, 1, GFXOV_MODE_Action, action);
-      var size = pTarget->~IconSize() * 1000 / Max(GetActMapVal("Facet", action, icon, 2), GetActMapVal("Facet", action, icon, 4));
+      var size = pTarget->~IconSize() * 1000 / Max(GetActMapVal("Facet", action, icon, 2), GetActMapVal("Facet", action, icon, 3));
       SetObjDrawTransform(size, 0, 0, 0, size, 0, pTarget, 1);
     }
     else

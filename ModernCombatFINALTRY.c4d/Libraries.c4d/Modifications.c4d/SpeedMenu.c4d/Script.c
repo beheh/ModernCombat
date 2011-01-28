@@ -212,6 +212,11 @@ protected func CrewSelection(bool fDeselect, bool fCursor)
 protected func FxIntSMENCheckTimer(object pTarget)
 {
   SetPosition(GetX(pTarget),GetY(pTarget));
+  if (!GetAlive(pTarget) || IsFakeDeath(pTarget))
+  {
+    Close();
+    return -1;
+  }
 }
 
 protected func FxIntSMENCheckStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)

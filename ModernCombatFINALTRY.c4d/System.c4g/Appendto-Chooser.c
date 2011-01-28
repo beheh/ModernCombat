@@ -370,10 +370,10 @@ protected func GoalVoteMenu(id id, object pClonk, int iPlr)
 
 protected func CheckVoteGoal(id idGoal, object pClonk)
 {
-  var iIndex = 1 + GetIndexOf(idGoal, aGoals), iPlr = GetOwner(pClonk);
+  var iIndex = GetIndexOf(idGoal, aGoals), iPlr = GetOwner(pClonk);
   aGoalsVoted[iPlr][iIndex] = !aGoalsVoted[iPlr][iIndex];
   GoalVoteMenu(0, pClonk, iPlr);
-  SelectMenuItem(iIndex, pClonk);
+  SelectMenuItem(iIndex + 1, pClonk);
   Sound("Grab", true, 0, 0, iPlr + 1);
 }
 
