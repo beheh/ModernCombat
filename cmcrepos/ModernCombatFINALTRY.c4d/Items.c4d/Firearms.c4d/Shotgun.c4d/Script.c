@@ -85,10 +85,10 @@ public func Fire1()
   }
 
   //Effekte
-  Schedule("Sound(\"PPGN_Echo*.ogg\")", 10);
   SAMuzzleFlash(RandomX(40,55),user,x,y,angle);
   AddEffect("Pump", this, 1, 1+GetFMData(FM_Recharge, 1)-25, this);
   Sound("PPGN_Fire*.ogg", 0, ammo);
+  Sound("PPGN_Echo*.ogg", 0, ammo);
 }
 
 /* Nachladen */
