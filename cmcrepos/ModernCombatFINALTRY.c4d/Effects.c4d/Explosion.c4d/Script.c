@@ -11,8 +11,8 @@ global func Explode(int iLevel, object pObj, id idEffect, string szEffect, bool 
       return;
 
   var x = AbsX(GetX(pObj)),
-          y = AbsY(GetY(pObj));
-		
+      y = AbsY(GetY(pObj));
+
   var xdir = GetXDir(pObj) + GetWind(GetX(pObj),GetY(pObj))/20;
   var ydir = GetYDir(pObj);
 
@@ -24,7 +24,7 @@ global func Explode(int iLevel, object pObj, id idEffect, string szEffect, bool 
   while((count > 0) && (++i < count*10))
   {
     angle += RandomX(40,80);
-   
+
     angle = Interpolate4K(angle,opt_angle,0,60,speed);
     angle -= 180;
 
@@ -49,8 +49,8 @@ global func Explode(int iLevel, object pObj, id idEffect, string szEffect, bool 
         CreateParticle("BlastDirt", smokex, smokey, +Sin(a,level+RandomX(-20,+20)), -Cos(a,level+RandomX(-20,+20)), level*RandomX(7,12));
       }
     }
-    //Deaktiviert
-    //CreateSmokeTrail(level,angle,smokex,smokey,pObj);
+    //Rauchspuren
+    CreateSmokeTrail(level,angle,smokex,smokey,pObj);
     count--;
   }
 
@@ -72,7 +72,6 @@ global func Explode(int iLevel, object pObj, id idEffect, string szEffect, bool 
   CreateParticle("BlastBg",0,0,+Sin(angle,100),-Cos(angle,100),iLevel*20);
   //Deaktiviert
   //CreateParticle("BlastBg",0,0,0,-1,iLevel*20);
-
 
   //Der eigentliche, klassische Blast-Partikel
   CreateParticle("Blast",x,y,0,0,iLevel*11);
