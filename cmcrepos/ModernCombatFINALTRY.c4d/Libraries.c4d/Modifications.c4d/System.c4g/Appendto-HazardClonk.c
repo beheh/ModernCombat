@@ -41,6 +41,7 @@ protected func ControlThrow()
 
 protected func ControlDigDouble()
 {
+  ClearMacroCommands();
   if(Control2Grab("ControlDigDouble")) return true;
   return _inherited();
 }
@@ -888,6 +889,8 @@ public func GetContentsOffset(object pTo)
 public func ControlSpecial()
 {
   [$CtrlInventoryDesc$|Image=INVT]
+
+  ClearMacroCommands();
   
   //ControlSpecial an Container weitergeben (z.B. Fahrzeuge)
   if(Contained() && Contained()->~ContainedSpecial(this))

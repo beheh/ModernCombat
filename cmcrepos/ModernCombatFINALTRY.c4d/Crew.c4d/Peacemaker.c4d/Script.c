@@ -126,7 +126,8 @@ public func FxAggroTimer(object pTarget, int no)
 			StopAiming();
 		if (Contents() == defi && GetProcedure(pTarget) && ObjectDistance(body, pTarget) < 10)
 		{
-			ScheduleCall(defi, "Activate", 1, 0, pTarget);
+      defi->Activate(this);
+			return;
 		}
 		else 
 		{
@@ -137,11 +138,11 @@ public func FxAggroTimer(object pTarget, int no)
 			}
 			else if (Contents() != defi)
 			{
-				ShiftContents(pTarget, 0, CDBT);
+				ShiftContents(pTarget, 0, CDBT, true);
 			}
 			else 
 			{
-				//SetMacroCommand(pTarget, "MoveTo", body, 0, 0, 0, EffectVar(0, pTarget, no));
+				SetMacroCommand(pTarget, "MoveTo", body, 0, 0, 0, EffectVar(0, pTarget, no));
 			}
 			return 1;
 		}
@@ -169,7 +170,7 @@ public func FxAggroTimer(object pTarget, int no)
 				{
 					var pFAP = FindObject2(Find_ID(FAPK), Find_Container(pTarget), Find_Func("CanUnpack", pTarget));
 					if (pFAP)
-						pFAP->ControlThrow(pTarget);
+            pDragnin->ControlThrow(pTarget);
 				}
 				var pDragnin = FindObject2(Find_ID(DGNN), Find_Container(pTarget));
 				if (pDragnin)
@@ -180,7 +181,7 @@ public func FxAggroTimer(object pTarget, int no)
 					}
 					else 
 					{
-						//SetMacroCommand(pTarget, "MoveTo", friend, 0, 0, 0, EffectVar(0, pTarget, no));
+						SetMacroCommand(pTarget, "MoveTo", friend, 0, 0, 0, EffectVar(0, pTarget, no));
 					}
 				}
 				break;
@@ -286,7 +287,6 @@ public func FxAggroFire(object pTarget, int no)
       }
       AddMacroCommand(0, "MoveTo", 0, x,y, 0, level);
       EffectVar(1, this(), no) = 0;
-    //      Message("@Returning to guarded position", this());
       return;
     }
   }
@@ -297,6 +297,7 @@ public func FxAggroFire(object pTarget, int no)
     if(level == 1) maxdist = 0;
     if(level >= 2) maxdist = dist/2;
     pathfree = false;
+    target = 0;
   }
   
   // Ziel irgendwie weg?
@@ -383,7 +384,7 @@ public func FxAggroFire(object pTarget, int no)
 
   // Feuer!
   if(maxdist != 300 && pathfree) {
-  	Schedule("Control2Contents(\"ControlThrow\")", 1);
+  	Control2Contents("ControlThrow");
   }
   else {
       if(IsAiming())
@@ -501,7 +502,75 @@ public func SelectWeapon(int iLevel, object pTarget, bool fFireModes)
 			fav->SetFireMode(favmode);
 	if (ContentsCount() == 1)
 		return 1;
-	return ShiftContents(0, 0, fav->GetID());
+	ShiftContents(0, 0, fav->GetID(), true);
+	return true;
+}
+
+/* Waffenbehandlung wenn nicht im Kampf */
+
+public func CheckIdleWeapon()
+{
+  if(Contents()) {
+    // Hack - mit BR-Bombe tut er gar nichts
+    if(Contents()->GetID() == GBRB) return;
+    if(Contents()->~RejectShift()) return;
+  }
+  // Keine Waffen im Inventar
+  if(!CustomContentsCount("IsWeapon")) return;
+  // nachladende Waffe in der Hand
+  if(Contents()->~IsWeapon())
+    if(Contents()->IsReloading() || Contents()->~IsRecharging())
+      return;
+  // Inventar nach Waffe durchsuchen, die man Nachladen könnte
+  for(var i=0, mode=1, obj, favmode ; obj = Contents(i) ; mode++)
+  {
+    // Keine Waffe
+    if(!(obj->~IsWeapon()))
+    {
+      i++;
+      mode = 0;
+      continue;
+    }
+    // Waffe hat gar nicht so viele Modi
+    if(!(obj->GetFMData(FM_Name, mode)))
+    {
+      i++;
+      mode = 0;
+      continue;
+    }
+    // Waffe ist voll geladen
+    if(obj->GetAmmo(obj->GetFMData(FM_AmmoID, mode)) >= obj->GetFMData(FM_AmmoLoad, mode) / 2)
+    {
+      i++;
+      mode = 0;
+      continue;
+    }
+    // EMP-Modi erstmal nicht laden
+    if(obj->GetBotData(BOT_EMP, mode)) continue;
+    // Waffe ist nachladbar
+    if(CheckAmmo(obj->GetFMData(FM_AmmoID, mode), obj->GetFMData(FM_AmmoLoad, mode) - obj->GetAmmo(obj->GetFMData(FM_AmmoID, mode))))
+    {
+      //mode = obj->GetFireMode();
+      break;
+    }
+    // Nächsten Feuermodus prüfen
+    if(mode == obj->GetFireMode()) continue;
+    if(CheckAmmo(obj->GetFMData(FM_AmmoID, mode), obj->GetFMData(FM_AmmoLoad, mode)))
+      break;
+  }
+  // Nix gefunden
+  if(!Contents(i)) return;
+  
+  // Aha! Waffe wechseln!
+  if(ContentsCount() != 1)
+    ShiftContents(this(), 0, obj->GetID(), true);
+  // Feuermodus wechseln
+  obj->SetFireMode(mode);
+  // Und Muni reinhauen
+  if(!Contents()->~IsRecharging())
+    Schedule("Control2Contents(\"ControlThrow\")", 1);
+  // Klasse
+  return(1);
 }
 
 protected func MacroComMoveTo()
