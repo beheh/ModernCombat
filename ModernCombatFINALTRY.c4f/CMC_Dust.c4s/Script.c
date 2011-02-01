@@ -23,6 +23,8 @@ func Initialize()
   CreateEquipment();
   //Dekoration plazieren
   CreateDecoration();
+  //Optionale Objekte plazieren
+  CreateOptionalFeatures();
   return(1);
 }
 
@@ -126,14 +128,6 @@ func CreateDecoration()
 {
   Log("$CreatingDecoration$");
 
-  //Hintergrund
-  CreateObject(BD07,600,930,-1);
-}
-
-func CreateDecoration()
-{
-  Log("$CreatingDecoration$");
-
   //Flutlichter
   CreateObject(FLGH, 455, 630, -1)->SetRotation(30);
   CreateObject(FLGH, 975, 470, -1)->SetRotation(100);
@@ -154,6 +148,14 @@ func CreateDecoration()
   CreateObject(BSH2, 1275, 825, -1);
   CreateObject(BSH2, 1550, 600, -1);
   CreateObject(BSH2, 1730, 350, -1);
+}
+
+func CreateOptionalFeatures()
+{
+  Log("$CreatingDecoration$");
+
+  //Hintergrund
+  CreateObject(BD07,600,930,-1);
 }
 
 /* Regelwähler */
