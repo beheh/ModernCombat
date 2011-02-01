@@ -60,19 +60,20 @@ func CreateInterior()
   DrawMaterialQuad("Wall-Metal2",1951,500,1921,490,1921,500,1936,500,true);
   DrawMaterialQuad("Wall-Metal2",2261,520,2231,510,2231,520,2246,520,true);
 
+  DrawMaterialQuad("Wall-Concrete3",2481,580,2481,570,2451,580,2481,580,true);
+  DrawMaterialQuad("Wall-Concrete3",2511,570,2511,560,2481,570,2511,570,true);
+
   //Leitern
   CreateObject(LADR, 70, 622, -1)->Set(33);
   CreateObject(LADR, 720, 530, -1)->Set(14);
-
   CreateObject(LADR, 850, 400, -1)->Set(29);
   CreateObject(LADR, 985, 570, -1)->Set(17);
   CreateObject(LADR, 1040, 420, -1)->Set(19);
   CreateObject(LADR, 1205, 568, -1)->Set(45);
-
   CreateObject(LADR, 1385, 520, -1)->Set(15);
   CreateObject(LADR, 1481, 280, -1)->Set(9);
   CreateObject(LADR, 1670, 273, -1)->Set(7);
-
+  CreateObject(LADR, 1870, 578, -1)->Set(10);
   CreateObject(LADR, 1985, 320, -1)->Set(14);
   CreateObject(LADR, 2080, 480, -1)->Set(33);
   CreateObject(LADR, 2120, 480, -1)->Set(20);
@@ -81,6 +82,7 @@ func CreateInterior()
   CreateObject(LADR, 2310, 490, -1)->Set(34);
   CreateObject(LADR, 2490, 500, -1)->Set(11);
   CreateObject(LADR, 2540, 500, -1)->Set(36);
+  CreateObject(LADR, 2560, 560, -1)->Set(7);
   CreateObject(LADR, 2600, 320, -1)->Set(13);
   CreateObject(LADR, 2620, 210, -1)->Set(12);
 
@@ -90,8 +92,11 @@ func CreateInterior()
   CreateObject(HA4K, 720, 413, -1);
   CreateObject(HA4K, 1480, 203, -1);
   CreateObject(HA4K, 2080, 213, -1);
+  CreateObject(HA4K, 2270, 533, -1);
+  CreateObject(HA4K, 2350, 533, -1);
   CreateObject(HA4K, 2540, 353, -1);
   CreateObject(HA4K, 2540, 413, -1);
+  CreateObject(HA4K, 2560, 503, -1);
   CreateObject(HA4K, 2600, 213, -1);
   CreateObject(HA4K, 2620, 113, -1);
 
@@ -158,6 +163,8 @@ func CreateInterior()
   CreateObject(WCR2, 1460, 70, -1);
   CreateObject(WCR2, 1505, 200, -1)->AutoRespawn();
   CreateObject(WCR2, 1540, 70, -1)->AutoRespawn();
+  CreateObject(WCR2, 1815, 580, -1);
+  CreateObject(WCR2, 2040, 580, -1);
   CreateObject(WCR2, 2000, 456, -1);
   CreateObject(WCR2, 2000, 474, -1);
   CreateObject(WCR2, 2000, 492, -1);
@@ -175,11 +182,14 @@ func CreateInterior()
   CreateObject(MWCR, 1190, 570, -1);
   CreateObject(MWCR, 1210, 570, -1);
   CreateObject(MWCR, 1910, 320, -1)->AutoRespawn();
+  CreateObject(MWCR, 2060, 580, -1);
+  CreateObject(MWCR, 2410, 580, -1);
   CreateObject(MWCR, 2710, 110, -1);
 
   //Verbandskisten
   CreateObject(BECR, 355, 450, -1)->AutoRespawn();
   CreateObject(BECR, 1460, 52, -1);
+  CreateObject(BECR, 1795, 580, -1);
   CreateObject(BECR, 2020, 510, -1);
   CreateObject(BECR, 2410, 450, -1);
   CreateObject(BECR, 2560, 110, -1);
@@ -188,6 +198,7 @@ func CreateInterior()
   CreateObject(GSBL, 1020, 430, -1)->AutoRespawn();
   CreateObject(GSBL, 1640, 520, -1)->AutoRespawn();
   CreateObject(GSBL, 2205, 110, -1)->AutoRespawn();
+  CreateObject(GSBL, 2600, 560, -1)->AutoRespawn();
   CreateObject(GSBL, 2790, 110, -1);
 
   //Explosive Kisten
@@ -198,6 +209,7 @@ func CreateInterior()
   //Benzinfässer
   CreateObject(PBRL, 480, 450, -1);
   CreateObject(PBRL, 2325, 530, -1);
+  CreateObject(PBRL, 2585, 560, -1)->AutoRespawn();
 
   //Explosivfässer
   CreateObject(XBRL, 1260, 550, -1)->AutoRespawn();
@@ -249,37 +261,27 @@ func CreateInterior()
   CreateObject(STNE, 220, 690, -1);
   CreateObject(STNE, 735, 665, -1);
 
-  //Hinweisschilder
-  CreateObject(SGNP, 780, 410, -1)->SetPhase(1);
-  CreateObject(SGNP, 1410, 550, -1)->SetPhase(1);
-
   //Hydrauliküren
-  aDoor[0] = CreateObject(SEDR,1225, 560,-1);
-   aDoor[0]->Lock();
-   aDoor[0]->SetMaxDamage(-1);
-  aDoor[1] = CreateObject(SEDR,1245, 430,-1);
-   aDoor[1]->Lock();
-   aDoor[1]->SetMaxDamage(-1);
-  aDoor[2] = CreateObject(SEDR,1355, 260,-1);
-   aDoor[2]->Lock();
-   aDoor[2]->SetMaxDamage(-1);
-  aDoor[3] = CreateObject(H24K, 1205, 208, -1);
-   aDoor[3]->Lock();
-   aDoor[3]->SetMaxDamage(-1);
-  aDoor[4] = CreateObject(HA4K, 850, 163, -1);
-   aDoor[4]->Lock();
-   aDoor[4]->SetMaxDamage(-1);
-  aDoor[5] = CreateObject(HNG2,1355,550,-1);
-  aDoor[6] = CreateObject(HNG2,1905,490,-1);
-  aDoor[7] = CreateObject(SEDR,1850,110,-1);
-   aDoor[7]->Lock();
-   aDoor[7]->SetMaxDamage(-1);
-  aDoor[8] = CreateObject(HA4K, 1440, 323, -1);
-   aDoor[8]->Lock();
-   aDoor[8]->SetMaxDamage(-1);
-  aDoor[9] = CreateObject(HA4K, 1650, 293, -1);
-   aDoor[9]->Lock();
-   aDoor[9]->SetMaxDamage(-1);
+  aDoor[00] = CreateObject(SEDR,1225, 560,-1);
+   aDoor[00]->Lock();
+  aDoor[01] = CreateObject(SEDR,1245, 430,-1);
+   aDoor[01]->Lock();
+  aDoor[02] = CreateObject(SEDR,1355, 260,-1);
+   aDoor[02]->Lock();
+  aDoor[03] = CreateObject(H24K, 1205, 208, -1);
+   aDoor[03]->Lock();
+  aDoor[04] = CreateObject(HA4K, 850, 163, -1);
+   aDoor[04]->Lock();
+  aDoor[05] = CreateObject(HNG2,1355,550,-1);
+  aDoor[06] = CreateObject(HNG2,1905,490,-1);
+  aDoor[07] = CreateObject(SEDR,1850,110,-1);
+   aDoor[07]->Lock();
+  aDoor[08] = CreateObject(HA4K, 1440, 323, -1);
+   aDoor[08]->Lock();
+  aDoor[09] = CreateObject(HA4K, 1650, 293, -1);
+   aDoor[09]->Lock();
+  aDoor[10] = CreateObject(HA4K, 1870, 493, -1);
+   aDoor[10]->Lock();
 
   //Lampen
   aLamp[00]=CreateObject(BLGH,880,300,-1);
@@ -344,7 +346,7 @@ func CreateEquipment()
    tmp->Set(ABOX);
    var tmp = CreateObject (AMCT, 1835, 490, -1);
    tmp->Set(ABOX);
-   var tmp = CreateObject (AMCT, 2375, 530, -1);
+   var tmp = CreateObject (AMCT, 2375, 580, -1);
    tmp->Set(ABOX);
 
    //Versorgungskisten (Gewehrgranaten)
@@ -423,25 +425,19 @@ func CreateDecoration()
   CreateObject(PLNT, 820, 240, -1);
   CreateObject(PLNT, 820, 300, -1);
   CreateObject(PLNT, 820, 360, -1);
-
   CreateObject(PLNT, 1400, 308, -1);
   CreateObject(PLNT, 1455, 140, -1);
   CreateObject(PLNT, 1615, 278, -1);
-
   CreateObject(PLNT, 1955, 98, -1);
 
   //Geländer
   CreateObject(RAI1, 160, 450, -1)->SetRail([1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]);
-
   CreateObject(RAI1, 1250, 550, -1)->SetRail([1,1,1,1,1]);
   CreateObject(RAI1, 1260, 430, -1)->SetRail([1,1]);
   CreateObject(RAI1, 1320, 320, -1)->SetRail([1]);
-
   CreateObject(RAI1, 1460, 200, -1)->SetRail([1,1,1]);
   CreateObject(RAI1, 1680, 210, -1)->SetRail([1,1,1,1,1]);
-
   CreateObject(RAI1, 1809, 320, -1)->SetRail([1,1,1,1,1,1]);
-
   CreateObject(RAI2, 1950, 320, -1)->SetRail([1,1,1,1]);
   CreateObject(RAI2, 2000, 210, -1)->SetRail([1,1,1,1,1,1,1,1]);
   CreateObject(RAI2, 2130, 320, -1)->SetRail([1,1,1,1,1,1,1]);
@@ -450,6 +446,12 @@ func CreateDecoration()
   CreateObject(RAI2, 2390, 320, -1)->SetRail([1,1,1,1,1]);
   CreateObject(RAI2, 2400, 500, -1)->SetRail([1,1,1,1,1]);
   CreateObject(RAI1, 2305, 110, -1)->SetRail([1,1,1,1,1,1,1,1]);
+
+  //Ventillatoren
+  CreateObject(VENT, 2580, 180, -1)->SetCon(15);
+  CreateObject(VENT, 2580, 210, -1)->SetCon(15);
+  CreateObject(VENT, 2590, 470, -1)->SetCon(23);
+  CreateObject(VENT, 2590, 500, -1)->SetCon(23);
 
   //Dekoschleusen
   CreateObject(GAT1, 925, 350, -1);
@@ -588,7 +590,7 @@ func CreateDecoration()
   CreateObject(BSH2, 710, 615, -1);
   CreateObject(BSH2, 855, 520, -1);
   CreateObject(BSH2, 1515, 630, -1);
-  CreateObject(BSH2, 2320, 610, -1);
+  CreateObject(BSH2, 2425, 640, -1);
 
   //Radare
   CreateObject(RADR, 855, 160, -1);
@@ -679,14 +681,15 @@ public func ChooserFinished()
    CreateObject(BRDR, 2010, 0, -1)->Set(1);
 
    //Türen öffnen
-   aDoor[0]->Unlock();
-   aDoor[1]->Unlock();
-   aDoor[2]->Unlock();
-   aDoor[3]->Unlock();
-   aDoor[4]->Unlock();
-   aDoor[5]->Open();
-   aDoor[8]->Unlock();
-   aDoor[9]->Unlock();
+   aDoor[00]->Unlock();
+   aDoor[01]->Unlock();
+   aDoor[02]->Unlock();
+   aDoor[03]->Unlock();
+   aDoor[04]->Unlock();
+   aDoor[05]->Open();
+   aDoor[08]->Unlock();
+   aDoor[09]->Unlock();
+   aDoor[10]->Lock();
 
    //Objekte entfernen
    RemoveObject(aSelfDefense[0]);
@@ -748,6 +751,10 @@ public func ChooserFinished()
    //SSA anschalten
    aSelfDefense[0]->TurnOn();
    aSelfDefense[1]->TurnOn();
+
+   //Hinweisschilder
+   CreateObject(SGNP, 780, 410, -1)->SetPhase(1);
+   CreateObject(SGNP, 1410, 550, -1)->SetPhase(1);
   }
 
   //OP-Spielziel
@@ -798,17 +805,22 @@ public func ChooserFinished()
    CreateObject(BRDR, 2010, 0, -1)->Set(1);
 
    //Türen öffnen
-   aDoor[0]->Unlock();
-   aDoor[1]->Unlock();
-   aDoor[2]->Unlock();
-   aDoor[3]->Unlock();
-   aDoor[4]->Unlock();
-   aDoor[5]->Open();
-   aDoor[8]->Unlock();
-   aDoor[9]->Unlock();
+   aDoor[00]->Unlock();
+   aDoor[01]->Unlock();
+   aDoor[02]->Unlock();
+   aDoor[03]->Unlock();
+   aDoor[04]->Unlock();
+   aDoor[05]->Open();
+   aDoor[08]->Unlock();
+   aDoor[09]->Unlock();
+   aDoor[10]->Lock();
 
    //Objekt entfernen
    RemoveObject(FindObject2(Find_ID(AMCT),Find_InRect(1080, 240, 40, 40)));
+
+   //Hinweisschilder
+   CreateObject(SGNP, 780, 410, -1)->SetPhase(1);
+   CreateObject(SGNP, 1410, 550, -1)->SetPhase(1);
 
    //Konsole erstellen
    CreateObject(CONS, 1810, 485, -1)->Set(aSelfDefense[1]);
@@ -858,11 +870,11 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
    Smoke(925, 340, 30);
 
    //Türen öffnen
-   aDoor[0]->Open();
-   aDoor[1]->Open();
-   aDoor[2]->Open();
-   aDoor[3]->Unlock();
-   aDoor[4]->Open();
+   aDoor[00]->Open();
+   aDoor[01]->Open();
+   aDoor[02]->Open();
+   aDoor[03]->Unlock();
+   aDoor[04]->Open();
 
    //SSA zerstören
    aSelfDefense[0]->Disarm();
@@ -901,9 +913,9 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
    CreateParticle("GunSmoke",1900,290,0,-10,210,1);
 
    //Türen öffnen
-   aDoor[5]->Open();
-   aDoor[8]->Open();
-   aDoor[9]->Open();
+   aDoor[05]->Open();
+   aDoor[08]->Open();
+   aDoor[09]->Open();
 
    //Lampen ausschalten
    aLamp[04]->EMPShock();
@@ -940,8 +952,9 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
    Smoke(1870, 435, 30);
 
    //Türen öffnen
-   aDoor[6]->Open();
-   aDoor[7]->Open();
+   aDoor[06]->Open();
+   aDoor[07]->Open();
+   aDoor[10]->Open();
 
    //SSA zerstören
    aSelfDefense[1]->Disarm();
