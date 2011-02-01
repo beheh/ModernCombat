@@ -156,7 +156,6 @@ public func RejectRelaunch(int iPlr, int iTeam)
 
 public func ForceObservation(int iPlr)
 {
-  //mgöglicherweise irgendwann richtig implementieren
   if(GetCursor(iPlr)) SetPlrViewRange(0, GetCursor(iPlr));
   EliminatePlayer(iPlr);
 }
