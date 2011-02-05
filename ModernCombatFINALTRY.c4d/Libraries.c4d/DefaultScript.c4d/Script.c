@@ -135,6 +135,7 @@ public func OnClonkEquip(object pClonk)
   //Falls Clonk bereits einmal ausgerüstet, nicht nochmal ausrüsten
   if(Contents(0,pClonk))
     return;
+
   //Standardausrüstung geben: Pistole und Handgranate
   var wpn = CreateContents(PSTL, pClonk);
   wpn->DoAmmo(wpn->GetFMData(FM_AmmoID),wpn->GetFMData(FM_AmmoLoad));
@@ -171,9 +172,9 @@ public func OnGameOver()
 
 protected func RemovePlayer(iPlr)
 {
-	var pCursor = GetCursor(iPlr);
-	if(!pCursor) return;
-	if(pCursor->~GetRealCursor()) pCursor = pCursor->~GetRealCursor();
+  var pCursor = GetCursor(iPlr);
+  if(!pCursor) return;
+  if(pCursor->~GetRealCursor()) pCursor = pCursor->~GetRealCursor();
   if(!pCursor->~IsFakeDeath()) return;
   pCursor->Kill();
 }

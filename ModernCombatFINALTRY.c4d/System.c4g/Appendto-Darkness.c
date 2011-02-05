@@ -3,7 +3,6 @@
 //Erweitert die Düsternis im Zusammenhang mit der "Eingeschränkte Sicht"-Regel.
 
 #strict 2
-
 #appendto DARK
 
 
@@ -28,6 +27,7 @@ public func ChooserFinished()
 public func OnClonkRecruitment(object pClonk)
 {
   if(FindObject(CHOS)) return;
+
   if(ObjectCount(GetID()) > 1)
     return ScheduleCall(this,"OnClonkRecruitment",1,0,pClonk);
 
