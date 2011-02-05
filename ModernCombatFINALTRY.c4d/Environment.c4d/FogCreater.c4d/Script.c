@@ -24,6 +24,7 @@ protected func Timer()
   //Effektmanager beachten
   if(!GetEffectData(EFSM_Fog)) return;
 
+  //Nebel erstellen
   DoFog();
 
   if(!Random(100))

@@ -15,7 +15,6 @@ protected func Initialize()
 {
   CreateLight();
   TurnOn();
-  return 1;
 }
 
 public func Light() 
@@ -33,27 +32,29 @@ protected func CreateLight()
 public func TurnOn()
 {
   if(EMPShocked()) return;
-    if(broken) return ;
-      bOn = true;
-      SetAction("On");
-      if(Light())
-      Light()->TurnOn();
+  if(broken) return;
+
+  bOn = true;
+  SetAction("On");
+  if(Light())
+  Light()->TurnOn();
 }
 
 public func TurnOff()
 {
   if(!SetAction("Off"))
-    SetAction("Idle");
-    bOn = false;
-    if(Light())
-    Light()->TurnOff();
+
+  SetAction("Idle");
+  bOn = false;
+  if(Light())
+  Light()->TurnOff();
 }
 
 public func Switch()
 {
   if(GetAction() == "On")
     TurnOff();
-    else
+  else
     TurnOn();
 }
 
@@ -61,7 +62,7 @@ public func Switch()
 
 public func EMPShock()
 {
-  if(broken) return ;
+  if(broken) return;
   TurnOff();
   EMPShockEffect(800+Random(200));
 }
@@ -80,13 +81,13 @@ public func EMPShockEnd()
 public func IsBulletTarget(id def)
 {
   if(broken) return ;
-  if(def->~NoDecoDamage()) return ;
+  if(def->~NoDecoDamage()) return;
   return Random(2);
 }
 
 func Damage()
 {
-  if(broken) return ;
+  if(broken) return;
   broken = true;
   SetAction("Broken");
   if(Light())
