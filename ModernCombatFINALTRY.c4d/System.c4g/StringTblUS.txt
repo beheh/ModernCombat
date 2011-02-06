@@ -52,6 +52,9 @@ RandomGoal=Random goal
 GoalRandomChoose=Choose goal randomly
 Back=Back
 VoteGoal=Goal voting
+BeginVote=Begin vote?
+BeginVoteYes=Yes
+BeginVoteNo=No
 GoalVoteBegins=The host has started a goal election, you have <c ffff33>%d</c> seconds to choose your favorite(s)!
 
 // Team

@@ -273,7 +273,7 @@ protected func OpenGoalChooseMenu()
   //Zufall
   AddMenuItem("$RandomGoal$", "OpenGoalRandomMenu", GetID(), pClonk, 0, pClonk, "$RandomGoal$");
   //Abstimmung
-  AddMenuItem("$VoteGoal$", "OpenGoalVoteMenu", GetID(), pClonk, 0, pClonk, "$VoteGoal$");
+  AddMenuItem("$VoteGoal$", "CheckGoalVoteMenu", GetID(), pClonk, 0, pClonk, "$VoteGoal$");
 }
 
 /* Random */
@@ -330,6 +330,14 @@ protected func GoalRandomChoose(id id, object pClonk)
 
 local aGoalsVoted;
 static const CHOS_GoalVotingTime = 15;
+
+protected func CheckGoalVoteMenu(id id, object pClonk)
+{
+  CreateMenu(GetID(), pClonk, 0, 0, 0, 0, C4MN_Style_Context);
+  AddMenuItem("$BeginVote$", 0, GetID(), pClonk, 0, 0, 0, C4MN_Add_ForceNoDesc);
+  AddMenuItem("$BeginVoteYes$", "OpenGoalVoteMenu", GetID(), pClonk, 0, pClonk, 0, C4MN_Add_ImgIndexed | C4MN_Add_ForceNoDesc, 3);
+  AddMenuItem("$BeginVoteNo$", "OpenGoalChooseMenu", MCMX, pClonk, 0, pClonk, 0, C4MN_Add_ForceNoDesc);
+}
 
 protected func OpenGoalVoteMenu(id id, object pClonk)
 {
