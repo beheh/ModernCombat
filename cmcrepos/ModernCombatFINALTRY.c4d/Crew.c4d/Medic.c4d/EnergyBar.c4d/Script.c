@@ -45,11 +45,11 @@ public func Update()
   var cursor = GetCursor(GetOwner());
   if (!cursor || (GetID(cursor) != MDIC && GetID(cursor->~GetRealCursor()) != MDIC) || cursor == obj)
     return;
-  var percent = BoundBy(GetEnergy(obj)*100/(GetDefCoreVal("Energy","Physical",GetID(obj))/1000),0,100);
+  var percent = BoundBy(100000 * GetEnergy(obj) / GetPhysical("Energy", PHYS_Current, obj), 0, 100);
   if(percent > 95)
     return;
   SetVisibility(VIS_Owner);
   fActive = true;
-  SetObjDrawTransform(10*percent,0,-160*(100-percent),0,1000,0,0,1);
+  SetObjDrawTransform(10 * percent, 0, -160 * (100 - percent), 0, 1000, 0, 0, 1);
   return true;
 }
