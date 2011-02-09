@@ -156,9 +156,9 @@ public func UpdateScoreboard()
 
   //Teams durchgehen
   if (Teams())
-    for (var i = 0; i < GetTeamCount(); i++)
+    for (var i = 0; i < GetPlayerCount(); i++)
     {
-      var team = GetTeamByIndex(i);
+      var team = GetPlayerTeam(GetPlayerByIndex(i));
       SetScoreboardData(team, GMNR_Name, GetTaggedTeamName(team));
       SetScoreboardData(team, GMNR_Count, Format("<c %x>%d</c>", GetTeamColor(team), aMoney[team]), aMoney[team]);
     }
