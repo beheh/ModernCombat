@@ -1,112 +1,112 @@
 [FolderMap]
 MinResX=640
 MinResY=480
-ScenInfoArea=575,72,195,455
+ScenInfoArea=564,79,200,436
 FullscreenBG=1
 
 	[Scenario]
 	File=CMC_MacrossFrontier.c4s
-	Area=25,117,253,25
+	Area=24,116,256,26
 	OverlayImage=Overlay1.png
 
 
 	[Scenario]
 	File=CMC_BroadcastStation.c4s
-	Area=25,157,253,25
+	Area=25,156,256,26
 	OverlayImage=Overlay2.png
 
 
 	[Scenario]
 	File=CMC_EndlessOutpost.c4s
-	Area=25,197,253,25
+	Area=25,196,256,26
 	OverlayImage=Overlay3.png
 
 	[Scenario]
 	File=CMC_BabelTower.c4s
-	Area=25,237,253,25
-	OverlayImage=Overlay3.png
+	Area=25,236,256,26
+	OverlayImage=Overlay4.png
 
 	[Scenario]
 	File=CMC_Dust.c4s
-	Area=25,277,253,25
+	Area=25,276,256,26
 	OverlayImage=Overlay5.png
 
 
 	[Scenario]
 	File=CMC_Yuki.c4s
-	Area=25,317,253,25
+	Area=25,316,256,26
 	OverlayImage=Overlay6.png
 
 
 	[Scenario]
 	File=CMC_IslandStrike.c4s
-	Area=25,357,253,25
+	Area=25,356,256,26
 	OverlayImage=Overlay7.png
 
 
 	[Scenario]
 	File=CMC_AtlanticCrisis.c4s
-	Area=25,397,253,25
+	Area=25,396,256,26
 	OverlayImage=Overlay8.png
 
 
 	[Scenario]
 	File=CMC_GroundZero.c4s
-	Area=25,437,253,25
-	OverlayImage=Overlay8.png
-
-
-	[Scenario]
-	File=CMC_Firewood.c4s
-	Area=25,477,253,25
+	Area=25,436,256,26
 	OverlayImage=Overlay9.png
 
 
 	[Scenario]
-	File=CMC_MagmaZone.c4s
-	Area=291,117,253,25
+	File=CMC_Firewood.c4s
+	Area=25,476,256,26
 	OverlayImage=Overlay10.png
 
 
 	[Scenario]
-	File=CMC_DoubleTrouble.c4s
-	Area=291,157,253,25
+	File=CMC_MagmaZone.c4s
+	Area=291,116,256,26
 	OverlayImage=Overlay11.png
 
 
 	[Scenario]
-	File=CMC_BridgeOnslaught.c4s
-	Area=291,197,253,25
-	OverlayImage=Overlay8.png
-
-
-	[Scenario]
-	File=CMC_BlackThunder.c4s
-	Area=291,237,253,25
+	File=CMC_DoubleTrouble.c4s
+	Area=291,156,256,26
 	OverlayImage=Overlay12.png
 
 
 	[Scenario]
-	File=CMC_Laguna.c4s
-	Area=291,277,253,25
+	File=CMC_BridgeOnslaught.c4s
+	Area=291,196,256,26
 	OverlayImage=Overlay13.png
 
 
 	[Scenario]
+	File=CMC_BlackThunder.c4s
+	Area=291,236,256,26
+	OverlayImage=Overlay14.png
+
+
+	[Scenario]
+	File=CMC_Laguna.c4s
+	Area=291,276,256,26
+	OverlayImage=Overlay15.png
+
+
+	[Scenario]
 	File=CMC_ColdCash.c4s
-	Area=291,317,253,25
-	OverlayImage=Overlay8.png
+	Area=291,316,256,26
+	OverlayImage=Overlay16.png
 
 
 	[Scenario]
 	File=CMC_Oasis.c4s
-	Area=291,357,253,25
-	OverlayImage=Overlay14.png
+	Area=291,356,256,26
+	OverlayImage=Overlay17.png
 
 
 
 
 	[Scenario]
 	File=Credits.c4f
-	Area=653,50,83,14
+	Area=628,45,81,24
 	OverlayImage=OverlayCredits.png
