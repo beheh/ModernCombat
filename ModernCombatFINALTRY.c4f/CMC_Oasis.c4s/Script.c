@@ -180,9 +180,6 @@ func CreateInterior()
   CreateObject(SGNP, 70, 480, -1);
   CreateObject(SGNP, 360, 520, -1);
   CreateObject(SGNP, 635, 530, -1);
-  CreateObject(SGNP, 940, 600, -1)->SetPhase(2);
-
-  CreateObject(SGNP, 5890, 600, -1)->SetPhase(2);
   CreateObject(SGNP, 6195, 530, -1);
   CreateObject(SGNP, 6445, 520, -1);
   CreateObject(SGNP, 6780, 490, -1);
@@ -314,6 +311,13 @@ public func ChooserFinished()
   var aTeams = [false,false,false,false,false];
   for(var i = 0; i < GetPlayerCount(); i++)
    aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = true;
+
+  //Hinweisschilder
+  if(!FindObject(NOBH))
+  {
+   CreateObject(SGNP, 940, 600, -1)->SetPhase(2);
+   CreateObject(SGNP, 5890, 600, -1)->SetPhase(2);
+  }
 
   //CTF-Spielziel
   if(FindObject(GCTF))

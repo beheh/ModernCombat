@@ -675,11 +675,14 @@ public func ChooserFinished()
    CreateObject(SGNP, 3295, 370, -1);
    CreateObject(SGNP, 3415, 370, -1);
    CreateObject(SGNP, 3320, 580, -1);
-   CreateObject(SGNP, 4800, 320, -1)->SetPhase(2);
    CreateObject(SGNP, 5865, 350, -1);
    CreateObject(SGNP, 5885, 510, -1);
    CreateObject(SGNP, 5950, 350, -1);
    CreateObject(SGNP, 6620, 470, -1)->SetPhase(1);
+   if(!FindObject(NOBH))
+   {
+    CreateObject(SGNP, 4810, 320, -1)->SetPhase(2);
+   }
 
    //Blackhawk
    SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,4700,290,-1),100*21,300);
@@ -790,8 +793,11 @@ public func ChooserFinished()
    sign->SetAction("Sign2");
    sign->SetMode(1);
    CreateObject(SGNP, 2530, 470, -1)->SetPhase(1);
-   CreateObject(SGNP, 4800, 320, -1)->SetPhase(2);
    CreateObject(SGNP, 6620, 470, -1)->SetPhase(1);
+   if(!FindObject(NOBH))
+   {
+    CreateObject(SGNP, 4810, 320, -1)->SetPhase(2);
+   }
 
    //Blackhawk
    SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,4700,290,-1),100*21,300);
@@ -913,6 +919,10 @@ public func ChooserFinished()
    sign->SetMode(1);
    CreateObject(SGNP, 2530, 470, -1)->SetPhase(1);
    CreateObject(SGNP, 6620, 470, -1)->SetPhase(1);
+   if(!FindObject(NOBH))
+   {
+    CreateObject(SGNP, 4810, 320, -1)->SetPhase(2);
+   }
 
    //Blackhawk
    SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,4700,290,-1),100*21,300);
