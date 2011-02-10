@@ -424,8 +424,11 @@ public func ChooserFinished()
    flag->~Set("$Flag2$");
 
    //Hinweisschilder
-   CreateObject(SGNP, 1600, 400, -1)->SetPhase(2);
-   CreateObject(SGNP, 4410, 400, -1)->SetPhase(2);
+   if(!FindObject(NOBH))
+   {
+    CreateObject(SGNP, 1600, 400, -1)->SetPhase(2);
+    CreateObject(SGNP, 4410, 400, -1)->SetPhase(2);
+   }
 
    //Blackhawks
    SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,1655,370,-1),100*21,300);
@@ -452,8 +455,11 @@ public func ChooserFinished()
    AddAssaultTarget(CMSN, 4400, 600, 500, 2, "$Flag3$", 1, [[4330, 540], [4690, 500]]);
 
    //Hinweisschilder
-   CreateObject(SGNP, 1600, 400, -1)->SetPhase(2);
-   CreateObject(SGNP, 4410, 400, -1)->SetPhase(2);
+   if(!FindObject(NOBH))
+   {
+    CreateObject(SGNP, 1600, 400, -1)->SetPhase(2);
+    CreateObject(SGNP, 4410, 400, -1)->SetPhase(2);
+   }
 
    //Blackhawks
    SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,1655,370,-1),100*21,300);
@@ -499,8 +505,11 @@ public func ChooserFinished()
    }
 
    //Hinweisschilder
-   CreateObject(SGNP, 1600, 400, -1)->SetPhase(2);
-   CreateObject(SGNP, 4410, 400, -1)->SetPhase(2);
+   if(!FindObject(NOBH))
+   {
+    CreateObject(SGNP, 1600, 400, -1)->SetPhase(2);
+    CreateObject(SGNP, 4410, 400, -1)->SetPhase(2);
+   }
 
    //Blackhawks
    SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,1655,370,-1),100*21,300);

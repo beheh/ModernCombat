@@ -140,13 +140,9 @@ func CreateInterior()
 
   //Hinweisschilder
   CreateObject(SNPT, 280, 1210, -1);
-  CreateObject(SNPT, 630, 590, -1)->SetAction("Sign3");
   CreateObject(SGNP, 1190, 1200, -1);
-  CreateObject(SGNP, 1290, 670, -1)->SetPhase(2);
   CreateObject(SNPT, 1930, 1170, -1);
-  CreateObject(SGNP, 2940, 670, -1)->SetPhase(2);
   CreateObject(SGNP, 2960, 1270, -1);
-  CreateObject(SNPT, 3610, 590, -1)->SetAction("Sign3");
   CreateObject(SNPT, 3710, 1280, -1);
 
   //Grenze
@@ -216,13 +212,6 @@ func CreateEquipment()
 
   //Artilleriebatterie
   aArtillery[0] = CreateObject(ATBY,2120,690,-1);
-
-  //Blackhawks
-  SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,700,560,-1),60*21,300);
-  SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,1185,590,-1),60*21,300);
-
-  SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,3055,590,-1),60*21,300);
-  SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,3540,560,-1),60*21,300);
 }
 
 func CreateDecoration()
@@ -290,6 +279,22 @@ public func ChooserFinished()
   var aTeams = [false,false,false,false,false];
   for(var i = 0; i < GetPlayerCount(); i++)
    aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = true;
+
+  //Hinweisschilder
+  if(!FindObject(NOBH))
+  {
+   CreateObject(SNPT, 630, 590, -1)->SetAction("Sign3");
+   CreateObject(SGNP, 1290, 670, -1)->SetPhase(2);
+   CreateObject(SGNP, 2940, 670, -1)->SetPhase(2);
+   CreateObject(SNPT, 3610, 590, -1)->SetAction("Sign3");
+  }
+
+  //Blackhawks
+  SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,700,560,-1),60*21,300);
+  SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,1185,590,-1),60*21,300);
+
+  SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,3055,590,-1),60*21,300);
+  SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,3540,560,-1),60*21,300);
 
   //HTF-Spielziel
   if (FindObject(GHTF))
