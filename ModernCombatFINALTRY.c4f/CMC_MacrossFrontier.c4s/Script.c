@@ -411,10 +411,10 @@ public func ChooserFinished()
     CreateObject(SGNP, 990, 400, -1)->SetPhase(1);
 
     //Geldsäcke
-    AddMoneySpawn(780, 50, [10, 15]);
-    AddMoneySpawn(610, 240, [5, 10]);
-    AddMoneySpawn(940, 160, [5, 10]);
-    AddMoneySpawn(810, 430, [5, 10]);
+    AddMoneySpawn(610, 240, [10, 15]);
+    AddMoneySpawn(780, 50, [10, 15, 20]);
+    AddMoneySpawn(810, 430, [10, 15, 20]);
+    AddMoneySpawn(940, 160, [10, 15]);
   }
 }
 
