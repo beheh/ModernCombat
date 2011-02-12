@@ -41,6 +41,9 @@ protected func Sense()
   //Inaktiv: Nicht suchen
   if(!active)
     return;
+    
+  if(GetOwner() == NO_OWNER)
+    return Remove();
 
   //Zu markierende Gefahren suchen
   for (var pObj in FindObjects(Find_Distance(SensorDistance()),			//In Reichweite
