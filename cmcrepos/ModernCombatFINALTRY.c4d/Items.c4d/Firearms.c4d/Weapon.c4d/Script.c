@@ -7,7 +7,6 @@ local stopauto,firemode,shooting,ratecount,stopburst;
 
 local aSlot_Type;			//Munitionstyp
 local aSlot_Amount;			//Munitionsmenge
-
 local aFM_FireTec;			//Feuertechnik
 
 static const FM_Slot          = 13;	//Slot des Feuermodus
@@ -33,17 +32,17 @@ static const MC_Recharge      = 29;	//Zeit nach Kolbenschlag bis erneut geschlag
 static const MC_Power         = 30;	//Wie weit das Ziel durch Kolbenschläge geschleudert wird
 static const MC_Angle         = 31;	//Mit welchem Winkel das Ziel durch Kolbenschläge geschleudert wird
 
-public func IsWeapon2() {return true;}	//Nutzt/inkludiert neues Waffensystem WPN2
-public func NoWeaponChoice() {return GetID() == WPN2;}
+public func IsWeapon2()		{return true;}	//Nutzt/inkludiert neues Waffensystem WPN2
+public func NoWeaponChoice()	{return GetID() == WPN2;}
 
-public func OnSelectFT(int iFireMode, int iFireTec, int iLastFireTec){}
-public func OnSingleReloadStart(int iSlot){}
-public func OnSingleReloadStop(int iSlot){}
-public func OnPrepareReloadStop(int iSlot){}
-public func OnFinishReloadStart(int iSlot){}
+public func OnSelectFT(int iFireMode, int iFireTec, int iLastFireTec)	{}
+public func OnSingleReloadStart(int iSlot)				{}
+public func OnSingleReloadStop(int iSlot)				{}
+public func OnPrepareReloadStop(int iSlot)				{}
+public func OnFinishReloadStart(int iSlot)				{}
 
 
-/*----- Initalisierung -----*/
+/*----- Initialisierung -----*/
 
 protected func Initialize()
 {
