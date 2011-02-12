@@ -119,7 +119,7 @@ public func FxAggroTimer(object pTarget, int no)
 		return;
 	// Hilfsbedürftige in der Nähe?
 	var body, defi;
-	GetReanimationTarget(pTarget, body, defi, EffectVar(1, this(), no)); //Checkt auch nach Defi
+	GetReanimationTarget(pTarget, body, defi, EffectVar(1, this, no)); //Checkt auch nach Defi
 	if (body)
 	{
 		if (IsAiming())
@@ -189,7 +189,7 @@ public func FxAggroTimer(object pTarget, int no)
 		}
 	}
 	// Ziel vorhanden?
-  if(EffectVar(1, this(), no)) { EffectCall(this(), no, "Fire"); return true; }
+  if(EffectVar(1, this, no)) { EffectCall(this, no, "Fire"); return true; }
 	// Zielen beenden
 	if (IsAiming())
 		StopAiming();
@@ -199,27 +199,27 @@ public func FxAggroTimer(object pTarget, int no)
 	var target = GetTarget(90 * dir, 90);
 	// Hinten
 	if (!target)
-		if ((!GetCommand() && !GetMacroCommand()) || EffectVar(0, this(), no) != 1)
+		if ((!GetCommand() && !GetMacroCommand()) || EffectVar(0, this, no) != 1)
 			target = GetTarget(-90 * dir, 90);
 	// Gefunden?
 	if (!target)
 	{
-		if (EffectVar(99, this(), no))
+		if (EffectVar(99, this, no))
 		{
 			if (Contained())
-				Contained()->~HandleAggroFinished(this());
+				Contained()->~HandleAggroFinished(this);
 			else if (IsRiding())
-				GetActionTarget()->~HandleAggroFinished(this());
-			EffectVar(99, this(), no);
+				GetActionTarget()->~HandleAggroFinished(this);
+			EffectVar(99, this, no);
 		}
 		// Kein Ziel gefunden, also andere Sachen tun
 		CheckIdleInventory();
 		CheckIdleWeapon();
 		return;
 	}
-	EffectVar(1, this(), no) = target;
+	EffectVar(1, this, no) = target;
 	// Ziel vorhanden
-	EffectVar(99, this(), no) = true;
+	EffectVar(99, this, no) = true;
 }
 
 //Wie haben nichts zu tun und spielen mit dem Inventar rum
@@ -253,24 +253,24 @@ public func FxAggroFire(object pTarget, int no)
     return;
   // Nichts tun, wenn gerade verhindert
   if(!ReadyToFire()) return;
-  var y = EffectVar(4, this(), no);
-  var x = EffectVar(3, this(), no);
-  var dist = EffectVar(2, this(), no);
-  var target = EffectVar(1, this(), no);
-  var level = EffectVar(0, this(), no);
+  var y = EffectVar(4, this, no);
+  var x = EffectVar(3, this, no);
+  var dist = EffectVar(2, this, no);
+  var target = EffectVar(1, this, no);
+  var level = EffectVar(0, this, no);
   var pathfree = true;
   
   // Fahrzeugsteuerung
   if(Contained())
   {
-    if(Contained()->~HandleAggro(this(), level, target, dist, x, y))
+    if(Contained()->~HandleAggro(this, level, target, dist, x, y))
       return(1);
     else
-      return(AddCommand(this(), "Exit", 0,0,0,0,0,0,0, C4CMD_SilentSub));
+      return(AddCommand(this, "Exit", 0,0,0,0,0,0,0, C4CMD_SilentSub));
   }
   if(IsRiding())
   {
-    if(GetActionTarget()->~HandleAggro(this(), level, target, dist, x, y))
+    if(GetActionTarget()->~HandleAggro(this, level, target, dist, x, y))
       return(1);
     else
       return(SetAction("Walk"));
@@ -286,7 +286,7 @@ public func FxAggroFire(object pTarget, int no)
         FinishMacroCommand(1);
       }
       AddMacroCommand(0, "MoveTo", 0, x,y, 0, level);
-      EffectVar(1, this(), no) = 0;
+      EffectVar(1, this, no) = 0;
       return;
     }
   }
@@ -304,8 +304,8 @@ public func FxAggroFire(object pTarget, int no)
   // (Pathfree wurde schon gecheckt)
   if(!CheckTarget(target,this,maxdist,0,0,true))
     {
-      EffectVar(1, this(), no) = 0;
-      if(EffectVar(0, this(), no) == 2)
+      EffectVar(1, this, no) = 0;
+      if(EffectVar(0, this, no) == 2)
         ClearMacroCommands();
       if(IsAiming())
         StopAiming();
@@ -326,7 +326,7 @@ public func FxAggroFire(object pTarget, int no)
       // Bei Aggro_Follow können wir von unserem Pfade weg. D.h. eine Waffe und/oder Munition muss her
       if(GetAggroLevel() == Aggro_Follow)
       {
-//      Message("@Searching for weapons / ammo", this());
+//      Message("@Searching for weapons / ammo", this);
         // Waffen auffrischen?
         if(CustomContentsCount("IsWeapon") <= 1)
           return(SearchWeapon(Aggro_Shoot));
@@ -375,7 +375,7 @@ public func FxAggroFire(object pTarget, int no)
       if(IsAiming())
         StopAiming();
   }
-  if(IsAiming() && !CheckAmmo(Contents()->GetFMData(FM_AmmoID), Contents()->GetFMData(FM_AmmoLoad), Contents(), this()))
+  if(IsAiming() && !CheckAmmo(Contents()->GetFMData(FM_AmmoID), Contents()->GetFMData(FM_AmmoLoad), Contents(), this))
     StopAiming();
  }
 
@@ -390,9 +390,9 @@ public func FxAggroFire(object pTarget, int no)
       if(IsAiming())
         StopAiming();
   }
-//  Message("@My target: %s @%d/%d with level %d", this(), target->GetName(), target->GetX(), target->GetY(), level);
+//  Message("@My target: %s @%d/%d with level %d", this, target->GetName(), target->GetX(), target->GetY(), level);
   // Stufe 2 - verfolgen!
-  /*if(EffectVar(0, this(), no) >= 2 && dist > 0)
+  /*if(EffectVar(0, this, no) >= 2 && dist > 0)
     if(GetMacroCommand(1) != "Follow" || GetMacroCommand(1, 1) != target)
       if(GetMacroCommand(0) != "Follow" || GetMacroCommand(0,1) != target)
       {
@@ -563,7 +563,7 @@ public func CheckIdleWeapon()
   
   // Aha! Waffe wechseln!
   if(ContentsCount() != 1)
-    ShiftContents(this(), 0, obj->GetID(), true);
+    ShiftContents(this, 0, obj->GetID(), true);
   // Feuermodus wechseln
   obj->SetFireMode(mode);
   // Und Muni reinhauen
