@@ -16,11 +16,11 @@ public func ThrowSpeed()	{return 60;}
 public func HandX()		{return 3000;}
 public func HandSize()		{return 1000;}
 public func ThrowDelay()	{return 20;}
-public func DoSmoke() {return true;}
-public func IsBouncy()			{return true;}
-public func IsReloading()		{return false;}
-public func IsShooting()		{return false;}
-public func NoArenaRemove()		{return IsFusing();}
+public func DoSmoke()		{return true;}
+public func IsBouncy()		{return true;}
+public func IsReloading()	{return false;}
+public func IsShooting()	{return false;}
+public func NoArenaRemove()	{return IsFusing();}
 
 local controller,activated;
 
