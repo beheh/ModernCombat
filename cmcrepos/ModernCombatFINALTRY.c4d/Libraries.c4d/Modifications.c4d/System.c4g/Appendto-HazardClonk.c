@@ -1115,7 +1115,7 @@ public func GrenadeMenu(object pCaller)
     if(FindInArray4K(id_list,GetID(nade)) != -1) continue;
     id_list[GetLength(id_list)] = GetID(nade);
     
-    AddMenuItem(Format("<c %x>%.1s</c>",nade->Color(),GetName(nade)), "GrabGrenade", GetID(nade), pCaller,
+    AddMenuItem(Format("<c %x>%.2s</c>",nade->Color(),GetName(nade)), "GrabGrenade", GetID(nade), pCaller,
                 ObjectCount2(Find_ID(GetID(nade)), Find_Container(pGrenadeStoring)),
                 0, GetDesc(nade));
   }
