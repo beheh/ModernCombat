@@ -29,8 +29,10 @@ public func Update()
   // - Ein Check, ob der gefundene, passende Hostsensorball überhaupt aktiv ist.
 
   //Verschwinden, wenn kein Ziel/Host oder Ziel verschachtelt oder Host nicht in Sensornähe/inaktiv
-  if(Contained(pTarget) || !pTarget || !pHost || ObjectDistance(this, pHost) > pHost->~SensorDistance())
-    RemoveObject();
+  if(pTarget && pHost && pHost->~IsActive() && !Contained(pTarget) && ObjectDistance(this, pHost) <= pHost->~SensorDistance())
+    return;
+    
+  RemoveObject();
 }
 
 /* Aufnahme */
