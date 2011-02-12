@@ -843,19 +843,21 @@ protected func DoAmmoPack(id idType)
   return pack;
 }
 
-public func SelectQuickInventory(int iIndex)
+public func SelectQuickInventory(object pObj)
 {
   if(!Contents()) return false;
-  if(!iIndex) return;
-  iIndex--;
+  if(!pObj) return;
+  if(Contained(pObj) != this) return;
   var aiming = IsAiming() && Contents()->~CanAim();
   var angle = Abs(AimAngle());
   if(aiming) StopAiming();
-  while(iIndex-- > 0)
+  while(GetID(Contents(0)) != GetID(pObj))
   {
     ShiftContents();
   }
-  ShiftContents(0, 0, 0, true);
+  ShiftContents(0, 0, 0, false); 
+  //Selection-Call
+  ShiftContents(0, true, 0, true);
   if(Contents(0)->~CanAim() && aiming)
   {
     if(IsSquatAiming() || Contents()->~GetFMData(FM_Aim) != 1)
@@ -871,19 +873,6 @@ public func SelectQuickInventory(int iIndex)
   UpdateCharge();
 
   return true;
-}
-
-public func GetContentsOffset(object pTo)
-{
-  var i = 0;
-  var j = 0;
-  while(Contents(i) != pTo && j < ContentsCount())
-  {
-    if(i > ContentsCount()-1) i = 0;
-    i++;
-    j++;
-  }
-  return j;
 }
 
 public func ControlSpecial()
@@ -918,7 +907,7 @@ public func ControlSpecial()
           	}
           }
         }
-        var overlay = ring->Add(j%5, GetName(aCollected[i]),"SelectQuickInventory",GetContentsOffset(aCollected[i]),RICO);
+        var overlay = ring->Add(j%5, GetName(aCollected[i]),"SelectQuickInventory",aCollected[i],RICO);
         SetGraphics("",ring,GetID(aCollected[i]),overlay,GFXOV_MODE_IngamePicture);
         aUsed[j-1] = true;
       }
