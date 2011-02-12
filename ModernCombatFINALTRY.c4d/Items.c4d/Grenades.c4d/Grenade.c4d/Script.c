@@ -16,10 +16,11 @@ public func ThrowSpeed()	{return 60;}
 public func HandX()		{return 3000;}
 public func HandSize()		{return 1000;}
 public func ThrowDelay()	{return 20;}
-func IsBouncy()			{return true;}
-func IsReloading()		{return false;}
-func IsShooting()		{return false;}
-func NoArenaRemove()		{return IsFusing();}
+public func DoSmoke() {return true;}
+public func IsBouncy()			{return true;}
+public func IsReloading()		{return false;}
+public func IsShooting()		{return false;}
+public func NoArenaRemove()		{return IsFusing();}
 
 local controller,activated;
 
@@ -205,7 +206,7 @@ public func FxIntFuseStart()
 public func FxIntFuseTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
   var c = Contained();
-  if(!c)
+  if(!c && DoSmoke())
   {
     var vel=Abs(GetXDir())+Abs(GetYDir());
     var alpha=Max(0,60-vel);
