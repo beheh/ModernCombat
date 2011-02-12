@@ -7,10 +7,11 @@ public func Color()		{return RGBa(255,255,255,0);}
 public func ContainedDamage()	{return 0;}
 public func FuseTime()		{return 2*30;}
 public func SensorDistance()	{return 190;}
-public func IsActive() {return active;}
-public func DoSmoke() {return false;}
+public func IsActive()		{return active;}
+public func DoSmoke()		{return false;}
 
 local active;
+
 
 /* Aktivierung */
 
