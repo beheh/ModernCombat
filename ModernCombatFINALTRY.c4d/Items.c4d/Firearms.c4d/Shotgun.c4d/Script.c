@@ -93,6 +93,12 @@ public func Fire1()
 
 /* Nachladen */
 
+
+func OnReload()
+{
+  Sound("WPN2_Handle*.ogg");
+}
+
 public func HandR()
 {
   var effect = IsReloading();
