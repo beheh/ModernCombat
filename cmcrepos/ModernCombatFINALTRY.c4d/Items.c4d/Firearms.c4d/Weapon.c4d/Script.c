@@ -395,9 +395,11 @@ public func GetCharge()
   return charge;
 }
 
-public func IsRecharging() {
+public func IsRecharging()
+{
   if(IsCanceling()) return true;
   return _inherited();
+
 }
 
 public func GetRecharge()
@@ -640,16 +642,20 @@ public func ControlThrow(caller)
   var meleeattacked;
   //Nahkampfangriff möglich?
   var fWait = false, i = 0, obj;
-  if(Contained()) {
-	  while((obj = Contents(i, Contained(this))) != false) {
-	  	i++;
-	  	if(!obj->~IsWeapon2()) continue;
-	  	if(GetEffect("StrikeRecharge", obj)) {
-		  	fWait = true;
-		  	break;
-	  	}
-	  }
-	}
+  if(Contained())
+  {
+    while((obj = Contents(i, Contained(this))) != false)
+    {
+      i++;
+      if(!obj->~IsWeapon2()) continue;
+      if(GetEffect("StrikeRecharge", obj))
+        {
+          fWait = true;
+          break;
+        }
+    }
+  }
+
   if(!fWait && GetMCData(MC_CanStrike) && (caller->~ReadyToFire() || caller->~ReadyToAttack()) && !caller->~IsAiming() && (GetFMData(FM_Aim) == 0 || GetUser()->~IsAiming() || GetUser()->~AimOverride()))
   {
     var dir = GetDir(GetUser());
@@ -704,7 +710,6 @@ public func ControlThrow(caller)
   {
     if(!GetPlrCoreJumpAndRunControl(GetController(caller)))
       StopAutoFire();
-
     return 1;
   }
 
