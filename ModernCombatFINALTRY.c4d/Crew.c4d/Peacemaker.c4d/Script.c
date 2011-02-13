@@ -249,7 +249,7 @@ public func FxAggroFire(object pTarget, int no)
   if(GetID(Contents()) == GBRB)
     // Nichts tun :C
     return;
-  if(Contents()->~RejectShift())
+  if(Contents() && Contents()->~RejectShift())
     return;
   // Nichts tun, wenn gerade verhindert
   if(!ReadyToFire()) return;
