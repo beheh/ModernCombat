@@ -1550,7 +1550,8 @@ func Hit()
   Sound("WPN2_Hit*.ogg");
 }
 
-public func AimStart() {
+public func AimStart()
+{
   Sound("WPN2_Handle*.ogg");
   return _inherited();
 }
