@@ -2,8 +2,7 @@
 
 //Mehrere Zusatzeffekte für Objekte.
 
-#strict
-
+#strict 2
 
 /* Unstuck-Effekt */
 
@@ -57,18 +56,17 @@ global func FxIntUnstuck4KTimer(object pTarget, int iEffectNumber, int iEffectTi
   return(0);
 }
 
-global func AutoUnstuck(pTarget,iXDir,iYDir)
+global func AutoUnstuck(object pTarget, int iXDir, int iYDir)
 {
   AutoUnstuck4K(pTarget,iXDir,iYDir);
 }
 
-global func AutoUnstuck4K(pTarget,iXDir,iYDir)
+global func AutoUnstuck4K(object pTarget, int iXDir, int iYDir)
 {
   if(!pTarget) pTarget = this;
   if(!GetEffect("IntUnstuck4K",pTarget))
     AddEffect("IntUnstuck4K",pTarget,1,1,pTarget,0,iXDir,iYDir); 
 }
-
 
 /* Raucheffekt */
 
@@ -179,9 +177,9 @@ global func FxFadeOut4KTimer(target, no)
 global func FadeOut4K(int iSpeed, object pObject)
 {
   if(!pObject) pObject = this();
-  if(!pObject) return();
+  if(!pObject) return;
 
-  if(GetEffect("*FadeOut*", pObject)) return();
+  if(GetEffect("*FadeOut*", pObject)) return;
   return(AddEffect("FadeOut4K", pObject, 101, 2,0,0,iSpeed));
 }
 
@@ -212,9 +210,9 @@ global func FxFadeIn4KTimer(target, no)
 global func FadeIn4K(int iSpeed, object pObject)
 {
   if(!pObject) pObject = this();
-  if(!pObject) return();
+  if(!pObject) return;
 
-  if(GetEffect("*FadeIn*", pObject)) return();
+  if(GetEffect("*FadeIn*", pObject)) return;
   return(AddEffect("FadeIn4K", pObject, 101, 2,0,0,iSpeed));
 }
 
