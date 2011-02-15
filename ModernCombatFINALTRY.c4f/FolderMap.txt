@@ -103,9 +103,6 @@ FullscreenBG=1
 	Area=291,356,256,26
 	OverlayImage=Overlay17.png
 
-
-
-
 	[Scenario]
 	File=Credits.c4f
 	Area=628,45,81,24

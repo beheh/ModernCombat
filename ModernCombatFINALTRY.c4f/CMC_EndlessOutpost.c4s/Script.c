@@ -37,7 +37,6 @@ func Initialize()
 func CreateInterior()
 {
   Log("$CreatingInterior$");
-  var tmp;
 
   //Rampen
   DrawMaterialQuad("Wall-Concrete1",580,450,610,440,610,450,595,450,true);

@@ -38,7 +38,6 @@ func Initialize()
 
 func CreateInterior()
 {
-  var tmp;
   Log("$CreatingInterior$");
 
   //Leitern
