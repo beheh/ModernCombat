@@ -110,6 +110,8 @@ public func FMMenu(clonk)
     overlay = ring->AddRightItem("$FireTecForward$","CycleFT",+1,SMIN);
     SetGraphics("4",ring,SMIN,overlay,GFXOV_MODE_IngamePicture);
 
+  var szName = "";
+
 	for(var i = 1; i <= GetFTCount(firemode); i++)
     {
       szName = GetFMData(FT_Name, firemode, i);
@@ -128,7 +130,6 @@ public func FMMenu(clonk)
     overlay = ring->AddUpItem("$FireModeForward$","CycleFM",+1,SMIN);
     SetGraphics("3",ring,SMIN,overlay,GFXOV_MODE_IngamePicture);
 	
-	var szName = "";
     for(var i = 1; i <= GetFMCount(); i++)
     {
       szName = GetFMData(FM_Name, i, 1);

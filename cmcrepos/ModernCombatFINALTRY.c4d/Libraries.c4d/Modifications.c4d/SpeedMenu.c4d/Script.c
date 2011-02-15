@@ -273,14 +273,15 @@ private func ScaleItems(int iDst)
 
 
   //Item 1
+  var i = 0;
   if(ItemActive(i))
   {
-    var xoff,yoff,i = 0;
+    var xoff,yoff = 0;
     SetObjDrawTransform(iDst*500/GetDefWidth(),0,0,0,iDst*500/GetDefHeight(),0,0,i+1);
   }
 
   //Items 2 bis 5
-   for(i = 1; i <= 4; i++)
+  for(i = 1; i <= 4; i++)
   {
     if(!ItemActive(i)) continue;
 

@@ -68,7 +68,7 @@ protected func FxIntPackTimer()
   //Weitere Checks
   if (!CanRefill())
     return false;
-  var iChange = DoPackPoints(1);
+  DoPackPoints(1);
 }
 
 /* Lichteffekt */
