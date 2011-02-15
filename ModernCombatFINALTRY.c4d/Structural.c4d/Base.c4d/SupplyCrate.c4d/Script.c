@@ -201,8 +201,6 @@ public func RejectCollect(id idObj)
     return idSpawn != idObj || ContentsCount() >= iMaxCount;
   else
     return ContentsCount() >= 10;
-
-  return false;
 }
 
 protected func ControlDig(object pClonk)

@@ -522,7 +522,7 @@ public func CheckIdleWeapon()
     if(Contents()->IsReloading() || Contents()->~IsRecharging())
       return;
   // Inventar nach Waffe durchsuchen, die man Nachladen könnte
-  for(var i=0, mode=1, obj, favmode ; obj = Contents(i) ; mode++)
+  for(var i=0, mode=1, obj; obj = Contents(i) ; mode++)
   {
     // Keine Waffe
     if(!(obj->~IsWeapon()))

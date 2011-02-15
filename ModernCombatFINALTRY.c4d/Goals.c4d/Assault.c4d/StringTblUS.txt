@@ -5,4 +5,4 @@ TeamHasWon=Team %s has won this battle!
 Targets=Targets
 Attackers=Attackers
 MsgTicketsLow=Our reinforcements are running low, only <c ffff33>%d</c> left
-NoTickets=Our reinforcements are <c ff0000>exhausted</c>.
+MsgNoTickets=Our reinforcements are <c ff0000>exhausted</c>.

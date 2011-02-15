@@ -1084,7 +1084,7 @@ protected func GetObject2Drop(object pObj)
         dropobj = Contents(i);
     return dropobj;
 //}
-  return _inherited(pObj, ...);
+  //return _inherited(pObj, ...);
 }
 
 /*----- Allgemeines -----*/
