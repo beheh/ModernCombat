@@ -43,3 +43,14 @@ public func Death()
     RemoveObject(bar);
   _inherited(...);
 }
+
+//Portraitupdates
+protected func Recruitment()
+{
+  if (GetCrewExtraData(this, "CMC_Portrait") < 130)
+  {
+    SetCrewExtraData(this, "CMC_Portrait", 130);
+    SetPortrait("random", this, GetID(), true, true);
+  }
+  return _inherited(...);
+}
