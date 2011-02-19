@@ -286,6 +286,9 @@ func CreateDecoration()
   //Topfpflanze
   CreateObject(PLT2, 520, 500, -1);
 
+  //Wandschild
+  CreateObject(WLSN, 480, 700, -1)->SetPhase(1);
+
   //Geländer
   CreateObject(RAI1, 1, 490, -1)->SetRail([1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]);
   CreateObject(RAI1, 390, 360, -1)->SetRail([1,1,1,1,1,1,1,1]);

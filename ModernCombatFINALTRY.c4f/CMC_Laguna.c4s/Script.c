@@ -258,8 +258,8 @@ func CreateDecoration()
   CreateObject(GAT1, 690, 645, -1);
   CreateObject(GAT1, 2940, 495, -1);
 
-  //Warnschild
-  CreateObject(EXSN, 560, 690, -1);
+  //Wandschild
+  CreateObject(WLSN, 560, 690, -1);
 
   //Regale
   CreateObject(FRAM, 580, 690, -1);
