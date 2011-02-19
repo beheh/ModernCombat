@@ -9,7 +9,13 @@ local skyfade;
 
 protected func Initialize()
 {
-  return 1;
+  return true;
+}
+
+protected func Destruction()
+{
+	SetSkyAdjust(RGBa(255,255,255,220), RGB(0, 0, 0));
+	return true;
 }
 
 /* Explosionen */
@@ -31,8 +37,8 @@ protected func Make()
         Sound("C4EX_Detonation*.ogg",1,0,20);
       }
   }
-  if(Random(65-ObjectCount(GetID())*5)) return 1;
+  if(Random(65-ObjectCount(GetID())*5)) return true;
   skyfade = 300;
   Sound("Warflair*.ogg",1);
-  return 1;
+  return true;
 }
