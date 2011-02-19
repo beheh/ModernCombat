@@ -468,8 +468,8 @@ func CreateDecoration()
   CreateObject(CLVM, 1895, 110, -1);
   CreateObject(CLVM, 1980, 400, -1);
 
-  //Warnschild
-  CreateObject(EXSN, 1700, 200, -1);
+  //Wandschild
+  CreateObject(WLSN, 1865, 310, -1);
 
   //Wald
   CreateObject(TRE3,255,457,-1);

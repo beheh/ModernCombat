@@ -325,9 +325,9 @@ func CreateDecoration()
   CreateObject(GAT1, 105, 340, -1);
   CreateObject(GAT1, 2695, 340, -1);
 
-  //Warnschilder
-  CreateObject(EXSN, 200, 380, -1);
-  CreateObject(EXSN, 2600, 380, -1);
+  //Wandschilder
+  CreateObject(WLSN, 200, 380, -1);
+  CreateObject(WLSN, 2600, 380, -1);
 
   //Zäune
   CreateObject(FENC, 630, 260, -1);

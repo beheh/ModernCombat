@@ -255,9 +255,9 @@ func CreateDecoration()
   CreateObject(ETLT, 895, 460, -1);
   CreateObject(ETLT, 1520, 345, -1);
 
-  //Warnschilder
-  CreateObject(EXSN, 440, 450, -1);
-  CreateObject(EXSN, 1125, 370, -1);
+  //Wandschilder
+  CreateObject(WLSN, 440, 450, -1);
+  CreateObject(WLSN, 1125, 370, -1);
 
   //Alarmlampen
   CreateObject(ALGH, 710, 170, -1)->TurnOn();

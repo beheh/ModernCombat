@@ -478,8 +478,8 @@ func CreateDecoration()
   CreateObject(ETLT, 1050, 705, -1);
   CreateObject(ETLT, 1365, 495, -1);
 
-  //Warnschild
-  CreateObject(EXSN, 550, 520, -1);
+  //Wandschild
+  CreateObject(WLSN, 550, 520, -1);
 
   //Dekoschleuse
   CreateObject(GAT1, 1160, 690, -1);
