@@ -88,6 +88,9 @@ public func ExecShove()
 
 public func Update()
 {
+  if(!item)
+    return RemoveObject();
+
   if(!target)
     return item->RemoveShield();
 
