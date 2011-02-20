@@ -178,7 +178,8 @@ public func Activate(pCaller)
   return true;
 }
 
-public func AI_IdleInventory(pCaller) {
+public func AI_IdleInventory(pCaller)
+{
   return Activate(pCaller);
 }
 
