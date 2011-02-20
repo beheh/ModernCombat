@@ -3,6 +3,8 @@
 #strict 2
 #include PCMK
 
+static const MDIC_PortraitVersion = 130;
+
 public func WeaponCollectionLimit()	{return 2;}	//Anzahl Waffen im Inventar
 public func ObjectCollectionLimit()	{return 3;}	//Anzahl Objekte im Inventar
 
@@ -47,9 +49,9 @@ public func Death()
 //Portraitupdates
 protected func Recruitment()
 {
-  if (GetCrewExtraData(this, "CMC_Portrait") < 130)
+  if (GetCrewExtraData(this, "CMC_Portrait") < MDIC_PortraitVersion)
   {
-    SetCrewExtraData(this, "CMC_Portrait", 130);
+    SetCrewExtraData(this, "CMC_Portrait", MDIC_PortraitVersion);
     SetPortrait("random", this, GetID(), true, true);
   }
   return _inherited(...);
