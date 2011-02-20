@@ -51,7 +51,7 @@ public func Fused()
   Sparks(30,RGB(255,128));
   if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",12,40,0,0,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
   CastParticles("PxSpark",10,40,0,0,60,120,RGBa(255,255,255,70),RGBa(255,255,255,70));
-  AddLightFlash(50,0,0,RGB(255,255,128),this);
+  for(var i = 0; i <= 3; i++) AddLightFlash(250,0,0,RGB(255,255,255),this);
   FadeOut();
 }
 
