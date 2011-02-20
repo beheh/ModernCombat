@@ -28,7 +28,6 @@ func Initialize()
 
 func CreateInterior()
 {
-  var tmp;
   Log("$CreatingInterior$");
 
   //Rampen
@@ -184,21 +183,21 @@ func CreateInterior()
   CreateObject(CONS, 1030, 595, -1)->Set(autod);
 
   //Hydrauliktüren
-  tmp = CreateObject(SLDR, 205, 520, -1);
-  tmp->Lock();
-  tmp->SetMaxDamage(-1);
+  var door = CreateObject(SLDR, 205, 520, -1);
+  door->Lock();
+  door->SetMaxDamage(-1);
 
-  tmp = CreateObject(SLDR, 190, 680, -1);
-  tmp->Lock();
-  tmp->SetMaxDamage(-1);
+  door = CreateObject(SLDR, 190, 680, -1);
+  door->Lock();
+  door->SetMaxDamage(-1);
 
-  tmp = CreateObject(SLDR, 1435, 520, -1);
-  tmp->Lock();
-  tmp->SetMaxDamage(-1);
+  door = CreateObject(SLDR, 1435, 520, -1);
+  door->Lock();
+  door->SetMaxDamage(-1);
 
-  tmp = CreateObject(SLDR, 1450, 680, -1);
-  tmp->Lock();
-  tmp->SetMaxDamage(-1);
+  door = CreateObject(SLDR, 1450, 680, -1);
+  door->Lock();
+  door->SetMaxDamage(-1);
 
   //Räume
   CreateObject(ROM3, 60, 520, -1);
@@ -234,14 +233,13 @@ func CreateInterior()
 
 func CreateEquipment()
 {
-  var tmp;
   Log("$CreatingEquipment$");
 
   //Versorgungskisten (Kugeln)
-  tmp = CreateObject(AMCT, 40, 170, -1);
-  tmp->Set(ABOX);
-  tmp = CreateObject(AMCT, 1605, 170, -1);
-  tmp->Set(ABOX);
+  var crate = CreateObject(AMCT, 40, 170, -1);
+  crate->Set(ABOX);
+  crate = CreateObject(AMCT, 1605, 170, -1);
+  crate->Set(ABOX);
 
   //Gewehrgranaten
   PlaceSpawnpoint(GBOX, 490, 590);
@@ -279,6 +277,8 @@ func CreateDecoration()
   //Schilder
   CreateObject(ESGN, 160, 675, -1);
   CreateObject(ESGN, 650, 590, -1);
+  CreateObject(MSGN, 710, 700, -1);
+  CreateObject(MSGN, 940, 700, -1);
   CreateObject(ESGN, 990, 590, -1);
   CreateObject(ESGN, 1605, 675, -1);
 
@@ -287,10 +287,6 @@ func CreateDecoration()
   CreateObject(VENT, 570, 280, -1)->SetCon(20);
   CreateObject(VENT, 1070, 280, -1)->SetCon(20);
   CreateObject(VENT, 890, 600, -1)->SetCon(60);
-
-  //Markierungsschilder
-  CreateObject(MSGN, 710, 700, -1);
-  CreateObject(MSGN, 940, 700, -1);
 
   //Radare
   CreateObject(RADR, 5, 90, -1);

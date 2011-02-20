@@ -187,22 +187,21 @@ func CreateInterior()
 
 func CreateEquipment()
 {
-  var tmp;
   Log("$CreatingEquipment$");
 
   //Versorgungskisten (Kugeln)
-  tmp = CreateObject(AMCT, 555, 300, -1);
-  tmp->Set(ABOX);
-  tmp = CreateObject(AMCT, 1615, 210, -1);
-  tmp->Set(ABOX);
-  tmp = CreateObject(AMCT, 2725, 300, -1);
-  tmp->Set(ABOX);
+  var crate = CreateObject(AMCT, 555, 300, -1);
+  crate->Set(ABOX);
+  crate = CreateObject(AMCT, 1615, 210, -1);
+  crate->Set(ABOX);
+  crate = CreateObject(AMCT, 2725, 300, -1);
+  crate->Set(ABOX);
 
   //Versorgungskisten (Handgranaten)
-  tmp = CreateObject(AMCT, 1340, 520, -1);
-  tmp->Set(FRAG);
-  tmp = CreateObject(AMCT, 1945, 520, -1);
-  tmp->Set(FRAG);
+  crate = CreateObject(AMCT, 1340, 520, -1);
+  crate->Set(FRAG);
+  crate = CreateObject(AMCT, 1945, 520, -1);
+  crate->Set(FRAG);
 
   //Raketen
   PlaceSpawnpoint(MBOX, 580, 235);
@@ -225,9 +224,11 @@ func CreateDecoration()
   CreateObject(VENT, 580, 290, -1)->SetCon(15);
   CreateObject(VENT, 2700, 290, -1)->SetCon(15);
 
-  //Markierungsschilder
+  //Schilder
+  CreateObject(ESGN, 460, 385, -1);
   CreateObject(MSGN, 915, 390, -1);
   CreateObject(MSGN, 2375, 390, -1);
+  CreateObject(ESGN, 2820, 385, -1);
 
   //Bojen
   CreateObject(BUOY, 725, 633, -1);
@@ -275,10 +276,6 @@ func CreateDecoration()
   //Flaschen
   CreateObject(BOTL, 1560, 210, -1);
   CreateObject(BOTL, 1720, 210, -1);
-
-  //Schilder
-  CreateObject(ESGN, 460, 385, -1);
-  CreateObject(ESGN, 2820, 385, -1);
 
   //Geländer
   CreateObject(RAI1, 400, 390, -1)->SetRail([1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]);

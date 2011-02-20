@@ -150,8 +150,12 @@ func CreateInterior()
   CreateObject(SBBA, 2375, 290, -1);
 
   //Hinweisschilder
-  CreateObject(SGNP, 480, 450, -1)->SetPhase(1);
-  CreateObject(SGNP, 2320, 450, -1)->SetPhase(1);
+  var sign = CreateObject(SGNP, 480, 450, -1);
+  sign->SetPhase(1);
+  sign->SetMode(1);
+  sign = CreateObject(SGNP, 2320, 450, -1);
+  sign->SetPhase(1);
+  sign->SetMode(1);
 
   //Schutztüren
   CreateObject(GDDR, 230, 290, -1);
@@ -325,7 +329,7 @@ func CreateDecoration()
   CreateObject(GAT1, 105, 340, -1);
   CreateObject(GAT1, 2695, 340, -1);
 
-  //Wandschilder
+  //Schilder
   CreateObject(WLSN, 200, 380, -1);
   CreateObject(WLSN, 2600, 380, -1);
 
@@ -401,7 +405,6 @@ public func ChooserFinished()
    //Hinweisschilder
    CreateObject(SGNP, 720, 390, -1);
    CreateObject(SGNP, 720, 450, -1);
-
    CreateObject(SGNP, 2080, 390, -1);
    CreateObject(SGNP, 2080, 450, -1);
   }

@@ -191,12 +191,12 @@ func CreateEquipment()
   Log("$CreatingEquipment$");
 
   //Versorgungskisten (Kugeln)
-  var tmp = CreateObject (AMCT, 600, 690, -1);
-  tmp->Set(ABOX);
-  var tmp = CreateObject (AMCT, 1940, 490, -1);
-  tmp->Set(ABOX);
-  var tmp = CreateObject (AMCT, 2960, 440, -1);
-  tmp->Set(ABOX);
+  var crate = CreateObject (AMCT, 600, 690, -1);
+  crate->Set(ABOX);
+  crate = CreateObject (AMCT, 1940, 490, -1);
+  crate->Set(ABOX);
+  crate = CreateObject (AMCT, 2960, 440, -1);
+  crate->Set(ABOX);
 
   //Gewehrgranaten
   PlaceSpawnpoint(GBOX, 1675, 645);
@@ -258,7 +258,7 @@ func CreateDecoration()
   CreateObject(GAT1, 690, 645, -1);
   CreateObject(GAT1, 2940, 495, -1);
 
-  //Wandschild
+  //Schild
   CreateObject(WLSN, 560, 690, -1);
 
   //Regale
@@ -360,7 +360,9 @@ public func ChooserFinished()
    //Hinweisschild
    if(!FindObject(NOBH))
    {
-    CreateObject(SGNP, 2920, 440, -1)->SetPhase(2);
+    var sign = CreateObject(SGNP, 2920, 440, -1);
+    sign->SetPhase(2);
+    sign->SetMode(1);
    }
 
    //Objekt entfernen
@@ -433,10 +435,12 @@ public func ChooserFinished()
    CreateObject(BRDR, 200, 0, -1)->Set(0);
    CreateObject(BRDR, 3245, 0, -1)->Set(1);
 
-   //Hinweisschilder
+   //Hinweisschild
    if(!FindObject(NOBH))
    {
-    CreateObject(SGNP, 2920, 440, -1)->SetPhase(2);
+    var sign = CreateObject(SGNP, 2920, 440, -1);
+    sign->SetPhase(2);
+    sign->SetMode(1);
    }
 
    //Blackhawk

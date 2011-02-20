@@ -157,20 +157,19 @@ func CreateInterior()
 
 func CreateEquipment()
 {
-  var tmp;
   Log("$CreatingEquipment$");
 
   //Versorgungskisten (Kugeln)
-  tmp = CreateObject(AMCT, 1385, 450, -1);
-  tmp->Set(ABOX);
-  tmp = CreateObject(AMCT, 4155, 450, -1);
-  tmp->Set(ABOX);
+  var crate = CreateObject(AMCT, 1385, 450, -1);
+  crate->Set(ABOX);
+  crate = CreateObject(AMCT, 4155, 450, -1);
+  crate->Set(ABOX);
 
   //Versorgungskisten (Gewehrgranaten)
-  var tmp = CreateObject (AMCT, 1615, 510, -1);
-  tmp->Set(GBOX);
-  var tmp = CreateObject (AMCT, 3925, 510, -1);
-  tmp->Set(GBOX);
+  crate = CreateObject (AMCT, 1615, 510, -1);
+  crate->Set(GBOX);
+  crate = CreateObject (AMCT, 3925, 510, -1);
+  crate->Set(GBOX);
 
   //Raketen
   PlaceSpawnpoint(MBOX, 1310, 355);
@@ -330,8 +329,8 @@ public func ChooserFinished()
    if(!FindObject(NOAM))
    {
     //Versorgungskiste (Kugeln)
-    var tmp = CreateObject(AMCT, 2680, 650, -1);
-    tmp->Set(ABOX);
+    var crate = CreateObject(AMCT, 2680, 650, -1);
+    crate->Set(ABOX);
 
     //Raketen
     PlaceSpawnpoint(MBOX, 2860, 645);

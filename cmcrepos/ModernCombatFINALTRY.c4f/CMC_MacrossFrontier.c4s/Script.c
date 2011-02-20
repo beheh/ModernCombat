@@ -17,6 +17,8 @@ func Initialize()
   CreateEquipment();
   //Dekoration plazieren
   CreateDecoration();
+  //Optionale Objekte plazieren
+  CreateOptionalFeatures();
   return(1);
 }
 
@@ -24,7 +26,6 @@ func Initialize()
 
 func CreateInterior()
 {
-  var tmp;
   Log("$CreatingInterior$");
 
   //Leitern
@@ -52,17 +53,17 @@ func CreateInterior()
   CreateObject(HA4K, 1230, 153, -1);
 
   //Hydrauliktüren
-  tmp = CreateObject(SLDR, 55, 440, -1);
-  tmp->Lock();
-  tmp->SetMaxDamage(-1);
+  var door = CreateObject(SLDR, 55, 440, -1);
+  door->Lock();
+  door->SetMaxDamage(-1);
 
-  tmp = CreateObject(SLDR, 855, 500, -1);
-  tmp->Lock();
-  tmp->SetMaxDamage(-1);
+  door = CreateObject(SLDR, 855, 500, -1);
+  door->Lock();
+  door->SetMaxDamage(-1);
 
-  tmp = CreateObject(SLDR, 1495, 360, -1);
-  tmp->Lock();
-  tmp->SetMaxDamage(-1);
+  door = CreateObject(SLDR, 1495, 360, -1);
+  door->Lock();
+  door->SetMaxDamage(-1);
 
   //Rampen
   DrawMaterialQuad("Wall-Concrete2",360,350,390,340,390,350,375,350,true);
@@ -204,10 +205,10 @@ func CreateEquipment()
   Log("$CreatingEquipment$");
 
   //Versorgungskisten (Kugeln)
-  var tmp = CreateObject (AMCT, 75, 350, -1);
-  tmp->Set(ABOX);
-  var tmp = CreateObject (AMCT, 1475, 260, -1);
-  tmp->Set(ABOX);
+  var crate = CreateObject (AMCT, 75, 350, -1);
+  crate->Set(ABOX);
+  var crate = CreateObject (AMCT, 1475, 260, -1);
+  crate->Set(ABOX);
 
   //Gewehrgranaten
   PlaceSpawnpoint(GBOX, 770, 490);
@@ -218,7 +219,6 @@ func CreateEquipment()
 
 func CreateDecoration()
 {
-  var tmp;
   Log("$CreatingDecoration$");
 
   //Raum
@@ -241,22 +241,20 @@ func CreateDecoration()
   CreateObject(GADG, 990, 340, -1);
   CreateObject(GADG, 1340, 360, -1);
 
-  //Markierungsschilder
-  CreateObject(MSGN, 600, 470, -1);
-  CreateObject(MSGN, 630, 460, -1);
-  CreateObject(MSGN, 660, 450, -1);
-
-  CreateObject(MSGN, 890, 370, -1);
-  CreateObject(MSGN, 920, 380, -1);
-  CreateObject(MSGN, 950, 390, -1);
-
   //Notausgangslichter
   CreateObject(ETLT, 20, 425, -1);
   CreateObject(ETLT, 895, 460, -1);
   CreateObject(ETLT, 1520, 345, -1);
 
-  //Wandschilder
+  //Schilder
   CreateObject(WLSN, 440, 450, -1);
+  CreateObject(MSGN, 600, 470, -1);
+  CreateObject(MSGN, 630, 460, -1);
+  CreateObject(MSGN, 660, 450, -1);
+  CreateObject(ESGN, 805, 430, -1);
+  CreateObject(MSGN, 890, 370, -1);
+  CreateObject(MSGN, 920, 380, -1);
+  CreateObject(MSGN, 950, 390, -1);
   CreateObject(WLSN, 1125, 370, -1);
 
   //Alarmlampen
@@ -317,28 +315,25 @@ func CreateDecoration()
   CreateObject(PSTR, 760, 437, -1)->Set(3);
 
   //Bildschirme
-  tmp = CreateObject(SCR3, 100, 400, -1);
-  tmp->SetClrModulation(RGB(255,255,255));
-  tmp = CreateObject(SCR3, 270, 400, -1);
-  tmp->SetClrModulation(RGB(255,255,255));
+  var screen = CreateObject(SCR3, 100, 400, -1);
+  screen->SetClrModulation(RGB(255,255,255));
+  screen = CreateObject(SCR3, 270, 400, -1);
+  screen->SetClrModulation(RGB(255,255,255));
 
-  tmp = CreateObject(SCA2, 713, 325, -1);
-  tmp->SetAction("Scan2");
+  screen = CreateObject(SCA2, 713, 325, -1);
+  screen->SetAction("Scan2");
   CreateObject(SCA2, 838, 325, -1);
 
-  tmp = CreateObject(SCR3, 1280, 320, -1);
-  tmp->SetClrModulation(RGB(255,255,255));
-  tmp = CreateObject(SCR3, 1450, 320, -1);
-  tmp->SetClrModulation(RGB(255,255,255));
+  screen = CreateObject(SCR3, 1280, 320, -1);
+  screen->SetClrModulation(RGB(255,255,255));
+  screen = CreateObject(SCR3, 1450, 320, -1);
+  screen->SetClrModulation(RGB(255,255,255));
 
   //Büsche
   CreateObject(BSH2, 200, 190, -1);
   CreateObject(BSH2, 260, 85, -1);
   CreateObject(BSH2, 745, 200, -1);
   CreateObject(BSH2, 1300, 120, -1);
-
-  //Schild
-  CreateObject(ESGN, 805, 430, -1);
 
   //Ventillatoren
   CreateObject(VENT, 350, 335, -1)->SetCon(40);
@@ -366,16 +361,24 @@ public func ChooserFinished()
   if(FindObject(GTDM) || FindObject(GLMS))
   {
    //Hinweisschilder
-   CreateObject(SGNP, 560, 480, -1)->SetPhase(1);
-   CreateObject(SGNP, 990, 400, -1)->SetPhase(1);
+   var sign = CreateObject(SGNP, 560, 480, -1);
+   sign->SetPhase(1);
+   sign->SetMode(1);
+   var sign = CreateObject(SGNP, 990, 400, -1);
+   sign->SetPhase(1);
+   sign->SetMode(1);
   }
 
   //CTF-Spielziel
   if(FindObject(GCTF))
   {
    //Hinweisschilder
-   CreateObject(SGNP, 560, 480, -1)->SetPhase(1);
-   CreateObject(SGNP, 990, 400, -1)->SetPhase(1);
+   var sign = CreateObject(SGNP, 560, 480, -1);
+   sign->SetPhase(1);
+   sign->SetMode(1);
+   var sign = CreateObject(SGNP, 990, 400, -1);
+   sign->SetPhase(1);
+   sign->SetMode(1);
 
    //Flaggen
    CreateFlag(1,110,440,GetTeamColor(1)); 
@@ -398,23 +401,27 @@ public func ChooserFinished()
    if(!FindObject(NOAM))
    {
     //Versorgungskiste (Kugeln)
-    var tmp = CreateObject (AMCT, 760, 440, -1);
-    tmp->Set(ABOX);
+    var crate = CreateObject (AMCT, 760, 440, -1);
+    crate->Set(ABOX);
    }
   }
 
   //MR-Spielziel
   if (FindObject(GMNR))
   {
-    //Hinweisschilder
-    CreateObject(SGNP, 560, 480, -1)->SetPhase(1);
-    CreateObject(SGNP, 990, 400, -1)->SetPhase(1);
+   //Hinweisschilder
+   var sign = CreateObject(SGNP, 560, 480, -1);
+   sign->SetPhase(1);
+   sign->SetMode(1);
+   var sign = CreateObject(SGNP, 990, 400, -1);
+   sign->SetPhase(1);
+   sign->SetMode(1);
 
-    //Geldsäcke
-    AddMoneySpawn(610, 240, [10, 15]);
-    AddMoneySpawn(780, 50, [10, 15, 20]);
-    AddMoneySpawn(810, 430, [10, 15, 20]);
-    AddMoneySpawn(940, 160, [10, 15]);
+   //Geldsäcke
+   AddMoneySpawn(610, 240, [10, 15]);
+   AddMoneySpawn(780, 50, [10, 15, 20]);
+   AddMoneySpawn(810, 430, [10, 15, 20]);
+   AddMoneySpawn(940, 160, [10, 15]);
   }
 }
 

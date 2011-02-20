@@ -26,7 +26,6 @@ func Initialize()
 
 func CreateInterior()
 {
-  var tmp;
   Log("$CreatingInterior$");
 
   //Aufzüge
@@ -60,13 +59,13 @@ func CreateInterior()
   CreateObject(H24K, 1595, 188, -1);
 
   //Hydrauliktüren
-  tmp = CreateObject(SLDR, 140, 490, -1);
-  tmp->Lock();
-  tmp->SetMaxDamage(-1);
+  var door = CreateObject(SLDR, 140, 490, -1);
+  door->Lock();
+  door->SetMaxDamage(-1);
 
-  tmp = CreateObject(SLDR,1670, 180, -1);
-  tmp->Lock();
-  tmp->SetMaxDamage(-1);
+  door = CreateObject(SLDR,1670, 180, -1);
+  door->Lock();
+  door->SetMaxDamage(-1);
 
   //Schutztüren
   CreateObject(GDDR, 690, 510, -1);
@@ -143,10 +142,10 @@ func CreateInterior()
   //Tore
   CreateObject(HNG2, 100, 710, -1);
   CreateObject(HNG2, 170, 710, -1);
-  tmp = CreateObject(HNG2, 590, 710, -1);
-  tmp->Opened();
-  tmp = CreateObject(HNG2, 660, 710, -1);
-  tmp->Opened();
+  door = CreateObject(HNG2, 590, 710, -1);
+  door->Opened();
+  door = CreateObject(HNG2, 660, 710, -1);
+  door->Opened();
 
   //Steine
   CreateObject(STNE, 1015, 820, -1);
@@ -191,10 +190,10 @@ func CreateEquipment()
   Log("$CreatingEquipment$");
 
   //Versorgungskisten (Kugeln)
-  var tmp = CreateObject (AMCT, 370, 683, -1);
-  tmp->Set(ABOX);
-  var tmp = CreateObject (AMCT, 1255, 190, -1);
-  tmp->Set(ABOX);
+  var crate = CreateObject (AMCT, 370, 683, -1);
+  crate->Set(ABOX);
+  crate = CreateObject (AMCT, 1255, 190, -1);
+  crate->Set(ABOX);
 
   //Gewehrgranaten
   PlaceSpawnpoint(GBOX, 1490, 550);
@@ -205,7 +204,6 @@ func CreateEquipment()
 
 func CreateDecoration()
 {
-  var tmp;
   Log("$CreatingDecoration$");
 
   //Raum
@@ -263,7 +261,8 @@ func CreateDecoration()
   CreateObject(GADG, 1340, 580, -1)->Set(1);
   CreateObject(GADG, 1730, 180, -1)->Set(1);
 
-  //Markierungsschilder
+  //Schilder
+  CreateObject(WLSN, 480, 700, -1)->SetPhase(1);
   CreateObject(MSGN, 765, 710, -1);
   CreateObject(MSGN, 850, 710, -1);
   CreateObject(MSGN, 940, 710, -1);
@@ -286,9 +285,6 @@ func CreateDecoration()
   //Topfpflanze
   CreateObject(PLT2, 520, 500, -1);
 
-  //Wandschild
-  CreateObject(WLSN, 480, 700, -1)->SetPhase(1);
-
   //Geländer
   CreateObject(RAI1, 1, 490, -1)->SetRail([1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]);
   CreateObject(RAI1, 390, 360, -1)->SetRail([1,1,1,1,1,1,1,1]);
@@ -299,18 +295,18 @@ func CreateDecoration()
   CreateObject(RAI1, 1730, 180, -1)->SetRail([1,1,1,1,1,1,1,1,1,1]);
 
   //Bildschirme
-  tmp = CreateObject(SCR3, 340, 480, -1);
-  tmp->SetClrModulation(RGB(255,255,255));
+  var screen = CreateObject(SCR3, 340, 480, -1);
+  screen->SetClrModulation(RGB(255,255,255));
   CreateObject(SCR3, 390, 480, -1);
-  tmp = CreateObject(SCR3, 485, 480, -1);
-  tmp->SetClrModulation(RGB(255,255,255));
-  tmp = CreateObject(SCR3, 630, 485, -1);
-  tmp->SetClrModulation(RGB(255,255,255));
+  screen = CreateObject(SCR3, 485, 480, -1);
+  screen->SetClrModulation(RGB(255,255,255));
+  screen = CreateObject(SCR3, 630, 485, -1);
+  screen->SetClrModulation(RGB(255,255,255));
 
-  tmp = CreateObject(SCR3, 1770, 170, -1);
-  tmp->SetClrModulation(RGB(255,255,255));
-  tmp = CreateObject(SCR3, 1860, 170, -1);
-  tmp->SetClrModulation(RGB(255,255,255));
+  screen = CreateObject(SCR3, 1770, 170, -1);
+  screen->SetClrModulation(RGB(255,255,255));
+  screen = CreateObject(SCR3, 1860, 170, -1);
+  screen->SetClrModulation(RGB(255,255,255));
 
   //Ventillatoren
   CreateObject(MVNT, 135, 700, -1)->SetCon(80);
