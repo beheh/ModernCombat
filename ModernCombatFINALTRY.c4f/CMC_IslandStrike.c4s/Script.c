@@ -393,10 +393,10 @@ func CreateEquipment()
   Log("$CreatingEquipment$");
 
   //Versorgungskisten (Kugeln)
-  var tmp = CreateObject(AMCT, 1060, 540, -1);
-  tmp->Set(ABOX);
-  var tmp = CreateObject(AMCT, 7300, 430, -1);
-  tmp->Set(ABOX);
+  var crate = CreateObject(AMCT, 1060, 540, -1);
+  crate->Set(ABOX);
+  crate = CreateObject(AMCT, 7300, 430, -1);
+  crate->Set(ABOX);
 
   //Kugeln
   PlaceSpawnpoint(ABOX, 3160, 290);
@@ -464,11 +464,14 @@ func CreateDecoration()
   CreateObject(RADR, 1500, 290, -1);
   CreateObject(RADR, 2960, 280, -1);
 
-  //Markierungsschilder
+  //Schilder
+  CreateObject(ESGN, 1065, 460, -1);
   CreateObject(MSGN, 2610, 410, -1);
   CreateObject(MSGN, 2620, 410, -1);
   CreateObject(MSGN, 2630, 410, -1);
-
+  CreateObject(ESGN, 2960, 505, -1);
+  CreateObject(ESGN, 5830, 505, -1);
+  CreateObject(ESGN, 6200, 505, -1);
   CreateObject(MSGN, 6525, 410, -1);
   CreateObject(MSGN, 6535, 410, -1);
   CreateObject(MSGN, 6545, 410, -1);
@@ -559,12 +562,6 @@ func CreateDecoration()
 
   //Tische
   CreateObject(GTBL, 1105, 540, -1);
-
-  //Schilder
-  CreateObject(ESGN, 1065, 460, -1);
-  CreateObject(ESGN, 2960, 505, -1);
-  CreateObject(ESGN, 5830, 505, -1);
-  CreateObject(ESGN, 6200, 505, -1);
 }
 
 /* Bei Flaggenübernahme */
@@ -671,17 +668,23 @@ public func ChooserFinished()
    var sign = CreateObject(SNPT, 1460, 400, -1);
    sign->SetAction("Sign2");
    sign->SetMode(1);
-   CreateObject(SGNP, 2530, 470, -1)->SetPhase(1);
+   sign = CreateObject(SGNP, 2530, 470, -1);
+   sign->SetPhase(2);
+   sign->SetMode(1);
    CreateObject(SGNP, 3295, 370, -1);
    CreateObject(SGNP, 3415, 370, -1);
    CreateObject(SGNP, 3320, 580, -1);
    CreateObject(SGNP, 5865, 350, -1);
    CreateObject(SGNP, 5885, 510, -1);
    CreateObject(SGNP, 5950, 350, -1);
-   CreateObject(SGNP, 6620, 470, -1)->SetPhase(1);
+   sign = CreateObject(SGNP, 6620, 470, -1);
+   sign->SetPhase(1);
+   sign->SetMode(1);
    if(!FindObject(NOBH))
    {
-    CreateObject(SGNP, 4810, 320, -1)->SetPhase(2);
+    sign = CreateObject(SGNP, 4810, 320, -1);
+    sign->SetPhase(2);
+    sign->SetMode(1);
    }
 
    //Blackhawk
@@ -713,7 +716,9 @@ public func ChooserFinished()
    CreateObject(SGNP, 3295, 370, -1);
    CreateObject(SGNP, 3415, 370, -1);
    CreateObject(SGNP, 3320, 580, -1);
-   CreateObject(SGNP, 6620, 470, -1)->SetPhase(1);
+   sign = CreateObject(SGNP, 6620, 470, -1);
+   sign->SetPhase(1);
+   sign->SetMode(1);
    CreateObject(SGNP, 6725, 510, -1);
    CreateObject(SGNP, 6855, 510, -1);
 
@@ -792,11 +797,17 @@ public func ChooserFinished()
    var sign = CreateObject(SNPT, 1460, 400, -1);
    sign->SetAction("Sign2");
    sign->SetMode(1);
-   CreateObject(SGNP, 2530, 470, -1)->SetPhase(1);
-   CreateObject(SGNP, 6620, 470, -1)->SetPhase(1);
+   sign = CreateObject(SGNP, 2530, 470, -1);
+   sign->SetPhase(1);
+   sign->SetMode(1);
+   sign = CreateObject(SGNP, 6620, 470, -1);
+   sign->SetPhase(1);
+   sign->SetMode(1);
    if(!FindObject(NOBH))
    {
-    CreateObject(SGNP, 4810, 320, -1)->SetPhase(2);
+    sign = CreateObject(SGNP, 4810, 320, -1);
+    sign->SetPhase(2);
+    sign->SetMode(1);
    }
 
    //Blackhawk
@@ -917,11 +928,17 @@ public func ChooserFinished()
    var sign = CreateObject(SNPT, 1460, 400, -1);
    sign->SetAction("Sign2");
    sign->SetMode(1);
-   CreateObject(SGNP, 2530, 470, -1)->SetPhase(1);
-   CreateObject(SGNP, 6620, 470, -1)->SetPhase(1);
+   sign = CreateObject(SGNP, 2530, 470, -1);
+   sign->SetPhase(1);
+   sign->SetMode(1);
+   sign = CreateObject(SGNP, 6620, 470, -1);
+   sign->SetPhase(1);
+   sign->SetMode(1);
    if(!FindObject(NOBH))
    {
-    CreateObject(SGNP, 4810, 320, -1)->SetPhase(2);
+    sign = CreateObject(SGNP, 4810, 320, -1);
+    sign->SetPhase(2);
+    sign->SetMode(1);
    }
 
    //Blackhawk

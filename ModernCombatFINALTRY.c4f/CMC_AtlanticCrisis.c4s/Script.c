@@ -242,18 +242,17 @@ func CreateInterior()
 
 func CreateEquipment()
 {
-  var tmp;
   Log("$CreatingEquipment$");
 
   //Versorgungskisten (Kugeln)
-  tmp = CreateObject(AMCT, 1680, 400, -1);
-  tmp->Set(ABOX);
-  tmp = CreateObject(AMCT, 4330, 400, -1);
-  tmp->Set(ABOX);
+  var crate = CreateObject(AMCT, 1680, 400, -1);
+  crate->Set(ABOX);
+  crate = CreateObject(AMCT, 4330, 400, -1);
+  crate->Set(ABOX);
 
   //Versorgungskiste (Gewehrgranaten)
-  var tmp = CreateObject (AMCT, 3020, 460, -1);
-  tmp->Set(GBOX);
+  crate = CreateObject (AMCT, 3020, 460, -1);
+  crate->Set(GBOX);
 
   //Raketen
   PlaceSpawnpoint(MBOX, 2150, 515);
@@ -364,13 +363,9 @@ func CreateDecoration()
   CreateObject(RAI1, 1280, 500, -1)->SetRail([1,1,1,1]);
   CreateObject(RAI1, 1450, 530, -1)->SetRail([1,1,1,1,1,1,1,1,1,1]);
   CreateObject(RAI1, 1500, 600, -1)->SetRail([1,1,1,1,1]);
-
   CreateObject(RAI1, 2100, 520, -1)->SetRail([1,1,1,1,1,1,1,1,1,1,1]);
-
   CreateObject(RAI1, 2880, 460, -1)->SetRail([1,1,1,1,1,1,1,1,1,1,1,1]);
-
   CreateObject(RAI1, 3710, 520, -1)->SetRail([1,1,1,1,1,1,1,1,1,1,1]);
-
   CreateObject(RAI1, 4380, 530, -1)->SetRail([1,1,1,1,1,1,1,1,1,1]);
   CreateObject(RAI1, 4410, 600, -1)->SetRail([1,1,1,1,1]);
   CreateObject(RAI1, 4650, 500, -1)->SetRail([1,1,1,1]);
@@ -426,8 +421,12 @@ public func ChooserFinished()
    //Hinweisschilder
    if(!FindObject(NOBH))
    {
-    CreateObject(SGNP, 1600, 400, -1)->SetPhase(2);
-    CreateObject(SGNP, 4410, 400, -1)->SetPhase(2);
+    var sign = CreateObject(SGNP, 1600, 400, -1);
+    sign->SetPhase(2);
+    sign->SetMode(1);
+    sign = CreateObject(SGNP, 4410, 400, -1);
+    sign->SetPhase(2);
+    sign->SetMode(1);
    }
 
    //Blackhawks
@@ -438,8 +437,8 @@ public func ChooserFinished()
    if(!FindObject(NOAM))
    {
     //Versorgungskiste (Kugeln)
-    var tmp = CreateObject(AMCT, 2965, 460, -1);
-    tmp->Set(ABOX);
+    var crate = CreateObject(AMCT, 2965, 460, -1);
+    crate->Set(ABOX);
 
     //Raketen
     PlaceSpawnpoint(MBOX, 2890, 525);
@@ -457,8 +456,12 @@ public func ChooserFinished()
    //Hinweisschilder
    if(!FindObject(NOBH))
    {
-    CreateObject(SGNP, 1600, 400, -1)->SetPhase(2);
-    CreateObject(SGNP, 4410, 400, -1)->SetPhase(2);
+    var sign = CreateObject(SGNP, 1600, 400, -1);
+    sign->SetPhase(2);
+    sign->SetMode(1);
+    sign = CreateObject(SGNP, 4410, 400, -1);
+    sign->SetPhase(2);
+    sign->SetMode(1);
    }
 
    //Blackhawks
@@ -507,8 +510,12 @@ public func ChooserFinished()
    //Hinweisschilder
    if(!FindObject(NOBH))
    {
-    CreateObject(SGNP, 1600, 400, -1)->SetPhase(2);
-    CreateObject(SGNP, 4410, 400, -1)->SetPhase(2);
+    var sign = CreateObject(SGNP, 1600, 400, -1);
+    sign->SetPhase(2);
+    sign->SetMode(1);
+    sign = CreateObject(SGNP, 4410, 400, -1);
+    sign->SetPhase(2);
+    sign->SetMode(1);
    }
 
    //Blackhawks

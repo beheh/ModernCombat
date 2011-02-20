@@ -203,20 +203,20 @@ func CreateEquipment()
   //Alle Objekte folglich von links oben nach rechts unten
 
   //Munitionskisten (Kugeln)
-  var tmp = CreateObject(AMCT, 1390, 460, -1);
-  tmp->SetGraphics("Desert");
-  tmp->Set(ABOX);
-  var tmp = CreateObject(AMCT, 3450, 530, -1);
-  tmp->SetGraphics("Desert");
-  tmp->Set(ABOX);
-  var tmp = CreateObject(AMCT, 5440, 460, -1);
-  tmp->SetGraphics("Desert");
-  tmp->Set(ABOX);
+  var crate = CreateObject(AMCT, 1390, 460, -1);
+  crate->SetGraphics("Desert");
+  crate->Set(ABOX);
+  crate = CreateObject(AMCT, 3450, 530, -1);
+  crate->SetGraphics("Desert");
+  crate->Set(ABOX);
+  crate = CreateObject(AMCT, 5440, 460, -1);
+  crate->SetGraphics("Desert");
+  crate->Set(ABOX);
 
   //Munitionskisten (Granaten)
-  var tmp = CreateObject(AMCT, 3380, 530, -1);
-  tmp->SetGraphics("Desert");
-  tmp->Set(GBOX);
+  crate = CreateObject(AMCT, 3380, 530, -1);
+  crate->SetGraphics("Desert");
+  crate->Set(GBOX);
 
   //Granatenmunition
   PlaceSpawnpoint(GBOX, 1980, 595);
@@ -315,8 +315,12 @@ public func ChooserFinished()
   //Hinweisschilder
   if(!FindObject(NOBH))
   {
-   CreateObject(SGNP, 940, 600, -1)->SetPhase(2);
-   CreateObject(SGNP, 5890, 600, -1)->SetPhase(2);
+   var sign = CreateObject(SGNP, 940, 600, -1);
+   sign->SetPhase(2);
+   sign->SetMode(1);
+   sign = CreateObject(SGNP, 5890, 600, -1);
+   sign->SetPhase(2);
+   sign->SetMode(1);
   }
 
   //CTF-Spielziel

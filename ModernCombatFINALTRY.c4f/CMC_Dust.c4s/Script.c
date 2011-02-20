@@ -107,14 +107,14 @@ func CreateEquipment()
   Log("$CreatingEquipment$");
 
   //Versorgungskisten (Kugeln)
-  var tmp = CreateObject(AMCT, 350, 540, -1);
-  tmp->Set(ABOX);
-  var tmp = CreateObject(AMCT, 1395, 490, -1);
-  tmp->Set(ABOX);
+  var crate = CreateObject(AMCT, 350, 540, -1);
+  crate->Set(ABOX);
+  crate = CreateObject(AMCT, 1395, 490, -1);
+  crate->Set(ABOX);
 
   //Munitionskiste (Gewehrgranaten)
-  var tmp = CreateObject(AMCT, 1055, 780, -1);
-  tmp->Set(GBOX);
+  crate = CreateObject(AMCT, 1055, 780, -1);
+  crate->Set(GBOX);
 
   //Kugeln
   PlaceSpawnpoint(ABOX, 280, 404);
@@ -152,8 +152,6 @@ func CreateDecoration()
 
 func CreateOptionalFeatures()
 {
-  Log("$CreatingDecoration$");
-
   //Hintergrund
   CreateObject(BD07,600,930,-1);
 }

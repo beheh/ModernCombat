@@ -32,7 +32,6 @@ func Initialize()
 
 func CreateInterior()
 {
-  var tmp;
   Log("$CreatingInterior$");
 
   //Leitern
@@ -235,15 +234,14 @@ func CreateInterior()
   CreateObject(STNE, 1450, 800, -1);
 
   //Hydrauliktüren
-  tmp = CreateObject(SLDR, 270, 530, -1);
-  tmp->Lock();
-  tmp->SetMaxDamage(-1);
-  tmp->SetSwitchLock(DIR_Right);
-
-  tmp = CreateObject(SLDR, 2460, 530, -1);
-  tmp->Lock();
-  tmp->SetMaxDamage(-1);
-  tmp->SetSwitchLock(DIR_Left);
+  var door = CreateObject(SLDR, 270, 530, -1);
+  door->Lock();
+  door->SetMaxDamage(-1);
+  door->SetSwitchLock(DIR_Right);
+  door = CreateObject(SLDR, 2460, 530, -1);
+  door->Lock();
+  door->SetMaxDamage(-1);
+  door->SetSwitchLock(DIR_Left);
 
   //Verbundene Räume
   var doorw = CreateObject(ROOM, 200, 530, -1);
@@ -275,12 +273,12 @@ func CreateInterior()
   //Hinweisschilder
   CreateObject(SGNP, 990, 640, -1)->SetPhase(1);
   CreateObject(SGNP, 1740, 640, -1)->SetPhase(1);
-  tmp = CreateObject(SNPT, 400, 430, -1);
-  tmp->SetAction("Sign2");
-  tmp->Light();
-  tmp = CreateObject(SNPT, 2330, 430, -1);
-  tmp->SetAction("Sign2");
-  tmp->Light();
+  var sign = CreateObject(SNPT, 400, 430, -1);
+  sign->SetAction("Sign2");
+  sign->Light();
+  sign = CreateObject(SNPT, 2330, 430, -1);
+  sign->SetAction("Sign2");
+  sign->Light();
 
   //Grenzen
   CreateObject(BRDR, 170, 0, -1)->Set(0);
@@ -312,14 +310,14 @@ func CreateEquipment()
   Log("$CreatingEquipment$");
 
   //Versorgungskisten (Kugeln)
-  var tmp = CreateObject (AMCT, 530, 730, -1);
-  tmp->Set(ABOX);
-  var tmp = CreateObject (AMCT, 2200, 730, -1);
-  tmp->Set(ABOX);
+  var crate = CreateObject (AMCT, 530, 730, -1);
+  crate->Set(ABOX);
+  crate = CreateObject (AMCT, 2200, 730, -1);
+  crate->Set(ABOX);
 
   //Versorgungskiste (Gewehrgranaten)
-  var tmp = CreateObject (AMCT, 1380, 411, -1);
-  tmp->Set(GBOX);
+  crate = CreateObject (AMCT, 1380, 411, -1);
+  crate->Set(GBOX);
 
   //Raketen
   PlaceSpawnpoint(MBOX, 755, 715);
@@ -344,7 +342,6 @@ func CreateEquipment()
 
 func CreateDecoration()
 {
-  var tmp;
   Log("$CreatingDecoration$");
 
   //Geländer
@@ -476,27 +473,24 @@ func CreateDecoration()
 
   //Ventillatoren
   CreateObject(VEN3, 490, 595, -1)->SetCon(20);
-  tmp = CreateObject(VEN3, 510, 595, -1);
-  tmp->SetCon(20);
-  tmp->SetPhase(4);
-  tmp = CreateObject(VEN3, 530, 595, -1);
-  tmp->SetCon(20);
-  tmp->SetPhase(7);
-
+  var vent = CreateObject(VEN3, 510, 595, -1);
+  vent->SetCon(20);
+  vent->SetPhase(4);
+  vent = CreateObject(VEN3, 530, 595, -1);
+  vent->SetCon(20);
+  vent->SetPhase(7);
   CreateObject(VENT, 975, 595, -1)->SetCon(20);
   CreateObject(VENT, 1075, 595, -1)->SetCon(20);
   CreateObject(VENT, 1175, 595, -1)->SetCon(20);
-
   CreateObject(VENT, 1555, 595, -1)->SetCon(20);
   CreateObject(VENT, 1655, 595, -1)->SetCon(20);
   CreateObject(VENT, 1755, 595, -1)->SetCon(20);
-
-  tmp = CreateObject(VEN3, 2200, 595, -1);
-  tmp->SetCon(20);
-  tmp->SetPhase(7);
-  tmp = CreateObject(VEN3, 2220, 595, -1);
-  tmp->SetCon(20);
-  tmp->SetPhase(4);
+  vent = CreateObject(VEN3, 2200, 595, -1);
+  vent->SetCon(20);
+  vent->SetPhase(7);
+  vent = CreateObject(VEN3, 2220, 595, -1);
+  vent->SetCon(20);
+  vent->SetPhase(4);
   CreateObject(VEN3, 2240, 595, -1)->SetCon(20);
 }
 
@@ -573,8 +567,8 @@ public func ChooserFinished()
    if(!FindObject(NOAM))
    {
     //Versorgungskiste (Kugeln)
-    var tmp = CreateObject(AMCT, 1330, 640, -1);
-    tmp->Set(ABOX);
+    var crate = CreateObject(AMCT, 1330, 640, -1);
+    crate->Set(ABOX);
 
     //Raketen
     PlaceSpawnpoint(MBOX, 1330, 305);

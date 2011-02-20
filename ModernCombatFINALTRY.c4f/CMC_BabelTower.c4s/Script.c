@@ -416,10 +416,10 @@ func CreateEquipment()
   Log("$CreatingEquipment$");
 
   //Versorgungskisten (Kugeln)
-  var tmp = CreateObject(AMCT, 570, 320, -1);
-  tmp->Set(ABOX);
-  var tmp = CreateObject(AMCT, 730, 1940, -1);
-  tmp->Set(ABOX);
+  var crate = CreateObject(AMCT, 570, 320, -1);
+  crate->Set(ABOX);
+  var crate = CreateObject(AMCT, 730, 1940, -1);
+  crate->Set(ABOX);
 
   //Kugeln
   PlaceSpawnpoint(ABOX, 740, 800);
@@ -563,13 +563,11 @@ func CreateDecoration()
   CreateObject(GTBL, 640, 1690, -1);
 
   //Schilder
+  CreateObject(WLSN, 180, 1930, -1)->SetPhase(2);
   CreateObject(ESGN, 440, 800, -1);
   CreateObject(ESGN, 730, 800, -1);
   CreateObject(ESGN, 490, 1235, -1);
   CreateObject(ESGN, 680, 1235, -1);
-
-  //Wandschilder
-  CreateObject(WLSN, 180, 1930, -1)->SetPhase(2);
   CreateObject(WLSN, 920, 910, -1)->SetPhase(2);
 
   //Ventillatoren

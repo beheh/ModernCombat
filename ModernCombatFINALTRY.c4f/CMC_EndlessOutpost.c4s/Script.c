@@ -334,34 +334,33 @@ func CreateEquipment()
 {
   Log("$CreatingEquipment$");
 
-   //Versorgungskisten (Kugeln)
-   var tmp = CreateObject (AMCT, 135, 450, -1);
-   tmp->Set(ABOX);
-   var tmp = CreateObject (AMCT, 1090, 260, -1);
-   tmp->Set(ABOX);
-   var tmp = CreateObject (AMCT, 1280, 550, -1);
-   tmp->Set(ABOX);
-   var tmp = CreateObject (AMCT, 1720, 210, -1);
-   tmp->Set(ABOX);
-   var tmp = CreateObject (AMCT, 1835, 490, -1);
-   tmp->Set(ABOX);
-   var tmp = CreateObject (AMCT, 2375, 580, -1);
-   tmp->Set(ABOX);
+  //Versorgungskisten (Kugeln)
+  var crate = CreateObject (AMCT, 135, 450, -1);
+  crate->Set(ABOX);
+  crate = CreateObject (AMCT, 1090, 260, -1);
+  crate->Set(ABOX);
+  crate = CreateObject (AMCT, 1280, 550, -1);
+  crate->Set(ABOX);
+  crate = CreateObject (AMCT, 1720, 210, -1);
+  crate->Set(ABOX);
+  crate = CreateObject (AMCT, 1835, 490, -1);
+  crate->Set(ABOX);
+  crate = CreateObject (AMCT, 2375, 580, -1);
+  crate->Set(ABOX);
 
-   //Versorgungskisten (Gewehrgranaten)
-   var tmp = CreateObject (AMCT, 105, 450, -1);
-   tmp->Set(GBOX);
-   var tmp = CreateObject (AMCT, 1090, 430, -1);
-   tmp->Set(GBOX);
+  //Versorgungskisten (Gewehrgranaten)
+  crate = CreateObject (AMCT, 105, 450, -1);
+  crate->Set(GBOX);
+  crate = CreateObject (AMCT, 1090, 430, -1);
+  crate->Set(GBOX);
 
   //Versorgungskiste (Splittergranaten)
-  var tmp = CreateObject(AMCT, 2030, 210, -1);
-  tmp->Set(FRAG);
+  crate = CreateObject(AMCT, 2030, 210, -1);
+  crate->Set(FRAG);
 }
 
 func CreateDecoration()
 {
-  var tmp;
   Log("$CreatingDecoration$");
 
   //Nebel
@@ -375,23 +374,22 @@ func CreateDecoration()
 
   //Bildschirme
   CreateObject(SCA1, 995, 350, -1);
-  tmp = CreateObject(SCR3, 995, 380, -1);
-  tmp->SetClrModulation(RGB(255,255,255));
-
-  tmp = CreateObject(SCA2, 1570, 150, -1);
-  tmp->SetClrModulation(RGB(255,255,255));
-  tmp = CreateObject(SCR3, 1580, 180, -1);
-  tmp->SetClrModulation(RGB(255,255,255));
-  tmp = CreateObject(SCR1, 1580, 230, -1);
-  tmp->SetClrModulation(RGB(255,255,255));
-  tmp = CreateObject(SCR3, 1580, 260, -1);
-  tmp->SetClrModulation(RGB(255,255,255));
-  tmp = CreateObject(SCR3, 2200, 210, -1);
-  tmp->SetClrModulation(RGB(255,255,255));
-  tmp = CreateObject(SCA2, 2435, 400, -1);
-  tmp->SetAction("Scan2");
-  tmp = CreateObject(SCR3, 2445, 450, -1);
-  tmp->SetClrModulation(RGB(255,255,255));
+  var screen = CreateObject(SCR3, 995, 380, -1);
+  screen->SetClrModulation(RGB(255,255,255));
+  screen = CreateObject(SCA2, 1570, 150, -1);
+  screen->SetClrModulation(RGB(255,255,255));
+  screen = CreateObject(SCR3, 1580, 180, -1);
+  screen->SetClrModulation(RGB(255,255,255));
+  screen = CreateObject(SCR1, 1580, 230, -1);
+  screen->SetClrModulation(RGB(255,255,255));
+  screen = CreateObject(SCR3, 1580, 260, -1);
+  screen->SetClrModulation(RGB(255,255,255));
+  screen = CreateObject(SCR3, 2200, 210, -1);
+  screen->SetClrModulation(RGB(255,255,255));
+  screen = CreateObject(SCA2, 2435, 400, -1);
+  screen->SetAction("Scan2");
+  screen = CreateObject(SCR3, 2445, 450, -1);
+  screen->SetClrModulation(RGB(255,255,255));
 
   //Labortische
   CreateObject(LTBL,1410, 320, -1);
@@ -468,7 +466,7 @@ func CreateDecoration()
   CreateObject(CLVM, 1895, 110, -1);
   CreateObject(CLVM, 1980, 400, -1);
 
-  //Wandschild
+  //Schild
   CreateObject(WLSN, 1865, 310, -1);
 
   //Wald
@@ -487,99 +485,99 @@ func CreateDecoration()
   CreateObject(TRE1,523,606,-1);
   CreateObject(TRB4,506,627,-1);
   CreateObject(TRE1,501,628,-1);
-  var obj0 = CreateObject(TRE4,521,606,-1);
-  obj0->SetCon(59);
+  var tree = CreateObject(TRE4,521,606,-1);
+  tree->SetCon(59);
   CreateObject(TRE3,546,625,-1);
   CreateObject(TRB4,552,625,-1);
   CreateObject(TRE2,576,607,-1);
   CreateObject(TRE2,677,582,-1);
   CreateObject(BSH2,739,568,-1);
   CreateObject(BSH2,97,658,-1);
-  var obj1 = CreateObject(TRE1,127,657,-1);
-  obj1->SetCon(40);
+  tree = CreateObject(TRE1,127,657,-1);
+  tree->SetCon(40);
   CreateObject(TRE4,102,656,-1);
   CreateObject(TRE4,112,657,-1);
   CreateObject(TRE4,127,656,-1);
   CreateObject(TRB4,169,674,-1);
   CreateObject(SE4K,210,620,-1);
-  var obj2 = CreateObject(TRE3,288,664,-1);
-  obj2->SetCon(54);
+  tree = CreateObject(TRE3,288,664,-1);
+  tree->SetCon(54);
   CreateObject(TRE4,288,665,-1);
   CreateObject(TRE4,255,661,-1);
   CreateObject(TRE2,290,667,-1);
   CreateObject(TRE1,272,658,-1);
-  var obj3 = CreateObject(TRE4,290,667,-1);
-  obj3->SetCon(64);
+  tree = CreateObject(TRE4,290,667,-1);
+  tree->SetCon(64);
   CreateObject(TRE4,275,656,-1);
-  var obj4 = CreateObject(GRAS,276,652,-1);
-  obj4->SetR(8);
-  obj4->SetCon(59);
+  tree = CreateObject(GRAS,276,652,-1);
+  tree->SetR(8);
+  tree->SetCon(59);
   CreateObject(TRB4,307,674,-1);
   CreateObject(TRE2,300,667,-1);
   CreateObject(TRB4,374,656,-1);
-  var obj5 = CreateObject(GRAS,372,653,-1);
-  obj5->SetR(-15);
-  obj5->SetCon(58);
+  tree = CreateObject(GRAS,372,653,-1);
+  tree->SetR(-15);
+  tree->SetCon(58);
   CreateObject(BSH2,437,655,-1);
   CreateObject(TRE2,427,657,-1);
   CreateObject(TRE3,434,653,-1);
-  var obj7 = CreateObject(GRAS,432,651,-1);
-  obj7->SetR(-1);
-  obj7->SetCon(43);
-  var obj8 = CreateObject(TRE1,486,651,-1);
-  obj8->SetCon(40);
-  var obj9 = CreateObject(GRAS,480,653,-1);
-  obj9->SetR(-30);
-  obj9->SetCon(55);
+  tree = CreateObject(GRAS,432,651,-1);
+  tree->SetR(-1);
+  tree->SetCon(43);
+  tree = CreateObject(TRE1,486,651,-1);
+  tree->SetCon(40);
+  tree = CreateObject(GRAS,480,653,-1);
+  tree->SetR(-30);
+  tree->SetCon(55);
   CreateObject(TRE4,494,632,-1);
   CreateObject(TRE4,493,634,-1);
-  var obj10 = CreateObject(GRAS,492,631,-1);
-  obj10->SetR(-27);
-  obj10->SetCon(56);
-  var obj11 = CreateObject(TRE4,546,627,-1);
-  obj11->SetCon(36);
-  var obj12 = CreateObject(TRE4,504,627,-1);
-  obj12->SetCon(38);
-  var obj13 = CreateObject(TRE2,508,622,-1);
-  obj13->SetCon(30);
-  var obj14 = CreateObject(GRAS,504,623,-1);
-  obj14->SetR(-18);
-  obj14->SetCon(56);
+  tree = CreateObject(GRAS,492,631,-1);
+  tree->SetR(-27);
+  tree->SetCon(56);
+  tree = CreateObject(TRE4,546,627,-1);
+  tree->SetCon(36);
+  tree = CreateObject(TRE4,504,627,-1);
+  tree->SetCon(38);
+  tree = CreateObject(TRE2,508,622,-1);
+  tree->SetCon(30);
+  tree = CreateObject(GRAS,504,623,-1);
+  tree->SetR(-18);
+  tree->SetCon(56);
   CreateObject(BSH2,674,640,-1);
   CreateObject(TRB4,655,641,-1);
   CreateObject(STNE,735,665,-1);
   CreateObject(BSH2,149,666,-1);
-  var obj15 = CreateObject(TRE4,144,661,-1);
-  obj15->SetCon(30);
+  tree = CreateObject(TRE4,144,661,-1);
+  tree->SetCon(30);
   CreateObject(BSH2,153,667,-1);
-  var obj16 = CreateObject(TRE4,176,666,-1);
-  obj16->SetCon(11);
+  tree = CreateObject(TRE4,176,666,-1);
+  tree->SetCon(11);
   CreateObject(STNE,220,690,-1);
-  var obj17 = CreateObject(BSH2,297,666,-1);
-  obj17->SetCon(10);
-  var obj18 = CreateObject(GRAS,288,661,-1);
-  obj18->SetR(11);
-  obj18->SetCon(58);
+  tree = CreateObject(BSH2,297,666,-1);
+  tree->SetCon(10);
+  tree = CreateObject(GRAS,288,661,-1);
+  tree->SetR(11);
+  tree->SetCon(58);
   CreateObject(BSH2,290,667,-1);
-  var obj19 = CreateObject(GRAS,336,700,-1);
-  obj19->SetR(13);
-  obj19->SetCon(60);
+  tree = CreateObject(GRAS,336,700,-1);
+  tree->SetR(13);
+  tree->SetCon(60);
   CreateObject(TRE2,312,686,-1);
   CreateObject(BSH2,303,670,-1);
-  var obj20 = CreateObject(BSH2,338,705,-1);
-  obj20->SetCon(59);
-  var obj21 = CreateObject(BSH2,331,699,-1);
-  obj21->SetCon(15);
+  tree = CreateObject(BSH2,338,705,-1);
+  tree->SetCon(59);
+  tree = CreateObject(BSH2,331,699,-1);
+  tree->SetCon(15);
   CreateObject(TRE4,312,686,-1);
-  var obj22 = CreateObject(GRAS,312,682,-1);
-  obj22->SetR(23);
-  obj22->SetCon(55);
-  var obj23 = CreateObject(GRAS,324,693,-1);
-  obj23->SetR(10);
-  obj23->SetCon(60);
-  var obj24 = CreateObject(GRAS,300,661,-1);
-  obj24->SetR(8);
-  obj24->SetCon(44);
+  tree = CreateObject(GRAS,312,682,-1);
+  tree->SetR(23);
+  tree->SetCon(55);
+  tree = CreateObject(GRAS,324,693,-1);
+  tree->SetR(10);
+  tree->SetCon(60);
+  tree = CreateObject(GRAS,300,661,-1);
+  tree->SetR(8);
+  tree->SetCon(44);
   CreateObject(BSH2,420,705,-1);
 
   //Büsche
@@ -752,8 +750,12 @@ public func ChooserFinished()
    aSelfDefense[1]->TurnOn();
 
    //Hinweisschilder
-   CreateObject(SGNP, 780, 410, -1)->SetPhase(1);
-   CreateObject(SGNP, 1410, 550, -1)->SetPhase(1);
+   var sign = CreateObject(SGNP, 780, 410, -1);
+   sign->SetPhase(1);
+   sign->SetMode(1);
+   sign = CreateObject(SGNP, 1410, 550, -1);
+   sign->SetPhase(1);
+   sign->SetMode(1);
   }
 
   //OP-Spielziel
@@ -818,8 +820,12 @@ public func ChooserFinished()
    RemoveObject(FindObject2(Find_ID(AMCT),Find_InRect(1080, 240, 40, 40)));
 
    //Hinweisschilder
-   CreateObject(SGNP, 780, 410, -1)->SetPhase(1);
-   CreateObject(SGNP, 1410, 550, -1)->SetPhase(1);
+   var sign = CreateObject(SGNP, 780, 410, -1);
+   sign->SetPhase(1);
+   sign->SetMode(1);
+   sign = CreateObject(SGNP, 1410, 550, -1);
+   sign->SetPhase(1);
+   sign->SetMode(1);
 
    //Konsole erstellen
    CreateObject(CONS, 1810, 485, -1)->Set(aSelfDefense[1]);

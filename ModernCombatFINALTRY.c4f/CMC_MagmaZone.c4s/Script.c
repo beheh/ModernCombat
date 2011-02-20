@@ -98,7 +98,9 @@ func CreateInterior()
   CreateObject(BECR, 1290, 460, -1)->AutoRespawn();
 
   //Hinweisschild
-  CreateObject(SGNP, 1390, 460, -1)->SetPhase(1);
+  var sign = CreateObject(SGNP, 1390, 460, -1);
+  sign->SetPhase(1);
+  sign->SetMode(1);
 
   //Selbstschussanlage und Konsole
   aSelfDefense[0] = CreateObject(SEGU, 1305, 369, -1);
@@ -125,12 +127,11 @@ func CreateInterior()
 
 func CreateEquipment()
 {
-  var tmp;
   Log("$CreatingEquipment$");
 
   //Versorgungskiste (Kugeln)
-  tmp = CreateObject(AMCT, 1315, 460, -1);
-  tmp->Set(ABOX);
+  var crate = CreateObject(AMCT, 1315, 460, -1);
+  crate->Set(ABOX);
 
   //Gewehrgranaten
   PlaceSpawnpoint(GBOX, 1290, 80);
@@ -158,12 +159,6 @@ func CreateDecoration()
   CreateObject(ALGH, 185, 260, -1)->TurnOn();
   CreateObject(ALGH, 1340, 250, -1)->TurnOn();
   CreateObject(ALGH, 2300, 170, -1)->TurnOn();
-
-  //Markierungsschilder
-  CreateObject(MSGN, 140, 300, -1);
-  CreateObject(MSGN, 235, 300, -1);
-  CreateObject(MSGN, 2240, 210, -1);
-  CreateObject(MSGN, 2340, 210, -1);
 
   //Radar
   CreateObject(RADR, 2085, 240, -1);
@@ -222,6 +217,12 @@ func CreateDecoration()
   CreateObject(RAI1, 2080, 240, -1)->SetRail([1,3,1,3,1,3,1]);
   CreateObject(RAI1, 2080, 560, -1)->SetRail([1,3,1,3,1,3,1]);
   CreateObject(RAI1, 2250, 210, -1)->SetRail([1,3,1,3,1,3,1]);
+
+  //Schilder
+  CreateObject(MSGN, 140, 300, -1);
+  CreateObject(MSGN, 235, 300, -1);
+  CreateObject(MSGN, 2240, 210, -1);
+  CreateObject(MSGN, 2340, 210, -1);
 }
 
 /* Bei Flaggenübernahme */
@@ -259,7 +260,6 @@ public func ChooserFinished()
    CreateObject(SGNP, 585, 650, -1);
    CreateObject(SGNP, 600, 520, -1);
    CreateObject(SGNP, 660, 150, -1);
-
    CreateObject(SGNP, 1850, 130, -1);
    CreateObject(SGNP, 1850, 450, -1);
    CreateObject(SGNP, 1960, 300, -1);

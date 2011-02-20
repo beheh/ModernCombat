@@ -31,6 +31,8 @@ func Initialize()
   CreateEquipment();
   //Dekoration plazieren
   CreateDecoration();
+  //Optionale Objekte plazieren
+  CreateOptionalFeatures();
   return(1);
 }
 
@@ -262,14 +264,14 @@ func CreateEquipment()
   Log("$CreatingEquipment$");
 
   //Versorgungskisten (Kugeln)
-  var tmp = CreateObject (AMCT, 435, 660, -1);
-  tmp->Set(ABOX);
-  var tmp = CreateObject (AMCT, 1475, 660, -1);
-  tmp->Set(ABOX);
+  var crate = CreateObject (AMCT, 435, 660, -1);
+  crate->Set(ABOX);
+  crate = CreateObject (AMCT, 1475, 660, -1);
+  crate->Set(ABOX);
 
   //Versorgungskiste (Gewehrgranaten)
-  var tmp = CreateObject (AMCT, 1000, 430, -1);
-  tmp->Set(GBOX);
+  crate = CreateObject (AMCT, 1000, 430, -1);
+  crate->Set(GBOX);
 
   //Raketen
   PlaceSpawnpoint(MBOX, 1020, 575);
@@ -289,7 +291,6 @@ func CreateEquipment()
 
 func CreateDecoration()
 {
-  var tmp;
   Log("$CreatingDecoration$");
 
   //Labortisch
@@ -300,8 +301,8 @@ func CreateDecoration()
   CreateObject(MNI2, 1490, 368, -1)->Off();
 
   //Bildschirme
-  tmp = CreateObject(SCA2, 330, 660, -1);
-  tmp->SetClrModulation(RGB(255,255,255));
+  var screen = CreateObject(SCA2, 330, 660, -1);
+  screen->SetClrModulation(RGB(255,255,255));
   CreateObject(SCR3, 1165, 725, -1);
 
   //Orientierungslichter
@@ -403,10 +404,10 @@ func CreateDecoration()
   CreateObject(GADG, 1195, 750, -1)->Set(1);
   CreateObject(GADG, 1500, 380, -1)->Set(1);
 
-  //Markierungsschilder
+  //Schilder
   CreateObject(MSGN, 250, 720, -1);
   CreateObject(MSGN, 280, 720, -1);
-
+  CreateObject(WLSN, 550, 520, -1);
   CreateObject(MSGN, 1310, 750, -1);
   CreateObject(MSGN, 1340, 750, -1);
 
@@ -477,9 +478,6 @@ func CreateDecoration()
   CreateObject(ETLT, 320, 500, -1);
   CreateObject(ETLT, 1050, 705, -1);
   CreateObject(ETLT, 1365, 495, -1);
-
-  //Wandschild
-  CreateObject(WLSN, 550, 520, -1);
 
   //Dekoschleuse
   CreateObject(GAT1, 1160, 690, -1);
@@ -556,8 +554,8 @@ public func ChooserFinished()
    if(!FindObject(NOAM))
    {
     //Versorgungskiste (Kugeln)
-    var tmp = CreateObject (AMCT, 1010, 660, -1);
-    tmp->Set(ABOX);
+    var crate = CreateObject (AMCT, 1010, 660, -1);
+    crate->Set(ABOX);
    }
   }
 

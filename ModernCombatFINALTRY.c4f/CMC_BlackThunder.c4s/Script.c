@@ -138,11 +138,11 @@ func CreateInterior()
   CreateObject(GSBL, 3520, 760, -1)->AutoRespawn();
 
   //Hinweisschilder
-  CreateObject(SNPT, 280, 1210, -1);
+  CreateObject(SNPT, 280, 1210, -1)->Light();
   CreateObject(SGNP, 1190, 1200, -1);
-  CreateObject(SNPT, 1930, 1170, -1);
+  CreateObject(SNPT, 1930, 1170, -1)->Light();
   CreateObject(SGNP, 2960, 1270, -1);
-  CreateObject(SNPT, 3710, 1280, -1);
+  CreateObject(SNPT, 3710, 1280, -1)->Light();
 
   //Grenze
   CreateObject(BRDR, 0, 1110, -1)->Set(3);
@@ -188,16 +188,16 @@ func CreateEquipment()
   Log("$CreatingEquipment$");
 
   //Versorgungskisten (Kugeln)
-  var tmp = CreateObject (AMCT, 415, 500, -1);
-  tmp->Set(ABOX);
-  var tmp = CreateObject (AMCT, 3830, 500, -1);
-  tmp->Set(ABOX);
+  var crate = CreateObject (AMCT, 415, 500, -1);
+  crate->Set(ABOX);
+  crate = CreateObject (AMCT, 3830, 500, -1);
+  crate->Set(ABOX);
 
   //Versorgungskisten (Gewehrgranaten)
-  var tmp = CreateObject (AMCT, 1180, 670, -1);
-  tmp->Set(GBOX);
-  var tmp = CreateObject (AMCT, 3060, 670, -1);
-  tmp->Set(GBOX);
+  crate = CreateObject (AMCT, 1180, 670, -1);
+  crate->Set(GBOX);
+  crate = CreateObject (AMCT, 3060, 670, -1);
+  crate->Set(GBOX);
 
   //Kugeln
   PlaceSpawnpoint(ABOX, 2120, 845);
@@ -239,11 +239,10 @@ func CreateDecoration()
   CreateObject(FENC, 2580, 770, -1);
   CreateObject(FENC, 2930, 670, -1);
 
-  //Markierungsschilder
+  //Schilder
   CreateObject(MSGN, 775, 760, -1);
   CreateObject(MSGN, 1125, 760, -1);
   CreateObject(MSGN, 2015, 850, -1);
-
   CreateObject(MSGN, 2235, 850, -1);
   CreateObject(MSGN, 3125, 760, -1);
   CreateObject(MSGN, 3475, 760, -1);
@@ -283,8 +282,12 @@ public func ChooserFinished()
   if(!FindObject(NOBH))
   {
    CreateObject(SNPT, 630, 590, -1)->SetAction("Sign3");
-   CreateObject(SGNP, 1290, 670, -1)->SetPhase(2);
-   CreateObject(SGNP, 2940, 670, -1)->SetPhase(2);
+   var sign = CreateObject(SGNP, 1290, 670, -1);
+   sign->SetPhase(2);
+   sign->SetMode(1);
+   sign = CreateObject(SGNP, 2940, 670, -1);
+   sign->SetPhase(2);
+   sign->SetMode(1);
    CreateObject(SNPT, 3610, 590, -1)->SetAction("Sign3");
   }
 
