@@ -700,7 +700,7 @@ public func ControlThrow(caller)
         }
       }
       else {
-        target->~MeleeHit();
+        target->~MeleeHit(this);
       }
       //Soundeffekte
       Sound("ClonkMelee*.ogg", 0, this);

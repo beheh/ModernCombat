@@ -60,18 +60,26 @@ public func ExecShove()
                  Find_NoContainer(),
                  Find_Or
                  (
-                  Find_Func("IsBulletTarget",GetID(),this,target),
-                  Find_OCF(OCF_Alive)
+                   Find_And
+                   (
+                     Find_Or
+                     (
+                       Find_Func("IsBulletTarget",GetID(),this,target),
+                       Find_OCF(OCF_Alive)
+                     ),
+                     Find_Category(C4D_Living|C4D_Vehicle),
+                     Find_Not(Find_ID(BKHK)),
+                     Find_Func("CheckEnemy",this)
+                   ),
+                   Find_Func("IsMeleeTarget", this)
                  ),
-                 Find_Category(C4D_Living|C4D_Vehicle),
-                 Find_Not(Find_ID(BKHK)),
-                 Find_Func("CheckEnemy",this),
                  Sort_Distance(dx-GetX(target),dy-GetY(target)));
 
   //Und verschleudern
   if(victim)
   {
-    Fling(victim, (GetDir(target)*2-1)*2, -1);
+    if(!victim->~MeleeHit(this))
+      Fling(victim, (GetDir(target)*2-1)*2, -1);
     //Schaden durch Schlag wenn das Ziel ein Lebewesen ist
     if(GetOCF(victim) & OCF_Living)
       DoDmg(15,DMG_Melee,victim,0,GetController()+1,RSHL);
