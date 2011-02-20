@@ -843,7 +843,8 @@ protected func DoAmmoPack(id idType)
   return pack;
 }
 
-public func SelectInventory(object pObj) {
+public func SelectInventory(object pObj)
+{
   if(!Contents()) return false;
   if(!pObj) return;
   if(Contained(pObj) != this) return;
