@@ -298,8 +298,14 @@ public func Reanimation()
   if(!clonk) return;
 
   //Clonk "auswerfen"
-  if(Contained(clonk) == this)
+  if(Contained(clonk) == this) {
    Exit(clonk,0,GetObjHeight(clonk)/2);
+   var i = 0;
+   while(Stuck(clonk) && i <= 20) {
+   	SetPosition(AbsX(GetX(clonk)), AbsY(GetY(clonk))+1, clonk);
+   	i++;
+   }
+  }
 
   //Besitztümer weitergeben
   if(GetAlive(clonk))
