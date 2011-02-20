@@ -843,8 +843,7 @@ protected func DoAmmoPack(id idType)
   return pack;
 }
 
-public func SelectQuickInventory(object pObj)
-{
+public func SelectInventory(object pObj) {
   if(!Contents()) return false;
   if(!pObj) return;
   if(Contained(pObj) != this) return;
@@ -907,7 +906,7 @@ public func ControlSpecial()
           	}
           }
         }
-        var overlay = ring->Add(j%5, GetName(aCollected[i]),"SelectQuickInventory",aCollected[i],RICO);
+        var overlay = ring->Add(j%5, GetName(aCollected[i]),"SelectInventory",aCollected[i],RICO);
         SetGraphics("",ring,GetID(aCollected[i]),overlay,GFXOV_MODE_IngamePicture);
         aUsed[j-1] = true;
       }
