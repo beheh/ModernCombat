@@ -193,10 +193,6 @@ protected func ConfigurationFinished2()
     for(var rule in FindObjects(Find_Category(Chooser_Cat), Find_Exclude(this)))
       rule->~InitializePlayer(GetPlayerByIndex(i));
   }
-  // Überschüssiges TIM1-Objekte entfernen (falls Spieler ziwschenzeitlich geflogen sind)
-  for(tmp in FindObjects(Find_ID(TIM1)))
-    if(!Contents(0, tmp))
-      RemoveObject(tmp, 1);
   // Effekte
   EFSM_SetEffects(iEffectCount);
   // Selber entfernen
