@@ -562,10 +562,11 @@ public func CheckIdleWeapon()
   if(!Contents(i)) return;
   
   // Aha! Waffe wechseln!
-  if(ContentsCount() != 1)
-    ShiftContents(this, 0, obj->GetID(), true);
+  if(ContentsCount() != 1 && Contents() != obj)
+    SelectInventory(obj);
   // Feuermodus wechseln
-  obj->SetFireMode(mode);
+  if(obj->GetFireMode() != mode)
+    obj->SetFireMode(mode);
   // Und Muni reinhauen
   if(!Contents()->~IsRecharging())
     Schedule("Control2Contents(\"ControlThrow\")", 1);
