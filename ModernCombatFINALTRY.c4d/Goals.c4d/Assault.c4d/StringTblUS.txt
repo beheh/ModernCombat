@@ -2,6 +2,7 @@ DefendLastStation=This is our <c ff0000>last</c> target, don't let it get destro
 DestroyLastStation=Only <c ffff33>one</c> target left to win this, keep at it!
 TargetDestruction=Target <c %x>%s</c> destroyed.
 TeamHasWon=Team %s has won this battle!
+AttackersWon=The attackers have won this battle!
 Targets=Targets
 Attackers=Attackers
 MsgTicketsLow=Our reinforcements are running low, only <c ffff33>%d</c> left
