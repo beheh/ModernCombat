@@ -66,7 +66,6 @@ func FxEnvLightTimer(object pTarget)	{}
 private func Check()
 {
   if(IsNight() || GetDarkness() > 0 || !GetEffectData(EFSM_Enlight)) {
-    Log("remove");
     if(fEnlightment == true)
       for(var pObj in FindObjects(Find_ID(TIM1), Find_ID(LGHC))) 
       {
