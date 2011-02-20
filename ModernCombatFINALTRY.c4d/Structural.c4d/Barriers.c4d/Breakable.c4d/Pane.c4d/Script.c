@@ -4,7 +4,6 @@
 
 public func IsMeleeTarget()	{return true;}
 
-
 /* Zerstörung */
 
 public func Damage()
@@ -24,7 +23,7 @@ public func OnHit(int iDamage, int iType, object pFrom)
 
 public func MeleeHit(pFrom)
 {
-  Shatter(BoundBy(10),pFrom);
+  Shatter(BoundBy(20),pFrom);
 }
 
 public func Shatter(int iPower, object pFrom)
