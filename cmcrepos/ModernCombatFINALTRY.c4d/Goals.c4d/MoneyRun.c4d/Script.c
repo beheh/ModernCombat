@@ -197,12 +197,18 @@ public func OnDeathAnnounce(object pCrew, int iKiller, int iAssist)
       //10%, mindestens aber 10 Clunker abziehen
       iChange = GoalMoney(iPlr, -Max(10, aMoney[GetPlayerTeam(iPlr)] / 10));
 
-      //Killer bekommt 80%, mindestens aber 5 Clunker
-      var iToKiller = Max(-iChange * 4 / 5, 4);
-      //Assist bekommt 20%, mindestens aber 1 Clunker
-      var iToAssist = Max(-iChange - iToKiller, 1);
-      GoalMoney(iKiller, iToKiller);
-      GoalMoney(iAssist, iToAssist);
+      if (iAssist == iKiller || iAssist == NO_OWNER)
+        GoalMoney(iKiller, -iChange);
+      else
+      {
+        //Killer bekommt 80%, mindestens aber 5 Clunker
+        var iToKiller = Max(-iChange * 4 / 5, 4);
+        //Assist bekommt 20%, mindestens aber 1 Clunker
+        var iToAssist = Max(-iChange - iToKiller, 1);
+
+        GoalMoney(iKiller, iToKiller);
+        GoalMoney(iAssist, iToAssist);
+      }
     }
 
   //Credits verteilen
@@ -233,6 +239,17 @@ private func GoalMoney(int iPlr, int iAmount)
   var iMoney = aMoney[index];
   //Ändern
   aMoney[index] = Max(iMoney + iAmount);
+  //Eine kurze Nachricht
+  var pClonk = GetCursor(iPlr);
+  if (pClonk && pClonk->~GetRealCursor())
+    pClonk = pClonk->~GetRealCursor();
+  var string;
+  if (iAmount > 0)
+    string = Format("{{MNYS}} <c 00ff00>+%d</c>", iAmount);
+  else
+    string = Format("{{MNYS}} <c ff0000>%d</c>", iAmount);
+  if (pClonk)
+    AddEffect("PointMessage", pClonk, 130, 1, pClonk, 0, string);
   //Und Änderung zurückgeben
   return aMoney[index] - iMoney;
 }
