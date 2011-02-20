@@ -234,12 +234,10 @@ public func RelaunchPlayer(int iPlr, pClonk, int iKiller)
     {
       iTickets = Max(iTickets-1);
       //Keine Tickets mehr?
-      if (iTickets != 0 && iTickets == iWarningTickets) {
+      if (iTickets && iTickets == iWarningTickets)
         Schedule(Format("GameCallEx(\"TicketsLow\", %d, %d, true)", iTickets, iDefender), 1);
-      }
-      if (!iTickets) {
+      if (!iTickets)
       	Schedule(Format("GameCallEx(\"NoTickets\", %d, true)", iDefender), 1);
-      }
     }
   }
 
@@ -268,27 +266,19 @@ public func RelaunchPlayer(int iPlr, pClonk, int iKiller)
 
 public func TicketsLow(int iRemaining, int iTeam, bool fExclude)
 {
-  for(var i = 0; i < GetPlayerCount(); i++)
-  {
-    if((!fExclude && GetPlayerTeam(GetPlayerByIndex(i)) == iTeam) || (fExclude && GetPlayerTeam(GetPlayerByIndex(i)) != iTeam))
-    {
+  for (var i = 0; i < GetPlayerCount(); i++)
+    if ((!fExclude && GetPlayerTeam(GetPlayerByIndex(i)) == iTeam) || (fExclude && GetPlayerTeam(GetPlayerByIndex(i)) != iTeam))
       //Nachricht über Tickettiefstand
-      EventInfo4K(GetPlayerByIndex(i)+1,Format("$MsgTicketsLow$",iRemaining),SM03,0,0,0,"Alarm.ogg");
-    }
-  }
+      EventInfo4K(GetPlayerByIndex(i) + 1, Format("$MsgTicketsLow$", iRemaining), SM03, 0, 0, 0, "Alarm.ogg");
   return true;
 }
 
 public func NoTickets(int iTeam, bool fExclude)
 {
-  for(var i = 0; i < GetPlayerCount(); i++)
-  {
-    if((!fExclude && GetPlayerTeam(GetPlayerByIndex(i)) == iTeam) || (fExclude && GetPlayerTeam(GetPlayerByIndex(i)) != iTeam))
-    {
+  for (var i = 0; i < GetPlayerCount(); i++)
+    if ((!fExclude && GetPlayerTeam(GetPlayerByIndex(i)) == iTeam) || (fExclude && GetPlayerTeam(GetPlayerByIndex(i)) != iTeam))
       //Nachricht über Verlust aller Tickets
-      EventInfo4K(GetPlayerByIndex(i)+1,Format("$MsgNoTickets$"),SM03,0,0,0,"Alarm.ogg");
-    }
-  }
+      EventInfo4K(GetPlayerByIndex(i) + 1, Format("$MsgNoTickets$"), SM03, 0, 0, 0, "Alarm.ogg");
   return true;
 }
 
@@ -311,9 +301,9 @@ protected func WaitForJoin(int iPlr)
   {
     var target = aTargets[iDefender][GetNextTarget()];
     var tim = CreateObject(TIM1, GetX(target)-GetX(), GetY(target)-GetY(), iPlr);
-	Enter(tim, GetCrew(iPlr));
-	SetPlrViewRange(150, tim);
-	AddEffect("IntAssaultWaitObject", tim, 1, 0, tim);
+    Enter(tim, GetCrew(iPlr));
+    SetPlrViewRange(150, tim);
+    AddEffect("IntAssaultWaitObject", tim, 1, 0, tim);
     RemoveEffect("Spawn", GetCrew(iPlr));
   }
 
@@ -323,7 +313,6 @@ protected func WaitForJoin(int iPlr)
   {
     if (GetPlayerTeam(GetOwner(obj)) == iDefender)
       continue;
-	
     if (GetAlive(obj) && !GetEffect("IntAssaultWaitObject", Contained(obj))/* && (GetOwner(obj) != iPlr || GetMenu(obj) != MCSL)*/)
       alive = true;
   }
@@ -389,12 +378,12 @@ public func UpdateScoreboard()
   if (obj)
   {
     //Ziel und zusammenhängende Ziele anzeigen
-	var index = GetIndexOf(obj, aTargets[iDefender]);
-	AddScoreboardTarget(obj, index);
-	if (GetType(Connected[index]) == C4V_Array)
-	  for (var i; i < GetLength(Connected[index]); i++)
-	    if (Connected[index][i])
-		  AddScoreboardTarget(aTargets[iDefender][Connected[index][i]], Connected[index][i]);
+    var index = GetIndexOf(obj, aTargets[iDefender]);
+    AddScoreboardTarget(obj, index);
+    if (GetType(Connected[index]) == C4V_Array)
+      for (var i; i < GetLength(Connected[index]); i++)
+        if (Connected[index][i])
+          AddScoreboardTarget(aTargets[iDefender][Connected[index][i]], Connected[index][i]);
   }
 
   //Leerzeilen
@@ -409,9 +398,9 @@ public func UpdateScoreboard()
   if (GetActiveTeamCount() == 2 - !GetTeamPlayerCount(iDefender))
   {
     if (team == iDefender)
-	  team = GetTeamByIndex(1);
-	string = GetTaggedTeamName(team);
-	color = GetTeamColor(team);
+      team = GetTeamByIndex(1);
+    string = GetTaggedTeamName(team);
+    color = GetTeamColor(team);
   }
   SetScoreboardData(2, GASS_Icon, "{{SM03}}");
   SetScoreboardData(2, GASS_Name, string);
@@ -425,7 +414,7 @@ private func ClearScoreboard()
 {
   for (var i = 0; i < 20; i++)
     for (var j = 0; j < 3; j++)
-	  SetScoreboardData(i,j);
+      SetScoreboardData(i, j);
 }
 
 private func AddScoreboardTarget(object pTarget, int iRow)
@@ -457,25 +446,28 @@ private func IsFulfilled()
   if (fulfilled)
     return fulfilled;
 
+  var won = false;
+
   //Keine Ziele mehr -> Verteidiger eliminiert
   if (!ObjectCount2(Find_InArray(aTargets[iDefender])))
-    EliminateTeam(iDefender);
-
-  //Nur noch ein Team übrig - Sieg!
-  if (GetActiveTeamCount() == 1)
   {
-    //Spielende planen
+    EliminateTeam(iDefender);
+    Message("@$AttackersWon$");
+    won = true;
+  }
+
+  //Nur noch die Verteidiger übrig
+  else if (GetActiveTeamCount() == 1 && GetPlayerTeam(GetPlayerByIndex()) == iDefender)
+  {
+    Message("@$TeamHasWon$", 0, GetTaggedTeamName(iDefender));
+    won = true;
+  }
+
+  if (won)
+  {
     Schedule("GameOver()", 150);
-
-    //Auswertung
     RewardEvaluation();
-
-    //Nachricht über Gewinner
-    Message("@$TeamHasWon$", 0, GetTaggedTeamName(GetTeamByIndex()));
-
-    //Sound
     Sound("Cheer.ogg", true);
-
     RemoveAll(GOAL);
     return fulfilled = true;
   }
