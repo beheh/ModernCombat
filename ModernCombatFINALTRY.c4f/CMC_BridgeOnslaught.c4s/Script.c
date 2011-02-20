@@ -271,9 +271,13 @@ func CreateInterior()
     CreateObject(CONS, 2420, 525, -1)->Set(aSelfDefense[3]);
 
   //Hinweisschilder
-  CreateObject(SGNP, 990, 640, -1)->SetPhase(1);
-  CreateObject(SGNP, 1740, 640, -1)->SetPhase(1);
-  var sign = CreateObject(SNPT, 400, 430, -1);
+  var sign = CreateObject(SGNP, 990, 640, -1);
+  sign->SetPhase(1);
+  sign->SetMode(1);
+  sign = CreateObject(SGNP, 1740, 640, -1);
+  sign->SetPhase(1);
+  sign->SetMode(1);
+  sign = CreateObject(SNPT, 400, 430, -1);
   sign->SetAction("Sign2");
   sign->Light();
   sign = CreateObject(SNPT, 2330, 430, -1);
