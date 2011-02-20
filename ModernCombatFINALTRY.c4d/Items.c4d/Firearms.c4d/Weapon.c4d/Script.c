@@ -661,48 +661,52 @@ public func ControlThrow(caller)
   {
     var dir = GetDir(GetUser());
     //Ziele finden
-    var obj = FindObjects(Find_InRect(-15+10*dir,-10,20,20),Find_OCF(OCF_Alive),Find_NoContainer(),Find_Exclude(caller));
+    var obj = FindObjects(Find_InRect(-15+10*dir,-10,20,20),Find_Or(Find_OCF(OCF_Alive), Find_Func("IsMeleeTarget", this)),Find_NoContainer(),Find_Exclude(caller));
     for(var target in obj)
     {
-      //Ziel feindlich?
-      if(target && (Hostile(GetOwner(GetUser()),GetOwner(target)) || GetOwner(target) == NO_OWNER)) //Hier bewusst kein CheckEnemy, da wir auf FF-Checks verzichten
-      {
-        //Ziel am kriechen?
-        if(WildcardMatch(GetAction(target),"*Crawl*")) //kriecht der Feind?
+      if(GetOCF(target) & OCF_Alive) {
+        //Ziel feindlich?
+        if(target && (Hostile(GetOwner(GetUser()),GetOwner(target)) || GetOwner(target) == NO_OWNER)) //Hier bewusst kein CheckEnemy, da wir auf FF-Checks verzichten
         {
-          //Erhöhten Schaden verursachen
-          DoDmg(GetMCData(MC_Damage)*3/2,DMG_Melee,target,0,GetController(GetUser())+1,GetID());
-          //Ziel zum Aufstehen zwingen
-          ObjectSetAction(target, "KneelUp");
-        }
-        else
-        {
-          //Schaden verursachen
-          DoDmg(GetMCData(MC_Damage),DMG_Melee,target,0,GetController(GetUser())+1,GetID());
-          SetCommand(GetUser(), "");
-          SetComDir(COMD_None, GetUser());
-
-          //Ziel schleudern
-          var pwr = GetMCData(MC_Power), angle = GetMCData(MC_Angle);
-          if(GetProcedure(target) != "SWIM")
+          //Ziel am kriechen?
+          if(WildcardMatch(GetAction(target),"*Crawl*")) //kriecht der Feind?
           {
-            if(!dir)
-              dir--;
-            SetXDir(Sin(angle*dir,pwr),target,10);
-            SetYDir(-Cos(angle*dir,pwr),target,10);
-            ObjectSetAction(target, "Tumble");
+            //Erhöhten Schaden verursachen
+            DoDmg(GetMCData(MC_Damage)*3/2,DMG_Melee,target,0,GetController(GetUser())+1,GetID());
+            //Ziel zum Aufstehen zwingen
+            ObjectSetAction(target, "KneelUp");
           }
+          else
+          {
+            //Schaden verursachen
+            DoDmg(GetMCData(MC_Damage),DMG_Melee,target,0,GetController(GetUser())+1,GetID());
+            SetCommand(GetUser(), "");
+            SetComDir(COMD_None, GetUser());
+  
+            //Ziel schleudern
+            var pwr = GetMCData(MC_Power), angle = GetMCData(MC_Angle);
+            if(GetProcedure(target) != "SWIM")
+            {
+              if(!dir)
+                dir--;
+              SetXDir(Sin(angle*dir,pwr),target,10);
+              SetYDir(-Cos(angle*dir,pwr),target,10);
+              ObjectSetAction(target, "Tumble");
+            }
+          }
+          if(GetOwner(target) != NO_OWNER && Hostile(GetOwner(target), GetController(GetUser())))
+            if(!GetAlive(target) || IsFakeDeath(target))
+              DoAchievementProgress(1, AC14, GetOwner(GetUser()));
         }
-        if(GetOwner(target) != NO_OWNER && Hostile(GetOwner(target), GetController(GetUser())))
-          if(!GetAlive(target) || IsFakeDeath(target))
-            DoAchievementProgress(1, AC14, GetOwner(GetUser()));
-
-        //Soundeffekte
-        Sound("ClonkMelee*.ogg", 0, this);
-        Sound("WPN2_Punch.ogg", 0, this);
-        meleeattacked = true;
-        AddEffect("StrikeRecharge", this, 1, 1, this);
       }
+      else {
+        target->~MeleeHit();
+      }
+      //Soundeffekte
+      Sound("ClonkMelee*.ogg", 0, this);
+      Sound("WPN2_Punch.ogg", 0, this);
+      meleeattacked = true;
+      AddEffect("StrikeRecharge", this, 1, 1, this);
     }
   }
 
