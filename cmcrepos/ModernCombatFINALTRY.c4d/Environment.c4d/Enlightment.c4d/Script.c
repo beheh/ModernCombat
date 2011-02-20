@@ -42,7 +42,7 @@ public func Enlight()
     var iY = 0;
     while(!(lite->GBackSolid(GetX(), GetY()+iY)))
     {
-      SizeY += 5;
+      SizeY += 6;
       ++iY;
     }
 
