@@ -175,6 +175,11 @@ public func Activate(pCaller)
 {
   pCaller->~StoreGrenade(this);
   HelpMessage(GetOwner(pCaller),"$Collected$",pCaller,GetID());
+  return true;
+}
+
+public func AI_IdleInventory(pCaller) {
+  return Activate(pCaller);
 }
 
 public func RejectEntrance()
