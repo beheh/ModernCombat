@@ -245,9 +245,9 @@ private func GoalMoney(int iPlr, int iAmount)
     pClonk = pClonk->~GetRealCursor();
   var string;
   if (iAmount > 0)
-    string = Format("{{MNYS}} <c 00ff00>+%d</c>", iAmount);
+    string = Format("{{IC20}} <c 00ff00>+%d</c>", iAmount);
   else
-    string = Format("{{MNYS}} <c ff0000>%d</c>", iAmount);
+    string = Format("{{IC20}} <c ff0000>%d</c>", iAmount);
   if (pClonk)
     AddEffect("PointMessage", pClonk, 130, 1, pClonk, 0, string);
   //Und Änderung zurückgeben
