@@ -40,8 +40,6 @@ func InstaExplode(int iPlr)
 
 func BlowUp(int iPlr)
 {
-  SetController(iPlr);
-
   //Splitter verschleudern
   for(var i = 5; i > 0; --i)
   {
@@ -52,7 +50,8 @@ func BlowUp(int iPlr)
   }
 
   //Verschwinden lassen
-  Explode(30);
+  FakeExplode(30, iPlr+1);
+  RemoveObject();
 }
 
 /* Raucheffekt */
