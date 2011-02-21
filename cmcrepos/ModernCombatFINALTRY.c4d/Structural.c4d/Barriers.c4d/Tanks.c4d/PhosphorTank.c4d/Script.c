@@ -2,12 +2,11 @@
 
 #strict 2
 
-
 /* Entzündung */
 
 func Incineration()
 {
-  ScheduleCall(this, "BlowUp", 20+Random(100));
+  ScheduleCall(this, "BlowUp", 20+Random(100), 0, GetController());
 }
 
 func IncinerationEx()
@@ -24,7 +23,7 @@ func Damage(int iChange, int iPlr)
     Incinerate(this, iPlr+1);
 }
 
-func BlowUp()
+func BlowUp(iPlr)
 {
   //Effekte
   if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",50,20,0,0,100,200,RGBa(255,255,255,100),RGBa(255,0,255,130));
@@ -41,5 +40,6 @@ func BlowUp()
   }
 
   //Explosion
-  Explode(20);
+  FakeExplode(20, iPlr+1);
+  RemoveObject();
 }

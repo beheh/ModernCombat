@@ -7,7 +7,7 @@
 
 func Incineration()
 {
-  ScheduleCall(this, "BlowUp", 20+Random(80));
+  ScheduleCall(this, "BlowUp", 20+Random(80), 0, GetController());
 }
 
 func IncinerationEx()
@@ -24,7 +24,7 @@ func Damage(int iChange, int iPlr)
     Incinerate(this, iPlr+1);
 }
 
-func BlowUp()
+func BlowUp(iPlr)
 {
   //Effekte
   if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("MetalCrateSplinter", 15+Random(5), 100, 0,0, 60,100,RGB(250,0,0));
@@ -33,5 +33,6 @@ func BlowUp()
   Sound("StructuralDamage*.ogg");
 
   //Explosion
-  Explode(50);
+  FakeExplode(50, iPlr+1);
+  RemoveObject();
 }
