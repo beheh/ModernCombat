@@ -351,7 +351,7 @@ public func FxAggroFire(object pTarget, int no)
   }
 
   // Zielen, muss auch mal sein
- if((!GetCommand() && !GetMacroCommand()) || level != 1 || IsAiming())
+ if(((!GetCommand() && !GetMacroCommand()) || level != 1 || IsAiming()) && ReadyToAim())
  {
   if(pathfree && Contents()->GetBotData(BOT_Range) > 30) // Weg frei und keine Nahkampfwaffe?
   {
