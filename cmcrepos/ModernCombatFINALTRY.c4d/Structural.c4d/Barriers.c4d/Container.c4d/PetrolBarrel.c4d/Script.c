@@ -10,13 +10,11 @@ func BlowUp(int iPlr)
 {
   //Effekt
   if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",4,100,0,0,20,70,RGB(250,0,0));
-  //Explosion
-  FakeExplode(20, iPlr-1);
+  FakeExplode(20, iPlr+1);
   //Sound
   Sound("Inflame");
 
   SetAction("Wreck");
-  SetController(iPlr);
   Extinguish();
   SetRDir(RandomX(-40,+40));
   AddFireEffect(this,50,RGB(80,80,80),true,30);

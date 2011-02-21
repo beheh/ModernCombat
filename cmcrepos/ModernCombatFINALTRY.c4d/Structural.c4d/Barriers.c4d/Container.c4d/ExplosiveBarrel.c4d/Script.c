@@ -48,6 +48,8 @@ func Damage(int iChange, int iPlr)
 {
   if(!this)
     return;
+  if(damaged)
+    return;
   SetController(iPlr);
   if(GetDamage() > 1)
     Incinerate(this, iPlr+1);
@@ -60,7 +62,7 @@ func Damage(int iChange, int iPlr)
 
 func InstaExplode(int iPlr)
 {
-  if(damaged) return ;
+  if(damaged) return;
   damaged = true;
 
   //Effekte
@@ -78,6 +80,7 @@ func InstaExplode(int iPlr)
     if(!Random(inc-3))
       Incinerate(obj, iPlr+1);
   }
+
   //Explosion
   BlowUp(iPlr);
 }
@@ -85,7 +88,6 @@ func InstaExplode(int iPlr)
 func BlowUp(int iPlr)
 {
   SetAction("Wreck");
-  SetController(iPlr);
   FakeExplode(30, iPlr+1);
   Extinguish();
 
