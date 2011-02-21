@@ -69,3 +69,8 @@ public func FxIntMouseAimingTimer(object pTarget, int iEffectNumber, int iEffect
   if(cur+change == end)
    return -1;
 }
+
+public func ReadyToAim() {      // bereit zum Zielen
+   if(GetProcedure(this) == "WALK") return true;
+   return _inherited();
+}
