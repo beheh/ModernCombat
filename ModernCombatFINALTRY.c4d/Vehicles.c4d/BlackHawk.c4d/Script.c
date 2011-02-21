@@ -343,11 +343,6 @@ protected func Collection2(object pObj)
     //Freund: Rein. Feind: Raus
     if(!Hostile(GetOwner(this),GetOwner(pObj)) || (GetOwner() == -1) || !GetPassengerCount())
     {
-      if(GetOwner(pObj) != GetOwner(this) && GetOwner(pObj) != -1)
-      {
-        //Besitz ergreifen
-        SetOwnerFade(GetOwner(pObj));
-      }
       //Soundschleife übergeben
       Sound("CockpitRadio.ogg", true, 0, 100, GetOwner(pObj)+1, +1);
 
@@ -885,6 +880,10 @@ public func EnterSeat(int iSeat, object pObj)
   //Pilot
   if (iSeat == BKHK_Seat_Pilot)
   {
+    if(GetOwner() == -1 || GetPlayerTeam(GetOwner()) != GetPlayerTeam(GetOwner(pObj))) {
+      //Besitz ergreifen
+      SetOwnerFade(GetOwner(pObj));
+    }
     SetGraphics("Pilot", this, GetID(), BKHK_PilotLayer, GFXOV_MODE_ExtraGraphics, 0, GFX_BLIT_Custom, this);
     GetPilot() = pObj;
     hud = CreateObject(BHUD, 0, 0, GetOwner(pObj));
@@ -1053,11 +1052,7 @@ public func OnDestruction()
 protected func ContactTop()
 {
   if (GetCon() != 100) return;
-
-  //Schaden
-  DoDmg(10, 0, this, 1,  GetController(GetPilot()) + 1);
-
-  //Partikeleffekt
+  DoDmg(10, 0, this, 1,  GetOwner() + 1);
   for (var i; i < GetVertexNum(); i++)
     if(GetContact(0, i))
       CreateParticle("Blast", GetVertex(i), GetVertex(i, true), 0, 0, RandomX(50, 100), RGB(255, 255, 255));
@@ -1069,10 +1064,10 @@ protected func ContactTop()
 
 protected func ContactBottom()
 {
+  if (GetCon() != 100) return;
   if (GetYDir() > 25)
   {
-    DoDamage(GetYDir() / 2);
-
+    DoDmg(GetYDir(0, 500) / 2, 0, this, 1,  GetOwner() + 1);
     for (var i; i < GetVertexNum(); i++)
       if (GetContact(0, i))
         CreateParticle("Blast", GetVertex(i), GetVertex(i, true), 0, 0, RandomX(50,100), RGB(255,255,255));
@@ -1085,10 +1080,10 @@ protected func ContactBottom()
 
 protected func ContactLeft()
 {
+  if (GetCon() != 100) return;
   if (Abs(GetXDir()) > 20 || Abs(GetYDir()) > 20)
   {
-    DoDamage(Abs(GetXDir()) + Abs(GetYDir()));
-
+    DoDmg(Sqrt(GetXDir(0, 500)**2 + GetYDir(0, 500)**2), 0, this, 1,  GetOwner() + 1);
     for (var i; i < GetVertexNum(); i++)
       if (GetContact(0, i))
         CreateParticle("Blast", GetVertex(i), GetVertex(i, true), 0, 0, RandomX(50, 100), RGB(255, 255, 255));
@@ -1100,12 +1095,13 @@ protected func ContactLeft()
 
 protected func ContactRight()
 {
+  if (GetCon() != 100) return;
   if (Abs(GetXDir()) > 20 || Abs(GetYDir()) > 20)
   {
+    DoDmg(Sqrt(GetXDir(0, 500)**2 + GetYDir(0, 500)**2), 0, this, 1,  GetOwner() + 1);
     for (var i; i < GetVertexNum(); i++)
       if (GetContact(0, i))
         CreateParticle("Blast", GetVertex(i), GetVertex(i, true), 0, 0, RandomX(50, 100), RGB(255, 255, 255));
-    DoDamage(Abs(GetXDir()) + Abs(GetYDir()));
     Sound("HeavyHit*.ogg", false, MGStation);
   }
   SetXDir(Max(GetXDir(), 40) / -2,this);
@@ -1165,7 +1161,7 @@ protected func TimerCall()
   for(var first = true, iFlags, i = 0; i < GetPlayerCount(); i++)
   {
     var iPlr = GetPlayerByIndex(i);
-    if(GetPilot() && !Hostile(GetOwner(GetPilot()), iPlr)/* && Contained(GetCrew(iPlr)) != this*/)
+    if(GetPilot() && !Hostile(GetOwner(GetPilot()), iPlr) && (!GetCursor(iPlr) || Contained(GetCursor(iPlr)) != this))
     {
       if (first)
         first = false;
