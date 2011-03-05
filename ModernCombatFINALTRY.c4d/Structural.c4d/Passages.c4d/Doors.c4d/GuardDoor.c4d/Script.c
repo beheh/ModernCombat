@@ -1,10 +1,11 @@
 /*-- Schutztür --*/
 
 #strict
-
 #include GBDR
 
 local Status;
+
+public func IsMeleeTarget()	{if(lock && !destroyed && GetAction() eq "Close") return true;}
 
 
 /* Initialisierung */
@@ -27,6 +28,16 @@ public func OnDmg(int iDmg, int iType)
   if(iType == DMG_Melee)	return 50;	//Nahkampf
   if(iType == DMG_Energy)	return 50;	//Energie
   if(iType == DMG_Bio)		return 100;	//Säure und biologische Schadstoffe
+}
+
+public func MeleeHit()
+{
+  //Effekte
+  CastSmoke("Smoke3",5,10,0,-10,20,150);
+  CastSmoke("Smoke3",5,10,0,10,20,150);
+  Sound("DoorKick.ogg");
+
+  DoDmg(27);
 }
 
 public func OnDestroyed(iType)
