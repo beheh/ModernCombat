@@ -1,2 +1,2 @@
-DE:Flagge zurückgeholt
-US:Flag regained
+DE:Flaggenrückeroberung
+US:Flag recapture
