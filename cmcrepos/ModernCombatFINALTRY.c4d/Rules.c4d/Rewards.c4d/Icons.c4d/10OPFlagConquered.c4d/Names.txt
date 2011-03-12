@@ -1,2 +1,2 @@
-DE:Flaggenposten erobert
-US:Flag post conquered
+DE:Flaggenposteneroberung
+US:Flag post conquest

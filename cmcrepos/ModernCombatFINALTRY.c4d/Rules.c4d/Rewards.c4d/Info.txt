@@ -5,26 +5,27 @@ Dieses System ermöglicht es Spieler und deren Leistung genauer bewerten zu könne
 Standardliche Punkteliste:
 
 Kill					50
-Assist-Kill				30
-Selbstmord				-30
-Teamkill				-80
+Kill Assist				30
+Selbsteleminierung			-30
+Team Kill				-80
 Reanimation				50
 Dragnininjektion an Verbündeten		10
 Munitionierung				[Anzahl]/3
 Heilung					[Anzahl]/4
-Flaggenneutralisierung			10
-Flaggeneroberung			50
+Flaggenpostenneutralisierung		10
+Flaggenposteneroberung			50
+Flaggenpostenverteidigung		30
 Flaggenrückeroberung			30
-Hilfe bei Eroberung/Neutralisierung	10
-Flagge stehlen				50
-Flagge zurückgeholt			30
-Sprengfalle entschärft			20
+Hilfe bei Flaggenposteneroberung	10
+Flaggendiebstahl			50
+Flaggenrückeroberung			30
+Entschärfung				20
 Schildabwehr				10
-Fahrzeug/Strukturzerstörung		50
-Peilsendermarkierung			10
+Zerstörung				50
+Peilsenderplazierung			10
 Assist-Kill mit Peilsender		20
-Fahrzeugschädigung			10
-Assist-Kill durch Blendung		10
+Beschädigung				10
+Assist Kill durch Blendung		10
 Projektil abgewehrt			10
 Assist-Kill aus Fahrzeug heraus		30
 

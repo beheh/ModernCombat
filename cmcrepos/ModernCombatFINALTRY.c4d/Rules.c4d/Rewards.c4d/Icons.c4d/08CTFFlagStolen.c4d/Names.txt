@@ -1,2 +1,2 @@
-DE:Flagge gestohlen
-US:Flag stolen
+DE:Flaggendiebstahl
+US:Flag theft

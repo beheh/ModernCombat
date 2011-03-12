@@ -1,2 +1,2 @@
-DE:Absicherung
-US:Protection
+DE:Schildabwehr
+US:Shield Protection

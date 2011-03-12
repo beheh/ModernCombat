@@ -1,2 +1,2 @@
-DE:Geld
-US:Money
+DE:Gelderhalt
+US:Money obtainment
