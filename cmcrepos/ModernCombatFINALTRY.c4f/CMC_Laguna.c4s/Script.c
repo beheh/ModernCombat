@@ -365,7 +365,8 @@ public func ChooserFinished()
     sign->SetMode(1);
    }
 
-   //Objekt entfernen
+   //Objekte entfernen
+   RemoveObject(aArtillery[1]);
    RemoveAll(SPVM);
 
    //Blackhawk
