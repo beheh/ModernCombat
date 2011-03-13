@@ -302,9 +302,10 @@ public func Reanimation()
    Exit(clonk,0,GetObjHeight(clonk)/2);
    var i = 0;
    while(Stuck(clonk) && i <= 20) {
-   	SetPosition(AbsX(GetX(clonk)), AbsY(GetY(clonk))+1, clonk);
+   	SetPosition(GetX(clonk), GetY(clonk)+1, clonk);
    	i++;
    }
+   if(Stuck(clonk)) SetPosition(GetX(clonk), GetY(clonk)-i, clonk);
   }
 
   //Besitztümer weitergeben
