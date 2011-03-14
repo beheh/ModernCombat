@@ -704,7 +704,7 @@ public func ControlThrow(caller)
       }
       //Soundeffekte
       Sound("ClonkMelee*.ogg", 0, this);
-      Sound("WPN2_Punch.ogg", 0, this);
+      Sound("WPN2_Punch*.ogg", 0, this);
       meleeattacked = true;
       AddEffect("StrikeRecharge", this, 1, 1, this);
     }
