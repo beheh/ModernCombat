@@ -2,14 +2,13 @@
 id=SMGN
 Name=Submachine Gun
 Version=4,9,5
-Category=3600
+Category=C4D_Object|C4D_SelectMaterial|C4D_SelectHomebase
 MaxUserSelect=10
 Width=15
 Height=9
 Offset=-8,-5
 Value=35
-Mass=15
-Components=METL=3;KLAS=1;
+Mass=10
 Picture=0,9,64,64
 Vertices=1
 VertexY=+2

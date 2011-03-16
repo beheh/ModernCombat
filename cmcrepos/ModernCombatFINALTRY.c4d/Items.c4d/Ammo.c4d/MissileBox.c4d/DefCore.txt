@@ -1,7 +1,7 @@
 [DefCore]
 id=MBOX
 Name=Missile Box
-Category=3600
+Category=C4D_Object|C4D_SelectMaterial|C4D_SelectHomebase
 MaxUserSelect=10
 Width=10
 Height=6
@@ -11,7 +11,6 @@ VertexY=1
 VertexFriction=60
 Value=25
 Mass=10
-Components=METL=2;GUNP=2;
 Picture=10,0,87,67
 Rebuy=1
 Collectible=1

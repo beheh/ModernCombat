@@ -2,14 +2,13 @@
 id=PSTL
 Name=Pistol
 Version=4,9,5
-Category=3600
+Category=C4D_Object|C4D_SelectMaterial|C4D_SelectHomebase
 MaxUserSelect=3
 Width=12
 Height=7
 Offset=-6,-4
 Value=20
-Mass=10
-Components=METL=3;
+Mass=5
 Picture=0,9,68,61
 Vertices=1
 VertexY=+2

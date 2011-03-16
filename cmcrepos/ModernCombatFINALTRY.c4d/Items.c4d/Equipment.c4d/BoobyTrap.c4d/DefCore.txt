@@ -2,22 +2,21 @@
 id=BBTP
 Name=Booby Trap
 Version=4,9,5
-Category=3600
+Category=C4D_Object|C4D_SelectMaterial|C4D_SelectHomebase
 MaxUserSelect=5
 Width=8
 Height=8
 Offset=-4,-4
 Value=35
-Mass=10
-Components=METL=1;FLNT=2;
+Mass=8
 Picture=0,10,64,64
 Vertices=2
 VertexY=-3,3
 VertexFriction=100,100
-Collectible=1
 Rebuy=1
+Collectible=1
 Grab=2
-Timer=2
-TimerCall=Check
 ContactIncinerate=1
 NoBurnDecay=1
+Timer=2
+TimerCall=Check
