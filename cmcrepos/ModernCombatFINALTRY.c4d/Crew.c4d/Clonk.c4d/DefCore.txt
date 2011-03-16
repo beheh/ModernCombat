@@ -2,7 +2,7 @@
 id=CIVC
 Version=4,9,5
 Name=Clonk
-Category=2056
+Category=C4D_Living|C4D_SelectHomebase
 MaxUserSelect=3
 Width=16
 Height=20
