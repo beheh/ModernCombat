@@ -1,14 +1,13 @@
 [DefCore]
 id=SRBL
 Name=Sensor Ball
-Category=3600
+Category=C4D_Object|C4D_SelectMaterial|C4D_SelectHomebase
 MaxUserSelect=4
 Width=6
 Height=6
 Offset=-3,-3
 Value=15
-Mass=10
-Components=METL=2;
+Mass=8
 Picture=6,0,133,132
 Vertices=4
 VertexX=-3,-3,3,3

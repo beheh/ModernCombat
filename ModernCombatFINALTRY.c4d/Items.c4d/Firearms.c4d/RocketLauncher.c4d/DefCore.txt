@@ -2,19 +2,18 @@
 id=RTLR
 Version=4,9,8,2
 Name=Rocket Launcher
-Category=C4D_Object|C4D_SelectMaterial|C4D_SelectKnowledge|C4D_SelectHomebase
+Category=C4D_Object|C4D_SelectMaterial|C4D_SelectHomebase
 MaxUserSelect=1
 Width=25
 Height=10
 Offset=-13,-7
+Value=60
+Mass=30
+Picture=0,10,64,64
 Vertices=2
 VertexX=-6,6
 VertexY=2,2
 VertexFriction=100,100
-Value=60
-Mass=20
-Components=METL=2;KLAS=1
-Picture=0,10,64,64
 Rebuy=1
 Collectible=1
 Timer=1

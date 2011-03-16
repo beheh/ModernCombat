@@ -1,14 +1,11 @@
 [DefCore]
 id=NOBH
-Name=No Blackhawks
 Version=4,9,10,4
-Category=524289
+Name=No Blackhawks
+Category=C4D_StaticBack|C4D_Rule
 MaxUserSelect=1
+Picture=0,0,64,64
 Width=1
 Height=1
-Offset=0,0
-Value=10
-Mass=0
-Picture=0,0,64,64
 Timer=105
 TimerCall=Execute

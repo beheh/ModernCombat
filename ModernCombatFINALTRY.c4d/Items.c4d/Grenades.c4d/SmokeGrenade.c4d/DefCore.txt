@@ -1,14 +1,13 @@
 [DefCore]
 id=SGRN
 Name=Smokegrenade
-Category=3600
+Category=C4D_Object|C4D_SelectMaterial|C4D_SelectHomebase
 MaxUserSelect=8
 Width=3
 Height=7
 Offset=-2,-4
 Value=10
-Mass=10
-Components=METL=1;SPHR=1;
+Mass=8
 Picture=3,0,64,64
 Vertices=4
 VertexX=-2,-2,2,2

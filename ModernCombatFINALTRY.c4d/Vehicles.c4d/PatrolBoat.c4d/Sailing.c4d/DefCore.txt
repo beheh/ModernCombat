@@ -2,7 +2,7 @@
 id=SPBT
 Version=4,9,8
 Name=Patrol Boat
-Category=C4D_Vehicle
+Category=C4D_Vehicle|C4D_SelectVehicle
 MaxUserSelect=2
 Width=80
 Height=22

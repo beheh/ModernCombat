@@ -2,14 +2,13 @@
 id=AMPK
 Name=AMP
 Version=4,9,5
-Category=3600
+Category=C4D_Object|C4D_SelectMaterial|C4D_SelectHomebase
 MaxUserSelect=6
 Width=9
 Height=7
 Offset=-3,-3
 Value=40
 Mass=10
-Components=WOOD=4;METL=3;
 Picture=0,7,64,64
 Vertices=1
 VertexY=3
