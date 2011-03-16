@@ -2,8 +2,7 @@
 id=WRAE
 Name=Waratmosphere
 Version=4,9,5
-Value=1
-Category=65
+Category=C4D_StaticBack|C4D_Environment|C4D_MouseIgnore
 MaxUserSelect=5
 Picture=0,0,64,64
 Timer=2
