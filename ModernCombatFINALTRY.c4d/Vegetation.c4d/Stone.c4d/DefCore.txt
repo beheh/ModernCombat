@@ -1,13 +1,12 @@
 [DefCore]
 id=STNE
-Name=Rock
+Name=Stone
 Version=4,6,2
-Category=1
+Category=C4D_Object|C4D_SelectVegetation
 Width=32
 Height=32
 Offset=-16,-16
-Value=1
-Mass=6
+Mass=20
 Vertices=4
 VertexX=-16,16,-16,16
 VertexY=16,-16,-16,16

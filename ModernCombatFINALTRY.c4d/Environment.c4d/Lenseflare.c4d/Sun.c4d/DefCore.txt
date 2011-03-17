@@ -2,7 +2,7 @@
 id=SONE
 Version=4,9,8
 Name=Sun
-Category=C4D_StaticBack|C4D_Environment
+Category=C4D_StaticBack
 MaxUserSelect=1
 Width=1
 Height=1

@@ -6,8 +6,6 @@ Category=C4D_StaticBack
 Width=36
 Height=48
 Offset=-18,-24
-Value=45
-Mass=70
-Components=METL=5
+Mass=80
 Picture=36,0,48,82
 TopFace=0,0,36,48,0,0
