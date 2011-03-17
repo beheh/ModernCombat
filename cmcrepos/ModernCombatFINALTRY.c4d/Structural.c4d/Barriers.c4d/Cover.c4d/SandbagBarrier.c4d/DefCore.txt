@@ -2,8 +2,8 @@
 id=SBBA
 Name=Sandbag Barrier
 Version=4,9,5
-Category=1026
-MaxUserSelect=1
+Category=C4D_Structure
+MaxUserSelect=2
 Width=32
 Height=15
 Offset=-16,-7
@@ -18,4 +18,4 @@ VertexX=-15,15
 VertexY=7,7
 VertexFriction=100,100
 Exclusive=1
-Construction=1 
+Construction=1

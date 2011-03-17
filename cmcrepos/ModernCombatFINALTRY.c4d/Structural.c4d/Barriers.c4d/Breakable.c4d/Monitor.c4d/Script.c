@@ -53,6 +53,9 @@ protected func Damage()
 
   //Zerstört
   SetAction("Broken");
+
+  //Verschwinden
+  FadeOut();
 }
 
 public func IsBulletTarget(id def)

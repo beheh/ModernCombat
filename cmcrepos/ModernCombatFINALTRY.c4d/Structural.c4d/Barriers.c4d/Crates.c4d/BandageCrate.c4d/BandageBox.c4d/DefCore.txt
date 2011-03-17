@@ -10,9 +10,7 @@ Vertices=2
 VertexX=-4,4
 VertexY=2,2
 VertexFriction=200,200
-Value=5
 Mass=5
-Components=WOOD=1
 Picture=0,5,64,64
 Collectible=1
 Float=1
