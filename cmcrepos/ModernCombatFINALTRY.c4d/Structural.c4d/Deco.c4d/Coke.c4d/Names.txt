@@ -1,2 +1,2 @@
 DE:Clonk-Automat
-US:Clonk automat
+US:Clonk Automat
