@@ -830,8 +830,10 @@ public func ChooserFinished()
    //Konsole erstellen
    CreateObject(CONS, 1810, 485, -1)->Set(aSelfDefense[1]);
 
-   //Leiter
+   //Leitern
+   CreateObject(LADR, 1425, 173, -1)->Set(12);
    CreateObject(LADR, 1650, 457, -1)->Set(20);
+   CreateObject(LADR, 1705, 190, -1)->Set(9);
 
    //Metallkisten
    CreateObject(MWCR, 1730, 490, -1);
