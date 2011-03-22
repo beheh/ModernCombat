@@ -300,8 +300,11 @@ protected func Ejection(object ByObj)
 {
   if(!ByObj)
     return;
-  if(!(GetOCF(ByObj) & OCF_Alive))
+  if(!(GetOCF(ByObj) & OCF_CrewMember))
     return;
+  
+  //Erst mal löschen
+  DeleteActualSeatPassenger(ByObj);
     
   //Soundschleife übergeben
   Sound("CockpitRadio.ogg", true, 0, 100, GetOwner(ByObj)+1, -1);
@@ -310,13 +313,11 @@ protected func Ejection(object ByObj)
   if(GetDamage() >= MaxDamage()) return;
   
   if(!PathFree(GetX(),GetY(),GetX(),GetY()+100))
-    return DeleteActualSeatPassenger(ByObj); //Trozdem Sitz freimachen
+    return; //Trozdem Sitz freimachen
 
   if(!GetEffect("CheckGround",ByObj))
     CreateObject(PARA,GetX(ByObj),GetY(ByObj),GetOwner(ByObj))->Set(ByObj);
   
-  //Sitz freimachen
-  DeleteActualSeatPassenger(ByObj);
   return true;
 }
 
@@ -872,6 +873,7 @@ public func EnterSeat(int iSeat, object pObj)
     SeatOccupied(0, pObj);
     return false;
   }
+  
   //Alten Sitz räumen
   DeleteActualSeatPassenger(pObj);
 
