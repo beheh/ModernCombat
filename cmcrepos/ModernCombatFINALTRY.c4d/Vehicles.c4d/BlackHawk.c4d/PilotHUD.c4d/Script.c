@@ -127,7 +127,7 @@ protected func Align()
 
 protected func Timer()
 {
-  if(!pHelicopter || !pHelicopter->GetPilot())
+  if(!pHelicopter || !pHelicopter->GetPilot() || GetOwner(this) != GetOwner(pHelicopter->GetPilot()) || GetOwner() == NO_OWNER)
   {
     RemoveObject();
     return true;
