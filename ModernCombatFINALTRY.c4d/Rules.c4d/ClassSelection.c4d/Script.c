@@ -170,7 +170,7 @@ func Finish(object pClonk, int iClass)
   //Alle Waffen auffüllen
   for(var wpn in FindObjects(Find_Container(pClonk), Find_Func("IsWeapon")))
   {
-    while(wpn->CycleFM(+1))
+    while(wpn->~CycleFM(+1))
     {
       var ammo = wpn->GetFMData(FM_AmmoID);
       var load = wpn->GetFMData(FM_AmmoLoad);
@@ -181,7 +181,7 @@ func Finish(object pClonk, int iClass)
       DoAmmo(ammo, load, wpn);
     }
     //noch ein letztes Mal
-    wpn->CycleFM(+1);
+    wpn->~CycleFM(+1);
   }
 
   pClonk->~UpdateCharge();
