@@ -1364,9 +1364,11 @@ protected func StartEngine()
 protected func EngineStarted()
 {
   Sound("BKHK_RotorSpin*.ogg", false, 0, 0, 0, -1);
-  AddEffect("Engine", this, 300, 1, this);
-  throttle = 0;
-  rotation = 0;
+  if(!GetEffect("Engine", this)) {  
+    AddEffect("Engine", this, 300, 1, this);
+    throttle = 0;
+    rotation = 0;
+  }
 }
 
 protected func StopEngine()

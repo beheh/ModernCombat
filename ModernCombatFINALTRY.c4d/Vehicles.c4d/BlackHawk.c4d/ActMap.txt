@@ -65,7 +65,6 @@ Delay=2
 Facet=0,0,230,60,-55
 FacetBase=0
 NextAction=Fly
-EndCall=EngineStarted
 ObjectDisabled=1
 
 [Action]
@@ -76,6 +75,7 @@ Length=20
 Delay=1
 Facet=0,0,230,60,-55
 NextAction=Fly
+StartCall=EngineStarted
 Sound=BKHK_IdleSystem.ogg
 
 [Action]
