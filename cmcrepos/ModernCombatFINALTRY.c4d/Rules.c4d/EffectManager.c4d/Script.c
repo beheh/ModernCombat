@@ -9,7 +9,7 @@ protected func Activate(iByPlayer)
 {
   var pClonk = GetCursor(iByPlayer);
   //Wenn Spieler 1 und keine Liga
-  if(iByPlayer == 0 && !GetLeague())
+  if(iByPlayer == GetPlayerByIndex(0, C4PT_User) && !GetLeague())
   {
     //Menü öffnen
     if(GetMenu(pClonk)) return;

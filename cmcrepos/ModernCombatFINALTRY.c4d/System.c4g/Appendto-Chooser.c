@@ -7,7 +7,6 @@
 #appendto CHOS
 
 local iEffectCount;
-local iChoosePlr;
 
 
 /* Initialisierung */
@@ -23,9 +22,9 @@ protected func Initialize()
 
 protected func Activate(iPlr)
 {
-  if(!iPlr)
+  if(iPlr == GetPlayerByIndex(0, C4PT_User))
     return OpenMenu();
-  MessageWindow(Format("$Choosing$", GetPlayerName(iChoosePlr)), iPlr);
+  MessageWindow(Format("$Choosing$", GetPlayerName(GetPlayerByIndex(0, C4PT_User))), iPlr);
 }
 
 protected func OpenMenu()
@@ -33,7 +32,7 @@ protected func OpenMenu()
   if(GetLength(aGoals))
     return OpenGoalChooseMenu();
 
-  var pClonk = GetCursor(iChoosePlr);
+  var pClonk = GetCursor(GetPlayerByIndex(0, C4PT_User));
   if(!pClonk)
     return ScheduleCall(this, "OpenMenu", 1);
 
@@ -63,7 +62,7 @@ protected func OpenMenu()
 
 protected func OpenEffectMenu(id dummy, int iSelection)
 {
-  var pClonk = GetCursor(iChoosePlr);
+  var pClonk = GetCursor(GetPlayerByIndex(0, C4PT_User));
   // Menü aufmachen
   CreateMenu(GetID(), pClonk, 0,0,0,0, 1);
   // Anzeige
@@ -95,7 +94,7 @@ protected func OpenGoalMenu(id dummy, int iSelection)
 {
   if(!pGoal)
     return OpenMenu();
-  var pClonk = GetCursor();
+  var pClonk = GetCursor(GetPlayerByIndex(0, C4PT_User));
   if(pGoal->~ConfigMenu(pClonk))
 	return 1;
   return _inherited(dummy, iSelection, ...);
@@ -131,7 +130,7 @@ protected func InitializePlayer(int iPlr, int iX, int iY, object pBase, int iTea
   }
   //Falls ein Spieler während der Abstimmung beitritt
   if(GetEffect("EvaluateGoalVote", this))
-  	GoalVoteMenu(0, 0, iPlr);
+    GoalVoteMenu(0, 0, iPlr);
 }
 
 /* Spielziel setzen */
@@ -249,7 +248,7 @@ private func Eastern(object P)
 
 protected func OpenGoalChooseMenu()
 {
-  var pClonk = GetCursor();
+  var pClonk = GetCursor(GetPlayerByIndex(0, C4PT_User));
   if (!pClonk || !GetLength(aGoals))
     return ScheduleCall(this, "OpenMenu", 1);
 
