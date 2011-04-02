@@ -640,33 +640,30 @@ public func ControlThrow(caller)
   //Nutzer ist Schütze
   SetUser(caller);
 
-  var meleeattacked;
-  //Nahkampfangriff möglich?
-  var fWait = false, i = 0, obj;
+  var fWait, meleeattacked;
   if(Contained())
-  {
-    while((obj = Contents(i, Contained(this))) != false)
+    for (var obj in FindObjects(Find_Container(Contained())))
     {
-      i++;
-      if(!obj->~IsWeapon2()) continue;
+      if(!obj->~IsWeapon2())
+        continue;
       if(GetEffect("StrikeRecharge", obj))
-        {
-          fWait = true;
-          break;
-        }
+      {
+        fWait = true;
+        break;
+      }
     }
-  }
 
   if(!fWait && GetMCData(MC_CanStrike) && (caller->~ReadyToFire() || caller->~ReadyToAttack()) && !caller->~IsAiming() && (GetFMData(FM_Aim) == 0 || GetUser()->~IsAiming() || GetUser()->~AimOverride()))
   {
     var dir = GetDir(GetUser());
     //Ziele finden
-    var obj = FindObjects(Find_InRect(-15+10*dir,-10,20,20),Find_Or(Find_OCF(OCF_Alive), Find_Func("IsMeleeTarget", this)),Find_NoContainer(),Find_Exclude(caller));
+    var obj = FindObjects(Find_InRect(-15+10*dir,-10,20,20), Find_Or(Find_OCF(OCF_Alive), Find_Func("IsMeleeTarget", this)), Find_NoContainer(), Find_Exclude(caller));
     for(var target in obj)
     {
-      if(GetOCF(target) & OCF_Alive) {
+      if(GetOCF(target) & OCF_Alive)
+      {
         //Ziel feindlich?
-        if(target && (Hostile(GetOwner(GetUser()),GetOwner(target)) || GetOwner(target) == NO_OWNER)) //Hier bewusst kein CheckEnemy, da wir auf FF-Checks verzichten
+        if(target && (Hostile(GetOwner(GetUser()), GetOwner(target)) || GetOwner(target) == NO_OWNER)) //Hier bewusst kein CheckEnemy, da wir auf FF-Checks verzichten
         {
           //Ziel am kriechen?
           if(WildcardMatch(GetAction(target),"*Crawl*")) //kriecht der Feind?
@@ -697,17 +694,23 @@ public func ControlThrow(caller)
           if(GetOwner(target) != NO_OWNER && Hostile(GetOwner(target), GetController(GetUser())))
             if(!GetAlive(target) || IsFakeDeath(target))
               DoAchievementProgress(1, AC14, GetOwner(GetUser()));
+          meleeattacked = true;
         }
       }
-      else {
+      else
+      {
         target->~MeleeHit(this);
+        meleeattacked = true;
       }
-      //Soundeffekte
-      Sound("ClonkMelee*.ogg", 0, this);
-      Sound("WPN2_Punch*.ogg", 0, this);
-      meleeattacked = true;
-      AddEffect("StrikeRecharge", this, 1, 1, this);
     }
+  }
+  if (meleeattacked)
+  {
+    //Soundeffekte
+    Sound("ClonkMelee*.ogg", 0, this);
+    Sound("WPN2_Punch*.ogg", 0, this);
+    //Cooldown
+    AddEffect("StrikeRecharge", this, 1, 1, this);
   }
 
   //Automatischen Schuss beenden, wenn erneut Werfen gedrückt
