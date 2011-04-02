@@ -15,7 +15,7 @@ local last_id;
 public func GetAttWeapon()			{return cur_Attachment;}		//Waffe
 public func MaxRotLeft()			{return 110+GetR();}			//Maximaler Winkel links
 public func MaxRotRight()			{return 250+GetR();}			//Maximaler Winkel rechts
-public func SearchLength()			{return 250;}				//Suchlänge
+public func SearchLength()			{return 300;}				//Suchlänge
 public func AimAngle()				{return aim_angle+GetR();}		//Winkel auf Ziel
 public func ReadyToFire()			{return 1;}				//Allzeit bereit
 public func IsMachine()				{return true;}				//Ist eine Elektrische Anlage
