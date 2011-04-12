@@ -56,24 +56,22 @@ func Damage()
   if(GetDamage() > 300)
   {
     //Effekte
-
-    if(GetEffectData(EFSM_ExplosionEffects) > 0)
-    {
-      CastSmoke("Smoke3",5,10,-30,-30,300,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
-      CastSmoke("Smoke3",5,10,-30,30,300,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
-      CastSmoke("Smoke3",5,10,30,-30,300,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
-      CastSmoke("Smoke3",5,10,30,30,300,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
-    }
     if(GetEffectData(EFSM_ExplosionEffects) > 1)
     {
       CastParticles("WoodSplinter",4,100,-30,-30,100,80);
       CastParticles("WoodSplinter",4,100,-30,30,100,80);
       CastParticles("WoodSplinter",4,100,30,-30,100,80);
       CastParticles("WoodSplinter",4,100,30,30,100,80);
-      CastParticles("FencePart",4,100,-30,30,80,150);
-      CastParticles("FencePart",4,100,30,30,80,150);
-      CastParticles("MetalSplinter",4,100,0,0,20,70);
+      CastParticles("FencePart",4,100,-30,-30,100,80);
+      CastParticles("FencePart",4,100,30,-30,100,80);
+      CastParticles("FencePart",2,50,-30,30,80,150);
+      CastParticles("FencePart",2,50,30,30,80,150);
     }
+    CastSmoke("Smoke3",8,30,0,0,600,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
+    CastSmoke("Smoke3",5,10,-30,-30,300,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
+    CastSmoke("Smoke3",5,10,-30,30,300,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
+    CastSmoke("Smoke3",5,10,30,-30,300,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
+    CastSmoke("Smoke3",5,10,30,30,300,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
     Sound("WoodCrack*.ogg");
     Sound("FenceDestruct.ogg");
 
@@ -84,8 +82,8 @@ func Damage()
   if(GetDamage() > 250 && iStatus < 5)
   {
     //Effekte
-    if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",5,10,-10,20,300,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
     if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("WoodSplinter",4,100,-10,20,100,80);
+    CastSmoke("Smoke3",5,10,-10,20,300,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
     Sound("WoodCrack*.ogg");
 
     //Aussehen verändern
@@ -98,8 +96,8 @@ func Damage()
   if(GetDamage() > 200 && iStatus < 4)
   {
     //Effekte
-    if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",5,10,30,20,300,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
     if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("WoodSplinter",4,100,30,20,100,80);
+    CastSmoke("Smoke3",5,10,30,20,300,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
     Sound("WoodCrack*.ogg");
 
     //Aussehen verändern
@@ -112,8 +110,8 @@ func Damage()
   if(GetDamage() > 150 && iStatus < 3)
   {
     //Effekte
-    if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",5,10,-20,-20,300,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
     if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("WoodSplinter",4,100,-30,-30,100,80);
+    CastSmoke("Smoke3",5,10,-20,-20,300,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
     Sound("WoodCrack*.ogg");
 
     //Aussehen verändern
@@ -126,8 +124,8 @@ func Damage()
   if(GetDamage() > 100 && iStatus < 2)
   {
     //Effekte
-    if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",5,10,-20,20,300,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
     if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("WoodSplinter",4,100,-30,15,100,80);
+    CastSmoke("Smoke3",5,10,-20,20,300,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
     Sound("WoodCrack*.ogg");
 
     //Aussehen verändern
@@ -140,8 +138,8 @@ func Damage()
   if(GetDamage() > 50 && iStatus < 1)
   {
     //Effekte
-    if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",5,10,20,-20,300,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
     if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("WoodSplinter",4,100,30,-30,100,80);
+    CastSmoke("Smoke3",5,10,20,-20,300,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
     Sound("WoodCrack*.ogg");
 
     //Aussehen verändern
