@@ -1,0 +1,15 @@
+CreatingInterior=Creating furniture...
+CreatingEquipment=Placing equipment...
+CreatingDecoration=Placing decoration...
+
+Attacker=Assault Troop
+Defender=Base Crew
+
+Flag1=Loading Zone
+Flag2=Coast
+Flag3=Pier
+Flag4=Depot
+Flag5=Turbine Aerator
+
+Target1=Control Unit
+Target2=Data Server

@@ -21,10 +21,12 @@ FullscreenBG=1
 	Area=25,196,256,26
 	OverlayImage=Overlay3.png
 
+
 	[Scenario]
 	File=CMC_BabelTower.c4s
 	Area=25,236,256,26
 	OverlayImage=Overlay4.png
+
 
 	[Scenario]
 	File=CMC_Dust.c4s
@@ -102,6 +104,13 @@ FullscreenBG=1
 	File=CMC_Oasis.c4s
 	Area=291,356,256,26
 	OverlayImage=Overlay17.png
+
+
+	[Scenario]
+	File=CMC_Base1337.c4s
+	Area=291,396,256,26
+	OverlayImage=Overlay18.png
+
 
 	[Scenario]
 	File=Credits.c4f
