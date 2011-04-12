@@ -1,0 +1,16 @@
+[Teams]
+LastTeamID=2
+TeamDistribution=Host
+TeamColors=true
+
+  [Team]
+  id=1
+  Name=Sturmtruppe
+  PlayerCount=1
+  Players=1
+  Color=16711680
+
+  [Team]
+  id=2
+  Name=Basisbesatzung
+  Color=8388736
