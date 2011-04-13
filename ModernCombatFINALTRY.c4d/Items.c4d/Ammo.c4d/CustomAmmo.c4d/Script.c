@@ -12,13 +12,15 @@ public func IsDrawable()	{return true;}
 public func HandSize()		{return 800;}
 public func HandX()		{return 6000;}
 public func HandY()		{return -1000;}
-public func LimitationCount()   {return 3;}
+public func LimitationCount()	{return 3;}
+
+
+/* Initialisierung */
 
 protected func Initialize()
 {
   CheckLimitation();
 }
-
 
 public func SetAmmoID(id idType)
 {

@@ -4,8 +4,8 @@
 
 local fuse, active, thrown, pStickTo, iStickXOffset, iStickYOffset, iStickROffset, iPreviousCategory;
 
+public func LimitationCount()	{return 8;}
 
-public func LimitationCount()   {return 8;}
 
 /* Initialisierung */
 

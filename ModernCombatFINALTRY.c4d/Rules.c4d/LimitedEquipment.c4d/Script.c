@@ -2,7 +2,8 @@
 
 #strict 2
 
-public func IsChooseable() { return true; }
+public func IsChooseable()	{return true;}
+
 
 protected func Activate(iPlr)
 {
