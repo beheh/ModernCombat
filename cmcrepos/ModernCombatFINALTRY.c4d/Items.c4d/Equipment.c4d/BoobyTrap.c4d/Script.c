@@ -122,7 +122,6 @@ public func Throw()
   CreateParticle("PSpark", 0, 0, 0, 0, 60, GetPlrColorDw(GetOwner()), this);
 
   //Aktivierung
-  CheckLimitation();
   bActive = true;
   ScheduleCall(0, "FinFuse", 2 * 36);
 
@@ -178,6 +177,7 @@ private func FinFuse()
   flag->Set(this);
   SetDir(BoundBy(-iDir, 0, 1), flag);
 
+  CheckLimitation();
   bReady=true;
   Sound("BBTP_Alarm.ogg", 0, 0, 50);
 }
