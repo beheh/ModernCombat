@@ -96,7 +96,6 @@ public func LaunchGrenade(id idg, int speed, int angle, int mode)
   }
 
   //Effekte
-  Schedule("Sound(\"SGST_Pump.ogg\")", 5);
   if(GetEffectData(EFSM_ExplosionEffects) > 0)
   {
     CreateParticle("Thrust",x,y,GetXDir(user),GetYDir(user),80,RGBa(255,200,200,0),0,0);
@@ -113,6 +112,9 @@ public func LaunchGrenade(id idg, int speed, int angle, int mode)
     }
   }
   Sound("SGST_Fire.ogg", 0, grenade);
+  SoundLevel("SGST_Echo.ogg", 0, this);
+  Sound("SGST_Echo.ogg", false, this, 100, 0, 0, true, 1000);
+  Schedule("Sound(\"SGST_Pump.ogg\")", 5);
 }
 
 /* Granaten - Splittergranaten */
