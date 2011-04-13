@@ -15,6 +15,7 @@ public func BarrelXOffset()		{return -850;}
 public func IsEquipment()		{return true;}
 public func NoArenaRemove()		{return true;}
 public func AttractTracer(pT)		{return GetPlayerTeam(GetController()) != GetPlayerTeam(GetController(pT));}
+public func LimitationCount()		{return 4;}
 
 
 /* Initialisierung */
@@ -121,6 +122,7 @@ public func Throw()
   CreateParticle("PSpark", 0, 0, 0, 0, 60, GetPlrColorDw(GetOwner()), this);
 
   //Aktivierung
+  CheckLimitation();
   bActive = true;
   ScheduleCall(0, "FinFuse", 2 * 36);
 
@@ -212,6 +214,7 @@ private func Defuse()
 {
   //Deaktivieren
   SetAction("Defused");
+  DeactivateLimitation();
   //Laser entfernen
   RemoveObject(laser);
   //Hinweisflagge entfernen
