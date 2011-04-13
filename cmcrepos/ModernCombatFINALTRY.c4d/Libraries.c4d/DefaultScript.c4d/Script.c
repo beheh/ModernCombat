@@ -45,7 +45,7 @@ public func ChooserFinished()
 func ChooserRuleConfig()
 {
   //Standardregelsatz: Belohnungssystem, Kein FriendlyFire, Waffen bleiben, Arena
-  var array = [RWDS, NOFF, WPST, NODR];
+  var array = [RWDS, NOFF, WPST, NODR, LIMT];
   return array;
 }
 

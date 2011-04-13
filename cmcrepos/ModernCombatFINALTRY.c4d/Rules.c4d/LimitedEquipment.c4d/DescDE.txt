@@ -1,1 +1,1 @@
-Jeder Spieler kann nur eine begrenzte Menge an Ausrüstung gleichzeitig besitzen, unabhängig davon, wo sich diese befindet.
+Jeder Spieler kann von bestimmten Gegenständen nur eine begrenzte Menge gleichzeitig besitzen, unabhängig davon, wo sich diese befinden.

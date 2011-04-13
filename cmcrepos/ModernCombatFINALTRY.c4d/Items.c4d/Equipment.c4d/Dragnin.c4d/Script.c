@@ -11,6 +11,8 @@ public func NoArenaRemove()	{return true;}
 public func LimitationCount()	{return 3;}
 
 
+/* Initialisierung */
+
 protected func Initialize()
 {
   CheckLimitation();
