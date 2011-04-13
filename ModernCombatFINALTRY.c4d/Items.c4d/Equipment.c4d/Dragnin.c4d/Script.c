@@ -8,7 +8,13 @@ public func HandY()		{}
 public func IsDrawable()	{return true;}
 public func IsEquipment()	{return true;}
 public func NoArenaRemove()	{return true;}
+public func LimitationCount()	{return 3;}
 
+
+protected func Initialize()
+{
+  CheckLimitation();
+}
 
 /* Stich setzen */
 

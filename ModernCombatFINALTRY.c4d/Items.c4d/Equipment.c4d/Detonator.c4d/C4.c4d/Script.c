@@ -5,6 +5,8 @@
 local fuse, active, thrown, pStickTo, iStickXOffset, iStickYOffset, iStickROffset, iPreviousCategory;
 
 
+public func LimitationCount()   {return 8;}
+
 /* Initialisierung */
 
 public func Initialize()
@@ -13,6 +15,7 @@ public func Initialize()
   thrown = false;
   iPreviousCategory = GetCategory();
   fuse = 0;
+  CheckLimitation();
 }
 
 public func GetPacket(pObj)
