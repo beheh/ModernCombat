@@ -492,16 +492,6 @@ public func ChooserFinished()
    CreateObject(SGNP, 3970, 540, -1);
    CreateObject(SGNP, 4165, 510, -1);
 
-   //SSA Besitzer setzen
-   if(aTeams[1] == true)
-     aSelfDefense[1]->SetTeam(1);
-   if(aTeams[2] == true)
-     aSelfDefense[3]->SetTeam(2);
-
-   //SSA aktivieren
-   aSelfDefense[1]->TurnOn();
-   aSelfDefense[3]->TurnOn();
-
    //Objekte entfernen
    RemoveObject(aSelfDefense[0]);
    RemoveObject(aSelfDefense[2]);
@@ -534,16 +524,6 @@ public func ChooserFinished()
    sign->SetMode(1);
    CreateObject(SGNP, 3970, 540, -1);
    CreateObject(SGNP, 4165, 510, -1);
-
-   //SSA Besitzer setzen
-   if(aTeams[1] == true)
-     aSelfDefense[1]->SetTeam(1);
-   if(aTeams[2] == true)
-     aSelfDefense[3]->SetTeam(2);
-
-   //SSA aktivieren
-   aSelfDefense[1]->TurnOn();
-   aSelfDefense[3]->TurnOn();
 
    //Objekte entfernen
    RemoveObject(aSelfDefense[0]);
