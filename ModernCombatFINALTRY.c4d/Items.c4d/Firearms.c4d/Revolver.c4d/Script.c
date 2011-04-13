@@ -76,6 +76,8 @@ public func Fire1()
   //Effekte
   SAMuzzleFlash(RandomX(35,40),user,x,y,angle);
   Sound("RVLR_Fire.ogg", 0, ammo);
+  SoundLevel("PSTL_Echo.ogg", 0, this);
+  Sound("PSTL_Echo.ogg", false, this, 100, 0, 0, true, 1000);
 
   //Patronenhülse hinzufügen
   casings++;

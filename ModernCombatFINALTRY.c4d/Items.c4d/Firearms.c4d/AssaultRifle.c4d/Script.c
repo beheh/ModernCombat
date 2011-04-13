@@ -108,6 +108,8 @@ public func Fire1()
   SAMuzzleFlash(RandomX(30,40),user,x,y,angle);
   SABulletCasing(x/3,y/3,-dir*14*(Random(1)+1),-(13+Random(2)),5);
   Sound("ASTR_Fire*.ogg", 0, ammo);
+  SoundLevel("ASTR_Echo.ogg", 0, this);
+  Sound("ASTR_Echo.ogg", false, this, 100, 0, 0, true, 1000);
 }
 
 /* Granaten - Explosivgranaten */

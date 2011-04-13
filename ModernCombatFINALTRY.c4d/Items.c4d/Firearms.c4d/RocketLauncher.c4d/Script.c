@@ -99,6 +99,8 @@ public func LaunchRocket(id rid, int angle)
       		RandomX(40,70),RGBa(220,200,180,0),0,0);
     }
   }
+  SoundLevel("RTLR_Echo.ogg", 0, this);
+  Sound("RTLR_Echo.ogg", false, this, 100, 0, 0, true, 1000);
 }
 
 public func AimAngleChange(bool fJNR)

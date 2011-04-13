@@ -86,6 +86,8 @@ public func Fire1()
   SAMuzzleFlash(RandomX(25,30),user,x,y,angle);
   SABulletCasing(x/3,y/3,-dir*14*(Random(1)+1),-(13+Random(2)),4);
   Sound("PSTL_Fire*.ogg", 0, ammo);
+  SoundLevel("PSTL_Echo.ogg", 0, this);
+  Sound("PSTL_Echo.ogg", false, this, 100, 0, 0, true, 1000);
 }
 
 /* Peilsender */
