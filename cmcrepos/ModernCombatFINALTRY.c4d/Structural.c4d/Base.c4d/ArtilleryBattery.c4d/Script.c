@@ -47,7 +47,7 @@ func Rotation()
 
   if(!bRotate) return;
 
-	if(!FindObject2(Find_Action("Push"), Find_ActionTarget(this))) {bRotate = 0; Sound("CannonStop"); return;}
+if(!FindObject2(Find_Action("Push"), Find_ActionTarget(this))) {bRotate = 0; Sound("CannonStop"); return;}
 
   if(GetR(pCannon)> 80) {bRotate=0; SetR(GetR(pCannon)-1,pCannon); Sound("CannonStop"); return;}
   if(GetR(pCannon)<-80) {bRotate=0; SetR(GetR(pCannon)+1,pCannon); Sound("CannonStop"); return;}
@@ -161,14 +161,15 @@ public func Shoot()
   SetYDir(-Cos(GetR(pCannon),RandomX(135,165)),pProjectile,10);
 
   //Effekte
-  Sound("ATBY_Fire*.ogg");
   ObjectSetAction(pCannon, "Backdraft", this);
   CreateParticle("LightFlash",iX,iY,0,0,500,RGBa(255,255,255,32));
   for(var i = 0; i < 14; i++)
     CreateParticle("Smoke",iX,iY+RandomX(-20,20),0,0,RandomX(50,100),RGB(96,96,96));
-
   if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("GunSmoke",4,10,0,0,500,100,RGBa(255,255,255,0));
   MuzzleFlash(RandomX(30,75),this,iX,iY,GetR(pCannon));
+  Sound("ATBY_Fire*.ogg");
+  SoundLevel("RTLR_Echo.ogg", 0, this);
+  Sound("RTLR_Echo.ogg", false, this, 100, 0, 0, true, 1000);
 }
 
 /* Schaden */

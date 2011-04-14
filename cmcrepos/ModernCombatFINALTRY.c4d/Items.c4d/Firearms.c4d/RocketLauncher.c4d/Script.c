@@ -71,7 +71,7 @@ public func LaunchRocket(id rid, int angle)
   Sound("RTLR_Launch*.ogg", 0, rocket);
   SetController(GetController(user), rocket);
 
-  //Sicht auf Rakete  
+  //Sicht auf Rakete
   SetPlrView(GetController(user), rocket);
   pRocket = rocket;
 

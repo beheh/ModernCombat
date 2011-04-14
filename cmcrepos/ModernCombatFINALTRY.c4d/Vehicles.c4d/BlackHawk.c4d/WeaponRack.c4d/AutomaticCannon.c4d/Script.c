@@ -8,6 +8,7 @@ public func HandX()		{return 5000;}
 public func HandY()		{return 600;}
 public func NoWeaponChoice()	{return true;}
 
+
 protected func Construction()
 {
   AddEffect("IntNoSound", this, 1, 5);
@@ -63,20 +64,25 @@ public func BotData1(int data)
 
 public func Fire1()
 {
+  //Austritt bestimmen
   var user = GetUser();
   var dir = GetDir(user)*2-1;
   var angle = user->AimAngle(10,0,true);
   var x,y;
   user->WeaponEnd(x,y);
+
+  //Kugel abfeuern
   var ammo = CreateObject(SHTX, x, y, GetController(user));
   AddEffect("IntHeliProtection", ammo, 5, 0, 0, BKHK, LocalN("heli", Contained()));
   ammo->CustomLaunch(angle + Random(5) - 2, 250, 750, 2, GetFMData(FM_Damage) * 10, GetFMData(FM_Damage));
-  Sound("ACCN_Fire.ogg", 0, ammo);
-  Sound("HullHit*.ogg", false, this);
 
   // Effekte
   SAMuzzleFlash(RandomX(35,50),user,x,y,angle);
   SABulletCasing(x/3,y/3,-dir*14*(Random(1)+1),-(13+Random(2)),5);
+  Sound("ACCN_Fire.ogg", 0, ammo);
+  Sound("HullHit*.ogg", false, this);
+  SoundLevel("ACCN_Echo.ogg", 0, this);
+  Sound("ACCN_Echo.ogg", false, this, 100, 0, 0, true, 1000);
 }
 
 /* Allgemein */
