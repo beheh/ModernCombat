@@ -235,6 +235,8 @@ public func LaunchGrenade(id idg, int speed, int angle, int mode)
     }
   }
   Sound("ASTR_LauncherFire*.ogg", 0, grenade);
+  SoundLevel("SGST_Echo.ogg", 0, this);
+  Sound("SGST_Echo.ogg", false, this, 100, 0, 0, true, 1000);
 
   //Patronenhülse vorhanden
   casing = 1;

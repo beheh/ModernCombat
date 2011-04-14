@@ -11,6 +11,7 @@ public func NoWeaponChoice()	{return true;}
 
 local aRockets, fView;
 
+
 protected func Construction()
 {
   AddEffect("IntNoSound", this, 1, 5);
@@ -63,10 +64,12 @@ public func BotData1(int data)
 
 public func LaunchRocket(id rid, int angle)
 {
+  //Austritt bestimmen
   var user = Contained();
   var x,y;
   user->WeaponEnd(x,y);
 
+  //Rakete abfeuern
   var rocket = CreateObject(rid,x,y+10,GetController(user));
   AddEffect("IntHeliProtection", rocket, 1, 20, 0, BKHK, LocalN("heli", Contained()));
   rocket->Launch(angle, user);
@@ -76,6 +79,7 @@ public func LaunchRocket(id rid, int angle)
   if (!aRockets || GetLength(aRockets) == FMData1(FM_BurstAmount))
     aRockets = [];
 
+  //Sicht auf Rakete
   SetPlrView(GetController(), rocket);
   aRockets[GetLength(aRockets)] = rocket;
   fView = true;
@@ -104,6 +108,8 @@ public func LaunchRocket(id rid, int angle)
       		RandomX(40,70),RGBa(220,200,180,0),0,0);
     }
   }
+  SoundLevel("RTLR_Echo.ogg", 0, this);
+  Sound("RTLR_Echo.ogg", false, this, 100, 0, 0, true, 1000);
 }
 
 /* Raketenverfolgung */
