@@ -73,6 +73,12 @@ private func ChooseActivity()
 
 /* Aufschlag */ 
 
+protected func Hit()
+{
+  Sound("MetalHit*.WAV");
+  return 1;
+}
+
 protected func Hit3()
 {
   Damage();
