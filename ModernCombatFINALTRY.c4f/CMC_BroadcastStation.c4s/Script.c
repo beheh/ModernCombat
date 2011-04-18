@@ -206,6 +206,11 @@ func CreateDecoration()
 {
   Log("$CreatingDecoration$");
 
+  //Leitkegel
+  CreateObject(TCCN, 1300, 710, -1);
+  CreateObject(TCCN, 1315, 710, -1);
+  CreateObject(TCCN, 1330, 710, -1);
+
   //Raum
   CreateObject(ROM2, 50, 490, -1);
 

@@ -255,12 +255,21 @@ func CreateEquipment()
   //Artilleriebatterien
   CreateObject(ATBY,725,320,-1);
   CreateObject(ATBY,2073,320,-1);
-
 }
 
 func CreateDecoration()
 {
   Log("$CreatingDecoration$");
+
+  //Leitkegel
+  CreateObject(TCCN, 815, 450, -1)->Light();
+  CreateObject(TCCN, 875, 460, -1)->Light();
+  CreateObject(TCCN, 1165, 460, -1)->Light();
+  CreateObject(TCCN, 1215, 440, -1)->Light();
+  CreateObject(TCCN, 1585, 440, -1)->Light();
+  CreateObject(TCCN, 1635, 460, -1)->Light();
+  CreateObject(TCCN, 1925, 460, -1)->Light();
+  CreateObject(TCCN, 1985, 450, -1)->Light();
 
   //Geländer
   CreateObject(RAI1, 0, 120, -1)->SetRail([1,1,1]);
