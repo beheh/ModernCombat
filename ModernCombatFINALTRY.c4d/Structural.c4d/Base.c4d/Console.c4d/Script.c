@@ -11,7 +11,7 @@ public func IsMachine()	{return 1;}
 
 protected func Timer(pClonk)
 {
-  //Selsbtzerstörung wenn kein zu steuerndes Objekt mehr
+  //Selbstzerstörung wenn kein Zielobjekt
   if(!target)
   {
    if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",4,50,0,0,40,150);
