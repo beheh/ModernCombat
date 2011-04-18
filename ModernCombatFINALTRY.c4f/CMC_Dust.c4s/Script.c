@@ -128,6 +128,9 @@ func CreateDecoration()
 {
   Log("$CreatingDecoration$");
 
+  //Radio
+  CreateObject(RDIO, 390, 290, -1);
+
   //Flutlichter
   CreateObject(FLGH, 455, 630, -1)->SetRotation(30);
   CreateObject(FLGH, 975, 470, -1)->SetRotation(100);

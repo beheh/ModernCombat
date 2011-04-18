@@ -221,6 +221,9 @@ func CreateDecoration()
 {
   Log("$CreatingDecoration$");
 
+  //Radio
+  CreateObject(RDIO, 805, 500, -1);
+
   //Leitkegel
   CreateObject(TCCN, 410, 450, -1)->Light();
   CreateObject(TCCN, 440, 460, -1)->Light();
