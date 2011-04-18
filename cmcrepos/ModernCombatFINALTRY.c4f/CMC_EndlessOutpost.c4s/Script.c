@@ -128,13 +128,13 @@ func CreateInterior()
 
   //Schutztüren
   CreateObject(GDDR, 815, 410, -1)->Lock();
-  CreateObject(GDDR, 875, 550, -1);
+  CreateObject(GDDR, 875, 550, -1)->Lock();
   CreateObject(GDDR, 965, 550, -1)->SetColorDw(HSL(200, 150, 100, 127));
   CreateObject(GDDR, 1065, 260, -1)->SetColorDw(HSL(200, 150, 100, 127));
   CreateObject(GDDR, 1065, 430, -1)->SetColorDw(HSL(200, 150, 100, 127));
   CreateObject(GDDR, 1165, 260, -1)->SetColorDw(HSL(200, 150, 100, 127));
   CreateObject(GDDR, 1245, 260, -1)->SetColorDw(HSL(200, 150, 100, 127));
-  CreateObject(GDDR, 1445, 200, -1);
+  CreateObject(GDDR, 1445, 200, -1)->Lock();
   CreateObject(GDDR, 1695, 290, -1)->SetColorDw(HSL(200, 150, 100, 127));
   CreateObject(GDDR, 1795, 210, -1)->SetColorDw(HSL(200, 150, 100, 127));
   CreateObject(GDDR, 1795, 290, -1)->SetColorDw(HSL(200, 150, 100, 127));
@@ -362,6 +362,12 @@ func CreateEquipment()
 func CreateDecoration()
 {
   Log("$CreatingDecoration$");
+
+  //Leitkegel
+  CreateObject(TCCN, 600, 440, -1);
+  CreateObject(TCCN, 630, 430, -1);
+  CreateObject(TCCN, 660, 420, -1);
+  CreateObject(TCCN, 690, 410, -1);
 
   //Nebel
   CreateParticle("Fog", 110, 600,0,0,900+Random(100));

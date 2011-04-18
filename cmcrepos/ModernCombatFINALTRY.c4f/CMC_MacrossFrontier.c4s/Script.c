@@ -221,6 +221,14 @@ func CreateDecoration()
 {
   Log("$CreatingDecoration$");
 
+  //Leitkegel
+  CreateObject(TCCN, 410, 450, -1)->Light();
+  CreateObject(TCCN, 440, 460, -1)->Light();
+  CreateObject(TCCN, 625, 340, -1);
+  CreateObject(TCCN, 925, 260, -1);
+  CreateObject(TCCN, 1110, 380, -1)->Light();
+  CreateObject(TCCN, 1140, 370, -1)->Light();
+
   //Raum
   CreateObject(ROOM, 895, 500, -1);
 
