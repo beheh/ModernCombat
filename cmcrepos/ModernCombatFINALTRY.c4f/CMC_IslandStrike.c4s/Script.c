@@ -420,6 +420,9 @@ func CreateDecoration()
 {
   Log("$CreatingDecoration$");
 
+  //Radio
+  CreateObject(RDIO, 4300, 470, -1);
+
   //Rohre
   CreateObject(PIPL, 2730, 365, -1)->Up()->Right()->Right()->Right()->Right();
   CreateObject(PIPL, 2685, 365, -1)->Up()->Right();
