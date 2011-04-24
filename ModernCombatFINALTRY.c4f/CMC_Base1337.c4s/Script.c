@@ -106,7 +106,6 @@ func CreateInterior()
   CreateObject(MWCR, 3813, 832, -1);
   CreateObject(MWCR, 3836, 832, -1);
   CreateObject(MWCR, 3859, 832, -1);
-
   CreateObject(MWCR, 3830, 1040, -1);
 
   //Verbandskisten
@@ -414,6 +413,9 @@ func CreateDecoration()
   CreateObject(MNI2, 3990, 1118, -1);
 
   //Zäune
+  CreateObject(FENC, 3000, 800, -1);
+  CreateObject(FENC, 3060, 800, -1);
+  CreateObject(FENC, 3190, 800, -1);
   CreateObject(FENC, 3310, 1040, -1);
   CreateObject(FENC, 3370, 1040, -1);
   CreateObject(FENC, 3430, 1040, -1);
@@ -466,6 +468,24 @@ func FlagCaptured(object pPoint, int iTeam)
    aSelfDefense[3]->SetTeam(iTeam);
 }
 
+/* Bei Relaunch */
+ 
+public func OnClassSelection(object pClonk, int iTeam)
+{
+  //Money Run-Spielziel
+  if (FindObject(GMNR))
+  {
+   AddEffect("IntPara", pClonk, 1, 1);
+   Sound("Airstrike2", 0, pClonk);
+  }
+}
+ 
+global func FxIntParaTimer(object pTarget)
+{
+  CreateObject(PARA,0,0,GetOwner(pTarget))->Set(pTarget);
+  return -1;
+}
+
 /* Regelwähler */
 
 public func ChooserFinished()
@@ -491,9 +511,6 @@ public func ChooserFinished()
    //Hinweisschilder
    CreateObject(SNPT, 1650, 1170, -1);
    var sign = CreateObject(SGNP, 2885, 960, -1);
-   sign->SetPhase(1);
-   sign->SetMode(1);
-   sign = CreateObject(SGNP, 3070, 800, -1);
    sign->SetPhase(1);
    sign->SetMode(1);
    sign = CreateObject(SGNP, 3575, 1040, -1);
@@ -524,9 +541,6 @@ public func ChooserFinished()
    //Hinweisschilder
    CreateObject(SNPT, 1650, 1170, -1);
    var sign = CreateObject(SGNP, 2885, 960, -1);
-   sign->SetPhase(1);
-   sign->SetMode(1);
-   sign = CreateObject(SGNP, 3070, 800, -1);
    sign->SetPhase(1);
    sign->SetMode(1);
    sign = CreateObject(SGNP, 3575, 1040, -1);
@@ -612,7 +626,9 @@ public func ChooserFinished()
    CreateObject(BRDR, 4230, 0, -1)->Set(1);
 
    //Hinweisschilder
-   var sign = CreateObject(SGNP, 2885, 960, -1);
+   var sign = CreateObject(SGNP, 780, 1160, -1);
+   sign->SetPhase(1);
+   sign = CreateObject(SGNP, 2885, 960, -1);
    sign->SetPhase(1);
    sign->SetMode(1);
    sign = CreateObject(SGNP, 3070, 800, -1);
@@ -623,6 +639,16 @@ public func ChooserFinished()
    sign->SetMode(1);
    CreateObject(SGNP, 3970, 540, -1);
    CreateObject(SGNP, 4165, 510, -1);
+
+   //Hinweisschilder
+   if(!FindObject(NOBH))
+   {
+    var sign = CreateObject(SGNP, 800, 720, -1);
+    sign->SetPhase(2);
+    CreateObject(SNPT, 1160,850, -1)->SetAction("Sign3");
+    sign = CreateObject(SGNP, 1310, 820, -1);
+    sign->SetPhase(2);
+   }
 
    //SSA Besitzer setzen
    if(aTeams[1] == true)
@@ -636,16 +662,6 @@ public func ChooserFinished()
    aSelfDefense[2]->TurnOn();
    aSelfDefense[3]->TurnOn();
 
-   //Hinweisschilder
-   if(!FindObject(NOBH))
-   {
-    var sign = CreateObject(SGNP, 800, 720, -1);
-    sign->SetPhase(2);
-    CreateObject(SNPT, 1160,850, -1)->SetAction("Sign3");
-    sign = CreateObject(SGNP, 1310, 820, -1);
-    sign->SetPhase(2);
-   }
-
    //Blackhawks
    SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,980,750,-1),60*21,300);
    SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,1190,820,-1),60*21,300);
@@ -655,6 +671,38 @@ public func ChooserFinished()
    SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1180,1240,-1),50*21,300);
    SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2480,1240,-1),50*21,300);
    SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2550,1240,-1),50*21,300);
+  }
+
+  //MR-Spielziel
+  if (FindObject(GMNR))
+  {
+   //Grenzen setzen
+   CreateObject(BRDR, 1790, 0, -1)->Set(0);
+   CreateObject(BRDR, 4230, 0, -1)->Set(1);
+
+   //Hinweisschilder
+   CreateObject(SNPT, 1650, 1170, -1);
+   var sign = CreateObject(SGNP, 2885, 960, -1);
+   sign->SetPhase(1);
+   sign->SetMode(1);
+   sign = CreateObject(SGNP, 3575, 1040, -1);
+   sign->SetPhase(1);
+   sign->SetMode(1);
+   CreateObject(SGNP, 3970, 540, -1);
+   CreateObject(SGNP, 4165, 510, -1);
+
+   //Objekte entfernen
+   RemoveObject(aSelfDefense[0]);
+   RemoveObject(aSelfDefense[2]);
+
+   //Geldsäcke
+   AddMoneySpawn(2680, 950, [10]);
+   AddMoneySpawn(3030, 1190, [10]);
+   AddMoneySpawn(3015, 790, [10]);
+   AddMoneySpawn(3250, 1030, [10]);
+   AddMoneySpawn(3380, 920, [10]);
+   AddMoneySpawn(3380, 920, [10]);
+   AddMoneySpawn(3870, 1030, [10]);
   }
 }
 
@@ -684,6 +732,32 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
      { iX = 3600; iY = 850; }
     if(!--rand)
      { iX = 3515; iY = 590; }
+   }
+   return(1);
+  }
+
+  //MR-Spielziel
+  if(FindObject(GMNR))
+  {
+   if(iTeam == 1)
+   {
+    var rand = Random(3);
+    if(!rand)
+     { iX = 2110; iY = 0; }
+    if(!--rand)
+     { iX = 2300; iY = 0; }
+    if(!--rand)
+     { iX = 2430; iY = 0; }
+   }
+   if(iTeam == 2)
+   {
+    var rand = Random(3);
+    if(!rand)
+     { iX = 3320; iY = 0; }
+    if(!--rand)
+     { iX = 3480; iY = 0; }
+    if(!--rand)
+     { iX = 3650; iY = 0; }
    }
    return(1);
   }
