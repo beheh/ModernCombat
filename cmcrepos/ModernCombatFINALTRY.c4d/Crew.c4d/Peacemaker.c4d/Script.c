@@ -3,6 +3,8 @@
 #strict 2
 #include HZCK
 
+static const PCMK_PortraitVersion = 130;
+
 public func WeaponCollectionLimit() {	return 3; } //Der Clonk kann drei Waffen tragen
 public func ObjectCollectionLimit() { return 2; } //Und 2 beliebige Zusatzobjekte
 
@@ -13,6 +15,18 @@ public func Initialize()
 {
 	UpdateAmmoBars();
 	return _inherited();
+}
+
+/* Portrait-Updates */
+
+protected func Recruitment()
+{
+	if (GetCrewExtraData(this, "CMC_Portrait") < PCMK_PortraitVersion)
+	{
+		SetCrewExtraData(this, "CMC_Portrait", PCMK_PortraitVersion);
+		SetPortrait("random", this, GetID(), true, true);
+	}
+	return _inherited(...);
 }
 
 public func CanUse(id idObj)

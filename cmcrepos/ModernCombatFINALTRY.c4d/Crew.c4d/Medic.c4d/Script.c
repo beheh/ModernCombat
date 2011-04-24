@@ -7,7 +7,6 @@ static const MDIC_PortraitVersion = 130;
 
 public func WeaponCollectionLimit()	{return 2;}	//Anzahl Waffen im Inventar
 public func ObjectCollectionLimit()	{return 3;}	//Anzahl Objekte im Inventar
-
 protected func IsMedic()		{return 1;}
 
 
@@ -46,7 +45,8 @@ public func Death()
   _inherited(...);
 }
 
-//Portraitupdates
+/* Portrait-Updates */
+
 protected func Recruitment()
 {
   if (GetCrewExtraData(this, "CMC_Portrait") < MDIC_PortraitVersion)
