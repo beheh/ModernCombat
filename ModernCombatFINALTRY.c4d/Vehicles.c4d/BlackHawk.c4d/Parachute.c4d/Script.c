@@ -61,7 +61,10 @@ protected func Fly()
     //Lebewesen
     if (GetCategory(targ) & C4D_Living)
       if (GetID(Contained(targ)) == FKDT)
-        SetActionTargets(targ = Contained(targ));
+      {
+        SetAction("StartFlyFree");
+        SetPosition (GetX(), GetY()+22); 
+      }
       else
         if (GetID(targ) != FKDT && GetProcedure(targ) != "FLOAT" && GetProcedure(targ) != "FLIGHT")
           Close();
