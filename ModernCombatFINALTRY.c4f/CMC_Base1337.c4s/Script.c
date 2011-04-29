@@ -45,6 +45,7 @@ func CreateInterior()
 
   //Leitern
   CreateObject(LADR, 970, 868, -1)->Set(10);
+  CreateObject(LADR, 1030, 1216, -1)->Set(6);
   CreateObject(LADR, 1180, 930, -1)->Set(9);
   CreateObject(LADR, 1990, 1050, -1)->Set(13);
   CreateObject(LADR, 2250, 1100, -1)->Set(16);
@@ -60,6 +61,7 @@ func CreateInterior()
 
   //Bodenlucken
   CreateObject(HA4K, 970, 783, -1);
+  CreateObject(HA4K, 1030, 1163, -1);
   CreateObject(HA4K, 1180, 853, -1);
   CreateObject(HA4K, 2700, 963, -1);
   CreateObject(HA4K, 2930, 1043, -1);
