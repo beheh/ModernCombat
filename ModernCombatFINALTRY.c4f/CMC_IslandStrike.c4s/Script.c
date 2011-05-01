@@ -335,19 +335,19 @@ func CreateInterior()
     aSelfDefense[0]->TurnOn();
     aSelfDefense[0]->SetAutoRepair(1500);
     CreateObject(CONS, 1155, 530, -1)->Set(aSelfDefense[0]);
-  
+
   aSelfDefense[1] = CreateObject(SEGU, 2565, 379, -1);
     aSelfDefense[1]->Arm(MISA);
     aSelfDefense[1]->TurnOn();
     aSelfDefense[1]->SetAutoRepair(1500);
     CreateObject(CONS, 2800, 500, -1)->Set(aSelfDefense[1]);
-  
+
   aSelfDefense[2] = CreateObject(SEGU, 6585, 379, -1);
     aSelfDefense[2]->Arm(MISA);
     aSelfDefense[2]->TurnOn();
     aSelfDefense[2]->SetAutoRepair(1500);
     CreateObject(CONS, 6355, 500, -1)->Set(aSelfDefense[2]);
-  
+
   aSelfDefense[3] = CreateObject(SEGU, 7190, 479, -1);
     aSelfDefense[3]->Arm(MISA);
     aSelfDefense[3]->TurnOn();
