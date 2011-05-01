@@ -6,7 +6,7 @@
 local lock;
 local target;
 
-public func IsBackDoor() { return true; }
+public func IsBackDoor()	{return true;}
 
 
 /* Initalisierung */
@@ -21,7 +21,7 @@ public func Initialize()
 
 public func Lock()
 {
-	lock = 1;
+  lock = 1;
 }
 
 public func Unlock()
@@ -40,7 +40,7 @@ public func Connect(pTarget)
 {
   if(!pTarget->~IsBackDoor()) return ;
   target = pTarget;
-  
+
   if(pTarget->GetTarget() != this)
     pTarget->Connect(this);
 }
