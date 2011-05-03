@@ -79,6 +79,6 @@ private func SoundDoorLocked()
   Sound("MetalHit1");
 }
 
-public func ContainedLeft()	{return true;}
-public func ContainedRight()	{return true;}
-public func RejectContents()	{return true;}
+public func ContainedLeft()	{if(target){return true;} else return _inherited();}
+public func ContainedRight()	{if(target){return true;} else return _inherited();}
+public func RejectContents()	{if(target){return true;} else return _inherited();}
