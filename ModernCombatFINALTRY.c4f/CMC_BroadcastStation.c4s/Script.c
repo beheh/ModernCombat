@@ -47,7 +47,7 @@ func CreateInterior()
   CreateObject(LADR, 1470, 770, -1)->Set(9);
   CreateObject(LADR, 1595, 291, -1)->Set(13);
 
-  //Bodenlucken
+  //Bodenluken
   CreateObject(HA4K, 190, 493, -1);
   CreateObject(HA4K, 430, 363, -1);
   CreateObject(HA4K, 570, 513, -1);
@@ -55,7 +55,7 @@ func CreateInterior()
   CreateObject(HA4K, 1050, 713, -1);
   CreateObject(HA4K, 1360, 303, -1);
 
-  //Große Bodenlucke
+  //Große Bodenluke
   CreateObject(H24K, 1595, 188, -1);
 
   //Hydrauliktüren

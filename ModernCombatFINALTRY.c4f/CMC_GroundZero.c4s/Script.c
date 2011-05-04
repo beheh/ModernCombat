@@ -62,11 +62,11 @@ func CreateInterior()
   CreateObject(LADR, 2265, 320, -1)->Set(7);
   CreateObject(LADR, 2760, 534, -1)->Set(17);
 
-  //Bodenlucken
+  //Bodenluken
   CreateObject(HA4K, 40, 393, -1);
   CreateObject(HA4K, 2760, 393, -1);
 
-  //Groﬂe Bodenlucken
+  //Groﬂe Bodenluken
   CreateObject(H24K, 1025, 178, -1);
   CreateObject(H24K, 1775, 178, -1);
 

@@ -85,7 +85,7 @@ func CreateInterior()
   CreateObject(LADR, 2600, 320, -1)->Set(13);
   CreateObject(LADR, 2620, 210, -1)->Set(12);
 
-  //Bodenlucken
+  //Bodenluken
   CreateObject(HA4K, 70, 353, -1);
   CreateObject(HA4K, 70, 453, -1);
   CreateObject(HA4K, 720, 413, -1);
@@ -99,7 +99,7 @@ func CreateInterior()
   CreateObject(HA4K, 2600, 213, -1);
   CreateObject(HA4K, 2620, 113, -1);
 
-  //Groﬂe Bodenlucken
+  //Groﬂe Bodenluken
   CreateObject(H24K, 985, 438, -1);
   CreateObject(H24K, 1205, 448, -1);
   CreateObject(H24K, 1985, 118, -1);
@@ -472,7 +472,7 @@ func CreateDecoration()
   CreateObject(ENGT, 1870, 440, -1);
   CreateObject(ENGT, 2590, 110, -1);
 
-  //Automat
+  //Automaten
   CreateObject(CLVM, 1895, 110, -1);
   CreateObject(CLVM, 1980, 400, -1);
 
