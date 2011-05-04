@@ -70,14 +70,14 @@ func CreateInterior()
   DrawMaterialQuad("Wall-Concrete3",2260,440,2290,430,2290,440,2275,440,true);
   DrawMaterialQuad("Wall-Concrete3",2401,440,2371,430,2371,440,2386,440,true);
 
-  //Bodenlucken
+  //Bodenluken
   CreateObject(HA4K, 400, 433, -1);
   CreateObject(HA4K, 810, 653, -1);
 
   CreateObject(HA4K, 1920, 653, -1);
   CreateObject(HA4K, 2330, 433, -1);
 
-  //Groﬂe Bodenlucken
+  //Groﬂe Bodenluken
   CreateObject(H24K, 585, 648, -1);
   CreateObject(H24K, 755, 448, -1);
 

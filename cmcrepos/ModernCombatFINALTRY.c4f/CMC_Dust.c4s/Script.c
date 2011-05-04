@@ -44,11 +44,11 @@ func CreateInterior()
   CreateObject(LADR, 1090, 690, -1)->Set(31);
   CreateObject(LADR, 1350, 595, -1)->Set(10);
 
-  //Bodenlucken
+  //Bodenluken
   CreateObject(HA4K, 1310, 623, -1);
   CreateObject(HA4K, 1430, 653, -1);
 
-  //Große Bodenlucke
+  //Große Bodenluke
   CreateObject(H24K, 425, 228, -1);
 
   //Gerüst

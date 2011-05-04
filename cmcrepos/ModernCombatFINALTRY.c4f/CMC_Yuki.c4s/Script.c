@@ -59,7 +59,7 @@ func CreateInterior()
   CreateObject(LADR, 1630, 360, -1)->Set(14);
   CreateObject(LADR, 1725, 550, -1)->Set(21);
 
-  //Bodenlucken
+  //Bodenluken
   CreateObject(HA4K, 260, 723, -1);
   CreateObject(HA4K, 1320, 753, -1);
 

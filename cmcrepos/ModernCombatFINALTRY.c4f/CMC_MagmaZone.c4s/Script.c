@@ -32,7 +32,7 @@ func CreateInterior()
 {
   Log("$CreatingInterior$");
 
-  //Bodenlucken
+  //Bodenluken
   CreateObject(HA4K, 410, 333, -1);
   CreateObject(HA4K, 800, 393, -1);
   CreateObject(HA4K, 1340, 343, -1);
