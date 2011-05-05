@@ -40,7 +40,7 @@ public func OnSingleReloadStart(int iSlot)				{}
 public func OnSingleReloadStop(int iSlot)				{}
 public func OnPrepareReloadStop(int iSlot)				{}
 public func OnFinishReloadStart(int iSlot)				{}
-
+public func OnFireStop(int iSlot)        {}
 
 /*----- Initialisierung -----*/
 
@@ -716,8 +716,10 @@ public func ControlThrow(caller)
   //Automatischen Schuss beenden, wenn erneut Werfen gedrückt
   if(IsRecharging())
   {
-    if(!GetPlrCoreJumpAndRunControl(GetController(caller)))
+    if(!GetPlrCoreJumpAndRunControl(GetController(caller))) {
       StopAutoFire();
+      if(GetFMData(FM_Auto)) OnFireStop(firemode);
+    }
     return 1;
   }
 
@@ -833,6 +835,7 @@ public func FxBurstFireTimer(object pTarget, int iNumber, int iTime)
     if(stopburst)
     {
       stopburst = false;
+      OnFireStop(firemode);
       return -1;
     }
     if(GetPlrCoreJumpAndRunControl(GetController(pTarget)))
@@ -854,6 +857,7 @@ public func FxBurstFireTimer(object pTarget, int iNumber, int iTime)
     }
     else
     {
+      OnFireStop(firemode);
       return -1;
     }
   }
@@ -981,12 +985,16 @@ private func Shoot(object caller)
   else
   {
     OnEmpty();
-    if(GetFMData(FM_Auto)) OnAutoStop(firemode);
+    if(GetFMData(FM_Auto)) {
+      OnAutoStop(firemode); 
+      OnFireStop(firemode);
+    }
 
     //Automatisch nachladen, wenn die Feuertaste nach 5 Frames noch gedrückt ist
     if(GetPlrCoreJumpAndRunControl(GetController(GetUser())))
       ScheduleCall(this, "Reload", 5);
   }
+  if(!GetFMData(FM_Auto) && !GetFMData(FM_BurstAmount)) OnFireStop(firemode);
   //HZCK soll Munition doch bitte neu anschauen
   GetUser()->~UpdateCharge();
   return true;
