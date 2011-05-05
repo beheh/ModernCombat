@@ -1,1 +1,0 @@
-Dieses Objekt erzeugt eine Sonne und Blendeneffekte.
