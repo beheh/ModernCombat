@@ -79,23 +79,30 @@ private func SoundDoorLocked()
   Sound("MetalHit1");
 }
 
-protected func ActivateEntrance(pObj) {
+protected func ActivateEntrance(pObj)
+{
   if(lock) return false;
   return inherited(pObj);
 }
 
-func Collection2(obj) {
-  if(!target) {
+func Collection2(obj)
+{
+  if(!target)
+  {
     var owner = GetOwner(obj);
     var ejected = false;
-    for(var clonk in FindObjects(Find_Container(this))) {
-      if(Hostile(owner, GetOwner(clonk))) {
-        if(!ejected) {
+    for(var clonk in FindObjects(Find_Container(this)))
+    {
+      if(Hostile(owner, GetOwner(clonk)))
+      {
+        if(!ejected)
+        {
           SetCommand(obj, "Exit");
-          ejected = true; 
+          ejected = true;
         }
-        SetCommand(target, "Exit");        
+        SetCommand(target, "Exit");
       }
+
     }
   }
   return _inherited(obj);
@@ -103,4 +110,4 @@ func Collection2(obj) {
 
 public func ContainedLeft(pCaller)	{if(target){return true;} else return SetCommand(pCaller, "Get", this, 0, 0, 0, 1);}
 public func ContainedRight(pCaller)	{if(target){return true;} else return SetCommand(pCaller, "Get", this, 0, 0, 0, 1);}
-public func RejectContents()	{if(target){return true;} else return _inherited();}
+public func RejectContents()		{if(target){return true;} else return _inherited();}
