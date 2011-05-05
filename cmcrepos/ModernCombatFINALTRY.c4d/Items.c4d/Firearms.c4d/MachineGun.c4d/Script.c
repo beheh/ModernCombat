@@ -114,6 +114,11 @@ public func Fire1()
 
 /* Allgemein */
 
+protected func OnFireStop(int iSlot)
+{
+  Sound("MNGN_Click.ogg");
+}
+
 func OnReload()
 {
   Sound("MNGN_Reload.ogg");
