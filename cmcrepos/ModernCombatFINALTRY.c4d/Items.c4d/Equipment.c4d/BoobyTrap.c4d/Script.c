@@ -23,7 +23,7 @@ public func LimitationCount()		{return 4;}
 func Initialize()
 {
   //inaktiv erstellen
-  SetAction("Defused"); 
+  SetAction("Defused");
   return 1;
 }
 
