@@ -64,6 +64,14 @@ public func ControlDown()
   return _inherited(...);
 }
 
+public func WeaponEnd(&x, &y) {
+  var number = GetEffect("ShowWeapon",this);
+  if(!number)
+    return(0);
+  EffectCall(this, number, "Update");
+  return inherited(x, y);
+}
+
 func ResetShowWeapon(object pNew)
 {
   var effect = GetEffect("ShowWeapon",this); 

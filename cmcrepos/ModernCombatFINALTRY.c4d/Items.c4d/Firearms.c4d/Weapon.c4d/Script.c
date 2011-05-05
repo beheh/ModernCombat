@@ -1397,6 +1397,10 @@ public func Selection(object pContainer)
 
 global func FxShowWeaponTimer(object pTarget, int iNumber, int iTime)
 {
+  EffectCall(pTarget, iNumber, "Update", iTime);
+}
+
+global func FxShowWeaponUpdate(object pTarget, int iNumber, int iTime) {
   //Waffe aktualisieren:
   var xoff, yoff, r;  //Offset, Winkel
   var dodraw;
@@ -1412,7 +1416,7 @@ global func FxShowWeaponTimer(object pTarget, int iNumber, int iTime)
     //neues Objekt ist Waffe, oder ein Objekt, das gezeichnet werden soll
     if(obj->~IsWeapon() || obj->~IsDrawable())
     {
-	  dodraw = true;
+    dodraw = true;
       EffectVar(0, pTarget, iNumber) = id;
       EffectVar(6, pTarget, iNumber) = obj;
       SetGraphics(0, pTarget,id, WeaponDrawLayer, GFXOV_MODE_Object,0,GFX_BLIT_Parent,obj);
@@ -1438,10 +1442,10 @@ global func FxShowWeaponTimer(object pTarget, int iNumber, int iTime)
   
   //schnell noch Rotation dazurechnen oder so!
   if(GetEffect("StrikeRecharge", obj))
-  	r += -Max(Sin(GetEffect("StrikeRecharge", obj, 0, 6)*90/(obj->~GetMCData(MC_Recharge)/4),20),0);
+    r += -Max(Sin(GetEffect("StrikeRecharge", obj, 0, 6)*90/(obj->~GetMCData(MC_Recharge)/4),20),0);
   else
-  	r += obj->~HandR();
-	
+    r += obj->~HandR();
+  
   if (!dodraw && r == EffectVar(1, pTarget, iNumber) && GetDir(pTarget) == EffectVar(7, pTarget, iNumber) && GetAction(pTarget) == EffectVar(8, pTarget, iNumber))
     return;
   
