@@ -301,16 +301,12 @@ func CreateInterior()
   CreateObject(CRN1, 4000, 359, -1)->Set(42);
 
   //Verbundene Räume
-  var doorw = CreateObject(GAT1, 2960, 333, -1);
-  CreateObject(ROOM, 3570, 410, -1)->Connect(doorw);
-  doorw = CreateObject(GAT1, 3845, 685, -1);
+  var doorw = CreateObject(GAT1, 3845, 685, -1);
   doorw->SetClrModulation(RGB(125,125,205));
   CreateObject(GAT1, 3830, 525, -1)->Connect(doorw);
   doorw = CreateObject(GAT1, 4200, 685, -1);
   doorw->SetClrModulation(RGB(125,125,205));
   CreateObject(GAT1, 4215, 515, -1)->Connect(doorw);
-  doorw = CreateObject(GAT1, 6095, 315, -1);
-  CreateObject(ROOM, 5735, 400, -1)->Connect(doorw);
 
   //Tore und Konsolen
   var autod = CreateObject (HNG2, 2780, 620, -1);
@@ -815,6 +811,12 @@ public func ChooserFinished()
     sign->SetMode(1);
    }
 
+   //Verbundene Räume
+   var doorw = CreateObject(GAT1, 2960, 333, -1);
+   CreateObject(ROOM, 3570, 410, -1)->Connect(doorw);
+   doorw = CreateObject(GAT1, 6095, 315, -1);
+   CreateObject(ROOM, 5735, 400, -1)->Connect(doorw);
+
    //Blackhawk
    SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,4700,290,-1),100*21,300);
 
@@ -945,6 +947,12 @@ public func ChooserFinished()
     sign->SetPhase(2);
     sign->SetMode(1);
    }
+
+   //Verbundene Räume
+   var doorw = CreateObject(GAT1, 2960, 333, -1);
+   CreateObject(ROOM, 3570, 410, -1)->Connect(doorw);
+   doorw = CreateObject(GAT1, 6095, 315, -1);
+   CreateObject(ROOM, 5735, 400, -1)->Connect(doorw);
 
    //Blackhawk
    SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,4700,290,-1),100*21,300);
