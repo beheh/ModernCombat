@@ -21,12 +21,12 @@ public func Initialize()
 
 public func Lock()
 {
-  lock = 1;
+  lock = true;
 }
 
 public func Unlock()
 {
-  lock = 0;
+  lock = false;
 }
 
 /* Türverbindung */
@@ -82,6 +82,23 @@ private func SoundDoorLocked()
 protected func ActivateEntrance(pObj) {
   if(lock) return false;
   return inherited(pObj);
+}
+
+func Collection2(obj) {
+  if(!target) {
+    var owner = GetOwner(obj);
+    var ejected = false;
+    for(var clonk in FindObjects(Find_Container(this))) {
+      if(Hostile(owner, GetOwner(clonk))) {
+        if(!ejected) {
+          SetCommand(obj, "Exit");
+          ejected = true; 
+        }
+        SetCommand(target, "Exit");        
+      }
+    }
+  }
+  return _inherited(obj);
 }
 
 public func ContainedLeft(pCaller)	{if(target){return true;} else return SetCommand(pCaller, "Get", this, 0, 0, 0, 1);}
