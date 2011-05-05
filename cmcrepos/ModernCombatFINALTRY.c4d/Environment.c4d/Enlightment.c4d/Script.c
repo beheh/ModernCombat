@@ -27,7 +27,7 @@ public func Enlight()
   fEnlightment = true; 
 
   //Einheitliche Rotation
-  var CurrentR = RandomX(160, 200);
+  var CurrentR = 180+RandomX(10, 20)*(Random(2)*2-1);
   //var Red, Green, Blue;
   //X-Größe
   var SizeX = RandomX(50,100);
