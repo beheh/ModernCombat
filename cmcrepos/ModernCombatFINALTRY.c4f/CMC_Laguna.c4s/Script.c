@@ -274,8 +274,8 @@ func CreateDecoration()
 func CreateOptionalFeatures()
 {
   //Hintergründe
-  CreateObject(BD05,1200,800,-1)->SetClrModulation(RGB(125,125,125));
   CreateObject(BD03,1250,530,-1)->SetClrModulation(RGB(125,125,125));
+  CreateObject(BD05,1200,800,-1)->SetClrModulation(RGB(125,125,125));
 }
 
 /* Regelwähler */
