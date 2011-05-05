@@ -13,6 +13,8 @@ func Initialize()
   //Wartemusik einstellen
   SetPlayList("CMC_WaitingforSpawn.ogg");
   Music("CMC_WaitingforSpawn.ogg",1);
+  //Himmelparallaxität
+  SetSkyParallax(1, 40, 40, 0, 0, SkyPar_Keep, SkyPar_Keep);
   //Türenteam1
   aDoor1 = [];
   //Türenteam2
