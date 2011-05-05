@@ -40,7 +40,7 @@ public func OnSingleReloadStart(int iSlot)				{}
 public func OnSingleReloadStop(int iSlot)				{}
 public func OnPrepareReloadStop(int iSlot)				{}
 public func OnFinishReloadStart(int iSlot)				{}
-public func OnFireStop(int iSlot)        {}
+public func OnFireStop(int iSlot)					{}
 
 /*----- Initialisierung -----*/
 
