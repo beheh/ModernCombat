@@ -76,7 +76,7 @@ protected func ManageFlares()
   // Blenden über ScreenRGB
   if(SunFree(GetCursor(GetOwner()))) {
     var iYellow = BoundBy((2000-iVectorDist)/5,0,100);
-    ScreenRGB(GetCursor(GetOwner()), RGB(000+(30*iYellow)/100,000+(30*iYellow)/100,000), 255, 10, true, SR4K_LayerLight);
+    ScreenRGB(GetCursor(GetOwner()), RGB(000+(30*iYellow)/100,000+(30*iYellow)/100,000), 255, 10, true, SR4K_LayerLensflare);
   }
 }
 
