@@ -1163,7 +1163,7 @@ protected func TimerCall()
   for(var first = true, iFlags, i = 0; i < GetPlayerCount(); i++)
   {
     var iPlr = GetPlayerByIndex(i);
-    if(GetPilot() && !Hostile(GetOwner(GetPilot()), iPlr) && (!GetCursor(iPlr) || Contained(GetCursor(iPlr)) != this))
+    if(GetPilot() && !Hostile(GetOwner(GetPilot()), iPlr) && (!GetCursor(iPlr) || (Contained(GetCursor(iPlr)) != this) && Contained(GetCursor(iPlr)->~GetRealCursor()) != this))
     {
       if (first)
         first = false;
