@@ -100,7 +100,7 @@ func Collection2(obj)
           SetCommand(obj, "Exit");
           ejected = true;
         }
-        SetCommand(target, "Exit");
+        SetCommand(clonk, "Exit");
       }
 
     }
