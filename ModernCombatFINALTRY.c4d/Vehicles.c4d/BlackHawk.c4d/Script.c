@@ -836,6 +836,7 @@ private func SeatOccupied(a, object ByObj)
 
 private func DeleteActualSeatPassenger(object Obj)
 {
+  if(!Obj) return;
   if(GetPilot() == Obj)
   {
     GetPilot() = 0;
@@ -846,12 +847,12 @@ private func DeleteActualSeatPassenger(object Obj)
   if(GetGunner() == Obj)
   {
     GetGunner() = 0;
-    MGStation->SetGunner(0);
+    if(MGStation) MGStation->SetGunner(0);
   }
   if(GetCoordinator() == Obj)
   {
     GetCoordinator() = 0;
-    RocketStation->SetGunner(0);
+    if(RocketStation) RocketStation->SetGunner(0);
   }
   if(GetPassenger1() == Obj)
     GetPassenger1() = 0;
