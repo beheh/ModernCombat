@@ -12,8 +12,6 @@ public func IsMaster() {
 // Initialisierung
 protected func Initialize()
 {
-  // Array für Overlay
-  aScreens = [];
   // Nur für den Herrn und Meister sichtbar
   SetVisibility (VIS_Owner, this);
   // Das erste Lensflare-Objekt prüft nur, dass jeder Spieler auch sein Umweltobjekt hat
