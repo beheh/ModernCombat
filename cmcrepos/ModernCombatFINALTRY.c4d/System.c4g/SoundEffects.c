@@ -1,10 +1,11 @@
-/* Soundeffekte */
+/*-- Soundeffekte --*/
 
 #strict 2
 
 /* Echo */
 
-global func Echo(string szSound) {
+global func Echo(string szSound)
+{
   var obj = this;
   while(Contained(obj)) obj = Contained(obj);
   if(GetMaterial(AbsX(GetX(obj)), AbsY(GetY(obj))) != -1) return;
