@@ -24,6 +24,7 @@ public func OnHit(int iDamage, int iType, object pFrom)
 public func MeleeHit(pFrom)
 {
   Shatter(BoundBy(20),pFrom);
+  return true;
 }
 
 public func Shatter(int iPower, object pFrom)

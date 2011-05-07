@@ -38,6 +38,8 @@ public func MeleeHit()
   Sound("DoorKick.ogg");
 
   DoDmg(27);
+  
+  return true;
 }
 
 public func OnDestroyed(iType)
