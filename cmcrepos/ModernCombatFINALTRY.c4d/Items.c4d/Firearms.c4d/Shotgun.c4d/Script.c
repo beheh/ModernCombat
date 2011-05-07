@@ -88,8 +88,7 @@ public func Fire1()
   SAMuzzleFlash(RandomX(40,55),user,x,y,angle);
   AddEffect("Pump", this, 1, 1+GetFMData(FM_Recharge, 1)-25, this);
   Sound("PPGN_Fire*.ogg", 0, ammo);
-  SoundLevel("PPGN_Echo*.ogg", 0, this);
-  Sound("PPGN_Echo*.ogg", false, this, 100, 0, 0, true, 1000);
+  Echo("PPGN_Echo*.ogg");
 }
 
 /* Nachladen */
