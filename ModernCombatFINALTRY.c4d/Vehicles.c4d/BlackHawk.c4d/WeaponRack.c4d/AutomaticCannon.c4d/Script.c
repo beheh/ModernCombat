@@ -81,8 +81,7 @@ public func Fire1()
   SABulletCasing(x/3,y/3,-dir*14*(Random(1)+1),-(13+Random(2)),5);
   Sound("ACCN_Fire.ogg", 0, ammo);
   Sound("HullHit*.ogg", false, this);
-  SoundLevel("ACCN_Echo.ogg", 0, this);
-  Sound("ACCN_Echo.ogg", false, this, 100, 0, 0, true, 1000);
+  Echo("ACCN_Echo.ogg");
 }
 
 /* Allgemein */

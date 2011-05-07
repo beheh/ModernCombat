@@ -168,8 +168,7 @@ public func Shoot()
   if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("GunSmoke",4,10,0,0,500,100,RGBa(255,255,255,0));
   MuzzleFlash(RandomX(30,75),this,iX,iY,GetR(pCannon));
   Sound("ATBY_Fire*.ogg");
-  SoundLevel("RTLR_Echo.ogg", 0, this);
-  Sound("RTLR_Echo.ogg", false, this, 100, 0, 0, true, 1000);
+  Echo("RTLR_Echo.ogg");
 }
 
 /* Schaden */
