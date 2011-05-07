@@ -1535,6 +1535,17 @@ local crosshair;
 
 /* Hinlegen */
 
+global func StopFakeDeath(object pTarget)
+{
+  if(inherited(pTarget)) {
+    if(pTarget->~CanCrawl() && !pTarget->~CanStandUp() && !GBackLiquid(GetX(pTarget), GetY(pTarget))) {
+      pTarget->SetAction("Crawl");
+    }
+  }
+     
+  return true;
+}
+
 public func StartCrawling()
 {
   //Hinlegen
@@ -1593,6 +1604,10 @@ public func CanStandUp2()
 }
 
 /* Callbacks */
+
+public func CanCrawl() {
+  return true;
+}
 
 protected func StartCrawl()
 {
