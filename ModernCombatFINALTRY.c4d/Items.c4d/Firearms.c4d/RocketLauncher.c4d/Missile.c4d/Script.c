@@ -255,9 +255,12 @@ public func FxDamagedTimer(object pTarget, int iEffectNumber, int iEffectTime)
   CreateParticle("Thrust",0,0,0,0,70+Random(30),RGBa(255,255,255,0),0,0);
 }
 
-protected func CheckContact() {
-  if (GetContact(this, -1) || Stuck()) {
+protected func CheckContact()
+{
+  if (GetContact(this, -1) || Stuck())
+  {
     return Hit();
+
   }
 }
 
