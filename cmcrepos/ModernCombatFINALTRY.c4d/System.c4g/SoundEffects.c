@@ -6,10 +6,11 @@
 
 global func Echo(string szSound)
 {
+  var iLevel = 100;
   var obj = this;
   while(Contained(obj)) obj = Contained(obj);
-  if(GetMaterial(AbsX(GetX(obj)), AbsY(GetY(obj))) != -1) return;
+  if(GetMaterial(AbsX(GetX(obj)), AbsY(GetY(obj))) != -1) iLevel /= 3;
   SoundLevel(szSound, 0, this);
-  Sound(szSound, false, this, 100, 0, 0, true, 1000);
+  if(iLevel) Sound(szSound, false, this, BoundBy(iLevel, 0, 100), 0, 0, true, 1000);
   return true;
 }
