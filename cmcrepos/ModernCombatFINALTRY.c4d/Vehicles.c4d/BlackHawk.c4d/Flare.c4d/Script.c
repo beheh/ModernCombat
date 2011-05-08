@@ -57,5 +57,10 @@ public func Damage()
 
 protected func Hit()
 {
+  //Effekte
+  if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",12, 10, 0, 0, 100, 100, RGBa(255,255,255,100), RGBa(255,255,255,130));
+  Sparks(30,RGB(255,128));
+  Sound("Crackle.ogg");
+
   RemoveObject();
 }
