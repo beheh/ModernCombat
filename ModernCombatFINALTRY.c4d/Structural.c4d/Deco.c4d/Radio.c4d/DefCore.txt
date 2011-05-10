@@ -12,6 +12,6 @@ Components=METL=3
 Picture=0,16,60,48
 Vertices=5
 VertexX=-4,3,-4,2,-1
-VertexY=8,8,4,4,1
+VertexY=7,7,4,4,1
 VertexFriction=20,20,20,20
 Grab=2
