@@ -7,6 +7,7 @@ local iTrack;
 
 static const RDIO_TrackCount = 7;
 
+
 /* Initialisierung */
 
 func Initialize()
@@ -22,7 +23,8 @@ protected func ControlDig(pClonk)
   {
     TurnOn();
   }
-  else {
+  else
+  {
     TurnOff();
     NextTrack();
   }
@@ -31,39 +33,46 @@ protected func ControlDig(pClonk)
 
 /* Radiologik */
 
-public func IsPlaying() {
+public func IsPlaying()
+{
   return fPlaying;
 }
 
-public func TurnOn() {
+public func TurnOn()
+{
   ScheduleCall(this, "StartSong", 8);
   Static();
   CreateParticle("NoGravSpark", 3, 3, 0, 0, 50, RGBa(10, 150, 250, 50));
   fPlaying = true;
 }
 
-public func TurnOff() {
+public func TurnOff()
+{
   StopSong();
   fPlaying = false;
 }
 
-public func NextTrack() {
+public func NextTrack()
+{
   var fOn = IsPlaying();
   if(fOn) TurnOff();
   iTrack = iTrack % RDIO_TrackCount + 1;
   if(fOn) TurnOn();
 }
 
-protected func StartSong() {
+protected func StartSong()
+{
   SoundLevel(Format("Radio_%d.ogg", iTrack), 100, this);
 }
 
-protected func StopSong() {
+protected func StopSong()
+{
   ClearScheduleCall(this, "StartSong");
   Sound("Radio_*.ogg", false, this, 0, 0, -1);
 }
 
-protected func Static() {
+protected func Static()
+{
   Sound("RadioStatic.ogg", 0, this);
 }
 
