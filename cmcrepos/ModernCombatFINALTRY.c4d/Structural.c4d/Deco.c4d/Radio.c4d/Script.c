@@ -2,44 +2,69 @@
 
 #strict 2
 
-local isPlaying;
+local fPlaying;
+local iTrack;
 
+static const RDIO_TrackCount = 7;
 
 /* Initialisierung */
 
 func Initialize()
 {
-  isPlaying = -1;
+  iTrack = 1;
 }
 
 /* Bedienung */
 
-protected func ControlThrow(pClonk)
-{
-  //Eingeschaltet?
-  if(isPlaying == 1)
-  {
-    //Zufälligen neuen Track abspielen
-    Sound("Radio_*.ogg", false, this(), 0, 0, -1);
-    Sound("Radio_*.ogg", false, this(), 0, 0, 1);
-    Schedule("Sound(\"Radio_*.ogg\", false, this(), 0, 0, 1)", 5);
-
-    //Effekt
-    CreateParticle("NoGravSpark", 3, 3, 0, 0, 50, RGBa(10, 150, 250, 50));
-  }
-  Sound("ArrowHit.WAV");
-}
-
 protected func ControlDig(pClonk)
 {
-  //Ein- oder ausschalten
-  if (isPlaying == 1) isPlaying -= 2;
-  else isPlaying += 2; 
-  Sound("Radio_*.ogg", false, this(), 0, 0, isPlaying);
+  if(!IsPlaying())
+  {
+    TurnOn();
+  }
+  else {
+    TurnOff();
+    NextTrack();
+  }
+  Sound("ArrowHit");
+}
 
-  //Effekte
-  CreateParticle("NoGravSpark", 3, 1, 0, 0, 50, RGBa(250, 10, 10, 50));
-  Sound("ArrowHit.WAV");
+/* Radiologik */
+
+public func IsPlaying() {
+  return fPlaying;
+}
+
+public func TurnOn() {
+  ScheduleCall(this, "StartSong", 8);
+  Static();
+  CreateParticle("NoGravSpark", 3, 3, 0, 0, 50, RGBa(10, 150, 250, 50));
+  fPlaying = true;
+}
+
+public func TurnOff() {
+  StopSong();
+  fPlaying = false;
+}
+
+public func NextTrack() {
+  var fOn = IsPlaying();
+  if(fOn) TurnOff();
+  iTrack = iTrack % RDIO_TrackCount + 1;
+  if(fOn) TurnOn();
+}
+
+protected func StartSong() {
+  SoundLevel(Format("Radio_%d.ogg", iTrack), 100, this);
+}
+
+protected func StopSong() {
+  ClearScheduleCall(this, "StartSong");
+  Sound("Radio_*.ogg", false, this, 0, 0, -1);
+}
+
+protected func Static() {
+  Sound("RadioStatic.ogg", 0, this);
 }
 
 /* Schaden */
@@ -58,7 +83,7 @@ protected func Damage()
     Sound("RadioStatic.ogg");
 
     //Eventuelle Musik abstellen
-    Sound("Radio_*.ogg", false, this(), 0, 0, -1);
+    TurnOff();
 
     //Verschwinden
     RemoveObject();
