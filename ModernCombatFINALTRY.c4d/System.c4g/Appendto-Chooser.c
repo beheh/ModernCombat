@@ -15,8 +15,7 @@ protected func Initialize()
 {
   _inherited();
   LoadRuleCfg();
-  iEffectCount = 3; 
-  if(IsNetwork()) iEffectCount = 1;
+  iEffectCount = 3;
 }
 
 /* Nur eine Mitteilung für Neugierige */
