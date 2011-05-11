@@ -78,7 +78,7 @@ public func Secure()
 
 public func FxThrustSoundTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
-  Sound("RPGP_Thrust.ogg",0,0,0,0,+1);
+  Sound("MISL_Thrust.ogg",0,0,0,0,+1);
   return -1;
 }
 
@@ -195,7 +195,7 @@ private func Traveling()
 
 private func StopThrust()
 {
-  Sound("RPGP_Thrust.ogg",0,0,0,0,-1);
+  Sound("MISL_Thrust.ogg",0,0,0,0,-1);
 }
 
 /* Rauch */
@@ -246,7 +246,7 @@ public func GetDamaged()
   //Schadenseffekt
   AddEffect("Damaged",this,1,1,this);
 
-  Sound("RPGP_ShotDown.ogg");
+  Sound("MISL_ShotDown.ogg");
   SetAction("Idle");
 }
 
