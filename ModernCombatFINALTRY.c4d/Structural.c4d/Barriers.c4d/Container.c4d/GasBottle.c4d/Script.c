@@ -32,7 +32,7 @@ func InstaExplode(int iPlr)
   SetYDir(-Cos(GetR(),45));
   
   //Sound
-  Sound("RPGP_Thrust.ogg",0,0,0,-1,1);
+  Sound("MISL_Thrust.ogg",0,0,0,-1,1);
 
   //Explosion
   ScheduleCall(this, "BlowUp", 25,0,iPlr);
