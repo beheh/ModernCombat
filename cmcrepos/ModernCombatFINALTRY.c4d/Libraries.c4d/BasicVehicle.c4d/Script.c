@@ -9,7 +9,7 @@ local aDealers;
 public func OnDamage()			{}							//Beim Erhalten von Schaden
 public func OnDestruction()		{}							//Bei der Zerstörung des Fahrzeugs
 public func MaxDamage()			{return 100;}						//Maximalschaden
-public func BonusPointCondition()	{return Hostile(GetLastAttacker(),GetController());}	//Ob bei der Zerstörung Punkte vergeben werden
+public func BonusPointCondition()	{return true;}	//Ob bei der Zerstörung Punkte vergeben werden
 
 public func GetLastAttacker()		{return iLastAttacker;}					//Letzer Angreifer
 public func IsDestroyed()		{return fDestroyed;}					//Zerstört
@@ -21,12 +21,18 @@ public func IsCMCVehicle()		{return true;}						//Ist ein CMC Fahrzeug
 public func Initialize()
 {
   fDestroyed = false;
-  iLastAttacker = -1;
+  iLastAttacker = NO_OWNER;
   aDealers = CreateArray();
 
   //Neutrale Fahrzeuge sind weiß
-  if(GetOwner() == NO_OWNER) SetColorDw(RGB(255,255,255));
-    AddEffect("VehicleNoOwner", this, 50, 38, this);
+  if(GetOwner() == NO_OWNER) {
+    SetColorDw(RGB(255,255,255));
+  }
+  else {
+    SetColorDw(GetPlrColorDw(GetOwner()));
+  }
+  
+  AddEffect("VehicleNoOwner", this, 50, 38, this);
 
   return true;
 }
@@ -51,6 +57,7 @@ global func FxVehicleNoOwnerTimer(object pTarget, int iEffectNumber, int iTime)
     EffectVar(0, pTarget, iEffectNumber) = 10;
   }
   if(EffectVar(0, pTarget, iEffectNumber) > 0) return FX_OK;
+  SetController(NO_OWNER, pTarget);
   SetOwnerFade(NO_OWNER, pTarget);
   return FX_OK;
 }
@@ -75,7 +82,7 @@ public func OnHit(int iDmg, int iType, object pBy)
   if(!IsDestroyed())
   {
     iLastAttacker = iPlr;
-    if(Hostile(iPlr, GetController()))
+    if(Hostile(iPlr, GetOwner()))
     {
       if(!aDealers)
         aDealers = CreateArray();
@@ -100,7 +107,7 @@ public func Destroyed()
   fDestroyed = true;
 
   //Punkte bei Belohnungssystem
-  if(BonusPointCondition() && iLastAttacker != -1 && GetOwner() != -1 && Hostile(GetOwner(), iLastAttacker))
+  if(BonusPointCondition() && iLastAttacker != NO_OWNER && GetOwner() != NO_OWNER && Hostile(GetOwner(), iLastAttacker))
     DoPlayerPoints(BonusPoints("Destruction"), RWDS_BattlePoints, iLastAttacker, GetCursor(iLastAttacker), IC03);
 
   //Sound
@@ -110,7 +117,7 @@ public func Destroyed()
   OnDestruction();
 
   //Letzen Angreifer zurücksetzen
-  iLastAttacker = -1;
+  iLastAttacker = NO_OWNER;
 }
 
 /* Umfärbung */
@@ -122,7 +129,7 @@ global func SetOwnerFade(int iPlr, object pTarget, int iDuration)
   if(!pTarget) pTarget = this;
   if(!pTarget) return 0;
   if(GetOwner(pTarget) == iPlr) return true;
-    if(GetOwner(pTarget) == -1 && GetColorDw(pTarget) == 0) SetColorDw(RGB(0,0,255), pTarget);	
+    if(GetOwner(pTarget) == NO_OWNER && GetColorDw(pTarget) == 0) SetColorDw(RGB(0,0,255), pTarget);	
       clrOld = GetColorDw(pTarget);
   if(iPlr != NO_OWNER) clrNew = GetPlrColorDw(iPlr);
   SetColorDwFade(clrNew, pTarget, iDuration);
