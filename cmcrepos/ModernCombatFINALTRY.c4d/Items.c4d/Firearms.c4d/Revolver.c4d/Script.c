@@ -9,7 +9,7 @@ public func HandSize()		{return(800);}
 public func HandX()		{return(4000);}
 public func HandY()		{return(-700);}
 public func BarrelYOffset()	{return(-5000);}
-public func SelectionTime()	{return(15);}
+public func SelectionTime()	{return(10);}
 
 
 /* Kugeln */
@@ -22,12 +22,12 @@ public func FMData1(int data)
   if(data == FM_AmmoLoad)	return(6);
   if(data == FM_AmmoUsage)	return(1);
 
-  if(data == FM_Recharge)	return(15);
+  if(data == FM_Recharge)	return(10);
 
-  if(data == FM_SingleReload)	return(8);
-  if(data == FM_Reload)		return(100);
-  if(data == FM_PrepareReload)	return(30);
-  if(data == FM_FinishReload)	return(35);
+  if(data == FM_SingleReload)	return(6);
+  if(data == FM_Reload)		return(90);
+  if(data == FM_PrepareReload)	return(20);
+  if(data == FM_FinishReload)	return(20);
 
   if(data == FM_Damage)		return(20);
   
@@ -35,7 +35,7 @@ public func FMData1(int data)
   
   if(data == FM_SpreadAdd)	return(100);
   if(data == FM_StartSpread)	return(10);
-  if(data == FM_MaxSpread)	return(300);
+  if(data == FM_MaxSpread)	return(200);
 
   return(Default(data));
 }
