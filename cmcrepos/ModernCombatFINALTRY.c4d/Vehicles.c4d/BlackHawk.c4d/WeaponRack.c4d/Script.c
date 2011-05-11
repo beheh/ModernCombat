@@ -14,15 +14,15 @@ local Rad,Ang;
 local rot_left,rot_right;
 local blinkspeed;
 
-public func GetAttWeapon()	{return cur_Attachment;}						//Waffe
-public func MaxRotLeft()	{return rot_left+GetDir(heli)*(180-rot_right+180-rot_left)+GetR();}	//Maximaler Winkel links
-public func MaxRotRight()	{return rot_right+GetDir(heli)*(180-rot_right+180-rot_left)+GetR();}	//Maximaler Winkel rechts
-public func AimAngle()		{return aim_angle+GetR();}						//Winkel auf Ziel
-public func ReadyToFire()	{return 1;}								//Allzeit bereit
-public func IsAiming()		{return true;}								//Geschütz immer am Zielen
-public func IsThreat()		{return pController;}							//Status
-public func UpdateCharge()	{return 1;}
-public func BonusPointCondition() {return false;}               //Bonuspunkte macht der BlackHawk 
+public func GetAttWeapon()		{return cur_Attachment;}						//Waffe
+public func MaxRotLeft()		{return rot_left+GetDir(heli)*(180-rot_right+180-rot_left)+GetR();}	//Maximaler Winkel links
+public func MaxRotRight()		{return rot_right+GetDir(heli)*(180-rot_right+180-rot_left)+GetR();}	//Maximaler Winkel rechts
+public func AimAngle()			{return aim_angle+GetR();}						//Winkel auf Ziel
+public func ReadyToFire()		{return 1;}								//Allzeit bereit
+public func IsAiming()			{return true;}								//Geschütz immer am Zielen
+public func IsThreat()			{return pController;}							//Status
+public func UpdateCharge()		{return 1;}
+public func BonusPointCondition()	{return false;}								//Bonuspunkte macht der BlackHawk 
 
 
 /* Aufrufe */
