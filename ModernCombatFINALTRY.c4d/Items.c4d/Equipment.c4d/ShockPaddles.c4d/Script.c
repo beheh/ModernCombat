@@ -112,7 +112,7 @@ func Use(caller)
     //Eventnachricht: Spieler reanimiert Spieler
     EventInfo4K(0,Format("$MsgReanimation$",GetTaggedPlayerName(GetOwner(caller)), GetTaggedPlayerName(GetOwner(obj))),FKDT);
 
-    //Achievement-Fortschritt
+    //Achievement-Fortschritt (Shock Therapist)
     DoAchievementProgress(1, AC04, GetOwner(caller));
 
     //Punkte bei Belohnungssystem
@@ -140,6 +140,7 @@ func Use(caller)
         DoDmg(30+Random(10),DMG_Energy,target,0,GetController(caller)+1,GetID());
         if(Hostile(GetOwner(GetUser()), GetOwner(target)))
           if(!GetAlive(target) || IsFakeDeath(target))
+            //Achievement-Fortschritt (Don't tase me Bro)
             DoAchievementProgress(1, AC05, GetOwner(GetUser()));
         Fling(target,2*dir,-2);
         if(!target)

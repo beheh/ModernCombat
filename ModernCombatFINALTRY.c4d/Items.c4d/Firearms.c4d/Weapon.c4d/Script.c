@@ -693,6 +693,7 @@ public func ControlThrow(caller)
           }
           if(GetOwner(target) != NO_OWNER && Hostile(GetOwner(target), GetController(GetUser())))
             if(!GetAlive(target) || IsFakeDeath(target))
+              //Achievement-Fortschritt (Eat this!)
               DoAchievementProgress(1, AC14, GetOwner(GetUser()));
           meleeattacked = true;
         }

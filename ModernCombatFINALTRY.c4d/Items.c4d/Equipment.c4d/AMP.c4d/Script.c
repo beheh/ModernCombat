@@ -142,7 +142,7 @@ public func DoTeamSupport(array aClonks)
     Sound("Resupply.ogg");
     DoPackPoints(-ammoID->MaxAmmo() / 10 * factor);
 
-    //Achievement-Fortschritt
+    //Achievement-Fortschritt (Ammo Distributor)
     DoAchievementProgress(ammoID->MaxAmmo() / 10 * factor, AC03, GetOwner(Contained()));
 
     //Punkte bei Belohnungssystem

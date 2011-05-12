@@ -155,6 +155,7 @@ private func RemoveShield()
 
 public func DoHit(int iHit)
 {
+  //Achievement-Fortschritt (Walking Tank)
   DoAchievementProgress(iHit, AC06, GetController());
   iHits += iHit;
   if(iHits >= 120)

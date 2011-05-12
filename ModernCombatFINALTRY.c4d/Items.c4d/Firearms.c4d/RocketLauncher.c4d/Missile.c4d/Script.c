@@ -310,6 +310,18 @@ private func HitObject(pObj)
     }
    }
 
+  if(GetAction() == "Fall")
+  {
+    if(pObj)
+    {
+      if(GetOCF(pObj) & OCF_Alive && Hostile(GetOwner(pObj), GetController()))
+      {
+        //Achievement-Fortschritt (Missile Artillery)
+        DoAchievementProgress(1, AC20, GetController());
+      }
+    }
+  }
+
   exploding = true;
   Sound("GrenadeExplosion*.ogg");
 

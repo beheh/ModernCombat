@@ -229,7 +229,9 @@ global func DoPlayerPoints(int iPoints, int iType, int iPlr, object pClonk, id i
   if(!iPoints) return;
   if(iType != RWDS_BattlePoints && iType != RWDS_TeamPoints && iType != RWDS_MinusPoints)
     return ErrorLog("Invalid points type %d for %d points at %v", iType, iPoints, pClonk);
-  if(db->SetPlayerData(db->GetPlayerPoints(iType, iPlr)+iPoints, iType, iPlr)) {
+  if(db->SetPlayerData(db->GetPlayerPoints(iType, iPlr)+iPoints, iType, iPlr))
+  {
+    //Achievement-Fortschritt (Point Hunter)
     DoAchievementProgress(iPoints, AC13, iPlr);
     if(pClonk)
     {

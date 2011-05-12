@@ -42,6 +42,7 @@ func SearchObjects()
   {
     if(GetOCF(target) & OCF_Alive && Hostile(GetOwner(target), GetController()))
     {
+      //Achievement-Fortschritt (In the Face)
       DoAchievementProgress(1, AC16, GetController());
     }
     Hit();
