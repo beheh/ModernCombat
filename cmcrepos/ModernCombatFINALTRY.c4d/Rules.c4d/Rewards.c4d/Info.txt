@@ -2,7 +2,9 @@ Erweitertes Belohnungssystem
 
 Dieses System ermöglicht es Spieler und deren Leistung genauer bewerten zu können. Dazu werden Punkte vergeben, welche am Ende der Runde ausgewertet werden. Es ist komplett dynamisch und kann je nach Bedarf verändert und erweitert werden.
 
-Standardliche Punkteliste:
+Standardpunkteliste:
+
+Gefecht:
 
 Kill					50
 Kill Assist				30
@@ -12,23 +14,42 @@ Reanimation				50
 Dragnininjektion an Verbündeten		10
 Munitionierung				[Anzahl]/3
 Heilung					[Anzahl]/4
-Flaggenpostenneutralisierung		10
-Flaggenposteneroberung			50
-Flaggenpostenverteidigung		30
-Flaggenrückeroberung			30
-Hilfe bei Flaggenposteneroberung	10
-Flaggendiebstahl			50
-Flaggenrückeroberung			30
 Entschärfung				20
 Schildabwehr				10
-Zerstörung				50
-Peilsenderplazierung			10
-Assist-Kill mit Peilsender		20
-Beschädigung				10
 Assist Kill durch Blendung		10
+
+Fahrzeuge:
+
+Zerstörung				50
+Beschädigung				10
 Projektil abgewehrt			10
 Assist-Kill aus Fahrzeug heraus		30
 
+Peilsender:
+
+Peilsenderplazierung			10
+Assist-Kill mit Peilsender		20
+
+Besitznahme:
+
+Flaggenpostenneutralisierung		10
+Flaggenposteneroberung			50
+Hilfe bei Flaggenposteneroberung	10
+Flaggenpostenverteidigung		30
+Flaggenpostenrückeroberung		30
+
+Capture the Flag:
+
+Flaggendiebstahl			50
+Flaggenrückeroberung			30
+
+Hold the Flag (s.a. Besitznahme):
+
+Punkt erhalten				10
+
+Assault / Base Assault:
+
+Zielobjekt zerstört			50
 
 Es gibt außerdem diverse optionale Bonuspunkte für Aktionen wie das Zerstören einer gegnerischen Heimbasis oder das Anzünden von gegnerischen Clonks.
 Alle Werte können unter System.c4g\RewardSystem-Points.c verändert werden.
