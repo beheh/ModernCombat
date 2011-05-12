@@ -126,6 +126,7 @@ public func DoTeamSupport(array aClonks)
   for (var pClonk in aClonks)
   {
     DoEnergy(heal, pClonk);
+    //Achievement-Fortschritt (I'll fix you up!)
     DoAchievementProgress(heal, AC02, GetOwner(Contained()));
     iHealed += heal;
     CreateParticle("ShockWave", GetX(pClonk) - GetX(), GetY(pClonk) - GetY(), 0, 0, 5 * (5  + GetObjHeight(pClonk)), RGB(0, 230, 255), pClonk);

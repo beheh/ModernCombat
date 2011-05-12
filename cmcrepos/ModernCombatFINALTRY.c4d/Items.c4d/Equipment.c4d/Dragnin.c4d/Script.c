@@ -49,8 +49,8 @@ func Sting(caller)
     AddEffect("DragninHeal",obj,20,1,0,GetID(),HealAmount(),HealRate());
     Sound("DGNN_Use.ogg");
 
-    //Punkte bei Belohnungssystem
     DoPlayerPoints(DragninPoints(), RWDS_TeamPoints, GetOwner(caller), caller, IC05);
+    //Achievement-Fortschritt (I'll fix you up!)
     DoAchievementProgress(DragninPoints(), AC02, GetOwner(caller));
 
     RemoveObject();

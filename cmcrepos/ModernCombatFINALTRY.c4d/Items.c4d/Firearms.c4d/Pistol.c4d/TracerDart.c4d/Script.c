@@ -120,6 +120,7 @@ public func BulletStrike(object pObj)
       if(Hostile(GetOwner(pObj), GetController()))
       {
         DoPlayerPoints(BonusPoints("TracerSet"), RWDS_TeamPoints, GetController(), GetCursor(GetController()), IC17);
+        //Achievement-Fortschritt (Radio Warfare)
         DoAchievementProgress(1, AC19, GetController());
       }
       return true;

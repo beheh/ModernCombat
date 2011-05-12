@@ -116,6 +116,7 @@ private func Building()
 public func DoHitPoints(int iPoints)
 {
   if(!GetAlive() || IsFakeDeath()) return;
+  //Achievement-Fortschritt (Meat Shield)
   DoAchievementProgress(iPoints, AC12, GetOwner());
   return true;
 }
@@ -262,11 +263,13 @@ protected func DoPoints()
      	if(pClonk->~GetRealCursor()) pClonk = pClonk->~GetRealCursor();
      	//Marksman
       if(ObjectDistance(pClonk, this) >= 350 && LastDamageType() == DMG_Projectile && KillIcon()->~IsWeapon2() && !Contained(pClonk)) {
+        //Achievement-Fortschritt (Marksman)
         DoAchievementProgress(1,AC17,killer);
       }
      	//Helikopter-Sachen
     	if(Contained(pClonk) && Contained(pClonk)->~IsHelicopter()) {
     	  if(LastDamageType() == DMG_Projectile || LastDamageType() == DMG_Explosion) {
+          	//Achievement-Fortschritt (Get to the Chopper)
     	  	DoAchievementProgress(1,AC18,killer);
     	  }
     	  if(Contained(pClonk)->~GetPilot()) {
@@ -285,6 +288,7 @@ protected func DoPoints()
     if(assist != killer && GetPlayerName(assist))
     {
       DoPlayerPoints(AssistPoints(), RWDS_BattlePoints, assist, GetCursor(assist), IC02);
+      //Achievement-Fortschritt (Helping Hand)
       if(!Hostile(assist, killer)) DoAchievementProgress(1, AC01, assist);
     }
     if(LastDamageType() == DMG_Explosion) {
@@ -293,7 +297,7 @@ protected func DoPoints()
 	  }
   }
   
-  //Nonswimmer
+  //Achievement-Fortschritt (Non-Swimmer)
   if(GBackLiquid()) DoAchievementProgress(1, AC11, GetOwner());
   
   //Selfkill
@@ -452,6 +456,7 @@ global func FakeDeath(object pTarget)
   {
     if(GetProcedure(pTarget) == "FLIGHT" && GetProcedure(GetCursor(GetKiller(pTarget))) == "FLIGHT")
     	if(GetActTime(pTarget) > 10 && GetActTime(GetCursor(GetKiller(pTarget))) > 10)
+        //Achievement-Fortschritt (Fly-By)
       	DoAchievementProgress(1, AC10, GetKiller(pTarget));
   }
   ResetAchievementProgress(AC12, GetOwner());

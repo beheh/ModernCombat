@@ -351,6 +351,7 @@ public func FlagCaptured(object pFlag, int iTeam, array pAttackers, bool fRegain
       {
         //Flaggeneroberung
         DoPlayerPoints(BonusPoints("OPConquer"), RWDS_TeamPoints, GetOwner(pClonk), pClonk, IC10);
+        //Achievement-Fortschritt (Flagship)
         DoAchievementProgress(1, AC07, GetOwner(pClonk));
         DoWealth(GetOwner(pClonk), 30);
       }
@@ -358,6 +359,7 @@ public func FlagCaptured(object pFlag, int iTeam, array pAttackers, bool fRegain
       {
         //Hilfe bei Flaggeneroberung
         DoPlayerPoints(BonusPoints("OPAssist"), RWDS_TeamPoints, GetOwner(pClonk), pClonk, IC13);
+        //Achievement-Fortschritt (Flagship)
         DoAchievementProgress(1, AC07, GetOwner(pClonk));
         DoWealth(GetOwner(pClonk), 20);
       }
