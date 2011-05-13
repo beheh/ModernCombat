@@ -115,7 +115,7 @@ func Use(caller)
     //Achievement-Fortschritt (Shock Therapist)
     DoAchievementProgress(1, AC04, GetOwner(caller));
 
-    //Punkte bei Belohnungssystem
+    //Punkte bei Belohnungssystem (Reanimation)
     DoPlayerPoints(ReanimationPoints(), RWDS_TeamPoints, GetOwner(caller), caller, IC04);
 
     //Energie entladen

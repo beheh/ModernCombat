@@ -241,19 +241,19 @@ protected func GetAssist()
 
 protected func DoPoints()
 {
-  //Punkte vergeben
   var killer = GetKiller();
 
   if(!machinekill)
     if(killer < 0 || killer == GetOwner())
+      //Punkte bei Belohnungssystem (Selbstmord)
       DoPlayerPoints(SuicidePoints(), RWDS_MinusPoints, GetOwner(), this, IC07);
 
 	var aDoomBoom = GetAchievementExtra(AC15, killer);
 	if(!aDoomBoom) aDoomBoom = CreateArray();
 
-  //Ansonsten Killpunkte geben (und Assistkills)
   if(Hostile(killer,GetOwner()))
   {
+    //Punkte bei Belohnungssystem (Kill)
     DoPlayerPoints(KillPoints(), RWDS_BattlePoints, killer, GetCursor(killer), IC01);
     
     //Achievements und Punkte für den Killer
@@ -277,6 +277,7 @@ protected func DoPoints()
         	var pPilot = Contained(pClonk)->~GetPilot();
         	if(pPilot->~GetRealCursor()) pPilot = pPilot->~GetRealCursor();
         	if(GetOwner(pPilot) != GetOwner(pClonk)) {
+                        //Punkte bei Belohnungssystem (Kill Assist aus Fahrzeug heraus)
         		DoPlayerPoints(AssistPoints(), RWDS_TeamPoints, GetOwner(pPilot), pPilot, IC02);      	
         	}
       	}
@@ -287,6 +288,7 @@ protected func DoPoints()
 		var assist = GetAssist();
     if(assist != killer && GetPlayerName(assist))
     {
+      //Punkte bei Belohnungssystem (Kill Assist)
       DoPlayerPoints(AssistPoints(), RWDS_BattlePoints, assist, GetCursor(assist), IC02);
       //Achievement-Fortschritt (Helping Hand)
       if(!Hostile(assist, killer)) DoAchievementProgress(1, AC01, assist);
@@ -316,6 +318,7 @@ protected func DoPoints()
   
   //Teamkiller
   if(!Hostile(killer,GetOwner()) && killer != GetOwner() && !(killer < 0))
+    //Punkte bei Belohnungssystem (Teamkill)
     DoPlayerPoints(TeamkillPoints(), RWDS_MinusPoints, killer, GetCursor(killer), IC06);
   
   //Punkte für Einräucherer/Blender
@@ -323,11 +326,13 @@ protected func DoPoints()
   if(effectno = GetEffect("SmokeGrenade", this))
   {
     if(Hostile(EffectVar(1, this, effectno),GetOwner()) && killer != EffectVar(1, this, effectno))
+      //Punkte bei Belohnungssystem (Kill Assist durch Blendung)
       DoPlayerPoints(BonusPoints("VisualAssist"), RWDS_TeamPoints, EffectVar(1, this, effectno), GetCursor(EffectVar(1, this, effectno)), IC19);
   }
   if(effectno = GetEffect("IntFlashbang", this))
   {
     if(Hostile(EffectVar(2, this, effectno),GetOwner()) && killer != EffectVar(2, this, effectno))
+      //Punkte bei Belohnungssystem (Kill Assist durch Blendung)
       DoPlayerPoints(BonusPoints("VisualAssist"), RWDS_TeamPoints, EffectVar(2, this, effectno), GetCursor(EffectVar(2, this, effectno)), IC19);
   }
 }

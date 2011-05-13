@@ -93,6 +93,7 @@ public func OnHit(int iDmg, int iType, object pBy)
       aDealers[iPlr] += iDmg;
       while(aDealers[iPlr] >= 50)
       {
+        //Punkte bei Belohnungssystem (Beschädigung)
         DoPlayerPoints(BonusPoints("VehicleDamage"), RWDS_BattlePoints, iLastAttacker, GetCursor(iLastAttacker), IC18);
         aDealers[iPlr] -= 50;
       }
@@ -108,8 +109,8 @@ public func Destroyed()
   //Status setzen
   fDestroyed = true;
 
-  //Punkte bei Belohnungssystem
   if(BonusPointCondition() && iLastAttacker != NO_OWNER && GetOwner() != NO_OWNER && Hostile(GetOwner(), iLastAttacker))
+    //Punkte bei Belohnungssystem (Fahrzeugzerstörung)
     DoPlayerPoints(BonusPoints("Destruction"), RWDS_BattlePoints, iLastAttacker, GetCursor(iLastAttacker), IC03);
 
   //Sound

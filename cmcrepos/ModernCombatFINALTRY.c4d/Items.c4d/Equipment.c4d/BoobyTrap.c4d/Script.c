@@ -188,8 +188,8 @@ public func ControlUp(object pObjBy)
 {
   if(Contained()) return;
 
-  //Punkte bei Belohnungssystem
-  if(Hostile(GetOwner(),GetOwner(pObjBy))) 
+  if(Hostile(GetOwner(),GetOwner(pObjBy)))
+    //Punkte bei Belohnungssystem (Entschärfung)
     DoPlayerPoints(BonusPoints("TechnicalTask"), RWDS_TeamPoints, GetOwner(pObjBy), pObjBy, IC15);
 
   //Träger = Besitzer

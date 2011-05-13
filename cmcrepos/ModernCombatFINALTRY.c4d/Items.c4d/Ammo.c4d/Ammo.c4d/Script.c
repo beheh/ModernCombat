@@ -58,6 +58,7 @@ public func TransferAmmo(object pObj)
   factor = AmmoID()->~GetPointFactor();
   if (clonk && clonk->~IsClonk() && factor && GetOwner(clonk) != GetOwner(pObj))
   {
+    //Punkte bei Belohnungssystem (Munitionierung)
     DoPlayerPoints(BonusPoints("Restocking", AmmoCount()*factor), RWDS_TeamPoints, GetOwner(clonk), GetCursor(GetOwner(clonk)), IC14);
     //Achievement-Fortschritt (Ammo Distributor)
     DoAchievementProgress(AmmoID()->~MaxAmmo()/10*factor, AC03, GetOwner(clonk));

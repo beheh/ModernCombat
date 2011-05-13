@@ -3,19 +3,19 @@
 #strict 2
 #include PACK
 
-public func IsDrawable()        {return true;}
-public func HandX()             {return 4000;}
-public func HandY()             {return 10;}
-public func HandSize()          {return 1000;}
+public func IsDrawable()		{return true;}
+public func HandX()			{return 4000;}
+public func HandY()			{return 10;}
+public func HandSize()			{return 1000;}
 
-public func StartPoints()       {return 200;}
-public func MaxPoints()         {return 200;}
+public func StartPoints()		{return 200;}
+public func MaxPoints()			{return 200;}
+public func RefillTime()		{return 20;}
+public func TeamSupportTime()		{return 60;}
 
-public func RefillTime()        {return 20;}
+public func IsEquipment()       	{return !NoAmmo();}
+public func AI_Inventory(object pClonk)	{return true;}
 
-public func TeamSupportTime()   {return 60;}
-
-public func IsEquipment()       {return !NoAmmo();}
 
 /* Initialisierung */
 
@@ -145,7 +145,7 @@ public func DoTeamSupport(array aClonks)
     //Achievement-Fortschritt (Ammo Distributor)
     DoAchievementProgress(ammoID->MaxAmmo() / 10 * factor, AC03, GetOwner(Contained()));
 
-    //Punkte bei Belohnungssystem
+    //Punkte bei Belohnungssystem (Munitionierung)
     DoPlayerPoints(BonusPoints("Restocking", ammoID->MaxAmmo() / 10 * factor), RWDS_TeamPoints, GetOwner(Contained()), Contained(), IC14);
   }
 }
@@ -164,4 +164,3 @@ protected func Selection()
   Sound("FAPK_Charge.ogg", false, this);
 }
 
-public func AI_Inventory(object pClonk)     {return true;}
