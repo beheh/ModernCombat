@@ -102,30 +102,35 @@ public func ReportAssaultTargetDestruction(object pTarget, int iTeam)
     var aDmg = pTarget->GetDamager();
     var iPlr = aDmg[1];
         aDmg = aDmg[0];
-    //Der letzte Killer bekommt 50 Punkte. -50 wenn er im selben Team war.
+
+    //Punkte für den letzten Killer
     if (GetPlayerTeam(iPlr) == iTeam)
     {
-      DoPlayerPoints(-50, RWDS_MinusPoints, iPlr, GetCrew(iPlr), IC03);
+      //Punkte bei Belohnungssystem (Team-Zielobjektzerstörung)
+      DoPlayerPoints(BonusPoints("ASTeamDestruction"), RWDS_MinusPoints, iPlr, GetCrew(iPlr), IC03);
       DoWealth(iPlr, -50);
     }
     else
     {
-      DoPlayerPoints(50, RWDS_TeamPoints, iPlr, GetCrew(iPlr), IC03);
+      //Punkte bei Belohnungssystem (Zielobjektzerstörung)
+      DoPlayerPoints(BonusPoints("ASDestruction"), RWDS_TeamPoints, iPlr, GetCrew(iPlr), IC03);
       DoWealth(iPlr, 50);
     }
 
-    //Array durchgehen. Jeder gegnerische Helfer bekommt 20 Punkte, jeder Teamabschuss -20
+    //Punkte für alle Helfer
     for (var i; i < GetLength(aDmg); i++)
     if(GetPlayerName(i) && i != iPlr && aDmg[i])
     {
       if(GetPlayerTeam(i) == iTeam)
       {
-        DoPlayerPoints(-20, RWDS_MinusPoints, i, GetCrew(i), IC03);
+        //Punkte bei Belohnungssystem (Hilfe bei Team-Zielobjektzerstörung)
+        DoPlayerPoints(BonusPoints("ASTeamDestructionAssist"), RWDS_MinusPoints, i, GetCrew(i), IC03);
         DoWealth(i, -20);
       }
       else
       {
-        DoPlayerPoints(20, RWDS_TeamPoints, i, GetCrew(i), IC03);
+        //Punkte bei Belohnungssystem (Hilfe bei Zielobjektzerstörung)
+        DoPlayerPoints(BonusPoints("ASDestructionAssist"), RWDS_TeamPoints, i, GetCrew(i), IC03);
         DoWealth(i, 20);
       }
     }

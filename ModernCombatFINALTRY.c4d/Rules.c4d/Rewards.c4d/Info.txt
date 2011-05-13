@@ -6,50 +6,56 @@ Standardpunkteliste:
 
 Gefecht:
 
-Kill					50
-Kill Assist				30
-Selbsteleminierung			-30
-Team Kill				-80
-Reanimation				50
-Dragnininjektion an Verbündeten		10
-Munitionierung				[Anzahl]/3
-Heilung					[Anzahl]/4
-Entschärfung				20
-Schildabwehr				10
-Assist Kill durch Blendung		10
+Kill					50		Gefechtspunkte		IC01
+Kill Assist				30		Gefechtspunkte		IC02
+Selbstmord				-30		Minuspunkte		IC07
+Teamkill				-80		Minuspunkte		IC06
+Reanimation				50		Teampunkte		IC04
+Dragnininjektion an Verbündeten		10		Teampunkte		IC05
+Munitionierung				[Anzahl]/3	Teampunkte		IC14
+Heilung					[Anzahl]/4	Teampunkte		IC05
+Entschärfung				20		Teampunkte		IC15
+Schildabwehr				10		Teampunkte		IC16
+Kill Assist durch Blendung		10		Teampunkte		IC19
+Strukturzerstörung			50		Gefechtspunkte		IC03	
 
 Fahrzeuge:
 
-Zerstörung				50
-Beschädigung				10
-Projektil abgewehrt			10
-Assist-Kill aus Fahrzeug heraus		30
+Fahrzeugzerstörung			50		Gefechtspunkte		IC03
+Beschädigung				10		Gefechtspunkte		IC18
+Projektilabwehr				10		Teampunkte		IC16
+Kill Assist aus Fahrzeug heraus		30		Teampunkte		IC02
 
 Peilsender:
 
-Peilsenderplazierung			10
-Assist-Kill mit Peilsender		20
+Peilsenderplazierung			10		Teampunkte		IC17
+Kill Assist durch Peilsender		20		Teampunkte		IC02
 
 Besitznahme:
 
-Flaggenpostenneutralisierung		10
-Flaggenposteneroberung			50
-Hilfe bei Flaggenposteneroberung	10
-Flaggenpostenverteidigung		30
-Flaggenpostenrückeroberung		30
+Flaggenpostenneutralisierung		10		Teampunkte		IC13
+Hilfe bei Flaggenpostenneutralisierung	10		Teampunkte		IC11
+Flaggenposteneroberung			50		Teampunkte		IC10
+Hilfe bei Flaggenposteneroberung	10		Teampunkte		IC11
+Flaggenpostenverteidigung		30		Teampunkte		IC12
+Flaggenpostenrückeroberung		30		Teampunkte		IC12
 
 Capture the Flag:
 
-Flaggendiebstahl			50
-Flaggenrückeroberung			30
+Flaggendiebstahl			50		Teampunkte		IC08
+Flaggenrückeroberung			30		Teampunkte		IC09
 
 Hold the Flag (s.a. Besitznahme):
 
-Punkt erhalten				10
+Flaggenverteidigung			10		Teampunkte		IC12
 
 Assault / Base Assault:
 
-Zielobjekt zerstört			50
+Zielobjektzerstörung			50		Teampunkte		IC03
+Hilfe bei Zielobjektzerstörung		30		Teampunkte		IC03
+Team-Zielobjektzerstörung		-50		Minuspunkte		IC03
+Hilfe bei Team-Zielobjektzerstörung	-30		Minuspunkte		IC03
+
 
 Es gibt außerdem diverse optionale Bonuspunkte für Aktionen wie das Zerstören einer gegnerischen Heimbasis oder das Anzünden von gegnerischen Clonks.
 Alle Werte können unter System.c4g\RewardSystem-Points.c verändert werden.

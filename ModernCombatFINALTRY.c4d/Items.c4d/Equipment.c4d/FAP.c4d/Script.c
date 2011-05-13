@@ -136,10 +136,10 @@ public func DoTeamSupport(array aClonks)
     DoPackPoints(heal / -2);
     Sound("FAPK_Healing*.ogg");
   }
-  //Bonus!
   while (iHealed >= 40)
   {
     iHealed -= 40;
+    //Punkte bei Belohnungssystem (Heilung)
     DoPlayerPoints(BonusPoints("Healing", 40), RWDS_TeamPoints, GetOwner(Contained()), Contained(), IC05);
   }
 }

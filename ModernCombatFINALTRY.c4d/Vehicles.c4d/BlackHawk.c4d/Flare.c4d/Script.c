@@ -49,7 +49,7 @@ public func Damage()
 {
   if(GetDamage() > 20)
   {
-    //Punkte bei Belohnungssystem
+    //Punkte bei Belohnungssystem (Projektilabwehr)
     DoPlayerPoints(BonusPoints("Protection"), RWDS_TeamPoints, GetOwner(), GetCursor(GetOwner()), IC16);
     Hit();
   }

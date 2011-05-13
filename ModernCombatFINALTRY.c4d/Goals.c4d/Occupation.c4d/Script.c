@@ -304,13 +304,13 @@ public func FlagLost(object pFlag, int iTeam, int iTeamAttacker, array pAttacker
   {
     if(!i)
     {
-      //Neutralisierung einer feindlichen Flagge
+      //Punkte bei Belohnungssystem (Flaggenpostenneutralisierung)
       DoPlayerPoints(BonusPoints("OPNeutralize"), RWDS_TeamPoints, GetOwner(pClonk), pClonk, IC13);
       DoWealth(GetOwner(pClonk), 20);
     }
     else
     {
-      //Hilfe bei Flaggeneroberung
+      //Punkte bei Belohnungssystem (Hilfe bei Flaggenpostenneutralisierung)
       DoPlayerPoints(BonusPoints("OPAssist"), RWDS_TeamPoints, GetOwner(pClonk), pClonk, IC10);
       DoWealth(GetOwner(pClonk), 10);
     }
@@ -337,7 +337,7 @@ public func FlagCaptured(object pFlag, int iTeam, array pAttackers, bool fRegain
   {
     for(var pClonk in pAttackers)
     {
-      //Rückeroberung einer attackierte Flagge
+      //Punkte bei Belohnungssystem (Flaggenpostenrückeroberung)
       DoPlayerPoints(BonusPoints("OPDefend"), RWDS_TeamPoints, GetOwner(pClonk), pClonk, IC12);
       DoWealth(GetOwner(pClonk), 15);
     }
@@ -349,7 +349,7 @@ public func FlagCaptured(object pFlag, int iTeam, array pAttackers, bool fRegain
     {
       if(!i)
       {
-        //Flaggeneroberung
+        //Punkte bei Belohnungssystem (Flaggenposteneroberung)
         DoPlayerPoints(BonusPoints("OPConquer"), RWDS_TeamPoints, GetOwner(pClonk), pClonk, IC10);
         //Achievement-Fortschritt (Flagship)
         DoAchievementProgress(1, AC07, GetOwner(pClonk));
@@ -357,8 +357,8 @@ public func FlagCaptured(object pFlag, int iTeam, array pAttackers, bool fRegain
       }
       else
       {
-        //Hilfe bei Flaggeneroberung
-        DoPlayerPoints(BonusPoints("OPAssist"), RWDS_TeamPoints, GetOwner(pClonk), pClonk, IC13);
+        //Punkte bei Belohnungssystem (Hilfe bei Flaggenposteneroberung)
+        DoPlayerPoints(BonusPoints("OPAssist"), RWDS_TeamPoints, GetOwner(pClonk), pClonk, IC11);
         //Achievement-Fortschritt (Flagship)
         DoAchievementProgress(1, AC07, GetOwner(pClonk));
         DoWealth(GetOwner(pClonk), 20);

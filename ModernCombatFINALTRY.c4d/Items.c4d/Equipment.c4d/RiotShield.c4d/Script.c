@@ -161,6 +161,7 @@ public func DoHit(int iHit)
   if(iHits >= 120)
   {
     iHits = 0;
+    //Punkte bei Belohnungssystem (Schildabwehr)
     DoPlayerPoints(BonusPoints("Protection"), RWDS_TeamPoints, GetOwner(Contained()), Contained(), IC16);
   }
 }

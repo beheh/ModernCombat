@@ -107,7 +107,8 @@ protected func FxIntAddProgressTimer()
 	for (var i; i < GetPlayerCount(); i++)
 	  if (GetPlayerTeam(GetPlayerByIndex(i)) == team)
           {
-	    DoPlayerPoints(10, RWDS_TeamPoints, GetPlayerByIndex(i), GetCrew(GetPlayerByIndex(i)), IC12);
+            //Punkte bei Belohnungssystem (Flaggenverteidigung)
+	    DoPlayerPoints(BonusPoints("Protection"), RWDS_TeamPoints, GetPlayerByIndex(i), GetCrew(GetPlayerByIndex(i)), IC12);
 	      Sound("Info.ogg", true, 0, 0, GetPlayerByIndex(i)+1);
 	  }
 	  //Die anderen warnen falls nötig
@@ -168,7 +169,8 @@ public func FlagLost(object pFlagPole, int iOldTeam, int iNewTeam, array aAttack
   //Punkte für die Angreifer
   for (var clonk in aAttackers)
     if(clonk)
-      DoPlayerPoints(10, RWDS_TeamPoints, GetOwner(clonk), clonk, IC13);
+      //Punkte bei Belohnungssystem (Flaggenpostenneutralisierung)
+      DoPlayerPoints(BonusPoints("Protection"), RWDS_TeamPoints, GetOwner(clonk), clonk, IC13);
 
   //Eventmessages
   for (var i; i < GetPlayerCount(); i++)
@@ -187,13 +189,16 @@ public func FlagCaptured(object pFlagPole, int iTeam, array aAttackers, bool fRe
     if (clonk)
     {
       if (fRegained)
-        DoPlayerPoints(30, RWDS_TeamPoints, GetOwner(clonk), clonk, IC12);
+        //Punkte bei Belohnungssystem (Flaggenpostenrückeroberung)
+        DoPlayerPoints(BonusPoints("OPDefend"), RWDS_TeamPoints, GetOwner(clonk), clonk, IC12);
       else
       {
         if(first)
-          DoPlayerPoints(50, RWDS_TeamPoints, GetOwner(clonk), clonk, IC10);
+          //Punkte bei Belohnungssystem (Flaggenposteneroberung)
+          DoPlayerPoints(BonusPoints("OPConquer"), RWDS_TeamPoints, GetOwner(clonk), clonk, IC10);
           else
-          DoPlayerPoints(10, RWDS_TeamPoints, GetOwner(clonk), clonk, IC11);
+          //Punkte bei Belohnungssystem (Hilfe bei Flaggenposteneroberung)
+          DoPlayerPoints(BonusPoints("OPAssist"), RWDS_TeamPoints, GetOwner(clonk), clonk, IC11);
       }
       first = false;
     }

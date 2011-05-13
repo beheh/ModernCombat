@@ -11,7 +11,7 @@ local iShotAngle, iShotSpeed;
 
 private func CreateTrail(int iSize, int iTrail)
 {
-//  pTrail = CreateObject(TRAI,0,0,-1);
+  //pTrail = CreateObject(TRAI,0,0,-1);
   if(pTrail)
   {
     pTrail->Set(iSize+1,iTrail,this);
@@ -116,9 +116,9 @@ public func BulletStrike(object pObj)
           EventInfo4K(iPlr+1, Format("$TargetMarked$", GetPlrColorDw(GetController()), GetPlayerName(GetController())), TRDT, 0, 0, 0, "RadioConfirm*.ogg");
       }
 
-      //Punkte & Achievement
       if(Hostile(GetOwner(pObj), GetController()))
       {
+        //Punkte bei Belohnungssystem (Peilsenderplazierung)
         DoPlayerPoints(BonusPoints("TracerSet"), RWDS_TeamPoints, GetController(), GetCursor(GetController()), IC17);
         //Achievement-Fortschritt (Radio Warfare)
         DoAchievementProgress(1, AC19, GetController());
@@ -202,5 +202,6 @@ global func FxTracerDartStop(object pTarget, int iEffectNumber, int iReason, boo
   if (!GetPlayerName(iPlr)) return;
   if(!Hostile(GetKiller(pTarget), iPlr) && GetKiller(pTarget) != iPlr)
     if(Contained(pTarget) && GetID(Contained(pTarget)) == FKDT || GetAction(pTarget) == "Dead")
+      //Punkte bei Belohnungssystem (Kill Assist durch Peilsender)
       DoPlayerPoints(BonusPoints("TracerAssist"), RWDS_TeamPoints, iPlr, GetCursor(iPlr), IC02);
 }
