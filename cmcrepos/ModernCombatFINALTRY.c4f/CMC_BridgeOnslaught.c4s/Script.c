@@ -378,7 +378,7 @@ func CreateDecoration()
   CreateObject(LCKR, 2510, 530, -1);
 
   //Automaten
-  CreateObject(VGMN, 615, 800, -1)->Set(2);
+  CreateObject(VGMN, 615, 800, -1)->Set(3);
   CreateObject(VGMN, 2115, 800, -1);
 
   //Glastische
@@ -400,7 +400,7 @@ func CreateDecoration()
 
   //Bildschirme
   CreateObject(SCR3, 360, 520, -1);
-  CreateObject(SCA2, 680, 765, -1)->SetAction("Clonk");
+  CreateObject(SCA2, 680, 765, -1)->SetAction("Wompf");
   CreateObject(SCA2, 2045, 765, -1)->SetAction("Clonk");
   CreateObject(SCR3, 2370, 520, -1);
 
