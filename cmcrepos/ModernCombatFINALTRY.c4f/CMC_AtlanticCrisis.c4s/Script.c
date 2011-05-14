@@ -314,8 +314,11 @@ func CreateDecoration()
   CreateObject(OLGH, 3600, 420, -1)->Set(35, 5, 1, 1, 20);
   CreateObject(OLGH, 4365, 400, -1)->Set(4, 15, 1, 1, 40);
 
-  //Automat
-  CreateObject(CLVM, 2840, 530, -1);
+  //Automaten
+  CreateObject(VGMN, 2840, 530, -1);
+  var automat = CreateObject(VGMN, 3140, 530, -1);
+  automat->Set(3);
+  automat->SetPhase(10);
 
   //Büsche
   CreateObject(BSH2, 2770, 570, -1);

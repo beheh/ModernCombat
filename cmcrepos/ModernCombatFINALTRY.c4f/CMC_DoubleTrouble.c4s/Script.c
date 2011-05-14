@@ -257,8 +257,8 @@ func CreateDecoration()
   CreateObject(OLGH, 820, 680, -1)->Set(1, 20, 1, 1, 60);
 
   //Automaten
-  CreateObject(CLVM, 150, 520, -1);
-  CreateObject(CLVM, 1555, 520, -1);
+  CreateObject(VGMN, 150, 520, -1)->Set(3);
+  CreateObject(VGMN, 1555, 520, -1)->Set(2);
 
   //Apparaturen
   CreateObject(GADG, 90, 170, -1)->Set(1);

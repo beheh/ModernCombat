@@ -248,7 +248,7 @@ func CreateDecoration()
   CreateObject(FIEX, 1380, 290, -1);
 
   //Automat
-  CreateObject(CLVM, 510, 710, -1);
+  CreateObject(VGMN, 510, 710, -1);
 
   //Labortisch
   CreateObject(LTBL, 245, 490, -1);

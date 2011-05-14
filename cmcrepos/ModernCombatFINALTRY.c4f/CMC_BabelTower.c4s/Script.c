@@ -522,8 +522,8 @@ func CreateDecoration()
   CreateObject(RAI1, 740, 1610, -1)->SetRail([1,1,1]);
 
   //Automaten
-  CreateObject(CLVM, 500, 870, -1);
-  CreateObject(CLVM, 487, 1800, -1);
+  CreateObject(VGMN, 500, 870, -1);
+  CreateObject(VGMN, 487, 1800, -1)->Set(2);
 
   //Lüftungsgitter
   CreateObject(ENGT, 585, 1370, -1);

@@ -235,8 +235,8 @@ func CreateDecoration()
   CreateObject(OLGH, 2895, 440, -1)->Set(6, 15, 1, 1, 40);
 
   //Automaten
-  CreateObject(CLVM, 700, 690, -1);
-  CreateObject(SPVM, 2840, 570, -1);
+  CreateObject(VGMN, 700, 690, -1);
+  CreateObject(VGMN, 2840, 570, -1)->Set(3);
 
   //Bojen
   CreateObject(BUOY, 230, 813,  -1);
