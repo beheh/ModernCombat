@@ -335,7 +335,7 @@ func CreateDecoration()
   CreateObject(FAUD, 1480, 640, -1)->Set(3);
 
   //Automat
-  CreateObject(CLVM, 1440, 830, -1);
+  CreateObject(VGMN, 1440, 830, -1)->Set(3);
 
   //Radare
   CreateObject(RADR, 200, 170, -1)->SetClrModulation(RGB(125,125,125));

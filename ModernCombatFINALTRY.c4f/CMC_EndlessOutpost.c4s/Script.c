@@ -473,8 +473,8 @@ func CreateDecoration()
   CreateObject(ENGT, 2590, 110, -1);
 
   //Automaten
-  CreateObject(CLVM, 1895, 110, -1);
-  CreateObject(CLVM, 1980, 400, -1);
+  CreateObject(VGMN, 1895, 110, -1);
+  CreateObject(VGMN, 1980, 400, -1)->Set(3);
 
   //Schild
   CreateObject(WLSN, 1865, 310, -1);

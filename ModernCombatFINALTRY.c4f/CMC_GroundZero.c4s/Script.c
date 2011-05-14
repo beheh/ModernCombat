@@ -289,8 +289,8 @@ func CreateDecoration()
   CreateObject(RADR, 2630, 220, -1);
 
   //Automaten
-  CreateObject(CLVM, 225, 460, -1);
-  CreateObject(SPVM, 2570, 460, -1);
+  CreateObject(VGMN, 225, 460, -1);
+  CreateObject(VGMN, 2570, 460, -1)->Set(2);
 
   //Glastische
   CreateObject(GTBL, 300, 460, -1);
