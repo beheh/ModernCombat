@@ -18,7 +18,7 @@ Facet=0,40,60,40
 Name=Clonk
 Procedure=NONE
 NextAction=Clonk
-Delay=6
+Delay=4
 Length=46
 Facet=0,80,60,40
 
