@@ -394,6 +394,7 @@ func CreateDecoration()
   screen->SetClrModulation(RGB(255,255,255));
   screen = CreateObject(SCR3, 1580, 260, -1);
   screen->SetClrModulation(RGB(255,255,255));
+  CreateObject(SCA2, 2005, 100, -1)->SetAction("Wompf");
   screen = CreateObject(SCR3, 2200, 210, -1);
   screen->SetClrModulation(RGB(255,255,255));
   screen = CreateObject(SCA2, 2435, 400, -1);

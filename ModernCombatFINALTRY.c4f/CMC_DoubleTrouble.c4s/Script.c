@@ -325,11 +325,13 @@ func CreateDecoration()
   CreateObject(ENGT, 1200, 670, -1);
 
   //Bildschirme
+  CreateObject(SCA2, 90, 490, -1)->SetAction("Wompf");
   CreateObject(SCR1, 260, 510, -1);
   CreateObject(SCA1, 305, 510, -1);
   CreateObject(SCR3, 350, 670, -1);
   CreateObject(SCR3, 1290, 670, -1);
   CreateObject(SCR1, 1380, 510, -1);
+  CreateObject(SCA2, 1550, 490, -1)->SetAction("Scan2");
 
   //Flaschen
   CreateObject(BOTL, 400, 582, -1);

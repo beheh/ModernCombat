@@ -549,7 +549,7 @@ func CreateDecoration()
 
   //Automaten
   CreateObject(VGMN, 1000, 540, -1);
-  CreateObject(VGMN, 7210, 430, -1);
+  CreateObject(VGMN, 7210, 430, -1)->Set(3);
 
   //Lüftungsgitter
   CreateObject(ENGT, 1250, 470, -1);
