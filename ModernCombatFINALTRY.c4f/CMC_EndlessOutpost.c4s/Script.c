@@ -383,7 +383,7 @@ func CreateDecoration()
   CreateParticle("Fog", 710, 550,0,0,500+Random(100));
 
   //Bildschirme
-  CreateObject(SCA1, 995, 350, -1);
+  CreateObject(SCA1, 995, 350, -1)->SetAction("Grenade");
   var screen = CreateObject(SCR3, 995, 380, -1);
   screen->SetClrModulation(RGB(255,255,255));
   screen = CreateObject(SCA2, 1570, 150, -1);
