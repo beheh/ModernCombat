@@ -1,2 +1,2 @@
-DE:Propagandaschirm
-US:Propaganda screen
+DE:Bildschirm
+US:Screen

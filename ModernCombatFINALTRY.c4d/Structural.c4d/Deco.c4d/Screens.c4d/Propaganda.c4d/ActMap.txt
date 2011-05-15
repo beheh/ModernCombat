@@ -1,7 +1,15 @@
 [Action]
-Name=Animate
+Name=Eurocorps
 Procedure=NONE
-NextAction=Animate
+NextAction=Eurocorps
 Delay=3
 Length=20
 Facet=0,0,40,40
+
+[Action]
+Name=Grenade
+Procedure=NONE
+NextAction=Grenade
+Delay=3
+Length=60
+Facet=0,40,40,40
