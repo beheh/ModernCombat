@@ -1,4 +1,4 @@
-/*-- Bildschirm --*/
+/*-- Propagandaschirm --*/
 
 #strict 2
 
@@ -7,7 +7,7 @@
 
 func Initialize()
 {
-  //Standardanimation nutzen
-  SetAction("Scan");
+  //Standardanimation
+  SetAction("Eurocorps");
   AddFrame();
 }
