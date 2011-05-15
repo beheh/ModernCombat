@@ -3,10 +3,11 @@
 #strict 2
 
 
-/* Intialisierung */
+/* Initialisierung */
 
 func Initialize()
 {
-  SetAction("Animate");
+  //Standardanimation
+  SetAction("Eurocorps");
   AddFrame();
 }
