@@ -369,6 +369,9 @@ func CreateDecoration()
   CreateObject(ENGT, 3868, 940, -1);
   CreateObject(ENGT, 3868, 1120, -1);
 
+  //Bildschirm
+  CreateObject(SCA1, 3500, 910, -1)->SetAction("Grenade");
+
   //Scheinwerfer
   CreateObject(FLGH, 710, 640, -1)->SetRotation(-80);
   CreateObject(FLGH, 730, 630, -1)->SetRotation(-30);
