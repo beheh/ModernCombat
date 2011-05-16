@@ -9,6 +9,7 @@ public func FuseTime()		{return 2*30;}
 public func SensorDistance()	{return 190;}
 public func IsActive()		{return active;}
 public func DoSmoke()		{return false;}
+public func LimitationCount()	{return 2;}
 
 local active;
 
@@ -31,6 +32,7 @@ public func Fused()
   //Effekte
   CreateParticle("PSpark",0,0,0,0,60,GetPlrColorDw(GetOwner()),this);
   Sound("SNSR_Fused.ogg");
+  CheckLimitation();
 
   //Entfernung planen
   ScheduleCall(0,"Remove", 35*30);
@@ -63,6 +65,9 @@ protected func Sense()
 
     //Ansonsten markieren
     CreateObject(SM08, GetX(pObj), GetY(pObj), GetOwner())->Set(pObj, this);
+
+    //Achievement-Fortschritt (Intelligence)
+    DoAchievementProgress(1, AC21, GetOwner());
   }
   return 1;
 }
