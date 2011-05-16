@@ -31,6 +31,7 @@ RTLR2=<c 33ccff>Guide</c> fired missiles by aiming in the corresponding directio
 PPGN0=Use the pumpgun in <c 33ccff>close combat</c> to cause maximum damage.
 SGST0=<c 33ccff>Explosive grenades</c> do high damage at small range while <c 33ccff>frag grenades</c> pin down enemies.
 SMGN0=The submachine gun is the <c 33ccff>fastest</c> weapon equally to its ammo consumption.
+SMGN1=Use <c 33ccff>burst</c> for average distances or quick close combat attacks with submachine guns.
 
 #Grenades
 NADE0=Throw <c 33ccff>activated</c> grenades as fast as possible, grenades exploding in your hand cause high damage.
@@ -41,6 +42,7 @@ PGRN0=Phosphor <c 33ccff>attaches</c> to clonks an burns them for a while.
 STUN0=Teammates are <c 33ccff>less</c> affected by stun grenades.
 STUN1=Face yourself away from exploding stun grenades to <c 33ccff>weaken</c> its effects.
 SGRN0=Smoke has a useful side effect that <c 33ccff>destroys</c> enemy tracer darts when deployed.
+SRBL0=Sensor balls can not only detect enemy clonks, but also booby traps, C4 charges, missiles and grenades.
 
 #Equipment
 AMPK0=Hold the MTP in the hand to <c 33ccff>automatically</c> restock ammo of allies.
