@@ -31,6 +31,7 @@ RTLR2=<c 33ccff>Lenke</c> abgefeuerte Raketen, indem du mit dem Raketenwerfer in
 PPGN0=Suche mit der Schrotflinte den <c 33ccff>Nahkampf</c> um maximalen Schaden zu verursachen.
 SGST0=<c 33ccff>Explosivgranaten</c> richten hohen Schaden auf kleiner Fläche an während <c 33ccff>Splittergranaten</c> Feinde festnageln.
 SMGN0=Die Maschinenpistole ist die <c 33ccff>schnellste</c> unter den Waffen, verbraucht aber ebenso schnell ihre Munition.
+SMGN1=Nutze den <c 33ccff>Stoßfeuer</c> der Maschinenpistole für mittlere Entfernungen oder schnelle Nahkampfangriffe.
 
 #Granaten
 NADE0=Werfe <c 33ccff>gezündete</c> Granaten möglichst schnell, eine Detonation in der Hand verursacht hohen Schaden.
@@ -41,6 +42,7 @@ PGRN0=Phosphor bleibt an Clonks <c 33ccff>haften</c> und verbrennt sie einige Ze
 STUN0=Blendgranaten blenden Verbündete <c 33ccff>weniger</c> stark als Gegner.
 STUN1=Wenn du dich von zündenden Blendgranaten wegdrehst, wirst du <c 33ccff>weniger</c> stark geblendet.
 SGRN0=Rauch hat den nützlichen Nebeneffekt, bei seiner Erstellung feindliche Peilsender zu <c 33ccff>zerstören</c>.
+SRBL0=Sensorbälle identifizieren neben feindlichen Clonks auch deren Sprengfallen, C4 Sätze, Raketen und Granaten.
 
 #Equipment
 AMPK0=Halte das MTP in der Hand, um Verbündete <c 33ccff>automatisch</c> mit Munition zu versorgen.
