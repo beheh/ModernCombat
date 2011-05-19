@@ -238,8 +238,10 @@ func CreateInterior()
   CreateObject(CON1, 1680, 520, -1);
   CreateObject(CON1, 2170, 110, -1);
   CreateObject(CON1, 2670, 110, -1);
-  CreateObject(CON1, 2690, 83, -1);
-  CreateObject(CON1, 2720, 410, -1);
+  CreateObject(CON1, 2690, 83, -1)->SetPerspective();
+  CreateObject(CON1, 2720, 410, -1)->SetPerspective();
+  CreateObject(CON1, 2730, 382, -1);
+  CreateObject(CON1, 2830, 410, -1);
 
   //Glasscheiben
   CreateObject(_WIN, 802, 240, -1);

@@ -56,20 +56,15 @@ func CreateInterior()
   CreateObject(LADR, 1405, 494, -1)->Set(6);
   CreateObject(LADR, 1595, 494, -1)->Set(6);
   CreateObject(LADR, 1715, 494, -1)->Set(6);
-
   CreateObject(LADR, 2515, 431, -1)->Set(11);
-
   CreateObject(LADR, 3505, 640, -1)->Set(20);
   CreateObject(LADR, 3605, 384, -1)->Set(6);
   CreateObject(LADR, 4445, 360, -1)->Set(3);
   CreateObject(LADR, 4680, 538, -1)->Set(8);
   CreateObject(LADR, 4780, 424, -1)->Set(12);
-
   CreateObject(LADR, 5120, 537, -1)->Set(16);
   CreateObject(LADR, 5525, 536, -1)->Set(16);
-
   CreateObject(LADR, 6635, 434, -1)->Set(11);
-
   CreateObject(LADR, 7240, 502, -1)->Set(8);
   CreateObject(LADR, 7280, 502, -1)->Set(8);
   CreateObject(LADR, 7320, 502, -1)->Set(8);
@@ -104,36 +99,26 @@ func CreateInterior()
 
   //Rampen
   DrawMaterialQuad("Wall-Concrete3",1150,400,1180,390,1180,400,1165,400,true);
-
   DrawMaterialQuad("Wall-Concrete2",2450,511,2480,501,2480,511,2465,511,true);
-
   DrawMaterialQuad("Wall-Concrete2",2681,510,2651,500,2651,510,2666,510,true);
-
   DrawMaterialQuad("Wall-Concrete3",4621,400,4591,390,4591,400,4606,400,true);
   DrawMaterialQuad("Wall-Concrete1",4651,410,4621,400,4621,410,4636,410,true);
-
   DrawMaterialQuad("Wall-Concrete2",4400,540,4430,530,4430,540,4415,540,true);
-
   DrawMaterialQuad("Wall-Bricks2",5500,590,5530,580,5530,590,5515,590,true);
   DrawMaterialQuad("Wall-Bricks2",5581,590,5551,580,5551,590,5566,590,true);
-
   DrawMaterialQuad("Wall-PlateRed",6060,260,6030,250,6030,260,6045,260,true);
   DrawMaterialQuad("Wall-PlateRed",6110,260,6080,250,6080,260,6095,260,true);
   DrawMaterialQuad("Wall-PlateRed",6160,260,6130,250,6130,260,6145,260,true);
   DrawMaterialQuad("Wall-PlateRed",6211,260,6181,250,6181,260,6196,260,true);
-
   DrawMaterialQuad("Wall-Concrete3",6211,390,6181,380,6181,390,6196,390,true);
   DrawMaterialQuad("Wall-Concrete1",6241,400,6211,390,6211,400,6226,400,true);
   DrawMaterialQuad("Wall-Concrete1",6271,410,6241,400,6241,410,6256,410,true);
-
   DrawMaterialQuad("Wall-Concrete2",6470,510,6500,500,6500,510,6485,510,true);
-
   DrawMaterialQuad("Wall-Concrete2",6701,510,6671,500,6671,510,6686,510,true);
 
   //Glasscheiben
   CreateObject(_WIN, 982, 330, -1);
   CreateObject(_WIN, 1068, 330, -1);
-
   CreateObject(_WIN, 5092, 470, -1);
   CreateObject(_WIN, 5148, 470, -1);
 
@@ -163,7 +148,7 @@ func CreateInterior()
   //Verbandskiste
   CreateObject(BECR, 4400, 330, -1)->AutoRespawn();
 
-  //Explosive Kiste
+  //Explosive Kisten
   CreateObject(XWCR, 5560, 400, -1)->AutoRespawn();
   CreateObject(XWCR, 7550, 492, -1);
 
@@ -174,29 +159,21 @@ func CreateInterior()
   CreateObject(PBRL, 1485, 400, -1)->AutoRespawn();
   CreateObject(PBRL, 1100, 270, -1)->AutoRespawn();
   CreateObject(PBRL, 1170, 470, -1)->AutoRespawn();
-
   CreateObject(PBRL, 2815, 591, -1)->AutoRespawn();
-
   CreateObject(PBRL, 3450, 630, -1)->AutoRespawn();
   CreateObject(PBRL, 3585, 500, -1)->AutoRespawn();
-
   CreateObject(PBRL, 4330, 410, -1)->AutoRespawn();
   CreateObject(PBRL, 4485, 580, -1)->AutoRespawn();
-
   CreateObject(PBRL, 6220, 510, -1)->AutoRespawn();
   CreateObject(PBRL, 6445, 410, -1)->AutoRespawn();
-
   CreateObject(PBRL, 7790, 320, -1)->AutoRespawn();
   CreateObject(PBRL, 7800, 320, -1)->AutoRespawn();
 
   //Explosivfässer
   CreateObject(XBRL, 1255, 400, -1)->AutoRespawn();
-
   CreateObject(XBRL, 2945, 510, -1)->AutoRespawn();
   CreateObject(XBRL, 2955, 510, -1)->AutoRespawn();
-
   CreateObject(XBRL, 3755, 410, -1)->AutoRespawn();
-
   CreateObject(XBRL, 7225, 430, -1)->AutoRespawn();
 
   //Gasflaschen
@@ -231,7 +208,7 @@ func CreateInterior()
 
   //Container
   CreateObject(CON1, 2830, 620, -1);
-  CreateObject(CON1, 6089, 380, -1);
+  CreateObject(CON1, 6089, 380, -1)->SetPerspective();
   CreateObject(CON1, 6146, 380, -1);
   CreateObject(CON1, 7500, 510, -1)->SetPerspective(2);
 
@@ -666,21 +643,12 @@ public func ChooserFinished()
    CreateObject(BRDR, 5980, 0, -1)->Set(1);
 
    //Hinweisschilder
-   var sign = CreateObject(SNPT, 1460, 400, -1);
-   sign->SetAction("Sign2");
-   sign->SetMode(1);
-   sign = CreateObject(SGNP, 2530, 470, -1);
-   sign->SetPhase(2);
-   sign->SetMode(1);
    CreateObject(SGNP, 3295, 370, -1);
    CreateObject(SGNP, 3415, 370, -1);
    CreateObject(SGNP, 3320, 580, -1);
    CreateObject(SGNP, 5865, 350, -1);
    CreateObject(SGNP, 5885, 510, -1);
    CreateObject(SGNP, 5950, 350, -1);
-   sign = CreateObject(SGNP, 6620, 470, -1);
-   sign->SetPhase(1);
-   sign->SetMode(1);
    if(!FindObject(NOBH))
    {
     sign = CreateObject(SGNP, 4810, 320, -1);
@@ -694,6 +662,14 @@ public func ChooserFinished()
    //Patrouillenboote
    SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,4640,560,-1),50*21,300);
    SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,5565,560,-1),50*21,300);
+
+   //Objekte entfernen
+   RemoveObject(aSelfDefense[0]);
+   RemoveObject(aSelfDefense[1]);
+   RemoveObject(aSelfDefense[2]);
+   RemoveObject(aSelfDefense[3]);
+   RemoveObject(aArtillery[0]);
+   RemoveObject(aArtillery[3]);
   }
 
   //CTF-Spielziel
@@ -706,26 +682,28 @@ public func ChooserFinished()
    {CreateFlag(2,6430,340,GetTeamColor(2));}
 
    //Grenzen setzen
-   CreateObject(SGNP, 2530, 470, -1)->SetPhase(1);
    CreateObject(BRDR, 3370, 0, -1)->Set(0);
    CreateObject(BRDR, 6870, 0, -1)->Set(1);
 
    //Hinweisschilder
-   var sign = CreateObject(SNPT, 1460, 400, -1);
-   sign->SetAction("Sign2");
-   sign->SetMode(1);
    CreateObject(SGNP, 3295, 370, -1);
    CreateObject(SGNP, 3415, 370, -1);
    CreateObject(SGNP, 3320, 580, -1);
-   sign = CreateObject(SGNP, 6620, 470, -1);
-   sign->SetPhase(1);
-   sign->SetMode(1);
-   CreateObject(SGNP, 6725, 510, -1);
-   CreateObject(SGNP, 6855, 510, -1);
+   CreateObject(SGNP, 5865, 350, -1);
+   CreateObject(SGNP, 5885, 510, -1);
+   CreateObject(SGNP, 5950, 350, -1);
 
    //Patrouillenboote
    SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,4640,560,-1),50*21,300);
    SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,5565,560,-1),50*21,300);
+
+   //Objekte entfernen
+   RemoveObject(aSelfDefense[0]);
+   RemoveObject(aSelfDefense[1]);
+   RemoveObject(aSelfDefense[2]);
+   RemoveObject(aSelfDefense[3]);
+   RemoveObject(aArtillery[0]);
+   RemoveObject(aArtillery[3]);
   }
 
   //Assault-Spielziel

@@ -187,11 +187,11 @@ func CreateInterior()
   CreateObject(CON1, 3170, 1200, -1)->SetPerspective(2);
   CreateObject(CON1, 3200, 1201, -1)->SetPerspective(2);
   CreateObject(CON1, 3350, 1040, -1)->SetPerspective(2);
-  CreateObject(CON1, 3390, 1041, -1);
-  CreateObject(CON1, 3560, 851, -1);
+  CreateObject(CON1, 3390, 1041, -1)->SetPerspective();
+  CreateObject(CON1, 3557, 851, -1)->SetPerspective();
   CreateObject(CON1, 3751, 861, -1)->SetPerspective(2);
   CreateObject(CON1, 3795, 861, -1);
-  CreateObject(CON1, 3850, 861, -1);
+  CreateObject(CON1, 3850, 861, -1)->SetPerspective();
   CreateObject(CON1, 3990, 861, -1);
 
   //Rohre

@@ -110,7 +110,7 @@ func CreateInterior()
   //Container
   CreateObject(CON1, 25, 440, -1)->SetPerspective(2);
   CreateObject(CON1, 75, 440, -1);
-  CreateObject(CON1, 120, 640, -1);
+  CreateObject(CON1, 120, 640, -1)->SetPerspective();
   CreateObject(CON1, 250, 640, -1)->SetPerspective(3);
   CreateObject(CON1, 265, 614, -1)->SetPerspective(2);
 
@@ -120,9 +120,9 @@ func CreateInterior()
   CreateObject(CON1, 2200, 440, -1)->SetPerspective(2);
   CreateObject(CON1, 2200, 640, -1);
 
-  CreateObject(CON1, 2470, 640, -1);
+  CreateObject(CON1, 2475, 642, -1)->SetPerspective();
   CreateObject(CON1, 2500, 614, -1)->SetPerspective(2);
-  CreateObject(CON1, 2530, 640, -1);
+  CreateObject(CON1, 2530, 642, -1);
   CreateObject(CON1, 2680, 440, -1)->SetPerspective(3);
 
   //Kisten

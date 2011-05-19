@@ -90,7 +90,7 @@ func CreateInterior()
 
   //Container
   CreateObject(CON1, 300, 710, -1);
-  CreateObject(CON1, 360, 710, -1);
+  CreateObject(CON1, 359, 710, -1);
   CreateObject(CON1, 1090, 710, -1);
 
   //Giftfässer
