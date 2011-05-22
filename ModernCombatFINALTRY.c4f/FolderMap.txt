@@ -113,6 +113,12 @@ FullscreenBG=1
 
 
 	[Scenario]
+	File=CMC_FusionReactor.c4s
+	Area=291,436,256,26
+	OverlayImage=Overlay19.png
+
+
+	[Scenario]
 	File=Credits.c4f
 	Area=628,45,81,24
 	OverlayImage=OverlayCredits.png
