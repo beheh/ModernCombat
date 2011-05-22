@@ -14,5 +14,5 @@ Components=METL=6;
 VertexX=-75,0,75,-75,0,75
 VertexFriction=100,100,100,100
 Rotate=1
-SmokeRate=20
+SmokeRate=10
 NoBurnDecay=1

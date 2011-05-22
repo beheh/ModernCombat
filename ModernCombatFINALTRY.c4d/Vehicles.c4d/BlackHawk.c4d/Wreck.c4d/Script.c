@@ -41,10 +41,6 @@ func DestroyWreck()
 
   //Explosion
   Explode(40);
-
-  //Löschen und ausblenden
-  Extinguish();
-  FadeOut();
 }
 
 func BlastPar(int X, int Y, int Size, int Color)
