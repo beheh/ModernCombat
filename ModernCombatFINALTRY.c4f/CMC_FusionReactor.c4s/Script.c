@@ -80,8 +80,10 @@ func CreateInterior()
   CreateObject(LADR, 655, 922, -1)->Set(7);
 
   CreateObject(LADR, 760, 930, -1)->Set(84);
-  CreateObject(LADR, 915, 515, -1)->Set(34);
+  CreateObject(LADR, 885, 638, -1)->Set(5);
+  CreateObject(LADR, 915, 300, -1)->Set(14);
   CreateObject(LADR, 915, 929, -1)->Set(29);
+  CreateObject(LADR, 945, 638, -1)->Set(5);
   CreateObject(LADR, 1070, 930, -1)->Set(84);
 
   CreateObject(LADR, 1175, 328, -1)->Set(9);
@@ -179,12 +181,12 @@ func CreateInterior()
   CreateObject(CON1, 200, 612, -1)->SetPerspective(3);
   CreateObject(CON1, 200, 640, -1)->SetPerspective(3);
 
+  CreateObject(CON1, 800, 590, -1)->SetPerspective(3);
   CreateObject(CON1, 832, 562, -1)->SetPerspective(3);
-  CreateObject(CON1, 832, 590, -1)->SetPerspective(3);
   CreateObject(CON1, 860, 690, -1)->SetPerspective();
   CreateObject(CON1, 970, 690, -1)->SetPerspective();
   CreateObject(CON1, 998, 562, -1)->SetPerspective(1);
-  CreateObject(CON1, 998, 590, -1)->SetPerspective(1);
+  CreateObject(CON1, 1028, 590, -1)->SetPerspective(1);
 
   CreateObject(CON1, 1630, 528, -1)->SetPerspective(1);
   CreateObject(CON1, 1630, 556, -1)->SetPerspective(1);
@@ -253,16 +255,18 @@ func CreateInterior()
   CreateObject(MWCR, 180, 880, -1);
   CreateObject(MWCR, 600, 330, -1)->AutoRespawn();
   CreateObject(MWCR, 600, 860, -1)->AutoRespawn();
-  CreateObject(MWCR, 792, 590, -1)->AutoRespawn();
-  CreateObject(MWCR, 1038, 590, -1)->AutoRespawn();
+  CreateObject(MWCR, 685, 470, -1);
+  CreateObject(MWCR, 1145, 470, -1);
   CreateObject(MWCR, 1230, 330, -1)->AutoRespawn();
   CreateObject(MWCR, 1230, 860, -1)->AutoRespawn();
   CreateObject(MWCR, 1620, 300, -1);
   CreateObject(MWCR, 1620, 880, -1);
 
   //Stahlbrücken
+  CreateObject(_HBR, 655, 482, -1);
   CreateObject(_HBR, 915, 132, -1);
   CreateObject(_HBR, 915, 942, -1);
+  CreateObject(_HBR, 1175, 482, -1);
 
   //Gasflaschen
   CreateObject(GSBL, 475, 930, -1)->AutoRespawn();
