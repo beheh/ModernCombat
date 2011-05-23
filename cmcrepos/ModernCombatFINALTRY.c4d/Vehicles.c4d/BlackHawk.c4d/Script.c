@@ -1031,7 +1031,13 @@ public func OnDestruction()
       Exit(obj, 0, 0, Random(360), RandomX(-5, 5), RandomX(-4, 8), Random(10));
   }
 
-  //Explosion (booom!)
+  if(Hostile(GetLastAttacker(),GetOwner(this)))
+  {
+    //Achievement-Fortschritt (Junkdealer)
+    DoAchievementProgress(1,AC23,GetLastAttacker());
+  }
+
+  //Explosion
   FakeExplode(70, GetLastAttacker() + 1);
   FakeExplode(50, GetLastAttacker() + 1);
   RemoveObject();

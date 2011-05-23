@@ -2,8 +2,8 @@
 
 #strict 2
 
-public func MaxDamage()		 { return 60; }
-public func IgnoreFriendlyFire() {return true;}
+public func MaxDamage()			{return 60;}
+public func IgnoreFriendlyFire()	{return true;}
 public func IsBulletTarget()
 {
   //Nicht treffbar wenn neutral, auﬂer bei FF
