@@ -233,16 +233,12 @@ func CreateInterior()
   CreateObject(WCR2, 160, 880, -1);
   CreateObject(WCR2, 580, 572, -1);
   CreateObject(WCR2, 580, 590, -1);
-  CreateObject(WCR2, 600, 470, -1);
   CreateObject(WCR2, 600, 572, -1);
   CreateObject(WCR2, 600, 590, -1);
-  CreateObject(WCR2, 600, 690, -1);
   CreateObject(WCR2, 1230, 572, -1);
   CreateObject(WCR2, 1230, 590, -1);
-  CreateObject(WCR2, 1250, 470, -1);
   CreateObject(WCR2, 1250, 572, -1);
   CreateObject(WCR2, 1250, 590, -1);
-  CreateObject(WCR2, 1250, 690, -1);
   CreateObject(WCR2, 1640, 300, -1);
   CreateObject(WCR2, 1640, 880, -1);
 
@@ -635,7 +631,7 @@ public func ChooserFinished()
   {
    //Flaggenposten
    var flag = CreateObject(OFPL, 915,590, -1);
-   flag->~Set("$Flag3$");
+   flag->~Set("$Flag3$",150);
   }
 
   //OP-Spielziel
@@ -673,7 +669,7 @@ public func ChooserFinished()
    aFlag[2] = CreateObject(OFPL,915,590,NO_OWNER);
    aFlag[2] -> AddSpawnPoint(800, 680);
    aFlag[2] -> AddSpawnPoint(1030, 680);
-   aFlag[2]->Set("$Flag3$",180,2);
+   aFlag[2]->Set("$Flag3$",150,2);
 
    aFlag[3] = CreateObject(OFPL,1325,330,NO_OWNER);
    aFlag[3] -> AddSpawnPoint(1450, 290);
