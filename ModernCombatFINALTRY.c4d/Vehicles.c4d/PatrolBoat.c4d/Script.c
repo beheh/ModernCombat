@@ -16,9 +16,15 @@ protected func Initialize()
 
 /* Zerstörung */
 
-func Incineration()
+func Damage()
 {
   if(damaged) return;
+  if(GetDamage() > 60)
+    Destruction();
+}
+
+func Destruction()
+{
   damaged = true;
 
   //Effekte

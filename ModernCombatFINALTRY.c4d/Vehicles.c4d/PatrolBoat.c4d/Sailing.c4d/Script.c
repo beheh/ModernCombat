@@ -54,6 +54,12 @@ public func OnDestruction()
     RemoveObject(motor);
   }
 
+  if(Hostile(GetLastAttacker(),GetOwner(this)))
+  {
+    //Achievement-Fortschritt (Junkdealer)
+    DoAchievementProgress(1,AC23,GetLastAttacker());
+  }
+
   //Effekte
   CreateParticle("Blast",0,-10,-20,0,5*50,RGB(255,255,128));
   CreateParticle("Blast",0,-10,20,0,5*50,RGB(255,255,128));
