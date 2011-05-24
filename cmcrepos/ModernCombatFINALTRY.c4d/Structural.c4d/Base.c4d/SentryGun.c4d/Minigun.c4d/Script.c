@@ -18,7 +18,7 @@ public func FMData1(int data)
   if(data == FM_AmmoLoad)  return 9999;
 
   if(data == FM_Reload)    return 2;
-  if(data == FM_Recharge)  return 2;
+  if(data == FM_Recharge)  return 3;
 
   if(data == FM_Auto)      return 1;
 
