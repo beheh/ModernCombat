@@ -46,7 +46,7 @@ static const BKHK_Seat_Passenger2 = 5;
 public func IsMachine()			{return true;}
 public func MaxDamage()			{return 200;}
 public func IsThreat()			{return true;}
-public func IsHelicopter()      {return true;}
+public func IsHelicopter()		{return true;}
 
 public func IsBulletTarget(id idBullet, object pBullet)
 {
@@ -103,7 +103,8 @@ protected func Initialize()
 
 /* Positionsberechnung von Objekten */
 
-public func GetPosition(int iVertex, int& iX, int& iY) {
+public func GetPosition(int iVertex, int& iX, int& iY)
+{
 	iX = GetVertex(iVertex, false);
 	iY = GetVertex(iVertex, true);
 	return true;
