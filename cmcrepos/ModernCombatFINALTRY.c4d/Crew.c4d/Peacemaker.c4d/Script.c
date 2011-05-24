@@ -98,10 +98,9 @@ protected func UpdateAmmoBars()
 
 public func GetReanimationTarget(pFrom, & body, & defi, fUnderAttack)
 {
-	var olddefi;
-	var distance = 200;
+	var olddefi, distance = 200;
 	if (fUnderAttack)
-		distance = 50;
+    distance = 50;
 	body = FindObject2(Find_Func("IsFakeDeath"), Find_Category(C4D_Living), Find_Distance(distance, AbsX(GetX(pFrom)), AbsY(GetY(pFrom))), Find_Allied(GetOwner(pFrom)), Sort_Distance(AbsX(GetX(pFrom)), AbsY(GetY(pFrom))));
 	if (body)
 	{
@@ -133,74 +132,76 @@ public func FxAggroTimer(object pTarget, int no)
 		return;
 	// Hilfsbedürftige in der Nähe?
 	var body, defi;
-	GetReanimationTarget(pTarget, body, defi, EffectVar(1, this, no)); //Checkt auch nach Defi
-	if (body)
-	{
-		if (IsAiming())
-			StopAiming();
-		if (Contents() == defi && GetProcedure(pTarget) && ObjectDistance(body, pTarget) < 10)
-		{
-      defi->Activate(this);
-			return;
-		}
-		else 
-		{
-			if (!Contained(defi) || Contained(defi) != pTarget)
-			{
-				if (GetCommand(pTarget) != "Get")
-					SetCommand(pTarget, "Get", defi);
-			}
-			else if (Contents() != defi)
-			{
-				ShiftContents(pTarget, 0, CDBT, true);
-			}
-			else 
-			{
-				SetMacroCommand(pTarget, "MoveTo", body, 0, 0, 0, EffectVar(0, pTarget, no));
-			}
-			return 1;
-		}
-	}
-	// Verletzt?
-	if (!pTarget->~IsHealing() && pTarget->GetEnergy() < pTarget->GetPhysical("Energy") * 2 / 3 / 1000)
-	{
-		if (!ContentsCount(DGNN, pTarget) && ContentsCount(FAPK, pTarget))
-		{
-			var pFAP = FindObject2(Find_ID(FAPK), Find_Container(pTarget), Find_Func("CanUnpack", pTarget));
-			if (pFAP)
-				pFAP->ControlThrow(pTarget);
-		}
-		var pDragnin = FindObject2(Find_ID(DGNN), Find_Container(pTarget));
-		if (pDragnin)
-			pDragnin->Activate(pTarget);
-	}
-	// Weitere Verletzte?
-	if(pTarget->~IsMedic()) {
-		for (var friend in FindObjects(Find_Category(OCF_Living), Find_Allied(GetOwner(pTarget)), Find_NoContainer(), Find_Distance(50, AbsX(GetX(pTarget)), AbsY(GetY(pTarget))), Sort_Distance(AbsX(GetX(pTarget)), AbsY(GetY(pTarget))))) 
-		{
-			if (!friend->~IsHealing() && friend->GetEnergy() < friend->GetPhysical("Energy") * 1 / 3 / 1000)
-			{
-				if (!ContentsCount(DGNN, pTarget) && ContentsCount(FAPK, pTarget))
-				{
-					var pFAP = FindObject2(Find_ID(FAPK), Find_Container(pTarget), Find_Func("CanUnpack", pTarget));
-					if (pFAP)
-            pDragnin->ControlThrow(pTarget);
-				}
-				var pDragnin = FindObject2(Find_ID(DGNN), Find_Container(pTarget));
-				if (pDragnin)
-				{
-					if (ObjectDistance(friend, pTarget) < 10)
-					{
-						pDragnin->ControlThrow(pTarget);
-					}
-					else 
-					{
-						SetMacroCommand(pTarget, "MoveTo", friend, 0, 0, 0, EffectVar(0, pTarget, no));
-					}
-				}
-				break;
-			}
-		}
+	if(GetPlayerViewAlpha(GetOwner()) > 0) {
+  	GetReanimationTarget(pTarget, body, defi, EffectVar(1, this, no)); //Checkt auch nach Defi
+  	if (body)
+  	{
+  		if (IsAiming())
+  			StopAiming();
+  		if (Contents() == defi && GetProcedure(pTarget) && ObjectDistance(body, pTarget) < 10)
+  		{
+        defi->Activate(this);
+  			return;
+  		}
+  		else 
+  		{
+  			if (!Contained(defi) || Contained(defi) != pTarget)
+  			{
+  				if (GetCommand(pTarget) != "Get")
+  					SetCommand(pTarget, "Get", defi);
+  			}
+  			else if (Contents() != defi)
+  			{
+  				ShiftContents(pTarget, 0, CDBT, true);
+  			}
+  			else 
+  			{
+  				SetMacroCommand(pTarget, "MoveTo", body, 0, 0, 0, EffectVar(0, pTarget, no));
+  			}
+  			return 1;
+  		}
+  	}
+  	// Verletzt?
+  	if (!pTarget->~IsHealing() && pTarget->GetEnergy() < pTarget->GetPhysical("Energy") * 2 / 3 / 1000)
+  	{
+  		if (!ContentsCount(DGNN, pTarget) && ContentsCount(FAPK, pTarget))
+  		{
+  			var pFAP = FindObject2(Find_ID(FAPK), Find_Container(pTarget), Find_Func("CanUnpack", pTarget));
+  			if (pFAP)
+  				pFAP->ControlThrow(pTarget);
+  		}
+  		var pDragnin = FindObject2(Find_ID(DGNN), Find_Container(pTarget));
+  		if (pDragnin)
+  			pDragnin->Activate(pTarget);
+  	}
+  	// Weitere Verletzte?
+  	if(pTarget->~IsMedic()) {
+  		for (var friend in FindObjects(Find_Category(OCF_Living), Find_Allied(GetOwner(pTarget)), Find_NoContainer(), Find_Distance(50, AbsX(GetX(pTarget)), AbsY(GetY(pTarget))), Sort_Distance(AbsX(GetX(pTarget)), AbsY(GetY(pTarget))))) 
+  		{
+  			if (!friend->~IsHealing() && friend->GetEnergy() < friend->GetPhysical("Energy") * 1 / 3 / 1000)
+  			{
+  				if (!ContentsCount(DGNN, pTarget) && ContentsCount(FAPK, pTarget))
+  				{
+  					var pFAP = FindObject2(Find_ID(FAPK), Find_Container(pTarget), Find_Func("CanUnpack", pTarget));
+  					if (pFAP)
+              pDragnin->ControlThrow(pTarget);
+  				}
+  				var pDragnin = FindObject2(Find_ID(DGNN), Find_Container(pTarget));
+  				if (pDragnin)
+  				{
+  					if (ObjectDistance(friend, pTarget) < 10)
+  					{
+  						pDragnin->ControlThrow(pTarget);
+  					}
+  					else 
+  					{
+  						SetMacroCommand(pTarget, "MoveTo", friend, 0, 0, 0, EffectVar(0, pTarget, no));
+  					}
+  				}
+  				break;
+  			}
+  		}
+  	}
 	}
 	// Ziel vorhanden?
   if(EffectVar(1, this, no)) { EffectCall(this, no, "Fire"); return true; }

@@ -29,6 +29,16 @@ public func Initialize()
   SetClrModulation (RGBa(0, 0, 0, a = 255));
 }
 
+global func GetPlayerViewAlpha(int iPlr) {
+  var a = 255, b;
+  var screens = FindObjects(Find_ID(S24K), Find_Owner(iPlr));
+  for(var screen in screens) {
+    b = screen->GetAlpha();
+    if(b < a) a = b;
+  }
+  return a;
+}
+
 global func ScreenRGB(object pTarget, int dwRGBa, int iAlphaAdd, int iFadeRate, bool bAdditive, int iLayer, int iMin)
 {
   var obj;
@@ -112,6 +122,10 @@ public func SetAlpha(int iValue)
   SetClrModulation(RGBa(r,g,b,a));
 
   if(a >= 255) RemoveObject();
+}
+
+public func GetAlpha() {
+  return GetRGBaValue(GetClrModulation(), 0);
 }
 
 public func DoAlpha(int iValue, int iMin, int iMax)
