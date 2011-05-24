@@ -3,7 +3,6 @@
 #strict 2
 #include MISL
 
-
 public func MaxTime()		{return 400;}			//Maximale Flugzeigt
 
 public func StartSpeed()	{return 20;}			//Startgeschwindigkeit
@@ -18,7 +17,7 @@ public func ExplosionDamage()	{return 20;}			//Explosionsschaden
 public func MaxTurn()		{return 7;}			//max. Drehung
 public func MaxTracerTurn()	{return 9;}			//max. Drehung bei Zielverfolgung
 
-//Weniger direkter Schaden, größerer Flächenschaden
+
 private func HitObject(pObj)
 {
 
