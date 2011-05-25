@@ -222,23 +222,19 @@ func CreateInterior()
   //Selbstschussanlagen
   aSelfDefense[0] = CreateObject(SEGU, 705, 1069, -1);
     aSelfDefense[0]->Arm(MISA);
-    aSelfDefense[0]->SetAutoRepair(1500);
     CreateObject(CONS, 925, 855, -1)->Set(aSelfDefense[0]);
 
   aSelfDefense[1] = CreateObject(SEGU, 2960, 839, -1);
     aSelfDefense[1]->Arm(MISA);
-    aSelfDefense[1]->SetAutoRepair(1500);
     CreateObject(CONS, 3310, 920, -1)->Set(aSelfDefense[1]);
 
   aSelfDefense[2] = CreateObject(SEGU, 3192, 690, -1);
     aSelfDefense[2]->SetR(90);
     aSelfDefense[2]->Arm(MISA);
-    aSelfDefense[2]->SetAutoRepair(1500);
     CreateObject(CONS, 3435, 790, -1)->Set(aSelfDefense[2]);
 
   aSelfDefense[3] = CreateObject(SEGU, 3785, 899, -1);
     aSelfDefense[3]->Arm(MISA);
-    aSelfDefense[3]->SetAutoRepair(1500);
     CreateObject(CONS, 3895, 850, -1)->Set(aSelfDefense[3]);
 
   //Sounds

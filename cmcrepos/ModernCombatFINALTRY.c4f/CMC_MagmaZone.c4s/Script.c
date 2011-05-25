@@ -105,7 +105,6 @@ func CreateInterior()
   //Selbstschussanlage und Konsole
   aSelfDefense[0] = CreateObject(SEGU, 1305, 369, -1);
     aSelfDefense[0]->Arm(MISA);
-    aSelfDefense[0]->SetAutoRepair(1500);
     CreateObject(CONS, 1300, 330, -1)->Set(aSelfDefense[0]);
 
   //Sounds
