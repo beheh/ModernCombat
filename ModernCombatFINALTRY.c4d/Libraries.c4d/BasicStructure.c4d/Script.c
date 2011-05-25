@@ -25,7 +25,7 @@ public func Initialize()
 {
   fDestroyed = false;
   fRepairing = false;
-  iAutorepairWait = 36*20;
+  iAutorepairWait = 80*20;
   iLastAttacker = -1;
   SetAction("Idle");
   return true;
