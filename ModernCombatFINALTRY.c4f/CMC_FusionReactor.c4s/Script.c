@@ -81,7 +81,8 @@ func CreateInterior()
 
   CreateObject(LADR, 760, 930, -1)->Set(84);
   CreateObject(LADR, 885, 638, -1)->Set(5);
-  CreateObject(LADR, 915, 300, -1)->Set(14);
+
+  CreateObject(LADR, 915, 300, -1)->Set(8);
   CreateObject(LADR, 915, 929, -1)->Set(29);
   CreateObject(LADR, 945, 638, -1)->Set(5);
   CreateObject(LADR, 1070, 930, -1)->Set(84);
@@ -608,8 +609,8 @@ public func ChooserFinished()
   inherited();
 
   //Starttitel und Musikliste zusammenstellen
-  SetPlayList("CMC_Base Groove.ogg;CMC_Firehawk.ogg;CMC_Friendly Unit.ogg;CMC_Getaway.ogg;CMC_Moving Squad.ogg;CMC_Offensive.ogg;CMC_Showtime.ogg;CMC_Slow Motion.ogg;CMC_Striking Force.ogg;CMC_No Good.ogg;CMC_Obsession.ogg;CMC_Your Eyes.ogg");
-  Music("CMC_Getaway.ogg");
+  SetPlayList("CMC_Base Groove.ogg;CMC_Firehawk.ogg;CMC_Friendly Unit.ogg;CMC_Getaway.ogg;CMC_Eurocorps.ogg;CMC_Moving Squad.ogg;CMC_Offensive.ogg;CMC_Showtime.ogg;CMC_Slow Motion.ogg;CMC_Striking Force.ogg;CMC_No Good.ogg;CMC_Obsession.ogg;CMC_Your Eyes.ogg");
+  Music("CMC_Eurocorps.ogg");
 
   //Teams abfragen
   var aTeams = [false,false,false,false,false];
