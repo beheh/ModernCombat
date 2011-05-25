@@ -18,6 +18,7 @@ NONE2=<c 33ccff>QuickInventory</c> gibt dir einen alternativen und schnellen Inv
 NONE3=Hast du eine Waffe in der Hand, drücke vor einem Gegner [<c 33ccff>Werfen</c>], um ihn zu schlagen.
 NONE4=Nutze und achte auf deine <c 33ccff>Umgebung</c>, setze Einrichtungen gegen deine Feinde ein oder zerstöre sie vorsorglich.
 NONE5=Lege dich mit [<c 33ccff>Doppelstop</c> + <c 33ccff>Graben</c>] hin um vor feindlichem Feuer in Deckung zu gehen oder Engpässe zu passieren.
+NONE6=<c 33ccff>Bewachen</c> im Kontext lässt den Clonk unter anderem sehr viel schneller automatisch Schwerverletzte durchsuchen und reanimieren.
 
 #Waffen
 ASTR0=Nutze den <c 33ccff>Einzelfeuermodus</c> des Sturmgewehrs, um präzise Schüsse auf weit entfernte Gegner abzufeuern.
