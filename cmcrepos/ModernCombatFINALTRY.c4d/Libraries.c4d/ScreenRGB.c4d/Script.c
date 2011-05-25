@@ -29,12 +29,15 @@ public func Initialize()
   SetClrModulation (RGBa(0, 0, 0, a = 255));
 }
 
-global func GetPlayerViewAlpha(int iPlr) {
+global func GetPlayerViewAlpha(int iPlr)
+{
   var a = 255, b;
   var screens = FindObjects(Find_ID(S24K), Find_Owner(iPlr));
-  for(var screen in screens) {
+  for(var screen in screens)
+  {
     b = screen->GetAlpha();
     if(b < a) a = b;
+
   }
   return a;
 }
