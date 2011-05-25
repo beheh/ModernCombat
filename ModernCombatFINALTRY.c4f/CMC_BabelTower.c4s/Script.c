@@ -368,23 +368,19 @@ func CreateInterior()
   //Basis 2
   aSelfDefense[0] = CreateObject (SEGU, 465, 698, -1);
   aSelfDefense[0]->Arm(MISA);
-  aSelfDefense[0]->SetAutoRepair(1500);
   CreateObject(CONS, 465, 645, -1)->Set(aSelfDefense[0]);
 
   aSelfDefense[1] = CreateObject (SEGU, 705, 698, -1);
   aSelfDefense[1]->Arm(MISA);
-  aSelfDefense[1]->SetAutoRepair(1500);
   CreateObject(CONS, 705, 645, -1)->Set(aSelfDefense[1]);
 
   //Basis 4
   aSelfDefense[2] = CreateObject (SEGU, 480, 1318, -1);
   aSelfDefense[2]->Arm(MISA);
-  aSelfDefense[2]->SetAutoRepair(1500);
   CreateObject (CONS, 530, 1360, -1)->Set(aSelfDefense[2]);
 
   aSelfDefense[3] = CreateObject (SEGU, 690, 1318, -1);
   aSelfDefense[3]->Arm(MISA);
-  aSelfDefense[3]->SetAutoRepair(1500);
   CreateObject(CONS, 640, 1360, -1)->Set(aSelfDefense[3]);
 
   //Sounds

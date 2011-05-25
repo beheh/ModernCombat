@@ -303,12 +303,10 @@ func CreateInterior()
   //Selbstschussanlagen und Konsolen
   aSelfDefense[0]=CreateObject(SEGU,945,249,-1);
   aSelfDefense[0]->Arm(MISA);
-  aSelfDefense[0]->SetAutoRepair(1500);
   CreateObject(CONS, 1050, 550, -1)->Set(aSelfDefense[0]);
 
   aSelfDefense[1]=CreateObject(SEGU,1495,369,-1);
   aSelfDefense[1]->Arm(MISA);
-  aSelfDefense[1]->SetAutoRepair(1500);
 
   //Sounds
 
