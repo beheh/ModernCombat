@@ -322,10 +322,27 @@ private func HitObject(pObj)
     }
   }
 
+  if(GetAction() == "Travel")
+  {
+    if(pObj)
+    {
+      if((GetID(pObj) == MISL || GetID(pObj) == LRML) && Hostile(GetOwner(pObj), GetController()))
+      {
+        //Achievement-Fortschritt (Protective Pro)
+        DoAchievementProgress(1, AC24, GetController());
+      }
+    }
+  }
+
   exploding = true;
   Sound("GrenadeExplosion*.ogg");
 
-  //Schaden verursachen
+  //Explosion
+  Detonate();
+}
+
+private func Detonate()
+{
   DamageObjects(ExplosionRadius(), ExplosionDamage()/2, this);
   Explode(ExplosionDamage()*3/2);
 }
