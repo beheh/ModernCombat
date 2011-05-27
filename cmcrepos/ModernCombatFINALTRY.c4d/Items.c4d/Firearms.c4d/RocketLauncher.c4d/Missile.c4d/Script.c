@@ -339,6 +339,6 @@ public func Destruction()
 
 public func OnDmg(int iDmg, int iType)
 {
-  if(iType == DMG_Fire)		return 60;	//Feuer
+  if(iType == DMG_Fire)		return 100;	//Feuer
   if(iType == DMG_Bio)		return 100;	//Säure und biologische Schadstoffe
 }
