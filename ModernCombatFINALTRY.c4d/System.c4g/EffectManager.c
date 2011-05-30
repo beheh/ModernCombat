@@ -6,6 +6,7 @@ static EFSM_CurrentData;
 static EFSM_Init;
 static EFSM_Level;
 
+
 /* Effect-Konstanten */
 
 static const EFSM_Blood = 1;		//1/0
@@ -17,7 +18,7 @@ static const EFSM_Enlight = 6;		//0/1
 static const EFSM_Darkness = 7;		//0/1
 static const EFSM_Waratmosphere = 8;	//0/1
 static const EFSM_Deco = 9;		//0/1
-static const EFSM_Lensflares = 10;   //0/1/2
+static const EFSM_Lensflares = 10;	//0/1/2
 
 /* Globale Effektstufe setzen */
 
@@ -60,7 +61,7 @@ global func OnUpdateEffects(int iEffect)
   //Dunkelheit aktualisieren
   if(iEffect == EFSM_Darkness && !GetEffectData(EFSM_Darkness))
     {RemoveAll(DARK);}
-  
+
   //Dekorationen entfernen/einfügen
   if(iEffect == EFSM_Deco && !GetEffectData(EFSM_Deco))
   {
