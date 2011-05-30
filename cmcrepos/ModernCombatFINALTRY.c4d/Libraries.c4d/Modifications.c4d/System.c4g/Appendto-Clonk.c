@@ -35,7 +35,7 @@ protected func Initialize()
   //Schadenseffekt einfügen
   if(!GetEffect("DmgCheck",this))
     AddEffect("DmgCheck",this,1,0);
-  
+
   //Assistkillarray
   assistkiller = [];
   for(var i=0; i < GetPlayerCount(); i++)
@@ -53,7 +53,7 @@ public func Incineration()
   Extinguish();
   if (GetAlive()) 
     Sound("ClonkBurn*.ogg");
-  if(IsFakeDeath()) return; //Fakedeath
+  if(IsFakeDeath()) return;
   Schedule("DoDmg(5,DMG_Fire,0,1)",1,20,this);
   AddFireEffect(this,30,FIRE_Red,1);
 }
@@ -99,7 +99,6 @@ public func HurtSounds(int iDmg, int iType)
       Sound("ClonkPoisened*.ogg");
     return;
   }
-
   //Ansonsten Standard
   if(!Random(BoundBy(10-iDmg,0,10)))
     Sound("ClonkPain*.ogg");
@@ -159,7 +158,8 @@ public func OnHit(int iChange, int iType, object pFrom)
   _inherited(...);
 }
 
-public func LastDamageType(int type) {
+public func LastDamageType(int type)
+{
   if(type)
     LastDmgType = type;
   return LastDmgType;
@@ -363,15 +363,14 @@ protected func ControlSpecial()
     if(Contained()->~ContainedSpecial(this))
       return 1;
   }
-
   return _inherited(...);
 }
 
 protected func ControlSpecial2()
 {
   [$CtrlMenuDesc$|Image=CXTX]
- 
-  // In einem Gebäude oder Fahrzeug: das Kontextmenü des Gebäudes öffnen
+
+  //In einem Gebäude oder Fahrzeug: das Kontextmenü des Gebäudes öffnen
   if (Contained())
   {
     if(Contained()->~ContainedSpecial2(this))
@@ -382,24 +381,24 @@ protected func ControlSpecial2()
       return SetCommand(this,"Context",0,0,0,Contained());
     }
   }
-  // Fasst ein Objekt an: Kontextmenü des angefassten Objekts öffnen
+  //Fasst ein Objekt an: Kontextmenü des angefassten Objekts öffnen
   if (GetAction() == "Push")
   {
     ExecuteCommand();
     return SetCommand(this,"Context",0,0,0,GetActionTarget());
   }
-  // Trägt ein Objekt: Kontextmenü des ersten getragenen Objekts öffnen
+  //Trägt ein Objekt: Kontextmenü des ersten getragenen Objekts öffnen
   if (Contents(0))
   {
     ExecuteCommand();
     return SetCommand(this,"Context",0,0,0,Contents(0));
   }
-  // Ansonsten das Kontextmenü des Clonks öffnen
+  //Ansonsten das Kontextmenü des Clonks öffnen
   ExecuteCommand();
   return SetCommand(this,"Context",0,0,0,this);
 }
 
-/* Screenfärbung bei Schaden */
+/* Bildschirmfärbung bei Schaden */
 
 global func FxDmgCheckDamage(object pTarget, int iEffect, int iDmg)
 {
@@ -427,7 +426,7 @@ global func FakeDeath(object pTarget)
   if(!pTarget) pTarget = this;
   if(!pTarget) return false;
   if(!pTarget->IsClonk()) return false;
-  
+
   pTarget->OnFakeDeath();
 
   //Achievements
@@ -466,9 +465,9 @@ global func FakeDeath(object pTarget)
   if(Hostile(GetKiller(pTarget), GetOwner(pTarget)))
   {
     if(GetProcedure(pTarget) == "FLIGHT" && GetProcedure(GetCursor(GetKiller(pTarget))) == "FLIGHT")
-    	if(GetActTime(pTarget) > 10 && GetActTime(GetCursor(GetKiller(pTarget))) > 10)
+      if(GetActTime(pTarget) > 10 && GetActTime(GetCursor(GetKiller(pTarget))) > 10)
         //Achievement-Fortschritt (Fly-By)
-      	DoAchievementProgress(1, AC10, GetKiller(pTarget));
+        DoAchievementProgress(1, AC10, GetKiller(pTarget));
   }
   ResetAchievementProgress(AC12, GetOwner());
   ResetAchievementProgress(AC14, GetOwner());
@@ -492,7 +491,7 @@ global func FakeDeath(object pTarget)
 
   SetComDir(COMD_Stop,pTarget);
   Sound("ClonkDie*.ogg", 0, pTarget);
-    
+
   return true;
 }
 
@@ -505,11 +504,11 @@ global func StopFakeDeath(object pTarget)
     pTarget = pTarget->GetClonk();
   if(!pTarget) return false;
   if(!pTarget->IsClonk()) return false;
-  
+
   Sound("ClonkCough*.ogg",0,pTarget);
   ObjectSetAction(pTarget,"FlatUp",0,0,1);
-	Contained(pTarget)->Reanimation();
-	   
+  Contained(pTarget)->Reanimation();
+
   return true;
 }
 
@@ -518,7 +517,7 @@ global func IsFakeDeath(object pTarget)
   if(!pTarget) pTarget = this;
   if(!pTarget) return false;
   //if(!pTarget->~IsClonk()) return(false);
-  
+
   return GetID(Contained(pTarget)) == FKDT;
 }
 
@@ -532,7 +531,6 @@ global func FxFakeDeathDamage(object pTarget, int iEffectNumber, int iDmgEngy, i
       return 0;
     }
   }
-  
   return iDmgEngy;
 }
 
@@ -554,38 +552,42 @@ func Death(object pTarget)
   }
   SetAchievementExtra(data, AC08, GetKiller(pTarget));
   ResetAchievementProgress(AC12, GetOwner());
-	if(!IsFakeDeath()) ResetAchievementProgress(AC14, GetOwner());
+  if(!IsFakeDeath()) ResetAchievementProgress(AC14, GetOwner());
 
-  //Todesnachricht bei keinem FakeDeath
+  //Bei Soforttod Todesnachricht einblenden
   if(FindObject(NOFD))
     pTarget->DeathAnnounce(GetOwner(pTarget), pTarget, GetKiller(pTarget));
 
   if(IsFakeDeath())
   {
-		pTarget->InstantDie();
+    pTarget->InstantDie();
   }
   else
   {
-   ScheduleCall(pTarget, "DeathSound", 1, 0, pTarget);
+    ScheduleCall(pTarget, "DeathSound", 1, 0, pTarget);
   }
 
   //Verschwinden
   FadeOut(pTarget);
 }
 
-public func InstantDie(object pTarget) {
-	if(!pTarget) pTarget = this;
-	if(!pTarget) return;
-  SetPhase(5);//Fallanimation überspringen
+public func InstantDie(object pTarget)
+{
+  if(!pTarget) pTarget = this;
+  if(!pTarget) return;
+
+  //Fallanimation überspringen
+  SetPhase(5);
   Sound("Death", false, pTarget);
   ClearScheduleCall(pTarget, "DeathSound");
   return true;
 }
 
-public func DeathSound(object pTarget) {
-	if(!pTarget) pTarget = this;
-	if(!pTarget) return;
-	Sound("ClonkDie*.ogg", false, pTarget);
+public func DeathSound(object pTarget)
+{
+  if(!pTarget) pTarget = this;
+  if(!pTarget) return;
+  Sound("ClonkDie*.ogg", false, pTarget);
 }
 
 protected func ContextStatistics(object pCaller)
