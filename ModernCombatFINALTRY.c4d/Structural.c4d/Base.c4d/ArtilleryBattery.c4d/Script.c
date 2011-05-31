@@ -57,6 +57,12 @@ if(!FindObject2(Find_Action("Push"), Find_ActionTarget(this))) {bRotate = 0; Sou
 
 }
 
+func SetRotation(aRotation)
+{
+  if(pCannon)
+    SetR(aRotation, pCannon);
+}
+
 /* Steuerung */
 
 func ControlRight(pByObj)
