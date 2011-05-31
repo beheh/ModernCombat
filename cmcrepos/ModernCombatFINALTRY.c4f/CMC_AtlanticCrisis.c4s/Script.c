@@ -259,8 +259,8 @@ func CreateEquipment()
   PlaceSpawnpoint(MBOX, 3860, 515);
 
   //Artilleriebatterien
-  CreateObject(ATBY,2231,520,-1);
-  CreateObject(ATBY,3775,520,-1);
+  CreateObject(ATBY,2231,520,-1)->SetRotation(20);
+  CreateObject(ATBY,3775,520,-1)->SetRotation(-20);
 
   //Patrouillenboote
   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1710,620,-1),50*21,300);

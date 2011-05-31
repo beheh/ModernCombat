@@ -228,10 +228,10 @@ func CreateEquipment()
   PlaceSpawnpoint(MBOX, 6080, 595);
 
   //Artilleriebatterien
-  CreateObject(ATBY,1565,460,-1);
-  CreateObject(ATBY,2795,480,-1);
-  CreateObject(ATBY,4035,480,-1);
-  CreateObject(ATBY,5265,460,-1);
+  CreateObject(ATBY,1565,460,-1)->SetRotation(20);
+  CreateObject(ATBY,2795,480,-1)->SetRotation(20);
+  CreateObject(ATBY,4035,480,-1)->SetRotation(-20);
+  CreateObject(ATBY,5265,460,-1)->SetRotation(-20);
 
   //Blackhawk
   SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,855,570,-1),100*21,300);

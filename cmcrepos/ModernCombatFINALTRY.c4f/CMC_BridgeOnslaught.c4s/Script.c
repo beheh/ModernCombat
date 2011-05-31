@@ -336,8 +336,8 @@ func CreateEquipment()
   store->AddWare(STUN,-1);
 
   //Artilleriebatterien
-  CreateObject(ATBY,1260,310,-1);
-  CreateObject(ATBY,1470,310,-1);
+  CreateObject(ATBY,1260,310,-1)->SetRotation(-20);
+  CreateObject(ATBY,1470,310,-1)->SetRotation(20);
 }
 
 func CreateDecoration()
