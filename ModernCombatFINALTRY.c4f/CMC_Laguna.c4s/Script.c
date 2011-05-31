@@ -207,8 +207,8 @@ func CreateEquipment()
   PlaceSpawnpoint(MBOX, 2920, 655);
 
   //Artilleriebatterien
-  aArtillery[0] = CreateObject(ATBY,1855,490,-1);
-  aArtillery[1] = CreateObject(ATBY,2130,470,-1);
+  aArtillery[0] = CreateObject(ATBY,1855,490,-1)->SetRotation(-60);
+  aArtillery[1] = CreateObject(ATBY,2130,470,-1)->SetRotation(20);
 }
 
 func CreateDecoration()
