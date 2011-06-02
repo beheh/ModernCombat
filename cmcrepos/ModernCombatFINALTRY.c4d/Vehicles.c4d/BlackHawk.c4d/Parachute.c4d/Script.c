@@ -23,6 +23,9 @@ protected func Fly()
   //Freiflug
   if(WildcardMatch(GetAction(),"*Free*"))
   {
+    //Bei baldigem Bodenkontakt zusammenfallen
+    if (GBackSolid(0, 20))
+      Close();
     //Windbeeinflussung
     SetXDir(GetWind(GetX(), GetY()) / 8);
     SetYDir(30, 0, 10);
@@ -43,6 +46,22 @@ protected func Fly()
       return;
     }
 
+    //Bei baldigem Bodenkontakt zusammenfallen
+    if (GBackSolid(0, 20))
+    {
+      //Zusatzeffekte bei Objekteanhang
+      if(targ)
+      {
+        Sound("ParachuteLand.ogg");
+        if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",8,10,0,20,20,150);
+      }
+      Close();
+    }
+
+    //Bei Wasserkontakt zusammenfallen
+    if(InLiquid() || InLiquid(targ))
+      Close();
+
     //Windbeeinflussung
     SetXDir(GetWind(GetX(), GetY()) /8 , targ);
 
@@ -52,12 +71,13 @@ protected func Fly()
 
     //Manuelles Losmachen durch [Doppelstop] des Objektanhangs
     if(GetPlrDownDouble(GetController(targ)))
-      SetAction("StartFlyFree");
-
-    //Bei Wasser- oder Bodenkontakt zusammenfallen
-    if(GetContact(0, -1, CNAT_Bottom) || GetContact(targ, -1, CNAT_Bottom) || InLiquid() || InLiquid(targ))
-      Close();
-
+    {
+      //Erneuter Check nach Bodenkontakt
+      if (GBackSolid(0, 20))
+        Close();
+      else
+        SetAction("StartFlyFree");
+    }
     //Lebewesen
     if (GetCategory(targ) & C4D_Living)
       if (GetID(Contained(targ)) == FKDT)
