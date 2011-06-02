@@ -184,9 +184,15 @@ func Hit2(int xDir, int yDir)
   var hit = Distance(xDir,yDir);//Max(xDir,yDir);
 
   if(hit >= 800)
+  {
     Sound("ClonkImpact*.ogg");
+    if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",8,10,0,10,20,100);
+  }
   else if(hit >= 600)
+  {
     Sound("ClonkFall*.ogg");
+    if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",4,8,0,10,20,50);
+  }
 
   if(!FindObject(FDMG) || hit <= 700) return _inherited(xDir,yDir,...);
 
