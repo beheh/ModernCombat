@@ -4,20 +4,26 @@ Dieses System ermöglicht es Spieler und deren Leistung genauer bewerten zu könne
 
 Standardpunkteliste:
 
-Gefecht:
+Im Gefecht:
 
 Kill					50		Gefechtspunkte		IC01
 Kill Assist				30		Gefechtspunkte		IC02
 Selbstmord				-30		Minuspunkte		IC07
 Teamkill				-80		Minuspunkte		IC06
+Entschärfung				20		Teampunkte		IC15
+
+Teamwork:
+
 Reanimation				50		Teampunkte		IC04
+Heilung					[Anzahl]/4	Teampunkte		IC05
 Dragnininjektion an Verbündeten		10		Teampunkte		IC05
 Munitionierung				[Anzahl]/3	Teampunkte		IC14
-Heilung					[Anzahl]/4	Teampunkte		IC05
-Entschärfung				20		Teampunkte		IC15
 Schildabwehr				10		Teampunkte		IC16
 Kill Assist durch Blendung		10		Teampunkte		IC19
-Strukturzerstörung			50		Gefechtspunkte		IC03	
+
+Zerstörung:
+
+Strukturzerstörung			50		Gefechtspunkte		IC03
 
 Fahrzeuge:
 
@@ -25,6 +31,7 @@ Fahrzeugzerstörung			50		Gefechtspunkte		IC03
 Beschädigung				10		Gefechtspunkte		IC18
 Projektilabwehr				10		Teampunkte		IC16
 Kill Assist aus Fahrzeug heraus		30		Teampunkte		IC02
+
 
 Peilsender:
 
