@@ -31,7 +31,8 @@ public func ChooserFinished()
   return _inherited(...);
 }
 
-protected func InitializeTickets() {
+protected func InitializeTickets()
+{
   iTickets = CalcTickets();
   if(iTickets < 4)
     iWarningTickets = 0;
@@ -66,6 +67,7 @@ public func CalcTickets()
 	else
 	  A++;
 
+  //Ticketformel
   //return D + (A + 2 * D + D * D) / (A + 1);
   return D + (D * (4 + (20 - D) * D / 12)) / (A + 1);
 }
@@ -100,7 +102,7 @@ public func ReportAssaultTargetDestruction(object pTarget, int iTeam)
 	    fConnectedDestruction = false;
 
   //Und gleich mal bekanntgeben
-  EventInfo4K(0, Format("$TargetDestruction$", GetTeamColor(iTeam), GetName(pTarget)), GBAS, 0, 0, 0, "Info.ogg");
+  EventInfo4K(0, Format("$TargetDestruction$", GetTeamColor(iTeam), GetName(pTarget)), GBAS, 0, 0, 0, "RadioConfirm*.ogg");
   GameCall("OnAssaultTargetDestruction", pTarget, iTeam, FindInArray4K(aTargets[iTeam], pTarget), fConnectedDestruction);
   if (pTarget)
     Explode(50, pTarget);
