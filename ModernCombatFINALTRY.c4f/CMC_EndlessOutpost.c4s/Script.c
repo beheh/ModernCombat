@@ -903,8 +903,6 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
    aLamp[01]->EMPShock();
    aLamp[02]->EMPShock();
    aLamp[03]->EMPShock();
-
-   Sound("Announce1.ogg");
   }
 
   //Ziel 2
@@ -950,8 +948,6 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
    CreateObject(FAUD, 1850, 225, -1)->Set(3);
    CreateObject(FAUD, 1840, 280, -1)->Set(2);
    CreateObject(FAUD, 1890, 290, -1)->Set(3);
-
-   Sound("Announce3.ogg");
   }
 
   //Ziel 3
@@ -987,8 +983,6 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
    CreateObject(FAUD, 1805, 430, -1)->Set(2);
    CreateObject(FAUD, 1750, 470, -1)->Set(1);
    CreateObject(FAUD, 1860, 460, -1)->Set(3);
-
-   Sound("Announce4.ogg");
   }
 
   //Ziel 4
@@ -1009,8 +1003,6 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
    CreateParticle("GunSmoke",2160,520,-10,250,1);
    CreateParticle("GunSmoke",2190,520,0,-10,250,1);
    Smoke(2180, 490, 50);
-
-   Sound("Announce1.ogg");
   }
 
   //Ziel 5
@@ -1029,8 +1021,6 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
    CreateParticle("GunSmoke",2195,330,0,-10,250,1);
    CreateParticle("GunSmoke",2225,330,0,-10,250,1);
    Smoke(2200, 305, 50);
-
-   Sound("Announce4.ogg");
   }
 
   //Ziel 6
@@ -1049,8 +1039,6 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
    CreateParticle("GunSmoke",2350,230,0,-10,250,1);
    CreateParticle("GunSmoke",2370,230,0,-10,250,1);
    Smoke(2355, 210, 50);
-
-   Sound("Announce3.ogg");
   }
 
   //Ziel 7
@@ -1069,8 +1057,6 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
    CreateParticle("GunSmoke",2430,330,0,-10,250,1);
    CreateParticle("GunSmoke",2460,330,0,-10,250,1);
    Smoke(2440, 310, 50);
-
-   Sound("Announce4.ogg");
   }
 
   //Ziel 8
@@ -1089,8 +1075,6 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
    CreateParticle("GunSmoke",2440,510,0,-10,250,1);
    CreateParticle("GunSmoke",2470,510,0,-10,250,1);
    Smoke(2455, 490, 50);
-
-   Sound("Announce4.ogg");
   }
 }
 

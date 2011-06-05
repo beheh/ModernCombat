@@ -829,8 +829,6 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
     //Grenze neu setzen
     RemoveAll(BRDR);
     CreateObject(BRDR, 0, 920, -1)->Set(2,1);
-
-    Sound("Announce2.ogg");
    }
   }
 
@@ -846,8 +844,6 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
    //Grenze neu setzen
    RemoveAll(BRDR);
    CreateObject(BRDR, 0, 520, -1)->Set(2,1);
-
-   Sound("Announce3.ogg");
   }
 }
 
