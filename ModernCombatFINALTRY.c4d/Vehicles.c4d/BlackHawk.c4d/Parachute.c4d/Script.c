@@ -3,7 +3,15 @@
 #strict 2
 
 
-/* Erstellung */
+/* Initialisierung */
+
+protected func Initialize()
+{
+  //Soundschleife übergeben
+  Sound("ParachuteFly.ogg", false, 0, 25, 0, +1);
+}
+
+/* Festlegung */
 
 public func ControlDigDouble(pObj)
 {
@@ -117,6 +125,8 @@ public func Close()
 {
   SetAction("Fold", GetActionTarget());
   Sound("ParachuteClose.ogg");
+  //Soundschleife beenden
+  Sound("ParachuteFly.ogg", false, 0, 25, 0, -1);
 }
 
 private func Folded()
