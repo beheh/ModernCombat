@@ -381,10 +381,14 @@ func CreateEquipment()
   PlaceSpawnpoint(MBOX, 6600, 650);
 
   //Artilleriebatterien
-  aArtillery[0] = CreateObject(ATBY,1025,210,-1)->SetRotation(20);
-  aArtillery[1] = CreateObject(ATBY,3640,330,-1)->SetRotation(20);
-  aArtillery[2] = CreateObject(ATBY,5720,340,-1)->SetRotation(-30);
-  aArtillery[3] = CreateObject(ATBY,7360,310,-1)->SetRotation(-30);
+  aArtillery[0] = CreateObject(ATBY,1025,210,-1);
+  aArtillery[0]->SetRotation(20);
+  aArtillery[1] = CreateObject(ATBY,3640,330,-1);
+  aArtillery[1]->SetRotation(20);
+  aArtillery[2] = CreateObject(ATBY,5720,340,-1);
+  aArtillery[2]->SetRotation(-30);
+  aArtillery[3] = CreateObject(ATBY,7360,310,-1);
+  aArtillery[3]->SetRotation(-30);
 }
 
 func CreateDecoration()
@@ -731,7 +735,7 @@ public func ChooserFinished()
    RemoveAll(LCKR);
    RemoveObject(FindObject2(Find_ID(LADR),Find_InRect(915, 270, 20, 190)));
    RemoveObject(FindObject2(Find_ID(BUOY),Find_InRect(5160, 520, 100, 100)));
-   RemoveObject(FindObject2(Find_ID(CLVM),Find_InRect(7200, 390, 40, 40)));
+   RemoveObject(FindObject2(Find_ID(VGMN),Find_InRect(7200, 390, 40, 40)));
    RemoveObject(FindObject2(Find_ID(RSPT),Find_InRect(7224, 419, 3, 3)));
    RemoveObject(FindObject2(Find_ID(HA4K),Find_InRect(7225, 410, 20, 30)));
    RemoveObject(FindObject2(Find_ID(LADR),Find_InRect(7230, 430, 20, 30)));
