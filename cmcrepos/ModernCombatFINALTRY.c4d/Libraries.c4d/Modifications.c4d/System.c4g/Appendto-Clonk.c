@@ -261,37 +261,45 @@ protected func DoPoints()
   {
     //Punkte bei Belohnungssystem (Kill)
     DoPlayerPoints(KillPoints(), RWDS_BattlePoints, killer, GetCursor(killer), IC01);
-    
+
     //Achievements und Punkte für den Killer
     if(GetCursor(killer))
     {
-    	var pClonk = GetCursor(killer);
-     	if(pClonk->~GetRealCursor()) pClonk = pClonk->~GetRealCursor();
-     	//Marksman
-      if(ObjectDistance(pClonk, this) >= 350 && LastDamageType() == DMG_Projectile && KillIcon()->~IsWeapon2() && !Contained(pClonk)) {
+      var pClonk = GetCursor(killer);
+      if(pClonk->~GetRealCursor()) pClonk = pClonk->~GetRealCursor();
+
+      //Marksman
+      if(ObjectDistance(pClonk, this) >= 350 && LastDamageType() == DMG_Projectile && KillIcon()->~IsWeapon2() && !Contained(pClonk))
+      {
         //Achievement-Fortschritt (Marksman)
         DoAchievementProgress(1,AC17,killer);
       }
-     	//Helikopter-Sachen
-    	if(Contained(pClonk) && Contained(pClonk)->~IsHelicopter()) {
-    	  if(LastDamageType() == DMG_Projectile || LastDamageType() == DMG_Explosion) {
-          	//Achievement-Fortschritt (Get to the Chopper)
-    	  	DoAchievementProgress(1,AC18,killer);
-    	  }
-    	  if(Contained(pClonk)->~GetPilot()) {
-    	    //Einem eventuellem Piloten Assistpunkte geben
-        	var pPilot = Contained(pClonk)->~GetPilot();
-        	if(pPilot->~GetRealCursor()) pPilot = pPilot->~GetRealCursor();
-        	if(GetOwner(pPilot) != GetOwner(pClonk)) {
-                        //Punkte bei Belohnungssystem (Kill Assist aus Fahrzeug heraus)
-        		DoPlayerPoints(AssistPoints(), RWDS_TeamPoints, GetOwner(pPilot), pPilot, IC02);      	
-        	}
-      	}
+
+      //Helikopterbezogene Punkte und Achievements
+      if(Contained(pClonk) && Contained(pClonk)->~IsHelicopter())
+      {
+        if(LastDamageType() == DMG_Projectile || LastDamageType() == DMG_Explosion)
+        {
+          //Achievement-Fortschritt (Get to the Chopper)
+          DoAchievementProgress(1,AC18,killer);
+
+        }
+        if(Contained(pClonk)->~GetPilot())
+        {
+          //Eventuellem Piloten Assistpunkte geben
+          var pPilot = Contained(pClonk)->~GetPilot();
+          if(pPilot->~GetRealCursor()) pPilot = pPilot->~GetRealCursor();
+          if(GetOwner(pPilot) != GetOwner(pClonk))
+          {
+            //Punkte bei Belohnungssystem (Kill Assist aus Fahrzeug heraus)
+            DoPlayerPoints(AssistPoints(), RWDS_TeamPoints, GetOwner(pPilot), pPilot, IC02);      	
+          }
+        }
       }
     }
 
-    //Dem mit dem meisten angerichteten Schaden neben dem Killer Assistpunkte geben
-		var assist = GetAssist();
+    //Killassist
+    var assist = GetAssist();
     if(assist != killer && GetPlayerName(assist))
     {
       //Punkte bei Belohnungssystem (Kill Assist)
@@ -299,34 +307,37 @@ protected func DoPoints()
       //Achievement-Fortschritt (Helping Hand)
       if(!Hostile(assist, killer)) DoAchievementProgress(1, AC01, assist);
     }
-    if(LastDamageType() == DMG_Explosion) {
-		  if(!aDoomBoom[1]) aDoomBoom[1] = 0;
-		  aDoomBoom[1]++;
-	  }
+    if(LastDamageType() == DMG_Explosion)
+    {
+      if(!aDoomBoom[1]) aDoomBoom[1] = 0;
+      aDoomBoom[1]++;
+    }
   }
   
   //Achievement-Fortschritt (Non-Swimmer)
   if(GBackLiquid()) DoAchievementProgress(1, AC11, GetOwner());
   
-  //Selfkill
-  if(LastDamageType() == DMG_Explosion && killer == GetOwner()) {
+  //Selbstmord
+  if(LastDamageType() == DMG_Explosion && killer == GetOwner())
+  {
     if(!aDoomBoom[0]) aDoomBoom[0] = true;
   }
 
-  //DoomBoom-Check
-  if(LastDamageType() == DMG_Explosion) {
-		if(aDoomBoom[0] && aDoomBoom[1])
-			if(aDoomBoom[0] == true && aDoomBoom[1] >= AC15->~GetAchievementScore())
-				AwardAchievement(AC15, killer);
-		SetAchievementExtra(aDoomBoom, AC15, killer);
-		Schedule(Format("ResetAchievementExtra(AC15, %d)", killer), 10);
-	}
-  
+  //DoomBoom
+  if(LastDamageType() == DMG_Explosion)
+  {
+    if(aDoomBoom[0] && aDoomBoom[1])
+      if(aDoomBoom[0] == true && aDoomBoom[1] >= AC15->~GetAchievementScore())
+        AwardAchievement(AC15, killer);
+    SetAchievementExtra(aDoomBoom, AC15, killer);
+    Schedule(Format("ResetAchievementExtra(AC15, %d)", killer), 10);
+  }
+
   //Teamkiller
   if(!Hostile(killer,GetOwner()) && killer != GetOwner() && !(killer < 0))
     //Punkte bei Belohnungssystem (Teamkill)
     DoPlayerPoints(TeamkillPoints(), RWDS_MinusPoints, killer, GetCursor(killer), IC06);
-  
+
   //Punkte für Einräucherer/Blender
   var effectno;
   if(effectno = GetEffect("SmokeGrenade", this))

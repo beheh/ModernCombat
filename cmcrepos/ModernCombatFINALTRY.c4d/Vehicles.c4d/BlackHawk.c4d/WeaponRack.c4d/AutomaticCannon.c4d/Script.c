@@ -76,7 +76,7 @@ public func Fire1()
   AddEffect("IntHeliProtection", ammo, 5, 0, 0, BKHK, LocalN("heli", Contained()));
   ammo->CustomLaunch(angle + Random(5) - 2, 250, 750, 2, GetFMData(FM_Damage) * 10, GetFMData(FM_Damage));
 
-  // Effekte
+  //Effekte
   SAMuzzleFlash(RandomX(35,50),user,x,y,angle);
   SABulletCasing(x/3,y/3,-dir*14*(Random(1)+1),-(13+Random(2)),5);
   Sound("ACCN_Fire.ogg", 0, ammo);

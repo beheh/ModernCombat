@@ -9,6 +9,7 @@ public func FuseTime()		{return 2*30;}
 public func SensorDistance()	{return 190;}
 public func IsActive()		{return active;}
 public func DoSmoke()		{return false;}
+public func IsDetectable()	{return false;}
 public func LimitationCount()	{return 2;}
 
 local active;
@@ -82,8 +83,10 @@ public func Beep()
 
   //Effekte
   CreateParticle("PSpark", 0, 0, 0, 0, 60, GetPlrColorDw(GetOwner()), this);
-  CreateParticle("Circle", 0, 0, 0, 0, 1950, GetPlrColorDw(GetOwner()), this);
   Sound("SNSR_Beep.ogg");
+
+  //Kreissymbol erstellen
+  CreateObject(SM09,0,0,GetOwner())->Set(this);
 
   //Einen Moment lang nicht mehr beepen
   AddEffect("IntWait", this, 1, 50, this);
