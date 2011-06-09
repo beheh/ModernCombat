@@ -20,6 +20,7 @@ Dragnininjektion an Verbündeten		10		Teampunkte		IC05
 Munitionierung				[Anzahl]/3	Teampunkte		IC14
 Schildabwehr				10		Teampunkte		IC16
 Kill Assist durch Blendung		10		Teampunkte		IC19
+Kill Assist durch Sichtung		10		Teampunkte		IC02
 
 Zerstörung:
 

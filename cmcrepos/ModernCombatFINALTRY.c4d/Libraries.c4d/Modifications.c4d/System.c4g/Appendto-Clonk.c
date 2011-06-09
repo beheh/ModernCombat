@@ -313,7 +313,13 @@ protected func DoPoints()
       aDoomBoom[1]++;
     }
   }
-  
+
+  //Punkte für Sensorballmarkierung
+  var marker = FindObject2(Find_ID(SM08), Find_Allied(killer), Find_Action("Attach"), Find_ActionTarget(this)); 
+    if(marker && GetOwner(marker) != killer) 
+      //Punkte bei Belohnungssystem (Kill Assist durch Sichtung)
+      DoPlayerPoints(BonusPoints("VisualAssist"), RWDS_TeamPoints, GetOwner(marker), GetCursor(GetOwner(marker)), IC02);
+
   //Achievement-Fortschritt (Non-Swimmer)
   if(GBackLiquid()) DoAchievementProgress(1, AC11, GetOwner());
   
