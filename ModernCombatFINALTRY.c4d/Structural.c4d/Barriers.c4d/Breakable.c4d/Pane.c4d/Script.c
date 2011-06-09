@@ -2,7 +2,10 @@
 
 #strict 2
 
-public func IsMeleeTarget()	{return true;}
+public func IsMeleeTarget()			{return true;}
+public func CanBeHitByShockwaves()		{return(true);}
+public func BlastObjectsShockwaveCheck()	{return(true);}
+
 
 /* Zerstörung */
 
@@ -52,4 +55,9 @@ public func IsBulletTarget(id def)
 {
   if(def->~NoDecoDamage()) return false;
   return true;
+}
+
+public func OnShockwaveHit(iLevel,iX,iY)
+{
+  Shatter(BoundBy(20));
 }

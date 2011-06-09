@@ -2,6 +2,9 @@
 
 #strict 2
 
+public func CanBeHitByShockwaves()		{return(true);}
+public func BlastObjectsShockwaveCheck()	{return(true);}
+
 
 /* Schaden */
 
@@ -19,6 +22,11 @@ public func IsBulletTarget(id def)
 {
   if(def->~NoDecoDamage()) return false;
   return true;
+}
+
+public func OnShockwaveHit(iLevel,iX,iY)
+{
+  Damage();
 }
 
 /* Aufschlag */ 
