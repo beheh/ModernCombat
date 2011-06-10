@@ -3,11 +3,11 @@
 #strict 2
 #include CASS
 
-local iDefender;		   //Verteidiger-Team
-local iTickets;			   //Tickets für die Angreifer
-local iWarningTickets; //Tickets bei denen gewarnt wird
-local aSpawns;			   //Spawnpunkte
-local Connected;		   //Verbundene Ziele
+local iDefender;	//Verteidiger-Team
+local iTickets;		//Tickets für die Angreifer
+local iWarningTickets;	//Tickets bei denen gewarnt wird
+local aSpawns;		//Spawnpunkte
+local Connected;	//Verbundene Ziele
 
 
 /* Initialisierung */
@@ -63,9 +63,9 @@ public func CalcTickets()
   var A, D;
   for (var i; i < GetPlayerCount(); i++)
     if (GetPlayerTeam(GetPlayerByIndex(i)) == iDefender)
-	  D++;
-	else
-	  A++;
+      D++;
+    else
+      A++;
 
   //Ticketformel
   //return D + (A + 2 * D + D * D) / (A + 1);
@@ -78,10 +78,10 @@ public func AddAssaultTarget(id idTarget, int iX, int iY, int iMaxDamage, int iT
   {
     //Team setzen
     if (iTeam && iDefender == -1)
-	  iDefender = iTeam;
-	//Spawnpunkte anders behandeln
-	aSpawns[iIndex] = aSpawn;
-	return true;
+      iDefender = iTeam;
+    //Spawnpunkte anders behandeln
+    aSpawns[iIndex] = aSpawn;
+    return true;
   }
 }
 
@@ -98,8 +98,8 @@ public func ReportAssaultTargetDestruction(object pTarget, int iTeam)
     fConnectedDestruction = false;
   else
     for (var i in Connected[index])
-	  if (aTargets[iDefender][i])
-	    fConnectedDestruction = false;
+      if (aTargets[iDefender][i])
+        fConnectedDestruction = false;
 
   //Und gleich mal bekanntgeben
   EventInfo4K(0, Format("$TargetDestruction$", GetTeamColor(iTeam), GetName(pTarget)), GBAS, 0, 0, 0, "RadioConfirm*.ogg");
@@ -110,18 +110,17 @@ public func ReportAssaultTargetDestruction(object pTarget, int iTeam)
   //Letztes Ziel
   if (ObjectCount2(Find_InArray(aTargets[iDefender])) == 1)
     for (var i, j; i < GetPlayerCount(); i++)
-	  if (GetPlayerTeam(j = GetPlayerByIndex(i)) == iDefender)
-	    EventInfo4K(j+1, "$DefendLastStation$", GetID(), 0, 0, 0, "Alarm.ogg");
-	  else
-	    EventInfo4K(j+1, "$DestroyLastStation$", GetID(), 0, 0, 0, "Alarm.ogg");
-	    
+      if (GetPlayerTeam(j = GetPlayerByIndex(i)) == iDefender)
+        EventInfo4K(j+1, "$DefendLastStation$", GetID(), 0, 0, 0, "Alarm.ogg");
+      else
+        EventInfo4K(j+1, "$DestroyLastStation$", GetID(), 0, 0, 0, "Alarm.ogg");
 
   //Tickets resetten, bei verbundenen nur wenn alle Ziele zerstört sind
   if (GetType(Connected[index]) != C4V_Array)
     InitializeTickets();
   else
     if (fConnectedDestruction)
-	    InitializeTickets();
+      InitializeTickets();
 }
 
 public func TeamGetScore(int iTeam)
@@ -264,26 +263,6 @@ public func RelaunchPlayer(int iPlr, pClonk, int iKiller)
   AddEffect("IntAssaultSpawn", tim, 1, 1, this);
 }
 
-/* EventInfos */
-
-public func TicketsLow(int iRemaining, int iTeam, bool fExclude)
-{
-  for (var i = 0; i < GetPlayerCount(); i++)
-    if ((!fExclude && GetPlayerTeam(GetPlayerByIndex(i)) == iTeam) || (fExclude && GetPlayerTeam(GetPlayerByIndex(i)) != iTeam))
-      //Nachricht über Tickettiefstand
-      EventInfo4K(GetPlayerByIndex(i) + 1, Format("$MsgTicketsLow$", iRemaining), SM03, 0, 0, 0, "Alarm.ogg");
-  return true;
-}
-
-public func NoTickets(int iTeam, bool fExclude)
-{
-  for (var i = 0; i < GetPlayerCount(); i++)
-    if ((!fExclude && GetPlayerTeam(GetPlayerByIndex(i)) == iTeam) || (fExclude && GetPlayerTeam(GetPlayerByIndex(i)) != iTeam))
-      //Nachricht über Verlust aller Tickets
-      EventInfo4K(GetPlayerByIndex(i) + 1, Format("$MsgNoTickets$"), SM03, 0, 0, 0, "Alarm.ogg");
-  return true;
-}
-
 protected func FxIntAssaultSpawnTimer(object pTarget)
 {
   if (GetAlive(Contents(0, pTarget)))
@@ -345,6 +324,26 @@ public func GetRespawnPoint(int &iX, int &iY, int iTeam)
 
   iX = aSpawns[target][index][0][0];
   iY = aSpawns[target][index][0][1]-10;
+  return true;
+}
+
+/* EventInfos */
+
+public func TicketsLow(int iRemaining, int iTeam, bool fExclude)
+{
+  for (var i = 0; i < GetPlayerCount(); i++)
+    if ((!fExclude && GetPlayerTeam(GetPlayerByIndex(i)) == iTeam) || (fExclude && GetPlayerTeam(GetPlayerByIndex(i)) != iTeam))
+      //Nachricht über Tickettiefstand
+      EventInfo4K(GetPlayerByIndex(i) + 1, Format("$MsgTicketsLow$", iRemaining), SM03, 0, 0, 0, "Alarm.ogg");
+  return true;
+}
+
+public func NoTickets(int iTeam, bool fExclude)
+{
+  for (var i = 0; i < GetPlayerCount(); i++)
+    if ((!fExclude && GetPlayerTeam(GetPlayerByIndex(i)) == iTeam) || (fExclude && GetPlayerTeam(GetPlayerByIndex(i)) != iTeam))
+      //Nachricht über Verlust aller Tickets
+      EventInfo4K(GetPlayerByIndex(i) + 1, Format("$MsgNoTickets$"), SM03, 0, 0, 0, "Alarm.ogg");
   return true;
 }
 
@@ -432,12 +431,12 @@ private func AddScoreboardTarget(object pTarget, int iRow)
   SetScoreboardData(iRow+GASS_TargetRow, GASS_Count, Format("<c %x>%d%</c>", color, percent), percent + 50);
 }
 
-/* Ziel */
-
 protected func FxIntGoalTimer()
 {
   UpdateScoreboard();
 }
+
+/* Rundenauswertung */
 
 local fulfilled;
 
@@ -450,26 +449,38 @@ private func IsFulfilled()
 
   var won = false;
 
-  //Keine Ziele mehr -> Verteidiger eliminiert
+  //Zielobjekte zerstört: Angreifer gewinnen
   if (!ObjectCount2(Find_InArray(aTargets[iDefender])))
   {
+    //Verteidiger eliminieren
     EliminateTeam(iDefender);
+
+    //Nachricht über Gewinner
     Message("@$AttackersWon$");
+
     won = true;
   }
 
-  //Nur noch die Verteidiger übrig
+  //Keine Angreifer übrig: Verteidiger gewinnen
   else if (GetActiveTeamCount() == 1 && GetPlayerTeam(GetPlayerByIndex()) == iDefender)
   {
+    //Nachricht über Gewinner
     Message("@$TeamHasWon$", 0, GetTaggedTeamName(iDefender));
+
     won = true;
   }
 
   if (won)
   {
+    //Spielende planen
     Schedule("GameOver()", 150);
+
+    //Auswertung
     RewardEvaluation();
+
+    //Sound
     Sound("Cheer.ogg", true);
+
     RemoveAll(GOAL);
     return fulfilled = true;
   }
