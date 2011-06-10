@@ -458,6 +458,15 @@ private func IsFulfilled()
     //Nachricht über Gewinner
     Message("@$AttackersWon$");
 
+    //Achievement-Ausgabe
+    for (var i = 0, j; i < GetPlayerCount(); i++)
+    {
+      if (GetPlayerTeam(j = GetPlayerByIndex(i)) == iDefender)
+        return;
+      //Achievement-Fortschritt (Stormtrooper)
+      DoAchievementProgress(1, AC25, GetPlayerByIndex(i));
+    }
+
     won = true;
   }
 
