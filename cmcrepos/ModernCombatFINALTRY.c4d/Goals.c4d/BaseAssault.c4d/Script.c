@@ -151,7 +151,7 @@ public func RemoveScoreboardTeam(int iTeam)
   }
 }
 
-/* Sieg */
+/* Rundenauswertung */
 
 local fulfilled;
 
@@ -251,7 +251,54 @@ public func OpenRelaunchMenu(object pCrew, int iSelection)
   SelectMenuItem(iSelection, pCrew);
 }
 
-//Sortieren ist immer so weird...
+public func OnMenuSelection(int iSelection, object pCrew)
+{
+  var array = FindObjects(Find_InArray(aTargets[GetPlayerTeam(GetOwner(pCrew))]));
+  SortTargets(array);
+  var obj = array[iSelection];
+  //Ziel zerstört? Menü neu öffnen
+  if (!obj)
+    return OpenRelaunchMenu(pCrew);
+  //Guckloch für das Ziel
+  SetPosition(GetX(obj), GetY(obj), Contained(pCrew));
+}
+
+public func MenuQueryCancel(int iSelection, object pCrew)
+{
+  return GetMenu(pCrew) == GBAS;
+}
+
+public func DoRelaunch(object pCrew, object pTarget)
+{
+  //Ziel weg? Neu öffnen
+  if (!pTarget)
+    return OpenRelaunchMenu(pCrew);
+  var container = Contained(pCrew);
+  var id = GetID(pTarget);
+  //Fake?
+  if (id == AHBS)
+    id = pTarget->GetImitationID();
+  //Relaunchposition
+  var x, y, iTeam = pTarget->GetTeam(), array = aSpawn[iTeam];
+  if (GetType(array) == C4V_Array)
+    array = array[GetIndexOf(pTarget, aTargets[iTeam])];
+  //Da ist kein Array? Dann am Objekt respawnen lassen
+  if (GetType(array) != C4V_Array) {
+    x = GetX(pTarget);
+    y = GetY(pTarget)+GetDefHeight(id)/2-10;
+  }
+  else {
+    var i = Random(GetLength(array));
+    x = array[i][0];
+    y = array[i][1]-10;
+  }
+  SetPosition(x, y, Contained(pCrew));
+  container->Spawn();
+  SetPlrViewRange(500, pCrew);
+}
+
+/* Sortierung */
+
 private func SortTargets(array &a)
 {
   var result = [], array = a, next, val, dir = GameCall("OccupationDir");
@@ -308,50 +355,4 @@ private func SortTargets(array &a)
   }
 
   return a = result;
-}
-
-public func OnMenuSelection(int iSelection, object pCrew)
-{
-  var array = FindObjects(Find_InArray(aTargets[GetPlayerTeam(GetOwner(pCrew))]));
-  SortTargets(array);
-  var obj = array[iSelection];
-  //Ziel zerstört? Menü neu öffnen
-  if (!obj)
-    return OpenRelaunchMenu(pCrew);
-  //Guckloch für das Ziel
-  SetPosition(GetX(obj), GetY(obj), Contained(pCrew));
-}
-
-public func MenuQueryCancel(int iSelection, object pCrew)
-{
-  return GetMenu(pCrew) == GBAS;
-}
-
-public func DoRelaunch(object pCrew, object pTarget)
-{
-  //Ziel weg? Neu öffnen
-  if (!pTarget)
-    return OpenRelaunchMenu(pCrew);
-  var container = Contained(pCrew);
-  var id = GetID(pTarget);
-  //Fake?
-  if (id == AHBS)
-    id = pTarget->GetImitationID();
-  //Relaunchposition
-  var x, y, iTeam = pTarget->GetTeam(), array = aSpawn[iTeam];
-  if (GetType(array) == C4V_Array)
-    array = array[GetIndexOf(pTarget, aTargets[iTeam])];
-  //Da ist kein Array? Dann am Objekt respawnen lassen
-  if (GetType(array) != C4V_Array) {
-    x = GetX(pTarget);
-    y = GetY(pTarget)+GetDefHeight(id)/2-10;
-  }
-  else {
-    var i = Random(GetLength(array));
-    x = array[i][0];
-    y = array[i][1]-10;
-  }
-  SetPosition(x, y, Contained(pCrew));
-  container->Spawn();
-  SetPlrViewRange(500, pCrew);
 }
