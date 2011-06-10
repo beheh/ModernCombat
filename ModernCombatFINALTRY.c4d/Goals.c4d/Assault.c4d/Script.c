@@ -479,6 +479,17 @@ private func IsFulfilled()
     won = true;
   }
 
+  //Keine Verteidiger übrig: Angreifer gewinnen
+  else if (GetActiveTeamCount() != 2)
+  {
+    //Verteidiger eliminieren 
+    EliminateTeam(iDefender);
+
+    //Nachricht über Gewinner
+    Message("@$AttackersWon$");
+    won = true;
+  }
+
   if (won)
   {
     //Spielende planen
