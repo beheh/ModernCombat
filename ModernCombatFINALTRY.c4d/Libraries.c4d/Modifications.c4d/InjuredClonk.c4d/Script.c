@@ -229,7 +229,7 @@ private func GetRandomTipp(array a, id id)
   if (id == PGRN) return GetRandomTipp([[PGRN, "$PGRN0$"]]);
   if (id == STUN) return GetRandomTipp([[STUN, "$STUN0$"], [STUN, "$STUN1$"]]);
   if (id == SGRN) return GetRandomTipp([[SM4K, "$SGRN0$"]]);
-  if (id == SRBL) return GetRandomTipp([[SRBL, "$SRBL0$"]]);
+  if (id == SRBL) return GetRandomTipp([[SM08, "$SRBL0$"], [SRBL, "$SRBL1$"]]);
 
   //Equipment
   if (id == AMPK) return GetRandomTipp([[AMPK, "$AMPK0$"]]);

@@ -43,7 +43,8 @@ PGRN0=Phosphor bleibt an Clonks <c 33ccff>haften</c> und verbrennt sie einige Ze
 STUN0=Blendgranaten blenden Verbündete <c 33ccff>weniger</c> stark als Gegner.
 STUN1=Wenn du dich von zündenden Blendgranaten wegdrehst, wirst du <c 33ccff>weniger</c> stark geblendet.
 SGRN0=Rauch hat den nützlichen Nebeneffekt, bei seiner Erstellung feindliche Peilsender zu <c 33ccff>zerstören</c>.
-SRBL0=Sensorbälle identifizieren neben feindlichen Clonks auch deren Sprengfallen, C4 Sätze, Raketen und Granaten.
+SRBL0=Der Sensorball markiert Feinde mit einem <c 33ccff>farbigen Quadrat</c> und macht sie so spielend leicht sichtbar.
+SRBL1=Sensorbälle identifizieren neben feindlichen Clonks auch deren <c 33ccff>Sprengfallen</c>, <c 33ccff>C4 Sätze</c>, <c 33ccff>Raketen</c> und <c 33ccff>Granaten</c>.
 
 #Equipment
 AMPK0=Halte das MTP in der Hand, um Verbündete <c 33ccff>automatisch</c> mit Munition zu versorgen.
