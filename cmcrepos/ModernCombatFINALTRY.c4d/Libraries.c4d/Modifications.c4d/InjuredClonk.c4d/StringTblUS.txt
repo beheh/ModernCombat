@@ -43,7 +43,8 @@ PGRN0=Phosphor <c 33ccff>attaches</c> to clonks an burns them for a while.
 STUN0=Teammates are <c 33ccff>less</c> affected by stun grenades.
 STUN1=Face yourself away from exploding stun grenades to <c 33ccff>weaken</c> its effects.
 SGRN0=Smoke has a useful side effect that <c 33ccff>destroys</c> enemy tracer darts when deployed.
-SRBL0=Sensor balls can not only detect enemy clonks, but also booby traps, C4 charges, missiles and grenades.
+SRBL0=The sensor ball marks enemies with a <c 33ccff>colored square</c>, making it dead easy to spot them.
+SRBL1=Sensor balls can not only detect enemy clonks, but also <c 33ccff>booby traps</c>, <c 33ccff>C4 charges</c>, <c 33ccff>missiles</c> and <c 33ccff>grenades</c>.
 
 #Equipment
 AMPK0=Hold the MTP in the hand to <c 33ccff>automatically</c> restock ammo of allies.
