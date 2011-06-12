@@ -13,8 +13,22 @@ local iEffectCount;
 
 protected func Initialize()
 {
-  _inherited();
+  SetPosition();
+  aRules = CreateArray();
+  aGoals = CreateArray();
+  aTempGoalSave = CreateArray();
+  aAI = CreateArray();
+
+  //Spielziele verzögert entfernen
+  ScheduleCall(this(), "RemoveGoals", 1);
+
+  //Dunkelheit ermitteln
+  iDarkCount = ObjectCount(DARK);
+
+  //Regeln voreinstellen
   LoadRuleCfg();
+
+  //Effektstufe setzen
   iEffectCount = 3;
 }
 
