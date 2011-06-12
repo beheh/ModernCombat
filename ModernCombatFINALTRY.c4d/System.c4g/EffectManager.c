@@ -5,7 +5,7 @@
 static EFSM_CurrentData;
 static EFSM_Init;
 static EFSM_Level;
-
+static EFSM_Dark;
 
 /* Effect-Konstanten */
 
@@ -25,8 +25,11 @@ static const EFSM_Lensflares = 10;	//0/1/2
 global func EFSM_SetEffects(int iLevel)
 {
   if(!iLevel) iLevel = 3;
+  if(iLevel == EFSM_Level)
+    return true;
   EFSM_Init = true;
   EFSM_CurrentData = [];
+  EFSM_Level = iLevel;
   SetEffectData(iLevel>1, EFSM_Blood);
   SetEffectData(iLevel>2, EFSM_BulletCasing);
   SetEffectData(iLevel-1, EFSM_BulletEffects);
@@ -37,7 +40,6 @@ global func EFSM_SetEffects(int iLevel)
   SetEffectData(iLevel>1, EFSM_Waratmosphere);
   SetEffectData(iLevel>1, EFSM_Deco);
   SetEffectData(iLevel-1, EFSM_Lensflares);
-  EFSM_Level = iLevel;
   return true;
 }
 
@@ -50,7 +52,6 @@ global func GetEffectData(int iEffect)
 global func SetEffectData(int iData, int iEffect)
 {
   if(!EFSM_Init) EFSM_SetEffects();
-  EFSM_Level = 0;
   EFSM_CurrentData[iEffect] = iData;
   OnUpdateEffects(iEffect);
   return true;
@@ -59,8 +60,20 @@ global func SetEffectData(int iData, int iEffect)
 global func OnUpdateEffects(int iEffect)
 {
   //Dunkelheit aktualisieren
-  if(iEffect == EFSM_Darkness && !GetEffectData(EFSM_Darkness))
-    {RemoveAll(DARK);}
+  if(iEffect == EFSM_Darkness)  
+  { 
+    if(EFSM_Level == 3) 
+    { 
+      CreateObject(DARK); 
+      Schedule(Format("SetDarkness(%d)", EFSM_Dark), 2);
+    }
+    else
+    {
+      if(IsDark())
+        EFSM_Dark = GetDarkness();
+      RemoveAll(DARK);
+    }
+  }
 
   //Dekorationen entfernen/einfügen
   if(iEffect == EFSM_Deco && !GetEffectData(EFSM_Deco))
