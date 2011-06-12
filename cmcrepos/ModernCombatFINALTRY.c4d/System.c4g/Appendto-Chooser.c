@@ -168,7 +168,7 @@ protected func CreateGoal(id idGoal, int iScore)
 protected func ConfigurationFinished2()
 {
   Death = true;
-  // Regeln erzeugen
+  //Regeln erzeugen
   var i = 0, j = 0, pCrew, tmp, log, def;
   if (IsStandardSetting())
     log = "$StdRules$";
@@ -188,13 +188,13 @@ protected func ConfigurationFinished2()
     }
     i++;
   }
-  // Dunkelheit erzeugen
+  //Dunkelheit erzeugen
   log = Format("%s, %s x%d", log, GetName(0, DARK), iDarkCount);
   EventInfo4K(0,log,CHOS, 0, 0, 0, "Info.ogg");
   // ein schneller GameCall für Einstellungen
   GameCallEx("ChooserFinished");
 
-  // Spieler freilassen
+  //Spieler freilassen
   for(i = 0 ; i < GetPlayerCount() ; i++)
   {
     for(j = 0 ; pCrew = GetCrew(GetPlayerByIndex(i), j) ; j++)
@@ -206,9 +206,7 @@ protected func ConfigurationFinished2()
     for(var rule in FindObjects(Find_Category(Chooser_Cat), Find_Exclude(this)))
       rule->~InitializePlayer(GetPlayerByIndex(i));
   }
-  // Effekte
-  EFSM_SetEffects(iEffectCount);
-  // Selber entfernen
+  //Selber entfernen
   RemoveObject();
 }
 
