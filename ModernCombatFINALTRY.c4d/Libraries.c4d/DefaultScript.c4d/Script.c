@@ -32,7 +32,7 @@ public func ChooserFinished()
         GameCallEx("OnClassSelection",pCrew);
   }
 
-  //Nochmal alle Spieler relaunchen
+  //Alle Spieler relaunchen
   for(var i = 0; i < GetPlayerCount(); i++)
   {
     RelaunchPlayer(GetPlayerByIndex(i),GetCrew(GetPlayerByIndex(i)), 0, GetPlayerTeam(GetPlayerByIndex(i)));
@@ -44,7 +44,7 @@ public func ChooserFinished()
 
 func ChooserRuleConfig()
 {
-  //Standardregelsatz: Belohnungssystem, Kein FriendlyFire, Waffen bleiben, Arena
+  //Standardregelsatz: Belohnungssystem, Kein FriendlyFire, Waffen bleiben, Arena, Limitierte Ausrüstung
   var array = [RWDS, NOFF, WPST, NODR, LIMT];
   return array;
 }
@@ -143,7 +143,7 @@ public func OnClonkEquip(object pClonk)
 
   //Etwas Zusatzmunition für die Pistole sofern welche benötigt wird
   if(!FindObject(NOAM))
-  pClonk->DoAmmo(wpn->GetFMData(FM_AmmoID),wpn->GetFMData(FM_AmmoLoad)*2);
+    pClonk->DoAmmo(wpn->GetFMData(FM_AmmoID),wpn->GetFMData(FM_AmmoLoad)*2);
 }
 
 /* Relaunch ablehnen */
