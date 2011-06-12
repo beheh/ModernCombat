@@ -38,4 +38,4 @@ NoScan=1
 SkyScrollMode=1
 
 [Environment]
-Objects=EGRS=1;EGLN=3;SLSY=3;DARK=1
+Objects=EGRS=1;EGLN=3;SLSY=3;DARK=3

@@ -36,5 +36,4 @@ SkyScrollMode=1
 NewStyleLandscape=2
 
 [Environment]
-Objects=DARK=1;EGRS=1;ELGT=1;DOFO=1
- 
+Objects=EGRS=1;ELGT=1;DOFO=1;DARK=1
