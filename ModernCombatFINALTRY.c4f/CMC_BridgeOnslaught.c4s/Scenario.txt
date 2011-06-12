@@ -42,4 +42,4 @@ Climate=94,3,0,100
 Rain=3,0,0,100
 
 [Environment]
-Objects=OWL1=1;DOFO=1;EGLN=3;ELGT=1;DARK=1
+Objects=OWL1=1;DOFO=1;EGLN=3;ELGT=1;DARK=3

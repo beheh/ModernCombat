@@ -36,4 +36,4 @@ NoScan=1
 NewStyleLandscape=2
 
 [Environment]
-Objects=EGRS=1;DOFO=1;WRAE=1;DARK=1 
+Objects=EGRS=1;DOFO=1;WRAE=1;DARK=3
