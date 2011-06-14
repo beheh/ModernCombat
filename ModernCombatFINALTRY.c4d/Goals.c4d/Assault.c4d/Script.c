@@ -69,7 +69,7 @@ public func CalcTickets()
 
   //Ticketformel
   //return D + (A + 2 * D + D * D) / (A + 1);
-  return D + (D * (4 + (20 - D) * D / 12)) / (A + 1);
+  return D + (D * (4 + (20 - D) * D / 12)) / A;
 }
 
 public func AddAssaultTarget(id idTarget, int iX, int iY, int iMaxDamage, int iTeam, string szName, int iIndex, array aSpawn, bool fNoBar)
