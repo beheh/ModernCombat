@@ -41,7 +41,10 @@ private func PreDef(id idType)
   //Waffen
   if(idType->~IsWeapon2() || idType->~IsWeapon())
   {
-    iRespawnTime = 40 * 20;
+    if(idType == ATWN)
+      iRespawnTime = 40 * 40;
+    else
+      iRespawnTime = 40 * 20;
     iTakeTime = 35 * 2;
     iMaxCount = 2;
 
