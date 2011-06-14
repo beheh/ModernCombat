@@ -11,5 +11,6 @@ Flag3=Pier
 Flag4=Depot
 Flag5=Turbine Aerator
 
-Target1=Control Unit
+Target1=Radar Unit
 Target2=Data Server
+Target3=Surveillance System
