@@ -531,6 +531,86 @@ public func ChooserFinished()
    RemoveObject(aSelfDefense[2]);
   }
 
+  //Assault-Spielziel
+  if (FindObject(GASS))
+  {
+   //Zielobjekte
+   AddAssaultTarget(CMSN, 1960, 1060, 230, 2, "$Target2$", 0, [[[2400, 1050], [2330, 990], [2420, 1010]], [[940, 860], [1035, 900], [1200, 950]]]);
+   AddAssaultTarget(RADR, 2080, 940, 230, 2, "$Target1$", 1, [[[2400, 1050], [2330, 990], [2420, 1010]], [[940, 860], [1035, 900], [1200, 950]]]);
+   AddAssaultTarget(CMSN, 2770, 910, 230, 2, "$Target2$", 2, [[[3030, 1140], [3315, 1110], [3190, 1142]], [[940, 860], [1035, 900], [1200, 950]]]);
+   AddAssaultTarget(RADR, 3125, 750, 230, 2, "$Target1$", 3, [[[3030, 1140], [3315, 1110], [3190, 1142]], [[940, 860], [1035, 900], [1200, 950]]]);
+   AddAssaultTarget(CCP2, 3865, 1040, 230, 2, "$Target3$", 4, [[[4150, 1090], [3880, 1160], [3510, 1180]], [[940, 860], [1035, 900], [1200, 950]]]);
+
+   //Ziele verbinden
+   ConnectAssaultTargets([0, 1]);
+   ConnectAssaultTargets([2, 3]);
+
+   //Grenzen setzen
+   CreateObject(BRDR, 400, 0, -1)->Set(0);
+   CreateObject(BRDR, 2660, 0, -1)->Set(1,1);
+
+   //Objekte entfernen
+   RemoveObject(FindObject2(Find_ID(RADR),Find_InRect(3100, 700, 30, 30)));
+   RemoveObject(FindObject2(Find_ID(AMCT),Find_InRect(3480, 900, 30, 30)));
+
+   //Leitern
+   CreateObject(LADR, 2050, 1220, -1)->Set(20);
+   CreateObject(LADR, 2280, 1220, -1)->Set(13);
+
+   //Metallkisten
+   CreateObject(MWCR, 3370, 994, -1);
+   CreateObject(MWCR, 3370, 1012, -1);
+   CreateObject(MWCR, 3510, 920, -1);
+   CreateObject(MWCR, 3830, 1004, -1);
+   CreateObject(MWCR, 3830, 1022, -1);
+
+   //Hinweisschilder
+   var sign = CreateObject(SGNP, 780, 1160, -1);
+   sign->SetPhase(1);
+   sign = CreateObject(SGNP, 2885, 960, -1);
+   sign->SetPhase(1);
+   sign->SetMode(1);
+   sign = CreateObject(SGNP, 3070, 800, -1);
+   sign->SetPhase(1);
+   sign->SetMode(1);
+   sign = CreateObject(SGNP, 3575, 1040, -1);
+   sign->SetPhase(1);
+   sign->SetMode(1);
+   CreateObject(SGNP, 3970, 540, -1);
+   CreateObject(SGNP, 4165, 510, -1);
+
+   //Hinweisschilder
+   if(!FindObject(NOBH))
+   {
+    var sign = CreateObject(SGNP, 800, 720, -1);
+    sign->SetPhase(2);
+    CreateObject(SNPT, 1160,850, -1)->SetAction("Sign3");
+    sign = CreateObject(SGNP, 1310, 820, -1);
+    sign->SetPhase(2);
+   }
+
+   //SSA Besitzer setzen
+   if(aTeams[1] == true)
+     aSelfDefense[0]->SetTeam(1);
+   if(aTeams[2] == true)
+     {aSelfDefense[1]->SetTeam(2); aSelfDefense[2]->SetTeam(2); aSelfDefense[3]->SetTeam(2);}
+
+   //SSA aktivieren
+   aSelfDefense[0]->TurnOn();
+   aSelfDefense[1]->TurnOn();
+   aSelfDefense[2]->TurnOn();
+   aSelfDefense[3]->TurnOn();
+
+   //Blackhawks
+   SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,980,750,-1),45*21,300);
+   SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,1190,820,-1),45*21,300);
+
+   //Patrouillenboote
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,490,1240,-1),50*21,300);
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1180,1240,-1),50*21,300);
+   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2550,1240,-1),50*21,300);
+  }
+
   //Base Assault-Spielziel
   if(FindObject(GBAS))
   {
@@ -710,6 +790,54 @@ public func ChooserFinished()
    AddMoneySpawn(3380, 920, [10]);
    AddMoneySpawn(3380, 920, [10]);
    AddMoneySpawn(3870, 1030, [10]);
+  }
+}
+
+/* Assault Zerstörung */
+
+public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bool fConnectedDestroyed)
+{
+  //Ziel 1 und 2
+  if (!iIndex || iIndex == 1)
+  {
+   if(fConnectedDestroyed)
+   {
+    //Grenzen neu setzen
+    RemoveAll(BRDR);
+    CreateObject(BRDR, 400, 0, -1)->Set(0);
+    CreateObject(BRDR, 3560, 0, -1)->Set(1,1);
+   }
+  }
+
+  //Ziel 3 und 4
+  if (!iIndex == 2 || iIndex == 3)
+  {
+   if(fConnectedDestroyed)
+   {
+    //Grenzen neu setzen
+    RemoveAll(BRDR);
+    CreateObject(BRDR, 400, 0, -1)->Set(0);
+    CreateObject(BRDR, 4230, 0, -1)->Set(1,1);
+
+    //SSA zerstören
+    aSelfDefense[1]->Disarm();
+    aSelfDefense[1]->DecoExplode(30);
+    aSelfDefense[2]->Disarm();
+    aSelfDefense[2]->DecoExplode(30);
+   }
+  }
+
+  //Ziel 5
+  if (iIndex == 4)
+  {
+   //SSA zerstören
+   aSelfDefense[3]->Disarm();
+   aSelfDefense[3]->DecoExplode(30);
+
+   //Rauch
+   CreateParticle("GunSmoke",3865,780,0,-10,300,1);
+   CreateParticle("GunSmoke",3865,920,0,-10,300,1);
+   CreateParticle("GunSmoke",3865,1100,0,-10,300,1);
   }
 }
 
