@@ -298,9 +298,9 @@ func CreateEquipment()
   crate = CreateObject (AMCT, 2990, 800, -1);
   crate->Set(MBOX);
 
-  //Versorgungskiste (Raketenwerfer)
+  //Versorgungskiste (APW)
   crate = CreateObject (AMCT, 2960, 800, -1);
-  crate->Set(RTLR);
+  crate->Set(ATWN);
 
   //Versorgungskiste (Dragnin)
   crate = CreateObject (AMCT, 3500, 920, -1);

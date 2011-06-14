@@ -760,6 +760,10 @@ public func ChooserFinished()
    aSelfDefense[0]->TurnOn();
    aSelfDefense[1]->TurnOn();
 
+   //Versorgungskiste (APW)
+   crate = CreateObject (AMCT, 940, 160, -1);
+   crate->Set(ATWN);
+
    //Hinweisschilder
    var sign = CreateObject(SGNP, 780, 410, -1);
    sign->SetPhase(1);

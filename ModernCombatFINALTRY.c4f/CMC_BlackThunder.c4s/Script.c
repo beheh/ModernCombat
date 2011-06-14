@@ -199,6 +199,12 @@ func CreateEquipment()
   crate = CreateObject (AMCT, 3060, 670, -1);
   crate->Set(GBOX);
 
+  //Versorgungskisten (APW)
+  crate = CreateObject (AMCT, 510, 730, -1);
+  crate->Set(ATWN);
+  crate = CreateObject (AMCT, 3730, 730, -1);
+  crate->Set(ATWN);
+
   //Kugeln
   PlaceSpawnpoint(ABOX, 2120, 845);
 
