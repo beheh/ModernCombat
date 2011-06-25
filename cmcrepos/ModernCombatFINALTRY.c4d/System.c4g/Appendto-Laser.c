@@ -1,18 +1,21 @@
+/*-- Laser --*/
+
 #strict 2
 #appendto LASR
 
+
 public func Set(int iAngle, int iWidth, int iDist, int iT, object pDmg, object pAtt, int iReflect, bool fNoStuckRemove)
 {
-  // optional parameters
+  //Optionale Parameter
   if(!iWidth) iWidth = 3;
   if(!iDist) iDist = 300;
-  // iT = 0: no out-fading
-  iTime = iT;
-	reflections = iReflect; // how often the Ray should be reflected
 
-  // reset fade-timer
+  iTime = iT;
+	reflections = iReflect;
+
+  //Fade-Timer zurücksetzen
   c = 0;
-  // new attach and damage callback objects (optional)
+  //Optionale Schadens- und Anhangsobjekte
   pDmgCallback = pDmg;
   pAttach = pAtt;
   if(pAttach)
@@ -21,7 +24,7 @@ public func Set(int iAngle, int iWidth, int iDist, int iT, object pDmg, object p
     dy = GetY()-GetY(pAttach);
   }
 
-  // create light
+  //Licht erstellen
   pLight = CreateObject(LALI, 0, 0, -1);
 
   SetMaxDistance(iDist);
@@ -30,7 +33,7 @@ public func Set(int iAngle, int iWidth, int iDist, int iT, object pDmg, object p
   HitCheck();
   DrawTransform();
 
-  // we are stuck?
+  //Bei feststecken entfernen
   if(Stuck() && !fNoStuckRemove)
     RemoveObject();
 }
