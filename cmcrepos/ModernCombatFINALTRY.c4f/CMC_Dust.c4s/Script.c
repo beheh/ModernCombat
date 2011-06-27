@@ -282,14 +282,24 @@ public func ChooserFinished()
     aFlag[5]->Set("$Flag6$",0,2);
    }
   }
+
+  //MR-Spielziel
+  if (FindObject(GMNR))
+  {
+   //Geldsäcke
+   AddMoneySpawn(585, 815, [10, 15, 20]);
+   AddMoneySpawn(790, 555, [10, 15, 20]);
+   AddMoneySpawn(965, 465, [10, 15, 20]);
+   AddMoneySpawn(1010, 695, [10, 15, 20]);
+  }
 }
 
 /* Relaunch */
 
 public func RelaunchPosition(& iX, & iY, int iTeam)
 {
-  //DM/LMS/HTF-Spielziel
-  if(FindObject(GTDM) || FindObject(GLMS) || FindObject(GHTF))
+  //DM/LMS/HTF/MR-Spielziel
+  if(FindObject(GTDM) || FindObject(GLMS) || FindObject(GHTF) || FindObject(GMNR))
   {
    if(iTeam == 1)
    {
