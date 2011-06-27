@@ -17,30 +17,37 @@ global func LimitedEquipment()
 
 global func CheckLimitation(bool fCheckOnly)
 {
-  //Keine Limitierung
+  //Auf Limitierung prüfen
   if (!LimitedEquipment())
     return false;
 
+  //Besitzer und maximale Anzahl ermitteln
   var id = GetID(this),
   max = id->~LimitationCount(),
   owner = GetOwner(this);
 
-  //Unbegrenztes oder herrenloses Zeug
+  //Unbegrenztes oder neutrales ignorieren
   if (!max || owner == NO_OWNER)
     return false;
 
+  //Zugehörige Objekte identifizieren
   var objs = FindObjects(Find_ID(id), Find_Owner(owner), Find_NoContainer(), Find_Func("LimitationActive"), Sort_Func("LimitationTimer")),
   remove = GetLength(objs) >= max;
 
   if (fCheckOnly)
     return !remove;
 
-  //Alte Items entfernen, wenn nötig
+  //Alte Objekte entfernen, wenn nötig
   while (GetLength(objs) >= max)
   {
+    //Effekte
     var obj = objs[GetLength(objs) - 1],
     size = 20 + 5 * Distance(GetDefWidth(id), GetDefHeight(id));
     obj->CastSmoke("Smoke3", 8, 3, 0, 0, size, size);
+    if(GetEffectData(EFSM_ExplosionEffects) > 1) obj->CastParticles("MetalSplinter",4,50,0,0,20,70);
+    Sound("Limitation.ogg", 0, obj);
+
+    //Objekt entfernen
     RemoveObject(obj);
     SetLength(objs, GetLength(objs) - 1);
   }
@@ -57,8 +64,7 @@ global func DeactivateLimitation(object pObj)
     return false;
   if (!pObj->LimitationActive())
     return false;
-  while (RemoveEffect("IntLimitation", pObj))
-    ;
+  while (RemoveEffect("IntLimitation", pObj));
   return true;
 }
 
