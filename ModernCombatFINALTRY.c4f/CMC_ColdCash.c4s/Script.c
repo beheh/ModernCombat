@@ -149,10 +149,15 @@ func CreateInterior()
   CreateObject(SE4K, 4040, 440, -1)->Set("Interior*.ogg",665,105);
 
   //Wind
+  CreateObject(SE4K, 600, 450, -1)->Set("WindSound*.ogg",245,105);
   CreateObject(SE4K, 1120, 450, -1)->Set("WindSound*.ogg",245,105);
-  CreateObject(SE4K, 2180, 450, -1)->Set("WindSound*.ogg",245,105);
-  CreateObject(SE4K, 3360, 450, -1)->Set("WindSound*.ogg",245,105);
-  CreateObject(SE4K, 443, 450, -1)->Set("WindSound*.ogg",245,105);
+  CreateObject(SE4K, 4350, 450, -1)->Set("WindSound*.ogg",245,105);
+  CreateObject(SE4K, 4930, 450, -1)->Set("WindSound*.ogg",245,105);
+
+  //Windböen
+  CreateObject(SE4K, 2180, 450, -1)->Set("WindGust*.ogg",775,250);
+  CreateObject(SE4K, 2770, 420, -1)->Set("WindGust*.ogg",775,250);
+  CreateObject(SE4K, 3360, 450, -1)->Set("WindGust*.ogg",775,250);
 }
 
 func CreateEquipment()

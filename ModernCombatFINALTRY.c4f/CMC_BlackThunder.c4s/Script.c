@@ -180,7 +180,6 @@ func CreateInterior()
   CreateObject(SE4K, 2600, 1100, -1)->Set("Jungle*.ogg",800,200);
   CreateObject(SE4K, 3500, 1100, -1)->Set("Jungle*.ogg",300,200);
   CreateObject(SE4K, 4100, 1100, -1)->Set("Jungle*.ogg",800,200);
-
 }
 
 func CreateEquipment()

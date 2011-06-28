@@ -234,12 +234,9 @@ func CreateInterior()
   //Hallen
   CreateObject(SE4K, 250, 325, -1)->Set("Interior*.ogg",665,105);
   CreateObject(SE4K, 425, 575, -1)->Set("Interior*.ogg",665,105);
-
   CreateObject(SE4K, 860, 525, -1)->Set("Interior*.ogg",665,105);
-
   CreateObject(SE4K, 1350, 605, -1)->Set("Interior*.ogg",665,105);
   CreateObject(SE4K, 1440, 335, -1)->Set("Interior*.ogg",665,105);
-
   CreateObject(SE4K, 1760, 415, -1)->Set("Interior*.ogg",665,105);
 
   //Möven
@@ -257,8 +254,8 @@ func CreateInterior()
   CreateObject(SE4K, 1420, 870, -1)->Set("FallingDirt*.ogg",850,250);
 
   //Lautsprecher
-  CreateObject(SE4K, 850, 510, -1)->Set("Announce*.ogg",1700,200);
-  CreateObject(SE4K, 1430, 520, -1)->Set("Announce*.ogg",1700,200);
+  CreateObject(SE4K, 850, 510, -1)->Set("Announce*.ogg",3000,200);
+  CreateObject(SE4K, 1430, 520, -1)->Set("Announce*.ogg",3000,200);
 }
 
 func CreateEquipment()

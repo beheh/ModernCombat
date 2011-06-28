@@ -341,7 +341,6 @@ func CreateInterior()
   CreateObject(SE4K, 1620, 510, -1)->Set("Wave*.ogg",105,35);
   CreateObject(SE4K, 2090, 510, -1)->Set("Wave*.ogg",105,35);
   CreateObject(SE4K, 4000, 530, -1)->Set("Wave*.ogg",105,35);
-
   CreateObject(SE4K, 4910, 550, -1)->Set("Wave*.ogg",105,35);
   CreateObject(SE4K, 5370, 550, -1)->Set("Wave*.ogg",105,35);
   CreateObject(SE4K, 7050, 510, -1)->Set("Wave*.ogg",105,35);
@@ -353,9 +352,9 @@ func CreateInterior()
   CreateObject(SE4K, 5850, 340, -1)->Set("Jungle*.ogg",140,70);
 
   //Lautsprecher
-  CreateObject(SE4K, 1140, 330, -1)->Set("Announce*.ogg",1500,130);
-  CreateObject(SE4K, 4000, 430, -1)->Set("Announce*.ogg",1500,130);
-  CreateObject(SE4K, 7215, 280, -1)->Set("Announce*.ogg",1500,130);
+  CreateObject(SE4K, 1140, 330, -1)->Set("Announce*.ogg",3000,200);
+  CreateObject(SE4K, 4000, 430, -1)->Set("Announce*.ogg",3000,200);
+  CreateObject(SE4K, 7215, 280, -1)->Set("Announce*.ogg",3000,200);
 
 }
 

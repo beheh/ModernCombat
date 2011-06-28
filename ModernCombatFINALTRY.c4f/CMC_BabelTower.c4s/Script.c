@@ -386,17 +386,17 @@ func CreateInterior()
   //Sounds
 
   //Wind
-  CreateObject(SE4K, 585, 150, -1)->Set("WindSound*.ogg",245,105);
-  CreateObject(SE4K, 265, 520, -1)->Set("WindSound*.ogg",245,105);
-  CreateObject(SE4K, 900, 520, -1)->Set("WindSound*.ogg",245,105);
-  CreateObject(SE4K, 145, 870, -1)->Set("WindSound*.ogg",245,105);
-  CreateObject(SE4K, 1025, 870, -1)->Set("WindSound*.ogg",245,105);
-  CreateObject(SE4K, 225, 1325, -1)->Set("WindSound*.ogg",245,105);
-  CreateObject(SE4K, 945, 1325, -1)->Set("WindSound*.ogg",245,105);
-  CreateObject(SE4K, 165, 1855, -1)->Set("WindSound*.ogg",245,105);
-  CreateObject(SE4K, 1005, 1855, -1)->Set("WindSound*.ogg",245,105);
-  CreateObject(SE4K, 240, 2110, -1)->Set("WindSound*.ogg",245,105);
-  CreateObject(SE4K, 930, 2110, -1)->Set("WindSound*.ogg",245,105);
+  CreateObject(SE4K, 585, 150, -1)->Set("WindSound*.ogg",400,105);
+  CreateObject(SE4K, 265, 520, -1)->Set("WindSound*.ogg",500,105);
+  CreateObject(SE4K, 900, 520, -1)->Set("WindSound*.ogg",500,105);
+  CreateObject(SE4K, 145, 870, -1)->Set("WindSound*.ogg",600,105);
+  CreateObject(SE4K, 1025, 870, -1)->Set("WindSound*.ogg",600,105);
+  CreateObject(SE4K, 225, 1325, -1)->Set("WindSound*.ogg",700,105);
+  CreateObject(SE4K, 945, 1325, -1)->Set("WindSound*.ogg",700,105);
+  CreateObject(SE4K, 165, 1855, -1)->Set("WindSound*.ogg",800,105);
+  CreateObject(SE4K, 1005, 1855, -1)->Set("WindSound*.ogg",800,105);
+  CreateObject(SE4K, 240, 2110, -1)->Set("WindSound*.ogg",1000,105);
+  CreateObject(SE4K, 930, 2110, -1)->Set("WindSound*.ogg",1000,105);
 
   //Rush Hour
   CreateObject(SE4K, 225, 2090, -1)->Set("Traffic*.ogg",245,70);

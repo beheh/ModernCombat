@@ -180,9 +180,9 @@ func CreateInterior()
   CreateObject(SE4K, 2300, 520, -1)->Set("FallingDirt*.ogg",2500,250);
 
   //Lautsprecher
-  CreateObject(SE4K, 465, 220, -1)->Set("Announce*.ogg",1600,150);
-  CreateObject(SE4K, 1640, 20, -1)->Set("Announce*.ogg",1600,140);
-  CreateObject(SE4K, 2810, 220, -1)->Set("Announce*.ogg",1600,150);
+  CreateObject(SE4K, 465, 220, -1)->Set("Announce*.ogg",3000,200);
+  CreateObject(SE4K, 1640, 20, -1)->Set("Announce*.ogg",3500,200);
+  CreateObject(SE4K, 2810, 220, -1)->Set("Announce*.ogg",3000,200);
 }
 
 func CreateEquipment()
