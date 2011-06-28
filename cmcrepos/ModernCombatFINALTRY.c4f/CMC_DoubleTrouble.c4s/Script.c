@@ -223,8 +223,13 @@ func CreateInterior()
   CreateObject(SE4K, 820, 150, -1)->Set("WindSound*.ogg",4500,200);
   CreateObject(SE4K, 1390, 100, -1)->Set("WindSound*.ogg",4500,200);
 
+  //Hallen
+  CreateObject(SE4K, 100, 570, -1)->Set("Interior*.ogg",670,105);
+  CreateObject(SE4K, 820, 570, -1)->Set("Interior*.ogg",900,150);
+  CreateObject(SE4K, 1520, 570, -1)->Set("Interior*.ogg",670,105);
+
   //Lautsprecher
-  CreateObject(SE4K, 820, 590, -1)->Set("Announce*.ogg",3500,500);
+  CreateObject(SE4K, 820, 590, -1)->Set("Announce*.ogg",4000,200);
 
   //Erdrutsche
   CreateObject(SE4K, 370, 340, -1)->Set("FallingDirt*.ogg",2000,500);

@@ -177,12 +177,15 @@ func CreateInterior()
   CreateObject(SE4K, 210, 300, -1)->Set("BirdSong*",140,35);
   CreateObject(SE4K, 610, 375, -1)->Set("BirdSong*",140,35);
 
+  //Wipfe
+  CreateObject(SE4K, 190, 340, -1)->Set("Snuff*",900,100);
+
   //Erdrutsche
   CreateObject(SE4K, 1475, 825, -1)->Set("FallingDirt*.ogg",950,250);
   CreateObject(SE4K, 1550, 400, -1)->Set("FallingDirt*.ogg",850,250);
 
   //Lautsprecher
-  CreateObject(SE4K, 1010, 460, -1)->Set("Announce*.ogg",1700,200);
+  CreateObject(SE4K, 1010, 460, -1)->Set("Announce*.ogg",3000,500);
 }
 
 func CreateEquipment()

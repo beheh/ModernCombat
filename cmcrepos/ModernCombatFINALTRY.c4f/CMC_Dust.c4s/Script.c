@@ -90,6 +90,14 @@ func CreateInterior()
 
   //Sounds
 
+  //Zikaden
+  CreateObject(SE4K, 70, 490, -1)->Set("Cicada*.ogg",1000,100);
+  CreateObject(SE4K, 1710, 590, -1)->Set("Cicada*.ogg",1000,100);
+
+  //Schlangen
+  CreateObject(SE4K, 400, 780, -1)->Set("Snake*",2000,200);
+  CreateObject(SE4K, 1120, 800, -1)->Set("Snake*",2000,200);
+
   //Wind
   CreateObject(SE4K, 945, 890, -1)->Set("WindSound*.ogg",775,250);
   CreateObject(SE4K, 1550, 820, -1)->Set("WindSound*.ogg",775,250);
@@ -97,7 +105,6 @@ func CreateInterior()
   //Erdrutsche
   CreateObject(SE4K, 70, 255, -1)->Set("FallingDirt*.ogg",775,250);
   CreateObject(SE4K, 170, 600, -1)->Set("FallingDirt*.ogg",775,250);
-
   CreateObject(SE4K, 1520, 790, -1)->Set("FallingDirt*.ogg",775,250);
   CreateObject(SE4K, 1740, 290, -1)->Set("FallingDirt*.ogg",775,250);
 }

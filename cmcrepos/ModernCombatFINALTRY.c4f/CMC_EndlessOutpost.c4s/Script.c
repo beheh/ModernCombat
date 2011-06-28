@@ -322,7 +322,7 @@ func CreateInterior()
   CreateObject(SE4K, 2040, 280, -1)->Set("Interior*.ogg",665,105);
   CreateObject(SE4K, 2365, 400, -1)->Set("Interior*.ogg",670,105);
 
-  //Eule
+  //Eulen
   CreateObject(SE4K, 210, 620, -1)->Set("Owl.wav",1400,35);
 
   //Erdrutsche

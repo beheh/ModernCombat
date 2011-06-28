@@ -190,11 +190,24 @@ func CreateInterior()
 
   //Sounds
 
-  //Wind
-  CreateObject(SE4K, 400, 400, -1)->Set("WindSound*.ogg",775,250);
-  CreateObject(SE4K, 1780, 400, -1)->Set("WindSound*.ogg",775,250);
-  CreateObject(SE4K, 5060, 400, -1)->Set("WindSound*.ogg",775,250);
-  CreateObject(SE4K, 6410, 400, -1)->Set("WindSound*.ogg",775,250);
+  //Zikaden
+  CreateObject(SE4K, 630, 450, -1)->Set("Cicada*.ogg",700,100);
+  CreateObject(SE4K, 6200, 670, -1)->Set("Cicada*.ogg",700,100);
+
+  //Schlangen
+  CreateObject(SE4K, 1815, 550, -1)->Set("Snake*",1500,200);
+  CreateObject(SE4K, 3415, 630, -1)->Set("Snake*",2000,200);
+  CreateObject(SE4K, 5015, 550, -1)->Set("Snake*",1500,200);
+
+  //Wellen
+  CreateObject(SE4K, 2690, 670, -1)->Set("Wave*.ogg",1000,100);
+  CreateObject(SE4K, 4140, 670, -1)->Set("Wave*.ogg",1000,100);
+
+  //Windböen
+  CreateObject(SE4K, 400, 400, -1)->Set("WindGust*.ogg",775,250);
+  CreateObject(SE4K, 1780, 400, -1)->Set("WindGust*.ogg",775,250);
+  CreateObject(SE4K, 5060, 400, -1)->Set("WindGust*.ogg",775,250);
+  CreateObject(SE4K, 6410, 400, -1)->Set("WindGust*.ogg",775,250);
 }
 
 func CreateEquipment()

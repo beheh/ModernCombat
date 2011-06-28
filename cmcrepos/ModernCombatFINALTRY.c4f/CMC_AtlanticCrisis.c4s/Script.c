@@ -237,7 +237,7 @@ func CreateInterior()
   CreateObject(SE4K, 4460, 350, -1)->Set("WindSound*.ogg",245,105);
 
   //Lautsprecher
-  CreateObject(SE4K, 2990, 330, -1)->Set("Announce*.ogg",1600,130);
+  CreateObject(SE4K, 2990, 330, -1)->Set("Announce*.ogg",3000,500);
 }
 
 func CreateEquipment()
