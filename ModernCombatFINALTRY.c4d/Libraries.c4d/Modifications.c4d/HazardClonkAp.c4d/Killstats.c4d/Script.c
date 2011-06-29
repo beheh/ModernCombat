@@ -5,6 +5,7 @@
 
 static const STAT_Spree = 5;
 
+
 public func KTMsg(int plr1, int plr2, object clonk, int plr3)
 {
   if(!plr1 && !plr2)
@@ -33,22 +34,22 @@ public func KMsg(int plr1, int plr2, object clonk, int plr3)
 
   if(type)
   {
-   if(type == DMG_Fire)
-    typeicon = GSAM;
-   else if(type == DMG_Melee)
-   	typeicon = SM04;
-   else if(type == DMG_Explosion)
-    typeicon = BOOM;
-   else if(type == DMG_Energy)
-    typeicon = ENAM;
-   else if(type == DMG_Bio)
-    typeicon = GLOB;
-   else if(type == DMG_Projectile)
-    if(killicon)
-      if(killicon->~IsWeapon())
-      	typeicon = SHTX;
-      else
-      	typeicon = SHRP;
+    if(type == DMG_Fire)
+      typeicon = GSAM;
+    else if(type == DMG_Melee)
+      typeicon = SM04;
+    else if(type == DMG_Explosion)
+      typeicon = BOOM;
+    else if(type == DMG_Energy)
+      typeicon = ENAM;
+    else if(type == DMG_Bio)
+      typeicon = GLOB;
+    else if(type == DMG_Projectile)
+      if(killicon)
+        if(killicon->~IsWeapon())
+      	  typeicon = SHTX;
+        else
+          typeicon = SHRP;
   }
 
   //Kein Icon?
@@ -59,26 +60,28 @@ public func KMsg(int plr1, int plr2, object clonk, int plr3)
   var killer = plr2;
   var assist = plr3;
 
-	//Nachricht konstruieren
+  //Nachricht konstruieren
   msg = Format("{{%i}}",killicon); 
   if(typeicon && killicon != typeicon)
     if(killicon)
-    	msg = Format("%s ({{%i}})",msg,typeicon);
+      msg = Format("%s ({{%i}})",msg,typeicon);
     else
-			msg = Format("%s{{%i}}",msg,typeicon);    	
+      msg = Format("%s{{%i}}",msg,typeicon);
   msg = Format("%s %s", msg, GetTaggedPlayerName(victim));
-  if(killer != victim) {
-  	
-	  var killerstr;
-	  if(assist != -1 && GetPlayerName(assist) && assist != killer && assist != victim) {
-	  	killerstr = Format("%s + <c %x>%s</c>", GetTaggedPlayerName(killer), RGB(180,180,180), GetPlayerName(assist));
-	  }
-	  else {
-	  	killerstr = GetTaggedPlayerName(killer);
-	  }
-	  msg = Format("%s %s", killerstr, msg);
-	}
-  
+  if(killer != victim)
+  {
+    var killerstr;
+    if(assist != -1 && GetPlayerName(assist) && assist != killer && assist != victim)
+    {
+      killerstr = Format("%s + <c %x>%s</c>", GetTaggedPlayerName(killer), RGB(180,180,180), GetPlayerName(assist));
+    }
+    else
+    {
+      killerstr = GetTaggedPlayerName(killer);
+    }
+    msg = Format("%s %s", killerstr, msg);
+  }
+
   //Eventnachricht: Spieler eliminiert Spieler
   EventInfo4K(0,msg,0);
 
@@ -118,21 +121,22 @@ private func GetPlrTeamName(int plr)
 
 public func KillStat(object pClonk, int killedplr)
 {
-  //nein, die Engine darf keine Kills machen. >:(
+  //Engine keine Kills zuschreiben
   if(!pClonk)
-   if(!(pClonk = this()))
-    return;
-  //Nein, Teamkills bringen keine Punkte. :(
+    if(!(pClonk = this()))
+      return;
+  //Teamkills keine Punkte zuschreiben
   if(GetPlayerTeam(killedplr) == GetPlayerTeam(GetController(pClonk)))
-   return;
+    return;
   AddEffect("KillStats",pClonk,23,10,this(),HHKS);
 }
 
-//KillStats-Effekt, Tötungsstatistiken!
+/* KillStats-Effekt und Tötungsstatistiken */
+
 func FxKillStatsStart(object pTarget, int iEffectNumber, int iTemp)
 {
   if(iTemp)
-   return(FX_OK);
+    return(FX_OK);
   //Effectvars:
   // 0 - Anzahl der Kills seit dem letzten Tod
   // 1 - Zeitpunkt des letzten Kills (relativ)
@@ -144,28 +148,31 @@ func FxKillStatsStart(object pTarget, int iEffectNumber, int iTemp)
   FxKillStatsAdd(pTarget, iEffectNumber);
 }
 
-//Schaun ob die Killzeit schon abgelaufen ist
+/* Prüfung auf Killerzeit */
+
 public func FxKillStatsTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
-  //Haben wir gerade Killingtime?
+  //Killerzeit vorhanden?
   if(!EffectVar(3, pTarget, iEffectNumber))
-   return;
-  //Schon lange genug gewartet?
-  if(iEffectTime - EffectVar(1, pTarget, iEffectNumber) > 126) { //Die dreifache Wahrheit! 
-   EffectVar(2, pTarget, iEffectNumber) = 0;
-   EffectVar(3, pTarget, iEffectNumber) = 0;
+    return;
+  //Genug gewartet?
+  if(iEffectTime - EffectVar(1, pTarget, iEffectNumber) > 126)
+  {
+    EffectVar(2, pTarget, iEffectNumber) = 0;
+    EffectVar(3, pTarget, iEffectNumber) = 0;
   }
 }
 
-//Auswertung der Statistik beim Tod
+/* Auswertung bei Tod */
+
 public func FxKillStatsStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)
 {
-  //Auswerten?
   if(iReason != 3 && iReason != 4)
-   return;
+    return;
 }
 
-//Kill++
+/* Kill hinzurechnen */
+
 public func FxKillStatsEffect(string szNewEffectName, object pTarget, int iEffectNumber, int iNewEffectNumber)
 {
   if(szNewEffectName == "KillStats")
@@ -181,10 +188,11 @@ public func FxKillStatsAdd(object pTarget, int iEffectNumber, string szNewEffect
   EffectVar(3, pTarget, iEffectNumber) = 1;
 
   //auf Multikills prüfen
-  if(running >= 2) {
-   var msg = $MsgMultikill$;
-   Message("<c ff0000>%s</c>",pTarget, msg[Min(running-2,GetLength(msg)-1)]);
+  if(running >= 2)
+  {
+    var msg = $MsgMultikill$;
+    Message("<c ff0000>%s</c>",pTarget, msg[Min(running-2,GetLength(msg)-1)]);
   }
-  
+
   return true;
 }
