@@ -3,6 +3,8 @@
 #strict 2
 #include PACK
 
+local thrown;
+
 static const C4PA_Cooldown = 15;
 
 public func IsDrawable()	{return true;}
@@ -152,15 +154,47 @@ public func OnRefill()
 
 protected func Check()
 {
+  if(thrown) return;
+
   //Grund zum Existieren?
   if (!GetPackPoints() && !GetLength(GetC4()))
-    return RemoveObject();
+  {
+    thrown = true;
+
+    //Kategorie wechseln
+    SetCategory(C4D_Vehicle);
+
+    //Schützen verlassen
+    if(Contained())
+    {
+      var dir = +1;
+      if(GetDir(Contained()) == DIR_Right)
+        dir = -1;
+
+      Exit(0, 0,0, Random((360)+1), dir,-3, Random(11)-5);
+
+      Sound("AT4R_ThrowAway.ogg");
+    }
+
+    //Verschwinden
+    FadeOut();
+  }
 }
 
 protected func CalcValue()
 {
   return Interpolate2(0, Value(GetID()), GetPackPoints(), 3);
 }
+
+/* Aufnahme */
+
+public func RejectEntrance()
+{
+  if(thrown)
+    return true;
+}
+
+/* Allgemein */
 
 protected func Hit()
 {
