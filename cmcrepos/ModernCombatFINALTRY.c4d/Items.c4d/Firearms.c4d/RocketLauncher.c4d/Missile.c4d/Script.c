@@ -176,12 +176,16 @@ private func Traveling()
   if(GetY() < -500)
     return Hit();
 
-  //Im Wasser abstürzen
-  if(GBackLiquid()) return GetDamaged();
-
   //Nichts weiter unternehmen wenn deaktiviert
   if(GetAction() == "Fall")
     return;
+
+  //Im Wasser abstürzen
+  if(GBackLiquid())
+  {
+    Sound("MISL_ShotDown.ogg");
+    return SetAction("Fall");
+  }
 
   //Fallen wenn Maximalflugzeit erreicht
   if(GetActTime() >= MaxTime()) return SetAction("Fall");
