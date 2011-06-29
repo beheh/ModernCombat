@@ -14,8 +14,8 @@ protected func Initialize()
 
 protected func Destruction()
 {
-	SetSkyAdjust(RGBa(255,255,255,220), RGB(0, 0, 0));
-	return true;
+  SetSkyAdjust(RGBa(255,255,255,220), RGB(0, 0, 0));
+  return true;
 }
 
 /* Explosionen */
