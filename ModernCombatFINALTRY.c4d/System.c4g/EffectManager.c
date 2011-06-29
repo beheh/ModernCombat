@@ -64,8 +64,11 @@ global func OnUpdateEffects(int iEffect)
   { 
     if(EFSM_Level == 3) 
     { 
-      CreateObject(DARK); 
-      Schedule(Format("SetDarkness(%d)", EFSM_Dark), 2);
+      if(!IsDark())
+      {
+        CreateObject(DARK); 
+        Schedule(Format("SetDarkness(%d)", EFSM_Dark), 2);
+      }
     }
     else
     {
