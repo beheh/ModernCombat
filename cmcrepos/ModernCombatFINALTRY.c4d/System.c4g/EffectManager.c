@@ -60,9 +60,9 @@ global func SetEffectData(int iData, int iEffect)
 global func OnUpdateEffects(int iEffect)
 {
   //Dunkelheit aktualisieren
-  if(iEffect == EFSM_Darkness)  
+  if(iEffect == EFSM_Darkness)
   { 
-    if(EFSM_Level == 3) 
+    if(EFSM_Level == 3)
     { 
       if(!IsDark())
       {
@@ -78,7 +78,18 @@ global func OnUpdateEffects(int iEffect)
     }
   }
 
-  //Dekorationen entfernen/einfügen
+  //Gewitterwolken entfernen/hinzufügen
+  if(EFSM_Level == 3 && FindObject(STRM))
+  {
+    ClearParticles("Cloud");
+    DoClouds();
+  }
+  else
+  {
+    ClearParticles("Cloud");
+  }
+
+  //Spezifische Szenariodekorationen entfernen/einfügen
   if(iEffect == EFSM_Deco && !GetEffectData(EFSM_Deco))
   {
     for(var back in FindObjects(Find_Func("IsDeco")))
