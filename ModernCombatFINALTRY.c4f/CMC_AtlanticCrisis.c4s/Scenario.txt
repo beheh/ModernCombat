@@ -35,4 +35,4 @@ NoScan=1
 SkyScrollMode=1
 
 [Environment]
-Objects=WRAE=1;DARK=3
+Objects=STRM=1;DARK=3
