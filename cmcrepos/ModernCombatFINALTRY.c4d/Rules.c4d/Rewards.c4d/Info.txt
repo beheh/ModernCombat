@@ -8,6 +8,7 @@ Im Gefecht:
 
 Kill					50		Gefechtspunkte		IC01
 Kill Assist				30		Gefechtspunkte		IC02
+Kill Serie				10		Gefechtspunkte		IC01
 Selbstmord				-30		Minuspunkte		IC07
 Teamkill				-80		Minuspunkte		IC06
 Entschärfung				20		Teampunkte		IC15
