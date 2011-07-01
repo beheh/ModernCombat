@@ -31,7 +31,7 @@ global func DoClouds()
   for(var i = LandscapeWidth()/8; i > 0; i--)
   {
     var grey = Random(60);
-    CreateParticle ("Cloud", i*8, 20, 0, 0, 300+Random(600), RGBa(grey,grey,grey+1),0);
+    CreateParticle ("Cloud", i*8, Random(20), 0, 0, 300+Random(600), RGBa(grey,grey,grey+1),0);
   }
 }
 
