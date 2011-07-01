@@ -192,6 +192,9 @@ public func FxKillStatsAdd(object pTarget, int iEffectNumber, string szNewEffect
   {
     var msg = $MsgMultikill$;
     Message("<c ff0000>%s</c>",pTarget, msg[Min(running-2,GetLength(msg)-1)]);
+
+    //Punkte bei Belohnungssystem (Kill-Serie)
+    DoPlayerPoints(KillSeries(), RWDS_BattlePoints, GetOwner(pTarget), pTarget, IC01);
   }
 
   return true;

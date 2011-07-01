@@ -7,6 +7,7 @@
 
 global func KillPoints()			{return 50;}	//Kill
 global func AssistPoints()			{return 30;}	//Kill Assist
+global func KillSeries()			{return 10;}	//Kill-Serie
 global func SuicidePoints()			{return -30;}	//Selbstmord
 global func TeamkillPoints()			{return -80;}	//Teamkill
 global func ReanimationPoints()			{return 50;}	//Reanimation
