@@ -30,6 +30,7 @@ protected func Initialize()
 
   //Effektstufe setzen
   iEffectCount = 3;
+  EFSM_SetEffects(3);
 }
 
 /* Nur eine Mitteilung für Neugierige */
