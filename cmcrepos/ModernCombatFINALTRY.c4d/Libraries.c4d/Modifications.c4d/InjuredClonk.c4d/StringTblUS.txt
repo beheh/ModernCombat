@@ -33,6 +33,8 @@ PPGN0=Use the pumpgun in <c 33ccff>close combat</c> to cause maximum damage.
 SGST0=<c 33ccff>Explosive grenades</c> do high damage at small range while <c 33ccff>frag grenades</c> pin down enemies.
 SMGN0=The submachine gun is the <c 33ccff>fastest</c> weapon equally to its ammo consumption.
 SMGN1=Use <c 33ccff>burst</c> for average distances or quick close combat attacks with submachine guns.
+ATWN0=The ATW is a <c 33ccff>disposable weapon</c> which means it is useless after its contained missile has been fired.
+ATWN1=The missile of an ATW causes great damage but is <c 33ccff>not compatible to tracer darts</c>.
 
 #Grenades
 NADE0=Throw <c 33ccff>activated</c> grenades as fast as possible, grenades exploding in your hand cause high damage.

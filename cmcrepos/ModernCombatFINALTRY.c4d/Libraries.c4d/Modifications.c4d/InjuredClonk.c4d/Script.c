@@ -221,6 +221,7 @@ private func GetRandomTipp(array a, id id)
   if (id == PPGN) return GetRandomTipp([[PPGN, "$PPGN0$"]]);
   if (id == SGST) return GetRandomTipp([[SGST, "$SGST0$"]]);
   if (id == SMGN) return GetRandomTipp([[SMGN, "$SMGN0$"], [SMGN, "$SMGN0$"]]);
+  if (id == ATWN) return GetRandomTipp([[ATWN, "$ATWN0$"], [AAMS, "$ATWN1$"]]);
 
   //Granaten
   if (id->~IsGrenade() && !Random(6)) return GetRandomTipp([[BOOM, "$NADE0$"]]);
