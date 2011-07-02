@@ -3,7 +3,7 @@
 #strict
 #include CSTD
 
-static aFlag, aDeco;
+static aFlag;
 
 
 /* Initialisierung */
@@ -15,8 +15,6 @@ func Initialize()
   Music("CMC_WaitingforSpawn.ogg",1);
   //Flaggen
   aFlag = [];
-  //Dekoration
-  aDeco = [];
   //Einrichtung plazieren
   CreateInterior();
   //Ausrüstung plazieren
@@ -177,7 +175,7 @@ func CreateInterior()
 
   //Verbandskisten
   CreateObject(BECR, 1550, 440, -1)->AutoRespawn();
-  CreateObject(BECR, 1935, 390, -1);
+  CreateObject(BECR, 1940, 390, -1);
   CreateObject(BECR, 3305, 390, -1);
   CreateObject(BECR, 3690, 440, -1)->AutoRespawn();
 
@@ -257,10 +255,6 @@ func CreateInterior()
   CreateObject(ROOM, 1200, 440, -1)->Connect(doorw);
   doorw = CreateObject(ROOM, 4040, 300, -1);
   CreateObject(ROOM, 4040, 440, -1)->Connect(doorw);
-
-  //Grenzen
-  CreateObject(BRDR, 520, 0, -1)->Set(0);
-  CreateObject(BRDR, 4720, 0, -1)->Set(1);
 
   //Sounds
 
@@ -569,6 +563,14 @@ public func ChooserFinished()
   for(var i = 0; i < GetPlayerCount(); i++)
    aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = true;
 
+  //DM/LMS-Spielziel
+  if(FindObject(GTDM) || FindObject(GLMS))
+  {
+   //Grenzen
+   CreateObject(BRDR, 520, 0, -1)->Set(0);
+   CreateObject(BRDR, 4720, 0, -1)->Set(1);
+  }
+
   //CTF-Spielziel
   if(FindObject(GCTF))
   {
@@ -653,29 +655,14 @@ public func ChooserFinished()
 
    //Metallkisten
    CreateObject(MWCR, 1570, 370, -1);
+   CreateObject(MWCR, 1625, 482, -1);
+   CreateObject(MWCR, 1630, 500, -1);
    CreateObject(MWCR, 2010, 440, -1);
+   CreateObject(MWCR, 2410, 562, -1);
+   CreateObject(MWCR, 2410, 580, -1);
    CreateObject(MWCR, 3250, 440, -1);
    CreateObject(MWCR, 3640, 370, -1);
    CreateObject(MWCR, 3990, 440, -1);
-
-   /*
-   //!!!
-   //Dekoration
-   aDeco[00]=CreateObject(CON1,2820,290,-1);
-   aDeco[01]=CreateObject(CON1,2838,318,-1)->SetPerspective(2);
-   aDeco[02]=CreateObject(CON1,2836,346,-1)->SetPerspective(2);
-   aDeco[03]=CreateObject(CON1,2835,370,-1)->SetPerspective(2);
-   aDeco[04]=CreateObject(CON1,2865,495,-1)->SetPerspective(2);
-   aDeco[05]=CreateObject(CON1,2854,525,-1)->SetPerspective(2);
-   aDeco[06]=CreateObject(CON1,2852,553,-1)->SetPerspective(2);
-   aDeco[07]=CreateObject(CON1,2850,581,-1)->SetPerspective(2);
-
-   aDeco[08]=CreateObject(GSBL,2985,440,-1);
-   aDeco[09]=CreateObject(XBRL,2870,390,-1)->SetR(40);
-   aDeco[10]=CreateObject(XBRL,2900,420,-1)->SetR(40);
-   aDeco[11]=CreateObject(XBRL,2910,510,-1)->SetR(-40);
-   aDeco[12]=CreateObject(XBRL,2960,460,-1)->SetR(-40);
-   */
 
    //Versorgungskiste (APW)
    var crate = CreateObject (AMCT, 4150, 440, -1);
@@ -774,30 +761,6 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
     RemoveAll(BRDR);
     CreateObject(BRDR, 1610, 0, -1)->Set(0);
     CreateObject(BRDR, 4720, 0, -1)->Set(1,1);
-
-    /*
-    //!!!
-    //Dekoration zerstören
-    Schedule("DecoExplode(30)", 80, 0, aDeco[00]);
-    Schedule("DecoExplode(31)", 80, 0, aDeco[01]);
-    Schedule("DecoExplode(32)", 80, 0, aDeco[02]);
-    Schedule("DecoExplode(33)", 80, 0, aDeco[03]);
-    Schedule("DecoExplode(34)", 80, 0, aDeco[04]);
-    Schedule("DecoExplode(35)", 80, 0, aDeco[05]);
-    Schedule("DecoExplode(36)", 80, 0, aDeco[06]);
-    Schedule("DecoExplode(37)", 80, 0, aDeco[07]);
-
-    ScheduleCall(aDeco[08], "InstaExplode", 10);
-
-    aDeco[09]->ScheduleCall(this, "BlowUp", 40);
-
-
-    Schedule("InstaExplode()", 10, 0, aDeco[08]);
-    Schedule("BlowUp()", 60, 0, aDeco[09]);
-    Schedule("BlowUp()", 40, 0, aDeco[10]);
-    Schedule("BlowUp()", 60, 0, aDeco[11]);
-    Schedule("BlowUp()", 40, 0, aDeco[12]);
-    */
    }
   }
 }
