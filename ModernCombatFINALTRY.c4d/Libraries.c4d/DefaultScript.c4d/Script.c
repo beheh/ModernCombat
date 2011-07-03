@@ -100,12 +100,16 @@ public func RelaunchPlayer(int iPlr, object pCrew, object pKiller, int iTeam, bo
 public func RelaunchClonk(int iPlr, object pCursor)
 {
   //Clonkerstellung
-  var pClonk = CreateObject(PCMK, 10, 10, iPlr);
-  if(pCursor)
+  var pClonk;
+  if(pCursor && pCursor->~GetRealCursor()) pCursor = pCursor->~GetRealCursor();
+  if(pCursor) {
+	CreateObject(GetID(pCursor), 10, 10, iPlr)
     GrabObjectInfo(pCursor, pClonk);
-  else
+  }
+  else {
+	CreateObject(PCMK, 10, 10, iPlr);
     MakeCrewMember(pClonk, iPlr);
-
+  }
   DoEnergy(+150, pClonk);
   SetCursor(iPlr, pClonk);
   SetPlrView(iPlr, pClonk);
