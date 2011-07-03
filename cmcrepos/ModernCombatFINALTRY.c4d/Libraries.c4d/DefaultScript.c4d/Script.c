@@ -103,7 +103,7 @@ public func RelaunchClonk(int iPlr, object pCursor)
   var pClonk;
   if(pCursor && pCursor->~GetRealCursor()) pCursor = pCursor->~GetRealCursor();
   if(pCursor) {
-	CreateObject(GetID(pCursor), 10, 10, iPlr)
+	CreateObject(GetID(pCursor), 10, 10, iPlr);
     GrabObjectInfo(pCursor, pClonk);
   }
   else {
@@ -140,7 +140,7 @@ public func OnClonkEquip(object pClonk)
   if(!pClonk)
     return;
 
-  //Falls Clonk bereits einmal ausgerüstet, nicht nochmal ausrüsten
+  //Falls Clonk bereits ausgerüstet, nicht nochmal ausrüsten
   if(Contents(0,pClonk))
     return;
 
@@ -149,7 +149,7 @@ public func OnClonkEquip(object pClonk)
   wpn->DoAmmo(wpn->GetFMData(FM_AmmoID),wpn->GetFMData(FM_AmmoLoad));
   CreateContents(FGRN, pClonk);
 
-  //Etwas Zusatzmunition für die Pistole sofern welche benötigt wird
+  //Zusatzmunition für die Pistole sofern benötigt
   if(!FindObject(NOAM))
     pClonk->DoAmmo(wpn->GetFMData(FM_AmmoID),wpn->GetFMData(FM_AmmoLoad)*2);
 }
