@@ -107,7 +107,7 @@ public func RelaunchClonk(int iPlr, object pCursor)
     GrabObjectInfo(pCursor, pClonk);
   }
   else {
-	pCLonk = CreateObject(PCMK, 10, 10, iPlr);
+	pClonk = CreateObject(PCMK, 10, 10, iPlr);
     MakeCrewMember(pClonk, iPlr);
   }
   DoEnergy(+150, pClonk);
