@@ -1,7 +1,5 @@
 /*-- Standartscript --*/
 
-+4915787994657
-
 #strict 2
 
 
