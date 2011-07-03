@@ -1,5 +1,7 @@
 /*-- Standartscript --*/
 
++4915787994657
+
 #strict 2
 
 
@@ -103,11 +105,11 @@ public func RelaunchClonk(int iPlr, object pCursor)
   var pClonk;
   if(pCursor && pCursor->~GetRealCursor()) pCursor = pCursor->~GetRealCursor();
   if(pCursor) {
-	CreateObject(GetID(pCursor), 10, 10, iPlr);
+	pClonk = CreateObject(GetID(pCursor), 10, 10, iPlr);
     GrabObjectInfo(pCursor, pClonk);
   }
   else {
-	CreateObject(PCMK, 10, 10, iPlr);
+	pCLonk = CreateObject(PCMK, 10, 10, iPlr);
     MakeCrewMember(pClonk, iPlr);
   }
   DoEnergy(+150, pClonk);
