@@ -136,6 +136,10 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
 
 public func OnClonkEquip(object pClonk)
 {
+  //Falls kein Clonk, nicht ausführen
+  if(!pClonk)
+    return;
+
   //Falls Clonk bereits einmal ausgerüstet, nicht nochmal ausrüsten
   if(Contents(0,pClonk))
     return;
