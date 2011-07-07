@@ -348,3 +348,10 @@ public func ControlDig(object pCaller)
   //Herausnehmen per Graben: Holen-Menü öffnen
   SetCommand(pCaller, "Get", this, 0, 0, 0, 1);
 }
+
+/* Aufschlag */ 
+
+protected func Hit3()
+{
+  Sound("ClonkImpact*.ogg");
+}
