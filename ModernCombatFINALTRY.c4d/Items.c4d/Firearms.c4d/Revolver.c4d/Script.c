@@ -24,7 +24,7 @@ public func FMData1(int data)
 
   if(data == FM_Recharge)	return(10);
 
-  if(data == FM_SingleReload)	return(6);
+  if(data == FM_SingleReload)	return(7);
   if(data == FM_Reload)		return(90);
   if(data == FM_PrepareReload)	return(20);
   if(data == FM_FinishReload)	return(20);
