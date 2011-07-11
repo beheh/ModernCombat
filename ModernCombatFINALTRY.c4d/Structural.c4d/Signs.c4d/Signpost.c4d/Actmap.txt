@@ -1,27 +1,27 @@
 [Action]
 Name=Sign1
-Length=7
+Length=6
 Procedure=NONE
 Facet=0,0,80,90
 NextAction=Hold
 
 [Action]
 Name=Sign2
-Length=7
+Length=6
 Procedure=NONE
 Facet=0,90,80,90
 NextAction=Hold
 
 [Action]
 Name=Sign3
-Length=7
+Length=6
 Procedure=NONE
 Facet=0,180,80,90
 NextAction=Hold
 
 [Action]
 Name=Sign4
-Length=7
+Length=6
 Procedure=NONE
 Facet=0,270,80,90
 NextAction=Hold
