@@ -217,7 +217,9 @@ func CreateInterior()
 
   CreateObject(_HBR, 940, 330, -1);
   CreateObject(_HBR, 1365, 350, -1)->SetR(45);
+  CreateObject(_HBR, 1500, 485, -1)->SetR(45);
   CreateObject(_HBR, 1645, 420, -1)->SetR(45);
+  CreateObject(_HBR, 1760, 485, -1)->SetR(-45);
 
   CreateObject(_HBR, 2305, 500, -1)->SetR(45);
   CreateObject(_HBR, 2355, 550, -1)->SetR(45);
@@ -228,7 +230,9 @@ func CreateInterior()
   CreateObject(_HBR, 2885, 550, -1)->SetR(-45);
   CreateObject(_HBR, 2935, 500, -1)->SetR(-45);
 
+  CreateObject(_HBR, 3480, 485, -1)->SetR(45);
   CreateObject(_HBR, 3595, 420, -1)->SetR(-45);
+  CreateObject(_HBR, 3740, 485, -1)->SetR(-45);
   CreateObject(_HBR, 3875, 350, -1)->SetR(-45);
   CreateObject(_HBR, 4300, 330, -1);
 
