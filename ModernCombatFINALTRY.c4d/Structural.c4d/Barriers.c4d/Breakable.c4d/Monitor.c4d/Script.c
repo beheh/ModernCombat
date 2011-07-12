@@ -67,7 +67,7 @@ public func IsBulletTarget(id def)
 private func ChooseActivity()
 {
   //Zufällige nächste Aktion wählen
-  var iAction = Random(4)+1;
+  var iAction = Random(5)+1;
   SetAction(Format("Activity%d", iAction));
 }
 
