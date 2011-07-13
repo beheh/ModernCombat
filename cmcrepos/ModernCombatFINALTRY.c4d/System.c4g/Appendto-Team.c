@@ -6,6 +6,8 @@
 
 #appendto TEAM
 
+protected func MenuQueryCancel()	{return true;}
+
 
 /*private func InitScoreboard()
 {
