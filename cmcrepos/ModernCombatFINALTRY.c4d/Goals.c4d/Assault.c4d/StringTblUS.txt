@@ -1,9 +1,17 @@
-DefendLastStation=This is our <c ff0000>last</c> target, don't let it get destroyed!
+// Attackers
+
 DestroyLastStation=Only <c ffff33>one</c> target left to win this, keep at it!
-TargetDestruction=Target <c %x>%s</c> destroyed.
-TeamHasWon=Team %s has won this battle!
-AttackersWon=The attackers have won this battle!
-Targets=Targets
-Attackers=Attackers
+AttackersWon={{GASS}} <c ffff33>Assault</c> - Round End|The <c ffff33>attacker team</c> has <c ffff33>won</c> this battle!
 MsgTicketsLow=Our reinforcements are running low, only <c ffff33>%d</c> left
 MsgNoTickets=Our reinforcements are <c ff0000>exhausted</c>.
+
+// Defenders
+
+DefendLastStation=This is our <c ff0000>last</c> target, don't let it get destroyed!
+DefendersWon={{GASS}} <c ffff33>Assault</c> - Round End|The <c ffff33>defender team</c> has <c ffff33>won</c> this battle!
+
+// Other
+
+Targets=Targets
+Attackers=Attackers
+TargetDestruction=Target <c %x>%s</c> destroyed.

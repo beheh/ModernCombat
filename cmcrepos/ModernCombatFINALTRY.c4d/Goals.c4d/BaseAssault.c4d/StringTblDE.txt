@@ -1,4 +1,4 @@
 TargetDestruction=Zielobjekt <c %x>%s</c> wurde zerstört.
 ChoosePoint=Wähle einen <c ffff33>Einstiegspunkt</c>
 NoTargets=Alle unsere Zielobjekte wurden <c ff0000>zerstört</c>! Fangt an zu kämpfen oder wir werden verlieren!
-TeamHasWon=Team %s hat diese Schlacht gewonnen!
+TeamHasWon={{GBAS}} <c ffff33>Base Assault</c> - Rundenende|Team %s hat diese Schlacht <c ffff33>gewonnen</c>!
