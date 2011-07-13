@@ -474,7 +474,7 @@ private func IsFulfilled()
   else if (GetActiveTeamCount() == 1 && GetPlayerTeam(GetPlayerByIndex()) == iDefender)
   {
     //Nachricht über Gewinner
-    Message("@$TeamHasWon$", 0, GetTaggedTeamName(iDefender));
+    Message("@$DefendersWon$");
 
     won = true;
   }
@@ -486,7 +486,7 @@ private func IsFulfilled()
     EliminateTeam(iDefender);
 
     //Nachricht über Gewinner
-    Message("@$AttackersWon$");
+    Message("$AttackersWon$");
     won = true;
   }
 

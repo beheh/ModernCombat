@@ -460,7 +460,7 @@ public func IsFulfilled()
     Evaluation();
 
     //Nachricht über Gewinner
-    Message("@$WinMsg$",0 , GetTeamColor(iWinningTeam), GetTeamName(iWinningTeam));
+    Message("@$TeamHasWon$",0 , GetTeamColor(iWinningTeam), GetTeamName(iWinningTeam));
 
     //Sounds
     Sound("Cheer.ogg", true);
