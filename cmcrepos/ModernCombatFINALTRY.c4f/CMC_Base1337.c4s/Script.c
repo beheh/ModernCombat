@@ -13,8 +13,6 @@ func Initialize()
   //Wartemusik einstellen
   SetPlayList("CMC_WaitingforSpawn.ogg");
   Music("CMC_WaitingforSpawn.ogg",1);
-  //Bildschirmfärbung
-  SetGamma(RGB(3,1,0),RGB(95,83,68),RGB(213,212,187));
   //Himmel
   SetSkyParallax(1, 40, 40, 0, 0, SkyPar_Keep, SkyPar_Keep);
   //Flaggen
