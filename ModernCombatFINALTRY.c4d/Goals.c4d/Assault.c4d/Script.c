@@ -357,8 +357,7 @@ static const GASS_TargetRow = 4;
 public func UpdateScoreboard()
 {
   //Wird noch eingestellt
-  if (FindObject(CHOS))
-    return;
+  if (FindObject(CHOS)) return;
 
   //Komplett leeren
   ClearScoreboard();

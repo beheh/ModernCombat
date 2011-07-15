@@ -7,7 +7,7 @@ MsgCaptured=Team <c %x>%s</c> controls flag post <c ffff33>%s</c>
 
 MorePoints=More points
 LessPoints=Less points
-Finished=Apply
+Finished=Finished
 Points=Points
 TeamReachingGoal=Team %s needs only <c ffff33>%d</c> more points to win! Hurry up!
 TeamHasWon={{GHTF}} <c ffff33>Hold the Flag</c> - Round End|Team <c %x>%s</c> has <c ffff33>won</c> this battle!
