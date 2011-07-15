@@ -1,4 +1,6 @@
-HasWon=has won this battle!
-MsgGoalFulfilled=We have a winner!
-MsgGoalLost=Alas! You have lost.
-MsgGoalUnfulfilled=You still have to get %d credits.
+TeamHasWon={{GMNR}} <c ffff33>Money Run</c> - Round End|Team <c %x>%s</c> has <c ffff33>won</c> this battle!
+MsgGoalUnfulfilled=Your team has currently %d credits, the goal is to secure %d.
+Points=Points
+MoreCredits=more Credits
+LessCredits=less Credits
+Finished=Finished

@@ -4,34 +4,35 @@
 #include TEAM
 
 local aMoney;
-local iGoal;
+static iGoal;
 local fFulfilled;
 
-protected func Activate(int iPlr)
-{
-  var iIndex = iPlr;
-  if (Teams())
-    iIndex = GetPlayerTeam(iPlr);
-  if (IsFulfilled())
-    if(aMoney[iIndex] >= iGoal)
-      return MessageWindow("$MsgGoalFulfilled$", iPlr);
-    else
-      return MessageWindow("$MsgGoalLost$", iPlr);
-  return MessageWindow(Format("$MsgGoalUnfulfilled$", iGoal - aMoney[iIndex]), iPlr);
-}
+public func IsConfigurable()	{return true;}
+
 
 /* Initialisierung */
+
+protected func Initialize()
+{
+  //Standard-Credit-Anzahl ermitteln
+  if(FrameCounter() < 100)
+  {
+    iGoal += 100;
+    if(FindObject(GMNR))
+      return RemoveObject(this);
+  }
+
+  return true;
+}
 
 public func ChooserFinished()
 {
   aMoney = [];
-  //Teams
-  var iStartMoney = 50;
-  if (Teams())
-    iStartMoney *= 2;
-  iGoal = 150 + iStartMoney * GetPlayerCount() / 2;
 
-  //Teams?
+  //Start-Credits berechnen
+  var iStartMoney = iGoal/2;
+
+  //Credits an Teams oder einzelne Spieler verteilen
   if (Teams())
     for (var i = 0; i < GetTeamCount(); i++)
       aMoney[GetTeamByIndex(i)] = iStartMoney;
@@ -54,6 +55,44 @@ public func ChooserFinished()
   }
 
   return _inherited(...);
+}
+
+public func ConfigMenu(object pCaller)
+{
+  OpenGoalMenu();
+  return 1;
+}
+
+private func ConfigFinished()
+{
+  var chos = FindObject(CHOS);
+  if(chos)
+    chos->OpenMenu();
+}
+
+private func OpenGoalMenu(id dummy, int iSelection)
+{
+  var pClonk = GetCursor();
+  CreateMenu(GetID(),pClonk,0,0,0,0,1);
+
+  AddMenuItem(" ", "OpenGoalMenu", GetID(), pClonk, iGoal, 0, " ");
+  AddMenuItem("$MoreCredits$", "ChangeCredits", CHOS, pClonk, 0, +100, "$MoreCredits$",2,1);
+  AddMenuItem("$LessCredits$", "ChangeCredits", CHOS, pClonk, 0, -100, "$LessCredits$",2,2);
+  AddMenuItem("$Finished$", "ConfigFinished", CHOS, pClonk,0,0,"$Finished$",2,3);
+
+  SelectMenuItem(iSelection, pClonk);
+}
+
+private func ChangeCredits(id dummy, int iChange)
+{
+  //Stand verändern (maximal 1000 Credits)
+  iGoal = BoundBy(iGoal + iChange,100,1000);
+  //Sound
+  Sound("Grab", 1,0,0,1);
+  //Menü wieder öffnen
+  var iSel = 1;
+  if(iChange == -100) iSel = 2;
+  OpenGoalMenu(0, iSel);
 }
 
 protected func FxIntGoalTimer()
@@ -147,11 +186,11 @@ static const GMNR_Count = 0;
 
 public func UpdateScoreboard()
 {
-  if (FindObject(CHOS))
-    return;
+  //Wird noch eingestellt
+  if (FindObject(CHOS)) return;
 
   //Titelzeile
-  SetScoreboardData(SBRD_Caption, GMNR_Name, Format("%d Punkte", iGoal));
+  SetScoreboardData(SBRD_Caption, GMNR_Name, Format("%d $Points$", iGoal));
   SetScoreboardData(SBRD_Caption, GMNR_Count, Format("{{%i}}", GetID()));
 
   //Teams durchgehen
@@ -194,8 +233,8 @@ public func OnDeathAnnounce(object pCrew, int iKiller, int iAssist)
     //Gegner getötet
     else
     {
-      //10%, mindestens aber 10 Clunker abziehen
-      iChange = GoalMoney(iPlr, -Max(10, aMoney[GetPlayerTeam(iPlr)] / 10));
+      //10%, mindestens aber 20 Clunker abziehen
+      iChange = GoalMoney(iPlr, -Max(20, aMoney[GetPlayerTeam(iPlr)] / 10));
 
       if (iAssist == iKiller || iAssist == NO_OWNER)
         GoalMoney(iKiller, -iChange);
@@ -264,45 +303,62 @@ global func Teams()
 public func IsFulfilled()
 {
   //Wird noch eingestellt
-  if (FindObject(CHOS))
-    return false;
-  if (fFulfilled)
-    return true;
-  //Jemand hat genug Geld?
+  if (FindObject(CHOS)) return;
+
+  if (fFulfilled) return true;
+
+  //Siegerermittlung je nach Teameinstellung
   if (Teams())
   {
     for (var i = 0; i < GetTeamCount(); i++)
       if (aMoney[GetTeamByIndex(i)] >= iGoal)
       {
-        //Die anderen eliminieren
+        //Verlierer eliminieren
         for (var j = GetPlayerCount(); j >= 0; j--)
           if (GetPlayerTeam(GetPlayerByIndex(j)) != GetTeamByIndex(i))
             EliminatePlayer(GetPlayerByIndex(j));
-        Message("<c %x>Team %s</c> $HasWon$", 0, GetTeamColor(GetTeamByIndex(i)), GetTeamName(GetTeamByIndex(i)));
+
+        //Nachricht über Gewinner
+        Message("$TeamHasWon$", 0, GetTeamColor(GetTeamByIndex(i)), GetTeamName(GetTeamByIndex(i)));
         return fFulfilled = true;
       }
-    //Keiner hat gewonnen. Unentschieden?
-    if (GetActiveTeamCount() == 1)
-      return fFulfilled = true;
   }
   else
   {
     for (var i = 0; i < GetPlayerCount(); i++)
       if (aMoney[GetPlayerByIndex(i)] >= iGoal)
       {
-        //Die anderen eliminieren
+        //Verlierer eliminieren
         for (var j = GetPlayerCount(); j >= 0; j--)
           if (GetPlayerByIndex(j) != GetPlayerByIndex(i))
             EliminatePlayer(GetPlayerByIndex(j));
-        Message("<c %x>%s</c> $HasWon$", 0, GetPlrColorDw(GetPlayerByIndex(i)), GetPlayerName(GetPlayerByIndex(i)));
+
+        //Nachricht über Gewinner
+        Message("$TeamHasWon$", 0, GetPlrColorDw(GetPlayerByIndex(i)), GetPlayerName(GetPlayerByIndex(i)));
         return fFulfilled = true;
       }
-    //Keiner hat gewonnen. Unentschieden?
-    if (GetPlayerCount() == 1)
-      return fFulfilled = true;
+  }
+
+  //Nur noch eins übrig
+  if (GetActiveTeamCount() <= 1)
+  {
+    var i = GetPlayerTeam(GetPlayerByIndex());
+
+    //Nachricht über Gewinner
+    Message("$TeamHasWon$", 0, GetTeamColor(i), GetTeamName(i));
+
+    return fFulfilled = true;
   }
 
   return false;
+}
+
+protected func Activate(int iPlr)
+{
+  var iIndex = iPlr;
+  if (Teams())
+    iIndex = GetPlayerTeam(iPlr);
+  return MessageWindow(Format("$MsgGoalUnfulfilled$", aMoney[iIndex], iGoal), iPlr);
 }
 
 /* Ungenutze Funktionen */
