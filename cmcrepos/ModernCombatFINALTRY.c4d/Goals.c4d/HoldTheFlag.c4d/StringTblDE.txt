@@ -7,7 +7,7 @@ MsgCaptured=Team <c %x>%s</c> kontrolliert Flaggenposten <c ffff33>%s</c>
 
 MorePoints=Mehr Punkte
 LessPoints=Weniger Punkte
-Finished=Übernehmen
+Finished=Fertig
 Points=Punkte
 TeamReachingGoal=Team %s fehlen nur noch <c ffff33>%d</c> Punkte zum Sieg! Beeilung!
 TeamHasWon={{GHTF}} <c ffff33>Hold the Flag</c> - Rundenende|Team <c %x>%s</c> hat diese Schlacht <c ffff33>gewonnen</c>!

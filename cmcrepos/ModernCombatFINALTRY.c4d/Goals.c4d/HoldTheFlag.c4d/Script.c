@@ -217,8 +217,7 @@ static const GHTF_FlagRow = 1024;
 public func UpdateScoreboard()
 {
   //Wird noch eingestellt
-  if (FindObject(CHOS))
-    return;
+  if (FindObject(CHOS)) return;
 
   //Titelzeile
   SetScoreboardData(SBRD_Caption, GHTF_Name, Format("%d $Points$", iGoal));

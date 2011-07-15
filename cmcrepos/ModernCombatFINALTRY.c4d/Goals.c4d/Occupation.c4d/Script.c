@@ -230,7 +230,8 @@ protected func InitScoreboard()
 
 private func UpdateScoreboard()
 {
-  if(FindObject(CHOS)) return;
+  //Wird noch eingestellt
+  if (FindObject(CHOS)) return;
 
   //Zeile
   var i = 0;
