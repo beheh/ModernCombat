@@ -95,18 +95,6 @@ private func ChangeCredits(id dummy, int iChange)
   OpenGoalMenu(0, iSel);
 }
 
-protected func FxIntGoalTimer()
-{
-  UpdateScoreboard();
-  if (IsFulfilled())
-  {
-    Schedule("GameOver()", 150);
-    RewardEvaluation();
-    Sound("Cheer.ogg", true);
-    return -1;
-  }
-}
-
 /* Relaunch */
 
 protected func InitializePlayer(int iPlr)
@@ -318,8 +306,18 @@ public func IsFulfilled()
           if (GetPlayerTeam(GetPlayerByIndex(j)) != GetTeamByIndex(i))
             EliminatePlayer(GetPlayerByIndex(j));
 
+        //Spielende planen
+        Schedule("GameOver()", 150);
+
+        //Auswertung
+        RewardEvaluation();
+
         //Nachricht über Gewinner
         Message("$TeamHasWon$", 0, GetTeamColor(GetTeamByIndex(i)), GetTeamName(GetTeamByIndex(i)));
+
+        //Sound
+        Sound("Cheer.ogg", true);
+
         return fFulfilled = true;
       }
   }
@@ -333,8 +331,18 @@ public func IsFulfilled()
           if (GetPlayerByIndex(j) != GetPlayerByIndex(i))
             EliminatePlayer(GetPlayerByIndex(j));
 
+        //Spielende planen
+        Schedule("GameOver()", 150);
+
+        //Auswertung
+        RewardEvaluation();
+
         //Nachricht über Gewinner
         Message("$TeamHasWon$", 0, GetPlrColorDw(GetPlayerByIndex(i)), GetPlayerName(GetPlayerByIndex(i)));
+
+        //Sound
+        Sound("Cheer.ogg", true);
+
         return fFulfilled = true;
       }
   }
@@ -344,8 +352,17 @@ public func IsFulfilled()
   {
     var i = GetPlayerTeam(GetPlayerByIndex());
 
+    //Spielende planen
+    Schedule("GameOver()", 150);
+
+    //Auswertung
+    RewardEvaluation();
+
     //Nachricht über Gewinner
     Message("$TeamHasWon$", 0, GetTeamColor(i), GetTeamName(i));
+
+    //Sound
+    Sound("Cheer.ogg", true);
 
     return fFulfilled = true;
   }
