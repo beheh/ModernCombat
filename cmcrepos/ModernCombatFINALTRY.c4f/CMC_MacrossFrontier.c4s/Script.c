@@ -429,10 +429,10 @@ public func ChooserFinished()
    sign->SetMode(1);
 
    //Geldsäcke
-   AddMoneySpawn(610, 240, [10, 15]);
-   AddMoneySpawn(780, 50, [10, 15, 20]);
-   AddMoneySpawn(810, 430, [10, 15, 20]);
-   AddMoneySpawn(940, 160, [10, 15]);
+   AddMoneySpawn(610, 240, [10]);
+   AddMoneySpawn(780, 50, [20]);
+   AddMoneySpawn(810, 430, [20]);
+   AddMoneySpawn(940, 160, [10]);
   }
 }
 

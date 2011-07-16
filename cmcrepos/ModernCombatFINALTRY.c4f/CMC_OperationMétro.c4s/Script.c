@@ -62,7 +62,7 @@ func CreateInterior()
   DrawMaterialQuad("WeakWall-Plate",4480,240,4480,330,4390,240,4480,240,true);
 
   //Leitern
-  CreateObject(LADR, 1790, 332, -1)->Set(3);
+  CreateObject(LADR, 1790, 380, -1)->Set(9);
   CreateObject(LADR, 1930, 332, -1)->Set(3);
   CreateObject(LADR, 2070, 332, -1)->Set(3);
   CreateObject(LADR, 2210, 332, -1)->Set(3);
@@ -73,7 +73,7 @@ func CreateInterior()
   CreateObject(LADR, 3030, 332, -1)->Set(3);
   CreateObject(LADR, 3170, 332, -1)->Set(3);
   CreateObject(LADR, 3310, 332, -1)->Set(3);
-  CreateObject(LADR, 3450, 332, -1)->Set(3);
+  CreateObject(LADR, 3450, 380, -1)->Set(9);
 
   //Bodenluken
   CreateObject(HA4K, 1790, 303, -1);
@@ -669,7 +669,7 @@ public func ChooserFinished()
    CreateObject(MWCR, 3990, 440, -1);
 
    //Versorgungskiste (APW)
-   var crate = CreateObject (AMCT, 4150, 440, -1);
+   var crate = CreateObject (AMCT, 3920, 440, -1);
    crate->Set(ATWN);
   }
 
@@ -722,10 +722,10 @@ public func ChooserFinished()
   if (FindObject(GMNR))
   {
    //Geldsäcke
-   AddMoneySpawn(2040, 295, [10, 15]);
-   AddMoneySpawn(2620, 435, [10, 15, 20]);
-   AddMoneySpawn(2620, 615, [10, 15, 20]);
-   AddMoneySpawn(3200, 295, [10, 15]);
+   AddMoneySpawn(2040, 295, [10]);
+   AddMoneySpawn(2620, 435, [20]);
+   AddMoneySpawn(2620, 615, [20]);
+   AddMoneySpawn(3200, 295, [10]);
 
    //Grenzen setzen
    CreateObject(BRDR, 950, 0, -1)->Set(0);

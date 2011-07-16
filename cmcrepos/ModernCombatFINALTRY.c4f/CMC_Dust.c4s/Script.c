@@ -294,10 +294,10 @@ public func ChooserFinished()
   if (FindObject(GMNR))
   {
    //Geldsäcke
-   AddMoneySpawn(585, 815, [10, 15, 20]);
-   AddMoneySpawn(790, 555, [10, 15, 20]);
-   AddMoneySpawn(965, 465, [10, 15, 20]);
-   AddMoneySpawn(1010, 695, [10, 15, 20]);
+   AddMoneySpawn(585, 815, [10]);
+   AddMoneySpawn(790, 555, [10]);
+   AddMoneySpawn(965, 465, [10]);
+   AddMoneySpawn(1010, 695, [10]);
   }
 }
 
