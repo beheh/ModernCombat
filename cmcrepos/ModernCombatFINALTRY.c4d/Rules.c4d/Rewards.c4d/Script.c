@@ -128,6 +128,7 @@ public func StatsAchievement(int iPlr, int iSelect, int iOffset)
   {
     Sound("Error", true, 0, 100, iPlr + 1);
     return StatsList(iPlr, iSelect-iOffset, iOffset);
+
   }
 
   //Leerzeile
@@ -200,9 +201,11 @@ public func UpdatePlayers()
   for(var i = 0; i < GetPlayerCount()+iOffset; i++)
   {
     var iPlr = GetPlayerByIndex(i);
-    if(!GetPlayerName(iPlr) && GetPlayerData(RWDS_PlayerName, iPlr)) {
+    if(!GetPlayerName(iPlr) && GetPlayerData(RWDS_PlayerName, iPlr))
+    {
       iOffset++;
       continue;
+
     }
     SetPlayerData(Format("<c %x>%s</c>", GetPlrColorDw(iPlr), GetPlayerName(iPlr)), RWDS_PlayerName, iPlr);
     SetPlayerData(GetPlayerTeam(iPlr), RWDS_PlayerTeam, iPlr);
@@ -375,35 +378,41 @@ global func FxPointMessageTimer(pTarget, iNo)
   var iTime = EffectVar(2,pTarget,iNo);
   if(!iTime)
   {
-  	var pObject, index;
-  	if(Contained(pTarget)) {
-  		var pContainer = Contained(pTarget);
-  		var j = 0;
-  		while((pObject = Contents(j, pContainer)) != false) {
-	 		  var i = 0;
-				while((index = GetEffect("PointMessage", pObject, i)) != 0)
-				{
-				  if(EffectVar(2,pObject,index) > 0) return FX_OK;
-				  i++;
-				}
-  			j++;
-    	}
+    var pObject, index;
+    if(Contained(pTarget))
+    {
+      var pContainer = Contained(pTarget);
+      var j = 0;
+      while((pObject = Contents(j, pContainer)) != false)
+      {
+        var i = 0;
+        while((index = GetEffect("PointMessage", pObject, i)) != 0)
+        {
+          if(EffectVar(2,pObject,index) > 0) return FX_OK;
+          i++;
+        }
+        j++;
+      }
     }
-    else {
-    	pObject = pTarget;
- 		  var i = 0;
-		  while((index = GetEffect("PointMessage", pObject, i)) != 0)
-		  {
-		    if(EffectVar(2,pObject,index) > 0) return FX_OK;
-		    i++;
-		  }
+    else
+    {
+      pObject = pTarget;
+      var i = 0;
+      while((index = GetEffect("PointMessage", pObject, i)) != 0)
+      {
+        if(EffectVar(2,pObject,index) > 0) return FX_OK;
+        i++;
+      }
     }
-    Sound("PointsGet.ogg", 0, pContainer, 100);	//Sound
-    EffectVar(1,pTarget,iNo) = CreateObject(ARHL,0,0,-1);	//Helper
+    //Sound
+    Sound("PointsGet.ogg", 0, pContainer, 100);
+    //Helper
+    EffectVar(1,pTarget,iNo) = CreateObject(ARHL,0,0,-1);
   }
   EffectVar(2,pTarget,iNo)++;
+  //Nachricht ausgeben
   CustomMessage(EffectVar(0,pTarget,iNo),EffectVar(1,pTarget,iNo),NO_OWNER,0,-iTime/2,
-                RGBa(255,255,255,BoundBy(-50+iTime*5,0,255)));
+  		RGBa(255,255,255,BoundBy(-50+iTime*5,0,255)));
   if(-50+iTime*5 > 255)
   {
     RemoveObject(EffectVar(1,pTarget,iNo));
