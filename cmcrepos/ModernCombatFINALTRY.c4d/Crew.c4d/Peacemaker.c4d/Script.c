@@ -126,22 +126,13 @@ public func GetReanimationTarget(pFrom, & body, & defi, fUnderAttack)
 	return false;
 }
 
-public func FxAggroStart(object pTarget, int no) {
-	if(pTarget->GetCommand()) pTarget->SetCommand("");
-	SetComDir(COMD_None);
-}
-
 public func FxAggroTimer(object pTarget, int no)
 {
 	if (Contained())
 		return;
 	// Hilfsbedürftige in der Nähe?
 	var body, defi;
-	if(GetPlayerViewAlpha(GetOwner()) == 0) {
-		if(pTarget->GetCommand()) pTarget->SetCommand("");
-		SetComDir(COMD_None);
-	    return;
-	}
+	if(GetPlayerViewAlpha(GetOwner()) > 0) {
   	GetReanimationTarget(pTarget, body, defi, EffectVar(1, this, no)); //Checkt auch nach Defi
   	if (body)
   	{
@@ -149,7 +140,7 @@ public func FxAggroTimer(object pTarget, int no)
   			StopAiming();
   		if (Contents() == defi && GetProcedure(pTarget) && ObjectDistance(body, pTarget) < 10)
   		{
-	    defi->Activate(this);
+        defi->Activate(this);
   			return;
   		}
   		else 
@@ -193,7 +184,7 @@ public func FxAggroTimer(object pTarget, int no)
   				{
   					var pFAP = FindObject2(Find_ID(FAPK), Find_Container(pTarget), Find_Func("CanUnpack", pTarget));
   					if (pFAP)
-	          pDragnin->ControlThrow(pTarget);
+              pDragnin->ControlThrow(pTarget);
   				}
   				var pDragnin = FindObject2(Find_ID(DGNN), Find_Container(pTarget));
   				if (pDragnin)
@@ -211,6 +202,7 @@ public func FxAggroTimer(object pTarget, int no)
   			}
   		}
   	}
+	}
 	// Ziel vorhanden?
   if(EffectVar(1, this, no)) { EffectCall(this, no, "Fire"); return true; }
 	// Zielen beenden
@@ -315,7 +307,6 @@ public func FxAggroFire(object pTarget, int no)
   }
   
   var maxdist = dist;
-
   if(!PathFree(GetX(), GetY(), target->GetX(), target->GetY()))
   {
     if(level == 1) maxdist = 0;
