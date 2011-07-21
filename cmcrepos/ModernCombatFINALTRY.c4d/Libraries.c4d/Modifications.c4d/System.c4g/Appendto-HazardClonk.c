@@ -1867,6 +1867,8 @@ public func WeaponAt(&x, &y, &r)
 
 public func DoAiming(int iChange)
 {
+  if(!crosshair) return;
+
   if(IsCrawling())
   {
    var angle = Abs(crosshair->GetAngle()) + iChange;
