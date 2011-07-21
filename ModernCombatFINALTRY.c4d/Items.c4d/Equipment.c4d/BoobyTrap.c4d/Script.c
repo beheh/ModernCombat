@@ -14,7 +14,7 @@ public func HandSize()			{return 1000;}
 public func BarrelXOffset()		{return -850;}
 public func IsEquipment()		{return true;}
 public func NoArenaRemove()		{return true;}
-public func AttractTracer(pT)		{return GetPlayerTeam(GetController()) != GetPlayerTeam(GetController(pT));}
+public func AttractTracer()		{return false;}
 public func LimitationCount()		{return 2;}
 
 

@@ -5,6 +5,7 @@
 local fuse, active, thrown, pStickTo, iStickXOffset, iStickYOffset, iStickROffset, iPreviousCategory;
 
 public func LimitationCount()	{return 8;}
+public func AttractTracer()	{return false;}
 
 
 /* Initialisierung */

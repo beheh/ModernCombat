@@ -309,9 +309,10 @@ global func DoAchievementProgress(int iProgress, id idAchievement, int iPlr)
 {
   if(!RewardsActive()) return;
   var index = idAchievement->~GetSavingSlot();
-  if(!index) {
-  	ErrorLog("Achievement %v without SavingSlot", idAchievement);
-  	return;
+  if(!index)
+  {
+    ErrorLog("Achievement %v without SavingSlot", idAchievement);
+    return;
   }
   if(!aAchievementProgress[iPlr]) aAchievementProgress[iPlr] = CreateArray();
   aAchievementProgress[iPlr][index] += iProgress;
@@ -406,18 +407,41 @@ global func FxPointMessageTimer(pTarget, iNo)
     }
     //Sound
     Sound("PointsGet.ogg", 0, pContainer, 100);
-    //Helper
-    EffectVar(1,pTarget,iNo) = CreateObject(ARHL,0,0,-1);
+
+    var plr = GetOwner(pTarget);
+    for(var i = 0; i < GetPlayerCount(); i++)
+    {
+      if(Hostile(plr, i)) continue;
+      AddEffect("Effektname", CreateObject(ARHL,0,0,-1), 130, 1, 0, 0, i, EffectVar(0,pTarget,iNo));
+    }
   }
-  EffectVar(2,pTarget,iNo)++;
-  //Nachricht ausgeben
-  CustomMessage(EffectVar(0,pTarget,iNo),EffectVar(1,pTarget,iNo),NO_OWNER,0,-iTime/2,
-  		RGBa(255,255,255,BoundBy(-50+iTime*5,0,255)));
+  EffectVar(2, pTarget, iNo)++;
   if(-50+iTime*5 > 255)
   {
-    RemoveObject(EffectVar(1,pTarget,iNo));
     return -1;
   }
+  return FX_OK;
+}
+
+global func FxEffektnameStart(object target, int nr, int temp, int plr, string szMsg)
+{
+  EffectVar(0, target, nr) = plr;
+  EffectVar(1, target, nr) = szMsg;
+  EffectVar(2, target, nr) = 0;
+}
+
+global func FxEffektnameTimer(object target, int nr) 
+{ 
+  var iTime = EffectVar(2, target, nr); 
+  CustomMessage(EffectVar(1,target,nr),target,EffectVar(0,target,nr),0,-iTime/2,RGBa(255,255,255,BoundBy(-50+iTime*5,0,255)));
+
+  EffectVar(2, target, nr)++;
+  if(-50+iTime*5 > 255)
+  {
+    RemoveObject(target);
+    return -1;
+  }
+
   return FX_OK;
 }
 
