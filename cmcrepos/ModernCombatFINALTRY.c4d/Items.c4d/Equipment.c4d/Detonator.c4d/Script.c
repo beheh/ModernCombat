@@ -13,11 +13,8 @@ public func HandX()		{return 3500;}
 
 public func MaxPoints()		{return 8;}
 public func StartPoints()	{return 3;}
-
 public func TeamSupportTime()	{return 0;}
-
 public func PackLight()		{return false;}
-
 public func DestroyEmptyPack()	{return !GetC4();}
 
 
