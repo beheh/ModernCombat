@@ -30,3 +30,4 @@ ExitRopeDesc=Verlasse den Helikopter durch Abseilen.
 Flares=Flareabwurf
 Smoke=Rauchwand
 HUD=HUD ein-ausblenden
+Spotlight=Scheinwerfer

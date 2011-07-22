@@ -70,7 +70,7 @@ public func Arm(id idWeapon)
    
   //Ordnern
   SetObjectOrder(this, pWeapon, 1);
-  aim_angle = 250;
+  aim_angle = 180;
   cur_Attachment = pWeapon;
   LocalN("controller", pWeapon) = this;
   Reload();
