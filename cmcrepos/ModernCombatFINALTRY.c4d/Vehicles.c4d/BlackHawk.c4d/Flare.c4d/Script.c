@@ -24,6 +24,9 @@ protected func Initialize()
 
 protected func TimerCall()
 {
+  //In Wasser verschwinden
+  if(InLiquid()) return RemoveObject();
+
   //Bei Bodenkontakt verschwinden
   if(GetContact(this, -1, CNAT_Bottom))
     return Hit();

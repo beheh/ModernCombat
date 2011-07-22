@@ -30,3 +30,4 @@ ExitRopeDesc=Rappel out of the helicopter.
 Flares=Flare Drop
 Smoke=Smokescreen
 HUD=Fade HUD in/out
+Spotlight=Spotlight

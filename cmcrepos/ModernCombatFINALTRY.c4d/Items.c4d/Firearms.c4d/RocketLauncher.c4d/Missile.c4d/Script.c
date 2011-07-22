@@ -347,6 +347,7 @@ private func HitObject(pObj)
 
 private func Detonate()
 {
+  //Schaden verursachen
   DamageObjects(ExplosionRadius(), ExplosionDamage()/2, this);
   Explode(ExplosionDamage()*3/2);
 }

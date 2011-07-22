@@ -23,6 +23,9 @@ local s_counter,			//int    - eine kleine Counter-Variable für Warnsounds
 local smokereload;			//int    - Nachladezeit für Rauchwand
 local flarereload;			//int    - Nachladezeit für Flareabwurf
 
+local spotlight;			//bool   - Scheinwerfer an/aus
+local spotlightobj;			//array  - Scheinwerferobjekt
+
 static const throttle_speed = 5;	//int    - "Feinfühligkeit"
 static const rot_speed = 1;		//int    - Drehgeschwindigkeit / frame
 static const control_speed = 3;		//int    - "Feinfühligkeit"
@@ -91,6 +94,9 @@ protected func Initialize()
   RocketStation = CreateObject(WNRK,0,0,GetOwner());
   RocketStation -> Set(this,40,10,210,270);
   RocketStation -> Arm(RLSA);
+
+  //Scheinwerfer einrichten
+  spotlightobj = [0];
 
   //Vertices richtig drehen
   ScheduleCall(this,"ChangeDir",1,2);
@@ -209,9 +215,10 @@ protected func FxBlackhawkAutopilotTimer(object pTarget, int iNumber, int iTime)
     if(GetYDir(pTarget) < 3 || GetContact(this, -1, CNAT_Bottom))
     {
       //vom Gas weg
-      if(GetAction() == "Fly" || GetAction() == "Turn") {
+      if(GetAction() == "Fly" || GetAction() == "Turn")
+      {
       	throttle = BoundBy(throttle - BKHK_AutoThrottleSpeed, 0, BKHK_AutoMaxThrottle);
-     	}
+      }
       else if(throttle != 0 && GetAction() == "Fly")
       {
         SetAction("EngineShutDown");
@@ -223,10 +230,12 @@ protected func FxBlackhawkAutopilotTimer(object pTarget, int iNumber, int iTime)
   {
     if(GetYDir(pTarget) > -3)
     {
-	    if(GetAction() == "Fly" || GetAction() == "Turn") {
+      if(GetAction() == "Fly" || GetAction() == "Turn")
+      {
       	throttle = BoundBy(throttle + BKHK_AutoThrottleSpeed, 0, BKHK_AutoMaxThrottle);
       }
-      else if(throttle == 0 && GetAction() == "Stand") {
+      else if(throttle == 0 && GetAction() == "Stand")
+      {
       	SetAction("EngineStartUp");
       	return FX_OK;
       }
@@ -665,6 +674,10 @@ protected func ContainedThrow(object ByObj)
     overlay = ring->AddRightItem("$HUD$", "SwitchHUD", ByObj, SMIN);
     SetGraphics("8", ring, SMIN, overlay, GFXOV_MODE_IngamePicture);
 
+    //Scheinwerfer ein- oder ausschalten
+    overlay = ring->AddDownItem("$Spotlight$", "SwitchSpotlights", ByObj, SMIN);
+    SetGraphics("9", ring, SMIN, overlay, GFXOV_MODE_IngamePicture);
+
     return Sound("BKHK_Switch.ogg", false, this, 100, GetOwner(ByObj) + 1);
   }
 
@@ -772,6 +785,38 @@ public func SwitchHUD()
 
   //Sound
   Sound("BKHK_Switch.ogg", false, this, 100, GetOwner(GetPilot()) + 1);
+  return true;
+}
+
+/* Scheinwerfer (de)aktivieren */
+
+public func SwitchSpotlights()
+{
+  spotlight = !spotlight;
+
+  //Sound
+  Sound("BKHK_Switch.ogg", false, this, 100, GetOwner(GetPilot()) + 1);
+}
+                           
+public func UpdateSpotlights()
+{
+  spotlightobj[0]->ChangeR(MGStation->AimAngle());
+  return true;
+}
+
+public func CreateSpotlights()
+{
+  spotlightobj[0] = CreateLight(LHC2, 5000, RGBa(255,255,220,70), MGStation);
+  spotlightobj[0]->ChangeR(MGStation->AimAngle());
+  spotlightobj[0]->ChangeOffset(0, 3);
+  return true;
+}
+
+public func RemoveSpotlights()
+{
+  if(spotlightobj[0])
+    RemoveObject(spotlightobj[0]);
+
   return true;
 }
 
@@ -884,7 +929,8 @@ public func EnterSeat(int iSeat, object pObj)
   //Pilot
   if (iSeat == BKHK_Seat_Pilot)
   {
-    if(GetOwner() == -1 || GetPlayerTeam(GetOwner()) != GetPlayerTeam(GetOwner(pObj))) {
+    if(GetOwner() == -1 || GetPlayerTeam(GetOwner()) != GetPlayerTeam(GetOwner(pObj)))
+    {
       //Besitz ergreifen
       SetOwnerFade(GetOwner(pObj));
     }
@@ -988,6 +1034,8 @@ protected func Destruction()
     RemoveObject(MGStation);
   if(RocketStation)
     RemoveObject(RocketStation);
+  RemoveSpotlights();
+
   return true;
 }
 
@@ -1120,10 +1168,10 @@ protected func ContactRight()
 //Objekt, die in den Rotor geraten, verursachen Schaden
 protected func RejectCollect(id ID, object ByObj)
 {
-  //man soll schon Objekte im Heli ablegen können
+  //Objekte im Helikopter ablegbar
   if (Contained(ByObj))
     return;
-  //von außen heißt es: Schaden!!!
+  //Von außen kommend: Schaden
   if (GetRotorSpeed() > 0)
   {
     var dir = (!GetDir())*2-1;
@@ -1183,7 +1231,27 @@ protected func TimerCall()
     else
       CustomMessage("@", this, iPlr);
   }
-  
+
+  //Scheinwerfer aktualisieren
+  if(spotlight)
+  {
+    if(spotlightobj[0])
+    {
+      UpdateSpotlights();
+    }
+    else
+    {
+      CreateSpotlights();
+    }
+  }
+  else
+  {
+    if(spotlightobj[0])
+    {
+      RemoveSpotlights();
+    }
+  }
+
   //Alle 50 Frames nach Leichen im Heli suchen und löschen.
   if(!(GetActTime() % 50))
   {

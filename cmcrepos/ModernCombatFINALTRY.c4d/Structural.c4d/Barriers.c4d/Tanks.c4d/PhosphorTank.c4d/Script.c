@@ -32,6 +32,7 @@ func BlowUp(iPlr)
   if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("Glas", 10+Random(5), 100, 0,0, 60,100, RGBa(200,200,200), RGBa(200,200,200));
   Sound("Inflame");
   Sound("StructuralDamage*.ogg");
+  Sound("Debris*.ogg");
 
   //Phosphor verschleudern
   for(var i = 0; i <= 20; i++)

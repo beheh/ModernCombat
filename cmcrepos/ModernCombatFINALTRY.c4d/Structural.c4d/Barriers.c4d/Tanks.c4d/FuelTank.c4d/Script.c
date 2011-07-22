@@ -31,6 +31,7 @@ func BlowUp(iPlr)
   if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter", 15+Random(5), 100, 0,0, 35,50,RGB(40,20,20));
   if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("Glas", 10+Random(5), 100, 0,0, 60,100, RGBa(200,200,200), RGBa(200,200,200));
   Sound("StructuralDamage*.ogg");
+  Sound("Debris*.ogg");
 
   //Explosion
   FakeExplode(50, iPlr+1);
