@@ -714,19 +714,20 @@ public func ControlThrow(caller)
     AddEffect("StrikeRecharge", this, 1, 1, this);
   }
 
-  //Kein Feuer erlauben wenn Kolbenschlag ausgeführt
-  if(meleeattacked || fWait)
-    return 1;
-
   //Automatischen Schuss beenden, wenn erneut Werfen gedrückt
   if(IsRecharging())
   {
-    if(!GetPlrCoreJumpAndRunControl(GetController(caller))) {
+    if(!GetPlrCoreJumpAndRunControl(GetController(caller)))
+    {
       StopAutoFire();
-      if(GetFMData(FM_Auto)) OnFireStop(firemode);
+      if(GetFMData(FM_Auto) && !fWait && !meleeattacked) OnFireStop(firemode);
     }
     return 1;
   }
+
+  //Kein Feuer erlauben wenn Kolbenschlag ausgeführt
+  if(meleeattacked || fWait)
+    return 1;
 
   //Unterstützt der Schussmodus das zielen aber es wird nicht gezielt?
   if(GetFMData(FM_Aim)>0 && !(GetUser()->~IsAiming()) && !(GetUser()->~AimOverride()))
