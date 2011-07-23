@@ -51,6 +51,7 @@ func CreateInterior()
   CreateObject(LADR, 2250, 1100, -1)->Set(16);
   CreateObject(LADR, 2700, 1064, -1)->Set(12);
   CreateObject(LADR, 2930, 1072, -1)->Set(3);
+  CreateObject(LADR, 3190, 1008, -1)->Set(25);
   CreateObject(LADR, 3290, 1096, -1)->Set(6);
   CreateObject(LADR, 3350, 912, -1)->Set(13);
   CreateObject(LADR, 3445, 1018, -1)->Set(10);
@@ -65,6 +66,7 @@ func CreateInterior()
   CreateObject(HA4K, 1180, 853, -1);
   CreateObject(HA4K, 2700, 963, -1);
   CreateObject(HA4K, 2930, 1043, -1);
+  CreateObject(HA4K, 3190, 803, -1);
   CreateObject(HA4K, 3290, 1043, -1);
   CreateObject(HA4K, 3350, 803, -1);
   CreateObject(HA4K, 3540, 1043, -1);
@@ -550,17 +552,29 @@ public func ChooserFinished()
    //Objekte entfernen
    RemoveObject(FindObject2(Find_ID(RADR),Find_InRect(3100, 700, 30, 30)));
    RemoveObject(FindObject2(Find_ID(AMCT),Find_InRect(3480, 900, 30, 30)));
+   RemoveObject(FindObject2(Find_ID(LADR),Find_InRect(3690, 860, 30, 90)));
+   RemoveObject(FindObject2(Find_ID(LADR),Find_InRect(3910, 860, 30, 90)));
+   RemoveObject(FindObject2(Find_ID(CONS),Find_InRect(3880, 830, 30, 30)));
 
    //Leitern
    CreateObject(LADR, 2050, 1220, -1)->Set(20);
    CreateObject(LADR, 2280, 1220, -1)->Set(13);
+   CreateObject(LADR, 3920, 1108, -1)->Set(16);
 
    //Metallkisten
-   CreateObject(MWCR, 3370, 994, -1);
-   CreateObject(MWCR, 3370, 1012, -1);
    CreateObject(MWCR, 3510, 920, -1);
    CreateObject(MWCR, 3830, 1004, -1);
    CreateObject(MWCR, 3830, 1022, -1);
+
+   //Container
+   CreateObject(CON1, 3375, 985, -1)->SetPerspective(2);
+   CreateObject(CON1, 3370, 1012, -1)->SetPerspective(2);
+   CreateObject(CON1, 3930, 860, -1);
+
+   //Stahlbrücken
+   CreateObject(_HBR, 3900, 940, -1);
+   CreateObject(_HBR, 3980, 995, -1);
+   CreateObject(_HBR, 4050, 995, -1);
 
    //Hinweisschilder
    var sign = CreateObject(SGNP, 780, 1160, -1);
