@@ -3,7 +3,7 @@
 CtxStatistics=Statistiken
 CtrlMenuDesc=Menü
 
-#Hazard-Clonk
+#Hazardclonk
 
 CtxGrenadeMenu=Granaten
 AmmoBag=Munitionsgürtel
@@ -11,6 +11,9 @@ CtrlInventoryDesc=Inventar
 QuickInventory=QuickInventar
 ContentsCount=%d Objekte
 Settings=Einstellungen
+CtxInvLockOn=Inventarsperre
+CtxInvLockOff=<c 777777>Inventarsperre</c>
+DropItem=Objekt ablegen
 CtxHelpMessagesOn=Hilfen
 CtxHelpMessagesOff=<c 777777>Hilfen</c>
 CtxQuickInventoryOn=QuickInventar

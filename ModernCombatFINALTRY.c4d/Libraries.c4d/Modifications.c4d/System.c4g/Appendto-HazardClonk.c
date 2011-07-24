@@ -33,11 +33,10 @@ protected func Control2Grab(string command)
   return GetActionTarget()->~Control2Grab(command,this,...);
 }
 
-protected func ControlThrow()
+/*protected func ControlThrow()
 {
-  if(Control2Grab("ControlThrow")) return true;
   return _inherited();
-}
+}*/
 
 protected func ControlDigDouble()
 {
@@ -743,11 +742,42 @@ protected func ContextSettings(object pCaller)
     AddMenuItem("$CtxHelpMessagesOff$", Format("ContextHelpMessagesOn(Object(%d))", ObjectNumber(pCaller)), SM06, pCaller);
   else
     AddMenuItem("$CtxHelpMessagesOn$", Format("ContextHelpMessagesOff(Object(%d))", ObjectNumber(pCaller)), CXIN, pCaller);
+  if(pCaller->GetInvLockMode())
+    AddMenuItem("$CtxInvLockOn$", Format("SwitchInventoryLockMode(Object(%d))", ObjectNumber(pCaller)), WPN2, pCaller);
+  else
+    AddMenuItem("$CtxInvLockOff$", Format("SwitchInventoryLockMode(Object(%d))", ObjectNumber(pCaller)), SM06, pCaller);
 
   AddMenuItem("$CtxResetAch$", "ContextResetAch", RWDS, pCaller, 0, 0, "$CtxResetAch$");
 
   return true;
 }
+
+public func SwitchInventoryLockMode(object pCaller)
+{
+  SetPlrExtraData(GetOwner(), "CMC_InvLockMode", !GetInvLockMode());
+  Sound("Click", 1, 0,0, GetOwner()+1);
+  ContextSettings(Par()); 
+}
+
+public func CanDropItem()
+{
+  if(!GetInvLockMode()) return false;
+  if(!Contents(0)) return false;
+  if(!Contents(0)->~IsWeapon()) return false;
+
+  return true;
+}
+
+public func ContextDrop()
+{
+  [$DropItem$|Image=GetID(Contents(0))|Condition=CanDropItem]
+  AddEffect("CannotBeCollected", Contents(0), 101, 1);
+  Exit(Contents(0));
+
+  return true;
+}
+
+public func GetInvLockMode()	{return GetPlrExtraData(GetOwner(), "CMC_InvLockMode");}
 
 public func SetQuickInventoryOn(object pCaller)
 {
@@ -1229,6 +1259,9 @@ protected func Collection2(object pObj)// Einsammeln
 
 protected func RejectCollect(id idObj, object pObj)
 {
+  if(GetEffect("CannotBeCollected", pObj))
+    return true;
+
   //Für die KI
   var effect;
   if(effect = GetEffect("CollectionException", pObj))
@@ -1303,11 +1336,26 @@ protected func RejectCollect(id idObj, object pObj)
   return;
 }
 
+global func FxCannotBeCollectedStart(object target, int nr, temp, int time)
+{
+  if(!time)
+    time = 30;
+
+  //Maximale Dauer in Frames, die das Objekt nicht eingesammelt werden kann
+  EffectVar(0, target, nr) = time;
+}
+
+global func FxCannotBeCollectedTimer(object target, int nr, int time)
+{
+  if(time >= EffectVar(0, target, nr))
+    return -1;
+}
+
 private func ChangeWeapon(object pTarget)
 {
-	if(pTarget->~IsWeapon() || pTarget->~IsGrenade())
+  if(pTarget->~IsWeapon() || pTarget->~IsGrenade())
   {
-		var phase = GetPhase();
+    var phase = GetPhase();
     if(IsCrawling())
     {
       SetAction("AimCrawl");
@@ -1317,25 +1365,22 @@ private func ChangeWeapon(object pTarget)
       if(WildcardMatch(GetAction(), "*Squat*"))
         SetAction("AimSquatLow");
       else
-			  SetAction("AimLow");
+        SetAction("AimLow");
     }
-		else
+    else
     {
       if(WildcardMatch(GetAction(), "*Squat*"))
         SetAction("AimSquat");
       else
-			  SetAction("Aim");
+        SetAction("Aim");
     }
-	  SetPhase(phase);
-	}
-	else
+    SetPhase(phase);
+  }
+  else
   {
-		StopAiming();
-	}
+    StopAiming();
+  }
 }
-
-
-
 
 /*----- CMC Agilität -----*/
 
@@ -1771,7 +1816,7 @@ public func FxCrawlStop(pClonk, iNum)
 
 /* Überladungen */
 
-protected func ControlThrow()
+public func ControlThrow()
 {
   if(GetAction() == "StartCrawl")
     return 1;
@@ -1781,36 +1826,74 @@ protected func ControlThrow()
     StartAiming();
     return 1;
   }
-  if(IsCrawling() && !IsAiming()) {
+  if(IsCrawling() && !IsAiming())
+  {
     var obj = Contents();
-    if(obj) {
-			if(!obj->~CanAim()) {
-				if(obj->~ControlThrow(this)) return 1;
-				var dir = -(GetDir()*2-1);
-				var angle = -45;
+    if(obj)
+    {
+      if(!obj->~CanAim())
+      {
+        if(obj->~ControlThrow(this)) return 1;
+        var dir = -(GetDir()*2-1);
+        var angle = -45;
 
-				Exit(obj);
-				SetController(GetOwner(this), obj);
-				SetPosition(GetX(this)-(dir*8),GetY(this), obj);
-			
-				SetR(angle, obj);
-			
-				while(Stuck(obj))
-					SetPosition(GetX(obj),GetY(obj)-1,obj);
+        Exit(obj);
+        SetController(GetOwner(this), obj);
+        SetPosition(GetX(this)-(dir*8),GetY(this), obj);
 
-				SetXDir(+Sin(angle,30)*dir, obj);
-				SetYDir(-Cos(angle,30), obj);
-				SetRDir(RandomX(-6,6), obj);
-				return 1;
-			}
-			else {
-  			StartAiming();
-  			return 1;
-			}
-		}
-	}
-	return _inherited();
-}
+        SetR(angle, obj);
+        while(Stuck(obj))
+          SetPosition(GetX(obj),GetY(obj)-1,obj);
+
+        SetXDir(+Sin(angle,30)*dir, obj);
+        SetYDir(-Cos(angle,30), obj);
+        SetRDir(RandomX(-6,6), obj);
+        return 1;
+      }
+      else
+      {
+        StartAiming();
+        return 1;
+      }
+    }
+  }
+	
+  //Bei vorherigem Doppel-Stop nur Ablegen 
+  if (GetPlrDownDouble(GetOwner()))
+  {
+    AddEffect("SquatAimTimeout", this(), 1, 15, this());
+    if(Contents(0)->~IsWeapon())
+    {
+      return GetInvLockMode();
+    }
+    return(0);
+  }
+
+  ClearMacroCommands();
+  SetAggroLevel(0,0,0,0,"ControlThrow");
+
+  //Steuerung an gerittenes Objekt weitergeben
+  if(IsRiding())
+    if(GetActionTarget()->~ControlThrow(this()))
+      return(1); 
+
+  if (Control2Grab("ControlThrow")) return(0);
+  if (Control2Contents("ControlThrow") ) return(1);
+  if (ControlLadder("ControlThrow") ) return(1);
+
+  //Steuerung an Effekt weitergeben 
+  if (Control2Effect("ControlThrow")) return(1);
+	
+  //Reiten und Werfen
+  if (IsRiding())
+    if (Contents(0))
+    {
+      SetAction("RideThrow");
+      return(1);
+    }
+  //Keine überladene Steuerung
+  return(0);
+}	
 
 public func ControlUp()
 {
