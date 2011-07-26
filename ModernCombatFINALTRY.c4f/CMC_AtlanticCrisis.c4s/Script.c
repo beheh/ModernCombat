@@ -314,6 +314,12 @@ func CreateDecoration()
   CreateObject(OLGH, 3600, 420, -1)->Set(35, 5, 1, 1, 20);
   CreateObject(OLGH, 4365, 400, -1)->Set(4, 15, 1, 1, 40);
 
+  //Straﬂenlichter
+  CreateObject(SLGH, 1393, 511, -1);
+  CreateObject(SLGH, 2780, 460, -1);
+  CreateObject(SLGH, 3200, 460, -1);
+  CreateObject(SLGH, 4617, 511, -1);
+
   //Automaten
   CreateObject(VGMN, 2840, 530, -1);
   var automat = CreateObject(VGMN, 3140, 530, -1);
