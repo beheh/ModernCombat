@@ -190,6 +190,14 @@ func CreateDecoration()
   CreateObject(OLGH, 2770, 510, -1)->Set(30, 11, 1, 1, 20);
   CreateObject(OLGH, 4040, 360, -1)->Set(8, 15, 1, 1, 60);
 
+  //Straßenlichter
+  CreateObject(SLGH, 1300, 360, -1);
+  CreateObject(SLGH, 1500, 360, -1);
+  CreateObject(SLGH, 1700, 360, -1);
+  CreateObject(SLGH, 3840, 360, -1);
+  CreateObject(SLGH, 4040, 360, -1);
+  CreateObject(SLGH, 4240, 360, -1);
+
   //Büsche
   CreateObject(BSH2, 1150, 550, -1);
   CreateObject(BSH2, 1170, 550, -1)->SetR(180);

@@ -252,6 +252,10 @@ func CreateDecoration()
   CreateObject(GADG, 990, 340, -1);
   CreateObject(GADG, 1340, 360, -1);
 
+  //Straﬂenlichter
+  CreateObject(SLGH, 440, 230, -1);
+  CreateObject(SLGH, 1060, 150, -1);
+
   //Notausgangslichter
   CreateObject(ETLT, 20, 425, -1);
   CreateObject(ETLT, 895, 460, -1);

@@ -255,11 +255,15 @@ func CreateDecoration()
   //Orientierungslichter
   CreateObject(OLGH, 700, 590, -1)->Set(4, 15, 1, 1, 30);
   CreateObject(OLGH, 1200, 620, -1)->Set(4, 15, 1, 1, 30);
-
   CreateObject(OLGH, 2120, 700, -1)->Set(2, 30, 1, 1, 30);
-
   CreateObject(OLGH, 3040, 620, -1)->Set(4, 15, 1, 1, 30);
   CreateObject(OLGH, 3540, 590, -1)->Set(4, 15, 1, 1, 30);
+
+  //Straﬂenlichter
+  CreateObject(SLGH, 750, 590, -1);
+  CreateObject(SLGH, 1185, 620, -1);
+  CreateObject(SLGH, 3055, 620, -1);
+  CreateObject(SLGH, 3490, 590, -1);
 
   //Notausgangslichter
   CreateObject(ETLT, 410, 540, -1);
