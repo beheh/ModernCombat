@@ -13,7 +13,7 @@ func Initialize()
   //Wartemusik einstellen
   SetPlayList("CMC_WaitingforSpawn.ogg");
   Music("CMC_WaitingforSpawn.ogg",1);
-  //Hintergrundbewegung
+  //Himmelparallaxität
   SetSkyParallax(0,15,15);
   //Flaggen
   aFlag = [];

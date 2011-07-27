@@ -22,7 +22,7 @@ func Initialize()
   Music("CMC_WaitingforSpawn.ogg",1);
   //Bildschirmfärbung
   SetGamma(RGB(15,15,15),RGB(118,118,118),RGB(215,215,215));
-  //Himmel
+  //Himmelparallaxität
   SetSkyParallax(0,15,15);
   //Flaggen
   aFlag = [];

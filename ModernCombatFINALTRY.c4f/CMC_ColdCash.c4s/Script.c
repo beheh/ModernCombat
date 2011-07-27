@@ -194,6 +194,8 @@ func CreateDecoration()
   CreateObject(SLGH, 1300, 360, -1);
   CreateObject(SLGH, 1500, 360, -1);
   CreateObject(SLGH, 1700, 360, -1);
+  CreateObject(SLGH, 2670, 510, -1);
+  CreateObject(SLGH, 2870, 510, -1);
   CreateObject(SLGH, 3840, 360, -1);
   CreateObject(SLGH, 4040, 360, -1);
   CreateObject(SLGH, 4240, 360, -1);
@@ -267,8 +269,8 @@ func CreateDecoration()
 func CreateOptionalFeatures()
 {
   //Hintergründe
-  CreateObject(BD02,1750,580,-1);
   CreateObject(BD03,1250,680,-1);
+  CreateObject(BD02,1750,580,-1);
   CreateObject(BD01,1250,680,-1);
 }
 
