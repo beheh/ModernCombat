@@ -13,7 +13,7 @@ func Initialize()
   //Wartemusik einstellen
   SetPlayList("CMC_WaitingforSpawn.ogg");
   Music("CMC_WaitingforSpawn.ogg",1);
-  //Himmel
+  //Himmelparallaxität
   SetSkyParallax(1, 40, 40, 0, 0, SkyPar_Keep, SkyPar_Keep);
   //Flaggen
   aFlag = [];
@@ -452,10 +452,10 @@ func CreateDecoration()
 func CreateOptionalFeatures()
 {
   //Hintergründe
-  CreateObject(BD01,2000,1300,-1);
-  CreateObject(BD05,500,1300,-1)->SetClrModulation(RGB(125,125,125));
   CreateObject(BD03,500,730,-1);
   CreateObject(BD03,1500,1100,-1);
+  CreateObject(BD05,500,1300,-1)->SetClrModulation(RGB(125,125,125));
+  CreateObject(BD01,2000,1300,-1);
 }
 
 /* Bei Flaggenübernahme */
