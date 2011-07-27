@@ -50,5 +50,5 @@ func Damage()
 
 func Hit()
 {
-  Sound("MetalPoleHit*.ogg",0,0,40);
+  Sound("MetalPoleHit*.ogg");
 }
