@@ -687,7 +687,7 @@ protected func ContainedThrow(object ByObj)
 
     //Radio ein- oder ausschalten
     overlay = ring->AddUpItem("$Radio$", "SwitchRadio", ByObj, SMIN);
-    SetGraphics("9", ring, SMIN, overlay, GFXOV_MODE_IngamePicture);
+    SetGraphics("10", ring, SMIN, overlay, GFXOV_MODE_IngamePicture);
 
     return Sound("BKHK_Switch.ogg", false, this, 100, GetOwner(ByObj) + 1);
   }
