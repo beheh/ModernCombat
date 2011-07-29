@@ -5,14 +5,15 @@
 local fPlaying;
 local iTrack;
 
-static const RDIO_TrackCount = 7;
+static const RDIO_TrackCount = 6;
 
 
 /* Initialisierung */
 
 func Initialize()
 {
-  iTrack = 1;
+  //Zufälligen Song anwählen
+  iTrack = Random(RDIO_TrackCount)+1;
 }
 
 /* Bedienung */
@@ -20,13 +21,26 @@ func Initialize()
 protected func ControlDig(pClonk)
 {
   if(!IsPlaying())
-  {
     TurnOn();
-  }
   else
-  {
     TurnOff();
+  Sound("ArrowHit");
+}
+
+protected func ControlRight(pClonk)
+{
+  if(IsPlaying())
+  {
     NextTrack();
+  }
+  Sound("ArrowHit");
+}
+
+protected func ControlLeft(pClonk)
+{
+  if(IsPlaying())
+  {
+    LastTrack();
   }
   Sound("ArrowHit");
 }
@@ -60,15 +74,26 @@ public func NextTrack()
   if(fOn) TurnOn();
 }
 
+public func LastTrack()
+{
+  var fOn = IsPlaying();
+  if(fOn) TurnOff();
+  if(iTrack == 1)
+    iTrack = RDIO_TrackCount;
+  else
+    iTrack = iTrack % RDIO_TrackCount - 1;
+  if(fOn) TurnOn();
+}
+
 protected func StartSong()
 {
-  SoundLevel(Format("Radio_%d.ogg", iTrack), 100, this);
+  SoundLevel(Format("RadioSong_%d.ogg", iTrack), 100, this);
 }
 
 protected func StopSong()
 {
   ClearScheduleCall(this, "StartSong");
-  Sound("Radio_*.ogg", false, this, 0, 0, -1);
+  Sound("RadioSong_*.ogg", false, this, 0, 0, -1);
 }
 
 protected func Static()
@@ -111,4 +136,10 @@ protected func Hit()
 {
   Sound("MetalHit*.WAV");
   return 1;
+}
+
+protected func Hit3()
+{
+  DoDmg(20);
+  if(Random(3)) Static();
 }

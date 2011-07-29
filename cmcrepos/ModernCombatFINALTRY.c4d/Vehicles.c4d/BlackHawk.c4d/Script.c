@@ -20,11 +20,14 @@ local MGStation,			//object - Das MG-Objekt
 local s_counter,			//int    - eine kleine Counter-Variable für Warnsounds
       d_counter;			//int    - eine kleine Counter-Variable für die Zerstörung
  
-local smokereload;			//int    - Nachladezeit für Rauchwand
-local flarereload;			//int    - Nachladezeit für Flareabwurf
+local smokereload,			//int    - Nachladezeit für Rauchwand
+      flarereload;			//int    - Nachladezeit für Flareabwurf
 
-local spotlight;			//bool   - Scheinwerfer an/aus
-local spotlightobj;			//array  - Scheinwerferobjekt
+local spotlight,			//bool   - Scheinwerfer ein/aus
+      spotlightobj;			//array  - Scheinwerferobjekt
+
+local fPlaying,				//bool   - Radio ein/aus
+      iTrack;				//array  - Aktueller Titel
 
 static const throttle_speed = 5;	//int    - "Feinfühligkeit"
 static const rot_speed = 1;		//int    - Drehgeschwindigkeit / frame
@@ -38,11 +41,12 @@ static const BKHK_AutoMaxRotation = 10;
 static const BKHK_PilotLayer = 2;
 static const BKHK_PassengerLayer = 3;
 
-static const BKHK_Seat_Pilot = 1;
+static const BKHK_Seat_Pilot = 1;	
 static const BKHK_Seat_Gunner = 2;
 static const BKHK_Seat_Coordinator = 3;
 static const BKHK_Seat_Passenger1 = 4;
 static const BKHK_Seat_Passenger2 = 5;
+static const RDIO_TrackCount = 6;
 
 /*----- Callbacks -----*/
 
@@ -97,6 +101,9 @@ protected func Initialize()
 
   //Scheinwerfer einrichten
   spotlightobj = [0];
+
+  //Zufälligen Song anwählen
+  iTrack = Random(RDIO_TrackCount)+1;
 
   //Vertices richtig drehen
   ScheduleCall(this,"ChangeDir",1,2);
@@ -678,6 +685,10 @@ protected func ContainedThrow(object ByObj)
     overlay = ring->AddDownItem("$Spotlight$", "SwitchSpotlights", ByObj, SMIN);
     SetGraphics("9", ring, SMIN, overlay, GFXOV_MODE_IngamePicture);
 
+    //Radio ein- oder ausschalten
+    overlay = ring->AddUpItem("$Radio$", "SwitchRadio", ByObj, SMIN);
+    SetGraphics("9", ring, SMIN, overlay, GFXOV_MODE_IngamePicture);
+
     return Sound("BKHK_Switch.ogg", false, this, 100, GetOwner(ByObj) + 1);
   }
 
@@ -818,6 +829,33 @@ public func RemoveSpotlights()
     RemoveObject(spotlightobj[0]);
 
   return true;
+}
+
+/* Radio (de)aktivieren */
+
+public func SwitchRadio()
+{
+  if(IsPlaying())
+  {
+    Sound("RadioSong_*.ogg", false, this, 0, 0, -1);
+    iTrack = iTrack % RDIO_TrackCount + 1;
+
+    fPlaying = false;
+  }
+  else
+  {
+    SoundLevel(Format("RadioSong_%d.ogg", iTrack), 100, this);
+
+    fPlaying = true;
+  }
+
+  //Sound
+  Sound("BKHK_Switch.ogg", false, this, 100, GetOwner(GetPilot()) + 1);
+}
+
+public func IsPlaying()
+{
+  return fPlaying;
 }
 
 /*----- Sitzsteuerung -----*/
