@@ -29,9 +29,6 @@ public func FxArena_RemoveTimer(object pTarget)
   //Abbruch bei neuer Aktion (Drohne)
   if(!pTarget->ActIdle())
     return(-1);
-  //Abbruch wenn das Ziel eine gezündete Granate ist
-  if(pTarget->~IsGrenade() && pTarget->~IsFusing())
-    return(-1);
   //Ansonsten löschen sofern nicht wieder aufgehoben
   if(!(pTarget->Contained()))
   {
