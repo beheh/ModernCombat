@@ -23,3 +23,24 @@ protected func Timer()
     if(ActIdle(pObj))
       AddEffect("Arena_Remove", pObj, 1, 530, this);
 }
+
+public func FxArena_RemoveTimer(object pTarget)
+{
+  //Abbruch bei neuer Aktion (Drohne)
+  if(!pTarget->ActIdle())
+    return(-1);
+  //Abbruch wenn das Ziel eine gezündete Granate ist
+  if(pTarget->~IsGrenade() && pTarget->~IsFusing())
+    return(-1);
+  //Ansonsten löschen sofern nicht wieder aufgehoben
+  if(!(pTarget->Contained()))
+  {
+    //Effekte
+    pTarget->CastSmoke("Smoke3", 8, 3, 0, 0, 60, 80);
+    if(GetEffectData(EFSM_ExplosionEffects) > 1) pTarget->CastParticles("MetalSplinter",4,50,0,0,20,70);
+    Sound("Limitation.ogg", 0, pTarget);
+
+    pTarget->RemoveObject();
+    return(-1);
+  }
+}

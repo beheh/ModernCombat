@@ -712,6 +712,8 @@ private func Control2Contents(string command)
 
 /*----- Kontextmenü -----*/
 
+/* Hilfen-Kontext deaktivieren */
+
 protected func NoContext() {}
 
 protected func ContextHelpMessagesOn()
@@ -729,6 +731,8 @@ protected func ContextHelpMessagesOff()
   ContextSettings(Par());
   SelectMenuItem(1, Par());
 }
+
+/* Einstellungen */
 
 protected func ContextSettings(object pCaller)
 {
@@ -759,6 +763,8 @@ public func SwitchInventoryLockMode(object pCaller)
   ContextSettings(Par()); 
 }
 
+/* Objekt ablegen */
+
 public func CanDropItem()
 {
   if(!GetInvLockMode()) return false;
@@ -770,7 +776,7 @@ public func CanDropItem()
 
 public func ContextDrop()
 {
-  [$DropItem$|Image=GetID(Contents(0))|Condition=CanDropItem]
+  [$DropItem$|Image=WPN2|Condition=CanDropItem]
   AddEffect("CannotBeCollected", Contents(0), 101, 1);
   Exit(Contents(0));
 
@@ -778,6 +784,8 @@ public func ContextDrop()
 }
 
 public func GetInvLockMode()	{return GetPlrExtraData(GetOwner(), "CMC_InvLockMode");}
+
+/* Quick Inventory */
 
 public func SetQuickInventoryOn(object pCaller)
 {
@@ -796,6 +804,8 @@ public func SetQuickInventoryOff(object pCaller)
 public func QuickInventoryOn()	{return GetPlrExtraData(GetOwner(), "CMC_QuickInv");}
 public func QuickInventoryOff()	{return !QuickInventoryOn();}
 
+/* Belohnungen zurücksetzen */
+
 protected func ContextResetAch()
 {
   [0|Image=RWDS|Condition=NoContext]
@@ -812,6 +822,8 @@ protected func ContextResetAchYes()
   ResetPlayerAchievements(GetOwner());
   PlayerMessage(GetOwner(), "$ResetAchDone$", this);
 }
+
+/* Munitionsgürtel */
 
 private func AmmoBagContextCheck()
 {
