@@ -416,6 +416,17 @@ public func ChooserFinished()
   //DM/LMS-Spielziel
   if(FindObject(GTDM) || FindObject(GLMS))
   {
+   //Hinweisschilder
+   if(!FindObject(NOBH))
+   {
+    var sign = CreateObject(SGNP, 1600, 400, -1);
+    sign->SetPhase(2);
+    sign->SetMode(1);
+    sign = CreateObject(SGNP, 4410, 400, -1);
+    sign->SetPhase(2);
+    sign->SetMode(1);
+   }
+
    //Blackhawks
    SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,1655,370,-1),100*21,300);
    SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,4355,370,-1),100*21,300);
@@ -470,7 +481,6 @@ public func ChooserFinished()
   {
    //Zielobjekte
    AddAssaultTarget(CMSN, 1610, 600, 500, 1, "$Flag1$", 0, [[1680, 540], [1340, 500]]);
-
    AddAssaultTarget(CMSN, 4400, 600, 500, 2, "$Flag3$", 1, [[4330, 540], [4690, 500]]);
 
    //Hinweisschilder
@@ -551,6 +561,21 @@ public func ChooserFinished()
    AddMoneySpawn(2785, 450, [10]);
    AddMoneySpawn(3195, 450, [10]);
    AddMoneySpawn(3675, 510, [10]);
+
+   //Hinweisschilder
+   if(!FindObject(NOBH))
+   {
+    var sign = CreateObject(SGNP, 1600, 400, -1);
+    sign->SetPhase(2);
+    sign->SetMode(1);
+    sign = CreateObject(SGNP, 4410, 400, -1);
+    sign->SetPhase(2);
+    sign->SetMode(1);
+   }
+
+   //Blackhawks
+   SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,1655,370,-1),100*21,300);
+   SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,4355,370,-1),100*21,300);
   }
 }
 
