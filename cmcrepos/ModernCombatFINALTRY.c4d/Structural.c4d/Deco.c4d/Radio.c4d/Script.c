@@ -70,7 +70,10 @@ public func NextTrack()
 {
   var fOn = IsPlaying();
   if(fOn) TurnOff();
-  iTrack = iTrack % RDIO_TrackCount + 1;
+  if(iTrack == RDIO_TrackCount)
+    iTrack = 1;
+  else
+    iTrack++;
   if(fOn) TurnOn();
 }
 
@@ -81,19 +84,19 @@ public func LastTrack()
   if(iTrack == 1)
     iTrack = RDIO_TrackCount;
   else
-    iTrack = iTrack % RDIO_TrackCount - 1;
+    iTrack--;
   if(fOn) TurnOn();
 }
 
 protected func StartSong()
 {
-  SoundLevel(Format("RadioSong_%d.ogg", iTrack), 100, this);
+  SoundLevel(Format("RadioMusicTitle_O0%d.ogg", iTrack), 100, this);
 }
 
 protected func StopSong()
 {
   ClearScheduleCall(this, "StartSong");
-  Sound("RadioSong_*.ogg", false, this, 0, 0, -1);
+  Sound("RadioMusicTitle_O0*.ogg", false, this, 0, 0, -1);
 }
 
 protected func Static()
