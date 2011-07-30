@@ -95,6 +95,18 @@ private func ChangeCredits(id dummy, int iChange)
   OpenGoalMenu(0, iSel);
 }
 
+protected func FxIntGoalTimer()
+{
+  UpdateScoreboard();
+  if (IsFulfilled())
+  {
+    Schedule("GameOver()", 150);
+    RewardEvaluation();
+    Sound("Cheer.ogg", true);
+    return -1;
+  }
+}
+
 /* Relaunch */
 
 protected func InitializePlayer(int iPlr)
