@@ -837,14 +837,14 @@ public func SwitchRadio()
 {
   if(IsPlaying())
   {
-    Sound("RadioSong_*.ogg", false, this, 0, 0, -1);
+    Sound("RadioMusicTitle_O0*.ogg", false, this, 0, 0, -1);
     iTrack = iTrack % RDIO_TrackCount + 1;
 
     fPlaying = false;
   }
   else
   {
-    SoundLevel(Format("RadioSong_%d.ogg", iTrack), 100, this);
+    SoundLevel(Format("RadioMusicTitle_O0%d.ogg", iTrack), 100, this);
 
     fPlaying = true;
   }
@@ -1133,7 +1133,7 @@ public func OnDestruction()
 
   //Wrack erstellen
   var obj;
-  obj = CreateObject(BHWK, 0, 20, -1);
+  obj = CreateObject(BHWK, 0, 20, GetLastAttacker());
   Incinerate(obj);
   SetDir(GetDir(), obj);
   SetR(GetR(), obj);
