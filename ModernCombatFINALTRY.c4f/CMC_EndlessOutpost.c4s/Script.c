@@ -312,7 +312,6 @@ func CreateInterior()
 
   //Wind
   CreateObject(SE4K, 310, 380, -1)->Set("WindSound*.ogg",775,250);
-  CreateObject(SE4K, 540, 380, -1)->Set("WindSound*.ogg",775,250);
 
   //Hallen
   CreateObject(SE4K, 1000, 330, -1)->Set("Interior*.ogg",665,105);
@@ -323,7 +322,7 @@ func CreateInterior()
   CreateObject(SE4K, 2365, 400, -1)->Set("Interior*.ogg",670,105);
 
   //Eulen
-  CreateObject(SE4K, 210, 620, -1)->Set("Owl.wav",1400,35);
+  CreateObject(SE4K, 400, 620, -1)->Set("Owl.wav",1400,35);
 
   //Erdrutsche
   CreateObject(SE4K, 30, 560, -1)->Set("FallingDirt*.ogg",950,250);
@@ -362,6 +361,9 @@ func CreateEquipment()
 func CreateDecoration()
 {
   Log("$CreatingDecoration$");
+
+  //Denkmal
+  CreateObject(MUMT, 720, 410, -1);
 
   //Radios
   CreateObject(RDIO, 60, 300, -1);
