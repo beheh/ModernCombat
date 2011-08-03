@@ -314,6 +314,9 @@ func CreateDecoration()
 {
   Log("$CreatingDecoration$");
 
+  //Denkmal
+  CreateObject(MUMT, 4035, 540, -1);
+
   //Radio
   CreateObject(RDIO, 4075, 1111, -1);
 
