@@ -11,5 +11,5 @@ VertexX=-1,1
 VertexY=-20,28
 VertexFriction=20,20
 Mass=100
-Picture=0,0,40,60
+Picture=40,0,40,60
 Rotate=1

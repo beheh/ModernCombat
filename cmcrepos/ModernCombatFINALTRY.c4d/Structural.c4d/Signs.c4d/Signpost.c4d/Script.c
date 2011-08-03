@@ -2,7 +2,7 @@
 
 #strict 2
 
-local iStatus, damaged, pLight;
+local iStatus, pLight;
 
 
 /* Intialisierung */
@@ -51,8 +51,6 @@ func Light()
 
 func Damage()
 {
-  if(damaged) return ;
-
   if(GetDamage() > 300)
   {
     //Effekte

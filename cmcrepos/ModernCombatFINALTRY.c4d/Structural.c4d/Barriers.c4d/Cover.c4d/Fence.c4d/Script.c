@@ -21,18 +21,15 @@ func Destruct()
 
   //Effekte
   Sound("FenceDestruct.ogg");
-  if(GetEffectData(EFSM_ExplosionEffects) > 1)
-  {
-    CastParticles("FencePart",1,80,-20,-10,80,150);
-    CastParticles("FencePart",1,10,-10,-10,80,150);
-    CastParticles("FencePart",1,10,10,-10,80,150);
-    CastParticles("FencePart",1,80,20,-10,80,150);
-    CastParticles("FencePart",1,40,-20,10,80,150);
-    CastParticles("FencePart",1,10,-10,10,80,150);
-    CastParticles("FencePart",1,10,10,10,80,150);
-    CastParticles("FencePart",1,40,20,10,80,150);
-    CastParticles("MetalSplinter",4,100,0,0,20,70);
-  }
+  if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",4,100,0,0,20,70);
+  CastParticles("FencePart",1,80,-20,-10,80,150);
+  CastParticles("FencePart",1,10,-10,-10,80,150);
+  CastParticles("FencePart",1,10,10,-10,80,150);
+  CastParticles("FencePart",1,80,20,-10,80,150);
+  CastParticles("FencePart",1,40,-20,10,80,150);
+  CastParticles("FencePart",1,10,-10,10,80,150);
+  CastParticles("FencePart",1,10,10,10,80,150);
+  CastParticles("FencePart",1,40,20,10,80,150);
 
   SetGraphics("Destroyed");
 }
