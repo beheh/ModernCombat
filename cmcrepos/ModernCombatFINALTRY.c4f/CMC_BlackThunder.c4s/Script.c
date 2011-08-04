@@ -287,9 +287,14 @@ public func ChooserFinished()
   for(var i = 0; i < GetPlayerCount(); i++)
    aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = true;
 
-  //Hinweisschilder
+  //Blackhawks und Hinweisschilder
   if(!FindObject(NOBH))
   {
+   SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,700,560,-1),60*21,300);
+   SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,1185,590,-1),60*21,300);
+   SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,3055,590,-1),60*21,300);
+   SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,3540,560,-1),60*21,300);
+
    CreateObject(SNPT, 630, 590, -1)->SetAction("Sign3");
    var sign = CreateObject(SGNP, 1290, 670, -1);
    sign->SetPhase(2);
@@ -299,13 +304,6 @@ public func ChooserFinished()
    sign->SetMode(1);
    CreateObject(SNPT, 3610, 590, -1)->SetAction("Sign3");
   }
-
-  //Blackhawks
-  SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,700,560,-1),60*21,300);
-  SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,1185,590,-1),60*21,300);
-
-  SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,3055,590,-1),60*21,300);
-  SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,3540,560,-1),60*21,300);
 
   //HTF-Spielziel
   if (FindObject(GHTF))
@@ -383,14 +381,25 @@ public func ChooserFinished()
     aFlag[3]->Set("$Flag4$",0,2);
    }
   }
+
+  //MR-Spielziel
+  if (FindObject(GMNR))
+  {
+   //Geldsäcke
+   AddMoneySpawn(770, 750, [10]);
+   AddMoneySpawn(1290, 840, [10]);
+   AddMoneySpawn(2120, 680, [10]);
+   AddMoneySpawn(2950, 840, [10]);
+   AddMoneySpawn(3470, 750, [10]);
+  }
 }
 
 /* Relaunch */
 
 public func RelaunchPosition(& iX, & iY, int iTeam)
 {
-  //LMS/HTF-Spielziel
-  if(FindObject(GLMS) || FindObject(GHTF))
+  //LMS/HTF/MR-Spielziel
+  if(FindObject(GLMS) || FindObject(GHTF) || FindObject(GMNR))
   {
    if(iTeam == 1)
    {

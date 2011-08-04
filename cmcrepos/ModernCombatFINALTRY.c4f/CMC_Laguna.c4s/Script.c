@@ -359,9 +359,11 @@ public func ChooserFinished()
    CreateObject(BRDR, 230, 0, -1)->Set(0,1);
    CreateObject(BRDR, 1820, 0, -1)->Set(1,1);
 
-   //Hinweisschild
+   //Blackhawk und Hinweisschild
    if(!FindObject(NOBH))
    {
+    SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,2895,410,-1),100*21);
+
     var sign = CreateObject(SGNP, 2920, 440, -1);
     sign->SetPhase(2);
     sign->SetMode(1);
@@ -371,9 +373,6 @@ public func ChooserFinished()
    RemoveObject(FindObject2(Find_ID(VGMN),Find_InRect(2810, 520, 50, 100)));
    RemoveObject(aArtillery[1]);
    RemoveAll(SPVM);
-
-   //Blackhawk
-   SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,2895,410,-1),100*21);
 
    //Patrouillenboote
    SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,770,800,-1),10*10);
@@ -439,16 +438,15 @@ public func ChooserFinished()
    CreateObject(BRDR, 200, 0, -1)->Set(0);
    CreateObject(BRDR, 3245, 0, -1)->Set(1);
 
-   //Hinweisschild
+   //Blackhawk und Hinweisschild
    if(!FindObject(NOBH))
    {
+    SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,2895,410,-1),100*21);
+
     var sign = CreateObject(SGNP, 2920, 440, -1);
     sign->SetPhase(2);
     sign->SetMode(1);
    }
-
-   //Blackhawk
-   SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,2895,410,-1),100*21);
 
    //Patrouillenboote
    SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,770,800,-1),10*10);

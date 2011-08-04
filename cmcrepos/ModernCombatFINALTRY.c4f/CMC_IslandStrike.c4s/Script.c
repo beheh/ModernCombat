@@ -635,6 +635,16 @@ public func ChooserFinished()
   for(var i = 0; i < GetPlayerCount(); i++)
    aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = true;
 
+  //Blackhawk und Hinweisschilder
+  if(!FindObject(NOBH))
+  {
+   SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,4700,290,-1),100*21,300);
+
+   sign = CreateObject(SGNP, 4810, 320, -1);
+   sign->SetPhase(2);
+   sign->SetMode(1);
+  }
+
   //DM/LMS-Spielziel
   if(FindObject(GTDM) || FindObject(GLMS))
   {
@@ -649,15 +659,6 @@ public func ChooserFinished()
    CreateObject(SGNP, 5865, 350, -1);
    CreateObject(SGNP, 5885, 510, -1);
    CreateObject(SGNP, 5950, 350, -1);
-   if(!FindObject(NOBH))
-   {
-    sign = CreateObject(SGNP, 4810, 320, -1);
-    sign->SetPhase(2);
-    sign->SetMode(1);
-   }
-
-   //Blackhawk
-   SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,4700,290,-1),100*21,300);
 
    //Patrouillenboote
    SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,4640,560,-1),50*21,300);
@@ -782,21 +783,12 @@ public func ChooserFinished()
    sign = CreateObject(SGNP, 6620, 470, -1);
    sign->SetPhase(1);
    sign->SetMode(1);
-   if(!FindObject(NOBH))
-   {
-    sign = CreateObject(SGNP, 4810, 320, -1);
-    sign->SetPhase(2);
-    sign->SetMode(1);
-   }
 
    //Verbundene Räume
    var doorw = CreateObject(GAT1, 2960, 333, -1);
    CreateObject(ROOM, 3570, 410, -1)->Connect(doorw);
    doorw = CreateObject(GAT1, 6095, 315, -1);
    CreateObject(ROOM, 5735, 400, -1)->Connect(doorw);
-
-   //Blackhawk
-   SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,4700,290,-1),100*21,300);
 
    //Patrouillenboote
    SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1245,520,-1),50*21,300);
@@ -919,21 +911,12 @@ public func ChooserFinished()
    sign = CreateObject(SGNP, 6620, 470, -1);
    sign->SetPhase(1);
    sign->SetMode(1);
-   if(!FindObject(NOBH))
-   {
-    sign = CreateObject(SGNP, 4810, 320, -1);
-    sign->SetPhase(2);
-    sign->SetMode(1);
-   }
 
    //Verbundene Räume
    var doorw = CreateObject(GAT1, 2960, 333, -1);
    CreateObject(ROOM, 3570, 410, -1)->Connect(doorw);
    doorw = CreateObject(GAT1, 6095, 315, -1);
    CreateObject(ROOM, 5735, 400, -1)->Connect(doorw);
-
-   //Blackhawk
-   SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,4700,290,-1),100*21,300);
 
    //Patrouillenboote
    SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1245,520,-1),50*21,300);

@@ -289,18 +289,13 @@ public func ChooserFinished()
   for(var i = 0; i < GetPlayerCount(); i++)
     aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = true;
 
-  //DM/LMS-Spielziel
-  if(FindObject(GTDM) || FindObject(GLMS))
+  //Blackhawk und Hinweisschilder
+  if(!FindObject(NOBH))
   {
-   //Hinweisschilder
-   if(!FindObject(NOBH))
-   {
-    CreateObject(SGNP, 2655, 550, -1)->SetPhase(2);
-    CreateObject(SGNP, 2885, 550, -1)->SetPhase(2);
-   }
-
-   //Blackhawk
    SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,2770,480,-1),100*21,300);
+
+   CreateObject(SGNP, 2655, 550, -1)->SetPhase(2);
+   CreateObject(SGNP, 2885, 550, -1)->SetPhase(2);
   }
 
   //CTF-Spielziel
@@ -311,16 +306,6 @@ public func ChooserFinished()
    {CreateFlag(1,1480,510,GetTeamColor(1));}
    if(aTeams[2] == true)
    {CreateFlag(2,4060,510,GetTeamColor(2));}
-
-   //Hinweisschilder
-   if(!FindObject(NOBH))
-   {
-    CreateObject(SGNP, 2655, 550, -1)->SetPhase(2);
-    CreateObject(SGNP, 2885, 550, -1)->SetPhase(2);
-   }
-
-   //Blackhawk
-   SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,2770,480,-1),100*21,300);
   }
 
   //HTF-Spielziel
@@ -329,16 +314,6 @@ public func ChooserFinished()
    //Flaggenposten
    var flag = CreateObject(OFPL, 2770, 630, -1);
    flag->~Set("$Flag2$");
-
-   //Hinweisschilder
-   if(!FindObject(NOBH))
-   {
-    CreateObject(SGNP, 2655, 550, -1)->SetPhase(2);
-    CreateObject(SGNP, 2885, 550, -1)->SetPhase(2);
-   }
-
-   //Blackhawk
-   SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,2770,480,-1),100*21,300);
 
    //Zusätzliche Munition
    if(!FindObject(NOAM))
@@ -361,16 +336,6 @@ public func ChooserFinished()
 
    AddAssaultTarget(CMSN, 4060, 510, 300, 2, "$Target1$", 3, [[4290, 580], [4440, 580]]);
    AddAssaultTarget(RADR, 3970, 320, 400, 2, "$Target2$", 2, [[4180, 360], [4250, 470]]);
-
-   //Hinweisschilder
-   if(!FindObject(NOBH))
-   {
-    CreateObject(SGNP, 2655, 550, -1)->SetPhase(2);
-    CreateObject(SGNP, 2885, 550, -1)->SetPhase(2);
-   }
-
-   //Blackhawk
-   SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,2770,480,-1),100*21,300);
   }
 
   //OP-Spielziel
@@ -408,16 +373,6 @@ public func ChooserFinished()
    {
     aFlag[2]->Set("$Flag3$",0,2);
    }
-
-   //Hinweisschilder
-   if(!FindObject(NOBH))
-   {
-    CreateObject(SGNP, 2655, 550, -1)->SetPhase(2);
-    CreateObject(SGNP, 2885, 550, -1)->SetPhase(2);
-   }
-
-   //Blackhawk
-   SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,2770,480,-1),100*21,300);
   }
 
   //MR-Spielziel
