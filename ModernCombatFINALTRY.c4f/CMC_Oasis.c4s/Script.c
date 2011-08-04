@@ -246,10 +246,6 @@ func CreateEquipment()
   CreateObject(ATBY,4035,480,-1)->SetRotation(-20);
   CreateObject(ATBY,5265,460,-1)->SetRotation(-20);
 
-  //Blackhawk
-  SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,855,570,-1),100*21,300);
-  SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,5975,570,-1),100*21,300);
-
   //Motorboote
   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,2360,680,-1),50*21,300);
   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,4470,680,-1),50*21,300);
@@ -325,9 +321,12 @@ public func ChooserFinished()
   for(var i = 0; i < GetPlayerCount(); i++)
    aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = true;
 
-  //Hinweisschilder
+  //Blackhawks und Hinweisschilder
   if(!FindObject(NOBH))
   {
+   SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,855,570,-1),100*21,300);
+   SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,5975,570,-1),100*21,300);
+
    var sign = CreateObject(SGNP, 940, 600, -1);
    sign->SetPhase(2);
    sign->SetMode(1);

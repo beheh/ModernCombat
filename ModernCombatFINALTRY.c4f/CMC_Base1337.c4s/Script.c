@@ -594,9 +594,12 @@ public func ChooserFinished()
    CreateObject(SGNP, 3970, 540, -1);
    CreateObject(SGNP, 4165, 510, -1);
 
-   //Hinweisschilder
+   //Blackhawks und Hinweisschilder
    if(!FindObject(NOBH))
    {
+    SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,980,750,-1),45*21,300);
+    SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,1190,820,-1),45*21,300);
+
     var sign = CreateObject(SGNP, 800, 720, -1);
     sign->SetPhase(2);
     CreateObject(SNPT, 1160,850, -1)->SetAction("Sign3");
@@ -615,10 +618,6 @@ public func ChooserFinished()
    aSelfDefense[1]->TurnOn();
    aSelfDefense[2]->TurnOn();
    aSelfDefense[3]->TurnOn();
-
-   //Blackhawks
-   SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,980,750,-1),45*21,300);
-   SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,1190,820,-1),45*21,300);
 
    //Patrouillenboote
    SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,490,1240,-1),50*21,300);
@@ -742,9 +741,12 @@ public func ChooserFinished()
    CreateObject(SGNP, 3970, 540, -1);
    CreateObject(SGNP, 4165, 510, -1);
 
-   //Hinweisschilder
+   //Blackhawks und Hinweisschilder
    if(!FindObject(NOBH))
    {
+    SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,980,750,-1),60*21,300);
+    SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,1190,820,-1),60*21,300);
+
     var sign = CreateObject(SGNP, 800, 720, -1);
     sign->SetPhase(2);
     CreateObject(SNPT, 1160,850, -1)->SetAction("Sign3");
@@ -763,10 +765,6 @@ public func ChooserFinished()
    aSelfDefense[1]->TurnOn();
    aSelfDefense[2]->TurnOn();
    aSelfDefense[3]->TurnOn();
-
-   //Blackhawks
-   SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,980,750,-1),60*21,300);
-   SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,1190,820,-1),60*21,300);
 
    //Patrouillenboote
    SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,490,1240,-1),50*21,300);
