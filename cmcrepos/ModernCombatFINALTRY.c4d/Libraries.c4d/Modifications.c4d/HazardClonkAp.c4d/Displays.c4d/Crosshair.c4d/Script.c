@@ -48,6 +48,7 @@ protected func Check()
     else
       return true;*/
   }
+
   var alpha = 0;//Sin(spread*90/CH_MaxSpread,255);
   //var alpha = spread*255/CH_MaxSpread;
 
@@ -56,9 +57,9 @@ protected func Check()
     rgb = RGBa(255,0,0,alpha);
 
   SetClrModulation(RGBa(255,255,255,alpha),0,1);	//Base oben
-  SetClrModulation(rgb,0,2);//OverlayOben
+  SetClrModulation(rgb,0,2);				//Overlay oben
   SetClrModulation(RGBa(255,255,255,alpha),0,3);	//Base unten
-  SetClrModulation(rgb,0,4);//OverlayUnten
+  SetClrModulation(rgb,0,4);				//Overlay unten
 
   UpdateGraphics();
 }
