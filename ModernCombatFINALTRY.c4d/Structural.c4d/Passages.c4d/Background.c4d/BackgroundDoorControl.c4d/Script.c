@@ -1,6 +1,7 @@
 /*-- Hintergrundtürsteuerung --*/
 
 #strict 2
+
 #include DOOR
 
 local lock;
@@ -45,15 +46,43 @@ public func Connect(pTarget)
     pTarget->Connect(this);
 }
 
-func Collection2(object pObj)
+protected func Collection2(object pObj)
 {
+  if(!GetEffect("NoDoorEntrance", pObj))
+    AddEffect("NoDoorEntrance", pObj, 101, 75, 0, GetID());
+
   if(!GetEffect("Move2Door",pObj))
     if(target)
     {
       AddEffect("Move2Door", pObj, 200, 15, this);
       //return();
     }
-  return _inherited(...);
+
+  return _inherited(pObj, ...);
+}
+
+public func FxNoDoorEntranceStart()
+{
+  return true;
+}
+
+protected func ActivateEntrance(object pObj)
+{
+  if(GetEffect("NoDoorEntrance", pObj) && !GetEffect("Move2Door", pObj))
+  {
+    CloseEntrance();
+    return false;
+  }
+
+  if(lock) return false;
+  return _inherited(pObj, ...); 
+}
+
+protected func RejectCollect(id objID, object pObj)
+{
+  if(GetEffect("NoDoorEntrance", pObj) && !GetEffect("Move2Door", pObj)) return true;
+
+  return false;
 }
 
 protected func FxMove2DoorStart(object pTarget)
@@ -77,12 +106,6 @@ protected func FxMove2DoorTimer(pTarget)
 private func SoundDoorLocked()
 {
   Sound("MetalHit1");
-}
-
-protected func ActivateEntrance(pObj)
-{
-  if(lock) return false;
-  return inherited(pObj);
 }
 
 func Collection2(obj)
