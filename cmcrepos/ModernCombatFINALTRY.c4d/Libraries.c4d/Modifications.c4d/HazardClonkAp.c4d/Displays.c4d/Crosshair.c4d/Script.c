@@ -2,14 +2,15 @@
 
 #strict 2
 
-local target;//soll jetzt dauernd benutzt werden ... daher ist eine lokale variable angebracht
+local target;
 local spread;
 local angle;
 
 static const CH_Distance = 60;
 static const CH_Spread_Prec = 10;
 
-public func NoWarp() {return true;}
+public func NoWarp()	{return true;}
+
 
 protected func GetUser()
 {
@@ -31,31 +32,38 @@ protected func Check()
   if(!GetAlive(target))
     return RemoveObject();
 
-    
   var wpn = Contents(0, target);
   if(!wpn)
   {
-    target->HideCH();//Wegen eine komischen Bug bei UpdateCharge()...
+    target->HideCH();
     return;
   }
   if(!wpn->~IsWeapon() && !wpn->~IsGrenade()) return;
-    
+
+  if(GetProcedure(target) == "PUSH" && GetActionTarget(0, target)->~CanAim())
+  {
+    target->HideCH();
+    /*if(GetActionTarget(0, target)->~IsWeapon() && !(GetActionTarget(0, target)->~IsWeapon2()))
+      return false; 
+    else
+      return true;*/
+  }
   var alpha = 0;//Sin(spread*90/CH_MaxSpread,255);
   //var alpha = spread*255/CH_MaxSpread;
-  
+
   var rgb = RGBa(0,255,0,alpha);
   if(wpn->IsReloading() || !wpn->GetCharge())
     rgb = RGBa(255,0,0,alpha);
-    
-  SetClrModulation(RGBa(255,255,255,alpha),0,1);//BaseOben
+
+  SetClrModulation(RGBa(255,255,255,alpha),0,1);	//Base oben
   SetClrModulation(rgb,0,2);//OverlayOben
-  SetClrModulation(RGBa(255,255,255,alpha),0,3);//BaseUnten
+  SetClrModulation(RGBa(255,255,255,alpha),0,3);	//Base unten
   SetClrModulation(rgb,0,4);//OverlayUnten
 
   UpdateGraphics();
 }
 
-public func Init(object pTarget)//O_o *lol* Henry gefällt der Name nicht.
+public func Init(object pTarget)
 {
   Set(pTarget);
 }
@@ -136,19 +144,19 @@ public func InitGraphics()
   //Oben
   SetGraphics(0,0,GetID(),1,GFXOV_MODE_Action,"Base1"); 
   
-  //StatusOben
+  //Status oben
   SetGraphics(0,0,GetID(),2,GFXOV_MODE_Action,"Status1",GFX_BLIT_Additive); 
   
-  //NachtsichtOben
+  //Nachtsicht oben
   //SetGraphics(0,0,GetID(),3,GFXOV_MODE_Action,"Add1"); 
   
   //Unten
   SetGraphics(0,0,GetID(),3,GFXOV_MODE_Action,"Base2"); 
   
-  //StatusUnten
+  //Status unten
   SetGraphics(0,0,GetID(),4,GFXOV_MODE_Action,"Status2",GFX_BLIT_Additive);
   
-  //NachtsichtUnten
+  //Nachtsicht unten
   //SetGraphics(0,0,GetID(),6,GFXOV_MODE_Action,"Add2"); 
   
   UpdateGraphics();

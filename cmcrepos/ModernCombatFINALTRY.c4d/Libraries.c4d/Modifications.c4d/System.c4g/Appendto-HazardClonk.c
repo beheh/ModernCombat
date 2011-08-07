@@ -487,9 +487,14 @@ public func IsAiming()
 {
   if(Contained() && Contained()->~CanAim())
     return true;
-  
+
   if(GetProcedure() == "PUSH" && GetActionTarget()->~CanAim())
-    return true;
+  {
+    if(GetActionTarget()->~IsWeapon() && !(GetActionTarget()->~IsWeapon2()))
+      return false;
+    else
+      return true;
+  }
 
   return _inherited();
 }
