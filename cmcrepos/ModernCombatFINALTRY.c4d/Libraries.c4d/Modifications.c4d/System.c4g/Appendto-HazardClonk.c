@@ -51,10 +51,19 @@ protected func ControlDownDouble()
   return _inherited();
 }
 
-public func ControlUp()
+protected func ControlUp()
 {
   RemoveEffect("IntMouseAiming", this);
-  return _inherited(...);
+  ClearMacroCommands();
+  SetAggroLevel(0,0,0,0,"ControlUp");
+
+  if (ControlAim("ControlUp")) return 1;
+  if (Control2Grab("ControlUp")) return 0;
+  if (Control2Contents("ControlUp") ) return 1;
+  if (ControlLadder("ControlUp") ) return 1;
+  if (ControlAgility("ControlUp") ) return 1;
+  if (FindObject2(Find_Func("IsBackDoor"), Find_AtPoint()) && GetEffect("NoDoorEntrance", this)) return 1;
+  return(_inherited());
 }
 
 public func ControlDown() 
@@ -1397,6 +1406,12 @@ private func ChangeWeapon(object pTarget)
   {
     StopAiming();
   }
+}
+
+public func RejectEntrance(object pIntoObj)
+{
+  if(pIntoObj->~IsBackDoor()) return pIntoObj->~RejectCollect(GetID(), this);
+  return _inherited(pIntoObj, ...);
 }
 
 /*----- CMC Agilität -----*/
