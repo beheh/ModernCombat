@@ -11,7 +11,7 @@ public func IsHealing()		{return WildcardMatch(GetAction(), "*Heal*");}
 public func MaxGrenades()	{return 4;}					//Maximal im Inventar und Gürtel tragbare Granaten
 
 
-/* Initialisierung */
+/*----- Initialisierung -----*/
 
 public func Initialize()
 {
@@ -26,6 +26,8 @@ public func SetHUDTarget(pTarget)
 {
   HUDTarget = pTarget;
 }
+
+/*----- Steuerung -----*/
 
 protected func Control2Grab(string command)
 {
@@ -72,7 +74,10 @@ public func ControlDown()
   return _inherited(...);
 }
 
-public func WeaponEnd(&x, &y) {
+/*----- Waffenfunktionen -----*/
+
+public func WeaponEnd(&x, &y)
+{
   var number = GetEffect("ShowWeapon",this);
   if(!number)
     return(0);
@@ -497,7 +502,7 @@ public func IsAiming()
   if(Contained() && Contained()->~CanAim())
     return true;
 
-  if(GetProcedure() == "PUSH" && GetActionTarget()->~CanAim())
+  if(GetProcedure() == "PUSH" && GetActionTarget() && GetActionTarget()->~CanAim())
   {
     if(GetActionTarget()->~IsWeapon() && !(GetActionTarget()->~IsWeapon2()))
       return false;
@@ -1559,7 +1564,6 @@ private func ControlAgility(string strControl)
     return;
   }
 }
-
 
 /* Backflip starten */
 
