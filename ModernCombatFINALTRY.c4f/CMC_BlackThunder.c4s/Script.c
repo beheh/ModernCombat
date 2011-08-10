@@ -380,6 +380,10 @@ public func ChooserFinished()
    {
     aFlag[3]->Set("$Flag4$",0,2);
    }
+
+   //Objekte entfernen
+   RemoveObject(FindObject2(Find_ID(SNPT),Find_InRect(590, 500, 50, 50)));
+   RemoveObject(FindObject2(Find_ID(SNPT),Find_InRect(3570, 500, 50, 50)));
   }
 
   //MR-Spielziel
