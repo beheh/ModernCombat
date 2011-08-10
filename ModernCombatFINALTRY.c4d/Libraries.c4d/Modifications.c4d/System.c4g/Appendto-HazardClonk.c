@@ -823,7 +823,10 @@ public func ContextDrop()
 {
   [$DropItem$|Image=WPN2|Condition=CanDropItem]
   AddEffect("CannotBeCollected", Contents(0), 101, 1);
-  Exit(Contents(0));
+  if(GetAction() == "Crawl")
+    Exit(Contents(0),0,6);
+  else
+    Exit(Contents(0),0,10);
 
   return true;
 }
