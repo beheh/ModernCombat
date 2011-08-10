@@ -812,6 +812,7 @@ public func SwitchInventoryLockMode(object pCaller)
 public func CanDropItem()
 {
   if(!GetInvLockMode()) return false;
+  if(Contained()) return false;
   if(!Contents(0)) return false;
   if(!Contents(0)->~IsWeapon()) return false;
 
