@@ -167,7 +167,30 @@ public func ReadyToFire()
     return;
   if(GetAction() == "Crawl" && Contents() && Contents()->~CanAim() && Contents()->~IsEquipment())
     return true;
-  return _inherited(...);
+
+  //In Gebäude
+  if(Contained()) return(Contained()->~ReadyToFire());
+  
+  if(GetActionTarget())
+  {
+    //Reitet
+    if(IsRiding()) return(GetActionTarget()->~ReadyToFire());
+    //Schiebt
+    if(GetProcedure() == "PUSH")
+      if(GetActionTarget()->~IsWeapon())
+        return(true);
+  }
+
+  var a = GetAction();
+
+  //Nur beim Laufen, Schwimmen oder Springen
+  if(a == "WalkArmed" || a == "SwimArmed" || a == "JumpArmed")
+    return(true);
+
+  //Importiert aus den Funktionalitäten: JetpackFlight und Aim
+  if(a == "JetpackFlight") return true;
+
+  if(WildcardMatch(a, "Aim*")) return true;
 }
 
 //Wegen SwimArmed
@@ -316,33 +339,35 @@ public func UpdateCharge()
 {
   UpdateCH();
   
-  // Nur wenn ich Cursor bin
+  //Nur wenn ich Cursor bin
   var pCursor = GetCursor(GetOwner());
   if(pCursor && pCursor != this) pCursor = pCursor->~GetRealCursor(); 
   if(pCursor != this) return;
 
   if(GetOwner() < -1) return;
 
-  // in Gebäuden/Fahrzeugen
+  //In Gebäuden/Fahrzeugen
   if(Contained() && Contained()->~UpdateCharge(this))
     return true;
 
-  // reitet
+  //Reitet
   if(IsRiding() && GetActionTarget()->~UpdateCharge(this))
     return true;
 
-  // ggf. an angefasstes Objekt weiterleiten
+  //Ggf. an angefasstes Objekt weiterleiten
   var Content = Contents();
-  if(GetAction() == "Push" && GetActionTarget()->~IsWeapon())
-  	Content = GetActionTarget();
-  // ggf. an Gebäude/Fahrzeug weiterleten
+  if(GetAction() == "Push" && GetActionTarget() && GetActionTarget()->~IsWeapon())
+    Content = GetActionTarget();
+
+  //Ggf. an Gebäude/Fahrzeug weiterleten
   if(Contained() && Contained()->~IsWeapon())
-  	Content = Contained();
-  // ggf. speziell zugewiesenes Objekt
+    Content = Contained();
+
+  //Ggf. speziell zugewiesenes Objekt
   if(HUDTarget)
     Content = HUDTarget;
 
-  // HUD
+  //HUD
   var hud = GetHUD();
   if(hud) hud->Update(Content, AmmoStoring(),this);
 
@@ -356,32 +381,32 @@ public func AimAngleEx(int iMaxAngle, int iRange, bool bSpread)
   var angle = AimAngle2(iMaxAngle,iRange,bSpread);
   if(!angle)
     angle = AimAngle(iMaxAngle,iRange,bSpread)*100;
-    
+
   return angle;
 }
 
 public func AimAngle2(int iMaxAngle, int iRange, bool bSpread)//Präzision 100. Also von 100 bis 36000.
 {
-   var angle;
-   var x,y,r;
-   WeaponAt(x,y,r);
-   
-   if(!IsAiming())
-     angle = (90+r)*(GetDir()*2-1);
-   else
-     angle = crosshair->GetAngle();
-  
-   if(iRange)
-   {
-     var target = GetTarget(angle,iMaxAngle,iRange);
-     if(target)
-       angle = Angle(GetX(),GetY(),GetX(target),GetY(target));
-   }
-   
-   if(bSpread)
-     angle += GetSpreadAOff2();
+  var angle;
+  var x,y,r;
+  WeaponAt(x,y,r);
 
-   return angle;
+  if(!IsAiming())
+    angle = (90+r)*(GetDir()*2-1);
+  else
+    angle = crosshair->GetAngle();
+
+  if(iRange)
+  {
+    var target = GetTarget(angle,iMaxAngle,iRange);
+    if(target)
+      angle = Angle(GetX(),GetY(),GetX(target),GetY(target));
+  }
+
+  if(bSpread)
+    angle += GetSpreadAOff2();
+
+  return angle;
 }
 
 public func AimAngle(int iMaxAngle, int iRange, bool bSpread)
