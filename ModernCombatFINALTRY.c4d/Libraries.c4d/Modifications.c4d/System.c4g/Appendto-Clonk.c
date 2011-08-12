@@ -60,6 +60,14 @@ public func Incineration()
 
 /* Soundauswahl */
 
+public func OnDmg(int iDmg, int iType)
+{
+  if(!IsFakeDeath() && GetAlive())
+    HurtSounds(iDmg,iType);
+
+  return _inherited(iDmg, iType, ...);
+}
+
 public func HurtSounds(int iDmg, int iType)
 {
   if(iDmg <= 0) return;
