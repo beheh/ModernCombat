@@ -40,7 +40,7 @@ protected func Check()
   }
   if(!wpn->~IsWeapon() && !wpn->~IsGrenade()) return;
 
-  if(GetProcedure(target) == "PUSH" && GetActionTarget(0, target)->~CanAim())
+  if(GetProcedure(target) == "PUSH" && GetActionTarget(0, target) && GetActionTarget(0, target)->~CanAim())
   {
     target->HideCH();
     /*if(GetActionTarget(0, target)->~IsWeapon() && !(GetActionTarget(0, target)->~IsWeapon2()))
