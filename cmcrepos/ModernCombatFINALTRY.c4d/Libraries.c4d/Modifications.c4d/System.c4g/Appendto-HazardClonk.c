@@ -1927,7 +1927,7 @@ public func ControlThrow()
   if (GetPlrDownDouble(GetOwner()))
   {
     AddEffect("SquatAimTimeout", this(), 1, 15, this());
-    if(Contents(0)->~IsWeapon())
+    if(Contents(0) && Contents(0)->~IsWeapon())
     {
       return GetInvLockMode();
     }
