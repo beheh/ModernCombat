@@ -690,9 +690,9 @@ public func ChooserFinished()
    CreateObject(SGNP, 3295, 370, -1);
    CreateObject(SGNP, 3415, 370, -1);
    CreateObject(SGNP, 3320, 580, -1);
-   CreateObject(SGNP, 5865, 350, -1);
-   CreateObject(SGNP, 5885, 510, -1);
-   CreateObject(SGNP, 5950, 350, -1);
+   CreateObject(SGNP, 6620, 470, -1);
+   CreateObject(SGNP, 6740, 510, -1);
+   CreateObject(SGNP, 6870, 510, -1);
 
    //Patrouillenboote
    SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,4640,560,-1),50*21,300);
