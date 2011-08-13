@@ -231,6 +231,12 @@ func CreateEquipment()
   crate->SetGraphics("Desert");
   crate->Set(GBOX);
 
+  //Versorgungskisten (APW)
+  crate = CreateObject (AMCT, 1980, 690, -1);
+  crate->Set(ATWN);
+  crate = CreateObject (AMCT, 4850, 690, -1);
+  crate->Set(ATWN);
+
   //Granatenmunition
   PlaceSpawnpoint(GBOX, 1980, 595);
   PlaceSpawnpoint(GBOX, 4850, 595);
