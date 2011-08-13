@@ -301,6 +301,12 @@ func CreateEquipment()
   crate = CreateObject (AMCT, 4570, 440, -1);
   crate->Set(MBOX);
 
+  //Versorgungskisten (APW)
+  crate = CreateObject (AMCT, 640, 440, -1);
+  crate->Set(ATWN);
+  crate = CreateObject (AMCT, 4600, 440, -1);
+  crate->Set(ATWN);
+
   //Versorgungskisten (Dragnin)
   crate = CreateObject (AMCT, 1930, 440, -1);
   crate->Set(DGNN);
@@ -641,6 +647,7 @@ public func ChooserFinished()
 
    //Objekte entfernen
    RemoveObject(FindObject2(Find_ID(AMCT),Find_InRect(1910, 420, 30, 30)));
+   RemoveObject(FindObject2(Find_ID(AMCT),Find_InRect(4590, 420, 30, 30)));
    RemoveObject(FindObject2(Find_ID(LTBL),Find_InRect(3780, 410, 30, 30)));
 
    //Sandsackbarrieren
