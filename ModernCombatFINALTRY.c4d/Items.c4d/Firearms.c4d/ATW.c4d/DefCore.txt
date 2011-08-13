@@ -11,7 +11,7 @@ Vertices=2
 VertexX=-6,6
 VertexY=2,2
 VertexFriction=100,100
-Value=50
+Value=40
 Mass=20
 Components=METL=2;KLAS=1
 Picture=0,7,64,64
