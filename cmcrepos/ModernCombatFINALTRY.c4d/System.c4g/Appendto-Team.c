@@ -65,7 +65,7 @@ global func GetActiveTeamCount()
 {
   var aTeams = [];
   for (var i; i < GetPlayerCount(); i++)
-    if (GetPlayerName(GetPlayerByIndex(i)))
+    if (GetPlayerName(GetPlayerByIndex(i)) && GetPlayerTeam(GetPlayerByIndex(i)) != -1)
       aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = 1;
   i = 0;
   for (var item in aTeams)

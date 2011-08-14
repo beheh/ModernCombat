@@ -57,49 +57,52 @@ protected func OpenMenu()
   Message("", pClonk);
 
   CreateMenu(GetID(), pClonk, 0, 0, 0, 0, 1);
-  // Spielregeln
-  if (!GetLeague())
+  //Spielregeln
+  if(!GetLeague())
     AddMenuItem("$CreateRules$", "OpenRuleMenu", CTFL, pClonk, 0,0, "$RuleInfo$");
-  // Dunkelheit
+  //Dunkelheit
   if(IsDark())
     AddMenuItem("%s", "OpenDarknessMenu", DARK, pClonk,0,0,"$DarknessChose$");
-  // Spielziel
+  //Spielziel
   if(GoalIsCompatible() && !GetLeague())
     AddMenuItem("%s", "OpenGoalMenu", GetID(pGoal), pClonk,0,0,"$GoalChose$");
-  // KI
+  //Teameinteilung
+  if(GetTeamCount() && !GetLeague())
+    AddMenuItem("$TeamArrangement$", "OpenTeamMenu", TEAM, pClonk, 0, 0, "$TeamInfo$");
+  //KI
   if(ObjectCount(WAYP) && !GetLeague())
     AddMenuItem("$AIMenu$", "OpenAIMenu", HZCK, pClonk, 0,0, "$AIInfo$");
-  // Effekte
+  //Effekte
   AddMenuItem("$Effects$", "OpenEffectMenu", EFMN, pClonk, 0,0, "$EffectInfo$");
-  // Fertig
+  //Fertig
   AddMenuItem("$Finished$", "ConfigurationFinished", CHOS, pClonk,0,0,"$Finished$",2,3);
 }
 
 protected func OpenEffectMenu(id dummy, int iSelection)
 {
   var pClonk = GetCursor(GetPlayerByIndex(0, C4PT_User));
-  // Menü aufmachen
+  //Menü aufmachen
   CreateMenu(GetID(), pClonk, 0,0,0,0, 1);
-  // Anzeige
+  //Anzeige
   AddMenuItem(" ", "OpenEffectMenu", EFMN, pClonk, iEffectCount, 0, " ");
-  // Zähler erhöhen
+  //Zähler erhöhen
   AddMenuItem("$MoreEffects$", "ChangeEffectConf", CHOS, pClonk, 0, +1, "$MoreEffects$",2,1);
-  // Zähler senken
+  //Zähler senken
   AddMenuItem("$LessEffects$", "ChangeEffectConf", CHOS, pClonk, 0, -1, "$LessEffects$",2,2);
-  // Fertig
+  //Fertig
   AddMenuItem("$Finished$", "OpenMenu", CHOS, pClonk,0,0, "$Finished$",2,3);
-  // Letzten Eintrag auswählen
+  //Letzten Eintrag auswählen
   SelectMenuItem(iSelection, pClonk);
 }
 
 protected func ChangeEffectConf(id dummy, int iChange)
 {
-  // Stand verändern
+  //Stand verändern
   iEffectCount = BoundBy(iEffectCount+iChange, 1, 3);
   EFSM_SetEffects(iEffectCount);
-  // Geräusch
+  //Geräusch
   Sound("Grab", 1,0,0,1);
-  // Menü wieder öffnen
+  //Menü wieder öffnen
   var iSel = 1;
   if(iChange == -1) iSel = 2;
   OpenEffectMenu(0, iSel);
@@ -113,6 +116,39 @@ protected func OpenGoalMenu(id dummy, int iSelection)
   if(pGoal->~ConfigMenu(pClonk))
 	return 1;
   return _inherited(dummy, iSelection, ...);
+}
+
+protected func OpenTeamMenu(id dummy, int iSelection)
+{
+  var pClonk = GetCursor(GetPlayerByIndex(0, C4PT_User));
+  //Menü erstellen
+  CreateMenu(GetID(), pClonk, 0,0,0,0, 1);
+  //Teams auflisten
+  for(var j = 0; j < GetPlayerCount(); j++)
+    AddMenuItem(Format("%s (%s)", GetTaggedPlayerName(GetPlayerByIndex(j)), GetTeamName(GetPlayerTeam(j))), "SwitchTeam", PCMK, pClonk, 0, GetPlayerByIndex(j));
+  //Fertig
+  AddMenuItem("$Finished$", "OpenMenu", CHOS, pClonk,0,0, "$Finished$",2,3);
+  //Letzten Eintrag auswählen
+  SelectMenuItem(iSelection, pClonk);
+}
+
+protected func SwitchTeam(id dummy, int iPlr)
+{
+  var team = GetPlayerTeam(iPlr);
+  if(GetTeamName(GetTeamByIndex(team)))
+    team = GetTeamByIndex(team);
+  else
+    team = GetTeamByIndex(0);
+
+  SetPlayerTeam(iPlr, team);
+
+  var sel = GetMenuSelection(GetCursor(GetPlayerByIndex(0, C4PT_User)));
+
+  //Geräusch
+  Sound("Grab", 1,0,0,1);
+  //Menü wieder eröffnen
+  OpenTeamMenu(0, iPlr);
+  return true;
 }
 
 protected func LoadRuleCfg()
@@ -134,7 +170,7 @@ protected func InitializePlayer(int iPlr, int iX, int iY, object pBase, int iTea
       CreateClonk(iPlr);
   aAI[iTeam] = 0;
   if(Death) return;
-  // Alle Clonks des Spielers verstauen
+  //Alle Clonks des Spielers verstauen
   for(var i=0, pCrew, tmp ; pCrew = GetCrew(iPlr, i) ; i++)
   {
     tmp = CreateObject(TIM1, GetX(pCrew), GetY(pCrew), -1);
@@ -152,15 +188,15 @@ protected func InitializePlayer(int iPlr, int iX, int iY, object pBase, int iTea
 
 protected func CreateGoal(id idGoal, int iScore)
 {
-  // Spielziel erstellen
+  //Spielziel erstellen
   var goal = CreateObject(idGoal, 0,0, -1);
-  // Alten Wert setzen
+  //Alten Wert setzen
   SetWinScore(iScore, goal);
-  // Alle benachrichtigen
+  //Alle benachrichtigen
   EventInfo4K(0,Format("$Goal$", GetName(0, idGoal)),idGoal, 0, 0, 0, "Info.ogg");
-  // Array leeren, damit das Menü nicht nochmal kommt
+  //Array leeren, damit das Menü nicht nochmal kommt
   aGoals = CreateArray();
-  // Normales Menü öffnen
+  //Normales Menü öffnen
   OpenMenu();
 }
 
@@ -192,7 +228,7 @@ protected func ConfigurationFinished2()
   //Dunkelheit erzeugen
   log = Format("%s, %s x%d", log, GetName(0, DARK), iDarkCount);
   EventInfo4K(0,log,CHOS, 0, 0, 0, "Info.ogg");
-  // ein schneller GameCall für Einstellungen
+  //ein schneller GameCall für Einstellungen
   GameCallEx("ChooserFinished");
 
   //Spieler freilassen
