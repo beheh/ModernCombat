@@ -1,6 +1,7 @@
 TeamHasWon={{GMNR}} <c ffff33>Money Run</c> - Round End|Team <c %x>%s</c> has <c ffff33>won</c> this battle!
 MsgGoalUnfulfilled=Your team has currently %d credits, the goal is to secure %d.
-Points=Points
+Points=Credits
+Goal=Target Amount
 MoreCredits=more Credits
 LessCredits=less Credits
 Finished=Finished

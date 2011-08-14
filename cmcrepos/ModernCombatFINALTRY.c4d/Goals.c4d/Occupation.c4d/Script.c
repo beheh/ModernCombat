@@ -218,7 +218,7 @@ protected func InitScoreboard()
   if(FindObject(CHOS)) return;
   UpdateHUDs();
 
-  //Überschriften
+  //Titelzeile
   SetScoreboardData(SBRD_Caption, SBRD_Caption, Format("%s",GetName()), SBRD_Caption);
   SetScoreboardData(SBRD_Caption, GOCC_FlagColumn, "{{OSPW}}", SBRD_Caption);
   SetScoreboardData(SBRD_Caption, GOCC_ProgressColumn, "{{SM02}}", SBRD_Caption);

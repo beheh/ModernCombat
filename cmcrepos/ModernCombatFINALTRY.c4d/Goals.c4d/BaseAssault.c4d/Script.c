@@ -66,10 +66,10 @@ public func UpdateScoreboard()
   if (!aScoreboardTeams)
     aScoreboardTeams = [];
 
-  //Titelleiste
+  //Titelzeile
   SetScoreboardData(SBRD_Caption, SBRD_Caption, GetName());
 
-  //Alle Teams durchgehen
+  //Teams auflisten
   for(var i, iTeam; i < GetTeamCount(); i++)
   {
     //Team eliminiert
