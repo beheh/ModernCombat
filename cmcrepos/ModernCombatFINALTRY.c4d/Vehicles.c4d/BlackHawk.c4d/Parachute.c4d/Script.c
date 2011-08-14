@@ -123,7 +123,10 @@ protected func Opening()
 
 public func Close()
 {
-  SetAction("Fold", GetActionTarget());
+  if(WildcardMatch(GetAction(),"*Free*"))
+    SetAction("FoldFree", GetActionTarget());
+  else
+    SetAction("Fold", GetActionTarget());
   Sound("ParachuteClose.ogg");
   //Soundschleife beenden
   Sound("ParachuteFly.ogg", false, 0, 25, 0, -1);
