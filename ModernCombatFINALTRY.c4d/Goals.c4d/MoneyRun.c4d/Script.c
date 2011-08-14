@@ -181,19 +181,32 @@ global func FxIntMoneyCollectedStop(object pTarget, int iEffect, int iReason, bo
 
 /* Scoreboard */
 
-static const GMNR_Name = -1;
-static const GMNR_Count = 0;
+static const GMNR_Icon = 0;
+static const GMNR_Goal = 1;
+static const GMNR_GoalCount = 2;
+static const GMNR_Name = 1;
+static const GMNR_Count = 2;
 
 public func UpdateScoreboard()
 {
   //Wird noch eingestellt
   if (FindObject(CHOS)) return;
 
-  //Titelzeile
-  SetScoreboardData(SBRD_Caption, GMNR_Name, Format("%d $Points$", iGoal));
-  SetScoreboardData(SBRD_Caption, GMNR_Count, Format("{{%i}}", GetID()));
+  if (IsFulfilled())
+    return;
 
-  //Teams durchgehen
+  //Titelzeile
+  SetScoreboardData(SBRD_Caption, SBRD_Caption, GetName());
+
+  //Zu erreichende Credits
+  SetScoreboardData(SBRD_Caption, GMNR_Icon, Format("{{%i}}", GetID()));
+  SetScoreboardData(SBRD_Caption, GMNR_Goal, Format("$Goal$"));
+  SetScoreboardData(SBRD_Caption, GMNR_GoalCount, Format("%d", iGoal));
+
+  //Leerzeile
+  SetScoreboardData(0, GMNR_Count, " ", iGoal*2);
+
+  //Teams auflisten
   if (Teams())
     for (var i = 0; i < GetPlayerCount(); i++)
     {
