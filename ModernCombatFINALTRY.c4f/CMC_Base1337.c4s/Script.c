@@ -532,6 +532,13 @@ public func ChooserFinished()
    //Objekte entfernen
    RemoveObject(aSelfDefense[0]);
    RemoveObject(aSelfDefense[2]);
+
+   //Leitern
+   CreateObject(LADR, 2050, 1220, -1)->Set(20);
+   CreateObject(LADR, 2280, 1220, -1)->Set(13);
+
+   //Patrouillenboote
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,2060,1240,-1),50*21,300);
   }
 
   //Assault-Spielziel
@@ -593,6 +600,10 @@ public func ChooserFinished()
    sign->SetMode(1);
    CreateObject(SGNP, 3970, 540, -1);
    CreateObject(SGNP, 4165, 510, -1);
+
+   //Versorgungskiste (APW)
+   crate = CreateObject (AMCT, 4180, 960, -1);
+   crate->Set(ATWN);
 
    //Blackhawks und Hinweisschilder
    if(!FindObject(NOBH))
