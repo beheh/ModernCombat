@@ -602,7 +602,7 @@ public func ChooserFinished()
    CreateObject(SGNP, 4165, 510, -1);
 
    //Versorgungskiste (APW)
-   crate = CreateObject (AMCT, 4180, 960, -1);
+   var crate = CreateObject (AMCT, 4180, 960, -1);
    crate->Set(ATWN);
 
    //Blackhawks und Hinweisschilder

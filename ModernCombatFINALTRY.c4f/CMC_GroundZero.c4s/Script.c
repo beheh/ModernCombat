@@ -100,16 +100,16 @@ func CreateInterior()
   CreateObject(XTNK, 2500, 390, -1)->AutoRespawn();
 
   //Kisten
-  CreateObject(WCR2, 660, 390, -1)->AutoRespawn();
   CreateObject(WCR2, 1115, 420, -1)->AutoRespawn();
   CreateObject(WCR2, 1330, 630, -1)->AutoRespawn();
   CreateObject(WCR2, 1480, 630, -1)->AutoRespawn();
   CreateObject(WCR2, 1685, 420, -1)->AutoRespawn();
-  CreateObject(WCR2, 2130, 390, -1)->AutoRespawn();
 
   //Metallkisten
   CreateObject(MWCR, 510, 320, -1);
+  CreateObject(MWCR, 652, 390, -1);
   CreateObject(MWCR, 2290, 320, -1);
+  CreateObject(MWCR, 2150, 390, -1);
 
   //Verbandskisten
   CreateObject(BECR, 225, 390, -1)->AutoRespawn();
@@ -350,7 +350,7 @@ func CreateDecoration()
 
   //Topfpflanzen
   CreateObject(PLT3, 580, 390, -1);
-  CreateObject(PLT3, 2150, 390, -1);
+  CreateObject(PLT3, 2230, 390, -1);
 
   //Regale
   CreateObject(FRAM, 555, 440, -1);
