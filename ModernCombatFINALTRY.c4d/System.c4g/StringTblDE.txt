@@ -35,6 +35,7 @@ CreateRules=Spielregeln
 DarknessChose=Intensität der Dunkelheit
 GoalChose=Spielziel konfigurieren
 TeamArrangement=Teams
+TeamInfo=Teameinteilung konfigurieren
 AIMenu=KIs einstellen
 RuleInfo=Spielregel einstellen
 AIInfo=Diverse Einstellungen für KIs

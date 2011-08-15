@@ -35,6 +35,7 @@ CreateRules=Rules
 DarknessChose=Configure darkness
 GoalChose=Configure goal
 TeamArrangement=Teams
+TeamInfo=Configure teams
 AIMenu=AI setup
 RuleInfo=Configure rules
 AIInfo=Option to configure AI players
