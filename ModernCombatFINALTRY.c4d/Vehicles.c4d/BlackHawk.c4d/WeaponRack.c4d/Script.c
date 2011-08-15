@@ -97,6 +97,7 @@ public func StopAutoFire()
 }
 
 /* Steuerung */
+
 public func ControlUp(pByObj)
 {
   Reload();
@@ -151,7 +152,6 @@ public func ControlDig()
     GetAttWeapon()->~ControlDig(...);
 }
 
-
 protected func FxIntTimerTimer(object pTarget, int iEffect, int iTime)
 {
   //Waffe vorhanden?
@@ -164,7 +164,7 @@ protected func FxIntTimerTimer(object pTarget, int iEffect, int iTime)
     OnDestruction();
     return RemoveObject();
   }
-  
+
   //Rotation des Heli abfragen
   var rot = GetR(heli) + (GetDir(heli) * 2 - 1) * (90 + Ang);
   //Und in die Positionsbestimmung einflieﬂen lassen
@@ -288,6 +288,15 @@ public func Destruction()
   Disarm();
   RemoveEffect("ShowWeapon", this);
 }
+
+/* Schaden */
+
+public func Damage()
+{
+  return;
+}
+
+/* Waffenende */
 
 public func WeaponAt(&x, &y, &r)
 {
