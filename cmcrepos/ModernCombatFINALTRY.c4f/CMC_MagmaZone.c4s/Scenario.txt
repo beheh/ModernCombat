@@ -35,4 +35,4 @@ NoScan=1
 SkyScrollMode=2
 
 [Environment]
-Objects=ELGT=1;EGRS=1;DOFO=1;DARK=1
+Objects=ELGT=1;EGRS=1;DOFO=1

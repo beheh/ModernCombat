@@ -43,4 +43,4 @@ StartSeason=100,0,0,100
 Wind=20,4,-100,100
 
 [Environment]
-Objects=ELGT=1;DOFO=1;EGLN=5;DARK=1
+Objects=ELGT=1;DOFO=1;EGLN=5
