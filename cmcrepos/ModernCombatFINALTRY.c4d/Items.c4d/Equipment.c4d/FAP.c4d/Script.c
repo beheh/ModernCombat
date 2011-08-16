@@ -87,6 +87,13 @@ public func ControlThrow(object pCaller)
     if (ContentsCount(DGNN, pCaller))
       return PlayerMessage(GetOwner(pCaller), "$NoSpace$", pCaller);
 
+    //Geht nicht
+    if (!WildcardMatch(GetAction(pCaller), "*Walk*"))
+    {
+      PlayerMessage(GetOwner(pCaller), "$CantTake$", pCaller);
+      return true;
+    }
+
     if(GetPackPoints() >= 40)
     {
       DoPackPoints(-40);

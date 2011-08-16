@@ -44,6 +44,13 @@ protected func Activate(object pCaller)
     return true;
   }
 
+  //Geht nicht
+  if (!WildcardMatch(GetAction(pCaller), "*Walk*"))
+  {
+    PlayerMessage(GetOwner(pCaller), "$CantTake$", pCaller);
+    return true;
+  }
+
   //Clonk anhalten
   SetComDir(COMD_Stop, pCaller);
 
