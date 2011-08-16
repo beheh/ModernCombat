@@ -1,6 +1,7 @@
 AlreadyHealing=Clonk wird bereits behandelt.
 NotWounded=Clonk nicht verwundet.
-CantHeal=Clonk kann sich hier nicht heilen.
+CantHeal=Clonk muss zum heilen stehen.
+CantTake=Clonk muss zum Entpacken stehen.
 NotEnoughPoints=Es werden <c ff0000>40</c> Punkte zum Entpacken benötigt.
 NoSpace=Inventar bereits belegt.
 PacketJoined={{FAPK}} zusammengelegt (+%d)
