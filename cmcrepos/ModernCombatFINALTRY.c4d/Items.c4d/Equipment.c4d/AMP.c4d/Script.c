@@ -44,8 +44,8 @@ protected func Activate(object pCaller)
     return true;
   }
 
-  //Geht nicht
-  if (!WildcardMatch(GetAction(pCaller), "*Walk*"))
+  //Falsche Aktion?
+  if(!WildcardMatch(GetAction(pCaller), "*Walk*") && !WildcardMatch(GetAction(pCaller), "*Swim*") && !WildcardMatch(GetAction(pCaller), "*Crawl*") && !WildcardMatch(GetAction(pCaller), "*Jump*"))
   {
     PlayerMessage(GetOwner(pCaller), "$CantTake$", pCaller);
     return true;

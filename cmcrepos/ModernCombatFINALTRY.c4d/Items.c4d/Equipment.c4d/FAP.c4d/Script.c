@@ -56,7 +56,7 @@ public func Activate(object pCaller)
     PlayerMessage(GetOwner(pCaller), "$NotWounded$", pCaller);
     return true;
   }
-  //Geht nicht
+  //Falsche Aktion?
   if (!WildcardMatch(GetAction(pCaller), "*Walk*"))
   {
     PlayerMessage(GetOwner(pCaller), "$CantHeal$", pCaller);
@@ -87,8 +87,8 @@ public func ControlThrow(object pCaller)
     if (ContentsCount(DGNN, pCaller))
       return PlayerMessage(GetOwner(pCaller), "$NoSpace$", pCaller);
 
-    //Geht nicht
-    if (!WildcardMatch(GetAction(pCaller), "*Walk*"))
+    //Falsche Aktion?
+    if(!WildcardMatch(GetAction(pCaller), "*Walk*") && !WildcardMatch(GetAction(pCaller), "*Swim*") && !WildcardMatch(GetAction(pCaller), "*Crawl*") && !WildcardMatch(GetAction(pCaller), "*Jump*"))
     {
       PlayerMessage(GetOwner(pCaller), "$CantTake$", pCaller);
       return true;
