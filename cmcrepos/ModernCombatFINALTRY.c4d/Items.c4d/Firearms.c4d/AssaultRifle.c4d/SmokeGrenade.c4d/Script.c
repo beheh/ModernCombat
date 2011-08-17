@@ -15,11 +15,11 @@ func HitObject(object pObj)
   if(pObj)
   {
     DoDmg(30,DMG_Projectile,pObj);
-    if(GetOCF(pObj) & OCF_Alive && Hostile(GetOwner(pObj), GetController()))
-    {
-      //Achievement-Fortschritt (Smoke 'em up)
-      DoAchievementProgress(1, AC26, GetController());
-    }
+    if(Hostile(GetOwner(), GetOwner(pObj)))
+      if(!GetAlive(pObj) || IsFakeDeath(pObj))
+        //Achievement-Fortschritt (Smoke 'em up)
+        DoAchievementProgress(1, AC26, GetController());
+
     if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",12, 10, 0, 0, 130, 160, RGBa(255,255,255,100), RGBa(255,255,255,130));
     if(GetOCF(pObj) & OCF_Living)
     {
