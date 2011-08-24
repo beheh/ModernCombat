@@ -764,7 +764,7 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
   }
 
   //Ziel 2 und 3
-  if (!iIndex == 1 || iIndex == 2)
+  if (iIndex == 1 || iIndex == 2)
   {
    if(fConnectedDestroyed)
    {

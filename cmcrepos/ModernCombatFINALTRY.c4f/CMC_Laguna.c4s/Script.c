@@ -479,7 +479,7 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
   }
 
   //Ziel 3
-  if (iIndex == 2)
+  if(iIndex == 2)
   {
    //Grenzen neu setzen
    RemoveAll(BRDR);
@@ -490,7 +490,7 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
   }
 
   //Ziel 4 und 5
-  if (!iIndex || iIndex == 4)
+  if(iIndex == 3 || iIndex == 4)
   {
    if(fConnectedDestroyed)
    {
