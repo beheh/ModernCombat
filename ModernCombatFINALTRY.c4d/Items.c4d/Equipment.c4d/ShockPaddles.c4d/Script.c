@@ -249,7 +249,7 @@ func UpdateHUD(object pHUD)
   pHUD->Charge(charge,MaxEnergy());
   pHUD->Ammo(charge, MaxEnergy(), GetName(), true);
   if(GetAction() == "Reload")
-    pHUD->Recharge(GetActTime(), 35);
+    pHUD->Recharge(GetActTime(), 34);
 }
 
 /* Allgemein */
