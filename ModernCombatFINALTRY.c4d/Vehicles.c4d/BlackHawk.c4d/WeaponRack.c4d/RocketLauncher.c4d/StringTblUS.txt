@@ -1,2 +1,2 @@
-Missiles=Missiles
+Missiles=LR Missiles
 Optical=Optical Control

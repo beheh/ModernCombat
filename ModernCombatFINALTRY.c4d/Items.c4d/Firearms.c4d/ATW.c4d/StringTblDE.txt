@@ -1,2 +1,2 @@
-Missiles=Panzerabwehrrakete
-Optical=Optische Steuerung
+Missiles=AT-Rakete
+Optical=Optisches Lenken
