@@ -1,2 +1,2 @@
-Missiles=Anti-Tank Missile
+Missiles=AT Missile
 Optical=Optical Control

@@ -1,2 +1,2 @@
-Missiles=Raketen
-Optical=Optische Steuerung
+Missiles=LR-Raketen
+Optical=Optisches Lenken
