@@ -21,8 +21,8 @@ public func Fused()
   //Zu blendende Objekte suchen
   for(var obj in FindObjects(Find_OCF(OCF_CrewMember),Find_Distance(250)))
   {
-    //Intensität initialisieren
-    var intensity = ((250-ObjectDistance(this,obj))*470/250)/2;
+    //Intensität errechnen
+    var intensity = ((270-ObjectDistance(this,obj))*470/250)/2;
 
     //Ziel ein Clonk?
     if(obj->~IsClonk())
@@ -30,10 +30,6 @@ public func Fused()
       //Freie Sicht zum Clonk?
       if(!PathFree(GetX(),GetY(),GetX(obj),GetY(obj)-8))
         continue;
-
-      //Clonk "schaut" in Detonationsrichtung? Intensität hinzuaddieren
-      if(((GetDir(obj) == DIR_Left) && (GetX() < GetX(obj))) || ((GetDir(obj) == DIR_Right) && (GetX(obj) > GetX(obj))))
-        intensity = Min(intensity+80,255);
 
       //Clonk freundlich? Intensität halbieren
       if(!Hostile(GetOwner(obj), GetOwner(GetUser())))
