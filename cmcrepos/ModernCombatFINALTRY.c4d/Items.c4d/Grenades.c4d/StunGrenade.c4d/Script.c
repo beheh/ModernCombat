@@ -59,13 +59,28 @@ public func FxIntFlashbangStart(object pTarget, int iEffectNumber, int iTemp, in
   if(!intensity) return -1;
 
   EffectVar(0,pTarget,iEffectNumber) = intensity;
-  EffectVar(2,pTarget,iEffectNumber) = owner; //Zur Punkteberechnung
+  EffectVar(2,pTarget,iEffectNumber) = owner;	//Zur Punkteberechnung
 
   //Blendung stark genug? Dann auch hörbar
   if(intensity > 38) Sound("STUN_Bang.ogg", false, pTarget, 100, GetOwner(pTarget)+1);
 
   //Stärke berechnen und Blendung erstellen
   var a = BoundBy(255-(intensity*255/100),0,255);
+
+  //Ziel bereits geblendet? Hinzuaddieren
+  if(GetEffectCount("IntFlashbang", pTarget) > 1)
+  {
+    for(var i = 0; i < GetEffectCount("IntFlashbang", pTarget); i++)
+    {
+       var nr = GetEffect("IntFlashbang", pTarget, i);
+      if(nr != iEffectNumber)
+      {
+        EffectVar(0, pTarget, nr) = BoundBy(EffectVar(0, pTarget, nr) + intensity, 0, 255);
+        return -1;
+      }
+    }
+  }
+
   var flash = ScreenRGB(pTarget,RGBa(255,255,255,a), 0, 0, false, SR4K_LayerLight);
   if(!flash)
     return -1;
