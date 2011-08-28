@@ -176,11 +176,11 @@ func CreateInterior()
   CreateObject (CONS, 975, 140, -1)->Set(selfd);
 
   //Tore und Konsolen
-  var autod = CreateObject (HNG2, 610, 340, -1);
+  var autod = CreateObject (HNG3, 610, 340, -1);
   autod->Open();
   CreateObject (CONS, 470, 340, -1)
   ->Set(autod);
-  var autod = CreateObject (HNG2, 940, 260, -1);
+  var autod = CreateObject (HNG3, 940, 260, -1);
   autod->Open();
   CreateObject (CONS, 1080, 260, -1)
   ->Set(autod);

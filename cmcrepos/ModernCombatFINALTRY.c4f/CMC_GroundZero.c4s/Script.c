@@ -200,11 +200,11 @@ func CreateInterior()
     CreateObject(CONS, 2550, 385, -1)->Set(aSelfDefense[1]);
 
   //Tore und Konsolen
-  var autod = CreateObject (HNG2, 1400, 610, -1);
+  var autod = CreateObject (HNG3, 1400, 610, -1);
   autod->Open();
   CreateObject (CONS, 1270, 605, -1)
   ->Set(autod);
-  var autod = CreateObject (HNG2, 1400, 520, -1);
+  var autod = CreateObject (HNG3, 1400, 520, -1);
   autod->Open();
   CreateObject (CONS, 1530, 605, -1)
   ->Set(autod);
