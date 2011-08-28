@@ -51,8 +51,12 @@ protected func OpenMenu()
   if(!pClonk)
     return ScheduleCall(this, "OpenMenu", 1);
 
-  if(GetMenu(pClonk))
-    CloseMenu(pClonk);
+  for(var i = 0; i < GetPlayerCount(); i++)
+  {
+    var clnk = GetCursor(GetPlayerByIndex(i));
+    if(GetMenu(clnk))
+      CloseMenu(clnk);
+  }
 
   Message("", pClonk);
 
@@ -126,10 +130,23 @@ protected func OpenTeamMenu(id dummy, int iSelection)
   //Teams auflisten
   for(var j = 0; j < GetPlayerCount(); j++)
     AddMenuItem(Format("%s (%s)", GetTaggedPlayerName(GetPlayerByIndex(j)), GetTeamName(GetPlayerTeam(j))), "SwitchTeam", PCMK, pClonk, 0, GetPlayerByIndex(j));
+
   //Fertig
   AddMenuItem("$Finished$", "OpenMenu", CHOS, pClonk,0,0, "$Finished$",2,3);
   //Letzten Eintrag auswählen
   SelectMenuItem(iSelection, pClonk);
+
+  for(var j = 0; j < GetPlayerCount(); j++)
+  {
+    if(j == 0) continue;
+    //Für jeden Spieler das selbe Menü auch nochmal erstellen
+    var clnk = GetCursor(GetPlayerByIndex(j));
+    CreateMenu(GetID(), clnk, 0, 0, 0, 0, 1);
+    for(var k = 0; k < GetPlayerCount(); k++)
+    {
+      AddMenuItem(Format("%s (%s)", GetTaggedPlayerName(GetPlayerByIndex(k)), GetTeamName(GetPlayerTeam(k))), 0, PCMK, clnk, 0, GetPlayerByIndex(k));
+    }
+  }
 }
 
 protected func SwitchTeam(id dummy, int iPlr)
@@ -146,6 +163,13 @@ protected func SwitchTeam(id dummy, int iPlr)
 
   //Geräusch
   Sound("Grab", 1,0,0,1);
+
+  for(var j = 0; j < GetPlayerCount(); j++)
+  {
+    if(j == 0) continue;
+    CloseMenu(GetCursor(GetPlayerByIndex(j)));
+  }
+
   //Menü wieder eröffnen
   OpenTeamMenu(0, iPlr);
   return true;
