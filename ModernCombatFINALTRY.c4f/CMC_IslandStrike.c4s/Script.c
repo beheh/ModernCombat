@@ -286,19 +286,19 @@ func CreateInterior()
   CreateObject(GAT1, 4215, 515, -1)->Connect(doorw);
 
   //Tore und Konsolen
-  var autod = CreateObject (HNG2, 2780, 620, -1);
+  var autod = CreateObject (HNG3, 2780, 620, -1);
   autod->Open();
   CreateObject (CONS, 2880, 615, -1)->Set(autod);
   
-  autod = CreateObject (HNG2, 3570, 500, -1);
+  autod = CreateObject (HNG3, 3570, 500, -1);
   autod->Open();
   CreateObject (CONS, 3695, 465, -1)->Set(autod);
   
-  autod = CreateObject (HNG2, 5532, 570, -1);
+  autod = CreateObject (HNG3, 5532, 570, -1);
   autod->Open();
   CreateObject (CONS, 5630, 530, -1)->Set(autod);
   
-  autod = CreateObject (HNG2, 6370, 620, -1);
+  autod = CreateObject (HNG3, 6370, 620, -1);
   autod->Open();
   CreateObject (CONS, 6270, 615, -1)->Set(autod);
 

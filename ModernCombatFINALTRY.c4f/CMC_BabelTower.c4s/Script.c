@@ -323,35 +323,28 @@ func CreateInterior()
   CreateObject(GDDR, 695, 1610, -1)->SetColorDw(HSL(145, 210, 100, 127));
 
   //Tore und Konsolen
-  var autod = CreateObject (HNG2, 450, 1250, -1);
+  var autod = CreateObject (HNG3, 450, 1250, -1);
   autod->Close();
   CreateObject(CONS, 560, 1245, -1)->Set(autod);
-  
-  autod = CreateObject (HNG2, 720, 1250, -1);
+  autod = CreateObject (HNG3, 720, 1250, -1);
   autod->Open();
   CreateObject(CONS, 610, 1245, -1)->Set(autod);
-  
-  autod = CreateObject (HNG2, 450, 1370, -1);
+  autod = CreateObject (HNG3, 450, 1370, -1);
   autod->Open();
   CreateObject(CONS, 385, 1365, -1)->Set(autod);
-  
-  autod = CreateObject (HNG2, 720, 1370, -1);
+  autod = CreateObject (HNG3, 720, 1370, -1);
   autod->Close();
   CreateObject(CONS, 780, 1365, -1)->Set(autod);
-  
-  autod = CreateObject (HNG2, 460, 1800, -1);
+  autod = CreateObject (HNG3, 460, 1800, -1);
   autod->Close();
   CreateObject(CONS, 545, 1795, -1)->Set(autod);
-  
-  autod = CreateObject (HNG2, 460, 1940, -1);
+  autod = CreateObject (HNG3, 460, 1940, -1);
   autod->Open();
   CreateObject(CONS, 490, 1935, -1)->Set(autod);
-  
-  autod = CreateObject (HNG2, 710, 1800, -1);
+  autod = CreateObject (HNG3, 710, 1800, -1);
   autod->Close();
   CreateObject(CONS, 625, 1795, -1)->Set(autod);
-  
-  autod = CreateObject (HNG2, 710, 1940, -1);
+  autod = CreateObject (HNG3, 710, 1940, -1);
   autod->Open();
   CreateObject(CONS, 680, 1935, -1)->Set(autod);
 
@@ -359,11 +352,10 @@ func CreateInterior()
   autod = CreateObject (HNG1, 270, 1950, -1);
   autod->Open();
   CreateObject(CONS, 115, 1935, -1)->Set(autod);
-  
   autod = CreateObject (HNG1, 900, 1950, -1);
   autod->Open();
   CreateObject (CONS, 1045, 1935, -1)->Set(autod);
-  
+
   //Selbstschussanlagen und Konsolen
   //Basis 2
   aSelfDefense[0] = CreateObject (SEGU, 465, 698, -1);
