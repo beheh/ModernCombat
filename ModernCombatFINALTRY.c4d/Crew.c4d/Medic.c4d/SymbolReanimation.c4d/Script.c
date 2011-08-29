@@ -31,12 +31,19 @@ public func Update()
   SetClrModulation(RGBa(255,255,255,BoundBy(InvertA1(percent,255),0,255)));
   time -= 3;
 
+  //Symbol aktualisieren
   if(FindContents(CDBT, target))
   {
-    SetGraphics("Arrow", this);
+    if(target->~RejectReanimation())
+      SetGraphics("NegativeArrow", this);
+    else
+      SetGraphics("Arrow", this);
   }
   else
   {
-    SetGraphics(0, this);
+    if(target->~RejectReanimation())
+      SetGraphics("Negative", this);
+    else
+      SetGraphics(0, this);
   }
 }
