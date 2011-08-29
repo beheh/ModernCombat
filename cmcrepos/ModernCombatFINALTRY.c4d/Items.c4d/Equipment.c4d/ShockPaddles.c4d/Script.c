@@ -93,43 +93,47 @@ func Use(caller)
 						  Find_Allied(GetOwner(caller)),	//Verbündet?
 						  Find_NoContainer()))			//Im Freien?
   {
-    obj = obj->GetClonk();
+    //Reanimation abgelehnt?
+    if(!obj->~RejectReanimation())
+    {
+      obj = obj->GetClonk();
 
-    //Patient wiederbeleben
-    StopFakeDeath(obj);
-    //Energieschub
-    DoEnergy(20, obj);
-    //Restliche Energie mit Heilungseffekt übergeben
-    AddEffect("ShockPaddlesHeal",obj,20,1,0,GetID(),HealAmount(),HealRate());
+      //Patient wiederbeleben
+      StopFakeDeath(obj);
+      //Energieschub
+      DoEnergy(20, obj);
+       //Restliche Energie mit Heilungseffekt übergeben
+      AddEffect("ShockPaddlesHeal",obj,20,1,0,GetID(),HealAmount(),HealRate());
+  
+      //Effekte
+      Sound("CDBT_Shock.ogg");
+      Sound("ClonkCough*.ogg", 0, obj);
+      obj->Sparks(10,RGB(250,150,0), (GetDir(Contained())*2-1)*HandX()*2/1000);
+      obj->Sparks(5,RGB(100,100,250), (GetDir(Contained())*2-1)*HandX()*2/1000);
+      obj->AddLightFlash(40+Random(20),0,0,RGB(0,140,255));
 
-    //Effekte
-    Sound("CDBT_Shock.ogg");
-    Sound("ClonkCough*.ogg", 0, obj);
-    obj->Sparks(10,RGB(250,150,0), (GetDir(Contained())*2-1)*HandX()*2/1000);
-    obj->Sparks(5,RGB(100,100,250), (GetDir(Contained())*2-1)*HandX()*2/1000);
-    obj->AddLightFlash(40+Random(20),0,0,RGB(0,140,255));
+      //Eventnachricht: Spieler reanimiert Spieler
+      EventInfo4K(0,Format("$MsgReanimation$",GetTaggedPlayerName(GetOwner(caller)), GetTaggedPlayerName(GetOwner(obj))),FKDT);
 
-    //Eventnachricht: Spieler reanimiert Spieler
-    EventInfo4K(0,Format("$MsgReanimation$",GetTaggedPlayerName(GetOwner(caller)), GetTaggedPlayerName(GetOwner(obj))),FKDT);
+      //Achievement-Fortschritt (Shock Therapist)
+      DoAchievementProgress(1, AC04, GetOwner(caller));
 
-    //Achievement-Fortschritt (Shock Therapist)
-    DoAchievementProgress(1, AC04, GetOwner(caller));
+      //Punkte bei Belohnungssystem (Reanimation)
+      DoPlayerPoints(ReanimationPoints(), RWDS_TeamPoints, GetOwner(caller), caller, IC04);
 
-    //Punkte bei Belohnungssystem (Reanimation)
-    DoPlayerPoints(ReanimationPoints(), RWDS_TeamPoints, GetOwner(caller), caller, IC04);
+      //Energie entladen
+      charge = BoundBy(charge-20,0,MaxEnergy());
 
-    //Energie entladen
-    charge = BoundBy(charge-20,0,MaxEnergy());
-
-    return 1;
+      return 1;
+    }
   }
 
   obj=0;
 
   //Keine Patienten, dann eben Feinde suchen
   if(FindObject2(Find_InRect(-10,-10,20,20),Find_OCF(OCF_Alive),	//Am Leben?
-					    Find_NoContainer(),		//Im Freien?
-					    Find_Exclude(caller)))	//Nicht der Schocker selbst?
+  					Find_NoContainer(),		//Im Freien?
+  					Find_Exclude(caller)))		//Nicht der Schocker selbst?
   {
     obj = FindObjects(Find_InRect(-10,-10,20,20),Find_OCF(OCF_Alive),Find_NoContainer(),Find_Exclude(caller));
     for(var target in obj)

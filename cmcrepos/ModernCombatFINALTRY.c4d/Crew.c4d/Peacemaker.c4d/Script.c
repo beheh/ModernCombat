@@ -102,7 +102,7 @@ public func GetReanimationTarget(pFrom, & body, & defi, fUnderAttack)
 	if (fUnderAttack)
     distance = 50;
 	body = FindObject2(Find_Func("IsFakeDeath"), Find_Category(C4D_Living), Find_Distance(distance, AbsX(GetX(pFrom)), AbsY(GetY(pFrom))), Find_Allied(GetOwner(pFrom)), Sort_Distance(AbsX(GetX(pFrom)), AbsY(GetY(pFrom))));
-	if (body)
+	if(body && Contained(body) && !(Contained(body)->~RejectReanimation()))
 	{
 		if (ContentsCount(CDBT, pFrom))
 		{

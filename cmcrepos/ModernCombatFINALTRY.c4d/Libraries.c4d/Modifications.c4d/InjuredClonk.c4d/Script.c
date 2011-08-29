@@ -5,6 +5,7 @@
 static const FKDT_SuicideTime = 15; //Standardzeit bei Fake Death in Sekunden
 
 local clonk,oldvisrange,oldvisstate,killmsg,szTipp,idTipp;
+local rejected, symbol;
 
 public func AimAngle()		{}
 public func ReadyToFire()	{}
@@ -21,6 +22,23 @@ protected func Initialize()
   _inherited();
 }
 
+/* Ablehnung */
+
+public func RejectReanimation()	{return rejected;}
+
+private func Reject()
+{
+  rejected = !rejected;
+
+  //Symbol umschalten
+  if(rejected)
+    symbol->SetGraphics("Negative");
+  else
+    symbol->SetGraphics("");
+
+  DeathMenu();
+}
+
 /* Erstellung */
 
 public func Set(object pClonk)
@@ -31,7 +49,8 @@ public func Set(object pClonk)
   SetYDir(GetYDir(pClonk));
 
   //Reanimationszeichen erstellen
-  CreateObject(SM01,0,0,GetOwner(pClonk))->Set(this);
+  symbol = CreateObject(SM01,0,0,GetOwner(pClonk));
+  symbol->Set(this);
 
   //CTF-Flagge entfernen
   for(var content in FindObjects(Find_ActionTarget(pClonk),Find_ID(FLA2)))
@@ -138,8 +157,16 @@ private func DeathMenu()
 
   AddMenuItem(Format("$DeathCounter$", 1 + TimeLeft() / 35),"", NONE, clonk, 0, 0, "", 512, 0, 0);	//Counter
 
-  if (FindObject(SICD) && TimeLeft() < (FKDT_SuicideTime - 1) * 35)
-    AddMenuItem("$Suicide$", "Suicide", SM06, clonk, 0, 0, "$SuicideDesc$");
+  if (TimeLeft() < (FKDT_SuicideTime - 1) * 35)
+  {
+    if(!RejectReanimation())
+      AddMenuItem("$ReanimationAllow$", "Reject", SM01, clonk, 0, 0, "$ReanimationDescAllow$");		//Ablehnen-Menüpunkt
+    else
+      AddMenuItem("$ReanimationDisallow$", "Reject", SM06, clonk, 0, 0, "$ReanimationDescDisallow$");
+
+    if (FindObject(SICD))
+      AddMenuItem("$Suicide$", "Suicide", PSTL, clonk, 0, 0, "$SuicideDesc$");				//Selbstmord-Menüpunkt
+  }
 
   if (GetType(killmsg) == C4V_String)
   {
@@ -177,7 +204,6 @@ private func DeathMenu()
           if (GetType(szString) == C4V_String)
             AddMenuItem(szString, "", NONE, clonk, 0, 0, "", 512);
   }
-
   if(selection >= 0) SelectMenuItem(selection, clonk);
 }
 
@@ -298,16 +324,20 @@ public func Reanimation()
 {
   //Kein Clonk?
   if(!clonk) return;
+  //Reanimation abgelehnt?
+  if(RejectReanimation()) return;
 
   //Clonk "auswerfen"
-  if(Contained(clonk) == this) {
-   Exit(clonk,0,GetObjHeight(clonk)/2);
-   var i = 0;
-   while(Stuck(clonk) && i <= 20) {
-   	SetPosition(GetX(clonk), GetY(clonk)+1, clonk);
-   	i++;
-   }
-   if(Stuck(clonk)) SetPosition(GetX(clonk), GetY(clonk)-i, clonk);
+  if(Contained(clonk) == this)
+  {
+    Exit(clonk,0,GetObjHeight(clonk)/2);
+    var i = 0;
+    while(Stuck(clonk) && i <= 20)
+    {
+      SetPosition(GetX(clonk), GetY(clonk)+1, clonk);
+      i++;
+    }
+    if(Stuck(clonk)) SetPosition(GetX(clonk), GetY(clonk)-i, clonk);
   }
 
   //Besitztümer weitergeben
