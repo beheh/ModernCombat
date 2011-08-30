@@ -192,9 +192,6 @@ public func UpdateScoreboard()
   //Wird noch eingestellt
   if (FindObject(CHOS)) return;
 
-  if (IsFulfilled())
-    return;
-
   //Titelzeile
   SetScoreboardData(SBRD_Caption, SBRD_Caption, GetName());
 
