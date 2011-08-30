@@ -28,16 +28,16 @@ protected func Initialize()
   CharEqS = CreateObject(CHAR, 11, 3, GetOwner());
   CharEqS->Set(61);
 
-  CharsClonkAmmo = [CreateObject(CHAR, 20, 5, GetOwner()), CreateObject(CHAR, 30, 5, GetOwner()), CreateObject(CHAR, 40, 5, GetOwner())];
+  CharsClonkAmmo = [CreateObject(CHAR, 23, 4, GetOwner()), CreateObject(CHAR, 37, 4, GetOwner()), CreateObject(CHAR, 51, 4, GetOwner())];
   for(var char in CharsClonkAmmo)
-    char->SetClrModulation(RGB(199,235,235));
+    char->SetClrModulation(RGB(0, 255, 255));
 
-  ResizeChars(CharsClonkAmmo, 500);
+  ResizeChars(CharsClonkAmmo, 700);
 
-  CharsGrenade = [CreateObject(CHAR, -105, -28, GetOwner()), CreateObject(CHAR, -95, -30, GetOwner()), CreateObject(CHAR, -115, -30, GetOwner())];
+  CharsGrenade = [CreateObject(CHAR, -105, -28, GetOwner()), CreateObject(CHAR, -95, -30, GetOwner()), CreateObject(CHAR, -115, -31, GetOwner())];
   CharsGrenade[0]->Set(120, RGB(255, 255, 0));
   CharsGrenade[2]->Set(1337);
-  ResizeChars(CharsGrenade, 500);
+  ResizeChars(CharsGrenade, 650);
 
   rechargebar = CreateObject(RBAR, 0, -15, GetOwner()); 
 
@@ -180,7 +180,7 @@ protected func UpdateHUD(object weapon, object pClonk)
       {
         for(var char in CharsClonkAmmo)
         {
-          char->Set(GetChar(cAmmo, i), RGB(199,235,235));
+          char->Set(GetChar(cAmmo, i), RGB(0, 255, 255));
           i++;
         }
       }
