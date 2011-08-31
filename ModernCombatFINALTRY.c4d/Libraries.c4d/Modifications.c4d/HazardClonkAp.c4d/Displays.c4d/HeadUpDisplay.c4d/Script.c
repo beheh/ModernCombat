@@ -34,7 +34,7 @@ protected func Initialize()
 
   ResizeChars(CharsClonkAmmo, 700);
 
-  CharsGrenade = [CreateObject(CHAR, -105, -28, GetOwner()), CreateObject(CHAR, -95, -30, GetOwner()), CreateObject(CHAR, -115, -31, GetOwner())];
+  CharsGrenade = [CreateObject(CHAR, -105, -25, GetOwner()), CreateObject(CHAR, -95, -27, GetOwner()), CreateObject(CHAR, -115, -28, GetOwner())];
   CharsGrenade[0]->Set(120, RGB(255, 255, 0));
   CharsGrenade[2]->Set(1337);
   ResizeChars(CharsGrenade, 650);
