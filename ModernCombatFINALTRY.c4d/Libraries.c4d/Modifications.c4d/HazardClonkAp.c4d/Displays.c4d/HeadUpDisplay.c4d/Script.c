@@ -42,8 +42,6 @@ protected func Initialize()
   rechargebar = CreateObject(RBAR, 0, -15, GetOwner()); 
 
   SetVisibility(VIS_Owner);
-
-  CreateObject(CMPS, 0, 0, GetOwner());
 }
 
 public func ResizeChars(chars, int size)
