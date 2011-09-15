@@ -1,6 +1,6 @@
 /*-- Punktetabelle --*/
 
-//Stellt die standardliche Punktevergabe für Aktionen bereit und ist beliebig erweiter- und veränderbar.
+//Stellt die standardmäßige Punktevergabe für Aktionen bereit und ist beliebig erweiter- und veränderbar.
 
 #strict 2
 

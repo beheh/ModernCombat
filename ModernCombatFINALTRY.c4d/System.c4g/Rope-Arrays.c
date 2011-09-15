@@ -1,26 +1,31 @@
 /*-- Arrays --*/
 
+//Erweiterte Array-Funktionen.
+
 #strict 2
 
-// Testet ob ein Wert im Array drin ist
+
+/* Test auf Wert in Array */
+
 global func InArray(Test, array aArray)
 {
   return GetIndexOf(Test, aArray);
 }
 
-// Sucht einen Wert im Array und löscht diesen
+/* Suchen und löschen innerhalb eines Arrays */
+
 global func RemoveArrayValue(Test, array &aArray)
 {
   // Aus der Liste löschen
   var i = GetLength(aArray), iLength = GetLength(aArray);
   while(i--)
-  	if(aArray[i] == Test)
-   	{
-      		aArray[i] = 0;
-      		while(++i < iLength) aArray[i-1] = aArray[i];
-      		SetLength(aArray, iLength-1);
-      		return 1;
-    	}
+  if(aArray[i] == Test)
+  {
+    aArray[i] = 0;
+    while(++i < iLength) aArray[i-1] = aArray[i];
+    SetLength(aArray, iLength-1);
+    return 1;
+  }
   return 0;
 }
 
@@ -39,7 +44,8 @@ global func ShuffleArray(array& aArray)
   return aShuffled;
 }
 
-//Löscht ein Item aus einem Array
+/* Löschen eines Items in einem Array */
+
 global func DeleteArrayItem(iNumber, &aArray)
 {
  var temp=[];
@@ -50,12 +56,11 @@ global func DeleteArrayItem(iNumber, &aArray)
   if(cnt>iNumber)dif=-1;
   temp[cnt+dif]=aArray[cnt];
  } 
- 
+
  aArray=temp;
  return aArray;
 }
 
-//Löscht ein Item aus einem Array, kann möglicherweise umsortieren
 global func DeleteArrayItem2(iNumber,&aArray)
 {
  //Ein ganz leeres Array?
@@ -63,7 +68,7 @@ global func DeleteArrayItem2(iNumber,&aArray)
  //Wenn das letzte Element ist diese Funktion auch nciht toller.
  if(GetLength(aArray)-1==iNumber)
  return DeleteArrayItem(iNumber, aArray);
- 
+
  //Los!
  var last=aArray[GetLength(aArray)-1];
  aArray[GetLength(aArray)-1]=0;
@@ -144,11 +149,3 @@ global func Test()
  for(var integer in res)
  Log("%d",integer);
 }*/
-
-
-
-
-
-
-
-

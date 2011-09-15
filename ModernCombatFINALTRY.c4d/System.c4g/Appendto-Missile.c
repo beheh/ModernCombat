@@ -1,6 +1,6 @@
 /*-- Rakete --*/
 
-//Raketenfehler in Hazardgegenstück überladen und korrigiert.
+//Korrigiert den hazard-eigenen Raketenwerfer für CMC.
 
 #strict 2
 #appendto MISS
