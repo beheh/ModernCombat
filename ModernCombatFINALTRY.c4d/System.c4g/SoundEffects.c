@@ -1,6 +1,9 @@
 /*-- Soundeffekte --*/
 
+//Stellt das Echosystem zur Verfügung.
+
 #strict 2
+
 
 /* Echo */
 
