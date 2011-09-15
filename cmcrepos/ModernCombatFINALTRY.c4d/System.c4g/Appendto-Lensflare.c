@@ -1,5 +1,7 @@
 /*-- Lensflare --*/
 
+//Modifiziert den clonkeigenen Blendeffekt für CMC.
+
 #strict 2
 #appendto LENS
 

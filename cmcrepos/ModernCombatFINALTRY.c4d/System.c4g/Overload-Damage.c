@@ -1,6 +1,6 @@
 /*-- Globale Schadensfunktionen --*/
 
-//Erweitert das Schadenssystem.
+//Modifiziert das hazard-eigene Schadenssystem für CMC.
 
 #strict 2
 

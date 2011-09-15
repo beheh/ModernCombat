@@ -1,5 +1,7 @@
 /*-- Standardklassen des Klassenwählers --*/
 
+//Stellt die Standardklassen für CMC bereit.
+
 #strict 2
 #appendto MCSL
 

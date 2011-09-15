@@ -1,11 +1,14 @@
 /*-- Effektsystem --*/
 
+//Übergibt dem Effektmanager Standardverhalten bei Effektstufeneinstellungen.
+
 #strict 2
 
 static EFSM_CurrentData;
 static EFSM_Init;
 static EFSM_Level;
 static EFSM_Dark;
+
 
 /* Effect-Konstanten */
 

@@ -1,6 +1,9 @@
 /*-- Mapping-Tools --*/
 
+//Erweitert Mapping-Werkzeug um weitere Scriptbefehle.
+
 #strict 2
+
 
 global func DrawRamp(string szMat, int iX, int iY, int iW, int iH)
 {

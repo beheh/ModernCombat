@@ -1,5 +1,7 @@
 /*-- Laser --*/
 
+//Modifiziert den hazard-eigenen Lasereffekt für CMC.
+
 #strict 2
 #appendto LASR
 
