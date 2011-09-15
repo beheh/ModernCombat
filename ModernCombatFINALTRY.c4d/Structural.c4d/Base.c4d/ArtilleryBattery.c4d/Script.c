@@ -172,7 +172,7 @@ public func Shoot()
   for(var i = 0; i < 14; i++)
     CreateParticle("Smoke",iX,iY+RandomX(-20,20),0,0,RandomX(50,100),RGB(96,96,96));
   if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("GunSmoke",4,10,0,0,500,100,RGBa(255,255,255,0));
-  MuzzleFlash(RandomX(30,75),this,iX,iY,GetR(pCannon));
+  MuzzleFlash(RandomX(50,80),this,iX,iY,GetR(pCannon),RGB(255,100,100),5);
   Sound("ATBY_Fire*.ogg");
   Echo("RTLR_Echo.ogg");
 }

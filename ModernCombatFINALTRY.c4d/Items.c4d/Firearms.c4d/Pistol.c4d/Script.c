@@ -83,7 +83,7 @@ public func Fire1()
   var ammo = SALaunchBullet(x,y,GetController(user),angle+RandomX(-1,+1),250,400,GetFMData(FM_Damage));
 
   //Effekte
-  SAMuzzleFlash(RandomX(25,30),user,x,y,angle);
+  MuzzleFlash(RandomX(35,40),user,x,y,angle,0, 4);
   SABulletCasing(x/3,y/3,-dir*14*(Random(1)+1),-(13+Random(2)),4);
   Sound("PSTL_Fire*.ogg", 0, ammo);
   Echo("PSTL_Echo.ogg");
