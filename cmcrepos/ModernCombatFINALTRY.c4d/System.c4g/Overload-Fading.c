@@ -1,6 +1,9 @@
 /* Fade-Effekte */
 
+//Verbesserter Einblendeffekt.
+
 #strict 2
+
 
 /* Jetzt wirklich keinen Frame sichtbar */
 
