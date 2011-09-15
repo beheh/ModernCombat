@@ -7,24 +7,31 @@
 
 /* Mündungsfeuer */
 
-global func MuzzleFlash(int iSize, object pClonk, int iX, int iY, int iAngle, int iColor)
+global func MuzzleFlash(int iSize, object pClonk, int iX, int iY, int iAngle, int iColor, int type)
 {
+  //Ziel lokalisieren
   if(!pClonk) pClonk = this;
 
-  CreateParticle("MuzzleFlash3",iX,iY,
+  //Mündungsfeuer erstellen
+  if(!type) 
+    type = 3;
+  CreateParticle(Format("MuzzleFlash%d", type),iX,iY,
   		+Sin(iAngle,500),
   		-Cos(iAngle,500),
   		iSize*5,iColor,pClonk);
+
+  //Nichts weiter bei keiner Dunkelheit unternehmen
   if(!IsDark())
     return;
 
+  //Farbe für Licht setzen sofern nicht gegeben
   if(!iColor)
     iColor = RGB(255,255,255);
-
   var r,g,b,a;
   SplitRGBaValue(iColor,r,g,b,a);
   iColor = RGBa(r,g,b,Min(a+65,255));
 
+  //Lichtkegel erzeugen
   AddLightFlash(iSize*25, iX, iY, iColor);
 }
 

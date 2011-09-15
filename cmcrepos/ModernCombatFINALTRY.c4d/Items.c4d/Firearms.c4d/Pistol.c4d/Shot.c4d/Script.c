@@ -622,11 +622,6 @@ public func CustomBulletCasing(int iX, int iY, int iXDir, int iYDir, int iSize, 
   return BulletCasing(iX,iY,iXDir,iYDir,iSize,iColor);
 }
 
-public func CustomMuzzleFlash(int iSize, object pTarget, int iX, int iY, int iAngle, int iColor)
-{
-  return MuzzleFlash(iSize,pTarget,iX,iY,iAngle,iColor);
-}
-
 public func FMMod(int iType,Data)
 {
   return Data;

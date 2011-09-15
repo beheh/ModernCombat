@@ -1554,19 +1554,6 @@ global func SABulletCasing(int iX, int iY, int iXDir, int iYDir, int iSize, int 
   return ammoid->CustomBulletCasing(GetX()+iX,GetY()+iY,iXDir,iYDir,iSize,iColor);
 }
 
-/* Mündungsfeuer erstellen */
-
-global func SAMuzzleFlash(int iSize, object pTarget, int iX, int iY, int iAngle, int iColor, id idType)
-{
-  //ID des Projektils identifizieren
-  var ammoid = idType;
-  //Standard nutzen wenn nicht gefunden
-  if(!ammoid) ammoid = SHTX;
-
-  //Mündungsfeuer erstellen
-  return ammoid->CustomMuzzleFlash(iSize,pTarget,GetX()+iX,GetY()+iY,iAngle,iColor);
-}
-
 func Hit()
 {
   Sound("WPN2_Hit*.ogg");
