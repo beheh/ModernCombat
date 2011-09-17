@@ -466,8 +466,8 @@ public func ChooserFinished()
   if(FindObject(GBAS))
   {
    //Zielobjekte
-   AddAssaultTarget(CMSN, 1610, 600, 500, 1, "$Flag1$", 0, [[1680, 540], [1340, 500]]);
-   AddAssaultTarget(CMSN, 4400, 600, 500, 2, "$Flag3$", 1, [[4330, 540], [4690, 500]]);
+   AddAssaultTarget(CMSN, 1610, 600, 500, 1, "$Flag1$", 0, [[1350, 500], [1600, 400], [1670, 540]]);
+   AddAssaultTarget(CMSN, 4400, 600, 500, 2, "$Flag3$", 1, [[4340, 540], [4410, 400], [4660, 500]]);
   }
 
   //OP-Spielziel
@@ -476,8 +476,8 @@ public func ChooserFinished()
    //Flaggenposten
    aFlag[0] = CreateObject(OFPL,1320,500,NO_OWNER);
    aFlag[0] -> AddSpawnPoint(1500, 590);
-   aFlag[0] -> AddSpawnPoint(1610, 390);
-   aFlag[0] -> AddSpawnPoint(1680, 530);
+   aFlag[0] -> AddSpawnPoint(1600, 390);
+   aFlag[0] -> AddSpawnPoint(1670, 530);
    if(aTeams[1] == true)
    {
     aFlag[0]->Set("$Flag1$",100,2);
@@ -489,14 +489,14 @@ public func ChooserFinished()
    }
 
    aFlag[1] = CreateObject(OFPL,2990,380,NO_OWNER);
-   aFlag[1] -> AddSpawnPoint(2850,520);
-   aFlag[1] -> AddSpawnPoint(2965,450);
+   aFlag[1] -> AddSpawnPoint(2890,520);
+   aFlag[1] -> AddSpawnPoint(3040,450);
    aFlag[1] -> AddSpawnPoint(3090,520);
    aFlag[1]->Set("$Flag2$",0,2);
 
    aFlag[2] = CreateObject(OFPL,4685,500,NO_OWNER);
-   aFlag[2] -> AddSpawnPoint(4330, 530);
-   aFlag[2] -> AddSpawnPoint(4400, 390);
+   aFlag[2] -> AddSpawnPoint(4340, 530);
+   aFlag[2] -> AddSpawnPoint(4410, 390);
    aFlag[2] -> AddSpawnPoint(4510, 590);
    if(aTeams[2] == true)
    {
@@ -527,22 +527,25 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   //DM/LMS/CTF/HTF/MR-Spielziel
   if(FindObject(GTDM) || FindObject(GLMS) || FindObject(GCTF) || FindObject(GHTF) || FindObject(GMNR))
   {
+   var rand = Random(3);
    if(iTeam == 1)
    {
-    var rand = Random(2);
     if(!rand)
      { iX = 1350; iY = 490; }
+    if(!--rand)
+     { iX = 1600; iY = 390; }
     if(!--rand)
      { iX = 1670; iY = 530; }
     return(1);
    }
    if(iTeam == 2)
    {
-    var rand = Random(2);
     if(!rand)
-     { iX = 4660; iY = 490; }
-    if(!--rand)
      { iX = 4340; iY = 530; }
+    if(!--rand)
+     { iX = 4410; iY = 390; }
+    if(!--rand)
+     { iX = 4660; iY = 490; }
     return(1);
    }
   }
