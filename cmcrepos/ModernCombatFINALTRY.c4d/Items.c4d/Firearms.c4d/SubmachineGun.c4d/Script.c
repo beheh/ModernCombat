@@ -126,7 +126,7 @@ public func Fire1()
   var ammo = SALaunchBullet(x,y,GetController(user),angle+RandomX(-3,+3),270,550,GetFMData(FM_Damage));
 
   //Effekte
-  MuzzleFlash(RandomX(15,25),user,x,y,angle,0, 4);
+  MuzzleFlash(RandomX(30,35),user,x,y,angle,0, 4);
   SABulletCasing(x/3,y/3,-dir*14,-(14),4);
   Sound("SMGN_Fire*.ogg", 0, ammo);
   Echo("SMGN_Echo.ogg");
