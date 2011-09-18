@@ -274,22 +274,25 @@ public func Recharge(int part, int max)
   return 1;
 }
 
-public func Ammo(int iAmmoCount, int iAmmoLoad, string szName, bool fShow)
+public func Ammo(int iAmmoCount, int iAmmoLoad, string szName, bool fShow, int dwColorW, int dwColorM)
 {
   var wAmmo = Format("%03d", iAmmoCount);
   var i = 0;
+  //dwColorW zur Färbung der ersten Zahl (Momentan geladene Munition)
+  if(!dwColorW) dwColorW = ColorEmpty()*(!iAmmoCount);
+  
   for(var char in CharsWAmmo)
   {
-    char->Set(GetChar(wAmmo, i), ColorEmpty()*(!iAmmoCount));
+    char->Set(GetChar(wAmmo, i), dwColorW);
     i++;
   }
 
   var mAmmo = Format("%03d", iAmmoLoad);
-  //Log("%d, %03d", iAmmoLoad, iAmmoLoad);
   var i = 0;
   for(var char in CharsMaxAmmo)
   {
-    char->Set(GetChar(mAmmo, i));
+    //dwColorM zur Färbung der zweiten Zahl (Maximale Munition)
+    char->Set(GetChar(mAmmo, i), dwColorM);
     i++;
   }
 

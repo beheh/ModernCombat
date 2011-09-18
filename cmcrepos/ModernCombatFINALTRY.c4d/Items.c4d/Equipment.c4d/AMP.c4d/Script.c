@@ -14,6 +14,7 @@ public func RefillTime()		{return 20;}
 public func TeamSupportTime()		{return 60;}
 
 public func IsEquipment()       	{return !NoAmmo();}
+public func MinValue()			{return 49;}
 public func AI_Inventory(object pClonk)	{return true;}
 
 
@@ -170,4 +171,3 @@ protected func Selection()
 {
   Sound("FAPK_Charge.ogg", false, this);
 }
-

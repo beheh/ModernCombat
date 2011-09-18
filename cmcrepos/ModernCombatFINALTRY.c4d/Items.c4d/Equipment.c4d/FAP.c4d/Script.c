@@ -10,9 +10,7 @@ public func HandSize()		{return 1000;}
 
 public func StartPoints()	{return 150;}
 public func MaxPoints()		{return 150;}
-
 public func RefillTime()	{return 30;}
-
 public func TeamSupportTime()	{return 20;}
 
 local iHealed;
