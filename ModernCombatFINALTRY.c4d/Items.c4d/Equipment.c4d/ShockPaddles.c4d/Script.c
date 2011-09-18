@@ -250,8 +250,9 @@ func CustomHUD()	{return true;}
 
 func UpdateHUD(object pHUD)
 {
+  var color = RGB(255, 0, 0)*(Inside(charge, 0, 9));
   pHUD->Charge(charge,MaxEnergy());
-  pHUD->Ammo(charge, MaxEnergy(), GetName(), true);
+  pHUD->Ammo(charge, MaxEnergy(), GetName(), true, color);
   if(GetAction() == "Reload")
     pHUD->Recharge(GetActTime(), 34);
 }
