@@ -12,6 +12,7 @@ local CharsWAmmo,
 local lItem;
 
 public func ColorEmpty()	{return RGB(255, 0, 0);}
+public func ColorLow()		{return RGB(255, 150, 0);}
 
 
 /* Initialisierung */
@@ -148,18 +149,23 @@ protected func UpdateHUD(object weapon, object pClonk)
   {
     //Munition in der Waffe
     var weaponAmmo = GetAmmo(weapon->~GetFMData(FM_AmmoID), weapon);
+    var maxAmmo = weapon->~GetFMData(FM_AmmoLoad);
     var wAmmo = Format("%03d", weaponAmmo);
+    var clr = ColorEmpty()*(!weaponAmmo);
+    if(Inside(weaponAmmo, 1, maxAmmo/3))
+      clr = ColorLow();
+
     var i = 0;
+    if(weapon)
     for(var char in CharsWAmmo)
     {
-      char->Set(GetChar(wAmmo, i), ColorEmpty()*(!weaponAmmo));
+      char->Set(GetChar(wAmmo, i), clr);
       i++;
     }
 
     i = 0;
 
     //Maximal ladbare Munition
-    var maxAmmo = weapon->~GetFMData(FM_AmmoLoad);
     var mAmmo = Format("%03d", maxAmmo);
     for(var char in CharsMaxAmmo)
     {
