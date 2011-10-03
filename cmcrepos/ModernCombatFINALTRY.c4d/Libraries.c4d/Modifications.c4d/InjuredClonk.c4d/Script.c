@@ -11,7 +11,7 @@ public func AimAngle()		{}
 public func ReadyToFire()	{}
 public func IsAiming()		{}
 public func MenuQueryCancel()	{return true;}
-
+public func BlockTime()		{return 35*3;}
 
 /* Initialisierung */
 
@@ -34,9 +34,17 @@ private func Reject()
   if(rejected)
     symbol->SetGraphics("Negative");
   else
+  {
+    AddEffect("BlockRejectReanimation", this, 101, BlockTime(), this);
     symbol->SetGraphics("");
-
+  }
   DeathMenu();
+}
+
+public func FxBlockRejectReanimationTimer(object target, int nr, int time)
+{
+  if(time >= BlockTime())
+    return -1;
 }
 
 /* Erstellung */
@@ -159,12 +167,17 @@ private func DeathMenu()
 
   if (TimeLeft() < (FKDT_SuicideTime - 1) * 35)
   {
-    if(!RejectReanimation())
-      AddMenuItem("$ReanimationAllow$", "Reject", SM01, clonk, 0, 0, "$ReanimationDescAllow$");		//Ablehnen-Menüpunkt
+    var blocktime;
+    if((blocktime = GetEffect("BlockRejectReanimation", this, 0, 6)))
+      AddMenuItem(Format("$ReanimationBlocked$", (BlockTime()-blocktime)/35), 0, SM01, clonk, 0, 0, "$ReanimationDescAllow$");
     else
-      AddMenuItem("$ReanimationDisallow$", "Reject", SM06, clonk, 0, 0, "$ReanimationDescDisallow$");
-
-    if (FindObject(SICD))
+    {
+      if(!RejectReanimation())
+        AddMenuItem("$ReanimationAllow$", "Reject", SM01, clonk, 0, 0, "$ReanimationDescAllow$");	//Ablehnen-Menüpunkt
+      else
+        AddMenuItem("$ReanimationDisallow$", "Reject", SM06, clonk, 0, 0, "$ReanimationDescDisallow$");
+    }
+    if(FindObject(SICD))
       AddMenuItem("$Suicide$", "Suicide", PSTL, clonk, 0, 0, "$SuicideDesc$");				//Selbstmord-Menüpunkt
   }
 
