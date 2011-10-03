@@ -2,6 +2,7 @@
 Title=Clonk <c ff0000>eliminiert</c>!
 Suicide=Selbstmord
 SuicideDesc=Gibt dem Clonk den Todesstoß.
+ReanimationBlocked=<c 777777>Reanimation erlaubt</c> (%d)
 ReanimationAllow=Reanimation erlaubt
 ReanimationDescAllow=Erlaube die Reanimation durch Verbündete.
 ReanimationDisallow=<c 777777>Reanimation abgelehnt</c>
