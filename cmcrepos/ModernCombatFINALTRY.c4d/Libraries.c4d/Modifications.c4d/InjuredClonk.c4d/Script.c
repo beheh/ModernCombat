@@ -168,8 +168,11 @@ private func DeathMenu()
   if (TimeLeft() < (FKDT_SuicideTime - 1) * 35)
   {
     var blocktime;
-    if((blocktime = GetEffect("BlockRejectReanimation", this, 0, 6)))
+    if(GetEffect("BlockRejectReanimation", this))
+    {
+      blocktime = GetEffect("BlockRejectReanimation", this, 0, 6);
       AddMenuItem(Format("$ReanimationBlocked$", (BlockTime()-blocktime)/35), 0, SM01, clonk, 0, 0, "$ReanimationDescAllow$");
+    }
     else
     {
       if(!RejectReanimation())
