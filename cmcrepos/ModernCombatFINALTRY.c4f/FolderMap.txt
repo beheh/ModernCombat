@@ -12,116 +12,124 @@ FullscreenBG=1
 
 	[Scenario]
 	File=CMC_BroadcastStation.c4s
-	Area=25,156,256,26
+	Area=24,152,256,26
 	OverlayImage=Overlay2.png
 
 
 	[Scenario]
 	File=CMC_EndlessOutpost.c4s
-	Area=25,196,256,26
+	Area=24,188,256,26
 	OverlayImage=Overlay3.png
 
 
 	[Scenario]
 	File=CMC_BabelTower.c4s
-	Area=25,236,256,26
+	Area=24,224,256,26
 	OverlayImage=Overlay4.png
 
 
 	[Scenario]
 	File=CMC_Dust.c4s
-	Area=25,276,256,26
+	Area=24,260,256,26
 	OverlayImage=Overlay5.png
 
 
 	[Scenario]
 	File=CMC_Yuki.c4s
-	Area=25,316,256,26
+	Area=24,296,256,26
 	OverlayImage=Overlay6.png
 
 
 	[Scenario]
 	File=CMC_IslandStrike.c4s
-	Area=25,356,256,26
+	Area=24,332,256,26
 	OverlayImage=Overlay7.png
 
 
 	[Scenario]
 	File=CMC_AtlanticCrisis.c4s
-	Area=25,396,256,26
+	Area=24,368,256,26
 	OverlayImage=Overlay8.png
 
 
 	[Scenario]
 	File=CMC_GroundZero.c4s
-	Area=25,436,256,26
+	Area=24,404,256,26
 	OverlayImage=Overlay9.png
 
 
 	[Scenario]
 	File=CMC_Firewood.c4s
-	Area=25,476,256,26
+	Area=24,440,256,26
 	OverlayImage=Overlay10.png
 
 
 	[Scenario]
 	File=CMC_MagmaZone.c4s
-	Area=291,116,256,26
+	Area=24,476,256,26
 	OverlayImage=Overlay11.png
+
+
 
 
 	[Scenario]
 	File=CMC_DoubleTrouble.c4s
-	Area=291,156,256,26
+	Area=291,116,256,26
 	OverlayImage=Overlay12.png
 
 
 	[Scenario]
 	File=CMC_BridgeOnslaught.c4s
-	Area=291,196,256,26
+	Area=291,152,256,26
 	OverlayImage=Overlay13.png
 
 
 	[Scenario]
 	File=CMC_BlackThunder.c4s
-	Area=291,236,256,26
+	Area=291,188,256,26
 	OverlayImage=Overlay14.png
 
 
 	[Scenario]
 	File=CMC_Laguna.c4s
-	Area=291,276,256,26
+	Area=291,224,256,26
 	OverlayImage=Overlay15.png
 
 
 	[Scenario]
 	File=CMC_ColdCash.c4s
-	Area=291,316,256,26
+	Area=291,260,256,26
 	OverlayImage=Overlay16.png
 
 
 	[Scenario]
 	File=CMC_Oasis.c4s
-	Area=291,356,256,26
+	Area=291,296,256,26
 	OverlayImage=Overlay17.png
 
 
 	[Scenario]
 	File=CMC_Base1337.c4s
-	Area=291,396,256,26
+	Area=291,332,256,26
 	OverlayImage=Overlay18.png
 
 
 	[Scenario]
 	File=CMC_FusionReactor.c4s
-	Area=291,436,256,26
+	Area=291,368,256,26
 	OverlayImage=Overlay19.png
 
 
 	[Scenario]
 	File=CMC_OperationMétro.c4s
-	Area=291,476,256,26
+	Area=291,404,256,26
 	OverlayImage=Overlay20.png
+
+
+	[Scenario]
+	File=CMC_PortArcford.c4s
+	Area=291,440,256,26
+	OverlayImage=Overlay21.png
 
 
 	[Scenario]
