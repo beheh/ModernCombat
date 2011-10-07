@@ -378,6 +378,9 @@ public func Reanimation()
   SetFoW(oldvisstate,GetOwner(clonk));
   SetPlrViewRange(oldvisrange,clonk);
 
+  //Achievement-Fortschritt (Lucky Patient)
+  DoAchievementProgress(1, AC27, GetOwner(clonk));
+
   RemoveObject();
 }
 
