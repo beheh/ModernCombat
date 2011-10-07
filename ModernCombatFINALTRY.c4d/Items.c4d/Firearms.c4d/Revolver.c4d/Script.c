@@ -1,51 +1,62 @@
 /*-- Revolver --*/
 
-#strict
+#strict 2
 #include WPN2
 
 local casings, casings2;
 
-public func HandSize()		{return(800);}
-public func HandX()		{return(4000);}
-public func HandY()		{return(-700);}
-public func BarrelYOffset()	{return(-5000);}
-public func SelectionTime()	{return(10);}
+public func HandSize()		{return 800;}
+public func HandX()		{return 4000;}
+public func HandY()		{return -1300;}
+public func BarrelYOffset()	{return -5000;}
+public func SelectionTime()	{return 10;}
 
+
+/* Nahkampfangriff */
+
+public func GetMCData(int data)
+{
+  if(data == MC_CanStrike)	return 1;
+  if(data == MC_Damage)		return 10;
+  if(data == MC_Recharge)	return 35;
+  if(data == MC_Power)		return 18;
+  if(data == MC_Angle)		return 45;
+}
 
 /* Kugeln */
 
 public func FMData1(int data)
 {
-  if(data == FM_Name)		return("$Bullets$");
+  if(data == FM_Name)		return "$Bullets$";
     
-  if(data == FM_AmmoID)		return(STAM);
-  if(data == FM_AmmoLoad)	return(6);
-  if(data == FM_AmmoUsage)	return(1);
+  if(data == FM_AmmoID)		return STAM;
+  if(data == FM_AmmoLoad)	return 6;
+  if(data == FM_AmmoUsage)	return 1;
 
-  if(data == FM_Recharge)	return(10);
+  if(data == FM_Recharge)	return 10;
 
-  if(data == FM_SingleReload)	return(7);
-  if(data == FM_Reload)		return(90);
-  if(data == FM_PrepareReload)	return(20);
-  if(data == FM_FinishReload)	return(20);
+  if(data == FM_SingleReload)	return 7;
+  if(data == FM_Reload)		return 90;
+  if(data == FM_PrepareReload)	return 20;
+  if(data == FM_FinishReload)	return 20;
 
-  if(data == FM_Damage)		return(20);
+  if(data == FM_Damage)		return 20;
   
-  if(data == FM_Slot)		return(1);
+  if(data == FM_Slot)		return 1;
   
-  if(data == FM_SpreadAdd)	return(100);
-  if(data == FM_StartSpread)	return(10);
-  if(data == FM_MaxSpread)	return(200);
+  if(data == FM_SpreadAdd)	return 100;
+  if(data == FM_StartSpread)	return 10;
+  if(data == FM_MaxSpread)	return 200;
 
-  return(Default(data));
+  return Default(data);
 }
 
 /* Kugeln - Einzelfeuer */
 
 public func FMData1T1(int data)
 {
-  if(data == FT_Name)		return("$Single$");
-  return(FMData1(data));
+  if(data == FT_Name)		return "$Single$";
+  return FMData1(data);
 }
 
 public func Fire1T1()
@@ -55,9 +66,9 @@ public func Fire1T1()
 
 public func BotData1(int data)
 {
-  if(data == BOT_Range)		return(400);
-  if(data == BOT_Power)		return(BOT_Power_2);
-  return(Default(data));
+  if(data == BOT_Range)		return 400;
+  if(data == BOT_Power)		return BOT_Power_2;
+  return Default(data);
 }
 
 /* Kugeln - Schuss */
@@ -86,32 +97,32 @@ public func Fire1()
 
 public func FMData2(int data)
 {
-  if(data == FM_Name)		return("$TracerDart$");
+  if(data == FM_Name)		return "$TracerDart$";
     
-  if(data == FM_AmmoID)		return(STAM);
-  if(data == FM_AmmoLoad)	return(1);
+  if(data == FM_AmmoID)		return STAM;
+  if(data == FM_AmmoLoad)	return 1;
 
-  if(data == FM_Reload)		return(80);
+  if(data == FM_Reload)		return 80;
 
-  if(data == FM_Auto)		return(false);
+  if(data == FM_Auto)		return false;
   
-  if(data == FM_Damage)		return(0);
+  if(data == FM_Damage)		return 0;
   
-  if(data == FM_Slot)		return(2);
+  if(data == FM_Slot)		return 2;
 
-  if(data == FM_SpreadAdd) return(60);
-  if(data == FM_StartSpread) return(10);
-  if(data == FM_MaxSpread) return(200);
+  if(data == FM_SpreadAdd)	return 60;
+  if(data == FM_StartSpread)	return 10;
+  if(data == FM_MaxSpread)	return 200;
 
-  return(Default(data));
+  return Default(data);
 }
 
 /* Peilsender - Einzelfeuer */
 
 public func FMData2T1(int data)
 {
-  if(data == FT_Name)		return("$Single$");
-  return(FMData2(data));
+  if(data == FT_Name)		return "$Single$";
+  return FMData2(data);
 }
 
 public func Fire2T1()
