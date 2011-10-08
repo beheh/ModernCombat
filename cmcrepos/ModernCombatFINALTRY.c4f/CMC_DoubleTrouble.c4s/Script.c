@@ -281,10 +281,10 @@ func CreateDecoration()
 
   //Schilder
   CreateObject(ESGN, 160, 675, -1);
-  CreateObject(ESGN, 650, 590, -1);
+  CreateObject(ESGN, 660, 590, -1);
   CreateObject(MSGN, 710, 700, -1);
   CreateObject(MSGN, 940, 700, -1);
-  CreateObject(ESGN, 990, 590, -1);
+  CreateObject(ESGN, 980, 590, -1);
   CreateObject(ESGN, 1605, 675, -1);
 
   //Ventillatoren
