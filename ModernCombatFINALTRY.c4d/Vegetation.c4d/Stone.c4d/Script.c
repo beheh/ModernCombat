@@ -31,6 +31,15 @@ func Damage()
   }
 }
 
+/* Aussehen festlegen */
+
+public func Set(int i)
+{
+  var phase = i;
+  SetPhase(phase);
+  SetSolidMask(phase * 32, 0, 32, 32);
+}
+
 /* Aufschlag */
 
 protected func Hit()
