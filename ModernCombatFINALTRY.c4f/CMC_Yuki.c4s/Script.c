@@ -498,11 +498,11 @@ func CreateDecoration()
   CreateObject(GSBL, 1500, 660, -1);
 
   //Steine
-  CreateObject(STNE, 100, 735, -1);
-  CreateObject(STNE, 450, 310, -1);
-  CreateObject(STNE, 510, 800, -1);
-  CreateObject(STNE, 1220, 840, -1);
-  CreateObject(STNE, 1800, 490, -1);
+  CreateObject(STNE, 100, 735, -1)->Set(2);
+  CreateObject(STNE, 450, 310, -1)->Set(3);
+  CreateObject(STNE, 510, 800, -1)->Set(0);
+  CreateObject(STNE, 1220, 840, -1)->Set(5);
+  CreateObject(STNE, 1800, 490, -1)->Set(2);
 }
 
 func CreateOptionalFeatures()

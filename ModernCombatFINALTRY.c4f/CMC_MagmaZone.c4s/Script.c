@@ -80,10 +80,10 @@ func CreateInterior()
 
   //Steine
   CreateObject(STNE, 170, 435, -1);
-  CreateObject(STNE, 400, 655, -1);
-  CreateObject(STNE, 830, 165, -1);
-  CreateObject(STNE, 1140, 435, -1);
-  CreateObject(STNE, 1645, 495, -1);
+  CreateObject(STNE, 400, 655, -1)->Set(2);
+  CreateObject(STNE, 830, 165, -1)->Set(0);
+  CreateObject(STNE, 1140, 435, -1)->Set(2);
+  CreateObject(STNE, 1645, 495, -1)->Set(0);
   CreateObject(STNE, 2270, 375, -1);
 
   //Kisten

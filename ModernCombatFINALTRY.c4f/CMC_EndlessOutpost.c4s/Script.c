@@ -259,8 +259,8 @@ func CreateInterior()
   CreateObject(_WIN, 1442, 140, -1);
 
   //Steine
-  CreateObject(STNE, 220, 690, -1);
-  CreateObject(STNE, 735, 665, -1);
+  CreateObject(STNE, 220, 690, -1)->Set(1);
+  CreateObject(STNE, 735, 665, -1)->Set(5);
 
   //Hydrauliküren
   aDoor[00] = CreateObject(SEDR,1225, 560,-1);
@@ -558,14 +558,12 @@ func CreateDecoration()
   tree->SetCon(56);
   CreateObject(BSH2,674,640,-1);
   CreateObject(TRB4,655,641,-1);
-  CreateObject(STNE,735,665,-1);
   CreateObject(BSH2,149,666,-1);
   tree = CreateObject(TRE4,144,661,-1);
   tree->SetCon(30);
   CreateObject(BSH2,153,667,-1);
   tree = CreateObject(TRE4,176,666,-1);
   tree->SetCon(11);
-  CreateObject(STNE,220,690,-1);
   tree = CreateObject(BSH2,297,666,-1);
   tree->SetCon(10);
   tree = CreateObject(GRAS,288,661,-1);

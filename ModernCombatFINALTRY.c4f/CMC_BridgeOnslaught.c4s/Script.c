@@ -230,8 +230,8 @@ func CreateInterior()
   CreateObject (HNG2, 2555, 440, -1);
 
   //Steine
-  CreateObject(STNE, 1290, 800, -1);
-  CreateObject(STNE, 1450, 800, -1);
+  CreateObject(STNE, 1290, 800, -1)->Set(0);
+  CreateObject(STNE, 1450, 800, -1)->Set(1);
 
   //Hydrauliktüren
   var door = CreateObject(SLDR, 270, 530, -1);
