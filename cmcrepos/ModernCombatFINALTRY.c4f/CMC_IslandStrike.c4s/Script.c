@@ -475,10 +475,10 @@ func CreateDecoration()
 
   //Steine
   CreateObject(STNE, 1460, 560, -1);
-  CreateObject(STNE, 2030, 340, -1);
-  CreateObject(STNE, 3320, 370, -1);
-  CreateObject(STNE, 5815, 350, -1);
-  CreateObject(STNE, 6640, 670, -1);
+  CreateObject(STNE, 2030, 340, -1)->Set(2);
+  CreateObject(STNE, 3320, 370, -1)->Set(1);
+  CreateObject(STNE, 5815, 350, -1)->Set(0);
+  CreateObject(STNE, 6640, 670, -1)->Set(5);
   CreateObject(STNE, 7410, 570, -1);
 
   //Dekoschleusen

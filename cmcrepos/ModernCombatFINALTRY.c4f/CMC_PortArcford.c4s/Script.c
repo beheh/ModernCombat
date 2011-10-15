@@ -157,13 +157,13 @@ func CreateInterior()
 
   //Steine
   CreateObject(STNE, 760, 310, -1);
-  CreateObject(STNE, 1260, 370, -1);
-  CreateObject(STNE, 1290, 350, -1);
-  CreateObject(STNE, 1660, 470, -1);
-  CreateObject(STNE, 1740, 490, -1);
-  CreateObject(STNE, 2765, 480, -1);
-  CreateObject(STNE, 3115, 400, -1);
-  CreateObject(STNE, 3480, 430, -1);
+  CreateObject(STNE, 1260, 370, -1)->Set(1);
+  CreateObject(STNE, 1290, 350, -1)->Set(2);
+  CreateObject(STNE, 1665, 472, -1)->Set(1);
+  CreateObject(STNE, 1740, 490, -1)->Set(3);
+  CreateObject(STNE, 2765, 480, -1)->Set(4);
+  CreateObject(STNE, 3115, 400, -1)->Set(1);
+  CreateObject(STNE, 3480, 430, -1)->Set(4);
 
   //Sandsackbarrieren
   CreateObject(SBBA, 1890, 480, -1);

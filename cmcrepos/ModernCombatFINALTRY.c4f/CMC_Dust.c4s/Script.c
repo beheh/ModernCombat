@@ -85,8 +85,8 @@ func CreateInterior()
   CreateObject(GSBL, 385, 360, -1)->AutoRespawn();
 
   //Steine
-  CreateObject(STNE, 540, 380, -1);
-  CreateObject(STNE, 1290, 820, -1);
+  CreateObject(STNE, 540, 380, -1)->Set(0);
+  CreateObject(STNE, 1290, 820, -1)->Set(2);
 
   //Sounds
 

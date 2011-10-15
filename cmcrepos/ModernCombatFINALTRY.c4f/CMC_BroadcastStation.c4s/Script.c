@@ -148,9 +148,10 @@ func CreateInterior()
   door->Opened();
 
   //Steine
-  CreateObject(STNE, 1015, 820, -1);
-  CreateObject(STNE, 1580, 345, -1);
-  CreateObject(STNE, 1715, 430, -1);
+  CreateObject(STNE, 140, 360, -1);
+  CreateObject(STNE, 1015, 820, -1)->Set(1);
+  CreateObject(STNE, 1580, 345, -1)->Set(2);
+  CreateObject(STNE, 1715, 430, -1)->Set(3);
   CreateObject(STNE, 1805, 800, -1);
 
   //Stahlbrücken
