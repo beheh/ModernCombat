@@ -25,6 +25,7 @@ NONE4=Think highly of your <c 33ccff>environment</c> and use furniture against e
 NONE5=Lay down by hitting [<c 33ccff>Double Stop</c> + <c 33ccff>Dig</c>] to take cover from enemy fire or to move through narrow spaces.
 NONE6=The <c 33ccff>Guard</c> order in the context menu allows your clonk to automatically search and reanimate friendly wounded, and that pretty fast.
 NONE7=Show medics that you do not want to be reanimated by clicking on <c 33ccff>Allow Reanimation</c> in the context menu.
+NONE8=Pistols and revolvers are always <c 33ccff>faster</c> drawn then any other weapon can be reloaded.
 
 #Weapons
 ASTR0=Use <c 33ccff>single shots</c> to shoot effective bullets at enemies far away with the assault rifle.

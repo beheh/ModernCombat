@@ -25,6 +25,7 @@ NONE4=Nutze und achte auf deine <c 33ccff>Umgebung</c>, setze Einrichtungen gege
 NONE5=Lege dich mit [<c 33ccff>Doppelstop</c> + <c 33ccff>Graben</c>] hin um vor feindlichem Feuer in Deckung zu gehen oder Engpässe zu passieren.
 NONE6=<c 33ccff>Bewachen</c> im Kontext lässt den Clonk unter anderem sehr viel schneller automatisch Schwerverletzte durchsuchen und reanimieren.
 NONE7=Du kannst Sanitätern signalisieren, das du eine Reanimation nicht willst, indem du <c 33ccff>Reanimation erlaubt</c> im Kontextmenü anwählst.
+NONE8=Pistolen und Revolver lassen sich immer <c 33ccff>schneller</c> ziehen als jedwede andere Waffe nachladen.
 
 #Waffen
 ASTR0=Nutze den <c 33ccff>Einzelfeuermodus</c> des Sturmgewehrs, um präzise Schüsse auf weit entfernte Gegner abzufeuern.
