@@ -19,6 +19,7 @@ protected func Initialize()
 {
   //Anderer Todesschrei zur Unterscheidung zwischen Fake Death und "echtem" Ableben
   Sound("ClonkDie*.ogg");
+
   _inherited();
 }
 
@@ -56,6 +57,9 @@ public func Set(object pClonk)
   SetXDir(GetXDir(pClonk));
   SetYDir(GetYDir(pClonk));
 
+  //Hinweissound für Schwerverletzten
+  Sound("FKDT_FatalHit*.ogg", false, pClonk, 100, GetOwner(pClonk)+1);
+
   //Reanimationszeichen erstellen
   symbol = CreateObject(SM01,0,0,GetOwner(pClonk));
   symbol->Set(this);
@@ -88,6 +92,9 @@ public func Set(object pClonk)
 
   //Soundloop starten
   Sound("FKDT_ClonkDown.ogg", false, pClonk, 100, GetOwner(pClonk)+1, +1);
+
+  //Bildschirmfärbung
+  ScreenRGB(pClonk, RGB(255), 120, 4, false, SR4K_LayerDamage);
 
   //Verzögert Auswahlmenü öffnen
   AddEffect("IntFakeDeathMenu", this, 1, 10, this);
