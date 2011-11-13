@@ -104,7 +104,11 @@ private func Remove()
   Sparks(2,RGB(0,200));
   if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",4, 10, 0, 0, 120, 140, RGBa(255,255,255,100), RGBa(255,255,255,130));
 
-  FadeOut();
+  //Verschwinden
+  if(OnFire())
+    RemoveObject();
+  else
+    FadeOut();
 }
 
 /* Aufnahme */
@@ -119,8 +123,20 @@ public func Entrance(object pObj)
 
 protected func Damage(int iChange) 
 {
-  //Zündung durch Schaden
-  if(GetDamage() < 40 || activated) return ;
+  //Kein Schaden nehmen wenn gehalten und eventuelles Feuer löschen
+  if(Contained())
+  {
+    if(OnFire())
+    {
+      Extinguish();
+      return;
+    }
+    else
+    return;
+  }
+
+  //Ansonsten Zündung durch Schaden
+  if(GetDamage() < 40 || activated) return;
 
   //Effekte
   Sparks(2,RGB(250,100));

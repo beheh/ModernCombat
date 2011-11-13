@@ -29,7 +29,10 @@ public func Fused()
   if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",8, 50, 0, 0, 120, 140, RGBa(255,255,255,100), RGBa(255,255,255,130));
 
   //Verschwinden
-  FadeOut();
+  if(OnFire())
+    RemoveObject();
+  else
+    FadeOut();
 }
 
 /* Rauchen */
@@ -49,8 +52,20 @@ func Smoke()
 
 protected func Damage(int iChange) 
 {
-  //Zündung durch Schaden
-  if(GetDamage() < 10 || activated) return ;
+  //Kein Schaden nehmen wenn gehalten und eventuelles Feuer löschen
+  if(Contained())
+  {
+    if(OnFire())
+    {
+      Extinguish();
+      return;
+    }
+    else
+    return;
+  }
+
+  //Ansonsten Zündung durch Schaden
+  if(GetDamage() < 10 || activated) return;
 
   //Effekte
   Sparks(2,RGB(250,100));
