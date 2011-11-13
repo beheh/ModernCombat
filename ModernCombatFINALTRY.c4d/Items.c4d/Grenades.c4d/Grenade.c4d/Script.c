@@ -381,9 +381,21 @@ public func AddThrowDelay(object pObj)
 
 protected func Damage(int iChange) 
 {
-  //Zündung durch Schaden
-  if(GetDamage() < 10 || activated) return ;
-  Fused();
+  //Kein Schaden nehmen wenn gehalten und eventuelles Feuer löschen
+  if(Contained())
+  {
+    if(OnFire())
+    {
+      Extinguish();
+      return;
+    }
+    else
+    return;
+  }
+
+  //Ansonsten Zündung durch Schaden
+  if(GetDamage() < 10 || activated) return;
+    Fused();
 }
 
 public func OnDmg(int iDmg, int iType)
