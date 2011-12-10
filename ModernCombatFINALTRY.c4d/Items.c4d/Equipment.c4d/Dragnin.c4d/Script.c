@@ -147,8 +147,9 @@ func FxDragninHealTimer(object pTarget, int iEffectNumber, int iEffectTime)
     return -1;
   }
   //Bildschirm Effekt
-  if(!(iEffectTime % 20)) {
-  	ScreenRGB(pTarget,RGBa(0, 230, 255, 190), 80, 3,false, SR4K_LayerMedicament, 200);
+  if(!(iEffectTime % 20))
+  {
+    ScreenRGB(pTarget,RGBa(0, 230, 255, 190), 80, 3,false, SR4K_LayerMedicament, 200);
   }
 }
 
@@ -163,6 +164,8 @@ func FxDragninHealDamage(target, no, dmg, dmgtype)
 
 public func FxDragninHealStop(object pTarget, no, reason, temp)
 {
+  if(temp) return;
+
   //Lähmung rückgängig machen
   ResetPhysical(pTarget, "Walk");
   ResetPhysical(pTarget, "Jump");
