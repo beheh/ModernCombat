@@ -21,21 +21,21 @@ protected func Initialize()
 {
   SetPosition(155, -80); 
 
-  CharsWAmmo = [CreateObject(CHAR, -105, 0, GetOwner()), CreateObject(CHAR, -85, 0, GetOwner()), CreateObject(CHAR, -65, 0, GetOwner())];
+  CharsWAmmo = [CreateObject(HCHA, -105, 0, GetOwner()), CreateObject(HCHA, -85, 0, GetOwner()), CreateObject(HCHA, -65, 0, GetOwner())];
 
-  CharsMaxAmmo = [CreateObject(CHAR, -35, 3, GetOwner()), CreateObject(CHAR, -20, 3, GetOwner()), CreateObject(CHAR, -5, 3, GetOwner())];
+  CharsMaxAmmo = [CreateObject(HCHA, -35, 3, GetOwner()), CreateObject(HCHA, -20, 3, GetOwner()), CreateObject(HCHA, -5, 3, GetOwner())];
   ResizeChars(CharsMaxAmmo, 750);
 
-  CharEqS = CreateObject(CHAR, 11, 3, GetOwner());
+  CharEqS = CreateObject(HCHA, 11, 3, GetOwner());
   CharEqS->Set(61);
 
-  CharsClonkAmmo = [CreateObject(CHAR, 23, 4, GetOwner()), CreateObject(CHAR, 37, 4, GetOwner()), CreateObject(CHAR, 51, 4, GetOwner())];
+  CharsClonkAmmo = [CreateObject(HCHA, 23, 4, GetOwner()), CreateObject(HCHA, 37, 4, GetOwner()), CreateObject(HCHA, 51, 4, GetOwner())];
   for(var char in CharsClonkAmmo)
     char->SetClrModulation(RGB(0, 255, 255));
 
   ResizeChars(CharsClonkAmmo, 700);
 
-  CharsGrenade = [CreateObject(CHAR, -105, -25, GetOwner()), CreateObject(CHAR, -95, -27, GetOwner()), CreateObject(CHAR, -115, -28, GetOwner())];
+  CharsGrenade = [CreateObject(HCHA, -105, -25, GetOwner()), CreateObject(HCHA, -95, -27, GetOwner()), CreateObject(HCHA, -115, -28, GetOwner())];
   CharsGrenade[0]->Set(120, RGB(255, 255, 0));
   CharsGrenade[2]->Set(1337);
   ResizeChars(CharsGrenade, 650);
