@@ -109,6 +109,13 @@ func CreateInterior()
 
   //Sounds
 
+  //Lava
+  CreateObject(SE4K, 150, 660, -1)->Set("Lava*",1200,350);
+  CreateObject(SE4K, 710, 660, -1)->Set("Lava*",1200,350);
+  CreateObject(SE4K, 1200, 580, -1)->Set("Lava*",1200,350);
+  CreateObject(SE4K, 1730, 500, -1)->Set("Lava*",1200,350);
+  CreateObject(SE4K, 2260, 310, -1)->Set("Lava*",1200,350);
+
   //Erdrutsche
   CreateObject(SE4K, 470, 480, -1)->Set("FallingDirt*.ogg",800,250);
   CreateObject(SE4K, 1200, 200, -1)->Set("FallingDirt*.ogg",800,250);
