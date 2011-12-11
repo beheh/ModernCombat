@@ -332,3 +332,27 @@ global func LimitString(string &szString, int iLimit)
 
   return true;
 }
+
+/* Bei Entfernung alle Zeichen mitlöschen */
+
+public func Destruction()
+{
+  for(var char in CharsWAmmo)
+  {
+    RemoveObject(char);
+  }
+  for(var char in CharsMaxAmmo)
+  {
+    RemoveObject(char);
+  }
+  for(var char in CharsClonkAmmo)
+  {
+    RemoveObject(char);
+  }
+  for(var char in CharsGrenade)
+  {
+    RemoveObject(char);
+  }
+  RemoveObject(CharEqS);
+  RemoveObject(rechargebar);
+}
