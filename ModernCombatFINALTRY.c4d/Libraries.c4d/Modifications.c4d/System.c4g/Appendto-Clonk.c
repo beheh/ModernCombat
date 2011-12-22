@@ -118,6 +118,25 @@ private func Building()
   return 1;
 }
 
+private func WalkSound()
+{
+  if(Contained()) return;
+  Sound("ClonkStep*.ogg", 0, 0, 40);
+  return 1;
+}
+
+private func CrawlStartSound()
+{
+  Sound("ClonkFall*.ogg", 0, 0, 40);
+  return 1;
+}
+
+private func CrawlSound()
+{
+  Sound("ClonkCrawl*.ogg", 0, 0, 40);
+  return 1;
+}
+
 /* Assistkiller abspeichern */
 
 public func DoHitPoints(int iPoints)
@@ -627,4 +646,32 @@ protected func ContextStatistics(object pCaller)
   var db = FindObject(RWDS);
   if(db) return db->Activate(GetOwner(pCaller));
   return false;
+}
+
+/* Steuerung */
+
+protected func ControlUp()
+{
+  //Sprunggeräusch
+  if(!Contained())
+    if(WildcardMatch(GetAction(), "*Walk*"))
+      ScheduleCall(0, "JumpSound", 1);
+  //Steuerung an Effekt weitergeben
+  if(Control2Effect("ControlUp"))
+    return 1;
+  //Steuerung an Pferd weiterleiten
+  if(IsRiding())
+    return(GetActionTarget()->~ControlUp(this()));
+  //Bei JnR Delfinsprung
+  if(GetPlrCoreJumpAndRunControl(GetController()))
+    DolphinJump();
+  //Keine überladene Steuerung
+  return;
+}
+
+protected func JumpSound()
+{
+  if(!Contained())
+    if(GetCommand() != "Enter")
+      Sound("ClonkFall*.ogg", 0, 0, 60);
 }
