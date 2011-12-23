@@ -133,7 +133,7 @@ private func CrawlStartSound()
 
 private func CrawlSound()
 {
-  Sound("ClonkCrawl*.ogg", 0, 0, 40);
+  Sound("ClonkCrawl*.ogg", 0, 0, 20);
   return 1;
 }
 
