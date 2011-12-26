@@ -10,6 +10,9 @@ AmmoBag=Ammobag
 CtrlInventoryDesc=Inventory
 QuickInventory=QuickInventory
 ContentsCount=%d items
+
+#Settings
+
 Settings=Settings
 CtxInvLockOn=Inventory Lock
 CtxInvLockOff=<c 777777>Inventory Lock</c>
