@@ -50,6 +50,7 @@ static const RDIO_TrackCount = 6;
 
 /*----- Callbacks -----*/
 
+protected func IsRadio()		{return true;}
 public func IsMachine()			{return true;}
 public func MaxDamage()			{return 200;}
 public func IsThreat()			{return true;}
@@ -833,6 +834,17 @@ public func RemoveSpotlights()
 
 /* Radio (de)aktivieren */
 
+protected func StopSong(int iPlr)
+{
+  Sound("RadioMusicTitle_O0*.ogg", false, this, 0, iPlr, -1);
+}
+
+protected func StartSong(int iPlrPlusOne)
+{
+  if(IsPlaying())
+    Sound(Format("RadioMusicTitle_O0%d.ogg",iTrack), false, this, 0, iPlrPlusOne, 1);
+}
+
 public func SwitchRadio()
 {
   if(IsPlaying())
@@ -844,8 +856,11 @@ public func SwitchRadio()
   }
   else
   {
-    SoundLevel(Format("RadioMusicTitle_O0%d.ogg", iTrack), 100, this);
-
+    for(var i = 0; i < GetPlayerCount(); i++)
+    {
+      if(!GetPlrExtraData(i, "CMC_RadioMusicMode"))
+        Sound(Format("RadioMusicTitle_O0%d.ogg",iTrack), false, this, 0, i+1, 1);
+    }
     fPlaying = true;
   }
 

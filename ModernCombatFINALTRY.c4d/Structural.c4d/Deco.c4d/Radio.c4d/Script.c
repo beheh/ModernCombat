@@ -7,6 +7,8 @@ local iTrack;
 
 static const RDIO_TrackCount = 6;
 
+protected func IsRadio()	{return true;}
+
 
 /* Initialisierung */
 
@@ -88,15 +90,27 @@ public func LastTrack()
   if(fOn) TurnOn();
 }
 
-protected func StartSong()
+protected func StartSong(int iPlrPlusOne)
 {
-  SoundLevel(Format("RadioMusicTitle_O0%d.ogg", iTrack), 100, this);
+  if(!IsPlaying())
+    return true;
+
+  if(!iPlrPlusOne)
+  {
+    for(var i = 0; i < GetPlayerCount(); i++)
+    {
+      if(!GetPlrExtraData(i, "CMC_RadioMusicMode"))
+      Sound(Format("RadioMusicTitle_O0%d.ogg",iTrack), false, this, 0, i+1, 1);
+    }
+  }
+  else
+    Sound(Format("RadioMusicTitle_O0%d.ogg",iTrack), false, this, 0, iPlrPlusOne, 1);
 }
 
-protected func StopSong()
+protected func StopSong(int iPlrPlusOne)
 {
   ClearScheduleCall(this, "StartSong");
-  Sound("RadioMusicTitle_O0*.ogg", false, this, 0, 0, -1);
+  Sound("RadioMusicTitle_O0*.ogg", false, this, 0, iPlrPlusOne, -1);
 }
 
 protected func Static()
