@@ -10,6 +10,9 @@ AmmoBag=Munitionsgürtel
 CtrlInventoryDesc=Inventar
 QuickInventory=QuickInventar
 ContentsCount=%d Objekte
+
+#Einstellungen
+
 Settings=Einstellungen
 CtxInvLockOn=Inventarsperre
 CtxInvLockOff=<c 777777>Inventarsperre</c>

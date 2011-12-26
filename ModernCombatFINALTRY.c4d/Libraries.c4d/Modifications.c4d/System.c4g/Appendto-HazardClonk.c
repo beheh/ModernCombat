@@ -781,28 +781,46 @@ protected func ContextHelpMessagesOff()
 protected func ContextSettings(object pCaller)
 {
   [$Settings$|Image=CSTR]
-  CreateMenu(CSTR, pCaller, pCaller, 0, "$Settings$", 0, C4MN_Style_Context, false);
+  if(GetMenu(pCaller) == CSTR)
+    var iSel = GetMenuSelection(pCaller);
+
+  //Einstellungsmenü erstellen
+  CreateMenu(CSTR, pCaller, pCaller, 0, "$Settings$", 0, C4MN_Style_Context, true);
+
+  //QuickInventar
   if(pCaller->QuickInventoryOff())
     AddMenuItem("$CtxQuickInventoryOff$", Format("SetQuickInventoryOn(Object(%d))", ObjectNumber(pCaller)), SM06, pCaller);
   else
     AddMenuItem("$CtxQuickInventoryOn$", Format("SetQuickInventoryOff(Object(%d))", ObjectNumber(pCaller)), SM05, pCaller);
+
+  //Hazard-Hilfsnachrichten
   if(pCaller->HelpMessagesOff())
     AddMenuItem("$CtxHelpMessagesOff$", Format("ContextHelpMessagesOn(Object(%d))", ObjectNumber(pCaller)), SM06, pCaller);
   else
     AddMenuItem("$CtxHelpMessagesOn$", Format("ContextHelpMessagesOff(Object(%d))", ObjectNumber(pCaller)), CXIN, pCaller);
+
+  //Inventarsperre
   if(pCaller->GetInvLockMode())
     AddMenuItem("$CtxInvLockOn$", Format("SwitchInventoryLockMode(Object(%d))", ObjectNumber(pCaller)), WPN2, pCaller);
   else
     AddMenuItem("$CtxInvLockOff$", Format("SwitchInventoryLockMode(Object(%d))", ObjectNumber(pCaller)), SM06, pCaller);
+
+  //Kompakt-Death-Menü
   if(pCaller->ShorterDeathMenu())
     AddMenuItem("$CtxShorterDMOn$", Format("SwitchDeathMenuMode(Object(%d))", ObjectNumber(pCaller)), FKDT, pCaller);
   else
     AddMenuItem("$CtxShorterDMOff$", Format("SwitchDeathMenuMode(Object(%d))", ObjectNumber(pCaller)), SM06, pCaller);
+
+  //Radiomusik
   if(pCaller->RadioMusicAct())
     AddMenuItem("$CtxRadioMusicOn$", Format("SwitchRadioMusicMode(Object(%d))", ObjectNumber(pCaller)), RDIO, pCaller);
   else
     AddMenuItem("$CtxRadioMusicOff$", Format("SwitchRadioMusicMode(Object(%d))", ObjectNumber(pCaller)), SM06, pCaller);
+
+  //Achievements zurücksetzen
   AddMenuItem("$CtxResetAch$", "ContextResetAch", RWDS, pCaller, 0, 0, "$CtxResetAch$");
+
+  SelectMenuItem(iSel, pCaller);
 
   return true;
 }
@@ -815,7 +833,7 @@ public func SwitchInventoryLockMode(object pCaller)
 }
 
 public func ShorterDeathMenu()	{return GetPlrExtraData(GetOwner(), "CMC_DeathMenuMode");}
-public func RadioMusicAct()	{return !GetPlrExtraData(GetOwner(), "CMC_RadioMusicMode");}
+public func RadioMusicAct()	{return !GetPlrExtraData(GetOwner(), "CMC_RadioMusicMode");} //CMC_RadioMusicMode = Wenn 0: an, wenn 1: aus
 
 public func SwitchDeathMenuMode(object pCaller)
 {
