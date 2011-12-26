@@ -165,10 +165,13 @@ private func DeathMenu()
   //Menü erstellen
   CreateMenu(FKDT, clonk, this, 0, Format("$Title$"), C4MN_Style_Dialog, true);				//Titelzeile
 
-  if (FindObject(SICD))											//Hinweis
-    AddMenuItem(Format("$Info$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);
-  else
-    AddMenuItem(Format("$Info2$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);
+  if(!clonk->ShorterDeathMenu())
+  {
+    if (FindObject(SICD))										//Hinweis
+      AddMenuItem(Format("$Info$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);
+    else
+      AddMenuItem(Format("$Info2$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);
+  }
 
   AddMenuItem(Format("$DeathCounter$", 1 + TimeLeft() / 35),"", NONE, clonk, 0, 0, "", 512, 0, 0);	//Counter
 
@@ -195,10 +198,11 @@ private func DeathMenu()
   {
     AddMenuItem("", "", NONE, clonk, 0, 0, "", 512, 0, 0);						//Leerzeile
     AddMenuItem(Format("$Killer$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);		//Titel
+
     AddMenuItem(killmsg, "", NONE, clonk, 0, 0, "", 512);						//Killerinformationen
   }
 
-  if (szTipp)
+  if (szTipp && !clonk->ShorterDeathMenu())
   {
     AddMenuItem("", "", NONE, clonk, 0, 0, "", 512, 0, 0);						//Leerzeile
     AddMenuItem(Format("{{%i}} $Tip$", idTipp),"", NONE, clonk, 0, 0, "", 512, 0, 0);			//Zufälliger Tipp

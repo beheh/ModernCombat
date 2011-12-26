@@ -794,7 +794,14 @@ protected func ContextSettings(object pCaller)
     AddMenuItem("$CtxInvLockOn$", Format("SwitchInventoryLockMode(Object(%d))", ObjectNumber(pCaller)), WPN2, pCaller);
   else
     AddMenuItem("$CtxInvLockOff$", Format("SwitchInventoryLockMode(Object(%d))", ObjectNumber(pCaller)), SM06, pCaller);
-
+  if(pCaller->ShorterDeathMenu())
+    AddMenuItem("$CtxShorterDMOn$", Format("SwitchDeathMenuMode(Object(%d))", ObjectNumber(pCaller)), FKDT, pCaller);
+  else
+    AddMenuItem("$CtxShorterDMOff$", Format("SwitchDeathMenuMode(Object(%d))", ObjectNumber(pCaller)), SM06, pCaller);
+  if(pCaller->RadioMusicAct())
+    AddMenuItem("$CtxRadioMusicOn$", Format("SwitchRadioMusicMode(Object(%d))", ObjectNumber(pCaller)), RDIO, pCaller);
+  else
+    AddMenuItem("$CtxRadioMusicOff$", Format("SwitchRadioMusicMode(Object(%d))", ObjectNumber(pCaller)), SM06, pCaller);
   AddMenuItem("$CtxResetAch$", "ContextResetAch", RWDS, pCaller, 0, 0, "$CtxResetAch$");
 
   return true;
@@ -805,6 +812,31 @@ public func SwitchInventoryLockMode(object pCaller)
   SetPlrExtraData(GetOwner(), "CMC_InvLockMode", !GetInvLockMode());
   Sound("Click", 1, 0,0, GetOwner()+1);
   ContextSettings(Par()); 
+}
+
+public func ShorterDeathMenu()	{return GetPlrExtraData(GetOwner(), "CMC_DeathMenuMode");}
+public func RadioMusicAct()	{return !GetPlrExtraData(GetOwner(), "CMC_RadioMusicMode");}
+
+public func SwitchDeathMenuMode(object pCaller)
+{
+  SetPlrExtraData(GetOwner(), "CMC_DeathMenuMode", !ShorterDeathMenu());
+  Sound("Click", 1, 0,0, GetOwner()+1);
+  ContextSettings(pCaller); 
+}
+
+public func SwitchRadioMusicMode(object pCaller)
+{
+  SetPlrExtraData(GetOwner(), "CMC_RadioMusicMode", RadioMusicAct());
+  Sound("Click", 1, 0,0, GetOwner()+1);
+  if(!RadioMusicAct())
+  {
+    for(var radio in FindObjects(Find_Func("IsRadio")))
+      radio->StopSong(GetOwner()+1);
+  }
+  else
+    for(var radio in FindObjects(Find_Func("IsRadio")))
+      radio->StartSong(GetOwner()+1);
+  ContextSettings(pCaller);
 }
 
 /* Objekt ablegen */
