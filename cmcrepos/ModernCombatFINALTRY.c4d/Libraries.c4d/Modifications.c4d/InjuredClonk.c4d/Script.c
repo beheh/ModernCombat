@@ -415,3 +415,8 @@ protected func Hit3()
 {
   Sound("ClonkImpact*.ogg");
 }
+
+protected func Hit()
+{
+  Sound("ClonkCrawl*.ogg", 0, 0, 50);
+}

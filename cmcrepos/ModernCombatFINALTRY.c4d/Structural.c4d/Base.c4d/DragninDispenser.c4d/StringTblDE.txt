@@ -1,4 +1,4 @@
-EnterEHP=Kein EHP!
+EnterEHP=Benötige EHP zum auffüllen.
 AlreadyCharging=Automat bereits belegt.
 NoChargeNeeded=EHP bereits voll.
-NotEnoughFunds=Nicht genug Credits!
+NotEnoughFunds=Nicht genug Geld!
