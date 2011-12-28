@@ -1,4 +1,4 @@
-EnterEHP=No FAP!
+EnterEHP=Need a FAP to refill.
 AlreadyCharging=Dispenser already in use.
 NoChargeNeeded=FAP already full.
-NotEnoughFunds=Not enough credits!
+NotEnoughFunds=Not enough money!
