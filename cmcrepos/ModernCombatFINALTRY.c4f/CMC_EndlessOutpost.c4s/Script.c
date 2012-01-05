@@ -465,8 +465,8 @@ func CreateDecoration()
 
   //Dekoschleusen
   CreateObject(GAT1, 925, 350, -1);
-  CreateObject(GAT1, 2200, 260, -1);
-  CreateObject(GAT1, 2200, 445, -1);
+  CreateObject(GAT1, 2670, 360, -1);
+  CreateObject(GAT1, 2770, 360, -1);
 
   //Lüftungsgitter
   CreateObject(ENGT, 1430, 440, -1);

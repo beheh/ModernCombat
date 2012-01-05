@@ -238,9 +238,6 @@ func CreateDecoration()
   CreateObject(VENT, 1500, 490, -1)->SetCon(60);
   CreateObject(VENT, 4040, 490, -1)->SetCon(60);
 
-  //Dekoschleuse
-  CreateObject(GAT1, 2820, 480, -1);
-
   //Monitore
   CreateObject(MNI2, 1530, 492, -1);
   CreateObject(MNI2, 4010, 492, -1);

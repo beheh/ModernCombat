@@ -336,10 +336,6 @@ func CreateDecoration()
   CreateObject(PLNT, 1790, 310, -1);
   CreateObject(PLNT, 2600, 460, -1);
 
-  //Dekoschleusen
-  CreateObject(GAT1, 105, 340, -1);
-  CreateObject(GAT1, 2695, 340, -1);
-
   //Schilder
   CreateObject(WLSN, 200, 380, -1);
   CreateObject(WLSN, 2600, 380, -1);

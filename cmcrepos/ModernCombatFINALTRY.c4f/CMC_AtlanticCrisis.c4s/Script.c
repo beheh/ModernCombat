@@ -372,11 +372,6 @@ func CreateDecoration()
   CreateObject(VEN3, 3600, 500, -1)->SetCon(30);
   CreateObject(VENT, 4630, 590, -1)->SetCon(30);
 
-  //Dekoschleusen
-  CreateObject(GAT1, 2800, 590, -1);
-  CreateObject(GAT1, 2990, 590, -1);
-  CreateObject(GAT1, 3180, 590, -1);
-
   //Geländer
   CreateObject(RAI1, 1280, 500, -1)->SetRail([1,1,1,1]);
   CreateObject(RAI1, 1450, 530, -1)->SetRail([1,1,1,1,1,1,1,1,1,1]);

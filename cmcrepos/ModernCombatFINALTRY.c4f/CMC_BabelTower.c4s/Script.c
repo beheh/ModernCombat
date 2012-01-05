@@ -438,9 +438,6 @@ func CreateDecoration()
   CreateObject(RADR, 460, 320, -1);
   CreateObject(RADR, 710, 320, -1);
 
-  //Dekoschleuse
-  CreateObject(GAT1, 585, 1050, -1);
-
   //Flutlichter
   CreateObject(FLGH, 460, 320, -1)->SetRotation(65);
   CreateObject(FLGH, 710, 320, -1);
