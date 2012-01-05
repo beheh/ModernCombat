@@ -87,16 +87,6 @@ func CreateInterior()
   CreateObject(HA4K, 7320, 433, -1);
   CreateObject(HA4K, 7670, 323, -1);
 
-  //Orientierungslichter
-  CreateObject(OLGH, 595, 440, -1)->Set(4, 15, 1, 1, 30);
-  CreateObject(OLGH, 1025, 210, -1)->Set(3, 15, 1, 1, 30);
-  CreateObject(OLGH, 1500, 290, -1)->Set(4, 15, 1, 1, 30);
-  CreateObject(OLGH, 2560, 340, -1)->Set(2, 15, 1, 1, 40);
-  CreateObject(OLGH, 2960, 280, -1)->Set(2, 15, 1, 1, 40);
-  CreateObject(OLGH, 4750, 320, -1)->Set(5, 15, 1, 1, 30);
-  CreateObject(OLGH, 6590, 340, -1)->Set(2, 15, 1, 1, 40);
-  CreateObject(OLGH, 7755, 320, -1)->Set(4, 15, 1, 1, 30);
-
   //Rampen
   DrawMaterialQuad("Wall-Concrete3",1150,400,1180,390,1180,400,1165,400,true);
   DrawMaterialQuad("Wall-Concrete2",2450,511,2480,501,2480,511,2465,511,true);
@@ -122,13 +112,6 @@ func CreateInterior()
   CreateObject(_WIN, 5092, 470, -1);
   CreateObject(_WIN, 5148, 470, -1);
 
-  //Bojen
-  CreateObject(BUOY, 445, 533, -1);
-  CreateObject(BUOY, 1765, 533, -1);
-  CreateObject(BUOY, 5040, 573, -1);
-  CreateObject(BUOY, 5200, 573, -1);
-  CreateObject(BUOY, 7665, 533, -1);
-
   //Kisten
   CreateObject(WCR2, 1510, 400, -1);
   CreateObject(WCR2, 1275, 400, -1)->AutoRespawn();
@@ -140,7 +123,7 @@ func CreateInterior()
   CreateObject(WCR2, 6310, 620, -1)->AutoRespawn();
   CreateObject(WCR2, 7325, 310, -1)->AutoRespawn();
 
-  //Metallkiste
+  //Metallkisten
   CreateObject(MWCR, 1530, 400, -1)->AutoRespawn();
   CreateObject(MWCR, 4570, 390, -1)->AutoRespawn();
   CreateObject(MWCR, 7560, 510, -1)->AutoRespawn();
@@ -439,7 +422,7 @@ func CreateDecoration()
 
   //Radare
   CreateObject(RADR, 1500, 290, -1);
-  CreateObject(RADR, 2960, 280, -1);
+  CreateObject(RADR, 2960, 270, -1);
 
   //Schilder
   CreateObject(ESGN, 1065, 460, -1);
@@ -463,6 +446,23 @@ func CreateDecoration()
   CreateObject(GADG, 4340, 580, -1)->Set(2);
   CreateObject(GADG, 5810, 510, -1)->Set(1);
   CreateObject(GADG, 5820, 510, -1)->Set(1);
+
+  //Orientierungslichter
+  CreateObject(OLGH, 595, 440, -1)->Set(4, 15, 1, 1, 30);
+  CreateObject(OLGH, 1025, 210, -1)->Set(3, 15, 1, 1, 30);
+  CreateObject(OLGH, 1500, 290, -1)->Set(4, 15, 1, 1, 30);
+  CreateObject(OLGH, 2560, 340, -1)->Set(2, 15, 1, 1, 40);
+  CreateObject(OLGH, 2960, 270, -1)->Set(2, 15, 1, 1, 40);
+  CreateObject(OLGH, 4750, 320, -1)->Set(5, 15, 1, 1, 30);
+  CreateObject(OLGH, 6590, 340, -1)->Set(2, 15, 1, 1, 40);
+  CreateObject(OLGH, 7755, 320, -1)->Set(4, 15, 1, 1, 30);
+
+  //Bojen
+  CreateObject(BUOY, 445, 533, -1);
+  CreateObject(BUOY, 1765, 533, -1);
+  CreateObject(BUOY, 5040, 573, -1);
+  CreateObject(BUOY, 5200, 573, -1);
+  CreateObject(BUOY, 7665, 533, -1);
 
   //Büsche
   CreateObject(BSH2, 1875, 350, -1);

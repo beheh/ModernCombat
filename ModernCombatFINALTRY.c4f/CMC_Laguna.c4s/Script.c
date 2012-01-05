@@ -256,10 +256,6 @@ func CreateDecoration()
   CreateObject(FLGH, 560, 290, -1)->SetRotation(-90);
   CreateObject(FLGH, 705, 290, -1)->SetRotation(90);
 
-  //Dekoschleusen
-  CreateObject(GAT1, 690, 645, -1);
-  CreateObject(GAT1, 2940, 495, -1);
-
   //Schild
   CreateObject(WLSN, 560, 690, -1);
 

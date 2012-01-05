@@ -338,7 +338,6 @@ func CreateDecoration()
   CreateObject(BSH2, 1600, 365, -1);
 
   //Dekoschleusen
-  CreateObject(GAT1, 390, 670, -1);
   CreateObject(GAT1, 845, 590, -1);
   CreateObject(GAT1, 1700, 175, -1);
 
