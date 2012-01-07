@@ -81,6 +81,51 @@ global func GetTeamPlayerCount(int iTeam)
   return count;
 }
 
+/* Auswertung */
+
+public func IsFulfilled() // Siegreiches Team?
+{
+  //Menschliche Spieler suchen
+  if(!GetPlayerCount(C4PT_User))
+  {
+    if(IsNetwork()) //Bei nein im lokalen Netzwerk beenden
+    {
+      return(1);
+    }
+  }
+
+  var team;
+  for(var iScore in aPoints)
+  {
+    if(iScore >= iWinScore)
+    {
+      EliminateLosers();
+
+      Message("@<c %x>$WinMsg$</c>",0,GetTeamColor(team),GetTeamName(team));
+
+      //Leben noch Verlierer? = Ligainkompatibilität
+      if(LosersAlive())
+        return(0);
+
+      return(1);
+    }
+    team++;
+ }
+  //Nur noch ein Team und das hat schon Punkte? = Sieg (Verlierer sind rausgegangen)
+  team = OneTeam();
+  if(team != -1)
+    if(aPoints[team] > 0)
+    {
+      Message("@<c %x>$WinMsg$</c>",0,GetTeamColor(team),GetTeamName(team));
+      return(1);
+    }
+}
+
+public func Evaluate()
+{
+  return EvaluationForAll();
+}
+
 /* Eigene Icons */
 
 func DoEvaluation(int plr)
