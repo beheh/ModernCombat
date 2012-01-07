@@ -1,0 +1,2 @@
+DE:Veteran
+US:Veteran
