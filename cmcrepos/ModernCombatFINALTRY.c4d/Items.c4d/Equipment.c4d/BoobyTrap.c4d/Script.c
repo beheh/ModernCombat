@@ -276,6 +276,18 @@ public func Detonate()
 
 protected func Damage(int iChange) 
 {
+  //Kein Schaden nehmen wenn gehalten und eventuelles Feuer löschen
+  if(Contained())
+  {
+    if(OnFire())
+    {
+      Extinguish();
+      return;
+    }
+    else
+    return;
+  }
+
   //Zündung durch Schaden
   if(GetDamage() < 5) return ;
   Sound("BBTP_Alarm.ogg");
