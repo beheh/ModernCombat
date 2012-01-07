@@ -1,4 +1,4 @@
-// Klassenwahl
+# Klassenwahl
 
 assault=Sturmeinheit
 assault_desc=Eignen sich für alle Distanzen.|Sturmeinheiten bilden die Speer-|spitzen des Teams und sind demnach|meist an vorderster Front zuhause.
@@ -11,7 +11,7 @@ antiskill_desc=Bilden die Spezialeinheiten, welche|effektiv mit Einsatzschildern
 artillerist=Artillerist
 artillerist_desc=Mit einem starken Granatenwerfer|ausgerüstet, agiert diese Einheit|hinter der Frontlinie und feuert|tödliche Artillerie auf den Feind.
 
-// CTF
+# CTF
 
 ReturnedTheFlag=%s hat die Flagge zurückgebracht
 CapturedTheFlag=%s hat die Flagge erfolgreich geklaut
@@ -20,7 +20,7 @@ FlagLost=Die Flagge von <c %x>%s</c> wurde fallen gelassen
 FlagReturned=Die Flagge von <c %x>%s</c> ist zurück
 
 
-// Chooser
+# Chooser
 
 ChoosingPlayer=%s wählt jetzt die Spielkonfiguration, bitte noch etwas Geduld...
 Choosing=%s sucht gerade die Regeln aus, noch ein wenig Geduld...
@@ -60,12 +60,12 @@ BeginVoteNo=Nein
 GoalVoteBegins=Der Host startet eine Spielzielwahl, du hast <c ffff33>%d</c> Sekunden um deine(n) Favorit(en) zu wählen!
 
 
-// Team
+# Team
 
 Kills=Kills
 Death=Tode
 
-// Easteregg
+# Easteregg
 
 Emptiness=Die Leere
 YourBrain=Dein Gehirn

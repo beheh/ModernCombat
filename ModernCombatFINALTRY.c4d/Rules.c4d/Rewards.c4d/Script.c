@@ -148,38 +148,54 @@ global func RewardsActive()
 
 global func RewardEvaluation()
 {
+  //Nur mit Belohnungen-Regel fortfahren
   var db = FindObject(RWDS);
   if(!db) return;
 
+  //Auswertung starten
   db->Evaluate();
 }
 
 public func Evaluate()
 {
+  //Einmalige Auswertung starten
   if(fEvaluation) return 0;
   fEvaluation = true;
   var db = this;
 
-  //Erst mal einsortieren
+  //Sortieren
   var aList = CreateArray();
   var iPlr, szComplete, szTotal;
   var iPlr = 0;
+
+  //Kopfzeilen erstellen
   while(db->GetData()[iPlr] != 0)
   {
     if(!aList[GetPlayerTeam(iPlr)]) aList[GetPlayerTeam(iPlr)] = CreateArray();
-    szTotal = Format("$Total$",
-                   db->GetPlayerPoints(RWDS_PlayerName, iPlr),
-                   db->GetPlayerPoints(RWDS_TotalPoints, iPlr));
-    szComplete = Format("$Complete$",
-                   db->GetPlayerPoints(RWDS_BattlePoints, iPlr),
-                   db->GetPlayerPoints(RWDS_TeamPoints, iPlr),
-                   db->GetPlayerPoints(RWDS_MinusPoints, iPlr));
+    var iGAchievementCnt = 0;
+    var iData = GetPlrExtraData(iPlr, "CMC_Achievements");
+    for(var i = 1; i <= iAchievementCount; i++)
+    {
+      if(iData >> i & 1)
+        iGAchievementCnt++;
+    }
+    var rank = iGAchievementCnt/3;
+    szTotal = Format("$Total$",											//Erste Zeile
+			C4Id(Format("RG%02d", rank)),								//Ranggrafik
+			GetName(0, C4Id(Format("RG%02d", rank))),						//Rangbezeichnung
+			db->GetPlayerPoints(RWDS_PlayerName, iPlr),						//Spielername
+			db->GetPlayerPoints(RWDS_TotalPoints, iPlr));						//Gesamtpunktzahl
+
+    szComplete = Format("$Complete$",										//Zweite Zeile
+			db->GetPlayerPoints(RWDS_BattlePoints, iPlr),						//Gefechtspunkte
+			db->GetPlayerPoints(RWDS_TeamPoints, iPlr),						//Teampunkte
+			db->GetPlayerPoints(RWDS_MinusPoints, iPlr));						//Minuspunkte
     aList[GetPlayerTeam(iPlr)][GetLength(aList[GetPlayerTeam(iPlr)])] = [szTotal, szComplete];
     AddEvaluationData(Format("{{IC01}}$Points$: %d", db->GetPlayerPoints(RWDS_TotalPoints, iPlr)), iPlr+1);
     iPlr++;
   }
 
-  //Dann teamweise ausgeben
+  //Teamweise Auflistung der Daten
   for(var aTeam in aList)
   {
     if(!aTeam) continue;
