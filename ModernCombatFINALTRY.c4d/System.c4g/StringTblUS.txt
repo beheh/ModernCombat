@@ -63,6 +63,7 @@ GoalVoteBegins=The host has started a goal election, you have <c ffff33>%d</c> s
 
 Kills=Kills
 Death=Death
+WinMsg=And the winner is: %s
 
 # Easteregg
 

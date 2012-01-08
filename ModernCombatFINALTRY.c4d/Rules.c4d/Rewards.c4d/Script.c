@@ -165,7 +165,7 @@ public func Evaluate()
 
   //Sortieren
   var aList = CreateArray();
-  var iPlr, szComplete, szTotal;
+  var iPlr, szFirstLine, szSecondLine;
   var iPlr = 0;
 
   //Kopfzeilen erstellen
@@ -180,17 +180,19 @@ public func Evaluate()
         iGAchievementCnt++;
     }
     var rank = iGAchievementCnt/3;
-    szTotal = Format("$Total$",											//Erste Zeile
+    szFirstLine = Format("$FirstLine$",										//Erste Zeile
 			C4Id(Format("RG%02d", rank)),								//Ranggrafik
 			GetName(0, C4Id(Format("RG%02d", rank))),						//Rangbezeichnung
 			db->GetPlayerPoints(RWDS_PlayerName, iPlr),						//Spielername
+			rank+1,											//Rangnummer
 			db->GetPlayerPoints(RWDS_TotalPoints, iPlr));						//Gesamtpunktzahl
 
-    szComplete = Format("$Complete$",										//Zweite Zeile
+    szSecondLine = Format("$SecondLine$",									//Dritte Zeile
 			db->GetPlayerPoints(RWDS_BattlePoints, iPlr),						//Gefechtspunkte
 			db->GetPlayerPoints(RWDS_TeamPoints, iPlr),						//Teampunkte
 			db->GetPlayerPoints(RWDS_MinusPoints, iPlr));						//Minuspunkte
-    aList[GetPlayerTeam(iPlr)][GetLength(aList[GetPlayerTeam(iPlr)])] = [szTotal, szComplete];
+
+    aList[GetPlayerTeam(iPlr)][GetLength(aList[GetPlayerTeam(iPlr)])] = [szFirstLine, szSecondLine];
     AddEvaluationData(Format("{{IC01}}$Points$: %d", db->GetPlayerPoints(RWDS_TotalPoints, iPlr)), iPlr+1);
     iPlr++;
   }
