@@ -459,6 +459,7 @@ public func IsFulfilled()
 
     //Auswertung
     Evaluation();
+    RewardEvaluation();
 
     //Nachricht über Gewinner
     Message("@$TeamHasWon$",0 , GetTeamColor(iWinningTeam), GetTeamName(iWinningTeam));
@@ -482,6 +483,7 @@ public func IsFulfilled()
 
     //Auswertung
     Evaluation();
+    RewardEvaluation();
 
     return true;
   }
