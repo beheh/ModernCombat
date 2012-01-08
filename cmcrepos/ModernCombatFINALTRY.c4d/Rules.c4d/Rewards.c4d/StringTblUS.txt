@@ -15,5 +15,5 @@ Back=Back
 
 # Evaluation
 
-Total={{%i}} %s %s  Total: <c ffbb00>%d</c>
-Complete=Battle: <c 00ff00>+%d</c>  Team: <c 00ff00>+%d</c>  Minus: <c ff0000>%d</c>
+FirstLine={{%i}} %s %s (Rank %d)|Total Score: <c ffbb00>%d</c>
+SecondLine=Battle: <c 00ff00>+%d</c>  Team: <c 00ff00>+%d</c>  Minus: <c ff0000>%d</c>

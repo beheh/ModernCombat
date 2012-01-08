@@ -2,10 +2,10 @@
 Title=Clonk <c ff0000>eliminated</c>!
 Suicide=Suicide
 SuicideDesc=Gives the final death blow to the clonk.
-ReanimationBlocked=<c 777777>Allow Reanimation</c> (%d)
-ReanimationAllow=Allow Reanimation
+ReanimationBlocked=<c 777777>Reanimation is allowed</c> (%d)
+ReanimationAllow=Reanimation is allowed
 ReanimationDescAllow=Allow beeing reanimated by allies.
-ReanimationDisallow=<c 777777>Disallow Reanimation</c>
+ReanimationDisallow=<c 777777>Reanimation is disallowed</c>
 ReanimationDescDisallow=Reject beeing reanimated by allies.
 Info=<c ff0000>%s</c> has been eliminated. Wait for a medic or abandon this clonk.
 Info2=<c ff0000>%s</c> has been eliminated. Wait for a medic to revive you.

@@ -64,6 +64,7 @@ GoalVoteBegins=Der Host startet eine Spielzielwahl, du hast <c ffff33>%d</c> Sek
 
 Kills=Kills
 Death=Tode
+WinMsg=%s hat gewonnen!
 
 # Easteregg
 
