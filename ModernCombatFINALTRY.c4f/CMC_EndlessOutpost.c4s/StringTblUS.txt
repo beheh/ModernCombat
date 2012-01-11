@@ -2,8 +2,8 @@ CreatingInterior=Creating furniture...
 CreatingEquipment=Placing equipment...
 CreatingDecoration=Placing decoration...
 
-Attacker=Assault Troop
-Defender=Base Crew
+Team1=Assault Troop
+Team2=Base Crew
 
 Flag1=Entrance
 Flag2=Lobby
