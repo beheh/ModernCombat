@@ -5,10 +5,10 @@ TeamDistribution=Host
 
   [Team]
   id=1
-  Name=$Attacker$
+  Name=$Team1$
   Color=16711680
 
   [Team]
   id=2
-  Name=$Defender$
+  Name=$Team2$
   Color=8388736

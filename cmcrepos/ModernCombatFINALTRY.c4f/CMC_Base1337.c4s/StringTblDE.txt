@@ -2,8 +2,8 @@ CreatingInterior=Szenario wird eingerichtet...
 CreatingEquipment=Ausrüstung wird plaziert...
 CreatingDecoration=Dekoration wird plaziert...
 
-Attacker=Sturmtruppe
-Defender=Basisbesatzung
+Team1=Sturmtruppe
+Team2=Basisbesatzung
 
 Flag1=Ladezone
 Flag2=Küste
