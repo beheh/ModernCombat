@@ -319,7 +319,10 @@ protected func DoPoints()
           if(GetOwner(pPilot) != GetOwner(pClonk))
           {
             //Punkte bei Belohnungssystem (Kill Assist aus Fahrzeug heraus)
-            DoPlayerPoints(AssistPoints(), RWDS_TeamPoints, GetOwner(pPilot), pPilot, IC02);      	
+            DoPlayerPoints(AssistPoints(), RWDS_TeamPoints, GetOwner(pPilot), pPilot, IC02);
+
+            //Achievement-Fortschritt (Air Superiority)
+            DoAchievementProgress(1,AC28,GetOwner(pPilot));
           }
         }
       }
