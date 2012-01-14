@@ -121,19 +121,19 @@ private func Building()
 private func WalkSound()
 {
   if(Contained()) return;
-  Sound("ClonkStep*.ogg", 0, 0, 40);
+  Sound("ClonkStep*.ogg", 0, 0, 50);
   return 1;
 }
 
 private func CrawlStartSound()
 {
-  Sound("ClonkFall*.ogg", 0, 0, 40);
+  Sound("ClonkFall*.ogg", 0, 0, 50);
   return 1;
 }
 
 private func CrawlSound()
 {
-  Sound("ClonkCrawl*.ogg", 0, 0, 20);
+  Sound("ClonkCrawl*.ogg", 0, 0, 25);
   return 1;
 }
 

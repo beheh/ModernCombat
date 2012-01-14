@@ -85,7 +85,7 @@ public func Set(object pClonk)
 
   //Sichtwerte für den FakeDeath setzen
   SetFoW(true,GetOwner(pClonk)); 
-  SetPlrViewRange(100,pClonk);
+  SetPlrViewRange(150,pClonk);
 
   //Etwas Lebensenergie
   DoEnergy(10, pClonk);
