@@ -6,8 +6,10 @@
 
 local lock;
 local target;
+local fNoProcedureCheck;
 
-public func IsBackDoor()	{return true;}
+public func IsBackDoor()			{return true;}
+public func SwitchProcedureCheck(bool fInto)	{fNoProcedureCheck = fInto;}	//Wenn fNoProcedureCheck true, auch beim Hangeln etc. Türen betretbar
 
 
 /* Initalisierung */
@@ -68,6 +70,14 @@ public func FxNoDoorEntranceStart()
 
 protected func ActivateEntrance(object pObj)
 {
+  //Objekt kann nicht eintreten wenn am hangeln, klettern oder in der Luft
+  if(!fNoProcedureCheck && GetProcedure(pObj) == "FLIGHT" || GetProcedure(pObj) == "HANGLE" || GetProcedure(pObj) == "SCALE" || GetProcedure(pObj) == "KNEEL")
+    return false;
+
+  //Bei Clonks auf deren Walk-Aktion wechseln, um Campen zu vermeiden
+  if(pObj->~IsClonk())
+    pObj->SetAction("Walk");
+
   if(GetEffect("NoDoorEntrance", pObj) && !GetEffect("Move2Door", pObj))
   {
     CloseEntrance();
@@ -75,7 +85,7 @@ protected func ActivateEntrance(object pObj)
   }
 
   if(lock) return false;
-  return _inherited(pObj, ...); 
+  return _inherited(pObj, ...);
 }
 
 protected func RejectCollect(id objID, object pObj)
