@@ -1241,7 +1241,7 @@ protected func RejectCollect(id ID, object ByObj)
   }
   return true;
 }
-                           
+
 //für Warnsounds und Grafik zuständig
 protected func TimerCall()
 {
@@ -1274,14 +1274,14 @@ protected func TimerCall()
     var iPlr = GetPlayerByIndex(i);
     if(GetPilot() && !Hostile(GetOwner(GetPilot()), iPlr) && (!GetCursor(iPlr) || (Contained(GetCursor(iPlr)) != this) && Contained(GetCursor(iPlr)->~GetRealCursor()) != this))
     {
-      if (first)
+      if(first)
         first = false;
       else
         iFlags = MSG_Multiple;
       var szStr = Format("@%s (%s)", GetName(GetPilot()), GetPlayerName(GetOwner(GetPilot())));
       CustomMessage(szStr, this, iPlr, 0, 15, SetRGBaValue(GetPlrColorDw(GetOwner(GetPilot())), 128), 0, 0, iFlags);
     }
-    else
+    if(!GetPilot())
       CustomMessage("@", this, iPlr);
   }
 
