@@ -200,21 +200,21 @@ protected func FxIntTimerTimer(object pTarget, int iEffect, int iTime)
 
   /* Geschütz fahren */
 
-  // jedes Frame
-  //links?
-  if(AimAngle() < MaxRotLeft())
-  {
-    aim_angle = MaxRotLeft()-GetR();
-    iPat_Dir = 0; //Anhalten
-  }
-	    
-  //rechts?
-  else if(AimAngle() > MaxRotRight())
-  {
-    aim_angle = MaxRotRight()-GetR();
-    iPat_Dir = 0; //Anhalten
-  }
-  aim_angle += iPat_Dir;
+  //Rotation
+  
+	aim_angle += iPat_Dir;
+	//Links?
+	if(AimAngle() < MaxRotLeft())
+	{
+	  aim_angle = MaxRotLeft()-GetR();
+	  iPat_Dir = 0; //Anhalten
+	}
+	//Rechts?
+	else if(AimAngle() > MaxRotRight())
+	{
+	  aim_angle = MaxRotRight()-GetR();
+	  iPat_Dir = 0; //Anhalten
+	}
 
   //Crosshair nachziehen
   if(Crosshair)
