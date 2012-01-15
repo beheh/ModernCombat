@@ -35,7 +35,7 @@ protected func TimerCall()
   SetYDir(GetYDir()-GetGravity()/70);
 
 	//Clonks und Objekte anzünden
-	for(var pTarget in FindObjects(Find_Func("IsBulletTarget", GetID(), this), Find_Not(Find_Or(Find_AnyContainer(), Find_Func("IsCMCVehicle"))), Find_Distance(25, AbsX(GetX()), AbsY(GetY())))) {
+	for(var pTarget in FindObjects(Find_Func("IsBulletTarget", GetID(), this), Find_Not(Find_Or(Find_AnyContainer(), Find_Func("IsCMCVehicle"))), Find_AtPoint(AbsX(GetX()), AbsY(GetY())))) {
 		if(!OnFire(pTarget)) {
 			DoDmg(3, DMG_Fire, pTarget, 0, GetOwner()+1, FLRE);
 		}
