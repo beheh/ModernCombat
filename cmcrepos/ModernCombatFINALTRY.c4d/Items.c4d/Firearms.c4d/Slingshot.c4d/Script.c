@@ -86,7 +86,7 @@ public func LaunchGrenade(id idg, int speed, int angle, int mode)
   var grenade=CreateObject(idg, x, y, GetController(user));
   if(!Stuck(grenade)) SetPosition(GetX(grenade)+xdir/10,GetY(grenade)+ydir/10,grenade);
   SetController(GetController(user), grenade);
-  grenade->Launch(xdir/*+GetXDir(user)/2*/, ydir/*+GetYDir(user)/4*/, GetFMData(FM_Damage,2));
+  grenade->Launch(xdir+GetXDir(user)/5, ydir/*+GetYDir(user)/4*/, GetFMData(FM_Damage,2));
   
   //Sicht auf Granate wenn der Schütze zielt
   if(!(user->~IsMachine()) && user->~IsAiming())
