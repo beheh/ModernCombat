@@ -1342,6 +1342,9 @@ protected func TimerCall()
       DoDmg(GetRotorSpeed() / 4, DMG_Projectile, pClonk, 0, GetOwner() + 1);
       Sound("BKHK_RotorHit*.ogg", false, pClonk);
       AddEffect("NoRotorHit", pClonk, 1, 20, pClonk);
+      if(GetPilot() && (!GetAlive(pClonk) || IsFakeDeath(pClonk)))
+        //Achievement-Fortschritt (Meat Grinder)
+        DoAchievementProgress(1, AC29, GetController(GetPilot()));
     }
 
     //Festes Material im Rotor tut weh, wird von Contact-Calls bei Stillstand nicht erfasst
