@@ -34,6 +34,13 @@ protected func TimerCall()
   //Langsamer runterfallen
   SetYDir(GetYDir()-GetGravity()/70);
 
+	//Clonks und Objekte anzünden
+	for(var pTarget in FindObjects(Find_Func("IsBulletTarget", GetID(), this), Find_Not(Find_Or(Find_AnyContainer(), Find_Func("IsCMCVehicle"))), Find_Distance(25, AbsX(GetX()), AbsY(GetY())))) {
+		if(!OnFire(pTarget)) {
+			DoDmg(3, DMG_Fire, pTarget, 0, GetOwner()+1, FLRE);
+		}
+	}
+
   //Effekte
   CreateParticle("Flare2",0,0,GetXDir()/3,GetYDir()/3,RandomX(30,40)*5,RGB(255,255,255));
   if(GetEffectData(EFSM_ExplosionEffects) > 0) CreateParticle("GroundSmoke",0,0,0,0,RandomX(20,30)*5,RGB(180,180,180));
