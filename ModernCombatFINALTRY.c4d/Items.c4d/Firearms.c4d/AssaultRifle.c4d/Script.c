@@ -193,8 +193,11 @@ public func Fire2T3()
 
 public func LaunchGrenade(id idg, int speed, int angle, int mode)
 {
+  //Austritt bestimmen
   var user = Contained();
   var dir = GetDir(user)*2-1;
+  var x,y;
+  user->WeaponEnd(x,y);
 
   //Anpassung des Winkels
   angle = BoundBy(angle/*+GetYDir(user)*/+dir,-360,360);
@@ -202,16 +205,14 @@ public func LaunchGrenade(id idg, int speed, int angle, int mode)
   var xdir = Sin(angle,speed);
   var ydir = -Cos(angle,speed);
 
-  var x,y;
-  user->WeaponEnd(x,y);
-
-  //Erstellen und Abfeuern
-  var grenade=CreateObject(idg, x+xdir/10, y+ydir/10, GetController(user));
+  //Granate abfeuern
+  var grenade=CreateObject(idg, x, y, GetController(user));
+  if(!Stuck(grenade)) SetPosition(GetX(grenade)+xdir/10,GetY(grenade)+ydir/10,grenade);
   SetController(GetController(user), grenade);
   grenade->Launch(xdir+GetXDir(user)/5, ydir/*+GetYDir(user)/10*/, GetFMData(FM_Damage,2));
 
   //Sicht auf Granate wenn der Schütze zielt
-  if(!(user ->~ IsMachine()) && user->~IsAiming())
+  if(!(user->~IsMachine()) && user->~IsAiming())
   {
     SetPlrView(GetController(user),grenade);
     SetPlrViewRange(100, grenade);

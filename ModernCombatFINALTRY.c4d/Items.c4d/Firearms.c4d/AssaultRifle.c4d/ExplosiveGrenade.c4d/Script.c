@@ -22,6 +22,7 @@ func Launch(int xdir, int ydir, int iDmg,a,b,c)
   sy = GetY();
   start = FrameCounter();
   inherited(xdir,ydir,iDmg,a,b,c);
+  if(Stuck()) Hit();
 }
 
 protected func Secure()
