@@ -1,1 +1,1 @@
-Refilled=Added %d point(s) to {{%i}}.
+Refilled=Extended {{%i}} with %d point(s).
