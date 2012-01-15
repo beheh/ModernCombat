@@ -67,7 +67,8 @@ public func RelaunchPlayer(int iPlr, object pClonk)
     return ScheduleCall(this,"RelaunchPlayer",1,0,iPlr);
 
   //Menü zeitverzögert erstellen
-  ScheduleCall(0,"InitClassMenu",10,0,pClonk);
+  if(!FindObject(CHOS))
+    ScheduleCall(0,"InitClassMenu",10,0,pClonk);
 
   return;
 }
