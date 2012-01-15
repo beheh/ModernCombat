@@ -2,6 +2,7 @@
 
 CtxStatistics=Statistiken
 CtrlMenuDesc=Menü
+DropItem=Objekt ablegen
 
 #Hazardclonk
 
@@ -14,23 +15,21 @@ ContentsCount=%d Objekte
 #Einstellungen
 
 Settings=Einstellungen
-DropItem=Objekt ablegen
-
 CtxQuickInventoryOn=QuickInventar
 CtxQuickInventoryOff=<c 777777>QuickInventar</c>
-CtxQuickInventoryDesc=123.
+CtxQuickInventoryDesc=Aktiviert das QuickInventar-Ringmenü, welches das traditionelle Durchwechseln des Inventars ersetzt.
 CtxHelpMessagesOn=Hilfen
 CtxHelpMessagesOff=<c 777777>Hilfen</c>
-CtxHelpMessagesDesc=123.
+CtxHelpMessagesDesc=Zeigt Hilfsnachrichten über dem Clonk.
 CtxInvLockOn=Inventarsperre
 CtxInvLockOff=<c 777777>Inventarsperre</c>
-CtxInvLockDesc=123.
+CtxInvLockDesc=Verhindert das Ablegen von Waffen per Tastenbefehl und erweitert das Kontextmenü um einen Alternativbefehl zum Ablegen.
 CtxShorterDMOn=Kompaktes Schwerverletztenmenü
 CtxShorterDMOff=<c 777777>Kompaktes Schwerverletztenmenü</c>
-CtxShorterDMDesc=123.
+CtxShorterDMDesc=Verkleinert das Schwerverletztenmenü und blendet die meisten Zusatzinformationen aus.
 CtxRadioMusicOn=Radiomusik
 CtxRadioMusicOff=<c 777777>Radiomusik</c>
-CtxRadioMusicDesc=123.
+CtxRadioMusicDesc=(De)Aktiviert Radiomusik für diesen Spieler (bei mehreren Spielern an einem Clienten ist die Musik deaktiviert, wenn alle gleicheres eingestellt haben).
 CtxResetAch=Errungenschaften zurücksetzen
 CtxResetAchDesc=Alle eigenen Errungenschaften dauerhaft zurücksetzen.
 ResetAchInfo=Wirklich zurücksetzen?|<c 777777>Das endgültige Zurücksetzen erfolgt nach dem Rundenende.</c>
