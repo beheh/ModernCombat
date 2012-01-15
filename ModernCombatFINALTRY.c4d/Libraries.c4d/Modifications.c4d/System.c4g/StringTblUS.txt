@@ -14,22 +14,29 @@ ContentsCount=%d items
 #Settings
 
 Settings=Settings
-CtxInvLockOn=Inventory Lock
-CtxInvLockOff=<c 777777>Inventory Lock</c>
 DropItem=Drop Item
+
 CtxHelpMessagesOn=Help messages
 CtxHelpMessagesOff=<c 777777>Help messages</c>
+CtxHelpMessagesDesc=123.
+CtxInvLockOn=Inventory Lock
+CtxInvLockOff=<c 777777>Inventory Lock</c>
+CtxInvLockDesc=123.
 CtxQuickInventoryOn=QuickInventory
 CtxQuickInventoryOff=<c 777777>QuickInventory</c>
+CtxQuickInventoryDesc=123.
 CtxShorterDMOn=Compact Death Menu
 CtxShorterDMOff=<c 777777>Compact Death Menu</c>
+CtxShorterDMDesc=123.
 CtxRadioMusicOn=Radio Music
 CtxRadioMusicOff=<c 777777>Radio Music</c>
+CtxRadioMusicDesc=123.
 CtxResetAch=Reset achievements
-ResetAchInfo=Reset?|<c 777777>The reset is completed after saving.</c>
+CtxResetAchDesc=Permanently reset all personal achievements.
+ResetAchInfo=Reset?|<c 777777>The reset is completed after the round ends.</c>
 ResetAchYes=Reset
 ResetAchNo=Keep achievements
-ResetAchDone=Achievements have been resetted.
+ResetAchDone=Achievements have been reset.
 
 #General
 Grenades=Grenades

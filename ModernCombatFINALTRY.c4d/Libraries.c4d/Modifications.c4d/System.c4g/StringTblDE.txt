@@ -14,19 +14,37 @@ ContentsCount=%d Objekte
 #Einstellungen
 
 Settings=Einstellungen
-CtxInvLockOn=Inventarsperre
-CtxInvLockOff=<c 777777>Inventarsperre</c>
 DropItem=Objekt ablegen
+
+CtxQuickInventoryOn=QuickInventar
+CtxQuickInventoryOff=<c 777777>QuickInventar</c>
+CtxQuickInventoryDesc=123.
 CtxHelpMessagesOn=Hilfen
 CtxHelpMessagesOff=<c 777777>Hilfen</c>
+<<<<<<< .mine
+CtxHelpMessagesDesc=123.
+CtxInvLockOn=Inventarsperre
+CtxInvLockOff=<c 777777>Inventarsperre</c>
+CtxInvLockDesc=123.
+CtxShorterDMOn=Kompaktes Todesmenü
+CtxShorterDMOff=<c 777777>Kompaktes Todesmenü</c>
+CtxShorterDMDesc=123.
+=======
 CtxQuickInventoryOn=QuickInventar
 CtxQuickInventoryOff=<c 777777>QuickInventar</c>
 CtxShorterDMOn=Kompaktes Schwerverletztenmenü
 CtxShorterDMOff=<c 777777>Kompaktes Schwerverletztenmenü</c>
+>>>>>>> .r6929
 CtxRadioMusicOn=Radiomusik
 CtxRadioMusicOff=<c 777777>Radiomusik</c>
+CtxRadioMusicDesc=123.
 CtxResetAch=Errungenschaften zurücksetzen
+<<<<<<< .mine
+CtxResetAchDesc=Alle eigenen Errungenschaften dauerhaft zurücksetzen.
 ResetAchInfo=Wirklich zurücksetzen?|<c 777777>Das endgültige Zurücksetzen erfolgt nach dem Rundenende.</c>
+=======
+ResetAchInfo=Wirklich zurücksetzen?|<c 777777>Das endgültige Zurücksetzen erfolgt nach dem Rundenende.</c>
+>>>>>>> .r6929
 ResetAchYes=Zurücksetzen
 ResetAchNo=Nicht zurücksetzen
 ResetAchDone=Errungenschaften wurden zurückgesetzt.
