@@ -34,14 +34,16 @@ protected func TimerCall()
   //Langsamer runterfallen
   SetYDir(GetYDir()-GetGravity()/70);
 
-	//Clonks und Objekte anzünden
-	for(var pTarget in FindObjects(Find_Func("IsBulletTarget", GetID(), this), Find_Not(Find_Or(Find_AnyContainer(), Find_Func("IsCMCVehicle"))), Find_AtPoint(AbsX(GetX()), AbsY(GetY())))) {
-		if(GetOwner(pTarget) != NO_OWNER && !Hostile(GetOwner(pTarget), GetOwner()) && NoFriendlyFire()) continue;
-		if(OnFire(pTarget)) continue;
-		DoDmg(3, DMG_Fire, pTarget, 0, GetOwner()+1, FLRE);
-		if(pTarget->~IsClonk() && Hostile(GetOwner(pTarget), GetOwner()) && (!GetAlive(pTarget) || IsFakeDeath(pTarget)))
-				DoAchievementProgress(1, AC30, GetOwner());
-	}
+  //Clonks und Objekte anzünden
+  for(var pTarget in FindObjects(Find_Func("IsBulletTarget", GetID(), this), Find_Not(Find_Or(Find_AnyContainer(), Find_Func("IsCMCVehicle"))), Find_AtPoint(AbsX(GetX()), AbsY(GetY()))))
+  {
+    if(GetOwner(pTarget) != NO_OWNER && !Hostile(GetOwner(pTarget), GetOwner()) && NoFriendlyFire()) continue;
+    if(OnFire(pTarget)) continue;
+    DoDmg(3, DMG_Fire, pTarget, 0, GetOwner()+1, FLRE);
+    if(pTarget->~IsClonk() && Hostile(GetOwner(pTarget), GetOwner()) && (!GetAlive(pTarget) || IsFakeDeath(pTarget)))
+      //Achievement-Fortschritt (Rain of Fire)
+      DoAchievementProgress(1, AC30, GetOwner());
+  }
 
   //Effekte
   CreateParticle("Flare2",0,0,GetXDir()/3,GetYDir()/3,RandomX(30,40)*5,RGB(255,255,255));
