@@ -187,10 +187,10 @@ protected func Timer()
 	  }
 	  else {
 	  	if(iDamageRemaining == 0) fDisable = true;
-	  	if(!Random(5) && fDisable) {
+	  	if(!Random(2) && fDisable) {
 				SetState(BHUD_Off, true);
 			}
-			else if(!Random(2)) {
+			else if(!Random(5)) {
 			  SetState(BHUD_Error);
 			  if(!Random(2)) {
 			  	var val = RandomX(0,300);
