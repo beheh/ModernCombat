@@ -1,0 +1,2 @@
+DE:Kill
+US:Kill

@@ -1,0 +1,2 @@
+DE:Gelderhalt
+US:Money obtainment
