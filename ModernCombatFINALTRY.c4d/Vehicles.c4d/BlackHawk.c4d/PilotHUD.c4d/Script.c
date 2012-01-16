@@ -54,13 +54,13 @@ protected func SetState(int iNewState, bool fKeepSound, bool fUpdate)
     SetClrModulation(RGBa(255,0,0,50));
     SetClrModulation(RGBa(255,0,0,50), this, BHUD_Overlay_Failure);
     dwArrowColor = RGBa(255,0,0,50);
-    Sound("WarningDamage.ogg", false, pHelicopter, 100, GetOwner()+1, +1);
+    Sound("WarningDamage.ogg", false, this, 100, GetOwner()+1, +1);
   }
   else {
     SetClrModulation(RGBa(255,255,255,255), this, BHUD_Overlay_Failure);
     if(!fKeepSound)
     {
-      Sound("WarningDamage.ogg", false, pHelicopter, 100, GetOwner()+1, -1);
+      Sound("WarningDamage.ogg", false, this, 100, GetOwner()+1, -1);
     }
   }
   if(iState == BHUD_Warning)
@@ -68,13 +68,13 @@ protected func SetState(int iNewState, bool fKeepSound, bool fUpdate)
     SetClrModulation(RGBa(255,153,0,50));
     SetClrModulation(RGBa(255,153,0,50), this, BHUD_Overlay_Warning);
     dwArrowColor = RGBa(255,153,0,50);
-    Sound("WarningLockon.ogg", false, pHelicopter, 100, GetOwner()+1, +1);
+    Sound("WarningLockon.ogg", false, this, 100, GetOwner()+1, +1);
   }
   else {
     SetClrModulation(RGBa(255,255,255,255), this, BHUD_Overlay_Warning);
     if(!fKeepSound)
     {
-      Sound("WarningLockon.ogg", false, pHelicopter, 100, GetOwner()+1, -1);
+      Sound("WarningLockon.ogg", false, this, 100, GetOwner()+1, -1);
     }
   }
   if(iState == BHUD_Ready)
@@ -190,12 +190,12 @@ protected func Timer()
   var tSmokeWall = pHelicopter->CanDeploySmokeWall();
   if(fFlares != tFlares) {
       fUpdate = true;
-      if(!fFlares) Sound("WarningFlaresReloaded.ogg", false, pHelicopter, 100, GetOwner()+1);
+      if(!fFlares) Sound("WarningFlaresReloaded.ogg", false, this, 100, GetOwner()+1);
       fFlares = tFlares;
   }
   if(fSmokeWall != tSmokeWall) {
       fUpdate = true;
-      if(!fSmokeWall) Sound("WarningSmokeWallReloaded.ogg", false, pHelicopter, 100, GetOwner()+1);
+      if(!fSmokeWall) Sound("WarningSmokeWallReloaded.ogg", false, this, 100, GetOwner()+1);
       fSmokeWall = tSmokeWall;
   }
   if(fUpdate) {
