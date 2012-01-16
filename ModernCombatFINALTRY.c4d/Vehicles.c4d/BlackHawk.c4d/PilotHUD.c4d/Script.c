@@ -38,9 +38,9 @@ public func Initialize()
   return true;
 }
 
-public func SetState(int iNewState, bool fKeepSound)
+protected func SetState(int iNewState, bool fKeepSound, bool fUpdate)
 {
-	//if(iState == iNewState) return;
+	if(iState == iNewState && !fUpdate) return;
   iState = iNewState;
   var dwArrowColor;
   if(iState == BHUD_Off) {
@@ -85,7 +85,7 @@ public func SetState(int iNewState, bool fKeepSound)
     SetClrModulation(RGBa(122,122,122,50));
     dwArrowColor = RGBa(122,122,122,50);
   }
-    if(fFlares) {
+  if(fFlares) {
     SetClrModulation(dwArrowColor, this, BHUD_Overlay_Flares);
   }
   else {
@@ -102,6 +102,10 @@ public func SetState(int iNewState, bool fKeepSound)
   if(pAltitude) pAltitude->SetClrModulation(dwArrowColor);
   if(pWind) pWind->SetClrModulation(dwArrowColor);
   return true;
+}
+
+protected func GetState() {
+	return iState;
 }
 
 public func SetHelicopter(object pNewHelicopter)
@@ -175,8 +179,20 @@ protected func Timer()
   SetPosition(GetX()-4+BoundBy((1400*GetWind(AbsX(GetX(pHelicopter)), AbsY(GetY(pHelicopter))))/1000, -69, 71), GetY()-98, pWind);
   pWind->SetVisibility(GetVisibility());
   //Flares und SmokeWall
-  fFlares = pHelicopter->CanDeployFlares();
-  fSmokeWall = pHelicopter->CanDeploySmokeWall();
+  var fUpdate = false;
+  var tFlares = pHelicopter->CanDeployFlares();
+  var tSmokeWall = pHelicopter->CanDeploySmokeWall();
+  if(fFlares != tFlares) {
+  	  fUpdate = true;
+  	  fFlares = tFlares;
+  }
+  if(fSmokeWall != tSmokeWall) {
+  	  fUpdate = true;
+  	  fSmokeWall = tSmokeWall;
+  }
+  if(fUpdate) {
+  	SetState(GetState(), false, true);
+  }
   //Status setzen
   SetObjDrawTransform(1000,0,0,0,1000,0);
   if(fDamage || pHelicopter->GetDamage() >= pHelicopter->MaxDamage()*3/4)
@@ -203,20 +219,12 @@ protected func Timer()
   else
   {
     if(pHelicopter->GetRocket())
-    {
       SetState(BHUD_Warning);
-    }
     else
-    {
       if(pHelicopter->GetAutopilot())
-      {
         SetState(BHUD_Disabled);
-      }
       else
-      {
         SetState(BHUD_Ready);
-      }
-    }
   }
   if(iDamageRemaining > 0) iDamageRemaining--;
   if(!iDamageRemaining) fDamage = false;
