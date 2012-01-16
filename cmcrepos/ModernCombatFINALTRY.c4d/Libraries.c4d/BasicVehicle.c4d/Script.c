@@ -109,9 +109,13 @@ public func Destroyed()
   //Status setzen
   fDestroyed = true;
 
-  if(BonusPointCondition() && iLastAttacker != NO_OWNER && GetOwner() != NO_OWNER && Hostile(GetOwner(), iLastAttacker))
-    //Punkte bei Belohnungssystem (Fahrzeugzerstörung)
-    DoPlayerPoints(BonusPoints("Destruction"), RWDS_BattlePoints, iLastAttacker, GetCursor(iLastAttacker), IC03);
+	if(iLastAttacker != NO_OWNER && GetOwner(this) != NO_OWNER && Hostile(GetOwner(), iLastAttacker)) {
+		//Achievement-Fortschritt (Junkdealer)
+		DoAchievementProgress(1, AC23, iLastAttacker);
+		//Punkte bei Belohnungssystem (Fahrzeugzerstörung)
+		if(BonusPointCondition())
+		  DoPlayerPoints(BonusPoints("Destruction"), RWDS_BattlePoints, iLastAttacker, GetCursor(iLastAttacker), IC03);
+  }
 
   //Sound
   Sound("Blast2", false, this);

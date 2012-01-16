@@ -25,6 +25,8 @@ public func Initialize()
 {
   SetVisibility(VIS_None);
   iState = -1;
+  fFlares = true;
+  fSmokeWall = true;
   Schedule("SetVisibility(VIS_Owner)", 1, 0, this);
   SetGraphics("Flares", this, GetID(), BHUD_Overlay_Flares, GFXOV_MODE_Base);
   SetGraphics("SmokeWall", this, GetID(), BHUD_Overlay_SmokeWall, GFXOV_MODE_Base);
@@ -188,10 +190,12 @@ protected func Timer()
   var tSmokeWall = pHelicopter->CanDeploySmokeWall();
   if(fFlares != tFlares) {
       fUpdate = true;
+      if(!fFlares) Sound("WarningFlaresReloaded.ogg", false, pHelicopter, 100, GetOwner()+1);
       fFlares = tFlares;
   }
   if(fSmokeWall != tSmokeWall) {
       fUpdate = true;
+      if(!fSmokeWall) Sound("WarningSmokeWallReloaded.ogg", false, pHelicopter, 100, GetOwner()+1);
       fSmokeWall = tSmokeWall;
   }
   if(fUpdate) {

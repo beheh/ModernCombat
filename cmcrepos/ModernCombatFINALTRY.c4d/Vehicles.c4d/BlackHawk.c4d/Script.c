@@ -29,6 +29,8 @@ local spotlight,			//bool   - Scheinwerfer ein/aus
 local fPlaying,				//bool   - Radio ein/aus
       iTrack;				//array  - Aktueller Titel
 
+local iRotorSpeed;
+
 static const throttle_speed = 5;	//int    - "Feinfühligkeit"
 static const rot_speed = 1;		//int    - Drehgeschwindigkeit / frame
 static const control_speed = 3;		//int    - "Feinfühligkeit"
@@ -55,6 +57,9 @@ public func IsMachine()			{return true;}
 public func MaxDamage()			{return 200;}
 public func IsThreat()			{return true;}
 public func IsHelicopter()		{return true;}
+
+public func EngineRunning() {return GetEffect("Engine", this);}
+public func GetRotorSpeed() {return iRotorSpeed;}
 
 public func IsBulletTarget(id idBullet, object pBullet)
 {
@@ -89,7 +94,6 @@ protected func Initialize()
   SetAction("Stand");
 
   //Pilot
-  view_mode = true;
   aSeats = [];
 
   //Geschütze aufstellen
@@ -106,6 +110,9 @@ protected func Initialize()
   //Zufälligen Song anwählen
   iTrack = Random(RDIO_TrackCount)+1;
 
+	//Neues Zeug
+	iRotorSpeed = 0;
+	
   //Vertices richtig drehen
   ScheduleCall(this,"ChangeDir",1,2);
 
@@ -140,22 +147,6 @@ public func GetPassengerCount()
     if (passenger)
       i++;
   return i;
-}
-
-public func GetRotorSpeed()
-{
-  var iSpeed = throttle;
-  if(GetAction() == "EngineStartUp") iSpeed = GetActTime();
-  if(GetAction() == "EngineStartUp2") iSpeed = 95/(45+24)*(45+GetActTime());
-  if(GetAction() == "EngineStartUp3") iSpeed = 95/(45+24+16)*(45+24+GetActTime());
-  if(GetAction() == "EngineShutDown") iSpeed = 95-GetActTime();
-  if(GetAction() == "EngineShutDown2") iSpeed = 95-60/(30+30)*(30+GetActTime());
-  if(GetAction() == "EngineShutDown3") iSpeed = 95-90/(30+30+30)*(30+30+GetActTime());
-  if(GetAction() == "Fly" || GetAction() == "Turn")
-  {
-    iSpeed += 95;
-  }
-  return iSpeed;
 }
 
 public func GetRocket()
@@ -331,7 +322,7 @@ protected func Ejection(object ByObj)
   if(GetDamage() >= MaxDamage()) return;
   
   if(!PathFree(GetX(),GetY(),GetX(),GetY()+100))
-    return; //Trozdem Sitz freimachen
+    return;
 
   if(!GetEffect("CheckGround",ByObj))
     CreateObject(PARA,GetX(ByObj),GetY(ByObj),GetOwner(ByObj))->Set(ByObj);
@@ -351,6 +342,10 @@ protected func ControlCommand(string szCommand, object Target, int TargetX, int 
   {
     if(ByObj == GetPilot())
       SetAutopilot(Target, TargetX, TargetY);
+    else if(ByObj == GetGunner())
+    	MGStation->~ControlCommand(szCommand, Target, TargetX, TargetY, target2, Data, ByObj);
+    else if(ByObj == GetCoordinator())
+    	RocketStation->~ControlCommand(szCommand, Target, TargetX, TargetY, target2, Data, ByObj);
     return true;
   }
 }
@@ -875,60 +870,64 @@ public func IsPlaying()
 
 /*----- Sitzsteuerung -----*/
 
-protected func ContainedDigDouble(object ByObj)
+protected func ContainedDigDouble(object pClonk)
 {
   [$CtrlDigD$]
-  CreateMenu(GetID(), ByObj, this, 0, "$Seats$", 0, 1);
-
-    //Ausstieg
-    AddMenuItem("<c ffff33>$Exit$</c>", "ExitClonk", STDR, ByObj, 0, ByObj, "$ExitDesc$");
-
-    //Pilot
-    if(GetPilot())
-      AddMenuItem("<c 777777>$Pilot$</c>", "SeatOccupied", GetID(), ByObj, 0, ByObj, "$SeatOccupied$");
-    else
-      AddMenuItem("<c ffffff>$Pilot$</c>", Format("EnterSeat(%d, Object(%d))", BKHK_Seat_Pilot, ObjectNumber(ByObj)), GetID(), ByObj, 0, ByObj, "$PilotDesc$");
-
-    //Schütze
-    if(GetGunner())
-      AddMenuItem("<c 777777>$Gunner$</c>", "SeatOccupied", GetID(), ByObj, 0, ByObj, "$SeatOccupied$");
-    else
-      AddMenuItem("<c ffffff>$Gunner$</c>", Format("EnterSeat(%d, Object(%d))", BKHK_Seat_Gunner, ObjectNumber(ByObj)), GetID(), ByObj, 0, ByObj, "$GunnerDesc$");
-
-    //Koordinator
-    if(GetCoordinator())
-      AddMenuItem("<c 777777>$Coordinator$</c>", "SeatOccupied", GetID(), ByObj, 0, ByObj, "$SeatOccupied$");
-    else
-      AddMenuItem("<c ffffff>$Coordinator$</c>", Format("EnterSeat(%d, Object(%d))", BKHK_Seat_Coordinator, ObjectNumber(ByObj)), GetID(), ByObj, 0, ByObj, "$CoordinatorDesc$");
-
-    //Passagier 1
-    if(GetPassenger1())
-      AddMenuItem("<c 777777>$Passenger$</c>", "SeatOccupied", GetID(), ByObj, 0, ByObj, "$SeatOccupied$");
-    else
-      AddMenuItem("<c ffffff>$Passenger$</c>", Format("EnterSeat(%d, Object(%d))", BKHK_Seat_Passenger1, ObjectNumber(ByObj)), GetID(), ByObj, 0, ByObj, "$PassengerDesc$");
-
-    //Passagier 2
-    if(GetPassenger2())
-      AddMenuItem("<c 777777>$Passenger$</c>", "SeatOccupied", GetID(), ByObj, 0, ByObj, "$SeatOccupied$");
-    else
-      AddMenuItem("<c ffffff>$Passenger$</c>", Format("EnterSeat(%d, Object(%d))", BKHK_Seat_Passenger2, ObjectNumber(ByObj)), GetID(), ByObj, 0, ByObj, "$PassengerDesc$");
-    
-    //Ausstieg per Seil
-    AddMenuItem("<c ffff33>$ExitRope$</c>", "ExitClonkByRope", CK5P, ByObj, 0, ByObj, "$ExitRopeDesc$");
-
-  return 1;
+  return OpenSeatMenu(pClonk);
 }
 
-private func SeatOccupied(a, object ByObj)
+protected func OpenSeatMenu(object pClonk, int iSelection) {
+  CreateMenu(GetID(), pClonk, this, 0, "$Seats$", 0, C4MN_Style_Context, false);
+
+  //Ausstieg
+  AddMenuItem("<c ffff33>$Exit$</c>", "ExitClonk", STDR, pClonk, 0, pClonk, "$ExitDesc$");
+
+  //Pilot
+  if(GetPilot())
+    AddMenuItem("<c 777777>$Pilot$</c>", "SeatOccupied", GetID(), pClonk, 0, pClonk, "$SeatOccupied$");
+  else
+    AddMenuItem("<c ffffff>$Pilot$</c>", Format("EnterSeat(%d, Object(%d))", BKHK_Seat_Pilot, ObjectNumber(pClonk)), GetID(), pClonk, 0, pClonk, "$PilotDesc$");
+
+  //Schütze
+  if(GetGunner())
+    AddMenuItem("<c 777777>$Gunner$</c>", "SeatOccupied", GetID(), pClonk, 0, pClonk, "$SeatOccupied$");
+  else
+    AddMenuItem("<c ffffff>$Gunner$</c>", Format("EnterSeat(%d, Object(%d))", BKHK_Seat_Gunner, ObjectNumber(pClonk)), GetID(), pClonk, 0, pClonk, "$GunnerDesc$");
+
+  //Koordinator
+  if(GetCoordinator())
+    AddMenuItem("<c 777777>$Coordinator$</c>", "SeatOccupied", GetID(), pClonk, 0, pClonk, "$SeatOccupied$");
+  else
+    AddMenuItem("<c ffffff>$Coordinator$</c>", Format("EnterSeat(%d, Object(%d))", BKHK_Seat_Coordinator, ObjectNumber(pClonk)), GetID(), pClonk, 0, pClonk, "$CoordinatorDesc$");
+
+  //Passagier 1
+  if(GetPassenger1())
+    AddMenuItem("<c 777777>$Passenger$</c>", "SeatOccupied", GetID(), pClonk, 0, pClonk, "$SeatOccupied$");
+  else
+    AddMenuItem("<c ffffff>$Passenger$</c>", Format("EnterSeat(%d, Object(%d))", BKHK_Seat_Passenger1, ObjectNumber(pClonk)), GetID(), pClonk, 0, pClonk, "$PassengerDesc$");
+
+  //Passagier 2
+  if(GetPassenger2())
+    AddMenuItem("<c 777777>$Passenger$</c>", "SeatOccupied", GetID(), pClonk, 0, pClonk, "$SeatOccupied$");
+  else
+    AddMenuItem("<c ffffff>$Passenger$</c>", Format("EnterSeat(%d, Object(%d))", BKHK_Seat_Passenger2, ObjectNumber(pClonk)), GetID(), pClonk, 0, pClonk, "$PassengerDesc$");
+  
+  //Ausstieg per Seil
+  AddMenuItem("<c ffff33>$ExitRope$</c>", "ExitClonkByRope", CK5P, pClonk, 0, pClonk, "$ExitRopeDesc$");
+  
+  SelectMenuItem(iSelection, pClonk);
+}
+
+private func SeatOccupied(a, object pClonk, int iSelection)
 {
   //Hinweis
-  PlayerMessage(GetOwner(ByObj), "$SeatOccupied$", ByObj);
+  PlayerMessage(GetOwner(pClonk), "$SeatOccupied$", pClonk);
 
   //Sound
-  Sound("BKHK_SwitchFail.ogg", 0, 0, 0, GetOwner(ByObj) + 1);
+  Sound("BKHK_SwitchFail.ogg", 0, 0, 0, GetOwner(pClonk) + 1);
 
   //Menü wiedereröffnen
-  ContainedDigDouble(ByObj);
+  ContainedDigDouble(pClonk);
 
   return 1;
 }
@@ -991,6 +990,7 @@ public func EnterSeat(int iSeat, object pObj)
     GetPilot() = pObj;
     hud = CreateObject(BHUD, 0, 0, GetOwner(pObj));
     hud->~SetHelicopter(this);
+    Sound("BKHK_Switch.ogg", false, this, 100, GetOwner(GetPilot()) + 1);
     return true;
   }
 
@@ -1036,15 +1036,15 @@ public func GetRopeAttach()
   return MGStation;
 }
 
-private func ExitClonk(a, ByObj)
+private func ExitClonk(a, pClonk)
 {
-  SetCommand(ByObj, "Exit");
+  SetCommand(pClonk, "Exit");
 }
 
-private func ExitClonkByRope(a, ByObj)
+private func ExitClonkByRope(a, pClonk)
 {
-  AddEffect("CheckGround", ByObj, 30, 3, this, GetID(), this);
-  SetCommand(ByObj, "Exit");
+  AddEffect("CheckGround", pClonk, 30, 3, this, GetID(), this);
+  SetCommand(pClonk, "Exit");
 }
 
 protected func FxCheckGroundStart(pTarget, iNo, iTemp, pHeli)
@@ -1133,12 +1133,6 @@ public func OnDestruction()
       Exit(obj, 0, 0, Random(360), RandomX(-5, 5), RandomX(-4, 8), Random(10));
   }
 
-  if(Hostile(GetLastAttacker(),GetOwner(this)))
-  {
-    //Achievement-Fortschritt (Junkdealer)
-    DoAchievementProgress(1,AC23,GetLastAttacker());
-  }
-
   //Explosion
   FakeExplode(70, GetLastAttacker() + 1);
   FakeExplode(50, GetLastAttacker() + 1);
@@ -1155,7 +1149,7 @@ public func OnDestruction()
   SetXDir(GetXDir(), obj);
   SetYDir(GetYDir(), obj);
   SetRDir(GetRDir(), obj);
-  return;
+  return true;
 }
 
 /*----- Kollisionsverhalten -----*/
@@ -1171,6 +1165,7 @@ protected func ContactTop()
   //Sound
   Sound("HeavyHit*.ogg", false, MGStation);
   SetYDir(Min(GetYDir(), -40) / -2);
+  return true;
 }
 
 protected func ContactBottom()
@@ -1187,6 +1182,7 @@ protected func ContactBottom()
   }
   if(GetContact(0, -1, CNAT_Left | CNAT_Right) && throttle)
     SetYDir(Max(GetYDir(), 20) * -2 / 3);
+  return true;
 }
 
 protected func ContactLeft()
@@ -1202,6 +1198,7 @@ protected func ContactLeft()
   }
   //Abprallen
   SetXDir(Max(GetXDir(),40) / -2, this);
+  return true;
 }
 
 protected func ContactRight()
@@ -1216,6 +1213,7 @@ protected func ContactRight()
     Sound("HeavyHit*.ogg", false, MGStation);
   }
   SetXDir(Max(GetXDir(), 40) / -2,this);
+  return true;
 }
 
 //Objekt, die in den Rotor geraten, verursachen Schaden
@@ -1248,7 +1246,23 @@ protected func TimerCall()
   //Zerstört?
   if(IsDestroyed())
     return;	
+  
+	//Richtung ermitteln
+	var iDir = GetDir() * 2 - 1;
 
+	//Rotorgeschwindigkeit aktualisieren
+	iRotorSpeed = throttle;
+	if(EngineRunning()) {
+		if(GetAction() == "Fly" || GetAction() == "Turn") iRotorSpeed += 95;
+	} else if(GetAction() != "Fly" && GetAction() != "Turn") {
+		if(GetAction() == "EngineStartUp") iRotorSpeed += GetActTime();
+		else if(GetAction() == "EngineStartUp2") iRotorSpeed += 95/(45+24)*(45+GetActTime());
+		else if(GetAction() == "EngineStartUp3") iRotorSpeed += 95/(45+24+16)*(45+24+GetActTime());
+		else if(GetAction() == "EngineShutDown") iRotorSpeed += 95-GetActTime();
+		else if(GetAction() == "EngineShutDown2") iRotorSpeed += 95-60/(30+30)*(30+GetActTime());
+		else if(GetAction() == "EngineShutDown3") iRotorSpeed += 95-90/(30+30+30)*(30+30+GetActTime());
+	}
+	
   //Absinken, wenn kein Pilot
   if(((!GetPilot() && !GetAutopilot() || GetY() < 100) && throttle) || (GetAction() == "Fly" && throttle && !GetPilot() && !GetAutopilot()))
     if(!Random(3))
@@ -1287,25 +1301,22 @@ protected func TimerCall()
 
   //Scheinwerfer aktualisieren
   if(spotlight)
-  {
     if(spotlightobj[0])
-    {
       UpdateSpotlights();
-    }
     else
-    {
       CreateSpotlights();
-    }
-  }
-  else
-  {
-    if(spotlightobj[0])
-    {
-      RemoveSpotlights();
-    }
-  }
+  else if(spotlightobj[0])
+    RemoveSpotlights();
 
-  //Alle 50 Frames nach Leichen im Heli suchen und löschen.
+  /*Nach gestorbenen Clonks suchen @TODO
+  if(Contents()) {
+		var fUpdate = false;
+		for(var pDead in FindObjects(Find_Container(this), Find_Or(Find_And(Find_Not(Find_OCF(OCF_Alive)), Find_Func("IsClonk")), Find_Func("IsFakeDeath")))) {
+			pDead->Exit();
+		}
+		//if(fUpdate) UpdateSeats();
+  }*/
+  
   if(!(GetActTime() % 50))
   {
     if(!GetAlive(GetPilot()))
@@ -1320,17 +1331,32 @@ protected func TimerCall()
       DeleteActualSeatPassenger(GetPassenger2());
   }
 
-  //Bei Wasser abschalten
-  Water();
-
-  //Piloten anpassen
-  DrawPilot();
-
   //Bodenpartikel zeichnen
-  DrawGroundParticles();
+  if(GetRotorSpeed() != 0 && !GBackSemiSolid()) {
+		var iX = GetX();
+		var iY = GetY();
+		var iXDir = 0;
+		var iYDir = 0;
+		if(SimFlight(iX, iY, iXDir, iYDir, 1, 100, -1)) {
+			iY = iY-GetY();
+		 	if(iY < 150 && GBackSemiSolid(0, iY)) {
+		 		var iMaterial = GetMaterial(0, iY);
+		 		if(iMaterial == Material("Vehicle")) iMaterial = Material("Wall");
+				var iLightness = 0;
+				if(GBackLiquid(0, iY)) iLightness += 175;
+		 		var iClrOffset = Random(3)*3;
+				var iColor = RGB(Min(GetMaterialVal("Color", "Material", iMaterial, 0 + iClrOffset) + iLightness, 255), Min(GetMaterialVal("Color", "Material", iMaterial, 1 + iClrOffset) + iLightness, 255), Min(GetMaterialVal("Color", "Material", iMaterial, 2 + iClrOffset) + iLightness, 255));
+				var iPower = Min(GetRotorSpeed(), 130);
+				CreateParticle("GroundSmoke", iDir*21-3, iY, -(70 - iY / 3), RandomX(-5, 5),  RandomX(30, 15 + (14- iY / 10) * iPower / 5), iColor);
+				CreateParticle("GroundSmoke", iDir*21+3, iY, (70 - iY / 3), RandomX(-5, 5), RandomX(30, 15 + (14 - iY / 10) * iPower / 5), iColor);
+				CreateParticle("GroundSmoke", iDir*21-3, iY - 3, RandomX(-30, -(70 - iY)), -2, RandomX(30, 15 + (14 - iY / 10) * iPower / 5), iColor);
+				CreateParticle("GroundSmoke", iDir*21+3, iY - 3, RandomX(30, (70 - iY)), -2, RandomX(30, 15 + (14 - iY / 10) * iPower / 5), iColor);
+			}
+		}
+  }
 
   //Lebewesen schrappneln
-  if(GetRotorSpeed() > 0)
+  if(GetRotorSpeed() != 0)
   {
     for(var pClonk in FindObjects(Find_OnLine(GetVertex(7), GetVertex(7, true), GetVertex(11), GetVertex(11, true)) , Find_NoContainer(), Find_OCF(OCF_Alive), Find_Not(Find_ID(FKDT))))
     {
@@ -1342,13 +1368,13 @@ protected func TimerCall()
       DoDmg(GetRotorSpeed() / 4, DMG_Projectile, pClonk, 0, GetOwner() + 1);
       Sound("BKHK_RotorHit*.ogg", false, pClonk);
       AddEffect("NoRotorHit", pClonk, 1, 20, pClonk);
+      //Achievement-Fortschritt (Meat Grinder)
       if(GetPilot() && (!GetAlive(pClonk) || IsFakeDeath(pClonk)))
-        //Achievement-Fortschritt (Meat Grinder)
         DoAchievementProgress(1, AC29, GetController(GetPilot()));
     }
 
     //Festes Material im Rotor tut weh, wird von Contact-Calls bei Stillstand nicht erfasst
-    if (!PathFree(GetX() + GetVertex(7), GetY() + GetVertex(7, true), GetX() + GetVertex(11), GetY() + GetVertex(11, true)))
+    if(!PathFree(GetX() + GetVertex(7), GetY() + GetVertex(7, true), GetX() + GetVertex(11), GetY() + GetVertex(11, true)))
       DoDamage(1, this, FX_Call_DmgScript, GetController(GetPilot()) + 1);
   }
   
@@ -1358,133 +1384,48 @@ protected func TimerCall()
   if(flarereload)
     flarereload--;
 
-  //Schadensverhalten
-  //bis 50% nichts
-  if (GetDamage() < MaxDamage() / 2)
-    return;
-
-  //ab 50% rauchen
-  Smoking();
-
-  if (GetDamage() < MaxDamage() * 3 / 4)
-    return;
-
-  //ab 75% Feuer
-  DrawFire();
-
-  if (!GetEffect("Engine", this))
-    return;
-  
-  //Warnsound
-  WarningSound();
-}
-
-private func DrawPilot()
-{
-  if (view_mode && !GetPilot())
-    view_mode = false;
-  else if (!view_mode && GetPilot())
-    view_mode = true;
-}
-
-private func WarningSound()
-{
-  if(GetDamage() < MaxDamage() * 3 / 4) 
-  {
-    if (!(s_counter % 36))
-	  for (var obj in FindObjects(Find_OCF(OCF_CrewMember), Find_Container(this)))
-        Sound("WarningDamage.ogg", false, MGStation, 100, GetOwner(obj) + 1);
-    s_counter++;
-    if (s_counter >= 100)
-      s_counter = 0;
-
-    return;
-  }
-  else
-  {
-    if (!(s_counter % 20))
-    {
-      Local(2) = 0;
-      for (var obj in FindObjects(Find_OCF(OCF_CrewMember), Find_Container(this)))
-        if(obj != GetPilot())
-          Sound("WarningDamageCritical.ogg", false, MGStation, 100, GetOwner(obj) + 1);
-    }
-    s_counter++;
-    if (s_counter >= 100)
-      s_counter = 0;
-
-    return;
-  }
-}
-
-private func DrawGroundParticles()
-{
-  if(!GetRotorSpeed())
-    return;
-  if(GBackLiquid() || GBackSolid())
-    return;
-  for (var i; i < 30; i++)
-  {
-    //Omg, wie wärs mit GetMaterialVal...?
-    if (GetMaterial(0, i * 5) == Material("Earth"))
-      return CreateDust(i * 5, GetRotorSpeed(), RGB(150, 86, 22));
-    if ((Material("Wall") != -1 && GetMaterial(0, i * 5) == Material("Wall")) || GetMaterial(0, i * 5) == Material("Vehicle"))                    
-      return CreateDust(i * 5, GetRotorSpeed(), RGB(150, 150, 150));
-    if (GetMaterial(0, i * 5) == Material("Snow"))                    
-      return CreateDust(i * 5, GetRotorSpeed(), RGB(255, 255, 255));
-    if (GetMaterial(0, i *5 ) == Material("Sand"))                    
-      return CreateDust(i * 5, GetRotorSpeed(), RGB(247, 236, 157));
-    if (GetMaterial(0, i * 5) == Material("Ashes"))                    
-      return CreateDust(i * 5, GetRotorSpeed(), RGB(64, 55, 36));
-    if (GBackSolid(0, i * 5))
-      return true;
-
-    if (GetMaterial(0, i * 5) == Material("Water"))
-      return CreateDust(i * 5, GetRotorSpeed(), RGB(176, 194, 208));
-  }
-}
-
-private func CreateDust(int Y, int Power, int Color)
-{
-  Power = Min(Power, 130);
-  CreateParticle("GroundSmoke", -3, Y, -(70 - Y / 3), RandomX(-5, 5),
-                 RandomX(30, 15 + (14- Y / 10) * Power / 5), Color);		//nach links
-  CreateParticle("GroundSmoke", +3, Y, (70 - Y / 3), RandomX(-5, 5),
-                 RandomX(30, 15 + (14 - Y / 10) * Power / 5), Color);		//nach rechts
-  CreateParticle("GroundSmoke", -3, Y - 3, RandomX(-30, -(70 - Y)), -2,
-                 RandomX(30, 15 + (14 - Y / 10) * Power / 5), Color);		//nach links oben
-  CreateParticle("GroundSmoke", +3, Y - 3, RandomX(30, (70 - Y)), -2,
-                 RandomX(30, 15 + (14 - Y / 10) * Power / 5), Color);		//nach rechts oben
-  return true;
-}
-
-private func DrawFire()
-{
-  var dir = GetDir() * 2 - 1;
-  if (!GBackLiquid(-Sin(GetR() + dir * 80, 25), +Cos(GetR() + dir * 80, 25)))
-    CreateParticle("Blast",-Sin(GetR() + dir * 80, 25) + RandomX(-10, 10),
-                           +Cos(GetR() + dir * 80, 25) + RandomX(-10, 10),
-  			             0, -10, 100 + Random(30), RGB(255, 255, 255), this);
-
-  if (!GBackLiquid(-Sin(GetR() + dir * 80, 25), +Cos(GetR() + dir * 80, 25)))
-    CreateParticle("Blast",-Sin(GetR() - dir * 60, 25) + RandomX(-10, 10),
-                           +Cos(GetR() + dir * 100, 25) + RandomX(-10, 10),
-  			             0, -10, 100 + Random(30), RGB(255, 255, 255), this);
-}
-
-private func Water()
-{
-  if(GBackLiquid(0, 10))
+  //Bei Wasser schaden
+  if(GBackLiquid(0, 10)) {
     DoDamage(5);
-}
+  }
 
-private func Smoking()
-{
-  var dir = GetDir() * 2 - 1;
-
-  for (var a = 0; a < 3; a++)
-    if (!GBackLiquid(-Sin(GetR() + dir * 80, 25), +Cos(GetR() + dir * 80, 25)))
-      Smoke(-Sin(GetR() + dir * 80, 25), +Cos(GetR() + dir * 80, 25), Random(10));
+  //Schadensverhalten
+  if(GetDamage() >= MaxDamage() / 2) {
+		for (var a = 0; a < 3; a++)
+		  if (!GBackLiquid(-Sin(GetR() + iDir * 80, 25), +Cos(GetR() + iDir * 80, 25)))
+		    Smoke(-Sin(GetR() + iDir * 80, 25), +Cos(GetR() + iDir * 80, 25), Random(10));
+	}
+	if(GetDamage() >= MaxDamage() * 3 / 4) {
+		if (!GBackLiquid(-Sin(GetR() + iDir * 80, 25), +Cos(GetR() + iDir * 80, 25)))
+			CreateParticle("Blast", -Sin(GetR() + iDir * 80, 25) + RandomX(-10, 10), +Cos(GetR() + iDir * 80, 25) + RandomX(-10, 10),0, -10, 100 + Random(30), RGB(255, 255, 255), this);
+		if (!GBackLiquid(-Sin(GetR() + iDir * 80, 25), +Cos(GetR() + iDir * 80, 25)))
+			CreateParticle("Blast", -Sin(GetR() - iDir * 60, 25) + RandomX(-10, 10), +Cos(GetR() + iDir * 100, 25) + RandomX(-10, 10),0, -10, 100 + Random(30), RGB(255, 255, 255), this);
+  			             
+		if(EngineRunning()) {
+ 		  if(GetDamage() < MaxDamage() * 3 / 4) 
+			{
+				if (!(s_counter % 36))
+				for (var obj in FindObjects(Find_OCF(OCF_CrewMember), Find_Container(this)))
+				  Sound("WarningDamage.ogg", false, MGStation, 100, GetOwner(obj) + 1);
+				s_counter++;
+				if(s_counter >= 100)
+				  s_counter = 0;
+			}
+			else
+			{
+				if (!(s_counter % 20))
+				{
+				  Local(2) = 0;
+				  for (var obj in FindObjects(Find_OCF(OCF_CrewMember), Find_Container(this)))
+				    if(obj != GetPilot())
+				      Sound("WarningDamageCritical.ogg", false, MGStation, 100, GetOwner(obj) + 1);
+				}
+				s_counter++;
+				if (s_counter >= 100)
+				  s_counter = 0;
+			}
+	 	}
+	}
 }
 
 /*----- Physik -----*/
@@ -1498,7 +1439,7 @@ protected func StartEngine()
 protected func EngineStarted()
 {
   Sound("BKHK_RotorSpin*.ogg", false, 0, 0, 0, -1);
-  if(!GetEffect("Engine", this)) {  
+  if(!EngineRunning()) {  
     AddEffect("Engine", this, 300, 1, this);
     throttle = 0;
     rotation = 0;
