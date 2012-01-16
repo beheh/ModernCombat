@@ -110,8 +110,8 @@ protected func Initialize()
   //Zufälligen Song anwählen
   iTrack = Random(RDIO_TrackCount)+1;
 
-	//Neues Zeug
-	iRotorSpeed = 0;
+  //Rotordrehung
+  iRotorSpeed = 0;
 	
   //Vertices richtig drehen
   ScheduleCall(this,"ChangeDir",1,2);

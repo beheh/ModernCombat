@@ -53,7 +53,7 @@ public func OnDestruction()
     motor->FakeExplode(20, GetLastAttacker());
     RemoveObject(motor);
   }
-  
+
   //Effekte
   CreateParticle("Blast",0,-10,-20,0,5*50,RGB(255,255,128));
   CreateParticle("Blast",0,-10,20,0,5*50,RGB(255,255,128));
@@ -87,7 +87,7 @@ public func OnDmg(int iDmg, int iType)
 /* Landung */
 
 private func LandOn()
-{  
+{
   Stop();
   RemoveObject(motor);
   ChangeDef(PBOT);
