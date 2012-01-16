@@ -40,11 +40,11 @@ public func Initialize()
 
 protected func SetState(int iNewState, bool fKeepSound, bool fUpdate)
 {
-	if(iState == iNewState && !fUpdate) return;
+  if(iState == iNewState && !fUpdate) return;
   iState = iNewState;
   var dwArrowColor;
   if(iState == BHUD_Off) {
-  	SetClrModulation(RGBa(0,0,0,255));
+    SetClrModulation(RGBa(0,0,0,255));
     dwArrowColor = RGBa(0,0,0,255);
   }
   if(iState == BHUD_Error)
@@ -55,7 +55,7 @@ protected func SetState(int iNewState, bool fKeepSound, bool fUpdate)
     Sound("WarningDamage.ogg", false, pHelicopter, 100, GetOwner()+1, +1);
   }
   else {
-  	SetClrModulation(RGBa(255,255,255,255), this, BHUD_Overlay_Failure);
+    SetClrModulation(RGBa(255,255,255,255), this, BHUD_Overlay_Failure);
     if(!fKeepSound)
     {
       Sound("WarningDamage.ogg", false, pHelicopter, 100, GetOwner()+1, -1);
@@ -105,7 +105,7 @@ protected func SetState(int iNewState, bool fKeepSound, bool fUpdate)
 }
 
 protected func GetState() {
-	return iState;
+  return iState;
 }
 
 public func SetHelicopter(object pNewHelicopter)
@@ -136,85 +136,88 @@ protected func Timer()
     RemoveObject();
     return true;
   }
-  //Ausrichten
-  Align();
-  //Rotation anzeigen
-  if(!pRotation)
-  {
-    pRotation = CreateObject(BRTN,0,0,GetOwner());
-    pRotation->SetOwner(GetOwner());
-    pRotation->SetClrModulation(RGBa(255,204,0,50));
+  if(iState != BHUD_Off) {
+    //Ausrichten
+    Align();
+    //Rotation anzeigen
+    if(!pRotation)
+    {
+      pRotation = CreateObject(BRTN,0,0,GetOwner());
+      pRotation->SetOwner(GetOwner());
+      pRotation->SetClrModulation(RGBa(255,204,0,50));
+    }
+    SetPosition(GetX(), GetY()+56, pRotation);
+    pRotation->SetVisibility(GetVisibility());
+    pRotation->SetR(GetR(pHelicopter));
+    //Throttle anzeigen
+    if(!pThrottle)
+    {
+      pThrottle = CreateObject(BARW,0,0,GetOwner());
+      pThrottle->SetOwner(GetOwner());
+      pThrottle->SetClrModulation(RGBa(255,204,0,50));
+    }
+    SetPosition(GetX()-180, GetY()+70-BoundBy((((140*1000)/max_throttle)*pHelicopter->GetThrottle())/1000, 0, 140), pThrottle);
+    pThrottle->SetVisibility(GetVisibility());
+    //Höhe anzeigen
+    if(!pAltitude)
+    {
+      pAltitude = CreateObject(BARW,0,0,GetOwner());
+      pAltitude->SetR(180);
+      pAltitude->SetOwner(GetOwner());
+      pAltitude->SetClrModulation(RGBa(255,204,0,50));
+    }
+    SetPosition(GetX()+180, GetY()+64-BoundBy(140-((((140*1000)/LandscapeHeight())*GetY(pHelicopter))/1000), 0, 140), pAltitude);
+    pAltitude->SetVisibility(GetVisibility());
+    //Wind anzeigen
+    if(!pWind)
+    {
+      pWind = CreateObject(BARW,0,0,GetOwner());
+      pWind->SetR(90);
+      pWind->SetOwner(GetOwner());
+      pWind->SetVisibility(VIS_Owner);
+      pWind->SetClrModulation(RGBa(255,204,0,50));
+    }
+    SetPosition(GetX()-4+BoundBy((1400*GetWind(AbsX(GetX(pHelicopter)), AbsY(GetY(pHelicopter))))/1000, -69, 71), GetY()-98, pWind);
+    pWind->SetVisibility(GetVisibility());
+    //Status setzen
+    SetObjDrawTransform(1000,0,0,0,1000,0);
   }
-  SetPosition(GetX(), GetY()+56, pRotation);
-  pRotation->SetVisibility(GetVisibility());
-  pRotation->SetR(GetR(pHelicopter));
-  //Throttle anzeigen
-  if(!pThrottle)
-  {
-    pThrottle = CreateObject(BARW,0,0,GetOwner());
-    pThrottle->SetOwner(GetOwner());
-    pThrottle->SetClrModulation(RGBa(255,204,0,50));
-  }
-  SetPosition(GetX()-180, GetY()+70-BoundBy((((140*1000)/max_throttle)*pHelicopter->GetThrottle())/1000, 0, 140), pThrottle);
-  pThrottle->SetVisibility(GetVisibility());
-  //Höhe anzeigen
-  if(!pAltitude)
-  {
-    pAltitude = CreateObject(BARW,0,0,GetOwner());
-    pAltitude->SetR(180);
-    pAltitude->SetOwner(GetOwner());
-    pAltitude->SetClrModulation(RGBa(255,204,0,50));
-  }
-  SetPosition(GetX()+180, GetY()+64-BoundBy(140-((((140*1000)/LandscapeHeight())*GetY(pHelicopter))/1000), 0, 140), pAltitude);
-  pAltitude->SetVisibility(GetVisibility());
-  //Wind anzeigen
-  if(!pWind)
-  {
-    pWind = CreateObject(BARW,0,0,GetOwner());
-    pWind->SetR(90);
-    pWind->SetOwner(GetOwner());
-    pWind->SetVisibility(VIS_Owner);
-    pWind->SetClrModulation(RGBa(255,204,0,50));
-  }
-  SetPosition(GetX()-4+BoundBy((1400*GetWind(AbsX(GetX(pHelicopter)), AbsY(GetY(pHelicopter))))/1000, -69, 71), GetY()-98, pWind);
-  pWind->SetVisibility(GetVisibility());
   //Flares und SmokeWall
   var fUpdate = false;
   var tFlares = pHelicopter->CanDeployFlares();
   var tSmokeWall = pHelicopter->CanDeploySmokeWall();
   if(fFlares != tFlares) {
-  	  fUpdate = true;
-  	  fFlares = tFlares;
+      fUpdate = true;
+      fFlares = tFlares;
   }
   if(fSmokeWall != tSmokeWall) {
-  	  fUpdate = true;
-  	  fSmokeWall = tSmokeWall;
+      fUpdate = true;
+      fSmokeWall = tSmokeWall;
   }
   if(fUpdate) {
-  	SetState(GetState(), false, true);
+    SetState(GetState(), false, true);
   }
-  //Status setzen
-  SetObjDrawTransform(1000,0,0,0,1000,0);
+  //Schadensverhalten
   if(fDamage || pHelicopter->GetDamage() >= pHelicopter->MaxDamage()*3/4)
   {
-  	var fDisable = false;
-  	if(iDamageRemaining == 0 && Random(5)) {
-	  	SetState(BHUD_Error);
-	  }
-	  else {
-	  	if(iDamageRemaining == 0) fDisable = true;
-	  	if(!Random(2) && fDisable) {
-				SetState(BHUD_Off, true);
-			}
-			else if(!Random(5)) {
-			  SetState(BHUD_Error);
-			  if(!Random(2)) {
-			  	var val = RandomX(0,300);
-			  	if(!Random(2)) val *= -1;
-					SetObjDrawTransform(RandomX(800, 1200),val,RandomX(-5,5)*1000,val,RandomX(800, 1200),RandomX(-5,5)*1000);
-				}
-			}
-  	}
+    var fDisable = false;
+    if(iDamageRemaining == 0 && Random(5)) {
+      SetState(BHUD_Error);
+    }
+    else {
+      if(iDamageRemaining == 0) fDisable = true;
+      if(!Random(2) && fDisable) {
+        SetState(BHUD_Off, true);
+      }
+      else if(!Random(5)) {
+        SetState(BHUD_Error);
+        if(!Random(2)) {
+          var val = RandomX(0,300);
+          if(!Random(2)) val *= -1;
+          SetObjDrawTransform(RandomX(800, 1200),val,RandomX(-5,5)*1000,val,RandomX(800, 1200),RandomX(-5,5)*1000);
+        }
+      }
+    }
   }
   else
   {
