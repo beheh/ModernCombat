@@ -29,7 +29,7 @@ public func ChooserFinished()
   for(var i = 0; i < GetPlayerCount(); i++)
   {
     CreateObject(TK05, 0, 0, GetPlayerByIndex(i));
-    Sound("RadioConfirm*.ogg", true, 0, 100, GetPlayerByIndex(i));
+    Sound("ObjectiveReceipt.ogg", true, 0, 100, GetPlayerByIndex(i));
   }
 }
 

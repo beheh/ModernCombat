@@ -79,7 +79,7 @@ public func ChooserFinished()
   {
     DoScoreboardShow(1, GetPlayerByIndex(i) + 1);
     CreateObject(TK01, 0, 0, GetPlayerByIndex(i));
-    Sound("RadioConfirm*.ogg", true, 0, 100, GetPlayerByIndex(i) + 1);
+    Sound("ObjectiveReceipt.ogg", true, 0, 100, GetPlayerByIndex(i) + 1);
   }
 }
 
