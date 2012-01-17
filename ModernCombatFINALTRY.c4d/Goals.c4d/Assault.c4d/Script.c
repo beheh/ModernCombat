@@ -49,7 +49,7 @@ protected func LogTask()
     if (GetPlayerTeam(j = GetPlayerByIndex(i)) == iDefender)
       TaskID = TK03;
     CreateObject(TaskID, 0, 0, GetPlayerByIndex(i));
-    Sound("RadioConfirm*.ogg", true, 0, 100, GetPlayerByIndex(i) + 1);
+    Sound("ObjectiveReceipt.ogg", true, 0, 100, GetPlayerByIndex(i) + 1);
   }
 }
 
