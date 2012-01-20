@@ -20,8 +20,8 @@ Heilung					[Anzahl]/4	Teampunkte		IC05
 Dragnininjektion an Verbündeten		10		Teampunkte		IC05
 Munitionierung				[Anzahl]/3	Teampunkte		IC14
 Schildabwehr				10		Teampunkte		IC16
-Kill Assist durch Blendung		10		Teampunkte		IC19
-Kill Assist durch Sichtung		10		Teampunkte		IC02
+Kill Assist durch Blendung		20		Teampunkte		IC19
+Kill Assist durch Sichtung		20		Teampunkte		IC02
 
 Zerstörung:
 
@@ -38,7 +38,7 @@ Kill Assist aus Fahrzeug heraus		30		Teampunkte		IC02
 Peilsender:
 
 Peilsenderplazierung			10		Teampunkte		IC17
-Kill Assist durch Peilsender		20		Teampunkte		IC02
+Kill Assist durch Peilsender		30		Teampunkte		IC02
 
 Besitznahme:
 
