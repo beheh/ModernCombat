@@ -22,8 +22,8 @@ global func BonusPoints(string szType, extraData)
   if(szType == "Restocking")			return extraData/3;	//Munitionierung
   if(szType == "Protection")			return 10;		//Schildabwehr/Projektilabwehr
   if(szType == "TracerSet")			return 10;		//Peilsenderplazierung
-  if(szType == "TracerAssist")			return 20;		//Kill Assist durch Peilsender
-  if(szType == "VisualAssist")			return 10;		//Kill Assist durch Blendung/Sichtung
+  if(szType == "TracerAssist")			return 30;		//Kill Assist durch Peilsender
+  if(szType == "VisualAssist")			return 20;		//Kill Assist durch Blendung/Sichtung
   if(szType == "TechnicalTask")			return 20;		//Entschärfung
   if(szType == "VehicleDamage")			return 10;		//Beschädigung
   if(szType == "Destruction")			return 50;		//Fahrzeug-/Strukturzerstörung
