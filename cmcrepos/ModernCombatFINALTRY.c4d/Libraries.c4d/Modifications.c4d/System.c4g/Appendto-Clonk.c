@@ -128,6 +128,7 @@ private func WalkSound()
 private func CrawlStartSound()
 {
   Sound("ClonkFall*.ogg", 0, 0, 50);
+  Sound("ClonkRustle*.ogg", 0, 0, 25);
   return 1;
 }
 
@@ -213,11 +214,13 @@ func Hit2(int xDir, int yDir)
   if(hit >= 800)
   {
     Sound("ClonkImpact*.ogg");
+    Sound("ClonkRustle*.ogg", 0, 0, 50);
     if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",8,10,0,10,20,100);
   }
   else if(hit >= 600)
   {
     Sound("ClonkFall*.ogg");
+    Sound("ClonkRustle*.ogg", 0, 0, 25);
     if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",4,8,0,10,20,50);
   }
 
