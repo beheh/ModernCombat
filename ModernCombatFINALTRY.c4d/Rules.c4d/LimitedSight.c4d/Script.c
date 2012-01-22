@@ -109,6 +109,45 @@ public func FxSightTimer(object pTarget,int iEffectNumber, int iEffectTime)
     }
   }
   else
+  //Spezielle Blackhawk-Sicht
+  if(GetID(Contained(pTarget)) == BKHK)
+  {
+    var angle, blackhawk = Contained(pTarget); 
+
+    //Piloten und Passagiere
+    if(pTarget == blackhawk->GetPilot() || pTarget == blackhawk->GetPassenger1() || pTarget == blackhawk->GetPassenger2())
+    {
+      angle = 90;
+      if(GetDir(blackhawk) == DIR_Left)
+        angle = 270;
+
+      var rotation = LocalN("rotation", blackhawk);
+      angle += rotation;
+    }
+    //Schütze
+    else if(pTarget == blackhawk->GetGunner())
+    {
+      var weapon = blackhawk->GetRopeAttach();
+      angle = weapon->AimAngle();
+    }
+    else if(pTarget == blackhawk->GetCoordinator())
+    {
+      var weapon = LocalN("RocketStation", blackhawk);
+      angle = weapon->AimAngle();
+    }
+
+    var mx = +Sin(angle,L_AS_Distance),
+    my = -Cos(angle,L_AS_Distance),
+    ml = 0;	
+
+    for(var i = 0; i < GetLength(aSight); i++)
+    {
+      ml += L_AS_Range;
+      SetPlrViewRange(L_AS_Range,aSight[i]);
+      aSight[i]->SetPosition(pTarget->GetX() + (mx*ml/L_AS_Distance), pTarget->GetY() + (my*ml/L_AS_Distance));
+    }
+  }
+  else
   {
     for(var o in aSight)
     {
