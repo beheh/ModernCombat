@@ -1,11 +1,32 @@
-/*-- Ereignis-Anzeiger --*/
+/*-- Ereignisanzeige --*/
 
 #strict 2
+
+public func MaxInfos()	{return 12;}		//Maximale Anzahl gleichzeitig eingeblendeter Eventinfos
+public func MaxTime()	{return 35*12;}		//Zeit bis zum Ausblenden
+public func IconSize()	{return 23;}		//Symbolgröße
+public func IsHUD()	{return 1;}
+
+local text, icon, color, graphics, action, fGlobal;
+
+
+/* Initialisierung */
+
+protected func Initialize()
+{
+  if (GetOwner() != NO_OWNER)
+    SetVisibility(VIS_Owner);
+  else
+    SetVisibility(VIS_God);
+  SetColorDw(RGB(255,255,255));
+}
+
+/* Globaler Aufruf */
 
 global func EventInfo4K(int iPlrPlusOne)
 {
   var msg;
-  
+
   if(iPlrPlusOne <= 0)
   {
     for(var i = 0; i < GetPlayerCount(C4PT_User); i++)
@@ -13,7 +34,7 @@ global func EventInfo4K(int iPlrPlusOne)
       msg = CreateObject(EI4K,0,0,GetPlayerByIndex(i,C4PT_User));
       msg->Set(...);
     }
-    //Godmode. Nur wenns sowieso jeder sieht.
+    //Nur wenn sowieso sichtbar
     msg = CreateObject(EI4K,0,0,-1);
 	msg->SetAsGlobal();
     msg->Set(...);
@@ -27,28 +48,18 @@ global func EventInfo4K(int iPlrPlusOne)
   }
 }
 
-protected func Initialize()
-{
-  if (GetOwner() != NO_OWNER)
-    SetVisibility(VIS_Owner);
-  else
-    SetVisibility(VIS_God);
-  SetColorDw(RGB(255,255,255));
-}
-
-local text, icon, color, graphics, action, fGlobal;
-
 public func Set(string szText, id idIcon, int dwTextColor, int dwIconColor, string szGraphics, string szSound, string szAction)
 {
+  //Falls nicht mitgegeben, Standardwerte setzen
   if(!idIcon && !szGraphics)
     szGraphics = "Default";
 
   if(!dwTextColor)
     dwTextColor = RGB(255,255,255);
-    
+
   if(!dwIconColor)
     dwIconColor = RGB(255,255,255);
-    
+
   text = szText;
   icon = idIcon;
   color = dwTextColor;
@@ -56,15 +67,17 @@ public func Set(string szText, id idIcon, int dwTextColor, int dwIconColor, stri
   action = szAction;
   SetColorDw(dwIconColor);
 
-  if (GetOwner() != NO_OWNER) {
+  //Sound für betreffenden Spieler abspielen
+  if (GetOwner() != NO_OWNER)
+  {
     if(!szSound) szSound = "EI4K_NewMessage.ogg";
     Sound(szSound,true,0,0,GetOwner()+1);
   }
-  
+
   AddEffect("IntEventInfo", this, 10, 1, this, EI4K);
 }
 
-public func SetAsGlobal() { fGlobal = true; }
+public func SetAsGlobal()	{fGlobal = true;}
 
 public func FxIntEventInfoStart(object pTarget, int iEffectNumber, int iTemp)
 {
@@ -83,11 +96,11 @@ public func FxIntEventInfoStart(object pTarget, int iEffectNumber, int iTemp)
 
 public func FxIntEventInfoTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
-  //Spieler tot, Nachricht weg.
+  //Nachricht bei totem Spieler entfernen
   if (!fGlobal && !GetPlayerName(GetOwner(pTarget)))
     return -1;
   var a = 255-Sin(900+(iEffectTime*900/MaxTime()),255*2,10)/2;
-  
+
   if(icon) SetClrModulation(RGBa(255,255,255,a),this,1); 
   CustomMessage(Format("           %s",text), pTarget, GetOwner(), 0, 26, SetRGBaValue(color,a), 0, 0, MSG_NoLinebreak);
   if(iEffectTime >= MaxTime()) return -1;
@@ -108,11 +121,11 @@ private func SortByActTime(object pExclude)
 {
   var aSymbols = FindObjects(Find_Owner(GetOwner()), Find_ID(GetID()), Find_Exclude(pExclude), Sort_Reverse());
   var temp;
-  
+
   if(!pExclude)
     aSymbols[GetLength(aSymbols)] = this;
 
-  //Sortieren.
+  //Einträge sortieren
   while(!Sorted(aSymbols))
     for(var i = 0;i < GetLength(aSymbols);i++)
     {
@@ -127,7 +140,7 @@ private func SortByActTime(object pExclude)
       }
     }
 
-  //Überschüssige Einträge löschen.
+  //Überschüssige Einträge entfernen
   for(var i = 0;i < GetLength(aSymbols);i++)
   {
     SetPosition(IconSize()+5,70+i*IconSize(),aSymbols[i]);
@@ -157,10 +170,3 @@ public func GetEffectTime()
 {
   return GetEffect("IntEventInfo",this,0,6);
 }
-
-/* Interne Konstanten und Tags */
-
-public func MaxInfos(){return 12;}
-public func MaxTime(){return 35*12;}
-public func IconSize(){return 23;}
-public func IsHUD(){return 1;}
