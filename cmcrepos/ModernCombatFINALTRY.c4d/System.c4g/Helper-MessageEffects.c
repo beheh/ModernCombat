@@ -1,10 +1,15 @@
-/*-- toll fadende und bunte Nachrichten --*/
+/*-- Erweiterte Texteffekte --*/
 
-#strict
+//Erweitert Texteffekte um Färbe- und Ein/Ausblendeffekte.
+
+#strict 2
+
+
+/* Globaler Aufruf */
 
 global func Message4K(pObject,szText,iFrames,dwRGBa_1,dwRGBa_2)
 {
-  AddEffect ("IntShowMessage4K",pObject,1,1,pObject,0,szText,dwRGBa_1,dwRGBa_2,iFrames); 
+  AddEffect("IntShowMessage4K",pObject,1,1,pObject,0,szText,dwRGBa_1,dwRGBa_2,iFrames); 
 }
 
 global func Message4K2(pObject,szText,iFrames,dwRGBa,iFadeIn,iFadeOut)
@@ -14,9 +19,8 @@ global func Message4K2(pObject,szText,iFrames,dwRGBa,iFadeIn,iFadeOut)
   var pObject2 = pObject;
 
   if(!pObject)
-  {
-    pObject = CreateObject(ROCK,100,100);//falls global
-  }
+    //Sofern global
+    pObject = CreateObject(ROCK,100,100);
 
   var dwRGBa_fade = SetRGBaValue (dwRGBa,0,0);
 
@@ -25,14 +29,12 @@ global func Message4K2(pObject,szText,iFrames,dwRGBa,iFadeIn,iFadeOut)
   Schedule (Format("Message4K(%d,\"%s\",%d,%d,%d)",pObject2,szText,iFadeOut,dwRGBa,dwRGBa_fade),iFadeIn+iFrames,0,pObject);//ausfaden
 }
 
+/* Texteffekt */
 
-/* Der Effekt. */
-/*
-0: Text
-1: von RGBa...
-2: zu RGBa faden
-3: Frames
-*/
+//0: Text
+//1: von RGBa...
+//2: zu RGBa faden
+//3: Frames
 
 global func FxIntShowMessage4KStart(object pTarget, int iEffectNumber, int iTemp,szText,dwRGBa_1,dwRGBa_2,iFrames)
 {
@@ -45,7 +47,6 @@ global func FxIntShowMessage4KStart(object pTarget, int iEffectNumber, int iTemp
 
 global func FxIntShowMessage4KTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
-
   if(iEffectTime > EffectVar (3,pTarget,iEffectNumber))
     return(-1);
 
@@ -53,9 +54,9 @@ global func FxIntShowMessage4KTimer(object pTarget, int iEffectNumber, int iEffe
 
   var rgba;
 
-    var dwRGBa_1 = EffectVar (1,pTarget,iEffectNumber);
-    var dwRGBa_2 = EffectVar (2,pTarget,iEffectNumber);
-    rgba = InterpolateRGBa(dwRGBa_1,dwRGBa_2,0,iFrames,iEffectTime);
+  var dwRGBa_1 = EffectVar (1,pTarget,iEffectNumber);
+  var dwRGBa_2 = EffectVar (2,pTarget,iEffectNumber);
+  rgba = InterpolateRGBa(dwRGBa_1,dwRGBa_2,0,iFrames,iEffectTime);
 
   Message ("<c %x>%s</c>",pTarget,rgba,EffectVar (0,pTarget,iEffectNumber));
 
@@ -80,10 +81,7 @@ global func FxIntShowMessage4KAdd (object pTarget, int iEffectNumber, string szN
   EffectVar (3,pTarget,iEffectNumber) = iFrames;
 }
 
-
-
-
-//Interpolations-Funktionen
+/* Interpolationsfunktionen */
 
 global func Interpolate(y1,y2,x1,x2,x3)
 {
