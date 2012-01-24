@@ -78,9 +78,9 @@ public func FMData1T2(int data)
   if(data == FM_BurstAmount)	return 4;
   if(data == FM_BurstRecharge)	return 4;
 
-  if(data == FM_Damage)		return 10;
+  if(data == FM_Damage)		return 9;
 
-  if(data == FM_SpreadAdd)	return 40;
+  if(data == FM_SpreadAdd)	return 30;
 
   return FMData1(data);
 }
