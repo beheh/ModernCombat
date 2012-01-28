@@ -189,6 +189,19 @@ func OnFinishReloadStart(i)
   }
 }
 
+/* Handeffekt */
+
+public func HandR()
+{
+  var effect = IsReloading();
+  if(effect)
+    return -BoundBy(GetEffect(0,this,effect,6)*2,0,-20);
+
+  effect = IsRecharging();
+  if(effect)
+    return -BoundBy(GetEffect(0,this,effect,6)*1,0,1);
+}
+
 /* Allgemein */
 
 func OnSelect()

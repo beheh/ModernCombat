@@ -109,16 +109,6 @@ public func AimAngleChange(bool fJNR)
     return 4;
 }
 
-/* Handeffekt */
-
-public func HandR()
-{
-  var effect = IsReloading();
-  if(effect)
-   return Max(Sin(GetEffect(0,this,effect,6)*90/50,20),0);
-  return;
-}
-
 /* Raketenverfolgung */
 
 private func Check()
@@ -136,6 +126,16 @@ public func RejectSwitch()
   //Sicht wegnehmen
   if (!_inherited(...) && pRocket)
     SetPlrView(GetOwner(Contained()), Contained());
+}
+
+/* Handeffekt */
+
+public func HandR()
+{
+  var effect = IsReloading();
+  if(effect)
+    return Max(Sin(GetEffect(0,this,effect,6)*90/80,20),0);
+  return;
 }
 
 /* Allgemein */

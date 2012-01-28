@@ -111,6 +111,19 @@ public func Fire1()
   Echo("MNGN_Echo.ogg");
 }
 
+/* Handeffekt */
+
+public func HandR()
+{
+  var effect = IsReloading();
+  if(effect)
+    return Max(Sin(GetEffect(0,this,effect,6)*90/80,20),0);
+
+  effect = IsRecharging();
+  if(effect)
+    return -BoundBy(GetEffect(0,this,effect,6)*1,0,1);
+}
+
 /* Allgemein */
 
 protected func OnFireStop(int iSlot)

@@ -98,17 +98,6 @@ func OnReload()
   Sound("WPN2_Handle*.ogg");
 }
 
-public func HandR()
-{
-  var effect = IsReloading();
-  if(effect)
-    return -BoundBy(GetEffect(0,this,effect,6)*2,0,17);
-    
-  effect = IsRecharging();
-  if(effect)
-    return -BoundBy(GetEffect(0,this,effect,6)*2,0,17);
-}	
-
 func OnFinishReloadStart()
 {
   AddEffect("Pump", this, 1, 1+GetFMData(FM_Recharge, 1)-25, this);
@@ -128,6 +117,19 @@ public func FxPumpStop(object pTarget)
   var user = GetUser();
   var dir = GetDir(user)*2-1;
   SABulletCasing(dir*1,0,-dir*14*(Random(1)+1),-(13+Random(2)),6,RGB(255));
+}
+
+/* Handeffekt */
+
+public func HandR()
+{
+  var effect = IsReloading();
+  if(effect)
+    return -BoundBy(GetEffect(0,this,effect,6)*2,0,17);
+
+  effect = IsRecharging();
+  if(effect)
+    return -BoundBy(GetEffect(0,this,effect,6)*2,0,17);
 }
 
 /* Allgemein */

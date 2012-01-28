@@ -180,6 +180,17 @@ func OnFinishReloadStart()
   Sound("SGST_ReloadStop.ogg");
 }
 
+/* Handeffekt */
+
+/* Handeffekt */
+
+public func HandR()
+{
+  var effect = IsReloading();
+  if(effect)
+    return -BoundBy(GetEffect(0,this,effect,6)*1,0,17);
+}
+
 /* Allgemein */
 
 func OnSelect()
