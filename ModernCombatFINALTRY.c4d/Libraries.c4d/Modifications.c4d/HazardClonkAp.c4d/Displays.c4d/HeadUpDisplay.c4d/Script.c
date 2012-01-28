@@ -353,6 +353,8 @@ public func Destruction()
   {
     RemoveObject(char);
   }
-  RemoveObject(CharEqS);
-  RemoveObject(rechargebar);
+  if(CharEqS)
+    RemoveObject(CharEqS);
+  if(rechargebar)
+    RemoveObject(rechargebar);
 }
