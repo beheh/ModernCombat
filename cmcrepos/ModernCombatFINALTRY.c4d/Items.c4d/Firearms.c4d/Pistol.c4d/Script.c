@@ -145,6 +145,16 @@ public func Fire2()
   casing = 1;
 }
 
+/* Handeffekt */
+
+public func HandR()
+{
+  var effect = IsReloading();
+  if(effect)
+    return Max(Sin(GetEffect(0,this,effect,6)*80/10,20),0);
+  return;
+}
+
 /* Allgemein */
 
 func OnSelect()

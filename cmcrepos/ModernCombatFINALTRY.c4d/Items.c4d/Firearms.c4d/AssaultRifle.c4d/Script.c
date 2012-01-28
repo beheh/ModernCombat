@@ -241,6 +241,19 @@ public func LaunchGrenade(id idg, int speed, int angle, int mode)
   casing = 1;
 }
 
+/* Handeffekt */
+
+public func HandR()
+{
+  var effect = IsReloading();
+  if(effect)
+    return -BoundBy(GetEffect(0,this,effect,6)*2,0,10);
+
+  effect = IsRecharging();
+  if(effect)
+    return -BoundBy(GetEffect(0,this,effect,6)*1,0,1);
+}
+
 /* Allgemein */
 
 func OnReload(i)

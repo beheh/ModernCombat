@@ -132,6 +132,15 @@ public func Fire1()
   Echo("SMGN_Echo.ogg");
 }
 
+/* Handeffekt */
+
+public func HandR()
+{
+  var effect = IsReloading();
+  if(effect)
+    return Max(Sin(GetEffect(0,this,effect,6)*20/5,20),0);
+}
+
 /* Allgemein */
 
 func OnSelect()
