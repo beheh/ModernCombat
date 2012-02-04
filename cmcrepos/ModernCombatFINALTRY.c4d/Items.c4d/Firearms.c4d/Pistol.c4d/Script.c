@@ -151,7 +151,7 @@ public func HandR()
 {
   var effect = IsReloading();
   if(effect)
-    return Max(Sin(GetEffect(0,this,effect,6)*80/10,20),0);
+    return -BoundBy(GetEffect(0,this,effect,6)*2,0,-20);
   return;
 }
 
