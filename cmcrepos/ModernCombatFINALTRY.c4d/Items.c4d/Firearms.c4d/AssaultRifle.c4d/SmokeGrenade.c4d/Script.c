@@ -16,7 +16,7 @@ func HitObject(object pObj)
   {
     DoDmg(30,DMG_Projectile,pObj);
     if(Hostile(GetOwner(), GetOwner(pObj)))
-      if(!GetAlive(pObj) || IsFakeDeath(pObj))
+      if(pObj->~IsClonk() && (!GetAlive(pObj) || IsFakeDeath(pObj)))
         //Achievement-Fortschritt (Smoke 'em up)
         DoAchievementProgress(1, AC26, GetController());
 
