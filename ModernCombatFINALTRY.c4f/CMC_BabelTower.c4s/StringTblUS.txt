@@ -2,6 +2,9 @@ CreatingInterior=Creating furniture...
 CreatingEquipment=Placing equipment...
 CreatingDecoration=Placing decoration...
 
+MsgJetpack=
+<c 33ccff>Jetpacks</c> available, press [<c 33ccff>Double Jump</c>], [<c 33ccff>-left</c>] or [<c 33ccff>-right</c>] to boost.
+
 Team1=Revolutionists
 Team2=Eurocorps
 
