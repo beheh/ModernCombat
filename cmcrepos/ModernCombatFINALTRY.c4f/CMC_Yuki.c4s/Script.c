@@ -717,7 +717,7 @@ protected func Script250()
   aLamp3[2]->TurnOff();
   aLamp3[3]->TurnOff();
 
-  EventInfo4K(0,Format("$MsgDoor$"),STDR);
+  EventInfo4K(0,Format("$MsgDoor$"),STDR, 0, 0, 0, "PriorityInfo.ogg");
 
   aDoor1[0]->Open();
   aDoor1[1]->Open();
@@ -776,7 +776,7 @@ protected func Script500()
   aLamp3[2]->TurnOff();
   aLamp3[3]->TurnOff();
 
-  EventInfo4K(0,Format("$MsgDoor$"),STDR);
+  EventInfo4K(0,Format("$MsgDoor$"),STDR, 0, 0, 0, "PriorityInfo.ogg");
 
   aDoor1[0]->Close();
   aDoor1[1]->Close();
