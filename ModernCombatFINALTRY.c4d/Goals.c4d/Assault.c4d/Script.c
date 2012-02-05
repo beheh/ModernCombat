@@ -113,7 +113,7 @@ public func ReportAssaultTargetDestruction(object pTarget, int iTeam)
       if (GetPlayerTeam(j = GetPlayerByIndex(i)) == iDefender)
         EventInfo4K(j+1, "$DefendLastStation$", GetID(), 0, 0, 0, "Alarm.ogg");
       else
-        EventInfo4K(j+1, "$DestroyLastStation$", GetID(), 0, 0, 0, "Alarm.ogg");
+        EventInfo4K(j+1, "$DestroyLastStation$", GetID(), 0, 0, 0, "RadioConfirm*.ogg");
 
   //Tickets resetten, bei verbundenen nur wenn alle Ziele zerstört sind
   if (GetType(Connected[index]) != C4V_Array)
