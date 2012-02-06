@@ -116,14 +116,16 @@ func CreateInterior()
   CreateObject(GDDR, 3185, 530, -1);
 
   //Kisten
-  CreateObject(WCR2, 2120, 520, -1)->AutoRespawn();
   CreateObject(WCR2, 2910, 460, -1)->AutoRespawn();
   CreateObject(WCR2, 3070, 460, -1)->AutoRespawn();
-  CreateObject(WCR2, 3890, 520, -1)->AutoRespawn();
 
   //Metallkisten
   CreateObject(MWCR, 2940, 530, -1)->AutoRespawn();
   CreateObject(MWCR, 2960, 530, -1)->AutoRespawn();
+
+  //Verbandskisten
+  CreateObject(BECR, 2120, 520, -1)->AutoRespawn();
+  CreateObject(BECR, 3890, 520, -1)->AutoRespawn();
 
   //Benzinfässer
   CreateObject(PBRL, 1290, 500, -1)->AutoRespawn();

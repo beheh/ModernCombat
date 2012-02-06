@@ -129,9 +129,11 @@ func CreateInterior()
 
   //Metallkisten
   CreateObject(MWCR, 305, 440, -1)->AutoRespawn();
-  CreateObject(MWCR, 825, 500, -1);
   CreateObject(MWCR, 842, 500, -1);
   CreateObject(MWCR, 1240, 360, -1)->AutoRespawn();
+
+  //Verbandskiste
+  CreateObject(BECR, 825, 500, -1)->AutoRespawn();
 
   //Explosive Kisten
   CreateObject(XWCR, 393, 230, -1)->AutoRespawn();
