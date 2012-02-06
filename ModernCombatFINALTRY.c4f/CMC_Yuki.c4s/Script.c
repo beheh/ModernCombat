@@ -65,14 +65,16 @@ func CreateInterior()
   CreateObject(HA4K, 260, 723, -1);
   CreateObject(HA4K, 1320, 753, -1);
 
-  //Kisten
-  CreateObject(WCR2, 550, 570, -1)->AutoRespawn();
-  CreateObject(WCR2, 1340, 810, -1)->AutoRespawn();
+  //Kiste
   CreateObject(WCR2, 1550, 240, -1)->AutoRespawn();
 
   //Metallkisten
   CreateObject(MWCR, 840, 680, -1)->AutoRespawn();
   CreateObject(MWCR, 1365, 830, -1);
+
+  //Verbandskisten
+  CreateObject(BECR, 550, 570, -1)->AutoRespawn();
+  CreateObject(BECR, 1340, 810, -1)->AutoRespawn();
 
   //Explosive Kisten
   CreateObject(XWCR, 980, 580, -1)->AutoRespawn();

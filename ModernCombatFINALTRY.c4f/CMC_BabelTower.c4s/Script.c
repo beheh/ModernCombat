@@ -277,7 +277,6 @@ func CreateInterior()
   //Kisten
   CreateObject(WCR2, 655, 870, -1)->AutoRespawn();
   CreateObject(WCR2, 585, 1120, -1)->AutoRespawn();
-  CreateObject(WCR2, 605, 1370, -1)->AutoRespawn();
   CreateObject(WCR2, 775, 1490, -1)->AutoRespawn();
   CreateObject(WCR2, 470, 1690, -1)->AutoRespawn();
 
@@ -286,6 +285,7 @@ func CreateInterior()
 
   //Verbandskisten
   CreateObject(BECR, 260, 620, -1);
+  CreateObject(BECR, 605, 1370, -1)->AutoRespawn();
   CreateObject(BECR, 910, 620, -1);
 
   //Explosive Kisten
