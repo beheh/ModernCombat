@@ -11,10 +11,13 @@
 
 public func OnHit(int iDmg, int iType, object pFrom)
 {
+  //Zu hohe Schadenswerte begrenzen
+  if(iDmg > 200)
+    iDmg = 200;
+
+  //Effekte
   Splatter(iDmg,iType,pFrom);
-
   BloodBurst(iDmg,0,0);
-
   BloodSplatter(iDmg,0,0);
   if(pFrom)
   {
