@@ -1332,27 +1332,33 @@ protected func TimerCall()
   }
 
   //Bodenpartikel zeichnen
-  if(GetRotorSpeed() != 0 && !GBackSemiSolid()) {
-		var iX = GetX();
-		var iY = GetY();
-		var iXDir = 0;
-		var iYDir = 0;
-		if(SimFlight(iX, iY, iXDir, iYDir, 1, 100, -1)) {
-			iY = iY-GetY();
-		 	if(iY < 150 && GBackSemiSolid(0, iY)) {
-		 		var iMaterial = GetMaterial(0, iY);
-		 		if(iMaterial == Material("Vehicle")) iMaterial = Material("Wall");
-				var iLightness = 0;
-				if(GBackLiquid(0, iY)) iLightness += 175;
-		 		var iClrOffset = Random(3)*3;
-				var iColor = RGB(Min(GetMaterialVal("Color", "Material", iMaterial, 0 + iClrOffset) + iLightness, 255), Min(GetMaterialVal("Color", "Material", iMaterial, 1 + iClrOffset) + iLightness, 255), Min(GetMaterialVal("Color", "Material", iMaterial, 2 + iClrOffset) + iLightness, 255));
-				var iPower = Min(GetRotorSpeed(), 130);
-				CreateParticle("GroundSmoke", iDir*21-3, iY, -(70 - iY / 3), RandomX(-5, 5),  RandomX(30, 15 + (14- iY / 10) * iPower / 5), iColor);
-				CreateParticle("GroundSmoke", iDir*21+3, iY, (70 - iY / 3), RandomX(-5, 5), RandomX(30, 15 + (14 - iY / 10) * iPower / 5), iColor);
-				CreateParticle("GroundSmoke", iDir*21-3, iY - 3, RandomX(-30, -(70 - iY)), -2, RandomX(30, 15 + (14 - iY / 10) * iPower / 5), iColor);
-				CreateParticle("GroundSmoke", iDir*21+3, iY - 3, RandomX(30, (70 - iY)), -2, RandomX(30, 15 + (14 - iY / 10) * iPower / 5), iColor);
-			}
-		}
+  if(GetEffectData(EFSM_Fog) > 0)
+  {
+    if(GetRotorSpeed() != 0 && !GBackSemiSolid())
+    {
+      var iX = GetX();
+      var iY = GetY();
+      var iXDir = 0;
+      var iYDir = 0;
+      if(SimFlight(iX, iY, iXDir, iYDir, 1, 100, -1))
+      {
+        iY = iY-GetY();
+        if(iY < 150 && GBackSemiSolid(0, iY))
+        {
+          var iMaterial = GetMaterial(0, iY);
+          if(iMaterial == Material("Vehicle")) iMaterial = Material("Wall");
+          var iLightness = 0;
+          if(GBackLiquid(0, iY)) iLightness += 175;
+          var iClrOffset = Random(3)*3;
+          var iColor = RGB(Min(GetMaterialVal("Color", "Material", iMaterial, 0 + iClrOffset) + iLightness, 255), Min(GetMaterialVal("Color", "Material", iMaterial, 1 + iClrOffset) + iLightness, 255), Min(GetMaterialVal("Color", "Material", iMaterial, 2 + iClrOffset) + iLightness, 255));
+          var iPower = Min(GetRotorSpeed(), 130);
+          CreateParticle("GroundSmoke", iDir*21-3, iY, -(70 - iY / 3), RandomX(-5, 5),  RandomX(30, 15 + (14- iY / 10) * iPower / 5), iColor);
+          CreateParticle("GroundSmoke", iDir*21+3, iY, (70 - iY / 3), RandomX(-5, 5), RandomX(30, 15 + (14 - iY / 10) * iPower / 5), iColor);
+          CreateParticle("GroundSmoke", iDir*21-3, iY - 3, RandomX(-30, -(70 - iY)), -2, RandomX(30, 15 + (14 - iY / 10) * iPower / 5), iColor);
+          CreateParticle("GroundSmoke", iDir*21+3, iY - 3, RandomX(30, (70 - iY)), -2, RandomX(30, 15 + (14 - iY / 10) * iPower / 5), iColor);
+        }
+      }
+    }
   }
 
   //Lebewesen schrappneln
@@ -1385,47 +1391,49 @@ protected func TimerCall()
     flarereload--;
 
   //Bei Wasser schaden
-  if(GBackLiquid(0, 10)) {
+  if(GBackLiquid(0, 10))
     DoDamage(5);
-  }
 
   //Schadensverhalten
-  if(GetDamage() >= MaxDamage() / 2) {
-		for (var a = 0; a < 3; a++)
-		  if (!GBackLiquid(-Sin(GetR() + iDir * 80, 25), +Cos(GetR() + iDir * 80, 25)))
-		    Smoke(-Sin(GetR() + iDir * 80, 25), +Cos(GetR() + iDir * 80, 25), Random(10));
-	}
-	if(GetDamage() >= MaxDamage() * 3 / 4) {
-		if (!GBackLiquid(-Sin(GetR() + iDir * 80, 25), +Cos(GetR() + iDir * 80, 25)))
-			CreateParticle("Blast", -Sin(GetR() + iDir * 80, 25) + RandomX(-10, 10), +Cos(GetR() + iDir * 80, 25) + RandomX(-10, 10),0, -10, 100 + Random(30), RGB(255, 255, 255), this);
-		if (!GBackLiquid(-Sin(GetR() + iDir * 80, 25), +Cos(GetR() + iDir * 80, 25)))
-			CreateParticle("Blast", -Sin(GetR() - iDir * 60, 25) + RandomX(-10, 10), +Cos(GetR() + iDir * 100, 25) + RandomX(-10, 10),0, -10, 100 + Random(30), RGB(255, 255, 255), this);
-  			             
-		if(EngineRunning()) {
- 		  if(GetDamage() < MaxDamage() * 3 / 4) 
-			{
-				if (!(s_counter % 36))
-				for (var obj in FindObjects(Find_OCF(OCF_CrewMember), Find_Container(this)))
-				  Sound("WarningDamage.ogg", false, MGStation, 100, GetOwner(obj) + 1);
-				s_counter++;
-				if(s_counter >= 100)
-				  s_counter = 0;
-			}
-			else
-			{
-				if (!(s_counter % 20))
-				{
-				  Local(2) = 0;
-				  for (var obj in FindObjects(Find_OCF(OCF_CrewMember), Find_Container(this)))
-				    if(obj != GetPilot())
-				      Sound("WarningDamageCritical.ogg", false, MGStation, 100, GetOwner(obj) + 1);
-				}
-				s_counter++;
-				if (s_counter >= 100)
-				  s_counter = 0;
-			}
-	 	}
-	}
+  if(GetDamage() >= MaxDamage() / 2)
+  {
+    for (var a = 0; a < 3; a++)
+      if (!GBackLiquid(-Sin(GetR() + iDir * 80, 25), +Cos(GetR() + iDir * 80, 25)))
+        Smoke(-Sin(GetR() + iDir * 80, 25), +Cos(GetR() + iDir * 80, 25), Random(10));
+  }
+  if(GetDamage() >= MaxDamage() * 3 / 4)
+  {
+    if (!GBackLiquid(-Sin(GetR() + iDir * 80, 25), +Cos(GetR() + iDir * 80, 25)))
+      CreateParticle("Blast", -Sin(GetR() + iDir * 80, 25) + RandomX(-10, 10), +Cos(GetR() + iDir * 80, 25) + RandomX(-10, 10),0, -10, 100 + Random(30), RGB(255, 255, 255), this);
+    if (!GBackLiquid(-Sin(GetR() + iDir * 80, 25), +Cos(GetR() + iDir * 80, 25)))
+      CreateParticle("Blast", -Sin(GetR() - iDir * 60, 25) + RandomX(-10, 10), +Cos(GetR() + iDir * 100, 25) + RandomX(-10, 10),0, -10, 100 + Random(30), RGB(255, 255, 255), this);
+
+    if(EngineRunning())
+    {
+      if(GetDamage() < MaxDamage() * 3 / 4) 
+      {
+        if (!(s_counter % 36))
+        for (var obj in FindObjects(Find_OCF(OCF_CrewMember), Find_Container(this)))
+          Sound("WarningDamage.ogg", false, MGStation, 100, GetOwner(obj) + 1);
+        s_counter++;
+        if(s_counter >= 100)
+          s_counter = 0;
+      }
+      else
+      {
+        if (!(s_counter % 20))
+        {
+          Local(2) = 0;
+          for (var obj in FindObjects(Find_OCF(OCF_CrewMember), Find_Container(this)))
+            if(obj != GetPilot())
+              Sound("WarningDamageCritical.ogg", false, MGStation, 100, GetOwner(obj) + 1);
+        }
+        s_counter++;
+        if (s_counter >= 100)
+          s_counter = 0;
+      }
+    }
+  }
 }
 
 /*----- Physik -----*/
@@ -1439,7 +1447,8 @@ protected func StartEngine()
 protected func EngineStarted()
 {
   Sound("BKHK_RotorSpin*.ogg", false, 0, 0, 0, -1);
-  if(!EngineRunning()) {  
+  if(!EngineRunning())
+  {  
     AddEffect("Engine", this, 300, 1, this);
     throttle = 0;
     rotation = 0;
@@ -1473,7 +1482,7 @@ protected func FxEngineTimer(object Target, int EffectNumber, int EffectTime)
   //Überprüfung, ob überhaupt noch ein Pilot drin...
   if (Target->GetPilot() || Target->GetAutopilot())
   {
-	  //Rotation anpassen
+    //Rotation anpassen
     var speed;
     speed = BoundBy(rot-GetR(Target), -rot_speed, rot_speed);
     SetRDir(speed, Target);
@@ -1488,7 +1497,7 @@ protected func FxEngineTimer(object Target, int EffectNumber, int EffectTime)
   g = GetGravity();
   Fg = (m + mh) * g;
   Fw = GetWind(0, -20, false) * 200;
- 	if(GetContact(this, -1, CNAT_Bottom)) Fw = 0;
+  if(GetContact(this, -1, CNAT_Bottom)) Fw = 0;
  
   //Hubkraft und vertikale Beschleunigung berechnen
   Fv  = - Cos(GetR(Target), 1500*thr);
