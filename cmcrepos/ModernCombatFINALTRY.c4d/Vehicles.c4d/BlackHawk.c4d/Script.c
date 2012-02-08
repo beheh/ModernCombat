@@ -1246,22 +1246,26 @@ protected func TimerCall()
   //Zerstört?
   if(IsDestroyed())
     return;	
-  
-	//Richtung ermitteln
-	var iDir = GetDir() * 2 - 1;
 
-	//Rotorgeschwindigkeit aktualisieren
-	iRotorSpeed = throttle;
-	if(EngineRunning()) {
-		if(GetAction() == "Fly" || GetAction() == "Turn") iRotorSpeed += 95;
-	} else if(GetAction() != "Fly" && GetAction() != "Turn") {
-		if(GetAction() == "EngineStartUp") iRotorSpeed += GetActTime();
-		else if(GetAction() == "EngineStartUp2") iRotorSpeed += 95/(45+24)*(45+GetActTime());
-		else if(GetAction() == "EngineStartUp3") iRotorSpeed += 95/(45+24+16)*(45+24+GetActTime());
-		else if(GetAction() == "EngineShutDown") iRotorSpeed += 95-GetActTime();
-		else if(GetAction() == "EngineShutDown2") iRotorSpeed += 95-60/(30+30)*(30+GetActTime());
-		else if(GetAction() == "EngineShutDown3") iRotorSpeed += 95-90/(30+30+30)*(30+30+GetActTime());
-	}
+  //Richtung ermitteln
+  var iDir = GetDir() * 2 - 1;
+
+  //Rotorgeschwindigkeit aktualisieren
+  iRotorSpeed = throttle;
+  if(EngineRunning())
+  {
+    if(GetAction() == "Fly" || GetAction() == "Turn") iRotorSpeed += 95;
+  }
+  else
+    if(GetAction() != "Fly" && GetAction() != "Turn")
+    {
+      if(GetAction() == "EngineStartUp") iRotorSpeed += GetActTime();
+      else if(GetAction() == "EngineStartUp2") iRotorSpeed += 95/(45+24)*(45+GetActTime());
+      else if(GetAction() == "EngineStartUp3") iRotorSpeed += 95/(45+24+16)*(45+24+GetActTime());
+      else if(GetAction() == "EngineShutDown") iRotorSpeed += 95-GetActTime();
+      else if(GetAction() == "EngineShutDown2") iRotorSpeed += 95-60/(30+30)*(30+GetActTime());
+      else if(GetAction() == "EngineShutDown3") iRotorSpeed += 95-90/(30+30+30)*(30+30+GetActTime());
+    }
 	
   //Absinken, wenn kein Pilot
   if(((!GetPilot() && !GetAutopilot() || GetY() < 100) && throttle) || (GetAction() == "Fly" && throttle && !GetPilot() && !GetAutopilot()))
@@ -1309,14 +1313,16 @@ protected func TimerCall()
     RemoveSpotlights();
 
   /*Nach gestorbenen Clonks suchen @TODO
-  if(Contents()) {
-		var fUpdate = false;
-		for(var pDead in FindObjects(Find_Container(this), Find_Or(Find_And(Find_Not(Find_OCF(OCF_Alive)), Find_Func("IsClonk")), Find_Func("IsFakeDeath")))) {
-			pDead->Exit();
-		}
-		//if(fUpdate) UpdateSeats();
+  if(Contents())
+  {
+    var fUpdate = false;
+    for(var pDead in FindObjects(Find_Container(this), Find_Or(Find_And(Find_Not(Find_OCF(OCF_Alive)), Find_Func("IsClonk")), Find_Func("IsFakeDeath"))))
+    {
+      pDead->Exit();
+    }
+    //if(fUpdate) UpdateSeats();
   }*/
-  
+
   if(!(GetActTime() % 50))
   {
     if(!GetAlive(GetPilot()))
@@ -1390,7 +1396,7 @@ protected func TimerCall()
   if(flarereload)
     flarereload--;
 
-  //Bei Wasser schaden
+  //Bei Wasserkontakt Schaden nehmen
   if(GBackLiquid(0, 10))
     DoDamage(5);
 
@@ -1479,7 +1485,7 @@ protected func FxEngineTimer(object Target, int EffectNumber, int EffectTime)
   var thr = LocalN("throttle", Target);
   var Fg, Fv, Fh, Fw, Fs, dFv, dFh, m, mh, g, av, ah;  //physikalische Kräfte
   
-  //Überprüfung, ob überhaupt noch ein Pilot drin...
+  //Überprüfung, ob überhaupt noch ein Pilot vorhanden ist...
   if (Target->GetPilot() || Target->GetAutopilot())
   {
     //Rotation anpassen
