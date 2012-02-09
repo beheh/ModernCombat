@@ -195,6 +195,11 @@ public func FxKillStatsAdd(object pTarget, int iEffectNumber, string szNewEffect
 
     //Punkte bei Belohnungssystem (Kill-Serie)
     DoPlayerPoints(KillSeries(), RWDS_BattlePoints, GetOwner(pTarget), pTarget, IC01);
+
+    if(running >= 3)
+      //Achievement-Fortschritt (Third Time Lucky)
+      DoAchievementProgress(1,AC31,GetOwner(pTarget));
+
   }
 
   return true;
