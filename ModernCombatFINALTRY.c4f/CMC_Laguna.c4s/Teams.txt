@@ -6,7 +6,7 @@ TeamDistribution=Host
   [Team]
   id=1
   Name=$Team1$
-  Color=8388736
+  Color=16776960
 
   [Team]
   id=2
