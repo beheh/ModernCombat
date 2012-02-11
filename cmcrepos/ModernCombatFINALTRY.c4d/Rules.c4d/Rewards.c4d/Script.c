@@ -325,6 +325,10 @@ global func AwardAchievement(id idAchievement, int iPlr)
   //Sound-Hinweis
   Sound("AchievementGet.ogg", true, 0, 100, iPlr+1);
 
+  //Achievement-Fortschritt zurücksetzen
+  ResetAchievementExtra(idAchievement, iPlr);
+  ResetAchievementProgress(idAchievement, iPlr);
+
   return true;
 }
 
