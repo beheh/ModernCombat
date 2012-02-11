@@ -7,7 +7,6 @@ local szDesc;
 local iSize;
 local highlight;
 
-
 /* Initialisierung */
 
 public func Initialize()
@@ -26,6 +25,7 @@ public func Initialize()
   SetPosition(-GetDefWidth(GetID())/2-40, -GetDefHeight(GetID())/2-25,highlight);
   SetClrModulation(RGBa(255,255,255,255), highlight);
   AddEffect("Highlight", highlight, 101, 1, this, 0, this);
+
   //Parallax
   Local(0) = 0;
   Local(1) = 0;
@@ -41,22 +41,30 @@ public func GetAchievementScore()
   return 0;
 }
 
+public func SetHighlightColor(int dwColor)
+{
+  EffectVar(4, highlight, GetEffect("Highlight", highlight)) = dwColor;
+  return true;
+}
+
 /* Highlight-Effekt */
 
 public func FxHighlightStart(object target, int nr, temp, object ach)
 {
-  EffectVar(0, target, nr) = 255;	//Alphawert
-  EffectVar(1, target, nr) = -5;	//Erhöhung/Verringerung des Alphawertes
-  EffectVar(3, target, nr) = ach;	//Achievementobjekt
+  EffectVar(0, target, nr) = 255;		//Alphawert
+  EffectVar(1, target, nr) = -5;		//Erhöhung/Verringerung des Alphawertes
+  EffectVar(3, target, nr) = ach;		//Achievementobjekt
+  EffectVar(4, target, nr) = RGB(255,204,0);	//Standardfarbwert für Highlight
 }
 
 public func FxHighlightTimer(object target, int nr)
 {
   //Erst mit dem Achievement starten
+  var color = EffectVar(4, target, nr);
   if(!EffectVar(3, target, nr)->IsRunning())
     return true;
 
-  SetClrModulation(RGBa(255, 255, 255, EffectVar(0, target, nr)), target);
+  SetClrModulation(RGBa(GetRGBaValue(color, 1), GetRGBaValue(color, 2), GetRGBaValue(color, 3), EffectVar(0, target, nr)), target);
   if(EffectVar(0, target, nr) <= 0)
     EffectVar(1, target, nr) = +5;
   else

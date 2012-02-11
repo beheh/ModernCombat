@@ -2,6 +2,7 @@
 
 ActualPoints=Current Statistics
 Points=Points
+AchievementNewUnlocked=<c %x>%s</c> has unlocked the <c 33ccff>new</c> achievement <c 33ccff>%s</c>
 AchievementUnlocked=<c %x>%s</c> has unlocked the achievement <c ffff33>%s</c>
 Achievement=Achievement
 Achievements=Achievements

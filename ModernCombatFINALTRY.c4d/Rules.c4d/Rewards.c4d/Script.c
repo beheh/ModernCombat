@@ -295,20 +295,38 @@ global func ResetPlayerAchievements(int iPlr)
   return true;
 }
 
+/* Vergabe */
+
 global func AwardAchievement(id idAchievement, int iPlr)
 {
-  //Keine Belohnungen?
+  //Vergabe berechtigt?
   if(!RewardsActive()) return;
-
-  if(GetLeague()) return false;
   if(GetPlayerType(iPlr) != C4PT_User) return false;
   if(!idAchievement->IsInfoObject()) return false;
+
+  //Achievement noch nicht in Spielerdatei?
   var iData = GetPlrExtraData(iPlr, "CMC_Achievements");
-  if(iData >> idAchievement->GetSavingSlot() & 1) return;
-  SetPlrExtraData(iPlr, "CMC_Achievements", iData ^ 1 << idAchievement->GetSavingSlot());
-  EventInfo4K(0, Format("$AchievementUnlocked$", GetPlrColorDw(iPlr), GetPlayerName(iPlr), GetName(0, idAchievement)), RWDS);
-  CreateObject(idAchievement, 0, 0, iPlr);
+  if(!(iData >> idAchievement->GetSavingSlot() & 1))
+  {
+    //Achievement in Spielerdatei schreiben
+    SetPlrExtraData(iPlr, "CMC_Achievements", iData ^ 1 << idAchievement->GetSavingSlot());
+
+    //Achievementanzeige mit blauem Hintergrund
+    var achievement = CreateObject(idAchievement, 0, 0, iPlr);
+    achievement->SetHighlightColor(RGB(0,153,255));
+    EventInfo4K(0, Format("$AchievementNewUnlocked$", GetPlrColorDw(iPlr), GetPlayerName(iPlr), GetName(0, idAchievement)), RWDS, 0, 0, 0, "PriorityInfo.ogg");
+  }
+  else
+  {
+    //Achievementanzeige mit gelben Hintergrund
+    var achievement = CreateObject(idAchievement, 0, 0, iPlr);
+    achievement->SetHighlightColor(RGB(255,204,0));
+    EventInfo4K(0, Format("$AchievementUnlocked$", GetPlrColorDw(iPlr), GetPlayerName(iPlr), GetName(0, idAchievement)), RWDS, 0, 0, 0, "PriorityInfo.ogg");
+  }
+
+  //Sound-Hinweis
   Sound("AchievementGet.ogg", true, 0, 100, iPlr+1);
+
   return true;
 }
 
