@@ -304,11 +304,10 @@ global func AwardAchievement(id idAchievement, int iPlr)
   if(GetPlayerType(iPlr) != C4PT_User) return false;
   if(!idAchievement->IsInfoObject()) return false;
 
-  //Achievement noch nicht in Spielerdatei?
+  //Achievement in Spielerdatei schreiben sofern nicht vorhanden
   var iData = GetPlrExtraData(iPlr, "CMC_Achievements");
   if(!(iData >> idAchievement->GetSavingSlot() & 1))
   {
-    //Achievement in Spielerdatei schreiben
     SetPlrExtraData(iPlr, "CMC_Achievements", iData ^ 1 << idAchievement->GetSavingSlot());
 
     //Achievementanzeige mit blauem Hintergrund
@@ -318,9 +317,8 @@ global func AwardAchievement(id idAchievement, int iPlr)
   }
   else
   {
-    //Achievementanzeige mit gelben Hintergrund
-    var achievement = CreateObject(idAchievement, 0, 0, iPlr);
-    achievement->SetHighlightColor(RGB(255,204,0));
+    //Achievementanzeige mit Standardhintergrund
+    CreateObject(idAchievement, 0, 0, iPlr);
     EventInfo4K(0, Format("$AchievementUnlocked$", GetPlrColorDw(iPlr), GetPlayerName(iPlr), GetName(0, idAchievement)), RWDS, 0, 0, 0, "PriorityInfo.ogg");
   }
 
