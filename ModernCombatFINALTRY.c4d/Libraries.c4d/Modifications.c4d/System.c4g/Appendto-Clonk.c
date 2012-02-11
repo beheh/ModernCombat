@@ -283,7 +283,6 @@ protected func DoPoints()
     if(killer < 0 || killer == GetOwner())
       //Punkte bei Belohnungssystem (Selbstmord)
       DoPlayerPoints(SuicidePoints(), RWDS_MinusPoints, GetOwner(), this, IC07);
-
 	var aDoomBoom = GetAchievementExtra(AC15, killer);
 	if(!aDoomBoom) aDoomBoom = CreateArray();
 
@@ -365,10 +364,10 @@ protected func DoPoints()
   //DoomBoom
   if(LastDamageType() == DMG_Explosion)
   {
+    SetAchievementExtra(aDoomBoom, AC15, killer);
     if(aDoomBoom[0] && aDoomBoom[1])
       if(aDoomBoom[0] == true && aDoomBoom[1] >= AC15->~GetAchievementScore())
         AwardAchievement(AC15, killer);
-    SetAchievementExtra(aDoomBoom, AC15, killer);
     Schedule(Format("ResetAchievementExtra(AC15, %d)", killer), 10);
   }
 
@@ -486,17 +485,16 @@ global func FakeDeath(object pTarget)
   pTarget->OnFakeDeath();
 
   //Achievements
-  if(Hostile(GetKiller(pTarget), GetOwner(pTarget)))
-  {
-    var data = GetAchievementExtra(AC08, GetKiller(pTarget));
-    if(!data) data = CreateArray();
-    data[GetOwner(pTarget)]++;
-    if(data[GetOwner(pTarget)] >= AC08->GetAchievementScore())
-    {
-      AwardAchievement(AC08, GetKiller(pTarget));
-    }
-    SetAchievementExtra(data, AC08, GetKiller(pTarget));
-  }
+  var data = GetAchievementExtra(AC08, GetKiller(pTarget)); 
+  if(!data) data = CreateArray(); 
+  data[GetOwner(pTarget)]++; 
+  SetAchievementExtra(data, AC08, GetKiller(pTarget));
+  if(data[GetOwner(pTarget)] >= AC08->GetAchievementScore()) 
+  { 
+    //Achievement-Fortschritt (Epic Kill)
+    AwardAchievement(AC08, GetKiller(pTarget)); 
+  } 
+
   if(Hostile(GetKiller(pTarget), GetOwner(pTarget)))
   {
     var killicon = pTarget->~KillIcon();
@@ -511,11 +509,12 @@ global func FakeDeath(object pTarget)
         if(wpn[i]) count++;
         i++;
       }
+      SetAchievementExtra(wpn, AC09, GetKiller(pTarget));
       if(count >= GetLength(AC09->GetIDs()))
       {
+        //Achievement-Fortschritt (Mission accomplished)
         AwardAchievement(AC09, GetKiller(pTarget));
       }
-      SetAchievementExtra(wpn, AC09, GetKiller(pTarget));
     }
   }
   if(Hostile(GetKiller(pTarget), GetOwner(pTarget)))
@@ -604,6 +603,7 @@ func Death(object pTarget)
   data[GetOwner(pTarget)] = 0;
   if(data[GetOwner(pTarget)] >= AC08->GetAchievementScore())
   {
+    //Achievement-Fortschritt (Epic Kill)
     AwardAchievement(AC08, GetKiller(pTarget));
   }
   SetAchievementExtra(data, AC08, GetKiller(pTarget));
