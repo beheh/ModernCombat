@@ -2,6 +2,7 @@
 
 ActualPoints=Aktuelle Punkteverteilung
 Points=Punkte
+AchievementNewUnlocked=<c %x>%s</c> hat die <c 33ccff>neue</c> Errungenschaft <c 33ccff>%s</c> erhalten
 AchievementUnlocked=<c %x>%s</c> hat die Errungenschaft <c ffff33>%s</c> erhalten
 Achievement=Errungenschaft
 Achievements=Errungenschaften
