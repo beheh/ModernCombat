@@ -6,6 +6,15 @@
 static aFlag, aSelfDefense;
 
 
+/* Regelvoreinstellung */
+
+func ChooserRuleConfig()
+{
+  //Abgewandelter Regelsatz: Belohnungssystem, Kein FriendlyFire, Fallschaden, Waffen bleiben, Arena, Limitierte Ausrüstung
+  var array = [RWDS, NOFF, FDMG, WPST, NODR, LIMT];
+  return array;
+}
+
 /* OP Flaggenanordnung */
 
 public func OccupationDir()
@@ -623,13 +632,6 @@ global func FxIntWarnTimer(object pTarget, int iEffectNumber, int iEffectTime)
 func AddWarnEffect(object pTarget, object pPoint)
 {
   AddEffect ("IntWarn",pTarget,100,35,pTarget,0,pPoint);
-}
-
-/* Bei Relaunch */
-
-public func OnClassSelection(object pClonk)
-{
-  CreateContents(JTPK, pClonk)->Activate(pClonk);
 }
 
 /* Regelwähler */
