@@ -541,6 +541,14 @@ func CreateDecoration()
   CreateObject(GTBL, 1105, 540, -1);
 }
 
+func CreateOptionalFeatures()
+{
+  //Hintergründe
+  CreateObject(BD03,400,250,-1);
+  CreateObject(BD05,1800,800,-1);
+  CreateObject(BD03,4500,250,-1);
+}
+
 /* Bei Flaggenübernahme */
 
 func FlagCaptured(object pPoint, int iTeam)

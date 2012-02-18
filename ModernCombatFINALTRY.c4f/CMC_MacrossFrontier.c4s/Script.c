@@ -19,8 +19,6 @@ func Initialize()
   CreateEquipment();
   //Dekoration plazieren
   CreateDecoration();
-  //Optionale Objekte plazieren
-  CreateOptionalFeatures();
   //Kein CTF bei mehr als 2 Teams
   if(GetTeamCount() > 2) RemoveAll(GCTF);
   return(1);

@@ -29,8 +29,6 @@ func Initialize()
   CreateEquipment();
   //Dekoration plazieren
   CreateDecoration();
-  //Optionale Objekte plazieren
-  CreateOptionalFeatures();
   return(1); 
 }
 

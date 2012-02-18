@@ -25,8 +25,6 @@ func Initialize()
   CreateEquipment();
   //Dekoration plazieren
   CreateDecoration();
-  //Optionale Objekte plazieren
-  CreateOptionalFeatures();
   return(1);
 }
 
@@ -429,10 +427,12 @@ func CreateDecoration()
   CreateObject(FENC, 3310, 1040, -1);
   CreateObject(FENC, 3370, 1040, -1);
   CreateObject(FENC, 3430, 1040, -1);
-  CreateObject(FENC, 3490, 1040, -1);
+  CreateObject(FENC, 3490, 1040, -1)->Set(2);
 
   //Büsche
   CreateObject(BSH2, 730, 1225, -1);
+  CreateObject(BSH2, 1160, 1110, -1);
+  CreateObject(BSH2, 1180, 1110, -1);
   CreateObject(BSH2, 1230, 1190, -1);
   CreateObject(BSH2, 1245, 1185, -1);
   CreateObject(BSH2, 1260, 1190, -1);

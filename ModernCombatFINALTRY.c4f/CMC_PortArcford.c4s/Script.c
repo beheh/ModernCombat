@@ -296,9 +296,8 @@ func CreateDecoration()
 
 func CreateOptionalFeatures()
 {
-  //Hintergründe
+  //Hintergrund
   CreateObject(BD01,500,700,-1);
-  CreateObject(BD02,900,500,-1);
 }
 
 /* Bei Relaunch */
