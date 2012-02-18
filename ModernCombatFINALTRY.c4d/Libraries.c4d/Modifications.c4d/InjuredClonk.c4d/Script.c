@@ -411,12 +411,16 @@ public func ControlDig(object pCaller)
 
 /* Aufschlag */ 
 
-protected func Hit3()
+protected func Hit(int xDir, int yDir)
 {
-  Sound("ClonkImpact*.ogg");
-}
+  var hit = Distance(xDir,yDir);//Max(xDir,yDir);
 
-protected func Hit()
-{
-  Sound("ClonkCrawl*.ogg", 0, 0, 50);
+  if(hit >= 300)
+  {
+    Sound("ClonkImpact*.ogg");
+    Sound("ClonkRustle*.ogg", 0, 0, 50);
+    if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",8,10,0,10,20,100);
+  }
+  else
+    Sound("ClonkCrawl*.ogg", 0, 0, 50);
 }

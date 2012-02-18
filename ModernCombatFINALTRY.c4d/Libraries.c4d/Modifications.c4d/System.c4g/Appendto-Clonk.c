@@ -208,7 +208,7 @@ protected func ControlContents(idTarget)
 func Hit2(int xDir, int yDir)
 { 
   if(IsFakeDeath() || !GetAlive(this)) return _inherited(xDir,yDir,...);
-  
+
   var hit = Distance(xDir,yDir);//Max(xDir,yDir);
 
   if(hit >= 800)
