@@ -34,6 +34,8 @@ func Initialize()
   CreateEquipment();
   //Dekoration plazieren
   CreateDecoration();
+  //Verzögerte Hinweisnachricht ausgeben
+  Schedule("EventInfo4K(0,Format(\"$MsgJetpack$\"),JTPK, 0, 0, 0, \"PriorityInfo.ogg\");", 100);
   return(1);
 }
 
@@ -644,9 +646,6 @@ public func ChooserFinished()
   var aTeams = [false,false,false,false,false];
   for(var i = 0; i < GetPlayerCount(); i++)
    aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = true;
-
-  //Verzögerte Hinweisnachricht ausgeben
-  Schedule("EventInfo4K(0,Format(\"$MsgJetpack$\"),JTPK, 0, 0, 0, \"PriorityInfo.ogg\");", 100);
 
   //Assault-Spielziel
   if (FindObject(GASS))
