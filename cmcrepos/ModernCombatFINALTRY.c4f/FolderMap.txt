@@ -132,7 +132,9 @@ FullscreenBG=1
 	OverlayImage=Overlay21.png
 
 
+
+
 	[Scenario]
 	File=Credits.c4f
-	Area=628,45,81,24
+	Area=565,44,203,32
 	OverlayImage=OverlayCredits.png
