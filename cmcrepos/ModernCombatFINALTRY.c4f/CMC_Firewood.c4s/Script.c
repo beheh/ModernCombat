@@ -284,8 +284,14 @@ func CreateDecoration()
 
   //Büsche
   CreateObject(BSH2, 315, 460, -1);
+  CreateObject(BSH2, 1095, 520, -1);
+  CreateObject(BSH2, 1135, 520, -1);
   CreateObject(BSH2, 1235, 360, -1);
+  CreateObject(BSH2, 1270, 110, -1);
   CreateObject(BSH2, 1930, 400, -1);
+  CreateObject(BSH2, 2010, 110, -1);
+  CreateObject(BSH2, 2145, 520, -1);
+  CreateObject(BSH2, 2185, 520, -1);
   CreateObject(BSH2, 2700, 510, -1);
 }
 

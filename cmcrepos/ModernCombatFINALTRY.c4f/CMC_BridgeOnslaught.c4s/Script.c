@@ -425,19 +425,16 @@ func CreateDecoration()
   CreateObject(FENC, 210, 440, -1)->Set(2);
   CreateObject(FENC, 270, 440, -1);
   CreateObject(FENC, 330, 440, -1);
-
   CreateObject(FENC, 470, 640, -1)->Set(2);
   CreateObject(FENC, 530, 640, -1);
   CreateObject(FENC, 590, 640, -1);
   CreateObject(FENC, 650, 640, -1);
   CreateObject(FENC, 710, 640, -1);
-
   CreateObject(FENC, 2020, 640, -1);
   CreateObject(FENC, 2080, 640, -1);
   CreateObject(FENC, 2140, 640, -1);
   CreateObject(FENC, 2200, 640, -1);
   CreateObject(FENC, 2260, 640, -1)->Set(2);
-
   CreateObject(FENC, 2400, 440, -1);
   CreateObject(FENC, 2460, 440, -1);
   CreateObject(FENC, 2520, 440, -1)->Set(2);
@@ -445,27 +442,22 @@ func CreateDecoration()
   //Regale
   CreateObject(FRAM, 755, 800, -1);
   CreateObject(FRAM, 775, 800, -1);
-
   CreateObject(FRAM, 1330, 520, -1);
   CreateObject(FRAM, 1400, 520, -1);
-
   CreateObject(FRAM, 1950, 800, -1);
   CreateObject(FRAM, 1970, 800, -1);
 
   //Lüftungsgitter
   CreateObject(ENGT, 40, 430, -1);
   CreateObject(ENGT, 140, 430, -1);
-
   CreateObject(ENGT, 40, 630, -1);
   CreateObject(ENGT, 140, 630, -1);
   CreateObject(ENGT, 240, 630, -1);
   CreateObject(ENGT, 340, 630, -1);
-
   CreateObject(ENGT, 2390, 630, -1);
   CreateObject(ENGT, 2490, 630, -1);
   CreateObject(ENGT, 2590, 630, -1);
   CreateObject(ENGT, 2690, 630, -1);
-
   CreateObject(ENGT, 2590, 430, -1);
   CreateObject(ENGT, 2690, 430, -1);
 

@@ -238,7 +238,6 @@ func CreateDecoration()
   CreateObject(FRAM, 20, 490, -1);
   CreateObject(FRAM, 85, 490, -1);
   CreateObject(FRAM, 105, 490, -1);
-
   CreateObject(FRAM, 340, 500, -1);
   CreateObject(FRAM, 360, 500, -1);
   CreateObject(FRAM, 380, 500, -1);
@@ -313,7 +312,6 @@ func CreateDecoration()
   screen->SetClrModulation(RGB(255,255,255));
   screen = CreateObject(SCR3, 630, 485, -1);
   screen->SetClrModulation(RGB(255,255,255));
-
   screen = CreateObject(SCR3, 1770, 170, -1);
   screen->SetClrModulation(RGB(255,255,255));
   screen = CreateObject(SCR3, 1860, 170, -1);
@@ -336,6 +334,7 @@ func CreateDecoration()
   CreateObject(BSH2, 1150, 245, -1);
   CreateObject(BSH2, 1190, 830, -1);
   CreateObject(BSH2, 1325, 520, -1);
+  CreateObject(BSH2, 1400, 440, -1);
   CreateObject(BSH2, 1490, 565, -1);
   CreateObject(BSH2, 1600, 365, -1);
 

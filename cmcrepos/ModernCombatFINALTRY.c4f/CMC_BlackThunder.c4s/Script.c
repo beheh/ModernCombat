@@ -240,8 +240,8 @@ func CreateDecoration()
 
   //Zäune
   CreateObject(FENC, 1310, 670, -1);
-  CreateObject(FENC, 1660, 770, -1);
-  CreateObject(FENC, 2580, 770, -1);
+  CreateObject(FENC, 1660, 770, -1)->Set(2);
+  CreateObject(FENC, 2580, 770, -1)->Set(2);
   CreateObject(FENC, 2930, 670, -1);
 
   //Schilder
