@@ -207,7 +207,7 @@ func Finish(object pClonk, int iClass)
 
 private func InfoMenuItems()
 {
-  return 5 + !FindObject(NOAM);
+  return 6 + !FindObject(NOAM);
 }
 
 local bNoMenuUpdate;
@@ -255,7 +255,7 @@ private func OpenMenu(object pClonk, int iSelection)
     AddMenuItem(szAmmo, 0, NONE, pClonk, 0, 0, " ");
   }
 
-  //Ausrüstung
+  //Gegenstände
   var szItems = "", aItems = GetCData(iClass, CData_Items), nextline = false, first = true;
   for (var aEntry in aItems)
   {
@@ -278,6 +278,16 @@ private func OpenMenu(object pClonk, int iSelection)
     szGrenades = Format("%s%2dx {{%i}}     ", szGrenades, aEntry[1], aEntry[0]);
   }
   AddMenuItem(szGrenades, 0, NONE, pClonk, 0, 0, " ");
+
+  //Ausrüstung
+  var szGear = "", aGear = GetCData(iClass, CData_Gear);
+  for(var aEntry in aGear)
+  {
+    if(GetType(aEntry) != C4V_Array || GetType(aEntry[0]) != C4V_C4ID || !aEntry[0]->~IsHazardGear())
+      continue;
+    szGear = Format("%s%2dx {{%i}}     ", szGear, aEntry[1], aEntry[0]);
+  }
+  AddMenuItem(szGear, 0, NONE, pClonk, 0, 0, " ");
 
   //Leerzeile
   AddMenuItem(" ", 0, NONE, pClonk, 0, 0, " ");
@@ -317,16 +327,17 @@ protected func OnMenuSelection(int iIndex, object pClonk)
 
 /* Klassen */
 
-static const CData_Name             = 1;
-static const CData_Desc             = 2;
-static const CData_Clonk            = 3;
-static const CData_Ammo             = 4;
-static const CData_Items            = 5;
-static const CData_Grenades         = 6;
-static const CData_Icon             = 7;
-static const CData_Condition        = 8;
-static const CData_DisplayCondition = 9;
-static const CData_Facet            = 10;
+static const CData_Name			= 1;
+static const CData_Desc			= 2;
+static const CData_Clonk		= 3;
+static const CData_Ammo			= 4;
+static const CData_Items		= 5;
+static const CData_Grenades		= 6;
+static const CData_Gear			= 7;
+static const CData_Icon			= 8;
+static const CData_Condition		= 9;
+static const CData_DisplayCondition	= 10;
+static const CData_Facet		= 11;
 
 public func GetCData(int iClass, int iData, int iPlr)
 {
@@ -372,15 +383,24 @@ public func SetupClass(int iClass, int iPlr)
       if (GetType(aEntry) == C4V_Array && GetType(aEntry[0]) == C4V_C4ID && aEntry[0]->~IsAmmo())
         DoAmmo(aEntry[0], aEntry[1], pCrew);
   }
-  //Items
+
+  //Gegenstände
   var aItems = GetCData(iClass, CData_Items);
   for (var aEntry in aItems)
     if (GetType(aEntry) == C4V_Array && GetType(aEntry[0]) == C4V_C4ID)
       CreateContents(aEntry[0], pCrew, aEntry[1]);
+
   //Granaten
   var aGrenades = GetCData(iClass, CData_Grenades);
   for (var aEntry in aGrenades)
     if (GetType(aEntry) == C4V_Array && GetType(aEntry[0]) == C4V_C4ID && aEntry[0]->~IsGrenade())
+      while (aEntry[1]--)
+        CreateObject(aEntry[0], 0, 0, iPlr)->~Activate(pCrew);
+
+  //Ausrüstung
+  var aGear = GetCData(iClass, CData_Gear);
+  for (var aEntry in aGear)
+    if (GetType(aEntry) == C4V_Array && GetType(aEntry[0]) == C4V_C4ID && aEntry[0]->~IsHazardGear())
       while (aEntry[1]--)
         CreateObject(aEntry[0], 0, 0, iPlr)->~Activate(pCrew);
 
@@ -402,16 +422,17 @@ public func SetupClass(int iClass, int iPlr)
 
 private func Default(int iData)
 {
-  if(iData == CData_Name)           return "<Classname>";
-  if(iData == CData_Desc)           return "<Description>";
-  if(iData == CData_Clonk)          return CIVC;
-  if(iData == CData_Ammo)           return [[STAM, 30]];
-  if(iData == CData_Items)          return [[PSTL, 1]];
-  if(iData == CData_Grenades)       return [[FGRN, 1]];
-  if(iData == CData_Icon)           return GetID();
-  if(iData == CData_Condition)      return true;
-  if(iData == CData_DisplayCondition)return true;
-  if(iData == CData_Facet)          return;
+  if(iData == CData_Name)		return "<Classname>";
+  if(iData == CData_Desc)		return "<Description>";
+  if(iData == CData_Clonk)		return CIVC;
+  if(iData == CData_Ammo)		return [[STAM, 30]];
+  if(iData == CData_Items)		return [[PSTL, 1]];
+  if(iData == CData_Grenades)		return [[FGRN, 1]];
+  if(iData == CData_Gear)		return [[]];
+  if(iData == CData_Icon)		return GetID();
+  if(iData == CData_Condition)		return true;
+  if(iData == CData_DisplayCondition)	return true;
+  if(iData == CData_Facet)		return;
   return true;
 }
 
