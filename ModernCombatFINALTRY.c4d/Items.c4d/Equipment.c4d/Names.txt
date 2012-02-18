@@ -1,2 +1,2 @@
-DE:Ausrüstung
+DE:Equipment
 US:Equipment
