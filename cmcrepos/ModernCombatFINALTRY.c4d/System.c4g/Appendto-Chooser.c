@@ -42,7 +42,7 @@ protected func Initialize()
 private func ChoosePlayer()
 {
   for(var i = 0; i < GetPlayerCount(C4PT_User); i++)
-    if(GetPlayerID(GetPlayerByIndex(i, C4PT_User)) == 1 + GetPlayerCount(C4PT_Script))
+    if(GetPlayerID(GetPlayerByIndex(i, C4PT_User)) == 1)
       return iChoosedPlr = GetPlayerByIndex(i, C4PT_User);
 }
 
