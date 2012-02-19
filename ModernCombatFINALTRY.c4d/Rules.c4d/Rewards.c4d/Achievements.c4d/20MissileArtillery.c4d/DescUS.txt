@@ -1,1 +1,1 @@
-Get a direct hit on an enemy with a fuelless missile.
+Hit an enemy with a falling missile.
