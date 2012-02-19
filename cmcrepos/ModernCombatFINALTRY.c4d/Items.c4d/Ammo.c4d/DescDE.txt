@@ -1,1 +1,1 @@
-Verschiedene Munitionstypen für verschiedenste Waffen.
+Genormte Munitionstypen für verschiedenste Waffengattungen. Munitionsboxen können mit [Doppelgraben] in den Munitionsgürtel übertragen werden und mit [Werfen] an Verbündete übergeben.
