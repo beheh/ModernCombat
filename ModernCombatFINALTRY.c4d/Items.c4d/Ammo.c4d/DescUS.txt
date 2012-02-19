@@ -1,1 +1,1 @@
-Different kinds of ammo for all kinds of weapons.
+Standardized ammo types for various weapons. Ammo boxes can be transfered into the ammunition belt with [Double Dig]. [Throw] allows to give ammo boxes to allies.
