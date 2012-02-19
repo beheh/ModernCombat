@@ -1,1 +1,1 @@
-Get a direct hit on an enemy with artillery.
+Hit an enemy with artillery.
