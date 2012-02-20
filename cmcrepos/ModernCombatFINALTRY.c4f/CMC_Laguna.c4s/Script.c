@@ -368,6 +368,10 @@ public func ChooserFinished()
    RemoveObject(aArtillery[1]);
    RemoveAll(SPVM);
 
+   //Metallkisten
+   CreateObject(MWCR, 2280, 550, -1);
+   CreateObject(MWCR, 2350, 550, -1);
+
    //Patrouillenboote
    SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,770,800,-1),10*10);
    SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,1265,800,-1),10*10);
