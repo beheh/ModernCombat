@@ -1,17 +1,17 @@
 // Angreifer
 
-DestroyLastStation=Nurnoch <c ffff33>ein</c> Zielobjekt und wir haben gewonnen, lasst nicht locker!
+DestroyLastStation=Uns fehlt nur noch <c ffff33>ein</c> Zielobjekt zum Sieg!
+MsgTicketsLow=<c ff0000>Achtung</c>: Unsere Verstärkung geht zu Neige, nur noch <c ffff33>%d</c> übrig!
+MsgNoTickets=<c ff0000>Achtung</c>: Unsere Verstärkung ist <c ff0000>aufgebraucht</c>!
 AttackersWon={{GASS}} <c ffff33>Assault</c> - Rundenende|Das <c ffff33>Angreifer-Team</c> hat diese Schlacht <c ffff33>gewonnen</c>!
-MsgTicketsLow=Unsere Verstärkung geht zu Neige, nur noch <c ffff33>%d</c> übrig
-MsgNoTickets=Unsere Verstärkung ist <c ff0000>aufgebraucht</c>
 
 // Verteidiger
 
-DefendLastStation=Das ist unser <c ff0000>letztes</c> Zielobjekt, lasst keinen ran!
+DefendLastStation=<c ff0000>Achtung</c>: Das ist unser <c ff0000>letztes</c> Zielobjekt!
 DefendersWon={{GASS}} <c ffff33>Assault</c> - Rundenende|Das <c ffff33>Verteidiger-Team</c> hat diese Schlacht <c ffff33>gewonnen</c>!
 
 // Sonstiges
 
 Targets=Zielobjekte
 Attackers=Angreifer
-TargetDestruction=Zielobjekt <c %x>%s</c> wurde zerstört.
+TargetDestruction=Das Zielobjekt <c %x>%s</c> wurde zerstört!

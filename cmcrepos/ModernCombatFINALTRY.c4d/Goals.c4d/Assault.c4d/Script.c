@@ -85,6 +85,8 @@ public func AddAssaultTarget(id idTarget, int iX, int iY, int iMaxDamage, int iT
   }
 }
 
+/* Zielobjektzerstörung */
+
 public func ReportAssaultTargetDestruction(object pTarget, int iTeam)
 {
   var index = GetIndexOf(pTarget, aTargets[iTeam]);
@@ -93,6 +95,7 @@ public func ReportAssaultTargetDestruction(object pTarget, int iTeam)
 
   _inherited(pTarget, iTeam, ...);
 
+  //Auf Zielobjektverbund prüfen
   var fConnectedDestruction = true;;
   if (GetType(Connected[index]) != C4V_Array)
     fConnectedDestruction = false;
@@ -101,7 +104,7 @@ public func ReportAssaultTargetDestruction(object pTarget, int iTeam)
       if (aTargets[iDefender][i])
         fConnectedDestruction = false;
 
-  //Und gleich mal bekanntgeben
+  //Bekanntgabe der Zerstörung
   EventInfo4K(0, Format("$TargetDestruction$", GetTeamColor(iTeam), GetName(pTarget)), GBAS, 0, 0, 0, "RadioConfirm*.ogg");
   GameCall("OnAssaultTargetDestruction", pTarget, iTeam, FindInArray4K(aTargets[iTeam], pTarget), fConnectedDestruction);
   if (pTarget)
@@ -115,7 +118,7 @@ public func ReportAssaultTargetDestruction(object pTarget, int iTeam)
       else
         EventInfo4K(j+1, "$DestroyLastStation$", GetID(), 0, 0, 0, "Alarm.ogg");
 
-  //Tickets resetten, bei verbundenen nur wenn alle Ziele zerstört sind
+  //Tickets zurücksetzen, bei verbundenen Zielobjekten nur wenn alle Ziele zerstört sind
   if (GetType(Connected[index]) != C4V_Array)
     InitializeTickets();
   else
@@ -461,7 +464,7 @@ private func IsFulfilled()
     for (var i = 0, j; i < GetPlayerCount(); i++)
     {
       if (GetPlayerTeam(j = GetPlayerByIndex(i)) == iDefender)
-        return;
+        continue;
       //Achievement-Fortschritt (Stormtrooper)
       DoAchievementProgress(1, AC25, GetPlayerByIndex(i));
     }
