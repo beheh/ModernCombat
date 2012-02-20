@@ -13,12 +13,11 @@ artillerist_desc=Mit einem starken Granatenwerfer|ausgerüstet, agiert diese Einh
 
 # CTF
 
-ReturnedTheFlag=%s hat die Flagge zurückgebracht
-CapturedTheFlag=%s hat die Flagge erfolgreich geklaut
-HasTheFlag=%s hat die Flagge von Team <c %x>%s</c>
-FlagLost=Die Flagge von <c %x>%s</c> wurde fallen gelassen
-FlagReturned=Die Flagge von <c %x>%s</c> ist zurück
-
+ReturnedTheFlag=%s hat die Flagge zurückgebracht!
+CapturedTheFlag=%s hat die Flagge erfolgreich geklaut!
+HasTheFlag=%s hat die Flagge von Team <c %x>%s</c>!
+FlagLost=Die Flagge von <c %x>%s</c> wurde fallen gelassen!
+FlagReturned=Die Flagge von <c %x>%s</c> ist zurück!
 
 # Chooser
 
@@ -58,7 +57,6 @@ BeginVote=Abstimmung starten?
 BeginVoteYes=Ja
 BeginVoteNo=Nein
 GoalVoteBegins=Der Host startet eine Spielzielwahl, du hast <c ffff33>%d</c> Sekunden um deine(n) Favorit(en) zu wählen!
-
 
 # Team
 

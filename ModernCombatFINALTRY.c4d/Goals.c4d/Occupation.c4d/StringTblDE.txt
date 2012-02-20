@@ -1,7 +1,12 @@
 // Flaggenposten
 
-MsgCaptured=Team <c %x>%s</c> kontrolliert Flaggenposten <c ffff33>%s</c>
-MsgFlagLost=Flaggenposten <c ffff33>%s</c> an Team <c %x>%s</c> verloren
+MsgCaptured=Team <c %x>%s</c> kontrolliert Flaggenposten <c ffff33>%s</c>!
+MsgFlagLost=Flaggenposten <c ffff33>%s</c> an Team <c %x>%s</c> verloren!
+
+// Tickets
+
+MsgTicketsLow=<c ff0000>Achtung</c>: Unsere Verstärkung geht zu Neige, nur noch <c ffff33>%d</c> übrig!
+MsgNoTickets=<c ff0000>Achtung</c>: Unsere Verstärkung ist <c ff0000>aufgebraucht</c>!
 
 // Sonstiges
 
@@ -15,5 +20,3 @@ MoreTickets=mehr Tickets
 LessTickets=weniger Tickets
 Finished=Fertig
 Tickets=Tickets
-MsgTicketsLow=Unsere Verstärkung geht zu Neige, nur noch <c ffff33>%d</c> übrig
-MsgNoTickets=Unsere Verstärkung ist <c ff0000>aufgebraucht</c>
