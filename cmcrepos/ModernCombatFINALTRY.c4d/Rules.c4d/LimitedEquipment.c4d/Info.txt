@@ -1,0 +1,10 @@
+Limitierung
+
+Folgende Objekte werden limitiert, d.h. hat man mehr als eine vorgegebene Menge einer Objekteart, wird das erste Objekt dieser Art vom betroffenen Besitzer entfernt.
+
+Gepackte Munitionsbox		3		Bei Erstellung
+Sprengfalle			2		Bei Aktivierung
+C4 Ladung			8		Bei Erstellung
+Dragnin				3		Bei Erstellung
+
+Die Objekte überprüfen sich bei aktiver Limitierung selbst, sodass keine ständige Kontrolle durch Scripts nötig ist.
