@@ -1,4 +1,4 @@
-/*-- Gepackter Munitionsclip --*/
+/*-- Gepackte Munitionsbox --*/
 
 #strict 2
 
