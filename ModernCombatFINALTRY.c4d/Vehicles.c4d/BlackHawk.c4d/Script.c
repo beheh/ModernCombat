@@ -112,7 +112,7 @@ protected func Initialize()
 
   //Rotordrehung
   iRotorSpeed = 0;
-	
+
   //Vertices richtig drehen
   ScheduleCall(this,"ChangeDir",1,2);
 
@@ -372,7 +372,7 @@ protected func Collection2(object pObj)
       if(!GetPassenger2())
         return EnterSeat(BKHK_Seat_Passenger2, pObj);
 
-      //Kein Platz mehr. :/
+      //Kein Platz mehr
       return SetCommand(pObj, "Exit");
     }
     else
