@@ -253,6 +253,7 @@ protected func AI_Inventory(object pClonk)
     ShiftContents(pClonk, 0, GetID());
     //Benutzen (verzögert einsetzen)
     ScheduleCall(this, "Activate", 1, 0, pClonk);
+    return 2;
   }
-  return true;
+  return 1;
 }
