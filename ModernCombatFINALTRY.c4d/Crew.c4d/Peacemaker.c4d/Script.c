@@ -176,13 +176,14 @@ public func FxAggroTimer(object pTarget, int no)
   	}
   	// Weitere Verletzte?
   	if(pTarget->~IsMedic()) {
-  		for (var friend in FindObjects(Find_Category(OCF_Living), Find_Allied(GetOwner(pTarget)), Find_NoContainer(), Find_Distance(50, AbsX(GetX(pTarget)), AbsY(GetY(pTarget))), Sort_Distance(AbsX(GetX(pTarget)), AbsY(GetY(pTarget))))) 
+  		for (var friend in FindObjects(Find_OCF(OCF_Alive), Find_Exclude(pTarget), Find_Allied(GetOwner(pTarget)), Find_NoContainer(), Find_Distance(100, AbsX(GetX(pTarget)), AbsY(GetY(pTarget))), Sort_Distance(AbsX(GetX(pTarget)), AbsY(GetY(pTarget))))) 
   		{
-  			if (!friend->~IsHealing() && friend->GetEnergy() < friend->GetPhysical("Energy") * 1 / 3 / 1000)
+  			if (!friend->~IsHealing() && (friend->GetEnergy() < friend->GetPhysical("Energy") * 2 / 3 / 1000 ))
   			{
   				if (!ContentsCount(DGNN, pTarget) && ContentsCount(FAPK, pTarget))
   				{
   					var pFAP = FindObject2(Find_ID(FAPK), Find_Container(pTarget), Find_Func("CanUnpack", pTarget));
+  					ShiftContents(pTarget, 0, FAPK, true);
   					if (pFAP)
               pDragnin->ControlThrow(pTarget);
   				}
@@ -243,8 +244,11 @@ public func CheckIdleInventory()
   for(var i=0,obj ; obj = Contents(i) ; i++)
   {
   	// Irgendwas spezielles?
-    if(obj->~AI_IdleInventory(this))
+    var result = obj->~AI_IdleInventory(this);
+    if(result) {
+    	if(result > 1) break;
       continue;
+    }
     // Waffe
     if(obj->~IsWeapon())
       continue;
