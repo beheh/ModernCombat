@@ -99,6 +99,8 @@ public func UpdateHUD(object pHUD)
 
 protected func FxIntTeamSupportTimer()
 {
+	var objs;
+
   //Gar keine Punkte?
   if (!GetPackPoints()) return;
   //Liegt irgendwo?
@@ -106,16 +108,22 @@ protected func FxIntTeamSupportTimer()
   //Tr‰ger lebt nicht
   if (!GetAlive(Contained())) return;
   //Tr‰ger ist kein Clonk
-  if (!Contained()->~IsClonk()) return;
-  //Tr‰ger ist nicht drauﬂen
-  if (Contained(Contained())) return;
+	if (!Contained()->~IsClonk()) return;
   //Tr‰ger simuliert Todeskampf
   if (IsFakeDeath(Contained())) return;
-  //Ist nicht ausgew‰hlt
-  if (Contents(0, Contained()) != this) return;
+  //Tr‰ger ist nicht drauﬂen
+  if (Contained(Contained())) {
+  	//Egal ob ausgew‰hlt
+	  objs = FindObjects(Find_OCF(OCF_CrewMember), Find_Container(Contained(Contained())), Find_Exclude(Contained()));
+  }
+  //Tr‰ger im Freien
+  else {
+  	//Ist nicht ausgew‰hlt
+  	if (Contents(0, Contained()) != this) return;
+  	objs = FindObjects(Find_Distance(TeamSupportRange()), Find_OCF(OCF_CrewMember), Find_NoContainer(), Find_Allied(GetOwner(Contained())), Find_Exclude(Contained()));
+  }
 
   //Na also, das w‰r geschafft. Wer mag haben?
-  var objs = FindObjects(Find_Distance(TeamSupportRange()), Find_OCF(OCF_CrewMember), Find_NoContainer(), Find_Allied(GetOwner(Contained())), Find_Exclude(Contained()));
   DoTeamSupport(objs);
 }
 
