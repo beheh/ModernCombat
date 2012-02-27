@@ -63,6 +63,7 @@ func CreateInterior()
   CreateObject(LADR, 4680, 538, -1)->Set(8);
   CreateObject(LADR, 4780, 424, -1)->Set(12);
   CreateObject(LADR, 5120, 537, -1)->Set(16);
+  CreateObject(LADR, 5310, 537, -1)->Set(16);
   CreateObject(LADR, 5525, 536, -1)->Set(16);
   CreateObject(LADR, 6635, 434, -1)->Set(11);
   CreateObject(LADR, 7240, 502, -1)->Set(8);
@@ -72,12 +73,20 @@ func CreateInterior()
   CreateObject(LADR, 7425, 478, -1)->Set(14);
   CreateObject(LADR, 7670, 375, -1)->Set(6);
 
+  //Stahlbrücken
+  CreateObject(_HBR, 5215, 412, -1);
+  CreateObject(_HBR, 5215, 482, -1);
+  CreateObject(_HBR, 5445, 482, -1);
+
   //Bodenluken
   CreateObject(HA4K, 2960, 373, -1);
   CreateObject(HA4K, 2890, 513, -1);
   CreateObject(HA4K, 1100, 473, -1);
   CreateObject(HA4K, 4780, 323, -1);
   CreateObject(HA4K, 5120, 403, -1);
+  CreateObject(HA4K, 5120, 473, -1);
+  CreateObject(HA4K, 5310, 403, -1);
+  CreateObject(HA4K, 5310, 473, -1);
   CreateObject(HA4K, 5760, 353, -1);
   CreateObject(HA4K, 5760, 403, -1);
   CreateObject(HA4K, 6260, 513, -1);
@@ -111,6 +120,8 @@ func CreateInterior()
   CreateObject(_WIN, 1068, 330, -1);
   CreateObject(_WIN, 5092, 470, -1);
   CreateObject(_WIN, 5148, 470, -1);
+  CreateObject(_WIN, 5282, 470, -1);
+  CreateObject(_WIN, 5338, 470, -1);
 
   //Kisten
   CreateObject(WCR2, 1510, 400, -1);
@@ -124,11 +135,14 @@ func CreateInterior()
   //Metallkisten
   CreateObject(MWCR, 1530, 400, -1)->AutoRespawn();
   CreateObject(MWCR, 4570, 390, -1)->AutoRespawn();
+  CreateObject(MWCR, 5030, 470, -1)->AutoRespawn();
+  CreateObject(MWCR, 5370, 470, -1)->AutoRespawn();
   CreateObject(MWCR, 7560, 510, -1)->AutoRespawn();
 
   //Verbandskisten
   CreateObject(BECR, 1275, 400, -1)->AutoRespawn();
   CreateObject(BECR, 4400, 330, -1)->AutoRespawn();
+  CreateObject(BECR, 5050, 470, -1)->AutoRespawn();
   CreateObject(BECR, 7325, 310, -1)->AutoRespawn();
 
   //Explosive Kisten
@@ -226,6 +240,8 @@ func CreateInterior()
   CreateObject(SBBA, 4204, 409, -1);
   CreateObject(SBBA, 5075, 400, -1);
   CreateObject(SBBA, 5165, 400, -1)->Right();
+  CreateObject(SBBA, 5265, 400, -1);
+  CreateObject(SBBA, 5355, 400, -1)->Right();
   CreateObject(SBBA, 5780, 350, -1)->Right();
   CreateObject(SBBA, 6340, 620, -1)->Right();
   CreateObject(SBBA, 6490, 340, -1)->Right();
@@ -253,9 +269,10 @@ func CreateInterior()
   aLamp[09]=CreateObject(BLGH, 4335, 385, -1);
   aLamp[10]=CreateObject(BLGH, 4335, 525, -1);
   aLamp[11]=CreateObject(LLGH, 5120, 540, -1);
-  aLamp[12]=CreateObject(BLGH, 5725, 505, -1);
-  aLamp[13]=CreateObject(BLGH, 6445, 385, -1);
-  aLamp[14]=CreateObject(LLGH, 7280, 410, -1);
+  aLamp[12]=CreateObject(LLGH, 5310, 540, -1);
+  aLamp[13]=CreateObject(BLGH, 5725, 505, -1);
+  aLamp[14]=CreateObject(BLGH, 6445, 385, -1);
+  aLamp[15]=CreateObject(LLGH, 7280, 410, -1);
 
   //Kran
   CreateObject(CRN1, 4000, 359, -1)->Set(42);
@@ -504,6 +521,7 @@ func CreateDecoration()
   CreateObject(RAI1, 4190, 410, -1)->SetRail([1,1,1,1,1,1]);
   CreateObject(RAI1, 4660, 320, -1)->SetRail([1,1,1,1,1,1,1,1,1]);
   CreateObject(RAI1, 5063, 400, -1)->SetRail([1,1,1,1,1,1]);
+  CreateObject(RAI1, 5253, 400, -1)->SetRail([1,1,1,1,1,1]);
   CreateObject(RAI1, 5530, 400, -1)->SetRail([1,1,1,1]);
   CreateObject(RAI1, 7140, 360, -1)->SetRail([1,1,1,1,1,1,1,1,1]);
   CreateObject(RAI1, 7395, 360, -1)->SetRail([1]);
@@ -1096,6 +1114,7 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
    //Lampen deaktivieren
    aLamp[11]->EMPShock();
    aLamp[12]->EMPShock();
+   aLamp[13]->EMPShock();
   }
 
   //Ziel 6
@@ -1107,7 +1126,7 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
    CreateObject(BRDR, 7850, 0, -1)->Set(1,1);
 
    //Lampe deaktivieren
-   aLamp[13]->EMPShock();
+   aLamp[14]->EMPShock();
   }
 
   //Ziel 7
@@ -1121,7 +1140,7 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
    aSelfDefense[3]->DecoExplode(30);
 
    //Lampe deaktivieren
-   aLamp[14]->EMPShock();
+   aLamp[15]->EMPShock();
   }
 }
 
