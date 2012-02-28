@@ -7,6 +7,8 @@
 
 local init;
 
+public func GoalExtraValue()	{return iWinScore;}	//Spielzielinformationen an Scoreboard weitergeben
+
 
 protected func InitializePlayer(int iPlr, int iX, int iY, object pBase, int iTeam)
 {

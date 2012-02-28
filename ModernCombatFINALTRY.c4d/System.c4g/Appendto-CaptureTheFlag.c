@@ -6,6 +6,8 @@
 
 #appendto GCTF
 
+public func GoalExtraValue()	{return iWinScore;}	//Spielzielinformationen an Scoreboard weitergeben
+
 
 public func ChooserFinished()
 {

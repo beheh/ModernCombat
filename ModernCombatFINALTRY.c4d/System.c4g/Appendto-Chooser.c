@@ -1,4 +1,4 @@
-/*-- Spielregelwahl --*/
+ï»¿/*-- Spielregelwahl --*/
 
 //Erweitert die Spielregelwahl und erlaubt Voreinstellungen der Regeln in einem Szenario.
 
@@ -14,13 +14,16 @@ local iChoosedPlr;
 
 protected func Initialize()
 {
+  //Scoreboard initialisieren
+  ScheduleCall(this, "InitScoreboard", 3);
+
   SetPosition();
   aRules = CreateArray();
   aGoals = CreateArray();
   aTempGoalSave = CreateArray();
   aAI = CreateArray();
 
-  //Spielziele verzögert entfernen
+  //Spielziele verzÃ¶gert entfernen
   ScheduleCall(this(), "RemoveGoals", 1);
 
   //Host identifizieren
@@ -35,6 +38,165 @@ protected func Initialize()
   //Effektstufe setzen
   iEffectCount = 3;
   EFSM_SetEffects(3);
+
+  //SpielerrÃ¤nge ermitteln
+  iAchievementCount = 0;
+  while(GetName(0, C4Id(Format("AC%02d", iAchievementCount+1))))
+  {
+    iAchievementCount++;
+  }
+}
+
+/* Statusanzeige im Scoreboard */
+
+static const CHOS_SBRD_Chooser	= 0;
+static const CHOS_SBRD_Goal	= 1;
+static const CHOS_SBRD_Rules	= 2;
+static const CHOS_SBRD_Effect	= 3;
+static const CHOS_SBRD_Darkness	= 4;
+static const CHOS_SBRD_Teams	= 5;
+
+public func InitScoreboard()
+{
+  //Scoreboard einblenden
+  Schedule("DoScoreboardShow(1)", 1);
+
+  //Zeilen setzen
+  SetScoreboardData(SBRD_Caption, SBRD_Caption, "$StatusScoreboard$", 0, true);
+  SetScoreboardData(CHOS_SBRD_Chooser, SBRD_Caption, "$ScoreboardChooser$", CHOS_SBRD_Chooser, true);
+  SetScoreboardData(CHOS_SBRD_Goal, SBRD_Caption, "$ScoreboardGoals$", CHOS_SBRD_Goal, true);
+  SetScoreboardData(CHOS_SBRD_Rules, SBRD_Caption, "$ScoreboardRules$", CHOS_SBRD_Rules, true);
+  SetScoreboardData(CHOS_SBRD_Effect, SBRD_Caption, "$ScoreboardEffects$", CHOS_SBRD_Effect, true);
+  SetScoreboardData(CHOS_SBRD_Darkness, SBRD_Caption, "$ScoreboardDarkness$", CHOS_SBRD_Darkness, true);
+  SetScoreboardData(CHOS_SBRD_Teams, SBRD_Caption, "$ScoreboardTeams$", CHOS_SBRD_Teams, true);
+  AddEffect("ChooserScoreboard", this, 21, 10, this);
+}
+
+global func SetScoreboardData(int iRowID, int iColID, string sText, int iData, bool fChooser) // Bearbeitung des Scoreboard wÃ¤hrend des Choosers benÃ¶tigt fChooser.
+{
+  if(FindObject(CHOS) && !fChooser)
+  {
+    return false;
+  }
+
+  return _inherited(iRowID, iColID, sText, iData);
+}
+
+public func FxChooserScoreboardTimer(object target, nr, time)
+{
+  target->~UpdateScoreboard();
+}
+
+public func UpdateScoreboard()
+{
+  //Host-Spieler
+  SetScoreboardData(CHOS_SBRD_Chooser, 0, GetPlayerName(iChoosedPlr), 0, true);
+  
+  //Spielziele
+  var str_goals = "", str_extra = "";
+  if(!pGoal)
+  {
+    for(var goal2 in aGoals)
+    {
+      str_goals = Format("%s{{%i}}", str_goals, goal2);
+    }
+  }
+  else
+  {
+    str_goals = Format("%s ", GetName(pGoal));
+    if(pGoal->~GoalExtraValue()) // Extrawerte fÃ¼r die Spielziele (Tickets bei GOCC und so)
+    {
+      str_extra = Format("(%v)", pGoal->~GoalExtraValue());
+    }
+  }
+  SetScoreboardData(CHOS_SBRD_Goal, 0, Format("%s%s", str_goals, str_extra), 0, true);
+
+  //Regeln
+  var str_rules = "";
+  for(var i = 0, j = 0, idR; idR = GetDefinition(i, Chooser_Cat) ; i++)
+  {
+    if(idR->~IsChooseable() && aRules[i])
+    {
+      str_rules = Format("%s{{%i}}", str_rules, idR);
+      j++;
+    }
+  }
+  SetScoreboardData(CHOS_SBRD_Rules, 0, str_rules, 0, true);
+
+  //Effektstufe
+  SetScoreboardData(CHOS_SBRD_Effect, 0, Format("%dx", iEffectCount), 0, true);
+
+  //Dunkelheitsstufe
+  if(FindObject(DARK))
+  {
+    SetScoreboardData(CHOS_SBRD_Darkness, SBRD_Caption, "$ScoreboardDarkness$", CHOS_SBRD_Darkness, true);
+    SetScoreboardData(CHOS_SBRD_Darkness, 0, Format("%dx", iDarkCount), 0, true);
+  }
+  else
+  {
+    SetScoreboardData(CHOS_SBRD_Darkness, SBRD_Caption, "<c 777777>$ScoreboardDarkness$</c>", CHOS_SBRD_Darkness, true);
+    SetScoreboardData(CHOS_SBRD_Darkness, 0, Format("<c 777777>%dx</c>", iDarkCount), 0, true);
+  }
+  
+  //Teamverteilung und SpielerrÃ¤nge
+  for(var i = 0; i < GetPlayerCount(C4PT_User); i++)
+  {
+    var row_id = CHOS_SBRD_Teams + 1 + i;
+    var plr = GetPlayerByIndex(i, C4PT_User);
+    var iGAchievementCnt = 0;
+    var iData = GetPlrExtraData(plr, "CMC_Achievements");
+    for(var j = 1; j <= iAchievementCount; j++)
+    {
+      if(iData >> j & 1)
+      {
+        iGAchievementCnt++;
+      }
+    }
+
+  }
+}
+
+global func ClearScoreboard(int iRow, int iCol)
+{
+  var row = SBRD_Caption;
+  var col = 0;
+  var search = true;
+  while(search)
+  {
+    //Eintrag vorhanden?
+    if(GetScoreboardString(row, col))
+    {
+      //Eintrag Ã¼berschreiben und somit lÃ¶schen
+      SetScoreboardData(row, col, 0, 0);
+    }
+    //Zelle nicht gegeben, Reaktion auf leere Zellen
+    if(iCol == -2 || iRow == -2)
+    {
+      row++;
+      col = SBRD_Caption;
+      if(!GetScoreboardString(row, col))
+      {
+        search = false;
+        break;
+      }
+      continue;
+    }
+    //Zelle gegeben
+    else if(col == iCol)
+    {
+      if(row == iRow)
+      {
+        search = false;
+        break;
+      }
+      row++;
+      col = SBRD_Caption;
+      continue;
+    }
+    col++;
+  }
+
+  return true;
 }
 
 /* Host-Identifizierung */
@@ -46,7 +208,7 @@ private func ChoosePlayer()
       return iChoosedPlr = GetPlayerByIndex(i, C4PT_User);
 }
 
-/* Nur eine Mitteilung für Neugierige */
+/* Nur eine Mitteilung fÃ¼r Neugierige */
 
 protected func Activate(iPlr)
 {
@@ -81,7 +243,7 @@ protected func OpenMenu()
   if(IsDark())
     AddMenuItem("%s", "OpenDarknessMenu", DARK, pClonk,0,0,"$DarknessChose$");
   //Spielziel
-  if(GoalIsCompatible() && !GetLeague())
+  if(pGoal && pGoal->~IsConfigurable() && !GetLeague())
     AddMenuItem("%s", "OpenGoalMenu", GetID(pGoal), pClonk,0,0,"$GoalChose$");
   //Teameinteilung
   if(GetTeamCount() && !GetLeague())
@@ -98,28 +260,28 @@ protected func OpenMenu()
 protected func OpenEffectMenu(id dummy, int iSelection)
 {
   var pClonk = GetCursor(iChoosedPlr);
-  //Menü aufmachen
+  //MenÃ¼ aufmachen
   CreateMenu(GetID(), pClonk, 0,0,0,0, 1);
   //Anzeige
   AddMenuItem(" ", "OpenEffectMenu", EFMN, pClonk, iEffectCount, 0, " ");
-  //Zähler erhöhen
+  //ZÃ¤hler erhÃ¶hen
   AddMenuItem("$MoreEffects$", "ChangeEffectConf", CHOS, pClonk, 0, +1, "$MoreEffects$",2,1);
-  //Zähler senken
+  //ZÃ¤hler senken
   AddMenuItem("$LessEffects$", "ChangeEffectConf", CHOS, pClonk, 0, -1, "$LessEffects$",2,2);
   //Fertig
   AddMenuItem("$Finished$", "OpenMenu", CHOS, pClonk,0,0, "$Finished$",2,3);
-  //Letzten Eintrag auswählen
+  //Letzten Eintrag auswÃ¤hlen
   SelectMenuItem(iSelection, pClonk);
 }
 
 protected func ChangeEffectConf(id dummy, int iChange)
 {
-  //Stand verändern
+  //Stand verÃ¤ndern
   iEffectCount = BoundBy(iEffectCount+iChange, 1, 3);
   EFSM_SetEffects(iEffectCount);
-  //Geräusch
+  //GerÃ¤usch
   Sound("Grab", 1,0,0,1);
-  //Menü wieder öffnen
+  //MenÃ¼ wieder Ã¶ffnen
   var iSel = 1;
   if(iChange == -1) iSel = 2;
   OpenEffectMenu(0, iSel);
@@ -138,7 +300,7 @@ protected func OpenGoalMenu(id dummy, int iSelection)
 protected func OpenTeamMenu(id dummy, int iSelection)
 {
   var pClonk = GetCursor(iChoosedPlr);
-  //Menü erstellen
+  //MenÃ¼ erstellen
   CreateMenu(GetID(), pClonk, 0,0,0,0, 1);
   //Teams auflisten
   for(var j = 0; j < GetPlayerCount(); j++)
@@ -146,20 +308,8 @@ protected func OpenTeamMenu(id dummy, int iSelection)
 
   //Fertig
   AddMenuItem("$Finished$", "OpenMenu", CHOS, pClonk,0,0, "$Finished$",2,3);
-  //Letzten Eintrag auswählen
+  //Letzten Eintrag auswÃ¤hlen
   SelectMenuItem(iSelection, pClonk);
-
-  for(var j = 0; j < GetPlayerCount(); j++)
-  {
-    if(j == 0) continue;
-    //Für jeden Spieler das selbe Menü auch nochmal erstellen
-    var clnk = GetCursor(GetPlayerByIndex(j));
-    CreateMenu(GetID(), clnk, 0, 0, 0, 0, 1);
-    for(var k = 0; k < GetPlayerCount(); k++)
-    {
-      AddMenuItem(Format("%s (%s)", GetTaggedPlayerName(GetPlayerByIndex(k)), GetTeamName(GetPlayerTeam(k))), 0, PCMK, clnk, 0, GetPlayerByIndex(k));
-    }
-  }
 }
 
 protected func SwitchTeam(id dummy, int iPlr)
@@ -174,7 +324,7 @@ protected func SwitchTeam(id dummy, int iPlr)
 
   var sel = GetMenuSelection(GetCursor(iChoosedPlr));
 
-  //Geräusch
+  //GerÃ¤usch
   Sound("Grab", 1,0,0,1);
 
   for(var j = 0; j < GetPlayerCount(); j++)
@@ -183,7 +333,7 @@ protected func SwitchTeam(id dummy, int iPlr)
     CloseMenu(GetCursor(GetPlayerByIndex(j)));
   }
 
-  //Menü wieder eröffnen
+  //MenÃ¼ wieder erÃ¶ffnen
   OpenTeamMenu(0, iPlr);
   return true;
 }
@@ -216,7 +366,7 @@ protected func InitializePlayer(int iPlr, int iX, int iY, object pBase, int iTea
     Enter(tmp, pCrew);
     Eastern(tmp);
   }
-  //Falls ein Spieler während der Abstimmung beitritt
+  //Falls ein Spieler wÃ¤hrend der Abstimmung beitritt
   if(GetEffect("EvaluateGoalVote", this))
     GoalVoteMenu(0, 0, iPlr);
 }
@@ -227,17 +377,19 @@ protected func CreateGoal(id idGoal, int iScore)
 {
   //Spielziel erstellen
   var goal = CreateObject(idGoal, 0,0, -1);
+  //Spielziel als lokale Variable setzen
+  pGoal = goal;
   //Alten Wert setzen
   SetWinScore(iScore, goal);
   //Alle benachrichtigen
   EventInfo4K(0,Format("$Goal$", GetName(0, idGoal)),idGoal, 0, 0, 0, "Info.ogg");
-  //Array leeren, damit das Menü nicht nochmal kommt
+  //Array leeren um erneuten MenÃ¼aufruf zu verhindern
   aGoals = CreateArray();
-  //Normales Menü öffnen
+  //Normales MenÃ¼ Ã¶ffnen
   OpenMenu();
 }
 
-/* Konfiguration abschließen */
+/* Konfiguration abschlieÃŸen */
 
 protected func ConfigurationFinished2()
 {
@@ -265,7 +417,7 @@ protected func ConfigurationFinished2()
   //Dunkelheit erzeugen
   log = Format("%s, %s x%d", log, GetName(0, DARK), iDarkCount);
   EventInfo4K(0,log,CHOS, 0, 0, 0, "Info.ogg");
-  //ein schneller GameCall für Einstellungen
+  //Schneller GameCall fÃ¼r Einstellungen
   GameCallEx("ChooserFinished");
 
   //Spieler freilassen
@@ -280,6 +432,11 @@ protected func ConfigurationFinished2()
     for(var rule in FindObjects(Find_Category(Chooser_Cat), Find_Exclude(this)))
       rule->~InitializePlayer(GetPlayerByIndex(i));
   }
+
+  //Scoreboard leeren
+  ClearScoreboard(CHOS_SBRD_Teams + GetPlayerCount(), 0);
+  //Nach einem Frame die Auswahlsperre auflÃ¶sen
+  ScheduleCall(pGoal, "InitScoreboard", 1);
   //Selber entfernen
   RemoveObject();
 }
@@ -290,10 +447,10 @@ private func IsStandardSetting()
   for (var i = 0; i < GetLength(aRules); i++) {
     if (GetIndexOf(GetDefinition(i, Chooser_Cat), a) != -1)
     {
-      if (!aRules[i]) //Regel im Standardsatz, aber nicht ausgewählt
+      if (!aRules[i]) //Regel im Standardsatz, aber nicht ausgewÃ¤hlt
         return false;
     }
-    else if (aRules[i]) //Regel ausgewählt, aber nicht Standard
+    else if (aRules[i]) //Regel ausgewÃ¤hlt, aber nicht Standard
       return false;
   }
   return true;
@@ -481,7 +638,7 @@ protected func FxEvaluateGoalVoteTimer(pTarget, iEffect, iTime)
     if (GetType(array) == C4V_Array)
       for (var i = 0; i < GetLength(array); i++)
         aGoalsChosen[i] += array[i];
-  //Alle Ziele mit dem höchsten Wert raussuchen
+  //Alle Ziele mit dem hÃ¶chsten Wert raussuchen
   var highest;
   for (var i in aGoalsChosen)
     highest = Max(highest, i);
@@ -489,7 +646,7 @@ protected func FxEvaluateGoalVoteTimer(pTarget, iEffect, iTime)
   for (var i = 0; i < GetLength(aGoals); i++)
     if (aGoalsChosen[i] == highest)
       array[GetLength(array)] = aGoals[i];
-  //Und zufällig eins auswählen
+  //Und zufÃ¤llig eins auswÃ¤hlen
   var idGoal = array[Random(GetLength(array))];
   if (idGoal)
     CreateGoal(idGoal, aTempGoalSave[GetIndexOf(idGoal, aGoals)]);
@@ -502,7 +659,7 @@ protected func MenuQueryCancel()
 {
   //return _inherited(...) || GetEffect("EvaluateGoalVote", this);
 
-  //Menüs sollten immer geöffnet bleiben, sodass z.B. der Host sie nicht
-  //schließen kann und erst umständlich über das Regelmenü wieder öffnen muss
+  //MenÃ¼s sollten immer geÃ¶ffnet bleiben, sodass z.B. der Host sie nicht
+  //schlieÃŸen kann und erst umstÃ¤ndlich Ã¼ber das RegelmenÃ¼ wieder Ã¶ffnen muss
   return true;
 }

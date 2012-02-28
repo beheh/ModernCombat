@@ -8,6 +8,8 @@ local aTeamPoints;	//Die Punkte jedes Teams
 local iProgress;	//Bei 100% bekommt das Team einen Punkt
 local iGoal;		//So viele Punkte gilt es zu erreichen
 
+public func GoalExtraValue()	{return iGoal;}	//Spielzielinformationen an Scoreboard weitergeben
+
 
 /* Initialisierung */
 

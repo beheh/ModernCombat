@@ -6,6 +6,8 @@
 
 #appendto GTDM
 
+public func GoalExtraValue()	{return iWinScore;}	//Spielzielinformationen an Scoreboard weitergeben
+
 
 public func RelaunchPlayer(int iPlr, object pClonk, int iMurdererPlr)
 {
