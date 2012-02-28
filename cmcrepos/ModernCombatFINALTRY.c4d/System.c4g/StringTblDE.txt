@@ -58,6 +58,13 @@ BeginVoteYes=Ja
 BeginVoteNo=Nein
 GoalVoteBegins=Der Host startet eine Spielzielwahl, du hast <c ffff33>%d</c> Sekunden um deine(n) Favorit(en) zu wählen!
 
+ScoreboardChooser=Host:
+ScoreboardGoals=Spielziel(e):
+ScoreboardRules=Spielregel(n):
+ScoreboardEffects=Effektstufe:
+ScoreboardDarkness=Dunkelheitsstufe:
+ScoreboardTeams=Teamverteilung:
+
 # Team
 
 Kills=Kills

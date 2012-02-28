@@ -8,6 +8,7 @@ static iGoal;
 local fFulfilled;
 
 public func IsConfigurable()	{return true;}
+public func GoalExtraValue()	{return iGoal;}	//Spielzielinformationen an Scoreboard weitergeben
 
 
 /* Initialisierung */

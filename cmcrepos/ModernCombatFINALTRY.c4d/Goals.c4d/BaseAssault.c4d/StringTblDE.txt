@@ -1,4 +1,9 @@
+// Zielobjekte
+
 TargetDestruction=Das Zielobjekt <c %x>%s</c> wurde zerstört!
 NoTargets=<c ff0000>Achtung</c>: Alle unsere Zielobjekte wurden <c ff0000>zerstört</c>!
+
+// Sonstiges
+
 TeamHasWon={{GBAS}} <c ffff33>Base Assault</c> - Rundenende|Team %s hat diese Schlacht <c ffff33>gewonnen</c>!
 ChoosePoint=Wähle einen <c ffff33>Einstiegspunkt</c>

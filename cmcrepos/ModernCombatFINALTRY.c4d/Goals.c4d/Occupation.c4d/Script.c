@@ -12,8 +12,9 @@ static const GOCC_Vertical = 2;
 static const GOCC_FlagColumn = 1;
 static const GOCC_ProgressColumn = 2;
 
-private func StartTickets()		{return 15;}	//Standardticketzahl
+private func StartTickets()		{return 15;}		//Standardticketzahl
 public func IsConfigurable()		{return true;}
+public func GoalExtraValue()		{return iStartTickets;}	//Spielzielinformationen an Scoreboard weitergeben
 
 
 /* Initialisierung */
