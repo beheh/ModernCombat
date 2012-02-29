@@ -57,6 +57,7 @@ BeginVote=Begin vote?
 BeginVoteYes=Yes
 BeginVoteNo=No
 GoalVoteBegins=The host has started a goal election, you have <c ffff33>%d</c> seconds to choose your favorite(s)!
+StatusScoreboard=Round Settings
 ScoreboardChooser=Host:
 ScoreboardGoals=Goal(s):
 ScoreboardRules=Rule(s):
