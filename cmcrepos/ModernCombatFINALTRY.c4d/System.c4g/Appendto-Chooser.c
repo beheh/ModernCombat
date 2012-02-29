@@ -1,6 +1,6 @@
-Ôªø/*-- Spielregelwahl --*/
+/*-- Spielregelwahl --*/
 
-//Erweitert die Spielregelwahl und erlaubt Voreinstellungen der Regeln in einem Szenario.
+//Erweitert die Spielregelwahl und erlaubt unter anderem Voreinstellungen der Regeln innerhalb eines Szenarios.
 
 #strict 2
 
@@ -23,7 +23,7 @@ protected func Initialize()
   aTempGoalSave = CreateArray();
   aAI = CreateArray();
 
-  //Spielziele verz√∂gert entfernen
+  //Spielziele verzˆgert entfernen
   ScheduleCall(this(), "RemoveGoals", 1);
 
   //Host identifizieren
@@ -39,7 +39,7 @@ protected func Initialize()
   iEffectCount = 3;
   EFSM_SetEffects(3);
 
-  //Spielerr√§nge ermitteln
+  //Spielerr‰nge ermitteln
   iAchievementCount = 0;
   while(GetName(0, C4Id(Format("AC%02d", iAchievementCount+1))))
   {
@@ -72,7 +72,7 @@ public func InitScoreboard()
   AddEffect("ChooserScoreboard", this, 21, 10, this);
 }
 
-global func SetScoreboardData(int iRowID, int iColID, string sText, int iData, bool fChooser) // Bearbeitung des Scoreboard w√§hrend des Choosers ben√∂tigt fChooser.
+global func SetScoreboardData(int iRowID, int iColID, string sText, int iData, bool fChooser) // Bearbeitung des Scoreboard w‰hrend des Choosers benˆtigt fChooser.
 {
   if(FindObject(CHOS) && !fChooser)
   {
@@ -104,7 +104,7 @@ public func UpdateScoreboard()
   else
   {
     str_goals = Format("%s ", GetName(pGoal));
-    if(pGoal->~GoalExtraValue()) // Extrawerte f√ºr die Spielziele (Tickets bei GOCC und so)
+    if(pGoal->~GoalExtraValue()) // Extrawerte f¸r die Spielziele (Tickets bei GOCC und so)
     {
       str_extra = Format("(%v)", pGoal->~GoalExtraValue());
     }
@@ -138,7 +138,7 @@ public func UpdateScoreboard()
     SetScoreboardData(CHOS_SBRD_Darkness, 0, Format("<c 777777>%dx</c>", iDarkCount), 0, true);
   }
   
-  //Teamverteilung und Spielerr√§nge
+  //Teamverteilung und Spielerr‰nge
   for(var i = 0; i < GetPlayerCount(C4PT_User); i++)
   {
     var row_id = CHOS_SBRD_Teams + 1 + i;
@@ -152,7 +152,10 @@ public func UpdateScoreboard()
         iGAchievementCnt++;
       }
     }
-
+    var rank = iGAchievementCnt/3; 
+      var rank_id = C4Id(Format("RG%02d", rank)); 
+        SetScoreboardData(row_id, SBRD_Caption, Format("{{%i}} %s %s (%d)", rank_id, GetName(0, rank_id), GetTaggedPlayerName(plr), rank), 0, true); 
+        SetScoreboardData(row_id, 0, GetTeamName(GetPlayerTeam(plr)), 0, true); 
   }
 }
 
@@ -166,7 +169,7 @@ global func ClearScoreboard(int iRow, int iCol)
     //Eintrag vorhanden?
     if(GetScoreboardString(row, col))
     {
-      //Eintrag √ºberschreiben und somit l√∂schen
+      //Eintrag ¸berschreiben und somit lˆschen
       SetScoreboardData(row, col, 0, 0);
     }
     //Zelle nicht gegeben, Reaktion auf leere Zellen
@@ -208,7 +211,7 @@ private func ChoosePlayer()
       return iChoosedPlr = GetPlayerByIndex(i, C4PT_User);
 }
 
-/* Nur eine Mitteilung f√ºr Neugierige */
+/* Nur eine Mitteilung f¸r Neugierige */
 
 protected func Activate(iPlr)
 {
@@ -260,28 +263,28 @@ protected func OpenMenu()
 protected func OpenEffectMenu(id dummy, int iSelection)
 {
   var pClonk = GetCursor(iChoosedPlr);
-  //Men√º aufmachen
+  //Men¸ aufmachen
   CreateMenu(GetID(), pClonk, 0,0,0,0, 1);
   //Anzeige
   AddMenuItem(" ", "OpenEffectMenu", EFMN, pClonk, iEffectCount, 0, " ");
-  //Z√§hler erh√∂hen
+  //Z‰hler erhˆhen
   AddMenuItem("$MoreEffects$", "ChangeEffectConf", CHOS, pClonk, 0, +1, "$MoreEffects$",2,1);
-  //Z√§hler senken
+  //Z‰hler senken
   AddMenuItem("$LessEffects$", "ChangeEffectConf", CHOS, pClonk, 0, -1, "$LessEffects$",2,2);
   //Fertig
   AddMenuItem("$Finished$", "OpenMenu", CHOS, pClonk,0,0, "$Finished$",2,3);
-  //Letzten Eintrag ausw√§hlen
+  //Letzten Eintrag ausw‰hlen
   SelectMenuItem(iSelection, pClonk);
 }
 
 protected func ChangeEffectConf(id dummy, int iChange)
 {
-  //Stand ver√§ndern
+  //Stand ver‰ndern
   iEffectCount = BoundBy(iEffectCount+iChange, 1, 3);
   EFSM_SetEffects(iEffectCount);
-  //Ger√§usch
+  //Ger‰usch
   Sound("Grab", 1,0,0,1);
-  //Men√º wieder √∂ffnen
+  //Men¸ wieder ˆffnen
   var iSel = 1;
   if(iChange == -1) iSel = 2;
   OpenEffectMenu(0, iSel);
@@ -300,7 +303,7 @@ protected func OpenGoalMenu(id dummy, int iSelection)
 protected func OpenTeamMenu(id dummy, int iSelection)
 {
   var pClonk = GetCursor(iChoosedPlr);
-  //Men√º erstellen
+  //Men¸ erstellen
   CreateMenu(GetID(), pClonk, 0,0,0,0, 1);
   //Teams auflisten
   for(var j = 0; j < GetPlayerCount(); j++)
@@ -308,7 +311,7 @@ protected func OpenTeamMenu(id dummy, int iSelection)
 
   //Fertig
   AddMenuItem("$Finished$", "OpenMenu", CHOS, pClonk,0,0, "$Finished$",2,3);
-  //Letzten Eintrag ausw√§hlen
+  //Letzten Eintrag ausw‰hlen
   SelectMenuItem(iSelection, pClonk);
 }
 
@@ -324,7 +327,7 @@ protected func SwitchTeam(id dummy, int iPlr)
 
   var sel = GetMenuSelection(GetCursor(iChoosedPlr));
 
-  //Ger√§usch
+  //Ger‰usch
   Sound("Grab", 1,0,0,1);
 
   for(var j = 0; j < GetPlayerCount(); j++)
@@ -333,7 +336,7 @@ protected func SwitchTeam(id dummy, int iPlr)
     CloseMenu(GetCursor(GetPlayerByIndex(j)));
   }
 
-  //Men√º wieder er√∂ffnen
+  //Men¸ wieder erˆffnen
   OpenTeamMenu(0, iPlr);
   return true;
 }
@@ -366,7 +369,7 @@ protected func InitializePlayer(int iPlr, int iX, int iY, object pBase, int iTea
     Enter(tmp, pCrew);
     Eastern(tmp);
   }
-  //Falls ein Spieler w√§hrend der Abstimmung beitritt
+  //Falls ein Spieler w‰hrend der Abstimmung beitritt
   if(GetEffect("EvaluateGoalVote", this))
     GoalVoteMenu(0, 0, iPlr);
 }
@@ -383,13 +386,13 @@ protected func CreateGoal(id idGoal, int iScore)
   SetWinScore(iScore, goal);
   //Alle benachrichtigen
   EventInfo4K(0,Format("$Goal$", GetName(0, idGoal)),idGoal, 0, 0, 0, "Info.ogg");
-  //Array leeren um erneuten Men√ºaufruf zu verhindern
+  //Array leeren um erneuten Men¸aufruf zu verhindern
   aGoals = CreateArray();
-  //Normales Men√º √∂ffnen
+  //Normales Men¸ ˆffnen
   OpenMenu();
 }
 
-/* Konfiguration abschlie√üen */
+/* Konfiguration abschlieﬂen */
 
 protected func ConfigurationFinished2()
 {
@@ -417,7 +420,7 @@ protected func ConfigurationFinished2()
   //Dunkelheit erzeugen
   log = Format("%s, %s x%d", log, GetName(0, DARK), iDarkCount);
   EventInfo4K(0,log,CHOS, 0, 0, 0, "Info.ogg");
-  //Schneller GameCall f√ºr Einstellungen
+  //Schneller GameCall f¸r Einstellungen
   GameCallEx("ChooserFinished");
 
   //Spieler freilassen
@@ -435,7 +438,7 @@ protected func ConfigurationFinished2()
 
   //Scoreboard leeren
   ClearScoreboard(CHOS_SBRD_Teams + GetPlayerCount(), 0);
-  //Nach einem Frame die Auswahlsperre aufl√∂sen
+  //Nach einem Frame die Auswahlsperre auflˆsen
   ScheduleCall(pGoal, "InitScoreboard", 1);
   //Selber entfernen
   RemoveObject();
@@ -447,10 +450,10 @@ private func IsStandardSetting()
   for (var i = 0; i < GetLength(aRules); i++) {
     if (GetIndexOf(GetDefinition(i, Chooser_Cat), a) != -1)
     {
-      if (!aRules[i]) //Regel im Standardsatz, aber nicht ausgew√§hlt
+      if (!aRules[i]) //Regel im Standardsatz, aber nicht ausgew‰hlt
         return false;
     }
-    else if (aRules[i]) //Regel ausgew√§hlt, aber nicht Standard
+    else if (aRules[i]) //Regel ausgew‰hlt, aber nicht Standard
       return false;
   }
   return true;
@@ -638,7 +641,7 @@ protected func FxEvaluateGoalVoteTimer(pTarget, iEffect, iTime)
     if (GetType(array) == C4V_Array)
       for (var i = 0; i < GetLength(array); i++)
         aGoalsChosen[i] += array[i];
-  //Alle Ziele mit dem h√∂chsten Wert raussuchen
+  //Alle Ziele mit dem hˆchsten Wert raussuchen
   var highest;
   for (var i in aGoalsChosen)
     highest = Max(highest, i);
@@ -646,7 +649,7 @@ protected func FxEvaluateGoalVoteTimer(pTarget, iEffect, iTime)
   for (var i = 0; i < GetLength(aGoals); i++)
     if (aGoalsChosen[i] == highest)
       array[GetLength(array)] = aGoals[i];
-  //Und zuf√§llig eins ausw√§hlen
+  //Und zuf‰llig eins ausw‰hlen
   var idGoal = array[Random(GetLength(array))];
   if (idGoal)
     CreateGoal(idGoal, aTempGoalSave[GetIndexOf(idGoal, aGoals)]);
@@ -659,7 +662,7 @@ protected func MenuQueryCancel()
 {
   //return _inherited(...) || GetEffect("EvaluateGoalVote", this);
 
-  //Men√ºs sollten immer ge√∂ffnet bleiben, sodass z.B. der Host sie nicht
-  //schlie√üen kann und erst umst√§ndlich √ºber das Regelmen√º wieder √∂ffnen muss
+  //Men¸s sollten immer geˆffnet bleiben, sodass z.B. der Host sie nicht
+  //schlieﬂen kann und erst umst‰ndlich ¸ber das Regelmen¸ wieder ˆffnen muss
   return true;
 }
