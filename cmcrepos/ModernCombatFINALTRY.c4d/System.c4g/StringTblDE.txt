@@ -57,7 +57,7 @@ BeginVote=Abstimmung starten?
 BeginVoteYes=Ja
 BeginVoteNo=Nein
 GoalVoteBegins=Der Host startet eine Spielzielwahl, du hast <c ffff33>%d</c> Sekunden um deine(n) Favorit(en) zu wählen!
-
+StatusScoreboard=Rundeneinstellungen
 ScoreboardChooser=Host:
 ScoreboardGoals=Spielziel(e):
 ScoreboardRules=Spielregel(n):
