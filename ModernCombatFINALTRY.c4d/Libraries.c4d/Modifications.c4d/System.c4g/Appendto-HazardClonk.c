@@ -1543,6 +1543,8 @@ private func StopWallJump()
 protected func BackFlip()
 {
   Sound("ClonkAction*.ogg");
+  Sound("ClonkStep*.ogg", 0, 0, 50);
+  Sound("ClonkRustle*.ogg", 0, 0, 25);
   SetComDir(!GetComDir());
   ScheduleCall(0, "BackFlipBoost", 1, 1);
 }
@@ -1552,7 +1554,8 @@ protected func BackFlip()
 private func ControlAgility(string strControl)
 {
   //In Flüssigkeiten geht das Ganze nicht.
-  if (InLiquid()) return;
+  if(InLiquid())
+    return;
 
   //Links
   if(strControl == "ControlLeft")
@@ -1596,6 +1599,8 @@ private func ControlAgility(string strControl)
       SetComDir(COMD_Left);
       WallJumpBoost();
       Sound("ClonkAction*.ogg");
+      Sound("ClonkStep*.ogg", 0, 0, 50);
+      Sound("ClonkRustle*.ogg", 0, 0, 25);
       StopWallJump();
       return 1;
     }
@@ -1609,6 +1614,8 @@ private func ControlAgility(string strControl)
       SetComDir(COMD_Right);
       WallJumpBoost();
       Sound("ClonkAction*.ogg");
+      Sound("ClonkStep*.ogg", 0, 0, 50);
+      Sound("ClonkRustle*.ogg", 0, 0, 25);
       StopWallJump();
       return 1;
     }
