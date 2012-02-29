@@ -15,14 +15,14 @@ public func DoMouseAiming(int iTx, int iTy)
    if(iAngle > 0)
     SetDir(DIR_Right);
    else
-    SetDir(DIR_Left);
+     SetDir(DIR_Left);
 
    //Winkel wird zu groß?
    iAngle = BoundBy(iAngle,-this->~AimMax(),+this->~AimMax());
 
    var old = crosshair->GetAngle();
    if((Abs(AngleOffset4K(old,iAngle)) < 5)/* || GetEffect("IntMouseAiming",this)*/)
-    this->~FireAimWeapon();
+     this->~FireAimWeapon();
 
    AddEffect("IntMouseAiming",this,10,1,this,0,iAngle);
    return true;
@@ -39,7 +39,8 @@ public func FxIntMouseAimingStart(object pTarget, int iEffectNumber, int iTemp, 
 
 public func FxIntMouseAimingEffect(string szNewEffect, object pTarget, int iEffectNumber)
 {
-  if(szNewEffect == "IntMouseAiming") return -3;
+  if(szNewEffect == "IntMouseAiming")
+    return -3;
   return 0;
 }
 
@@ -51,14 +52,15 @@ public func FxIntMouseAimingAdd(object pTarget, int iEffectNumber, string szNewE
 
 public func FxIntMouseAimingTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
-  if(!pTarget->IsAiming() || EffectVar(1,pTarget,iEffectNumber) != GetDir(pTarget)) return -1;
-  
+  if(!pTarget->IsAiming() || EffectVar(1,pTarget,iEffectNumber) != GetDir(pTarget))
+    return -1;
+
   var end = EffectVar(0,pTarget,iEffectNumber);
   var cur = crosshair->GetAngle();
 
   var dir = +1;
   if(end < cur)
-   dir = -1;
+    dir = -1;
 
   var change = dir * Min(1 * this->~AimStep() / 5, Abs(end - cur));
 
@@ -67,10 +69,13 @@ public func FxIntMouseAimingTimer(object pTarget, int iEffectNumber, int iEffect
   EffectCall(this,LocalN("wpneffect",this),"Timer");
 
   if(cur+change == end)
-   return -1;
+    return -1;
 }
 
-public func ReadyToAim() {      // bereit zum Zielen
-   if(GetProcedure(this) == "WALK") return true;
-   return _inherited();
+/* Zielen-Bereitschaft */
+
+public func ReadyToAim()
+{
+  if(GetProcedure(this) == "WALK") return true;
+  return _inherited();
 }
