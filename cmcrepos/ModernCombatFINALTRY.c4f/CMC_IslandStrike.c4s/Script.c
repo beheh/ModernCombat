@@ -394,6 +394,9 @@ func CreateDecoration()
 {
   Log("$CreatingDecoration$");
 
+  //Denkmal
+  CreateObject(MUMT, 3160, 300, -1);
+
   //Radio
   CreateObject(RDIO, 4300, 470, -1);
 
@@ -404,7 +407,7 @@ func CreateDecoration()
   CreateObject(PIPL, 5150, 485, -1)->Right()->Right()->Right()->Right()->Right()->Right()->Right()->Up()->Up()->Right()->Right();
 
   //Jetwrack
-  CreateObject(_JW1, 3120, 305, -1);
+  CreateObject(_JW1, 3180, 305, -1);
   CreateObject(_JW2, 3380, 260, -1);
 
   //Kaputte U-Boote

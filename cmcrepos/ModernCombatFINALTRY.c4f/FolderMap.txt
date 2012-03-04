@@ -132,6 +132,12 @@ FullscreenBG=1
 	OverlayImage=Overlay21.png
 
 
+	[Scenario]
+	File=CMC_BaseJumping.c4s
+	Area=291,476,256,26
+	OverlayImage=Overlay22.png
+
+
 
 
 	[Scenario]
