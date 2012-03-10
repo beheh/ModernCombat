@@ -56,10 +56,9 @@ protected func Sense()
   		Find_NoContainer(),						//Im Freien
   		Find_Or(Find_OCF(OCF_Alive), Find_Func("IsDetectable"))))	//Lebewesen oder als identifizierbar markiert
   {
-  
-  	//Feindlich
-  	if(!Hostile(GetController(), GetController(pObj))) continue;
-  
+    //Feindlich
+    if(!Hostile(GetController(), GetController(pObj))) continue;
+
     //Beep.
     Beep();
 
