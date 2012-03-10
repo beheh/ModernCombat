@@ -99,7 +99,7 @@ public func UpdateHUD(object pHUD)
 
 protected func FxIntTeamSupportTimer()
 {
-	var objs;
+  var objs;
 
   //Gar keine Punkte?
   if (!GetPackPoints()) return;
@@ -111,19 +111,21 @@ protected func FxIntTeamSupportTimer()
 	if (!Contained()->~IsClonk()) return;
   //Träger simuliert Todeskampf
   if (IsFakeDeath(Contained())) return;
-  //Träger ist nicht draußen
-  if (Contained(Contained())) {
-  	//Egal ob ausgewählt
-	  objs = FindObjects(Find_OCF(OCF_CrewMember), Find_Container(Contained(Contained())), Find_Exclude(Contained()));
+  //Träger verschachtelt
+  if (Contained(Contained()))
+  {
+    //Egal ob ausgewählt
+    objs = FindObjects(Find_OCF(OCF_CrewMember), Find_Container(Contained(Contained())), Find_Exclude(Contained()));
   }
   //Träger im Freien
-  else {
-  	//Ist nicht ausgewählt
-  	if (Contents(0, Contained()) != this) return;
-  	objs = FindObjects(Find_Distance(TeamSupportRange()), Find_OCF(OCF_CrewMember), Find_NoContainer(), Find_Allied(GetOwner(Contained())), Find_Exclude(Contained()));
+  else
+  {
+    //Ist nicht ausgewählt
+    if(Contents(0, Contained()) != this) return;
+    objs = FindObjects(Find_Distance(TeamSupportRange()), Find_OCF(OCF_CrewMember), Find_NoContainer(), Find_Allied(GetOwner(Contained())), Find_Exclude(Contained()));
   }
 
-  //Na also, das wär geschafft. Wer mag haben?
+  //Unterstützung starten
   DoTeamSupport(objs);
 }
 

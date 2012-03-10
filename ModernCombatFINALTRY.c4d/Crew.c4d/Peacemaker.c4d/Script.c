@@ -5,8 +5,8 @@
 
 static const PCMK_PortraitVersion = 140;
 
-public func WeaponCollectionLimit()	{return 3;}	//Der Clonk kann drei Waffen tragen
-public func ObjectCollectionLimit()	{return 2;}	//Und 2 beliebige Zusatzobjekte
+public func WeaponCollectionLimit()	{return 3;}	//Anzahl Waffen im Inventar
+public func ObjectCollectionLimit()	{return 2;}	//Anzahl Objekte im Inventar
 
 
 /* Initialisierung */

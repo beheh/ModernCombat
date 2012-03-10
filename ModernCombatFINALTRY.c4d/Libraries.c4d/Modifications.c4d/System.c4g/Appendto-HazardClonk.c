@@ -1178,6 +1178,9 @@ protected func CheckContentsDestruction()
 
 protected func ScalingLadder()
 {
+  Sound("ClonkStep*.ogg", 0, 0, 25);
+  Sound("ClonkRustle*.ogg", 0, 0, 25);
+
   return Hangling(); //Funktional identisch
 }
 
@@ -1683,6 +1686,8 @@ public func ReleaseLadderStop()
   if(ReleaseLadder(-20*(GetDir()*2-1)))
   {
     Sound("ClonkAction*.ogg");
+    Sound("ClonkStep*.ogg", 0, 0, 25);
+    Sound("ClonkRustle*.ogg", 0, 0, 25);
     ScheduleCall(0, "BackFlipBoost", 1, 1);
   }
 }
@@ -1704,8 +1709,10 @@ local crosshair;
 
 global func StopFakeDeath(object pTarget)
 {
-  if(inherited(pTarget)) {
-    if(pTarget->~CanCrawl() && !pTarget->~CanStandUp() && !GBackLiquid(GetX(pTarget), GetY(pTarget))) {
+  if(inherited(pTarget))
+  {
+    if(pTarget->~CanCrawl() && !pTarget->~CanStandUp() && !GBackLiquid(GetX(pTarget), GetY(pTarget)))
+    {
       pTarget->SetAction("Crawl");
     }
   }
@@ -1772,13 +1779,14 @@ public func CanStandUp2()
 
 /* Callbacks */
 
-public func CanCrawl() {
+public func CanCrawl()
+{
   return true;
 }
 
 protected func StartCrawl()
 {
-  // Wenn nötig Effekt erzeugen 
+  //Wenn nötig: Effekt erzeugen 
   if(!GetEffect("Crawl", this)) AddEffect("Crawl", this, 1, 0, this);
 }
 
@@ -1853,7 +1861,7 @@ protected func AbortCrawl()
      SetPosition(GetX()+dir,GetY());
     }
 
-		if(Stuck()) AutoUnstuck(this,0,-10);
+    if(Stuck()) AutoUnstuck(this,0,-10);
 
     //SetPosition(GetX()+(GetDir()*2-1)*-4,GetY()+8+5);
     SetAction("Scale");
