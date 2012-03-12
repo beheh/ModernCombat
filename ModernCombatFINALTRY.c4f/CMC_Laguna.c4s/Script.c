@@ -358,7 +358,7 @@ public func ChooserFinished()
    {
     SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,2895,410,-1),100*21);
 
-    var sign = CreateObject(SGNP, 2920, 440, -1);
+    var sign = CreateObject(SGNP, 2925, 440, -1);
     sign->SetPhase(2);
     sign->SetMode(1);
    }
@@ -441,7 +441,7 @@ public func ChooserFinished()
    {
     SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,2895,410,-1),100*21);
 
-    var sign = CreateObject(SGNP, 2920, 440, -1);
+    var sign = CreateObject(SGNP, 2925, 440, -1);
     sign->SetPhase(2);
     sign->SetMode(1);
    }
