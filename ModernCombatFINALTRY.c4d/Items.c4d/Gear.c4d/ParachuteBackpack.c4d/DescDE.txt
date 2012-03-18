@@ -1,1 +1,3 @@
 Der Fallschirmrucksack kann einem fallenden Clonk das Leben retten und ihn über größere Hindernisse transportieren.
+
+Drücke [Doppelgraben] zum Anlegen. Öffne den Fallschirm mit [Doppelspringen], wenn der Clonk schnell fällt und unter ihm genügend Platz ist.
