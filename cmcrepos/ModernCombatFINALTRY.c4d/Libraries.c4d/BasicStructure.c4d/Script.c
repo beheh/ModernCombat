@@ -64,7 +64,10 @@ public func FxIntRepairTimer(object pTarget, int iEffectNumber, int iEffectTime)
     return -1;
 
   if(!Random(2))
-    Sparks(2+Random(5), RGB(187, 214, 224), RandomX(-GetDefWidth()/2,+GetDefWidth()/2), RandomX(-GetDefHeight()/2,+GetDefHeight()/2));
+  {
+    Sparks(2+Random(5), RGB(250,150,0), RandomX(-GetDefWidth()/2,+GetDefWidth()/2), RandomX(-GetDefHeight()/2,+GetDefHeight()/2));
+    Sparks(2+Random(5), RGB(100,100,250), RandomX(-GetDefWidth()/2,+GetDefWidth()/2), RandomX(-GetDefHeight()/2,+GetDefHeight()/2));
+  }
 }
 
 public func FxIntRepairStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)
