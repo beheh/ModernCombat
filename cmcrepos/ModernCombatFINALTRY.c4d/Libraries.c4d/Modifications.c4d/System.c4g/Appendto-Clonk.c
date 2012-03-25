@@ -121,7 +121,7 @@ private func Building()
 private func WalkSound()
 {
   if(Contained()) return;
-  Sound("ClonkStep*.ogg", 0, 0, 50);
+  Sound("ClonkStep*.ogg", 0, 0, 25);
   return 1;
 }
 
