@@ -45,7 +45,8 @@ protected func SetState(int iNewState, bool fKeepSound, bool fUpdate)
   if(iState == iNewState && !fUpdate) return;
   iState = iNewState;
   var dwArrowColor;
-  if(iState == BHUD_Off) {
+  if(iState == BHUD_Off)
+  {
     SetClrModulation(RGBa(0,0,0,255));
     dwArrowColor = RGBa(0,0,0,255);
   }
@@ -56,7 +57,8 @@ protected func SetState(int iNewState, bool fKeepSound, bool fUpdate)
     dwArrowColor = RGBa(255,0,0,50);
     Sound("WarningDamage.ogg", false, this, 100, GetOwner()+1, +1);
   }
-  else {
+  else
+  {
     SetClrModulation(RGBa(255,255,255,255), this, BHUD_Overlay_Failure);
     if(!fKeepSound)
     {
@@ -70,7 +72,8 @@ protected func SetState(int iNewState, bool fKeepSound, bool fUpdate)
     dwArrowColor = RGBa(255,153,0,50);
     Sound("WarningLockon.ogg", false, this, 100, GetOwner()+1, +1);
   }
-  else {
+  else
+  {
     SetClrModulation(RGBa(255,255,255,255), this, BHUD_Overlay_Warning);
     if(!fKeepSound)
     {
@@ -87,16 +90,20 @@ protected func SetState(int iNewState, bool fKeepSound, bool fUpdate)
     SetClrModulation(RGBa(122,122,122,50));
     dwArrowColor = RGBa(122,122,122,50);
   }
-  if(fFlares) {
+  if(fFlares)
+  {
     SetClrModulation(dwArrowColor, this, BHUD_Overlay_Flares);
   }
-  else {
+  else
+  {
     SetClrModulation(RGBa(255,255,255,255), this, BHUD_Overlay_Flares);
   }
-  if(fSmokeWall) {
+  if(fSmokeWall)
+  {
     SetClrModulation(dwArrowColor, this, BHUD_Overlay_SmokeWall);
   }
-  else {
+  else
+  {
     SetClrModulation(RGBa(255,255,255,255), this, BHUD_Overlay_SmokeWall);
   }
   if(pRotation) pRotation->SetClrModulation(dwArrowColor);
@@ -106,7 +113,8 @@ protected func SetState(int iNewState, bool fKeepSound, bool fUpdate)
   return true;
 }
 
-protected func GetState() {
+protected func GetState()
+{
   return iState;
 }
 
@@ -138,7 +146,8 @@ protected func Timer()
     RemoveObject();
     return true;
   }
-  if(iState != BHUD_Off) {
+  if(iState != BHUD_Off)
+  {
     //Ausrichten
     Align();
     //Rotation anzeigen
@@ -184,38 +193,46 @@ protected func Timer()
     //Status setzen
     SetObjDrawTransform(1000,0,0,0,1000,0);
   }
-  //Flares und SmokeWall
+  //Flares und Rauchwand
   var fUpdate = false;
   var tFlares = pHelicopter->CanDeployFlares();
   var tSmokeWall = pHelicopter->CanDeploySmokeWall();
-  if(fFlares != tFlares) {
-      fUpdate = true;
-      if(!fFlares) Sound("WarningFlaresReloaded.ogg", false, this, 100, GetOwner()+1);
-      fFlares = tFlares;
+  if(fFlares != tFlares)
+  {
+    fUpdate = true;
+    if(!fFlares) Sound("WarningFlaresReloaded.ogg", false, this, 100, GetOwner()+1);
+    fFlares = tFlares;
   }
-  if(fSmokeWall != tSmokeWall) {
-      fUpdate = true;
-      if(!fSmokeWall) Sound("WarningSmokeWallReloaded.ogg", false, this, 100, GetOwner()+1);
-      fSmokeWall = tSmokeWall;
+  if(fSmokeWall != tSmokeWall)
+  {
+    fUpdate = true;
+    if(!fSmokeWall) Sound("WarningSmokeWallReloaded.ogg", false, this, 100, GetOwner()+1);
+    fSmokeWall = tSmokeWall;
   }
-  if(fUpdate) {
+  if(fUpdate)
+  {
     SetState(GetState(), false, true);
   }
   //Schadensverhalten
   if(fDamage || pHelicopter->GetDamage() >= pHelicopter->MaxDamage()*3/4)
   {
     var fDisable = false;
-    if(iDamageRemaining == 0 && Random(5)) {
+    if(iDamageRemaining == 0 && Random(5))
+    {
       SetState(BHUD_Error);
     }
-    else {
+    else
+    {
       if(iDamageRemaining == 0) fDisable = true;
-      if(!Random(2) && fDisable) {
+      if(!Random(2) && fDisable)
+      {
         SetState(BHUD_Off, true);
       }
-      else if(!Random(5)) {
+      else if(!Random(5))
+      {
         SetState(BHUD_Error);
-        if(!Random(2)) {
+        if(!Random(2))
+        {
           var val = RandomX(0,300);
           if(!Random(2)) val *= -1;
           SetObjDrawTransform(RandomX(800, 1200),val,RandomX(-5,5)*1000,val,RandomX(800, 1200),RandomX(-5,5)*1000);

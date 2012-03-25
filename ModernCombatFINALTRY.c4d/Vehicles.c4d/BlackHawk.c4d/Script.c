@@ -58,8 +58,8 @@ public func MaxDamage()			{return 200;}
 public func IsThreat()			{return true;}
 public func IsHelicopter()		{return true;}
 
-public func EngineRunning() {return GetEffect("Engine", this);}
-public func GetRotorSpeed() {return iRotorSpeed;}
+public func EngineRunning()		{return GetEffect("Engine", this);}
+public func GetRotorSpeed()		{return iRotorSpeed;}
 
 public func IsBulletTarget(id idBullet, object pBullet)
 {
@@ -379,7 +379,7 @@ protected func Collection2(object pObj)
       return SetCommand(pObj, "Exit");
   }
 }
-                
+
 /*----- Steuerung -----*/
 
 protected func FxBlackhawkChangeThrottleStart(object pTarget, int iNumber, iTemp, int iChange)
@@ -1312,7 +1312,7 @@ protected func TimerCall()
   else if(spotlightobj[0])
     RemoveSpotlights();
 
-  /*Nach gestorbenen Clonks suchen @TODO
+  /*Nach gestorbenen Clonks suchen
   if(Contents())
   {
     var fUpdate = false;
