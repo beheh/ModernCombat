@@ -50,7 +50,7 @@ public func StatsPoints(int iPlr)
                iPlayer++;
   }
   //Nach Team ausgeben
-  AddMenuItem("<c ffff33>$ActualPoints$</c>", 0, NONE, pClonk);
+  AddMenuItem("<c ffff33>$CurrentPoints$</c>", 0, NONE, pClonk);
 
   for(var aTeam in aList)
     if(aTeam)
@@ -62,10 +62,10 @@ public func StatsPoints(int iPlr)
   AddMenuItem(" ", 0, NONE, pClonk);
 
   //Eigene Errungenschaften anzeigen
-  AddMenuItem("$ShowAchievements$", Format("StatsList(%d)", iPlr), NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
+  AddMenuItem("$ShowAchievements$", Format("StatsList(%d, 0, 0, 2)", iPlr), NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
 }
 
-public func StatsList(int iPlr, int iIndex, int iOffset)
+public func StatsList(int iPlr, int iIndex, int iOffset, int iMenuEntry)
 {
   var pClonk = GetCursor(iPlr);
   if(GetMenu(pClonk))
@@ -74,6 +74,9 @@ public func StatsList(int iPlr, int iIndex, int iOffset)
   AddMenuItem(" | ", 0, RWDS, pClonk, 0, 0, "", 514, 0, 0);
 
   var iData = GetPlrExtraData(iPlr, "CMC_Achievements");
+
+	//Überschrift
+	AddMenuItem(Format("<c ffff33>$MyAchievements$ ($showing$ %d/%d)</c>", BoundBy(iOffset+10, 0, iAchievementCount), iAchievementCount), 0, NONE, pClonk);
 
   //Liste
   var i = 1+iOffset;
@@ -93,18 +96,20 @@ public func StatsList(int iPlr, int iIndex, int iOffset)
 
   //Weiter
   if(iOffset+10 <= iAchievementCount)
-    AddMenuItem("$NextPage$", Format("StatsList(%d, %d, %d)", iPlr, 0, BoundBy(iOffset+10, 0, iAchievementCount)), NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
+    AddMenuItem("$NextPage$", Format("StatsList(%d, %d, %d, 0)", iPlr, 0, BoundBy(iOffset+10, 0, iAchievementCount)), NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
   //Zurück
   if(iOffset > 0)
-    AddMenuItem("$LastPage$", Format("StatsList(%d, %d, %d)", iPlr, 0, BoundBy(iOffset-10, 0, iAchievementCount)), NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
+    AddMenuItem("$LastPage$", Format("StatsList(%d, %d, %d, 1)", iPlr, 0, BoundBy(iOffset-10, 0, iAchievementCount)), NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
+  else
+    iMenuEntry--;
 
   //Zurück zur Punkteübersicht
   AddMenuItem("$ShowPoints$", Format("StatsPoints(%d)", iPlr), NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
 
   if(iIndex)
-    SelectMenuItem(iIndex, pClonk);  
+    SelectMenuItem(iIndex+1, pClonk);
   else
-    SelectMenuItem(i-iOffset+1, pClonk);
+    SelectMenuItem(i-iOffset+2+iMenuEntry, pClonk);  	
     
   return true;
 }
