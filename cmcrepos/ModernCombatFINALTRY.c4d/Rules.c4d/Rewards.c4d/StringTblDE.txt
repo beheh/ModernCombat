@@ -1,6 +1,10 @@
 # Allgemein
 
-ActualPoints=Aktuelle Punkteverteilung
+CurrentPoints=Aktuelle Punkteverteilung
+ShowPoints=Aktuelle Punkteverteilung anzeigen
+MyAchievements=Errungenschaften
+ShowAchievements=Errungenschaften anzeigen
+showing=zeige
 Points=Punkte
 AchievementNewUnlocked=<c %x>%s</c> hat die <c 33ccff>neue</c> Errungenschaft <c 33ccff>%s</c> erhalten
 AchievementUnlocked=<c %x>%s</c> hat erneut die  Errungenschaft <c ffff33>%s</c> erhalten
@@ -8,8 +12,7 @@ Achievement=Errungenschaft
 Achievements=Errungenschaften
 AchievementsUnlocked=%d Errungenschaften freigeschaltet:
 AchievementLocked=<c 777777>Du hast diese Errungenschaft noch nicht erreicht.</c>
-ShowAchievements=Eigene Errungenschaften anzeigen
-ShowPoints=Punktetabelle anzeigen
+
 NextPage=Nächste Seite
 LastPage=Vorherige Seite
 Back=Zurück
