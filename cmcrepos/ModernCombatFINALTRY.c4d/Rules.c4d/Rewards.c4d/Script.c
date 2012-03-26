@@ -375,7 +375,7 @@ global func GetAchievementProgress(id idAchievement, int iPlr)
   {
     return aAchievementProgress[iPlr][index];
   }
-  return 0;
+  return false;
 }
 
 global func ResetAchievementExtra(id idAchievement, int iPlr)
@@ -455,7 +455,7 @@ global func FxPointMessageTimer(pTarget, iNo)
     for(var i = 0; i < GetPlayerCount(); i++)
     {
       if(Hostile(plr, i)) continue;
-      AddEffect("Effektname", CreateObject(ARHL,0,0,-1), 130, 1, 0, 0, i, EffectVar(0,pTarget,iNo));
+      AddEffect("PointPlayerMessage", CreateObject(ARHL,0,0,-1), 130, 1, 0, 0, i, EffectVar(0,pTarget,iNo));
     }
   }
   EffectVar(2, pTarget, iNo)++;
@@ -466,14 +466,14 @@ global func FxPointMessageTimer(pTarget, iNo)
   return FX_OK;
 }
 
-global func FxEffektnameStart(object target, int nr, int temp, int plr, string szMsg)
+global func FxPointPlayerMessageStart(object target, int nr, int temp, int plr, string szMsg)
 {
   EffectVar(0, target, nr) = plr;
   EffectVar(1, target, nr) = szMsg;
   EffectVar(2, target, nr) = 0;
 }
 
-global func FxEffektnameTimer(object target, int nr) 
+global func FxPointPlayerMessageTimer(object target, int nr) 
 { 
   var iTime = EffectVar(2, target, nr); 
   CustomMessage(EffectVar(1,target,nr),target,EffectVar(0,target,nr),0,-iTime/2,RGBa(255,255,255,BoundBy(-50+iTime*5,0,255)));
