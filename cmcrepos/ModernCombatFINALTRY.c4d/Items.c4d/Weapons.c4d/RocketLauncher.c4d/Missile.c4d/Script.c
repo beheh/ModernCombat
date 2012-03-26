@@ -3,7 +3,7 @@
 #strict 2
 #include MISS
 
-local sx, sy, pLauncher, pLight;
+local sx, sy, pLauncher, pLight, iLastAttacker;
 
 public func MaxTime()		{return 200;}			//Maximale Flugzeit
 
@@ -29,6 +29,13 @@ public func IgnoreTracer()	{return true;}
 public func IsDamaged()		{return GetEffect("Damaged", this);}
 public func IsRocket()		{return true;}			//Ist eine Rakete
 
+
+/* Initialisierung */
+
+public func Initialize()
+{
+  iLastAttacker = NO_OWNER;
+}
 
 /* Start */
 
@@ -237,18 +244,24 @@ public func Damage()
   //Deaktivieren wenn Schaden erhalten und nicht detonierend
   if(GetDamage() > MaxDamage() && !exploding)
   {
-    //Effekte
-    if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",2,80,0,0,45,20,RGB(40,20,20));
-
     //Rakete deaktivieren
-    GetDamaged();
+    Damaged();
   }
 }
 
-public func GetDamaged()
+public func Damaged()
 {
   //Schadenseffekt
   AddEffect("Damaged",this,1,1,this);
+
+  //Effekte
+  if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",2,80,0,0,45,20,RGB(40,20,20));
+
+  if(Hostile(iLastAttacker, GetController()))
+  {
+    //Punkte bei Belohnungssystem (Raketenabwehr)
+    DoPlayerPoints(BonusPoints("Protection"), RWDS_TeamPoints, iLastAttacker, GetCursor(iLastAttacker), IC16);
+  }
 
   Sound("MISL_ShotDown.ogg");
   SetAction("Idle");
@@ -338,6 +351,12 @@ private func HitObject(pObj)
     }
   }
 
+  //Direkttreffer benachrichtigen
+  if(pObj)
+  {
+    pObj->~OnRocketHit(this);
+  }
+
   exploding = true;
   Sound("GrenadeExplosion*.ogg");
 
@@ -358,6 +377,12 @@ public func Destruction()
 }
 
 /* Schaden */
+
+public func OnHit(a, b, pFrom)
+{
+  iLastAttacker = GetController(pFrom);
+  return;
+}
 
 public func OnDmg(int iDmg, int iType)
 {
