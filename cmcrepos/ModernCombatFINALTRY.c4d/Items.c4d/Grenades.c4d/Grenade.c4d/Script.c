@@ -222,11 +222,11 @@ public func FxIntFuseTimer(object pTarget, int iEffectNumber, int iEffectTime)
      CreateParticle("Smoke2", -GetXDir()/6, -GetYDir()/6, RandomX(-10, 10), -5,
                           vel/3+RandomX(10, 20), SetRGBaValue(rgb,alpha)); 
   }
-  else
+  else if(c)
   {
-    if (!GetAlive(c) || GetID(c) == FKDT || GetID(Contained(c)) == FKDT)
+    if (c->~IsClonk() && !GetAlive(c) || c->~IsFakeDeath())
       Exit(0, 0, 8);
-    else if(Contents(0, Contained()) == this)
+    else if(Contents(0, c) == this)
       PlayerMessage(GetController(c),"<c %x>•</c>",c,InterpolateRGBa2(RGB(0,255),RGB(255,255),RGB(255,0),0,FuseTime(),iEffectTime));    
   }
 
@@ -275,8 +275,8 @@ public func Fused2(object pContainer)
   {
     if(GetOCF(pContainer) & OCF_Living)
     {
-      Fling(pContainer,-1);
-      DoDmg(ContainedDamage(),DMG_Fire, pContainer);
+      if(!Contained(pContainer)) Fling(pContainer, GetXDir(pContainer)/10, GetYDir(pContainer)/10-1);
+      DoDmg(ContainedDamage(), DMG_Fire, pContainer);
     }
   }
   RemoveEffect("HitCheck",this);
