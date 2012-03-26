@@ -2,7 +2,7 @@
 
 CurrentPoints=Current points
 ShowPoints=Show points
-MyAchievements=Ahievements
+MyAchievements=Achievements
 ShowAchievements=Show achievements
 showing=showing
 Points=Points
