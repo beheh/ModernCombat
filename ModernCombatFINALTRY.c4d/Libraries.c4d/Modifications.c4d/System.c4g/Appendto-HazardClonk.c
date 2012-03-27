@@ -5,7 +5,9 @@
 
 local crosshair;
 local aCollected;
+
 local HUDTarget;
+local iGrenadeCount;
 
 public func IsHealing()		{return WildcardMatch(GetAction(), "*Heal*");}
 public func MaxGrenades()	{return 4;}					//Maximal im Inventar und Gürtel tragbare Granaten
@@ -17,6 +19,7 @@ public func Initialize()
 {
   aCollected = CreateArray();
   InitCH();
+  UpdateGrenadeCount();
   //if(Contained())
     //HideCH();
   return _inherited(...);
@@ -344,7 +347,7 @@ public func UpdateCharge()
   if(pCursor && pCursor != this) pCursor = pCursor->~GetRealCursor(); 
   if(pCursor != this) return;
 
-  if(GetOwner() < -1) return;
+  if(GetOwner() == NO_OWNER) return;
 
   //In Gebäuden/Fahrzeugen
   if(Contained() && Contained()->~UpdateCharge(this))
@@ -492,13 +495,17 @@ public func ShowCH()
 
     var dummy1, dummy2, r;
     WeaponAt(dummy1, dummy2, r);
+    var angle;
       
     if(!GetDir())
-      crosshair->SetAngle(-90-r);
+      angle = -90-r;
     else
-      crosshair->SetAngle(+90+r);
+      angle = +90+r;
+    if(crosshair->GetAngle() != angle)
+        crosshair->SetAngle(angle);
   }
 }
+
 public func ResetCH()
 {
   if(!crosshair) return;
@@ -1115,6 +1122,7 @@ public func Collection(object pObj, bool fPut)
 
 public func Collection2(object pObj)
 {
+  if(pObj->~IsGrenade()) UpdateGrenadeCount();
   if(!pObj || Contained(pObj) != this) return;
   var i = 0;
   while(i < GetLength(aCollected))
@@ -1140,6 +1148,7 @@ public func Collection2(object pObj)
 public func Ejection(object pObj)
 {
   RemoveEffect("SelectItem",pObj);
+  UpdateGrenadeCount();
   return _inherited(pObj,...);
 }
 
@@ -1314,9 +1323,15 @@ public func StoreGrenade(object pGrenade)
   return(true);
 }
 
+public func UpdateGrenadeCount()
+{
+  iGrenadeCount = ObjectCount2(Find_Container(pGrenadeStoring)) + ObjectCount2(Find_Func("IsGrenade"),Find_Container(this));
+  return true;
+}
+
 public func GrenadeCount(id type)
 {
-  if(!type) return ObjectCount2(Find_Container(pGrenadeStoring)) + ObjectCount2(Find_Func("IsGrenade"),Find_Container(this));
+  if(!type) return iGrenadeCount;
   return ObjectCount2(Find_ID(type), Find_Container(pGrenadeStoring)) + ObjectCount2(Find_ID(type), Find_Container(this));
 }
 
