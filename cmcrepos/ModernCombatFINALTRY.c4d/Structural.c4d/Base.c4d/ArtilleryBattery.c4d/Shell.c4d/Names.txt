@@ -1,2 +1,2 @@
 DE:Geschoss
-US:Bullet
+US:Shell
