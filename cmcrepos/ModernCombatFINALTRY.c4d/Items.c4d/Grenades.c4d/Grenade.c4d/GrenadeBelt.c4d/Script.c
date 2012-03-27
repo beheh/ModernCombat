@@ -7,19 +7,29 @@ local pUser;
 
 /* Initialisierung */
 
-func Initialize()
+public func Initialize()
 {
   SetPosition();
   SetVisibility(VIS_None);
   return 1;
 }
 
-func SetUser(user)
+public func Collection2(object pObj)
+{
+  pUser->~UpdateGrenadeCount();
+}
+
+public func Ejection(object pObj)
+{
+  pUser->~UpdateGrenadeCount();
+}
+
+public func SetUser(user)
 {
   pUser = user;
 }
 
-func GetUser()
+public func GetUser()
 {
   return pUser;
 }
