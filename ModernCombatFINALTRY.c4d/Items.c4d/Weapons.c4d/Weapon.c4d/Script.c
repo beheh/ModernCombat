@@ -321,6 +321,8 @@ public func Empty2(int iSlot)
   DoAmmo(ammoid, ammoamount, GetUser());
   //Munition aus Waffe entfernen
   DoAmmo2(iSlot, ammoid, -ammoamount, this);
+  //Callback
+  OnEmpty();
 }
 
 /*----- Prüfungen -----*/
