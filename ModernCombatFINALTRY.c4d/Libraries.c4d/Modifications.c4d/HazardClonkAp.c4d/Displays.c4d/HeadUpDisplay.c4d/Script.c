@@ -114,11 +114,12 @@ public func ShowWeapons()
 protected func UpdateHUD(object weapon, object pClonk)
 {
   if(!pClonk) return true;  
-  if(!weapon) return HideWeapons();
 
   //Granaten updaten
   var grenades = Format("%d", pClonk->~GrenadeCount());
   CharsGrenade[1]->Set(GetChar(grenades));
+
+  if(!weapon) return HideWeapons();
 
   if(lItem != weapon)
   {  
