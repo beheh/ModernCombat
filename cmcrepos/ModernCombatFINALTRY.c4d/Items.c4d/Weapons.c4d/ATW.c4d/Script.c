@@ -163,7 +163,7 @@ public func ThrowAway()
     if(GetDir(GetUser()) == DIR_Right)
       dir = -1;
 
-    Exit(0, 0,0, Random((360)+1), dir,-3, Random(11)-5);
+    Exit(0, 0, 0, Random((360)+1), dir,-3, Random(11)-5);
 
     Sound("AT4R_ThrowAway.ogg");
   }
@@ -218,8 +218,6 @@ public func RejectEntrance()
 public func OnEmpty() {
 	fired = true;
 }
-
-public func OnUnload
 
 public func OnSelect()
 {
