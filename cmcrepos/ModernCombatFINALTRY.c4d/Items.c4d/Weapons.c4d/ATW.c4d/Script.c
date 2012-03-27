@@ -118,6 +118,17 @@ public func LaunchRocket(id rid, int angle)
 
 private func Check()
 {
+  /*//Wenn Waffe leer, gefeuert annehmen
+  if(!pRocket)
+  {
+    var ammoid = GetFMData(FM_AmmoID);
+    var ammousage = GetFMData(FM_AmmoUsage);
+    if(!CheckAmmo(ammoid,ammousage,this()))
+    {
+      fired = true;
+    }
+  }*/
+
   //Wegwurf wenn Rakete abgefeuert und/oder explodiert
   if(fired)
     if(!pRocket)
@@ -126,17 +137,9 @@ private func Check()
         if(Contained()->~IsAiming() && Contents(0, Contained()) == this) return;
         ThrowAway();
       }
-
-  //Oder wenn Waffe leer
-  if(!pRocket && Contained()->~IsClonk())
-  {
-    var ammoid = GetFMData(FM_AmmoID);
-    var ammousage = GetFMData(FM_AmmoUsage);
-    if(!CheckAmmo(ammoid,ammousage,this()))
-    {
-      fired = true;
-    }
-  }
+      else {
+        ThrowAway();
+      }
 
   if(!Contained() || Contents(0, Contained()) != this || !Contained()->~IsClonk()) return;
 
@@ -167,6 +170,8 @@ public func ThrowAway()
 
   //Verschwinden
   FadeOut();
+  
+  return true;
 }
 
 /* Nachladen unmöglich */
@@ -209,6 +214,12 @@ public func RejectEntrance()
 }
 
 /* Allgemein */
+
+public func OnEmpty() {
+	fired = true;
+}
+
+public func OnUnload
 
 public func OnSelect()
 {
