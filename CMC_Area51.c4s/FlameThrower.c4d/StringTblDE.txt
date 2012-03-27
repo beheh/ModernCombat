@@ -1,0 +1,2 @@
+Flamethrower=Flammen
+Auto=Dauerfeuer

@@ -1,0 +1,9 @@
+[Action]
+Name=Travel
+Procedure=NONE
+NextAction=Travel
+FacetBase=1
+Length=1
+Delay=1
+StartCall=Traveling
+AbortCall=StopThrust

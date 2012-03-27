@@ -1,0 +1,2 @@
+CtxEquipmentDesc=Ausrüstung
+CtxUnbuckleEquipment=%s ablegen

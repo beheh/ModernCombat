@@ -1,0 +1,2 @@
+NotAvailable=Airstrike not available,| still reloading!
+Confirmed=Warning: <c %x>%s</c> has requested an <c ffff33>air strike</c>

@@ -1,0 +1,3 @@
+Effective landmine which causes great damage to vehicles and structures.
+
+Place it carefully by pressing [Double Dig] or throw it by hitting [Throw].

@@ -1,0 +1,2 @@
+DE:Lasermarkierer
+US:Laser Designator

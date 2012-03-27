@@ -1,0 +1,17 @@
+[Action]
+Name=Right
+Directions=2
+FlipDir=1
+Facet=0,0,60,26
+
+[Action]
+Name=Left
+Directions=2
+FlipDir=1
+Facet=60,0,60,26
+
+[Action]
+Name=Destroyed
+Directions=2
+FlipDir=1
+Facet=120,0,60,26

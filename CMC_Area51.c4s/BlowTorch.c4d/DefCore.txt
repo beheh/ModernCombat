@@ -1,0 +1,19 @@
+[DefCore]
+id=BWTH
+Name=Blow Torch
+Version=4,9,5
+Category=C4D_Object|C4D_SelectMaterial|C4D_SelectHomebase
+MaxUserSelect=3
+Width=15
+Height=9
+Offset=-8,-5
+Value=50
+Mass=15
+Picture=0,9,64,64
+Vertices=1
+VertexY=1
+VertexFriction=80
+Rebuy=1
+Collectible=1
+Timer=35
+TimerCall=Timer

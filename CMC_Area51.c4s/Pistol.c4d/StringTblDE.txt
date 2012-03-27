@@ -1,0 +1,10 @@
+Standard=Einzelschuss
+GrenadeLauncher=Granatenwerfer
+Laser=Laser
+Slime=Schleim
+
+KLASUpgradeDesc=Ersetzt den Schussmechanismus durch einen Laser.
+KSLMUpgradeDesc=Ersetzt den Granatenmechanismus durch Schleimschüsse.
+
+KLASUpgraded=Schussmechanismus durch|einen Laser ersetzt.
+KSLMUpgraded=Granatenmechanismus durch|Schleimwerfer ersetzt.

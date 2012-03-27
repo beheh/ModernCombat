@@ -1,0 +1,19 @@
+[DefCore]
+id=LSDR
+Name=Laser Designator
+Version=4,9,5
+Category=C4D_Object|C4D_SelectMaterial|C4D_SelectHomebase
+MaxUserSelect=4
+Width=6
+Height=6
+Offset=-3,-3
+Value=35
+Mass=10
+Picture=0,6,64,64
+Vertices=1
+VertexY=1
+VertexFriction=80
+Rebuy=1
+Collectible=1
+Timer=200
+TimerCall=Reload

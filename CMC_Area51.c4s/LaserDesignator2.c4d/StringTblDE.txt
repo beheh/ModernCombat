@@ -1,0 +1,2 @@
+NotAvailable=Luftschlag nicht einsatzbereit,| laden noch nach!
+Confirmed=Achtung: <c %x>%s</c> hat einen <c ffff33>Luftschlag</c> angefragt
