@@ -92,18 +92,18 @@ protected func FxThunderStart(object target, int nr, int temp, int iX, string sz
 protected func FxThunderTimer(object target, int nr, int iTime)
 {
   var x = EffectVar(2, target, nr);
-  EffectVar(1, target, nr) = Distance(x, 1, GetX(target), GetY(target));
-
-  //Lautstärke
-  EffectVar(0, target, nr) = 100-EffectVar(1, target, nr)/50;
-  EffectVar(0, target, nr) = BoundBy(EffectVar(0, target, nr), 1, 100);
-  if(!PathFree(x, 1, GetX(target), GetY(target))) EffectVar(0, target, nr) -= 20;
-  EffectVar(0, target, nr) = BoundBy(EffectVar(0, target, nr), 1, 100);
+  EffectVar(1, target, nr) = Distance(x, 0, GetX(target), GetY(target));
 
   //Zeit
   EffectVar(3, target, nr) = EffectVar(1, target, nr)/20-iTime;
   if(EffectVar(3, target, nr) <= 0)
   {
+    //Lautstärke
+    EffectVar(0, target, nr) = 100-EffectVar(1, target, nr)/50;
+    EffectVar(0, target, nr) = BoundBy(EffectVar(0, target, nr), 1, 100);
+    if(!PathFree(x, 1, GetX(target), GetY(target))) EffectVar(0, target, nr) -= 20;
+    EffectVar(0, target, nr) = BoundBy(EffectVar(0, target, nr), 1, 100);
+
     Sound(EffectVar(4, target, nr), true, 0, EffectVar(0, target, nr), GetOwner(target)+1);
     return -1;
   }
