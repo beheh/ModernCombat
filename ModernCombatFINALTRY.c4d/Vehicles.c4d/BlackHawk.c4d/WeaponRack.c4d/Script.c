@@ -35,6 +35,7 @@ public func Set(pTarget, iRad, iAng, iRotLeft, iRotRight)
   rot_left = iRotLeft;
   rot_right = iRotRight;
   heli = pTarget;
+  SetObjectOrder(pTarget);
   blinkspeed = RandomX(27,33);
   SetAction("Floating");
   AddEffect("IntTimer", this, 1, 1, this);
