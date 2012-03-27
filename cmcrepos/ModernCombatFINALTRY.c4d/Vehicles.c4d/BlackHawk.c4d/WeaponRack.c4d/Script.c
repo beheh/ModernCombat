@@ -7,6 +7,7 @@ local cur_Attachment;
 local aim_angle;
 local pController;
 local last_id;
+local last_r;
 local iPat_Dir;
 local heli,vis;
 local Crosshair;
@@ -23,7 +24,7 @@ public func IsAiming()			{return true;}								//Geschütz immer am Zielen
 public func IsThreat()			{return pController;}							//Status
 public func UpdateCharge()		{return 1;}
 public func BonusPointCondition()	{return false;}								//Bonuspunkte macht der BlackHawk 
-
+public func IsWeaponRack() {return 1;}
 
 /* Aufrufe */
 
@@ -35,6 +36,7 @@ public func Set(pTarget, iRad, iAng, iRotLeft, iRotRight)
   rot_right = iRotRight;
   heli = pTarget;
   blinkspeed = RandomX(27,33);
+  SetAction("Floating");
   AddEffect("IntTimer", this, 1, 1, this);
 }
 
@@ -119,6 +121,7 @@ public func ControlLeft(pByObj)
 public func ControlRight(pByObj)
 {
   iPat_Dir = -1;
+
   return true;
 }
 
@@ -165,15 +168,14 @@ protected func FxIntTimerTimer(object pTarget, int iEffect, int iTime)
     return RemoveObject();
   }
 
+  
   //Rotation des Heli abfragen
   var rot = GetR(heli) + (GetDir(heli) * 2 - 1) * (90 + Ang);
+
   //Und in die Positionsbestimmung einfließen lassen
   SetPosition(GetX(heli) + Sin(rot, Rad),
               GetY(heli) - Cos(rot, Rad), this());
-  SetXDir(GetXDir(heli));
-  SetYDir(GetYDir(heli));
   SetR(GetR(heli));
-  //SetRDir(GetRDir(heli));
 
   //Besitzer aktualisieren
   SetOwner(GetOwner(heli));
@@ -194,10 +196,6 @@ protected func FxIntTimerTimer(object pTarget, int iEffect, int iTime)
     CreateParticle("FapLight", 0, 4, 0, 0, 60, LightenColor(rgb), this);
   }
 
-  //Nötig nachzuladen?
-  if(GetAmmo(GetAttWeapon()->GetFMData(FM_AmmoID), GetAttWeapon()) < GetAttWeapon()->GetFMData(FM_AmmoUsage))
-    Reload();
-
   /* Geschütz fahren */
 
   //Rotation
@@ -217,8 +215,13 @@ protected func FxIntTimerTimer(object pTarget, int iEffect, int iTime)
 	}
 
   //Crosshair nachziehen
-  if(Crosshair)
-    Crosshair->SetAngle(AimAngle()-GetR());
+  if(Crosshair) {
+    var r = AimAngle()-GetR();
+    if(last_r != r) {
+      Crosshair->SetAngle(r);
+      last_r = r;
+    }
+  }
 
   //An Helikopterrotation anpassen
 
@@ -239,6 +242,10 @@ protected func FxIntTimerTimer(object pTarget, int iEffect, int iTime)
       SetVisibility(VIS_All);
       vis = true;
     }
+}
+
+public func OnEmpty() {
+	Reload();
 }
 
 private func Reload()

@@ -87,9 +87,14 @@ public func Fire1()
 
 /* Allgemein */
 
-func OnReload()
+public func OnEmpty() {
+	if(Contained() && Contained()->~IsWeaponRack())
+	  Contained()->~OnEmpty();
+}
+
+public func OnReload()
 {
-  if (!GetEffect("IntNoSound", this))
+  if(!GetEffect("IntNoSound", this))
     Sound("ACCN_Reload.ogg", false, this);
 }
 
