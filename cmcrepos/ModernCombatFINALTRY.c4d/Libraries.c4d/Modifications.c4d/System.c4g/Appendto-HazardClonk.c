@@ -422,8 +422,10 @@ public func AimAngle(int iMaxAngle, int iRange, bool bSpread)
   {
     angle = (90+r)*(GetDir()*2-1);
     if(Contents())
-      if(Contents()->~IsGrenade())
-        angle = (60+r)*(GetDir()*2-1);
+      if(Contents()->~IsGrenade()) {
+      	if(!r) r += 60;
+        angle = r*(GetDir()*2-1);
+      }
   }
   else
     angle = crosshair->GetAngle();
@@ -496,7 +498,7 @@ public func ShowCH()
     var dummy1, dummy2, r;
     WeaponAt(dummy1, dummy2, r);
     var angle;
-      
+    
     if(!GetDir())
       angle = -90-r;
     else
@@ -1025,6 +1027,7 @@ public func SelectInventory(object pObj)
     }
     SetAiming(angle, true);
   }
+  crosshair->UpdateAngle();
   UpdateCharge();
 
   return true;
@@ -1106,6 +1109,7 @@ public func ControlSpecial()
     else
     //Inventar verschieben
     ShiftContents(0,0,0,true);
+    crosshair->UpdateAngle();
     UpdateCharge();
   }
 }
@@ -1122,6 +1126,7 @@ public func Collection(object pObj, bool fPut)
 
 public func Collection2(object pObj)
 {
+	ScheduleCall(crosshair, "UpdateAngle", 1);
   if(pObj->~IsGrenade()) UpdateGrenadeCount();
   if(!pObj || Contained(pObj) != this) return;
   var i = 0;
