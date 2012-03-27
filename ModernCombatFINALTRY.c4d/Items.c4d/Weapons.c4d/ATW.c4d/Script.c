@@ -121,14 +121,14 @@ private func Check()
   //Wegwurf wenn Rakete abgefeuert und/oder explodiert
   if(fired)
     if(!pRocket)
-      if(Contained())
+      if(Contained() && Contained()->~IsClonk())
       {
         if(Contained()->~IsAiming() && Contents(0, Contained()) == this) return;
         ThrowAway();
       }
 
   //Oder wenn Waffe leer
-  if(!pRocket)
+  if(!pRocket && Contained()->~IsClonk())
   {
     var ammoid = GetFMData(FM_AmmoID);
     var ammousage = GetFMData(FM_AmmoUsage);
@@ -138,7 +138,7 @@ private func Check()
     }
   }
 
-  if(!Contained() || Contents(0, Contained()) != this) return;
+  if(!Contained() || Contents(0, Contained()) != this || !Contained()->~IsClonk()) return;
 
   //Sicht auf existierende Rakete setzen
   if(Contained()->~IsAiming())

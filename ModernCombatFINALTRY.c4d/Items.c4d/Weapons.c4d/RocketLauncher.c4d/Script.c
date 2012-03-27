@@ -113,7 +113,7 @@ public func AimAngleChange(bool fJNR)
 
 private func Check()
 {
-  if(!Contained() || Contents(0, Contained()) != this) return;
+  if(!Contained() || Contents(0, Contained()) != this || !Contained()->~IsClonk()) return;
 
   //Sicht auf existierende Rakete setzen
   if(Contained()->~IsAiming())
