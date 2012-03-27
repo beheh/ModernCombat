@@ -1,0 +1,2 @@
+DE:Lötlampe
+US:Blow Torch

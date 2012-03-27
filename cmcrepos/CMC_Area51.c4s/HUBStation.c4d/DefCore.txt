@@ -1,0 +1,18 @@
+[DefCore]
+id=HBSN
+Version=4,9,8,2
+Name=HB Station
+Category=C4D_Structure
+MaxUserSelect=1
+TimerCall=Activity
+Timer=100
+Width=36
+Height=24
+Offset=-19,-12
+Vertices=2
+VertexY=11,-11
+VertexFriction=100,100
+Value=1000
+Mass=800
+Components=METL=15
+Picture=0,24,69,65

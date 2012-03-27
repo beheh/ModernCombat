@@ -1,0 +1,2 @@
+CtxEquipmentDesc=Equipment
+CtxUnbuckleEquipment=Unbuckle %s

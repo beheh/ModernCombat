@@ -1,0 +1,3 @@
+Allows to patch up substantially damaged structures and vehicles. Can be used to damage enemy gear as well.
+
+(De-)Activate blow torch by tapping [Throw].

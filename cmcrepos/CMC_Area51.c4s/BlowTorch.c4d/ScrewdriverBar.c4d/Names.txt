@@ -1,0 +1,2 @@
+DE:Munitionsbalken
+US:Ammo Bar

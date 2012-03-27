@@ -1,0 +1,2 @@
+Pellets=Pellets
+SpreadShot=Spread Shot
