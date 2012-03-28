@@ -1,0 +1,1 @@
+Marks a strategic object on the compass.
