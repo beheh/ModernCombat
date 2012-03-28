@@ -5,7 +5,6 @@
 
 protected func Initialize()
 {
-  SetVisibility(VIS_Owner);
   return Set();
 }
 
@@ -16,6 +15,7 @@ public func Set(int iChar, int dwClr)
   if(!dwClr)
     dwClr = RGB(255, 255, 255);
 
+  SetVisibility(VIS_Owner);
   SetAction(Format("%d",iChar));
 
   SetClrModulation(dwClr);
