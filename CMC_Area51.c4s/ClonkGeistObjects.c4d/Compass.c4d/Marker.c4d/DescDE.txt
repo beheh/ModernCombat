@@ -1,0 +1,1 @@
+Markiert ein strategisches Objekt auf dem Kompass.
