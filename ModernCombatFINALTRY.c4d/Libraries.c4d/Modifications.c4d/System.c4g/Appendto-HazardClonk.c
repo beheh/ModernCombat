@@ -1027,7 +1027,7 @@ public func SelectInventory(object pObj)
     }
     SetAiming(angle, true);
   }
-  crosshair->UpdateAngle();
+  if(crosshair) crosshair->UpdateAngle();
   UpdateCharge();
 
   return true;
@@ -1109,7 +1109,7 @@ public func ControlSpecial()
     else
     //Inventar verschieben
     ShiftContents(0,0,0,true);
-    crosshair->UpdateAngle();
+    if(crosshair) crosshair->UpdateAngle();
     UpdateCharge();
   }
 }
