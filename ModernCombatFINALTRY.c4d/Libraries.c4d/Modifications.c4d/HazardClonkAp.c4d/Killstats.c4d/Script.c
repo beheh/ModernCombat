@@ -79,13 +79,13 @@ public func KMsg(int plr1, int plr2, object clonk, int plr3)
     var killerstr, dstr;
     if(assist != -1 && GetPlayerName(assist) && assist != killer && assist != victim)
     {
-    	dstr = Format("%s ({{IC05}} %d) + <c %x>%s</c>", GetTaggedPlayerName(killer), GetEnergy(GetCursor(killer)), RGB(180,180,180), GetPlayerName(assist));
+    	dstr = Format("%s ({{IC05}} <c ff0000>%d%</c>) + <c %x>%s</c>", GetTaggedPlayerName(killer), (GetEnergy(GetCursor(killer))*100/(GetPhysical("Energy", 1, GetCursor(killer))/1000)), RGB(180,180,180), GetPlayerName(assist));
       killerstr = Format("%s + <c %x>%s</c>", GetTaggedPlayerName(killer), RGB(180,180,180), GetPlayerName(assist));
     }
     else
     {
       killerstr = GetTaggedPlayerName(killer);
-      dstr = Format("%s ( {{IC05}} %d )", GetTaggedPlayerName(killer), GetEnergy(GetCursor(killer)));
+      dstr = Format("%s ({{IC05}} <c ff0000>%d%</c>)", GetTaggedPlayerName(killer), (GetEnergy(GetCursor(killer))*100/(GetPhysical("Energy", 1, GetCursor(killer))/1000)));
     }
     dmsg = Format("%s %s", dstr, msg);
     msg = Format("%s %s", killerstr, msg);
