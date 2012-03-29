@@ -1126,7 +1126,9 @@ public func Collection(object pObj, bool fPut)
 
 public func Collection2(object pObj)
 {
-	ScheduleCall(crosshair, "UpdateAngle", 1);
+  //Winkel des Fadenkreuzes aktualisieren, falls vorhanden
+	if(crosshair) ScheduleCall(crosshair, "UpdateAngle", 1);
+	//Granatenzahl im HUD neu berechnen
   if(pObj->~IsGrenade()) UpdateGrenadeCount();
   if(!pObj || Contained(pObj) != this) return;
   var i = 0;
