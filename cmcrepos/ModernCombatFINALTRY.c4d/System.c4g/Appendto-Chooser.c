@@ -62,7 +62,7 @@ public func InitScoreboard()
   Schedule("DoScoreboardShow(1)", 1);
 
   //Zeilen setzen
-  SetScoreboardData(SBRD_Caption, SBRD_Caption, "$StatusScoreboard$", 0, true);
+  SetScoreboardData(SBRD_Caption, SBRD_Caption, "", 0, true);
   SetScoreboardData(CHOS_SBRD_Chooser, SBRD_Caption, "$ScoreboardChooser$", CHOS_SBRD_Chooser, true);
   SetScoreboardData(CHOS_SBRD_Goal, SBRD_Caption, "$ScoreboardGoals$", CHOS_SBRD_Goal, true);
   SetScoreboardData(CHOS_SBRD_Rules, SBRD_Caption, "$ScoreboardRules$", CHOS_SBRD_Rules, true);
