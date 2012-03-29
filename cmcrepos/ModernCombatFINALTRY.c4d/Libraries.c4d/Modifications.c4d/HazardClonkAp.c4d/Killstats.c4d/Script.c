@@ -64,21 +64,30 @@ public func KMsg(int plr1, int plr2, object clonk, int plr3)
   msg = Format("{{%i}}",killicon); 
   if(typeicon && killicon != typeicon)
     if(killicon)
+    {
       msg = Format("%s ({{%i}})",msg,typeicon);
+    }
     else
+    {
       msg = Format("%s{{%i}}",msg,typeicon);
+  	}
+  
   msg = Format("%s %s", msg, GetTaggedPlayerName(victim));
+  var dmsg = msg;
   if(killer != victim)
   {
-    var killerstr;
+    var killerstr, dstr;
     if(assist != -1 && GetPlayerName(assist) && assist != killer && assist != victim)
     {
+    	dstr = Format("%s ({{IC05}} %d) + <c %x>%s</c>", GetTaggedPlayerName(killer), GetEnergy(GetCursor(killer)), RGB(180,180,180), GetPlayerName(assist));
       killerstr = Format("%s + <c %x>%s</c>", GetTaggedPlayerName(killer), RGB(180,180,180), GetPlayerName(assist));
     }
     else
     {
       killerstr = GetTaggedPlayerName(killer);
+      dstr = Format("%s ( {{IC05}} %d )", GetTaggedPlayerName(killer), GetEnergy(GetCursor(killer)));
     }
+    dmsg = Format("%s %s", dstr, msg);
     msg = Format("%s %s", killerstr, msg);
   }
 
@@ -86,8 +95,8 @@ public func KMsg(int plr1, int plr2, object clonk, int plr3)
   EventInfo4K(0,msg,0);
 
   //Und an den Toten weiterleiten
-  if (Contained(clonk) && !FindObject(NOFD))
-    Contained(clonk)->~KillMessage(msg);
+  if(Contained(clonk) && !FindObject(NOFD))
+    Contained(clonk)->~KillMessage(dmsg);
 }
 
 /* Selbstmordnachricht */
