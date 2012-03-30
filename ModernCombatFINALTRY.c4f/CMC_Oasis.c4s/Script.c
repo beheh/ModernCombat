@@ -3,7 +3,7 @@
 #strict
 #include CSTD
 
-static aFlag,aSelfDefense,aLamp,aArtillery;
+static aFlag;
 
 
 /* Initialisierung */
@@ -17,12 +17,6 @@ func Initialize()
   SetGamma(RGB(7,6,0), RGB(152,147,128), RGB(255,254,236) );
   //Flaggen
   aFlag = [];
-  //Selbstschussanlagen
-  aSelfDefense = [];
-  //Lampen
-  aLamp = [];
-  //Artillerie
-  aArtillery = [];
   //Einrichtung plazieren
   CreateInterior();
   //Ausrüstung plazieren
