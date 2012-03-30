@@ -3,7 +3,7 @@
 #strict
 #include CSTD
 
-static aFlag,aSelfDefense,aLamp;
+static aFlag,aSelfDefense;
 
 
 /* Initialisierung */
@@ -17,8 +17,6 @@ func Initialize()
   aFlag = [];
   //Selbstschussanlagen
   aSelfDefense = [];
-  //Lampen
-  aLamp = [];
   //Einrichtung plazieren
   CreateInterior();
   //Ausrüstung plazieren
@@ -722,10 +720,10 @@ public func ChooserFinished()
     AddWarnEffect(warn,aFlag[1]);
 
    //Flaggenposten 3
-   warn = CreateObject (ALGH, 790, 620, -1);
+   warn = CreateObject (ALGH, 790, 610, -1);
     warn->SetR(-180);
     AddWarnEffect(warn,aFlag[2]);
-   warn = CreateObject (ALGH, 1040, 620, -1);
+   warn = CreateObject (ALGH, 1040, 610, -1);
     warn->SetR(-180);
     AddWarnEffect(warn,aFlag[2]);
 
