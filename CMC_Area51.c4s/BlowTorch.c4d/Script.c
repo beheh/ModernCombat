@@ -130,7 +130,7 @@ public func Timer()
 {
   //Akku um einen Punkt aufladen
   if(!GetEffect("RepairObjects", this))
-    charge = BoundBy(charge+1,0,MaxEnergy());
+    charge = BoundBy(charge+3,0,MaxEnergy());
 
   return true;
 }
@@ -179,7 +179,7 @@ public func Activate(pClonk)
   }
 
   //Feuerbereitschaft?
-  if(!(Contained()->~ReadyToFire()) || GetAction(pClonk) == "Crawl")
+  if(!(Contained()->~ReadyToFire()) || GetAction(clonk) == "Crawl")
     return false;
 
   //Effekt (de)aktivieren
@@ -309,8 +309,8 @@ public func Use(caller)
     else
     {
       Log("Reparieren");
-      DoDamage(-2, this);
-      //DoDmg(-2, DMG_Fire, obj);
+      //DoDamage(-2, this);
+      DoDmg(-2, DMG_Fire, obj);
       if(GetDamage(obj) == 0)
         obj->~IsFullyRepaired();
 
@@ -327,8 +327,12 @@ public func Use(caller)
     }
   }
 
-	var d = GetDir(Contained())-(!GetDir(Contained()));
-	CreateParticle("ColorFire1", 10*d, -1, 20*d, Random(4)-2, 50, RGB(120,120,255));
+  //Effekte
+  var d = GetDir(Contained())-(!GetDir(Contained()));
+  CreateParticle("RepairFlame", 10*d, -4, 5*d, Random(2)-2, 80, RGB(0,100,250));
+  if(GetEffectData(EFSM_BulletEffects) >1)
+    if(!Random(2))
+      AddLightFlash(80, 10*d, -4, RGB(0,140,255));
 
   if(!used)
   {
@@ -343,11 +347,9 @@ public func Use(caller)
   }
   else
   {
+    //Effekte
     if(!Random(2))
-    {
-      Sparks(2+Random(5), RGB(250,150,0), RandomX(-5, 5), RandomX(-5,5));
-      Sparks(2+Random(5), RGB(100,100,250), RandomX(-5, 5), RandomX(-5,5));
-    }
+      Sparks(8+Random(4), RGB(100,100,250), RandomX(-5, 5), RandomX(-5,5));
 
     /*InUseSound(-1);
     RepairingSound(1);*/
