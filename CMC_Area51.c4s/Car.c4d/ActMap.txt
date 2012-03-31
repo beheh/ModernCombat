@@ -1,14 +1,11 @@
 [Action]
-Name=Right
+Name=Stand
 Directions=2
+Length=2
+Delay=0
 FlipDir=1
 Facet=0,0,60,26
-
-[Action]
-Name=Left
-Directions=2
-FlipDir=1
-Facet=60,0,60,26
+NextAction=Hold
 
 [Action]
 Name=Destroyed
