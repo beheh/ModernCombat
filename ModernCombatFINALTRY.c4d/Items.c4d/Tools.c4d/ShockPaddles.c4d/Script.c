@@ -110,7 +110,7 @@ func Use(caller)
       Sound("ClonkCough*.ogg", 0, obj);
       obj->Sparks(10,RGB(250,150,0), (GetDir(Contained())*2-1)*HandX()*2/1000);
       obj->Sparks(5,RGB(100,100,250), (GetDir(Contained())*2-1)*HandX()*2/1000);
-      obj->AddLightFlash(40+Random(20),0,0,RGB(0,140,255));
+      if(GetEffectData(EFSM_BulletEffects) >1)  obj->AddLightFlash(40+Random(20),0,0,RGB(0,140,255));
 
       //Eventnachricht: Spieler reanimiert Spieler
       EventInfo4K(0,Format("$MsgReanimation$",GetTaggedPlayerName(GetOwner(caller)), GetTaggedPlayerName(GetOwner(obj))),FKDT);
