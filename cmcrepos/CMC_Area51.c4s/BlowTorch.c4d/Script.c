@@ -179,7 +179,7 @@ public func Activate(pClonk)
   }
 
   //Feuerbereitschaft?
-  if(!(Contained()->~ReadyToFire()) || GetAction(clonk) == "Crawl")
+  if(!(Contained()->~ReadyToFire()) || GetAction(pClonk) == "Crawl")
     return false;
 
   //Effekt (de)aktivieren
