@@ -284,7 +284,7 @@ public func Use(caller)
     {
       if(obj->~IsRepairable()) //Fahrzeuge
       {
-        Log("Fahrzeug beschädigen");
+        //Fahrzeug beschädigen
         DoDmg(5,DMG_Fire,obj);
 
         used = true;
@@ -292,9 +292,9 @@ public func Use(caller)
       }
       else //Lebewesen
       {
-        Log("Lebewesen schädigen");
         if(!living_dmg_cooldown)
         {
+          //Lebewesen verletzen
           DoDmg(10,DMG_Fire,obj);
           living_dmg_cooldown = 8;
         }
@@ -308,20 +308,20 @@ public func Use(caller)
     }
     else
     {
-      Log("Reparieren");
-      //DoDamage(-2, this);
-      DoDmg(-2, DMG_Fire, obj);
+      //Fahrzeug reparieren
+      DoDamage(-2, obj);
+
       if(GetDamage(obj) == 0)
         obj->~IsFullyRepaired();
 
       if(GetPlayerTeam(GetOwner(obj)) == GetPlayerTeam(GetOwner(Contained())) && iRepaired++ >= 40)
       {
         //Punkte bei Belohnungssystem (Reparatur)
-     		DoPlayerPoints(10, RWDS_TeamPoints, GetOwner(Contained()), Contained(), IC15);
+        DoPlayerPoints(10, RWDS_TeamPoints, GetOwner(Contained()), Contained(), IC15);
         //DoPlayerPoints(Repair(), RWDS_TeamPoints, GetOwner(Contained()), Contained(), IC15);
         iRepaired = 0;
       }
-			
+
       used = true;
       charge = BoundBy(charge - 1, 0, MaxEnergy());
     }
