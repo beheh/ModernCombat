@@ -12,18 +12,22 @@ public func IgnoreFriendlyFire()	{return 1;}
 
 public func Initialize()
 {
-  //Zufällige Richtung
-  if(Random(2))
-    SetAction("Left");
-  else
-    SetAction("Right");
+  //Aktion setzen
+  SetAction("Stand");
 
   //Zufälliges Aussehen
   var rnd = Random(3)+2;
   SetGraphics(Format("%d", rnd));
 
+  //Zufällige Richtung
+  var phase = Random(2);
+  SetPhase(phase);
+
+  //SolidMask setzen
+  SetSolidMask(phase * 60, 26, 60, 26);
+
   //Zufällige Farbe
-  var dwRGB = HSL(RandomX(50,38),RandomX(50,255),RandomX(50,160));
+  var dwRGB = HSL(RandomX(10,38),RandomX(10,255),RandomX(10,160));
   SetColorDw(dwRGB);
 }
 
@@ -63,7 +67,11 @@ func InstaExplode(int iPlr)
 
 func BlowUp(int iPlr)
 {
+  //Aktion setzen
+  if(GetPhase() == 1)
+    SetDir(DIR_Right);
   SetAction("Destroyed");
+
   FakeExplode(40, iPlr+1);
   Extinguish();
   SetSolidMask();
