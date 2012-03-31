@@ -422,8 +422,9 @@ public func AimAngle(int iMaxAngle, int iRange, bool bSpread)
   {
     angle = (90+r)*(GetDir()*2-1);
     if(Contents())
-      if(Contents()->~IsGrenade()) {
-      	if(!r) r += 60;
+      if(Contents()->~IsGrenade())
+      {
+        if(!r) r += 60;
         angle = r*(GetDir()*2-1);
       }
   }
@@ -483,7 +484,7 @@ public func ShowCH()
     InitCH();
   if(!crosshair)
     return;
-	
+
   if(Contained(crosshair))
     Exit(crosshair);
     
@@ -745,12 +746,12 @@ private func Control2Contents(string command)
   if(GetAction() == "Push")
     return false;
   // Pause Reload: nicht wieder anfangen ey!!!
-/*  if(command == "ControlThrow")
+  /*  if(command == "ControlThrow")
   {
     if(WildcardMatch(GetAction(),"Scale*") || GetAction() == "Hangle")
       return true;
   }*/ //Auskommentiert wegen C4
-	
+
   //Callback verhindert?
   if(GetEffect("SelectItem",Contents()))
   {
@@ -1058,11 +1059,13 @@ public func ControlSpecial()
       if(aCollected[i] && Contained(aCollected[i]) == this)
       {
         if(j >= 6) { //Am Ende? Dann versuchen wir ein neues zu finden
-          for(var c = 0; c <= 4; c++) {
-          	if(!aUsed[c]) {
-          		j = c+1;
-          		break;
-          	}
+          for(var c = 0; c <= 4; c++)
+          {
+            if(!aUsed[c])
+            {
+              j = c+1;
+              break;
+            }
           }
         }
         var overlay = ring->Add(j%5, GetName(aCollected[i]),"SelectInventory",aCollected[i],RICO);
@@ -1127,8 +1130,8 @@ public func Collection(object pObj, bool fPut)
 public func Collection2(object pObj)
 {
   //Winkel des Fadenkreuzes aktualisieren, falls vorhanden
-	if(crosshair) ScheduleCall(crosshair, "UpdateAngle", 1);
-	//Granatenzahl im HUD neu berechnen
+  if(crosshair) ScheduleCall(crosshair, "UpdateAngle", 1);
+  //Granatenzahl im HUD neu berechnen
   if(pObj->~IsGrenade()) UpdateGrenadeCount();
   if(!pObj || Contained(pObj) != this) return;
   var i = 0;
@@ -2009,7 +2012,7 @@ public func ControlThrow()
       }
     }
   }
-	
+
   //Bei vorherigem Doppel-Stop nur Ablegen 
   if (GetPlrDownDouble(GetOwner()))
   {
@@ -2035,7 +2038,7 @@ public func ControlThrow()
 
   //Steuerung an Effekt weitergeben 
   if (Control2Effect("ControlThrow")) return(1);
-	
+
   //Reiten und Werfen
   if (IsRiding())
     if (Contents(0))
@@ -2045,7 +2048,7 @@ public func ControlThrow()
     }
   //Keine überladene Steuerung
   return(0);
-}	
+}
 
 public func ControlUp()
 {
