@@ -1,2 +1,2 @@
-DE:Lötlampe
+DE:Schweißbrenner
 US:Blow Torch
