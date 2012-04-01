@@ -1,4 +1,4 @@
-/*-- Lötlampe --*/
+/*-- Schweißbrenner --*/
 
 #strict 2
 
@@ -26,7 +26,7 @@ local living_dmg_cooldown;
 
 public func Initialize()
 {
-  charge = MaxEnergy(); //Lötlampe geladen
+  charge = MaxEnergy(); //Schweißbrenner geladen
   living_dmg_cooldown = 4;
   AddEffect("ReparationBars", this, 101, 8, this);
 }
