@@ -1,4 +1,4 @@
-﻿/*-- Neues Script --*/
+/*-- Neues Script --*/
 
 #strict 2
 
@@ -6,7 +6,7 @@
 
 public func IsRepairable() { return true; }
 
-/* ZerstÃ¶rung */
+/* Zerst�rung */
 
 public func Destroyed()
 {
@@ -18,7 +18,7 @@ public func Destroyed()
   if(GetDamage() > MaxDamage())
   	DoDamage(-(GetDamage()-MaxDamage()));
 
-  //Punkte bei Belohnungssystem (StrukturzerstÃ¶rung)
+  //Punkte bei Belohnungssystem (Strukturzerstörung)
   if(BonusPointCondition() && iLastAttacker != -1)
     if((GetOwner() != -1 && Hostile(GetOwner(), iLastAttacker)) || (GetOwner() == -1 && !GetTeam(this)) || (GetTeam(this) != GetPlayerTeam(iLastAttacker)))
       DoPlayerPoints(BonusPoints("Destruction"), RWDS_BattlePoints, iLastAttacker, GetCursor(iLastAttacker), IC03);
@@ -29,7 +29,7 @@ public func Destroyed()
   //Sound
   Sound("Blast2", false, this);
 
-  //Letzen Angreifer zurÃ¼cksetzen
+  //Letzen Angreifer zurücksetzen
   iLastAttacker = -1;
 
   //Callback
@@ -40,7 +40,7 @@ public func Damage(int change)
 {
 	if(change > 0 && IsDestroyed())
 	{
-		if(GetDamage() > MaxDamage()) // Objekt zerstÃ¶rt, aber nicht mehr dmg als max. zugelassen!
+		if(GetDamage() > MaxDamage()) // Objekt zerstört, aber nicht mehr dmg als max. zugelassen!
   		DoDamage(-(GetDamage()-MaxDamage()));
 	}
   if(GetDamage() > MaxDamage() && !IsDestroyed())
