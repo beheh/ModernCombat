@@ -131,7 +131,7 @@ func CreateInterior()
   CreateObject(MWCR, 1240, 360, -1)->AutoRespawn();
 
   //Verbandskiste
-  CreateObject(BECR, 825, 500, -1)->AutoRespawn();
+  CreateObject(BECR, 820, 500, -1)->AutoRespawn();
 
   //Explosive Kisten
   CreateObject(XWCR, 393, 230, -1)->AutoRespawn();
