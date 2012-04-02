@@ -191,11 +191,11 @@ private func Traveling()
   if(GBackLiquid())
   {
     Sound("MISL_ShotDown.ogg");
-    return SetAction("Fall");
+    return Fall();
   }
 
   //Fallen wenn Maximalflugzeit erreicht
-  if(GetActTime() >= MaxTime()) return SetAction("Fall");
+  if(GetActTime() >= MaxTime()) return Fall();
 
   //Geschwindigkeit erhöhen
   Accelerate();
@@ -362,6 +362,17 @@ private func HitObject(pObj)
 
   //Explosion
   Detonate();
+}
+
+private func Fall()
+{
+  //Herunterfallen
+  SetAction("Fall");
+  var r = GetR()%180;
+  if(r > 90) r = 180-r;
+  if(GetR() > 180) r *= -1;
+  SetRDir(r*3/90);
+  return true;
 }
 
 private func Detonate()
