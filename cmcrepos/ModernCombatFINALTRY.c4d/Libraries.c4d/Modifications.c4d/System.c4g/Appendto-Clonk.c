@@ -303,7 +303,6 @@ protected func DoPoints()
         //Achievement-Fortschritt (Marksman)
         DoAchievementProgress(1,AC17,killer);
       }
-
       //Helikopterbezogene Punkte und Achievements
       if(Contained(pClonk) && Contained(pClonk)->~IsHelicopter())
       {
@@ -311,7 +310,6 @@ protected func DoPoints()
         {
           //Achievement-Fortschritt (Get to the Chopper)
           DoAchievementProgress(1,AC18,killer);
-
         }
         if(Contained(pClonk)->~GetPilot())
         {
@@ -610,41 +608,41 @@ func Death(object pTarget)
   ResetAchievementProgress(AC12, GetOwner());
   if(!IsFakeDeath()) ResetAchievementProgress(AC14, GetOwner());
 
-	// Bei Soforttod Todesnachricht einblenden und Achievements bearbeiten
+  // Bei Soforttod Todesnachricht einblenden und Achievements bearbeiten
   if(FindObject(NOFD))
   {
-  	if(Hostile(GetKiller(pTarget), GetOwner(pTarget)))
-  	{
-  	  var killicon = pTarget->~KillIcon();
-  	  if(killicon && killicon->~IsWeapon())
-  	  {
-  	    var wpn = GetAchievementExtra(AC09, GetKiller(pTarget));
-  	    if(!wpn) wpn = CreateArray();
-  	    wpn[FindInArray4K(AC09->GetIDs(), killicon)] = true;
- 	    	var i = 0, count = 0;
- 	    	while(i <= GetLength(AC09->GetIDs())-1)
- 	    	{
- 	      	if(wpn[i]) count++;
-	 	      i++;
+    if(Hostile(GetKiller(pTarget), GetOwner(pTarget)))
+    {
+      var killicon = pTarget->~KillIcon();
+      if(killicon && killicon->~IsWeapon())
+      {
+        var wpn = GetAchievementExtra(AC09, GetKiller(pTarget));
+        if(!wpn) wpn = CreateArray();
+        wpn[FindInArray4K(AC09->GetIDs(), killicon)] = true;
+        var i = 0, count = 0;
+        while(i <= GetLength(AC09->GetIDs())-1)
+        {
+          if(wpn[i]) count++;
+          i++;
       	}
-      	SetAchievementExtra(wpn, AC09, GetKiller(pTarget));
-      	if(count >= GetLength(AC09->GetIDs()))
-      	{
-      	  //Achievement-Fortschritt (Mission accomplished)
-      	  AwardAchievement(AC09, GetKiller(pTarget));
-      	}
-    	}
-    	
-    	if(GetProcedure(pTarget) == "FLIGHT" && GetProcedure(GetCursor(GetKiller(pTarget))) == "FLIGHT")
-      	if(GetActTime(pTarget) > 10 && GetActTime(GetCursor(GetKiller(pTarget))) > 10)
-        	//Achievement-Fortschritt (Fly-By)
-        	DoAchievementProgress(1, AC10, GetKiller(pTarget)); 
+        SetAchievementExtra(wpn, AC09, GetKiller(pTarget));
+        if(count >= GetLength(AC09->GetIDs()))
+        {
+          //Achievement-Fortschritt (Mission accomplished)
+          AwardAchievement(AC09, GetKiller(pTarget));
+        }
+      }
+
+      if(GetProcedure(pTarget) == "FLIGHT" && GetProcedure(GetCursor(GetKiller(pTarget))) == "FLIGHT")
+        if(GetActTime(pTarget) > 10 && GetActTime(GetCursor(GetKiller(pTarget))) > 10)
+          //Achievement-Fortschritt (Fly-By)
+          DoAchievementProgress(1, AC10, GetKiller(pTarget)); 
     }
-  	
+
     // Todesnachricht:
     pTarget->DeathAnnounce(GetOwner(pTarget), pTarget, GetKiller(pTarget));
-	}
-	
+  }
+
   if(IsFakeDeath())
   {
     pTarget->InstantDie();
