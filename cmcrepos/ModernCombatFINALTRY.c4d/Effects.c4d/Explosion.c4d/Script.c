@@ -19,6 +19,10 @@ global func Explode(int iLevel, object pObj, id idEffect, string szEffect, bool 
   var opt_angle = Angle(xdir,ydir);
   var speed = BoundBy(Distance(xdir,ydir),0,60);
 
+  //Echo bei großen Explosionen
+  if(iLevel > 20)
+    Echo("RTLR_Echo.ogg");
+
   ///Feuer-, Funken- und Dirt-Effekte
   var i=0, count = 3+iLevel/8, angle = Random(360);
   while((count > 0) && (++i < count*10))

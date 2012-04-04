@@ -276,7 +276,7 @@ public func Fused2(object pContainer)
     if(GetOCF(pContainer) & OCF_Living)
     {
       if(!Contained(pContainer)) Fling(pContainer, GetXDir(pContainer)/10, GetYDir(pContainer)/10-1);
-      DoDmg(ContainedDamage(), DMG_Fire, pContainer);
+      DoDmg(ContainedDamage(), DMG_Explosion, pContainer);
     }
   }
   RemoveEffect("HitCheck",this);
