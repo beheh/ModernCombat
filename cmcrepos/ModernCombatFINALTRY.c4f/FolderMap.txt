@@ -121,7 +121,7 @@ FullscreenBG=1
 
 
 	[Scenario]
-	File=CMC_OperationMétro.c4s
+	File=CMC_OperationMetro.c4s
 	Area=291,404,256,26
 	OverlayImage=Overlay20.png
 
