@@ -8,7 +8,3 @@ Team2=Aggressors
 Flag1=West Base
 Flag2=Drilling Platform
 Flag3=East Base
-
-Target1=Communication Server
-Target2=Radar Unit
-Target3=Surveillance System

@@ -211,6 +211,10 @@ func CreateInterior()
   CreateObject(PTNK, 3600, 520, -1)->AutoRespawn();
   CreateObject(PTNK, 4410, 530, -1)->AutoRespawn();
 
+  //Grenzen
+  CreateObject(BRDR, 1170, 0, -1)->Set(0);
+  CreateObject(BRDR, 4835, 0, -1)->Set(1);
+
   //Sounds
 
   //Möven
@@ -429,10 +433,6 @@ public func ChooserFinished()
   //CTF-Spielziel
   if(FindObject(GCTF))
   {
-   //Grenzen setzen
-   CreateObject(BRDR, 1170, 0, -1)->Set(0);
-   CreateObject(BRDR, 4835, 0, -1)->Set(1);
-
    //Flaggen
    if(aTeams[1] == true)
    {CreateFlag(1,1520,600,GetTeamColor(1));}
@@ -443,10 +443,6 @@ public func ChooserFinished()
   //HTF-Spielziel
   if (FindObject(GHTF))
   {
-   //Grenzen setzen
-   CreateObject(BRDR, 1170, 0, -1)->Set(0);
-   CreateObject(BRDR, 4835, 0, -1)->Set(1);
-
    //Flaggenposten
    var flag = CreateObject(OFPL, 2990, 380, -1);
    flag->~Set("$Flag2$");
@@ -461,39 +457,6 @@ public func ChooserFinished()
     //Raketen
     PlaceSpawnpoint(MBOX, 2890, 525);
    }
-  }
-
-  //Assault-Spielziel
-  if (FindObject(GASS))
-  {
-   //Zielobjekte
-   AddAssaultTarget(CMSN, 3025, 530, 230, 1, "$Target1$", 0, [[[2170, 520], [2270, 520], [2380, 520]], [[4340, 540], [4490, 600], [4665, 500]]]);
-   AddAssaultTarget(RADR, 2990, 380, 230, 1, "$Target2$", 1, [[[2170, 520], [2270, 520], [2380, 520]], [[4340, 540], [4490, 600], [4665, 500]]]);
-   AddAssaultTarget(CCP2, 1680, 540, 230, 1, "$Target3$", 2, [[[1330, 500], [1600, 400], [1520, 600]], [[2870, 410], [2890, 530], [3040, 460]]]);
-   AddAssaultTarget(RADR, 1490, 530, 230, 1, "$Target2$", 3, [[[1330, 500], [1600, 400], [1520, 600]], [[2870, 410], [2890, 530], [3040, 460]]]);
-
-   //Ziele verbinden
-   ConnectAssaultTargets([0, 1]);
-   ConnectAssaultTargets([2, 3]);
-
-   //Grenzen setzen
-   CreateObject(BRDR, 2010, 0, -1)->Set(0,1);
-   CreateObject(BRDR, 4835, 0, -1)->Set(1);
-
-   //Container
-   CreateObject(CON1, 3070, 530, -1)->SetPerspective(2);
-
-   //Boden
-   DrawMaterialQuad("Wall-Bricks2", 3060,530, 3080,530, 3060,560, 3080,560);
-
-   //Objekte entfernen
-   RemoveAll(WPVM);
-   RemoveObject(FindObject2(Find_ID(PBRL),Find_InRect(2150, 500, 10, 20)));
-   RemoveObject(FindObject2(Find_ID(PBRL),Find_InRect(2165, 500, 10, 20)));
-   RemoveObject(FindObject2(Find_ID(RSPT),Find_InRect(2154, 510, 2, 2)));
-   RemoveObject(FindObject2(Find_ID(RSPT),Find_InRect(2169, 510, 2, 2)));
-   RemoveObject(FindObject2(Find_ID(LADR),Find_InRect(3060, 530, 20, 70)));
-   RemoveObject(FindObject2(Find_ID(HA4K),Find_InRect(3060, 530, 20, 20)));
   }
 
   //OP-Spielziel
@@ -546,31 +509,6 @@ public func ChooserFinished()
   }
 }
 
-/* Assault Zerstörung */
-
-public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
-{
-  //Ziel 1
-  if (!iIndex)
-  {
-   //Grenzen neu setzen
-   RemoveAll(BRDR);
-   CreateObject(BRDR, 1170, 0, -1)->Set(0,1);
-   CreateObject(BRDR, 4835, 0, -1)->Set(1);
-
-   //Spawnpoint entfernen
-   RemoveObject(FindObject2(Find_ID(VSPW),Find_InRect(4354, 368, 2, 2)));
-
-   //Rauch
-   CreateParticle("GunSmoke",2890,520,0,-10,100,1);
-   CreateParticle("GunSmoke",2890,520,0,-10,250,1);
-   CreateParticle("GunSmoke",2890,520,0,-10,350,1);
-   CreateParticle("GunSmoke",3090,520,0,-10,100,1);
-   CreateParticle("GunSmoke",3090,520,0,-10,250,1);
-   CreateParticle("GunSmoke",3090,520,0,-10,350,1);
-  }
-}
-
 /* Relaunch */
 
 public func RelaunchPosition(& iX, & iY, int iTeam)
@@ -600,10 +538,6 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
     return(1);
    }
   }
-
-  //Assault-Spielziel
-  if(FindObject(GASS))
-  {if(FindObject(GASS)->GetRespawnPoint(iX, iY, iTeam)) return 1;}
 
   //Startsicht
   iX = 2990; iY = 440;
