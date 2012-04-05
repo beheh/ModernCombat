@@ -44,6 +44,7 @@ protected func TimerCall()
       //Achievement-Fortschritt (Rain of Fire)
       DoAchievementProgress(1, AC30, GetOwner());
   }
+
   //Effekte
   CreateParticle("Flare2",0,0,GetXDir()/3,GetYDir()/3,RandomX(30,40)*5,RGB(255,255,255));
   if(GetEffectData(EFSM_ExplosionEffects) > 0) CreateParticle("GroundSmoke",0,0,0,0,RandomX(20,30)*5,RGB(180,180,180));

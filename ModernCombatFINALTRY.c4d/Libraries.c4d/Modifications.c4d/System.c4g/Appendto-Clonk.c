@@ -491,8 +491,8 @@ global func FakeDeath(object pTarget)
   { 
     //Achievement-Fortschritt (Epic Kill)
     AwardAchievement(AC08, GetKiller(pTarget)); 
-  } 
-  
+  }
+
   ResetAchievementProgress(AC12, GetOwner());
   ResetAchievementProgress(AC14, GetOwner());
 
@@ -547,37 +547,36 @@ global func IsFakeDeath(object pTarget)
 
 global func FxFakeDeathDamage(object pTarget, int iEffectNumber, int iDmgEngy, int iCause)
 {
-	if(GetEnergy(pTarget) <= -iDmgEngy/1000 && (FindObject(NOFD) || !IsFakeDeath(pTarget)))
-	{
-		// Achievements
-		if(Hostile(GetKiller(pTarget), GetOwner(pTarget)))
-		{
-			var killicon = pTarget->~KillIcon();
-    	if(killicon && killicon->~IsWeapon())
-    	{
-      	var wpn = GetAchievementExtra(AC09, GetKiller(pTarget));
-      	if(!wpn) wpn = CreateArray();
-      	wpn[FindInArray4K(AC09->GetIDs(), killicon)] = true;
-      	var i = 0, count = 0;
-      	while(i <= GetLength(AC09->GetIDs())-1)
-      	{
-      	  if(wpn[i]) count++;
-      	  i++;
-     		}
-      	SetAchievementExtra(wpn, AC09, GetKiller(pTarget));
-      	if(count >= GetLength(AC09->GetIDs()))
-      	{
-        	//Achievement-Fortschritt (Mission accomplished)
-     	  	AwardAchievement(AC09, GetKiller(pTarget));
-     		} 
-   		}
-   		
-			if(GetProcedure(pTarget) == "FLIGHT" && GetProcedure(GetCursor(GetKiller(pTarget))) == "FLIGHT")
-  		  if(GetActTime(pTarget) > 10 && GetActTime(GetCursor(GetKiller(pTarget))) > 10)
-  		    //Achievement-Fortschritt (Fly-By)
-  		    DoAchievementProgress(1, AC10, GetKiller(pTarget)); 
-		}
-	}
+  if(GetEnergy(pTarget) <= -iDmgEngy/1000 && (FindObject(NOFD) || !IsFakeDeath(pTarget)))
+  {
+    //Achievements
+    if(Hostile(GetKiller(pTarget), GetOwner(pTarget)))
+    {
+      var killicon = pTarget->~KillIcon();
+      if(killicon && killicon->~IsWeapon())
+      {
+        var wpn = GetAchievementExtra(AC09, GetKiller(pTarget));
+        if(!wpn) wpn = CreateArray();
+        wpn[FindInArray4K(AC09->GetIDs(), killicon)] = true;
+        var i = 0, count = 0;
+        while(i <= GetLength(AC09->GetIDs())-1)
+        {
+          if(wpn[i]) count++;
+          i++;
+        }
+        SetAchievementExtra(wpn, AC09, GetKiller(pTarget));
+        if(count >= GetLength(AC09->GetIDs()))
+        {
+          //Achievement-Fortschritt (Mission accomplished)
+          AwardAchievement(AC09, GetKiller(pTarget));
+        } 
+       }
+      if(GetProcedure(pTarget) == "FLIGHT" && GetProcedure(GetCursor(GetKiller(pTarget))) == "FLIGHT")
+        if(GetActTime(pTarget) > 10 && GetActTime(GetCursor(GetKiller(pTarget))) > 10)
+          //Achievement-Fortschritt (Fly-By)
+          DoAchievementProgress(1, AC10, GetKiller(pTarget)); 
+    }
+  }
 
   if(!ObjectCount(NOFD) && !IsFakeDeath(pTarget))
   {
