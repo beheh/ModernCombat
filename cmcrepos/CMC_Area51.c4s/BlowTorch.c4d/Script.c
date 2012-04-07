@@ -28,7 +28,7 @@ public func Initialize()
 {
   charge = MaxEnergy(); //Schweißbrenner geladen
   living_dmg_cooldown = 4;
-  AddEffect("ReparationBars", this, 101, 8, this);
+  //AddEffect("ReparationBars", this, 101, 8, this);
 }
 
 /* Reparatureffekt */
@@ -148,7 +148,7 @@ public func ControlThrow(pByObject)
     //Nicht starten wenn nicht geladen
     return true;
   }
-  
+
   //Feuerbereitschaft?
   if(!(Contained()->~ReadyToFire()) || GetAction(Contained()) == "Crawl")
     return true;
@@ -194,6 +194,9 @@ public func Activate(pClonk)
   }
 }
 
+
+/* Reparatureffekt */
+
 public func FxRepairObjectsStart(object target, int nr, temp, object pClonk)
 {
   EffectVar(0, target, nr) = pClonk;
@@ -203,7 +206,7 @@ public func FxRepairObjectsTimer(object target, int nr, int time)
 {
   if(charge <= 0)
     return -1;
-
+  
   var clonk = EffectVar(0, target, nr);
   if(Contained() != clonk)
     return -1;
@@ -271,6 +274,7 @@ local iRepaired; // Teampoints
 
 public func Use(caller)
 {
+  //Eventuellen Cooldown verringern
   if(living_dmg_cooldown)
     living_dmg_cooldown--;
 
