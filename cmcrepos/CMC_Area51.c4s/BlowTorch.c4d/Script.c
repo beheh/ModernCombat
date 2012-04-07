@@ -373,7 +373,6 @@ func UpdateHUD(object pHUD)
 {
   var color = RGB(255, 255, 255);
   pHUD->Ammo(charge, MaxEnergy(), GetName(), true, color);
-  //pHUD->Recharge(charge, MaxEnergy());
 }
 
 /* Allgemein */
@@ -381,4 +380,9 @@ func UpdateHUD(object pHUD)
 protected func Hit()
 {
   Sound("WPN2_Hit*.ogg");
+}
+
+protected func Selection()
+{
+  Sound("BWTH_Charge.ogg");
 }
