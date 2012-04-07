@@ -148,7 +148,7 @@ public func ControlThrow(pByObject)
     //Nicht starten wenn nicht geladen
     return true;
   }
-
+  
   //Feuerbereitschaft?
   if(!(Contained()->~ReadyToFire()) || GetAction(Contained()) == "Crawl")
     return true;
@@ -299,8 +299,8 @@ public func Use(caller)
         if(!living_dmg_cooldown)
         {
           //Lebewesen verletzen
-          DoDmg(10,DMG_Fire,obj);
-          living_dmg_cooldown = 8;
+          DoDmg(12,DMG_Fire,obj);
+          living_dmg_cooldown = 7;
         }
 
         if(!Random(7))
