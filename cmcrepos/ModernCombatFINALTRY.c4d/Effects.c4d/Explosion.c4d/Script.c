@@ -19,11 +19,7 @@ global func Explode(int iLevel, object pObj, id idEffect, string szEffect, bool 
   var opt_angle = Angle(xdir,ydir);
   var speed = BoundBy(Distance(xdir,ydir),0,60);
 
-  //Echo bei großen Explosionen
-  if(iLevel > 20)
-    Echo("RTLR_Echo.ogg");
-
-  ///Feuer-, Funken- und Dirt-Effekte
+  //Feuer-, Funken- und Dirt-Effekte
   var i=0, count = 3+iLevel/8, angle = Random(360);
   while((count > 0) && (++i < count*10))
   {
@@ -61,7 +57,7 @@ global func Explode(int iLevel, object pObj, id idEffect, string szEffect, bool 
   //Brandspuren
   CreateBurnMark(x,y,iLevel,20+iLevel/2);
 
-  ///Lichteffekte bei Dunkelheit
+  //Lichteffekte bei Dunkelheit
   if(IsDark())
   {
     var iSize = iLevel*100;
@@ -70,7 +66,7 @@ global func Explode(int iLevel, object pObj, id idEffect, string szEffect, bool 
     AddLightFlash(iSize/3, x, y, RGBa(255,220,64,15));
   }
 
-  ///Feuer-Effekt
+  //Feuer-Effekt
   angle = Interpolate4K(0,opt_angle,0,120,speed);
   angle -= 180;
   CreateParticle("BlastBg",0,0,+Sin(angle,100),-Cos(angle,100),iLevel*20);
@@ -80,7 +76,7 @@ global func Explode(int iLevel, object pObj, id idEffect, string szEffect, bool 
   //Der eigentliche, klassische Blast-Partikel
   CreateParticle("Blast",x,y,0,0,iLevel*11);
 
-  ///Standartverhalten
+  //Standartverhalten
   if(!fDeco)
     return inherited(iLevel, pObj, idEffect, szEffect);
 }
