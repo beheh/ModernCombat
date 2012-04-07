@@ -27,8 +27,8 @@ public func Initialize()
   SetSolidMask(phase * 60, 26, 60, 26);
 
   //Zufällige Farbe
-  var dwRGB = HSL(RandomX(10,38),RandomX(10,255),RandomX(10,160));
-  SetColorDw(dwRGB);
+  var dwRGB = [RGBa(0, 0, 0, 250), RGBa(0, 0, 0, 80), RGBa(200, 0, 0, 50), RGBa(0, 200, 0, 50), RGBa(0, 0, 250, 80), RGBa(100, 0, 150, 50), RGBa(150, 150, 0, 80)];
+  SetColorDw(dwRGB[Random(GetLength(dwRGB))]);
 }
 
 /* Zerstörung */
