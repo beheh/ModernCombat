@@ -28,7 +28,7 @@ public func Initialize()
 {
   charge = MaxEnergy(); //Schweißbrenner geladen
   living_dmg_cooldown = 4;
-  //AddEffect("ReparationBars", this, 101, 8, this);
+  AddEffect("ReparationBars", this, 101, 8, this);
 }
 
 /* Reparatureffekt */
@@ -41,25 +41,26 @@ public func FxReparationBarsStart(object target, int nr)
 
 public func FxReparationBarsTimer(object target, int nr)
 {
-  if(!Contained() || !(Contained()->GetOCF() & OCF_Alive))
+	var pCont = Contained(); var iPlr = GetOwner(pCont);
+	
+  if(!pCont || !(pCont->GetOCF() & OCF_Alive))
   {
     if(GetLength(EffectVar(0, target, nr)) > 0)
     {
       for(var obj in EffectVar(0, target, nr))
-      {
         if(obj)
           RemoveObject(obj);
-      }
+      
       SetLength(EffectVar(0, target, nr), 0);
     }
     return true;
   }
 
-  if(Contents(0, Contained()) != this) //Nur bei Anwahl
+  if(Contents(0, pCont) != this) //Nur bei Anwahl
   {
     if(EffectVar(1, target, nr))
     {
-      for(var obj in FindObjects(Find_Func("IsBar"), Find_Owner(GetOwner(Contained()))))
+      for(var obj in FindObjects(Find_Func("IsBar"), Find_Owner(iPlr)))
         if(obj->GetBarType() == BAR_Repairbar)
           obj->Update(0, true);
 
@@ -75,7 +76,7 @@ public func FxReparationBarsTimer(object target, int nr)
     var bar;
     if(bar = FindObject2(Find_ID(SBAR), Find_ActionTarget(obj)))
     {
-      if(Hostile(GetOwner(obj), GetOwner(Contained())))
+      if(Hostile(GetOwner(obj), iPlr))
       {
         RemoveObject(bar);
         continue;
@@ -91,9 +92,9 @@ public func FxReparationBarsTimer(object target, int nr)
 
       bar->Update(percent, deactivate);
     }
-    else if(!Hostile(GetOwner(obj), GetOwner(Contained())))
+    else if(!Hostile(GetOwner(obj), iPlr))
     {
-      bar = CreateObject(SBAR, 0, 0, GetOwner(Contained()));
+      bar = CreateObject(SBAR, 0, 0, iPlr);
       bar->Set(obj, RGB(255,0,0), BAR_Repairbar, true, "", IC15);
 
       var dmg = GetDamage(obj);
@@ -142,7 +143,7 @@ public func ControlThrow(pByObject)
   //Hinweis bei fehlendem Inhalt
   if(charge <= 0)
   {
-    PlayerMessage(GetOwner(pByObject), "$NotCharged$", Contained(this),GSAM);
+    PlayerMessage(GetOwner(pByObject), "$NotCharged$", Contained(this), GSAM);
     Sound("WPN2_Empty.ogg");
     
     //Nicht starten wenn nicht geladen
@@ -208,16 +209,11 @@ public func FxRepairObjectsTimer(object target, int nr, int time)
     return -1;
   
   var clonk = EffectVar(0, target, nr);
-  if(Contained() != clonk)
+  
+  if(Contained() != clonk || !(clonk->~ReadyToFire()) || GetAction(clonk) == "Crawl")
     return -1;
 
-  if(!(clonk->~ReadyToFire()) || GetAction(clonk) == "Crawl")
-    return -1;
-
-  if(!(Contents(0, clonk) == this))
-    return -1;
-
-  if(!(target->Use(clonk)))
+  if(!(Contents(0, clonk) == this) || !(target->Use(clonk)))
     return -1;
 
   if(time < 4)
