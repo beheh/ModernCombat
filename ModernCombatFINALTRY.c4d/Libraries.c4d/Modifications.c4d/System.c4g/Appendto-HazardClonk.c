@@ -6,7 +6,7 @@
 local crosshair;
 local aCollected;
 
-local HUDTarget;
+local pHUDTarget;
 local iGrenadeCount;
 
 public func IsHealing()		{return WildcardMatch(GetAction(), "*Heal*");}
@@ -27,7 +27,7 @@ public func Initialize()
 
 public func SetHUDTarget(pTarget)
 {
-  HUDTarget = pTarget;
+  pHUDTarget = pTarget;
 }
 
 /*----- Steuerung -----*/
@@ -367,8 +367,8 @@ public func UpdateCharge()
     Content = Contained();
 
   //Ggf. speziell zugewiesenes Objekt
-  if(HUDTarget)
-    Content = HUDTarget;
+  if(pHUDTarget)
+    Content = pHUDTarget;
 
   //HUD
   var hud = GetHUD();
