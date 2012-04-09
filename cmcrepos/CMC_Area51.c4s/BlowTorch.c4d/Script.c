@@ -277,18 +277,26 @@ public func Use(caller)
   used = false;
 
   //Objekte suchen, die repariert werden können
-  var obj = caller->FindObject2(Find_Or(Find_And(Find_Func("IsRepairable"), Find_Or(Find_Func("GetDamage"), Find_Hostile(GetOwner(caller)))), Find_And(Find_OCF(OCF_Alive), Find_Hostile(GetOwner(caller)), Find_NoContainer())), Find_AtPoint());
+  var obj = caller->FindObject2(Find_Or(Find_And(Find_Func("IsRepairable"), Find_Or(Find_Func("GetDamage"), Find_Hostile(GetOwner(caller)))), Find_And(Find_OCF(OCF_Alive), Find_Hostile(GetOwner(caller)), Find_NoContainer()), Find_Func("IsFakeRepairable")), Find_AtPoint());
   if(obj)
-  {
+  {	
     if(Hostile(GetOwner(obj), GetOwner(caller)))
     {
       if(obj->~IsRepairable()) //Fahrzeuge
       {
         //Fahrzeug beschädigen
-        DoDmg(5,DMG_Fire,obj);
+        DoDmg(5, DMG_Fire, obj);
 
         used = true;
-        charge = BoundBy(charge - 1, 0, MaxEnergy());
+        charge = BoundBy(charge-1, 0, MaxEnergy());
+      }
+      else if(obj->~IsFakeRepairable())
+      {
+      	obj = obj->GetRealRepairableObject();
+      	DoDmg(5, DMG_Fire, obj);
+      	
+      	used = true;
+      	charge = BoundBy(charge-1, 0, MaxEnergy());
       }
       else //Lebewesen
       {
@@ -308,6 +316,9 @@ public func Use(caller)
     }
     else
     {
+    	if(obj->~IsFakeRepairable())
+    		obj = obj->GetRealRepairableObject();
+    
       //Fahrzeug reparieren
       DoDamage(-2, obj);
 
