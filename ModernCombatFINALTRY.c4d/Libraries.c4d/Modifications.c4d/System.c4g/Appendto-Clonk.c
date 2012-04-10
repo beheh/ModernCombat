@@ -226,7 +226,7 @@ func Hit2(int xDir, int yDir)
 
   if(!FindObject(FDMG) || hit <= 700) return _inherited(xDir,yDir,...);
 
-  DoDmg((hit-700)*2/10,DMG_Melee,this,0,GetKiller(this)+1);
+  DoDmg((hit-700)*2/10,DMG_Melee,this,0,GetKiller(this)+1,SM10);
 
   if(GetAlive(this))
     Sound("ClonkPain*.ogg");
