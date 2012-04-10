@@ -1,5 +1,5 @@
 [DefCore]
-id=SM04
+id=SM10
 Version=4,9,5
 Name=Symbol
 Category=1
