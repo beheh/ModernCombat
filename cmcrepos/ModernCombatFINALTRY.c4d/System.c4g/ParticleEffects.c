@@ -16,8 +16,8 @@ global func MuzzleFlash(int iSize, object pClonk, int iX, int iY, int iAngle, in
   if(!type) 
     type = 3;
   CreateParticle(Format("MuzzleFlash%d", type),iX,iY,
-  		+Sin(iAngle,500),
-  		-Cos(iAngle,500),
+  		+Sin(iAngle,500) - GetXDir(pClonk),
+  		-Cos(iAngle,500) - GetYDir(pClonk),
   		iSize*5,iColor,pClonk);
 
   //Nichts weiter bei keiner Dunkelheit unternehmen
