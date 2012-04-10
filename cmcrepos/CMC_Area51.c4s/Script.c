@@ -56,12 +56,18 @@ func Initialize()
   CreateObject(TCCN, 1260, 1060, -1);
 
   //Radios
-   CreateObject(RDIO, 795, 1010, -1);
-   CreateObject(RDIO, 1285, 1010, -1);
+  CreateObject(RDIO, 795, 1010, -1);
+  CreateObject(RDIO, 1285, 1010, -1);
 
   //Leitern
   CreateObject(LADR, 680, 1110, -1)->Set(6);
   CreateObject(LADR, 1400, 1110, -1)->Set(6);
+
+  //Stahlbrücken
+  CreateObject(_HBR, 605, 1072, -1);
+  CreateObject(_HBR, 726, 1122, -1)->SwitchRuinsMode();
+  CreateObject(_HBR, 1354, 1122, -1)->SwitchRuinsMode();
+  CreateObject(_HBR, 1475, 1072, -1);
 
   //Waffenautomaten
   SetUpStore(CreateObject(WPVM, 750, 1060, -1));
