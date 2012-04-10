@@ -21,7 +21,7 @@ global func DoExplosion(int x, int y, int level, object inobj, int cause_plr, id
   //Explosion draußen: Explosionseffekte erzeugen
   if (!container)
   {
-   KnockDownObjects(x,y,level*3,layer);
+   KnockDownObjects(x,y,level*3,layer,cause_plr+1);
 
    //Material entzünden
     if (!IncinerateLandscape(x,y))
@@ -78,7 +78,7 @@ global func DoExplosion(int x, int y, int level, object inobj, int cause_plr, id
   return true;
 }
 
-global func KnockDownObjects(int x, int y, int level, object layer)
+global func KnockDownObjects(int x, int y, int level, object layer, int cause_plr_plus_one)
 {
   var l_x = x - GetX(), l_y = y - GetY();
 
@@ -88,7 +88,10 @@ global func KnockDownObjects(int x, int y, int level, object layer)
   for(var obj in a)
   {
    if(GetCategory(obj) & C4D_Living)
+   {
     obj->SetAction("Tumble");
+    obj->SetKiller(cause_plr_plus_one-1);
+   }
   }
 }
   
