@@ -376,7 +376,7 @@ protected func InitializePlayer(int iPlr, int iX, int iY, object pBase, int iTea
 
 /* Spielziel setzen */
 
-protected func CreateGoal(id idGoal, int iScore)
+protected func CreateGoal(id idGoal, int iScore, string szMessage)
 {
   //Spielziel erstellen
   var goal = CreateObject(idGoal, 0,0, -1);
@@ -384,8 +384,11 @@ protected func CreateGoal(id idGoal, int iScore)
   pGoal = goal;
   //Alten Wert setzen
   SetWinScore(iScore, goal);
-  //Alle benachrichtigen
-  EventInfo4K(0,Format("$Goal$", GetName(0, idGoal)),idGoal, 0, 0, 0, "Info.ogg");
+	//Alle benachrichtigen
+	if(!szMessage)
+ 		EventInfo4K(0, Format("$Goal$", GetName(0, idGoal)), idGoal, 0, 0, 0, "Info.ogg");
+  else
+  	EventInfo4K(0, szMessage, idGoal, 0, 0, 0, "Info.ogg");
   //Array leeren um erneuten Menüaufruf zu verhindern
   aGoals = CreateArray();
   //Normales Menü öffnen
@@ -641,18 +644,30 @@ protected func FxEvaluateGoalVoteTimer(pTarget, iEffect, iTime)
     if (GetType(array) == C4V_Array)
       for (var i = 0; i < GetLength(array); i++)
         aGoalsChosen[i] += array[i];
-  //Alle Ziele mit dem höchsten Wert raussuchen
+  //Alle Ziele mit dem höchsten Wert raussuchen sowie einen String zur Auswertung bereitstellen
+	var str = "";
   var highest;
   for (var i in aGoalsChosen)
     highest = Max(highest, i);
   array = [];
   for (var i = 0; i < GetLength(aGoals); i++)
-    if (aGoalsChosen[i] == highest)
+  {
+  	if(aGoalsChosen[i])
+  	{
+  		var c = 44;
+  		if(i == GetLength(aGoals)-1)
+  			c = 32;
+  	
+  		str = Format("%s %s: %d%c", str, GetName(0, aGoals[i]), aGoalsChosen[i], c);
+  	}
+    if(aGoalsChosen[i] == highest)
       array[GetLength(array)] = aGoals[i];
+  }
   //Und zufällig eins auswählen
   var idGoal = array[Random(GetLength(array))];
+  str = Format("$Goal$ (%s)", GetName(0, idGoal), str);
   if (idGoal)
-    CreateGoal(idGoal, aTempGoalSave[GetIndexOf(idGoal, aGoals)]);
+    CreateGoal(idGoal, aTempGoalSave[GetIndexOf(idGoal, aGoals)], str);
   else
     OpenGoalChooseMenu();
   return -1;
