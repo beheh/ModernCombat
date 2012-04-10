@@ -56,7 +56,7 @@ public func ExecShove()
 
   //Objekt finden
   var victim = FindObject2(Find_Or(Find_AtPoint(px,py),Find_AtPoint(px/2,py/2)),
-                 Find_Exclude(this()),
+                 Find_And(Find_Exclude(this()), Find_Exclude(target)),
                  Find_NoContainer(),
                  Find_Or
                  (
