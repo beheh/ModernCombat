@@ -661,7 +661,7 @@ protected func FxEvaluateGoalVoteTimer(pTarget, iEffect, iTime)
     if(aGoalsChosen[i])
     {
       var c = 44;
-      if(i == cnt)
+      if(!--cnt)
         c = 32;
 
       var clr = 0xFFFF33;
