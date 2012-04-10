@@ -631,34 +631,44 @@ protected func CheckVoteGoal(id idGoal, object pClonk)
 
 protected func FxEvaluateGoalVoteTimer(pTarget, iEffect, iTime)
 {
-  if (CHOS_GoalVotingTime - (iTime / 35) < 5)
+  if(CHOS_GoalVotingTime - (iTime / 35) < 5)
     Sound("Select.ogg", true);
-  for (var i = 0; i < GetPlayerCount(); i++)
+  for(var i = 0; i < GetPlayerCount(); i++)
     GoalVoteMenu(0, GetCrew(GetPlayerByIndex(i)), GetPlayerByIndex(i));
 
-  if (iTime / 35 < CHOS_GoalVotingTime)
+  if(iTime / 35 < CHOS_GoalVotingTime)
     return;
   var aGoalsChosen = [];
   //Spieler durchgehen
-  for (var array in aGoalsVoted)
-    if (GetType(array) == C4V_Array)
-      for (var i = 0; i < GetLength(array); i++)
+  for(var array in aGoalsVoted)
+    if(GetType(array) == C4V_Array)
+      for(var i = 0; i < GetLength(array); i++)
         aGoalsChosen[i] += array[i];
   //Alle Ziele mit dem höchsten Wert raussuchen sowie einen String zur Auswertung bereitstellen
 	var str = "";
   var highest;
-  for (var i in aGoalsChosen)
+  for(var i in aGoalsChosen)
     highest = Max(highest, i);
   array = [];
-  for (var i = 0; i < GetLength(aGoals); i++)
+  var cnt;
+  //Zählen, wie viele Spielziele mehr als 0 Punkte haben.
+  for(var i = 0; i < GetLength(aGoals); i++)
+  	if(aGoalsChosen[i])
+  		cnt++;
+  
+  for(var i = 0; i < GetLength(aGoals); i++)
   {
   	if(aGoalsChosen[i])
   	{
   		var c = 44;
-  		if(i == GetLength(aGoals)-1)
+  		if(i == cnt)
   			c = 32;
   	
-  		str = Format("%s %s: %d%c", str, GetName(0, aGoals[i]), aGoalsChosen[i], c);
+  		var clr = 0xFFFF33;
+  		if(aGoalsChosen[i] == highest)
+  			clr = 0x33CCFF;
+  		
+  		str = Format("%s %s: <c %x>%d</c>%c", str, GetName(0, aGoals[i]), clr, aGoalsChosen[i], c);
   	}
     if(aGoalsChosen[i] == highest)
       array[GetLength(array)] = aGoals[i];
