@@ -41,8 +41,8 @@ public func FxReparationBarsStart(object target, int nr)
 
 public func FxReparationBarsTimer(object target, int nr)
 {
-	var pCont = Contained(); var iPlr = GetOwner(pCont);
-	
+  var pCont = Contained(); var iPlr = GetOwner(pCont);
+
   if(!pCont || !(pCont->GetOCF() & OCF_Alive))
   {
     if(GetLength(EffectVar(0, target, nr)) > 0)
@@ -149,7 +149,7 @@ public func ControlThrow(pByObject)
     //Nicht starten wenn nicht geladen
     return true;
   }
-  
+
   //Feuerbereitschaft?
   if(!(Contained()->~ReadyToFire()) || GetAction(Contained()) == "Crawl")
     return true;
@@ -207,9 +207,9 @@ public func FxRepairObjectsTimer(object target, int nr, int time)
 {
   if(charge <= 0)
     return -1;
-  
+
   var clonk = EffectVar(0, target, nr);
-  
+
   if(Contained() != clonk || !(clonk->~ReadyToFire()) || GetAction(clonk) == "Crawl")
     return -1;
 
@@ -290,11 +290,12 @@ public func Use(caller)
         used = true;
         charge = BoundBy(charge-1, 0, MaxEnergy());
       }
-      else if(obj->~IsFakeRepairable())
+      else if(obj->~IsFakeRepairable()) //Konsolen
       {
+        //Konsole beschädigen
       	obj = obj->GetRealRepairableObject();
       	DoDmg(5, DMG_Fire, obj);
-      	
+
       	used = true;
       	charge = BoundBy(charge-1, 0, MaxEnergy());
       }
@@ -316,9 +317,9 @@ public func Use(caller)
     }
     else
     {
-    	if(obj->~IsFakeRepairable())
-    		obj = obj->GetRealRepairableObject();
-    
+      if(obj->~IsFakeRepairable()) //Konsolen reparieren
+        obj = obj->GetRealRepairableObject();
+
       //Fahrzeug reparieren
       DoDamage(-2, obj);
 
