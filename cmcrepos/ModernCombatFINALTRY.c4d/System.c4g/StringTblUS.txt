@@ -88,3 +88,4 @@ Beer=The beer
 YourGlance=Your glance
 YourHarddrive=Your harddrive
 YourChat=Your chat window
+F=Failed
