@@ -93,6 +93,8 @@ public func SetBarCount(int iCount)
 	iBarCount = iCount;
 }
 
+local tPercent; 
+
 public func Update(int percent, bool fDeactivate)
 {
 	//Anpassen (falls andere Anzeigen vorhanden)
@@ -111,7 +113,11 @@ public func Update(int percent, bool fDeactivate)
 	}
 	
 	//Prozentbalken anpassen
-	SetObjDrawTransform(10 * percent, 0, -160 * (100 - percent), 0, 1000, 0, 0, BAR_RowLayer);
+	if(percent != tPercent)
+	{
+		SetObjDrawTransform(10 * percent, 0, -160 * (100 - percent), 0, 1000, 0, 0, BAR_RowLayer);
+		tPercent = percent;
+	}
 	
 	return true;
 }
