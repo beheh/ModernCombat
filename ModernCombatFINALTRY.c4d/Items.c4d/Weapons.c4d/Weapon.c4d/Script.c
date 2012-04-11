@@ -605,7 +605,7 @@ public func Reload(int iFM)
   var iSlot = GetSlot(iFM);
   if(IsReloading(iSlot)) return false;
   //Nicht erlaubt? Verhindern
-	if(GetFMData(FM_NoAmmoModify,iFM)) return false;
+  if(GetFMData(FM_NoAmmoModify,iFM)) return false;
   //Verzögerung? Abbrechen
   if(IsRecharging()) RemoveEffect("Recharge", this);
   
