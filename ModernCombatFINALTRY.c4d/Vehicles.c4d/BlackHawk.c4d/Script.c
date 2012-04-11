@@ -1106,8 +1106,10 @@ public func OnDmg(int iDmg, int iType)
   return 50;
 }
 
-public func OnDamage()
+public func OnDamage(int iDamage)
 {
+  //Reperaturen haben keine Auswirkung
+  if(iDamage < 1) return;
   //Schaden dem HUD melden
   if(hud)
     hud->DamageReceived();
