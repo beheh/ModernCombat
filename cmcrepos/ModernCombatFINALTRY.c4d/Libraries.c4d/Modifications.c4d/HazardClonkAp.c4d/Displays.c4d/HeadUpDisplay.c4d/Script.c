@@ -9,7 +9,10 @@ local CharsWAmmo,
       CharEqS,
       rechargebar;
 
-local lItem;
+local pLastItem;
+local iLastWeaponAmmo;
+local iLastWeaponFM;
+local iLastWeaponFT;
 
 public func ColorEmpty()	{return RGB(255, 0, 0);}
 public func ColorLow()		{return RGB(255, 150, 0);}
@@ -42,6 +45,10 @@ protected func Initialize()
 
   rechargebar = CreateObject(RBAR, 0, -15, GetOwner()); 
 
+  iLastWeaponAmmo = -1;
+  iLastWeaponFT = -1;
+  iLastWeaponFM = -1;
+
   SetVisibility(VIS_Owner);
 }
 
@@ -69,9 +76,11 @@ protected func Timer()
 
 public func HideWeapons()
 {
+  pLastItem = 0;
+  
   if(GetVisibility() == VIS_None)
     return true;
-
+	
   for(var char in CharsWAmmo)
     SetVisibility(VIS_None, char);
 
@@ -82,11 +91,10 @@ public func HideWeapons()
   {
     for(var char in CharsClonkAmmo)
       SetVisibility(VIS_None, char);
-
     SetVisibility(VIS_None, CharEqS); 
   }
   SetVisibility(VIS_None, rechargebar);
-  CustomMessage("", this, GetOwner());
+  CustomMessage("", this, NO_OWNER);
   SetVisibility(VIS_None);
 }
 
@@ -121,17 +129,19 @@ protected func UpdateHUD(object weapon, object pClonk)
 
   if(!weapon) return HideWeapons();
 
-  if(lItem != weapon)
+  if(pLastItem != weapon)
   {  
     SetVisibility(VIS_None, rechargebar);
-    lItem = weapon;
+    pLastItem = weapon;
+    iLastWeaponAmmo = -1;
+    iLastWeaponFM = -1;
+    iLastWeaponFT = -1;
   }
 
   if(NoAmmo() && GetVisibility(CharEqS) == VIS_Owner)
   {
     for(var char in CharsClonkAmmo)
       SetVisibility(VIS_None, char);
-
     SetVisibility(VIS_None, CharEqS); 
   }
 
@@ -150,63 +160,69 @@ protected func UpdateHUD(object weapon, object pClonk)
   {
     //Munition in der Waffe
     var weaponAmmo = GetAmmo(weapon->~GetFMData(FM_AmmoID), weapon);
-    var maxAmmo = weapon->~GetFMData(FM_AmmoLoad);
-    var wAmmo = Format("%03d", weaponAmmo);
-    var clr = ColorEmpty()*(!weaponAmmo);
-    if(Inside(weaponAmmo, 1, maxAmmo/3))
-      clr = ColorLow();
+    if(iLastWeaponAmmo != weaponAmmo || iLastWeaponFM != weapon->~GetFireMode() || iLastWeaponFT != weapon->~GetFireTec()) {
+      iLastWeaponAmmo = weaponAmmo;
+      iLastWeaponFM = weapon->~GetFireMode();
+      iLastWeaponFT = weapon->~GetFireTec();
+      var maxAmmo = weapon->~GetFMData(FM_AmmoLoad);
+      var wAmmo = Format("%03d", weaponAmmo);
+      var clr = ColorEmpty()*(!weaponAmmo);
+      if(Inside(weaponAmmo, 1, maxAmmo/3))
+        clr = ColorLow();
 
-    var i = 0;
-    if(weapon)
-    for(var char in CharsWAmmo)
-    {
-      char->Set(GetChar(wAmmo, i), clr);
-      i++;
-    }
-
-    i = 0;
-
-    //Maximal ladbare Munition
-    var mAmmo = Format("%03d", maxAmmo);
-    for(var char in CharsMaxAmmo)
-    {
-      char->Set(GetChar(mAmmo, i));
-      i++;
-    }
-
-    i = 0;
-    //Bei aktiver Keine Munition-Regel überspringen
-    if(!NoAmmo())
-    {
-      //Munition des Munitionsgürtels ermitteln
-      var clonkAmmo = GetAmmo(weapon->~GetFMData(FM_AmmoID), pClonk);
-      var cAmmo = Format("%03d", clonkAmmo);
-      if(clonkAmmo > 0)
+      var i = 0;
+      if(weapon)
+      for(var char in CharsWAmmo)
       {
-        for(var char in CharsClonkAmmo)
-        {
-          char->Set(GetChar(cAmmo, i), RGB(0, 255, 255));
-          i++;
-        }
+        char->Set(GetChar(wAmmo, i), clr);
+        i++;
       }
+
+      i = 0;
+
+      //Maximal ladbare Munition
+      var mAmmo = Format("%03d", maxAmmo);
+      for(var char in CharsMaxAmmo)
+      {
+        char->Set(GetChar(mAmmo, i));
+        i++;
+      }
+
+      i = 0;
+      //Bei aktiver Keine Munition-Regel überspringen
+      if(!NoAmmo())
+      {
+        //Munition des Munitionsgürtels ermitteln
+        var clonkAmmo = GetAmmo(weapon->~GetFMData(FM_AmmoID), pClonk);
+        var cAmmo = Format("%03d", clonkAmmo);
+        if(clonkAmmo > 0)
+        {
+          for(var char in CharsClonkAmmo)
+          {
+            char->Set(GetChar(cAmmo, i), RGB(0, 255, 255));
+            i++;
+          }
+        }
+        else
+          for(var char in CharsClonkAmmo)
+            char->Set(48, ColorEmpty());
+
+        if(GetVisibility(CharEqS) == VIS_None)
+          SetVisibility(VIS_Owner, CharEqS);
+      }
+
+      /*-- Schrift: Munitionsart - Feuertechnik --*/
+      var ammoName = weapon->~GetFMData(FM_Name);
+      if(weapon->~IsWeapon2() && weapon->GetFMData(FT_Name))
+        var firemode = weapon->~GetFMData(FT_Name);
       else
-        for(var char in CharsClonkAmmo)
-          char->Set(48, ColorEmpty());
+        var firemode = weapon->~GetFMData(FM_Name);
 
-      if(GetVisibility(CharEqS) == VIS_None)
-        SetVisibility(VIS_Owner, CharEqS);
+      var str = Format("@<c ffff00>%s</c> - %s", ammoName, firemode);
+      LimitString(str, 29 + 15);
+
+      CustomMessage(str, this, NO_OWNER, 0, 60, 0, 0, 0, MSG_NoLinebreak);
     }
-
-    /*-- Schrift: Munitionsart - Feuertechnik --*/
-    var ammoName = weapon->~GetFMData(FM_Name);
-    if(weapon->~IsWeapon2() && weapon->GetFMData(FT_Name))
-      var firemode = weapon->~GetFMData(FT_Name);
-    else
-      var firemode = weapon->~GetFMData(FM_Name);
-
-    var str = Format("@<c ffff00>%s</c> - %s", ammoName, firemode);
-    LimitString(str, 29 + 15);
-    CustomMessage(str, this, GetOwner(), 0, 60, 0, 0, 0, MSG_NoLinebreak);
     if(weapon->IsRecharging())
     {
       SetVisibility(VIS_Owner, rechargebar);
@@ -312,7 +328,7 @@ public func Ammo(int iAmmoCount, int iAmmoLoad, string szName, bool fShow, int d
   }
 
   if(szName)
-    CustomMessage(Format("@%s",szName), this, GetOwner(), 0, 60, 0, 0, 0, MSG_Left);
+    CustomMessage(Format("@%s",szName), this, NO_OWNER, 0, 60, 0, 0, 0, MSG_Left);
 
   return 1;
 }
