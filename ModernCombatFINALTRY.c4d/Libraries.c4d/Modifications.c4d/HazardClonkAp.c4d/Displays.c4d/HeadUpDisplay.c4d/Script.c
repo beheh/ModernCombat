@@ -80,7 +80,7 @@ public func HideWeapons()
   
   if(GetVisibility() == VIS_None)
     return true;
-	
+
   for(var char in CharsWAmmo)
     SetVisibility(VIS_None, char);
 
