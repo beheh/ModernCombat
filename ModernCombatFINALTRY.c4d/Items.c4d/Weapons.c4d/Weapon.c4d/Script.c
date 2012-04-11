@@ -20,17 +20,18 @@ static const FM_SpreadAdd     = 19;	//Bei jedem Schuss hinzuzuaddierende Streuun
 static const FM_StartSpread   = 20;	//Bei Auswahl der Waffe gesetzte Streuung
 static const FM_MaxSpread     = 21;	//Maximaler Streuungswert
 static const FM_UnSpread      = 22;	//Bei jedem Schuss abzuziehende Streuung
+static const FM_NoAmmoModify  = 23; //Kein Ent-/Nachladen möglich
 
-static const FT_Name          = 23;	//Name der Feuertechnik
-static const FT_Icon          = 24;	//Icondefinition der Feuertechnik
-static const FT_IconFacet     = 25;	//Facet, siehe AddMenuItem
-static const FT_Condition     = 26;	//Wie FM_Condition, für Feuertechniken
+static const FT_Name          = 24;	//Name der Feuertechnik
+static const FT_Icon          = 25;	//Icondefinition der Feuertechnik
+static const FT_IconFacet     = 26;	//Facet, siehe AddMenuItem
+static const FT_Condition     = 27;	//Wie FM_Condition, für Feuertechniken
 
-static const MC_CanStrike     = 27;	//Waffe kann Kolbenschlag ausführen
-static const MC_Damage        = 28;	//Schaden eines Kolbenschlages
-static const MC_Recharge      = 29;	//Zeit nach Kolbenschlag bis erneut geschlagen oder gefeuert werden kann
-static const MC_Power         = 30;	//Wie weit das Ziel durch Kolbenschläge geschleudert wird
-static const MC_Angle         = 31;	//Mit welchem Winkel das Ziel durch Kolbenschläge geschleudert wird
+static const MC_CanStrike     = 28;	//Waffe kann Kolbenschlag ausführen
+static const MC_Damage        = 29;	//Schaden eines Kolbenschlages
+static const MC_Recharge      = 30;	//Zeit nach Kolbenschlag bis erneut geschlagen oder gefeuert werden kann
+static const MC_Power         = 31;	//Wie weit das Ziel durch Kolbenschläge geschleudert wird
+static const MC_Angle         = 32;	//Mit welchem Winkel das Ziel durch Kolbenschläge geschleudert wird
 
 public func IsWeapon2()		{return true;}	//Nutzt/inkludiert neues Waffensystem WPN2
 public func NoWeaponChoice()	{return GetID() == WPN2;}
@@ -88,21 +89,21 @@ public func FMMenu(clonk)
   var overlay;
 
   //Manuell nachladen
-  if (GetAmmoCount(GetSlot()) < GetFMData(FM_AmmoLoad) && (clonk->~GetAmmo(GetFMData(FM_AmmoID)) >= GetFMData(FM_AmmoUsage) || FindObject(NOAM)))
+  if(GetAmmoCount(GetSlot()) < GetFMData(FM_AmmoLoad) && (clonk->~GetAmmo(GetFMData(FM_AmmoID)) >= GetFMData(FM_AmmoUsage) || FindObject(NOAM)) && !GetFMData(FM_NoAmmoModify))
   {
     overlay = ring->AddThrowItem("$Reload$", "ManualReload",firemode,SMIN);
     SetGraphics("1",ring,SMIN,overlay,GFXOV_MODE_IngamePicture);
   }
 
   //Manuell entladen
-  if (GetAmmoCount(GetSlot()))
+  if(GetAmmoCount(GetSlot()) && !GetFMData(FM_NoAmmoModify))
   {
   	overlay = ring->AddDownItem("$AmmoType$","ManualEmpty",firemode,SMIN);
     SetGraphics("2",ring,SMIN,overlay,GFXOV_MODE_IngamePicture);
   }
 
   //Feuertechniken durchwechseln
-  if (GetFTCount() > 2)
+  if(GetFTCount() > 2)
   {
     overlay = ring->AddLeftItem("$FireTecBack$","CycleFT",-1,SMIN);
     SetGraphics("5",ring,SMIN,overlay,GFXOV_MODE_IngamePicture);
@@ -148,12 +149,14 @@ public func FMMenu(clonk)
 private func ManualReload(fm)
 {
   if(IsReloading()) return false;
+  if(GetFMData(FM_NoAmmoModify)) return false;
   return Reload(fm);
 }
 
 private func ManualEmpty(unused,fm)
 {
   if(IsReloading()) return false;
+  if(GetFMData(FM_NoAmmoModify)) return false;
   Sound("WPN2_Unload.ogg");
   return Empty2(GetSlot(fm));
 }
@@ -601,7 +604,8 @@ public func Reload(int iFM)
   if(!iFM) iFM = firemode;
   var iSlot = GetSlot(iFM);
   if(IsReloading(iSlot)) return false;
-
+  //Nicht erlaubt? Verhindern
+	if(GetFMData(FM_NoAmmoModify,iFM)) return false;
   //Verzögerung? Abbrechen
   if(IsRecharging()) RemoveEffect("Recharge", this);
   

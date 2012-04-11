@@ -39,6 +39,8 @@ public func FMData1(int data)
   if(data == FM_Slot)		return 1;
 
   if(data == FM_SpreadAdd)	return 300;
+  
+  if(data == FM_NoAmmoModify)	return 1;
 
   return Default(data);
 }
