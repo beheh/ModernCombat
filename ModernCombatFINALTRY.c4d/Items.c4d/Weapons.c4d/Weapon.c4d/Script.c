@@ -1004,7 +1004,8 @@ private func Shoot(object caller)
   }
   if(!GetFMData(FM_Auto) && !GetFMData(FM_BurstAmount)) OnFireStop(firemode);
   //HZCK soll Munition doch bitte neu anschauen
-  GetUser()->~UpdateCharge();
+  if(user)
+    user->~UpdateCharge();
   return true;
 }
 
