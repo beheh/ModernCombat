@@ -1,2 +1,12 @@
 CtxEquipmentDesc=Ausrüstung
 CtxUnbuckleEquipment=%s ablegen
+
+# Statistiken
+PlayerStats=Deine Statistiken:
+BattlePoints=%d Gefechtspunkte
+TeamPoints=%d Teampunkte
+KillCount=%d Kills
+DeathCount=%d Tode
+AchievedAchievements=Du hast %d von %d Errungenschaften erzielt.
+NextRank=Dein aktueller Rang: %s (%d)|Der nächste Rang: %s (%d)
+YourRank=Dein aktueller Rang: %s (%d)
