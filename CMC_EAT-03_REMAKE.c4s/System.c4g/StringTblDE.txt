@@ -1,0 +1,1 @@
+VersionWarning=<c ff0000>Achtung! Du benutzt eine veraltete Clonk Version, bei der die benutzten Funktionalitäten in diesem Szen eventuell nicht funtkionieren könnten! Benötigt wird mindestens die Version 4.9.10.4 [324]. <i>(Du benutzt die Version %d.%d.%d.%d [%d])</i></c>
