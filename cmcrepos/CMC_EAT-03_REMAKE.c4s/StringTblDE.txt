@@ -1,0 +1,9 @@
+CreatingFurniture=Szenario wird eingerichtet...
+
+//Sektionennamen
+
+SectionName0=Lobby
+SectionName1=Athletik I
+SectionName2=Athletik II
+SectionName3=Sprengstoffe I
+SectionName4=Einsatzschild

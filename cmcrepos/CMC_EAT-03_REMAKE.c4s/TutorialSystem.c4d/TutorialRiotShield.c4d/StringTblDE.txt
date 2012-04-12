@@ -1,0 +1,29 @@
+//Tutorialtext
+
+Txt01=<c 8888ff>Michael14</c>: Dann machen wir uns mal an das Einsatzschild. Nutze die <c ffff33>Sprungschanze</c>!
+Txt02=<c 8888ff>Michael14</c>: Weeee.. erm.. gehe jetzt weiter zur blockartigen Struktur <c ffff33>rechts</c> von dir.
+Txt03=<c 8888ff>Michael14</c>: Oh sh..ön... eine <c ffff33>Selbstschussanlage</c> bewacht diesen Gang, versuche ihn so zu durchqueren und du bist Toast. Gehe zurück, dort wartet ein <c ffff33>Einsatzschild</c>  auf dich.
+Txt04=<c 8888ff>Michael14</c>: In Ordnung. Beachte wie dein Clonk bei Anwahl des Schilds auch direkt gleicheres einsetzt. Du bist nun automatisch von <c ffff33>frontalem Projektilbeschuss</c> geschützt. Nutze das Schild um an der Selbstschussanlage vorbeizukommen.
+Txt05=<c 8888ff>Michael14</c>: Das Ding hat sich wohl überhitzt. Mit [<c ffff33>Werfen</c>] kann dein Clonk mit dem Schild zuschlagen. Das hinterlässt nicht nur beim Gegner bleibende Eindrücke, sondern so kann man auch bestimmte <c ffff33>Hindernisse</c> auf Seite schieben. Erklimme nun die Struktur und nutze die <c ffff33>Sprungschanze</c>!
+Txt06=<c 8888ff>Michael14</c>: Ganz nett. Nutze die Kisten jetzt mal taktisch aus um weiterzukommen.
+Txt07=<c 8888ff>Michael14</c>: Hätte auch nicht weniger erwartet. Mach das gleiche Kunststück hier erneut und <c ffff33>suche</c> den Ausgang um diese Lektion abzuschließen!
+
+//Terminaltext
+
+Info01=Terminals wie dieses findest du überall durch das Trainingsprogramm hindurch, sie geben dir wichtige Hinweise!
+Info02=Liegend ist der Clonk langsamer und nicht sehr mobil, dafür feuert es sich ausgezeichnet von dieser Position und Gegner haben mehr Probleme, liegende Gegenspieler auszuschalten.
+Info03=Wandsprünge erleichtern den Aufstieg in schwierigem Gelände erheblich, nutze sie auch, um schnell ausweichen zu können.
+Info04=Weiße Konsolen steuern bestimmte Objekte die zu deinem taktischen Vorteil genutzt werden können. Diese rechts beispielsweise kontrolliert die Selbstschussanlage (kurz SSA) weiter oben. Du solltest sie deaktivieren bevor du weitergehst!
+Info05=Der Backjump ist nicht nur eine gute Fortbewegungsmöglichkeit, sondern auch eine ausgezeichnete Möglichkeit um gegnerischen Attacken schnell auszuweichen.
+
+//Bestanden-Nachricht
+
+WellDone1=Ausgezeichnet, in kommenden Missionen würdest du nicht mal sofort sterben!
+WellDone2=Herrausragend! Übertreibs aber nicht sonst fängst du mit deinem Kopf noch was auf.
+WellDone3=Sehr schön. Für den Anfang garnicht so gut.
+
+//Versagt-Nachricht
+
+Fail1=Im Ernstfall würde man das wohl als "Epic Fail" bezeichnen.
+Fail2=Sowas würde im richtigen Einsatz Kommentare wie "lol", "woot" oder "noob" einheimsen.
+Fail3=Was war... was war das den... für sowas haben wir nicht mal Text vorbereitet.

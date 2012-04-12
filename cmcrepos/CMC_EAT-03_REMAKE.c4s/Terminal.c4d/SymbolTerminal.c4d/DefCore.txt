@@ -1,0 +1,9 @@
+[DefCore]
+id=SMT0
+Name=Symbol Terminal
+Version=4,9,5
+Category=C4D_StaticBack|C4D_Foreground
+Width=10
+Height=18
+Offset=-10,-9
+Picture=0,0,10,18
