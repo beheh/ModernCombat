@@ -11,13 +11,15 @@ static const RWDS_DeathCount = 7;
 
 /** Rang- und Statistiksystem **/
 
+global func GetRankID(int iRank) { return C4Id(Format("RG%02d", iRank)); }
+
 // Ladt alle Ränge in den Ränge-Cache.
 global func LoadRanks2Cache()
 {
 	if(!iRankCount)
 	{
 		iRankCount = 0;
-  	while(GetName(0, C4Id(Format("RG%02d", iRankCount))))
+  	while(GetName(0, GetRankID(iRankCount)))
   	{
   	  iRankCount++;
   	}
@@ -42,7 +44,20 @@ global func GetPlayerRank(int iPlr)
 global func RecalcPlayerRank(int iPlr) // Berechnet den neuen Spielerrangwert und speichert diesen.
 {
 	if(GetType(aRanks) == C4V_Array)
-		return aRanks[iPlr] = CalcRank(iPlr);
+	{
+		var nRank = CalcRank(iPlr);
+		
+		if(nRank != aRanks[iPlr])
+		{
+			aRanks[iPlr] = nRank;
+			
+		  //Achievementanzeige mit blauem Hintergrund
+    	var info = CreateObject(GetRankID(nRank), 0, 0, iPlr);
+    	//info->SetHighlightColor(RGB(0,153,255));
+    	EventInfo4K(0, Format("$YouHaveB33nPromoted$", GetTaggedPlayerName(iPlr), GetName(info)), GetID(info), 0, 0, 0, "PriorityInfo.ogg");
+ 		}
+		return aRanks[iPlr];
+	}
 	else
 		return -1;
 }
@@ -158,8 +173,6 @@ public func GetFullPlayerData(int iPlr, int iType)
 	}
 }
 
-global func DebugStatMenu() {  FindObject(RWDS)->StatsStatistics(0); }
-
 public func StatsStatistics(int iPlr)
 {
   var pClonk = GetCursor(iPlr);
@@ -190,9 +203,9 @@ public func StatsStatistics(int iPlr)
   
   var rank = GetPlayerRank(iPlr);
   if(rank != iRankCount-1)
-		AddMenuItem(Format("$NextRank$", GetName(0, C4Id(Format("RG%02d", rank))), rank, GetName(0, C4Id(Format("RG%02d", rank+1))), rank+1), 0, 0, pClonk);
+		AddMenuItem(Format("$NextRank$", GetName(0, GetRankID(rank)), rank, GetName(0, C4Id(Format("RG%02d", rank+1))), rank+1), 0, 0, pClonk);
 	else
-		AddMenuItem(Format("$YourRank$", GetName(0, C4Id(Format("RG%02d", rank))), rank), 0, 0, pClonk);
+		AddMenuItem(Format("$YourRank$", GetName(0, GetRankID(rank)), rank), 0, 0, pClonk);
   
   if(rank != iRankCount-1)
   {
@@ -235,7 +248,7 @@ public func StatsStatistics(int iPlr)
 			percent--; j--;
 		}
 		
-		AddMenuItem(Format("{{%i}} (%d) - %d - (%d) {{%i}}", C4Id(Format("RG%02d", rank)), (bpoints + tpoints), k2-(bpoints + tpoints), k2, C4Id(Format("RG%02d", rank+1))), 0, 0, pClonk);
+		AddMenuItem(Format("{{%i}} (%d) - %d - (%d) {{%i}}", GetRankID(rank), (bpoints + tpoints), k2-(bpoints + tpoints), k2, GetRankID(rank+1)), 0, 0, pClonk);
   	AddMenuItem(Format("%s</c>", str), 0, 0, pClonk);
   }
   
