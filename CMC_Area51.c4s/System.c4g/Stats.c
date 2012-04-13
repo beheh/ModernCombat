@@ -51,10 +51,10 @@ global func RecalcPlayerRank(int iPlr) // Berechnet den neuen Spielerrangwert un
 		{
 			aRanks[iPlr] = nRank;
 			
-		  //Achievementanzeige mit blauem Hintergrund
-    	var info = CreateObject(GetRankID(nRank), 0, 0, iPlr);
+    	//var info = CreateObject(GetRankID(nRank), 0, 0, iPlr);
     	//info->SetHighlightColor(RGB(0,153,255));
-    	EventInfo4K(0, Format("$YouHaveB33nPromoted$", GetTaggedPlayerName(iPlr), GetName(info)), GetID(info), 0, 0, 0, "PriorityInfo.ogg");
+    	EventInfo4K(0, Format("$YouHaveB33nPromoted$", GetTaggedPlayerName(iPlr), GetName(0, GetRankID(nRank))), GetRankID(nRank), 0, 0, 0, "PriorityInfo.ogg");
+    	//EventInfo4K(0, Format("$YouHaveB33nPromoted$", GetTaggedPlayerName(iPlr), GetName(info)), GetID(info), 0, 0, 0, "PriorityInfo.ogg");
  		}
 		return aRanks[iPlr];
 	}
