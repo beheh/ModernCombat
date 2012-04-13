@@ -71,6 +71,9 @@ global func CalcRank(int iPlr)
 		var k2 = 225 * (j+1) ** 2;
 		k2 -= (k2 % 1000) * (k2 > 1000); // benötigte Punktzahl (obere Grenze)
 		
+		if(j+1 == iRankCount)
+			k2 = 0x80000000;
+		
 		if(Inside(rpoints, k, k2-1))
 		{
 			rank = j;
@@ -168,9 +171,9 @@ public func StatsStatistics(int iPlr)
   var tpoints = GetFullPlayerData(iPlr, RWDS_TeamPoints);
   
   AddMenuItem("$PlayerStats$", 0, 0, pClonk);
-  AddMenuItem(Format("$BattlePoints$     $TeamPoints$", bpoints, tpoints), 0, 0, pClonk);
+  AddMenuItem(Format("$BattlePoints$|$TeamPoints$", bpoints, tpoints), 0, 0, pClonk);
   //AddMenuItem(Format("$TeamPoints$", tpoints), 0, 0, pClonk);
-  AddMenuItem(Format("$KillCount$     $DeathCount$", GetFullPlayerData(iPlr, RWDS_KillCount), GetFullPlayerData(iPlr, RWDS_DeathCount)), 0, 0, pClonk);
+  AddMenuItem(Format("$KillCount$|$DeathCount$", GetFullPlayerData(iPlr, RWDS_KillCount), GetFullPlayerData(iPlr, RWDS_DeathCount)), 0, 0, pClonk);
  // AddMenuItem(Format("$DeathCount$", GetFullPlayerData(iPlr, RWDS_DeathCount)), 0, 0, pClonk);
   
   var iGAchievementCnt = 0;
@@ -186,12 +189,12 @@ public func StatsStatistics(int iPlr)
   AddMenuItem(" | ", 0, 0, pClonk);
   
   var rank = GetPlayerRank(iPlr);
-  if(rank != iRankCount)
+  if(rank != iRankCount-1)
 		AddMenuItem(Format("$NextRank$", GetName(0, C4Id(Format("RG%02d", rank))), rank, GetName(0, C4Id(Format("RG%02d", rank+1))), rank+1), 0, 0, pClonk);
 	else
 		AddMenuItem(Format("$YourRank$", GetName(0, C4Id(Format("RG%02d", rank))), rank), 0, 0, pClonk);
   
-  if(rank != iRankCount)
+  if(rank != iRankCount-1)
   {
   	AddMenuItem(" ", 0, 0, pClonk);
   	
