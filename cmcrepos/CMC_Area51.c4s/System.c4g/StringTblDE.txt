@@ -3,10 +3,10 @@ CtxUnbuckleEquipment=%s ablegen
 
 # Statistiken
 PlayerStats=Deine Statistiken:
-BattlePoints=%d Gefechtspunkte
-TeamPoints=%d Teampunkte
-KillCount=%d Kills
-DeathCount=%d Tode
-AchievedAchievements=Du hast %d von %d Errungenschaften erzielt.
-NextRank=Dein aktueller Rang: %s (%d)|Der nächste Rang: %s (%d)
-YourRank=Dein aktueller Rang: %s (%d)
+BattlePoints=<c 00dd00>%d</c> Gefechtspunkte
+TeamPoints=<c 00dd00>%d</c> Teampunkte
+KillCount=<c ffff33>%d</c> Kills
+DeathCount=<c ee0000>%d</c> Tode
+AchievedAchievements=<c ffff33>%d</c> / %d Errungenschaften
+NextRank=Aktueller Rang: %s (%d)|Nächster Rang: %s (%d)
+YourRank=Aktueller Rang: %s (%d)
