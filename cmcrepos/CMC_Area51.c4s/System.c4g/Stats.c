@@ -39,6 +39,14 @@ global func GetPlayerRank(int iPlr)
 		return -1;
 }
 
+global func RecalcPlayerRank(int iPlr) // Berechnet den neuen Spielerrangwert und speichert diesen.
+{
+	if(GetType(aRanks) == C4V_Array)
+		return aRanks[iPlr] = CalcRank(iPlr);
+	else
+		return -1;
+}
+
 // Berechnet den Rang für iPlr.
 global func CalcRank(int iPlr)
 {
@@ -53,7 +61,10 @@ global func CalcRank(int iPlr)
 	if((rewards = FindObject(RWDS)))
 		if((rpoints += BoundBy(rewards->GetPlayerData(RWDS_BattlePoints, iPlr), 0, 0x7FFFFFFF) + BoundBy(rewards->GetPlayerData(RWDS_TeamPoints, iPlr), 0, 0x7FFFFFFF)) < 0)
 			rpoints = 0x7FFFFFFF;
-	
+	if(GetType(aRanks) == C4V_Array)
+		return aRanks[iPlr];
+	else
+		return -1;
 	var rank;
 	
 	for(var j = 0; j < iRankCount; j++)
@@ -189,7 +200,7 @@ public func StatsStatistics(int iPlr)
   	
   	var str = "";
   	 
- 	 var k = 225 * rank ** 2;
+ 	  var k = 225 * rank ** 2;
 		k -= (k % 1000) * (k > 1000);
 		var k2 = 225 * (rank+1) ** 2;
 		k2 -= (k2 % 1000) * (k2 > 1000);
@@ -218,10 +229,6 @@ public func StatsStatistics(int iPlr)
 				
 				str = Format("%s<c 444444>", str);
 			}
-			/*if(percent > 0)
-				clr = GetPlrColorDw(iPlr);
-			else
-				clr = 0xFFFFFF;*/
 			
 			str = Format("%s{{%i}}", str, barID);
 		
@@ -323,6 +330,46 @@ public func StatsList(int iPlr, int iIndex, int iOffset, int iMenuEntry)
   return true;
 }
 
+///////////////////////////////////////////////////////////////////////////////////
+
+global func DoPlayerPoints(int iPoints, int iType, int iPlr, object pClonk, id idIcon)
+{
+  var db = FindObject2(Find_ID(RWDS));
+  if(!db) return;
+  if(!iPoints) return;
+  if(iType != RWDS_BattlePoints && iType != RWDS_TeamPoints && iType != RWDS_MinusPoints)
+    return ErrorLog("Invalid points type %d for %d points at %v", iType, iPoints, pClonk);
+  if(db->SetPlayerData(db->GetPlayerPoints(iType, iPlr)+iPoints, iType, iPlr))
+  {
+    //Achievement-Fortschritt (Point Hunter)
+    DoAchievementProgress(iPoints, AC13, iPlr);
+    
+    //Den neuen Rang berechnen...
+    if(iType == RWDS_TeamPoints || iType == RWDS_BattlePoints)
+    	RecalcPlayerRank(iPlr);
+    
+    if(pClonk)
+    {
+      if(!idIcon) idIcon = RWDS;
+      var szMsg;
+      if(iPoints < 0) szMsg = Format("{{%i}} <c ff0000>%d</c>", idIcon, iPoints);
+      if(iPoints > 0) szMsg = Format("{{%i}} <c 00ff00>+%d</c>", idIcon, iPoints);
+      if(iPoints == 0) szMsg = Format("{{%i}} <c ffff00>+%d</c>", idIcon, iPoints);
+      pClonk->AddEffect("PointMessage", pClonk, 130, 1, pClonk, 0, szMsg);
+      return true;
+    }
+  }
+  return;
+}
+
+global func GetTaggedPlayerName(int iPlr, bool fRank)
+{
+	var rank = GetPlayerRank(iPlr);
+	if(fRank)
+		return Format("{{%i}} %s <c %x>%s</c>", rank, GetName(0, rank), GetPlrColorDw(iPlr), GetPlayerName(iPlr));
+		
+	return _inherited(iPlr);
+}
 
 
 
