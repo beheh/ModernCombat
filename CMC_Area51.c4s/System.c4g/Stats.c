@@ -61,10 +61,7 @@ global func CalcRank(int iPlr)
 	if((rewards = FindObject(RWDS)))
 		if((rpoints += BoundBy(rewards->GetPlayerData(RWDS_BattlePoints, iPlr), 0, 0x7FFFFFFF) + BoundBy(rewards->GetPlayerData(RWDS_TeamPoints, iPlr), 0, 0x7FFFFFFF)) < 0)
 			rpoints = 0x7FFFFFFF;
-	if(GetType(aRanks) == C4V_Array)
-		return aRanks[iPlr];
-	else
-		return -1;
+	
 	var rank;
 	
 	for(var j = 0; j < iRankCount; j++)
@@ -235,7 +232,8 @@ public func StatsStatistics(int iPlr)
 			percent--; j--;
 		}
 		
-		AddMenuItem(Format("{{%i}} (%d) %s</c> (%d) {{%i}}", C4Id(Format("RG%02d", rank)), (bpoints + tpoints), str, k2, C4Id(Format("RG%02d", rank+1))), 0, 0, pClonk);
+		AddMenuItem(Format("{{%i}} (%d) - %d - (%d) {{%i}}", C4Id(Format("RG%02d", rank)), (bpoints + tpoints), k2-(bpoints + tpoints), k2, C4Id(Format("RG%02d", rank+1))), 0, 0, pClonk);
+  	AddMenuItem(Format("%s</c>", str), 0, 0, pClonk);
   }
   
   AddMenuItem(" | ", 0, 0, pClonk);
