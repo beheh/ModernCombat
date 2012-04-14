@@ -380,8 +380,8 @@ global func DoPlayerPoints(int iPoints, int iType, int iPlr, object pClonk, id i
 
 global func GetTaggedPlayerName(int iPlr, bool fRank)
 {
-	var rank = GetPlayerRank(iPlr);
-	if(fRank)
+	var rank = GetRankID(GetPlayerRank(iPlr));
+	if(fRank && (FindObject(RWDS) || FindObject(CHOS)))
 		return Format("{{%i}} %s <c %x>%s</c>", rank, GetName(0, rank), GetPlrColorDw(iPlr), GetPlayerName(iPlr));
 		
 	return _inherited(iPlr);
