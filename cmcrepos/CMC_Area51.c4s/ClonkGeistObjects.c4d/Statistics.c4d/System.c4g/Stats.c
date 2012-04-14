@@ -381,11 +381,32 @@ global func DoPlayerPoints(int iPoints, int iType, int iPlr, object pClonk, id i
 global func GetTaggedPlayerName(int iPlr, bool fRank)
 {
 	var rank = GetRankID(GetPlayerRank(iPlr));
-	if(fRank && (FindObject(RWDS) || FindObject(CHOS)))
+	if(fRank && (FindObject(RWDS) || FindObject(CHOS) || GetID() == RWDS))
 		return Format("{{%i}} %s <c %x>%s</c>", rank, GetName(0, rank), GetPlrColorDw(iPlr), GetPlayerName(iPlr));
 		
 	return _inherited(iPlr);
 }
 
+/* Spieler updaten */
 
-
+public func UpdatePlayers()
+{
+  if(!RewardsActive()) return;
+  var iOffset = 0;
+  for(var i = 0; i < GetPlayerCount()+iOffset; i++)
+  {
+    var iPlr = GetPlayerByIndex(i);
+    if(!GetPlayerName(iPlr) && GetPlayerData(RWDS_PlayerName, iPlr))
+    {
+      iOffset++;
+      continue;
+    }
+    
+    SetPlayerData(GetTaggedPlayerName(iPlr, true), RWDS_PlayerName, iPlr);
+    SetPlayerData(GetPlayerTeam(iPlr), RWDS_PlayerTeam, iPlr);
+    if(!aData[iPlr]) aData[iPlr] = CreateArray();
+    if(!aAchievementProgress[iPlr]) aAchievementProgress[iPlr] = CreateArray();
+    if(!aAchievementExtra[iPlr]) aAchievementExtra[iPlr] = CreateArray();
+  }
+  return 1;
+}

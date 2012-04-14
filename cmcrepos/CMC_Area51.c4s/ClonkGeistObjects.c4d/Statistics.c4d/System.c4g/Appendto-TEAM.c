@@ -7,7 +7,7 @@
 // Team eintragen, dass nur einen Spieler hat
 private func InitSingleplayerTeam(int iPlr)
 {
-  if(iPlr == -1) return();
+  if(iPlr == -1) return 0;
 
   var col = GetPlrColorDw(iPlr);
 
@@ -24,8 +24,8 @@ private func InitSingleplayerTeam(int iPlr)
 private func InitPlayer(int iPlr)
 {
   // Team 0 oder -1 können wir nicht behandeln
-  if(GetPlayerTeam(iPlr) < 1) return();
-  if(iPlr == -1) return();
+  if(GetPlayerTeam(iPlr) < 1) return 0;
+  if(iPlr == -1) return 0;
   
   UpdateHUDs();
   

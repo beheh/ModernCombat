@@ -2,6 +2,8 @@
 
 #strict 2
 
+#appendto GMNR
+
 public func UpdateScoreboard()
 {
   //Wird noch eingestellt
