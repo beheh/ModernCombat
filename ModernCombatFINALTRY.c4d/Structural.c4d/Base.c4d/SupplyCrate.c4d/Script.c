@@ -145,6 +145,8 @@ protected func Close()
 
 protected func Grabbed(object pClonk, bool fGrab)
 {
+  if(!fGrab)
+    RemoveEffect("IntResupply", pClonk);
   if(!CheckGrab())
     return;
   if(idSpawn && pClonk && fGrab && GetAction() == "Open")
@@ -153,13 +155,13 @@ protected func Grabbed(object pClonk, bool fGrab)
 
 protected func GrabLost(object pClonk)
 {
-  CheckGrab();
+  Grabbed(pClonk, false);
 }
 
 private func CheckGrab()
 {
   //Öffnet sich bzw. offen, wenn (mindestens) ein Clonk es anfasst
-  if(FindObject2(Find_OCF(OCF_CrewMember), Find_Action("Push"), Find_ActionTarget(this)))
+  if(FindObject2(Find_OCF(OCF_Alive), Find_Action("Push"), Find_ActionTarget(this)))
   {
     Open();
     return true;
@@ -174,11 +176,11 @@ protected func Opening()
 
 protected func Opened() 
 {
-  if (!CheckGrab() || !idSpawn)
+  if(!CheckGrab() || !idSpawn)
     return;
 
   //Alle anfassenden Spieler mit Effekt belegen sofern noch nicht vorhanden
-  for (var pClonk in FindObjects(Find_OCF(OCF_CrewMember), Find_Action("Push"), Find_ActionTarget(this)))
+  for(var pClonk in FindObjects(Find_OCF(OCF_Alive), Find_Action("Push"), Find_ActionTarget(this)))
     CheckResupply(pClonk, true);
 }
 
@@ -253,7 +255,7 @@ public func FxIntRespawnTimer(object pTarget, int iEffectNumber, int iEffectTime
 public func FxIntRespawnStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)
 {
   //Leeren
-  if (!fTemp)
+  if(!fTemp)
     while(Contents())
       RemoveObject(Contents());
 }
@@ -266,23 +268,12 @@ public func FxIntResupplyStart(object pTarget, int iEffectNumber, int iTemp, pCr
     return -1;
   EffectVar(0, pTarget, iEffectNumber) = pCrate; 
 
+  EffectCall(pTarget, iEffectNumber, "UpdateMessages");
+
   if(bStartTake)
   {
     if(EffectCall(pTarget, iEffectNumber, "Timer") == -1)
     {
-      EffectCall(pTarget, iEffectNumber, "Stop");
-      return -1;
-    }
-  }
-  else
-  {
-    var obj = Contents(0, pCrate);
-
-    PlayerMessage(GetController(pTarget), "@{{%i}}|%d/%d", pTarget, pCrate->GetSpawnID(), ContentsCount(pCrate->GetSpawnID(), pCrate), pCrate->GetMaxCount());
-
-    if(!obj)
-    {
-      EffectCall(pTarget, iEffectNumber, "Stop");
       return -1;
     }
   }
@@ -296,23 +287,23 @@ public func FxIntResupplyTimer(object pTarget, int iEffectNumber, int iEffectTim
 
   var obj = Contents(0, crate), objid = GetID(obj);
   if(!obj)
-    return -1;
+    return;
 
   //Platz für Munition?
   if(obj->~IsAmmoPacket())
     if(!obj->~MayTransfer(pTarget))
-      return -1;
+      return;
 
   //Platz für Handgranaten?
   if(obj->~IsGrenade())
   {
     if(!pTarget->~StoreGrenade(obj))
-      return -1;
+      return;
   }
   else
   {
     if(!Collect(obj, pTarget))
-      return -1;
+      return;
 
     //Waffen direkt laden
     if(obj->~IsWeapon())
@@ -322,23 +313,26 @@ public func FxIntResupplyTimer(object pTarget, int iEffectNumber, int iEffectTim
     if(obj->~IsAmmoPacket())
       obj->~TransferAmmo(pTarget);
   }
-
+  
   Sound("AMCT_Take.ogg", false, pTarget); 
 
-  if(!Contents(0, crate))
-  {
-    EffectVar(1, pTarget, iEffectNumber) = true;
-    PlayerMessage(GetController(pTarget), "{{%i}}|%d/%d", pTarget, objid, ContentsCount(objid, crate), crate->GetMaxCount());
-    return -1;
+  //Benachrichtigungen aktualisieren
+  EffectCall(pTarget, iEffectNumber, "UpdateMessages");
+}
+
+public func FxIntResupplyUpdateMessages(object pTarget, int iEffectNumber) {
+  var pCrate = EffectVar(0, pTarget, iEffectNumber);
+  var szMessage = Format("@{{%i}}|%d/%d", pCrate->GetSpawnID(), ContentsCount(pCrate->GetSpawnID(), pCrate), pCrate->GetMaxCount());
+  //Alle anfassenden Clonks aktualisieren
+  for(var pClonk in FindObjects(Find_OCF(OCF_CrewMember), Find_Action("Push"), Find_ActionTarget(pCrate))) {
+    PlayerMessage(GetController(pClonk), szMessage, pClonk);
   }
-  else
-    PlayerMessage(GetController(pTarget), "@{{%i}}|%d/%d", pTarget, objid, ContentsCount(objid,crate), crate->GetMaxCount());
 }
 
 public func FxIntResupplyStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)
 {
-  if(!EffectVar(1, pTarget, iEffectNumber))
-    PlayerMessage(GetController(pTarget), "", pTarget);
+  //Nachricht entfernen
+  PlayerMessage(GetController(pTarget), "", pTarget);
 }
 
 /* Aufschlag */ 
