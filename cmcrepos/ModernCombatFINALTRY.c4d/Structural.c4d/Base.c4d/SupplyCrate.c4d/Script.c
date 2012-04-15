@@ -184,8 +184,10 @@ protected func Opened()
 
 protected func CheckResupply(object pClonk, bool bStart)
 {
-  if(!GetEffect("IntResupply", pClonk))
-    AddEffect("IntResupply", pClonk, 10, iTakeTime, 0, GetID(), this, bStart);
+  if(GetEffect("IntResupply", pClonk))
+  	RemoveEffect("IntResupply", pClonk);
+  
+  AddEffect("IntResupply", pClonk, 10, iTakeTime, 0, GetID(), this, bStart);
 }
 
 protected func Closing() 
@@ -266,9 +268,9 @@ public func FxIntResupplyStart(object pTarget, int iEffectNumber, int iTemp, pCr
 
   if(bStartTake)
   {
-    if(EffectCall(pTarget, iEffectNumber, "Timer", pTarget, iEffectNumber) == -1)
+    if(EffectCall(pTarget, iEffectNumber, "Timer") == -1)
     {
-      EffectCall(pTarget, iEffectNumber, "Stop", pTarget, iEffectNumber);
+      EffectCall(pTarget, iEffectNumber, "Stop");
       return -1;
     }
   }
@@ -280,7 +282,7 @@ public func FxIntResupplyStart(object pTarget, int iEffectNumber, int iTemp, pCr
 
     if(!obj)
     {
-      EffectCall(pTarget, iEffectNumber, "Stop", pTarget, iEffectNumber);
+      EffectCall(pTarget, iEffectNumber, "Stop");
       return -1;
     }
   }
