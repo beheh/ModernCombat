@@ -275,7 +275,7 @@ public func StatsPoints(int iPlr)
   {
     var iTeam = GetPlayerData(RWDS_PlayerTeam, iPlayer);
     if(!aList[iTeam]) aList[iTeam] = CreateArray();
-    szString = Format("%s: %d $Points$", GetPlayerData(RWDS_PlayerName, iPlayer), GetPlayerPoints(RWDS_TotalPoints, iPlayer));
+    szString = Format("%s:| %d $Points$", GetPlayerData(RWDS_PlayerName, iPlayer), GetPlayerPoints(RWDS_TotalPoints, iPlayer));
                aList[iTeam][GetLength(aList[iTeam])] = szString;
                iPlayer++;
   }
