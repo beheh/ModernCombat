@@ -185,8 +185,8 @@ protected func Opened()
 protected func CheckResupply(object pClonk, bool bStart)
 {
   if(GetEffect("IntResupply", pClonk))
-  	RemoveEffect("IntResupply", pClonk);
-  
+    RemoveEffect("IntResupply", pClonk);
+
   AddEffect("IntResupply", pClonk, 10, iTakeTime, 0, GetID(), this, bStart);
 }
 
