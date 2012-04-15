@@ -50,7 +50,7 @@ public func StatsPoints(int iPlr)
                iPlayer++;
   }
   //Nach Team ausgeben
-  AddMenuItem("<c ffff33>$CurrentPoints$</c>", 0, NONE, pClonk);
+  AddMenuItem("<c 33ccff>$CurrentPoints$</c>", 0, NONE, pClonk);
 
   for(var aTeam in aList)
     if(aTeam)
@@ -75,8 +75,8 @@ public func StatsList(int iPlr, int iIndex, int iOffset, int iMenuEntry)
 
   var iData = GetPlrExtraData(iPlr, "CMC_Achievements");
 
-	//Überschrift
-	AddMenuItem(Format("<c ffff33>$MyAchievements$ ($showing$ %d/%d)</c>", BoundBy(iOffset+10, 0, iAchievementCount), iAchievementCount), 0, NONE, pClonk);
+  //Überschrift
+  AddMenuItem(Format("<c 33ccff>$MyAchievements$</c> ($showing$ %d/%d)", BoundBy(iOffset+10, 0, iAchievementCount), iAchievementCount), 0, NONE, pClonk);
 
   //Liste
   var i = 1+iOffset;
