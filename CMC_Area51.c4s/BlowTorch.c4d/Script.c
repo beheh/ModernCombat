@@ -326,7 +326,8 @@ public func Use(caller)
       if(GetDamage(obj) == 0)
         obj->~IsFullyRepaired();
 
-      if(GetPlayerTeam(GetOwner(obj)) == GetPlayerTeam(GetOwner(Contained())) && iRepaired++ >= 40)
+			//GetPlayerTeam(GetOwner(obj)) == GetPlayerTeam(GetOwner(Contained())) <- War vorher in if(...) drin, wurde durch Hostile ersetzt.
+      if(!Hostile(GetOwner(obj), GetOwner(Contained())) && GetOwner(obj) != GetOwner(Contained()) && iRepaired++ >= 40)
       {
         //Punkte bei Belohnungssystem (Reparatur)
         DoPlayerPoints(10, RWDS_TeamPoints, GetOwner(Contained()), Contained(), IC15);
