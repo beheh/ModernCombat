@@ -1,3 +1,15 @@
+# Statistiken
+
+PlayerStats=Deine Statistiken:
+BattlePoints=<c 00dd00>%d</c> Gefechtspunkte
+TeamPoints=<c 00dd00>%d</c> Teampunkte
+KillCount=<c ffff33>%d</c> Kills
+DeathCount=<c ee0000>%d</c> Tode
+AchievedAchievements=<c ffff33>%d</c> / %d Errungenschaften
+NextRank=Aktueller Rang: %s (%d)|Nächster Rang: %s (%d)
+YourRank=Aktueller Rang: %s (%d)
+YouHaveB33nPromoted=%s wurde zum %s befödert!
+
 # Allgemein
 
 CurrentPoints=Aktuelle Punkteverteilung
@@ -19,5 +31,5 @@ Back=Zurück
 
 # Auswertung
 
-FirstLine={{%i}} %s %s (Rang %d)|Gesamtpunktzahl: <c ffbb00>%d</c>
+FirstLine=%s|Punktestand: <c ddddd>%d (+ %d)</c> <c ffbb00>%d</c>
 SecondLine=Gefecht: <c 00ff00>+%d</c>  Team: <c 00ff00>+%d</c>  Minus: <c ff0000>%d</c>
