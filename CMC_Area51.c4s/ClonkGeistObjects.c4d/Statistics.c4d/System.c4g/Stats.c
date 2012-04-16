@@ -108,6 +108,8 @@ public func SavePlrStatistics(int iPlr)
 	var kcnt = GetFullPlayerData(iPlr, RWDS_KillCount);
 	var dcnt = GetFullPlayerData(iPlr, RWDS_DeathCount);
 	
+	SetPlayerData(tpoints + bpoints, RWDS_SavedTotalPoints, iPlr);
+	
 	SetPlrExtraData(iPlr, "CMC_BattlePoints", bpoints);
 	SetPlrExtraData(iPlr, "CMC_TeamPoints", tpoints);
 	SetPlrExtraData(iPlr, "CMC_KillCount", kcnt);
@@ -410,3 +412,58 @@ public func UpdatePlayers()
   }
   return 1;
 }
+
+//////////////////////////////////Trololol//////////////////////////////////////
+
+static const RWDS_StartTotalPoints = 8;
+static const RWDS_SavedTotalPoints = 9;
+
+public func Evaluate()
+{
+  //Einmalige Auswertung starten
+  if(fEvaluation) return 0;
+  fEvaluation = true;
+  var db = this;
+
+  //Sortieren
+  var aList = CreateArray();
+  var iPlr, szFirstLine, szSecondLine;
+  var iPlr = 0;
+
+  //Kopfzeilen erstellen
+  while(db->GetData()[iPlr] != 0)
+  {
+    if(!aList[GetPlayerTeam(iPlr)]) aList[GetPlayerTeam(iPlr)] = CreateArray();
+    
+    
+    szFirstLine = Format("$FirstLine$",										//Erste Zeile
+			db->GetPlayerPoints(RWDS_PlayerName, iPlr),						//Spielername
+			db->GetPlayerData(RWDS_StartTotalPoints, iPlr),
+			db->GetPlayerPoints(RWDS_TotalPoints, iPlr),
+			db->GetPlayerData(RWDS_SavedTotalPoints, iPlr));						//Gesamtpunktzahl
+
+    szSecondLine = Format("$SecondLine$",									//Dritte Zeile
+			db->GetPlayerPoints(RWDS_BattlePoints, iPlr),						//Gefechtspunkte
+			db->GetPlayerPoints(RWDS_TeamPoints, iPlr),						//Teampunkte
+			db->GetPlayerPoints(RWDS_MinusPoints, iPlr));						//Minuspunkte
+
+    aList[GetPlayerTeam(iPlr)][GetLength(aList[GetPlayerTeam(iPlr)])] = [szFirstLine, szSecondLine];
+    AddEvaluationData(Format("{{IC01}}$Points$: %d", db->GetPlayerPoints(RWDS_TotalPoints, iPlr)), iPlr+1);
+    iPlr++;
+  }
+
+  //Teamweise Auflistung der Daten
+  for(var aTeam in aList)
+  {
+    if(!aTeam) continue;
+    for(var aStrings in aTeam)
+    {
+      AddEvaluationData(aStrings[0], 0);
+      AddEvaluationData(aStrings[1], 0);
+    }
+  }
+  return 1;
+}
+
+
+ 
