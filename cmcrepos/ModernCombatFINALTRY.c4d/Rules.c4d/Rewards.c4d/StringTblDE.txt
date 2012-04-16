@@ -8,7 +8,8 @@ DeathCount=<c ee0000>%d</c> Tode
 AchievedAchievements=<c ffff33>%d</c> / %d Errungenschaften
 NextRank=Aktueller Rang: %s (%d)|Nächster Rang: %s (%d)
 YourRank=Aktueller Rang: %s (%d)
-YouHaveB33nPromoted=%s wurde zum %s befödert!
+YouHaveBeenPromoted=%s wurde zum %s befödert!
+ShowStats=Statistiken
 
 # Allgemein
 
