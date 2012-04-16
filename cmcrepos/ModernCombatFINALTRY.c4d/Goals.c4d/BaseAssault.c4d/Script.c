@@ -130,7 +130,6 @@ public func UpdateScoreboard()
   SortScoreboard(GBAS_Name);
 }
 
-
 private func GetTeamPlayerByIndex(int iPlr, int iTeam)
 {
   for (var i; i < GetPlayerCount(); i++)

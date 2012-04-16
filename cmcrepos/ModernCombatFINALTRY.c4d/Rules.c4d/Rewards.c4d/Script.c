@@ -8,6 +8,7 @@ local aData, fEvaluation, aStats;
 
 public func IsChooseable()	{return true;}
 
+
 /* Initialisierung */
 
 protected func Initialize()
@@ -76,8 +77,8 @@ public func StatsList(int iPlr, int iIndex, int iOffset, int iMenuEntry)
 
   var iData = GetPlrExtraData(iPlr, "CMC_Achievements");
 
-	//Überschrift
-	AddMenuItem(Format("<c ffff33>$MyAchievements$ ($showing$ %d/%d)</c>", BoundBy(iOffset+10, 0, iAchievementCount), iAchievementCount), 0, NONE, pClonk);
+  //Überschrift
+  AddMenuItem(Format("<c ffff33>$MyAchievements$ ($showing$ %d/%d)</c>", BoundBy(iOffset+10, 0, iAchievementCount), iAchievementCount), 0, NONE, pClonk);
 
   //Liste
   var i = 1+iOffset;
@@ -106,8 +107,8 @@ public func StatsList(int iPlr, int iIndex, int iOffset, int iMenuEntry)
 
   //Zurück zur Punkteübersicht
   AddMenuItem("$ShowPoints$", Format("StatsPoints(%d)", iPlr), NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
-	AddMenuItem("$ShowStats$", Format("StatsStatistics(%d)", iPlr), NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
-	
+  AddMenuItem("$ShowStats$", Format("StatsStatistics(%d)", iPlr), NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
+
   if(iIndex)
     SelectMenuItem(iIndex+1, pClonk);
   else
@@ -179,8 +180,7 @@ public func Evaluate()
   while(db->GetData()[iPlr] != 0)
   {
     if(!aList[GetPlayerTeam(iPlr)]) aList[GetPlayerTeam(iPlr)] = CreateArray();
-    
-    
+
     szFirstLine = Format("$FirstLine$",										//Erste Zeile
 			db->GetPlayerPoints(RWDS_PlayerName, iPlr),						//Spielername
 			db->GetPlayerData(RWDS_StartTotalPoints, iPlr),
@@ -236,16 +236,16 @@ public func UpdatePlayers()
 
 /* Werte setzen und auslesen */
 
-static const RWDS_PlayerName	= 0;
-static const RWDS_PlayerTeam	= 1;
-static const RWDS_TotalPoints	= 2;
-static const RWDS_BattlePoints	= 3;
-static const RWDS_TeamPoints	= 4;
-static const RWDS_MinusPoints	= 5;
-static const RWDS_KillCount = 6;
-static const RWDS_DeathCount = 7;
-static const RWDS_StartTotalPoints = 8;
-static const RWDS_SavedTotalPoints = 9;
+static const RWDS_PlayerName		= 0;
+static const RWDS_PlayerTeam		= 1;
+static const RWDS_TotalPoints		= 2;
+static const RWDS_BattlePoints		= 3;
+static const RWDS_TeamPoints		= 4;
+static const RWDS_MinusPoints		= 5;
+static const RWDS_KillCount			= 6;
+static const RWDS_DeathCount		= 7;
+static const RWDS_StartTotalPoints	= 8;
+static const RWDS_SavedTotalPoints	= 9;
 
 global func DoPlayerPoints(int iPoints, int iType, int iPlr, object pClonk, id idIcon)
 {
@@ -259,10 +259,10 @@ global func DoPlayerPoints(int iPoints, int iType, int iPlr, object pClonk, id i
     //Achievement-Fortschritt (Point Hunter)
     DoAchievementProgress(iPoints, AC13, iPlr);
     
-    //Den neuen Rang berechnen...
+    //Neuen Rang berechnen
     if(iType == RWDS_TeamPoints || iType == RWDS_BattlePoints)
-    	RecalcPlayerRank(iPlr);
-    
+
+      RecalcPlayerRank(iPlr);
     if(pClonk)
     {
       if(!idIcon) idIcon = RWDS;
@@ -276,7 +276,6 @@ global func DoPlayerPoints(int iPoints, int iType, int iPlr, object pClonk, id i
   }
   return;
 }
-
 
 global func GetPlayerPoints(int iType, int iPlr)
 {

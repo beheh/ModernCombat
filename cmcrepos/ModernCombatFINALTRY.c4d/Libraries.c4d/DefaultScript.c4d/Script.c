@@ -54,10 +54,10 @@ func ChooserRuleConfig()
 protected func InitializePlayer(int iPlr, int iX, int iY, object pBase, int iTeam)
 {
   LoadRanks2Cache();
-	var db;
-	if(db = FindObject(RWDS))
-		db->SetPlayerData(db->GetFullPlayerData(iPlr, RWDS_BattlePoints) + db->GetFullPlayerData(iPlr, RWDS_TeamPoints), RWDS_StartTotalPoints, iPlr);
-	
+  var db;
+  if(db = FindObject(RWDS))
+    db->SetPlayerData(db->GetFullPlayerData(iPlr, RWDS_BattlePoints) + db->GetFullPlayerData(iPlr, RWDS_TeamPoints), RWDS_StartTotalPoints, iPlr);
+
   for(var i=0, pCrew ; pCrew = GetCrew(iPlr, i) ; i++)
     RelaunchPlayer(iPlr, pCrew, 0, iTeam, true);
 }
