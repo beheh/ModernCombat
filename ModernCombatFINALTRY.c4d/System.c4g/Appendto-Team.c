@@ -134,7 +134,7 @@ func DoEvaluation(int plr)
   AddEvaluationData(Format("{{KAMB}}$Death$: %d", aDeath[plr]), GetPlayerID(plr));
 }
 
-// Team eintragen, dass nur einen Spieler hat
+//Team eintragen, dass nur einen Spieler hat
 private func InitSingleplayerTeam(int iPlr)
 {
   if(iPlr == -1) return 0;
@@ -150,15 +150,15 @@ private func InitSingleplayerTeam(int iPlr)
   SortTeamScoreboard();
 }
 
-// Spieler eintragen
+//Spieler eintragen
 private func InitPlayer(int iPlr)
 {
-  // Team 0 oder -1 können wir nicht behandeln
+  // Team 0 oder -1 können nicht behandelt werden
   if(GetPlayerTeam(iPlr) < 1) return 0;
   if(iPlr == -1) return 0;
-  
+
   UpdateHUDs();
-  
+
   // Eintragen
   SetScoreboardData(iPlr, SBRD_Caption, "");
   SetScoreboardData(iPlr, TEAM_TeamColumn, Format("<c %x>\\</c>",GetTeamColor(GetPlayerTeam(iPlr))), GetPlayerTeam(iPlr));
@@ -168,5 +168,3 @@ private func InitPlayer(int iPlr)
   SetScoreboardData(iPlr, TEAM_DeathColumn, Format("%d", aDeath[iPlr]), aDeath[iPlr]);
   SortTeamScoreboard();
 }
-
-

@@ -143,9 +143,9 @@ public func UpdateScoreboard()
   {
     var row_id = CHOS_SBRD_Teams + 1 + i;
     var plr = GetPlayerByIndex(i, C4PT_User);
-		
-    SetScoreboardData(row_id, SBRD_Caption, GetTaggedPlayerName(plr, true), 0, true); 
-    SetScoreboardData(row_id, 0, GetTeamName(GetPlayerTeam(plr)), 0, true); 
+
+    SetScoreboardData(row_id, SBRD_Caption, GetTaggedPlayerName(plr, true), 0, true);
+    SetScoreboardData(row_id, 0, GetTeamName(GetPlayerTeam(plr)), 0, true);
   }
 }
 
@@ -298,16 +298,15 @@ protected func OpenTeamMenu(id dummy, int iSelection)
   //Teams auflisten
   for(var j = 0; j < GetPlayerCount(); j++)
   {
-  	var plr = GetPlayerByIndex(j);
+    var plr = GetPlayerByIndex(j);
     AddMenuItem(Format("%s (%s)", GetTaggedPlayerName(GetPlayerByIndex(plr), true), GetTeamName(GetPlayerTeam(plr))), "SwitchTeam", PCMK, pClonk, 0, plr);
-	}
-	
+  }
+
   //Fertig
   AddMenuItem("$Finished$", "OpenMenu", CHOS, pClonk, 0, 0, "$Finished$", 2, 3);
   //Letzten Eintrag auswählen
   SelectMenuItem(iSelection, pClonk);
 }
-
 
 protected func SwitchTeam(id dummy, int iPlr)
 {
