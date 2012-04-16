@@ -51,7 +51,7 @@ public func StatsPoints(int iPlr)
                iPlayer++;
   }
   //Nach Team ausgeben
-  AddMenuItem("<c ffff33>$CurrentPoints$</c>", 0, NONE, pClonk);
+  AddMenuItem("<c 33ccff>$PointTable$</c>", 0, NONE, pClonk);
 
   for(var aTeam in aList)
     if(aTeam)
@@ -63,9 +63,9 @@ public func StatsPoints(int iPlr)
   AddMenuItem(" ", 0, NONE, pClonk);
 
   //Eigene Errungenschaften anzeigen
-  AddMenuItem("$ShowAchievements$", Format("StatsList(%d, 0, 0, 2)", iPlr), NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
+  AddMenuItem("$Achievements$", Format("StatsList(%d, 0, 0, 2)", iPlr), NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
   //Statistik einblenden
-  AddMenuItem("$ShowStats$", Format("StatsStatistics(%d)", iPlr), NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
+  AddMenuItem("$Stats$", Format("StatsStatistics(%d)", iPlr), NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
 }
 
 public func StatsList(int iPlr, int iIndex, int iOffset, int iMenuEntry)
@@ -79,7 +79,7 @@ public func StatsList(int iPlr, int iIndex, int iOffset, int iMenuEntry)
   var iData = GetPlrExtraData(iPlr, "CMC_Achievements");
 
   //Überschrift
-  AddMenuItem(Format("<c ffff33>$MyAchievements$ ($showing$ %d/%d)</c>", BoundBy(iOffset+10, 0, iAchievementCount), iAchievementCount), 0, NONE, pClonk);
+  AddMenuItem(Format("<c 33ccff>$Achievements$ ($showing$ %d/%d)</c>", BoundBy(iOffset+10, 0, iAchievementCount), iAchievementCount), 0, NONE, pClonk);
 
   //Liste
   var i = 1+iOffset;
@@ -107,9 +107,9 @@ public func StatsList(int iPlr, int iIndex, int iOffset, int iMenuEntry)
     iMenuEntry--;
 
   //Eigene Errungenschaften anzeigen
-  AddMenuItem("$ShowPoints$", Format("StatsPoints(%d)", iPlr), NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
+  AddMenuItem("$PointTable$", Format("StatsPoints(%d)", iPlr), NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
   //Statistik einblenden
-  AddMenuItem("$ShowStats$", Format("StatsStatistics(%d)", iPlr), NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
+  AddMenuItem("$Stats$", Format("StatsStatistics(%d)", iPlr), NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
 
   if(iIndex)
     SelectMenuItem(iIndex+1, pClonk);
@@ -481,7 +481,7 @@ public func StatsStatistics(int iPlr)
   var bpoints = GetFullPlayerData(iPlr, RWDS_BattlePoints);
   var tpoints = GetFullPlayerData(iPlr, RWDS_TeamPoints);
   
-  AddMenuItem("$PlayerStats$", 0, 0, pClonk);
+  AddMenuItem("<c 33ccff>$Stats$</c>", 0, 0, pClonk);
   AddMenuItem(Format("$BattlePoints$|$TeamPoints$", bpoints, tpoints), 0, 0, pClonk);
   AddMenuItem(Format("$KillCount$|$DeathCount$", GetFullPlayerData(iPlr, RWDS_KillCount), GetFullPlayerData(iPlr, RWDS_DeathCount)), 0, 0, pClonk);
   
@@ -551,8 +551,8 @@ public func StatsStatistics(int iPlr)
   
   AddMenuItem(" | ", 0, 0, pClonk);
   
-  AddMenuItem("$ShowPoints$", Format("StatsPoints(%d)", iPlr), NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
-  AddMenuItem("$ShowAchievements$", Format("StatsList(%d, 0, 0, 2)", iPlr), NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
+  AddMenuItem("$PointTable$", Format("StatsPoints(%d)", iPlr), NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
+  AddMenuItem("$Achievements$", Format("StatsList(%d, 0, 0, 2)", iPlr), NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
 }
 
 /* Achievements */

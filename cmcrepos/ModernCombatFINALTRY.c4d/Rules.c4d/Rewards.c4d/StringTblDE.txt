@@ -1,6 +1,6 @@
 # Statistiken
 
-PlayerStats=Statistiken:
+Stats=Statistiken
 BattlePoints=<c 00dd00>%d</c> Gefechtspunkte
 TeamPoints=<c 00dd00>%d</c> Teampunkte
 KillCount=<c ffff33>%d</c> Kills
@@ -9,26 +9,28 @@ AchievedAchievements=<c ffff33>%d</c> / %d Errungenschaften
 NextRank=Aktueller Rang: %s (%d)|Nächster Rang: %s (%d)
 YourRank=Aktueller Rang: %s (%d)
 YouHaveBeenPromoted=%s wurde auf den Rang %s befödert!
-ShowStats=Statistiken
+
+# Errungenschaften
+
+Achievements=Errungenschaften
+showing=zeige
+NextPage=Nächste Seite
+LastPage=Vorherige Seite
+Back=Zurück
+
+# Punktetabelle
+
+PointTable=Punktetabelle
+Points=Punkte
 
 # Allgemein
 
-CurrentPoints=Aktuelle Punkteverteilung
-ShowPoints=Aktuelle Punkteverteilung anzeigen
-MyAchievements=Errungenschaften
-ShowAchievements=Errungenschaften anzeigen
-showing=zeige
-Points=Punkte
 AchievementNewUnlocked=<c %x>%s</c> hat die <c 33ccff>neue</c> Errungenschaft <c 33ccff>%s</c> erhalten
 AchievementUnlocked=<c %x>%s</c> hat die Errungenschaft <c ffff33>%s</c> erneut erhalten
 Achievement=Errungenschaft
 Achievements=Errungenschaften
 AchievementsUnlocked=%d Errungenschaften freigeschaltet:
 AchievementLocked=<c 777777>Du hast diese Errungenschaft noch nicht erreicht.</c>
-
-NextPage=Nächste Seite
-LastPage=Vorherige Seite
-Back=Zurück
 
 # Auswertung
 
