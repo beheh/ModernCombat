@@ -118,6 +118,7 @@ func ControlDig(object pByObj)
     var target = CreateObject(ARCR, iX, iY, GetOwner(pByObj));
     SetVisibility(VIS_Owner, target);
     SetPlrView(GetOwner(pByObj), target);
+    target->Set(pByObj);
     Sound("CatapultSet");
   }
 }

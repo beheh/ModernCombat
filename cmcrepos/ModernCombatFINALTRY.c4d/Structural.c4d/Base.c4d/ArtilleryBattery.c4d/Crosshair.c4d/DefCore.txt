@@ -9,5 +9,5 @@ Offset=-12,-12
 Vertices=1
 VertexY=1
 Picture=0,0,25,25
-Timer=1
+Timer=4
 TimerCall=Check
