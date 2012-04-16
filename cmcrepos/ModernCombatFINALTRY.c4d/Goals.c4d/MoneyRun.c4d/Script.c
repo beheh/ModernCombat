@@ -216,7 +216,7 @@ public func UpdateScoreboard()
     for (var i = 0; i < GetPlayerCount(); i++)
     {
       var plr = GetPlayerByIndex(i);
-      SetScoreboardData(plr, GMNR_Name, GetTaggedPlayerName(plr));
+      SetScoreboardData(plr, GMNR_Name, GetTaggedPlayerName(plr, true));
       SetScoreboardData(plr, GMNR_Count, Format("<c %x>%d</c>", GetPlrColorDw(plr), aMoney[plr]), aMoney[plr]);
     }
 

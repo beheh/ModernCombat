@@ -3,10 +3,10 @@
 #strict 2
 
 static aAchievementProgress, aAchievementExtra, iAchievementCount;
+static aRanks, iRankCount;
 local aData, fEvaluation, aStats;
 
 public func IsChooseable()	{return true;}
-
 
 /* Initialisierung */
 
@@ -45,12 +45,12 @@ public func StatsPoints(int iPlr)
   {
     var iTeam = GetPlayerData(RWDS_PlayerTeam, iPlayer);
     if(!aList[iTeam]) aList[iTeam] = CreateArray();
-    szString = Format("%s: %d $Points$", GetPlayerData(RWDS_PlayerName, iPlayer), GetPlayerPoints(RWDS_TotalPoints, iPlayer));
+    szString = Format("%s:| %d $Points$", GetPlayerData(RWDS_PlayerName, iPlayer), GetPlayerPoints(RWDS_TotalPoints, iPlayer));
                aList[iTeam][GetLength(aList[iTeam])] = szString;
                iPlayer++;
   }
   //Nach Team ausgeben
-  AddMenuItem("<c 33ccff>$CurrentPoints$</c>", 0, NONE, pClonk);
+  AddMenuItem("<c ffff33>$CurrentPoints$</c>", 0, NONE, pClonk);
 
   for(var aTeam in aList)
     if(aTeam)
@@ -63,6 +63,7 @@ public func StatsPoints(int iPlr)
 
   //Eigene Errungenschaften anzeigen
   AddMenuItem("$ShowAchievements$", Format("StatsList(%d, 0, 0, 2)", iPlr), NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
+  AddMenuItem("$ShowStats$", Format("StatsStatistics(%d)", iPlr), NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
 }
 
 public func StatsList(int iPlr, int iIndex, int iOffset, int iMenuEntry)
@@ -75,8 +76,8 @@ public func StatsList(int iPlr, int iIndex, int iOffset, int iMenuEntry)
 
   var iData = GetPlrExtraData(iPlr, "CMC_Achievements");
 
-  //Überschrift
-  AddMenuItem(Format("<c 33ccff>$MyAchievements$</c> ($showing$ %d/%d)", BoundBy(iOffset+10, 0, iAchievementCount), iAchievementCount), 0, NONE, pClonk);
+	//Überschrift
+	AddMenuItem(Format("<c ffff33>$MyAchievements$ ($showing$ %d/%d)</c>", BoundBy(iOffset+10, 0, iAchievementCount), iAchievementCount), 0, NONE, pClonk);
 
   //Liste
   var i = 1+iOffset;
@@ -105,7 +106,8 @@ public func StatsList(int iPlr, int iIndex, int iOffset, int iMenuEntry)
 
   //Zurück zur Punkteübersicht
   AddMenuItem("$ShowPoints$", Format("StatsPoints(%d)", iPlr), NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
-
+	AddMenuItem("$ShowStats$", Format("StatsStatistics(%d)", iPlr), NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
+	
   if(iIndex)
     SelectMenuItem(iIndex+1, pClonk);
   else
@@ -177,20 +179,13 @@ public func Evaluate()
   while(db->GetData()[iPlr] != 0)
   {
     if(!aList[GetPlayerTeam(iPlr)]) aList[GetPlayerTeam(iPlr)] = CreateArray();
-    var iGAchievementCnt = 0;
-    var iData = GetPlrExtraData(iPlr, "CMC_Achievements");
-    for(var i = 1; i <= iAchievementCount; i++)
-    {
-      if(iData >> i & 1)
-        iGAchievementCnt++;
-    }
-    var rank = iGAchievementCnt/3;
+    
+    
     szFirstLine = Format("$FirstLine$",										//Erste Zeile
-			C4Id(Format("RG%02d", rank)),								//Ranggrafik
-			GetName(0, C4Id(Format("RG%02d", rank))),						//Rangbezeichnung
 			db->GetPlayerPoints(RWDS_PlayerName, iPlr),						//Spielername
-			rank+1,											//Rangnummer
-			db->GetPlayerPoints(RWDS_TotalPoints, iPlr));						//Gesamtpunktzahl
+			db->GetPlayerData(RWDS_StartTotalPoints, iPlr),
+			db->GetPlayerPoints(RWDS_TotalPoints, iPlr),
+			db->GetPlayerData(RWDS_SavedTotalPoints, iPlr));						//Gesamtpunktzahl
 
     szSecondLine = Format("$SecondLine$",									//Dritte Zeile
 			db->GetPlayerPoints(RWDS_BattlePoints, iPlr),						//Gefechtspunkte
@@ -228,9 +223,9 @@ public func UpdatePlayers()
     {
       iOffset++;
       continue;
-
     }
-    SetPlayerData(Format("<c %x>%s</c>", GetPlrColorDw(iPlr), GetPlayerName(iPlr)), RWDS_PlayerName, iPlr);
+    
+    SetPlayerData(GetTaggedPlayerName(iPlr, true), RWDS_PlayerName, iPlr);
     SetPlayerData(GetPlayerTeam(iPlr), RWDS_PlayerTeam, iPlr);
     if(!aData[iPlr]) aData[iPlr] = CreateArray();
     if(!aAchievementProgress[iPlr]) aAchievementProgress[iPlr] = CreateArray();
@@ -247,6 +242,10 @@ static const RWDS_TotalPoints	= 2;
 static const RWDS_BattlePoints	= 3;
 static const RWDS_TeamPoints	= 4;
 static const RWDS_MinusPoints	= 5;
+static const RWDS_KillCount = 6;
+static const RWDS_DeathCount = 7;
+static const RWDS_StartTotalPoints = 8;
+static const RWDS_SavedTotalPoints = 9;
 
 global func DoPlayerPoints(int iPoints, int iType, int iPlr, object pClonk, id idIcon)
 {
@@ -259,6 +258,11 @@ global func DoPlayerPoints(int iPoints, int iType, int iPlr, object pClonk, id i
   {
     //Achievement-Fortschritt (Point Hunter)
     DoAchievementProgress(iPoints, AC13, iPlr);
+    
+    //Den neuen Rang berechnen...
+    if(iType == RWDS_TeamPoints || iType == RWDS_BattlePoints)
+    	RecalcPlayerRank(iPlr);
+    
     if(pClonk)
     {
       if(!idIcon) idIcon = RWDS;
@@ -273,6 +277,7 @@ global func DoPlayerPoints(int iPoints, int iType, int iPlr, object pClonk, id i
   return;
 }
 
+
 global func GetPlayerPoints(int iType, int iPlr)
 {
   var db = FindObject2(Find_ID(RWDS));
@@ -283,6 +288,270 @@ global func GetPlayerPoints(int iType, int iPlr)
 public func GetData()
 {
   return aData;
+}
+
+/* Ränge */
+
+global func GetRankID(int iRank) { return C4Id(Format("RG%02d", iRank)); }
+
+// Ladt alle Ränge in den Ränge-Cache.
+global func LoadRanks2Cache()
+{
+	if(!iRankCount)
+	{
+		iRankCount = 0;
+  	while(GetName(0, GetRankID(iRankCount)))
+  	{
+  	  iRankCount++;
+  	}
+  }
+   
+	aRanks = [];
+	
+	for(var i = 0; i < GetPlayerCount(C4PT_User); i++)
+		aRanks[GetPlayerByIndex(i, C4PT_User)] = CalcRank(GetPlayerByIndex(i, C4PT_User)); 
+		
+	return true;
+}
+
+global func GetPlayerRank(int iPlr)
+{
+	if(GetType(aRanks) == C4V_Array)
+		return aRanks[iPlr];
+	else
+		return -1;
+}
+
+global func RecalcPlayerRank(int iPlr) // Berechnet den neuen Spielerrangwert und speichert diesen.
+{
+	if(GetType(aRanks) == C4V_Array)
+	{
+		var nRank = CalcRank(iPlr);
+		
+		if(nRank != aRanks[iPlr])
+		{
+			aRanks[iPlr] = nRank;
+			
+    	var info = CreateObject(GetRankID(nRank), 0, 0, iPlr);
+    	info->SetHighlightColor(RGB(0,153,255));
+    	EventInfo4K(0, Format("$YouHaveBeenPromoted$", GetTaggedPlayerName(iPlr), GetName(info)), GetID(info), 0, 0, 0, "PriorityInfo.ogg");
+    	//Sound-Hinweis
+    	Sound("AchievementGet.ogg", true, 0, 100, iPlr+1);
+ 		}
+		return aRanks[iPlr];
+	}
+	else
+		return -1;
+}
+
+// Berechnet den Rang für iPlr.
+global func CalcRank(int iPlr)
+{
+	var bpoints = BoundBy(GetPlrExtraData(iPlr, "CMC_BattlePoints"), 0, 0x7FFFFFFF);
+	var tpoints = BoundBy(GetPlrExtraData(iPlr, "CMC_TeamPoints"), 0, 0x7FFFFFFF);
+		
+	var rewards;
+	var rpoints = bpoints + tpoints;
+	if(rpoints < 0)
+		rpoints = 0x7FFFFFFF;
+	
+	if((rewards = FindObject(RWDS)))
+		if((rpoints += BoundBy(rewards->GetPlayerData(RWDS_BattlePoints, iPlr), 0, 0x7FFFFFFF) + BoundBy(rewards->GetPlayerData(RWDS_TeamPoints, iPlr), 0, 0x7FFFFFFF)) < 0)
+			rpoints = 0x7FFFFFFF;
+	
+	var rank;
+	
+	for(var j = 0; j < iRankCount; j++)
+	{
+		var k = 225 * j ** 2;
+		k -= (k % 1000) * (k > 1000); // benötigte Punktzahl (unter Grenze)
+		var k2 = 225 * (j+1) ** 2;
+		k2 -= (k2 % 1000) * (k2 > 1000); // benötigte Punktzahl (obere Grenze)
+		
+		if(j+1 == iRankCount)
+			k2 = 0x80000000;
+		
+		if(Inside(rpoints, k, k2-1))
+		{
+			rank = j;
+			break;
+		}
+	}
+	
+	return rank;
+}
+
+global func GetTaggedPlayerName(int iPlr, bool fRank)
+{
+	var rank = GetRankID(GetPlayerRank(iPlr));
+	if(fRank && FindObject2(Find_Or(Find_ID(RWDS), Find_ID(CHOS))) && GetPlayerTeam(iPlr) != -1)
+		return Format("{{%i}} %s <c %x>%s</c>", rank, GetName(0, rank), GetPlrColorDw(iPlr), GetPlayerName(iPlr));
+		
+	return _inherited(iPlr);
+}
+
+/* Statistiken */
+
+public func SavePlrStatistics(int iPlr)
+{
+	var bpoints = GetFullPlayerData(iPlr, RWDS_BattlePoints);
+	var tpoints = GetFullPlayerData(iPlr, RWDS_TeamPoints);
+	var kcnt = GetFullPlayerData(iPlr, RWDS_KillCount);
+	var dcnt = GetFullPlayerData(iPlr, RWDS_DeathCount);
+	
+	SetPlayerData(tpoints + bpoints, RWDS_SavedTotalPoints, iPlr);
+	
+	SetPlrExtraData(iPlr, "CMC_BattlePoints", bpoints);
+	SetPlrExtraData(iPlr, "CMC_TeamPoints", tpoints);
+	SetPlrExtraData(iPlr, "CMC_KillCount", kcnt);
+	SetPlrExtraData(iPlr, "CMC_DeathCount", dcnt);
+	
+	return true;
+}
+
+public func OnGameOver()
+{
+	for(var i = 0; i < GetPlayerCount(C4PT_User); i++)
+		SavePlrStatistics(GetPlayerByIndex(i, C4PT_User));
+		
+	return true;
+}
+
+global func EliminatePlayer(int iPlr)
+{
+	if(FindObject(RWDS))
+		FindObject(RWDS)->SavePlrStatistics(iPlr);
+		
+	return _inherited(iPlr, ...);
+}
+
+public func GetFullPlayerData(int iPlr, int iType)
+{
+	if(iType != RWDS_BattlePoints && iType != RWDS_TeamPoints && iType != RWDS_KillCount && iType != RWDS_DeathCount)
+		return false;
+	
+	if(iType == RWDS_BattlePoints)
+	{
+		var bpoints = BoundBy(GetPlrExtraData(iPlr, "CMC_BattlePoints"), 0, 0x7FFFFFFF);
+		
+		if((bpoints += BoundBy(GetPlayerData(RWDS_BattlePoints, iPlr), 0, 0x7FFFFFFF)) < 0)
+			bpoints = 0x7FFFFFFF;
+		
+		return bpoints;
+	}
+	if(iType == RWDS_TeamPoints)
+	{
+		var tpoints = BoundBy(GetPlrExtraData(iPlr, "CMC_TeamPoints"), 0, 0x7FFFFFFF);
+		
+		if((tpoints += BoundBy(GetPlayerData(RWDS_TeamPoints, iPlr), 0, 0x7FFFFFFF)) < 0)
+			tpoints = 0x7FFFFFFF;
+		
+		return tpoints;
+	}
+	if(iType == RWDS_KillCount)
+	{
+		var kcnt = BoundBy(GetPlrExtraData(iPlr, "CMC_KillCount"), 0, 0x7FFFFFFF);
+		
+		if((kcnt += BoundBy(GetPlayerData(RWDS_KillCount, iPlr), 0, 0x7FFFFFFF)) < 0)
+			kcnt = 0x7FFFFFFF;
+		
+		return kcnt;
+	}
+	if(iType == RWDS_DeathCount)
+	{
+		var dcnt = BoundBy(GetPlrExtraData(iPlr, "CMC_DeathCount"), 0, 0x7FFFFFFF);
+	
+		if((dcnt += BoundBy(GetPlayerData(RWDS_DeathCount, iPlr), 0, 0x7FFFFFFF)) < 0)
+			dcnt = 0x7FFFFFFF;
+		
+		return dcnt;
+	}
+}
+
+/** Statistikenmenü **/
+
+public func StatsStatistics(int iPlr)
+{
+  var pClonk = GetCursor(iPlr);
+  if(GetMenu(pClonk)) CloseMenu(pClonk);
+  if(!CreateMenu(GetID(), pClonk, this, 0, 0, 0, C4MN_Style_Dialog)) return;
+  AddMenuItem(" | ", "", RWDS, pClonk, 0, 0, "", 514, 0, 0);
+  
+  var bpoints = GetFullPlayerData(iPlr, RWDS_BattlePoints);
+  var tpoints = GetFullPlayerData(iPlr, RWDS_TeamPoints);
+  
+  AddMenuItem("$PlayerStats$", 0, 0, pClonk);
+  AddMenuItem(Format("$BattlePoints$|$TeamPoints$", bpoints, tpoints), 0, 0, pClonk);
+  AddMenuItem(Format("$KillCount$|$DeathCount$", GetFullPlayerData(iPlr, RWDS_KillCount), GetFullPlayerData(iPlr, RWDS_DeathCount)), 0, 0, pClonk);
+  
+  var iGAchievementCnt = 0;
+  var iData = GetPlrExtraData(iPlr, "CMC_Achievements");
+  for(var i = 1; i <= iAchievementCount; i++)
+  {
+    if(iData >> i & 1)
+      iGAchievementCnt++;
+  }
+  
+  AddMenuItem(Format("$AchievedAchievements$", iGAchievementCnt, iAchievementCount), 0, 0, pClonk);
+  
+  AddMenuItem(" | ", 0, 0, pClonk);
+  
+  var rank = GetPlayerRank(iPlr);
+  if(rank != iRankCount-1)
+		AddMenuItem(Format("$NextRank$", GetName(0, GetRankID(rank)), rank, GetName(0, C4Id(Format("RG%02d", rank+1))), rank+1), 0, 0, pClonk);
+	else
+		AddMenuItem(Format("$YourRank$", GetName(0, GetRankID(rank)), rank), 0, 0, pClonk);
+  
+  // Balkenanzeige, falls nicht der letzte Rang.
+  if(rank != iRankCount-1)
+  {
+  	AddMenuItem(" ", 0, 0, pClonk);
+  	
+  	var str = "";
+  	 
+ 	  var k = 225 * rank ** 2;
+		k -= (k % 1000) * (k > 1000);
+		var k2 = 225 * (rank+1) ** 2;
+		k2 -= (k2 % 1000) * (k2 > 1000);
+		
+		var diff = k2-k;
+		var percent = ((bpoints + tpoints) - k) * 100 / diff;
+		percent /= 5; var j = 20;
+		var colored;
+		while(j > 0)
+		{
+			var barID = PBP1;
+			if(j == 1)
+				barID = PBP2;
+			if(j == 20)
+				barID = PBP0;
+		
+			if(j == 20 && percent)
+			{
+				str = Format("<c %x>%s", GetPlrColorDw(iPlr), str);
+				colored = true;
+			}
+			else if(!percent)
+			{
+				if(colored)
+					str = Format("%s</c>", str);
+				
+				str = Format("%s<c 444444>", str);
+			}
+			
+			str = Format("%s{{%i}}", str, barID);
+		
+			percent--; j--;
+		}
+		
+		AddMenuItem(Format("{{%i}} (%d) - %d - (%d) {{%i}}", GetRankID(rank), (bpoints + tpoints), k2-(bpoints + tpoints), k2, GetRankID(rank+1)), 0, 0, pClonk);
+  	AddMenuItem(Format("%s</c>", str), 0, 0, pClonk);
+  }
+  
+  AddMenuItem(" | ", 0, 0, pClonk);
+  
+  AddMenuItem("$ShowPoints$", Format("StatsPoints(%d)", iPlr), NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
+  AddMenuItem("$ShowAchievements$", Format("StatsList(%d, 0, 0, 2)", iPlr), NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
 }
 
 /* Achievements */
