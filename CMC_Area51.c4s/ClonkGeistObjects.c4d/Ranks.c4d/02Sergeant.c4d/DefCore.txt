@@ -1,10 +1,8 @@
 [DefCore]
 id=RG02
 Version=4,9,5
-Category=C4D_StaticBack|C4D_Parallax|C4D_Foreground|C4D_MouseIgnore|C4D_IgnoreFoW
+Category=C4D_StaticBack
 Width=502
 Height=143
 Offset=-3,-3
 Picture=502,0,25,25
-Timer=1
-TimerCall=Fade
