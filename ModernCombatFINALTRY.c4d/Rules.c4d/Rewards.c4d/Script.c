@@ -307,7 +307,7 @@ global func AwardAchievement(id idAchievement, int iPlr)
   //Vergabe berechtigt?
   if(!RewardsActive()) return;
   if(GetPlayerType(iPlr) != C4PT_User) return false;
-  if(!idAchievement->IsInfoObject()) return false;
+  if(!idAchievement->IsAchievement()) return false;
 
   //Achievement in Spielerdatei schreiben sofern nicht vorhanden
   var iData = GetPlrExtraData(iPlr, "CMC_Achievements");
