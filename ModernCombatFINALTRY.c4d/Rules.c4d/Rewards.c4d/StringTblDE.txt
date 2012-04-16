@@ -1,6 +1,6 @@
 # Statistiken
 
-PlayerStats=Deine Statistiken:
+PlayerStats=Statistiken:
 BattlePoints=<c 00dd00>%d</c> Gefechtspunkte
 TeamPoints=<c 00dd00>%d</c> Teampunkte
 KillCount=<c ffff33>%d</c> Kills
@@ -8,7 +8,7 @@ DeathCount=<c ee0000>%d</c> Tode
 AchievedAchievements=<c ffff33>%d</c> / %d Errungenschaften
 NextRank=Aktueller Rang: %s (%d)|Nächster Rang: %s (%d)
 YourRank=Aktueller Rang: %s (%d)
-YouHaveBeenPromoted=%s wurde zum %s befödert!
+YouHaveBeenPromoted=%s wurde auf den Rang %s befödert!
 ShowStats=Statistiken
 
 # Allgemein

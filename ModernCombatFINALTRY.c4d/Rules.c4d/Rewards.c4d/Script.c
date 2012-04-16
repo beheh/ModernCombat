@@ -64,6 +64,7 @@ public func StatsPoints(int iPlr)
 
   //Eigene Errungenschaften anzeigen
   AddMenuItem("$ShowAchievements$", Format("StatsList(%d, 0, 0, 2)", iPlr), NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
+  //Statistik einblenden
   AddMenuItem("$ShowStats$", Format("StatsStatistics(%d)", iPlr), NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
 }
 
@@ -105,8 +106,9 @@ public func StatsList(int iPlr, int iIndex, int iOffset, int iMenuEntry)
   else
     iMenuEntry--;
 
-  //Zurück zur Punkteübersicht
+  //Eigene Errungenschaften anzeigen
   AddMenuItem("$ShowPoints$", Format("StatsPoints(%d)", iPlr), NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
+  //Statistik einblenden
   AddMenuItem("$ShowStats$", Format("StatsStatistics(%d)", iPlr), NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
 
   if(iIndex)
@@ -242,7 +244,7 @@ static const RWDS_TotalPoints		= 2;
 static const RWDS_BattlePoints		= 3;
 static const RWDS_TeamPoints		= 4;
 static const RWDS_MinusPoints		= 5;
-static const RWDS_KillCount			= 6;
+static const RWDS_KillCount		= 6;
 static const RWDS_DeathCount		= 7;
 static const RWDS_StartTotalPoints	= 8;
 static const RWDS_SavedTotalPoints	= 9;
