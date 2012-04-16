@@ -1,4 +1,4 @@
-/*-- Standartscript --*/
+/*-- Standardscript --*/
 
 #strict 2
 
