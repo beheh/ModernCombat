@@ -3,8 +3,10 @@
 #strict 2
 #include IDSP
 
-public func IsAchievement() {
-	return true;
+
+public func IsAchievement()
+{
+  return true;
 }
 
 public func GetSavingSlot()

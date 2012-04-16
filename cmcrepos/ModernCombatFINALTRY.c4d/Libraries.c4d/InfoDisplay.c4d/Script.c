@@ -60,7 +60,6 @@ public func FxIntHighlightTimer(object target, int nr)
   var color = EffectVar(4, target, nr);
   if(!EffectVar(3, target, nr)->IsRunning())
     return true;
-  Log("");
   SetClrModulation(RGBa(GetRGBaValue(color, 1), GetRGBaValue(color, 2), GetRGBaValue(color, 3), EffectVar(0, target, nr)), target);
   if(EffectVar(0, target, nr) <= 0)
     EffectVar(1, target, nr) = +5;
@@ -77,7 +76,8 @@ public func FxIntHighlightTimer(object target, int nr)
 
 /* Ausblenden */
 
-public func FxIntFadeStart(object target, int nr, temp) {
+public func FxIntFadeStart(object target, int nr, temp)
+{
   EffectVar(0, target, nr) = 0;
 }
 
@@ -111,7 +111,7 @@ public func FxIntFadeTimer(object target, int nr)
     target->DrawDescription((iTime-(9*32))*2);
     return true;
   }
- 
+
   return -1;
 }
 
