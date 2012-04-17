@@ -1,0 +1,2 @@
+DE:Panzerfahrer
+US:Tank Driver
