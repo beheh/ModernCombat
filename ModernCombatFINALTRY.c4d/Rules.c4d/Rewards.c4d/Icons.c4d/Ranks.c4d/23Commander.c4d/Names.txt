@@ -1,0 +1,2 @@
+DE:Kommandant
+US:Commander
