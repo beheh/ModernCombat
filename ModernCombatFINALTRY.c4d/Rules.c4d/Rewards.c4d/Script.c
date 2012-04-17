@@ -524,13 +524,14 @@ public func StatsStatistics(int iPlr)
     var percent = ((bpoints + tpoints) - k) * 100 / diff;
     percent /= 5; var j = 20;
     var colored;
+    var offset = 0;
     while(j > 0)
     {
-      var barID = PBP1;
+      offset = 1;
       if(j == 1)
-        barID = PBP2;
+        offset = 2;
       if(j == 20)
-        barID = PBP0;
+        offset = 0;
 
       if(j == 20 && percent)
       {
@@ -545,7 +546,7 @@ public func StatsStatistics(int iPlr)
         str = Format("%s<c 444444>", str);
       }
 
-      str = Format("%s{{%i}}", str, barID);
+      str = Format("%s{{PBAR:%d}}", str, offset);
 
       percent--; j--;
     }
