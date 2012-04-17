@@ -20,8 +20,10 @@ public func IsBulletTarget(id idBullet, object pBullet)
 func Initialize()
 {
   SetGraphics(0,0,WIPF);
+  SetAction("Walk");
+  if (Random(2)) SetComDir(COMD_Left());
+  else SetComDir(COMD_Right());
   SetComDir(COMD_Stop());
-  return(_inherited());
 }
 
 /* TimerCall mit KI-Steuerung */
@@ -119,6 +121,14 @@ func AdjustVertex()
 {
   SetVertexXY(0,3-6*GetDir(),-4);
   return(1);
+}
+
+/* Verletzung und Tod */
+
+public func OnDamage()
+{
+  //Sound
+  Sound("WipfHurt");
 }
 
 func Death()
