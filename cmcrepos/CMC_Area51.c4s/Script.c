@@ -93,8 +93,8 @@ func Initialize()
   SetupVehicleSpawn([APCE],DIR_Left,CreateObject(VSPW,950,1030,-1),1,300);
 
   //Reitwipfe
-  CreateObject(RWPF, 505, 1060, -1);
-  CreateObject(RWPF, 1580, 1060, -1);
+  CreateObject(RWPF, 505, 1060, -1)->AutoRespawn();
+  CreateObject(RWPF, 1580, 1060, -1)->AutoRespawn();
 }
 
 public func SetUpStore(pStore)
