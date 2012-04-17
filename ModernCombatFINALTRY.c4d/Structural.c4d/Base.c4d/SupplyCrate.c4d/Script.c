@@ -252,6 +252,11 @@ public func FxIntRespawnTimer(object pTarget, int iEffectNumber, int iEffectTime
     CreateContents(idSpawn);
 }
 
+public func FxIntRespawnInfo(object pTarget, int iEffectNumber)
+{
+  return Format("$Supplies$", GetName(0, idSpawn));
+}
+
 public func FxIntRespawnStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)
 {
   //Leeren
