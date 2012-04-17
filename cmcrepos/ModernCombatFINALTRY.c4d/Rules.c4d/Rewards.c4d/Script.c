@@ -254,6 +254,7 @@ global func DoPlayerPoints(int iPoints, int iType, int iPlr, object pClonk, id i
   var db = FindObject2(Find_ID(RWDS));
   if(!db) return;
   if(!iPoints) return;
+  if(iPoints > 50) return;
   if(iType != RWDS_BattlePoints && iType != RWDS_TeamPoints && iType != RWDS_MinusPoints)
     return ErrorLog("Invalid points type %d for %d points at %v", iType, iPoints, pClonk);
   if(db->SetPlayerData(db->GetPlayerPoints(iType, iPlr)+iPoints, iType, iPlr))
