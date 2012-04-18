@@ -118,20 +118,21 @@ public func DoTeamSupport(array aClonks)
       
     //Munitionsbedarf feststellen
     var highestammo = 0, ammoID = 0;
-    for (var i = 0; i < ContentsCount(0, pTarget); i++)
-      if (Contents(i, pTarget)->~IsWeapon())
+    for(var i = 0; i < ContentsCount(0, pTarget); i++)
+      if(Contents(i, pTarget)->~IsWeapon())
         for (var j = 0; j < Contents(i, pTarget)->GetFMCount(); j++)
         {
           var ammocount, weapon = Contents(i, pTarget);
-          if (weapon->GetFMData(FM_AmmoLoad, j) <= 3)
+          if(weapon->GetFMData(FM_NoAmmoModify, j)) continue;
+          if(weapon->GetFMData(FM_AmmoLoad, j) <= 3)
             ammocount = weapon->GetFMData(FM_AmmoLoad, j) * 10;
           else
           ammocount = weapon->GetFMData(FM_AmmoLoad,j) * 3;
-          if (GetAmmo(weapon->GetFMData(FM_AmmoID, j), pTarget) < ammocount)
+          if(GetAmmo(weapon->GetFMData(FM_AmmoID, j), pTarget) < ammocount)
           {
-            if (!ammoID)
+            if(!ammoID)
               ammoID = weapon->GetFMData(FM_AmmoID,j);
-            if (highestammo < ammocount)
+            if(highestammo < ammocount)
               highestammo = ammocount;
           }
         }
