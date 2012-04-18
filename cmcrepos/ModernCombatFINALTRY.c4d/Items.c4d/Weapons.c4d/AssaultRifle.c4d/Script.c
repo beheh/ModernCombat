@@ -10,7 +10,7 @@ public func HandX()		{return 5000;}
 public func HandY()		{return 1000;}
 public func BarrelYOffset()	{return -2500;}
 public func SelectionTime()	{return 36;}
-public func IsPrimaryWeapon() {return true;}
+public func IsPrimaryWeapon()	{return true;}
 
 /* Nahkampfangriff */
 

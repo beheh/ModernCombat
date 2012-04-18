@@ -35,7 +35,7 @@ static const MC_Angle         = 32;	//Mit welchem Winkel das Ziel durch Kolbensc
 
 public func IsWeapon2()		{return true;}	//Nutzt/inkludiert neues Waffensystem WPN2
 public func NoWeaponChoice()	{return GetID() == WPN2;}
-public func IsPrimaryWeapon() {return true;} //Standard für QuickInventory
+public func IsPrimaryWeapon()	{return true;}	//Standard für QuickInventory
 
 public func OnSelectFT(int iFireMode, int iFireTec, int iLastFireTec)	{}
 public func OnSingleReloadStart(int iSlot)				{}
