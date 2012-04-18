@@ -17,7 +17,6 @@ public func MaxGrenades()	{return 4;}					//Maximal im Inventar und Gürtel tragb
 
 public func Initialize()
 {
-  aCollected = CreateArray();
   InitCH();
   UpdateGrenadeCount();
   //if(Contained())
@@ -1001,15 +1000,170 @@ protected func DoAmmoPack(id idType)
   return pack;
 }
 
-public func SelectInventory(object pObj)
+/* QuickInventory */
+
+static const QINV_MainMenu = 1;
+static const QINV_PrimaryMenu = 2;
+static const QINV_SecondaryMenu = 3;
+static const QINV_EquipmentMenu = 4;
+static const QINV_ObjectMenu = 5;
+static const QINV_GrenadeMenu = 6;
+
+local QINV_MenuOrder; //Reihenfolge im Menü
+local QINV_MenuItemIds; //ID-Reihenfolge der aufgesammelten Objekte einer Kategorie
+
+public func Initialize() {
+  QINV_MenuOrder = [RMEN_UpItem, RMEN_RightItem, RMEN_DownItem,  RMEN_LeftItem];
+  QINV_MenuItemIds = [];
+  return _inherited();
+}
+
+//Gibt die erste auch im Inventar vorhande ID einer Menükategorie zurück
+public func GetQuickInventoryMenuItem(int iMenu) {
+  var aItems = GetQuickInventoryMenuItems(iMenu);
+  for(var i = 0; i < GetLength(aItems); i++) {
+    if(ContentsCount(aItems[i]) || GetGrenade(aItems[i])) return aItems[i];
+  }
+	return false;
+}
+
+//Gibt alle IDs einer Menükategorie in der Aufsammelreihenfolge zurück
+public func GetQuickInventoryMenuItems(int iMenu) {
+  if(!QINV_MenuItemIds[iMenu]) QINV_MenuItemIds[iMenu] = [];
+  var aItems = [];
+  //Durch die IDs iterieren und Items holen
+  for(var i = 0; i < GetLength(QINV_MenuItemIds[iMenu]); i++) {
+  	aItems[i] = QINV_MenuItemIds[iMenu][i];
+  }
+	return aItems;
+}
+
+public func QuickInventory(int iMenu, int iPage) {
+  if(!iMenu) iMenu = QINV_MainMenu;
+
+  //Inventar überhaupt vorhanden?
+  if(ContentsCount() + iGrenadeCount < 1) return;
+
+  //Hauptmenü
+	if(iMenu == QINV_MainMenu) {
+		var pRing = CreateSpeedMenu(0, this);
+
+		//Verweise auf Submenüs
+		var aMenus = [QINV_GrenadeMenu, QINV_PrimaryMenu, QINV_SecondaryMenu, QINV_EquipmentMenu, QINV_ObjectMenu];
+		for(var i = 0; i < GetLength(aMenus); i++) {
+		  var iDisplayMenu = aMenus[i];
+		  var idItem = GetQuickInventoryMenuItem(iDisplayMenu);
+		  if(idItem) {
+		    var overlay = pRing->Add(i, GetName(0, idItem), "QuickInventory", iDisplayMenu);
+        SetGraphics("", pRing, idItem, overlay, GFXOV_MODE_IngamePicture);
+      }
+		}
+	
+		//Informationen
+		if(ContentsCount() != 1) {
+			pRing->AddTopInfoItem(Format("<c ffff00>$QuickInventory$</c>|$ContentsCount$", ContentsCount()));
+		}
+		else {
+			pRing->AddTopInfoItem(Format("<c ffff00>$QuickInventory$</c>|$ContentCount$", ContentsCount()));
+		}
+	}
+
+	//Submenüs
+	if(iMenu == QINV_PrimaryMenu || iMenu == QINV_SecondaryMenu || iMenu == QINV_EquipmentMenu || iMenu == QINV_ObjectMenu || iMenu == QINV_GrenadeMenu) {
+	  var aItems = GetQuickInventoryMenuItems(iMenu);
+		if(GetLength(aItems)) {
+		  //Erstes Objekt auswählen
+			QuickInventorySelect(GetQuickInventoryMenuItem(iMenu));
+
+			//Vorhanden Objekte zählen
+			var iCount = 0;
+			for(var i = 0; i < GetLength(aItems); i++) {
+			  if(ContentsCount(aItems[i]) || GetGrenade(aItems[i])) iCount++;			  
+			}
+			//Wenn weniger als zwei, nicht zeichnen
+			if(iCount < 2) return;
+
+      //Submenü zeichnen
+			var pRing = CreateSpeedMenu(0, this);
+			for(var i = iPage*4; i < GetLength(aItems); i++) {
+			  if(i >= iPage*4+4) {
+			    overlay = pRing->AddThrowItem(GetName(0, aItems[i]), "$NextPage$", [iMenu, iPage+1]);
+			    SetGraphics("",pRing,SM04,overlay,GFXOV_MODE_IngamePicture);
+			    break;
+			  }
+			  if(aItems[i])	{
+			    if(!ContentsCount(aItems[i]) && !GetGrenade(aItems[i])) continue;
+			  	var overlay = pRing->Add(QINV_MenuOrder[i-iPage*4], GetName(0, aItems[i]), "QuickInventorySelect", aItems[i]);
+			  	SetGraphics("",pRing,aItems[i],overlay,GFXOV_MODE_IngamePicture);
+			  }
+			}
+
+			//Verschiedene Menünamen einblenden
+			var szName = "";
+			if(iMenu == QINV_PrimaryMenu)
+			  szName = "$PrimaryWeapons$";
+		 if(iMenu == QINV_SecondaryMenu)
+			  szName = "$SecondaryWeapons$";
+			if(iMenu == QINV_EquipmentMenu)
+			  szName = "$Equipment$";
+		  if(iMenu == QINV_ObjectMenu)
+			  szName = "$Objects$";
+		  if(iMenu == QINV_GrenadeMenu)
+			  szName = "$Grenades$";
+			pRing->AddTopInfoItem(Format("<c ffff00>$QuickInventory$</c>|%s", szName));
+	  }
+	}
+}
+
+public func QuickInventoryPaging(array aData) {
+  QuickInventory(aData[0], aData[1]);
+}
+
+public func QuickInventorySelect(id idObject) {
+  var fFound = SelectInventory(0, idObject);
+  if(!fFound) fFound = GrabGrenade(idObject);
+  return fFound;
+}
+
+public func QuickInventoryStore(object pObj) {
+  
+  //Menü ermitteln
+  var iMenu = 0;
+  //Primärwaffe
+  if(pObj->~IsPrimaryWeapon() || (pObj->~IsWeapon() && !pObj->~IsSecondaryWeapon())) iMenu = QINV_PrimaryMenu;
+  //Sekundärwaffe
+  if(pObj->~IsSecondaryWeapon()) iMenu = QINV_SecondaryMenu;
+  //Einsatzobjekt
+  if(pObj->~IsEquipment()) iMenu = QINV_EquipmentMenu;
+  //Granaten
+  if(pObj->~IsGrenade()) iMenu = QINV_GrenadeMenu;
+  //Sonst einfach nur Objekt
+  if(!iMenu) iMenu = QINV_ObjectMenu;
+  
+  //Und einsortieren
+  var fExists = false;
+  if(!QINV_MenuItemIds) QINV_MenuItemIds = [];
+  if(!QINV_MenuItemIds[iMenu]) QINV_MenuItemIds[iMenu] = [];
+  for(var i = 0; i < GetLength(QINV_MenuItemIds[iMenu]); i++) {
+  	if(QINV_MenuItemIds[iMenu][i] == GetID(pObj)) fExists = true;
+  	if(fExists) break;
+  }
+  if(!fExists) {
+  	QINV_MenuItemIds[iMenu][GetLength(QINV_MenuItemIds[iMenu])] = GetID(pObj);
+  }
+}
+
+public func SelectInventory(object pObj, id idObject)
 {
-  if(!Contents()) return false;
-  if(!pObj) return;
-  if(Contained(pObj) != this) return;
+  if(!Contents()) return;
+  if(!pObj && !idObject) return;
+  if(pObj == Contents() || GetID(Contents()) == idObject) return true;
+  if(pObj && Contained(pObj) != this) return;
+  if(idObject && !ContentsCount(idObject)) return;
   var aiming = IsAiming() && Contents()->~CanAim();
   var angle = Abs(AimAngle());
   if(aiming) StopAiming();
-  while(GetID(Contents(0)) != GetID(pObj))
+  while(GetID(Contents(0)) != GetID(pObj) && GetID(Contents(0)) != idObject)
   {
     ShiftContents();
   }
@@ -1045,37 +1199,11 @@ public func ControlSpecial()
     return true;
   if(QuickInventoryOn())
   {
-    if(!Contents() || !aCollected) return;
+    if(Contents())
+      if(Contents()->~RejectShift() || GetID(Contents()) == GBRB)
+        return;
 
-    if(Contents()->~RejectShift() || GetID(Contents()) == GBRB)
-      return;
-
-    var ring = CreateSpeedMenu(0, this);
-    var i = 0; //Index der Items
-    var j = 1; //Position im Menü
-    var aUsed = CreateArray(5);
-    while(i < GetLength(aCollected) && j <= 6)
-    {
-      if(aCollected[i] && Contained(aCollected[i]) == this)
-      {
-        if(j >= 6) { //Am Ende? Dann versuchen wir ein neues zu finden
-          for(var c = 0; c <= 4; c++)
-          {
-            if(!aUsed[c])
-            {
-              j = c+1;
-              break;
-            }
-          }
-        }
-        var overlay = ring->Add(j%5, GetName(aCollected[i]),"SelectInventory",aCollected[i],RICO);
-        SetGraphics("",ring,GetID(aCollected[i]),overlay,GFXOV_MODE_IngamePicture);
-        aUsed[j-1] = true;
-      }
-      j++;
-      i++;
-    }
-    ring->AddTopInfoItem(Format("<c ffff00>$QuickInventory$</c>|$ContentsCount$", ContentsCount()));
+		QuickInventory(QINV_MainMenu);
   }
   else
   {
@@ -1134,25 +1262,9 @@ public func Collection2(object pObj)
   //Granatenzahl im HUD neu berechnen
   if(pObj->~IsGrenade()) UpdateGrenadeCount();
   if(!pObj || Contained(pObj) != this) return;
-  var i = 0;
-  while(i < GetLength(aCollected))
-  {
-    if(aCollected[i] == pObj) return;
-    i++;
-  }
-  i = 0;
-  while(i < GetLength(aCollected))
-  {
-    if(Contained(aCollected[i]) == this)
-    {
-      i++;
-    }
-    else
-    {
-      break;
-    }
-  }
-  aCollected[i] = pObj;
+  
+  //QuickInventar
+  QuickInventoryStore(pObj);
 }
 
 public func Ejection(object pObj)
@@ -1329,6 +1441,7 @@ public func StoreGrenade(object pGrenade)
       return false;
   }
   Sound("GrenadeCharge.ogg", 1, 0,0, GetOwner()+1);
+  QuickInventoryStore(pGrenade);
   Enter(pGrenadeStoring, pGrenade);
   return(true);
 }

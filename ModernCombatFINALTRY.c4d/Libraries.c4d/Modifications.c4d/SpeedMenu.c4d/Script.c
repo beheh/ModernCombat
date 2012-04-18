@@ -125,20 +125,26 @@ public func GetRealCursor()
 
 /* Hilfen */
 
+static const RMEN_ThrowItem = 0;
+static const RMEN_UpItem = 1;
+static const RMEN_RightItem = 2;
+static const RMEN_DownItem = 3;
+static const RMEN_LeftItem = 4;
+
 public func AddThrowItem(string szTitle, string szFunc, Parameter, id idIcon)
-{ return Add(0,szTitle,szFunc,Parameter,idIcon); }
+{ return Add(RMEN_ThrowItem,szTitle,szFunc,Parameter,idIcon); }
             
 public func AddUpItem(string szTitle, string szFunc, Parameter, id idIcon)
-{ return Add(1,szTitle,szFunc,Parameter,idIcon); }
+{ return Add(RMEN_UpItem,szTitle,szFunc,Parameter,idIcon); }
             
 public func AddRightItem(string szTitle, string szFunc, Parameter, id idIcon)
-{ return Add(2,szTitle,szFunc,Parameter,idIcon); }
+{ return Add(RMEN_RightItem,szTitle,szFunc,Parameter,idIcon); }
             
 public func AddDownItem(string szTitle, string szFunc, Parameter, id idIcon)
-{ return Add(3,szTitle,szFunc,Parameter,idIcon); }
+{ return Add(RMEN_DownItem,szTitle,szFunc,Parameter,idIcon); }
             
 public func AddLeftItem(string szTitle, string szFunc, Parameter, id idIcon)
-{ return Add(4,szTitle,szFunc,Parameter,idIcon); }
+{ return Add(RMEN_LeftItem,szTitle,szFunc,Parameter,idIcon); }
 
 public func AddTopInfoItem(string szItem)
 { return aTopInfo[GetLength(aTopInfo)] = szItem; }
@@ -320,6 +326,9 @@ private func ActivateItem(int iItem)
 
   if(GetAction() == "Closing") return 1;
   
+  //Schonmal Kontrolle unsichtbar übergeben
+  if(pTargetObject) SetCursor(GetOwner(), pTargetObject, 1, 1);
+
   if(aItemFunc[iItem] && GetType(aItemFunc[iItem]) == C4V_String)
     pCallbackObject->Call(aItemFunc[iItem], aItemPar[iItem]);
 
