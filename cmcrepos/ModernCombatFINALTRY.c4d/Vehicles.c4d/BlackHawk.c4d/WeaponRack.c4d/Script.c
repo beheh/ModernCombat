@@ -218,7 +218,8 @@ protected func FxIntTimerTimer(object pTarget, int iEffect, int iTime)
   //Crosshair nachziehen
   if(Crosshair) {
     var r = AimAngle()-GetR();
-    if(last_r != r || GetR() != last_heli_r) {
+    if(last_r != r || GetR() != last_heli_r)
+    {
       Crosshair->SetAngle(r);
       last_heli_r = GetR();
       last_r = r;

@@ -293,7 +293,8 @@ public func Hit()
   }
 }
 
-private func OnRocketHit(pObj) {
+private func OnRocketHit(pObj)
+{
   if(!exploding) HitObject(pObj);
 }
 
@@ -363,7 +364,7 @@ private func HitObject(pObj)
   {
     pObj->~OnRocketHit(this);
   }
-  
+
   Sound("GrenadeExplosion*.ogg");
 
   //Explosion
