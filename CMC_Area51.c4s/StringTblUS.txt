@@ -1,0 +1,1 @@
+MsgWelcome=Welcome to <c 33ccff>Area 51</c>! Pay your respects to the oldest testing facility of the Eurocorps Organisation, soldier!
