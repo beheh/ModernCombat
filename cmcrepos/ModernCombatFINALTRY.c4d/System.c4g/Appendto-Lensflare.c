@@ -92,6 +92,7 @@ protected func ManageFlares()
 
 private func SunFree(object pTo)
 {
+  if(!pTo) return;
   while(Contained(pTo)) pTo = Contained(pTo);
   if(Stuck(pTo)) return;
   if(GetEffectData(EFSM_Lensflares) < 2) return true;
