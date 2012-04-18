@@ -29,6 +29,7 @@ public func RejectReanimation()	{return rejected;}
 
 private func Reject()
 {
+  if(!symbol) return DeathMenu();
   rejected = !rejected;
 
   //Symbol umschalten
@@ -39,7 +40,7 @@ private func Reject()
     AddEffect("BlockRejectReanimation", this, 101, BlockTime(), this);
     symbol->SetGraphics("");
   }
-  DeathMenu();
+  return DeathMenu();
 }
 
 public func FxBlockRejectReanimationTimer(object target, int nr, int time)
