@@ -293,6 +293,10 @@ public func Hit()
   }
 }
 
+private func OnRocketHit(pObj) {
+  if(!exploding) HitObject(pObj);
+}
+
 private func HitObject(pObj)
 {
   if(Secure() || GetAction() == "Idle")
@@ -351,13 +355,15 @@ private func HitObject(pObj)
     }
   }
 
+  //Explodiert
+  exploding = true;
+
   //Direkttreffer benachrichtigen
   if(pObj)
   {
     pObj->~OnRocketHit(this);
   }
-
-  exploding = true;
+  
   Sound("GrenadeExplosion*.ogg");
 
   //Explosion
