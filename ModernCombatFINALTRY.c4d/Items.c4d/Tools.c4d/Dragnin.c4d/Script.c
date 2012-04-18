@@ -6,7 +6,7 @@ public func HandSize()		{return 1000;}
 public func HandX()		{return 4500;}
 public func HandY()		{}
 public func IsDrawable()	{return true;}
-public func IsEquipment()	{return false;} //Einsortierung für QuickInventar
+public func IsEquipment()	{return false;}	//Einsortierung für QuickInventar
 public func NoArenaRemove()	{return true;}
 public func LimitationCount()	{return 3;}
 
