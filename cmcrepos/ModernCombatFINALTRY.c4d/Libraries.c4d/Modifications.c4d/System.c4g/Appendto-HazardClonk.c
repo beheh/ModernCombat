@@ -1087,7 +1087,7 @@ public func QuickInventory(int iMenu, int iPage) {
 			var pRing = CreateSpeedMenu(0, this);
 			for(var i = iPage*4; i < GetLength(aItems); i++) {
 			  if(i >= iPage*4+4) {
-			    overlay = pRing->AddThrowItem(GetName(0, aItems[i]), "$NextPage$", [iMenu, iPage+1]);
+			    overlay = pRing->AddThrowItem("$NextPage$", "QuickInventoryPaging", [iMenu, iPage+1]);
 			    SetGraphics("",pRing,SM04,overlay,GFXOV_MODE_IngamePicture);
 			    break;
 			  }
