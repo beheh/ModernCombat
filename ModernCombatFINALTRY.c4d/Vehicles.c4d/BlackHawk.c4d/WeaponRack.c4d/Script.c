@@ -7,7 +7,7 @@ local cur_Attachment;
 local aim_angle;
 local pController;
 local last_id;
-local last_r;
+local last_r, last_heli_r;
 local iPat_Dir;
 local heli,vis;
 local Crosshair;
@@ -218,8 +218,9 @@ protected func FxIntTimerTimer(object pTarget, int iEffect, int iTime)
   //Crosshair nachziehen
   if(Crosshair) {
     var r = AimAngle()-GetR();
-    if(last_r != r) {
+    if(last_r != r || GetR() != last_heli_r) {
       Crosshair->SetAngle(r);
+      last_heli_r = GetR();
       last_r = r;
     }
   }
