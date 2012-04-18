@@ -11,6 +11,7 @@ local CharsWAmmo,
 
 local pLastItem;
 local iLastWeaponAmmo;
+local iLastClonkAmmo;
 local iLastWeaponFM;
 local iLastWeaponFT;
 
@@ -160,8 +161,10 @@ protected func UpdateHUD(object weapon, object pClonk)
   {
     //Munition in der Waffe
     var weaponAmmo = GetAmmo(weapon->~GetFMData(FM_AmmoID), weapon);
-    if(iLastWeaponAmmo != weaponAmmo || iLastWeaponFM != weapon->~GetFireMode() || iLastWeaponFT != weapon->~GetFireTec()) {
+    var clonkAmmo = GetAmmo(weapon->~GetFMData(FM_AmmoID), pClonk);
+    if(iLastWeaponAmmo != weaponAmmo || iLastClonkAmmo != clonkAmmo|| iLastWeaponFM != weapon->~GetFireMode() || iLastWeaponFT != weapon->~GetFireTec()) {
       iLastWeaponAmmo = weaponAmmo;
+      iLastClonkAmmo = clonkAmmo;
       iLastWeaponFM = weapon->~GetFireMode();
       iLastWeaponFT = weapon->~GetFireTec();
       var maxAmmo = weapon->~GetFMData(FM_AmmoLoad);
@@ -192,8 +195,7 @@ protected func UpdateHUD(object weapon, object pClonk)
       //Bei aktiver Keine Munition-Regel überspringen
       if(!NoAmmo())
       {
-        //Munition des Munitionsgürtels ermitteln
-        var clonkAmmo = GetAmmo(weapon->~GetFMData(FM_AmmoID), pClonk);
+        //Munition des Munitionsgürtels zeichnen
         var cAmmo = Format("%03d", clonkAmmo);
         if(clonkAmmo > 0)
         {
