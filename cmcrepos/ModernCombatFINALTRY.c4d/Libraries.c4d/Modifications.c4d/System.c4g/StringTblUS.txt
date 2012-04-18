@@ -9,8 +9,17 @@ DropItem=Drop Item
 CtxGrenadeMenu=Grenades
 AmmoBag=Ammobag
 CtrlInventoryDesc=Inventory
-QuickInventory=QuickInventory
+
+#QuickInventory
+
+QuickInventory=QuickInventar
+NextPage=Next page
+ContentCount=%d item
 ContentsCount=%d items
+PrimaryWeapons=Primary weapons
+SecondaryWeapons=Secondary weapons
+Equipment=Equipment
+Objects=Objects
 
 #Settings
 

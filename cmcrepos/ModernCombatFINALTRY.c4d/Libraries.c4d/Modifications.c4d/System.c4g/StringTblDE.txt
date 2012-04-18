@@ -9,8 +9,17 @@ DropItem=Objekt ablegen
 CtxGrenadeMenu=Granaten
 AmmoBag=Munitionsgürtel
 CtrlInventoryDesc=Inventar
+
+#QuickInventory
+
 QuickInventory=QuickInventar
+NextPage=Nächste Seite
+ContentCount=%d Objekt
 ContentsCount=%d Objekte
+PrimaryWeapons=Primärwaffen
+SecondaryWeapons=Sekundärwaffen
+Equipment=Ausrüstung
+Objects=Objekte
 
 #Einstellungen
 

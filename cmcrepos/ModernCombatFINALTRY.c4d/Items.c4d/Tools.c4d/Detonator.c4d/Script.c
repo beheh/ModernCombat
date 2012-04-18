@@ -10,6 +10,7 @@ static const C4PA_Cooldown = 15;
 public func IsDrawable()	{return true;}
 public func HandSize()		{return 1000;}
 public func HandX()		{return 3500;}
+public func IsEquipment() {return true;}
 
 public func MaxPoints()		{return 8;}
 public func StartPoints()	{return 3;}
