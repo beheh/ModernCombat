@@ -15,7 +15,6 @@
 #appendto HARM
 #appendto MEDI
 #appendto HSHD
-#appendto DRSU
 #appendto LMIN
 #appendto MINE
 #appendto SMIN
