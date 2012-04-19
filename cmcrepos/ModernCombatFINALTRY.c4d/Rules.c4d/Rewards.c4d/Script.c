@@ -79,7 +79,7 @@ public func StatsList(int iPlr, int iIndex, int iOffset, int iMenuEntry)
   var iData = GetPlrExtraData(iPlr, "CMC_Achievements");
 
   //Überschrift
-  AddMenuItem(Format("<c 33ccff>$Achievements$ ($showing$ %d/%d)</c>", BoundBy(iOffset+10, 0, iAchievementCount), iAchievementCount), 0, NONE, pClonk);
+  AddMenuItem(Format("<c 33ccff>$Achievements$ ($Showing$)</c>", iOffset+1, BoundBy(iOffset+10, 1, iAchievementCount), iAchievementCount), 0, NONE, pClonk);
 
   //Liste
   var i = 1+iOffset;

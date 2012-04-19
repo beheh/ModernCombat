@@ -13,7 +13,7 @@ YouHaveBeenPromoted=%s has been promoted to %s!
 # Achievements
 
 Achievements=Achievements
-showing=showing
+Showing=Showing %d-%d
 NextPage=Next page
 LastPage=Last page
 Back=Back
