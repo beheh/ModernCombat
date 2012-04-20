@@ -480,6 +480,18 @@ public func GetFullPlayerData(int iPlr, int iType)
   }
 }
 
+global func ResetPlayerStats(int iPlr)
+{
+	SetPlrExtraData(iPlr, "CMC_BattlePoints", 0);
+	SetPlrExtraData(iPlr, "CMC_TeamPoints", 0);
+	SetPlrExtraData(iPlr, "CMC_KillCount", 0);
+	SetPlrExtraData(iPlr, "CMC_DeathCount", 0);
+	
+	RecalcPlayerRank(iPlr);
+	
+	return true;
+}
+
 /* Statistikenmenü */
 
 public func StatsStatistics(int iPlr)
