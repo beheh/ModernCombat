@@ -22,13 +22,13 @@ protected func Initialize()
   {
     iAchievementCount++;
   }
-  
+
   for(var i = 0; i < GetPlayerCount(C4PT_User); i++)
   {
-  	var iPlr = GetPlayerByIndex(i, C4PT_User);
-  	SetPlayerData(GetFullPlayerData(iPlr, RWDS_BattlePoints) + GetFullPlayerData(iPlr, RWDS_TeamPoints), RWDS_StartTotalPoints, iPlr);
+    var iPlr = GetPlayerByIndex(i, C4PT_User);
+    SetPlayerData(GetFullPlayerData(iPlr, RWDS_BattlePoints) + GetFullPlayerData(iPlr, RWDS_TeamPoints), RWDS_StartTotalPoints, iPlr);
   }
-  
+
   UpdatePlayers();
 }
 
@@ -184,27 +184,27 @@ public func Evaluate()
   var aList = CreateArray();
   var iPlr, szFirstLine, szSecondLine;
   var iPlr = 0;
-  
-  //Endpunktzahl aktualisieren / Statistiken speichern.
+
+  //Endpunktzahl aktualisieren und Statistiken speichern
   for(var i = 0; i < GetPlayerCount(C4PT_User); i++)
-  	SavePlrStatistics(GetPlayerByIndex(i, C4PT_User));
+    SavePlrStatistics(GetPlayerByIndex(i, C4PT_User));
 
   //Kopfzeilen erstellen
   while(db->GetData()[iPlr] != 0)
   {
     if(!aList[GetPlayerTeam(iPlr)]) aList[GetPlayerTeam(iPlr)] = CreateArray();
 
-    szFirstLine = Format("$FirstLine$",										//Erste Zeile
-			db->GetPlayerPoints(RWDS_PlayerName, iPlr),						//Spielername
-			db->GetPlayerData(RWDS_StartTotalPoints, iPlr),       //Gesamtpunktzahl am Anfang
-			Max(db->GetPlayerPoints(RWDS_TotalPoints, iPlr), 0), //Gesamtpunktzahl der Runde
-			db->GetPlayerData(RWDS_SavedTotalPoints, iPlr));						//Gesamtpunktzahl
+    szFirstLine = Format("$FirstLine$",								//Erste Zeile
+    db->GetPlayerPoints(RWDS_PlayerName, iPlr),						//Spielername
+    db->GetPlayerData(RWDS_StartTotalPoints, iPlr),					//Gesamtpunktzahl am Anfang
+    Max(db->GetPlayerPoints(RWDS_TotalPoints, iPlr), 0),			//Gesamtpunktzahl der Runde
+    db->GetPlayerData(RWDS_SavedTotalPoints, iPlr));				//Gesamtpunktzahl
 
-		Log(szFirstLine);
-    szSecondLine = Format("$SecondLine$",									//Dritte Zeile
-			db->GetPlayerPoints(RWDS_BattlePoints, iPlr),						//Gefechtspunkte
-			db->GetPlayerPoints(RWDS_TeamPoints, iPlr),						//Teampunkte
-			db->GetPlayerPoints(RWDS_MinusPoints, iPlr));						//Minuspunkte
+    Log(szFirstLine);
+    szSecondLine = Format("$SecondLine$",							//Dritte Zeile
+    db->GetPlayerPoints(RWDS_BattlePoints, iPlr),					//Gefechtspunkte
+    db->GetPlayerPoints(RWDS_TeamPoints, iPlr),						//Teampunkte
+    db->GetPlayerPoints(RWDS_MinusPoints, iPlr));					//Minuspunkte
 
     aList[GetPlayerTeam(iPlr)][GetLength(aList[GetPlayerTeam(iPlr)])] = [szFirstLine, szSecondLine];
     AddEvaluationData(Format("{{IC01}}$Points$: %d", db->GetPlayerPoints(RWDS_TotalPoints, iPlr)), iPlr+1);
@@ -416,10 +416,10 @@ public func SavePlrStatistics(int iPlr)
   var kcnt = GetFullPlayerData(iPlr, RWDS_KillCount);
   var dcnt = GetFullPlayerData(iPlr, RWDS_DeathCount);
 
-	var total = tpoints + bpoints;
-	if(total < 0)
-		total = 0x7FFFFFFF;
-	
+  var total = tpoints + bpoints;
+  if(total < 0)
+    total = 0x7FFFFFFF;
+
   SetPlayerData(total, RWDS_SavedTotalPoints, iPlr);
 
   SetPlrExtraData(iPlr, "CMC_BattlePoints", bpoints);
