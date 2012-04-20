@@ -40,12 +40,17 @@ CtxShorterDMDesc=Reduces the injured menu and hides additional information.
 CtxRadioMusicOn=Radio Music
 CtxRadioMusicOff=<c 777777>Radio Music</c>
 CtxRadioMusicDesc=(De)Activates radio music for this player (if there are multiple players on one client, the music is deactivated, if all players have chosen same).
-CtxResetAch=Reset Achievements
-CtxResetAchDesc=Permanently reset all personal achievements.
-ResetAchInfo=Reset?|<c 777777>The reset is completed after the round ends.</c>
+CtxResetData=Reset Data
+CtxResetDataDesc=Permanently reset saved data.
+ResetDataInfo=Reset selected data of your player file.
+ResetAll=All Data
+ResetSettings=Clonk Settings
+ResetStatistics=Statistics
+ResetAchievements=Achievements
+ResetAchInfo=Really reset?|<c 777777>The reset is completed after the round ends.</c>
 ResetAchYes=Reset
-ResetAchNo=Keep achievements
-ResetAchDone=Achievements have been reset.
+ResetAchNo=Cancel
+ResetAchDone=Selected data has been reset.
 
 #General
 Grenades=Grenades
