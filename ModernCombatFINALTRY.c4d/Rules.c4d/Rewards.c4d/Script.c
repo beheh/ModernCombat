@@ -121,7 +121,7 @@ public func StatsList(int iPlr, int iIndex, int iOffset, int iMenuEntry)
   if(iIndex)
     SelectMenuItem(iIndex+1, pClonk);
   else
-    SelectMenuItem(i-iOffset+2+iMenuEntry, pClonk);  	
+    SelectMenuItem(i-iOffset+2+iMenuEntry, pClonk);
     
   return true;
 }
@@ -194,17 +194,17 @@ public func Evaluate()
   {
     if(!aList[GetPlayerTeam(iPlr)]) aList[GetPlayerTeam(iPlr)] = CreateArray();
 
-    szFirstLine = Format("$FirstLine$",								//Erste Zeile
-    db->GetPlayerPoints(RWDS_PlayerName, iPlr),						//Spielername
-    db->GetPlayerData(RWDS_StartTotalPoints, iPlr),					//Gesamtpunktzahl am Anfang
+    szFirstLine = Format("$FirstLine$",						//Erste Zeile
+    db->GetPlayerPoints(RWDS_PlayerName, iPlr),					//Spielername
+    db->GetPlayerData(RWDS_StartTotalPoints, iPlr),				//Gesamtpunktzahl am Anfang
     Max(db->GetPlayerPoints(RWDS_TotalPoints, iPlr), 0),			//Gesamtpunktzahl der Runde
     db->GetPlayerData(RWDS_SavedTotalPoints, iPlr));				//Gesamtpunktzahl
 
     Log(szFirstLine);
-    szSecondLine = Format("$SecondLine$",							//Dritte Zeile
-    db->GetPlayerPoints(RWDS_BattlePoints, iPlr),					//Gefechtspunkte
-    db->GetPlayerPoints(RWDS_TeamPoints, iPlr),						//Teampunkte
-    db->GetPlayerPoints(RWDS_MinusPoints, iPlr));					//Minuspunkte
+    szSecondLine = Format("$SecondLine$",					//Dritte Zeile
+    db->GetPlayerPoints(RWDS_BattlePoints, iPlr),				//Gefechtspunkte
+    db->GetPlayerPoints(RWDS_TeamPoints, iPlr),					//Teampunkte
+    db->GetPlayerPoints(RWDS_MinusPoints, iPlr));				//Minuspunkte
 
     aList[GetPlayerTeam(iPlr)][GetLength(aList[GetPlayerTeam(iPlr)])] = [szFirstLine, szSecondLine];
     AddEvaluationData(Format("{{IC01}}$Points$: %d", db->GetPlayerPoints(RWDS_TotalPoints, iPlr)), iPlr+1);
