@@ -22,6 +22,13 @@ protected func Initialize()
   {
     iAchievementCount++;
   }
+  
+  for(var i = 0; i < GetPlayerCount(C4PT_User); i++)
+  {
+  	var iPlr = GetPlayerByIndex(i, C4PT_User);
+  	SetPlayerData(GetFullPlayerData(iPlr, RWDS_BattlePoints) + GetFullPlayerData(iPlr, RWDS_TeamPoints), RWDS_StartTotalPoints, iPlr);
+  }
+  
   UpdatePlayers();
 }
 
@@ -185,8 +192,8 @@ public func Evaluate()
 
     szFirstLine = Format("$FirstLine$",										//Erste Zeile
 			db->GetPlayerPoints(RWDS_PlayerName, iPlr),						//Spielername
-			db->GetPlayerData(RWDS_StartTotalPoints, iPlr),
-			db->GetPlayerPoints(RWDS_TotalPoints, iPlr),
+			db->GetPlayerData(RWDS_StartTotalPoints, iPlr),       //Gesamtpunktzahl am Anfang
+			BoundBy(db->GetPlayerPoints(RWDS_TotalPoints, iPlr), 0, 0x7FFFFFFF), //Gesamtpunktzahl der Runde
 			db->GetPlayerData(RWDS_SavedTotalPoints, iPlr));						//Gesamtpunktzahl
 
     szSecondLine = Format("$SecondLine$",									//Dritte Zeile
