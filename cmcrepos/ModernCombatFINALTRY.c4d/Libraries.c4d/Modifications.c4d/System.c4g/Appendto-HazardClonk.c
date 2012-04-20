@@ -827,7 +827,7 @@ protected func ContextSettings(object pCaller)
     AddMenuItem("$CtxRadioMusicOff$", Format("SwitchRadioMusicMode(Object(%d))", ObjectNumber(pCaller)), SM06, pCaller, 0, 0, "$CtxRadioMusicDesc$");
 
   //Achievements zurücksetzen
-  AddMenuItem("$CtxResetAch$", "ContextResetAch", RWDS, pCaller, 0, 0, "$CtxResetAchDesc$");
+  AddMenuItem("$CtxResetData$", "ContextResetData", RWDS, pCaller, 0, 0, "$CtxResetDataDesc$");
 
   SelectMenuItem(iSel, pCaller);
 
@@ -913,21 +913,58 @@ public func QuickInventoryOff()	{return !QuickInventoryOn();}
 
 /* Belohnungen zurücksetzen */
 
-protected func ContextResetAch()
+protected func ContextResetData()
 {
   [0|Image=RWDS|Condition=NoContext]
   CreateMenu(RWDS, this, this, 0, GetName(0, RWDS), 0, C4MN_Style_Dialog);
-  AddMenuItem("$ResetAchInfo$", 0, RWDS, this, 0, 0, " ");
-  AddMenuItem("$ResetAchYes$", "ContextResetAchYes", CHOS, this, 0, 0, " ", 2, 3);
+  AddMenuItem("$ResetDataInfo$", 0, RWDS, this, 0, 0, " ");
+  AddMenuItem("$ResetAll$", "ResetData(7)", NULL, this, 0, 0, " ");
+  AddMenuItem("$ResetSettings$", "ResetData(1)", CSTR, this, 0, 0, " ");
+  AddMenuItem("$ResetStatistics$", "ResetData(2)", RWDS, this, 0, 0, " ");
+  AddMenuItem("$ResetAchievements$", "ResetData(4)", CHOS, this, 0, 0, " ", 2, 3);
   AddMenuItem("$ResetAchNo$", "NoContext", SM06, this, 0, 0, " ");
-  SelectMenuItem(2);
+  SelectMenuItem();
 }
 
-protected func ContextResetAchYes()
+global func ResetSettings(int iPlr)
 {
-  [0|Image=RWDS|Condition=NoContext]
-  ResetPlayerAchievements(GetOwner());
-  PlayerMessage(GetOwner(), "$ResetAchDone$", this);
+	SetPlrExtraData(iPlr, "CMC_InvLockMode", 0);
+	SetPlrExtraData(iPlr, "CMC_DeathMenuMode", 0);
+	SetPlrExtraData(iPlr, "CMC_RadioMusicMode", 0);
+	SetPlrExtraData(iPlr, "CMC_QuickInv", 0);
+	SetPlrExtraData(iPlr, "Hazard_NoHelpMsg", 0);
+	
+	// Extra-Zeugs fürs Radio:
+	if(GetPlrExtraData(iPlr, "CMC_RadioMusicMode"))
+  {
+    for(var radio in FindObjects(Find_Func("IsRadio")))
+      radio->StopSong(iPlr+1);
+  }
+  else
+    for(var radio in FindObjects(Find_Func("IsRadio")))
+      radio->StartSong(iPlr+1);
+}
+
+protected func ResetData(int iData, bool fContinue)
+{
+  //[0|Image=RWDS|Condition=NoContext]
+  if(!fContinue)
+  {
+  	CreateMenu(RWDS, this, this, 0, GetName(0, RWDS), 0, C4MN_Style_Dialog);
+  	AddMenuItem("$ResetAchInfo$", 0, RWDS, this, 0, 0, " ");
+  	AddMenuItem("$ResetAchYes$", Format("ResetData(%d, true)", iData), NULL, this, 0, 0, " ");
+  	AddMenuItem("$ResetAchNo$", "NoContext", SM06, this, 0, 0, " ");
+  	SelectMenuItem(2);
+  	return true;
+  }
+  if(iData & 1)
+  	ResetSettings(GetOwner());
+  if(iData & 2)
+  	ResetPlayerStats(GetOwner());
+  if(iData & 4)
+  	ResetPlayerAchievements(GetOwner());
+  
+  PlayerMessage(GetOwner(), "$ResetDone$", this);
 }
 
 /* Munitionsgürtel */
