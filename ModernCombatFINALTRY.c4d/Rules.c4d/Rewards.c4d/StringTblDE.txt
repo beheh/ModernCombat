@@ -4,7 +4,7 @@ Stats=Statistiken
 BattlePoints=<c 00dd00>%d</c> Gefechtspunkte
 TeamPoints=<c 00dd00>%d</c> Teampunkte
 KillCount=<c ffff33>%d</c> Kills
-DeathCount=<c ee0000>%d</c> Verluste
+DeathCount=<c ee0000>%d</c> Tode
 AchievedAchievements=<c ffff33>%d</c> / %d Errungenschaften
 NextRank=Aktueller Rang: %s (%d)|Nächster Rang: %s (%d)
 YourRank=Aktueller Rang: %s (%d)
@@ -36,4 +36,4 @@ AchievementLocked=<c 777777>Du hast diese Errungenschaft noch nicht erreicht.</c
 
 FirstLine=%s|Punktestand: <c 777777>%d (+ %d)</c> <c ffbb00>%d</c>
 SecondLine=Gefecht: <c 00ff00>+%d</c>  Team: <c 00ff00>+%d</c>  Minus: <c ff0000>%d</c>
-PlayerLine={{PSTL}} Kills: %d {{KAMB}} Verluste: %d {{IC01}} Punktestand: %d
+PlayerLine={{PSTL}}Kills: %d {{KAMB}}Tode: %d {{IC01}}Punkte: %d
