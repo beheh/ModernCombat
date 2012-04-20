@@ -184,6 +184,10 @@ public func Evaluate()
   var aList = CreateArray();
   var iPlr, szFirstLine, szSecondLine;
   var iPlr = 0;
+  
+  //Endpunktzahl aktualisieren / Statistiken speichern.
+  for(var i = 0; i < GetPlayerCount(C4PT_User); i++)
+  	SavePlrStatistics(GetPlayerByIndex(i, C4PT_User));
 
   //Kopfzeilen erstellen
   while(db->GetData()[iPlr] != 0)
@@ -193,9 +197,10 @@ public func Evaluate()
     szFirstLine = Format("$FirstLine$",										//Erste Zeile
 			db->GetPlayerPoints(RWDS_PlayerName, iPlr),						//Spielername
 			db->GetPlayerData(RWDS_StartTotalPoints, iPlr),       //Gesamtpunktzahl am Anfang
-			BoundBy(db->GetPlayerPoints(RWDS_TotalPoints, iPlr), 0, 0x7FFFFFFF), //Gesamtpunktzahl der Runde
+			Max(db->GetPlayerPoints(RWDS_TotalPoints, iPlr), 0), //Gesamtpunktzahl der Runde
 			db->GetPlayerData(RWDS_SavedTotalPoints, iPlr));						//Gesamtpunktzahl
 
+		Log(szFirstLine);
     szSecondLine = Format("$SecondLine$",									//Dritte Zeile
 			db->GetPlayerPoints(RWDS_BattlePoints, iPlr),						//Gefechtspunkte
 			db->GetPlayerPoints(RWDS_TeamPoints, iPlr),						//Teampunkte
@@ -411,20 +416,16 @@ public func SavePlrStatistics(int iPlr)
   var kcnt = GetFullPlayerData(iPlr, RWDS_KillCount);
   var dcnt = GetFullPlayerData(iPlr, RWDS_DeathCount);
 
-  SetPlayerData(tpoints + bpoints, RWDS_SavedTotalPoints, iPlr);
+	var total = tpoints + bpoints;
+	if(total < 0)
+		total = 0x7FFFFFFF;
+	
+  SetPlayerData(total, RWDS_SavedTotalPoints, iPlr);
 
   SetPlrExtraData(iPlr, "CMC_BattlePoints", bpoints);
   SetPlrExtraData(iPlr, "CMC_TeamPoints", tpoints);
   SetPlrExtraData(iPlr, "CMC_KillCount", kcnt);
   SetPlrExtraData(iPlr, "CMC_DeathCount", dcnt);
-
-  return true;
-}
-
-public func OnGameOver()
-{
-  for(var i = 0; i < GetPlayerCount(C4PT_User); i++)
-    SavePlrStatistics(GetPlayerByIndex(i, C4PT_User));
 
   return true;
 }
