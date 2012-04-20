@@ -6,16 +6,16 @@ TeamPoints=<c 00dd00>%d</c> Team Points
 KillCount=<c ffff33>%d</c> Kills
 DeathCount=<c ee0000>%d</c> Deaths
 AchievedAchievements=<c ffff33>%d</c> / %d Achievements
-NextRank=Current rank: %s (%d)|Next rank: %s (%d)
-YourRank=Current rank: %s (%d)
+NextRank=Current Rank: %s (%d)|Next Rank: %s (%d)
+YourRank=Current Rank: %s (%d)
 YouHaveBeenPromoted=%s has been promoted to %s!
 
 # Achievements
 
 Achievements=Achievements
 Showing=Showing %d-%d
-NextPage=Next page
-LastPage=Last page
+NextPage=Next Page
+LastPage=Last Page
 Back=Back
 
 # Point Table
@@ -36,3 +36,4 @@ AchievementLocked=<c 777777>You haven't unlock this achievement yet.</c>
 
 FirstLine=%s|Points: <c 777777>%d (+ %d)</c> <c ffbb00>%d</c>
 SecondLine=Battle: <c 00ff00>+%d</c>  Team: <c 00ff00>+%d</c>  Minus: <c ff0000>%d</c>
+PlayerLine={{KILLICON}} Kills: %d {{KAMB}} Deaths: %d {{IC01}} Points: %d
