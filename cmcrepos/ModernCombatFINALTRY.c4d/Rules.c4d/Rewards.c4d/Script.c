@@ -271,7 +271,6 @@ global func DoPlayerPoints(int iPoints, int iType, int iPlr, object pClonk, id i
     
     //Neuen Rang berechnen
     if(iType == RWDS_TeamPoints || iType == RWDS_BattlePoints)
-
       RecalcPlayerRank(iPlr);
     if(pClonk)
     {

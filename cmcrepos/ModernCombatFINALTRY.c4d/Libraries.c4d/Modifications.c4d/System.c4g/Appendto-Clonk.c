@@ -611,15 +611,16 @@ func Death(object pTarget)
   if(!IsFakeDeath())
   {
     ResetAchievementProgress(AC14, GetOwner());
-    //Eventuell Statistiken speichern
-    var rewards;
-    if((rewards = FindObject(RWDS)))
-    {
-      if(Hostile(GetKiller(pTarget), GetOwner(pTarget)))
-        rewards->SetPlayerData(rewards->GetPlayerData(RWDS_KillCount, GetKiller(pTarget))+1, RWDS_KillCount, GetKiller(pTarget));
-
-      rewards->SetPlayerData(rewards->GetPlayerData(RWDS_DeathCount, GetOwner(pTarget))+1, RWDS_DeathCount, GetOwner(pTarget));
-    }
+  }
+  
+  //Eventuell Statistiken speichern
+  var rewards;
+  if((rewards = FindObject(RWDS)))
+  {
+    if(Hostile(GetKiller(pTarget), GetOwner(pTarget)))
+      rewards->SetPlayerData(rewards->GetPlayerData(RWDS_KillCount, GetKiller(pTarget))+1, RWDS_KillCount, GetKiller(pTarget));
+      
+    rewards->SetPlayerData(rewards->GetPlayerData(RWDS_DeathCount, GetOwner(pTarget))+1, RWDS_DeathCount, GetOwner(pTarget));
   }
 
   // Bei Soforttod Todesnachricht einblenden und Achievements bearbeiten
