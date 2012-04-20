@@ -34,5 +34,5 @@ AchievementLocked=<c 777777>You haven't unlock this achievement yet.</c>
 
 # Evaluation
 
-FirstLine=%s|Points: <c ddddd>%d (+ %d)</c> <c ffbb00>%d</c>
+FirstLine=%s|Points: <c 777777>%d (+ %d)</c> <c ffbb00>%d</c>
 SecondLine=Battle: <c 00ff00>+%d</c>  Team: <c 00ff00>+%d</c>  Minus: <c ff0000>%d</c>
