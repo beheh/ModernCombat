@@ -130,8 +130,7 @@ public func Evaluate()
 
 func DoEvaluation(int plr)
 {
-  AddEvaluationData(Format("{{PSTL}}$Kills$: %d", aKill[plr]), GetPlayerID(plr));
-  AddEvaluationData(Format("{{KAMB}}$Death$: %d", aDeath[plr]), GetPlayerID(plr));
+  return false;
 }
 
 //Team eintragen, dass nur einen Spieler hat
