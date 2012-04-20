@@ -459,7 +459,6 @@ public func IsFulfilled()
     Schedule("GameOver()",150);
 
     //Auswertung
-    Evaluation();
     RewardEvaluation();
 
     //Nachricht über Gewinner
@@ -483,7 +482,6 @@ public func IsFulfilled()
     Schedule("GameOver()",150);
 
     //Auswertung
-    Evaluation();
     RewardEvaluation();
 
     return true;
@@ -556,19 +554,6 @@ private func GetWinningTeam()
     return 0;
   else
     return teamA; //Ansonsten das einzig lebendige Team
-}
-
-private func Evaluation()
-{
-  if(!evaluation)
-  for(var j=0 ; j < GetPlayerCount() ; j++)
-  {
-    var plr = GetPlayerByIndex(j);
-    AddEvaluationData(Format("{{PSTL}}$Kills$: %d", aKill[plr]), GetPlayerID(plr));
-    AddEvaluationData(Format("{{KAMB}}$Death$: %d", aDeath[plr]), GetPlayerID(plr));
-  }
-
-  evaluation = true;
 }
 
 private func EliminateTeam(int iTeam)
