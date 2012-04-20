@@ -842,7 +842,7 @@ public func SwitchInventoryLockMode(object pCaller)
 }
 
 public func ShorterDeathMenu()	{return GetPlrExtraData(GetOwner(), "CMC_DeathMenuMode");}
-public func RadioMusicAct()	{return !GetPlrExtraData(GetOwner(), "CMC_RadioMusicMode");} //CMC_RadioMusicMode = Wenn 0: an, wenn 1: aus
+public func RadioMusicAct()	{return !GetPlrExtraData(GetOwner(), "CMC_RadioMusicMode");}	//CMC_RadioMusicMode = Wenn 0: an, wenn 1: aus
 
 public func SwitchDeathMenuMode(object pCaller)
 {
@@ -911,31 +911,31 @@ public func SetQuickInventoryOff(object pCaller)
 public func QuickInventoryOn()	{return GetPlrExtraData(GetOwner(), "CMC_QuickInv");}
 public func QuickInventoryOff()	{return !QuickInventoryOn();}
 
-/* Belohnungen zurücksetzen */
+/* Spielerdaten zurücksetzen */
 
 protected func ContextResetData()
 {
   [0|Image=RWDS|Condition=NoContext]
   CreateMenu(RWDS, this, this, 0, GetName(0, RWDS), 0, C4MN_Style_Dialog);
   AddMenuItem("$ResetDataInfo$", 0, RWDS, this, 0, 0, " ");
-  AddMenuItem("$ResetAll$", "ResetData(7)", NULL, this, 0, 0, " ");
-  AddMenuItem("$ResetSettings$", "ResetData(1)", CSTR, this, 0, 0, " ");
-  AddMenuItem("$ResetStatistics$", "ResetData(2)", RWDS, this, 0, 0, " ");
-  AddMenuItem("$ResetAchievements$", "ResetData(4)", CHOS, this, 0, 0, " ", 2, 3);
+  AddMenuItem("$ResetAll$", "ResetData(7)", CSTD, this, 0, 0, " ");
+  AddMenuItem("$ResetSettings$", "ResetData(1)", CSTD, this, 0, 0, " ");
+  AddMenuItem("$ResetStatistics$", "ResetData(2)", CSTD, this, 0, 0, " ");
+  AddMenuItem("$ResetAchievements$", "ResetData(4)", CSTD, this, 0, 0, " ");
   AddMenuItem("$ResetAchNo$", "NoContext", SM06, this, 0, 0, " ");
   SelectMenuItem();
 }
 
 global func ResetSettings(int iPlr)
 {
-	SetPlrExtraData(iPlr, "CMC_InvLockMode", 0);
-	SetPlrExtraData(iPlr, "CMC_DeathMenuMode", 0);
-	SetPlrExtraData(iPlr, "CMC_RadioMusicMode", 0);
-	SetPlrExtraData(iPlr, "CMC_QuickInv", 0);
-	SetPlrExtraData(iPlr, "Hazard_NoHelpMsg", 0);
-	
-	// Extra-Zeugs fürs Radio:
-	if(GetPlrExtraData(iPlr, "CMC_RadioMusicMode"))
+  SetPlrExtraData(iPlr, "CMC_InvLockMode", 0);
+  SetPlrExtraData(iPlr, "CMC_DeathMenuMode", 0);
+  SetPlrExtraData(iPlr, "CMC_RadioMusicMode", 0);
+  SetPlrExtraData(iPlr, "CMC_QuickInv", 0);
+  SetPlrExtraData(iPlr, "Hazard_NoHelpMsg", 0);
+
+  //Radioinformationen
+  if(GetPlrExtraData(iPlr, "CMC_RadioMusicMode"))
   {
     for(var radio in FindObjects(Find_Func("IsRadio")))
       radio->StopSong(iPlr+1);
@@ -950,20 +950,20 @@ protected func ResetData(int iData, bool fContinue)
   //[0|Image=RWDS|Condition=NoContext]
   if(!fContinue)
   {
-  	CreateMenu(RWDS, this, this, 0, GetName(0, RWDS), 0, C4MN_Style_Dialog);
-  	AddMenuItem("$ResetAchInfo$", 0, RWDS, this, 0, 0, " ");
-  	AddMenuItem("$ResetAchYes$", Format("ResetData(%d, true)", iData), NULL, this, 0, 0, " ");
-  	AddMenuItem("$ResetAchNo$", "NoContext", SM06, this, 0, 0, " ");
-  	SelectMenuItem(2);
-  	return true;
+    CreateMenu(RWDS, this, this, 0, GetName(0, RWDS), 0, C4MN_Style_Dialog);
+    AddMenuItem("$ResetAchInfo$", 0, RWDS, this, 0, 0, " ");
+    AddMenuItem("$ResetAchYes$", Format("ResetData(%d, true)", iData), CHOS, this, 0, 0, " ",2,3);
+    AddMenuItem("$ResetAchNo$", "NoContext", SM06, this, 0, 0, " ");
+    SelectMenuItem(2);
+    return true;
   }
   if(iData & 1)
-  	ResetSettings(GetOwner());
+    ResetSettings(GetOwner());
   if(iData & 2)
-  	ResetPlayerStats(GetOwner());
+    ResetPlayerStats(GetOwner());
   if(iData & 4)
-  	ResetPlayerAchievements(GetOwner());
-  
+    ResetPlayerAchievements(GetOwner());
+
   PlayerMessage(GetOwner(), "$ResetDone$", this);
 }
 
