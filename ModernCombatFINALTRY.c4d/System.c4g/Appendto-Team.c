@@ -123,7 +123,7 @@ public func IsFulfilled() // Siegreiches Team?
 
 public func Evaluate()
 {
-  return EvaluationForAll();
+  return RewardEvaluation();
 }
 
 /* Eigene Icons */
