@@ -24,7 +24,6 @@ Objects=Objects
 #Settings
 
 Settings=Settings
-
 CtxQuickInventoryOn=QuickInventory
 CtxQuickInventoryOff=<c 777777>QuickInventory</c>
 CtxQuickInventoryDesc=Enables the QuickInventory ringmenu, replacing the traditional switching inside the inventory.
@@ -50,7 +49,7 @@ ResetAchievements=Achievements
 ResetAchInfo=Really reset?|<c 777777>The reset is completed after the round ends.</c>
 ResetAchYes=Reset
 ResetAchNo=Cancel
-ResetAchDone=Selected data has been reset.
+ResetDone=Selected data has been reset.
 
 #General
 Grenades=Grenades

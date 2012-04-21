@@ -49,7 +49,7 @@ ResetAchievements=Errungenschaften
 ResetAchInfo=Wirklich zurücksetzen?|<c 777777>Das endgültige Zurücksetzen erfolgt nach dem Rundenende.</c>
 ResetAchYes=Zurücksetzen
 ResetAchNo=Abbrechen
-ResetAchDone=Gewählte Daten wurden zurückgesetzt.
+ResetDone=Gewählte Daten wurden zurückgesetzt.
 
 #General
 Grenades=Granaten
