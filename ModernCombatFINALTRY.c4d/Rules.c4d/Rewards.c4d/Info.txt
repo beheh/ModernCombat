@@ -1,6 +1,6 @@
-Erweitertes Belohnungssystem
+Belohnungssystem
 
-Dieses System ermöglicht es Spieler und deren Leistung genauer bewerten zu können. Dazu werden Punkte vergeben, welche am Ende der Runde ausgewertet werden. Es ist komplett dynamisch und kann je nach Bedarf verändert und erweitert werden.
+Dieses System ermöglicht es Spieler und deren Leistung genauer bewerten zu können. Dazu werden Punkte und Ränge vergeben, welche am Ende der Runde ausgewertet und gespeichert werden.
 
 Standardpunkteliste:
 
@@ -66,6 +66,38 @@ Hilfe bei Zielobjektzerstörung		30		Teampunkte		IC03
 Team-Zielobjektzerstörung		-50		Minuspunkte		IC03
 Hilfe bei Team-Zielobjektzerstörung	-30		Minuspunkte		IC03
 
+Spieler erhalten bei der ersten CMC Runde den Rang 0 in ihre Spielerdateien geschrieben. Die erspielten Punkte dienen dabei als Maßstab, umso mehr der Spieler Team- und Gefechtspunkte sammelt, umso höher steigt er im Rang auf.
 
-Es gibt diverse optionale Bonuspunkte für Aktionen wie das Zerstören einer gegnerischen Heimbasis oder das Anzünden von gegnerischen Clonks.
-Alle Werte können unter System.c4g\RewardSystem-Points.c verändert werden.
+Standardrangliste:
+
+R00:       0
+R01:     225
+R02:     900
+R03:   2.000
+R04:   3.000
+R05:   5.000
+R06:   8.000
+R07:  11.000
+R08:  14.000
+R09:  18.000
+R10:  22.000
+R11:  27.000
+R12:  32.000
+R13:  38.000
+R14:  44.000
+R15:  50.000
+R16:  57.000
+R17:  65.000
+R18:  72.000
+R19:  81.000
+R20:  90.000
+R21:  99.000
+R22: 108.000
+R23: 119.000
+R24: 129.000
+R25: 140.000
+R26: 152.000
+R27: 164.000
+R28: 176.000
+R29: 189.000
+R30: 202.000
