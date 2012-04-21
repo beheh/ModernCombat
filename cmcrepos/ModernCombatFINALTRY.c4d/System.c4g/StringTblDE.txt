@@ -33,8 +33,16 @@ EffectInfo=Effektstufe setzen
 CreateRules=Spielregeln
 DarknessChose=Intensität der Dunkelheit
 GoalChose=Spielziel konfigurieren
+
 TeamArrangement=Teams
 TeamInfo=Teameinteilung konfigurieren
+RandomTeams=Zufällige Teams
+AutoBalanceTeams=Ausbalancierte Teams
+TeamCount=Teamanzahl
+IncTeamCnt=Teamanzahl erhöhen
+DecTeamCnt=Teamanzahl verringern
+CreateTeams=Teams erstellen
+
 AIMenu=KIs einstellen
 RuleInfo=Spielregel einstellen
 AIInfo=Diverse Einstellungen für KIs
