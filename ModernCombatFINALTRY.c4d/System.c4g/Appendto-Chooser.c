@@ -8,7 +8,7 @@
 
 local iEffectCount;
 local iChoosedPlr;
-
+local iTeamCount, arTeams;
 
 /* Initialisierung */
 
@@ -31,6 +31,12 @@ protected func Initialize()
 
   //Dunkelheit ermitteln
   iDarkCount = ObjectCount(DARK);
+  
+  //Anz. der Teams angeben
+  iTeamCount = GetTeamCount();
+  arTeams = [];
+	for(var i = 0; i < iTeamCount; i++)
+		arTeams[i+1] = true;
 
   //Regeln voreinstellen
   LoadRuleCfg();
@@ -301,12 +307,235 @@ protected func OpenTeamMenu(id dummy, int iSelection)
     var plr = GetPlayerByIndex(j);
     AddMenuItem(Format("%s (%s)", GetTaggedPlayerName(GetPlayerByIndex(plr), true), GetTeamName(GetPlayerTeam(plr))), "SwitchTeam", PCMK, pClonk, 0, plr);
   }
+  
+  //Zusätzliche Teameinstellungen
+  AddMenuItem("$RandomTeams$", "ChoosePossibleTeams(1)", NULL, pClonk);
+  AddMenuItem("$AutoBalanceTeams$", "ChoosePossibleTeams(2)", NULL, pClonk);
 
   //Fertig
   AddMenuItem("$Finished$", "OpenMenu", CHOS, pClonk, 0, 0, "$Finished$", 2, 3);
   //Letzten Eintrag auswählen
   SelectMenuItem(iSelection, pClonk);
 }
+
+protected func ChoosePossibleTeams(int iMode)
+{
+	var pClonk = GetCursor(iChoosedPlr);
+  //Menü erstellen
+  CreateMenu(GetID(), pClonk, 0, 0, 0, 0, 1);
+  
+  if(GetTeamName(1) == "Team 1") // Engine erstelltes Team.
+  {
+  	AddMenuItem("$TeamCount$", 0, 0, pClonk, iTeamCount);
+  	AddMenuItem("$IncTeamCnt$", Format("ChangeTeamCount(1, %d)", iMode), 0, pClonk);
+  	AddMenuItem("$DecTeamCnt$", Format("ChangeTeamCount(-1, %d)", iMode), 0, pClonk);
+  	AddMenuItem("$CreateTeams$", Format("CreateTeams(1, %d)", iMode), 0, pClonk);
+  }
+  else
+  {
+  	for(var i = 0; i < GetTeamCount(); i++)
+  	{
+  		var team = GetTeamByIndex(i);
+  		var clr = GetTeamColor(team);
+  		if(!arTeams[team])
+  			clr = 0x777777;
+  		
+  		AddMenuItem(Format("<c %x>%s</c>", clr, GetTeamName(team)), Format("SwitchTeam2(%d, %d)", team, iMode), 0, pClonk);
+  	}
+  	
+  	AddMenuItem("$CreateTeams$", Format("CreateTeams(2, %d)", iMode), 0, pClonk);
+  }
+  
+  return true;
+}
+
+protected func SwitchTeam2(int iTeam, int iMode)
+{
+	arTeams[iTeam] = !arTeams[iTeam];
+	if(GetIndexOf(true, arTeams) == -1) // Es ist nicht möglich, alle Teams zu deaktivieren.
+		arTeams[iTeam] = true;
+	
+	ChoosePossibleTeams(iMode);
+	SelectMenuItem(iTeam-1, GetCursor(iChoosedPlr));
+	return true;
+}
+
+protected func ChangeTeamCount(int iChange, int iMode)
+{
+	iTeamCount = BoundBy(iTeamCount + iChange, 1, GetPlayerCount(C4PT_User));
+	ChoosePossibleTeams(iMode);
+	SelectMenuItem(!!(iChange-1)+1, GetCursor(iChoosedPlr));
+	return true;
+}
+
+static const CHOS_TeamRandom			= 1;
+static const CHOS_TeamAutobalance = 2;
+
+protected func CreateTeams(int iTeamSort, int iMode)
+{
+	if(iMode == CHOS_TeamRandom) // Zufällige Teamzusammenstellung.
+	{
+		var players = []; var teams = [];
+		for(var i = 0; i < GetPlayerCount(C4PT_User); i++)
+			players[i] = GetPlayerByIndex(i, C4PT_User);
+			
+		var i = 0;
+		while(GetLength(players))
+		{
+			++i;
+			if(iTeamSort == 2)
+			{
+				if(i >= GetLength(arTeams))
+					i = 1;
+				
+				if(!arTeams[i])
+					continue;
+			}
+			else
+				if(i > iTeamCount)
+					i = 1;
+			
+			var pos = Random(GetLength(players));
+			var plr = players[pos];
+			DelArrayItem4K(players, pos);
+			var team = i;
+			
+			if(GetType(teams[i]) != C4V_Array)
+				teams[i] = [];
+			
+			teams[i][GetLength(teams[i])] = plr;
+		}
+		
+		// Spielerteam setzen.
+		for(var i = 0; i < GetLength(teams); i++)
+			if(GetType(teams[i]) == C4V_Array)
+				for(var plr in teams[i])
+					SetPlayerTeam(plr, i);
+	}
+	else if(iMode == CHOS_TeamAutobalance)
+	{
+		var team_count;
+		if(iTeamSort == 1)
+			team_count = iTeamCount;
+		else
+			for(var elm in arTeams)
+				team_count += elm;
+				
+		if(!team_count)
+			return false;
+		
+		var arNumbers = [];
+		for(var i = 0; i < GetPlayerCount(C4PT_User); i++)
+			arNumbers[i] = GetPlayerByIndex(i, C4PT_User);
+		
+		var teams = [];
+		for(var i = 0; i < team_count; i++)
+			teams[i] = [];
+	
+		var nr_cnt = GetLength(arNumbers); // Anz. Zahlen
+		var sum_nrs; // Summe dieser Zahlen (-> Ränge)
+		for(var plr in arNumbers)
+			sum_nrs += GetPlayerRank2(plr);
+			
+		var max_rows = nr_cnt / team_count + (nr_cnt % team_count); // Max. Anzahl von Zeilen
+		var max_nr = sum_nrs / team_count + (sum_nrs % team_count); // Höchste zu erreichende Zahl.
+		
+		if(GetMaxArrayVal(arNumbers, true) > max_nr) // Sonderregelung: Höhere Zahl in der Liste als die höchste, zu erreichende Zahl.
+		{
+			max_nr = GetMaxArrayVal(arNumbers, true);
+			max_rows = 0x7FFFFFFF;
+		}
+
+		// zusammenfügen
+		for(var i = 0; i < team_count; i++)
+			teams[i][0] = GetMaxArrayVal(arNumbers, 0, 0, 0, true);
+			
+		i--;
+		
+		while(i > -1)
+		{
+			for(var j = 0; j < max_rows-1; j++)
+			{
+				var val = GetMaxArrayVal(arNumbers, false, ArraySum(teams[i]), max_nr, true);
+				if(val != -1)
+					teams[i][j+1] = val;
+				else
+					break;
+			}
+			
+			i--;
+		}
+		
+		// Und fertig.
+		var arTempTeams = arTeams;
+		
+		for(var i = 0; i < GetLength(teams); i++)
+		{
+			if(iTeamSort == 2)
+			{
+				var pos = GetIndexOf(true, arTempTeams);
+				arTempTeams[pos] = 0;
+				
+				for(var plr in teams[i])
+					SetPlayerTeam(plr, pos);
+			}
+			else
+			{
+				var t = i+1;
+				
+				for(var plr in teams[i])
+					SetPlayerTeam(plr, t);
+			}
+		}
+	}
+	
+	return OpenTeamMenu();
+}	
+
+// ACHTUNG: Diese Funktion arbeitet mit Spielerrängen und sollte eigentlich nur mit dem Autobalance-Teil verwendet werden!
+protected func GetMaxArrayVal(array &arNumbers, bool fNoDelete, int iValue, int iMax, bool fPlr)
+{
+	var highest, pos = -1;
+	for(var i = 0; i < GetLength(arNumbers); i++)
+	{
+		if(iMax)
+		{
+			if(GetPlayerRank2(arNumbers[i]) > highest && iValue + GetPlayerRank2(arNumbers[i]) <= iMax)
+			{
+				highest = GetPlayerRank2(arNumbers[i]);
+				pos = i;
+			}
+		}
+		else if(GetPlayerRank2(arNumbers[i]) > highest)
+		{
+			highest = GetPlayerRank2(arNumbers[i]);
+			pos = i;
+		}
+	}
+	
+	if(pos == -1)
+		return -1;
+		
+	if(fPlr)
+		highest = arNumbers[pos];
+	
+	if(pos+1 && !fNoDelete)
+		DelArrayItem4K(arNumbers, pos);
+	
+	return highest;
+}
+
+//ACHTUNG: s. oben
+public func ArraySum(array arArray)
+{
+	var ret = 0;
+	for(var elm in arArray)
+		ret += GetPlayerRank2(elm);
+	
+	return ret;
+}
+
+public func GetPlayerRank2(int iPlr) { return GetPlayerRank(iPlr)+1; }
 
 protected func SwitchTeam(id dummy, int iPlr)
 {
