@@ -72,7 +72,7 @@ public func InitScoreboard()
   AddEffect("ChooserScoreboard", this, 21, 10, this);
 }
 
-global func SetScoreboardData(int iRowID, int iColID, string sText, int iData, bool fChooser) // Bearbeitung des Scoreboard während des Choosers benötigt fChooser.
+global func SetScoreboardData(int iRowID, int iColID, string sText, int iData, bool fChooser)	//Bearbeitung des Scoreboard während des Choosers benötigt fChooser
 {
   if(FindObject(CHOS) && !fChooser)
   {
@@ -91,7 +91,7 @@ public func UpdateScoreboard()
 {
   //Host-Spieler
   SetScoreboardData(CHOS_SBRD_Chooser, 0, GetPlayerName(iChoosedPlr), 0, true);
-  
+
   //Spielziele
   var str_goals = "", str_extra = "";
   if(!pGoal)
@@ -137,7 +137,7 @@ public func UpdateScoreboard()
     SetScoreboardData(CHOS_SBRD_Darkness, SBRD_Caption, "<c 777777>$ScoreboardDarkness$</c>", CHOS_SBRD_Darkness, true);
     SetScoreboardData(CHOS_SBRD_Darkness, 0, Format("<c 777777>%dx</c>", iDarkCount), 0, true);
   }
-  
+
   //Teamverteilung und Spielerränge
   for(var i = 0; i < GetPlayerCount(C4PT_User); i++)
   {
