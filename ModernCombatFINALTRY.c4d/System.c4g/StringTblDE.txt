@@ -21,50 +21,74 @@ FlagReturned=Die Flagge von <c %x>%s</c> ist zurück!
 
 # Chooser
 
+#Allgemein
+
 ChoosingPlayer=%s wählt jetzt die Spielkonfiguration, bitte noch etwas Geduld...
 Choosing=%s sucht gerade die Regeln aus, noch ein wenig Geduld...
 Goal=Das Spielziel wurde gewählt: <c ffff33>%s</c>
 Rules=<c ff0000>Regelwahl</c>: 
 StdRules=<c ffcc00>Standardregeln</c>: 
+GoalChose=Spielziel konfigurieren
+Back=Zurück
+Finished=Fertig
+
+#Effekte
+
 Effects=Effektstufe
 MoreEffects=Effektstufe erhöhen
 LessEffects=Effektstufe senken
 EffectInfo=Effektstufe setzen
+
+#Regeln
+
 CreateRules=Spielregeln
+RuleInfo=Spielregel einstellen
+
+#Dunkelheit
+
 DarknessChose=Intensität der Dunkelheit
-GoalChose=Spielziel konfigurieren
+MoreDarkness=Dunkelheit erhöhen
+LessDarkness=Dunkelheit senken
+
+#Teams
 
 TeamArrangement=Teams
 TeamInfo=Teameinteilung konfigurieren
-RandomTeams=Zufällige Teams
-AutoBalanceTeams=Ausbalancierte Teams
+RandomTeams=Zufällig anordnen
+AutoBalanceTeams=Nach Rang anordnen
 TeamCount=Teamanzahl
 IncTeamCnt=Teamanzahl erhöhen
 DecTeamCnt=Teamanzahl verringern
-CreateTeams=Teams erstellen
+CreateTeams=Teams aufstellen
+
+#KI
 
 AIMenu=KIs einstellen
-RuleInfo=Spielregel einstellen
 AIInfo=Diverse Einstellungen für KIs
-Finished=Fertig
-MoreWinScore=Punktzahl erhöhen
-LessWinScore=Punktzahl senken
-MoreDarkness=Dunkelheit erhöhen
-LessDarkness=Dunkelheit senken
 OneAIMore=Ein Bot mehr
 OneAILess=Ein Bot weniger
 NewTeam=Neues Team
 FairTeams=Faire Teams
 FairTeamsInfo=Alle Teams auffüllen, so dass überall die gleiche Anzahl Clonks vorhanden ist
 OnlyDeleteLastTeam=Das letzte Team muss als erstes entfernt werden!
+
+#Spielziel
+
+MoreWinScore=Punktzahl erhöhen
+LessWinScore=Punktzahl senken
+
+#Spielzielwahl
+
 RandomGoal=Zufallsspielziel
 GoalRandomChoose=Spielziel auswürfeln
-Back=Zurück
 VoteGoal=Spielzielabstimmung
 BeginVote=Abstimmung starten?
 BeginVoteYes=Ja
 BeginVoteNo=Nein
 GoalVoteBegins=Der Host startet eine Spielzielwahl, du hast <c ffff33>%d</c> Sekunden um deine(n) Favorit(en) zu wählen!
+
+# Scoreboard
+
 ScoreboardChooser=Host:
 ScoreboardGoals=Spielziel(e):
 ScoreboardRules=Spielregel(n):

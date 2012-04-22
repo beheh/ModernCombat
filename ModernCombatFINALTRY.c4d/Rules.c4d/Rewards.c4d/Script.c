@@ -167,8 +167,8 @@ public func RemovePlayer(int iPlr)
 {
   if(iPlr == -1) return false;
 
-	// Auswertungsdialog
-	SavePlrStatistics(iPlr);
+  //Auswertungsdialog aufrufen
+  SavePlrStatistics(iPlr);
 }
 
 global func RewardEvaluation()
@@ -201,21 +201,21 @@ public func Evaluate()
   //while(db->GetData()[iPlr] != 0)
   for(var iPlr = 0; iPlr < GetLength(db->GetData()); iPlr++)
   {
-  	if(!db->GetData()[iPlr])
-  		continue;
-  	
+    if(!db->GetData()[iPlr])
+    continue;
+
     if(!aList[GetPlayerTeam(iPlr)]) aList[GetPlayerTeam(iPlr)] = CreateArray();
 
-    szFirstLine = Format("$FirstLine$",					//Erste Zeile
-    db->GetPlayerPoints(RWDS_PlayerName, iPlr),				//Spielername
-    db->GetPlayerData(RWDS_StartTotalPoints, iPlr),			//Gesamtpunktzahl am Anfang
-    (db->GetPlayerPoints(RWDS_BattlePoints, iPlr) + db->GetPlayerPoints(RWDS_TeamPoints, iPlr)),		//Gesamtpunktzahl der Runde
-    db->GetPlayerData(RWDS_SavedTotalPoints, iPlr));			//Gesamtpunktzahl
+    szFirstLine = Format("$FirstLine$",									//Erste Zeile
+    db->GetPlayerPoints(RWDS_PlayerName, iPlr),								//Spielername
+    db->GetPlayerData(RWDS_StartTotalPoints, iPlr),							//Gesamtpunktzahl am Anfang
+    (db->GetPlayerPoints(RWDS_BattlePoints, iPlr) + db->GetPlayerPoints(RWDS_TeamPoints, iPlr)),	//Gesamtpunktzahl der Runde
+    db->GetPlayerData(RWDS_SavedTotalPoints, iPlr));							//Gesamtpunktzahl
 
-    szSecondLine = Format("$SecondLine$",				//Dritte Zeile
-    db->GetPlayerPoints(RWDS_BattlePoints, iPlr),			//Gefechtspunkte
-    db->GetPlayerPoints(RWDS_TeamPoints, iPlr),				//Teampunkte
-    db->GetPlayerPoints(RWDS_MinusPoints, iPlr));			//Minuspunkte
+    szSecondLine = Format("$SecondLine$",								//Dritte Zeile
+    db->GetPlayerPoints(RWDS_BattlePoints, iPlr),							//Gefechtspunkte
+    db->GetPlayerPoints(RWDS_TeamPoints, iPlr),								//Teampunkte
+    db->GetPlayerPoints(RWDS_MinusPoints, iPlr));							//Minuspunkte
 
     aList[GetPlayerTeam(iPlr)][GetLength(aList[GetPlayerTeam(iPlr)])] = [szFirstLine, szSecondLine];
     AddEvaluationData(Format("$PlayerLine$", db->GetPlayerData(RWDS_KillCount, iPlr), db->GetPlayerData(RWDS_DeathCount, iPlr), db->GetPlayerData(RWDS_SavedTotalPoints, iPlr)), iPlr+1);
