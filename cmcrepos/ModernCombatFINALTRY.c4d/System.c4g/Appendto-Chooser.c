@@ -155,6 +155,14 @@ public func UpdateScoreboard()
   }
 }
 
+public func RemovePlayer()
+{
+	ClearScoreboard(CHOS_SBRD_Teams + GetPlayerCount()+2, 2);
+	InitScoreboard();
+	ScheduleCall(this, "UpdateScoreboard", 1);
+	return true;
+}
+
 global func ClearScoreboard(int iRow, int iCol)
 {
   var row = SBRD_Caption;
