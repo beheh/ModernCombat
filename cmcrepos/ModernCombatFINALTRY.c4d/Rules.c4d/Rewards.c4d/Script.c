@@ -163,6 +163,14 @@ global func RewardsActive()
 
 /* Auswerten */
 
+public func RemovePlayer(int iPlr)
+{
+  if(iPlr == -1) return false;
+
+	// Auswertungsdialog
+	SavePlrStatistics(iPlr);
+}
+
 global func RewardEvaluation()
 {
   //Nur mit Belohnungen-Regel fortfahren
@@ -186,12 +194,18 @@ public func Evaluate()
   var iPlr = 0;
 
   //Endpunktzahl aktualisieren und Statistiken speichern
-  for(var i = 0; i < GetPlayerCount(C4PT_User); i++)
-    SavePlrStatistics(GetPlayerByIndex(i, C4PT_User));
+  //for(var i = 0; i < GetPlayerCount(C4PT_User); i++)
+  //  SavePlrStatistics(GetPlayerByIndex(i, C4PT_User));
+
+	Log("%v = db", db);
 
   //Kopfzeilen erstellen
-  while(db->GetData()[iPlr] != 0)
+  //while(db->GetData()[iPlr] != 0)
+  for(var iPlr = 0; iPlr < GetLength(db); iPlr++)
   {
+  	if(!db[iPlr])
+  		continue;
+  	
     if(!aList[GetPlayerTeam(iPlr)]) aList[GetPlayerTeam(iPlr)] = CreateArray();
 
     szFirstLine = Format("$FirstLine$",					//Erste Zeile
@@ -207,7 +221,6 @@ public func Evaluate()
 
     aList[GetPlayerTeam(iPlr)][GetLength(aList[GetPlayerTeam(iPlr)])] = [szFirstLine, szSecondLine];
     AddEvaluationData(Format("$PlayerLine$", db->GetPlayerData(RWDS_KillCount, iPlr), db->GetPlayerData(RWDS_DeathCount, iPlr), db->GetPlayerData(RWDS_SavedTotalPoints, iPlr)), iPlr+1);
-    iPlr++;
   }
 
   //Teamweise Auflistung der Daten
@@ -429,13 +442,13 @@ public func SavePlrStatistics(int iPlr)
   return true;
 }
 
-global func EliminatePlayer(int iPlr)
+/*global func EliminatePlayer(int iPlr)
 {
   if(FindObject(RWDS))
     FindObject(RWDS)->SavePlrStatistics(iPlr);
 
   return _inherited(iPlr, ...);
-}
+}*/
 
 public func GetFullPlayerData(int iPlr, int iType)
 {
