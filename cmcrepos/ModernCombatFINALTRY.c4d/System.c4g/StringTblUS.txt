@@ -21,42 +21,74 @@ FlagReturned=The flag of <c %x>%s</c> was returned!
 
 # Chooser
 
+#General
+
 ChoosingPlayer=%s configures the game, please be patient...
 Choosing=%s configures the rules, please be patient...
 Goal=The goal has been chosen: <c ffff33>%s</c>
 Rules=<c ff0000>Rules chosen</c>: 
 StdRules=<c ffcc00>Standard rules</c>: 
+GoalChose=Configure goal
+Back=Back
+Finished=Finished
+
+#Effects
+
 Effects=Effect Level
 MoreEffects=Increase Effect Level
 LessEffects=Decrease Effect Level
 EffectInfo=Configure Effect Level
+
+#Rules
+
 CreateRules=Rules
-DarknessChose=Configure darkness
-GoalChose=Configure goal
-TeamArrangement=Teams
-TeamInfo=Configure teams
-AIMenu=AI setup
 RuleInfo=Configure rules
-AIInfo=Option to configure AI players
-Finished=Finished
-MoreWinScore=Increase score
-LessWinScore=Decrease score
+
+#Darkness
+
+DarknessChose=Configure darkness
 MoreDarkness=Darker
 LessDarkness=Brighter
+
+#Teams
+
+TeamArrangement=Teams
+TeamInfo=Configure teams
+RandomTeams=Sort randomly
+AutoBalanceTeams=Sort by rank
+TeamCount=Team Count
+IncTeamCnt=Increase team count
+DecTeamCnt=Decrease team count
+CreateTeams=Create Teams
+
+#AI
+
+AIMenu=AI setup
+AIInfo=Option to configure AI players
 OneAIMore=One bot more
 OneAILess=One bot less
 NewTeam=New Team
 FairTeams=Fair Teams
 FairTeamsInfo=Fair match
 OnlyDeleteLastTeam=The last team has to be removed first!
+
+#Goal
+
+MoreWinScore=Increase score
+LessWinScore=Decrease score
+
+#Game Goal Choosing
+
 RandomGoal=Random goal
 GoalRandomChoose=Choose goal randomly
-Back=Back
 VoteGoal=Goal voting
 BeginVote=Begin vote?
 BeginVoteYes=Yes
 BeginVoteNo=No
 GoalVoteBegins=The host has started a goal election, you have <c ffff33>%d</c> seconds to choose your favorite(s)!
+
+#Scoreboard
+
 ScoreboardChooser=Host:
 ScoreboardGoals=Goal(s):
 ScoreboardRules=Rule(s):
