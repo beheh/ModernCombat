@@ -4,7 +4,7 @@
 
 #appendto CSTD
 
-public func Initialize()
+public func InitializePlayer()
 {
 	AddMsgBoardCmd("votekick", "Votekick(%player%, \"%s\")");
 	return _inherited(...);
