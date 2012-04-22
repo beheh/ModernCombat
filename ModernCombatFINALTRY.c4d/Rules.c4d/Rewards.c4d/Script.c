@@ -194,8 +194,8 @@ public func Evaluate()
   var iPlr = 0;
 
   //Endpunktzahl aktualisieren und Statistiken speichern
-  //for(var i = 0; i < GetPlayerCount(C4PT_User); i++)
-  //  SavePlrStatistics(GetPlayerByIndex(i, C4PT_User));
+  for(var i = 0; i < GetPlayerCount(C4PT_User); i++)
+    SavePlrStatistics(GetPlayerByIndex(i, C4PT_User));
 
   //Kopfzeilen erstellen
   //while(db->GetData()[iPlr] != 0)
