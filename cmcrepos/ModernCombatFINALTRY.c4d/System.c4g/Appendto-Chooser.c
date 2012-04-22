@@ -37,7 +37,7 @@ protected func Initialize()
   arTeams = [];
   for(var i = 0; i < iTeamCount; i++)
     arTeams[i+1] = true;
-
+  
   //Regeln voreinstellen
   LoadRuleCfg();
 
@@ -335,6 +335,9 @@ protected func ChoosePossibleTeams(int iMode)
   
   if(GetTeamName(1) == "Team 1") //Engine-erstelltes Team
   {
+  	if(!iTeamCount)
+  		iTeamCount = GetTeamCount();
+  
     AddMenuItem("$TeamCount$", 0, TEAM, pClonk, iTeamCount);
     AddMenuItem("$IncTeamCnt$", Format("ChangeTeamCount(1, %d)", iMode), CHOS, pClonk, 0, 0, 0, 2, 1);
     AddMenuItem("$DecTeamCnt$", Format("ChangeTeamCount(-1, %d)", iMode), CHOS, pClonk, 0, 0, 0, 2, 2);
@@ -450,15 +453,15 @@ protected func CreateTeams(int iTeamSort, int iMode)
     var max_rows = nr_cnt / team_count + (nr_cnt % team_count);	//Max. Anzahl von Zeilen
     var max_nr = sum_nrs / team_count + (sum_nrs % team_count);	//Höchste zu erreichende Zahl
 
-    if(GetMaxArrayVal(arNumbers, true) > max_nr) // Sonderregelung: Höhere Zahl in der Liste als die höchste, zu erreichende Zahl.
+    if(AB_GetMaxPlayerRank(arNumbers, true) > max_nr) // Sonderregelung: Höhere Zahl in der Liste als die höchste, zu erreichende Zahl.
     {
-      max_nr = GetMaxArrayVal(arNumbers, true);
+      max_nr = AB_GetMaxPlayerRank(arNumbers, true);
       max_rows = 0x7FFFFFFF;
     }
 
     //Zusammenfügen
     for(var i = 0; i < team_count; i++)
-      teams[i][0] = GetMaxArrayVal(arNumbers, 0, 0, 0, true);
+      teams[i][0] = AB_GetMaxPlayerRank(arNumbers, 0, 0, 0, true);
 
     i--;
 
@@ -466,7 +469,7 @@ protected func CreateTeams(int iTeamSort, int iMode)
     {
       for(var j = 0; j < max_rows-1; j++)
       {
-        var val = GetMaxArrayVal(arNumbers, false, ArraySum(teams[i]), max_nr, true);
+        var val = AB_GetMaxPlayerRank(arNumbers, false, AB_ArraySum(teams[i]), max_nr, true);
         if(val != -1)
           teams[i][j+1] = val;
         else
@@ -504,7 +507,7 @@ protected func CreateTeams(int iTeamSort, int iMode)
 
 /* Hinweis: Funktion arbeitet mit Spielerrängen und sollte nur vom Autobalance-Teil verwendet werden */
 
-protected func GetMaxArrayVal(array &arNumbers, bool fNoDelete, int iValue, int iMax, bool fPlr)
+protected func AB_GetMaxPlayerRank(array &arNumbers, bool fNoDelete, int iValue, int iMax, bool fPlr)
 {
   var highest, pos = -1;
   for(var i = 0; i < GetLength(arNumbers); i++)
@@ -536,7 +539,9 @@ protected func GetMaxArrayVal(array &arNumbers, bool fNoDelete, int iValue, int 
   return highest;
 }
 
-public func ArraySum(array arArray)
+/* s. oben. JA DIESE ANMERKUNG SOLLTE REIN, WEIL SONST IRRITIEREND. */
+
+public func AB_ArraySum(array arArray)
 {
   var ret = 0;
   for(var elm in arArray)
