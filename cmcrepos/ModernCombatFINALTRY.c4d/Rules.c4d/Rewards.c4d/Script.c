@@ -362,7 +362,7 @@ global func RecalcPlayerRank(int iPlr)
       EventInfo4K(0, Format("$YouHaveBeenPromoted$", GetTaggedPlayerName(iPlr), GetName(info)), GetID(info), 0, 0, 0, "PriorityInfo.ogg");
 
       //Sound-Hinweis
-      Sound("AchievementGet.ogg", true, 0, 100, iPlr+1);
+      Sound("RankUp.ogg", true, 0, 100, iPlr+1);
     }
     return aRanks[iPlr];
   }
