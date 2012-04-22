@@ -37,7 +37,7 @@ protected func Initialize()
   arTeams = [];
   for(var i = 0; i < iTeamCount; i++)
     arTeams[i+1] = true;
-  
+
   //Regeln voreinstellen
   LoadRuleCfg();
 
@@ -335,9 +335,9 @@ protected func ChoosePossibleTeams(int iMode)
   
   if(GetTeamName(1) == "Team 1") //Engine-erstelltes Team
   {
-  	if(!iTeamCount)
-  		iTeamCount = GetTeamCount();
-  
+    if(!iTeamCount)
+      iTeamCount = GetTeamCount();
+
     AddMenuItem("$TeamCount$", 0, TEAM, pClonk, iTeamCount);
     AddMenuItem("$IncTeamCnt$", Format("ChangeTeamCount(1, %d)", iMode), CHOS, pClonk, 0, 0, 0, 2, 1);
     AddMenuItem("$DecTeamCnt$", Format("ChangeTeamCount(-1, %d)", iMode), CHOS, pClonk, 0, 0, 0, 2, 2);
@@ -453,7 +453,7 @@ protected func CreateTeams(int iTeamSort, int iMode)
     var max_rows = nr_cnt / team_count + (nr_cnt % team_count);	//Max. Anzahl von Zeilen
     var max_nr = sum_nrs / team_count + (sum_nrs % team_count);	//Höchste zu erreichende Zahl
 
-    if(AB_GetMaxPlayerRank(arNumbers, true) > max_nr) // Sonderregelung: Höhere Zahl in der Liste als die höchste, zu erreichende Zahl.
+    if(AB_GetMaxPlayerRank(arNumbers, true) > max_nr) //Sonderregelung: Höhere Zahl in der Liste als die höchste, zu erreichende Zahl
     {
       max_nr = AB_GetMaxPlayerRank(arNumbers, true);
       max_rows = 0x7FFFFFFF;
@@ -505,7 +505,7 @@ protected func CreateTeams(int iTeamSort, int iMode)
   return OpenTeamMenu();
 }
 
-/* Hinweis: Funktion arbeitet mit Spielerrängen und sollte nur vom Autobalance-Teil verwendet werden */
+/* Hinweis: Die zwei folgenden Funktionen arbeiten mit Spielerrängen und sollte nur vom Autobalance-Teil verwendet werden */
 
 protected func AB_GetMaxPlayerRank(array &arNumbers, bool fNoDelete, int iValue, int iMax, bool fPlr)
 {
@@ -538,8 +538,6 @@ protected func AB_GetMaxPlayerRank(array &arNumbers, bool fNoDelete, int iValue,
 
   return highest;
 }
-
-/* s. oben. JA DIESE ANMERKUNG SOLLTE REIN, WEIL SONST IRRITIEREND. */
 
 public func AB_ArraySum(array arArray)
 {
