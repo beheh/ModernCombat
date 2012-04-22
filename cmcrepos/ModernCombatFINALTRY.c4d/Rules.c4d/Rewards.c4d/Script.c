@@ -209,7 +209,7 @@ public func Evaluate()
     szFirstLine = Format("$FirstLine$",					//Erste Zeile
     db->GetPlayerPoints(RWDS_PlayerName, iPlr),				//Spielername
     db->GetPlayerData(RWDS_StartTotalPoints, iPlr),			//Gesamtpunktzahl am Anfang
-    Max(db->GetPlayerPoints(RWDS_TotalPoints, iPlr), 0),		//Gesamtpunktzahl der Runde
+    (db->GetPlayerPoints(RWDS_BattlePoints, iPlr) + db->GetPlayerPoints(RWDS_TeamPoints, iPlr)),		//Gesamtpunktzahl der Runde
     db->GetPlayerData(RWDS_SavedTotalPoints, iPlr));			//Gesamtpunktzahl
 
     szSecondLine = Format("$SecondLine$",				//Dritte Zeile
