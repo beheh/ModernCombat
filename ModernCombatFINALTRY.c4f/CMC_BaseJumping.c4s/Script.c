@@ -517,7 +517,6 @@ public func ChooserFinished()
    aFlag[2] -> AddSpawnPoint(720,280);
    aFlag[2] -> AddSpawnPoint(760,240);
    aFlag[2] -> AddSpawnPoint(990,430);
-   aFlag[2]->Set("$Flag3$",0,2);
    if(aTeams[1] == true)
    {
     aFlag[2]->Set("$Flag3$",100,2);
@@ -549,17 +548,17 @@ public func ChooserFinished()
     aFlag[4]->Set("$Flag5$",0,2);
    }
 
-   aFlag[0] = CreateObject(OFPL,2240,1570,NO_OWNER);
-   aFlag[0] -> AddSpawnPoint(2340, 1480);
-   aFlag[0] -> AddSpawnPoint(2505, 1480);
-   aFlag[0] -> AddSpawnPoint(2465, 1560);
-   aFlag[0]->Set("$Flag6$",0,2);
+   aFlag[5] = CreateObject(OFPL,2240,1570,NO_OWNER);
+   aFlag[5] -> AddSpawnPoint(2340, 1480);
+   aFlag[5] -> AddSpawnPoint(2505, 1480);
+   aFlag[5] -> AddSpawnPoint(2465, 1560);
+   aFlag[5]->Set("$Flag6$",0,2);
 
-   aFlag[0] = CreateObject(OFPL,2630,850,NO_OWNER);
-   aFlag[0] -> AddSpawnPoint(2470, 940);
-   aFlag[0] -> AddSpawnPoint(2540, 930);
-   aFlag[0] -> AddSpawnPoint(2690, 930);
-   aFlag[0]->Set("$Flag7$",0,2);
+   aFlag[6] = CreateObject(OFPL,2630,850,NO_OWNER);
+   aFlag[6] -> AddSpawnPoint(2470, 940);
+   aFlag[6] -> AddSpawnPoint(2540, 930);
+   aFlag[6] -> AddSpawnPoint(2690, 930);
+   aFlag[6]->Set("$Flag7$",0,2);
   }
 
   //MR-Spielziel
