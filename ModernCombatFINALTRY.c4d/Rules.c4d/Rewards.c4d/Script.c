@@ -197,11 +197,9 @@ public func Evaluate()
   //for(var i = 0; i < GetPlayerCount(C4PT_User); i++)
   //  SavePlrStatistics(GetPlayerByIndex(i, C4PT_User));
 
-	Log("%v = db", db);
-
   //Kopfzeilen erstellen
   //while(db->GetData()[iPlr] != 0)
-  for(var iPlr = 0; iPlr < GetLength(db); iPlr++)
+  for(var iPlr = 0; iPlr < GetLength(db->GetData()); iPlr++)
   {
   	if(!db[iPlr])
   		continue;
