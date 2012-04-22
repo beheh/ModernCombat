@@ -201,7 +201,7 @@ public func Evaluate()
   //while(db->GetData()[iPlr] != 0)
   for(var iPlr = 0; iPlr < GetLength(db->GetData()); iPlr++)
   {
-  	if(!db[iPlr])
+  	if(!db->GetData()[iPlr])
   		continue;
   	
     if(!aList[GetPlayerTeam(iPlr)]) aList[GetPlayerTeam(iPlr)] = CreateArray();
