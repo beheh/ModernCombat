@@ -317,8 +317,8 @@ protected func OpenTeamMenu(id dummy, int iSelection)
   }
   
   //Zusätzliche Teameinstellungen
-  AddMenuItem("$RandomTeams$", "ChoosePossibleTeams(1)", NULL, pClonk);
-  AddMenuItem("$AutoBalanceTeams$", "ChoosePossibleTeams(2)", NULL, pClonk);
+  AddMenuItem("$RandomTeams$", "ChoosePossibleTeams(1)", MCMC, pClonk);
+  AddMenuItem("$AutoBalanceTeams$", "ChoosePossibleTeams(2)", MCMC, pClonk);
 
   //Fertig
   AddMenuItem("$Finished$", "OpenMenu", CHOS, pClonk, 0, 0, "$Finished$", 2, 3);
@@ -335,10 +335,11 @@ protected func ChoosePossibleTeams(int iMode)
   
   if(GetTeamName(1) == "Team 1") //Engine-erstelltes Team
   {
-    AddMenuItem("$TeamCount$", 0, 0, pClonk, iTeamCount);
-    AddMenuItem("$IncTeamCnt$", Format("ChangeTeamCount(1, %d)", iMode), 0, pClonk);
-    AddMenuItem("$DecTeamCnt$", Format("ChangeTeamCount(-1, %d)", iMode), 0, pClonk);
-    AddMenuItem("$CreateTeams$", Format("CreateTeams(1, %d)", iMode), 0, pClonk);
+    AddMenuItem("$TeamCount$", 0, TEAM, pClonk, iTeamCount);
+    AddMenuItem("$IncTeamCnt$", Format("ChangeTeamCount(1, %d)", iMode), CHOS, pClonk, 0, 0, 0, 2, 1);
+    AddMenuItem("$DecTeamCnt$", Format("ChangeTeamCount(-1, %d)", iMode), CHOS, pClonk, 0, 0, 0, 2, 2);
+    AddMenuItem("$CreateTeams$", Format("CreateTeams(1, %d)", iMode), CHOS, pClonk, 0, 0, 0, 2, 3);
+    AddMenuItem("$Back$", "OpenTeamMenu", 0, pClonk, 0, 0, "$Back$");
   }
   else
   {
@@ -349,9 +350,10 @@ protected func ChoosePossibleTeams(int iMode)
       if(!arTeams[team])
         clr = 0x777777;
 
-      AddMenuItem(Format("<c %x>%s</c>", clr, GetTeamName(team)), Format("SwitchTeam2(%d, %d)", team, iMode), 0, pClonk);
+      AddMenuItem(Format("<c %x>%s</c>", clr, GetTeamName(team)), Format("SwitchTeam2(%d, %d)", team, iMode), PCMK, pClonk);
     }
-    AddMenuItem("$CreateTeams$", Format("CreateTeams(2, %d)", iMode), 0, pClonk);
+    AddMenuItem("$CreateTeams$", Format("CreateTeams(2, %d)", iMode), CHOS, pClonk, 0, 0, 0, 2, 3);
+    AddMenuItem("$Back$", "OpenTeamMenu", 0, pClonk, 0, 0, "$Back$");
   }
 
   return true;
@@ -680,7 +682,8 @@ protected func ConfigurationFinished2()
 private func IsStandardSetting()
 {
   var a = GameCall("ChooserRuleConfig"), i;
-  for (var i = 0; i < GetLength(aRules); i++) {
+  for (var i = 0; i < GetLength(aRules); i++)
+  {
     if (GetIndexOf(GetDefinition(i, Chooser_Cat), a) != -1)
     {
       if (!aRules[i]) //Regel im Standardsatz, aber nicht ausgewählt
