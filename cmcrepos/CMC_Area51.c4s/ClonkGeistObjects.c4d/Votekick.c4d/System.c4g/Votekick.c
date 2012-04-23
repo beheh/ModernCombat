@@ -34,6 +34,9 @@ global func Votekick(int iPlr, string pars)
 {
 	/*if(!NoRealHost()) // Nur in Hostlosen Runden.
 		return false;*/ // Aus Testgründen deaktiviert
+		
+	if(GetLeague())
+		return false;
 	
 	if(GetPlayerCount(C4PT_User) < 3) // Nur bei 3 oder mehr Spielern
 		return false;
