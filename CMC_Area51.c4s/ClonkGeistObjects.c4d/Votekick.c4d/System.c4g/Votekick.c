@@ -32,8 +32,11 @@ global func GetClientCount()
 
 global func Votekick(int iPlr, string pars)
 {
-	/*if(!NoRealHost()) // Nur, wenn kein Host da ist.
+	/*if(!NoRealHost()) // Nur in Hostlosen Runden.
 		return false;*/ // Aus Testgründen deaktiviert
+	
+	if(GetPlayerCount(C4PT_User) < 3) // Nur bei 3 oder mehr Spielern
+		return false;
 	
 	if(GetEffect("VotekickSpamfilter"))
 		return PlayerMessage(iPlr, "Es sind nur 3 Umfragen alle 90 Sekunden erlaubt.", GetCursor(iPlr));
@@ -179,7 +182,7 @@ global func FxVotekickStop(object target, int nr)
 	
 	Log("Es haben %d Spieler an der Umfrage teilgenommen. %d Spieler sind für und %d Spieler sind gegen einen Rauswurf von %s.", pcnt, EffectVar(1, target, nr), pacnt, GetTaggedPlayerName(EffectVar(0, target, nr)));
 	
-	if(pcnt/3*2 <= EffectVar(1, target, nr)) // 2/3 oder mehr Teilnehmer haben für einen Kick gestimmt?
+	if(pcnt/3*2+(!!(pcnt % 3)) <= EffectVar(1, target, nr)) // 2/3 oder mehr Teilnehmer haben für einen Kick gestimmt?
 	{
 		Log("Es hat eine 2/3 Mehrheit der Teilnehmer für einen Rauswurf gestimmt.");
 		SetMaxPlayer(0);
