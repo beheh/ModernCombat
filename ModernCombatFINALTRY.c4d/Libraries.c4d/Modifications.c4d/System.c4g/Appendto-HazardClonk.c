@@ -1048,10 +1048,12 @@ static const QINV_GrenadeMenu = 6;
 
 local QINV_MenuOrder; //Reihenfolge im Menü
 local QINV_MenuItemIds; //ID-Reihenfolge der aufgesammelten Objekte einer Kategorie
+local QINV_GrenadeTemporary; //Granate zum Wegstecken
 
 public func Initialize() {
   QINV_MenuOrder = [RMEN_UpItem, RMEN_RightItem, RMEN_DownItem,  RMEN_LeftItem];
   QINV_MenuItemIds = [];
+  QINV_GrenadeTemporary = 0;
   return _inherited();
 }
 
@@ -1083,6 +1085,10 @@ public func QuickInventory(int iMenu, int iPage) {
 
   //Hauptmenü
 	if(iMenu == QINV_MainMenu) {
+	  //Granate zurücksetzen
+	  QINV_GrenadeTemporary = 0;
+	  
+	  //Menü erzeugen
 		var pRing = CreateSpeedMenu(0, this);
 
 		//Verweise auf Submenüs
@@ -1110,7 +1116,7 @@ public func QuickInventory(int iMenu, int iPage) {
 	  var aItems = GetQuickInventoryMenuItems(iMenu);
 		if(GetLength(aItems)) {
 		  //Erstes Objekt auswählen
-			QuickInventorySelect(GetQuickInventoryMenuItem(iMenu));
+			QuickInventorySelect(GetQuickInventoryMenuItem(iMenu), true);
 
 			//Vorhanden Objekte zählen
 			var iCount = 0;
@@ -1156,9 +1162,22 @@ public func QuickInventoryPaging(array aData) {
   QuickInventory(aData[0], aData[1]);
 }
 
-public func QuickInventorySelect(id idObject) {
+public func QuickInventorySelect(id idObject, bool fSaveTemporary) {
   var fFound = SelectInventory(0, idObject);
-  if(!fFound) fFound = GrabGrenade(idObject);
+  if(!fFound) {
+    fFound = GrabGrenade(idObject);
+    //Wenn wir jetzt exakt eine Granate herausgeholt haben
+    if(fSaveTemporary && fFound && !QINV_GrenadeTemporary && ContentsCount(idObject))
+      QINV_GrenadeTemporary = idObject;
+  }
+  
+  if(QINV_GrenadeTemporary && !fSaveTemporary) {
+    var pGrenade = 0;
+    if(GetID(Contents()) != QINV_GrenadeTemporary) pGrenade = FindObject2(Find_ID(QINV_GrenadeTemporary), Find_Container(this));
+    if(pGrenade) StoreGrenade(pGrenade);
+    QINV_GrenadeTemporary = 0;
+  }
+  
   return fFound;
 }
 
