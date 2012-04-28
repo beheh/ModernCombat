@@ -222,7 +222,7 @@ public func Evaluate()
     db->GetPlayerPoints(RWDS_MinusPoints, iPlr));							//Minuspunkte
 
     aList[GetPlayerTeam(iPlr)][GetLength(aList[GetPlayerTeam(iPlr)])] = [szFirstLine, szSecondLine];
-    AddEvaluationData(Format("$PlayerLine$", db->GetPlayerData(RWDS_KillCount, iPlr), db->GetPlayerData(RWDS_DeathCount, iPlr), db->GetPlayerData(RWDS_SavedTotalPoints, iPlr)), iPlr+1);
+    AddEvaluationData(Format("$PlayerLine$", db->GetPlayerData(RWDS_KillCount, iPlr), db->GetPlayerData(RWDS_DeathCount, iPlr), db->GetPlayerData(RWDS_SavedTotalPoints, iPlr)), db->GetPlayerData(RWDS_PlayerID, iPlr));
   }
 
   //Teamweise Auflistung der Daten
@@ -255,6 +255,7 @@ public func UpdatePlayers()
     
     SetPlayerData(GetTaggedPlayerName(iPlr, true), RWDS_PlayerName, iPlr);
     SetPlayerData(GetPlayerTeam(iPlr), RWDS_PlayerTeam, iPlr);
+    SetPlayerData(GetPlayerID(iPlr), RWDS_PlayerID, iPlr);
     if(!aData[iPlr]) aData[iPlr] = CreateArray();
     if(!aAchievementProgress[iPlr]) aAchievementProgress[iPlr] = CreateArray();
     if(!aAchievementExtra[iPlr]) aAchievementExtra[iPlr] = CreateArray();
@@ -274,6 +275,7 @@ static const RWDS_KillCount		= 6;
 static const RWDS_DeathCount		= 7;
 static const RWDS_StartTotalPoints	= 8;
 static const RWDS_SavedTotalPoints	= 9;
+static const RWDS_PlayerID = 10;
 
 global func DoPlayerPoints(int iPoints, int iType, int iPlr, object pClonk, id idIcon)
 {
