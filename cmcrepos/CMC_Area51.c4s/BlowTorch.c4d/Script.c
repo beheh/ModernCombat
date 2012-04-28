@@ -276,70 +276,76 @@ public func Use(caller)
 
   used = false;
 
-  //Objekte suchen, die repariert werden können
-  var obj = caller->FindObject2(Find_Or(Find_And(Find_Func("IsRepairable"), Find_Or(Find_Func("GetDamage"), Find_Hostile(GetOwner(caller)))), Find_And(Find_OCF(OCF_Alive), Find_Hostile(GetOwner(caller)), Find_NoContainer()), Find_Func("IsFakeRepairable")), Find_AtPoint());
+  //Entschärfbare Objekte suchen
+  var obj = caller->FindObject2(Find_Func("IsDefusable"), Find_Hostile(GetOwner(caller)));
   if(obj)
-  {	
-    if(Hostile(GetOwner(obj), GetOwner(caller)))
-    {
-      if(obj->~IsRepairable()) //Fahrzeuge
+    obj->RTDefuse();
+  else
+  {
+    //Objekte suchen, die repariert werden können
+    obj = caller->FindObject2(Find_Or(Find_And(Find_Func("IsRepairable"), Find_Or(Find_Func("GetDamage"), Find_Hostile(GetOwner(caller)))), Find_And(Find_OCF(OCF_Alive), Find_Hostile(GetOwner(caller)), Find_NoContainer()), Find_Func("IsFakeRepairable")), Find_AtPoint());
+    if(obj)
+    {	
+      if(Hostile(GetOwner(obj), GetOwner(caller)))
       {
-        //Fahrzeug beschädigen
-        DoDmg(5, DMG_Fire, obj);
-
-        used = true;
-        charge = BoundBy(charge-1, 0, MaxEnergy());
-      }
-      else if(obj->~IsFakeRepairable()) //Konsolen
-      {
-        //Konsole beschädigen
-      	obj = obj->GetRealRepairableObject();
-      	DoDmg(5, DMG_Fire, obj);
-
-      	used = true;
-      	charge = BoundBy(charge-1, 0, MaxEnergy());
-      }
-      else //Lebewesen
-      {
-        if(!living_dmg_cooldown)
+        if(obj->~IsRepairable()) //Fahrzeuge
         {
-          //Lebewesen verletzen
-          DoDmg(12,DMG_Fire,obj);
-          living_dmg_cooldown = 7;
-        }
+          //Fahrzeug beschädigen
+          DoDmg(5, DMG_Fire, obj);
 
-        if(!Random(7))
-          DamageSound();
+          used = true;
+          charge = BoundBy(charge-1, 0, MaxEnergy());
+        }
+        else if(obj->~IsFakeRepairable()) //Konsolen
+        {
+          //Konsole beschädigen
+      	  obj = obj->GetRealRepairableObject();
+        	DoDmg(5, DMG_Fire, obj);
+  
+        	used = true;
+        	charge = BoundBy(charge-1, 0, MaxEnergy());
+        }
+        else //Lebewesen
+        {
+          if(!living_dmg_cooldown)
+          {
+            //Lebewesen verletzen
+            DoDmg(12,DMG_Fire,obj);
+            living_dmg_cooldown = 7;
+          }
+
+          if(!Random(7))
+            DamageSound();
+
+          used = true;
+          charge = BoundBy(charge - 1, 0, MaxEnergy());
+        }
+      }
+      else
+      {
+        if(obj->~IsFakeRepairable()) //Konsolen reparieren
+          obj = obj->GetRealRepairableObject();
+
+        //Fahrzeug reparieren
+        DoDamage(-2, obj);
+
+        if(GetDamage(obj) == 0)
+          obj->~IsFullyRepaired();
+ 
+	  		//GetPlayerTeam(GetOwner(obj)) == GetPlayerTeam(GetOwner(Contained())) <- War vorher in if(...) drin, wurde durch Hostile ersetzt.
+        if(!Hostile(GetOwner(obj), GetOwner(Contained())) && GetOwner(obj) != GetOwner(Contained()) && iRepaired++ >= 40)
+        {
+          //Punkte bei Belohnungssystem (Reparatur)
+          DoPlayerPoints(10, RWDS_TeamPoints, GetOwner(Contained()), Contained(), IC15);
+          //DoPlayerPoints(Repair(), RWDS_TeamPoints, GetOwner(Contained()), Contained(), IC15);
+          iRepaired = 0;
+        }
 
         used = true;
         charge = BoundBy(charge - 1, 0, MaxEnergy());
       }
     }
-    else
-    {
-      if(obj->~IsFakeRepairable()) //Konsolen reparieren
-        obj = obj->GetRealRepairableObject();
-
-      //Fahrzeug reparieren
-      DoDamage(-2, obj);
-
-      if(GetDamage(obj) == 0)
-        obj->~IsFullyRepaired();
-
-			//GetPlayerTeam(GetOwner(obj)) == GetPlayerTeam(GetOwner(Contained())) <- War vorher in if(...) drin, wurde durch Hostile ersetzt.
-      if(!Hostile(GetOwner(obj), GetOwner(Contained())) && GetOwner(obj) != GetOwner(Contained()) && iRepaired++ >= 40)
-      {
-        //Punkte bei Belohnungssystem (Reparatur)
-        DoPlayerPoints(10, RWDS_TeamPoints, GetOwner(Contained()), Contained(), IC15);
-        //DoPlayerPoints(Repair(), RWDS_TeamPoints, GetOwner(Contained()), Contained(), IC15);
-        iRepaired = 0;
-      }
-
-      used = true;
-      charge = BoundBy(charge - 1, 0, MaxEnergy());
-    }
   }
-
   //Effekte
   var d = GetDir(Contained())-(!GetDir(Contained()));
   CreateParticle("RepairFlame", 10*d, -4, 5*d, Random(2)-2, 80, RGB(0,100,250));
