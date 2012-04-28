@@ -275,7 +275,7 @@ static const RWDS_KillCount		= 6;
 static const RWDS_DeathCount		= 7;
 static const RWDS_StartTotalPoints	= 8;
 static const RWDS_SavedTotalPoints	= 9;
-static const RWDS_PlayerID = 10;
+static const RWDS_PlayerID		= 10;
 
 global func DoPlayerPoints(int iPoints, int iType, int iPlr, object pClonk, id idIcon)
 {
