@@ -1,2 +1,2 @@
-DE:CMC - <c ffff33><i><i><i><i>X</i></i></i></i></c>
+DE:CMC - <c ffff33>Friss 3</c>
 US:CMC - <c ffff33><i><i><i><i>X</i></i></i></i></c>
