@@ -101,6 +101,16 @@ func Initialize()
   //Benzinfass
   CreateObject(PBRL, 1190, 1060, -1)->AutoRespawn();
 
+  //Selbstschussanlage und Konsole
+  var selfd = CreateObject(SEGU, 1925, 689, -1);
+  selfd->Arm(MISA);
+  CreateObject(CONS, 1640, 1055, -1)->Set(selfd);
+
+  //Tor und Konsole
+  var autod = CreateObject (HNG3, 1040, 1140, -1);
+  autod->Open();
+  CreateObject (CONS, 650, 1105, -1)->Set(autod);
+
   //Versorgungskiste (APW)
   var tmp = CreateObject(AMCT, 860, 1060, -1);
   tmp->Set(ATWN);
