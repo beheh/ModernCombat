@@ -145,6 +145,13 @@ func CreateInterior()
   CreateObject(_HBR, 865, 402, -1);
   CreateObject(_HBR, 2415, 402, -1);
 
+  //Piranha
+  CreateObject(PIRA, 880, 680, -1)->AutoRespawn();
+  CreateObject(PIRA, 1060, 650, -1)->AutoRespawn();
+  CreateObject(PIRA, 1595, 670, -1)->AutoRespawn();
+  CreateObject(PIRA, 2180, 655, -1)->AutoRespawn();
+  CreateObject(PIRA, 2405, 680, -1)->AutoRespawn();
+
   //Sounds
 
   //Möven
