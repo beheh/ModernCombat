@@ -15,7 +15,7 @@ private func Attack(object pPrey)
   Sound("Munch*");
 
   //Schaden
-  DoDmg(4+Random(2),DMG_Melee,pPrey,0,0,GetID());
+  DoDmg(8,DMG_Melee,pPrey,0,0,GetID());
   if(!Random(3)) SetComDir(COMD_Stop,pPrey);
   return(1);
 }
