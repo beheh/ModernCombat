@@ -1,6 +1,6 @@
-/*-- Toter Piranha --*/
+/*-- Sammeln verbieten --*/
 
-//Tote Piranha könne nicht mehr aufgehoben werden.
+//Bestimmte Objekte können nicht mehr aufgehoben werden.
 
 #strict 2
 #appendto DPIR
