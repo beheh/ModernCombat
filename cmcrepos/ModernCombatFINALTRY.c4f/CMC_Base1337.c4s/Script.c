@@ -537,7 +537,7 @@ public func ChooserFinished()
    CreateObject(LADR, 2050, 1220, -1)->Set(20);
    CreateObject(LADR, 2280, 1220, -1)->Set(13);
 
-   //Patrouillenboote
+   //Patrouillenboot
    SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,2060,1240,-1),50*21,300);
   }
 

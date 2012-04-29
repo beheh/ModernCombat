@@ -323,6 +323,14 @@ func CreateInterior()
     aSelfDefense[3]->TurnOn();
     CreateObject(CONS, 7260, 420, -1)->Set(aSelfDefense[3]);
 
+  //Seegras entfernen
+  for(var obj in FindObjects(Find_Or(Find_ID(SWD1), Find_ID(SWD2)), Find_InRect(1190, 390, 910, 150)))
+    RemoveObject(obj);
+  for(var obj in FindObjects(Find_Or(Find_ID(SWD1), Find_ID(SWD2)), Find_InRect(4590, 370, 1030, 230)))
+    RemoveObject(obj);
+  for(var obj in FindObjects(Find_Or(Find_ID(SWD1), Find_ID(SWD2)), Find_InRect(7120, 260, 710, 270)))
+    RemoveObject(obj);
+
   //Sounds
 
   //Möven
