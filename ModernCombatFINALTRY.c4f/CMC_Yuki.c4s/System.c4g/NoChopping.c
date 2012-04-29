@@ -2,7 +2,7 @@
 
 //Clonks können keine Bäume fällen.
 
-#strict
+#strict 2
 #appendto HZCK
 
 
