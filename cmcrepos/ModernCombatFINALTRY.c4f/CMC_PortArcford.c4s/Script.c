@@ -68,6 +68,11 @@ func CreateInterior()
   CreateObject(GDDR, 5175, 360, -1)->SetColorDw(HSL(145, 210, 100, 127));
   CreateObject(GDDR, 5275, 360, -1)->SetColorDw(HSL(145, 210, 100, 127));
 
+  //Holzhütten
+  CreateObject(HTB2, 960, 300, -1)->SetR(2);
+  CreateObject(HTB2, 3510, 390, -1)->SetR(-2);
+  CreateObject(HTB2, 3740, 440, -1)->SetR(2);
+
   //Benzinfässer
   CreateObject(PBRL, 2730, 361, -1);
   CreateObject(PBRL, 4640, 460, -1)->AutoRespawn();

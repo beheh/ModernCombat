@@ -121,6 +121,14 @@ func CreateInterior()
   CreateObject(_WIN, 1430, 260, -1);
   CreateObject(_WIN, 1430, 290, -1);
 
+  //Autos
+  var car = CreateObject(CCAR, 40, 60, -1);
+  car->SetPhase(1);
+  car->SetSolidMask(GetPhase() * 60, 26, 60, 26);
+  var car = CreateObject(CCAR, 1490, 40, -1);
+  car->SetPhase(0);
+  car->SetSolidMask(GetPhase() * 60, 26, 60, 26);
+
   //Kisten
   CreateObject(WCR2, 445, 230, -1)->AutoRespawn();
   CreateObject(WCR2, 980, 90, -1)->AutoRespawn();

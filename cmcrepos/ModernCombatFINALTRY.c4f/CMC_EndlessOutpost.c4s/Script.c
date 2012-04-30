@@ -243,6 +243,9 @@ func CreateInterior()
   CreateObject(CON1, 2730, 382, -1);
   CreateObject(CON1, 2830, 410, -1);
 
+  //Auto
+  CreateObject(CCAR, 550, 450, -1);
+
   //Glasscheiben
   CreateObject(_WIN, 802, 240, -1);
   CreateObject(_WIN, 802, 300, -1);

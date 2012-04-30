@@ -49,13 +49,10 @@ func CreateInterior()
   //Leitern
   CreateObject(LADR, 540, 690, -1)->Set(49);
   CreateObject(LADR, 645, 690, -1)->Set(49);
-
   CreateObject(LADR, 1370, 710, -1)->Set(9);
-
   CreateObject(LADR, 1930, 732, -1)->Set(18);
   CreateObject(LADR, 2015, 580, -1)->Set(14);
   CreateObject(LADR, 2100, 732, -1)->Set(18);
-
   CreateObject(LADR, 2830, 730, -1)->Set(5);
   CreateObject(LADR, 2895, 632, -1)->Set(23);
 
@@ -76,6 +73,9 @@ func CreateInterior()
 
   CreateObject(H24K, 2895, 448, -1);
   CreateObject(H24K, 2895, 578, -1);
+
+  //Auto
+  CreateObject(CCAR, 960, 510, -1);
 
   //Stahlbrücken
   CreateObject(_HBR, 875, 522, -1);
@@ -102,7 +102,6 @@ func CreateInterior()
 
   //Kisten
   CreateObject(WCR2, 620, 490, -1)->AutoRespawn();
-  CreateObject(WCR2, 1000, 510, -1);
   CreateObject(WCR2, 1970, 760, -1)->AutoRespawn();
   CreateObject(WCR2, 2060, 580, -1)->AutoRespawn();
 
