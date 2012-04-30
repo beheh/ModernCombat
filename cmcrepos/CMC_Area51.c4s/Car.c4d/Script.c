@@ -72,7 +72,7 @@ func BlowUp(int iPlr)
     SetDir(DIR_Right);
   SetAction("Destroyed");
 
-  FakeExplode(40, iPlr+1);
+  FakeExplode(60, iPlr+1);
   Extinguish();
   SetSolidMask();
   AddFireEffect(this,50,RGB(80,80,80),true,30);
