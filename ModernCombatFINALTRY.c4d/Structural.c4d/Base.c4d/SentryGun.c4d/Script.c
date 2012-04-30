@@ -231,6 +231,10 @@ public func Activity()
 	else
 	{
 		target_angle = Angle(GetX(), GetY() + 7, GetX(GotTarget), GetY(GotTarget));
+		
+		if((MaxRotRight() >= 360) && (target_angle < MaxRotRight()-360))
+    	target_angle += 360;
+		
 		if(Abs(AimAngle() - target_angle) < 15)
 		{
 		    Shooting = true;
@@ -288,8 +292,10 @@ public func Search(int iX, int iWidth, int iHeight)
 		target_angle = Angle(GetX(), GetY() + 7, GetX(pAim), GetY(pAim));
 
 		target_angle = Normalize(target_angle, 0);
-		if(target_angle < MaxRotLeft() || target_angle > MaxRotRight())
-			continue;
+		if(MaxRotRight() < 360 && (target_angle < MaxRotLeft() || target_angle > MaxRotRight()))
+    	continue;
+    else if(MaxRotRight() >= 360 && (target_angle < MaxRotLeft() && target_angle > MaxRotRight()-360))
+      continue;
 
 		var pTarget = pAim;
 		break;
