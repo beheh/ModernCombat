@@ -277,9 +277,14 @@ public func Use(caller)
   used = false;
 
   //Entschärfbare Objekte suchen
-  var obj = caller->FindObject2(Find_Func("IsDefusable"), Find_Hostile(GetOwner(caller)));
+  var obj = caller->FindObject2(Find_Func("IsDefusable"), Find_Hostile(GetOwner(caller)), Find_AtPoint());
+  //var obj = caller->FindObject2(Find_Func("IsDefusable"), Find_Hostile(GetOwner(caller)));
   if(obj)
+  {
     obj->RTDefuse();
+
+    used = true;
+  }
   else
   {
     //Objekte suchen, die repariert werden können

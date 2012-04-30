@@ -1,4 +1,4 @@
-/*-- Neues Script --*/
+/*-- Entschärfbare Objekte --*/
 
 #strict 2
 
@@ -8,13 +8,17 @@
 
 local rt_defusecnt;
 
-public func IsDefusable() { return true; }
+public func IsDefusable()	{return true;}
+
 
 public func RTDefuse()
 {
-	rt_defusecnt++;
-	if(rt_defusecnt > 10)
-		DecoExplode(10);
-	
-	return true;
+  rt_defusecnt++;
+  if(rt_defusecnt > 10)
+  {
+    Sound("Limitation.ogg");
+    DecoExplode(10);
+  }
+
+  return true;
 }
