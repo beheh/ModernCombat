@@ -383,16 +383,18 @@ protected func DoPoints()
       //Punkte bei Belohnungssystem (Kill Assist durch Blendung)
       DoPlayerPoints(BonusPoints("VisualAssist"), RWDS_TeamPoints, EffectVar(1, this, effectno), GetCursor(EffectVar(1, this, effectno)), IC19);
       //Achievement-Fortschritt (Stunning Help)
-      DoAchievementProgress(1, AC22, assist);
+      DoAchievementProgress(1, AC22, EffectVar(1, this, effectno));
     }
   }
   if(effectno = GetEffect("IntFlashbang", this))
   {
     if(Hostile(EffectVar(2, this, effectno),GetOwner()) && killer != EffectVar(2, this, effectno))
+    {
       //Punkte bei Belohnungssystem (Kill Assist durch Blendung)
       DoPlayerPoints(BonusPoints("VisualAssist"), RWDS_TeamPoints, EffectVar(2, this, effectno), GetCursor(EffectVar(2, this, effectno)), IC19);
       //Achievement-Fortschritt (Stunning Help)
-      DoAchievementProgress(1, AC22, assist);
+      DoAchievementProgress(1, AC22, EffectVar(2, this, effectno));
+  	}
   }
 }
 
