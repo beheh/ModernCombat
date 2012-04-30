@@ -333,6 +333,9 @@ func CreateInterior()
   CreateObject(GDDR, 475, 1610, -1);
   CreateObject(GDDR, 695, 1610, -1)->SetColorDw(HSL(145, 210, 100, 127));
 
+  //Grenze
+  CreateObject(BRDR, 0, 2410, -1)->Set(3,0,1);
+
   //Tore und Konsolen
   var autod = CreateObject (HNG3, 450, 1250, -1);
   autod->Close();

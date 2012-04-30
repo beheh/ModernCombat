@@ -260,6 +260,9 @@ func CreateInterior()
   var doorw = CreateObject(ROOM, 200, 530, -1);
   CreateObject(ROOM, 2530, 530, -1)->Connect(doorw);
 
+  //Grenze
+  CreateObject(BRDR, 0, 850, -1)->Set(3,0,1);
+
   //Selbstschussanlagen und Konsolen
   aSelfDefense[0] = CreateObject(SEGU, 590, 329, -1);
     aSelfDefense[0]->Arm(MISA);

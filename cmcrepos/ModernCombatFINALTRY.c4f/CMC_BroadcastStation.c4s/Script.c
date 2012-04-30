@@ -162,6 +162,9 @@ func CreateInterior()
   CreateObject(_HBR, 895, 722, -1);
   CreateObject(_HBR, 985, 722, -1);
 
+  //Grenze
+  CreateObject(BRDR, 0, 840, -1)->Set(3,0,1);
+
   //Sounds
 
   //Wind

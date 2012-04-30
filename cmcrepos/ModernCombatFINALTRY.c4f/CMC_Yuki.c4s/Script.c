@@ -224,6 +224,9 @@ func CreateInterior()
   aLamp3[3]->SetR(180);
   aLamp3[3]->TurnOff();
 
+  //Grenze
+  CreateObject(BRDR, 0, 1080, -1)->Set(3,0,1);
+
   //Sounds
 
   //Wind
