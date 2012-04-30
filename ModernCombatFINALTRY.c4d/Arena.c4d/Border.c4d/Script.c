@@ -3,13 +3,12 @@
 #strict 2
 
 local x,y,xh,yh;
-local fAbyss;
+
 
 /* Einstellung */
 
-public func Set(iDir, bool fKeepSpawns, bool fAbyssKill)
+public func Set(iDir, bool fKeepSpawns)
 {
-	fAbyss = fAbyssKill;
   if(iDir == 0)
   {
     x  = -GetX();
@@ -65,14 +64,7 @@ protected func FxBorderStart(pTarget, iNo, iTemp)
 {
   if(iTemp)
    return -1;
-   
-  if(fAbyss)
-  {
-  	pTarget->~KillIcon(SM10);
-  	pTarget->~LastDamageType(DMG_Melee);
-  	Kill(pTarget);
-	}
-	
+
   //Countdown
   EffectVar(0, pTarget, iNo) = 10;
   Sound("Alarm.ogg", 0, pTarget, 0, GetOwner(pTarget) + 1);
