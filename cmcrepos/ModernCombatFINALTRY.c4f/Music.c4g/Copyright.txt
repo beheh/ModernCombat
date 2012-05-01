@@ -9,6 +9,9 @@ Two Steps from Hell
 "RadioSong_6"
 Richard Wagner
 
+"Blue Ressort"
+Bomberman 64 Soundtrack
+
 
 Specific songs are from the following artists:
 
@@ -20,3 +23,6 @@ Two Steps from Hell
 
 "RadioSong_6"
 Richard Wagner
+
+"Blue Ressort"
+Bomberman 64 Soundtrack

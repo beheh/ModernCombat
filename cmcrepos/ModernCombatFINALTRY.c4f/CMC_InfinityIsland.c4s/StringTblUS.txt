@@ -1,0 +1,17 @@
+CreatingInterior=Creating furniture...
+CreatingEquipment=Placing equipment...
+CreatingDecoration=Placing decoration...
+
+Team1=Eurocorps
+Team2=Aggressors
+
+Flag1=Eurocorps Assault Cruiser
+Flag2=Plateau
+Flag3=Island Peak
+Flag4=Aggressors Outpost
+
+Target1=Water Filter
+Target2=Radar Unit
+Target3=Communication Server
+Target4=Billet
+Target5=Surveillance System
