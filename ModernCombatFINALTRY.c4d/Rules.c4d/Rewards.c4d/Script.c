@@ -199,15 +199,12 @@ public func Evaluate()
 
   //Kopfzeilen erstellen
   //while(db->GetData()[iPlr] != 0)
-  Log("db->GetData(): %v", db->GetData());
 
   for(var iPlr = 0; iPlr < GetLength(db->GetData()); iPlr++)
   {
     if(!db->GetData()[iPlr])
       continue;
-
-    Log("iPlr: %d", iPlr);
-
+    
     if(!aList[GetPlayerTeam(iPlr)]) aList[GetPlayerTeam(iPlr)] = CreateArray();
 
     szFirstLine = Format("$FirstLine$",									//Erste Zeile
