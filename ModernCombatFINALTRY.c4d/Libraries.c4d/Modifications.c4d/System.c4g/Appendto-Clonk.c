@@ -394,7 +394,7 @@ protected func DoPoints()
       DoPlayerPoints(BonusPoints("VisualAssist"), RWDS_TeamPoints, EffectVar(2, this, effectno), GetCursor(EffectVar(2, this, effectno)), IC19);
       //Achievement-Fortschritt (Stunning Help)
       DoAchievementProgress(1, AC22, EffectVar(2, this, effectno));
-  	}
+    }
   }
 }
 
