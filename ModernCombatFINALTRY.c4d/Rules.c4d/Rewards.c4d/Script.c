@@ -204,7 +204,7 @@ public func Evaluate()
   {
     if(!db->GetData()[iPlr])
       continue;
-    
+
     if(!aList[GetPlayerTeam(iPlr)]) aList[GetPlayerTeam(iPlr)] = CreateArray();
 
     szFirstLine = Format("$FirstLine$",									//Erste Zeile
