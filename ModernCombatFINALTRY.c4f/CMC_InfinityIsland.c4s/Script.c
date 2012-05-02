@@ -578,6 +578,7 @@ public func ChooserFinished()
    //Patrouillenboote
    SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1820,1280,-1),50*21,300);
    SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1890,1280,-1),50*21,300);
+   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,3610,1280,-1),50*21,300);
   }
 
   //OP-Spielziel
@@ -712,6 +713,9 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
     RemoveAll(BRDR);
     CreateObject(BRDR, 910, 0, -1)->Set(0,1);
     CreateObject(BRDR, 5970, 0, -1)->Set(1,1);
+
+    //Spawnpoint entfernen
+    RemoveObject(FindObject2(Find_ID(VSPW),Find_InRect(3609,1279, 2, 2)));
    }
   }
 }
@@ -751,5 +755,5 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   }
 
   //Startsicht
-  iX = 3730; iY = 670;
+  iX = 3730; iY = 740;
 }
