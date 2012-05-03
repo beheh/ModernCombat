@@ -27,6 +27,7 @@ NONE6=The <c 33ccff>Guard</c> order in the context menu allows your clonk to aut
 NONE7=Show medics that you do not want to be reanimated by clicking on <c 33ccff>Reanimation is allowed</c> in the context menu.
 NONE8=Pistols and revolvers are always <c 33ccff>faster</c> drawn then any other weapon can be reloaded.
 NONE9=The automatic cannon from a Blackhawk can be turned by tapping [<c 33ccff>Left</c>/<c 33ccff>Right</c>], stopped with [<c 33ccff>Stop</c>] and reloaded with [<c 33ccff>Jump</c>].
+NONE10=Punching an enemy with a gun while he is lying down will inflict [<c 33ccff>additional</c>] damage and also force him to stand up.
 
 #Weapons
 ASTR0=Use <c 33ccff>single shots</c> to shoot effective bullets at enemies far away with the assault rifle.
