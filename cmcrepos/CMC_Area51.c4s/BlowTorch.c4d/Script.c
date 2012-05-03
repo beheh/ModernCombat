@@ -277,8 +277,8 @@ public func Use(caller)
   used = false;
 
   //Entschärfbare Objekte suchen
-  var obj = caller->FindObject2(Find_Func("IsDefusable"),	//Entschärfbar?
-  			Find_Hostile(GetOwner(caller)),		//Feindlich?
+  var obj = caller->FindObject2(Find_Func("IsDefusable"),		//Entschärfbar?
+  			Find_Hostile(GetOwner(caller)),			//Feindlich?
   			Find_InRect(-10,-10,20,20));
   if(obj)
   {
@@ -296,7 +296,7 @@ public func Use(caller)
     					Find_Hostile(GetOwner(caller)),
     					Find_NoContainer()),			//Nicht verschachtelt?
     					Find_Func("IsFakeRepairable")),		//Konsolen?
-    					Find_InRect(-10,-10,20,20));
+    					Find_AtPoint());
     if(obj)
     {	
       if(Hostile(GetOwner(obj), GetOwner(caller)))
