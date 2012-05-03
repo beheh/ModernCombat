@@ -277,8 +277,9 @@ public func Use(caller)
   used = false;
 
   //Entschärfbare Objekte suchen
-  var obj = caller->FindObject2(Find_Func("IsDefusable"), Find_Hostile(GetOwner(caller)), Find_AtPoint());
-  //var obj = caller->FindObject2(Find_Func("IsDefusable"), Find_Hostile(GetOwner(caller)));
+  var obj = caller->FindObject2(Find_Func("IsDefusable"),	//Entschärfbar?
+  			Find_Hostile(GetOwner(caller)),		//Feindlich?
+  			Find_InRect(-10,-10,20,20));
   if(obj)
   {
     obj->RTDefuse();
@@ -287,38 +288,44 @@ public func Use(caller)
   }
   else
   {
-    //Objekte suchen, die repariert werden können
-    obj = caller->FindObject2(Find_Or(Find_And(Find_Func("IsRepairable"), Find_Or(Find_Func("GetDamage"), Find_Hostile(GetOwner(caller)))), Find_And(Find_OCF(OCF_Alive), Find_Hostile(GetOwner(caller)), Find_NoContainer()), Find_Func("IsFakeRepairable")), Find_AtPoint());
+    //Reparierbare Objekte suchen
+    obj = caller->FindObject2(Find_Or(Find_And(Find_Func("IsRepairable"),	//Reparierbar?
+    					Find_Or(Find_Func("GetDamage"),		//Beschädigt?
+    					Find_Hostile(GetOwner(caller)))),	//Feindlich?
+    					Find_And(Find_OCF(OCF_Alive),
+    					Find_Hostile(GetOwner(caller)),
+    					Find_NoContainer()),			//Nicht verschachtelt?
+    					Find_Func("IsFakeRepairable")),		//Konsolen?
+    					Find_InRect(-10,-10,20,20));
     if(obj)
     {	
       if(Hostile(GetOwner(obj), GetOwner(caller)))
       {
-        if(obj->~IsRepairable()) //Fahrzeuge
+        if(obj->~IsRepairable())
         {
-          //Fahrzeug beschädigen
+          //Feindliche Fahrzeuge beschädigen
           DoDmg(5, DMG_Fire, obj);
 
           used = true;
           charge = BoundBy(charge-1, 0, MaxEnergy());
         }
-        else if(obj->~IsFakeRepairable()) //Konsolen
+        else if(obj->~IsFakeRepairable())
         {
-          //Konsole beschädigen
+          //Feindliche Konsolen beschädigen
       	  obj = obj->GetRealRepairableObject();
-        	DoDmg(5, DMG_Fire, obj);
-  
-        	used = true;
-        	charge = BoundBy(charge-1, 0, MaxEnergy());
+          DoDmg(5, DMG_Fire, obj);
+
+          used = true;
+          charge = BoundBy(charge-1, 0, MaxEnergy());
         }
-        else //Lebewesen
+        else
         {
           if(!living_dmg_cooldown)
           {
-            //Lebewesen verletzen
+            //Feindliche Lebewesen verletzen
             DoDmg(12,DMG_Fire,obj);
             living_dmg_cooldown = 7;
           }
-
           if(!Random(7))
             DamageSound();
 
@@ -328,7 +335,8 @@ public func Use(caller)
       }
       else
       {
-        if(obj->~IsFakeRepairable()) //Konsolen reparieren
+        //Konsolen reparieren
+        if(obj->~IsFakeRepairable())
           obj = obj->GetRealRepairableObject();
 
         //Fahrzeug reparieren
@@ -336,8 +344,8 @@ public func Use(caller)
 
         if(GetDamage(obj) == 0)
           obj->~IsFullyRepaired();
- 
-	  		//GetPlayerTeam(GetOwner(obj)) == GetPlayerTeam(GetOwner(Contained())) <- War vorher in if(...) drin, wurde durch Hostile ersetzt.
+
+        //GetPlayerTeam(GetOwner(obj)) == GetPlayerTeam(GetOwner(Contained())) <- War vorher in if(...) drin, wurde durch Hostile ersetzt.
         if(!Hostile(GetOwner(obj), GetOwner(Contained())) && GetOwner(obj) != GetOwner(Contained()) && iRepaired++ >= 40)
         {
           //Punkte bei Belohnungssystem (Reparatur)
