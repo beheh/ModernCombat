@@ -129,6 +129,10 @@ public func Ready()
 
 public func Timer()
 {
+  //Nicht laden solange überhitzt
+  if(GetEffect("Overheat", this))
+    return;
+
   //Akku um einen Punkt aufladen
   if(!GetEffect("RepairObjects", this))
     charge = BoundBy(charge+3,0,MaxEnergy());
@@ -195,7 +199,6 @@ public func Activate(pClonk)
   }
 }
 
-
 /* Reparatureffekt */
 
 public func FxRepairObjectsStart(object target, int nr, temp, object pClonk)
@@ -206,7 +209,11 @@ public func FxRepairObjectsStart(object target, int nr, temp, object pClonk)
 public func FxRepairObjectsTimer(object target, int nr, int time)
 {
   if(charge <= 0)
+  {
+    //Überhitzen
+    AddEffect("Overheat", this, 1, 60);
     return -1;
+  }
 
   var clonk = EffectVar(0, target, nr);
 
@@ -266,7 +273,7 @@ public func FxRepairObjectsStop(object target, int nr)
 }
 
 local idle_energy_cnt, used, temp_used;
-local iRepaired; // Teampoints
+local iRepaired; //Teampoints
 
 public func Use(caller)
 {
