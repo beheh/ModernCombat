@@ -211,7 +211,8 @@ public func FxRepairObjectsTimer(object target, int nr, int time)
   if(charge <= 0)
   {
     //Überhitzen
-    AddEffect("Overheat", this, 1, 60);
+    AddEffect("Overheat", this, 1, 100);
+    Sound("BWTH_Overheat.ogg");
     return -1;
   }
 
