@@ -404,95 +404,6 @@ public func ChooserFinished()
   for(var i = 0; i < GetPlayerCount(); i++)
    aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = true;
 
-  //DM/LMS-Spielziel
-  if(FindObject(GTDM) || FindObject(GLMS))
-  {
-   //Grenzen setzen
-   CreateObject(BRDR, 700, 0, -1)->Set(0);
-   CreateObject(BRDR, 2100, 0, -1)->Set(1);
-
-   //Hinweisschilder
-   CreateObject(SGNP, 720, 390, -1);
-   CreateObject(SGNP, 720, 450, -1);
-   CreateObject(SGNP, 2080, 390, -1);
-   CreateObject(SGNP, 2080, 450, -1);
-  }
-
-  //CTF-Spielziel
-  if(FindObject(GCTF))
-  {
-   //Flaggen
-   if(aTeams[1] == true)
-   {CreateFlag(1,790,450,GetTeamColor(1));}
-   if(aTeams[2] == true)
-   {CreateFlag(2,2010,450,GetTeamColor(2));}
-
-   //Grenzen setzen
-   CreateObject(BRDR, 440, 0, -1)->Set(0);
-   CreateObject(BRDR, 2360, 0, -1)->Set(1);
-
-   //Hinweisschilder
-   CreateObject(SGNP, 410, 290, -1);
-   CreateObject(SGNP, 460, 450, -1);
-   CreateObject(SGNP, 2340, 450, -1);
-   CreateObject(SGNP, 2385, 290, -1);
-  }
-
-  //HTF-Spielziel
-  if (FindObject(GHTF))
-  {
-   //Flaggenposten
-   var flag = CreateObject(OFPL, 1400,420, -1);
-   flag->~Set("$Flag3$");
-
-   //Grenzen setzen
-   CreateObject(BRDR, 440, 0, -1)->Set(0);
-   CreateObject(BRDR, 2360, 0, -1)->Set(1);
-
-   //Sandsackbarrieren
-   CreateObject(SBBA, 1221, 440, -1);
-   CreateObject(SBBA, 1281, 430, -1);
-   CreateObject(SBBA, 1520, 430, -1)->Right();
-   CreateObject(SBBA, 1580, 440, -1)->Right();
-
-   //Hinweisschilder
-   CreateObject(SGNP, 410, 290, -1);
-   CreateObject(SGNP, 460, 450, -1);
-   CreateObject(SGNP, 2340, 450, -1);
-   CreateObject(SGNP, 2385, 290, -1);
-
-   //Zusätzliche Munition
-   if(!FindObject(NOAM))
-   {
-    //Kugeln
-    PlaceSpawnpoint(ABOX, 1370, 415);
-
-    //Raketen
-    PlaceSpawnpoint(MBOX, 1430, 415);
-   }
-  }
-
-  //Base Assault-Spielziel
-  if(FindObject(GBAS))
-  {
-   //Strukturen
-   AddAssaultTarget(CCP2, 100, 390, 400, 1, "$Flag1$", 0, [[130, 540], [200, 540], [260, 560]]);
-   AddAssaultTarget(CMSN, 990, 520, 300, 1, "$Flag2$", 1, [[930, 320], [1120, 320], [1000, 170]]);
-
-   AddAssaultTarget(CCP2, 2700, 390, 400, 2, "$Flag5$", 0, [[2670, 540], [2600, 540], [2540, 560]]);
-   AddAssaultTarget(CMSN, 1810, 520, 300, 2, "$Flag4$", 1, [[1870, 320], [1680, 320], [1800, 170]]);
-
-   //SSA Besitzer setzen
-   if(aTeams[1] == true)
-   {aSelfDefense[0]->SetTeam(1);}
-   if(aTeams[2] == true)
-   {aSelfDefense[1]->SetTeam(2);}
-
-   //SSA anschalten
-   aSelfDefense[0]->TurnOn();
-   aSelfDefense[1]->TurnOn();
-  }
-
   //OP-Spielziel
   if(FindObject(GOCC))
   {
@@ -555,6 +466,61 @@ public func ChooserFinished()
    aSelfDefense[1]->TurnOn();
   }
 
+  //Base Assault-Spielziel
+  if(FindObject(GBAS))
+  {
+   //Strukturen
+   AddAssaultTarget(CCP2, 100, 390, 400, 1, "$Flag1$", 0, [[130, 540], [200, 540], [260, 560]]);
+   AddAssaultTarget(CMSN, 990, 520, 300, 1, "$Flag2$", 1, [[930, 320], [1120, 320], [1000, 170]]);
+
+   AddAssaultTarget(CCP2, 2700, 390, 400, 2, "$Flag5$", 0, [[2670, 540], [2600, 540], [2540, 560]]);
+   AddAssaultTarget(CMSN, 1810, 520, 300, 2, "$Flag4$", 1, [[1870, 320], [1680, 320], [1800, 170]]);
+
+   //SSA Besitzer setzen
+   if(aTeams[1] == true)
+   {aSelfDefense[0]->SetTeam(1);}
+   if(aTeams[2] == true)
+   {aSelfDefense[1]->SetTeam(2);}
+
+   //SSA anschalten
+   aSelfDefense[0]->TurnOn();
+   aSelfDefense[1]->TurnOn();
+  }
+
+  //HTF-Spielziel
+  if (FindObject(GHTF))
+  {
+   //Flaggenposten
+   var flag = CreateObject(OFPL, 1400,420, -1);
+   flag->~Set("$Flag3$");
+
+   //Grenzen setzen
+   CreateObject(BRDR, 440, 0, -1)->Set(0);
+   CreateObject(BRDR, 2360, 0, -1)->Set(1);
+
+   //Sandsackbarrieren
+   CreateObject(SBBA, 1221, 440, -1);
+   CreateObject(SBBA, 1281, 430, -1);
+   CreateObject(SBBA, 1520, 430, -1)->Right();
+   CreateObject(SBBA, 1580, 440, -1)->Right();
+
+   //Hinweisschilder
+   CreateObject(SGNP, 410, 290, -1);
+   CreateObject(SGNP, 460, 450, -1);
+   CreateObject(SGNP, 2340, 450, -1);
+   CreateObject(SGNP, 2385, 290, -1);
+
+   //Zusätzliche Munition
+   if(!FindObject(NOAM))
+   {
+    //Kugeln
+    PlaceSpawnpoint(ABOX, 1370, 415);
+
+    //Raketen
+    PlaceSpawnpoint(MBOX, 1430, 415);
+   }
+  }
+
   //MR-Spielziel
   if (FindObject(GMNR))
   {
@@ -574,32 +540,48 @@ public func ChooserFinished()
    AddMoneySpawn(1400, 415, [20]);
    AddMoneySpawn(1700, 545, [10]);
   }
+
+  //CTF-Spielziel
+  if(FindObject(GCTF))
+  {
+   //Flaggen
+   if(aTeams[1] == true)
+   {CreateFlag(1,790,450,GetTeamColor(1));}
+   if(aTeams[2] == true)
+   {CreateFlag(2,2010,450,GetTeamColor(2));}
+
+   //Grenzen setzen
+   CreateObject(BRDR, 440, 0, -1)->Set(0);
+   CreateObject(BRDR, 2360, 0, -1)->Set(1);
+
+   //Hinweisschilder
+   CreateObject(SGNP, 410, 290, -1);
+   CreateObject(SGNP, 460, 450, -1);
+   CreateObject(SGNP, 2340, 450, -1);
+   CreateObject(SGNP, 2385, 290, -1);
+  }
+
+  //LMS/DM-Spielziel
+  if(FindObject(GLMS) || FindObject(GTDM))
+  {
+   //Grenzen setzen
+   CreateObject(BRDR, 700, 0, -1)->Set(0);
+   CreateObject(BRDR, 2100, 0, -1)->Set(1);
+
+   //Hinweisschilder
+   CreateObject(SGNP, 720, 390, -1);
+   CreateObject(SGNP, 720, 450, -1);
+   CreateObject(SGNP, 2080, 390, -1);
+   CreateObject(SGNP, 2080, 450, -1);
+  }
 }
 
 /* Relaunch */
 
 public func RelaunchPosition(& iX, & iY, int iTeam)
 {
-  //DM/LMS-Spielziel
-  if(FindObject(GTDM) || FindObject(GLMS))
-  {
-   if(iTeam == 1)
-   {
-    iX = 940;
-    iY = 250;
-    if(!Random(2)) iY = 410;
-   }
-   if(iTeam == 2)
-   {
-    iX = 1860;
-    iY = 250;
-    if(!Random(2)) iY = 410;
-   }
-   return(1);
-  }
-
-  //CTF/HTF/MR-Spielziel
-  if(FindObject(GCTF) || FindObject(GHTF) || FindObject(GMNR))
+  //HTF/MR/CTF-Spielziel
+  if(FindObject(GHTF) || FindObject(GMNR) || FindObject(GCTF))
   {
    if(iTeam == 1)
    {
@@ -612,6 +594,24 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
     iX = 2240;
     iY = 310;
     if(!Random(2)) iY = 380;
+   }
+   return(1);
+  }
+
+  //LMS/DM-Spielziel
+  if(FindObject(GLMS) || FindObject(GTDM))
+  {
+   if(iTeam == 1)
+   {
+    iX = 940;
+    iY = 250;
+    if(!Random(2)) iY = 410;
+   }
+   if(iTeam == 2)
+   {
+    iX = 1860;
+    iY = 250;
+    if(!Random(2)) iY = 410;
    }
    return(1);
   }

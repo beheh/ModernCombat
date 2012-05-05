@@ -430,35 +430,6 @@ public func ChooserFinished()
    sign->SetMode(1);
   }
 
-  //CTF-Spielziel
-  if(FindObject(GCTF))
-  {
-   //Flaggen
-   if(aTeams[1] == true)
-   {CreateFlag(1,1520,600,GetTeamColor(1));}
-   if(aTeams[2] == true)
-   {CreateFlag(2,4490,600,GetTeamColor(2));}
-  }
-
-  //HTF-Spielziel
-  if (FindObject(GHTF))
-  {
-   //Flaggenposten
-   var flag = CreateObject(OFPL, 2990, 380, -1);
-   flag->~Set("$Flag2$");
-
-   //Zusätzliche Munition
-   if(!FindObject(NOAM))
-   {
-    //Versorgungskiste (Kugeln)
-    var crate = CreateObject(AMCT, 2965, 460, -1);
-    crate->Set(ABOX);
-
-    //Raketen
-    PlaceSpawnpoint(MBOX, 2890, 525);
-   }
-  }
-
   //OP-Spielziel
   if(FindObject(GOCC))
   {
@@ -498,6 +469,25 @@ public func ChooserFinished()
    }
   }
 
+  //HTF-Spielziel
+  if (FindObject(GHTF))
+  {
+   //Flaggenposten
+   var flag = CreateObject(OFPL, 2990, 380, -1);
+   flag->~Set("$Flag2$");
+
+   //Zusätzliche Munition
+   if(!FindObject(NOAM))
+   {
+    //Versorgungskiste (Kugeln)
+    var crate = CreateObject(AMCT, 2965, 460, -1);
+    crate->Set(ABOX);
+
+    //Raketen
+    PlaceSpawnpoint(MBOX, 2890, 525);
+   }
+  }
+
   //MR-Spielziel
   if (FindObject(GMNR))
   {
@@ -507,14 +497,24 @@ public func ChooserFinished()
    AddMoneySpawn(3195, 450, [10]);
    AddMoneySpawn(3675, 510, [10]);
   }
+
+  //CTF-Spielziel
+  if(FindObject(GCTF))
+  {
+   //Flaggen
+   if(aTeams[1] == true)
+   {CreateFlag(1,1520,600,GetTeamColor(1));}
+   if(aTeams[2] == true)
+   {CreateFlag(2,4490,600,GetTeamColor(2));}
+  }
 }
 
 /* Relaunch */
 
 public func RelaunchPosition(& iX, & iY, int iTeam)
 {
-  //DM/LMS/CTF/HTF/MR-Spielziel
-  if(FindObject(GTDM) || FindObject(GLMS) || FindObject(GCTF) || FindObject(GHTF) || FindObject(GMNR))
+  //HTF/MR/CTF/LMS/DM-Spielziel
+  if(FindObject(GHTF) || FindObject(GMNR) || FindObject(GCTF) || FindObject(GLMS) || FindObject(GTDM))
   {
    var rand = Random(3);
    if(iTeam == 1)

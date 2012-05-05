@@ -333,24 +333,6 @@ public func ChooserFinished()
    sign->SetMode(1);
   }
 
-  //CTF-Spielziel
-  if(FindObject(GCTF))
-  {
-   //Flaggen
-   if(aTeams[1] == true)
-   {CreateFlag(1,1550,580,GetTeamColor(1));}
-   if(aTeams[2] == true)
-   {CreateFlag(2,5280,580,GetTeamColor(2));}
-  }
-
-  //HTF-Spielziel
-  if (FindObject(GHTF))
-  {
-   //Flaggenposten
-   var flag = CreateObject(OFPL, 3415, 480, -1);
-   flag->~Set("$Flag3$");
-  }
-
   //OP-Spielziel
   if(FindObject(GOCC))
   {
@@ -398,14 +380,32 @@ public func ChooserFinished()
     aFlag[4]->Set("$Flag5$",0,2);
    }
   }
+
+  //HTF-Spielziel
+  if (FindObject(GHTF))
+  {
+   //Flaggenposten
+   var flag = CreateObject(OFPL, 3415, 480, -1);
+   flag->~Set("$Flag3$");
+  }
+
+  //CTF-Spielziel
+  if(FindObject(GCTF))
+  {
+   //Flaggen
+   if(aTeams[1] == true)
+   {CreateFlag(1,1550,580,GetTeamColor(1));}
+   if(aTeams[2] == true)
+   {CreateFlag(2,5280,580,GetTeamColor(2));}
+  }
 }
 
 /* Relaunch */
 
 public func RelaunchPosition(& iX, & iY, int iTeam)
 {
-  //DM/LMS/CTF/HTF-Spielziel
-  if(FindObject(GTDM) || FindObject(GLMS) || FindObject(GCTF) || FindObject(GHTF))
+  //HTF/CTF/LMS/DM-Spielziel
+  if(FindObject(GHTF) || FindObject(GCTF) || FindObject(GLMS) || FindObject(GTDM))
   {
    if(iTeam == 1)
    {

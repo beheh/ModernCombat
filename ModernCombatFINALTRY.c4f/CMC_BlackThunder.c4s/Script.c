@@ -305,38 +305,6 @@ public func ChooserFinished()
    CreateObject(SNPT, 3610, 590, -1)->SetAction("Sign3");
   }
 
-  //HTF-Spielziel
-  if (FindObject(GHTF))
-  {
-   //Flaggenposten
-   var flag = CreateObject(OFPL, 2120, 690, -1);
-   flag->~Set("$Flag5$");
-
-   //Objekt entfernen
-   RemoveObject(aArtillery[0]);
-
-   //Zusätzliche Munition
-   if(!FindObject(NOAM))
-   {
-    //Kugeln
-    PlaceSpawnpoint(ABOX, 2010, 845);
-
-    //Raketen
-    PlaceSpawnpoint(MBOX, 2230, 845);
-   }
-  }
-
-  //Base Assault-Spielziel
-  if(FindObject(GBAS))
-  {
-   //Zielobjekte
-   AddAssaultTarget(RADR, 485, 500, 400, 1, "$Flag1$", 0, [[480, 640], [510, 730], [585, 690]]);
-   AddAssaultTarget(CMSN, 1330, 670, 300, 1, "$Flag2$", 1, [[1160, 670], [1300, 850], [1455, 670]]);
-
-   AddAssaultTarget(RADR, 3755, 500, 400, 2, "$Flag4$", 0, [[3760, 640], [3730, 730], [3655, 690]]);
-   AddAssaultTarget(CMSN, 2910, 670, 300, 2, "$Flag3$", 1, [[3080, 670], [2940, 850], [2785, 670]]);
-  }
-
   //OP-Spielziel
   if(FindObject(GOCC))
   {
@@ -371,7 +339,7 @@ public func ChooserFinished()
    aFlag[3] -> AddSpawnPoint(3660,680);
    aFlag[3] -> AddSpawnPoint(3780,740);
    aFlag[3] -> AddSpawnPoint(3860,550);
-   if(aTeams[1] == true)
+   if(aTeams[2] == true)
    {
     aFlag[3]->Set("$Flag4$",100,2);
     aFlag[3]->Capture(2,1);
@@ -386,6 +354,17 @@ public func ChooserFinished()
    RemoveObject(FindObject2(Find_ID(SNPT),Find_InRect(3570, 500, 50, 50)));
   }
 
+  //Base Assault-Spielziel
+  if(FindObject(GBAS))
+  {
+   //Zielobjekte
+   AddAssaultTarget(RADR, 485, 500, 400, 1, "$Flag1$", 0, [[480, 640], [510, 730], [585, 690]]);
+   AddAssaultTarget(CMSN, 1330, 670, 300, 1, "$Flag2$", 1, [[1160, 670], [1300, 850], [1455, 670]]);
+
+   AddAssaultTarget(RADR, 3755, 500, 400, 2, "$Flag4$", 0, [[3760, 640], [3730, 730], [3655, 690]]);
+   AddAssaultTarget(CMSN, 2910, 670, 300, 2, "$Flag3$", 1, [[3080, 670], [2940, 850], [2785, 670]]);
+  }
+
   //MR-Spielziel
   if (FindObject(GMNR))
   {
@@ -396,14 +375,35 @@ public func ChooserFinished()
    AddMoneySpawn(2950, 840, [10]);
    AddMoneySpawn(3470, 750, [10]);
   }
+
+  //HTF-Spielziel
+  if (FindObject(GHTF))
+  {
+   //Flaggenposten
+   var flag = CreateObject(OFPL, 2120, 690, -1);
+   flag->~Set("$Flag5$");
+
+   //Objekt entfernen
+   RemoveObject(aArtillery[0]);
+
+   //Zusätzliche Munition
+   if(!FindObject(NOAM))
+   {
+    //Kugeln
+    PlaceSpawnpoint(ABOX, 2010, 845);
+
+    //Raketen
+    PlaceSpawnpoint(MBOX, 2230, 845);
+   }
+  }
 }
 
 /* Relaunch */
 
 public func RelaunchPosition(& iX, & iY, int iTeam)
 {
-  //LMS/HTF/MR-Spielziel
-  if(FindObject(GLMS) || FindObject(GHTF) || FindObject(GMNR))
+  //HTF/MR/LMS-Spielziel
+  if(FindObject(GHTF) || FindObject(GMNR) || FindObject(GLMS))
   {
    if(iTeam == 1)
    {

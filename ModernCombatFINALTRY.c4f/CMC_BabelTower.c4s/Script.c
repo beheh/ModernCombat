@@ -652,35 +652,6 @@ public func ChooserFinished()
   for(var i = 0; i < GetPlayerCount(); i++)
    aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = true;
 
-  //Assault-Spielziel
-  if (FindObject(GASS))
-  {
-   //Zielobjekte
-   AddAssaultTarget(CMSN, 440, 1610, 230, 2, "$Target1$", 0, [[[420, 1490], [750, 1490]], [[440, 1940], [585, 1920], [730, 1940]]]);
-   AddAssaultTarget(CCP1, 730, 1610, 230, 2, "$Target2$", 1, [[[420, 1490], [750, 1490]], [[440, 1940], [585, 1920], [730, 1940]]]);
-   AddAssaultTarget(LBPC, 585, 1250, 230, 2, "$Target3$", 2, [[[475, 980], [695, 980]], [[430, 1610], [740, 1610]]]);
-   AddAssaultTarget(CCP2, 585, 870,  230, 2, "$Target4$", 3, [[[445, 660], [585, 590], [725, 660]], [[280, 1240], [890, 1240]]]);
-
-   //Ziele verbinden
-   ConnectAssaultTargets([0, 1]);
-
-   //Grenze setzen
-   CreateObject(BRDR, 0, 1370, -1)->Set(2,1);
-
-   //Objekt entfernen
-   RemoveObject(FindObject2(Find_ID(PLT3),Find_InRect(570, 820, 40, 40)));
-
-   //SSA Besitzer setzen
-   if(aTeams[2] == true)
-   {aSelfDefense[0]->SetTeam(2); aSelfDefense[1]->SetTeam(2); aSelfDefense[2]->SetTeam(2); aSelfDefense[3]->SetTeam(2);}
-
-   //SSA anschalten
-   aSelfDefense[0]->TurnOn();
-   aSelfDefense[1]->TurnOn();
-   aSelfDefense[2]->TurnOn();
-   aSelfDefense[3]->TurnOn();
-  }
-
   //OP-Spielziel
   if(FindObject(GOCC))
   {
@@ -811,6 +782,35 @@ public func ChooserFinished()
     warn->SetR(-180);
     AddWarnEffect(warn,aFlag[6]);
   }
+
+  //Assault-Spielziel
+  if (FindObject(GASS))
+  {
+   //Zielobjekte
+   AddAssaultTarget(CMSN, 440, 1610, 230, 2, "$Target1$", 0, [[[420, 1490], [750, 1490]], [[440, 1940], [585, 1920], [730, 1940]]]);
+   AddAssaultTarget(CCP1, 730, 1610, 230, 2, "$Target2$", 1, [[[420, 1490], [750, 1490]], [[440, 1940], [585, 1920], [730, 1940]]]);
+   AddAssaultTarget(LBPC, 585, 1250, 230, 2, "$Target3$", 2, [[[475, 980], [695, 980]], [[430, 1610], [740, 1610]]]);
+   AddAssaultTarget(CCP2, 585, 870,  230, 2, "$Target4$", 3, [[[445, 660], [585, 590], [725, 660]], [[280, 1240], [890, 1240]]]);
+
+   //Ziele verbinden
+   ConnectAssaultTargets([0, 1]);
+
+   //Grenze setzen
+   CreateObject(BRDR, 0, 1370, -1)->Set(2,1);
+
+   //Objekt entfernen
+   RemoveObject(FindObject2(Find_ID(PLT3),Find_InRect(570, 820, 40, 40)));
+
+   //SSA Besitzer setzen
+   if(aTeams[2] == true)
+   {aSelfDefense[0]->SetTeam(2); aSelfDefense[1]->SetTeam(2); aSelfDefense[2]->SetTeam(2); aSelfDefense[3]->SetTeam(2);}
+
+   //SSA anschalten
+   aSelfDefense[0]->TurnOn();
+   aSelfDefense[1]->TurnOn();
+   aSelfDefense[2]->TurnOn();
+   aSelfDefense[3]->TurnOn();
+  }
 }
 
 /* Assault Zerstörung */
@@ -847,8 +847,12 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
 
 public func RelaunchPosition(& iX, & iY, int iTeam)
 {
-  //DM/LMS-Spielziel
-  if(FindObject(GTDM) || FindObject(GLMS))
+  //Assault-Spielziel
+  if(FindObject(GASS))
+  {if(FindObject(GASS)->GetRespawnPoint(iX, iY, iTeam)) return 1;}
+
+  //LMS/DM-Spielziel
+  if(FindObject(GLMS) || FindObject(GTDM))
   {
    if(iTeam == 1)
    {
@@ -869,10 +873,6 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
     return(1);
    }
   }
-
-  //Assault-Spielziel
-  if(FindObject(GASS))
-  {if(FindObject(GASS)->GetRespawnPoint(iX, iY, iTeam)) return 1;}
 
   //Startsicht
   iX = 585; iY = 1310;

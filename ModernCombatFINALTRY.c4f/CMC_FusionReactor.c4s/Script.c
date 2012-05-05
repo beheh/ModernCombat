@@ -629,14 +629,6 @@ public func ChooserFinished()
   if(aTeams[4] == true)
   {aSelfDefense[3]->SetTeam(4);}
 
-  //HTF-Spielziel
-  if (FindObject(GHTF))
-  {
-   //Flaggenposten
-   var flag = CreateObject(OFPL, 915,590, -1);
-   flag->~Set("$Flag3$",150);
-  }
-
   //OP-Spielziel
   if(FindObject(GOCC))
   {
@@ -744,6 +736,14 @@ public func ChooserFinished()
     AddWarnEffect(warn,aFlag[4]);
   }
 
+  //HTF-Spielziel
+  if (FindObject(GHTF))
+  {
+   //Flaggenposten
+   var flag = CreateObject(OFPL, 915,590, -1);
+   flag->~Set("$Flag3$",150);
+  }
+
   //MR-Spielziel
   if (FindObject(GMNR))
   {
@@ -760,8 +760,8 @@ public func ChooserFinished()
 
 public func RelaunchPosition(& iX, & iY, int iTeam)
 {
-  //DM/LMS/HTF/MR-Spielziel
-  if(FindObject(GTDM) || FindObject(GLMS) || FindObject(GHTF) || FindObject(GMNR))
+  //HTF/MR/LMS/DM-Spielziel
+  if(FindObject(GHTF) || FindObject(GMNR) || FindObject(GLMS) || FindObject(GTDM))
   {
    if(iTeam == 1)
    {

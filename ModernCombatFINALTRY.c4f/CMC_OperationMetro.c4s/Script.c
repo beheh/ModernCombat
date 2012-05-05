@@ -573,57 +573,48 @@ public func ChooserFinished()
   for(var i = 0; i < GetPlayerCount(); i++)
    aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = true;
 
-  //DM/LMS-Spielziel
-  if(FindObject(GTDM) || FindObject(GLMS))
-  {
-   //Grenzen
-   CreateObject(BRDR, 520, 0, -1)->Set(0);
-   CreateObject(BRDR, 4720, 0, -1)->Set(1);
-  }
-
-  //CTF-Spielziel
-  if(FindObject(GCTF))
-  {
-   //Flaggen
-   if(aTeams[1] == true)
-   {CreateFlag(1,1580,370,GetTeamColor(1));}
-   if(aTeams[2] == true)
-   {CreateFlag(2,3660,370,GetTeamColor(2));}
-
-   //Grenzen setzen
-   CreateObject(BRDR, 950, 0, -1)->Set(0);
-   CreateObject(BRDR, 4290, 0, -1)->Set(1);
-
-   //Zusätzliche Munition
-   if(!FindObject(NOAM))
-   {
-    //Versorgungskiste (Raketen)
-    var crate = CreateObject(AMCT, 1590, 500, -1);
-    crate->Set(MBOX);
-    var crate = CreateObject(AMCT, 3650, 500, -1);
-    crate->Set(MBOX);
-   }
-  }
-
-  //HTF-Spielziel
-  if (FindObject(GHTF))
+  //OP-Spielziel
+  if(FindObject(GOCC))
   {
    //Flaggenposten
-   var flag = CreateObject(OFPL, 2620, 620, -1);
-   flag->~Set("$Flag5$");
-
-   //Grenzen setzen
-   CreateObject(BRDR, 950, 0, -1)->Set(0);
-   CreateObject(BRDR, 4290, 0, -1)->Set(1);
-
-   //Zusätzliche Munition
-   if(!FindObject(NOAM))
+   aFlag[0] = CreateObject(OFPL,1420,370,NO_OWNER);
+   aFlag[0] -> AddSpawnPoint(1020, 450);
+   aFlag[0] -> AddSpawnPoint(1160, 290);
+   aFlag[0] -> AddSpawnPoint(1290, 430);
+   if(aTeams[1] == true)
    {
-    //Versorgungskiste (Raketen)
-    var crate = CreateObject(AMCT, 1590, 500, -1);
-    crate->Set(MBOX);
-    var crate = CreateObject(AMCT, 3650, 500, -1);
-    crate->Set(MBOX);
+    aFlag[0]->Set("$Flag1$",100,2);
+    aFlag[0]->Capture(1,1);
+   }
+   else
+   {
+    aFlag[0]->Set("$Flag1$",0,2);
+   }
+
+   aFlag[1] = CreateObject(OFPL,2190,460,NO_OWNER);
+   aFlag[1] -> AddSpawnPoint(1880,380);
+   aFlag[1] -> AddSpawnPoint(1880,430);
+   aFlag[1] -> AddSpawnPoint(2410,570);
+   aFlag[1]->Set("$Flag2$",0,2);
+
+   aFlag[2] = CreateObject(OFPL,3050,460,NO_OWNER);
+   aFlag[2] -> AddSpawnPoint(3360,380);
+   aFlag[2] -> AddSpawnPoint(3360,430);
+   aFlag[2] -> AddSpawnPoint(2830,570);
+   aFlag[2]->Set("$Flag3$",0,2);
+
+   aFlag[3] = CreateObject(OFPL,3820,370,NO_OWNER);
+   aFlag[3] -> AddSpawnPoint(4220, 450);
+   aFlag[3] -> AddSpawnPoint(4080, 290);
+   aFlag[3] -> AddSpawnPoint(3950, 430);
+   if(aTeams[2] == true)
+   {
+    aFlag[3]->Set("$Flag4$",100,2);
+    aFlag[3]->Capture(2,1);
+   }
+   else
+   {
+    aFlag[3]->Set("$Flag4$",0,2);
    }
   }
 
@@ -680,48 +671,25 @@ public func ChooserFinished()
    crate->Set(ATWN);
   }
 
-  //OP-Spielziel
-  if(FindObject(GOCC))
+  //HTF-Spielziel
+  if (FindObject(GHTF))
   {
    //Flaggenposten
-   aFlag[0] = CreateObject(OFPL,1420,370,NO_OWNER);
-   aFlag[0] -> AddSpawnPoint(1020, 450);
-   aFlag[0] -> AddSpawnPoint(1160, 290);
-   aFlag[0] -> AddSpawnPoint(1290, 430);
-   if(aTeams[1] == true)
-   {
-    aFlag[0]->Set("$Flag1$",100,2);
-    aFlag[0]->Capture(1,1);
-   }
-   else
-   {
-    aFlag[0]->Set("$Flag1$",0,2);
-   }
+   var flag = CreateObject(OFPL, 2620, 620, -1);
+   flag->~Set("$Flag5$");
 
-   aFlag[1] = CreateObject(OFPL,2190,460,NO_OWNER);
-   aFlag[1] -> AddSpawnPoint(1880,380);
-   aFlag[1] -> AddSpawnPoint(1880,430);
-   aFlag[1] -> AddSpawnPoint(2410,570);
-   aFlag[1]->Set("$Flag2$",0,2);
+   //Grenzen setzen
+   CreateObject(BRDR, 950, 0, -1)->Set(0);
+   CreateObject(BRDR, 4290, 0, -1)->Set(1);
 
-   aFlag[2] = CreateObject(OFPL,3050,460,NO_OWNER);
-   aFlag[2] -> AddSpawnPoint(3360,380);
-   aFlag[2] -> AddSpawnPoint(3360,430);
-   aFlag[2] -> AddSpawnPoint(2830,570);
-   aFlag[2]->Set("$Flag3$",0,2);
-
-   aFlag[3] = CreateObject(OFPL,3820,370,NO_OWNER);
-   aFlag[3] -> AddSpawnPoint(4220, 450);
-   aFlag[3] -> AddSpawnPoint(4080, 290);
-   aFlag[3] -> AddSpawnPoint(3950, 430);
-   if(aTeams[2] == true)
+   //Zusätzliche Munition
+   if(!FindObject(NOAM))
    {
-    aFlag[3]->Set("$Flag4$",100,2);
-    aFlag[3]->Capture(2,1);
-   }
-   else
-   {
-    aFlag[3]->Set("$Flag4$",0,2);
+    //Versorgungskiste (Raketen)
+    var crate = CreateObject(AMCT, 1590, 500, -1);
+    crate->Set(MBOX);
+    var crate = CreateObject(AMCT, 3650, 500, -1);
+    crate->Set(MBOX);
    }
   }
 
@@ -747,6 +715,38 @@ public func ChooserFinished()
     var crate = CreateObject(AMCT, 3650, 500, -1);
     crate->Set(MBOX);
    }
+  }
+
+  //CTF-Spielziel
+  if(FindObject(GCTF))
+  {
+   //Flaggen
+   if(aTeams[1] == true)
+   {CreateFlag(1,1580,370,GetTeamColor(1));}
+   if(aTeams[2] == true)
+   {CreateFlag(2,3660,370,GetTeamColor(2));}
+
+   //Grenzen setzen
+   CreateObject(BRDR, 950, 0, -1)->Set(0);
+   CreateObject(BRDR, 4290, 0, -1)->Set(1);
+
+   //Zusätzliche Munition
+   if(!FindObject(NOAM))
+   {
+    //Versorgungskiste (Raketen)
+    var crate = CreateObject(AMCT, 1590, 500, -1);
+    crate->Set(MBOX);
+    var crate = CreateObject(AMCT, 3650, 500, -1);
+    crate->Set(MBOX);
+   }
+  }
+
+  //LMS/DM-Spielziel
+  if(FindObject(GLMS) || FindObject(GTDM))
+  {
+   //Grenzen
+   CreateObject(BRDR, 520, 0, -1)->Set(0);
+   CreateObject(BRDR, 4720, 0, -1)->Set(1);
   }
 }
 
@@ -780,8 +780,12 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
 
 public func RelaunchPosition(& iX, & iY, int iTeam)
 {
-  //DM/LMS/CTF/HTF/MR-Spielziel
-  if(FindObject(GTDM) || FindObject(GLMS) || FindObject(GCTF) || FindObject(GHTF) || FindObject(GMNR))
+  //Assault-Spielziel
+  if(FindObject(GASS))
+  {if(FindObject(GASS)->GetRespawnPoint(iX, iY, iTeam)) return 1;}
+
+  //HTF/MR/CTF/LMS/DM-Spielziel
+  if(FindObject(GHTF) || FindObject(GMNR) || FindObject(GCTF) || FindObject(GLMS) || FindObject(GTDM))
   {
    if(iTeam == 1)
    {
@@ -806,10 +810,6 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
     return(1);
    }
   }
-
-  //Assault-Spielziel
-  if(FindObject(GASS))
-  {if(FindObject(GASS)->GetRespawnPoint(iX, iY, iTeam)) return 1;}
 
   //Startsicht
   iX = 1110; iY = 320;

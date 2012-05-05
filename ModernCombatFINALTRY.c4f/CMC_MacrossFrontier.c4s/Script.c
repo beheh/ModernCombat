@@ -382,34 +382,6 @@ public func ChooserFinished()
   SetPlayList("CMC_Base Groove.ogg;CMC_Firehawk.ogg;CMC_Friendly Unit.ogg;CMC_Getaway.ogg;CMC_Eurocorps.ogg;CMC_Moving Squad.ogg;CMC_Offensive.ogg;CMC_Showtime.ogg;CMC_Slow Motion.ogg;CMC_Striking Force.ogg;CMC_No Good.ogg;CMC_Obsession.ogg;CMC_Your Eyes.ogg");
   Music("CMC_Friendly Unit.ogg");
 
-  //DM/LMS-Spielziel
-  if(FindObject(GTDM) || FindObject(GLMS))
-  {
-   //Hinweisschilder
-   var sign = CreateObject(SGNP, 560, 480, -1);
-   sign->SetPhase(1);
-   sign->SetMode(1);
-   var sign = CreateObject(SGNP, 990, 400, -1);
-   sign->SetPhase(1);
-   sign->SetMode(1);
-  }
-
-  //CTF-Spielziel
-  if(FindObject(GCTF))
-  {
-   //Hinweisschilder
-   var sign = CreateObject(SGNP, 560, 480, -1);
-   sign->SetPhase(1);
-   sign->SetMode(1);
-   var sign = CreateObject(SGNP, 990, 400, -1);
-   sign->SetPhase(1);
-   sign->SetMode(1);
-
-   //Flaggen
-   CreateFlag(1,110,440,GetTeamColor(1)); 
-   CreateFlag(2,1440,360,GetTeamColor(2)); 
-  }
-
   //HTF-Spielziel
   if (FindObject(GHTF))
   {
@@ -448,14 +420,61 @@ public func ChooserFinished()
    AddMoneySpawn(810, 430, [20]);
    AddMoneySpawn(940, 160, [10]);
   }
+
+  //CTF-Spielziel
+  if(FindObject(GCTF))
+  {
+   //Hinweisschilder
+   var sign = CreateObject(SGNP, 560, 480, -1);
+   sign->SetPhase(1);
+   sign->SetMode(1);
+   var sign = CreateObject(SGNP, 990, 400, -1);
+   sign->SetPhase(1);
+   sign->SetMode(1);
+
+   //Flaggen
+   CreateFlag(1,110,440,GetTeamColor(1)); 
+   CreateFlag(2,1440,360,GetTeamColor(2)); 
+  }
+
+  //LMS/DM-Spielziel
+  if(FindObject(GLMS) || FindObject(GTDM))
+  {
+   //Hinweisschilder
+   var sign = CreateObject(SGNP, 560, 480, -1);
+   sign->SetPhase(1);
+   sign->SetMode(1);
+   var sign = CreateObject(SGNP, 990, 400, -1);
+   sign->SetPhase(1);
+   sign->SetMode(1);
+  }
 }
 
 /* Relaunch */
 
 public func RelaunchPosition(& iX, & iY, int iTeam)
 {
-  //DM/LMS/MR-Spielziel
-  if(FindObject(GTDM) || FindObject(GLMS) || FindObject(GMNR))
+  //HTF-Spielziel
+  if(FindObject(GHTF))
+  {
+   var rand = Random(6);
+   if(!rand)
+     { iX = 340; iY = 220; }
+   if(!--rand)
+     { iX = 340; iY = 340; }
+   if(!--rand)
+     { iX = 340; iY = 430; }
+   if(!--rand)
+     { iX = 1210; iY = 140; }
+   if(!--rand)
+     { iX = 1210; iY = 260; }
+   if(!--rand)
+     { iX = 1210; iY = 350; }
+   return(1);
+  }
+
+  //MR/LMS/DM-Spielziel
+  if(FindObject(GMNR) || FindObject(GLMS) || FindObject(GTDM))
   {
    var rand = Random(4);
    if(!rand)
@@ -487,25 +506,6 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
     if(!--rand)
       { iX = 1295; iY = 120; }
    }
-   return(1);
-  }
-
-  //HTF-Spielziel
-  if(FindObject(GHTF))
-  {
-   var rand = Random(6);
-   if(!rand)
-     { iX = 340; iY = 220; }
-   if(!--rand)
-     { iX = 340; iY = 340; }
-   if(!--rand)
-     { iX = 340; iY = 430; }
-   if(!--rand)
-     { iX = 1210; iY = 140; }
-   if(!--rand)
-     { iX = 1210; iY = 260; }
-   if(!--rand)
-     { iX = 1210; iY = 350; }
    return(1);
   }
 

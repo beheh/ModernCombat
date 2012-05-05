@@ -453,134 +453,6 @@ public func ChooserFinished()
   for(var i = 0; i < GetPlayerCount(); i++)
    aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = true;
 
-  //DM/LMS-Spielziel
-  if(FindObject(GTDM) || FindObject(GLMS))
-  {
-   //Grenzen setzen
-   CreateObject(BRDR, 3130, 0, -1)->Set(0);
-   CreateObject(BRDR, 5310, 0, -1)->Set(1);
-
-   //Hinweisschilder
-   CreateObject(SGNP, 3160, 1280, -1);
-   CreateObject(SGNP, 3260, 1210, -1);
-   CreateObject(SGNP, 3420, 1130, -1);
-
-   CreateObject(SGNP, 5065, 1170, -1);
-   CreateObject(SGNP, 5100, 1250, -1);
-   CreateObject(SGNP, 5180, 1240, -1);
-
-   //Patrouillenboote
-   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,3210,1280,-1),50*21,300);
-   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,4235,1280,-1),50*21,300);
-  }
-
-  //CTF-Spielziel
-  if(FindObject(GCTF))
-  {
-   //Flaggen
-   if(aTeams[1] == true)
-   {CreateFlag(1,3710,1050,GetTeamColor(1));}
-   if(aTeams[2] == true)
-   {CreateFlag(2,4480,940,GetTeamColor(2));}
-
-   //Grenzen setzen
-   CreateObject(BRDR, 3130, 0, -1)->Set(0);
-   CreateObject(BRDR, 5310, 0, -1)->Set(1);
-
-   //Hinweisschilder
-   CreateObject(SGNP, 3160, 1280, -1);
-   CreateObject(SGNP, 3260, 1210, -1);
-   CreateObject(SGNP, 3420, 1130, -1);
-
-   CreateObject(SGNP, 5065, 1170, -1);
-   CreateObject(SGNP, 5100, 1250, -1);
-   CreateObject(SGNP, 5180, 1240, -1);
-
-   //Patrouillenboote
-   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,3210,1280,-1),50*21,300);
-   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,4235,1280,-1),50*21,300);
-  }
-
-  //HTF-Spielziel
-  if (FindObject(GHTF))
-  {
-   //Flaggenposten
-   var flag = CreateObject(OFPL, 4010,530, -1);
-   flag->~Set("$Flag3$");
-
-   //Grenzen setzen
-   CreateObject(BRDR, 3130, 0, -1)->Set(0);
-   CreateObject(BRDR, 5310, 0, -1)->Set(1);
-
-   //Hinweisschilder
-   CreateObject(SGNP, 3160, 1280, -1);
-   CreateObject(SGNP, 3260, 1210, -1);
-   CreateObject(SGNP, 3420, 1130, -1);
-
-   CreateObject(SGNP, 5065, 1170, -1);
-   CreateObject(SGNP, 5100, 1250, -1);
-   CreateObject(SGNP, 5180, 1240, -1);
-
-   //Patrouillenboote
-   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,3210,1280,-1),50*21,300);
-   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,4235,1280,-1),50*21,300);
-  }
-
-  //Assault-Spielziel
-  if (FindObject(GASS))
-  {
-   //Zielobjekte
-   AddAssaultTarget(GSTA, 3260, 1210, 230, 2, "$Target1$", 0, [[[3470, 890], [3690, 840], [3755, 800]], [[1630, 1110], [1630, 1170], [1645, 1260]]]);
-   AddAssaultTarget(GSTA, 3700, 1050, 230, 2, "$Target1$", 1, [[[3470, 890], [3690, 840], [3755, 800]], [[1630, 1110], [1630, 1170], [1645, 1260]]]);
-   AddAssaultTarget(RADR, 4010, 530, 230, 2, "$Target2$", 2, [[[4170, 940], [4300, 970], [4530, 911]], [[1630, 1110], [1630, 1170], [1645, 1260]]]);
-   AddAssaultTarget(CMSN, 4245, 820, 230, 2, "$Target3$", 3, [[[3030, 1140], [3315, 1110], [3190, 1142]], [[1630, 1110], [1630, 1170], [1645, 1260]]]);
-   AddAssaultTarget(HUT3, 4760, 1090, 230, 2, "$Target4$", 4, [[[4995, 1240], [5105, 1190], [5280, 1260]], [[3480, 890], [3710, 1050], [3770, 990]]]);
-   AddAssaultTarget(CMSN, 4710, 1240, 230, 2, "$Target5$", 5, [[[4995, 1240], [5105, 1190], [5280, 1260]], [[3480, 890], [3710, 1050], [3770, 990]]]);
-
-   //Ziele verbinden
-   ConnectAssaultTargets([0, 1]);
-   ConnectAssaultTargets([2, 3]);
-   ConnectAssaultTargets([4, 5]);
-
-   //Container
-   CreateObject(CON1, 3969, 1216, -1)->SetPerspective(2);
-   CreateObject(CON1, 3980, 1244, -1)->SetPerspective(0);
-   CreateObject(CON1, 4000, 1272, -1);
-   CreateObject(CON1, 4000, 1300, -1);
-   CreateObject(CON1, 4400, 1142, -1)->SetPerspective(2);
-   CreateObject(CON1, 4400, 1170, -1);
-
-   //Grenzen setzen
-   CreateObject(BRDR, 910, 0, -1)->Set(0);
-   CreateObject(BRDR, 3900, 0, -1)->Set(1,1);
-   CreateObject(BRDR, 0, 700, -1)->Set(2,1);
-
-   //SSA Besitzer setzen
-   if(aTeams[1] == true)
-   {aSelfDefense[0]->SetTeam(1); aSelfDefense[1]->SetTeam(1);}
-
-   //Versorgungskiste (APW)
-   var crate = CreateObject(AMCT, 5540, 1230, -1);
-   crate->Set(ATWN);
-
-   //Blackhawks und Hinweisschilder
-   if(!FindObject(NOBH))
-   {
-    SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,1970,1140,-1),100*21,300);
-    SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,5495,1205,-1),100*21,300);
-
-    var sign = CreateObject(SGNP, 1640, 1170, -1);
-    sign->SetPhase(2);
-    sign->SetMode(1);
-    CreateObject(SGNP, 5445, 1230, -1)->SetPhase(2);
-   }
-
-   //Patrouillenboote
-   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1820,1280,-1),50*21,300);
-   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1890,1280,-1),50*21,300);
-   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,3610,1280,-1),50*21,300);
-  }
-
   //OP-Spielziel
   if(FindObject(GOCC))
   {
@@ -657,6 +529,86 @@ public func ChooserFinished()
    SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,4235,1280,-1),50*21,300);
   }
 
+  //Assault-Spielziel
+  if (FindObject(GASS))
+  {
+   //Zielobjekte
+   AddAssaultTarget(GSTA, 3260, 1210, 230, 2, "$Target1$", 0, [[[3470, 890], [3690, 840], [3755, 800]], [[1630, 1110], [1630, 1170], [1645, 1260]]]);
+   AddAssaultTarget(GSTA, 3700, 1050, 230, 2, "$Target1$", 1, [[[3470, 890], [3690, 840], [3755, 800]], [[1630, 1110], [1630, 1170], [1645, 1260]]]);
+   AddAssaultTarget(RADR, 4010, 530, 230, 2, "$Target2$", 2, [[[4170, 940], [4300, 970], [4530, 911]], [[1630, 1110], [1630, 1170], [1645, 1260]]]);
+   AddAssaultTarget(CMSN, 4245, 820, 230, 2, "$Target3$", 3, [[[3030, 1140], [3315, 1110], [3190, 1142]], [[1630, 1110], [1630, 1170], [1645, 1260]]]);
+   AddAssaultTarget(HUT3, 4760, 1090, 230, 2, "$Target4$", 4, [[[4995, 1240], [5105, 1190], [5280, 1260]], [[3480, 890], [3710, 1050], [3770, 990]]]);
+   AddAssaultTarget(CMSN, 4710, 1240, 230, 2, "$Target5$", 5, [[[4995, 1240], [5105, 1190], [5280, 1260]], [[3480, 890], [3710, 1050], [3770, 990]]]);
+
+   //Ziele verbinden
+   ConnectAssaultTargets([0, 1]);
+   ConnectAssaultTargets([2, 3]);
+   ConnectAssaultTargets([4, 5]);
+
+   //Container
+   CreateObject(CON1, 3969, 1216, -1)->SetPerspective(2);
+   CreateObject(CON1, 3980, 1244, -1)->SetPerspective(0);
+   CreateObject(CON1, 4000, 1272, -1);
+   CreateObject(CON1, 4000, 1300, -1);
+   CreateObject(CON1, 4400, 1142, -1)->SetPerspective(2);
+   CreateObject(CON1, 4400, 1170, -1);
+
+   //Grenzen setzen
+   CreateObject(BRDR, 910, 0, -1)->Set(0);
+   CreateObject(BRDR, 3900, 0, -1)->Set(1,1);
+   CreateObject(BRDR, 0, 700, -1)->Set(2,1);
+
+   //SSA Besitzer setzen
+   if(aTeams[1] == true)
+   {aSelfDefense[0]->SetTeam(1); aSelfDefense[1]->SetTeam(1);}
+
+   //Versorgungskiste (APW)
+   var crate = CreateObject(AMCT, 5540, 1230, -1);
+   crate->Set(ATWN);
+
+   //Blackhawks und Hinweisschilder
+   if(!FindObject(NOBH))
+   {
+    SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,1970,1140,-1),100*21,300);
+    SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,5495,1205,-1),100*21,300);
+
+    var sign = CreateObject(SGNP, 1640, 1170, -1);
+    sign->SetPhase(2);
+    sign->SetMode(1);
+    CreateObject(SGNP, 5445, 1230, -1)->SetPhase(2);
+   }
+
+   //Patrouillenboote
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1820,1280,-1),50*21,300);
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1890,1280,-1),50*21,300);
+   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,3610,1280,-1),50*21,300);
+  }
+
+  //HTF-Spielziel
+  if (FindObject(GHTF))
+  {
+   //Flaggenposten
+   var flag = CreateObject(OFPL, 4010,530, -1);
+   flag->~Set("$Flag3$");
+
+   //Grenzen setzen
+   CreateObject(BRDR, 3130, 0, -1)->Set(0);
+   CreateObject(BRDR, 5310, 0, -1)->Set(1);
+
+   //Hinweisschilder
+   CreateObject(SGNP, 3160, 1280, -1);
+   CreateObject(SGNP, 3260, 1210, -1);
+   CreateObject(SGNP, 3420, 1130, -1);
+
+   CreateObject(SGNP, 5065, 1170, -1);
+   CreateObject(SGNP, 5100, 1250, -1);
+   CreateObject(SGNP, 5180, 1240, -1);
+
+   //Patrouillenboote
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,3210,1280,-1),50*21,300);
+   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,4235,1280,-1),50*21,300);
+  }
+
   //MR-Spielziel
   if (FindObject(GMNR))
   {
@@ -666,6 +618,54 @@ public func ChooserFinished()
    AddMoneySpawn(4080, 550, [10]);
    AddMoneySpawn(4480, 930, [10]);
 
+   //Grenzen setzen
+   CreateObject(BRDR, 3130, 0, -1)->Set(0);
+   CreateObject(BRDR, 5310, 0, -1)->Set(1);
+
+   //Hinweisschilder
+   CreateObject(SGNP, 3160, 1280, -1);
+   CreateObject(SGNP, 3260, 1210, -1);
+   CreateObject(SGNP, 3420, 1130, -1);
+
+   CreateObject(SGNP, 5065, 1170, -1);
+   CreateObject(SGNP, 5100, 1250, -1);
+   CreateObject(SGNP, 5180, 1240, -1);
+
+   //Patrouillenboote
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,3210,1280,-1),50*21,300);
+   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,4235,1280,-1),50*21,300);
+  }
+
+  //CTF-Spielziel
+  if(FindObject(GCTF))
+  {
+   //Flaggen
+   if(aTeams[1] == true)
+   {CreateFlag(1,3710,1050,GetTeamColor(1));}
+   if(aTeams[2] == true)
+   {CreateFlag(2,4480,940,GetTeamColor(2));}
+
+   //Grenzen setzen
+   CreateObject(BRDR, 3130, 0, -1)->Set(0);
+   CreateObject(BRDR, 5310, 0, -1)->Set(1);
+
+   //Hinweisschilder
+   CreateObject(SGNP, 3160, 1280, -1);
+   CreateObject(SGNP, 3260, 1210, -1);
+   CreateObject(SGNP, 3420, 1130, -1);
+
+   CreateObject(SGNP, 5065, 1170, -1);
+   CreateObject(SGNP, 5100, 1250, -1);
+   CreateObject(SGNP, 5180, 1240, -1);
+
+   //Patrouillenboote
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,3210,1280,-1),50*21,300);
+   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,4235,1280,-1),50*21,300);
+  }
+
+  //LMS/DM-Spielziel
+  if(FindObject(GLMS) || FindObject(GTDM))
+  {
    //Grenzen setzen
    CreateObject(BRDR, 3130, 0, -1)->Set(0);
    CreateObject(BRDR, 5310, 0, -1)->Set(1);
@@ -724,8 +724,8 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
 
 public func RelaunchPosition(& iX, & iY, int iTeam)
 {
-  //DM/LMS/CTF/HTF/MR-Spielziel
-  if(FindObject(GTDM) || FindObject(GLMS) || FindObject(GCTF) || FindObject(GHTF) || FindObject(GMNR))
+  //HTF/MR/CTF/LMS/DM-Spielziel
+  if(FindObject(GHTF) || FindObject(GMNR) || FindObject(GCTF) || FindObject(GLMS) || FindObject(GTDM))
   {
    if(iTeam == 1)
    {

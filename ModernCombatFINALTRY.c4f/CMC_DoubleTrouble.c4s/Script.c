@@ -392,20 +392,6 @@ public func ChooserFinished()
   for(var i = 0; i < GetPlayerCount(); i++)
    aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = true;
 
-  //CTF-Spielziel
-  if(FindObject(GCTF))
-  {
-   //Flaggen
-   if(aTeams[1] == true)
-   {CreateFlag(1,415,230,GetTeamColor(1));}
-   if(aTeams[2] == true)
-   {CreateFlag(2,1325,520,GetTeamColor(2));}
-   if(aTeams[3] == true)
-   {CreateFlag(3,315,520,GetTeamColor(3));}
-   if(aTeams[4] == true)
-   {CreateFlag(4,1220,230,GetTeamColor(4));}
-  }
-
   //OP-Spielziel
   if(FindObject(GOCC))
   {
@@ -477,50 +463,26 @@ public func ChooserFinished()
    aFlag[5] -> AddSpawnPoint(835,510);
    aFlag[5]->Set("$Flag6$",0,2);
   }
+
+  //CTF-Spielziel
+  if(FindObject(GCTF))
+  {
+   //Flaggen
+   if(aTeams[1] == true)
+   {CreateFlag(1,415,230,GetTeamColor(1));}
+   if(aTeams[2] == true)
+   {CreateFlag(2,1325,520,GetTeamColor(2));}
+   if(aTeams[3] == true)
+   {CreateFlag(3,315,520,GetTeamColor(3));}
+   if(aTeams[4] == true)
+   {CreateFlag(4,1220,230,GetTeamColor(4));}
+  }
 }
 
 /* Relaunch */
 
 public func RelaunchPosition(& iX, & iY, int iTeam)
 {
-  //DM/LMS-Spielziel
-  if(FindObject(GTDM) || FindObject(GLMS))
-  {
-   if(iTeam == 1)
-   {
-    var rand = Random(2);
-    if(!rand)
-     { iX = 420; iY = 220; }
-    if(!--rand)
-     { iX = 580; iY = 280; }
-   }
-   if(iTeam == 2)
-   {
-    var rand = Random(2);
-    if(!rand)
-     { iX = 1230; iY = 510; }
-    if(!--rand)
-     { iX = 1360; iY = 510; }
-   }
-   if(iTeam == 3)
-   {
-    var rand = Random(2);
-    if(!rand)
-     { iX = 280; iY = 510; }
-    if(!--rand)
-     { iX = 400; iY = 510; }
-   }
-   if(iTeam == 4)
-   {
-    var rand = Random(2);
-    if(!rand)
-     { iX = 1060; iY = 280; }
-    if(!--rand)
-     { iX = 1220; iY = 220; }
-   }
-   return(1);
-  }
-
   //CTF-Spielziel
   if(FindObject(GCTF))
   {
@@ -555,6 +517,44 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
      { iX = 1005; iY = 330; }
     if(!--rand)
      { iX = 1000; iY = 220; }
+   }
+   return(1);
+  }
+
+  //LMS/DM-Spielziel
+  if(FindObject(GLMS) || FindObject(GTDM))
+  {
+   if(iTeam == 1)
+   {
+    var rand = Random(2);
+    if(!rand)
+     { iX = 420; iY = 220; }
+    if(!--rand)
+     { iX = 580; iY = 280; }
+   }
+   if(iTeam == 2)
+   {
+    var rand = Random(2);
+    if(!rand)
+     { iX = 1230; iY = 510; }
+    if(!--rand)
+     { iX = 1360; iY = 510; }
+   }
+   if(iTeam == 3)
+   {
+    var rand = Random(2);
+    if(!rand)
+     { iX = 280; iY = 510; }
+    if(!--rand)
+     { iX = 400; iY = 510; }
+   }
+   if(iTeam == 4)
+   {
+    var rand = Random(2);
+    if(!rand)
+     { iX = 1060; iY = 280; }
+    if(!--rand)
+     { iX = 1220; iY = 220; }
    }
    return(1);
   }

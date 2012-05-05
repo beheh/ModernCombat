@@ -257,46 +257,6 @@ public func ChooserFinished()
   for(var i = 0; i < GetPlayerCount(); i++)
    aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = true;
 
-  //DM/LMS-Spielziel
-  if(FindObject(GTDM) || FindObject(GLMS))
-  {
-   //Grenzen setzen
-   CreateObject(BRDR, 510, 0, -1)->Set(0);
-   CreateObject(BRDR, 1965, 0, -1)->Set(1);
-
-   //Hinweisschilder
-   CreateObject(SGNP, 525, 350, -1);
-   CreateObject(SGNP, 585, 650, -1);
-   CreateObject(SGNP, 600, 520, -1);
-   CreateObject(SGNP, 660, 150, -1);
-   CreateObject(SGNP, 1850, 130, -1);
-   CreateObject(SGNP, 1850, 450, -1);
-   CreateObject(SGNP, 1960, 300, -1);
-  }
-
-  //CTF-Spielziel
-  if(FindObject(GCTF))
-  {
-   //Flaggen
-   if(aTeams[1] == true)
-   {CreateFlag(1,455,330,GetTeamColor(1));}
-   if(aTeams[2] == true)
-   {CreateFlag(2,2010,310,GetTeamColor(2));}
-  }
-
-  //Base Assault-Spielziel
-  if(FindObject(GBAS))
-  {
-   //Strukturen
-   AddAssaultTarget(CCP2, 180, 300, 400, 1, "$Flag1$", 0, [[350, 460], [245, 550], [550, 350]]);
-   AddAssaultTarget(CMSN, 680, 150, 300, 1, "$Flag2$", 1, [[610, 300], [840, 260], [880, 270]]);
-   AddAssaultTarget(CCP1, 780, 390, 300, 1, "$Flag3$", 2, [[730, 520], [825, 580], [605, 520]]);
-
-   AddAssaultTarget(CCP2, 2280, 210, 400, 2, "$Flag6$", 0, [[2100, 310], [2000, 310], [1900, 320]]);
-   AddAssaultTarget(CMSN, 1840, 130, 300, 2, "$Flag4$", 1, [[1845, 240], [1770, 220]]);
-   AddAssaultTarget(CCP1, 1710, 330, 300, 2, "$Flag5$", 2, [[1610, 500], [1820, 450], [1885, 475]]);
-  }
-
   //OP-Spielziel
   if(FindObject(GOCC))
   {
@@ -352,34 +312,52 @@ public func ChooserFinished()
     aFlag[5]->Set("$Flag6$",0,2);
    }
   }
+
+  //Base Assault-Spielziel
+  if(FindObject(GBAS))
+  {
+   //Strukturen
+   AddAssaultTarget(CCP2, 180, 300, 400, 1, "$Flag1$", 0, [[350, 460], [245, 550], [550, 350]]);
+   AddAssaultTarget(CMSN, 680, 150, 300, 1, "$Flag2$", 1, [[610, 300], [840, 260], [880, 270]]);
+   AddAssaultTarget(CCP1, 780, 390, 300, 1, "$Flag3$", 2, [[730, 520], [825, 580], [605, 520]]);
+
+   AddAssaultTarget(CCP2, 2280, 210, 400, 2, "$Flag6$", 0, [[2100, 310], [2000, 310], [1900, 320]]);
+   AddAssaultTarget(CMSN, 1840, 130, 300, 2, "$Flag4$", 1, [[1845, 240], [1770, 220]]);
+   AddAssaultTarget(CCP1, 1710, 330, 300, 2, "$Flag5$", 2, [[1610, 500], [1820, 450], [1885, 475]]);
+  }
+
+  //CTF-Spielziel
+  if(FindObject(GCTF))
+  {
+   //Flaggen
+   if(aTeams[1] == true)
+   {CreateFlag(1,455,330,GetTeamColor(1));}
+   if(aTeams[2] == true)
+   {CreateFlag(2,2010,310,GetTeamColor(2));}
+  }
+
+  //LMS/DM-Spielziel
+  if(FindObject(GLMS) || FindObject(GTDM))
+  {
+   //Grenzen setzen
+   CreateObject(BRDR, 510, 0, -1)->Set(0);
+   CreateObject(BRDR, 1965, 0, -1)->Set(1);
+
+   //Hinweisschilder
+   CreateObject(SGNP, 525, 350, -1);
+   CreateObject(SGNP, 585, 650, -1);
+   CreateObject(SGNP, 600, 520, -1);
+   CreateObject(SGNP, 660, 150, -1);
+   CreateObject(SGNP, 1850, 130, -1);
+   CreateObject(SGNP, 1850, 450, -1);
+   CreateObject(SGNP, 1960, 300, -1);
+  }
 }
 
 /* Relaunch */
 
 public func RelaunchPosition(& iX, & iY, int iTeam)
 {
-  //DM/LMS-Spielziel
-  if(FindObject(GTDM) || FindObject(GLMS))
-  {
-   if(iTeam == 1)
-   {
-    var rand = Random(2);
-    if(!rand)
-     { iX = 635; iY = 280; }
-    if(!--rand)
-     { iX = 685; iY = 390; }
-   }
-   if(iTeam == 2)
-   {
-    var rand = Random(2);
-    if(!rand)
-     { iX = 1825; iY = 350; }
-    if(!--rand)
-     { iX = 1845; iY = 230; }
-   }
-   return(1);
-  }
-
   //CTF-Spielziel
   if(FindObject(GCTF))
   {
@@ -398,6 +376,28 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
      { iX = 2155; iY = 230; }
     if(!--rand)
      { iX = 2250; iY = 200; }
+   }
+   return(1);
+  }
+
+  //LMS/DM-Spielziel
+  if(FindObject(GLMS) || FindObject(GTDM))
+  {
+   if(iTeam == 1)
+   {
+    var rand = Random(2);
+    if(!rand)
+     { iX = 635; iY = 280; }
+    if(!--rand)
+     { iX = 685; iY = 390; }
+   }
+   if(iTeam == 2)
+   {
+    var rand = Random(2);
+    if(!rand)
+     { iX = 1825; iY = 350; }
+    if(!--rand)
+     { iX = 1845; iY = 230; }
    }
    return(1);
   }

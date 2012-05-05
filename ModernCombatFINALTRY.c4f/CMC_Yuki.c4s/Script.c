@@ -529,46 +529,6 @@ public func ChooserFinished()
   for(var i = 0; i < GetPlayerCount(); i++)
    aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = true;
 
-  //CTF-Spielziel
-  if(FindObject(GCTF))
-  {
-   //Flaggen
-   if(aTeams[1] == true)
-   {CreateFlag(1,135,520,GetTeamColor(1));}
-   if(aTeams[2] == true)
-   {CreateFlag(2,1830,480,GetTeamColor(2));}
-  }
-
-  //Base Assault-Spielziel
-  if(FindObject(GBAS))
-  {
-   //Zielobjekte
-   AddAssaultTarget(CMSN, 150, 520, 350, 1, "$Flag1$", 0, [[170, 650], [210, 230], [330, 270]]);
-   AddAssaultTarget(CMSN, 610, 350, 300, 1, "$Flag2$", 1, [[350, 270], [300, 400], [380, 420]]);
-
-   AddAssaultTarget(CMSN, 1840, 480, 350, 2, "$Flag5$", 0, [[1810, 580], [1580, 510], [1670, 610]]);
-   AddAssaultTarget(CMSN, 1430, 380, 300, 2, "$Flag4$", 1, [[1470, 250], [1415, 190]]);
-  }
-
-  //HTF-Spielziel
-  if (FindObject(GHTF))
-  {
-   //Flaggenposten
-   var flag = CreateObject(OFPL, 860,680, -1);
-   flag->~Set("$Flag3$");
-
-   //Waffenautomat entfernen
-   RemoveAll(WPVM);
-
-   //Zusätzliche Munition
-   if(!FindObject(NOAM))
-   {
-    //Versorgungskiste (Kugeln)
-    var crate = CreateObject (AMCT, 1010, 660, -1);
-    crate->Set(ABOX);
-   }
-  }
-
   //OP-Spielziel
   if(FindObject(GOCC))
   {
@@ -619,14 +579,54 @@ public func ChooserFinished()
     aFlag[4]->Set("$Flag5$",0,2);
    }
   }
+
+  //Base Assault-Spielziel
+  if(FindObject(GBAS))
+  {
+   //Zielobjekte
+   AddAssaultTarget(CMSN, 150, 520, 350, 1, "$Flag1$", 0, [[170, 650], [210, 230], [330, 270]]);
+   AddAssaultTarget(CMSN, 610, 350, 300, 1, "$Flag2$", 1, [[350, 270], [300, 400], [380, 420]]);
+
+   AddAssaultTarget(CMSN, 1840, 480, 350, 2, "$Flag5$", 0, [[1810, 580], [1580, 510], [1670, 610]]);
+   AddAssaultTarget(CMSN, 1430, 380, 300, 2, "$Flag4$", 1, [[1470, 250], [1415, 190]]);
+  }
+
+  //HTF-Spielziel
+  if (FindObject(GHTF))
+  {
+   //Flaggenposten
+   var flag = CreateObject(OFPL, 860,680, -1);
+   flag->~Set("$Flag3$");
+
+   //Waffenautomat entfernen
+   RemoveAll(WPVM);
+
+   //Zusätzliche Munition
+   if(!FindObject(NOAM))
+   {
+    //Versorgungskiste (Kugeln)
+    var crate = CreateObject (AMCT, 1010, 660, -1);
+    crate->Set(ABOX);
+   }
+  }
+
+  //CTF-Spielziel
+  if(FindObject(GCTF))
+  {
+   //Flaggen
+   if(aTeams[1] == true)
+   {CreateFlag(1,135,520,GetTeamColor(1));}
+   if(aTeams[2] == true)
+   {CreateFlag(2,1830,480,GetTeamColor(2));}
+  }
 }
 
 /* Relaunch */
 
 public func RelaunchPosition(& iX, & iY, int iTeam)
 {
-  //DM/LMS/HTF-Spielziel
-  if(FindObject(GTDM) || FindObject(GLMS) || FindObject(GHTF))
+  //HTF/LMS/DM-Spielziel
+  if(FindObject(GHTF) || FindObject(GLMS) || FindObject(GTDM))
   {
    if(iTeam == 1)
    {

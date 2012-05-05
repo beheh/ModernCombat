@@ -482,7 +482,7 @@ func FlagCaptured(object pPoint, int iTeam)
  
 public func OnClassSelection(object pClonk, int iTeam)
 {
-  //Money Run-Spielziel
+  //MR-Spielziel
   if (FindObject(GMNR))
   {
    AddEffect("IntPara", pClonk, 1, 1);
@@ -511,16 +511,84 @@ public func ChooserFinished()
   for(var i = 0; i < GetPlayerCount(); i++)
    aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = true;
 
-  //DM/LMS-Spielziel
-  if(FindObject(GTDM) || FindObject(GLMS))
+  //OP-Spielziel
+  if(FindObject(GOCC))
   {
+   //Flaggenposten
+   aFlag[0] = CreateObject(OFPL,685,1200,NO_OWNER);
+   aFlag[0] -> AddSpawnPoint(800, 710);
+   aFlag[0] -> AddSpawnPoint(930, 850);
+   aFlag[0] -> AddSpawnPoint(1210, 1100);
+   if(aTeams[1] == true)
+   {
+    aFlag[0]->Set("$Flag1$",100,2);
+    aFlag[0]->Capture(1,1);
+   }
+   else
+   {
+    aFlag[0]->Set("$Flag1$",0,2);
+   }
+
+   aFlag[1] = CreateObject(OFPL,2080,940,NO_OWNER);
+   aFlag[1] -> AddSpawnPoint(1970,1050);
+   aFlag[1] -> AddSpawnPoint(2130,1120);
+   aFlag[1] -> AddSpawnPoint(2400,1040);
+   aFlag[1]->Set("$Flag2$",0,2);
+
+   aFlag[2] = CreateObject(OFPL,2775,910,NO_OWNER);
+   aFlag[2] -> AddSpawnPoint(2630,1070);
+   aFlag[2] -> AddSpawnPoint(2895,1070);
+   aFlag[2] -> AddSpawnPoint(2695,1130);
+   if(aTeams[2] == true)
+   {
+    aFlag[2]->Set("$Flag3$",100,2);
+    aFlag[2]->Capture(2,1);
+   }
+   else
+   {
+    aFlag[2]->Set("$Flag3$",0,2);
+   }
+
+   aFlag[3] = CreateObject(OFPL,3255,1040,NO_OWNER);
+   aFlag[3] -> AddSpawnPoint(3230,1190);
+   aFlag[3] -> AddSpawnPoint(3420,1090);
+   aFlag[3] -> AddSpawnPoint(3390,920);
+   if(aTeams[2] == true)
+   {
+    aFlag[3]->Set("$Flag4$",100,2);
+    aFlag[3]->Capture(2,1);
+   }
+   else
+   {
+    aFlag[3]->Set("$Flag4$",0,2);
+   }
+
+   aFlag[4] = CreateObject(OFPL,3865,1040,NO_OWNER);
+   aFlag[4] -> AddSpawnPoint(4190,1100);
+   aFlag[4] -> AddSpawnPoint(4000,821);
+   aFlag[4] -> AddSpawnPoint(3600,850);
+
+   if(aTeams[2] == true)
+   {
+    aFlag[4]->Set("$Flag5$",100,2);
+    aFlag[4]->Capture(2,1);
+   }
+   else
+   {
+    aFlag[4]->Set("$Flag5$",0,2);
+   }
+
    //Grenzen setzen
-   CreateObject(BRDR, 1790, 0, -1)->Set(0);
+   CreateObject(BRDR, 400, 0, -1)->Set(0);
    CreateObject(BRDR, 4230, 0, -1)->Set(1);
 
    //Hinweisschilder
-   CreateObject(SNPT, 1650, 1170, -1);
-   var sign = CreateObject(SGNP, 2885, 960, -1);
+   var sign = CreateObject(SGNP, 780, 1160, -1);
+   sign->SetPhase(1);
+   sign = CreateObject(SGNP, 2885, 960, -1);
+   sign->SetPhase(1);
+   sign->SetMode(1);
+   sign = CreateObject(SGNP, 3070, 800, -1);
    sign->SetPhase(1);
    sign->SetMode(1);
    sign = CreateObject(SGNP, 3575, 1040, -1);
@@ -529,16 +597,36 @@ public func ChooserFinished()
    CreateObject(SGNP, 3970, 540, -1);
    CreateObject(SGNP, 4165, 510, -1);
 
-   //Objekte entfernen
-   RemoveObject(aSelfDefense[0]);
-   RemoveObject(aSelfDefense[2]);
+   //Blackhawks und Hinweisschilder
+   if(!FindObject(NOBH))
+   {
+    SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,980,750,-1),60*21,300);
+    SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,1190,820,-1),60*21,300);
 
-   //Leitern
-   CreateObject(LADR, 2050, 1220, -1)->Set(20);
-   CreateObject(LADR, 2280, 1220, -1)->Set(13);
+    var sign = CreateObject(SGNP, 800, 720, -1);
+    sign->SetPhase(2);
+    CreateObject(SNPT, 1160,850, -1)->SetAction("Sign3");
+    sign = CreateObject(SGNP, 1310, 820, -1);
+    sign->SetPhase(2);
+   }
 
-   //Patrouillenboot
-   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,2060,1240,-1),50*21,300);
+   //SSA Besitzer setzen
+   if(aTeams[1] == true)
+     aSelfDefense[0]->SetTeam(1);
+   if(aTeams[2] == true)
+     {aSelfDefense[1]->SetTeam(2); aSelfDefense[2]->SetTeam(2); aSelfDefense[3]->SetTeam(2);}
+
+   //SSA aktivieren
+   aSelfDefense[0]->TurnOn();
+   aSelfDefense[1]->TurnOn();
+   aSelfDefense[2]->TurnOn();
+   aSelfDefense[3]->TurnOn();
+
+   //Patrouillenboote
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,490,1240,-1),50*21,300);
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1180,1240,-1),50*21,300);
+   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2480,1240,-1),50*21,300);
+   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2550,1240,-1),50*21,300);
   }
 
   //Assault-Spielziel
@@ -666,124 +754,6 @@ public func ChooserFinished()
    RemoveObject(aSelfDefense[2]);
   }
 
-  //OP-Spielziel
-  if(FindObject(GOCC))
-  {
-   //Flaggenposten
-   aFlag[0] = CreateObject(OFPL,685,1200,NO_OWNER);
-   aFlag[0] -> AddSpawnPoint(800, 710);
-   aFlag[0] -> AddSpawnPoint(930, 850);
-   aFlag[0] -> AddSpawnPoint(1210, 1100);
-   if(aTeams[1] == true)
-   {
-    aFlag[0]->Set("$Flag1$",100,2);
-    aFlag[0]->Capture(1,1);
-   }
-   else
-   {
-    aFlag[0]->Set("$Flag1$",0,2);
-   }
-
-   aFlag[1] = CreateObject(OFPL,2080,940,NO_OWNER);
-   aFlag[1] -> AddSpawnPoint(1970,1050);
-   aFlag[1] -> AddSpawnPoint(2130,1120);
-   aFlag[1] -> AddSpawnPoint(2400,1040);
-   aFlag[1]->Set("$Flag2$",0,2);
-
-   aFlag[2] = CreateObject(OFPL,2775,910,NO_OWNER);
-   aFlag[2] -> AddSpawnPoint(2630,1070);
-   aFlag[2] -> AddSpawnPoint(2895,1070);
-   aFlag[2] -> AddSpawnPoint(2695,1130);
-   if(aTeams[2] == true)
-   {
-    aFlag[2]->Set("$Flag3$",100,2);
-    aFlag[2]->Capture(2,1);
-   }
-   else
-   {
-    aFlag[2]->Set("$Flag3$",0,2);
-   }
-
-   aFlag[3] = CreateObject(OFPL,3255,1040,NO_OWNER);
-   aFlag[3] -> AddSpawnPoint(3230,1190);
-   aFlag[3] -> AddSpawnPoint(3420,1090);
-   aFlag[3] -> AddSpawnPoint(3390,920);
-   if(aTeams[2] == true)
-   {
-    aFlag[3]->Set("$Flag4$",100,2);
-    aFlag[3]->Capture(2,1);
-   }
-   else
-   {
-    aFlag[3]->Set("$Flag4$",0,2);
-   }
-
-   aFlag[4] = CreateObject(OFPL,3865,1040,NO_OWNER);
-   aFlag[4] -> AddSpawnPoint(4190,1100);
-   aFlag[4] -> AddSpawnPoint(4000,821);
-   aFlag[4] -> AddSpawnPoint(3600,850);
-
-   if(aTeams[2] == true)
-   {
-    aFlag[4]->Set("$Flag5$",100,2);
-    aFlag[4]->Capture(2,1);
-   }
-   else
-   {
-    aFlag[4]->Set("$Flag5$",0,2);
-   }
-
-   //Grenzen setzen
-   CreateObject(BRDR, 400, 0, -1)->Set(0);
-   CreateObject(BRDR, 4230, 0, -1)->Set(1);
-
-   //Hinweisschilder
-   var sign = CreateObject(SGNP, 780, 1160, -1);
-   sign->SetPhase(1);
-   sign = CreateObject(SGNP, 2885, 960, -1);
-   sign->SetPhase(1);
-   sign->SetMode(1);
-   sign = CreateObject(SGNP, 3070, 800, -1);
-   sign->SetPhase(1);
-   sign->SetMode(1);
-   sign = CreateObject(SGNP, 3575, 1040, -1);
-   sign->SetPhase(1);
-   sign->SetMode(1);
-   CreateObject(SGNP, 3970, 540, -1);
-   CreateObject(SGNP, 4165, 510, -1);
-
-   //Blackhawks und Hinweisschilder
-   if(!FindObject(NOBH))
-   {
-    SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,980,750,-1),60*21,300);
-    SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,1190,820,-1),60*21,300);
-
-    var sign = CreateObject(SGNP, 800, 720, -1);
-    sign->SetPhase(2);
-    CreateObject(SNPT, 1160,850, -1)->SetAction("Sign3");
-    sign = CreateObject(SGNP, 1310, 820, -1);
-    sign->SetPhase(2);
-   }
-
-   //SSA Besitzer setzen
-   if(aTeams[1] == true)
-     aSelfDefense[0]->SetTeam(1);
-   if(aTeams[2] == true)
-     {aSelfDefense[1]->SetTeam(2); aSelfDefense[2]->SetTeam(2); aSelfDefense[3]->SetTeam(2);}
-
-   //SSA aktivieren
-   aSelfDefense[0]->TurnOn();
-   aSelfDefense[1]->TurnOn();
-   aSelfDefense[2]->TurnOn();
-   aSelfDefense[3]->TurnOn();
-
-   //Patrouillenboote
-   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,490,1240,-1),50*21,300);
-   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1180,1240,-1),50*21,300);
-   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2480,1240,-1),50*21,300);
-   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2550,1240,-1),50*21,300);
-  }
-
   //MR-Spielziel
   if (FindObject(GMNR))
   {
@@ -814,6 +784,36 @@ public func ChooserFinished()
    AddMoneySpawn(3380, 920, [10]);
    AddMoneySpawn(3380, 920, [10]);
    AddMoneySpawn(3870, 1030, [10]);
+  }
+
+  //LMS/DM-Spielziel
+  if(FindObject(GLMS) || FindObject(GTDM))
+  {
+   //Grenzen setzen
+   CreateObject(BRDR, 1790, 0, -1)->Set(0);
+   CreateObject(BRDR, 4230, 0, -1)->Set(1);
+
+   //Hinweisschilder
+   CreateObject(SNPT, 1650, 1170, -1);
+   var sign = CreateObject(SGNP, 2885, 960, -1);
+   sign->SetPhase(1);
+   sign->SetMode(1);
+   sign = CreateObject(SGNP, 3575, 1040, -1);
+   sign->SetPhase(1);
+   sign->SetMode(1);
+   CreateObject(SGNP, 3970, 540, -1);
+   CreateObject(SGNP, 4165, 510, -1);
+
+   //Objekte entfernen
+   RemoveObject(aSelfDefense[0]);
+   RemoveObject(aSelfDefense[2]);
+
+   //Leitern
+   CreateObject(LADR, 2050, 1220, -1)->Set(20);
+   CreateObject(LADR, 2280, 1220, -1)->Set(13);
+
+   //Patrouillenboot
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,2060,1240,-1),50*21,300);
   }
 }
 
@@ -869,31 +869,9 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
 
 public func RelaunchPosition(& iX, & iY, int iTeam)
 {
-  //DM/LMS-Spielziel
-  if(FindObject(GTDM) || FindObject(GLMS))
-  {
-   if(iTeam == 1)
-   {
-    var rand = Random(3);
-    if(!rand)
-     { iX = 1970; iY = 1050; }
-    if(!--rand)
-     { iX = 2110; iY = 930; }
-    if(!--rand)
-     { iX = 2130; iY = 1120; }
-   }
-   if(iTeam == 2)
-   {
-    var rand = Random(3);
-    if(!rand)
-     { iX = 3980; iY = 821; }
-    if(!--rand)
-     { iX = 3600; iY = 850; }
-    if(!--rand)
-     { iX = 3515; iY = 590; }
-   }
-   return(1);
-  }
+  //Assault-Spielziel
+  if(FindObject(GASS))
+  {if(FindObject(GASS)->GetRespawnPoint(iX, iY, iTeam)) return 1;}
 
   //MR-Spielziel
   if(FindObject(GMNR))
@@ -921,9 +899,31 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
    return(1);
   }
 
-  //Assault-Spielziel
-  if(FindObject(GASS))
-  {if(FindObject(GASS)->GetRespawnPoint(iX, iY, iTeam)) return 1;}
+  //LMS/DM-Spielziel
+  if(FindObject(GLMS) || FindObject(GTDM))
+  {
+   if(iTeam == 1)
+   {
+    var rand = Random(3);
+    if(!rand)
+     { iX = 1970; iY = 1050; }
+    if(!--rand)
+     { iX = 2110; iY = 930; }
+    if(!--rand)
+     { iX = 2130; iY = 1120; }
+   }
+   if(iTeam == 2)
+   {
+    var rand = Random(3);
+    if(!rand)
+     { iX = 3980; iY = 821; }
+    if(!--rand)
+     { iX = 3600; iY = 850; }
+    if(!--rand)
+     { iX = 3515; iY = 590; }
+   }
+   return(1);
+  }
 
   //Startsicht
   iX =2310; iY = 960;

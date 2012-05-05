@@ -293,46 +293,6 @@ public func ChooserFinished()
    CreateObject(SGNP, 2885, 550, -1)->SetPhase(2);
   }
 
-  //CTF-Spielziel
-  if(FindObject(GCTF))
-  {
-   //Flaggen
-   if(aTeams[1] == true)
-   {CreateFlag(1,1480,510,GetTeamColor(1));}
-   if(aTeams[2] == true)
-   {CreateFlag(2,4060,510,GetTeamColor(2));}
-  }
-
-  //HTF-Spielziel
-  if (FindObject(GHTF))
-  {
-   //Flaggenposten
-   var flag = CreateObject(OFPL, 2770, 630, -1);
-   flag->~Set("$Flag2$");
-
-   //Zusätzliche Munition
-   if(!FindObject(NOAM))
-   {
-    //Versorgungskiste (Kugeln)
-    var crate = CreateObject(AMCT, 2680, 650, -1);
-    crate->Set(ABOX);
-
-    //Raketen
-    PlaceSpawnpoint(MBOX, 2860, 645);
-   }
-  }
-
-  //Base Assault-Spielziel
-  if(FindObject(GBAS))
-  {
-   //Zielobjekte
-   AddAssaultTarget(CMSN, 1480, 510, 300, 1, "$Target1$", 0, [[1100, 580], [1250, 580]]);
-   AddAssaultTarget(RADR, 1570, 320, 400, 1, "$Target2$", 1, [[1290, 470], [1360, 360]]);
-
-   AddAssaultTarget(CMSN, 4060, 510, 300, 2, "$Target1$", 3, [[4290, 580], [4440, 580]]);
-   AddAssaultTarget(RADR, 3970, 320, 400, 2, "$Target2$", 2, [[4180, 360], [4250, 470]]);
-  }
-
   //OP-Spielziel
   if(FindObject(GOCC))
   {
@@ -370,6 +330,36 @@ public func ChooserFinished()
    }
   }
 
+  //Base Assault-Spielziel
+  if(FindObject(GBAS))
+  {
+   //Zielobjekte
+   AddAssaultTarget(CMSN, 1480, 510, 300, 1, "$Target1$", 0, [[1100, 580], [1250, 580]]);
+   AddAssaultTarget(RADR, 1570, 320, 400, 1, "$Target2$", 1, [[1290, 470], [1360, 360]]);
+
+   AddAssaultTarget(CMSN, 4060, 510, 300, 2, "$Target1$", 3, [[4290, 580], [4440, 580]]);
+   AddAssaultTarget(RADR, 3970, 320, 400, 2, "$Target2$", 2, [[4180, 360], [4250, 470]]);
+  }
+
+  //HTF-Spielziel
+  if (FindObject(GHTF))
+  {
+   //Flaggenposten
+   var flag = CreateObject(OFPL, 2770, 630, -1);
+   flag->~Set("$Flag2$");
+
+   //Zusätzliche Munition
+   if(!FindObject(NOAM))
+   {
+    //Versorgungskiste (Kugeln)
+    var crate = CreateObject(AMCT, 2680, 650, -1);
+    crate->Set(ABOX);
+
+    //Raketen
+    PlaceSpawnpoint(MBOX, 2860, 645);
+   }
+  }
+
   //MR-Spielziel
   if (FindObject(GMNR))
   {
@@ -378,14 +368,24 @@ public func ChooserFinished()
    AddMoneySpawn(2770, 625, [20]);
    AddMoneySpawn(3360, 455, [10]);
   }
+
+  //CTF-Spielziel
+  if(FindObject(GCTF))
+  {
+   //Flaggen
+   if(aTeams[1] == true)
+   {CreateFlag(1,1480,510,GetTeamColor(1));}
+   if(aTeams[2] == true)
+   {CreateFlag(2,4060,510,GetTeamColor(2));}
+  }
 }
 
 /* Relaunch */
 
 public func RelaunchPosition(& iX, & iY, int iTeam)
 {
-  //DM/LMS/CTF/HTF/MR-Spielziel
-  if(FindObject(GTDM) || FindObject(GLMS) || FindObject(GCTF) || FindObject(GHTF) || FindObject(GMNR))
+  //HTF/MR/CTF/LMS/DM-Spielziel
+  if(FindObject(GHTF) || FindObject(GMNR) || FindObject(GCTF) || FindObject(GLMS) || FindObject(GTDM))
   {
    if(iTeam == 1)
    {
