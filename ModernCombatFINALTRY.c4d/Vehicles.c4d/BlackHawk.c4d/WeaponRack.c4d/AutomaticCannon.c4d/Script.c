@@ -87,9 +87,10 @@ public func Fire1()
 
 /* Allgemein */
 
-public func OnEmpty() {
-	if(Contained() && Contained()->~IsWeaponRack())
-	  Contained()->~OnEmpty();
+public func OnEmpty()
+{
+  if(Contained() && Contained()->~IsWeaponRack())
+    Contained()->~OnEmpty();
 }
 
 public func OnReload()
