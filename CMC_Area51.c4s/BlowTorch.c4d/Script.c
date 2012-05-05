@@ -376,11 +376,10 @@ public func Use(caller)
 
   if(!used)
   {
-    /*RepairingSound(-1);
-    InUseSound(1);*/
     idle_energy_cnt++;
-    if(idle_energy_cnt >= 6)
+    if(idle_energy_cnt >= 2)
     {
+      //Munitionsverbrauch im Leerlauf
       charge = BoundBy(charge - 1, 0, MaxEnergy());
       idle_energy_cnt = 0;
     }
@@ -390,10 +389,6 @@ public func Use(caller)
     //Effekte
     if(!Random(2))
       Sparks(8+Random(4), RGB(100,100,250), RandomX(-5, 5), RandomX(-5,5));
-
-    /*InUseSound(-1);
-    RepairingSound(1);*/
-    //Sound("Repair.ogg",false,this,50,0,+1); 
   }
 
   return true;
