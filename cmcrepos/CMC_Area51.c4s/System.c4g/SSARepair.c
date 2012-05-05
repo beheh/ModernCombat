@@ -34,6 +34,9 @@ public func Destroyed()
 
   //Callback
   OnDestruction();
+
+	//Reparatur anordnen
+  AutoRepair();
 }
 
 public func Damage(int change)
@@ -53,4 +56,33 @@ public func Damage(int change)
     ObjectSetAction(this, "RepairStop");
     OnRepair();
   }
+}
+
+public func FxIntRepairTimer(object pTarget, int iEffectNumber, int iEffectTime)
+{
+  if(GetDamage(pTarget) <= 0)
+  	return -1;
+
+	DoDamage(-1, pTarget);
+
+  if(!Random(2))
+  {
+    Sparks(2+Random(5), RGB(250,150,0), RandomX(-GetDefWidth()/2,+GetDefWidth()/2), RandomX(-GetDefHeight()/2,+GetDefHeight()/2));
+    Sparks(2+Random(5), RGB(100,100,250), RandomX(-GetDefWidth()/2,+GetDefWidth()/2), RandomX(-GetDefHeight()/2,+GetDefHeight()/2));
+  }
+}
+
+public func FxIntRepairDamage(object pTarget, int iNr, int iDmgEngy)
+{
+	// Reparatur darf nicht in die Länge gezogen werden können.
+	if(iDmgEngy > 0)
+		return 0;
+	
+	return iDmgEngy;
+}
+
+public func Repair()
+{ 
+  //Jetzt gepanzert
+  if(!GetEffect("IntRepair")) AddEffect("IntRepair",this,50,5,this);
 }
