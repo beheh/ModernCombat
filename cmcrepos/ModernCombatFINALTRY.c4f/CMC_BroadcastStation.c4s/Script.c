@@ -387,8 +387,8 @@ public func ChooserFinished()
 
 public func RelaunchPosition(& iX, & iY, int iTeam)
 {
-  //DM/LMS/MR-Spielziel
-  if(FindObject(GTDM) || FindObject(GLMS) || FindObject(GMNR))
+  //MR/LMS/DM-Spielziel
+  if(FindObject(GMNR) || FindObject(GLMS) || FindObject(GTDM))
   {
    var rand = Random(5);
    if(!rand)

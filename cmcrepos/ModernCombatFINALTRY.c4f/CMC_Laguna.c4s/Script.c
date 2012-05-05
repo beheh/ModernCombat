@@ -288,96 +288,6 @@ public func ChooserFinished()
   for(var i = 0; i < GetPlayerCount(); i++)
    aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = true;
 
-  //DM/LMS-Spielziel
-  if(FindObject(GTDM) || FindObject(GLMS))
-  {
-   //Grenzen setzen
-   CreateObject(BRDR, 1300, 0, -1)->Set(0);
-   CreateObject(BRDR, 2770, 0, -1)->Set(1);
-
-   //Hinweisschilder
-   CreateObject(SGNP, 1255, 590, -1);
-   CreateObject(SGNP, 2745, 570, -1);
-
-   //Patrouillenboote
-   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1485,800,-1),10*10);
-   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2605,800,-1),10*10);
-  }
-
-  //HTF-Spielziel
-  if (FindObject(GHTF))
-  {
-   //Flaggenposten
-   var flag = CreateObject(OFPL, 2015,760, -1);
-   flag->~Set("$Flag3$");
-
-   //Grenzen setzen
-   CreateObject(BRDR, 1300, 0, -1)->Set(0);
-   CreateObject(BRDR, 2770, 0, -1)->Set(1);
-
-   //Hinweisschilder
-   CreateObject(SGNP, 1255, 590, -1);
-   CreateObject(SGNP, 2745, 570, -1);
-
-   //Zusätzliche Munition
-   if(!FindObject(NOAM))
-   {
-    //Kugeln
-    PlaceSpawnpoint(ABOX, 2070, 755);
-
-    //Raketen
-    PlaceSpawnpoint(MBOX, 1930, 650);
-   }
-
-   //Patrouillenboote
-   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1485,800,-1),10*10);
-   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2605,800,-1),10*10);
-  }
-
-  //Assault-Spielziel
-  if (FindObject(GASS))
-  {
-   //Zielobjekte
-   AddAssaultTarget(RADR, 1450, 640, 230, 2, "$Target1$", 0, [[[1730, 630], [1730, 730]], [[580, 290], [610, 350], [580, 490]]]);
-   AddAssaultTarget(CMSN, 1410, 740, 230, 2, "$Target2$", 1, [[[1730, 630], [1730, 730]], [[580, 290], [580, 350], [580, 490]]]);
-   AddAssaultTarget(CCP2, 2050, 760, 230, 2, "$Target3$", 2, [[[2210, 550], [2060, 470]], [[1210, 560], [1190, 730]]]);
-   AddAssaultTarget(GSTA, 2815, 750, 230, 2, "$Target4$", 3, [[[3080, 430], [3220, 600], [3130, 650]], [[1910, 580], [1855, 730], [1905, 450]]]);
-   AddAssaultTarget(LBPC, 2850, 570, 230, 2, "$Target5$", 4, [[[3080, 430], [3220, 600], [3130, 650]], [[1910, 580], [1855, 730], [1905, 450]]]);
-
-   //Ziele verbinden
-   ConnectAssaultTargets([0, 1]);
-   ConnectAssaultTargets([3, 4]);
-
-   //Grenzen setzen
-   CreateObject(BRDR, 230, 0, -1)->Set(0,1);
-   CreateObject(BRDR, 1820, 0, -1)->Set(1,1);
-
-   //Blackhawk und Hinweisschild
-   if(!FindObject(NOBH))
-   {
-    SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,2895,410,-1),100*21);
-
-    var sign = CreateObject(SGNP, 2925, 440, -1);
-    sign->SetPhase(2);
-    sign->SetMode(1);
-   }
-
-   //Objekte entfernen
-   RemoveObject(FindObject2(Find_ID(VGMN),Find_InRect(2810, 520, 50, 100)));
-   RemoveObject(aArtillery[1]);
-   RemoveAll(SPVM);
-
-   //Metallkisten
-   CreateObject(MWCR, 2280, 550, -1);
-   CreateObject(MWCR, 2350, 550, -1);
-
-   //Patrouillenboote
-   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,770,800,-1),10*10);
-   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,1265,800,-1),10*10);
-   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1485,800,-1),10*10);
-   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2605,800,-1),10*10);
-  }
-
   //OP-Spielziel
   if(FindObject(GOCC))
   {
@@ -451,6 +361,96 @@ public func ChooserFinished()
    SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1485,800,-1),10*10);
    SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2605,800,-1),10*10);
   }
+
+  //Assault-Spielziel
+  if (FindObject(GASS))
+  {
+   //Zielobjekte
+   AddAssaultTarget(RADR, 1450, 640, 230, 2, "$Target1$", 0, [[[1730, 630], [1730, 730]], [[580, 290], [610, 350], [580, 490]]]);
+   AddAssaultTarget(CMSN, 1410, 740, 230, 2, "$Target2$", 1, [[[1730, 630], [1730, 730]], [[580, 290], [580, 350], [580, 490]]]);
+   AddAssaultTarget(CCP2, 2050, 760, 230, 2, "$Target3$", 2, [[[2210, 550], [2060, 470]], [[1210, 560], [1190, 730]]]);
+   AddAssaultTarget(GSTA, 2815, 750, 230, 2, "$Target4$", 3, [[[3080, 430], [3220, 600], [3130, 650]], [[1910, 580], [1855, 730], [1905, 450]]]);
+   AddAssaultTarget(LBPC, 2850, 570, 230, 2, "$Target5$", 4, [[[3080, 430], [3220, 600], [3130, 650]], [[1910, 580], [1855, 730], [1905, 450]]]);
+
+   //Ziele verbinden
+   ConnectAssaultTargets([0, 1]);
+   ConnectAssaultTargets([3, 4]);
+
+   //Grenzen setzen
+   CreateObject(BRDR, 230, 0, -1)->Set(0,1);
+   CreateObject(BRDR, 1820, 0, -1)->Set(1,1);
+
+   //Blackhawk und Hinweisschild
+   if(!FindObject(NOBH))
+   {
+    SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,2895,410,-1),100*21);
+
+    var sign = CreateObject(SGNP, 2925, 440, -1);
+    sign->SetPhase(2);
+    sign->SetMode(1);
+   }
+
+   //Objekte entfernen
+   RemoveObject(FindObject2(Find_ID(VGMN),Find_InRect(2810, 520, 50, 100)));
+   RemoveObject(aArtillery[1]);
+   RemoveAll(SPVM);
+
+   //Metallkisten
+   CreateObject(MWCR, 2280, 550, -1);
+   CreateObject(MWCR, 2350, 550, -1);
+
+   //Patrouillenboote
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,770,800,-1),10*10);
+   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,1265,800,-1),10*10);
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1485,800,-1),10*10);
+   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2605,800,-1),10*10);
+  }
+
+  //HTF-Spielziel
+  if (FindObject(GHTF))
+  {
+   //Flaggenposten
+   var flag = CreateObject(OFPL, 2015,760, -1);
+   flag->~Set("$Flag3$");
+
+   //Grenzen setzen
+   CreateObject(BRDR, 1300, 0, -1)->Set(0);
+   CreateObject(BRDR, 2770, 0, -1)->Set(1);
+
+   //Hinweisschilder
+   CreateObject(SGNP, 1255, 590, -1);
+   CreateObject(SGNP, 2745, 570, -1);
+
+   //Zusätzliche Munition
+   if(!FindObject(NOAM))
+   {
+    //Kugeln
+    PlaceSpawnpoint(ABOX, 2070, 755);
+
+    //Raketen
+    PlaceSpawnpoint(MBOX, 1930, 650);
+   }
+
+   //Patrouillenboote
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1485,800,-1),10*10);
+   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2605,800,-1),10*10);
+  }
+
+  //LMS/DM-Spielziel
+  if(FindObject(GLMS) || FindObject(GTDM))
+  {
+   //Grenzen setzen
+   CreateObject(BRDR, 1300, 0, -1)->Set(0);
+   CreateObject(BRDR, 2770, 0, -1)->Set(1);
+
+   //Hinweisschilder
+   CreateObject(SGNP, 1255, 590, -1);
+   CreateObject(SGNP, 2745, 570, -1);
+
+   //Patrouillenboote
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1485,800,-1),10*10);
+   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2605,800,-1),10*10);
+  }
 }
 
 /* Assault Zerstörung */
@@ -507,8 +507,12 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
 
 public func RelaunchPosition(& iX, & iY, int iTeam)
 {
-  //DM/LMS/HTF-Spielziel
-  if(FindObject(GTDM) || FindObject(GLMS) || FindObject(GHTF))
+  //Assault-Spielziel
+  if(FindObject(GASS))
+  {if(FindObject(GASS)->GetRespawnPoint(iX, iY, iTeam)) return 1;}
+
+  //HTF/LMS/DM-Spielziel
+  if(FindObject(GHTF) || FindObject(GLMS) || FindObject(GTDM))
   {
    if(iTeam == 1)
    {
@@ -528,10 +532,6 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
    }
    return(1);
   }
-
-  //Assault-Spielziel
-  if(FindObject(GASS))
-  {if(FindObject(GASS)->GetRespawnPoint(iX, iY, iTeam)) return 1;}
 
   //Startsicht
   iX = 410; iY = 620;

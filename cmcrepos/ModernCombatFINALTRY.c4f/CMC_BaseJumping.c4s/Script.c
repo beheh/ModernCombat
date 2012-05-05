@@ -482,21 +482,6 @@ public func ChooserFinished()
    CreateObject(SNPT, 2505, 1490, -1)->SetAction("Sign3");
   }
 
-  //HTF-Spielziel
-  if (FindObject(GHTF))
-  {
-   //Flaggenposten
-   var flag = CreateObject(OFPL, 1540,780, -1);
-   flag->~Set("$Flag4$");
-
-   //Zusätzliche Munition
-   if(!FindObject(NOAM))
-   {
-    //Raketen
-    PlaceSpawnpoint(MBOX, 1570, 915);
-   }
-  }
-
   //OP-Spielziel
   if(FindObject(GOCC))
   {
@@ -561,6 +546,21 @@ public func ChooserFinished()
    aFlag[6]->Set("$Flag7$",0,2);
   }
 
+  //HTF-Spielziel
+  if (FindObject(GHTF))
+  {
+   //Flaggenposten
+   var flag = CreateObject(OFPL, 1540,780, -1);
+   flag->~Set("$Flag4$");
+
+   //Zusätzliche Munition
+   if(!FindObject(NOAM))
+   {
+    //Raketen
+    PlaceSpawnpoint(MBOX, 1570, 915);
+   }
+  }
+
   //MR-Spielziel
   if (FindObject(GMNR))
   {
@@ -605,8 +605,8 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
    return(1);
   }
 
-  //LMS/MR-Spielziel
-  if(FindObject(GLMS) || FindObject(GMNR))
+  //MR/LMS-Spielziel
+  if(FindObject(GMNR) || FindObject(GLMS))
   {
    if(iTeam == 1)
    {

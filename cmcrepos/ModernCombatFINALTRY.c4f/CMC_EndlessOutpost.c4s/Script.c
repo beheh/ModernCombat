@@ -691,97 +691,6 @@ public func ChooserFinished()
   for(var i = 0; i < GetPlayerCount(); i++)
    aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = true;
 
-  //DM/LMS-Spielziel
-  if(FindObject(GTDM) || FindObject(GLMS))
-  {
-   //Grenze setzen
-   CreateObject(BRDR, 2010, 0, -1)->Set(1);
-
-   //Türen öffnen
-   aDoor[00]->Unlock();
-   aDoor[01]->Unlock();
-   aDoor[02]->Unlock();
-   aDoor[03]->Unlock();
-   aDoor[04]->Unlock();
-   aDoor[05]->Open();
-   aDoor[08]->Unlock();
-   aDoor[09]->Unlock();
-   aDoor[10]->Lock();
-
-   //Objekte entfernen
-   RemoveObject(aSelfDefense[0]);
-   RemoveObject(aSelfDefense[1]);
-   RemoveObject(FindObject2(Find_ID(AMCT),Find_InRect(1080, 240, 40, 40)));
-
-   //Leiter
-   CreateObject(LADR, 1650, 457, -1)->Set(20);
-
-   //Metallkisten
-   CreateObject(MWCR, 1730, 490, -1);
-   CreateObject(MWCR, 1750, 490, -1);
-   CreateObject(MWCR, 1860, 490, -1);
-   CreateObject(MWCR, 1880, 454, -1);
-   CreateObject(MWCR, 1880, 472, -1);
-   CreateObject(MWCR, 1880, 490, -1);
-
-   //Kisten
-   CreateObject(WCR2, 740, 410, -1);
-   CreateObject(WCR2, 760, 410, -1);
-   CreateObject(WCR2, 1120, 324, -1);
-   CreateObject(WCR2, 1120, 342, -1);
-   CreateObject(WCR2, 1120, 360, -1);
-   CreateObject(WCR2, 1310, 180, -1);
-   CreateObject(WCR2, 1740, 472, -1);
-
-   //Zusätzliche Munition
-   if(!FindObject(NOAM))
-   {
-    //Raketen
-    PlaceSpawnpoint(MBOX, 830, 155);
-    PlaceSpawnpoint(MBOX, 1430, 385);
-
-    //Gewehrgranaten
-    PlaceSpawnpoint(GBOX, 1530, 545);
-   }
-  }
-
-  //Assault-Spielziel
-  if (FindObject(GASS))
-  {
-   //Zielobjekte
-   AddAssaultTarget(CCP2, 1120, 360, 230, 2, "$Target1$", 0, [[[1320, 260], [1300, 260], [1130, 260]], [[130, 350], [170, 350], [150, 450]]]);
-   AddAssaultTarget(MVNT, 1865, 250, 230, 2, "$Target2$", 1, [[[1570, 70], [1590, 70], [1830, 110]], [[1100, 430], [1140, 430], [1280, 550]]]);
-   AddAssaultTarget(LBPC, 1795, 490, 230, 2, "$Target3$", 2, [[[1980, 400]], [[1280, 430], [1280, 550]]]);
-   AddAssaultTarget(CCP2, 2180, 510, 120, 2, "$Target4$", 3, [[[1880, 110], [2050, 110]], [[1950, 400], [1470, 522], [1420, 390]]]);
-   AddAssaultTarget(LBPC, 2200, 320, 120, 2, "$Target5$", 4, [[[1880, 110], [2050, 110]], [[1950, 400], [1470, 522], [1420, 390]]]);
-   AddAssaultTarget(CMSN, 2350, 210, 120, 2, "$Target6$", 5, [[[1880, 110], [2050, 110]], [[1950, 400], [1470, 522], [1420, 390]]]);
-   AddAssaultTarget(GSTA, 2460, 320, 120, 2, "$Target7$", 6, [[[1880, 110], [2050, 110]], [[1950, 400], [1470, 522], [1420, 390]]]);
-   AddAssaultTarget(CCP1, 2455, 500, 120, 2, "$Target8$", 7, [[[1880, 110], [2050, 110]], [[1950, 400], [1470, 522], [1420, 390]]]);
-
-   //Ziele verbinden
-   ConnectAssaultTargets([3, 4, 5, 6, 7]);
-
-   //SSA Besitzer setzen
-   if(aTeams[2] == true)
-   {aSelfDefense[0]->SetTeam(2); aSelfDefense[1]->SetTeam(2);}
-
-   //SSA anschalten
-   aSelfDefense[0]->TurnOn();
-   aSelfDefense[1]->TurnOn();
-
-   //Versorgungskiste (APW)
-   var crate = CreateObject (AMCT, 940, 160, -1);
-   crate->Set(ATWN);
-
-   //Hinweisschilder
-   var sign = CreateObject(SGNP, 780, 410, -1);
-   sign->SetPhase(1);
-   sign->SetMode(1);
-   sign = CreateObject(SGNP, 1410, 550, -1);
-   sign->SetPhase(1);
-   sign->SetMode(1);
-  }
-
   //OP-Spielziel
   if(FindObject(GOCC))
   {
@@ -858,6 +767,97 @@ public func ChooserFinished()
    CreateObject(LADR, 1425, 173, -1)->Set(12);
    CreateObject(LADR, 1650, 457, -1)->Set(20);
    CreateObject(LADR, 1705, 190, -1)->Set(9);
+
+   //Metallkisten
+   CreateObject(MWCR, 1730, 490, -1);
+   CreateObject(MWCR, 1750, 490, -1);
+   CreateObject(MWCR, 1860, 490, -1);
+   CreateObject(MWCR, 1880, 454, -1);
+   CreateObject(MWCR, 1880, 472, -1);
+   CreateObject(MWCR, 1880, 490, -1);
+
+   //Kisten
+   CreateObject(WCR2, 740, 410, -1);
+   CreateObject(WCR2, 760, 410, -1);
+   CreateObject(WCR2, 1120, 324, -1);
+   CreateObject(WCR2, 1120, 342, -1);
+   CreateObject(WCR2, 1120, 360, -1);
+   CreateObject(WCR2, 1310, 180, -1);
+   CreateObject(WCR2, 1740, 472, -1);
+
+   //Zusätzliche Munition
+   if(!FindObject(NOAM))
+   {
+    //Raketen
+    PlaceSpawnpoint(MBOX, 830, 155);
+    PlaceSpawnpoint(MBOX, 1430, 385);
+
+    //Gewehrgranaten
+    PlaceSpawnpoint(GBOX, 1530, 545);
+   }
+  }
+
+  //Assault-Spielziel
+  if (FindObject(GASS))
+  {
+   //Zielobjekte
+   AddAssaultTarget(CCP2, 1120, 360, 230, 2, "$Target1$", 0, [[[1320, 260], [1300, 260], [1130, 260]], [[130, 350], [170, 350], [150, 450]]]);
+   AddAssaultTarget(MVNT, 1865, 250, 230, 2, "$Target2$", 1, [[[1570, 70], [1590, 70], [1830, 110]], [[1100, 430], [1140, 430], [1280, 550]]]);
+   AddAssaultTarget(LBPC, 1795, 490, 230, 2, "$Target3$", 2, [[[1980, 400]], [[1280, 430], [1280, 550]]]);
+   AddAssaultTarget(CCP2, 2180, 510, 120, 2, "$Target4$", 3, [[[1880, 110], [2050, 110]], [[1950, 400], [1470, 522], [1420, 390]]]);
+   AddAssaultTarget(LBPC, 2200, 320, 120, 2, "$Target5$", 4, [[[1880, 110], [2050, 110]], [[1950, 400], [1470, 522], [1420, 390]]]);
+   AddAssaultTarget(CMSN, 2350, 210, 120, 2, "$Target6$", 5, [[[1880, 110], [2050, 110]], [[1950, 400], [1470, 522], [1420, 390]]]);
+   AddAssaultTarget(GSTA, 2460, 320, 120, 2, "$Target7$", 6, [[[1880, 110], [2050, 110]], [[1950, 400], [1470, 522], [1420, 390]]]);
+   AddAssaultTarget(CCP1, 2455, 500, 120, 2, "$Target8$", 7, [[[1880, 110], [2050, 110]], [[1950, 400], [1470, 522], [1420, 390]]]);
+
+   //Ziele verbinden
+   ConnectAssaultTargets([3, 4, 5, 6, 7]);
+
+   //SSA Besitzer setzen
+   if(aTeams[2] == true)
+   {aSelfDefense[0]->SetTeam(2); aSelfDefense[1]->SetTeam(2);}
+
+   //SSA anschalten
+   aSelfDefense[0]->TurnOn();
+   aSelfDefense[1]->TurnOn();
+
+   //Versorgungskiste (APW)
+   var crate = CreateObject (AMCT, 940, 160, -1);
+   crate->Set(ATWN);
+
+   //Hinweisschilder
+   var sign = CreateObject(SGNP, 780, 410, -1);
+   sign->SetPhase(1);
+   sign->SetMode(1);
+   sign = CreateObject(SGNP, 1410, 550, -1);
+   sign->SetPhase(1);
+   sign->SetMode(1);
+  }
+
+  //LMS/DM-Spielziel
+  if(FindObject(GLMS) || FindObject(GTDM))
+  {
+   //Grenze setzen
+   CreateObject(BRDR, 2010, 0, -1)->Set(1);
+
+   //Türen öffnen
+   aDoor[00]->Unlock();
+   aDoor[01]->Unlock();
+   aDoor[02]->Unlock();
+   aDoor[03]->Unlock();
+   aDoor[04]->Unlock();
+   aDoor[05]->Open();
+   aDoor[08]->Unlock();
+   aDoor[09]->Unlock();
+   aDoor[10]->Lock();
+
+   //Objekte entfernen
+   RemoveObject(aSelfDefense[0]);
+   RemoveObject(aSelfDefense[1]);
+   RemoveObject(FindObject2(Find_ID(AMCT),Find_InRect(1080, 240, 40, 40)));
+
+   //Leiter
+   CreateObject(LADR, 1650, 457, -1)->Set(20);
 
    //Metallkisten
    CreateObject(MWCR, 1730, 490, -1);
@@ -1095,8 +1095,12 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
 
 public func RelaunchPosition(& iX, & iY, int iTeam)
 {
-  //DM/LMS-Spielziel
-  if(FindObject(GTDM) || FindObject(GLMS))
+  //Assault-Spielziel
+  if(FindObject(GASS))
+  {if(FindObject(GASS)->GetRespawnPoint(iX, iY, iTeam)) return 1;}
+
+  //LMS/DM-Spielziel
+  if(FindObject(GLMS) || FindObject(GTDM))
   {
    if(iTeam == 1)
    {
@@ -1116,10 +1120,6 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
    }
    return(1);
   }
-
-  //Assault-Spielziel
-  if(FindObject(GASS))
-  {if(FindObject(GASS)->GetRespawnPoint(iX, iY, iTeam)) return 1;}
 
   //Startsicht
   iX =760; iY = 300;

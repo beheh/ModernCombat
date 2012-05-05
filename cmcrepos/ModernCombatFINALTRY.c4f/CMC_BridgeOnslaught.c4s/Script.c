@@ -548,77 +548,6 @@ public func ChooserFinished()
   for(var i = 0; i < GetPlayerCount(); i++)
    aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = true;
 
-  //CTF-Spielziel
-  if(FindObject(GCTF))
-  {
-   //Flaggen
-   if(aTeams[1] == true)
-   {CreateFlag(1,530,612,GetTeamColor(1));}
-   if(aTeams[2] == true)
-   {CreateFlag(2,2200,612,GetTeamColor(2));}
-
-   //SSA Besitzer setzen
-   if(aTeams[1] == true)
-   {aSelfDefense[0]->SetTeam(1);}
-   if(aTeams[2] == true)
-   {aSelfDefense[3]->SetTeam(2);}
-
-   //SSA anschalten
-   aSelfDefense[0]->TurnOn();
-   aSelfDefense[3]->TurnOn();
-  }
-
-  //HTF-Spielziel
-  if (FindObject(GHTF))
-  {
-   //Flaggenposten
-   var flag = CreateObject(OFPL, 1365,413, -1);
-   flag->~Set("$Flag3$");
-
-   //SSA Besitzer setzen
-   if(aTeams[1] == true)
-   {aSelfDefense[0]->SetTeam(1);}
-   if(aTeams[2] == true)
-   {aSelfDefense[3]->SetTeam(2);}
-
-   //SSA anschalten
-   aSelfDefense[0]->TurnOn();
-   aSelfDefense[3]->TurnOn();
-
-   //Zusätzliche Munition
-   if(!FindObject(NOAM))
-   {
-    //Versorgungskiste (Kugeln)
-    var crate = CreateObject(AMCT, 1330, 640, -1);
-    crate->Set(ABOX);
-
-    //Raketen
-    PlaceSpawnpoint(MBOX, 1330, 305);
-   }
-
-  }
-
-  //Base Assault-Spielziel
-  if(FindObject(GBAS))
-  {
-   //Zielobjekte
-   AddAssaultTarget(CMSN, 710, 800, 400, 1, "$Flag2$", 0, [[640, 640], [420, 630]]);
-   AddAssaultTarget(CCP2, 425, 430, 300, 1, "$Flag1$", 1, [[230, 440], [330, 530]]);
-
-   AddAssaultTarget(CMSN, 2010, 800, 400, 2, "$Flag4$", 0, [[2090, 640], [2310, 630]]);
-   AddAssaultTarget(CCP2, 2305, 430, 300, 2, "$Flag5$", 1, [[2400, 530], [2500, 440]]);
-
-   //SSA Besitzer setzen
-   if(aTeams[1] == true)
-   {aSelfDefense[0]->SetTeam(1);}
-   if(aTeams[2] == true)
-   {aSelfDefense[3]->SetTeam(2);}
-
-   //SSA anschalten
-   aSelfDefense[0]->TurnOn();
-   aSelfDefense[3]->TurnOn();
-  }
-
   //OP-Spielziel
   if(FindObject(GOCC))
   {
@@ -680,6 +609,56 @@ public func ChooserFinished()
    aSelfDefense[3]->TurnOn();
   }
 
+  //Base Assault-Spielziel
+  if(FindObject(GBAS))
+  {
+   //Zielobjekte
+   AddAssaultTarget(CMSN, 710, 800, 400, 1, "$Flag2$", 0, [[640, 640], [420, 630]]);
+   AddAssaultTarget(CCP2, 425, 430, 300, 1, "$Flag1$", 1, [[230, 440], [330, 530]]);
+
+   AddAssaultTarget(CMSN, 2010, 800, 400, 2, "$Flag4$", 0, [[2090, 640], [2310, 630]]);
+   AddAssaultTarget(CCP2, 2305, 430, 300, 2, "$Flag5$", 1, [[2400, 530], [2500, 440]]);
+
+   //SSA Besitzer setzen
+   if(aTeams[1] == true)
+   {aSelfDefense[0]->SetTeam(1);}
+   if(aTeams[2] == true)
+   {aSelfDefense[3]->SetTeam(2);}
+
+   //SSA anschalten
+   aSelfDefense[0]->TurnOn();
+   aSelfDefense[3]->TurnOn();
+  }
+
+  //HTF-Spielziel
+  if (FindObject(GHTF))
+  {
+   //Flaggenposten
+   var flag = CreateObject(OFPL, 1365,413, -1);
+   flag->~Set("$Flag3$");
+
+   //SSA Besitzer setzen
+   if(aTeams[1] == true)
+   {aSelfDefense[0]->SetTeam(1);}
+   if(aTeams[2] == true)
+   {aSelfDefense[3]->SetTeam(2);}
+
+   //SSA anschalten
+   aSelfDefense[0]->TurnOn();
+   aSelfDefense[3]->TurnOn();
+
+   //Zusätzliche Munition
+   if(!FindObject(NOAM))
+   {
+    //Versorgungskiste (Kugeln)
+    var crate = CreateObject(AMCT, 1330, 640, -1);
+    crate->Set(ABOX);
+
+    //Raketen
+    PlaceSpawnpoint(MBOX, 1330, 305);
+   }
+  }
+
   //MR-Spielziel
   if (FindObject(GMNR))
   {
@@ -689,14 +668,34 @@ public func ChooserFinished()
    AddMoneySpawn(1365, 805, [20]);
    AddMoneySpawn(1655, 435, [10]);
   }
+
+  //CTF-Spielziel
+  if(FindObject(GCTF))
+  {
+   //Flaggen
+   if(aTeams[1] == true)
+   {CreateFlag(1,530,612,GetTeamColor(1));}
+   if(aTeams[2] == true)
+   {CreateFlag(2,2200,612,GetTeamColor(2));}
+
+   //SSA Besitzer setzen
+   if(aTeams[1] == true)
+   {aSelfDefense[0]->SetTeam(1);}
+   if(aTeams[2] == true)
+   {aSelfDefense[3]->SetTeam(2);}
+
+   //SSA anschalten
+   aSelfDefense[0]->TurnOn();
+   aSelfDefense[3]->TurnOn();
+  }
 }
 
 /* Relaunch */
 
 public func RelaunchPosition(& iX, & iY, int iTeam)
 {
-  //DM/LMS/HTF/MR-Spielziel
-  if(FindObject(GTDM) || FindObject(GLMS) || FindObject(GHTF) || FindObject(GMNR))
+  //HTF/MR/LMS/DM-Spielziel
+  if(FindObject(GHTF) || FindObject(GMNR) || FindObject(GLMS) || FindObject(GTDM))
   {
    if(iTeam == 1)
    {

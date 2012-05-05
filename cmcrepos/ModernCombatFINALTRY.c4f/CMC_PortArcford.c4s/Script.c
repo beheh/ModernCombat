@@ -345,72 +345,6 @@ public func ChooserFinished()
   for(var i = 0; i < GetPlayerCount(); i++)
     aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = true;
 
-  //DM/LMS-Spielziel
-  if(FindObject(GTDM) || FindObject(GLMS))
-  {
-   //Grenzen setzen
-   CreateObject(BRDR, 1700, 0, -1)->Set(0);
-   CreateObject(BRDR, 4210, 0, -1)->Set(1);
-
-   //Hinweisschilder
-   CreateObject(SGNP, 1510, 390, -1);
-   CreateObject(SGNP, 1610, 470, -1);
-   CreateObject(SGNP, 4140, 480, -1);
-   CreateObject(SGNP, 4240, 480, -1);
-  }
-
-  //Assault-Spielziel
-  if (FindObject(GASS))
-  {
-   //Zielobjekte
-   AddAssaultTarget(CMSN, 2025, 511, 150, 2, "$Target1$", 0, [[[2315, 550], [2470, 510], [2600, 440]], [[850, -20], [900, -20], [950, -20]]]);
-   AddAssaultTarget(CMSN, 2255, 400, 150, 2, "$Target2$", 1, [[[2315, 550], [2470, 510], [2600, 440]], [[850, -20], [900, -20], [950, -20]]]);
-
-   AddAssaultTarget(HUT3, 3390, 430, 150, 2, "$Target3$", 2, [[[3770, 510], [3810,340], [3930, 470]], [[2160, 550], [2190, 400], [2190, 480]]]);
-   AddAssaultTarget(HUT2, 3580, 390, 150, 2, "$Target4$", 3, [[[3770, 510], [3810,340], [3930, 470]], [[2160, 550], [2190, 400], [2190, 480]]]);
-
-   AddAssaultTarget(PMP2, 4895, 420, 150, 2, "$Target5$", 4, [[[5255, 360], [5300, 440], [5350, 360]], [[3240, 460], [3350, 510], [3450, 430]]]);
-   AddAssaultTarget(PMP2, 4995, 420, 150, 2, "$Target5$", 5, [[[5255, 360], [5300, 440], [5350, 360]], [[3240, 460], [3350, 510], [3450, 430]]]);
-
-   //Ziele verbinden
-   ConnectAssaultTargets([0, 1]);
-   ConnectAssaultTargets([2, 3]);
-   ConnectAssaultTargets([4, 5]);
-
-   //Versorgungskiste (Dragnin)
-   crate = CreateObject (AMCT, 1435, 450, -1);
-   crate->Set(DGNN);
-
-   //Versorgungskiste (Sensorbälle)
-   crate = CreateObject (AMCT, 4380, 490, -1);
-   crate->Set(SRBL);
-
-   //Versorgungskiste (Sprengfallen)
-   crate = CreateObject (AMCT, 5480, 460, -1);
-   crate->Set(BBTP);
-
-   //Grenzen setzen
-   CreateObject(BRDR, 700, 0, -1)->Set(0,1);
-   CreateObject(BRDR, 2700, 0, -1)->Set(1,1);
-
-   //Hinweisschilder
-   CreateObject(SNPT, 430, 261, -1);
-   CreateObject(SGNP, 610, 290, -1);
-
-   //Blackhawks und Hinweisschilder
-   if(!FindObject(NOBH))
-   {
-    SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,910,270,-1),60*21,300);
-    SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,4925,220,-1),60*21,300);
-
-    var sign = CreateObject(SGNP, 840, 300, -1);
-    sign->SetPhase(2);
-    var sign = CreateObject(SGNP, 4990, 250, -1);
-    sign->SetPhase(2);
-    sign->SetMode(1);
-   }
-  }
-
   //OP-Spielziel
   if(FindObject(GOCC))
   {
@@ -486,6 +420,72 @@ public func ChooserFinished()
     sign->SetMode(1);
    }
   }
+
+  //Assault-Spielziel
+  if (FindObject(GASS))
+  {
+   //Zielobjekte
+   AddAssaultTarget(CMSN, 2025, 511, 150, 2, "$Target1$", 0, [[[2315, 550], [2470, 510], [2600, 440]], [[850, -20], [900, -20], [950, -20]]]);
+   AddAssaultTarget(CMSN, 2255, 400, 150, 2, "$Target2$", 1, [[[2315, 550], [2470, 510], [2600, 440]], [[850, -20], [900, -20], [950, -20]]]);
+
+   AddAssaultTarget(HUT3, 3390, 430, 150, 2, "$Target3$", 2, [[[3770, 510], [3810,340], [3930, 470]], [[2160, 550], [2190, 400], [2190, 480]]]);
+   AddAssaultTarget(HUT2, 3580, 390, 150, 2, "$Target4$", 3, [[[3770, 510], [3810,340], [3930, 470]], [[2160, 550], [2190, 400], [2190, 480]]]);
+
+   AddAssaultTarget(PMP2, 4895, 420, 150, 2, "$Target5$", 4, [[[5255, 360], [5300, 440], [5350, 360]], [[3240, 460], [3350, 510], [3450, 430]]]);
+   AddAssaultTarget(PMP2, 4995, 420, 150, 2, "$Target5$", 5, [[[5255, 360], [5300, 440], [5350, 360]], [[3240, 460], [3350, 510], [3450, 430]]]);
+
+   //Ziele verbinden
+   ConnectAssaultTargets([0, 1]);
+   ConnectAssaultTargets([2, 3]);
+   ConnectAssaultTargets([4, 5]);
+
+   //Versorgungskiste (Dragnin)
+   crate = CreateObject (AMCT, 1435, 450, -1);
+   crate->Set(DGNN);
+
+   //Versorgungskiste (Sensorbälle)
+   crate = CreateObject (AMCT, 4380, 490, -1);
+   crate->Set(SRBL);
+
+   //Versorgungskiste (Sprengfallen)
+   crate = CreateObject (AMCT, 5480, 460, -1);
+   crate->Set(BBTP);
+
+   //Grenzen setzen
+   CreateObject(BRDR, 700, 0, -1)->Set(0,1);
+   CreateObject(BRDR, 2700, 0, -1)->Set(1,1);
+
+   //Hinweisschilder
+   CreateObject(SNPT, 430, 261, -1);
+   CreateObject(SGNP, 610, 290, -1);
+
+   //Blackhawks und Hinweisschilder
+   if(!FindObject(NOBH))
+   {
+    SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,910,270,-1),60*21,300);
+    SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,4925,220,-1),60*21,300);
+
+    var sign = CreateObject(SGNP, 840, 300, -1);
+    sign->SetPhase(2);
+    var sign = CreateObject(SGNP, 4990, 250, -1);
+    sign->SetPhase(2);
+    sign->SetMode(1);
+   }
+  }
+
+  //LMS/DM-Spielziel
+  if(FindObject(GLMS) || FindObject(GTDM))
+  {
+   //Grenzen setzen
+   CreateObject(BRDR, 1700, 0, -1)->Set(0);
+   CreateObject(BRDR, 4210, 0, -1)->Set(1);
+
+   //Hinweisschilder
+   CreateObject(SGNP, 1510, 390, -1);
+   CreateObject(SGNP, 1610, 470, -1);
+   CreateObject(SGNP, 4140, 480, -1);
+   CreateObject(SGNP, 4240, 480, -1);
+  }
 }
 
 /* Assault Zerstörung */
@@ -524,8 +524,12 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
 
 public func RelaunchPosition(& iX, & iY, int iTeam)
 {
-  //DM/LMS-Spielziel
-  if(FindObject(GTDM) || FindObject(GLMS))
+  //Assault-Spielziel
+  if(FindObject(GASS))
+  {if(FindObject(GASS)->GetRespawnPoint(iX, iY, iTeam)) return 1;}
+
+  //LMS/DM-Spielziel
+  if(FindObject(GLMS) || FindObject(GTDM))
   {
    if(iTeam == 1)
    {
@@ -545,10 +549,6 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
    }
    return(1);
   }
-
-  //Assault-Spielziel
-  if(FindObject(GASS))
-  {if(FindObject(GASS)->GetRespawnPoint(iX, iY, iTeam)) return 1;}
 
   //Startsicht
   iX = 2240; iY = 390;

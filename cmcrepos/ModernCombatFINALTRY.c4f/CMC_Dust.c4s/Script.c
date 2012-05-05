@@ -184,42 +184,6 @@ public func ChooserFinished()
   for(var i = 0; i < GetPlayerCount(); i++)
    aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = true;
 
-  //CTF-Spielziel
-  if(FindObject(GCTF))
-  {
-   //Flaggen
-   if(aTeams[1] == true)
-   {CreateFlag(1,130,680,GetTeamColor(1));}
-   if(aTeams[2] == true)
-   {CreateFlag(2,1720,400,GetTeamColor(2));}
-   if(aTeams[3] == true)
-   {CreateFlag(3,1500,730,GetTeamColor(3));}
-   if(aTeams[4] == true)
-   {CreateFlag(4,145,320,GetTeamColor(4));}
-  }
-
-  //HTF-Spielziel
-  if (FindObject(GHTF))
-  {
-   //Flaggenposten
-   var flag = CreateObject(OFPL, 830, 850, -1);
-   flag->~Set("$Flag4$");
-
-   //Kisten
-   CreateObject(WCR2, 660, 830, -1);
-   CreateObject(WCR2, 960, 830, -1);
-
-   //Zusätzliche Munition
-   if(!FindObject(NOAM))
-   {
-    //Kugeln
-    PlaceSpawnpoint(ABOX, 825, 655);
-
-    //Raketen
-    PlaceSpawnpoint(MBOX, 1000, 695);
-   }
-  }
-
   //OP-Spielziel
   if(FindObject(GOCC))
   {
@@ -293,6 +257,28 @@ public func ChooserFinished()
    }
   }
 
+  //HTF-Spielziel
+  if (FindObject(GHTF))
+  {
+   //Flaggenposten
+   var flag = CreateObject(OFPL, 830, 850, -1);
+   flag->~Set("$Flag4$");
+
+   //Kisten
+   CreateObject(WCR2, 660, 830, -1);
+   CreateObject(WCR2, 960, 830, -1);
+
+   //Zusätzliche Munition
+   if(!FindObject(NOAM))
+   {
+    //Kugeln
+    PlaceSpawnpoint(ABOX, 825, 655);
+
+    //Raketen
+    PlaceSpawnpoint(MBOX, 1000, 695);
+   }
+  }
+
   //MR-Spielziel
   if (FindObject(GMNR))
   {
@@ -302,14 +288,28 @@ public func ChooserFinished()
    AddMoneySpawn(965, 465, [10]);
    AddMoneySpawn(1010, 695, [10]);
   }
+
+  //CTF-Spielziel
+  if(FindObject(GCTF))
+  {
+   //Flaggen
+   if(aTeams[1] == true)
+   {CreateFlag(1,130,680,GetTeamColor(1));}
+   if(aTeams[2] == true)
+   {CreateFlag(2,1720,400,GetTeamColor(2));}
+   if(aTeams[3] == true)
+   {CreateFlag(3,1500,730,GetTeamColor(3));}
+   if(aTeams[4] == true)
+   {CreateFlag(4,145,320,GetTeamColor(4));}
+  }
 }
 
 /* Relaunch */
 
 public func RelaunchPosition(& iX, & iY, int iTeam)
 {
-  //DM/LMS/HTF/MR-Spielziel
-  if(FindObject(GTDM) || FindObject(GLMS) || FindObject(GHTF) || FindObject(GMNR))
+  //HTF/MR/LMS/DM-Spielziel
+  if(FindObject(GHTF) || FindObject(GMNR) || FindObject(GLMS) || FindObject(GTDM))
   {
    var rand = Random(3);
    if(iTeam == 1)
