@@ -4,7 +4,7 @@
 
 #appendto CSTR
 
-public func IsRepairable() { return true; }
+public func IsRepairable()	{return true;}
 
 /* Zerstörung */
 
@@ -35,24 +35,37 @@ public func Destroyed()
   //Callback
   OnDestruction();
 
-	//Reparatur anordnen
+  //Reparatur anordnen
   AutoRepair();
 }
 
 public func Damage(int change)
 {
-	if(change > 0 && IsDestroyed())
-	{
-		if(GetDamage() > MaxDamage()) // Objekt zerstÃ¶rt, aber nicht mehr dmg als max. zugelassen!
-  		DoDamage(-(GetDamage()-MaxDamage()));
-	}
+  //Struktur zerstören, aber mehr Schaden als den Maximalen nicht zulassen
+  if(change > 0 && IsDestroyed())
+  {
+    if(GetDamage() > MaxDamage())
+      DoDamage(-(GetDamage()-MaxDamage()));
+  }
+
+/*
+  //Bei Reparatur die Selbstreparatur starten, sofern zerstört
+  if(change < 0 && IsDestroyed())
+  {
+    StartRepair();
+  }
+*/
+
+  //Bei höherem Schaden als dem Maximalen entsprechend zerstören
   if(GetDamage() > MaxDamage() && !IsDestroyed())
   {
     Destroyed();
   }
+
+  //Bei beendetem Reparaturvorgang Sonderfunktionen aufrufen
   if(IsDestroyed() && GetDamage() == 0 && !IsRepairing())
   {
-  	fDestroyed = false;
+    fDestroyed = false;
     ObjectSetAction(this, "RepairStop");
     OnRepair();
   }
@@ -74,11 +87,11 @@ public func FxIntRepairTimer(object pTarget, int iEffectNumber, int iEffectTime)
 
 public func FxIntRepairDamage(object pTarget, int iNr, int iDmgEngy)
 {
-	// Reparatur darf nicht in die Länge gezogen werden können.
-	if(iDmgEngy > 0)
-		return 0;
-	
-	return iDmgEngy;
+  //Reparatur darf nicht in die Länge gezogen werden
+  if(iDmgEngy > 0)
+    return 0;
+
+  return iDmgEngy;
 }
 
 public func Repair()
