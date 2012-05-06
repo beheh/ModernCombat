@@ -39,6 +39,20 @@ public func Destroyed()
   AutoRepair();
 }
 
+public func OnRepairing()
+{
+	if(IsDestroyed() && !IsRepairing())
+		StartRepair();
+
+	return true;
+}
+
+public func IsFullyRepaired()
+{
+	RemoveEffect("IntRepair", this);
+	return true;
+}
+
 public func Damage(int change)
 {
   //Struktur zerstören, aber mehr Schaden als den Maximalen nicht zulassen
