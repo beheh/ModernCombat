@@ -111,5 +111,5 @@ public func FxIntRepairDamage(object pTarget, int iNr, int iDmgEngy)
 public func Repair()
 { 
   //Jetzt gepanzert
-  if(!GetEffect("IntRepair")) AddEffect("IntRepair",this,50,5,this);
+  if(!GetEffect("IntRepair")) AddEffect("IntRepair",this,50,10,this);
 }
