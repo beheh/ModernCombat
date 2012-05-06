@@ -335,17 +335,19 @@ func CreateDecoration()
   CreateObject(RADR, 5535, 1230, -1);
 
   //Schilder
+  CreateObject(MSGN, 1288, 1260, -1);
+  CreateObject(MSGN, 1428, 1260, -1);
   CreateObject(ESGN, 1500, 1025, -1);
-  CreateObject(MSGN, 1435, 1270, -1);
-  CreateObject(MSGN, 1765, 1270, -1);
   CreateObject(MSGN, 1710, 1170, -1);
   CreateObject(MSGN, 1745, 1170, -1);
+  CreateObject(MSGN, 1776, 1260, -1);
   CreateObject(MSGN, 1870, 1170, -1);
   CreateObject(MSGN, 1905, 1170, -1);
   CreateObject(MSGN, 2030, 1170, -1);
   CreateObject(MSGN, 2065, 1170, -1);
   CreateObject(MSGN, 2190, 1170, -1);
   CreateObject(MSGN, 2225, 1170, -1);
+  CreateObject(MSGN, 2376, 1260, -1);
 
   //Apparaturen
   CreateObject(GADG, 4690, 1240, -1)->Set(1);
@@ -398,18 +400,6 @@ func CreateDecoration()
   //Spind
   CreateObject(LCKR, 1435, 1170, -1);
 
-  //Geländer
-  CreateObject(RAI1, 1409, 1030, -1)->SetRail([3,3,3,3,3,3,3,3,1,3,1,3,1,3,1,3,2,2,2,3,1,3,1,3,1,3,1,3,3,3,3,3,3,3,3]);
-  CreateObject(RAI1, 1265, 1140, -1)->SetRail([1,3,1,3,1]);
-  CreateObject(RAI1, 2318, 1140, -1)->SetRail([1,3,1,3,1]);
-
-  //Lüftungsgitter
-  CreateObject(ENGT, 1360, 1270, -1);
-  CreateObject(ENGT, 1800, 1270, -1);
-  CreateObject(ENGT, 1955, 1270, -1);
-  CreateObject(ENGT, 2115, 1270, -1);
-  CreateObject(ENGT, 2295, 1270, -1);
-
   //Rohre
   CreateObject(PIPL, 1290, 1325, -1)->Up()->Up();
   CreateObject(PIPL, 1320, 1325, -1)->Up()->Up();
@@ -417,6 +407,29 @@ func CreateDecoration()
   CreateObject(PIPL, 1980, 1325, -1)->Up()->Up();
   CreateObject(PIPL, 2110, 1325, -1)->Up()->Up();
   CreateObject(PIPL, 2140, 1325, -1)->Up()->Up();
+
+  //Geländer
+  CreateObject(RAI1, 1409, 1030, -1)->SetRail([3,3,3,3,3,3,3,3,1,3,1,3,1,3,1,3,2,2,2,3,1,3,1,3,1,3,1,3,3,3,3,3,3,3,3]);
+  CreateObject(RAI1, 1265, 1140, -1)->SetRail([1,3,1,3,1]);
+  var rail = CreateObject(RAI1, 1280, 1260, -1);
+  rail->SetCategory(C4D_StaticBack);
+  rail->SetRail([1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1]);
+  for(var i = 0; i <= 19; i++)
+    rail->SetClrModulation(RGB(200, 200, 200), this, i);
+  CreateObject(RAI1, 1463, 980, -1)->SetRail([1,3,1,3,1,3,1,3,1,3,1,3,1]);
+  rail = CreateObject(RAI1, 1728, 1260, -1);
+  rail->SetCategory(C4D_StaticBack);
+  rail->SetRail([1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1]);
+  for(var i = 0; i <= 65; i++)
+    rail->SetClrModulation(RGB(200, 200, 200), this, i);
+  CreateObject(RAI1, 2318, 1140, -1)->SetRail([1,3,1,3,1]);
+
+  //Lüftungsgitter
+  CreateObject(ENGT, 1360, 1260, -1)->AddSmokeEffect4K(100,0,-10,true,this);
+  CreateObject(ENGT, 1800, 1260, -1)->AddSmokeEffect4K(100,0,-10,true,this);
+  CreateObject(ENGT, 1955, 1260, -1);
+  CreateObject(ENGT, 2115, 1260, -1);
+  CreateObject(ENGT, 2295, 1260, -1);
 }
 
 func CreateOptionalFeatures()
