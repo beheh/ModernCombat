@@ -86,7 +86,7 @@ func CreateInterior()
 
   //Steine
   CreateObject(STNE, 540, 380, -1)->Set(0);
-  CreateObject(STNE, 1290, 820, -1)->Set(2);
+  CreateObject(STNE, 1300, 820, -1)->Set(2);
 
   //Grenze
   CreateObject(BRDR, 0, 900, -1)->Set(3,0,1);
