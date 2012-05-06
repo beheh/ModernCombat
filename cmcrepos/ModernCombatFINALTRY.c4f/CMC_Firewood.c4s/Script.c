@@ -33,10 +33,12 @@ func CreateInterior()
   Log("$CreatingInterior$");
 
   //Rampen
+  DrawMaterialQuad("Ashes-SWIRL", 1200, 618, 1240, 618, 1200, 620, 1240, 620, 1);
   DrawMaterialQuad("Wall-Unknown1",1390,491,1390,511,1440,491,1390,491,true);
   DrawMaterialQuad("Wall-Unknown1",1450,520,1450,500,1400,520,1450,520,true);
   DrawMaterialQuad("Wall-Unknown1",1831,520,1831,500,1881,520,1831,520,true);
   DrawMaterialQuad("Wall-Unknown1",1890,491,1890,511,1840,491,1890,491,true);
+  DrawMaterialQuad("Ashes-SWIRL", 2030, 618, 2070, 618, 2030, 620, 2070, 620, 1);
 
   //Leitern
   CreateObject(LADR, 160, 490, -1)->Set(12);

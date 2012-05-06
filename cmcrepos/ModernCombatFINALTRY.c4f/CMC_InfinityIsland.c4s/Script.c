@@ -91,6 +91,11 @@ func CreateInterior()
 
   DrawMaterialQuad("Wall-Plate",2231,1321,2231,1361,2391,1321,2231,1321,true);
 
+  DrawMaterialQuad("Wall-Stripes", 2290, 1279, 2350, 1279, 2290, 1280, 2350, 1280, 1);
+  DrawMaterialQuad("Rock-ROUGH", 3130, 1278, 3180, 1278, 3130, 1280, 3180, 1280, 1);
+  DrawMaterialQuad("Rock-ROUGH", 3350, 1278, 3400, 1278, 3350, 1280, 3400, 1280, 1);
+  DrawMaterialQuad("Rock-ROUGH", 3500, 1278, 3570, 1278, 3500, 1280, 3570, 1280, 1);
+
   //Glasscheiben
   CreateObject(_WIN, 1432, 1081, -1);
   CreateObject(_WIN, 1432, 1110, -1);
@@ -558,13 +563,20 @@ public func ChooserFinished()
    ConnectAssaultTargets([2, 3]);
    ConnectAssaultTargets([4, 5]);
 
-   //Container
-   CreateObject(CON1, 3969, 1216, -1)->SetPerspective(2);
-   CreateObject(CON1, 3980, 1244, -1)->SetPerspective(0);
-   CreateObject(CON1, 4000, 1272, -1);
-   CreateObject(CON1, 4000, 1300, -1);
-   CreateObject(CON1, 4400, 1142, -1)->SetPerspective(2);
-   CreateObject(CON1, 4400, 1170, -1);
+   //Steine
+   CreateObject(STNE, 3710, 1300, -1)->Set(2);
+   CreateObject(STNE, 3760, 1310, -1)->Set(3);
+   CreateObject(STNE, 3820, 1215, -1)->Set(1);
+   CreateObject(STNE, 3770, 1288, -1)->Set(3);
+   CreateObject(STNE, 3835, 1340, -1)->Sound("Blast3");
+   CreateObject(STNE, 3890, 1300, -1)->Set(3);
+
+   //Erde
+   Schedule("CastPXS(\"Earth\", 1250, 10, 3820, 1280)", 15, 8);
+
+   //Rauch
+   Schedule("CastSmoke(\"Smoke3\", 2,30,3820,1270,1000,1200,RGBa(150,40,0,0))", 10, 8);
+   Schedule("CastSmoke(\"GunSmoke\", 2, 50, 3820, 1270, 1000, 1500, RGBa(250, 250, 250, 0))", 10, 8);
 
    //Grenzen setzen
    CreateObject(BRDR, 910, 0, -1)->Set(0);
