@@ -349,13 +349,13 @@ public func Use(caller)
 
         //Fahrzeug reparieren
         DoDamage(-2, obj);
-       	
-				//Callback
+
+        //Callback
         if(GetDamage(obj) == 0)
           obj->~IsFullyRepaired();
-				else
-					obj->~OnRepairing(this);
-				
+        else
+          obj->~OnRepairing(this);
+
         if(!Hostile(GetOwner(obj), GetOwner(Contained())) && GetOwner(obj) != GetOwner(Contained()) && iRepaired++ >= 40)
         {
           //Punkte bei Belohnungssystem (Reparatur)
