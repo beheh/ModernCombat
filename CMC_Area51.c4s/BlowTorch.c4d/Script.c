@@ -291,7 +291,8 @@ public func Use(caller)
   if(obj)
   {
     if(obj->~RTDefuse(caller))
-    	 DoPlayerPoints(BonusPoints("TechnicalTask"), RWDS_TeamPoints, GetOwner(caller), caller, IC15);
+      //Punkte bei Belohnungssystem (Entschärfung)
+      DoPlayerPoints(BonusPoints("TechnicalTask"), RWDS_TeamPoints, GetOwner(caller), caller, IC15);
 
     used = true;
   }

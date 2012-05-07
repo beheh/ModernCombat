@@ -18,7 +18,7 @@ public func RTDefuse()
   {
     Sound("Limitation.ogg");
     DecoExplode(10);
-    
+
     return true;
   }
 
