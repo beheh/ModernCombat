@@ -142,6 +142,14 @@ public func Timer()
 
 /* Reparieren starten/beenden */
 
+public func ControlUpdate(object pByObj, int comdir, bool dig, bool throw) 
+{
+  if(throw && !GetEffect("RepairObjects", this))
+  	return ControlThrow(pByObj);
+  else if(!throw && GetEffect("RepairObjects", this))
+  	return RemoveEffect("RepairObjects", this);
+}
+
 public func ControlThrow(pByObject)
 {
   //Hinweis bei fehlendem Inhalt
