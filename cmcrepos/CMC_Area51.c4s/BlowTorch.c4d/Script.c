@@ -290,7 +290,7 @@ public func Use(caller)
   			Find_AtRect(-10,-10,20,20));
   if(obj)
   {
-    if(obj->~RTDefuse(caller));
+    if(obj->~RTDefuse(caller))
     	 DoPlayerPoints(BonusPoints("TechnicalTask"), RWDS_TeamPoints, GetOwner(caller), caller, IC15);
 
     used = true;
