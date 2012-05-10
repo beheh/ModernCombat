@@ -24,7 +24,7 @@ public func ChooserFinished()
 private func SetFlagMarker(int iPlr, int iCTeam, bool fRemove)
 {
   var iCol = TEAM_PlayerColumn, iData;
-//  var iPlr = GetOwner(pPlr);
+  //var iPlr = GetOwner(pPlr);
   if(GetTeamPlayerCount(GetPlayerTeam(iPlr)) == 1)
   {
     iCol = TEAM_TeamColumn;

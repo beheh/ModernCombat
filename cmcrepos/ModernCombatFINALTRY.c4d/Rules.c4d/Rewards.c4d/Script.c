@@ -274,7 +274,7 @@ static const RWDS_DeathCount		= 7;
 static const RWDS_StartTotalPoints	= 8;
 static const RWDS_SavedTotalPoints	= 9;
 static const RWDS_PlayerID		= 10;
-static const RWDS_CPlayerName = 11;
+static const RWDS_CPlayerName		= 11;
 
 global func DoPlayerPoints(int iPoints, int iType, int iPlr, object pClonk, id idIcon)
 {
@@ -419,11 +419,11 @@ global func GetTaggedPlayerName(int iPlr, bool fRank, bool fCompact)
   if(fRank && FindObject2(Find_Or(Find_ID(RWDS), Find_ID(CHOS))) && GetPlayerTeam(iPlr) != -1)
   {
     if(fCompact)
-    	return Format("{{%i}} <c %x>%s</c>", rank, GetPlrColorDw(iPlr), GetPlayerName(iPlr));
+      return Format("{{%i}} <c %x>%s</c>", rank, GetPlrColorDw(iPlr), GetPlayerName(iPlr));
     
     return Format("{{%i}} %s <c %x>%s</c>", rank, GetName(0, rank), GetPlrColorDw(iPlr), GetPlayerName(iPlr));
-	}
-	
+  }
+
   return _inherited(iPlr);
 }
 
