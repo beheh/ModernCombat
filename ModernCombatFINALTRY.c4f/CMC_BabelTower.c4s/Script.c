@@ -875,5 +875,5 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   }
 
   //Startsicht
-  iX = 585; iY = 1310;
+  iX = 585; iY = 1420;
 }
