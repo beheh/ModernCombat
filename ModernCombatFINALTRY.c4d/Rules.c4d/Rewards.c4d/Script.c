@@ -53,7 +53,7 @@ public func StatsPoints(int iPlr)
   {
     var iTeam = GetPlayerData(RWDS_PlayerTeam, iPlayer);
     if(!aList[iTeam]) aList[iTeam] = CreateArray();
-    szString = Format("%s:| %d $Points$", GetPlayerData(RWDS_PlayerName, iPlayer), GetPlayerPoints(RWDS_TotalPoints, iPlayer));
+    szString = Format("%s:| %d $Points$", GetPlayerData(RWDS_CPlayerName, iPlayer), GetPlayerPoints(RWDS_TotalPoints, iPlayer));
                aList[iTeam][GetLength(aList[iTeam])] = szString;
                iPlayer++;
   }
@@ -251,6 +251,7 @@ public func UpdatePlayers()
     }
     
     SetPlayerData(GetTaggedPlayerName(iPlr, true), RWDS_PlayerName, iPlr);
+    SetPlayerData(GetTaggedPlayerName(iPlr, true, true), RWDS_CPlayerName, iPlr);
     SetPlayerData(GetPlayerTeam(iPlr), RWDS_PlayerTeam, iPlr);
     SetPlayerData(GetPlayerID(iPlr), RWDS_PlayerID, iPlr);
     if(!aData[iPlr]) aData[iPlr] = CreateArray();
@@ -273,6 +274,7 @@ static const RWDS_DeathCount		= 7;
 static const RWDS_StartTotalPoints	= 8;
 static const RWDS_SavedTotalPoints	= 9;
 static const RWDS_PlayerID		= 10;
+static const RWDS_CPlayerName = 11;
 
 global func DoPlayerPoints(int iPoints, int iType, int iPlr, object pClonk, id idIcon)
 {
@@ -411,12 +413,17 @@ global func CalcRank(int iPlr)
   return rank;
 }
 
-global func GetTaggedPlayerName(int iPlr, bool fRank)
+global func GetTaggedPlayerName(int iPlr, bool fRank, bool fCompact)
 {
   var rank = GetRankID(GetPlayerRank(iPlr));
   if(fRank && FindObject2(Find_Or(Find_ID(RWDS), Find_ID(CHOS))) && GetPlayerTeam(iPlr) != -1)
+  {
+    if(fCompact)
+    	return Format("{{%i}} <c %x>%s</c>", rank, GetPlrColorDw(iPlr), GetPlayerName(iPlr));
+    
     return Format("{{%i}} %s <c %x>%s</c>", rank, GetName(0, rank), GetPlrColorDw(iPlr), GetPlayerName(iPlr));
-
+	}
+	
   return _inherited(iPlr);
 }
 

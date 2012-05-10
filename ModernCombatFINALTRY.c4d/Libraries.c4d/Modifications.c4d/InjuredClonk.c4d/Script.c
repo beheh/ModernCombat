@@ -222,6 +222,9 @@ private func DeathMenu()
       var iTeam = obj->~GetPlayerData(RWDS_PlayerTeam, iPlr);
       if(!aList[iTeam]) aList[iTeam] = [];
       szString = Format("%s: %d", obj->~GetPlayerData(RWDS_PlayerName, iPlr), obj->~GetPlayerPoints(RWDS_TotalPoints, iPlr));
+      if(clonk->ShorterDeathMenu())
+      	szString = Format("%s: %d", obj->~GetPlayerData(RWDS_CPlayerName, iPlr), obj->~GetPlayerPoints(RWDS_TotalPoints, iPlr));
+      
       aList[iTeam][GetLength(aList[iTeam])] = szString;
       iPlr++;
     }
