@@ -19,7 +19,7 @@ protected func Initialize()
 }
 /* Ruinen (de)aktivieren */
 
-protected func SwitchRuinsMode()
+protected func SwitchMode()
 {
   if(ruins)
     ruins = 0;
