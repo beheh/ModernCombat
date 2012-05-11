@@ -1,0 +1,1 @@
+Repräsentiert die Munition zur getragenen Waffe eines Clonks.
