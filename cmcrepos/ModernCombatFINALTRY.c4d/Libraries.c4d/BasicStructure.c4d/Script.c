@@ -61,9 +61,9 @@ public func FxIntRepairStart(object pTarget, int iEffectNumber, int iTemp)
 public func FxIntRepairTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
   if(GetDamage(pTarget) <= 0)
-  	return -1;
+    return -1;
 
-	DoDamage(-1, pTarget);
+  DoDamage(-1, pTarget);
 
   if(!Random(2))
   {
@@ -117,14 +117,6 @@ public func Damage(int change)
       DoDamage(-(GetDamage()-MaxDamage()));
   }
 
-/*
-  //Bei Reparatur die Selbstreparatur starten, sofern zerstört
-  if(change < 0 && IsDestroyed())
-  {
-    StartRepair();
-  }
-*/
-
   //Bei höherem Schaden als dem Maximalen entsprechend zerstören
   if(GetDamage() > MaxDamage() && !IsDestroyed())
   {
@@ -161,12 +153,12 @@ public func Destroyed()
   //Status setzen
   SetAction("Destroyed");
   fDestroyed = true;
-  
-  // Dmg auf maximalwert setzen.
-  if(GetDamage() > MaxDamage())
-  	DoDamage(-(GetDamage()-MaxDamage()));
 
-  //Punkte bei Belohnungssystem (StrukturzerstÃ¶rung)
+  //Schaden auf Maximalwert setzen
+  if(GetDamage() > MaxDamage())
+    DoDamage(-(GetDamage()-MaxDamage()));
+
+  //Punkte bei Belohnungssystem (Strukturzerstörung)
   if(BonusPointCondition() && iLastAttacker != -1)
     if((GetOwner() != -1 && Hostile(GetOwner(), iLastAttacker)) || (GetOwner() == -1 && !GetTeam(this)) || (GetTeam(this) != GetPlayerTeam(iLastAttacker)))
       DoPlayerPoints(BonusPoints("Destruction"), RWDS_BattlePoints, iLastAttacker, GetCursor(iLastAttacker), IC03);
@@ -177,7 +169,7 @@ public func Destroyed()
   //Sound
   Sound("Blast2", false, this);
 
-  //Letzen Angreifer zurÃ¼cksetzen
+  //Letzen Angreifer zurücksetzen
   iLastAttacker = -1;
 
   //Callback
@@ -189,14 +181,14 @@ public func Destroyed()
 
 public func OnRepairing()
 {
-	if(IsDestroyed() && !IsRepairing())
-		StartRepair();
+  if(IsDestroyed() && !IsRepairing())
+    StartRepair();
 
-	return true;
+  return true;
 }
 
 public func IsFullyRepaired()
 {
-	RemoveEffect("IntRepair", this);
-	return true;
+  RemoveEffect("IntRepair", this);
+  return true;
 }
