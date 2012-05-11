@@ -133,22 +133,22 @@ func CreateInterior()
   CreateObject(GDDR, 2485, 1570, -1);
 
   //Stahlbrücken
-  CreateObject(_HBR, 315, 1502, -1);
+  CreateObject(_HBR, 314, 1502, -1);
   CreateObject(_HBR, 515, 1722, -1);
   CreateObject(_HBR, 885, 1722, -1);
-  CreateObject(_HBR, 1015, 1582, -1);
-  CreateObject(_HBR, 1295, 342, -1);
+  CreateObject(_HBR, 1015, 1582, -1)->SwitchMode();
+  CreateObject(_HBR, 1297, 342, -1);
   CreateObject(_HBR, 1335, 952, -1);
   CreateObject(_HBR, 1435, 1722, -1);
   CreateObject(_HBR, 1505, 1722, -1);
   CreateObject(_HBR, 1575, 1722, -1);
   CreateObject(_HBR, 1645, 1722, -1);
   CreateObject(_HBR, 1745, 952, -1);
-  CreateObject(_HBR, 1785, 342, -1);
-  CreateObject(_HBR, 2065, 1582, -1);
+  CreateObject(_HBR, 1784, 342, -1);
+  CreateObject(_HBR, 2065, 1582, -1)->SwitchMode();
   CreateObject(_HBR, 2190, 1722, -1);
   CreateObject(_HBR, 2560, 1722, -1);
-  CreateObject(_HBR, 2765, 1502, -1);
+  CreateObject(_HBR, 2767, 1502, -1);
 
   //Steine
   CreateObject(STNE, 260, 1850, -1);

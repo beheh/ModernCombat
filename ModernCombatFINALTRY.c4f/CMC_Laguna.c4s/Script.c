@@ -78,12 +78,11 @@ func CreateInterior()
   CreateObject(CCAR, 960, 510, -1);
 
   //Stahlbrücken
-  CreateObject(_HBR, 875, 522, -1);
-  CreateObject(_HBR, 965, 522, -1);
-
-  CreateObject(_HBR, 1785, 602, -1);
-  CreateObject(_HBR, 2015, 592, -1);
-  CreateObject(_HBR, 2255, 562, -1);
+  CreateObject(_HBR, 875, 522, -1)->SwitchMode();
+  CreateObject(_HBR, 965, 522, -1)->SwitchMode();
+  CreateObject(_HBR, 1784, 602, -1);
+  CreateObject(_HBR, 2015, 592, -1)->SwitchMode();
+  CreateObject(_HBR, 2257, 562, -1);
 
   //Haie
   CreateObject(SHRK, 230, 850, -1)->AutoRespawn();

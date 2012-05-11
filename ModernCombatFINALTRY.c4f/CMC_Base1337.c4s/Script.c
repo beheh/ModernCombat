@@ -169,13 +169,13 @@ func CreateInterior()
   CreateObject(SFFG, 3620, 860, -1)->Set(2);
 
   //Stahlbrücken
-  CreateObject(_HBR, 1345, 952, -1);
+  CreateObject(_HBR, 1347, 952, -1);
   CreateObject(_HBR, 1450, 1182, -1);
   CreateObject(_HBR, 1520, 1182, -1);
   CreateObject(_HBR, 1590, 1182, -1);
   CreateObject(_HBR, 1660, 1182, -1);
-  CreateObject(_HBR, 1905, 1072, -1);
-  CreateObject(_HBR, 2895, 812, -1);
+  CreateObject(_HBR, 1904, 1072, -1);
+  CreateObject(_HBR, 2894, 812, -1);
   CreateObject(_HBR, 3617, 1174, -1);
   CreateObject(_HBR, 3617, 1182, -1);
 

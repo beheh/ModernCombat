@@ -175,31 +175,27 @@ func CreateInterior()
   CreateObject(SBBA, 1940, 800, -1);
 
   //Stahlbrücken
-  CreateObject(_HBR, 595, 452, -1);
-  CreateObject(_HBR, 685, 452, -1);
+  CreateObject(_HBR, 595, 452, -1)->SwitchMode();
+  CreateObject(_HBR, 685, 452, -1)->SwitchMode();
+  CreateObject(_HBR, 825, 452, -1)->SwitchMode();
+  CreateObject(_HBR, 925, 452, -1)->SwitchMode();
+  CreateObject(_HBR, 1025, 452, -1)->SwitchMode();
+  CreateObject(_HBR, 1125, 452, -1)->SwitchMode();
+  CreateObject(_HBR, 1225, 452, -1)->SwitchMode();
+  CreateObject(_HBR, 915, 652, -1)->SwitchMode();
+  CreateObject(_HBR, 1115, 652, -1)->SwitchMode();
+  CreateObject(_HBR, 1215, 652, -1)->SwitchMode();
 
-  CreateObject(_HBR, 825, 452, -1);
-  CreateObject(_HBR, 925, 452, -1);
-  CreateObject(_HBR, 1025, 452, -1);
-  CreateObject(_HBR, 1125, 452, -1);
-  CreateObject(_HBR, 1225, 452, -1);
-
-  CreateObject(_HBR, 915, 652, -1);
-  CreateObject(_HBR, 1115, 652, -1);
-  CreateObject(_HBR, 1215, 652, -1);
-
-  CreateObject(_HBR, 1515, 652, -1);
-  CreateObject(_HBR, 1615, 652, -1);
-  CreateObject(_HBR, 1815, 652, -1);
-
-  CreateObject(_HBR, 1505, 452, -1);
-  CreateObject(_HBR, 1605, 452, -1);
-  CreateObject(_HBR, 1705, 452, -1);
-  CreateObject(_HBR, 1805, 452, -1);
-  CreateObject(_HBR, 1905, 452, -1);
-
-  CreateObject(_HBR, 2045, 452, -1);
-  CreateObject(_HBR, 2135, 452, -1);
+  CreateObject(_HBR, 1515, 652, -1)->SwitchMode();
+  CreateObject(_HBR, 1615, 652, -1)->SwitchMode();
+  CreateObject(_HBR, 1815, 652, -1)->SwitchMode();
+  CreateObject(_HBR, 1505, 452, -1)->SwitchMode();
+  CreateObject(_HBR, 1605, 452, -1)->SwitchMode();
+  CreateObject(_HBR, 1705, 452, -1)->SwitchMode();
+  CreateObject(_HBR, 1805, 452, -1)->SwitchMode();
+  CreateObject(_HBR, 1905, 452, -1)->SwitchMode();
+  CreateObject(_HBR, 2045, 452, -1)->SwitchMode();
+  CreateObject(_HBR, 2135, 452, -1)->SwitchMode();
 
   //Gasflaschen
   CreateObject(GSBL, 540, 613, -1)->AutoRespawn();

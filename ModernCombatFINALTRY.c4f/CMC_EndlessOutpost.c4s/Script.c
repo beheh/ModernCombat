@@ -150,11 +150,11 @@ func CreateInterior()
   CreateObject(SEDR,2560, 410,-1)->Lock();
 
   //Stahlbrücken
-  CreateObject(_HBR, 305, 462, -1);
-  CreateObject(_HBR, 405, 462, -1);
-  CreateObject(_HBR, 505, 462, -1);
-  CreateObject(_HBR, 2355, 332, -1);
-  CreateObject(_HBR, 2465, 222, -1);
+  CreateObject(_HBR, 305, 462, -1)->SwitchMode();
+  CreateObject(_HBR, 405, 462, -1)->SwitchMode();
+  CreateObject(_HBR, 505, 462, -1)->SwitchMode();
+  CreateObject(_HBR, 2354, 332, -1);
+  CreateObject(_HBR, 2464, 222, -1);
 
   //Kisten
   CreateObject(WCR2, 10, 350, -1)->AutoRespawn();

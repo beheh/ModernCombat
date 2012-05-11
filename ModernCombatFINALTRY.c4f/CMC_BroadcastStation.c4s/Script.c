@@ -157,10 +157,10 @@ func CreateInterior()
   CreateObject(STNE, 1805, 800, -1);
 
   //Stahlbrücken
-  CreateObject(_HBR, 775, 522, -1);
-  CreateObject(_HBR, 805, 722, -1);
-  CreateObject(_HBR, 895, 722, -1);
-  CreateObject(_HBR, 985, 722, -1);
+  CreateObject(_HBR, 775, 522, -1)->SwitchMode();
+  CreateObject(_HBR, 805, 722, -1)->SwitchMode();
+  CreateObject(_HBR, 895, 722, -1)->SwitchMode();
+  CreateObject(_HBR, 985, 722, -1)->SwitchMode();
 
   //Grenze
   CreateObject(BRDR, 0, 840, -1)->Set(3,0,1);

@@ -144,8 +144,8 @@ func CreateInterior()
   CreateObject(XTNK, 2525, 390, -1)->AutoRespawn();
 
   //Stahlbrücken
-  CreateObject(_HBR, 865, 402, -1);
-  CreateObject(_HBR, 2415, 402, -1);
+  CreateObject(_HBR, 865, 402, -1)->SwitchMode();
+  CreateObject(_HBR, 2415, 402, -1)->SwitchMode();
 
   //Piranha
   CreateObject(PIRA, 880, 680, -1)->AutoRespawn();

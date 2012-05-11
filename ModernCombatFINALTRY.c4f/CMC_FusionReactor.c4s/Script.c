@@ -258,10 +258,10 @@ func CreateInterior()
   CreateObject(MWCR, 1620, 880, -1);
 
   //Stahlbrücken
-  CreateObject(_HBR, 655, 482, -1);
+  CreateObject(_HBR, 657, 482, -1);
   CreateObject(_HBR, 915, 132, -1);
   CreateObject(_HBR, 915, 942, -1);
-  CreateObject(_HBR, 1175, 482, -1);
+  CreateObject(_HBR, 1174, 482, -1);
 
   //Gasflaschen
   CreateObject(GSBL, 475, 930, -1)->AutoRespawn();

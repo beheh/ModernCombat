@@ -59,10 +59,10 @@ func CreateInterior()
   CreateObject(H24K, 3415, 538, -1);
 
   //Stahlbrücken
-  CreateObject(_HBR, 1495, 472, -1);
-  CreateObject(_HBR, 2856, 492, -1);
-  CreateObject(_HBR, 3975, 492, -1);
-  CreateObject(_HBR, 5335, 472, -1);
+  CreateObject(_HBR, 1495, 472, -1)->SwitchMode();
+  CreateObject(_HBR, 2857, 492, -1);
+  CreateObject(_HBR, 3974, 492, -1);
+  CreateObject(_HBR, 5335, 472, -1)->SwitchMode();
 
   //Steine
   CreateObject(STNE, 320, 460, -1);

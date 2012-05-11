@@ -74,9 +74,9 @@ func CreateInterior()
   CreateObject(LADR, 7670, 375, -1)->Set(6);
 
   //Stahlbrücken
-  CreateObject(_HBR, 5215, 412, -1);
-  CreateObject(_HBR, 5215, 482, -1);
-  CreateObject(_HBR, 5445, 482, -1);
+  CreateObject(_HBR, 5215, 412, -1)->SwitchMode();
+  CreateObject(_HBR, 5215, 482, -1)->SwitchMode();
+  CreateObject(_HBR, 5447, 482, -1);
 
   //Bodenluken
   CreateObject(HA4K, 2960, 373, -1);
