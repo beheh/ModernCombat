@@ -25,6 +25,7 @@ public func IsThreat()			{return pController;}							//Status
 public func UpdateCharge()		{return 1;}
 public func BonusPointCondition()	{return false;}								//Bonuspunkte macht der BlackHawk 
 public func IsWeaponRack() {return 1;}
+public func IsRepairable() { return false; }
 
 /* Aufrufe */
 

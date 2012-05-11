@@ -10,7 +10,6 @@ local rt_defusecnt;
 
 public func IsDefusable()	{return true;}
 
-
 public func RTDefuse()
 {
   rt_defusecnt++;
