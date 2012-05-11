@@ -69,8 +69,8 @@ func CreateInterior()
   CreateObject(H24K, 1775, 178, -1);
 
   //Stahlbrücken
-  CreateObject(_HBR, 305, 352, -1);
-  CreateObject(_HBR, 2495, 352, -1);
+  CreateObject(_HBR, 304, 352, -1);
+  CreateObject(_HBR, 2497, 352, -1);
 
   //Glasscheiben
   CreateObject(_WIN, 912, 320, -1);

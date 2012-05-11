@@ -106,7 +106,7 @@ func CreateInterior()
   CreateObject(PTNK, 1000, 750, -1)->AutoRespawn();
 
   //Stahlbrücke
-  CreateObject(_HBR, 1245, 762, -1);
+  CreateObject(_HBR, 1245, 762, -1)->SwitchMode();
 
   //Türenteam 1
 

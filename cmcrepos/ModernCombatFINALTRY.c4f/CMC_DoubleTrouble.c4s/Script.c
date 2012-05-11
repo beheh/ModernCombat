@@ -78,8 +78,8 @@ func CreateInterior()
   CreateObject(H24K, 1355, 608, -1);
 
   //Stahlbrücken
-  CreateObject(_HBR, 685, 612, -1);
-  CreateObject(_HBR, 955, 612, -1);
+  CreateObject(_HBR, 687, 612, -1);
+  CreateObject(_HBR, 954, 612, -1);
 
   //Gasflaschen
   CreateObject(GSBL, 365, 520, -1);
