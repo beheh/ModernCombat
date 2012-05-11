@@ -12,8 +12,8 @@ local ruins, destroyed;
 
 protected func Initialize()
 {
-  //Ruinen standardmäßig eingeschaltet
-  ruins = true;
+  //Ruinen standardmäßig ausgeschaltet
+  ruins = false;
 
   return 1;
 }
