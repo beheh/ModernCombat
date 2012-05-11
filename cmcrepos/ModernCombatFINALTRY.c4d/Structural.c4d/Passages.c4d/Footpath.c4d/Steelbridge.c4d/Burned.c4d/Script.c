@@ -2,6 +2,8 @@
 
 #strict 2
 
+public func IsRepairable()	{return false;}
+
 
 /* Aufschlag */
 

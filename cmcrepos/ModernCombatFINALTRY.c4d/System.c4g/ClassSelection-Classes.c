@@ -55,9 +55,9 @@ private func Class3Info(int iData, int iPlr)
   if(iData == CData_Ammo)       return [[STAM, 120], [MIAM, 4]];
   if(iData == CData_Items)
     if(FindObject(NOAM))
-      return [[MNGN, 1], [RTLR, 1], [DGNN, 1]];
+      return [[MNGN, 1], [RTLR, 1], [BWTH, 1]];
     else
-      return [[MNGN, 1], [RTLR, 1], [AMPK, 1], [DGNN, 1]];
+      return [[MNGN, 1], [RTLR, 1], [BWTH, 1], [AMPK, 1]];
   if(iData == CData_Grenades)   return [[STUN, 2], [SGRN, 1]];
   if(iData == CData_Gear)
     if(GetDarkness() >= 3)
@@ -77,7 +77,7 @@ private func Class4Info(int iData, int iPlr)
   if(iData == CData_Desc)       return "$antiskill_desc$";
   if(iData == CData_Clonk)      return PCMK;
   if(iData == CData_Ammo)       return [[STAM, 80]];
-  if(iData == CData_Items)      return [[PPGN, 1], [PSTL, 1], [RSHL, 1], [DGNN, 1]];
+  if(iData == CData_Items)      return [[PPGN, 1], [PSTL, 1], [RSHL, 1], [BWTH, 1]];
   if(iData == CData_Grenades)   return [[PGRN, 2], [STUN, 1], [SRBL, 1]];
   if(iData == CData_Gear)
     if(GetDarkness() >= 3)
