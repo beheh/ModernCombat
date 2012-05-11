@@ -1,5 +1,7 @@
 /*-- Entschärfbare Objekte --*/
 
+//Bestimmte Objekte können durch Schweißbrenner entschärft werden.
+
 #strict 2
 
 #appendto BBTP
@@ -9,6 +11,7 @@
 local rt_defusecnt;
 
 public func IsDefusable()	{return true;}
+
 
 public func RTDefuse()
 {
