@@ -6,6 +6,10 @@ local target;
 
 public func IsMachine()	{return 1;}
 
+public func IsFakeRepairable() { return (target && target->~IsRepairable() && GetDamage(target)); }
+
+public func GetRealRepairableObject() { return target; } 
+
 
 /* Timer */
 
