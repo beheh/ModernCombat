@@ -37,6 +37,7 @@ global func BonusPoints(string szType, extraData)
   if(szType == "ASDestructionAssist")		return 20;		//Hilfe bei Zielobjektzerstörung
   if(szType == "ASTeamDestruction")		return -50;		//Team-Zielobjektzerstörung
   if(szType == "ASTeamDestructionAssist")	return -20;		//Hilfe bei Team-Zielobjektzerstörung
+  if(szType == "Repair")			return 10;		//Reparatur
   //if("IncinerateClonk")			return 20;		//Anzündung gegnerischer Clonks
   //if("DestroyHomebase")			return 100;		//Zerstörung gegnerischer Heimatbasis
 }

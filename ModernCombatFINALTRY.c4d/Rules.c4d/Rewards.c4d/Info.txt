@@ -34,7 +34,7 @@ Fahrzeugzerstörung			50		Gefechtspunkte		IC03
 Beschädigung				10		Gefechtspunkte		IC18
 Projektilabwehr				10		Teampunkte		IC16
 Kill Assist aus Fahrzeug heraus		30		Teampunkte		IC02
-
+Reparatur				10		Teampunkte		IC15
 
 Peilsender:
 
