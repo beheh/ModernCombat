@@ -1,12 +1,12 @@
 /*-- Entschärfbare Objekte --*/
 
-//Bestimmte Objekte können durch Schweißbrenner entschärft werden.
+//Das Appendto macht bestimmte Objekte durch Schweißbrenner entschärfbar.
 
 #strict 2
 
-#appendto BBTP
-#appendto SRBL
-#appendto C4EX
+#appendto BBTP	//Sprengfallen
+#appendto SRBL	//Sensorbälle
+#appendto C4EX	//C4 Sätze
 
 local rt_defusecnt;
 
