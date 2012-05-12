@@ -18,7 +18,7 @@ public func IsRepairing()		{return fRepairing;}		//Reparierend
 public func IsDestroyed()		{return fDestroyed;}		//Zerstört
 public func IsCMCStructure()		{return true;}			//Ist eine CMC Struktur
 
-public func IsRepairable()	{return true;} //Reparierbar
+public func IsRepairable()		{return true;}			//Reparierbar
 
 /* Initialisierung */
 
