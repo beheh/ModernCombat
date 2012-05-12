@@ -292,6 +292,16 @@ public func Use(caller)
 
   used = false;
 
+  //Angreifbare Objekte suchen
+  var obj = caller->FindObject2(Find_Func("IsMeleeTarget"),		//Angreifbar?
+  			Find_AtRect(-10,-10,20,20));
+  if(obj)
+  {
+    //Objekt beschädigen
+    DoDmg(3, DMG_Fire, obj);
+
+    used = true;
+  }
   //Entschärfbare Objekte suchen
   var obj = caller->FindObject2(Find_Func("IsDefusable"),		//Entschärfbar?
   			Find_Hostile(GetOwner(caller)),			//Feindlich?
