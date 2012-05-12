@@ -141,9 +141,10 @@ public func ControlDig(object pBy)
 
 /* Allgemein */
 
-public func OnEmpty() {
-	if(Contained() && Contained()->~IsWeaponRack())
-	  Contained()->~OnEmpty();
+public func OnEmpty()
+{
+  if(Contained() && Contained()->~IsWeaponRack())
+    Contained()->~OnEmpty();
 }
 
 public func OnReload()

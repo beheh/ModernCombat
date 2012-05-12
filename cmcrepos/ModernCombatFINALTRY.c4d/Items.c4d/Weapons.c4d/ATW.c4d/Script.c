@@ -121,17 +121,6 @@ public func LaunchRocket(id rid, int angle)
 
 private func Check()
 {
-  /*//Wenn Waffe leer, gefeuert annehmen
-  if(!pRocket)
-  {
-    var ammoid = GetFMData(FM_AmmoID);
-    var ammousage = GetFMData(FM_AmmoUsage);
-    if(!CheckAmmo(ammoid,ammousage,this()))
-    {
-      fired = true;
-    }
-  }*/
-
   //Wegwurf wenn Rakete abgefeuert und/oder explodiert
   if(fired)
     if(!pRocket)
@@ -218,8 +207,9 @@ public func RejectEntrance()
 
 /* Allgemein */
 
-public func OnEmpty() {
-	fired = true;
+public func OnEmpty()
+{
+  fired = true;
 }
 
 public func OnSelect()
