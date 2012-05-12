@@ -80,12 +80,12 @@ func Initialize()
   CreateObject(LADR, 1400, 1110, -1)->Set(6);
 
   //Stahlbrücken
-  CreateObject(_HBR, 395, 1072, -1)->SwitchRuinsMode();
+  CreateObject(_HBR, 395, 1072, -1)->SwitchMode();
   CreateObject(_HBR, 605, 1072, -1);
-  CreateObject(_HBR, 726, 1122, -1)->SwitchRuinsMode();
-  CreateObject(_HBR, 1354, 1122, -1)->SwitchRuinsMode();
+  CreateObject(_HBR, 726, 1122, -1)->SwitchMode();
+  CreateObject(_HBR, 1354, 1122, -1)->SwitchMode();
   CreateObject(_HBR, 1475, 1072, -1);
-  CreateObject(_HBR, 1685, 1072, -1)->SwitchRuinsMode();
+  CreateObject(_HBR, 1685, 1072, -1)->SwitchMode();
 
   //Waffenautomaten
   SetUpStore(CreateObject(WPVM, 115, 390, -1));
