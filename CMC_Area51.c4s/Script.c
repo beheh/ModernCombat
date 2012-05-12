@@ -9,19 +9,24 @@
 func Initialize()
 {
   //Starttitel und Musikliste zusammenstellen
-  SetPlayList("CMC_Base Groove.ogg;CMC_Firehawk.ogg;CMC_Friendly Unit.ogg;CMC_Getaway.ogg;CMC_Moving Squad.ogg;CMC_Offensive.ogg;CMC_Showtime.ogg;CMC_Slow Motion.ogg;CMC_Striking Force.ogg;CMC_No Good.ogg;CMC_Obsession.ogg");
-  Music("CMC_Eurocorps.ogg",1);
+  SetPlayList("CMC_Redial.ogg;CMC_Base Groove.ogg;CMC_Firehawk.ogg;CMC_Friendly Unit.ogg;CMC_Getaway.ogg;CMC_Moving Squad.ogg;CMC_Offensive.ogg;CMC_Showtime.ogg;CMC_Slow Motion.ogg;CMC_Striking Force.ogg;CMC_No Good.ogg;CMC_Obsession.ogg");
+  Music("CMC_Redial.ogg",1);
 
   //Verzögerte Hinweisnachricht ausgeben
   Schedule("EventInfo4K(0,Format(\"$MsgWelcome$\"),PCMK, 0, 0, 0, \"PriorityInfo.ogg\");", 100);
 
-  //Bonusspawn
+  //Bonusspawns
   PlaceBonusSpawnpoint([MNYB], 720, 1100);
   PlaceBonusSpawnpoint([MNYB], 740, 1100);
   PlaceBonusSpawnpoint([MNYB], 760, 1100);
   PlaceBonusSpawnpoint([MNYB], 780, 1100);
   PlaceBonusSpawnpoint([MNYB], 800, 1100);
   PlaceBonusSpawnpoint([MNYB], 820, 1100);
+
+  PlaceBonusSpawnpoint([MNYB], 1030, 305);
+  PlaceBonusSpawnpoint([MNYB], 1030, 555);
+  PlaceBonusSpawnpoint([MNYB], 1050, 555);
+  PlaceBonusSpawnpoint([MNYB], 1050, 305);
 
   PlaceBonusSpawnpoint([MNYB], 1260, 1100);
   PlaceBonusSpawnpoint([MNYB], 1280, 1100);
@@ -78,6 +83,12 @@ func Initialize()
   //Leitern
   CreateObject(LADR, 680, 1110, -1)->Set(6);
   CreateObject(LADR, 1400, 1110, -1)->Set(6);
+
+  //Geschützstellungen
+  CreateObject(GNET, 1000, 310, -1)->Set(0,-90);
+  CreateObject(GNET, 1000, 560, -1)->Set(RLSA,-90);
+  CreateObject(GNET, 1080, 560, -1)->Set(RLSA,90);
+  CreateObject(GNET, 1080, 310, -1)->Set(0,90);
 
   //Stahlbrücken
   CreateObject(_HBR, 395, 1072, -1)->SwitchMode();
