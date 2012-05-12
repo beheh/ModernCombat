@@ -20,7 +20,6 @@ public func ReadyToFire()			{return 1;}				//Ständige Feuerbereitschaft
 public func RemoveTracer()			{return IsDestroyed();}			//Tracer entfernen, wenn zerstört
 public func DisableCH()				{return true;}				//Eventuelles Fadenkreuz des Clonks ausblenden
 public func MaxDamage()				{return 100;}
-public func IsRepairable()			{return true;}
 public func IsMachine()				{return true;}
 public func IsBulletTarget()			{return false;}
 public func IsThreat()				{return !IsDestroyed();}
@@ -29,6 +28,12 @@ public func AttractTracer(object pTracer)	{return GetPlayerTeam(GetController(pT
 public func IsStill()				{return true;}
 public func IsAiming()				{return true;}
 public func VaryingDir()			{if(AimAngle() > 0) return 3; else return 2;}
+
+public func StartRepair()
+{
+  return false;
+}
+
 public func MaxRotLeft()
 {
   if(iRotation==-90)
@@ -44,7 +49,6 @@ public func MaxRotRight()
   else
    return 75+iRotation;
 }
-
 
 /* Initialisierung */
 
