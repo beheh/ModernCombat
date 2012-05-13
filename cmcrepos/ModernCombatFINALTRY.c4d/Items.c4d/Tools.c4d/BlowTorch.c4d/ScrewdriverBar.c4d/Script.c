@@ -32,6 +32,7 @@ public func RejectEntrance()
 {
 	return true;
 }
+public func HasBarType(int barType) { return (iBarType == barType); }
 
 global func GetBarCount(object target, int iOwner, object exclude)
 {	
@@ -58,6 +59,8 @@ protected func Initialize()
 
 public func Set(object target, int color, int iType, bool fIcon, string szIcon, id idSrcDef, int iXAdjust, int iYAdjust)
 {
+	SetVisibility(VIS_None);
+
 	obj = target;
 	iBarCount = GetBarCount(obj, GetOwner(), this);
 	iBarType = iType;
