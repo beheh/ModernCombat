@@ -1,0 +1,1 @@
+Represents a specific status of an object.
