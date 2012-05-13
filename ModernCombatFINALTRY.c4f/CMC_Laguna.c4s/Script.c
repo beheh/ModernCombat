@@ -49,7 +49,7 @@ func CreateInterior()
   //Leitern
   CreateObject(LADR, 540, 690, -1)->Set(49);
   CreateObject(LADR, 645, 690, -1)->Set(49);
-  CreateObject(LADR, 1370, 710, -1)->Set(9);
+  CreateObject(LADR, 1370, 710, -1)->Set(9, LADR_Left|LADR_Right|LADR_Front|LADR_Additional, "W");
   CreateObject(LADR, 1930, 732, -1)->Set(18);
   CreateObject(LADR, 2015, 580, -1)->Set(14);
   CreateObject(LADR, 2100, 732, -1)->Set(18);

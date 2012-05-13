@@ -36,11 +36,11 @@ func CreateInterior()
   CreateObject(BRDG, 1210, 455, -1);
 
   //Leitern
-  CreateObject(LADR, 230, 650, -1)->Set(11);
-  CreateObject(LADR, 425, 338, -1)->Set(14);
-  CreateObject(LADR, 865, 790, -1)->Set(14);
-  CreateObject(LADR, 1090, 690, -1)->Set(31);
-  CreateObject(LADR, 1350, 595, -1)->Set(10);
+  CreateObject(LADR, 230, 650, -1)->Set(11, LADR_Left|LADR_Right|LADR_Front|LADR_Additional, "W");
+  CreateObject(LADR, 425, 338, -1)->Set(14, LADR_Left|LADR_Right|LADR_Front|LADR_Additional, "W");
+  CreateObject(LADR, 865, 790, -1)->Set(14, LADR_Left|LADR_Right|LADR_Front|LADR_Additional, "W");
+  CreateObject(LADR, 1090, 690, -1)->Set(31, LADR_Left|LADR_Right|LADR_Front|LADR_Additional, "W");
+  CreateObject(LADR, 1350, 595, -1)->Set(10, LADR_Left|LADR_Right|LADR_Front|LADR_Additional, "W");
 
   //Bodenluken
   CreateObject(HA4K, 1310, 623, -1);

@@ -35,26 +35,26 @@ func CreateInterior()
   Log("$CreatingInterior$");
 
   //Leitern
-  CreateObject(LADR, 430, 930, -1)->Set(22);
-  CreateObject(LADR, 460, 1240, -1)->Set(35);
+  CreateObject(LADR, 430, 930, -1)->Set(22, LADR_Left|LADR_Right|LADR_Front|LADR_Additional, "W");
+  CreateObject(LADR, 460, 1240, -1)->Set(35, LADR_Left|LADR_Right|LADR_Front|LADR_Additional, "W");
 
   CreateObject(LADR, 460, 540, -1)->Set(4);
   CreateObject(LADR, 790, 750, -1)->Set(19);
-  CreateObject(LADR, 1220, 1178, -1)->Set(40);
+  CreateObject(LADR, 1220, 1178, -1)->Set(40, LADR_Left|LADR_Right|LADR_Front|LADR_Additional, "W");
   CreateObject(LADR, 1250, 844, -1)->Set(27);
 
   CreateObject(LADR, 2020, 850, -1)->Set(19);
-  CreateObject(LADR, 2040, 1170, -1)->Set(39);
-  CreateObject(LADR, 2200, 1170, -1)->Set(39);
+  CreateObject(LADR, 2040, 1170, -1)->Set(39, LADR_Left|LADR_Right|LADR_Front|LADR_Additional, "W");
+  CreateObject(LADR, 2200, 1170, -1)->Set(39, LADR_Left|LADR_Right|LADR_Front|LADR_Additional, "W");
   CreateObject(LADR, 2220, 850, -1)->Set(19);
 
   CreateObject(LADR, 2990, 844, -1)->Set(27);
-  CreateObject(LADR, 3020, 1178, -1)->Set(40);
+  CreateObject(LADR, 3020, 1178, -1)->Set(40, LADR_Left|LADR_Right|LADR_Front|LADR_Additional, "W");
   CreateObject(LADR, 3450, 750, -1)->Set(19);
   CreateObject(LADR, 3780, 540, -1)->Set(4);
 
-  CreateObject(LADR, 3810, 930, -1)->Set(22);
-  CreateObject(LADR, 3780, 1240, -1)->Set(35);
+  CreateObject(LADR, 3780, 1240, -1)->Set(35, LADR_Left|LADR_Right|LADR_Front|LADR_Additional, "W");
+  CreateObject(LADR, 3810, 930, -1)->Set(22, LADR_Left|LADR_Right|LADR_Front|LADR_Additional, "W");
 
   //Bodenluken
   CreateObject(HA4K, 460, 503, -1);
