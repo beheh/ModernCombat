@@ -1,2 +1,2 @@
-DE:CMC
-US:CMC
+DE:CMC Stern
+US:CMC Star
