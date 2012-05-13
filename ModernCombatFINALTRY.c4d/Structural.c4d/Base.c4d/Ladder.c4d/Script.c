@@ -67,6 +67,9 @@ public func Set(int iNewLength, int iDir, string szGraphic)
   if(iNewLength <= 0)
     return(0);
 
+	if(!szGraphic)
+		szGraphic = "";
+	
   if(l_graphic != szGraphic)
   {
     l_graphic = szGraphic;
