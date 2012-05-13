@@ -40,7 +40,7 @@ public func FxAmmoBarsStart(object target, int nr)
 
 public func FxAmmoBarsTimer(object target, int nr)
 {
-  if(!Contained()->~IsClonk() || Contents(0, Contained()) != this)
+  if(!Contained() || !Contained()->~IsClonk() || Contents(0, Contained()) != this)
   {
     if(!EffectVar(1, target, nr))
     {
