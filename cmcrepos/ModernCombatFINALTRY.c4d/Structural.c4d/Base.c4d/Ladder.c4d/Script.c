@@ -95,7 +95,7 @@ public func Set(int iNewLength, int iDir, string szGraphic)
         AddGraphics(Format("Part%d", i), LADR);
     }
     Redraw();
-    return(Set(iNewLength));
+    return(Set(iNewLength, 0, szGraphic));
   }
   //Falls neue Länge größer als momentane
   if(length < iNewLength)
