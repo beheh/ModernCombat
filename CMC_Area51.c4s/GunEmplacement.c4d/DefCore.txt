@@ -7,6 +7,7 @@ Width=32
 Height=18
 Value=90
 Mass=170
+Picture=32,0,50,45
 Offset=-16,0
 Entrance=-9,0,19,18
 Vertices=6

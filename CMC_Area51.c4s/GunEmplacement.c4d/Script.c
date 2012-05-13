@@ -28,7 +28,6 @@ public func AttractTracer(object pTracer)	{return GetPlayerTeam(GetController(pT
 public func IsStill()				{return true;}
 public func IsAiming()				{return true;}
 public func VaryingDir()			{if(AimAngle() > 0) return 3; else return 2;}
-
 public func StartRepair()
 {
   return false;
@@ -49,6 +48,7 @@ public func MaxRotRight()
   else
    return 75+iRotation;
 }
+
 
 /* Initialisierung */
 
@@ -223,7 +223,7 @@ public func GetShield()
 public func WeaponAt(&x, &y, &r)
 {
   x = Sin(GetR()-180, 7000);
-  y = -Cos(GetR()-180, 7000);
+  y = -Cos(GetR()-250, 7000);
   r = aim_angle+630+GetR();
 
   return 1;
