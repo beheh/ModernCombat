@@ -77,8 +77,6 @@ public func Set(object target, int color, int iType, bool fIcon, string szIcon, 
   return true;
 }
 
-public func Destruction() { return FatalError(); }
-
 public func SetBarCount(int iCount)
 {
   iBarCount = iCount;
