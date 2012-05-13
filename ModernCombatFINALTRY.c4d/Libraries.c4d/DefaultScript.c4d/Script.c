@@ -51,8 +51,15 @@ func ChooserRuleConfig()
 
 /* Spielerinitalisierung */
 
+static CSTD_CMCDevelopers;
+
 protected func InitializePlayer(int iPlr, int iX, int iY, object pBase, int iTeam)
 {
+	if(GetType(CSTD_CMCDevelopers) != C4V_Array)
+		CSTD_CMCDevelopers = [];
+	
+	CSTD_CMCDevelopers[GetPlayerID(iPlr)] = IsCMCTeamMember(iPlr);
+
   LoadRanks2Cache();
   var db;
   if(db = FindObject(RWDS))
@@ -61,6 +68,8 @@ protected func InitializePlayer(int iPlr, int iX, int iY, object pBase, int iTea
   for(var i=0, pCrew ; pCrew = GetCrew(iPlr, i) ; i++)
     RelaunchPlayer(iPlr, pCrew, 0, iTeam, true);
 }
+
+global func IsDeveloper(int iPlayerID) { return CSTD_CMCDevelopers[iPlayerID]; }
 
 /* Relaunch */
 
