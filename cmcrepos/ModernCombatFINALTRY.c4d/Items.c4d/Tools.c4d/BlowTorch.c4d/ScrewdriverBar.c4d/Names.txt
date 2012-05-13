@@ -1,2 +1,2 @@
-DE:Munitionsbalken
-US:Ammo Bar
+DE:Statusbalken
+US:Status bar
