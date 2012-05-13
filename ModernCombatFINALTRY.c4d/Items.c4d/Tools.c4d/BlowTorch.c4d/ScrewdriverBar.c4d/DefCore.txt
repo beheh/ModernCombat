@@ -8,3 +8,5 @@ Height=16
 Offset=-20,-8
 Vertices=1
 Picture=0,0,40,16
+Timer=1
+TimerCall=PositionToVertex

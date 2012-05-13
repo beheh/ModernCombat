@@ -52,10 +52,9 @@ public func Set(object target, int color, int iType, bool fIcon, string szIcon, 
   iBarCount = GetBarCount(obj, GetOwner());
   iBarType = iType;
 
-  SetVertex(0, 0, GetVertex(0, 0, target));
-
   //Balken setzen
-  SetVertex(0, 1, GetVertex(0, 1, target) - GetObjHeight(target) / 2 - (iBarCount * 10));
+  PositionToVertex();
+  //SetVertex(0, 1, GetVertex(0, 1, target) - GetObjHeight(target) / 2 - (iBarCount * 10));
 
   //Und festsetzen
   SetAction("Attach", target);
@@ -85,12 +84,12 @@ public func SetBarCount(int iCount)
   iBarCount = iCount;
 }
 
-local tPercent; 
+local tPercent;
 
-public func Update(int percent, bool fDeactivate)
+public func PositionToVertex()
 {
-  //Anpassen (falls andere Anzeigen vorhanden)
-  var ypos = 10;
+  SetVertex(0, 0, GetVertex(0, 0, obj));
+	var ypos = 10;
   
   if(GetBarType() && iBarCount != GetBarCount(obj, GetOwner()))
   {
@@ -100,9 +99,17 @@ public func Update(int percent, bool fDeactivate)
   			ypos += 10;
   	}
   	
-  	SetVertex(0, 1, GetVertex(0, 1, obj) - GetObjHeight(obj) / 2 - ypos);
+  	SetVertex(0, 1, GetVertex(0, 1, obj) - GetDefHeight(GetID(obj)) / 2 - ypos);
   	iBarCount = GetBarCount(obj, GetOwner(obj));
   }
+  
+  return true;
+}
+
+public func Update(int percent, bool fDeactivate)
+{
+  //Anpassen (falls andere Anzeigen vorhanden)
+  //PositionToVertex();
 
   if(fDeactivate && fActive)
   {
