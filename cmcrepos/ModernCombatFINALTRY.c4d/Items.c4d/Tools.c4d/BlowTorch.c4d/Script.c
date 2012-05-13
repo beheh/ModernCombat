@@ -301,6 +301,7 @@ public func Use(caller)
     DoDmg(3, DMG_Fire, obj);
 
     used = true;
+    charge = BoundBy(charge-1, 0, MaxEnergy());
   }
   //Entschärfbare Objekte suchen
   var obj = caller->FindObject2(Find_Func("IsDefusable"),		//Entschärfbar?
@@ -313,6 +314,7 @@ public func Use(caller)
       DoPlayerPoints(BonusPoints("TechnicalTask"), RWDS_TeamPoints, GetOwner(caller), caller, IC15);
 
     used = true;
+    charge = BoundBy(charge-1, 0, MaxEnergy());
   }
   else
   {
