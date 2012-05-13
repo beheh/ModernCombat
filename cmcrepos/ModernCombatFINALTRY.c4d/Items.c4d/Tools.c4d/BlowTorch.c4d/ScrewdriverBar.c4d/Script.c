@@ -62,7 +62,7 @@ public func Set(object target, int color, int iType, bool fIcon, string szIcon, 
 	SetVisibility(VIS_None);
 
 	obj = target;
-	iBarCount = GetBarCount(obj, GetOwner(), this);
+	iBarCount = GetBarCount(obj, GetOwner());
 	iBarType = iType;
 
 	SetVertex(0, 0, GetVertex(0, 0, target));
