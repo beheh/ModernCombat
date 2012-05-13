@@ -9,14 +9,6 @@ public func WeaponCollectionLimit()	{return 3;}	//Anzahl Waffen im Inventar
 public func ObjectCollectionLimit()	{return 2;}	//Anzahl Objekte im Inventar
 
 
-/* Initialisierung */
-
-public func Initialize()
-{
-	UpdateAmmoBars();
-	return _inherited();
-}
-
 /* Portrait-Updates */
 
 protected func Recruitment()
@@ -52,46 +44,6 @@ private func AbortWalk()
 protected func ContactBottom()
 {
 	return;
-}
-
-protected func UpdateAmmoBars()
-{
-	if (FindObject(NOAM))
-	{
-		RemoveAll(ABAR);
-	}
-	else 
-	{
-		for (var clonk in FindObjects(Find_OCF(OCF_Alive), Find_OCF(OCF_CrewMember), Find_NoContainer(), Find_Exclude(this))) 
-		{
-			var breaks = false;
-			for (var bar in FindObjects(Find_ID(ABAR), Find_ActionTarget(clonk))) 
-			{
-				if (GetOwner(bar) == GetOwner())
-				{
-					if (!Contents() || GetID(Contents()) != AMPK)
-					{
-						RemoveObject(bar);
-					}
-					else 
-					{
-						bar->SetBarCount(GetLength(FindObjects(Find_Func("IsBar"), Find_Func("BarActive"), Find_ActionTarget(clonk), Find_Owner(GetOwner()))));
-					}
-					breaks = true;
-				}
-			}
-			if (breaks)
-				continue;
-			if (!Contents() || GetID(Contents()) != AMPK)
-				continue;
-			if (Hostile(GetOwner(clonk), GetOwner()))
-				continue;
-			if (!GetPlayerName(GetController(clonk)))
-				continue;
-			CreateObject(ABAR, AbsX(GetX(clonk)), AbsY(GetY(clonk)), GetOwner())->Set(clonk, RGB(255, 255, 80), GetLength(FindObjects(Find_Func("IsBar"), Find_Func("BarActive"), Find_ActionTarget(clonk), Find_Owner(GetOwner()))) + 1);
-		}
-	}
-	ScheduleCall(0, "UpdateAmmoBars", 1);
 }
 
 /* KI-Erweiterung */

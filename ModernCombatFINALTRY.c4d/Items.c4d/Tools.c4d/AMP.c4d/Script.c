@@ -25,7 +25,88 @@ protected func Initialize()
   //Regel "Keine Munition" - Wird nicht gebraucht
   if (NoAmmo())
     return ScheduleCall(this, "RemoveObject", 1);
+  
+  AddEffect("AmmoBars", this, 101, 1, this);
+  
   return _inherited(...);
+}
+
+public func FxAmmoBarsStart(object target, int nr)
+{
+	EffectVar(0, target, nr) = [];
+	return true;
+}
+
+public func FxAmmoBarsTimer(object target, int nr)
+{
+	if(!Contained()->~IsClonk() || Contents(0, Contained()) != this)
+	{
+		if(!EffectVar(1, target, nr))
+		{
+			for(var bar in EffectVar(0, target, nr))
+				if(bar)
+					bar->Update(0, true);
+			
+			EffectVar(1, target, nr) = true;
+		}
+		
+		return 0;
+	}
+	
+	EffectVar(1, target, nr) = false;
+	
+	var owner = GetOwner(Contained());
+
+	// Balken updaten
+	for(var bar in EffectVar(0, target, nr))
+	{
+		if(!bar)
+			continue;
+	
+		var actTarget = GetActionTarget(0, bar); var weapon;
+		if(!actTarget || !(GetOCF(actTarget) & OCF_Alive) || Hostile(GetOwner(actTarget), owner) || Contained(actTarget))
+			bar->Update(0, true);
+		else if(!(weapon = Contents(0, actTarget)) || !Contents(0, actTarget)->~IsWeapon() || !actTarget->~AmmoStoring())
+			bar->Update(0, true);
+		else if(!GetPlayerName(GetOwner(actTarget)))
+			RemoveObject(bar);
+		else
+		{
+			//Munitionsdaten einholen
+			var ammocount = actTarget->GetAmmo(weapon->GetFMData(FM_AmmoID));
+			var ammomax = weapon->GetFMData(FM_AmmoLoad);
+
+			//Falls maximal 1 im Magazin, 10fach als 100%, ansonsten 3fach
+			if(ammomax == 1)
+				ammomax *= 10;
+			else 
+				ammomax *= 3;
+
+			//Prozentsatz errechnen
+			var percent = BoundBy((((100 * 1000) / ammomax) * ammocount) / 1000, 0, 100);
+			
+			bar->Update(percent, (percent >= 95));
+		}
+	}
+	
+	for(var clonk in FindObjects(Find_OCF(OCF_Alive), Find_OCF(OCF_CrewMember), Find_NoContainer(), Find_Exclude(Contained()), Find_Not(Find_Hostile(owner))))
+	{
+		if(FindObject2(Find_ID(SBAR), Find_ActionTarget(clonk), Find_Owner(owner), Find_Func("HasBarType", BAR_Ammobar))) // Hat schon einen Balken?
+			continue;
+		
+		var bar = CreateObject(SBAR, 0, 0, owner);
+    bar->Set(clonk, RGB(255, 255, 80), BAR_Ammobar, true, "", IC14);
+    EffectVar(0, target, nr)[GetLength(EffectVar(0, target, nr))] = bar;
+	}
+	
+	return true;
+}
+
+public func FxAmmoBarsStop(object target, int nr)
+{
+	for(var bar in EffectVar(0, target, nr))
+		if(bar)
+			RemoveObject(bar);
 }
 
 /* Munition entnehmen */
