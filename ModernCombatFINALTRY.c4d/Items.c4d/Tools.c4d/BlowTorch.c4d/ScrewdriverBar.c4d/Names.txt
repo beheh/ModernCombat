@@ -1,2 +1,0 @@
-DE:Statusbalken
-US:Status bar
