@@ -78,6 +78,8 @@ public func Set(object target, int color, int iType, bool fIcon, string szIcon, 
   return true;
 }
 
+public func Destruction() { return FatalError(); }
+
 public func SetBarCount(int iCount)
 {
   iBarCount = iCount;
@@ -88,7 +90,19 @@ local tPercent;
 public func Update(int percent, bool fDeactivate)
 {
   //Anpassen (falls andere Anzeigen vorhanden)
-  SetVertex(0, 1, GetVertex(0, 1, obj) - GetObjHeight(obj) / 2 - (GetBarCount(obj, GetOwner(), this) * 10));
+  var ypos = 10;
+  
+  if(GetBarType() && iBarCount != GetBarCount(obj, GetOwner()))
+  {
+  	for(var bar in FindObjects(Find_Func("IsBar"), Find_Func("BarActive"), Find_ActionTarget(obj), Find_Owner(GetOwner())))
+  	{
+  		if(bar->GetBarType() < GetBarType())
+  			ypos += 10;
+  	}
+  	
+  	SetVertex(0, 1, GetVertex(0, 1, obj) - GetObjHeight(obj) / 2 - ypos);
+  	iBarCount = GetBarCount(obj, GetOwner(obj));
+  }
 
   if(fDeactivate && fActive)
   {

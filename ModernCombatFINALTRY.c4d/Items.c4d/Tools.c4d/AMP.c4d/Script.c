@@ -27,7 +27,7 @@ protected func Initialize()
     return ScheduleCall(this, "RemoveObject", 1);
 
   //Munitionsbalken erstellen
-  AddEffect("AmmoBars", this, 101, 1, this);
+  AddEffect("AmmoBars", this, 20, 1, this);
 
   return _inherited(...);
 }

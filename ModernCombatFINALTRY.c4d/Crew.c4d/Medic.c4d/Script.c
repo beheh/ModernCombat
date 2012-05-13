@@ -19,7 +19,7 @@ public func HazardGearSupported(object pGear)
 func Initialize()
 {
   //UpdateMediHUD();
-  AddEffect("EnergyBars", this, 101, 1, this);
+  AddEffect("EnergyBars", this, 20, 1, this);
   _inherited(...);
 }
 
@@ -52,7 +52,7 @@ public func FxEnergyBarsTimer(object target, int nr)
   {
     if(!bar)
       continue;
-
+		
     var actTarget = GetActionTarget(0, bar);
     if(!actTarget || !(GetOCF(actTarget) & OCF_Alive) || Hostile(GetOwner(actTarget), GetOwner(target)) || Contained(actTarget) || GetCursor(GetOwner(target)) != target)
       bar->Update(0, true);
