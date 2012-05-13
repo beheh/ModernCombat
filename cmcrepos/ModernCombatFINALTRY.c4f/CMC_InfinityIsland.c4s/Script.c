@@ -38,21 +38,21 @@ func CreateInterior()
   CreateObject(LFTP, 1535, 1270, -1);
 
   //Leitern
-  CreateObject(LADR, 1255, 1260, -1)->Set(14);
+  CreateObject(LADR, 1255, 1260, -1)->Set(14, LADR_Left);
   CreateObject(LADR, 1480, 1260, -1)->Set(28);
   CreateObject(LADR, 1590, 1260, -1)->Set(28);
   CreateObject(LADR, 1720, 1250, -1)->Set(9);
   CreateObject(LADR, 1880, 1258, -1)->Set(10);
   CreateObject(LADR, 2040, 1258, -1)->Set(10);
   CreateObject(LADR, 2200, 1258, -1)->Set(10);
-  CreateObject(LADR, 2395, 1260, -1)->Set(14);
+  CreateObject(LADR, 2395, 1260, -1)->Set(14, LADR_Right);
 
-  CreateObject(LADR, 3530, 1260, -1)->Set(17);
-  CreateObject(LADR, 3635, 1055, -1)->Set(5);
-  CreateObject(LADR, 3910, 640, -1)->Set(7);
-  CreateObject(LADR, 4240, 795, -1)->Set(26);
-  CreateObject(LADR, 4380, 805, -1)->Set(7);
-  CreateObject(LADR, 4650, 1070, -1)->Set(19);
+  CreateObject(LADR, 3530, 1260, -1)->Set(17, LADR_Left|LADR_Right|LADR_Front|LADR_Additional, "W");
+  CreateObject(LADR, 3635, 1055, -1)->Set(5, LADR_Left|LADR_Right|LADR_Front|LADR_Additional, "W");
+  CreateObject(LADR, 3910, 640, -1)->Set(7, LADR_Left|LADR_Right|LADR_Front|LADR_Additional, "W");
+  CreateObject(LADR, 4240, 795, -1)->Set(26, LADR_Left|LADR_Right|LADR_Front|LADR_Additional, "W");
+  CreateObject(LADR, 4380, 805, -1)->Set(7, LADR_Left|LADR_Right|LADR_Front|LADR_Additional, "W");
+  CreateObject(LADR, 4650, 1070, -1)->Set(19, LADR_Left|LADR_Right|LADR_Front|LADR_Additional, "W");
   CreateObject(LADR, 5425, 1267, -1)->Set(4);
   CreateObject(LADR, 5575, 1267, -1)->Set(4);
 
@@ -206,6 +206,10 @@ func CreateInterior()
     RemoveObject(obj);
 
   //Sounds
+
+  //Zikaden
+  CreateObject(SE4K, 3670, 780, -1)->Set("Cicada*.ogg",700,100);
+  CreateObject(SE4K, 4430, 800, -1)->Set("Cicada*.ogg",700,100);
 
   //Wind
   CreateObject(SE4K, 1100, 300, -1)->Set("WindSound*.ogg",3000,105);
