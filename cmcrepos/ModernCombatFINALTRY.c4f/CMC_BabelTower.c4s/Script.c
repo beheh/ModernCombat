@@ -5,6 +5,8 @@
 
 static aFlag, aSelfDefense;
 
+public func SpecificEquipment()	{return [[JTPK, 1]];} //Zusatzausrüstung: Jetpack
+
 
 /* Regelvoreinstellung */
 

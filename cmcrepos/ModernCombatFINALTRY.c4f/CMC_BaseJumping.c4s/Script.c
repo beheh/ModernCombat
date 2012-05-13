@@ -5,6 +5,8 @@
 
 static aFlag;
 
+public func SpecificEquipment()	{return [[PPAR, 1]];} //Zusatzausrüstung: Fallschirmrucksack
+
 
 /* Regelvoreinstellung */
 
