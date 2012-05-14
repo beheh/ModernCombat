@@ -281,6 +281,14 @@ private func OpenMenu(object pClonk, int iSelection)
 
   //Ausrüstung
   var szGear = "", aGear = GetCData(iClass, CData_Gear);
+  var aAdditionalGear = GameCall("SpecificEquipment");
+
+  if(GetType(aAdditionalGear) == C4V_Array)
+    AddArray4K(aAdditionalGear, aGear);
+  
+  if(GetDarkness() >= 3)
+  	aGear[GetLength(aGear)] = [FLSH, 1];
+  
   for(var aEntry in aGear)
   {
     if(GetType(aEntry) != C4V_Array || GetType(aEntry[0]) != C4V_C4ID || !aEntry[0]->~IsHazardGear())
@@ -403,10 +411,13 @@ public func SetupClass(int iClass, int iPlr)
 
   if(GetType(aAdditionalGear) == C4V_Array)
     AddArray4K(aAdditionalGear, aGear);
+ 	
+ 	if(GetDarkness() >= 3)
+  	aGear[GetLength(aGear)] = [FLSH, 1];
 
-  for (var aEntry in aGear)
-    if (GetType(aEntry) == C4V_Array && GetType(aEntry[0]) == C4V_C4ID && aEntry[0]->~IsHazardGear())
-      while (aEntry[1]--)
+  for(var aEntry in aGear)
+    if(GetType(aEntry) == C4V_Array && GetType(aEntry[0]) == C4V_C4ID && aEntry[0]->~IsHazardGear())
+      while(aEntry[1]--)
         CreateObject(aEntry[0], 0, 0, iPlr)->~Activate(pCrew);
 
   //Nachricht
