@@ -16,11 +16,6 @@ private func Class1Info(int iData, int iPlr)
   if(iData == CData_Ammo)       return [[STAM, 90], [GRAM, 8]];
   if(iData == CData_Items)      return [[ASTR, 1], [PSTL, 1], [C4PA, 1], [DGNN, 1]];
   if(iData == CData_Grenades)   return [[STUN, 2], [SGRN, 1]];
-  if(iData == CData_Gear)
-    if(GetDarkness() >= 3)
-      return [[FLSH, 1]];
-    else
-      return [[]];
   if(iData == CData_Facet)      return 1;
   return Default(iData);
 }
@@ -36,11 +31,6 @@ private func Class2Info(int iData, int iPlr)
   if(iData == CData_Ammo)       return [[STAM, 80]];
   if(iData == CData_Items)      return [[SMGN, 1], [PSTL, 1], [CDBT, 1], [FAPK, 1]];
   if(iData == CData_Grenades)   return [[FGRN, 1], [FRAG, 2], [SRBL, 1]];
-  if(iData == CData_Gear)
-    if(GetDarkness() >= 3)
-      return [[FLSH, 1]];
-    else
-      return [[]];
   if(iData == CData_Facet)      return 2 ;
   return Default(iData);
 }
@@ -59,11 +49,6 @@ private func Class3Info(int iData, int iPlr)
     else
       return [[MNGN, 1], [RTLR, 1], [BWTH, 1], [AMPK, 1]];
   if(iData == CData_Grenades)   return [[STUN, 2], [SGRN, 1]];
-  if(iData == CData_Gear)
-    if(GetDarkness() >= 3)
-      return [[FLSH, 1]];
-    else
-      return [[]];
   if(iData == CData_Facet)      return 3;
   return Default(iData);
 }
@@ -79,11 +64,6 @@ private func Class4Info(int iData, int iPlr)
   if(iData == CData_Ammo)       return [[STAM, 80]];
   if(iData == CData_Items)      return [[PPGN, 1], [PSTL, 1], [RSHL, 1], [BWTH, 1]];
   if(iData == CData_Grenades)   return [[PGRN, 2], [STUN, 1], [SRBL, 1]];
-  if(iData == CData_Gear)
-    if(GetDarkness() >= 3)
-      return [[FLSH, 1]];
-    else
-      return [[]];
   if(iData == CData_Facet)      return 4;
   return Default(iData);
 }
@@ -98,11 +78,6 @@ private func Class5Info(int iData, int iPlr)
   if(iData == CData_Ammo)       return [[STAM, 50], [GRAM, 30]];
   if(iData == CData_Items)      return [[SGST, 1], [PSTL, 1], [BBTP, 2]];
   if(iData == CData_Grenades)   return [[PGRN, 2], [FGRN, 2]];
-  if(iData == CData_Gear)
-    if(GetDarkness() >= 3)
-      return [[FLSH, 1]];
-    else
-      return [[]];
   if(iData == CData_Facet)      return 5;
   return Default(iData);
 }
