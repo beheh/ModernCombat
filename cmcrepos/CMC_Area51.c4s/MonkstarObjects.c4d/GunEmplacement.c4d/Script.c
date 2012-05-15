@@ -54,6 +54,7 @@ public func MaxRotRight()
 
 public func Initialize() 
 {
+	SetAction("Ready");
   AddEffect("ShowWeapon", this, 1, 1, this, GetID());
   //SetGraphics(0,this,GetID(),3,5,0,0,this);
 
@@ -128,11 +129,11 @@ public func Destruction()
 
 public func OnRepair()
 {
-  SetAction("Idle");
+  SetAction("Ready");
   Arm(last_id);
 
   if(fShield)
-    GetShield();
+    GetShield();    
 }
 
 /* Bonus-Punkte */
@@ -264,7 +265,7 @@ public func FxActivityTimer(object pTarget, int iEffectNumber, int iEffectTime)
     if(GetAttWeapon())
     {
       GetAttWeapon()->~StopAutoFire();
-      SetController(-1, GetAttWeapon());
+      SetOwner(-1, GetAttWeapon());
     }
 
     if(pShield)
@@ -280,7 +281,7 @@ public func FxActivityTimer(object pTarget, int iEffectNumber, int iEffectTime)
       SetPlrView(GetOwner(controller), controller);
     }
 
-    SetController(-1, this);
+    SetOwner(-1, this);
     controller=-1;
     iPat_Dir=0;
     return;
@@ -391,7 +392,7 @@ protected func ActivateEntrance(pUser)
     SetDir(1, pUser);
 
   //Clonkposition anpassen
-  SetController(GetOwner(pUser));
+  SetOwner(GetOwner(pUser));
   InitAim();
   pUser->SetHUDTarget(GetAttWeapon());
   SetOwner(GetOwner(pUser));
@@ -408,7 +409,7 @@ protected func ActivateEntrance(pUser)
     SetOwner(GetOwner(pUser), pShield);
 
   if(GetAttWeapon())
-    SetController(GetOwner(pUser), GetAttWeapon());
+    SetOwner(GetOwner(pUser), GetAttWeapon());
 
   if(!GetEffect("Activity",this))
     AddEffect("Activity", this, 1, 1 ,this);
@@ -439,7 +440,7 @@ private func ExitClonk(object byObject)
     if(GetAttWeapon())
     {
       GetAttWeapon()->~StopAutoFire();
-      SetController(-1, GetAttWeapon());
+      SetOwner(-1, GetAttWeapon());
     }
 
     if(pShield)
@@ -447,7 +448,7 @@ private func ExitClonk(object byObject)
       SetOwner(-1, pShield);
       pShield->SetColorDw(-1);
     }
-    SetController(-1, this);
+    SetOwner(-1, this);
     return(1); 
   }
   return(0);
@@ -499,7 +500,7 @@ protected func ControlThrow(object byObj)
   if(!GetAttWeapon())
     return true;
 
-  SetController(GetController(byObj), GetAttWeapon());
+  SetOwner(GetController(byObj), GetAttWeapon());
 
   if(GetAttWeapon()->IsShooting())
     GetAttWeapon()->StopAutoFire();
