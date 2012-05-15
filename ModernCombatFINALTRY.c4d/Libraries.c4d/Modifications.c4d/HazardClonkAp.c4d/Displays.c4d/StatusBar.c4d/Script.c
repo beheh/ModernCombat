@@ -135,5 +135,3 @@ public func AttachTargetLost()
 {
   return RemoveObject();
 }
-
-public func Destruction() { return FatalError(); }
