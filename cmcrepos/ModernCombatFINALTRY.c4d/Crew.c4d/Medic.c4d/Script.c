@@ -19,7 +19,7 @@ public func HazardGearSupported(object pGear)
 func Initialize()
 {
   //UpdateMediHUD();
-  AddEffect("EnergyBars", this, 20, 1, this);
+  AddEffect("EnergyBars", this, 1, 1, this);
   _inherited(...);
 }
 
@@ -54,10 +54,10 @@ public func FxEnergyBarsTimer(object target, int nr)
       continue;
 		
     var actTarget = GetActionTarget(0, bar);
-    if(!actTarget || !(GetOCF(actTarget) & OCF_Alive) || Hostile(GetOwner(actTarget), GetOwner(target)) || Contained(actTarget) || GetCursor(GetOwner(target)) != target)
-      bar->Update(0, true);
-    else if(!GetPlayerName(GetOwner(actTarget)))
+    if(!(GetOCF(actTarget) & OCF_Alive) || Hostile(GetOwner(actTarget), GetOwner(target)) || !GetPlayerName(GetOwner(actTarget)))
       RemoveObject(bar);
+    else if(Contained(actTarget) || GetCursor(GetOwner(target)) != target)
+      bar->Update(0, true);
     else
     {
       var percent = BoundBy(100000 * GetEnergy(actTarget) / GetPhysical("Energy", PHYS_Current, actTarget), 0, 100);
