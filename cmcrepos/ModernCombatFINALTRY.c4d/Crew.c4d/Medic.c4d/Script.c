@@ -52,7 +52,7 @@ public func FxEnergyBarsTimer(object target, int nr)
   {
     if(!bar)
       continue;
-		
+
     var actTarget = GetActionTarget(0, bar);
     if(!(GetOCF(actTarget) & OCF_Alive) || Hostile(GetOwner(actTarget), GetOwner(target)) || !GetPlayerName(GetOwner(actTarget)))
       RemoveObject(bar);

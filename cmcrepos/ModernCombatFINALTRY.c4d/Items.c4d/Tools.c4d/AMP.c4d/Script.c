@@ -40,9 +40,9 @@ public func FxAmmoBarsStart(object target, int nr)
 
 public func FxAmmoBarsTimer(object target, int nr)
 {
-	if(!Contained() || !Contained()->~IsClonk())
-	{
-		if(!EffectVar(1, target, nr))
+  if(!Contained() || !Contained()->~IsClonk())
+  {
+    if(!EffectVar(1, target, nr))
     {
       for(var bar in EffectVar(0, target, nr))
         if(bar)
@@ -51,7 +51,7 @@ public func FxAmmoBarsTimer(object target, int nr)
       EffectVar(1, target, nr) = true;
     }
     return 0;
-	}
+  }
   else if(Contents(0, Contained()) != this)
   {
     if(!EffectVar(1, target, nr))
@@ -75,10 +75,10 @@ public func FxAmmoBarsTimer(object target, int nr)
       continue;
 
     var actTarget = GetActionTarget(0, bar); var weapon;
-    // actTarget lebt nicht mehr / ist verfeindet oder sein Spieler existiert nicht mehr? Balken löschen.
+    //actTarget lebt nicht mehr / ist verfeindet oder sein Spieler existiert nicht mehr? Balken löschen
     if(!GetPlayerName(GetOwner(actTarget)) || !(GetOCF(actTarget) & OCF_Alive) || Hostile(GetOwner(actTarget), owner))
       RemoveObject(bar);
-    // actTarget befindet sich in einem Objekt, hat keine Waffe ausgewählt oder hat keinen Munitionsgürtel: Ausblenden.
+    //actTarget befindet sich in einem Objekt, hat keine Waffe ausgewählt oder hat keinen Munitionsgürtel: Ausblenden
     else if(Contained(actTarget) || !(weapon = Contents(0, actTarget)) || !weapon->~IsWeapon() || !actTarget->~AmmoStoring())
       bar->Update(0, true);
     else
@@ -100,7 +100,7 @@ public func FxAmmoBarsTimer(object target, int nr)
     }
   }
 
-	// Lebende, verbündete CrewMember suchen, die sich im freien befinden. (Ausgenommen Container)
+  //Lebende, im Freien befindliche verbündete CrewMember suchen (ausgenommen Container)
   for(var clonk in FindObjects(Find_OCF(OCF_Alive), Find_OCF(OCF_CrewMember), Find_NoContainer(), Find_Exclude(Contained()), Find_Not(Find_Hostile(owner))))
   {
     if(FindObject2(Find_ID(SBAR), Find_ActionTarget(clonk), Find_Owner(owner), Find_Func("HasBarType", BAR_Ammobar))) //Hat schon einen Balken?

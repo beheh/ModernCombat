@@ -45,16 +45,14 @@ public func FxReparationBarsTimer(object target, int nr)
 
   if(!pCont || !pCont->~IsClonk())
   {
-  	if(EffectVar(1, target, nr))
-  	{
-  		for(var obj in EffectVar(0, target, nr))
-  			if(obj)
-  				RemoveObject(obj);
-  	
-  		EffectVar(1, target, nr) = false;
-  	}
-  	
-  	return false;
+    if(EffectVar(1, target, nr))
+    {
+      for(var obj in EffectVar(0, target, nr))
+        if(obj)
+          RemoveObject(obj);
+      EffectVar(1, target, nr) = false;
+    }
+    return false;
   }
   else if(Contents(0, pCont) != this) //Nur bei Anwahl
   {
@@ -66,37 +64,37 @@ public func FxReparationBarsTimer(object target, int nr)
 
       EffectVar(1, target, nr) = false;
     }
-    
+
     return false;
   }
 
   EffectVar(1, target, nr) = true;
 
-	for(var bar in EffectVar(0, target, nr))
-	{
-		if(!bar)
-			continue;
-	
-		var actTarget = GetActionTarget(0, bar);
-	
-		if(Hostile(GetOwner(actTarget), iPlr))
-			RemoveObject(bar);
-		
-		var dmg = GetDamage(actTarget);
+  for(var bar in EffectVar(0, target, nr))
+  {
+    if(!bar)
+      continue;
+
+    var actTarget = GetActionTarget(0, bar);
+
+    if(Hostile(GetOwner(actTarget), iPlr))
+      RemoveObject(bar);
+
+    var dmg = GetDamage(actTarget);
     var max_dmg = actTarget->~MaxDamage();
     var percent = dmg * 100 / max_dmg;
     var deactivate = false;
     if(!percent)
-    	deactivate = true;
+      deactivate = true;
 
     percent = 100 - percent;
 
     bar->Update(percent, deactivate);
-	}
+  }
 
   for(var obj in FindObjects(Find_Func("IsRepairable"), Find_Not(Find_Hostile(iPlr))))
   {
-		if(FindObject2(Find_ID(SBAR), Find_ActionTarget(obj), Find_Owner(iPlr), Find_Func("HasBarType", BAR_Repairbar))) //Hat schon einen Balken?
+    if(FindObject2(Find_ID(SBAR), Find_ActionTarget(obj), Find_Owner(iPlr), Find_Func("HasBarType", BAR_Repairbar))) //Hat schon einen Balken?
       continue;
 
     var bar = CreateObject(SBAR, 0, 0, iPlr);
