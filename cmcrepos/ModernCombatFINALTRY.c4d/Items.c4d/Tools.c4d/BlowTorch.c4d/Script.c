@@ -115,6 +115,15 @@ public func FxReparationBarsTimer(object target, int nr)
   }
 }
 
+public func FxReparationBarsStop(object target, int nr)
+{
+	for(var obj in EffectVar(0, target, nr))
+		if(obj)
+			RemoveObject(obj);
+	
+	return true;
+}
+
 /* Bereitschaft */
 
 public func GetUser()
