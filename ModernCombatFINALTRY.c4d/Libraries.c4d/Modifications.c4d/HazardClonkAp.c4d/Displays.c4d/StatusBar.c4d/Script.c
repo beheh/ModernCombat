@@ -98,7 +98,7 @@ public func PositionToVertex()
     }
 
     SetVertex(0, 1, GetVertex(0, 1, obj) - GetDefHeight(GetID(obj)) / 2 - ypos);
-    iBarCount = GetBarCount(obj, GetOwner(obj));
+    iBarCount = GetBarCount(obj, GetOwner());
   }
 
   return true;
@@ -135,3 +135,5 @@ public func AttachTargetLost()
 {
   return RemoveObject();
 }
+
+public func Destruction() { return FatalError(); }

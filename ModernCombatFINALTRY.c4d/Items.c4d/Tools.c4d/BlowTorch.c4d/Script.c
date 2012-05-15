@@ -28,7 +28,7 @@ public func Initialize()
 {
   charge = MaxEnergy(); //Schweißbrenner geladen
   living_dmg_cooldown = 4;
-  AddEffect("ReparationBars", this, 101, 8, this);
+  AddEffect("ReparationBars", this, 1, 3, this);
 }
 
 /* Reparatureffekt */
@@ -43,73 +43,77 @@ public func FxReparationBarsTimer(object target, int nr)
 {
   var pCont = Contained(); var iPlr = GetOwner(pCont);
 
-  if(!pCont || !(pCont->GetOCF() & OCF_Alive))
+  if(!pCont || !pCont->~IsClonk())
   {
-    if(GetLength(EffectVar(0, target, nr)) > 0)
-    {
-      for(var obj in EffectVar(0, target, nr))
-        if(obj)
-          RemoveObject(obj);
-      
-      SetLength(EffectVar(0, target, nr), 0);
-    }
-    return true;
+  	if(EffectVar(1, target, nr))
+  	{
+  		for(var obj in EffectVar(0, target, nr))
+  			if(obj)
+  				RemoveObject(obj);
+  	
+  		EffectVar(1, target, nr) = false;
+  	}
+  	
+  	return false;
   }
-
-  if(Contents(0, pCont) != this) //Nur bei Anwahl
+  else if(Contents(0, pCont) != this) //Nur bei Anwahl
   {
     if(EffectVar(1, target, nr))
     {
-      for(var obj in FindObjects(Find_Func("IsBar"), Find_Owner(iPlr)))
-        if(obj->GetBarType() == BAR_Repairbar)
+      for(var obj in EffectVar(0, target, nr))
+        if(obj)
           obj->Update(0, true);
 
       EffectVar(1, target, nr) = false;
     }
+    
     return false;
   }
 
   EffectVar(1, target, nr) = true;
 
-  for(var obj in FindObjects(Find_Func("IsRepairable")))
+	for(var bar in EffectVar(0, target, nr))
+	{
+		if(!bar)
+			continue;
+	
+		var actTarget = GetActionTarget(0, bar);
+	
+		if(Hostile(GetOwner(actTarget), iPlr))
+			RemoveObject(bar);
+		
+		var dmg = GetDamage(actTarget);
+    var max_dmg = actTarget->~MaxDamage();
+    var percent = dmg * 100 / max_dmg;
+    var deactivate = false;
+    if(!percent)
+    	deactivate = true;
+
+    percent = 100 - percent;
+
+    bar->Update(percent, deactivate);
+	}
+
+  for(var obj in FindObjects(Find_Func("IsRepairable"), Find_Not(Find_Hostile(iPlr))))
   {
-    var bar;
-    if(bar = FindObject2(Find_ID(SBAR), Find_ActionTarget(obj)))
-    {
-      if(Hostile(GetOwner(obj), iPlr))
-      {
-        RemoveObject(bar);
-        continue;
-      }
-      var dmg = GetDamage(obj);
-      var max_dmg = obj->~MaxDamage();
-      var percent = dmg * 100 / max_dmg;
-      var deactivate = false;
-      if(!percent)
-        deactivate = true;
+		if(FindObject2(Find_ID(SBAR), Find_ActionTarget(obj), Find_Owner(iPlr), Find_Func("HasBarType", BAR_Repairbar))) //Hat schon einen Balken?
+      continue;
 
-      percent = 100 - percent;
+    var bar = CreateObject(SBAR, 0, 0, iPlr);
+    bar->Set(obj, RGB(255,0,0), BAR_Repairbar, true, "", SM12);
 
-      bar->Update(percent, deactivate);
-    }
-    else if(!Hostile(GetOwner(obj), iPlr))
-    {
-      bar = CreateObject(SBAR, 0, 0, iPlr);
-      bar->Set(obj, RGB(255,0,0), BAR_Repairbar, true, "", SM12);
+    var dmg = GetDamage(obj);
+    var max_dmg = obj->~MaxDamage();
+    var percent = dmg * 100 / max_dmg;
+    var deactivate = false;
+    if(!percent)
+      deactivate = true;
 
-      var dmg = GetDamage(obj);
-      var max_dmg = obj->~MaxDamage();
-      var percent = dmg * 100 / max_dmg;
-      var deactivate = false;
-      if(!percent)
-        deactivate = true;
+    percent = 100 - percent;
 
-      percent = 100 - percent;
+    bar->Update(percent, deactivate);
 
-      bar->Update(percent, deactivate);
-
-      EffectVar(0, target, nr)[GetLength(EffectVar(0, target, nr))] = bar;
-    }
+    EffectVar(0, target, nr)[GetLength(EffectVar(0, target, nr))] = bar;
   }
 }
 
