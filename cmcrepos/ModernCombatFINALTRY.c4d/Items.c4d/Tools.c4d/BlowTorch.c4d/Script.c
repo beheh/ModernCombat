@@ -21,6 +21,7 @@ public func DamageSound()		{return Sound("SharpnelImpact*.ogg");}
 
 local living_dmg_cooldown;
 
+
 /* Initialisierung */
 
 public func Initialize()
@@ -245,7 +246,7 @@ public func FxRepairObjectsTimer(object target, int nr, int time)
     EffectVar(1, target, nr) = true;
     return -1;
   }
-  
+
   EffectVar(1, target, nr) = clonk->~IsRiding();
 
   if(Contained() != clonk || !(clonk->~ReadyToFire()) || GetAction(clonk) == "Crawl")
