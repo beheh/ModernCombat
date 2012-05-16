@@ -78,8 +78,11 @@ public func FxReparationBarsTimer(object target, int nr)
     var actTarget = GetActionTarget(0, bar);
 
     if(Hostile(GetOwner(actTarget), iPlr))
+    {
       RemoveObject(bar);
-
+      continue;
+    }
+    
     var dmg = GetDamage(actTarget);
     var max_dmg = actTarget->~MaxDamage();
     var percent = dmg * 100 / max_dmg;
