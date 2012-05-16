@@ -423,11 +423,11 @@ global func GetTaggedPlayerName(int iPlr, bool fRank, bool fCompact)
   if(fRank && FindObject2(Find_Or(Find_ID(RWDS), Find_ID(CHOS))) && GetPlayerTeam(iPlr) != -1)
   {
     if(fCompact)
-      return Format("{{%i}}{{%i}} <c %x>%s</c>", icon, rank, GetPlrColorDw(iPlr), GetPlayerName(iPlr));
+      return Format("{{%i}}{{%i}} <c %x>%s</c>", rank, icon, GetPlrColorDw(iPlr), GetPlayerName(iPlr));
     
-    return Format("{{%i}}{{%i}} %s <c %x>%s</c>", icon, rank, GetName(0, rank), GetPlrColorDw(iPlr), GetPlayerName(iPlr));
+    return Format("{{%i}} %s {{%i}} <c %x>%s</c>", rank, GetName(0, rank), icon, GetPlrColorDw(iPlr), GetPlayerName(iPlr));
   }
-  else if(icon)
+  else if(fRank && icon)
   {
   	return Format("{{%i}} <c %x>%s</c>", icon, GetPlrColorDw(iPlr), GetPlayerName(iPlr));
   }
