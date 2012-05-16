@@ -21,7 +21,7 @@ protected func Initialize()
 {
   l_graphic = "";
   SetAction("2Be");
-  
+
   ID = GetID();
   sizeX = GetDefCoreVal("Height", 0, GetID()) / 2;
   sizeY = GetDefCoreVal("Width", 0, GetID()) / 2;
@@ -84,14 +84,14 @@ public func Set(int iNewLength, int iDir, string szGraphic)
   if(iDir)
   {
     ClearGraphics();
-    
+
     if(iDir & LADR_Left) AddGraphics("Part2",LADR);
     if(iDir & LADR_Right) AddGraphics("Part3",LADR);
     if(iDir & LADR_Front) AddGraphics("Part1",LADR);
     if(iDir & LADR_Additional)
     {
       var graphcount = 4;
-      
+
       while(SetGraphics(Format("Part%d%s", graphcount, szGraphic), this))
         graphcount++;
   	
@@ -108,7 +108,7 @@ public func Set(int iNewLength, int iDir, string szGraphic)
   //Falls kleiner
   if(length > iNewLength)
     cmd = "Remove"; //löschen
-  
+
   for(var x = Abs(length-iNewLength); x > 0; x--)
     PrivateCall(this, Format("%sPart", cmd));
   //Letztlich Größe anpassen
@@ -135,7 +135,7 @@ private func AddPart()
   var graph = Random(iGraCount);
   if(!SetGraphics(EffectCall(this, Graphics, "GetPart", graph), this, EffectCall(this, ID, "GetPart", graph), length, GFXOV_MODE_Base))
     return 0;
-  
+
   //Position bestimmen
   SetObjDrawTransform(1000, 0, 0, 0, 1000, 1000*sizeY*(length-1), this, length);
   return 1;
@@ -145,7 +145,7 @@ private func RemovePart()
 {
   if(length < 0)
     return 0;
-  
+
   //letztes Teil entfernen
   SetGraphics(0, 0, 0, length);
   //ein Teil weniger, Länge runterzählen
@@ -190,10 +190,10 @@ private func FxLadderPartSaveGetPart(object pTarget, int iEffectNr, int index)
 public func UpdateTransferZone()
 {
   ClearGraphics();
-  
+
   for(var z = 1; z <= 3; z++)
     AddGraphics(Format("Part%d", z), LADR);
-  
+
   AdjustSize();
   Redraw();
 }
