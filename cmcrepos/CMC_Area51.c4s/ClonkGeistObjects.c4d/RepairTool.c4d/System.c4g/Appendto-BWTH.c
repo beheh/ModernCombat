@@ -1,4 +1,4 @@
-/*-- Neues Script --*/
+/*-- Neues Script --*
 
 #strict 2
 
@@ -147,6 +147,6 @@ public func Timer()
     	charge = BoundBy(charge+3,0,MaxEnergy());
 
   return true;
-}
+}*/
 
 
