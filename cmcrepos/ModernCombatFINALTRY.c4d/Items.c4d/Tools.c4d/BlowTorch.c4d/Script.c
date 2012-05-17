@@ -351,7 +351,7 @@ public func Use(caller)
     					Find_Func("IsFakeRepairable")),		//Konsolen?
     					Find_AtRect(-10,-10,20,20));
     if(obj)
-    {	
+    {
       if(Hostile(GetOwner(obj), GetOwner(caller)))
       {
         if(obj->~IsRepairable())
