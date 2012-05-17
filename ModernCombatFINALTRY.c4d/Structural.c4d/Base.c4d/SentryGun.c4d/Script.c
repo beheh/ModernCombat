@@ -12,6 +12,8 @@ local fActive;
 local GotTarget;
 local last_id;
 
+public func MaxDamage()				{return 100;}				//Maximaler Schaden
+public func RepairSpeed()			{return 4;}				//Reparatur-Geschwindigkeit
 public func GetAttWeapon()			{return cur_Attachment;}		//Waffe
 public func MaxRotLeft()			{return 110+GetR();}			//Maximaler Winkel links
 public func MaxRotRight()			{return 250+GetR();}			//Maximaler Winkel rechts
@@ -323,11 +325,6 @@ private func Reload()
   GetAttWeapon()->~Reloaded(this);
   GetAttWeapon()->~Recharge();
   GetAttWeapon()->~StopAutoFire();
-}
-
-public func MaxDamage()
-{
-  return 80;
 }
 
 /* EMP */

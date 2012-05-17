@@ -10,6 +10,7 @@ local byObj;
 
 public func IsMachine()		{return true;}
 public func MaxDamage()		{return 150;}
+public func RepairSpeed()	{return 2;}
 
 
 /* Initialisierung */
@@ -36,7 +37,7 @@ func Rotation()
       CreateParticle("PSpark",18,-9,0,0,50,RGB(255,255,0),this);
     return;
   }
-    
+
   if(iCooldown <= 0)
       CreateParticle("PSpark",18,-9,0,0,40,RGB(0,255,0,100),this);
   else
@@ -47,7 +48,7 @@ func Rotation()
 
   if(!bRotate) return;
 
-if(!FindObject2(Find_Action("Push"), Find_ActionTarget(this))) {bRotate = 0; Sound("CannonStop"); return;}
+  if(!FindObject2(Find_Action("Push"), Find_ActionTarget(this))) {bRotate = 0; Sound("CannonStop"); return;}
 
   if(GetR(pCannon)> 80) {bRotate=0; SetR(GetR(pCannon)-1,pCannon); Sound("CannonStop"); return;}
   if(GetR(pCannon)<-80) {bRotate=0; SetR(GetR(pCannon)+1,pCannon); Sound("CannonStop"); return;}
@@ -70,7 +71,7 @@ func ControlRight(pByObj)
   //Zerstört?
   if(IsDestroyed())
     return PlayerMessage(GetOwner(pByObj),"$Destroyed$", this);
-    
+
   bRotate=1;
   bDirection=0;
 }
@@ -80,7 +81,7 @@ func ControlLeft(pByObj)
   //Zerstört?
   if(IsDestroyed())
     return PlayerMessage(GetOwner(pByObj),"$Destroyed$", this);
-    
+
   bRotate=1;
   bDirection=1;
 }
@@ -90,7 +91,7 @@ func ControlDown(pByObj)
   //Zerstört?
   if(IsDestroyed())
     return PlayerMessage(GetOwner(pByObj),"$Destroyed$", this);
-    
+
   bRotate=0;
   Sound("CannonStop");
 }
@@ -100,7 +101,7 @@ func ControlUp(pByObj)
   //Zerstört?
   if(IsDestroyed())
     return PlayerMessage(GetOwner(pByObj),"$Destroyed$", this);
-    
+
   ControlDown();
 }
 
