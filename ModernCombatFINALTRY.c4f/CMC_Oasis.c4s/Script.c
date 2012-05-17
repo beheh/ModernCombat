@@ -32,10 +32,20 @@ func CreateInterior()
 {
   Log("$CreatingInterior$");
 
+  //Rampen
+  DrawMaterialQuad("Earth-ROUGH", 2360, 678, 2400, 678, 2360, 680, 2400, 680, 1);
+  DrawMaterialQuad("Earth-ROUGH", 2490, 678, 2510, 678, 2490, 680, 2510, 680, 1);
+  DrawMaterialQuad("Granite-ROCK", 2680, 678, 2750, 678, 2680, 680, 2750, 680, 1);
+  DrawMaterialQuad("Rock-Ridge", 2890, 678, 3010, 678, 2890, 680, 3010, 680, 1);
+
+  DrawMaterialQuad("Rock-Ridge", 3820, 678, 3940, 678, 3820, 680, 3940, 680, 1);
+  DrawMaterialQuad("Granite-ROCK", 4080, 678, 4150, 678, 4080, 680, 4150, 680, 1);
+  DrawMaterialQuad("Earth-ROUGH", 4320, 678, 4340, 678, 4320, 680, 4340, 680, 1);
+  DrawMaterialQuad("Earth-ROUGH", 4430, 678, 4470, 678, 4430, 680, 4470, 680, 1);
+
   //Leitern
   CreateObject(LADR, 1420, 532, -1)->Set(8);
   CreateObject(LADR, 2600, 678, -1)->Set(5);
-
   CreateObject(LADR, 2665, 605, -1)->Set(15);
   CreateObject(LADR, 2760, 576, -1)->Set(11);
 
@@ -43,7 +53,6 @@ func CreateInterior()
 
   CreateObject(LADR, 4070, 576, -1)->Set(11);
   CreateObject(LADR, 4165, 605, -1)->Set(15);
-
   CreateObject(LADR, 4230, 678, -1)->Set(5);
   CreateObject(LADR, 5410, 532, -1)->Set(8);
 
@@ -351,7 +360,7 @@ public func ChooserFinished()
    }
 
    aFlag[1] = CreateObject(OFPL,2675,630,NO_OWNER);
-   aFlag[1] -> AddSpawnPoint(2540,520);
+   aFlag[1] -> AddSpawnPoint(2580,520);
    aFlag[1] -> AddSpawnPoint(2500,670);
    aFlag[1] -> AddSpawnPoint(2540,470);
    aFlag[1]->Set("$Flag2$",0,2);
@@ -362,7 +371,7 @@ public func ChooserFinished()
    aFlag[2]->Set("$Flag3$",0,2);
 
    aFlag[3] = CreateObject(OFPL,4155,630,NO_OWNER);
-   aFlag[3] -> AddSpawnPoint(4290,520);
+   aFlag[3] -> AddSpawnPoint(4250,520);
    aFlag[3] -> AddSpawnPoint(4330,670);
    aFlag[3] -> AddSpawnPoint(4290,470);
    aFlag[3]->Set("$Flag4$",0,2);
