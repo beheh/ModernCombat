@@ -391,7 +391,7 @@ public func Use(caller)
       	//Konsolen reparieren
         if(obj->~IsFakeRepairable())
           obj = obj->GetRealRepairableObject();
-      	if(obj->~RejectRepair())
+      	if(!obj->~RejectRepair())
       	{
 
           //Fahrzeug reparieren
