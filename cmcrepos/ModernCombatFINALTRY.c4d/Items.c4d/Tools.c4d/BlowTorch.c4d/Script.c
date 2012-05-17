@@ -77,7 +77,7 @@ public func FxReparationBarsTimer(object target, int nr)
 
     var actTarget = GetActionTarget(0, bar);
 
-    if(Hostile(GetOwner(actTarget), iPlr))
+    if(!actTarget || Hostile(GetOwner(actTarget), iPlr))
     {
       RemoveObject(bar);
       continue;
@@ -391,6 +391,7 @@ public func Use(caller)
       	//Konsolen reparieren
         if(obj->~IsFakeRepairable())
           obj = obj->GetRealRepairableObject();
+
       	if(!obj->~RejectRepair())
       	{
 

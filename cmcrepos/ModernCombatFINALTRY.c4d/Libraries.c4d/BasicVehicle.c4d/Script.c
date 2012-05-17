@@ -15,7 +15,7 @@ public func GetLastAttacker()		{return iLastAttacker;}	//Letzer Angreifer
 public func IsDestroyed()		{return fDestroyed;}	//Zerstört
 public func IsCMCVehicle()		{return true;}		//Ist ein CMC Fahrzeug
 public func IsRepairable()		{return true;}		//Reparierbar
-
+public func RepairSpeed()		{return 1;}			//Standard-Reparaturgeschwindigkeit
 
 /* Initialisierung */
 
@@ -38,6 +38,18 @@ public func Initialize()
   AddEffect("VehicleNoOwner", this, 50, 38, this);
 
   return true;
+}
+
+/* Reparatur */
+
+local iRejectRepairCounter;
+
+public func RejectRepair()
+{
+  if(--iRejectRepairCounter < 0)
+    iRejectRepairCounter = RepairSpeed();
+
+  return iRejectRepairCounter;
 }
 
 /* Unbenutzt */
