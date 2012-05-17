@@ -5,6 +5,7 @@
 
 public func IsMachine()		{return true;}
 public func MaxDamage()		{return 120;}
+public func RepairSpeed()	{return 4;}
 
 
 /* Initialisierung */

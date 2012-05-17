@@ -19,7 +19,7 @@ public func IsDestroyed()		{return fDestroyed;}		//Zerstört
 public func IsCMCStructure()		{return true;}			//Ist eine CMC Struktur
 
 public func IsRepairable()		{return true;}			//Reparierbar
-public func RepairSpeed()		{return 1;}
+public func RepairSpeed()		{return 1;}			//Standard-Reparaturgeschwindigkeit
 
 /* Initialisierung */
 
@@ -58,7 +58,7 @@ public func StartRepair()
 public func Repair()
 { 
   //Jetzt gepanzert
-  if(!GetEffect("IntRepair")) AddEffect("IntRepair",this,50,10,this);
+  if(!GetEffect("IntRepair")) AddEffect("IntRepair",this,50,6,this);
 }
 
 /* Reparatureffekt */
