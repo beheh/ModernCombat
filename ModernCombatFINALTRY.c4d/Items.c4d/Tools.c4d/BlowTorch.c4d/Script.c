@@ -1,205 +1,472 @@
-/*-- Grundstruktur --*/
+/*-- Schweißbrenner --*/
 
 #strict 2
 
-local fDestroyed;
-local fRepairing;
-local iAutorepairWait;
-local iLastAttacker;
+local charge;
 
-public func OnDestruction()		{}				//Bei der Zerstörung des Gebäudes, aber folgenden Reparatur
-public func OnRepair()			{}				//Nach der Wiederinstandsetzung
-public func AutoRepairDuration()	{return 36*20;}			//Dauer der Reparatur
-public func BonusPointCondition()	{return true;}			//Zusätzlicher Callback, ob Punkte vergeben werden
-public func MaxDamage()			{return 100;}			//Maximalschaden
-public func AutoRepairWait()		{return iAutorepairWait;}	//Zeit bis zu Autoreparatur
+public func HandSize()			{return 1000;}
+public func HandX()			{return 4500;}
+public func IsDrawable()		{return true;}
+public func MaxEnergy()			{return 100;}
+func IsEquipment()			{return true;}
+public func NoArenaRemove()		{return true;}
 
-public func IsRepairing()		{return fRepairing;}		//Reparierend
-public func IsDestroyed()		{return fDestroyed;}		//Zerstört
-public func IsCMCStructure()		{return true;}			//Ist eine CMC Struktur
+public func StartSound()		{return Sound("BWTH_FireStart.ogg");}
+public func StopSound()			{return Sound("BWTH_FireEnd.ogg");}
+public func InUseSound(int iLoop)	{return Sound("BWTH_Fire.ogg", false, this, 100, 0, iLoop);}
+public func StartRepairSound()		{return Sound("BWTH_RepairStart.ogg");}
+public func StopRepairSound()		{return Sound("BWTH_RepairEnd.ogg");}
+public func RepairingSound(int iLoop)	{return Sound("BWTH_Repair.ogg", false, this, 100, 0, iLoop);}
+public func DamageSound()		{return Sound("SharpnelImpact*.ogg");}
 
-public func IsRepairable()		{return true;}			//Reparierbar
-public func RepairSpeed()     {return 1;}
+local living_dmg_cooldown;
+
 
 /* Initialisierung */
 
 public func Initialize()
 {
-  fDestroyed = false;
-  fRepairing = false;
-  iAutorepairWait = 80*20;
-  iLastAttacker = -1;
-  SetAction("Idle");
-  return true;
-}
-
-/* Reparatur */
-
-local iRejectRepairCounter;
-
-public func RejectRepair()
-{
-	if(--iRejectRepairCounter < 0)
-		iRejectRepairCounter = RepairSpeed();
-	
-	return iRejectRepairCounter;
-}
-
-public func StartRepair()
-{
-  ClearScheduleCall(this, "StartRepair");
-  if(!fRepairing)
-  {
-    fRepairing = true;
-    SetAction("RepairStart");
-  }
-}
-
-public func Repair()
-{ 
-  //Jetzt gepanzert
-  if(!GetEffect("IntRepair")) AddEffect("IntRepair",this,50,10,this);
+  charge = MaxEnergy(); //Schweißbrenner geladen
+  living_dmg_cooldown = 4;
+  AddEffect("ReparationBars", this, 1, 3, this);
 }
 
 /* Reparatureffekt */
 
-public func FxIntRepairStart(object pTarget, int iEffectNumber, int iTemp)
+public func FxReparationBarsStart(object target, int nr)
 {
-  Sound("Repair.ogg",false,this,50,0,+1); 
-  return 1;
+  EffectVar(0, target, nr) = [];
+  EffectVar(1, target, nr) = false;
 }
 
-public func FxIntRepairTimer(object pTarget, int iEffectNumber, int iEffectTime)
+public func FxReparationBarsTimer(object target, int nr)
 {
-  if(GetDamage(pTarget) <= 0)
+  var pCont = Contained(); var iPlr = GetOwner(pCont);
+
+  if(!pCont || !pCont->~IsClonk())
+  {
+    if(EffectVar(1, target, nr))
+    {
+      for(var obj in EffectVar(0, target, nr))
+        if(obj)
+          RemoveObject(obj);
+      EffectVar(1, target, nr) = false;
+    }
+    return false;
+  }
+  else if(Contents(0, pCont) != this) //Nur bei Anwahl
+  {
+    if(EffectVar(1, target, nr))
+    {
+      for(var obj in EffectVar(0, target, nr))
+        if(obj)
+          obj->Update(0, true);
+
+      EffectVar(1, target, nr) = false;
+    }
+
+    return false;
+  }
+
+  EffectVar(1, target, nr) = true;
+
+  for(var bar in EffectVar(0, target, nr))
+  {
+    if(!bar)
+      continue;
+
+    var actTarget = GetActionTarget(0, bar);
+
+    if(Hostile(GetOwner(actTarget), iPlr))
+    {
+      RemoveObject(bar);
+      continue;
+    }
+
+    var dmg = GetDamage(actTarget);
+    var max_dmg = actTarget->~MaxDamage();
+    var percent = dmg * 100 / max_dmg;
+    var deactivate = false;
+    if(!percent)
+      deactivate = true;
+
+    percent = 100 - percent;
+
+    bar->Update(percent, deactivate);
+  }
+
+  for(var obj in FindObjects(Find_Func("IsRepairable"), Find_Not(Find_Hostile(iPlr))))
+  {
+    if(FindObject2(Find_ID(SBAR), Find_ActionTarget(obj), Find_Owner(iPlr), Find_Func("HasBarType", BAR_Repairbar))) //Hat schon einen Balken?
+      continue;
+
+    var bar = CreateObject(SBAR, 0, 0, iPlr);
+    bar->Set(obj, RGB(255,0,0), BAR_Repairbar, true, "", SM12);
+
+    var dmg = GetDamage(obj);
+    var max_dmg = obj->~MaxDamage();
+    var percent = dmg * 100 / max_dmg;
+    var deactivate = false;
+    if(!percent)
+      deactivate = true;
+
+    percent = 100 - percent;
+
+    bar->Update(percent, deactivate);
+
+    EffectVar(0, target, nr)[GetLength(EffectVar(0, target, nr))] = bar;
+  }
+}
+
+public func FxReparationBarsStop(object target, int nr)
+{
+  for(var obj in EffectVar(0, target, nr))
+    if(obj)
+      RemoveObject(obj);
+
+  return true;
+}
+
+/* Bereitschaft */
+
+public func GetUser()
+{
+  return Contained();
+}
+
+public func Ready()
+{
+  return charge >= 10;
+}
+
+/* Tankregeneration */
+
+public func Timer()
+{
+  //Nicht laden solange überhitzt
+  if(GetEffect("Overheat", this))
+    return;
+
+  //Akku um einen Punkt aufladen
+  if(!GetEffect("RepairObjects", this))
+    charge = BoundBy(charge+3,0,MaxEnergy());
+
+  return true;
+}
+
+/* Reparieren starten/beenden */
+
+public func ControlUpdate(object pByObj, int comdir, bool dig, bool throw)
+{
+  if(throw && !GetEffect("RepairObjects", this))
+    return ControlThrow(pByObj);
+  else if(!throw && GetEffect("RepairObjects", this))
+    return RemoveEffect("RepairObjects", this);
+}
+
+public func ControlThrow(pByObject)
+{
+  //Hinweis bei fehlendem Inhalt
+  if(charge <= 0)
+  {
+    PlayerMessage(GetOwner(pByObject), "$NotCharged$", Contained(this), GSAM);
+    Sound("WPN2_Empty.ogg");
+    
+    //Nicht starten wenn nicht geladen
+    return true;
+  }
+
+  //Feuerbereitschaft?
+  if(!(Contained()->~ReadyToFire()) || GetAction(Contained()) == "Crawl")
+    return true;
+
+  //Effekt (de)aktivieren
+  var effect = GetEffect("RepairObjects", this);
+  if(!effect)
+  {
+    AddEffect("RepairObjects", this, 101, 3, this, 0, pByObject);
+  }
+  else
+  {
+    RemoveEffect("RepairObjects", this);
+  }
+  return true;
+}
+
+public func Activate(pClonk)
+{
+  //Hinweis bei fehlendem Inhalt
+  if(charge <= 0)
+  {
+    PlayerMessage(GetOwner(pClonk), "$NotCharged$", Contained(this),GSAM);
+    Sound("WPN2_Empty.ogg");
+    
+    //Nicht starten wenn nicht geladen
+    return false;
+  }
+
+  //Feuerbereitschaft?
+  if(!(Contained()->~ReadyToFire()) || GetAction(pClonk) == "Crawl")
+    return false;
+
+  //Effekt (de)aktivieren
+  var effect = GetEffect("RepairObjects", this);
+  if(!effect)
+  {
+    AddEffect("RepairObjects", this, 101, 3, this, 0, pClonk);
+  }
+  else
+  {
+    RemoveEffect("RepairObjects", this);
+  }
+}
+
+/* Reparatureffekt */
+
+public func FxRepairObjectsStart(object target, int nr, temp, object pClonk)
+{
+  EffectVar(0, target, nr) = pClonk;
+  EffectVar(1, target, nr) = pClonk->~IsRiding();
+}
+
+public func FxRepairObjectsTimer(object target, int nr, int time)
+{
+  if(charge <= 0)
+  {
+    //Überhitzen
+    AddEffect("Overheat", this, 1, 100);
+    Sound("BWTH_Overheat.ogg");
+    return -1;
+  }
+
+  var clonk = EffectVar(0, target, nr);
+
+  if(clonk->~IsRiding() && !EffectVar(1, target, nr))
+  {
+    EffectVar(1, target, nr) = true;
+    return -1;
+  }
+
+  EffectVar(1, target, nr) = clonk->~IsRiding();
+
+  if(Contained() != clonk || !(clonk->~ReadyToFire()) || GetAction(clonk) == "Crawl")
     return -1;
 
-  DoDamage(-1, pTarget);
+  if(!(Contents(0, clonk) == this) || !(target->Use(clonk)))
+    return -1;
 
-  if(!Random(2))
+  if(time < 4)
   {
-    Sparks(2+Random(5), RGB(250,150,0), RandomX(-GetDefWidth()/2,+GetDefWidth()/2), RandomX(-GetDefHeight()/2,+GetDefHeight()/2));
-    Sparks(2+Random(5), RGB(100,100,250), RandomX(-GetDefWidth()/2,+GetDefWidth()/2), RandomX(-GetDefHeight()/2,+GetDefHeight()/2));
+    if(!used)
+      StartSound();
+    else
+      StartRepairSound();
+
+    temp_used = used;
+    return true;
+  }
+  else if(time == 6)
+  {
+    if(!used)
+      InUseSound(1);
+    else
+      RepairingSound(1);
+  }
+
+  if(used == temp_used)
+    return true;
+
+  temp_used = used;
+
+  if(!used)
+  {
+    RepairingSound(-1);
+    StopRepairSound();
+    InUseSound(1);
+  }
+  else
+  {
+    InUseSound(-1);
+    StopSound();
+    RepairingSound(1);
   }
 }
 
-public func FxIntRepairDamage(object pTarget, int iNr, int iDmgEngy)
+public func FxRepairObjectsStop(object target, int nr)
 {
-  //Reparatur darf nicht in die Länge gezogen werden
-  if(iDmgEngy > 0)
-    return 0;
-
-  return iDmgEngy;
-}
-
-public func FxIntRepairStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)
-{
-  Sound("Repair.ogg",false,this,0,0,-1); 
-  if(!iReason)
-    ObjectSetAction(pTarget, "RepairStop");
-}
-
-public func StopRepair()
-{
-  fRepairing = false;
-  fDestroyed = false;
-  DoDamage(-GetDamage());
-  OnRepair();
-}
-
-public func AutoRepair()
-{
-  if(AutoRepairWait() > 0) ScheduleCall(this, "StartRepair", AutoRepairWait());
-}
-
-public func SetAutoRepair(int iAuto)
-{
-  iAutorepairWait = iAuto;
-}
-
-/* Schaden */
-
-public func Damage(int change)
-{
-  //Struktur zerstören, aber mehr Schaden als den Maximalen nicht zulassen
-  if(change > 0 && IsDestroyed())
-  {
-    if(GetDamage() > MaxDamage())
-      DoDamage(-(GetDamage()-MaxDamage()));
-  }
-
-  //Bei höherem Schaden als dem Maximalen entsprechend zerstören
-  if(GetDamage() > MaxDamage() && !IsDestroyed())
-  {
-    Destroyed();
-  }
-
-  //Bei beendetem Reparaturvorgang Sonderfunktionen aufrufen
-  if(IsDestroyed() && GetDamage() == 0 && !IsRepairing())
-  {
-    fDestroyed = false;
-    ObjectSetAction(this, "RepairStop");
-    OnRepair();
-  }
-}
-
-public func OnDmg(int iDmg, int iType)
-{
-  return 50;	//Default
-}
-
-public func OnHit(int iDmg, int iType, object pBy)
-{
-  if(!IsDestroyed())	
-    iLastAttacker = GetController(pBy);
-
-  if(fRepairing && iType == DMG_Projectile)
-   Sound("BlockOff*.ogg");
-}
-
-/* Zerstörung */
-
-public func Destroyed()
-{
-  //Status setzen
-  SetAction("Destroyed");
-  fDestroyed = true;
-
-  //Schaden auf Maximalwert setzen
-  if(GetDamage() > MaxDamage())
-    DoDamage(-(GetDamage()-MaxDamage()));
-
-  //Punkte bei Belohnungssystem (Strukturzerstörung)
-  if(BonusPointCondition() && iLastAttacker != -1)
-    if((GetOwner() != -1 && Hostile(GetOwner(), iLastAttacker)) || (GetOwner() == -1 && !GetTeam(this)) || (GetTeam(this) != GetPlayerTeam(iLastAttacker)))
-      DoPlayerPoints(BonusPoints("Destruction"), RWDS_BattlePoints, iLastAttacker, GetCursor(iLastAttacker), IC03);
-
-  //Explosion
-  FakeExplode(20, iLastAttacker+1);
-
-  //Sound
-  Sound("Blast2", false, this);
-
-  //Letzen Angreifer zurücksetzen
-  iLastAttacker = -1;
-
-  //Callback
-  OnDestruction();
-
-  //Reparatur anordnen
-  AutoRepair();
-}
-
-public func OnRepairing()
-{
-  if(IsDestroyed() && !IsRepairing())
-    StartRepair();
+  InUseSound(-1);
+  RepairingSound(-1);
+  if(!used)
+    StopSound();
+  else
+    StopRepairSound();
 
   return true;
 }
 
-public func IsFullyRepaired()
+local idle_energy_cnt, used, temp_used;
+local iRepaired; //Teampunkte
+
+public func Use(caller)
 {
-  RemoveEffect("IntRepair", this);
+  //Eventuellen Cooldown verringern
+  if(living_dmg_cooldown)
+    living_dmg_cooldown--;
+
+  used = false;
+
+  //Angreifbare Objekte suchen
+  var obj = caller->FindObject2(Find_Func("IsMeleeTarget"),		//Angreifbar?
+  			Find_AtRect(-10,-10,20,20));
+  if(obj)
+  {
+    //Objekt beschädigen
+    DoDmg(3, DMG_Fire, obj);
+
+    used = true;
+    charge = BoundBy(charge-1, 0, MaxEnergy());
+  }
+  //Entschärfbare Objekte suchen
+  var obj = caller->FindObject2(Find_Func("IsDefusable"),		//Entschärfbar?
+  			Find_Hostile(GetOwner(caller)),			//Feindlich?
+  			Find_AtRect(-10,-10,20,20));
+  if(obj)
+  {
+    if(obj->~RTDefuse(caller))
+      //Punkte bei Belohnungssystem (Entschärfung)
+      DoPlayerPoints(BonusPoints("TechnicalTask"), RWDS_TeamPoints, GetOwner(caller), caller, IC15);
+
+    used = true;
+    charge = BoundBy(charge-1, 0, MaxEnergy());
+  }
+  else
+  {
+    //Reparierbare Objekte suchen
+    obj = caller->FindObject2(Find_Or(Find_And(Find_Func("IsRepairable"),	//Reparierbar?
+    					Find_Or(Find_Func("GetDamage"),		//Beschädigt?
+    					Find_Hostile(GetOwner(caller)))),	//Feindlich?
+    					Find_And(Find_OCF(OCF_Alive),
+    					Find_Hostile(GetOwner(caller)),
+    					Find_NoContainer()),			//Nicht verschachtelt?
+    					Find_Func("IsFakeRepairable")),		//Konsolen?
+    					Find_AtRect(-10,-10,20,20));
+    if(obj)
+    {	
+      if(Hostile(GetOwner(obj), GetOwner(caller)))
+      {
+        if(obj->~IsRepairable())
+        {
+          //Feindliche Fahrzeuge beschädigen
+          DoDmg(5, DMG_Fire, obj);
+
+          used = true;
+          charge = BoundBy(charge-1, 0, MaxEnergy());
+        }
+        else if(obj->~IsFakeRepairable())
+        {
+          //Feindliche Konsolen beschädigen
+      	  obj = obj->GetRealRepairableObject();
+          DoDmg(5, DMG_Fire, obj);
+
+          used = true;
+          charge = BoundBy(charge-1, 0, MaxEnergy());
+        }
+        else
+        {
+          if(!living_dmg_cooldown)
+          {
+            //Feindliche Lebewesen verletzen
+            DoDmg(12,DMG_Fire,obj);
+            living_dmg_cooldown = 7;
+          }
+          if(!Random(7))
+            DamageSound();
+
+          used = true;
+          charge = BoundBy(charge - 1, 0, MaxEnergy());
+        }
+      }
+      else
+      {
+      	//Konsolen reparieren
+        if(obj->~IsFakeRepairable())
+          obj = obj->GetRealRepairableObject();
+      	if(obj->~RejectRepair())
+      	{
+
+          //Fahrzeug reparieren
+          DoDamage(-2, obj);
+
+          //Callback
+          if(GetDamage(obj) == 0)
+            obj->~IsFullyRepaired();
+          else
+            obj->~OnRepairing(this);
+        }
+        
+        if(!Hostile(GetOwner(obj), GetOwner(Contained())) && GetOwner(obj) != GetOwner(Contained()) && iRepaired++ >= 40)
+        {
+          //Punkte bei Belohnungssystem (Reparatur)
+          DoPlayerPoints(BonusPoints("Repair"), RWDS_TeamPoints, GetOwner(Contained()), Contained(), IC15);
+          iRepaired = 0;
+        }
+
+        used = true;
+        charge = BoundBy(charge - 1, 0, MaxEnergy());
+      }
+    }
+  }
+  //Effekte
+  var d = GetDir(Contained())-(!GetDir(Contained()));
+  CreateParticle("RepairFlame", 10*d, -4, 5*d, Random(2)-2, 80, RGB(0,100,250));
+  if(GetEffectData(EFSM_BulletEffects) >1)
+    if(!Random(2))
+      AddLightFlash(80, 10*d, -4, RGB(0,140,255));
+
+  if(!used)
+  {
+    idle_energy_cnt++;
+    if(idle_energy_cnt >= 2)
+    {
+      //Munitionsverbrauch im Leerlauf
+      charge = BoundBy(charge - 1, 0, MaxEnergy());
+      idle_energy_cnt = 0;
+    }
+  }
+  else
+  {
+    //Effekte
+    if(!Random(2))
+      Sparks(8+Random(4), RGB(100,100,250), RandomX(-5, 5), RandomX(-5,5));
+  }
+
   return true;
+}
+
+public func RejectEntrance(object pObj)
+{
+  if(GetOCF(pObj) & OCF_Living)
+    return ContentsCount(GetID(),pObj);
+}
+
+/* HUD */
+
+func CustomHUD()	{return true;}
+
+func UpdateHUD(object pHUD)
+{
+  var color = RGB(255, 255, 255);
+  pHUD->Ammo(charge, MaxEnergy(), GetName(), true, color);
+}
+
+/* Allgemein */
+
+protected func Hit()
+{
+  Sound("WPN2_Hit*.ogg");
+}
+
+protected func Selection()
+{
+  Sound("BWTH_Charge.ogg");
 }
