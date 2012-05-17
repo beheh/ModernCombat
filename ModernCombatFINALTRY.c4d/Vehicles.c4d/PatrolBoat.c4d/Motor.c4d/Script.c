@@ -2,7 +2,7 @@
 
 #strict 2
 
-public func MaxDamage()			{return 60;}
+public func MaxDamage()			{return 200;}
 public func IgnoreFriendlyFire()	{return true;}
 public func IsBulletTarget()
 {
