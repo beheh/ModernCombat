@@ -418,7 +418,7 @@ global func GetTaggedPlayerName(int iPlr, bool fRank, bool fCompact)
   var rank = GetRankID(GetPlayerRank(iPlr));
   var icon;
   if(IsDeveloper(GetPlayerID(iPlr)))
-  	icon = ICMC;
+  	icon = SM14;
   
   if(fRank && FindObject2(Find_Or(Find_ID(RWDS), Find_ID(CHOS))) && GetPlayerTeam(iPlr) != -1)
   {
