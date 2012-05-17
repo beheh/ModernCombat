@@ -19,6 +19,7 @@ public func IsDestroyed()		{return fDestroyed;}		//Zerstört
 public func IsCMCStructure()		{return true;}			//Ist eine CMC Struktur
 
 public func IsRepairable()		{return true;}			//Reparierbar
+public func RepairSpeed()     {return 1;}
 
 /* Initialisierung */
 
@@ -33,6 +34,18 @@ public func Initialize()
 }
 
 /* Reparatur */
+
+local iRejectRepairCounter;
+
+public func RejectRepair()
+{
+	if(--iRejectRepairCounter < 0)
+		iRejectRepairCounter = RepairSpeed();
+	
+	Log("REJECT REPAIR");
+	
+	return iRejectRepairCounter;
+}
 
 public func StartRepair()
 {
