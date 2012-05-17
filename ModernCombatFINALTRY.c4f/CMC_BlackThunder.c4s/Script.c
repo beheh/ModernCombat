@@ -5,6 +5,17 @@
 
 static aFlag,aArtillery;
 
+public func SpecificEquipment()	{return [[PPAR, 1]];} //Zusatzausrüstung: Fallschirmrucksack
+
+
+/* Regelvoreinstellung */
+
+func ChooserRuleConfig()
+{
+  //Abgewandelter Regelsatz: Belohnungssystem, Kein FriendlyFire, Fallschaden, Waffen bleiben, Arena, Limitierte Ausrüstung
+  var array = [RWDS, NOFF, FDMG, WPST, NODR, LIMT];
+  return array;
+}
 
 /* Initialisierung */
 
