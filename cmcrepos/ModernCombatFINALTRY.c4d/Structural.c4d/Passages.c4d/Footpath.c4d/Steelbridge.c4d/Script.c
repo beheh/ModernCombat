@@ -2,8 +2,9 @@
 
 #strict 2
 
-public func MaxDamage()		{return 150;}
 public func IsRepairable()	{return true;}
+public func MaxDamage()		{return 150;}
+public func RepairSpeed()	{return 2;}
 
 local ruins, destroyed;
 
