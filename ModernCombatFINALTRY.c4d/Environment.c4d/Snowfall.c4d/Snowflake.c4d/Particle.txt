@@ -1,0 +1,13 @@
+[Particle]
+Name=Snowflake
+MaxCount=500
+InitFn=StdInit
+ExecFn=StdExec
+DrawFn=Std
+CollisionFn=Die
+Face=0,0,16,16,-8,-8
+WindDrift=1
+Additive=1
+GravityAcc=0
+VertexCount=1
+VertexY=100
