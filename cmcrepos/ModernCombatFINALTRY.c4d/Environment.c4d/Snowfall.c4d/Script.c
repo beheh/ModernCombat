@@ -20,7 +20,7 @@ private func Snow()
   {
     var iRand = Random(LandscapeWidth()) - iX;
     if(GBackSky(iRand, 5))
-      CreateParticle("Snowflake", iRand, -iY, 0, 12, 35, 0xFFFFFF);
+      CreateParticle("Snowflake", iRand, -iY, 0, 12, Random(35)+1, RGBa(255,255,255,RandomX(255,80)));
   }
 
   return true;
