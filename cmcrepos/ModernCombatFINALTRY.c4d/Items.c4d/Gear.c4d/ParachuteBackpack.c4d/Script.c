@@ -27,6 +27,7 @@ public func GearEffectReset(object pClonk)
 public func ControlUpDouble()
 {
   if(!pTarget) return false;
+  if(GetAction(pTarget) == "Tumble") return false;
 
   //Kein Fallschirm, wenn bereits vorhanden
   for(var obj in FindObjects(Find_ID(PARA), Find_Distance(100, GetX(pTarget), GetY(pTarget))))
