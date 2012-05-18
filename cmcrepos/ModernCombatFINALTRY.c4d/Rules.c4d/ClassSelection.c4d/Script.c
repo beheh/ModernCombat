@@ -83,10 +83,10 @@ public func FxSpawntimerStart(pTarget, iNo, iTemp, iPlr, pClonk, cont)
     return -1;
 
   //EffectVars
-  EffectVar(0, pTarget, iNo) = iPlr;	//Spieler
-  EffectVar(1, pTarget, iNo) = 15;	//Zeit
-  EffectVar(2, pTarget, iNo) = pClonk;	//Clonk
-  EffectVar(3, pTarget, iNo) = cont;	//Container
+  EffectVar(0, pTarget, iNo) = iPlr;  //Spieler
+  EffectVar(1, pTarget, iNo) = 15;  //Zeit
+  EffectVar(2, pTarget, iNo) = pClonk;  //Clonk
+  EffectVar(3, pTarget, iNo) = cont;  //Container
 
   PlayerMessage(EffectVar(0, pTarget, iNo), "@$TimeTillRespawn$", 0, EffectVar(1, pTarget, iNo));
 }
@@ -289,10 +289,20 @@ private func OpenMenu(object pClonk, int iSelection)
   if(GetDarkness() >= 3)
     aGear[GetLength(aGear)] = [FLSH, 1];
   
+  if(FindObject(FDMG))
+    aGear[GetLength(aGear)] = [PPAR, 1];
+  
+  var aGearTypes = [];
+  
   for(var aEntry in aGear)
   {
     if(GetType(aEntry) != C4V_Array || GetType(aEntry[0]) != C4V_C4ID || !aEntry[0]->~IsHazardGear())
       continue;
+    
+    if(GetIndexOf(aEntry[0]->~GetGearType(), aGearTypes) > -1)
+      continue;
+    
+    aGearTypes[GetLength(aGearTypes)] = aEntry[0]->~GetGearType();
     szGear = Format("%s%2dx {{%i}}     ", szGear, aEntry[1], aEntry[0]);
   }
   AddMenuItem(szGear, 0, NONE, pClonk, 0, 0, " ");
@@ -322,7 +332,7 @@ private func OpenMenu(object pClonk, int iSelection)
   return true;
 }
 
-public func MenuQueryCancel()	{return 1;}
+public func MenuQueryCancel()  {return 1;}
 
 protected func OnMenuSelection(int iIndex, object pClonk)
 {
@@ -335,17 +345,17 @@ protected func OnMenuSelection(int iIndex, object pClonk)
 
 /* Klassen */
 
-static const CData_Name			= 1;
-static const CData_Desc			= 2;
-static const CData_Clonk		= 3;
-static const CData_Ammo			= 4;
-static const CData_Items		= 5;
-static const CData_Grenades		= 6;
-static const CData_Gear			= 7;
-static const CData_Icon			= 8;
-static const CData_Condition		= 9;
-static const CData_DisplayCondition	= 10;
-static const CData_Facet		= 11;
+static const       CData_Name= 1;
+static const       CData_Desc= 2;
+static const     CData_Clonk= 3;
+static const       CData_Ammo= 4;
+static const     CData_Items= 5;
+static const     CData_Grenades= 6;
+static const       CData_Gear= 7;
+static const       CData_Icon= 8;
+static const     CData_Condition= 9;
+static const   CData_DisplayCondition= 10;
+static const     CData_Facet= 11;
 
 public func GetCData(int iClass, int iData, int iPlr)
 {
@@ -414,12 +424,27 @@ public func SetupClass(int iClass, int iPlr)
 
   if(GetDarkness() >= 3)
     aGear[GetLength(aGear)] = [FLSH, 1];
+    
+  if(FindObject(FDMG))
+    aGear[GetLength(aGear)] = [PPAR, 1];
+  
+  var aGearTypes = [];
 
   for(var aEntry in aGear)
+  {
+    if(!aEntry[0])
+      continue;
+  
+    if(GetIndexOf(aEntry[0]->~GetGearType(), aGearTypes) > -1)
+      continue;
+    
+    aGearTypes[GetLength(aGearTypes)] = aEntry[0]->~GetGearType();
+  
     if(GetType(aEntry) == C4V_Array && GetType(aEntry[0]) == C4V_C4ID && aEntry[0]->~IsHazardGear())
       while(aEntry[1]--)
         CreateObject(aEntry[0], 0, 0, iPlr)->~Activate(pCrew);
-
+  }
+  
   //Nachricht
   var szAction = Format("%d", GetCData(iClass, CData_Facet));
   if (!GetActMapVal("Name", szAction, GetCData(iClass, CData_Icon)))
@@ -438,17 +463,17 @@ public func SetupClass(int iClass, int iPlr)
 
 private func Default(int iData)
 {
-  if(iData == CData_Name)		return "<Classname>";
-  if(iData == CData_Desc)		return "<Description>";
-  if(iData == CData_Clonk)		return CIVC;
-  if(iData == CData_Ammo)		return [[STAM, 30]];
-  if(iData == CData_Items)		return [[PSTL, 1]];
-  if(iData == CData_Grenades)		return [[FGRN, 1]];
-  if(iData == CData_Gear)		return [[]];
-  if(iData == CData_Icon)		return GetID();
-  if(iData == CData_Condition)		return true;
-  if(iData == CData_DisplayCondition)	return true;
-  if(iData == CData_Facet)		return;
+  if(iData == CData_Name)    return "<Classname>";
+  if(iData == CData_Desc)    return "<Description>";
+  if(iData == CData_Clonk)    return CIVC;
+  if(iData == CData_Ammo)    return [[STAM, 30]];
+  if(iData == CData_Items)    return [[PSTL, 1]];
+  if(iData == CData_Grenades)    return [[FGRN, 1]];
+  if(iData == CData_Gear)    return [[]];
+  if(iData == CData_Icon)    return GetID();
+  if(iData == CData_Condition)    return true;
+  if(iData == CData_DisplayCondition)  return true;
+  if(iData == CData_Facet)    return;
   return true;
 }
 
