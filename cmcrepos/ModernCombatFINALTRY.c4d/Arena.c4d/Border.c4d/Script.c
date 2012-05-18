@@ -98,6 +98,8 @@ protected func FxBorderTimer(pTarget, iNo, iTime)
   if(!EffectVar(0, pTarget, iNo))
   {
     //Opfer töten
+    pTarget->~KillIcon(SM15);
+    pTarget->~LastDamageType(DMG_Projectile);
     Kill(pTarget);
     Sound("BRDR_Fire.ogg", true, pTarget);
     return -1;

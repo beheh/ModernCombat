@@ -20,7 +20,7 @@ static const FM_SpreadAdd     = 19;	//Bei jedem Schuss hinzuzuaddierende Streuun
 static const FM_StartSpread   = 20;	//Bei Auswahl der Waffe gesetzte Streuung
 static const FM_MaxSpread     = 21;	//Maximaler Streuungswert
 static const FM_UnSpread      = 22;	//Bei jedem Schuss abzuziehende Streuung
-static const FM_NoAmmoModify  = 23; //Kein Ent-/Nachladen möglich
+static const FM_NoAmmoModify  = 23;	//Kein Ent-/Nachladen möglich
 
 static const FT_Name          = 24;	//Name der Feuertechnik
 static const FT_Icon          = 25;	//Icondefinition der Feuertechnik
@@ -33,9 +33,9 @@ static const MC_Recharge      = 30;	//Zeit nach Kolbenschlag bis erneut geschlag
 static const MC_Power         = 31;	//Wie weit das Ziel durch Kolbenschläge geschleudert wird
 static const MC_Angle         = 32;	//Mit welchem Winkel das Ziel durch Kolbenschläge geschleudert wird
 
-public func IsWeapon2()		{return true;}	//Nutzt/inkludiert neues Waffensystem WPN2
-public func NoWeaponChoice()	{return GetID() == WPN2;}
-public func IsPrimaryWeapon()	{return true;}	//Standard für QuickInventory
+public func IsWeapon2()			{return true;}	//Nutzt/inkludiert neues Waffensystem WPN2
+public func NoWeaponChoice()		{return GetID() == WPN2;}
+public func IsPrimaryWeapon()		{return true;}	//Standard für QuickInventory
 
 public func OnSelectFT(int iFireMode, int iFireTec, int iLastFireTec)	{}
 public func OnSingleReloadStart(int iSlot)				{}
@@ -99,7 +99,7 @@ public func FMMenu(clonk)
   //Manuell entladen
   if(GetAmmoCount(GetSlot()) && !GetFMData(FM_NoAmmoModify))
   {
-  	overlay = ring->AddDownItem("$AmmoType$","ManualEmpty",firemode,SMIN);
+    overlay = ring->AddDownItem("$AmmoType$","ManualEmpty",firemode,SMIN);
     SetGraphics("2",ring,SMIN,overlay,GFXOV_MODE_IngamePicture);
   }
 
@@ -114,14 +114,14 @@ public func FMMenu(clonk)
 
   var szName = "";
 
-	for(var i = 1; i <= GetFTCount(firemode); i++)
+  for(var i = 1; i <= GetFTCount(firemode); i++)
     {
       szName = GetFMData(FT_Name, firemode, i);
       if(!szName) continue;
       if(i == GetFireTec(firemode))
         szName = Format("<c ffff00>%s</c>", szName);
       else
-        szName = Format("<c eeeeee>%s</c>", szName);	
+        szName = Format("<c eeeeee>%s</c>", szName);
         ring->AddBottomInfoItem(szName);
     }
   }
@@ -131,7 +131,7 @@ public func FMMenu(clonk)
   {
     overlay = ring->AddUpItem("$FireModeForward$","CycleFM",+1,SMIN);
     SetGraphics("3",ring,SMIN,overlay,GFXOV_MODE_IngamePicture);
-	
+
     for(var i = 1; i <= GetFMCount(); i++)
     {
       szName = GetFMData(FM_Name, i, 1);
@@ -291,7 +291,7 @@ global func DoAmmo2(int slot, id ammoid, int change, object target)
   
   var ammoload = target->~GetFMData(FM_AmmoLoad);
   if(ammoload)
-	truechange = Min(ammoload, truechange);
+  truechange = Min(ammoload, truechange);
   
   //Neuer Wert dem Objekt geben
   target->SetAmmoCount(slot,truechange);
@@ -434,7 +434,7 @@ public func FxNoFinishReloadTimer(object pTarget, int iNumber, int iTime)
   //Schauen ob der Delay vorbei ist
   if(EffectVar(0,pTarget,iNumber)-- <= 0)
     return -1;
-	
+
   //Falls nicht mehr nachgeladen wird
   if(!GetEffect("Reload", pTarget))
     return -1;
@@ -521,8 +521,8 @@ public func FxReloadTimer(object pTarget, int iNumber, int iTime)
       if(EffectVar(5,pTarget,iNumber) >= GetFMData(FM_FinishReload))
       {
         if(GetFMData(FM_SingleReload))
-        	OnSingleReloadStop(EffectVar(2,pTarget,iNumber));
-				return -1;
+          OnSingleReloadStop(EffectVar(2,pTarget,iNumber));
+        return -1;
       }
     }
   }
@@ -673,7 +673,7 @@ public func ControlThrow(caller)
         if(target && (Hostile(GetOwner(GetUser()), GetOwner(target)) || GetOwner(target) == NO_OWNER)) //Hier bewusst kein CheckEnemy, da wir auf FF-Checks verzichten
         {
           //Ziel am kriechen?
-          if(WildcardMatch(GetAction(target),"*Crawl*")) //kriecht der Feind?
+          if(WildcardMatch(GetAction(target),"*Crawl*"))
           {
             //Erhöhten Schaden verursachen
             DoDmg(GetMCData(MC_Damage)*3/2,DMG_Melee,target,0,GetController(GetUser())+1,GetID());
@@ -902,7 +902,7 @@ public func FxRechargeStop(object pTarget, int iNumber, int iReason, bool fTemp)
   if (GetEffect("ForceNoStop", this))
   {
     stopauto = false;
-	RemoveEffect("ForceNoStop", this);
+  RemoveEffect("ForceNoStop", this);
   }
 }
 
@@ -925,7 +925,7 @@ public func Fire()
       //Laden am beenden?
       if(!GetEffect("NoFinishReload", this))
         //Nicht am Vorbereiten, abbrechen oder gerade mit dem Nachladen begonnen?
-      	if(!IsPreparing() || !IsCanceling() || EffectVar(3,this,GetEffect("Reload",this)))
+        if(!IsPreparing() || !IsCanceling() || EffectVar(3,this,GetEffect("Reload",this)))
           //Nachladen beenden
           FinishReload();
     //Ansonsten nichts unternehmen
@@ -1260,15 +1260,15 @@ public func IsRecharging()
 
 protected func FxStrikeRechargeTimer()
 {
-	//Abbruch?
-	if(!Contained()) return -1;
+  //Abbruch?
+  if(!Contained()) return -1;
   var iTime = GetEffect("StrikeRecharge", this, 0, 6), iFullTime = GetMCData(MC_Recharge), pHUD;
   //HUD updaten
   if(Contained() && Contents(0, Contained()) == this)
-    if (pHUD = FindObject2(Find_ID(1HUD), Find_Owner(GetController(Contained()))))
+    if(pHUD = FindObject2(Find_ID(1HUD), Find_Owner(GetController(Contained()))))
       pHUD->~Recharge(iTime, iFullTime);
   //Effekt abbrechen?
-  if (iTime >= iFullTime)
+  if(iTime >= iFullTime)
     return -1;
 }
 
@@ -1332,8 +1332,8 @@ public func SetFireTec(int iFT,int iFM, bool bNoCalls)
   if (GetFMData(FM_Auto, iFM, iFT))
     if (!GetEffect("Recharge", this))
       stopauto = false;
-	else
-	  AddEffect("ForceNoStop", this);
+  else
+    AddEffect("ForceNoStop", this);
   
   if(!bNoCalls && (last != iFT))
   {

@@ -2,6 +2,7 @@
 
 #strict 2
 
+public func IsMeleeTarget()	{return true;}
 public func IsBulletTarget()	{return 1;}
 public func IsCraneGrabable()	{return 1;}
 public func IsSpawnBlocker()	{return true;}
@@ -19,6 +20,20 @@ func Damage()
     Sound("WoodCrack*.ogg");
     RemoveObject(0, 1);
   }
+}
+
+/* Schaden */
+
+public func MeleeHit()
+{
+  //Effekte
+  CastSmoke("Smoke3",5,10,0,-10,20,150);
+  CastSmoke("Smoke3",5,10,0,10,20,150);
+  Sound("DoorKick.ogg");
+
+  DoDmg(20);
+  
+  return true;
 }
 
 /* Aufschlag */ 
