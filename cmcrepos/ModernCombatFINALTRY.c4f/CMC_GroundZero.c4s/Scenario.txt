@@ -34,7 +34,6 @@ NoScan=1
 
 [Weather]
 Climate=94,3,0,100
-Rain=3,0,0,100
 
 [Environment]
-Objects=EGRS=1;DOFO=1;WRAE=1;DARK=3
+Objects=EGRS=1;DOFO=1;WRAE=1;DARK=3;SWFL=1
