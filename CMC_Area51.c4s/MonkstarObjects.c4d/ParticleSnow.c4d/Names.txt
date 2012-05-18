@@ -1,0 +1,2 @@
+DE:Partikelschnee
+US:Particle snow
