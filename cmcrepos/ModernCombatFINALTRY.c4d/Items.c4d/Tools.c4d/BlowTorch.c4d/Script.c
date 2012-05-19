@@ -342,24 +342,21 @@ public func Use(caller)
   else
   {
     //Reparierbare Objekte suchen
-    obj = caller->FindObject2(
-            Find_Or(
-              Find_And(
-                Find_Func("IsRepairable"),	//Reparierbar?
-    					  Find_Or(
-    					    Find_Func("GetDamage"),		//Beschädigt?
-    					    Find_Hostile(GetOwner(caller)))),	//Feindlich?
-    					Find_And(
-    					  Find_OCF(OCF_Alive),
-    					  Find_Hostile(GetOwner(caller)),
-    					  Find_NoContainer()),			//Nicht verschachtelt?
-    					Find_Func("IsFakeRepairable", GetOwner(caller))),		//Konsolen?
-    			  Find_AtRect(-10,-10,20,20));
+    obj = caller->FindObject2(Find_Or(Find_And(Find_Func("IsRepairable"),				//Reparierbar?
+    						Find_Or(
+    						Find_Func("GetDamage"),					//Beschädigt?
+    						Find_Hostile(GetOwner(caller)))),			//Feindlich?
+    						Find_And(
+    						Find_OCF(OCF_Alive),
+    						Find_Hostile(GetOwner(caller)),
+    						Find_NoContainer()),					//Nicht verschachtelt?
+    						Find_Func("IsFakeRepairable", GetOwner(caller))),	//Konsolen?
+    						Find_AtRect(-10,-10,20,20));
     if(obj)
     {
-    	//Konsolen reparieren / beschädigen
-    	if(obj->~IsFakeRepairable())
-      	obj = obj->GetRealRepairableObject();
+      //Konsolen reparieren / beschädigen
+      if(obj->~IsFakeRepairable())
+        obj = obj->GetRealRepairableObject();
 
       if(Hostile(GetOwner(obj), GetOwner(caller)))
       {
