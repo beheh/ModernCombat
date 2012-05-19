@@ -308,13 +308,15 @@ public func FlagLost(object pFlag, int iTeam, int iTeamAttacker, array pAttacker
     {
       //Punkte bei Belohnungssystem (Flaggenpostenneutralisierung)
       DoPlayerPoints(BonusPoints("OPNeutralize"), RWDS_TeamPoints, GetOwner(pClonk), pClonk, IC13);
-      DoWealth(GetOwner(pClonk), 20);
+      //Geldbonus: 10 Clunker
+      DoWealth(GetOwner(pClonk), 10);
     }
     else
     {
       //Punkte bei Belohnungssystem (Hilfe bei Flaggenpostenneutralisierung)
       DoPlayerPoints(BonusPoints("OPAssist"), RWDS_TeamPoints, GetOwner(pClonk), pClonk, IC10);
-      DoWealth(GetOwner(pClonk), 10);
+      //Geldbonus: 5 Clunker
+      DoWealth(GetOwner(pClonk), 5);
     }
     i++;
   }
@@ -341,7 +343,8 @@ public func FlagCaptured(object pFlag, int iTeam, array pAttackers, bool fRegain
     {
       //Punkte bei Belohnungssystem (Flaggenpostenrückeroberung)
       DoPlayerPoints(BonusPoints("OPDefend"), RWDS_TeamPoints, GetOwner(pClonk), pClonk, IC12);
-      DoWealth(GetOwner(pClonk), 15);
+      //Geldbonus: 5 Clunker
+      DoWealth(GetOwner(pClonk), 5);
     }
   }
   else
@@ -355,7 +358,8 @@ public func FlagCaptured(object pFlag, int iTeam, array pAttackers, bool fRegain
         DoPlayerPoints(BonusPoints("OPConquer"), RWDS_TeamPoints, GetOwner(pClonk), pClonk, IC10);
         //Achievement-Fortschritt (Flagship)
         DoAchievementProgress(1, AC07, GetOwner(pClonk));
-        DoWealth(GetOwner(pClonk), 30);
+        //Geldbonus: 15 Clunker
+        DoWealth(GetOwner(pClonk), 15);
       }
       else
       {
@@ -363,7 +367,8 @@ public func FlagCaptured(object pFlag, int iTeam, array pAttackers, bool fRegain
         DoPlayerPoints(BonusPoints("OPAssist"), RWDS_TeamPoints, GetOwner(pClonk), pClonk, IC11);
         //Achievement-Fortschritt (Flagship)
         DoAchievementProgress(1, AC07, GetOwner(pClonk));
-        DoWealth(GetOwner(pClonk), 20);
+        //Geldbonus: 10 Clunker
+        DoWealth(GetOwner(pClonk), 10);
       }
       i++;
     }

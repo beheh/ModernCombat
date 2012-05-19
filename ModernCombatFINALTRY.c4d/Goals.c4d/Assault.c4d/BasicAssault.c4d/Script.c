@@ -108,13 +108,15 @@ public func ReportAssaultTargetDestruction(object pTarget, int iTeam)
     {
       //Punkte bei Belohnungssystem (Team-Zielobjektzerstörung)
       DoPlayerPoints(BonusPoints("ASTeamDestruction"), RWDS_MinusPoints, iPlr, GetCrew(iPlr), IC03);
-      DoWealth(iPlr, -50);
+      //Geldbonus: -20 Clunker
+      DoWealth(iPlr, -20);
     }
     else
     {
       //Punkte bei Belohnungssystem (Zielobjektzerstörung)
       DoPlayerPoints(BonusPoints("ASDestruction"), RWDS_TeamPoints, iPlr, GetCrew(iPlr), IC03);
-      DoWealth(iPlr, 50);
+      //Geldbonus: 30 Clunker
+      DoWealth(iPlr, 30);
     }
 
     //Punkte für alle Helfer
@@ -125,13 +127,15 @@ public func ReportAssaultTargetDestruction(object pTarget, int iTeam)
       {
         //Punkte bei Belohnungssystem (Hilfe bei Team-Zielobjektzerstörung)
         DoPlayerPoints(BonusPoints("ASTeamDestructionAssist"), RWDS_MinusPoints, i, GetCrew(i), IC03);
-        DoWealth(i, -20);
+        //Geldbonus: -15 Clunker
+        DoWealth(i, -15);
       }
       else
       {
         //Punkte bei Belohnungssystem (Hilfe bei Zielobjektzerstörung)
         DoPlayerPoints(BonusPoints("ASDestructionAssist"), RWDS_TeamPoints, i, GetCrew(i), IC03);
-        DoWealth(i, 20);
+        //Geldbonus: 25 Clunker
+        DoWealth(i, 25);
       }
     }
   }

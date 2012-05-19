@@ -167,3 +167,23 @@ private func InitPlayer(int iPlr)
   SetScoreboardData(iPlr, TEAM_DeathColumn, Format("%d", aDeath[iPlr]), aDeath[iPlr]);
   SortTeamScoreboard();
 }
+
+/* Geldverteilung */
+
+public func Money(int iPlr, object pClonk, int iMurdererPlr)
+{
+  if(iMurdererPlr != NO_OWNER)
+  {
+    //Teamkill
+    if(GetPlayerTeam(iPlr) == GetPlayerTeam(iMurdererPlr))
+      //Geldbonus: -20 Clunker
+      DoWealth(iMurdererPlr, -20);
+    //Kill
+    else
+      //Geldbonus: 25 Clunker
+      DoWealth(iMurdererPlr, 25);
+  }
+  //Eigener Tod
+  //Geldbonus: 10 Clunker
+  DoWealth(iPlr, 10);
+}
