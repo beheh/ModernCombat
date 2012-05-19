@@ -307,6 +307,9 @@ func CreateDecoration()
   CreateObject(WLSN, 1970, 1520, -1)->SetPhase(2);
   CreateObject(WLSN, 2415, 1540, -1)->SetPhase(4);
 
+  //Verbrannte Zauberwerkstatt
+  CreateObject(BMWS, 1300, 835, -1);
+
   //Radare
   CreateObject(RADR, 1105, 1300, -1)->SetClrModulation(RGB(125,125,125));
   CreateObject(RADR, 740, 1490, -1);
