@@ -5,7 +5,14 @@
 local target;
 
 public func IsMachine()			{return 1;}
-public func IsFakeRepairable()		{return (target && target->~IsRepairable() && GetDamage(target));}
+public func IsFakeRepairable(int iPlr)		
+{
+	var fAdd = GetDamage(target);
+	if(Hostile(iPlr, GetOwner(target)))
+		fAdd = true;
+	
+	return (target && target->~IsRepairable() && fAdd);
+}
 public func GetRealRepairableObject()	{return target;}
 
 
