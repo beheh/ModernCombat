@@ -9,6 +9,7 @@ Origin=ModernCombatFINALTRY.c4f
 Definition1=Objects.c4d
 Definition2=Hazard.c4d
 Definition3=ModernCombatFINALTRY.c4d
+Definition4=Fantasy.c4d\Structures.c4d\MagicWorkshop.c4d\Burned.c4d
 
 [Game]
 StructNeedEnergy=0
