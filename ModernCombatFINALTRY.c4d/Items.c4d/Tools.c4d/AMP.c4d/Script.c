@@ -81,6 +81,8 @@ public func FxAmmoBarsTimer(object target, int nr)
     //actTarget befindet sich in einem Objekt, hat keine Waffe ausgewählt oder hat keinen Munitionsgürtel: Ausblenden
     else if(Contained(actTarget) || !(weapon = Contents(0, actTarget)) || !weapon->~IsWeapon() || !actTarget->~AmmoStoring())
       bar->Update(0, true);
+    else if(weapon->GetFMData(FM_NoAmmoModify, weapon->GetFireTec()))
+    	bar->Update(0, true);
     else
     {
       //Munitionsdaten einholen
