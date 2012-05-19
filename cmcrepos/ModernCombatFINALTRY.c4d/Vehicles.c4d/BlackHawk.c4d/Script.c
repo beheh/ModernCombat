@@ -720,10 +720,11 @@ protected func ChangeDir()
   for (var i = 0; i < GetDefCoreVal("Vertices", "DefCore", GetID()); i++)
     SetVertex(i, 0, (GetDir() * 2 - 1) * GetDefCoreVal("VertexX", "DefCore", GetID(), i), this, 2);
   SetDir(!GetDir());
-  
+
+  //Eventuelle Statusbalken informieren
   for(var bar in FindObjects(Find_Func("IsBar"), Find_Func("BarActive"), Find_ActionTarget(this)))
-  	bar->~PositionToVertex();
-  
+    bar->~PositionToVertex();
+
   return true;
 }
 

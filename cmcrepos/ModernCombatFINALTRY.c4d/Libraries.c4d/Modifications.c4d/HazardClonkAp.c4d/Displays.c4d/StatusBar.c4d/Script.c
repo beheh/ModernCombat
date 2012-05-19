@@ -86,8 +86,8 @@ local tPercent;
 
 public func PositionToVertex()
 {
-	if(!fActive)
-	  return true;
+  if(!fActive)
+    return true;
 
   SetVertex(0, 0, GetVertex(0, 0, obj));
   var ypos = 10;
