@@ -1,6 +1,6 @@
-/*-- Capture the Flag --*/
+/*-- CTF-Flagge --*/
 
-//CTF Spielziel zeigt Spielevents nun mit dem Eventsystem anstatt im Log.
+//Das CTF Spielziel zeigt Spielevents nun mit dem Eventsystem anstatt im Log.
 
 #strict 2
 
@@ -56,7 +56,8 @@ protected func CheckFlag(pClonk)
   if(!flag) return;
 
   EventInfo4K(0, Format("$CapturedTheFlag$", GetTaggedPlayerName(GetOwner(pClonk))), FLA2, 0, GetTeamColor(team));
-  DoWealth(GetOwner(pClonk), 50); // Geld!
+  //Geldbonus: 30 Clunker
+  DoWealth(GetOwner(pClonk), 30);
   DoTeamScore(GetPlayerTeam(GetOwner(pClonk)), 1);
   flag->~Return2Base(0,1);
   //game call: FlagScored(flagTeam, scoreTeam, clonk)
