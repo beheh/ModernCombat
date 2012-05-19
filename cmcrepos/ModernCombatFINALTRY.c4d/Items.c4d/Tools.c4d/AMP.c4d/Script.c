@@ -82,7 +82,7 @@ public func FxAmmoBarsTimer(object target, int nr)
     else if(Contained(actTarget) || !(weapon = Contents(0, actTarget)) || !weapon->~IsWeapon() || !actTarget->~AmmoStoring())
       bar->Update(0, true);
     else if(weapon->GetFMData(FM_NoAmmoModify, weapon->GetFireTec()))
-    	bar->Update(0, true);
+      bar->Update(0, true);
     else
     {
       //Munitionsdaten einholen
