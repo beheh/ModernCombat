@@ -4,6 +4,10 @@
 
 local damaged;
 
+public func IsCMCVehicle()	{return true;}
+public func IsRepairable()	{return true;}
+public func RepairSpeed()	{return 0;}
+
 
 /* Initialisierung */
 
@@ -19,7 +23,7 @@ protected func Initialize()
 func Damage()
 {
   if(damaged) return;
-  if(GetDamage() > 60)
+  if(GetDamage() > 200)
     Destruction();
 }
 
