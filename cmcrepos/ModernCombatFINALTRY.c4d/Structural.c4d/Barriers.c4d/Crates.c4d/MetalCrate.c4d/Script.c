@@ -3,6 +3,7 @@
 #strict 2
 #include WCR2
 
+public func IsMeleeTarget()	{}
 public func IsBulletTarget()	{}
 
 
