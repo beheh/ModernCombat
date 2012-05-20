@@ -11,6 +11,7 @@ public func IsEquipment()	{return true;}
 public func TriggerHigh()	{return 100;}
 public func NoArenaRemove()	{return true;}
 
+
 public func GearEffect(object pClonk)
 {
   pTarget = pClonk;
@@ -30,8 +31,8 @@ public func ControlUpDouble()
 
   //Kein Fallschirm, wenn bereits vorhanden
   if(FindObject2(Find_ID(PARA), Find_ActionTarget(pTarget)))
-  	return false;
-  
+    return false;
+
   /*for(var obj in FindObjects(Find_ID(PARA), Find_ActionTarget())
     if(GetActionTarget(0, obj) == pTarget)
       return false;*/

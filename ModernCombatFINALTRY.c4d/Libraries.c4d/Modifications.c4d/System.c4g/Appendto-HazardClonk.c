@@ -2305,48 +2305,48 @@ public func StopAiming()
   return val;
 }
 
-/** Fallschirmsteuerung **/
+/* Fallschirmsteuerung */
 
 public func ControlLeft()
 {
-	var parachute = GetParachute();
-	if(parachute)
-		parachute->ControlLeft(...);
+  var parachute = GetParachute();
+  if(parachute)
+    parachute->ControlLeft(...);
 
-	return _inherited(...);
+  return _inherited(...);
 }
 
 public func ControlRight()
 {
-	var parachute = GetParachute();
-	if(parachute)
-		parachute->ControlRight(...);
+  var parachute = GetParachute();
+  if(parachute)
+    parachute->ControlRight(...);
 
-	return _inherited(...);
+  return _inherited(...);
 }
 
 public func ControlDown()
 {
-	var parachute = GetParachute();
-	if(parachute)
-		parachute->ControlDown(...);
+  var parachute = GetParachute();
+  if(parachute)
+    parachute->ControlDown(...);
 
-	return _inherited(...);
+  return _inherited(...);
 }
 
 public func ControlUpdate()
 {
-	var parachute = GetParachute();
-	if(parachute)
-		parachute->ControlUpdate(...);
+  var parachute = GetParachute();
+  if(parachute)
+    parachute->ControlUpdate(...);
 
-	return _inherited(...);
+  return _inherited(...);
 }
 
 global func GetParachute(object target) 
 { 
   if(!target && !(target = this))
-  	return false;
-  
+    return false;
+
   return FindObject2(Find_ID(PARA), Find_ActionTarget(target));
 }
