@@ -278,13 +278,11 @@ static const RWDS_CPlayerName		= 11;
 
 global func DoPlayerPoints(int iPoints, int iType, int iPlr, object pClonk, id idIcon)
 {
-  if(!GetPlayerName(iPlr))
-    return;
-
   var db = FindObject2(Find_ID(RWDS));
-  if(!db) return;		//Keine Belohnungen-Regel?
-  if(!iPoints) return;		//Kein Wert wiedergegeben?
-  if(iPoints > 50) return;	//Wert über 50?
+  if(!db) return;			//Keine Belohnungen-Regel?
+  if(!GetPlayerName(iPlr)) return;	//Kein Spieler?
+  if(!iPoints) return;			//Kein Wert wiedergegeben?
+  if(iPoints > 50) return;		//Wert über 50?
   if(iType != RWDS_BattlePoints && iType != RWDS_TeamPoints && iType != RWDS_MinusPoints)
     return ErrorLog("Invalid points type %d for %d points at %v", iType, iPoints, pClonk);
   if(db->SetPlayerData(db->GetPlayerPoints(iType, iPlr)+iPoints, iType, iPlr))
