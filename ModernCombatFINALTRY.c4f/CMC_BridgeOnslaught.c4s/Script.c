@@ -150,7 +150,7 @@ func CreateInterior()
 
   //Metallkisten
   CreateObject(MWCR, 75, 413, -1);
-  CreateObject(MWCR, 295, 640, -1);
+  CreateObject(MWCR, 305, 640, -1);
   CreateObject(MWCR, 570, 800, -1)->AutoRespawn();
   CreateObject(MWCR, 650, 270, -1)->AutoRespawn();
   CreateObject(MWCR, 1065, 640, -1)->AutoRespawn();

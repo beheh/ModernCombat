@@ -216,7 +216,7 @@ func CreateEquipment()
   Log("$CreatingEquipment$");
   //Alle Objekte folglich von links oben nach rechts unten
 
-  //Munitionskisten (Kugeln)
+  //Versorgungskisten (Kugeln)
   var crate = CreateObject(AMCT, 1390, 460, -1);
   crate->SetGraphics("Desert");
   crate->Set(ABOX);
@@ -227,7 +227,7 @@ func CreateEquipment()
   crate->SetGraphics("Desert");
   crate->Set(ABOX);
 
-  //Munitionskisten (Granaten)
+  //Versorgungskisten (Granaten)
   crate = CreateObject(AMCT, 3380, 530, -1);
   crate->SetGraphics("Desert");
   crate->Set(GBOX);

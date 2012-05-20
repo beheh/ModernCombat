@@ -105,7 +105,7 @@ func CreateInterior()
   CreateObject(WCR2, 2060, 580, -1)->AutoRespawn();
 
   //Metallkisten
-  CreateObject(MWCR, 532, 240, -1);
+  CreateObject(MWCR, 530, 240, -1);
   CreateObject(MWCR, 2870, 570, -1);
 
   //Verbandskiste
