@@ -1,3 +1,0 @@
-Exit=Exit
-Reload=Reload
-Repair=Repair

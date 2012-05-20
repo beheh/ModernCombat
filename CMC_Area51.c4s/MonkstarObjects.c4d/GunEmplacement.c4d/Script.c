@@ -14,23 +14,23 @@ local pShield;
 local fShield;
 local iTurningSpeed;
  
-public func GetAttWeapon()          {return cur_Attachment;}
-public func AimAngle()              {return aim_angle + GetR();}        //Winkel auf Ziel
-public func ReadyToFire()           {return 1;}             //Ständige Feuerbereitschaft
-public func RemoveTracer()          {return IsDestroyed();}         //Tracer entfernen, wenn zerstört
-public func DisableCH()             {return true;}              //Eventuelles Fadenkreuz des Clonks ausblenden
-public func MaxDamage()             {return 100;}
-public func IsMachine()             {return true;}
-public func IsBulletTarget()            {return false;}
-public func IsThreat()              {return !IsDestroyed();}
-public func UpdateCharge()          {return 1;}
-public func AttractTracer(object pTracer)   {return GetPlayerTeam(GetController(pTracer)) != GetTeam() && !IsDestroyed();}
-public func IsStill()               {return true;}
-public func IsAiming()              {return true;}
-public func VaryingDir()            {if(AimAngle() > 0) return 3; else return 2;}
-public func StartRepair()           {return true;}
-protected func RejectContents()     {return true;}
- 
+public func GetAttWeapon()			{return cur_Attachment;}
+public func AimAngle()				{return aim_angle + GetR();}	//Winkel auf Ziel
+public func ReadyToFire()			{return 1;}			//Ständige Feuerbereitschaft
+public func RemoveTracer()			{return IsDestroyed();}		//Tracer entfernen, wenn zerstört
+public func DisableCH()				{return true;}			//Eventuelles Fadenkreuz des Clonks ausblenden
+public func MaxDamage()				{return 100;}
+public func IsMachine()				{return true;}
+public func IsBulletTarget()			{return false;}
+public func IsThreat()				{return !IsDestroyed();}
+public func UpdateCharge()			{return 1;}
+public func AttractTracer(object pTracer)	{return GetPlayerTeam(GetController(pTracer)) != GetTeam() && !IsDestroyed();}
+public func IsStill()				{return true;}
+public func IsAiming()				{return true;}
+public func VaryingDir()			{if(AimAngle() > 0) return 3; else return 2;}
+public func StartRepair()			{return true;}
+protected func RejectContents()			{return true;}
+public func BonusPointCondition()		{return false;}
 public func MaxRotLeft()
 {
   if(iRotation==-90)
@@ -38,7 +38,7 @@ public func MaxRotLeft()
   else
   return -75+iRotation;
 }
- 
+
 public func MaxRotRight()
 {
   if(iRotation==90)
@@ -46,42 +46,41 @@ public func MaxRotRight()
   else
    return 75+iRotation;
 }
- 
- 
+
+
 /* Initialisierung */
- 
+
 public func Initialize() 
 {
-    SetAction("Ready");
+  SetAction("Ready");
   AddEffect("ShowWeapon", this, 1, 1, this, GetID());
-  //SetGraphics(0,this,GetID(),3,5,0,0,this);
- 
+
   //Standardwerte setzen
   iRotation = 0;
   iTurningSpeed = 1;
   aim_angle = iRotation;
   iPat_Dir = 0;
- 
+
   //Standardwaffe: Maschinenkanone
   Arm(ACCN);
- 
+
   return _inherited();
 }
- 
+
 /* Stationäres Geschütz konfigurieren */
- 
+
 public func Set(id idWeapon, int iRotationParam , bool fShieldParam, int iTurningSpeedParam)
 {
   Arm(idWeapon);
   SetRotation(iRotationParam);
   iTurningSpeed = iTurningSpeedParam;
- 
+
   if(fShieldParam)
     GetShield();
 }
- 
+
 /* Rotationsbereich festlegen */
- 
+
 public func SetRotation(int iRot)
 {
   if(iRot == 90)
@@ -92,82 +91,75 @@ public func SetRotation(int iRot)
     SetGraphics(0);
   else
     return;
- 
+
   iRotation = iRot;
   aim_angle = iRotation;
- 
+
   Arm(last_id);
- 
+
   if(fShield)
     GetShield();
 }
- 
+
 /* Zerstörung */
- 
+
 public func OnDestruction()
 {
   //Waffe entfernen
   Disarm();
- 
+
   //Schild entfernen, sofern vorhanden
   if(pShield)
     RemoveObject(pShield);
- 
+
   //Effekte
   if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",8,15,0,5,250,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
   if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("ConcreteSplinter", 8, 100, 0, 0, 40, 15, RGB(40, 20, 20));
   CastParticles("Sandbag", 10, 70, 0,0, 35, 45, RGBa(228,228,228,0), RGBa(250,250,250,50));
 }
- 
+
 public func Destruction()
 {
   RemoveEffect("ShowWeapon", this);
   EndAim();
 }
- 
+
 public func OnRepair()
 {
   SetAction("Ready");
   Arm(last_id);
- 
+
   if(fShield)
     GetShield();
- 
 }
- 
-/* Bonus-Punkte */
- 
-public func BonusPointCondition()
-{
-  return false;
-}
- 
+
 /* Schaden */
- 
+
 public func OnDmg(int iDmg, int iType)
 {
-  if(iType == DMG_Projectile)   return 40;  //Projektile
-  if(iType == DMG_Fire)     return 60;  //Feuer
-  if(iType == DMG_Explosion)    return;     //Explosionen und Druckwellen
-  if(iType == DMG_Energy)   return 50;  //Energiewaffen
-  if(iType == DMG_Bio)      return 100; //Säure und biologische Schadstoffe
+  if(iType == DMG_Projectile)	return 40;	//Projektile
+  if(iType == DMG_Fire)		return 60;	//Feuer
+  if(iType == DMG_Explosion)	return;		//Explosionen und Druckwellen
+  if(iType == DMG_Energy)	return 50;	//Energiewaffen
+  if(iType == DMG_Bio)		return 100;	//Säure und biologische Schadstoffe
+
   return 50;
 }
- 
+
 /* Bewaffnung */
- 
+
 public func Arm(id idWeapon)
 {
   if(!idWeapon) return;
   if(!GetName(0, idWeapon)) return;
- 
+
   //Eventuellen Vorgänger entfernen
   Disarm();
- 
+
   //Waffe erstellen
   var pWeapon = CreateObject(idWeapon, 0, 0, GetOwner());
   Enter(this, pWeapon);
- 
+
   //Und konfigurieren
   SetObjectOrder(this, pWeapon, 1);
   aim_angle = iRotation;
@@ -175,11 +167,11 @@ public func Arm(id idWeapon)
   last_id = idWeapon;
   LocalN("controller", pWeapon) = this;
   Reload();
- 
+
   //Effekt
   AddEffect("ShowWeapon", this, 20, 1, this);
 }
- 
+
 public func Disarm()
 {
   while(Contents())
@@ -188,7 +180,7 @@ public func Disarm()
   }
   RemoveEffect("ShowWeapon", this);
 }
- 
+
 private func Reload()
 {
   //Munitionsart bestimmen
@@ -199,36 +191,36 @@ private func Reload()
   GetAttWeapon()->~StopAutoFire();
   GetAttWeapon()->~Reload();
 }
- 
+
 /* Schutzschild hinzufügen oder entfernen */
- 
+
 public func GetShield()
 {
   //Schild entfernen sofern vorhanden
   if(pShield)
     RemoveObject(pShield);
- 
+
   //Schild erstellen
   pShield = CreateObject(RSLH, 0, 0 ,GetOwner(GetUser()));
   pShield->Set(this, this);
   SetOwner(GetOwner(GetUser()), pShield);
- 
+
   //Und konfigurieren
   aim_angle = iRotation;
   fShield = true;
 }
- 
+
 /* Positionsbestimmung */
- 
+
 public func WeaponAt(&x, &y, &r)
 {
   x = Sin(GetR()-180, 7000);
   y = -Cos(GetR()-250, 7000);
   r = aim_angle+630+GetR();
- 
+
   return 1;
 }
- 
+
 public func WeaponBegin(&x, &y)
 {
   var number = GetEffect("ShowWeapon", this);
@@ -237,7 +229,7 @@ public func WeaponBegin(&x, &y)
   x = EffectVar(2, this, number)/1000;
   y = EffectVar(3, this, number)/1000;
 }
- 
+
 public func WeaponEnd(&x, &y)
 {
   var number = GetEffect("ShowWeapon", this);
@@ -246,7 +238,7 @@ public func WeaponEnd(&x, &y)
   x = EffectVar(4, this, number)/1000;
   y = EffectVar(5, this, number)/1000;
 }
- 
+
 public func GetWeaponR()
 {
   var number = GetEffect("ShowWeapon", this);
@@ -254,7 +246,7 @@ public func GetWeaponR()
     return;
   return EffectVar(1, this, number);
 }
- 
+
 public func FxActivityTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
   if(!GetUser()) 
@@ -266,36 +258,36 @@ public func FxActivityTimer(object pTarget, int iEffectNumber, int iEffectTime)
       GetAttWeapon()->~StopAutoFire();
       SetOwner(-1, GetAttWeapon());
     }
- 
+
     if(pShield)
     {
       SetOwner(-1, pShield);
       pShield->SetColorDw(-1);
     }
- 
+
     if(controller)
     {
       controller->SetHUDTarget(0);
       controller->~ShowCH();
       SetPlrView(GetOwner(controller), controller);
     }
- 
+
     SetOwner(-1, this);
     controller=-1;
     iPat_Dir=0;
     return;
   }
- 
+
   //Waffe vorhanden?
   if(!GetAttWeapon()) return;
   //Funktionstüchtig?
   if(EMPShocked()) return;
   if(IsDestroyed()) return;
   if(IsRepairing()) return;
- 
+
   //Besitzer aktualisieren
   cur_Attachment->SetTeam(GetTeam());
- 
+
   //Blinklicht (alle 30 Frames)
   if(!(iEffectTime%30))
   {
@@ -307,14 +299,14 @@ public func FxActivityTimer(object pTarget, int iEffectNumber, int iEffectTime)
       var rgb = RGB(255, 255, 255);
     CreateParticle("FlashLight", 0, 4, 0, 0 , 45, rgb, this);
   }
- 
+
   //Nachladen prüfen (alle 5 Frames)
   if(!(iEffectTime%5))
   {
     if((GetAmmo(GetAttWeapon()->GetFMData(FM_AmmoID), GetAttWeapon()) < GetAttWeapon()->GetFMData(FM_AmmoUsage)) && !GetAttWeapon()->IsReloading())
       Reload();
   }
- 
+
   //Überdrehung nach links und rechts verhindern
   if(AimAngle() <= MaxRotLeft() && iPat_Dir < 0)
   {
@@ -324,7 +316,7 @@ public func FxActivityTimer(object pTarget, int iEffectNumber, int iEffectTime)
   {
     iPat_Dir = 0;
   }
- 
+
   //HUD aktualisieren
   var User = GetUser();
   if(User)
@@ -332,7 +324,7 @@ public func FxActivityTimer(object pTarget, int iEffectNumber, int iEffectTime)
     var UserHUD = User->GetHUD();
     if(UserHUD)
       UserHUD->Update(GetAttWeapon(), User->AmmoStoring(),User);
- 
+
     if(AimAngle() > 0)
     {
       SetActionData(5, User);
@@ -344,13 +336,13 @@ public func FxActivityTimer(object pTarget, int iEffectNumber, int iEffectTime)
       SetDir(0, User);
     }
   }
- 
+
   //Drehgeschwindigkeit
   if(iTurningSpeed>0)
   aim_angle += iPat_Dir*iTurningSpeed;
   else if(!(iEffectTime%-iTurningSpeed))
     aim_angle += iPat_Dir;
- 
+
   if(crosshair)
   {
     if(AimAngle()+GetR() <= 360)
@@ -359,9 +351,9 @@ public func FxActivityTimer(object pTarget, int iEffectNumber, int iEffectTime)
       crosshair->SetAngle(AimAngle()-GetR());
   }
 }
- 
+
 /* EMP */
- 
+
 public func EMPShock()
 {
   EMPShockEffect(20*35);
@@ -369,27 +361,27 @@ public func EMPShock()
    GetAttWeapon()->StopAutoFire();
   return 1;
 }
- 
+
 /* Eingangssteuerung */
- 
+
 protected func ActivateEntrance(pUser)
 {
   //Nicht wenn bereits besetzt
   if(GetUser())
     return(0);
- 
+
   //Nur lebende Clonks
   if(!pUser->~IsClonk())
     return(0);
- 
+
   //Nur, wenn das Objekt noch steht
   if(IsDestroyed())
     return(0);
- 
+
   ObjectSetAction(pUser, "RideStill", this());
   if(iRotation == 90)
     SetDir(1, pUser);
- 
+
   //Clonkposition anpassen
   SetOwner(GetOwner(pUser));
   InitAim();
@@ -397,25 +389,25 @@ protected func ActivateEntrance(pUser)
   SetOwner(GetOwner(pUser));
   controller = pUser;
   pUser->HideCH();
- 
+
   //Sound
   Sound("RSHL_Deploy.ogg", true, this, 100, GetOwner(pUser) + 1);
- 
+
   if(last_id == RLSA)
     LocalN("fView", GetAttWeapon()) = false;
- 
+
   if(pShield)
     SetOwner(GetOwner(pUser), pShield);
- 
+
   if(GetAttWeapon())
     SetOwner(GetOwner(pUser), GetAttWeapon());
- 
+
   if(!GetEffect("Activity",this))
     AddEffect("Activity", this, 1, 1 ,this);
- 
+
   return(1);
 }
- 
+
 public func GetUser()
 {
   var pUser;
@@ -424,7 +416,7 @@ public func GetUser()
   else
     pUser=0;
 }
- 
+
 private func ExitClonk(object byObject)
 {
   //Nutzer auswerfen
@@ -435,13 +427,13 @@ private func ExitClonk(object byObject)
     EndAim();
     byObject->SetHUDTarget(0);
     controller->~ShowCH();
- 
+
     if(GetAttWeapon())
     {
       GetAttWeapon()->~StopAutoFire();
       SetOwner(-1, GetAttWeapon());
     }
- 
+
     if(pShield)
     {
       SetOwner(-1, pShield);
@@ -452,62 +444,61 @@ private func ExitClonk(object byObject)
   }
   return(0);
 }
- 
+
 /* Steuerung */
- 
+
 public func ControlLeft(pByObj)
 {
   iPat_Dir = -1;
   return true;
 }
- 
+
 public func ControlRight(pByObj)
 {
   iPat_Dir = 1;
   return true;
 }
- 
+
 public func ControlDown(pByObj)
 {
   iPat_Dir = 0;
   return true;
 }
- 
+
 protected func ControlUp(object ByObj)
 {
   if(GetAttWeapon())
     Reload();
   return true;
 }
- 
+
 public func ControlDigSingle()
 {
   if(GetAttWeapon())
     GetAttWeapon()->~ControlDig(...);
- 
   return true;
 }
- 
+
 protected func ControlDigDouble(object byObj)
 {
   ExitClonk(byObj);
   return true;
 }
- 
+
 protected func ControlThrow(object byObj)
 {
   if(!GetAttWeapon())
     return true;
- 
+
   SetOwner(GetController(byObj), GetAttWeapon());
- 
+
   if(GetAttWeapon()->IsShooting())
     GetAttWeapon()->StopAutoFire();
   else
     GetAttWeapon()->ControlThrow(this);
   return true;
 }
- 
+
 public func ControlUpdate(object byObj, int comdir, bool dig, bool throw) 
 {
   if(throw)
@@ -515,31 +506,31 @@ public func ControlUpdate(object byObj, int comdir, bool dig, bool throw)
   else
     return GetAttWeapon()->StopAutoFire();
 }
- 
+
 /* Sonstiges */
- 
+
 private func InitAim()
 {
   //Fadenkreuz entfernen falls vorhanden
   if(crosshair)
     RemoveObject(crosshair);
- 
+
   //Besitzer setzen
   crosshair = CreateObject(HCRH, 0, 0, GetOwner(GetUser()));
   crosshair->Init(this());
- 
+
   if(AimAngle()+GetR() >= 360)
     crosshair->SetAngle(AimAngle()+GetR()-360);
   else
     crosshair->SetAngle(AimAngle()+GetR());
 }
- 
+
 private func EndAim()
 {
   if(crosshair)
     RemoveObject(crosshair);
 }
- 
+
 public func DoHit(int iDamage)
 {
   return true;
