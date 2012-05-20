@@ -4,6 +4,7 @@
 
 local iCtrlInfluence;
 
+
 /* Initialisierung */
 
 protected func Initialize()
@@ -32,8 +33,8 @@ protected func Fly()
   //Freiflug
   if(WildcardMatch(GetAction(),"*Free*"))
   {
-  	SetActionTargets(0, 0, this);
-  
+    SetActionTargets(0, 0, this);
+
     //Bei baldigem Bodenkontakt zusammenfallen
     if (GBackSolid(0, 20))
       Close();
@@ -130,7 +131,7 @@ public func Close()
     SetAction("FoldFree");
   else
     SetAction("Fold");
-  
+
   SetActionTargets(0, 0);
   Sound("ParachuteClose.ogg");
   //Soundschleife beenden
@@ -143,51 +144,51 @@ private func Folded()
   FadeOut();
 }
 
-// Steuerung
+/* Steuerung */
 
 public func ControlLeft(object caller)
 {
-	var effect;
-	if(effect = GetEffect("ControlInfluence", this))
-		return EffectVar(0, this, effect) = -1;
-	
-	return AddEffect("ControlInfluence", this, 101, 3, this, 0, -1);
+  var effect;
+  if(effect = GetEffect("ControlInfluence", this))
+    return EffectVar(0, this, effect) = -1;
+
+  return AddEffect("ControlInfluence", this, 101, 3, this, 0, -1);
 }
 
 public func ControlRight(object caller)
 {
-	var effect;
-	if(effect = GetEffect("ControlInfluence", this))
-		return EffectVar(0, this, effect) = +1;
-	
-	return AddEffect("ControlInfluence", this, 101, 3, this, 0, +1);
+  var effect;
+  if(effect = GetEffect("ControlInfluence", this))
+    return EffectVar(0, this, effect) = +1;
+
+  return AddEffect("ControlInfluence", this, 101, 3, this, 0, +1);
 }
 
 public func ControlDown(object caller)
 {
-	return RemoveEffect("ControlInfluence", this);
+  return RemoveEffect("ControlInfluence", this);
 }
 
 public func ControlUpdate(object pByObj, int comdir, bool dig, bool throw)
 {
-	if(comdir == COMD_Left)
-		iCtrlInfluence = BoundBy(iCtrlInfluence-1, -15, 15);
-	else if(comdir == COMD_Right)
-		iCtrlInfluence = BoundBy(iCtrlInfluence-1, -15, 15);
-	
-	return true;
+  if(comdir == COMD_Left)
+    iCtrlInfluence = BoundBy(iCtrlInfluence-1, -15, 15);
+  else if(comdir == COMD_Right)
+    iCtrlInfluence = BoundBy(iCtrlInfluence-1, -15, 15);
+
+  return true;
 }
 
 public func FxControlInfluenceStart(object pTarget, int iNr, temp, int iChange)
 {
-	EffectVar(0, pTarget, iNr) = iChange;
+  EffectVar(0, pTarget, iNr) = iChange;
 }
 
 public func FxControlInfluenceTimer(object pTarget, int iNr)
 {
-	iCtrlInfluence = BoundBy(iCtrlInfluence+EffectVar(0, pTarget, iNr), -15, 15);
-	if(!GetActionTarget())
-		return -1;
-	
-	return true;
+  iCtrlInfluence = BoundBy(iCtrlInfluence+EffectVar(0, pTarget, iNr), -15, 15);
+  if(!GetActionTarget())
+    return -1;
+
+  return true;
 }
