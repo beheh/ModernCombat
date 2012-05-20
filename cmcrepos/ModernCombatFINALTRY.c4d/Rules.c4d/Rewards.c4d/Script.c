@@ -278,6 +278,9 @@ static const RWDS_CPlayerName		= 11;
 
 global func DoPlayerPoints(int iPoints, int iType, int iPlr, object pClonk, id idIcon)
 {
+  if(!GetPlayerName(iPlr))
+    return;
+
   var db = FindObject2(Find_ID(RWDS));
   if(!db) return;		//Keine Belohnungen-Regel?
   if(!iPoints) return;		//Kein Wert wiedergegeben?
