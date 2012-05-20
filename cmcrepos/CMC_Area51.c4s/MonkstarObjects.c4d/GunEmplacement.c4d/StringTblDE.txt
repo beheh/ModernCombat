@@ -1,3 +1,0 @@
-Exit=Aussteigen
-Reload=Nachladen
-Repair=Reparieren
