@@ -20,6 +20,8 @@ protected func Initialize()
   iLastDamager = -1;
 }
 
+/* Schaden */
+
 public func OnDmg(int iDmg, int iType)
 {
   //Explosionen sind böse.
@@ -37,6 +39,18 @@ public func OnHit(int iDamage, int iType, object pFrom)
   iLastDamager = iPlr;
   SetController(iPlr);
   aDamage[iPlr] += iDamage;
+}
+
+public func MeleeHit()
+{
+  //Effekte
+  CastSmoke("Smoke3",5,13,-5,-5,50,150);
+  CastSmoke("Smoke3",5,13,5,5,50,150);
+  Sound("DoorKick.ogg");
+
+  DoDmg(14);
+  
+  return true;
 }
 
 /* Assault-Calls */
