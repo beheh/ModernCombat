@@ -99,16 +99,16 @@ func CreateInterior()
   CreateObject(WCR2, 3570, 1180, -1)->AutoRespawn();
   CreateObject(WCR2, 3755, 1040, -1);
   CreateObject(WCR2, 4050, 1130, -1)->AutoRespawn();
-  CreateObject(WCR2, 4072, 1130, -1)->AutoRespawn();
+  CreateObject(WCR2, 4070, 1130, -1)->AutoRespawn();
 
   //Metallkisten
   CreateObject(MWCR, 3040, 800, -1)->AutoRespawn();
   CreateObject(MWCR, 3420, 930, -1)->AutoRespawn();
   CreateObject(MWCR, 3790, 832, -1)->AutoRespawn();
-  CreateObject(MWCR, 3813, 832, -1);
-  CreateObject(MWCR, 3836, 832, -1);
-  CreateObject(MWCR, 3859, 832, -1);
+  CreateObject(MWCR, 3810, 832, -1);
+  CreateObject(MWCR, 3830, 832, -1);
   CreateObject(MWCR, 3830, 1040, -1);
+  CreateObject(MWCR, 3850, 832, -1);
 
   //Verbandskisten
   CreateObject(BECR, 1510, 1152, -1);
@@ -417,7 +417,7 @@ func CreateDecoration()
   CreateObject(BOTL, 4010, 832, -1);
 
   //Monitore
-  CreateObject(MNI2, 3415, 912, -1);
+  CreateObject(MNI2, 3420, 912, -1);
   CreateObject(MNI2, 3990, 1118, -1);
 
   //Zäune

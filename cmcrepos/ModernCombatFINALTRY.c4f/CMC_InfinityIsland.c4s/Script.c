@@ -308,6 +308,7 @@ func CreateDecoration()
   CreateObject(MNI2, 1460, 1098, -1);
   CreateObject(MNI2, 1610, 1098, -1)->Off();
   CreateObject(MNI2, 1630, 1098, -1);
+  CreateObject(MNI2, 1690, 1152, -1);
 
   //Bildschirm
   CreateObject(SCA2, 1535, 1095, -1);
@@ -402,9 +403,6 @@ func CreateDecoration()
   CreateObject(STNE, 3900, 980, -1);
   CreateObject(STNE, 4130, 1310, -1);
   CreateObject(STNE, 5770, 1480, -1);
-
-  //Monitor
-  CreateObject(MNI2, 1685, 1152, -1);
 
   //Spind
   CreateObject(LCKR, 1435, 1170, -1);

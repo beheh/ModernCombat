@@ -161,7 +161,6 @@ func CreateInterior()
   CreateObject(WCR2, 1100, 360, -1);
   CreateObject(WCR2, 1460, 70, -1);
   CreateObject(WCR2, 1505, 200, -1)->AutoRespawn();
-  CreateObject(WCR2, 1540, 70, -1)->AutoRespawn();
   CreateObject(WCR2, 1815, 580, -1);
   CreateObject(WCR2, 2040, 580, -1);
   CreateObject(WCR2, 2000, 456, -1);

@@ -133,8 +133,8 @@ func CreateInterior()
   CreateObject(SBBA, 3880, 560, -1)->Right();
 
   //Verbandskisten
-  CreateObject(BECR, 410, 440, -1)->AutoRespawn();
-  CreateObject(BECR, 3830, 440, -1)->AutoRespawn();
+  CreateObject(BECR, 420, 560, -1)->AutoRespawn();
+  CreateObject(BECR, 3810, 560, -1)->AutoRespawn();
 
   //Metallkisten
   CreateObject(MWCR, 1840, 770, -1);

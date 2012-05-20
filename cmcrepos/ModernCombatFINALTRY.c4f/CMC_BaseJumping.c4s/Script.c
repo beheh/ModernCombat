@@ -393,7 +393,7 @@ func CreateDecoration()
 
   //Monitore
   CreateObject(MNI2, 440, 922, -1);
-  CreateObject(MNI2, 1090, 1552, -1);
+  CreateObject(MNI2, 1095, 1552, -1);
   CreateObject(MNI2, 1540, 902, -1);
   CreateObject(MNI2, 1989, 1552, -1);
   CreateObject(MNI2, 2640, 922, -1);
