@@ -11,7 +11,6 @@ public func IsEquipment()	{return true;}
 public func TriggerHigh()	{return 100;}
 public func NoArenaRemove()	{return true;}
 
-
 public func GearEffect(object pClonk)
 {
   pTarget = pClonk;
@@ -30,9 +29,12 @@ public func ControlUpDouble()
   if(GetAction(pTarget) == "Tumble") return false;
 
   //Kein Fallschirm, wenn bereits vorhanden
-  for(var obj in FindObjects(Find_ID(PARA), Find_Distance(100, GetX(pTarget), GetY(pTarget))))
+  if(FindObject2(Find_ID(PARA), Find_ActionTarget(pTarget)))
+  	return false;
+  
+  /*for(var obj in FindObjects(Find_ID(PARA), Find_ActionTarget())
     if(GetActionTarget(0, obj) == pTarget)
-      return false;
+      return false;*/
 
   //Unterhalb genug Platz, Fallgeschwindigkeit hoch genug, nicht verschachtelt?
   if(!Contained() && GetYDir(pTarget) > 15 && !GetEffect("Flying", pTarget))
