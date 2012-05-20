@@ -6,8 +6,8 @@ local aDamage;				//Schaden jedes Spielers
 local iLastDamager;			//Der letzte der Schaden verursacht hat
 local idImitation;			//Welche Definition imitiert wird
 
-public func IsBulletTarget() 		{return IsAssaultTarget();}
-public func IsMeleeTarget() 		{return true;}
+public func IsBulletTarget()		{return IsAssaultTarget();}
+public func IsMeleeTarget()		{return true;}
 public func AttractTracer(pTracer)	{return IsAssaultTarget() && GetPlayerTeam(GetController(pTracer)) != GetTeam();}
 public func GetKillIcon()		{return idImitation;}
 
