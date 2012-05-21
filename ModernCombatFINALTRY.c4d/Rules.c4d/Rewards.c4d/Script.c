@@ -177,8 +177,8 @@ global func RewardEvaluation()
   var db = FindObject(RWDS);
   if(!db) return;
 
-	//Wir haben Belohnungen? Dann wohl kein Siedeln
-	HideSettlementScoreInEvaluation(true);
+  //Siedlungspunkte ausblenden
+  HideSettlementScoreInEvaluation(true);
 
   //Auswertung starten
   db->Evaluate();
