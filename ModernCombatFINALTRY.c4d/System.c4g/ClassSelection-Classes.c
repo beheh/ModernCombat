@@ -62,7 +62,7 @@ private func Class4Info(int iData, int iPlr)
   if(iData == CData_Desc)       return "$antiskill_desc$";
   if(iData == CData_Clonk)      return PCMK;
   if(iData == CData_Ammo)       return [[STAM, 80]];
-  if(iData == CData_Items)      return [[PPGN, 1], [PSTL, 1], [RSHL, 1], [BWTH, 1]];
+  if(iData == CData_Items)      return [[PPGN, 1], [PSTL, 1], [RSHL, 1], [DGNN, 1]];
   if(iData == CData_Grenades)   return [[PGRN, 2], [STUN, 1], [SRBL, 1]];
   if(iData == CData_Facet)      return 4;
   return Default(iData);
