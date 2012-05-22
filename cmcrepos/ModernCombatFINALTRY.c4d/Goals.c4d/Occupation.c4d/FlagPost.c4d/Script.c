@@ -151,10 +151,10 @@ protected func Timer()
   attacker = opposition;
 
   if(enemys && !friends)
-    DoProcess(opposition,Min(enemys,3));
+    DoProcess(opposition,Min(enemys,3)*(GetTeamCount()/2));
 
   if(!enemys && friends)
-    DoProcess(team,Min(friends,3));
+    DoProcess(team,Min(friends,3)*(GetTeamCount()/2));
 
   if(trend != iOld)
     ResetAttackers();
