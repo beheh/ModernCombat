@@ -168,7 +168,7 @@ public func BulletStrike(object pObj)
     {
       return false;
     }
-    
+
     if(GetID(pObj) != RSLH)
       AddEffect("IntShrapnelHit",pObj,1,10,0,GetID());
 
@@ -178,7 +178,14 @@ public func BulletStrike(object pObj)
       ObjectSetAction(pObj, "Tumble");
     }
 
-    DoDmg(iDamage,DMG_Projectile,pObj,0,0,wpnid);
+    if(GetID(pObj) == RSLH)
+    {
+      DoDmg(1,DMG_Projectile,pObj,0,0,wpnid);
+    }
+    else
+    {
+      DoDmg(iDamage,DMG_Projectile,pObj,0,0,wpnid);
+    }
 
     return true;
   }

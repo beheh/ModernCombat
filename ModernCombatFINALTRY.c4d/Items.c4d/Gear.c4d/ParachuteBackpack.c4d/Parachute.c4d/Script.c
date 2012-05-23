@@ -148,15 +148,15 @@ private func Folded()
 
 public func Damage()
 {
-	//Fallschirm bei Schaden vom Objektanhang losmachen 
-	if(GetDamage() > 30 && !WildcardMatch(GetAction(), "*Free*"))
-	{
+  //Fallschirm bei Schaden vom Objektanhang losmachen 
+  if(GetDamage() > 30 && !WildcardMatch(GetAction(), "*Free*"))
+  {
     if(GBackSolid(0, 20))
       Close();
     else
       SetAction("StartFlyFree");
   }
-  
+
   return true;
 }
 
