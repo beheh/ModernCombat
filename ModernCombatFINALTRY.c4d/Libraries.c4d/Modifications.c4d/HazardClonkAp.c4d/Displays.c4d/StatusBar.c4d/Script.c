@@ -113,9 +113,9 @@ public func PositionToVertex(bool fForcedYPos)
   else if(GetR(obj) != tRotation || fForcedYPos)
   {
     SetVertex(0, 1, GetVertex(0, 1, obj) - iDefHeight / 2 - iYPos);
-  	tRotation = GetR(obj);
-	}
-	
+    tRotation = GetR(obj);
+  }
+
   return true;
 }
 
