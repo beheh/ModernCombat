@@ -44,13 +44,14 @@ protected func Initialize()
 
 /* Einstellung */
 
-local tPercent, iDefHeight;
+local tPercent, tRotation, iDefHeight;
 
 public func Set(object target, int color, int iType, bool fIcon, string szIcon, id idSrcDef, int iXAdjust, int iYAdjust)
 {
   SetVisibility(VIS_None);
 
   tPercent = -1;
+  tRotation = GetR(target);
   obj = target;
   iBarCount = GetBarCount(obj, GetOwner());
   iBarType = iType;
@@ -109,9 +110,12 @@ public func PositionToVertex()
     iBarCount = GetBarCount(obj, GetOwner());
     iYPos = ypos;
   }
-  else if(GetR(obj))
+  else if(GetR(obj) != tRotation)
+  {
     SetVertex(0, 1, GetVertex(0, 1, obj) - iDefHeight / 2 - iYPos);
-
+  	tRotation = GetR(obj);
+	}
+	
   return true;
 }
 
