@@ -54,7 +54,7 @@ public func Set(object target, int color, int iType, bool fIcon, string szIcon, 
   obj = target;
   iBarCount = GetBarCount(obj, GetOwner());
   iBarType = iType;
-	iDefHeight = GetDefHeight(GetID(target));
+  iDefHeight = GetDefHeight(GetID(target));
 
   //Balken setzen
   PositionToVertex();
@@ -97,7 +97,7 @@ public func PositionToVertex()
 
   if(GetBarType() && iBarCount != GetBarCount(obj, GetOwner()))
   {
-  	var ypos = 10;
+    var ypos = 10;
 
     for(var bar in FindObjects(Find_Func("IsBar"), Find_Func("BarActive"), Find_ActionTarget(obj), Find_Owner(GetOwner())))
     {
@@ -110,7 +110,7 @@ public func PositionToVertex()
     iYPos = ypos;
   }
   else if(GetR(obj))
-  	SetVertex(0, 1, GetVertex(0, 1, obj) - iDefHeight / 2 - iYPos);
+    SetVertex(0, 1, GetVertex(0, 1, obj) - iDefHeight / 2 - iYPos);
 
   return true;
 }
