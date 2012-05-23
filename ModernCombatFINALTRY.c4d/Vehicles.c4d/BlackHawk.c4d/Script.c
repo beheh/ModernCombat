@@ -723,7 +723,7 @@ protected func ChangeDir()
 
   //Eventuelle Statusbalken informieren
   for(var bar in FindObjects(Find_Func("IsBar"), Find_Func("BarActive"), Find_ActionTarget(this)))
-    bar->~PositionToVertex();
+    bar->~PositionToVertex(true);
 
   return true;
 }
