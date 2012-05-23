@@ -89,7 +89,7 @@ public func SetBarCount(int iCount)
 
 local iYPos;
 
-public func PositionToVertex()
+public func PositionToVertex(bool fForcedYPos)
 {
   if(!fActive)
     return true;
@@ -110,7 +110,7 @@ public func PositionToVertex()
     iBarCount = GetBarCount(obj, GetOwner());
     iYPos = ypos;
   }
-  else if(GetR(obj) != tRotation)
+  else if(GetR(obj) != tRotation || fForcedYPos)
   {
     SetVertex(0, 1, GetVertex(0, 1, obj) - iDefHeight / 2 - iYPos);
   	tRotation = GetR(obj);
