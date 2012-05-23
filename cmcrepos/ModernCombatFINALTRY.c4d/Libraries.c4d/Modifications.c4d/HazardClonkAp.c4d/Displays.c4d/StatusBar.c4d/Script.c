@@ -44,7 +44,7 @@ protected func Initialize()
 
 /* Einstellung */
 
-local tPercent;
+local tPercent, iDefHeight;
 
 public func Set(object target, int color, int iType, bool fIcon, string szIcon, id idSrcDef, int iXAdjust, int iYAdjust)
 {
@@ -54,6 +54,7 @@ public func Set(object target, int color, int iType, bool fIcon, string szIcon, 
   obj = target;
   iBarCount = GetBarCount(obj, GetOwner());
   iBarType = iType;
+	iDefHeight = GetDefHeight(GetID(target));
 
   //Balken setzen
   PositionToVertex();
@@ -85,25 +86,31 @@ public func SetBarCount(int iCount)
   iBarCount = iCount;
 }
 
+local iYPos;
+
 public func PositionToVertex()
 {
   if(!fActive)
     return true;
 
   SetVertex(0, 0, GetVertex(0, 0, obj));
-  var ypos = 10;
 
   if(GetBarType() && iBarCount != GetBarCount(obj, GetOwner()))
   {
+  	var ypos = 10;
+
     for(var bar in FindObjects(Find_Func("IsBar"), Find_Func("BarActive"), Find_ActionTarget(obj), Find_Owner(GetOwner())))
     {
       if(bar->GetBarType() < GetBarType())
         ypos += 10;
     }
 
-    SetVertex(0, 1, GetVertex(0, 1, obj) - GetDefHeight(GetID(obj)) / 2 - ypos);
+    SetVertex(0, 1, GetVertex(0, 1, obj) - iDefHeight / 2 - ypos);
     iBarCount = GetBarCount(obj, GetOwner());
+    iYPos = ypos;
   }
+  else if(GetR(obj))
+  	SetVertex(0, 1, GetVertex(0, 1, obj) - iDefHeight / 2 - iYPos);
 
   return true;
 }
