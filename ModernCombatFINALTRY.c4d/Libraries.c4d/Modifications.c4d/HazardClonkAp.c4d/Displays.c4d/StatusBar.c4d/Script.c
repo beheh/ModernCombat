@@ -44,10 +44,13 @@ protected func Initialize()
 
 /* Einstellung */
 
+local tPercent;
+
 public func Set(object target, int color, int iType, bool fIcon, string szIcon, id idSrcDef, int iXAdjust, int iYAdjust)
 {
   SetVisibility(VIS_None);
 
+  tPercent = -1;
   obj = target;
   iBarCount = GetBarCount(obj, GetOwner());
   iBarType = iType;
@@ -81,8 +84,6 @@ public func SetBarCount(int iCount)
 {
   iBarCount = iCount;
 }
-
-local tPercent;
 
 public func PositionToVertex()
 {
