@@ -155,6 +155,10 @@ public func Damage()
       Close();
     else
       SetAction("StartFlyFree");
+
+    //Effekte
+    if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("WoodSplinter", 4, 40, 0,0, 20, 50, RGBa(250,250,250,200));
+    Sound("LineBreak");
   }
 
   return true;
