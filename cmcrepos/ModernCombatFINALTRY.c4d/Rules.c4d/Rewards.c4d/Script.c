@@ -420,16 +420,18 @@ global func CalcRank(int iPlr)
 global func GetTaggedPlayerName(int iPlr, bool fRank, bool fCompact)
 {
   var rank = GetRankID(GetPlayerRank(iPlr));
-  var icon;
+  var icon = "";
   if(IsDeveloper(GetPlayerID(iPlr)))
-  	icon = SM14;
+  	icon = "{{SM14}}";
   
   if(fRank && FindObject2(Find_Or(Find_ID(RWDS), Find_ID(CHOS))) && GetPlayerTeam(iPlr) != -1)
   {
     if(fCompact)
-      return Format("{{%i}}{{%i}} <c %x>%s</c>", rank, icon, GetPlrColorDw(iPlr), GetPlayerName(iPlr));
+      return Format("{{%i}}%s <c %x>%s</c>", rank, icon, GetPlrColorDw(iPlr), GetPlayerName(iPlr));
     
-    return Format("{{%i}} %s {{%i}} <c %x>%s</c>", rank, GetName(0, rank), icon, GetPlrColorDw(iPlr), GetPlayerName(iPlr));
+    var icons = GetName(0, rank);
+    if(icon) icons = Format("%s %s", icons, icon);
+    return Format("{{%i}} %s <c %x>%s</c>", rank, icons, GetPlrColorDw(iPlr), GetPlayerName(iPlr));
   }
   else if(fRank && icon)
   {
