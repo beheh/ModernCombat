@@ -391,7 +391,7 @@ protected func CreateTeams(int iTeamSort, int iMode)
     var players = []; var teams = [];
     for(var i = 0; i < GetPlayerCount(C4PT_User); i++)
       players[i] = GetPlayerByIndex(i, C4PT_User);
-      
+
     var i = 0;
     while(GetLength(players))
     {
@@ -400,7 +400,7 @@ protected func CreateTeams(int iTeamSort, int iMode)
       {
         if(i >= GetLength(arTeams))
           i = 1;
-        
+
         if(!arTeams[i])
           continue;
       }
@@ -425,7 +425,7 @@ protected func CreateTeams(int iTeamSort, int iMode)
         for(var plr in teams[i])
           SetPlayerTeam(plr, i);
     
-    SetScoreboardData(CHOS_SBRD_Teams, 0, "$CreatedRandomTeams$", CHOS_SBRD_Teams, true);
+    SetScoreboardData(CHOS_SBRD_Teams, 0, "$TeamsSortedRandomly$", CHOS_SBRD_Teams, true);
   }
   else if(iMode == CHOS_TeamAutobalance)
   {
@@ -502,8 +502,8 @@ protected func CreateTeams(int iTeamSort, int iMode)
           SetPlayerTeam(plr, t);
       }
     }
-    
-    SetScoreboardData(CHOS_SBRD_Teams, 0, "$CreatedAutobalancedTeams$", CHOS_SBRD_Teams, true);
+
+    SetScoreboardData(CHOS_SBRD_Teams, 0, "$TeamsSortedByRank$", CHOS_SBRD_Teams, true);
   }
 
   return OpenTeamMenu();
@@ -575,7 +575,7 @@ protected func SwitchTeam(id dummy, int iPlr)
     CloseMenu(GetCursor(GetPlayerByIndex(j)));
   }
 
-	SetScoreboardData(CHOS_SBRD_Teams, 0, "$CreatedManual$", CHOS_SBRD_Teams, true);
+  SetScoreboardData(CHOS_SBRD_Teams, 0, "$TeamsSortedManually$", CHOS_SBRD_Teams, true);
 
   //Menü wieder eröffnen
   OpenTeamMenu(0, iPlr);
@@ -897,7 +897,7 @@ protected func FxEvaluateGoalVoteTimer(pTarget, iEffect, iTime)
   for(var i = 0; i < GetLength(aGoals); i++)
     if(aGoalsChosen[i])
       cnt++;
-  
+
   for(var i = 0; i < GetLength(aGoals); i++)
   {
     if(aGoalsChosen[i])

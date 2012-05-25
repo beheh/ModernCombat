@@ -60,6 +60,9 @@ TeamCount=Team Count
 IncTeamCnt=Increase team count
 DecTeamCnt=Decrease team count
 CreateTeams=Create Teams
+TeamsSortedManually=Manually
+TeamsSortedRandomly=Randomly
+TeamsSortedByRank=By Rank
 
 #AI
 
