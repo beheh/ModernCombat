@@ -424,6 +424,8 @@ protected func CreateTeams(int iTeamSort, int iMode)
       if(GetType(teams[i]) == C4V_Array)
         for(var plr in teams[i])
           SetPlayerTeam(plr, i);
+    
+    SetScoreboardData(CHOS_SBRD_Teams, 0, "$CreatedRandomTeams$", CHOS_SBRD_Teams, true);
   }
   else if(iMode == CHOS_TeamAutobalance)
   {
@@ -500,6 +502,8 @@ protected func CreateTeams(int iTeamSort, int iMode)
           SetPlayerTeam(plr, t);
       }
     }
+    
+    SetScoreboardData(CHOS_SBRD_Teams, 0, "$CreatedAutobalancedTeams$", CHOS_SBRD_Teams, true);
   }
 
   return OpenTeamMenu();
@@ -570,6 +574,8 @@ protected func SwitchTeam(id dummy, int iPlr)
     if(j == 0) continue;
     CloseMenu(GetCursor(GetPlayerByIndex(j)));
   }
+
+	SetScoreboardData(CHOS_SBRD_Teams, 0, "", CHOS_SBRD_Teams, true);
 
   //Menü wieder eröffnen
   OpenTeamMenu(0, iPlr);
