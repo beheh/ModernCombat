@@ -575,7 +575,7 @@ protected func SwitchTeam(id dummy, int iPlr)
     CloseMenu(GetCursor(GetPlayerByIndex(j)));
   }
 
-	SetScoreboardData(CHOS_SBRD_Teams, 0, "", CHOS_SBRD_Teams, true);
+	SetScoreboardData(CHOS_SBRD_Teams, 0, "$CreatedManual$", CHOS_SBRD_Teams, true);
 
   //Menü wieder eröffnen
   OpenTeamMenu(0, iPlr);

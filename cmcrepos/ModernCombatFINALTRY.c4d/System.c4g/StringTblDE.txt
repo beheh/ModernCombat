@@ -62,6 +62,7 @@ DecTeamCnt=Teamanzahl verringern
 CreateTeams=Teams aufstellen
 CreatedRandomTeams=Zufällig angeordnet
 CreatedAutobalancedTeams=Nach Rang angeordnet
+CreatedManual=Manuell
 
 #KI
 
