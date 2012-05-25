@@ -60,9 +60,9 @@ TeamCount=Teamanzahl
 IncTeamCnt=Teamanzahl erhöhen
 DecTeamCnt=Teamanzahl verringern
 CreateTeams=Teams aufstellen
-CreatedRandomTeams=Zufällig angeordnet
-CreatedAutobalancedTeams=Nach Rang angeordnet
-CreatedManual=Manuell
+TeamsSortedManually=Manuell
+TeamsSortedRandomly=Zufall
+TeamsSortedByRank=Nach Rang
 
 #KI
 
