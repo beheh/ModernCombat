@@ -75,6 +75,7 @@ public func InitScoreboard()
   SetScoreboardData(CHOS_SBRD_Effect, SBRD_Caption, "$ScoreboardEffects$", CHOS_SBRD_Effect, true);
   SetScoreboardData(CHOS_SBRD_Darkness, SBRD_Caption, "$ScoreboardDarkness$", CHOS_SBRD_Darkness, true);
   SetScoreboardData(CHOS_SBRD_Teams, SBRD_Caption, "$ScoreboardTeams$", CHOS_SBRD_Teams, true);
+  SetScoreboardData(CHOS_SBRD_Teams, 0, "$TeamsSortedManually$", 0, true);
   AddEffect("ChooserScoreboard", this, 21, 10, this);
 }
 
@@ -425,7 +426,7 @@ protected func CreateTeams(int iTeamSort, int iMode)
         for(var plr in teams[i])
           SetPlayerTeam(plr, i);
     
-    SetScoreboardData(CHOS_SBRD_Teams, 0, "$TeamsSortedRandomly$", CHOS_SBRD_Teams, true);
+    SetScoreboardData(CHOS_SBRD_Teams, 0, "$TeamsSortedRandomly$", 0, true);
   }
   else if(iMode == CHOS_TeamAutobalance)
   {
@@ -503,7 +504,7 @@ protected func CreateTeams(int iTeamSort, int iMode)
       }
     }
 
-    SetScoreboardData(CHOS_SBRD_Teams, 0, "$TeamsSortedByRank$", CHOS_SBRD_Teams, true);
+    SetScoreboardData(CHOS_SBRD_Teams, 0, "$TeamsSortedByRank$", 0, true);
   }
 
   return OpenTeamMenu();
@@ -575,7 +576,7 @@ protected func SwitchTeam(id dummy, int iPlr)
     CloseMenu(GetCursor(GetPlayerByIndex(j)));
   }
 
-  SetScoreboardData(CHOS_SBRD_Teams, 0, "$TeamsSortedManually$", CHOS_SBRD_Teams, true);
+  SetScoreboardData(CHOS_SBRD_Teams, 0, "$TeamsSortedManually$", 0, true);
 
   //Menü wieder eröffnen
   OpenTeamMenu(0, iPlr);
