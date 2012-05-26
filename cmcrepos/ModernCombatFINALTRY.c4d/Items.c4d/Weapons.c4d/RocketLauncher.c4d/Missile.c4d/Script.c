@@ -3,13 +3,13 @@
 #strict 2
 #include MISS
 
-local sx, sy, pLauncher, pLight, iLastAttacker;
+local sx, sy, pLauncher, pLight, iLastAttacker, fGuided;
 
 public func MaxTime()		{return 200;}			//Maximale Flugzeit
 
 public func StartSpeed()	{return 5;}			//Startgeschwindigkeit
 public func Acceleration()	{return 3;}			//Beschleunigung
-public func MaxSpeed()		{return 100;}			//Maximale Geschwindigkeit
+public func MaxSpeed() {return 100+!fGuided*50;}			//Maximale Geschwindigkeit		
 
 public func SecureTime()	{return 70;}			//Mindestflugzeit
 public func SecureDistance()	{return 100;}			//Mindestabstand
@@ -19,7 +19,6 @@ public func ExplosionDamage()	{return 25;}			//Explosionsschaden
 public func ExplosionRadius()	{return 25;}			//Radius
 
 public func TracerCompatible()	{return true;}			//Peilsendersuchende Rakete
-public func Guideable()		{return true;}			//Kann gesteuert werden
 public func TracerRadius()	{return 300;}
 
 public func MaxTurn()		{return 6;}			//max. Drehung
@@ -35,6 +34,7 @@ public func IsRocket()		{return true;}			//Ist eine Rakete
 public func Initialize()
 {
   iLastAttacker = NO_OWNER;
+  fGuided = true;
 }
 
 /* Start */
@@ -45,10 +45,13 @@ protected func Construction(object pBy)
     pLauncher = pBy;
 }
 
-public func Launch(int iAngle, object pFollow)
+public func Launch(int iAngle, object pFollow, bool fUnguided)
 {
   //Geschwindigkeit setzen
   iSpeed = StartSpeed();
+  
+  //Verfolgung setzen
+  fGuided = !fUnguided;
 
   //Winkel setzen
   SetR(iAngle);
@@ -57,7 +60,7 @@ public func Launch(int iAngle, object pFollow)
   SetAction("Travel");
 
   //Sicht setzen
-  SetPlrViewRange(120);
+  if(Guideable()) SetPlrViewRange(120);
   SetCategory(C4D_Vehicle);
 
   sx = GetX();
@@ -74,6 +77,10 @@ public func Launch(int iAngle, object pFollow)
   //Gesichert losfliegen
   if(SecureTime())
     AddEffect("IntSecureTime", this, 1, SecureTime(), this);
+}
+
+public func Guideable()	{
+	return fGuided;
 }
 
 public func Secure()
@@ -112,7 +119,7 @@ public func FxFollowTimer(object pTarget, int iEffectNumber, int iEffectTime)
 
   var x = GetX(pTarget)-GetX(), y = GetY(pTarget)-GetY();
   //Rakete unterstützt Peilsender?
-  if(pTarget->~TracerCompatible())
+  if(pTarget->~TracerCompatible() && Guideable())
   {
     //Gültigkeit des Ziels prüfen
     if(EffectVar(1,pTarget,iEffectNumber))

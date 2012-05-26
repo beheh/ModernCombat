@@ -52,9 +52,19 @@ public func FMData1T1(int data)
   return FMData1(data);
 }
 
+public func FMData1T2(int data)
+{
+  return;
+}
+
 public func Fire1T1()
 {
   Fire1();
+}
+
+public func Fire1T2()
+{
+  return;
 }
 
 public func BotData1(int data)
