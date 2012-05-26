@@ -42,7 +42,7 @@ public func Switch()
   if(broken) return;
   Sound("LightSwitch.ogg");
 
-  if(GetAction() = "On")
+  if(GetAction() == "On")
     TurnOff();
   else
     TurnOn();
