@@ -1408,7 +1408,7 @@ public func Selection(object pContainer)
   //Callback
   this->~OnSelect(firemode);
   //Laden wiederaufnehmen
-  this->~ResumeReload();
+  this->ResumeReload();
 }
 
 /* Spezialzeugs wegen Silencer! */

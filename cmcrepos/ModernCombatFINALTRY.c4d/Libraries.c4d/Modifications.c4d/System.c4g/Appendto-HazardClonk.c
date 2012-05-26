@@ -1305,8 +1305,7 @@ public func Collection(object pObj, bool fPut)
 {
   if(pObj->~SelectionTime())
   {
-    if(!GetEffect("SelectItem",pObj))
-      AddEffect("SelectItem",pObj,20,pObj->~SelectionTime(),0,GetID());
+    AddEffect("SelectItem",pObj,20,pObj->~SelectionTime(),0,GetID());
   }
   return _inherited(pObj,fPut,...);
 }
@@ -1332,16 +1331,19 @@ public func Ejection(object pObj)
 
 public func ControlContents(id idTarget)
 {
-  if(Contents())
-    RemoveEffect("SelectItem",Contents());
+  //Durch Direktauswahl können wir nicht zuverlässig bestimmen, welches Objekt vorher da war
+  //Daher einmal durchiterieren, und den Effekt überall zurücksetzen
+  for(var i = 0; i < ContentsCount(); i++)
+  {
+    RemoveEffect("SelectItem",Contents(i));
+  }
 
   var target = FindContents(idTarget);
   if(target)
   {
     if(target->~SelectionTime())
     {
-      if(!GetEffect("SelectItem",target))
-        AddEffect("SelectItem",target,20,target->~SelectionTime(),0,GetID());
+      AddEffect("SelectItem",target,20,target->~SelectionTime(),0,GetID());
       ScheduleCall(this, "CheckArmed", 1);
       return false;
     }
