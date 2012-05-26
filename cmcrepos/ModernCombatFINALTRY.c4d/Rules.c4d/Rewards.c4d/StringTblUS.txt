@@ -26,7 +26,7 @@ Points=Points
 # General
 
 AchievementNewUnlocked=<c %x>%s</c> unlocked the <c 33ccff>new</c> achievement <c 33ccff>%s</c>
-AchievementUnlocked=<c %x>%s</c> unlocked the achievement <c ffff33>%s</c> again
+AchievementUnlocked=<c %x>%s</c> reunlocked the achievement <c ffff33>%s</c>
 Achievement=Achievement
 Achievements=Achievements
 AchievementsUnlocked=%d Achievements unlocked:
