@@ -10,7 +10,7 @@ public func HandX()		{return 2000;}
 public func HandY()		{return -1000;}
 public func BarrelXOffset()	{return -3500;}
 public func BarrelYOffset()	{return 4000;}
-public func SelectionTime()	{return 75;}
+public func SelectionTime()	{return 70;}
 public func IsSecondaryWeapon()	{return true;}
 
 local pRocket, fired;
