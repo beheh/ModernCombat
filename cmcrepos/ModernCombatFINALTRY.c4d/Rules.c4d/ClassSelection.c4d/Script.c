@@ -335,12 +335,15 @@ private func OpenMenu(object pClonk, int iSelection)
   return true;
 }
 
-private func CalculatePlayerSelection(int iOwner, int iSelection) {
-	var iClass = iSelection - InfoMenuItems();
-  for(var i = 1; i <= iClass && i <= GetClassAmount(); i++) {
-	  if(!GetCData(i, CData_DisplayCondition, iOwner)) {
-	    iClass++;
-	  }
+private func CalculatePlayerSelection(int iOwner, int iSelection)
+{
+  var iClass = iSelection - InfoMenuItems();
+  for(var i = 1; i <= iClass && i <= GetClassAmount(); i++)
+  {
+    if(!GetCData(i, CData_DisplayCondition, iOwner))
+    {
+      iClass++;
+    }
   }
   return iClass;
 }
