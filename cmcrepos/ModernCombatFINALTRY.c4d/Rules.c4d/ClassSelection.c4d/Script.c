@@ -314,6 +314,8 @@ private func OpenMenu(object pClonk, int iSelection)
   var i = 0;
   while(GetCData(++i, CData_Name))
   {
+    if(!GetCData(i, CData_DisplayCondition, iOwner))
+      continue;
     var szName = GetCData(i, CData_Name);
     if (!GetCData(i, CData_Condition, iOwner))
       szName = Format("<c 777777>%s</c>", szName);
