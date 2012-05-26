@@ -250,12 +250,13 @@ public func UpdatePlayers()
       continue;
     }
     var iDataOld = GetPlrExtraData(iPlr, "CMC_Achievements");
-    if(iDataOld) {
-    	iDataOld = iDataOld >> 1; //Konvertieren, Bit 0 wird jetzt mitgenutzt
-    	var iDataNew = GetPlrExtraData(iPlr, "CMC_Achievements1");
-    	SetPlrExtraData(iPlr, "CMC_Achievements1", iDataOld | iDataNew);
+    if(iDataOld)
+    {
+      iDataOld = iDataOld >> 1; //Konvertieren, Bit 0 wird jetzt mitgenutzt
+      var iDataNew = GetPlrExtraData(iPlr, "CMC_Achievements1");
+      SetPlrExtraData(iPlr, "CMC_Achievements1", iDataOld | iDataNew);
       //Bei Release folgende Zeile (und diesen Kommentar) entfernen:
-    	//SetPlrExtraData(iPlr, "CMC_Achievements", 0);
+      //SetPlrExtraData(iPlr, "CMC_Achievements", 0);
     }
     
     SetPlayerData(GetTaggedPlayerName(iPlr, true), RWDS_PlayerName, iPlr);
@@ -631,7 +632,8 @@ global func ResetAllPlayerAchievements()
 global func ResetPlayerAchievements(int iPlr)
 {
   SetPlrExtraData(iPlr, "CMC_Achievements", 0);
-  for(var i = 1; GetPlrExtraData(iPlr, Format("CMC_Achievements%d", i)); i++) {
+  for(var i = 1; GetPlrExtraData(iPlr, Format("CMC_Achievements%d", i)); i++)
+  {
     SetPlrExtraData(iPlr, Format("CMC_Achievements%d", i), 0);
   }
   return true;
@@ -639,7 +641,8 @@ global func ResetPlayerAchievements(int iPlr)
 
 /* Abfrage */
 
-public func GetPlayerAchievement(int iPlr, id idAchievement) {
+public func GetPlayerAchievement(int iPlr, id idAchievement)
+{
   if(!RewardsActive()) return;
   if(!idAchievement->IsAchievement()) return false;
   if(GetPlayerType(iPlr) != C4PT_User) return false;
@@ -650,7 +653,8 @@ public func GetPlayerAchievement(int iPlr, id idAchievement) {
   return iData >> (iSlot % 32) & 1;
 }
 
-public func SetPlayerAchievement(int iPlr, id idAchievement, bool fAwarded) {
+public func SetPlayerAchievement(int iPlr, id idAchievement, bool fAwarded)
+{
   if(!RewardsActive()) return;
   if(!idAchievement->IsAchievement()) return false;
   if(GetPlayerType(iPlr) != C4PT_User) return false;
