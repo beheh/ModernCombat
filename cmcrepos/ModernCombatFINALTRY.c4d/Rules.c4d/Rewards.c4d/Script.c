@@ -83,8 +83,6 @@ public func StatsList(int iPlr, int iIndex, int iOffset, int iMenuEntry)
   if(!CreateMenu(GetID(), pClonk, this, 0, 0, 0, C4MN_Style_Dialog)) return;
   AddMenuItem(" | ", 0, RWDS, pClonk, 0, 0, "", 514, 0, 0);
 
-  var iData = GetPlrExtraData(iPlr, "CMC_Achievements");
-
   //Überschrift
   AddMenuItem(Format("<c 33ccff>$Achievements$ ($Showing$)</c>", iOffset+1, BoundBy(iOffset+10, 1, iAchievementCount), iAchievementCount), 0, NONE, pClonk);
 
@@ -94,7 +92,7 @@ public func StatsList(int iPlr, int iIndex, int iOffset, int iMenuEntry)
   while(i <= iAchievementCount && i <= 10+iOffset)
   {
     idAchievement = C4Id(Format("AC%02d", i));
-    if(iData >> i & 1)
+    if(GetPlayerAchievement(iPlr, idAchievement))
       AddMenuItem(Format("<c ffff33>%s</c>", GetName(0, idAchievement)), Format("StatsAchievement(%d, %d, %d)", iPlr, i, iOffset), NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
     else
       AddMenuItem(Format("<c 777777>%s</c>", GetName(0, idAchievement)), Format("StatsAchievement(%d, %d, %d)", iPlr, i, iOffset), NONE, pClonk, 0, 0, "", 0, 0, 0);
@@ -133,10 +131,9 @@ public func StatsAchievement(int iPlr, int iSelect, int iOffset)
   if(!CreateMenu(GetID(),pClonk,this,0,0,0,C4MN_Style_Dialog)) return;
   AddMenuItem(" | ", 0, RWDS, pClonk, 0, 0, "", 514);
 
-  var iData = GetPlrExtraData(iPlr, "CMC_Achievements");
   var iIndex = iSelect;
   var idAchievement = C4Id(Format("AC%02d", iIndex));
-  if(iData >> iSelect & 1)
+  if(GetPlayerAchievement(iPlr, idAchievement))
   {
     AddMenuItem(Format("<c ffff33>%s</c>", GetName(0, idAchievement)), 0, NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
     AddMenuItem(Format("%s", GetDesc(0, idAchievement)), 0, NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
@@ -251,6 +248,14 @@ public func UpdatePlayers()
     {
       iOffset++;
       continue;
+    }
+    var iDataOld = GetPlrExtraData(iPlr, "CMC_Achievements");
+    if(iDataOld) {
+    	iDataOld = iDataOld >> 1; //Konvertieren, Bit 0 wird jetzt mitgenutzt
+    	var iDataNew = GetPlrExtraData(iPlr, "CMC_Achievements1");
+    	SetPlrExtraData(iPlr, "CMC_Achievements1", iDataOld | iDataNew);
+      //Bei Release folgende Zeile (und diesen Kommentar) entfernen:
+    	//SetPlrExtraData(iPlr, "CMC_Achievements", 0);
     }
     
     SetPlayerData(GetTaggedPlayerName(iPlr, true), RWDS_PlayerName, iPlr);
@@ -544,10 +549,10 @@ public func StatsStatistics(int iPlr)
   AddMenuItem(Format("$KillCount$|$DeathCount$", GetFullPlayerData(iPlr, RWDS_KillCount), GetFullPlayerData(iPlr, RWDS_DeathCount)), 0, 0, pClonk);
 
   var iGAchievementCnt = 0;
-  var iData = GetPlrExtraData(iPlr, "CMC_Achievements");
   for(var i = 1; i <= iAchievementCount; i++)
   {
-    if(iData >> i & 1)
+    var idAchievement = C4Id(Format("AC%02d", i));
+    if(GetPlayerAchievement(iPlr, idAchievement))
       iGAchievementCnt++;
   }
 
@@ -626,6 +631,35 @@ global func ResetAllPlayerAchievements()
 global func ResetPlayerAchievements(int iPlr)
 {
   SetPlrExtraData(iPlr, "CMC_Achievements", 0);
+  for(var i = 1; GetPlrExtraData(iPlr, Format("CMC_Achievements%d", i)); i++) {
+    SetPlrExtraData(iPlr, Format("CMC_Achievements%d", i), 0);
+  }
+  return true;
+}
+
+/* Abfrage */
+
+public func GetPlayerAchievement(int iPlr, id idAchievement) {
+  if(!RewardsActive()) return;
+  if(!idAchievement->IsAchievement()) return false;
+  if(GetPlayerType(iPlr) != C4PT_User) return false;
+  var iSlot = idAchievement->GetSavingSlot()-1;
+  var iBlock = iSlot / 32 + 1;
+
+  var iData = GetPlrExtraData(iPlr, Format("CMC_Achievements%d", iBlock));
+  return iData >> (iSlot % 32) & 1;
+}
+
+public func SetPlayerAchievement(int iPlr, id idAchievement, bool fAwarded) {
+  if(!RewardsActive()) return;
+  if(!idAchievement->IsAchievement()) return false;
+  if(GetPlayerType(iPlr) != C4PT_User) return false;
+  var iSlot = idAchievement->GetSavingSlot()-1;
+  var iBlock = iSlot / 32 + 1;
+
+  var iData = GetPlrExtraData(iPlr, Format("CMC_Achievements%d", iBlock));
+  SetPlrExtraData(iPlr, Format("CMC_Achievements%d", iBlock), iData ^ fAwarded << (iSlot % 32));
+  
   return true;
 }
 
@@ -637,12 +671,13 @@ global func AwardAchievement(id idAchievement, int iPlr)
   if(!RewardsActive()) return;
   if(GetPlayerType(iPlr) != C4PT_User) return false;
   if(!idAchievement->IsAchievement()) return false;
+  var db = FindObject2(Find_ID(RWDS));
+  if(!db) return false;
 
   //Achievement in Spielerdatei schreiben sofern nicht vorhanden
-  var iData = GetPlrExtraData(iPlr, "CMC_Achievements");
-  if(!(iData >> idAchievement->GetSavingSlot() & 1))
+  if(!db->GetPlayerAchievement(iPlr, idAchievement))
   {
-    SetPlrExtraData(iPlr, "CMC_Achievements", iData ^ 1 << idAchievement->GetSavingSlot());
+    db->SetPlayerAchievement(iPlr, idAchievement, true);
 
     //Achievementanzeige mit blauem Hintergrund
     var achievement = CreateObject(idAchievement, 0, 0, iPlr);
