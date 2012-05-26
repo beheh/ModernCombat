@@ -57,10 +57,6 @@ public func Set(object target, int color, int iType, bool fIcon, string szIcon, 
   iBarType = iType;
   iDefHeight = GetDefHeight(GetID(target));
 
-  //Balken setzen
-  PositionToVertex();
-  //SetVertex(0, 1, GetVertex(0, 1, target) - GetObjHeight(target) / 2 - (iBarCount * 10));
-
   //Und festsetzen
   SetAction("Attach", target);
 
@@ -76,6 +72,10 @@ public func Set(object target, int color, int iType, bool fIcon, string szIcon, 
     SetGraphics(szIcon, this, idSrcDef, BAR_IconLayer, 1);
     SetObjDrawTransform(1000, 0, iXAdjust, 0, 1000, iYAdjust, this, BAR_IconLayer);
   }
+
+	//Balken setzen
+	fActive = true;
+ 	PositionToVertex();
 
   fActive = false;
 
