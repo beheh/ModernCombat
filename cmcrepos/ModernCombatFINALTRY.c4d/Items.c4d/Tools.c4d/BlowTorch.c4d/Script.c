@@ -362,6 +362,11 @@ public func Use(caller)
           {
             //Feindliche Lebewesen verletzen
             DoDmg(12,DMG_Fire,obj);
+
+            if(!GetAlive(obj) || IsFakeDeath(obj))
+              //Achievement-Fortschritt (I'll fix you up?)
+              DoAchievementProgress(1, AC32, GetOwner(GetUser()));
+
             living_dmg_cooldown = 7;
           }
           if(!Random(7))
