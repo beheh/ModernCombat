@@ -2028,16 +2028,11 @@ protected func AbortCrawl()
 
   if(WildcardMatch(act, "*Jump*"))
   {
-   if(!CanStandUp())
-    return SetAction("CrawlFall");
-   else
-   {
     RemoveEffect("Crawl", this);
-
     if(GetDir() == DIR_Left)
-     SetDir(DIR_Right);
+      SetDir(DIR_Right);
     else
-     SetDir(DIR_Left);
+      SetDir(DIR_Left);
 
     SetComDir(COMD_Stop);
 
@@ -2046,15 +2041,15 @@ protected func AbortCrawl()
 
     var i = 10;
     var dir = -(GetDir()*2-1);
-    SetPosition(GetX()+dir,GetY()+8+5);
+    SetPosition(GetX()+dir,GetY()+8+3);
     while(i-- > 0)
     {
-     if(!Stuck())
-     {
-      SetPosition(GetX()-dir,GetY());
-      break;
-     }
-     SetPosition(GetX()+dir,GetY());
+      if(!Stuck())
+      {
+        //SetPosition(GetX()-dir,GetY());
+        break;
+      }
+      SetPosition(GetX()+dir,GetY());
     }
 
     if(Stuck()) AutoUnstuck(this,0,-10);
@@ -2062,9 +2057,7 @@ protected func AbortCrawl()
     //SetPosition(GetX()+(GetDir()*2-1)*-4,GetY()+8+5);
     SetAction("Scale");
     return 1;
-   }
   }
-
   if(IsCrawling())  return;
   // Shape und Vertices zurücksetzen
   RemoveEffect("Crawl", this);
@@ -2112,6 +2105,7 @@ public func FxNoCrawlTimer()	{return -1;}
 
 public func FxCrawlStart(pClonk, iNum)
 {
+  Log("StartCrawl");
   // Physical, Shape und Vertixes anpassen
   SetPhysical("Walk", GetPhysical("Walk", 0, pClonk)/4, PHYS_StackTemporary);
   SetShape(-8, 2-5, 16, 8);
@@ -2127,6 +2121,7 @@ public func FxCrawlStart(pClonk, iNum)
 
 public func FxCrawlStop(pClonk, iNum)
 {
+  Log("StopCrawl");
   //Physical, Shape und Vertices zurücksetzen
   ResetPhysical(pClonk, "Walk");
   SetShape(-8, -10, 16, 20);
