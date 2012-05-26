@@ -73,9 +73,9 @@ public func Set(object target, int color, int iType, bool fIcon, string szIcon, 
     SetObjDrawTransform(1000, 0, iXAdjust, 0, 1000, iYAdjust, this, BAR_IconLayer);
   }
 
-	//Balken setzen
-	fActive = true;
- 	PositionToVertex();
+  //Balken setzen
+  fActive = true;
+  PositionToVertex();
 
   fActive = false;
 
