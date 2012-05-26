@@ -436,7 +436,7 @@ global func GetTaggedPlayerName(int iPlr, bool fRank, bool fCompact)
       return Format("{{%i}}%s <c %x>%s</c>", rank, icon, GetPlrColorDw(iPlr), GetPlayerName(iPlr));
     
     var icons = GetName(0, rank);
-    if(icon) icons = Format("%s %s", icons, icon);
+    if(icon != "") icons = Format("%s %s", icons, icon);
     return Format("{{%i}} %s <c %x>%s</c>", rank, icons, GetPlrColorDw(iPlr), GetPlayerName(iPlr));
   }
   else if(fRank && icon)
