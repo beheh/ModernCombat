@@ -79,8 +79,9 @@ public func Launch(int iAngle, object pFollow, bool fUnguided)
     AddEffect("IntSecureTime", this, 1, SecureTime(), this);
 }
 
-public func Guideable()	{
-	return fGuided;
+public func Guideable()
+{
+  return fGuided;
 }
 
 public func Secure()
@@ -284,7 +285,6 @@ protected func CheckContact()
   if (GetContact(this, -1) || Stuck())
   {
     return Hit();
-
   }
 }
 
