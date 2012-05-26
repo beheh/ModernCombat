@@ -41,9 +41,25 @@ public func FMData1T1(int data)
   return FMData1(data);
 }
 
+public func FMData1T2(int data)
+{
+  if(data == FT_Name)		return "$Unguided$";
+  return FMData1(data);
+}
+
+public func Fire1()
+{
+  LaunchRocket(MISL,Contained()->~AimAngle(10));
+}
+
 public func Fire1T1()
 {
   Fire1();
+}
+
+public func Fire1T2()
+{
+  LaunchRocket(MISL,Contained()->~AimAngle(10), true);
 }
 
 public func BotData1(int data)
@@ -54,12 +70,7 @@ public func BotData1(int data)
   return Default(data);
 }
 
-public func Fire1()
-{
-  LaunchRocket(MISL,Contained()->~AimAngle(10));
-}
-
-public func LaunchRocket(id rid, int angle)
+public func LaunchRocket(id rid, int angle, bool unguided)
 {
   //Austritt bestimmen
   var user = GetUser();
@@ -68,12 +79,12 @@ public func LaunchRocket(id rid, int angle)
 
   //Rakete abfeuern
   var rocket = CreateObject(rid,x,y+10,GetController(user));
-  rocket->Launch(angle, user);
+  rocket->Launch(angle, user, unguided);
   Sound("RTLR_Launch*.ogg", 0, rocket);
   SetController(GetController(user), rocket);
 
   //Sicht auf Rakete
-  SetPlrView(GetController(user), rocket);
+  if(!unguided) SetPlrView(GetController(user), rocket);
   pRocket = rocket;
 
   //Effekte
@@ -114,7 +125,7 @@ public func AimAngleChange(bool fJNR)
 
 private func Check()
 {
-  if(!Contained() || Contents(0, Contained()) != this || !Contained()->~IsClonk()) return;
+  if(!pRocket || !Contained() || Contents(0, Contained()) != this || !Contained()->~IsClonk() || !pRocket->Guideable()) return;
 
   //Sicht auf existierende Rakete setzen
   if(Contained()->~IsAiming())

@@ -1,2 +1,3 @@
 Missiles=Missiles
-Optical=Optical Control
+Optical=Optical guidance
+Unguided=Unguided

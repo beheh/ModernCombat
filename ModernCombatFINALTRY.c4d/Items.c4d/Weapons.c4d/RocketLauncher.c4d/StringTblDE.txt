@@ -1,2 +1,3 @@
 Missiles=Raketen
 Optical=Optisches Lenken
+Unguided=Ungelenkt
