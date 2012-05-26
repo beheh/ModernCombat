@@ -304,7 +304,7 @@ public func Use(caller)
   used = false;
 
   //Angreifbare Objekte suchen
-  var obj = caller->FindObject2(Find_Func("IsMeleeTarget", this),		//Angreifbar?
+  var obj = caller->FindObject2(Find_Func("IsMeleeTarget", this),	//Angreifbar?
   			Find_AtRect(-10,-10,20,20));
   if(obj)
   {
