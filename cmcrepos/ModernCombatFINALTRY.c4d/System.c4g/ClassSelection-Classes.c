@@ -31,7 +31,7 @@ private func Class2Info(int iData, int iPlr)
   if(iData == CData_Ammo)       return [[STAM, 80]];
   if(iData == CData_Items)      return [[SMGN, 1], [PSTL, 1], [CDBT, 1], [FAPK, 1]];
   if(iData == CData_Grenades)   return [[FGRN, 1], [FRAG, 2], [SRBL, 1]];
-  if(iData == CData_Facet)      return 2 ;
+  if(iData == CData_Facet)      return 2;
   return Default(iData);
 }
 

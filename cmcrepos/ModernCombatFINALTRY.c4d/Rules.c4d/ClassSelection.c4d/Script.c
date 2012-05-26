@@ -107,7 +107,8 @@ public func FxSpawntimerTimer(pTarget, iNo, iTime)
   if(EffectVar(1, pTarget, iNo) <= 0)
   {
     var iPlr = EffectVar(0, pTarget, iNo),
-    class = selection[iPlr]-InfoMenuItems();
+    class = CalculatePlayerSelection(iPlr, selection[iPlr]);
+    
     PlayerMessage(iPlr, "@");
     if(SetupClass(class, iPlr))
       return -1;
@@ -217,14 +218,14 @@ private func OpenMenu(object pClonk, int iSelection)
   var iOwner = GetOwner(pClonk);
   
   //Auswahl updaten
-  if (!iSelection && lastclass[iOwner] > 0)
+  if(!iSelection && lastclass[iOwner] > 0)
     iSelection = lastclass[iOwner] + InfoMenuItems();
   else
     iSelection = InfoMenuItems() + 1;
-  if (GetMenu(pClonk))
+  if(GetMenu(pClonk))
     iSelection = GetMenuSelection(pClonk);
 
-  var iClass = iSelection - InfoMenuItems();
+  var iClass = CalculatePlayerSelection(iOwner, iSelection);
 
   //Menü öffnen
   CloseMenu(pClonk);
@@ -317,7 +318,7 @@ private func OpenMenu(object pClonk, int iSelection)
     if(!GetCData(i, CData_DisplayCondition, iOwner))
       continue;
     var szName = GetCData(i, CData_Name);
-    if (!GetCData(i, CData_Condition, iOwner))
+    if(!GetCData(i, CData_Condition, iOwner))
       szName = Format("<c 777777>%s</c>", szName);
     else
       szName = Format("<c ffff33>%s</c>", szName);
@@ -332,6 +333,16 @@ private func OpenMenu(object pClonk, int iSelection)
   }
 
   return true;
+}
+
+private func CalculatePlayerSelection(int iOwner, int iSelection) {
+	var iClass = iSelection - InfoMenuItems();
+  for(var i = 1; i <= iClass && i <= GetClassAmount(); i++) {
+	  if(!GetCData(i, CData_DisplayCondition, iOwner)) {
+	    iClass++;
+	  }
+  }
+  return iClass;
 }
 
 public func MenuQueryCancel()	{return 1;}
@@ -483,6 +494,6 @@ private func Default(int iData)
 public func GetClassAmount()
 {
   var i = 1;
-  while(GetCData(i))  i++;
+  while(GetCData(i)) i++;
   return i;
 }
