@@ -102,18 +102,6 @@ public func FxReparationBarsTimer(object target, int nr)
 
     var bar = CreateObject(SBAR, 0, 0, iPlr);
     bar->Set(obj, RGB(80,190,255), BAR_Repairbar, true, "", SM12);
-
-    var dmg = GetDamage(obj);
-    var max_dmg = obj->~MaxDamage();
-    var percent = dmg * 100 / max_dmg;
-    var deactivate = false;
-    if(!percent)
-      deactivate = true;
-
-    percent = 100 - percent;
-
-    bar->Update(percent, deactivate);
-
     EffectVar(0, target, nr)[GetLength(EffectVar(0, target, nr))] = bar;
   }
 }
