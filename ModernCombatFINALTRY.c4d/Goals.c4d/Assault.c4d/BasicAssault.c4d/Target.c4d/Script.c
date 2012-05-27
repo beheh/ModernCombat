@@ -7,7 +7,7 @@ local iLastDamager;			//Der letzte der Schaden verursacht hat
 local idImitation;			//Welche Definition imitiert wird
 
 public func IsBulletTarget()		{return IsAssaultTarget();}
-public func IsMeleeTarget()		{return true;}
+public func IsMeleeTarget(object pByObj)		{return (GetPlayerTeam(GetOwner(pByObj->~GetUser())) != GetTeam());}
 public func AttractTracer(pTracer)	{return IsAssaultTarget() && GetPlayerTeam(GetController(pTracer)) != GetTeam();}
 public func GetKillIcon()		{return idImitation;}
 
@@ -45,7 +45,7 @@ public func MeleeHit()
 {
   //Effekte
   CastSmoke("Smoke3",5,13,-5,-5,50,150);
-  CastSmoke("Smoke3",5,13,5,5,50,150);
+  CastSmoke("Smoke3",5,13,5,5,50,150); 
   Sound("DoorKick.ogg");
 
   DoDmg(14);
