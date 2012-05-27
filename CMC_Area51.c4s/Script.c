@@ -88,8 +88,8 @@ func Initialize()
 
   //Geschützstellungen
   CreateObject(GNET, 1000, 310, -1)->Set(0,-90);
-  CreateObject(GNET, 1000, 560, -1)->Set(RLSA,-90);
-  CreateObject(GNET, 1080, 560, -1)->Set(RLSA,90);
+  CreateObject(GNET, 1000, 560, -1)->Set(SATW,-90);
+  CreateObject(GNET, 1080, 560, -1)->Set(SATW,90);
   CreateObject(GNET, 1080, 310, -1)->Set(0,90);
 
   //Stahlbrücken
