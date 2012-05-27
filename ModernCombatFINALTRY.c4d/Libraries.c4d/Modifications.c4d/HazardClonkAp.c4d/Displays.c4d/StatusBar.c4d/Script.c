@@ -21,6 +21,7 @@ public func IsBar()			{return true;}
 public func BarActive()			{return fActive;}
 public func RejectEntrance()		{return true;}
 public func HasBarType(int barType)	{return (iBarType == barType);}
+public func IconSize()  {return 16;}
 global func GetBarCount(object target, int iOwner, object exclude)
 {  
   if(!target) { target = this; }
@@ -47,7 +48,7 @@ protected func Initialize()
 local tPercent, tRotation, iDefHeight;
 local idIconDef;
 
-public func Set(object target, int color, int iType, bool fIcon, string szIcon, id idSrcDef, int iXAdjust, int iYAdjust)
+public func Set(object target, int color, int iType, bool fIcon, string szIcon, id idSrcDef, int iXAdjust, int iYAdjust, bool fNoResize)
 {
   SetVisibility(VIS_None);
 
@@ -70,12 +71,17 @@ public func Set(object target, int color, int iType, bool fIcon, string szIcon, 
     idIconDef = idSrcDef;
     if(!idIconDef)
       idIconDef = GetID();
-
-    if(!iXAdjust)
-    	iXAdjust = -(21675 + GetDefWidth(idIconDef) * 333); //Berechnet die Position je nach Breite des Icons
-
+    
     SetGraphics(szIcon, this, idIconDef, BAR_IconLayer, 1);
-    SetObjDrawTransform(1000, 0, iXAdjust, 0, 1000, iYAdjust, this, BAR_IconLayer);
+		if(!fNoResize && GetDefWidth(idIconDef) > 16)
+    	ResizeIcon(IconSize(), iXAdjust, iYAdjust);
+    else
+    {
+    	if(!iXAdjust)
+    		iXAdjust = -(21675 + GetDefWidth(idIconDef) * 333); //Berechnet die Position je nach Breite des Icons
+
+    	SetObjDrawTransform(1000, 0, iXAdjust, 0, 1000, iYAdjust, this, BAR_IconLayer);
+    }
   }
 
   //Balken setzen
