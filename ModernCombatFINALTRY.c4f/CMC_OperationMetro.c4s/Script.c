@@ -3,7 +3,7 @@
 #strict
 #include CSTD
 
-static aFlag;
+static aFlag,aStationary;
 
 
 /* Initialisierung */
@@ -15,6 +15,8 @@ func Initialize()
   Music("CMC_WaitingforSpawn.ogg",1);
   //Flaggen
   aFlag = [];
+  //Geschützstellungen
+  aStationary = [];
   //Einrichtung plazieren
   CreateInterior();
   //Ausrüstung plazieren
@@ -624,6 +626,14 @@ public func ChooserFinished()
    {
     aFlag[3]->Set("$Flag4$",0,2);
    }
+
+   //Grenzen setzen
+   CreateObject(BRDR, 520, 0, -1)->Set(0);
+   CreateObject(BRDR, 4720, 0, -1)->Set(1);
+
+   //Geschützstellungen
+   CreateObject(GNET, 830, 440, -1)->Set(0,90,1);
+   CreateObject(GNET, 4410, 440, -1)->Set(0,-90,1);
   }
 
   //Assault-Spielziel
@@ -648,6 +658,14 @@ public func ChooserFinished()
    RemoveObject(FindObject2(Find_ID(AMCT),Find_InRect(1910, 420, 30, 30)));
    RemoveObject(FindObject2(Find_ID(AMCT),Find_InRect(4590, 420, 30, 30)));
    RemoveObject(FindObject2(Find_ID(LTBL),Find_InRect(3780, 410, 30, 30)));
+
+   //Geschützstellungen
+   aStationary[0] = CreateObject(GNET, 830, 440, -1);
+   aStationary[0] -> Set(0,90,1);
+   aStationary[1] = CreateObject(GNET, 2770, 530, -1);
+   aStationary[1] -> Set(0,-90);
+   aStationary[2] = CreateObject(GNET, 3100, 440, -1);
+   aStationary[2] -> Set(0,-90);
 
    //Sandsackbarrieren
    CreateObject(SBBA, 2080, 408, -1);
@@ -690,6 +708,10 @@ public func ChooserFinished()
    CreateObject(BRDR, 950, 0, -1)->Set(0);
    CreateObject(BRDR, 4290, 0, -1)->Set(1);
 
+   //Geschützstellungen
+   CreateObject(GNET, 1600, 370, -1)->Set(0,90,1);
+   CreateObject(GNET, 3640, 370, -1)->Set(0,-90,1);
+
    //Zusätzliche Munition
    if(!FindObject(NOAM))
    {
@@ -713,6 +735,10 @@ public func ChooserFinished()
    //Grenzen setzen
    CreateObject(BRDR, 950, 0, -1)->Set(0);
    CreateObject(BRDR, 4290, 0, -1)->Set(1);
+
+   //Geschützstellungen
+   CreateObject(GNET, 1600, 370, -1)->Set(0,90,1);
+   CreateObject(GNET, 3640, 370, -1)->Set(0,-90,1);
 
    //Zusätzliche Munition
    if(!FindObject(NOAM))
@@ -755,6 +781,10 @@ public func ChooserFinished()
    //Grenzen
    CreateObject(BRDR, 520, 0, -1)->Set(0);
    CreateObject(BRDR, 4720, 0, -1)->Set(1);
+
+   //Geschützstellungen
+   CreateObject(GNET, 1600, 370, -1)->Set(0,90,1);
+   CreateObject(GNET, 3640, 370, -1)->Set(0,-90,1);
   }
 }
 
@@ -780,6 +810,19 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
     RemoveAll(BRDR);
     CreateObject(BRDR, 1610, 0, -1)->Set(0);
     CreateObject(BRDR, 4720, 0, -1)->Set(1,1);
+
+    //Geschützstellung entfernen
+    aStationary[1]->DecoExplode(30);
+   }
+  }
+
+  //Ziel 3 und 4
+  if (iIndex == 3 || iIndex == 4)
+  {
+   if(fConnectedDestroyed)
+   {
+    //Geschützstellung entfernen
+    aStationary[2]->DecoExplode(30);
    }
   }
 }
