@@ -171,23 +171,21 @@ public func ReadyToFire()
     return true;
 
   //In Gebäude
-  if(Contained()) return(Contained()->~ReadyToFire());
+  if(Contained()) return false;
   
   if(GetActionTarget())
   {
     //Reitet
-    if(IsRiding()) return(GetActionTarget()->~ReadyToFire());
+    if(IsRiding()) return;
     //Schiebt
-    if(GetProcedure() == "PUSH")
-      if(GetActionTarget()->~IsWeapon())
-        return(true);
+    if(GetProcedure() == "PUSH") return;
   }
 
   var a = GetAction();
 
   //Nur beim Laufen, Schwimmen oder Springen
   if(a == "WalkArmed" || a == "SwimArmed" || a == "JumpArmed")
-    return(true);
+    return true;
 
   //Importiert aus den Funktionalitäten: JetpackFlight und Aim
   if(a == "JetpackFlight") return true;
