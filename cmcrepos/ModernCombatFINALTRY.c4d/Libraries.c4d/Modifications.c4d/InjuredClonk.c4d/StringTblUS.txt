@@ -76,3 +76,6 @@ RSHL3=The riot shield stabilizes you so that you <c 33ccff>can't fall down</c> w
 CDBT0=You can also shock <c 33ccff>enemies</c> with shock paddles.
 CDBT1=Revived clonks recover slowly, <c 33ccff>defend them</c> while that happens because damage will stop the healing effect.
 CUAM0=You can give packed ammo to allies by tapping [<c 33ccff>Throw</c>].
+BWTH0=Blow torches can also [<c 33ccff>damage</c>] enemy vehicles and structures.
+BWTH1=The blow torch will [<c 33ccff>overheat</c>] for a moment when it is completely emptied.
+BWTH2=Blow torches can [<c 33ccff>destroy</c>] locked doors and crates as well.
