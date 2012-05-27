@@ -426,24 +426,24 @@ protected func ControlSpecial2()
   [$CtrlMenuDesc$|Image=CXTX]
 
   //In einem Gebäude oder Fahrzeug: das Kontextmenü des Gebäudes öffnen
-  if (Contained())
+  if(Contained())
   {
     if(Contained()->~ContainedSpecial2(this))
       return 1;
-    if ((GetCategory(Contained()) & C4D_Structure) || (GetCategory(Contained()) & C4D_Vehicle))
+    if((GetCategory(Contained()) & C4D_Structure) || (GetCategory(Contained()) & C4D_Vehicle))
     {
       ExecuteCommand();
       return SetCommand(this,"Context",0,0,0,Contained());
     }
   }
   //Fasst ein Objekt an: Kontextmenü des angefassten Objekts öffnen
-  if (GetAction() == "Push")
+  if(GetAction() == "Push" || IsRiding())
   {
     ExecuteCommand();
     return SetCommand(this,"Context",0,0,0,GetActionTarget());
   }
   //Trägt ein Objekt: Kontextmenü des ersten getragenen Objekts öffnen
-  if (Contents(0))
+  if(Contents(0))
   {
     ExecuteCommand();
     return SetCommand(this,"Context",0,0,0,Contents(0));
@@ -698,4 +698,24 @@ protected func JumpSound()
   if(!Contained())
     if(GetCommand() != "Enter")
       Sound("ClonkFall*.ogg", 0, 0, 60);
+}
+
+private func Riding()
+{
+  //Richtung an die des berittenen Objekts anpassen
+  if(GetActionTarget()->~VaryingDir())
+    SetDir(GetActionTarget()->~VaryingDir()-2);
+  else
+    SetDir(GetDir(GetActionTarget()));
+  //Objekt steht still: Clonk soll auch still sitzen
+  if(GetActionTarget()->~IsStill())
+  {
+    if(GetAction() != "RideStill")
+      SetAction("RideStill");
+  }
+  //Objekt steht nicht still: Clonk soll auch nicht still sitzen
+  else
+    if(GetAction() != "Ride")
+      SetAction("Ride");
+  return 1;
 }
