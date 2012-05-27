@@ -1184,15 +1184,16 @@ public func QuickInventorySelect(id idObject, bool fSaveTemporary) {
 public func QuickInventoryStore(object pObj) {
   
   //Menü ermitteln
-  var iMenu = 0;
+  //Manuell?
+  var iMenu = pObj->~CustomQuickInventoryMenu();
   //Primärwaffe
-  if(pObj->~IsPrimaryWeapon() || (pObj->~IsWeapon() && !pObj->~IsSecondaryWeapon())) iMenu = QINV_PrimaryMenu;
+  if(!iMenu && pObj->~IsPrimaryWeapon() && !pObj->~IsSecondaryWeapon()) iMenu = QINV_PrimaryMenu;
   //Sekundärwaffe
-  if(pObj->~IsSecondaryWeapon()) iMenu = QINV_SecondaryMenu;
+  if(!iMenu && pObj->~IsSecondaryWeapon()) iMenu = QINV_SecondaryMenu;
   //Einsatzobjekt
-  if(pObj->~IsEquipment()) iMenu = QINV_EquipmentMenu;
+  if(!iMenu && pObj->~IsEquipment() && !pObj->~IsGrenade()) iMenu = QINV_EquipmentMenu;
   //Granaten
-  if(pObj->~IsGrenade()) iMenu = QINV_GrenadeMenu;
+  if(!iMenu && pObj->~IsGrenade()) iMenu = QINV_GrenadeMenu;
   //Sonst einfach nur Objekt
   if(!iMenu) iMenu = QINV_ObjectMenu;
   
