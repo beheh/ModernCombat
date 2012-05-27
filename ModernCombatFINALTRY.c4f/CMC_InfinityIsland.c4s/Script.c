@@ -3,7 +3,7 @@
 #strict
 #include CSTD
 
-static aFlag,aSelfDefense;
+static aFlag,aSelfDefense,aStationary;
 
 
 /* Initialisierung */
@@ -17,6 +17,8 @@ func Initialize()
   SetGamma(RGB(7,6,0), RGB(152,147,128), RGB(255,254,236) );
   //Flaggen
   aFlag = [];
+  //Geschützstellungen
+  aStationary = [];
   //Selbstschussanlagen
   aSelfDefense = [];
   //Einrichtung plazieren
@@ -517,6 +519,11 @@ public func ChooserFinished()
     aFlag[3]->Set("$Flag4$",0,2);
    }
 
+   //Geschützstellungen
+   CreateObject(GNET, 1795, 1141, -1)->Set(SATW);
+   CreateObject(GNET, 2380, 1140, -1)->Set(0,90);
+   CreateObject(GNET, 5060, 1170, -1)->Set(SATW);
+
    //Blackhawks und Hinweisschilder
    if(!FindObject(NOBH))
    {
@@ -592,6 +599,18 @@ public func ChooserFinished()
    //Versorgungskiste (APW)
    var crate = CreateObject(AMCT, 5540, 1230, -1);
    crate->Set(ATWN);
+
+   //Geschützstellungen
+   aStationary[0] = CreateObject(GNET, 1795, 1141, -1);
+   aStationary[0] -> Set(0,90,1);
+   aStationary[1] = CreateObject(GNET, 3410, 1130, -1);
+   aStationary[1] -> Set(0,-90,1);
+   aStationary[2] = CreateObject(GNET, 3460, 890, -1);
+   aStationary[2] -> Set(0,-90,1);
+   aStationary[3] = CreateObject(GNET, 3880, 660, -1);
+   aStationary[3] -> Set(0,-90);
+   aStationary[4] = CreateObject(GNET, 5060, 1170, -1);
+   aStationary[4] -> Set(0,-90);
 
    //Blackhawks und Hinweisschilder
    if(!FindObject(NOBH))
@@ -725,6 +744,10 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
     RemoveAll(BRDR);
     CreateObject(BRDR, 910, 0, -1)->Set(0,1);
     CreateObject(BRDR, 4580, 0, -1)->Set(1,1);
+
+    //Geschützstellungen entfernen
+    aStationary[1]->DecoExplode(30);
+    aStationary[2]->DecoExplode(30);
    }
   }
 
@@ -741,6 +764,19 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
     //Spawnpoints entfernen
     RemoveObject(FindObject2(Find_ID(VSPW),Find_InRect(1969, 1139, 2, 2)));
     RemoveObject(FindObject2(Find_ID(VSPW),Find_InRect(3609,1279, 2, 2)));
+
+    //Geschützstellung entfernen
+    aStationary[3]->DecoExplode(30);
+   }
+  }
+
+  //Ziel 5 und 6
+  if (iIndex == 4 || iIndex == 5)
+  {
+   if(fConnectedDestroyed)
+   {
+    //Geschützstellung entfernen
+    aStationary[4]->DecoExplode(30);
    }
   }
 }
@@ -754,7 +790,7 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   {
    if(iTeam == 1)
    {
-    var rand = Random(4);
+    var rand = Random(5);
     if(!rand)
      { iX = 3150; iY = 1270; }
     if(!--rand)
@@ -763,6 +799,8 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
      { iX = 3380; iY = 1270; }
     if(!--rand)
      { iX = 3420; iY = 1120; }
+    if(!--rand)
+     { iX = 3550; iY = 1270; }
    }
    if(iTeam == 2)
    {
