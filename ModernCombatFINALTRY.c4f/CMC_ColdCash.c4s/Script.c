@@ -177,6 +177,10 @@ func CreateEquipment()
   //Raketen
   PlaceSpawnpoint(MBOX, 1310, 355);
   PlaceSpawnpoint(MBOX, 4230, 355);
+
+  //Geschützstellungen
+  CreateObject(GNET, 1520, 360, -1)->Set(SATW);
+  CreateObject(GNET, 4020, 360, -1)->Set(SATW);
 }
 
 func CreateDecoration()
