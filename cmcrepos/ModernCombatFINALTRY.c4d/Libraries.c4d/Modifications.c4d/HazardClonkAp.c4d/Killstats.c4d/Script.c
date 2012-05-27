@@ -46,7 +46,7 @@ public func KMsg(int plr1, int plr2, object clonk, int plr3)
       typeicon = GLOB;
     else if(type == DMG_Projectile)
       if(killicon)
-        if(killicon->~IsWeapon())
+        if(killicon->~IsWeapon() || killicon->~HasBullets())
       	  typeicon = SHTX;
         else
           typeicon = SHRP;
