@@ -1,2 +1,2 @@
 Missiles=AT Missile
-Optical=Optical Control
+Optical=Optical Guidance
