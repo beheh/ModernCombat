@@ -298,6 +298,7 @@ private func GetRandomTipp(array a, id id)
   if (id == RSHL) return GetRandomTipp([[RSHL, "$RSHL0$"], [RSHL, "$RSHL1$"], [RSHL, "$RSHL2$"], [RSHL, "$RSHL3$"]]);
   if (id == CDBT) return GetRandomTipp([[CDBT, "$CDBT0$"], [CDBT, "$CDBT1$"]]);
   if (id == CUAM) return GetRandomTipp([[CUAM, "$CUAM0$"]]);
+  if (id == BWTH) return GetRandomTipp([[BWTH, "$BWTH0$"], [BWTH, "$BWTH1$"], [BWTH, "$BWTH2$"]]);
 }
 
 /* Selbstmord */
