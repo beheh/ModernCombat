@@ -67,7 +67,7 @@ public func Set(object target, int color, int iType, bool fIcon, string szIcon, 
   if(fIcon)
   {
     if(!iXAdjust)
-      iXAdjust = -30000; //Adjust-Werte an Grafiken der Maße 25x25px angepasst, bei anderen Maßen werden eventuell andere Werte benötigt.
+    	iXAdjust = -(21675 + GetDefWidth(idSrcDef) * 333); // Berechnet Position je nach Breite des Icons.
 
     SetGraphics(szIcon, this, idSrcDef, BAR_IconLayer, 1);
     SetObjDrawTransform(1000, 0, iXAdjust, 0, 1000, iYAdjust, this, BAR_IconLayer);
