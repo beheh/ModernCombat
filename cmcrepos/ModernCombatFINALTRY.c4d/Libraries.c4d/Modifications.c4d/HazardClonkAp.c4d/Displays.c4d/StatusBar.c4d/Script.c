@@ -67,12 +67,12 @@ public func Set(object target, int color, int iType, bool fIcon, string szIcon, 
   //Icon zur Identifizierung
   if(fIcon)
   {
-  	idIconDef = idSrcDef;
-  	if(!idIconDef)
-  		idIconDef = GetID();
+    idIconDef = idSrcDef;
+    if(!idIconDef)
+      idIconDef = GetID();
 
     if(!iXAdjust)
-    	iXAdjust = -(21675 + GetDefWidth(idIconDef) * 333); // Berechnet Position je nach Breite des Icons.
+    	iXAdjust = -(21675 + GetDefWidth(idIconDef) * 333); //Berechnet die Position je nach Breite des Icons
 
     SetGraphics(szIcon, this, idIconDef, BAR_IconLayer, 1);
     SetObjDrawTransform(1000, 0, iXAdjust, 0, 1000, iYAdjust, this, BAR_IconLayer);
@@ -89,13 +89,13 @@ public func Set(object target, int color, int iType, bool fIcon, string szIcon, 
 
 public func ResizeIcon(int iNewWidth, int iXAdjust, int iYAdjust)
 {
-	//Icongröße verändern
-	var iNewSize = iNewWidth * 1000 / Max(GetDefWidth(idIconDef), GetDefHeight(idIconDef));
-	if(!iXAdjust)
-		iXAdjust = -(21675 + iNewWidth * 333);
-	
-	SetObjDrawTransform(iNewSize, 0, iXAdjust, 0, iNewSize, iYAdjust, this, BAR_IconLayer);
-	return true;
+  //Icongröße verändern
+  var iNewSize = iNewWidth * 1000 / Max(GetDefWidth(idIconDef), GetDefHeight(idIconDef));
+  if(!iXAdjust)
+    iXAdjust = -(21675 + iNewWidth * 333);
+
+  SetObjDrawTransform(iNewSize, 0, iXAdjust, 0, iNewSize, iYAdjust, this, BAR_IconLayer);
+  return true;
 }
 
 public func SetBarCount(int iCount)
