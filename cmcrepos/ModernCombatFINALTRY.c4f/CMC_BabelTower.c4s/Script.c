@@ -3,7 +3,7 @@
 #strict
 #include CSTD
 
-static aFlag, aSelfDefense;
+static aFlag,aSelfDefense;
 
 public func SpecificEquipment()	{return [[JTPK, 1]];} //Zusatzausrüstung: Jetpack
 
