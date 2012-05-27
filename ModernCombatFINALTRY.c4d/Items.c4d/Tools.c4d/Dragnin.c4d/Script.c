@@ -2,13 +2,13 @@
 
 #strict 2
 
-public func HandSize()		{return 1000;}
-public func HandX()		{return 4500;}
-public func HandY()		{}
-public func IsDrawable()	{return true;}
-public func IsEquipment()	{return true;}
-public func NoArenaRemove()	{return true;}
-public func LimitationCount()	{return 3;}
+public func HandSize()			{return 1000;}
+public func HandX()			{return 4500;}
+public func HandY()			{}
+public func IsDrawable()		{return true;}
+public func IsEquipment()		{return true;}
+public func NoArenaRemove()		{return true;}
+public func LimitationCount()		{return 3;}
 public func CustomQuickInventoryMenu()	{return QINV_ObjectMenu;}
 
 
