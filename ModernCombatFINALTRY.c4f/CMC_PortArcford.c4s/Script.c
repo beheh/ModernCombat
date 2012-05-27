@@ -3,7 +3,7 @@
 #strict
 #include CSTD
 
-static aFlag;
+static aFlag,aStationary;
 
 
 /* Initialisierung */
@@ -19,6 +19,8 @@ func Initialize()
   SetGamma(RGB(7,6,0), RGB(152,147,128), RGB(255,254,236) );
   //Flaggen
   aFlag = [];
+  //Geschützstellungen
+  aStationary = [];
   //Einrichtung plazieren
   CreateInterior();
   //Ausrüstung plazieren
@@ -407,6 +409,10 @@ public func ChooserFinished()
    CreateObject(SNPT, 430, 261, -1);
    CreateObject(SGNP, 610, 290, -1);
 
+   //Geschützstellungen
+   CreateObject(GNET, 1040, 310, -1)->Set(0,0,1);
+   CreateObject(GNET, 5225, 280, -1)->Set(0,0,1);
+
    //Blackhawks und Hinweisschilder
    if(!FindObject(NOBH))
    {
@@ -459,6 +465,15 @@ public func ChooserFinished()
    CreateObject(SNPT, 430, 261, -1);
    CreateObject(SGNP, 610, 290, -1);
 
+   //Geschützstellungen
+   aStationary[0] = CreateObject(GNET, 1890, 480, -1);
+   aStationary[0] -> Set(SATW,-90);
+   aStationary[1] = CreateObject(GNET, 2330, 320, -1);
+   aStationary[2] = CreateObject(GNET, 3340, 430, -1);
+   aStationary[2] -> Set(0,-90);
+   aStationary[3] = CreateObject(GNET, 4320, 490, -1);
+   aStationary[3] -> Set(0,-90);
+
    //Blackhawks und Hinweisschilder
    if(!FindObject(NOBH))
    {
@@ -485,6 +500,10 @@ public func ChooserFinished()
    CreateObject(SGNP, 1610, 470, -1);
    CreateObject(SGNP, 4140, 480, -1);
    CreateObject(SGNP, 4240, 480, -1);
+
+   //Geschützstellungen
+   CreateObject(GNET, 2330, 320, -1)->Set(0,90,1);
+   CreateObject(GNET, 3340, 430, -1)->Set(0,-90,1);
   }
 }
 
@@ -504,6 +523,10 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
 
     //Spawnpoint entfernen
     RemoveObject(FindObject2(Find_ID(VSPW),Find_InRect(909, 269, 2, 2)));
+
+    //Geschützstellungen entfernen
+    aStationary[0]->DecoExplode(30);
+    aStationary[1]->DecoExplode(30);
    }
   }
 
@@ -516,6 +539,19 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
     RemoveAll(BRDR);
     CreateObject(BRDR, 2160, 0, -1)->Set(0,1);
     CreateObject(BRDR, 5600, 0, -1)->Set(1,1);
+
+    //Geschützstellung entfernen
+    aStationary[2]->DecoExplode(30);
+   }
+  }
+
+  //Ziel 5 und 6
+  if (iIndex == 4 || iIndex == 5)
+  {
+   if(fConnectedDestroyed)
+   {
+    //Geschützstellung entfernen
+    aStationary[3]->DecoExplode(30);
    }
   }
 }

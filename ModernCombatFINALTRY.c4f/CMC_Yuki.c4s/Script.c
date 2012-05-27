@@ -3,7 +3,7 @@
 #strict
 #include CSTD
 
-static aDoor1, aDoor2, aLamp1, aLamp2, aLamp3, aFlag;
+static aDoor1,aDoor2,aLamp1,aLamp2,aLamp3,aFlag;
 
 
 /* Initialisierung */
