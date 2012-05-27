@@ -21,7 +21,7 @@ public func IsBar()			{return true;}
 public func BarActive()			{return fActive;}
 public func RejectEntrance()		{return true;}
 public func HasBarType(int barType)	{return (iBarType == barType);}
-public func IconSize()  {return 16;}
+public func IconSize()			{return 14;}
 global func GetBarCount(object target, int iOwner, object exclude)
 {  
   if(!target) { target = this; }
@@ -71,16 +71,16 @@ public func Set(object target, int color, int iType, bool fIcon, string szIcon, 
     idIconDef = idSrcDef;
     if(!idIconDef)
       idIconDef = GetID();
-    
+
     SetGraphics(szIcon, this, idIconDef, BAR_IconLayer, 1);
-		if(!fNoResize && GetDefWidth(idIconDef) > 16)
-    	ResizeIcon(IconSize(), iXAdjust, iYAdjust);
+    if(!fNoResize && GetDefWidth(idIconDef) > 16)
+      ResizeIcon(IconSize(), iXAdjust, iYAdjust);
     else
     {
-    	if(!iXAdjust)
-    		iXAdjust = -(21675 + GetDefWidth(idIconDef) * 333); //Berechnet die Position je nach Breite des Icons
+      if(!iXAdjust)
+        iXAdjust = -(21675 + GetDefWidth(idIconDef) * 333); //Berechnet die Position je nach Breite des Icons
 
-    	SetObjDrawTransform(1000, 0, iXAdjust, 0, 1000, iYAdjust, this, BAR_IconLayer);
+      SetObjDrawTransform(1000, 0, iXAdjust, 0, 1000, iYAdjust, this, BAR_IconLayer);
     }
   }
 
