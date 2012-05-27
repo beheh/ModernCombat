@@ -229,6 +229,7 @@ public func FxRepairObjectsTimer(object target, int nr, int time)
   }
 
   var clonk = EffectVar(0, target, nr);
+  if(!clonk) return -1;
 
   if(clonk->~IsRiding() && !EffectVar(1, target, nr))
   {
