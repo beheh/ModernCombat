@@ -86,7 +86,7 @@ protected func FxIntPackLightTimer()
 
 public func CustomHUD()		{return true;}
 public func ColorLow()		{return RGB(255, 150, 0);}
-public func MinValue()		{return 39;}
+public func MinValue()		{return MaxPoints()/3;}
 
 public func UpdateHUD(object pHUD)
 {
