@@ -16,7 +16,7 @@ local aBottomInfo;
 local aItemTitle;		//Titel
 local aItemFunc;		//Funktion
 local aItemPar;			//Parameter
-
+local aItemId;			//ID
 
 /* globale Funktionen */
 
@@ -65,9 +65,10 @@ global func GetSpeedMenu(object pCommandObject)
 
 protected func Initialize()
 {
-  aItemTitle  = [SMEN_ItemCount];
-  aItemFunc   = [SMEN_ItemCount];
-  aItemPar    = [SMEN_ItemCount];
+  aItemTitle  = CreateArray(SMEN_ItemCount);
+  aItemFunc   = CreateArray(SMEN_ItemCount);
+  aItemPar    = CreateArray(SMEN_ItemCount);
+  aItemId			= CreateArray(SMEN_ItemCount);
   aTopInfo    = [];
   aBottomInfo = [];
   SetVisibility(VIS_None); 
@@ -109,12 +110,13 @@ public func Add(int iItem, string szTitle, string szFunc, Parameter, id idIcon)
   aItemTitle[iItem] = szTitle;
   aItemFunc[iItem]  = szFunc;
   aItemPar[iItem]   = Parameter;
-  
-  CreateItem(iItem);
+  aItemId[iItem]		= idIcon;
+
+  CreateItem(iItem, idIcon);
   
   if(idIcon)
-    SetGraphics(0,0,idIcon,iItem+1,GFXOV_MODE_IngamePicture);
-  
+    SetGraphics(0,this,idIcon,iItem+1,GFXOV_MODE_IngamePicture);
+
   return iItem+1;
 }
 
@@ -244,26 +246,31 @@ private func ItemActive(int iItem)
   return !!aItemFunc[iItem];
 }
 
-private func CreateItem(int i)
+private func CreateItem(int i, id idIcon)
 {
   var w,h,xoff,yoff;
+  if(idIcon) {
+    aItemId[i] = idIcon;
+  }
+  else {
+    idIcon = ROCK;
+  }
 
-  
   if(i == 0)//Item 1
   {
-    SetGraphics(0,0,ROCK,i+1,GFXOV_MODE_IngamePicture);//,0,GFX_BLIT_Parent);
+    SetGraphics(0,0,idIcon,i+1,GFXOV_MODE_IngamePicture);
     
-    w = GetDefCoreVal("Picture","DefCore",ROCK,2)*1000/GetDefCoreVal("Picture","DefCore",GetID(),2);
-    h = GetDefCoreVal("Picture","DefCore",ROCK,3)*1000/GetDefCoreVal("Picture","DefCore",GetID(),3);
+    w = GetDefCoreVal("Picture","DefCore",idIcon,2)*1000/GetDefCoreVal("Picture","DefCore",GetID(),2);
+    h = GetDefCoreVal("Picture","DefCore",idIcon,3)*1000/GetDefCoreVal("Picture","DefCore",GetID(),3);
     
     SetObjDrawTransform(w/2,0,0,0,h/2,0,0,i+1);
   }
   else//Items 2 bis 5
   {
-    SetGraphics(0,0,ROCK,i+1,GFXOV_MODE_IngamePicture);//,0,GFX_BLIT_Parent);
+    SetGraphics(0,0,idIcon,i+1,GFXOV_MODE_IngamePicture);
     
-    w = GetDefCoreVal("Picture","DefCore",ROCK,2)*1000/GetDefCoreVal("Picture","DefCore",GetID(),2);
-    h = GetDefCoreVal("Picture","DefCore",ROCK,3)*1000/GetDefCoreVal("Picture","DefCore",GetID(),3);
+    w = GetDefCoreVal("Picture","DefCore",idIcon,2)*1000/GetDefCoreVal("Picture","DefCore",GetID(),2);
+    h = GetDefCoreVal("Picture","DefCore",idIcon,3)*1000/GetDefCoreVal("Picture","DefCore",GetID(),3);
     
     xoff = +Sin((360/(SMEN_ItemCount-1))*(i-1),RMEN_Radius*w);
     yoff = -Cos((360/(SMEN_ItemCount-1))*(i-1),RMEN_Radius*h);
@@ -283,6 +290,8 @@ private func ScaleItems(int iDst)
   if(ItemActive(i))
   {
     var xoff,yoff = 0;
+    var idIcon = aItemId[i];
+    if(!idIcon) idIcon = ROCK;
     SetObjDrawTransform(iDst*500/GetDefWidth(),0,0,0,iDst*500/GetDefHeight(),0,0,i+1);
   }
 
@@ -290,9 +299,14 @@ private func ScaleItems(int iDst)
   for(i = 1; i <= 4; i++)
   {
     if(!ItemActive(i)) continue;
+    var idIcon = aItemId[i];
+    if(!idIcon) idIcon = ROCK;
 
+    //xoff = +Sin((360/(SMEN_ItemCount-1))*(i-1),(iDst*RMEN_Radius/GetDefWidth())*1000);
+    //yoff = -Cos((360/(SMEN_ItemCount-1))*(i-1),(iDst*RMEN_Radius/GetDefHeight())*1000);
+    
     xoff = +Sin((360/(SMEN_ItemCount-1))*(i-1),(iDst*RMEN_Radius/GetDefWidth())*1000);
-    yoff = -Cos((360/(SMEN_ItemCount-1))*(i-1),(iDst*RMEN_Radius/GetDefHeight())*1000);
+    yoff = -Cos((360/(SMEN_ItemCount-1))*(i-1),(iDst*RMEN_Radius/GetDefHeight())*GetDefCoreVal("Picture","DefCore",idIcon,3)*31/2);
     
     SetObjDrawTransform(iDst*500/GetDefWidth(),0,xoff,0,iDst*500/GetDefHeight(),yoff,0,i+1);
   }

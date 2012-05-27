@@ -1095,8 +1095,7 @@ public func QuickInventory(int iMenu, int iPage) {
 		  var iDisplayMenu = aMenus[i];
 		  var idItem = GetQuickInventoryMenuItem(iDisplayMenu);
 		  if(idItem) {
-		    var overlay = pRing->Add(i, GetName(0, idItem), "QuickInventory", iDisplayMenu);
-        SetGraphics("", pRing, idItem, overlay, GFXOV_MODE_IngamePicture);
+		    pRing->Add(i, GetName(0, idItem), "QuickInventory", iDisplayMenu, idItem);
       }
 		}
 	
@@ -1128,14 +1127,12 @@ public func QuickInventory(int iMenu, int iPage) {
 			var pRing = CreateSpeedMenu(0, this);
 			for(var i = iPage*4; i < GetLength(aItems); i++) {
 			  if(i >= iPage*4+4) {
-			    overlay = pRing->AddThrowItem("$NextPage$", "QuickInventoryPaging", [iMenu, iPage+1]);
-			    SetGraphics("",pRing,SM04,overlay,GFXOV_MODE_IngamePicture);
+			    pRing->AddThrowItem("$NextPage$", "QuickInventoryPaging", [iMenu, iPage+1], SM04);
 			    break;
 			  }
 			  if(aItems[i])	{
 			    if(!ContentsCount(aItems[i]) && !GetGrenade(aItems[i])) continue;
-			  	var overlay = pRing->Add(QINV_MenuOrder[i-iPage*4], GetName(0, aItems[i]), "QuickInventorySelect", aItems[i]);
-			  	SetGraphics("",pRing,aItems[i],overlay,GFXOV_MODE_IngamePicture);
+			  	pRing->Add(QINV_MenuOrder[i-iPage*4], GetName(0, aItems[i]), "QuickInventorySelect", aItems[i], aItems[i]);
 			  }
 			}
 
