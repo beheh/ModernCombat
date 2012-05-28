@@ -283,6 +283,7 @@ func CreateEquipment()
   store->AddWare(C4PA,-1);
   store->AddWare(FAPK,-1);
   store->AddWare(CDBT,-1);
+  store->AddWare(BWTH,-1);
   store->AddWare(RSHL,-1);
   store->AddWare(ATWN,-1);
   store->AddWare(FGRN,-1);

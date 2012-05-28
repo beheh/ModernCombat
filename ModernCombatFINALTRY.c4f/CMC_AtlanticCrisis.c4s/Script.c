@@ -260,6 +260,10 @@ func CreateEquipment()
   PlaceSpawnpoint(MBOX, 2150, 515);
   PlaceSpawnpoint(MBOX, 3860, 515);
 
+  //Geschützstellungen
+  CreateObject(GNET, 1465, 530, -1)->Set(SATW);
+  CreateObject(GNET, 4545, 530, -1)->Set(SATW);
+
   //Artilleriebatterien
   CreateObject(ATBY,2231,520,-1)->SetRotation(20);
   CreateObject(ATBY,3775,520,-1)->SetRotation(-20);
@@ -274,6 +278,7 @@ func CreateEquipment()
   store->AddWare(C4PA,-1);
   store->AddWare(FAPK,-1);
   store->AddWare(CDBT,-1);
+  store->AddWare(BWTH,-1);
   store->AddWare(RSHL,-1);
   store->AddWare(ATWN,-1);
   store->AddWare(FGRN,-1);
@@ -286,6 +291,7 @@ func CreateEquipment()
   store->AddWare(C4PA,-1);
   store->AddWare(FAPK,-1);
   store->AddWare(CDBT,-1);
+  store->AddWare(BWTH,-1);
   store->AddWare(RSHL,-1);
   store->AddWare(ATWN,-1);
   store->AddWare(FGRN,-1);
@@ -298,6 +304,7 @@ func CreateEquipment()
   store->AddWare(C4PA,-1);
   store->AddWare(FAPK,-1);
   store->AddWare(CDBT,-1);
+  store->AddWare(BWTH,-1);
   store->AddWare(RSHL,-1);
   store->AddWare(ATWN,-1);
   store->AddWare(FGRN,-1);

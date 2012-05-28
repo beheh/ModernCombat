@@ -41,8 +41,8 @@ func CreateInterior()
 
   //Leitern
   CreateObject(LADR, 1255, 1260, -1)->Set(14, LADR_Left);
-  CreateObject(LADR, 1480, 1260, -1)->Set(28);
-  CreateObject(LADR, 1590, 1260, -1)->Set(28);
+  CreateObject(LADR, 1480, 1238, -1)->Set(25);
+  CreateObject(LADR, 1590, 1238, -1)->Set(25);
   CreateObject(LADR, 1720, 1250, -1)->Set(9);
   CreateObject(LADR, 1880, 1258, -1)->Set(10);
   CreateObject(LADR, 2040, 1258, -1)->Set(10);
@@ -516,6 +516,25 @@ public func ChooserFinished()
    {
     aFlag[3]->Set("$Flag4$",0,2);
    }
+
+   //Objekte entfernen
+   RemoveObject(FindObject2(Find_ID(XTNK),Find_InRect(1450, 1220, 60, 40)));
+   RemoveObject(FindObject2(Find_ID(RSPT),Find_InRect(1479, 1239, 2, 2)));
+
+   //Automat
+   var store = CreateObject(WPVM,1480, 1260,-1);
+   store->AddWare(C4PA,-1);
+   store->AddWare(FAPK,-1);
+   store->AddWare(CDBT,-1);
+   store->AddWare(BWTH,-1);
+   store->AddWare(RSHL,-1);
+   store->AddWare(ATWN,-1);
+   store->AddWare(FGRN,-1);
+   store->AddWare(FRAG,-1);
+   store->AddWare(PGRN,-1);
+   store->AddWare(SGRN,-1);
+   store->AddWare(STUN,-1);
+   store->AddWare(SRBL,-1);
 
    //Geschützstellungen
    CreateObject(GNET, 1795, 1141, -1)->Set(SATW);
