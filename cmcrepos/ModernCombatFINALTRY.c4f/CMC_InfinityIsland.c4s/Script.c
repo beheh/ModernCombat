@@ -193,13 +193,11 @@ func CreateInterior()
   //Selbstschussanlagen
   aSelfDefense[0] = CreateObject(SEGU, 1310, 1142, -1);
     aSelfDefense[0]->Arm(MISA);
-    aSelfDefense[0]->TurnOn();
     aSelfDefense[0]->SetR(180);
     CreateObject(CONS, 1420, 1025, -1)->Set(aSelfDefense[0]);
 
   aSelfDefense[1] = CreateObject(SEGU, 2340, 1142, -1);
     aSelfDefense[1]->Arm(MISA);
-    aSelfDefense[1]->TurnOn();
     aSelfDefense[1]->SetR(180);
     CreateObject(CONS, 1650, 1025, -1)->Set(aSelfDefense[1]);
 
@@ -541,6 +539,10 @@ public func ChooserFinished()
    if(aTeams[1] == true)
    {aSelfDefense[0]->SetTeam(1); aSelfDefense[1]->SetTeam(1);}
 
+   //SSA aktivieren
+   aSelfDefense[0]->TurnOn();
+   aSelfDefense[1]->TurnOn();
+
    //Grenzen setzen
    CreateObject(BRDR, 910, 0, -1)->Set(0);
    CreateObject(BRDR, 5970, 0, -1)->Set(1);
@@ -595,6 +597,10 @@ public func ChooserFinished()
    //SSA Besitzer setzen
    if(aTeams[1] == true)
    {aSelfDefense[0]->SetTeam(1); aSelfDefense[1]->SetTeam(1);}
+
+   //SSA aktivieren
+   aSelfDefense[0]->TurnOn();
+   aSelfDefense[1]->TurnOn();
 
    //Versorgungskiste (APW)
    var crate = CreateObject(AMCT, 5540, 1230, -1);
