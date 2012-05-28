@@ -3,7 +3,7 @@
 #strict
 #include CSTD
 
-static aFlag,aDoor,aSelfDefense,aLamp;
+static aFlag,aStationary,aDoor,aSelfDefense,aLamp;
 
 
 /* Initialisierung */
@@ -17,6 +17,8 @@ func Initialize()
   SetGamma(RGB(0,0,0), RGB(80,80,80), RGB(200,200,200));
   //Flaggen
   aFlag = [];
+  //Geschützstellungen
+  aStationary = [];
   //Türen
   aDoor = [];
   //Selbstschussanlagen
@@ -820,6 +822,16 @@ public func ChooserFinished()
    aSelfDefense[0]->TurnOn();
    aSelfDefense[1]->TurnOn();
 
+   //Geschützstellungen
+   aStationary[0] = CreateObject(GNET, 810, 360, -1);
+   aStationary[0] -> Set(0,-90,1);
+   aStationary[1] = CreateObject(GNET, 1690, 210, -1);
+   aStationary[1] -> Set(0,-90);
+   aStationary[2] = CreateObject(GNET, 1730, 490, -1);
+   aStationary[2] -> Set(0,-90,1);
+   aStationary[3] = CreateObject(GNET, 2415, 450, -1);
+   aStationary[3] -> Set(0,-90);
+
    //Versorgungskiste (APW)
    var crate = CreateObject (AMCT, 940, 160, -1);
    crate->Set(ATWN);
@@ -831,6 +843,10 @@ public func ChooserFinished()
    sign = CreateObject(SGNP, 1410, 550, -1);
    sign->SetPhase(1);
    sign->SetMode(1);
+
+   //Objekte entfernen
+   RemoveObject(FindObject2(Find_ID(_WIN),Find_InRect(800, 330, 805, 360)));
+   RemoveObject(FindObject2(Find_ID(BECR),Find_InRect(2400, 430, 20, 20)));
   }
 
   //LMS/DM-Spielziel
@@ -910,6 +926,9 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
    aSelfDefense[0]->Disarm();
    DecoExplode(30, aSelfDefense[0]);
 
+   //Geschützstellung entfernen
+   aStationary[0]->DecoExplode(30);
+
    //Lampen deaktivieren
    aLamp[00]->EMPShock();
    aLamp[01]->EMPShock();
@@ -945,7 +964,10 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
    aDoor[08]->Open();
    aDoor[09]->Open();
 
-   //Lampen ausschalten
+   //Geschützstellung entfernen
+   aStationary[1]->DecoExplode(30);
+
+   //Lampen deaktivieren
    aLamp[04]->EMPShock();
    aLamp[05]->EMPShock();
    aLamp[06]->EMPShock();
@@ -985,6 +1007,9 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
    //SSA zerstören
    aSelfDefense[1]->Disarm();
    DecoExplode(30, aSelfDefense[1]);
+
+   //Geschützstellung entfernen
+   aStationary[2]->DecoExplode(30);
 
    //Lampen deaktivieren
    aLamp[11]->TurnOff();

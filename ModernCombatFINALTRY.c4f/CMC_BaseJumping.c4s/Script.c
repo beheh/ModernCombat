@@ -282,6 +282,10 @@ func CreateEquipment()
   crate = CreateObject (AMCT, 1540, 1540, -1);
   crate->Set(DGNN);
 
+  //Geschützstellungen
+  CreateObject(GNET, 1300, 1110, -1)->Set(SATW,-90);
+  CreateObject(GNET, 1780, 1110, -1)->Set(SATW,90);
+
   //Artilleriebatterien
   CreateObject(ATBY,320,850,-1)->SetRotation(60);
   CreateObject(ATBY,798,360,-1)->SetRotation(60);
