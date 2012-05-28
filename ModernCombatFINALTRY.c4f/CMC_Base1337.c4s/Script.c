@@ -3,7 +3,7 @@
 #strict
 #include CSTD
 
-static aFlag,aSelfDefense;
+static aFlag,aStationary,aSelfDefense;
 
 
 /* Initialisierung */
@@ -17,6 +17,8 @@ func Initialize()
   SetSkyParallax(1, 40, 40, 0, 0, SkyPar_Keep, SkyPar_Keep);
   //Flaggen
   aFlag = [];
+  //Geschützstellungen
+  aStationary = [];
   //Selbstschussanlagen
   aSelfDefense = [];
   //Einrichtung plazieren
@@ -597,6 +599,10 @@ public func ChooserFinished()
    CreateObject(SGNP, 3970, 540, -1);
    CreateObject(SGNP, 4165, 510, -1);
 
+   //Geschützstellungen
+   CreateObject(GNET, 2030, 940, -1)->Set(SATW,0,1);
+   CreateObject(GNET, 3270, 630, -1)->Set(0,-90);
+
    //Blackhawks und Hinweisschilder
    if(!FindObject(NOBH))
    {
@@ -693,6 +699,14 @@ public func ChooserFinished()
    var crate = CreateObject (AMCT, 4180, 960, -1);
    crate->Set(ATWN);
 
+   //Geschützstellungen
+   aStationary[0] = CreateObject(GNET, 2030, 940, -1);
+   aStationary[0] -> Set(SATW,0,1);
+   aStationary[1] = CreateObject(GNET, 3270, 630, -1);
+   aStationary[1] -> Set(0,-90);
+   aStationary[2] = CreateObject(GNET, 3320, 1040, -1);
+   aStationary[2] -> Set(0,-90);
+
    //Blackhawks und Hinweisschilder
    if(!FindObject(NOBH))
    {
@@ -728,11 +742,11 @@ public func ChooserFinished()
   if(FindObject(GBAS))
   {
    //Zielobjekte
-   AddAssaultTarget(RADR, 2080, 940, 400, 1, "$Target1$", 1, [[1970, 1060], [2130, 1130], [2400, 1050]]);
-   AddAssaultTarget(CMSN, 3050, 1200, 300, 1, "$Target2$", 0, [[2650, 1080], [2670, 1150], [2610, 1220]]);
+   AddAssaultTarget(RADR, 2080, 940, 400, 1, "$Target1$", 0, [[1970, 1060], [2130, 1130], [2400, 1050]]);
+   AddAssaultTarget(CMSN, 3050, 1200, 300, 1, "$Target2$", 1, [[2650, 1080], [2670, 1150], [2610, 1220]]);
 
-   AddAssaultTarget(CMSN, 3490, 1040, 300, 2, "$Target2$", 1, [[3730, 1170], [3910, 1160], [4140, 1090]]);
-   AddAssaultTarget(RADR, 3390, 620, 400, 2, "$Target1$", 0, [[3550, 821], [3600, 860], [3750, 831]]);
+   AddAssaultTarget(CMSN, 3490, 1040, 300, 2, "$Target2$", 0, [[3730, 1170], [3910, 1160], [4140, 1090]]);
+   AddAssaultTarget(RADR, 3390, 620, 400, 2, "$Target1$", 1, [[3550, 821], [3600, 860], [3750, 831]]);
 
    //Grenzen setzen
    CreateObject(BRDR, 1790, 0, -1)->Set(0);
@@ -748,6 +762,10 @@ public func ChooserFinished()
    sign->SetMode(1);
    CreateObject(SGNP, 3970, 540, -1);
    CreateObject(SGNP, 4165, 510, -1);
+
+   //Geschützstellungen
+   CreateObject(GNET, 2280, 970, -1)->Set(0,90,1);
+   CreateObject(GNET, 3370, 1012, -1)->Set(0,-90,1);
 
    //Objekte entfernen
    RemoveObject(aSelfDefense[0]);
@@ -830,6 +848,9 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
     RemoveAll(BRDR);
     CreateObject(BRDR, 400, 0, -1)->Set(0);
     CreateObject(BRDR, 3560, 0, -1)->Set(1,1);
+
+    //Geschützstellung entfernen
+    aStationary[0]->DecoExplode(30);
    }
   }
 
@@ -843,6 +864,9 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
     CreateObject(BRDR, 400, 0, -1)->Set(0);
     CreateObject(BRDR, 4230, 0, -1)->Set(1,1);
 
+    //Geschützstellung entfernen
+    aStationary[1]->DecoExplode(30);
+
     //SSA zerstören
     aSelfDefense[1]->Disarm();
     aSelfDefense[1]->DecoExplode(30);
@@ -854,6 +878,9 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
   //Ziel 5
   if (iIndex == 4)
   {
+   //Geschützstellung entfernen
+   aStationary[2]->DecoExplode(30);
+
    //SSA zerstören
    aSelfDefense[3]->Disarm();
    aSelfDefense[3]->DecoExplode(30);
