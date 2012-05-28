@@ -17,7 +17,7 @@ global func AutoRespawn(int iFrames, int iDistance, object pTarget)
   if(!pTarget) pTarget = this;
   if(!pTarget) return;
 
-	var x = -(GetDefCoreVal("Offset", 0, GetID(pTarget), 0)) - GetDefWidth(GetID(pTarget)) / 2;
+  var x = -(GetDefCoreVal("Offset", 0, GetID(pTarget), 0)) - GetDefWidth(GetID(pTarget)) / 2;
   pTarget->CreateObject(RSPT, x, -GetDefCoreVal("Offset", 0, GetID(pTarget), 1), NO_OWNER)->Set(iFrames, iDistance, pTarget);
 
   return pTarget;
