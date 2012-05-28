@@ -45,15 +45,25 @@ func CreateInterior()
 
   //Leitern
   CreateObject(LADR, 1420, 532, -1)->Set(8);
+
+  CreateObject(LADR, 1937, 455, -1)->Set(6);
+  CreateObject(LADR, 1937, 555, -1)->Set(6);
+  CreateObject(LADR, 2023, 505, -1)->Set(6);
+  CreateObject(LADR, 2023, 605, -1)->Set(6);
+
   CreateObject(LADR, 2600, 678, -1)->Set(5);
   CreateObject(LADR, 2665, 605, -1)->Set(15);
   CreateObject(LADR, 2760, 576, -1)->Set(11);
-
   CreateObject(LADR, 3415, 682, -1)->Set(18);
-
   CreateObject(LADR, 4070, 576, -1)->Set(11);
   CreateObject(LADR, 4165, 605, -1)->Set(15);
   CreateObject(LADR, 4230, 678, -1)->Set(5);
+
+  CreateObject(LADR, 4807, 505, -1)->Set(6);
+  CreateObject(LADR, 4807, 605, -1)->Set(6);
+  CreateObject(LADR, 4893, 455, -1)->Set(6);
+  CreateObject(LADR, 4893, 555, -1)->Set(6);
+
   CreateObject(LADR, 5410, 532, -1)->Set(8);
 
   //Bodenluken
@@ -247,6 +257,12 @@ func CreateEquipment()
   PlaceSpawnpoint(MBOX, 3330, 685);
   PlaceSpawnpoint(MBOX, 6080, 595);
 
+  //Geschützstellungen
+  CreateObject(GNET, 920, 600, -1)->Set(SATW);
+  CreateObject(GNET, 1980, 410, -1)->Set(0,90);
+  CreateObject(GNET, 4850, 410, -1)->Set(0,-90);
+  CreateObject(GNET, 5910, 600, -1)->Set(SATW);
+
   //Artilleriebatterien
   CreateObject(ATBY,1565,460,-1)->SetRotation(20);
   CreateObject(ATBY,2795,480,-1)->SetRotation(20);
@@ -293,9 +309,7 @@ func CreateDecoration()
   //Zäune
   CreateObject(FENC, 790, 600, -1);
   CreateObject(FENC, 850, 600, -1);
-  CreateObject(FENC, 910, 600, -1);
 
-  CreateObject(FENC, 5920, 600, -1);
   CreateObject(FENC, 5980, 600, -1);
   CreateObject(FENC, 6040, 600, -1);
 
