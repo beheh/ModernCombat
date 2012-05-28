@@ -751,7 +751,7 @@ public func ChooserFinished()
    if(aTeams[1] == true)
    {aSelfDefense[0]->SetTeam(1); aSelfDefense[1]->SetTeam(1);}
 
-   //SSA anschalten
+   //SSA aktivieren
    aSelfDefense[0]->TurnOn();
    aSelfDefense[1]->TurnOn();
 
@@ -807,7 +807,7 @@ public func ChooserFinished()
    if(aTeams[2] == true)
    {aSelfDefense[0]->SetTeam(2); aSelfDefense[1]->SetTeam(2); aSelfDefense[2]->SetTeam(2); aSelfDefense[3]->SetTeam(2);}
 
-   //SSA anschalten
+   //SSA aktivieren
    aSelfDefense[0]->TurnOn();
    aSelfDefense[1]->TurnOn();
    aSelfDefense[2]->TurnOn();
