@@ -3,7 +3,7 @@
 #strict
 #include CSTD
 
-static aFlag,aSelfDefense,aLamp,aArtillery;
+static aFlag,aStationary,aSelfDefense,aLamp,aArtillery;
 
 
 /* Initialisierung */
@@ -17,6 +17,8 @@ func Initialize()
   SetGamma(RGB(7,6,0), RGB(152,147,128), RGB(255,254,236) );
   //Flaggen
   aFlag = [];
+  //Geschützstellungen
+  aStationary = [];
   //Selbstschussanlagen
   aSelfDefense = [];
   //Lampen
@@ -803,6 +805,10 @@ public func ChooserFinished()
    doorw = CreateObject(GAT1, 6095, 315, -1);
    CreateObject(ROOM, 5735, 400, -1)->Connect(doorw);
 
+   //Geschützstellungen
+   CreateObject(GNET, 2560, 340, -1)->Set(SATW);
+   CreateObject(GNET, 6590, 340, -1)->Set(SATW);
+
    //Patrouillenboote
    SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1245,520,-1),50*21,300);
    SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2195,520,-1),50*21,300);
@@ -958,6 +964,18 @@ public func ChooserFinished()
    doorw = CreateObject(GAT1, 6095, 315, -1);
    CreateObject(ROOM, 5735, 400, -1)->Connect(doorw);
 
+   //Geschützstellungen
+   aStationary[0] = CreateObject(GNET, 550, 440, -1);
+   aStationary[0] -> Set(0,90,1);
+   aStationary[1] = CreateObject(GNET, 3570, 330, -1);
+   aStationary[1] -> Set(0,-90);
+   aStationary[2] = CreateObject(GNET, 4205, 410, -1);
+   aStationary[2] -> Set(0,-90);
+   aStationary[3] = CreateObject(GNET, 5580, 470, -1);
+   aStationary[3] -> Set(0,-90);
+   aStationary[4] = CreateObject(GNET, 5620, 340, -1);
+   aStationary[4] -> Set(SATW);
+
    //Patrouillenboote
    SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1245,520,-1),50*21,300);
    SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2195,520,-1),50*21,300);
@@ -986,6 +1004,10 @@ public func ChooserFinished()
    CreateObject(SGNP, 6740, 510, -1);
    CreateObject(SGNP, 6870, 510, -1);
 
+   //Geschützstellungen
+   CreateObject(GNET, 3570, 330, -1)->Set(SATW,0,1);
+   CreateObject(GNET, 6590, 340, -1)->Set(SATW,0,1);
+
    //Patrouillenboote
    SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,4640,560,-1),50*21,300);
    SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,5565,560,-1),50*21,300);
@@ -1013,6 +1035,10 @@ public func ChooserFinished()
    CreateObject(SGNP, 5865, 350, -1);
    CreateObject(SGNP, 5885, 510, -1);
    CreateObject(SGNP, 5950, 350, -1);
+
+   //Geschützstellungen
+   CreateObject(GNET, 3800, 410, -1)->Set(0,90,1);
+   CreateObject(GNET, 5580, 470, -1)->Set(0,-90,1);
 
    //Patrouillenboote
    SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,4640,560,-1),50*21,300);
@@ -1088,6 +1114,9 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
    CreateObject(BRDR, 2600, 0, -1)->Set(0,1);
    CreateObject(BRDR, 5040, 0, -1)->Set(1,1);
 
+   //Geschützstellung entfernen
+   aStationary[1]->DecoExplode(30);
+
    //Artillerie entfernen
    aArtillery[1]->DecoExplode(45);
 
@@ -1102,6 +1131,9 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
    RemoveAll(BRDR);
    CreateObject(BRDR, 3200, 0, -1)->Set(0,1);
    CreateObject(BRDR, 6210, 0, -1)->Set(1,1);
+
+   //Geschützstellung entfernen
+   aStationary[2]->DecoExplode(30);
 
    //Lampen deaktivieren
    aLamp[09]->EMPShock();
@@ -1118,6 +1150,10 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
 
    //Spawnpoint entfernen
    RemoveObject(FindObject2(Find_ID(VSPW),Find_InRect(4699, 289, 2, 2)));
+
+   //Geschützstellungen entfernen
+   aStationary[3]->DecoExplode(30);
+   aStationary[4]->DecoExplode(30);
 
    //Artillerie entfernen
    aArtillery[2]->DecoExplode(45);
@@ -1208,5 +1244,5 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   }
 
   //Startsicht
-  iX = 4690; iY = 450;
+  iX = 1700; iY = 350;
 }
