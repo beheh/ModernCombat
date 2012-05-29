@@ -803,6 +803,10 @@ public func ChooserFinished()
    //Objekt entfernen
    RemoveObject(FindObject2(Find_ID(PLT3),Find_InRect(570, 820, 40, 40)));
 
+   //Geschützstellungen
+   CreateObject(GNET, 280, 1740, -1);
+   CreateObject(GNET, 890, 1740, -1);
+
    //SSA Besitzer setzen
    if(aTeams[2] == true)
    {aSelfDefense[0]->SetTeam(2); aSelfDefense[1]->SetTeam(2); aSelfDefense[2]->SetTeam(2); aSelfDefense[3]->SetTeam(2);}
