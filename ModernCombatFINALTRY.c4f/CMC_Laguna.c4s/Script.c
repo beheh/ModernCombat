@@ -344,6 +344,10 @@ public func ChooserFinished()
    CreateObject(BRDR, 200, 0, -1)->Set(0);
    CreateObject(BRDR, 3245, 0, -1)->Set(1);
 
+   //Geschützstellungen
+   CreateObject(GNET, 730, 440, -1)->Set(0,90,1);
+   CreateObject(GNET, 2800, 490, -1)->Set(0,-90,1);
+
    //Blackhawk und Hinweisschild
    if(!FindObject(NOBH))
    {
@@ -359,6 +363,10 @@ public func ChooserFinished()
    SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,1265,800,-1),10*10);
    SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1485,800,-1),10*10);
    SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2605,800,-1),10*10);
+
+   //Objekte entfernen
+   RemoveObject(FindObject2(Find_ID(_WIN),Find_InRect(735, 410, 5, 30)));
+   RemoveObject(FindObject2(Find_ID(_WIN),Find_InRect(2790, 460, 5, 30)));
   }
 
   //Assault-Spielziel
