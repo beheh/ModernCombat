@@ -122,11 +122,11 @@ public func Destruction()
 {
   RemoveEffect("ShowWeapon", this);
   EndAim();
- 
+
   if(GetUser())
   {
     var pUser = GetUser();
- 
+
     ObjectSetAction(pUser, "Walk");
     SetActionTargets(0, 0, pUser);
     pUser->SetHUDTarget(0);
