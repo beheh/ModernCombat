@@ -965,16 +965,14 @@ public func ChooserFinished()
    CreateObject(ROOM, 5735, 400, -1)->Connect(doorw);
 
    //Geschützstellungen
-   aStationary[0] = CreateObject(GNET, 550, 440, -1);
-   aStationary[0] -> Set(0,90,1);
-   aStationary[1] = CreateObject(GNET, 3570, 330, -1);
+   aStationary[0] = CreateObject(GNET, 3570, 330, -1);
+   aStationary[0] -> Set(0,-90);
+   aStationary[1] = CreateObject(GNET, 4205, 410, -1);
    aStationary[1] -> Set(0,-90);
-   aStationary[2] = CreateObject(GNET, 4205, 410, -1);
+   aStationary[2] = CreateObject(GNET, 5580, 470, -1);
    aStationary[2] -> Set(0,-90);
-   aStationary[3] = CreateObject(GNET, 5580, 470, -1);
-   aStationary[3] -> Set(0,-90);
-   aStationary[4] = CreateObject(GNET, 5620, 340, -1);
-   aStationary[4] -> Set(SATW);
+   aStationary[3] = CreateObject(GNET, 5620, 340, -1);
+   aStationary[3] -> Set(SATW);
 
    //Patrouillenboote
    SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1245,520,-1),50*21,300);
@@ -1115,7 +1113,7 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
    CreateObject(BRDR, 5040, 0, -1)->Set(1,1);
 
    //Geschützstellung entfernen
-   aStationary[1]->DecoExplode(30);
+   aStationary[0]->DecoExplode(30);
 
    //Artillerie entfernen
    aArtillery[1]->DecoExplode(45);
@@ -1133,7 +1131,7 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
    CreateObject(BRDR, 6210, 0, -1)->Set(1,1);
 
    //Geschützstellung entfernen
-   aStationary[2]->DecoExplode(30);
+   aStationary[1]->DecoExplode(30);
 
    //Lampen deaktivieren
    aLamp[09]->EMPShock();
@@ -1152,8 +1150,8 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
    RemoveObject(FindObject2(Find_ID(VSPW),Find_InRect(4699, 289, 2, 2)));
 
    //Geschützstellungen entfernen
+   aStationary[2]->DecoExplode(30);
    aStationary[3]->DecoExplode(30);
-   aStationary[4]->DecoExplode(30);
 
    //Artillerie entfernen
    aArtillery[2]->DecoExplode(45);
