@@ -163,7 +163,7 @@ func CreateInterior()
   CreateObject(_HBR, 985, 722, -1)->SwitchMode();
 
   //Grenze
-  CreateObject(BRDR, 0, 840, -1)->Set(3,0,1);
+  CreateObject(BRDR, 0, 860, -1)->Set(3,0,1);
 
   //Sounds
 
