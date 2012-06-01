@@ -71,38 +71,37 @@ global func AddArray4K(array &aSource, array &aDestination)
 
 global func GetMinArrayVal(array arArray, bool fPos)
 {
-	var lowest; var pos; var fFirst = true;
-	for(var i = 0; i < GetLength(arArray); i++)
-	{
-		if(fFirst || arArray[i] < lowest)
-		{
-			lowest = arArray[i];
-			pos = i;
-			fFirst = false;
-		}
-	}
-	
-	if(fPos)
-		return pos;
-	
-	return lowest;
+  var lowest; var pos; var fFirst = true;
+  for(var i = 0; i < GetLength(arArray); i++)
+  {
+    if(fFirst || arArray[i] < lowest)
+    {
+      lowest = arArray[i];
+      pos = i;
+      fFirst = false;
+    }
+  }
+
+  if(fPos)
+    return pos;
+
+  return lowest;
 }
 
 global func GetMaxArrayVal(array arArray, bool fPos)
 {
-	var highest = 0; var pos;
-	for(var i = 0; i < GetLength(arArray); i++)
-	{
-		if(arArray[i] > highest)
-		{
-			highest = arArray[i];
-			pos = i;
-		}
-	}
-	
-	if(fPos)
-		return pos;
-	
-	return highest;
-}
+  var highest = 0; var pos;
+  for(var i = 0; i < GetLength(arArray); i++)
+  {
+    if(arArray[i] > highest)
+    {
+      highest = arArray[i];
+      pos = i;
+    }
+  }
 
+  if(fPos)
+    return pos;
+
+  return highest;
+}
