@@ -442,7 +442,7 @@ protected func CreateTeams(int iTeamSort, int iMode)
 
     var arNumbers = [];
     for(var i = 0; i < GetPlayerCount(C4PT_User); i++)
-      arNumbers[i] = GetPlayerByIndex(i, C4PT_User);
+      arNumbers[i] = GetPlayerRank(GetPlayerByIndex(i, C4PT_User))+1;
 
     var teams = [];
     for(var i = 0; i < team_count; i++)
@@ -450,8 +450,8 @@ protected func CreateTeams(int iTeamSort, int iMode)
 
     var nr_cnt = GetLength(arNumbers);	//Anzahl Zahlen
     var sum_nrs;			//Summe dieser Zahlen (-> Ränge)
-    for(var plr in arNumbers)
-      sum_nrs += GetPlayerRank2(plr);
+    for(var rank in arNumbers)
+      sum_nrs += rank;
 
     var max_rows = nr_cnt / team_count + (nr_cnt % team_count);	//Max. Anzahl von Zeilen
     var max_nr = sum_nrs / team_count + (sum_nrs % team_count);	//Höchste zu erreichende Zahl
@@ -464,7 +464,7 @@ protected func CreateTeams(int iTeamSort, int iMode)
 
     //Zusammenfügen
     for(var i = 0; i < team_count; i++)
-      teams[i][0] = AB_GetMaxPlayerRank(arNumbers, 0, 0, 0, true);
+      teams[i][0] = AB_GetMaxPlayerRank(arNumbers);
 
     i--;
 
@@ -472,19 +472,59 @@ protected func CreateTeams(int iTeamSort, int iMode)
     {
       for(var j = 0; j < max_rows-1; j++)
       {
-        var val = AB_GetMaxPlayerRank(arNumbers, false, AB_ArraySum(teams[i]), max_nr, true);
+        var val = AB_GetMaxPlayerRank(arNumbers, false, AB_ArraySum(teams[i]), max_nr);
         if(val != -1)
-          teams[i][j+1] = val;
+          teams[i][j+1] = val; 
         else
           break;
       }
 
       i--;
     }
+    
+		var blahar = true;
+		while(blahar)
+		{
+			if(AB_DifferenceCheck(teams))
+				break;
+			
+			for(var i = iTeamCount-1; i >= 0; i--)
+			{
+				if(!AB_Method1(teams[i-1], teams[i]))
+					blahar = false;
+				else
+					blahar = true;
+			}
+		}
+		if(!blahar)
+		{
+			blahar = true;
+			while(blahar)
+			{
+				var aSums = [];
+
+				for(var team in teams)
+				{
+					if(GetType(team) != C4V_Array)
+						continue;
+		
+					aSums[GetLength(aSums)] = AB_ArraySum(team);
+				}
+				
+				if((GetLength(aSums) - CountArrayVal(aSums, max_nr)) <= 1) // Alle Zahlen (bis auf einer) entsprechen der max. erreichbaren Zahl?
+					break;
+				
+				if(AB_DifferenceCheck(teams)) // Evtl nochmal schauen, ob alles vielleicht doch noch seine Richtigkeit hat...
+					break;
+				
+				if(!AB_Method2(teams, max_nr))
+					blahar = false;
+			}
+		}
 
     //Aufstellung fertigstellen
     var arTempTeams = arTeams;
-
+		var aExcept = [];
     for(var i = 0; i < GetLength(teams); i++)
     {
       if(iTeamSort == 2)
@@ -492,15 +532,23 @@ protected func CreateTeams(int iTeamSort, int iMode)
         var pos = GetIndexOf(true, arTempTeams);
         arTempTeams[pos] = 0;
 
-        for(var plr in teams[i])
+        for(var rank in teams[i])
+        {
+        	var plr = GetPlayerByRank(rank-1, aExcept);
+        	aExcept[GetLength(aExcept)] = plr;
           SetPlayerTeam(plr, pos);
+        }
       }
       else
       {
         var t = i+1;
 
-        for(var plr in teams[i])
+        for(var rank in teams[i])
+        {
+        	var plr = GetPlayerByRank(rank-1, aExcept);
+        	aExcept[GetLength(aExcept)] = plr;
           SetPlayerTeam(plr, t);
+      	}
       }
     }
 
@@ -510,7 +558,81 @@ protected func CreateTeams(int iTeamSort, int iMode)
   return OpenTeamMenu();
 }
 
-/* Hinweis: Die zwei folgenden Funktionen arbeiten mit Spielerrängen und sollte nur vom Autobalance-Teil verwendet werden */
+/* Weitere Autobalance Methoden, zur Übersichtlichkeit ausgelagert. */
+
+//Austausch: Es werden in beiden Listen versucht, Zahlen auszutauschen, um ein besseres Ergebnis zu erreichen.
+public func AB_Method1(array &arListOne, array &arListTwo)
+{
+	var sumL1 = AB_ArraySum(arListOne); // Summe beider Listen..
+	var sumL2 = AB_ArraySum(arListTwo);
+	
+	var savedL1 = arListOne;	// temporäre Speicher
+	var savedL2 = arListTwo;
+	var savedSums = [sumL1, sumL2]; // temporäre Summen beider Listen
+	
+	for(var i = GetLength(arListTwo)-1; i >= 0; i--)
+	{
+		for(var j = GetLength(arListOne)-1; j >= 0; j--)
+		{
+			var tempL1 = arListOne;
+			var tempL2 = arListTwo;
+
+			var a, b;
+			a = arListTwo[i];
+			b = arListOne[j];
+			tempL2[i] = b;
+			tempL1[j] = a;
+			
+			var sumTL1 = AB_ArraySum(tempL1); var sumTL2 = AB_ArraySum(tempL2);
+			if(GetIndexOf(sumTL1, savedSums) != -1 || GetIndexOf(sumTL2, savedSums) != -1) // Wenn vorherige und aktuelle Summen gleich sind, kein Tausch.
+				continue;
+			
+			var tempSLists = [AB_ArraySum(tempL1), AB_ArraySum(tempL2)];
+			if(GetMinArrayVal(tempSLists) > GetMinArrayVal(savedSums)) // Tauschen / Speichern
+			{
+				savedL1 = tempL1; savedL2 = tempL2; savedSums = tempSLists;
+				continue;
+			}
+		}
+	}
+	
+	if(savedSums[0] == sumL1 || savedSums[0] == sumL2)
+		return false;
+	
+	arListOne = savedL1;
+	arListTwo = savedL2;
+	
+	return true;
+}
+
+//Es wird geprüft, ob es möglich ist, aus einem Array kleinere Zahlen in den anderen Array zu packen, um einen Ausgleich zu erhalten.
+public func AB_Method2(array &arTeams, int iMaxNr)
+{
+	var arraySums = [];
+	for(var i = 0; i < GetLength(arTeams); i++)
+		arraySums[i] = AB_ArraySum(arTeams[i]);
+	
+	var teamMin = GetMinArrayVal(arraySums, true); // Array-Positionen in arTeams.
+	var teamMax = AB_GetMaxPlayerRank(arraySums, true); 
+	
+	var arTempTeams = arTeams; // Zur Absicherung...
+	
+	var val = GetMinArrayVal(arTempTeams[teamMax]); // Kleinste Zahl im größtem Array
+	var pos = GetMinArrayVal(arTempTeams[teamMax], true); // ... und deren Position
+	
+	DelArrayItem4K(arTempTeams[teamMax], pos); // Zahl entfernen
+	arTempTeams[teamMin][GetLength(arTempTeams[teamMin])] = val; // Zahl hinzufügen
+	
+	if(AB_ArraySum(arTempTeams[teamMin]) <= iMaxNr) // Änderung darf nicht über das Maximum
+	{
+		arTeams = arTempTeams; // Änderungen übernehmen
+		return true;
+	}
+	else
+		return false;
+}
+
+/* Hinweis: Die Funktionen mit AB_-Präfix sollten möglichst nur vom Autobalancer eingesetzt werden. */
 
 protected func AB_GetMaxPlayerRank(array &arNumbers, bool fNoDelete, int iValue, int iMax, bool fPlr)
 {
@@ -519,15 +641,15 @@ protected func AB_GetMaxPlayerRank(array &arNumbers, bool fNoDelete, int iValue,
   {
     if(iMax)
     {
-      if(GetPlayerRank2(arNumbers[i]) > highest && iValue + GetPlayerRank2(arNumbers[i]) <= iMax)
+      if(arNumbers[i] > highest && iValue + arNumbers[i] <= iMax)
       {
-        highest = GetPlayerRank2(arNumbers[i]);
+        highest = arNumbers[i];
         pos = i;
       }
     }
-    else if(GetPlayerRank2(arNumbers[i]) > highest)
+    else if(arNumbers[i] > highest)
     {
-      highest = GetPlayerRank2(arNumbers[i]);
+      highest = arNumbers[i];
       pos = i;
     }
   }
@@ -548,12 +670,55 @@ public func AB_ArraySum(array arArray)
 {
   var ret = 0;
   for(var elm in arArray)
-    ret += GetPlayerRank2(elm);
+    ret += elm;
 
   return ret;
 }
 
-public func GetPlayerRank2(int iPlr)	{return GetPlayerRank(iPlr)+1;}
+public func AB_DifferenceCheck(array arArray)
+{
+	var aSums = [];
+	
+	for(var team in arArray)
+	{
+		if(GetType(team) != C4V_Array)
+			continue;
+		
+		aSums[GetLength(aSums)] = AB_ArraySum(team);
+	}
+	
+	if(AB_GetMaxPlayerRank(aSums) - GetMinArrayVal(aSums) <= 1)
+		return true; 
+}
+
+public func CountArrayVal(array arArray, value)
+{
+	var i;
+	for(var elm in arArray)
+		if(elm == value)
+			++i;
+	
+	return i;
+}
+
+public func GetPlayerByRank(int iRank, array arExcept)
+{
+	var iResult = -1;
+	for(var i = 0; i < GetPlayerCount(); i++)
+	{
+		var plr = GetPlayerByIndex(i);
+		if(GetIndexOf(plr, arExcept) > -1)
+			continue;
+		
+		if(GetPlayerRank(plr) == iRank)
+		{
+			iResult = plr;
+			break;
+		}
+	}
+	
+	return plr;
+}
 
 protected func SwitchTeam(id dummy, int iPlr)
 {
