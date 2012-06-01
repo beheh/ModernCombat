@@ -613,7 +613,7 @@ public func AB_Method2(array &arTeams, int iMaxNr)
 		arraySums[i] = AB_ArraySum(arTeams[i]);
 	
 	var teamMin = GetMinArrayVal(arraySums, true); // Array-Positionen in arTeams.
-	var teamMax = AB_GetMaxPlayerRank(arraySums, true); 
+	var teamMax = GetMaxArrayVal(arraySums, true); 
 	
 	var arTempTeams = arTeams; // Zur Absicherung...
 	
