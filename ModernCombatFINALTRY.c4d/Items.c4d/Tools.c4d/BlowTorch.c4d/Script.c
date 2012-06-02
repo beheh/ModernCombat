@@ -384,7 +384,13 @@ public func Use(caller)
       	{
           //Fahrzeug reparieren
           DoDamage(-2, obj);
-
+          
+          if(!Hostile(GetOwner(obj), GetOwner(Contained())) && GetOwner(obj) != GetOwner(Contained()) && GetOwner(obj) != NO_OWNER)
+          {
+          	//Achievement-Fortschritt (Wicked Enginer)
+          	DoAchievementProgress(2, AC33, GetOwner(Contained()));
+          }
+          
           //Callback
           if(GetDamage(obj) == 0)
             obj->~IsFullyRepaired();
