@@ -303,9 +303,9 @@ protected func DoPoints()
         //Achievement-Fortschritt (Marksman)
         DoAchievementProgress(1,AC17,killer);
       }
-      
+
       var pActTarget = GetActionTarget(0, pClonk);
-      
+
       //Helikopterbezogene Punkte und Achievements
       if(Contained(pClonk) && Contained(pClonk)->~IsHelicopter())
       {
@@ -331,14 +331,14 @@ protected func DoPoints()
       }
       else if(GetID(GetActionTarget(0, pClonk)) == GNET)
       {
-      	//Achievement-Fortschritt (To your Stations!)
-      	DoAchievementProgress(1, AC35, killer);
+        //Achievement-Fortschritt (To your Stations!)
+        DoAchievementProgress(1, AC35, killer);
       }
       else if(pClonk->~GetParachute())
       {
-      	//Achievement-Fortschritt (Paratrooper)
-      	DoAchievementProgress(1, AC34, killer);
-    	}
+        //Achievement-Fortschritt (Paratrooper)
+        DoAchievementProgress(1, AC34, killer);
+      }
     }
 
     //Killassist

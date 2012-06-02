@@ -45,7 +45,6 @@ public func SetActive(object pCaller)
   if(!GetXDir() && !GetYDir())
     SetClrModulation(RGBa(255,255,255,100));
 
-  
 
   //Effekte
   Sound("C4PA_Ignition.ogg");
@@ -142,7 +141,8 @@ public func OnHit(int iDamage, int iType, object pFrom)
     SetController(GetController(pFrom));
     Trigger();
   }
-  if(iType == DMG_Projectile && iBulletsTrigger > 0) {
+  if(iType == DMG_Projectile && iBulletsTrigger > 0)
+  {
     SetController(GetController(pFrom));
     BlowUp();
   }
