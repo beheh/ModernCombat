@@ -45,7 +45,6 @@ public func SetActive(object pCaller)
   if(!GetXDir() && !GetYDir())
     SetClrModulation(RGBa(255,255,255,100));
 
-
   //Effekte
   Sound("C4PA_Ignition.ogg");
   CreateParticle("PSpark",0,0,0,0,60,RGBa(255,0,0,0),this);

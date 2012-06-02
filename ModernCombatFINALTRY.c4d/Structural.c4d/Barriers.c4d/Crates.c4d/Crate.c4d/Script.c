@@ -3,9 +3,9 @@
 #strict 2
 
 public func IsMeleeTarget()	{return true;}
-public func IsBulletTarget()			{return true;}
-public func IsCraneGrabable()			{return 1;}
-public func IsSpawnBlocker()			{return true;}
+public func IsBulletTarget()	{return true;}
+public func IsCraneGrabable()	{return 1;}
+public func IsSpawnBlocker()	{return true;}
 
 
 /* Zerstörung */
@@ -24,8 +24,8 @@ func Damage()
 
 public func MeleeHit(object pByObj)
 {
-	if(GetID(pByObj) == RSLH)
-		return false;
+  if(GetID(pByObj) == RSLH)
+    return false;
 
   //Effekte
   CastSmoke("Smoke3",5,10,-5,0,20,150);
@@ -33,12 +33,12 @@ public func MeleeHit(object pByObj)
   Sound("DoorKick.ogg");
 
   DoDmg(17);
-  
+
   return true;
 }
 
 /* Aufschlag */ 
-  
+
 protected func Hit()
 {
   Sound("CrateImpact*.ogg");
