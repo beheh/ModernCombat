@@ -2,7 +2,7 @@
 
 #strict 2
 
-static aAchievementProgress, aAchievementExtra, iAchievementCount;
+static aAchievementProgress, aAchievementExtra, iAchievementCount, RWDS_aAchievementBlocked;
 static aRanks, iRankCount;
 local aData, fEvaluation, aStats;
 
@@ -17,6 +17,7 @@ protected func Initialize()
   fEvaluation = false;
   aAchievementProgress = CreateArray();
   aAchievementExtra = CreateArray();
+  RWDS_aAchievementBlocked = CreateArray();
   iAchievementCount = 0;
   while(GetName(0, C4Id(Format("AC%02d", iAchievementCount+1))))
   {
@@ -677,6 +678,8 @@ global func AwardAchievement(id idAchievement, int iPlr)
   if(!idAchievement->IsAchievement()) return false;
   var db = FindObject2(Find_ID(RWDS));
   if(!db) return false;
+  
+  RWDS_aAchievementBlocked[idAchievement->GetSavingSlot()] = idAchievement->~BlockByAward();
 
   //Achievement in Spielerdatei schreiben sofern nicht vorhanden
   if(!db->GetPlayerAchievement(iPlr, idAchievement))
@@ -727,7 +730,7 @@ global func DoAchievementProgress(int iProgress, id idAchievement, int iPlr)
   }
   if(!aAchievementProgress[iPlr]) aAchievementProgress[iPlr] = CreateArray();
   aAchievementProgress[iPlr][index] += iProgress;
-  if(aAchievementProgress[iPlr][index] >= idAchievement->~GetAchievementScore())
+  if(aAchievementProgress[iPlr][index] >= idAchievement->~GetAchievementScore() && !IsAchievementBlocked(idAchievement))
   {
     ResetAchievementProgress(idAchievement, iPlr);
     return AwardAchievement(idAchievement, iPlr);
@@ -744,6 +747,12 @@ global func GetAchievementProgress(id idAchievement, int iPlr)
     return aAchievementProgress[iPlr][index];
   }
   return false;
+}
+
+global func IsAchievementBlocked(id idAchievement)
+{
+	if(!RewardsActive()) return;
+	return RWDS_aAchievementBlocked[idAchievement->~GetSavingSlot()];
 }
 
 global func ResetAchievementExtra(id idAchievement, int iPlr)
