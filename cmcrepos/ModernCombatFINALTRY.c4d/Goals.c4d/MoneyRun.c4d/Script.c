@@ -205,15 +205,33 @@ public func UpdateScoreboard()
   SetScoreboardData(0, GMNR_Count, " ", iGoal*2);
 
   //Teams auflisten
-  if (Teams())
-    for (var i = 0; i < GetPlayerCount(); i++)
-    {
-      var team = GetPlayerTeam(GetPlayerByIndex(i));
-      SetScoreboardData(team, GMNR_Name, GetTaggedTeamName(team));
-      SetScoreboardData(team, GMNR_Count, Format("<c %x>%d</c>", GetTeamColor(team), aMoney[team]), aMoney[team]);
-    }
+  if(Teams())
+  {
+  	var engine_teams = (GetTeamName(1) == "Team 1");
+  	for(var i = 0; i < GetTeamCount(); i++)
+  	{
+  		var team = GetTeamByIndex(i);
+  		var name = GetTaggedTeamName(team);
+  		var plr;
+
+  		//Bei Engine-Teams statt "Team X" und Teamfarbe, Spielername und Spielerfarbe. (Falls nur ein Spieler im Team) 
+  		if(engine_teams && GetTeamPlayerCount(team) <= 1 && (plr = GetTeamMemberByIndex(team, 0)) > -1)
+  			name = GetTaggedPlayerName(plr);
+  		
+  		//Kein Spieler im Team? Dann nicht anzeigen.
+  		if(plr == -1)
+ 				continue;
+
+  		var clr = GetTeamColor(team);
+  		if(plr)
+  			clr = GetPlrColorDw(plr);
+  		
+  		SetScoreboardData(team, GMNR_Name, name);
+      SetScoreboardData(team, GMNR_Count, Format("<c %x>%d</c>", clr, aMoney[team]), aMoney[team]);
+  	}
+  }
   else
-    for (var i = 0; i < GetPlayerCount(); i++)
+    for(var i = 0; i < GetPlayerCount(); i++)
     {
       var plr = GetPlayerByIndex(i);
       SetScoreboardData(plr, GMNR_Name, GetTaggedPlayerName(plr, true));
