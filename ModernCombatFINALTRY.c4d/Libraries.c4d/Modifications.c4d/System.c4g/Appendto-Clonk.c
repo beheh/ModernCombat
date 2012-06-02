@@ -288,6 +288,9 @@ protected func DoPoints()
 
   if(Hostile(killer,GetOwner()))
   {
+  	//Achievement-Fortschritt (First Blood)
+    DoAchievementProgress(1, AC37, killer);
+  
     //Punkte bei Belohnungssystem (Kill)
     DoPlayerPoints(KillPoints(), RWDS_BattlePoints, killer, GetCursor(killer), IC01);
 
