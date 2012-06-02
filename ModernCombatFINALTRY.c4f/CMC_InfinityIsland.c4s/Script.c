@@ -598,7 +598,7 @@ public func ChooserFinished()
    CreateObject(STNE, 3760, 1310, -1)->Set(3);
    CreateObject(STNE, 3820, 1215, -1)->Set(1);
    CreateObject(STNE, 3770, 1288, -1)->Set(3);
-   CreateObject(STNE, 3835, 1340, -1)->Sound("Blast3");
+   CreateObject(STNE, 3835, 1340, -1);
    CreateObject(STNE, 3890, 1300, -1)->Set(3);
 
    //Erde
@@ -607,6 +607,10 @@ public func ChooserFinished()
    //Rauch
    Schedule("CastSmoke(\"Smoke3\", 2,30,3820,1270,1000,1200,RGBa(150,40,0,0))", 10, 8);
    Schedule("CastSmoke(\"GunSmoke\", 2, 50, 3820, 1270, 1000, 1500, RGBa(250, 250, 250, 0))", 10, 8);
+
+   //Sound
+   Sound("Blast3");
+   Sound("Earthquake");
 
    //Grenzen setzen
    CreateObject(BRDR, 910, 0, -1)->Set(0);
@@ -715,6 +719,20 @@ public func ChooserFinished()
    {CreateFlag(1,3710,1050,GetTeamColor(1));}
    if(aTeams[2] == true)
    {CreateFlag(2,4480,940,GetTeamColor(2));}
+
+   //Erde
+   Schedule("CastPXS(\"Earth\", 1250, 10, 3960, 1090)", 10, 2);
+   Schedule("CastPXS(\"Earth\", 1250, 10, 4250, 1060)", 10, 4);
+
+   //Rauch
+   Schedule("CastSmoke(\"Smoke3\", 2,30,3980,1090,1000,1200,RGBa(150,40,0,0))", 10, 8);
+   Schedule("CastSmoke(\"Smoke3\", 2,30,4250,1060,1000,1200,RGBa(150,40,0,0))", 10, 8);
+   Schedule("CastSmoke(\"GunSmoke\", 2, 50, 3980, 1090, 1000, 1500, RGBa(250, 250, 250, 0))", 10, 8);
+   Schedule("CastSmoke(\"GunSmoke\", 2, 50, 4250, 1060, 1000, 1500, RGBa(250, 250, 250, 0))", 10, 8);
+
+   //Sound
+   Sound("Blast3");
+   Sound("Earthquake");
 
    //Grenzen setzen
    CreateObject(BRDR, 3130, 0, -1)->Set(0);

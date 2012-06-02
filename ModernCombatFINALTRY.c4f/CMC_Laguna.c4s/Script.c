@@ -42,6 +42,8 @@ func CreateInterior()
   DrawMaterialQuad("Wall-Concrete3",771,500,741,490,741,500,756,500,true);
   DrawMaterialQuad("Wall-Concrete3",801,510,771,500,771,510,786,510,true);
 
+  DrawMaterialQuad("Earth-ROUGH", 2730, 758, 2780, 758, 2730, 760, 2780, 760, 1);
+
   DrawMaterialQuad("Wall-Metal2",2910,570,2940,560,2940,570,2925,570,true);
   DrawMaterialQuad("Wall-Metal2",2940,560,2970,550,2970,560,2955,560,true);
   DrawMaterialQuad("Wall-Concrete3",2970,550,3000,540,3000,550,2985,550,true);
