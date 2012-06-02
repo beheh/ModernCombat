@@ -61,7 +61,7 @@ func StartRespawn()
 
 func Respawn()
 {
-  var obj = CreateObject(id,0,0,GetOwner());
+  var obj = CreateObject(id,0,-1,GetOwner());
   target = obj;
   SetR(r, obj);
   SetClrModulation(GetClrModulation(), obj); 
