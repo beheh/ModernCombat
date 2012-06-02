@@ -38,11 +38,11 @@ global func Votekick(int iPlr, string pars)
 	if(GetLeague())
 		return false;
 	
-	if(GetPlayerCount(C4PT_User) < 3) // Nur bei 3 oder mehr Spielern
+	if(GetClientCount() < 3) // Nur bei 3 oder mehr Clients
 		return false;
 	
-	if(GetEffect("VotekickSpamfilter"))
-		return PlayerMessage(iPlr, "Es sind nur 3 Umfragen alle 90 Sekunden erlaubt.", GetCursor(iPlr));
+	if(HasVotekickSpamFilter(iPlr))
+		return PlayerMessage(iPlr, "$SpamProtectInfo$", GetCursor(iPlr));
 
 	if(!GetLength(pars) && !GetEffect("Votekick")) // Votekick starten.
 	{
@@ -55,6 +55,15 @@ global func Votekick(int iPlr, string pars)
 	}
 }
 
+global func HasVotekickSpamFilter(int iPlr)
+{
+	for(var i = 0; i < GetEffectCount("VotekickSpamfilter"); i++)
+		if(EffectVar(0, 0, GetEffect("VotekickSpamfilter", 0, i)) == iPlr)
+			return true;
+	
+	return false;
+}
+
 global func VotekickMenu(int iPlr, bool fClients)
 {
 	var mobj = GetCursor(iPlr);
@@ -65,7 +74,7 @@ global func VotekickMenu(int iPlr, bool fClients)
 		{
 			AddMenuItem(GetTaggedPlayerName(GetPlayerByIndex(i, C4PT_User)), Format("StartVotekick(%d, %d)", iPlr, GetPlayerByIndex(i, C4PT_User)), PCMK, mobj);
 		}
-		AddMenuItem("Clientwahl", Format("VotekickMenu(%d, true)", iPlr), FLNT, mobj);
+		AddMenuItem("$ClientChoose$", Format("VotekickMenu(%d, true)", iPlr), FLNT, mobj);
 		AddMenuItem("$Cancel$", Format("CloseMenu(Object(%d))", ObjectNumber()), EFLN, mobj);
 	}
 	else
@@ -80,7 +89,7 @@ global func VotekickMenu(int iPlr, bool fClients)
 			client_array[client] = client;
 			AddMenuItem(GetPlrClientName(GetPlayerByIndex(i, C4PT_User)), Format("StartVotekick(%d, %d, true)", iPlr, client), PCMK, mobj);
 		}
-		AddMenuItem("Spielerwahl", Format("VotekickMenu(%d, true)", iPlr), FLNT, mobj);
+		AddMenuItem("$PlayerChoose$", Format("VotekickMenu(%d, true)", iPlr), FLNT, mobj);
 		AddMenuItem("$Cancel$", Format("CloseMenu(Object(%d))", ObjectNumber()), EFLN, mobj);
 	}
 }
@@ -91,7 +100,7 @@ global func StartVotekick(int by_plr, int plr, bool fClient, string szReason, bo
 	{
 		var tim1 = CreateObject(TIM1);
 		LocalN("votekickVars", tim1) = [plr, fClient];
-		CallMessageBoard(tim1, false, "Grund:", by_plr);
+		CallMessageBoard(tim1, false, "$MsgBoardReason", by_plr);
 		return true;
 	}
 	
@@ -101,10 +110,10 @@ global func StartVotekick(int by_plr, int plr, bool fClient, string szReason, bo
 	if(!fClient)
 	{
 		// Ja, ich nutze absichtlich nicht die Eventlog, weil da fällt sowas immernoch weniger auf.
-		Log("Spieler %s hat eine Votekick-Umfrage gestartet! Spieler %s soll gekickt werden.", GetTaggedPlayerName(by_plr), GetTaggedPlayerName(plr));
-		Log("<c ffff33>Begründung:</c> %s", szReason);
-		Log("Mit <c ff0000>/votekick y</c> zustimmen."); 
-		Log("Das Voting läuft <c ff0000>30</c> Sekunden lang.");
+		Log("$PlayerVotekickStart$", GetTaggedPlayerName(by_plr), GetTaggedPlayerName(plr));
+		Log("$Reason$", szReason);
+		Log("$VotekickInfo$"); 
+		Log("$VotekickDurationInfo$");
 		AddEffect("Votekick", 0, 101, 36, 0, 0, plr, by_plr);
 	}
 	else
@@ -116,10 +125,10 @@ global func StartVotekick(int by_plr, int plr, bool fClient, string szReason, bo
 		{
 			str = Format("%s, %s", str, GetTaggedPlayerName(players[i]));
 		}
-		Log("Spieler %s hat eine Votekick-Umfrage gestartet! Client %s (%s) soll gekickt werden.", GetTaggedPlayerName(by_plr), GetPlrClientName(players[0]), str);
-		Log("<c ffff33>Begründung:</c> %s", szReason);
-		Log("Mit <c ff0000>/votekick y</c> zustimmen."); 
-		Log("Das Voting läuft <c ff0000>30</c> Sekunden lang.");
+		Log("$ClientVotekickStart$", GetTaggedPlayerName(by_plr), GetPlrClientName(players[0]), str);
+		Log("$Reason$", szReason);
+		Log("$VotekickInfo$"); 
+		Log("$VotekickDurationInfo$");
 		AddEffect("Votekick", 0, 101, 36, 0, 0, -1, by_plr, players);
 	}
 }
@@ -144,6 +153,9 @@ global func FxVotekickStart(object target, int nr, temp, int plr, int by_plr, ar
 	EffectVar(0, target, nr) = plr;
 	EffectVar(1, target, nr) = 1; // Zustimmungen.
 	EffectVar(3, target, nr) = [by_plr]; // Teilnehmer.
+	
+	var effect = AddEffect("VotekickSpamfilter", 0, 101, 36*90);
+	EffectVar(0, 0, effect) = by_plr;
 }
 
 global func FxVotekickTimer(object target, int nr, int time)
@@ -158,7 +170,7 @@ global func FxVotekickTimer(object target, int nr, int time)
 global func FxVotekickAdd(object target, int nr, int by_plr)
 {
 	if(GetIndexOf(by_plr, EffectVar(3, target, nr)) > -1) // Man darf nur einmal teilnehmen.
-		return PlayerMessage(by_plr, "Du hast schon abgestimmt.", GetCursor(by_plr));
+		return PlayerMessage(by_plr, "$HaveAlreadyVoted$", GetCursor(by_plr));
 	
 	EffectVar(1, target, nr)++;
 		
@@ -169,25 +181,25 @@ global func FxVotekickAdd(object target, int nr, int by_plr)
 
 global func FxVotekickStop(object target, int nr)
 {
-	VOTEKICK_SpamfilterCnt++;
+	//VOTEKICK_SpamfilterCnt++;
 	
 	if(!GetPlayerName(EffectVar(0, target, nr)) && !GetPlayerName(EffectVar(2, target, nr)[0]))
-		return Log("Umfrage abgebrochen. (Der Spieler, der gekickt werden sollte, hat die Runde verlassen.)");
+		return Log("$VotingCancelled$");
 
-	if(VOTEKICK_SpamfilterCnt == VOTEKICK_SpamfilterMAX)
+	/*if(VOTEKICK_SpamfilterCnt == VOTEKICK_SpamfilterMAX)
 	{
 		VOTEKICK_SpamfilterCnt = 0;
 		AddEffect("VotekickSpamfilter", 0, 101, 36*90);
-	}
+	}*/
 	
 	var pcnt = GetClientCount();
 	var pacnt = pcnt-EffectVar(1, target, nr);
 	
-	Log("Es haben %d Spieler an der Umfrage teilgenommen. %d Spieler sind für und %d Spieler sind gegen einen Rauswurf von %s.", pcnt, EffectVar(1, target, nr), pacnt, GetTaggedPlayerName(EffectVar(0, target, nr)));
+	Log("$VotingStatistics$", pcnt, EffectVar(1, target, nr), pacnt, GetTaggedPlayerName(EffectVar(0, target, nr)));
 	
 	if(pcnt/3*2+(!!(pcnt % 3)) <= EffectVar(1, target, nr)) // 2/3 oder mehr Teilnehmer haben für einen Kick gestimmt?
 	{
-		Log("Es hat eine 2/3 Mehrheit der Teilnehmer für einen Rauswurf gestimmt.");
+		Log("$VotekickSuccessful$");
 		SetMaxPlayer(0);
 		if(EffectVar(0, target, nr) > -1)
 			EliminatePlayer(EffectVar(0, target, nr));
@@ -197,9 +209,8 @@ global func FxVotekickStop(object target, int nr)
 	}
 	else
 	{
-		Log("Es haben nicht genügend Teilnehmer für einen Rauswurf gestimmt.");
+		Log("$VotekickNotEnough$");
 	}
 	
 	return true;
 }
-
