@@ -11,6 +11,7 @@ public func NoArenaRemove()	{return true;}
 
 public func RejectEntrance(object pObj)
 {
+	var pFAP;
   //Nur Aufnehmen/Heilen wenn verletzt und nicht in Behandlung
   if(pObj->GetAlive() && (GetEnergy(pObj) < GetPhysical("Energy",0,pObj)/1000))
   {
@@ -22,6 +23,14 @@ public func RejectEntrance(object pObj)
       RemoveObject();
     }
   }
+  else if((pFAP = FindContents(FAPK, pObj)) && pFAP->~GetPackPoints() < pFAP->~MaxPoints() && !GetEffect("FAPHeal", pFAP)) //Falls Clonk voll geheilt ist und ein EHP besitzt, dieses auffüllen.
+  {
+  	pFAP->~DoPackPoints(HealAmount());
+    PlayerMessage(GetOwner(pObj), "$Refilled$", pObj, FAPK, HealAmount());
+  	Sound("Merge.ogg", false, pFAP);
+  	RemoveObject();
+  }
+  
   return true;
 }
 
