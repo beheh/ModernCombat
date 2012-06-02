@@ -84,7 +84,7 @@ public func ExecShove()
     if(GetOCF(victim) & OCF_Living)
     {
       DoDmg(15,DMG_Melee,victim,0,GetController()+1,RSHL);
-    	//Achievement-Fortschritt (Fist of Fury)
+      //Achievement-Fortschritt (Fist of Fury)
       DoAchievementProgress(1, AC36, GetOwner(GetController())); 
     }
     Sound("RSHL_Shove.ogg", 0, victim);

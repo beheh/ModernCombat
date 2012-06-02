@@ -288,7 +288,7 @@ protected func DoPoints()
 
   if(Hostile(killer,GetOwner()))
   {
-  	//Achievement-Fortschritt (First Blood)
+    //Achievement-Fortschritt (First Blood)
     DoAchievementProgress(1, AC37, killer);
   
     //Punkte bei Belohnungssystem (Kill)

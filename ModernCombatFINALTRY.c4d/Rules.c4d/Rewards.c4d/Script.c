@@ -678,7 +678,7 @@ global func AwardAchievement(id idAchievement, int iPlr)
   if(!idAchievement->IsAchievement()) return false;
   var db = FindObject2(Find_ID(RWDS));
   if(!db) return false;
-  
+
   RWDS_aAchievementBlocked[idAchievement->GetSavingSlot()] = idAchievement->~BlockByAward();
 
   //Achievement in Spielerdatei schreiben sofern nicht vorhanden
@@ -751,8 +751,8 @@ global func GetAchievementProgress(id idAchievement, int iPlr)
 
 global func IsAchievementBlocked(id idAchievement)
 {
-	if(!RewardsActive()) return;
-	return RWDS_aAchievementBlocked[idAchievement->~GetSavingSlot()];
+  if(!RewardsActive()) return;
+  return RWDS_aAchievementBlocked[idAchievement->~GetSavingSlot()];
 }
 
 global func ResetAchievementExtra(id idAchievement, int iPlr)
