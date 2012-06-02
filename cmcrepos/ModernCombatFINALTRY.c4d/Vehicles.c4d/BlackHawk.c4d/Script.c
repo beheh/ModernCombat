@@ -8,7 +8,7 @@ local pMGStation, pRocketStation;
 local smokereload, flarereload;
 local fShowSpotlight, pSpotlight;
 local fRadioPlaying,	iRadioTrack;
-local iWarningSound
+local iWarningSound;
 local iRotorSpeed;
 
 static const BKHK_ThrottleSpeed = 5;
