@@ -7,7 +7,7 @@ local throttle,	rotation, hud;
 local pMGStation, pRocketStation;
 local smokereload, flarereload;
 local fShowSpotlight, pSpotlight;
-local fRadioPlaying,	iRadioTrack;
+local fRadioPlaying, iRadioTrack;
 local iWarningSound;
 local iRotorSpeed;
 
@@ -325,9 +325,9 @@ protected func ControlCommand(string szCommand, object Target, int TargetX, int 
     if(ByObj == GetPilot())
       SetAutopilot(Target, TargetX, TargetY);
     else if(ByObj == GetGunner())
-    	pMGStation->~ControlCommand(szCommand, Target, TargetX, TargetY, target2, Data, ByObj);
+      pMGStation->~ControlCommand(szCommand, Target, TargetX, TargetY, target2, Data, ByObj);
     else if(ByObj == GetCoordinator())
-    	pRocketStation->~ControlCommand(szCommand, Target, TargetX, TargetY, target2, Data, ByObj);
+      pRocketStation->~ControlCommand(szCommand, Target, TargetX, TargetY, target2, Data, ByObj);
     return true;
   }
 }
@@ -372,7 +372,7 @@ protected func FxBlackhawkChangeThrottleStart(object pTarget, int iNumber, iTemp
 
 protected func FxBlackhawkChangeThrottleTimer(object pTarget, int iNumber, int iTime)
 {
-	var old = throttle;
+  var old = throttle;
   throttle = BoundBy(throttle + EffectVar(0, pTarget, iNumber), 0, BKHK_MaxThrottle);
   if(old == throttle) return -1;
   return FX_OK;
@@ -427,7 +427,7 @@ protected func ContainedDown(object ByObj)
       if(GetPlrCoreJumpAndRunControl(GetOwner(GetPilot())) && !GetAutopilot())
         AddEffect("BlackhawkChangeThrottle", this, 50, 3, this, GetID(), -BKHK_ThrottleSpeed);
       else
-      	throttle = BoundBy(throttle - BKHK_ThrottleSpeed, 0, BKHK_MaxThrottle);
+        throttle = BoundBy(throttle - BKHK_ThrottleSpeed, 0, BKHK_MaxThrottle);
   }
 
   //Schütze
@@ -791,7 +791,7 @@ public func SwitchSpotlights()
   //Sound
   Sound("BKHK_Switch.ogg", false, this, 100, GetOwner(GetPilot()) + 1);
 }
-                           
+
 public func UpdateSpotlights()
 {
   pSpotlight[0]->ChangeR(pMGStation->AimAngle());
