@@ -15,5 +15,5 @@ public func GetAchievementScore()
 
 public func BlockByAward()
 {
-	return true;
+  return true;
 }
