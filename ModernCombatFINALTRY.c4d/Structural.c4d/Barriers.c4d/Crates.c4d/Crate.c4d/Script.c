@@ -1,9 +1,9 @@
-/*-- Holziste --*/
+/*-- Holzkiste --*/
 
 #strict 2
 
-public func IsMeleeTarget(object pByObj)	{return (GetID(pByObj) != RSLH);}
-public func IsBulletTarget(id idObjID)			{return (idObjID != RSLH);}
+public func IsMeleeTarget()	{return true;}
+public func IsBulletTarget()			{return true;}
 public func IsCraneGrabable()			{return 1;}
 public func IsSpawnBlocker()			{return true;}
 
@@ -22,8 +22,11 @@ func Damage()
   }
 }
 
-public func MeleeHit()
+public func MeleeHit(object pByObj)
 {
+	if(GetID(pByObj) == RSLH)
+		return false;
+
   //Effekte
   CastSmoke("Smoke3",5,10,-5,0,20,150);
   CastSmoke("Smoke3",5,10,5,0,20,150);
