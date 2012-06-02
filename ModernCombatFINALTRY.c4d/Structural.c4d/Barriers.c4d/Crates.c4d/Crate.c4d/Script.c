@@ -3,7 +3,7 @@
 #strict 2
 
 public func IsMeleeTarget(object pByObj)	{return (GetID(pByObj) != RSLH);}
-public func IsBulletTarget()			{return 1;}
+public func IsBulletTarget(id idObjID)			{return (idObjID != RSLH);}
 public func IsCraneGrabable()			{return 1;}
 public func IsSpawnBlocker()			{return true;}
 
