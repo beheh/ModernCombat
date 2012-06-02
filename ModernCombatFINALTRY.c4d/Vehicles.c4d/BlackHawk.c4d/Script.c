@@ -3,45 +3,27 @@
 #strict 2
 #include CVHC
 
-/*----- Variablen -----*/
-
-local throttle,				//int    - Schub
-      rotation,				//int    - erwartete Drehung
-      idle,				//int    - Motor-Start/Stop Sequenz
-      view_mode;			//bool   - für den Piloten
-
-local hud;				//object - Anzeige für Pilot
-
-local aSeats;
-
-local MGStation,			//object - Das MG-Objekt
-      RocketStation;			//object - Das Raketenwerfer-Objekt
-
-local s_counter,			//int    - eine kleine Counter-Variable für Warnsounds
-      d_counter;			//int    - eine kleine Counter-Variable für die Zerstörung
- 
-local smokereload,			//int    - Nachladezeit für Rauchwand
-      flarereload;			//int    - Nachladezeit für Flareabwurf
-
-local spotlight,			//bool   - Scheinwerfer ein/aus
-      spotlightobj;			//array  - Scheinwerferobjekt
-
-local fPlaying,				//bool   - Radio ein/aus
-      iTrack;				//array  - Aktueller Titel
-
+local throttle,	rotation, hud;
+local pMGStation, pRocketStation;
+local smokereload, flarereload;
+local fShowSpotlight, pSpotlight;
+local fRadioPlaying,	iRadioTrack;
+local iWarningSound
 local iRotorSpeed;
 
-static const throttle_speed = 5;	//int    - "Feinfühligkeit"
-static const rot_speed = 1;		//int    - Drehgeschwindigkeit / frame
-static const control_speed = 3;		//int    - "Feinfühligkeit"
-static const max_throttle = 200;	//int    - höchste Schubeinstellung
-static const max_rotation = 30;		//int    - stärkste erlaubte Neigung
+static const BKHK_ThrottleSpeed = 5;
+static const BKHK_RotationSpeed = 1;
+static const BKHK_ControlSpeed = 3;
+static const BKHK_MaxThrottle = 200;
+static const BKHK_MaxRotation = 30;
 static const BKHK_AutoThrottleSpeed = 1;
 static const BKHK_AutoMaxThrottle = 150;
 static const BKHK_AutoMaxRotation = 10;
 
 static const BKHK_PilotLayer = 2;
 static const BKHK_PassengerLayer = 3;
+
+local aSeats;
 
 static const BKHK_Seat_Pilot = 1;	
 static const BKHK_Seat_Gunner = 2;
@@ -50,7 +32,7 @@ static const BKHK_Seat_Passenger1 = 4;
 static const BKHK_Seat_Passenger2 = 5;
 static const RDIO_TrackCount = 6;
 
-/*----- Callbacks -----*/
+/* Callbacks */
 
 protected func IsRadio()		{return true;}
 public func IsMachine()			{return true;}
@@ -81,7 +63,7 @@ protected func FxIntHeliProtectionStart(object pTarget, int iEffect, int iTemp, 
     EffectVar(0, pTarget, iEffect) = pObj;
 }
 
-/*----- Initialisierung -----*/
+/* Initialisierung */
 
 protected func Initialize()
 {
@@ -97,20 +79,20 @@ protected func Initialize()
   aSeats = [];
 
   //Geschütze aufstellen
-  MGStation = CreateObject(WNRK,0,0,GetOwner());
-  MGStation -> Set(this,10,90,90,270);
-  MGStation -> Arm(ACCN);
-  RocketStation = CreateObject(WNRK,0,0,GetOwner());
-  RocketStation -> Set(this,40,10,210,270);
-  RocketStation -> Arm(RLSA);
+  pMGStation = CreateObject(WNRK,0,0,GetOwner());
+  pMGStation -> Set(this,10,90,90,270);
+  pMGStation -> Arm(ACCN);
+  pRocketStation = CreateObject(WNRK,0,0,GetOwner());
+  pRocketStation -> Set(this,40,10,210,270);
+  pRocketStation -> Arm(RLSA);
 
   //Scheinwerfer einrichten
-  spotlightobj = [0];
+  pSpotlight = [0];
 
   //Zufälligen Song anwählen
-  iTrack = Random(RDIO_TrackCount)+1;
+  iRadioTrack = Random(RDIO_TrackCount)+1;
 
-  //Rotordrehung
+  //Rotorgeschwindigkeit
   iRotorSpeed = 0;
 
   //Vertices richtig drehen
@@ -131,7 +113,7 @@ public func GetPosition(int iVertex, int& iX, int& iY)
 	return true;
 }
 
-/*----- Erfassung -----*/
+/* Erfassung */
 
 public func & GetPilot()        {return aSeats[BKHK_Seat_Pilot];}
 public func & GetGunner()       {return aSeats[BKHK_Seat_Gunner];}
@@ -171,7 +153,7 @@ public func GetRocket()
   return fRocket;
 }
 
-/*----- Autopilot -----*/
+/* Autopilot */
 
 public func GetAutopilot()	{return GetEffect("BlackhawkAutopilot", this);}
 
@@ -259,7 +241,7 @@ protected func FxBlackhawkAutopilotTimer(object pTarget, int iNumber, int iTime)
   if(GetX(pTarget) > iX+50)
   {
     if (GetAction()=="Fly" || GetAction()=="Turn")
-    rotation = BoundBy(rotation - control_speed, -BKHK_AutoMaxRotation, BKHK_AutoMaxRotation);
+    rotation = BoundBy(rotation - BKHK_ControlSpeed, -BKHK_AutoMaxRotation, BKHK_AutoMaxRotation);
     if (rotation < 0 && GetDir() && GetAction()=="Fly")
     {
       if (GetAction() == "Turn" || GetContact(this, -1)) return true;
@@ -270,7 +252,7 @@ protected func FxBlackhawkAutopilotTimer(object pTarget, int iNumber, int iTime)
   if(GetX(pTarget) < iX-50)
   {
     if (GetAction()=="Fly" || GetAction()=="Turn") 
-    rotation = BoundBy(rotation + control_speed, -BKHK_AutoMaxRotation, BKHK_AutoMaxRotation);
+    rotation = BoundBy(rotation + BKHK_ControlSpeed, -BKHK_AutoMaxRotation, BKHK_AutoMaxRotation);
     if (rotation > 0 && !GetDir() && GetAction()=="Fly")
     {
       if(GetAction() == "Turn" || GetContact(this, -1)) return true;
@@ -282,28 +264,28 @@ protected func FxBlackhawkAutopilotTimer(object pTarget, int iNumber, int iTime)
   {
     if(GetXDir(pTarget) < -1)
     {
-      rotation = BoundBy(rotation + control_speed, 0, BKHK_AutoMaxRotation);
+      rotation = BoundBy(rotation + BKHK_ControlSpeed, 0, BKHK_AutoMaxRotation);
     }
     else if(GetXDir(pTarget) > 1)
     {
-      rotation = BoundBy(rotation - control_speed, -BKHK_AutoMaxRotation, 0);
+      rotation = BoundBy(rotation - BKHK_ControlSpeed, -BKHK_AutoMaxRotation, 0);
     }
     else
     {
       if(GetXDir(pTarget) < 0)
       {
-        rotation = BoundBy(rotation - control_speed, 0, BKHK_AutoMaxRotation);
+        rotation = BoundBy(rotation - BKHK_ControlSpeed, 0, BKHK_AutoMaxRotation);
       }
       else if(GetXDir(pTarget) > 0)
       {
-        rotation = BoundBy(rotation + control_speed, -BKHK_AutoMaxRotation, 0);
+        rotation = BoundBy(rotation + BKHK_ControlSpeed, -BKHK_AutoMaxRotation, 0);
       }
     }
   }
   return FX_OK;
 }
 
-/*----- Eingangssteuerung -----*/
+/* Eingangssteuerung */
 
 protected func Ejection(object ByObj)
 {
@@ -343,9 +325,9 @@ protected func ControlCommand(string szCommand, object Target, int TargetX, int 
     if(ByObj == GetPilot())
       SetAutopilot(Target, TargetX, TargetY);
     else if(ByObj == GetGunner())
-    	MGStation->~ControlCommand(szCommand, Target, TargetX, TargetY, target2, Data, ByObj);
+    	pMGStation->~ControlCommand(szCommand, Target, TargetX, TargetY, target2, Data, ByObj);
     else if(ByObj == GetCoordinator())
-    	RocketStation->~ControlCommand(szCommand, Target, TargetX, TargetY, target2, Data, ByObj);
+    	pRocketStation->~ControlCommand(szCommand, Target, TargetX, TargetY, target2, Data, ByObj);
     return true;
   }
 }
@@ -380,7 +362,7 @@ protected func Collection2(object pObj)
   }
 }
 
-/*----- Steuerung -----*/
+/* Steuerung */
 
 protected func FxBlackhawkChangeThrottleStart(object pTarget, int iNumber, iTemp, int iChange)
 {
@@ -391,7 +373,7 @@ protected func FxBlackhawkChangeThrottleStart(object pTarget, int iNumber, iTemp
 protected func FxBlackhawkChangeThrottleTimer(object pTarget, int iNumber, int iTime)
 {
 	var old = throttle;
-  throttle = BoundBy(throttle + EffectVar(0, pTarget, iNumber), 0, max_throttle);
+  throttle = BoundBy(throttle + EffectVar(0, pTarget, iNumber), 0, BKHK_MaxThrottle);
   if(old == throttle) return -1;
   return FX_OK;
 }
@@ -413,17 +395,17 @@ protected func ContainedUp(object ByObj)
     //beim Flug mehr Schub
     if(GetAction() == "Fly" || GetAction() == "Turn")
       if(GetPlrCoreJumpAndRunControl(GetOwner(GetPilot())) && !GetAutopilot())
-        AddEffect("BlackhawkChangeThrottle", this, 50, 3, this, GetID(), throttle_speed);
+        AddEffect("BlackhawkChangeThrottle", this, 50, 3, this, GetID(), BKHK_ThrottleSpeed);
       else
-        throttle = BoundBy(throttle + throttle_speed, 0, max_throttle);
+        throttle = BoundBy(throttle + BKHK_ThrottleSpeed, 0, BKHK_MaxThrottle);
   }
 
   //Schütze
   if (ByObj == GetGunner())
-    MGStation->~ControlUp(ByObj);
+    pMGStation->~ControlUp(ByObj);
   //Koordinator
   if (ByObj == GetCoordinator())
-    RocketStation->~ControlUp(ByObj);
+    pRocketStation->~ControlUp(ByObj);
 
   return true;
 }
@@ -443,17 +425,17 @@ protected func ContainedDown(object ByObj)
     //Vom Gas weg
     if(GetAction() == "Fly" || GetAction() == "Turn")
       if(GetPlrCoreJumpAndRunControl(GetOwner(GetPilot())) && !GetAutopilot())
-        AddEffect("BlackhawkChangeThrottle", this, 50, 3, this, GetID(), -throttle_speed);
+        AddEffect("BlackhawkChangeThrottle", this, 50, 3, this, GetID(), -BKHK_ThrottleSpeed);
       else
-      	throttle = BoundBy(throttle - throttle_speed, 0, max_throttle);
+      	throttle = BoundBy(throttle - BKHK_ThrottleSpeed, 0, BKHK_MaxThrottle);
   }
 
   //Schütze
   if(ByObj == GetGunner())
-    MGStation->~ControlDown(ByObj);
+    pMGStation->~ControlDown(ByObj);
   //Koordinator
   if(ByObj == GetCoordinator())
-    RocketStation->~ControlDown(ByObj);
+    pRocketStation->~ControlDown(ByObj);
 
   return true;
 }
@@ -488,7 +470,7 @@ protected func ContainedUpDouble(object ByObj)
     if(throttle == 0 && (GetAction() == "Stand" || GetAction() == "EngineShutDown"))
       SetAction("EngineStartUp");  
     if(GetAction() == "Fly")
-      throttle = BoundBy(throttle + throttle_speed * 2, 0, max_throttle);
+      throttle = BoundBy(throttle + BKHK_ThrottleSpeed * 2, 0, BKHK_MaxThrottle);
     return true;
   }
 }
@@ -507,7 +489,7 @@ protected func ContainedDownDouble(object ByObj)
       SetAction("EngineShutDown");
     //Vom Gas weg
     if (GetAction() == "Fly")
-      throttle = BoundBy(throttle - throttle_speed*2, 0, 170);
+      throttle = BoundBy(throttle - BKHK_ThrottleSpeed*2, 0, 170);
   }
 
   if(ByObj == GetPassenger1() || ByObj == GetPassenger2())
@@ -526,17 +508,17 @@ protected func ContainedLeft(object ByObj)
     ResetAutopilot();
     if (GetAction() == "Fly" || GetAction() == "Turn")
       if(GetPlrCoreJumpAndRunControl(GetController(ByObj)))
-        rotation = -max_rotation;
+        rotation = -BKHK_MaxRotation;
       else
-        rotation = BoundBy(rotation - control_speed, -max_rotation, max_rotation);
+        rotation = BoundBy(rotation - BKHK_ControlSpeed, -BKHK_MaxRotation, BKHK_MaxRotation);
   }
 
   //Schütze
   if(ByObj == GetGunner())
-    MGStation->~ControlLeft(ByObj);
+    pMGStation->~ControlLeft(ByObj);
   //Koordinator
   if(ByObj == GetCoordinator())
-    RocketStation->~ControlLeft(ByObj);
+    pRocketStation->~ControlLeft(ByObj);
 
   return true;
 }
@@ -561,17 +543,17 @@ protected func ContainedRight(object ByObj, fRelease)
     else 
       if (GetAction() == "Fly" || GetAction() == "Turn")
         if(GetPlrCoreJumpAndRunControl(GetController(ByObj)))
-          rotation = max_rotation;
+          rotation = BKHK_MaxRotation;
         else
-          rotation = BoundBy(rotation + control_speed, -max_rotation, max_rotation);
+          rotation = BoundBy(rotation + BKHK_ControlSpeed, -BKHK_MaxRotation, BKHK_MaxRotation);
   }
 
   //Schütze
   if(ByObj == GetGunner())
-    MGStation->~ControlRight(ByObj);
+    pMGStation->~ControlRight(ByObj);
   //Koordinator
   if(ByObj == GetCoordinator())
-    RocketStation->~ControlRight(ByObj);
+    pRocketStation->~ControlRight(ByObj);
 
   return true;
 }
@@ -593,10 +575,10 @@ protected func ContainedLeftDouble(object ByObj)
 
   //Schütze
   if(ByObj == GetGunner())
-    MGStation->~ControlLeftDouble(ByObj);
+    pMGStation->~ControlLeftDouble(ByObj);
   //Koordinator
   if(ByObj == GetCoordinator())
-    RocketStation->~ControlLeftDouble(ByObj);
+    pRocketStation->~ControlLeftDouble(ByObj);
 
   return true;
 }
@@ -625,10 +607,10 @@ protected func ContainedRightDouble(object ByObj)
 
   //Schütze
   if(ByObj == GetGunner())
-    MGStation->~ControlRightDouble(ByObj);
+    pMGStation->~ControlRightDouble(ByObj);
   //Koordinator
   if(ByObj == GetCoordinator())
-    RocketStation->~ControlRightDouble(ByObj);
+    pRocketStation->~ControlRightDouble(ByObj);
 
   return true;
 }
@@ -691,10 +673,10 @@ protected func ContainedThrow(object ByObj)
   //Schütze: Feuer eröffnen/einstellen
   if(ByObj == GetGunner())
     if(!GetPlrCoreJumpAndRunControl(GetController(ByObj)))
-      MGStation->~ControlThrow(ByObj);
+      pMGStation->~ControlThrow(ByObj);
   //Koordinator
   if(ByObj == GetCoordinator())
-    RocketStation->~ControlThrow(ByObj);
+    pRocketStation->~ControlThrow(ByObj);
 
   return true;
 }
@@ -702,16 +684,16 @@ protected func ContainedThrow(object ByObj)
 protected func ContainedDig(object pBy)
 {
   if (pBy == GetCoordinator())
-    RocketStation->~ControlDig(pBy);
+    pRocketStation->~ControlDig(pBy);
 }
 
 public func ContainedUpdate(object ByObj, int comdir, bool dig, bool throw)
 {
   if(ByObj == GetGunner())
     if(throw)
-      return MGStation->ControlThrow(ByObj);
+      return pMGStation->ControlThrow(ByObj);
     else
-      return MGStation->StopAutoFire();
+      return pMGStation->StopAutoFire();
 }
 
 //eine Funktion, welche einfach nur die Richtung eines Objektes ändert
@@ -728,7 +710,7 @@ protected func ChangeDir()
   return true;
 }
 
-/*----- Pilotenfähigkeiten -----*/
+/* Pilotenfähigkeiten */
 
 /* Flareabwurf */
 
@@ -804,7 +786,7 @@ public func SwitchHUD()
 
 public func SwitchSpotlights()
 {
-  spotlight = !spotlight;
+  fShowSpotlight = !fShowSpotlight;
 
   //Sound
   Sound("BKHK_Switch.ogg", false, this, 100, GetOwner(GetPilot()) + 1);
@@ -812,22 +794,22 @@ public func SwitchSpotlights()
                            
 public func UpdateSpotlights()
 {
-  spotlightobj[0]->ChangeR(MGStation->AimAngle());
+  pSpotlight[0]->ChangeR(pMGStation->AimAngle());
   return true;
 }
 
 public func CreateSpotlights()
 {
-  spotlightobj[0] = CreateLight(LHC2, 5000, RGBa(255,255,220,70), MGStation);
-  spotlightobj[0]->ChangeR(MGStation->AimAngle());
-  spotlightobj[0]->ChangeOffset(0, 3);
+  pSpotlight[0] = CreateLight(LHC2, 5000, RGBa(255,255,220,70), pMGStation);
+  pSpotlight[0]->ChangeR(pMGStation->AimAngle());
+  pSpotlight[0]->ChangeOffset(0, 3);
   return true;
 }
 
 public func RemoveSpotlights()
 {
-  if(spotlightobj[0])
-    RemoveObject(spotlightobj[0]);
+  if(pSpotlight[0])
+    RemoveObject(pSpotlight[0]);
 
   return true;
 }
@@ -842,7 +824,7 @@ protected func StopSong(int iPlr)
 protected func StartSong(int iPlrPlusOne)
 {
   if(IsPlaying())
-    Sound(Format("RadioMusicTitle_O0%d.ogg",iTrack), false, this, 0, iPlrPlusOne, 1);
+    Sound(Format("RadioMusicTitle_O0%d.ogg",iRadioTrack), false, this, 0, iPlrPlusOne, 1);
 }
 
 public func SwitchRadio()
@@ -850,18 +832,18 @@ public func SwitchRadio()
   if(IsPlaying())
   {
     Sound("RadioMusicTitle_O0*.ogg", false, this, 0, 0, -1);
-    iTrack = iTrack % RDIO_TrackCount + 1;
+    iRadioTrack = iRadioTrack % RDIO_TrackCount + 1;
 
-    fPlaying = false;
+    fRadioPlaying = false;
   }
   else
   {
     for(var i = 0; i < GetPlayerCount(); i++)
     {
       if(!GetPlrExtraData(i, "CMC_RadioMusicMode"))
-        Sound(Format("RadioMusicTitle_O0%d.ogg",iTrack), false, this, 0, i+1, 1);
+        Sound(Format("RadioMusicTitle_O0%d.ogg",iRadioTrack), false, this, 0, i+1, 1);
     }
-    fPlaying = true;
+    fRadioPlaying = true;
   }
 
   //Sound
@@ -870,10 +852,10 @@ public func SwitchRadio()
 
 public func IsPlaying()
 {
-  return fPlaying;
+  return fRadioPlaying;
 }
 
-/*----- Sitzsteuerung -----*/
+/* Sitzsteuerung */
 
 protected func ContainedDigDouble(object pClonk)
 {
@@ -950,12 +932,12 @@ private func DeleteActualSeatPassenger(object Obj)
   if(GetGunner() == Obj)
   {
     GetGunner() = 0;
-    if(MGStation) MGStation->SetGunner(0);
+    if(pMGStation) pMGStation->SetGunner(0);
   }
   if(GetCoordinator() == Obj)
   {
     GetCoordinator() = 0;
-    if(RocketStation) RocketStation->SetGunner(0);
+    if(pRocketStation) pRocketStation->SetGunner(0);
   }
   if(GetPassenger1() == Obj)
     GetPassenger1() = 0;
@@ -1004,7 +986,7 @@ public func EnterSeat(int iSeat, object pObj)
   {
     SetGraphics("Passenger", this, GetID(), BKHK_PassengerLayer, GFXOV_MODE_ExtraGraphics, 0, GFX_BLIT_Custom, this);
     GetGunner() = pObj;
-    MGStation->~SetGunner(GetGunner());
+    pMGStation->~SetGunner(GetGunner());
     return true;
   }
 
@@ -1013,7 +995,7 @@ public func EnterSeat(int iSeat, object pObj)
   {
     SetGraphics("Passenger", this, GetID(), BKHK_PassengerLayer, GFXOV_MODE_ExtraGraphics, 0, GFX_BLIT_Custom, this);
     GetCoordinator() = pObj;
-    RocketStation->~SetGunner(GetCoordinator());
+    pRocketStation->~SetGunner(GetCoordinator());
     return true;
   }
 
@@ -1034,11 +1016,11 @@ public func EnterSeat(int iSeat, object pObj)
   }
 }
 
-/*----- Ausstieg per Seil -----*/
+/* Ausstieg per Seil */
 
 public func GetRopeAttach()
 {
-  return MGStation;
+  return pMGStation;
 }
 
 private func ExitClonk(a, pClonk)
@@ -1082,22 +1064,22 @@ protected func FxCheckGroundTimer(pTarget, iNo, iTime)
     pRope->SetRopeLength(iTime * 4 + 10);
 }
 
-/*----- Zerstörung -----*/
+/* Zerstörung */
 
 protected func Destruction()
 {
   if(hud)
     RemoveObject(hud);
-  if(MGStation)
-    RemoveObject(MGStation);
-  if(RocketStation)
-    RemoveObject(RocketStation);
+  if(pMGStation)
+    RemoveObject(pMGStation);
+  if(pRocketStation)
+    RemoveObject(pRocketStation);
   RemoveSpotlights();
 
   return true;
 }
 
-/*----- Schaden -----*/
+/* Schaden */
 
 public func OnDmg(int iDmg, int iType)
 {
@@ -1159,7 +1141,7 @@ public func OnDestruction()
   return true;
 }
 
-/*----- Kollisionsverhalten -----*/
+/* Kollisionsverhalten */
 
 protected func ContactTop()
 {
@@ -1170,7 +1152,7 @@ protected func ContactTop()
       CreateParticle("Blast", GetVertex(i), GetVertex(i, true), 0, 0, RandomX(50, 100), RGB(255, 255, 255));
 
   //Sound
-  Sound("HeavyHit*.ogg", false, MGStation);
+  Sound("HeavyHit*.ogg", false, pMGStation);
   SetYDir(Min(GetYDir(), -40) / -2);
   return true;
 }
@@ -1184,7 +1166,7 @@ protected func ContactBottom()
     for (var i; i < GetVertexNum(); i++)
       if (GetContact(0, i))
         CreateParticle("Blast", GetVertex(i), GetVertex(i, true), 0, 0, RandomX(50,100), RGB(255,255,255));
-    Sound("HeavyHit*.ogg", false, MGStation);
+    Sound("HeavyHit*.ogg", false, pMGStation);
     SetYDir(GetYDir() * -2 / 3);
   }
   if(GetContact(0, -1, CNAT_Left | CNAT_Right) && throttle)
@@ -1201,7 +1183,7 @@ protected func ContactLeft()
     for (var i; i < GetVertexNum(); i++)
       if (GetContact(0, i))
         CreateParticle("Blast", GetVertex(i), GetVertex(i, true), 0, 0, RandomX(50, 100), RGB(255, 255, 255));
-    Sound("HeavyHit*.ogg", false, MGStation);
+    Sound("HeavyHit*.ogg", false, pMGStation);
   }
   //Abprallen
   SetXDir(Max(GetXDir(),40) / -2, this);
@@ -1217,7 +1199,7 @@ protected func ContactRight()
     for (var i; i < GetVertexNum(); i++)
       if (GetContact(0, i))
         CreateParticle("Blast", GetVertex(i), GetVertex(i, true), 0, 0, RandomX(50, 100), RGB(255, 255, 255));
-    Sound("HeavyHit*.ogg", false, MGStation);
+    Sound("HeavyHit*.ogg", false, pMGStation);
   }
   SetXDir(Max(GetXDir(), 40) / -2,this);
   return true;
@@ -1311,12 +1293,12 @@ protected func TimerCall()
   }
 
   //Scheinwerfer aktualisieren
-  if(spotlight)
-    if(spotlightobj[0])
+  if(fShowSpotlight)
+    if(pSpotlight[0])
       UpdateSpotlights();
     else
       CreateSpotlights();
-  else if(spotlightobj[0])
+  else if(pSpotlight[0])
     RemoveSpotlights();
 
   /*Nach gestorbenen Clonks suchen
@@ -1425,31 +1407,31 @@ protected func TimerCall()
     {
       if(GetDamage() < MaxDamage() * 3 / 4) 
       {
-        if (!(s_counter % 36))
+        if (!(iWarningSound % 36))
         for (var obj in FindObjects(Find_OCF(OCF_CrewMember), Find_Container(this)))
-          Sound("WarningDamage.ogg", false, MGStation, 100, GetOwner(obj) + 1);
-        s_counter++;
-        if(s_counter >= 100)
-          s_counter = 0;
+          Sound("WarningDamage.ogg", false, pMGStation, 100, GetOwner(obj) + 1);
+        iWarningSound++;
+        if(iWarningSound >= 100)
+          iWarningSound = 0;
       }
       else
       {
-        if (!(s_counter % 20))
+        if (!(iWarningSound % 20))
         {
           Local(2) = 0;
           for (var obj in FindObjects(Find_OCF(OCF_CrewMember), Find_Container(this)))
             if(obj != GetPilot())
-              Sound("WarningDamageCritical.ogg", false, MGStation, 100, GetOwner(obj) + 1);
+              Sound("WarningDamageCritical.ogg", false, pMGStation, 100, GetOwner(obj) + 1);
         }
-        s_counter++;
-        if (s_counter >= 100)
-          s_counter = 0;
+        iWarningSound++;
+        if (iWarningSound >= 100)
+          iWarningSound = 0;
       }
     }
   }
 }
 
-/*----- Physik -----*/
+/* Physik */
 
 protected func StartEngine()
 {
@@ -1482,7 +1464,7 @@ protected func EngineStopped()
   Sound("BKHK_RotorSpin*.ogg", false, 0, 0, 0, -1);
 }
 
-/*----- Effekt: Engine -----*/
+/* Effekt: Engine */
 
 //hier wird das Flugverhalten gesteuert
 protected func FxEngineTimer(object Target, int EffectNumber, int EffectTime)
@@ -1497,7 +1479,7 @@ protected func FxEngineTimer(object Target, int EffectNumber, int EffectTime)
   {
     //Rotation anpassen
     var speed;
-    speed = BoundBy(rot-GetR(Target), -rot_speed, rot_speed);
+    speed = BoundBy(rot-GetR(Target), -BKHK_RotationSpeed, BKHK_RotationSpeed);
     SetRDir(speed, Target);
   }
   else
