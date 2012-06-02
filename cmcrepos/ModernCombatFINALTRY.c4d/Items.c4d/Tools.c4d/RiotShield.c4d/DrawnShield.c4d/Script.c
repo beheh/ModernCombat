@@ -85,7 +85,7 @@ public func ExecShove()
     {
       DoDmg(15,DMG_Melee,victim,0,GetController()+1,RSHL);
       //Achievement-Fortschritt (Fist of Fury)
-      DoAchievementProgress(1, AC36, GetOwner(GetController())); 
+      DoAchievementProgress(1, AC36, GetController());
     }
     Sound("RSHL_Shove.ogg", 0, victim);
   }
