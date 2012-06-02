@@ -2,11 +2,11 @@
 
 #strict 2
 
-local fuse, active, thrown, pStickTo, iStickXOffset, iStickYOffset, iStickROffset, iPreviousCategory;
+local fuse, active, thrown, pStickTo, iStickXOffset, iStickYOffset, iStickROffset, iPreviousCategory, iBulletsTrigger;
 
 public func LimitationCount()	{return 8;}
 public func AttractTracer()	{return false;}
-
+public func RejectC4Attach() {return true;}
 
 /* Initialisierung */
 
@@ -14,6 +14,7 @@ public func Initialize()
 {
   active = false;
   thrown = false;
+  iBulletsTrigger = 0;
   iPreviousCategory = GetCategory();
   fuse = 0;
   CheckLimitation();
@@ -37,13 +38,14 @@ public func SetActive(object pCaller)
 
   fuse = pCaller;
   active = true;
+  iBulletsTrigger = 30;
 
   SetController(GetOwner(pCaller));
   
   if(!GetXDir() && !GetYDir())
     SetClrModulation(RGBa(255,255,255,100));
-  //else
-  //AddEffect("Check", this, 200, 1, this, C4EX);
+
+  
 
   //Effekte
   Sound("C4PA_Ignition.ogg");
@@ -87,6 +89,7 @@ protected func Timer()
       SetCategory(iPreviousCategory); 
     }
   }
+  if(iBulletsTrigger) iBulletsTrigger--;
 }
 
 /* Zündung */
@@ -125,18 +128,23 @@ public func BlowUp()
 
 /* Außeneinwirkung */
 
-public func IsBulletTarget(ID)
+public func IsBulletTarget(id idBullet)
 {
-  return ID != SHT1 && ID != SHTX && ID != C4EX;
+  if(idBullet == GetID()) return;
+  return true;
+  //return ID != SHT1 && ID != SHTX && ID != C4EX;
 }
 
 public func OnHit(int iDamage, int iType, object pFrom)
 {
-  if((iType == DMG_Fire || iType == DMG_Explosion) && iDamage > 10)
+  if(((iType == DMG_Fire || iType == DMG_Explosion) && iDamage > 10))
   {
     SetController(GetController(pFrom));
-    SetOwner(GetOwner(pFrom));
     Trigger();
+  }
+  if(iType == DMG_Projectile && iBulletsTrigger > 0) {
+    SetController(GetController(pFrom));
+    BlowUp();
   }
 }
 
