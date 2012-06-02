@@ -27,18 +27,18 @@ protected func Initialize()
   aSeats = [];
 
   //Geschütze aufstellen
-  MGStation = CreateObject(WNRK,0,0,GetOwner());
-  MGStation -> Set(this,60,10,210,270);
-  MGStation -> Arm(LCAC);
-  RocketStation = CreateObject(WNRK,0,0,GetOwner());
-  RocketStation -> Set(this,10,100,270,270);
-  RocketStation -> Arm(ACRL);
+  pMGStation = CreateObject(WNRK,0,0,GetOwner());
+  pMGStation -> Set(this,60,10,210,270);
+  pMGStation -> Arm(LCAC);
+  pRocketStation = CreateObject(WNRK,0,0,GetOwner());
+  pRocketStation -> Set(this,10,100,270,270);
+  pRocketStation -> Arm(ACRL);
 
   //Scheinwerfer einrichten
-  spotlightobj = [0];
+  pSpotlight = [0];
 
   //Zufälligen Song anwählen
-  iTrack = Random(RDIO_TrackCount)+1;
+  iRadioTrack = Random(RDIO_TrackCount)+1;
 
   //Rotordrehung
   iRotorSpeed = 0;
@@ -114,14 +114,14 @@ protected func ContainedUp(object ByObj)
     //beim Flug mehr Schub
     if(GetAction() == "Fly" || GetAction() == "Turn")
       if(GetPlrCoreJumpAndRunControl(GetOwner(GetPilot())) && !GetAutopilot())
-        AddEffect("BlackhawkChangeThrottle", this, 50, 3, this, GetID(), throttle_speed);
+        AddEffect("BlackhawkChangeThrottle", this, 50, 3, this, GetID(), BKHK_ThrottleSpeed);
       else
-        throttle = BoundBy(throttle + throttle_speed, 0, max_throttle);
+        throttle = BoundBy(throttle + BKHK_ThrottleSpeed, 0, BKHK_MaxThrottle);
   }
 
   //Schütze
   if (ByObj == GetGunner())
-    MGStation->~ControlUp(ByObj);
+    pMGStation->~ControlUp(ByObj);
 
   return true;
 }
@@ -141,14 +141,14 @@ protected func ContainedDown(object ByObj)
     //Vom Gas weg
     if(GetAction() == "Fly" || GetAction() == "Turn")
       if(GetPlrCoreJumpAndRunControl(GetOwner(GetPilot())) && !GetAutopilot())
-        AddEffect("BlackhawkChangeThrottle", this, 50, 3, this, GetID(), -throttle_speed);
+        AddEffect("BlackhawkChangeThrottle", this, 50, 3, this, GetID(), -BKHK_ThrottleSpeed);
       else
-      	throttle = BoundBy(throttle - throttle_speed, 0, max_throttle);
+      	throttle = BoundBy(throttle - BKHK_ThrottleSpeed, 0, BKHK_MaxThrottle);
   }
 
   //Schütze
   if(ByObj == GetGunner())
-    MGStation->~ControlDown(ByObj);
+    pMGStation->~ControlDown(ByObj);
 
   return true;
 }
@@ -167,7 +167,7 @@ protected func ContainedDownDouble(object ByObj)
       SetAction("EngineShutDown");
     //Vom Gas weg
     if (GetAction() == "Fly")
-      throttle = BoundBy(throttle - throttle_speed*2, 0, 170);
+      throttle = BoundBy(throttle - BKHK_ThrottleSpeed*2, 0, 170);
   }
 
   return true;
@@ -184,14 +184,14 @@ protected func ContainedLeft(object ByObj)
     ResetAutopilot();
     if (GetAction() == "Fly" || GetAction() == "Turn")
       if(GetPlrCoreJumpAndRunControl(GetController(ByObj)))
-        rotation = -max_rotation;
+        rotation = -BKHK_MaxRotation;
       else
-        rotation = BoundBy(rotation - control_speed, -max_rotation, max_rotation);
+        rotation = BoundBy(rotation - BKHK_ControlSpeed, -BKHK_MaxRotation, BKHK_MaxRotation);
   }
 
   //Schütze
   if(ByObj == GetGunner())
-    MGStation->~ControlLeft(ByObj);
+    pMGStation->~ControlLeft(ByObj);
 
   return true;
 }
@@ -210,14 +210,14 @@ protected func ContainedRight(object ByObj, fRelease)
     else 
       if (GetAction() == "Fly" || GetAction() == "Turn")
         if(GetPlrCoreJumpAndRunControl(GetController(ByObj)))
-          rotation = max_rotation;
+          rotation = BKHK_MaxRotation;
         else
-          rotation = BoundBy(rotation + control_speed, -max_rotation, max_rotation);
+          rotation = BoundBy(rotation + BKHK_ControlSpeed, -BKHK_MaxRotation, BKHK_MaxRotation);
   }
 
   //Schütze
   if(ByObj == GetGunner())
-    MGStation->~ControlRight(ByObj);
+    pMGStation->~ControlRight(ByObj);
 
   return true;
 }
@@ -239,7 +239,7 @@ protected func ContainedLeftDouble(object ByObj)
 
   //Schütze
   if(ByObj == GetGunner())
-    MGStation->~ControlLeftDouble(ByObj);
+    pMGStation->~ControlLeftDouble(ByObj);
 
   return true;
 }
@@ -262,7 +262,7 @@ protected func ContainedRightDouble(object ByObj)
 
   //Schütze
   if(ByObj == GetGunner())
-    MGStation->~ControlRightDouble(ByObj);
+    pMGStation->~ControlRightDouble(ByObj);
 
   return true;
 }
@@ -311,7 +311,7 @@ protected func ContainedThrow(object ByObj)
   //Schütze: Feuer eröffnen/einstellen
   if(ByObj == GetGunner())
     if(!GetPlrCoreJumpAndRunControl(GetController(ByObj)))
-      MGStation->~ControlThrow(ByObj);
+      pMGStation->~ControlThrow(ByObj);
 
   return true;
 }
@@ -354,7 +354,7 @@ private func DeleteActualSeatPassenger(object Obj)
   if(GetGunner() == Obj)
   {
     GetGunner() = 0;
-    if(MGStation) MGStation->SetGunner(0);
+    if(pMGStation) pMGStation->SetGunner(0);
   }
 
   //Falls keine Passagiere außer Pilot mehr da
@@ -396,7 +396,7 @@ public func EnterSeat(int iSeat, object pObj)
   {
     SetGraphics("Passenger", this, GetID(), BKHK_PassengerLayer, GFXOV_MODE_ExtraGraphics, 0, GFX_BLIT_Custom, this);
     GetGunner() = pObj;
-    MGStation->~SetGunner(GetGunner());
+    pMGStation->~SetGunner(GetGunner());
     return true;
   }
 }
@@ -408,5 +408,5 @@ public func EnterSeat(int iSeat, object pObj)
 public func FireRockets()
 {
   //Feuerbefehl geben
-  RocketStation->~ControlThrow(GetPilot());
+  pRocketStation->~ControlThrow(GetPilot());
 }

@@ -112,7 +112,7 @@ protected func Timer()
     pThrottle->SetOwner(GetOwner());
     pThrottle->SetClrModulation(RGBa(255,204,0,50));
   }
-  SetPosition(GetX()-180, GetY()+70-BoundBy((((140*1000)/max_throttle)*pHelicopter->GetThrottle())/1000, 0, 140), pThrottle);
+  SetPosition(GetX()-180, GetY()+70-BoundBy((((140*1000)/BKHK_MaxThrottle)*pHelicopter->GetThrottle())/1000, 0, 140), pThrottle);
   pThrottle->SetVisibility(GetVisibility());
   //Höhe anzeigen
   if(!pAltitude)
