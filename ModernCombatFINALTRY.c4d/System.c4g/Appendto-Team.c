@@ -81,6 +81,23 @@ global func GetTeamPlayerCount(int iTeam)
   return count;
 }
 
+global func GetTeamMemberByIndex(int iTeam, int iIndex)
+{
+	var index;
+	for(var i = 0; i < GetPlayerCount(); i++)
+	{
+		if(GetPlayerTeam(GetPlayerByIndex(i)) == iTeam)
+		{
+			if(iIndex == index)
+				return GetPlayerByIndex(i);
+			
+			++index;
+		}
+	}
+	
+	return -1;
+}
+
 /* Auswertung */
 
 public func IsFulfilled() // Siegreiches Team?
