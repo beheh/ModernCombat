@@ -219,7 +219,7 @@ public func UpdateScoreboard()
         name = GetTaggedPlayerName(plr);
 
       //Kein Spieler im Team? Dann nicht anzeigen
-      if(GetTeamMemberyByIndex(team, 0) == -1)
+      if(GetTeamMemberByIndex(team, 0) == -1)
         continue;
 
       var clr = GetTeamColor(team);
