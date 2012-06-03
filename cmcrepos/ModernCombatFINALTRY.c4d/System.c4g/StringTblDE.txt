@@ -63,7 +63,7 @@ SwitchInvisible=Unsichtbar
 CreateTeams=Teams aufstellen
 TeamsSortedManually=Manuell
 TeamsSortedRandomly=Zufall
-TeamsSortedRandomlyAndInv=Zufällig & unsichtbar
+TeamsSortedRandomlyAndInv=Zufällig und unsichtbar
 TeamsSortedByRank=Nach Rang
 Random=Zufällig
 
