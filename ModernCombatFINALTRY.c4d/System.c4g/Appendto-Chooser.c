@@ -967,7 +967,7 @@ protected func OpenGoalChooseMenu()
   var i;
   for(var goal in aGoals)
   {
-    AddMenuItem("%s", "CreateGoal", goal, pClonk, 0, aTempGoalSave[i]);
+    AddMenuItem("%s", Format("CreateGoal(%i, %d)", goal, aTempGoalSave[i]), goal, pClonk, 0);
     i++;
   }
   //Zufall
