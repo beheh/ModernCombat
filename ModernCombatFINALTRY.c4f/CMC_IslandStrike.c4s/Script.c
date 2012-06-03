@@ -126,7 +126,6 @@ func CreateInterior()
   CreateObject(_WIN, 5338, 470, -1);
 
   //Kisten
-  CreateObject(WCR2, 1510, 400, -1);
   CreateObject(WCR2, 3605, 500, -1)->AutoRespawn();
   CreateObject(WCR2, 3775, 410, -1)->AutoRespawn();
   CreateObject(WCR2, 4250, 410, -1);
@@ -135,11 +134,11 @@ func CreateInterior()
   CreateObject(WCR2, 6310, 620, -1)->AutoRespawn();
 
   //Metallkisten
-  CreateObject(MWCR, 1530, 400, -1)->AutoRespawn();
+  CreateObject(MWCR, 1510, 400, -1)->AutoRespawn();
   CreateObject(MWCR, 4570, 390, -1)->AutoRespawn();
   CreateObject(MWCR, 5030, 470, -1)->AutoRespawn();
   CreateObject(MWCR, 5370, 470, -1)->AutoRespawn();
-  CreateObject(MWCR, 7560, 510, -1)->AutoRespawn();
+  CreateObject(MWCR, 7550, 510, -1)->AutoRespawn();
 
   //Verbandskisten
   CreateObject(BECR, 1275, 400, -1)->AutoRespawn();
@@ -413,8 +412,11 @@ func CreateDecoration()
   //Rohre
   CreateObject(PIPL, 2730, 365, -1)->Up()->Right()->Right()->Right()->Right();
   CreateObject(PIPL, 2685, 365, -1)->Up()->Right();
-  CreateObject(PIPL, 5150, 470, -1)->Right()->Right()->Right()->Right()->Right()->Right()->Up()->Up()->Right()->Right()->Right();
-  CreateObject(PIPL, 5150, 485, -1)->Right()->Right()->Right()->Right()->Right()->Right()->Right()->Up()->Up()->Right()->Right();
+
+  CreateObject(PIPL, 5165, 470, -1)->Right()->Right();
+  CreateObject(PIPL, 5165, 485, -1)->Right()->Right();
+  CreateObject(PIPL, 5350, 470, -1)->Right()->Right()->Right()->Up()->Up()->Right()->Right();
+  CreateObject(PIPL, 5350, 485, -1)->Right()->Right()->Up()->Up()->Right()->Right()->Right();
 
   //Jetwrack
   CreateObject(_JW1, 3180, 305, -1);
