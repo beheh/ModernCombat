@@ -86,7 +86,7 @@ public func FxIntRespawnTimer(object pTarget, int iEffectNumber, int iEffectTime
   {
     var w = GetDefWidth(id); var h = GetDefHeight(id);
     var x = -w/2; var y = -h;
-    
+
     if(ObjectCount2(Find_InRect(x,y,w,h),Find_OCF(OCF_Alive)))
     {
       if(GetEffect(0,pTarget,iEffectNumber,3) > 35)

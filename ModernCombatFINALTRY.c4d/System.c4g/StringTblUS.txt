@@ -59,10 +59,13 @@ AutoBalanceTeams=Sort by rank
 TeamCount=Team Count
 IncTeamCnt=Increase team count
 DecTeamCnt=Decrease team count
+SwitchInvisible=Invisible
 CreateTeams=Create Teams
 TeamsSortedManually=Manually
 TeamsSortedRandomly=Randomly
+TeamsSortedRandomlyAndInv=Randomly and invisible
 TeamsSortedByRank=By Rank
+Random=Random
 
 #AI
 

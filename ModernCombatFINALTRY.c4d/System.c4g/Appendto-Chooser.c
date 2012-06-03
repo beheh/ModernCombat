@@ -11,6 +11,7 @@ local iChoosedPlr;
 local iTeamCount, arTeams;
 local iTeamMode, iUsedTeamSort;
 
+
 /* Initialisierung */
 
 protected func Initialize()
@@ -157,12 +158,12 @@ public func UpdateScoreboard()
     var plr = GetPlayerByIndex(i, C4PT_User);
     var team_name;
     if(iTeamMode != CHOS_TeamRandomInvisible)
-			team_name = GetTeamName(GetPlayerTeam(plr));
-		else
-			team_name = "$Random$";
+      team_name = GetTeamName(GetPlayerTeam(plr));
+    else
+      team_name = "$Random$";
 
     SetScoreboardData(row_id, SBRD_Caption, GetTaggedPlayerName(plr, true), 0, true);
-   	SetScoreboardData(row_id, 0, team_name, 0, true);
+    SetScoreboardData(row_id, 0, team_name, 0, true);
   }
 }
 
@@ -324,10 +325,10 @@ protected func OpenTeamMenu(id dummy, int iSelection)
   for(var j = 0; j < GetPlayerCount(); j++)
   {
     var plr = GetPlayerByIndex(j);
-    var team_name = GetTeamName(GetPlayerTeam(plr)); 
+    var team_name = GetTeamName(GetPlayerTeam(plr));
     if(iTeamMode == CHOS_TeamRandomInvisible)
-    	team_name = "$Random$";
-    
+      team_name = "$Random$";
+
     AddMenuItem(Format("%s (%s)", GetTaggedPlayerName(GetPlayerByIndex(plr), true), team_name), "SwitchTeam", PCMK, pClonk, 0, plr);
   }
   
@@ -358,12 +359,12 @@ protected func ChoosePossibleTeams(int iMode, bool fInvisible, int iSelection)
     AddMenuItem("$DecTeamCnt$", Format("ChangeTeamCount(-1, %d)", iMode), CHOS, pClonk, 0, 0, 0, 2, 2);
     if(iMode == CHOS_TeamRandom)
     {
-    	if(fInvisible) 
-    		AddMenuItem("$SwitchInvisible$", Format("ChoosePossibleTeams(CHOS_TeamRandom, false, %d)", 3), CHOS, pClonk, 0, 0, 0, 2, 3);
-    	else
-    		AddMenuItem("$SwitchInvisible$", Format("ChoosePossibleTeams(CHOS_TeamRandom, true, %d)", 3), SM06, pClonk);
+      if(fInvisible) 
+        AddMenuItem("$SwitchInvisible$", Format("ChoosePossibleTeams(CHOS_TeamRandom, false, %d)", 3), CHOS, pClonk, 0, 0, 0, 2, 3);
+      else
+        AddMenuItem("$SwitchInvisible$", Format("ChoosePossibleTeams(CHOS_TeamRandom, true, %d)", 3), SM06, pClonk);
     }
-    
+
     AddMenuItem("$CreateTeams$", Format("CreateTeams(1, %d)", iMode+fInvisible), CHOS, pClonk, 0, 0, 0, 2, 3);
     AddMenuItem("$Back$", "OpenTeamMenu", 0, pClonk, 0, 0, "$Back$");
   }
@@ -380,18 +381,18 @@ protected func ChoosePossibleTeams(int iMode, bool fInvisible, int iSelection)
     }
     if(iMode == CHOS_TeamRandom)
     {
-    	if(fInvisible) 
-    		AddMenuItem("$SwitchInvisible$", Format("ChoosePossibleTeams(CHOS_TeamRandom, false, %d)", GetTeamCount()), CHOS, pClonk, 0, 0, 0, 2, 3);
-    	else
-    		AddMenuItem("$SwitchInvisible$", Format("ChoosePossibleTeams(CHOS_TeamRandom, true, %d)", GetTeamCount()), SM06, pClonk);
+      if(fInvisible) 
+        AddMenuItem("$SwitchInvisible$", Format("ChoosePossibleTeams(CHOS_TeamRandom, false, %d)", GetTeamCount()), CHOS, pClonk, 0, 0, 0, 2, 3);
+      else
+        AddMenuItem("$SwitchInvisible$", Format("ChoosePossibleTeams(CHOS_TeamRandom, true, %d)", GetTeamCount()), SM06, pClonk);
     }
-    
+
     AddMenuItem("$CreateTeams$", Format("CreateTeams(2, %d)", iMode+fInvisible), CHOS, pClonk, 0, 0, 0, 2, 3);
     AddMenuItem("$Back$", "OpenTeamMenu", 0, pClonk, 0, 0, "$Back$");
   }
-  
+
   if(iSelection)
-  	SelectMenuItem(iSelection, pClonk);
+    SelectMenuItem(iSelection, pClonk);
 
   return true;
 }
@@ -415,15 +416,15 @@ protected func ChangeTeamCount(int iChange, int iMode)
   return true;
 }
 
-static const CHOS_TeamManual					= 0; // Manuell
-static const CHOS_TeamRandom					= 1; // Zufällig
-static const CHOS_TeamRandomInvisible = 2; // Zufällig & unsichtbar
-static const CHOS_TeamAutobalance			= 3; // Autobalanced
+static const CHOS_TeamManual		= 0; // Manuell
+static const CHOS_TeamRandom		= 1; // Zufällig
+static const CHOS_TeamRandomInvisible	= 2; // Zufällig & unsichtbar
+static const CHOS_TeamAutobalance	= 3; // Autobalanced
 
 protected func CreateTeams(int iTeamSort, int iMode)
 {
-	iTeamMode = iMode;
-	iUsedTeamSort = iTeamSort;
+  iTeamMode = iMode;
+  iUsedTeamSort = iTeamSort;
 
   if(iMode == CHOS_TeamRandom) // Zufällige Teamzusammenstellung.
   {
@@ -468,10 +469,10 @@ protected func CreateTeams(int iTeamSort, int iMode)
   }
   else if(iMode == CHOS_TeamRandomInvisible)
   {
-  	for(var i = 0; i < GetPlayerCount(); i++)
-  		SetPlayerTeam(GetPlayerByIndex(i), 1);
-  	
-  	SetScoreboardData(CHOS_SBRD_Teams, 0, "$TeamsSortedRandomlyAndInv$", 0, true);
+    for(var i = 0; i < GetPlayerCount(); i++)
+      SetPlayerTeam(GetPlayerByIndex(i), 1);
+
+    SetScoreboardData(CHOS_SBRD_Teams, 0, "$TeamsSortedRandomlyAndInv$", 0, true);
   }
   else if(iMode == CHOS_TeamAutobalance)
   {
@@ -785,7 +786,7 @@ protected func SwitchTeam(id dummy, int iPlr)
     CloseMenu(GetCursor(GetPlayerByIndex(j)));
   }
 
-	iTeamMode = CHOS_TeamManual;
+  iTeamMode = CHOS_TeamManual;
   SetScoreboardData(CHOS_SBRD_Teams, 0, "$TeamsSortedManually$", 0, true);
 
   //Menü wieder eröffnen
@@ -851,9 +852,9 @@ protected func CreateGoal(id idGoal, int iScore, string szMessage)
 
 protected func ConfigurationFinished2()
 {
-	//Zufällige und unsichtbare Teams
-	if(iTeamMode == CHOS_TeamRandomInvisible)
-		CreateTeams(iUsedTeamSort, CHOS_TeamRandom);
+  //Zufällige und unsichtbare Teams
+  if(iTeamMode == CHOS_TeamRandomInvisible)
+    CreateTeams(iUsedTeamSort, CHOS_TeamRandom);
 
   Death = true;
   //Regeln erzeugen
