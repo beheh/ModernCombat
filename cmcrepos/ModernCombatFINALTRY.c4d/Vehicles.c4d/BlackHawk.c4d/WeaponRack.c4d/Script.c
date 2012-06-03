@@ -120,10 +120,21 @@ public func ControlLeft(pByObj)
   return true;
 }
 
+public func ControlLeftReleased(pByObj)
+{
+  iPat_Dir = 0;
+  return true;
+}
+
 public func ControlRight(pByObj)
 {
   iPat_Dir = -1;
+  return true;
+}
 
+public func ControlRightReleased(pByObj)
+{
+  iPat_Dir = 0;
   return true;
 }
 
