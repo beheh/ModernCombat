@@ -178,6 +178,12 @@ func CreateInterior()
   CreateObject(GSBL, 4240, 580, -1)->AutoRespawn();
   CreateObject(GSBL, 5760, 550, -1)->AutoRespawn();
 
+  //Gerüste
+  CreateObject(SFFG, 5120, 350, -1)->Set(4);
+  CreateObject(SFFG, 5120, 400, -1)->Set(5);
+  CreateObject(SFFG, 5310, 350, -1)->Set(5);
+  CreateObject(SFFG, 5310, 400, -1)->Set(5);
+
   //Haie
   CreateObject(SHRK, 100, 560, -1)->AutoRespawn();
   CreateObject(SHRK, 200, 560, -1)->AutoRespawn();
@@ -973,8 +979,6 @@ public func ChooserFinished()
    aStationary[1] -> Set(0,-90);
    aStationary[2] = CreateObject(GNET, 5580, 470, -1);
    aStationary[2] -> Set(0,-90);
-   aStationary[3] = CreateObject(GNET, 5620, 340, -1);
-   aStationary[3] -> Set(SATW);
 
    //Patrouillenboote
    SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1245,520,-1),50*21,300);
@@ -1151,9 +1155,8 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
    //Spawnpoint entfernen
    RemoveObject(FindObject2(Find_ID(VSPW),Find_InRect(4699, 289, 2, 2)));
 
-   //Geschützstellungen entfernen
+   //Geschützstellung entfernen
    aStationary[2]->DecoExplode(30);
-   aStationary[3]->DecoExplode(30);
 
    //Artillerie entfernen
    aArtillery[2]->DecoExplode(45);
