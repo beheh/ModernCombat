@@ -214,7 +214,7 @@ public func UpdateScoreboard()
       var name = GetTaggedTeamName(team);
       var clr = GetTeamColor(team);
       var plr;
-      
+
       //Kein Spieler im Team? Dann nicht anzeigen
       if(GetTeamMemberByIndex(team, 0) == -1)
         continue;
@@ -223,8 +223,8 @@ public func UpdateScoreboard()
       if(engine_teams && GetTeamPlayerCount(team) <= 1 && (plr = GetTeamMemberByIndex(team, 0)) > -1)
       {
         name = GetTaggedPlayerName(plr, true);
-				clr = GetPlrColorDw(plr);
-			}
+        clr = GetPlrColorDw(plr);
+      }
 
       SetScoreboardData(team, GMNR_Name, name);
       SetScoreboardData(team, GMNR_Count, Format("<c %x>%d</c>", clr, aMoney[team]), aMoney[team]);
@@ -421,11 +421,11 @@ protected func Activate(int iPlr)
 
 /* Ungenutze Funktionen */
 
-public func InitScoreboard()            {}
-public func InitMultiplayerTeam()       {}
-public func RemoveMultiplayerTeam()     {}
-public func InitSingleplayerTeam()      {}
-public func RemoveSingleplayerTeam()    {}
-public func InitPlayer()                {}
+public func InitScoreboard()		{}
+public func InitMultiplayerTeam()	{}
+public func RemoveMultiplayerTeam()	{}
+public func InitSingleplayerTeam()	{}
+public func RemoveSingleplayerTeam()	{}
+public func InitPlayer()		{}
 public func RemoveScoreboardPlayer()	{}
-public func SortTeamScoreboard()        {}
+public func SortTeamScoreboard()	{}
