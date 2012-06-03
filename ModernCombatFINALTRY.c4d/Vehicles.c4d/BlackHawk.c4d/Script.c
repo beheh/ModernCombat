@@ -527,6 +527,10 @@ protected func ContainedLeftReleased(object ByObj)
 {
   if(ByObj == GetPilot())
     rotation = GetR();
+  if(ByObj == GetGunner())
+    pMGStation->~ControlLeftReleased(ByObj);
+  if(ByObj == GetCoordinator())
+    pRocketStation->~ControlLeftReleased(ByObj);
 }
 
 protected func ContainedRight(object ByObj, fRelease)
@@ -587,6 +591,10 @@ protected func ContainedRightReleased(object ByObj)
 {
   if(ByObj == GetPilot())
     rotation = GetR();
+  if(ByObj == GetGunner())
+    pMGStation->~ControlRightReleased(ByObj);
+  if(ByObj == GetCoordinator())
+    pRocketStation->~ControlRightReleased(ByObj);
 }
 
 protected func ContainedRightDouble(object ByObj)
