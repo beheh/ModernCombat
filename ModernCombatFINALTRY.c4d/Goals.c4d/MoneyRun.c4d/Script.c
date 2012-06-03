@@ -207,24 +207,24 @@ public func UpdateScoreboard()
   //Teams auflisten
   if(Teams())
   {
-    var engine_teams = (GetTeamName(1) == "Team 1");
+    var engine_teams = GetTeamConfig(TEAM_AutoGenerateTeams);
     for(var i = 0; i < GetTeamCount(); i++)
     {
       var team = GetTeamByIndex(i);
       var name = GetTaggedTeamName(team);
+      var clr = GetTeamColor(team);
       var plr;
-
-      //Bei Engine-Teams statt "Team X" und Teamfarbe, Spielername und Spielerfarbe (falls nur ein Spieler im Team)
-      if(engine_teams && GetTeamPlayerCount(team) <= 1 && (plr = GetTeamMemberByIndex(team, 0)) > -1)
-        name = GetTaggedPlayerName(plr);
-
+      
       //Kein Spieler im Team? Dann nicht anzeigen
       if(GetTeamMemberByIndex(team, 0) == -1)
         continue;
 
-      var clr = GetTeamColor(team);
-      if(plr)
-        clr = GetPlrColorDw(plr);
+      //Bei Engine-Teams statt "Team X" und Teamfarbe, Spielername und Spielerfarbe (falls nur ein Spieler im Team)
+      if(engine_teams && GetTeamPlayerCount(team) <= 1 && (plr = GetTeamMemberByIndex(team, 0)) > -1)
+      {
+        name = GetTaggedPlayerName(plr, true);
+				clr = GetPlrColorDw(plr);
+			}
 
       SetScoreboardData(team, GMNR_Name, name);
       SetScoreboardData(team, GMNR_Count, Format("<c %x>%d</c>", clr, aMoney[team]), aMoney[team]);
