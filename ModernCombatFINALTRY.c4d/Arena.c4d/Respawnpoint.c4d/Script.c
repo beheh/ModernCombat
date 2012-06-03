@@ -71,7 +71,7 @@ func Respawn()
 
   if(!GetDefCoreVal("SolidMask",0,GetID(obj),3)) return;
 
-  for(var o in obj->FindObjects(Find_InRect(-GetObjWidth(obj)/2,-GetObjHeight(obj)/2,GetObjWidth(obj),GetObjHeight(obj)),
+  for(var o in obj->FindObjects(Find_InRect(-GetObjWidth(obj)/2,-GetObjHeight(obj),GetObjWidth(obj),GetObjHeight(obj)),
                                 Find_Category(C4D_Vehicle | C4D_Living | C4D_Object),
                                 Find_NoContainer(),
                                 Find_Exclude(obj)))
@@ -84,10 +84,9 @@ public func FxIntRespawnTimer(object pTarget, int iEffectNumber, int iEffectTime
 {
   if(GetDefCoreVal("SolidMask",0,id,2) > 0)
   {
-    var x = GetDefCoreVal("Offset",0,id,0);
-    var y = GetDefCoreVal("Offset",0,id,1);
-    var w = GetDefCoreVal("Width",0,id);
-    var h = GetDefCoreVal("Height",0,id);
+    var w = GetDefWidth(id); var h = GetDefHeight(id);
+    var x = -w/2; var y = -h;
+    
     if(ObjectCount2(Find_InRect(x,y,w,h),Find_OCF(OCF_Alive)))
     {
       if(GetEffect(0,pTarget,iEffectNumber,3) > 35)
