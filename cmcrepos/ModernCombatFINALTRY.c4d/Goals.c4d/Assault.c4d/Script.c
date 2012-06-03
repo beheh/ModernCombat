@@ -3,6 +3,7 @@
 #strict 2
 #include CASS
 
+local iAttacker;
 local iDefender;	//Verteidiger-Team
 local iTickets;		//Tickets für die Angreifer
 local iWarningTickets;	//Tickets bei denen gewarnt wird
@@ -14,6 +15,7 @@ local Connected;	//Verbundene Ziele
 
 protected func Initialize()
 {
+  iAttacker = -1;
   iDefender = -1;
   aSpawns = [[],[]];
   Connected = [];
@@ -208,6 +210,10 @@ public func RelaunchPlayer(int iPlr, pClonk, int iKiller)
       aKill[iKiller]++;
         Money(iPlr, pClonk, iKiller);
   }
+
+  //Kein Angreiferteam definiert?
+  if(iAttacker == -1 && GetPlayerTeam(iPlr) != iDefender)
+    iAttacker = GetPlayerTeam(iPlr);
 
   //Noch gar keine Ziele: Kurz warten
   if(!GetLength(aTargets[iDefender]))
@@ -469,26 +475,33 @@ private func IsFulfilled()
       DoAchievementProgress(1, AC25, GetPlayerByIndex(i));
     }
 
+    //Vorbei
     won = true;
   }
 
   //Keine Angreifer übrig: Verteidiger gewinnen
-  else if (GetActiveTeamCount() == 1 && GetPlayerTeam(GetPlayerByIndex()) == iDefender)
+  else if (iAttacker != -1 && !TeamGetScore(iAttacker) && GetActiveTeamCount() == 1)
   {
+    //Angreifer eliminieren 
+    EliminateTeam(iAttacker);
+  
     //Nachricht über Gewinner
     Message("@$DefendersWon$");
 
+    //Vorbei
     won = true;
   }
 
   //Keine Verteidiger übrig: Angreifer gewinnen
-  else if (GetActiveTeamCount() != 2)
+  else if (iDefender != -1 && !TeamGetScore(iDefender) && GetActiveTeamCount() < 2)
   {
     //Verteidiger eliminieren 
     EliminateTeam(iDefender);
 
     //Nachricht über Gewinner
     Message("$AttackersWon$");
+
+    //Vorbei
     won = true;
   }
 
