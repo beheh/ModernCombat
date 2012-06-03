@@ -158,14 +158,19 @@ public func OnClonkEquip(object pClonk)
   if(Contents(0,pClonk))
     return;
 
-  //Standardausrüstung geben: Pistole und Handgranate
-  var wpn = CreateContents(PSTL, pClonk);
-  wpn->DoAmmo(wpn->GetFMData(FM_AmmoID),wpn->GetFMData(FM_AmmoLoad));
-  CreateContents(FGRN, pClonk);
+  //Keine Klassenwahl: Standardausrüstung vergeben: Pistole und Granaten
+  if(!FindObject(MCSL))
+  {
+    var wpn = CreateContents(PSTL, pClonk);
+    wpn->DoAmmo(wpn->GetFMData(FM_AmmoID),wpn->GetFMData(FM_AmmoLoad));
+    CreateContents(FGRN, pClonk);
+    CreateContents(FRAG, pClonk);
+    CreateContents(STUN, pClonk);
 
-  //Zusatzmunition für die Pistole sofern benötigt
-  if(!FindObject(NOAM))
-    pClonk->DoAmmo(wpn->GetFMData(FM_AmmoID),wpn->GetFMData(FM_AmmoLoad)*2);
+    //Zusatzmunition für die Pistole sofern benötigt
+    if(!FindObject(NOAM))
+      pClonk->DoAmmo(wpn->GetFMData(FM_AmmoID),wpn->GetFMData(FM_AmmoLoad)*2);
+  }
 }
 
 /* Relaunch ablehnen */
