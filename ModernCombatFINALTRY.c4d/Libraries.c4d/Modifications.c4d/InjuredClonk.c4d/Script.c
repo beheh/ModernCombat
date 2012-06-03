@@ -203,10 +203,10 @@ private func DeathMenu()
     }
     if(FindObject(SICD))
       AddMenuItem("$Suicide$", "Suicide", PSTL, clonk, 0, 0, "$SuicideDesc$");					//Selbstmord-Menüpunkt
-  }
 
-  if(FindObject(RWDS))
-    AddMenuItem("$Statistics$", Format("FindObject(RWDS)->StatsStatistics(%d)", GetOwner(clonk)), RWDS, clonk);	//Statistik-Menüpunkt
+    if(FindObject(RWDS))
+      AddMenuItem("$Statistics$", Format("FindObject(RWDS)->StatsStatistics(%d)", GetOwner(clonk)), RWDS, clonk);	//Statistik-Menüpunkt
+  }
 
   if (GetType(killmsg) == C4V_String)
   {
