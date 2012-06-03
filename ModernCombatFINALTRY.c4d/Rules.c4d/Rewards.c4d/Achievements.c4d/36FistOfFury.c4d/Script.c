@@ -13,7 +13,7 @@ public func GetAchievementScore()
   return 1;	//Benötigte Punktzahl einfügen
 }
 
-public func BlockByAward()
+public func SingleAward()
 {
-  return true;
+  return true; //Einmalig in Runde
 }

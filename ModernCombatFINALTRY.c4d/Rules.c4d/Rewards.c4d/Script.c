@@ -679,7 +679,7 @@ global func AwardAchievement(id idAchievement, int iPlr)
   var db = FindObject2(Find_ID(RWDS));
   if(!db) return false;
 
-  RWDS_aAchievementBlocked[idAchievement->GetSavingSlot()] = idAchievement->~BlockByAward();
+  RWDS_aAchievementBlocked[idAchievement->GetSavingSlot()] = idAchievement->~SingleAward();
 
   //Achievement in Spielerdatei schreiben sofern nicht vorhanden
   if(!db->GetPlayerAchievement(iPlr, idAchievement))
