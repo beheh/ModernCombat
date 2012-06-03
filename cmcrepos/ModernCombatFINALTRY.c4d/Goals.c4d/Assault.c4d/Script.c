@@ -484,7 +484,7 @@ private func IsFulfilled()
   {
     //Angreifer eliminieren 
     EliminateTeam(iAttacker);
-  
+
     //Nachricht über Gewinner
     Message("@$DefendersWon$");
 
