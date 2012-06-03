@@ -98,7 +98,7 @@ public func Set(object pClonk)
   ScreenRGB(pClonk, RGB(255), 120, 4, false, SR4K_LayerDamage);
 
   //Verzögert Auswahlmenü öffnen
-  AddEffect("IntFakeDeathMenu", this, 1, 10, this);
+  AddEffect("IntFakeDeathMenu", this, 1, 1, this);
 }
 
 public func KillMessage(string msg)
@@ -127,16 +127,23 @@ protected func FxIntFakeDeathMenuTimer(object pTarget, int iEffect, int iTime)
     pTarget->~Suicide();
     return -1;
   }
-  pTarget->~DoMenu();
-
   var pClonk = pTarget->~GetClonk();
-  if (!pClonk)
-    return;
-  var iAlpha = Interpolate2(255, 0, iTime, FKDT_SuicideTime * 35), pScreen = EffectVar(0, pTarget, iEffect);
-  if (!pScreen)
-    pScreen = EffectVar(0, pTarget, iEffect) = ScreenRGB(pClonk, GetScenarioVal("FoWColor"), iAlpha, 0, false, SR4K_LayerFakeDeath);
-  if (pScreen)
-    pScreen->~SetAlpha(iAlpha);
+  if(!pClonk)
+  	return;
+  
+  if(!(iTime % 10))
+  {
+  	pTarget->~DoMenu();
+
+  	var iAlpha = Interpolate2(255, 0, iTime, FKDT_SuicideTime * 35), pScreen = EffectVar(0, pTarget, iEffect);
+  	if (!pScreen)
+  	  pScreen = EffectVar(0, pTarget, iEffect) = ScreenRGB(pClonk, GetScenarioVal("FoWColor"), iAlpha, 0, false, SR4K_LayerFakeDeath);
+  	if (pScreen)
+  	  pScreen->~SetAlpha(iAlpha);
+  }
+  //Statistikenmenü abgebrochen? Sofort ins DeathMenü packen.
+	if(GetType(GetMenu(pClonk)) != C4V_C4ID)
+		pTarget->~DoMenu();
 }
 
 protected func FxIntFakeDeathMenuStop(object pTarget, int iEffect)
@@ -158,6 +165,9 @@ private func DeathMenu()
   Update();
 
   var selection = GetMenuSelection(clonk);
+
+	//Statistiken...
+	if(GetMenu(clonk) == RWDS) return;
 
   CloseMenu(clonk);
 
@@ -194,6 +204,9 @@ private func DeathMenu()
     if(FindObject(SICD))
       AddMenuItem("$Suicide$", "Suicide", PSTL, clonk, 0, 0, "$SuicideDesc$");				//Selbstmord-Menüpunkt
   }
+  
+  if(FindObject(RWDS))
+  	AddMenuItem("$Statistics$", Format("FindObject(RWDS)->StatsStatistics(%d)", GetOwner(clonk)), RWDS, clonk);
 
   if (GetType(killmsg) == C4V_String)
   {
