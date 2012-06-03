@@ -30,8 +30,9 @@ private func SetFlagMarker(int iPlr, int iCTeam, bool fRemove)
     iCol = TEAM_TeamColumn;
     iData = GetPlayerTeam(iPlr);
   }
+  
   if(!fRemove)
     SetScoreboardData(iPlr, iCol, Format("<c %x>{{FLBS}}</c> %s", GetTeamColor(iCTeam), GetTaggedPlayerName(iPlr, true)), iData);
-  else
+  else if(iPlr > -1)
     SetScoreboardData(iPlr, iCol, GetTaggedPlayerName(iPlr, true), iData);
 }
