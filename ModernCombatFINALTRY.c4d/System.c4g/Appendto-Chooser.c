@@ -355,8 +355,8 @@ protected func ChoosePossibleTeams(int iMode, bool fInvisible, int iSelection)
       iTeamCount = GetTeamCount();
 
     AddMenuItem("$TeamCount$", 0, TEAM, pClonk, iTeamCount);
-    AddMenuItem("$IncTeamCnt$", Format("ChangeTeamCount(1, %d)", iMode), CHOS, pClonk, 0, 0, 0, 2, 1);
-    AddMenuItem("$DecTeamCnt$", Format("ChangeTeamCount(-1, %d)", iMode), CHOS, pClonk, 0, 0, 0, 2, 2);
+    AddMenuItem("$IncTeamCnt$", Format("ChangeTeamCount(1, %d, %d)", iMode, fInvisible), CHOS, pClonk, 0, 0, 0, 2, 1);
+    AddMenuItem("$DecTeamCnt$", Format("ChangeTeamCount(-1, %d, %d)", iMode, fInvisible), CHOS, pClonk, 0, 0, 0, 2, 2);
     if(iMode == CHOS_TeamRandom)
     {
       if(fInvisible) 
@@ -377,7 +377,7 @@ protected func ChoosePossibleTeams(int iMode, bool fInvisible, int iSelection)
       if(!arTeams[team])
         clr = 0x777777;
 
-      AddMenuItem(Format("<c %x>%s</c>", clr, GetTeamName(team)), Format("SwitchTeam2(%d, %d)", team, iMode), PCMK, pClonk);
+      AddMenuItem(Format("<c %x>%s</c>", clr, GetTeamName(team)), Format("SwitchTeam2(%d, %d, %d)", team, iMode, fInvisible), PCMK, pClonk);
     }
     if(iMode == CHOS_TeamRandom)
     {
@@ -397,22 +397,20 @@ protected func ChoosePossibleTeams(int iMode, bool fInvisible, int iSelection)
   return true;
 }
 
-protected func SwitchTeam2(int iTeam, int iMode)
+protected func SwitchTeam2(int iTeam, int iMode, bool fInvisible)
 {
   arTeams[iTeam] = !arTeams[iTeam];
   if(GetIndexOf(true, arTeams) == -1) //Deaktivierung aller Teams verhindern
     arTeams[iTeam] = true;
 
-  ChoosePossibleTeams(iMode);
-  SelectMenuItem(iTeam-1, GetCursor(iChoosedPlr));
+  ChoosePossibleTeams(iMode, fInvisible, iTeam-1);
   return true;
 }
 
-protected func ChangeTeamCount(int iChange, int iMode)
+protected func ChangeTeamCount(int iChange, int iMode, bool fInvisible)
 {
   iTeamCount = BoundBy(iTeamCount + iChange, 1, GetPlayerCount(C4PT_User));
-  ChoosePossibleTeams(iMode);
-  SelectMenuItem(!!(iChange-1)+1, GetCursor(iChoosedPlr));
+  ChoosePossibleTeams(iMode, fInvisible, !!(iChange-1)+1);
   return true;
 }
 
