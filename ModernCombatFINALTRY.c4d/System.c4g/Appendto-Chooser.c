@@ -61,12 +61,12 @@ protected func Initialize()
 
 /* Statusanzeige im Scoreboard */
 
-static const CHOS_SBRD_Chooser	= 0;
-static const CHOS_SBRD_Goal	= 1;
-static const CHOS_SBRD_Rules	= 2;
-static const CHOS_SBRD_Effect	= 3;
-static const CHOS_SBRD_Darkness	= 4;
-static const CHOS_SBRD_Teams	= 5;
+static const CHOS_SBRD_Chooser = SBRD_Caption;
+static const CHOS_SBRD_Goal	= 0;
+static const CHOS_SBRD_Rules	= 1;
+static const CHOS_SBRD_Effect	= 2;
+static const CHOS_SBRD_Darkness	= 3;
+static const CHOS_SBRD_Teams = 4;
 
 public func InitScoreboard()
 {
@@ -75,13 +75,14 @@ public func InitScoreboard()
 
   //Zeilen setzen
   SetScoreboardData(SBRD_Caption, SBRD_Caption, 0, 0, true);
-  SetScoreboardData(CHOS_SBRD_Chooser, SBRD_Caption, "$ScoreboardChooser$", CHOS_SBRD_Chooser, true);
-  SetScoreboardData(CHOS_SBRD_Goal, SBRD_Caption, "$ScoreboardGoals$", CHOS_SBRD_Goal, true);
-  SetScoreboardData(CHOS_SBRD_Rules, SBRD_Caption, "$ScoreboardRules$", CHOS_SBRD_Rules, true);
-  SetScoreboardData(CHOS_SBRD_Effect, SBRD_Caption, "$ScoreboardEffects$", CHOS_SBRD_Effect, true);
-  SetScoreboardData(CHOS_SBRD_Darkness, SBRD_Caption, "$ScoreboardDarkness$", CHOS_SBRD_Darkness, true);
-  SetScoreboardData(CHOS_SBRD_Teams, SBRD_Caption, "$ScoreboardTeams$", CHOS_SBRD_Teams, true);
-  SetScoreboardData(CHOS_SBRD_Teams, 0, "$TeamsSortedManually$", 0, true);
+  SetScoreboardData(CHOS_SBRD_Chooser, 0, "$ScoreboardChooser$", CHOS_SBRD_Chooser, true);
+  SetScoreboardData(CHOS_SBRD_Goal, 0, "$ScoreboardGoals$", CHOS_SBRD_Goal, true);
+  SetScoreboardData(CHOS_SBRD_Rules, 0, "$ScoreboardRules$", CHOS_SBRD_Rules, true);
+  SetScoreboardData(CHOS_SBRD_Effect, 0, "$ScoreboardEffects$", CHOS_SBRD_Effect, true);
+  SetScoreboardData(CHOS_SBRD_Darkness, 0, "$ScoreboardDarkness$", CHOS_SBRD_Darkness, true);
+  SetScoreboardData(CHOS_SBRD_Teams, 0, "$ScoreboardTeams$", CHOS_SBRD_Teams, true);
+  SetScoreboardData(CHOS_SBRD_Teams, 1, "$TeamsSortedManually$", 0, true);
+  SortScoreboard(0);
   AddEffect("ChooserScoreboard", this, 21, 10, this);
 }
 
@@ -103,7 +104,7 @@ public func FxChooserScoreboardTimer(object target, nr, time)
 public func UpdateScoreboard()
 {
   //Host-Spieler
-  SetScoreboardData(CHOS_SBRD_Chooser, 0, GetPlayerName(iChoosedPlr), 0, true);
+  SetScoreboardData(CHOS_SBRD_Chooser, 1, GetPlayerName(iChoosedPlr), 0, true);
 
   //Spielziele
   var str_goals = "", str_extra = "";
@@ -122,7 +123,7 @@ public func UpdateScoreboard()
       str_extra = Format("(%v)", pGoal->~GoalExtraValue());
     }
   }
-  SetScoreboardData(CHOS_SBRD_Goal, 0, Format("%s%s", str_goals, str_extra), 0, true);
+  SetScoreboardData(CHOS_SBRD_Goal, 1, Format("%s%s", str_goals, str_extra), 0, true);
 
   //Regeln
   var str_rules = "";
@@ -134,21 +135,21 @@ public func UpdateScoreboard()
       j++;
     }
   }
-  SetScoreboardData(CHOS_SBRD_Rules, 0, str_rules, 0, true);
+  SetScoreboardData(CHOS_SBRD_Rules, 1, str_rules, 0, true);
 
   //Effektstufe
-  SetScoreboardData(CHOS_SBRD_Effect, 0, Format("%dx", iEffectCount), 0, true);
+  SetScoreboardData(CHOS_SBRD_Effect, 1, Format("%dx", iEffectCount), 0, true);
 
   //Dunkelheitsstufe
   if(FindObject(DARK))
   {
-    SetScoreboardData(CHOS_SBRD_Darkness, SBRD_Caption, "$ScoreboardDarkness$", CHOS_SBRD_Darkness, true);
-    SetScoreboardData(CHOS_SBRD_Darkness, 0, Format("%dx", iDarkCount), 0, true);
+    SetScoreboardData(CHOS_SBRD_Darkness, 0, "$ScoreboardDarkness$", CHOS_SBRD_Darkness, true);
+    SetScoreboardData(CHOS_SBRD_Darkness, 1, Format("%dx", iDarkCount), 0, true);
   }
   else
   {
-    SetScoreboardData(CHOS_SBRD_Darkness, SBRD_Caption, "<c 777777>$ScoreboardDarkness$</c>", CHOS_SBRD_Darkness, true);
-    SetScoreboardData(CHOS_SBRD_Darkness, 0, Format("<c 777777>%dx</c>", iDarkCount), 0, true);
+    SetScoreboardData(CHOS_SBRD_Darkness, 0, "<c 777777>$ScoreboardDarkness$</c>", CHOS_SBRD_Darkness, true);
+    SetScoreboardData(CHOS_SBRD_Darkness, 1, Format("<c 777777>%dx</c>", iDarkCount), 0, true);
   }
 
   //Teamverteilung und Spielerränge
@@ -162,9 +163,11 @@ public func UpdateScoreboard()
     else
       team_name = "$Random$";
 
-    SetScoreboardData(row_id, SBRD_Caption, GetTaggedPlayerName(plr, true), 0, true);
-    SetScoreboardData(row_id, 0, team_name, 0, true);
+    SetScoreboardData(row_id, 0, GetTaggedPlayerName(plr, true), CHOS_SBRD_Teams+plr, true);
+    SetScoreboardData(row_id, 1, team_name, 0, true);
   }
+  
+  SortScoreboard(0);
 }
 
 public func RemovePlayer()
@@ -895,7 +898,7 @@ protected func ConfigurationFinished2()
   }
 
   //Scoreboard leeren
-  ClearScoreboard(CHOS_SBRD_Teams + GetPlayerCount(), 0);
+  ClearScoreboard(CHOS_SBRD_Teams + GetPlayerCount(), 1);
   //Nach einem Frame die Auswahlsperre auflösen
   ScheduleCall(pGoal, "InitScoreboard", 1);
   //Selber entfernen
