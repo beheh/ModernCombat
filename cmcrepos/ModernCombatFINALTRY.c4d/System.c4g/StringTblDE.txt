@@ -59,10 +59,13 @@ AutoBalanceTeams=Nach Rang anordnen
 TeamCount=Teamanzahl
 IncTeamCnt=Teamanzahl erhöhen
 DecTeamCnt=Teamanzahl verringern
+SwitchInvisible=Unsichtbar
 CreateTeams=Teams aufstellen
 TeamsSortedManually=Manuell
 TeamsSortedRandomly=Zufall
+TeamsSortedRandomlyAndInv=Zufällig & unsichtbar
 TeamsSortedByRank=Nach Rang
+Random=Zufällig
 
 #KI
 
