@@ -700,7 +700,8 @@ public func ControlThrow(caller)
           }
 
           //Achievement-Fortschritt (Fist of Fury)
-          DoAchievementProgress(1, AC36, GetOwner(GetUser())); 
+          if(GetOCF(target) & OCF_CrewMember)
+          	DoAchievementProgress(1, AC36, GetOwner(GetUser())); 
 
           if(GetOwner(target) != NO_OWNER && Hostile(GetOwner(target), GetController(GetUser())))
             if(!GetAlive(target) || IsFakeDeath(target))
