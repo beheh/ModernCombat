@@ -25,8 +25,7 @@ Points=Punkte
 
 # Allgemein
 
-AchievementNewUnlocked=<c %x>%s</c> hat die <c 33ccff>neue</c> Errungenschaft <c 33ccff>%s</c> erhalten
-AchievementUnlocked=<c %x>%s</c> hat die Errungenschaft <c ffff33>%s</c> erneut erhalten
+AchievementNewUnlocked=<c %x>%s</c> hat die Errungenschaft <c ffff33>%s</c> erhalten
 Achievement=Errungenschaft
 Achievements=Errungenschaften
 AchievementsUnlocked=%d Errungenschaften freigeschaltet:
