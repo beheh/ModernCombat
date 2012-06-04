@@ -61,12 +61,12 @@ protected func Initialize()
 
 /* Statusanzeige im Scoreboard */
 
-static const CHOS_SBRD_Chooser = SBRD_Caption;
+static const CHOS_SBRD_Chooser	= SBRD_Caption;
 static const CHOS_SBRD_Goal	= 0;
 static const CHOS_SBRD_Rules	= 1;
 static const CHOS_SBRD_Effect	= 2;
 static const CHOS_SBRD_Darkness	= 3;
-static const CHOS_SBRD_Teams = 4;
+static const CHOS_SBRD_Teams	= 4;
 
 public func InitScoreboard()
 {
@@ -166,7 +166,7 @@ public func UpdateScoreboard()
     SetScoreboardData(row_id, 0, GetTaggedPlayerName(plr, true), CHOS_SBRD_Teams+plr, true);
     SetScoreboardData(row_id, 1, team_name, 0, true);
   }
-  
+
   SortScoreboard(0);
 }
 

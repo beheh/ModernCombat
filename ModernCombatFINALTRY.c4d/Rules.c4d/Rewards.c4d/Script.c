@@ -686,7 +686,7 @@ global func AwardAchievement(id idAchievement, int iPlr)
   //Abbrechen, falls bereits erhalten
   if(db->GetPlayerAchievement(iPlr, idAchievement)) return;
 
-  //Dauerhauft vergeben
+  //Vergabe
   db->SetPlayerAchievement(iPlr, idAchievement, true);
 
   //Achievementanzeige mit blauem Hintergrund
@@ -694,8 +694,8 @@ global func AwardAchievement(id idAchievement, int iPlr)
   achievement->SetHighlightColor(RGB(0,153,255));
   EventInfo4K(0, Format("$AchievementNewUnlocked$", GetPlrColorDw(iPlr), GetPlayerName(iPlr), GetName(0, idAchievement)), RWDS, 0, 0, 0, "PriorityInfo.ogg");
 
-	//Sound-Hinweis
-	Sound("AchievementGet.ogg", true, 0, 100, iPlr+1);
+  //Sound-Hinweis
+  Sound("AchievementGet.ogg", true, 0, 100, iPlr+1);
 
   return true;
 }
