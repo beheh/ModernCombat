@@ -679,31 +679,23 @@ global func AwardAchievement(id idAchievement, int iPlr)
   var db = FindObject2(Find_ID(RWDS));
   if(!db) return false;
 
+  //Einmalige Achievements beachten
+  if(IsAchievementBlocked(idAchievement)) return;
   RWDS_aAchievementBlocked[idAchievement->GetSavingSlot()] = idAchievement->~SingleAward();
 
-  //Achievement in Spielerdatei schreiben sofern nicht vorhanden
-  if(!db->GetPlayerAchievement(iPlr, idAchievement))
-  {
-    db->SetPlayerAchievement(iPlr, idAchievement, true);
+  //Abbrechen, falls bereits erhalten
+  if(db->GetPlayerAchievement(iPlr, idAchievement)) return;
 
-    //Achievementanzeige mit blauem Hintergrund
-    var achievement = CreateObject(idAchievement, 0, 0, iPlr);
-    achievement->SetHighlightColor(RGB(0,153,255));
-    EventInfo4K(0, Format("$AchievementNewUnlocked$", GetPlrColorDw(iPlr), GetPlayerName(iPlr), GetName(0, idAchievement)), RWDS, 0, 0, 0, "PriorityInfo.ogg");
-  }
-  else
-  {
-    //Achievementanzeige mit Standardhintergrund
-    CreateObject(idAchievement, 0, 0, iPlr);
-    EventInfo4K(0, Format("$AchievementUnlocked$", GetPlrColorDw(iPlr), GetPlayerName(iPlr), GetName(0, idAchievement)), RWDS, 0, 0, 0, "PriorityInfo.ogg");
-  }
+  //Dauerhauft vergeben
+  db->SetPlayerAchievement(iPlr, idAchievement, true);
 
-  //Sound-Hinweis
-  Sound("AchievementGet.ogg", true, 0, 100, iPlr+1);
+  //Achievementanzeige mit blauem Hintergrund
+  var achievement = CreateObject(idAchievement, 0, 0, iPlr);
+  achievement->SetHighlightColor(RGB(0,153,255));
+  EventInfo4K(0, Format("$AchievementNewUnlocked$", GetPlrColorDw(iPlr), GetPlayerName(iPlr), GetName(0, idAchievement)), RWDS, 0, 0, 0, "PriorityInfo.ogg");
 
-  //Achievement-Fortschritt zurücksetzen
-  ResetAchievementExtra(idAchievement, iPlr);
-  ResetAchievementProgress(idAchievement, iPlr);
+	//Sound-Hinweis
+	Sound("AchievementGet.ogg", true, 0, 100, iPlr+1);
 
   return true;
 }
