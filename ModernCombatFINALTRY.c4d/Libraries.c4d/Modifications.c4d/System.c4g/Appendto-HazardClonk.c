@@ -1065,7 +1065,7 @@ public func GetQuickInventoryMenuItem(int iMenu) {
 }
 
 //Gibt alle IDs einer Menükategorie in der Aufsammelreihenfolge zurück
-public func GetQuickInventoryMenuItems(int iMenu) {
+private func GetQuickInventoryMenuItems(int iMenu) {
   if(!QINV_MenuItemIds[iMenu]) QINV_MenuItemIds[iMenu] = [];
   var aItems = [];
   //Durch die IDs iterieren und Items holen
@@ -1095,7 +1095,9 @@ public func QuickInventory(int iMenu, int iPage) {
 		  var iDisplayMenu = aMenus[i];
 		  var idItem = GetQuickInventoryMenuItem(iDisplayMenu);
 		  if(idItem) {
-		    pRing->Add(i, GetName(0, idItem), "QuickInventory", iDisplayMenu, idItem);
+		    var iOverlay = pRing->Add(i, GetName(0, idItem), "QuickInventory", iDisplayMenu);
+		    var iItemCount = GetLength(QINV_MenuItemIds[iDisplayMenu]);
+		    SetGraphics(0,pRing,idItem,iOverlay,GFXOV_MODE_IngamePicture);
       }
 		}
 	
@@ -1153,11 +1155,11 @@ public func QuickInventory(int iMenu, int iPage) {
 	}
 }
 
-public func QuickInventoryPaging(array aData) {
+private func QuickInventoryPaging(array aData) {
   QuickInventory(aData[0], aData[1]);
 }
 
-public func QuickInventorySelect(id idObject, bool fSaveTemporary) {
+private func QuickInventorySelect(id idObject, bool fSaveTemporary) {
   var fFound = SelectInventory(0, idObject);
   if(!fFound) {
     fFound = GrabGrenade(idObject);
@@ -1176,7 +1178,7 @@ public func QuickInventorySelect(id idObject, bool fSaveTemporary) {
   return fFound;
 }
 
-public func QuickInventoryStore(object pObj) {
+private func QuickInventoryStore(object pObj) {
   
   //Menü ermitteln
   //Manuell?
