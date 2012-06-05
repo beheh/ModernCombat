@@ -37,9 +37,7 @@ protected func Initialize()
     AddEffect("DmgCheck",this,1,0);
 
   //Assistkillarray
-  assistkiller = [];
-  for(var i=0; i < GetPlayerCount(); i++)
-    assistkiller[i*2] = -1;
+  assistkiller = [-1, -1];
 
   //Fake Death Effekt einfügen
   if(IsClonk() && (GetOwner() != NO_OWNER) && (GetPlayerType(GetOwner()) != C4PT_Script))
@@ -167,12 +165,17 @@ public func OnHit(int iChange, int iType, object pFrom)
   for(var i=0; i < GetLength(assistkiller)/2; i++)
   {
     if(assistkiller[i*2] == iByPlayer)
-      return assistkiller[i*2+1] += iChange;
+    {
+      assistkiller[i*2+1] += iChange;
+      break;
+    }
     if(assistkiller[i*2] == -1)
     {
       assistkiller[i*2] = iByPlayer;
       assistkiller[i*2+1] = iChange;
-      return 1;
+      assistkiller[i*2+2] = -1;
+      assistkiller[i*2+3] = -1;
+      break;
     }
   }
   _inherited(...);
