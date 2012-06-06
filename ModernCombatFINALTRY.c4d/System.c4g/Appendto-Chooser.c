@@ -56,7 +56,7 @@ protected func Initialize()
   
   //Falls in der Lobby zufällig & unsichtbar gewählt wurde, entsprechende Eigenvariante einsetzen
   if(!GetTeamConfig(TEAM_AutoGenerateTeams) && GetTeamConfig(TEAM_Dist) == 3)
-    ScheduleCall(this, "CreateTeams", 4, 0, 2-GetTeamConfig(TEAM_AutoGenerateTeams), CHOS_TeamRandomInvisible);
+    ScheduleCall(this, "CreateTeams", 4, 0, 2-GetTeamConfig(TEAM_AutoGenerateTeams), CHOS_TeamRandomInvisible, true);
 }
 
 /* Statusanzeige im Scoreboard */
@@ -422,7 +422,7 @@ static const CHOS_TeamRandom		= 1; // Zufällig
 static const CHOS_TeamRandomInvisible	= 2; // Zufällig & unsichtbar
 static const CHOS_TeamAutobalance	= 3; // Autobalanced
 
-protected func CreateTeams(int iTeamSort, int iMode)
+protected func CreateTeams(int iTeamSort, int iMode, bool fNoTeamMenu)
 {
   iTeamMode = iMode;
   iUsedTeamSort = iTeamSort;
@@ -601,6 +601,9 @@ protected func CreateTeams(int iTeamSort, int iMode)
 
     SetScoreboardData(CHOS_SBRD_Teams, 1, "$TeamsSortedByRank$", 0, true);
   }
+  
+  if(fNoTeamMenu)
+  	return true;
 
   return OpenTeamMenu();
 }
