@@ -163,6 +163,7 @@ func CreateInterior()
   CreateObject(PIRA, 2420, 1440, -1)->AutoRespawn();
   CreateObject(PIRA, 2700, 1440, -1)->AutoRespawn();
   CreateObject(PIRA, 3910, 1290, -1)->AutoRespawn();
+  CreateObject(PIRA, 4120, 1070, -1)->AutoRespawn();
   CreateObject(PIRA, 5660, 1420, -1)->AutoRespawn();
   CreateObject(PIRA, 5810, 1420, -1)->AutoRespawn();
 
@@ -738,6 +739,10 @@ public func ChooserFinished()
    CreateObject(BRDR, 3130, 0, -1)->Set(0);
    CreateObject(BRDR, 5310, 0, -1)->Set(1);
 
+   //Container
+   CreateObject(CON1, 4420, 860, -1);
+   CreateObject(CON1, 4420, 889, -1)->SetPerspective(2);
+
    //Hinweisschilder
    CreateObject(SGNP, 3160, 1280, -1);
    CreateObject(SGNP, 3260, 1210, -1);
@@ -750,6 +755,9 @@ public func ChooserFinished()
    //Patrouillenboote
    SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,3210,1280,-1),50*21,300);
    SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,4235,1280,-1),50*21,300);
+
+   //Spawnpoint entfernen
+   RemoveObject(FindObject2(Find_ID(RSPT),Find_InRect(4119, 1069, 2, 2)));
   }
 
   //LMS/DM-Spielziel
