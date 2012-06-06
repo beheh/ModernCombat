@@ -97,8 +97,8 @@ protected func RejectCollect(id objID, object pObj)
 
 protected func FxMove2DoorStart(object pTarget, int iNr, int iTemp)
 {
-	if(iTemp)
-		return false;
+  if(iTemp)
+    return false;
 
   var cont = Contained(pTarget);
   if(cont)
