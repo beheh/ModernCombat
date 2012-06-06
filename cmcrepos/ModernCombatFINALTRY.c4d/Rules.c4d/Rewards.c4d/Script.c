@@ -220,7 +220,7 @@ public func Evaluate()
     db->GetPlayerPoints(RWDS_MinusPoints, iPlr));							//Minuspunkte
 
     aList[GetPlayerTeam(iPlr)][GetLength(aList[GetPlayerTeam(iPlr)])] = [szFirstLine, szSecondLine];
-    AddEvaluationData(Format("$PlayerLine$", db->GetPlayerData(RWDS_KillCount, iPlr), db->GetPlayerData(RWDS_DeathCount, iPlr), db->GetPlayerData(RWDS_SavedTotalPoints, iPlr)), db->GetPlayerData(RWDS_PlayerID, iPlr));
+    AddEvaluationData(Format("$PlayerLine$", db->GetPlayerData(RWDS_KillCount, iPlr), db->GetPlayerData(RWDS_DeathCount, iPlr), db->GetPlayerData(RWDS_TotalPoints, iPlr)), db->GetPlayerData(RWDS_PlayerID, iPlr));
   }
 
   //Teamweise Auflistung der Daten
