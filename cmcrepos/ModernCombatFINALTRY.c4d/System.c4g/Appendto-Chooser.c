@@ -529,8 +529,8 @@ protected func CreateTeams(int iTeamSort, int iMode)
       i--;
     }
 
-    var blahar = true;
-    while(blahar)
+    var fAdditionalMethods = true;
+    while(fAdditionalMethods)
     {
       if(AB_DifferenceCheck(teams))
         break;
@@ -538,15 +538,15 @@ protected func CreateTeams(int iTeamSort, int iMode)
       for(var i = iTeamCount-1; i >= 0; i--)
       {
         if(!AB_Method1(teams[i-1], teams[i]))
-          blahar = false;
+          fAdditionalMethods = false;
         else
-          blahar = true;
+          fAdditionalMethods = true;
       }
     }
-    if(!blahar)
+    if(!fAdditionalMethods)
     {
-      blahar = true;
-      while(blahar)
+      fAdditionalMethods = true;
+      while(fAdditionalMethods)
       {
         var aSums = [];
 
@@ -565,7 +565,7 @@ protected func CreateTeams(int iTeamSort, int iMode)
           break;
 
         if(!AB_Method2(teams, max_nr))
-          blahar = false;
+          fAdditionalMethods = false;
       }
     }
 
@@ -701,8 +701,16 @@ protected func AB_GetMaxPlayerRank(array &arNumbers, bool fNoDelete, int iValue,
   }
 
   if(pos == -1)
-    return -1;
-
+  {
+  	if(GetLength(arNumbers) == 1)
+  	{
+  		pos = 0; 
+  		highest = arNumbers[0];
+  	}
+  	else
+    	return -1;
+	}
+	
   if(fPlr)
     highest = arNumbers[pos];
 
