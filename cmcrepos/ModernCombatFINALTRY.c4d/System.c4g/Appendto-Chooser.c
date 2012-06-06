@@ -466,14 +466,14 @@ protected func CreateTeams(int iTeamSort, int iMode)
         for(var plr in teams[i])
           SetPlayerTeam(plr, i);
     
-    SetScoreboardData(CHOS_SBRD_Teams, 0, "$TeamsSortedRandomly$", 0, true);
+    SetScoreboardData(CHOS_SBRD_Teams, 1, "$TeamsSortedRandomly$", 0, true);
   }
   else if(iMode == CHOS_TeamRandomInvisible)
   {
     for(var i = 0; i < GetPlayerCount(); i++)
       SetPlayerTeam(GetPlayerByIndex(i), 1);
 
-    SetScoreboardData(CHOS_SBRD_Teams, 0, "$TeamsSortedRandomlyAndInv$", 0, true);
+    SetScoreboardData(CHOS_SBRD_Teams, 1, "$TeamsSortedRandomlyAndInv$", 0, true);
   }
   else if(iMode == CHOS_TeamAutobalance)
   {
@@ -599,7 +599,7 @@ protected func CreateTeams(int iTeamSort, int iMode)
       }
     }
 
-    SetScoreboardData(CHOS_SBRD_Teams, 0, "$TeamsSortedByRank$", 0, true);
+    SetScoreboardData(CHOS_SBRD_Teams, 1, "$TeamsSortedByRank$", 0, true);
   }
 
   return OpenTeamMenu();
