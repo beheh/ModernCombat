@@ -44,6 +44,7 @@ public func OnPrepareReloadStop(int iSlot)				{}
 public func OnFinishReloadStart(int iSlot)				{}
 public func OnFireStop(int iSlot)					{}
 
+
 /*----- Initialisierung -----*/
 
 protected func Initialize()
@@ -701,7 +702,7 @@ public func ControlThrow(caller)
 
           //Achievement-Fortschritt (Fist of Fury)
           if(GetOCF(target) & OCF_CrewMember)
-          	DoAchievementProgress(1, AC36, GetOwner(GetUser())); 
+            DoAchievementProgress(1, AC36, GetOwner(GetUser())); 
 
           if(GetOwner(target) != NO_OWNER && Hostile(GetOwner(target), GetController(GetUser())))
             if(!GetAlive(target) || IsFakeDeath(target))

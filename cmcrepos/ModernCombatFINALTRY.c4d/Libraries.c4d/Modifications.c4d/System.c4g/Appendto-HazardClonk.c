@@ -1061,18 +1061,20 @@ public func GetQuickInventoryMenuItem(int iMenu) {
   for(var i = 0; i < GetLength(aItems); i++) {
     if(ContentsCount(aItems[i]) || GetGrenade(aItems[i])) return aItems[i];
   }
-	return false;
+  return false;
 }
 
 //Gibt alle IDs einer Menükategorie in der Aufsammelreihenfolge zurück
-private func GetQuickInventoryMenuItems(int iMenu) {
+private func GetQuickInventoryMenuItems(int iMenu)
+{
   if(!QINV_MenuItemIds[iMenu]) QINV_MenuItemIds[iMenu] = [];
   var aItems = [];
   //Durch die IDs iterieren und Items holen
-  for(var i = 0; i < GetLength(QINV_MenuItemIds[iMenu]); i++) {
-  	aItems[i] = QINV_MenuItemIds[iMenu][i];
+  for(var i = 0; i < GetLength(QINV_MenuItemIds[iMenu]); i++)
+  {
+    aItems[i] = QINV_MenuItemIds[iMenu][i];
   }
-	return aItems;
+  return aItems;
 }
 
 public func QuickInventory(int iMenu, int iPage) {
@@ -1082,84 +1084,95 @@ public func QuickInventory(int iMenu, int iPage) {
   if(ContentsCount() + iGrenadeCount < 1) return;
 
   //Hauptmenü
-	if(iMenu == QINV_MainMenu) {
-	  //Granate zurücksetzen
-	  QINV_GrenadeTemporary = 0;
-	  
-	  //Menü erzeugen
-		var pRing = CreateSpeedMenu(0, this);
+  if(iMenu == QINV_MainMenu) {
+    //Granate zurücksetzen
+    QINV_GrenadeTemporary = 0;
 
-		//Verweise auf Submenüs
-		var aMenus = [QINV_GrenadeMenu, QINV_PrimaryMenu, QINV_SecondaryMenu, QINV_EquipmentMenu, QINV_ObjectMenu];
-		for(var i = 0; i < GetLength(aMenus); i++) {
-		  var iDisplayMenu = aMenus[i];
-		  var idItem = GetQuickInventoryMenuItem(iDisplayMenu);
-		  if(idItem) {
-		    var iOverlay = pRing->Add(i, GetName(0, idItem), "QuickInventory", iDisplayMenu);
-		    var iItemCount = GetLength(QINV_MenuItemIds[iDisplayMenu]);
-		    SetGraphics(0,pRing,idItem,iOverlay,GFXOV_MODE_IngamePicture);
+    //Menü erzeugen
+    var pRing = CreateSpeedMenu(0, this);
+
+    //Verweise auf Submenüs
+    var aMenus = [QINV_GrenadeMenu, QINV_PrimaryMenu, QINV_SecondaryMenu, QINV_EquipmentMenu, QINV_ObjectMenu];
+    for(var i = 0; i < GetLength(aMenus); i++)
+    {
+      var iDisplayMenu = aMenus[i];
+      var idItem = GetQuickInventoryMenuItem(iDisplayMenu);
+      if(idItem)
+      {
+        var iOverlay = pRing->Add(i, GetName(0, idItem), "QuickInventory", iDisplayMenu);
+        var iItemCount = GetLength(QINV_MenuItemIds[iDisplayMenu]);
+        SetGraphics(0,pRing,idItem,iOverlay,GFXOV_MODE_IngamePicture);
       }
-		}
-	
-		//Informationen
-		if(ContentsCount() != 1) {
-			pRing->AddTopInfoItem(Format("<c ffff00>$QuickInventory$</c>|$ContentsCount$", ContentsCount()));
-		}
-		else {
-			pRing->AddTopInfoItem(Format("<c ffff00>$QuickInventory$</c>|$ContentCount$", ContentsCount()));
-		}
-	}
+    }
 
-	//Submenüs
-	if(iMenu == QINV_PrimaryMenu || iMenu == QINV_SecondaryMenu || iMenu == QINV_EquipmentMenu || iMenu == QINV_ObjectMenu || iMenu == QINV_GrenadeMenu) {
-	  var aItems = GetQuickInventoryMenuItems(iMenu);
-		if(GetLength(aItems)) {
-		  //Erstes Objekt auswählen
-			QuickInventorySelect(GetQuickInventoryMenuItem(iMenu), true);
+    //Informationen
+    if(ContentsCount() != 1)
+    {
+      pRing->AddTopInfoItem(Format("<c ffff00>$QuickInventory$</c>|$ContentsCount$", ContentsCount()));
+    }
+    else
+    {
+      pRing->AddTopInfoItem(Format("<c ffff00>$QuickInventory$</c>|$ContentCount$", ContentsCount()));
+    }
+  }
 
-			//Vorhanden Objekte zählen
-			var iCount = 0;
-			for(var i = 0; i < GetLength(aItems); i++) {
-			  if(ContentsCount(aItems[i]) || GetGrenade(aItems[i])) iCount++;			  
-			}
-			//Wenn weniger als zwei, nicht zeichnen
-			if(iCount < 2) return;
+  //Submenüs
+  if(iMenu == QINV_PrimaryMenu || iMenu == QINV_SecondaryMenu || iMenu == QINV_EquipmentMenu || iMenu == QINV_ObjectMenu || iMenu == QINV_GrenadeMenu) {
+    var aItems = GetQuickInventoryMenuItems(iMenu);
+    if(GetLength(aItems))
+    {
+      //Erstes Objekt auswählen
+      QuickInventorySelect(GetQuickInventoryMenuItem(iMenu), true);
+
+      //Vorhanden Objekte zählen
+      var iCount = 0;
+      for(var i = 0; i < GetLength(aItems); i++)
+      {
+        if(ContentsCount(aItems[i]) || GetGrenade(aItems[i])) iCount++;
+      }
+      //Wenn weniger als zwei, nicht zeichnen
+      if(iCount < 2) return;
 
       //Submenü zeichnen
-			var pRing = CreateSpeedMenu(0, this);
-			for(var i = iPage*4; i < GetLength(aItems); i++) {
-			  if(i >= iPage*4+4) {
-			    pRing->AddThrowItem("$NextPage$", "QuickInventoryPaging", [iMenu, iPage+1], SM04);
-			    break;
-			  }
-			  if(aItems[i])	{
-			    if(!ContentsCount(aItems[i]) && !GetGrenade(aItems[i])) continue;
-			  	pRing->Add(QINV_MenuOrder[i-iPage*4], GetName(0, aItems[i]), "QuickInventorySelect", aItems[i], aItems[i]);
-			  }
-			}
+      var pRing = CreateSpeedMenu(0, this);
+      for(var i = iPage*4; i < GetLength(aItems); i++)
+      {
+        if(i >= iPage*4+4)
+        {
+          pRing->AddThrowItem("$NextPage$", "QuickInventoryPaging", [iMenu, iPage+1], SM04);
+          break;
+        }
+        if(aItems[i])
+        {
+          if(!ContentsCount(aItems[i]) && !GetGrenade(aItems[i])) continue;
+          pRing->Add(QINV_MenuOrder[i-iPage*4], GetName(0, aItems[i]), "QuickInventorySelect", aItems[i], aItems[i]);
+        }
+      }
 
-			//Verschiedene Menünamen einblenden
-			var szName = "";
-			if(iMenu == QINV_PrimaryMenu)
-			  szName = "$PrimaryWeapons$";
-		 if(iMenu == QINV_SecondaryMenu)
-			  szName = "$SecondaryWeapons$";
-			if(iMenu == QINV_EquipmentMenu)
-			  szName = "$Equipment$";
-		  if(iMenu == QINV_ObjectMenu)
-			  szName = "$Objects$";
-		  if(iMenu == QINV_GrenadeMenu)
-			  szName = "$Grenades$";
-			pRing->AddTopInfoItem(Format("<c ffff00>$QuickInventory$</c>|%s", szName));
-	  }
-	}
+      //Verschiedene Menünamen einblenden
+      var szName = "";
+      if(iMenu == QINV_PrimaryMenu)
+        szName = "$PrimaryWeapons$";
+     if(iMenu == QINV_SecondaryMenu)
+        szName = "$SecondaryWeapons$";
+      if(iMenu == QINV_EquipmentMenu)
+        szName = "$Equipment$";
+      if(iMenu == QINV_ObjectMenu)
+        szName = "$Objects$";
+      if(iMenu == QINV_GrenadeMenu)
+        szName = "$Grenades$";
+      pRing->AddTopInfoItem(Format("<c ffff00>$QuickInventory$</c>|%s", szName));
+    }
+  }
 }
 
-private func QuickInventoryPaging(array aData) {
+private func QuickInventoryPaging(array aData)
+{
   QuickInventory(aData[0], aData[1]);
 }
 
-private func QuickInventorySelect(id idObject, bool fSaveTemporary) {
+private func QuickInventorySelect(id idObject, bool fSaveTemporary)
+{
   var fFound = SelectInventory(0, idObject);
   if(!fFound) {
     fFound = GrabGrenade(idObject);
@@ -1178,7 +1191,8 @@ private func QuickInventorySelect(id idObject, bool fSaveTemporary) {
   return fFound;
 }
 
-private func QuickInventoryStore(object pObj) {
+private func QuickInventoryStore(object pObj)
+{
   
   //Menü ermitteln
   //Manuell?
@@ -1257,7 +1271,7 @@ public func ControlSpecial()
       if(Contents()->~RejectShift() || GetID(Contents()) == GBRB)
         return;
 
-		QuickInventory(QINV_MainMenu);
+    QuickInventory(QINV_MainMenu);
   }
   else
   {

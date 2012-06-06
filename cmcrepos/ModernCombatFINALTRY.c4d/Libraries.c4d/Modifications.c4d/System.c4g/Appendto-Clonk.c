@@ -7,6 +7,7 @@ local assistkiller, machinekill;
 local killicon;
 local LastDmgType;
 
+
 /* Erstellung */
 
 protected func Construction()
