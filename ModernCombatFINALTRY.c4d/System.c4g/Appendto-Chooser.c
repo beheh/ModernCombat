@@ -54,9 +54,9 @@ protected func Initialize()
     iAchievementCount++;
   }
   
-  //Falls in der Lobby Zufällig & unsichtbar gewählt wurde, nutzen wir unsere Variante.
+  //Falls in der Lobby zufällig & unsichtbar gewählt wurde, entsprechende Eigenvariante einsetzen
   if(!GetTeamConfig(TEAM_AutoGenerateTeams) && GetTeamConfig(TEAM_Dist) == 3)
-  	ScheduleCall(this, "CreateTeams", 4, 0, 2-GetTeamConfig(TEAM_AutoGenerateTeams), CHOS_TeamRandomInvisible);
+    ScheduleCall(this, "CreateTeams", 4, 0, 2-GetTeamConfig(TEAM_AutoGenerateTeams), CHOS_TeamRandomInvisible);
 }
 
 /* Statusanzeige im Scoreboard */
@@ -702,15 +702,15 @@ protected func AB_GetMaxPlayerRank(array &arNumbers, bool fNoDelete, int iValue,
 
   if(pos == -1)
   {
-  	if(GetLength(arNumbers) == 1)
-  	{
-  		pos = 0; 
-  		highest = arNumbers[0];
-  	}
-  	else
-    	return -1;
-	}
-	
+    if(GetLength(arNumbers) == 1)
+    {
+      pos = 0; 
+      highest = arNumbers[0];
+    }
+    else
+      return -1;
+  }
+
   if(fPlr)
     highest = arNumbers[pos];
 
