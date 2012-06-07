@@ -404,7 +404,7 @@ public func UpdateScoreboard()
   var color = RGB(255, 255, 255);
   var team = GetTeamByIndex();
   //Nur ein Angreiferteam
-  if (GetActiveTeamCount() == 2 - !GetTeamPlayerCount(iDefender))
+  if (GetActiveTeamCount(true) == 2 - !GetTeamPlayerCount(iDefender))
   {
     if (team == iDefender)
       team = GetTeamByIndex(1);
@@ -480,7 +480,7 @@ private func IsFulfilled()
   }
 
   //Keine Angreifer übrig: Verteidiger gewinnen
-  else if (iAttacker != -1 && !TeamGetScore(iAttacker) && GetActiveTeamCount() == 1)
+  else if (iAttacker != -1 && !TeamGetScore(iAttacker) && GetActiveTeamCount(true) == 1)
   {
     //Angreifer eliminieren 
     EliminateTeam(iAttacker);
@@ -493,7 +493,7 @@ private func IsFulfilled()
   }
 
   //Keine Verteidiger übrig: Angreifer gewinnen
-  else if (iDefender != -1 && !TeamGetScore(iDefender) && GetActiveTeamCount() < 2)
+  else if (iDefender != -1 && !TeamGetScore(iDefender) && GetActiveTeamCount(true) < 2)
   {
     //Verteidiger eliminieren 
     EliminateTeam(iDefender);
