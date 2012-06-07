@@ -601,9 +601,9 @@ protected func CreateTeams(int iTeamSort, int iMode, bool fNoTeamMenu)
 
     SetScoreboardData(CHOS_SBRD_Teams, 1, "$TeamsSortedByRank$", 0, true);
   }
-  
+
   if(fNoTeamMenu)
-  	return true;
+    return true;
 
   return OpenTeamMenu();
 }
