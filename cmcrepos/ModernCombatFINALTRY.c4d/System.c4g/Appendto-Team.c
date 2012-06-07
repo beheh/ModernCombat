@@ -67,17 +67,17 @@ global func GetActiveTeamCount(bool fFakeDeath)
   for (var i; i < GetPlayerCount(); i++)
     if (GetPlayerName(GetPlayerByIndex(i)) && GetPlayerTeam(GetPlayerByIndex(i)) != -1)
     {
-    	if(fFakeDeath)
-    	{
-      	var pCrew;
-      	var j = 0;
-      	while (pCrew = GetCrew(GetPlayerByIndex(i), j))
-      	{
-      	  j++;
-      	  if(pCrew->~IsFakeDeath()) continue;
-      	  aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = 1;
-      	  break;
-      	}
+      if(fFakeDeath)
+      {
+        var pCrew;
+        var j = 0;
+        while (pCrew = GetCrew(GetPlayerByIndex(i), j))
+        {
+          j++;
+          if(pCrew->~IsFakeDeath()) continue;
+          aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = 1;
+          break;
+        }
       }
       else
         aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = 1;
