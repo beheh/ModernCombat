@@ -61,21 +61,26 @@ global func GetTaggedTeamName(int iTeam)
   return Format("<c %x>%s</c>", GetTeamColor(iTeam), GetTeamName(iTeam));
 }
 
-global func GetActiveTeamCount()
+global func GetActiveTeamCount(bool fFakeDeath)
 {
   var aTeams = [];
   for (var i; i < GetPlayerCount(); i++)
     if (GetPlayerName(GetPlayerByIndex(i)) && GetPlayerTeam(GetPlayerByIndex(i)) != -1)
     {
-      var pCrew;
-      var j = 0;
-      while (pCrew = GetCrew(GetPlayerByIndex(i), j))
-      {
-        j++;
-        if(pCrew->~IsFakeDeath()) continue;
-        aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = 1;
-        break;
+    	if(fFakeDeath)
+    	{
+      	var pCrew;
+      	var j = 0;
+      	while (pCrew = GetCrew(GetPlayerByIndex(i), j))
+      	{
+      	  j++;
+      	  if(pCrew->~IsFakeDeath()) continue;
+      	  aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = 1;
+      	  break;
+      	}
       }
+      else
+        aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = 1;
     }
   i = 0;
   for (var item in aTeams)
