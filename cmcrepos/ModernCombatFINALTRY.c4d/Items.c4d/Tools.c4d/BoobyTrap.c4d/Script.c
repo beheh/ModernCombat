@@ -291,6 +291,7 @@ protected func Damage(int iChange)
   //Zündung durch Schaden
   if(GetDamage() < 5) return ;
   Sound("BBTP_Alarm.ogg");
+  Sound("MISL_ShotDown.ogg");
   //Zündung verzögert
   ScheduleCall(this, "Detonate",20);
   //Sofortige Zündung bei hohem Schaden

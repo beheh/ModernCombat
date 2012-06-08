@@ -146,6 +146,7 @@ protected func Damage(int iChange)
   if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("BlastDirt",2,10,0,0,400,100);
   if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("BlastFlame",2,10,0,0,150,100);
   Sound("BBTP_Hit*.ogg");
+  Sound("MISL_ShotDown.ogg");
 
   RemoveObject();
 }
