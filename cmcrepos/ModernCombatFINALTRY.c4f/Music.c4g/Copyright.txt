@@ -12,6 +12,13 @@ Richard Wagner
 "Blue Ressort"
 Bomberman 64 Soundtrack
 
+"CMC_Firehawk"
+"CMC_No Good"
+"CMC_Obsession"
+"CMC_Rock Go On"
+"CMC_Your Eyes"
+"Command and Clonker" Clonk-Erweiterungspack
+
 
 Specific songs are from the following artists:
 
@@ -26,3 +33,10 @@ Richard Wagner
 
 "Blue Ressort"
 Bomberman 64 Soundtrack
+
+"CMC_Firehawk"
+"CMC_No Good"
+"CMC_Obsession"
+"CMC_Rock Go On"
+"CMC_Your Eyes"
+"Command and Clonker" Clonk Addon
