@@ -16,7 +16,8 @@ public func IsDestroyed()		{return fDestroyed;}	//Zerstört
 public func IsCMCVehicle()		{return true;}		//Ist ein CMC Fahrzeug
 public func IsRepairable()		{return true;}		//Reparierbar
 public func RepairSpeed()		{return 1;}		//Standard-Reparaturgeschwindigkeit
-public func HitExclude()	{return GetOwner() == NO_OWNER && FriendlyFire();}
+public func HitExclude()		{return GetOwner() == NO_OWNER && FriendlyFire();}
+
 
 /* Initialisierung */
 
