@@ -5,7 +5,6 @@
 #strict 2
 #appendto FFLM
 
-
 local creator;
 
 func Construction(object byObj)
@@ -30,25 +29,27 @@ public func HitObject(object pObj)
   if(!slimy)
   {
     color = FIRE_Red;
-    DoDmg(iDamage*schwaecher/100, DMG_Fire, pObj,1);
+    DoDmg(iDamage*schwaecher/100, DMG_Fire, pObj, 1, GetController()+1);
   }
   else
   {
-    DoDmg(iDamage*schwaecher/100, DMG_Bio, pObj, 1);
+    DoDmg(iDamage*schwaecher/100, DMG_Bio, pObj, 1, GetController()+1);
   }
 
   hits++;
 
   //Anzündbares anzünden, aber nicht Lebewesen
-  if(pObj) //Existiert es überhaupt noch?
+  if(pObj) { //Existiert es überhaupt noch?
     if(GetOCF(pObj) & OCF_Inflammable)
     {
       if(!(GetOCF(pObj) & OCF_Living))
       {
-        if (!slimy)
+        if(!slimy)
           Incinerate(pObj);
       }
-      else
-	AddFireEffect(pObj,50,color,1);
+      else {
+	      AddFireEffect(pObj,50,color,1);
+	    }
     }
+  }
 }
