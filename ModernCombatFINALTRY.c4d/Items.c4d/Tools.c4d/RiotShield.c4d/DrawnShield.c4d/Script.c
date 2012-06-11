@@ -136,6 +136,9 @@ public func IsBulletTarget(id idBullet, object pBullet, object pShooter, int old
   if(GetAction() != "Attach")
     return;
 
+  if(GetOwner() == NO_OWNER)
+    return;
+
   if(!pBullet && !pShooter)
     return true;
 
