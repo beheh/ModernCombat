@@ -7,6 +7,7 @@
 
 local creator;
 
+
 func Construction(object byObj)
 {
   if(byObj) creator = GetID(byObj);
@@ -39,7 +40,8 @@ public func HitObject(object pObj)
   hits++;
 
   //Anzündbares anzünden, aber nicht Lebewesen
-  if(pObj) { //Existiert es überhaupt noch?
+  if(pObj)
+  {
     if(GetOCF(pObj) & OCF_Inflammable)
     {
       if(!(GetOCF(pObj) & OCF_Living))
@@ -47,9 +49,10 @@ public func HitObject(object pObj)
         if(!slimy)
           Incinerate(pObj);
       }
-      else {
-	      AddFireEffect(pObj,50,color,1);
-	    }
+      else
+      {
+        AddFireEffect(pObj,50,color,1);
+      }
     }
   }
 }
