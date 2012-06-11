@@ -31,5 +31,5 @@ private func CheckRotation()
     light->ChangeOffset(0, -2, true);
   }
   if (light && user)
-    light->ChangeR(user->~AimAngle(20, 180));
+    light->ChangeR(user->~AimAngle(20));
 }
