@@ -4,13 +4,8 @@
 
 public func MaxDamage()			{return 200;}
 public func IgnoreFriendlyFire()	{return true;}
-public func IsBulletTarget()
-{
-  //Nicht treffbar wenn neutral, außer bei FF
-  if(ObjectCount(NOFF) && GetOwner() == NO_OWNER)
-    return false;
-  return true;
-}
+public func HitExclude()	{return GetActionTarget()->HitExclude(...);}
+public func IsBulletTarget()	{return true;}
 
 local motoridle;
 
