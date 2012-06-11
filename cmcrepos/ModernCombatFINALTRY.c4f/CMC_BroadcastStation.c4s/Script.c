@@ -105,7 +105,6 @@ func CreateInterior()
   //Benzinfässer
   CreateObject(PBRL, 1060, 150, -1)->AutoRespawn();
   CreateObject(PBRL, 1315, 300, -1)->AutoRespawn();
-  CreateObject(PBRL, 1525, 655, -1)->AutoRespawn();
   CreateObject(PBRL, 1660, 180, -1)->AutoRespawn();
 
   //Explosivfässer
