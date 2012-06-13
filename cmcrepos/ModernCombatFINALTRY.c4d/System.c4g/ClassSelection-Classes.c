@@ -28,7 +28,7 @@ private func Class2Info(int iData, int iPlr)
   if(iData == CData_Name)       return "$medic$";
   if(iData == CData_Desc)       return "$medic_desc$";
   if(iData == CData_Clonk)      return MDIC;
-  if(iData == CData_Ammo)       return [[STAM, 80]];
+  if(iData == CData_Ammo)       return [[STAM, 90]];
   if(iData == CData_Items)      return [[SMGN, 1], [PSTL, 1], [CDBT, 1], [FAPK, 1]];
   if(iData == CData_Grenades)   return [[FGRN, 1], [FRAG, 2], [SRBL, 1]];
   if(iData == CData_Facet)      return 2;
@@ -42,7 +42,7 @@ private func Class3Info(int iData, int iPlr)
   if(iData == CData_Name)       return "$support$";
   if(iData == CData_Desc)       return "$support_desc$";
   if(iData == CData_Clonk)      return PCMK;
-  if(iData == CData_Ammo)       return [[STAM, 120], [MIAM, 4]];
+  if(iData == CData_Ammo)       return [[STAM, 90], [MIAM, 3]];
   if(iData == CData_Items)
     if(FindObject(NOAM))
       return [[MNGN, 1], [RTLR, 1], [BWTH, 1]];
@@ -75,7 +75,7 @@ private func Class5Info(int iData, int iPlr)
   if(iData == CData_Name)       return "$artillerist$";
   if(iData == CData_Desc)       return "$artillerist_desc$";
   if(iData == CData_Clonk)      return PCMK;
-  if(iData == CData_Ammo)       return [[STAM, 50], [GRAM, 30]];
+  if(iData == CData_Ammo)       return [[STAM, 50], [GRAM, 25]];
   if(iData == CData_Items)      return [[SGST, 1], [PSTL, 1], [BBTP, 2]];
   if(iData == CData_Grenades)   return [[PGRN, 2], [FGRN, 2]];
   if(iData == CData_Facet)      return 5;
