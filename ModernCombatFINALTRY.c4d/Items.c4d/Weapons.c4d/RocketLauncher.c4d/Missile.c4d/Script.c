@@ -9,7 +9,7 @@ public func MaxTime()		{return 200;}			//Maximale Flugzeit
 
 public func StartSpeed()	{return 5;}			//Startgeschwindigkeit
 public func Acceleration()	{return 3;}			//Beschleunigung
-public func MaxSpeed() {return 100+!fGuided*50;}			//Maximale Geschwindigkeit		
+public func MaxSpeed()		{return 100+!fGuided*50;}	//Maximale Geschwindigkeit
 
 public func SecureTime()	{return 70;}			//Mindestflugzeit
 public func SecureDistance()	{return 100;}			//Mindestabstand

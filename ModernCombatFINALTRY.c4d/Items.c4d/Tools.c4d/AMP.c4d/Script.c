@@ -127,7 +127,7 @@ public func FxAmmoBarsStop(object target, int nr)
 public func AmmoTypes()
 {
   //[ID, Menge, Punkte].
-  return [[STAM, 50, 50], [GRAM, 12, 60], [MIAM, 4, 60]];
+  return [[STAM, 50, 50], [GRAM, 12, 60], [MIAM, 4, 70]];
 }
 
 protected func Activate(object pCaller)
