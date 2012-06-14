@@ -1,4 +1,4 @@
-/*-- Abwehrschild --*/
+/*-- Einsatzschild --*/
 
 #strict 2
 
@@ -77,6 +77,19 @@ public func ControlThrow(caller)
   }
   else
     return !GetPlrDownDouble(GetController(caller));
+}
+
+public func ControlDigDouble(pByObj)
+{
+  if((pByObj->GetAction() != "WalkArmed") && !pByObj->~IsAiming())
+    return true;
+
+  var temp = CreateObject(SDSD,0,12,Contained()->GetOwner());
+  temp->SetAim(Contained()->~AimAngle());
+  temp->SetDir(Contained()->GetDir());
+  pByObj->SetAction("Push",temp);
+  
+  return RemoveObject(this);
 }
 
 /* Ablegen */

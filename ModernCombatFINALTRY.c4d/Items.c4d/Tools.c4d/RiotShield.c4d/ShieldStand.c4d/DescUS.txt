@@ -1,0 +1,3 @@
+Allows to set up riot shields.
+
+Can be oriented by grabing and pressing [Left] and [Right]. Disassemble by pressing [Double Dig].

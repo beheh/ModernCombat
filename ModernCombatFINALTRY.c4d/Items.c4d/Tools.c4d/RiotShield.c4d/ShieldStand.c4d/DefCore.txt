@@ -1,0 +1,17 @@
+[DefCore]
+id=SDSD
+Version=4,9,8,2
+Name=Shield Stand
+Category=C4D_Structure
+Width=24
+Height=17
+Value=40
+Mass=40
+Picture=0,17,50,54
+Offset=-12,-8
+Vertices=5
+VertexX=0,10,8,8,-10
+VertexY=0,7,6,-7,6
+VertexFriction=0,60,60,60,60
+Rotate=0
+Grab=2
