@@ -85,7 +85,7 @@ protected func FxIntConTimer(object target, int number, iEffectTime)
   //Keine Arbeiter: wieder zusammenfallen
   if(!FindObject2(Find_ActionTarget(this),Find_Action("Push")) && GetActTime() > 5)
   {
-    OnDestruction();
+    Collapse();
     return(-1);
   }
 
@@ -109,6 +109,15 @@ private func ConComplete()
   GetShield();
 
   Sound("Connect");
+}
+
+private func Collapse()
+{
+  //Schild erstellen
+  CreateObject(RSHL,0,8,this()->GetOwner());
+
+  //Verschwinden
+  RemoveObject();
 }
 
 /* Steuerung */
@@ -180,7 +189,7 @@ public func ControlRight(pByObj)
 public func Destroyed()
 {
   //Schild erstellen
-  CreateObject(RSHL,0,0,this()->GetOwner());
+  CreateObject(RSHL,0,8,this()->GetOwner());
 
   //Effekte
   if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",3,110,0,0,40,100);
@@ -198,4 +207,17 @@ public func OnDmg(int iDmg, int iType)
   if(iType == DMG_Explosion)	return 20;	//Explosionen und Druckwellen
   if(iType == DMG_Bio)		return 100;	//Säure und biologische Schadstoffe
   return 80;
+}
+
+/* Aufschlag */ 
+
+protected func Hit3()
+{
+  DoDamage(20);
+}
+  
+protected func Hit()
+{
+  Sound("WPN2_Hit*.ogg",0,0,50);
+  return 1;
 }
