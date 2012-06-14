@@ -1,0 +1,3 @@
+Ermöglicht das Aufstellen von Einsatzschildern.
+
+Kann per Anfassen und Drücken von [Links] und [Rechts] ausgerichtet und per [Doppelgraben] abgebaut werden.
