@@ -181,8 +181,7 @@ public func DoHit(int iHit)
 
 protected func Hit()
 {
-  Sound("BlockOff*.ogg");
-  return 1;
+  Sound("MetalHit*.ogg");
 }
 
 /* Schildhandling */

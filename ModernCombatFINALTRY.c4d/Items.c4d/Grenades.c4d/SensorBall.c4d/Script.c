@@ -33,6 +33,7 @@ public func Fused()
   //Effekte
   CreateParticle("PSpark",0,0,0,0,60,GetPlrColorDw(GetOwner()),this);
   Sound("SNSR_Fused.ogg");
+
   CheckLimitation();
 
   //Entfernung planen
