@@ -7,7 +7,8 @@ local aim_angle;
 local pShield;
 local fRotRight;
 
-public func MaxDamage()	{return 100;}
+public func MaxDamage()		{return 100;}
+public func LimitationCount()	{return 1;}
 
 
 /* Initialisierung */
@@ -107,6 +108,8 @@ private func ConComplete()
 
   SetAction("Standing");
   GetShield();
+
+  CheckLimitation();
 
   Sound("Connect");
 }
