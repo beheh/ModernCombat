@@ -34,15 +34,15 @@ public func FMData1(int data)
   
   if(data == FM_SingleReload)	return 2;
   if(data == FM_PrepareReload)	return 10;
-  if(data == FM_FinishReload)	return 35;
+  if(data == FM_FinishReload)	return 25;
     
   if(data == FM_Reload)		return 75;
   if(data == FM_Recharge)	return 30;
   
-  if(data == FM_Damage)		return 42;
+  if(data == FM_Damage)		return 45;
   
-  if(data == FM_SpreadAdd)	return 170;
-  if(data == FM_StartSpread)	return 250;
+  if(data == FM_SpreadAdd)	return 150;
+  if(data == FM_StartSpread)	return 200;
 
   return Default(data);
 }
