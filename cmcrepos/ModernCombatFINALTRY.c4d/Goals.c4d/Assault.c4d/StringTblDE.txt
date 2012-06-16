@@ -4,23 +4,20 @@ DestroyLastStation=Uns fehlt nur noch <c ffff33>ein</c> Zielobjekt zum Sieg!
 MsgTicketsLow=<c ff0000>Achtung</c>: Unsere Verstärkung geht zu Neige, nur noch <c ffff33>%d</c> übrig!
 MsgNoTickets=<c ff0000>Achtung</c>: Unsere Verstärkung ist <c ff0000>aufgebraucht</c>!
 AttackersWon={{GASS}} <c ffff33>Assault</c> - Rundenende|Das <c ffff33>Angreifer-Team</c> hat diese Schlacht <c ffff33>gewonnen</c>!
+TicketLossWarningAttacker=Der Feind <c ff0000>dominiert</c> die Schlacht, wir müssen die Zielobjekte angreifen oder wir verlieren!
+TicketLossAttacker=Wir haben an Verstärkung <c ff0000>verloren</c>! Wir müssen die Zielobjekte jetzt angreifen!
+AttackerDominate=Die Angreifer dominieren
 
 // Verteidiger
 
 DefendLastStation=<c ff0000>Achtung</c>: Das ist unser <c ff0000>letztes</c> Zielobjekt!
 DefendersWon={{GASS}} <c ffff33>Assault</c> - Rundenende|Das <c ffff33>Verteidiger-Team</c> hat diese Schlacht <c ffff33>gewonnen</c>!
+TicketLossWarningDefender=Wir <c ffff33>dominieren</c> die Schlacht, lasst weiterhin keinen an die Zielobjekte!
+TicketLossDefender=Der Feind hat an Verstärkung <c ffff33>verloren</c>, nicht nachlassen!
+DefenderDominate=Die Verteidiger dominieren
 
 // Sonstiges
 
 Targets=Zielobjekte
 Attackers=Angreifer
 TargetDestruction=Das Zielobjekt <c %x>%s</c> wurde zerstört!
-
-// Ticektabzug
-
-TicketSubtrStart_Attacker=Der Feind <c ff0000>dominiert</c> die Schlacht, wir müssen die Zielobjekte angreifen oder wir verlieren!
-TicketSubtrStart_Defender=Wir <c ffff33>dominieren</c> die Schlacht, lasst weiterhin keinen an die Zielobjekte!
-TicketSubtraction_Attacker=Wir haben an Verstärkung <c ff0000>verloren</c>! Wir müssen die Zielobjekte jetzt angreifen!
-TicketSubtraction_Defender=Der Feind hat an Verstärkung <c ffff33>verloren</c>, weiter so!
-TicketSubtrSRBD_Attacker=Die Angreifer dominieren
-TicketSubtrSRBD_Defender=Die Verteidiger dominieren

@@ -207,10 +207,10 @@ protected func FxIntAssaultTargetDamage(object pTarget, int iEffect, int iDamage
 static const GASS_TicketIdleTime = 40; //Zeit in Sekunden, die benötigt werden, damit ein Ticket verloren geht
 static const GASS_TicketCooldown = 20; //Zeit in Sekunden, die benötigt werden, damit nach letztem verursachten Schaden der Ticketabzug-Timer beginnt
 
-protected func FxTicketSubtractionStart(object pTarget, int iEffect) 
+protected func FxTicketSubtractionStart(object pTarget, int iEffect)
 { 
-	EffectVar(0, pTarget, iEffect) = GASS_TicketCooldown; 
-	return true;
+  EffectVar(0, pTarget, iEffect) = GASS_TicketCooldown; 
+  return true;
 }
 
 protected func FxTicketSubtractionTimer(object pTarget, int iEffect)
@@ -223,16 +223,17 @@ protected func FxTicketSubtractionTimer(object pTarget, int iEffect)
       if(iTickets > 0)
       {
         iTickets--;
-        if(iTickets) //Event-Nachrichten
+        //Event-Nachrichten
+        if(iTickets)
         {
-        	var cnt = GetTeamPlayerCount(iAttacker);
-        	for(var i = 0; i < cnt; i++)
-        		EventInfo4K(1+GetTeamMemberByIndex(iAttacker, i), "$TicketSubtraction_Attacker$", );
-        	
-        	for(var i = 0, cnt = GetTeamPlayerCount(iDefender); i < cnt; i++)
-        		EventInfo4K(1+GetTeamMemberByIndex(iDefender, i), "$TicketSubtraction_Defender$", );
+          var cnt = GetTeamPlayerCount(iAttacker);
+          for(var i = 0; i < cnt; i++)
+            EventInfo4K(1+GetTeamMemberByIndex(iAttacker, i), "$TicketLossAttacker$", GetID(), 0, 0, 0, "Alarm.ogg");
+
+          for(var i = 0, cnt = GetTeamPlayerCount(iDefender); i < cnt; i++)
+            EventInfo4K(1+GetTeamMemberByIndex(iDefender, i), "$TicketLossDefender$", GetID());
         }
-        
+
         EffectVar(0, pTarget, iEffect) = 0;
       }
     }
@@ -243,13 +244,13 @@ protected func FxTicketSubtractionTimer(object pTarget, int iEffect)
     if(EffectVar(0, pTarget, iEffect) <= 0)
     {
       EffectVar(1, pTarget, iEffect) = true;
-  		var cnt = GetTeamPlayerCount(iAttacker);
+      var cnt = GetTeamPlayerCount(iAttacker);
       for(var i = 0; i < cnt; i++)
-      	EventInfo4K(1+GetTeamMemberByIndex(iAttacker, i), "$TicketSubtrStart_Attacker$", );
-        	
+        EventInfo4K(1+GetTeamMemberByIndex(iAttacker, i), "$TicketLossWarningAttacker$", GetID(), 0, 0, 0, "Alarm.ogg");
+
       for(var i = 0, cnt = GetTeamPlayerCount(iDefender); i < cnt; i++)
-        EventInfo4K(1+GetTeamMemberByIndex(iDefender, i), "$TicketSubtrStart_Defender$", );
-  	}
+        EventInfo4K(1+GetTeamMemberByIndex(iDefender, i), "$TicketLossWarningDefender$", GetID());
+    }
   }
 
   return true;
@@ -487,19 +488,19 @@ public func UpdateScoreboard()
   SetScoreboardData(2, GASS_Count, Format("<c %x>%d</c>", color, iTickets), 201);
   
   var icon = IC10;
-  var str = "$TicketSubtrSRBD_Attacker$";
+  var str = "$AttackerDominate$";
   var effect = GetEffect("TicketSubtraction", this);
-  
+
   if(EffectVar(1, this, effect))
   {
-  	icon = IC12;
-  	str = "$TicketSubtrSRBD_Defender$";
+    icon = IC12;
+    str = "$DefenderDominate$";
   }
-  
+
   SetScoreboardData(GASS_DominationInfo, GASS_Icon, Format("{{%i}}", icon));
   SetScoreboardData(GASS_DominationInfo, GASS_Name, str);
   SetScoreboardData(GASS_DominationInfo, GASS_Count, "", 202);
-  
+
   //Sortieren
   SortScoreboard(GASS_Count);
 }
