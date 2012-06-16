@@ -29,8 +29,8 @@ public func ChooserFinished()
 
   //Ebenfalls einen Frame verzögert, da der Szenarienscript die Zielobjekte erst noch setzt
   ScheduleCall(this, "LogTask", 1);
-  
-  //Ticketabzug-Effekt
+
+  //Ticketabzug-Effekt starten
   AddEffect("TicketSubtraction", this, 101, 35, this);
 
   return _inherited(...);
@@ -183,10 +183,10 @@ public func GetAssaultTarget(int iIndex, int iTeam)
 
 protected func FxIntAssaultTargetDamage(object pTarget, int iEffect, int iDamage)
 {
-	//Ticketabzug-Timer resetten.
-	var effect = GetEffect("TicketSubtraction", this);
-	if(effect)
-		EffectCall(this, effect, "Reset");
+  //Ticketabzug-Timer zurücksetzen
+  var effect = GetEffect("TicketSubtraction", this);
+  if(effect)
+    EffectCall(this, effect, "Reset");
 
   //Nur durchlassen, wenn das Ziel an der Reihe ist
   var iTarget = GetIndexOf(pTarget, aTargets[iDefender]),
@@ -202,39 +202,41 @@ protected func FxIntAssaultTargetDamage(object pTarget, int iEffect, int iDamage
   return 0;
 }
 
-static const GASS_TicketTime = 40; //Zeit in Sekunden, die benötigt werden, damit ein Ticket verloren geht. Name der Konstante evtl verbessern, mir fällt nichts ein.
-static const GASS_TicketCooldown = 20; //Zeit in Sekunden, die benötigt werden, damit nach letztem verursachten Schaden der TicketTimer beginnt.
+/* Ticketabzug-Effekt */
+
+static const GASS_TicketIdleTime = 40; //Zeit in Sekunden, die benötigt werden, damit ein Ticket verloren geht
+static const GASS_TicketCooldown = 20; //Zeit in Sekunden, die benötigt werden, damit nach letztem verursachten Schaden der Ticketabzug-Timer beginnt
 
 protected func FxTicketSubtractionTimer(object pTarget, int iEffect)
 {
-	if(EffectVar(1, pTarget, iEffect))
-	{
-		EffectVar(0, pTarget, iEffect)++;
-		if(EffectVar(0, pTarget, iEffect) == GASS_TicketTime && iTickets > 0)
-		{
-			if(iTickets > 0)
-			{
-				iTickets--;
-				EffectVar(0, pTarget, iEffect) = 0;
-			}
-		}
-	}
-	else
-	{
-		EffectVar(0, pTarget, iEffect)--;
-		if(EffectVar(0, pTarget, iEffect) <= 0)
-			EffectVar(1, pTarget, iEffect) = true;
-	}
-	
-	return true;
+  if(EffectVar(1, pTarget, iEffect))
+  {
+    EffectVar(0, pTarget, iEffect)++;
+    if(EffectVar(0, pTarget, iEffect) == GASS_TicketIdleTime && iTickets > 0)
+    {
+      if(iTickets > 0)
+      {
+        iTickets--;
+        EffectVar(0, pTarget, iEffect) = 0;
+      }
+    }
+  }
+  else
+  {
+    EffectVar(0, pTarget, iEffect)--;
+    if(EffectVar(0, pTarget, iEffect) <= 0)
+      EffectVar(1, pTarget, iEffect) = true;
+  }
+
+  return true;
 }
 
 protected func FxTicketSubtractionReset(object pTarget, int iEffect)
 {
-	EffectVar(1, pTarget, iEffect) = false;
-	EffectVar(0, pTarget, iEffect) = GASS_TicketCooldown;
+  EffectVar(1, pTarget, iEffect) = false;
+  EffectVar(0, pTarget, iEffect) = GASS_TicketCooldown;
 
-	return true;
+  return true;
 }
 
 /* Relaunch */
