@@ -15,3 +15,12 @@ DefendersWon={{GASS}} <c ffff33>Assault</c> - Rundenende|Das <c ffff33>Verteidig
 Targets=Zielobjekte
 Attackers=Angreifer
 TargetDestruction=Das Zielobjekt <c %x>%s</c> wurde zerstört!
+
+// Ticektabzug
+
+TicketSubtrStart_Attacker=Der Feind <c ff0000>dominiert</c> die Schlacht, wir müssen die Zielobjekte angreifen oder wir verlieren!
+TicketSubtrStart_Defender=Wir <c ffff33>dominieren</c> die Schlacht, lasst weiterhin keinen an die Zielobjekte!
+TicketSubtraction_Attacker=Wir haben an Verstärkung <c ff0000>verloren</c>! Wir müssen die Zielobjekte jetzt angreifen!
+TicketSubtraction_Defender=Der Feind hat an Verstärkung <c ffff33>verloren</c>, weiter so!
+TicketSubtrSRBD_Attacker=Die Angreifer dominieren
+TicketSubtrSRBD_Defender=Die Verteidiger dominieren
