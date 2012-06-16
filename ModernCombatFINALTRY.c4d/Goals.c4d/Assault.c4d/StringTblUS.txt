@@ -4,12 +4,17 @@ DestroyLastStation=Only <c ffff33>one</c> target left to win!
 MsgTicketsLow=<c ff0000>Warning</c>: Our reinforcements are running low, only <c ffff33>%d</c> left!
 MsgNoTickets=<c ff0000>Warning</c>: Our reinforcements are <c ff0000>exhausted</c>!
 AttackersWon={{GASS}} <c ffff33>Assault</c> - Round End|The <c ffff33>attacker team</c> has <c ffff33>won</c> this battle!
-
+TicketLossWarningAttacker=The enemy is <c ff0000>dominating</c> the battle, we need to attack the targets or we will lose!
+TicketLossAttacker=We <c ff0000>lost</c> some reinforcements! We need to attack the targets right now!
+AttackerDominate=The attackers are dominating
 
 // Defenders
 
 DefendLastStation=<c ff0000>Warning</c>: This is our <c ff0000>last</c> target!
 DefendersWon={{GASS}} <c ffff33>Assault</c> - Round End|The <c ffff33>defender team</c> has <c ffff33>won</c> this battle!
+TicketLossWarningDefender=We are <c ffff33>dominating</c> the battle, continue defending the targets!
+TicketLossDefender=The enemy <c ffff33>lost</c> reinforcements, keep it up!
+DefenderDominate=The defenders are dominating
 
 // Other
 
