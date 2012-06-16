@@ -207,6 +207,12 @@ protected func FxIntAssaultTargetDamage(object pTarget, int iEffect, int iDamage
 static const GASS_TicketIdleTime = 40; //Zeit in Sekunden, die benötigt werden, damit ein Ticket verloren geht
 static const GASS_TicketCooldown = 20; //Zeit in Sekunden, die benötigt werden, damit nach letztem verursachten Schaden der Ticketabzug-Timer beginnt
 
+protected func FxTicketSubtractionStart(object pTarget, int iEffect) 
+{ 
+	EffectVar(0, pTarget, iEffect) = GASS_TicketCooldown; 
+	return true;
+}
+
 protected func FxTicketSubtractionTimer(object pTarget, int iEffect)
 {
   if(EffectVar(1, pTarget, iEffect))
@@ -217,6 +223,16 @@ protected func FxTicketSubtractionTimer(object pTarget, int iEffect)
       if(iTickets > 0)
       {
         iTickets--;
+        if(iTickets) //Event-Nachrichten
+        {
+        	var cnt = GetTeamPlayerCount(iAttacker);
+        	for(var i = 0; i < cnt; i++)
+        		EventInfo4K(1+GetTeamMemberByIndex(iAttacker, i), "$TicketSubtraction_Attacker$", );
+        	
+        	for(var i = 0, cnt = GetTeamPlayerCount(iDefender); i < cnt; i++)
+        		EventInfo4K(1+GetTeamMemberByIndex(iDefender, i), "$TicketSubtraction_Defender$", );
+        }
+        
         EffectVar(0, pTarget, iEffect) = 0;
       }
     }
@@ -225,7 +241,15 @@ protected func FxTicketSubtractionTimer(object pTarget, int iEffect)
   {
     EffectVar(0, pTarget, iEffect)--;
     if(EffectVar(0, pTarget, iEffect) <= 0)
+    {
       EffectVar(1, pTarget, iEffect) = true;
+  		var cnt = GetTeamPlayerCount(iAttacker);
+      for(var i = 0; i < cnt; i++)
+      	EventInfo4K(1+GetTeamMemberByIndex(iAttacker, i), "$TicketSubtrStart_Attacker$", );
+        	
+      for(var i = 0, cnt = GetTeamPlayerCount(iDefender); i < cnt; i++)
+        EventInfo4K(1+GetTeamMemberByIndex(iDefender, i), "$TicketSubtrStart_Defender$", );
+  	}
   }
 
   return true;
@@ -408,6 +432,8 @@ static const GASS_Name = 1;
 static const GASS_Count = 2;
 static const GASS_TargetRow = 4;
 
+static const GASS_DominationInfo = 100;
+
 public func UpdateScoreboard()
 {
   //Wird noch eingestellt
@@ -459,6 +485,20 @@ public func UpdateScoreboard()
   SetScoreboardData(2, GASS_Icon, "{{SM03}}");
   SetScoreboardData(2, GASS_Name, string);
   SetScoreboardData(2, GASS_Count, Format("<c %x>%d</c>", color, iTickets), 201);
+  
+  var icon = IC10;
+  var str = "$TicketSubtrSRBD_Attacker$";
+  var effect = GetEffect("TicketSubtraction", this);
+  
+  if(EffectVar(1, this, effect))
+  {
+  	icon = IC12;
+  	str = "$TicketSubtrSRBD_Defender$";
+  }
+  
+  SetScoreboardData(GASS_DominationInfo, GASS_Icon, Format("{{%i}}", icon));
+  SetScoreboardData(GASS_DominationInfo, GASS_Name, str);
+  SetScoreboardData(GASS_DominationInfo, GASS_Count, "", 202);
   
   //Sortieren
   SortScoreboard(GASS_Count);
