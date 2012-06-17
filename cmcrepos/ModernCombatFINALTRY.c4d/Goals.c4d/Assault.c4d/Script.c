@@ -224,7 +224,11 @@ protected func FxTicketSubtractionTimer(object pTarget, int iEffect)
       {
         iTickets--;
         //Event-Nachrichten
-        if(iTickets)
+     		if(iTickets && iTickets == iWarningTickets)
+      	  Schedule(Format("GameCallEx(\"TicketsLow\", %d, %d, true)", iTickets, iDefender), 1);
+      	else if(!iTickets)
+      		Schedule(Format("GameCallEx(\"NoTickets\", %d, true)", iDefender), 1);
+        else
         {
           var cnt = GetTeamPlayerCount(iAttacker);
           for(var i = 0; i < cnt; i++)
