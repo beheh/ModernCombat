@@ -235,7 +235,7 @@ protected func FxTicketSubtractionTimer(object pTarget, int iEffect)
             EventInfo4K(1+GetTeamMemberByIndex(iAttacker, i), "$TicketLossAttacker$", GetID(), 0, 0, 0, "Alarm.ogg");
 
           for(var i = 0, cnt = GetTeamPlayerCount(iDefender); i < cnt; i++)
-            EventInfo4K(1+GetTeamMemberByIndex(iDefender, i), "$TicketLossDefender$", GetID());
+            EventInfo4K(1+GetTeamMemberByIndex(iDefender, i), "$TicketLossDefender$", GetID(), 0, 0, 0, "Info.ogg");
         }
 
         EffectVar(0, pTarget, iEffect) = 0;
@@ -250,10 +250,10 @@ protected func FxTicketSubtractionTimer(object pTarget, int iEffect)
       EffectVar(1, pTarget, iEffect) = true;
       var cnt = GetTeamPlayerCount(iAttacker);
       for(var i = 0; i < cnt; i++)
-        EventInfo4K(1+GetTeamMemberByIndex(iAttacker, i), "$TicketLossWarningAttacker$", GetID(), 0, 0, 0, "Alarm.ogg");
+        EventInfo4K(1+GetTeamMemberByIndex(iAttacker, i), "$TicketLossWarningAttacker$", GetID(), 0, 0, 0, "Info.ogg");
 
       for(var i = 0, cnt = GetTeamPlayerCount(iDefender); i < cnt; i++)
-        EventInfo4K(1+GetTeamMemberByIndex(iDefender, i), "$TicketLossWarningDefender$", GetID());
+        EventInfo4K(1+GetTeamMemberByIndex(iDefender, i), "$TicketLossWarningDefender$", GetID(), 0, 0, 0, "Info.ogg");
     }
   }
 
@@ -410,7 +410,7 @@ public func GetRespawnPoint(int &iX, int &iY, int iTeam)
   return true;
 }
 
-/* EventInfos */
+/* Event-Nachrichten */
 
 public func TicketsLow(int iRemaining, int iTeam, bool fExclude)
 {

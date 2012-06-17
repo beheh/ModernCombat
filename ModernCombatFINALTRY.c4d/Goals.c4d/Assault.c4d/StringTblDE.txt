@@ -4,8 +4,8 @@ DestroyLastStation=Uns fehlt nur noch <c ffff33>ein</c> Zielobjekt zum Sieg!
 MsgTicketsLow=<c ff0000>Achtung</c>: Unsere Verstärkung geht zu Neige, nur noch <c ffff33>%d</c> übrig!
 MsgNoTickets=<c ff0000>Achtung</c>: Unsere Verstärkung ist <c ff0000>aufgebraucht</c>!
 AttackersWon={{GASS}} <c ffff33>Assault</c> - Rundenende|Das <c ffff33>Angreifer-Team</c> hat diese Schlacht <c ffff33>gewonnen</c>!
-TicketLossWarningAttacker=Der Feind <c ff0000>dominiert</c> die Schlacht, wir müssen die Zielobjekte angreifen oder wir verlieren!
-TicketLossAttacker=Wir haben an Verstärkung <c ff0000>verloren</c>! Wir müssen die Zielobjekte jetzt angreifen!
+TicketLossWarningAttacker=Der Feind <c ff0000>dominiert</c> die Schlacht, wir müssen die Zielobjekte angreifen!
+TicketLossAttacker=Wir haben an Verstärkung <c ff0000>verloren</c>! Wir müssen die Zielobjekte jetzt sofort angreifen!
 AttackerDominate=Die Angreifer dominieren
 
 // Verteidiger
