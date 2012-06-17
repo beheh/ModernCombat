@@ -76,12 +76,20 @@ public func SetAim(int angle)
     fRotRight = false;
 }
 
+public func DirChanged()
+{
+  if (fRotRight != GetDir())
+  aim_angle *= -1;
+
+  fRotRight = GetDir();
+}
+
 /* Aufbau */
 
 protected func FxIntConTimer(object target, int number, iEffectTime)
 {
   if(iEffectTime == 1)
-    SetDir(!fRotRight);
+    SetDir(fRotRight);
 
   //Keine Arbeiter: wieder zusammenfallen
   if(!FindObject2(Find_ActionTarget(this),Find_Action("Push")) && GetActTime() > 5)
@@ -130,6 +138,9 @@ public func ControlDigDouble(pClonk)
   var pTempShield = CreateContents(RSHL);
 
   Collect(pTempShield,pClonk);
+
+  Sound("RSHL_Hide.ogg");
+
   return RemoveObject(this,true);
 }
 
