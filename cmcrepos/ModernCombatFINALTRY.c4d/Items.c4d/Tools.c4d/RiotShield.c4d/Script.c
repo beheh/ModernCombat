@@ -84,10 +84,10 @@ public func ControlDigDouble(pByObj)
   if((pByObj->GetAction() != "WalkArmed") && !pByObj->~IsAiming())
     return true;
 
-  var temp = CreateObject(SDSD,0,12,Contained()->GetOwner());
-  temp->SetAim(Contained()->~AimAngle());
-  temp->SetDir(Contained()->GetDir());
-  pByObj->SetAction("Push",temp);
+  var ptemp = CreateObject(SDSD,0,11,Contained()->GetOwner());
+  ptemp->SetAim(Contained()->~AimAngle());
+  ptemp->SetDir(Contained()->GetDir());
+  pByObj->SetAction("Push",ptemp);
   
   return RemoveObject(this);
 }

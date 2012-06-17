@@ -266,7 +266,10 @@ protected func FxIntTurnTimer(object target, int number, int time)
 
     //Dir anpassen wenn Hälfte der Turn-Action vorbei
     if(time == delay * phases / 2)
+    {
       SetDir(GetDir(), controller);
+      controller->~DirChanged();
+    }
 
     //Neue Position ermitteln (Sinusförmig um den Mittelpunkt)
     SetPosition(GetX() + pos - (pos*2 * pos_phase / 100), GetY(controller), controller);
