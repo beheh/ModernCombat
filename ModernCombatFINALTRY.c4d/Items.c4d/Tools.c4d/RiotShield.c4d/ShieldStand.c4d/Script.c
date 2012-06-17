@@ -17,7 +17,7 @@ func Initialize()
 {
   //Animation und Effekt setzen
   SetAction("Con");
-  AddEffect("IntCon", this(), 1, 1, this() );
+  AddEffect("IntCon", this(), 1, 1, this());
 }
 
 /* Rotationsbegrenzungen */
@@ -144,22 +144,16 @@ public func ControlDigDouble(pClonk)
   return RemoveObject(this,true);
 }
 
-public func ControlUpSingle(pByObj)
+public func ControlLeft(pByObj)
 {
-  if(fRotRight)
-    TurnLeft();
-  else
-    TurnRight();
+  TurnLeft();
 
   return true;
 }
 
-public func ControlDownSingle(pByObj) 
+public func ControlRight(pByObj)
 {
-  if(fRotRight)
-    TurnRight();
-  else
-    TurnLeft();
+  TurnRight();
 
   return true;
 }
@@ -182,20 +176,6 @@ private func TurnRight()
 
   if(aim_angle < MaxRotRight())
     aim_angle += 10;
-}
-
-public func ControlLeft(pByObj)
-{
-  TurnLeft();
-
-  return true;
-}
-
-public func ControlRight(pByObj)
-{
-  TurnRight();
-
-  return true;
 }
 
 /* Schaden */
