@@ -213,6 +213,8 @@ public func GetShield()
   //Schild erstellen
   pShield = CreateObject(RSLH, 0, 0 ,GetOwner(GetUser()));
   pShield->Set(this, this);
+  pShield->SetColorDw(RGB(255,255,255));
+
   SetOwner(GetOwner(GetUser()), pShield);
 
   //Und konfigurieren
@@ -272,7 +274,7 @@ public func FxActivityTimer(object pTarget, int iEffectNumber, int iEffectTime)
     if(pShield)
     {
       SetOwner(-1, pShield);
-      pShield->SetColorDw(-1);
+      pShield->SetColorDw(RGB(255,255,255));
     }
 
     if(controller)
@@ -447,7 +449,7 @@ private func ExitClonk(object byObject)
     if(pShield)
     {
       SetOwner(-1, pShield);
-      pShield->SetColorDw(-1);
+      pShield->SetColorDw(RGB(255,255,255));
     }
     SetOwner(-1, this);
     return(1); 
