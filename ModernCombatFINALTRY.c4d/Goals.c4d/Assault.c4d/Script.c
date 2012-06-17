@@ -157,11 +157,11 @@ public func ConnectAssaultTargets(array a)
 {
   for (var i in a)
   {
-    if (!Connected[i])
-	  Connected[i] = [];
-	for (var j in a)
-	  if (j != i)
-	    Connected[i][GetLength(Connected[i])] = j;
+    if(!Connected[i])
+      Connected[i] = [];
+    for (var j in a)
+      if (j != i)
+        Connected[i][GetLength(Connected[i])] = j;
   }
   return true;
 }
@@ -170,7 +170,7 @@ private func GetNextTarget()
 {
   for (var i; i < GetLength(aTargets[iDefender]); i++)
     if (aTargets[iDefender][i])
-	  return i;
+      return i;
   return -1;
 }
 
@@ -224,10 +224,10 @@ protected func FxTicketSubtractionTimer(object pTarget, int iEffect)
       {
         iTickets--;
         //Event-Nachrichten
-     		if(iTickets && iTickets == iWarningTickets)
-      	  Schedule(Format("GameCallEx(\"TicketsLow\", %d, %d, true)", iTickets, iDefender), 1);
-      	else if(!iTickets)
-      		Schedule(Format("GameCallEx(\"NoTickets\", %d, true)", iDefender), 1);
+        if(iTickets && iTickets == iWarningTickets)
+          Schedule(Format("GameCallEx(\"TicketsLow\", %d, %d, true)", iTickets, iDefender), 1);
+        else if(!iTickets)
+          Schedule(Format("GameCallEx(\"NoTickets\", %d, true)", iDefender), 1);
         else
         {
           var cnt = GetTeamPlayerCount(iAttacker);
@@ -321,7 +321,7 @@ public func RelaunchPlayer(int iPlr, pClonk, int iKiller)
       if (iTickets && iTickets == iWarningTickets)
         Schedule(Format("GameCallEx(\"TicketsLow\", %d, %d, true)", iTickets, iDefender), 1);
       if (!iTickets)
-      	Schedule(Format("GameCallEx(\"NoTickets\", %d, true)", iDefender), 1);
+        Schedule(Format("GameCallEx(\"NoTickets\", %d, true)", iDefender), 1);
     }
   }
 
