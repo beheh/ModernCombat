@@ -686,8 +686,6 @@ public func ChooserFinished()
    CreateObject(MWCR, 1625, 482, -1);
    CreateObject(MWCR, 1630, 500, -1);
    CreateObject(MWCR, 2010, 440, -1);
-   CreateObject(MWCR, 2410, 562, -1);
-   CreateObject(MWCR, 2410, 580, -1);
    CreateObject(MWCR, 3250, 440, -1);
    CreateObject(MWCR, 3640, 370, -1);
    CreateObject(MWCR, 3990, 440, -1);
