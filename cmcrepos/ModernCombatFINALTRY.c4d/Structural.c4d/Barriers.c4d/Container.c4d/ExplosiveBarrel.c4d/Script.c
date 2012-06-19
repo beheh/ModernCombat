@@ -57,7 +57,7 @@ func Damage(int iChange, int iPlr)
   if(!this)
     return;
   if(GetDamage() < 20) return;
-  InstaExplode(iPlr);
+  ScheduleCall(this, "InstaExplode", 1,0,iPlr);
 }
 
 func InstaExplode(int iPlr)
