@@ -35,4 +35,4 @@ NoScan=1
 SkyScrollMode=2
 
 [Environment]
-Objects=DARK=10
+Objects=DARK=5
