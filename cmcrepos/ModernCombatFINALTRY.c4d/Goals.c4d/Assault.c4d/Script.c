@@ -129,7 +129,7 @@ public func ReportAssaultTargetDestruction(object pTarget, int iTeam)
   else
     if (fConnectedDestruction)
       InitializeTickets();
-   
+
   //Ticketabzug-Timer zurücksetzen
   var effect = GetEffect("TicketSubtraction", this);
   if(effect)
@@ -217,8 +217,8 @@ protected func FxTicketSubtractionStart(object pTarget, int iEffect)
   EffectVar(0, pTarget, iEffect) = GASS_TicketCooldown; 
   EffectVar(2, pTarget, iEffect) = GameCall("SetTicketSubstractionTime");
   if(!EffectVar(2, pTarget, iEffect))
-  	EffectVar(2, pTarget, iEffect) = GASS_TicketIdleTime;
-  
+    EffectVar(2, pTarget, iEffect) = GASS_TicketIdleTime;
+
   return true;
 }
 
@@ -276,7 +276,7 @@ protected func FxTicketSubtractionReset(object pTarget, int iEffect)
   
   EffectVar(2, pTarget, iEffect) = GameCall("SetTicketSubstractionTime");
   if(!EffectVar(2, pTarget, iEffect))
-  	EffectVar(2, pTarget, iEffect) = GASS_TicketIdleTime;
+    EffectVar(2, pTarget, iEffect) = GASS_TicketIdleTime;
 
   return true;
 }
