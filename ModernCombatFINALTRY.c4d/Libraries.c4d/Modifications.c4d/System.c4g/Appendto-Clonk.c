@@ -335,11 +335,11 @@ protected func DoPoints()
       }
       else if(pClonk->~GetParachute())
       {
-      	var killicon = KillIcon();
-      
-      	if(FindContents(killicon, pClonk))
-       		//Achievement-Fortschritt (Paratrooper)
-        	DoAchievementProgress(1, AC34, killer);
+        var killicon = KillIcon();
+
+        if(FindContents(killicon, pClonk))
+       	  //Achievement-Fortschritt (Paratrooper)
+          DoAchievementProgress(1, AC34, killer);
       }
     }
 
