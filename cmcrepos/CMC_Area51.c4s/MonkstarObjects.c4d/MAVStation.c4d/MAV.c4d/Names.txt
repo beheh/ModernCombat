@@ -1,2 +1,2 @@
-DE:Stein
-US:Rock
+DE:MAV
+US:MAV
