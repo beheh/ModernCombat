@@ -92,6 +92,9 @@ func Initialize()
   CreateObject(GNET, 1080, 560, -1)->Set(SATW,90);
   CreateObject(GNET, 1080, 310, -1)->Set(0,90);
 
+  //MAV-Station
+  CreateObject(MVSN, 500, 1060, -1);
+
   //Stahlbrücken
   CreateObject(_HBR, 395, 1072, -1)->SwitchMode();
   CreateObject(_HBR, 605, 1072, -1);
@@ -137,8 +140,7 @@ func Initialize()
   //Apache
   SetupVehicleSpawn([APCE],DIR_Left,CreateObject(VSPW,950,1030,-1),1,300);
 
-  //Reitwipfe
-  CreateObject(RWPF, 505, 1060, -1)->AutoRespawn();
+  //Reitwipf
   CreateObject(RWPF, 1580, 1060, -1)->AutoRespawn();
 }
 
