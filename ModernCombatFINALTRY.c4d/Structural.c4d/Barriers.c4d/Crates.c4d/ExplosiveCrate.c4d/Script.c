@@ -25,7 +25,7 @@ func Damage(int iChange, int iPlr)
 {
   SetController(iPlr);
   if(GetDamage() > 0)
-    Incinerate(this, iPlr+1);
+    Incinerate(this);
 
   if(GetDamage() < 70) return;
 
@@ -50,21 +50,13 @@ public func InstaExplode(int iPlr)
   {
     var inc = GetDefCoreVal("ContactIncinerate",0,GetID(obj));
     if(!inc) continue;
-
-    if(inc <= 2)
-    {
-      Incinerate(obj, iPlr+1);
-      continue; 
-    }
+      if(inc <= 2)
+        Incinerate(obj);
     else
-    {
-      if(!Random(inc-2))
-      {
-        Incinerate(obj, iPlr+1);
-        continue;
-      }
-    }
+    if(!Random(inc-2))
+      Incinerate(obj);
   }
+  
   AddLightFlash(50, 0,0, RGBa(255,255,200,100));
 
   //Explosion
