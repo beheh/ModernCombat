@@ -10,7 +10,7 @@ public func HandY()		{return -1200;}
 public func HandR()		{return 45;}
 public func HandSize()		{return 850;}
 public func CanAim()		{return true;}
-public func IsEquipment()		{return true;}
+public func IsEquipment()	{return true;}
 public func NoArenaRemove()	{return true;}
 
 

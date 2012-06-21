@@ -56,7 +56,7 @@ public func InstaExplode(int iPlr)
     if(!Random(inc-2))
       Incinerate(obj);
   }
-  
+
   AddLightFlash(50, 0,0, RGBa(255,255,200,100));
 
   //Explosion
