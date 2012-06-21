@@ -1866,7 +1866,7 @@ private func ControlAgility(string strControl)
 
 public func JumpStart(bool bBackflip)
 {
-	CheckArmed();
+  CheckArmed();
 
   var iEff, iComd;
   if((iEff = GetEffect("ControlStack", this)))
