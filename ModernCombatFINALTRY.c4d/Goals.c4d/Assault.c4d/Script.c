@@ -91,18 +91,18 @@ public func AddAssaultTarget(id idTarget, int iX, int iY, int iMaxDamage, int iT
   }
 }
 
-global func SubtractionSetTickettime()
+global func SetTicketSubtractionTime()
 {
-	return FindObject(GASS)->SubtractionSetTicketTime(...);
+	return FindObject(GASS)->SetTicketSubtractionTime(...);
 }
 
-public func SubtractionSetTicketTime(int iTime)
+public func SetTicketSubtractionTime(int iTime)
 {
 	iTicketSubtrTime = iTime;
 	if(!iTime)
 		iTicketSubtrTime = GASS_TicketIdleTime;
 	
-	var effect = GetEffect("SubtractionTicket", this);
+	var effect = GetEffect("TicketSubtraction", this);
 	EffectCall(this, effect, "Reset");
 	
 	return effect;
