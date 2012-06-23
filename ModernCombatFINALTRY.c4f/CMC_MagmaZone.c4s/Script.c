@@ -50,7 +50,6 @@ func CreateInterior()
   //Sprungschanzen
   CreateObject (JMPD, 365, 330, -1)->Set(105, 20);
   CreateObject (JMPD, 1375, 300, -1)->Set(85, 10);
-  CreateObject (JMPD, 1690, 370, -1)->Set(85, -80);
 
   //Stahlbrücken
   CreateObject(_HBR, 785, 660, -1);
@@ -257,6 +256,17 @@ public func ChooserFinished()
   var aTeams = [false,false,false,false,false];
   for(var i = 0; i < GetPlayerCount(); i++)
    aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = true;
+
+  //Sprungschanzen
+  if(FindObject(FDMG))
+  {
+   CreateObject (JMPD, 1385, 460, -1)->Set(40, -20);
+   CreateObject (JMPD, 1690, 370, -1)->Set(75, -80);
+  }
+  else
+  {
+   CreateObject (JMPD, 1690, 370, -1)->Set(85, -80);
+  }
 
   //OP-Spielziel
   if(FindObject(GOCC))
