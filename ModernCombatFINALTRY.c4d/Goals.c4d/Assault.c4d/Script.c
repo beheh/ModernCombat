@@ -9,7 +9,8 @@ local iTickets;		//Tickets für die Angreifer
 local iWarningTickets;	//Tickets bei denen gewarnt wird
 local aSpawns;		//Spawnpunkte
 local Connected;	//Verbundene Ziele
-local iTicketSubtrTime;
+local iTicketSubtrTime;	//Ticketabzugszeit
+
 
 /* Initialisierung */
 
@@ -93,19 +94,19 @@ public func AddAssaultTarget(id idTarget, int iX, int iY, int iMaxDamage, int iT
 
 global func SetTicketSubtractionTime()
 {
-	return FindObject(GASS)->SetTicketSubtractionTime(...);
+  return FindObject(GASS)->SetTicketSubtractionTime(...);
 }
 
 public func SetTicketSubtractionTime(int iTime)
 {
-	iTicketSubtrTime = iTime;
-	if(!iTime)
-		iTicketSubtrTime = GASS_TicketIdleTime;
-	
-	var effect = GetEffect("TicketSubtraction", this);
-	EffectCall(this, effect, "Reset");
-	
-	return effect;
+  iTicketSubtrTime = iTime;
+  if(!iTime)
+    iTicketSubtrTime = GASS_TicketIdleTime;
+
+  var effect = GetEffect("TicketSubtraction", this);
+  EffectCall(this, effect, "Reset");
+
+  return effect;
 }
 
 /* Zielobjektzerstörung */
