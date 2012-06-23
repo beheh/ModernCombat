@@ -8,7 +8,6 @@ local pTarget;
 
 public func GetGearType()	{return GEAR_Backpack;}
 public func IsEquipment()	{return true;}
-public func TriggerHigh()	{return 100;}
 public func NoArenaRemove()	{return true;}
 
 
@@ -33,14 +32,13 @@ public func ControlUpDouble()
   if(FindObject2(Find_ID(PARA), Find_ActionTarget(pTarget)))
     return false;
 
-  /*for(var obj in FindObjects(Find_ID(PARA), Find_ActionTarget())
-    if(GetActionTarget(0, obj) == pTarget)
-      return false;*/
-
+	var ydir = GetYDir(pTarget, 100);
   //Unterhalb genug Platz, Fallgeschwindigkeit hoch genug, nicht verschachtelt?
-  if(!Contained() && GetYDir(pTarget) > 15 && !GetEffect("Flying", pTarget))
+  if(!Contained() && ydir > 150 && !GetEffect("Flying", pTarget))
   {
-    if(PathFree(GetX(pTarget), GetY(pTarget), GetX(pTarget), GetY(pTarget)+TriggerHigh()))
+  	var x = GetX(pTarget), y = GetY(pTarget), xdir = GetXDir(pTarget, 100);
+  	SimFlight(x, y, xdir, ydir, 0, 0, 0, 100);
+    if(Distance(xdir, ydir) > 700)
     {
       //Fallschirm erstellen und anhängen
       CreateObject(PARA, 0, 0, GetOwner(pTarget))->Set(pTarget);
