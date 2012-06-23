@@ -859,6 +859,9 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
   {
    if(fConnectedDestroyed)
    {
+    //Ticketabzug anpassen
+    SetTicketSubtractionTime(50);
+
     //Grenzen neu setzen
     RemoveAll(BRDR);
     CreateObject(BRDR, 400, 0, -1)->Set(0);

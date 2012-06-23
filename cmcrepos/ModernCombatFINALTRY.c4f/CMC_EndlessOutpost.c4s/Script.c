@@ -987,6 +987,9 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
   //Ziel 3
   if (iIndex == 2)
   {
+   //Ticketabzug anpassen
+   SetTicketSubtractionTime(50);
+
    //Grenze neu setzen
    RemoveAll(BRDR);
    CreateObject(BRDR, 960, 0, -1)->Set(0,1);

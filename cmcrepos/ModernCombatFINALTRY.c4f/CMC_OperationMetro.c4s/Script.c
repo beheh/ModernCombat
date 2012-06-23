@@ -650,6 +650,9 @@ public func ChooserFinished()
    ConnectAssaultTargets([1, 2]);
    ConnectAssaultTargets([3, 4]);
 
+   //Ticketabzug anpassen
+   SetTicketSubtractionTime(35);
+
    //Grenzen setzen
    CreateObject(BRDR, 520, 0, -1)->Set(0);
    CreateObject(BRDR, 2780, 0, -1)->Set(1,1);
@@ -793,6 +796,9 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
   //Ziel 1
   if (!iIndex)
   {
+   //Ticketabzug anpassen
+   SetTicketSubtractionTime(40);
+
    //Grenzen neu setzen
    RemoveAll(BRDR);
    CreateObject(BRDR, 520, 0, -1)->Set(0);
@@ -804,6 +810,9 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
   {
    if(fConnectedDestroyed)
    {
+    //Ticketabzug anpassen
+    SetTicketSubtractionTime(45);
+
     //Grenzen neu setzen
     RemoveAll(BRDR);
     CreateObject(BRDR, 1610, 0, -1)->Set(0);
