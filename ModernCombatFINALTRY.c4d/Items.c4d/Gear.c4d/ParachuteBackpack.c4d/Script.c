@@ -32,12 +32,12 @@ public func ControlUpDouble()
   if(FindObject2(Find_ID(PARA), Find_ActionTarget(pTarget)))
     return false;
 
-	var ydir = GetYDir(pTarget, 100);
+  var ydir = GetYDir(pTarget, 100);
   //Unterhalb genug Platz, Fallgeschwindigkeit hoch genug, nicht verschachtelt?
   if(!Contained() && ydir > 150 && !GetEffect("Flying", pTarget))
   {
-  	var x = GetX(pTarget), y = GetY(pTarget), xdir = GetXDir(pTarget, 100);
-  	SimFlight(x, y, xdir, ydir, 0, 0, 0, 100);
+    var x = GetX(pTarget), y = GetY(pTarget), xdir = GetXDir(pTarget, 100);
+    SimFlight(x, y, xdir, ydir, 0, 0, 0, 100);
     if(Distance(xdir, ydir) > 700)
     {
       //Fallschirm erstellen und anhängen
