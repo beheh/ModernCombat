@@ -238,6 +238,9 @@ protected func FxTicketSubtractionStart(object pTarget, int iEffect)
 
 protected func FxTicketSubtractionTimer(object pTarget, int iEffect)
 {
+	if(fulfilled)
+		return false;
+
   if(EffectVar(1, pTarget, iEffect))
   {
     EffectVar(0, pTarget, iEffect)++;
