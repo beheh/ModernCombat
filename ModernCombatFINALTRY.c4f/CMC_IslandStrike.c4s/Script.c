@@ -901,6 +901,9 @@ public func ChooserFinished()
    AddAssaultTarget(RADR, 6440, 340, 230, 2, "$Target6$", 5, [[[6560, 410], [6880, 510], [6520, 640]], [[5630, 400], [5630, 470], [5730, 550]]]);
    AddAssaultTarget(CMSN, 7210, 430, 230, 2, "$Target7$", 6, [[[7580, 510], [7565, 410], [7750, 320]], [[6410, 340], [6460, 510], [6370, 510]]]);
 
+   //Ticketabzug anpassen
+   SetTicketSubtractionTime(35);
+
    //Grenzen setzen
    CreateObject(BRDR, 440, 0, -1)->Set(0,1);
    CreateObject(BRDR, 1750, 0, -1)->Set(1,1);
@@ -1065,6 +1068,9 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
   //Ziel 1
   if (!iIndex)
   {
+   //Ticketabzug anpassen
+   SetTicketSubtractionTime(40);
+
    //Grenzen neu setzen
    RemoveAll(BRDR);
    CreateObject(BRDR, 440, 0, -1)->Set(0,1);
@@ -1131,6 +1137,9 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
   //Ziel 4
   if (iIndex == 3)
   {
+   //Ticketabzug anpassen
+   SetTicketSubtractionTime(45);
+
    //Grenzen neu setzen
    RemoveAll(BRDR);
    CreateObject(BRDR, 3200, 0, -1)->Set(0,1);
@@ -1147,6 +1156,9 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
   //Ziel 5
   if (iIndex == 4)
   {
+   //Ticketabzug anpassen
+   SetTicketSubtractionTime(40);
+
    //Grenzen neu setzen
    RemoveAll(BRDR);
    CreateObject(BRDR, 4190, 0, -1)->Set(0,1);
@@ -1170,6 +1182,9 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
   //Ziel 6
   if (iIndex == 5)
   {
+   //Ticketabzug anpassen
+   SetTicketSubtractionTime(50);
+
    //Grenzen neu setzen
    RemoveAll(BRDR);
    CreateObject(BRDR, 5040, 0, -1)->Set(0,1);
