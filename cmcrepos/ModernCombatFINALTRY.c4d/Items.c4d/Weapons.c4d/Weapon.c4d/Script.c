@@ -1172,7 +1172,6 @@ public func SetFireMode(int i)
 {
   if((i > GetFMCount()) || i < 1) return;
 
-  if(IsReloading()) return;
   if(IsRecharging()) StopAutoFire();
   RemoveEffect("BurstFire", this);
   while(GetEffect("Recharge", this)) RemoveEffect("Recharge", this); 
