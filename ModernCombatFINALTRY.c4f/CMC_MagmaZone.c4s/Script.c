@@ -36,7 +36,7 @@ func CreateInterior()
   CreateObject(HA4K, 410, 333, -1);
   CreateObject(HA4K, 800, 393, -1);
   CreateObject(HA4K, 1340, 343, -1);
-  CreateObject(HA4K, 1340, 363, -1);
+  CreateObject(HA4K, 1340, 463, -1);
   CreateObject(HA4K, 1740, 373, -1);
   CreateObject(HA4K, 2120, 243, -1);
 
@@ -97,7 +97,7 @@ func CreateInterior()
   CreateObject(BECR, 1290, 460, -1)->AutoRespawn();
 
   //Hinweisschild
-  var sign = CreateObject(SGNP, 1390, 460, -1);
+  var sign = CreateObject(SGNP, 1390, 550, -1);
   sign->SetPhase(1);
   sign->SetMode(1);
 
