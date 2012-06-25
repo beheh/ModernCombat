@@ -330,7 +330,7 @@ protected func DeathAnnounce(int plr, object clonk, int killplr)
 {
   if(!clonk) clonk = this;
   if(!clonk) return;
-  var r = CLNK->DeathAnnounce(plr, clonk, killplr, true, GetAssist()+1);
+  var r = CLNK->DeathAnnounce(plr, clonk, killplr, true, GetAssist(killplr)+1);
   if(r) DoPoints();
   return r;
 }
