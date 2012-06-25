@@ -385,8 +385,12 @@ global func RecalcPlayerRank(int iPlr)
       Sound("RankUp.ogg", true, 0, 100, iPlr+1);
 
       //Namen updaten
-      SetPlayerData(GetTaggedPlayerName(iPlr, true), RWDS_PlayerName, iPlr);
-      SetPlayerData(GetTaggedPlayerName(iPlr, true, true), RWDS_CPlayerName, iPlr);
+      var rewards = FindObject2(Find_ID(RWDS));
+      if(rewards)
+      {
+      	rewards->SetPlayerData(GetTaggedPlayerName(iPlr, true), RWDS_PlayerName, iPlr);
+      	rewards->SetPlayerData(GetTaggedPlayerName(iPlr, true, true), RWDS_CPlayerName, iPlr);
+    	}
     }
     return aRanks[iPlr];
   }
