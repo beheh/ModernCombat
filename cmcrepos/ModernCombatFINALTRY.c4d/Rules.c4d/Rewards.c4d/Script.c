@@ -30,7 +30,8 @@ protected func Initialize()
     SetPlayerData(GetFullPlayerData(iPlr, RWDS_BattlePoints) + GetFullPlayerData(iPlr, RWDS_TeamPoints), RWDS_StartTotalPoints, iPlr);
   }
 
-  UpdatePlayers();
+	for(var i = 0; i < GetPlayerCount(); i++)
+  	InitPlayerData(GetPlayerByIndex(i));
 }
 
 protected func Activate(iByPlayer)
@@ -238,37 +239,40 @@ public func Evaluate()
 
 /* Spieler updaten */
 
-public func UpdatePlayers()
+public func InitializePlayer(int iPlr)
 {
-  if(!RewardsActive()) return;
-  var iOffset = 0;
-  for(var i = 0; i < GetPlayerCount()+iOffset; i++)
+	return InitPlayerData(iPlr);
+}
+
+public func InitPlayerData(int iPlr)
+{
+	if(!RewardsActive()) return;
+	
+	var iDataOld = GetPlrExtraData(iPlr, "CMC_Achievements");
+  if(iDataOld)
   {
-    var iPlr = GetPlayerByIndex(i);
-    if(!GetPlayerName(iPlr) && GetPlayerData(RWDS_PlayerName, iPlr))
-    {
-      iOffset++;
-      continue;
-    }
-    var iDataOld = GetPlrExtraData(iPlr, "CMC_Achievements");
-    if(iDataOld)
-    {
-      iDataOld = iDataOld >> 1; //Konvertieren, Bit 0 wird jetzt mitgenutzt
-      var iDataNew = GetPlrExtraData(iPlr, "CMC_Achievements1");
-      SetPlrExtraData(iPlr, "CMC_Achievements1", iDataOld | iDataNew);
-      //Bei Release folgende Zeile (und diesen Kommentar) entfernen:
-      //SetPlrExtraData(iPlr, "CMC_Achievements", 0);
-    }
-    
-    SetPlayerData(GetTaggedPlayerName(iPlr, true), RWDS_PlayerName, iPlr);
-    SetPlayerData(GetTaggedPlayerName(iPlr, true, true), RWDS_CPlayerName, iPlr);
-    SetPlayerData(GetPlayerTeam(iPlr), RWDS_PlayerTeam, iPlr);
-    SetPlayerData(GetPlayerID(iPlr), RWDS_PlayerID, iPlr);
-    if(!aData[iPlr]) aData[iPlr] = CreateArray();
-    if(!aAchievementProgress[iPlr]) aAchievementProgress[iPlr] = CreateArray();
-    if(!aAchievementExtra[iPlr]) aAchievementExtra[iPlr] = CreateArray();
+    iDataOld = iDataOld >> 1; //Konvertieren, Bit 0 wird jetzt mitgenutzt
+    var iDataNew = GetPlrExtraData(iPlr, "CMC_Achievements1");
+    SetPlrExtraData(iPlr, "CMC_Achievements1", iDataOld | iDataNew);
+    //Bei Release folgende Zeile (und diesen Kommentar) entfernen:
+    //SetPlrExtraData(iPlr, "CMC_Achievements", 0);
   }
-  return 1;
+  
+  SetPlayerData(GetTaggedPlayerName(iPlr, true), RWDS_PlayerName, iPlr);
+  SetPlayerData(GetTaggedPlayerName(iPlr, true, true), RWDS_CPlayerName, iPlr);
+  SetPlayerData(GetPlayerTeam(iPlr), RWDS_PlayerTeam, iPlr);
+  SetPlayerData(GetPlayerID(iPlr), RWDS_PlayerID, iPlr);
+  if(!aData[iPlr]) aData[iPlr] = CreateArray();
+  if(!aAchievementProgress[iPlr]) aAchievementProgress[iPlr] = CreateArray();
+  if(!aAchievementExtra[iPlr]) aAchievementExtra[iPlr] = CreateArray();
+  
+  return true;
+}
+
+public func OnTeamSwitch(int iPlr, int idNewTeam)
+{
+	SetPlayerData(idNewTeam, RWDS_PlayerTeam, iPlr);
+	return true;
 }
 
 /* Werte setzen und auslesen */
@@ -379,6 +383,10 @@ global func RecalcPlayerRank(int iPlr)
 
       //Sound-Hinweis
       Sound("RankUp.ogg", true, 0, 100, iPlr+1);
+    
+    	//Namen updaten
+    	SetPlayerData(GetTaggedPlayerName(iPlr, true), RWDS_PlayerName, iPlr);
+  		SetPlayerData(GetTaggedPlayerName(iPlr, true, true), RWDS_CPlayerName, iPlr);
     }
     return aRanks[iPlr];
   }
