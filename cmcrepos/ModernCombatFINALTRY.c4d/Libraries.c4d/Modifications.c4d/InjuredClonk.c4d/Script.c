@@ -88,9 +88,6 @@ public func Set(object pClonk)
   SetFoW(true,GetOwner(pClonk)); 
   SetPlrViewRange(150,pClonk);
 
-  //Etwas Lebensenergie
-  DoEnergy(10, pClonk);
-
   //Soundloop starten
   Sound("FKDT_ClonkDown.ogg", false, pClonk, 100, GetOwner(pClonk)+1, +1);
 
