@@ -48,7 +48,15 @@ public func SetActive(object pCaller)
 
   //Effekte
   Sound("C4PA_Ignition.ogg");
+  CreateParticle("PSpark",0,0,0,0,60,RGBa(255,122,0,0),this);
+  AddEffect("Blink", this, 50, iBulletsTrigger, this);
+}
+
+/* Blinkeffekt */
+
+public func FxBlinkTimer(object pTarget, int iEffectNumber) {
   CreateParticle("PSpark",0,0,0,0,60,RGBa(255,0,0,0),this);
+  return -1;
 }
 
 /* Prüfungseffekt */
