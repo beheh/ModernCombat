@@ -398,7 +398,7 @@ global func CalcRank(int iPlr)
   if(rpoints < 0)
     rpoints = 0x7FFFFFFF;
 
-  if((rewards = FindObject(RWDS)))
+  if((rewards = FindObject2(Find_ID(RWDS))))
     if((rpoints += BoundBy(rewards->GetPlayerData(RWDS_BattlePoints, iPlr), 0, 0x7FFFFFFF) + BoundBy(rewards->GetPlayerData(RWDS_TeamPoints, iPlr), 0, 0x7FFFFFFF)) < 0)
       rpoints = 0x7FFFFFFF;
 
