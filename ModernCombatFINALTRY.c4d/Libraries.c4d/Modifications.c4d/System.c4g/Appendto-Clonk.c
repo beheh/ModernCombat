@@ -500,6 +500,9 @@ global func FakeDeath(object pTarget)
   if(!pTarget->IsClonk()) return false;
 
   pTarget->OnFakeDeath();
+  
+  //Lebensenergie
+  DoEnergy(10 - GetEnergy(pTarget), pTarget);
 
   //Achievements
   var data = GetAchievementExtra(AC08, GetKiller(pTarget)); 
@@ -530,7 +533,6 @@ global func FakeDeath(object pTarget)
       ObjectSetAction(pTarget, "Dead");
   }
   fake->Set(pTarget);
-  Log("Killer: %d, Assister - Killer: %d", GetKiller(pTarget), pTarget->~GetAssist(GetKiller(pTarget)));
   pTarget->DeathAnnounce(GetOwner(pTarget), pTarget, GetKiller(pTarget), false, pTarget->~GetAssist(GetKiller(pTarget)) + 1);
 
   SetComDir(COMD_Stop,pTarget);
@@ -567,6 +569,9 @@ global func IsFakeDeath(object pTarget)
 
 global func FxFakeDeathDamage(object pTarget, int iEffectNumber, int iDmgEngy, int iCause)
 {
+	if(IsFakeDeath(pTarget))
+		return 0;
+
   if(GetEnergy(pTarget) <= -iDmgEngy/1000 && (FindObject(NOFD) || !IsFakeDeath(pTarget)))
   {
     //Achievements
