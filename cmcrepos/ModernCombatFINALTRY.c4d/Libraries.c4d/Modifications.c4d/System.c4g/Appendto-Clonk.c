@@ -38,7 +38,7 @@ protected func Initialize()
     AddEffect("DmgCheck",this,1,0);
 
   //Assistkillarray
-  assistkiller = [-1, -1];
+  assistkiller = [[-1, 0]];
 
   //Fake Death Effekt einfügen
   if(IsClonk() && (GetOwner() != NO_OWNER) && (GetPlayerType(GetOwner()) != C4PT_Script))
@@ -66,14 +66,14 @@ public func HurtSounds(int iDmg, int iType)
   //Projektile
   if(iType == DMG_Projectile)
   {
-    if(!Random(BoundBy(12-iDmg,0,12)))
+    if(!Random(BoundBy(4-iDmg,0,4)))
       Sound("ClonkPain*.ogg");
     return;
   }
   //Flammen
   if(iType == DMG_Fire)
   {
-    if(!Random(BoundBy(13-iDmg,0,13)))
+    if(!Random(BoundBy(3-iDmg,0,3)))
       Sound("ClonkBurn*.ogg");
     return;
   }
@@ -87,19 +87,19 @@ public func HurtSounds(int iDmg, int iType)
   //Energie
   if(iType == DMG_Energy)
   {
-    if(!Random(BoundBy(10-iDmg,0,10)))
+    if(!Random(BoundBy(5-iDmg,0,5)))
       Sound("ClonkPain*.ogg");
     return;
   }
   //Bio
   if(iType == DMG_Bio)
   {
-    if(!Random(BoundBy(20-iDmg,0,20)))
+    if(!Random(BoundBy(5-iDmg,0,5)))
       Sound("ClonkPoisened*.ogg");
     return;
   }
   //Ansonsten Standard
-  if(!Random(BoundBy(10-iDmg,0,10)))
+  if(!Random(BoundBy(4-iDmg,0,4)))
     Sound("ClonkPain*.ogg");
 }
 
@@ -163,19 +163,19 @@ public func OnHit(int iChange, int iType, object pFrom)
 
   var iByPlayer = GetController(pFrom);
   if(iByPlayer == GetOwner() || !Hostile(iByPlayer, GetOwner())) return _inherited(...); //Yay, Selfassist!11
-  for(var i=0; i < GetLength(assistkiller)/2; i++)
+  for(var i=0; i < GetLength(assistkiller); i++)
   {
-    if(assistkiller[i*2] == iByPlayer)
+    if(!assistkiller[i]) assistkiller[i] = [-1, 0];
+    if(assistkiller[i][0] == iByPlayer)
     {
-      assistkiller[i*2+1] += iChange;
+      assistkiller[i][1] += iChange;
       break;
     }
-    if(assistkiller[i*2] == -1)
+    if(assistkiller[i][0] == -1)
     {
-      assistkiller[i*2] = iByPlayer;
-      assistkiller[i*2+1] = iChange;
-      assistkiller[i*2+2] = -1;
-      assistkiller[i*2+3] = -1;
+      assistkiller[i][0] = iByPlayer;
+      assistkiller[i][1] = iChange;
+      assistkiller[i+1] = [-1, 0];
       break;
     }
   }
@@ -257,18 +257,20 @@ protected func DeathAnnounce(int plr, object clonk, int killplr, bool fNoPoints,
   return true;
 }
 
-protected func GetAssist()
+public func GetAssist(int iPlrExclude)
 {
   var highest = CreateArray(2);
-  for(var i = 0; i < GetLength(assistkiller)/2; i++)
+  for(var i = 0; i < GetLength(assistkiller); i++)
   {
-    if(assistkiller[i*2+1] > highest[0])
+    if(assistkiller[i][0] == iPlrExclude) continue;
+    if(!GetPlayerName(assistkiller[i][0])) continue;
+    if(assistkiller[i][1] > highest[1])
     {
-      highest[0] = assistkiller[i*2+1];
-      highest[1] = assistkiller[i*2];
+      highest[0] = assistkiller[i][0];
+      highest[1] = assistkiller[i][1];
     }
   }
-  return highest[1];
+  return highest[0];
 }
 
 protected func DoPoints()
@@ -344,7 +346,7 @@ protected func DoPoints()
     }
 
     //Killassist
-    var assist = GetAssist();
+    var assist = GetAssist(killer); //Ausnahme: Killer
     if(assist != killer && GetPlayerName(assist))
     {
       //Punkte bei Belohnungssystem (Kill Assist)
@@ -528,7 +530,8 @@ global func FakeDeath(object pTarget)
       ObjectSetAction(pTarget, "Dead");
   }
   fake->Set(pTarget);
-  pTarget->DeathAnnounce(GetOwner(pTarget), pTarget, GetKiller(pTarget));
+  Log("Killer: %d, Assister - Killer: %d", GetKiller(pTarget), pTarget->~GetAssist(GetKiller(pTarget)));
+  pTarget->DeathAnnounce(GetOwner(pTarget), pTarget, GetKiller(pTarget), false, pTarget->~GetAssist(GetKiller(pTarget)) + 1);
 
   SetComDir(COMD_Stop,pTarget);
   Sound("ClonkDie*.ogg", 0, pTarget);
@@ -644,7 +647,7 @@ func Death(object pTarget)
   if(FindObject(NOFD))
   {
     // Todesnachricht:
-    pTarget->DeathAnnounce(GetOwner(pTarget), pTarget, GetKiller(pTarget));
+    pTarget->DeathAnnounce(GetOwner(pTarget), pTarget, GetKiller(pTarget), false, pTarget->~GetAssist(GetKiller(pTarget)) + 1);
   }
 
   if(IsFakeDeath())
