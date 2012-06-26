@@ -1,8 +1,12 @@
 /*-- Enginefunktionen --*/
 
+//Überlädt die Namensabfrage von Spielern mit zusätzlichen Ranginformationen.
+
 #strict 2
 
-//Ranginformationen im Namen
+
+/* Ranginformationen im Namen */
+
 global func GetTaggedPlayerName(int iPlr, bool fRank, bool fCompact)
 {
   var rank = GetRankID(GetPlayerRank(iPlr));
@@ -27,11 +31,12 @@ global func GetTaggedPlayerName(int iPlr, bool fRank, bool fCompact)
   return _inherited(iPlr);
 }
 
-//Deselection-Call
+/* Abwahl-Aufruf */
+
 global func ShiftContents(object pObj, bool fShiftBack, id idTarget, bool fDoCalls)
 {
-	if(fDoCalls)
-		Contents(0, pObj)->~Deselection(pObj);
-	
-	return _inherited(pObj, fShiftBack, idTarget, fDoCalls);
+  if(fDoCalls)
+    Contents(0, pObj)->~Deselection(pObj);
+
+  return _inherited(pObj, fShiftBack, idTarget, fDoCalls);
 }

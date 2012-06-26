@@ -1,6 +1,6 @@
 /*-- Waffenautomat --*/
 
-//Kann auch Dinge verkaufen.
+//Automaten können auch getragene Objekte verkaufen.
 
 #strict 2
 
