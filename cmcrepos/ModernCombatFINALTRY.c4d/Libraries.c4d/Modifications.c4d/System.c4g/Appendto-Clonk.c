@@ -500,7 +500,7 @@ global func FakeDeath(object pTarget)
   if(!pTarget->IsClonk()) return false;
 
   pTarget->OnFakeDeath();
-  
+
   //Lebensenergie
   DoEnergy(10 - GetEnergy(pTarget), pTarget);
 
@@ -569,8 +569,8 @@ global func IsFakeDeath(object pTarget)
 
 global func FxFakeDeathDamage(object pTarget, int iEffectNumber, int iDmgEngy, int iCause)
 {
-	if(IsFakeDeath(pTarget))
-		return 0;
+  if(IsFakeDeath(pTarget))
+    return 0;
 
   if(GetEnergy(pTarget) <= -iDmgEngy/1000 && (FindObject(NOFD) || !IsFakeDeath(pTarget)))
   {
