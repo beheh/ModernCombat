@@ -1,8 +1,8 @@
 /*-- Geschützstellung --*/
- 
+
 #strict 2
 #include CSTR
- 
+
 local cur_Attachment;
 local aim_angle;
 local iPat_Dir;
@@ -13,7 +13,7 @@ local iRotation;
 local pShield;
 local fShield;
 local iTurningSpeed;
- 
+
 public func GetAttWeapon()			{return cur_Attachment;}
 public func AimAngle()				{return aim_angle + GetR();}	//Winkel auf Ziel
 public func ReadyToFire()			{return 1;}			//Ständige Feuerbereitschaft
