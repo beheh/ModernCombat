@@ -105,9 +105,6 @@ public func SetRotation(int iRot)
 
 public func OnDestruction()
 {
-	//Eingang temporär entfernen
-	SetR(1);
-
   //Waffe entfernen
   Disarm();
 
@@ -139,7 +136,6 @@ public func Destruction()
 
 public func OnRepair()
 {
-	SetR(0);
   SetAction("Ready");
   Arm(last_id);
 
