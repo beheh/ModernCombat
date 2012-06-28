@@ -13,14 +13,14 @@ public func ObjectCollectionLimit()	{return 2;}	//Anzahl Objekte im Inventar
 
 protected func Recruitment()
 {
-	var id = GetObjectInfoCoreVal("id", "ObjectInfo", this);
-	if(GetCrewExtraData(this, "CMC_Portrait") < PCMK_PortraitVersion)
-	{
-		SetCrewExtraData(this, "CMC_Portrait", PCMK_PortraitVersion);
-		if(id != CLNK)
-			SetPortrait("random", this, GetID(), true, true);
-		else //ggf. zurücksetzen
-			SetPortrait("random", this, id, true, true);
+  var id = GetObjectInfoCoreVal("id", "ObjectInfo", this);
+  if(GetCrewExtraData(this, "CMC_Portrait") < PCMK_PortraitVersion)
+  {
+    SetCrewExtraData(this, "CMC_Portrait", PCMK_PortraitVersion);
+    if(id != CLNK)
+      SetPortrait("random", this, GetID(), true, true);
+    else //ggf. zurücksetzen
+      SetPortrait("random", this, id, true, true);
 	}
 
 	return _inherited(...);
@@ -486,42 +486,43 @@ public func SelectWeapon(int iLevel, object pTarget, bool fFireModes)
 
 public func CheckIdleWeapon()
 {
-  if(Contents()) {
-    // Hack - mit BR-Bombe tut er gar nichts
+  if(Contents())
+  {
+    //Hack - mit BR-Bombe tut er gar nichts
     if(Contents()->GetID() == GBRB) return;
     if(Contents()->~RejectShift()) return;
   }
-  // Keine Waffen im Inventar
+  //Keine Waffen im Inventar
   if(!CustomContentsCount("IsWeapon")) return;
-  // nachladende Waffe in der Hand
+  //Nachladende Waffe in der Hand
   if(Contents()->~IsWeapon())
     if(Contents()->IsReloading() || Contents()->~IsRecharging())
       return;
-  // Inventar nach Waffe durchsuchen, die man Nachladen könnte
+  //Inventar nach Waffe durchsuchen, die man Nachladen könnte
   for(var i=0, mode=1, obj; obj = Contents(i) ; mode++)
   {
-    // Keine Waffe
+    //Keine Waffe
     if(!(obj->~IsWeapon()))
     {
       i++;
       mode = 0;
       continue;
     }
-    // Waffe hat gar nicht so viele Modi
+    //Waffe hat gar nicht so viele Modi
     if(!(obj->GetFMData(FM_Name, mode)))
     {
       i++;
       mode = 0;
       continue;
     }
-    // Waffe ist voll geladen
+    //Waffe ist voll geladen
     if(obj->GetAmmo(obj->GetFMData(FM_AmmoID, mode)) >= obj->GetFMData(FM_AmmoLoad, mode) / 2)
     {
       i++;
       mode = 0;
       continue;
     }
-    // EMP-Modi erstmal nicht laden
+    //EMP-Modi erstmal nicht laden
     if(obj->GetBotData(BOT_EMP, mode)) continue;
     // Waffe ist nachladbar
     if(CheckAmmo(obj->GetFMData(FM_AmmoID, mode), obj->GetFMData(FM_AmmoLoad, mode) - obj->GetAmmo(obj->GetFMData(FM_AmmoID, mode))))
@@ -529,34 +530,33 @@ public func CheckIdleWeapon()
       //mode = obj->GetFireMode();
       break;
     }
-    // Nächsten Feuermodus prüfen
+    //Nächsten Feuermodus prüfen
     if(mode == obj->GetFireMode()) continue;
     if(CheckAmmo(obj->GetFMData(FM_AmmoID, mode), obj->GetFMData(FM_AmmoLoad, mode)))
       break;
   }
-  // Nix gefunden
+  //Nichts gefunden
   if(!Contents(i)) return;
   
-  // Aha! Waffe wechseln!
+  //Waffe wechseln
   if(ContentsCount() != 1 && Contents() != obj)
     SelectInventory(obj);
-  // Feuermodus wechseln
+  //Feuermodus wechseln
   if(obj->GetFireMode() != mode)
     obj->SetFireMode(mode);
-  // Und Muni reinhauen
+  //Munition aktualisieren
   if(!Contents()->~IsRecharging())
     Schedule("Control2Contents(\"ControlThrow\")", 1);
-  // Klasse
   return(1);
 }
 
 protected func MacroComMoveTo()
 {
-	var x, y;
-	x = GetMacroCommand(0, 2);
-	y = GetMacroCommand(0, 3);
-	if (!inherited())
-		return;
-	SetCommand(this, "MoveTo", 0, x, y);
-	return;
+  var x, y;
+  x = GetMacroCommand(0, 2);
+  y = GetMacroCommand(0, 3);
+  if (!inherited())
+    return;
+  SetCommand(this, "MoveTo", 0, x, y);
+  return;
 }
