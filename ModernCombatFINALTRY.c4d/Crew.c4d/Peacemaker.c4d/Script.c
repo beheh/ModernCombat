@@ -3,7 +3,7 @@
 #strict 2
 #include HZCK
 
-static const PCMK_PortraitVersion = 140;
+static const PCMK_PortraitVersion = 150;
 
 public func WeaponCollectionLimit()	{return 3;}	//Anzahl Waffen im Inventar
 public func ObjectCollectionLimit()	{return 2;}	//Anzahl Objekte im Inventar
@@ -13,12 +13,16 @@ public func ObjectCollectionLimit()	{return 2;}	//Anzahl Objekte im Inventar
 
 protected func Recruitment()
 {
+	var id = GetObjectInfoCoreVal("id", "ObjectInfo", this);
 	if(GetCrewExtraData(this, "CMC_Portrait") < PCMK_PortraitVersion)
 	{
 		SetCrewExtraData(this, "CMC_Portrait", PCMK_PortraitVersion);
-		if(GetObjectInfoCoreVal("id", "ObjectInfo", this) != CLNK)
+		if(id != CLNK)
 			SetPortrait("random", this, GetID(), true, true);
+		else //ggf. zurücksetzen
+			SetPortrait("random", this, id, true, true);
 	}
+
 	return _inherited(...);
 }
 
