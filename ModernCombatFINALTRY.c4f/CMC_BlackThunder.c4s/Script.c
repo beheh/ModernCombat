@@ -386,11 +386,11 @@ public func ChooserFinished()
   if (FindObject(GMNR))
   {
    //Geldsäcke
-   AddMoneySpawn(770, 750, [10]);
-   AddMoneySpawn(1290, 840, [10]);
-   AddMoneySpawn(2120, 680, [10]);
-   AddMoneySpawn(2950, 840, [10]);
-   AddMoneySpawn(3470, 750, [10]);
+   AddMoneySpawn(770, 750, [20]);
+   AddMoneySpawn(1290, 840, [15]);
+   AddMoneySpawn(2120, 680, [15]);
+   AddMoneySpawn(2950, 840, [15]);
+   AddMoneySpawn(3470, 750, [20]);
   }
 
   //HTF-Spielziel

@@ -660,10 +660,10 @@ public func ChooserFinished()
   if (FindObject(GMNR))
   {
    //Geldsäcke
-   AddMoneySpawn(1075, 435, [10]);
+   AddMoneySpawn(1075, 435, [20]);
    AddMoneySpawn(1365, 305, [20]);
    AddMoneySpawn(1365, 805, [20]);
-   AddMoneySpawn(1655, 435, [10]);
+   AddMoneySpawn(1655, 435, [20]);
   }
 
   //CTF-Spielziel

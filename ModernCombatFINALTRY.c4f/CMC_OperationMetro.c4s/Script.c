@@ -728,10 +728,10 @@ public func ChooserFinished()
   if (FindObject(GMNR))
   {
    //Geldsäcke
-   AddMoneySpawn(2040, 295, [10]);
+   AddMoneySpawn(2040, 295, [20]);
    AddMoneySpawn(2620, 435, [20]);
    AddMoneySpawn(2620, 615, [20]);
-   AddMoneySpawn(3200, 295, [10]);
+   AddMoneySpawn(3200, 295, [20]);
 
    //Grenzen setzen
    CreateObject(BRDR, 950, 0, -1)->Set(0);
