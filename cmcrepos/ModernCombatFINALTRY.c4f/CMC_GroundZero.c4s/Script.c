@@ -535,10 +535,10 @@ public func ChooserFinished()
    CreateObject(SGNP, 2385, 290, -1);
 
    //Geldsäcke
-   AddMoneySpawn(1100, 545, [10]);
+   AddMoneySpawn(1100, 545, [20]);
    AddMoneySpawn(1400, 165, [20]);
    AddMoneySpawn(1400, 415, [20]);
-   AddMoneySpawn(1700, 545, [10]);
+   AddMoneySpawn(1700, 545, [20]);
   }
 
   //CTF-Spielziel

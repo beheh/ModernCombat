@@ -795,13 +795,13 @@ public func ChooserFinished()
    RemoveObject(aSelfDefense[2]);
 
    //Geldsäcke
-   AddMoneySpawn(2680, 950, [10]);
-   AddMoneySpawn(3030, 1190, [10]);
-   AddMoneySpawn(3015, 790, [10]);
-   AddMoneySpawn(3250, 1030, [10]);
-   AddMoneySpawn(3380, 920, [10]);
-   AddMoneySpawn(3380, 920, [10]);
-   AddMoneySpawn(3870, 1030, [10]);
+   AddMoneySpawn(2680, 950, [20]);
+   AddMoneySpawn(3030, 1190, [15]);
+   AddMoneySpawn(3015, 790, [15]);
+   AddMoneySpawn(3250, 1030, [15]);
+   AddMoneySpawn(3380, 920, [15]);
+   AddMoneySpawn(3380, 920, [15]);
+   AddMoneySpawn(3870, 1030, [20]);
   }
 
   //LMS/DM-Spielziel

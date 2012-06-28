@@ -415,10 +415,10 @@ public func ChooserFinished()
    sign->SetMode(1);
 
    //Geldsäcke
-   AddMoneySpawn(610, 240, [10]);
+   AddMoneySpawn(610, 240, [20]);
    AddMoneySpawn(780, 50, [20]);
    AddMoneySpawn(810, 430, [20]);
-   AddMoneySpawn(940, 160, [10]);
+   AddMoneySpawn(940, 160, [20]);
   }
 
   //CTF-Spielziel

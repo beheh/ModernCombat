@@ -368,9 +368,9 @@ public func ChooserFinished()
   if (FindObject(GMNR))
   {
    //Geldsäcke
-   AddMoneySpawn(2180, 455, [10]);
-   AddMoneySpawn(2770, 625, [20]);
-   AddMoneySpawn(3360, 455, [10]);
+   AddMoneySpawn(2180, 455, [30]);
+   AddMoneySpawn(2770, 625, [30]);
+   AddMoneySpawn(3360, 455, [30]);
   }
 
   //CTF-Spielziel
