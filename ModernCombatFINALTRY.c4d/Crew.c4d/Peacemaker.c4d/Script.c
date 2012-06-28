@@ -13,10 +13,11 @@ public func ObjectCollectionLimit()	{return 2;}	//Anzahl Objekte im Inventar
 
 protected func Recruitment()
 {
-	if (GetCrewExtraData(this, "CMC_Portrait") < PCMK_PortraitVersion)
+	if(GetCrewExtraData(this, "CMC_Portrait") < PCMK_PortraitVersion)
 	{
 		SetCrewExtraData(this, "CMC_Portrait", PCMK_PortraitVersion);
-		SetPortrait("random", this, GetID(), true, true);
+		if(GetObjectInfoCoreVal("id", "ObjectInfo", this) != CLNK)
+			SetPortrait("random", this, GetID(), true, true);
 	}
 	return _inherited(...);
 }
