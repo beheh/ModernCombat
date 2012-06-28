@@ -521,7 +521,7 @@ public func ChooserFinished()
 
    //Objekte entfernen
    RemoveObject(FindObject2(Find_ID(XTNK),Find_InRect(1450, 1220, 60, 40)));
-   RemoveObject(FindObject2(Find_ID(RSPT),Find_InRect(1479, 1239, 2, 2)));
+   RemoveObject(FindObject2(Find_ID(RSPT),Find_InRect(1479, 1258, 2, 2)));
 
    //Automat
    var store = CreateObject(WPVM,1480, 1260,-1);
