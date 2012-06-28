@@ -390,9 +390,14 @@ public func GetCharge()
   //Beim Nachladen den Status anzeigen
   if(IsReloading())
   {
-    charge = 1000*
-      (GetReloadTime()+(GetFMData(FM_Reload)*GetAmmo(ammoid)/GetFMData(FM_AmmoLoad)))/
-      GetFMData(FM_Reload)*MaxReloadAmount(GetUser())/GetFMData(FM_AmmoLoad);
+  	if(GetFMData(FM_SingleReload))
+  	{
+    	charge = 1000*
+    	  (GetReloadTime()+(GetFMData(FM_Reload)*GetAmmo(ammoid)/GetFMData(FM_AmmoLoad)))/
+    	  GetFMData(FM_Reload)*MaxReloadAmount(GetUser())/GetFMData(FM_AmmoLoad);
+  	}
+  	else
+  		charge = (GetReloadTime() * 1000 / GetFMData(FM_Reload));
   }
   //Ansonsten Ladestand anzeigen
   else
@@ -457,7 +462,11 @@ public func FxReloadStart(object pTarget, int iNumber, int iTemp, int iTime,iSlo
   
   var i = 0;
   if(NoAmmo()) i += GetFMData(FM_AmmoLoad);
-  EffectVar(0,pTarget,iNumber) = GetFMData(FM_Reload)*BoundBy(GetFMData(FM_AmmoLoad)-GetAmmo2(iSlot), 0, i+GetAmmo(GetFMData(FM_AmmoID),GetUser()))/GetFMData(FM_AmmoLoad);
+  EffectVar(0,pTarget,iNumber) = GetFMData(FM_Reload);
+  
+  if(GetFMData(FM_SingleReload)) 
+  	EffectVar(0,pTarget,iNumber) = GetFMData(FM_Reload)*BoundBy(GetFMData(FM_AmmoLoad)-GetAmmo2(iSlot), 0, i+GetAmmo(GetFMData(FM_AmmoID),GetUser()))/GetFMData(FM_AmmoLoad);
+
   EffectVar(1,pTarget,iNumber) = 0; //Vorbereiten.
   EffectVar(2,pTarget,iNumber) = iSlot;
   EffectVar(3,pTarget,iNumber) = 0;  
