@@ -40,3 +40,47 @@ global func ShiftContents(object pObj, bool fShiftBack, id idTarget, bool fDoCal
 
   return _inherited(pObj, fShiftBack, idTarget, fDoCalls);
 }
+
+/* Playlist speichern */
+
+static CMC_SavedPlayList = "";
+
+global func SetPlayList(string szPlayList, bool fNoSave)
+{
+	if(!fNoSave)
+		CMC_SavedPlayList = szPlayList;
+
+	return _inherited(szPlayList);
+}
+
+global func ResetPlayList(bool fPlayRandomMusic) 
+{ 
+	SetPlayList(CMC_SavedPlayList); 
+
+	if(fPlayRandomMusic && CMC_SavedPlayList && CMC_SavedPlayList != "*.*")
+	{
+		var j = 0, music = [];
+
+		//Playlist in Musikstücke aufteilen. (Semikolon ist Trenner)
+		for(var i = 0; i < GetLength(CMC_SavedPlayList); i++)
+		{
+			if(!music[j])
+				music[j] = "";
+
+			var char = GetChar(CMC_SavedPlayList, i);
+			if(char == 59) // Semikolon
+			{
+				j++;
+				continue;
+			}
+
+			music[j] = Format("%s%c", music[j], char);
+		}
+
+		//Zufälliges Musikstück abspielen.
+		Music(music[Random(GetLength(music))]);
+	}
+	
+	return true;
+}
+

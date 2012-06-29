@@ -200,8 +200,10 @@ public func OnGameOver()
     Sound("ObjectiveReceipt.ogg");
 
     //Endmusik einstellen
-    SetPlayList("CMC_End of War.ogg");
+    SetPlayList("CMC_End of War.ogg", true);
     Music("CMC_End of War.ogg");
+
+    Schedule("ResetPlayList(true)", 10);
   }
 }
 
