@@ -193,6 +193,16 @@ public func ForceObservation(int iPlr)
 public func OnGameOver()
 {
   //RewardEvaluation();
+
+  //Belohnungen-Regel
+  if(FindObject(RWDS))
+  {
+    Sound("ObjectiveReceipt.ogg");
+
+    //Endmusik einstellen
+    SetPlayList("CMC_End of War.ogg");
+    Music("CMC_End of War.ogg");
+  }
 }
 
 /* Spieler verlässt die Runde */
