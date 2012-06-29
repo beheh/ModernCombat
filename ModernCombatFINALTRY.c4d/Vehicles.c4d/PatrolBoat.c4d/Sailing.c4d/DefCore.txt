@@ -13,7 +13,6 @@ Components=METL=3
 Picture=0,66,64,64
 SolidMask=0,44,80,22
 TopFace=0,22,80,22
-BlastIncinerate=35
 Rebuy=1
 Float=-7
 BorderBound=1
