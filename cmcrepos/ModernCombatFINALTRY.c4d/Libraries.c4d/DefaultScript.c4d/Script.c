@@ -116,13 +116,15 @@ public func RelaunchClonk(int iPlr, object pCursor)
   //Clonkerstellung
   var pClonk;
   if(pCursor && pCursor->~GetRealCursor()) pCursor = pCursor->~GetRealCursor();
-  if(pCursor) {
-	pClonk = CreateObject(GetID(pCursor), 10, 10, iPlr);
-    GrabObjectInfo(pCursor, pClonk);
+  if(pCursor)
+  {
+    pClonk = CreateObject(GetID(pCursor), 10, 10, iPlr);
+      GrabObjectInfo(pCursor, pClonk);
   }
-  else {
-	pClonk = CreateObject(PCMK, 10, 10, iPlr);
-    MakeCrewMember(pClonk, iPlr);
+  else
+  {
+    pClonk = CreateObject(PCMK, 10, 10, iPlr);
+      MakeCrewMember(pClonk, iPlr);
   }
   DoEnergy(+150, pClonk);
   SetCursor(iPlr, pClonk);
