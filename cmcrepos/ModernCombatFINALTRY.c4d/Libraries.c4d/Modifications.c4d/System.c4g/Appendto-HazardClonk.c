@@ -871,7 +871,7 @@ public func CanDropItem()
   if(!GetInvLockMode()) return false;
   if(Contained()) return false;
   if(!Contents(0)) return false;
-  if(!Contents(0)->~IsWeapon()) return false;
+  if(!Contents(0)->~IsWeapon() && !Contents(0)->~LockInventory()) return false;
 
   return true;
 }
@@ -2195,7 +2195,7 @@ public func ControlThrow()
   if (GetPlrDownDouble(GetOwner()))
   {
     AddEffect("SquatAimTimeout", this(), 1, 15, this());
-    if(Contents(0) && Contents(0)->~IsWeapon())
+    if(Contents(0) && (Contents(0)->~IsWeapon() || Contents(0)->~LockInventory()))
     {
       return GetInvLockMode();
     }

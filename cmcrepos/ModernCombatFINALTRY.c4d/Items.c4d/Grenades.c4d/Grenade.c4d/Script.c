@@ -21,6 +21,7 @@ public func IsBouncy()		{return true;}
 public func IsReloading()	{return false;}
 public func IsShooting()	{return false;}
 public func NoArenaRemove()	{return IsFusing();}
+public func LockInventory() {return !IsFusing();}
 
 local controller,activated;
 
