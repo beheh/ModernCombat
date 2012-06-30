@@ -111,6 +111,9 @@ public func OnDestruction()
   //Schild entfernen, sofern vorhanden
   if(pShield)
     RemoveObject(pShield);
+  
+  //Definitionswechsel
+  ChangeDef(_GTB);
 
   //Effekte
   if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",8,15,0,5,250,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
@@ -132,15 +135,6 @@ public func Destruction()
     pUser->SetHUDTarget(0);
     pUser->~ShowCH();
   }
-}
-
-public func OnRepair()
-{
-  SetAction("Ready");
-  Arm(last_id);
-
-  if(fShield)
-    GetShield();
 }
 
 /* Schaden */
