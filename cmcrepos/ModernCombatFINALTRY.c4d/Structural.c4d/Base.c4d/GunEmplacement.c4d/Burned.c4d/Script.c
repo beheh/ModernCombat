@@ -18,13 +18,14 @@ public func MaxDamage()		{return 100;}
 public func IsMachine()		{return true;}
 public func StartRepair()	{return true;}
 
+
 public func OnRepair()
 {
-	//Lokale Variablen funktionslokal speichern. (Auf lokale Variablen darf nach ChangeDef nicht zugegriffen werden)
-	var attachment = last_id;
-	var shield = fShield;
-	var rotation = iRotation;
-	var speed = iTurningSpeed;
+  //Lokale Variablen funktionslokal speichern (Auf lokale Variablen darf nach ChangeDef nicht zugegriffen werden)
+  var attachment = last_id;
+  var shield = fShield;
+  var rotation = iRotation;
+  var speed = iTurningSpeed;
 
   //Definitionswechsel zum funktionstüchtigen Geschütz
   ChangeDef(GNET);
