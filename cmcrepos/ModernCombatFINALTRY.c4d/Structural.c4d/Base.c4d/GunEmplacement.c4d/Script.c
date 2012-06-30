@@ -111,13 +111,13 @@ public func OnDestruction()
   //Schild entfernen, sofern vorhanden
   if(pShield)
     RemoveObject(pShield);
-    
+
   var iRot = iRotation;
 
   //Definitionswechsel
   ChangeDef(_GTB);
 
-	if(iRot == 90)
+  if(iRot == 90)
     SetPhase(1);
   else if(iRot == -90)
     SetPhase(2);
