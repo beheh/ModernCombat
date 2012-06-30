@@ -51,10 +51,10 @@ protected func FxIntShowTimer(object pTarget, int iEffect, int iTime)
 
 protected func FxIntSignalMoneyTimer(object pTarget, int iEffect)
 {
-	if(!pTarget->~GetCurrent())
-		return false;
+  if(!pTarget->~GetCurrent())
+    return false;
 
-	//CreateParticle("Foo", 0, 0, 0, 0, 5 * 42, 255*(256**0)+255*(256**1)+10*(256**2), this);
+  CreateParticle("XSpark", 0, 0, 0, 0, 400, RGBa(255, 250, 150, 200), this);
 }
 
 /* Einsammeln */
