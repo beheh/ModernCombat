@@ -12,6 +12,7 @@ protected func Initialize()
 {
   var i = AddEffect("IntShow", this, 1, 3, this);
   EffectCall(this, i, "Timer");
+  AddEffect("IntSignalMoney", this, 1, 100, this);
 }
 
 /* Calls */
@@ -46,6 +47,14 @@ protected func FxIntShowTimer(object pTarget, int iEffect, int iTime)
     return SetVisibility(VIS_None, pTarget);
   SetVisibility(VIS_All, pTarget);
   SetObjDrawTransform(1000, 0, 0, 0, 1000, 1000 * Sin(2 * iTime, GetDefCoreVal("Height", "DefCore", GetID(pTarget)) / 2));
+}
+
+protected func FxIntSignalMoneyTimer(object pTarget, int iEffect)
+{
+	if(!pTarget->~GetCurrent())
+		return false;
+
+	//CreateParticle("Foo", 0, 0, 0, 0, 5 * 42, 255*(256**0)+255*(256**1)+10*(256**2), this);
 }
 
 /* Einsammeln */
