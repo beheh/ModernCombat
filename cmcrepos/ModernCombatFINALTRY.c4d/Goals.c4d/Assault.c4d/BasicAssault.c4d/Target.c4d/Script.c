@@ -24,10 +24,7 @@ protected func Initialize()
 
 public func OnDmg(int iDmg, int iType)
 {
-  //Explosionen sind böse.
-  if (iType == DMG_Explosion)
-    return 20;
-  //Standard, damit die Ziele was aushalten
+  if(iType == DMG_Explosion)	return 20;	//Explosionen und Druckwellen
   return 65;
 }
 
