@@ -111,9 +111,18 @@ public func OnDestruction()
   //Schild entfernen, sofern vorhanden
   if(pShield)
     RemoveObject(pShield);
+    
+  var iRot = iRotation;
 
   //Definitionswechsel
   ChangeDef(_GTB);
+
+	if(iRot == 90)
+    SetPhase(1);
+  else if(iRot == -90)
+    SetPhase(2);
+  else if(iRot == 0)
+    SetPhase(0);
 
   //Effekte
   if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",8,15,0,5,250,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
