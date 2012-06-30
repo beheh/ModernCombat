@@ -43,7 +43,7 @@ global func ShiftContents(object pObj, bool fShiftBack, id idTarget, bool fDoCal
 
 /* Playlist speichern */
 
-static CMC_SavedPlayList = "";
+static CMC_SavedPlayList;
 
 global func SetPlayList(string szPlayList, bool fNoSave)
 {
