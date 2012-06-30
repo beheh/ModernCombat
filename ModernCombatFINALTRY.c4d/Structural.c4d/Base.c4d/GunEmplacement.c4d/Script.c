@@ -111,7 +111,7 @@ public func OnDestruction()
   //Schild entfernen, sofern vorhanden
   if(pShield)
     RemoveObject(pShield);
-  
+
   //Definitionswechsel
   ChangeDef(_GTB);
 

@@ -1212,12 +1212,14 @@ private func QuickInventoryStore(object pObj)
   var fExists = false;
   if(!QINV_MenuItemIds) QINV_MenuItemIds = [];
   if(!QINV_MenuItemIds[iMenu]) QINV_MenuItemIds[iMenu] = [];
-  for(var i = 0; i < GetLength(QINV_MenuItemIds[iMenu]); i++) {
-  	if(QINV_MenuItemIds[iMenu][i] == GetID(pObj)) fExists = true;
-  	if(fExists) break;
+  for(var i = 0; i < GetLength(QINV_MenuItemIds[iMenu]); i++)
+  {
+    if(QINV_MenuItemIds[iMenu][i] == GetID(pObj)) fExists = true;
+    if(fExists) break;
   }
-  if(!fExists) {
-  	QINV_MenuItemIds[iMenu][GetLength(QINV_MenuItemIds[iMenu])] = GetID(pObj);
+  if(!fExists)
+  {
+    QINV_MenuItemIds[iMenu][GetLength(QINV_MenuItemIds[iMenu])] = GetID(pObj);
   }
 }
 
