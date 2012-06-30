@@ -114,8 +114,9 @@ public func OnDestruction()
 
   var iRot = iRotation;
 
-  //Definitionswechsel
+  //Definitions- und Aktionswechsel
   ChangeDef(_GTB);
+  SetAction("Destroyed");
 
   if(iRot == 90)
     SetPhase(1);
