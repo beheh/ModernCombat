@@ -221,7 +221,7 @@ private func DeathMenu()
   }
 
   var obj;
-  if (obj = FindObject(RWDS) && !clonk->ShorterDeathMenu())												//Punktestatistik erstellen
+  if (obj = FindObject(RWDS) && !clonk->ShorterDeathMenu())								//Punktestatistik erstellen
   {
     AddMenuItem("", "", NONE, clonk, 0, 0, "", 512, 0, 0);								//Leerzeile
     AddMenuItem(Format("$Points$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);				//Titel
