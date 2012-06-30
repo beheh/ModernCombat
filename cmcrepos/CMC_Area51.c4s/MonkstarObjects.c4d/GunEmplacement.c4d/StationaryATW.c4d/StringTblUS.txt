@@ -1,2 +1,0 @@
-Missiles=AT Missile
-Optical=Optical Control
