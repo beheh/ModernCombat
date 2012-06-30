@@ -608,11 +608,12 @@ public func ChooserFinished()
    AddAssaultTarget(CMSN, 4245, 820, 230, 2, "$Target3$", 3, [[[4170, 940], [4300, 970], [4530, 911]], [[1630, 1110], [1630, 1170], [1645, 1260]]]);
    AddAssaultTarget(HUT3, 4760, 1090, 230, 2, "$Target4$", 4, [[[4995, 1240], [5105, 1190], [5280, 1260]], [[3480, 890], [3710, 1050], [3770, 990]]]);
    AddAssaultTarget(CMSN, 4710, 1240, 230, 2, "$Target5$", 5, [[[4995, 1240], [5105, 1190], [5280, 1260]], [[3480, 890], [3710, 1050], [3770, 990]]]);
+   AddAssaultTarget(LBPC, 4180, 1270, 230, 2, "$Target3$", 6, [[[4995, 1240], [5105, 1190], [5280, 1260]], [[3480, 890], [3710, 1050], [3770, 990]]]);
 
    //Ziele verbinden
    ConnectAssaultTargets([0, 1]);
    ConnectAssaultTargets([2, 3]);
-   ConnectAssaultTargets([4, 5]);
+   ConnectAssaultTargets([4, 5, 6]);
 
    //Steine
    CreateObject(STNE, 3710, 1300, -1)->Set(2);
@@ -621,6 +622,9 @@ public func ChooserFinished()
    CreateObject(STNE, 3770, 1288, -1)->Set(3);
    CreateObject(STNE, 3835, 1340, -1);
    CreateObject(STNE, 3890, 1300, -1)->Set(3);
+
+   //Boden
+   DrawMaterialQuad("Wall-Stripes", 4130,1270, 4230,1270, 4230,1280, 4130,1280);
 
    //Erde
    Schedule("CastPXS(\"Earth\", 1250, 10, 3820, 1280)", 15, 8);
@@ -844,8 +848,8 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
    }
   }
 
-  //Ziel 5 und 6
-  if (iIndex == 4 || iIndex == 5)
+  //Ziel 5, 6 und 7
+  if (iIndex == 4 || iIndex == 5 || iIndex == 6)
   {
    if(fConnectedDestroyed)
    {
