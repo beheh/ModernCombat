@@ -523,8 +523,21 @@ public func ChooserFinished()
    RemoveObject(FindObject2(Find_ID(XTNK),Find_InRect(1450, 1220, 60, 40)));
    RemoveObject(FindObject2(Find_ID(RSPT),Find_InRect(1479, 1258, 2, 2)));
 
-   //Automat
+   //Automaten
    var store = CreateObject(WPVM,1480, 1260,-1);
+   store->AddWare(C4PA,-1);
+   store->AddWare(FAPK,-1);
+   store->AddWare(CDBT,-1);
+   store->AddWare(BWTH,-1);
+   store->AddWare(RSHL,-1);
+   store->AddWare(ATWN,-1);
+   store->AddWare(FGRN,-1);
+   store->AddWare(FRAG,-1);
+   store->AddWare(PGRN,-1);
+   store->AddWare(SGRN,-1);
+   store->AddWare(STUN,-1);
+   store->AddWare(SRBL,-1);
+   var store = CreateObject(WPVM,5495, 1230,-1);
    store->AddWare(C4PA,-1);
    store->AddWare(FAPK,-1);
    store->AddWare(CDBT,-1);
@@ -542,18 +555,17 @@ public func ChooserFinished()
    CreateObject(GNET, 1795, 1141, -1)->Set(SATW);
    CreateObject(GNET, 2380, 1140, -1)->Set(0,90);
    CreateObject(GNET, 5060, 1170, -1)->Set(SATW);
+   CreateObject(GNET, 5450, 1230, -1)->Set(SATW);
 
-   //Blackhawks und Hinweisschilder
+   //Blackhawks und Hinweisschild
    if(!FindObject(NOBH))
    {
     SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,1970,1140,-1),100*21,300);
     SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,2130,1140,-1),100*21,300);
-    SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,5495,1205,-1),100*21,300);
 
     var sign = CreateObject(SGNP, 1640, 1170, -1);
     sign->SetPhase(2);
     sign->SetMode(1);
-    CreateObject(SGNP, 5445, 1230, -1)->SetPhase(2);
    }
 
    //SSA Besitzer setzen
@@ -563,6 +575,13 @@ public func ChooserFinished()
    //SSA aktivieren
    aSelfDefense[0]->TurnOn();
    aSelfDefense[1]->TurnOn();
+
+   //Stahlbrücken
+   CreateObject(_HBR, 5325, 1282, -1);
+   CreateObject(_HBR, 5395, 1282, -1);
+
+   //Verbandskiste
+   CreateObject(BECR, 5545, 1230, -1)->AutoRespawn();
 
    //Grenzen setzen
    CreateObject(BRDR, 910, 0, -1)->Set(0);
