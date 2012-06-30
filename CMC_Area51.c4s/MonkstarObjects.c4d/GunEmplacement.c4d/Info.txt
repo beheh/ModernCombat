@@ -1,8 +1,0 @@
-public func Set(id idWeapon, int iRotationParam , bool fShieldParam, int iTurningSpeedParam)
-
-Mit dieser Funktion können vom Mapper alle wichtigen Werte gesetzt werden.
-
-idWeapon: Hier kann prinzipiell jede CMC Waffe eingesetzt werden, sinnvoll sind ACCN (Maschinenkanone) und RLSA (Raketenwerfer).
-iRotationParam: Hier wird die Ausrichtung angegeben. Gültig sind -90 (links) 0 (mittig nach oben) 90 (rechts).
-fShieldParam: 0 -> Kein Schild. 1 -> Schild
-iTurningSpeedParam: Alle Zahlen UNGLEICH 0 sind gültig. Positive Zahlen sind schneller, negative Zahlen langsamer. Standard ist 1.

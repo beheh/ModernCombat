@@ -1,1 +1,0 @@
-Represents the status of one clonk.
