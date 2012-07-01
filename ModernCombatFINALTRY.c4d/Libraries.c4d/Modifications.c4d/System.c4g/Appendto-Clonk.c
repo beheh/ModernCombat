@@ -131,7 +131,8 @@ private func CrawlSound()
 
 /* Assistkiller abspeichern */
 
-public func ResetAssist() {
+public func ResetAssist()
+{
   assistkiller = [[-1, 0]];
 }
 
