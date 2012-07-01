@@ -1,0 +1,1 @@
+Stabilisiert einen Sendeturm und bewahrt ihn vor dem Zusammenfall.
