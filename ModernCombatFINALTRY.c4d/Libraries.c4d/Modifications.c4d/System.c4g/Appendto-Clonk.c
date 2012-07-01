@@ -37,8 +37,8 @@ protected func Initialize()
   if(!GetEffect("DmgCheck",this))
     AddEffect("DmgCheck",this,1,0);
 
-  //Assistkillarray
-  assistkiller = [[-1, 0]];
+  //Assistkiller
+  ResetAssist();
 
   //Fake Death Effekt einfügen
   if(IsClonk() && (GetOwner() != NO_OWNER) && (GetPlayerType(GetOwner()) != C4PT_Script))
@@ -130,6 +130,10 @@ private func CrawlSound()
 }
 
 /* Assistkiller abspeichern */
+
+public func ResetAssist() {
+  assistkiller = [[-1, 0]];
+}
 
 public func DoHitPoints(int iPoints)
 {
@@ -517,6 +521,9 @@ global func FakeDeath(object pTarget)
 
   ResetAchievementProgress(AC12, GetOwner());
   ResetAchievementProgress(AC14, GetOwner());
+
+  //Eventuelle Assists zurücksetzen
+  pTarget->~ResetAssist();
 
   //Fake Death erstellen
   if(WildcardMatch(GetAction(pTarget),"*Crawl*"))
