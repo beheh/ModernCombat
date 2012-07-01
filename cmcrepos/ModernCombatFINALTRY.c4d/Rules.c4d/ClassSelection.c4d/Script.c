@@ -218,14 +218,12 @@ private func OpenMenu(object pClonk, int iSelection)
   var iOwner = GetOwner(pClonk);
   
   //Auswahl updaten
-  if(!iSelection && lastclass[iOwner] > 0)
-    iSelection = lastclass[iOwner] + InfoMenuItems();
-  else
-    iSelection = InfoMenuItems() + 1;
-  if(GetMenu(pClonk))
-    iSelection = GetMenuSelection(pClonk);
-
-  var iClass = CalculatePlayerSelection(iOwner, iSelection);
+  var iClass = 1;
+  if(!iSelection && lastclass[iOwner])
+    iClass = lastclass[iOwner];
+  if(GetMenu(pClonk)) {
+    iClass = CalculatePlayerSelection(iOwner, GetMenuSelection(pClonk));
+  }
 
   //Menü öffnen
   CloseMenu(pClonk);
@@ -313,6 +311,7 @@ private func OpenMenu(object pClonk, int iSelection)
 
   //Die Klassen
   var i = 0;
+  var displaying = 0;
   while(GetCData(++i, CData_Name))
   {
     if(!GetCData(i, CData_DisplayCondition, iOwner))
@@ -324,6 +323,8 @@ private func OpenMenu(object pClonk, int iSelection)
       szName = Format("<c ffff33>%s</c>", szName);
 
     AddMenuItem(szName, Format("SetupClass(%d, %d)", i, iOwner), GetCData(i, CData_Icon), pClonk, 0, 0, 0, 2, GetCData(i, CData_Facet));
+    displaying++;
+    if(i == iClass) iSelection = InfoMenuItems() + displaying;
   }
 
   if(!bNoMenuUpdate && iSelection >= 0)
