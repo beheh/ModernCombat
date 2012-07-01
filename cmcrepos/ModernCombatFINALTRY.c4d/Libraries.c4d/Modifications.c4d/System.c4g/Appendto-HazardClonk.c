@@ -1135,19 +1135,20 @@ public func QuickInventory(int iMenu, int iPage) {
 
       //Submenü zeichnen
       var pRing = CreateSpeedMenu(0, this);
-      for(var i = iPage*4; i < GetLength(aItems); i++)
+      for(var i = iPage*3; i < GetLength(aItems); i++)
       {
-        if(i >= iPage*4+4)
+        if(i >= iPage*3+3)
         {
-          pRing->AddThrowItem("$NextPage$", "QuickInventoryPaging", [iMenu, iPage+1], SM04);
+          pRing->AddLeftItem("$NextPage$", "QuickInventoryPaging", [iMenu, iPage+1], SM05);
           break;
         }
         if(aItems[i])
         {
           if(!ContentsCount(aItems[i]) && !GetGrenade(aItems[i])) continue;
-          pRing->Add(QINV_MenuOrder[i-iPage*4], GetName(0, aItems[i]), "QuickInventorySelect", aItems[i], aItems[i]);
+          pRing->Add(QINV_MenuOrder[i-iPage*3], GetName(0, aItems[i]), "QuickInventorySelect", aItems[i], aItems[i]);
         }
       }
+      pRing->AddThrowItem("$Use$", "QuickInventoryThrow", 0, SM04);
 
       //Verschiedene Menünamen einblenden
       var szName = "";
@@ -1169,6 +1170,11 @@ public func QuickInventory(int iMenu, int iPage) {
 private func QuickInventoryPaging(array aData)
 {
   QuickInventory(aData[0], aData[1]);
+}
+
+private func QuickInventoryThrow()
+{
+  ControlThrow();
 }
 
 private func QuickInventorySelect(id idObject, bool fSaveTemporary)
