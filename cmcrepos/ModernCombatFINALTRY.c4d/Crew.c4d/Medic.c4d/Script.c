@@ -56,7 +56,7 @@ public func FxEnergyBarsTimer(object target, int nr)
     var actTarget = GetActionTarget(0, bar);
     if(!(GetOCF(actTarget) & OCF_Alive) || Hostile(GetOwner(actTarget), GetOwner(target)) || !GetPlayerName(GetOwner(actTarget)))
       RemoveObject(bar);
-    else if(Contained(actTarget) || GetCursor(GetOwner(target)) != target)
+    else if(Contained(actTarget) || !GetCursor(GetOwner(target)) || (GetCursor(GetOwner(target)) != target && GetCursor(GetOwner(target))->~GetRealCursor() != target))
       bar->Update(0, true);
     else
     {
