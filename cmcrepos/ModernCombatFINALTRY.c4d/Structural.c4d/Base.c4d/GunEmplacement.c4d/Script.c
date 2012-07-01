@@ -56,7 +56,7 @@ public func Initialize()
 
   //Standardwerte setzen
   iRotation = 0;
-  iTurningSpeed = 1;
+  iTurningSpeed = 2;
   aim_angle = iRotation;
   iPat_Dir = 0;
 
