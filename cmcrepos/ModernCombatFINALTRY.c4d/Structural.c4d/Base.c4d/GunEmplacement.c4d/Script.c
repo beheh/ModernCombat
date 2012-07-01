@@ -52,7 +52,6 @@ public func MaxRotRight()
 
 public func Initialize() 
 {
-  SetAction("Ready");
   AddEffect("ShowWeapon", this, 1, 1, this, GetID());
 
   //Standardwerte setzen
@@ -64,7 +63,9 @@ public func Initialize()
   //Standardwaffe: Maschinenkanone
   Arm(ACCN);
 
-  return _inherited();
+  _inherited();
+
+  SetAction("Ready");
 }
 
 /* Stationäres Geschütz konfigurieren */

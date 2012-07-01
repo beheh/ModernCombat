@@ -9,9 +9,8 @@ NextAction=Destroyed
 
 [Action]
 Name=Ready
-Length=1
-Delay=10
-Facet=0,0,32,18,0,0
-FacetBase=0
-FacetTopFace=1
+FacetBase=1
+Facet=32,45,12,9,20,1
+Delay=3
+Length=20
 NextAction=Ready
