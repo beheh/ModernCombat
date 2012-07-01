@@ -615,6 +615,20 @@ public func ChooserFinished()
    ConnectAssaultTargets([2, 3]);
    ConnectAssaultTargets([4, 5, 6]);
 
+   //Leitern
+   CreateObject(LADR, 4310, 670, -1)->Set(15, LADR_Left|LADR_Right|LADR_Front|LADR_Additional, "W");
+   CreateObject(LADR, 4330, 715, -1)->Set(5, LADR_Left|LADR_Right|LADR_Front|LADR_Additional, "W");
+
+   //Container
+   CreateObject(CON1, 4215, 582, -1);
+   CreateObject(CON1, 4265, 582, -1);
+   CreateObject(CON1, 4280, 610, -1)->SetPerspective(2);
+
+   //Metallkisten
+   CreateObject(MWCR, 4290, 720, -1);
+   CreateObject(MWCR, 4300, 702, -1);
+   CreateObject(MWCR, 4310, 720, -1);
+
    //Steine
    CreateObject(STNE, 3710, 1300, -1)->Set(2);
    CreateObject(STNE, 3760, 1310, -1)->Set(3);
@@ -662,9 +676,9 @@ public func ChooserFinished()
    aStationary[2] = CreateObject(GNET, 3460, 890, -1);
    aStationary[2] -> Set(0,-90,1);
    aStationary[3] = CreateObject(GNET, 3880, 660, -1);
-   aStationary[3] -> Set(0,-90);
+   aStationary[3] -> Set(SATW,-90);
    aStationary[4] = CreateObject(GNET, 5060, 1170, -1);
-   aStationary[4] -> Set(0,-90);
+   aStationary[4] -> Set(SATW);
 
    //Blackhawks und Hinweisschilder
    if(!FindObject(NOBH))
@@ -682,6 +696,9 @@ public func ChooserFinished()
    SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1820,1280,-1),50*21,300);
    SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1890,1280,-1),50*21,300);
    SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,3610,1280,-1),50*21,300);
+
+   //Objekt entfernen
+   RemoveObject(FindObject2(Find_ID(LADR),Find_InRect(4230, 580, 20, 200)));
   }
 
   //HTF-Spielziel
