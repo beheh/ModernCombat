@@ -1265,7 +1265,7 @@ protected func TimerCall()
     }
 	
   //Absinken, wenn kein Pilot
-  if(((!GetPilot() && !GetAutopilot() || GetY() < 100) && throttle) || (GetAction() == "Fly" && throttle && !GetPilot() && !GetAutopilot()))
+  if(((!GetPilot() && !GetAutopilot() || GetY() < 100) && throttle) || (GetAction() == "Fly" && !GetPilot() && !GetAutopilot()))
     if(!Random(3))
     {
       if(throttle > 100)
