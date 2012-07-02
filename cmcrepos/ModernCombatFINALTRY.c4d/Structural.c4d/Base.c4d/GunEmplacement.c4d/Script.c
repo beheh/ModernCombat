@@ -341,18 +341,10 @@ public func FxActivityTimer(object pTarget, int iEffectNumber, int iEffectTime)
     var UserHUD = User->GetHUD();
     if(UserHUD)
       UserHUD->Update(GetAttWeapon(), User->AmmoStoring(),User);
-
-    if(AimAngle() > 0)
-    {
-      SetActionData(5, User);
-      SetDir(1, User);
-    }
-    else
-    {
-      SetActionData(4, User);
-      SetDir(0, User);
-    }
   }
+
+  //Clonkposition anpassen
+  UpdateDir();
 
   //Drehgeschwindigkeit
   if(iTurningSpeed>0)
@@ -395,7 +387,7 @@ protected func ActivateEntrance(pUser)
   if(IsDestroyed())
     return(0);
 
-  ObjectSetAction(pUser, "RideStill", this());
+  pUser->SetAction("RideStill", this);
   if(iRotation == 90)
     SetDir(1, pUser);
 
@@ -403,9 +395,9 @@ protected func ActivateEntrance(pUser)
   SetOwner(GetOwner(pUser));
   InitAim();
   pUser->SetHUDTarget(GetAttWeapon());
-  SetOwner(GetOwner(pUser));
   controller = pUser;
   pUser->HideCH();
+  UpdateDir();
 
   //Sound
   Sound("RSHL_Deploy.ogg", true, this, 100, GetOwner(pUser) + 1);
@@ -538,6 +530,20 @@ public func ControlUpdate(object byObj, int comdir, bool dig, bool throw)
 
 /* Sonstiges */
 
+protected func UpdateDir() {
+  var pUser = GetUser();
+  if(!pUser) return;
+
+	if(AimAngle() > 0) {
+    SetActionData(5, pUser);
+    SetDir(1, pUser);
+  }
+  else {
+    SetActionData(4, pUser);
+    SetDir(0, pUser);
+  }
+}
+
 private func InitAim()
 {
   //Fadenkreuz entfernen falls vorhanden
@@ -546,7 +552,7 @@ private func InitAim()
 
   //Besitzer setzen
   crosshair = CreateObject(HCRH, 0, 0, GetOwner(GetUser()));
-  crosshair->Init(this());
+  crosshair->Init(this);
 
   if(AimAngle()+GetR() >= 360)
     crosshair->SetAngle(AimAngle()+GetR()-360);
