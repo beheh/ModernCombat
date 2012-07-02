@@ -530,15 +530,18 @@ public func ControlUpdate(object byObj, int comdir, bool dig, bool throw)
 
 /* Sonstiges */
 
-protected func UpdateDir() {
+protected func UpdateDir()
+{
   var pUser = GetUser();
   if(!pUser) return;
 
-	if(AimAngle() > 0) {
+  if(AimAngle() > 0)
+  {
     SetActionData(5, pUser);
     SetDir(1, pUser);
   }
-  else {
+  else
+  {
     SetActionData(4, pUser);
     SetDir(0, pUser);
   }
