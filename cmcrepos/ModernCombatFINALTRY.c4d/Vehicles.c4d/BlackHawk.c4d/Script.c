@@ -684,7 +684,10 @@ protected func ContainedThrow(object ByObj)
       pMGStation->~ControlThrow(ByObj);
   //Koordinator
   if(ByObj == GetCoordinator())
-    pRocketStation->~ControlThrow(ByObj);
+    if(GetPilot())
+      pRocketStation->~ControlThrow(ByObj);
+    else
+      RefuseLaunch(ByObj);
 
   return true;
 }
@@ -738,7 +741,7 @@ public func DeployFlares()
   Sound("BKHK_DeployFlares.ogg");
 
   //Flareladezeit setzen
-  flarereload = 35 * 15;
+  flarereload = 35 * 10;
 }
 
 /* Rauchwand */
@@ -861,6 +864,14 @@ public func SwitchRadio()
 public func IsPlaying()
 {
   return fRadioPlaying;
+}
+
+/* Schützen-/Koordinator-Steuerung */
+
+protected func RefuseLaunch(object pClonk)
+{
+  Sound("BKHK_SwitchFail.ogg", false, pClonk, 100, GetOwner(pClonk)+1);
+  PlayerMessage(GetOwner(pClonk), "$PilotRequired$", pClonk);
 }
 
 /* Sitzsteuerung */
