@@ -738,7 +738,7 @@ public func DeployFlares()
   Sound("BKHK_DeployFlares.ogg");
 
   //Flareladezeit setzen
-  flarereload = 35 * 10;
+  flarereload = 35 * 15;
 }
 
 /* Rauchwand */
@@ -1096,7 +1096,7 @@ public func OnDmg(int iDmg, int iType)
   if(iType == DMG_Melee)	return 80;	//Nahkampf
   if(iType == DMG_Fire)		return 50;	//Feuer
   if(iType == DMG_Explosion)	return -70;	//Explosionen
-  if(iType == DMG_Projectile)	return 80;	//Projektile
+  if(iType == DMG_Projectile)	return 70;	//Projektile
 
   return 50;
 }
