@@ -540,7 +540,7 @@ public func ChooserFinished()
 
    //Geschützstellungen
    CreateObject(GNET, 1795, 1141, -1)->Set(SATW);
-   CreateObject(GNET, 2380, 1140, -1)->Set(0,90);
+   CreateObject(GNET, 2380, 1140, -1)->Set(SATW,90);
    CreateObject(GNET, 5060, 1170, -1)->Set(SATW);
 
    //Blackhawks und Hinweisschild
@@ -660,9 +660,9 @@ public func ChooserFinished()
    aStationary[0] = CreateObject(GNET, 1795, 1141, -1);
    aStationary[0] -> Set(0,90,1);
    aStationary[1] = CreateObject(GNET, 3410, 1130, -1);
-   aStationary[1] -> Set(0,-90,1);
+   aStationary[1] -> Set(SATW,-90,1);
    aStationary[2] = CreateObject(GNET, 3460, 890, -1);
-   aStationary[2] -> Set(0,-90,1);
+   aStationary[2] -> Set(SATW,-90,1);
    aStationary[3] = CreateObject(GNET, 3880, 660, -1);
    aStationary[3] -> Set(SATW,-90);
    aStationary[4] = CreateObject(GNET, 5060, 1170, -1);
