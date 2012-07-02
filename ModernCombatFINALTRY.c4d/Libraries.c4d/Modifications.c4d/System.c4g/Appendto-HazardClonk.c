@@ -122,7 +122,8 @@ public func ControlConf(int conf)
 
   DoAiming(iChange);
 }
-public func DoAiming(int iChange) {
+public func DoAiming(int iChange)
+{
   //zielen wir überhaupt?
   if(!IsAiming())
     return;
@@ -2291,9 +2292,10 @@ public func DoAiming(int iChange)
 {
   if(!crosshair) return;
 
-  if(IsCrawling()) {
-   // Falls wir Kriechen, Änderung auf Maximum beschränken
-   iChange = BoundBy(Abs(crosshair->GetAngle()) + iChange, 90-CRAWL_AIM_Max, 90+CRAWL_AIM_Max) - Abs(crosshair->GetAngle());
+  if(IsCrawling())
+  {
+    //Falls wir kriechen, Änderung auf Maximum beschränken
+    iChange = BoundBy(Abs(crosshair->GetAngle()) + iChange, 90-CRAWL_AIM_Max, 90+CRAWL_AIM_Max) - Abs(crosshair->GetAngle());
   }
   return _inherited(iChange);
 }
