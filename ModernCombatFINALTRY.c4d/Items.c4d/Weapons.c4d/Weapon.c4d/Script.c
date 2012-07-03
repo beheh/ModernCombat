@@ -1157,11 +1157,11 @@ private func Reloaded(caller,slot,amount)
 
 protected func Deselection(object pContainer)
 {
-  // Callback
+  //Callback
   OnDeselect(firemode);
-  // Laden stoppen
+  //Laden stoppen
   if(!GetFMData(FM_SingleReload))
-  	PauseReload();
+    PauseReload();
   //Automatischen Schuss stoppen
   if(GetFMData(FM_Auto) && IsRecharging()) stopauto=true; 
 }
