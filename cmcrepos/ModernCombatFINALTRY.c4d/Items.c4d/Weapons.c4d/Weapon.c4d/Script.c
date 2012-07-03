@@ -1153,6 +1153,19 @@ private func Reloaded(caller,slot,amount)
   OnReloaded(firemode,slot);
 }
 
+/* Nachladen stoppen */
+
+protected func Deselection(object pContainer)
+{
+  // Callback
+  OnDeselect(firemode);
+  // Laden stoppen
+  if(!GetFMData(FM_SingleReload))
+  	PauseReload();
+  //Automatischen Schuss stoppen
+  if(GetFMData(FM_Auto) && IsRecharging()) stopauto=true; 
+}
+
 /*----- Feuermodus (z.B. Kugeln, Granaten, Raketen...) -----*/
 
 /* Modus umschalten */
