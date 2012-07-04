@@ -522,7 +522,7 @@ private func HitCheck(int r, int d)
                          Find_NoContainer(),
                          Find_Or(Find_Func("IsBulletTarget",GetID(),this,shooter), Find_OCF(OCF_Alive)),
                          Find_Func("CheckEnemy",this),
-                         Find_Not(Find_Func("HitExclude"))))
+                         Find_Not(Find_Func("HitExclude",this))))
     {
       lx = mx*i/ml;
       ly = my*i/ml;
