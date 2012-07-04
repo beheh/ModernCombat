@@ -8,7 +8,7 @@ local aDealers;
 
 public func OnDamage()			{}			//Beim Erhalten von Schaden
 public func OnDestruction()		{}			//Bei der Zerstörung des Fahrzeugs
-public func OnOwnerLoss(int iPrevious)			{}			//Bei Verlust des Besitzers durch Effekt
+public func OnOwnerLoss(int iPrevious)	{}			//Bei Verlust des Besitzers durch Effekt
 public func MaxDamage()			{return 100;}		//Maximalschaden
 public func BonusPointCondition()	{return true;}		//Ob bei der Zerstörung Punkte vergeben werden
 
