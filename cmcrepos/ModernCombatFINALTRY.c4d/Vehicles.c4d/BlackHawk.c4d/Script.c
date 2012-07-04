@@ -43,18 +43,16 @@ public func IsHelicopter()		{return true;}
 public func EngineRunning()		{return GetEffect("Engine", this);}
 public func GetRotorSpeed()		{return iRotorSpeed;}
 
-public func IsBulletTarget(id idBullet, object pBullet)
+public func IsBulletTarget(id idBullet, object pBullet, object pShooter)
 {
-  //Nicht treffbar wenn neutral, außer bei FF
-  if(ObjectCount(NOFF) && GetOwner() == NO_OWNER)
+  if(EffectVar(0, pBullet, GetEffect("IntHeliProtection", pBullet)) == this)
     return false;
 
-  if (EffectVar(0, pBullet, GetEffect("IntHeliProtection", pBullet)) == this)
-    return false;
+  if(idBullet == MISS || idBullet == HMIS || idBullet == MISL || idBullet == LRML || idBullet == ESHL || idBullet == C4EX)
+    if(pBullet && ObjectDistance(pBullet) >= 40)
+      return false;
 
-  if(idBullet == MISS || idBullet == HMIS || idBullet == MISL || idBullet == LRML || idBullet == ESHL)
-    return ObjectDistance(pBullet) < 40;
-  return true;
+  return DefaultBulletTarget(idBullet, pBullet, pShooter);
 }
 
 protected func FxIntHeliProtectionStart(object pTarget, int iEffect, int iTemp, object pObj)

@@ -70,7 +70,7 @@ private func CheckFuse()
 protected func Timer()
 {
   CheckFuse();
-  if(pStickTo && !Contained(pStickTo) && pStickTo->~IsBulletTarget(GetID()))
+  if(pStickTo && !Contained(pStickTo) && pStickTo->~IsBulletTarget(GetID(), this))
   {
     SetPosition(GetX(pStickTo)+iStickXOffset, GetY(pStickTo)+iStickYOffset, this, false);
     SetXDir();
@@ -79,7 +79,7 @@ protected func Timer()
   }
   else
   {
-    pStickTo = FindObject2(Find_AtPoint(), Find_Func("IsBulletTarget", GetID()), Find_Not(Find_Func("RejectC4Attach", this)), Find_NoContainer(), Find_Not(Find_OCF(OCF_Living)));
+    pStickTo = FindObject2(Find_AtPoint(), Find_Func("IsBulletTarget", GetID(), this), Find_Not(Find_Func("RejectC4Attach", this)), Find_NoContainer(), Find_Not(Find_OCF(OCF_Living)));
     if(pStickTo)
     {
       Sound("C4EX_Attach.ogg");
