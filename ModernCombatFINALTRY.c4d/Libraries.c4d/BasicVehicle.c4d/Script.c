@@ -17,7 +17,6 @@ public func IsDestroyed()		{return fDestroyed;}	//Zerstört
 public func IsCMCVehicle()		{return true;}		//Ist ein CMC Fahrzeug
 public func IsRepairable()		{return true;}		//Reparierbar
 public func RepairSpeed()		{return 1;}		//Standard-Reparaturgeschwindigkeit
-public func HitExclude(object pBullet)	{return GetOwner() == NO_OWNER || (pBullet && !Hostile(GetOwner(), GetOwner(pBullet)));}
 
 
 /* Initialisierung */
@@ -119,6 +118,21 @@ public func OnHit(int iDmg, int iType, object pBy)
       }
     }
   }
+  return true;
+}
+
+/* Treffbar */
+
+public func DefaultBulletTarget(id idBullet, object pBullet, object pShooter) {
+  //Nicht treffbar wenn neutral
+  if(GetOwner() == NO_OWNER)
+    return false;
+  //Wir schließen hier Verbündete gezielt aus
+  //Damit müssen wir den Sonderfall nicht in den EnemyChecks einbauen
+  //C4 darf speziell immer, wenn jemandem zugehörig
+  if(idBullet != C4EX)
+    if(!Hostile(GetOwner(pBullet), GetOwner()))
+      return false;
   return true;
 }
 

@@ -4,8 +4,7 @@
 
 public func MaxDamage()			{return 200;}
 public func IgnoreFriendlyFire()	{return true;}
-public func HitExclude()		{return GetActionTarget()->HitExclude(...);}
-public func IsBulletTarget()		{return true;}
+public func IsBulletTarget()		{return GetActionTarget() && GetActionTarget()->DefaultBulletTarget(...);}
 
 local motoridle;
 
