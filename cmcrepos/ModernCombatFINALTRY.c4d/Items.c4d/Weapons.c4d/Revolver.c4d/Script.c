@@ -12,6 +12,7 @@ public func BarrelYOffset()	{return -5000;}
 public func SelectionTime()	{return 10;}
 public func IsSecondaryWeapon()	{return true;}
 
+
 /* Nahkampfangriff */
 
 public func GetMCData(int data)
@@ -33,18 +34,18 @@ public func FMData1(int data)
   if(data == FM_AmmoLoad)	return 6;
   if(data == FM_AmmoUsage)	return 1;
 
-  if(data == FM_Recharge)	return 10;
+  if(data == FM_Recharge)	return 15;
 
   if(data == FM_SingleReload)	return 7;
   if(data == FM_Reload)		return 90;
   if(data == FM_PrepareReload)	return 20;
   if(data == FM_FinishReload)	return 20;
 
-  if(data == FM_Damage)		return 20;
+  if(data == FM_Damage)		return 21;
   
   if(data == FM_Slot)		return 1;
   
-  if(data == FM_SpreadAdd)	return 100;
+  if(data == FM_SpreadAdd)	return 110;
   if(data == FM_StartSpread)	return 10;
   if(data == FM_MaxSpread)	return 200;
 
@@ -87,6 +88,7 @@ public func Fire1()
   //Effekte
   MuzzleFlash(RandomX(40,45),user,x,y,angle,0, 4);
   Sound("RVLR_Fire.ogg", 0, ammo);
+  Sound("MNGN_Click.ogg",0, 0, 50);
   Echo("PSTL_Echo.ogg");
 
   //Patronenhülse hinzufügen
