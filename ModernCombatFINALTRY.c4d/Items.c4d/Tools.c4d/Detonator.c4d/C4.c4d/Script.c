@@ -7,7 +7,7 @@ local fuse, active, thrown, pStickTo, iStickXOffset, iStickYOffset, iStickROffse
 public func LimitationCount()	{return 8;}
 public func AttractTracer()	{return false;}
 public func RejectC4Attach()	{return true;}
-
+public func IsAttached()	{return pStickTo != false;}
 
 /* Initialisierung */
 
