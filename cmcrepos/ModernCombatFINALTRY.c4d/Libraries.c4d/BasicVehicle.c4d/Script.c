@@ -8,6 +8,7 @@ local aDealers;
 
 public func OnDamage()			{}			//Beim Erhalten von Schaden
 public func OnDestruction()		{}			//Bei der Zerstörung des Fahrzeugs
+public func OnOwnerLoss(int iPrevious)			{}			//Bei Verlust des Besitzers durch Effekt
 public func MaxDamage()			{return 100;}		//Maximalschaden
 public func BonusPointCondition()	{return true;}		//Ob bei der Zerstörung Punkte vergeben werden
 
@@ -74,8 +75,12 @@ global func FxVehicleNoOwnerTimer(object pTarget, int iEffectNumber, int iTime)
     EffectVar(0, pTarget, iEffectNumber) = 10;
   }
   if(EffectVar(0, pTarget, iEffectNumber) > 0) return FX_OK;
+
+  var iPrevious = GetOwner(pTarget);
   SetController(NO_OWNER, pTarget);
   SetOwnerFade(NO_OWNER, pTarget);
+
+  pTarget->~OnOwnerLoss(iPrevious);
   return FX_OK;
 }
 
