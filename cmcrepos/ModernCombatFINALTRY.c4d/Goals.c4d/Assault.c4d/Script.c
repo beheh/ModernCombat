@@ -18,6 +18,7 @@ protected func Initialize()
 {
   iAttacker = -1;
   iDefender = -1;
+  iTickets = 1; //Damit IsFulfilled nicht gleich beendet
   aSpawns = [[],[]];
   Connected = [];
   iTicketSubtrTime = GASS_TicketIdleTime;
@@ -73,6 +74,8 @@ public func CalcTickets()
       D++;
     else
       A++;
+
+  if(!D) return 1; //Keine Verteidiger, für korrektes IsFulfilled
 
   //Ticketformel
   //return D + (A + 2 * D + D * D) / (A + 1);
@@ -601,26 +604,27 @@ private func IsFulfilled()
   }
 
   //Keine Angreifer übrig: Verteidiger gewinnen
-  else if (iAttacker != -1 && !TeamGetScore(iAttacker) && GetActiveTeamCount(true) == 1)
+  else if (iAttacker != -1 && (!GetTeamPlayerCount(iAttacker) || (!TeamGetScore(iAttacker) && GetActiveTeamCount() < 2)))
   {
     //Angreifer eliminieren 
     EliminateTeam(iAttacker);
 
     //Nachricht über Gewinner
     Message("@$DefendersWon$");
+
+    //Vorbei
+    won = true;
   }
 
   //Keine Verteidiger übrig: Angreifer gewinnen
-  else if (iDefender != -1 && !TeamGetScore(iDefender) && GetActiveTeamCount(true) < 2)
+  else if (iAttacker != -1 && (!GetTeamPlayerCount(iDefender) || (!TeamGetScore(iDefender) && GetActiveTeamCount() < 2)))
   {
     //Verteidiger eliminieren 
     EliminateTeam(iDefender);
 
     //Nachricht über Gewinner
     Message("$AttackersWon$");
-  }
 
-  if(GetActiveTeamCount(true) == 1) {
     //Vorbei
     won = true;
   }
