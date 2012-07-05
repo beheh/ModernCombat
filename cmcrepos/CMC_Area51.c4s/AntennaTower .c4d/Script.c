@@ -72,4 +72,5 @@ protected func Colapse()
   //Sound
   Sound("StructuralDamage*.ogg");
   Sound("BigExplosion.ogg");
+  Sound("TowerDestruction.ogg");
 }
