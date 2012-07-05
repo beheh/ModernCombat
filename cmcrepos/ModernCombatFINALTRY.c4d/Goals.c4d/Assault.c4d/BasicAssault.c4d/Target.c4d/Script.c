@@ -10,6 +10,7 @@ public func IsMeleeTarget(object pByObj)	{return (GetPlayerTeam(GetOwner(pByObj-
 public func AttractTracer(pTracer)		{return IsAssaultTarget() && GetPlayerTeam(GetController(pTracer)) != GetTeam();}
 public func GetKillIcon()			{return idImitation;}
 
+
 /* Initialisierung */
 
 protected func Initialize()
@@ -18,9 +19,10 @@ protected func Initialize()
   iLastDamager = -1;
 }
 
-/* Treffbar */
+/* Treffbarkeit */
 
-public func IsBulletTarget(id idBullet, object pBullet)	{
+public func IsBulletTarget(id idBullet, object pBullet)
+{
   if(pBullet)
     if(pBullet->IsC4Explosive() && GetTeam() == GetPlayerTeam(GetOwner(pBullet)))
       return false;
