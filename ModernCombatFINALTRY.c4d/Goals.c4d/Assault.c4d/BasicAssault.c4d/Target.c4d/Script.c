@@ -6,11 +6,9 @@ local aDamage;					//Schaden jedes Spielers
 local iLastDamager;				//Der letzte der Schaden verursacht hat
 local idImitation;				//Welche Definition imitiert wird
 
-public func IsBulletTarget()			{return IsAssaultTarget();}
 public func IsMeleeTarget(object pByObj)	{return (GetPlayerTeam(GetOwner(pByObj->~GetUser())) != GetTeam());}
 public func AttractTracer(pTracer)		{return IsAssaultTarget() && GetPlayerTeam(GetController(pTracer)) != GetTeam();}
 public func GetKillIcon()			{return idImitation;}
-
 
 /* Initialisierung */
 
@@ -18,6 +16,15 @@ protected func Initialize()
 {
   aDamage = [];
   iLastDamager = -1;
+}
+
+/* Treffbar */
+
+public func IsBulletTarget(id idBullet, object pBullet)	{
+  if(pBullet)
+    if(pBullet->IsC4Explosive() && GetTeam() == GetPlayerTeam(GetOwner(pBullet)))
+      return false;
+  return IsAssaultTarget();
 }
 
 /* Schaden */
