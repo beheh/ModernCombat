@@ -501,7 +501,7 @@ public func ChooserFinished()
 
    aFlag[2] = CreateObject(OFPL,4010,530,NO_OWNER);
    aFlag[2] -> AddSpawnPoint(4085,640);
-   aFlag[2] -> AddSpawnPoint(4305,710);
+   aFlag[2] -> AddSpawnPoint(4265,720);
    aFlag[2] -> AddSpawnPoint(4305,830);
    aFlag[2]->Set("$Flag3$",0,2);
 
@@ -541,6 +541,8 @@ public func ChooserFinished()
    //Geschützstellungen
    CreateObject(GNET, 1795, 1141, -1)->Set(SATW);
    CreateObject(GNET, 2380, 1140, -1)->Set(SATW,90);
+   CreateObject(GNET, 3880, 660, -1)->Set(SATW,-90);
+   CreateObject(GNET, 4310, 720, -1)->Set(SATW,90);
    CreateObject(GNET, 5060, 1170, -1)->Set(SATW);
 
    //Blackhawks und Hinweisschild
