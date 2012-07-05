@@ -608,9 +608,6 @@ private func IsFulfilled()
 
     //Nachricht über Gewinner
     Message("@$DefendersWon$");
-
-    //Vorbei
-    won = true;
   }
 
   //Keine Verteidiger übrig: Angreifer gewinnen
@@ -621,7 +618,9 @@ private func IsFulfilled()
 
     //Nachricht über Gewinner
     Message("$AttackersWon$");
+  }
 
+  if(GetActiveTeamCount(true) == 1) {
     //Vorbei
     won = true;
   }
