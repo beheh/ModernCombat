@@ -1,13 +1,12 @@
 [DefCore]
 id=GDMS
-Name=GuidedMissile
+Name=ATG Missile
 Version=4,9,5
 Category=C4D_Object
 Width=4
 Height=13
 Offset=-2,0
-Value=0
-Mass=5
+Mass=10
 Picture=4,0,64,64
 Vertices=2
 VertexY=-5,+5

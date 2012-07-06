@@ -1,2 +1,2 @@
-DE:Rakete
-US:Missile
+DE:ATG-Rakete
+US:ATG Missile

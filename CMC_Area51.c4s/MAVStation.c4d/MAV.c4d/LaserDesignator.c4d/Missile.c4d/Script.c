@@ -1,11 +1,11 @@
-/*-- Rakete für den Laser --*/
+/*-- ATG-Rakete --*/
 
 #strict 2
 #include MISL
 
-//Die Rakete kommt schon von oben, da is nix mehr mit Sicherung.
-public func SecureTime()	{return 2;}			//Mindestflugzeit
-public func SecureDistance()	{return 2;}			//Mindestabstand
+public func SecureTime()	{return 2;}	//Mindestflugzeit
+public func SecureDistance()	{return 2;}	//Mindestabstand
+
 
 public func FxFollowStart(object pTarget, int iEffectNumber, int iTemp, obj)
 {
@@ -21,13 +21,13 @@ public func FxFollowTimer(object pTarget, int iEffectNumber, int iEffectTime)
   if(GetAction(pTarget) != "Travel")
   {
     //Licht entfernen?
-    if (pLight)
+    if(pLight)
       RemoveObject(pLight);
     return;
   }
 
   var x = GetX(pTarget)-GetX(), y = GetY(pTarget)-GetY();
-  
+
   //Soll-Winkel
   var iDAngle;
   var iMaxTurn;
