@@ -29,6 +29,16 @@ public func Initialize()
 {
   _inherited();
 
+  //Neutrale Stationen sind weiß
+  if(GetOwner() == NO_OWNER)
+  {
+    SetColorDw(RGB(255,255,255));
+  }
+  else
+  {
+    SetColorDw(GetPlrColorDw(GetOwner()));
+  }
+
   SetAction("Ready");
 }
 
@@ -91,12 +101,12 @@ public func FxActivityTimer(object pTarget, int iEffectNumber, int iEffectTime)
       controller->~ShowCH();
       SetPlrView(GetOwner(controller), controller);
     }
-    
+
     if(pMav)
     {
-  		pMav->SetAction("Idle");
-  		pMav->Idle();
-  	}
+      pMav->SetAction("Idle");
+      pMav->Idle();
+    }
 
     SetOwner(-1, this);
     controller = -1;
@@ -130,7 +140,6 @@ public func FxActivityTimer(object pTarget, int iEffectNumber, int iEffectTime)
     if(pMav && pMav->GetAction() == "Flying")
       SetPlrView(GetController(), pMav);
   }
-
 }
 
 /* EMP */
@@ -205,7 +214,9 @@ private func ExitClonk(object pByObject)
     SetOwner(-1, this);
     controller = - 1;
 
-    return(1); 
+    SetColorDw(RGB(255,255,255));
+
+    return(1);
   }
   return(0);
 }
