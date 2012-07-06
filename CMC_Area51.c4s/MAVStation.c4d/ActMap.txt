@@ -1,17 +1,15 @@
 [Action]
 Name=Destroyed
-Length=1
-Delay=10
-FacetBase=0
-FacetTopFace=1
-Facet=0,37,32,18,0,0
+FacetBase=1
+Facet=24,56,6,6,9,14
+Delay=3
+Length=7
 NextAction=Destroyed
 
 [Action]
 Name=Ready
-Length=1
-Delay=10
-Facet=0,0,32,18,0,0
-FacetBase=0
-FacetTopFace=1
+FacetBase=1
+Facet=24,62,6,6,9,14
+Delay=8
+Length=7
 NextAction=Ready

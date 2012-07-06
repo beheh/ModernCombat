@@ -1,1 +1,1 @@
-Powerful defence position against incoming enemies.
+Allows to control and deploy MAV drones on the battlefield.
