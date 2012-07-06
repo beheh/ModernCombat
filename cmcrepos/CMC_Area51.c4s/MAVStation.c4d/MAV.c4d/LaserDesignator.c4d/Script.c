@@ -9,9 +9,6 @@ public func HandX()		{return 1000;}
 public func HandY()		{return -2500;}
 public func NoWeaponChoice()	{return true;}
 
-local pRocket, fView;
-
-
 protected func Construction()
 {
   AddEffect("IntNoSound", this, 1, 5);
@@ -69,16 +66,14 @@ public func LaunchRocket(id rid, int angle)
   user->WeaponEnd(x,y);
 
   //Rakete abfeuern
-  var rocket = CreateObject(rid,x,-GetY(),GetController(user));
+  var rocket = CreateObject(rid,x,-GetY()-200,GetController(user));
   AddEffect("IntHeliProtection", rocket, 1, 20, 0, BKHK, LocalN("heli", Contained()));
   rocket->Launch(angle, user);
   rocket->Sound("SATW_Launch.ogg");
   SetController(GetController(), rocket);
 
-  //Sicht auf Rakete
-  pRocket = rocket;
-
   //Effekte
+  /*
   var ax, ay, xdir, ydir;
   ax = x;
   ay = -GetY();
@@ -103,6 +98,9 @@ public func LaunchRocket(id rid, int angle)
       		RandomX(40,70),RGBa(220,200,180,0),0,0);
     }
   }
+  */
+  Sound("Airstrike2.wav");
+  
   Echo("RTLR_Echo.ogg");
 }
 
