@@ -152,15 +152,6 @@ private func FlyingTimer()
   	}
   	
   	iAimAngle += iPat_Dir;
-
-  	//HUD aktualisieren
-  	var User = GetOwner(this);
-  	if(User)
-  	{
-   	 var UserHUD = User->GetHUD();
-   	 if(UserHUD)
-   	   UserHUD->Update(GetAttWeapon(), User->AmmoStoring(),User);
-  	}
   
  	 if(crosshair)
  	 {
@@ -228,14 +219,14 @@ private func FlyingTimer()
 	}
 }
 
-public func Idle(object pClonk)
+public func Idle()
 {
   iXTendency = 0;
   iYTendency = 0;
   iXDir = 0;
   iYDir = 0;
-
-  SetPlrView(GetController(), pClonk);
+  
+  EndAim();
 }
 
 public func Arm(id idWeapon)
