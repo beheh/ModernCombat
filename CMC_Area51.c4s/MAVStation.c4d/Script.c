@@ -120,6 +120,9 @@ public func FxActivityTimer(object pTarget, int iEffectNumber, int iEffectTime)
     var UserHUD = User->GetHUD();
     if(UserHUD)
       UserHUD->Update(this, User->AmmoStoring(),User);
+      
+    if(pMav && pMav->GetAction() == "Flying")
+      SetPlrView(GetController(), pMav);
 	}
 
 }
@@ -181,11 +184,12 @@ private func ExitClonk(object pByObject)
 {
   //Nutzer auswerfen
   if(pByObject == GetUser())
-  { 
+  {
     ObjectSetAction(pByObject, "Walk"); 
     SetActionTargets(0, 0, pByObject); 
     pByObject->SetHUDTarget(0);
     controller->~ShowCH();
+    SetPlrView(GetOwner(controller), controller);
     
     if(pMav)
     {
@@ -194,6 +198,7 @@ private func ExitClonk(object pByObject)
   	}
 
     SetOwner(-1, this);
+    controller = - 1;
   		
     return(1); 
   }
@@ -286,7 +291,10 @@ public func ControlDigSingle(object pByObj)
 	if(pMav->GetAction() == "Idle")
 	{
   	if (!pMav->IsDestroyed())
+  	{
+  		pByObj->SetHUDTarget(pMav->GetAttWeapon());
   		pMav->SetAction("Flying");
+  	}
   }
   else
   {
@@ -303,12 +311,15 @@ protected func ControlDigDouble(object pByObj)
   return true;
 }
 
-protected func ControlThrow(object byObj)
+protected func ControlThrow(object pByObj)
 {
 	if(!pMav || pMav->IsDestroyed())
+	{
   	pMav = CreateObject(MAVE,0,0,GetOwner(this));
+  	pByObj->SetHUDTarget(pMav->GetAttWeapon());
+  }
   else
-  	pMav->ControlThrow(byObj);
+  	pMav->ControlThrow(pByObj);
   	
   pMav->SetAction("Flying");  	
   

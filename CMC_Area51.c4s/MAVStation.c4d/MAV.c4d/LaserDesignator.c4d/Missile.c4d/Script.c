@@ -26,23 +26,24 @@ public func FxFollowTimer(object pTarget, int iEffectNumber, int iEffectTime)
     return;
   }
 
-  var x = GetX(pTarget)-GetX(), y = GetY(pTarget)-GetY();
+	var x = GetX(pTarget)-GetX(), y = GetY(pTarget)-GetY();
 
-  //Soll-Winkel
-  var iDAngle;
-  var iMaxTurn;
-  //Sonst anvisieren
-  if(EffectVar(1,pTarget,iEffectNumber))
-  {
-    var pEnemy = EffectVar(1,pTarget,iEffectNumber);
-    iDAngle = Angle(GetX(), GetY(), GetX(pEnemy), GetY(pEnemy));
-    iMaxTurn = MaxTracerTurn();
-  }
+ 	//Soll-Winkel
+ 	var iDAngle;
+ 	var iMaxTurn;
+ 	//Sonst anvisieren
+ 	if(EffectVar(1,pTarget,iEffectNumber))
+ 	{
+ 	  var pEnemy = EffectVar(1,pTarget,iEffectNumber);
+ 	  iDAngle = Angle(GetX(), GetY(), GetX(pEnemy), GetY(pEnemy));
+ 	  iMaxTurn = MaxTracerTurn();
+ 	}
 
   var iAngle = GetR();
+ 	var iDiff = Normalize(iDAngle - iAngle,-180);
+ 	var iTurn = Min(Abs(iDiff),iMaxTurn);
 
-  var iDiff = Normalize(iDAngle - iAngle,-180);
-  var iTurn = Min(Abs(iDiff),iMaxTurn);
+	if(pEnemy && pEnemy->~Active())
+  	SetR(iAngle+iTurn*((iDiff > 0)*2-1));
 
-  SetR(iAngle+iTurn*((iDiff > 0)*2-1));
 }

@@ -42,7 +42,7 @@ public func MaxRotRight()
 
 protected func Initialize()
 {
-  iSpeed = 20;
+  iSpeed = 40;
   iAimAngle = 180;
   SetAction("Idle");
   Sound("MAVE_Engine.ogg", true, 0, 80);
@@ -109,7 +109,7 @@ private func FlyingTimer()
   SetXDir(iXDir);
   SetYDir(iYDir);
 
-  SetPlrView(GetController(), this);
+
 
   //Blinklicht (alle 30 Frames)
   if(!(GetActTime()%30))
@@ -124,7 +124,7 @@ private func FlyingTimer()
   }
   
   //Nachladen prüfen (alle 5 Frames)
-  if(!(GetActTime()%30))
+  if(!(GetActTime()%5))
   {
     if((GetAmmo(GetAttWeapon()->GetFMData(FM_AmmoID), GetAttWeapon()) < GetAttWeapon()->GetFMData(FM_AmmoUsage)) && !GetAttWeapon()->IsReloading())
       Reload();
@@ -176,18 +176,22 @@ private func FlyingTimer()
  	var number = GetEffect("ShowWeapon", this);
 
 
-	//Es folgen episch awesome funktionierende Berechnungen by Monkstar
-	
 	var x = GetX(), y = GetY(), xdir = Sin(AimAngle(), 1000), ydir = Cos(AimAngle(), -1000);
 	var gravity = GetGravity();
  
 	SetGravity(0);
-	SimFlight(x, y, xdir, ydir);
+	if (!SimFlight(x, y, xdir, ydir))
+		pLaser->Stop();
+	else 
+		if(!pLaser->Active())
+			pLaser->Start();
+			
 	SetGravity(gravity);
 	
 	SetPosition(x, y, pLaser);
-  
+	//Find_OnLine(int x, int y, int x2, int y2)
  	/*
+ 	//Es folgen episch awesome funktionierende Berechnungen by Monkstar
  	if (x > 0)
 		x = 10000 * (LandscapeWidth() - posX) / x;
  	else
@@ -402,7 +406,10 @@ public func ControlThrow(pByObj)
 	}
 	else
 	{
-		GetAttWeapon()->ControlThrow(this);
+		if(pLaser && pLaser->Active())
+			GetAttWeapon()->ControlThrow(this);
+		else
+			(PlayerMessage(GetOwner(pByObj), "$MarkRequired$", pByObj));
 	}
 	
 }
