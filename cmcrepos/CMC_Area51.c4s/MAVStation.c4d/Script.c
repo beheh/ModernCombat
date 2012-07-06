@@ -7,10 +7,9 @@ local crosshair;
 local controller;
 local pMav;
  
-public func ReadyToFire()			{return 1;}			//Ständige Feuerbereitschaft
 public func RemoveTracer()			{return IsDestroyed();}		//Tracer entfernen, wenn zerstört
 public func DisableCH()				{return true;}			//Eventuelles Fadenkreuz des Clonks ausblenden
-public func MaxDamage()				{return 100;}
+public func MaxDamage()				{return 150;}
 public func IsMachine()				{return true;}
 public func IsBulletTarget()			{return false;}
 public func IsThreat()				{return !IsDestroyed();}
@@ -27,28 +26,27 @@ public func BonusPointCondition()		{return false;}
 
 public func Initialize() 
 {
+  _inherited();
+
   SetAction("Ready");
-
-  //Standardwerte setzen
-
-  return _inherited();
 }
-
 
 /* Zerstörung */
 
 public func OnDestruction()
 {
+  //Aktion und Grafik setzen
+  SetAction("Destroyed");
+  SetGraphics("Destroyed");
 
   //Effekte
   if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",8,15,0,5,250,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
   if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("ConcreteSplinter", 8, 100, 0, 0, 40, 15, RGB(40, 20, 20));
-  CastParticles("Sandbag", 10, 70, 0,0, 35, 45, RGBa(228,228,228,0), RGBa(250,250,250,50));
+  if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("ConcreteSplinter", 4, 100, 0, 0, 40, 15);
 }
 
 public func Destruction()
 {
-
   if(GetUser())
   {
     var pUser = GetUser();
@@ -62,7 +60,9 @@ public func Destruction()
 
 public func OnRepair()
 {
+  //Aktion und Grafik setzen
   SetAction("Ready");
+  SetGraphics();
 }
 
 /* Schaden */
@@ -126,10 +126,9 @@ public func FxActivityTimer(object pTarget, int iEffectNumber, int iEffectTime)
     var UserHUD = User->GetHUD();
     if(UserHUD)
       UserHUD->Update(this, User->AmmoStoring(),User);
-      
     if(pMav && pMav->GetAction() == "Flying")
       SetPlrView(GetController(), pMav);
-	}
+  }
 
 }
 
@@ -163,13 +162,13 @@ protected func ActivateEntrance(pUser)
   SetOwner(GetOwner(pUser));
   controller = pUser;
   pUser->HideCH();
-  
+
+  //Besitzer aktualisieren
   if(pMav)
-  	pMav->SetOwner(GetOwner(this));
+    pMav->SetOwner(GetOwner(this));
 
   //Sound
   Sound("RSHL_Deploy.ogg", true, this, 100, GetOwner(pUser) + 1);
-
 
   if(!GetEffect("Activity",this))
     AddEffect("Activity", this, 1, 1 ,this);
@@ -196,16 +195,15 @@ private func ExitClonk(object pByObject)
     pByObject->SetHUDTarget(0);
     controller->~ShowCH();
     SetPlrView(GetOwner(controller), controller);
-    
+
     if(pMav)
     {
-  		pMav->SetAction("Idle");
-  		pMav->Idle();
-  	}
-
+      pMav->SetAction("Idle");
+      pMav->Idle();
+    }
     SetOwner(-1, this);
     controller = - 1;
-  		
+
     return(1); 
   }
   return(0);
@@ -215,97 +213,97 @@ private func ExitClonk(object pByObject)
 
 public func ControlLeft(object pByObj)
 {
-	if(pMav)
-		pMav->ControlLeft(pByObj);
+  if(pMav)
+    pMav->ControlLeft(pByObj);
   return true;
 }
 
 public func ControlLeftDouble(object pByObj)
 {
-	if(pMav)
-		pMav->ControlLeftDouble(pByObj);
+  if(pMav)
+    pMav->ControlLeftDouble(pByObj);
   return true;
 }
 
 public func ControlLeftReleased(object pByObj)
 {
-	if(pMav)
-		pMav->ControlLeftReleased(pByObj);
+  if(pMav)
+    pMav->ControlLeftReleased(pByObj);
   return true;
 }
 
 public func ControlRight(object pByObj)
 {
-	if(pMav)
-		pMav->ControlRight(pByObj);
+  if(pMav)
+    pMav->ControlRight(pByObj);
   return true;
 }
 
 public func ControlRightDouble(object pByObj)
 {
-	if(pMav)
-		pMav->ControlRightDouble(pByObj);
+  if(pMav)
+    pMav->ControlRightDouble(pByObj);
   return true;
 }
 
 public func ControlRightReleased(object pByObj)
 {
-	if(pMav)
-		pMav->ControlRightReleased(pByObj);
+  if(pMav)
+    pMav->ControlRightReleased(pByObj);
   return true;
 }
 
 public func ControlDown(object pByObj)
 {
-	if(pMav)
-		pMav->ControlDown(pByObj);
+  if(pMav)
+    pMav->ControlDown(pByObj);
   return true;
 }
 
 public func ControlDownDouble(object pByObj)
 {
-	if(pMav)
-		pMav->ControlDownDouble(pByObj);
+  if(pMav)
+    pMav->ControlDownDouble(pByObj);
   return true;
 }
 
 protected func ControlUp(object pByObj)
 {
-	if(pMav)
-		pMav->ControlUp(pByObj);
+  if(pMav)
+    pMav->ControlUp(pByObj);
   return true;
 }
 
 protected func ControlUpDouble(object pByObj)
 {
-	if(pMav)
-		pMav->ControlUpDouble(pByObj);
+  if(pMav)
+    pMav->ControlUpDouble(pByObj);
   return true;
 }
 
 public func ControlDigSingle(object pByObj)
 {
-	if(!pMav)
-		return;
+  if(!pMav)
+    return;
 
-	if(pMav->IsAiming())
-	{
-		pMav->EndAim();
-		return true;
-	}
+  if(pMav->IsAiming())
+  {
+    pMav->EndAim();
+    return true;
+  }
 
-	if(pMav->GetAction() == "Idle")
-	{
-  	if (!pMav->IsDestroyed())
-  	{
-  		pByObj->SetHUDTarget(pMav->GetAttWeapon());
-  		pMav->SetAction("Flying");
-  	}
+  if(pMav->GetAction() == "Idle")
+  {
+    if (!pMav->IsDestroyed())
+    {
+      pByObj->SetHUDTarget(pMav->GetAttWeapon());
+      pMav->SetAction("Flying");
+    }
   }
   else
   {
-  	pMav->SetAction("Idle");
-  	pMav->Idle();
+    pMav->SetAction("Idle");
+    pMav->Idle();
   }
 
   return true;
@@ -319,19 +317,17 @@ protected func ControlDigDouble(object pByObj)
 
 protected func ControlThrow(object pByObj)
 {
-	if(!pMav || pMav->IsDestroyed())
-	{
-  	pMav = CreateObject(MAVE,0,0,GetOwner(this));
-  	pByObj->SetHUDTarget(pMav->GetAttWeapon());
+  if(!pMav || pMav->IsDestroyed())
+  {
+    pMav = CreateObject(MAVE,0,0,GetOwner(this));
+    pByObj->SetHUDTarget(pMav->GetAttWeapon());
   }
   else
-  	pMav->ControlThrow(pByObj);
-  	
-  pMav->SetAction("Flying");  	
-  
+    pMav->ControlThrow(pByObj);
+
+  pMav->SetAction("Flying");
+
   return true;
-  
-  
 }
 
 public func ControlUpdate(object byObj, int comdir, bool dig, bool throw) 
