@@ -1,1 +1,0 @@
-Small robot unit for marking and recon missions.
