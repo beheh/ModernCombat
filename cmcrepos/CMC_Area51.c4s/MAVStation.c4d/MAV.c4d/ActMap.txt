@@ -1,0 +1,12 @@
+[Action]
+Name=Flying
+Delay=1
+StartCall=FlyingTimer
+NextAction=Flying
+FacetBase=1
+
+[Action]
+Name=Idle
+Delay=10
+NextAction=Idle
+FacetBase=1
