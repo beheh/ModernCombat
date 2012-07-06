@@ -117,7 +117,7 @@ public func FxActivityTimer(object pTarget, int iEffectNumber, int iEffectTime)
       var rgb = GetPlrColorDw(GetOwner());
     else
       var rgb = RGB(255, 255, 255);
-    CreateParticle("FlashLight", 0, 4, 0, 0 , 45, rgb, this);
+    CreateParticle("FlashLight", -2, -13, 0, 0 , 45, rgb, this);
   }
 
   //HUD aktualisieren
