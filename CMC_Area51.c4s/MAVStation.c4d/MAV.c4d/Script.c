@@ -280,7 +280,7 @@ public func EndAim()
   	RemoveEffect("ShowWeapon", this);
   
   if (pLaser)	
-  	RemoveObject(pLaser);
+  	pLaser->Stop();
   	
   fIsAiming = false;
 }
