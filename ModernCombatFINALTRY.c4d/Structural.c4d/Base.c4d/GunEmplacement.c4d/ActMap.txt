@@ -1,6 +1,5 @@
 [Action]
 Name=Destroyed
-Length=1
 FacetBase=0
 FacetTopFace=1
 Facet=0,37,32,18,0,0
