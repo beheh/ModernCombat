@@ -20,6 +20,7 @@ public func IsAiming()				{return true;}
 public func StartRepair()			{return true;}
 protected func RejectContents()			{return true;}
 public func BonusPointCondition()		{return false;}
+public func VaryingDir()			{return 3;}
 
 
 /* Initialisierung */
