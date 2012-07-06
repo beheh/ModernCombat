@@ -1,0 +1,408 @@
+/*--- MAV ---*/
+
+#strict 2
+#include CVHC
+
+local cur_Attachment;
+local iXDir;
+local iYDir;
+local iXTendency;
+local iYTendency;
+local iSpeed;
+local fIsAiming;
+local iAimAngle;
+local iPat_Dir;
+local crosshair;
+local pLaser;
+
+public func AttractTracer(object pTracer)	{return GetPlayerTeam(GetController(pTracer)) != GetTeam() && !fDestroyed;}
+public func IsBulletTarget()			{return !fDestroyed;}
+public func IsDestroyed()			{return fDestroyed;}
+public func AimAngle()				{return iAimAngle;}	//Winkel auf Ziel
+public func ReadyToFire()			{return 1;}
+public func IsMachine()				{return true;}
+public func IsThreat()				{return !IsDestroyed();}
+public func UpdateCharge()			{return 1;}
+public func GetAttWeapon()			{return cur_Attachment;}
+public func IsAiming() 				{return fIsAiming;}
+public func GetLaser()				{return pLaser;}
+
+public func MaxRotLeft()
+{
+  return 91;
+}
+
+public func MaxRotRight()
+{
+  return 269;
+}
+
+
+/* Initialisierung */
+
+protected func Initialize()
+{
+  iSpeed = 20;
+  iAimAngle = 180;
+  SetAction("Idle");
+  Sound("MAVE_Engine.ogg", true, 0, 80);
+  Arm(LRDR);
+}
+
+public func OnDestruction()
+{
+  SetAction("Idle");
+  FakeExplode(5, GetController()+1, this);
+  FadeOut();
+}
+
+/* Positionsbestimmung */
+
+public func WeaponAt(&x, &y, &r)
+{
+  x = Sin(GetR()-180, 7000);
+  y = -Cos(GetR()-250, 7000);
+  r = iAimAngle+630+GetR();
+
+  return 1;
+}
+
+public func WeaponBegin(&x, &y)
+{
+  var number = GetEffect("ShowWeapon", this);
+  if(!number)
+    return;
+  x = EffectVar(2, this, number)/1000;
+  y = EffectVar(3, this, number)/1000;
+}
+
+public func WeaponEnd(&x, &y)
+{
+  var number = GetEffect("ShowWeapon", this);
+  if(!number)
+   return;
+  x = EffectVar(4, this, number)/1000;
+  y = EffectVar(5, this, number)/1000;
+}
+
+public func GetWeaponR()
+{
+  var number = GetEffect("ShowWeapon", this);
+  if(!number)
+    return;
+  return EffectVar(1, this, number);
+}
+
+
+private func FlyingTimer()
+{
+  if(iXDir < iXTendency)
+    iXDir++;
+  if(iXDir > iXTendency)
+    iXDir--;
+
+  if(iYDir < iYTendency)
+    iYDir++;
+  if(iYDir > iYTendency)
+    iYDir--;
+
+  SetXDir(iXDir);
+  SetYDir(iYDir);
+
+  SetPlrView(GetController(), this);
+
+  //Blinklicht (alle 30 Frames)
+  if(!(GetActTime()%30))
+  {
+    if(GetTeam())
+      var rgb = GetTeamColor(GetTeam());
+    else if(GetOwner())
+      var rgb = GetPlrColorDw(GetOwner());
+    else
+      var rgb = RGB(255, 255, 255);
+    CreateParticle("FlashLight", 0, 4, 0, 0 , 45, rgb, this);
+  }
+  
+  //Nachladen prüfen (alle 5 Frames)
+  if(!(GetActTime()%30))
+  {
+    if((GetAmmo(GetAttWeapon()->GetFMData(FM_AmmoID), GetAttWeapon()) < GetAttWeapon()->GetFMData(FM_AmmoUsage)) && !GetAttWeapon()->IsReloading())
+      Reload();
+  }
+  
+	if(fIsAiming)
+	{
+  	//Waffe vorhanden?
+  	if(!GetAttWeapon()) return;
+	  //Funktionstüchtig?
+  	if(EMPShocked()) return;
+  	if(IsDestroyed()) return;
+ 	 
+ 	 cur_Attachment->SetTeam(GetTeam());
+  
+  
+  	//Überdrehung nach links und rechts verhindern
+  	if(AimAngle() <= MaxRotLeft() && iPat_Dir < 0)
+  	{
+   	 iPat_Dir = 0;
+  	}
+  	else if(AimAngle() >= MaxRotRight() && iPat_Dir > 0)
+  	{
+   	 iPat_Dir = 0;
+  	}
+  	
+  	iAimAngle += iPat_Dir;
+
+  	//HUD aktualisieren
+  	var User = GetOwner(this);
+  	if(User)
+  	{
+   	 var UserHUD = User->GetHUD();
+   	 if(UserHUD)
+   	   UserHUD->Update(GetAttWeapon(), User->AmmoStoring(),User);
+  	}
+  
+ 	 if(crosshair)
+ 	 {
+ 	   if(AimAngle()+GetR() <= 360)
+ 	     crosshair->SetAngle(AimAngle()-GetR()+360);
+ 	   else
+ 	     crosshair->SetAngle(AimAngle()-GetR());
+ 	 }
+ 	 
+ 	 if(!pLaser)
+ 	 	pLaser = CreateObject(LRDT,0,0,GetOwner(this));
+ 	 	
+ 	var number = GetEffect("ShowWeapon", this);
+
+
+	//Es folgen episch awesome funktionierende Berechnungen by Monkstar
+	
+	var x = GetX(), y = GetY(), xdir = Sin(AimAngle(), 1000), ydir = Cos(AimAngle(), -1000);
+	var gravity = GetGravity();
+ 
+	SetGravity(0);
+	SimFlight(x, y, xdir, ydir);
+	SetGravity(gravity);
+	
+	SetPosition(x, y, pLaser);
+  
+ 	/*
+ 	if (x > 0)
+		x = 10000 * (LandscapeWidth() - posX) / x;
+ 	else
+		x = -10000 * posX / x;
+ 	
+ 	if (y > 0)
+ 		y = 10000 * posY / y;
+ 	else
+ 		y = -10000 * (LandscapeHeight() - posY) / y;
+ 	
+ 	if (posX + Sin(AimAngle(), y) > LandscapeWidth() - 1)
+ 	{
+ 		x = posX + Sin(AimAngle(), x);
+ 		y = posY - Cos(AimAngle(), x);
+ 	}
+ 	else
+ 	{
+ 	 	x = posX + Sin(AimAngle(), y);
+ 		y = posY - Cos(AimAngle(), y);
+ 	}
+ 	if (AimAngle()<225)
+	{
+		PathFree2(posX, posY, x, y);
+		SetPosition(posX, posY, pLaser);
+	}
+	else
+	{
+		PathFree2(x, y, posX, posY);
+		SetPosition(x, y, pLaser);
+	}
+	*/
+	//Log(Format("angle: %d, xPrev %d, yPrev %d, xNew %d, yNew %d, Material %s", iAimAngle, x, y, posX, posY,MaterialName(GetMaterial(posX, posY))));
+ 	//SetPosition(posX, posY, pLaser);
+	}
+}
+
+public func Idle(object pClonk)
+{
+  iXTendency = 0;
+  iYTendency = 0;
+  iXDir = 0;
+  iYDir = 0;
+
+  SetPlrView(GetController(), pClonk);
+}
+
+public func Arm(id idWeapon)
+{
+
+  //Waffe erstellen
+  var pLaser = CreateObject(idWeapon, 0, 0, GetOwner());
+  Enter(this, pLaser);
+
+  //Und konfigurieren
+  SetObjectOrder(this, pLaser, 1);
+  cur_Attachment = pLaser;
+  LocalN("controller", pLaser) = this;
+}
+
+private func Reload()
+{
+  //Munitionsart bestimmen
+  var AmmoID = GetAttWeapon()->~GetFMData(FM_AmmoID);
+  //Munition erzeugen
+  Local(0, CreateContents(AmmoID)) = GetAttWeapon()->~GetFMData(FM_AmmoLoad);
+  //Feuer einstellen und nachladen
+  GetAttWeapon()->~StopAutoFire();
+  GetAttWeapon()->~Reload();
+}
+
+private func InitAim()
+{
+  //Fadenkreuz entfernen falls vorhanden
+  if(crosshair)
+    RemoveObject(crosshair);
+
+  //Besitzer setzen
+  crosshair = CreateObject(HCRH, 0, 0, GetOwner(this));
+  crosshair->Init(this);
+
+  if(AimAngle()+GetR() >= 360)
+    crosshair->SetAngle(AimAngle()+GetR()-360);
+  else
+    crosshair->SetAngle(AimAngle()+GetR());
+    
+  AddEffect("ShowWeapon", this, 20, 1, this);
+}
+
+public func EndAim()
+{
+  if(crosshair)
+    RemoveObject(crosshair);
+    
+  if (GetEffect("ShowWeapon",this))
+  	RemoveEffect("ShowWeapon", this);
+  
+  if (pLaser)	
+  	RemoveObject(pLaser);
+  	
+  fIsAiming = false;
+}
+
+/* Steuerung */
+
+public func ControlLeft(pByObj)
+{
+	if(fIsAiming)
+	{
+		iPat_Dir = 1;
+		return true;
+	}
+
+  if(iXTendency > 0)
+    iXTendency = 0;
+  else
+      iXTendency = -iSpeed;
+
+  return true;
+}
+
+public func ControlLeftDouble(pByObj)
+{
+  iXTendency = -iSpeed;
+
+  return true;
+}
+
+public func ControlLeftReleased(pByObj)
+{
+  iXTendency = 0;
+  return true;
+}
+
+public func ControlRight(pByObj)
+{
+
+	if(fIsAiming)
+	{
+		iPat_Dir = -1;
+		return true;
+	}
+	
+  if(iXTendency < 0)
+    iXTendency = 0;
+  else
+    iXTendency = iSpeed;
+
+  return true;
+}
+
+public func ControlRightDouble(pByObj)
+{
+  iXTendency = iSpeed;
+
+  return true;
+}
+
+public func ControlRightReleased(pByObj)
+{
+  iXTendency = 0;
+  return true;
+}
+
+public func ControlDown(pByObj)
+{
+
+	if(fIsAiming)
+	{
+		iPat_Dir = 0;
+		return true;
+	}
+
+  if(iYTendency < 0)
+    iYTendency = 0;
+  else
+    iYTendency = iSpeed;
+
+  return true;
+}
+
+public func ControlDownDouble(pByObj)
+{
+  iYTendency = iSpeed;
+
+  return true;
+}
+
+public func ControlUp(object pByObj)
+{
+  if(iYTendency > 0)
+    iYTendency = 0;
+  else
+    iYTendency = -iSpeed;
+
+  return true;
+}
+
+public func ControlUpDouble(pByObj)
+{
+  iYTendency = -iSpeed;
+
+  return true;
+}
+
+public func ControlThrow(pByObj)
+{
+	if(!fIsAiming)
+	{
+		InitAim();
+		fIsAiming = true;
+		
+	}
+	else
+	{
+		GetAttWeapon()->ControlThrow(this);
+	}
+	
+}
