@@ -90,6 +90,12 @@ public func FxActivityTimer(object pTarget, int iEffectNumber, int iEffectTime)
       controller->~ShowCH();
       SetPlrView(GetOwner(controller), controller);
     }
+    
+    if(pMav)
+    {
+  		pMav->SetAction("Idle");
+  		pMav->Idle();
+  	}
 
     SetOwner(-1, this);
     controller = -1;
@@ -194,7 +200,7 @@ private func ExitClonk(object pByObject)
     if(pMav)
     {
   		pMav->SetAction("Idle");
-  		pMav->Idle(pByObject);
+  		pMav->Idle();
   	}
 
     SetOwner(-1, this);

@@ -45,5 +45,7 @@ public func FxFollowTimer(object pTarget, int iEffectNumber, int iEffectTime)
 
 	if(pEnemy && pEnemy->~Active())
   	SetR(iAngle+iTurn*((iDiff > 0)*2-1));
+  else
+  	SetR(GetR()+ RandomX(-3,3));
 
 }
