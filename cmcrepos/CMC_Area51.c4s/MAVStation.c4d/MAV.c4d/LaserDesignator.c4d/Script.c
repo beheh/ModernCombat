@@ -76,9 +76,7 @@ public func LaunchRocket(id rid, int angle)
   SetController(GetController(), rocket);
 
   //Sicht auf Rakete
-  SetPlrView(GetController(), rocket);
   pRocket = rocket;
-  fView = true;
 
   //Effekte
   var ax, ay, xdir, ydir;
@@ -106,29 +104,6 @@ public func LaunchRocket(id rid, int angle)
     }
   }
   Echo("RTLR_Echo.ogg");
-}
-
-/* Raketenverfolgung */
-
-private func Check()
-{
-  if(!Contained() || !fView) return;
-
-  if(Contained()->~IsThreat()) //Für Waffengeschütz
-    if(pRocket && fView)
-      SetPlrView(GetController(), pRocket);
-}
-
-public func ControlDig(object pBy)
-{
-  fView = !fView;
-  if (!fView)
-    SetPlrView(GetController(pBy), pBy);
-  else
-  {
-    SetController(GetController(pBy));
-    Check();
-  }
 }
 
 /* Allgemein */
