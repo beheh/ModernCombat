@@ -24,7 +24,7 @@ protected func Initialize()
 public func IsBulletTarget(id idBullet, object pBullet)
 {
   if(pBullet)
-    if(pBullet->IsC4Explosive() && GetTeam() == GetPlayerTeam(GetOwner(pBullet)))
+    if(pBullet->~IsC4Explosive() && GetTeam() == GetPlayerTeam(GetOwner(pBullet)))
       return false;
   return IsAssaultTarget();
 }
