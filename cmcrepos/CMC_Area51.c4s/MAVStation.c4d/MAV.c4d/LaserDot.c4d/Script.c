@@ -13,7 +13,7 @@ func Initialize() {
 func Start()
 {
 	fActive = true;
-	LaserLight(RandomX(30,50), GetColorDw(this),0,0,10);
+	LaserLight(RandomX(3,6), GetColorDw(this),0,0,10);
 	AddEffect("Activity", this, 1, 1 ,this);
 }
 
