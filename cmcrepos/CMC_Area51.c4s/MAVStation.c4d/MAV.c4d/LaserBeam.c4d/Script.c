@@ -7,6 +7,7 @@
 
 func Initialize()
 {
+	SetColorDw(SetRGBaValue(GetColorDw(), Random(150), 0));
   ScheduleCall(this,"Death",1);
 }
 
