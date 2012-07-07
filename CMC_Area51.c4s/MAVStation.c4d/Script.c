@@ -30,9 +30,6 @@ public func Initialize()
   _inherited();
 
   SetAction("Ready");
-  
-  if(GetOwner(this) == NO_OWNER)
-  	SetColorDw(RGB(255,255,255));
 }
 
 /* Zerstörung */
@@ -93,15 +90,14 @@ public func FxActivityTimer(object pTarget, int iEffectNumber, int iEffectTime)
       controller->SetHUDTarget(0);
       controller->~ShowCH();
       SetPlrView(GetOwner(controller), controller);
-      SetColorDw(RGB(255,255,255));
     }
-    
+
     if(pMav)
     {
-  		pMav->SetAction("Idle");
-  		pMav->Idle();
-  		pMav->SetColorDw(RGB(255,255,255));
-  	}
+      pMav->SetAction("Idle");
+      pMav->Idle();
+      pMav->SetColorDw(RGB(255,255,255));
+    }
 
     SetOwner(-1, this);
     controller = -1;
@@ -135,7 +131,6 @@ public func FxActivityTimer(object pTarget, int iEffectNumber, int iEffectTime)
     if(pMav && pMav->GetAction() == "Flying")
       SetPlrView(GetController(), pMav);
   }
-
 }
 
 /* EMP */
@@ -201,7 +196,6 @@ private func ExitClonk(object pByObject)
     pByObject->SetHUDTarget(0);
     controller->~ShowCH();
     SetPlrView(GetOwner(controller), controller);
-    SetColorDw(RGB(255,255,255));
 
     if(pMav)
     {
@@ -212,8 +206,7 @@ private func ExitClonk(object pByObject)
     SetOwner(-1, this);
     controller = - 1;
 
-    return(1); 
-  }
+    return(1);  }
   return(0);
 }
 
