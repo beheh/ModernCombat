@@ -9,8 +9,8 @@ public func MaxSpeed()		{return 80;}	//Maximale Geschwindigkeit - etwas verlangs
 public func SecureTime()	{return 2;}	//Mindestflugzeit gesenkt
 public func SecureDistance()	{return 2;}	//Mindestabstand gesenkt
 
-public func ExplosionDamage()	{return 38;}			//Explosionsschaden erhöht
-public func ExplosionRadius()	{return 38;}			//Radius erhöht
+public func ExplosionDamage()	{return 32;}			//Explosionsschaden erhöht
+public func ExplosionRadius()	{return 32;}			//Radius erhöht
 
 
 public func FxFollowStart(object pTarget, int iEffectNumber, int iTemp, obj)

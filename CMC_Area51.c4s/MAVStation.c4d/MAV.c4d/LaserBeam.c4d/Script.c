@@ -7,11 +7,10 @@
 
 func Initialize()
 {
-	SetColorDw(SetRGBaValue(GetColorDw(), Random(150), 0));
-  ScheduleCall(this,"Death",1);
+	Timer();
 }
 
-func Death()
+func Timer()
 {
-  RemoveObject(this);
+  SetColorDw(SetRGBaValue(GetColorDw(), Random(150), 0));
 }

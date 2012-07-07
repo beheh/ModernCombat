@@ -28,15 +28,16 @@ public func GetAttWeapon()			{return cur_Attachment;}
 public func IsAiming() 				{return fIsAiming;}
 public func GetLaser()				{return pLaser;}
 public func Sgn(int x)							{if (x < 0) return x / x * -1; return x / x;}
+public func IsMAV()						{return true;}
 
 public func MaxRotLeft()
 {
-  return 91;
+  return 130;
 }
 
 public func MaxRotRight()
 {
-  return 269;
+  return 230;
 }
 
 
@@ -54,7 +55,8 @@ protected func Initialize()
 public func OnDestruction()
 {
   SetAction("Idle");
-  FakeExplode(5, GetController()+1, this);
+  Idle();
+  FakeExplode(4, GetController()+1, this);
   FadeOut();
 }
 
@@ -107,6 +109,13 @@ private func FlyingTimer()
     iYDir++;
   if(iYDir > iYTendency)
     iYDir--;
+
+
+  if(GetY() <= GetDefCoreVal("Offset", "DefCore", MAVE, 1) * -1 && iYTendency < 0)
+  {
+  	iYTendency = 0;
+  	iYDir = 0;
+  }
 
   SetXDir(iXDir);
   SetYDir(iYDir);
@@ -184,7 +193,7 @@ private func FlyingTimer()
 	var pEnemy;
 
 	if(pLaser->Active())
-		pEnemy = FindObject2(Find_OnLine(0, 0, x - xPos, y - yPos), Find_Hostile(GetOwner(this)), Find_NoContainer(), Find_Func("IsBulletTarget"), Sort_Distance(0, 0));
+		pEnemy = FindObject2(Find_OnLine(0, 0, x - xPos, y - yPos), Find_Hostile(GetOwner(this)), Find_NoContainer(), Find_Or(Find_OCF(OCF_Alive), Find_Func("IsBulletTarget"), Find_Func("IsCMCVehicle")), Sort_Distance(0, 0));
 	else
 		pEnemy = FindObject2(Find_OnLine(0, 0, xdir, ydir), Find_Hostile(GetOwner(this)), Find_NoContainer(), Find_Func("IsBulletTarget"), Sort_Distance(0, 0));		
 	
@@ -233,16 +242,19 @@ private func FlyingTimer()
 
 	}
 	
+	if(!pBeam)	
+		pBeam = CreateObject(LRBM, 0, 0, GetOwner(this));
+	else
+		pBeam->SetPosition(xPos, yPos);
 		
-	var pBeam = CreateObject(LRBM, 0, 0, GetOwner(this));
 	pBeam->SetVisibility(VIS_Owner | VIS_Allies);
-	pBeam->SetR(AimAngle()+90);
 	
 	if(pEnemy || pLaser->Active())
 		pBeam->SetObjDrawTransform(100 * Distance(xPos, yPos, x, y), 0, -458 * Distance(xPos, yPos, x, y), 0, 1000, 0);
 	else
 		pBeam->SetObjDrawTransform(100 * Distance(xPos, yPos, xPos + xdir/3, yPos + ydir/3), 0, -458 * Distance(xPos, yPos, xPos + xdir/3, yPos + ydir/3), 0, 1000, 0);
 	
+	pBeam->SetR(AimAngle()+90);
 	SetPosition(x, y, pLaser);
 	
 	//Find_OnLine(int x, int y, int x2, int y2)
@@ -349,6 +361,9 @@ public func EndAim()
   
   if (pLaser)	
   	pLaser->Stop();
+  	
+  if(pBeam)
+    RemoveObject(pBeam);
   	
   fIsAiming = false;
   iPat_Dir = 0;
@@ -469,7 +484,7 @@ public func ControlThrow(pByObj)
 		if(pLaser && pLaser->Active())
 			GetAttWeapon()->ControlThrow(this);
 		else
-			(PlayerMessage(GetOwner(pByObj), "$MarkRequired$", pByObj));
+			(PlayerMessage(GetOwner(pByObj), "$MarkRequired$", this));
 	}
 	
 }

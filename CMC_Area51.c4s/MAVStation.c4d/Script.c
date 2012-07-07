@@ -166,7 +166,10 @@ protected func ActivateEntrance(pUser)
 
   //Besitzer aktualisieren
   if(pMav)
+  {
     pMav->SetOwner(GetOwner(this));
+    pMav->SetAction("Flying");
+  }
 
   //Sound
   Sound("RSHL_Deploy.ogg", true, this, 100, GetOwner(pUser) + 1);
