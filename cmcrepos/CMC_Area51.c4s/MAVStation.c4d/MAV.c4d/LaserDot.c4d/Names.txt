@@ -1,2 +1,2 @@
-DE:MAV
-US:MAV
+DE:Laserpunkt
+US:Laserpunkt
