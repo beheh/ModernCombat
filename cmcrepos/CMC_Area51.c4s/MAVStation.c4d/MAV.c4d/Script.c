@@ -14,6 +14,7 @@ local iAimAngle;
 local iPat_Dir;
 local crosshair;
 local pLaser;
+local pBeam;
 
 public func AttractTracer(object pTracer)	{return GetPlayerTeam(GetController(pTracer)) != GetTeam() && !fDestroyed;}
 public func IsBulletTarget()			{return !fDestroyed;}
@@ -206,34 +207,34 @@ private func FlyingTimer()
 		{
 			x = Sin(AimAngle(), (yOff - yPos) * 1000 / (-Cos(AimAngle(), 1000))) + xPos;
 			y = -Cos(AimAngle(), (yOff - yPos) * 1000 / (-Cos(AimAngle(), 1000))) + yPos;
-			SetPosition(x, y, pLaser);
-			return;
-		}
-
-		if(Inside(yPos, Min(y, yOff), Max(y, yOff)))
-		{
-			x = Sin(AimAngle(), (xOff - xPos) * 1000 / (Sin(AimAngle(), 1000))) + xPos;
-			y = -Cos(AimAngle(), (xOff - xPos) * 1000 / (Sin(AimAngle(), 1000))) + yPos;
-			SetPosition(x, y, pLaser);
-			return;
-		}
-		
-		if((Angle(xPos, yPos, xOff, yOff) >= 180 && Angle(xPos, yPos, xOff, yOff) < AimAngle()) || (Angle(xPos, yPos, xOff, yOff) <= 180 && Angle(xPos, yPos, xOff, yOff) > AimAngle()))
-		{
-			x = Sin(AimAngle(), (yOff - yPos) * 1000 / (-Cos(AimAngle(), 1000))) + xPos;
-			y = -Cos(AimAngle(), (yOff - yPos) * 1000 / (-Cos(AimAngle(), 1000))) + yPos;
 		}
 		else
-		{
-			x = Sin(AimAngle(), (xOff - xPos) * 1000 / (Sin(AimAngle(), 1000))) + xPos;
-			y = -Cos(AimAngle(), (xOff - xPos) * 1000 / (Sin(AimAngle(), 1000))) + yPos;
-		}
+			if(Inside(yPos, Min(y, yOff), Max(y, yOff)))
+			{
+				x = Sin(AimAngle(), (xOff - xPos) * 1000 / (Sin(AimAngle(), 1000))) + xPos;
+				y = -Cos(AimAngle(), (xOff - xPos) * 1000 / (Sin(AimAngle(), 1000))) + yPos;
+			}
+			else
+				if((Angle(xPos, yPos, xOff, yOff) >= 180 && Angle(xPos, yPos, xOff, yOff) < AimAngle()) || (Angle(xPos, yPos, xOff, yOff) <= 180 && Angle(xPos, yPos, xOff, yOff) > AimAngle()))
+				{
+					x = Sin(AimAngle(), (yOff - yPos) * 1000 / (-Cos(AimAngle(), 1000))) + xPos;
+					y = -Cos(AimAngle(), (yOff - yPos) * 1000 / (-Cos(AimAngle(), 1000))) + yPos;
+				}
+				else
+				{
+					x = Sin(AimAngle(), (xOff - xPos) * 1000 / (Sin(AimAngle(), 1000))) + xPos;
+					y = -Cos(AimAngle(), (xOff - xPos) * 1000 / (Sin(AimAngle(), 1000))) + yPos;
+				}
 
 	}
 	
 		
-		
-		SetPosition(x, y, pLaser);
+	var pBeam = CreateObject(LRBM, 0, 0, GetOwner(this));
+	pBeam->SetR(AimAngle()+90);
+	pBeam->SetObjDrawTransform(100 * Distance(xPos, yPos, x, y), 0, -470 * Distance(xPos, yPos, x, y), 0, 1000, 0);
+	
+	SetPosition(x, y, pLaser);
+	
 	//Find_OnLine(int x, int y, int x2, int y2)
  	/*
  	
