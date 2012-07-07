@@ -167,7 +167,7 @@ private func FlyingTimer()
  	var number = GetEffect("ShowWeapon", this);
 
 
-	var x = GetX(), y = GetY(), xdir = Sin(AimAngle(), 1000), ydir = Cos(AimAngle(), -1000);
+	var xPos = GetX(), yPos = GetY(), x = GetX(), y = GetY(), xdir = Sin(AimAngle(), 1000), ydir = Cos(AimAngle(), -1000);
 	var gravity = GetGravity();
  
 	SetGravity(0);
@@ -178,8 +178,17 @@ private func FlyingTimer()
 			pLaser->Start();
 			
 	SetGravity(gravity);
-	
-	SetPosition(x, y, pLaser);
+
+	var pEnemy;
+
+	pEnemy = FindObject2(Find_OnLine(0, 0, x - xPos, y - yPos), Find_Hostile(GetOwner(this)), Sort_Distance(0, 0));
+	//Log("x: %d, y: %d, xdir %d, ydir %d, EnX %d, EnY %d", xPos, yPos, xdir, ydir, GetX(pEnemy), GetY(pEnemy));
+	if(pEnemy)
+	{
+		x = GetX(pEnemy);
+		y = GetY(pEnemy);
+	}
+		SetPosition(x, y, pLaser);
 	//Find_OnLine(int x, int y, int x2, int y2)
  	/*
  	//Es folgen episch awesome funktionierende Berechnungen by Monkstar
