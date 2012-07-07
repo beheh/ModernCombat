@@ -99,7 +99,7 @@ public func LaunchRocket(id rid, int angle)
     }
   }
   */
-  Sound("Airstrike2.wav");
+  
   
   Echo("RTLR_Echo.ogg");
 }
