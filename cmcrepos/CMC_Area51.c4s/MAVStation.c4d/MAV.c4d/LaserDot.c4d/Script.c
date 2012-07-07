@@ -13,7 +13,7 @@ func Initialize() {
 func Start()
 {
 	fActive = true;
-	CreateParticle("PSpark", 0, 0, 0, 0, 50, GetColorDw(this));
+	LaserLight(RandomX(30,50), GetColorDw(this),0,0,10);
 	AddEffect("Activity", this, 1, 1 ,this);
 }
 
@@ -25,5 +25,5 @@ func Stop()
 }
 
 public func FxActivityTimer(object pTarget, int iEffectNumber, int iEffectTime) {
-	CreateParticle("PSpark", 0, 0, 0, 0, 50, GetColorDw(this));
+	LaserLight(RandomX(3,6), GetColorDw(this),0,0,10);
 }
