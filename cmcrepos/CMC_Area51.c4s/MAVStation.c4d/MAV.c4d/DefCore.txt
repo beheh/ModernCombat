@@ -13,3 +13,4 @@ Value=50
 Mass=30
 Picture=0,15,52,52
 ColorByOwner=1
+BorderBound=1

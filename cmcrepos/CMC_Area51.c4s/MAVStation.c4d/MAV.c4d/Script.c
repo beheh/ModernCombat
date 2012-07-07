@@ -231,7 +231,7 @@ private func FlyingTimer()
 		
 	var pBeam = CreateObject(LRBM, 0, 0, GetOwner(this));
 	pBeam->SetR(AimAngle()+90);
-	pBeam->SetObjDrawTransform(100 * Distance(xPos, yPos, x, y), 0, -470 * Distance(xPos, yPos, x, y), 0, 1000, 0);
+	pBeam->SetObjDrawTransform(100 * Distance(xPos, yPos, x, y), 0, -458 * Distance(xPos, yPos, x, y), 0, 1000, 0);
 	
 	SetPosition(x, y, pLaser);
 	
