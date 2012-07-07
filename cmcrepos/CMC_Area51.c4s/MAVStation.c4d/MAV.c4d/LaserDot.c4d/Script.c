@@ -14,7 +14,8 @@ func Start()
 {
 	fActive = true;
 	LaserLight(RandomX(3,6), GetColorDw(this),0,0,10);
-	AddEffect("Activity", this, 1, 1 ,this);
+	if(!GetEffect("Activity",this))
+		AddEffect("Activity", this, 1, 1 ,this);
 }
 
 func Stop()
