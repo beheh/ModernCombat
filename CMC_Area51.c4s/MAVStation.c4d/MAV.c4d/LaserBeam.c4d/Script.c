@@ -1,13 +1,16 @@
 /*-- Laserstrahl --*/
 
-#strict
+#strict 2
 
-func Initialize() {
-  
+
+/* Initialisierung */
+
+func Initialize()
+{
   ScheduleCall(this,"Death",1);
 }
 
 func Death()
 {
-	RemoveObject(this);
+  RemoveObject(this);
 }

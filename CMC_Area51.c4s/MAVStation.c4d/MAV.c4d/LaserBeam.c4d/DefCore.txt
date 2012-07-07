@@ -8,3 +8,4 @@ Width=10
 Height=1
 Offset=0,0
 Rotate=1
+ColorByOwner=1
