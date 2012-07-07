@@ -1,7 +1,7 @@
 [DefCore]
 id=LRDT
 Version=4,9,8
-Name=MAV
+Name=Laser Dot
 Category=C4D_StaticBack
 Width=1
 Height=1

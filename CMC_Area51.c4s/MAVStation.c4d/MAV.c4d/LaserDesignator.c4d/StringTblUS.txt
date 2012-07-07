@@ -1,2 +1,2 @@
-Missiles=AT Missile
-Optical=Optical Guidance
+Missiles=Hellfire Missile
+Optical=Laser Guidance

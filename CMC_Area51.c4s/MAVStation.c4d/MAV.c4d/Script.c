@@ -26,6 +26,7 @@ public func UpdateCharge()			{return 1;}
 public func GetAttWeapon()			{return cur_Attachment;}
 public func IsAiming() 				{return fIsAiming;}
 public func GetLaser()				{return pLaser;}
+public func Sgn(int x)							{if (x < 0) return x / x * -1; return x / x;}
 
 public func MaxRotLeft()
 {
@@ -181,17 +182,61 @@ private func FlyingTimer()
 
 	var pEnemy;
 
-	pEnemy = FindObject2(Find_OnLine(0, 0, x - xPos, y - yPos), Find_Hostile(GetOwner(this)), Sort_Distance(0, 0));
-	//Log("x: %d, y: %d, xdir %d, ydir %d, EnX %d, EnY %d", xPos, yPos, xdir, ydir, GetX(pEnemy), GetY(pEnemy));
+	pEnemy = FindObject2(Find_OnLine(0, 0, x - xPos, y - yPos), Find_Hostile(GetOwner(this)), Find_NoContainer(), Find_Func("IsBulletTarget"), Sort_Distance(0, 0));
+	
+	//Es folgen episch awesome funktionierende Berechnungen by Monkstar
 	if(pEnemy)
 	{
 		x = GetX(pEnemy);
 		y = GetY(pEnemy);
+		
+		var xOff, yOff;
+		
+		if(xPos > x)
+			xOff = GetDefCoreVal("Width", "DefCore", GetID(pEnemy)) + GetDefCoreVal("Offset", "DefCore", GetID(pEnemy), 0) + x;
+		else
+			xOff = GetDefCoreVal("Offset", "DefCore", GetID(pEnemy), 0) + x;
+			
+		if(yPos > y)
+			yOff = GetDefCoreVal("Height", "DefCore", GetID(pEnemy)) + GetDefCoreVal("Offset", "DefCore", GetID(pEnemy), 1) + y;
+		else
+			yOff = GetDefCoreVal("Offset", "DefCore", GetID(pEnemy), 1) + y;
+		
+		if(Inside(xPos, Min(x, xOff), Max(x, xOff)))
+		{
+			x = Sin(AimAngle(), (yOff - yPos) * 1000 / (-Cos(AimAngle(), 1000))) + xPos;
+			y = -Cos(AimAngle(), (yOff - yPos) * 1000 / (-Cos(AimAngle(), 1000))) + yPos;
+			SetPosition(x, y, pLaser);
+			return;
+		}
+
+		if(Inside(yPos, Min(y, yOff), Max(y, yOff)))
+		{
+			x = Sin(AimAngle(), (xOff - xPos) * 1000 / (Sin(AimAngle(), 1000))) + xPos;
+			y = -Cos(AimAngle(), (xOff - xPos) * 1000 / (Sin(AimAngle(), 1000))) + yPos;
+			SetPosition(x, y, pLaser);
+			return;
+		}
+		
+		if((Angle(xPos, yPos, xOff, yOff) >= 180 && Angle(xPos, yPos, xOff, yOff) < AimAngle()) || (Angle(xPos, yPos, xOff, yOff) <= 180 && Angle(xPos, yPos, xOff, yOff) > AimAngle()))
+		{
+			x = Sin(AimAngle(), (yOff - yPos) * 1000 / (-Cos(AimAngle(), 1000))) + xPos;
+			y = -Cos(AimAngle(), (yOff - yPos) * 1000 / (-Cos(AimAngle(), 1000))) + yPos;
+		}
+		else
+		{
+			x = Sin(AimAngle(), (xOff - xPos) * 1000 / (Sin(AimAngle(), 1000))) + xPos;
+			y = -Cos(AimAngle(), (xOff - xPos) * 1000 / (Sin(AimAngle(), 1000))) + yPos;
+		}
+
 	}
+	
+		
+		
 		SetPosition(x, y, pLaser);
 	//Find_OnLine(int x, int y, int x2, int y2)
  	/*
- 	//Es folgen episch awesome funktionierende Berechnungen by Monkstar
+ 	
  	if (x > 0)
 		x = 10000 * (LandscapeWidth() - posX) / x;
  	else
@@ -242,7 +287,7 @@ public func Arm(id idWeapon)
 {
 
   //Waffe erstellen
-  var pLaser = CreateObject(idWeapon, 0, 0, GetOwner());
+  var pLaser = CreateObject(idWeapon, 0, 0, GetOwner(this));
   Enter(this, pLaser);
 
   //Und konfigurieren
@@ -271,6 +316,9 @@ private func InitAim()
   //Besitzer setzen
   crosshair = CreateObject(HCRH, 0, 0, GetOwner(this));
   crosshair->Init(this);
+  
+  if (pLaser)
+  	pLaser->SetOwner(GetOwner(this));
 
   if(AimAngle()+GetR() >= 360)
     crosshair->SetAngle(AimAngle()+GetR()-360);
@@ -292,6 +340,7 @@ public func EndAim()
   	pLaser->Stop();
   	
   fIsAiming = false;
+  iPat_Dir = 0;
 }
 
 /* Steuerung */

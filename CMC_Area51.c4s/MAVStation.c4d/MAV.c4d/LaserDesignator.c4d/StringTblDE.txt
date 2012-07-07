@@ -1,2 +1,2 @@
-Missiles=AT-Rakete
-Optical=Optisches Lenken
+Missiles=Hellfire-Rakete
+Optical=Laserlenkung

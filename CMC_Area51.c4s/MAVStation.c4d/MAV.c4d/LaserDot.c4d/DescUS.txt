@@ -1,1 +1,1 @@
-Small robot unit for marking and recon missions.
+This dot marks the rocket's targets.
