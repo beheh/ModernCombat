@@ -169,7 +169,7 @@ private func FlyingTimer()
  	var number = GetEffect("ShowWeapon", this);
 
 
-	var xPos = GetX(), yPos = GetY(), x = GetX(), y = GetY(), xdir = Sin(AimAngle(), 1000), ydir = Cos(AimAngle(), -1000);
+	var xPos = GetX(), yPos = GetY(), x = GetX(), y = GetY(), xdir = Sin(AimAngle(), 3000), ydir = Cos(AimAngle(), -3000);
 	var gravity = GetGravity();
  
 	SetGravity(0);
@@ -183,11 +183,16 @@ private func FlyingTimer()
 
 	var pEnemy;
 
-	pEnemy = FindObject2(Find_OnLine(0, 0, x - xPos, y - yPos), Find_Hostile(GetOwner(this)), Find_NoContainer(), Find_Func("IsBulletTarget"), Sort_Distance(0, 0));
+	if(pLaser->Active())
+		pEnemy = FindObject2(Find_OnLine(0, 0, x - xPos, y - yPos), Find_Hostile(GetOwner(this)), Find_NoContainer(), Find_Func("IsBulletTarget"), Sort_Distance(0, 0));
+	else
+		pEnemy = FindObject2(Find_OnLine(0, 0, xdir, ydir), Find_Hostile(GetOwner(this)), Find_NoContainer(), Find_Func("IsBulletTarget"), Sort_Distance(0, 0));		
 	
 	//Es folgen episch awesome funktionierende Berechnungen by Monkstar
 	if(pEnemy)
 	{
+		pLaser->Start();
+		
 		x = GetX(pEnemy);
 		y = GetY(pEnemy);
 		
@@ -232,7 +237,11 @@ private func FlyingTimer()
 	var pBeam = CreateObject(LRBM, 0, 0, GetOwner(this));
 	pBeam->SetVisibility(VIS_Owner | VIS_Allies);
 	pBeam->SetR(AimAngle()+90);
-	pBeam->SetObjDrawTransform(100 * Distance(xPos, yPos, x, y), 0, -458 * Distance(xPos, yPos, x, y), 0, 1000, 0);
+	
+	if(pEnemy || pLaser->Active())
+		pBeam->SetObjDrawTransform(100 * Distance(xPos, yPos, x, y), 0, -458 * Distance(xPos, yPos, x, y), 0, 1000, 0);
+	else
+		pBeam->SetObjDrawTransform(100 * Distance(xPos, yPos, xPos + xdir/3, yPos + ydir/3), 0, -458 * Distance(xPos, yPos, xPos + xdir/3, yPos + ydir/3), 0, 1000, 0);
 	
 	SetPosition(x, y, pLaser);
 	
