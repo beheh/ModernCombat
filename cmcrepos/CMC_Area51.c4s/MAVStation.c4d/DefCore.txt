@@ -16,4 +16,3 @@ VertexY=6,14,14,-3,-3
 VertexFriction=20,20,20,20,20
 VertexCNAT=0,0,0,0,0
 TopFace=0,30,24,30,0,0
-ColorByOwner=1
