@@ -15,6 +15,7 @@ local iPat_Dir;
 local crosshair;
 local pLaser;
 local pBeam;
+local iC4Count;
 
 public func AttractTracer(object pTracer)	{return GetPlayerTeam(GetController(pTracer)) != GetTeam() && !fDestroyed;}
 public func IsBulletTarget()			{return !fDestroyed;}
@@ -29,15 +30,16 @@ public func IsAiming() 				{return fIsAiming;}
 public func GetLaser()				{return pLaser;}
 public func Sgn(int x)							{if (x < 0) return x / x * -1; return x / x;}
 public func IsMAV()						{return true;}
+public func MaxDamage()				{return 40;}
 
 public func MaxRotLeft()
 {
-  return 130;
+  return 120;
 }
 
 public func MaxRotRight()
 {
-  return 230;
+  return 240;
 }
 
 
@@ -117,8 +119,8 @@ private func FlyingTimer()
   	iYDir = 0;
   }
 
-  SetXDir(iXDir);
-  SetYDir(iYDir);
+  SetXDir(iXDir / (iC4Count+1));
+  SetYDir(iYDir / (iC4Count+1));
 
 
 
@@ -139,6 +141,15 @@ private func FlyingTimer()
   {
     if((GetAmmo(GetAttWeapon()->GetFMData(FM_AmmoID), GetAttWeapon()) < GetAttWeapon()->GetFMData(FM_AmmoUsage)) && !GetAttWeapon()->IsReloading())
       Reload();
+     
+    iC4Count = 0;
+    
+    for(var pC4 in FindObjects(Find_Distance(50, 0, 0), Find_Func("IsC4Explosive")))
+    {
+    	if(LocalN("pStickTo",pC4) != this)
+    		continue;
+    	iC4Count++;
+    }
   }
   
 	if(fIsAiming)
