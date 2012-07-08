@@ -317,8 +317,16 @@ private func FlyingTimer()
   }
 }
 
+public func Start()
+{
+	SetAction("Flying");
+	Sound("MAVE_Engine.ogg", 0, 0, 70, 0, +1);
+}
+
 public func Idle()
 {
+	SetAction("Idle");
+	
   iXTendency = 0;
   iYTendency = 0;
   iXDir = 0;
