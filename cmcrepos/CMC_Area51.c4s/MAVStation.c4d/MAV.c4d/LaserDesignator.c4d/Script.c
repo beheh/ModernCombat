@@ -1,4 +1,4 @@
-/*-- LaserDesignator --*/
+/*-- Lasermarkierer --*/
 
 #strict 2
 
