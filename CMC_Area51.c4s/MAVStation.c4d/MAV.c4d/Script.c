@@ -198,7 +198,7 @@ private func FlyingTimer()
       
    var number = GetEffect("ShowWeapon", this);
 
-  var xPos = GetX(), yPos = GetY(), x = GetX(), y = GetY(), xdir = Sin(AimAngle(), 3000), ydir = Cos(AimAngle(), -3000);
+  var xPos = GetX(), yPos = GetY(), x = GetX(), y = GetY(), xdir = Sin(AimAngle(), 30), ydir = Cos(AimAngle(), -30);
   var gravity = GetGravity();
  
   SetGravity(0);
@@ -207,9 +207,11 @@ private func FlyingTimer()
   else 
     if(!pLaser->Active())
       pLaser->Start();
-      
   SetGravity(gravity);
-
+	
+	xdir = Sin(AimAngle(), 3000);
+	ydir = Cos(AimAngle(), -3000);
+	
   var pEnemy;
 
   if(pLaser->Active())
@@ -363,6 +365,9 @@ private func Reload()
 
 private func InitAim()
 {
+  iXTendency = 0;
+  iYTendency = 0;
+
   //Fadenkreuz entfernen falls vorhanden
   if(crosshair)
     RemoveObject(crosshair);
@@ -420,6 +425,9 @@ public func ControlLeft(pByObj)
 
 public func ControlLeftDouble(pByObj)
 {
+  if(fIsAiming)
+  	return true;
+  	
   iXTendency = -iSpeed;
 
   return true;
@@ -450,6 +458,9 @@ public func ControlRight(pByObj)
 
 public func ControlRightDouble(pByObj)
 {
+  if(fIsAiming)
+  	return true;
+  	
   iXTendency = iSpeed;
 
   return true;
@@ -480,6 +491,9 @@ public func ControlDown(pByObj)
 
 public func ControlDownDouble(pByObj)
 {
+  if(fIsAiming)
+  	return true;
+  	
   iYTendency = iSpeed;
 
   return true;
@@ -487,6 +501,9 @@ public func ControlDownDouble(pByObj)
 
 public func ControlUp(object pByObj)
 {
+  if(fIsAiming)
+  	return true;
+  	
   if(iYTendency > 0)
     iYTendency = 0;
   else
@@ -497,6 +514,9 @@ public func ControlUp(object pByObj)
 
 public func ControlUpDouble(pByObj)
 {
+  if(fIsAiming)
+  	return true;
+
   iYTendency = -iSpeed;
 
   return true;
