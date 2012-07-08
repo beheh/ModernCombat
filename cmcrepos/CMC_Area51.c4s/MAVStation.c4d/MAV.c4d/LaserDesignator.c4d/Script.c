@@ -100,7 +100,7 @@ public func LaunchRocket(id rid, int angle)
     }
   }
   */
-
+	Sound("Airstrike2.wav");
   Echo("RTLR_Echo.ogg");
 }
 
@@ -110,4 +110,27 @@ public func OnEmpty()
 {
   if(Contained() && Contained()->~IsWeaponRack())
     Contained()->~OnEmpty();
+}
+
+private func Reloaded(caller)   // Waffe nachgeladen
+{
+
+  // Munitionsart wo rein muss
+  var ammoid = GetFMData(FM_AmmoID);
+  var ammoamount = MaxReloadAmount(caller);
+
+  // zwischendurch Ammo zuviel ammo verbraucht? Fehlschlag.
+  if(!CheckAmmo(ammoid,ammoamount,caller))
+    return(false);
+
+  // Hier einfügen
+  DoAmmo(ammoid, ammoamount, this());
+  // Dem Clonk abziehen
+  DoAmmo(ammoid, -ammoamount, caller);
+
+  //HelpMessage(caller->GetOwner(),"$Reloaded$",caller,ammoamount,ammoid);
+
+
+  // Callback
+  OnReloaded(firemode);
 }

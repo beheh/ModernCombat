@@ -19,7 +19,6 @@ public func FxFollowStart(object pTarget, int iEffectNumber, int iTemp, obj)
     return;
   EffectVar(0,pTarget,iEffectNumber) = obj;
   EffectVar(1,pTarget,iEffectNumber) = obj->GetLaser();
-  Sound("Airstrike2.wav");
 }
 
 public func FxFollowTimer(object pTarget, int iEffectNumber, int iEffectTime)
