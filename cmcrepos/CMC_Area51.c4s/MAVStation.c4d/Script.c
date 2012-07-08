@@ -126,10 +126,13 @@ public func FxActivityTimer(object pTarget, int iEffectNumber, int iEffectTime)
   if(User)
   {
     var UserHUD = User->GetHUD();
-    if(UserHUD)
-      UserHUD->Update(this, User->AmmoStoring(),User);
+    
     if(pMav && pMav->GetAction() == "Flying")
+    {
       SetPlrView(GetController(), pMav);
+      if(UserHUD)
+      	UserHUD->Update(pMav->GetAttWeapon(), User->AmmoStoring(),User);
+    }
   }
 }
 

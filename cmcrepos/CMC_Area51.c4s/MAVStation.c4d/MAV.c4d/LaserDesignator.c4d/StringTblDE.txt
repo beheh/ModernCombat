@@ -1,2 +1,2 @@
 Missiles=Hellfire-Rakete
-Optical=Laserlenkung
+Optical=Laser
