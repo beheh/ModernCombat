@@ -1,2 +1,2 @@
-DE:Stationäre APW
-US:Stationary ATW
+DE:Lasermarkierer
+US:Laser Designator
