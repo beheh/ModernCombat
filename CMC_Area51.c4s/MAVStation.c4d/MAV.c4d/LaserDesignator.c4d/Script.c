@@ -115,7 +115,7 @@ public func OnEmpty()
 private func Reloaded(caller,slot,amount)
 {
   //Munitionsart identifizieren
-  var ammoid = GetFMData(FM_AmmoID);
+  var ammoid = FMData1(FM_AmmoID);
   
   //Munitionsmenge feststellen
   amount = Min(amount,MaxReloadAmount(caller));
@@ -126,7 +126,8 @@ private func Reloaded(caller,slot,amount)
   DoAmmo(ammoid, -amount, caller);
 
   //Geladene Munitionsmenge angeben
-  //if(amount > 0) HelpMessage(GetOwner(caller),"$Reloaded$",caller,amount,ammoid);
+  if(amount > 0) HelpMessage(GetOwner(caller),"$Reloaded$",caller,amount,ammoid);
+  Sound("RadioConfirm*.ogg");
 
   //Callback
   OnReloaded(firemode,slot);
