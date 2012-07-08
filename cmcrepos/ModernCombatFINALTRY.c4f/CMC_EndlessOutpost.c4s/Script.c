@@ -811,6 +811,9 @@ public func ChooserFinished()
    AddAssaultTarget(GSTA, 2460, 320, 120, 2, "$Target6$", 6, [[[1880, 110], [2050, 110]], [[1950, 400], [1470, 522], [1420, 390]]]);
    AddAssaultTarget(CCP1, 2455, 500, 120, 2, "$Target7$", 7, [[[1880, 110], [2050, 110]], [[1950, 400], [1470, 522], [1420, 390]]]);
 
+   //Ticketabzug anpassen
+   SetTicketSubtractionTime(50);
+
    //Ziele verbinden
    ConnectAssaultTargets([3, 4, 5, 6, 7]);
 
@@ -988,7 +991,7 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
   if (iIndex == 2)
   {
    //Ticketabzug anpassen
-   SetTicketSubtractionTime(50);
+   SetTicketSubtractionTime(60);
 
    //Grenze neu setzen
    RemoveAll(BRDR);
