@@ -1,4 +1,4 @@
-/*-- MAV-Station --*/
+/*-- MAV Station --*/
  
 #strict 2
 #include CSTR
@@ -9,7 +9,7 @@ local pMav;
  
 public func RemoveTracer()			{return IsDestroyed();}		//Tracer entfernen, wenn zerstört
 public func DisableCH()				{return true;}			//Eventuelles Fadenkreuz des Clonks ausblenden
-public func MaxDamage()				{return 100;}
+public func MaxDamage()				{return 150;}
 public func IsMachine()				{return true;}
 public func IsBulletTarget()			{return false;}
 public func IsThreat()				{return !IsDestroyed();}
@@ -94,7 +94,6 @@ public func FxActivityTimer(object pTarget, int iEffectNumber, int iEffectTime)
 
     if(pMav)
     {
-      pMav->SetAction("Idle");
       pMav->Idle();
       pMav->SetColorDw(RGB(255,255,255));
     }
@@ -171,14 +170,11 @@ protected func ActivateEntrance(pUser)
   if(pMav)
   {
     pMav->SetOwner(GetOwner(this));
-    pMav->SetAction("Flying");
+    pMav->Start();
   }
 
   //Sound
-  Sound("RSHL_Deploy.ogg", true, this, 100, GetOwner(pUser)+1);
-
-  //Soundschleife übergeben
-  Sound("CockpitRadio.ogg", true, 0, 100, GetOwner(pUser)+1, +1);
+  Sound("RSHL_Deploy.ogg", true, this, 100, GetOwner(pUser) + 1);
 
   if(!GetEffect("Activity",this))
     AddEffect("Activity", this, 1, 1 ,this);
@@ -206,20 +202,15 @@ private func ExitClonk(object pByObject)
     controller->~ShowCH();
     SetPlrView(GetOwner(controller), controller);
 
-    //Soundschleife übergeben
-    Sound("CockpitRadio.ogg", true, 0, 100, GetOwner(pByObject)+1, -1);
-
     if(pMav)
     {
-      pMav->SetAction("Idle");
       pMav->Idle();
       pMav->SetColorDw(RGB(255,255,255));
     }
     SetOwner(-1, this);
     controller = - 1;
 
-    return(1);
-  }
+    return(1);  }
   return(0);
 }
 
@@ -311,14 +302,11 @@ public func ControlDigSingle(object pByObj)
     if (!pMav->IsDestroyed())
     {
       pByObj->SetHUDTarget(pMav->GetAttWeapon());
-      pMav->SetAction("Flying");
+      pMav->Start();
     }
   }
   else
-  {
-    pMav->SetAction("Idle");
     pMav->Idle();
-  }
 
   return true;
 }
@@ -339,7 +327,7 @@ protected func ControlThrow(object pByObj)
   else
     pMav->ControlThrow(pByObj);
 
-  pMav->SetAction("Flying");
+  pMav->Start();
 
   return true;
 }
