@@ -112,25 +112,22 @@ public func OnEmpty()
     Contained()->~OnEmpty();
 }
 
-private func Reloaded(caller)   // Waffe nachgeladen
+private func Reloaded(caller,slot,amount)
 {
-
-  // Munitionsart wo rein muss
+  //Munitionsart identifizieren
   var ammoid = GetFMData(FM_AmmoID);
-  var ammoamount = MaxReloadAmount(caller);
+  
+  //Munitionsmenge feststellen
+  amount = Min(amount,MaxReloadAmount(caller));
+  
+  //Munitionsmenge an Waffe übergeben
+  DoAmmo2(slot, ammoid, amount, this);
+  //Munition aus Clonk entfernen
+  DoAmmo(ammoid, -amount, caller);
 
-  // zwischendurch Ammo zuviel ammo verbraucht? Fehlschlag.
-  if(!CheckAmmo(ammoid,ammoamount,caller))
-    return(false);
+  //Geladene Munitionsmenge angeben
+  //if(amount > 0) HelpMessage(GetOwner(caller),"$Reloaded$",caller,amount,ammoid);
 
-  // Hier einfügen
-  DoAmmo(ammoid, ammoamount, this());
-  // Dem Clonk abziehen
-  DoAmmo(ammoid, -ammoamount, caller);
-
-  //HelpMessage(caller->GetOwner(),"$Reloaded$",caller,ammoamount,ammoid);
-
-
-  // Callback
-  OnReloaded(firemode);
+  //Callback
+  OnReloaded(firemode,slot);
 }
