@@ -206,12 +206,13 @@ private func FlyingTimer()
 	if(pLaser->Active())
 		pEnemy = FindObject2(Find_OnLine(0, 0, x - xPos, y - yPos), Find_Hostile(GetOwner(this)), Find_NoContainer(), Find_Or(Find_OCF(OCF_Alive), Find_Func("IsBulletTarget"), Find_Func("IsCMCVehicle")), Sort_Distance(0, 0));
 	else
-		pEnemy = FindObject2(Find_OnLine(0, 0, xdir, ydir), Find_Hostile(GetOwner(this)), Find_NoContainer(), Find_Func("IsBulletTarget"), Sort_Distance(0, 0));		
+		pEnemy = FindObject2(Find_OnLine(0, 0, xdir, ydir), Find_Hostile(GetOwner(this)), Find_NoContainer(), Find_Or(Find_OCF(OCF_Alive), Find_Func("IsBulletTarget"), Find_Func("IsCMCVehicle")), Sort_Distance(0, 0));		
 	
 	//Es folgen episch awesome funktionierende Berechnungen by Monkstar
 	if(pEnemy)
 	{
-		pLaser->Start();
+		if(!pLaser->Active())
+			pLaser->Start();
 		
 		x = GetX(pEnemy);
 		y = GetY(pEnemy);
