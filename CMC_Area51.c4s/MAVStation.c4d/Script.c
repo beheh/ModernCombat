@@ -1,4 +1,4 @@
-/*-- MAV Station --*/
+/*-- MAV-Station --*/
  
 #strict 2
 #include CSTR
@@ -175,7 +175,10 @@ protected func ActivateEntrance(pUser)
   }
 
   //Sound
-  Sound("RSHL_Deploy.ogg", true, this, 100, GetOwner(pUser) + 1);
+  Sound("RSHL_Deploy.ogg", true, this, 100, GetOwner(pUser)+1);
+
+  //Soundschleife übergeben
+  Sound("CockpitRadio.ogg", true, 0, 100, GetOwner(pUser)+1, +1);
 
   if(!GetEffect("Activity",this))
     AddEffect("Activity", this, 1, 1 ,this);
@@ -203,6 +206,9 @@ private func ExitClonk(object pByObject)
     controller->~ShowCH();
     SetPlrView(GetOwner(controller), controller);
 
+    //Soundschleife übergeben
+    Sound("CockpitRadio.ogg", true, 0, 100, GetOwner(pByObject)+1, -1);
+
     if(pMav)
     {
       pMav->SetAction("Idle");
@@ -212,7 +218,8 @@ private func ExitClonk(object pByObject)
     SetOwner(-1, this);
     controller = - 1;
 
-    return(1);  }
+    return(1);
+  }
   return(0);
 }
 

@@ -1,2 +1,2 @@
-Missiles=Hellfire Missile
-Optical=Laser
+Missiles=ATG Missile
+Laser=Laser Control

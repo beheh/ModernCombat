@@ -1,2 +1,2 @@
-Missiles=Hellfire-Rakete
-Optical=Laser
+Missiles=LB-Rakete
+Laser=Lasersteuerung
