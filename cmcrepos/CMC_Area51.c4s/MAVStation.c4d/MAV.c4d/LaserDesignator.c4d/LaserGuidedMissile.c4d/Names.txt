@@ -1,2 +1,2 @@
-DE:ATG-Rakete
-US:ATG Missile
+DE:Luft-Boden-Rakete
+US:Air-to-ground Missile

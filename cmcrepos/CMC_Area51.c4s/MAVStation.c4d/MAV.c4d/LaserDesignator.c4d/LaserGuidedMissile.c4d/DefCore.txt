@@ -1,6 +1,6 @@
 [DefCore]
-id=GDMS
-Name=Laserguided Missile
+id=AGMS
+Name=Air-to-ground Missile
 Version=4,9,5
 Category=C4D_Object
 Width=4

@@ -9,6 +9,7 @@ public func HandX()		{return 1000;}
 public func HandY()		{return -2500;}
 public func NoWeaponChoice()	{return true;}
 
+
 protected func Construction()
 {
   AddEffect("IntNoSound", this, 1, 5);
@@ -39,13 +40,13 @@ public func FMData1(int data)
 
 public func FMData1T1(int data)
 {
-  if(data == FT_Name)		return "$Optical$";
+  if(data == FT_Name)		return "$Laser$";
   return FMData1(data);
 }
 
 public func Fire1T1()
 {
-  LaunchRocket(GDMS,Angle(GetX(), 0, GetX(Contained()->GetLaser()), GetY(Contained()->GetLaser())));
+  LaunchRocket(AGMS,Angle(GetX(), 0, GetX(Contained()->GetLaser()), GetY(Contained()->GetLaser())));
 }
 
 public func BotData1(int data)
@@ -99,8 +100,7 @@ public func LaunchRocket(id rid, int angle)
     }
   }
   */
-  
-  
+
   Echo("RTLR_Echo.ogg");
 }
 
@@ -110,10 +110,4 @@ public func OnEmpty()
 {
   if(Contained() && Contained()->~IsWeaponRack())
     Contained()->~OnEmpty();
-}
-
-public func OnReload()
-{
-  if (!GetEffect("IntNoSound", this))
-    Sound("SATW_Reload.ogg", false, this);
 }

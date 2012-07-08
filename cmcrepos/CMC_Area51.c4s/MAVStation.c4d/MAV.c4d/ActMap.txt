@@ -1,12 +1,16 @@
 [Action]
 Name=Flying
+FacetBase=1
 Delay=1
 StartCall=FlyingTimer
 NextAction=Flying
-FacetBase=1
 
 [Action]
 Name=Idle
-Delay=10
-NextAction=Idle
 FacetBase=1
+NextAction=Hold
+
+[Action]
+Name=Destroyed
+Facet=0,15,15,15
+NextAction=Hold
