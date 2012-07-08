@@ -131,7 +131,11 @@ private func FlyingTimer()
   }
 
   SetXDir(iXDir / (iC4Count+1));
-  SetYDir(iYDir / (iC4Count+1));
+  
+  if(iYDir<=0)
+  	SetYDir(iYDir / (iC4Count+1));
+  else
+  	SetYDir(iYDir * (iC4Count+1)); //Runter kommen wir immer!
 
   //Blinklicht (alle 30 Frames)
   if(!(GetActTime()%30))
@@ -409,6 +413,9 @@ public func EndAim()
 
 public func ControlLeft(pByObj)
 {
+	if(GetAction() == "Idle")
+		return true;
+
   if(fIsAiming)
   {
     iPat_Dir = 1;
@@ -425,7 +432,7 @@ public func ControlLeft(pByObj)
 
 public func ControlLeftDouble(pByObj)
 {
-  if(fIsAiming)
+  if(fIsAiming || GetAction() == "Idle")
   	return true;
   	
   iXTendency = -iSpeed;
@@ -441,7 +448,9 @@ public func ControlLeftReleased(pByObj)
 
 public func ControlRight(pByObj)
 {
-
+	if(GetAction() == "Idle")
+		return true;
+		
   if(fIsAiming)
   {
     iPat_Dir = -1;
@@ -458,7 +467,7 @@ public func ControlRight(pByObj)
 
 public func ControlRightDouble(pByObj)
 {
-  if(fIsAiming)
+  if(fIsAiming || GetAction() == "Idle")
   	return true;
   	
   iXTendency = iSpeed;
@@ -474,7 +483,9 @@ public func ControlRightReleased(pByObj)
 
 public func ControlDown(pByObj)
 {
-
+	if(GetAction() == "Idle")
+		return true;
+		
   if(fIsAiming)
   {
     iPat_Dir = 0;
@@ -491,7 +502,7 @@ public func ControlDown(pByObj)
 
 public func ControlDownDouble(pByObj)
 {
-  if(fIsAiming)
+  if(fIsAiming || GetAction() == "Idle")
   	return true;
   	
   iYTendency = iSpeed;
@@ -501,7 +512,7 @@ public func ControlDownDouble(pByObj)
 
 public func ControlUp(object pByObj)
 {
-  if(fIsAiming)
+  if(fIsAiming || GetAction() == "Idle")
   	return true;
   	
   if(iYTendency > 0)
@@ -514,7 +525,7 @@ public func ControlUp(object pByObj)
 
 public func ControlUpDouble(pByObj)
 {
-  if(fIsAiming)
+  if(fIsAiming || GetAction() == "Idle")
   	return true;
 
   iYTendency = -iSpeed;
@@ -524,6 +535,9 @@ public func ControlUpDouble(pByObj)
 
 public func ControlThrow(pByObj)
 {
+	if(GetAction() == "Idle")
+		return true;
+
   if(!fIsAiming)
   {
     InitAim();
@@ -535,7 +549,7 @@ public func ControlThrow(pByObj)
     if(pLaser && pLaser->Active())
       GetAttWeapon()->ControlThrow(this);
     else
-      (PlayerMessage(GetOwner(pByObj), "$MarkRequired$", this));
+      PlayerMessage(GetOwner(pByObj), "$MarkRequired$", this);
   }
 }
 
@@ -544,4 +558,43 @@ public func ControlThrow(pByObj)
 protected func Hit()
 {
   Sound("HeavyHit*.ogg");
+}
+
+
+/* Kontaktfunktionen */
+
+public func ContactLeft()
+{
+	if(iXTendency < 0)
+  {
+    iXTendency = 0;
+    iXDir = 0;
+  }
+}
+
+public func ContactRight()
+{
+	if(iXTendency > 0)
+  {
+    iXTendency = 0;
+    iXDir = 0;
+  }
+}
+
+public func ContactTop()
+{
+	if(iYTendency < 0)
+  {
+    iYTendency = 0;
+    iYDir = 0;
+  }
+}
+
+public func ContactBottom()
+{
+	if(iYTendency > 0)
+  {
+    iYTendency = 0;
+    iYDir = 0;
+  }
 }

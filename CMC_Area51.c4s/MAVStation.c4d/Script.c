@@ -321,13 +321,18 @@ protected func ControlThrow(object pByObj)
 {
   if(!pMav || pMav->IsDestroyed())
   {
-    pMav = CreateObject(MAVE,0,0,GetOwner(this));
-    pByObj->SetHUDTarget(pMav->GetAttWeapon());
+  	if(GetWealth(GetOwner(pByObj)) >= GetDefCoreVal("Value", "DefCore", MAVE))
+  	{
+  		DoWealth(GetOwner(pByObj), -GetDefCoreVal("Value", "DefCore", MAVE));
+    	pMav = CreateObject(MAVE,0,0,GetOwner(this));
+    	pByObj->SetHUDTarget(pMav->GetAttWeapon());
+    	pMav->Start();
+    }
+    else
+    	PlayerMessage(GetOwner(pByObj), "$NoMoney$", this);
   }
   else
     pMav->ControlThrow(pByObj);
-
-  pMav->Start();
 
   return true;
 }
