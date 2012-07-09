@@ -127,8 +127,11 @@ private func Reloaded(caller,slot,amount)
   DoAmmo(ammoid, -amount, caller);
 
   //Geladene Munitionsmenge angeben
-  HelpMessage(GetOwner(Contained()),"$Reloaded$",caller,amount,ammoid);
-  Sound("JetReporting*.wav",0,0,0,GetOwner(Contained()));
+  if(GetAction(Contained()) == "Flying")
+  {
+  	HelpMessage(GetOwner(Contained()),"$Reloaded$",caller,amount,ammoid);
+  	Sound("JetReporting*.wav",0,0,0,GetOwner(Contained()));
+  }
 
   //Callback
   OnReloaded(firemode,slot);

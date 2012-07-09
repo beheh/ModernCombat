@@ -94,7 +94,7 @@ public func FxActivityTimer(object pTarget, int iEffectNumber, int iEffectTime)
 
     if(pMav)
     {
-      pMav->Idle();
+      pMav->Wait();
       pMav->SetColorDw(RGB(255,255,255));
     }
 
@@ -204,7 +204,7 @@ private func ExitClonk(object pByObject)
 
     if(pMav)
     {
-      pMav->Idle();
+      pMav->Wait();
       pMav->SetColorDw(RGB(255,255,255));
     }
     SetOwner(-1, this);
@@ -297,7 +297,7 @@ public func ControlDigSingle(object pByObj)
     return true;
   }
 
-  pMav->Idle();
+  pMav->Wait();
   return true;
 }
 
