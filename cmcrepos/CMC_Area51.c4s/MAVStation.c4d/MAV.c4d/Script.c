@@ -115,14 +115,14 @@ public func GetWeaponR()
 private func FlyingTimer()
 {
   if(iXDir < iXTendency)
-    iXDir++;
+    iXDir+= 1 - (fIsAiming && !(GetActTime()%3));
   if(iXDir > iXTendency)
-    iXDir--;
+    iXDir-= 1 - (fIsAiming && !(GetActTime()%3));
 
   if(iYDir < iYTendency)
-    iYDir++;
+    iYDir+= 1 - (fIsAiming && !(GetActTime()%3));
   if(iYDir > iYTendency)
-    iYDir--;
+    iYDir-= 1 - (fIsAiming && !(GetActTime()%3));
 
   if(GetY() <= GetDefCoreVal("Offset", "DefCore", MAVE, 1) * -1 && iYTendency < 0)
   {
@@ -549,8 +549,20 @@ public func ControlThrow(pByObj)
     if(pLaser && pLaser->Active())
       GetAttWeapon()->ControlThrow(this);
     else
+    {
       PlayerMessage(GetOwner(pByObj), "$MarkRequired$", this);
+      if(!GetEffect("NoTargetCooldown"))
+      {
+      	Sound("JetNoTarget.wav",0,0,0,GetOwner(pByObj));
+      	AddEffect("NoTargetCooldown", this, 1, 150);
+      }
+    }
   }
+}
+
+public func FxNoTargetCooldownTimer(object pTarget, int iEffectNumber, int iEffectTime)
+{
+	RemoveEffect("NoTargetCooldown", this);
 }
 
 /* Aufschlag */
