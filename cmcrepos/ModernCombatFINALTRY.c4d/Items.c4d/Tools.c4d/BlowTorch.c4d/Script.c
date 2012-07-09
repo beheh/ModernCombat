@@ -78,7 +78,7 @@ public func FxReparationBarsTimer(object target, int nr)
 
     var actTarget = GetActionTarget(0, bar);
 
-    if(!actTarget || Hostile(GetOwner(actTarget), iPlr))
+    if(!actTarget || Hostile(GetOwner(actTarget), iPlr) || !(actTarget->~IsRepairable()))
     {
       RemoveObject(bar);
       continue;
