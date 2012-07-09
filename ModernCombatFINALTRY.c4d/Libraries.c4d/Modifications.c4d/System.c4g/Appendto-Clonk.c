@@ -267,6 +267,7 @@ public func GetAssist(int iPlrExclude)
   var highest = CreateArray(2);
   for(var i = 0; i < GetLength(assistkiller); i++)
   {
+    if(assistkiller[i][0] == GetOwner()) continue;
     if(assistkiller[i][0] == iPlrExclude) continue;
     if(!GetPlayerName(assistkiller[i][0])) continue;
     if(assistkiller[i][1] > highest[1])
