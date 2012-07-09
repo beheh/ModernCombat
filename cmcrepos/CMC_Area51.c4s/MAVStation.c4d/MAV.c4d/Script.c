@@ -180,6 +180,13 @@ private func FlyingTimer()
     }
   }
 
+	//Schadensverhalten
+  if(GetDamage() >= MaxDamage() / 2 && !GBackLiquid(0, 0))
+  	Smoke(0, 0, Random(7));
+  if(GetDamage() >= MaxDamage() * 3 / 4 && !GBackLiquid(0, 0))
+      CreateParticle("Blast", 0, 0, 0, -2, Random(50), RGB(255, 255, 255), this);
+
+
   if(fIsAiming)
   {
     //Waffe vorhanden?
