@@ -67,7 +67,7 @@ public func LaunchRocket(id rid, int angle)
   user->WeaponEnd(x,y);
 
   //Rakete abfeuern
-  var rocket = CreateObject(rid,x,-GetY()-500,GetController(user));
+  var rocket = CreateObject(rid,x,-GetY()-450,GetController(user));
   AddEffect("IntHeliProtection", rocket, 1, 20, 0, BKHK, LocalN("heli", Contained()));
   rocket->Launch(angle, user);
   rocket->Sound("SATW_Launch.ogg");
