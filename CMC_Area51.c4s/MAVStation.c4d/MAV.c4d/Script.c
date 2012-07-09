@@ -331,7 +331,8 @@ public func Start()
 
 public func Idle()
 {
-	SetAction("Idle");
+	if(GetAction() != "Destroyed")
+		SetAction("Idle");
 	
   iXTendency = 0;
   iYTendency = 0;
