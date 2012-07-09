@@ -1,5 +1,5 @@
 [DefCore]
-id=REHR
+id=RTMP
 Version=4,9,8,2
 Name=Rope Holder
 Category=C4D_Structure
