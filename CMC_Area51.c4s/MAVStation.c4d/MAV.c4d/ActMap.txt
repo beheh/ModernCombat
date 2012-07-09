@@ -6,9 +6,11 @@ StartCall=FlyingTimer
 NextAction=Flying
 
 [Action]
-Name=Idle
+Name=Wait
 FacetBase=1
-NextAction=Hold
+Delay=1
+StartCall=WaitTimer
+NextAction=Wait
 
 [Action]
 Name=Destroyed

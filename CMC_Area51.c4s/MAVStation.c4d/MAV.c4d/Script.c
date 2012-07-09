@@ -58,7 +58,7 @@ protected func Initialize()
 
   Sound("MAVE_Engine.ogg", 0, 0, 70, 0, +1);
 
-  SetAction("Idle");
+  SetAction("Wait");
 }
 
 /* Zerstörung */
@@ -72,7 +72,7 @@ public func OnDestruction()
   if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",3,100,0,0,0,80,100);
 
   //Deaktivieren
-  Idle();
+  Wait();
   SetAction("Destroyed");
 
   //Verschwinden
@@ -180,13 +180,8 @@ private func FlyingTimer()
     }
   }
 
-	//Schadensverhalten
-  if(GetDamage() >= MaxDamage() / 2 && !GBackLiquid(0, 0))
-  	Smoke(0, 0, Random(7));
-  if(GetDamage() >= MaxDamage() * 3 / 4 && !GBackLiquid(0, 0))
-      CreateParticle("Blast", 0, 0, 0, -2, Random(50), RGB(255, 255, 255), this);
-
-
+	DamageChecks();
+	
   if(fIsAiming)
   {
     //Waffe vorhanden?
@@ -344,16 +339,21 @@ private func FlyingTimer()
   }
 }
 
+private func WaitTimer()
+{
+	DamageChecks();
+}
+
 public func Start()
 {
 	SetAction("Flying");
 	Sound("MAVE_Engine.ogg", 0, 0, 70, 0, +1);
 }
 
-public func Idle()
+public func Wait()
 {
 	if(GetAction() != "Destroyed")
-		SetAction("Idle");
+		SetAction("Wait");
 	
   iXTendency = 0;
   iYTendency = 0;
@@ -435,7 +435,7 @@ public func EndAim()
 
 public func ControlLeft(pByObj)
 {
-	if(GetAction() == "Idle")
+	if(GetAction() == "Wait")
 		return true;
 
   if(fIsAiming)
@@ -454,7 +454,7 @@ public func ControlLeft(pByObj)
 
 public func ControlLeftDouble(pByObj)
 {
-  if(fIsAiming || GetAction() == "Idle")
+  if(fIsAiming || GetAction() == "Wait")
   	return true;
   	
   iXTendency = -iSpeed;
@@ -470,7 +470,7 @@ public func ControlLeftReleased(pByObj)
 
 public func ControlRight(pByObj)
 {
-	if(GetAction() == "Idle")
+	if(GetAction() == "Wait")
 		return true;
 		
   if(fIsAiming)
@@ -489,7 +489,7 @@ public func ControlRight(pByObj)
 
 public func ControlRightDouble(pByObj)
 {
-  if(fIsAiming || GetAction() == "Idle")
+  if(fIsAiming || GetAction() == "Wait")
   	return true;
   	
   iXTendency = iSpeed;
@@ -505,7 +505,7 @@ public func ControlRightReleased(pByObj)
 
 public func ControlDown(pByObj)
 {
-	if(GetAction() == "Idle")
+	if(GetAction() == "Wait")
 		return true;
 		
   if(fIsAiming)
@@ -524,7 +524,7 @@ public func ControlDown(pByObj)
 
 public func ControlDownDouble(pByObj)
 {
-  if(fIsAiming || GetAction() == "Idle")
+  if(fIsAiming || GetAction() == "Wait")
   	return true;
   	
   iYTendency = iSpeed;
@@ -534,7 +534,7 @@ public func ControlDownDouble(pByObj)
 
 public func ControlUp(object pByObj)
 {
-  if(fIsAiming || GetAction() == "Idle")
+  if(fIsAiming || GetAction() == "Wait")
   	return true;
   	
   if(iYTendency > 0)
@@ -547,7 +547,7 @@ public func ControlUp(object pByObj)
 
 public func ControlUpDouble(pByObj)
 {
-  if(fIsAiming || GetAction() == "Idle")
+  if(fIsAiming || GetAction() == "Wait")
   	return true;
 
   iYTendency = -iSpeed;
@@ -557,7 +557,7 @@ public func ControlUpDouble(pByObj)
 
 public func ControlThrow(pByObj)
 {
-	if(GetAction() == "Idle")
+	if(GetAction() == "Wait")
 	{
 		Start();
 		return true;
@@ -607,6 +607,15 @@ protected func Hit3()
   Sound("HeavyHit*.ogg");
 
   DoDmg(10);
+}
+
+private func DamageChecks()
+{
+	//Schadensverhalten
+  if(GetDamage() >= MaxDamage() / 2 && !GBackLiquid(0, 0))
+  	Smoke(0, 0, Random(7));
+  if(GetDamage() >= MaxDamage() * 3 / 4 && !GBackLiquid(0, 0))
+      CreateParticle("Blast", 0, 3, 0, 3, Random(35), RGB(255, 255, 255), this);
 }
 
 /* Kontaktfunktionen */
