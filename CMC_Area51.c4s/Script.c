@@ -11,8 +11,8 @@ public func SpecificEquipment()	{return [[JTPK, 1]];} //Zusatzausrüstung: Jetpac
 func Initialize()
 {
   //Starttitel und Musikliste zusammenstellen
-  SetPlayList("CMC_Redial.ogg;CMC_Base Groove.ogg;CMC_Firehawk.ogg;CMC_Friendly Unit.ogg;CMC_Getaway.ogg;CMC_Moving Squad.ogg;CMC_Offensive.ogg;CMC_Showtime.ogg;CMC_Slow Motion.ogg;CMC_Striking Force.ogg;CMC_No Good.ogg;CMC_Obsession.ogg");
-  Music("CMC_Redial.ogg",1);
+  SetPlayList("CMC_Base Groove.ogg;CMC_Firehawk.ogg;CMC_Friendly Unit.ogg;CMC_Getaway.ogg;CMC_Moving Squad.ogg;CMC_Offensive.ogg;CMC_Showtime.ogg;CMC_Slow Motion.ogg;CMC_Striking Force.ogg;CMC_No Good.ogg;CMC_Obsession.ogg");
+  Music("CMC_Eurocorps.ogg",1);
 
   //Verzögerte Hinweisnachricht ausgeben
   Schedule("EventInfo4K(0,Format(\"$MsgWelcome$\"),PCMK, 0, 0, 0, \"PriorityInfo.ogg\");", 100);
@@ -42,8 +42,8 @@ func Initialize()
   CreateObject(HA4K, 1400, 1063, -1);
 
   //Clonks
-  CreateObject(PCMK, 650, 1060, -1)->AutoRespawn();
-  CreateObject(PCMK, 1430, 1060, -1)->AutoRespawn();
+  //CreateObject(PCMK, 650, 1060, -1)->AutoRespawn();
+  //CreateObject(PCMK, 1430, 1060, -1)->AutoRespawn();
 
   //Leitkegel
   CreateObject(TCCN, 820, 1060, -1);
@@ -141,7 +141,7 @@ func Initialize()
   SetupVehicleSpawn([APCE],DIR_Left,CreateObject(VSPW,950,1030,-1),1,300);
 
   //Reitwipf
-  CreateObject(RWPF, 1580, 1060, -1)->AutoRespawn();
+  //CreateObject(RWPF, 1580, 1060, -1)->AutoRespawn();
 }
 
 public func SetUpStore(pStore)
@@ -155,10 +155,6 @@ public func SetUpStore(pStore)
   pStore->AddWare(DRSU,-1);
   pStore->AddWare(CATA,-1);
   pStore->AddWare(BLMP,-1);
-  pStore->AddWare(XBRL,-1);
-  pStore->AddWare(PBRL,-1);
-  pStore->AddWare(HBRL,-1);
-  pStore->AddWare(TBRL,-1);
   pStore->AddWare(WCR2,-1);
 
 }
