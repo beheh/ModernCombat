@@ -47,7 +47,8 @@ protected func Sense()
   //Inaktiv: Nicht suchen
   if(!active)
     return;
-    
+
+  //Existenz ohne Besitzer sinnlos
   if(GetOwner() == NO_OWNER)
     return Remove();
 
