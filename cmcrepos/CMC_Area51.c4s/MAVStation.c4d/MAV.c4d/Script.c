@@ -137,6 +137,14 @@ private func FlyingTimer()
   else
   	SetYDir(iYDir * (iC4Count+1)); //Runter kommen wir immer!
 
+	if(iXTendency>0)
+		SetObjDrawTransform(1000, -300, 0, 300, 1000, 0, this);
+	else 
+		if(iXTendency<0)
+			SetObjDrawTransform(1000, 300, 0, -300, 1000, 0, this);
+			else
+				SetObjDrawTransform(1000, 0, 0, 0, 1000, 0, this);
+
   //Blinklicht (alle 30 Frames)
   if(!(GetActTime()%30))
   {
