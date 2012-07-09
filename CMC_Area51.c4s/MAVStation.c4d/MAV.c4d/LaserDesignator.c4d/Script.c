@@ -67,7 +67,7 @@ public func LaunchRocket(id rid, int angle)
   user->WeaponEnd(x,y);
 
   //Rakete abfeuern
-  var rocket = CreateObject(rid,x,-GetY()-200,GetController(user));
+  var rocket = CreateObject(rid,x,-GetY()-350,GetController(user));
   AddEffect("IntHeliProtection", rocket, 1, 20, 0, BKHK, LocalN("heli", Contained()));
   rocket->Launch(angle, user);
   rocket->Sound("SATW_Launch.ogg");
@@ -100,7 +100,8 @@ public func LaunchRocket(id rid, int angle)
     }
   }
   */
-	Sound("Airstrike2.wav");
+	Sound("JetConfirm*.wav",0,0,0,GetOwner(user));
+	Sound("JetFlyBy*.ogg");
   Echo("RTLR_Echo.ogg");
 }
 
@@ -126,8 +127,8 @@ private func Reloaded(caller,slot,amount)
   DoAmmo(ammoid, -amount, caller);
 
   //Geladene Munitionsmenge angeben
-  if(amount > 0) HelpMessage(GetOwner(caller),"$Reloaded$",caller,amount,ammoid);
-  Sound("RadioConfirm*.ogg");
+  HelpMessage(GetOwner(Contained()),"$Reloaded$",caller,amount,ammoid);
+  Sound("JetReporting*.wav",0,0,0,GetOwner(Contained()));
 
   //Callback
   OnReloaded(firemode,slot);
