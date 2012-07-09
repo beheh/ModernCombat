@@ -139,6 +139,13 @@ func Initialize()
 
   //Apache
   SetupVehicleSpawn([APCE],DIR_Left,CreateObject(VSPW,950,1030,-1),1,300);
+  
+  //Sendemast
+  var antenna_tower =  CreateObject(AATR, 1575, 1060, -1);
+  antenna_tower->AddRopeHolder(1280, 1010, 1560, 620);
+  antenna_tower->AddRopeHolder(1590, 620, 1858, 660);
+	antenna_tower->AddRopeHolder(1860, 400, 1590, 415);
+	antenna_tower->AddRopeHolder(1090, 560, 1560, 415);
 
   //Reitwipf
   //CreateObject(RWPF, 1580, 1060, -1)->AutoRespawn();

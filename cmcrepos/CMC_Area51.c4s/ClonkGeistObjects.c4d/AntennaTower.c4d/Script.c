@@ -2,18 +2,96 @@
 
 #strict 2
 
+local aRopeHolders;
+local fDestroyed;
+
+public func IsDestroyed() { return fDestroyed; }
 
 /* Initalisierung */
 
 protected func Initialize()
 {
   SetAction("Be");
+	aRopeHolders = [];
+}
+
+public func AddRopeHolder(int iX1, int iY1, int iX2, int iY2)
+{
+	var rh1 = CreateObject(REHR, AbsX(iX1), AbsY(iY1), -1);
+	var rh2 = CreateObject(REHR, AbsX(iX2), AbsY(iY2), -1);
+	
+	rh1->SetAntenna(this);
+	rh2->SetAntenna(this);
+	
+	var rope = CreateObject(CK5P, 0, 0, -1);
+	rope->ConnectObjects(rh1, rh2);
+	rope->SetRopeLength(Distance(iX1, iY1, iX2, iY2));
+	
+	aRopeHolders[GetLength(aRopeHolders)] = [rh1, rh2, rope];
+}
+
+public func Damage(int change)
+{
+	if(IsDestroyed() || change < 0)
+		return false;
+
+	if(WorkingRopesCount())
+		DoDamage(-GetDamage());
+	else if(GetDamage() > 200)
+		Colapse();
+	
+	return true;
+}
+
+public func WorkingRopesCount()
+{
+	var cnt;
+	for(var array in aRopeHolders)
+	{
+		if(!array)
+			continue;
+
+		if(!array[3])
+			cnt++;
+	}
+
+	return cnt;
+}
+
+public func RopeHolderDestroyed(object pRopeHolder)
+{
+	for(var i = 0; i < GetLength(aRopeHolders); i++)
+	{
+		if(!aRopeHolders[i])
+			continue;
+		
+		if(GetIndexOf(pRopeHolder, aRopeHolders[i]) > -1)
+			aRopeHolders[i][3] = true;
+	}
 }
 
 protected func Colapse()
 {
+	fDestroyed = true;
   //Bodenerschütterung
   //ShakeObjects(GetX(), GetY(), 300);
+  //Seile sollen runterfallen und ausfaden
+  for(var array in aRopeHolders)
+  {
+  	if(!array)
+  		continue;
+  	
+  	if(array[0])
+  	{
+  		SetCategory(C4D_Object, array[0]);
+  		array[0]->FadeOut();
+  	}
+  	if(array[1])
+  	{
+  		SetCategory(C4D_Object, array[1]);
+  		array[1]->FadeOut();
+  	}
+  }
 
   //Maststücke erstellen
   var part = CreateObject(ATRP, 0,-200, NO_OWNER);
@@ -68,9 +146,13 @@ protected func Colapse()
 
   CreateParticle("Blast",0,250,-10,0,5*50,RGB(255,255,128));
   CreateParticle("Blast",0,250,10,0,5*50,RGB(255,255,128));
+  
+  CastParticles("ConcreteSplinter", RandomX(8,16), 80, 0, -200, 20, 50);
+  CastParticles("ConcreteSplinter", RandomX(8,16), 80, 0, -50, 20, 50);
+  CastParticles("ConcreteSplinter", RandomX(8,16), 80, 0, 100, 20, 50);
+  CastParticles("ConcreteSplinter", RandomX(8,16), 80, 0, 250, 20, 50);
 
   //Sound
   Sound("StructuralDamage*.ogg");
   Sound("BigExplosion.ogg");
-  Sound("TowerDestruction.ogg");
 }
