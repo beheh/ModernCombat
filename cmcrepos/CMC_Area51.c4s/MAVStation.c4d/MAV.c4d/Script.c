@@ -65,6 +65,9 @@ public func OnDestruction()
   //Explosion
   FakeExplode(4, GetController()+1, this);
 
+  //Effekte
+  if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",3,100,0,0,0,80,100);
+
   //Deaktivieren
   Idle();
   SetAction("Destroyed");
@@ -571,22 +574,33 @@ public func ControlThrow(pByObj)
 
 public func FxNoTargetCooldownTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
-	RemoveEffect("NoTargetCooldown", this);
+  RemoveEffect("NoTargetCooldown", this);
 }
 
 /* Aufschlag */
 
 protected func Hit()
 {
+  //Effekte
+  Sparks(Random(2)+2,RGB(255,255,Random(5)+255));
   Sound("HeavyHit*.ogg");
 }
 
+protected func Hit3()
+{
+  //Effekte
+  if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",2,40,0,0,0,50,60);
+  Sparks(Random(2)+2,RGB(255,255,Random(5)+255));
+  Sound("HeavyHit*.ogg");
+
+  DoDmg(10);
+}
 
 /* Kontaktfunktionen */
 
 public func ContactLeft()
 {
-	if(iXTendency < 0)
+  if(iXTendency < 0)
   {
     iXTendency = 0;
     iXDir = 0;
@@ -595,7 +609,7 @@ public func ContactLeft()
 
 public func ContactRight()
 {
-	if(iXTendency > 0)
+  if(iXTendency > 0)
   {
     iXTendency = 0;
     iXDir = 0;
@@ -604,7 +618,7 @@ public func ContactRight()
 
 public func ContactTop()
 {
-	if(iYTendency < 0)
+  if(iYTendency < 0)
   {
     iYTendency = 0;
     iYDir = 0;
@@ -613,7 +627,7 @@ public func ContactTop()
 
 public func ContactBottom()
 {
-	if(iYTendency > 0)
+  if(iYTendency > 0)
   {
     iYTendency = 0;
     iYDir = 0;
