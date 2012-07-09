@@ -31,11 +31,14 @@ public func FxDmgObjectsTimer(object target, int nr, int time)
 	if(GetType(EffectVar(0, target, nr)) != C4V_Array)
 		EffectVar(0, target, nr) = [];
 	
-	var wdt = GetObjWidth();
-	var hgt = GetObjHeight();
+	var wdt = GetObjWidth()+2;
+	var hgt = GetObjHeight()+2;
 	var objects = FindObjects(Find_AtRect(-wdt/2, -hgt/2, wdt, hgt), Find_NoContainer());
 	for(var obj in objects)
 	{
+		if(!obj)
+			continue;
+	
 		if(GetIndexOf(obj, EffectVar(0, target, nr)) > -1)
 			continue;
 
