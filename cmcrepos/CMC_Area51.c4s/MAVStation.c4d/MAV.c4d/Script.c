@@ -33,6 +33,7 @@ public func GetLaser()				{return pLaser;}
 public func Sgn(int x)				{if (x < 0) return x / x * -1; return x / x;}
 public func IsMAV()				{return true;}
 public func MaxDamage()				{return 40;}
+public func IsRepairable()		{return !fDestroyed;}
 public func MaxRotLeft()
 {
   return 120;
