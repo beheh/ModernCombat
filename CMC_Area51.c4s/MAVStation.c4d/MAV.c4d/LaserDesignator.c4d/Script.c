@@ -25,7 +25,7 @@ public func FMData1(int data)
   if(data == FM_AmmoID)		return MIAM;
   if(data == FM_AmmoLoad)	return 1;
 
-  if(data == FM_Reload)		return 300;
+  if(data == FM_Reload)		return 400;
 
   if(data == FM_Recharge)	return 10;
 
@@ -67,7 +67,7 @@ public func LaunchRocket(id rid, int angle)
   user->WeaponEnd(x,y);
 
   //Rakete abfeuern
-  var rocket = CreateObject(rid,x,-GetY()-350,GetController(user));
+  var rocket = CreateObject(rid,x,-GetY()-500,GetController(user));
   AddEffect("IntHeliProtection", rocket, 1, 20, 0, BKHK, LocalN("heli", Contained()));
   rocket->Launch(angle, user);
   rocket->Sound("SATW_Launch.ogg");
