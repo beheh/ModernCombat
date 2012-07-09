@@ -551,7 +551,10 @@ public func ControlUpDouble(pByObj)
 public func ControlThrow(pByObj)
 {
 	if(GetAction() == "Idle")
+	{
+		Start();
 		return true;
+	}
 
   if(!fIsAiming)
   {

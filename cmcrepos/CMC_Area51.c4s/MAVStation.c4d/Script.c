@@ -289,7 +289,7 @@ protected func ControlUpDouble(object pByObj)
 public func ControlDigSingle(object pByObj)
 {
   if(!pMav)
-    return;
+    return true;
 
   if(pMav->IsAiming())
   {
@@ -297,17 +297,7 @@ public func ControlDigSingle(object pByObj)
     return true;
   }
 
-  if(pMav->GetAction() == "Idle")
-  {
-    if (!pMav->IsDestroyed())
-    {
-      pByObj->SetHUDTarget(pMav->GetAttWeapon());
-      pMav->Start();
-    }
-  }
-  else
-    pMav->Idle();
-
+  pMav->Idle();
   return true;
 }
 
