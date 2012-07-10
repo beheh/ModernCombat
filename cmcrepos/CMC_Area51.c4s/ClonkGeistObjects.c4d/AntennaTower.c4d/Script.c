@@ -33,6 +33,7 @@ public func AddRopeHolder(int iX1, int iY1, int iX2, int iY2, object pFakeRopeHo
   var rope = CreateObject(CK5P, 0, 0, -1);
   rope->ConnectObjects(rh1, rh2);
   rope->SetRopeLength(Distance(iX1, iY1, iX2, iY2));
+	rope->SetRopeColor(RGB(100,100,100));
 
   aRopeHolders[GetLength(aRopeHolders)] = [rh1, rh2, rope];
 

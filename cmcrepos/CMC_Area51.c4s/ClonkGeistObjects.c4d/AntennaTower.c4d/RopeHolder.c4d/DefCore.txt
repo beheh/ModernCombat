@@ -10,5 +10,5 @@ Vertices=1
 VertexY=1
 VertexFriction=20
 Value=120
-Mass=1000
+Mass=50
 Components=CNCR=50
