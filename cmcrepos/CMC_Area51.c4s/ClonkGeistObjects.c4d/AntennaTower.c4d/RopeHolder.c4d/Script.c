@@ -4,6 +4,7 @@
 
 local pAntenna, fDestroyed;
 local pRopeHolder;
+local iLastDmgPlr;
 
 public func IsBulletTarget()		{return !fDestroyed;}
 public func IsDestroyed()		{return fDestroyed;}
@@ -35,6 +36,7 @@ public func Damage()
   {
     SetCategory(C4D_Object);
     pAntenna->RopeHolderDestroyed(this);
+    SetOwner(iLastDmgPlr);
 
     //Callback an Fake, damit dieses zum Wrack werden kann
     if(pRopeHolder)
@@ -51,4 +53,10 @@ public func Damage()
   }
 
   return true;
+}
+
+public func OnHit(int damage, int type, object pFrom)
+{
+	iLastDmgPlr = GetController(pFrom);
+	return true;
 }

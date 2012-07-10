@@ -111,11 +111,13 @@ protected func Colapse()
     {
       SetCategory(C4D_Object, array[0]);
       array[0]->FadeOut();
+      array[0]->SetOwner(iLastDmgPlr);
     }
     if(array[1])
     {
       SetCategory(C4D_Object, array[1]);
       array[1]->FadeOut();
+      array[1]->SetOwner(iLastDmgPlr);
     }
   }
 
