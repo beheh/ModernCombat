@@ -33,8 +33,8 @@ public func GetLaser()				{return pLaser;}
 public func Sgn(int x)				{if (x < 0) return x / x * -1; return x / x;}
 public func IsMAV()				{return true;}
 public func MaxDamage()				{return 40;}
-public func IsRepairable()		{return !fDestroyed;}
-public func IsMeleeTarget(object attacker)		{return !fDestroyed && Hostile(GetOwner(this), GetOwner(attacker));}
+public func IsRepairable()			{return !fDestroyed;}
+public func IsMeleeTarget(object attacker)	{return !fDestroyed && Hostile(GetOwner(this), GetOwner(attacker));}
 public func MeleeHit()				{return DoDamage(MaxDamage()+1, this);}
 public func MaxRotLeft()
 {
@@ -62,24 +62,6 @@ protected func Initialize()
   Sound("MAVE_Engine.ogg", 0, 0, 70, 0, +1);
 
   SetAction("Wait");
-}
-
-/* Zerstörung */
-
-public func OnDestruction()
-{
-  //Explosion
-  FakeExplode(4, GetController()+1, this);
-
-  //Effekte
-  if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",3,100,0,0,0,80,100);
-
-  //Deaktivieren
-  Wait();
-  SetAction("Destroyed");
-
-  //Verschwinden
-  FadeOut();
 }
 
 /* Positionsbestimmung */
@@ -123,11 +105,11 @@ public func GetWeaponR()
 
 private func FlyingTimer()
 {
+  //Flugverhalten
   if(iXDir < iXTendency)
     iXDir+= 1 - (fIsAiming && !(GetActTime()%3));
   if(iXDir > iXTendency)
     iXDir-= 1 - (fIsAiming && !(GetActTime()%3));
-
   if(iYDir < iYTendency)
     iYDir+= 1 - (fIsAiming && !(GetActTime()%3));
   if(iYDir > iYTendency)
@@ -139,20 +121,22 @@ private func FlyingTimer()
     iYDir = 0;
   }
 
+  //C4 verlangsamt den Flug
   SetXDir(iXDir / (iC4Count+1));
-  
-  if(iYDir<=0)
-  	SetYDir(iYDir / (iC4Count+1));
-  else
-  	SetYDir(iYDir * (iC4Count+1)); //Runter kommen wir immer!
 
-	if(iXTendency == 0)
-		iBank -= iBank / Abs(iBank);
-	else
-		if(Abs(iBank) < iBankMax)
-			iBank += iXTendency / Abs(iXTendency);
-	
-		SetObjDrawTransform(1000, -iBank*20, 0, iBank*20, 1000, 0, this);
+  if(iYDir<=0)
+    SetYDir(iYDir / (iC4Count+1));
+  else
+    SetYDir(iYDir * (iC4Count+1));
+
+  //Je nach Flugrichtung drehen
+  if(iXTendency == 0)
+    iBank -= iBank / Abs(iBank);
+  else
+    if(Abs(iBank) < iBankMax)
+      iBank += iXTendency / Abs(iXTendency);
+
+    SetObjDrawTransform(1000, -iBank*20, 0, iBank*20, 1000, 0, this);
 
   //Blinklicht (alle 30 Frames)
   if(!(GetActTime()%30))
@@ -172,7 +156,7 @@ private func FlyingTimer()
     if((GetAmmo(GetAttWeapon()->GetFMData(FM_AmmoID), GetAttWeapon()) < GetAttWeapon()->GetFMData(FM_AmmoUsage)) && !GetAttWeapon()->IsReloading())
       Reload();
 
-    //C4 beeinflusst die Fluggeschwindigkeit
+    //Vorhandenes C4 zählen
     iC4Count = 0;
 
     for(var pC4 in FindObjects(Find_Distance(50, 0, 0), Find_Func("IsC4Explosive")))
@@ -183,8 +167,10 @@ private func FlyingTimer()
     }
   }
 
-	DamageChecks();
-	
+  //Schadensverhalten
+  DamageChecks();
+
+  //Waffensteuerung
   if(fIsAiming)
   {
     //Waffe vorhanden?
@@ -192,10 +178,9 @@ private func FlyingTimer()
     //Funktionstüchtig?
     if(EMPShocked()) return;
     if(IsDestroyed()) return;
-    
+
     cur_Attachment->SetTeam(GetTeam());
-  
-  
+
     //Überdrehung nach links und rechts verhindern
     if(AimAngle() <= MaxRotLeft() && iPat_Dir < 0)
     {
@@ -205,9 +190,10 @@ private func FlyingTimer()
     {
       iPat_Dir = 0;
     }
-    
+
     iAimAngle += iPat_Dir;
-  
+
+    //Fadenkreuz plazieren
     if(crosshair)
     {
       if(AimAngle()+GetR() <= 360)
@@ -215,86 +201,89 @@ private func FlyingTimer()
       else
         crosshair->SetAngle(AimAngle()-GetR());
     }
-    
+
     if(!pLaser)
       pLaser = CreateObject(LRDT,0,0,GetOwner(this));
-      
-   var number = GetEffect("ShowWeapon", this);
 
-  var xPos = GetX(), yPos = GetY(), x = GetX(), y = GetY(), xdir = Sin(AimAngle(), 30), ydir = Cos(AimAngle(), -30);
-  var gravity = GetGravity();
- 
-  SetGravity(0);
-  if (!SimFlight(x, y, xdir, ydir))
-    pLaser->Stop();
-  else 
-    if(!pLaser->Active())
-      pLaser->Start();
-  SetGravity(gravity);
-	
-	xdir = Sin(AimAngle(), 3000);
-	ydir = Cos(AimAngle(), -3000);
-	
-  var pEnemy;
+    var number = GetEffect("ShowWeapon", this);
 
-  if(pLaser->Active())
-    pEnemy = FindObject2(Find_OnLine(0, 0, x - xPos, y - yPos), Find_Hostile(GetOwner(this)), Find_NoContainer(), Find_Or(Find_OCF(OCF_Alive), Find_Func("IsBulletTarget"), Find_Func("IsCMCVehicle")), Sort_Distance(0, 0));
-  else
-    pEnemy = FindObject2(Find_OnLine(0, 0, xdir, ydir), Find_Hostile(GetOwner(this)), Find_NoContainer(), Find_Or(Find_OCF(OCF_Alive), Find_Func("IsBulletTarget"), Find_Func("IsCMCVehicle")), Sort_Distance(0, 0));
-  
-  //Es folgen episch awesome funktionierende Berechnungen by Monkstar
-  if(pEnemy)
-  {
-    if(!pLaser->Active())
-      pLaser->Start();
-    
-    x = GetX(pEnemy);
-    y = GetY(pEnemy);
-    
-    var xOff, yOff;
-    
-    if(xPos > x)
-      xOff = GetDefCoreVal("Width", "DefCore", GetID(pEnemy)) + GetDefCoreVal("Offset", "DefCore", GetID(pEnemy), 0) + x;
+    var xPos = GetX(), yPos = GetY(), x = GetX(), y = GetY(), xdir = Sin(AimAngle(), 30), ydir = Cos(AimAngle(), -30);
+    var gravity = GetGravity();
+
+    SetGravity(0);
+    if (!SimFlight(x, y, xdir, ydir))
+      pLaser->Stop();
+    else 
+      if(!pLaser->Active())
+        pLaser->Start();
+    SetGravity(gravity);
+
+    xdir = Sin(AimAngle(), 3000);
+    ydir = Cos(AimAngle(), -3000);
+
+    var pEnemy;
+
+    if(pLaser->Active())
+      pEnemy = FindObject2(Find_OnLine(0, 0, x - xPos, y - yPos), Find_Hostile(GetOwner(this)), Find_NoContainer(), Find_Or(Find_OCF(OCF_Alive), Find_Func("IsBulletTarget"), Find_Func("IsCMCVehicle")), Sort_Distance(0, 0));
     else
-      xOff = GetDefCoreVal("Offset", "DefCore", GetID(pEnemy), 0) + x;
-      
-    if(yPos > y)
-      yOff = GetDefCoreVal("Height", "DefCore", GetID(pEnemy)) + GetDefCoreVal("Offset", "DefCore", GetID(pEnemy), 1) + y;
-    else
-      yOff = GetDefCoreVal("Offset", "DefCore", GetID(pEnemy), 1) + y;
-    
-    if(Inside(xPos, Min(x, xOff), Max(x, xOff)))
+      pEnemy = FindObject2(Find_OnLine(0, 0, xdir, ydir), Find_Hostile(GetOwner(this)), Find_NoContainer(), Find_Or(Find_OCF(OCF_Alive), Find_Func("IsBulletTarget"), Find_Func("IsCMCVehicle")), Sort_Distance(0, 0));
+
+    //Feinderkennung
+    if(pEnemy)
     {
-      x = Sin(AimAngle(), (yOff - yPos) * 1000 / (-Cos(AimAngle(), 1000))) + xPos;
-      y = -Cos(AimAngle(), (yOff - yPos) * 1000 / (-Cos(AimAngle(), 1000))) + yPos;
-    }
-    else
-      if(Inside(yPos, Min(y, yOff), Max(y, yOff)))
+      if(!pLaser->Active())
+        pLaser->Start();
+
+      x = GetX(pEnemy);
+      y = GetY(pEnemy);
+
+      var xOff, yOff;
+
+      if(xPos > x)
+        xOff = GetDefCoreVal("Width", "DefCore", GetID(pEnemy)) + GetDefCoreVal("Offset", "DefCore", GetID(pEnemy), 0) + x;
+      else
+        xOff = GetDefCoreVal("Offset", "DefCore", GetID(pEnemy), 0) + x;
+
+      if(yPos > y)
+        yOff = GetDefCoreVal("Height", "DefCore", GetID(pEnemy)) + GetDefCoreVal("Offset", "DefCore", GetID(pEnemy), 1) + y;
+      else
+        yOff = GetDefCoreVal("Offset", "DefCore", GetID(pEnemy), 1) + y;
+
+      if(Inside(xPos, Min(x, xOff), Max(x, xOff)))
       {
-        x = Sin(AimAngle(), (xOff - xPos) * 1000 / (Sin(AimAngle(), 1000))) + xPos;
-        y = -Cos(AimAngle(), (xOff - xPos) * 1000 / (Sin(AimAngle(), 1000))) + yPos;
+        x = Sin(AimAngle(), (yOff - yPos) * 1000 / (-Cos(AimAngle(), 1000))) + xPos;
+        y = -Cos(AimAngle(), (yOff - yPos) * 1000 / (-Cos(AimAngle(), 1000))) + yPos;
       }
+      else
+        if(Inside(yPos, Min(y, yOff), Max(y, yOff)))
+        {
+          x = Sin(AimAngle(), (xOff - xPos) * 1000 / (Sin(AimAngle(), 1000))) + xPos;
+          y = -Cos(AimAngle(), (xOff - xPos) * 1000 / (Sin(AimAngle(), 1000))) + yPos;
+        }
       else
         if((Angle(xPos, yPos, xOff, yOff) >= 180 && Angle(xPos, yPos, xOff, yOff) < AimAngle()) || (Angle(xPos, yPos, xOff, yOff) <= 180 && Angle(xPos, yPos, xOff, yOff) > AimAngle()))
         {
           x = Sin(AimAngle(), (yOff - yPos) * 1000 / (-Cos(AimAngle(), 1000))) + xPos;
           y = -Cos(AimAngle(), (yOff - yPos) * 1000 / (-Cos(AimAngle(), 1000))) + yPos;
         }
-        else
-        {
-          x = Sin(AimAngle(), (xOff - xPos) * 1000 / (Sin(AimAngle(), 1000))) + xPos;
-          y = -Cos(AimAngle(), (xOff - xPos) * 1000 / (Sin(AimAngle(), 1000))) + yPos;
-        }
+      else
+      {
+        x = Sin(AimAngle(), (xOff - xPos) * 1000 / (Sin(AimAngle(), 1000))) + xPos;
+        y = -Cos(AimAngle(), (xOff - xPos) * 1000 / (Sin(AimAngle(), 1000))) + yPos;
+      }
 
   }
-  
+
+  //Laser zeichnen
   if(!pBeam)  
     pBeam = CreateObject(LRBM, 0, 0, GetOwner(this));
   else
     pBeam->SetPosition(xPos, yPos);
-    
+
+  //Sichtbarkeit nur für Besitzer und Verbündete
   pBeam->SetVisibility(VIS_Owner | VIS_Allies);
-  
+
+  //Laser passend strecken
   if(pEnemy || pLaser->Active())
     pBeam->SetObjDrawTransform(100 * Distance(xPos, yPos, x, y), 0, -458 * Distance(xPos, yPos, x, y), 0, 1000, 0);
   else
@@ -340,63 +329,97 @@ private func FlyingTimer()
   //Log(Format("angle: %d, xPrev %d, yPrev %d, xNew %d, yNew %d, Material %s", iAimAngle, x, y, posX, posY,MaterialName(GetMaterial(posX, posY))));
    //SetPosition(posX, posY, pLaser);
   }
-  
+
+  //Objekte zum Rammen suchen
   var target = FindObject2(Find_AtPoint(0, 0), Find_Hostile(GetOwner(this)), Find_NoContainer(), Find_OCF(OCF_Alive));
   if(!GetEffect("MeleeCooldown", this) && target)
   {
-	  //Ziel am kriechen?
-  	if(WildcardMatch(GetAction(target),"*Crawl*"))
+    //Ziel am kriechen?
+    if(WildcardMatch(GetAction(target),"*Crawl*"))
+    {
+      //Erhöhten Schaden verursachen
+      DoDmg(30, DMG_Melee, target, 0, GetController(this)+1, GetID());
+      //Ziel zum Aufstehen zwingen
+      ObjectSetAction(target, "KneelUp");
+    }
+    else
+    {
+      //Schaden verursachen
+      DoDmg(20, DMG_Melee, target, 0, GetController(this)+1, GetID());
+
+      //Ziel schleudern
+      var pwr = 18, angle = 45, dir = iXDir / Abs(iXDir);
+      if(GetProcedure(target) != "SWIM")
       {
-        //Erhöhten Schaden verursachen
-        DoDmg(22, DMG_Melee, target, 0, GetController(this)+1, GetID());
-        //Ziel zum Aufstehen zwingen
-        ObjectSetAction(target, "KneelUp");
+        if(!dir)
+       	  dir--;
+        SetXDir(Sin(angle * dir, pwr), target, 10);
+        SetYDir(-Cos(angle * dir, pwr), target, 10);
+        ObjectSetAction(target, "Tumble");
       }
-      else
-      {
-        //Schaden verursachen
-        DoDmg(15, DMG_Melee, target, 0, GetController(this)+1, GetID());
-  
-        //Ziel schleudern
-        var pwr = 18, angle = 45, dir = iXDir / Abs(iXDir);
-        if(GetProcedure(target) != "SWIM")
-        {
-          if(!dir)
-          	dir--;
-          SetXDir(Sin(angle * dir, pwr), target, 10);
-          SetYDir(-Cos(angle * dir, pwr), target, 10);
-          ObjectSetAction(target, "Tumble");
-        }
-     }
-     //Auch der MAV nimmt Schaden
-     DoDmg(20, DMG_Melee, this, 0, GetController(GetOwner(this))+1, GetID());
-     AddEffect("MeleeCooldown", this, 1, 30);
-   }
+    }
+    //Auch der MAV nimmt Schaden
+    DoDmg(10, DMG_Melee, this, 0, GetController(GetOwner(this))+1, GetID());
+    AddEffect("MeleeCooldown", this, 1, 30);
+  }
+}
+
+/* Schaden */
+
+private func DamageChecks()
+{
+	//Schadensverhalten
+  if(GetDamage() >= MaxDamage() / 2 && !GBackLiquid(0, 0))
+  	Smoke(0, 0, Random(7));
+  if(GetDamage() >= MaxDamage() * 3 / 4 && !GBackLiquid(0, 0))
+      CreateParticle("Blast", 0, 3, 0, 3, Random(35), RGB(255, 255, 255), this);
 }
 
 public func OnDmg(int iDmg, int iType)
 {
-	if(iType == DMG_Melee)
-		return 0;
-  return 50;	//Standardwert
+  if(iType == DMG_Melee)	return 0;	//Melee
+  if(iType == DMG_Fire)		return 40;	//Feuer
+  if(iType == DMG_Energy)	return 40;	//Energiewaffen
+
+  return 50;
 }
+
+/* Zerstörung */
+
+public func OnDestruction()
+{
+  //Explosion
+  FakeExplode(4, GetController()+1, this);
+
+  //Effekte
+  if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",3,100,0,0,0,80,100);
+
+  //Deaktivieren
+  Wait();
+  SetAction("Destroyed");
+
+  //Verschwinden
+  FadeOut();
+}
+
+/* Aktionen */
 
 private func WaitTimer()
 {
-	DamageChecks();
+  DamageChecks();
 }
 
 public func Start()
 {
-	SetAction("Flying");
-	Sound("MAVE_Engine.ogg", 0, 0, 70, 0, +1);
+  SetAction("Flying");
+  Sound("MAVE_Engine.ogg", 0, 0, 70, 0, +1);
 }
 
 public func Wait()
 {
-	if(GetAction() != "Destroyed")
-		SetAction("Wait");
-	
+  if(GetAction() != "Destroyed")
+    SetAction("Wait");
+
   iXTendency = 0;
   iYTendency = 0;
   iXDir = 0;
@@ -407,9 +430,10 @@ public func Wait()
   EndAim();
 }
 
+/* Bewaffnung */
+
 public func Arm(id idWeapon)
 {
-
   //Waffe erstellen
   var pLaser = CreateObject(idWeapon, 0, 0, GetOwner(this));
   Enter(this, pLaser);
@@ -477,8 +501,8 @@ public func EndAim()
 
 public func ControlLeft(pByObj)
 {
-	if(GetAction() == "Wait")
-		return true;
+  if(GetAction() == "Wait")
+    return true;
 
   if(fIsAiming)
   {
@@ -489,7 +513,7 @@ public func ControlLeft(pByObj)
   if(iXTendency > 0)
     iXTendency = 0;
   else
-      iXTendency = -iSpeed;
+    iXTendency = -iSpeed;
 
   return true;
 }
@@ -497,7 +521,7 @@ public func ControlLeft(pByObj)
 public func ControlLeftDouble(pByObj)
 {
   if(fIsAiming || GetAction() == "Wait")
-  	return true;
+    return true;
   	
   iXTendency = -iSpeed;
 
@@ -512,9 +536,9 @@ public func ControlLeftReleased(pByObj)
 
 public func ControlRight(pByObj)
 {
-	if(GetAction() == "Wait")
-		return true;
-		
+  if(GetAction() == "Wait")
+    return true;
+
   if(fIsAiming)
   {
     iPat_Dir = -1;
@@ -532,8 +556,8 @@ public func ControlRight(pByObj)
 public func ControlRightDouble(pByObj)
 {
   if(fIsAiming || GetAction() == "Wait")
-  	return true;
-  	
+    return true;
+
   iXTendency = iSpeed;
 
   return true;
@@ -547,9 +571,9 @@ public func ControlRightReleased(pByObj)
 
 public func ControlDown(pByObj)
 {
-	if(GetAction() == "Wait")
-		return true;
-		
+  if(GetAction() == "Wait")
+    return true;
+
   if(fIsAiming)
   {
     iPat_Dir = 0;
@@ -567,8 +591,8 @@ public func ControlDown(pByObj)
 public func ControlDownDouble(pByObj)
 {
   if(fIsAiming || GetAction() == "Wait")
-  	return true;
-  	
+    return true;
+
   iYTendency = iSpeed;
 
   return true;
@@ -577,8 +601,8 @@ public func ControlDownDouble(pByObj)
 public func ControlUp(object pByObj)
 {
   if(fIsAiming || GetAction() == "Wait")
-  	return true;
-  	
+    return true;
+
   if(iYTendency > 0)
     iYTendency = 0;
   else
@@ -590,7 +614,7 @@ public func ControlUp(object pByObj)
 public func ControlUpDouble(pByObj)
 {
   if(fIsAiming || GetAction() == "Wait")
-  	return true;
+    return true;
 
   iYTendency = -iSpeed;
 
@@ -599,17 +623,16 @@ public func ControlUpDouble(pByObj)
 
 public func ControlThrow(pByObj)
 {
-	if(GetAction() == "Wait")
-	{
-		Start();
-		return true;
-	}
+  if(GetAction() == "Wait")
+  {
+    Start();
+    return true;
+  }
 
   if(!fIsAiming)
   {
     InitAim();
     fIsAiming = true;
-    
   }
   else
   {
@@ -654,15 +677,6 @@ protected func Hit3()
   Sound("HeavyHit*.ogg");
 
   DoDmg(10);
-}
-
-private func DamageChecks()
-{
-	//Schadensverhalten
-  if(GetDamage() >= MaxDamage() / 2 && !GBackLiquid(0, 0))
-  	Smoke(0, 0, Random(7));
-  if(GetDamage() >= MaxDamage() * 3 / 4 && !GBackLiquid(0, 0))
-      CreateParticle("Blast", 0, 3, 0, 3, Random(35), RGB(255, 255, 255), this);
 }
 
 /* Kontaktfunktionen */
