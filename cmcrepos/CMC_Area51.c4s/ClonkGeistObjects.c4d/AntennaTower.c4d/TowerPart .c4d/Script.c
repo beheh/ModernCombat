@@ -19,7 +19,7 @@ public func FxDmgObjectsTimer(object target, int nr, int time)
   {
     EffectVar(1, target, nr)++;
     //Bei keiner bewegung in 15 Sekunden verschwinden
-    if(EffectVar(1, target, nr) > RandomX(90,110))
+    if(EffectVar(1, target, nr) > 200)
       FadeOut();
 
     return false;
