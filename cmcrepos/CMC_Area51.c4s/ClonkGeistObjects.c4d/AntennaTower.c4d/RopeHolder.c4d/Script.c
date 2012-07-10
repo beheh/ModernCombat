@@ -16,6 +16,15 @@ public func SetFakeRopeHolder(object pObject)
   pRopeHolder = pObject; 
   //Callback, dass diese Seilhalterung daran "befestigt" wurde
   pRopeHolder->~RopeHolderAttached(this);
+  //Shape an Größe der Seilhalterung anpassen
+  var id = GetID(pRopeHolder);
+  var wdt = GetDefWidth(id), hgt = GetDefHeight(id);
+  var offX = GetDefOffset(id, 0), offY = GetDefOffset(id, 1);
+  var x = GetX(pRopeHolder) - offX - wdt/2, y = GetY(pRopeHolder) - offY - wdt/2;
+  SetPosition(x, y); //Mittig der Halterung platzieren
+  SetShape(-wdt/2, -hgt/2, wdt, hgt); //Shape setzen
+
+  return true;
 }
 
 /* Schaden */
