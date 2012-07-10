@@ -332,7 +332,7 @@ private func FlyingTimer()
 
   //Objekte zum Rammen suchen
   var target = FindObject2(Find_AtPoint(0, 0), Find_Hostile(GetOwner(this)), Find_NoContainer(), Find_OCF(OCF_Alive));
-  if(!GetEffect("MeleeCooldown", this) && target)
+  if((Abs(iXDir) + Abs(iYDir) >= 30) && !GetEffect("MeleeCooldown", this) && target)
   {
     //Ziel am kriechen?
     if(WildcardMatch(GetAction(target),"*Crawl*"))
