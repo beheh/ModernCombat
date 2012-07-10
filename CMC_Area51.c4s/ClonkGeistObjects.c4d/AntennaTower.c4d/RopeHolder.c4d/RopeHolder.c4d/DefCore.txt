@@ -6,11 +6,12 @@ Category=C4D_Structure
 Width=48
 Height=40
 Offset=-24,-20
-Vertices=4
-VertexX=-23,-23,23,23
-VertexY=-19,19,-19,19
-VertexFriction=100,100,100,100
+Vertices=8
+VertexX=-23,-23,23,23,-10,10,-10,10
+VertexY=-19,19,-19,19,19,-19,-19,19
+VertexFriction=100,100,100,100,100,100,100,100
 Value=120
 Mass=1000
 Components=CNCR=50
 Picture=0,0,48,40
+Rotate=1

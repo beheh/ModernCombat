@@ -15,19 +15,23 @@ protected func Initialize()
 	aRopeHolders = [];
 }
 
-public func AddRopeHolder(int iX1, int iY1, int iX2, int iY2)
+public func AddRopeHolder(int iX1, int iY1, int iX2, int iY2, object pFakeRopeHolder1, object pFakeRopeHolder2)
 {
 	var rh1 = CreateObject(REHR, AbsX(iX1), AbsY(iY1), -1);
 	var rh2 = CreateObject(REHR, AbsX(iX2), AbsY(iY2), -1);
 	
 	rh1->SetAntenna(this);
 	rh2->SetAntenna(this);
+	rh1->SetFakeRopeHolder(pFakeRopeHolder1);
+	rh2->SetFakeRopeHolder(pFakeRopeHolder2);
 	
 	var rope = CreateObject(CK5P, 0, 0, -1);
 	rope->ConnectObjects(rh1, rh2);
 	rope->SetRopeLength(Distance(iX1, iY1, iX2, iY2));
 	
 	aRopeHolders[GetLength(aRopeHolders)] = [rh1, rh2, rope];
+
+	return [rh1, rh2, rope];
 }
 
 public func Damage(int change)
