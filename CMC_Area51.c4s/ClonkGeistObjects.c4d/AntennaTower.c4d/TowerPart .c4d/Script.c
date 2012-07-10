@@ -9,7 +9,6 @@ func Initialize()
 {
   SetAction("Be");
   AddEffect("DmgObjects", this, 101, 5, this);
-  SetOwner(-1);
 }
 
 /* Schaden verursachen */
@@ -43,9 +42,9 @@ public func FxDmgObjectsTimer(object target, int nr, int time)
       continue;
 
     if((GetCategory(obj) & C4D_Structure || GetCategory(obj) & C4D_Vehicle) && obj->~GetPartDamage())
-      DoDmg(obj->~GetPartDamage(), DMG_Melee, obj, 10, -1);
+      DoDmg(obj->~GetPartDamage(), DMG_Melee, obj, 10, GetOwner());
     else
-      DoDmg(Max(GetXDir(),GetYDir()), DMG_Melee, obj, 10, -1);
+      DoDmg(Max(GetXDir(),GetYDir()), DMG_Melee, obj, 10, GetOwner());
 
     if(GetCategory(obj) & C4D_Living)
       obj->SetAction("Tumble");
