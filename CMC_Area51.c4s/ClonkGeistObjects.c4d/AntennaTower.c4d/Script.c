@@ -5,96 +5,109 @@
 local aRopeHolders;
 local fDestroyed;
 
-public func IsDestroyed() { return fDestroyed; }
+public func IsDestroyed()	{return fDestroyed;}
+
 
 /* Initalisierung */
 
 protected func Initialize()
 {
   SetAction("Be");
-	aRopeHolders = [];
+  aRopeHolders = [];
 }
+
+/* Seilhalterungen */
 
 public func AddRopeHolder(int iX1, int iY1, int iX2, int iY2, object pFakeRopeHolder1, object pFakeRopeHolder2)
 {
-	var rh1 = CreateObject(REHR, AbsX(iX1), AbsY(iY1), -1);
-	var rh2 = CreateObject(REHR, AbsX(iX2), AbsY(iY2), -1);
-	
-	rh1->SetAntenna(this);
-	rh2->SetAntenna(this);
-	rh1->SetFakeRopeHolder(pFakeRopeHolder1);
-	rh2->SetFakeRopeHolder(pFakeRopeHolder2);
-	
-	var rope = CreateObject(CK5P, 0, 0, -1);
-	rope->ConnectObjects(rh1, rh2);
-	rope->SetRopeLength(Distance(iX1, iY1, iX2, iY2));
-	
-	aRopeHolders[GetLength(aRopeHolders)] = [rh1, rh2, rope];
+  //Halterungen erstellen
+  var rh1 = CreateObject(REHR, AbsX(iX1), AbsY(iY1), -1);
+  var rh2 = CreateObject(REHR, AbsX(iX2), AbsY(iY2), -1);
 
-	return [rh1, rh2, rope];
-}
+  //Befestigen
+  rh1->SetAntenna(this);
+  rh2->SetAntenna(this);
+  rh1->SetFakeRopeHolder(pFakeRopeHolder1);
+  rh2->SetFakeRopeHolder(pFakeRopeHolder2);
 
-public func Damage(int change)
-{
-	if(IsDestroyed() || change < 0)
-		return false;
+  var rope = CreateObject(CK5P, 0, 0, -1);
+  rope->ConnectObjects(rh1, rh2);
+  rope->SetRopeLength(Distance(iX1, iY1, iX2, iY2));
 
-	if(WorkingRopesCount())
-		DoDamage(-GetDamage());
-	else if(GetDamage() > 200)
-		Colapse();
-	
-	return true;
+  aRopeHolders[GetLength(aRopeHolders)] = [rh1, rh2, rope];
+
+  return [rh1, rh2, rope];
 }
 
 public func WorkingRopesCount()
 {
-	var cnt;
-	for(var array in aRopeHolders)
-	{
-		if(!array)
-			continue;
+  var cnt;
+  for(var array in aRopeHolders)
+  {
+    if(!array)
+      continue;
 
-		if(!array[3])
-			cnt++;
-	}
+    if(!array[3])
+      cnt++;
+  }
 
-	return cnt;
+  return cnt;
 }
 
 public func RopeHolderDestroyed(object pRopeHolder)
 {
-	for(var i = 0; i < GetLength(aRopeHolders); i++)
-	{
-		if(!aRopeHolders[i])
-			continue;
-		
-		if(GetIndexOf(pRopeHolder, aRopeHolders[i]) > -1)
-			aRopeHolders[i][3] = true;
-	}
+  for(var i = 0; i < GetLength(aRopeHolders); i++)
+  {
+    if(!aRopeHolders[i])
+      continue;
+
+    if(GetIndexOf(pRopeHolder, aRopeHolders[i]) > -1)
+      aRopeHolders[i][3] = true;
+  }
 }
+
+/* Schaden */
+
+public func Damage(int change)
+{
+  if(IsDestroyed() || change < 0)
+    return false;
+
+  if(WorkingRopesCount())
+    DoDamage(-GetDamage());
+  else if(GetDamage() > 200)
+    Colapse();
+
+  return true;
+}
+
+/* Zerstörung */
 
 protected func Colapse()
 {
-	fDestroyed = true;
+  //Nur einmalig zerstörbar
+  if(fDestroyed) return;
+  fDestroyed = true;
+
   //Bodenerschütterung
   //ShakeObjects(GetX(), GetY(), 300);
-  //Seile sollen runterfallen und ausfaden
+
+  //Seile fallen ab und verschwinden
   for(var array in aRopeHolders)
   {
-  	if(!array)
-  		continue;
-  	
-  	if(array[0])
-  	{
-  		SetCategory(C4D_Object, array[0]);
-  		array[0]->FadeOut();
-  	}
-  	if(array[1])
-  	{
-  		SetCategory(C4D_Object, array[1]);
-  		array[1]->FadeOut();
-  	}
+    if(!array)
+      continue;
+
+    if(array[0])
+    {
+      SetCategory(C4D_Object, array[0]);
+      array[0]->FadeOut();
+    }
+    if(array[1])
+    {
+      SetCategory(C4D_Object, array[1]);
+      array[1]->FadeOut();
+    }
   }
 
   //Maststücke erstellen
@@ -117,8 +130,6 @@ protected func Colapse()
   part->SetRDir(RandomX(-5,5));
   part->Fling(part, 1, 0);
 
-
-
   part = CreateObject(ATR2, 0,-203, NO_OWNER);
   part->SetRDir(RandomX(-4,4));
   part->Fling(part, 1, 0);
@@ -132,6 +143,12 @@ protected func Colapse()
   part->Fling(part, 1, 0);
 
   part = CreateObject(ATR2, 0,76, NO_OWNER);
+  part->SetRDir(RandomX(-4,4));
+  part->Fling(part, 1, 0);
+
+  part = CreateObject(ATR2, -9,238, NO_OWNER);
+  part->SetAction("Be2");
+  part->SetR(180);
   part->SetRDir(RandomX(-4,4));
   part->Fling(part, 1, 0);
 
