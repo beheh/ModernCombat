@@ -143,8 +143,16 @@ func Initialize()
   //Sendemast
   var antenna_tower =  CreateObject(AATR, 1575, 1060, -1);
   antenna_tower->AddRopeHolder(1280, 1010, 1560, 620);
-  antenna_tower->AddRopeHolder(1590, 620, 1858, 660);
-	antenna_tower->AddRopeHolder(1860, 400, 1590, 415);
+  
+  var rope_holder = CreateObject(RTMP, 1862, 667, -1);
+  rope_holder->SetR(-90);
+  
+  antenna_tower->AddRopeHolder(1590, 620, 1858, 660, 0, rope_holder);
+  
+  rope_holder = CreateObject(RTMP, 1862, 407, -1);
+  rope_holder->SetR(-90);
+  
+	antenna_tower->AddRopeHolder(1860, 400, 1590, 415, rope_holder);
 	antenna_tower->AddRopeHolder(1090, 560, 1560, 415);
 
   //Reitwipf
