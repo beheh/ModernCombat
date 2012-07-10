@@ -1,0 +1,12 @@
+#Drohne
+
+ArmWith=Mit %s bewaffnen.
+JustOneDrone=Nicht mehr als eine Drone gleichzeitig aktivierbar
+Damaged=Die Drone ist beschädigt
+ArmedWith=Drone bewaffnet mit %s.
+NoWeap=Keine Waffe zum Ausrüsten.
+
+#GEARControl
+
+CtxEquipmentDesc=CtxEquipmentDesc
+CtxUnbuckleEquipment=Ausrüstung ablegen.
