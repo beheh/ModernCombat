@@ -34,6 +34,8 @@ public func Sgn(int x)				{if (x < 0) return x / x * -1; return x / x;}
 public func IsMAV()				{return true;}
 public func MaxDamage()				{return 40;}
 public func IsRepairable()		{return !fDestroyed;}
+public func IsMeleeTarget(object attacker)		{return !fDestroyed && Hostile(GetOwner(this), GetOwner(attacker));}
+public func MeleeHit()				{return DoDamage(MaxDamage()+1, this);}
 public func MaxRotLeft()
 {
   return 120;
@@ -338,6 +340,45 @@ private func FlyingTimer()
   //Log(Format("angle: %d, xPrev %d, yPrev %d, xNew %d, yNew %d, Material %s", iAimAngle, x, y, posX, posY,MaterialName(GetMaterial(posX, posY))));
    //SetPosition(posX, posY, pLaser);
   }
+  
+  var target = FindObject2(Find_AtPoint(0, 0), Find_Hostile(GetOwner(this)), Find_NoContainer(), Find_OCF(OCF_Alive));
+  if(!GetEffect("MeleeCooldown", this) && target)
+  {
+	  //Ziel am kriechen?
+  	if(WildcardMatch(GetAction(target),"*Crawl*"))
+      {
+        //Erhöhten Schaden verursachen
+        DoDmg(22, DMG_Melee, target, 0, GetController(this)+1, GetID());
+        //Ziel zum Aufstehen zwingen
+        ObjectSetAction(target, "KneelUp");
+      }
+      else
+      {
+        //Schaden verursachen
+        DoDmg(15, DMG_Melee, target, 0, GetController(this)+1, GetID());
+  
+        //Ziel schleudern
+        var pwr = 18, angle = 45, dir = iXDir / Abs(iXDir);
+        if(GetProcedure(target) != "SWIM")
+        {
+          if(!dir)
+          	dir--;
+          SetXDir(Sin(angle * dir, pwr), target, 10);
+          SetYDir(-Cos(angle * dir, pwr), target, 10);
+          ObjectSetAction(target, "Tumble");
+        }
+     }
+     //Auch der MAV nimmt Schaden
+     DoDmg(20, DMG_Melee, this, 0, GetController(GetOwner(this))+1, GetID());
+     AddEffect("MeleeCooldown", this, 1, 30);
+   }
+}
+
+public func OnDmg(int iDmg, int iType)
+{
+	if(iType == DMG_Melee)
+		return 0;
+  return 50;	//Standardwert
 }
 
 private func WaitTimer()
@@ -589,6 +630,11 @@ public func ControlThrow(pByObj)
 public func FxNoTargetCooldownTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
   RemoveEffect("NoTargetCooldown", this);
+}
+
+public func FxMeleeCooldownTimer(object pTarget, int iEffectNumber, int iEffectTime)
+{
+  RemoveEffect("MeleeCooldown", this);
 }
 
 /* Aufschlag */

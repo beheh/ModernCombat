@@ -95,7 +95,7 @@ public func FxActivityTimer(object pTarget, int iEffectNumber, int iEffectTime)
     if(pMav)
     {
       pMav->Wait();
-      pMav->SetColorDw(RGB(255,255,255));
+      //pMav->SetColorDw(RGB(255,255,255));
     }
 
     SetOwner(-1, this);
@@ -205,7 +205,7 @@ private func ExitClonk(object pByObject)
     if(pMav)
     {
       pMav->Wait();
-      pMav->SetColorDw(RGB(255,255,255));
+      //pMav->SetColorDw(RGB(255,255,255));
     }
     SetOwner(-1, this);
     controller = - 1;
