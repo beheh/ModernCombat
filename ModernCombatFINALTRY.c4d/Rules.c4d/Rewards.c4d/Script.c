@@ -303,7 +303,10 @@ global func DoPlayerPoints(int iPoints, int iType, int iPlr, object pClonk, id i
   {
     //Achievement-Fortschritt (Point Hunter)
     DoAchievementProgress(iPoints, AC13, iPlr);
-    
+
+    //Achievement-Fortschritt (Speedster)
+    DoAchievementProgress(iPoints, AC38, iPlr);
+
     //Neuen Rang berechnen
     if(iType == RWDS_TeamPoints || iType == RWDS_BattlePoints)
       RecalcPlayerRank(iPlr);
