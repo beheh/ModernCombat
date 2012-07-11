@@ -255,6 +255,9 @@ func CreateDecoration()
   CreateObject(RAI1, 3460, 590, -1)->SetRail([1,1,1,1,1,1,1,1]);
   CreateObject(RAI3, 3847, 560, -1)->SetRail([1,1]);
 
+  //Verbranntes Schloss
+  CreateObject(CSB3, 2690, 990, -1)->SetR(2);
+
   //Zäune
   CreateObject(FENC, 1310, 670, -1);
   CreateObject(FENC, 1660, 770, -1)->Set(2);

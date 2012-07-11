@@ -141,6 +141,10 @@ func CreateDecoration()
   //Radio
   CreateObject(RDIO, 390, 290, -1);
 
+  //Verbrannte Hochöfen
+  CreateObject(FNDB, 1010, 790, -1)->SetR(-2);
+  CreateObject(FNDB, 1100, 750, -1)->SetR(2);
+
   //Flutlichter
   CreateObject(FLGH, 455, 630, -1)->SetRotation(30);
   CreateObject(FLGH, 975, 470, -1)->SetRotation(100);
