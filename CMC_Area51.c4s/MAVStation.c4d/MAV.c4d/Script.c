@@ -331,36 +331,43 @@ private func FlyingTimer()
   }
 
   //Objekte zum Rammen suchen
-  var target = FindObject2(Find_AtPoint(0, 0), Find_Hostile(GetOwner(this)), Find_NoContainer(), Find_OCF(OCF_Alive));
-  if((Abs(iXDir) + Abs(iYDir) >= 30) && !GetEffect("MeleeCooldown", this) && target)
+  if((Abs(iXDir) + Abs(iYDir) >= 30) && !GetEffect("MeleeCooldown", this))
   {
-    //Ziel am kriechen?
-    if(WildcardMatch(GetAction(target),"*Crawl*"))
+    var target = FindObject2(Find_AtPoint(0, 0), Find_Hostile(GetOwner(this)), Find_NoContainer(), Find_OCF(OCF_Alive));
+    if(target)
     {
-      //Erhöhten Schaden verursachen
-      DoDmg(30, DMG_Melee, target, 0, GetController(this)+1, GetID());
-      //Ziel zum Aufstehen zwingen
-      ObjectSetAction(target, "KneelUp");
-    }
-    else
-    {
-      //Schaden verursachen
-      DoDmg(20, DMG_Melee, target, 0, GetController(this)+1, GetID());
-
-      //Ziel schleudern
-      var pwr = 18, angle = 45, dir = iXDir / Abs(iXDir);
-      if(GetProcedure(target) != "SWIM")
+      //Ziel am kriechen?
+      if(WildcardMatch(GetAction(target),"*Crawl*"))
       {
-        if(!dir)
-       	  dir--;
-        SetXDir(Sin(angle * dir, pwr), target, 10);
-        SetYDir(-Cos(angle * dir, pwr), target, 10);
-        ObjectSetAction(target, "Tumble");
+        //Erhöhten Schaden verursachen
+        DoDmg(30, DMG_Melee, target, 0, GetController(this)+1, GetID());
+        //Ziel zum Aufstehen zwingen
+        ObjectSetAction(target, "KneelUp");
       }
+      else
+      {
+        //Schaden verursachen
+        DoDmg(20, DMG_Melee, target, 0, GetController(this)+1, GetID());
+
+        //Ziel schleudern
+        var pwr = 18, angle = 45, dir = iXDir / Abs(iXDir);
+        if(GetProcedure(target) != "SWIM")
+        {
+          if(!dir)
+             dir--;
+          SetXDir(Sin(angle * dir, pwr), target, 10);
+          SetYDir(-Cos(angle * dir, pwr), target, 10);
+          ObjectSetAction(target, "Tumble");
+        }
+      }
+      //Auch der MAV nimmt Schaden
+      DoDmg(10, DMG_Melee, this, 0, GetController(GetOwner(this))+1, GetID());
+      AddEffect("MeleeCooldown", this, 1, 30);
+
+      //Sound
+      Sound("WPN2_Punch*.ogg");
+      Sound("BKHK_RotorHit*.ogg");
     }
-    //Auch der MAV nimmt Schaden
-    DoDmg(10, DMG_Melee, this, 0, GetController(GetOwner(this))+1, GetID());
-    AddEffect("MeleeCooldown", this, 1, 30);
   }
 }
 
@@ -368,11 +375,11 @@ private func FlyingTimer()
 
 private func DamageChecks()
 {
-	//Schadensverhalten
+  //Schadensverhalten
   if(GetDamage() >= MaxDamage() / 2 && !GBackLiquid(0, 0))
-  	Smoke(0, 0, Random(7));
+    Smoke(0, 0, Random(7));
   if(GetDamage() >= MaxDamage() * 3 / 4 && !GBackLiquid(0, 0))
-      CreateParticle("Blast", 0, 3, 0, 3, Random(35), RGB(255, 255, 255), this);
+    CreateParticle("Blast", 0, 3, 0, 3, Random(35), RGB(255, 255, 255), this);
 }
 
 public func OnDmg(int iDmg, int iType)
@@ -522,7 +529,7 @@ public func ControlLeftDouble(pByObj)
 {
   if(fIsAiming || GetAction() == "Wait")
     return true;
-  	
+
   iXTendency = -iSpeed;
 
   return true;
@@ -643,8 +650,8 @@ public func ControlThrow(pByObj)
       PlayerMessage(GetOwner(pByObj), "$MarkRequired$", this);
       if(!GetEffect("NoTargetCooldown"))
       {
-      	Sound("JetNoTarget.wav",0,0,0,GetOwner(pByObj));
-      	AddEffect("NoTargetCooldown", this, 1, 150);
+        Sound("JetNoTarget.wav",0,0,0,GetOwner(pByObj));
+        AddEffect("NoTargetCooldown", this, 1, 150);
       }
     }
   }
