@@ -13,7 +13,7 @@ public func IsDestroyed()	{return fDestroyed;}
 
 protected func Initialize()
 {
-  SetAction("Be");
+  SetAction("Stand");
   aRopeHolders = [];
   iLastDmgPlr = -1;
 }
