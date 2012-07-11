@@ -1,5 +1,5 @@
 [Action]
 Name=Be
 Procedure=NONE
-Length=2
+Length=3
 Facet=0,0,96,700

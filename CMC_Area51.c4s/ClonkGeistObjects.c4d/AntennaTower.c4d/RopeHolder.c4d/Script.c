@@ -57,6 +57,6 @@ public func Damage()
 
 public func OnHit(int damage, int type, object pFrom)
 {
-	iLastDmgPlr = GetController(pFrom);
-	return true;
+  iLastDmgPlr = GetController(pFrom);
+  return true;
 }
