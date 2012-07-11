@@ -73,35 +73,37 @@ public func RopeHolderDestroyed(object pRopeHolder)
 
 public func Damage(int change)
 {
+  //Kein Schaden wenn bereits zerstört
   if(IsDestroyed() || change < 0)
     return false;
-
+  //Bei Seilhalterungen Schaden nullifizieren
   if(WorkingRopesCount())
     DoDamage(-GetDamage());
+  //Ansonsten bei 200 Schaden zusammenfallen
   else if(GetDamage() > 200)
-    Colapse();
+    PrepareColapse();
 
   return true;
 }
 
 public func OnHit(int damage, int type, object pFrom)
 {
-	iLastDmgPlr = GetController(pFrom);
-	return true;
+  iLastDmgPlr = GetController(pFrom);
+  return true;
 }
 
 /* Zerstörung */
 
-protected func Colapse()
+protected func PrepareColapse()
 {
   //Nur einmalig zerstörbar
   if(fDestroyed) return;
   fDestroyed = true;
 
-  //Bodenerschütterung
-  //ShakeObjects(GetX(), GetY(), 300);
+  //Aussehen anpassen
+  SetPhase(1);
 
-  //Seile fallen ab und verschwinden
+  //Vorhandene Seile fallen ab und verschwinden
   for(var array in aRopeHolders)
   {
     if(!array)
@@ -112,14 +114,49 @@ protected func Colapse()
       SetCategory(C4D_Object, array[0]);
       array[0]->FadeOut();
       array[0]->SetOwner(iLastDmgPlr);
+      array[0]->Sound("RopeBreakOff*.ogg");
     }
     if(array[1])
     {
       SetCategory(C4D_Object, array[1]);
       array[1]->FadeOut();
       array[1]->SetOwner(iLastDmgPlr);
+      array[1]->Sound("RopeBreakOff*.ogg");
     }
   }
+
+  //Zusammensturz planen
+  ScheduleCall(0, "Colapse", 100);
+
+  //Effekte
+  CreateParticle("Smoke2",0,-200,-10,0,5*50);
+  CreateParticle("Smoke2",0,-200,10,0,5*50);
+
+  CreateParticle("Smoke2",0,-50,-10,0,5*50);
+  CreateParticle("Smoke2",0,-50,10,0,5*50);
+
+  CreateParticle("Smoke2",0,100,-10,0,5*50);
+  CreateParticle("Smoke2",0,100,10,0,5*50);
+
+  CreateParticle("Smoke2",0,250,-10,0,5*50);
+  CreateParticle("Smoke2",0,250,10,0,5*50);
+  
+  CastParticles("ConcreteSplinter", RandomX(8,16), 80, 0, -200, 20, 50);
+  CastParticles("ConcreteSplinter", RandomX(8,16), 80, 0, -50, 20, 50);
+  CastParticles("ConcreteSplinter", RandomX(8,16), 80, 0, 100, 20, 50);
+  CastParticles("ConcreteSplinter", RandomX(8,16), 80, 0, 250, 20, 50);
+
+  //Sound
+  Sound("TowerBreaking.ogg");
+}
+
+protected func Colapse()
+{
+  //Aussehen anpassen
+  SetPhase(2);
+
+  //Bodenerschütterung
+  //ShakeObjects(GetX(), GetY(), 300);
 
   //Maststücke erstellen
   var part = CreateObject(ATRP, 0,-200, iLastDmgPlr);
@@ -162,9 +199,6 @@ protected func Colapse()
   part->SetR(180);
   part->SetRDir(RandomX(-4,4));
   part->Fling(part, 1, 0);
-
-  //Aussehen anpassen
-  SetPhase(1);
 
   //Effekte
   CreateParticle("Blast",0,-200,-10,0,5*50,RGB(255,255,128));
