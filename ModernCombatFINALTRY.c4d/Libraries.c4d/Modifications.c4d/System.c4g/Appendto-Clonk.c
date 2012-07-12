@@ -266,7 +266,7 @@ protected func DeathAnnounce(int plr, object clonk, int killplr, bool fNoPoints,
 
 public func GetAssist(int iPlrExclude)
 {
-  var highest = CreateArray(2);
+  var highest = [-1, 0];
   for(var i = 0; i < GetLength(assistkiller); i++)
   {
     if(assistkiller[i][0] == GetOwner()) continue;
