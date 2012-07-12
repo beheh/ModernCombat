@@ -1,11 +1,12 @@
-/*-- Dat Rocket --*/
+/*-- The Boss --*/
 
 #strict 2
 #include RBBN
 
+
 public func GetSavingSlot()
 {
-  return 2;	//Laufende Nummer einfügen
+  return 1;	//Laufende Nummer einfügen
 }
 
 public func GetRibbonScore()
