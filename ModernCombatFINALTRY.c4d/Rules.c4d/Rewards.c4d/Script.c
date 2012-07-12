@@ -3,6 +3,7 @@
 #strict 2
 
 static aAchievementProgress, aAchievementExtra, iAchievementCount, RWDS_aAchievementBlocked;
+static aRibbonProgress, aRibbonExtra;
 static aRanks, iRankCount;
 local aData, fEvaluation, aStats;
 
@@ -659,7 +660,33 @@ public func SetPlayerAchievement(int iPlr, id idAchievement, bool fAwarded)
   return true;
 }
 
-/* Vergabe */
+public func GetPlayerRibbon(int iPlr, id idRibbon)
+{
+  if(!RewardsActive()) return;
+  if(!idRibbon->IsRibbon()) return false;
+  if(GetPlayerType(iPlr) != C4PT_User) return false;
+  var iSlot = idRibbon->GetSavingSlot()-1;
+  var iBlock = iSlot / 32 + 1;
+
+  var iData = GetPlrExtraData(iPlr, Format("CMC_Ribbon%d", iBlock));
+  return iData >> (iSlot % 32) & 1;
+}
+
+public func SetPlayerRibbon(int iPlr, id idRibbon, bool fAwarded)
+{
+  if(!RewardsActive()) return;
+  if(!idRibbon->IsRibbon()) return false;
+  if(GetPlayerType(iPlr) != C4PT_User) return false;
+  var iSlot = idRibbon->GetSavingSlot()-1;
+  var iBlock = iSlot / 32 + 1;
+
+  var iData = GetPlrExtraData(iPlr, Format("CMC_Ribbon%d", iBlock));
+  SetPlrExtraData(iPlr, Format("CMC_Ribbon%d", iBlock), iData ^ fAwarded << (iSlot % 32));
+  
+  return true;
+}
+
+/* Achievements */
 
 global func AwardAchievement(id idAchievement, int iPlr)
 {
@@ -764,6 +791,47 @@ global func GetAchievementExtra(id idAchievement, int iPlr)
     return aAchievementExtra[iPlr][index];
   }
   return false;
+}
+
+/* Ehrenbänder */
+
+global func AttemptAwardRibbon(id idRibbon, int iPlr, int iPlrFrom)
+{
+  //Vergabe berechtigt?
+  if(!RewardsActive()) return;
+  if(GetPlayerType(iPlr) != C4PT_User || GetPlayerType(iPlrFrom) != C4PT_User) return false;
+  if(!IsCMCTeamMember(iPlrFrom)) return false;
+  if(!idRibbon->IsRibbon()) return false;
+  if(GetPlrExtraData(iPlrFrom, "CMC_Team_Ribbon") != idRibbon->GetSavingSlot()) return false;
+  var db = FindObject2(Find_ID(RWDS));
+  if(!db) return false;
+
+  //Abbrechen, falls bereits erhalten
+  if(db->GetPlayerRibbon(iPlr, idRibbon)) return;
+
+  //Vergabe
+  db->SetPlayerRibbon(iPlr, idRibbon, true);
+
+  //Ehrenbandanzeige mit weißem Hintergrund
+  var ribbon = CreateObject(idRibbon, 0, 0, iPlr);
+  ribbon->SetHighlightColor(RGB(255,255,255));
+  EventInfo4K(0, Format("$RibbonAwarded$", GetPlrColorDw(iPlr), GetPlayerName(iPlr), GetPlrColorDw(iPlrFrom), GetPlayerName(iPlrFrom), GetName(0, idRibbon)), RWDS, 0, 0, 0, "PriorityInfo.ogg");
+
+  //Sound-Hinweis
+  Sound("RibbonGet.ogg", true, 0, 100, iPlr+1);
+
+  return true;
+}
+
+global func ResetRibbonProgress(id idRibbon, int iPlr)
+{
+  if(!FindObject(RWDS)) return;
+  var index = idRibbon->GetSavingSlot();
+  if(aRibbonProgress[iPlr][index])
+  {
+    aRibbonProgress[iPlr][index] = 0;
+  }
+  return true;
 }
 
 /* Punkteanzeige */

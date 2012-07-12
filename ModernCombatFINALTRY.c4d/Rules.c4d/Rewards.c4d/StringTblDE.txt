@@ -30,6 +30,7 @@ Achievement=Errungenschaft
 Achievements=Errungenschaften
 AchievementsUnlocked=%d Errungenschaften freigeschaltet:
 AchievementLocked=<c 777777>Du hast diese Errungenschaft noch nicht erreicht.</c>
+RibbonAwarded=<c %x>%s</c> hat <c %x>%s</c>s Ehrenband <c ffff33>%s</c> erhalten
 
 # Auswertung
 
