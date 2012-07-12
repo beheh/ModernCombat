@@ -15,3 +15,8 @@ public func RopeHolderDestroyed(object pRopeHolder)
 	//Aus Demonstrationszwecken....:
 	SetGraphics(0, 0, BHWK);
 }
+
+public func SetGraphic(int iGraphic)
+{
+	//Hier wird die Grafik gesetzt. Blub.
+}
