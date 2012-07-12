@@ -30,6 +30,7 @@ Achievement=Achievement
 Achievements=Achievements
 AchievementsUnlocked=%d Achievements unlocked:
 AchievementLocked=<c 777777>You haven't unlock this achievement yet.</c>
+RibbonAwarded=<c %x>%s</c> has been awarded <c %x>%s</c>s ribbon <c ffff33>%s</c>
 
 # Evaluation
 
