@@ -119,7 +119,7 @@ public func Damage(int change)
     DoDamage(-GetDamage());
   //Ansonsten bei 200 Schaden zusammenfallen
   else if(GetDamage() > 200)
-    PrepareColapse();
+    CollapsePrepare();
 
   return true;
 }
@@ -132,7 +132,7 @@ public func OnHit(int damage, int type, object pFrom)
 
 /* Zerstörung */
 
-protected func PrepareColapse()
+protected func CollapsePrepare()
 {
   //Nur einmalig zerstörbar
   if(fDestroyed) return;
@@ -164,7 +164,7 @@ protected func PrepareColapse()
   }
 
   //Zusammensturz planen
-  ScheduleCall(0, "Colapse", 100);
+  ScheduleCall(0, "Collapse", 100);
 
   //Effekte
   CreateParticle("Smoke2",0,-200,-10,0,5*50);
@@ -188,7 +188,7 @@ protected func PrepareColapse()
   Sound("TowerBreaking.ogg");
 }
 
-protected func Colapse()
+protected func Collapse()
 {
   //Aussehen anpassen
   SetPhase(2);
