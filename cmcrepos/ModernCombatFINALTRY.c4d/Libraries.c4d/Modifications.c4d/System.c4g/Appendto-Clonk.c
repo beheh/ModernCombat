@@ -43,6 +43,8 @@ protected func Initialize()
   //Fake Death Effekt einfügen
   if(IsClonk() && (GetOwner() != NO_OWNER) && (GetPlayerType(GetOwner()) != C4PT_Script))
     AddEffect("FakeDeath",this,10,0,this);
+
+  AddEffect("AssistDmgReduction", this, 1, 0, this);
 }
 
 /* Brennen */
@@ -489,7 +491,19 @@ global func FxDmgCheckDamage(object pTarget, int iEffect, int iDmg)
     else
       ScreenRGB(pTarget, RGB(255), iAlpha, 4, false, SR4K_LayerDamage);
   }
+
   return _inherited(pTarget, iEffect, iDmg, ...);
+}
+
+/* Assist: Abbau von Schaden bei Heilung */
+
+public func FxAssistDmgReductionDamage(object pTarget, int iEffect, int iDmg)
+{
+	if(!IsFakeDeath(pTarget) && iDmg > 0)
+  	for(var i = 0; i < GetLength(assistkiller); i++)
+  		assistkiller[i][1] = Max(assistkiller[i][1]-iDmg/1000, 0);
+
+  return iDmg;
 }
 
 /* Fake Death */
