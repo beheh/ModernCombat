@@ -502,12 +502,12 @@ public func FxAssistDmgReductionDamage(object pTarget, int iEffect, int iDmg)
   if(!IsFakeDeath(pTarget) && iDmg > 0)
   {
     for(var i = 0; i < GetLength(assistkiller); i++)
-  	{
+    {
       assistkiller[i][1] = Max(assistkiller[i][1]-iDmg/1000, 0);
-			if(!assistkiller[i][1] && assistkiller[i][0] != -1)
-				DelArrayItem4K(assistkiller, i);
-		}
-	}
+      if(!assistkiller[i][1] && assistkiller[i][0] != -1)
+        DelArrayItem4K(assistkiller, i);
+    }
+  }
 
   return iDmg;
 }
@@ -560,7 +560,7 @@ global func FakeDeath(object pTarget)
   }
   fake->Set(pTarget);
   pTarget->DeathAnnounce(GetOwner(pTarget), pTarget, GetKiller(pTarget), false, pTarget->~GetAssist(GetKiller(pTarget)) + 1);
-  
+
   //Eventuelle Assists zurücksetzen
   pTarget->~ResetAssist();
 
