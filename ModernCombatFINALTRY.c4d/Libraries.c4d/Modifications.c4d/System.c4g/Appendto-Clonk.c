@@ -499,9 +499,9 @@ global func FxDmgCheckDamage(object pTarget, int iEffect, int iDmg)
 
 public func FxAssistDmgReductionDamage(object pTarget, int iEffect, int iDmg)
 {
-	if(!IsFakeDeath(pTarget) && iDmg > 0)
-  	for(var i = 0; i < GetLength(assistkiller); i++)
-  		assistkiller[i][1] = Max(assistkiller[i][1]-iDmg/1000, 0);
+  if(!IsFakeDeath(pTarget) && iDmg > 0)
+    for(var i = 0; i < GetLength(assistkiller); i++)
+      assistkiller[i][1] = Max(assistkiller[i][1]-iDmg/1000, 0);
 
   return iDmg;
 }
