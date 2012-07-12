@@ -538,9 +538,6 @@ global func FakeDeath(object pTarget)
   ResetAchievementProgress(AC12, GetOwner());
   ResetAchievementProgress(AC14, GetOwner());
 
-  //Eventuelle Assists zurücksetzen
-  pTarget->~ResetAssist();
-
   //Fake Death erstellen
   if(WildcardMatch(GetAction(pTarget),"*Crawl*"))
   {
@@ -557,6 +554,9 @@ global func FakeDeath(object pTarget)
   }
   fake->Set(pTarget);
   pTarget->DeathAnnounce(GetOwner(pTarget), pTarget, GetKiller(pTarget), false, pTarget->~GetAssist(GetKiller(pTarget)) + 1);
+  
+  //Eventuelle Assists zurücksetzen
+  pTarget->~ResetAssist();
 
   SetComDir(COMD_Stop,pTarget);
   Sound("ClonkDie*.ogg", 0, pTarget);
