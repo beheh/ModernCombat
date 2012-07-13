@@ -319,6 +319,7 @@ public func Use(caller)
   //Entschärfbare Objekte suchen
   var obj = caller->FindObject2(Find_Func("IsDefusable"),		//Entschärfbar?
   			Find_Hostile(GetOwner(caller)),			//Feindlich?
+  			Find_NoContainer(),				//Nicht verschachtelt?
   			Find_AtRect(-10,-10,20,20));
   if(obj)
   {
