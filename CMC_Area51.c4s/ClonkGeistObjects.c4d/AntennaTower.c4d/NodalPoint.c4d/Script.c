@@ -21,13 +21,13 @@ public func SetRopeHolder(object pObject)
   var id = GetID(pRopeHolder);
   var wdt = GetDefWidth(id), hgt = GetDefHeight(id);
   var offX = GetDefOffset(id, 0), offY = GetDefOffset(id, 1);
-  
+
   var pX = GetX(), pY = GetY();
   var x = GetX(pRopeHolder) - offX - wdt/2, y = GetY(pRopeHolder) - offY - wdt/2;
   SetPosition(x, y); //Mittig der Halterung platzieren
   SetShape(-wdt/2, -hgt/2, wdt, hgt); //Shape setzen
-	SetVertex(0, 0, AbsX(pX));
-	SetVertex(0, 1, AbsY(pY));
+  SetVertex(0, 0, AbsX(pX));
+  SetVertex(0, 1, AbsY(pY));
 
   return true;
 }
@@ -40,7 +40,7 @@ public func Damage()
   {
     SetCategory(C4D_Object);
     SetPosition(GetX()+GetVertex(0), GetY()+GetVertex(0, true));
-    
+
     SetShape(-3, -3, 6, 6);
     SetVertex();
     SetVertex(0, 1, 1);
@@ -53,7 +53,7 @@ public func Damage()
 
     fDestroyed = true;
 
-		var pOtherNode = nodes[!GetIndexOf(this, nodes)];
+    var pOtherNode = nodes[!GetIndexOf(this, nodes)];
     var angle = Angle(GetX(), GetY(), GetX(pOtherNode), GetY(pOtherNode));
     SetXDir(+Sin(angle, 100)/2);
     SetYDir(-Cos(angle, 100)/2);
