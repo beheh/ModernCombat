@@ -11,12 +11,12 @@ public func IsDestroyed()		{return fDestroyed;}
 public func SetAntenna(object pObject)	{return pAntenna = pObject;}
 
 
-public func SetFakeRopeHolder(object pObject) 
+public func SetRopeHolder(object pObject) 
 { 
   //Objekt, welches von der Grafik her eine Seilhalterung sein soll
   pRopeHolder = pObject; 
   //Callback, dass diese Seilhalterung daran "befestigt" wurde
-  pRopeHolder->~RopeHolderAttached(this);
+  pRopeHolder->~RopeAttachmentAttached(this);
   //Shape an Größe der Seilhalterung anpassen
   var id = GetID(pRopeHolder);
   var wdt = GetDefWidth(id), hgt = GetDefHeight(id);
@@ -35,12 +35,12 @@ public func Damage()
   if(!IsDestroyed() && GetDamage() > 100)
   {
     SetCategory(C4D_Object);
-    pAntenna->RopeHolderDestroyed(this);
+    pAntenna->RopeAttachmentDestroyed(this);
     SetOwner(iLastDmgPlr);
 
-    //Callback an Fake, damit dieses zum Wrack werden kann
+    //Callback an Halterung, damit dieses zum Wrack werden kann
     if(pRopeHolder)
-      pRopeHolder->~RopeHolderDestroyed(this);
+      pRopeHolder->~RopeAttachmentDestroyed(this);
 
     fDestroyed = true;
 
