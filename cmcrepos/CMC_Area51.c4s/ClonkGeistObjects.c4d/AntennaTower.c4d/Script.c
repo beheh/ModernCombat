@@ -43,7 +43,7 @@ public func AddNode(int iX, int iY, int iPosition, object pRopeHolder, int iRota
 
   var rope = CreateObject(CK5P, 0, 0, -1);
   rope->ConnectObjects(ra1, ra2);
-  rope->SetRopeLength(Distance(iX, iY, x, y));
+  rope->SetRopeLength(Distance(AbsX(iX), AbsY(iY), x, y));
   rope->SetRopeColor(RGB(100,100,100));
 
   aNodes[GetLength(aNodes)] = [ra1, ra2, rope];
