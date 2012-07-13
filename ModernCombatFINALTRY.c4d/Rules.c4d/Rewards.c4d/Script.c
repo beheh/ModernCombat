@@ -3,7 +3,6 @@
 #strict 2
 
 static aAchievementProgress, aAchievementExtra, iAchievementCount, RWDS_aAchievementBlocked;
-static aRibbonProgress, aRibbonExtra;
 static aRanks, iRankCount;
 local aData, fEvaluation, aStats;
 
@@ -257,6 +256,14 @@ public func InitPlayerData(int iPlr)
     SetPlrExtraData(iPlr, "CMC_Achievements1", iDataOld | iDataNew);
     //Bei Release folgende Zeile (und diesen Kommentar) entfernen:
     //SetPlrExtraData(iPlr, "CMC_Achievements", 0);
+  }
+
+  //Gegebenenfalls eigenes Ribbon verteilen
+  if(IsDeveloper(GetPlayerID(iPlr))) {
+    var iRibbon = GetPlrExtraData(iPlr, "CMC_Team_Ribbon");
+    if(iRibbon) {
+      AttemptAwardRibbon(C4Id(Format("RB%02d", iRibbon)), iPlr, iPlr);
+    }
   }
 
   SetPlayerData(GetTaggedPlayerName(iPlr, true), RWDS_PlayerName, iPlr);
@@ -800,7 +807,7 @@ global func AttemptAwardRibbon(id idRibbon, int iPlr, int iPlrFrom)
   //Vergabe berechtigt?
   if(!RewardsActive()) return;
   if(GetPlayerType(iPlr) != C4PT_User || GetPlayerType(iPlrFrom) != C4PT_User) return false;
-  if(!IsCMCTeamMember(iPlrFrom)) return false;
+  if(!IsDeveloper(GetPlayerID(iPlrFrom))) return false;
   if(!idRibbon->IsRibbon()) return false;
   if(GetPlrExtraData(iPlrFrom, "CMC_Team_Ribbon") != idRibbon->GetSavingSlot()) return false;
   var db = FindObject2(Find_ID(RWDS));
@@ -815,22 +822,16 @@ global func AttemptAwardRibbon(id idRibbon, int iPlr, int iPlrFrom)
   //Ehrenbandanzeige mit weißem Hintergrund
   var ribbon = CreateObject(idRibbon, 0, 0, iPlr);
   ribbon->SetHighlightColor(RGB(255,255,255));
-  EventInfo4K(0, Format("$RibbonAwarded$", GetPlrColorDw(iPlr), GetPlayerName(iPlr), GetPlrColorDw(iPlrFrom), GetPlayerName(iPlrFrom), GetName(0, idRibbon)), RWDS, 0, 0, 0, "PriorityInfo.ogg");
+  if(iPlr == iPlrFrom) {
+    ribbon->SetCustomDesc("");
+  }
+  else {
+    EventInfo4K(0, Format("$RibbonAwarded$", GetPlrColorDw(iPlr), GetPlayerName(iPlr), GetPlrColorDw(iPlrFrom), GetPlayerName(iPlrFrom), GetName(0, idRibbon)), RWDS, 0, 0, 0, "PriorityInfo.ogg");
+  }
 
   //Sound-Hinweis
   Sound("RibbonGet.ogg", true, 0, 100, iPlr+1);
 
-  return true;
-}
-
-global func ResetRibbonProgress(id idRibbon, int iPlr)
-{
-  if(!FindObject(RWDS)) return;
-  var index = idRibbon->GetSavingSlot();
-  if(aRibbonProgress[iPlr][index])
-  {
-    aRibbonProgress[iPlr][index] = 0;
-  }
   return true;
 }
 
