@@ -108,10 +108,10 @@ public func NodeDestroyed(object pNode)
     if(GetIndexOf(pNode, aNodes[i]) > -1)
     {
       aNodes[i][3] = true;
-  		break;
-  	}
+      break;
+    }
   }
-  
+
   return aNodes[i];
 }
 
