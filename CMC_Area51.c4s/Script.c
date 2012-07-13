@@ -142,10 +142,10 @@ func Initialize()
   
   //Sendemast
   var antenna_tower =  CreateObject(AATR, 1575, 1060, -1);
-  antenna_tower->AddRopeAttachment(1090, 560, 0);
-  antenna_tower->AddRopeAttachment(1860, 400, 0, CreateObject(REHR, 1862, 447, -1), -90);
-  antenna_tower->AddRopeAttachment(1590, 620, 1, CreateObject(REHR, 1862, 667, -1), -90);
-  antenna_tower->AddRopeAttachment(1280, 1010, 1);
+  antenna_tower->AddNode(1090, 560, 0);
+  antenna_tower->AddNode(1860, 400, 0, CreateObject(REHR, 1862, 447, -1), -90,2);
+  antenna_tower->AddNode(1590, 620, 1, CreateObject(REHR, 1862, 667, -1), -90,3);
+  antenna_tower->AddNode(1280, 1010, 1);
 
   //Reitwipf
   //CreateObject(RWPF, 1580, 1060, -1)->AutoRespawn();

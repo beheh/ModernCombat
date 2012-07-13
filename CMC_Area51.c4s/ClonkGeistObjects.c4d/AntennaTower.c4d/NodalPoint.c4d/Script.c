@@ -1,4 +1,4 @@
-/*-- Seilhalterung --*/
+/*-- Knotenpunkt --*/
 
 #strict 2
 
@@ -16,7 +16,7 @@ public func SetRopeHolder(object pObject)
   //Objekt, welches von der Grafik her eine Seilhalterung sein soll
   pRopeHolder = pObject; 
   //Callback, dass diese Seilhalterung daran "befestigt" wurde
-  pRopeHolder->~RopeAttachmentAttached(this);
+  pRopeHolder->~NodeAttached(this);
   //Shape an Größe der Seilhalterung anpassen
   var id = GetID(pRopeHolder);
   var wdt = GetDefWidth(id), hgt = GetDefHeight(id);
@@ -35,12 +35,12 @@ public func Damage()
   if(!IsDestroyed() && GetDamage() > 100)
   {
     SetCategory(C4D_Object);
-    pAntenna->RopeAttachmentDestroyed(this);
+    pAntenna->NodeDestroyed(this);
     SetOwner(iLastDmgPlr);
 
     //Callback an Halterung, damit dieses zum Wrack werden kann
     if(pRopeHolder)
-      pRopeHolder->~RopeAttachmentDestroyed(this);
+      pRopeHolder->~NodeDestroyed(this);
 
     fDestroyed = true;
 

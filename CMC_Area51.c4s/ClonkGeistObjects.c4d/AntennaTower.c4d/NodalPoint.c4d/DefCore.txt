@@ -1,7 +1,7 @@
 [DefCore]
-id=REAT
+id=NLPT
 Version=4,9,8,2
-Name=Rope Attachment
+Name=Nodal Point
 Category=C4D_StaticBack
 Width=6
 Height=6
@@ -9,6 +9,4 @@ Offset=-3,-3
 Vertices=1
 VertexY=1
 VertexFriction=20
-Value=120
 Mass=50
-Components=CNCR=50

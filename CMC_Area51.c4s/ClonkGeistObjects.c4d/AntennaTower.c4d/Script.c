@@ -2,7 +2,7 @@
 
 #strict 2
 
-local aRopeAttachments;
+local aNodes;
 local fDestroyed;
 local iLastDmgPlr;
 
@@ -14,51 +14,51 @@ public func IsDestroyed()	{return fDestroyed;}
 protected func Initialize()
 {
   SetAction("Stand");
-  aRopeAttachments = [];
+  aNodes = [];
   iLastDmgPlr = -1;
 }
 
 /* Seilhalterungen */
 
-public func AddRopeAttachment(int iX, int iY, int iPosition, object pRopeHolder, int iRotation, int iGraphic)
+public func AddNode(int iX, int iY, int iPosition, object pRopeHolder, int iRotation, int iGraphic)
 {
-	//Halterungen erstellen
-  var ra1 = CreateObject(REAT, AbsX(iX), AbsY(iY), -1);
+  //Halterungen erstellen
+  var ra1 = CreateObject(NLPT, AbsX(iX), AbsY(iY), -1);
   var x, y;
-  RopeAttachmentPosition(x, y, iPosition);
+  NodePosition(x, y, iPosition);
   x *= (AbsX(iX) >= 0) * 2 - 1;
-  
-  var ra2 = CreateObject(REAT, x, y, -1);
-  
+
+  var ra2 = CreateObject(NLPT, x, y, -1);
+
   //Befestigen
   ra1->SetAntenna(this);
   ra2->SetAntenna(this);
-  
+
   if(pRopeHolder)
   {
-  	pRopeHolder->SetR(iRotation);
-  	pRopeHolder->SetGraphic(iGraphic);
-  	ra1->SetRopeHolder(pRopeHolder);
+    pRopeHolder->SetR(iRotation);
+    pRopeHolder->SetGraphic(iGraphic);
+    ra1->SetRopeHolder(pRopeHolder);
   }
-  
+
   var rope = CreateObject(CK5P, 0, 0, -1);
   rope->ConnectObjects(ra1, ra2);
   rope->SetRopeLength(Distance(iX, iY, x, y));
-	rope->SetRopeColor(RGB(100,100,100));
+  rope->SetRopeColor(RGB(100,100,100));
 
-  aRopeAttachments[GetLength(aRopeAttachments)] = [ra1, ra2, rope];
+  aNodes[GetLength(aNodes)] = [ra1, ra2, rope];
 
   return [ra1, ra2, pRopeHolder, rope];
 }
 
-public func RopeAttachmentPosition(int &iX, int &iY, int iPosition)
+public func NodePosition(int &iX, int &iY, int iPosition)
 {
-	if(!iPosition)     { iX = 17; iY = -295; }
-	if(iPosition == 1) { iX = 17; iY = -90; }
-	if(iPosition == 2) { iX = 17; iY = 75; }
-	if(iPosition == 3) { iX = 17; iY = 175; }
+  if(!iPosition)     { iX = 17; iY = -295; }
+  if(iPosition == 1) { iX = 17; iY = -90; }
+  if(iPosition == 2) { iX = 17; iY = 75; }
+  if(iPosition == 3) { iX = 17; iY = 175; }
 
-	return true;
+  return true;
 }
 
 /*public func AddRopeHolder(int iX1, int iY1, int iX2, int iY2, object pFakeRopeHolder1, object pFakeRopeHolder2)
@@ -76,9 +76,9 @@ public func RopeAttachmentPosition(int &iX, int &iY, int iPosition)
   var rope = CreateObject(CK5P, 0, 0, -1);
   rope->ConnectObjects(rh1, rh2);
   rope->SetRopeLength(Distance(iX1, iY1, iX2, iY2));
-	rope->SetRopeColor(RGB(100,100,100));
+  rope->SetRopeColor(RGB(100,100,100));
 
-  aRopeAttachments[GetLength(aRopeAttachments)] = [rh1, rh2, rope];
+  aNodes[GetLength(aNodes)] = [rh1, rh2, rope];
 
   return [rh1, rh2, rope];
 }*/
@@ -86,7 +86,7 @@ public func RopeAttachmentPosition(int &iX, int &iY, int iPosition)
 public func WorkingRopesCount()
 {
   var cnt;
-  for(var array in aRopeAttachments)
+  for(var array in aNodes)
   {
     if(!array)
       continue;
@@ -98,15 +98,15 @@ public func WorkingRopesCount()
   return cnt;
 }
 
-public func RopeAttachmentDestroyed(object pRopeAttachment)
+public func NodeDestroyed(object pNode)
 {
-  for(var i = 0; i < GetLength(aRopeAttachments); i++)
+  for(var i = 0; i < GetLength(aNodes); i++)
   {
-    if(!aRopeAttachments[i])
+    if(!aNodes[i])
       continue;
 
-    if(GetIndexOf(pRopeAttachment, aRopeAttachments[i]) > -1)
-      aRopeAttachments[i][3] = true;
+    if(GetIndexOf(pNode, aNodes[i]) > -1)
+      aNodes[i][3] = true;
   }
 }
 
@@ -122,7 +122,7 @@ public func Damage(int change)
     DoDamage(-GetDamage());
   //Ansonsten bei 200 Schaden zusammenfallen
   else if(GetDamage() > 200)
-    CollapsePrepare();
+    PrepareCollapse();
 
   return true;
 }
@@ -135,17 +135,17 @@ public func OnHit(int damage, int type, object pFrom)
 
 /* Zerstörung */
 
-protected func CollapsePrepare()
+protected func PrepareCollapse()
 {
   //Nur einmalig zerstörbar
   if(fDestroyed) return;
   fDestroyed = true;
 
   //Aussehen anpassen
-  SetPhase(1);
+  SetAction("Crumble");
 
   //Vorhandene Seile fallen ab und verschwinden
-  for(var array in aRopeAttachments)
+  for(var array in aNodes)
   {
     if(!array)
       continue;
@@ -194,7 +194,10 @@ protected func CollapsePrepare()
 protected func Collapse()
 {
   //Aussehen anpassen
-  SetPhase(2);
+  SetGraphics("Destroyed");
+
+  //SolidMask entfernen
+  SetSolidMask();
 
   //Bodenerschütterung
   //ShakeObjects(GetX(), GetY(), 300);
