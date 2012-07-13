@@ -22,12 +22,5 @@ public func NodeDestroyed(object pRopeAttachment)
 
 public func SetGraphic(int iGraphic)
 {
-  if(iGraphic == 2)
-    SetPhase(2);
-  if(iGraphic == 1)
-    SetPhase(1);
-  if(iGraphic == 0)
-    SetPhase(0);
-  else
-    return;
+  SetPhase(iGraphic);
 }
