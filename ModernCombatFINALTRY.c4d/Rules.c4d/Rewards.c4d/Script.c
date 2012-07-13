@@ -259,9 +259,11 @@ public func InitPlayerData(int iPlr)
   }
 
   //Gegebenenfalls eigenes Ribbon verteilen
-  if(IsDeveloper(GetPlayerID(iPlr))) {
+  if(IsDeveloper(GetPlayerID(iPlr)))
+  {
     var iRibbon = GetPlrExtraData(iPlr, "CMC_Team_Ribbon");
-    if(iRibbon) {
+    if(iRibbon)
+    {
       AttemptAwardRibbon(C4Id(Format("RB%02d", iRibbon)), iPlr, iPlr);
     }
   }
@@ -822,10 +824,12 @@ global func AttemptAwardRibbon(id idRibbon, int iPlr, int iPlrFrom)
   //Ehrenbandanzeige mit weißem Hintergrund
   var ribbon = CreateObject(idRibbon, 0, 0, iPlr);
   ribbon->SetHighlightColor(RGB(255,255,255));
-  if(iPlr == iPlrFrom) {
+  if(iPlr == iPlrFrom)
+  {
     ribbon->SetCustomDesc("");
   }
-  else {
+  else
+  {
     EventInfo4K(0, Format("$RibbonAwarded$", GetPlrColorDw(iPlr), GetPlayerName(iPlr), GetPlrColorDw(iPlrFrom), GetPlayerName(iPlrFrom), GetName(0, idRibbon)), RWDS, 0, 0, 0, "PriorityInfo.ogg");
   }
 
