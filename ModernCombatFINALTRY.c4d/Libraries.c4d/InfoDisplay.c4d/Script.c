@@ -36,6 +36,11 @@ public func Initialize()
   Local(1) = 0;
 }
 
+public func SetCustomDesc(string szNewDesc)
+{
+  szDesc = szNewDesc;
+}
+
 public func SetHighlightColor(int dwColor)
 {
   var nr = GetEffect("IntHighlight", highlight);
