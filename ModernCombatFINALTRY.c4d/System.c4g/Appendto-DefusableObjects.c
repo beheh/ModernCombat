@@ -16,9 +16,9 @@ public func IsDefusable()	{return true;}
 public func RTDefuse()
 {
   rt_defusecnt++;
-  if(rt_defusecnt > 10)
+  if(rt_defusecnt > 8)
   {
-    Sound("Limitation.ogg");
+    Sound("MISL_ShotDown.ogg");
     DecoExplode(10);
 
     return true;
