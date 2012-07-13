@@ -13,8 +13,3 @@ public func GetSavingSlot()
 {
   return 0;
 }
-
-public func GetRibbonScore()
-{
-  return 0;
-}
