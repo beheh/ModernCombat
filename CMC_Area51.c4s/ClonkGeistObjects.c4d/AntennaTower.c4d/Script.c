@@ -106,8 +106,13 @@ public func NodeDestroyed(object pNode)
       continue;
 
     if(GetIndexOf(pNode, aNodes[i]) > -1)
+    {
       aNodes[i][3] = true;
+  		break;
+  	}
   }
+  
+  return aNodes[i];
 }
 
 /* Schaden */
