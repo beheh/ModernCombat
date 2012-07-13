@@ -9,7 +9,7 @@ func Initialize()
 {
 }
 
-public func RopeHolderDestroyed(object pRopeHolder)
+public func RopeAttachmentDestroyed(object pRopeAttachment)
 {
 	//Hier kann das Teil zum Wrack werden.
 	//Aus Demonstrationszwecken....:

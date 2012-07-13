@@ -2,7 +2,7 @@
 
 #strict 2
 
-local aRopeHolders;
+local aRopeAttachments;
 local fDestroyed;
 local iLastDmgPlr;
 
@@ -14,46 +14,49 @@ public func IsDestroyed()	{return fDestroyed;}
 protected func Initialize()
 {
   SetAction("Stand");
-  aRopeHolders = [];
+  aRopeAttachments = [];
   iLastDmgPlr = -1;
 }
 
 /* Seilhalterungen */
 
-public func AddRopeHolder(int iX, int iY, int iPosition, int iRotation, int iGraphic)
+public func AddRopeAttachment(int iX, int iY, int iPosition, object pRopeHolder, int iRotation, int iGraphic)
 {
 	//Halterungen erstellen
-  var rh1 = CreateObject(REHR, AbsX(iX), AbsY(iY), -1);
+  var ra1 = CreateObject(REAT, AbsX(iX), AbsY(iY), -1);
   var x, y;
-  RopeHolderPosition(x, y, iPosition);
+  RopeAttachmentPosition(x, y, iPosition);
   x *= (AbsX(iX) >= 0) * 2 - 1;
   
-  var rh2 = CreateObject(REHR, x, y, -1);
+  var ra2 = CreateObject(REAT, x, y, -1);
   
   //Befestigen
-  rh1->SetAntenna(this);
-  rh2->SetAntenna(this);
-  var fakeropeholder = CreateObject(RTMP, AbsX(iX), AbsY(iY), -1);
-  fakeropeholder->SetR(iRotation);
-  fakeropeholder->SetGraphic(iGraphic);
-  rh1->SetFakeRopeHolder(fakeropeholder);
+  ra1->SetAntenna(this);
+  ra2->SetAntenna(this);
+  
+  if(pRopeHolder)
+  {
+  	pRopeHolder->SetR(iRotation);
+  	pRopeHolder->SetGraphic(iGraphic);
+  	ra1->SetRopeHolder(pRopeHolder);
+  }
   
   var rope = CreateObject(CK5P, 0, 0, -1);
-  rope->ConnectObjects(rh1, rh2);
+  rope->ConnectObjects(ra1, ra2);
   rope->SetRopeLength(Distance(iX, iY, x, y));
 	rope->SetRopeColor(RGB(100,100,100));
 
-  aRopeHolders[GetLength(aRopeHolders)] = [rh1, rh2, rope];
+  aRopeAttachments[GetLength(aRopeAttachments)] = [ra1, ra2, rope];
 
-  return [rh1, rh2, fakeropeholder, rope];
+  return [ra1, ra2, pRopeHolder, rope];
 }
 
-public func RopeHolderPosition(int &iX, int &iY, int iPosition)
+public func RopeAttachmentPosition(int &iX, int &iY, int iPosition)
 {
-	if(!iPosition)     { iX = 16; iY = -250; }
-	if(iPosition == 1) { iX = 20; iY = 0; }
-	if(iPosition == 2) { iX = 20; iY = 250; }
-	if(iPosition == 3) { iX = 20; iY = 320; }
+	if(!iPosition)     { iX = 17; iY = -295; }
+	if(iPosition == 1) { iX = 17; iY = -90; }
+	if(iPosition == 2) { iX = 17; iY = 75; }
+	if(iPosition == 3) { iX = 17; iY = 175; }
 
 	return true;
 }
@@ -75,7 +78,7 @@ public func RopeHolderPosition(int &iX, int &iY, int iPosition)
   rope->SetRopeLength(Distance(iX1, iY1, iX2, iY2));
 	rope->SetRopeColor(RGB(100,100,100));
 
-  aRopeHolders[GetLength(aRopeHolders)] = [rh1, rh2, rope];
+  aRopeAttachments[GetLength(aRopeAttachments)] = [rh1, rh2, rope];
 
   return [rh1, rh2, rope];
 }*/
@@ -83,7 +86,7 @@ public func RopeHolderPosition(int &iX, int &iY, int iPosition)
 public func WorkingRopesCount()
 {
   var cnt;
-  for(var array in aRopeHolders)
+  for(var array in aRopeAttachments)
   {
     if(!array)
       continue;
@@ -95,15 +98,15 @@ public func WorkingRopesCount()
   return cnt;
 }
 
-public func RopeHolderDestroyed(object pRopeHolder)
+public func RopeAttachmentDestroyed(object pRopeAttachment)
 {
-  for(var i = 0; i < GetLength(aRopeHolders); i++)
+  for(var i = 0; i < GetLength(aRopeAttachments); i++)
   {
-    if(!aRopeHolders[i])
+    if(!aRopeAttachments[i])
       continue;
 
-    if(GetIndexOf(pRopeHolder, aRopeHolders[i]) > -1)
-      aRopeHolders[i][3] = true;
+    if(GetIndexOf(pRopeAttachment, aRopeAttachments[i]) > -1)
+      aRopeAttachments[i][3] = true;
   }
 }
 
@@ -142,7 +145,7 @@ protected func CollapsePrepare()
   SetPhase(1);
 
   //Vorhandene Seile fallen ab und verschwinden
-  for(var array in aRopeHolders)
+  for(var array in aRopeAttachments)
   {
     if(!array)
       continue;
