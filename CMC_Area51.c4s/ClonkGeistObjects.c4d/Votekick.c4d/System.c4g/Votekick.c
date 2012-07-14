@@ -191,7 +191,7 @@ global func FxVotekickStop(object target, int nr)
 	
 	var pcnt = GetClientCount();
 	var pacnt = pcnt-EffectVar(1, target, nr);
-	var players = EffectVar(2, taret, nr);
+	var players = EffectVar(2, target, nr);
 	
 	if(players[0] > -1)
 	{
