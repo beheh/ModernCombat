@@ -104,7 +104,7 @@ public func KillMessage(string msg)
   killmsg = msg;
 
   //Spieler hat Hilfen aktiviert: Quicktipp geben
-  if (clonk && !GetPlrExtraData(GetOwner(clonk), "Hazard_NoHelpMsg"))
+  if (clonk && !clonk->ShorterDeathMenu())
   {
     var array = GetQuickTipp(this);
     idTipp = array[0];
@@ -213,7 +213,7 @@ private func DeathMenu()
     AddMenuItem(killmsg, "", NONE, clonk, 0, 0, "", 512);								//Killerinformationen
   }
 
-  if (szTipp && !clonk->ShorterDeathMenu())
+  if (szTipp)
   {
     AddMenuItem("", "", NONE, clonk, 0, 0, "", 512, 0, 0);								//Leerzeile
     AddMenuItem(Format("{{%i}} $Tip$", idTipp),"", NONE, clonk, 0, 0, "", 512, 0, 0);					//Zufälliger Tipp
