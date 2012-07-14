@@ -8,5 +8,4 @@
 #appendto GRAM	//Granaten
 #appendto MIAM	//Raketen
 
-
 public func IsHUDAmmo()	{return true;}
