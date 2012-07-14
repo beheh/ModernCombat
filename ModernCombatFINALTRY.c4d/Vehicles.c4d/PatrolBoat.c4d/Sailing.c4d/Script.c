@@ -32,8 +32,21 @@ func SetUp()
   
   SetDir(dir);
   TurnEnd();
+  AddEffect("StuckCheck", this, 1, 5, this);
+  
   return 1;
 }
+
+/* Unstuck-Check */
+
+public func FxStuckCheckTimer(object pTarget, int iNr)
+{
+	if(Stuck() && !GetEffect("IntUnstuck4K", this))
+		AutoUnstuck4K(this);
+
+	return true;
+}
+
 
 /* Zerstörung */
 
@@ -107,7 +120,7 @@ private func Sail()
   if(!FindObject(0,0,0,0,0,0,"Push",motor))
     Stop();
 
-  if(!GetComDir()) return ;
+  if(!GetComDir() || Stuck()) return ;
 
   var xdir = Min(Abs(GetXDir())+2,30);
 
