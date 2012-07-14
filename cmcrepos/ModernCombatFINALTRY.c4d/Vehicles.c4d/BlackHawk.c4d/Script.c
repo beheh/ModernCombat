@@ -1163,14 +1163,15 @@ public func OnDestruction()
 protected func ContactTop()
 {
   if (GetCon() != 100) return;
-  DoDmg(10, 0, this, 1,  GetOwner() + 1);
+  DoDmg(GetYDir(0, 500) / -2, 0, this, 1,  GetOwner() + 1);
   for (var i; i < GetVertexNum(); i++)
     if(GetContact(0, i))
       CreateParticle("Blast", GetVertex(i), GetVertex(i, true), 0, 0, RandomX(50, 100), RGB(255, 255, 255));
 
   //Sound
   Sound("HeavyHit*.ogg", false, pMGStation);
-  SetYDir(Min(GetYDir(), -40) / -2);
+  throttle = BKHK_MaxThrottle / 2;
+  Schedule(Format("SetYDir(%d)", GetYDir() / -2), 1);
   return true;
 }
 
