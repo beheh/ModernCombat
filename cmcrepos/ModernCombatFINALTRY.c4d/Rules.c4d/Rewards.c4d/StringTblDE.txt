@@ -13,7 +13,7 @@ YouHaveBeenPromoted=%s wurde auf den Rang <c ffff33>%s</c> befördert!
 # Errungenschaften
 
 Achievements=Errungenschaften
-Showing=zeige %d-%d
+Showing=Seite %d von %d
 NextPage=Nächste Seite
 LastPage=Vorherige Seite
 Back=Zurück
