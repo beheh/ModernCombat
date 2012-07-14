@@ -204,9 +204,6 @@ protected func Collapse()
   //SolidMask entfernen
   SetSolidMask();
 
-  //Bodenerschütterung
-  //ShakeObjects(GetX(), GetY(), 300);
-
   //Maststücke erstellen
   var part = CreateObject(ATRP, 0,-200, iLastDmgPlr);
   part->SetRDir(RandomX(-5,5));

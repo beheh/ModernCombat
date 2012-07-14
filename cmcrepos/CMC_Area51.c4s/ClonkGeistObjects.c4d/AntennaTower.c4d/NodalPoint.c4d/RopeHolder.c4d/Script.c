@@ -17,7 +17,6 @@ public func NodeDestroyed(object pRopeAttachment)
 
   //Effekte
   if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",4,100,0,0,20,70,RGB(250,0,0));
-  AddFireEffect(this,50,RGB(80,80,80),true,30);
 }
 
 public func SetGraphic(int iGraphic)
