@@ -799,7 +799,7 @@ protected func SwitchTeam(id dummy, int iPlr)
   }
 
   iTeamMode = CHOS_TeamManual;
-  SetScoreboardData(CHOS_SBRD_Teams, 0, "$TeamsSortedManually$", 0, true);
+  SetScoreboardData(CHOS_SBRD_Teams, 1, "$TeamsSortedManually$", 0, true);
 
   //Menü wieder eröffnen
   OpenTeamMenu(0, iPlr);
