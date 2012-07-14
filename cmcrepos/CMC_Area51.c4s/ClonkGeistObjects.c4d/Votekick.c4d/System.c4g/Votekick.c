@@ -38,8 +38,8 @@ global func Votekick(int iPlr, string pars)
 	if(GetLeague())
 		return false;
 	
-	if(GetClientCount() < 3) // Nur bei 3 oder mehr Clients
-		return false;
+	/*if(GetClientCount() < 3) // Nur bei 3 oder mehr Clients
+		return false;*/ // Aus Testgründen deaktiviert
 	
 	if(HasVotekickSpamFilter(iPlr))
 		return PlayerMessage(iPlr, "$SpamProtectInfo$", GetCursor(iPlr));
@@ -100,7 +100,7 @@ global func StartVotekick(int by_plr, int plr, bool fClient, string szReason, bo
 	{
 		var tim1 = CreateObject(TIM1);
 		LocalN("votekickVars", tim1) = [plr, fClient];
-		CallMessageBoard(tim1, false, "$MsgBoardReason", by_plr);
+		CallMessageBoard(tim1, false, "$MsgBoardReason$", by_plr);
 		return true;
 	}
 	
