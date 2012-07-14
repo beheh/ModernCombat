@@ -1171,7 +1171,7 @@ protected func ContactTop()
   //Sound
   Sound("HeavyHit*.ogg", false, pMGStation);
   if(throttle > BKHK_MaxThrottle / 2)
-  	throttle = BKHK_MaxThrottle / 2;
+    throttle = BKHK_MaxThrottle / 2;
   Schedule(Format("SetYDir(%d)", GetYDir() / -2), 1);
   return true;
 }
