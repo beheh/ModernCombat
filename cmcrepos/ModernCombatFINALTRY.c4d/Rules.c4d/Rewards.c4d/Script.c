@@ -50,20 +50,20 @@ static const RWDS_Page_ShowAchievement = 5;
 
 public func ShowLastPage(int iPlr)
 {
-	var lastPage = aLastPage[iPlr];
-	if(!lastPage)
-		lastPage = [];
-	
-	var page = lastPage[0];
-	
-	if(page == RWDS_Page_Points)
-		StatsPoints(iPlr);
-	else if(page == RWDS_Page_Statistics)
-		StatsStatistics(iPlr);
-	else if(page == RWDS_Page_AchievementList)
-		StatsList(iPlr, lastPage[1], lastPage[2], lastPage[3]);
-	else if(page == RWDS_Page_ShowAchievement)
-		StatsAchievement(iPlr, lastPage[1], lastPage[2]);
+  var lastPage = aLastPage[iPlr];
+  if(!lastPage)
+    lastPage = [];
+
+  var page = lastPage[0];
+
+  if(page == RWDS_Page_Points)
+    StatsPoints(iPlr);
+  else if(page == RWDS_Page_Statistics)
+    StatsStatistics(iPlr);
+  else if(page == RWDS_Page_AchievementList)
+    StatsList(iPlr, lastPage[1], lastPage[2], lastPage[3]);
+  else if(page == RWDS_Page_ShowAchievement)
+    StatsAchievement(iPlr, lastPage[1], lastPage[2]);
 }
 
 public func StatsPoints(int iPlr)
@@ -71,9 +71,9 @@ public func StatsPoints(int iPlr)
   var pClonk = GetCursor(iPlr);
   if(GetMenu(pClonk)) CloseMenu(pClonk);
   if(!CreateMenu(GetID(),pClonk,this,0,0,0,C4MN_Style_Dialog)) return;
-  
+
   aLastPage[iPlr] = [RWDS_Page_Points];
-  
+
   AddMenuItem(" | ", "", RWDS, pClonk, 0, 0, "", 514, 0, 0);
   
   //Erst mal einsortieren
@@ -112,7 +112,7 @@ public func StatsList(int iPlr, int iIndex, int iOffset, int iMenuEntry)
   if(GetMenu(pClonk))
     CloseMenu(pClonk);
   if(!CreateMenu(GetID(), pClonk, this, 0, 0, 0, C4MN_Style_Dialog)) return;
-  
+
   aLastPage[iPlr] = [RWDS_Page_AchievementList, iIndex, iOffset, iMenuEntry];
 
   AddMenuItem(" | ", 0, RWDS, pClonk, 0, 0, "", 514, 0, 0);
@@ -163,9 +163,9 @@ public func StatsAchievement(int iPlr, int iSelect, int iOffset)
   var pClonk = GetCursor(iPlr);
   if(GetMenu(pClonk)) CloseMenu(pClonk);
   if(!CreateMenu(GetID(),pClonk,this,0,0,0,C4MN_Style_Dialog)) return;
-  
+
   aLastPage[iPlr] = [RWDS_Page_ShowAchievement, iSelect, iOffset];
-  
+
   AddMenuItem(" | ", 0, RWDS, pClonk, 0, 0, "", 514);
 
   var iIndex = iSelect;
@@ -577,9 +577,9 @@ public func StatsStatistics(int iPlr)
   var pClonk = GetCursor(iPlr);
   if(GetMenu(pClonk)) CloseMenu(pClonk);
   if(!CreateMenu(GetID(), pClonk, this, 0, 0, 0, C4MN_Style_Dialog)) return;
-  
+
   aLastPage[iPlr] = [RWDS_Page_Statistics];
-  
+
   AddMenuItem(" | ", "", RWDS, pClonk, 0, 0, "", 514, 0, 0);
 
   var bpoints = GetFullPlayerData(iPlr, RWDS_BattlePoints);
