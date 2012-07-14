@@ -195,9 +195,9 @@ global func FxVotekickStop(object target, int nr)
 	
 	if(players[0] > -1)
 	{
-		var playernames = players[0];
+		var playernames = GetTaggedPlayerName(players[0]);
 		for(var i = 1; i < GetLength(players); i++)
-			playernames = Format("%s, %s", playernames, players[i]);
+			playernames = Format("%s, %s", playernames, GetTaggedPlayerName(players[i]));
 		
 		Log("$VotingStatistics$", pcnt, EffectVar(1, target, nr), pacnt, playernames);
 	}
