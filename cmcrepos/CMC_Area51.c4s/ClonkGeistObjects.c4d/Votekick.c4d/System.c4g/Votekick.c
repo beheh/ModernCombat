@@ -165,7 +165,7 @@ global func FxVotekickTimer(object target, int nr, int time)
 	if(!GetPlayerName(EffectVar(0, target, nr)) && !GetPlayerName(EffectVar(2, target, nr)[0]))
 		return -1;
 		
-	if(GetClientCount() == GetLength(EffectVar(3, target, nr)))
+	if(GetClientCount()/3*2+(!!(GetClientCount() % 3)) <= EffectVar(1, target, nr))
 		return -1;
 	
 	if(time >= 36*30)
