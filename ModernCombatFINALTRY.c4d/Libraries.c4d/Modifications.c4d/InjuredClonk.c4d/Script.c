@@ -202,7 +202,7 @@ private func DeathMenu()
       AddMenuItem("$Suicide$", "Suicide", PSTL, clonk, 0, 0, "$SuicideDesc$");						//Selbstmord-Menüpunkt
 
     if(FindObject(RWDS))
-      AddMenuItem("$Statistics$", Format("FindObject(RWDS)->StatsStatistics(%d)", GetOwner(clonk)), RWDS, clonk);	//Statistik-Menüpunkt
+      AddMenuItem("$Statistics$", Format("FindObject(RWDS)->Activate(%d)", GetOwner(clonk)), RWDS, clonk);	//Statistik-Menüpunkt
   }
 
   if (GetType(killmsg) == C4V_String)
