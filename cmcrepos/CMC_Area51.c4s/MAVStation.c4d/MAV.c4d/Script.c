@@ -361,7 +361,7 @@ private func FlyingTimer()
         }
       }
       //Auch der MAV nimmt Schaden
-      DoDmg(10, DMG_Melee, this, 0, GetController(GetOwner(this))+1, GetID());
+      DoDmg(10, DMG_Melee, this, 0, GetController(this)+1, GetID());
       AddEffect("MeleeCooldown", this, 1, 30);
 
       //Sound
