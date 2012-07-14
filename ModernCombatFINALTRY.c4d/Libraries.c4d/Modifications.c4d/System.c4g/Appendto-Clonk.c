@@ -626,6 +626,7 @@ global func FxFakeDeathDamage(object pTarget, int iEffectNumber, int iDmgEngy, i
         } 
        }
       if(killicon && killicon->~IsRocket())
+        //Ribbon-Fortschritt
         AttemptAwardRibbon(RB02, GetKiller(pTarget), GetOwner(pTarget));
       if(GetProcedure(pTarget) == "FLIGHT" && GetProcedure(GetCursor(GetKiller(pTarget))) == "FLIGHT")
         if(GetActTime(pTarget) > 10 && GetActTime(GetCursor(GetKiller(pTarget))) > 10)
