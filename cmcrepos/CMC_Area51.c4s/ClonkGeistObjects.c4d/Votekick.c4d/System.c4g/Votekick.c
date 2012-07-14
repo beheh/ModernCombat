@@ -112,8 +112,8 @@ global func StartVotekick(int by_plr, int plr, bool fClient, string szReason, bo
 		// Ja, ich nutze absichtlich nicht die Eventlog, weil da fällt sowas immernoch weniger auf.
 		Log("$PlayerVotekickStart$", GetTaggedPlayerName(by_plr), GetTaggedPlayerName(plr));
 		Log("$Reason$", szReason);
-		Log("$VotekickInfo$"); 
-		Log("$VotekickDurationInfo$");
+		Schedule("Log(\"$VotekickInfo$\")", 40); 
+		Schedule("Log(\"$VotekickDurationInfo$\")", 80);
 		AddEffect("Votekick", 0, 101, 36, 0, 0, plr, by_plr);
 	}
 	else
@@ -127,8 +127,8 @@ global func StartVotekick(int by_plr, int plr, bool fClient, string szReason, bo
 		}
 		Log("$ClientVotekickStart$", GetTaggedPlayerName(by_plr), GetPlrClientName(players[0]), str);
 		Log("$Reason$", szReason);
-		Log("$VotekickInfo$"); 
-		Log("$VotekickDurationInfo$");
+		Schedule("Log(\"$VotekickInfo$\")", 40); 
+		Schedule("Log(\"$VotekickDurationInfo$\")", 80);
 		AddEffect("Votekick", 0, 101, 36, 0, 0, -1, by_plr, players);
 	}
 }
@@ -147,6 +147,8 @@ global func GetClientPlayers(int client)
 
 global func FxVotekickStart(object target, int nr, temp, int plr, int by_plr, array players)
 {
+	EffectVar(2, target, nr) = [-1];
+
 	if(plr == -1)
 		EffectVar(2, target, nr) = players;
 	
@@ -154,13 +156,16 @@ global func FxVotekickStart(object target, int nr, temp, int plr, int by_plr, ar
 	EffectVar(1, target, nr) = 1; // Zustimmungen.
 	EffectVar(3, target, nr) = [by_plr]; // Teilnehmer.
 	
-	var effect = AddEffect("VotekickSpamfilter", 0, 101, 36*90);
+	var effect = AddEffect("VotekickSpamfilter", 0, 101, 36*120);
 	EffectVar(0, 0, effect) = by_plr;
 }
 
 global func FxVotekickTimer(object target, int nr, int time)
 {
-	if(!GetPlayerName(EffectVar(0, target, nr)))
+	if(!GetPlayerName(EffectVar(0, target, nr)) && !GetPlayerName(EffectVar(2, target, nr)[0]))
+		return -1;
+		
+	if(GetClientCount() == GetLength(EffectVar(3, target, nr)))
 		return -1;
 	
 	if(time >= 36*30)
@@ -181,21 +186,23 @@ global func FxVotekickAdd(object target, int nr, int by_plr)
 
 global func FxVotekickStop(object target, int nr)
 {
-	//VOTEKICK_SpamfilterCnt++;
-	
 	if(!GetPlayerName(EffectVar(0, target, nr)) && !GetPlayerName(EffectVar(2, target, nr)[0]))
 		return Log("$VotingCancelled$");
-
-	/*if(VOTEKICK_SpamfilterCnt == VOTEKICK_SpamfilterMAX)
-	{
-		VOTEKICK_SpamfilterCnt = 0;
-		AddEffect("VotekickSpamfilter", 0, 101, 36*90);
-	}*/
 	
 	var pcnt = GetClientCount();
 	var pacnt = pcnt-EffectVar(1, target, nr);
+	var players = EffectVar(2, taret, nr);
 	
-	Log("$VotingStatistics$", pcnt, EffectVar(1, target, nr), pacnt, GetTaggedPlayerName(EffectVar(0, target, nr)));
+	if(players[0] > -1)
+	{
+		var playernames = players[0];
+		for(var i = 1; i < GetLength(players); i++)
+			playernames = Format("%s, %s", playernames, players[i]);
+		
+		Log("$VotingStatistics$", pcnt, EffectVar(1, target, nr), pacnt, playernames);
+	}
+	else
+		Log("$VotingStatistics$", pcnt, EffectVar(1, target, nr), pacnt, GetTaggedPlayerName(EffectVar(0, target, nr)));
 	
 	if(pcnt/3*2+(!!(pcnt % 3)) <= EffectVar(1, target, nr)) // 2/3 oder mehr Teilnehmer haben für einen Kick gestimmt?
 	{
