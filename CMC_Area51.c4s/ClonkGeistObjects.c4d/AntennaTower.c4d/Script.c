@@ -171,7 +171,7 @@ protected func PrepareCollapse()
   }
 
   //Zusammensturz planen
-  ScheduleCall(0, "Collapse", 100);
+  ScheduleCall(0, "Collapse", 150);
 
   //Effekte
   CreateParticle("Smoke2",0,-200,-10,0,5*50);
@@ -197,9 +197,6 @@ protected func PrepareCollapse()
 
 protected func Collapse()
 {
-  //Nur einmalig zerstörbar
-  if(fDestroyed) return;
-
   //Aussehen anpassen
   SetGraphics("Destroyed");
 
