@@ -157,14 +157,13 @@ protected func PrepareCollapse()
 
     if(array[0])
     {
-      SetCategory(C4D_Object, array[0]);
       array[0]->FadeOut();
       array[0]->SetOwner(iLastDmgPlr);
       array[0]->Sound("RopeBreakOff*.ogg");
     }
     if(array[1])
     {
-      SetCategory(C4D_Object, array[1]);
+    	DoDmg(1000, DMG_Explosion, array[1], 10, iLastDmgPlr);
       array[1]->FadeOut();
       array[1]->SetOwner(iLastDmgPlr);
       array[1]->Sound("RopeBreakOff*.ogg");
