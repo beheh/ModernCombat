@@ -847,6 +847,7 @@ global func AttemptAwardRibbon(id idRibbon, int iPlr, int iPlrFrom)
   //Vergabe berechtigt?
   if(!RewardsActive()) return;
   if(GetPlayerType(iPlr) != C4PT_User || GetPlayerType(iPlrFrom) != C4PT_User) return false;
+  if(!Hostile(iPlr, iPlrFrom)) return false;
   if(!IsDeveloper(GetPlayerID(iPlrFrom))) return false;
   if(!idRibbon->IsRibbon()) return false;
   if(GetPlrExtraData(iPlrFrom, "CMC_Team_Ribbon") != idRibbon->GetSavingSlot()) return false;
