@@ -32,14 +32,14 @@ global func GetClientCount()
 
 global func Votekick(int iPlr, string pars)
 {
-	/*if(!NoRealHost()) // Nur in Hostlosen Runden.
-		return false;*/ // Aus Testgründen deaktiviert
+	if(!NoRealHost()) // Nur in Hostlosen Runden.
+		return false;
 		
 	if(GetLeague())
 		return false;
 	
-	/*if(GetClientCount() < 3) // Nur bei 3 oder mehr Clients
-		return false;*/ // Aus Testgründen deaktiviert
+	if(GetClientCount() < 3) // Nur bei 3 oder mehr Clients
+		return false;
 	
 	if(HasVotekickSpamFilter(iPlr))
 		return PlayerMessage(iPlr, "$SpamProtectInfo$", GetCursor(iPlr));
