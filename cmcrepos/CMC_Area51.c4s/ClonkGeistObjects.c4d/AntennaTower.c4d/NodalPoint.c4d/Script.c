@@ -13,19 +13,20 @@ public func SetAntenna(object pObject)	{return pAntenna = pObject;}
 
 public func SetRopeHolder(object pObject) 
 { 
-  //Objekt, welches von der Grafik her eine Seilhalterung sein soll
-  pRopeHolder = pObject; 
-  //Callback, dass diese Seilhalterung daran "befestigt" wurde
+  //Objekt für Seilhalterungsimitierung
+  pRopeHolder = pObject;
+  //Knotenpunkt daran befestigen
   pRopeHolder->~NodeAttached(this);
   //Shape an Größe der Seilhalterung anpassen
   var id = GetID(pRopeHolder);
   var wdt = GetDefWidth(id), hgt = GetDefHeight(id);
   var offX = GetDefOffset(id, 0), offY = GetDefOffset(id, 1);
-
   var pX = GetX(), pY = GetY();
   var x = GetX(pRopeHolder) - offX - wdt/2, y = GetY(pRopeHolder) - offY - wdt/2;
-  SetPosition(x, y); //Mittig der Halterung platzieren
-  SetShape(-wdt/2, -hgt/2, wdt, hgt); //Shape setzen
+  //Mittig an Halterung plazieren
+  SetPosition(x, y);
+  //Shape setzen
+  SetShape(-wdt/2, -hgt/2, wdt, hgt);
   SetVertex(0, 0, AbsX(pX));
   SetVertex(0, 1, AbsY(pY));
 
@@ -36,28 +37,32 @@ public func SetRopeHolder(object pObject)
 
 public func Damage()
 {
-  if(!IsDestroyed() && GetDamage() > 100)
+  if(!IsDestroyed() && GetDamage() > 60)
   {
     SetCategory(C4D_Object);
     SetPosition(GetX()+GetVertex(0), GetY()+GetVertex(0, true));
 
+    //Shape aktualisieren
     SetShape(-3, -3, 6, 6);
     SetVertex();
     SetVertex(0, 1, 1);
+    //Mast informieren
     var nodes = pAntenna->NodeDestroyed(this);
+    //Killer setzen
     SetOwner(iLastDmgPlr);
-
-    //Callback an Halterung, damit dieses zum Wrack werden kann
+    //Zugehörige Seilhalterung zerstören sofern vorhanden
     if(pRopeHolder)
       pRopeHolder->~NodeDestroyed(this);
 
     fDestroyed = true;
 
+    //In Bewegung setzen
     var pOtherNode = nodes[!GetIndexOf(this, nodes)];
     var angle = Angle(GetX(), GetY(), GetX(pOtherNode), GetY(pOtherNode));
     SetXDir(+Sin(angle, 100)/2);
     SetYDir(-Cos(angle, 100)/2);
 
+    //Sounds
     Sound("RopeBreakOff*.ogg");
     Sound("RopeHit.ogg");
   }
@@ -68,5 +73,13 @@ public func Damage()
 public func OnHit(int damage, int type, object pFrom)
 {
   iLastDmgPlr = GetController(pFrom);
+
+  Sound("RopeHit.ogg",0,0,50);
+
   return true;
+}
+
+public func Hit3()
+{
+  Sound("RopeHit.ogg",0,0,50);
 }
