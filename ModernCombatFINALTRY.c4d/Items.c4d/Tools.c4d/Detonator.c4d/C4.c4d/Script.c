@@ -185,3 +185,11 @@ public func FxIntShockWaveStop(object pTarget, int iEffectNumber, int iReason, b
 {
   RemoveObject(pTarget);
 }
+
+/* Aufschlag */
+
+protected func Hit()
+{
+  Sound("AmmoBoxHit*.ogg", 0, 0, 50);
+  return 1;
+}
