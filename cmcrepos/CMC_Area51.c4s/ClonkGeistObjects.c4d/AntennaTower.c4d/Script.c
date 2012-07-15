@@ -163,7 +163,7 @@ protected func PrepareCollapse()
     }
     if(array[1])
     {
-    	DoDmg(1000, DMG_Explosion, array[1], 10, iLastDmgPlr);
+      DoDmg(1000, DMG_Explosion, array[1], 10, iLastDmgPlr);
       array[1]->FadeOut();
       array[1]->SetOwner(iLastDmgPlr);
       array[1]->Sound("RopeBreakOff*.ogg");
@@ -197,6 +197,9 @@ protected func PrepareCollapse()
 
 protected func Collapse()
 {
+  //Nur einmalig zerstörbar
+  if(fDestroyed) return;
+
   //Aussehen anpassen
   SetGraphics("Destroyed");
 
