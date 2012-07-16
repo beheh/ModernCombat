@@ -310,10 +310,10 @@ public func ChooserFinished()
   //Blackhawks und Hinweisschilder
   if(!FindObject(NOBH))
   {
-   SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,700,560,-1),60*21,300);
-   SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,1185,590,-1),60*21,300);
-   SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,3055,590,-1),60*21,300);
-   SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,3540,560,-1),60*21,300);
+   SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,720,560,-1),60*21,300);
+   SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,1195,590,-1),60*21,300);
+   SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,3045,590,-1),60*21,300);
+   SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,3520,560,-1),60*21,300);
 
    CreateObject(SNPT, 630, 590, -1)->SetAction("Sign3");
    var sign = CreateObject(SGNP, 1290, 670, -1);

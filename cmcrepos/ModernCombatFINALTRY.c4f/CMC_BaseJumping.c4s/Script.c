@@ -484,8 +484,8 @@ public func ChooserFinished()
   //Blackhawks und Hinweisschilder
   if(!FindObject(NOBH))
   {
-   SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,440,1465,-1),60*21,300);
-   SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,2640,1465,-1),60*21,300);
+   SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,440,1460,-1),60*21,300);
+   SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,2640,1460,-1),60*21,300);
 
    CreateObject(SNPT, 575, 1490, -1)->SetAction("Sign3");
    CreateObject(SNPT, 2505, 1490, -1)->SetAction("Sign3");
