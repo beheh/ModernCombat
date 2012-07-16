@@ -41,10 +41,8 @@ public func FxDmgObjectsTimer(object target, int nr, int time)
     if(GetIndexOf(obj, EffectVar(0, target, nr)) > -1)
       continue;
 
-    if((GetCategory(obj) & C4D_Structure || GetCategory(obj) & C4D_Vehicle) && obj->~GetPartDamage())
-      DoDmg(obj->~GetPartDamage(), DMG_Melee, obj, 10, GetOwner());
-    else
-      DoDmg(Max(GetXDir(),GetYDir()), DMG_Melee, obj, 10, GetOwner());
+    //Schadenswert errechnen
+    DoDmg(Max(GetXDir(),GetYDir()), DMG_Melee, obj, 10, GetOwner());
 
     if(GetCategory(obj) & C4D_Living)
       obj->SetAction("Tumble");

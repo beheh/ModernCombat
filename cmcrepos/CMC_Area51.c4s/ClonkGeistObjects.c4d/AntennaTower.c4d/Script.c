@@ -192,7 +192,7 @@ protected func PrepareCollapse()
   CastParticles("ConcreteSplinter", RandomX(8,16), 80, 0, 250, 20, 50);
 
   //Sound
-  Sound("TowerBreaking.ogg");
+  Echo("TowerBreaking.ogg");
 }
 
 protected func Collapse()
