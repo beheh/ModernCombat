@@ -308,7 +308,7 @@ protected func DoPoints()
   		if(killicon->~IsC4Explosive())
         AttemptAwardRibbon(RB03, killer, GetOwner());
       //Ribbon (The Stationary)
-  		if(false)
+  		if(IsRiding() && GetActionTarget() && GetActionTarget()->~IsGunEmplacement())
         AttemptAwardRibbon(RB04, killer, GetOwner());
       //Ribbon (The Artist)
   		if(killicon->~IsSchockPaddles())

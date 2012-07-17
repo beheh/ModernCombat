@@ -29,6 +29,7 @@ public func IsStill()				{return true;}
 public func IsAiming()				{return true;}
 public func VaryingDir()			{if(AimAngle() > 0) return 3; else return 2;}
 public func StartRepair()			{return true;}
+public func IsGunEmplacement()			{return true;}
 protected func RejectContents()			{return true;}
 public func BonusPointCondition()		{return false;}
 public func MaxRotLeft()
