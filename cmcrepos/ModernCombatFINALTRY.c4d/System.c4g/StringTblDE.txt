@@ -127,3 +127,23 @@ YourGlance=Dein Blick
 YourHarddrive=Deine Festplatte
 YourChat=Dein Chatfenster
 F=Failed
+
+# Votekick
+
+SpamProtectInfo=Du darfst nur alle 90 Sekunden eine Umfrage starten.
+ClientChoose=Clientwahl
+PlayerChoose=Spielerwahl
+MsgBoardReason=Grund:
+
+PlayerVotekickStart=Spieler %s hat eine Votekick-Umfrage gestartet! Spieler %s soll gekickt werden.
+ClientVotekickStart=Spieler %s hat eine Votekick-Umfrage gestartet! Client %s (%s) soll gekickt werden.
+Reason=<c ffff33>Begründung:</c> %s
+VotekickInfo=Mit <c ff0000>/votekick y</c> dem Kick zustimmen.
+VotekickDurationInfo=Das Voting läuft <c ff0000>30</c> Sekunden lang.
+
+HaveAlreadyVoted=Du hast schon abgestimmt.
+VotingCancelled=Umfrage abgebrochen. (Der Spieler, der gekickt werden sollte, hat die Runde verlassen.)
+VotingStatistics=Es haben %d Spieler an der Umfrage teilgenommen. %d Spieler sind für und %d Spieler sind gegen einen Rauswurf von %s.
+VotekickSuccessful=Es hat eine 2/3 Mehrheit der Teilnehmer für einen Rauswurf gestimmt.
+VotekickNotEnough=Es haben nicht genügend Teilnehmer für einen Rauswurf gestimmt.
+Cancel=Abbrechen
