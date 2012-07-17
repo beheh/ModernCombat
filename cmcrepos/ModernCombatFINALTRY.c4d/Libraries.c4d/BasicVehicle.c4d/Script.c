@@ -85,11 +85,11 @@ global func FxVehicleNoOwnerTimer(object pTarget, int iEffectNumber, int iTime)
 
 /* Schaden */
 
-public func Damage()
+public func Damage(int iChange)
 {
   if(GetDamage() > MaxDamage() && !IsDestroyed())
     Destroyed();
-  OnDamage();
+  OnDamage(iChange);
 }
 
 public func OnDmg(int iDmg, int iType)
