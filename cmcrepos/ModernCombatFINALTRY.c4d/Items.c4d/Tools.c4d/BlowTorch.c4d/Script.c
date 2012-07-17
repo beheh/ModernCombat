@@ -10,6 +10,7 @@ public func IsDrawable()		{return true;}
 public func MaxEnergy()			{return 100;}
 public func IsEquipment()		{return true;}
 public func NoArenaRemove()		{return true;}
+public func IsBlowTorch()		{return true;}
 public func CustomQuickInventoryMenu()	{return QINV_ObjectMenu;}
 
 public func StartSound()		{return Sound("BWTH_FireStart.ogg");}

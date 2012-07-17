@@ -293,7 +293,37 @@ protected func DoPoints()
 	if(!aDoomBoom) aDoomBoom = CreateArray();
 
   if(Hostile(killer,GetOwner()))
-  {
+  {  
+    var killicon = KillIcon();
+
+    //Ribbons
+    if(killicon) {
+      //Ribbon (The Boss)
+      if(killicon->~IsBlowTorch())
+        AttemptAwardRibbon(RB01, killer, GetOwner());
+      //Ribbon (The Code)
+  		if(killicon->~IsRocket())
+        AttemptAwardRibbon(RB02, killer, GetOwner());
+      //Ribbon (The Ghost)
+  		if(killicon->~IsC4Explosive())
+        AttemptAwardRibbon(RB03, killer, GetOwner());
+      //Ribbon (The Stationary)
+  		if(false)
+        AttemptAwardRibbon(RB04, killer, GetOwner());
+      //Ribbon (The Artist)
+  		if(killicon->~IsSchockPaddles())
+        AttemptAwardRibbon(RB05, killer, GetOwner());
+      //Ribbon (The Eagle)
+  		if(false)
+        AttemptAwardRibbon(RB06, killer, GetOwner());
+      //Ribbon (The Tuna)
+  		if(false)
+        AttemptAwardRibbon(RB07, killer, GetOwner());
+      //Ribbon (The Noob)
+  		if(false)
+        AttemptAwardRibbon(RB08, killer, GetOwner());
+    }
+
     //Achievement-Fortschritt (First Blood)
     DoAchievementProgress(1, AC37, killer);
   
@@ -625,9 +655,6 @@ global func FxFakeDeathDamage(object pTarget, int iEffectNumber, int iDmgEngy, i
           AwardAchievement(AC09, GetKiller(pTarget));
         } 
        }
-      if(killicon && killicon->~IsRocket())
-        //Ribbon-Fortschritt
-        AttemptAwardRibbon(RB02, GetKiller(pTarget), GetOwner(pTarget));
       if(GetProcedure(pTarget) == "FLIGHT" && GetProcedure(GetCursor(GetKiller(pTarget))) == "FLIGHT")
         if(GetActTime(pTarget) > 10 && GetActTime(GetCursor(GetKiller(pTarget))) > 10)
           //Achievement-Fortschritt (Fly-By)
