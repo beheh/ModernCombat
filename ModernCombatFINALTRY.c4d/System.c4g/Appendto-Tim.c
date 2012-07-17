@@ -7,6 +7,24 @@
 #appendto TIM1
 #appendto TIM2
 
+/* Votekick */
+
+local votekickVars;
+
+public func Initialize()
+{
+	votekickVars = [];
+	return _inherited(...);
+}
+
+public func InputCallback(string reason, int plr)
+{
+	StartVotekick(plr, votekickVars[0], votekickVars[1], reason, true);
+	return true;
+}
+
+/* */
+
 public func RejectCollect(id idObject)
 {
   if(GetCategory(0, idObject) & C4D_Living) return false;
