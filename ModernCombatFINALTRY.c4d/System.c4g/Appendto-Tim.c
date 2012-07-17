@@ -1,11 +1,12 @@
 /*-- Spawnen --*/
 
-//Beim Spawnen wird überprüft, ob Objekte "IsSpawnBlocker" den Ort blockieren und zerstören diese.
+//Beim Spawnen wird überprüft, ob Objekte "IsSpawnBlocker" den Ort blockieren und zerstören diese. Votekick-Mechanik wird in das Spawnen integriert.
 
 #strict 2
 
 #appendto TIM1
 #appendto TIM2
+
 
 /* Votekick */
 
@@ -13,17 +14,15 @@ local votekickVars;
 
 public func Initialize()
 {
-	votekickVars = [];
-	return _inherited(...);
+  votekickVars = [];
+  return _inherited(...);
 }
 
 public func InputCallback(string reason, int plr)
 {
-	StartVotekick(plr, votekickVars[0], votekickVars[1], reason, true);
-	return true;
+  StartVotekick(plr, votekickVars[0], votekickVars[1], reason, true);
+  return true;
 }
-
-/* */
 
 public func RejectCollect(id idObject)
 {

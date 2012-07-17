@@ -108,6 +108,24 @@ Kills=Kills
 Death=Death
 WinMsg=And the winner is: %s
 
+# Votekick
+
+SpamProtectInfo=You are only allowed to start a voting every 90 seconds.
+ClientChoose=Client Selection
+PlayerChoose=Player Selection
+MsgBoardReason=Reason:
+PlayerVotekickStart=Player %s started a kick voting and wants player %s to be kicked out.
+ClientVotekickStart=Player %s started a kick voting and wants client %s (%s) to be kicked out.
+Reason=<c ffff33>Reason:</c> %s
+VotekickInfo=Agree by typing <c ff0000>/votekick y</c>.
+VotekickDurationInfo=The voting runs for <c ff0000>30</c> seconds.
+HaveAlreadyVoted=You already voted.
+VotingCancelled=Voting canceled. (The player in question of expulsion left the round.)
+VotingStatistics=%d players participated in the voting. %d players are for and %d players against the expulsion of %s.
+VotekickSuccessful=A two thirds majority of the participants voted for the expulsion.
+VotekickNotEnough=There were not enough participants who voted for the expulsion.
+Cancel=Cancel
+
 # Easteregg
 
 Emptiness=The emptiness
