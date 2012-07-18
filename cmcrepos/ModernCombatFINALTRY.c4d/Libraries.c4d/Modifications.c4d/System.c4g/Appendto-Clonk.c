@@ -337,11 +337,15 @@ protected func DoPoints()
       var pClonk = GetCursor(killer);
       if(pClonk->~GetRealCursor()) pClonk = pClonk->~GetRealCursor();
 
-      //Marksman
-      if(ObjectDistance(pClonk, this) >= 350 && LastDamageType() == DMG_Projectile && KillIcon()->~IsWeapon2() && !Contained(pClonk))
+      if(LastDamageType() == DMG_Projectile && KillIcon()->~IsWeapon2() && !Contained(pClonk))
       {
-        //Achievement-Fortschritt (Marksman)
-        DoAchievementProgress(1,AC17,killer);
+        if(ObjectDistance(pClonk, this) >= 500)
+          //Achievement-Fortschritt (Bullseye)
+          DoAchievementProgress(1,AC39,killer);
+
+        if(ObjectDistance(pClonk, this) >= 350)
+          //Achievement-Fortschritt (Marksman)
+          DoAchievementProgress(1,AC17,killer);
       }
 
       var pActTarget = GetActionTarget(0, pClonk);
