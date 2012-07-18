@@ -18,7 +18,7 @@ public func Initialize()
 
   SetVisibility(VIS_Owner);
   SetCategory(C4D_Parallax|C4D_Foreground|C4D_MouseIgnore|C4D_IgnoreFoW);
-  SetPosition(-GetDefWidth(GetID())/2-120, -GetDefHeight(GetID())/2-42);
+  SetPosition(-GetDefWidth(GetID())/2-150, -GetDefHeight(GetID())/2-42);
   SetClrModulation(RGBa(255,255,255,255));
   SetObjDrawTransform(10000/iSize,0,-GetDefWidth(GetID())*10000/(2*iSize),0,10000/iSize,-GetDefHeight(GetID())*10000/(2*iSize));
 
@@ -26,7 +26,7 @@ public func Initialize()
   highlight = CreateObject(IHLT, 0, 0, GetOwner());
   highlight->SetVisibility(VIS_Owner);
   SetObjectOrder(highlight);
-  SetPosition(-GetDefWidth(GetID())/2-40, -GetDefHeight(GetID())/2-25,highlight);
+  SetPosition(-GetDefWidth(GetID())/2-70, -GetDefHeight(GetID())/2-25,highlight);
   SetClrModulation(RGBa(255,255,255,255), highlight);
   AddEffect("IntHighlight", highlight, 101, 1, this, 0, this);
   AddEffect("IntFade", this, 101, 1, this, 0, this);
