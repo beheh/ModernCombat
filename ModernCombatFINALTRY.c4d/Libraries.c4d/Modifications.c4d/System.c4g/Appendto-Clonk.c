@@ -289,38 +289,39 @@ protected func DoPoints()
     if(killer < 0 || killer == GetOwner())
       //Punkte bei Belohnungssystem (Selbstmord)
       DoPlayerPoints(SuicidePoints(), RWDS_MinusPoints, GetOwner(), this, IC07);
-	var aDoomBoom = GetAchievementExtra(AC15, killer);
-	if(!aDoomBoom) aDoomBoom = CreateArray();
+  var aDoomBoom = GetAchievementExtra(AC15, killer);
+  if(!aDoomBoom) aDoomBoom = CreateArray();
 
   if(Hostile(killer,GetOwner()))
   {  
     var killicon = KillIcon();
 
     //Ribbons
-    if(killicon) {
-      //Ribbon (The Boss)
+    if(killicon)
+    {
+      //Ribbon-Fortschritt (The Boss)
       if(killicon->~IsBlowTorch())
         AttemptAwardRibbon(RB01, killer, GetOwner());
-      //Ribbon (The Code)
-  		if(killicon->~IsRocket())
+      //Ribbon-Fortschritt (The Code)
+      if(killicon->~IsRocket())
         AttemptAwardRibbon(RB02, killer, GetOwner());
-      //Ribbon (The Ghost)
-  		if(killicon->~IsC4Explosive())
+      //Ribbon-Fortschritt (The Ghost)
+      if(killicon->~IsC4Explosive())
         AttemptAwardRibbon(RB03, killer, GetOwner());
-      //Ribbon (The Stationary)
-  		if(IsRiding() && GetActionTarget() && GetActionTarget()->~IsGunEmplacement())
+      //Ribbon-Fortschritt (The Stationary)
+      if(IsRiding() && GetActionTarget() && GetActionTarget()->~IsGunEmplacement())
         AttemptAwardRibbon(RB04, killer, GetOwner());
-      //Ribbon (The Artist)
-  		if(killicon->~IsSchockPaddles())
+      //Ribbon-Fortschritt (The Artist)
+      if(killicon->~IsSchockPaddles())
         AttemptAwardRibbon(RB05, killer, GetOwner());
-      //Ribbon (The Eagle)
-  		if(false)
+      //Ribbon-Fortschritt (The Eagle)
+      if(false)
         AttemptAwardRibbon(RB06, killer, GetOwner());
-      //Ribbon (The Tuna)
-  		if(false)
+      //Ribbon-Fortschritt (The Tuna)
+      if(false)
         AttemptAwardRibbon(RB07, killer, GetOwner());
-      //Ribbon (The Noob)
-  		if(false)
+      //Ribbon-Fortschritt (The Noob)
+      if(false)
         AttemptAwardRibbon(RB08, killer, GetOwner());
     }
 
