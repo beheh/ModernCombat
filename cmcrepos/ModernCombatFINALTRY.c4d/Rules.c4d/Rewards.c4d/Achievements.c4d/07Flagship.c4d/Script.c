@@ -12,3 +12,8 @@ public func GetAchievementScore()
 {
   return 8;	//Benötigte Punktzahl einfügen
 }
+
+public func SingleAward()
+{
+  return true; //Einmalig in Runde
+}
