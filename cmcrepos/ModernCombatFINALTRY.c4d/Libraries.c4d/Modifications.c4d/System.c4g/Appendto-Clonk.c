@@ -321,7 +321,7 @@ protected func DoPoints()
       if(false)
         AttemptAwardRibbon(RB07, killer, GetOwner());
       //Ribbon-Fortschritt (The Noob)
-      if(false)
+      if(Contained() && GetID(Contained()) == BKHK)
         AttemptAwardRibbon(RB08, killer, GetOwner());
     }
 
