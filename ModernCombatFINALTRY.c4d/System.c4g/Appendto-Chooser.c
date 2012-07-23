@@ -26,10 +26,11 @@ protected func Initialize()
   aAI = CreateArray();
 
   //Spielziele verzögert entfernen
-  ScheduleCall(this(), "RemoveGoals", 1);
+  ScheduleCall(this, "RemoveGoals", 1);
 
   //Host identifizieren
-  ChoosePlayer();
+  iChoosedPlr = -1;
+  ScheduleCall(this, "ChoosePlayer", 15);
 
   //Dunkelheit ermitteln
   iDarkCount = ObjectCount(DARK);
@@ -225,9 +226,15 @@ global func ClearScoreboard(int iRow, int iCol)
 
 private func ChoosePlayer()
 {
+	var lowest = [0x7FFFFFFF, -1];
   for(var i = 0; i < GetPlayerCount(C4PT_User); i++)
-    if(GetPlayerID(GetPlayerByIndex(i, C4PT_User)) == 1)
-      return iChoosedPlr = GetPlayerByIndex(i, C4PT_User);
+  {
+  	var plr = GetPlayerByIndex(i, C4PT_User);
+    if(GetPlrClientNr(plr) < lowest[0])
+    	lowest = [GetPlrClientNr(plr), plr];
+	}
+	
+	return iChoosedPlr = lowest[1];
 }
 
 /* Nur eine Mitteilung für Neugierige */
