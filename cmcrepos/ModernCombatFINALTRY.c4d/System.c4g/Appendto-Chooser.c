@@ -620,6 +620,9 @@ protected func CreateTeams(int iTeamSort, int iMode, bool fNoTeamMenu)
 //Austausch: Es werden in beiden Listen versucht, Zahlen auszutauschen, um ein besseres Ergebnis zu erreichen.
 public func AB_Method1(array &arListOne, array &arListTwo)
 {
+	if(!arListOne || !arListTwo)
+		return false;
+
   var sumL1 = AB_ArraySum(arListOne);	//Summe beider Listen
   var sumL2 = AB_ArraySum(arListTwo);
 
@@ -665,6 +668,9 @@ public func AB_Method1(array &arListOne, array &arListTwo)
 //Es wird geprüft, ob es möglich ist, aus einem Array kleinere Zahlen in den anderen Array zu packen, um einen Ausgleich zu erhalten.
 public func AB_Method2(array &arTeams, int iMaxNr)
 {
+	if(!arTeams)
+		return false;
+
   var arraySums = [];
   for(var i = 0; i < GetLength(arTeams); i++)
     arraySums[i] = AB_ArraySum(arTeams[i]);
