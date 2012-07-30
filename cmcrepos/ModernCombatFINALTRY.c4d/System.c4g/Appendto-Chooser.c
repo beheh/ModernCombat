@@ -226,15 +226,15 @@ global func ClearScoreboard(int iRow, int iCol)
 
 private func ChoosePlayer()
 {
-	var lowest = [0x7FFFFFFF, -1];
+  var lowest = [0x7FFFFFFF, -1];
   for(var i = 0; i < GetPlayerCount(C4PT_User); i++)
   {
-  	var plr = GetPlayerByIndex(i, C4PT_User);
+    var plr = GetPlayerByIndex(i, C4PT_User);
     if(GetPlrClientNr(plr) < lowest[0])
-    	lowest = [GetPlrClientNr(plr), plr];
-	}
-	
-	return iChoosedPlr = lowest[1];
+      lowest = [GetPlrClientNr(plr), plr];
+  }
+
+  return iChoosedPlr = lowest[1];
 }
 
 /* Nur eine Mitteilung für Neugierige */
@@ -620,8 +620,8 @@ protected func CreateTeams(int iTeamSort, int iMode, bool fNoTeamMenu)
 //Austausch: Es werden in beiden Listen versucht, Zahlen auszutauschen, um ein besseres Ergebnis zu erreichen.
 public func AB_Method1(array &arListOne, array &arListTwo)
 {
-	if(!arListOne || !arListTwo)
-		return false;
+  if(!arListOne || !arListTwo)
+    return false;
 
   var sumL1 = AB_ArraySum(arListOne);	//Summe beider Listen
   var sumL2 = AB_ArraySum(arListTwo);
@@ -668,8 +668,8 @@ public func AB_Method1(array &arListOne, array &arListTwo)
 //Es wird geprüft, ob es möglich ist, aus einem Array kleinere Zahlen in den anderen Array zu packen, um einen Ausgleich zu erhalten.
 public func AB_Method2(array &arTeams, int iMaxNr)
 {
-	if(!arTeams)
-		return false;
+  if(!arTeams)
+    return false;
 
   var arraySums = [];
   for(var i = 0; i < GetLength(arTeams); i++)
