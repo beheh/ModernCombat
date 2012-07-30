@@ -224,7 +224,7 @@ func CreateEquipment()
   PlaceSpawnpoint(GBOX, 770, 490);
 
   //Raketen
-  PlaceSpawnpoint(MBOX, 785, 355);
+  PlaceSpawnpoint(MBOX, 760, 375);
 }
 
 func CreateDecoration()
