@@ -106,9 +106,9 @@ protected func Initialize()
 
 public func GetPosition(int iVertex, int& iX, int& iY)
 {
-	iX = GetVertex(iVertex, false);
-	iY = GetVertex(iVertex, true);
-	return true;
+  iX = GetVertex(iVertex, false);
+  iY = GetVertex(iVertex, true);
+  return true;
 }
 
 /* Erfassung */
