@@ -80,18 +80,19 @@ global func HasVotekickSpamFilter(int iPlr)
 global func VotekickMenu(int iPlr, bool fClients)
 {
   var mobj = GetCursor(iPlr);
-  CreateMenu(CSTD, mobj, 0, 0, "", 0, C4MN_Style_Context);
   if(!fClients)
   {
+    CreateMenu(CSTD, mobj, 0, 0, "$PlayerChoose$", 0, C4MN_Style_Context);
     for(var i = 0; i < GetPlayerCount(C4PT_User); i++)
     {
       AddMenuItem(GetTaggedPlayerName(GetPlayerByIndex(i, C4PT_User)), Format("StartVotekick(%d, %d)", iPlr, GetPlayerByIndex(i, C4PT_User)), PCMK, mobj);
     }
-    AddMenuItem("$ClientChoose$", Format("VotekickMenu(%d, true)", iPlr), FLNT, mobj);
-    AddMenuItem("$Cancel$", Format("CloseMenu(Object(%d))", ObjectNumber()), EFLN, mobj);
+    AddMenuItem("$ClientChoose$", Format("VotekickMenu(%d, true)", iPlr), MCMC, mobj);
+    AddMenuItem("$Cancel$", Format("CloseMenu(Object(%d))", ObjectNumber()), 0, mobj);
   }
   else
   {
+    CreateMenu(CSTD, mobj, 0, 0, "$ClientChoose$", 0, C4MN_Style_Context);
     var client_array = [];
     for(var i = 0; i < GetPlayerCount(C4PT_User); i++)
     {
@@ -102,8 +103,8 @@ global func VotekickMenu(int iPlr, bool fClients)
       client_array[client] = client;
       AddMenuItem(GetPlrClientName(GetPlayerByIndex(i, C4PT_User)), Format("StartVotekick(%d, %d, true)", iPlr, client), PCMK, mobj);
     }
-    AddMenuItem("$PlayerChoose$", Format("VotekickMenu(%d, true)", iPlr), FLNT, mobj);
-    AddMenuItem("$Cancel$", Format("CloseMenu(Object(%d))", ObjectNumber()), EFLN, mobj);
+    AddMenuItem("$PlayerChoose$", Format("VotekickMenu(%d, false)", iPlr), MCMC, mobj);
+    AddMenuItem("$Cancel$", Format("CloseMenu(Object(%d))", ObjectNumber()), 0, mobj);
   }
 }
 
