@@ -5,3 +5,5 @@ Goal=Target Amount
 MoreCredits=more Credits
 LessCredits=less Credits
 Finished=Finished
+EnemyTeamIsWinning=<c ff0000>Warning</c>: Team %s almost collected enough credits!
+EnemyPlayerIsWinning=<c ff0000>Warning</c>: %s almost collected enough credits!
