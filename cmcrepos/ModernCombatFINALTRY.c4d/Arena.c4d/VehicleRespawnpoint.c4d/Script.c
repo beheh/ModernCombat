@@ -23,7 +23,7 @@ global func SetupVehicleSpawn(array aType, int iDir, object pTarget, int iFrames
   if(GetLength(aType))
   {
     for(var i = 0; i < GetLength(aType); i++)
-     EffectCall(pTarget,effect,"AddType", aType[i]);
+      EffectCall(pTarget,effect,"AddType", aType[i]);
   }
   EffectCall(pTarget, effect, "Spawn");
   return true;
@@ -127,7 +127,6 @@ global func FxIntVehicleSpawn4KSetFrames(object pTarget, int iEffectNumber, int 
   return;
 }
 
-
 global func FxIntVehicleSpawn4KStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)
 {
   return -1;
@@ -190,7 +189,7 @@ global func VehicleSpawn_SetDist(int iDistance, object pTarget)
   return true;
 }
 
-/* Unbenutze Beschädigen */
+/* Unbenutze Fahrzeuge beschädigen */
 
 global func FxIntVehicleUnusedStart(object pTarget, int iEffectNumber, id idType, object pSpawner, int iDistance)
 {
