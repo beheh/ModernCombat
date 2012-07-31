@@ -1,4 +1,4 @@
-/*-- Plattform --*/
+/*-- Maststück --*/
 
 #strict 2
 
