@@ -361,10 +361,10 @@ public func ChooserFinished()
    }
 
    //Patrouillenboote
-   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,770,800,-1),10*10);
-   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,1265,800,-1),10*10);
-   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1485,800,-1),10*10);
-   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2605,800,-1),10*10);
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,770,790,-1),10*10);
+   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,1265,789,-1),10*10);
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1485,789,-1),10*10);
+   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2605,789,-1),10*10);
 
    //Objekte entfernen
    RemoveObject(FindObject2(Find_ID(_WIN),Find_InRect(735, 410, 5, 30)));
@@ -409,10 +409,10 @@ public func ChooserFinished()
    CreateObject(MWCR, 2350, 550, -1);
 
    //Patrouillenboote
-   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,770,800,-1),10*10);
-   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,1265,800,-1),10*10);
-   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1485,800,-1),10*10);
-   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2605,800,-1),10*10);
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,770,790,-1),10*10);
+   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,1265,789,-1),10*10);
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1485,789,-1),10*10);
+   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2605,789,-1),10*10);
   }
 
   //HTF-Spielziel
@@ -441,8 +441,8 @@ public func ChooserFinished()
    }
 
    //Patrouillenboote
-   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1485,800,-1),10*10);
-   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2605,800,-1),10*10);
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1485,789,-1),10*10);
+   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2605,789,-1),10*10);
   }
 
   //LMS/DM-Spielziel
@@ -457,8 +457,8 @@ public func ChooserFinished()
    CreateObject(SGNP, 2745, 570, -1);
 
    //Patrouillenboote
-   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1485,800,-1),10*10);
-   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2605,800,-1),10*10);
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1485,789,-1),10*10);
+   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2605,789,-1),10*10);
   }
 }
 

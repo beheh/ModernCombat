@@ -582,10 +582,10 @@ public func ChooserFinished()
    CreateObject(SGNP, 6010, 1210, -1);
 
    //Patrouillenboote
-   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1820,1280,-1),50*21,300);
-   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1890,1280,-1),50*21,300);
-   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,4165,1280,-1),50*21,300);
-   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,4235,1280,-1),50*21,300);
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1821,1270,-1),50*21,300);
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1891,1270,-1),50*21,300);
+   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,4165,1269,-1),50*21,300);
+   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,4235,1269,-1),50*21,300);
   }
 
   //Assault-Spielziel
@@ -683,9 +683,9 @@ public func ChooserFinished()
    }
 
    //Patrouillenboote
-   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1820,1280,-1),50*21,300);
-   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1890,1280,-1),50*21,300);
-   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,3610,1280,-1),50*21,300);
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1821,1270,-1),50*21,300);
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1891,1270,-1),50*21,300);
+   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,3610,1269,-1),50*21,300);
 
    //Objekt entfernen
    RemoveObject(FindObject2(Find_ID(LADR),Find_InRect(4230, 580, 20, 200)));
@@ -712,8 +712,8 @@ public func ChooserFinished()
    CreateObject(SGNP, 5180, 1240, -1);
 
    //Patrouillenboote
-   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,3210,1280,-1),50*21,300);
-   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,4235,1280,-1),50*21,300);
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,3210,1269,-1),50*21,300);
+   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,4235,1269,-1),50*21,300);
   }
 
   //MR-Spielziel
@@ -739,8 +739,8 @@ public func ChooserFinished()
    CreateObject(SGNP, 5180, 1240, -1);
 
    //Patrouillenboote
-   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,3210,1280,-1),50*21,300);
-   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,4235,1280,-1),50*21,300);
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,3210,1269,-1),50*21,300);
+   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,4235,1269,-1),50*21,300);
   }
 
   //CTF-Spielziel
@@ -784,8 +784,8 @@ public func ChooserFinished()
    CreateObject(SGNP, 5180, 1240, -1);
 
    //Patrouillenboote
-   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,3210,1280,-1),50*21,300);
-   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,4235,1280,-1),50*21,300);
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,3210,1269,-1),50*21,300);
+   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,4235,1269,-1),50*21,300);
 
    //Spawnpoint entfernen
    RemoveObject(FindObject2(Find_ID(RSPT),Find_InRect(4119, 1069, 2, 2)));
@@ -808,8 +808,8 @@ public func ChooserFinished()
    CreateObject(SGNP, 5180, 1240, -1);
 
    //Patrouillenboote
-   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,3210,1280,-1),50*21,300);
-   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,4235,1280,-1),50*21,300);
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,3210,1269,-1),50*21,300);
+   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,4235,1269,-1),50*21,300);
   }
 }
 
