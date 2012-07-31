@@ -5,3 +5,5 @@ Goal=Zielbetrag
 MoreCredits=mehr Credits
 LessCredits=weniger Credits
 Finished=Fertig
+EnemyTeamIsWinning=Team %s hat bald die nötige Anzahl an Credits erreicht!
+EnemyPlayerIsWinning=Spieler %s hat bald die nötige Anzahl an Credits erreicht!

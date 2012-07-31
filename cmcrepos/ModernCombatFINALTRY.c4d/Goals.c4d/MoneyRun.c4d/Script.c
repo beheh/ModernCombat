@@ -3,7 +3,7 @@
 #strict 2
 #include TEAM
 
-local aMoney;
+local aMoney, aMessage;
 static iGoal;
 local fFulfilled;
 
@@ -15,6 +15,8 @@ public func GoalExtraValue()	{return iGoal;}	//Spielzielinformationen an Scorebo
 
 protected func Initialize()
 {
+	aMessage = [];
+
   //Standard-Credit-Anzahl ermitteln
   if(FrameCounter() < 100)
   {
@@ -318,6 +320,26 @@ private func GoalMoney(int iPlr, int iAmount)
     string = Format("{{IC20}} <c ff0000>%d</c>", iAmount);
   if (pClonk)
     AddEffect("PointMessage", pClonk, 130, 1, pClonk, 0, string);
+    
+  var iWarningMoney = iGoal - Min(32 * (iGoal/2) / 100, 100);
+  if(aMoney[index] >= iWarningMoney - (iWarningMoney % 10))
+  {
+  	if(!aMessage[index])
+  	{
+  		aMessage[index] = true;
+  		for(var i = 0; i < GetPlayerCount(); i++)
+  		{
+  			var plr = GetPlayerByIndex(i);
+  			if(Teams() && GetPlayerTeam(plr) != GetPlayerTeam(iPlr) && GetTeamPlayerCount(GetPlayerTeam(iPlr)) > 1)
+  				EventInfo4K(plr+1, Format("$EnemyTeamIsWinning$", GetTaggedTeamName(GetPlayerTeam(iPlr))));
+  			else if((!Teams() || GetTeamPlayerCount(GetPlayerTeam(iPlr)) == 1) && plr != iPlr)
+  				EventInfo4K(plr+1, Format("$EnemyPlayerIsWinning$", GetTaggedPlayerName(iPlr)));
+  		}
+  	}
+  }
+  else
+  	aMessage[index] = false;
+  	
   //Und Änderung zurückgeben
   return aMoney[index] - iMoney;
 }
