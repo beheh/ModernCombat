@@ -270,8 +270,8 @@ func CreateEquipment()
   CreateObject(ATBY,5265,460,-1)->SetRotation(-20);
 
   //Motorboote
-  SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,2360,680,-1),50*21,300);
-  SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,4470,680,-1),50*21,300);
+  SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,2360,669,-1),50*21,300);
+  SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,4470,669,-1),50*21,300);
 }
 
 func CreateDecoration()

@@ -269,9 +269,9 @@ func CreateEquipment()
   CreateObject(ATBY,3775,520,-1)->SetRotation(-20);
 
   //Patrouillenboote
-  SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1710,620,-1),50*21,300);
-  SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2990,620,-1),50*21,300);
-  SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,4310,620,-1),50*21,300);
+  SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1705,610,-1),50*21,300);
+  SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2990,609,-1),50*21,300);
+  SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,4310,610,-1),50*21,300);
 
   //Automaten
   var store = CreateObject(WPVM,1500, 530,-1);

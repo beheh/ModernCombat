@@ -220,9 +220,9 @@ func CreateEquipment()
   PlaceSpawnpoint(GBOX, 1640, 580);
 
   //Patrouillenboote
-  SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,670,620,-1),50*21,300);
-  SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1640,620,-1),50*21,300);
-  SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2590,620,-1),50*21,300);
+  SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,675,609,-1),50*21,300);
+  SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1640,609,-1),50*21,300);
+  SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2595,609,-1),50*21,300);
 }
 
 func CreateDecoration()
