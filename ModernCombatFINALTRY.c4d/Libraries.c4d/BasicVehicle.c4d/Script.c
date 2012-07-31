@@ -36,7 +36,7 @@ public func Initialize()
   {
     SetColorDw(GetPlrColorDw(GetOwner()));
   }
-  
+
   AddEffect("VehicleNoOwner", this, 50, 38, this);
 
   return true;
@@ -123,7 +123,8 @@ public func OnHit(int iDmg, int iType, object pBy)
 
 /* Treffbar */
 
-public func DefaultBulletTarget(id idBullet, object pBullet, object pShooter) {
+public func DefaultBulletTarget(id idBullet, object pBullet, object pShooter)
+{
   //Nicht treffbar wenn neutral
   if(GetOwner() == NO_OWNER)
     return false;
