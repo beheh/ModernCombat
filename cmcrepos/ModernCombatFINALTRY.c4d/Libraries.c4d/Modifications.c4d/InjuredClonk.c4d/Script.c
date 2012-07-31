@@ -12,6 +12,7 @@ public func ReadyToFire()	{}
 public func IsAiming()		{}
 public func MenuQueryCancel()	{return true;}
 public func BlockTime()		{return 35*3;}
+public func RWDS_MenuAbort() {return true;}
 
 /* Initialisierung */
 
