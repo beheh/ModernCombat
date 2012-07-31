@@ -892,7 +892,7 @@ protected func ConfigurationFinished2()
   var activated = "";
   var deactivated = "";
   var optional = "";
-  var comma = "";
+  var comma = ["", "", ""];
   for(var check in aRules)
   {
     def = GetDefinition(i, Chooser_Cat);
@@ -908,14 +908,25 @@ protected func ConfigurationFinished2()
     if(!fStandard && !check)
       continue;
     else if(fStandard && !check)
-      deactivated = Format("%s%s<c %x>%s</c>", deactivated, comma, GetRuleColor(def, true), GetName(0, def));
+   	{
+      deactivated = Format("%s%s<c %x>%s</c>", deactivated, comma[0], GetRuleColor(def, true), GetName(0, def));
+      comma[0] = ", ";
+    }
     else if(fStandard)
-      activated = Format("%s%s<c %x>%s</c>", activated, comma, GetRuleColor(def), GetName(0, def));
+    {
+      activated = Format("%s%s<c %x>%s</c>", activated, comma[1], GetRuleColor(def), GetName(0, def));
+    	comma[1] = ", ";
+    }
     else
-      optional = Format("%s%s<c %x>%s</c>", optional, comma, GetRuleColor(def), GetName(0, def));
-
-    comma = ", ";
+    {
+      optional = Format("%s%s<c %x>%s</c>", optional, comma[2], GetRuleColor(def), GetName(0, def));
+			comma[2] = ", ";
+		}
   }
+  if(activated != "" && deactivated != "")
+  	deactivated = Format(", %s", deactivated);
+  if((activated != "" || deactivated != "") && optional != "")
+  	optional = Format(", %s", optional);
   //Zusammenfassen
   log = Format("%s%s%s%s", log, activated, deactivated, optional);
   //Dunkelheit erzeugen
