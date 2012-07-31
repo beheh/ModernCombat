@@ -71,10 +71,10 @@ public func StatsPoints(int iPlr)
   var pClonk = GetCursor(iPlr);
   if(GetMenu(pClonk))
   {
-  	if(GetMenu(pClonk)->~RWDS_MenuAbort())
-  		CloseMenu(pClonk);
-  	else
-  		return;
+    if(GetMenu(pClonk)->~RWDS_MenuAbort())
+      CloseMenu(pClonk);
+    else
+      return;
   }
   if(!CreateMenu(GetID(),pClonk,this,0,0,0,C4MN_Style_Dialog)) return;
 
@@ -117,10 +117,10 @@ public func StatsList(int iPlr, int iIndex, int iOffset, int iMenuEntry)
   var pClonk = GetCursor(iPlr);
   if(GetMenu(pClonk))
   {
-  	if(GetMenu(pClonk)->~RWDS_MenuAbort())
-  		CloseMenu(pClonk);
-  	else
-  		return;
+    if(GetMenu(pClonk)->~RWDS_MenuAbort())
+      CloseMenu(pClonk);
+    else
+      return;
   }
   if(!CreateMenu(GetID(), pClonk, this, 0, 0, 0, C4MN_Style_Dialog)) return;
 
@@ -174,10 +174,10 @@ public func StatsAchievement(int iPlr, int iSelect, int iOffset)
   var pClonk = GetCursor(iPlr);
   if(GetMenu(pClonk))
   {
-  	if(GetMenu(pClonk)->~RWDS_MenuAbort())
-  		CloseMenu(pClonk);
-  	else
-  		return;
+    if(GetMenu(pClonk)->~RWDS_MenuAbort())
+      CloseMenu(pClonk);
+    else
+      return;
   }
   if(!CreateMenu(GetID(),pClonk,this,0,0,0,C4MN_Style_Dialog)) return;
 
@@ -594,10 +594,10 @@ public func StatsStatistics(int iPlr)
   var pClonk = GetCursor(iPlr);
   if(GetMenu(pClonk))
   {
-  	if(GetMenu(pClonk)->~RWDS_MenuAbort())
-  		CloseMenu(pClonk);
-  	else
-  		return;
+    if(GetMenu(pClonk)->~RWDS_MenuAbort())
+      CloseMenu(pClonk);
+    else
+      return;
   }
   if(!CreateMenu(GetID(), pClonk, this, 0, 0, 0, C4MN_Style_Dialog)) return;
 
