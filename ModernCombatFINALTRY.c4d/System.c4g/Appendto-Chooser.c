@@ -888,20 +888,36 @@ protected func ConfigurationFinished2()
     log = "$StdRules$";
   else
     log = "$Rules$";
+    
+  var activated = "";
+  var deactivated = "";
+  var optional = "";
+  var comma = "";
   for(var check in aRules)
   {
-    if(check)
-    {
-      def = GetDefinition(i, Chooser_Cat);
-      CreateObject(def, 10,10, -1);
-      if(j)
-        log = Format("%s, <c %x>%s</c>", log, GetRuleColor(def), GetName(0, def));
-      else
-        log = Format("%s<c %x>%s</c>", log, GetRuleColor(def), GetName(0, def));
-      j++;
-    }
-    i++;
+  	def = GetDefinition(i, Chooser_Cat);
+  	i++;
+  	//Log("aRules: %v, def: %i, i: %d, check: %v, Name: %s", aRules, def, i, check, GetName(0, def));
+  	if(check)
+  		CreateObject(def, 10, 10, -1);
+  	
+  	if(!(GetCategory(0, def) & C4D_Rule))
+  		continue;
+  	
+  	var fStandard = (GetIndexOf(def, GameCall("ChooserRuleConfig")) != -1);
+  	if(!fStandard && !check)
+  		continue;
+  	else if(fStandard && !check)
+  		deactivated = Format("%s%s<c %x>%s</c>", deactivated, comma, GetRuleColor(def, true), GetName(0, def));
+  	else if(fStandard)
+  		activated = Format("%s%s<c %x>%s</c>", activated, comma, GetRuleColor(def), GetName(0, def));
+  	else
+  		optional = Format("%s%s<c %x>%s</c>", optional, comma, GetRuleColor(def), GetName(0, def));
+  	
+  	comma = ", ";
   }
+  //Zusammenfassen
+  log = Format("%s%s%s%s", log, activated, deactivated, optional);
   //Dunkelheit erzeugen
   log = Format("%s, %s x%d", log, GetName(0, DARK), iDarkCount);
   EventInfo4K(0,log,CHOS, 0, 0, 0, "Info.ogg");
@@ -945,10 +961,13 @@ private func IsStandardSetting()
   return true;
 }
 
-private func GetRuleColor(id idDef)
+private func GetRuleColor(id idDef, bool fNotChoosed)
 {
-  if (GetIndexOf(idDef, GameCall("ChooserRuleConfig")) == -1)
+  if(GetIndexOf(idDef, GameCall("ChooserRuleConfig")) == -1)
     return RGB(255);
+  if(fNotChoosed)
+  	return RGB(127, 127, 127);
+
   return RGB(255,255,255);
 }
 
