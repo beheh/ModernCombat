@@ -6,7 +6,6 @@ local pAntenna, fDestroyed;
 local pRopeHolder;
 local iLastDmgPlr;
 
-public func IsBulletTarget()		{return !fDestroyed;}
 public func IsDestroyed()		{return fDestroyed;}
 public func SetAntenna(object pObject)	{return pAntenna = pObject;}
 
