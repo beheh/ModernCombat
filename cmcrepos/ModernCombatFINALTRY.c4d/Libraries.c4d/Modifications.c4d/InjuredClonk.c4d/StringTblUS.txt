@@ -74,6 +74,7 @@ RSHL0=The riot shield can also be used while <c 33ccff>crawling</c> and <c 33ccf
 RSHL1=Stand between the enemy and your allies while using the riot shield, <c 33ccff>protect</c> your team while they take down the enemy.
 RSHL2=The riot shield is <c 33ccff>useless</c> against explosive weapons, but you can keep them away a bit, <c 33ccff>reducing</c> the damage you take.
 RSHL3=The riot shield stabilizes you so that you <c 33ccff>can't fall down</c> while holding it.
+RSHL4=The riot shield can be deployed by pressing [<c 33ccff>Double Dig</c>] while standing.
 CDBT0=You can also shock <c 33ccff>enemies</c> with shock paddles.
 CDBT1=Revived clonks recover slowly, <c 33ccff>defend them</c> while that happens because damage will stop the healing effect.
 CUAM0=You can give packed ammo to allies by tapping [<c 33ccff>Throw</c>].
