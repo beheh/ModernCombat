@@ -915,18 +915,18 @@ protected func ConfigurationFinished2()
     else if(fStandard)
     {
       activated = Format("%s%s<c %x>%s</c>", activated, comma[1], GetRuleColor(def), GetName(0, def));
-    	comma[1] = ", ";
+      comma[1] = ", ";
     }
     else
     {
       optional = Format("%s%s<c %x>%s</c>", optional, comma[2], GetRuleColor(def), GetName(0, def));
-			comma[2] = ", ";
-		}
+      comma[2] = ", ";
+    }
   }
   if(activated != "" && deactivated != "")
-  	deactivated = Format(", %s", deactivated);
+    deactivated = Format(", %s", deactivated);
   if((activated != "" || deactivated != "") && optional != "")
-  	optional = Format(", %s", optional);
+    optional = Format(", %s", optional);
   //Zusammenfassen
   log = Format("%s%s%s%s", log, activated, deactivated, optional);
   //Dunkelheit erzeugen
