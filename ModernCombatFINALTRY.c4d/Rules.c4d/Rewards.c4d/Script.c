@@ -69,7 +69,13 @@ public func ShowLastPage(int iPlr)
 public func StatsPoints(int iPlr)
 {
   var pClonk = GetCursor(iPlr);
-  if(GetMenu(pClonk)) CloseMenu(pClonk);
+  if(GetMenu(pClonk))
+  {
+  	if(GetMenu(pClonk)->~RWDS_MenuAbort())
+  		CloseMenu(pClonk);
+  	else
+  		return;
+  }
   if(!CreateMenu(GetID(),pClonk,this,0,0,0,C4MN_Style_Dialog)) return;
 
   aLastPage[iPlr] = [RWDS_Page_Points];
@@ -110,7 +116,12 @@ public func StatsList(int iPlr, int iIndex, int iOffset, int iMenuEntry)
 {
   var pClonk = GetCursor(iPlr);
   if(GetMenu(pClonk))
-    CloseMenu(pClonk);
+  {
+  	if(GetMenu(pClonk)->~RWDS_MenuAbort())
+  		CloseMenu(pClonk);
+  	else
+  		return;
+  }
   if(!CreateMenu(GetID(), pClonk, this, 0, 0, 0, C4MN_Style_Dialog)) return;
 
   aLastPage[iPlr] = [RWDS_Page_AchievementList, iIndex, iOffset, iMenuEntry];
@@ -161,7 +172,13 @@ public func StatsList(int iPlr, int iIndex, int iOffset, int iMenuEntry)
 public func StatsAchievement(int iPlr, int iSelect, int iOffset)
 {
   var pClonk = GetCursor(iPlr);
-  if(GetMenu(pClonk)) CloseMenu(pClonk);
+  if(GetMenu(pClonk))
+  {
+  	if(GetMenu(pClonk)->~RWDS_MenuAbort())
+  		CloseMenu(pClonk);
+  	else
+  		return;
+  }
   if(!CreateMenu(GetID(),pClonk,this,0,0,0,C4MN_Style_Dialog)) return;
 
   aLastPage[iPlr] = [RWDS_Page_ShowAchievement, iSelect, iOffset];
@@ -575,7 +592,13 @@ global func ResetPlayerStats(int iPlr)
 public func StatsStatistics(int iPlr)
 {
   var pClonk = GetCursor(iPlr);
-  if(GetMenu(pClonk)) CloseMenu(pClonk);
+  if(GetMenu(pClonk))
+  {
+  	if(GetMenu(pClonk)->~RWDS_MenuAbort())
+  		CloseMenu(pClonk);
+  	else
+  		return;
+  }
   if(!CreateMenu(GetID(), pClonk, this, 0, 0, 0, C4MN_Style_Dialog)) return;
 
   aLastPage[iPlr] = [RWDS_Page_Statistics];
