@@ -18,6 +18,7 @@ CapturedTheFlag=%s captured the flag!
 HasTheFlag=%s has got the flag of team <c %x>%s</c>!
 FlagLost=The flag of <c %x>%s</c> was dropped!
 FlagReturned=The flag of <c %x>%s</c> was returned!
+OneFlagLeft=<c ff0000>Warning</c>: Team %s needs only <c ffff33>one</c> more flag to win!
 
 # Chooser
 
