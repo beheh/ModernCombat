@@ -18,7 +18,7 @@ CapturedTheFlag=%s hat die Flagge erfolgreich geklaut!
 HasTheFlag=%s hat die Flagge von Team <c %x>%s</c>!
 FlagLost=Die Flagge von <c %x>%s</c> wurde fallen gelassen!
 FlagReturned=Die Flagge von <c %x>%s</c> ist zurück!
-OneFlagLeft=Team %s fehlt nur noch eine Flagge zum Sieg!
+OneFlagLeft=<c ff0000>Achtung</c>: Team %s fehlt nur noch <c ffff33>eine</c> Flagge zum Sieg!
 
 # Chooser
 

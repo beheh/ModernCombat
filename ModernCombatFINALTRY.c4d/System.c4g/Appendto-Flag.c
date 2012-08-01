@@ -55,14 +55,14 @@ protected func CheckFlag(pClonk)
   var flag = FindObject(GetID(), 0,0,0,0,0, 0,pClonk);
   if(!flag) return;
 
-	var iPlr = GetOwner(pClonk);
+  var iPlr = GetOwner(pClonk);
   EventInfo4K(0, Format("$CapturedTheFlag$", GetTaggedPlayerName(iPlr)), FLA2, 0, GetTeamColor(team));
   //Geldbonus: 30 Clunker
   DoWealth(iPlr, 30);
   DoTeamScore(GetPlayerTeam(iPlr), 1);
   var winscore = GetWinScore(FindObject(GCTF));
   if(FindObject(GCTF) && winscore-1 == FindObject(GCTF)->TeamGetScore(GetPlayerTeam(iPlr)))
-  	EnemyEventInfo(iPlr, Format("$OneFlagLeft$", GetTaggedTeamName(GetPlayerTeam(iPlr))));
+    EnemyEventInfo(iPlr, Format("$OneFlagLeft$", GetTaggedTeamName(GetPlayerTeam(iPlr))), GCTF, 0, 0, 0, "Alarm.ogg");
 
   flag->~Return2Base(0,1);
   //game call: FlagScored(flagTeam, scoreTeam, clonk)
