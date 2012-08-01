@@ -61,27 +61,25 @@ public func NodePosition(int &iX, int &iY, int iPosition)
   return true;
 }
 
-/*public func AddRopeHolder(int iX1, int iY1, int iX2, int iY2, object pFakeRopeHolder1, object pFakeRopeHolder2)
+local fMode;
+
+public func SwitchMode()
 {
-  //Halterungen erstellen
-  var rh1 = CreateObject(REHR, AbsX(iX1), AbsY(iY1), -1);
-  var rh2 = CreateObject(REHR, AbsX(iX2), AbsY(iY2), -1);
+	fMode = !fMode;
+	if(fMode)
+	{
+		SetGraphics("2");
+		SetSolidMask();
+	}
+	else
+	{
+		SetGraphics(0);
+		SetSolidMask(192, 0, 96, 700);
+	}
 
-  //Befestigen
-  rh1->SetAntenna(this);
-  rh2->SetAntenna(this);
-  rh1->SetFakeRopeHolder(pFakeRopeHolder1);
-  rh2->SetFakeRopeHolder(pFakeRopeHolder2);
+	return true;
+}
 
-  var rope = CreateObject(CK5P, 0, 0, -1);
-  rope->ConnectObjects(rh1, rh2);
-  rope->SetRopeLength(Distance(iX1, iY1, iX2, iY2));
-  rope->SetRopeColor(RGB(100,100,100));
-
-  aNodes[GetLength(aNodes)] = [rh1, rh2, rope];
-
-  return [rh1, rh2, rope];
-}*/
 
 public func WorkingRopesCount()
 {
@@ -229,28 +227,31 @@ protected func Collapse()
   part->SetRDir(RandomX(-5,5));
   part->Fling(part, 1, 0);
 
-  part = CreateObject(ATR2, 0,-203, iLastDmgPlr);
-  part->SetRDir(RandomX(-4,4));
-  part->Fling(part, 1, 0);
-
-  part = CreateObject(ATR2, 0,-22, iLastDmgPlr);
-  part->SetRDir(RandomX(-4,4));
-  part->Fling(part, 1, 0);
-
-  part = CreateObject(ATR2, 0,27, iLastDmgPlr);
-  part->SetRDir(RandomX(-4,4));
-  part->Fling(part, 1, 0);
-
-  part = CreateObject(ATR2, 0,76, iLastDmgPlr);
-  part->SetRDir(RandomX(-4,4));
-  part->Fling(part, 1, 0);
-
-  part = CreateObject(ATR2, -9,238, iLastDmgPlr);
-  part->SetAction("Be2");
-  part->SetR(180);
-  part->SetRDir(RandomX(-4,4));
-  part->Fling(part, 1, 0);
-
+	if(!fMode)
+	{
+  	part = CreateObject(ATR2, 0,-203, iLastDmgPlr);
+  	part->SetRDir(RandomX(-4,4));
+  	part->Fling(part, 1, 0);
+	
+	  part = CreateObject(ATR2, 0,-22, iLastDmgPlr);
+	  part->SetRDir(RandomX(-4,4));
+	  part->Fling(part, 1, 0);
+	
+	  part = CreateObject(ATR2, 0,27, iLastDmgPlr);
+	  part->SetRDir(RandomX(-4,4));
+	  part->Fling(part, 1, 0);
+	
+	  part = CreateObject(ATR2, 0,76, iLastDmgPlr);
+	  part->SetRDir(RandomX(-4,4));
+	  part->Fling(part, 1, 0);
+	
+	  part = CreateObject(ATR2, -9,238, iLastDmgPlr);
+	  part->SetAction("Be2");
+	  part->SetR(180);
+	  part->SetRDir(RandomX(-4,4));
+	  part->Fling(part, 1, 0);
+	}
+	
   //Effekte
   CreateParticle("Blast",0,-200,-10,0,5*50,RGB(255,255,128));
   CreateParticle("Blast",0,-200,10,0,5*50,RGB(255,255,128));
