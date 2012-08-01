@@ -217,6 +217,16 @@ func CreateInterior()
   var doorw = CreateObject(GAT1, 2310, 420, -1);
   CreateObject(ROOM, 2415, 1570, -1)->Connect(doorw);
 
+  //Sendemast
+  var tower = CreateObject(AATR, 1540, 780, -1);
+  tower->SwitchMode();
+  tower->AddNode(932, 400, 0, CreateObject(REHR, 925, 410, -1), 0, 1);
+  tower->AddNode(622, 925, 3, CreateObject(REHR, 615, 950, -1));
+  tower->AddNode(1300, 825, 1, CreateObject(REHR, 1295, 830, -1), -45, 2);
+  tower->AddNode(1785, 825, 1, CreateObject(REHR, 1785, 830, -1), 45, 2);
+  tower->AddNode(2460, 925, 3, CreateObject(REHR, 2465, 950, -1));
+  tower->AddNode(2148, 400, 0, CreateObject(REHR, 2155, 410, -1), 0, 1);
+
   //Sounds
 
   //Lava
