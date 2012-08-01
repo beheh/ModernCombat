@@ -327,14 +327,19 @@ private func GoalMoney(int iPlr, int iAmount)
     if(!aMessage[index])
     {
       aMessage[index] = true;
-      for(var i = 0; i < GetPlayerCount(); i++)
+      var message = Format("$EnemyTeamIsWinning$", GetTaggedTeamName(GetPlayerTeam(iPlr)));
+      if(!Teams() || GetTeamPlayerCount(GetPlayerTeam(iPlr)) == 1)
+      	message = Format("$EnemyPlayerIsWinning$", GetTaggedPlayerName(iPlr));
+     	
+     	EnemyEventInfo(iPlr, message);
+      /*for(var i = 0; i < GetPlayerCount(); i++)
       {
         var plr = GetPlayerByIndex(i);
         if(Teams() && GetPlayerTeam(plr) != GetPlayerTeam(iPlr) && GetTeamPlayerCount(GetPlayerTeam(iPlr)) > 1)
           EventInfo4K(plr+1, Format("$EnemyTeamIsWinning$", GetTaggedTeamName(GetPlayerTeam(iPlr))));
         else if((!Teams() || GetTeamPlayerCount(GetPlayerTeam(iPlr)) == 1) && plr != iPlr)
           EventInfo4K(plr+1, Format("$EnemyPlayerIsWinning$", GetTaggedPlayerName(iPlr)));
-      }
+      }*/
     }
   }
   else

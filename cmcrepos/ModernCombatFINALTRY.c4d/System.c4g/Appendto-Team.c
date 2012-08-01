@@ -219,3 +219,8 @@ public func Money(int iPlr, object pClonk, int iMurdererPlr)
   //Geldbonus: 10 Clunker
   DoWealth(iPlr, 10);
 }
+
+public func TeamGetScore(int iTeam)
+{
+  return aPoints[iTeam];
+}

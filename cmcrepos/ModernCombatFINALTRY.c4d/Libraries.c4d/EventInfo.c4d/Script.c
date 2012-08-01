@@ -170,3 +170,26 @@ public func GetEffectTime()
 {
   return GetEffect("IntEventInfo",this,0,6);
 }
+
+/* Hilfsfunktionen */
+
+global func TeamEventInfo(int iTeam)
+{
+	var cnt = GetTeamPlayerCount(iTeam);
+	for(var i = 0; i < cnt; i++)
+		EventInfo4K(1 + GetTeamMemberByIndex(i, iTeam), ...);
+	
+	return true;
+}
+
+global func EnemyEventInfo(int iPlayer)
+{
+	for(var i = 0; i < GetPlayerCount(); i++)
+	{
+		var plr = GetPlayerByIndex(i);
+		if(Hostile(iPlayer, plr))
+			EventInfo4K(1 + plr, ...);
+	}
+
+	return true;
+}
