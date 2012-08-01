@@ -19,6 +19,9 @@ public func Hit(int iXDir, int iYDir)
 {
   Sound("StructuralDamage*.ogg");
 
+  //Spielerbildschirme schütteln
+  ShakeViewPort(50, this);
+
   if(GetEffectData(EFSM_ExplosionEffects) > 1)
   {
     var x = GetX(), y = GetY(), xdir, ydir;
