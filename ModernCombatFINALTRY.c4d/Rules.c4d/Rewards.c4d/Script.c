@@ -129,7 +129,7 @@ public func StatsList(int iPlr, int iIndex, int iOffset, int iMenuEntry)
   AddMenuItem(" | ", 0, RWDS, pClonk, 0, 0, "", 514, 0, 0);
 
   //Überschrift
-  AddMenuItem(Format("<c 33ccff>$Achievements$ ($Showing$)</c>", iOffset/10+1, iAchievementCount/10+1), 0, NONE, pClonk);
+  AddMenuItem(Format("<c 33ccff>$Achievements$ ($Showing$)</c>", iOffset/10+1, (iAchievementCount-1)/10+1), 0, NONE, pClonk);
 
   //Liste
   var i = 1+iOffset;
