@@ -209,6 +209,8 @@ protected func Collapse()
 
   //Maststücke erstellen
   var part = CreateObject(ATRP, 0,-200, iLastDmgPlr);
+  if(fMode)
+  	part->SetPhase(4);
   part->SetRDir(RandomX(-5,5));
   part->Fling(part, -2, 0);
 
@@ -244,13 +246,16 @@ protected func Collapse()
 	  part = CreateObject(ATR2, 0,76, iLastDmgPlr);
 	  part->SetRDir(RandomX(-4,4));
 	  part->Fling(part, 1, 0);
-	
-	  part = CreateObject(ATR2, -9,238, iLastDmgPlr);
-	  part->SetAction("Be2");
-	  part->SetR(180);
-	  part->SetRDir(RandomX(-4,4));
-	  part->Fling(part, 1, 0);
 	}
+	
+	part = CreateObject(ATR2, -9,238, iLastDmgPlr);
+	if(fMode)
+		part->SetAction("Be3");
+	else
+		part->SetAction("Be2");
+	part->SetR(180);
+	part->SetRDir(RandomX(-4,4));
+	part->Fling(part, 1, 0);
 	
   //Effekte
   CreateParticle("Blast",0,-200,-10,0,5*50,RGB(255,255,128));
