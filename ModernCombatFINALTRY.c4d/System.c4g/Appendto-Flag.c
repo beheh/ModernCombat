@@ -55,16 +55,21 @@ protected func CheckFlag(pClonk)
   var flag = FindObject(GetID(), 0,0,0,0,0, 0,pClonk);
   if(!flag) return;
 
-  EventInfo4K(0, Format("$CapturedTheFlag$", GetTaggedPlayerName(GetOwner(pClonk))), FLA2, 0, GetTeamColor(team));
+	var iPlr = GetOwner(pClonk);
+  EventInfo4K(0, Format("$CapturedTheFlag$", GetTaggedPlayerName(iPlr)), FLA2, 0, GetTeamColor(team));
   //Geldbonus: 30 Clunker
-  DoWealth(GetOwner(pClonk), 30);
-  DoTeamScore(GetPlayerTeam(GetOwner(pClonk)), 1);
+  DoWealth(iPlr, 30);
+  DoTeamScore(GetPlayerTeam(iPlr), 1);
+  var winscore = GetWinScore(FindObject(GCTF));
+  if(FindObject(GCTF) && winscore-1 == FindObject(GCTF)->TeamGetScore(GetPlayerTeam(iPlr)))
+  	EnemyEventInfo(iPlr, Format("$OneFlagLeft$", GetTaggedTeamName(GetPlayerTeam(iPlr))));
+
   flag->~Return2Base(0,1);
   //game call: FlagScored(flagTeam, scoreTeam, clonk)
   //flagTeam: The team to which the flag belongs to
   //scoreTeam: the team that just scored
   //clonk: the clonk who did it
-  GameCallEx("FlagScored",team, GetPlayerTeam(GetOwner(pClonk)), pClonk);
+  GameCallEx("FlagScored",team, GetPlayerTeam(iPlr), pClonk);
 }
 
 public func Destruction()
