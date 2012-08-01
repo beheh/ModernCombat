@@ -148,7 +148,7 @@ public func StatsList(int iPlr, int iIndex, int iOffset, int iMenuEntry)
   AddMenuItem(" ", 0, NONE, pClonk);
 
   //Weiter
-  if(iOffset+10 <= iAchievementCount)
+  if(iOffset+10 <= iAchievementCount-1)
     AddMenuItem("$NextPage$", Format("StatsList(%d, %d, %d, 0)", iPlr, 0, BoundBy(iOffset+10, 0, iAchievementCount)), NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
   //Zurück
   if(iOffset > 0)
