@@ -108,6 +108,8 @@ func CreateInterior()
   //Kisten
   CreateObject(WCR2, 1690, 1170, -1)->AutoRespawn();
   CreateObject(WCR2, 1690, 1260, -1)->AutoRespawn();
+  CreateObject(WCR2, 3640, 521, -1);
+  CreateObject(WCR2, 3700, 571, -1);
 
   //Metallkisten
   CreateObject(MWCR, 4650, 1220, -1)->AutoRespawn();
@@ -115,25 +117,29 @@ func CreateInterior()
 
   //Verbandskisten
   CreateObject(BECR, 1670, 1260, -1)->AutoRespawn();
+  CreateObject(BECR, 3705, 292, -1);
   CreateObject(BECR, 4120, 580, -1)->AutoRespawn();
   CreateObject(BECR, 5190, 1240, -1)->AutoRespawn();
 
   //Explosive Kisten
   CreateObject(XWCR, 1845, 1170, -1)->AutoRespawn();
-  CreateObject(XWCR, 3605, 868, -1)->AutoRespawn();
+  CreateObject(XWCR, 3600, 868, -1)->AutoRespawn();
 
   //Benzinfässer
   CreateObject(PBRL, 1620, 1260, -1)->AutoRespawn();
-  CreateObject(PBRL, 3660, 848, -1)->AutoRespawn();
+  CreateObject(PBRL, 3660, 850, -1)->AutoRespawn();
+  CreateObject(PBRL, 3670, 292, -1);
   CreateObject(PBRL, 4505, 938, -1)->AutoRespawn();
 
   //Explosivfässer
   CreateObject(XBRL, 1600, 1260, -1)->AutoRespawn();
   CreateObject(XBRL, 3280, 1208, -1)->AutoRespawn();
+  CreateObject(XBRL, 3635, 472, -1);
   CreateObject(XBRL, 4605, 918, -1)->AutoRespawn();
 
   //Gasflaschen
   CreateObject(GSBL, 1635, 1030, -1)->AutoRespawn();
+  CreateObject(GSBL, 3690, 473, -1);
   CreateObject(GSBL, 4220, 818, -1)->AutoRespawn();
   CreateObject(GSBL, 5160, 1238, -1)->AutoRespawn();
 
@@ -206,6 +212,13 @@ func CreateInterior()
   //Seegras und Muscheln entfernen
   for(var obj in FindObjects(Find_Or(Find_ID(SWD1), Find_ID(SWD2), Find_ID(SHEL)), Find_InRect(1250, 1270, 1150, 35)))
     RemoveObject(obj);
+
+  //Sendemast
+  var tower = CreateObject(AATR, 3670, 850, -1);
+  tower->AddNode(3203, 1205, 0, CreateObject(REHR, 3195, 1230, -1));
+  tower->AddNode(3443, 885, 2, CreateObject(REHR, 3435, 900, -1), -40, 1);
+  tower->AddNode(3860, 672, 2, CreateObject(REHR, 3855, 690, -1), -90, 2);
+  tower->AddNode(3955, 550, 0, CreateObject(REHR, 3942, 560, -1), -40, 2);
 
   //Sounds
 
@@ -401,7 +414,7 @@ func CreateDecoration()
   CreateObject(STNE, 1140, 1420, -1);
   CreateObject(STNE, 1680, 1460, -1);
   CreateObject(STNE, 2895, 1370, -1);
-  CreateObject(STNE, 3730, 820, -1)->Set(3);
+  CreateObject(STNE, 3737, 820, -1)->Set(3);
   CreateObject(STNE, 3900, 980, -1);
   CreateObject(STNE, 4130, 1310, -1);
   CreateObject(STNE, 5770, 1480, -1);
@@ -592,8 +605,8 @@ public func ChooserFinished()
   if (FindObject(GASS))
   {
    //Zielobjekte
-   AddAssaultTarget(GSTA, 3260, 1210, 230, 2, "$Target1$", 0, [[[3470, 890], [3690, 840], [3755, 800]], [[1630, 1110], [1630, 1170], [1645, 1260]]]);
-   AddAssaultTarget(GSTA, 3700, 1050, 230, 2, "$Target1$", 1, [[[3470, 890], [3690, 840], [3755, 800]], [[1630, 1110], [1630, 1170], [1645, 1260]]]);
+   AddAssaultTarget(GSTA, 3260, 1210, 230, 2, "$Target1$", 0, [[[3470, 890], [3690, 850], [3755, 800]], [[1630, 1110], [1630, 1170], [1645, 1260]]]);
+   AddAssaultTarget(GSTA, 3700, 1050, 230, 2, "$Target1$", 1, [[[3470, 890], [3690, 850], [3755, 800]], [[1630, 1110], [1630, 1170], [1645, 1260]]]);
    AddAssaultTarget(RADR, 4010, 530, 230, 2, "$Target2$", 2, [[[4170, 940], [4300, 970], [4530, 911]], [[1630, 1110], [1630, 1170], [1645, 1260]]]);
    AddAssaultTarget(CMSN, 4245, 820, 230, 2, "$Target3$", 3, [[[4170, 940], [4300, 970], [4530, 911]], [[1630, 1110], [1630, 1170], [1645, 1260]]]);
    AddAssaultTarget(HUT3, 4760, 1090, 230, 2, "$Target4$", 4, [[[4995, 1240], [5105, 1190], [5280, 1260]], [[3480, 890], [3710, 1050], [3770, 990]]]);
@@ -662,7 +675,7 @@ public func ChooserFinished()
    aStationary[0] = CreateObject(GNET, 1795, 1141, -1);
    aStationary[0] -> Set(0,90,1);
    aStationary[1] = CreateObject(GNET, 3410, 1130, -1);
-   aStationary[1] -> Set(SATW,-90,1);
+   aStationary[1] -> Set(0,-90,1);
    aStationary[2] = CreateObject(GNET, 3460, 890, -1);
    aStationary[2] -> Set(SATW,-90,1);
    aStationary[3] = CreateObject(GNET, 3880, 660, -1);

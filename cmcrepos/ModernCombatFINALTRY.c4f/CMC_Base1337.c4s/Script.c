@@ -94,6 +94,8 @@ func CreateInterior()
   CreateObject(WCR2, 1510, 1168, -1);
   CreateObject(WCR2, 1660, 1168, -1);
   CreateObject(WCR2, 1680, 1168, -1);
+  CreateObject(WCR2, 2080, 382, -1);
+  CreateObject(WCR2, 2150, 563, -1);
   CreateObject(WCR2, 2640, 1220, -1);
   CreateObject(WCR2, 2660, 1220, -1);
   CreateObject(WCR2, 2890, 1200, -1)->AutoRespawn();
@@ -114,6 +116,7 @@ func CreateInterior()
 
   //Verbandskisten
   CreateObject(BECR, 1510, 1152, -1);
+  CreateObject(BECR, 2095, 382, -1);
   CreateObject(BECR, 2800, 910, -1)->AutoRespawn();
   CreateObject(BECR, 3640, 760, -1);
 
@@ -133,6 +136,8 @@ func CreateInterior()
   CreateObject(PBRL, 3180, 1040, -1)->AutoRespawn();
 
   //Phosphorfässer
+  CreateObject(HBRL, 2090, 660, -1);
+  CreateObject(HBRL, 2110, 660, -1);
   CreateObject(HBRL, 3190, 1040, -1)->AutoRespawn();
   CreateObject(HBRL, 3400, 930, -1)->AutoRespawn();
   CreateObject(HBRL, 3620, 1162, -1);
@@ -141,6 +146,7 @@ func CreateInterior()
   CreateObject(GSBL, 880, 780, -1)->AutoRespawn();
   CreateObject(GSBL, 1530, 1170, -1);
   CreateObject(GSBL, 1540, 1170, -1);
+  CreateObject(GSBL, 2120, 563, -1);
   CreateObject(GSBL, 2180, 1120, -1)->AutoRespawn();
   CreateObject(GSBL, 2720, 960, -1)->AutoRespawn();
   CreateObject(GSBL, 3770, 832, -1)->AutoRespawn();
@@ -236,6 +242,13 @@ func CreateInterior()
   aSelfDefense[3] = CreateObject(SEGU, 3785, 899, -1);
     aSelfDefense[3]->Arm(MISA);
     CreateObject(CONS, 3895, 850, -1)->Set(aSelfDefense[3]);
+
+  //Sendemast
+  var tower = CreateObject(AATR, 2115, 940, -1);
+  tower->AddNode(1432, 635, 0, CreateObject(REHR, 1425, 660, -1));
+  tower->AddNode(1407, 1160, 1, CreateObject(REHR, 1400, 1170, -1), 0, 1);
+  tower->AddNode(2285, 955, 1, CreateObject(REHR, 2290, 970, -1), 0, 1);
+  tower->AddNode(2615, 940, 0, CreateObject(REHR, 2620, 950, -1), 0, 1);
 
   //Sounds
 
