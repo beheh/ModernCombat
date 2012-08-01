@@ -139,12 +139,6 @@ protected func Damage()
     //Verschwinden
     RemoveObject();
   }
-  else
-  {
-    //Umherfliegen
-    SetSpeed(RandomX(-25, 25), RandomX(-45, -35));
-    SetRDir(GetXDir()*2);
-  }
 }
 
 /* Aufschlag */ 

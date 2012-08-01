@@ -50,6 +50,7 @@ public func OnDamage()
 
 public func OnDestruction()
 {
+  //Motor zerstören falls vorhanden
   if(motor)
   {
     motor->FakeExplode(20, GetLastAttacker());
