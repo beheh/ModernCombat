@@ -217,6 +217,9 @@ func CreateInterior()
   var doorw = CreateObject(GAT1, 2310, 420, -1);
   CreateObject(ROOM, 2415, 1570, -1)->Connect(doorw);
 
+  //Sonne umplazieren
+  FindObject(LENS)->SetPosition(1570,390);
+
   //Sendemast
   var tower = CreateObject(AATR, 1540, 780, -1);
   tower->SwitchMode();
