@@ -56,6 +56,9 @@ public func Hit(int iXDir, int iYDir)
 {
   Sound("StructuralDamage*.ogg");
 
+  //Spielerbildschirme schütteln
+  ShakeViewPort(50, this);
+
   var x = GetX(), y = GetY(), xdir, ydir;
   SimFlight(x, y, xdir, ydir, 50, 100);
   var mat = GetMaterial(x, y);

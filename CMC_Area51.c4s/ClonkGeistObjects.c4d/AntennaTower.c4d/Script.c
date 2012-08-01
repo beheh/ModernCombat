@@ -149,6 +149,9 @@ protected func PrepareCollapse()
   //Aussehen anpassen
   SetAction("Crumble");
 
+  //Spielerbildschirme schütteln
+  ShakeViewPort(100, this);
+
   //Vorhandene Seile fallen ab und verschwinden
   for(var array in aNodes)
   {
@@ -202,6 +205,9 @@ protected func Collapse()
 
   //SolidMask entfernen
   SetSolidMask();
+
+  //Spielerbildschirme schütteln
+  ShakeViewPort(500, this);
 
   //Maststücke erstellen
   var part = CreateObject(ATRP, 0,-200, iLastDmgPlr);
@@ -266,4 +272,5 @@ protected func Collapse()
   //Sound
   Sound("StructuralDamage*.ogg");
   Sound("BigExplosion.ogg");
+  Echo("TowerBreakingEcho.ogg");
 }
