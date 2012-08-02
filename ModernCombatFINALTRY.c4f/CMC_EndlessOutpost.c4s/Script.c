@@ -1125,6 +1125,13 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
 
 public func RelaunchPosition(& iX, & iY, int iTeam)
 {
+  //Startsicht
+  if(FindObject(CHOS))
+  {
+   iX =760; iY = 300;
+   return(1);
+  }
+
   //Assault-Spielziel
   if(FindObject(GASS))
   {if(FindObject(GASS)->GetRespawnPoint(iX, iY, iTeam)) return 1;}
@@ -1150,7 +1157,4 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
    }
    return(1);
   }
-
-  //Startsicht
-  iX =760; iY = 300;
 }

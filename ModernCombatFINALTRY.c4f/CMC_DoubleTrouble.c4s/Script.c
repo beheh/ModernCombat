@@ -483,6 +483,13 @@ public func ChooserFinished()
 
 public func RelaunchPosition(& iX, & iY, int iTeam)
 {
+  //Startsicht
+  if(FindObject(CHOS))
+  {
+   iX = 820; iY = 540;
+   return(1);
+  }
+
   //CTF-Spielziel
   if(FindObject(GCTF))
   {
@@ -558,7 +565,4 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
    }
    return(1);
   }
-
-  //Startsicht
-  iX = 820; iY = 540;
 }
