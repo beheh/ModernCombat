@@ -883,6 +883,13 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
 
 public func RelaunchPosition(& iX, & iY, int iTeam)
 {
+  //Startsicht
+  if(FindObject(CHOS))
+  {
+   iX = 3730; iY = 740;
+   return(1);
+  }
+
   //HTF/MR/CTF/LMS/DM-Spielziel
   if(FindObject(GHTF) || FindObject(GMNR) || FindObject(GCTF) || FindObject(GLMS) || FindObject(GTDM))
   {
@@ -914,7 +921,4 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
    }
    return(1);
   }
-
-  //Startsicht
-  iX = 3730; iY = 740;
 }

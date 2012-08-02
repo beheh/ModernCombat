@@ -626,6 +626,13 @@ public func ChooserFinished()
 
 public func RelaunchPosition(& iX, & iY, int iTeam)
 {
+  //Startsicht
+  if(FindObject(CHOS))
+  {
+   iX = 860; iY = 670;
+   return(1);
+  }
+
   //HTF/LMS/DM-Spielziel
   if(FindObject(GHTF) || FindObject(GLMS) || FindObject(GTDM))
   {
@@ -673,9 +680,6 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
     return(1);
    }
   }
-
-  //Startsicht
-  iX = 860; iY = 670;
 }
 
 /* Türensteuerung */

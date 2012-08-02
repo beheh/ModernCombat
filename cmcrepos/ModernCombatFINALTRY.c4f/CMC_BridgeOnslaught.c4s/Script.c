@@ -691,6 +691,13 @@ public func ChooserFinished()
 
 public func RelaunchPosition(& iX, & iY, int iTeam)
 {
+  //Startsicht
+  if(FindObject(CHOS))
+  {
+   iX = 1365; iY = 570;
+   return(1);
+  }
+
   //HTF/MR/LMS/DM-Spielziel
   if(FindObject(GHTF) || FindObject(GMNR) || FindObject(GLMS) || FindObject(GTDM))
   {
@@ -738,7 +745,4 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
     return(1);
    }
   }
-
-  //Startsicht
-  iX = 1365; iY = 570;
 }
