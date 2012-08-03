@@ -206,7 +206,7 @@ private func DeathMenu()
       AddMenuItem("$Statistics$", Format("FindObject(RWDS)->Activate(%d)", GetOwner(clonk)), RWDS, clonk);		//Statistik-Menüpunkt
 
     if(aTipps[iTippNr])
-      AddMenuItem("$NextTipp$", "NextTipp", GetID(), clonk);
+      AddMenuItem("$NextTipp$", "NextTipp", MCMC, clonk);
   }
 
   if(GetType(killmsg) == C4V_String)
