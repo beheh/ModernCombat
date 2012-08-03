@@ -31,11 +31,13 @@ public func GetAttWeapon()			{return cur_Attachment;}
 public func IsAiming() 				{return fIsAiming;}
 public func GetLaser()				{return pLaser;}
 public func Sgn(int x)				{if (x < 0) return x / x * -1; return x / x;}
-public func IsMAV()				{return true;}
+public func IsMAV()						{return true;}
 public func MaxDamage()				{return 40;}
 public func IsRepairable()			{return !fDestroyed;}
 public func IsMeleeTarget(object attacker)	{return !fDestroyed && Hostile(GetOwner(this), GetOwner(attacker));}
 public func MeleeHit()				{return DoDamage(MaxDamage()+1, this);}
+public func SensorDistance()	{return 190;}
+public func IsActive() 				{return GetAction(this) == "Flying";}
 public func MaxRotLeft()
 {
   return 120;
@@ -150,7 +152,7 @@ private func FlyingTimer()
     CreateParticle("FlashLight", 0, 4, 0, 0 , 45, rgb, this);
   }
 
-  //Nachladen und C4 prüfen (alle 5 Frames)
+  //Nachladen, C4 prüfen und SensorChecks (alle 5 Frames)
   if(!(GetActTime()%5))
   {
     if((GetAmmo(GetAttWeapon()->GetFMData(FM_AmmoID), GetAttWeapon()) < GetAttWeapon()->GetFMData(FM_AmmoUsage)) && !GetAttWeapon()->IsReloading())
@@ -165,6 +167,8 @@ private func FlyingTimer()
         continue;
       iC4Count++;
     }
+    
+    Sense();
   }
 
   //Schadensverhalten
@@ -370,6 +374,56 @@ private func FlyingTimer()
     }
   }
 }
+
+/* Feindbewegung suchen */
+
+protected func Sense()
+{
+
+  //Zu markierende Gefahren suchen
+  for (var pObj in FindObjects(Find_Distance(SensorDistance()),			//In Reichweite
+  		Find_Exclude(this),						//Selber ausschließen
+  		Find_NoContainer(),						//Im Freien
+  		Find_Or(Find_OCF(OCF_Alive), Find_Func("IsDetectable"))))	//Lebewesen oder als identifizierbar markiert
+  {
+    //Feindlich
+    if(!Hostile(GetController(), GetController(pObj))) continue;
+
+    //Beep.
+    Beep();
+
+    //Nicht markieren wenn schon der Fall
+    if(FindObject2(Find_ID(SM08), Find_Action("Attach"), Find_ActionTarget(pObj), Find_Allied(GetOwner())))
+      continue;
+
+    //Ansonsten markieren
+    CreateObject(SM08, GetX(pObj), GetY(pObj), GetOwner())->Set(pObj, this);
+
+    //Achievement-Fortschritt (Intelligence)
+    DoAchievementProgress(1, AC21, GetOwner());
+  }
+  return 1;
+}
+
+/* Beep */
+
+public func Beep()
+{
+  //Erst nach Ablauf des letzten Beeps
+  if(GetEffect("IntWait", this))
+    return;
+
+  //Effekte
+  CreateParticle("PSpark", 0, 0, 0, 0, 60, GetPlrColorDw(GetOwner()), this);
+  Sound("SNSR_Beep.ogg");
+
+  //Kreissymbol erstellen
+  CreateObject(SM09,0,0,GetOwner())->Set(this);
+
+  //Einen Moment lang nicht mehr beepen
+  AddEffect("IntWait", this, 1, 50, this);
+}
+
 
 /* Schaden */
 
