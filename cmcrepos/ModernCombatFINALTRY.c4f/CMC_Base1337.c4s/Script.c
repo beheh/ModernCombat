@@ -913,7 +913,7 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
 public func RelaunchPosition(& iX, & iY, int iTeam)
 {
   //Startsicht
-  if(FindObject(CHOS))
+  if(!g_chooserFinished)
   {
    iX =2310; iY = 960;
    return(1);

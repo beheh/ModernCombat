@@ -1214,7 +1214,7 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
 public func RelaunchPosition(& iX, & iY, int iTeam)
 {
   //Startsicht
-  if(FindObject(CHOS))
+  if(!g_chooserFinished)
   {
    iX = 1700; iY = 350;
    return(1);
