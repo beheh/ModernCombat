@@ -159,7 +159,7 @@ public func UpdateScoreboard()
     var row_id = CHOS_SBRD_Teams + 1 + i;
     var plr = GetPlayerByIndex(i, C4PT_User);
     var team_name;
-    if(iTeamMode != CHOS_TeamRandomInvisible)
+    if(iTeamMode != CHOS_TeamRandomInvisible || aPlayerSetting[plr])
       team_name = GetTeamName(GetPlayerTeam(plr));
     else
       team_name = "$Random$";
@@ -472,6 +472,12 @@ protected func SwitchTeam2(int iTeam, int iMode, bool fInvisible)
   arTeams[iTeam] = !arTeams[iTeam];
   if(GetIndexOf(true, arTeams) == -1) //Deaktivierung aller Teams verhindern
     arTeams[iTeam] = true;
+  
+  for(var i = 0; i < GetLength(aPlayerSetting); i++)
+  {
+  	if(aPlayerSetting[i] == iTeam)
+  		aPlayerSetting[i] = 0;
+  }
 
   ChoosePossibleTeams(iMode, fInvisible, iTeam-1);
   return true;
@@ -480,6 +486,11 @@ protected func SwitchTeam2(int iTeam, int iMode, bool fInvisible)
 protected func ChangeTeamCount(int iChange, int iMode, bool fInvisible)
 {
   iTeamCount = BoundBy(iTeamCount + iChange, 1, GetPlayerCount(C4PT_User));
+  for(var i = 0; i < GetLength(aPlayerSetting); i++)
+  {
+  	if(aPlayerSetting[i] > iTeamCount)
+  		aPlayerSetting[i] = 0;
+  }
   ChoosePossibleTeams(iMode, fInvisible, !!(iChange-1)+1);
   return true;
 }
@@ -556,8 +567,12 @@ protected func CreateTeams(int iTeamSort, int iMode, bool fNoTeamMenu)
   else if(iMode == CHOS_TeamRandomInvisible)
   {
     for(var i = 0; i < GetPlayerCount(); i++)
-      SetPlayerTeam(GetPlayerByIndex(i), 1);
-
+    {
+    	var plr = GetPlayerByIndex(i);
+    	if(!aPlayerSetting[plr])
+      	SetPlayerTeam(plr, 1);
+		}
+		
     SetScoreboardData(CHOS_SBRD_Teams, 1, "$TeamsSortedRandomlyAndInv$", 0, true);
   }
   else if(iMode == CHOS_TeamAutobalance)
