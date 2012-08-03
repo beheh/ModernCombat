@@ -9,7 +9,7 @@ static g_chooserFinished;
 
 public func ChooserFinished()
 {
-	g_chooserFinished = true;
+  g_chooserFinished = true;
   //"Keine Munition"-Regel
   if(FindObject(NOAM))
   {
@@ -227,8 +227,5 @@ protected func RemovePlayer(iPlr)
 
 /* Zusatzfunktionen */
 
-public func OnClassSelection()
-{}
-
-public func OnWeaponChoice()
-{}
+public func OnClassSelection()	{}
+public func OnWeaponChoice()	{}
