@@ -3,8 +3,9 @@
 #strict 2
 
 static const FKDT_SuicideTime = 15; //Standardzeit bei Fake Death in Sekunden
+static FKDT_QuickTipIDs;
 
-local clonk,oldvisrange,oldvisstate,killmsg,szTipp,idTipp;
+local clonk, oldvisrange, oldvisstate, killmsg, aTipps, iTippNr;
 local rejected, symbol;
 
 public func AimAngle()		{}
@@ -20,6 +21,9 @@ protected func Initialize()
 {
   //Anderer Todesschrei zur Unterscheidung zwischen Fake Death und "echtem" Ableben
   Sound("ClonkDie*.ogg");
+  
+  aTipps = [];
+  FKDT_QuickTipIDs = [ASTR, MNGN, PSTL, RTLR, PPGN, SGST, SMGN, ATWN, FGRN, FRAG, PGRN, STUN, SGRN, SRBL, AMPK, BBTP, C4PA, DRGN, FAPK, RSHL, CDBT, CUAM, BWTH];
 
   _inherited();
 }
@@ -106,11 +110,7 @@ public func KillMessage(string msg)
 
   //Spieler hat Hilfen aktiviert: Quicktipp geben
   if (clonk && !clonk->ShorterDeathMenu())
-  {
-    var array = GetQuickTipp(this);
-    idTipp = array[0];
-    szTipp = array[1];
-  }
+    aTipps = GetQuickTipps(this);
 
   DeathMenu();
 }
@@ -172,7 +172,7 @@ private func DeathMenu()
   if(GetMenu(clonk)) return;
 
   //Menü erstellen
-  CreateMenu(FKDT, clonk, this, 0, Format("$Title$"), C4MN_Style_Dialog, true);						//Titelzeile
+  CreateMenu(FKDT, clonk, this, 0, Format("$Title$"), C4MN_Style_Dialog, true, true);						//Titelzeile
 
   if(!clonk->ShorterDeathMenu())
   {
@@ -184,7 +184,7 @@ private func DeathMenu()
 
   AddMenuItem(Format("$DeathCounter$", 1 + TimeLeft() / 35),"", NONE, clonk, 0, 0, "", 512, 0, 0);			//Counter
 
-  if (TimeLeft() < (FKDT_SuicideTime - 1) * 35)
+  if(TimeLeft() < (FKDT_SuicideTime - 1) * 35)
   {
     var blocktime;
     if(GetEffect("BlockRejectReanimation", this))
@@ -204,9 +204,12 @@ private func DeathMenu()
 
     if(FindObject(RWDS))
       AddMenuItem("$Statistics$", Format("FindObject(RWDS)->Activate(%d)", GetOwner(clonk)), RWDS, clonk);	//Statistik-Menüpunkt
+    
+    if(aTipps[iTippNr])
+    	AddMenuItem("$NextTipp$", "NextTipp", GetID(), clonk);
   }
 
-  if (GetType(killmsg) == C4V_String)
+  if(GetType(killmsg) == C4V_String)
   {
     AddMenuItem("", "", NONE, clonk, 0, 0, "", 512, 0, 0);								//Leerzeile
     AddMenuItem(Format("$Killer$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);				//Titel
@@ -214,15 +217,15 @@ private func DeathMenu()
     AddMenuItem(killmsg, "", NONE, clonk, 0, 0, "", 512);								//Killerinformationen
   }
 
-  if (szTipp)
+  if(GetType(aTipps[iTippNr]) == C4V_Array)
   {
     AddMenuItem("", "", NONE, clonk, 0, 0, "", 512, 0, 0);								//Leerzeile
-    AddMenuItem(Format("{{%i}} $Tip$", idTipp),"", NONE, clonk, 0, 0, "", 512, 0, 0);					//Zufälliger Tipp
-    AddMenuItem(szTipp,"", NONE, clonk, 0, 0, "", 512, 0, 0);
+    AddMenuItem(Format("{{%i}} $Tip$", aTipps[iTippNr][0]), "", NONE, clonk, 0, 0, "", 512, 0, 0);					//Zufälliger Tipp
+    AddMenuItem(aTipps[iTippNr][1], "", NONE, clonk, 0, 0, "", 512, 0, 0);
   }
 
   var obj;
-  if ((obj = FindObject(RWDS)) && !clonk->ShorterDeathMenu())								//Punktestatistik erstellen
+  if((obj = FindObject(RWDS)) && !clonk->ShorterDeathMenu())								//Punktestatistik erstellen
   {
     AddMenuItem("", "", NONE, clonk, 0, 0, "", 512, 0, 0);								//Leerzeile
     AddMenuItem(Format("$Points$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);				//Titel
@@ -249,7 +252,83 @@ private func DeathMenu()
   if(selection >= 0) SelectMenuItem(selection, clonk);
 }
 
-private func GetQuickTipp(object pFake)
+static const FKDT_MaxTippCount = 10;
+
+public func NextTipp()
+{
+	iTippNr = (iTippNr + 1) % FKDT_MaxTippCount; 
+}
+
+private func GetQuickTipps(object pFake)
+{
+	var aTippList = [], aIDList = [];
+	iTippNr = -1;
+	for(var i = 0; i < FKDT_MaxTippCount; i++)
+	{
+		var tipp, cnt;
+		if(!Random(8))
+		{
+			tipp = GetGeneralTipp();
+			while(GetIndexOf(tipp[1], aTippList) != -1)
+			{
+				tipp = GetGeneralTipp();
+				if(++cnt > 6)
+				{
+					i--;
+					tipp = 0;
+					break;
+				}
+			}
+			
+			if(tipp)
+			{
+				aIDList[GetLength(aIDList)] = tipp[0];
+				aTippList[GetLength(aTippList)] = tipp[1];
+			}
+		}
+		else
+		{
+			if(iTippNr == -1)
+				iTippNr = i;
+
+			var aObj = FindObjects(Find_Container(pFake), Find_Func("FKDTSupportedID"));
+			var id = GetID(aObj[Random(GetLength(aObj))]);
+			if(!ContentsCount(0, pFake))
+				id = FKDT_QuickTipIDs[Random(GetLength(FKDT_QuickTipIDs))];
+			
+			tipp = GetRandomTipp(0, id);
+			while(GetIndexOf(tipp[1], aTippList) != -1)
+			{ 
+				tipp = GetRandomTipp(0, id);
+				if(++cnt > 6)
+				{
+					i--;
+					tipp = 0;
+					break;
+				}
+			}
+			
+			if(tipp)
+			{
+				aIDList[GetLength(aIDList)] = tipp[0];
+				aTippList[GetLength(aTippList)] = tipp[1];
+			}
+		}
+	}
+	
+	if(iTippNr == -1)
+		iTippNr = 0;
+	
+	var tipps = [];
+	for(var i = 0; i < GetLength(aTippList); i++)
+		tipps[i] = [aIDList[i], aTippList[i]];
+	
+	return tipps;
+}
+
+global func FKDTSupportedID() { return GetIndexOf(GetID(), FKDT_QuickTipIDs) != -1; }
+
+/*private func GetQuickTipp(object pFake)
 {
   //Standard-Tipp
   if (!Random(8) || !ContentsCount(0, pFake))
@@ -269,7 +348,7 @@ private func GetQuickTipp(object pFake)
   if (!array || GetType(array) != C4V_Array || !GetLength(array))
     return GetGeneralTipp();
   return GetRandomTipp(array);
-}
+}*/
 
 private func GetGeneralTipp()
 {
