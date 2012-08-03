@@ -330,7 +330,7 @@ private func GoalMoney(int iPlr, int iAmount)
       var message = Format("$EnemyTeamIsWinning$", GetTaggedTeamName(GetPlayerTeam(iPlr)));
       if(!Teams() || GetTeamPlayerCount(GetPlayerTeam(iPlr)) == 1)
         message = Format("$EnemyPlayerIsWinning$", GetTaggedPlayerName(iPlr));
-        EnemyEventInfo(iPlr, message);
+        EnemyEventInfo(iPlr, message, GMNR, 0, 0, 0, "Alarm.ogg");
       /*for(var i = 0; i < GetPlayerCount(); i++)
       {
         var plr = GetPlayerByIndex(i);
