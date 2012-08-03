@@ -25,6 +25,11 @@ OneFlagLeft=<c ff0000>Achtung</c>: Team %s fehlt nur noch <c ffff33>eine</c> Fla
 DMPlayerIsWinning=<c ff0000>Achtung</c>: %s benötigt nur noch <c ffff33>%d</c> Kill(s) zum Sieg!
 DMTeamIsWinning=<c ff0000>Achtung</c>: Team %s benötigen nur noch <c ffff33>%d</c> Kill(s) zum Sieg!
 
+#Last Man Standing
+
+LivesLow=<c ff0000>Achtung</c>: Nur noch <c ffff33>%d</c> Leben übrig!
+NoLivesLeft=<c ff0000>Achtung</c>: Keine Leben mehr übrig!
+
 # Chooser
 
 #Allgemein
