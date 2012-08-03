@@ -387,7 +387,7 @@ public func ChooserFinished()
 public func RelaunchPosition(& iX, & iY, int iTeam)
 {
   //Startsicht
-  if(FindObject(CHOS))
+  if(!g_chooserFinished)
   {
    iX = 875; iY = 630;
    return(1);
