@@ -373,7 +373,7 @@ protected func ChoosePossibleTeams(int iMode, bool fInvisible, int iSelection)
         AddMenuItem("$SwitchInvisible$", Format("ChoosePossibleTeams(CHOS_TeamRandom, false, %d)", 3), CHOS, pClonk, 0, 0, 0, 2, 3);
       else
         AddMenuItem("$SwitchInvisible$", Format("ChoosePossibleTeams(CHOS_TeamRandom, true, %d)", 3), SM06, pClonk);
-       
+
        AddMenuItem("$PredefinedTeamMember$", Format("SelectPredefinedTeamMember(%v, 4, 1)", fInvisible), TEAM, pClonk);
     }
 
@@ -397,7 +397,7 @@ protected func ChoosePossibleTeams(int iMode, bool fInvisible, int iSelection)
         AddMenuItem("$SwitchInvisible$", Format("ChoosePossibleTeams(CHOS_TeamRandom, false, %d)", GetTeamCount()), CHOS, pClonk, 0, 0, 0, 2, 3);
       else
         AddMenuItem("$SwitchInvisible$", Format("ChoosePossibleTeams(CHOS_TeamRandom, true, %d)", GetTeamCount()), SM06, pClonk);
-        
+
       AddMenuItem("$PredefinedTeamMember$", Format("SelectPredefinedTeamMember(%v, %d, 2)", fInvisible, GetTeamCount()+1), TEAM, pClonk);
     }
 
@@ -415,10 +415,10 @@ local aPlayerSetting;
 
 protected func SelectPredefinedTeamMember(bool fInvisible, int iSelection, int iTeamSort, int iPlr)
 {
-	if(GetType(aPlayerSetting) != C4V_Array)
-		aPlayerSetting = [];
+  if(GetType(aPlayerSetting) != C4V_Array)
+    aPlayerSetting = [];
 
-	var pClonk = GetCursor(iChoosedPlr);
+  var pClonk = GetCursor(iChoosedPlr);
   //Menü erstellen
   CreateMenu(GetID(), pClonk, 0, 0, 0, 0, 1);
   //Teams auflisten
@@ -427,7 +427,7 @@ protected func SelectPredefinedTeamMember(bool fInvisible, int iSelection, int i
     var plr = GetPlayerByIndex(j);
     var team_name = GetTeamName(GetPlayerTeam(plr));
     if(!aPlayerSetting[plr])
-    	team_name = "$Random$";
+      team_name = "$Random$";
    	
    	AddMenuItem(Format("%s (%s)", GetTaggedPlayerName(plr, true), team_name), Format("SwitchPredefinedTeam(%v, %d, %d, %d)", fInvisible, iSelection, plr, iTeamSort), PCMK, pClonk);
   }
@@ -441,30 +441,30 @@ protected func SelectPredefinedTeamMember(bool fInvisible, int iSelection, int i
 
 private func SwitchPredefinedTeam(bool fInvisible, int iSelection, int iPlr, int iTeamSort)
 {
-	if(iTeamSort == 2)
-	{
-		arTeams[0] = true;
-		var i = (1 + aPlayerSetting[iPlr]) % GetLength(arTeams);
-		for(; i < GetLength(arTeams); i++)
-		{
-			if(arTeams[i])
-			{
-				aPlayerSetting[iPlr] = i;
-				break;
-			}
-			
-			if(i+1 >= GetLength(arTeams))
-				i = 0;
-		}
-		
-		arTeams[0] = false;
-	}
-	else if(iTeamSort == 1)
-		aPlayerSetting[iPlr] = (aPlayerSetting[iPlr] + 1) % (GetTeamCount() + 1);
-		
-	SetPlayerTeam(iPlr, Max(aPlayerSetting[iPlr], 1));
-	
-	return SelectPredefinedTeamMember(fInvisible, iSelection, iTeamSort, iPlr);
+  if(iTeamSort == 2)
+  {
+    arTeams[0] = true;
+    var i = (1 + aPlayerSetting[iPlr]) % GetLength(arTeams);
+    for(; i < GetLength(arTeams); i++)
+    {
+      if(arTeams[i])
+      {
+        aPlayerSetting[iPlr] = i;
+        break;
+      }
+
+      if(i+1 >= GetLength(arTeams))
+        i = 0;
+    }
+
+    arTeams[0] = false;
+  }
+  else if(iTeamSort == 1)
+    aPlayerSetting[iPlr] = (aPlayerSetting[iPlr] + 1) % (GetTeamCount() + 1);
+
+  SetPlayerTeam(iPlr, Max(aPlayerSetting[iPlr], 1));
+
+  return SelectPredefinedTeamMember(fInvisible, iSelection, iTeamSort, iPlr);
 }
 
 protected func SwitchTeam2(int iTeam, int iMode, bool fInvisible)
@@ -499,13 +499,13 @@ protected func CreateTeams(int iTeamSort, int iMode, bool fNoTeamMenu)
     var players = []; var teams = [];
     for(var i = 0; i < GetPlayerCount(C4PT_User); i++)
     {
-    	var plr = GetPlayerByIndex(i, C4PT_User);
+      var plr = GetPlayerByIndex(i, C4PT_User);
       players[GetLength(players)] = plr;
-      
+
       if(aPlayerSetting[plr])
-      	SetPlayerTeam(plr, aPlayerSetting[plr]);
-		}
-		
+        SetPlayerTeam(plr, aPlayerSetting[plr]);
+    }
+
     var i = 0;
     var tPlayerSetting = aPlayerSetting;
     while(GetLength(players))
@@ -522,21 +522,21 @@ protected func CreateTeams(int iTeamSort, int iMode, bool fNoTeamMenu)
       else
         if(i > iTeamCount)
           i = 1;
-      
+
       var plr2 = GetIndexOf(i, tPlayerSetting);
       if(plr2 != -1)
       {
-      	DelArrayItem4K(players, GetIndexOf(plr2, players));
-      	tPlayerSetting[plr2] = 0;
-      	continue;
+        DelArrayItem4K(players, GetIndexOf(plr2, players));
+        tPlayerSetting[plr2] = 0;
+        continue;
       }
 
       var pos = Random(GetLength(players));
       var plr = players[pos];
       if(tPlayerSetting[plr])
-      	continue;
+        continue;
       DelArrayItem4K(players, pos);
-      
+
       var team = i;
 
       if(GetType(teams[i]) != C4V_Array)
