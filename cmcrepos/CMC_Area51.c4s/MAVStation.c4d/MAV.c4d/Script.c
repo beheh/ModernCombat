@@ -415,7 +415,6 @@ public func Beep()
 
   //Effekte
   CreateParticle("PSpark", 0, 0, 0, 0, 60, GetPlrColorDw(GetOwner()), this);
-  Sound("SNSR_Beep.ogg");
 
   //Kreissymbol erstellen
   CreateObject(SM09,0,0,GetOwner())->Set(this);
