@@ -6,19 +6,44 @@
 
 #appendto GTDM
 
+local aMessages;
+
+protected func Initialize()
+{
+	aMessages = [];
+	return _inherited();
+}
+
 public func GoalExtraValue()	{return iWinScore;}	//Spielzielinformationen an Scoreboard weitergeben
 
 
 public func RelaunchPlayer(int iPlr, object pClonk, int iMurdererPlr)
 {
+	var mTeam = GetPlayerTeam(iMurdererPlr);
   if(iMurdererPlr == -1 && GetPlayerName(GetOwner(pClonk)))
     DoTeamScore(GetPlayerTeam(GetOwner(pClonk)),-1);  
   //Teamkill?
-  if(GetPlayerTeam(iPlr) == GetPlayerTeam(iMurdererPlr))
+  if(GetPlayerTeam(iPlr) == mTeam)
     //Punktestand erhöhen
-    DoTeamScore(GetPlayerTeam(iMurdererPlr),-1);
+    DoTeamScore(mTeam,-1);
 
   inherited(iPlr, pClonk, iMurdererPlr);
+  
+  var score, winscore = GetWinScore(FindObject(GTDM));
+  if(score = TeamGetScore(mTeam))
+  {
+  	if(score >= winscore - (20 * winscore / 100) && !aMessages[mTeam])
+  	{
+  		aMessages[mTeam] = true;
+  		var message = Format("$DMTeamIsWinning$", GetTaggedTeamName(mTeam), winscore - score);
+      if(!Teams() || GetTeamPlayerCount(mTeam) == 1)
+        message = Format("$DMPlayerIsWinning$", GetTaggedPlayerName(iMurdererPlr), winscore - score);
+
+  		EnemyEventInfo(iMurdererPlr, message);
+  	}
+  	else
+  		aMessages[mTeam] = false;
+  }
 }
 
 public func ChooserFinished()
