@@ -339,7 +339,7 @@ protected func OpenTeamMenu(id dummy, int iSelection)
     if(iTeamMode == CHOS_TeamRandomInvisible)
       team_name = "$Random$";
 
-    AddMenuItem(Format("%s (%s)", GetTaggedPlayerName(GetPlayerByIndex(plr), true), team_name), "SwitchTeam", PCMK, pClonk, 0, plr);
+    AddMenuItem(Format("%s (%s)", GetTaggedPlayerName(plr, true), team_name), "SwitchTeam", PCMK, pClonk, 0, plr);
   }
   
   //Zusätzliche Teameinstellungen
@@ -373,6 +373,8 @@ protected func ChoosePossibleTeams(int iMode, bool fInvisible, int iSelection)
         AddMenuItem("$SwitchInvisible$", Format("ChoosePossibleTeams(CHOS_TeamRandom, false, %d)", 3), CHOS, pClonk, 0, 0, 0, 2, 3);
       else
         AddMenuItem("$SwitchInvisible$", Format("ChoosePossibleTeams(CHOS_TeamRandom, true, %d)", 3), SM06, pClonk);
+       
+       AddMenuItem("$PredefinedTeamMember$", Format("SelectPredefinedTeamMember(%v, 4, 1)", fInvisible), TEAM, pClonk);
     }
 
     AddMenuItem("$CreateTeams$", Format("CreateTeams(1, %d)", iMode+fInvisible), CHOS, pClonk, 0, 0, 0, 2, 3);
@@ -395,6 +397,8 @@ protected func ChoosePossibleTeams(int iMode, bool fInvisible, int iSelection)
         AddMenuItem("$SwitchInvisible$", Format("ChoosePossibleTeams(CHOS_TeamRandom, false, %d)", GetTeamCount()), CHOS, pClonk, 0, 0, 0, 2, 3);
       else
         AddMenuItem("$SwitchInvisible$", Format("ChoosePossibleTeams(CHOS_TeamRandom, true, %d)", GetTeamCount()), SM06, pClonk);
+        
+      AddMenuItem("$PredefinedTeamMember$", Format("SelectPredefinedTeamMember(%v, %d, 2)", fInvisible, GetTeamCount()+1), TEAM, pClonk);
     }
 
     AddMenuItem("$CreateTeams$", Format("CreateTeams(2, %d)", iMode+fInvisible), CHOS, pClonk, 0, 0, 0, 2, 3);
@@ -405,6 +409,62 @@ protected func ChoosePossibleTeams(int iMode, bool fInvisible, int iSelection)
     SelectMenuItem(iSelection, pClonk);
 
   return true;
+}
+
+local aPlayerSetting;
+
+protected func SelectPredefinedTeamMember(bool fInvisible, int iSelection, int iTeamSort, int iPlr)
+{
+	if(GetType(aPlayerSetting) != C4V_Array)
+		aPlayerSetting = [];
+
+	var pClonk = GetCursor(iChoosedPlr);
+  //Menü erstellen
+  CreateMenu(GetID(), pClonk, 0, 0, 0, 0, 1);
+  //Teams auflisten
+  for(var j = 0; j < GetPlayerCount(); j++)
+  {
+    var plr = GetPlayerByIndex(j);
+    var team_name = GetTeamName(GetPlayerTeam(plr));
+    if(!aPlayerSetting[plr])
+    	team_name = "$Random$";
+   	
+   	AddMenuItem(Format("%s (%s)", GetTaggedPlayerName(plr, true), team_name), Format("SwitchPredefinedTeam(%v, %d, %d, %d)", fInvisible, iSelection, plr, iTeamSort), PCMK, pClonk);
+  }
+  
+  AddMenuItem("$Back$", Format("ChoosePossibleTeams(CHOS_TeamRandom, %v, %d)", fInvisible, iSelection), 0, pClonk, 0, 0, "$Back$");
+  
+  SelectMenuItem(iPlr, pClonk);
+  
+  return true;
+}
+
+private func SwitchPredefinedTeam(bool fInvisible, int iSelection, int iPlr, int iTeamSort)
+{
+	if(iTeamSort == 2)
+	{
+		arTeams[0] = true;
+		var i = (1 + aPlayerSetting[iPlr]) % GetLength(arTeams);
+		for(; i < GetLength(arTeams); i++)
+		{
+			if(arTeams[i])
+			{
+				aPlayerSetting[iPlr] = i;
+				break;
+			}
+			
+			if(i+1 >= GetLength(arTeams))
+				i = 0;
+		}
+		
+		arTeams[0] = false;
+	}
+	else if(iTeamSort == 1)
+		aPlayerSetting[iPlr] = (aPlayerSetting[iPlr] + 1) % (GetTeamCount() + 1);
+		
+	SetPlayerTeam(iPlr, Max(aPlayerSetting[iPlr], 1));
+	
+	return SelectPredefinedTeamMember(fInvisible, iSelection, iTeamSort, iPlr);
 }
 
 protected func SwitchTeam2(int iTeam, int iMode, bool fInvisible)
@@ -438,9 +498,16 @@ protected func CreateTeams(int iTeamSort, int iMode, bool fNoTeamMenu)
   {
     var players = []; var teams = [];
     for(var i = 0; i < GetPlayerCount(C4PT_User); i++)
-      players[i] = GetPlayerByIndex(i, C4PT_User);
-
+    {
+    	var plr = GetPlayerByIndex(i, C4PT_User);
+      players[GetLength(players)] = plr;
+      
+      if(aPlayerSetting[plr])
+      	SetPlayerTeam(plr, aPlayerSetting[plr]);
+		}
+		
     var i = 0;
+    var tPlayerSetting = aPlayerSetting;
     while(GetLength(players))
     {
       ++i;
@@ -455,10 +522,21 @@ protected func CreateTeams(int iTeamSort, int iMode, bool fNoTeamMenu)
       else
         if(i > iTeamCount)
           i = 1;
+      
+      var plr2 = GetIndexOf(i, tPlayerSetting);
+      if(plr2 != -1)
+      {
+      	DelArrayItem4K(players, GetIndexOf(plr2, players));
+      	tPlayerSetting[plr2] = 0;
+      	continue;
+      }
 
       var pos = Random(GetLength(players));
       var plr = players[pos];
+      if(tPlayerSetting[plr])
+      	continue;
       DelArrayItem4K(players, pos);
+      
       var team = i;
 
       if(GetType(teams[i]) != C4V_Array)
@@ -897,7 +975,6 @@ protected func ConfigurationFinished2()
   {
     def = GetDefinition(i, Chooser_Cat);
     i++;
-    //Log("aRules: %v, def: %i, i: %d, check: %v, Name: %s", aRules, def, i, check, GetName(0, def));
     if(check)
       CreateObject(def, 10, 10, -1);
 

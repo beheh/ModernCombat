@@ -72,6 +72,7 @@ IncTeamCnt=Teamanzahl erhöhen
 DecTeamCnt=Teamanzahl verringern
 SwitchInvisible=Unsichtbar
 CreateTeams=Teams aufstellen
+PredefinedTeamMember=Teammitglieder festlegen
 TeamsSortedManually=Manuell
 TeamsSortedRandomly=Zufall
 TeamsSortedRandomlyAndInv=Zufällig und unsichtbar
