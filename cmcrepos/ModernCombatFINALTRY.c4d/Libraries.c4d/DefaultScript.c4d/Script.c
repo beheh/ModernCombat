@@ -5,8 +5,11 @@
 
 /* Wahl abgeschlossen */
 
+static g_chooserFinished;
+
 public func ChooserFinished()
 {
+	g_chooserFinished = true;
   //"Keine Munition"-Regel
   if(FindObject(NOAM))
   {
