@@ -20,6 +20,11 @@ FlagLost=The flag of <c %x>%s</c> was dropped!
 FlagReturned=The flag of <c %x>%s</c> was returned!
 OneFlagLeft=<c ff0000>Warning</c>: Team %s needs only <c ffff33>one</c> more flag to win!
 
+#Deathmatch
+
+DMPlayerIsWinning=<c ff0000>Warning</c>: %s needs only <c ffff33>%d</c> more kill(s) to win!
+DMTeamIsWinning=<c ff0000>Warning</c>: Team %s needs only <c ffff33>%d</c> more kill(s) to win!
+
 # Chooser
 
 #General

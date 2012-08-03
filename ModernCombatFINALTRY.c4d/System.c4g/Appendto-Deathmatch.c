@@ -10,8 +10,8 @@ local aMessages;
 
 protected func Initialize()
 {
-	aMessages = [];
-	return _inherited();
+  aMessages = [];
+  return _inherited();
 }
 
 public func GoalExtraValue()	{return iWinScore;}	//Spielzielinformationen an Scoreboard weitergeben
@@ -19,7 +19,7 @@ public func GoalExtraValue()	{return iWinScore;}	//Spielzielinformationen an Sco
 
 public func RelaunchPlayer(int iPlr, object pClonk, int iMurdererPlr)
 {
-	var mTeam = GetPlayerTeam(iMurdererPlr);
+  var mTeam = GetPlayerTeam(iMurdererPlr);
   if(iMurdererPlr == -1 && GetPlayerName(GetOwner(pClonk)))
     DoTeamScore(GetPlayerTeam(GetOwner(pClonk)),-1);  
   //Teamkill?
@@ -28,21 +28,21 @@ public func RelaunchPlayer(int iPlr, object pClonk, int iMurdererPlr)
     DoTeamScore(mTeam,-1);
 
   inherited(iPlr, pClonk, iMurdererPlr);
-  
+
   var score, winscore = GetWinScore(FindObject(GTDM));
   if(score = TeamGetScore(mTeam))
   {
-  	if(score >= winscore - (20 * winscore / 100) && !aMessages[mTeam])
-  	{
-  		aMessages[mTeam] = true;
-  		var message = Format("$DMTeamIsWinning$", GetTaggedTeamName(mTeam), winscore - score);
+    if(score >= winscore - (20 * winscore / 100) && !aMessages[mTeam])
+    {
+      aMessages[mTeam] = true;
+      var message = Format("$DMTeamIsWinning$", GetTaggedTeamName(mTeam), winscore - score);
       if(!Teams() || GetTeamPlayerCount(mTeam) == 1)
         message = Format("$DMPlayerIsWinning$", GetTaggedPlayerName(iMurdererPlr), winscore - score);
 
-  		EnemyEventInfo(iMurdererPlr, message);
-  	}
-  	else
-  		aMessages[mTeam] = false;
+      EnemyEventInfo(iMurdererPlr, message, GTDM, 0, 0, 0, "Alarm.ogg");
+    }
+    else
+      aMessages[mTeam] = false;
   }
 }
 
