@@ -431,6 +431,8 @@ public func Wait()
   iYTendency = 0;
   iXDir = 0;
   iYDir = 0;
+  
+  if(pLaser) RemoveObject(pLaser);
 
   Sound("MAVE_Engine.ogg", 0, 0, 70, 0, -1);
 
