@@ -25,6 +25,11 @@ OneFlagLeft=<c ff0000>Warning</c>: Team %s needs only <c ffff33>one</c> more fla
 DMPlayerIsWinning=<c ff0000>Warning</c>: %s needs only <c ffff33>%d</c> more kill(s) to win!
 DMTeamIsWinning=<c ff0000>Warning</c>: Team %s needs only <c ffff33>%d</c> more kill(s) to win!
 
+#Last Man Standing
+
+LivesLow=<c ff0000>Warning</c>: Only <c ffff33>%d</c> respawn(s) left!
+NoLivesLeft=<c ff0000>Warning</c>: No respawns left!
+
 # Chooser
 
 #General

@@ -21,7 +21,7 @@ protected func Initialize()
 {
   //Anderer Todesschrei zur Unterscheidung zwischen Fake Death und "echtem" Ableben
   Sound("ClonkDie*.ogg");
-  
+
   aTipps = [];
   FKDT_QuickTipIDs = [ASTR, MNGN, PSTL, RTLR, PPGN, SGST, SMGN, ATWN, FGRN, FRAG, PGRN, STUN, SGRN, SRBL, AMPK, BBTP, C4PA, DRGN, FAPK, RSHL, CDBT, CUAM, BWTH];
 
@@ -172,7 +172,7 @@ private func DeathMenu()
   if(GetMenu(clonk)) return;
 
   //Menü erstellen
-  CreateMenu(FKDT, clonk, this, 0, Format("$Title$"), C4MN_Style_Dialog, true, true);						//Titelzeile
+  CreateMenu(FKDT, clonk, this, 0, Format("$Title$"), C4MN_Style_Dialog, true, true);					//Titelzeile
 
   if(!clonk->ShorterDeathMenu())
   {
@@ -203,10 +203,10 @@ private func DeathMenu()
       AddMenuItem("$Suicide$", "Suicide", PSTL, clonk, 0, 0, "$SuicideDesc$");						//Selbstmord-Menüpunkt
 
     if(FindObject(RWDS))
-      AddMenuItem("$Statistics$", Format("FindObject(RWDS)->Activate(%d)", GetOwner(clonk)), RWDS, clonk);	//Statistik-Menüpunkt
-    
+      AddMenuItem("$Statistics$", Format("FindObject(RWDS)->Activate(%d)", GetOwner(clonk)), RWDS, clonk);		//Statistik-Menüpunkt
+
     if(aTipps[iTippNr])
-    	AddMenuItem("$NextTipp$", "NextTipp", GetID(), clonk);
+      AddMenuItem("$NextTipp$", "NextTipp", GetID(), clonk);
   }
 
   if(GetType(killmsg) == C4V_String)
@@ -220,7 +220,7 @@ private func DeathMenu()
   if(GetType(aTipps[iTippNr]) == C4V_Array)
   {
     AddMenuItem("", "", NONE, clonk, 0, 0, "", 512, 0, 0);								//Leerzeile
-    AddMenuItem(Format("{{%i}} $Tip$", aTipps[iTippNr][0]), "", NONE, clonk, 0, 0, "", 512, 0, 0);					//Zufälliger Tipp
+    AddMenuItem(Format("{{%i}} $Tip$", aTipps[iTippNr][0]), "", NONE, clonk, 0, 0, "", 512, 0, 0);			//Zufälliger Tipp
     AddMenuItem(aTipps[iTippNr][1], "", NONE, clonk, 0, 0, "", 512, 0, 0);
   }
 
@@ -256,77 +256,77 @@ static const FKDT_MaxTippCount = 10;
 
 public func NextTipp()
 {
-	iTippNr = (iTippNr + 1) % FKDT_MaxTippCount; 
+  iTippNr = (iTippNr + 1) % FKDT_MaxTippCount; 
 }
 
 private func GetQuickTipps(object pFake)
 {
-	var aTippList = [], aIDList = [];
-	iTippNr = -1;
-	for(var i = 0; i < FKDT_MaxTippCount; i++)
-	{
-		var tipp, cnt;
-		if(!Random(8))
-		{
-			tipp = GetGeneralTipp();
-			while(GetIndexOf(tipp[1], aTippList) != -1)
-			{
-				tipp = GetGeneralTipp();
-				if(++cnt > 6)
-				{
-					i--;
-					tipp = 0;
-					break;
-				}
-			}
-			
-			if(tipp)
-			{
-				aIDList[GetLength(aIDList)] = tipp[0];
-				aTippList[GetLength(aTippList)] = tipp[1];
-			}
-		}
-		else
-		{
-			if(iTippNr == -1)
-				iTippNr = i;
+  var aTippList = [], aIDList = [];
+  iTippNr = -1;
+  for(var i = 0; i < FKDT_MaxTippCount; i++)
+  {
+    var tipp, cnt;
+    if(!Random(8))
+    {
+      tipp = GetGeneralTipp();
+      while(GetIndexOf(tipp[1], aTippList) != -1)
+      {
+        tipp = GetGeneralTipp();
+        if(++cnt > 6)
+        {
+          i--;
+          tipp = 0;
+          break;
+        }
+      }
 
-			var aObj = FindObjects(Find_Container(pFake), Find_Func("FKDTSupportedID"));
-			var id = GetID(aObj[Random(GetLength(aObj))]);
-			if(!ContentsCount(0, pFake))
-				id = FKDT_QuickTipIDs[Random(GetLength(FKDT_QuickTipIDs))];
-			
-			tipp = GetRandomTipp(0, id);
-			while(GetIndexOf(tipp[1], aTippList) != -1)
-			{ 
-				tipp = GetRandomTipp(0, id);
-				if(++cnt > 6)
-				{
-					i--;
-					tipp = 0;
-					break;
-				}
-			}
-			
-			if(tipp)
-			{
-				aIDList[GetLength(aIDList)] = tipp[0];
-				aTippList[GetLength(aTippList)] = tipp[1];
-			}
-		}
-	}
-	
-	if(iTippNr == -1)
-		iTippNr = 0;
-	
-	var tipps = [];
-	for(var i = 0; i < GetLength(aTippList); i++)
-		tipps[i] = [aIDList[i], aTippList[i]];
-	
-	return tipps;
+      if(tipp)
+      {
+        aIDList[GetLength(aIDList)] = tipp[0];
+        aTippList[GetLength(aTippList)] = tipp[1];
+      }
+    }
+    else
+    {
+      if(iTippNr == -1)
+        iTippNr = i;
+
+      var aObj = FindObjects(Find_Container(pFake), Find_Func("FKDTSupportedID"));
+      var id = GetID(aObj[Random(GetLength(aObj))]);
+      if(!ContentsCount(0, pFake))
+        id = FKDT_QuickTipIDs[Random(GetLength(FKDT_QuickTipIDs))];
+
+      tipp = GetRandomTipp(0, id);
+      while(GetIndexOf(tipp[1], aTippList) != -1)
+      { 
+        tipp = GetRandomTipp(0, id);
+        if(++cnt > 6)
+        {
+          i--;
+          tipp = 0;
+          break;
+        }
+      }
+
+      if(tipp)
+      {
+        aIDList[GetLength(aIDList)] = tipp[0];
+        aTippList[GetLength(aTippList)] = tipp[1];
+      }
+    }
+  }
+
+  if(iTippNr == -1)
+    iTippNr = 0;
+
+  var tipps = [];
+  for(var i = 0; i < GetLength(aTippList); i++)
+    tipps[i] = [aIDList[i], aTippList[i]];
+
+  return tipps;
 }
 
-global func FKDTSupportedID() { return GetIndexOf(GetID(), FKDT_QuickTipIDs) != -1; }
+global func FKDTSupportedID()	{return GetIndexOf(GetID(), FKDT_QuickTipIDs) != -1;}
 
 /*private func GetQuickTipp(object pFake)
 {

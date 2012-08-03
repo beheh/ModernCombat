@@ -73,18 +73,17 @@ public func ChooserFinished()
 
 public func RelaunchPlayer(int iPlr, object pClonk, int iMurdererPlr) 
 {
-	inherited(iPlr, pClonk, iMurdererPlr);
+  inherited(iPlr, pClonk, iMurdererPlr);
 
   if(iPlr == -1 || !GetPlayerName(iPlr)) 
-  	return;
+    return;
 
-	var warning = 30 * iWinScore / 100;
-	if(aPlayerLives[iPlr] == warning)
-	{
-		if(warning)
-			EventInfo4K(iPlr+1, Format("$LivesLow$", aPlayerLives[iPlr]), GLMS, 0, 0, 0, "Alarm.ogg");
-		else if(iWinScore > 1)
-			EventInfo4K(iPlr+1, Format("$NoLivesLeft$"), GLMS, 0, 0, 0, "Alarm.ogg");
-	}
+  var warning = 30 * iWinScore / 100;
+  if(aPlayerLives[iPlr] == warning)
+  {
+    if(warning)
+      EventInfo4K(iPlr+1, Format("$LivesLow$", aPlayerLives[iPlr]), GLMS, 0, 0, 0, "Alarm.ogg");
+    else if(iWinScore > 1)
+      EventInfo4K(iPlr+1, Format("$NoLivesLeft$"), GLMS, 0, 0, 0, "Alarm.ogg");
+  }
 }
-
