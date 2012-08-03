@@ -448,6 +448,16 @@ public func OnDmg(int iDmg, int iType)
 
 public func OnDestruction()
 {
+
+	   //Vorhandenes C4 zählen
+
+    for(var pC4 in FindObjects(Find_Distance(50, 0, 0), Find_Func("IsC4Explosive")))
+    {
+      if(LocalN("pStickTo",pC4) != this)
+        continue;
+      AddEffect("C4Timer", pC4, 1, 4, 0, GetID(this));
+    }
+
   //Explosion
   FakeExplode(4, GetController()+1, this);
 
@@ -460,6 +470,11 @@ public func OnDestruction()
 
   //Verschwinden
   FadeOut();
+}
+
+public func FxC4TimerStop (object pTarget, int iEffectNumber, int iReason, bool fTemp)
+{
+	DecoExplode(4, pTarget);
 }
 
 /* Aktionen */
