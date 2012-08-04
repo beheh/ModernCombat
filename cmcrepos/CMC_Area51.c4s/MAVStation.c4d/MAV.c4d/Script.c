@@ -177,7 +177,7 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
     }
     
     if (iItemType == 0) Sense();
-    if (iItemType == 2 !(iEffectTime % 20)) EHP();
+    if (iItemType == 2 && !(iEffectTime % 20)) EHP();
   }
 
   //Schadensverhalten
