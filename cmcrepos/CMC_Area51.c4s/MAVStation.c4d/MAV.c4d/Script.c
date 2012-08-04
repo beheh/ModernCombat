@@ -176,8 +176,9 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
     	iItemType = 0;
     }
     
-    if (iItemType == 0) Sense();
-    if (iItemType == 2 && !(iEffectTime % 20)) EHP(iEffectTime);
+    if(iItemType == 0) Sense();
+    if(iItemType == 1 && !(iEffectTime & 60)) MTP(iEffectTime);
+    if(iItemType == 2 && !(iEffectTime % 20)) EHP(iEffectTime);
   }
 
   //Schadensverhalten
@@ -489,7 +490,64 @@ public func FxC4TimerStop (object pTarget, int iEffectNumber, int iReason, bool 
 	DecoExplode(4, pTarget);
 }
 
-//EHP
+
+
+public func MTP()
+{
+  //Zu wenig Punkte
+  if (pItem->GetPackPoints() < 30)
+    return false;
+    
+	var aClonks = FindObjects(Find_Distance(TeamSupportRange()), Find_OCF(OCF_CrewMember), Find_NoContainer(), Find_Allied(GetOwner(this)));
+  
+  for (var pTarget in aClonks)
+  {
+    //Nur Clonks
+    if (!pTarget->~IsClonk())
+      continue;
+      
+    //Munitionsbedarf feststellen
+    var highestammo = 0, ammoID = 0;
+    for(var i = 0; i < ContentsCount(0, pTarget); i++)
+      if(Contents(i, pTarget)->~IsWeapon())
+        for (var j = 0; j < Contents(i, pTarget)->GetFMCount(); j++)
+        {
+          var ammocount, weapon = Contents(i, pTarget);
+          if(weapon->GetFMData(FM_NoAmmoModify, j)) continue;
+          if(weapon->GetFMData(FM_AmmoLoad, j) <= 3)
+            ammocount = weapon->GetFMData(FM_AmmoLoad, j) * 10;
+          else
+          ammocount = weapon->GetFMData(FM_AmmoLoad,j) * 3;
+          if(GetAmmo(weapon->GetFMData(FM_AmmoID, j), pTarget) < ammocount)
+          {
+            if(!ammoID)
+              ammoID = weapon->GetFMData(FM_AmmoID,j);
+            if(highestammo < ammocount)
+              highestammo = ammocount;
+          }
+        }
+
+    if(!ammoID)
+      continue;
+
+    //Munition hinzufügen
+    var factor = ammoID->~GetPointFactor();
+    if(ammoID->MaxAmmo() / 10 * factor > pItem->GetPackPoints() || GetAmmo(ammoID, pTarget) >= highestammo)
+      continue;
+
+    PlayerMessage(GetOwner(this), "$AmmoReceived$", pTarget, ammoID->MaxAmmo() / 10, ammoID);
+    PlayerMessage(GetOwner(pTarget),"$AmmoReceived$", pTarget, ammoID->MaxAmmo() / 10, ammoID);
+    DoAmmo(ammoID, ammoID->MaxAmmo()/10, pTarget);
+    Sound("Resupply.ogg");
+    pItem->DoPackPoints(-ammoID->MaxAmmo() / 10 * factor);
+
+    //Achievement-Fortschritt (Ammo Distributor)
+    DoAchievementProgress(ammoID->MaxAmmo() / 10 * factor, AC03, GetOwner(this));
+
+    //Punkte bei Belohnungssystem (Munitionierung)
+    DoPlayerPoints(BonusPoints("Restocking", ammoID->MaxAmmo() / 10 * factor), RWDS_TeamPoints, GetOwner(this), this, IC14);
+  }
+}
 
 public func EHP(int iEffectTime)
 {
