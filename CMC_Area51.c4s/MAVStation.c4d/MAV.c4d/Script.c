@@ -177,7 +177,7 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
     }
     
     if (iItemType == 0) Sense();
-    if (iItemType == 2 && !(iEffectTime % 20)) EHP();
+    if (iItemType == 2 && !(iEffectTime % 20)) EHP(iEffectTime);
   }
 
   //Schadensverhalten
@@ -491,11 +491,9 @@ public func FxC4TimerStop (object pTarget, int iEffectNumber, int iReason, bool 
 
 //EHP
 
-public func EHP()
+public func EHP(int iEffectTime)
 {
-	pItem->DoPackPoints(1);
-
-	var aClonks = FindObjects(Find_Distance(TeamSupportRange()), Find_OCF(OCF_CrewMember), Find_NoContainer(), Find_Allied(GetOwner(Contained())));
+	var aClonks = FindObjects(Find_Distance(TeamSupportRange()), Find_OCF(OCF_CrewMember), Find_NoContainer(), Find_Allied(GetOwner(this)));
   var a = [];
   //Zuerst die mit vollem Leben aussortieren
   for (var pClonk in aClonks)
@@ -510,9 +508,12 @@ public func EHP()
 
   for (var pClonk in aClonks)
   {
+  	//Gar keine Punkte?
+  	if (!pItem->GetPackPoints()) break;
+  
     DoEnergy(heal, pClonk);
     //Achievement-Fortschritt (I'll fix you up!)
-    DoAchievementProgress(heal, AC02, GetOwner(Contained()));
+    DoAchievementProgress(heal, AC02, GetOwner(this));
     LocalN("iHealed", pItem) += heal;
     CreateParticle("ShockWave", GetX(pClonk) - GetX(), GetY(pClonk) - GetY(), 0, 0, 5 * (5  + GetObjHeight(pClonk)), RGB(0, 230, 255), pClonk);
     CreateParticle("ShockWave", GetX(pClonk) - GetX(), GetY(pClonk) - GetY(), 0, 0, 5 * (10 + GetObjHeight(pClonk)), RGB(0, 230, 255), pClonk);
@@ -525,8 +526,11 @@ public func EHP()
   {
     LocalN("iHealed", pItem) -= 40;
     //Punkte bei Belohnungssystem (Heilung)
-    DoPlayerPoints(BonusPoints("Healing", 40), RWDS_TeamPoints, GetOwner(Contained()), Contained(), IC05);
+    DoPlayerPoints(BonusPoints("Healing", 40), RWDS_TeamPoints, GetOwner(this), this, IC05);
   }
+  
+  if(!(iEffectTime % 60))
+  	pItem->DoPackPoints(2);
 }
 
 /* Aktionen */
