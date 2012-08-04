@@ -133,7 +133,7 @@ public func StatsList(int iPlr, int iIndex, int iOffset, int iMenuEntry)
   AddMenuItem(" | ", 0, RWDS, pClonk, 0, 0, "", 514, 0, 0);
 
   //Überschrift
-  AddMenuItem(Format("<c 33ccff>$Achievements$ ($Showing$)</c>", iOffset/10+1, (iAchievementCount-1)/10+1), 0, NONE, pClonk);
+  AddMenuItem(Format("<c 33ccff>$Achievements$ ($Showing$)</c>", iOffset/10+1, (iAchievementCount-1)/10+2), 0, NONE, pClonk);
 
   //Liste
   var i = 1+iOffset;
@@ -232,7 +232,7 @@ public func StatsRibbonList(int iPlr, int iIndex, int iOffset)
   AddMenuItem(" | ", 0, RWDS, pClonk, 0, 0, "", 514, 0, 0);
 
   //Überschrift
-  AddMenuItem("<c 33ccff>$Ribbons$</c>", 0, NONE, pClonk);
+  AddMenuItem(Format("<c 33ccff>$Ribbons$ ($Showing$)</c>", (iAchievementCount-1)/10+2, (iAchievementCount-1)/10+2), 0, NONE, pClonk);
 
   //Liste
   var idRibbon, i;
