@@ -15,6 +15,7 @@ static const GOCC_ProgressColumn = 2;
 private func StartTickets()		{return 15;}		//Standardticketzahl
 public func IsConfigurable()		{return true;}
 public func GoalExtraValue()		{return iStartTickets;}	//Spielzielinformationen an Scoreboard weitergeben
+public func CustomSpawnSystem() {return true;}
 
 
 /* Initialisierung */
