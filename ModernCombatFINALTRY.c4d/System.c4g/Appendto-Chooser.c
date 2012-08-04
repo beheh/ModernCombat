@@ -41,7 +41,7 @@ protected func Initialize()
   for(var i = 0; i < iTeamCount; i++)
     arTeams[i+1] = true;
 
-	aPlayerSetting = [];
+  aPlayerSetting = [];
 
   //Regeln voreinstellen
   LoadRuleCfg();
@@ -166,7 +166,7 @@ public func UpdateScoreboard()
       team_name = GetTeamName(GetPlayerTeam(plr));
     else
       team_name = "$Random$";
-		
+
     SetScoreboardData(row_id, 0, GetTaggedPlayerName(plr, true), CHOS_SBRD_Teams+plr, true);
     SetScoreboardData(row_id, 1, team_name, 0, true);
   }
@@ -176,12 +176,12 @@ public func UpdateScoreboard()
 
 public func IsInRandomTeam(int iPlr)
 {
-	if(iTeamMode != CHOS_TeamRandomInvisible)
-		return false;
-	if(!aPlayerSetting[iPlr])
-		return true;
+  if(iTeamMode != CHOS_TeamRandomInvisible)
+    return false;
+  if(!aPlayerSetting[iPlr])
+    return true;
 
-	return false;
+  return false;
 }
 
 public func RemovePlayer()
