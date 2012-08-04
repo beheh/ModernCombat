@@ -66,9 +66,9 @@ public func ShowLastPage(int iPlr)
   else if(page == RWDS_Page_ShowAchievement)
     StatsAchievement(iPlr, lastPage[1], lastPage[2]);
   else if(page == RWDS_Page_RibbonList)
-  	StatsRibbonList(iPlr, lastPage[1], lastPage[2]);
+    StatsRibbonList(iPlr, lastPage[1], lastPage[2]);
   else if(page == RWDS_Page_ShowRibbon)
-  	StatsRibbon(iPlr, lastPage[1], lastPage[2]);
+    StatsRibbon(iPlr, lastPage[1], lastPage[2]);
 }
 
 public func StatsPoints(int iPlr)
@@ -156,10 +156,10 @@ public func StatsList(int iPlr, int iIndex, int iOffset, int iMenuEntry)
   if(iOffset+10 <= iAchievementCount-1)
     szCmd = Format("StatsList(%d, %d, %d, 0)", iPlr, 0, BoundBy(iOffset+10, 0, iAchievementCount));
   else
-  	szCmd = Format("StatsRibbonList(%d, 0, %d)", iPlr, iOffset);
+    szCmd = Format("StatsRibbonList(%d, 0, %d)", iPlr, iOffset);
 
   AddMenuItem("$NextPage$", szCmd, NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
-  
+
   //Zurück
   if(iOffset > 0)
     AddMenuItem("$LastPage$", Format("StatsList(%d, %d, %d, 1)", iPlr, 0, BoundBy(iOffset-10, 0, iAchievementCount)), NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
@@ -246,7 +246,7 @@ public func StatsRibbonList(int iPlr, int iIndex, int iOffset)
 
   //Leerzeile
   AddMenuItem(" ", 0, NONE, pClonk);
-	//Zurück
+  //Zurück
   AddMenuItem("$LastPage$", Format("StatsList(%d, 0, %d, 1)", iPlr, iOffset), NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
 
   //Eigene Errungenschaften anzeigen
@@ -258,7 +258,7 @@ public func StatsRibbonList(int iPlr, int iIndex, int iOffset)
     SelectMenuItem(iIndex+1, pClonk);
   else
     SelectMenuItem(i+2, pClonk);
-    
+
   return true;
 }
 

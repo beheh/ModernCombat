@@ -12,6 +12,7 @@ YouHaveBeenPromoted=%s has been promoted to <c ffff33>%s</c>!
 
 # Achievements
 
+Ribbons=Ribbons
 Achievements=Achievements
 Showing=Page %d of %d
 NextPage=Next Page
