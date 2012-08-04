@@ -1,2 +1,2 @@
 MarkRequired=Ziel benötigt!
-InvalidItem=Ungültiges Item!
+InvalidItem=Gegenstand nicht montierbar!

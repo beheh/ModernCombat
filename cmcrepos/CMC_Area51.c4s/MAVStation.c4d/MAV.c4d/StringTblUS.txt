@@ -1,2 +1,2 @@
 MarkRequired=Mark required!
-InvalidItem=Invalid item!
+InvalidItem=Item not mountable!
