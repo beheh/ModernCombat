@@ -1,14 +1,14 @@
 [Action]
 Name=Flying
 FacetBase=1
-Delay=1
+Length=6
 StartCall=FlyingTimer
 NextAction=Flying
 
 [Action]
 Name=Wait
 FacetBase=1
-Delay=1
+Length=6
 StartCall=WaitTimer
 NextAction=Wait
 
