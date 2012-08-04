@@ -314,12 +314,6 @@ protected func DoPoints()
       //Ribbon-Fortschritt (The Artist)
       if(killicon->~IsSchockPaddles())
         AttemptAwardRibbon(RB05, killer, GetOwner());
-      //Ribbon-Fortschritt (The Eagle)
-      if(false)
-        AttemptAwardRibbon(RB06, killer, GetOwner());
-      //Ribbon-Fortschritt (The Tuna)
-      if(false)
-        AttemptAwardRibbon(RB07, killer, GetOwner());
       //Ribbon-Fortschritt (The Noob)
       if(Contained() && GetID(Contained()) == BKHK)
         AttemptAwardRibbon(RB08, killer, GetOwner());
@@ -662,8 +656,12 @@ global func FxFakeDeathDamage(object pTarget, int iEffectNumber, int iDmgEngy, i
        }
       if(GetProcedure(pTarget) == "FLIGHT" && GetProcedure(GetCursor(GetKiller(pTarget))) == "FLIGHT")
         if(GetActTime(pTarget) > 10 && GetActTime(GetCursor(GetKiller(pTarget))) > 10)
+        {
           //Achievement-Fortschritt (Fly-By)
           DoAchievementProgress(1, AC10, GetKiller(pTarget)); 
+    			//Ribbon-Fortschritt (The Eagle)
+    			AttemptAwardRibbon(RB06, GetKiller(pTarget), GetOwner());
+    		}
     }
   }
 
