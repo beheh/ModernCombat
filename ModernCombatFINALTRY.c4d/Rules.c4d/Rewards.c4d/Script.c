@@ -7,7 +7,7 @@ static aRanks, iRankCount;
 local aData, fEvaluation, aStats, aLastPage;
 
 public func IsChooseable()	{return true;}
-public func RWDS_MenuAbort() {return true;}
+public func RWDS_MenuAbort()	{return true;}
 
 
 /* Initialisierung */

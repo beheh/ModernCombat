@@ -46,12 +46,12 @@ global func FxIntVehicleSpawn4KSpawn(object pTarget, int iEffectNumber)
 {
   var pVehicle = EffectVar(1,pTarget,iEffectNumber);
   var aType = EffectVar(0,pTarget,iEffectNumber);
-	var data = RandomIndex4K(aType);
+  var data = RandomIndex4K(aType);
   var id = data[0];
   var x = data[1], y = data[2], wdt = data[3], hgt = data[4];
   
   if(FindObject2(Find_AtRect(x-2, y-2, wdt+4, hgt+4), Find_Func("BlockVehicleSpawn")))
-  	return;
+    return;
   
   pVehicle = CreateContents(id, pTarget);
   SetDir(EffectVar(2,pTarget,iEffectNumber), pVehicle);
