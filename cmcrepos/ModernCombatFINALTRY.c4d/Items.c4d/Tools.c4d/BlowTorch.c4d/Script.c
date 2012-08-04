@@ -411,17 +411,6 @@ public func Use(caller)
         charge = BoundBy(charge - 1, 0, MaxEnergy());
       }
     }
-    else
-    {
-      obj = caller->FindObject2(Find_Func("IsDecoration"), Find_AtRect(-10,-10,20,20), Sort_Distance());
-      if(obj)
-      {
-        //Dekoration beschädigen
-        DoDmg(2, DMG_Fire, obj);
-        used = true;
-        charge = BoundBy(charge - 1, 0, MaxEnergy());
-      }
-    }
   }
   //Effekte
   var d = GetDir(Contained())-(!GetDir(Contained()));
