@@ -13,19 +13,23 @@ global func GetTaggedPlayerName(int iPlr, bool fRank, bool fCompact)
   var icon = "";
   if(IsDeveloper(GetPlayerID(iPlr)))
     icon = "{{SM14}}";
+  
+  var clr = GetPlrColorDw(iPlr);
+  if(FindObject2(Find_ID(CHOS)) && FindObject2(Find_ID(CHOS))->IsInRandomTeam(iPlr))
+  	clr = 0x777777;
 
   if(fRank && FindObject2(Find_Or(Find_ID(RWDS), Find_ID(CHOS))) && GetPlayerTeam(iPlr) != -1)
   {
     if(fCompact)
-      return Format("{{%i}}%s <c %x>%s</c>", rank, icon, GetPlrColorDw(iPlr), GetPlayerName(iPlr));
+      return Format("{{%i}}%s <c %x>%s</c>", rank, icon, clr, GetPlayerName(iPlr));
 
     var icons = GetName(0, rank);
     if(icon != "") icons = Format("%s %s", icons, icon);
-    return Format("{{%i}} %s <c %x>%s</c>", rank, icons, GetPlrColorDw(iPlr), GetPlayerName(iPlr));
+    return Format("{{%i}} %s <c %x>%s</c>", rank, icons, clr, GetPlayerName(iPlr));
   }
   else if(fRank && icon)
   {
-    return Format("{{%i}} <c %x>%s</c>", icon, GetPlrColorDw(iPlr), GetPlayerName(iPlr));
+    return Format("{{%i}} <c %x>%s</c>", icon, clr, GetPlayerName(iPlr));
   }
 
   return _inherited(iPlr);

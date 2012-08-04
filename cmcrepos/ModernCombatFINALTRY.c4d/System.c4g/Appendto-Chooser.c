@@ -41,6 +41,8 @@ protected func Initialize()
   for(var i = 0; i < iTeamCount; i++)
     arTeams[i+1] = true;
 
+	aPlayerSetting = [];
+
   //Regeln voreinstellen
   LoadRuleCfg();
 
@@ -158,17 +160,28 @@ public func UpdateScoreboard()
   {
     var row_id = CHOS_SBRD_Teams + 1 + i;
     var plr = GetPlayerByIndex(i, C4PT_User);
+    var player_name = GetTaggedPlayerName(plr, true);
     var team_name;
     if(iTeamMode != CHOS_TeamRandomInvisible || aPlayerSetting[plr])
       team_name = GetTeamName(GetPlayerTeam(plr));
     else
       team_name = "$Random$";
-
+		
     SetScoreboardData(row_id, 0, GetTaggedPlayerName(plr, true), CHOS_SBRD_Teams+plr, true);
     SetScoreboardData(row_id, 1, team_name, 0, true);
   }
 
   SortScoreboard(0);
+}
+
+public func IsInRandomTeam(int iPlr)
+{
+	if(iTeamMode != CHOS_TeamRandomInvisible)
+		return false;
+	if(!aPlayerSetting[iPlr])
+		return true;
+
+	return false;
 }
 
 public func RemovePlayer()
@@ -336,7 +349,7 @@ protected func OpenTeamMenu(id dummy, int iSelection)
   {
     var plr = GetPlayerByIndex(j);
     var team_name = GetTeamName(GetPlayerTeam(plr));
-    if(iTeamMode == CHOS_TeamRandomInvisible)
+    if(iTeamMode == CHOS_TeamRandomInvisible && !aPlayerSetting[plr])
       team_name = "$Random$";
 
     AddMenuItem(Format("%s (%s)", GetTaggedPlayerName(plr, true), team_name), "SwitchTeam", PCMK, pClonk, 0, plr);
@@ -415,9 +428,6 @@ local aPlayerSetting;
 
 protected func SelectPredefinedTeamMember(bool fInvisible, int iSelection, int iTeamSort, int iPlr)
 {
-  if(GetType(aPlayerSetting) != C4V_Array)
-    aPlayerSetting = [];
-
   var pClonk = GetCursor(iChoosedPlr);
   //Menü erstellen
   CreateMenu(GetID(), pClonk, 0, 0, 0, 0, 1);
