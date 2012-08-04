@@ -19,6 +19,7 @@ local pLaser;
 local pBeam;
 local iC4Count;
 local pItem;
+local iItemType; //0: Standard, 1: MTP, 2: EHP, 3: Schweiﬂbrenner, 4: Schild, 5: Sprengschutz
 
 public func AttractTracer(object pTracer)	{return GetPlayerTeam(GetController(pTracer)) != GetTeam() && !fDestroyed;}
 public func IsBulletTarget()			{return !fDestroyed;}
@@ -39,6 +40,7 @@ public func IsMeleeTarget(object attacker)	{return !fDestroyed && Hostile(GetOwn
 public func MeleeHit(object pWeapon)				{return DoDmg(MaxDamage()+1, DMG_Melee, this, 0, GetOwner(pWeapon));}
 public func SensorDistance()	{return 190;}
 public func IsActive() 				{return GetAction(this) == "Flying";}
+public func TeamSupportRange()			{return 80;}
 public func MaxRotLeft()
 {
   return 120;
@@ -94,14 +96,6 @@ public func WeaponEnd(&x, &y)
    return;
   x = EffectVar(4, this, number)/1000;
   y = EffectVar(5, this, number)/1000;
-}
-
-public func GetWeaponR()
-{
-  var number = GetEffect("ShowWeapon", this);
-  if(!number)
-    return;
-  return EffectVar(1, this, number);
 }
 
 /* Timer */
@@ -215,8 +209,6 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
 
     if(!pLaser)
       pLaser = CreateObject(LRDT,0,0,GetOwner(this));
-
-    var number = GetEffect("ShowWeapon", this);
 
     var xPos = GetX(), yPos = GetY(), x = GetX(), y = GetY(), xdir = Sin(AimAngle(), 30), ydir = Cos(AimAngle(), -30);
     var gravity = GetGravity();
@@ -455,9 +447,13 @@ public func OnDmg(int iDmg, int iType)
 
 public func OnDestruction()
 {
+		//Item rauswerfen
+		if(pItem)
+			Exit(pItem);
+		pItem = 0;
+		iItemType = 0;
 
-	   //Vorhandenes C4 z‰hlen
-
+	  //Vorhandenes C4 entfernen
     for(var pC4 in FindObjects(Find_Distance(50, 0, 0), Find_Func("IsC4Explosive")))
     {
       if(LocalN("pStickTo",pC4) != this)
@@ -485,6 +481,46 @@ public func FxC4TimerStop (object pTarget, int iEffectNumber, int iReason, bool 
 	DecoExplode(4, pTarget);
 }
 
+//EHP
+
+public func EHP()
+{
+	
+
+	var aClonks = FindObjects(Find_Distance(TeamSupportRange()), Find_OCF(OCF_CrewMember), Find_NoContainer(), Find_Allied(GetOwner(Contained())));
+  var a = [];
+  //Zuerst die mit vollem Leben aussortieren
+  for (var pClonk in aClonks)
+    if (GetEnergy(pClonk) < GetPhysical("Energy", PHYS_Current, pClonk) / 1000)
+      a[GetLength(a)] = pClonk;
+  aClonks = a;
+  //Keiner mehr ¸brig
+  if (!GetLength(aClonks))
+    return;
+  //Je mehr geheilt werden, desto schw‰cher
+  var heal = Max(2, 8 - 2 * GetLength(aClonks));
+
+  for (var pClonk in aClonks)
+  {
+    DoEnergy(heal, pClonk);
+    //Achievement-Fortschritt (I'll fix you up!)
+    DoAchievementProgress(heal, AC02, GetOwner(Contained()));
+    iHealed += heal;
+    CreateParticle("ShockWave", GetX(pClonk) - GetX(), GetY(pClonk) - GetY(), 0, 0, 5 * (5  + GetObjHeight(pClonk)), RGB(0, 230, 255), pClonk);
+    CreateParticle("ShockWave", GetX(pClonk) - GetX(), GetY(pClonk) - GetY(), 0, 0, 5 * (10 + GetObjHeight(pClonk)), RGB(0, 230, 255), pClonk);
+    CreateParticle("ShockWave", GetX(pClonk) - GetX(), GetY(pClonk) - GetY(), 0, 0, 5 * (15 + GetObjHeight(pClonk)), RGB(0, 230, 255), pClonk);
+    ScreenRGB(pClonk, RGBa(0, 230, 255, 190), 80, 3, false, SR4K_LayerMedicament, 200);
+    DoPackPoints(heal / -2);
+    Sound("FAPK_Healing*.ogg");
+  }
+  while (iHealed >= 40)
+  {
+    iHealed -= 40;
+    //Punkte bei Belohnungssystem (Heilung)
+    DoPlayerPoints(BonusPoints("Healing", 40), RWDS_TeamPoints, GetOwner(Contained()), Contained(), IC05);
+  }
+}
+
 /* Aktionen */
 
 public func FxWaitTimer(object pTarget, int iEffectNumber, int iEffectTime)
@@ -503,6 +539,7 @@ public func Start()
 	iYDir = GetYDir();
 
   SetAction("Flying");
+  SetPhase(iItemType, this);
   if(!GetEffect("Flying", this))
   	AddEffect("Flying", this, 1, 1, this);
   Sound("MAVE_Engine.ogg", 0, 0, 70, 0, +1);
@@ -515,6 +552,7 @@ public func Wait()
     SetAction("Wait");
     if(!GetEffect("Wait", this))
   		AddEffect("Wait", this, 1, 1, this);
+  	SetPhase(iItemType, this);
   }
 
   iXTendency = 0;
@@ -574,17 +612,12 @@ private func InitAim()
     crosshair->SetAngle(AimAngle()+GetR()-360);
   else
     crosshair->SetAngle(AimAngle()+GetR());
-
-  AddEffect("ShowWeapon", this, 20, 1, this);
 }
 
 public func EndAim()
 {
   if(crosshair)
     RemoveObject(crosshair);
-
-  if (GetEffect("ShowWeapon",this))
-    RemoveEffect("ShowWeapon", this);
 
   if (pLaser)
     pLaser->Stop();
@@ -744,11 +777,20 @@ public func ControlThrow(pByObj)
 {
 	if(GetActionTarget(0, pByObj) == this)
 	{
+		if(GetAction() == "Destroyed") return false;
+	
 		var pTemp = Contents(0, pByObj);
 		if(!pTemp || Hostile(GetOwner(this), GetOwner(pByObj)))
 			return false;
-			
-		if(GetID(pTemp) != RSHL && GetID(pTemp) != AMPK && GetID(pTemp) != FAPK)
+
+		var iTemp = 0;
+		if(GetID(pTemp) == AMPK) iTemp = 1;
+		if(GetID(pTemp) == FAPK) iTemp = 2;
+		if(GetID(pTemp) == BWTH) iTemp = 3;
+		if(GetID(pTemp) == RSHL) iTemp = 4;
+		if(GetID(pTemp) == BBTP) iTemp = 5;
+		
+		if(!iTemp)
 		{
 			PlayerMessage(GetOwner(pByObj), "$InvalidItem$", this);
 			return false;
@@ -756,8 +798,14 @@ public func ControlThrow(pByObj)
 		
 		Enter(this, pTemp);
 		if(pItem)
-			Enter(pByObj, pItem);
+			if(!Collect(pItem, pByObj))
+				Exit(pItem);
 		pItem = pTemp;
+		iItemType = iTemp;
+		
+		ShiftContents();
+		
+		SetPhase(iItemType, this);
 		
 		return true;
 	}
@@ -796,6 +844,9 @@ public func ControlDig(pByObj)
 		if(!Collect(pItem, pByObj))
 			Exit(pItem);
 		pItem = 0;
+		iItemType = 0;
+		
+		SetPhase(iItemType, this);
 	}
 }
 
