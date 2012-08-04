@@ -10,6 +10,7 @@ local iEffectCount;
 local iChoosedPlr;
 local iTeamCount, arTeams;
 local iTeamMode, iUsedTeamSort;
+local fRandomMenu;
 
 
 /* Initialisierung */
@@ -162,7 +163,7 @@ public func UpdateScoreboard()
     var plr = GetPlayerByIndex(i, C4PT_User);
     var player_name = GetTaggedPlayerName(plr, true);
     var team_name;
-    if(iTeamMode != CHOS_TeamRandomInvisible || aPlayerSetting[plr])
+    if((iTeamMode != CHOS_TeamRandomInvisible && !fRandomMenu) || aPlayerSetting[plr])
       team_name = GetTeamName(GetPlayerTeam(plr));
     else
       team_name = "$Random$";
@@ -176,7 +177,7 @@ public func UpdateScoreboard()
 
 public func IsInRandomTeam(int iPlr)
 {
-  if(iTeamMode != CHOS_TeamRandomInvisible)
+  if(iTeamMode != CHOS_TeamRandomInvisible && !fRandomMenu)
     return false;
   if(!aPlayerSetting[iPlr])
     return true;
@@ -261,6 +262,7 @@ protected func Activate(iPlr)
 
 protected func OpenMenu()
 {
+	fRandomMenu = false;
   if(GetLength(aGoals))
     return OpenGoalChooseMenu();
 
@@ -341,6 +343,7 @@ protected func OpenGoalMenu(id dummy, int iSelection)
 
 protected func OpenTeamMenu(id dummy, int iSelection)
 {
+	fRandomMenu = false;
   var pClonk = GetCursor(iChoosedPlr);
   //Menü erstellen
   CreateMenu(GetID(), pClonk, 0, 0, 0, 0, 1);
@@ -367,6 +370,9 @@ protected func OpenTeamMenu(id dummy, int iSelection)
 
 protected func ChoosePossibleTeams(int iMode, bool fInvisible, int iSelection)
 {
+	if(iMode == CHOS_TeamRandom)
+		fRandomMenu = true;
+
   var pClonk = GetCursor(iChoosedPlr);
 
   //Menü erstellen
