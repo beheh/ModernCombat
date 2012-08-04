@@ -65,6 +65,10 @@ public func ShowLastPage(int iPlr)
     StatsList(iPlr, lastPage[1], lastPage[2], lastPage[3]);
   else if(page == RWDS_Page_ShowAchievement)
     StatsAchievement(iPlr, lastPage[1], lastPage[2]);
+  else if(page == RWDS_Page_RibbonList)
+  	StatsRibbonList(iPlr, lastPage[1], lastPage[2]);
+  else if(page == RWDS_Page_ShowRibbon)
+  	StatsRibbon(iPlr, lastPage[1], lastPage[2]);
 }
 
 public func StatsPoints(int iPlr)
@@ -148,8 +152,14 @@ public func StatsList(int iPlr, int iIndex, int iOffset, int iMenuEntry)
   AddMenuItem(" ", 0, NONE, pClonk);
 
   //Weiter
+  var szCmd = 0;
   if(iOffset+10 <= iAchievementCount-1)
-    AddMenuItem("$NextPage$", Format("StatsList(%d, %d, %d, 0)", iPlr, 0, BoundBy(iOffset+10, 0, iAchievementCount)), NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
+    szCmd = Format("StatsList(%d, %d, %d, 0)", iPlr, 0, BoundBy(iOffset+10, 0, iAchievementCount));
+  else
+  	szCmd = Format("StatsRibbonList(%d, 0, %d)", iPlr, iOffset);
+
+  AddMenuItem("$NextPage$", szCmd, NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
+  
   //Zurück
   if(iOffset > 0)
     AddMenuItem("$LastPage$", Format("StatsList(%d, %d, %d, 1)", iPlr, 0, BoundBy(iOffset-10, 0, iAchievementCount)), NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
@@ -205,6 +215,89 @@ public func StatsAchievement(int iPlr, int iSelect, int iOffset)
   AddMenuItem("$Back$", Format("StatsList(%d, %d, %d)", iPlr, iSelect-iOffset, iOffset), NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
   return true;
 }
+
+public func StatsRibbonList(int iPlr, int iIndex, int iOffset)
+{
+  var pClonk = GetCursor(iPlr);
+  if(GetMenu(pClonk))
+  {
+    if(GetMenu(pClonk)->~RWDS_MenuAbort())
+      CloseMenu(pClonk);
+    else
+      return;
+  }
+  if(!CreateMenu(GetID(), pClonk, this, 0, 0, 0, C4MN_Style_Dialog)) return;
+  aLastPage[iPlr] = [RWDS_Page_RibbonList, iIndex, iOffset];
+
+  AddMenuItem(" | ", 0, RWDS, pClonk, 0, 0, "", 514, 0, 0);
+
+  //Überschrift
+  AddMenuItem("<c 33ccff>$Ribbons$</c>", 0, NONE, pClonk);
+
+  //Liste
+  var idRibbon, i;
+  while(GetName(0, (idRibbon = C4Id(Format("RB%02d", ++i)))))
+  {
+    if(GetPlayerRibbon(iPlr, idRibbon))
+      AddMenuItem(Format("<c ffff33>%s</c>", GetName(0, idRibbon)), Format("StatsRibbon(%d, %d, %d)", iPlr, i, iOffset), NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
+    else
+      AddMenuItem(Format("<c 777777>%s</c>", GetName(0, idRibbon)), Format("StatsRibbon(%d, %d, %d)", iPlr, i, iOffset), NONE, pClonk, 0, 0, "", 0, 0, 0);
+  }
+
+  //Leerzeile
+  AddMenuItem(" ", 0, NONE, pClonk);
+	//Zurück
+  AddMenuItem("$LastPage$", Format("StatsList(%d, 0, %d, 1)", iPlr, iOffset), NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
+
+  //Eigene Errungenschaften anzeigen
+  AddMenuItem("$PointTable$", Format("StatsPoints(%d)", iPlr), NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
+  //Statistik einblenden
+  AddMenuItem("$Stats$", Format("StatsStatistics(%d)", iPlr), NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
+
+  if(iIndex)
+    SelectMenuItem(iIndex+1, pClonk);
+  else
+    SelectMenuItem(i+2, pClonk);
+    
+  return true;
+}
+
+public func StatsRibbon(int iPlr, int iSelect, int iOffset)
+{
+  var pClonk = GetCursor(iPlr);
+  if(GetMenu(pClonk))
+  {
+    if(GetMenu(pClonk)->~RWDS_MenuAbort())
+      CloseMenu(pClonk);
+    else
+      return;
+  }
+  if(!CreateMenu(GetID(), pClonk, this, 0, 0, 0, C4MN_Style_Dialog)) return;
+
+  aLastPage[iPlr] = [RWDS_Page_ShowRibbon, iSelect, iOffset];
+
+  AddMenuItem(" | ", 0, RWDS, pClonk, 0, 0, "", 514);
+
+  var idRibbon = C4Id(Format("RB%02d", iSelect));
+  if(GetPlayerRibbon(iPlr, idRibbon))
+  {
+    AddMenuItem(Format("<c ffff33>%s</c>", GetName(0, idRibbon)), 0, NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
+    AddMenuItem(Format("%s", GetDesc(0, idRibbon)), 0, NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
+  }
+  else
+  {
+    Sound("Error", true, 0, 100, iPlr + 1);
+    return StatsRibbonList(iPlr, iSelect, iOffset);
+  }
+
+  //Leerzeile
+  AddMenuItem(" ", 0, NONE, pClonk);
+
+  //Zurück
+  AddMenuItem("$Back$", Format("StatsRibbonList(%d, %d, %d)", iPlr, iSelect, iOffset), NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
+  return true;
+}
+
 
 global func RewardsActive()
 {
