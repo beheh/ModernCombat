@@ -169,7 +169,15 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
       iC4Count++;
     }
     
-    Sense();
+    //Sicherheitsprüfung
+    if(!pItem || Contained(pItem) != this)
+    {
+    	pItem = 0;
+    	iItemType = 0;
+    }
+    
+    if (iItemType == 0) Sense();
+    if (iItemType == 2 !(iEffectTime % 20)) EHP();
   }
 
   //Schadensverhalten
@@ -436,11 +444,11 @@ private func DamageChecks()
 
 public func OnDmg(int iDmg, int iType)
 {
-  if(iType == DMG_Melee)	return 0 + 50 * (GetID(pItem) == RSHL);	//Melee
-  if(iType == DMG_Fire)		return 40 + 24 * (GetID(pItem) == RSHL);	//Feuer
-  if(iType == DMG_Energy)	return 40 + 24 * (GetID(pItem) == RSHL);	//Energiewaffen
+  if(iType == DMG_Melee)	return 0 + 50 * (iItemType == 4);	//Melee
+  if(iType == DMG_Fire)		return 40 + 24 * (iItemType == 4);	//Feuer
+  if(iType == DMG_Energy)	return 40 + 24 * (iItemType == 4);	//Energiewaffen
 
-  return 50 + 25 * (GetID(pItem) == RSHL);
+  return 50 + 25 * (iItemType == 4);
 }
 
 /* Zerstörung */
@@ -485,7 +493,7 @@ public func FxC4TimerStop (object pTarget, int iEffectNumber, int iReason, bool 
 
 public func EHP()
 {
-	
+	pItem->DoPackPoints(1);
 
 	var aClonks = FindObjects(Find_Distance(TeamSupportRange()), Find_OCF(OCF_CrewMember), Find_NoContainer(), Find_Allied(GetOwner(Contained())));
   var a = [];
@@ -505,17 +513,17 @@ public func EHP()
     DoEnergy(heal, pClonk);
     //Achievement-Fortschritt (I'll fix you up!)
     DoAchievementProgress(heal, AC02, GetOwner(Contained()));
-    iHealed += heal;
+    LocalN("iHealed", pItem) += heal;
     CreateParticle("ShockWave", GetX(pClonk) - GetX(), GetY(pClonk) - GetY(), 0, 0, 5 * (5  + GetObjHeight(pClonk)), RGB(0, 230, 255), pClonk);
     CreateParticle("ShockWave", GetX(pClonk) - GetX(), GetY(pClonk) - GetY(), 0, 0, 5 * (10 + GetObjHeight(pClonk)), RGB(0, 230, 255), pClonk);
     CreateParticle("ShockWave", GetX(pClonk) - GetX(), GetY(pClonk) - GetY(), 0, 0, 5 * (15 + GetObjHeight(pClonk)), RGB(0, 230, 255), pClonk);
     ScreenRGB(pClonk, RGBa(0, 230, 255, 190), 80, 3, false, SR4K_LayerMedicament, 200);
-    DoPackPoints(heal / -2);
+    pItem->DoPackPoints(heal / -2);
     Sound("FAPK_Healing*.ogg");
   }
-  while (iHealed >= 40)
+  while (LocalN("iHealed", pItem) >= 40)
   {
-    iHealed -= 40;
+    LocalN("iHealed", pItem) -= 40;
     //Punkte bei Belohnungssystem (Heilung)
     DoPlayerPoints(BonusPoints("Healing", 40), RWDS_TeamPoints, GetOwner(Contained()), Contained(), IC05);
   }
