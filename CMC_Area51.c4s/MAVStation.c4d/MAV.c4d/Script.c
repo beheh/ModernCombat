@@ -486,6 +486,9 @@ private func WaitTimer()
 
 public func Start()
 {
+	iXDir = GetXDir();
+	iYDir = GetYDir();
+
   SetAction("Flying");
   Sound("MAVE_Engine.ogg", 0, 0, 70, 0, +1);
 }
@@ -760,36 +763,28 @@ protected func Hit3()
 
 public func ContactLeft()
 {
+	iXDir = 0;
   if(iXTendency < 0)
-  {
     iXTendency = 0;
-    iXDir = 0;
-  }
 }
 
 public func ContactRight()
 {
+	iXDir = 0;
   if(iXTendency > 0)
-  {
     iXTendency = 0;
-    iXDir = 0;
-  }
 }
 
 public func ContactTop()
 {
+	iYDir = 0;
   if(iYTendency < 0)
-  {
     iYTendency = 0;
-    iYDir = 0;
-  }
 }
 
 public func ContactBottom()
 {
+	iYDir = 0;
   if(iYTendency > 0)
-  {
     iYTendency = 0;
-    iYDir = 0;
-  }
 }
