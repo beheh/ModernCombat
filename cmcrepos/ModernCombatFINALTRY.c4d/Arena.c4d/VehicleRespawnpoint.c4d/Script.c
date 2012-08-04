@@ -46,8 +46,15 @@ global func FxIntVehicleSpawn4KSpawn(object pTarget, int iEffectNumber)
 {
   var pVehicle = EffectVar(1,pTarget,iEffectNumber);
   var aType = EffectVar(0,pTarget,iEffectNumber);
-  pVehicle = CreateContents(RandomIndex4K(aType),pTarget);
-  SetDir(EffectVar (2,pTarget,iEffectNumber), pVehicle);
+	var data = RandomIndex4K(aType);
+  var id = data[0];
+  var x = data[1], y = data[2], wdt = data[3], hgt = data[4];
+  
+  if(FindObject2(Find_AtRect(x-2, y-2, wdt+4, hgt+4), Find_Func("BlockVehicleSpawn")))
+  	return;
+  
+  pVehicle = CreateContents(id, pTarget);
+  SetDir(EffectVar(2,pTarget,iEffectNumber), pVehicle);
   if(EffectVar(4, pTarget, iEffectNumber))
   {
     EffectVar(4, pTarget, iEffectNumber) = false;
@@ -93,7 +100,7 @@ global func FxIntVehicleSpawn4KAddType(object pTarget, int iEffectNumber, id idT
 {
   if(FindInArray4K(EffectVar (0,pTarget,iEffectNumber), idType) == -1)
   {
-   EffectVar(0,pTarget,iEffectNumber)[GetLength(EffectVar(0,pTarget,iEffectNumber))] = idType;
+   EffectVar(0,pTarget,iEffectNumber)[GetLength(EffectVar(0,pTarget,iEffectNumber))] = [idType, GetDefCoreVal("Offset", 0, idType, 0), GetDefCoreVal("Offset", 0, idType, 1), GetDefWidth(idType), GetDefHeight(idType)];
   }
   return;
 }
