@@ -734,7 +734,7 @@ public func ChooserFinished()
   {
    //Geldsäcke
    AddMoneySpawn(3780, 980, [20]);
-   AddMoneySpawn(3880, 650, [20]);
+   AddMoneySpawn(4040, 1270, [20]);
    AddMoneySpawn(4080, 550, [20]);
    AddMoneySpawn(4480, 930, [20]);
 

@@ -493,24 +493,6 @@ func FlagCaptured(object pPoint, int iTeam)
    aSelfDefense[3]->SetTeam(iTeam);
 }
 
-/* Bei Relaunch */
- 
-public func OnClassSelection(object pClonk, int iTeam)
-{
-  //MR-Spielziel
-  if (FindObject(GMNR))
-  {
-   AddEffect("IntPara", pClonk, 1, 1);
-   Sound("Airstrike2", 0, pClonk);
-  }
-}
- 
-global func FxIntParaTimer(object pTarget)
-{
-  CreateObject(PARA,0,0,GetOwner(pTarget))->Set(pTarget);
-  return -1;
-}
-
 /* Regelwähler */
 
 public func ChooserFinished()
@@ -809,9 +791,9 @@ public func ChooserFinished()
 
    //Geldsäcke
    AddMoneySpawn(2680, 950, [20]);
-   AddMoneySpawn(3030, 1190, [15]);
+   AddMoneySpawn(2850, 1190, [15]);
    AddMoneySpawn(3015, 790, [15]);
-   AddMoneySpawn(3250, 1030, [15]);
+   AddMoneySpawn(3160, 1030, [15]);
    AddMoneySpawn(3380, 920, [15]);
    AddMoneySpawn(3380, 920, [15]);
    AddMoneySpawn(3870, 1030, [20]);
@@ -923,34 +905,8 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   if(FindObject(GASS))
   {if(FindObject(GASS)->GetRespawnPoint(iX, iY, iTeam)) return 1;}
 
-  //MR-Spielziel
-  if(FindObject(GMNR))
-  {
-   if(iTeam == 1)
-   {
-    var rand = Random(3);
-    if(!rand)
-     { iX = 2110; iY = 0; }
-    if(!--rand)
-     { iX = 2300; iY = 0; }
-    if(!--rand)
-     { iX = 2430; iY = 0; }
-   }
-   if(iTeam == 2)
-   {
-    var rand = Random(3);
-    if(!rand)
-     { iX = 3320; iY = 0; }
-    if(!--rand)
-     { iX = 3480; iY = 0; }
-    if(!--rand)
-     { iX = 3650; iY = 0; }
-   }
-   return(1);
-  }
-
-  //LMS/DM-Spielziel
-  if(FindObject(GLMS) || FindObject(GTDM))
+  //MR/LMS/DM-Spielziel
+  if(FindObject(GMNR) || FindObject(GLMS) || FindObject(GTDM))
   {
    if(iTeam == 1)
    {
