@@ -1,1 +1,2 @@
 MarkRequired=Mark required!
+InvalidItem=Invalid item!
