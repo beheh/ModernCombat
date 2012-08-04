@@ -7,6 +7,7 @@ static aRanks, iRankCount;
 local aData, fEvaluation, aStats, aLastPage;
 
 public func IsChooseable()	{return true;}
+public func RWDS_MenuAbort() {return true;}
 
 
 /* Initialisierung */
@@ -123,7 +124,6 @@ public func StatsList(int iPlr, int iIndex, int iOffset, int iMenuEntry)
       return;
   }
   if(!CreateMenu(GetID(), pClonk, this, 0, 0, 0, C4MN_Style_Dialog)) return;
-
   aLastPage[iPlr] = [RWDS_Page_AchievementList, iIndex, iOffset, iMenuEntry];
 
   AddMenuItem(" | ", 0, RWDS, pClonk, 0, 0, "", 514, 0, 0);
@@ -196,7 +196,6 @@ public func StatsAchievement(int iPlr, int iSelect, int iOffset)
   {
     Sound("Error", true, 0, 100, iPlr + 1);
     return StatsList(iPlr, iSelect-iOffset, iOffset);
-
   }
 
   //Leerzeile
