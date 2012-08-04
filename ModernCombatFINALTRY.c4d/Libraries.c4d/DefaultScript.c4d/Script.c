@@ -43,8 +43,6 @@ public func ChooserFinished()
     RelaunchPlayer(GetPlayerByIndex(i),GetCrew(GetPlayerByIndex(i)), 0, GetPlayerTeam(GetPlayerByIndex(i)));
     SetFoW(true, GetPlayerByIndex(i));
   }
-
-  g_chooserFinished = true;
 }
 
 /* Regelvoreinstellung */
