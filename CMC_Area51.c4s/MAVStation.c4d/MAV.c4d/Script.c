@@ -18,6 +18,7 @@ local crosshair;
 local pLaser;
 local pBeam;
 local iC4Count;
+local pItem;
 
 public func AttractTracer(object pTracer)	{return GetPlayerTeam(GetController(pTracer)) != GetTeam() && !fDestroyed;}
 public func IsBulletTarget()			{return !fDestroyed;}
@@ -35,7 +36,7 @@ public func IsMAV()						{return true;}
 public func MaxDamage()				{return 40;}
 public func IsRepairable()			{return !fDestroyed;}
 public func IsMeleeTarget(object attacker)	{return !fDestroyed && Hostile(GetOwner(this), GetOwner(attacker));}
-public func MeleeHit()				{return DoDamage(MaxDamage()+1, this);}
+public func MeleeHit(object pWeapon)				{return DoDmg(MaxDamage()+1, DMG_Melee, this, 0, GetOwner(pWeapon));}
 public func SensorDistance()	{return 190;}
 public func IsActive() 				{return GetAction(this) == "Flying";}
 public func MaxRotLeft()
@@ -105,17 +106,23 @@ public func GetWeaponR()
 
 /* Timer */
 
-private func FlyingTimer()
+public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
+	if(GetAction() != "Flying") 
+	{
+		RemoveEffect("Flying", this);
+		return;
+	}
+
   //Flugverhalten
   if(iXDir < iXTendency)
-    iXDir+= 1 - (fIsAiming && !(GetActTime()%3));
+    iXDir+= 1 - (fIsAiming && !(iEffectTime % 3));
   if(iXDir > iXTendency)
-    iXDir-= 1 - (fIsAiming && !(GetActTime()%3));
+    iXDir-= 1 - (fIsAiming && !(iEffectTime % 3));
   if(iYDir < iYTendency)
-    iYDir+= 1 - (fIsAiming && !(GetActTime()%3));
+    iYDir+= 1 - (fIsAiming && !(iEffectTime % 3));
   if(iYDir > iYTendency)
-    iYDir-= 1 - (fIsAiming && !(GetActTime()%3));
+    iYDir-= 1 - (fIsAiming && !(iEffectTime % 3));
 
   if(GetY() <= GetDefCoreVal("Offset", "DefCore", MAVE, 1) * -1 && iYTendency < 0)
   {
@@ -127,9 +134,9 @@ private func FlyingTimer()
   SetXDir(iXDir / (iC4Count+1));
 
   if(iYDir<=0)
-    SetYDir(iYDir / (iC4Count+1));
+    SetYDir(iYDir / (iC4Count+1) - 2);
   else
-    SetYDir(iYDir * (iC4Count+1));
+    SetYDir(iYDir * (iC4Count+1) - 2);
 
   //Je nach Flugrichtung drehen
   if(iXTendency == 0)
@@ -141,7 +148,7 @@ private func FlyingTimer()
     SetObjDrawTransform(1000, -iBank*20, 0, iBank*20, 1000, 0, this);
 
   //Blinklicht (alle 30 Frames)
-  if(!(GetActTime()%30))
+  if(!(iEffectTime % 30))
   {
     if(GetTeam())
       var rgb = GetTeamColor(GetTeam());
@@ -153,7 +160,7 @@ private func FlyingTimer()
   }
 
   //Nachladen, C4 prüfen und SensorChecks (alle 5 Frames)
-  if(!(GetActTime()%5))
+  if(!(iEffectTime % 5))
   {
     if((GetAmmo(GetAttWeapon()->GetFMData(FM_AmmoID), GetAttWeapon()) < GetAttWeapon()->GetFMData(FM_AmmoUsage)) && !GetAttWeapon()->IsReloading())
       Reload();
@@ -197,7 +204,7 @@ private func FlyingTimer()
 
     iAimAngle += iPat_Dir;
 
-    //Fadenkreuz plazieren
+    //Fadenkreuz platzieren
     if(crosshair)
     {
       if(AimAngle()+GetR() <= 360)
@@ -437,11 +444,11 @@ private func DamageChecks()
 
 public func OnDmg(int iDmg, int iType)
 {
-  if(iType == DMG_Melee)	return 0;	//Melee
-  if(iType == DMG_Fire)		return 40;	//Feuer
-  if(iType == DMG_Energy)	return 40;	//Energiewaffen
+  if(iType == DMG_Melee)	return 0 + 50 * (GetID(pItem) == RSHL);	//Melee
+  if(iType == DMG_Fire)		return 40 + 24 * (GetID(pItem) == RSHL);	//Feuer
+  if(iType == DMG_Energy)	return 40 + 24 * (GetID(pItem) == RSHL);	//Energiewaffen
 
-  return 50;
+  return 50 + 25 * (GetID(pItem) == RSHL);
 }
 
 /* Zerstörung */
@@ -472,6 +479,7 @@ public func OnDestruction()
   FadeOut();
 }
 
+//C4 soll verschwinden, wenn das MAV kaputt geht
 public func FxC4TimerStop (object pTarget, int iEffectNumber, int iReason, bool fTemp)
 {
 	DecoExplode(4, pTarget);
@@ -479,8 +487,13 @@ public func FxC4TimerStop (object pTarget, int iEffectNumber, int iReason, bool 
 
 /* Aktionen */
 
-private func WaitTimer()
+public func FxWaitTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
+	if(GetAction() != "Wait") 
+	{
+		RemoveEffect("Wait", this);
+		return;
+	}
   DamageChecks();
 }
 
@@ -490,13 +503,19 @@ public func Start()
 	iYDir = GetYDir();
 
   SetAction("Flying");
+  if(!GetEffect("Flying", this))
+  	AddEffect("Flying", this, 1, 1, this);
   Sound("MAVE_Engine.ogg", 0, 0, 70, 0, +1);
 }
 
 public func Wait()
 {
   if(GetAction() != "Destroyed")
+  {
     SetAction("Wait");
+    if(!GetEffect("Wait", this))
+  		AddEffect("Wait", this, 1, 1, this);
+  }
 
   iXTendency = 0;
   iYTendency = 0;
@@ -581,6 +600,8 @@ public func EndAim()
 
 public func ControlLeft(pByObj)
 {
+	if(GetActionTarget(0, pByObj) == this) return false;
+
   if(GetAction() == "Wait")
     return true;
 
@@ -600,6 +621,8 @@ public func ControlLeft(pByObj)
 
 public func ControlLeftDouble(pByObj)
 {
+	if(GetActionTarget(0, pByObj) == this) return false;
+
   if(fIsAiming || GetAction() == "Wait")
     return true;
 
@@ -610,12 +633,16 @@ public func ControlLeftDouble(pByObj)
 
 public func ControlLeftReleased(pByObj)
 {
+	if(GetActionTarget(0, pByObj) == this) return false;
+
   iXTendency = 0;
   return true;
 }
 
 public func ControlRight(pByObj)
 {
+	if(GetActionTarget(0, pByObj) == this) return false;
+
   if(GetAction() == "Wait")
     return true;
 
@@ -635,6 +662,8 @@ public func ControlRight(pByObj)
 
 public func ControlRightDouble(pByObj)
 {
+	if(GetActionTarget(0, pByObj) == this) return false;
+
   if(fIsAiming || GetAction() == "Wait")
     return true;
 
@@ -645,12 +674,16 @@ public func ControlRightDouble(pByObj)
 
 public func ControlRightReleased(pByObj)
 {
+	if(GetActionTarget(0, pByObj) == this) return false;
+
   iXTendency = 0;
   return true;
 }
 
 public func ControlDown(pByObj)
 {
+	if(GetActionTarget(0, pByObj) == this) return false;
+
   if(GetAction() == "Wait")
     return true;
 
@@ -670,6 +703,8 @@ public func ControlDown(pByObj)
 
 public func ControlDownDouble(pByObj)
 {
+	if(GetActionTarget(0, pByObj) == this) return false;
+
   if(fIsAiming || GetAction() == "Wait")
     return true;
 
@@ -680,6 +715,8 @@ public func ControlDownDouble(pByObj)
 
 public func ControlUp(object pByObj)
 {
+	if(GetActionTarget(0, pByObj) == this) return false;
+
   if(fIsAiming || GetAction() == "Wait")
     return true;
 
@@ -693,6 +730,8 @@ public func ControlUp(object pByObj)
 
 public func ControlUpDouble(pByObj)
 {
+	if(GetActionTarget(0, pByObj) == this) return false;
+
   if(fIsAiming || GetAction() == "Wait")
     return true;
 
@@ -703,6 +742,26 @@ public func ControlUpDouble(pByObj)
 
 public func ControlThrow(pByObj)
 {
+	if(GetActionTarget(0, pByObj) == this)
+	{
+		var pTemp = Contents(0, pByObj);
+		if(!pTemp || Hostile(GetOwner(this), GetOwner(pByObj)))
+			return false;
+			
+		if(GetID(pTemp) != RSHL && GetID(pTemp) != AMPK && GetID(pTemp) != FAPK)
+		{
+			PlayerMessage(GetOwner(pByObj), "$InvalidItem$", this);
+			return false;
+		}
+		
+		Enter(this, pTemp);
+		if(pItem)
+			Enter(pByObj, pItem);
+		pItem = pTemp;
+		
+		return true;
+	}
+
   if(GetAction() == "Wait")
   {
     Start();
@@ -728,6 +787,16 @@ public func ControlThrow(pByObj)
       }
     }
   }
+}
+
+public func ControlDig(pByObj)
+{
+	if(pItem && GetActionTarget(0, pByObj) == this)
+	{
+		if(!Collect(pItem, pByObj))
+			Exit(pItem);
+		pItem = 0;
+	}
 }
 
 public func FxNoTargetCooldownTimer(object pTarget, int iEffectNumber, int iEffectTime)
