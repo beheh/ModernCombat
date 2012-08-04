@@ -13,10 +13,10 @@ global func GetTaggedPlayerName(int iPlr, bool fRank, bool fCompact)
   var icon = "";
   if(IsDeveloper(GetPlayerID(iPlr)))
     icon = "{{SM14}}";
-  
+
   var clr = GetPlrColorDw(iPlr);
   if(FindObject2(Find_ID(CHOS)) && FindObject2(Find_ID(CHOS))->IsInRandomTeam(iPlr))
-  	clr = 0x777777;
+    clr = 0x777777;
 
   if(fRank && FindObject2(Find_Or(Find_ID(RWDS), Find_ID(CHOS))) && GetPlayerTeam(iPlr) != -1)
   {
