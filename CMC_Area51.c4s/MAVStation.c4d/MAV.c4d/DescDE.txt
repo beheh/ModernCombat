@@ -1,1 +1,3 @@
 Kleine Robotereinheit für Markierungs- und Aufklärungseinsätze.
+
+Kann mit bestimmten Gegenständen aufgerüstet werden, indem sie hineingelegt werden.

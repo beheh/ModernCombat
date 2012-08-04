@@ -1,1 +1,3 @@
 Small robot unit for marking and recon missions.
+
+Can be upgraded with certain items simply by putting them inside.
