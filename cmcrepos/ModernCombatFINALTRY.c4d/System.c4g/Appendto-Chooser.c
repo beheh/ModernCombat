@@ -262,7 +262,7 @@ protected func Activate(iPlr)
 
 protected func OpenMenu()
 {
-	fRandomMenu = false;
+  fRandomMenu = false;
   if(GetLength(aGoals))
     return OpenGoalChooseMenu();
 
@@ -343,7 +343,7 @@ protected func OpenGoalMenu(id dummy, int iSelection)
 
 protected func OpenTeamMenu(id dummy, int iSelection)
 {
-	fRandomMenu = false;
+  fRandomMenu = false;
   var pClonk = GetCursor(iChoosedPlr);
   //Menü erstellen
   CreateMenu(GetID(), pClonk, 0, 0, 0, 0, 1);
@@ -370,8 +370,8 @@ protected func OpenTeamMenu(id dummy, int iSelection)
 
 protected func ChoosePossibleTeams(int iMode, bool fInvisible, int iSelection)
 {
-	if(iMode == CHOS_TeamRandom)
-		fRandomMenu = true;
+  if(iMode == CHOS_TeamRandom)
+    fRandomMenu = true;
 
   var pClonk = GetCursor(iChoosedPlr);
 
