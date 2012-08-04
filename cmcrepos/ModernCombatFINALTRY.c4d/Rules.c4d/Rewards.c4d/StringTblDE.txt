@@ -12,6 +12,7 @@ YouHaveBeenPromoted=%s wurde auf den Rang <c ffff33>%s</c> befördert!
 
 # Errungenschaften
 
+Ribbons=Ehrenbänder
 Achievements=Errungenschaften
 Showing=Seite %d von %d
 NextPage=Nächste Seite
