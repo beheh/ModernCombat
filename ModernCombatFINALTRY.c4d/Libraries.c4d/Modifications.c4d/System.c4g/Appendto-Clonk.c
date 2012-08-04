@@ -659,9 +659,9 @@ global func FxFakeDeathDamage(object pTarget, int iEffectNumber, int iDmgEngy, i
         {
           //Achievement-Fortschritt (Fly-By)
           DoAchievementProgress(1, AC10, GetKiller(pTarget)); 
-    			//Ribbon-Fortschritt (The Eagle)
-    			AttemptAwardRibbon(RB06, GetKiller(pTarget), GetOwner());
-    		}
+          //Ribbon-Fortschritt (The Eagle)
+          AttemptAwardRibbon(RB06, GetKiller(pTarget), GetOwner());
+        }
     }
   }
 
