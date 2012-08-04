@@ -9,8 +9,8 @@ static g_chooserFinished;
 
 public func ChooserFinished()
 {
-	if(!(FindObject2(Find_Category(C4D_Goal))->~CustomSpawnSystem()))
-  	g_chooserFinished = true;
+  if(!(FindObject2(Find_Category(C4D_Goal))->~CustomSpawnSystem()))
+    g_chooserFinished = true;
 
   //"Keine Munition"-Regel
   if(FindObject(NOAM))
@@ -43,7 +43,7 @@ public func ChooserFinished()
     RelaunchPlayer(GetPlayerByIndex(i),GetCrew(GetPlayerByIndex(i)), 0, GetPlayerTeam(GetPlayerByIndex(i)));
     SetFoW(true, GetPlayerByIndex(i));
   }
-  
+
   g_chooserFinished = true;
 }
 

@@ -8,7 +8,7 @@ local aTargets;			//Ziele
 
 global func IsAssaultTarget()	{return GetEffect("IntAssaultTarget", this);}
 public func IsCMCAssaultGoal()	{return GetID() != CASS;}
-public func CustomSpawnSystem() {return true;}
+public func CustomSpawnSystem()	{return true;}
 
 /* Initialisierung */
 
