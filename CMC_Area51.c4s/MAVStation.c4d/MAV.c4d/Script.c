@@ -19,7 +19,7 @@ local pLaser;
 local pBeam;
 local iC4Count;
 local pItem;
-local iItemType; //0: Standard, 1: MTP, 2: EHP, 3: Schweiﬂbrenner, 4: Schild, 5: Sprengschutz
+local iItemType;	//0: Standard, 1: MTP, 2: EHP, 3: Schweiﬂbrenner, 4: Schild, 5: Sprengschutz
 
 public func AttractTracer(object pTracer)	{return GetPlayerTeam(GetController(pTracer)) != GetTeam() && !fDestroyed;}
 public func IsBulletTarget()			{return !fDestroyed;}
@@ -33,12 +33,12 @@ public func GetAttWeapon()			{return cur_Attachment;}
 public func IsAiming() 				{return fIsAiming;}
 public func GetLaser()				{return pLaser;}
 public func Sgn(int x)				{if (x < 0) return x / x * -1; return x / x;}
-public func IsMAV()						{return true;}
+public func IsMAV()				{return true;}
 public func MaxDamage()				{return 40;}
 public func IsRepairable()			{return !fDestroyed;}
 public func IsMeleeTarget(object attacker)	{return !fDestroyed && Hostile(GetOwner(this), GetOwner(attacker));}
-public func MeleeHit(object pWeapon)				{return DoDmg(MaxDamage()+1, DMG_Melee, this, 0, GetOwner(pWeapon));}
-public func SensorDistance()	{return 190;}
+public func MeleeHit(object pWeapon)		{return DoDmg(MaxDamage()+1, DMG_Melee, this, 0, GetOwner(pWeapon));}
+public func SensorDistance()			{return 190;}
 public func IsActive() 				{return GetAction(this) == "Flying";}
 public func TeamSupportRange()			{return 80;}
 public func MaxRotLeft()
@@ -102,11 +102,11 @@ public func WeaponEnd(&x, &y)
 
 public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
-	if(GetAction() != "Flying") 
-	{
-		RemoveEffect("Flying", this);
-		return;
-	}
+  if(GetAction() != "Flying") 
+  {
+    RemoveEffect("Flying", this);
+    return;
+  }
 
   //Flugverhalten
   if(iXDir < iXTendency)
@@ -168,17 +168,17 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
         continue;
       iC4Count++;
     }
-    
+
     //Sicherheitspr¸fung
     if(!pItem || Contained(pItem) != this)
     {
-    	pItem = 0;
-    	iItemType = 0;
+      pItem = 0;
+      iItemType = 0;
     }
-    
+
     if(iItemType == 0) Sense();
-    if(iItemType == 1 && !(iEffectTime & 60)) MTP(iEffectTime);
-    if(iItemType == 2 && !(iEffectTime % 20)) EHP(iEffectTime);
+    if(iItemType == 1 && !(iEffectTime & 60)) AMP(iEffectTime);
+    if(iItemType == 2 && !(iEffectTime % 20)) FAP(iEffectTime);
   }
 
   //Schadensverhalten
@@ -383,11 +383,69 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
   }
 }
 
-/* Feindbewegung suchen */
+/* Schaden */
+
+private func DamageChecks()
+{
+  //Schadensverhalten
+  if(GetDamage() >= MaxDamage() / 2 && !GBackLiquid(0, 0))
+    Smoke(0, 0, Random(7));
+  if(GetDamage() >= MaxDamage() * 3 / 4 && !GBackLiquid(0, 0))
+    CreateParticle("Blast", 0, 3, 0, 3, Random(35), RGB(255, 255, 255), this);
+}
+
+public func OnDmg(int iDmg, int iType)
+{
+  if(iType == DMG_Melee)	return 0 + 50 * (iItemType == 4);	//Melee
+  if(iType == DMG_Fire)		return 40 + 24 * (iItemType == 4);	//Feuer
+  if(iType == DMG_Energy)	return 40 + 24 * (iItemType == 4);	//Energiewaffen
+
+  return 50 + 25 * (iItemType == 4);
+}
+
+/* Zerstˆrung */
+
+public func OnDestruction()
+{
+  //Item rauswerfen
+  if(pItem)
+    Exit(pItem);
+  pItem = 0;
+  iItemType = 0;
+
+  //Vorhandenes C4 entfernen
+  for(var pC4 in FindObjects(Find_Distance(50, 0, 0), Find_Func("IsC4Explosive")))
+  {
+    if(LocalN("pStickTo",pC4) != this)
+      continue;
+    AddEffect("C4Timer", pC4, 1, 6, 0, GetID(this));
+  }
+
+  //Explosion
+  FakeExplode(4, GetController()+1, this);
+
+  //Effekte
+  if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",3,100,0,0,0,80,100);
+
+  //Deaktivieren
+  Wait();
+  SetAction("Destroyed");
+
+  //Verschwinden
+  FadeOut();
+}
+
+public func FxC4TimerStop (object pTarget, int iEffectNumber, int iReason, bool fTemp)
+{
+  DecoExplode(4, pTarget);
+}
+
+/* MAV-Funktionen */
+
+/* Standard: Sensorball */
 
 protected func Sense()
 {
-
   //Zu markierende Gefahren suchen
   for (var pObj in FindObjects(Find_Distance(SensorDistance()),			//In Reichweite
   		Find_Exclude(this),						//Selber ausschlieﬂen
@@ -431,81 +489,22 @@ public func Beep()
   AddEffect("IntWait", this, 1, 50, this);
 }
 
+/* MTP: Munitionieren */
 
-/* Schaden */
-
-private func DamageChecks()
-{
-  //Schadensverhalten
-  if(GetDamage() >= MaxDamage() / 2 && !GBackLiquid(0, 0))
-    Smoke(0, 0, Random(7));
-  if(GetDamage() >= MaxDamage() * 3 / 4 && !GBackLiquid(0, 0))
-    CreateParticle("Blast", 0, 3, 0, 3, Random(35), RGB(255, 255, 255), this);
-}
-
-public func OnDmg(int iDmg, int iType)
-{
-  if(iType == DMG_Melee)	return 0 + 50 * (iItemType == 4);	//Melee
-  if(iType == DMG_Fire)		return 40 + 24 * (iItemType == 4);	//Feuer
-  if(iType == DMG_Energy)	return 40 + 24 * (iItemType == 4);	//Energiewaffen
-
-  return 50 + 25 * (iItemType == 4);
-}
-
-/* Zerstˆrung */
-
-public func OnDestruction()
-{
-		//Item rauswerfen
-		if(pItem)
-			Exit(pItem);
-		pItem = 0;
-		iItemType = 0;
-
-	  //Vorhandenes C4 entfernen
-    for(var pC4 in FindObjects(Find_Distance(50, 0, 0), Find_Func("IsC4Explosive")))
-    {
-      if(LocalN("pStickTo",pC4) != this)
-        continue;
-      AddEffect("C4Timer", pC4, 1, 4, 0, GetID(this));
-    }
-
-  //Explosion
-  FakeExplode(4, GetController()+1, this);
-
-  //Effekte
-  if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",3,100,0,0,0,80,100);
-
-  //Deaktivieren
-  Wait();
-  SetAction("Destroyed");
-
-  //Verschwinden
-  FadeOut();
-}
-
-//C4 soll verschwinden, wenn das MAV kaputt geht
-public func FxC4TimerStop (object pTarget, int iEffectNumber, int iReason, bool fTemp)
-{
-	DecoExplode(4, pTarget);
-}
-
-
-
-public func MTP()
+public func AMP()
 {
   //Zu wenig Punkte
   if (pItem->GetPackPoints() < 30)
     return false;
-    
-	var aClonks = FindObjects(Find_Distance(TeamSupportRange()), Find_OCF(OCF_CrewMember), Find_NoContainer(), Find_Allied(GetOwner(this)));
-  
+
+  var aClonks = FindObjects(Find_Distance(TeamSupportRange()), Find_OCF(OCF_CrewMember), Find_NoContainer(), Find_Allied(GetOwner(this)));
+
   for (var pTarget in aClonks)
   {
     //Nur Clonks
-    if (!pTarget->~IsClonk())
+    if(!pTarget->~IsClonk())
       continue;
-      
+
     //Munitionsbedarf feststellen
     var highestammo = 0, ammoID = 0;
     for(var i = 0; i < ContentsCount(0, pTarget); i++)
@@ -549,9 +548,11 @@ public func MTP()
   }
 }
 
-public func EHP(int iEffectTime)
+/* EHP: Heilen */
+
+public func FAP(int iEffectTime)
 {
-	var aClonks = FindObjects(Find_Distance(TeamSupportRange()), Find_OCF(OCF_CrewMember), Find_NoContainer(), Find_Allied(GetOwner(this)));
+  var aClonks = FindObjects(Find_Distance(TeamSupportRange()), Find_OCF(OCF_CrewMember), Find_NoContainer(), Find_Allied(GetOwner(this)));
   var a = [];
   //Zuerst die mit vollem Leben aussortieren
   for (var pClonk in aClonks)
@@ -566,9 +567,9 @@ public func EHP(int iEffectTime)
 
   for (var pClonk in aClonks)
   {
-  	//Gar keine Punkte?
-  	if (!pItem->GetPackPoints()) break;
-  
+    //Gar keine Punkte?
+    if(!pItem->GetPackPoints()) break;
+
     DoEnergy(heal, pClonk);
     //Achievement-Fortschritt (I'll fix you up!)
     DoAchievementProgress(heal, AC02, GetOwner(this));
@@ -586,32 +587,32 @@ public func EHP(int iEffectTime)
     //Punkte bei Belohnungssystem (Heilung)
     DoPlayerPoints(BonusPoints("Healing", 40), RWDS_TeamPoints, GetOwner(this), this, IC05);
   }
-  
+
   if(!(iEffectTime % 60))
-  	pItem->DoPackPoints(2);
+    pItem->DoPackPoints(2);
 }
 
 /* Aktionen */
 
 public func FxWaitTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
-	if(GetAction() != "Wait") 
-	{
-		RemoveEffect("Wait", this);
-		return;
-	}
+  if(GetAction() != "Wait") 
+  {
+    RemoveEffect("Wait", this);
+    return;
+  }
   DamageChecks();
 }
 
 public func Start()
 {
-	iXDir = GetXDir();
-	iYDir = GetYDir();
+  iXDir = GetXDir();
+  iYDir = GetYDir();
 
   SetAction("Flying");
   SetPhase(iItemType, this);
   if(!GetEffect("Flying", this))
-  	AddEffect("Flying", this, 1, 1, this);
+    AddEffect("Flying", this, 1, 1, this);
   Sound("MAVE_Engine.ogg", 0, 0, 70, 0, +1);
 }
 
@@ -621,15 +622,15 @@ public func Wait()
   {
     SetAction("Wait");
     if(!GetEffect("Wait", this))
-  		AddEffect("Wait", this, 1, 1, this);
-  	SetPhase(iItemType, this);
+      AddEffect("Wait", this, 1, 1, this);
+    SetPhase(iItemType, this);
   }
 
   iXTendency = 0;
   iYTendency = 0;
   iXDir = 0;
   iYDir = 0;
-  
+
   if(pLaser) RemoveObject(pLaser);
 
   Sound("MAVE_Engine.ogg", 0, 0, 70, 0, -1);
@@ -703,7 +704,7 @@ public func EndAim()
 
 public func ControlLeft(pByObj)
 {
-	if(GetActionTarget(0, pByObj) == this) return false;
+  if(GetActionTarget(0, pByObj) == this) return false;
 
   if(GetAction() == "Wait")
     return true;
@@ -724,7 +725,7 @@ public func ControlLeft(pByObj)
 
 public func ControlLeftDouble(pByObj)
 {
-	if(GetActionTarget(0, pByObj) == this) return false;
+  if(GetActionTarget(0, pByObj) == this) return false;
 
   if(fIsAiming || GetAction() == "Wait")
     return true;
@@ -736,7 +737,7 @@ public func ControlLeftDouble(pByObj)
 
 public func ControlLeftReleased(pByObj)
 {
-	if(GetActionTarget(0, pByObj) == this) return false;
+  if(GetActionTarget(0, pByObj) == this) return false;
 
   iXTendency = 0;
   return true;
@@ -744,7 +745,7 @@ public func ControlLeftReleased(pByObj)
 
 public func ControlRight(pByObj)
 {
-	if(GetActionTarget(0, pByObj) == this) return false;
+  if(GetActionTarget(0, pByObj) == this) return false;
 
   if(GetAction() == "Wait")
     return true;
@@ -765,7 +766,7 @@ public func ControlRight(pByObj)
 
 public func ControlRightDouble(pByObj)
 {
-	if(GetActionTarget(0, pByObj) == this) return false;
+  if(GetActionTarget(0, pByObj) == this) return false;
 
   if(fIsAiming || GetAction() == "Wait")
     return true;
@@ -777,7 +778,7 @@ public func ControlRightDouble(pByObj)
 
 public func ControlRightReleased(pByObj)
 {
-	if(GetActionTarget(0, pByObj) == this) return false;
+  if(GetActionTarget(0, pByObj) == this) return false;
 
   iXTendency = 0;
   return true;
@@ -785,7 +786,7 @@ public func ControlRightReleased(pByObj)
 
 public func ControlDown(pByObj)
 {
-	if(GetActionTarget(0, pByObj) == this) return false;
+  if(GetActionTarget(0, pByObj) == this) return false;
 
   if(GetAction() == "Wait")
     return true;
@@ -806,7 +807,7 @@ public func ControlDown(pByObj)
 
 public func ControlDownDouble(pByObj)
 {
-	if(GetActionTarget(0, pByObj) == this) return false;
+  if(GetActionTarget(0, pByObj) == this) return false;
 
   if(fIsAiming || GetAction() == "Wait")
     return true;
@@ -818,7 +819,7 @@ public func ControlDownDouble(pByObj)
 
 public func ControlUp(object pByObj)
 {
-	if(GetActionTarget(0, pByObj) == this) return false;
+  if(GetActionTarget(0, pByObj) == this) return false;
 
   if(fIsAiming || GetAction() == "Wait")
     return true;
@@ -833,7 +834,7 @@ public func ControlUp(object pByObj)
 
 public func ControlUpDouble(pByObj)
 {
-	if(GetActionTarget(0, pByObj) == this) return false;
+  if(GetActionTarget(0, pByObj) == this) return false;
 
   if(fIsAiming || GetAction() == "Wait")
     return true;
@@ -845,40 +846,40 @@ public func ControlUpDouble(pByObj)
 
 public func ControlThrow(pByObj)
 {
-	if(GetActionTarget(0, pByObj) == this)
-	{
-		if(GetAction() == "Destroyed") return false;
-	
-		var pTemp = Contents(0, pByObj);
-		if(!pTemp || Hostile(GetOwner(this), GetOwner(pByObj)))
-			return false;
+  if(GetActionTarget(0, pByObj) == this)
+  {
+    if(GetAction() == "Destroyed") return false;
 
-		var iTemp = 0;
-		if(GetID(pTemp) == AMPK) iTemp = 1;
-		if(GetID(pTemp) == FAPK) iTemp = 2;
-		if(GetID(pTemp) == BWTH) iTemp = 3;
-		if(GetID(pTemp) == RSHL) iTemp = 4;
-		if(GetID(pTemp) == BBTP) iTemp = 5;
-		
-		if(!iTemp)
-		{
-			PlayerMessage(GetOwner(pByObj), "$InvalidItem$", this);
-			return false;
-		}
-		
-		Enter(this, pTemp);
-		if(pItem)
-			if(!Collect(pItem, pByObj))
-				Exit(pItem);
-		pItem = pTemp;
-		iItemType = iTemp;
-		
-		ShiftContents();
-		
-		SetPhase(iItemType, this);
-		
-		return true;
-	}
+    var pTemp = Contents(0, pByObj);
+    if(!pTemp || Hostile(GetOwner(this), GetOwner(pByObj)))
+      return false;
+
+    var iTemp = 0;
+    if(GetID(pTemp) == AMPK) iTemp = 1;
+    if(GetID(pTemp) == FAPK) iTemp = 2;
+    if(GetID(pTemp) == BWTH) iTemp = 3;
+    if(GetID(pTemp) == RSHL) iTemp = 4;
+    if(GetID(pTemp) == BBTP) iTemp = 5;
+
+    if(!iTemp)
+    {
+      PlayerMessage(GetOwner(pByObj), "$InvalidItem$", this);
+      return false;
+    }
+
+    Enter(this, pTemp);
+    if(pItem)
+      if(!Collect(pItem, pByObj))
+        Exit(pItem);
+    pItem = pTemp;
+    iItemType = iTemp;
+
+    ShiftContents();
+
+    SetPhase(iItemType, this);
+
+    return true;
+  }
 
   if(GetAction() == "Wait")
   {
@@ -909,16 +910,18 @@ public func ControlThrow(pByObj)
 
 public func ControlDig(pByObj)
 {
-	if(pItem && GetActionTarget(0, pByObj) == this)
-	{
-		if(!Collect(pItem, pByObj))
-			Exit(pItem);
-		pItem = 0;
-		iItemType = 0;
-		
-		SetPhase(iItemType, this);
-	}
+  if(pItem && GetActionTarget(0, pByObj) == this)
+  {
+    if(!Collect(pItem, pByObj))
+      Exit(pItem);
+    pItem = 0;
+    iItemType = 0;
+
+    SetPhase(iItemType, this);
+  }
 }
+
+/* Cooldown-Effekte */
 
 public func FxNoTargetCooldownTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
@@ -928,6 +931,36 @@ public func FxNoTargetCooldownTimer(object pTarget, int iEffectNumber, int iEffe
 public func FxMeleeCooldownTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
   RemoveEffect("MeleeCooldown", this);
+}
+
+/* Kontaktfunktionen */
+
+public func ContactLeft()
+{
+  iXDir = 0;
+  if(iXTendency < 0)
+    iXTendency = 0;
+}
+
+public func ContactRight()
+{
+  iXDir = 0;
+  if(iXTendency > 0)
+    iXTendency = 0;
+}
+
+public func ContactTop()
+{
+  iYDir = 0;
+  if(iYTendency < 0)
+    iYTendency = 0;
+}
+
+public func ContactBottom()
+{
+  iYDir = 0;
+  if(iYTendency > 0)
+    iYTendency = 0;
 }
 
 /* Aufschlag */
@@ -947,34 +980,4 @@ protected func Hit3()
   Sound("HeavyHit*.ogg");
 
   DoDmg(10);
-}
-
-/* Kontaktfunktionen */
-
-public func ContactLeft()
-{
-	iXDir = 0;
-  if(iXTendency < 0)
-    iXTendency = 0;
-}
-
-public func ContactRight()
-{
-	iXDir = 0;
-  if(iXTendency > 0)
-    iXTendency = 0;
-}
-
-public func ContactTop()
-{
-	iYDir = 0;
-  if(iYTendency < 0)
-    iYTendency = 0;
-}
-
-public func ContactBottom()
-{
-	iYDir = 0;
-  if(iYTendency > 0)
-    iYTendency = 0;
 }
