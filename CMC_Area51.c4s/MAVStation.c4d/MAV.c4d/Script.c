@@ -496,6 +496,8 @@ public func BlowTorch()
 	//Eventuellen Cooldown verringern
   if(living_dmg_cooldown)
     living_dmg_cooldown--;
+    
+  var used;
 
 	if(LocalN("charge", pItem) < 2) return Sound("BWTH_Repair.ogg", false, this, 100, 0, -1);
 	
@@ -509,6 +511,7 @@ public func BlowTorch()
     DoDmg(3, DMG_Fire, obj);
 
     LocalN("charge", pItem) = BoundBy(LocalN("charge", pItem)-2, 0, pItem->MaxEnergy());
+    used = true;
   }
   //Entschärfbare Objekte suchen
   var obj = FindObject2(Find_Func("IsDefusable"),		//Entschärfbar?
@@ -522,6 +525,7 @@ public func BlowTorch()
       DoPlayerPoints(BonusPoints("TechnicalTask"), RWDS_TeamPoints, GetOwner(this), this, IC15);
 
     LocalN("charge", pItem) = BoundBy(LocalN("charge", pItem)-2, 0, pItem->MaxEnergy());
+    used = true;
   }
 	//Reparierbare Objekte suchen
   obj = FindObject2(Find_Or(Find_And(Find_Func("IsRepairable"),				//Reparierbar?
@@ -590,26 +594,30 @@ public func BlowTorch()
        	  obj->~OnRepairing(this);
     	}
        
-    if(!Hostile(GetOwner(obj), GetOwner(Contained())) && GetOwner(obj) != GetOwner(this) && LocalN("iRepaired", pItem)++ >= 50)
-    {
-       //Punkte bei Belohnungssystem (Reparatur)
-       DoPlayerPoints(BonusPoints("Repair"), RWDS_TeamPoints, GetOwner(this), this, IC15);
-       LocalN("iRepaired", pItem) = 0;
-    }
+    	if(!Hostile(GetOwner(obj), GetOwner(Contained())) && GetOwner(obj) != GetOwner(this) && LocalN("iRepaired", pItem)++ >= 50)
+    	{
+     	  //Punkte bei Belohnungssystem (Reparatur)
+     	  DoPlayerPoints(BonusPoints("Repair"), RWDS_TeamPoints, GetOwner(this), this, IC15);
+    	   LocalN("iRepaired", pItem) = 0;
+    	}
     LocalN("charge", pItem) = BoundBy(LocalN("charge", pItem) - 2, 0, pItem->MaxEnergy());
-  }
+  	}
   
-    
-  	//Effekte
-  	CreateParticle("RepairFlame", 0, 7, 0, 2-Random(2), 80, RGB(0,100,250));
-  	if(GetEffectData(EFSM_BulletEffects) >1 && !Random(2))
-    	AddLightFlash(80, 0, 7, RGB(0,140,255));
-  	if(!Random(2))
-    	Sparks(8+Random(4), RGB(100,100,250), RandomX(-5, 5), RandomX(-5,5));
-    
-  	Sound("BWTH_Repair.ogg", false, this, 100, 0, 1);
+  	used = true;
   }
-  else
+  	
+	if(used)
+	{
+		//Effekte
+ 		CreateParticle("RepairFlame", 0, 7, 0, 2-Random(2), 80, RGB(0,100,250));
+ 		if(GetEffectData(EFSM_BulletEffects) >1 && !Random(2))
+  	 	AddLightFlash(80, 0, 7, RGB(0,140,255));
+ 		if(!Random(2))
+  	 	Sparks(8+Random(4), RGB(100,100,250), RandomX(-5, 5), RandomX(-5,5));
+    
+ 		Sound("BWTH_Repair.ogg", false, this, 100, 0, 1);
+ 	}
+ 	else
   	Sound("BWTH_Repair.ogg", false, this, 100, 0, -1);
   
 }
