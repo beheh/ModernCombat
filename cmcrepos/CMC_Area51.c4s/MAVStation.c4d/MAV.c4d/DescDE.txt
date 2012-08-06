@@ -1,3 +1,3 @@
-Kleine Robotereinheit für Markierungs- und Aufklärungseinsätze.
+Multifunktionsdrohne für Offensiv- und Aufklärungseinsätze.
 
 Kann mit bestimmten Gegenständen aufgerüstet werden, indem sie hineingelegt werden.
