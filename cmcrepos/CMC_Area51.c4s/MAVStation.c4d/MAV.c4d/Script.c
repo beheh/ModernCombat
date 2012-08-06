@@ -182,6 +182,7 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
     if(iItemType == 2 && !(iEffectTime % 20)) FAP(iEffectTime);
     if(iItemType == 3) BlowTorch();
   }
+  	if(iItemType == 6) ShockPaddles();
 
   //Schadensverhalten
   DamageChecks();
@@ -491,6 +492,15 @@ public func Beep()
   AddEffect("IntWait", this, 1, 50, this);
 }
 
+public func ShockPaddles()
+{
+	if(LocalN("charge", pItem) >= 10 && FindObject2(Find_AtPoint(0 - iXDir/5 - Sgn(iXDir), 0 - iYDir/5 - Sgn(iYDir)),
+																			Find_ID(FKDT),			//Schwerverletzter?
+		 																	Find_Allied(GetOwner(this)),	//Verbündet?
+		 																	Find_NoContainer()))
+		pItem->Activate(this);
+}
+
 public func BlowTorch()
 {
 	//Eventuellen Cooldown verringern
@@ -503,8 +513,8 @@ public func BlowTorch()
 	
   //Angreifbare Objekte suchen
   var obj = FindObject2(Find_Func("IsMeleeTarget", this),	//Angreifbar?
-  					Find_Exclude(this),
-  					Find_AtRect(-10,-10,20,20));
+  					Find_Exclude(this),	//Kein Self-Attack
+  					Find_AtRect(-10,-10,10,10));
   if(obj)
   {
     //Objekt beschädigen
@@ -517,7 +527,7 @@ public func BlowTorch()
   var obj = FindObject2(Find_Func("IsDefusable"),		//Entschärfbar?
   					Find_Hostile(GetOwner(this)),			//Feindlich?
   					Find_NoContainer(),				//Nicht verschachtelt?
-  					Find_AtRect(-10,-10,20,20));
+  					Find_AtRect(-10,-10,10,10));
   if(obj)
   {
     if(obj->~RTDefuse(this))
@@ -538,7 +548,7 @@ public func BlowTorch()
     		Find_Hostile(GetOwner(this)),
     		Find_NoContainer()),					//Nicht verschachtelt?
     		Find_Func("IsFakeRepairable", GetOwner(this))),	//Konsolen?
-    		Find_AtRect(-10,-10,20,20));
+    		Find_AtRect(-10,-10,10,10));
     						
   if(obj)
   {
@@ -609,9 +619,9 @@ public func BlowTorch()
 	if(used)
 	{
 		//Effekte
- 		CreateParticle("RepairFlame", 0, 7, 0, 2-Random(2), 80, RGB(0,100,250));
+ 		CreateParticle("RepairFlame", -1, 7, 0, 2-Random(2), 80, RGB(0,100,250));
  		if(GetEffectData(EFSM_BulletEffects) >1 && !Random(2))
-  	 	AddLightFlash(80, 0, 7, RGB(0,140,255));
+  	 	AddLightFlash(80, -1, 7, RGB(0,140,255));
  		if(!Random(2))
   	 	Sparks(8+Random(4), RGB(100,100,250), RandomX(-5, 5), RandomX(-5,5));
     
