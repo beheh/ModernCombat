@@ -175,10 +175,11 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
       pItem = 0;
       iItemType = 0;
     }
-
-    if(iItemType == 0) Sense();
+    
+    if(iItemType == 0 && !(iEffectTime % 25)) Sense();
     if(iItemType == 1 && !(iEffectTime & 60)) AMP(iEffectTime);
     if(iItemType == 2 && !(iEffectTime % 20)) FAP(iEffectTime);
+    if(iItemType == 3) BlowTorch();
   }
 
   //Schadensverhalten
@@ -447,7 +448,7 @@ public func FxC4TimerStop (object pTarget, int iEffectNumber, int iReason, bool 
 protected func Sense()
 {
   //Zu markierende Gefahren suchen
-  for (var pObj in FindObjects(Find_Distance(SensorDistance()),			//In Reichweite
+  for(var pObj in FindObjects(Find_Distance(SensorDistance()),			//In Reichweite
   		Find_Exclude(this),						//Selber ausschließen
   		Find_NoContainer(),						//Im Freien
   		Find_Or(Find_OCF(OCF_Alive), Find_Func("IsDetectable"))))	//Lebewesen oder als identifizierbar markiert
@@ -489,17 +490,69 @@ public func Beep()
   AddEffect("IntWait", this, 1, 50, this);
 }
 
+public func BlowTorch()
+{
+	//Reparierbare Objekte suchen
+  var obj = FindObject2(Find_Or(Find_And(Find_Func("IsRepairable"),				//Reparierbar?
+    				Find_Func("GetDamage")),		//Beschädigt?
+    				Find_Func("IsFakeRepairable", GetOwner(this))),	//Konsolen?
+    				Find_AtRect(-10,-10,20,20));
+    						
+  if(obj)
+  {
+    //Konsolen reparieren / beschädigen
+    if(obj->~IsFakeRepairable())
+      obj = obj->GetRealRepairableObject();
+
+    if(!obj->~RejectRepair())
+    {
+       //Fahrzeug reparieren
+       DoDamage(-1, obj);
+         
+       if(!Hostile(GetOwner(obj), GetOwner(this)) && GetOwner(obj) != GetOwner(this) && GetOwner(obj) != NO_OWNER)
+       {
+         //Achievement-Fortschritt (Wicked Engineer)
+         DoAchievementProgress(2, AC33, GetOwner(this));
+       }
+         
+       //Callback
+       if(GetDamage(obj) == 0)
+         obj->~IsFullyRepaired();
+       else
+         obj->~OnRepairing(this);
+     }
+       
+     if(!Hostile(GetOwner(obj), GetOwner(Contained())) && GetOwner(obj) != GetOwner(this) && LocalN("iRepaired", pItem)++ >= 50)
+     {
+       //Punkte bei Belohnungssystem (Reparatur)
+       DoPlayerPoints(BonusPoints("Repair"), RWDS_TeamPoints, GetOwner(this), this, IC15);
+       LocalN("iRepaired", pItem) = 0;
+     }
+     LocalN("charge", pItem) = BoundBy(LocalN("charge", pItem) - 1, 0, pItem->MaxEnergy());
+  
+    
+  //Effekte
+  var d = 0;
+  CreateParticle("RepairFlame", 10*d, -4, 5*d, Random(2)-2, 80, RGB(0,100,250));
+  if(GetEffectData(EFSM_BulletEffects) >1 && !Random(2))
+    AddLightFlash(80, 10*d, -4, RGB(0,140,255));
+  if(!Random(2))
+    Sparks(8+Random(4), RGB(100,100,250), RandomX(-5, 5), RandomX(-5,5));
+  }
+}
+
+
 /* MTP: Munitionieren */
 
 public func AMP()
 {
   //Zu wenig Punkte
-  if (pItem->GetPackPoints() < 30)
+  if(pItem->GetPackPoints() < 30)
     return false;
 
   var aClonks = FindObjects(Find_Distance(TeamSupportRange()), Find_OCF(OCF_CrewMember), Find_NoContainer(), Find_Allied(GetOwner(this)));
 
-  for (var pTarget in aClonks)
+  for(var pTarget in aClonks)
   {
     //Nur Clonks
     if(!pTarget->~IsClonk())
@@ -509,7 +562,7 @@ public func AMP()
     var highestammo = 0, ammoID = 0;
     for(var i = 0; i < ContentsCount(0, pTarget); i++)
       if(Contents(i, pTarget)->~IsWeapon())
-        for (var j = 0; j < Contents(i, pTarget)->GetFMCount(); j++)
+        for(var j = 0; j < Contents(i, pTarget)->GetFMCount(); j++)
         {
           var ammocount, weapon = Contents(i, pTarget);
           if(weapon->GetFMData(FM_NoAmmoModify, j)) continue;
@@ -555,17 +608,17 @@ public func FAP(int iEffectTime)
   var aClonks = FindObjects(Find_Distance(TeamSupportRange()), Find_OCF(OCF_CrewMember), Find_NoContainer(), Find_Allied(GetOwner(this)));
   var a = [];
   //Zuerst die mit vollem Leben aussortieren
-  for (var pClonk in aClonks)
-    if (GetEnergy(pClonk) < GetPhysical("Energy", PHYS_Current, pClonk) / 1000)
+  for(var pClonk in aClonks)
+    if(GetEnergy(pClonk) < GetPhysical("Energy", PHYS_Current, pClonk) / 1000)
       a[GetLength(a)] = pClonk;
   aClonks = a;
   //Keiner mehr übrig
-  if (!GetLength(aClonks))
+  if(!GetLength(aClonks))
     return;
   //Je mehr geheilt werden, desto schwächer
   var heal = Max(2, 8 - 2 * GetLength(aClonks));
 
-  for (var pClonk in aClonks)
+  for(var pClonk in aClonks)
   {
     //Gar keine Punkte?
     if(!pItem->GetPackPoints()) break;
@@ -581,7 +634,7 @@ public func FAP(int iEffectTime)
     pItem->DoPackPoints(heal / -2);
     Sound("FAPK_Healing*.ogg");
   }
-  while (LocalN("iHealed", pItem) >= 40)
+  while(LocalN("iHealed", pItem) >= 40)
   {
     LocalN("iHealed", pItem) -= 40;
     //Punkte bei Belohnungssystem (Heilung)
