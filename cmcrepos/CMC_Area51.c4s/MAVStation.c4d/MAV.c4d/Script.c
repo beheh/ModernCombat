@@ -20,6 +20,7 @@ local pBeam;
 local iC4Count;
 local pItem;
 local iItemType;	//0: Standard, 1: MTP, 2: EHP, 3: Schweißbrenner, 4: Schild, 5: Sprengschutz, 6: Defi
+local iHKShots;
 local living_dmg_cooldown; //Gehört zum Schweißbrenner, ist aber praktischer, wenn direkt hier gespeichert
 
 public func AttractTracer(object pTracer)	{return GetPlayerTeam(GetController(pTracer)) != GetTeam() && !fDestroyed;}
@@ -175,6 +176,7 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
     {
       pItem = 0;
       iItemType = 0;
+      SetPhase(iItemType);
     }
     
     if(iItemType == 0 && !(iEffectTime % 25)) Sense();
@@ -510,8 +512,8 @@ public func HardKill()
 {
 	if(GetEffect("HardKillCooldown", this)) return;
 	
-	var threat = FindObject2(Find_Distance(120, 0, 0), Find_Or(Find_Func("IsRocket"), Find_ID(ESHL), Find_ID(FSHL)));
-	if(threat && Abs(Angle(0, 0, GetXDir(threat), GetYDir(threat)) - Angle(GetX(threat), GetY(threat), GetX(), GetY())) <= 60 && PathFree(GetX(), GetY(), GetX(threat) + GetXDir(threat)/2, GetY(threat) + GetYDir(threat)/2))
+	var threat = FindObject2(Find_Distance(120, 0, 0), Find_Hostile(GetOwner(this)), Find_Or(Find_Func("IsRocket"), Find_Func("IsRifleGrenade")), Find_Not(Find_Func("IsDamaged")));
+	if(threat && !Inside(Abs(Angle(0, 0, GetXDir(threat), GetYDir(threat)) - Angle(GetX(threat), GetY(threat), GetX(), GetY())), 61, 299) && PathFree(GetX(), GetY(), GetX(threat) + GetXDir(threat)/2, GetY(threat) + GetYDir(threat)/2))
 	{
 		//Splitter verschleudern
   	var i = 0;
@@ -519,11 +521,14 @@ public func HardKill()
   	while(i < 15)
   	{
   	  var ammo = CreateObject(SHRP, 0, 0, GetOwner(this));
-  	  ammo->Launch(iDir+RandomX(-10,10),100+Random(80),180+Random(50),3,20,50);
+  	  ammo->Launch(iDir+RandomX(-10,10),120+Random(60),190+Random(40),3,15,6);
   	  i++;
   	}
   Sound("BBTP_Explosion.ogg");
   AddEffect("HardKillCooldown", this, 1, 40);
+  iHKShots--;
+  PlayerMessage(GetOwner(), Format("%d", iHKShots), this);
+  if(!iHKShots) RemoveObject(pItem);
   }
 }
 
@@ -793,6 +798,9 @@ public func Start()
   if(!GetEffect("Flying", this))
     AddEffect("Flying", this, 1, 1, this);
   Sound("MAVE_Engine.ogg", 0, 0, 70, 0, +1);
+  
+  if(iItemType == 5)
+  	PlayerMessage(GetOwner(), Format("%d", iHKShots), this);
 }
 
 public func Wait()
@@ -1050,16 +1058,26 @@ public func ControlThrow(pByObj)
 
     Enter(this, pTemp);
     if(pItem)
-      if(!Collect(pItem, pByObj))
-        Exit(pItem);
+   	{
+      if(iHKShots == 5)
+  		{
+    		if(!Collect(pItem, pByObj))
+      		Exit(pItem);
+    	}
+    	else
+    		RemoveObject(pItem);
+    }
     pItem = pTemp;
     iItemType = iTemp;
+    iHKShots = 5;
 
     ShiftContents();
 
     SetPhase(iItemType, this);
     Sound("RSHL_Deploy.ogg");
     Sound("BWTH_Repair.ogg", false, this, 100, 0, -1);
+    if(iItemType == 5 && GetAction() == "Flying")
+    	PlayerMessage(GetOwner(pByObj), Format("%d", iHKShots), this);
 
     return true;
   }
@@ -1095,8 +1113,12 @@ public func ControlDig(pByObj)
 {
   if(pItem && GetActionTarget(0, pByObj) == this)
   {
-    if(!Collect(pItem, pByObj))
-      Exit(pItem);
+  	if(iHKShots == 5)
+  	{
+    	if(!Collect(pItem, pByObj))
+      	Exit(pItem);
+    }
+    else RemoveObject(pItem);
     pItem = 0;
     iItemType = 0;
 
