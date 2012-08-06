@@ -178,10 +178,12 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
     }
     
     if(iItemType == 0 && !(iEffectTime % 25)) Sense();
-    if(iItemType == 1 && !(iEffectTime & 60)) AMP(iEffectTime);
+    if(iItemType == 1 && !(iEffectTime % 60)) AMP(iEffectTime);
     if(iItemType == 2 && !(iEffectTime % 20)) FAP(iEffectTime);
     if(iItemType == 3) BlowTorch();
   }
+  	//Echtzeit-Anforderungen, daher außerhalb
+  	if(iItemType == 5) HardKill(iEffectTime);
   	if(iItemType == 6) ShockPaddles();
 
   //Schadensverhalten
@@ -348,6 +350,7 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
   //Objekte zum Rammen suchen
   if((Abs(iXDir) + Abs(iYDir) >= 30) && !GetEffect("MeleeCooldown", this))
   {
+  	var strike;
     var target = FindObject2(Find_AtPoint(0, 0), Find_Hostile(GetOwner(this)), Find_NoContainer(), Find_OCF(OCF_Alive));
     if(target)
     {
@@ -377,12 +380,23 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
       }
       //Auch der MAV nimmt Schaden
       DoDmg(10, DMG_Melee, this, 0, GetController(this)+1, GetID());
+      iXDir /= 2;
+      iYDir /= 2;
       AddEffect("MeleeCooldown", this, 1, 30);
 
       //Sound
       Sound("WPN2_Punch*.ogg");
       Sound("BKHK_RotorHit*.ogg");
+      strike = true;
     }
+    
+  	if(target = FindObject2(Find_Func("IsMeleeTarget", this),
+  							Find_AtRect(-10 + iXDir/2, -10 + iYDir/2, 10 + iXDir/2, -10 + iYDir/2)))
+  	{
+  		DoDmg(20, DMG_Melee, target, 0, GetController(this)+1, GetID());
+  		if(!strike)
+  			Sound("WPN2_Punch*.ogg");
+  	}
   }
 }
 
@@ -490,6 +504,11 @@ public func Beep()
 
   //Einen Moment lang nicht mehr beepen
   AddEffect("IntWait", this, 1, 50, this);
+}
+
+public func HardKill(int iEffectTime)
+{
+	if(iEffectTime % 60) return;
 }
 
 public func ShockPaddles()
