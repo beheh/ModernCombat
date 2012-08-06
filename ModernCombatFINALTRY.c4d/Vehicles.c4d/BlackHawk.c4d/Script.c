@@ -26,7 +26,7 @@ static const BKHK_PassengerLayer = 3;
 
 local aSeats;
 
-static const BKHK_Seat_Pilot = 1;	
+static const BKHK_Seat_Pilot = 1;
 static const BKHK_Seat_Gunner = 2;
 static const BKHK_Seat_Coordinator = 3;
 static const BKHK_Seat_Passenger1 = 4;
@@ -58,85 +58,85 @@ public func IsBulletTarget(id idBullet, object pBullet, object pShooter)
 
 public func IsInHitbox(int x, int y, bool fDraw)
 {
-	var distance = iHitboxDistance;
-	var angle = aHitboxAngles;
-	if(!iHitboxDistance || !aHitboxAngles)
-		return false;
+  var distance = iHitboxDistance;
+  var angle = aHitboxAngles;
+  if(!iHitboxDistance || !aHitboxAngles)
+    return false;
 
-	var hitbox = [];
-	for(var a in angle)
-	{
-		a += GetR();
-		a = a + (45 - a) * 2;
-		hitbox[GetLength(hitbox)] = [Cos(a, distance), -Sin(a, distance)];
-	}
-	
-	if(fDraw)
-	{
-		var lastpoint = 0;
-		for(var point in hitbox)
-		{
-			if(!lastpoint)
-			{
-				lastpoint = point;
-				continue;
-			}
+  var hitbox = [];
+  for(var a in angle)
+  {
+    a += GetR();
+    a = a + (45 - a) * 2;
+    hitbox[GetLength(hitbox)] = [Cos(a, distance), -Sin(a, distance)];
+  }
 
-			DrawParticleLine("PSpark", lastpoint[0], lastpoint[1], point[0], point[1], 5, 30, RGB(255), RGB(255));
-			lastpoint = point;
-		}
-	
-		DrawParticleLine("PSpark", lastpoint[0], lastpoint[1], hitbox[0][0], hitbox[0][1], 5, 30, RGB(255), RGB(255));
-		return true;
-	}
+  if(fDraw)
+  {
+    var lastpoint = 0;
+    for(var point in hitbox)
+    {
+      if(!lastpoint)
+      {
+        lastpoint = point;
+        continue;
+      }
 
-	var inside = false;
+      DrawParticleLine("PSpark", lastpoint[0], lastpoint[1], point[0], point[1], 5, 30, RGB(255), RGB(255));
+      lastpoint = point;
+    }
 
-	var x1 = hitbox[GetLength(hitbox)-1][0];
-	var y1 = hitbox[GetLength(hitbox)-1][1];
-	var x2 = hitbox[0][0];
-	var y2 = hitbox[0][1];
-	
-	var su = (y1 >= y);
-	for(var i = 1; i < GetLength(hitbox); i++)
-	{
-		var eu = (y2 >= y);
-		if(su != eu)
-		{
-			if((y2 - y) * (x2 - x1) <= (y2 - y1) * (x2 - x))
-			{
-				if(eu)
-					inside = !inside;
-			}
-			else if(!eu)
-				inside = !inside;
-		}
-		
-		su = eu;
-		y1 = y2;
-		x1 = x2;
-		x2 = hitbox[i][0];
-		y2 = hitbox[i][1];
-	}
+    DrawParticleLine("PSpark", lastpoint[0], lastpoint[1], hitbox[0][0], hitbox[0][1], 5, 30, RGB(255), RGB(255));
+    return true;
+  }
+
+  var inside = false;
+
+  var x1 = hitbox[GetLength(hitbox)-1][0];
+  var y1 = hitbox[GetLength(hitbox)-1][1];
+  var x2 = hitbox[0][0];
+  var y2 = hitbox[0][1];
+
+  var su = (y1 >= y);
+  for(var i = 1; i < GetLength(hitbox); i++)
+  {
+    var eu = (y2 >= y);
+    if(su != eu)
+    {
+      if((y2 - y) * (x2 - x1) <= (y2 - y1) * (x2 - x))
+      {
+        if(eu)
+          inside = !inside;
+      }
+      else if(!eu)
+        inside = !inside;
+    }
+
+    su = eu;
+    y1 = y2;
+    x1 = x2;
+    x2 = hitbox[i][0];
+    y2 = hitbox[i][1];
+  }
 }
 
 public func SwitchHitboxVisibility()
 {
-	var effect = GetEffect("ShowHitbox", this);
-	if(!effect)
-		AddEffect("ShowHitbox", this, 101, 10, this);
-	else
-		EffectVar(0, this, effect) = !EffectVar(0, this, effect);
+  var effect = GetEffect("ShowHitbox", this);
+  if(!effect)
+    AddEffect("ShowHitbox", this, 101, 10, this);
+  else
+    EffectVar(0, this, effect) = !EffectVar(0, this, effect);
 
-	return true;
+  return true;
 }
 
 public func FxShowHitboxTimer(object target, int nr)
 {
-	if(!EffectVar(0, target, nr))
-		target->IsInHitbox(0, 0, true);
-	
-	return true;
+  if(!EffectVar(0, target, nr))
+    target->IsInHitbox(0, 0, true);
+
+  return true;
 }
 
 protected func FxIntHeliProtectionStart(object pTarget, int iEffect, int iTemp, object pObj)
@@ -156,10 +156,10 @@ protected func Initialize()
   throttle = 0;
   rotation = 0; 
   SetAction("Stand");
-  
+
   //Hitbox erstellen
   iHitboxDistance = Distance(0, 0, GetDefWidth(BKHK)/2, GetDefHeight(BKHK)/2);
-	aHitboxAngles = [Angle(0, 0, GetDefWidth(BKHK)/2, GetDefHeight(BKHK)/2), Angle(0, 0, -(GetDefWidth(BKHK)/2), GetDefHeight(BKHK)/2), Angle(0, 0, -(GetDefWidth(BKHK)/2), -(GetDefHeight(BKHK)/2)), Angle(0, 0, GetDefWidth(BKHK)/2, -(GetDefHeight(BKHK)/2))];
+  aHitboxAngles = [Angle(0, 0, GetDefWidth(BKHK)/2, GetDefHeight(BKHK)/2), Angle(0, 0, -(GetDefWidth(BKHK)/2), GetDefHeight(BKHK)/2), Angle(0, 0, -(GetDefWidth(BKHK)/2), -(GetDefHeight(BKHK)/2)), Angle(0, 0, GetDefWidth(BKHK)/2, -(GetDefHeight(BKHK)/2))];
 
   //Pilot
   aSeats = [];
