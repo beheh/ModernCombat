@@ -497,20 +497,44 @@ public func BlowTorch()
   if(living_dmg_cooldown)
     living_dmg_cooldown--;
 
-	if(LocalN("charge", pItem) < 2) return;
+	if(LocalN("charge", pItem) < 2) return Sound("BWTH_Repair.ogg", false, this, 100, 0, -1);
+	
+  //Angreifbare Objekte suchen
+  var obj = FindObject2(Find_Func("IsMeleeTarget", this),	//Angreifbar?
+  					Find_Exclude(this),
+  					Find_AtRect(-10,-10,20,20));
+  if(obj)
+  {
+    //Objekt beschädigen
+    DoDmg(3, DMG_Fire, obj);
 
+    LocalN("charge", pItem) = BoundBy(LocalN("charge", pItem)-2, 0, pItem->MaxEnergy());
+  }
+  //Entschärfbare Objekte suchen
+  var obj = FindObject2(Find_Func("IsDefusable"),		//Entschärfbar?
+  					Find_Hostile(GetOwner(this)),			//Feindlich?
+  					Find_NoContainer(),				//Nicht verschachtelt?
+  					Find_AtRect(-10,-10,20,20));
+  if(obj)
+  {
+    if(obj->~RTDefuse(this))
+      //Punkte bei Belohnungssystem (Entschärfung)
+      DoPlayerPoints(BonusPoints("TechnicalTask"), RWDS_TeamPoints, GetOwner(this), this, IC15);
+
+    LocalN("charge", pItem) = BoundBy(LocalN("charge", pItem)-2, 0, pItem->MaxEnergy());
+  }
 	//Reparierbare Objekte suchen
-  var obj = FindObject2(Find_Or(Find_And(Find_Func("IsRepairable"),				//Reparierbar?
-    				Find_Or(
-    				Find_Func("GetDamage"),					//Beschädigt?
-    				Find_Hostile(GetOwner(this))),	//Feindlich?
-    				Find_Exclude(this)),						//Kein Self-Repair
-    				Find_And(
-    				Find_OCF(OCF_Alive),
-    				Find_Hostile(GetOwner(this)),
-    				Find_NoContainer()),					//Nicht verschachtelt?
-    				Find_Func("IsFakeRepairable", GetOwner(this))),	//Konsolen?
-    				Find_AtRect(-10,-10,20,20));
+  obj = FindObject2(Find_Or(Find_And(Find_Func("IsRepairable"),				//Reparierbar?
+    		Find_Or(
+    		Find_Func("GetDamage"),					//Beschädigt?
+    		Find_Hostile(GetOwner(this))),	//Feindlich?
+    		Find_Exclude(this)),						//Kein Self-Repair
+    		Find_And(
+    		Find_OCF(OCF_Alive),
+    		Find_Hostile(GetOwner(this)),
+    		Find_NoContainer()),					//Nicht verschachtelt?
+    		Find_Func("IsFakeRepairable", GetOwner(this))),	//Konsolen?
+    		Find_AtRect(-10,-10,20,20));
     						
   if(obj)
   {
@@ -525,7 +549,7 @@ public func BlowTorch()
         //Feindliche Fahrzeuge beschädigen
         DoDmg(5, DMG_Fire, obj);
 
-        LocalN("charge", pItem) = BoundBy(LocalN("charge", pItem)-1, 0, pItem->MaxEnergy());
+        LocalN("charge", pItem) = BoundBy(LocalN("charge", pItem)-2, 0, pItem->MaxEnergy());
       }
       else
       {
@@ -543,7 +567,7 @@ public func BlowTorch()
         if(!Random(7))
           Sound("SharpnelImpact*.ogg");
 
-        LocalN("charge", pItem) = BoundBy(LocalN("charge", pItem) - 1, 0, pItem->MaxEnergy());
+        LocalN("charge", pItem) = BoundBy(LocalN("charge", pItem) - 2, 0, pItem->MaxEnergy());
       }
     }
 		else
@@ -736,6 +760,7 @@ public func Wait()
   if(pLaser) RemoveObject(pLaser);
 
   Sound("MAVE_Engine.ogg", 0, 0, 70, 0, -1);
+  Sound("BWTH_Repair.ogg", false, this, 100, 0, -1);
 
   EndAim();
 }
@@ -962,6 +987,7 @@ public func ControlThrow(pByObj)
     if(GetID(pTemp) == BWTH) iTemp = 3;
     if(GetID(pTemp) == RSHL) iTemp = 4;
     if(GetID(pTemp) == BBTP) iTemp = 5;
+    if(GetID(pTemp) == CDBT) iTemp = 6;
 
     if(!iTemp)
     {
@@ -980,6 +1006,7 @@ public func ControlThrow(pByObj)
 
     SetPhase(iItemType, this);
     Sound("RSHL_Deploy.ogg");
+    Sound("BWTH_Repair.ogg", false, this, 100, 0, -1);
 
     return true;
   }
@@ -1021,6 +1048,7 @@ public func ControlDig(pByObj)
     iItemType = 0;
 
     SetPhase(iItemType, this);
+    Sound("BWTH_Repair.ogg", false, this, 100, 0, -1);
   }
 }
 
