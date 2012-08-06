@@ -506,9 +506,25 @@ public func Beep()
   AddEffect("IntWait", this, 1, 50, this);
 }
 
-public func HardKill(int iEffectTime)
+public func HardKill()
 {
-	if(iEffectTime % 60) return;
+	if(GetEffect("HardKillCooldown", this)) return;
+	
+	var threat = FindObject2(Find_Distance(120, 0, 0), Find_Or(Find_Func("IsRocket"), Find_ID(ESHL), Find_ID(FSHL)));
+	if(threat && Abs(Angle(0, 0, GetXDir(threat), GetYDir(threat)) - Angle(GetX(threat), GetY(threat), GetX(), GetY())) <= 60 && PathFree(GetX(), GetY(), GetX(threat) + GetXDir(threat)/2, GetY(threat) + GetYDir(threat)/2))
+	{
+		//Splitter verschleudern
+  	var i = 0;
+  	var iDir = Angle(GetX(), GetY(), GetX(threat) + GetXDir(threat)/2, GetY(threat) + GetYDir(threat)/2);
+  	while(i < 15)
+  	{
+  	  var ammo = CreateObject(SHRP, 0, 0, GetOwner(this));
+  	  ammo->Launch(iDir+RandomX(-10,10),100+Random(80),180+Random(50),3,20,50);
+  	  i++;
+  	}
+  Sound("BBTP_Explosion.ogg");
+  AddEffect("HardKillCooldown", this, 1, 40);
+  }
 }
 
 public func ShockPaddles()
