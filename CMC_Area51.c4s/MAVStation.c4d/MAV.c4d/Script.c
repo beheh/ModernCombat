@@ -36,7 +36,7 @@ public func IsAiming() 				{return fIsAiming;}
 public func GetLaser()				{return pLaser;}
 public func Sgn(int x)				{if (x < 0) return x / x * -1; return x / x;}
 public func IsMAV()				{return true;}
-public func MaxDamage()				{return 40;}
+public func MaxDamage()				{return 60;}
 public func IsRepairable()			{return !fDestroyed;}
 public func IsMeleeTarget(object attacker)	{return !fDestroyed && Hostile(GetOwner(this), GetOwner(attacker));}
 public func MeleeHit(object pWeapon)		{return DoDmg(MaxDamage()+1, DMG_Melee, this, 0, GetOwner(pWeapon));}

@@ -92,8 +92,12 @@ func Initialize()
   CreateObject(GNET, 1080, 560, -1)->Set(SATW,90);
   CreateObject(GNET, 1080, 310, -1)->Set(0,90);
 
-  //MAV-Station
+  //MAV-Stationen
+  CreateObject(MVSN, 185, 390, -1);
+  CreateObject(MVSN, 185, 650, -1);
   CreateObject(MVSN, 500, 1060, -1);
+  CreateObject(MVSN, 1890, 390, -1);
+  CreateObject(MVSN, 1890, 650, -1);
 
   //Stahlbrücken
   CreateObject(_HBR, 395, 1072, -1)->SwitchMode();
