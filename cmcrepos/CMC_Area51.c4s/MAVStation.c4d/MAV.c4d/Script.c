@@ -19,7 +19,8 @@ local pLaser;
 local pBeam;
 local iC4Count;
 local pItem;
-local iItemType;	//0: Standard, 1: MTP, 2: EHP, 3: Schweiﬂbrenner, 4: Schild, 5: Sprengschutz
+local iItemType;	//0: Standard, 1: MTP, 2: EHP, 3: Schweiﬂbrenner, 4: Schild, 5: Sprengschutz, 6: Defi
+local living_dmg_cooldown; //Gehˆrt zum Schweiﬂbrenner, ist aber praktischer, wenn direkt hier gespeichert
 
 public func AttractTracer(object pTracer)	{return GetPlayerTeam(GetController(pTracer)) != GetTeam() && !fDestroyed;}
 public func IsBulletTarget()			{return !fDestroyed;}
@@ -492,56 +493,101 @@ public func Beep()
 
 public func BlowTorch()
 {
+	//Eventuellen Cooldown verringern
+  if(living_dmg_cooldown)
+    living_dmg_cooldown--;
+
 	if(LocalN("charge", pItem) < 2) return;
 
 	//Reparierbare Objekte suchen
   var obj = FindObject2(Find_Or(Find_And(Find_Func("IsRepairable"),				//Reparierbar?
-    				Find_Func("GetDamage")),		//Besch‰digt?
+    				Find_Or(
+    				Find_Func("GetDamage"),					//Besch‰digt?
+    				Find_Hostile(GetOwner(this))),	//Feindlich?
+    				Find_Exclude(this)),						//Kein Self-Repair
+    				Find_And(
+    				Find_OCF(OCF_Alive),
+    				Find_Hostile(GetOwner(this)),
+    				Find_NoContainer()),					//Nicht verschachtelt?
     				Find_Func("IsFakeRepairable", GetOwner(this))),	//Konsolen?
-    				Find_AtRect(-10,-10,20,20),
-    				Find_Exclude(this));
+    				Find_AtRect(-10,-10,20,20));
     						
   if(obj)
   {
     //Konsolen reparieren / besch‰digen
     if(obj->~IsFakeRepairable())
       obj = obj->GetRealRepairableObject();
-
-    if(!obj->~RejectRepair())
+		
+		if(Hostile(GetOwner(obj), GetOwner(this)))
     {
-       //Fahrzeug reparieren
-       DoDamage(-2, obj);
+      if(obj->~IsRepairable())
+      {
+        //Feindliche Fahrzeuge besch‰digen
+        DoDmg(5, DMG_Fire, obj);
+
+        LocalN("charge", pItem) = BoundBy(LocalN("charge", pItem)-1, 0, pItem->MaxEnergy());
+      }
+      else
+      {
+        if(!living_dmg_cooldown)
+        {
+          //Feindliche Lebewesen verletzen
+          DoDmg(12,DMG_Fire,obj);
+
+          if(!GetAlive(obj) || IsFakeDeath(obj))
+            //Achievement-Fortschritt (I'll fix you up?)
+            DoAchievementProgress(1, AC32, GetOwner(this));
+
+          living_dmg_cooldown = 7;
+        }
+        if(!Random(7))
+          Sound("SharpnelImpact*.ogg");
+
+        LocalN("charge", pItem) = BoundBy(LocalN("charge", pItem) - 1, 0, pItem->MaxEnergy());
+      }
+    }
+		else
+		{
+    	if(!obj->~RejectRepair())
+    	{
+       	//Fahrzeug reparieren
+       	DoDamage(-2, obj);
          
-       if(!Hostile(GetOwner(obj), GetOwner(this)) && GetOwner(obj) != GetOwner(this) && GetOwner(obj) != NO_OWNER)
-       {
-         //Achievement-Fortschritt (Wicked Engineer)
-         DoAchievementProgress(2, AC33, GetOwner(this));
-       }
+       	if(!Hostile(GetOwner(obj), GetOwner(this)) && GetOwner(obj) != GetOwner(this) && GetOwner(obj) != NO_OWNER)
+       	{
+         	//Achievement-Fortschritt (Wicked Engineer)
+         	DoAchievementProgress(2, AC33, GetOwner(this));
+       	}
          
-       //Callback
-       if(GetDamage(obj) == 0)
-         obj->~IsFullyRepaired();
-       else
-         obj->~OnRepairing(this);
-     }
+       	//Callback
+       	if(GetDamage(obj) == 0)
+       	  obj->~IsFullyRepaired();
+       	else
+       	  obj->~OnRepairing(this);
+    	}
        
-     if(!Hostile(GetOwner(obj), GetOwner(Contained())) && GetOwner(obj) != GetOwner(this) && LocalN("iRepaired", pItem)++ >= 50)
-     {
+    if(!Hostile(GetOwner(obj), GetOwner(Contained())) && GetOwner(obj) != GetOwner(this) && LocalN("iRepaired", pItem)++ >= 50)
+    {
        //Punkte bei Belohnungssystem (Reparatur)
        DoPlayerPoints(BonusPoints("Repair"), RWDS_TeamPoints, GetOwner(this), this, IC15);
        LocalN("iRepaired", pItem) = 0;
-     }
-     LocalN("charge", pItem) = BoundBy(LocalN("charge", pItem) - 2, 0, pItem->MaxEnergy());
+    }
+    LocalN("charge", pItem) = BoundBy(LocalN("charge", pItem) - 2, 0, pItem->MaxEnergy());
+  }
   
     
-  //Effekte
-  var d = 0;
-  CreateParticle("RepairFlame", 10*d, -4, 5*d, Random(2)-2, 80, RGB(0,100,250));
-  if(GetEffectData(EFSM_BulletEffects) >1 && !Random(2))
-    AddLightFlash(80, 10*d, -4, RGB(0,140,255));
-  if(!Random(2))
-    Sparks(8+Random(4), RGB(100,100,250), RandomX(-5, 5), RandomX(-5,5));
+  	//Effekte
+  	CreateParticle("RepairFlame", 0, 7, 0, 2-Random(2), 80, RGB(0,100,250));
+  	if(GetEffectData(EFSM_BulletEffects) >1 && !Random(2))
+    	AddLightFlash(80, 0, 7, RGB(0,140,255));
+  	if(!Random(2))
+    	Sparks(8+Random(4), RGB(100,100,250), RandomX(-5, 5), RandomX(-5,5));
+    
+  	Sound("BWTH_Repair.ogg", false, this, 100, 0, 1);
   }
+  else
+  	Sound("BWTH_Repair.ogg", false, this, 100, 0, -1);
+  
 }
 
 
@@ -933,6 +979,7 @@ public func ControlThrow(pByObj)
     ShiftContents();
 
     SetPhase(iItemType, this);
+    Sound("RSHL_Deploy.ogg");
 
     return true;
   }
