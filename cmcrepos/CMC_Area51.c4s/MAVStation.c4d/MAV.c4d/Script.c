@@ -492,11 +492,14 @@ public func Beep()
 
 public func BlowTorch()
 {
+	if(LocalN("charge", pItem) < 2) return;
+
 	//Reparierbare Objekte suchen
   var obj = FindObject2(Find_Or(Find_And(Find_Func("IsRepairable"),				//Reparierbar?
     				Find_Func("GetDamage")),		//Beschädigt?
     				Find_Func("IsFakeRepairable", GetOwner(this))),	//Konsolen?
-    				Find_AtRect(-10,-10,20,20));
+    				Find_AtRect(-10,-10,20,20),
+    				Find_Exclude(this));
     						
   if(obj)
   {
@@ -507,7 +510,7 @@ public func BlowTorch()
     if(!obj->~RejectRepair())
     {
        //Fahrzeug reparieren
-       DoDamage(-1, obj);
+       DoDamage(-2, obj);
          
        if(!Hostile(GetOwner(obj), GetOwner(this)) && GetOwner(obj) != GetOwner(this) && GetOwner(obj) != NO_OWNER)
        {
@@ -528,7 +531,7 @@ public func BlowTorch()
        DoPlayerPoints(BonusPoints("Repair"), RWDS_TeamPoints, GetOwner(this), this, IC15);
        LocalN("iRepaired", pItem) = 0;
      }
-     LocalN("charge", pItem) = BoundBy(LocalN("charge", pItem) - 1, 0, pItem->MaxEnergy());
+     LocalN("charge", pItem) = BoundBy(LocalN("charge", pItem) - 2, 0, pItem->MaxEnergy());
   
     
   //Effekte
