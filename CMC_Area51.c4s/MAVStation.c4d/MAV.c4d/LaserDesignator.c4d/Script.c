@@ -129,10 +129,10 @@ private func Reloaded(caller,slot,amount)
   //Geladene Munitionsmenge angeben
   if(GetAction(Contained()) == "Flying")
   {
-  	HelpMessage(GetOwner(Contained()),"$Reloaded$",caller,amount,ammoid);
+  	PlayerMessage(GetOwner(Contained()), "$Reloaded$", this);
   	Sound("JetReporting*.wav",0,0,0,GetOwner(Contained()));
   }
 
   //Callback
-  OnReloaded(firemode,slot);
+  //OnReloaded(firemode,slot);
 }
