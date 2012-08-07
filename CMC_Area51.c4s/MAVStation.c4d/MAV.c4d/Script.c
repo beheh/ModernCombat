@@ -179,6 +179,9 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
       SetPhase(iItemType);
     }
     
+    if(Inside(iItemType, 1, 3) && !GetEffect("Bars", this))
+    	AddEffect("Bars", this, 1, 1, this);
+    
     if(iItemType == 0 && !(iEffectTime % 25)) Sense();
     if(iItemType == 1 && !(iEffectTime % 60)) AMP(iEffectTime);
     if(iItemType == 2 && !(iEffectTime % 20)) FAP(iEffectTime);
@@ -415,6 +418,8 @@ private func DamageChecks()
 
 public func OnDmg(int iDmg, int iType)
 {
+	Sound("WarningDamage.ogg",0,0,0,GetOwner());
+
   if(iType == DMG_Melee)	return 0 + 50 * (iItemType == 4);	//Melee
   if(iType == DMG_Fire)		return 40 + 24 * (iItemType == 4);	//Feuer
   if(iType == DMG_Energy)	return 40 + 24 * (iItemType == 4);	//Energiewaffen
@@ -1055,7 +1060,10 @@ public func ControlThrow(pByObj)
       PlayerMessage(GetOwner(pByObj), "$InvalidItem$", this);
       return false;
     }
-
+		
+		if(GetEffect("Bars", this))
+    	RemoveEffect("Bars", this);
+		
     Enter(this, pTemp);
     if(pItem)
    	{
@@ -1186,4 +1194,160 @@ protected func Hit3()
   Sound("HeavyHit*.ogg");
 
   DoDmg(10);
+}
+
+//Balken updaten
+public func FxBarsTimer(object target, int nr)
+{
+  
+  if(!Inside(iItemType, 1, 3) || GetAction() != "Flying")
+  {
+  	RemoveEffect("Bars", this);
+  	return false;
+  }
+  
+  
+  //MTP
+	if(iItemType == 1)
+  {
+  	EffectVar(1, target, nr) = false;
+
+  	var owner = GetOwner(Contained());
+
+  	//Balken updaten
+  	for(var bar in EffectVar(0, target, nr))
+  	{
+    	if(!bar)
+      	continue;
+
+    	var actTarget = GetActionTarget(0, bar); var weapon;
+    	//actTarget lebt nicht mehr / ist verfeindet oder sein Spieler existiert nicht mehr? Balken löschen
+    	if(!GetPlayerName(GetOwner(actTarget)) || !(GetOCF(actTarget) & OCF_Alive) || Hostile(GetOwner(actTarget), owner))
+      	RemoveObject(bar);
+    	//actTarget befindet sich in einem Objekt, hat keine Waffe ausgewählt oder hat keinen Munitionsgürtel: Ausblenden
+    	else if(Contained(actTarget) || !(weapon = Contents(0, actTarget)) || !weapon->~IsWeapon() || !actTarget->~AmmoStoring())
+      	bar->Update(0, true);
+    	else if(weapon->GetFMData(FM_NoAmmoModify, weapon->GetFireTec()))
+      	bar->Update(0, true);
+    	else
+    	{
+      	//Munitionsdaten einholen
+      	var ammocount = actTarget->GetAmmo(weapon->GetFMData(FM_AmmoID));
+      	var ammomax = weapon->GetFMData(FM_AmmoLoad);
+
+      	//Falls maximal 1 im Magazin, 10fach als 100%, ansonsten 3fach
+      	if(ammomax == 1)
+        	ammomax *= 10;
+      	else 
+        	ammomax *= 3;
+
+      	//Prozentsatz errechnen
+      	var percent = BoundBy((((100 * 1000) / ammomax) * ammocount) / 1000, 0, 100);
+
+      	bar->Update(percent, (percent >= 95));
+    	}
+  	}
+
+  	//Lebende, im Freien befindliche verbündete CrewMember suchen (ausgenommen Container)
+  	for(var clonk in FindObjects(Find_OCF(OCF_Alive), Find_OCF(OCF_CrewMember), Find_NoContainer(), Find_Exclude(Contained()), Find_Not(Find_Hostile(owner))))
+  	{
+    	if(FindObject2(Find_ID(SBAR), Find_ActionTarget(clonk), Find_Owner(owner), Find_Func("HasBarType", BAR_Ammobar))) //Hat schon einen Balken?
+      	continue;
+
+    	var bar = CreateObject(SBAR, 0, 0, owner);
+    	bar->Set(clonk, RGB(255, 255, 80), BAR_Ammobar, true, "", SM11);
+    	EffectVar(0, target, nr)[GetLength(EffectVar(0, target, nr))] = bar;
+  	}
+  }
+  
+  
+  //EHP
+  if(iItemType == 2)
+  {
+  	for(var bar in EffectVar(0, target, nr))
+  	{
+   	 	if(!bar)
+  	    continue;
+
+ 	   	var actTarget = GetActionTarget(0, bar);
+ 	   	if(!(GetOCF(actTarget) & OCF_Alive) || Hostile(GetOwner(actTarget), GetOwner(target)) || !GetPlayerName(GetOwner(actTarget)))
+ 	     	RemoveObject(bar);
+	    else
+ 	   	{
+ 	     	var percent = BoundBy(100000 * GetEnergy(actTarget) / GetPhysical("Energy", PHYS_Current, actTarget), 0, 100);
+	
+	      bar->Update(percent, (percent >= 95));
+ 	   	}
+ 	 	}
+
+ 	 	for(var clonk in FindObjects(Find_OCF(OCF_Alive), Find_OCF(OCF_CrewMember), Find_NoContainer(), Find_Not(Find_Hostile(GetOwner(target)))))
+ 	 	{
+	    if(FindObject2(Find_ID(SBAR), Find_ActionTarget(clonk), Find_Owner(GetOwner(target)), Find_Func("HasBarType", BAR_Energybar))) //Hat schon einen Balken?
+	      continue;
+
+ 	   	var bar = CreateObject(SBAR, 0, 0, GetOwner(target));
+ 	   	bar->Set(clonk, RGB(255,0,0), BAR_Energybar, true, "", SM13);
+	    EffectVar(0, target, nr)[GetLength(EffectVar(0, target, nr))] = bar;
+	 	}
+	}
+	
+	
+	//Schweißbrenner
+  if(iItemType == 3)
+  {
+  	var iPlr = GetOwner();
+
+
+  	EffectVar(1, target, nr) = true;
+
+  	for(var bar in EffectVar(0, target, nr))
+  	{
+    	if(!bar)
+      	continue;
+
+    	var actTarget = GetActionTarget(0, bar);
+
+    	if(!actTarget || Hostile(GetOwner(actTarget), iPlr) || !(actTarget->~IsRepairable()))
+    	{
+      	RemoveObject(bar);
+      	continue;
+    	}
+
+    	var dmg = GetDamage(actTarget);
+    	var max_dmg = actTarget->~MaxDamage();
+    	var percent = dmg * 100 / max_dmg;
+    	var deactivate = false;
+    	if(!percent)
+      	deactivate = true;
+
+    	percent = 100 - percent;
+
+    	bar->Update(percent, deactivate);
+  	}
+
+  	for(var obj in FindObjects(Find_Func("IsRepairable"), Find_Not(Find_Hostile(iPlr))))
+  	{
+    	if(FindObject2(Find_ID(SBAR), Find_ActionTarget(obj), Find_Owner(iPlr), Find_Func("HasBarType", BAR_Repairbar))) //Hat schon einen Balken?
+      	continue;
+
+    	var bar = CreateObject(SBAR, 0, 0, iPlr);
+    	bar->Set(obj, RGB(80,190,255), BAR_Repairbar, true, "", SM12);
+    	EffectVar(0, target, nr)[GetLength(EffectVar(0, target, nr))] = bar;
+  	}
+  }
+
+  return true;
+}
+
+public func FxBarsStart(object target, int nr)
+{
+  EffectVar(0, target, nr) = [];
+  return true;
+}
+
+public func FxBarsStop(object target, int nr)
+{
+  for(var bar in EffectVar(0, target, nr))
+    if(bar)
+      RemoveObject(bar);
 }
