@@ -1,2 +1,3 @@
 MarkRequired=Mark required!
 InvalidItem=Item not mountable!
+JetNotReady=Jet not ready!

@@ -1125,7 +1125,12 @@ public func ControlThrow(pByObj)
   else
   {
     if(pLaser && pLaser->Active())
-      GetAttWeapon()->ControlThrow(this);
+   	{
+    	if(!CheckAmmo(GetAttWeapon()->GetFMData(FM_AmmoID), GetAttWeapon()->GetFMData(FM_AmmoUsage), GetAttWeapon()))
+    		PlayerMessage(GetOwner(), "$JetNotReady$", this);
+    	else
+      	GetAttWeapon()->ControlThrow(this);
+    }
     else
     {
       PlayerMessage(GetOwner(pByObj), "$MarkRequired$", this);
