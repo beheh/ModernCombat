@@ -85,7 +85,7 @@ public func FxActivityTimer(object pTarget, int iEffectNumber, int iEffectTime)
   {
     RemoveEffect("Activity", this);
 
-    if(controller != -1)
+    if(controller)
     {
       controller->SetHUDTarget(0);
       controller->~ShowCH();
@@ -99,7 +99,7 @@ public func FxActivityTimer(object pTarget, int iEffectNumber, int iEffectTime)
     }
 
     SetOwner(-1, this);
-    controller = -1;
+    controller = 0;
     return;
   }
 
@@ -188,7 +188,7 @@ public func GetUser()
   if(pUser = FindObject2(Find_OCF(OCF_CrewMember), Find_ActionTarget(this), Find_Func("IsRiding")))
     return(pUser);
   else
-    pUser=0;
+    return pUser = 0;
 }
 
 private func ExitClonk(object pByObject)
@@ -208,7 +208,7 @@ private func ExitClonk(object pByObject)
       //pMav->SetColorDw(RGB(255,255,255));
     }
     SetOwner(-1, this);
-    controller = - 1;
+    controller = 0;
 
     return(1);  }
   return(0);
