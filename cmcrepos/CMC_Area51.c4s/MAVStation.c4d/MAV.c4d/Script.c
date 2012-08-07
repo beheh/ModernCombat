@@ -187,9 +187,25 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
     if(iItemType == 2 && !(iEffectTime % 20)) FAP(iEffectTime);
     if(iItemType == 3) BlowTorch();
   }
-  	//Echtzeit-Anforderungen, daher außerhalb
-  	if(iItemType == 5) HardKill(iEffectTime);
-  	if(iItemType == 6) ShockPaddles();
+  //Echtzeit-Anforderungen, daher außerhalb
+  if(iItemType == 5) HardKill(iEffectTime);
+  if(iItemType == 6) ShockPaddles();
+
+
+	//Namensanzeige für Verbündete
+  for(var first = true, iFlags, i = 0; i < GetPlayerCount(); i++)
+  {
+    var iPlr = GetPlayerByIndex(i);
+    if(!Hostile(GetOwner(), iPlr) && GetOwner(this) != iPlr)
+    {
+      if(first)
+        first = false;
+      else
+        iFlags = MSG_Multiple;
+      var szStr = Format("@%s (%s)", GetName(GetCursor(GetOwner())), GetPlayerName(GetOwner()));
+      CustomMessage(szStr, this, iPlr, 0, 0, SetRGBaValue(GetPlrColorDw(GetOwner()), 128), 0, 0, iFlags);
+    }
+  }
 
   //Schadensverhalten
   DamageChecks();
@@ -399,8 +415,13 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
   							Find_AtRect(-10 + iXDir/2, -10 + iYDir/2, 10 + iXDir/2, -10 + iYDir/2)))
   	{
   		DoDmg(20, DMG_Melee, target, 0, GetController(this)+1, GetID());
+  		
   		if(!strike)
-  			Sound("WPN2_Punch*.ogg");
+  		{
+  			Sound("HeavyHit*.ogg");
+  			if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",2,40,0,0,0,50,60);
+  			Sparks(Random(2)+2,RGB(255,255,Random(5)+255));
+  		}
   	}
   }
 }
@@ -418,7 +439,7 @@ private func DamageChecks()
 
 public func OnDmg(int iDmg, int iType)
 {
-	Sound("WarningDamage.ogg",0,0,0,GetOwner());
+	if(!fDestroyed) Sound("WarningDamage.ogg",0,0,0,GetOwner());
 
   if(iType == DMG_Melee)	return 0 + 50 * (iItemType == 4);	//Melee
   if(iType == DMG_Fire)		return 40 + 24 * (iItemType == 4);	//Feuer
