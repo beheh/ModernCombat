@@ -1,4 +1,4 @@
 MarkRequired=Jet requires target!
 JetNotReady=Jet not in position!
 InvalidItem=Item not mountable!
-Updated=Modified MAV with %s.
+Updated=MAV modified with <c ffff33>%s</c>.
