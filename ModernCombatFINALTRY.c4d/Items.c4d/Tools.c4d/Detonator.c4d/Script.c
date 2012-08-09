@@ -5,7 +5,7 @@
 
 local thrown;
 
-static const C4PA_Cooldown = 20;
+static const C4PA_Cooldown = 30;
 
 public func IsDrawable()	{return true;}
 public func HandSize()		{return 1000;}

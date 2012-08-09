@@ -41,7 +41,7 @@ public func SetActive(object pCaller)
 
   fuse = pCaller;
   active = true;
-  iBulletsTrigger = 30;
+  iBulletsTrigger = 40;
 
   SetController(GetOwner(pCaller));
   
@@ -56,7 +56,8 @@ public func SetActive(object pCaller)
 
 /* Blinkeffekt */
 
-public func FxBlinkTimer(object pTarget, int iEffectNumber) {
+public func FxBlinkTimer(object pTarget, int iEffectNumber)
+{
   CreateParticle("PSpark",0,0,0,0,60,RGBa(255,0,0,0),this);
   return -1;
 }
@@ -132,6 +133,7 @@ public func BlowUp()
   for(var obj in FindObjects(Find_Distance(50), Find_Category(C4D_Structure | C4D_Vehicle), Find_Exclude()))
     DoDmg(BoundBy(InvertA1(ObjectDistance(obj), 100),0,60), DMG_Explosion, obj, 0, GetOwner()+1, GetID());
 
+  //Explosion
   Explode(BlastRadius());
 }
 
