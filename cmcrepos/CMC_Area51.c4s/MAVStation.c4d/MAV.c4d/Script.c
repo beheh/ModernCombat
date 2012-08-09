@@ -562,11 +562,8 @@ public func HardKill()
 public func ShockPaddles()
 {
   if(LocalN("charge", pItem) >= 10 && FindObject2(Find_AtPoint(0 - iXDir/5 - Sgn(iXDir), 0 - iYDir/5 - Sgn(iYDir)),
-  					Find_Or(
-  					Find_And(Find_ID(FKDT),				//Schwerverletzter?
-  					Find_Allied(GetOwner())),			//Verbündet?
-  					Find_And(Find_OCF(OCF_Alive),	//Lebending?
-  					Find_Hostile(GetOwner()))),		//Feind?
+  					Find_ID(FKDT),				//Schwerverletzter?
+  					Find_Allied(GetOwner(this)),		//Verbündet?
   					Find_NoContainer()))
     pItem->Activate(this);
 }
@@ -827,6 +824,11 @@ public func Start()
     AddEffect("Flying", this, 1, 1, this);
   Sound("MAVE_Engine.ogg", 0, 0, 70, 0, +1);
 
+  //Nachricht über eventuelle Modifikationen
+  if(pItem)
+    PlayerMessage(GetOwner(), "<c ffff33>%s</c>", this, GetName(pItem));
+
+  //Sprengfallen-Hinweisnachricht
   if(iItemType == 5)
     PlayerMessage(GetOwner(), Format("%d", iHKShots), this);
 }
@@ -1152,7 +1154,7 @@ public func ControlThrow(pByObj)
 
     //Sprengfallen-Hinweisnachricht
     if(iItemType == 5 && GetAction() == "Flying")
-      PlayerMessage(GetOwner(), Format("%d", iHKShots), this);
+      PlayerMessage(GetOwner(pByObj), Format("%d", iHKShots), this);
 
     return true;
   }
@@ -1221,56 +1223,8 @@ public func FxMeleeCooldownTimer(object pTarget, int iEffectNumber, int iEffectT
   RemoveEffect("MeleeCooldown", this);
 }
 
-/* Kontaktfunktionen */
+/* Statusbalken */
 
-public func ContactLeft()
-{
-  iXDir = 0;
-  if(iXTendency < 0)
-    iXTendency = 0;
-}
-
-public func ContactRight()
-{
-  iXDir = 0;
-  if(iXTendency > 0)
-    iXTendency = 0;
-}
-
-public func ContactTop()
-{
-  iYDir = 0;
-  if(iYTendency < 0)
-    iYTendency = 0;
-}
-
-public func ContactBottom()
-{
-  iYDir = 0;
-  if(iYTendency > 0)
-    iYTendency = 0;
-}
-
-/* Aufschlag */
-
-protected func Hit()
-{
-  //Effekte
-  Sparks(Random(2)+2,RGB(255,255,Random(5)+255));
-  Sound("HeavyHit*.ogg");
-}
-
-protected func Hit3()
-{
-  //Effekte
-  if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",2,40,0,0,0,50,60);
-  Sparks(Random(2)+2,RGB(255,255,Random(5)+255));
-  Sound("HeavyHit*.ogg");
-
-  DoDmg(10);
-}
-
-//Balken updaten
 public func FxBarsTimer(object target, int nr)
 {
   if(!Inside(iItemType, 1, 3) || GetAction() != "Flying")
@@ -1422,4 +1376,53 @@ public func FxBarsStop(object target, int nr)
   for(var bar in EffectVar(0, target, nr))
     if(bar)
       RemoveObject(bar);
+}
+
+/* Kontaktfunktionen */
+
+public func ContactLeft()
+{
+  iXDir = 0;
+  if(iXTendency < 0)
+    iXTendency = 0;
+}
+
+public func ContactRight()
+{
+  iXDir = 0;
+  if(iXTendency > 0)
+    iXTendency = 0;
+}
+
+public func ContactTop()
+{
+  iYDir = 0;
+  if(iYTendency < 0)
+    iYTendency = 0;
+}
+
+public func ContactBottom()
+{
+  iYDir = 0;
+  if(iYTendency > 0)
+    iYTendency = 0;
+}
+
+/* Aufschlag */
+
+protected func Hit()
+{
+  //Effekte
+  Sparks(Random(2)+2,RGB(255,255,Random(5)+255));
+  Sound("HeavyHit*.ogg");
+}
+
+protected func Hit3()
+{
+  //Effekte
+  if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",2,40,0,0,0,50,60);
+  Sparks(Random(2)+2,RGB(255,255,Random(5)+255));
+  Sound("HeavyHit*.ogg");
+
+  DoDmg(10);
 }
