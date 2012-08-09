@@ -33,7 +33,7 @@ public func IsBulletTarget(id idBullet, object pBullet)
 
 public func OnDmg(int iDmg, int iType)
 {
-  if(iType == DMG_Explosion)	return 20;	//Explosionen und Druckwellen
+  if(iType == DMG_Explosion)	return 30;	//Explosionen und Druckwellen
   return 65;
 }
 
