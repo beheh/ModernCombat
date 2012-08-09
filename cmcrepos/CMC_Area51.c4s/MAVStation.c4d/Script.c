@@ -169,7 +169,7 @@ protected func ActivateEntrance(pUser)
   //Besitzer aktualisieren
   if(pMav && !pMav->IsDestroyed())
   {
-  	if(GetOwner(this) != pMav->GetOwner()) pMav->Reload();
+  	if(Hostile(GetOwner(this), pMav->GetOwner())) pMav->Reload();
     pMav->SetOwner(GetOwner(this));
     pMav->Start();
   }
