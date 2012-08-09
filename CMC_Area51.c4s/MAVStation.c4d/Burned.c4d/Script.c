@@ -1,15 +1,16 @@
-/*-- Kaputte MAV Station --*/
- 
+/*-- Verbrannte MAV Station --*/
+
 #strict 2
 #include CSTR
- 
+
 local crosshair;
 local controller;
 local pMav;
- 
-public func MaxDamage()				{return 150;}
-public func IsMachine()				{return true;}
-public func StartRepair()			{return true;}
+
+public func MaxDamage()		{return 150;}
+public func IsMachine()		{return true;}
+public func StartRepair()	{return true;}
+
 
 /* Initialisierung */
 
