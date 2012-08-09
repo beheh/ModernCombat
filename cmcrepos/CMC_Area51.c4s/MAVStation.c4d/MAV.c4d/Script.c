@@ -1140,7 +1140,8 @@ public func ControlThrow(pByObj)
     iHKShots = 5;
 
     ShiftContents();
-    
+
+    //Hilfsnachricht
     PlayerMessage(GetOwner(pByObj), "$Updated$", this, GetName(pItem));
 
     //MAV-Grafik anpassen
