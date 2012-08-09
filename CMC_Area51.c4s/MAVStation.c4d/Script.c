@@ -331,6 +331,7 @@ protected func ControlThrow(object pByObj)
     	pMav = CreateObject(MAVE,0,0,GetOwner(this));
     	pByObj->SetHUDTarget(pMav->GetAttWeapon());
     	pMav->Start();
+    	SpawnEffect(pMav);
     }
     else
     	PlayerMessage(GetOwner(pByObj), "$NoMoney$", this);
