@@ -952,7 +952,13 @@ public func ControlLeftReleased(pByObj)
 {
   if(GetActionTarget(0, pByObj) == this) return false;
 
-  iXTendency = 0;
+	if(fIsAiming)
+  {
+    iPat_Dir = 0;
+    return true;
+  }
+
+  if(iXTendency < 0) iXTendency = 0;
   return true;
 }
 
@@ -993,7 +999,13 @@ public func ControlRightReleased(pByObj)
 {
   if(GetActionTarget(0, pByObj) == this) return false;
 
-  iXTendency = 0;
+	if(fIsAiming)
+  {
+    iPat_Dir = 0;
+    return true;
+  }
+
+  if(iXTendency > 0) iXTendency = 0;
   return true;
 }
 
@@ -1015,6 +1027,14 @@ public func ControlDown(pByObj)
   else
     iYTendency = iSpeed;
 
+  return true;
+}
+
+public func ControlDownReleased(pByObj)
+{
+  if(GetActionTarget(0, pByObj) == this) return false;
+
+  if(iYTendency > 0) iYTendency = 0;
   return true;
 }
 
@@ -1042,6 +1062,14 @@ public func ControlUp(object pByObj)
   else
     iYTendency = -iSpeed;
 
+  return true;
+}
+
+public func ControlUpReleased(pByObj)
+{
+  if(GetActionTarget(0, pByObj) == this) return false;
+
+  if(iYTendency < 0) iYTendency = 0;
   return true;
 }
 
