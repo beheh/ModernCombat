@@ -1,3 +1,3 @@
-MarkRequired=Mark required!
+MarkRequired=Jet requires target!
+JetNotReady=Jet not in position!
 InvalidItem=Item not mountable!
-JetNotReady=Jet not ready!

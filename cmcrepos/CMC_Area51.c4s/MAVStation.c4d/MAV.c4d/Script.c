@@ -19,30 +19,30 @@ local pLaser;
 local pBeam;
 local iC4Count;
 local pItem;
-local iItemType;	//0: Standard, 1: MTP, 2: EHP, 3: Schweiﬂbrenner, 4: Schild, 5: Sprengschutz, 6: Defi
+local iItemType;		//0: Standard, 1: MTP, 2: EHP, 3: Schweiﬂbrenner, 4: Schild, 5: Sprengschutz, 6: Defi
 local iHKShots;
-local living_dmg_cooldown; //Gehˆrt zum Schweiﬂbrenner, ist aber praktischer, wenn direkt hier gespeichert
+local living_dmg_cooldown;	//Gehˆrt zum Schweiﬂbrenner, ist aber praktischer, wenn direkt hier gespeichert
 
-public func AttractTracer(object pTracer)	{return GetPlayerTeam(GetController(pTracer)) != GetTeam() && !fDestroyed;}
-public func IsBulletTarget()			{return !fDestroyed;}
-public func IsDestroyed()			{return fDestroyed;}
-public func AimAngle()				{return iAimAngle;}	//Winkel auf Ziel
-public func ReadyToFire()			{return 1;}
-public func IsMachine()				{return true;}
-public func IsThreat()				{return !IsDestroyed();}
-public func UpdateCharge()			{return 1;}
-public func GetAttWeapon()			{return cur_Attachment;}
-public func IsAiming() 				{return fIsAiming;}
-public func GetLaser()				{return pLaser;}
-public func Sgn(int x)				{if (x < 0) return x / x * -1; return x / x;}
-public func IsMAV()				{return true;}
-public func MaxDamage()				{return 90;}
-public func IsRepairable()			{return !fDestroyed;}
-public func IsMeleeTarget(object attacker)	{return !fDestroyed && Hostile(GetOwner(this), GetOwner(attacker));}
-public func MeleeHit(object pWeapon)		{return DoDmg(MaxDamage()+1, DMG_Melee, this, 0, GetOwner(pWeapon));}
-public func SensorDistance()			{return 190;}
-public func IsActive() 				{return GetAction(this) == "Flying";}
-public func TeamSupportRange()			{return 80;}
+public func AttractTracer(object pTracer)		{return GetPlayerTeam(GetController(pTracer)) != GetTeam() && !fDestroyed;}
+public func IsBulletTarget()				{return !fDestroyed;}
+public func IsDestroyed()				{return fDestroyed;}
+public func AimAngle()					{return iAimAngle;}  //Winkel auf Ziel
+public func ReadyToFire()				{return 1;}
+public func IsMachine()					{return true;}
+public func IsThreat()					{return !IsDestroyed();}
+public func UpdateCharge()				{return 1;}
+public func GetAttWeapon()				{return cur_Attachment;}
+public func IsAiming()					{return fIsAiming;}
+public func GetLaser()					{return pLaser;}
+public func Sgn(int x)					{if (x < 0) return x / x * -1; return x / x;}
+public func IsMAV()					{return true;}
+public func MaxDamage()					{return 90;}
+public func IsRepairable()				{return !fDestroyed;}
+public func IsMeleeTarget(object attacker)		{return !fDestroyed && Hostile(GetOwner(this), GetOwner(attacker));}
+public func MeleeHit(object pWeapon)			{return DoDmg(MaxDamage()+1, DMG_Melee, this, 0, GetOwner(pWeapon));}
+public func SensorDistance()				{return 190;}
+public func IsActive()					{return GetAction(this) == "Flying";}
+public func TeamSupportRange()				{return 80;}
 public func MaxRotLeft()
 {
   return 120;
@@ -95,7 +95,7 @@ public func WeaponEnd(&x, &y)
 {
   var number = GetEffect("ShowWeapon", this);
   if(!number)
-   return;
+    return;
   x = EffectVar(4, this, number)/1000;
   y = EffectVar(5, this, number)/1000;
 }
@@ -180,7 +180,7 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
     }
     
     if(Inside(iItemType, 1, 3) && !GetEffect("Bars", this))
-    	AddEffect("Bars", this, 1, 1, this);
+      AddEffect("Bars", this, 1, 1, this);
     
     if(iItemType == 0 && !(iEffectTime % 25)) Sense();
     if(iItemType == 1 && !(iEffectTime % 60)) AMP(iEffectTime);
@@ -192,7 +192,7 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
   if(iItemType == 6) ShockPaddles();
 
 
-	//Namensanzeige f¸r Verb¸ndete
+  //Namensanzeige f¸r Verb¸ndete
   for(var first = true, iFlags, i = 0; i < GetPlayerCount(); i++)
   {
     var iPlr = GetPlayerByIndex(i);
@@ -326,23 +326,23 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
     pBeam->SetObjDrawTransform(100 * Distance(xPos, yPos, x, y), 0, -458 * Distance(xPos, yPos, x, y), 0, 1000, 0);
   else
     pBeam->SetObjDrawTransform(100 * Distance(xPos, yPos, xPos + xdir/3, yPos + ydir/3), 0, -458 * Distance(xPos, yPos, xPos + xdir/3, yPos + ydir/3), 0, 1000, 0);
-  
+
   pBeam->SetR(AimAngle()+90);
   SetPosition(x, y, pLaser);
-  
+
   //Find_OnLine(int x, int y, int x2, int y2)
    /*
-   
+
    if (x > 0)
     x = 10000 * (LandscapeWidth() - posX) / x;
    else
     x = -10000 * posX / x;
-   
+
    if (y > 0)
      y = 10000 * posY / y;
    else
      y = -10000 * (LandscapeHeight() - posY) / y;
-   
+
    if (posX + Sin(AimAngle(), y) > LandscapeWidth() - 1)
    {
      x = posX + Sin(AimAngle(), x);
@@ -371,7 +371,7 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
   //Objekte zum Rammen suchen
   if((Abs(iXDir) + Abs(iYDir) >= 30) && !GetEffect("MeleeCooldown", this))
   {
-  	var strike;
+    var strike;
     var target = FindObject2(Find_AtPoint(0, 0), Find_Hostile(GetOwner(this)), Find_NoContainer(), Find_OCF(OCF_Alive));
     if(target)
     {
@@ -410,19 +410,19 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
       Sound("BKHK_RotorHit*.ogg");
       strike = true;
     }
-    
-  	if(target = FindObject2(Find_Func("IsMeleeTarget", this),
-  							Find_AtRect(-10 + iXDir/2, -10 + iYDir/2, 10 + iXDir/2, -10 + iYDir/2)))
-  	{
-  		DoDmg(20, DMG_Melee, target, 0, GetController(this)+1, GetID());
-  		
-  		if(!strike)
-  		{
-  			Sound("HeavyHit*.ogg");
-  			if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",2,40,0,0,0,50,60);
-  			Sparks(Random(2)+2,RGB(255,255,Random(5)+255));
-  		}
-  	}
+
+    if(target = FindObject2(Find_Func("IsMeleeTarget", this),
+    		Find_AtRect(-10 + iXDir/2, -10 + iYDir/2, 10 + iXDir/2, -10 + iYDir/2)))
+    {
+      DoDmg(20, DMG_Melee, target, 0, GetController(this)+1, GetID());
+
+      if(!strike)
+      {
+        Sound("HeavyHit*.ogg");
+        if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",2,40,0,0,0,50,60);
+        Sparks(Random(2)+2,RGB(255,255,Random(5)+255));
+      }
+    }
   }
 }
 
@@ -439,11 +439,11 @@ private func DamageChecks()
 
 public func OnDmg(int iDmg, int iType)
 {
-	if(!fDestroyed) Sound("WarningDamage.ogg",0,0,0,GetOwner());
+  if(!fDestroyed) Sound("WarningDamage.ogg",0,0,0,GetOwner());
 
-  if(iType == DMG_Melee)	return 0 + 50 * (iItemType == 4);	//Melee
-  if(iType == DMG_Fire)		return 40 + 24 * (iItemType == 4);	//Feuer
-  if(iType == DMG_Energy)	return 40 + 24 * (iItemType == 4);	//Energiewaffen
+  if(iType == DMG_Melee)  return 0 + 50 * (iItemType == 4);  //Melee
+  if(iType == DMG_Fire)    return 40 + 24 * (iItemType == 4);  //Feuer
+  if(iType == DMG_Energy)  return 40 + 24 * (iItemType == 4);  //Energiewaffen
 
   return 50 + 25 * (iItemType == 4);
 }
@@ -492,10 +492,10 @@ public func FxC4TimerStop (object pTarget, int iEffectNumber, int iReason, bool 
 protected func Sense()
 {
   //Zu markierende Gefahren suchen
-  for(var pObj in FindObjects(Find_Distance(SensorDistance()),			//In Reichweite
-  		Find_Exclude(this),						//Selber ausschlieﬂen
-  		Find_NoContainer(),						//Im Freien
-  		Find_Or(Find_OCF(OCF_Alive), Find_Func("IsDetectable"))))	//Lebewesen oder als identifizierbar markiert
+  for(var pObj in FindObjects(Find_Distance(SensorDistance()),					//In Reichweite
+  				Find_Exclude(this),						//Selber ausschlieﬂen
+  				Find_NoContainer(),						//Im Freien
+  				Find_Or(Find_OCF(OCF_Alive), Find_Func("IsDetectable"))))	//Lebewesen oder als identifizierbar markiert
   {
     //Feindlich
     if(!Hostile(GetController(), GetController(pObj))) continue;
@@ -536,51 +536,52 @@ public func Beep()
 
 public func HardKill()
 {
-	if(GetEffect("HardKillCooldown", this)) return;
-	
-	var threat = FindObject2(Find_Distance(120, 0, 0), Find_Hostile(GetOwner(this)), Find_Or(Find_Func("IsRocket"), Find_Func("IsRifleGrenade")), Find_Not(Find_Func("IsDamaged")));
-	if(threat && !Inside(Abs(Angle(0, 0, GetXDir(threat), GetYDir(threat)) - Angle(GetX(threat), GetY(threat), GetX(), GetY())), 61, 299) && PathFree(GetX(), GetY(), GetX(threat) + GetXDir(threat)/2, GetY(threat) + GetYDir(threat)/2))
-	{
-		//Splitter verschleudern
-  	var i = 0;
-  	var iDir = Angle(GetX(), GetY(), GetX(threat) + GetXDir(threat)/2, GetY(threat) + GetYDir(threat)/2);
-  	while(i < 15)
-  	{
-  	  var ammo = CreateObject(SHRP, 0, 0, GetOwner(this));
-  	  ammo->Launch(iDir+RandomX(-10,10),120+Random(60),190+Random(40),3,15,6);
-  	  i++;
-  	}
-  Sound("BBTP_Explosion.ogg");
-  AddEffect("HardKillCooldown", this, 1, 40);
-  iHKShots--;
-  PlayerMessage(GetOwner(), Format("%d", iHKShots), this);
-  if(!iHKShots) RemoveObject(pItem);
+  if(GetEffect("HardKillCooldown", this)) return;
+
+  var threat = FindObject2(Find_Distance(120, 0, 0), Find_Hostile(GetOwner(this)), Find_Or(Find_Func("IsRocket"), Find_Func("IsRifleGrenade")), Find_Not(Find_Func("IsDamaged")));
+  if(threat && !Inside(Abs(Angle(0, 0, GetXDir(threat), GetYDir(threat)) - Angle(GetX(threat), GetY(threat), GetX(), GetY())), 61, 299) && PathFree(GetX(), GetY(), GetX(threat) + GetXDir(threat)/2, GetY(threat) + GetYDir(threat)/2))
+  {
+    //Splitter verschleudern
+    var i = 0;
+    var iDir = Angle(GetX(), GetY(), GetX(threat) + GetXDir(threat)/2, GetY(threat) + GetYDir(threat)/2);
+    while(i < 15)
+    {
+      var ammo = CreateObject(SHRP, 0, 0, GetOwner(this));
+      ammo->Launch(iDir+RandomX(-10,10),120+Random(60),190+Random(40),3,15,6);
+      i++;
+    }
+    Sound("BBTP_Explosion.ogg");
+    AddEffect("HardKillCooldown", this, 1, 40);
+    iHKShots--;
+    PlayerMessage(GetOwner(), Format("%d", iHKShots), this);
+    if(!iHKShots)
+      RemoveObject(pItem);
   }
 }
 
 public func ShockPaddles()
 {
-	if(LocalN("charge", pItem) >= 10 && FindObject2(Find_AtPoint(0 - iXDir/5 - Sgn(iXDir), 0 - iYDir/5 - Sgn(iYDir)),
-																			Find_ID(FKDT),			//Schwerverletzter?
-		 																	Find_Allied(GetOwner(this)),	//Verb¸ndet?
-		 																	Find_NoContainer()))
-		pItem->Activate(this);
+  if(LocalN("charge", pItem) >= 10 && FindObject2(Find_AtPoint(0 - iXDir/5 - Sgn(iXDir), 0 - iYDir/5 - Sgn(iYDir)),
+  					Find_ID(FKDT),				//Schwerverletzter?
+  					Find_Allied(GetOwner(this)),		//Verb¸ndet?
+  					Find_NoContainer()))
+    pItem->Activate(this);
 }
 
 public func BlowTorch()
 {
-	//Eventuellen Cooldown verringern
+  //Eventuellen Cooldown verringern
   if(living_dmg_cooldown)
     living_dmg_cooldown--;
-    
+
   var used;
 
-	if(LocalN("charge", pItem) < 2) return Sound("BWTH_Repair.ogg", false, this, 100, 0, -1);
-	
+  if(LocalN("charge", pItem) < 2) return Sound("BWTH_Repair.ogg", false, this, 100, 0, -1);
+  
   //Angreifbare Objekte suchen
   var obj = FindObject2(Find_Func("IsMeleeTarget", this),	//Angreifbar?
-  					Find_Exclude(this),	//Kein Self-Attack
-  					Find_AtRect(-10,-10,10,10));
+  		Find_Exclude(this),				//Kein Self-Attack
+  		Find_AtRect(-10,-10,10,10));
   if(obj)
   {
     //Objekt besch‰digen
@@ -590,10 +591,10 @@ public func BlowTorch()
     used = true;
   }
   //Entsch‰rfbare Objekte suchen
-  var obj = FindObject2(Find_Func("IsDefusable"),		//Entsch‰rfbar?
-  					Find_Hostile(GetOwner(this)),			//Feindlich?
-  					Find_NoContainer(),				//Nicht verschachtelt?
-  					Find_AtRect(-10,-10,10,10));
+  var obj = FindObject2(Find_Func("IsDefusable"),	//Entsch‰rfbar?
+  		Find_Hostile(GetOwner(this)),		//Feindlich?
+  		Find_NoContainer(),			//Nicht verschachtelt?
+  		Find_AtRect(-10,-10,10,10));
   if(obj)
   {
     if(obj->~RTDefuse(this))
@@ -603,26 +604,25 @@ public func BlowTorch()
     LocalN("charge", pItem) = BoundBy(LocalN("charge", pItem)-2, 0, pItem->MaxEnergy());
     used = true;
   }
-	//Reparierbare Objekte suchen
-  obj = FindObject2(Find_Or(Find_And(Find_Func("IsRepairable"),				//Reparierbar?
-    		Find_Or(
-    		Find_Func("GetDamage"),					//Besch‰digt?
-    		Find_Hostile(GetOwner(this))),	//Feindlich?
-    		Find_Exclude(this)),						//Kein Self-Repair
-    		Find_And(
-    		Find_OCF(OCF_Alive),
-    		Find_Hostile(GetOwner(this)),
-    		Find_NoContainer()),					//Nicht verschachtelt?
-    		Find_Func("IsFakeRepairable", GetOwner(this))),	//Konsolen?
-    		Find_AtRect(-10,-10,10,10));
-    						
+  //Reparierbare Objekte suchen
+  obj = FindObject2(Find_Or(Find_And(Find_Func("IsRepairable"),		//Reparierbar?
+  	Find_Or(
+  	Find_Func("GetDamage"),						//Besch‰digt?
+  	Find_Hostile(GetOwner(this))),					//Feindlich?
+  	Find_Exclude(this)),						//Kein Self-Repair
+  	Find_And(
+  	Find_OCF(OCF_Alive),
+  	Find_Hostile(GetOwner(this)),
+  	Find_NoContainer()),						//Nicht verschachtelt?
+  	Find_Func("IsFakeRepairable", GetOwner(this))),			//Konsolen?
+  	Find_AtRect(-10,-10,10,10));
   if(obj)
   {
     //Konsolen reparieren / besch‰digen
     if(obj->~IsFakeRepairable())
       obj = obj->GetRealRepairableObject();
-		
-		if(Hostile(GetOwner(obj), GetOwner(this)))
+
+    if(Hostile(GetOwner(obj), GetOwner(this)))
     {
       if(obj->~IsRepairable())
       {
@@ -650,52 +650,51 @@ public func BlowTorch()
         LocalN("charge", pItem) = BoundBy(LocalN("charge", pItem) - 2, 0, pItem->MaxEnergy());
       }
     }
-		else
-		{
-    	if(!obj->~RejectRepair())
-    	{
-       	//Fahrzeug reparieren
-       	DoDamage(-2, obj);
-         
-       	if(!Hostile(GetOwner(obj), GetOwner(this)) && GetOwner(obj) != GetOwner(this) && GetOwner(obj) != NO_OWNER)
-       	{
-         	//Achievement-Fortschritt (Wicked Engineer)
-         	DoAchievementProgress(2, AC33, GetOwner(this));
-       	}
-         
-       	//Callback
-       	if(GetDamage(obj) == 0)
-       	  obj->~IsFullyRepaired();
-       	else
-       	  obj->~OnRepairing(this);
-    	}
-       
-    	if(!Hostile(GetOwner(obj), GetOwner(Contained())) && GetOwner(obj) != GetOwner(this) && LocalN("iRepaired", pItem)++ >= 50)
-    	{
-     	  //Punkte bei Belohnungssystem (Reparatur)
-     	  DoPlayerPoints(BonusPoints("Repair"), RWDS_TeamPoints, GetOwner(this), this, IC15);
-    	   LocalN("iRepaired", pItem) = 0;
-    	}
+    else
+    {
+      if(!obj->~RejectRepair())
+      {
+         //Fahrzeug reparieren
+         DoDamage(-2, obj);
+
+         if(!Hostile(GetOwner(obj), GetOwner(this)) && GetOwner(obj) != GetOwner(this) && GetOwner(obj) != NO_OWNER)
+         {
+           //Achievement-Fortschritt (Wicked Engineer)
+           DoAchievementProgress(2, AC33, GetOwner(this));
+         }
+
+         //Callback
+         if(GetDamage(obj) == 0)
+           obj->~IsFullyRepaired();
+         else
+           obj->~OnRepairing(this);
+      }
+
+      if(!Hostile(GetOwner(obj), GetOwner(Contained())) && GetOwner(obj) != GetOwner(this) && LocalN("iRepaired", pItem)++ >= 50)
+      {
+         //Punkte bei Belohnungssystem (Reparatur)
+         DoPlayerPoints(BonusPoints("Repair"), RWDS_TeamPoints, GetOwner(this), this, IC15);
+         LocalN("iRepaired", pItem) = 0;
+      }
     LocalN("charge", pItem) = BoundBy(LocalN("charge", pItem) - 2, 0, pItem->MaxEnergy());
-  	}
-  
-  	used = true;
+    }
+
+    used = true;
   }
-  	
-	if(used)
-	{
-		//Effekte
- 		CreateParticle("RepairFlame", -1, 7, 0, 2-Random(2), 80, RGB(0,100,250));
- 		if(GetEffectData(EFSM_BulletEffects) >1 && !Random(2))
-  	 	AddLightFlash(80, -1, 7, RGB(0,140,255));
- 		if(!Random(2))
-  	 	Sparks(8+Random(4), RGB(100,100,250), RandomX(-5, 5), RandomX(-5,5));
-    
- 		Sound("BWTH_Repair.ogg", false, this, 100, 0, 1);
- 	}
- 	else
-  	Sound("BWTH_Repair.ogg", false, this, 100, 0, -1);
-  
+
+  if(used)
+  {
+    //Effekte
+     CreateParticle("RepairFlame", -1, 7, 0, 2-Random(2), 80, RGB(0,100,250));
+     if(GetEffectData(EFSM_BulletEffects) >1 && !Random(2))
+       AddLightFlash(80, -1, 7, RGB(0,140,255));
+     if(!Random(2))
+       Sparks(8+Random(4), RGB(100,100,250), RandomX(-5, 5), RandomX(-5,5));
+
+     Sound("BWTH_Repair.ogg", false, this, 100, 0, 1);
+   }
+   else
+    Sound("BWTH_Repair.ogg", false, this, 100, 0, -1);
 }
 
 
@@ -824,9 +823,9 @@ public func Start()
   if(!GetEffect("Flying", this))
     AddEffect("Flying", this, 1, 1, this);
   Sound("MAVE_Engine.ogg", 0, 0, 70, 0, +1);
-  
+
   if(iItemType == 5)
-  	PlayerMessage(GetOwner(), Format("%d", iHKShots), this);
+    PlayerMessage(GetOwner(), Format("%d", iHKShots), this);
 }
 
 public func Wait()
@@ -1081,20 +1080,20 @@ public func ControlThrow(pByObj)
       PlayerMessage(GetOwner(pByObj), "$InvalidItem$", this);
       return false;
     }
-		
-		if(GetEffect("Bars", this))
-    	RemoveEffect("Bars", this);
-		
+    
+    if(GetEffect("Bars", this))
+      RemoveEffect("Bars", this);
+    
     Enter(this, pTemp);
     if(pItem)
-   	{
+     {
       if(iHKShots == 5)
-  		{
-    		if(!Collect(pItem, pByObj))
-      		Exit(pItem);
-    	}
-    	else
-    		RemoveObject(pItem);
+      {
+        if(!Collect(pItem, pByObj))
+          Exit(pItem);
+      }
+      else
+        RemoveObject(pItem);
     }
     pItem = pTemp;
     iItemType = iTemp;
@@ -1106,7 +1105,7 @@ public func ControlThrow(pByObj)
     Sound("RSHL_Deploy.ogg");
     Sound("BWTH_Repair.ogg", false, this, 100, 0, -1);
     if(iItemType == 5 && GetAction() == "Flying")
-    	PlayerMessage(GetOwner(pByObj), Format("%d", iHKShots), this);
+      PlayerMessage(GetOwner(pByObj), Format("%d", iHKShots), this);
 
     return true;
   }
@@ -1125,11 +1124,11 @@ public func ControlThrow(pByObj)
   else
   {
     if(pLaser && pLaser->Active())
-   	{
-    	if(!CheckAmmo(GetAttWeapon()->GetFMData(FM_AmmoID), GetAttWeapon()->GetFMData(FM_AmmoUsage), GetAttWeapon()))
-    		PlayerMessage(GetOwner(), "$JetNotReady$", this);
-    	else
-      	GetAttWeapon()->ControlThrow(this);
+    {
+      if(!CheckAmmo(GetAttWeapon()->GetFMData(FM_AmmoID), GetAttWeapon()->GetFMData(FM_AmmoUsage), GetAttWeapon()))
+        PlayerMessage(GetOwner(), "$JetNotReady$", this);
+      else
+        GetAttWeapon()->ControlThrow(this);
     }
     else
     {
@@ -1147,10 +1146,10 @@ public func ControlDig(pByObj)
 {
   if(pItem && GetActionTarget(0, pByObj) == this)
   {
-  	if(iHKShots == 5)
-  	{
-    	if(!Collect(pItem, pByObj))
-      	Exit(pItem);
+    if(iHKShots == 5)
+    {
+      if(!Collect(pItem, pByObj))
+        Exit(pItem);
     }
     else RemoveObject(pItem);
     pItem = 0;
@@ -1225,141 +1224,139 @@ protected func Hit3()
 //Balken updaten
 public func FxBarsTimer(object target, int nr)
 {
-  
   if(!Inside(iItemType, 1, 3) || GetAction() != "Flying")
   {
-  	RemoveEffect("Bars", this);
-  	return false;
+    RemoveEffect("Bars", this);
+    return false;
   }
-  
-  
+
   //MTP
-	if(iItemType == 1)
+  if(iItemType == 1)
   {
-  	EffectVar(1, target, nr) = false;
+    EffectVar(1, target, nr) = false;
 
-  	var owner = GetOwner(Contained());
+    var owner = GetOwner(Contained());
 
-  	//Balken updaten
-  	for(var bar in EffectVar(0, target, nr))
-  	{
-    	if(!bar)
-      	continue;
+    //Balken updaten
+    for(var bar in EffectVar(0, target, nr))
+    {
+      if(!bar)
+        continue;
 
-    	var actTarget = GetActionTarget(0, bar); var weapon;
-    	//actTarget lebt nicht mehr / ist verfeindet oder sein Spieler existiert nicht mehr? Balken lˆschen
-    	if(!GetPlayerName(GetOwner(actTarget)) || !(GetOCF(actTarget) & OCF_Alive) || Hostile(GetOwner(actTarget), owner))
-      	RemoveObject(bar);
-    	//actTarget befindet sich in einem Objekt, hat keine Waffe ausgew‰hlt oder hat keinen Munitionsg¸rtel: Ausblenden
-    	else if(Contained(actTarget) || !(weapon = Contents(0, actTarget)) || !weapon->~IsWeapon() || !actTarget->~AmmoStoring())
-      	bar->Update(0, true);
-    	else if(weapon->GetFMData(FM_NoAmmoModify, weapon->GetFireTec()))
-      	bar->Update(0, true);
-    	else
-    	{
-      	//Munitionsdaten einholen
-      	var ammocount = actTarget->GetAmmo(weapon->GetFMData(FM_AmmoID));
-      	var ammomax = weapon->GetFMData(FM_AmmoLoad);
+      var actTarget = GetActionTarget(0, bar); var weapon;
+      //actTarget lebt nicht mehr / ist verfeindet oder sein Spieler existiert nicht mehr? Balken lˆschen
+      if(!GetPlayerName(GetOwner(actTarget)) || !(GetOCF(actTarget) & OCF_Alive) || Hostile(GetOwner(actTarget), owner))
+        RemoveObject(bar);
+      //actTarget befindet sich in einem Objekt, hat keine Waffe ausgew‰hlt oder hat keinen Munitionsg¸rtel: Ausblenden
+      else if(Contained(actTarget) || !(weapon = Contents(0, actTarget)) || !weapon->~IsWeapon() || !actTarget->~AmmoStoring())
+        bar->Update(0, true);
+      else if(weapon->GetFMData(FM_NoAmmoModify, weapon->GetFireTec()))
+        bar->Update(0, true);
+      else
+      {
+        //Munitionsdaten einholen
+        var ammocount = actTarget->GetAmmo(weapon->GetFMData(FM_AmmoID));
+        var ammomax = weapon->GetFMData(FM_AmmoLoad);
 
-      	//Falls maximal 1 im Magazin, 10fach als 100%, ansonsten 3fach
-      	if(ammomax == 1)
-        	ammomax *= 10;
-      	else 
-        	ammomax *= 3;
+        //Falls maximal 1 im Magazin, 10fach als 100%, ansonsten 3fach
+        if(ammomax == 1)
+          ammomax *= 10;
+        else 
+          ammomax *= 3;
 
-      	//Prozentsatz errechnen
-      	var percent = BoundBy((((100 * 1000) / ammomax) * ammocount) / 1000, 0, 100);
+        //Prozentsatz errechnen
+        var percent = BoundBy((((100 * 1000) / ammomax) * ammocount) / 1000, 0, 100);
 
-      	bar->Update(percent, (percent >= 95));
-    	}
-  	}
+        bar->Update(percent, (percent >= 95));
+      }
+    }
 
-  	//Lebende, im Freien befindliche verb¸ndete CrewMember suchen (ausgenommen Container)
-  	for(var clonk in FindObjects(Find_OCF(OCF_Alive), Find_OCF(OCF_CrewMember), Find_NoContainer(), Find_Exclude(Contained()), Find_Not(Find_Hostile(owner))))
-  	{
-    	if(FindObject2(Find_ID(SBAR), Find_ActionTarget(clonk), Find_Owner(owner), Find_Func("HasBarType", BAR_Ammobar))) //Hat schon einen Balken?
-      	continue;
+    //Lebende, im Freien befindliche verb¸ndete CrewMember suchen (ausgenommen Container)
+    for(var clonk in FindObjects(Find_OCF(OCF_Alive), Find_OCF(OCF_CrewMember), Find_NoContainer(), Find_Exclude(Contained()), Find_Not(Find_Hostile(owner))))
+    {
+      if(FindObject2(Find_ID(SBAR), Find_ActionTarget(clonk), Find_Owner(owner), Find_Func("HasBarType", BAR_Ammobar))) //Hat schon einen Balken?
+        continue;
 
-    	var bar = CreateObject(SBAR, 0, 0, owner);
-    	bar->Set(clonk, RGB(255, 255, 80), BAR_Ammobar, true, "", SM11);
-    	EffectVar(0, target, nr)[GetLength(EffectVar(0, target, nr))] = bar;
-  	}
+      var bar = CreateObject(SBAR, 0, 0, owner);
+      bar->Set(clonk, RGB(255, 255, 80), BAR_Ammobar, true, "", SM11);
+      EffectVar(0, target, nr)[GetLength(EffectVar(0, target, nr))] = bar;
+    }
   }
   
   
   //EHP
   if(iItemType == 2)
   {
-  	for(var bar in EffectVar(0, target, nr))
-  	{
-   	 	if(!bar)
-  	    continue;
+    for(var bar in EffectVar(0, target, nr))
+    {
+        if(!bar)
+        continue;
 
- 	   	var actTarget = GetActionTarget(0, bar);
- 	   	if(!(GetOCF(actTarget) & OCF_Alive) || Hostile(GetOwner(actTarget), GetOwner(target)) || !GetPlayerName(GetOwner(actTarget)))
- 	     	RemoveObject(bar);
-	    else
- 	   	{
- 	     	var percent = BoundBy(100000 * GetEnergy(actTarget) / GetPhysical("Energy", PHYS_Current, actTarget), 0, 100);
-	
-	      bar->Update(percent, (percent >= 95));
- 	   	}
- 	 	}
+        var actTarget = GetActionTarget(0, bar);
+        if(!(GetOCF(actTarget) & OCF_Alive) || Hostile(GetOwner(actTarget), GetOwner(target)) || !GetPlayerName(GetOwner(actTarget)))
+          RemoveObject(bar);
+      else
+        {
+          var percent = BoundBy(100000 * GetEnergy(actTarget) / GetPhysical("Energy", PHYS_Current, actTarget), 0, 100);
+  
+        bar->Update(percent, (percent >= 95));
+        }
+      }
 
- 	 	for(var clonk in FindObjects(Find_OCF(OCF_Alive), Find_OCF(OCF_CrewMember), Find_NoContainer(), Find_Not(Find_Hostile(GetOwner(target)))))
- 	 	{
-	    if(FindObject2(Find_ID(SBAR), Find_ActionTarget(clonk), Find_Owner(GetOwner(target)), Find_Func("HasBarType", BAR_Energybar))) //Hat schon einen Balken?
-	      continue;
+      for(var clonk in FindObjects(Find_OCF(OCF_Alive), Find_OCF(OCF_CrewMember), Find_NoContainer(), Find_Not(Find_Hostile(GetOwner(target)))))
+      {
+      if(FindObject2(Find_ID(SBAR), Find_ActionTarget(clonk), Find_Owner(GetOwner(target)), Find_Func("HasBarType", BAR_Energybar))) //Hat schon einen Balken?
+        continue;
 
- 	   	var bar = CreateObject(SBAR, 0, 0, GetOwner(target));
- 	   	bar->Set(clonk, RGB(255,0,0), BAR_Energybar, true, "", SM13);
-	    EffectVar(0, target, nr)[GetLength(EffectVar(0, target, nr))] = bar;
-	 	}
-	}
-	
-	
-	//Schweiﬂbrenner
+        var bar = CreateObject(SBAR, 0, 0, GetOwner(target));
+        bar->Set(clonk, RGB(255,0,0), BAR_Energybar, true, "", SM13);
+      EffectVar(0, target, nr)[GetLength(EffectVar(0, target, nr))] = bar;
+     }
+  }
+  
+  
+  //Schweiﬂbrenner
   if(iItemType == 3)
   {
-  	var iPlr = GetOwner();
+    var iPlr = GetOwner();
 
 
-  	EffectVar(1, target, nr) = true;
+    EffectVar(1, target, nr) = true;
 
-  	for(var bar in EffectVar(0, target, nr))
-  	{
-    	if(!bar)
-      	continue;
+    for(var bar in EffectVar(0, target, nr))
+    {
+      if(!bar)
+        continue;
 
-    	var actTarget = GetActionTarget(0, bar);
+      var actTarget = GetActionTarget(0, bar);
 
-    	if(!actTarget || Hostile(GetOwner(actTarget), iPlr) || !(actTarget->~IsRepairable()))
-    	{
-      	RemoveObject(bar);
-      	continue;
-    	}
+      if(!actTarget || Hostile(GetOwner(actTarget), iPlr) || !(actTarget->~IsRepairable()))
+      {
+        RemoveObject(bar);
+        continue;
+      }
 
-    	var dmg = GetDamage(actTarget);
-    	var max_dmg = actTarget->~MaxDamage();
-    	var percent = dmg * 100 / max_dmg;
-    	var deactivate = false;
-    	if(!percent)
-      	deactivate = true;
+      var dmg = GetDamage(actTarget);
+      var max_dmg = actTarget->~MaxDamage();
+      var percent = dmg * 100 / max_dmg;
+      var deactivate = false;
+      if(!percent)
+        deactivate = true;
 
-    	percent = 100 - percent;
+      percent = 100 - percent;
 
-    	bar->Update(percent, deactivate);
-  	}
+      bar->Update(percent, deactivate);
+    }
 
-  	for(var obj in FindObjects(Find_Func("IsRepairable"), Find_Not(Find_Hostile(iPlr))))
-  	{
-    	if(FindObject2(Find_ID(SBAR), Find_ActionTarget(obj), Find_Owner(iPlr), Find_Func("HasBarType", BAR_Repairbar))) //Hat schon einen Balken?
-      	continue;
+    for(var obj in FindObjects(Find_Func("IsRepairable"), Find_Not(Find_Hostile(iPlr))))
+    {
+      if(FindObject2(Find_ID(SBAR), Find_ActionTarget(obj), Find_Owner(iPlr), Find_Func("HasBarType", BAR_Repairbar))) //Hat schon einen Balken?
+        continue;
 
-    	var bar = CreateObject(SBAR, 0, 0, iPlr);
-    	bar->Set(obj, RGB(80,190,255), BAR_Repairbar, true, "", SM12);
-    	EffectVar(0, target, nr)[GetLength(EffectVar(0, target, nr))] = bar;
-  	}
+      var bar = CreateObject(SBAR, 0, 0, iPlr);
+      bar->Set(obj, RGB(80,190,255), BAR_Repairbar, true, "", SM12);
+      EffectVar(0, target, nr)[GetLength(EffectVar(0, target, nr))] = bar;
+    }
   }
 
   return true;
