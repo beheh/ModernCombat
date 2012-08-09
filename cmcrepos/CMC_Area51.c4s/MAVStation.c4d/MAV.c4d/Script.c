@@ -1092,10 +1092,12 @@ public func ControlThrow(pByObj)
   {
     if(GetAction() == "Destroyed") return false;
 
+    //Nur befreundete Ausrüstung annehmen
     var pTemp = Contents(0, pByObj);
     if(!pTemp || Hostile(GetOwner(this), GetOwner(pByObj)))
       return false;
 
+    //Vorhandene MAV-Modifizierungen durchsuchen
     var iTemp = 0;
     if(GetID(pTemp) == AMPK) iTemp = 1;
     if(GetID(pTemp) == FAPK) iTemp = 2;
@@ -1104,16 +1106,21 @@ public func ControlThrow(pByObj)
     if(GetID(pTemp) == BBTP) iTemp = 5;
     if(GetID(pTemp) == CDBT) iTemp = 6;
 
+    //Nicht dabei? Ablehnen
     if(!iTemp)
     {
       PlayerMessage(GetOwner(pByObj), "$InvalidItem$", this);
       return false;
     }
-    
+
+    //Eventuelle Energiebalken deaktivieren
     if(GetEffect("Bars", this))
       RemoveEffect("Bars", this);
-    
+
+    //Objekt aufnehmen
     Enter(this, pTemp);
+
+    //Sprengfalle entfernen, wenn bereits verwendet
     if(pItem)
      {
       if(iHKShots == 5)
@@ -1124,27 +1131,34 @@ public func ControlThrow(pByObj)
       else
         RemoveObject(pItem);
     }
+
     pItem = pTemp;
     iItemType = iTemp;
     iHKShots = 5;
 
     ShiftContents();
 
+    //MAV-Grafik anpassen
     SetPhase(iItemType, this);
+
     Sound("RSHL_Deploy.ogg");
     Sound("BWTH_Repair.ogg", false, this, 100, 0, -1);
+
+    //Sprengfallen-Hinweisnachricht
     if(iItemType == 5 && GetAction() == "Flying")
       PlayerMessage(GetOwner(pByObj), Format("%d", iHKShots), this);
 
     return true;
   }
 
+  //MAV aktivieren
   if(GetAction() == "Wait")
   {
     Start();
     return true;
   }
 
+  //Laser-Steuerung
   if(!fIsAiming)
   {
     InitAim();
