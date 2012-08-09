@@ -100,6 +100,7 @@ public func FxActivityTimer(object pTarget, int iEffectNumber, int iEffectTime)
 
     SetOwner(-1, this);
     controller = 0;
+    SetAction("Ready");
     return;
   }
 
@@ -169,9 +170,10 @@ protected func ActivateEntrance(pUser)
   //Besitzer aktualisieren
   if(pMav && !pMav->IsDestroyed())
   {
-    if(Hostile(GetOwner(this), pMav->GetOwner())) pMav->Reload();
+  	if(Hostile(GetOwner(this), pMav->GetOwner())) pMav->Reload();
     pMav->SetOwner(GetOwner(this));
     pMav->Start();
+    SetAction("Controlling");
   }
 
   //Sound
@@ -210,6 +212,7 @@ private func ExitClonk(object pByObject)
     }
     SetOwner(-1, this);
     controller = 0;
+    SetAction("Ready");
 
     return(1);  }
   return(0);
@@ -326,16 +329,17 @@ protected func ControlThrow(object pByObj)
 {
   if(!pMav || pMav->IsDestroyed())
   {
-    if(GetWealth(GetOwner(pByObj)) >= GetDefCoreVal("Value", "DefCore", MAVE))
-    {
-      DoWealth(GetOwner(pByObj), -GetDefCoreVal("Value", "DefCore", MAVE));
-      pMav = CreateObject(MAVE,0,0,GetOwner(this));
-      pByObj->SetHUDTarget(pMav->GetAttWeapon());
-      pMav->Start();
-      SpawnEffect(pMav);
+  	if(GetWealth(GetOwner(pByObj)) >= GetDefCoreVal("Value", "DefCore", MAVE))
+  	{
+  		DoWealth(GetOwner(pByObj), -GetDefCoreVal("Value", "DefCore", MAVE));
+    	pMav = CreateObject(MAVE,0,0,GetOwner(this));
+    	pByObj->SetHUDTarget(pMav->GetAttWeapon());
+    	pMav->Start();
+    	SpawnEffect(pMav);
+    	SetAction("Controlling");
     }
     else
-      PlayerMessage(GetOwner(pByObj), "$NoMoney$", this);
+    	PlayerMessage(GetOwner(pByObj), "$NoMoney$", this);
   }
   else
     pMav->ControlThrow(pByObj);
