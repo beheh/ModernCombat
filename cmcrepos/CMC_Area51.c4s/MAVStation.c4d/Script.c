@@ -265,6 +265,13 @@ public func ControlDown(object pByObj)
   return true;
 }
 
+public func ControlDownReleased(object pByObj)
+{
+  if(pMav)
+    pMav->ControlDownReleased(pByObj);
+  return true;
+}
+
 public func ControlDownDouble(object pByObj)
 {
   if(pMav)
@@ -276,6 +283,13 @@ protected func ControlUp(object pByObj)
 {
   if(pMav)
     pMav->ControlUp(pByObj);
+  return true;
+}
+
+public func ControlUpReleased(object pByObj)
+{
+  if(pMav)
+    pMav->ControlUpReleased(pByObj);
   return true;
 }
 
