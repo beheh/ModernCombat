@@ -1140,6 +1140,8 @@ public func ControlThrow(pByObj)
     iHKShots = 5;
 
     ShiftContents();
+    
+    PlayerMessage(GetOwner(pByObj), "$Updated$", this, GetName(pItem));
 
     //MAV-Grafik anpassen
     SetPhase(iItemType, this);
@@ -1149,7 +1151,7 @@ public func ControlThrow(pByObj)
 
     //Sprengfallen-Hinweisnachricht
     if(iItemType == 5 && GetAction() == "Flying")
-      PlayerMessage(GetOwner(pByObj), Format("%d", iHKShots), this);
+      PlayerMessage(GetOwner(), Format("%d", iHKShots), this);
 
     return true;
   }
