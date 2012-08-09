@@ -14,3 +14,4 @@ Flag5=Belüftungsturbine
 Target1=Radaranlage
 Target2=Datenserver
 Target3=Überwachungssystem
+Target4=Lüftungssystem

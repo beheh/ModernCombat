@@ -14,3 +14,4 @@ Flag5=Turbine Aerator
 Target1=Radar Unit
 Target2=Data Server
 Target3=Surveillance System
+Target4=Cooling System
