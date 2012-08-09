@@ -1,3 +1,4 @@
 MarkRequired=Jet benötigt ein Ziel!
 JetNotReady=Jet nicht in Position!
 InvalidItem=Gegenstand nicht montierbar!
+Updated=MAV um %s modifiziert.
