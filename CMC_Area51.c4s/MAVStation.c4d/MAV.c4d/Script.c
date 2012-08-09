@@ -952,7 +952,7 @@ public func ControlLeftReleased(pByObj)
 {
   if(GetActionTarget(0, pByObj) == this) return false;
 
-	if(fIsAiming)
+  if(fIsAiming)
   {
     iPat_Dir = 0;
     return true;
@@ -999,7 +999,7 @@ public func ControlRightReleased(pByObj)
 {
   if(GetActionTarget(0, pByObj) == this) return false;
 
-	if(fIsAiming)
+  if(fIsAiming)
   {
     iPat_Dir = 0;
     return true;
