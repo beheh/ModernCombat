@@ -1,3 +1,3 @@
 Missiles=ATG Missile
 Laser=Laser Control
-Reloaded=Jet ready
+Reloaded=Jet in position!
