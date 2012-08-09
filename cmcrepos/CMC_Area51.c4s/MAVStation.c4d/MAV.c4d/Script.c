@@ -953,7 +953,7 @@ public func ControlLeftReleased(pByObj)
 {
   if(GetActionTarget(0, pByObj) == this) return false;
 
-	if(fIsAiming)
+  if(fIsAiming)
   {
     iPat_Dir = 0;
     return true;
@@ -1000,7 +1000,7 @@ public func ControlRightReleased(pByObj)
 {
   if(GetActionTarget(0, pByObj) == this) return false;
 
-	if(fIsAiming)
+  if(fIsAiming)
   {
     iPat_Dir = 0;
     return true;
@@ -1164,7 +1164,7 @@ public func ControlThrow(pByObj)
       PlayerMessage(GetOwner(pByObj), "$MarkRequired$", this);
       if(!GetEffect("NoTargetCooldown"))
       {
-        Sound("JetNoTarget.wav",0,0,0,GetOwner(pByObj));
+        Sound("JetNoTarget.ogg",0,0,0,GetOwner(pByObj));
         AddEffect("NoTargetCooldown", this, 1, 150);
       }
     }

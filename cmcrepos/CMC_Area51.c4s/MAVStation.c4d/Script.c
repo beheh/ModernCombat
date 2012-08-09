@@ -169,7 +169,7 @@ protected func ActivateEntrance(pUser)
   //Besitzer aktualisieren
   if(pMav && !pMav->IsDestroyed())
   {
-  	if(Hostile(GetOwner(this), pMav->GetOwner())) pMav->Reload();
+    if(Hostile(GetOwner(this), pMav->GetOwner())) pMav->Reload();
     pMav->SetOwner(GetOwner(this));
     pMav->Start();
   }
@@ -326,16 +326,16 @@ protected func ControlThrow(object pByObj)
 {
   if(!pMav || pMav->IsDestroyed())
   {
-  	if(GetWealth(GetOwner(pByObj)) >= GetDefCoreVal("Value", "DefCore", MAVE))
-  	{
-  		DoWealth(GetOwner(pByObj), -GetDefCoreVal("Value", "DefCore", MAVE));
-    	pMav = CreateObject(MAVE,0,0,GetOwner(this));
-    	pByObj->SetHUDTarget(pMav->GetAttWeapon());
-    	pMav->Start();
-    	SpawnEffect(pMav);
+    if(GetWealth(GetOwner(pByObj)) >= GetDefCoreVal("Value", "DefCore", MAVE))
+    {
+      DoWealth(GetOwner(pByObj), -GetDefCoreVal("Value", "DefCore", MAVE));
+      pMav = CreateObject(MAVE,0,0,GetOwner(this));
+      pByObj->SetHUDTarget(pMav->GetAttWeapon());
+      pMav->Start();
+      SpawnEffect(pMav);
     }
     else
-    	PlayerMessage(GetOwner(pByObj), "$NoMoney$", this);
+      PlayerMessage(GetOwner(pByObj), "$NoMoney$", this);
   }
   else
     pMav->ControlThrow(pByObj);
