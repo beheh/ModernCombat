@@ -1163,7 +1163,7 @@ public func ControlThrow(pByObj)
       PlayerMessage(GetOwner(pByObj), "$MarkRequired$", this);
       if(!GetEffect("NoTargetCooldown"))
       {
-        Sound("JetNoTarget.wav",0,0,0,GetOwner(pByObj));
+        Sound("JetNoTarget.ogg",0,0,0,GetOwner(pByObj));
         AddEffect("NoTargetCooldown", this, 1, 150);
       }
     }
