@@ -152,7 +152,7 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
       var rgb = GetPlrColorDw(GetOwner());
     else
       var rgb = RGB(255, 255, 255);
-    CreateParticle("FlashLight", 0, -4, 0, 0 , 45, rgb, this);
+    CreateParticle("FlashLight", 0, 4, 0, 0 , 45, rgb, this);
   }
 
   //Nachladen, C4 prüfen und SensorChecks (alle 5 Frames)
@@ -865,7 +865,7 @@ public func Arm(id idWeapon)
   LocalN("controller", pLaser) = this;
 }
 
-private func Reload()
+public func Reload()
 {
   //Munitionsart bestimmen
   var AmmoID = GetAttWeapon()->~GetFMData(FM_AmmoID);
@@ -873,6 +873,7 @@ private func Reload()
   Local(0, CreateContents(AmmoID)) = GetAttWeapon()->~GetFMData(FM_AmmoLoad);
   //Feuer einstellen und nachladen
   GetAttWeapon()->~StopAutoFire();
+  GetAttWeapon()->~Empty();
   GetAttWeapon()->~Reload();
 }
 
@@ -952,7 +953,7 @@ public func ControlLeftReleased(pByObj)
 {
   if(GetActionTarget(0, pByObj) == this) return false;
 
-  if(fIsAiming)
+	if(fIsAiming)
   {
     iPat_Dir = 0;
     return true;
@@ -999,7 +1000,7 @@ public func ControlRightReleased(pByObj)
 {
   if(GetActionTarget(0, pByObj) == this) return false;
 
-  if(fIsAiming)
+	if(fIsAiming)
   {
     iPat_Dir = 0;
     return true;
@@ -1163,7 +1164,7 @@ public func ControlThrow(pByObj)
       PlayerMessage(GetOwner(pByObj), "$MarkRequired$", this);
       if(!GetEffect("NoTargetCooldown"))
       {
-        Sound("JetNoTarget.ogg",0,0,0,GetOwner(pByObj));
+        Sound("JetNoTarget.wav",0,0,0,GetOwner(pByObj));
         AddEffect("NoTargetCooldown", this, 1, 150);
       }
     }
