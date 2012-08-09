@@ -38,6 +38,7 @@ public func OnDestruction()
 {
   //Aktion und Grafik setzen
   ChangeDef(BDSN);
+  this->~Initialize();
 
   //Effekte
   if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",8,15,0,5,250,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
