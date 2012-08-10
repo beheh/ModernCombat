@@ -48,6 +48,9 @@ global func ScreenRGB(object pTarget, int dwRGBa, int iAlphaAdd, int iFadeRate, 
   if(iLayer)
     obj = GetScreenRGB(GetOwner(pTarget), iLayer);
 
+	if(!obj && pTarget && GetCategory(pTarget) & C4D_Living && !(GetOCF(pTarget) & OCF_Alive))
+		return false;
+	
   if(!obj)
     obj = CreateObject(S24K,0,0,GetOwner(pTarget));
 
@@ -70,6 +73,9 @@ public func Set(object pTarget, int dwRGBa, int iAlphaAdd, int iFadeRate, bool b
   target = pTarget;
   layer = iLayer;
 
+	if(target && GetCategory(target) & C4D_Living && !(GetOCF(target) & OCF_Alive))
+		return RemoveObject();
+	
   if(!target)
     SetVisibility(VIS_All);
   else
@@ -112,6 +118,9 @@ public func FxIntRGBFadeTimer(object pTarget, int iEffectNumber, int iEffectTime
 
   if (!GetPlayerName(GetOwner(pTarget)))
     return -1;
+    
+  if(target && GetCategory(target) & C4D_Living && !(GetOCF(target) & OCF_Alive))
+  	return -1;
 }
 
 public func FxIntRGBFadeStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)
@@ -142,9 +151,9 @@ public func DoAlpha(int iValue, int iMin, int iMax)
 
 func CursorCheck()
 {
-  var cursor = false;
+  var cursor = false; 	
   if(GetCursor(GetOwner()))
-  {
+ 	{
     if(GetCursor(GetOwner()) == target)
       cursor = true;
     if(GetCursor(GetOwner())->~GetRealCursor() == target)
