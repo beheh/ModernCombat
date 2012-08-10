@@ -22,6 +22,7 @@ local pItem;
 local iItemType;		//0: Standard, 1: MTP, 2: EHP, 3: Schweißbrenner, 4: Schild, 5: Sprengschutz, 6: Defi
 local iHKShots;
 local living_dmg_cooldown;	//Gehört zum Schweißbrenner, ist aber praktischer, wenn direkt hier gespeichert
+local ChargeBar;
 
 public func AttractTracer(object pTracer)		{return GetPlayerTeam(GetController(pTracer)) != GetTeam() && !fDestroyed;}
 public func IsBulletTarget()				{return !fDestroyed;}
@@ -536,6 +537,13 @@ public func Beep()
 
 public func HardKill()
 {
+	if(!ChargeBar)
+	{
+	ChargeBar = CreateObject(SBAR, 0, 0, GetOwner());
+  ChargeBar->Set(this, RGB(255,0,0), BAR_Ammobar, true, "", SM11);
+  }
+  ChargeBar->Update(20*iHKShots, false);
+
   if(GetEffect("HardKillCooldown", this)) return;
 
   var threat = FindObject2(Find_Distance(120, 0, 0), Find_Hostile(GetOwner(this)), Find_Or(Find_Func("IsRocket"), Find_Func("IsRifleGrenade")), Find_Not(Find_Func("IsDamaged")));
@@ -553,9 +561,17 @@ public func HardKill()
     Sound("BBTP_Explosion.ogg");
     AddEffect("HardKillCooldown", this, 1, 40);
     iHKShots--;
-    PlayerMessage(GetOwner(), Format("%d", iHKShots), this);
     if(!iHKShots)
+    {
       RemoveObject(pItem);
+      pItem = 0;
+    	iItemType = 0;
+    
+    	if(ChargeBar)
+    		RemoveObject(ChargeBar);
+
+    	SetPhase(iItemType, this);
+    }
   }
 }
 
@@ -827,10 +843,6 @@ public func Start()
   //Nachricht über eventuelle Modifikationen
   if(pItem)
     PlayerMessage(GetOwner(), "<c ffff33>%s</c>", this, GetName(pItem));
-
-  //Sprengfallen-Hinweisnachricht
-  if(iItemType == 5)
-    PlayerMessage(GetOwner(), Format("%d", iHKShots), this);
 }
 
 public func Wait()
@@ -849,6 +861,7 @@ public func Wait()
   iYDir = 0;
 
   if(pLaser) RemoveObject(pLaser);
+  if(ChargeBar) RemoveObject(ChargeBar);
 
   Sound("MAVE_Engine.ogg", 0, 0, 70, 0, -1);
   Sound("BWTH_Repair.ogg", false, this, 100, 0, -1);
@@ -1121,6 +1134,8 @@ public func ControlThrow(pByObj)
     //Eventuelle Energiebalken deaktivieren
     if(GetEffect("Bars", this))
       RemoveEffect("Bars", this);
+    if(ChargeBar)
+    	RemoveObject(ChargeBar);
 
     //Objekt aufnehmen
     Enter(this, pTemp);
@@ -1205,6 +1220,9 @@ public func ControlDig(pByObj)
     else RemoveObject(pItem);
     pItem = 0;
     iItemType = 0;
+    
+    if(ChargeBar)
+    	RemoveObject(ChargeBar);
 
     SetPhase(iItemType, this);
     Sound("BWTH_Repair.ogg", false, this, 100, 0, -1);
