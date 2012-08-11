@@ -1098,9 +1098,15 @@ public func QuickInventory(int iMenu, int iPage) {
       var idItem = GetQuickInventoryMenuItem(iDisplayMenu);
       if(idItem)
       {
-        var iOverlay = pRing->Add(i, GetName(0, idItem), "QuickInventory", iDisplayMenu);
         var iItemCount = GetLength(QINV_MenuItemIds[iDisplayMenu]);
-        SetGraphics(0,pRing,idItem,iOverlay,GFXOV_MODE_IngamePicture);
+        if(iItemCount == 1)
+        {
+          pRing->Add(i, GetName(0, idItem), "QuickInventory", iDisplayMenu, idItem, 0, SMIN);
+        }
+        else
+        {
+          pRing->Add(i, GetName(0, idItem), "QuickInventory", iDisplayMenu, idItem, 0, SMIN, "11");
+        }
       }
     }
 
