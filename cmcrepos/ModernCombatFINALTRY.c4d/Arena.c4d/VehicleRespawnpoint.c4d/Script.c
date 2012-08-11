@@ -211,7 +211,7 @@ global func FxIntVehicleUnusedTimer(object pTarget, int iEffectNumber, int iTime
 {
   var pSpawner = EffectVar(0,pTarget,iEffectNumber);
   //Spawner-Check
-  if(!pSpawner)
+  if(!pSpawner || !pTarget)
     return -1;
   //Timer
   EffectVar(2, pTarget, iEffectNumber)++;
