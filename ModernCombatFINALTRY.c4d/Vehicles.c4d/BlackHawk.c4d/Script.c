@@ -49,7 +49,7 @@ public func IsBulletTarget(id idBullet, object pBullet, object pShooter)
   if(EffectVar(0, pBullet, GetEffect("IntHeliProtection", pBullet)) == this)
     return false;
 
-  if(idBullet == MISS || idBullet == HMIS || idBullet == MISL || idBullet == LRML || idBullet == ESHL || (idBullet == C4EX && !pBullet->IsAttached()))
+  if(idBullet->~IsRocket() || idBullet == ESHL || (idBullet == C4EX && !pBullet->IsAttached()))
     if(pBullet && !IsInHitbox(AbsX(GetX(pBullet)), AbsY(GetY(pBullet))))
       return false;
 
@@ -118,6 +118,8 @@ public func IsInHitbox(int x, int y, bool fDraw)
     x2 = hitbox[i][0];
     y2 = hitbox[i][1];
   }
+  
+  return inside;
 }
 
 public func SwitchHitboxVisibility()
