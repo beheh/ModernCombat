@@ -2,7 +2,7 @@
 
 #strict 2
 
-static const RMEN_Radius = 54;
+static const RMEN_Radius = 285;
 static const RMEN_Animation = 6;
 static const SMEN_ItemCount = 5;
 static const RMEN_TextDistance = 22;
@@ -17,6 +17,7 @@ local aItemTitle;		//Titel
 local aItemFunc;		//Funktion
 local aItemPar;			//Parameter
 local aItemId;			//ID
+local aItemBackground;	//Hintergrund
 
 /* globale Funktionen */
 
@@ -65,11 +66,12 @@ global func GetSpeedMenu(object pCommandObject)
 
 protected func Initialize()
 {
-  aItemTitle  = CreateArray(SMEN_ItemCount);
-  aItemFunc   = CreateArray(SMEN_ItemCount);
-  aItemPar    = CreateArray(SMEN_ItemCount);
-  aItemId			= CreateArray(SMEN_ItemCount);
-  aTopInfo    = [];
+  aItemTitle = CreateArray(SMEN_ItemCount);
+  aItemFunc = CreateArray(SMEN_ItemCount);
+  aItemPar = CreateArray(SMEN_ItemCount);
+  aItemId = CreateArray(SMEN_ItemCount);
+  aItemBackground = CreateArray(SMEN_ItemCount);
+  aTopInfo = [];
   aBottomInfo = [];
   SetVisibility(VIS_None); 
 }
@@ -105,19 +107,22 @@ public func Create(object pCommandObject, object pMenuObj)
   return 1;
 }
 
-public func Add(int iItem, string szTitle, string szFunc, Parameter, id idIcon)
+public func Add(int iItem, string szTitle, string szFunc, Parameter, id idIcon, string szGraphics, id idBackground, string szBackgroundGraphics)
 {
   aItemTitle[iItem] = szTitle;
-  aItemFunc[iItem]  = szFunc;
-  aItemPar[iItem]   = Parameter;
-  aItemId[iItem]		= idIcon;
+  aItemFunc[iItem] = szFunc;
+  aItemPar[iItem] = Parameter;
+  aItemId[iItem] = idIcon;
+  aItemBackground[iItem] = idBackground;
 
   CreateItem(iItem, idIcon);
   
   if(idIcon)
-    SetGraphics(0,this,idIcon,iItem+1,GFXOV_MODE_IngamePicture);
+    SetGraphics(szGraphics,this,idIcon,iItem*2+2,GFXOV_MODE_IngamePicture);
+  if(idBackground)
+    SetGraphics(szBackgroundGraphics,this,idBackground,iItem*2+1,GFXOV_MODE_IngamePicture);
 
-  return iItem+1;
+  return iItem*2+2;
 }
 
 public func GetRealCursor()
@@ -133,20 +138,20 @@ static const RMEN_RightItem =	2;
 static const RMEN_DownItem =	3;
 static const RMEN_LeftItem =	4;
 
-public func AddThrowItem(string szTitle, string szFunc, Parameter, id idIcon)
-{ return Add(RMEN_ThrowItem,szTitle,szFunc,Parameter,idIcon); }
+public func AddThrowItem(string szTitle, string szFunc, Parameter, id idIcon, string szGraphics, id idBackground, string szBackgroundGraphics)
+{ return Add(RMEN_ThrowItem,szTitle,szFunc,Parameter,idIcon,szGraphics,idBackground,szBackgroundGraphics); }
 
-public func AddUpItem(string szTitle, string szFunc, Parameter, id idIcon)
-{ return Add(RMEN_UpItem,szTitle,szFunc,Parameter,idIcon); }
+public func AddUpItem(string szTitle, string szFunc, Parameter, id idIcon, string szGraphics, id idBackground, string szBackgroundGraphics)
+{ return Add(RMEN_UpItem,szTitle,szFunc,Parameter,idIcon,szGraphics,idBackground,szBackgroundGraphics); }
 
-public func AddRightItem(string szTitle, string szFunc, Parameter, id idIcon)
-{ return Add(RMEN_RightItem,szTitle,szFunc,Parameter,idIcon); }
+public func AddRightItem(string szTitle, string szFunc, Parameter, id idIcon, string szGraphics, id idBackground, string szBackgroundGraphics)
+{ return Add(RMEN_RightItem,szTitle,szFunc,Parameter,idIcon,szGraphics,idBackground,szBackgroundGraphics); }
 
-public func AddDownItem(string szTitle, string szFunc, Parameter, id idIcon)
-{ return Add(RMEN_DownItem,szTitle,szFunc,Parameter,idIcon); }
+public func AddDownItem(string szTitle, string szFunc, Parameter, id idIcon, string szGraphics, id idBackground, string szBackgroundGraphics)
+{ return Add(RMEN_DownItem,szTitle,szFunc,Parameter,idIcon,szGraphics,idBackground,szBackgroundGraphics); }
 
-public func AddLeftItem(string szTitle, string szFunc, Parameter, id idIcon)
-{ return Add(RMEN_LeftItem,szTitle,szFunc,Parameter,idIcon); }
+public func AddLeftItem(string szTitle, string szFunc, Parameter, id idIcon, string szGraphics, id idBackground, string szBackgroundGraphics)
+{ return Add(RMEN_LeftItem,szTitle,szFunc,Parameter,idIcon,szGraphics,idBackground,szBackgroundGraphics); }
 
 public func AddTopInfoItem(string szItem)
 { return aTopInfo[GetLength(aTopInfo)] = szItem; }
@@ -256,26 +261,20 @@ private func CreateItem(int i, id idIcon)
     idIcon = ROCK;
   }
 
-  if(i == 0)//Item 1
-  {
-    SetGraphics(0,0,idIcon,i+1,GFXOV_MODE_IngamePicture);
-    
-    w = GetDefCoreVal("Picture","DefCore",idIcon,2)*1000/GetDefCoreVal("Picture","DefCore",GetID(),2);
-    h = GetDefCoreVal("Picture","DefCore",idIcon,3)*1000/GetDefCoreVal("Picture","DefCore",GetID(),3);
-    
-    SetObjDrawTransform(w/2,0,0,0,h/2,0,0,i+1);
+  //SetGraphics(0,0,idIcon,i*2+1,GFXOV_MODE_IngamePicture);
+  SetGraphics(0,0,idIcon,i*2+2,GFXOV_MODE_IngamePicture);
+  w = GetDefCoreVal("Picture","DefCore",idIcon,2)*1000/GetDefCoreVal("Picture","DefCore",GetID(),2);
+  h = GetDefCoreVal("Picture","DefCore",idIcon,3)*1000/GetDefCoreVal("Picture","DefCore",GetID(),3);
+
+  if(i == 0) { //Item 1
+    SetObjDrawTransform(w/2,0,0,0,h/2,0,0,i+2);
   }
-  else//Items 2 bis 5
+  else
   {
-    SetGraphics(0,0,idIcon,i+1,GFXOV_MODE_IngamePicture);
-    
-    w = GetDefCoreVal("Picture","DefCore",idIcon,2)*1000/GetDefCoreVal("Picture","DefCore",GetID(),2);
-    h = GetDefCoreVal("Picture","DefCore",idIcon,3)*1000/GetDefCoreVal("Picture","DefCore",GetID(),3);
-    
+    //Items 2 bis 5
     xoff = +Sin((360/(SMEN_ItemCount-1))*(i-1),RMEN_Radius*w);
     yoff = -Cos((360/(SMEN_ItemCount-1))*(i-1),RMEN_Radius*h);
-    
-    SetObjDrawTransform(w/2,0,xoff,0,h/2,yoff,0,i+1);
+    SetObjDrawTransform(w/2,0,xoff,0,h/2,yoff,0,i+2);
   }
 }
 
@@ -292,7 +291,10 @@ private func ScaleItems(int iDst)
     var xoff,yoff = 0;
     var idIcon = aItemId[i];
     if(!idIcon) idIcon = ROCK;
-    SetObjDrawTransform(iDst*500/GetDefWidth(),0,0,0,iDst*500/GetDefHeight(),0,0,i+1);
+    var idBackground = aItemBackground[i];
+
+    if(aItemBackground[i]) SetObjDrawTransform(iDst*500/GetDefWidth(),0,0,0,iDst*500/GetDefHeight(),0,0,i*2+1);
+    SetObjDrawTransform(iDst*500/GetDefWidth(),0,0,0,iDst*500/GetDefHeight(),0,0,i*2+2);
   }
 
   //Items 2 bis 5
@@ -301,14 +303,17 @@ private func ScaleItems(int iDst)
     if(!ItemActive(i)) continue;
     var idIcon = aItemId[i];
     if(!idIcon) idIcon = ROCK;
+    var idBackground = aItemBackground[i];
 
-    //xoff = +Sin((360/(SMEN_ItemCount-1))*(i-1),(iDst*RMEN_Radius/GetDefWidth())*1000);
-    //yoff = -Cos((360/(SMEN_ItemCount-1))*(i-1),(iDst*RMEN_Radius/GetDefHeight())*1000);
+    if(aItemBackground[i]) {
+      xoff = +Sin((360/(SMEN_ItemCount-1))*(i-1), iDst*RMEN_Radius*GetDefCoreVal("Picture","DefCore",idBackground,2)/64);
+      yoff = -Cos((360/(SMEN_ItemCount-1))*(i-1), iDst*RMEN_Radius*GetDefCoreVal("Picture","DefCore",idBackground,3)/64);
+      SetObjDrawTransform(iDst*500/GetDefWidth(),0,xoff,0,iDst*500/GetDefHeight(),yoff,0,i*2+1);
+    }
     
-    xoff = +Sin((360/(SMEN_ItemCount-1))*(i-1),(iDst*RMEN_Radius/GetDefWidth())*1000);
-    yoff = -Cos((360/(SMEN_ItemCount-1))*(i-1),(iDst*RMEN_Radius/GetDefHeight())*GetDefCoreVal("Picture","DefCore",idIcon,3)*31/2);
-    
-    SetObjDrawTransform(iDst*500/GetDefWidth(),0,xoff,0,iDst*500/GetDefHeight(),yoff,0,i+1);
+    xoff = +Sin((360/(SMEN_ItemCount-1))*(i-1), iDst*RMEN_Radius*GetDefCoreVal("Picture","DefCore",idIcon,2)/64);
+    yoff = -Cos((360/(SMEN_ItemCount-1))*(i-1), iDst*RMEN_Radius*GetDefCoreVal("Picture","DefCore",idIcon,3)/64);
+    SetObjDrawTransform(iDst*500/GetDefWidth(),0,xoff,0,iDst*500/GetDefHeight(),yoff,0,i*2+2);
   }
 }
 
@@ -317,8 +322,8 @@ private func ClearItems()
   //Overlays zurücksetzen
   for(var i = 0; i < SMEN_ItemCount; i++)
   {
-    SetObjDrawTransform(1000,0,0,0,1000,0,0,i+1);
-    SetGraphics(0,0,0,i+1);
+    SetObjDrawTransform(1000,0,0,0,1000,0,0,i+2);
+    SetGraphics(0,0,0,i+2);
   }
 }
 
