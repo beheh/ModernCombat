@@ -1076,6 +1076,17 @@ private func GetQuickInventoryMenuItems(int iMenu)
   return aItems;
 }
 
+private func GetQuickInventoryMenuItemCount(int iMenu)
+{
+  var aItems = GetQuickInventoryMenuItems(iMenu);
+  var iCount = 0;
+  for(var i = 0; i < GetLength(aItems); i++)
+  {
+    if(ContentsCount(aItems[i]) || GetGrenade(aItems[i])) iCount++;
+  }
+  return iCount;
+}
+
 public func QuickInventory(int iMenu, int iPage) {
   if(!iMenu) iMenu = QINV_MainMenu;
 
@@ -1098,8 +1109,8 @@ public func QuickInventory(int iMenu, int iPage) {
       var idItem = GetQuickInventoryMenuItem(iDisplayMenu);
       if(idItem)
       {
-        var iItemCount = GetLength(QINV_MenuItemIds[iDisplayMenu]);
-        if(iItemCount == 1)
+        var iItemCount = GetQuickInventoryMenuItemCount(iDisplayMenu);
+        if(iItemCount < 2)
         {
           pRing->Add(i, GetName(0, idItem), "QuickInventory", iDisplayMenu, idItem, 0, SMIN);
         }
@@ -1130,11 +1141,8 @@ public func QuickInventory(int iMenu, int iPage) {
       QuickInventorySelect(GetQuickInventoryMenuItem(iMenu), true);
 
       //Vorhanden Objekte zählen
-      var iCount = 0;
-      for(var i = 0; i < GetLength(aItems); i++)
-      {
-        if(ContentsCount(aItems[i]) || GetGrenade(aItems[i])) iCount++;
-      }
+      var iCount = GetQuickInventoryMenuItemCount(iMenu);
+
       //Wenn weniger als zwei, nicht zeichnen
       if(iCount < 2) return;
 
