@@ -24,10 +24,10 @@ protected func RejectContents()			{return true;}
 public func BonusPointCondition()		{return false;}
 public func VaryingDir()			{return 3;}
 
-public func Set(int iX, int iY)
+public func Set(int iX, int iY, bool fGlobal)
 {
-  iXSpawnOff = iX;
-  iYSpawnOff = iY;
+	iXSpawnOff = iX - GetX()*fGlobal;
+	iYSpawnOff = iY - GetY()*fGlobal;
 }
 
 
