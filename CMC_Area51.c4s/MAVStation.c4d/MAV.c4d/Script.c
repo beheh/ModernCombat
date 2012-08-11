@@ -442,10 +442,10 @@ public func OnDmg(int iDmg, int iType)
 {
   if(!fDestroyed) Sound("WarningDamage.ogg",0,0,0,GetOwner());
 
-  if(iType == DMG_Melee)  return 0 + 50 * (iItemType == 4);  //Melee
-  if(iType == DMG_Fire)    return 40 + 24 * (iItemType == 4);  //Feuer
-  if(iType == DMG_Energy)  return 40 + 24 * (iItemType == 4);  //Energiewaffen
-  if(iType == DMG_Projectile)  return 50 + 25 * (iItemType == 4);  //Energiewaffen
+  if(iType == DMG_Melee)	return 0 + 50 * (iItemType == 4);	//Melee
+  if(iType == DMG_Fire)		return 40 + 24 * (iItemType == 4);	//Feuer
+  if(iType == DMG_Energy)	return 40 + 24 * (iItemType == 4);	//Energiewaffen
+  if(iType == DMG_Projectile)	return 50 + 25 * (iItemType == 4);	//Energiewaffen
 
   return 50 + 25 * (iItemType == 4);
 }
