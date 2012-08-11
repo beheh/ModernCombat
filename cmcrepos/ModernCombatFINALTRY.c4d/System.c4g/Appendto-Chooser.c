@@ -186,18 +186,18 @@ public func IsInRandomTeam(int iPlr)
 
 public func RemovePlayer()
 {
-	var count = 0;
+  var count = 0;
   for(var i = 0; i < GetLength(arTeams); i++) //Mehr Teams als Spieler? Verhindern.
   {
-  	if(arTeams[i])
-  		count++;
+    if(arTeams[i])
+      count++;
   }
   
   if(GetPlayerCount(C4PT_User)-1 < count && count > 1)
-  	arTeams[GetIndexOf(true, arTeams)] = false;
+    arTeams[GetIndexOf(true, arTeams)] = false;
   
   if(GetTeamConfig(TEAM_AutoGenerateTeams)) //Engine-erstellte Teams
-  	iTeamCount = BoundBy(iTeamCount - 1, 1, GetPlayerCount(C4PT_User)-1);
+    iTeamCount = BoundBy(iTeamCount - 1, 1, GetPlayerCount(C4PT_User)-1);
 
   ClearScoreboard(CHOS_SBRD_Teams + GetPlayerCount()+2, 2);
   InitScoreboard();
@@ -500,23 +500,23 @@ protected func SwitchTeam2(int iTeam, int iMode, bool fInvisible)
   arTeams[iTeam] = !arTeams[iTeam];
   if(GetIndexOf(true, arTeams) == -1) //Deaktivierung aller Teams verhindern
   {
-  	Sound("Error", true, 0, 100, iChoosedPlr+1);
+    Sound("Error", true, 0, 100, iChoosedPlr+1);
     arTeams[iTeam] = true;
   }
-  
+
   var count = 0;
   for(var i = 0; i < GetLength(arTeams); i++) //Mehr Teams als Spieler? Verhindern.
   {
-  	if(arTeams[i])
-  		count++;
+    if(arTeams[i])
+      count++;
   }
   
   if(GetPlayerCount() < count)
   {
-  	Sound("Error", true, 0, 100, iChoosedPlr+1);
-  	arTeams[iTeam] = false;
-	}
-	
+    Sound("Error", true, 0, 100, iChoosedPlr+1);
+    arTeams[iTeam] = false;
+  }
+
   for(var i = 0; i < GetLength(aPlayerSetting); i++)
   {
     if(aPlayerSetting[i] == iTeam)
@@ -541,9 +541,9 @@ protected func ChangeTeamCount(int iChange, int iMode, bool fInvisible)
 
 protected func InitializeTeam()
 {
-	for(var i = 0; i < iTeamCount; i++)
+  for(var i = 0; i < iTeamCount; i++)
     arTeams[i+1] = (i < GetPlayerCount(C4PT_User));
-   
+
   return true;
 }
 
@@ -726,9 +726,9 @@ protected func CreateTeams(int iTeamSort, int iMode, bool fNoTeamMenu)
     var aExcept = [];
     for(var i = 0; i < GetLength(teams); i++)
     {
-    	if(GetType(teams[i]) != C4V_Array)
-    		continue;
-    
+      if(GetType(teams[i]) != C4V_Array)
+        continue;
+
       if(iTeamSort == 2)
       {
         var pos = GetIndexOf(true, arTempTeams);
