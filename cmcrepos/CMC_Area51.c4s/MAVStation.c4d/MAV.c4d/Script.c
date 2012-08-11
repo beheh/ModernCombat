@@ -576,10 +576,15 @@ public func HardKill()
 
 public func ShockPaddles()
 {
+  //Schwerverletzte und Feinde suchen
   if(LocalN("charge", pItem) >= 10 && FindObject2(Find_AtPoint(0 - iXDir/5 - Sgn(iXDir), 0 - iYDir/5 - Sgn(iYDir)),
-  					Find_ID(FKDT),				//Schwerverletzter?
-  					Find_Allied(GetOwner(this)),		//Verbündet?
-  					Find_NoContainer()))
+  					Find_Or(
+  					Find_And(Find_ID(FKDT),		//Schwerverletzter?
+  					Find_Allied(GetOwner())),	//Verbündet?
+  					Find_And(Find_OCF(OCF_Alive),	//Lebending?
+  					Find_Hostile(GetOwner()))),	//Feind?
+
+    //Defibrillator aktivieren
     pItem->Activate(this);
 }
 
