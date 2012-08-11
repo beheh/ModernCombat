@@ -37,7 +37,7 @@ public func IsAiming()					{return fIsAiming;}
 public func GetLaser()					{return pLaser;}
 public func Sgn(int x)					{if (x < 0) return x / x * -1; return x / x;}
 public func IsMAV()					{return true;}
-public func MaxDamage()					{return 90;}
+public func MaxDamage()					{return 60;}
 public func IsRepairable()				{return !fDestroyed;}
 public func IsMeleeTarget(object attacker)		{return !fDestroyed && Hostile(GetOwner(this), GetOwner(attacker));}
 public func MeleeHit(object pWeapon)			{return DoDmg(MaxDamage()+1, DMG_Melee, this, 0, GetOwner(pWeapon));}
@@ -445,6 +445,7 @@ public func OnDmg(int iDmg, int iType)
   if(iType == DMG_Melee)  return 0 + 50 * (iItemType == 4);  //Melee
   if(iType == DMG_Fire)    return 40 + 24 * (iItemType == 4);  //Feuer
   if(iType == DMG_Energy)  return 40 + 24 * (iItemType == 4);  //Energiewaffen
+  if(iType == DMG_Projectile)  return 50 + 25 * (iItemType == 4);  //Energiewaffen
 
   return 50 + 25 * (iItemType == 4);
 }
@@ -577,12 +578,13 @@ public func HardKill()
 public func ShockPaddles()
 {
   //Schwerverletzte und Feinde suchen
-  if(LocalN("charge", pItem) >= 10 && FindObject2(Find_AtPoint(0 - iXDir/5 - Sgn(iXDir), 0 - iYDir/5 - Sgn(iYDir)),
-  					Find_Or(
-  					Find_And(Find_ID(FKDT),		//Schwerverletzter?
-  					Find_Allied(GetOwner())),	//Verbündet?
-  					Find_And(Find_OCF(OCF_Alive),	//Lebending?
-  					Find_Hostile(GetOwner()))),	//Feind?
+  if(LocalN("charge", pItem) >= 10 && 
+  	 FindObject2(Find_AtPoint(0 - iXDir/5 - Sgn(iXDir), 0 - iYDir/5 - Sgn(iYDir)),
+  							 Find_Or(
+  							 Find_And(Find_ID(FKDT),		//Schwerverletzter?
+  							 Find_Allied(GetOwner())),	//Verbündet?
+  							 Find_And(Find_OCF(OCF_Alive),	//Lebendig?
+  							 Find_Hostile(GetOwner())))))	//Feind?
 
     //Defibrillator aktivieren
     pItem->Activate(this);
