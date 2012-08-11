@@ -24,12 +24,6 @@ protected func RejectContents()			{return true;}
 public func BonusPointCondition()		{return false;}
 public func VaryingDir()			{return 3;}
 
-public func Set(int iX, int iY, bool fGlobal)
-{
-	iXSpawnOff = iX - GetX()*fGlobal;
-	iYSpawnOff = iY - GetY()*fGlobal;
-}
-
 
 /* Initialisierung */
 
@@ -38,6 +32,14 @@ public func Initialize()
   _inherited();
 
   SetAction("Ready");
+}
+
+/* Spawnkoordinaten festlegen */
+
+public func Set(int iX, int iY, bool fGlobal)
+{
+  iXSpawnOff = iX - GetX()*fGlobal;
+  iYSpawnOff = iY - GetY()*fGlobal;
 }
 
 /* Zerstörung */
@@ -139,7 +141,7 @@ public func FxActivityTimer(object pTarget, int iEffectNumber, int iEffectTime)
     {
       SetPlrView(GetController(), pMav);
       if(UserHUD)
-      	UserHUD->Update(pMav->GetAttWeapon(), User->AmmoStoring(),User);
+        UserHUD->Update(pMav->GetAttWeapon(), User->AmmoStoring(),User);
     }
   }
 }
@@ -178,7 +180,7 @@ protected func ActivateEntrance(pUser)
   //Besitzer aktualisieren
   if(pMav && !pMav->IsDestroyed())
   {
-  	if(Hostile(GetOwner(this), pMav->GetOwner())) pMav->Reload();
+    if(Hostile(GetOwner(this), pMav->GetOwner())) pMav->Reload();
     pMav->SetOwner(GetOwner(this));
     pMav->Start();
     SetAction("Controlling");
@@ -337,17 +339,17 @@ protected func ControlThrow(object pByObj)
 {
   if(!pMav || pMav->IsDestroyed())
   {
-  	if(GetWealth(GetOwner(pByObj)) >= GetDefCoreVal("Value", "DefCore", MAVE))
-  	{
-  		DoWealth(GetOwner(pByObj), -GetDefCoreVal("Value", "DefCore", MAVE));
-    	pMav = CreateObject(MAVE,iXSpawnOff,iYSpawnOff,GetOwner(this));
-    	pByObj->SetHUDTarget(pMav->GetAttWeapon());
-    	pMav->Start();
-    	SpawnEffect(pMav);
-    	SetAction("Controlling");
+    if(GetWealth(GetOwner(pByObj)) >= GetDefCoreVal("Value", "DefCore", MAVE))
+    {
+      DoWealth(GetOwner(pByObj), -GetDefCoreVal("Value", "DefCore", MAVE));
+      pMav = CreateObject(MAVE,iXSpawnOff,iYSpawnOff,GetOwner(this));
+      pByObj->SetHUDTarget(pMav->GetAttWeapon());
+      pMav->Start();
+      SpawnEffect(pMav);
+      SetAction("Controlling");
     }
     else
-    	PlayerMessage(GetOwner(pByObj), "$NoMoney$", this);
+      PlayerMessage(GetOwner(pByObj), "$NoMoney$", this);
   }
   else
     pMav->ControlThrow(pByObj);
