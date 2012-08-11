@@ -1150,7 +1150,7 @@ public func QuickInventory(int iMenu, int iPage) {
         if(aItems[i])
         {
           if(!ContentsCount(aItems[i]) && !GetGrenade(aItems[i])) continue;
-          pRing->Add(QINV_MenuOrder[i-iPage*3], GetName(0, aItems[i]), "QuickInventorySelect", aItems[i], aItems[i]);
+          pRing->Add(QINV_MenuOrder[i-iPage*3], GetName(0, aItems[i]), "QuickInventorySelect", aItems[i], aItems[i], 0, SMIN);
         }
       }
       pRing->AddThrowItem("$Use$", "QuickInventoryThrow", 0, SM04);
