@@ -26,8 +26,8 @@ public func VaryingDir()			{return 3;}
 
 public func Set(int iX, int iY)
 {
-	iXSpawnOff = iX;
-	iYSpawnOff = iY;
+  iXSpawnOff = iX;
+  iYSpawnOff = iY;
 }
 
 
