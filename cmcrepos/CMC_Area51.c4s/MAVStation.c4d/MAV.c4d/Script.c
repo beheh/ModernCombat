@@ -496,10 +496,9 @@ protected func Sense()
   for(var pObj in FindObjects(Find_Distance(SensorDistance()),					//In Reichweite
   				Find_Exclude(this),						//Selber ausschließen
   				Find_NoContainer(),						//Im Freien
+  				Find_Hostile(GetOwner()),			//Nur Feinde
   				Find_Or(Find_OCF(OCF_Alive), Find_Func("IsDetectable"))))	//Lebewesen oder als identifizierbar markiert
   {
-    //Feindlich
-    if(!Hostile(GetController(), GetController(pObj))) continue;
 
     //Beep.
     Beep();
@@ -842,7 +841,10 @@ public func Start()
 
   //Nachricht über eventuelle Modifikationen
   if(pItem)
+  {
     PlayerMessage(GetOwner(), "<c ffff33>%s</c>", this, GetName(pItem));
+    SetOwner(GetOwner(), pItem);
+  }
 }
 
 public func Wait()
@@ -1139,6 +1141,7 @@ public func ControlThrow(pByObj)
 
     //Objekt aufnehmen
     Enter(this, pTemp);
+    SetOwner(GetOwner(), this);
 
     //Sprengfalle entfernen, wenn bereits verwendet
     if(pItem)
