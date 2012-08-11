@@ -100,8 +100,8 @@ public func LaunchRocket(id rid, int angle)
     }
   }
   */
-	Sound("JetConfirm*.ogg",0,0,0,GetOwner(user)+1);
-	Sound("JetFlyBy*.ogg");
+  Sound("JetConfirm*.ogg",0,0,0,GetOwner(user)+1);
+  Sound("JetFlyBy*.ogg");
   Echo("RTLR_Echo.ogg");
 }
 
@@ -129,8 +129,8 @@ private func Reloaded(caller,slot,amount)
   //Geladene Munitionsmenge angeben
   if(GetAction(Contained()) == "Flying")
   {
-  	PlayerMessage(GetOwner(Contained()), "$Reloaded$", this);
-  	Sound("JetReporting*.ogg",0,0,0,GetOwner(Contained())+1);
+    PlayerMessage(GetOwner(Contained()), "$Reloaded$", this);
+    Sound("JetReporting*.ogg",0,0,0,GetOwner(Contained())+1);
   }
 
   //Callback
