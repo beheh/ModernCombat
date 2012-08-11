@@ -356,11 +356,3 @@ protected func ControlThrow(object pByObj)
 
   return true;
 }
-
-public func ControlUpdate(object byObj, int comdir, bool dig, bool throw) 
-{
-  if(throw)
-    return ControlThrow(byObj);
-  else
-    return true;
-}
