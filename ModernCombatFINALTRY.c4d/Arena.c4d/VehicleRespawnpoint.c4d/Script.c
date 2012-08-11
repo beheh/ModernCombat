@@ -203,6 +203,7 @@ global func FxIntVehicleUnusedStart(object pTarget, int iEffectNumber, id idType
   EffectVar(0, pTarget, iEffectNumber) = pSpawner;	//Spawner
   EffectVar(1, pTarget, iEffectNumber) = iDistance;	//Sichere Zone
   EffectVar(2, pTarget, iEffectNumber) = 0;		//Timer
+  EffectVar(3, pTarget, iEffectNumber) = false;		//Verursacht gerade Schaden
   return 1;
 }
 
@@ -227,13 +228,20 @@ global func FxIntVehicleUnusedTimer(object pTarget, int iEffectNumber, int iTime
   if(damage)
   {
     if(EffectVar(2, pTarget, iEffectNumber) < 30) return;
+    EffectVar(3, pTarget, iEffectNumber) = true;
     DoDmg(Max(1, EffectVar(2, pTarget, iEffectNumber)/10), DMG_Melee, pTarget);
+    EffectVar(3, pTarget, iEffectNumber) = false;
   }
   else
   {
     EffectVar(2, pTarget, iEffectNumber) = 0;
   }
   return 1;
+}
+
+global func FxIntVehicleUnusedDamaging(object pTarget, int iEffectNumber)
+{
+  return EffectVar(3, pTarget, iEffectNumber);
 }
 
 /* Objektspzifische Funktionen */

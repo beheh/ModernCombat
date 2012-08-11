@@ -1202,13 +1202,18 @@ public func OnDamage(int iDamage)
 {
   //Reperaturen haben keine Auswirkung
   if(iDamage < 1) return;
+
   //Schaden dem HUD melden
   if(hud)
     hud->DamageReceived();
   if(GetContact(this, -1))
     ResetAutopilot();
+
   //Sound
-  Sound("MetalHit*.ogg");
+  if(!EffectCall(this, GetEffect("IntVehicleUnused", this), "Damaging"))
+  {
+    Sound("MetalHit*.ogg");
+  }
 
   return true;
 }
