@@ -3,18 +3,7 @@
 #strict 2
 #appendto BKHK
 
-public func IsBulletTarget(id idBullet, object pBullet, object pShooter)
-{
-  if(EffectVar(0, pBullet, GetEffect("IntHeliProtection", pBullet)) == this)
-    return false;
 
-  if(idBullet == GDMS || idBullet == MISS || idBullet == HMIS || idBullet == MISL || idBullet == LRML || idBullet == ESHL || (idBullet == C4EX && !pBullet->IsAttached()))
-    if(pBullet && ObjectDistance(pBullet) >= 40)
-      return false;
-
-
-  return DefaultBulletTarget(idBullet, pBullet, pShooter);
-}
 //für Warnsounds und Grafik zuständig
 protected func TimerCall()
 {
