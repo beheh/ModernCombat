@@ -118,7 +118,7 @@ public func IsInHitbox(int x, int y, bool fDraw)
     x2 = hitbox[i][0];
     y2 = hitbox[i][1];
   }
-  
+
   return inside;
 }
 
