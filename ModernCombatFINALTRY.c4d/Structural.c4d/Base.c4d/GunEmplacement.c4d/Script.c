@@ -523,9 +523,7 @@ protected func ControlThrow(object byObj)
 
 public func ControlUpdate(object byObj, int comdir, bool dig, bool throw) 
 {
-  if(throw)
-    return ControlThrow(byObj);
-  else
+  if(!throw)
     return GetAttWeapon()->StopAutoFire();
 }
 
