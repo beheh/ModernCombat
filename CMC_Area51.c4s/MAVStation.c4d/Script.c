@@ -6,6 +6,8 @@
 local crosshair;
 local controller;
 local pMav;
+local iXSpawnOff;
+local iYSpawnOff;
  
 public func RemoveTracer()			{return IsDestroyed();}		//Tracer entfernen, wenn zerstört
 public func DisableCH()				{return true;}			//Eventuelles Fadenkreuz des Clonks ausblenden
@@ -21,6 +23,12 @@ public func StartRepair()			{return true;}
 protected func RejectContents()			{return true;}
 public func BonusPointCondition()		{return false;}
 public func VaryingDir()			{return 3;}
+
+public func Set(int iX, int iY)
+{
+	iXSpawnOff = iX;
+	iYSpawnOff = iY;
+}
 
 
 /* Initialisierung */
@@ -332,7 +340,7 @@ protected func ControlThrow(object pByObj)
   	if(GetWealth(GetOwner(pByObj)) >= GetDefCoreVal("Value", "DefCore", MAVE))
   	{
   		DoWealth(GetOwner(pByObj), -GetDefCoreVal("Value", "DefCore", MAVE));
-    	pMav = CreateObject(MAVE,0,0,GetOwner(this));
+    	pMav = CreateObject(MAVE,iXSpawnOff,iYSpawnOff,GetOwner(this));
     	pByObj->SetHUDTarget(pMav->GetAttWeapon());
     	pMav->Start();
     	SpawnEffect(pMav);
