@@ -537,10 +537,10 @@ public func Beep()
 
 public func HardKill()
 {
-	if(!ChargeBar)
-	{
-	ChargeBar = CreateObject(SBAR, 0, 0, GetOwner());
-  ChargeBar->Set(this, RGB(255,0,0), BAR_Ammobar, true, "", SM11);
+  if(!ChargeBar)
+  {
+    ChargeBar = CreateObject(SBAR, 0, 0, GetOwner());
+    ChargeBar->Set(this, RGB(255, 255, 80), BAR_Ammobar, true, "", SM11);
   }
   ChargeBar->Update(20*iHKShots, false);
 
@@ -565,12 +565,12 @@ public func HardKill()
     {
       RemoveObject(pItem);
       pItem = 0;
-    	iItemType = 0;
-    
-    	if(ChargeBar)
-    		RemoveObject(ChargeBar);
+      iItemType = 0;
 
-    	SetPhase(iItemType, this);
+      if(ChargeBar)
+        RemoveObject(ChargeBar);
+
+      SetPhase(iItemType, this);
     }
   }
 }
@@ -1135,7 +1135,7 @@ public func ControlThrow(pByObj)
     if(GetEffect("Bars", this))
       RemoveEffect("Bars", this);
     if(ChargeBar)
-    	RemoveObject(ChargeBar);
+      RemoveObject(ChargeBar);
 
     //Objekt aufnehmen
     Enter(this, pTemp);
@@ -1220,9 +1220,9 @@ public func ControlDig(pByObj)
     else RemoveObject(pItem);
     pItem = 0;
     iItemType = 0;
-    
+
     if(ChargeBar)
-    	RemoveObject(ChargeBar);
+      RemoveObject(ChargeBar);
 
     SetPhase(iItemType, this);
     Sound("BWTH_Repair.ogg", false, this, 100, 0, -1);
