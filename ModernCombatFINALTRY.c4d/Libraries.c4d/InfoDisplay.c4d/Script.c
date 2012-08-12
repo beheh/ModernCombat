@@ -2,6 +2,10 @@
 
 #strict 2
 
+static const IDSP_Duration_FadeIn = 38;
+static const IDSP_Duration_Show = 38;
+static const IDSP_Duration_FadeOut = 38;
+
 local szDesc;
 local iSize;
 local highlight;
@@ -53,10 +57,11 @@ public func SetHighlightColor(int dwColor)
 
 public func FxIntHighlightStart(object target, int nr, temp, object ach)
 {
-  EffectVar(0, target, nr) = 255;		//Alphawert
-  EffectVar(1, target, nr) = -5;		//Erhöhung/Verringerung des Alphawertes
-  EffectVar(3, target, nr) = ach;		//Achievementobjekt
-  EffectVar(4, target, nr) = RGB(255,204,0);	//Standardfarbwert für Highlight
+  EffectVar(0, target, nr) = 255; //Alphawert
+  EffectVar(1, target, nr) = -5; //Veränderung des Alphawertes
+  EffectVar(3, target, nr) = ach; //Achievementobjekt
+  EffectVar(4, target, nr) = RGB(255,204,0); //Standardfarbwert für Highlight
+  EffectVar(5, target, nr) = 0;	//Begrenzung des Alphawerts
 }
 
 public func FxIntHighlightTimer(object target, int nr)
@@ -65,7 +70,7 @@ public func FxIntHighlightTimer(object target, int nr)
   var color = EffectVar(4, target, nr);
   if(!EffectVar(3, target, nr)->IsRunning())
     return true;
-  SetClrModulation(RGBa(GetRGBaValue(color, 1), GetRGBaValue(color, 2), GetRGBaValue(color, 3), EffectVar(0, target, nr)), target);
+  SetClrModulation(RGBa(GetRGBaValue(color, 1), GetRGBaValue(color, 2), GetRGBaValue(color, 3), Max(EffectVar(0, target, nr), EffectVar(5, target, nr))), target);
   if(EffectVar(0, target, nr) <= 0)
     EffectVar(1, target, nr) = +5;
   else
@@ -73,7 +78,7 @@ public func FxIntHighlightTimer(object target, int nr)
     EffectVar(1, target, nr) = -5;
 
   //Rotation
-  SetR(EffectVar(2, target, nr)++, target);
+  SetR(GetR(target)+1, target);
 
   EffectVar(0, target, nr) += EffectVar(1,target, nr);
   return true;
@@ -97,23 +102,26 @@ public func FxIntFadeTimer(object target, int nr)
   EffectVar(0, target, nr)++;
   iTime = EffectVar(0, target, nr);
 
-  if(iTime < 1*32)
+  //Sanfte Animationen
+  if(iTime < IDSP_Duration_FadeIn)
   {
-    SetClrModulation(RGBa(255,255,255,255-(iTime*8)), target);
-    target->DrawDescription(255-(iTime*8));
+    var iAlpha = Cos(iTime*180/IDSP_Duration_FadeIn, 127)+127;
+    SetClrModulation(RGBa(255,255,255,iAlpha), target);
+    target->DrawDescription(iAlpha);
     return true;
   }
-  if(iTime < 9*32)
+  if(iTime < IDSP_Duration_FadeIn + IDSP_Duration_Show)
   {
     SetClrModulation(RGBa(255,255,255,0), target);
     target->DrawDescription(0);
     return true;
   }
-  if(iTime < 13*32)
+  if(iTime < IDSP_Duration_FadeIn + IDSP_Duration_Show + IDSP_Duration_FadeOut)
   {
-    SetClrModulation(RGBa(255,255,255,(iTime-(9*32))*2), target);
-    EffectVar(0, target->GetHighlight(), GetEffect("IntHighlight", target->GetHighlight())) = (iTime-(9*32))*2;
-    target->DrawDescription((iTime-(9*32))*2);
+    var iAlpha = -Cos((iTime - IDSP_Duration_FadeIn - IDSP_Duration_Show)*180/IDSP_Duration_FadeOut, 127)+127;
+    SetClrModulation(RGBa(255,255,255,iAlpha), target);
+    EffectVar(5, target->GetHighlight(), GetEffect("IntHighlight", target->GetHighlight())) = iAlpha;
+    target->DrawDescription(iAlpha);
     return true;
   }
 
