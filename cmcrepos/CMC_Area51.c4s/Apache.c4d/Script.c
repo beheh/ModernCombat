@@ -8,6 +8,11 @@ static const APCE_Seat_Gunner = 2;
 
 public func MaxDamage()		{return 190;}
 
+/* Hitbox */
+public func HitboxXOffset() { return 0; } //X-Abstand vom Offset zum Hitboxmittelpunkt
+public func HitboxYOffset() { return 0; } //Y-Abstand vom Offset zum Hitboxmittelpunkt
+public func HitboxWidth() { return GetDefWidth(GetID()); }   //Breite der Hitbox
+public func HitboxHeight() { return GetDefHeight(GetID()); } //Höhe der Hitbox
 
 /* Initialisierung */
 
@@ -22,8 +27,7 @@ protected func Initialize()
   SetAction("Stand");
 
   //Hitbox erstellen
-  iHitboxDistance = Distance(0, 0, GetDefWidth(APCE)/2, GetDefHeight(APCE)/2);
-  aHitboxAngles = [Angle(0, 0, GetDefWidth(APCE)/2, GetDefHeight(APCE)/2), Angle(0, 0, -(GetDefWidth(APCE)/2), GetDefHeight(APCE)/2), Angle(0, 0, -(GetDefWidth(APCE)/2), -(GetDefHeight(APCE)/2)), Angle(0, 0, GetDefWidth(APCE)/2, -(GetDefHeight(APCE)/2))];
+  InitializeHitbox();
 
   //Pilot
   aSeats = [];
