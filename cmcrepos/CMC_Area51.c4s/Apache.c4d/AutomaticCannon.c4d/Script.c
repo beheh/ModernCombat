@@ -105,8 +105,8 @@ public func LaunchGrenade(id idg, int speed, int angle, int mode)
       		RandomX(60,90),RGBa(200,200,200,0),0,0);
     }
   }
-  Sound("ACCN_Fire.ogg", 0, grenade);
-  Echo("ACCN_Echo.ogg");
+  Sound("LCAC_Fire.ogg", 0, grenade);
+  Echo("LCAC_Echo.ogg");
 }
 
 /* Allgemein */
@@ -114,7 +114,7 @@ public func LaunchGrenade(id idg, int speed, int angle, int mode)
 func OnReload()
 {
   if (!GetEffect("IntNoSound", this))
-    Sound("ACCN_Reload.ogg", false, this);
+    Sound("LCAC_Reload.ogg", false, this);
 }
 
 public func OnEmpty()
