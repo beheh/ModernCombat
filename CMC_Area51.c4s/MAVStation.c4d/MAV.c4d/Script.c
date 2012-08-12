@@ -440,7 +440,7 @@ private func DamageChecks()
 
 public func OnDmg(int iDmg, int iType)
 {
-  if(!fDestroyed) Sound("WarningDamage.ogg",0,0,0,GetOwner());
+  if(!fDestroyed) Sound("WarningDamage.ogg",0,0,0,GetOwner()+1);
 
   if(iType == DMG_Melee)	return 0 + 50 * (iItemType == 4);	//Melee
   if(iType == DMG_Fire)		return 40 + 24 * (iItemType == 4);	//Feuer
@@ -1211,7 +1211,7 @@ public func ControlThrow(pByObj)
       PlayerMessage(GetOwner(pByObj), "$MarkRequired$", this);
       if(!GetEffect("NoTargetCooldown"))
       {
-        Sound("JetNoTarget.ogg",0,0,0,GetOwner(pByObj));
+        Sound("JetNoTarget.ogg",0,0,0,GetOwner(pByObj)+1);
         AddEffect("NoTargetCooldown", this, 1, 150);
       }
     }
