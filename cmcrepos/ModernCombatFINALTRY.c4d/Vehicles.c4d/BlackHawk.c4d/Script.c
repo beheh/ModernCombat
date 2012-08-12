@@ -56,6 +56,13 @@ public func IsBulletTarget(id idBullet, object pBullet, object pShooter)
   return DefaultBulletTarget(idBullet, pBullet, pShooter);
 }
 
+/* Hitbox */
+
+public func HitboxXOffset() { return 0; } //X-Abstand vom Offset zum Hitboxmittelpunkt
+public func HitboxYOffset() { return 0; } //Y-Abstand vom Offset zum Hitboxmittelpunkt
+public func HitboxWidth() { return GetDefWidth(GetID()); }   //Breite der Hitbox
+public func HitboxHeight() { return GetDefHeight(GetID()); } //Höhe der Hitbox
+
 public func IsInHitbox(int x, int y, bool fDraw)
 {
   var distance = iHitboxDistance;
@@ -68,7 +75,7 @@ public func IsInHitbox(int x, int y, bool fDraw)
   {
     a += GetR();
     a = a + (45 - a) * 2;
-    hitbox[GetLength(hitbox)] = [Cos(a, distance), -Sin(a, distance)];
+    hitbox[GetLength(hitbox)] = [Cos(a, distance)+HitboxXOffset(), -Sin(a, distance)+HitboxYOffset()];
   }
 
   if(fDraw)
@@ -141,6 +148,14 @@ public func FxShowHitboxTimer(object target, int nr)
   return true;
 }
 
+protected func InitializeHitbox()
+{
+	//Hitbox erstellen
+  iHitboxDistance = Distance(0, 0, HitboxWidth()/2, HitboxHeight()/2);
+  aHitboxAngles = [Angle(0, 0, HitboxWidth()/2, HitboxHeight()/2), Angle(0, 0, -(HitboxWidth()/2), HitboxHeight()/2), Angle(0, 0, -(HitboxWidth()/2), -(HitboxHeight()/2)), Angle(0, 0, HitboxWidth()/2, -(HitboxHeight()/2))];
+	return true;
+}
+
 protected func FxIntHeliProtectionStart(object pTarget, int iEffect, int iTemp, object pObj)
 {
   if (!iTemp)
@@ -159,10 +174,9 @@ protected func Initialize()
   rotation = 0; 
   SetAction("Stand");
 
-  //Hitbox erstellen
-  iHitboxDistance = Distance(0, 0, GetDefWidth(BKHK)/2, GetDefHeight(BKHK)/2);
-  aHitboxAngles = [Angle(0, 0, GetDefWidth(BKHK)/2, GetDefHeight(BKHK)/2), Angle(0, 0, -(GetDefWidth(BKHK)/2), GetDefHeight(BKHK)/2), Angle(0, 0, -(GetDefWidth(BKHK)/2), -(GetDefHeight(BKHK)/2)), Angle(0, 0, GetDefWidth(BKHK)/2, -(GetDefHeight(BKHK)/2))];
-
+	//Hitbox erstellen
+	InitializeHitbox();
+	
   //Pilot
   aSeats = [];
 
