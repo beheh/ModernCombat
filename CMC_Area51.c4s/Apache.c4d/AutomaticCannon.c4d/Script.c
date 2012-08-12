@@ -117,6 +117,12 @@ func OnReload()
     Sound("ACCN_Reload.ogg", false, this);
 }
 
+public func OnEmpty()
+{
+  if(Contained() && Contained()->~IsWeaponRack())
+    Contained()->~OnEmpty();
+}
+
 public func StopAutoFire()
 {
   //Nur wenn er auch wirklich feuert
