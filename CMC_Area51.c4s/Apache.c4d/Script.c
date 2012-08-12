@@ -378,6 +378,8 @@ public func EnterSeat(int iSeat, object pObj)
     }
     SetGraphics("Pilot", this, GetID(), BKHK_PilotLayer, GFXOV_MODE_ExtraGraphics, 0, GFX_BLIT_Custom, this);
     GetPilot() = pObj;
+    pObj->~SetHUDTarget(pRocketStation->GetAttWeapon());
+    
     hud = CreateObject(AHUD, 0, 0, GetOwner(pObj));
     hud->~SetHelicopter(this);
     return true;
@@ -393,7 +395,20 @@ public func EnterSeat(int iSeat, object pObj)
   }
 }
 
-/*----- Pilotenfähigkeiten -----*/
+protected func Ejection(object ByObj)
+{
+  if(!ByObj)
+    return;
+  if(!(GetOCF(ByObj) & OCF_CrewMember))
+    return;
+  
+  if(GetPilot() == ByObj)
+  	ByObj->~SetHUDTarget(0);
+
+  return _inherited(ByObj);
+}
+
+/* Pilotenfähigkeiten */
 
 /* Raketenwerfer */
 
