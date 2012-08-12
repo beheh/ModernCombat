@@ -6,12 +6,10 @@
 static const APCE_Seat_Pilot = 1;
 static const APCE_Seat_Gunner = 2;
 
+public func MaxDamage()		{return 250;}
 
-/*----- Callbacks -----*/
 
-public func MaxDamage()		{return 190;}
-
-/*----- Initialisierung -----*/
+/* Initialisierung */
 
 protected func Initialize()
 {
@@ -22,6 +20,10 @@ protected func Initialize()
   throttle = 0;
   rotation = 0; 
   SetAction("Stand");
+
+  //Hitbox erstellen
+  iHitboxDistance = Distance(0, 0, GetDefWidth(APCE)/2, GetDefHeight(APCE)/2);
+  aHitboxAngles = [Angle(0, 0, GetDefWidth(APCE)/2, GetDefHeight(APCE)/2), Angle(0, 0, -(GetDefWidth(APCE)/2), GetDefHeight(APCE)/2), Angle(0, 0, -(GetDefWidth(APCE)/2), -(GetDefHeight(APCE)/2)), Angle(0, 0, GetDefWidth(APCE)/2, -(GetDefHeight(APCE)/2))];
 
   //Pilot
   aSeats = [];
@@ -40,7 +42,7 @@ protected func Initialize()
   //Zufälligen Song anwählen
   iRadioTrack = Random(RDIO_TrackCount)+1;
 
-  //Rotordrehung
+  //Rotorgeschwindigkeit
   iRotorSpeed = 0;
 
   //Vertices richtig drehen
@@ -58,18 +60,17 @@ protected func Initialize()
   {
     SetColorDw(GetPlrColorDw(GetOwner()));
   }
-
   AddEffect("VehicleNoOwner", this, 50, 38, this);
 
-  return;
+  return 1;
 }
 
-/*----- Erfassung -----*/
+/* Erfassung */
 
 public func & GetPilot()	{return aSeats[APCE_Seat_Pilot];}
 public func & GetGunner()	{return aSeats[APCE_Seat_Gunner];}
 
-/*----- Eingangssteuerung -----*/
+/* Eingangssteuerung */
 
 protected func Collection2(object pObj)
 {
