@@ -438,7 +438,7 @@ public func SelectWeapon(int iLevel, object pTarget, bool fFireModes)
 			}
 			else 
 			{
-				if (pTarget->~OnDmg(obj->GetBotData(BOT_DmgType, mode)) < pTarget->~OnDmg(type) && fav->GetBotData(BOT_Power, favmode) - 1 <= obj->GetBotData(BOT_Power, mode))
+				if (pTarget->~OnDmg(0, obj->GetBotData(BOT_DmgType, mode)) < pTarget->~OnDmg(0, type) && fav->GetBotData(BOT_Power, favmode) - 1 <= obj->GetBotData(BOT_Power, mode))
 				{
 					fav = obj;
 					type = fav->GetBotData(BOT_DmgType);
