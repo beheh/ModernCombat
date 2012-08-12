@@ -444,7 +444,7 @@ private func DamageChecks()
 
 public func OnDmg(int iDmg, int iType)
 {
-  if(!fDestroyed) Sound("WarningDamage.ogg",0,0,0,GetOwner()+1);
+  if(!fDestroyed && GetAction() == "Flying") Sound("WarningDamage.ogg",0,0,0,GetOwner()+1);
 
   if(iType == DMG_Melee)	return 0 + 50 * (iItemType == 4);	//Melee
   if(iType == DMG_Fire)		return 40 + 24 * (iItemType == 4);	//Feuer
@@ -1414,6 +1414,9 @@ public func FxBarsStop(object target, int nr)
 
 public func ContactLeft()
 {
+	if(GetXDir()<=-30)
+		Collision(GetXDir());
+		
   iXDir = 0;
   if(iXTendency < 0)
     iXTendency = 0;
@@ -1421,6 +1424,9 @@ public func ContactLeft()
 
 public func ContactRight()
 {
+	if(GetXDir()>=30)
+		Collision(GetXDir());
+		
   iXDir = 0;
   if(iXTendency > 0)
     iXTendency = 0;
@@ -1428,6 +1434,9 @@ public func ContactRight()
 
 public func ContactTop()
 {
+	if(GetYDir()<=-30)
+		Collision(GetYDir());
+  
   iYDir = 0;
   if(iYTendency < 0)
     iYTendency = 0;
@@ -1435,6 +1444,9 @@ public func ContactTop()
 
 public func ContactBottom()
 {
+	if(GetYDir()>=30)
+		Collision(GetYDir());
+  
   iYDir = 0;
   if(iYTendency > 0)
     iYTendency = 0;
@@ -1442,19 +1454,18 @@ public func ContactBottom()
 
 /* Aufschlag */
 
-protected func Hit()
+protected func Collision(int iCollSpeed)
 {
+	iCollSpeed = Abs(iCollSpeed);
+
   //Effekte
   Sparks(Random(2)+2,RGB(255,255,Random(5)+255));
   Sound("HeavyHit*.ogg");
+  DoDmg(iCollSpeed/4);
 }
 
-protected func Hit3()
+protected func Hit2()
 {
-  //Effekte
-  if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",2,40,0,0,0,50,60);
-  Sparks(Random(2)+2,RGB(255,255,Random(5)+255));
+	//Effekte
   Sound("HeavyHit*.ogg");
-
-  DoDmg(10);
 }
