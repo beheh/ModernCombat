@@ -6,7 +6,7 @@
 static const APCE_Seat_Pilot = 1;
 static const APCE_Seat_Gunner = 2;
 
-public func MaxDamage()		{return 250;}
+public func MaxDamage()		{return 190;}
 
 
 /* Initialisierung */
@@ -51,15 +51,6 @@ protected func Initialize()
   //Eingang
   SetEntrance(true);
 
-  //Neutrale Apaches sind weiﬂ
-  if(GetOwner() == NO_OWNER)
-  {
-    SetColorDw(RGB(255,255,255));
-  }
-  else
-  {
-    SetColorDw(GetPlrColorDw(GetOwner()));
-  }
   AddEffect("VehicleNoOwner", this, 50, 38, this);
 
   return 1;
