@@ -75,6 +75,10 @@ public func Set(id idWeapon, int iRotationParam , bool fShieldParam, int iTurnin
 {
   Arm(idWeapon);
   SetRotation(iRotationParam);
+  
+  if(!iTurningSpeedParam)
+  	iTurningSpeedParam++;
+  iTurningSpeedParam++;
   iTurningSpeed = iTurningSpeedParam;
 
   if(fShieldParam)
@@ -348,7 +352,7 @@ public func FxActivityTimer(object pTarget, int iEffectNumber, int iEffectTime)
   UpdateDir();
 
   //Drehgeschwindigkeit
-  if(iTurningSpeed>0)
+  if(iTurningSpeed>=0)
   aim_angle += iPat_Dir*iTurningSpeed;
   else if(!(iEffectTime%-iTurningSpeed))
     aim_angle += iPat_Dir;
