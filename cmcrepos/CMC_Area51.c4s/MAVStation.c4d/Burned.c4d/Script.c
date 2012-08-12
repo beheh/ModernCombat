@@ -17,7 +17,8 @@ public func StartRepair()	{return true;}
 public func Initialize() 
 {
   _inherited();
-
+  
+	fDestroyed = true;
   SetAction("Destroyed");
 }
 
