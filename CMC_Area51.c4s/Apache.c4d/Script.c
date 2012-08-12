@@ -135,7 +135,7 @@ protected func ContainedDown(object ByObj)
       if(GetPlrCoreJumpAndRunControl(GetOwner(GetPilot())) && !GetAutopilot())
         AddEffect("BlackhawkChangeThrottle", this, 50, 3, this, GetID(), -BKHK_ThrottleSpeed);
       else
-      	throttle = BoundBy(throttle - BKHK_ThrottleSpeed, 0, BKHK_MaxThrottle);
+        throttle = BoundBy(throttle - BKHK_ThrottleSpeed, 0, BKHK_MaxThrottle);
   }
 
   //Schütze
@@ -403,7 +403,7 @@ protected func Ejection(object ByObj)
     return;
   
   if(GetPilot() == ByObj)
-  	ByObj->~SetHUDTarget(0);
+    ByObj->~SetHUDTarget(0);
 
   return _inherited(ByObj);
 }
@@ -420,10 +420,9 @@ public func FireRockets()
 
 public func RocketPodsReady()
 {
-	var weapon;
-	if(!pRocketStation || !(weapon = pRocketStation->~GetAttWeapon()))
-		return false;
-		
-	return (GetAmmo(0, weapon) == weapon->GetFMData(FM_AmmoLoad));
-}
+  var weapon;
+  if(!pRocketStation || !(weapon = pRocketStation->~GetAttWeapon()))
+    return false;
 
+  return (GetAmmo(0, weapon) == weapon->GetFMData(FM_AmmoLoad));
+}
