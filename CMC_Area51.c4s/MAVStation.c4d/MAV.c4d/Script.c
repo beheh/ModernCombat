@@ -449,7 +449,8 @@ public func OnDmg(int iDmg, int iType)
   if(iType == DMG_Melee)	return 0 + 50 * (iItemType == 4);	//Melee
   if(iType == DMG_Fire)		return 40 + 24 * (iItemType == 4);	//Feuer
   if(iType == DMG_Energy)	return 40 + 24 * (iItemType == 4);	//Energiewaffen
-  if(iType == DMG_Projectile)	return 50 + 25 * (iItemType == 4);	//Energiewaffen
+  if(iType == DMG_Projectile)	return 50 + 25 * (iItemType == 4);	//Kugeln
+  if(iType == DMG_Explosion)	return 0 + 50 * (iItemType == 4);	//Explosionen
 
   return 50 + 25 * (iItemType == 4);
 }
