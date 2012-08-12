@@ -383,6 +383,9 @@ public func ChooserFinished()
 
    AddAssaultTarget(RADR, 3755, 500, 400, 2, "$Flag4$", 0, [[3760, 640], [3730, 730], [3655, 690]]);
    AddAssaultTarget(CMSN, 2910, 670, 300, 2, "$Flag3$", 1, [[3080, 670], [2940, 850], [2785, 670]]);
+
+   //Objekt entfernen
+   RemoveObject(aArtillery[0]);
   }
 
   //MR-Spielziel
