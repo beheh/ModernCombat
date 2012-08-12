@@ -86,13 +86,13 @@ public func SetState(int iNewState, bool fKeepSound)
   }
   if(fRocketPod)
   {
-  	SetClrModulation(dwArrowColor, this, APCE_Overlay_RocketPod);
+    SetClrModulation(dwArrowColor, this, APCE_Overlay_RocketPod);
   }
   else
   {
     SetClrModulation(RGBa(255,255,255,255), this, APCE_Overlay_RocketPod);
   }
-  
+
   if(pRotation) pRotation->SetClrModulation(dwArrowColor);
   if(pThrottle) pThrottle->SetClrModulation(dwArrowColor);
   if(pAltitude) pAltitude->SetClrModulation(dwArrowColor);
@@ -149,35 +149,38 @@ protected func Timer()
   }
   SetPosition(GetX()-4+BoundBy((1400*GetWind(AbsX(GetX(pHelicopter)), AbsY(GetY(pHelicopter))))/1000, -69, 71), GetY()-98, pWind);
   pWind->SetVisibility(GetVisibility());
-  
+
   //Flares
   fFlares = pHelicopter->CanDeployFlares();
-  
+
   //Raketenpods
   fRocketPod = pHelicopter->~RocketPodsReady();
-  
+
   //Status setzen
   SetObjDrawTransform(1000,0,0,0,1000,0);
   if(fDamage || pHelicopter->GetDamage() >= pHelicopter->MaxDamage()*3/4)
   {
-  	var fDisable = false;
-  	if(iDamageRemaining == 0 && Random(5)) {
-	  	SetState(BHUD_Error);
-	  }
-	  else {
-	  	if(iDamageRemaining == 0) fDisable = true;
-	  	if(!Random(5) && fDisable) {
-				SetState(BHUD_Off, true);
-			}
-			else if(!Random(2)) {
-			  SetState(BHUD_Error);
-			  if(!Random(2)) {
-			  	var val = RandomX(0,300);
-			  	if(!Random(2)) val *= -1;
-					SetObjDrawTransform(RandomX(800, 1200),val,RandomX(-5,5)*1000,val,RandomX(800, 1200),RandomX(-5,5)*1000);
-				}
-			}
-  	}
+    var fDisable = false;
+    if(iDamageRemaining == 0 && Random(5))
+    {
+      SetState(BHUD_Error);
+    }
+    else
+    {
+      if(iDamageRemaining == 0) fDisable = true;
+      if(!Random(5) && fDisable) {
+        SetState(BHUD_Off, true);
+      }
+      else if(!Random(2))
+      {
+        SetState(BHUD_Error);
+        if(!Random(2)) {
+          var val = RandomX(0,300);
+          if(!Random(2)) val *= -1;
+            SetObjDrawTransform(RandomX(800, 1200),val,RandomX(-5,5)*1000,val,RandomX(800, 1200),RandomX(-5,5)*1000);
+        }
+      }
+    }
   }
   else
   {
