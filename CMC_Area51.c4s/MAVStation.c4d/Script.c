@@ -114,6 +114,12 @@ public func FxActivityTimer(object pTarget, int iEffectNumber, int iEffectTime)
     SetAction("Ready");
     return;
   }
+  
+  if(GetAction() == "Controlling" && pMav->IsDestroyed())
+ 	{
+  	SetPlrView(GetOwner(controller), controller);
+  	SetAction("Ready");
+  }
 
   //Funktionstüchtig?
   if(EMPShocked()) return;
