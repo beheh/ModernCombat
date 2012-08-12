@@ -211,7 +211,7 @@ global func FxIntVehicleUnusedTimer(object pTarget, int iEffectNumber, int iTime
 {
   var pSpawner = EffectVar(0,pTarget,iEffectNumber);
   //Spawner-Check
-  if(!pSpawner || !pTarget)
+  if(!pSpawner)
     return -1;
   //Timer
   EffectVar(2, pTarget, iEffectNumber)++;
@@ -230,6 +230,7 @@ global func FxIntVehicleUnusedTimer(object pTarget, int iEffectNumber, int iTime
     if(EffectVar(2, pTarget, iEffectNumber) < 30) return;
     EffectVar(3, pTarget, iEffectNumber) = true;
     DoDmg(Max(1, EffectVar(2, pTarget, iEffectNumber)/10), DMG_Melee, pTarget);
+    if(!pTarget) return;
     EffectVar(3, pTarget, iEffectNumber) = false;
   }
   else
