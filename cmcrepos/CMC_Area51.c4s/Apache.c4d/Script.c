@@ -417,3 +417,13 @@ public func FireRockets()
   //Feuerbefehl geben
   pRocketStation->~ControlThrow(GetPilot());
 }
+
+public func RocketPodsReady()
+{
+	var weapon;
+	if(!pRocketStation || !(weapon = pRocketStation->~GetAttWeapon()))
+		return false;
+		
+	return (GetAmmo(0, weapon) == weapon->GetFMData(FM_AmmoLoad));
+}
+

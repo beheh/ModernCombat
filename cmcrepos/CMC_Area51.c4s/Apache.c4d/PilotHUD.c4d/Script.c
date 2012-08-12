@@ -3,6 +3,9 @@
 #strict 2
 #include BHUD
 
+static const APCE_Overlay_RocketPod = 5;
+
+local fRocketPod;
 
 /* Initialisierung */
 
@@ -12,9 +15,11 @@ public func Initialize()
   iState = -1;
   Schedule("SetVisibility(VIS_Owner)", 1, 0, this);
   SetGraphics("Flares", this, BHUD, BHUD_Overlay_Flares, GFXOV_MODE_Base);
+  SetGraphics("SmokeWall", this, BHUD, APCE_Overlay_RocketPod, GFXOV_MODE_Base); // Raketenpods (<- Rauchwand als Dummygrafik und so.)
   SetGraphics("Warning", this, BHUD, BHUD_Overlay_Warning, GFXOV_MODE_Base);
   SetGraphics("Failure", this, BHUD, BHUD_Overlay_Failure, GFXOV_MODE_Base);
   SetClrModulation(RGBa(255,255,255,255), this, BHUD_Overlay_Flares);
+  SetClrModulation(RGBa(255,255,255,255), this, APCE_Overlay_RocketPod);
   SetClrModulation(RGBa(255,255,255,255), this, BHUD_Overlay_Warning);
   SetClrModulation(RGBa(255,255,255,255), this, BHUD_Overlay_Failure);
   SetState(BHUD_Ready);
@@ -79,6 +84,15 @@ public func SetState(int iNewState, bool fKeepSound)
   {
     SetClrModulation(RGBa(255,255,255,255), this, BHUD_Overlay_Flares);
   }
+  if(fRocketPod)
+  {
+  	SetClrModulation(dwArrowColor, this, APCE_Overlay_RocketPod);
+  }
+  else
+  {
+    SetClrModulation(RGBa(255,255,255,255), this, APCE_Overlay_RocketPod);
+  }
+  
   if(pRotation) pRotation->SetClrModulation(dwArrowColor);
   if(pThrottle) pThrottle->SetClrModulation(dwArrowColor);
   if(pAltitude) pAltitude->SetClrModulation(dwArrowColor);
@@ -135,8 +149,13 @@ protected func Timer()
   }
   SetPosition(GetX()-4+BoundBy((1400*GetWind(AbsX(GetX(pHelicopter)), AbsY(GetY(pHelicopter))))/1000, -69, 71), GetY()-98, pWind);
   pWind->SetVisibility(GetVisibility());
+  
   //Flares
   fFlares = pHelicopter->CanDeployFlares();
+  
+  //Raketenpods
+  fRocketPod = pHelicopter->~RocketPodsReady();
+  
   //Status setzen
   SetObjDrawTransform(1000,0,0,0,1000,0);
   if(fDamage || pHelicopter->GetDamage() >= pHelicopter->MaxDamage()*3/4)
