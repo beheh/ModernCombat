@@ -47,6 +47,7 @@ public func Set(int iX, int iY, bool fGlobal)
 public func OnDestruction()
 {
   //Aktion und Grafik setzen
+  SetOwner(-1);
   ChangeDef(BDSN);
   this->~Initialize();
 
