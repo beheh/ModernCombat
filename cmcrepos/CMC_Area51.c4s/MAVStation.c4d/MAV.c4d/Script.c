@@ -121,14 +121,14 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
   if(iYDir > iYTendency)
     iYDir-= 1 - (fIsAiming && !(iEffectTime % 3));
 
-  if(GetY() <= GetDefCoreVal("Offset", "DefCore", MAVE, 1) * -1 && iYTendency < 0)
+  if(GetY() <= GetDefCoreVal("Offset", "DefCore", MAVE, 1) * -1 && iYTendency <= 0)
   {
     iYTendency = 0;
     iYDir = 0;
   }
   
   if(!iYTendency && !iYDir)
-  	iYDir +=Sin(iEffectTime * 8, 4);
+  	iYDir += Sin(iEffectTime * 8, 2);
   
   //C4 verlangsamt den Flug
   SetXDir(iXDir / (iC4Count+1));
@@ -267,9 +267,9 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
     var pEnemy;
 
     if(pLaser->Active())
-      pEnemy = FindObject2(Find_OnLine(0, 0, x - xPos, y - yPos), Find_Hostile(GetOwner(this)), Find_NoContainer(), Find_Or(Find_OCF(OCF_Alive), Find_Func("IsBulletTarget"), Find_Func("IsCMCVehicle")), Sort_Distance(0, 0));
+      pEnemy = FindObject2(Find_OnLine(0, 0, x - xPos, y - yPos), Find_Hostile(GetOwner(this)), Find_NoContainer(), Find_Or(Find_OCF(OCF_Alive), Find_Func("IsBulletTarget", GetID(), this, this), Find_Func("IsCMCVehicle")), Sort_Distance(0, 0));
     else
-      pEnemy = FindObject2(Find_OnLine(0, 0, xdir, ydir), Find_Hostile(GetOwner(this)), Find_NoContainer(), Find_Or(Find_OCF(OCF_Alive), Find_Func("IsBulletTarget"), Find_Func("IsCMCVehicle")), Sort_Distance(0, 0));
+      pEnemy = FindObject2(Find_OnLine(0, 0, xdir, ydir), Find_Hostile(GetOwner(this)), Find_NoContainer(), Find_Or(Find_OCF(OCF_Alive), Find_Func("IsBulletTarget", GetID(), this, this), Find_Func("IsCMCVehicle")), Sort_Distance(0, 0));
 
     //Feinderkennung
     if(pEnemy)
