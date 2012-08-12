@@ -126,7 +126,10 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
     iYTendency = 0;
     iYDir = 0;
   }
-
+  
+  if(!iYTendency && !iYDir)
+  	iYDir +=Sin(iEffectTime * 8, 4);
+  
   //C4 verlangsamt den Flug
   SetXDir(iXDir / (iC4Count+1));
 
@@ -134,6 +137,7 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
     SetYDir(iYDir / (iC4Count+1) - 2);
   else
     SetYDir(iYDir * (iC4Count+1) - 2);
+
 
   //Je nach Flugrichtung drehen
   if(iXTendency == 0)
