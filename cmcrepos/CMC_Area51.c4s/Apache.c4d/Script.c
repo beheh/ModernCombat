@@ -279,17 +279,20 @@ protected func ContainedThrow(object ByObj)
 
     var overlay;
 
-    //Raketenwerfer
-    overlay = ring->AddThrowItem("$Rocketlauncher$", "FireRockets", ByObj, SMIN);
-    SetGraphics("0", ring, SMIN, overlay, GFXOV_MODE_IngamePicture);
-
-    //Flareabwurf
+	  //Flareabwurf
     //Nur wenn geladen
     if(CanDeployFlares())
     {
-      overlay = ring->AddLeftItem("$Flares$", "DeployFlares", ByObj, SMIN);
+      overlay = ring->AddThrowItem("$Flares$", "DeployFlares", ByObj, SMIN);
       SetGraphics("6", ring, SMIN, overlay, GFXOV_MODE_IngamePicture);
     }
+
+    //Raketenwerfer
+    if(RocketPodsReady())
+    {
+    	overlay = ring->AddLeftItem("$Rocketlauncher$", "FireRockets", ByObj, SMIN);
+    	SetGraphics("0", ring, SMIN, overlay, GFXOV_MODE_IngamePicture);
+		}
 
     //HUD ein- oder ausblenden
     overlay = ring->AddRightItem("$HUD$", "SwitchHUD", ByObj, SMIN);
