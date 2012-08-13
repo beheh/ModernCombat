@@ -93,7 +93,7 @@ protected func Collection2(object pObj)
   }
 }
 
-/*----- Steuerung -----*/
+/* Steuerung */
 
 protected func ContainedUp(object ByObj)
 {
@@ -279,7 +279,7 @@ protected func ContainedThrow(object ByObj)
 
     var overlay;
 
-	  //Flareabwurf
+    //Flareabwurf
     //Nur wenn geladen
     if(CanDeployFlares())
     {
@@ -290,9 +290,9 @@ protected func ContainedThrow(object ByObj)
     //Raketenwerfer
     if(RocketPodsReady())
     {
-    	overlay = ring->AddLeftItem("$Rocketlauncher$", "FireRockets", ByObj, SMIN);
-    	SetGraphics("0", ring, SMIN, overlay, GFXOV_MODE_IngamePicture);
-		}
+      overlay = ring->AddLeftItem("$Rocketlauncher$", "FireRockets", ByObj, SMIN);
+      SetGraphics("0", ring, SMIN, overlay, GFXOV_MODE_IngamePicture);
+    }
 
     //HUD ein- oder ausblenden
     overlay = ring->AddRightItem("$HUD$", "SwitchHUD", ByObj, SMIN);
@@ -317,7 +317,7 @@ protected func ContainedThrow(object ByObj)
   return true;
 }
 
-/*----- Sitzsteuerung -----*/
+/* Sitzsteuerung */
 
 protected func ContainedDigDouble(object ByObj)
 {
