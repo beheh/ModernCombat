@@ -174,7 +174,7 @@ public func SetUpStore(pStore)
 
 public func RelaunchPosition(& iX, & iY, int iTeam)
 {
-  var rand = Random(4);
+  /*var rand = Random(4);
   if(!rand)
     { iX = 160; iY = 380; }
   if(!--rand)
@@ -182,5 +182,8 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   if(!--rand)
     { iX = 1910; iY = 380; }
   if(!--rand)
-    { iX = 1910; iY = 640; }
+    { iX = 1910; iY = 640; }*/
+    
+  //Intelligentes Respawnsystem!
+  return [[160, 380], [160, 640], [1910, 380], [1910, 640]];
 }
