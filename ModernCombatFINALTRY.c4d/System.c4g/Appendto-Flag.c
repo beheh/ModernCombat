@@ -72,8 +72,14 @@ protected func CheckFlag(pClonk)
   GameCallEx("FlagScored",team, GetPlayerTeam(iPlr), pClonk);
 }
 
+local fForcedDestruction;
+
 public func Destruction()
 {
+	//Löschung erzwungen
+	if(fForcedDestruction)
+		return;
+
   //Flaggen dürfen nicht einfach weg sein
   var nFlag = CreateObject(FLA2, 0,0, GetOwner());
   nFlag->Activate(base, team, GetColorDw());
