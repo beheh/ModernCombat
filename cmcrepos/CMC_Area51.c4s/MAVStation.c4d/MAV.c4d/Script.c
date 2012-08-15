@@ -44,6 +44,7 @@ public func MeleeHit(object pWeapon)			{return DoDmg(MaxDamage()+1, DMG_Melee, t
 public func SensorDistance()				{return 190;}
 public func IsActive()					{return GetAction(this) == "Flying";}
 public func TeamSupportRange()				{return 80;}
+
 public func MaxRotLeft()
 {
   return 120;
@@ -184,18 +185,24 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
       SetPhase(iItemType);
     }
     
-    if(Inside(iItemType, 1, 3) && !GetEffect("Bars", this))
+    if(Inside(iItemType, 1, 6) && !GetEffect("Bars", this))
       AddEffect("Bars", this, 1, 1, this);
     
     if(iItemType == 0 && !(iEffectTime % 25)) Sense();
-    if(iItemType == 1 && !(iEffectTime % 60)) AMP(iEffectTime);
-    if(iItemType == 2 && !(iEffectTime % 20)) FAP(iEffectTime);
-    if(iItemType == 3) BlowTorch();
+    if(iItemType == 1 && !(iEffectTime % 60)) AMP(false);
+    if(iItemType == 2 && !(iEffectTime % 20)) FAP(false, iEffectTime);
+    if(iItemType == 3) BlowTorch(false);
   }
   //Echtzeit-Anforderungen, daher auﬂerhalb
-  if(iItemType == 5) HardKill(iEffectTime);
+  if(iItemType == 5) HardKill();
   if(iItemType == 6) ShockPaddles();
-
+	
+	if(iEffectTime <= 2)  
+	{
+  	if(iItemType == 1) AMP(true);
+ 		if(iItemType == 2) FAP(true, iEffectTime);
+ 		if(iItemType == 3) BlowTorch(true);
+ 	}
 
   //Namensanzeige f¸r Verb¸ndete
   for(var first = true, iFlags, i = 0; i < GetPlayerCount(); i++)
@@ -545,7 +552,7 @@ public func HardKill()
   if(!ChargeBar)
   {
     ChargeBar = CreateObject(SBAR, 0, 0, GetOwner());
-    ChargeBar->Set(this, RGB(255, 255, 80), BAR_Ammobar, true, "", SM11);
+    ChargeBar->Set(this, RGB(77, 229, 0), BAR_Ammobar, true, "", BBTP);
   }
   else
     ChargeBar->Update(20*iHKShots, false);
@@ -584,7 +591,7 @@ public func HardKill()
 public func ShockPaddles()
 {
   //Schwerverletzte und Feinde suchen
-  if(LocalN("charge", pItem) >= 10 && 
+  if(pItem->Ready() && 
   	 FindObject2(Find_AtPoint(0 - iXDir/5 - Sgn(iXDir), 0 - iYDir/5 - Sgn(iYDir)),
   							 Find_Or(
   							 Find_And(Find_ID(FKDT),		//Schwerverletzter?
@@ -594,10 +601,29 @@ public func ShockPaddles()
 
     //Defibrillator aktivieren
     pItem->Activate(this);
+    
+  if(!ChargeBar)
+  {
+    ChargeBar = CreateObject(SBAR, 0, 0, GetOwner());
+    ChargeBar->Set(this, RGB(77, 229, 0), BAR_Ammobar, true, "", CDBT);
+  }
+  else
+  	ChargeBar->Update(LocalN("charge", pItem) * 100 / pItem->MaxEnergy(), false);
 }
 
-public func BlowTorch()
+public func BlowTorch(bool statusOnly)
 {
+  if(!ChargeBar)
+  {
+    ChargeBar = CreateObject(SBAR, 0, 0, GetOwner());
+    ChargeBar->Set(this, RGB(77, 229, 0), BAR_Ammobar, true, "", SM11);
+  }
+  else
+  	ChargeBar->Update(LocalN("charge", pItem) * 100 / pItem->MaxEnergy(), false);
+  	
+  if(statusOnly)
+  	return;
+
   //Eventuellen Cooldown verringern
   if(living_dmg_cooldown)
     living_dmg_cooldown--;
@@ -728,8 +754,19 @@ public func BlowTorch()
 
 /* MTP: Munitionieren */
 
-public func AMP()
+public func AMP(bool statusOnly)
 {
+  if(!ChargeBar)
+  {
+    ChargeBar = CreateObject(SBAR, 0, 0, GetOwner());
+    ChargeBar->Set(this, RGB(77, 229, 0), BAR_Ammobar, true, "", AMPK);
+  }
+  else
+  	ChargeBar->Update(pItem->GetPackPoints() * 100 / pItem->MaxPoints(), false);
+
+  if(statusOnly)
+  	return;
+
   //Zu wenig Punkte
   if(pItem->GetPackPoints() < 30)
     return false;
@@ -787,8 +824,23 @@ public func AMP()
 
 /* EHP: Heilen */
 
-public func FAP(int iEffectTime)
+public func FAP(bool statusOnly, int iEffectTime)
 {
+  if(!ChargeBar)
+  {
+    ChargeBar = CreateObject(SBAR, 0, 0, GetOwner());
+    ChargeBar->Set(this, RGB(77, 229, 0), BAR_Ammobar, true, "", FAPK);
+  }
+  else
+  	ChargeBar->Update(pItem->GetPackPoints() * 100 / pItem->MaxPoints(), false);
+  
+  if(statusOnly)
+  	return;
+  
+  //Da weiter unten ein return ist, muss diese if-Anweisung oben stehen, sonst regeneriert das EHP nicht
+  if(!(iEffectTime % 60))
+    pItem->DoPackPoints(2);
+
   var aClonks = FindObjects(Find_Distance(TeamSupportRange()), Find_OCF(OCF_CrewMember), Find_NoContainer(), Find_Allied(GetOwner(this)));
   var a = [];
   //Zuerst die mit vollem Leben aussortieren
@@ -824,9 +876,6 @@ public func FAP(int iEffectTime)
     //Punkte bei Belohnungssystem (Heilung)
     DoPlayerPoints(BonusPoints("Healing", 40), RWDS_TeamPoints, GetOwner(this), this, IC05);
   }
-
-  if(!(iEffectTime % 60))
-    pItem->DoPackPoints(2);
 }
 
 /* Aktionen */
