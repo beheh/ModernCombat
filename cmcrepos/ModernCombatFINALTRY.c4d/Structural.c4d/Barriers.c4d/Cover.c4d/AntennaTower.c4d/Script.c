@@ -199,6 +199,9 @@ protected func PrepareCollapse()
 
 protected func Collapse()
 {
+	//Zusammensturz melden
+	GameCallEx("OnTowerCollapse", this);
+
   //Aussehen anpassen
   SetGraphics("Destroyed");
 
