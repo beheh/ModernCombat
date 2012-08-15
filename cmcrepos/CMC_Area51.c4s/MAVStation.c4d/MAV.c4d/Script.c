@@ -548,7 +548,7 @@ public func HardKill()
     ChargeBar->Set(this, RGB(255, 255, 80), BAR_Ammobar, true, "", SM11);
   }
   else
-  	ChargeBar->Update(20*iHKShots, false);
+    ChargeBar->Update(20*iHKShots, false);
 
   if(GetEffect("HardKillCooldown", this)) return;
 
@@ -1177,7 +1177,7 @@ public func ControlThrow(pByObj)
     //Hilfsnachrichten
     PlayerMessage(GetOwner(pByObj), "$Updated$", this, GetName(pItem));
     if(GetAction() == "Flying")
-    	PlayerMessage(GetOwner(), "$Updated$", this, GetName(pItem));
+      PlayerMessage(GetOwner(), "$Updated$", this, GetName(pItem));
 
     //MAV-Grafik anpassen
     SetPhase(iItemType, this);
@@ -1414,9 +1414,9 @@ public func FxBarsStop(object target, int nr)
 
 public func ContactLeft()
 {
-	if(GetXDir()<=-30)
-		Collision(GetXDir());
-		
+  if(GetXDir()<=-30)
+    Collision(GetXDir());
+
   iXDir = 0;
   if(iXTendency < 0)
     iXTendency = 0;
@@ -1424,9 +1424,9 @@ public func ContactLeft()
 
 public func ContactRight()
 {
-	if(GetXDir()>=30)
-		Collision(GetXDir());
-		
+  if(GetXDir()>=30)
+    Collision(GetXDir());
+
   iXDir = 0;
   if(iXTendency > 0)
     iXTendency = 0;
@@ -1434,9 +1434,9 @@ public func ContactRight()
 
 public func ContactTop()
 {
-	if(GetYDir()<=-30)
-		Collision(GetYDir());
-  
+  if(GetYDir()<=-30)
+    Collision(GetYDir());
+
   iYDir = 0;
   if(iYTendency < 0)
     iYTendency = 0;
@@ -1444,9 +1444,9 @@ public func ContactTop()
 
 public func ContactBottom()
 {
-	if(GetYDir()>=30)
-		Collision(GetYDir());
-  
+  if(GetYDir()>=30)
+    Collision(GetYDir());
+
   iYDir = 0;
   if(iYTendency > 0)
     iYTendency = 0;
@@ -1456,7 +1456,7 @@ public func ContactBottom()
 
 protected func Collision(int iCollSpeed)
 {
-	iCollSpeed = Abs(iCollSpeed);
+  iCollSpeed = Abs(iCollSpeed);
 
   //Effekte
   Sparks(Random(2)+2,RGB(255,255,Random(5)+255));
@@ -1466,6 +1466,6 @@ protected func Collision(int iCollSpeed)
 
 protected func Hit2()
 {
-	//Effekte
+  //Effekte
   Sound("HeavyHit*.ogg");
 }
