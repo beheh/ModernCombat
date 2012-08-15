@@ -52,6 +52,12 @@ protected func ControlDigDouble()
 protected func ControlDownDouble()
 {
   if(Control2Grab("ControlDownDouble")) return true;
+  
+  if (GetAction() == "Push" || IsRiding())
+  {
+    GetActionTarget()->~ControlDownDouble(this());
+    return true;
+  }
   return _inherited();
 }
 
@@ -2259,6 +2265,16 @@ public func ControlUp()
   return _inherited(...);
 }
 
+public func ControlUpDouble()
+{
+  if (GetAction() == "Push" || IsRiding())
+  {
+    GetActionTarget()->~ControlUpDouble(this);
+    return true;
+  }
+  return _inherited(...);
+}
+
 public func ControlDig()
 {
   if(GetPlrDownDouble(GetOwner()) && !IsCrawling() && Ready2Crawl() && !Contained())
@@ -2345,12 +2361,32 @@ public func ControlLeft()
   return _inherited(...);
 }
 
+public func ControlLeftDouble()
+{
+  if (GetAction() == "Push" || IsRiding())
+  {
+    GetActionTarget()->~ControlLeftDouble(this());
+    return true;
+  }
+  return _inherited(...);
+}
+
 public func ControlRight()
 {
   var parachute = GetParachute();
   if(parachute)
     parachute->ControlRight(...);
 
+  return _inherited(...);
+}
+
+public func ControlRightDouble()
+{
+  if (GetAction() == "Push" || IsRiding())
+  {
+    GetActionTarget()->~ControlRightDouble(this());
+    return true;
+  }
   return _inherited(...);
 }
 
