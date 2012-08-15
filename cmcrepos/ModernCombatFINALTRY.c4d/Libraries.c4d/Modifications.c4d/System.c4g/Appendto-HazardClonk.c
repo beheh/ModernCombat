@@ -52,11 +52,11 @@ protected func ControlDigDouble()
 protected func ControlDownDouble()
 {
   if(Control2Grab("ControlDownDouble")) return true;
-  
+
   if (GetAction() == "Push" || IsRiding())
   {
     if(GetActionTarget()->~ControlDownDouble(this))
-    	return true;
+      return true;
   }
   return _inherited();
 }
@@ -2270,7 +2270,7 @@ public func ControlUpDouble()
   if (GetAction() == "Push" || IsRiding())
   {
     if(GetActionTarget()->~ControlUpDouble(this))
-    	return true;
+      return true;
   }
   return _inherited(...);
 }
@@ -2366,7 +2366,7 @@ public func ControlLeftDouble()
   if (GetAction() == "Push" || IsRiding())
   {
     if(GetActionTarget()->~ControlLeftDouble(this))
-    	return true;
+      return true;
   }
   return _inherited(...);
 }
@@ -2385,7 +2385,7 @@ public func ControlRightDouble()
   if (GetAction() == "Push" || IsRiding())
   {
     if(GetActionTarget()->~ControlRightDouble(this))
-    	return true;
+      return true;
   }
   return _inherited(...);
 }
