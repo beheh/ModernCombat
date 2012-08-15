@@ -547,7 +547,8 @@ public func HardKill()
     ChargeBar = CreateObject(SBAR, 0, 0, GetOwner());
     ChargeBar->Set(this, RGB(255, 255, 80), BAR_Ammobar, true, "", SM11);
   }
-  ChargeBar->Update(20*iHKShots, false);
+  else
+  	ChargeBar->Update(20*iHKShots, false);
 
   if(GetEffect("HardKillCooldown", this)) return;
 
@@ -1173,18 +1174,16 @@ public func ControlThrow(pByObj)
 
     ShiftContents();
 
-    //Hilfsnachricht
+    //Hilfsnachrichten
     PlayerMessage(GetOwner(pByObj), "$Updated$", this, GetName(pItem));
+    if(GetAction() == "Flying")
+    	PlayerMessage(GetOwner(), "$Updated$", this, GetName(pItem));
 
     //MAV-Grafik anpassen
     SetPhase(iItemType, this);
 
     Sound("RSHL_Deploy.ogg");
     Sound("BWTH_Repair.ogg", false, this, 100, 0, -1);
-
-    //Sprengfallen-Hinweisnachricht
-    if(iItemType == 5 && GetAction() == "Flying")
-      PlayerMessage(GetOwner(pByObj), Format("%d", iHKShots), this);
 
     return true;
   }
