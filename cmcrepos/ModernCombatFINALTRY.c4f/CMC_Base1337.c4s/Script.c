@@ -476,6 +476,15 @@ func CreateOptionalFeatures()
   CreateObject(BD01,2000,1300,-1);
 }
 
+/* Bei Turmzusammenfall */
+
+func OnTowerCollapse()
+{
+   //Geschützstellungen entfernen
+   aStationary[3]->DecoExplode(30);
+   aStationary[4]->DecoExplode(30);
+}
+
 /* Bei Flaggenübernahme */
 
 func FlagCaptured(object pPoint, int iTeam)
@@ -597,6 +606,10 @@ public func ChooserFinished()
    //Geschützstellungen
    CreateObject(GNET, 2030, 940, -1)->Set(SATW,0,1);
    CreateObject(GNET, 3270, 630, -1)->Set(0,-90);
+   aStationary[3] = CreateObject(GNET, 2085, 563, -1);
+   aStationary[3] -> Set(0,-90);
+   aStationary[4] = CreateObject(GNET, 2145, 382, -1);
+   aStationary[4] -> Set(0,90);
 
    //Blackhawks und Hinweisschilder
    if(!FindObject(NOBH))
@@ -701,6 +714,10 @@ public func ChooserFinished()
    aStationary[1] -> Set(0,-90);
    aStationary[2] = CreateObject(GNET, 3320, 1040, -1);
    aStationary[2] -> Set(0,-90);
+   aStationary[3] = CreateObject(GNET, 2085, 563, -1);
+   aStationary[3] -> Set(0,-90);
+   aStationary[4] = CreateObject(GNET, 2145, 382, -1);
+   aStationary[4] -> Set(0,90);
 
    //Blackhawks und Hinweisschilder
    if(!FindObject(NOBH))
