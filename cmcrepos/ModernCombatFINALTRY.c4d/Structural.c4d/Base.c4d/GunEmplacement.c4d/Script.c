@@ -75,10 +75,7 @@ public func Set(id idWeapon, int iRotationParam , bool fShieldParam, int iTurnin
 {
   Arm(idWeapon);
   SetRotation(iRotationParam);
-
   if(!iTurningSpeedParam)
-    iTurningSpeedParam++;
-  if(iTurningSpeedParam > 0)
     iTurningSpeedParam++;
   iTurningSpeed = iTurningSpeedParam;
 
