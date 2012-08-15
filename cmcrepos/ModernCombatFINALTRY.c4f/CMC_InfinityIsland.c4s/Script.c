@@ -134,12 +134,10 @@ func CreateInterior()
   //Explosivfässer
   CreateObject(XBRL, 1600, 1260, -1)->AutoRespawn();
   CreateObject(XBRL, 3280, 1208, -1)->AutoRespawn();
-  CreateObject(XBRL, 3635, 472, -1);
   CreateObject(XBRL, 4605, 918, -1)->AutoRespawn();
 
   //Gasflaschen
   CreateObject(GSBL, 1635, 1030, -1)->AutoRespawn();
-  CreateObject(GSBL, 3690, 473, -1);
   CreateObject(GSBL, 4220, 818, -1)->AutoRespawn();
   CreateObject(GSBL, 5160, 1238, -1)->AutoRespawn();
 
@@ -462,6 +460,15 @@ func CreateOptionalFeatures()
   CreateObject(BD03,3500,200,-1);
 }
 
+/* Bei Turmzusammenfall */
+
+func OnTowerCollapse()
+{
+   //Geschützstellungen entfernen
+   aStationary[5]->DecoExplode(30);
+   aStationary[6]->DecoExplode(30);
+}
+
 /* Bei Flaggenübernahme */
 
 func FlagCaptured(object pPoint, int iTeam)
@@ -557,6 +564,10 @@ public func ChooserFinished()
    CreateObject(GNET, 3880, 660, -1)->Set(SATW,-90);
    CreateObject(GNET, 4310, 720, -1)->Set(SATW,90);
    CreateObject(GNET, 5060, 1170, -1)->Set(SATW);
+   aStationary[5] = CreateObject(GNET, 3640, 473, -1);
+   aStationary[5] -> Set(SATW,-90);
+   aStationary[6] = CreateObject(GNET, 3700, 473, -1);
+   aStationary[6] -> Set(SATW,90);
 
    //Blackhawks und Hinweisschild
    if(!FindObject(NOBH))
@@ -682,6 +693,10 @@ public func ChooserFinished()
    aStationary[3] -> Set(SATW,-90);
    aStationary[4] = CreateObject(GNET, 5060, 1170, -1);
    aStationary[4] -> Set(SATW);
+   aStationary[5] = CreateObject(GNET, 3640, 473, -1);
+   aStationary[5] -> Set(SATW,-90);
+   aStationary[6] = CreateObject(GNET, 3700, 473, -1);
+   aStationary[6] -> Set(SATW,90);
 
    //Blackhawks und Hinweisschilder
    if(!FindObject(NOBH))
