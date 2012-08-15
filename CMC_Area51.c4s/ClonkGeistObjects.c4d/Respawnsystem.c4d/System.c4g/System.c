@@ -45,6 +45,6 @@ global func GetBestSpawnpoint(array aSpawnpoints, int iPlr, int &x, int &y)
 	x = spawnpoint[0];
 	y = spawnpoint[1];
 
-	return true;
+	return spawnpoint;
 }
 
