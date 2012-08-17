@@ -151,12 +151,14 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
   
   
   //Partikeleffekte  
-  var iXParticle = Random(4) + iXDir * 3 / 4;
-	var iYParticle = Random(4) + 10;
+  for(var i = 0; i < 5; i++)
+  {
+  	var iXParticle = RandomX(-4, 4) + iXDir * 3 / 4;
+		var iYParticle = RandomX(-9, 9) + 10;
 	
-	CreateParticle("PSpark", 6 - iXDir / 10, - 8*(iYDir>10) + 2*Sgn(iBank-Sgn(iBank)), iXParticle, iYParticle, 15, RGBa(200, 200, 255, 26));
-	CreateParticle("PSpark", -7 - iXDir / 10, - 8*(iYDir>10) - 2*Sgn(iBank-Sgn(iBank)), iXParticle, iYParticle, 15, RGBa(200, 200, 255, 30));
-
+		CreateParticle("PSpark", 6 - iXDir / 10, - 8*(iYDir>10) + 2*Sgn(iBank-Sgn(iBank)), iXParticle, iYParticle, 15, RGBa(200, 200, 255, 35));
+		CreateParticle("PSpark", -7 - iXDir / 10, - 8*(iYDir>10) - 2*Sgn(iBank-Sgn(iBank)), iXParticle, iYParticle, 15, RGBa(200, 200, 255, 35));
+	}
   //Blinklicht (alle 30 Frames)
   if(!(iEffectTime % 30))
   {
@@ -563,7 +565,7 @@ public func HardKill()
   if(!ChargeBar)
   {
     ChargeBar = CreateObject(SBAR, 0, 0, GetOwner());
-    ChargeBar->Set(this, RGB(77, 229, 0), BAR_Ammobar, true, "", BBTP);
+    ChargeBar->Set(this, RGB(77, 229, 0), BAR_Ammobar, true, "", SM11);
   }
   else
     ChargeBar->Update(20*iHKShots, false);
@@ -627,7 +629,7 @@ public func BlowTorch(bool statusOnly)
   if(!ChargeBar)
   {
     ChargeBar = CreateObject(SBAR, 0, 0, GetOwner());
-    ChargeBar->Set(this, RGB(77, 229, 0), BAR_Ammobar, true, "", SM11);
+    ChargeBar->Set(this, RGB(77, 229, 0), BAR_Ammobar, true, "", SM12);
   }
   else
   	ChargeBar->Update(LocalN("charge", pItem) * 100 / pItem->MaxEnergy(), false);
@@ -770,7 +772,7 @@ public func AMP(bool statusOnly)
   if(!ChargeBar)
   {
     ChargeBar = CreateObject(SBAR, 0, 0, GetOwner());
-    ChargeBar->Set(this, RGB(77, 229, 0), BAR_Ammobar, true, "", AMPK);
+    ChargeBar->Set(this, RGB(77, 229, 0), BAR_Ammobar, true, "", SM11);
   }
   else
   	ChargeBar->Update(pItem->GetPackPoints() * 100 / pItem->MaxPoints(), false);
@@ -840,7 +842,7 @@ public func FAP(bool statusOnly, int iEffectTime)
   if(!ChargeBar)
   {
     ChargeBar = CreateObject(SBAR, 0, 0, GetOwner());
-    ChargeBar->Set(this, RGB(77, 229, 0), BAR_Ammobar, true, "", FAPK);
+    ChargeBar->Set(this, RGB(77, 229, 0), BAR_Ammobar, true, "", SM13);
   }
   else
   	ChargeBar->Update(pItem->GetPackPoints() * 100 / pItem->MaxPoints(), false);
