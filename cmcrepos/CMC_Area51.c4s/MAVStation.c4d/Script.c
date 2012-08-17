@@ -115,12 +115,12 @@ public func FxActivityTimer(object pTarget, int iEffectNumber, int iEffectTime)
     SetAction("Ready");
     return;
   }
-  
+
   if(GetAction() == "Controlling" && pMav->IsDestroyed())
- 	{
-  	SetPlrView(GetOwner(controller), controller);
-  	Sound("BKHK_SwitchFail.ogg", true, this, 100, GetOwner(controller) + 1);
-  	SetAction("Ready");
+  {
+    SetPlrView(GetOwner(controller), controller);
+    Sound("BKHK_SwitchFail.ogg", true, this, 100, GetOwner(controller) + 1);
+    SetAction("Ready");
   }
 
   //Funktionstüchtig?
@@ -234,7 +234,7 @@ private func ExitClonk(object pByObj)
     controller = 0;
     SetAction("Ready");
 
-    return(1);  
+    return(1);
   }
   return(0);
 }
@@ -368,11 +368,11 @@ protected func ControlThrow(object pByObj)
   }
   else
   {
-  	if(pMav->GetAction() != "Flying")
-  	{
-  		Sound("BKHK_Switch.ogg", true, this, 100, GetOwner(pByObj) + 1);
-  		SetAction("Controlling");
-  	}
+    if(pMav->GetAction() != "Flying")
+    {
+      Sound("BKHK_Switch.ogg", true, this, 100, GetOwner(pByObj) + 1);
+      SetAction("Controlling");
+    }
     pMav->ControlThrow(pByObj);
   }
 
