@@ -101,6 +101,7 @@ public func FxActivityTimer(object pTarget, int iEffectNumber, int iEffectTime)
       controller->SetHUDTarget(0);
       controller->~ShowCH();
       SetPlrView(GetOwner(controller), controller);
+      Sound("BKHK_SwitchFail.ogg", true, this, 100, GetOwner(controller) + 1);
     }
 
     if(pMav)
@@ -118,6 +119,7 @@ public func FxActivityTimer(object pTarget, int iEffectNumber, int iEffectTime)
   if(GetAction() == "Controlling" && pMav->IsDestroyed())
  	{
   	SetPlrView(GetOwner(controller), controller);
+  	Sound("BKHK_SwitchFail.ogg", true, this, 100, GetOwner(controller) + 1);
   	SetAction("Ready");
   }
 
@@ -190,6 +192,7 @@ protected func ActivateEntrance(pUser)
     if(Hostile(GetOwner(this), pMav->GetOwner())) pMav->Reload();
     pMav->SetOwner(GetOwner(this));
     pMav->Start();
+    Sound("BKHK_Switch.ogg", true, this, 100, GetOwner(pUser) + 1);
     SetAction("Controlling");
   }
 
@@ -211,27 +214,28 @@ public func GetUser()
     return pUser = 0;
 }
 
-private func ExitClonk(object pByObject)
+private func ExitClonk(object pByObj)
 {
   //Nutzer auswerfen
-  if(pByObject == GetUser())
+  if(pByObj == GetUser())
   {
-    ObjectSetAction(pByObject, "Walk"); 
-    SetActionTargets(0, 0, pByObject); 
-    pByObject->SetHUDTarget(0);
+    ObjectSetAction(pByObj, "Walk"); 
+    SetActionTargets(0, 0, pByObj); 
+    pByObj->SetHUDTarget(0);
     controller->~ShowCH();
     SetPlrView(GetOwner(controller), controller);
+    Sound("BKHK_SwitchFail.ogg", true, this, 100, GetOwner(pByObj) + 1);
 
     if(pMav)
     {
       pMav->Wait();
-      //pMav->SetColorDw(RGB(255,255,255));
     }
     SetOwner(-1, this);
     controller = 0;
     SetAction("Ready");
 
-    return(1);  }
+    return(1);  
+  }
   return(0);
 }
 
@@ -333,6 +337,9 @@ public func ControlDigSingle(object pByObj)
   }
 
   pMav->Wait();
+  SetPlrView(GetOwner(controller), controller);
+  SetAction("Ready");
+  Sound("BKHK_SwitchFail.ogg", true, this, 100, GetOwner(pByObj) + 1);
   return true;
 }
 
@@ -353,13 +360,21 @@ protected func ControlThrow(object pByObj)
       pByObj->SetHUDTarget(pMav->GetAttWeapon());
       pMav->Start();
       SpawnEffect(pMav);
+      Sound("BKHK_Switch.ogg", true, this, 100, GetOwner(pByObj) + 1);
       SetAction("Controlling");
     }
     else
       PlayerMessage(GetOwner(pByObj), "$NoMoney$", this);
   }
   else
+  {
+  	if(pMav->GetAction() != "Flying")
+  	{
+  		Sound("BKHK_Switch.ogg", true, this, 100, GetOwner(pByObj) + 1);
+  		SetAction("Controlling");
+  	}
     pMav->ControlThrow(pByObj);
+  }
 
   return true;
 }
