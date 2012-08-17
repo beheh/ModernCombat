@@ -111,7 +111,7 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
     RemoveEffect("Flying", this);
     return;
   }
-
+  
   //Flugverhalten
   if(iXDir < iXTendency)
     iXDir+= 1 - (fIsAiming && !(iEffectTime % 3));
@@ -148,6 +148,15 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
       iBank += iXTendency / Abs(iXTendency);
 
     SetObjDrawTransform(1000, -iBank*20, 0, iBank*20, 1000, 0, this);
+  
+  
+  //Partikeleffekte  
+  var iXParticle = Random(4) + iXDir * 2 / 3;
+	var iYParticle = Random(4) + 10 + iYDir * 3 / 4;
+	
+	CreateParticle("PSpark", 6 - iXDir / 15, 0, iXParticle, iYParticle, 15, RGBa(200, 200, 255, 20));
+	CreateParticle("PSpark", -7 - iXDir / 15, 0, iXParticle, iYParticle, 15, RGBa(200, 200, 255, 20));
+
 
   //Blinklicht (alle 30 Frames)
   if(!(iEffectTime % 30))
