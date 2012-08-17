@@ -76,9 +76,9 @@ local fForcedDestruction;
 
 public func Destruction()
 {
-	//Löschung erzwungen
-	if(fForcedDestruction)
-		return;
+  //Löschung erzwungen
+  if(fForcedDestruction)
+    return;
 
   //Flaggen dürfen nicht einfach weg sein
   var nFlag = CreateObject(FLA2, 0,0, GetOwner());
