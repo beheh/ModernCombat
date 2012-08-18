@@ -1,2 +1,2 @@
 DE:Laserpunkt
-US:Laserpunkt
+US:Laser Dot

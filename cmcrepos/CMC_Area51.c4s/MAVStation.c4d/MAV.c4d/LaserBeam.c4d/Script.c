@@ -7,7 +7,8 @@
 
 func Initialize()
 {
-	Timer();
+  //Flackern
+  Timer();
 }
 
 func Timer()

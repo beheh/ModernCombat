@@ -1,1 +1,1 @@
-Dat laser.
+Paints targets with a high-energy-laser.
