@@ -101,7 +101,7 @@ public func FxActivityTimer(object pTarget, int iEffectNumber, int iEffectTime)
       controller->SetHUDTarget(0);
       controller->~ShowCH();
       SetPlrView(GetOwner(controller), controller);
-      Sound("BKHK_SwitchFail.ogg", true, this, 100, GetOwner(controller) + 1);
+  		Sound("CockpitRadio.ogg", true, 0, 100, GetOwner(controller)+1, -1);
     }
 
     if(pMav)
@@ -119,6 +119,7 @@ public func FxActivityTimer(object pTarget, int iEffectNumber, int iEffectTime)
   {
     SetPlrView(GetOwner(controller), controller);
     Sound("BKHK_SwitchFail.ogg", true, this, 100, GetOwner(controller) + 1);
+    Sound("CockpitRadio.ogg", true, 0, 100, GetOwner(controller)+1, -1);
     SetAction("Ready");
   }
 
@@ -192,6 +193,7 @@ protected func ActivateEntrance(pUser)
     pMav->SetOwner(GetOwner(this));
     pMav->Start();
     Sound("BKHK_Switch.ogg", true, this, 100, GetOwner(pUser) + 1);
+    Sound("CockpitRadio.ogg", true, 0, 100, GetOwner(pUser)+1, +1);
     SetAction("Controlling");
   }
 
@@ -223,11 +225,12 @@ private func ExitClonk(object pByObj)
     pByObj->SetHUDTarget(0);
     controller->~ShowCH();
     SetPlrView(GetOwner(controller), controller);
+    Sound("CockpitRadio.ogg", true, 0, 100, GetOwner(controller)+1, -1);
 
     if(pMav)
     {
       pMav->Wait();
-      Sound("BKHK_SwitchFail.ogg", true, this, 100, GetOwner(pByObj) + 1);
+      Sound("BKHK_SwitchFail.ogg", true, this, 100, GetOwner(controller) + 1);
     }
     SetOwner(-1, this);
     controller = 0;
@@ -337,6 +340,7 @@ public func ControlDigSingle(object pByObj)
 
   pMav->Wait();
   SetPlrView(GetOwner(controller), controller);
+  Sound("CockpitRadio.ogg", true, 0, 100, GetOwner(pByObj)+1, -1);
   SetAction("Ready");
   Sound("BKHK_SwitchFail.ogg", true, this, 100, GetOwner(pByObj) + 1);
   return true;
@@ -360,6 +364,7 @@ protected func ControlThrow(object pByObj)
       pMav->Start();
       SpawnEffect(pMav);
       Sound("BKHK_Switch.ogg", true, this, 100, GetOwner(pByObj) + 1);
+      Sound("CockpitRadio.ogg", true, 0, 100, GetOwner(pByObj)+1, +1);
       SetAction("Controlling");
     }
     else
@@ -370,6 +375,7 @@ protected func ControlThrow(object pByObj)
     if(pMav->GetAction() != "Flying")
     {
       Sound("BKHK_Switch.ogg", true, this, 100, GetOwner(pByObj) + 1);
+      Sound("CockpitRadio.ogg", true, 0, 100, GetOwner(pByObj)+1, +1);
       SetAction("Controlling");
     }
     pMav->ControlThrow(pByObj);
