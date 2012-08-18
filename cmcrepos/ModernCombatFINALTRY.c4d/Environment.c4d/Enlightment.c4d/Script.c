@@ -40,7 +40,7 @@ public func Enlight()
     //Berechnen, ab wo kein Material mehr ist
     var SizeY = 0;
     var iY = 0;
-    while(!(lite->GBackSolid(GetX(), GetY()+iY)))
+    while(!(lite->GBackSolid(GetX(), GetY()+iY)) && iY < LandscapeHeight())
     {
       SizeY += 6;
       ++iY;
