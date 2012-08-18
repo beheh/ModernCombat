@@ -1239,7 +1239,15 @@ public func ControlThrow(pByObj)
     //Hilfsnachrichten
     PlayerMessage(GetOwner(pByObj), "$Updated$", this, GetName(pItem));
     if(GetAction() == "Flying")
+    {
       PlayerMessage(GetOwner(), "$Updated$", this, GetName(pItem));
+			for(var i = 0; i < 2; i++)
+			{
+				if(iItemType == 1) AMP(true);
+				if(iItemType == 2) FAP(true, 0);
+				if(iItemType == 3) BlowTorch(true);
+			}
+    }
 
     //MAV-Grafik anpassen
     SetPhase(iItemType, this);
