@@ -107,7 +107,6 @@ public func FxActivityTimer(object pTarget, int iEffectNumber, int iEffectTime)
     if(pMav)
     {
       pMav->Wait();
-      //pMav->SetColorDw(RGB(255,255,255));
     }
 
     SetOwner(-1, this);
@@ -224,11 +223,11 @@ private func ExitClonk(object pByObj)
     pByObj->SetHUDTarget(0);
     controller->~ShowCH();
     SetPlrView(GetOwner(controller), controller);
-    Sound("BKHK_SwitchFail.ogg", true, this, 100, GetOwner(pByObj) + 1);
 
     if(pMav)
     {
       pMav->Wait();
+      Sound("BKHK_SwitchFail.ogg", true, this, 100, GetOwner(pByObj) + 1);
     }
     SetOwner(-1, this);
     controller = 0;
@@ -327,7 +326,7 @@ protected func ControlUpDouble(object pByObj)
 
 public func ControlDigSingle(object pByObj)
 {
-  if(!pMav)
+  if(!pMav || pMav->IsDestroyed())
     return true;
 
   if(pMav->IsAiming())
