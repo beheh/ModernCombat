@@ -618,7 +618,7 @@ public func ShockPaddles()
   if(!ChargeBar)
   {
     ChargeBar = CreateObject(SBAR, 0, 0, GetOwner());
-    ChargeBar->Set(this, RGB(77, 229, 0), BAR_Ammobar, true, "", CDBT);
+    ChargeBar->Set(this, RGB(77, 229, 0), BAR_Ammobar, true, "", SM13);
   }
   else
   	ChargeBar->Update(LocalN("charge", pItem) * 100 / pItem->MaxEnergy(), false);
@@ -901,6 +901,7 @@ public func FxWaitTimer(object pTarget, int iEffectNumber, int iEffectTime)
     return;
   }
   DamageChecks();
+  if((iItemType == 0) && (GetOwner() != -1) && !(iEffectTime % 25)) Sense();
 }
 
 public func Start()
