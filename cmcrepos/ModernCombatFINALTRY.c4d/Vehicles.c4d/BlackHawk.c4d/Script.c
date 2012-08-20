@@ -58,10 +58,10 @@ public func IsBulletTarget(id idBullet, object pBullet, object pShooter)
 
 /* Hitbox */
 
-public func HitboxXOffset() { return 180; } //X-Abstand vom Offset zum Hitboxmittelpunkt
-public func HitboxYOffset() { return 44; } //Y-Abstand vom Offset zum Hitboxmittelpunkt
-public func HitboxWidth() { return -10; }   //Breite der Hitbox
-public func HitboxHeight() { return 8; } //Höhe der Hitbox
+public func HitboxXOffset()	{return 180;}	//X-Abstand vom Offset zum Hitboxmittelpunkt
+public func HitboxYOffset()	{return 44;}	//Y-Abstand vom Offset zum Hitboxmittelpunkt
+public func HitboxWidth()	{return -10;}	//Breite der Hitbox
+public func HitboxHeight()	{return 8;}	//Höhe der Hitbox
 
 public func IsInHitbox(int x, int y, bool fDraw)
 {
