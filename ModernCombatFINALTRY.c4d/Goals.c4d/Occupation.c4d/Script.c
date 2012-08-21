@@ -580,6 +580,44 @@ private func LosersAlive(int iTeam)
   return false;
 }
 
+/* Alarmleuchtensteuerung */
+
+public func FxIntWarnStart(object pTarget, int iEffectNumber, int iTemp, object pPoint)
+{
+  EffectVar(0, pTarget, iEffectNumber) = pPoint;
+  return 1;
+}
+
+public func FxIntWarnTimer(object pTarget, int iEffectNumber, int iEffectTime)
+{
+  if(!pTarget)
+   return -1;
+
+  var pPoint = EffectVar(0,pTarget,iEffectNumber);
+  var iLast  = EffectVar(1,pTarget,iEffectNumber);
+  var iNow;
+  if(pPoint->GetTrend() || pPoint->GetAttacker())
+   iNow = true;
+  
+  if(iNow != iLast)
+  {
+     if((pPoint->GetTrend() >= 0) || !pPoint->GetAttacker())
+      pTarget->TurnOff();
+    else
+      pTarget->TurnOn();
+
+    EffectVar(1, pTarget, iEffectNumber) = iNow;
+  }
+
+  return;
+}
+
+global func AddGOCCWarnEffect(object pTarget, object pPoint)
+{
+  AddEffect("IntWarn", pTarget, 1, 35, 0, GOCC, pPoint);
+  return true;
+}
+
 /* Respawn */
 
 protected func InitializePlayer(int iPlr, int iX, int iY, object pBase, int iTeam)

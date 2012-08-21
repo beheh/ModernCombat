@@ -567,43 +567,6 @@ func FlagCaptured(object pPoint, int iTeam)
    aSelfDefense[2]->SetTeam(iTeam);
 }
 
-/* Alarmleuchtensteuerung */
-
-global func FxIntWarnStart(object pTarget, int iEffectNumber, int iTemp,pPoint)
-{
-  EffectVar(0,pTarget,iEffectNumber) = pPoint;
-  return(1);
-}
-
-global func FxIntWarnTimer(object pTarget, int iEffectNumber, int iEffectTime)
-{
-  if(!pTarget)
-   return(-1);
-
-  var pPoint = EffectVar(0,pTarget,iEffectNumber);
-  var iLast  = EffectVar(1,pTarget,iEffectNumber);
-  var iNow;
-  if(pPoint->GetTrend() || pPoint->GetAttacker())
-   iNow = true;
-  
-  if(iNow != iLast)
-  {
-   if((pPoint->GetTrend() >= 0) || !pPoint->GetAttacker())
-    pTarget->TurnOff();
-   else
-    pTarget->TurnOn();
-
-   EffectVar(1,pTarget,iEffectNumber) = iNow;
-  }
-
-  return(0);
-}
-
-func AddWarnEffect(object pTarget, object pPoint)
-{
-  AddEffect ("IntWarn",pTarget,100,35,pTarget,0,pPoint);
-}
-
 /* Regelwähler */
 
 public func ChooserFinished()
@@ -698,42 +661,42 @@ public func ChooserFinished()
    //Flaggenposten 1
    var warn = CreateObject (ALGH, 655, 210, -1);
     warn->SetR(-180);
-    AddWarnEffect(warn,aFlag[0]);
+    AddGOCCWarnEffect(warn,aFlag[0]);
    warn = CreateObject (ALGH, 555, 280, -1);
     warn->SetR(-180);
-    AddWarnEffect(warn,aFlag[0]);
+    AddGOCCWarnEffect(warn,aFlag[0]);
 
    //Flaggenposten 2
    warn = CreateObject (ALGH, 575, 780, -1);
     warn->SetR(-180);
-    AddWarnEffect(warn,aFlag[1]);
+    AddGOCCWarnEffect(warn,aFlag[1]);
    warn = CreateObject (ALGH, 700, 890, -1);
     warn->SetR(-180);
-    AddWarnEffect(warn,aFlag[1]);
+    AddGOCCWarnEffect(warn,aFlag[1]);
 
    //Flaggenposten 3
    warn = CreateObject (ALGH, 790, 610, -1);
     warn->SetR(-180);
-    AddWarnEffect(warn,aFlag[2]);
+    AddGOCCWarnEffect(warn,aFlag[2]);
    warn = CreateObject (ALGH, 1040, 610, -1);
     warn->SetR(-180);
-    AddWarnEffect(warn,aFlag[2]);
+    AddGOCCWarnEffect(warn,aFlag[2]);
 
    //Flaggenposten 4
    warn = CreateObject (ALGH, 1175, 210, -1);
     warn->SetR(-180);
-    AddWarnEffect(warn,aFlag[3]);
+    AddGOCCWarnEffect(warn,aFlag[3]);
    warn = CreateObject (ALGH, 1275, 280, -1);
     warn->SetR(-180);
-    AddWarnEffect(warn,aFlag[3]);
+    AddGOCCWarnEffect(warn,aFlag[3]);
 
    //Flaggenposten 5
    warn = CreateObject (ALGH, 1255, 780, -1);
     warn->SetR(-180);
-    AddWarnEffect(warn,aFlag[4]);
+    AddGOCCWarnEffect(warn,aFlag[4]);
    warn = CreateObject (ALGH, 1130, 890, -1);
     warn->SetR(-180);
-    AddWarnEffect(warn,aFlag[4]);
+    AddGOCCWarnEffect(warn,aFlag[4]);
   }
 
   //HTF-Spielziel
