@@ -11,10 +11,10 @@ public func MaxDamage()		{return 190;}
 
 /* Hitbox */
 
-public func HitboxXOffset()	{return 160;}	//X-Abstand vom Offset zum Hitboxmittelpunkt
-public func HitboxYOffset()	{return 46;}	//Y-Abstand vom Offset zum Hitboxmittelpunkt
-public func HitboxWidth()	{return 15;}	//Breite der Hitbox
-public func HitboxHeight()	{return 5;}	//Höhe der Hitbox
+public func HitboxXOffset()	{return 15;}	//X-Abstand vom Offset zum Hitboxmittelpunkt
+public func HitboxYOffset()	{return 5;}	//Y-Abstand vom Offset zum Hitboxmittelpunkt
+public func HitboxWidth()	{return 160;}	//Breite der Hitbox
+public func HitboxHeight()	{return 46;}	//Höhe der Hitbox
 
 /* Initialisierung */
 
