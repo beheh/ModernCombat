@@ -602,43 +602,6 @@ func FlagCaptured(object pPoint, int iTeam)
   }
 }
 
-/* Alarmleuchtensteuerung */
-
-global func FxIntWarnStart(object pTarget, int iEffectNumber, int iTemp,pPoint)
-{
-  EffectVar(0,pTarget,iEffectNumber) = pPoint;
-  return(1);
-}
-
-global func FxIntWarnTimer(object pTarget, int iEffectNumber, int iEffectTime)
-{
-  if(!pTarget)
-    return(-1);
-
-  var pPoint = EffectVar(0,pTarget,iEffectNumber);
-  var iLast  = EffectVar(1,pTarget,iEffectNumber);
-  var iNow;
-  if(pPoint->GetTrend() || pPoint->GetAttacker())
-    iNow = true;
-  
-  if(iNow != iLast)
-  {
-    if((pPoint->GetTrend() >= 0) || !pPoint->GetAttacker())
-      pTarget->TurnOff();
-    else
-      pTarget->TurnOn();
-      
-    EffectVar(1,pTarget,iEffectNumber) = iNow;
-  }
-  
-  return(0);
-}
-
-func AddWarnEffect(object pTarget, object pPoint)
-{
-  AddEffect ("IntWarn",pTarget,100,35,pTarget,0,pPoint);
-}
-
 /* Regelwähler */
 
 public func ChooserFinished()
@@ -758,31 +721,31 @@ public func ChooserFinished()
    //Alarmleuchten
    //Flaggenposten 1
    var warn = CreateObject (ALGH, 525, 320, -1);
-    AddWarnEffect(warn,aFlag[0]);
+    AddGOCCWarnEffect(warn,aFlag[0]);
    warn = CreateObject (ALGH, 645, 320, -1);
-    AddWarnEffect(warn,aFlag[0]);
+    AddGOCCWarnEffect(warn,aFlag[0]);
 
    //Flaggenposten 2
    warn = CreateObject (ALGH, 380, 700, -1);
-    AddWarnEffect(warn,aFlag[1]);
+    AddGOCCWarnEffect(warn,aFlag[1]);
    warn = CreateObject (ALGH, 790, 700, -1);
-    AddWarnEffect(warn,aFlag[1]);
+    AddGOCCWarnEffect(warn,aFlag[1]);
 
    //Flaggenposten 4
    warn = CreateObject (ALGH, 490, 1189, -1);
     warn->SetR(-180);
-    AddWarnEffect(warn,aFlag[3]);
+    AddGOCCWarnEffect(warn,aFlag[3]);
    warn = CreateObject (ALGH, 680, 1189, -1);
     warn->SetR(-180);
-    AddWarnEffect(warn,aFlag[3]);
+    AddGOCCWarnEffect(warn,aFlag[3]);
 
    //Flaggenposten 7
    warn = CreateObject (ALGH, 380, 1889, -1);
     warn->SetR(-180);
-    AddWarnEffect(warn,aFlag[6]);
+    AddGOCCWarnEffect(warn,aFlag[6]);
    warn = CreateObject (ALGH, 790, 1889, -1);
     warn->SetR(-180);
-    AddWarnEffect(warn,aFlag[6]);
+    AddGOCCWarnEffect(warn,aFlag[6]);
   }
 
   //Assault-Spielziel
