@@ -721,31 +721,31 @@ public func ChooserFinished()
    //Alarmleuchten
    //Flaggenposten 1
    var warn = CreateObject (ALGH, 525, 320, -1);
-    AddGOCCWarnEffect(warn,aFlag[0]);
+   AddGOCCWarnEffect(warn,aFlag[0]);
    warn = CreateObject (ALGH, 645, 320, -1);
-    AddGOCCWarnEffect(warn,aFlag[0]);
+   AddGOCCWarnEffect(warn,aFlag[0]);
 
    //Flaggenposten 2
    warn = CreateObject (ALGH, 380, 700, -1);
-    AddGOCCWarnEffect(warn,aFlag[1]);
+   AddGOCCWarnEffect(warn,aFlag[1]);
    warn = CreateObject (ALGH, 790, 700, -1);
-    AddGOCCWarnEffect(warn,aFlag[1]);
+   AddGOCCWarnEffect(warn,aFlag[1]);
 
    //Flaggenposten 4
    warn = CreateObject (ALGH, 490, 1189, -1);
     warn->SetR(-180);
-    AddGOCCWarnEffect(warn,aFlag[3]);
+   AddGOCCWarnEffect(warn,aFlag[3]);
    warn = CreateObject (ALGH, 680, 1189, -1);
     warn->SetR(-180);
-    AddGOCCWarnEffect(warn,aFlag[3]);
+   AddGOCCWarnEffect(warn,aFlag[3]);
 
    //Flaggenposten 7
    warn = CreateObject (ALGH, 380, 1889, -1);
     warn->SetR(-180);
-    AddGOCCWarnEffect(warn,aFlag[6]);
+   AddGOCCWarnEffect(warn,aFlag[6]);
    warn = CreateObject (ALGH, 790, 1889, -1);
     warn->SetR(-180);
-    AddGOCCWarnEffect(warn,aFlag[6]);
+   AddGOCCWarnEffect(warn,aFlag[6]);
   }
 
   //Assault-Spielziel

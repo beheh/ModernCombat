@@ -788,16 +788,13 @@ public func ChooserFinished()
    SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,7440,509,-1),50*21,200);
 
    //Alarmleuchten
-   
    //Flaggenposten 1
    var warn = CreateObject(ALGH, 935, 299, -1);
    warn->SetR(-180);
    AddGOCCWarnEffect(warn, aFlag[0]);
-    
    warn = CreateObject(ALGH, 1115, 299, -1);
    warn->SetR(-180);
    AddGOCCWarnEffect(warn, aFlag[0]);
-   
    warn = CreateObject(ALGH, 1305, 469, -1);
    warn->SetR(-180);
    AddGOCCWarnEffect(warn, aFlag[0]);
@@ -806,11 +803,9 @@ public func ChooserFinished()
    warn = CreateObject (ALGH, 2525, 369, -1);
    warn->SetR(-180);
    AddGOCCWarnEffect(warn, aFlag[1]);
-   
    warn = CreateObject (ALGH, 2595, 369, -1);
    warn->SetR(-180);
    AddGOCCWarnEffect(warn, aFlag[1]);
-   
    warn = CreateObject (ALGH, 2780, 439, -1);
    warn->SetR(-180);
    AddGOCCWarnEffect(warn, aFlag[1]);
@@ -819,7 +814,6 @@ public func ChooserFinished()
    warn = CreateObject (ALGH, 3570, 369, -1);
    warn->SetR(-180);
    AddGOCCWarnEffect(warn, aFlag[2]);
-   
    warn = CreateObject (ALGH, 3710, 509, -1);
    warn->SetR(-180);
    AddGOCCWarnEffect(warn, aFlag[2]);
@@ -828,7 +822,6 @@ public func ChooserFinished()
    warn = CreateObject (ALGH, 4245, 499, -1);
    warn->SetR(-180);
    AddGOCCWarnEffect(warn, aFlag[3]);
-   
    warn = CreateObject (ALGH, 4415, 509, -1);
    warn->SetR(-180);
    AddGOCCWarnEffect(warn, aFlag[3]);
@@ -837,28 +830,24 @@ public func ChooserFinished()
    warn = CreateObject(ALGH, 5705, 379, -1);
    warn->SetR(-180); 
    AddGOCCWarnEffect(warn, aFlag[4]);
-    
    warn = CreateObject (ALGH, 5570, 519, -1);
    warn->SetR(-180);
    AddGOCCWarnEffect(warn, aFlag[4]);
- 
+
    //Flaggenposten 6
    warn = CreateObject (ALGH, 6555, 369, -1);
    warn->SetR(-180);
    AddGOCCWarnEffect(warn, aFlag[5]);
-    
    warn = CreateObject (ALGH, 6625, 369, -1);
    warn->SetR(-180);
    AddGOCCWarnEffect(warn, aFlag[5]);
-    
    warn = CreateObject (ALGH, 6370, 439, -1);
    warn->SetR(-180);
    AddGOCCWarnEffect(warn, aFlag[5]);
- 
+
    //Flaggenposten 7
    warn = CreateObject (ALGH, 7150, 360, -1);
    AddGOCCWarnEffect(warn, aFlag[6]);
-   
    warn = CreateObject (ALGH, 7410, 360, -1);
    AddGOCCWarnEffect(warn, aFlag[6]);
   }

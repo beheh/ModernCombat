@@ -660,43 +660,43 @@ public func ChooserFinished()
    //Alarmleuchten
    //Flaggenposten 1
    var warn = CreateObject (ALGH, 655, 210, -1);
-    warn->SetR(-180);
-    AddGOCCWarnEffect(warn,aFlag[0]);
+   warn->SetR(-180);
+   AddGOCCWarnEffect(warn,aFlag[0]);
    warn = CreateObject (ALGH, 555, 280, -1);
-    warn->SetR(-180);
-    AddGOCCWarnEffect(warn,aFlag[0]);
+   warn->SetR(-180);
+   AddGOCCWarnEffect(warn,aFlag[0]);
 
    //Flaggenposten 2
    warn = CreateObject (ALGH, 575, 780, -1);
-    warn->SetR(-180);
-    AddGOCCWarnEffect(warn,aFlag[1]);
+   warn->SetR(-180);
+   AddGOCCWarnEffect(warn,aFlag[1]);
    warn = CreateObject (ALGH, 700, 890, -1);
-    warn->SetR(-180);
-    AddGOCCWarnEffect(warn,aFlag[1]);
+   warn->SetR(-180);
+   AddGOCCWarnEffect(warn,aFlag[1]);
 
    //Flaggenposten 3
    warn = CreateObject (ALGH, 790, 610, -1);
-    warn->SetR(-180);
-    AddGOCCWarnEffect(warn,aFlag[2]);
+   warn->SetR(-180);
+   AddGOCCWarnEffect(warn,aFlag[2]);
    warn = CreateObject (ALGH, 1040, 610, -1);
-    warn->SetR(-180);
-    AddGOCCWarnEffect(warn,aFlag[2]);
+   warn->SetR(-180);
+   AddGOCCWarnEffect(warn,aFlag[2]);
 
    //Flaggenposten 4
    warn = CreateObject (ALGH, 1175, 210, -1);
-    warn->SetR(-180);
-    AddGOCCWarnEffect(warn,aFlag[3]);
+   warn->SetR(-180);
+   AddGOCCWarnEffect(warn,aFlag[3]);
    warn = CreateObject (ALGH, 1275, 280, -1);
-    warn->SetR(-180);
-    AddGOCCWarnEffect(warn,aFlag[3]);
+   warn->SetR(-180);
+   AddGOCCWarnEffect(warn,aFlag[3]);
 
    //Flaggenposten 5
    warn = CreateObject (ALGH, 1255, 780, -1);
-    warn->SetR(-180);
-    AddGOCCWarnEffect(warn,aFlag[4]);
+   warn->SetR(-180);
+   AddGOCCWarnEffect(warn,aFlag[4]);
    warn = CreateObject (ALGH, 1130, 890, -1);
-    warn->SetR(-180);
-    AddGOCCWarnEffect(warn,aFlag[4]);
+   warn->SetR(-180);
+   AddGOCCWarnEffect(warn,aFlag[4]);
   }
 
   //HTF-Spielziel
