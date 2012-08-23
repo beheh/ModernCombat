@@ -3,7 +3,7 @@
 #strict
 #include CSTD
 
-static aFlag,aSelfDefense,aStationary;
+static aFlag,aSelfDefense,aStationary, aTowerInterior;
 
 
 /* Initialisierung */
@@ -21,6 +21,8 @@ func Initialize()
   aStationary = [];
   //Selbstschussanlagen
   aSelfDefense = [];
+  //Turmobjekte
+  aTowerInterior = [];
   //Einrichtung plazieren
   CreateInterior();
   //Ausrüstung plazieren
@@ -48,9 +50,12 @@ func CreateInterior()
   CreateObject(LADR, 2040, 1258, -1)->Set(10);
   CreateObject(LADR, 2200, 1258, -1)->Set(10);
   CreateObject(LADR, 2395, 1260, -1)->Set(14, LADR_Right);
-
   CreateObject(LADR, 3530, 1260, -1)->Set(17, LADR_Left|LADR_Right|LADR_Front|LADR_Additional, "W");
+  aTowerInterior[2] = CreateObject(LADR, 3616, 520, -1);
+  aTowerInterior[2]->Set(29);
   CreateObject(LADR, 3635, 1055, -1)->Set(5, LADR_Left|LADR_Right|LADR_Front|LADR_Additional, "W");
+  aTowerInterior[3] = CreateObject(LADR, 3723, 800, -1);
+  aTowerInterior[3]->Set(35);
   CreateObject(LADR, 3910, 640, -1)->Set(7, LADR_Left|LADR_Right|LADR_Front|LADR_Additional, "W");
   CreateObject(LADR, 4240, 795, -1)->Set(26, LADR_Left|LADR_Right|LADR_Front|LADR_Additional, "W");
   CreateObject(LADR, 4380, 805, -1)->Set(7, LADR_Left|LADR_Right|LADR_Front|LADR_Additional, "W");
@@ -464,9 +469,13 @@ func CreateOptionalFeatures()
 
 func OnTowerCollapse()
 {
-   //Geschützstellungen entfernen
-   aStationary[5]->DecoExplode(30);
-   aStationary[6]->DecoExplode(30);
+  //Geschützstellungen entfernen
+  aTowerInterior[0]->DecoExplode(30);
+  aTowerInterior[1]->DecoExplode(30);
+
+  //Leitern entfernen
+  aTowerInterior[2]->DecoExplode(30);
+  aTowerInterior[3]->DecoExplode(30);
 }
 
 /* Bei Flaggenübernahme */
@@ -564,10 +573,10 @@ public func ChooserFinished()
    CreateObject(GNET, 3880, 660, -1)->Set(SATW,-90);
    CreateObject(GNET, 4310, 720, -1)->Set(SATW,90);
    CreateObject(GNET, 5060, 1170, -1)->Set(SATW);
-   aStationary[5] = CreateObject(GNET, 3640, 473, -1);
-   aStationary[5] -> Set(SATW,-90);
-   aStationary[6] = CreateObject(GNET, 3700, 473, -1);
-   aStationary[6] -> Set(SATW,90);
+   aTowerInterior[0] = CreateObject(GNET, 3640, 473, -1);
+   aTowerInterior[0] -> Set(SATW,-90);
+   aTowerInterior[1] = CreateObject(GNET, 3700, 473, -1);
+   aTowerInterior[1] -> Set(SATW,90);
 
    //Blackhawks und Hinweisschild
    if(!FindObject(NOBH))
@@ -693,10 +702,10 @@ public func ChooserFinished()
    aStationary[3] -> Set(SATW,-90);
    aStationary[4] = CreateObject(GNET, 5060, 1170, -1);
    aStationary[4] -> Set(SATW);
-   aStationary[5] = CreateObject(GNET, 3640, 473, -1);
-   aStationary[5] -> Set(SATW,-90);
-   aStationary[6] = CreateObject(GNET, 3700, 473, -1);
-   aStationary[6] -> Set(SATW,90);
+   aTowerInterior[0] = CreateObject(GNET, 3640, 473, -1);
+   aTowerInterior[0] -> Set(SATW,-90);
+   aTowerInterior[1] = CreateObject(GNET, 3700, 473, -1);
+   aTowerInterior[1] -> Set(SATW,90);
 
    //Blackhawks und Hinweisschilder
    if(!FindObject(NOBH))
