@@ -50,10 +50,6 @@ func CreateInterior()
   CreateObject(LADR, 1030, 1216, -1)->Set(6);
   CreateObject(LADR, 1180, 930, -1)->Set(9);
   CreateObject(LADR, 1990, 1050, -1)->Set(13);
-  aTowerInterior[2] = CreateObject(LADR, 2064, 610, -1);
-  aTowerInterior[2]->Set(29);
-  aTowerInterior[3] = CreateObject(LADR, 2165, 920, -1);
-  aTowerInterior[3]->Set(39);
   CreateObject(LADR, 2250, 1100, -1)->Set(16);
   CreateObject(LADR, 2700, 1064, -1)->Set(12);
   CreateObject(LADR, 2930, 1072, -1)->Set(3);
@@ -101,7 +97,6 @@ func CreateInterior()
   CreateObject(WCR2, 1660, 1168, -1);
   CreateObject(WCR2, 1680, 1168, -1);
   CreateObject(WCR2, 2080, 382, -1);
-  CreateObject(WCR2, 2150, 563, -1);
   CreateObject(WCR2, 2640, 1220, -1);
   CreateObject(WCR2, 2660, 1220, -1);
   CreateObject(WCR2, 2890, 1200, -1)->AutoRespawn();
@@ -487,12 +482,8 @@ func CreateOptionalFeatures()
 func OnTowerCollapse()
 {
   //Geschützstellungen entfernen
-  aTowerInterior[0]->DecoExplode(30);
-  aTowerInterior[1]->DecoExplode(30);
-
-  //Leiter entfernen
-  aTowerInterior[2]->DecoExplode(30);
-  aTowerInterior[3]->DecoExplode(30);
+  if(aTowerInterior[0]) aTowerInterior[0]->DecoExplode(30);
+  if(aTowerInterior[1]) aTowerInterior[1]->DecoExplode(30);
 }
 
 /* Bei Flaggenübernahme */
