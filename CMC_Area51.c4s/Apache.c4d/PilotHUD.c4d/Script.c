@@ -15,7 +15,7 @@ public func Initialize()
   iState = -1;
   Schedule("SetVisibility(VIS_Owner)", 1, 0, this);
   SetGraphics("Flares", this, BHUD, BHUD_Overlay_Flares, GFXOV_MODE_Base);
-  SetGraphics("SmokeWall", this, BHUD, APCE_Overlay_RocketPod, GFXOV_MODE_Base); // Raketenpods (<- Rauchwand als Dummygrafik und so.)
+  SetGraphics("Rockets", this, BHUD, APCE_Overlay_RocketPod, GFXOV_MODE_Base);
   SetGraphics("Warning", this, BHUD, BHUD_Overlay_Warning, GFXOV_MODE_Base);
   SetGraphics("Failure", this, BHUD, BHUD_Overlay_Failure, GFXOV_MODE_Base);
   SetClrModulation(RGBa(255,255,255,255), this, BHUD_Overlay_Flares);
