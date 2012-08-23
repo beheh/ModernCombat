@@ -3,7 +3,7 @@
 #strict
 #include CSTD
 
-static aFlag,aStationary,aSelfDefense;
+static aFlag,aStationary,aSelfDefense, aTowerInterior;
 
 
 /* Initialisierung */
@@ -21,6 +21,8 @@ func Initialize()
   aStationary = [];
   //Selbstschussanlagen
   aSelfDefense = [];
+  //Turmobjekte
+  aTowerInterior = [];
   //Einrichtung plazieren
   CreateInterior();
   //Ausrüstung plazieren
@@ -48,6 +50,10 @@ func CreateInterior()
   CreateObject(LADR, 1030, 1216, -1)->Set(6);
   CreateObject(LADR, 1180, 930, -1)->Set(9);
   CreateObject(LADR, 1990, 1050, -1)->Set(13);
+  aTowerInterior[2] = CreateObject(LADR, 2064, 610, -1);
+  aTowerInterior[2]->Set(29);
+  aTowerInterior[3] = CreateObject(LADR, 2165, 920, -1);
+  aTowerInterior[3]->Set(39);
   CreateObject(LADR, 2250, 1100, -1)->Set(16);
   CreateObject(LADR, 2700, 1064, -1)->Set(12);
   CreateObject(LADR, 2930, 1072, -1)->Set(3);
@@ -480,9 +486,13 @@ func CreateOptionalFeatures()
 
 func OnTowerCollapse()
 {
-   //Geschützstellungen entfernen
-   aStationary[3]->DecoExplode(30);
-   aStationary[4]->DecoExplode(30);
+  //Geschützstellungen entfernen
+  aTowerInterior[0]->DecoExplode(30);
+  aTowerInterior[1]->DecoExplode(30);
+
+  //Leiter entfernen
+  aTowerInterior[2]->DecoExplode(30);
+  aTowerInterior[3]->DecoExplode(30);
 }
 
 /* Bei Flaggenübernahme */
@@ -606,10 +616,10 @@ public func ChooserFinished()
    //Geschützstellungen
    CreateObject(GNET, 2030, 940, -1)->Set(SATW,0,1);
    CreateObject(GNET, 3270, 630, -1)->Set(0,-90);
-   aStationary[3] = CreateObject(GNET, 2085, 563, -1);
-   aStationary[3] -> Set(0,-90);
-   aStationary[4] = CreateObject(GNET, 2145, 382, -1);
-   aStationary[4] -> Set(0,90);
+   aTowerInterior[0] = CreateObject(GNET, 2085, 563, -1);
+   aTowerInterior[0] -> Set(0,-90);
+   aTowerInterior[1] = CreateObject(GNET, 2145, 382, -1);
+   aTowerInterior[1] -> Set(0,90);
 
    //Blackhawks und Hinweisschilder
    if(!FindObject(NOBH))
@@ -714,10 +724,10 @@ public func ChooserFinished()
    aStationary[1] -> Set(0,-90);
    aStationary[2] = CreateObject(GNET, 3320, 1040, -1);
    aStationary[2] -> Set(0,-90);
-   aStationary[3] = CreateObject(GNET, 2085, 563, -1);
-   aStationary[3] -> Set(0,-90);
-   aStationary[4] = CreateObject(GNET, 2145, 382, -1);
-   aStationary[4] -> Set(0,90);
+   aTowerInterior[0] = CreateObject(GNET, 2085, 563, -1);
+   aTowerInterior[0] -> Set(0,-90);
+   aTowerInterior[1] = CreateObject(GNET, 2145, 382, -1);
+   aTowerInterior[1] -> Set(0,90);
 
    //Blackhawks und Hinweisschilder
    if(!FindObject(NOBH))
