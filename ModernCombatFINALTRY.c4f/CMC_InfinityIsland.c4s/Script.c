@@ -51,11 +51,7 @@ func CreateInterior()
   CreateObject(LADR, 2200, 1258, -1)->Set(10);
   CreateObject(LADR, 2395, 1260, -1)->Set(14, LADR_Right);
   CreateObject(LADR, 3530, 1260, -1)->Set(17, LADR_Left|LADR_Right|LADR_Front|LADR_Additional, "W");
-  aTowerInterior[2] = CreateObject(LADR, 3616, 520, -1);
-  aTowerInterior[2]->Set(29);
   CreateObject(LADR, 3635, 1055, -1)->Set(5, LADR_Left|LADR_Right|LADR_Front|LADR_Additional, "W");
-  aTowerInterior[3] = CreateObject(LADR, 3723, 800, -1);
-  aTowerInterior[3]->Set(35);
   CreateObject(LADR, 3910, 640, -1)->Set(7, LADR_Left|LADR_Right|LADR_Front|LADR_Additional, "W");
   CreateObject(LADR, 4240, 795, -1)->Set(26, LADR_Left|LADR_Right|LADR_Front|LADR_Additional, "W");
   CreateObject(LADR, 4380, 805, -1)->Set(7, LADR_Left|LADR_Right|LADR_Front|LADR_Additional, "W");
@@ -470,12 +466,8 @@ func CreateOptionalFeatures()
 func OnTowerCollapse()
 {
   //Geschützstellungen entfernen
-  aTowerInterior[0]->DecoExplode(30);
-  aTowerInterior[1]->DecoExplode(30);
-
-  //Leitern entfernen
-  aTowerInterior[2]->DecoExplode(30);
-  aTowerInterior[3]->DecoExplode(30);
+  if(aTowerInterior[0]) aTowerInterior[0]->DecoExplode(30);
+  if(aTowerInterior[1]) aTowerInterior[1]->DecoExplode(30);
 }
 
 /* Bei Flaggenübernahme */
