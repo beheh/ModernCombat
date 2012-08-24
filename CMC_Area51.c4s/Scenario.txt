@@ -10,7 +10,7 @@ Definition3=ModernCombatFINALTRY.c4d
 
 [Game]
 StructNeedEnergy=0
-Rules=NOAM=1;RWDS=1;MCSL=1;NOFF=1;SICD=1;
+Rules=NOAM=1;RWDS=1;MCSL=1;NOFF=1;SICD=1;RFOW=1
 
 [Player1]
 Wealth=250,0,0,250
