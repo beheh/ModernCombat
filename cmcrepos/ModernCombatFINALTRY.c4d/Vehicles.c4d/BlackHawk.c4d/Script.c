@@ -3,7 +3,7 @@
 #strict 2
 #include CVHC
 
-local throttle,	rotation, hud;
+local throttle, rotation, hud;
 local pMGStation, pRocketStation;
 local smokereload, flarereload;
 local fShowSpotlight, pSpotlight;
@@ -150,10 +150,11 @@ public func FxShowHitboxTimer(object target, int nr)
 
 protected func InitializeHitbox()
 {
-	//Hitbox erstellen
+  //Hitbox erstellen
   iHitboxDistance = Distance(0, 0, HitboxWidth()/2, HitboxHeight()/2);
   aHitboxAngles = [Angle(0, 0, HitboxWidth()/2, HitboxHeight()/2), Angle(0, 0, -(HitboxWidth()/2), HitboxHeight()/2), Angle(0, 0, -(HitboxWidth()/2), -(HitboxHeight()/2)), Angle(0, 0, HitboxWidth()/2, -(HitboxHeight()/2))];
-	return true;
+
+  return true;
 }
 
 protected func FxIntHeliProtectionStart(object pTarget, int iEffect, int iTemp, object pObj)
@@ -174,9 +175,9 @@ protected func Initialize()
   rotation = 0; 
   SetAction("Stand");
 
-	//Hitbox erstellen
-	InitializeHitbox();
-	
+  //Hitbox erstellen
+  InitializeHitbox();
+
   //Pilot
   aSeats = [];
 
@@ -285,7 +286,7 @@ protected func FxBlackhawkAutopilotStart(object pTarget, int iNumber, iTemp, int
 {
   if(GBackLiquid(AbsX(iX), AbsY(iY))) return -1;
   EffectVar(0, pTarget, iNumber) = iX;
-  EffectVar(1, pTarget, iNumber) = iY;	
+  EffectVar(1, pTarget, iNumber) = iY;
 }
 
 protected func FxBlackhawkAutopilotTimer(object pTarget, int iNumber, int iTime)
@@ -300,7 +301,7 @@ protected func FxBlackhawkAutopilotTimer(object pTarget, int iNumber, int iTime)
       //vom Gas weg
       if(GetAction() == "Fly" || GetAction() == "Turn")
       {
-      	throttle = BoundBy(throttle - BKHK_AutoThrottleSpeed, 0, BKHK_AutoMaxThrottle);
+        throttle = BoundBy(throttle - BKHK_AutoThrottleSpeed, 0, BKHK_AutoMaxThrottle);
       }
       else if(throttle != 0 && GetAction() == "Fly")
       {
@@ -315,12 +316,12 @@ protected func FxBlackhawkAutopilotTimer(object pTarget, int iNumber, int iTime)
     {
       if(GetAction() == "Fly" || GetAction() == "Turn")
       {
-      	throttle = BoundBy(throttle + BKHK_AutoThrottleSpeed, 0, BKHK_AutoMaxThrottle);
+        throttle = BoundBy(throttle + BKHK_AutoThrottleSpeed, 0, BKHK_AutoMaxThrottle);
       }
       else if(throttle == 0 && GetAction() == "Stand")
       {
-      	SetAction("EngineStartUp");
-      	return FX_OK;
+        SetAction("EngineStartUp");
+        return FX_OK;
       }
     }
   }
@@ -1362,7 +1363,7 @@ protected func TimerCall()
 {
   //Zerstört?
   if(IsDestroyed())
-    return;	
+    return;
 
   //Richtung ermitteln
   var iDir = GetDir() * 2 - 1;
@@ -1383,7 +1384,7 @@ protected func TimerCall()
       else if(GetAction() == "EngineShutDown2") iRotorSpeed += 95-60/(30+30)*(30+GetActTime());
       else if(GetAction() == "EngineShutDown3") iRotorSpeed += 95-90/(30+30+30)*(30+30+GetActTime());
     }
-	
+
   //Absinken, wenn kein Pilot
   if(((!GetPilot() && !GetAutopilot() || GetY() < 100) && throttle) || (GetAction() == "Fly" && !GetPilot() && !GetAutopilot()))
     if(!Random(3))
