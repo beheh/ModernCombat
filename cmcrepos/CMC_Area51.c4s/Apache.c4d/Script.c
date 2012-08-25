@@ -435,3 +435,38 @@ public func RocketPodsReady()
 
   return (GetAmmo(0, weapon) == weapon->GetFMData(FM_AmmoLoad));
 }
+
+/* Schaden */
+
+public func OnDestruction()
+{
+  //Inhalt auswerfen und töten bzw. zerstören
+  for(var obj in FindObjects(Find_Container(this), Find_Not(Find_ID(FKDT))))
+  {
+    DeleteActualSeatPassenger(obj);
+    if(GetOCF(obj) & OCF_Alive && GetID(Contained(obj)) != FKDT)
+      DoDmg(200, DMG_Explosion, obj, 0, GetLastAttacker()+1);
+    else
+      DoDamage(200, obj);
+    if(Contained(obj) == this)
+      Exit(obj, 0, 0, Random(360), RandomX(-5, 5), RandomX(-4, 8), Random(10));
+  }
+
+  //Explosion
+  FakeExplode(70, GetLastAttacker() + 1);
+  FakeExplode(50, GetLastAttacker() + 1);
+  RemoveObject();
+  Sound("BigExplosion.ogg", false, this);
+  Sound("StructuralDamage*.ogg", false, this);
+
+  //Wrack erstellen
+  var obj;
+  obj = CreateObject(AEWK, 0, 20, GetLastAttacker());
+  Incinerate(obj);
+  SetDir(GetDir(), obj);
+  SetR(GetR(), obj);
+  SetXDir(GetXDir(), obj);
+  SetYDir(GetYDir(), obj);
+  SetRDir(GetRDir(), obj);
+  return true;
+}
