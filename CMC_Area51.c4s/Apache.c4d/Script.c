@@ -57,6 +57,16 @@ protected func Initialize()
   //Eingang
   SetEntrance(true);
 
+  //Neutrale Fahrzeuge sind weiﬂ
+  if(GetOwner() == NO_OWNER)
+  {
+    SetColorDw(RGB(255,255,255));
+  }
+  else
+  {
+    SetColorDw(GetPlrColorDw(GetOwner()));
+  }
+
   AddEffect("VehicleNoOwner", this, 50, 38, this);
 
   return 1;
