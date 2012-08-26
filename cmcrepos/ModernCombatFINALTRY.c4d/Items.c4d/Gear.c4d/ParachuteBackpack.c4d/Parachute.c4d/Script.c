@@ -54,7 +54,7 @@ protected func Fly()
     var targ = GetActionTarget();
     if (!targ)
     {
-      SetAction("StartFlyFree");
+      StartFlyFree();
       return;
     }
 
@@ -85,28 +85,40 @@ protected func Fly()
     if(GetPlrDownDouble(GetController(targ)))
     {
       //Erneuter Check nach Bodenkontakt
-      if (GBackSolid(0, 20))
+      if(GBackSolid(0, 20))
         Close();
       else
-        SetAction("StartFlyFree");
+      {
+      	StartFlyFree();
+    	}
     }
     //Lebewesen
-    if (GetCategory(targ) & C4D_Living)
-      if (GetID(Contained(targ)) == FKDT)
+    if(GetCategory(targ) & C4D_Living)
+      if(GetID(Contained(targ)) == FKDT)
       {
-        SetAction("StartFlyFree");
-        SetPosition (GetX(), GetY()+22); 
+        StartFlyFree();
+        SetPosition(GetX(), GetY()+22); 
       }
       else
-        if (GetID(targ) != FKDT && GetProcedure(targ) != "FLOAT" && GetProcedure(targ) != "FLIGHT")
+        if(GetID(targ) != FKDT && GetProcedure(targ) != "FLOAT" && GetProcedure(targ) != "FLIGHT")
           Close();
 
-    if (Contained())
+    if(Contained())
     {
       Exit();
       SetAction("Fly", targ, 0, true);
     }
   }
+}
+
+public func StartFlyFree()
+{
+	if(GetAction() == "Open")
+  	Schedule("SetAction(\"StartFlyFree\")", 25-GetActTime(), 0, this);
+  else
+    SetAction("StartFlyFree");
+  
+  return true;
 }
 
 /* Auf- und einklappen */
@@ -154,7 +166,7 @@ public func Damage()
     if(GBackSolid(0, 20))
       Close();
     else
-      SetAction("StartFlyFree");
+      StartFlyFree();
 
     //Effekte
     if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("WoodSplinter", 4, 40, 0,0, 20, 50, RGBa(250,250,250,200));
