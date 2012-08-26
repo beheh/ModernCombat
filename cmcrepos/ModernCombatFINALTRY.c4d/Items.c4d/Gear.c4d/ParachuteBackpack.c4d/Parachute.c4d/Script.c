@@ -89,8 +89,8 @@ protected func Fly()
         Close();
       else
       {
-      	StartFlyFree();
-    	}
+        StartFlyFree();
+      }
     }
     //Lebewesen
     if(GetCategory(targ) & C4D_Living)
@@ -113,11 +113,11 @@ protected func Fly()
 
 public func StartFlyFree()
 {
-	if(GetAction() == "Open")
-  	Schedule("SetAction(\"StartFlyFree\")", 25-GetActTime(), 0, this);
+  if(GetAction() == "Open")
+    Schedule("SetAction(\"StartFlyFree\")", 25-GetActTime(), 0, this);
   else
     SetAction("StartFlyFree");
-  
+
   return true;
 }
 
