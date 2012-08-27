@@ -290,7 +290,7 @@ local fulfilled;
 
 public func IsFulfilled()
 {
-	if(FindObject(CHOS)) return;
+  if(FindObject(CHOS)) return;
 
   if (fulfilled) return true;
   for (var i; i < GetLength(aTeamPoints); i++)
