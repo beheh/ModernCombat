@@ -439,6 +439,9 @@ public func IsFulfilled()
 
 protected func Activate(int iPlr)
 {
+	if(FindObject(CHOS))
+		return MessageWindow(GetDesc(this), iPlr);
+
   var iIndex = iPlr;
   if (Teams())
     iIndex = GetPlayerTeam(iPlr);
