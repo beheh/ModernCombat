@@ -34,6 +34,14 @@ func Construction(object byObj)
   }
 }
 
+public func GlowColor(int iATime)
+{
+	if(fDev)
+		return RGBa(aClr[0], aClr[1], aClr[2], 50);
+
+  return RGBa(255, 190, 0, 50);
+}
+
 public func TrailColor(int iATime)
 {
   var iPrg = 100 * iATime / iTime;
