@@ -31,8 +31,8 @@ Crew=PCMK=1
 [Landscape]
 MapWidth=179,0,64,250
 MapHeight=94,0,40,250
+SkyFade=0,0,0,0,0,128
 NoScan=1
-SkyScrollMode=1
 
 [Environment]
 Objects=DARK=3

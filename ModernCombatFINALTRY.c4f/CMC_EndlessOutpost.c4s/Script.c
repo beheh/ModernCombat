@@ -666,6 +666,12 @@ func CreateDecoration()
   CreateObject(ETLT, 2530, 395, -1);
 }
 
+func CreateOptionalFeatures()
+{
+  //Hintergrund
+  CreateObject(BD03,500,200,-1)->SetClrModulation(RGB(150,150,150));
+}
+
 /* Bei Flaggenübernahme */
 
 func FlagCaptured(object pPoint, int iTeam)
