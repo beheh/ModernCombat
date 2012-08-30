@@ -3,7 +3,7 @@
 #strict
 #include CSTD
 
-static aFlag,aSelfDefense,aStationary, aTowerInterior;
+static aFlag,aSelfDefense,aStationary,aTowerInterior;
 
 
 /* Initialisierung */
