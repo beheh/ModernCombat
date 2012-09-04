@@ -60,8 +60,11 @@ public func ChooserFinished()
   return _inherited(...);
 }
 
+local iChoosedPlr;
+
 public func ConfigMenu(object pCaller)
 {
+	iChoosedPlr = GetOwner(pCaller);
   OpenGoalMenu();
   return 1;
 }
@@ -75,7 +78,7 @@ private func ConfigFinished()
 
 private func OpenGoalMenu(id dummy, int iSelection)
 {
-  var pClonk = GetCursor();
+  var pClonk = GetCursor(iChoosedPlr);
   CreateMenu(GetID(),pClonk,0,0,0,0,1);
 
   AddMenuItem(" ", "OpenGoalMenu", GetID(), pClonk, iGoal, 0, " ");
