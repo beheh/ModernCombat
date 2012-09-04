@@ -43,7 +43,7 @@ local iChoosedPlr;
 
 public func ConfigMenu(object pCaller)
 {
-	iChoosedPlr = GetOwner(pCaller);
+  iChoosedPlr = GetOwner(pCaller);
   OpenGoalMenu();
   return 1;
 }
