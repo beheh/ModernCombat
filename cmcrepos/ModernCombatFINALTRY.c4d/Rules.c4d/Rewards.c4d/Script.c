@@ -984,7 +984,7 @@ global func AttemptAwardRibbon(id idRibbon, int iPlr, int iPlrFrom)
   }
   else
   {
-    EventInfo4K(0, Format("$RibbonAwarded$", GetPlrColorDw(iPlr), GetPlayerName(iPlr), GetPlrColorDw(iPlrFrom), GetPlayerName(iPlrFrom), GetName(0, idRibbon)), RWDS, 0, 0, 0, "PriorityInfo.ogg");
+    EventInfo4K(0, Format("$RibbonAwarded$", GetPlrColorDw(iPlr), GetPlayerName(iPlr), GetName(0, idRibbon), GetPlrColorDw(iPlrFrom), GetPlayerName(iPlrFrom)), RWDS, 0, 0, 0, "PriorityInfo.ogg");
   }
 
   //Sound-Hinweis
