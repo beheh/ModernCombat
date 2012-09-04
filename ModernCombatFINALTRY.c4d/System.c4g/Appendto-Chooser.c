@@ -350,18 +350,18 @@ protected func OpenGoalMenu(id dummy, int iSelection)
   var pClonk = GetCursor(iChoosedPlr);
   if(pGoal->~ConfigMenu(pClonk))
     return 1;
-  
-  // Menü aufmachen
+
+  //Menü aufmachen
   CreateMenu(GetID(), pClonk, 0,0,0,0, 1);
-  // Anzeige
+  //Anzeige
   AddMenuItem(" ", "OpenGoalMenu", GetID(pGoal), pClonk, GetWinScore2(), 0, " ");
-  // Zähler erhöhen
+  //Zähler erhöhen
   AddMenuItem("$MoreWinScore$", "ChangeGoalConf", CHOS, pClonk, 0, +1, "$MoreWinScore$",2,1);
-  // Zähler senken
+  //Zähler senken
   AddMenuItem("$LessWinScore$", "ChangeGoalConf", CHOS, pClonk, 0, -1, "$LessWinScore$",2,2);
-  // Fertig
+  //Fertig
   AddMenuItem("$Finished$", "OpenMenu", CHOS, pClonk,0,0,"$Finished$",2,3);
-  // Letzten Eintrag auswählen
+  //Letzten Eintrag auswählen
   SelectMenuItem(iSelection, pClonk);
   return true;
 }
