@@ -388,6 +388,11 @@ protected func DoPoints()
        	  //Achievement-Fortschritt (Paratrooper)
           DoAchievementProgress(1, AC34, killer);
       }
+      else if(KillIcon() == ATRP)
+      {
+      	//Achievement-Fortschritt (Tower Defence)
+        DoAchievementProgress(1, AC40, killer);
+      }
     }
 
     //Killassist

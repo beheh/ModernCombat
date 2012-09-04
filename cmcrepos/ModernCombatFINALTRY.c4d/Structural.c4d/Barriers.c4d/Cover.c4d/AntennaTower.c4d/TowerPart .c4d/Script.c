@@ -42,16 +42,10 @@ public func FxDmgObjectsTimer(object target, int nr, int time)
       continue;
 
     //Schadenswert errechnen
-    DoDmg(Max(GetXDir(),GetYDir()), DMG_Melee, obj, 10, GetOwner());
+    DoDmg(Max(GetXDir(),GetYDir()), DMG_Melee, obj, 10, GetOwner()+1);
 
     if(GetCategory(obj) & C4D_Living)
-    {
       obj->SetAction("Tumble");
-      if(Hostile(GetOwner(),GetOwner(obj)))
-        if(!GetAlive(obj) || IsFakeDeath(obj))
-          //Achievement-Fortschritt (Tower Defence)
-          DoAchievementProgress(1, AC40, GetOwner());
-    }
   }
   EffectVar(0, target, nr) = objects;
 }
