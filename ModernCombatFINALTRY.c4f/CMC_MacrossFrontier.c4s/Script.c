@@ -464,51 +464,113 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   //HTF-Spielziel
   if(FindObject(GHTF))
   {
-   var rand = Random(6);
-   if(!rand)
-     { iX = 340; iY = 220; }
-   if(!--rand)
-     { iX = 340; iY = 340; }
-   if(!--rand)
-     { iX = 340; iY = 430; }
-   if(!--rand)
-     { iX = 1210; iY = 140; }
-   if(!--rand)
-     { iX = 1210; iY = 260; }
-   if(!--rand)
-     { iX = 1210; iY = 350; }
-   return(1);
+   //Gesonderte Spawnpoints bei 2 Teams
+   if(GetTeamCount() == 2)
+   {
+    var rand = Random(3);
+    if(iTeam == 1)
+    {
+     if(!rand)
+       { iX = 220; iY = 200; }
+     if(!--rand)
+       { iX = 220; iY = 430; }
+     if(!--rand)
+       { iX = 250; iY = 140; }
+    }
+    else
+    {
+     if(!rand)
+       { iX = 1265; iY = 85; }
+     if(!--rand)
+       { iX = 1295; iY = 120; }
+     if(!--rand)
+       { iX = 1330; iY = 350; }
+     }
+    return(1);
+   }
+   else
+   {
+    var rand = Random(6);
+    if(!rand)
+      { iX = 340; iY = 220; }
+    if(!--rand)
+      { iX = 340; iY = 340; }
+    if(!--rand)
+      { iX = 340; iY = 430; }
+    if(!--rand)
+      { iX = 1210; iY = 140; }
+    if(!--rand)
+      { iX = 1210; iY = 260; }
+    if(!--rand)
+      { iX = 1210; iY = 350; }
+    return(1);
+   }
   }
 
   //MR/LMS/DM-Spielziel
   if(FindObject(GMNR) || FindObject(GLMS) || FindObject(GTDM))
   {
-   var rand = Random(4);
-   if(!rand)
-     { iX = 340; iY = 340; }
-   if(!--rand)
-     { iX = 530; iY = 470; }
-   if(!--rand)
-     { iX = 1020; iY = 330; }
-   if(!--rand)
-     { iX = 1220; iY = 260; }
-   return(1);
+   //Gesonderte Spawnpoints bei 2 Teams
+   if(GetTeamCount() == 2)
+   {
+    var rand = Random(3);
+    if(iTeam == 1)
+    {
+     if(!rand)
+       { iX = 220; iY = 200; }
+     if(!--rand)
+       { iX = 220; iY = 430; }
+     if(!--rand)
+       { iX = 250; iY = 140; }
+    }
+    else
+    {
+     if(!rand)
+       { iX = 1265; iY = 85; }
+     if(!--rand)
+       { iX = 1295; iY = 120; }
+     if(!--rand)
+       { iX = 1330; iY = 350; }
+     }
+    return(1);
+   }
+   else
+   {
+    var rand = Random(6);
+    if(!rand)
+      { iX = 340; iY = 340; }
+    if(!--rand)
+      { iX = 340; iY = 430; }
+    if(!--rand)
+      { iX = 530; iY = 410; }
+    if(!--rand)
+      { iX = 1020; iY = 330; }
+    if(!--rand)
+      { iX = 1220; iY = 260; }
+    if(!--rand)
+      { iX = 1200; iY = 350; }
+    return(1);
+   }
   }
 
   //CTF-Spielziel
   if(FindObject(GCTF))
   {
-   var rand = Random(2);
+   var rand = Random(3);
    if(iTeam == 1)
    {
     if(!rand)
       { iX = 220; iY = 200; }
     if(!--rand)
       { iX = 250; iY = 140; }
+    if(!--rand)
+      { iX = 365; iY = 200; }
    }
    else
    {
     if(!rand)
+      { iX = 1135; iY = 120; }
+    if(!--rand)
       { iX = 1265; iY = 85; }
     if(!--rand)
       { iX = 1295; iY = 120; }
