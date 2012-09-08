@@ -396,21 +396,48 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   //MR/LMS/DM-Spielziel
   if(FindObject(GMNR) || FindObject(GLMS) || FindObject(GTDM))
   {
-   var rand = Random(7);
-   if(!rand)
-   { iX = 210; iY = 480; }
-   if(!--rand)
-   { iX = 260; iY = 700; }
-   if(!--rand)
-   { iX = 595; iY = 410; }
-   if(!--rand)
-   { iX = 1155; iY = 180; }
-   if(!--rand)
-   { iX = 1525; iY = 650; }
-   if(!--rand)
-   { iX = 1635; iY = 240; }
-   if(!--rand)
-   { iX = 1690; iY = 420; }
-   return(1);
+   //Gesonderte Spawnpoints bei 2 Teams
+   if(GetTeamCount() == 2)
+   {
+    var rand = Random(3);
+    if(iTeam == 1)
+    {
+     if(!rand)
+       { iX = 210; iY = 480; }
+     if(!--rand)
+       { iX = 260; iY = 700; }
+     if(!--rand)
+       { iX = 520; iY = 490; }
+    }
+    else
+    {
+     if(!rand)
+       { iX = 1535; iY = 300; }
+     if(!--rand)
+       { iX = 1635; iY = 240; }
+     if(!--rand)
+       { iX = 1690; iY = 420; }
+     }
+    return(1);
+   }
+   else
+   {
+    var rand = Random(7);
+    if(!rand)
+    { iX = 210; iY = 480; }
+    if(!--rand)
+    { iX = 260; iY = 700; }
+    if(!--rand)
+    { iX = 595; iY = 410; }
+    if(!--rand)
+    { iX = 1155; iY = 180; }
+    if(!--rand)
+    { iX = 1525; iY = 650; }
+    if(!--rand)
+    { iX = 1635; iY = 240; }
+    if(!--rand)
+    { iX = 1690; iY = 420; }
+    return(1);
+   }
   }
 }
