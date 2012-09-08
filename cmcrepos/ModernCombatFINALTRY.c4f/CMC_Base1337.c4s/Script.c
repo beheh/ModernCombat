@@ -50,7 +50,9 @@ func CreateInterior()
   CreateObject(LADR, 1030, 1216, -1)->Set(6);
   CreateObject(LADR, 1180, 930, -1)->Set(9);
   CreateObject(LADR, 1990, 1050, -1)->Set(13);
+  CreateObject(LADR, 2050, 1220, -1)->Set(20);
   CreateObject(LADR, 2250, 1100, -1)->Set(16);
+  CreateObject(LADR, 2280, 1220, -1)->Set(13);
   CreateObject(LADR, 2700, 1064, -1)->Set(12);
   CreateObject(LADR, 2930, 1072, -1)->Set(3);
   CreateObject(LADR, 3190, 1008, -1)->Set(25);
@@ -606,7 +608,9 @@ public func ChooserFinished()
 
    //Geschützstellungen
    CreateObject(GNET, 2030, 940, -1)->Set(SATW,0,1);
-   CreateObject(GNET, 3270, 630, -1)->Set(0,-90);
+   CreateObject(GNET, 2280, 970, -1)->Set(0,90,1);
+   CreateObject(GNET, 3270, 630, -1)->Set(0,-90,1);
+   CreateObject(GNET, 3370, 1012, -1)->Set(0,-90,1);
    aTowerInterior[0] = CreateObject(GNET, 2085, 563, -1);
    aTowerInterior[0] -> Set(0,-90);
    aTowerInterior[1] = CreateObject(GNET, 2145, 382, -1);
@@ -669,9 +673,7 @@ public func ChooserFinished()
    RemoveObject(FindObject2(Find_ID(LADR),Find_InRect(3910, 860, 30, 90)));
    RemoveObject(FindObject2(Find_ID(CONS),Find_InRect(3880, 830, 30, 30)));
 
-   //Leitern
-   CreateObject(LADR, 2050, 1220, -1)->Set(20);
-   CreateObject(LADR, 2280, 1220, -1)->Set(13);
+   //Leiter
    CreateObject(LADR, 3920, 1108, -1)->Set(16);
 
    //Metallkisten
@@ -712,9 +714,9 @@ public func ChooserFinished()
    aStationary[0] = CreateObject(GNET, 2030, 940, -1);
    aStationary[0] -> Set(SATW,0,1);
    aStationary[1] = CreateObject(GNET, 3270, 630, -1);
-   aStationary[1] -> Set(0,-90);
+   aStationary[1] -> Set(0,-90,1);
    aStationary[2] = CreateObject(GNET, 3320, 1040, -1);
-   aStationary[2] -> Set(0,-90);
+   aStationary[2] -> Set(0,-90,1);
    aTowerInterior[0] = CreateObject(GNET, 2085, 563, -1);
    aTowerInterior[0] -> Set(0,-90);
    aTowerInterior[1] = CreateObject(GNET, 2145, 382, -1);
@@ -777,12 +779,18 @@ public func ChooserFinished()
    CreateObject(SGNP, 4165, 510, -1);
 
    //Geschützstellungen
+   CreateObject(GNET, 2115, 1070, -1)->Set(0,90,1);
    CreateObject(GNET, 2280, 970, -1)->Set(0,90,1);
+   CreateObject(GNET, 3020, 1140, -1)->Set(0,90,1);
    CreateObject(GNET, 3370, 1012, -1)->Set(0,-90,1);
+   CreateObject(GNET, 3750, 832, -1)->Set(0,-90,1);
 
    //Objekte entfernen
    RemoveObject(aSelfDefense[0]);
    RemoveObject(aSelfDefense[2]);
+
+   //Patrouillenboot
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,2060,1229,-1),50*21,300);
   }
 
   //MR-Spielziel
@@ -803,6 +811,12 @@ public func ChooserFinished()
    CreateObject(SGNP, 3970, 540, -1);
    CreateObject(SGNP, 4165, 510, -1);
 
+   //Geschützstellungen
+   CreateObject(GNET, 2115, 1070, -1)->Set(0,90,1);
+   CreateObject(GNET, 2280, 970, -1)->Set(0,90,1);
+   CreateObject(GNET, 3370, 1012, -1)->Set(0,-90,1);
+   CreateObject(GNET, 3750, 832, -1)->Set(0,-90,1);
+
    //Objekte entfernen
    RemoveObject(aSelfDefense[0]);
    RemoveObject(aSelfDefense[2]);
@@ -815,6 +829,9 @@ public func ChooserFinished()
    AddMoneySpawn(3380, 920, [15]);
    AddMoneySpawn(3380, 920, [15]);
    AddMoneySpawn(3870, 1030, [20]);
+
+   //Patrouillenboot
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,2060,1229,-1),50*21,300);
   }
 
   //LMS/DM-Spielziel
@@ -835,13 +852,15 @@ public func ChooserFinished()
    CreateObject(SGNP, 3970, 540, -1);
    CreateObject(SGNP, 4165, 510, -1);
 
+   //Geschützstellungen
+   CreateObject(GNET, 2115, 1070, -1)->Set(0,90,1);
+   CreateObject(GNET, 2280, 970, -1)->Set(0,90,1);
+   CreateObject(GNET, 3370, 1012, -1)->Set(0,-90,1);
+   CreateObject(GNET, 3750, 832, -1)->Set(0,-90,1);
+
    //Objekte entfernen
    RemoveObject(aSelfDefense[0]);
    RemoveObject(aSelfDefense[2]);
-
-   //Leitern
-   CreateObject(LADR, 2050, 1220, -1)->Set(20);
-   CreateObject(LADR, 2280, 1220, -1)->Set(13);
 
    //Patrouillenboot
    SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,2060,1229,-1),50*21,300);
