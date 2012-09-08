@@ -227,8 +227,8 @@ func CreateEquipment()
 
   //Geschützstellungen
   CreateObject(GNET, 420, 440, -1)->Set(SATW,90);
-  CreateObject(GNET, 1410, 590, -1);
-  CreateObject(GNET, 2830, 590, -1);
+  CreateObject(GNET, 1410, 590, -1)->Set(0,0,1);
+  CreateObject(GNET, 2830, 590, -1)->Set(0,0,1);
   CreateObject(GNET, 3820, 440, -1)->Set(SATW,-90);
 
   //Artilleriebatterie
