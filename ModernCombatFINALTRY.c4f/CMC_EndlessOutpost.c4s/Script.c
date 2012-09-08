@@ -759,6 +759,10 @@ public func ChooserFinished()
    //Objekt entfernen
    RemoveObject(FindObject2(Find_ID(AMCT),Find_InRect(1080, 240, 40, 40)));
 
+   //Geschützstellungen
+   CreateObject(GNET, 205, 350, -1)->Set(0,90,1);
+   CreateObject(GNET, 1690, 210, -1)->Set(0,-90,1);
+
    //Hinweisschilder
    var sign = CreateObject(SGNP, 780, 410, -1);
    sign->SetPhase(1);
@@ -832,6 +836,7 @@ public func ChooserFinished()
    aSelfDefense[1]->TurnOn();
 
    //Geschützstellungen
+   CreateObject(GNET, 205, 350, -1)->Set(0,90,1);
    aStationary[0] = CreateObject(GNET, 810, 360, -1);
    aStationary[0] -> Set(0,-90,1);
    aStationary[1] = CreateObject(GNET, 1690, 210, -1);
@@ -879,6 +884,10 @@ public func ChooserFinished()
    RemoveObject(aSelfDefense[0]);
    RemoveObject(aSelfDefense[1]);
    RemoveObject(FindObject2(Find_ID(AMCT),Find_InRect(1080, 240, 40, 40)));
+
+   //Geschützstellungen
+   CreateObject(GNET, 205, 350, -1)->Set(0,90,1);
+   CreateObject(GNET, 1690, 210, -1)->Set(0,-90,1);
 
    //Leiter
    CreateObject(LADR, 1650, 457, -1)->Set(20);
