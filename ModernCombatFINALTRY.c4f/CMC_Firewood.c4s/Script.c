@@ -422,9 +422,9 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   //CTF-Spielziel
   if(FindObject(GCTF))
   {
+   var rand = Random(2);
    if(iTeam == 1)
    {
-    var rand = Random(2);
     if(!rand)
      { iX = 90; iY = 440; }
     if(!--rand)
@@ -432,7 +432,6 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
    }
    if(iTeam == 2)
    {
-    var rand = Random(2);
     if(!rand)
      { iX = 3055; iY = 530; }
     if(!--rand)
@@ -440,7 +439,6 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
    }
    if(iTeam == 3)
    {
-    var rand = Random(2);
     if(!rand)
      { iX = 1535; iY = 200; }
     if(!--rand)
@@ -448,7 +446,6 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
    }
    if(iTeam == 4)
    {
-    var rand = Random(2);
     if(!rand)
      { iX = 1460; iY = 370; }
     if(!--rand)
@@ -460,9 +457,9 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   //LMS/DM-Spielziel
   if(FindObject(GLMS) || FindObject(GTDM))
   {
+   var rand = Random(2);
    if(iTeam == 1)
    {
-    var rand = Random(2);
     if(!rand)
      { iX = 370; iY = 300; }
     if(!--rand)
@@ -470,7 +467,6 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
    }
    if(iTeam == 2)
    {
-    var rand = Random(2);
     if(!rand)
      { iX = 2830; iY = 380; }
     if(!--rand)
@@ -478,7 +474,6 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
    }
    if(iTeam == 3)
    {
-    var rand = Random(2);
     if(!rand)
      { iX = 1490; iY = 110; }
     if(!--rand)
@@ -486,7 +481,6 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
    }
    if(iTeam == 4)
    {
-    var rand = Random(2);
     if(!rand)
      { iX = 1555; iY = 400; }
     if(!--rand)

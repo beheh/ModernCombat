@@ -945,9 +945,9 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   //MR/LMS/DM-Spielziel
   if(FindObject(GMNR) || FindObject(GLMS) || FindObject(GTDM))
   {
+   var rand = Random(3);
    if(iTeam == 1)
    {
-    var rand = Random(3);
     if(!rand)
      { iX = 1970; iY = 1050; }
     if(!--rand)
@@ -957,7 +957,6 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
    }
    if(iTeam == 2)
    {
-    var rand = Random(3);
     if(!rand)
      { iX = 3980; iY = 821; }
     if(!--rand)
