@@ -671,9 +671,9 @@ public func ChooserFinished()
   {
    //Flaggen
    if(aTeams[1] == true)
-   {CreateFlag(1,530,612,GetTeamColor(1));}
+   {CreateFlag(1,765,640,GetTeamColor(1));}
    if(aTeams[2] == true)
-   {CreateFlag(2,2200,612,GetTeamColor(2));}
+   {CreateFlag(2,1965,640,GetTeamColor(2));}
 
    //SSA Besitzer setzen
    if(aTeams[1] == true)
@@ -698,40 +698,16 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
    return(1);
   }
 
-  //HTF/MR/LMS/DM-Spielziel
-  if(FindObject(GHTF) || FindObject(GMNR) || FindObject(GLMS) || FindObject(GTDM))
+  //HTF/MR/CTF/LMS/DM-Spielziel
+  if(FindObject(GHTF) || FindObject(GMNR) || FindObject(GCTF) || FindObject(GLMS) || FindObject(GTDM))
   {
-   if(iTeam == 1)
-   {
-    var rand = Random(3);
-    if(!rand)
-     { iX = 260; iY = 430; }
-    if(!--rand)
-     { iX = 330; iY = 520; }
-    if(!--rand)
-     { iX = 620; iY = 790; }
-   }
-   if(iTeam == 2)
-   {
-    var rand = Random(2);
-    if(!rand)
-     { iX = 2110; iY = 790; }
-    if(!--rand)
-     { iX = 2400; iY = 520; }
-    if(!--rand)
-     { iX = 2470; iY = 430; }
-   }
-   return(1);
-  }
-
-  //CTF-Spielziel
-  if(FindObject(GCTF))
-  {
-   var rand = Random(2);
+   var rand = Random(3);
    if(iTeam == 1)
    {
     if(!rand)
-      { iX = 260; iY = 430; }
+      { iX = 420; iY = 620; }
+    if(!--rand)
+      { iX = 490; iY = 430; }
     if(!--rand)
       { iX = 620; iY = 790; }
     return(1);
@@ -741,7 +717,9 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
     if(!rand)
       { iX = 2110; iY = 790; }
     if(!--rand)
-      { iX = 2470; iY = 430; }
+      { iX = 2240; iY = 430; }
+    if(!--rand)
+      { iX = 2310; iY = 620; }
     return(1);
    }
   }
