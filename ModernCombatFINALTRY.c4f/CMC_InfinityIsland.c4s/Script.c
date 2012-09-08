@@ -561,10 +561,10 @@ public func ChooserFinished()
 
    //Geschützstellungen
    CreateObject(GNET, 1795, 1141, -1)->Set(SATW);
-   CreateObject(GNET, 2380, 1140, -1)->Set(SATW,90);
-   CreateObject(GNET, 3880, 660, -1)->Set(SATW,-90);
-   CreateObject(GNET, 4310, 720, -1)->Set(SATW,90);
-   CreateObject(GNET, 5060, 1170, -1)->Set(SATW);
+   CreateObject(GNET, 2380, 1140, -1)->Set(SATW,90,1);
+   CreateObject(GNET, 3880, 660, -1)->Set(SATW,-90,1);
+   CreateObject(GNET, 4310, 720, -1)->Set(SATW,90,1);
+   CreateObject(GNET, 5060, 1170, -1)->Set(SATW,0,1);
    aTowerInterior[0] = CreateObject(GNET, 3640, 473, -1);
    aTowerInterior[0] -> Set(SATW,-90);
    aTowerInterior[1] = CreateObject(GNET, 3700, 473, -1);
