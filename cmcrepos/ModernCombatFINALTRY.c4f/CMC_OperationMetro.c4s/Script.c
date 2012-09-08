@@ -633,6 +633,8 @@ public func ChooserFinished()
 
    //Geschützstellungen
    CreateObject(GNET, 830, 440, -1)->Set(0,90,1);
+   CreateObject(GNET, 1600, 370, -1)->Set(0,90,1);
+   CreateObject(GNET, 3640, 370, -1)->Set(0,-90,1);
    CreateObject(GNET, 4410, 440, -1)->Set(0,-90,1);
   }
 
@@ -668,7 +670,7 @@ public func ChooserFinished()
    aStationary[1] = CreateObject(GNET, 2770, 530, -1);
    aStationary[1] -> Set(0,-90);
    aStationary[2] = CreateObject(GNET, 3100, 440, -1);
-   aStationary[2] -> Set(0,-90);
+   aStationary[2] -> Set(0,-90,1);
 
    //Sandsackbarrieren
    CreateObject(SBBA, 2080, 408, -1);
@@ -757,13 +759,17 @@ public func ChooserFinished()
   {
    //Flaggen
    if(aTeams[1] == true)
-   {CreateFlag(1,1580,370,GetTeamColor(1));}
+   {CreateFlag(1,1960,440,GetTeamColor(1));}
    if(aTeams[2] == true)
-   {CreateFlag(2,3660,370,GetTeamColor(2));}
+   {CreateFlag(2,3280,440,GetTeamColor(2));}
 
    //Grenzen setzen
    CreateObject(BRDR, 950, 0, -1)->Set(0);
    CreateObject(BRDR, 4290, 0, -1)->Set(1);
+
+   //Geschützstellungen
+   CreateObject(GNET, 1600, 370, -1)->Set(0,90,1);
+   CreateObject(GNET, 3640, 370, -1)->Set(0,-90,1);
 
    //Zusätzliche Munition
    if(!FindObject(NOAM))
@@ -779,7 +785,7 @@ public func ChooserFinished()
   //LMS/DM-Spielziel
   if(FindObject(GLMS) || FindObject(GTDM))
   {
-   //Grenzen
+   //Grenzen setzen
    CreateObject(BRDR, 520, 0, -1)->Set(0);
    CreateObject(BRDR, 4720, 0, -1)->Set(1);
 
@@ -854,22 +860,22 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   {
    if(iTeam == 1)
    {
-    var rand = Random(2);
+    var rand = Random(3);
     if(!rand)
-     { iX = 1170; iY = 290; }
-    if(!--rand)
-     { iX = 1170; iY = 430; }
-    if(!--rand)
      { iX = 1290; iY = 430; }
+    if(!--rand)
+     { iX = 1470; iY = 360; }
+    if(!--rand)
+     { iX = 1470; iY = 430; }
     return(1);
    }
    if(iTeam == 2)
    {
-    var rand = Random(2);
+    var rand = Random(3);
     if(!rand)
-     { iX = 4070; iY = 290; }
+     { iX = 3770; iY = 360; }
     if(!--rand)
-     { iX = 4070; iY = 430; }
+     { iX = 3770; iY = 430; }
     if(!--rand)
      { iX = 3950; iY = 430; }
     return(1);
