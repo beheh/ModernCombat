@@ -156,6 +156,10 @@ func CreateInterior()
 
   //Sounds
 
+  //Magie
+  CreateObject(SE4K, 1125, 250, -1)->Set("MagicElementEarth",4500,500);
+  CreateObject(SE4K, 2065, 250, -1)->Set("MagicElementEarth",4500,500);
+
   //Möven
   CreateObject(SE4K, 60, 205, -1)->Set("SeaSounds*.ogg",140,35);
   CreateObject(SE4K, 3215, 205, -1)->Set("SeaSounds*.ogg",140,35);
@@ -229,6 +233,10 @@ func CreateDecoration()
 {
   Log("$CreatingDecoration$");
 
+  //Verbrannte Zaubertürme
+  CreateObject(WTRB, 1120, 290, -1)->SetR(-25);
+  CreateObject(WTRB, 2065, 250, -1);
+
   //Ventillatoren
   CreateObject(VENT, 580, 290, -1)->SetCon(15);
   CreateObject(VENT, 2700, 290, -1)->SetCon(15);
@@ -290,6 +298,32 @@ func CreateDecoration()
   CreateObject(RAI1, 400, 390, -1)->SetRail([1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]);
   CreateObject(RAI1, 1482, 210, -1)->SetRail([1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]);
   CreateObject(RAI1, 2600, 390, -1)->SetRail([1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]);
+
+  //Lianen
+  SetCon(100, CreateObject(VINE, 120, 280, -1));
+  SetCon(90, CreateObject(VINE, 315, 440, -1));
+  SetCon(100, CreateObject(VINE, 540, 480, -1));
+  SetCon(80, CreateObject(VINE, 580, 490, -1));
+  SetCon(100, CreateObject(VINE, 1200, 340, -1));
+  SetCon(70, CreateObject(VINE, 1235, 340, -1));
+  SetCon(80, CreateObject(VINE, 1305, 360, -1));
+  SetCon(90, CreateObject(VINE, 1445, 170, -1));
+  SetCon(100, CreateObject(VINE, 1685, 310, -1));
+  SetCon(60, CreateObject(VINE, 1910, 210, -1));
+  SetCon(90, CreateObject(VINE, 1930, 380, -1));
+  SetCon(50, CreateObject(VINE, 1935, 380, -1));
+  SetCon(40, CreateObject(VINE, 1965, 360, -1));
+  SetCon(60, CreateObject(VINE, 1970, 360, -1));
+  SetCon(80, CreateObject(VINE, 2045, 480, -1));
+  SetCon(40, CreateObject(VINE, 2260, 360, -1));
+  SetCon(70, CreateObject(VINE, 2685, 490, -1));
+  SetCon(50, CreateObject(VINE, 2695, 490, -1));
+  SetCon(100, CreateObject(VINE, 2870, 470, -1));
+  SetCon(70, CreateObject(VINE, 2970, 440, -1));
+  SetCon(100, CreateObject(VINE, 2995, 440, -1));
+  SetCon(80, CreateObject(VINE, 3000, 440, -1));
+  SetCon(100, CreateObject(VINE, 3200, 350, -1));
+  SetCon(80, CreateObject(VINE, 3230, 370, -1));
 
   //Büsche
   CreateObject(BSH2, 315, 460, -1);
