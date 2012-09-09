@@ -101,7 +101,7 @@ public func FxActivityTimer(object pTarget, int iEffectNumber, int iEffectTime)
       controller->SetHUDTarget(0);
       controller->~ShowCH();
       SetPlrView(GetOwner(controller), controller);
-  		Sound("CockpitRadio.ogg", true, 0, 100, GetOwner(controller)+1, -1);
+      Sound("CockpitRadio.ogg", true, 0, 100, GetOwner(controller)+1, -1);
     }
 
     if(pMav)
@@ -197,8 +197,7 @@ protected func ActivateEntrance(pUser)
     SetAction("Controlling");
   }
 
-  //Sound
-  Sound("RSHL_Deploy.ogg", true, this, 100, GetOwner(pUser) + 1);
+  Sound("StructureEnter*.ogg", true, this, 100, GetOwner(pUser) + 1);
 
   if(!GetEffect("Activity",this))
     AddEffect("Activity", this, 1, 1 ,this);
@@ -226,6 +225,7 @@ private func ExitClonk(object pByObj)
     controller->~ShowCH();
     SetPlrView(GetOwner(controller), controller);
     Sound("CockpitRadio.ogg", true, 0, 100, GetOwner(controller)+1, -1);
+    Sound("StructureLeave*.ogg", true, this, 100, GetOwner(controller) + 1);
 
     if(pMav)
     {
