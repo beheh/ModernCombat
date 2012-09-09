@@ -11,6 +11,7 @@ Definition1=Objects.c4d
 Definition2=Hazard.c4d
 Definition3=ModernCombatFINALTRY.c4d
 Definition4=FarWorlds.c4d\Jungle.c4d\Animals.c4d\Piranha.c4d
+Definition5=FarWorlds.c4d\Jungle.c4d\Vegetation.c4d\Vine.c4d
 
 [Game]
 StructNeedEnergy=0
