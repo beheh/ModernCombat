@@ -985,7 +985,8 @@ protected func ContainedDigDouble(object pClonk)
   return OpenSeatMenu(pClonk);
 }
 
-protected func OpenSeatMenu(object pClonk, int iSelection) {
+protected func OpenSeatMenu(object pClonk, int iSelection)
+{
   CreateMenu(GetID(), pClonk, this, 0, "$Seats$", 0, C4MN_Style_Context, false);
 
   //Ausstieg
@@ -1085,7 +1086,7 @@ public func EnterSeat(int iSeat, object pObj)
   //Alten Sitz räumen
   DeleteActualSeatPassenger(pObj);
 
-  Sound("RSHL_Deploy.ogg", true, this, 100, GetOwner(pObj) + 1);
+  Sound("StructureEnter*.ogg", true, this, 100, GetOwner(pObj) + 1);
 
   //Pilot
   if (iSeat == BKHK_Seat_Pilot)
@@ -1148,12 +1149,16 @@ public func GetRopeAttach()
 private func ExitClonk(a, pClonk)
 {
   SetCommand(pClonk, "Exit");
+
+  Sound("StructureLeave*.ogg", true, this, 100, GetOwner(pClonk) + 1);
 }
 
 private func ExitClonkByRope(a, pClonk)
 {
   AddEffect("CheckGround", pClonk, 30, 3, this, GetID(), this);
   SetCommand(pClonk, "Exit");
+
+  Sound("StructureLeave*.ogg", true, this, 100, GetOwner(pClonk) + 1);
 }
 
 protected func FxCheckGroundStart(pTarget, iNo, iTemp, pHeli)
@@ -1165,8 +1170,8 @@ protected func FxCheckGroundStart(pTarget, iNo, iTemp, pHeli)
   var pRope = CreateObject(CK5P, 0, 0, GetOwner(pTarget));
   pRope->ConnectObjects(pHeli ,pTarget);
   pRope->SetRopeLength(10);
-  EffectVar(0, pTarget, iNo) = pRope; //Das Seil
-  EffectVar(1, pTarget, iNo) = pHeli; //Der Helikopter
+  EffectVar(0, pTarget, iNo) = pRope;	//Das Seil
+  EffectVar(1, pTarget, iNo) = pHeli;	//Der Helikopter
 }
 
 protected func FxCheckGroundTimer(pTarget, iNo, iTime)
