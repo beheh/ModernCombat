@@ -403,7 +403,7 @@ protected func ActivateEntrance(pUser)
   UpdateDir();
 
   //Sound
-  Sound("RSHL_Deploy.ogg", true, this, 100, GetOwner(pUser) + 1);
+  Sound("StructureEnter*.ogg", true, this, 100, GetOwner(pUser) + 1);
 
   if(last_id == RLSA)
     LocalN("fView", GetAttWeapon()) = false;
@@ -451,6 +451,11 @@ private func ExitClonk(object byObject)
       SetOwner(-1, pShield);
       pShield->SetColorDw(RGB(255,255,255));
     }
+
+    //Sound
+    Sound("StructureLeave*.ogg", true, this, 100, GetOwner(byObject) + 1);
+
+    //Besitzer auflösen
     SetOwner(-1, this);
     return(1); 
   }
