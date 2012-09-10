@@ -607,7 +607,6 @@ global func FakeDeath(object pTarget)
   pTarget->~ResetAssist();
 
   SetComDir(COMD_Stop,pTarget);
-  Sound("ClonkDie*.ogg", 0, pTarget);
 
   return true;
 }
