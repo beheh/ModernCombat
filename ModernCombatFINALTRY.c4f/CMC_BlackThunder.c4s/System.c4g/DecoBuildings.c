@@ -1,9 +1,9 @@
-/*-- Verbrannter Hochofen --*/
+/*-- Dekorative Gebäude --*/
 
-//Verbrannte Hochöfen können als unzerstörbare Landschaftsobjekte benutzt werden.
+//Bestimmte Gebäude können als unzerstörbare Landschaftsobjekte benutzt werden.
 
 #strict 2
-#appendto FNDB
+#appendto CSB3
 
 protected func Incineration()	{Extinguish();}
 public func OnDmg()		{return 0;}

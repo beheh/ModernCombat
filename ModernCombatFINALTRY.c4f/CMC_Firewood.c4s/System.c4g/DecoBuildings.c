@@ -1,6 +1,6 @@
-/*-- Verbrannter Zauberturm --*/
+/*-- Dekorative Gebäude --*/
 
-//Verbrannte Zaubertürme können als unzerstörbare Landschaftsobjekte benutzt werden.
+//Bestimmte Gebäude können als unzerstörbare Landschaftsobjekte benutzt werden.
 
 #strict 2
 #appendto WTRB

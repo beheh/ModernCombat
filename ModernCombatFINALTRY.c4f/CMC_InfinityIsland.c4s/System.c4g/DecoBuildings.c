@@ -1,6 +1,6 @@
-/*-- Verbrannte Hütte --*/
+/*-- Dekorative Gebäude --*/
 
-//Verbrannte Hütten können als unzerstörbare Landschaftsobjekte benutzt werden.
+//Bestimmte Gebäude können als unzerstörbare Landschaftsobjekte benutzt werden.
 
 #strict 2
 #appendto HTB2

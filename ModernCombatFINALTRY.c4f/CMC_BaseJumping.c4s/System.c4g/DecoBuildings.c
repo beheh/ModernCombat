@@ -1,6 +1,6 @@
-/*-- Verbrannte Zauberwerkstatt --*/
+/*-- Dekorative Gebäude --*/
 
-//Verbrannte Zauberwerkstätte können als unzerstörbare Landschaftsobjekte benutzt werden.
+//Bestimmte Gebäude können als unzerstörbare Landschaftsobjekte benutzt werden.
 
 #strict 2
 #appendto BMWS
