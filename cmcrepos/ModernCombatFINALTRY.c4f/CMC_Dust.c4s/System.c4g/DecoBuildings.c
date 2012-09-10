@@ -1,9 +1,9 @@
-/*-- Verbranntes Schloss --*/
+/*-- Dekorative Gebäude --*/
 
-//Verbrannte Schlösser können als unzerstörbare Landschaftsobjekte benutzt werden.
+//Bestimmte Gebäude können als unzerstörbare Landschaftsobjekte benutzt werden.
 
 #strict 2
-#appendto CSB3
+#appendto FNDB
 
 protected func Incineration()	{Extinguish();}
 public func OnDmg()		{return 0;}
