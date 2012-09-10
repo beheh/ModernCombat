@@ -38,5 +38,8 @@ MapHeight=99,0,40,10000
 NoScan=1
 SkyScrollMode=1
 
+[Environment]
+Objects=LENS=1
+
 [Animals]
-Animal=BIRD=2;LENS=1;SLSK=3
+Animal=BIRD=2
