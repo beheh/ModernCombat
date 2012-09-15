@@ -345,6 +345,7 @@ public func Evaluate()
 
   //Kopfzeilen erstellen
   //while(db->GetData()[iPlr] != 0)
+  AddEvaluationData("$InfoLine$| ", 0);
 
   for(var iPlr = 0; iPlr < GetLength(db->GetData()); iPlr++)
   {
