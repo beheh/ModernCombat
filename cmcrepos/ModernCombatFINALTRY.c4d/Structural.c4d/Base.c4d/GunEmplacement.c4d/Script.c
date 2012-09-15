@@ -122,6 +122,7 @@ public func OnDestruction()
   ChangeDef(_GTB);
   SetAction("Destroyed");
 
+  //Grafik setzen
   if(iRot == 90)
     SetPhase(1);
   else if(iRot == -90)
@@ -129,17 +130,7 @@ public func OnDestruction()
   else if(iRot == 0)
     SetPhase(0);
 
-  //Effekte
-  if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",8,15,0,5,250,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
-  if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("ConcreteSplinter", 8, 100, 0, 0, 40, 15, RGB(40, 20, 20));
-  CastParticles("Sandbag", 10, 70, 0,0, 35, 45, RGBa(228,228,228,0), RGBa(250,250,250,50));
-}
-
-public func Destruction()
-{
-  RemoveEffect("ShowWeapon", this);
-  EndAim();
-
+  //Schützen auswerfen sofern vorhanden
   if(GetUser())
   {
     var pUser = GetUser();
@@ -149,6 +140,11 @@ public func Destruction()
     pUser->SetHUDTarget(0);
     pUser->~ShowCH();
   }
+
+  //Effekte
+  if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",8,15,0,5,250,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
+  if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("ConcreteSplinter", 8, 100, 0, 0, 40, 15, RGB(40, 20, 20));
+  CastParticles("Sandbag", 10, 70, 0,0, 35, 45, RGBa(228,228,228,0), RGBa(250,250,250,50));
 }
 
 /* Schaden */
