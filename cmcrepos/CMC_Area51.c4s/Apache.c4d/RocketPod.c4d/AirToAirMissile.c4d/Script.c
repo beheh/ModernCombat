@@ -1,4 +1,4 @@
-/*-- Bodenrakete --*/
+/*-- Luft-Luft-Rakete --*/
 
 #strict 2
 #include MISL
