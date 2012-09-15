@@ -152,6 +152,7 @@ public func Destruction()
   RemoveEffect("ShowWeapon", this);
   EndAim();
 
+  //Schützen auswerfen sofern vorhanden
   if(GetUser())
   {
     var pUser = GetUser();
