@@ -4,7 +4,7 @@
 #include MISL
 
 
-public func MaxTime()		{return 200;}			//Maximale Flugzeigt
+public func MaxTime()		{return 100;}			//Maximale Flugzeigt
 
 public func StartSpeed()	{return 25;}			//Startgeschwindigkeit
 public func Acceleration()	{return 4;}			//Beschleunigung
