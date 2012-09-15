@@ -49,7 +49,7 @@ public func FMData1T1(int data)
 
 public func Fire1T1()
 {
-  LaunchRocket(GDML,Contained()->~AimAngle(10));
+  LaunchRocket(AAML,Contained()->~AimAngle(10));
 }
 
 public func BotData1(int data)
