@@ -122,12 +122,24 @@ public func OnDestruction()
   ChangeDef(_GTB);
   SetAction("Destroyed");
 
-  //Grafik setzen  if(iRot == 90)
+  //Grafik setzen
+  if(iRot == 90)
     SetPhase(1);
   else if(iRot == -90)
     SetPhase(2);
   else if(iRot == 0)
     SetPhase(0);
+
+  //Schützen auswerfen sofern vorhanden
+  if(GetUser())
+  {
+    var pUser = GetUser();
+
+    ObjectSetAction(pUser, "Walk");
+    SetActionTargets(0, 0, pUser);
+    pUser->SetHUDTarget(0);
+    pUser->~ShowCH();
+  }
 
   //Effekte
   if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",8,15,0,5,250,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
