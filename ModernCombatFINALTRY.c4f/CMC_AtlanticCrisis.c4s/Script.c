@@ -211,6 +211,10 @@ func CreateInterior()
   CreateObject(PTNK, 3600, 520, -1)->AutoRespawn();
   CreateObject(PTNK, 4410, 530, -1)->AutoRespawn();
 
+  //Seegras und Muscheln entfernen
+  for(var obj in FindObjects(Find_Or(Find_ID(SWD1), Find_ID(SWD2), Find_ID(SHEL)), Find_InRect(1280, 370, 3450, 280)))
+    RemoveObject(obj);
+
   //Grenzen
   CreateObject(BRDR, 1170, 0, -1)->Set(0);
   CreateObject(BRDR, 4835, 0, -1)->Set(1);
