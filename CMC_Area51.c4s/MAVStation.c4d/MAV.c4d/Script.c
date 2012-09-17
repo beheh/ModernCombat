@@ -4,10 +4,8 @@
 #include CVHC
 
 local cur_Attachment;
-local iXDir;
-local iYDir;
-local iXTendency;
-local iYTendency;
+local iXDir, iYDir;
+local iXTendency, iYTendency;
 local iBank;
 local iBankMax;
 local iSpeed;
@@ -918,8 +916,8 @@ public func Start()
   //Nachricht über eventuelle Modifikationen
   if(pItem)
   {
+  	SetOwner(GetOwner(), pItem);
     PlayerMessage(GetOwner(), "<c ffff33>%s</c>", this, GetName(pItem));
-    SetOwner(GetOwner(), pItem);
   }
 }
 
@@ -986,8 +984,8 @@ private func InitAim()
   crosshair = CreateObject(HCRH, 0, 0, GetOwner(this));
   crosshair->Init(this);
 
-  if (pLaser)
-    pLaser->SetOwner(GetOwner(this));
+  if (cur_Attachment)
+    cur_Attachment->SetOwner(GetOwner(this));
 
   if(AimAngle()+GetR() >= 360)
     crosshair->SetAngle(AimAngle()+GetR()-360);
@@ -1244,9 +1242,9 @@ public func ControlThrow(pByObj)
       PlayerMessage(GetOwner(), "$Updated$", this, GetName(pItem));
 			for(var i = 0; i < 2; i++)
 			{
-				if(iItemType == 1) AMP(true);
-				if(iItemType == 2) FAP(true, 0);
-				if(iItemType == 3) BlowTorch(true);
+				if(iItemType == 1) ScheduleCall(this, "AMP", 1, 0, true);
+				if(iItemType == 2) ScheduleCall(this, "FAP", 1, 0, true, 0);
+				if(iItemType == 3) ScheduleCall(this, "BlowTorch", 1, 0, true);
 			}
     }
 
