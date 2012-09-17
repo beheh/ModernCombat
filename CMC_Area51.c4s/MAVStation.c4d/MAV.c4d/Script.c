@@ -916,7 +916,7 @@ public func Start()
   //Nachricht über eventuelle Modifikationen
   if(pItem)
   {
-  	SetOwner(GetOwner(), pItem);
+    SetOwner(GetOwner(), pItem);
     PlayerMessage(GetOwner(), "<c ffff33>%s</c>", this, GetName(pItem));
   }
 }
@@ -984,7 +984,7 @@ private func InitAim()
   crosshair = CreateObject(HCRH, 0, 0, GetOwner(this));
   crosshair->Init(this);
 
-  if (cur_Attachment)
+  if(cur_Attachment)
     cur_Attachment->SetOwner(GetOwner(this));
 
   if(AimAngle()+GetR() >= 360)
@@ -1240,12 +1240,12 @@ public func ControlThrow(pByObj)
     if(GetAction() == "Flying")
     {
       PlayerMessage(GetOwner(), "$Updated$", this, GetName(pItem));
-			for(var i = 0; i < 2; i++)
-			{
-				if(iItemType == 1) ScheduleCall(this, "AMP", 1, 0, true);
-				if(iItemType == 2) ScheduleCall(this, "FAP", 1, 0, true, 0);
-				if(iItemType == 3) ScheduleCall(this, "BlowTorch", 1, 0, true);
-			}
+      for(var i = 0; i < 2; i++)
+      {
+        if(iItemType == 1) ScheduleCall(this, "AMP", 1, 0, true);
+        if(iItemType == 2) ScheduleCall(this, "FAP", 1, 0, true, 0);
+        if(iItemType == 3) ScheduleCall(this, "BlowTorch", 1, 0, true);
+      }
     }
 
     //MAV-Grafik anpassen
