@@ -46,9 +46,9 @@ public func AddNode(int iX, int iY, int iPosition, object pRopeHolder, int iRota
   rope->ConnectObjects(ra1, ra2);
   rope->SetRopeLength(Distance(AbsX(iX), AbsY(iY), x, y));
   rope->SetRopeColor(RGB(100,100,100));
-  //In statischen Modus versetzen -> Weniger rechenintensiv. (10 Sekunden Wartezeit, damit das Seil sich erstmal richtig formt.)
+  //Seil statisch zeichnen = weniger rechenintensiv (10 Sekunden Umstellungszeit)
   if(!fNotStatic)
-  	ScheduleCall(rope, "SetStaticMode", 35*10, 0, true);
+    ScheduleCall(rope, "SetStaticMode", 35*10, 0, true);
 
   aNodes[GetLength(aNodes)] = [ra1, ra2, rope];
 
