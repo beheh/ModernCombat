@@ -7,12 +7,34 @@ local aPointsX, aPointsY;
 local pPulley;
 local fNoPickUp_0, fNoPickUp_1;
 local dwcolor;
+local fStaticRope;
 
 public func SetRopeColor(int dwClr)	{return dwcolor = dwClr;}
 public func GetRopeLength()		{return iLength;}
 public func SetRopeLength(iNewLength)	{return iLength = Max(iNewLength, 0);}
+public func IsStatic() { return fStaticRope; }
 func IsAnvilProduct()			{return 1;}
 
+public func SetStaticMode(bool fSet)
+{
+	fStaticRope = fSet;
+	if(fStaticRope)
+		SetAction("ConnectStatic", GetActionTarget(), GetActionTarget(1));
+	if(!fStaticRope)
+	{
+		//Normales Seil? Partikel löschen, damit das alte Seil nicht "übrig bleibt".
+		ClearParticles("RopeStatic");
+		ClearParticles("Rope2Static");
+		
+		SetAction("Connect");
+		
+		//Damit andere statische Seile trotzdem gezeichnet werden: Löschung melden.
+		for(var obj in FindObjects(Find_ID(CK5P), Find_Func("IsStatic"), Find_Action("ConnectStatic")))
+			obj->Connecting();
+	}
+	
+	return true;
+}
 
 /* Initialisierung */
 
@@ -41,7 +63,10 @@ public func ConnectObjects(pObj1, pObj2)
   iVtx2 = GetMiddlestVertex(pObj2);
   SetPoint(0, GetX(pObj1) + GetVertex (iVtx1, 0, pObj1), GetY(pObj1) + GetVertex(iVtx1, 1, pObj1));
   SetPoint(1, GetX(pObj2) + GetVertex (iVtx2, 0, pObj2), GetY(pObj2) + GetVertex(iVtx2, 1, pObj2));
-  SetAction("Connect", pObj1, pObj2);
+  if(IsStatic())
+  	SetAction("ConnectStatic", pObj1, pObj2);
+  else
+  	SetAction("Connect", pObj1, pObj2);
   iLength = CalcLength();
 
   //Seil als Hilfsobjekt verstecken
@@ -129,7 +154,10 @@ private func Timer()
     var iY1 = GetPoint(i, 1) - GetY() + Cos(iAngle1, 2);
     var iX2 = GetPoint(i + 1) - GetX() - Sin(iAngle2, 2);
     var iY2 = GetPoint(i + 1, 1) - GetY() + Cos(iAngle2, 2);
-    iAmount += DrawParticleLine2("Rope", iX1, iY1, iX2, iY2, 5, 40, dwcolor);
+    var partName = "Rope";
+    if(IsStatic())
+    	partName = "RopeStatic";
+    iAmount += DrawParticleLine2(partName, iX1, iY1, iX2, iY2, 5, 40, dwcolor);
     i++;
   }
 }
@@ -158,8 +186,16 @@ private func DrawParticleLine2 (szKind, x0, y0, x1, y1, prtdist, a, b0, b1, iYDi
     if(!b && (b0 | b1)) ++b;
     szPart = szKind;
     if(i == prtnum) szPart = "Rope3";
-    if(!i) szPart = "Rope2";
-    CreateParticle(szPart, x0 + (x1 - x0) * i / prtnum, y0 + (y1 - y0) * i-- / prtnum, iXDir, iYDir, a, b, this);
+    if(!i)
+    {
+    	szPart = "Rope2";
+    	if(IsStatic())
+    		szPart = "Rope2Static";
+    }
+    var obj = this;
+    if(IsStatic())
+    	obj = 0;
+    CreateParticle(szPart, x0 + (x1 - x0) * i / prtnum, y0 + (y1 - y0) * i-- / prtnum, iXDir, iYDir, a, b, obj);
   }
   //Erfolg; Anzahl erzeugter Partikel zurückgeben
   return prtnum;
@@ -371,13 +407,19 @@ public func SetObject(pObj, iActionTarget)
   {
     //Action und 2.Actiontarget bleiben erhalten
     iVtx1 = GetMiddlestVertex(pObj);
-    SetAction("Connect", pObj, GetActionTarget(1));
+  	if(IsStatic())
+  		SetAction("ConnectStatic", pObj, GetActionTarget(1));
+  	else
+    	SetAction("Connect", pObj, GetActionTarget(1));
   }
   //2.Actiontarget
   else
   {
     iVtx2 = GetMiddlestVertex(pObj);
-    SetAction("Connect", GetActionTarget(), pObj);
+    if(IsStatic())
+  		SetAction("ConnectStatic", GetActionTarget(), pObj);
+  	else
+    	SetAction("Connect", GetActionTarget(), pObj);
   }
   return 1;
 }

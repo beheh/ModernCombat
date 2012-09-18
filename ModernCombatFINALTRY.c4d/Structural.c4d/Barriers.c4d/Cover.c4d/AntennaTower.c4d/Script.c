@@ -21,7 +21,7 @@ protected func Initialize()
 
 /* Seilhalterungen */
 
-public func AddNode(int iX, int iY, int iPosition, object pRopeHolder, int iRotation, int iGraphic)
+public func AddNode(int iX, int iY, int iPosition, object pRopeHolder, int iRotation, int iGraphic, bool fNotStatic)
 {
   //Halterungen erstellen
   var ra1 = CreateObject(NLPT, AbsX(iX), AbsY(iY), -1);
@@ -46,6 +46,9 @@ public func AddNode(int iX, int iY, int iPosition, object pRopeHolder, int iRota
   rope->ConnectObjects(ra1, ra2);
   rope->SetRopeLength(Distance(AbsX(iX), AbsY(iY), x, y));
   rope->SetRopeColor(RGB(100,100,100));
+  //In statischen Modus versetzen -> Weniger rechenintensiv. (10 Sekunden Wartezeit, damit das Seil sich erstmal richtig formt.)
+  if(!fNotStatic)
+  	ScheduleCall(rope, "SetStaticMode", 35*10, 0, true);
 
   aNodes[GetLength(aNodes)] = [ra1, ra2, rope];
 
@@ -107,6 +110,8 @@ public func NodeDestroyed(object pNode)
     if(GetIndexOf(pNode, aNodes[i]) > -1)
     {
       aNodes[i][3] = true;
+      aNodes[i][2]->SetStaticMode(false);
+      aNodes[i][2]->FadeOut();
       break;
     }
   }
