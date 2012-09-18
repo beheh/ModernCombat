@@ -110,8 +110,11 @@ public func NodeDestroyed(object pNode)
     if(GetIndexOf(pNode, aNodes[i]) > -1)
     {
       aNodes[i][3] = true;
-      aNodes[i][2]->SetStaticMode(false);
-      aNodes[i][2]->FadeOut();
+      if(aNodes[i][2])
+      {
+      	aNodes[i][2]->SetStaticMode(false);
+      	aNodes[i][2]->FadeOut();
+      }
       break;
     }
   }
