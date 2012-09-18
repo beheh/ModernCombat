@@ -112,8 +112,8 @@ public func NodeDestroyed(object pNode)
       aNodes[i][3] = true;
       if(aNodes[i][2])
       {
-      	aNodes[i][2]->SetStaticMode(false);
-      	aNodes[i][2]->FadeOut();
+        aNodes[i][2]->SetStaticMode(false);
+        aNodes[i][2]->FadeOut();
       }
       break;
     }
