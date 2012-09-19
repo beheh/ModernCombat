@@ -35,7 +35,7 @@ public func BonusPointCondition()		{return false;}
 public func MaxRotLeft()
 {
   if(iRotation==-90)
-    return -20+iRotation;
+    return -45+iRotation;
   else
   return -75+iRotation;
 }
@@ -43,7 +43,7 @@ public func MaxRotLeft()
 public func MaxRotRight()
 {
   if(iRotation==90)
-    return 20+iRotation;
+    return 45+iRotation;
   else
    return 75+iRotation;
 }
