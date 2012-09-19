@@ -670,7 +670,7 @@ public func ChooserFinished()
    aStationary[1] = CreateObject(GNET, 2770, 530, -1);
    aStationary[1] -> Set(0,-90);
    aStationary[2] = CreateObject(GNET, 3100, 440, -1);
-   aStationary[2] -> Set(0,-90,1);
+   aStationary[2] -> Set(0,-90);
 
    //Sandsackbarrieren
    CreateObject(SBBA, 2080, 408, -1);
