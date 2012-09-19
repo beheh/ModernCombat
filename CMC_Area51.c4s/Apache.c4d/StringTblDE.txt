@@ -25,4 +25,4 @@ Flares=Flareabwurf
 HUD=HUD ein-ausblenden
 Spotlight=Scheinwerfer
 Radio=Radio
-Rocketlauncher=Raketenwerfer
+RocketLauncher=Raketenwerfer
