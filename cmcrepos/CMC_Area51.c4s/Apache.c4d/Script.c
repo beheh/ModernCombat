@@ -300,7 +300,7 @@ protected func ContainedThrow(object ByObj)
     //Raketenwerfer
     if(RocketPodsReady())
     {
-      overlay = ring->AddLeftItem("$Rocketlauncher$", "FireRockets", ByObj, SMIN);
+      overlay = ring->AddLeftItem("$RocketLauncher$", "FireRockets", ByObj, SMIN);
       SetGraphics("0", ring, SMIN, overlay, GFXOV_MODE_IngamePicture);
     }
 
