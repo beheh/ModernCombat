@@ -293,7 +293,7 @@ private func GetQuickTipps(object pFake)
 
       var aObj = FindObjects(Find_Container(pFake), Find_Func("FKDTSupportedID"));
       var id = GetID(aObj[Random(GetLength(aObj))]);
-      if(!ContentsCount(0, pFake))
+      if(!GetLength(aObj))
         id = FKDT_QuickTipIDs[Random(GetLength(FKDT_QuickTipIDs))];
 
       tipp = GetRandomTipp(0, id);
