@@ -48,7 +48,8 @@ public func Fire1()
   MuzzleFlash(40+Random(60),user,iX,iY,angle);
   BulletCasing(dir*1,0,-dir*14*(Random(1)+1),-(13+Random(2)),7,0,true);
   Sound("MISA_Fire.ogg",0,ammo);
-  Echo("ACCN_Echo.ogg");}
+  Echo("ACCN_Echo.ogg");
+}
 
 func OnAutoStop(int iFM)
 {
