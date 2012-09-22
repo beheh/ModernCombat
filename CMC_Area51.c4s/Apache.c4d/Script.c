@@ -56,7 +56,6 @@ protected func Initialize()
   ScheduleCall(this,"ChangeDir",1,2);
 
   //Eingang
-  //SetEntrance(true);
   pEntrance = CreateObject(ENTR, 0, 0, GetOwner());
   pEntrance->SetApache(this);
   pEntrance->SetOffset(GetDefCoreVal("Offset", "DefCore", GetID(), 0) * (1 - 2 * GetDir()) / 2, 5);
@@ -427,24 +426,24 @@ protected func Ejection(object ByObj)
   
   if(GetPilot() == ByObj)
     ByObj->~SetHUDTarget(0);
- 
+
   //Erst mal löschen
   DeleteActualSeatPassenger(ByObj);
-    
+
   //Soundschleife übergeben
   Sound("CockpitRadio.ogg", true, 0, 100, GetOwner(ByObj)+1, -1);
 
   //Nicht bei Schaden
   if(GetDamage() >= MaxDamage()) return;
-  
+
   SetPosition(GetX(pEntrance), GetY(pEntrance), ByObj);
-  
+
   if(!PathFree(GetX(pEntrance),GetY(pEntrance),GetX(pEntrance),GetY(pEntrance)+100))
     return;
-    
+
   if(!GetEffect("CheckGround",ByObj))
     CreateObject(PARA,GetX(ByObj),GetY(ByObj),GetOwner(ByObj))->Set(ByObj);
-  
+
   return true;
 }
 
@@ -483,8 +482,8 @@ public func OnDestruction()
       Exit(obj, 0, 0, Random(360), RandomX(-5, 5), RandomX(-4, 8), Random(10));
   }
 
-	//Eingang entfernen
-	RemoveObject(pEntrance, true);
+  //Eingang entfernen
+  RemoveObject(pEntrance, true);
 
   //Explosion
   FakeExplode(70, GetLastAttacker() + 1);
@@ -507,7 +506,7 @@ public func OnDestruction()
 
 protected func ChangeDir()
 {
-	var fBool = _inherited();
-	pEntrance->SetOffset(GetDefCoreVal("Offset", "DefCore", GetID(), 0) * (1 - 2 * GetDir()) / 2, 5);
-	return fBool;
+  var fBool = _inherited();
+  pEntrance->SetOffset(GetDefCoreVal("Offset", "DefCore", GetID(), 0) * (1 - 2 * GetDir()) / 2, 5);
+  return fBool;
 }
