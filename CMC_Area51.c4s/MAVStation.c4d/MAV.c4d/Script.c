@@ -1215,7 +1215,7 @@ public func ControlThrow(pByObj)
 
     //Objekt aufnehmen
     Enter(this, pTemp);
-    SetOwner(GetOwner(), this);
+    SetOwner(GetOwner(), pTemp);
 
     //Sprengfalle entfernen, wenn bereits verwendet
     if(pItem)
