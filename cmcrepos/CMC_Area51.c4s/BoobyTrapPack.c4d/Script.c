@@ -16,8 +16,10 @@ public func IsEquipment()		{return true;}
 public func NoArenaRemove()		{return true;}
 public func AttractTracer()		{return false;}
 public func LimitationCount()		{return 1;}
-public func MaxPoints()		{return 2;}
+public func MaxPoints()		{return 3;}
 public func StartPoints()	{return 2;}
+public func PackLight()				{return false;}
+public func DestroyEmptyPack()			{return true;}
 
 /* Steuerung */
 
@@ -32,6 +34,9 @@ public func ControlThrow(object caller)
   CreateContents(BBTP, this, 1)->ControlThrow(this);
   DoPackPoints(-1);
   
+  if (!GetPackPoints())
+  	RemoveObject(this);
+  	
   return true;
 }
 
@@ -69,32 +74,4 @@ protected func Selection()
 func Hit()
 {
   Sound("BBTP_Hit*.ogg");
-}
-
-public func JoinPack(object pInto, object pMsgObj)
-{
-  var i = _inherited(pInto, pMsgObj);
-
-  pInto->~Check();
-  Check();
-  return i;
-}
-
-protected func Check()
-{
-  if(thrown) return;
-
-  //Grund zum Existieren?
-  if (!GetPackPoints())
-  {
-    thrown = true;
-
-    RemoveObject(this);
-  }
-}
-
-public func RejectEntrance()
-{
-  if(thrown)
-    return true;
 }
