@@ -477,7 +477,7 @@ public func ChooserFinished()
    //Helikopter und Hinweisschilder
    if(!FindObject(NOBH))
    {
-    SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,910,270,-1),60*21,300);
+    SetupVehicleSpawn([APCE],DIR_Right,CreateObject(VSPW,910,270,-1),60*21,300);
     SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,4925,220,-1),60*21,300);
 
     var sign = CreateObject(SGNP, 840, 300, -1);

@@ -645,16 +645,6 @@ public func ChooserFinished()
   for(var i = 0; i < GetPlayerCount(); i++)
    aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = true;
 
-  //Helikopter und Hinweisschilder
-  if(!FindObject(NOBH))
-  {
-   SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,4700,290,-1),100*21,300);
-
-   sign = CreateObject(SGNP, 4810, 320, -1);
-   sign->SetPhase(2);
-   sign->SetMode(1);
-  }
-
   //OP-Spielziel
   if(FindObject(GOCC))
   {
@@ -758,6 +748,16 @@ public func ChooserFinished()
    //Grenzen setzen
    CreateObject(BRDR, 440, 0, -1)->Set(0);
    CreateObject(BRDR, 7860, 0, -1)->Set(1);
+
+   //Helikopter und Hinweisschilder
+   if(!FindObject(NOBH))
+   {
+    SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,4700,290,-1),100*21,300);
+
+    sign = CreateObject(SGNP, 4810, 320, -1);
+    sign->SetPhase(2);
+    sign->SetMode(1);
+   }
 
    //Hinweisschilder
    var sign = CreateObject(SNPT, 1460, 400, -1);
@@ -875,6 +875,16 @@ public func ChooserFinished()
    if(aTeams[2] == true)
    {aSelfDefense[0]->SetTeam(2); aSelfDefense[1]->SetTeam(2); aSelfDefense[3]->SetTeam(2);}
 
+   //Helikopter und Hinweisschilder
+   if(!FindObject(NOBH))
+   {
+    SetupVehicleSpawn([APCE],DIR_Left,CreateObject(VSPW,4730,290,-1),100*21,300);
+
+    sign = CreateObject(SGNP, 4810, 320, -1);
+    sign->SetPhase(2);
+    sign->SetMode(1);
+   }
+
    //Boden
    DrawMaterialQuad("Wall-Bricks2", 7230,430, 7250,430, 7250,460, 7230,460);
 
@@ -978,6 +988,16 @@ public func ChooserFinished()
    CreateObject(GNET, 3570, 330, -1)->Set(SATW,0,1);
    CreateObject(GNET, 6590, 340, -1)->Set(SATW,0,1);
 
+   //Helikopter und Hinweisschilder
+   if(!FindObject(NOBH))
+   {
+    SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,4700,290,-1),100*21,300);
+
+    sign = CreateObject(SGNP, 4810, 320, -1);
+    sign->SetPhase(2);
+    sign->SetMode(1);
+   }
+
    //Patrouillenboote
    SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,4640,549,-1),50*21,300);
    SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,5565,550,-1),50*21,300);
@@ -1009,6 +1029,16 @@ public func ChooserFinished()
    //Geschützstellungen
    CreateObject(GNET, 3800, 410, -1)->Set(0,90,1);
    CreateObject(GNET, 5580, 470, -1)->Set(0,-90,1);
+
+   //Helikopter und Hinweisschilder
+   if(!FindObject(NOBH))
+   {
+    SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,4700,290,-1),100*21,300);
+
+    sign = CreateObject(SGNP, 4810, 320, -1);
+    sign->SetPhase(2);
+    sign->SetMode(1);
+   }
 
    //Patrouillenboote
    SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,4640,549,-1),50*21,300);
