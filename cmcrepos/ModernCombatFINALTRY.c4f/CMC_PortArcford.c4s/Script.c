@@ -453,9 +453,9 @@ public func ChooserFinished()
    crate = CreateObject (AMCT, 4380, 490, -1);
    crate->Set(SRBL);
 
-   //Versorgungskiste (Sprengfallen)
+   //Versorgungskiste (Sprengfallentaschen)
    crate = CreateObject (AMCT, 5480, 460, -1);
-   crate->Set(BBTP);
+   crate->Set(BTBG);
 
    //Grenzen setzen
    CreateObject(BRDR, 700, 0, -1)->Set(0,1);
