@@ -311,8 +311,8 @@ public func ChooserFinished()
   if(!FindObject(NOBH))
   {
    SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,720,560,-1),60*21,300);
-   SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,1195,590,-1),60*21,300);
-   SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,3045,590,-1),60*21,300);
+   SetupVehicleSpawn([APCE],DIR_Right,CreateObject(VSPW,1195,590,-1),60*21,300);
+   SetupVehicleSpawn([APCE],DIR_Left,CreateObject(VSPW,3045,590,-1),60*21,300);
    SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,3520,560,-1),60*21,300);
 
    CreateObject(SNPT, 630, 590, -1)->SetAction("Sign3");
