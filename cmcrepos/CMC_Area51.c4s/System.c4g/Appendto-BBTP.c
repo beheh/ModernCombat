@@ -3,6 +3,8 @@
 #strict 2
 #appendto BBTP
 
+public func IsEquipment() {return false;}
+
 public func Throw()
 {
   //Winkel übernehmen
