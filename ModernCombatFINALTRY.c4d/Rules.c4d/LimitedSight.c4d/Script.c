@@ -110,29 +110,29 @@ public func FxSightTimer(object pTarget,int iEffectNumber, int iEffectTime)
   }
   else
   //Spezielle Helikopter-Sicht
-  if(GetID(Contained(pTarget)) == BKHK)
+  if(GetID(Contained(pTarget))->~IsHelicopter())
   {
-    var angle, blackhawk = Contained(pTarget); 
+    var angle, helicopter = Contained(pTarget); 
 
     //Piloten und Passagiere
-    if(pTarget == blackhawk->GetPilot() || pTarget == blackhawk->GetPassenger1() || pTarget == blackhawk->GetPassenger2())
+    if(pTarget == helicopter->~GetPilot() || pTarget == helicopter->~GetPassenger1() || pTarget == helicopter->~GetPassenger2())
     {
       angle = 90;
-      if(GetDir(blackhawk) == DIR_Left)
+      if(GetDir(helicopter) == DIR_Left)
         angle = 270;
 
-      var rotation = LocalN("rotation", blackhawk);
+      var rotation = LocalN("rotation", helicopter);
       angle += rotation;
     }
     //Schütze
-    else if(pTarget == blackhawk->GetGunner())
+    else if(pTarget == helicopter->~GetGunner())
     {
-      var weapon = blackhawk->GetRopeAttach();
+      var weapon = helicopter->GetRopeAttach();
       angle = weapon->AimAngle();
     }
-    else if(pTarget == blackhawk->GetCoordinator())
+    else if(pTarget == helicopter->~GetCoordinator())
     {
-      var weapon = LocalN("RocketStation", blackhawk);
+      var weapon = LocalN("RocketStation", helicopter);
       angle = weapon->AimAngle();
     }
 

@@ -20,11 +20,12 @@ public func Execute()
     if (!i)
       continue;
     var array = EffectVar(0, obj, i), entry;
-    while ((entry = GetIndexOf(BKHK, array)) != -1)
-      DelArrayItem4K(array, entry);
+  	for(entry = 0; entry < array; entry++)
+  		if(array[entry] && array[entry]->~IsHelicopter())
+      	DelArrayItem4K(array, entry);
     EffectVar(0, obj, i) = array;
   }
   //Helikopter suchen und entfernen
-  for (var obj in FindObjects(Find_ID(BKHK)))
+  for (var obj in FindObjects(Find_Func("IsHelicopter")))
     RemoveObject(obj, true);
 }
