@@ -1,3 +1,3 @@
-The booby trap bag allows to place booby trap which are primarily used for securing supply routes. A infrared laser on the trap identifies threats and triggers it which then shots a load of bullets into the selected target area by exploding.
+The booby trap bag allows to place booby trap which are primarily used for securing supply routes. An infrared laser on the traps identifies threats and triggers them which then shots a load of bullets by exploding.
 
 Press [Throw] to place a trap facing your movement direction or press [Triple Stop] to place while aiming.
