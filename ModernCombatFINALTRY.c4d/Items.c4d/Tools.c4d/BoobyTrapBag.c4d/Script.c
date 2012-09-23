@@ -32,8 +32,8 @@ public func ControlThrow(object caller)
   if(!Contained() || !GetPackPoints()) return true;
 
   //Sprengfalle erstellen und legen
+  SetOwner(GetOwner(Contained()));
   var trap = CreateContents(BBTP, this, 1);
-  trap->SetOwner(GetOwner(Contained()));
   trap->ControlThrow(this);
 
   //Plazierung erfolgreich?
