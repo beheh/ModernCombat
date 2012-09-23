@@ -128,8 +128,7 @@ public func ControlUp(object pObjBy)
   if(bReady)
     Defuse();
 
-	var pPack = CreateObject(BTPK, 0, 0, GetOwner(pObjBy));
-	pPack->SetPackPoints(1);
+	var pPack = CreateObject(BTBG, 0, 0, GetOwner(pObjBy));
 
   //Einsammeln wenn möglich, sonst zumindest loslassen
   if (!Collect(pPack, pObjBy))
