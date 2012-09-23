@@ -575,7 +575,7 @@ public func ChooserFinished()
    aTowerInterior[1] -> Set(SATW,90);
 
    //Helikopter und Hinweisschild
-   if(!FindObject(NOBH))
+   if(!FindObject(NOHC))
    {
     SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,1970,1140,-1),100*21,300);
     SetupVehicleSpawn([APCE],DIR_Right,CreateObject(VSPW,2130,1140,-1),100*21,300);
@@ -708,7 +708,7 @@ public func ChooserFinished()
    aTowerInterior[1] -> Set(SATW,90);
 
    //Helikopter und Hinweisschilder
-   if(!FindObject(NOBH))
+   if(!FindObject(NOHC))
    {
     SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,1970,1140,-1),100*21,300);
     SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,5495,1200,-1),100*21,300);

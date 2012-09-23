@@ -750,7 +750,7 @@ public func ChooserFinished()
    CreateObject(BRDR, 7860, 0, -1)->Set(1);
 
    //Helikopter und Hinweisschilder
-   if(!FindObject(NOBH))
+   if(!FindObject(NOHC))
    {
     SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,4700,290,-1),100*21,300);
 
@@ -876,7 +876,7 @@ public func ChooserFinished()
    {aSelfDefense[0]->SetTeam(2); aSelfDefense[1]->SetTeam(2); aSelfDefense[3]->SetTeam(2);}
 
    //Helikopter und Hinweisschilder
-   if(!FindObject(NOBH))
+   if(!FindObject(NOHC))
    {
     SetupVehicleSpawn([APCE],DIR_Left,CreateObject(VSPW,4730,290,-1),100*21,300);
 
@@ -989,7 +989,7 @@ public func ChooserFinished()
    CreateObject(GNET, 6590, 340, -1)->Set(SATW,0,1);
 
    //Helikopter und Hinweisschilder
-   if(!FindObject(NOBH))
+   if(!FindObject(NOHC))
    {
     SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,4700,290,-1),100*21,300);
 
@@ -1031,7 +1031,7 @@ public func ChooserFinished()
    CreateObject(GNET, 5580, 470, -1)->Set(0,-90,1);
 
    //Helikopter und Hinweisschilder
-   if(!FindObject(NOBH))
+   if(!FindObject(NOHC))
    {
     SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,4700,290,-1),100*21,300);
 

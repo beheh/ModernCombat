@@ -351,7 +351,7 @@ public func ChooserFinished()
    CreateObject(GNET, 2800, 490, -1)->Set(0,-90,1);
 
    //Helikopter und Hinweisschild
-   if(!FindObject(NOBH))
+   if(!FindObject(NOHC))
    {
     SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,2895,410,-1),100*21);
 
@@ -390,7 +390,7 @@ public func ChooserFinished()
    CreateObject(BRDR, 1820, 0, -1)->Set(1,1);
 
    //Helikopter und Hinweisschild
-   if(!FindObject(NOBH))
+   if(!FindObject(NOHC))
    {
     SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,2895,410,-1),100*21);
 

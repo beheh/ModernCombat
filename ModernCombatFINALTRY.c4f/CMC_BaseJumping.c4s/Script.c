@@ -497,7 +497,7 @@ public func ChooserFinished()
    aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = true;
 
   //Helikopter und Hinweisschilder
-  if(!FindObject(NOBH))
+  if(!FindObject(NOHC))
   {
    SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,440,1460,-1),60*21,300);
    SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,2640,1460,-1),60*21,300);
