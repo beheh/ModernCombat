@@ -1,10 +1,9 @@
-/*-- Sprengfallenpack --*/
+/*-- Sprengfallentasche --*/
 
 #strict 2
 #include PACK
 
 local controller, thrown;
-
 
 public func IsDrawable()		{return true;}
 public func CanAim()			{return Contained();}
@@ -16,31 +15,36 @@ public func IsEquipment()		{return true;}
 public func NoArenaRemove()		{return true;}
 public func AttractTracer()		{return false;}
 public func LimitationCount()		{return 1;}
-public func MaxPoints()		{return 3;}
-public func StartPoints()	{return 1;}
-public func PackLight()				{return false;}
-public func DestroyEmptyPack()			{return true;}
+public func MaxPoints()			{return 3;}
+public func StartPoints()		{return 1;}
+public func PackLight()			{return false;}
+public func DestroyEmptyPack()		{return true;}
+
 
 /* Steuerung */
 
 public func ControlThrow(object caller)
 {
-	if(GetPlrDownDouble(GetOwner(caller)))
+  if(GetPlrDownDouble(GetOwner(caller)))
     return _inherited(...);
 
   //Wird nicht getragen: Werfen gesperrt
   if(!Contained() || !GetPackPoints()) return true;
-  
+
+  //Sprengfalle erstellen und legen
   var trap = CreateContents(BBTP, this, 1);
   trap->ControlThrow(this);
+
+  //Plazierung erfolgreich?
   if(LocalN("bActive", trap))
-  	DoPackPoints(-1);
+    DoPackPoints(-1);
   else
-  	RemoveObject(trap);
-  
-  if (!GetPackPoints())
-  	RemoveObject(this);
-  	
+    RemoveObject(trap);
+
+  //Verschwinden sobald aufgebraucht
+  if(!GetPackPoints())
+    RemoveObject(this);
+
   return true;
 }
 
@@ -62,9 +66,4 @@ protected func Selection()
 func Hit()
 {
   Sound("BBTP_Hit*.ogg");
-}
-
-func Sale(int iByPlr)
-{
-	SetPackPoints(1);
 }
