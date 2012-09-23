@@ -61,9 +61,9 @@ SRBL1=Sensorbälle identifizieren neben feindlichen Clonks auch deren <c 33ccff>S
 
 #Equipment
 AMPK0=Halte das MTP in der Hand, um Verbündete <c 33ccff>automatisch</c> mit Munition zu versorgen.
-BBTP0=Sprengfallen lassen sich auch an <c 33ccff>Decken</c> und <c 33ccff>Wänden</c> anbringen.
-BBTP1=Stelle Sprengfallen möglichst <c 33ccff>versteckt</c> an <c 33ccff>vielbelaufenen</c> Stellen auf.
-BBTP2=Fasse eine Sprengfalle an und drücke [<c 33ccff>Springen</c>], um sie zu entschärfen.
+BTBG0=Sprengfallen lassen sich auch an <c 33ccff>Decken</c> und <c 33ccff>Wänden</c> anbringen.
+BTBG1=Stelle Sprengfallen möglichst <c 33ccff>versteckt</c> an <c 33ccff>vielbelaufenen</c> Stellen auf.
+BTBG2=Fasse eine Sprengfalle an und drücke [<c 33ccff>Springen</c>], um sie zu entschärfen.
 C4PA0=Du kannst C4 auch <c 33ccff>hangelnd</c>, <c 33ccff>kletternd</c> und <c 33ccff>kriechend</c> anbringen.
 C4PA1=Je größer die Distanz zum C4, desto <c 33ccff>länger</c> dauert es, bis es zündet.
 DGNN0=Du kannst Dragnin per [<c 33ccff>Werfen</c>] verletzten Verbündeten injizieren.
