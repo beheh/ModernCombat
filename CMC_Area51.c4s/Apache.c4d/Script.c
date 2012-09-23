@@ -21,6 +21,7 @@ public func HitboxHeight()	{return 46;}	//Höhe der Hitbox
 
 protected func Initialize()
 {
+  //Keine Blackhawks-Regel aktiv? Verschwinden
   if(NoBlackHawks())
     return RemoveObject();
 
@@ -436,7 +437,7 @@ protected func Ejection(object ByObj)
   //Nicht bei Schaden
   if(GetDamage() >= MaxDamage()) return;
 
-  SetPosition(GetX(pEntrance), GetY(pEntrance), ByObj);
+  SetPosition(GetX(pEntrance), GetY(pEntrance)+5, ByObj);
 
   if(!PathFree(GetX(pEntrance),GetY(pEntrance),GetX(pEntrance),GetY(pEntrance)+100))
     return;
