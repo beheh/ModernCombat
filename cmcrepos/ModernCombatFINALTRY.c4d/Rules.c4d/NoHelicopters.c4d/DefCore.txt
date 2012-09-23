@@ -1,5 +1,5 @@
 [DefCore]
-id=NOBH
+id=NOHC
 Version=4,9,10,4
 Name=No Helicopters
 Category=C4D_StaticBack|C4D_Rule
