@@ -12,7 +12,6 @@ public func IsBulletTarget(idBullet)	{return idBullet == TRDT || !Random(6);}
 public func HandX()			{return 5000;}
 public func HandSize()			{return 1000;}
 public func BarrelXOffset()		{return -850;}
-public func IsEquipment()		{return true;}
 public func NoArenaRemove()		{return true;}
 public func AttractTracer()		{return false;}
 public func LimitationCount()		{return 2;}
@@ -56,7 +55,7 @@ public func ControlThrow(object caller)
 public func Throw()
 {
   //Winkel übernehmen
-  var user = Contained();
+  var user = Contained(Contained());
   iDir = user->AimAngle();
 
   var x, y,			//X-/Y-Austrittsposition
@@ -151,7 +150,6 @@ public func Throw()
     AddVertex(vtx, vty);
 
   var nextmine = user->~GrabGrenade(GetID());
-  user->~ResetShowWeapon();
   if(user->~IsAiming())
     if(!nextmine)
       user->StopAiming();
@@ -204,9 +202,15 @@ public func ControlUp(object pObjBy)
   if(bReady)
     Defuse();
 
+	var pPack = CreateObject(BTBG, 0, 0, GetOwner(pObjBy));
+
   //Einsammeln wenn möglich, sonst zumindest loslassen
-  if (!Collect(this, pObjBy))
+  if (!Collect(pPack, pObjBy))
     SetCommand(pObjBy, "UnGrab");
+  
+  //Claymore auf jeden Fall entfernen
+  RemoveObject(this);
+  	
   return true;
 }
 
