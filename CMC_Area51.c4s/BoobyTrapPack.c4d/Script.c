@@ -31,8 +31,12 @@ public func ControlThrow(object caller)
   //Wird nicht getragen: Werfen gesperrt
   if(!Contained() || !GetPackPoints()) return true;
   
-  CreateContents(BBTP, this, 1)->ControlThrow(this);
-  DoPackPoints(-1);
+  var trap = CreateContents(BBTP, this, 1);
+  trap->ControlThrow(this);
+  if(LocalN("bActive", trap))
+  	DoPackPoints(-1);
+  else
+  	RemoveObject(trap);
   
   if (!GetPackPoints())
   	RemoveObject(this);
