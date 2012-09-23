@@ -20,9 +20,9 @@ public func Execute()
     if (!i)
       continue;
     var array = EffectVar(0, obj, i), entry;
-  	for(entry = 0; entry < GetLength(array); entry++)
-  		if(GetType(array[entry]) == C4V_C4ID && array[entry]->~IsHelicopter())
-      	DelArrayItem4K(array, entry);
+    for(entry = 0; entry < GetLength(array); entry++)
+      if(GetType(array[entry]) == C4V_C4ID && array[entry]->~IsHelicopter())
+        DelArrayItem4K(array, entry);
     EffectVar(0, obj, i) = array;
   }
   //Helikopter suchen und entfernen

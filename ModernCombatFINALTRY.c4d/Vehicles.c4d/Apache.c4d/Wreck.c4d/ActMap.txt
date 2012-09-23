@@ -1,0 +1,9 @@
+[Action]
+Name=Destroyed
+Procedure=NONE
+Directions=2
+Length=1
+Delay=500
+Facet=0,0,162,38,-21,-2
+EndCall=DestroyWreck
+FlipDir=1

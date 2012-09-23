@@ -1,0 +1,28 @@
+#Steuerung
+CtrlLeft=Links
+CtrlRight=Rechts
+CtrlUp=Oben
+CtrlDown=Unten
+CtrlLeftD=Doppellinks
+CtrlRightD=Doppelrechts
+CtrlDigD=Platz wechseln
+CtrlUpD=Doppeloben
+CtrlDownD=Doppellunten
+CtrlThrow=Aktion
+
+#Sitze
+Seats=Sitze
+SeatOccupied=Sitz bereits belegt.
+Exit=Aussteigen
+ExitDesc=Verlasse den Helikopter.
+Pilot=Pilot
+PilotDesc=Fliege den Helikopter.
+Gunner=Schütze
+GunnerDesc=Übernehme die Kontrolle über die außen angebrachte Maschinenkanone.
+
+#Aktionen
+Flares=Flareabwurf
+HUD=HUD ein-ausblenden
+Spotlight=Scheinwerfer
+Radio=Radio
+RocketLauncher=Raketenwerfer
