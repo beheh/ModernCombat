@@ -167,7 +167,8 @@ protected func FxIntHeliProtectionStart(object pTarget, int iEffect, int iTemp, 
 
 protected func Initialize()
 {
-  if (NoBlackHawks())
+  //Keine Helikopter-Regel aktiv? Verschwinden
+  if(NoHelicopters())
     return RemoveObject();
 
   //Steuerung initialisieren

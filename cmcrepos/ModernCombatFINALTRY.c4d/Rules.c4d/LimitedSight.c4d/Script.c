@@ -109,7 +109,7 @@ public func FxSightTimer(object pTarget,int iEffectNumber, int iEffectTime)
     }
   }
   else
-  //Spezielle Blackhawk-Sicht
+  //Spezielle Helikopter-Sicht
   if(GetID(Contained(pTarget)) == BKHK)
   {
     var angle, blackhawk = Contained(pTarget); 

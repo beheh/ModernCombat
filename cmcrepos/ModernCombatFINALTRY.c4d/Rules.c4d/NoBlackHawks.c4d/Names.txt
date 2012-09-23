@@ -1,2 +1,2 @@
-DE:Keine Blackhawks
-US:No Blackhawks
+DE:Keine Helikopter
+US:No Helicopters
