@@ -23,7 +23,7 @@ protected func Initialize()
   Sound("ClonkDie*.ogg");
 
   aTipps = [];
-  FKDT_QuickTipIDs = [ASTR, MNGN, PSTL, RTLR, PPGN, SGST, SMGN, ATWN, FGRN, FRAG, PGRN, STUN, SGRN, SRBL, AMPK, BBTP, C4PA, DRGN, FAPK, RSHL, CDBT, CUAM, BWTH];
+  FKDT_QuickTipIDs = [ASTR, MNGN, PSTL, RTLR, PPGN, SGST, SMGN, ATWN, FGRN, FRAG, PGRN, STUN, SGRN, SRBL, AMPK, BBTP, C4PA, DGNN, FAPK, RSHL, CDBT, CUAM, BWTH];
 
   _inherited();
 }
@@ -383,7 +383,7 @@ private func GetRandomTipp(array a, id id)
   if (id == AMPK) return GetRandomTipp([[AMPK, "$AMPK0$"]]);
   if (id == BBTP) return GetRandomTipp([[BBTP, "$BBTP0$"], [BBTP, "$BBTP1$"], [BBTP, "$BBTP2$"]]);
   if (id == C4PA) return GetRandomTipp([[C4PA, "$C4PA0$"], [C4PA, "$C4PA1$"]]);
-  if (id == DRGN) return GetRandomTipp([[DRGN, "$DRGN0$"], [DRGN, "$DRGN1$"]]);
+  if (id == DGNN) return GetRandomTipp([[DGNN, "$DGNN0$"], [DGNN, "$DGNN1$"]]);
   if (id == FAPK) return GetRandomTipp([[FAPK, "$FAPK0$"], [FAPK, "$FAPK1$"], [FAPK, "$FAPK2$"]]);
   if (id == RSHL) return GetRandomTipp([[RSHL, "$RSHL0$"], [RSHL, "$RSHL1$"], [RSHL, "$RSHL2$"], [RSHL, "$RSHL3$"], [SDSD, "$RSHL4$"]]);
   if (id == CDBT) return GetRandomTipp([[CDBT, "$CDBT0$"], [CDBT, "$CDBT1$"]]);
