@@ -14,14 +14,8 @@ public func DeathAnimationCount() { return 7; }
 
 public func ChangeDeathAnim()
 {
-	if(!DeathAnimationCount())
-		return;
-	
 	var rnd = Random(DeathAnimationCount());
-	if(!rnd)
-		return;
-	else
-		SetAction(Format("CMC_Dead%d", rnd), GetActionTarget(), GetActionTarget(1));
+	SetAction(Format("CMC_Dead%d", rnd), GetActionTarget(), GetActionTarget(1));
 	
 	return true;
 }
