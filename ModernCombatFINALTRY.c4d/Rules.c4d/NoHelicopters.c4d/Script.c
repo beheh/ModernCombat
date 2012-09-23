@@ -2,7 +2,7 @@
 
 #strict 2
 
-global func NoHelicopters()	{return FindObject(NOBH);}
+global func NoHelicopters()	{return FindObject(NOHC);}
 public func IsChooseable()	{return true;}
 
 
