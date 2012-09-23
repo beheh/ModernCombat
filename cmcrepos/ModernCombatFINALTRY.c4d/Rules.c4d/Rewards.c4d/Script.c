@@ -407,7 +407,7 @@ public func InitPlayerData(int iPlr)
   if(IsDeveloper(GetPlayerID(iPlr)))
   {
     var iRibbon = GetPlrExtraData(iPlr, "CMC_Team_Ribbon");
-    if(iRibbon && GetName(C4Id(Format("RB%02d", iRibbon))))
+    if(iRibbon && GetName(0, C4Id(Format("RB%02d", iRibbon))))
     {
       AttemptAwardRibbon(C4Id(Format("RB%02d", iRibbon)), iPlr, iPlr);
     }
