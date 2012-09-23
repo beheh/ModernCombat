@@ -132,7 +132,7 @@ public func FxSightTimer(object pTarget,int iEffectNumber, int iEffectTime)
     }
     else if(pTarget == helicopter->~GetCoordinator())
     {
-      var weapon = LocalN("RocketStation", helicopter);
+      var weapon = LocalN("pRocketStation", helicopter);
       angle = weapon->AimAngle();
     }
 
