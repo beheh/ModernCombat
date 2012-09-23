@@ -1,2 +1,2 @@
-DE:Sprengfallenpack
-US:Booby Trap Pack
+DE:Sprengfallentasche
+US:Booby Trap Bag
