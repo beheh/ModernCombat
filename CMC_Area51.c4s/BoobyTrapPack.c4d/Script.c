@@ -17,7 +17,7 @@ public func NoArenaRemove()		{return true;}
 public func AttractTracer()		{return false;}
 public func LimitationCount()		{return 1;}
 public func MaxPoints()		{return 3;}
-public func StartPoints()	{return 2;}
+public func StartPoints()	{return 1;}
 public func PackLight()				{return false;}
 public func DestroyEmptyPack()			{return true;}
 
@@ -44,23 +44,7 @@ public func ControlThrow(object caller)
 
 protected func Damage(int iChange) 
 {
-  //Kein Schaden nehmen wenn gehalten und eventuelles Feuer löschen
-  if(Contained())
-  {
-    if(OnFire())
-    {
-      Extinguish();
-      return;
-    }
-    else
-    return;
-  }
-}
-
-public func OnDmg(int iDmg, int iType)
-{
-  if(iType == DMG_Fire) return 90;	//Feuer
-  if(iType == DMG_Bio)	return 100;	//Säure und biologische Schadstoffe
+  return false;
 }
 
 /* Allgemein */
@@ -74,4 +58,9 @@ protected func Selection()
 func Hit()
 {
   Sound("BBTP_Hit*.ogg");
+}
+
+func Sale(int iByPlr)
+{
+	SetPackPoints(1);
 }
