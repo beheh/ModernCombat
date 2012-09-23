@@ -3,7 +3,7 @@
 #strict
 #include CSTD
 
-static aFlag,aSelfDefense,aStationary,aTowerInterior, pDoor;
+static aFlag,aSelfDefense,aStationary,aTowerInterior;
 
 
 /* Initialisierung */
@@ -468,10 +468,6 @@ func OnTowerCollapse()
   //Geschützstellungen entfernen
   if(aTowerInterior[0]) aTowerInterior[0]->DecoExplode(30);
   if(aTowerInterior[1]) aTowerInterior[1]->DecoExplode(30);
-  
-  //Tür entfernen
-  if (FindObject(GASS))
-    RemoveObject(pDoor, true);
 }
 
 /* Bei Flaggenübernahme */
@@ -655,10 +651,6 @@ public func ChooserFinished()
    CreateObject(STNE, 3770, 1288, -1)->Set(3);
    CreateObject(STNE, 3835, 1340, -1);
    CreateObject(STNE, 3890, 1300, -1)->Set(3);
-   
-   //Tür
-   pDoor = CreateObject(GAT1, 3670, 456, -1);
-   CreateObject(ROOM, 4091, 639, -1)->Connect(pDoor);
 
    //Boden
    DrawMaterialQuad("Wall-Stripes", 4130,1270, 4230,1270, 4230,1280, 4130,1280);
