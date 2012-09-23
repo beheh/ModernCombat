@@ -61,9 +61,9 @@ SRBL1=Sensor balls can not only detect enemy clonks, but also <c 33ccff>booby tr
 
 #Equipment
 AMPK0=Hold the MTP in the hand to <c 33ccff>automatically</c> restock ammo of allies.
-BBTP0=You can also place booby traps on <c 33ccff>ceilings</c> and <c 33ccff>walls</c>.
-BBTP1=Place booby traps preferably <c 33ccff>hidden</c> at <c 33ccff>often used</c> places.
-BBTP2=Touch booby traps and tap [<c 33ccff>Jump</c>] to disarm them.
+BTBG0=You can also place booby traps on <c 33ccff>ceilings</c> and <c 33ccff>walls</c>.
+BTBG1=Place booby traps preferably <c 33ccff>hidden</c> at <c 33ccff>often used</c> places.
+BTBG2=Touch booby traps and tap [<c 33ccff>Jump</c>] to disarm them.
 C4PA0=You can place C4 while climbing on <c 33ccff>walls</c> or <c 33ccff>ceilings</c> or while <c 33ccff>crawling</c>.
 C4PA1=The further you are away from C4, the longer it takes to <c 33ccff>ignite</c> it.
 DGNN0=You can use dragnin on wounded allies by tapping [<c 33ccff>Throw</c>].
