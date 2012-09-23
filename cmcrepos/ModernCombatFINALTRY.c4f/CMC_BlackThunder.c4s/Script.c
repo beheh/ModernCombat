@@ -307,7 +307,7 @@ public func ChooserFinished()
   for(var i = 0; i < GetPlayerCount(); i++)
    aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = true;
 
-  //Blackhawks und Hinweisschilder
+  //Helikopter und Hinweisschilder
   if(!FindObject(NOBH))
   {
    SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,720,560,-1),60*21,300);
