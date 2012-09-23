@@ -33,6 +33,7 @@ public func ControlThrow(object caller)
 
   //Sprengfalle erstellen und legen
   var trap = CreateContents(BBTP, this, 1);
+  trap->SetOwner(GetOwner(Contained()));
   trap->ControlThrow(this);
 
   //Plazierung erfolgreich?
