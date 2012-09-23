@@ -1,0 +1,28 @@
+#Control
+CtrlLeft=Left
+CtrlRight=Right
+CtrlUp=Up
+CtrlDown=Down
+CtrlLeftD=Double left
+CtrlRightD=Double right
+CtrlDigD=Change seat
+CtrlUpD=Double up
+CtrlDownD=Double down
+CtrlThrow=Action
+
+#Seats
+Seats=Seats
+SeatOccupied=Seat already occupied.
+Exit=Exit
+ExitDesc=Disembark out of the helicopter.
+Pilot=Pilot
+PilotDesc=Pilot the helicopter.
+Gunner=Gunner
+GunnerDesc=Take control over the outside automatic cannon.
+
+#Actions
+Flares=Flare Drop
+HUD=Fade HUD in/out
+Spotlight=Spotlight
+Radio=Radio
+RocketLauncher=Rocket Launcher

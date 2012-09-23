@@ -1,0 +1,2 @@
+DE:Luft-Luft-Rakete
+US:Air-to-Air Missile
