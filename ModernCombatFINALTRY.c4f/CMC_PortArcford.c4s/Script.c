@@ -413,7 +413,7 @@ public func ChooserFinished()
    CreateObject(GNET, 1040, 310, -1)->Set(0,0,1);
    CreateObject(GNET, 5225, 280, -1)->Set(0,0,1);
 
-   //Blackhawks und Hinweisschilder
+   //Helikopter und Hinweisschilder
    if(!FindObject(NOBH))
    {
     SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,910,270,-1),60*21,300);
@@ -474,7 +474,7 @@ public func ChooserFinished()
    aStationary[3] = CreateObject(GNET, 4320, 490, -1);
    aStationary[3] -> Set(0,-90);
 
-   //Blackhawks und Hinweisschilder
+   //Helikopter und Hinweisschilder
    if(!FindObject(NOBH))
    {
     SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,910,270,-1),60*21,300);

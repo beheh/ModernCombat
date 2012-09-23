@@ -570,7 +570,7 @@ public func ChooserFinished()
    aTowerInterior[1] = CreateObject(GNET, 3700, 473, -1);
    aTowerInterior[1] -> Set(SATW,90);
 
-   //Blackhawks und Hinweisschild
+   //Helikopter und Hinweisschild
    if(!FindObject(NOBH))
    {
     SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,1970,1140,-1),100*21,300);
@@ -699,7 +699,7 @@ public func ChooserFinished()
    aTowerInterior[1] = CreateObject(GNET, 3700, 473, -1);
    aTowerInterior[1] -> Set(SATW,90);
 
-   //Blackhawks und Hinweisschilder
+   //Helikopter und Hinweisschilder
    if(!FindObject(NOBH))
    {
     SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,1970,1140,-1),100*21,300);
