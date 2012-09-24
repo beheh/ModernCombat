@@ -232,10 +232,10 @@ private func Smoking()
     var y = -maxy*i/dist;
 
     var rand = RandomX(-10,10);
-    var xdir = +Sin(GetR()+rand,8);
-    var ydir = -Cos(GetR()+rand,8);
+    var xdir = +Sin(GetR()+rand,RandomX(8,20));
+    var ydir = -Cos(GetR()+rand,RandomX(8,20));
 
-    CreateParticle("Smoke3",x,y,xdir,ydir,RandomX(50,70),RGBa(255,255,255,85),0,0);
+    CreateParticle("Smoke3",x,y,xdir,ydir,RandomX(50,80),RGBa(255,255,255,85),0,0);
   }
 
   CreateParticle("MuzzleFlash2",-maxx,-maxy,+Sin(GetR()+180,500),-Cos(GetR()+180,500),RandomX(80,140),RGBa(255,200),this);
