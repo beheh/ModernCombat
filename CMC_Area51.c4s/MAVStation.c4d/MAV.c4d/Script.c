@@ -950,13 +950,13 @@ public func Wait()
 public func Arm(id idWeapon)
 {
   //Waffe erstellen
-  var pLaser = CreateObject(idWeapon, 0, 0, GetOwner(this));
-  Enter(this, pLaser);
+  var pLaserDesignator = CreateObject(idWeapon, 0, 0, GetOwner(this));
+  Enter(this, pLaserDesignator);
 
   //Und konfigurieren
-  SetObjectOrder(this, pLaser, 1);
-  cur_Attachment = pLaser;
-  LocalN("controller", pLaser) = this;
+  SetObjectOrder(this, pLaserDesignator, 1);
+  cur_Attachment = pLaserDesignator;
+  LocalN("controller", pLaserDesignator) = this;
 }
 
 public func Reload()
