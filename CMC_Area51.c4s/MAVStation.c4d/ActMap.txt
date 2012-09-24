@@ -1,15 +1,15 @@
 [Action]
 Name=Ready
 FacetBase=1
-Facet=24,56,6,6,9,14
+Facet=0,60,6,6,9,14
 Delay=8
-Length=7
+Length=11
 NextAction=Ready
 
 [Action]
 Name=Controlling
 FacetBase=1
-Facet=24,62,6,6,9,14
+Facet=0,66,6,6,9,14
 Delay=8
-Length=7
+Length=11
 NextAction=Controlling
