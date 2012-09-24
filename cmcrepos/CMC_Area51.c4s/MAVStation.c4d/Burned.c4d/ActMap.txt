@@ -1,7 +1,7 @@
 [Action]
 Name=Destroyed
 FacetBase=1
-Facet=24,56,6,6,9,14
+Facet=0,56,6,6,9,14
 Delay=3
-Length=7
+Length=11
 NextAction=Destroyed
