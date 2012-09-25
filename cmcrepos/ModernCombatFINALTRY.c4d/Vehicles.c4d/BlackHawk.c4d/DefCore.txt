@@ -10,7 +10,6 @@ MaxUserSelect=2
 Height=60
 Width=120
 Offset=-60,-30
-Entrance=-30,0,60,30
 Collection=-100,-24,200,16
 ContactCalls=1
 Rotate=1

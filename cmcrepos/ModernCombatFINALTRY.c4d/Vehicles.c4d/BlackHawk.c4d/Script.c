@@ -11,6 +11,7 @@ local fRadioPlaying, iRadioTrack;
 local iWarningSound;
 local iRotorSpeed;
 local iHitboxDistance, aHitboxAngles;
+local pEntrance;
 
 static const BKHK_ThrottleSpeed = 5;
 static const BKHK_RotationSpeed = 1;
@@ -203,7 +204,9 @@ protected func Initialize()
   ScheduleCall(this,"ChangeDir",1,2);
 
   //Eingang
-  SetEntrance(true);
+  pEntrance = CreateObject(ENTR, 0, 0, GetOwner());
+  pEntrance->SetApache(this);
+  pEntrance->SetOffset(0, 6);
 
   return _inherited();
 }
