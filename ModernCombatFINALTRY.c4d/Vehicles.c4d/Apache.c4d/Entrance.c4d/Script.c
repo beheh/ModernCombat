@@ -1,14 +1,14 @@
-/*-- Apache-Eingang --*/
+/*-- Eingang --*/
 
 #strict 2
 
-local pApache;
+local pHelicopter;
 local iXOffset, iYOffset;
 
 
-func SetApache(object tempApache)
+func SetHelicopter(object tempHelicopter)
 {
-  pApache = tempApache;
+  pHelicopter = tempHelicopter;
   SetEntrance(true);
 }
 
@@ -20,20 +20,20 @@ func SetOffset(int iX, int iY)
 
 func Collection2(object pUser)
 {
-  if(!Enter(pApache, pUser)) Exit(pUser);
+  if(!Enter(pHelicopter, pUser)) Exit(pUser);
 }
 
 /* Timer */
 
 func Timer()
 {
-  //Kein Host-Apache? Verschwinden
-  if(!pApache) 
+  //Kein Host-Helikopter? Verschwinden
+  if(!pHelicopter) 
     RemoveObject(this, true);
   else
   {
     //Position anpassen
-    SetPosition(GetX(pApache) + iXOffset, GetY(pApache) + iYOffset, this, false);
+    SetPosition(GetX(pHelicopter) + iXOffset, GetY(pHelicopter) + iYOffset, this, false);
     SetXDir();
     SetYDir();
   }

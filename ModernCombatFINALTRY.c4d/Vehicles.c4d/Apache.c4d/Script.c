@@ -5,6 +5,7 @@
 
 static const APCE_Seat_Pilot = 1;
 static const APCE_Seat_Gunner = 2;
+local pEntrance;
 
 public func MaxDamage()		{return 190;}
 
@@ -55,9 +56,9 @@ protected func Initialize()
   //Vertices richtig drehen
   ScheduleCall(this,"ChangeDir",1,2);
 
-  //Eingang
+  //Eingang erstellen
   pEntrance = CreateObject(ENTR, 0, 0, GetOwner());
-  pEntrance->SetApache(this);
+  pEntrance->SetHelicopter(this);
   pEntrance->SetOffset(GetDefCoreVal("Offset", "DefCore", GetID(), 0) * (1 - 2 * GetDir()) / 2, 5);
 
   //Neutrale Fahrzeuge sind weiﬂ
