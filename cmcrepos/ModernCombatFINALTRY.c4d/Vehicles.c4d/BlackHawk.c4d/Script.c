@@ -57,6 +57,7 @@ public func IsBulletTarget(id idBullet, object pBullet, object pShooter)
   return DefaultBulletTarget(idBullet, pBullet, pShooter);
 }
 
+
 /* Hitbox */
 
 public func HitboxXOffset()	{return -10;}	//X-Abstand vom Offset zum Hitboxmittelpunkt
