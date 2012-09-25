@@ -775,8 +775,20 @@ protected func ControlUp()
 {
   //Sprunggeräusch
   if(!Contained())
+  {
     if(WildcardMatch(GetAction(), "*Walk*"))
       ScheduleCall(0, "JumpSound", 1);
+    if(WildcardMatch(GetAction(), "*Jump*"))
+		{
+			var pHeli = FindObject2(Find_ID(ENTR), Find_AtPoint(0, 0), Find_Not(Find_Hostile(GetOwner())));
+			if(pHeli)
+			{
+				Enter(pHeli, this);
+				SetAction("WalkArmed"); //Don't even ask!
+				return true;
+			}
+		}
+  }
   //Steuerung an Effekt weitergeben
   if(Control2Effect("ControlUp"))
     return 1;
