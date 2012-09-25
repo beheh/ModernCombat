@@ -783,6 +783,10 @@ protected func ControlUp()
       var pHeli = FindObject2(Find_ID(ENTR), Find_AtPoint(0, 0), Find_Not(Find_Hostile(GetOwner())));
       if(pHeli)
       {
+      	var parachute = FindObject2(Find_ID(PARA), Find_ActionTarget(this));
+      	if(parachute)
+      		parachute->StartFlyFree();
+      		      		
         Enter(pHeli, this);
         SetAction("WalkArmed"); //Don't even ask!
         return true;
