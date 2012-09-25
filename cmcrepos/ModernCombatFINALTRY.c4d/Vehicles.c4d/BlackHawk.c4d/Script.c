@@ -204,9 +204,9 @@ protected func Initialize()
   //Vertices richtig drehen
   ScheduleCall(this,"ChangeDir",1,2);
 
-  //Eingang
+  //Eingang erstellen
   pEntrance = CreateObject(ENTR, 0, 0, GetOwner());
-  pEntrance->SetApache(this);
+  pEntrance->SetHelicopter(this);
   pEntrance->SetOffset(0, 6);
 
   return _inherited();
