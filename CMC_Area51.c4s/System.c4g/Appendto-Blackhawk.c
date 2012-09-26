@@ -142,8 +142,8 @@ protected func TimerCall()
         continue;
       if(pClonk->~IsMAV())
       {
-      	DoDmg(GetRotorSpeed() / 4, DMG_Projectile, pClonk, GetOwner() + 1);
-      	continue;
+        DoDmg(GetRotorSpeed(), DMG_Projectile, pClonk, GetOwner() + 1);
+        continue;
       }
       Fling(pClonk, GetXDir(pClonk, 1) * 3 / 2 + RandomX(-1, 1), RandomX(-3, -2) - Pow(GetRotorSpeed(), 2) / 15000);
       DoDmg(GetRotorSpeed() / 4, DMG_Projectile, pClonk, 0, GetOwner() + 1);
