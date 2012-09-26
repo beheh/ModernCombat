@@ -143,8 +143,8 @@ protected func TimerCall()
       if(pClonk->~IsMAV())
       {
         DoDmg(GetRotorSpeed(), DMG_Projectile, pClonk, GetOwner() + 1);
-        Sparks(Random(2)+2,RGB(255,255,Random(5)+255));
-  			Sound("HeavyHit*.ogg");
+        pClonk->Sparks(Random(2)+2,RGB(255,255,Random(5)+255));
+  			pClonk->Sound("HeavyHit*.ogg");
         continue;
       }
       Fling(pClonk, GetXDir(pClonk, 1) * 3 / 2 + RandomX(-1, 1), RandomX(-3, -2) - Pow(GetRotorSpeed(), 2) / 15000);
