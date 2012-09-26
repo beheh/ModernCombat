@@ -223,7 +223,7 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
       else
         iFlags = MSG_Multiple;
       var szStr = Format("@%s (%s)", GetName(GetCursor(GetOwner())), GetPlayerName(GetOwner()));
-      CustomMessage(szStr, this, iPlr, 0, 0, SetRGBaValue(GetPlrColorDw(GetOwner()), 128), 0, 0, iFlags);
+      CustomMessage(szStr, cur_Attachment, iPlr, 0, 0, SetRGBaValue(GetPlrColorDw(GetOwner()), 128), 0, 0, iFlags);
     }
   }
 
@@ -349,43 +349,6 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
 
   pBeam->SetR(AimAngle()+90);
   SetPosition(x, y, pLaser);
-
-  //Find_OnLine(int x, int y, int x2, int y2)
-   /*
-
-   if (x > 0)
-    x = 10000 * (LandscapeWidth() - posX) / x;
-   else
-    x = -10000 * posX / x;
-
-   if (y > 0)
-     y = 10000 * posY / y;
-   else
-     y = -10000 * (LandscapeHeight() - posY) / y;
-
-   if (posX + Sin(AimAngle(), y) > LandscapeWidth() - 1)
-   {
-     x = posX + Sin(AimAngle(), x);
-     y = posY - Cos(AimAngle(), x);
-   }
-   else
-   {
-      x = posX + Sin(AimAngle(), y);
-     y = posY - Cos(AimAngle(), y);
-   }
-   if (AimAngle()<225)
-  {
-    PathFree2(posX, posY, x, y);
-    SetPosition(posX, posY, pLaser);
-  }
-  else
-  {
-    PathFree2(x, y, posX, posY);
-    SetPosition(x, y, pLaser);
-  }
-  */
-  //Log(Format("angle: %d, xPrev %d, yPrev %d, xNew %d, yNew %d, Material %s", iAimAngle, x, y, posX, posY,MaterialName(GetMaterial(posX, posY))));
-   //SetPosition(posX, posY, pLaser);
   }
 
   //Objekte zum Rammen suchen
@@ -941,6 +904,8 @@ public func Wait()
 
   Sound("MAVE_Engine.ogg", 0, 0, 70, 0, -1);
   Sound("BWTH_Repair.ogg", false, this, 100, 0, -1);
+  
+  CustomMessage("", cur_Attachment, NO_OWNER);
 
   EndAim();
 }
@@ -1236,10 +1201,13 @@ public func ControlThrow(pByObj)
     ShiftContents();
 
     //Hilfsnachrichten
-    PlayerMessage(GetOwner(pByObj), "$Updated$", this, GetName(pItem));
+    var szStr = Format("$Updated$", GetName(pItem));
+    CustomMessage(szStr, this, GetOwner(pByObj));
+    
     if(GetAction() == "Flying")
     {
-      PlayerMessage(GetOwner(), "$Updated$", this, GetName(pItem));
+    	CustomMessage(szStr, this, GetOwner(), 0, 0, 0, 0, 0, MSG_Multiple);
+      
       for(var i = 0; i < 2; i++)
       {
         if(iItemType == 1) ScheduleCall(this, "AMP", 1, 0, true);
