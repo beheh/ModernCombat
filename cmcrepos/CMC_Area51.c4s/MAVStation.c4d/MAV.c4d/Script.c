@@ -204,13 +204,13 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
   //Echtzeit-Anforderungen, daher auﬂerhalb
   if(iItemType == 5) HardKill();
   if(iItemType == 6) ShockPaddles();
-	
-	if(iEffectTime <= 2)  
-	{
-  	if(iItemType == 1) AMP(true);
- 		if(iItemType == 2) FAP(true, iEffectTime);
- 		if(iItemType == 3) BlowTorch(true);
- 	}
+
+  if(iEffectTime <= 2)
+  {
+    if(iItemType == 1) AMP(true);
+    if(iItemType == 2) FAP(true, iEffectTime);
+    if(iItemType == 3) BlowTorch(true);
+  }
 
   //Namensanzeige f¸r Verb¸ndete
   for(var first = true, iFlags, i = 0; i < GetPlayerCount(); i++)
@@ -904,7 +904,7 @@ public func Wait()
 
   Sound("MAVE_Engine.ogg", 0, 0, 70, 0, -1);
   Sound("BWTH_Repair.ogg", false, this, 100, 0, -1);
-  
+
   CustomMessage("", cur_Attachment, NO_OWNER);
 
   EndAim();
@@ -1203,11 +1203,11 @@ public func ControlThrow(pByObj)
     //Hilfsnachrichten
     var szStr = Format("$Updated$", GetName(pItem));
     CustomMessage(szStr, this, GetOwner(pByObj));
-    
+
     if(GetAction() == "Flying")
     {
-    	CustomMessage(szStr, this, GetOwner(), 0, 0, 0, 0, 0, MSG_Multiple);
-      
+      CustomMessage(szStr, this, GetOwner(), 0, 0, 0, 0, 0, MSG_Multiple);
+
       for(var i = 0; i < 2; i++)
       {
         if(iItemType == 1) ScheduleCall(this, "AMP", 1, 0, true);
