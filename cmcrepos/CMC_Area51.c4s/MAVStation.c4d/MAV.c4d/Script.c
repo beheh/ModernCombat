@@ -109,7 +109,9 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
     RemoveEffect("Flying", this);
     return;
   }
-
+  
+  SetController(GetOwner());
+  
   //Flugverhalten
   if(iXDir < iXTendency)
     iXDir+= 1 - (fIsAiming && !(iEffectTime % 3));
@@ -125,16 +127,18 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
     iYTendency = 0;
     iYDir = 0;
   }
-
+  
   if(!iYTendency && !iYDir)
-    iYDir += Sin(iEffectTime * 8, 2);
-
+  	iYDir += Sin(iEffectTime * 8, 2);
+  
   //C4 verlangsamt den Flug
-  SetXDir(iXDir / (iC4Count+1));
+  SetXDir(iXDir - (iC4Count) * 10 * iXDir / iSpeed);
+
   if(iYDir<=0)
-    SetYDir(iYDir / (iC4Count+1) - 2);
+    SetYDir(iYDir - (iC4Count) * 10 * iYDir / iSpeed - 2);
   else
-    SetYDir(iYDir * (iC4Count+1) - 2);
+    SetYDir(iYDir + (iC4Count) * 10 * iYDir / iSpeed - 2);
+
 
   //Je nach Flugrichtung drehen
   if(iXTendency == 0)
@@ -142,18 +146,20 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
   else
     if(Abs(iBank) < iBankMax)
       iBank += iXTendency / Abs(iXTendency);
-  SetObjDrawTransform(1000, -iBank*20, 0, iBank*20, 1000, 0, this);
 
+    SetObjDrawTransform(1000, -iBank*20, 0, iBank*20, 1000, 0, this);
+  
+  
   //Partikeleffekte  
   for(var i = 0; i < 5; i++)
   {
-    var iXParticle = RandomX(-4, 4) + iXDir * 3 / 4;
+    var iXParticle = RandomX(-4, 4) + GetXDir() * 3 / 4;
     var iYParticle = RandomX(-9, 9) + 10;
 
-    CreateParticle("PSpark", 6 - iXDir / 10, - 8*(iYDir>10) + 2*Sgn(iBank-Sgn(iBank)), iXParticle, iYParticle, 15, RGBa(200, 200, 255, 35));
-    CreateParticle("PSpark", -7 - iXDir / 10, - 8*(iYDir>10) - 2*Sgn(iBank-Sgn(iBank)), iXParticle, iYParticle, 15, RGBa(200, 200, 255, 35));
+    CreateParticle("PSpark", 6 - GetXDir() / 10, - 8*(GetYDir()>10) + 2*Sgn(iBank-Sgn(iBank)), iXParticle, iYParticle, 15, RGBa(200, 200, 255, 35));
+    CreateParticle("PSpark", -7 - GetXDir() / 10, - 8*(GetYDir()>10) - 2*Sgn(iBank-Sgn(iBank)), iXParticle, iYParticle, 15, RGBa(200, 200, 255, 35));
   }
-
+  
   //Blinklicht (alle 30 Frames)
   if(!(iEffectTime % 30))
   {
@@ -189,16 +195,15 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
       iItemType = 0;
       SetPhase(iItemType);
     }
-
+    
     if(Inside(iItemType, 1, 6) && !GetEffect("Bars", this))
       AddEffect("Bars", this, 1, 1, this);
-
+    
     if(iItemType == 0 && !(iEffectTime % 25)) Sense();
     if(iItemType == 1 && !(iEffectTime % 60)) AMP(false);
     if(iItemType == 2 && !(iEffectTime % 20)) FAP(false, iEffectTime);
     if(iItemType == 3) BlowTorch(false);
   }
-
   //Echtzeit-Anforderungen, daher außerhalb
   if(iItemType == 5) HardKill();
   if(iItemType == 6) ShockPaddles();
@@ -455,7 +460,7 @@ public func OnDestruction()
   //Effekte
   if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",3,100,0,0,0,80,100);
 
-  //Sound
+	//Sound
   Sound("MISL_ShotDown.ogg");
 
   //Deaktivieren
@@ -580,7 +585,7 @@ public func ShockPaddles()
     ChargeBar->Set(this, RGB(77, 229, 0), BAR_Ammobar, true, "", SM13);
   }
   else
-    ChargeBar->Update(LocalN("charge", pItem) * 100 / pItem->MaxEnergy(), false);
+  	ChargeBar->Update(LocalN("charge", pItem) * 100 / pItem->MaxEnergy(), false);
 }
 
 public func BlowTorch(bool statusOnly)
@@ -591,10 +596,10 @@ public func BlowTorch(bool statusOnly)
     ChargeBar->Set(this, RGB(77, 229, 0), BAR_Ammobar, true, "", SM12);
   }
   else
-    ChargeBar->Update(LocalN("charge", pItem) * 100 / pItem->MaxEnergy(), false);
-
+  	ChargeBar->Update(LocalN("charge", pItem) * 100 / pItem->MaxEnergy(), false);
+  	
   if(statusOnly)
-    return;
+  	return;
 
   //Eventuellen Cooldown verringern
   if(living_dmg_cooldown)
@@ -734,10 +739,10 @@ public func AMP(bool statusOnly)
     ChargeBar->Set(this, RGB(77, 229, 0), BAR_Ammobar, true, "", SM11);
   }
   else
-    ChargeBar->Update(pItem->GetPackPoints() * 100 / pItem->MaxPoints(), false);
+  	ChargeBar->Update(pItem->GetPackPoints() * 100 / pItem->MaxPoints(), false);
 
   if(statusOnly)
-    return;
+  	return;
 
   //Zu wenig Punkte
   if(pItem->GetPackPoints() < 30)
@@ -804,11 +809,11 @@ public func FAP(bool statusOnly, int iEffectTime)
     ChargeBar->Set(this, RGB(77, 229, 0), BAR_Ammobar, true, "", SM13);
   }
   else
-    ChargeBar->Update(pItem->GetPackPoints() * 100 / pItem->MaxPoints(), false);
-
+  	ChargeBar->Update(pItem->GetPackPoints() * 100 / pItem->MaxPoints(), false);
+  
   if(statusOnly)
   	return;
-
+  
   //Da weiter unten ein return ist, muss diese if-Anweisung oben stehen, sonst regeneriert das EHP nicht
   if(!(iEffectTime % 60))
     pItem->DoPackPoints(2);
