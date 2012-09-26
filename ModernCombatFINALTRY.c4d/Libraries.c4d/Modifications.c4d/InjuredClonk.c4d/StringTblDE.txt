@@ -28,7 +28,7 @@ NONE5=Lege dich mit [<c 33ccff>Doppelstop</c> + <c 33ccff>Graben</c>] hin um vor
 NONE6=<c 33ccff>Bewachen</c> im Kontext lässt den Clonk unter anderem sehr viel schneller automatisch Schwerverletzte durchsuchen und reanimieren.
 NONE7=Du kannst Sanitätern signalisieren, das du eine Reanimation nicht willst, indem du <c 33ccff>Reanimation ist erlaubt</c> im Kontextmenü anwählst.
 NONE8=Pistolen und Revolver lassen sich immer <c 33ccff>schneller</c> ziehen als jedwede andere Waffe nachladen.
-NONE9=Die Maschinenkanone eines Blackhawks schwenkt sich mit [<c 33ccff>Links</c>/<c 33ccff>Rechts</c>], stoppt mit [<c 33ccff>Stop</c>] und lädt mit [<c 33ccff>Springen</c>].
+NONE9=Die Bewaffnung von Helikoptern schwenkt sich mit [<c 33ccff>Links</c>/<c 33ccff>Rechts</c>], stoppt mit [<c 33ccff>Stop</c>] und lädt mit [<c 33ccff>Springen</c>].
 NONE10=Ein Kolbenschlag verursacht bei liegenden Feinden [<c 33ccff>zusätzlichen</c>] Schaden und zwingt sie zudem, aufzustehen.
 
 #Waffen
