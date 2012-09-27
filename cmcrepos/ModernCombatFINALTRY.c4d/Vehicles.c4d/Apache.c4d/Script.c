@@ -399,6 +399,7 @@ public func EnterSeat(int iSeat, object pObj)
     {
       //Besitz ergreifen
       SetOwnerFade(GetOwner(pObj));
+      SetOwner(GetOwner(pObj), pEntrance);
     }
     SetGraphics("Pilot", this, GetID(), BKHK_PilotLayer, GFXOV_MODE_ExtraGraphics, 0, GFX_BLIT_Custom, this);
     GetPilot() = pObj;
