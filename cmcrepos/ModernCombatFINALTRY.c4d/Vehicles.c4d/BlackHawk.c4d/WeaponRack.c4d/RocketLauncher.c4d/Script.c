@@ -119,7 +119,7 @@ public func LaunchRocket(id rid, int angle)
       		RandomX(40,70),RGBa(220,200,180,0),0,0);
     }
   }
-  Echo("RTLR_Echo.ogg");
+  LocalN("heli", Contained())->Echo("RTLR_Echo.ogg");
 }
 
 /* Raketenverfolgung */
