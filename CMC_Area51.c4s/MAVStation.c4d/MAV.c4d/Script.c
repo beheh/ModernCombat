@@ -428,7 +428,7 @@ public func OnDmg(int iDmg, int iType)
   if(iType == DMG_Melee)	return 0 + 50 * (iItemType == 4);	//Melee
   if(iType == DMG_Fire)		return 40 + 24 * (iItemType == 4);	//Feuer
   if(iType == DMG_Energy)	return 40 + 24 * (iItemType == 4);	//Energiewaffen
-  if(iType == DMG_Projectile)	return 50 + 25 * (iItemType == 4);	//Kugeln
+  if(iType == DMG_Projectile)	return 70 + 15 * (iItemType == 4);	//Kugeln
   if(iType == DMG_Explosion)	return 0 + 50 * (iItemType == 4);	//Explosionen
 
   return 50 + 25 * (iItemType == 4);
@@ -437,9 +437,9 @@ public func OnDmg(int iDmg, int iType)
 public func OnHit(int iDmg, int iType, object pBy)
 {
   _inherited();
-
-  iXDir-= Sin(Angle(GetX(), GetY(), GetX(pBy), GetY(pBy)), iDmg*2);
-  iYDir+= Cos(Angle(GetX(), GetY(), GetX(pBy), GetY(pBy)), iDmg*2);
+  
+  iXDir-= Sin(Angle(GetX(), GetY(), GetX(pBy), GetY(pBy)), BoundBy(iDmg*3/2, 10, 40));
+  iYDir+= Cos(Angle(GetX(), GetY(), GetX(pBy), GetY(pBy)), BoundBy(iDmg*3/2, 10, 40));
   return true;
 }
 
@@ -1175,18 +1175,18 @@ public func ControlThrow(pByObj)
     if(GetID(pTemp) == CDBT) iTemp = 6;
     if(GetID(pTemp) == BTBG)
     {
-      iTemp = 5;
-      pTemp->DoPackPoints(-1);
-
-      //Packs dürfen nicht mergen
-      if(iItemType == 5)
-        Exit(pItem);
-
-      //Das alte Pack wird beim User gelassen und ein neues mit einer Sprengfallentasche als Inhalt erstellt
-      pTemp = CreateObject(BTBG);
-      pTemp->SetPackPoints(1);
-    }
-
+			iTemp = 5;
+			pTemp->DoPackPoints(-1);
+			
+			//Packs dürfen nicht mergen
+			if(iItemType == 5)
+				Exit(pItem);
+			
+			//Das alte Pack wird beim User gelassen und ein neues mit einer Claymore als Inhalt erstellt
+			pTemp = CreateObject(BTBG);
+			pTemp->SetPackPoints(1);
+		}
+		
     //Nicht dabei? Ablehnen
     if(!iTemp)
     {
