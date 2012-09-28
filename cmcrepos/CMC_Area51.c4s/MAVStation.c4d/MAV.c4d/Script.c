@@ -437,7 +437,7 @@ public func OnDmg(int iDmg, int iType)
 public func OnHit(int iDmg, int iType, object pBy)
 {
   _inherited();
-  
+
   iXDir-= Sin(Angle(GetX(), GetY(), GetX(pBy), GetY(pBy)), iDmg*2);
   iYDir+= Cos(Angle(GetX(), GetY(), GetX(pBy), GetY(pBy)), iDmg*2);
   return true;
@@ -1175,18 +1175,18 @@ public func ControlThrow(pByObj)
     if(GetID(pTemp) == CDBT) iTemp = 6;
     if(GetID(pTemp) == BTBG)
     {
-			iTemp = 5;
-			pTemp->DoPackPoints(-1);
-			
-			//Packs dürfen nicht mergen
-			if(iItemType == 5)
-				Exit(pItem);
-			
-			//Das alte Pack wird beim User gelassen und ein neues mit einer Claymore als Inhalt erstellt
-			pTemp = CreateObject(BTBG);
-			pTemp->SetPackPoints(1);
-		}
-		
+      iTemp = 5;
+      pTemp->DoPackPoints(-1);
+
+      //Packs dürfen nicht mergen
+      if(iItemType == 5)
+        Exit(pItem);
+
+      //Das alte Pack wird beim User gelassen und ein neues mit einer Sprengfallentasche als Inhalt erstellt
+      pTemp = CreateObject(BTBG);
+      pTemp->SetPackPoints(1);
+    }
+
     //Nicht dabei? Ablehnen
     if(!iTemp)
     {
