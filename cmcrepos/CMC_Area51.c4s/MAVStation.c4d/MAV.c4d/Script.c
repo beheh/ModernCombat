@@ -434,6 +434,15 @@ public func OnDmg(int iDmg, int iType)
   return 50 + 25 * (iItemType == 4);
 }
 
+public func OnHit(int iDmg, int iType, object pBy)
+{
+  _inherited();
+  
+  iXDir-= Sin(Angle(GetX(), GetY(), GetX(pBy), GetY(pBy)), iDmg*2);
+  iYDir+= Cos(Angle(GetX(), GetY(), GetX(pBy), GetY(pBy)), iDmg*2);
+  return true;
+}
+
 /* Zerstörung */
 
 public func OnDestruction()
