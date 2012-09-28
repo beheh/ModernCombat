@@ -33,7 +33,7 @@ public func UpdateCharge()				{return 1;}
 public func GetAttWeapon()				{return cur_Attachment;}
 public func IsAiming()					{return fIsAiming;}
 public func GetLaser()					{return pLaser;}
-public func Sgn(int x)					{if (x < 0) return x / x * -1; return x / x;}
+public func Sgn(int x)					{if (x < 0) return -1; if (x > 0) return 1; return 0;}
 public func IsMAV()					{return true;}
 public func MaxDamage()					{return 60;}
 public func IsRepairable()				{return !fDestroyed;}
@@ -1163,9 +1163,21 @@ public func ControlThrow(pByObj)
     if(GetID(pTemp) == FAPK) iTemp = 2;
     if(GetID(pTemp) == BWTH) iTemp = 3;
     if(GetID(pTemp) == RSHL) iTemp = 4;
-    if(GetID(pTemp) == BBTP) iTemp = 5;
     if(GetID(pTemp) == CDBT) iTemp = 6;
-
+    if(GetID(pTemp) == BTBG)
+    {
+			iTemp = 5;
+			pTemp->DoPackPoints(-1);
+			
+			//Packs dürfen nicht mergen
+			if(iItemType == 5)
+				Exit(pItem);
+			
+			//Das alte Pack wird beim User gelassen und ein neues mit einer Claymore als Inhalt erstellt
+			pTemp = CreateObject(BTBG);
+			pTemp->SetPackPoints(1);
+		}
+		
     //Nicht dabei? Ablehnen
     if(!iTemp)
     {
