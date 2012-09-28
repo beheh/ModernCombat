@@ -1176,20 +1176,20 @@ public func ControlThrow(pByObj)
     if(GetID(pTemp) == CDBT) iTemp = 6;
     if(GetID(pTemp) == BTBG)
     {
-			iTemp = 5;
-			pTemp->DoPackPoints(-1);
-			if(!pTemp->GetPackPoints())
-				RemoveObject(pTemp);
-			
-			//Packs dürfen nicht mergen
-			if(iItemType == 5)
-				Exit(pItem);
-			
-			//Das alte Pack wird beim User gelassen und ein neues mit einer Claymore als Inhalt erstellt
-			pTemp = CreateObject(BTBG);
-			pTemp->SetPackPoints(1);
-		}
-		
+      iTemp = 5;
+      pTemp->DoPackPoints(-1);
+      if(!pTemp->GetPackPoints())
+        RemoveObject(pTemp);
+
+      //Packs dürfen nicht mergen
+      if(iItemType == 5)
+        Exit(pItem);
+
+      //Das alte Pack wird beim User gelassen und ein neues mit einer Sprengfallentasche als Inhalt erstellt
+      pTemp = CreateObject(BTBG);
+      pTemp->SetPackPoints(1);
+    }
+
     //Nicht dabei? Ablehnen
     if(!iTemp)
     {
