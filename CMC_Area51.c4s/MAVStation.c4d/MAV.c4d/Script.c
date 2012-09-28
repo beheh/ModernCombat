@@ -42,6 +42,7 @@ public func MeleeHit(object pWeapon)			{return DoDmg(MaxDamage()+1, DMG_Melee, t
 public func SensorDistance()				{return 190;}
 public func IsActive()					{return GetAction(this) == "Flying";}
 public func TeamSupportRange()				{return 80;}
+public func RejectC4Attach()		{return iC4Count >= 3;}
 
 public func MaxRotLeft()
 {
