@@ -387,11 +387,18 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
       Sound("BKHK_RotorHit*.ogg");
       strike = true;
     }
+    
+		var xOff = GetDefCoreVal("Offset", "DefCore", MAVE, 0);
+    var yOff = GetDefCoreVal("Offset", "DefCore", MAVE, 1);
 
     if(target = FindObject2(Find_Func("IsMeleeTarget", this),
-    		Find_AtRect(-10 + iXDir/2, -10 + iYDir/2, 10 + iXDir/2, -10 + iYDir/2)))
+    		Find_AtRect(-xOff, -yOff, xOff, -yOff)))
     {
       DoDmg(20, DMG_Melee, target, 0, GetController(this)+1, GetID());
+      if(target->IsMAV())
+      	target->DoDmg(20, DMG_Melee, this, 0, GetController(target)+1, GetID(target));
+      AddEffect("MeleeCooldown", this, 1, 30);
+      AddEffect("MeleeCooldown", target, 1, 30);
 
       if(!strike)
       {

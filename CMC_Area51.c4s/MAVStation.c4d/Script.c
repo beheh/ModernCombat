@@ -115,7 +115,7 @@ public func FxActivityTimer(object pTarget, int iEffectNumber, int iEffectTime)
     return;
   }
 
-  if(GetAction() == "Controlling" && pMav->IsDestroyed())
+  if(GetAction() == "Controlling" && (!pMav || pMav->IsDestroyed()))
   {
     SetPlrView(GetOwner(controller), controller);
     Sound("BKHK_SwitchFail.ogg", true, this, 100, GetOwner(controller) + 1);
