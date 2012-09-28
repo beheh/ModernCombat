@@ -1216,7 +1216,7 @@ public func ControlThrow(pByObj)
     //Nicht dabei? Ablehnen
     if(!iTemp)
     {
-      PlayerMessage(GetOwner(pByObj), "$InvalidItem$", this);
+      PlayerMessage(GetOwner(pByObj), "$InvalidItem$", pByObj);
       return false;
     }
 
