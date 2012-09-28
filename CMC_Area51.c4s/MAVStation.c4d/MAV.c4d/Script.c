@@ -133,6 +133,8 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
     iYDir += Sin(iEffectTime * 8, 2);
 
   //C4 verlangsamt den Flug
+  CountC4();
+  
   SetXDir(iXDir - (iC4Count) * 10 * iXDir / iSpeed);
 
   if(iYDir<=0)
@@ -171,13 +173,11 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
     CreateParticle("FlashLight", 0, 4, 0, 0 , 45, rgb, this);
   }
 
-  //Nachladen, C4 prüfen und SensorChecks (alle 5 Frames)
+  //Nachladen und SensorChecks (alle 5 Frames)
   if(!(iEffectTime % 5))
   {
     if((GetAmmo(GetAttWeapon()->GetFMData(FM_AmmoID), GetAttWeapon()) < GetAttWeapon()->GetFMData(FM_AmmoUsage)) && !GetAttWeapon()->IsReloading())
       Reload();
-
-		CountC4();
 
     //Sicherheitsprüfung
     if(!pItem || Contained(pItem) != this)
@@ -1165,6 +1165,30 @@ public func ControlThrow(pByObj)
     var pTemp = Contents(0, pByObj);
     if(!pTemp || Hostile(GetOwner(this), GetOwner(pByObj)))
       return false;
+      
+    //Zünder; C4 wird automatisch an das MAV geklebt
+    if(GetID(pTemp) == C4PA && pTemp->GetPackPoints() && !GetEffect("IntC4Cooldown", pTemp) && !RejectC4Attach())
+    {
+    	pTemp->DoPackPoints(-1);
+    	AddEffect("IntC4Cooldown", pTemp, 1, C4PA_Cooldown, pTemp);
+    	
+    	var xOff = GetDefCoreVal("Offset", "DefCore", MAVE, 0);
+    	var yOff = GetDefCoreVal("Offset", "DefCore", MAVE, 1);
+    	var pC4 = CreateObject(C4EX, RandomX(-xOff, xOff), RandomX(-yOff, yOff), GetOwner(pTemp));
+    	pC4->SetR(Random(360));
+    	pC4->SetActive(pTemp);
+    	
+    	LocalN("pStickTo", pC4) = this;
+      LocalN("iStickXOffset", pC4) = GetX(pC4)-GetX();
+      LocalN("iStickYOffset", pC4) = GetY(pC4)-GetY();
+      LocalN("iStickROffset", pC4) = GetR(pC4)-GetR();
+      LocalN("iPreviousCategory", pC4) = GetCategory(pC4);
+      SetCategory(C4D_Vehicle, pC4);
+      pC4->SetObjectOrder(this, pC4);
+      pC4->SetRDir();
+      pC4->Sound("C4EX_Attach.ogg");
+      return true;
+    }
 
     //Vorhandene MAV-Modifizierungen durchsuchen
     var iTemp = 0;
