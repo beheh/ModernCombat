@@ -428,7 +428,7 @@ public func OnDmg(int iDmg, int iType)
   if(iType == DMG_Melee)	return 0 + 50 * (iItemType == 4);	//Melee
   if(iType == DMG_Fire)		return 40 + 24 * (iItemType == 4);	//Feuer
   if(iType == DMG_Energy)	return 40 + 24 * (iItemType == 4);	//Energiewaffen
-  if(iType == DMG_Projectile)	return 70 + 15 * (iItemType == 4);	//Kugeln
+  if(iType == DMG_Projectile)	return 55 + 23 * (iItemType == 4);	//Kugeln
   if(iType == DMG_Explosion)	return 0 + 50 * (iItemType == 4);	//Explosionen
 
   return 50 + 25 * (iItemType == 4);
@@ -577,6 +577,7 @@ public func ShockPaddles()
   //Schwerverletzte und Feinde suchen
   if(pItem->Ready() && 
   	 FindObject2(Find_AtPoint(0 - iXDir/5 - Sgn(iXDir), 0 - iYDir/5 - Sgn(iYDir)),
+  							 Find_OCF(OCF_NotContained),
   							 Find_Or(
   							 Find_And(Find_ID(FKDT),		//Schwerverletzter?
   							 Find_Allied(GetOwner())),	//Verbündet?
@@ -1175,18 +1176,20 @@ public func ControlThrow(pByObj)
     if(GetID(pTemp) == CDBT) iTemp = 6;
     if(GetID(pTemp) == BTBG)
     {
-      iTemp = 5;
-      pTemp->DoPackPoints(-1);
-
-      //Packs dürfen nicht mergen
-      if(iItemType == 5)
-        Exit(pItem);
-
-      //Das alte Pack wird beim User gelassen und ein neues mit einer Sprengfallentasche als Inhalt erstellt
-      pTemp = CreateObject(BTBG);
-      pTemp->SetPackPoints(1);
-    }
-
+			iTemp = 5;
+			pTemp->DoPackPoints(-1);
+			if(!pTemp->GetPackPoints())
+				RemoveObject(pTemp);
+			
+			//Packs dürfen nicht mergen
+			if(iItemType == 5)
+				Exit(pItem);
+			
+			//Das alte Pack wird beim User gelassen und ein neues mit einer Claymore als Inhalt erstellt
+			pTemp = CreateObject(BTBG);
+			pTemp->SetPackPoints(1);
+		}
+		
     //Nicht dabei? Ablehnen
     if(!iTemp)
     {
