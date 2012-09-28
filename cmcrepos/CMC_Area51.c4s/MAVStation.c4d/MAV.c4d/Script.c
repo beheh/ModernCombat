@@ -42,7 +42,7 @@ public func MeleeHit(object pWeapon)			{return DoDmg(MaxDamage()+1, DMG_Melee, t
 public func SensorDistance()				{return 190;}
 public func IsActive()					{return GetAction(this) == "Flying";}
 public func TeamSupportRange()				{return 80;}
-public func RejectC4Attach()		{return iC4Count >= 3;}
+public func RejectC4Attach()		{iC4Count++; return iC4Count > 3;}
 
 public func MaxRotLeft()
 {
@@ -177,15 +177,7 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
     if((GetAmmo(GetAttWeapon()->GetFMData(FM_AmmoID), GetAttWeapon()) < GetAttWeapon()->GetFMData(FM_AmmoUsage)) && !GetAttWeapon()->IsReloading())
       Reload();
 
-    //Vorhandenes C4 zählen
-    iC4Count = 0;
-
-    for(var pC4 in FindObjects(Find_Distance(50, 0, 0), Find_Func("IsC4Explosive")))
-    {
-      if(LocalN("pStickTo",pC4) != this)
-        continue;
-      iC4Count++;
-    }
+		CountC4();
 
     //Sicherheitsprüfung
     if(!pItem || Contained(pItem) != this)
@@ -874,7 +866,13 @@ public func FxWaitTimer(object pTarget, int iEffectNumber, int iEffectTime)
     return;
   }
   DamageChecks();
-  if((iItemType == 0) && (GetOwner() != -1) && !(iEffectTime % 25)) Sense();
+  
+  if(!(iEffectTime % 5)) 
+  {
+  	CountC4();
+  	if((iItemType == 0) && (GetOwner() != -1) && !(iEffectTime % 25))
+  		Sense();
+  }
 }
 
 public func Start()
@@ -1177,20 +1175,20 @@ public func ControlThrow(pByObj)
     if(GetID(pTemp) == CDBT) iTemp = 6;
     if(GetID(pTemp) == BTBG)
     {
-      iTemp = 5;
-      pTemp->DoPackPoints(-1);
-      if(!pTemp->GetPackPoints())
-        RemoveObject(pTemp);
-
-      //Packs dürfen nicht mergen
-      if(iItemType == 5)
-        Exit(pItem);
-
-      //Das alte Pack wird beim User gelassen und ein neues mit einer Sprengfallentasche als Inhalt erstellt
-      pTemp = CreateObject(BTBG);
-      pTemp->SetPackPoints(1);
-    }
-
+			iTemp = 5;
+			pTemp->DoPackPoints(-1);
+			if(!pTemp->GetPackPoints())
+				RemoveObject(pTemp);
+			
+			//Packs dürfen nicht mergen
+			if(iItemType == 5)
+				Exit(pItem);
+			
+			//Das alte Pack wird beim User gelassen und ein neues mit einer Claymore als Inhalt erstellt
+			pTemp = CreateObject(BTBG);
+			pTemp->SetPackPoints(1);
+		}
+		
     //Nicht dabei? Ablehnen
     if(!iTemp)
     {
@@ -1531,4 +1529,17 @@ protected func Hit2()
 {
   //Effekte
   Sound("HeavyHit*.ogg");
+}
+
+protected func CountC4()
+{
+	//Vorhandenes C4 zählen
+  iC4Count = 0;
+
+  for(var pC4 in FindObjects(Find_Distance(50, 0, 0), Find_Func("IsC4Explosive")))
+  {
+    if(LocalN("pStickTo",pC4) != this)
+      continue;
+    iC4Count++;
+  }
 }
