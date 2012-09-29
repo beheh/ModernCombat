@@ -997,6 +997,9 @@ private func Shoot(object caller)
   else
     Call(Format("Fire%d",firemode));
   DoSpread(+GetFMData(FM_SpreadAdd));
+  
+  if(GetFMData(FM_Auto))
+    shooting = true;
 
   //Munition abziehen
   if(ratecount == 1)
