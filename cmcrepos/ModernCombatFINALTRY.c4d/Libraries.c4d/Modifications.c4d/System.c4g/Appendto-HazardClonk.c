@@ -9,9 +9,9 @@ local aCollected;
 local pHUDTarget;
 local iGrenadeCount;
 
-public func IsHealing()		{return WildcardMatch(GetAction(), "*Heal*");}
-public func MaxGrenades()	{return 4;}					//Maximal im Inventar und Gürtel tragbare Granaten
-
+public func IsHealing()			{return WildcardMatch(GetAction(), "*Heal*");}
+public func MaxGrenades()		{return 4;}					//Maximal im Inventar und Gürtel tragbare Granaten
+public func DeathAnimationCount()	{return 0;}					//Anzahl Todesanimationen
 
 /*----- Initialisierung -----*/
 
@@ -27,6 +27,15 @@ public func Initialize()
 public func SetHUDTarget(pTarget)
 {
   pHUDTarget = pTarget;
+}
+
+/*----- Zufällige Todesanimation -----*/
+
+public func ChangeDeathAnim()
+{
+  var rnd = Random(DeathAnimationCount());
+  SetAction(Format("CMC_Dead%d", rnd), GetActionTarget(), GetActionTarget(1));
+  return true;
 }
 
 /*----- Steuerung -----*/

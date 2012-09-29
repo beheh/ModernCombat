@@ -43,6 +43,7 @@ public func OnSingleReloadStop(int iSlot)				{}
 public func OnPrepareReloadStop(int iSlot)				{}
 public func OnFinishReloadStart(int iSlot)				{}
 public func OnFireStop(int iSlot)					{}
+public func NeedBotControl()						{return false;}	//KI-Kontrolle
 
 
 /*----- Initialisierung -----*/
@@ -606,13 +607,6 @@ public func IsReloading(int iSlot)
     if(EffectVar(2,this,GetEffect("Reload",this,i))==iSlot)
       return GetEffect("Reload",this,i);
   }
-}
-
-/* Muss gesteuert werden (-> Für KI) */
-
-public func NeedBotControl()
-{
-	return false;
 }
 
 /*----- Waffe nachladen -----*/

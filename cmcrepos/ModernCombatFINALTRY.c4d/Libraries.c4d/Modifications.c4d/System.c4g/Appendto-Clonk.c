@@ -692,7 +692,7 @@ global func FxFakeDeathDamage(object pTarget, int iEffectNumber, int iDmgEngy, i
 
 func Death()
 {
-	var pTarget = this;
+  var pTarget = this;
   if(!pTarget) return;
 
   //Achievements

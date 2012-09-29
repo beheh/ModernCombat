@@ -62,10 +62,10 @@ public func FxIntMouseAimingTimer(object pTarget, int iEffectNumber, int iEffect
   var dir = +1;
   if(end < cur)
     dir = -1;
-   
+
   var speed = EffectVar(2, pTarget, iEffectNumber);
   if(!speed)
-  	speed = this->~AimStep() / 5;
+    speed = this->~AimStep() / 5;
 
   var change = dir * Min(speed, Abs(end - cur));
 

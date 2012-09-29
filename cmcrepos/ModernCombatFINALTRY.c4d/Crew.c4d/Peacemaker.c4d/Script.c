@@ -7,6 +7,7 @@ static const PCMK_PortraitVersion = 150;
 
 public func WeaponCollectionLimit()	{return 3;}	//Anzahl Waffen im Inventar
 public func ObjectCollectionLimit()	{return 2;}	//Anzahl Objekte im Inventar
+public func DeathAnimationCount()	{return 6;}	//Anzahl Todesanimationen
 
 
 /* Portrait-Updates */
@@ -19,212 +20,232 @@ protected func Recruitment()
     SetCrewExtraData(this, "CMC_Portrait", PCMK_PortraitVersion);
     if(id != CLNK)
       SetPortrait("random", this, GetID(), true, true);
-    else //ggf. zurücksetzen
+    else
+      //Gegebenenfalls zurücksetzen
       SetPortrait("random", this, id, true, true);
-	}
+  }
 
-	return _inherited(...);
+  return _inherited(...);
 }
 
 public func CanUse(id idObj)
 {
-	if (idObj == HARM)
-		return;
-	return _inherited(idObj, ...);
+  if(idObj == HARM)
+    return;
+  return _inherited(idObj, ...);
 }
 
 private func AbortWalk()
 {
-	if (GetAction() == "Dive")
-	{
-		var c = Contents();
-		if (c)
-		{
-			if ((c->~IsWeapon() && !c->~GetFMData(FM_Aim)) || c->~IsGrenade())
-				SetAction("Jump");
-		}
-	}
+  if(GetAction() == "Dive")
+  {
+    var c = Contents();
+    if(c)
+    {
+      if((c->~IsWeapon() && !c->~GetFMData(FM_Aim)) || c->~IsGrenade())
+        SetAction("Jump");
+    }
+  }
 }
 
 protected func ContactBottom()
 {
-	return;
+  return;
 }
 
 /* KI-Erweiterung */
 
+/* Schwerverletzte suchen */
+
 public func GetReanimationTarget(pFrom, & body, & defi, fUnderAttack)
 {
-	var olddefi, distance = 200;
-	if (fUnderAttack)
+  var olddefi, distance = 200;
+  if(fUnderAttack)
     distance = 50;
-	body = FindObject2(Find_Func("IsFakeDeath"), Find_Category(C4D_Living), Find_Distance(distance, AbsX(GetX(pFrom)), AbsY(GetY(pFrom))), Find_Allied(GetOwner(pFrom)), Sort_Distance(AbsX(GetX(pFrom)), AbsY(GetY(pFrom))));
-	if(body && Contained(body) && !(Contained(body)->~RejectReanimation()))
-	{
-		if (ContentsCount(CDBT, pFrom))
-		{
-			defi = FindObject2(Find_ID(CDBT), Find_Container(pFrom));
-			if (!defi->~Ready())
-			{
-				olddefi = defi;
-			}
-		}
-		if (!defi)
-			defi = FindObject2(Find_ID(CDBT), Find_Or(Find_Container(Contained(body)), Find_Container(pFrom), Find_NoContainer()), Find_Func("Ready"), Find_Distance(distance, AbsX(GetX(pFrom)), AbsY(GetY(pFrom))), Sort_Distance(AbsX(GetX(pFrom)), AbsY(GetY(pFrom))));
-		if (defi)
-		{
-			if(olddefi) {
-				pFrom->~DropObject(olddefi);
-			}
-			return true;
-		}
-	}
-	body = false;
-	return false;
+  body = FindObject2(Find_Func("IsFakeDeath"), Find_Category(C4D_Living), Find_Distance(distance, AbsX(GetX(pFrom)), AbsY(GetY(pFrom))), Find_Allied(GetOwner(pFrom)), Sort_Distance(AbsX(GetX(pFrom)), AbsY(GetY(pFrom))));
+  if(body && Contained(body) && !(Contained(body)->~RejectReanimation()))
+  {
+    //Defibrillator zum Reanimieren suchen
+    if(ContentsCount(CDBT, pFrom))
+    {
+      defi = FindObject2(Find_ID(CDBT), Find_Container(pFrom));
+      if(!defi->~Ready())
+      {
+        olddefi = defi;
+      }
+    }
+    if(!defi)
+      defi = FindObject2(Find_ID(CDBT), Find_Or(Find_Container(Contained(body)), Find_Container(pFrom), Find_NoContainer()), Find_Func("Ready"), Find_Distance(distance, AbsX(GetX(pFrom)), AbsY(GetY(pFrom))), Sort_Distance(AbsX(GetX(pFrom)), AbsY(GetY(pFrom))));
+    if(defi)
+    {
+      if(olddefi)
+      {
+        pFrom->~DropObject(olddefi);
+      }
+      return true;
+    }
+  }
+  body = false;
+  return false;
 }
+
+/* Allgemeine Aufgabensuche */
 
 public func FxAggroTimer(object pTarget, int no)
 {
-	if (Contained())
-		return;
-		
-	//Sicht versperrt?
-	var srgb;
-	if((srgb = GetScreenRGB(GetOwner(), SR4K_LayerLight)) || (srgb = GetScreenRGB(GetOwner(), SR4K_LayerSmoke)))
-	{
-		var a = srgb->GetAlpha();
-		if(a < 200)
-		{
-			if(Contents()->~IsWeapon() && Contents()->~IsShooting())
-				Contents()->StopAutoFire();
-			
-			return;
-		}
-	}
-		
-	// Hilfsbedürftige in der Nähe?
-	var body, defi;
-	if(GetPlayerViewAlpha(GetOwner()) > 0) {
-  	GetReanimationTarget(pTarget, body, defi, EffectVar(1, this, no)); //Checkt auch nach Defi
-  	if (body)
-  	{
-  		if (IsAiming())
-  			StopAiming();
-  		if (Contents() == defi && GetProcedure(pTarget) && ObjectDistance(body, pTarget) < 10)
-  		{
+  //Abbrechen wenn verschachtelt
+  if(Contained())
+    return;
+
+  //Keine Aktionen wenn geblendet
+  var srgb;
+  if((srgb = GetScreenRGB(GetOwner(), SR4K_LayerLight)) || (srgb = GetScreenRGB(GetOwner(), SR4K_LayerSmoke)))
+  {
+    var a = srgb->GetAlpha();
+    if(a < 200)
+    {
+      if(Contents()->~IsWeapon() && Contents()->~IsShooting())
+        Contents()->StopAutoFire();
+
+      return;
+    }
+  }
+
+  //Hilfsbedürftige in der Nähe?
+  var body, defi;
+  if(GetPlayerViewAlpha(GetOwner()) > 0)
+  {
+    //Schwerverletzte suchen
+    GetReanimationTarget(pTarget, body, defi, EffectVar(1, this, no));
+    if(body)
+    {
+      //Eventuelles Zielen einstellen
+      if(IsAiming())
+        StopAiming();
+      if(Contents() == defi && GetProcedure(pTarget) && ObjectDistance(body, pTarget) < 10)
+      {
         defi->Activate(this);
-  			return;
-  		}
-  		else 
-  		{
-  			if (!Contained(defi) || Contained(defi) != pTarget)
-  			{
-  				if (GetCommand(pTarget) != "Get")
-  					SetCommand(pTarget, "Get", defi);
-  			}
-  			else if (Contents() != defi)
-  			{
-  				ShiftContents(pTarget, 0, CDBT, true);
-  			}
-  			else 
-  			{
-  				SetMacroCommand(pTarget, "MoveTo", body, 0, 0, 0, EffectVar(0, pTarget, no));
-  			}
-  			return 1;
-  		}
-  	}
-  	// Verletzt?
-  	if (!pTarget->~IsHealing() && pTarget->GetEnergy() < pTarget->GetPhysical("Energy") * 2 / 3 / 1000)
-  	{
-  		if (!ContentsCount(DGNN, pTarget) && ContentsCount(FAPK, pTarget))
-  		{
-  			var pFAP = FindObject2(Find_ID(FAPK), Find_Container(pTarget), Find_Func("CanUnpack", pTarget));
-  			if (pFAP)
-  				pFAP->ControlThrow(pTarget);
-  		}
-  		var pDragnin = FindObject2(Find_ID(DGNN), Find_Container(pTarget));
-  		if (pDragnin)
-  			pDragnin->Activate(pTarget);
-  	}
-  	// Weitere Verletzte?
-  	if(pTarget->~IsMedic()) {
-  		for (var friend in FindObjects(Find_OCF(OCF_Alive), Find_Exclude(pTarget), Find_Allied(GetOwner(pTarget)), Find_NoContainer(), Find_Distance(100, AbsX(GetX(pTarget)), AbsY(GetY(pTarget))), Sort_Distance(AbsX(GetX(pTarget)), AbsY(GetY(pTarget))))) 
-  		{
-  			if (!friend->~IsHealing() && (friend->GetEnergy() < friend->GetPhysical("Energy") * 2 / 3 / 1000 ))
-  			{
-  				if (!ContentsCount(DGNN, pTarget) && ContentsCount(FAPK, pTarget))
-  				{
-  					var pFAP = FindObject2(Find_ID(FAPK), Find_Container(pTarget), Find_Func("CanUnpack", pTarget));
-  					ShiftContents(pTarget, 0, FAPK, true);
-  					if (pFAP)
+        return;
+      }
+      else
+      {
+        if(!Contained(defi) || Contained(defi) != pTarget)
+        {
+          if(GetCommand(pTarget) != "Get")
+            SetCommand(pTarget, "Get", defi);
+        }
+        else if(Contents() != defi)
+        {
+          ShiftContents(pTarget, 0, CDBT, true);
+        }
+        else 
+        {
+          SetMacroCommand(pTarget, "MoveTo", body, 0, 0, 0, EffectVar(0, pTarget, no));
+        }
+        return 1;
+      }
+    }
+    //Verletzte suchen
+    if(!pTarget->~IsHealing() && pTarget->GetEnergy() < pTarget->GetPhysical("Energy") * 2 / 3 / 1000)
+    {
+      //EHP oder Dragnin suchen und einsetzen
+      if(!ContentsCount(DGNN, pTarget) && ContentsCount(FAPK, pTarget))
+      {
+        var pFAP = FindObject2(Find_ID(FAPK), Find_Container(pTarget), Find_Func("CanUnpack", pTarget));
+        if(pFAP)
+          pFAP->ControlThrow(pTarget);
+      }
+      var pDragnin = FindObject2(Find_ID(DGNN), Find_Container(pTarget));
+      if(pDragnin)
+        pDragnin->Activate(pTarget);
+    }
+    //Weitere Verletzte suchen
+    if(pTarget->~IsMedic())
+    {
+      for (var friend in FindObjects(Find_OCF(OCF_Alive), Find_Exclude(pTarget), Find_Allied(GetOwner(pTarget)), Find_NoContainer(), Find_Distance(100, AbsX(GetX(pTarget)), AbsY(GetY(pTarget))), Sort_Distance(AbsX(GetX(pTarget)), AbsY(GetY(pTarget))))) 
+      {
+        if(!friend->~IsHealing() && (friend->GetEnergy() < friend->GetPhysical("Energy") * 2 / 3 / 1000 ))
+        {
+          //EHP oder Dragnin suchen und einsetzen
+          if(!ContentsCount(DGNN, pTarget) && ContentsCount(FAPK, pTarget))
+          {
+            var pFAP = FindObject2(Find_ID(FAPK), Find_Container(pTarget), Find_Func("CanUnpack", pTarget));
+            ShiftContents(pTarget, 0, FAPK, true);
+            if(pFAP)
               pDragnin->ControlThrow(pTarget);
-  				}
-  				var pDragnin = FindObject2(Find_ID(DGNN), Find_Container(pTarget));
-  				if (pDragnin)
-  				{
-  					if (ObjectDistance(friend, pTarget) < 10)
-  					{
-  						pDragnin->ControlThrow(pTarget);
-  					}
-  					else 
-  					{
-  						SetMacroCommand(pTarget, "MoveTo", friend, 0, 0, 0, EffectVar(0, pTarget, no));
-  					}
-  				}
-  				break;
-  			}
-  		}
-  	}
-	}
-	// Ziel vorhanden?
-  if(EffectVar(1, this, no)) { EffectCall(this, no, "Fire"); return true; }
-	// Zielen beenden
-	if (IsAiming())
-		StopAiming();
-	// Ziel suchen
-	var dir = GetDir() * 2 - 1;
-	// Vorne
-	var target = GetTarget(90 * dir, 90);
-	// Hinten
-	if (!target)
-		if ((!GetCommand() && !GetMacroCommand()) || EffectVar(0, this, no) != 1)
-			target = GetTarget(-90 * dir, 90);
-	// Gefunden?
-	if (!target)
-	{
-		if (EffectVar(99, this, no))
-		{
-			if (Contained())
-				Contained()->~HandleAggroFinished(this);
-			else if (IsRiding())
-				GetActionTarget()->~HandleAggroFinished(this);
-			EffectVar(99, this, no);
-		}
-		// Kein Ziel gefunden, also andere Sachen tun
-		CheckIdleInventory();
-		CheckIdleWeapon();
-		return;
-	}
-	EffectVar(1, this, no) = target;
-	// Ziel vorhanden
-	EffectVar(99, this, no) = true;
+          }
+          var pDragnin = FindObject2(Find_ID(DGNN), Find_Container(pTarget));
+          if(pDragnin)
+          {
+            if(ObjectDistance(friend, pTarget) < 10)
+            {
+              pDragnin->ControlThrow(pTarget);
+            }
+            else 
+            {
+              SetMacroCommand(pTarget, "MoveTo", friend, 0, 0, 0, EffectVar(0, pTarget, no));
+            }
+          }
+          break;
+        }
+      }
+    }
+  }
+  //Ziel vorhanden?
+  if(EffectVar(1, this, no))
+  {
+    EffectCall(this, no, "Fire"); return true;
+  }
+  //Zielen beenden
+  if(IsAiming())
+    StopAiming();
+  //Ziel suchen
+  var dir = GetDir() * 2 - 1;
+  //Vorne
+  var target = GetTarget(90 * dir, 90);
+  //Hinten
+  if(!target)
+    if((!GetCommand() && !GetMacroCommand()) || EffectVar(0, this, no) != 1)
+      target = GetTarget(-90 * dir, 90);
+  //Gefunden?
+  if(!target)
+  {
+    if(EffectVar(99, this, no))
+    {
+      if(Contained())
+        Contained()->~HandleAggroFinished(this);
+      else if(IsRiding())
+        GetActionTarget()->~HandleAggroFinished(this);
+      EffectVar(99, this, no);
+    }
+    //Kein Ziel gefunden: Andere Aufgaben suchen
+    CheckIdleInventory();
+    CheckIdleWeapon();
+    return;
+  }
+  EffectVar(1, this, no) = target;
+  //Ziel vorhanden
+  EffectVar(99, this, no) = true;
 }
 
-//Wie haben nichts zu tun und spielen mit dem Inventar rum
+/* Inventar-Aktionen bei Inaktivität */
+
 public func CheckIdleInventory()
 {
   for(var i=0,obj ; obj = Contents(i) ; i++)
   {
-  	// Irgendwas spezielles?
+    //Irgendwas spezielles?
     var result = obj->~AI_IdleInventory(this);
-    if(result) {
-    	if(result > 1) break;
+    if(result)
+    {
+      if(result > 1)
+        break;
       continue;
     }
-    // Waffe
+    //Waffe
     if(obj->~IsWeapon())
       continue;
-    // Munition
+    //Munition
     if(obj->~IsAmmoPacket())
     {
       ActivateAmmo(obj);
@@ -236,22 +257,22 @@ public func CheckIdleInventory()
 
 public func FxAggroFire(object pTarget, int no)
 {
-  // Zusatzhack: BR-Bombe!
+  //Bei BR-Bombe nichts tun
   if(GetID(Contents()) == GBRB)
-    // Nichts tun :C
     return;
   if(Contents() && Contents()->~RejectShift())
     return;
-  // Nichts tun, wenn gerade verhindert
-  if(!ReadyToFire() && !(Contents()->~IsWeapon() && Contents()->GetFMData(FM_Aim) && ReadyToAim())) return;
+  //Nichts tun wenn gerade verhindert
+  if(!ReadyToFire() && !(Contents()->~IsWeapon() && Contents()->GetFMData(FM_Aim) && ReadyToAim()))
+    return;
   var y = EffectVar(4, this, no);
   var x = EffectVar(3, this, no);
   var dist = EffectVar(2, this, no);
   var target = EffectVar(1, this, no);
   var level = EffectVar(0, this, no);
   var pathfree = true;
-  
-  // Fahrzeugsteuerung
+
+  //Fahrzeugsteuerung
   if(Contained())
   {
     if(Contained()->~HandleAggro(this, level, target, dist, x, y))
@@ -266,9 +287,10 @@ public func FxAggroFire(object pTarget, int no)
     else
       return(SetAction("Walk"));
   }
-  
-  // Zu weit von der Wachposition entfernt?
-  if(level == 3) {
+
+  //Zu weit von der Wachposition entfernt?
+  if(level == 3)
+  {
     if(Distance(GetX(), GetY(), x, y) > dist)
     {
       if(GetMacroCommand(1, 1) == target)
@@ -281,7 +303,7 @@ public func FxAggroFire(object pTarget, int no)
       return;
     }
   }
-  
+
   var maxdist = dist;
   if(!PathFree(GetX(), GetY(), target->GetX(), target->GetY()))
   {
@@ -290,47 +312,48 @@ public func FxAggroFire(object pTarget, int no)
     pathfree = false;
     target = 0;
   }
-  
-  // Ziel irgendwie weg?
-  // (Pathfree wurde schon gecheckt)
-  if(!CheckTarget(target,this,maxdist,0,0,true))
-    {
-      EffectVar(1, this, no) = 0;
-      if(EffectVar(0, this, no) == 2)
-        ClearMacroCommands();
-      if(IsAiming())
-        StopAiming();
-      return;
-    }
 
-  /* Verziehen wir zu stark?
+  //Ziel verschwunden?
+  if(!CheckTarget(target,this,maxdist,0,0,true))
+  {
+    EffectVar(1, this, no) = 0;
+    if(EffectVar(0, this, no) == 2)
+      ClearMacroCommands();
+    if(IsAiming())
+      StopAiming();
+    return;
+  }
+
+  /*
+  //Verziehen wir zu stark?
   //Log("%d/%d", GetSpread(), ObjectDistance(target));
-  if(Contents()->~IsWeapon2() && GetSpread() > 100) return;//BoundBy(300 - ObjectDistance(target), 80, 280)) return;*/
-  
-  // Ich hab nix? °-°
-  if(!Contents()) return; // Lauf, Forest, lauf!
-  // Waffe in die Hand nehmen
+  if(Contents()->~IsWeapon2() && GetSpread() > 100) return;//BoundBy(300 - ObjectDistance(target), 80, 280)) return;
+  */
+
+  //Keine Ausrüstung?
+  if(!Contents())
+    return;
+  //Waffe in die Hand nehmen
   if(!SelectWeapon(level, target, false))
-    // Evtl. Feuermodus wechseln (dann muss erst nachgeladen werden, aber besser als nichts)
+    //Eventuell Feuermodus wechseln
     if(!SelectWeapon(level, target, true))
     {
-      // Bei Aggro_Follow können wir von unserem Pfade weg. D.h. eine Waffe und/oder Munition muss her
+      //Bei Aggro_Follow Waffe und/oder Munition besorgen
       if(GetAggroLevel() == Aggro_Follow)
       {
-//      Message("@Searching for weapons / ammo", this);
-        // Waffen auffrischen?
+        //Message("@Searching for weapons / ammo", this);
+        //Waffen auffrischen?
         if(CustomContentsCount("IsWeapon") <= 1)
           return(SearchWeapon(Aggro_Shoot));
-        // Munition auffrischen
+        //Munition auffrischen
         return(SearchAmmo(Aggro_Shoot));
       }
-      // ein Balrog, ein Feind gegen den ihr nichts ausrichten könnt...lauft!
       return;
     }
 
-  // Stufe 1 - nur in die grobe Richtung ballern, lieber nicht anhalten oder sowas
+  // Stufe 1 - nur in die grobe Richtung feuern
 
-  // Schaue ich in die richtige Richtung?
+  //Clonk entsprechend der Zielposition drehen
   if(GetX() < target->GetX())
   {
     if(GetDir() != DIR_Right)
@@ -342,178 +365,189 @@ public func FxAggroFire(object pTarget, int no)
       SetDir(DIR_Left);
   }
 
-  // Zielen, muss auch mal sein
- if((((!GetCommand() && !GetMacroCommand()) || level != 1) && ReadyToAim()) || IsAiming())
- {
-  if(pathfree && Contents()->GetBotData(BOT_Range) > 30) // Weg frei und keine Nahkampfwaffe?
+  //Ziel anvisieren
+  if((((!GetCommand() && !GetMacroCommand()) || level != 1) && ReadyToAim()) || IsAiming())
   {
-    var angle1 = Angle(GetX(), GetY(), GetX(target), GetY(target)+GetDefHeight(GetID(target))/2)-GetSpread()/50;
-    var angle2 = Angle(GetX(), GetY(), GetX(target), GetY(target)-GetDefHeight(GetID(target))/2)+GetSpread()/50;
-    if(Contents()->GetBotData(BOT_Ballistic) || ((!Inside(90, angle1, angle2) && !Inside(270, angle1, angle2)) || Contents()->GetFMData(FM_Aim) > 0))
+    if(pathfree && Contents()->GetBotData(BOT_Range) > 30) // Weg frei und keine Nahkampfwaffe?
     {
-      if(!IsAiming()) StartSquatAiming();
-   		if(IsAiming() && !Contents()->~NeedBotControl(this, target))
+      var angle1 = Angle(GetX(), GetY(), GetX(target), GetY(target)+GetDefHeight(GetID(target))/2)-GetSpread()/50;
+      var angle2 = Angle(GetX(), GetY(), GetX(target), GetY(target)-GetDefHeight(GetID(target))/2)+GetSpread()/50;
+      if(Contents()->GetBotData(BOT_Ballistic) || ((!Inside(90, angle1, angle2) && !Inside(270, angle1, angle2)) || Contents()->GetFMData(FM_Aim) > 0))
       {
-        var tx = target->GetX();
-        var ty = target->GetY();
-    
-        if(Contents()->GetBotData(BOT_Ballistic))
-          ty -= 25;
-    
-        DoMouseAiming(tx, ty);
+        if(!IsAiming()) StartSquatAiming();
+        if(IsAiming() && !Contents()->~NeedBotControl(this, target))
+        {
+          var tx = target->GetX();
+          var ty = target->GetY();
+
+          if(Contents()->GetBotData(BOT_Ballistic))
+            ty -= 25;
+
+          DoMouseAiming(tx, ty);
+        }
       }
-    }
-    else
-      if(IsAiming())
-        StopAiming();
+      else
+        if(IsAiming())
+          StopAiming();
   }
   if(IsAiming() && !CheckAmmo(Contents()->GetFMData(FM_AmmoID), Contents()->GetFMData(FM_AmmoLoad), Contents(), this))
     StopAiming();
  }
 
-   // Gut. Feuern wir bereits?
-  if(Contents()->IsRecharging() || Contents()->IsShooting()) return;
+  //Bereits am Feuern?
+  if(Contents()->IsRecharging() || Contents()->IsShooting())
+    return;
 
-  // Feuer!
-  if(maxdist != 300 && pathfree) {
-  	Control2Contents("ControlThrow");
+  //Feuer frei
+  if(maxdist != 300 && pathfree)
+  {
+    Control2Contents("ControlThrow");
   }
-  else {
-      if(IsAiming())
-        StopAiming();
+  else
+  {
+    if(IsAiming())
+      StopAiming();
   }
-//  Message("@My target: %s @%d/%d with level %d", this, target->GetName(), target->GetX(), target->GetY(), level);
-  // Stufe 2 - verfolgen!
-  /*if(EffectVar(0, this, no) >= 2 && dist > 0)
-    if(GetMacroCommand(1) != "Follow" || GetMacroCommand(1, 1) != target)
-      if(GetMacroCommand(0) != "Follow" || GetMacroCommand(0,1) != target)
-      {
-        DebugLog("FxAggroFire - Adding Follow command","aggro");
-        AddMacroCommand(0, "MoveTo", 0, GetX(),GetY(), 0, level);
-        AddMacroCommand(0, "Follow", target, 0, 0, 0, level);
-      }*/
+
+  //Message("@My target: %s @%d/%d with level %d", this, target->GetName(), target->GetX(), target->GetY(), level);
+
+  //Stufe 2 - Ziel verfolgen
+
+  /*
+  if(EffectVar(0, this, no) >= 2 && dist > 0)
+  if(GetMacroCommand(1) != "Follow" || GetMacroCommand(1, 1) != target)
+    if(GetMacroCommand(0) != "Follow" || GetMacroCommand(0,1) != target)
+    {
+      DebugLog("FxAggroFire - Adding Follow command","aggro");
+      AddMacroCommand(0, "MoveTo", 0, GetX(),GetY(), 0, level);
+      AddMacroCommand(0, "Follow", target, 0, 0, 0, level);
+    }
+  */
 }
 
+/* Waffenanwahl */
 //Wenn iLevel = 1 (Aggro_Shoot) werden keine Waffen mit FM_Aim ausgewählt
+
 public func SelectWeapon(int iLevel, object pTarget, bool fFireModes)
 {
-	//Entfernung zum Ziel
-	var dist = ObjectDistance(pTarget);
-	//Keine Waffen in Inventar?
-	if (!CustomContentsCount("IsWeapon"))
-		return;
-	//Die aktuelle Waffe muss noch kontrolliert werden?
-	if(Contents()->~NeedBotControl())
-		return true;
-	//Bevorzugten Schadenstyp bestimmen
-	var preftype = GetPrefDmgType(pTarget), type;
-	//Alle durchgehen und passende prüfen
-	for (var i = 0, obj, fav, mode, favmode; obj = Contents(i); mode++)
-	{
-		if (!(obj->~IsWeapon()))
-		{
-			i++;
-			mode = -1;
-			continue;
-		}
-		if (mode && !fFireModes)
-		{
-			i++;
-			mode = -1;
-			continue;
-		}
-		if (!(obj->GetFMData(FM_Name, mode)))
-		{
-			i++;
-			mode = -1;
-			continue;
-		}
-		if (mode == obj->GetFireMode() && mode)
-			continue;
-		
-		//Waffe lässt sich nur im Zielen abfeuern? Level darf nicht 1 sein und man muss Zielen/Laufe.
-		if (obj->GetFMData(FM_Aim, mode) > 0)
-			if (iLevel == 1 || (!WildcardMatch(GetAction(), "*Walk*") && !WildcardMatch(GetAction(), "*Aim*")))
-				continue;
-		
-		//Keine Munition verfügbar
-		if (!NoAmmo() && !(obj->GetCharge()) && !GetAmmo(obj->GetFMData(FM_AmmoID, mode)))
-			continue;
-		
-		//EMP-Sachen nur wenn der Gegner darauf reagiert.
-		if (obj->GetBotData(BOT_EMP, mode))
-			if (!(pTarget->~IsMachine()))
-				continue;
+  //Entfernung zum Ziel
+  var dist = ObjectDistance(pTarget);
+  //Keine Waffen in Inventar?
+  if(!CustomContentsCount("IsWeapon"))
+    return;
+  //Die aktuelle Waffe muss kontrolliert werden?
+  if(Contents()->~NeedBotControl())
+    return true;
+  //Bevorzugten Schadenstyp bestimmen
+  var preftype = GetPrefDmgType(pTarget), type;
+  //Alle durchgehen und passende prüfen
+  for (var i = 0, obj, fav, mode, favmode; obj = Contents(i); mode++)
+  {
+    if(!(obj->~IsWeapon()))
+    {
+      i++;
+      mode = -1;
+      continue;
+    }
+    if(mode && !fFireModes)
+    {
+      i++;
+      mode = -1;
+      continue;
+    }
+    if(!(obj->GetFMData(FM_Name, mode)))
+    {
+      i++;
+      mode = -1;
+      continue;
+    }
+    if(mode == obj->GetFireMode() && mode)
+      continue;
+    //Waffe lässt sich nur im Zielen abfeuern? Level darf nicht 1 sein und der Clonk muss Zielen/Laufen
+    if(obj->GetFMData(FM_Aim, mode) > 0)
+      if(iLevel == 1 || (!WildcardMatch(GetAction(), "*Walk*") && !WildcardMatch(GetAction(), "*Aim*")))
+        continue;
+    //Keine Munition verfügbar
+    if(!NoAmmo() && !(obj->GetCharge()) && !GetAmmo(obj->GetFMData(FM_AmmoID, mode)))
+      continue;
 
-		//Objekt braucht lange zum laden und ist leer/lädt nach
-		if (obj->GetBotData(BOT_Power, mode) == BOT_Power_LongLoad && (obj->IsReloading() || !(obj->GetCharge())))
-			continue;
+    //EMP nur wenn der Gegner darauf reagiert
+    if(obj->GetBotData(BOT_EMP, mode))
+      if(!(pTarget->~IsMachine()))
+        continue;
 
-		if (!fav)
-		{
-			fav = obj;
-			type = fav->GetBotData(BOT_DmgType, mode);
-			favmode = mode;
-		}
-		else 
-		{
-			//Reichweite zu gering?
-			if (fav->GetBotData(BOT_Range, favmode) < dist)
-			{
-				//Neues Objekt hat höhere Reichweite?
-				if (obj->GetBotData(BOT_Range, mode) > dist)
-				{
-					fav = obj;
-					type = obj->GetBotData(BOT_DmgType, mode);
-					favmode = mode;
-				}
-			}
-			//Schadenstypresistenzen und "Stärke der Waffe" vergleichen
-			else if (pTarget->~OnDmg(0, obj->GetBotData(BOT_DmgType, mode)) < pTarget->~OnDmg(0, type) &&
-								 fav->GetBotData(BOT_Power, favmode) - 1 <= obj->GetBotData(BOT_Power, mode))
-			{
-				fav = obj;
-				type = fav->GetBotData(BOT_DmgType);
-				favmode = mode;
-			}
-			//Neues Objekt ist "stärker" oder die favorisierte Waffe braucht lange zum Laden und ist leer/lädt nach
-			else if (fav->GetBotData(BOT_Power, favmode) < obj->GetBotData(BOT_Power, mode))/* || 
-						 (fav->GetBotData(BOT_Power, favmode) == BOT_Power_LongLoad && (fav->IsReloading() || !(fav->GetCharge()))))*/
-			{
-				//Neues Objekt braucht nicht lange zum laden
-				if (obj->GetBotData(BOT_Power, mode) != BOT_Power_LongLoad)
-				{
-					fav = obj;
-					type = fav->GetBotData(BOT_DmgType);
-					favmode = mode;
-				}
-				//Neues Objekt ist nicht leer / lädt nicht nach
-				else if (obj->GetCharge() != 0 && !(obj->IsReloading()))
-				{
-					fav = obj;
-					type = fav->GetBotData(BOT_DmgType);
-					favmode = mode;
-				}
-			}
-			
-			if (fav->GetBotData(BOT_Range, favmode) >= dist)
-				if (preftype == type)
-					if (fav->GetBotData(BOT_Power, favmode) >= BOT_Power_3)
-						break;
-		}
-	}
-	//Auswählen
-	if (!fav)
-		return;
-	//Feuermodus wechseln?
-	if (fFireModes)
-		if (favmode && favmode != fav->GetFireMode())
-			fav->SetFireMode(favmode);
-	if (ContentsCount() == 1)
-		return 1;
-	ShiftContents(0, 0, fav->GetID(), true);
-	Contents()->ResumeReload();
-	return true;
+    //Objekt braucht lange zum laden und ist leer/lädt nach
+    if(obj->GetBotData(BOT_Power, mode) == BOT_Power_LongLoad && (obj->IsReloading() || !(obj->GetCharge())))
+      continue;
+
+    if(!fav)
+    {
+      fav = obj;
+      type = fav->GetBotData(BOT_DmgType, mode);
+      favmode = mode;
+    }
+    else 
+    {
+      //Reichweite zu gering?
+      if(fav->GetBotData(BOT_Range, favmode) < dist)
+      {
+        //Neues Objekt hat höhere Reichweite?
+        if(obj->GetBotData(BOT_Range, mode) > dist)
+        {
+          fav = obj;
+          type = obj->GetBotData(BOT_DmgType, mode);
+          favmode = mode;
+        }
+      }
+      //Schadenstypresistenzen und "Stärke der Waffe" vergleichen
+    else
+      if(pTarget->~OnDmg(0, obj->GetBotData(BOT_DmgType, mode)) < pTarget->~OnDmg(0, type) &&
+        fav->GetBotData(BOT_Power, favmode) - 1 <= obj->GetBotData(BOT_Power, mode))
+      {
+        fav = obj;
+        type = fav->GetBotData(BOT_DmgType);
+        favmode = mode;
+      }
+      //Neues Objekt ist "stärker" oder die favorisierte Waffe braucht lange zum Laden und ist leer/lädt nach
+      else if(fav->GetBotData(BOT_Power, favmode) < obj->GetBotData(BOT_Power, mode))
+      /*
+       || (fav->GetBotData(BOT_Power, favmode) == BOT_Power_LongLoad && (fav->IsReloading() || !(fav->GetCharge()))))
+      */
+      {
+        //Neues Objekt braucht nicht lange zum laden
+        if(obj->GetBotData(BOT_Power, mode) != BOT_Power_LongLoad)
+        {
+          fav = obj;
+          type = fav->GetBotData(BOT_DmgType);
+          favmode = mode;
+        }
+        //Neues Objekt ist nicht leer / lädt nicht nach
+        else if(obj->GetCharge() != 0 && !(obj->IsReloading()))
+        {
+          fav = obj;
+          type = fav->GetBotData(BOT_DmgType);
+          favmode = mode;
+        }
+      }
+
+      if(fav->GetBotData(BOT_Range, favmode) >= dist)
+        if(preftype == type)
+          if(fav->GetBotData(BOT_Power, favmode) >= BOT_Power_3)
+            break;
+    }
+  }
+  //Auswählen
+  if(!fav)
+    return;
+  //Feuermodus wechseln?
+  if(fFireModes)
+    if(favmode && favmode != fav->GetFireMode())
+      fav->SetFireMode(favmode);
+  if(ContentsCount() == 1)
+    return 1;
+  ShiftContents(0, 0, fav->GetID(), true);
+  Contents()->ResumeReload();
+  return true;
 }
 
 public func GetPrefDmgType(object pTarget)
@@ -542,7 +576,7 @@ public func GetPrefDmgType(object pTarget)
   }
   if(pTarget->~OnDmg(0, DMG_Bio) < min)
     type = DMG_Bio;
-    
+
   return type;
 }
 
@@ -552,7 +586,7 @@ public func CheckIdleWeapon()
 {
   if(Contents())
   {
-    //Hack - mit BR-Bombe tut er gar nichts
+    //Bei BR-Bombe nichts unternehmen
     if(Contents()->GetID() == GBRB) return;
     if(Contents()->~RejectShift()) return;
   }
@@ -601,7 +635,7 @@ public func CheckIdleWeapon()
   }
   //Nichts gefunden
   if(!Contents(i)) return;
-  
+
   //Waffe wechseln
   if(ContentsCount() != 1 && Contents() != obj)
     SelectInventory(obj);
@@ -609,8 +643,10 @@ public func CheckIdleWeapon()
   if(obj->GetFireMode() != mode)
     obj->SetFireMode(mode);
   //Munition aktualisieren
-  /*if(!Contents()->~IsRecharging())
-    Schedule("Control2Contents(\"ControlThrow\")", 1);*/
+  /*
+  if(!Contents()->~IsRecharging())
+    Schedule("Control2Contents(\"ControlThrow\")", 1);
+  */
   Contents()->~Reload();
   return(1);
 }
@@ -620,7 +656,7 @@ protected func MacroComMoveTo()
   var x, y;
   x = GetMacroCommand(0, 2);
   y = GetMacroCommand(0, 3);
-  if (!inherited())
+  if(!inherited())
     return;
   SetCommand(this, "MoveTo", 0, x, y);
   return;
