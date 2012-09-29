@@ -346,7 +346,7 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
   }
 
   //Objekte zum Rammen suchen
-  if((Abs(GetXDir()) + Abs(GetYDir()) >= 20) && !GetEffect("MeleeCooldown", this))
+  if((Abs(GetXDir()) + Abs(GetYDir()) >= 25) && !GetEffect("MeleeCooldown", this))
   {
     var strike;
     var target = FindObject2(Find_AtPoint(0, 0), Find_Hostile(GetOwner(this)), Find_NoContainer(), Find_OCF(OCF_Alive));
@@ -392,7 +392,7 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
     var yOff = GetDefCoreVal("Offset", "DefCore", MAVE, 1);
 
     if(target = FindObject2(Find_Func("IsMeleeTarget", this),
-    	Find_Or(Find_AtPoint(0, 0), Find_AtRect(-xOff + (GetXDir() / 2)*(iXDir<0), -yOff + (GetYDir() / 2)*(iYDir<0), xOff + (GetXDir() / 2)*(iXDir>0), yOff + (GetYDir() / 2)*(iYDir>0)))))
+    	Find_Or(Find_AtPoint(0, 0), Find_AtRect(-xOff + (GetXDir() / 2)*(iXDir<0), -yOff + (GetYDir() / 2)*(iYDir<0), xOff*2 + (GetXDir() / 2)*(iXDir>0), yOff*2 + (GetYDir() / 2)*(iYDir>0)))))
     {
       DoDmg(20, DMG_Melee, target, 0, GetController(this)+1, GetID());
       if(target->IsMAV())
