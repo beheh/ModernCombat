@@ -482,6 +482,36 @@ public func SelectWeapon(int iLevel, object pTarget, bool fFireModes)
 	return true;
 }
 
+public func GetPrefDmgType(object pTarget)
+{
+  var min = pTarget->~OnDmg(0, DMG_Projectile);
+  var type = DMG_Projectile;
+  if(pTarget->~OnDmg(0, DMG_Melee) < min)
+  {
+    type = DMG_Melee;
+    min = pTarget->~OnDmg(0, type);
+  }
+  if(pTarget->~OnDmg(0, DMG_Fire) < min)
+  {
+    type = DMG_Fire;
+    min = pTarget->~OnDmg(0, type);
+  }
+  if(pTarget->~OnDmg(0, DMG_Explosion) < min)
+  {
+    type = DMG_Explosion;
+    min = pTarget->~OnDmg(0, type);
+  }
+  if(pTarget->~OnDmg(0, DMG_Energy) < min)
+  {
+    type = DMG_Energy;
+    min = pTarget->~OnDmg(0, type);
+  }
+  if(pTarget->~OnDmg(0, DMG_Bio) < min)
+    type = DMG_Bio;
+    
+  return type;
+}
+
 /* Waffenbehandlung wenn nicht im Kampf */
 
 public func CheckIdleWeapon()
