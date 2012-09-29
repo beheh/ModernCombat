@@ -608,6 +608,13 @@ public func IsReloading(int iSlot)
   }
 }
 
+/* Muss gesteuert werden (-> Für KI) */
+
+public func NeedBotControl()
+{
+	return false;
+}
+
 /*----- Waffe nachladen -----*/
 
 public func Reload(int iFM)

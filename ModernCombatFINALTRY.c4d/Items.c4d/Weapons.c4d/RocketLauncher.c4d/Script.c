@@ -70,6 +70,19 @@ public func BotData1(int data)
   return Default(data);
 }
 
+//Botsteuerung
+public func NeedBotControl(object pBot, object pTarget)
+{
+	if(pBot)
+	{
+		var angle = Angle(GetX(pRocket), GetY(pRocket), GetX(pTarget), GetY(pTarget));
+		angle = angle + (45 - angle) * 2;
+		pBot->DoMouseAiming(GetX(pBot)+Cos(angle, 50), GetY(pBot)-Sin(angle, 50), AimAngleChange(true));
+	}
+
+	return pRocket && Distance(GetX(), GetY(), GetX(pRocket), GetY(pRocket)) < BotData1(BOT_Range);
+}
+
 public func LaunchRocket(id rid, int angle, bool unguided)
 {
   //Austritt bestimmen
