@@ -575,8 +575,9 @@ public func CheckIdleWeapon()
   if(obj->GetFireMode() != mode)
     obj->SetFireMode(mode);
   //Munition aktualisieren
-  if(!Contents()->~IsRecharging())
-    Schedule("Control2Contents(\"ControlThrow\")", 1);
+  /*if(!Contents()->~IsRecharging())
+    Schedule("Control2Contents(\"ControlThrow\")", 1);*/
+  Contents()->~Reload();
   return(1);
 }
 
