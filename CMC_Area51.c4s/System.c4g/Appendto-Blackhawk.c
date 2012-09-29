@@ -142,7 +142,7 @@ protected func TimerCall()
         continue;
       if(pClonk->~IsMAV())
       {
-        DoDmg(GetRotorSpeed(), DMG_Projectile, pClonk, GetOwner() + 1);
+        DoDmg(GetRotorSpeed()*2, DMG_Projectile, pClonk, GetOwner() + 1);
         pClonk->Sparks(Random(2)+2,RGB(255,255,Random(5)+255));
         pClonk->Sound("HeavyHit*.ogg");
         AddEffect("NoRotorHit", pClonk, 1, 20, pClonk);
