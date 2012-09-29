@@ -87,6 +87,21 @@ public func FxAggroTimer(object pTarget, int no)
 {
 	if (Contained())
 		return;
+		
+	//Sicht versperrt?
+	var srgb;
+	if((srgb = GetScreenRGB(GetOwner(), SR4K_LayerLight)) || (srgb = GetScreenRGB(GetOwner(), SR4K_LayerSmoke)))
+	{
+		var a = srgb->GetAlpha();
+		if(a < 200)
+		{
+			if(Contents()->~IsWeapon() && Contents()->~IsShooting())
+				Contents()->StopAutoFire();
+			
+			return;
+		}
+	}
+		
 	// Hilfsbedürftige in der Nähe?
 	var body, defi;
 	if(GetPlayerViewAlpha(GetOwner()) > 0) {
