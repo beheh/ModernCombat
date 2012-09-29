@@ -111,7 +111,7 @@ public func IsInHitbox(int x, int y, bool fDraw)
   {
     var eu = (y2 >= y);
     if(su != eu && (x1 > x || x2 > x))
-    	inside = !inside;
+      inside = !inside;
 
     su = eu;
     y1 = y2;
