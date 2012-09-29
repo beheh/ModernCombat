@@ -161,18 +161,6 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
     CreateParticle("PSpark", -7 - GetXDir() / 10, - 8*(iYTendency > 0) - 2*Sgn(iBank-Sgn(iBank)) - iYParticle / 6, iXParticle, iYParticle, 15, RGBa(200, 200, 255, 35));
   }
 
-  //Blinklicht (alle 30 Frames)
-  if(!(iEffectTime % 30))
-  {
-    if(GetTeam())
-      var rgb = GetTeamColor(GetTeam());
-    else if(GetOwner())
-      var rgb = GetPlrColorDw(GetOwner());
-    else
-      var rgb = RGB(255, 255, 255);
-    CreateParticle("FlashLight", 0, 4, 0, 0 , 45, rgb, this);
-  }
-
   //Nachladen und SensorChecks (alle 5 Frames)
   if(!(iEffectTime % 5))
   {
@@ -186,6 +174,18 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
       iItemType = 0;
       SetPhase(iItemType);
     }
+    
+    //Blinklicht (alle 30 Frames)
+  	if(!(iEffectTime % 30))
+  	{
+    	if(GetTeam())
+      	var rgb = GetTeamColor(GetTeam());
+    	else if(GetOwner())
+      	var rgb = GetPlrColorDw(GetOwner());
+    	else
+      	var rgb = RGB(255, 255, 255);
+    	CreateParticle("FlashLight", 0, 4, 0, 0 , 45, rgb, this);
+  	}
 
     if(Inside(iItemType, 1, 6) && !GetEffect("Bars", this))
       AddEffect("Bars", this, 1, 1, this);
@@ -598,6 +598,8 @@ public func ShockPaddles()
 
 public func BlowTorch(bool statusOnly)
 {
+	var pItem = LocalN("pItem", this);
+
   if(!ChargeBar)
   {
     ChargeBar = CreateObject(SBAR, 0, 0, GetOwner());
