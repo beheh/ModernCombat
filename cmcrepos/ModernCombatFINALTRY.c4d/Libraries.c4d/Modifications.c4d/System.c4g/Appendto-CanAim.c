@@ -6,7 +6,7 @@
 local crosshair;
 
 
-public func DoMouseAiming(int iTx, int iTy)
+public func DoMouseAiming(int iTx, int iTy, int iSpeed)
 {
   if(!Contained())
   {
@@ -24,16 +24,17 @@ public func DoMouseAiming(int iTx, int iTy)
    if((Abs(AngleOffset4K(old,iAngle)) < 5)/* || GetEffect("IntMouseAiming",this)*/)
      this->~FireAimWeapon();
 
-   AddEffect("IntMouseAiming",this,10,1,this,0,iAngle);
+   AddEffect("IntMouseAiming", this, 10, 1, this, 0, iAngle, iSpeed);
    return true;
   }
   return false;
 }
 
-public func FxIntMouseAimingStart(object pTarget, int iEffectNumber, int iTemp, iAngle)
+public func FxIntMouseAimingStart(object pTarget, int iEffectNumber, int iTemp, iAngle, int iSpeed)
 {
   EffectVar(0,pTarget,iEffectNumber) = iAngle;
   EffectVar(1,pTarget,iEffectNumber) = GetDir(pTarget);
+  EffectVar(2, pTarget, iEffectNumber) = iSpeed;
   return 0;
 }
 
@@ -61,8 +62,12 @@ public func FxIntMouseAimingTimer(object pTarget, int iEffectNumber, int iEffect
   var dir = +1;
   if(end < cur)
     dir = -1;
+   
+  var speed = EffectVar(2, pTarget, iEffectNumber);
+  if(!speed)
+  	speed = this->~AimStep() / 5;
 
-  var change = dir * Min(1 * this->~AimStep() / 5, Abs(end - cur));
+  var change = dir * Min(speed, Abs(end - cur));
 
   crosshair->SetAngle(cur+change);
   this->~UpdateAiming();

@@ -243,7 +243,7 @@ public func FxAggroFire(object pTarget, int no)
   if(Contents() && Contents()->~RejectShift())
     return;
   // Nichts tun, wenn gerade verhindert
-  if(!ReadyToFire()) return;
+  if(!ReadyToFire() && !(Contents()->~IsWeapon() && Contents()->GetFMData(FM_Aim) && ReadyToAim())) return;
   var y = EffectVar(4, this, no);
   var x = EffectVar(3, this, no);
   var dist = EffectVar(2, this, no);
@@ -302,7 +302,7 @@ public func FxAggroFire(object pTarget, int no)
         StopAiming();
       return;
     }
-  
+
   /* Verziehen wir zu stark?
   //Log("%d/%d", GetSpread(), ObjectDistance(target));
   if(Contents()->~IsWeapon2() && GetSpread() > 100) return;//BoundBy(300 - ObjectDistance(target), 80, 280)) return;*/
@@ -327,6 +327,7 @@ public func FxAggroFire(object pTarget, int no)
       // ein Balrog, ein Feind gegen den ihr nichts ausrichten könnt...lauft!
       return;
     }
+
   // Stufe 1 - nur in die grobe Richtung ballern, lieber nicht anhalten oder sowas
 
   // Schaue ich in die richtige Richtung?
@@ -351,7 +352,7 @@ public func FxAggroFire(object pTarget, int no)
     if(Contents()->GetBotData(BOT_Ballistic) || ((!Inside(90, angle1, angle2) && !Inside(270, angle1, angle2)) || Contents()->GetFMData(FM_Aim) > 0))
     {
       if(!IsAiming()) StartSquatAiming();
-      if(IsAiming())
+   		if(IsAiming() && !Contents()->~NeedBotControl(this, target))
       {
         var tx = target->GetX();
         var ty = target->GetY();
@@ -401,6 +402,9 @@ public func SelectWeapon(int iLevel, object pTarget, bool fFireModes)
 	//Keine Waffen in Inventar?
 	if (!CustomContentsCount("IsWeapon"))
 		return;
+	//Die aktuelle Waffe muss noch kontrolliert werden?
+	if(Contents()->~NeedBotControl())
+		return true;
 	//Bevorzugten Schadenstyp bestimmen
 	var preftype = GetPrefDmgType(pTarget), type;
 	//Alle durchgehen und passende prüfen
@@ -426,14 +430,25 @@ public func SelectWeapon(int iLevel, object pTarget, bool fFireModes)
 		}
 		if (mode == obj->GetFireMode() && mode)
 			continue;
+		
+		//Waffe lässt sich nur im Zielen abfeuern? Level darf nicht 1 sein und man muss Zielen/Laufe.
 		if (obj->GetFMData(FM_Aim, mode) > 0)
-			if (iLevel == 1 || !WildcardMatch(GetAction(), "*Walk*"))
+			if (iLevel == 1 || (!WildcardMatch(GetAction(), "*Walk*") && !WildcardMatch(GetAction(), "*Aim*")))
 				continue;
+		
+		//Keine Munition verfügbar
 		if (!NoAmmo() && !(obj->GetCharge()) && !GetAmmo(obj->GetFMData(FM_AmmoID, mode)))
 			continue;
+		
+		//EMP-Sachen nur wenn der Gegner darauf reagiert.
 		if (obj->GetBotData(BOT_EMP, mode))
 			if (!(pTarget->~IsMachine()))
 				continue;
+
+		//Objekt braucht lange zum laden und ist leer/lädt nach
+		if (obj->GetBotData(BOT_Power, mode) == BOT_Power_LongLoad && (obj->IsReloading() || !(obj->GetCharge())))
+			continue;
+
 		if (!fav)
 		{
 			fav = obj;
@@ -442,8 +457,10 @@ public func SelectWeapon(int iLevel, object pTarget, bool fFireModes)
 		}
 		else 
 		{
+			//Reichweite zu gering?
 			if (fav->GetBotData(BOT_Range, favmode) < dist)
 			{
+				//Neues Objekt hat höhere Reichweite?
 				if (obj->GetBotData(BOT_Range, mode) > dist)
 				{
 					fav = obj;
@@ -451,33 +468,34 @@ public func SelectWeapon(int iLevel, object pTarget, bool fFireModes)
 					favmode = mode;
 				}
 			}
-			else 
+			//Schadenstypresistenzen und "Stärke der Waffe" vergleichen
+			else if (pTarget->~OnDmg(0, obj->GetBotData(BOT_DmgType, mode)) < pTarget->~OnDmg(0, type) &&
+								 fav->GetBotData(BOT_Power, favmode) - 1 <= obj->GetBotData(BOT_Power, mode))
 			{
-				if (pTarget->~OnDmg(0, obj->GetBotData(BOT_DmgType, mode)) < pTarget->~OnDmg(0, type) && fav->GetBotData(BOT_Power, favmode) - 1 <= obj->GetBotData(BOT_Power, mode))
+				fav = obj;
+				type = fav->GetBotData(BOT_DmgType);
+				favmode = mode;
+			}
+			//Neues Objekt ist "stärker" oder die favorisierte Waffe braucht lange zum Laden und ist leer/lädt nach
+			else if (fav->GetBotData(BOT_Power, favmode) < obj->GetBotData(BOT_Power, mode))/* || 
+						 (fav->GetBotData(BOT_Power, favmode) == BOT_Power_LongLoad && (fav->IsReloading() || !(fav->GetCharge()))))*/
+			{
+				//Neues Objekt braucht nicht lange zum laden
+				if (obj->GetBotData(BOT_Power, mode) != BOT_Power_LongLoad)
 				{
 					fav = obj;
 					type = fav->GetBotData(BOT_DmgType);
 					favmode = mode;
 				}
-				else 
+				//Neues Objekt ist nicht leer / lädt nicht nach
+				else if (obj->GetCharge() != 0 && !(obj->IsReloading()))
 				{
-					if (fav->GetBotData(BOT_Power, favmode) < obj->GetBotData(BOT_Power, mode) || (fav->GetBotData(BOT_Power, favmode) == BOT_Power_LongLoad && (fav->IsReloading() || !(fav->GetCharge()))))
-					{
-						if (obj->GetBotData(BOT_Power, mode) != BOT_Power_LongLoad)
-						{
-							fav = obj;
-							type = fav->GetBotData(BOT_DmgType);
-							favmode = mode;
-						}
-						else if (obj->GetCharge() != 0 && !(obj->IsReloading()))
-						{
-							fav = obj;
-							type = fav->GetBotData(BOT_DmgType);
-							favmode = mode;
-						}
-					}
+					fav = obj;
+					type = fav->GetBotData(BOT_DmgType);
+					favmode = mode;
 				}
 			}
+			
 			if (fav->GetBotData(BOT_Range, favmode) >= dist)
 				if (preftype == type)
 					if (fav->GetBotData(BOT_Power, favmode) >= BOT_Power_3)
@@ -494,6 +512,7 @@ public func SelectWeapon(int iLevel, object pTarget, bool fFireModes)
 	if (ContentsCount() == 1)
 		return 1;
 	ShiftContents(0, 0, fav->GetID(), true);
+	Contents()->ResumeReload();
 	return true;
 }
 
