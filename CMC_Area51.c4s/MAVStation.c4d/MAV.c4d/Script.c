@@ -155,10 +155,10 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
   for(var i = 0; i < 5; i++)
   {
     var iXParticle = RandomX(-4, 4) + GetXDir() * 3 / 4;
-    var iYParticle = RandomX(-9, 9) + 10;
+    var iYParticle = RandomX(-9, 9) + 10 - (iYTendency - iYDir) * 3 / 4;
 
-    CreateParticle("PSpark", 6 - GetXDir() / 10, - 8*(GetYDir()>10) + 2*Sgn(iBank-Sgn(iBank)), iXParticle, iYParticle, 15, RGBa(200, 200, 255, 35));
-    CreateParticle("PSpark", -7 - GetXDir() / 10, - 8*(GetYDir()>10) - 2*Sgn(iBank-Sgn(iBank)), iXParticle, iYParticle, 15, RGBa(200, 200, 255, 35));
+    CreateParticle("PSpark", 6 - GetXDir() / 10, - 8*(iYTendency > 0) + 2*Sgn(iBank-Sgn(iBank)) - iYParticle / 6, iXParticle, iYParticle, 15, RGBa(200, 200, 255, 35));
+    CreateParticle("PSpark", -7 - GetXDir() / 10, - 8*(iYTendency > 0) - 2*Sgn(iBank-Sgn(iBank)) - iYParticle / 6, iXParticle, iYParticle, 15, RGBa(200, 200, 255, 35));
   }
 
   //Blinklicht (alle 30 Frames)
