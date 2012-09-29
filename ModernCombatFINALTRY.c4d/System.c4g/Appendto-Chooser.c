@@ -12,6 +12,8 @@ local iTeamCount, arTeams;
 local iTeamMode, iUsedTeamSort;
 local fRandomMenu;
 
+protected func RecommendedGoals()	{return GameCall("RecommendedGoals");}
+
 
 /* Initialisierung */
 
@@ -1166,8 +1168,6 @@ private func Eastern(object P)
   if(!rand--) SetName("$YourChat$", P);
 }
 
-protected func RecommendedGoals() { return GameCall("RecommendedGoals"); }
-
 /* Spielzielwahl */
 
 protected func OpenGoalChooseMenu()
@@ -1186,18 +1186,18 @@ protected func OpenGoalChooseMenu()
   var i;
   var rGoals = RecommendedGoals();
   if(!rGoals)
-  	rGoals = [];
-  
+    rGoals = [];
+
   for(var goal in aGoals)
   {
-  	var obj = CreateObject(TIM1, 0, 0, -1);
-  	SetPicture(0, 0, 64, 64, obj);
-  	SetGraphics(0, obj, goal);
-  	if(GetIndexOf(goal, rGoals) != -1)
-  	{
-  		SetGraphics(0, obj, SM14, 1, GFXOV_MODE_Picture);
-  		SetObjDrawTransform(600, 0, 8500, 0, 600, 8500, obj, 1);
-  	}
+    var obj = CreateObject(TIM1, 0, 0, -1);
+    SetPicture(0, 0, 64, 64, obj);
+    SetGraphics(0, obj, goal);
+    if(GetIndexOf(goal, rGoals) != -1)
+    {
+      SetGraphics(0, obj, SM14, 1, GFXOV_MODE_Picture);
+      SetObjDrawTransform(600, 0, 8500, 0, 600, 8500, obj, 1);
+    }
 
     AddMenuItem("%s", Format("CreateGoal(%i, %d)", goal, aTempGoalSave[i]), goal, pClonk, 0, 0, 0, 4, obj);
     RemoveObject(obj);
@@ -1216,11 +1216,11 @@ local aGoalsChecked;
 protected func OpenGoalRandomMenu(id id, object pClonk)
 {
   CreateMenu(GetID(), pClonk, 0, 0, 0, 0, C4MN_Style_Context);
-  
+
   var rGoals = RecommendedGoals();
   if(!rGoals)
-  	rGoals = [];
-  
+    rGoals = [];
+
   if (!aGoalsChecked)
     aGoalsChecked = [];
   var fChecked = false;
@@ -1228,16 +1228,16 @@ protected func OpenGoalRandomMenu(id id, object pClonk)
   {
     if (!aGoals[i])
       continue;
-    
+
     var obj = CreateObject(TIM1, 0, 0, -1);
-  	SetPicture(0, 0, 64, 64, obj);
-  	SetGraphics(0, obj, aGoals[i]);
-  	if(GetIndexOf(aGoals[i], rGoals) != -1)
-  	{
-  		SetGraphics(0, obj, SM14, 1, GFXOV_MODE_Picture);
-  		SetObjDrawTransform(600, 0, 8500, 0, 600, 8500, obj, 1);
-  	}
-    
+    SetPicture(0, 0, 64, 64, obj);
+    SetGraphics(0, obj, aGoals[i]);
+    if(GetIndexOf(aGoals[i], rGoals) != -1)
+    {
+      SetGraphics(0, obj, SM14, 1, GFXOV_MODE_Picture);
+      SetObjDrawTransform(600, 0, 8500, 0, 600, 8500, obj, 1);
+    }
+
     if (aGoalsChecked[i])
     {
       AddMenuItem("%s", "CheckRandomGoal", aGoals[i], pClonk, 0, pClonk, GetDesc(0, aGoals[i]), 4, obj);
@@ -1245,8 +1245,8 @@ protected func OpenGoalRandomMenu(id id, object pClonk)
     }
     else
       AddMenuItem("<c 777777>%s</c>", "CheckRandomGoal", aGoals[i], pClonk, 0, pClonk, GetDesc(0, aGoals[i]), 4, obj);
-  
-  	RemoveObject(obj);
+
+    RemoveObject(obj);
   }
   if (fChecked)
     AddMenuItem("$GoalRandomChoose$", "GoalRandomChoose", GetID(), pClonk, 0, pClonk, "$GoalRandomChoose$", 2, 3);
@@ -1315,29 +1315,29 @@ protected func GoalVoteMenu(id id, object pClonk, int iPlr)
   CreateMenu(GetID(), pClonk, 0, 0, 0, 0, C4MN_Style_Context);
   if (!aGoalsVoted[iPlr])
     aGoalsVoted[iPlr] = [];
-    
+
   var rGoals = RecommendedGoals();
   if(!rGoals)
-  	rGoals = [];
+    rGoals = [];
 
   AddMenuItem(Format("$VoteGoal$ (%d)", CHOS_GoalVotingTime - iTime / 35), 0, GetID(), pClonk, 0, 0, 0, C4MN_Add_ForceNoDesc);
   for (var i = 0; i < GetLength(aGoals); i++)
   {
-  	var obj = CreateObject(TIM1, 0, 0, -1);
-  	SetPicture(0, 0, 64, 64, obj);
-  	SetGraphics(0, obj, aGoals[i]);
-  	if(GetIndexOf(aGoals[i], rGoals) != -1)
-  	{
-  		SetGraphics(0, obj, SM14, 1, GFXOV_MODE_Picture);
-  		SetObjDrawTransform(600, 0, 8500, 0, 600, 8500, obj, 1);
-  	}
-  
+    var obj = CreateObject(TIM1, 0, 0, -1);
+    SetPicture(0, 0, 64, 64, obj);
+    SetGraphics(0, obj, aGoals[i]);
+    if(GetIndexOf(aGoals[i], rGoals) != -1)
+    {
+      SetGraphics(0, obj, SM14, 1, GFXOV_MODE_Picture);
+      SetObjDrawTransform(600, 0, 8500, 0, 600, 8500, obj, 1);
+    }
+
     if (aGoalsVoted[iPlr][i])
       AddMenuItem("%s", "CheckVoteGoal", aGoals[i], pClonk, 0, pClonk, GetDesc(0, aGoals[i]), 4, obj);
     else
       AddMenuItem("<c 777777>%s</c>", "CheckVoteGoal", aGoals[i], pClonk, 0, pClonk, GetDesc(0, aGoals[i]), 4, obj);
-  
-  	RemoveObject(obj);
+
+    RemoveObject(obj);
   }
   SelectMenuItem(iSelection, pClonk);
   return true;
@@ -1386,7 +1386,7 @@ protected func FxEvaluateGoalVoteTimer(pTarget, iEffect, iTime)
       var clr = 0xFFFF33;
       if(aGoalsChosen[i] == highest)
         clr = 0x33CCFF;
-        
+
       if(str != "")
         str = Format("%s, ", str);
       str = Format("%s%s: <c %x>%d</c>", str, GetName(0, aGoals[i]), clr, aGoalsChosen[i]);

@@ -352,10 +352,10 @@ public func FxAggroFire(object pTarget, int no)
       return;
     }
     //Wir haben nur leere Waffen zur Verfügung die eine lange Nachladezeit haben -> geeignetste Waffe nachladen
-		else if(Contents()->GetBotData(BOT_Power) == BOT_Power_LongLoad && !(Contents()->GetCharge()))
-			Contents()->~Reload();
-	}
-	
+    else if(Contents()->GetBotData(BOT_Power) == BOT_Power_LongLoad && !(Contents()->GetCharge()))
+      Contents()->~Reload();
+  }
+
   // Stufe 1 - nur in die grobe Richtung feuern
 
   //Clonk entsprechend der Zielposition drehen
@@ -431,7 +431,9 @@ public func FxAggroFire(object pTarget, int no)
 }
 
 /* Waffenanwahl */
+
 local favprio, favprioweapon;
+
 //Wenn iLevel = 1 (Aggro_Shoot) werden keine Waffen mit FM_Aim ausgewählt
 
 public func SelectWeapon(int iLevel, object pTarget, bool fFireModes)
@@ -485,7 +487,7 @@ public func SelectWeapon(int iLevel, object pTarget, bool fFireModes)
     //Objekt braucht lange zum laden und ist leer/lädt nach
     if(obj->GetBotData(BOT_Power, mode) == BOT_Power_LongLoad && (obj->IsReloading() || !(obj->GetCharge())))
       if(!fFireModes)
-      	continue;
+        continue;
 
     if(!fav)
     {
@@ -495,7 +497,7 @@ public func SelectWeapon(int iLevel, object pTarget, bool fFireModes)
     }
     else 
     {
-    	//Schadenstypresistenzen und "Stärke der Waffe" vergleichen
+      //Schadenstypresistenzen und "Stärke der Waffe" vergleichen
       if(pTarget->~OnDmg(0, obj->GetBotData(BOT_DmgType, mode)) < pTarget->~OnDmg(0, type) &&
         fav->GetBotData(BOT_Power, favmode) - 1 <= obj->GetBotData(BOT_Power, mode))
       {
@@ -506,39 +508,39 @@ public func SelectWeapon(int iLevel, object pTarget, bool fFireModes)
       //Bei gleichgroßer Schadenstypresistenz...
       if(pTarget->~OnDmg(0, obj->GetBotData(BOT_DmgType, mode)) == pTarget->~OnDmg(0, type))
       {
-      	//Reichweite zu gering?
-      	if(fav->GetBotData(BOT_Range, favmode) < dist)
-      	{
-      	  //Neues Objekt hat höhere Reichweite?
-      	  if(obj->GetBotData(BOT_Range, mode) > dist)
-      	  {
-      	    fav = obj;
-      	    type = obj->GetBotData(BOT_DmgType, mode);
-      	    favmode = mode;
-      	  }
-      	}
-      	//Objektreichweite ist hoch genug
-      	if(obj->GetBotData(BOT_Range, mode) > dist)
-      	{
-      	  //Neues Objekt ist "stärker" oder die favorisierte Waffe braucht lange zum Laden und ist leer/lädt nach
-      		if(fav->GetBotData(BOT_Power, favmode) < obj->GetBotData(BOT_Power, mode))
-      		{
-      			//Neues Objekt braucht nicht lange zum laden
-        		if(obj->GetBotData(BOT_Power, mode) != BOT_Power_LongLoad)
-        		{
-          		fav = obj;
-        	 	 	type = fav->GetBotData(BOT_DmgType);
-          		favmode = mode;
-        		}
-        		//Neues Objekt ist nicht leer / lädt nicht nach
-        		else if(obj->GetCharge() != 0 && !(obj->IsReloading()))
-        		{
-         		 fav = obj;
-         		 type = fav->GetBotData(BOT_DmgType);
-         		 favmode = mode;
-        		}
-      		}
-      	}
+        //Reichweite zu gering?
+        if(fav->GetBotData(BOT_Range, favmode) < dist)
+        {
+          //Neues Objekt hat höhere Reichweite?
+          if(obj->GetBotData(BOT_Range, mode) > dist)
+          {
+            fav = obj;
+            type = obj->GetBotData(BOT_DmgType, mode);
+            favmode = mode;
+          }
+        }
+        //Objektreichweite ist hoch genug
+        if(obj->GetBotData(BOT_Range, mode) > dist)
+        {
+          //Neues Objekt ist "stärker" oder die favorisierte Waffe braucht lange zum Laden und ist leer/lädt nach
+          if(fav->GetBotData(BOT_Power, favmode) < obj->GetBotData(BOT_Power, mode))
+          {
+            //Neues Objekt braucht nicht lange zum laden
+            if(obj->GetBotData(BOT_Power, mode) != BOT_Power_LongLoad)
+            {
+              fav = obj;
+              type = fav->GetBotData(BOT_DmgType);
+              favmode = mode;
+            }
+            //Neues Objekt ist nicht leer / lädt nicht nach
+            else if(obj->GetCharge() != 0 && !(obj->IsReloading()))
+            {
+              fav = obj;
+              type = fav->GetBotData(BOT_DmgType);
+              favmode = mode;
+            }
+          }
+        }
       }
 
       if(fav->GetBotData(BOT_Range, favmode) >= dist)
@@ -556,7 +558,7 @@ public func SelectWeapon(int iLevel, object pTarget, bool fFireModes)
       fav->SetFireMode(favmode);
   if(ContentsCount() == 1 || fav == Contents())
     return 1;
-  
+
   ShiftContents(0, 0, fav->GetID(), true);
   Contents()->ResumeReload();
   return true;
