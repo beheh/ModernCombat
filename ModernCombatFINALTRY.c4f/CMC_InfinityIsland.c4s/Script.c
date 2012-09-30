@@ -476,8 +476,7 @@ func OnTowerCollapse()
   if(aTowerInterior[1]) aTowerInterior[1]->DecoExplode(30);
 
   //Türverbindung entfernen
-  if(FindObject(GASS))
-    RemoveObject(doorw, true);
+  RemoveObject(doorw, true);
 }
 
 /* Bei Flaggenübernahme */
