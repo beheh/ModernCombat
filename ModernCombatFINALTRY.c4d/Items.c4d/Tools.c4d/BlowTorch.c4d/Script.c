@@ -473,41 +473,39 @@ local ai_ignore;
 
 public func HasBotSupport(object pBot, object pTarget)
 {
-	if(ai_ignore && charge >= 35)
-		ai_ignore = false;
-	
-	if(ai_ignore)
-		return false;
+  if(ai_ignore && charge >= 35)
+    ai_ignore = false;
 
-	if(charge <= 10)
-	{
-		ai_ignore = true;
-		return false;
-	}
-	
-	if(GetY(pBot)-80 > GetY(pTarget))
-		return false;
-	
-	return true;
+  if(ai_ignore)
+  return false;
+
+  if(charge <= 10)
+  {
+    ai_ignore = true;
+    return false;
+  }
+
+  if(GetY(pBot)-80 > GetY(pTarget))
+    return false;
+
+  return true;
 }
 
 public func BotControl(object pBot, object pTarget, int iLevel, bool fAggroFire)
 {
-	if(!pBot || !pTarget || !fAggroFire)
-		return false;
+  if(!pBot || !pTarget || !fAggroFire)
+    return false;
 
-	if(!GetCommand(pBot))
-		SetCommand(pBot, "MoveTo", pTarget);
-	
-	if(FindObject2(Find_Not(Find_Exclude(pBot)), Find_AtRect(-10,-10,20,20))) //Nah genug?
-	{
-  	if(!GetEffect("RepairObjects", this))
-  	  ControlThrow(pBot);
+  if(!GetCommand(pBot))
+    SetCommand(pBot, "MoveTo", pTarget);
+
+  if(FindObject2(Find_Not(Find_Exclude(pBot)), Find_AtRect(-10,-10,20,20))) //Nah genug?
+  {
+    if(!GetEffect("RepairObjects", this))
+      ControlThrow(pBot);
   }
   else if(GetEffect("RepairObjects", this))
     RemoveEffect("RepairObjects", this);
 
   return true;
 }
-
-
