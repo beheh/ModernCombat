@@ -3,7 +3,7 @@
 #strict
 #include CSTD
 
-static aFlag,aStationary,aSelfDefense,aTowerInterior, doorw;
+static aFlag,aStationary,aSelfDefense,aTowerInterior, doorw, pRoom;
 
 func RecommendedGoals()	{return [GOCC, GASS];}	//Spielzielempfehlung
 
@@ -257,7 +257,8 @@ func CreateInterior()
 
   //Verbundene Räume
   doorw = CreateObject(GAT1, 2115, 540, -1);
-  CreateObject(ROOM, 2105, 1130, -1)->Connect(doorw);
+  pRoom = CreateObject(ROOM, 2105, 1130, -1);
+  pRoom->Connect(doorw);
 
   //Sounds
 
@@ -495,6 +496,8 @@ func OnTowerCollapse()
 
   //Türverbindung entfernen
   RemoveObject(doorw, true);
+  pRoom->Lock();
+  pRoom->SetAction("Idle");
 }
 
 /* Bei Flaggenübernahme */
