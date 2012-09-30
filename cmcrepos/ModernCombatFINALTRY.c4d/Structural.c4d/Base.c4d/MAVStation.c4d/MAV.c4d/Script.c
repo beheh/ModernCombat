@@ -103,13 +103,16 @@ public func WeaponEnd(&x, &y)
 
 /* Aktivität */
 
+local water_damage;
+
 public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
+	//Bei Wasserkontakt Schaden nehmen
+  if(GBackLiquid(0, 0) && (water_damage = !water_damage))
+    DoDamage(1);
+	
   if(GetAction() != "Flying") 
-  {
-    RemoveEffect("Flying", this);
     return;
-  }
 
   SetController(GetOwner());
 
@@ -135,12 +138,17 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
   //C4 verlangsamt den Flug
   CountC4();
   
-  SetXDir(iXDir - (iC4Count) * 10 * iXDir / iSpeed);
+  //Widerstand im Wasser
+  var resistance = 0;
+  if(GBackLiquid())
+  	resistance = 2;
+  
+  SetXDir(iXDir - (iC4Count + resistance) * 10 * iXDir / iSpeed);
 
   if(iYDir<=0)
-    SetYDir(iYDir - (iC4Count) * 10 * iYDir / iSpeed - 2);
+    SetYDir(iYDir - (iC4Count + resistance) * 10 * iYDir / iSpeed - 2);
   else
-    SetYDir(iYDir + (iC4Count) * 10 * iYDir / iSpeed - 2);
+    SetYDir(iYDir + (iC4Count - resistance) * 10 * iYDir / iSpeed - 2);
 
   //Je nach Flugrichtung drehen
   if(iXTendency == 0)
@@ -157,8 +165,29 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
     var iXParticle = RandomX(-4, 4) + GetXDir() * 3 / 4;
     var iYParticle = RandomX(-9, 9) + 10 - (iYTendency - iYDir) * 3 / 4;
 
-    CreateParticle("PSpark", 6 - GetXDir() / 10, - 8*(iYTendency > 0) + 2*Sgn(iBank-Sgn(iBank)) - iYParticle / 6, iXParticle, iYParticle, 15, RGBa(200, 200, 255, 35));
-    CreateParticle("PSpark", -7 - GetXDir() / 10, - 8*(iYTendency > 0) - 2*Sgn(iBank-Sgn(iBank)) - iYParticle / 6, iXParticle, iYParticle, 15, RGBa(200, 200, 255, 35));
+		//Im Wasser: Luftblasen
+		if(GBackLiquid(0, 0))
+		{
+			var bubble = CreateObject(FXU1, 6 - GetXDir() / 10,  - 8*(iYTendency > 0) + 2*Sgn(iBank-Sgn(iBank)) - iYParticle / 6, -1);
+			if(bubble)
+			{
+				bubble->SetXDir(iXParticle);
+				bubble->SetYDir(iYParticle);
+			}
+			bubble = CreateObject(FXU1, -7 - GetXDir() / 10,  - 8*(iYTendency > 0) - 2*Sgn(iBank-Sgn(iBank)) - iYParticle / 6, -1);
+			if(bubble)
+			{
+				bubble->SetXDir(iXParticle);
+				bubble->SetYDir(iYParticle);
+			}
+			//Objekte sparen...
+			break;
+		}
+		else
+		{
+    	CreateParticle("PSpark", 6 - GetXDir() / 10, - 8*(iYTendency > 0) + 2*Sgn(iBank-Sgn(iBank)) - iYParticle / 6, iXParticle, iYParticle, 15, RGBa(200, 200, 255, 35));
+    	CreateParticle("PSpark", -7 - GetXDir() / 10, - 8*(iYTendency > 0) - 2*Sgn(iBank-Sgn(iBank)) - iYParticle / 6, iXParticle, iYParticle, 15, RGBa(200, 200, 255, 35));
+  	}
   }
 
   //Nachladen und Sensorchecks (alle 5 Frames)
@@ -403,7 +432,7 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
     {
       DoDmg(20, DMG_Melee, target, 0, GetController(this)+1, GetID());
       //Gesonderter Schaden bei feindlichen MAVs
-      if(target->IsMAV())
+      if(target && target->~IsMAV())
       	target->DoDmg(20, DMG_Melee, this, 0, GetController(target)+1, GetID(target));
       AddEffect("MeleeCooldown", this, 1, 30);
       AddEffect("MeleeCooldown", target, 1, 30);
