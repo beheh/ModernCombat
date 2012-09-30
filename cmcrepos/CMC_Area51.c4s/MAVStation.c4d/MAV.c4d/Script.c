@@ -395,10 +395,12 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
     	Find_Or(Find_AtPoint(0, 0), Find_AtRect(-xOff + (GetXDir() / 2)*(iXDir<0), -yOff + (GetYDir() / 2)*(iYDir<0), xOff*2 + (GetXDir() / 2)*(iXDir>0), yOff*2 + (GetYDir() / 2)*(iYDir>0)))))
     {
       DoDmg(20, DMG_Melee, target, 0, GetController(this)+1, GetID());
-      if(target->IsMAV())
+      if(target && target->~IsMAV())
+      {
       	target->DoDmg(20, DMG_Melee, this, 0, GetController(target)+1, GetID(target));
+      	AddEffect("MeleeCooldown", target, 1, 30);
+      }
       AddEffect("MeleeCooldown", this, 1, 30);
-      AddEffect("MeleeCooldown", target, 1, 30);
 
       if(!strike)
       {
