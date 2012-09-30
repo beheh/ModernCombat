@@ -5,6 +5,8 @@
 
 static aFlag;
 
+func RecommendedGoals()	{return [GLMS];}	//Spielzielempfehlung
+
 
 /* Initialisierung */
 

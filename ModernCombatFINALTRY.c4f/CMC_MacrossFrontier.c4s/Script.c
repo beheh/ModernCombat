@@ -3,6 +3,8 @@
 #strict
 #include CSTD
 
+func RecommendedGoals()	{return [GHTF, GTDM];}	//Spielzielempfehlung
+
 
 /* Initialisierung */
 

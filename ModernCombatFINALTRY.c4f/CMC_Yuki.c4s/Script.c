@@ -5,6 +5,8 @@
 
 static aDoor1,aDoor2,aLamp1,aLamp2,aLamp3,aFlag;
 
+func RecommendedGoals()	{return [GOCC, GBAS];}	//Spielzielempfehlung
+
 
 /* Initialisierung */
 

@@ -5,6 +5,8 @@
 
 static aFlag;
 
+func RecommendedGoals()	{return [GOCC, GCTF];}	//Spielzielempfehlung
+
 
 /* Initialisierung */
 

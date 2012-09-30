@@ -5,7 +5,8 @@
 
 static aFlag,aArtillery;
 
-public func SpecificEquipment()	{return [[PPAR, 1]];} //Zusatzausrüstung: Fallschirmrucksack
+public func SpecificEquipment()	{return [[PPAR, 1]];}	//Zusatzausrüstung: Fallschirmrucksack
+func RecommendedGoals()		{return [GOCC, GHTF];}	//Spielzielempfehlung
 
 
 /* Initialisierung */

@@ -5,6 +5,8 @@
 
 static aFlag,aStationary;
 
+func RecommendedGoals()	{return [GASS, GMNR];}	//Spielzielempfehlung
+
 
 /* Initialisierung */
 
