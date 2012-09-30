@@ -183,6 +183,10 @@ func CreateEquipment()
   //Geschützstellungen
   CreateObject(GNET, 1520, 360, -1)->Set(SATW);
   CreateObject(GNET, 4020, 360, -1)->Set(SATW);
+
+  //MAV-Stationen
+  CreateObject(MVSN, 1615, 470, -1)->Set(1570,360,1);
+  CreateObject(MVSN, 3925, 470, -1)->Set(3970,360,1);
 }
 
 func CreateDecoration()

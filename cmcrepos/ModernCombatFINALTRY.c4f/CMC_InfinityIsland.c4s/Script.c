@@ -3,7 +3,7 @@
 #strict
 #include CSTD
 
-static aFlag,aSelfDefense,aStationary,aTowerInterior, pDoor;
+static aFlag,aSelfDefense,aStationary,aTowerInterior, doorw;
 
 func RecommendedGoals()	{return [GOCC, GASS];}	//Spielzielempfehlung
 
@@ -220,6 +220,10 @@ func CreateInterior()
   tower->AddNode(3443, 885, 2, CreateObject(REHR, 3435, 900, -1), -40, 1);
   tower->AddNode(3860, 672, 2, CreateObject(REHR, 3855, 690, -1), -90, 2);
   tower->AddNode(3955, 550, 0, CreateObject(REHR, 3942, 560, -1), -40, 2);
+
+  //Verbundene Räume
+  doorw = CreateObject(GAT1, 3670, 455, -1);
+  CreateObject(ROOM, 4125, 640, -1)->Connect(doorw);
 
   //Sounds
 
@@ -471,9 +475,9 @@ func OnTowerCollapse()
   if(aTowerInterior[0]) aTowerInterior[0]->DecoExplode(30);
   if(aTowerInterior[1]) aTowerInterior[1]->DecoExplode(30);
 
-  //Tür entfernen
-  if (FindObject(GASS))
-    RemoveObject(pDoor, true);
+  //Türverbindung entfernen
+  if(FindObject(GASS))
+    RemoveObject(doorw, true);
 }
 
 /* Bei Flaggenübernahme */
@@ -576,6 +580,12 @@ public func ChooserFinished()
    aTowerInterior[1] = CreateObject(GNET, 3700, 473, -1);
    aTowerInterior[1] -> Set(SATW,90);
 
+   //MAV-Station
+   CreateObject(MVSN, 4170, 580, -1)->Set(4170,530,1);
+
+   //Gerüst
+   CreateObject(SFFG, 4170, 580, -1)->Set(4);
+
    //Helikopter und Hinweisschild
    if(!FindObject(NOHC))
    {
@@ -658,10 +668,6 @@ public func ChooserFinished()
    CreateObject(STNE, 3835, 1340, -1);
    CreateObject(STNE, 3890, 1300, -1)->Set(3);
 
-   //Tür
-   pDoor = CreateObject(GAT1, 3670, 456, -1);
-   CreateObject(ROOM, 4091, 639, -1)->Connect(pDoor);
-
    //Boden
    DrawMaterialQuad("Wall-Stripes", 4130,1270, 4230,1270, 4230,1280, 4130,1280);
 
@@ -708,6 +714,9 @@ public func ChooserFinished()
    aTowerInterior[0] -> Set(SATW,-90);
    aTowerInterior[1] = CreateObject(GNET, 3700, 473, -1);
    aTowerInterior[1] -> Set(SATW,90);
+
+   //MAV-Station
+   CreateObject(MVSN, 4805, 1210, -1)->Set(4885,1165,1);
 
    //Helikopter und Hinweisschilder
    if(!FindObject(NOHC))
@@ -812,6 +821,7 @@ public func ChooserFinished()
    //Container
    CreateObject(CON1, 4420, 860, -1);
    CreateObject(CON1, 4420, 889, -1)->SetPerspective(2);
+   CreateObject(CON1, 4125, 640, -1)->SetPerspective(2);
 
    //Hinweisschilder
    CreateObject(SGNP, 3160, 1280, -1);

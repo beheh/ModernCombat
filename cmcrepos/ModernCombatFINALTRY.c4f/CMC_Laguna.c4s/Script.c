@@ -352,6 +352,9 @@ public func ChooserFinished()
    CreateObject(GNET, 730, 440, -1)->Set(0,90,1);
    CreateObject(GNET, 2800, 490, -1)->Set(0,-90,1);
 
+   //MAV-Station
+   CreateObject(MVSN, 595, 290, -1)->Set(595,240,1);
+
    //Helikopter und Hinweisschild
    if(!FindObject(NOHC))
    {
