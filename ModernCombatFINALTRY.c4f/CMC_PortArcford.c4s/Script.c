@@ -415,6 +415,10 @@ public func ChooserFinished()
    CreateObject(GNET, 1040, 310, -1)->Set(0,0,1);
    CreateObject(GNET, 5225, 280, -1)->Set(0,0,1);
 
+   //MAV-Stationen
+   CreateObject(MVSN, 2320, 550, -1)->Set(2190,320,1);
+   CreateObject(MVSN, 3725, 440, -1)->Set(3610,390,1);
+
    //Helikopter und Hinweisschilder
    if(!FindObject(NOHC))
    {
@@ -506,6 +510,10 @@ public func ChooserFinished()
    //Geschützstellungen
    CreateObject(GNET, 2330, 320, -1)->Set(0,90,1);
    CreateObject(GNET, 3340, 430, -1)->Set(0,-90,1);
+
+   //MAV-Stationen
+   CreateObject(MVSN, 2320, 550, -1)->Set(2190,320,1);
+   CreateObject(MVSN, 3725, 440, -1)->Set(3610,390,1);
   }
 }
 

@@ -618,6 +618,9 @@ public func ChooserFinished()
    aTowerInterior[1] = CreateObject(GNET, 2145, 382, -1);
    aTowerInterior[1] -> Set(0,90);
 
+   //MAV-Station
+   CreateObject(MVSN, 3600, 710, -1)->Set(3515,600,1);
+
    //Helikopter und Hinweisschilder
    if(!FindObject(NOHC))
    {
@@ -723,6 +726,9 @@ public func ChooserFinished()
    aTowerInterior[0] -> Set(0,-90);
    aTowerInterior[1] = CreateObject(GNET, 2145, 382, -1);
    aTowerInterior[1] -> Set(0,90);
+
+   //MAV-Station
+   CreateObject(MVSN, 3690, 1180, -1)->Set(3515,600,1);
 
    //Helikopter und Hinweisschilder
    if(!FindObject(NOHC))
