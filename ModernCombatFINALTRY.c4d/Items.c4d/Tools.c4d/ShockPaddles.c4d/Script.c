@@ -281,6 +281,9 @@ public func AI_Inventory(object pClonk)
 
 public func HasBotSupport(object pBot, object pTarget)
 {
+	if(!(GetOCF(pTarget) & OCF_Alive))
+		return false;
+
   if(charge <= 10)
     return false;
 
