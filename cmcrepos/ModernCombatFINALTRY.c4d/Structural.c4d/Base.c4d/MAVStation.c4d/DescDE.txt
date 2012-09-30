@@ -1,0 +1,3 @@
+Ermöglicht das Steuern und Aufstellen von MAV-Drohnen auf dem Schlachtfeld.
+
+Drücke vor der Station [Springen] zum einzusteigen.

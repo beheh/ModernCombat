@@ -1361,7 +1361,7 @@ protected func RejectCollect(id ID, object ByObj)
   return true;
 }
 
-//für Warnsounds und Grafik zuständig
+//Für Warnsounds und Grafik zuständig
 protected func TimerCall()
 {
   //Zerstört?
@@ -1488,15 +1488,25 @@ protected func TimerCall()
     }
   }
 
-  //Lebewesen schrappneln
+  //Objekte schrappneln
   if(GetRotorSpeed() != 0)
   {
-    for(var pClonk in FindObjects(Find_OnLine(GetVertex(7), GetVertex(7, true), GetVertex(11), GetVertex(11, true)) , Find_NoContainer(), Find_OCF(OCF_Alive), Find_Not(Find_ID(FKDT))))
+    for(var pClonk in FindObjects(Find_OnLine(GetVertex(7), GetVertex(7, true), GetVertex(11), GetVertex(11, true)) , Find_NoContainer(), Find_Or(Find_OCF(OCF_Alive), Find_Func("IsMAV")), Find_Not(Find_ID(FKDT))))
     {
       if(GetOwner(pClonk) != NO_OWNER && GetOwner() != NO_OWNER && !Hostile(GetOwner(), GetOwner(pClonk)))
         continue;
       if(GetEffect("NoRotorHit", pClonk))
         continue;
+      //MAVs gesondert behandeln
+      if(pClonk->~IsMAV())
+      {
+        DoDmg(GetRotorSpeed()*2, DMG_Projectile, pClonk, GetOwner() + 1);
+        pClonk->Sparks(Random(2)+2,RGB(255,255,Random(5)+255));
+        pClonk->Sound("HeavyHit*.ogg");
+        AddEffect("NoRotorHit", pClonk, 1, 20, pClonk);
+        continue;
+      }
+      //Ansonsten von Clonk ausgehen
       Fling(pClonk, GetXDir(pClonk, 1) * 3 / 2 + RandomX(-1, 1), RandomX(-3, -2) - Pow(GetRotorSpeed(), 2) / 15000);
       DoDmg(GetRotorSpeed() / 4, DMG_Projectile, pClonk, 0, GetOwner() + 1);
       Sound("BKHK_RotorHit*.ogg", false, pClonk);
@@ -1506,11 +1516,11 @@ protected func TimerCall()
         DoAchievementProgress(1, AC29, GetController(GetPilot()));
     }
 
-    //Festes Material im Rotor tut weh, wird von Contact-Calls bei Stillstand nicht erfasst
+    //Festes Material im Rotor beschädigen gleicheren
     if(!PathFree(GetX() + GetVertex(7), GetY() + GetVertex(7, true), GetX() + GetVertex(11), GetY() + GetVertex(11, true)))
       DoDamage(1, this, FX_Call_DmgScript, GetController(GetPilot()) + 1);
   }
-  
+
   //Nachladezeit reduzieren
   if(smokereload) 
     smokereload--;
@@ -1605,7 +1615,7 @@ protected func FxEngineTimer(object Target, int EffectNumber, int EffectTime)
   var rot = LocalN("rotation", Target);
   var thr = LocalN("throttle", Target);
   var Fg, Fv, Fh, Fw, Fs, dFv, dFh, m, mh, g, av, ah;  //physikalische Kräfte
-  
+
   //Überprüfung, ob überhaupt noch ein Pilot vorhanden ist...
   if (Target->GetPilot() || Target->GetAutopilot())
   {
