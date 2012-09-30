@@ -278,3 +278,30 @@ public func AI_Inventory(object pClonk)
 {
   return true;
 }
+
+public func HasBotSupport(object pBot, object pTarget)
+{
+	if(charge <= 10)
+		return false;
+
+	if(GetY(pBot)-20 > GetY(pTarget))
+		return false;
+	
+	return true;
+}
+
+public func BotControl(object pBot, object pTarget, int iLevel, bool fAggroFire)
+{
+	if(!pBot || !pTarget || !fAggroFire || GetAction() == "Reload")
+		return false;
+
+	if(!GetCommand(pBot))
+		SetCommand(pBot, "MoveTo", pTarget);
+	
+	if(Distance(GetX(), GetY(), GetX(pTarget), GetY(pTarget)) < 20) //Nah genug?
+  	ControlThrow(pBot);
+  
+  return true;
+}
+
+

@@ -339,21 +339,31 @@ public func FxAggroFire(object pTarget, int no)
     //Eventuell Feuermodus wechseln
     if(!SelectWeapon(level, target, true))
     {
-      //Bei Aggro_Follow Waffe und/oder Munition besorgen
-      if(GetAggroLevel() == Aggro_Follow)
-      {
-        //Message("@Searching for weapons / ammo", this);
-        //Waffen auffrischen?
-        if(CustomContentsCount("IsWeapon") <= 1)
-          return(SearchWeapon(Aggro_Shoot));
-        //Munition auffrischen
-        return(SearchAmmo(Aggro_Shoot));
+    	//Nach Ausrüstungsgegenstand suchen
+    	if(SelectWeapon(level, target, false, false, true))
+    	{
+    		//Botsteuerung dem Ausrüstungsgegenstand überlassen.
+    		return Contents()->~BotControl(this, target, level, true);
+    	}
+    	//Ansonsten, falls möglich, leere Waffe mit langer Nachladezeit nachladen.
+    	else if(!SelectWeapon(level, target, true, true))
+    	{
+      	//Bei Aggro_Follow Waffe und/oder Munition besorgen
+      	if(GetAggroLevel() == Aggro_Follow)
+      	{
+      	  //Message("@Searching for weapons / ammo", this);
+      	  //Waffen auffrischen?
+      	  if(CustomContentsCount("IsWeapon") <= 1)
+      	    return(SearchWeapon(Aggro_Shoot));
+      	  //Munition auffrischen
+      	  return(SearchAmmo(Aggro_Shoot));
+      	}
+      	return;
       }
-      return;
+      //Wir haben nur leere Waffen zur Verfügung die eine lange Nachladezeit haben -> geeignetste Waffe nachladen
+    	else if(Contents()->GetBotData(BOT_Power) == BOT_Power_LongLoad && !(Contents()->GetCharge()))
+      	Contents()->~Reload();
     }
-    //Wir haben nur leere Waffen zur Verfügung die eine lange Nachladezeit haben -> geeignetste Waffe nachladen
-    else if(Contents()->GetBotData(BOT_Power) == BOT_Power_LongLoad && !(Contents()->GetCharge()))
-      Contents()->~Reload();
   }
 
   // Stufe 1 - nur in die grobe Richtung feuern
@@ -436,12 +446,12 @@ local favprio, favprioweapon;
 
 //Wenn iLevel = 1 (Aggro_Shoot) werden keine Waffen mit FM_Aim ausgewählt
 
-public func SelectWeapon(int iLevel, object pTarget, bool fFireModes)
+public func SelectWeapon(int iLevel, object pTarget, bool fFireModes, bool fEmptyLongLoad, bool fEquipment)
 {
   //Entfernung zum Ziel
   var dist = ObjectDistance(pTarget);
   //Keine Waffen in Inventar?
-  if(!CustomContentsCount("IsWeapon"))
+  if(!fEquipment && !CustomContentsCount("IsWeapon"))
     return;
   //Die aktuelle Waffe muss kontrolliert werden?
   if(Contents()->~NeedBotControl())
@@ -451,6 +461,13 @@ public func SelectWeapon(int iLevel, object pTarget, bool fFireModes)
   //Alle durchgehen und passende prüfen
   for (var i = 0, obj, fav, mode, favmode; obj = Contents(i); mode++)
   {
+  	//Ausrüstungsgegenstand unterstützt die KI?
+  	if(fEquipment && obj->~IsEquipment() && obj->~HasBotSupport(this, pTarget))
+  	{
+  		fFireModes = false;
+  		fav = obj;
+  		break;
+  	}
     if(!(obj->~IsWeapon()))
     {
       i++;
@@ -486,7 +503,7 @@ public func SelectWeapon(int iLevel, object pTarget, bool fFireModes)
 
     //Objekt braucht lange zum laden und ist leer/lädt nach
     if(obj->GetBotData(BOT_Power, mode) == BOT_Power_LongLoad && (obj->IsReloading() || !(obj->GetCharge())))
-      if(!fFireModes)
+      if(!fEmptyLongLoad)
         continue;
 
     if(!fav)
@@ -560,7 +577,7 @@ public func SelectWeapon(int iLevel, object pTarget, bool fFireModes)
     return 1;
 
   ShiftContents(0, 0, fav->GetID(), true);
-  Contents()->ResumeReload();
+  Contents()->~ResumeReload();
   return true;
 }
 
