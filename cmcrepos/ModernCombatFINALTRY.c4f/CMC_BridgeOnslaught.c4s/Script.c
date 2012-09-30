@@ -5,6 +5,8 @@
 
 static aFlag, aSelfDefense, switchright, switchleft;
 
+func RecommendedGoals()	{return [GHTF, GCTF];}	//Spielzielempfehlung
+
 
 /* Initialisierung */
 

@@ -5,7 +5,8 @@
 
 static aFlag,aSelfDefense;
 
-public func SpecificEquipment()	{return [[JTPK, 1]];} //Zusatzausrüstung: Jetpack
+public func SpecificEquipment()	{return [[JTPK, 1]];}	//Zusatzausrüstung: Jetpack
+func RecommendedGoals()		{return [GOCC];}	//Spielzielempfehlung
 
 
 /* Regelvoreinstellung */

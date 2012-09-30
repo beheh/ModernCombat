@@ -5,6 +5,8 @@
 
 static aFlag,aStationary,aSelfDefense,aTowerInterior;
 
+func RecommendedGoals()	{return [GOCC, GASS];}	//Spielzielempfehlung
+
 
 /* Initialisierung */
 
