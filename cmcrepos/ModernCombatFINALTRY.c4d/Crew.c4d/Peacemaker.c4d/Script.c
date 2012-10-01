@@ -220,7 +220,8 @@ public func FxAggroTimer(object pTarget, int no)
     }
     //Kein Ziel gefunden: Andere Aufgaben suchen
     CheckIdleInventory();
-    CheckIdleWeapon();
+    if(!CheckIdleWeapon())
+    	FindObject2(Find_Container(this), Find_Func("AI_IdleEquipment", this));
     return;
   }
   EffectVar(1, this, no) = target;
@@ -627,7 +628,7 @@ public func CheckIdleWeapon()
   //Nachladende Waffe in der Hand
   if(Contents()->~IsWeapon())
     if(Contents()->IsReloading() || Contents()->~IsRecharging())
-      return;
+      return true;
   //Inventar nach Waffe durchsuchen, die man Nachladen könnte
   for(var i=0, mode=1, obj; obj = Contents(i) ; mode++)
   {
