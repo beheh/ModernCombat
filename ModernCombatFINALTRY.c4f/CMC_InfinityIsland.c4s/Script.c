@@ -480,7 +480,9 @@ func OnTowerCollapse()
   RemoveObject(doorw, true);
   pRoom->Lock();
   pRoom->SetAction("Idle");
-  }
+  var pContent;
+  while(pContent = Contents(0, pRoom))
+  	pRoom->Exit(pContent);
 }
 
 /* Bei Flaggenübernahme */
