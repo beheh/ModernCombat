@@ -221,7 +221,7 @@ public func FxAggroTimer(object pTarget, int no)
     //Kein Ziel gefunden: Andere Aufgaben suchen
     CheckIdleInventory();
     if(!CheckIdleWeapon())
-    	FindObject2(Find_Container(this), Find_Func("AI_IdleEquipment", this));
+      FindObject2(Find_Container(this), Find_Func("AI_IdleEquipment", this));
     return;
   }
   EffectVar(1, this, no) = target;
