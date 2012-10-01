@@ -509,3 +509,52 @@ public func BotControl(object pBot, object pTarget, int iLevel, bool fAggroFire)
 
   return true;
 }
+
+local ai_counter;
+
+public func AI_IdleEquipment(object pBot)
+{
+	if(ai_ignore && charge >= 35)
+    ai_ignore = false;
+
+  if(ai_ignore)
+  	return false;
+
+  if(charge <= 10)
+  {
+    ai_ignore = true;
+    return false;
+  }
+	
+	ai_counter = (ai_counter + 1) % 5;
+	if(ai_counter)
+  	return GetCommand(pBot, 1);
+
+	var object;
+	if(!(object = GetCommand(pBot, 1)))
+	{
+		object = FindObject2(Find_Or(Find_And(Find_Func("IsRepairable"), Find_Func("GetDamage")), Find_Func("IsFakeRepairable", GetOwner(pBot))), Find_Distance(150));
+		if(!object)
+		{
+			if(GetEffect("RepairObjects", this))
+    		RemoveEffect("RepairObjects", this);
+
+			return false;
+		}
+		
+		if(Contents(0, pBot) != this)
+			ShiftContents(pBot, 0, GetID(), true);
+
+		SetCommand(pBot, "MoveTo", object);
+	}
+	
+	if(FindObject2(Find_Not(Find_Exclude(object)), Find_AtRect(-10,-10,20,20)))
+	{
+    if(!GetEffect("RepairObjects", this))
+      ControlThrow(pBot);
+  }
+  else if(GetEffect("RepairObjects", this))
+    RemoveEffect("RepairObjects", this);
+  
+  return true;
+}
