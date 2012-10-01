@@ -495,9 +495,14 @@ func OnTowerCollapse()
   if(aTowerInterior[1]) aTowerInterior[1]->DecoExplode(30);
 
   //Türverbindung entfernen
+  doorw->CastSmoke("Smoke3",12,15,0,5,150,250,RGBa(255,255,255,100),RGBa(255,255,255,100));
   RemoveObject(doorw, true);
+  pRoom->CastSmoke("Smoke3",12,15,0,5,150,250,RGBa(255,255,255,100),RGBa(255,255,255,100));
   pRoom->Lock();
   pRoom->SetAction("Idle");
+  var pContent;
+  while(pContent = Contents(0, pRoom))
+    pRoom->Exit(pContent);
 }
 
 /* Bei Flaggenübernahme */
