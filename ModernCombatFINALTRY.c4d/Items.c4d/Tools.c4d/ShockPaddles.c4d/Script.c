@@ -26,11 +26,6 @@ public func GetUser()
   return Contained();
 }
 
-public func Ready()
-{
-  return charge >= 10;
-}
-
 /* Akkuregeneration */
 
 public func Timer()
@@ -218,6 +213,10 @@ func FxShockPaddlesHealDamage(object pTarget, int iEffectNumber, int iChange)
 
 func Ready()
 {
+  //Nicht wenn am Auswählen
+  if(GetEffect("IntSelection", this))
+    return false;
+
   //Nicht wenn am Nachladen
   if(GetAction() == "Reload")
     return false;
@@ -242,7 +241,8 @@ public func Beep()
 
 public func RejectEntrance(object pObj)
 {
-  if(GetOCF(pObj) & OCF_Living)
+  if(GetOCF(pObj) & OCF_Living)  ScheduleCall(0, "Beep", 15);
+
     return ContentsCount(GetID(),pObj);
 }
 
@@ -255,6 +255,8 @@ func UpdateHUD(object pHUD)
   var color = RGB(255, 0, 0)*(Inside(charge, 0, 9));
   pHUD->Charge(charge,MaxEnergy());
   pHUD->Ammo(charge, MaxEnergy(), GetName(), true, color);
+  if(GetEffect("IntSelection", this) != 0)
+    pHUD->Recharge(GetEffect("IntSelection", this, 0, 6), GetEffect("IntSelection", this, 0, 3)-1);
   if(GetAction() == "Reload")
     pHUD->Recharge(GetActTime(), 34);
 }
@@ -268,8 +270,12 @@ protected func Hit()
 
 protected func Selection()
 {
-  ScheduleCall(0, "Beep", 15);
+  AddEffect("IntSelection", this, 1, 20, this);
   Sound("CDBT_Charge.ogg");
+}
+
+protected func FxIntSelectionStop() {
+  Beep();
 }
 
 /* KI Funktion */
