@@ -241,8 +241,7 @@ public func Beep()
 
 public func RejectEntrance(object pObj)
 {
-  if(GetOCF(pObj) & OCF_Living)  ScheduleCall(0, "Beep", 15);
-
+  if(GetOCF(pObj) & OCF_Living)
     return ContentsCount(GetID(),pObj);
 }
 
