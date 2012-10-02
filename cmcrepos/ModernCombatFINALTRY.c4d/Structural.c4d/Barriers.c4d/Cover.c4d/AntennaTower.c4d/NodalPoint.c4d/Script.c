@@ -38,7 +38,7 @@ public func SetRopeHolder(object pObject)
 
 public func Damage()
 {
-  if(!IsDestroyed() && GetDamage() > 60)
+  if(!IsDestroyed() && GetDamage() > 30)
   {
     SetCategory(C4D_Object);
     SetPosition(GetX()+GetVertex(0), GetY()+GetVertex(0, true));
