@@ -112,6 +112,7 @@ public func NodeDestroyed(object pNode)
       aNodes[i][3] = true;
       if(aNodes[i][2])
       {
+      	ClearScheduleCall(aNodes[i][2], "SetStaticMode");
         aNodes[i][2]->SetStaticMode(false);
         aNodes[i][2]->FadeOut();
       }
