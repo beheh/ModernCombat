@@ -260,6 +260,7 @@ public func GetAutopilot()	{return GetEffect("BlackhawkAutopilot", this);}
 public func SetAutopilot(object pTarget, int iX, int iY)
 {
   if(!GetPilot()) return;
+  SetController(GetController(GetPilot()));
   ResetAutopilot();
   var xto, yto;
   if(pTarget)
@@ -440,6 +441,12 @@ protected func Collection2(object pObj)
     //Freund: Rein. Feind: Raus
     if(!Hostile(GetOwner(this),GetOwner(pObj)) || (GetOwner() == -1) || !GetPassengerCount())
     {
+      if(GetOwner() == NO_OWNER || Hostile(GetOwner(pObj), GetOwner())) { 
+        //Besitz ergreifen
+        SetOwnerFade(GetOwner(pObj));
+        SetOwner(GetOwner(pObj), pEntrance);
+      }
+      
       //Soundschleife einschalten
       SoundPassenger("CockpitRadio.ogg", true, GetOwner(pObj));
 
@@ -1089,12 +1096,7 @@ public func EnterSeat(int iSeat, object pObj)
   //Pilot
   if (iSeat == BKHK_Seat_Pilot)
   {
-    if(GetOwner() == -1 || GetPlayerTeam(GetOwner()) != GetPlayerTeam(GetOwner(pObj)))
-    {
-      //Besitz ergreifen
-      SetOwnerFade(GetOwner(pObj));
-      SetOwner(GetOwner(pObj), pEntrance);
-    }
+    SetController(GetOwner(pObj));
     SetGraphics("Pilot", this, GetID(), BKHK_PilotLayer, GFXOV_MODE_ExtraGraphics, 0, GFX_BLIT_Custom, this);
     GetPilot() = pObj;
     hud = CreateObject(BHUD, 0, 0, GetOwner(pObj));
@@ -1277,7 +1279,7 @@ public func OnDestruction()
 protected func ContactTop()
 {
   if (GetCon() != 100) return;
-  DoDmg(Abs(GetYDir(0, 500) / -2), 0, this, 1,  GetOwner() + 1);
+  DoDmg(Abs(GetYDir(0, 500) / -2), 0, this, 1,  GetController() + 1);
   for (var i; i < GetVertexNum(); i++)
     if(GetContact(0, i))
       CreateParticle("Blast", GetVertex(i), GetVertex(i, true), 0, 0, RandomX(50, 100), RGB(255, 255, 255));
@@ -1295,7 +1297,7 @@ protected func ContactBottom()
   if (GetCon() != 100) return;
   if (GetYDir() > 25)
   {
-    DoDmg(Abs(GetYDir(0, 500) / 2), 0, this, 1,  GetOwner() + 1);
+    DoDmg(Abs(GetYDir(0, 500) / 2), 0, this, 1,  GetController() + 1);
     for (var i; i < GetVertexNum(); i++)
       if (GetContact(0, i))
         CreateParticle("Blast", GetVertex(i), GetVertex(i, true), 0, 0, RandomX(50,100), RGB(255,255,255));
@@ -1312,7 +1314,7 @@ protected func ContactLeft()
   if (GetCon() != 100) return;
   if (Abs(GetXDir()) > 20 || Abs(GetYDir()) > 20)
   {
-    DoDmg(Sqrt(GetXDir(0, 500)**2 + GetYDir(0, 500)**2), 0, this, 1,  GetOwner() + 1);
+    DoDmg(Sqrt(GetXDir(0, 500)**2 + GetYDir(0, 500)**2), 0, this, 1,  GetController() + 1);
     for (var i; i < GetVertexNum(); i++)
       if (GetContact(0, i))
         CreateParticle("Blast", GetVertex(i), GetVertex(i, true), 0, 0, RandomX(50, 100), RGB(255, 255, 255));
@@ -1328,7 +1330,7 @@ protected func ContactRight()
   if (GetCon() != 100) return;
   if (Abs(GetXDir()) > 20 || Abs(GetYDir()) > 20)
   {
-    DoDmg(Sqrt(GetXDir(0, 500)**2 + GetYDir(0, 500)**2), 0, this, 1,  GetOwner() + 1);
+    DoDmg(Sqrt(GetXDir(0, 500)**2 + GetYDir(0, 500)**2), 0, this, 1,  GetController() + 1);
     for (var i; i < GetVertexNum(); i++)
       if (GetContact(0, i))
         CreateParticle("Blast", GetVertex(i), GetVertex(i, true), 0, 0, RandomX(50, 100), RGB(255, 255, 255));
