@@ -7,6 +7,7 @@ static FKDT_QuickTipIDs;
 
 local clonk, oldvisrange, oldvisstate, killmsg, aTipps, iTippNr;
 local rejected, symbol;
+local aGrenades;
 
 public func AimAngle()		{}
 public func ReadyToFire()	{}
@@ -23,6 +24,7 @@ protected func Initialize()
   Sound("ClonkDie*.ogg");
 
   aTipps = [];
+  aGrenades = [];
   FKDT_QuickTipIDs = [ASTR, MNGN, PSTL, RTLR, PPGN, SGST, SMGN, ATWN, FGRN, FRAG, PGRN, STUN, SGRN, SRBL, AMPK, BTBG, C4PA, DGNN, FAPK, RSHL, CDBT, CUAM, BWTH];
 
   _inherited();
@@ -77,6 +79,22 @@ public func Set(object pClonk)
 
   //Clonk aufnehmen
   Enter(this, pClonk);
+  
+  //Granatensortierung speichern
+  var pGrenadeStoring = pClonk->~GetGrenadeStoring();
+  if(pGrenadeStoring)
+  {
+  	var nade, i = ContentsCount(0, pGrenadeStoring);
+  	while(--i >= 0) 
+  	{
+  	  nade = GetID(Contents(i, pGrenadeStoring));
+  	  if(GetIndexOf(nade, aGrenades) != -1)
+  	  	continue;
+  	  
+  	  aGrenades[GetLength(aGrenades)] = nade;
+  	}
+  }
+  
   //Evtl. Granaten holen
   pClonk->~GrabGrenades(this);
   //Objekte des Clonks aufnehmen
@@ -466,10 +484,24 @@ public func Reanimation()
   if(GetAlive(clonk))
   {
     clonk->GrabContents(this);
-    for(var item in FindObjects(Find_Container(clonk), Find_Func("IsGrenade")))
+    if(GetLength(aGrenades))
     {
-      clonk->~StoreGrenade(item);
-      if(!Contained(item)) RemoveObject(item);
+    	//Granatensortierung wiederherstellen
+    	for(var i = 0; i < GetLength(aGrenades); i++)
+			{
+				var nade = aGrenades[i];
+    		for(var item in FindObjects(Find_Container(clonk), Find_ID(nade)))
+    		{
+    		  clonk->~StoreGrenade(item);
+    		  if(!Contained(item)) RemoveObject(item);
+    		}
+    	}
+    	//Neue Granaten nach ganz unten
+    	for(var item in FindObjects(Find_Container(clonk), Find_Func("IsGrenade")))
+    	{
+    		clonk->~StoreGrenade(item);
+    		if(!Contained(item)) RemoveObject(item);
+    	}
     }
     RemoveEffect("NoAnnounce", clonk);
   }
