@@ -397,8 +397,9 @@ protected func Ejection(object ByObj)
   //Erst mal löschen
   DeleteActualSeatPassenger(ByObj);
     
-  //Soundschleife übergeben
-  Sound("CockpitRadio.ogg", true, 0, 100, GetOwner(ByObj)+1, -1);
+  //Soundschleife ausschalten
+  SoundPassenger("CockpitRadio.ogg", false, GetOwner(ByObj));
+  SoundPassenger("WarningNoPilot.ogg", false, GetOwner(ByObj));
 
   //Nicht bei Schaden
   if(GetDamage() >= MaxDamage()) return;
@@ -439,8 +440,8 @@ protected func Collection2(object pObj)
     //Freund: Rein. Feind: Raus
     if(!Hostile(GetOwner(this),GetOwner(pObj)) || (GetOwner() == -1) || !GetPassengerCount())
     {
-      //Soundschleife übergeben
-      Sound("CockpitRadio.ogg", true, 0, 100, GetOwner(pObj)+1, +1);
+      //Soundschleife einschalten
+      SoundPassenger("CockpitRadio.ogg", true, GetOwner(pObj));
 
       //Freien Sitz belegen
       if(!GetPilot())
@@ -1420,8 +1421,19 @@ protected func TimerCall()
       var szStr = Format("@%s (%s)", GetName(GetPilot()), GetPlayerName(GetOwner(GetPilot())));
       CustomMessage(szStr, this, iPlr, 0, 15, SetRGBaValue(GetPlrColorDw(GetOwner(GetPilot())), 128), 0, 0, iFlags);
     }
-    if(!GetPilot())
+    var fResetNoPilot = false;
+    if(!GetPilot()) {
       CustomMessage("@", this, iPlr);
+      //Warnung ohne Pilot
+      if(FindObjects(Find_OCF(OCF_CrewMember), Find_Container(this)) && GetThrottle() > 0) {
+        SoundPassenger("WarningNoPilot.ogg", true, iPlr);
+      }
+      else {
+        SoundPassenger("WarningNoPilot.ogg", false, iPlr);
+      }
+    } else {
+      SoundPassenger("WarningNoPilot.ogg", false, iPlr);
+    }
   }
 
   //Scheinwerfer aktualisieren
@@ -1571,6 +1583,14 @@ protected func TimerCall()
       }
     }
   }
+}
+
+/* Sounds */
+
+protected func SoundPassenger(string szSound, bool fSound, int iPlr) {
+  var iLoop = -1;
+  if(fSound) iLoop = +1;
+  Sound(szSound, false, this, 100, iPlr+1, iLoop);
 }
 
 /* Physik */
