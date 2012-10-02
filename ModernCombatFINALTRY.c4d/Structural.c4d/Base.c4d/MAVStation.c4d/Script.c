@@ -46,19 +46,15 @@ public func Set(int iX, int iY, bool fGlobal)
 
 public func OnDestruction()
 {
+  //MAV deaktivieren
+  if(pMav)
+    pMav->Wait();
+
   //Aktion und Grafik setzen
-  SetOwner(-1);
+  SetOwner(-1);  
   ChangeDef(BDSN);
   this->~Initialize();
 
-  //Effekte
-  if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",8,15,0,5,250,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
-  if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("ConcreteSplinter", 8, 100, 0, 0, 40, 15, RGB(40, 20, 20));
-  if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("ConcreteSplinter", 4, 100, 0, 0, 40, 15);
-}
-
-public func Destruction()
-{
   //Pilot vorhanden? Auswerfen
   if(GetUser())
   {
@@ -69,6 +65,11 @@ public func Destruction()
     pUser->SetHUDTarget(0);
     pUser->~ShowCH();
   }
+
+  //Effekte
+  if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",8,15,0,5,250,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
+  if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("ConcreteSplinter", 8, 100, 0, 0, 40, 15, RGB(40, 20, 20));
+  if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("ConcreteSplinter", 4, 100, 0, 0, 40, 15);
 }
 
 public func OnRepair()
@@ -111,9 +112,7 @@ public func FxActivityTimer(object pTarget, int iEffectNumber, int iEffectTime)
 
     //MAV deaktivieren
     if(pMav)
-    {
       pMav->Wait();
-    }
 
     //MAV-Station neutralisieren und auf Bereitschaft umstellen
     SetOwner(-1, this);
