@@ -79,20 +79,20 @@ public func Set(object pClonk)
 
   //Clonk aufnehmen
   Enter(this, pClonk);
-  
+
   //Granatensortierung speichern
   var pGrenadeStoring = pClonk->~GetGrenadeStoring();
   if(pGrenadeStoring)
   {
-  	var nade, i = ContentsCount(0, pGrenadeStoring);
-  	while(--i >= 0) 
-  	{
-  	  nade = GetID(Contents(i, pGrenadeStoring));
-  	  if(GetIndexOf(nade, aGrenades) != -1)
-  	  	continue;
-  	  
-  	  aGrenades[GetLength(aGrenades)] = nade;
-  	}
+    var nade, i = ContentsCount(0, pGrenadeStoring);
+    while(--i >= 0) 
+    {
+      nade = GetID(Contents(i, pGrenadeStoring));
+      if(GetIndexOf(nade, aGrenades) != -1)
+        continue;
+      
+      aGrenades[GetLength(aGrenades)] = nade;
+    }
   }
   
   //Evtl. Granaten holen
@@ -486,22 +486,22 @@ public func Reanimation()
     clonk->GrabContents(this);
     if(GetLength(aGrenades))
     {
-    	//Granatensortierung wiederherstellen
-    	for(var i = 0; i < GetLength(aGrenades); i++)
-			{
-				var nade = aGrenades[i];
-    		for(var item in FindObjects(Find_Container(clonk), Find_ID(nade)))
-    		{
-    		  clonk->~StoreGrenade(item);
-    		  if(!Contained(item)) RemoveObject(item);
-    		}
-    	}
-    	//Neue Granaten nach ganz unten
-    	for(var item in FindObjects(Find_Container(clonk), Find_Func("IsGrenade")))
-    	{
-    		clonk->~StoreGrenade(item);
-    		if(!Contained(item)) RemoveObject(item);
-    	}
+      //Granatensortierung wiederherstellen
+      for(var i = 0; i < GetLength(aGrenades); i++)
+      {
+        var nade = aGrenades[i];
+        for(var item in FindObjects(Find_Container(clonk), Find_ID(nade)))
+        {
+          clonk->~StoreGrenade(item);
+          if(!Contained(item)) RemoveObject(item);
+        }
+      }
+      //Neue Granaten nach ganz unten
+      for(var item in FindObjects(Find_Container(clonk), Find_Func("IsGrenade")))
+      {
+        clonk->~StoreGrenade(item);
+        if(!Contained(item)) RemoveObject(item);
+      }
     }
     RemoveEffect("NoAnnounce", clonk);
   }
