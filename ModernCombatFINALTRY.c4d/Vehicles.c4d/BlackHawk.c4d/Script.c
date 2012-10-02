@@ -1277,7 +1277,7 @@ public func OnDestruction()
 protected func ContactTop()
 {
   if (GetCon() != 100) return;
-  DoDmg(GetYDir(0, 500) / -2, 0, this, 1,  GetOwner() + 1);
+  DoDmg(Abs(GetYDir(0, 500) / -2), 0, this, 1,  GetOwner() + 1);
   for (var i; i < GetVertexNum(); i++)
     if(GetContact(0, i))
       CreateParticle("Blast", GetVertex(i), GetVertex(i, true), 0, 0, RandomX(50, 100), RGB(255, 255, 255));
@@ -1295,7 +1295,7 @@ protected func ContactBottom()
   if (GetCon() != 100) return;
   if (GetYDir() > 25)
   {
-    DoDmg(GetYDir(0, 500) / 2, 0, this, 1,  GetOwner() + 1);
+    DoDmg(Abs(GetYDir(0, 500) / 2), 0, this, 1,  GetOwner() + 1);
     for (var i; i < GetVertexNum(); i++)
       if (GetContact(0, i))
         CreateParticle("Blast", GetVertex(i), GetVertex(i, true), 0, 0, RandomX(50,100), RGB(255,255,255));
