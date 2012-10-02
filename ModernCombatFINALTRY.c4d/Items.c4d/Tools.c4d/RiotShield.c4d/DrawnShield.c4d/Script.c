@@ -69,7 +69,7 @@ public func ExecShove()
                        Find_OCF(OCF_Alive)
                      ),
                      Find_Category(C4D_Living|C4D_Vehicle),
-                     Find_Not(Find_ID(BKHK)),
+                     Find_Not(Find_Func("IsHelicopter")),
                      Find_Func("CheckEnemy",this)
                    ),
                    Find_Func("IsMeleeTarget", this)
