@@ -26,8 +26,6 @@ func Initialize()
   CreateEquipment();
   //Dekoration plazieren
   CreateDecoration();
-  //Verzögerte Hinweisnachricht ausgeben
-  Schedule("EventInfo4K(0,Format(\"$MsgParachute$\"),PPAR, 0, 0, 0, \"PriorityInfo.ogg\");", 100);
   return(1);
 }
 
@@ -482,6 +480,10 @@ public func ChooserFinished()
   //Starttitel und Musikliste zusammenstellen
   SetPlayList("CMC_Base Groove.ogg;CMC_Firehawk.ogg;CMC_Friendly Unit.ogg;CMC_Getaway.ogg;CMC_Deep Universe.ogg;CMC_Eurocorps.ogg;CMC_Moving Squad.ogg;CMC_Offensive.ogg;CMC_Rock Go On.ogg;CMC_Showtime.ogg;CMC_Slow Motion.ogg;CMC_Striking Force.ogg;CMC_No Good.ogg;CMC_Obsession.ogg;CMC_Your Eyes.ogg");
   Music("CMC_Offensive.ogg");
+
+  //Verzögerte Hinweisnachricht ausgeben
+  if(!FindObject(FDMG))
+    Schedule("EventInfo4K(0,Format(\"$MsgParachute$\"),PPAR, 0, 0, 0, \"PriorityInfo.ogg\");", 100);
 
   //Teams abfragen
   var aTeams = [false,false,false,false,false];
