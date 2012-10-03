@@ -223,6 +223,10 @@ func CreateEquipment()
   CreateObject(GNET, 2830, 590, -1)->Set(0,0,1);
   CreateObject(GNET, 3820, 440, -1)->Set(SATW,-90);
 
+  //MAV-Stationen
+  CreateObject(MVSN, 435, 500, -1)->Set(500,500,1);
+  CreateObject(MVSN, 3805, 500, -1)->Set(3740,500,1);
+
   //Artilleriebatterie
   aArtillery[0] = CreateObject(ATBY,2120,690,-1);
 }
