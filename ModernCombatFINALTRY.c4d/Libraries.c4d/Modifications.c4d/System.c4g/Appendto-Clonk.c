@@ -320,7 +320,7 @@ protected func DoPoints()
       if(IsRiding() && GetActionTarget() && GetActionTarget()->~IsGunEmplacement())
         AttemptAwardRibbon(RB04, killer, GetOwner());
       //Ribbon-Fortschritt (The Artist)
-      if(killicon->~IsSchockPaddles())
+      if(killicon->~IsShockPaddles())
         AttemptAwardRibbon(RB05, killer, GetOwner());
       //Ribbon-Fortschritt (The Noob)
       if(Contained() && GetID(Contained()) == BKHK)

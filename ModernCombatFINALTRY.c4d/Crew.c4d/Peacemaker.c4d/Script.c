@@ -68,14 +68,14 @@ public func GetReanimationTarget(pFrom, & body, & defi, fUnderAttack)
     //Defibrillator zum Reanimieren suchen
     if(ContentsCount(CDBT, pFrom))
     {
-      defi = FindObject2(Find_Func("IsSchockPaddles"), Find_Container(pFrom));
+      defi = FindObject2(Find_Func("IsShockPaddles"), Find_Container(pFrom));
       if(!defi->~Ready())
       {
         olddefi = defi;
       }
     }
     if(!defi)
-      defi = FindObject2(Find_Func("IsSchockPaddles"), Find_Or(Find_Container(Contained(body)), Find_Container(pFrom), Find_NoContainer()), Find_Func("Ready"), Find_Distance(distance, AbsX(GetX(pFrom)), AbsY(GetY(pFrom))), Sort_Distance(AbsX(GetX(pFrom)), AbsY(GetY(pFrom))));
+      defi = FindObject2(Find_Func("IsShockPaddles"), Find_Or(Find_Container(Contained(body)), Find_Container(pFrom), Find_NoContainer()), Find_Func("Ready"), Find_Distance(distance, AbsX(GetX(pFrom)), AbsY(GetY(pFrom))), Sort_Distance(AbsX(GetX(pFrom)), AbsY(GetY(pFrom))));
     if(defi)
     {
       if(olddefi)
@@ -135,9 +135,9 @@ public func FxAggroTimer(object pTarget, int no)
             SetCommand(pTarget, "Get", defi);
         }
         else
-        if(!Contents()->~IsSchockPaddles())
+        if(!Contents()->~IsShockPaddles())
         {
-          while(!Contents()->~IsSchockPaddles())
+          while(!Contents()->~IsShockPaddles())
             ShiftContents(pTarget);
         }
         else 

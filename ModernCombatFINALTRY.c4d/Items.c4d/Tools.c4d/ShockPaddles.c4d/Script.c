@@ -10,7 +10,7 @@ public func IsDrawable()		{return true;}
 public func MaxEnergy()			{return 30;}
 public func IsEquipment()		{return true;}
 public func NoArenaRemove()		{return true;}
-public func IsSchockPaddles()		{return true;}
+public func IsShockPaddles()		{return true;}
 public func CustomQuickInventoryMenu()	{return QINV_ObjectMenu;}
 
 
