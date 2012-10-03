@@ -1,0 +1,1 @@
+Zerstöre ein feindliches MAV per Kolbenschlag.

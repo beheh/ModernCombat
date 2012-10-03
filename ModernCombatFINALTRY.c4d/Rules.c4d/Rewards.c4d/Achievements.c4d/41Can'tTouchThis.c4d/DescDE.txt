@@ -1,0 +1,1 @@
+Eliminiere einen Feind durch Rammen mit einem MAV.
