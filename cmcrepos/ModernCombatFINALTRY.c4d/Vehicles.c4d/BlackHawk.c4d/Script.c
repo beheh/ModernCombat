@@ -125,7 +125,7 @@ public func IsInHitbox(int x, int y, bool fDraw)
     y2 = hitbox[i][1];
   }
 
-  */
+  /*
   if(Inside(FrameCounter(), 8150, 8300))
   {
     Log("Frame: %d | hitbox: %v | x: %d | y: %d | inside: %v", FrameCounter(), hitbox, x, y, inside);
