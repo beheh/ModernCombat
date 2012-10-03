@@ -222,8 +222,14 @@ func Ready()
     return false;
 
   //Nicht bei zu wenig Spannung
-  if(charge >= 10)
-    return true;
+  if(!Charged())
+    return false;
+    
+  return true;
+}
+
+func Charged() {
+  return charge >= 10;
 }
 
 public func Beep()
@@ -231,7 +237,7 @@ public func Beep()
   //Erst nach Ablauf des letzten Beeps
   if(GetEffect("IntWait", this)) return;
 
-  if(charge <= 9) return;
+  if(!Charged()) return;
 
   Sound("CDBT_Ready.ogg");
 
@@ -289,7 +295,7 @@ public func HasBotSupport(object pBot, object pTarget)
   if(!(GetOCF(pTarget) & OCF_Alive))
     return false;
 
-  if(charge <= 10)
+  if(!Charged())
     return false;
 
   if(GetY(pBot)-20 > GetY(pTarget))
@@ -300,11 +306,14 @@ public func HasBotSupport(object pBot, object pTarget)
 
 public func BotControl(object pBot, object pTarget, int iLevel, bool fAggroFire)
 {
-  if(!pBot || !pTarget || !fAggroFire || GetAction() == "Reload")
+  if(!pBot || !pTarget || !fAggroFire || !Charged())
     return false;
 
   if(!GetCommand(pBot))
     SetCommand(pBot, "MoveTo", pTarget);
+
+  if(!Ready())
+    return false;
 
   if(Distance(GetX(), GetY(), GetX(pTarget), GetY(pTarget)) < 20) //Nah genug?
     ControlThrow(pBot);
