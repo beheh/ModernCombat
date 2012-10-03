@@ -729,10 +729,10 @@ public func ControlThrow(caller)
       {
         target->~MeleeHit(this);
         meleeattacked = true;
-        
+
         //Achievement-Fortschritt (Fly Swatter)
         if(target && target->~IsMAV() && target->~IsDestroyed() && (Abs(GetXDir(target)) + Abs(GetYDir(target)) >= 25))
-        	DoAchievementProgress(1, AC42, GetOwner(GetUser()));
+          DoAchievementProgress(1, AC42, GetOwner(GetUser()));
       }
     }
   }
