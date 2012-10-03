@@ -1020,7 +1020,7 @@ private func Shoot(object caller)
   if(GetAmmo(ammoid)) Recharge();
   else
   {
-  	shooting = false;
+    shooting = false;
     OnEmpty();
     if(GetFMData(FM_Auto)) {
       OnAutoStop(firemode); 
