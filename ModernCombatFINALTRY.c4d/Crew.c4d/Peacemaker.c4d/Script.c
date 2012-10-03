@@ -134,7 +134,8 @@ public func FxAggroTimer(object pTarget, int no)
           if(GetCommand(pTarget) != "Get")
             SetCommand(pTarget, "Get", defi);
         }
-        else if(!Contents()->~IsSchockPaddles())
+        else
+        if(!Contents()->~IsSchockPaddles())
         {
           while(!Contents()->~IsSchockPaddles())
             ShiftContents(pTarget);
@@ -220,7 +221,8 @@ public func FxAggroTimer(object pTarget, int no)
       EffectVar(99, this, no);
     }
     //Kein Ziel gefunden: Andere Aufgaben suchen
-    if(!Contents()->~RejectShift()) {
+    if(!Contents()->~RejectShift())
+    {
       CheckIdleInventory();
       CheckIdleWeapon();
     }
