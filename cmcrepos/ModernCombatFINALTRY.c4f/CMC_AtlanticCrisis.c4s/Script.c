@@ -544,7 +544,7 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
    if(iTeam == 1)
    {
     if(!rand)
-     { iX = 1350; iY = 490; }
+     { iX = 1320; iY = 490; }
     if(!--rand)
      { iX = 1600; iY = 390; }
     if(!--rand)
@@ -558,7 +558,7 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
     if(!--rand)
      { iX = 4410; iY = 390; }
     if(!--rand)
-     { iX = 4660; iY = 490; }
+     { iX = 4690; iY = 490; }
     return(1);
    }
   }
