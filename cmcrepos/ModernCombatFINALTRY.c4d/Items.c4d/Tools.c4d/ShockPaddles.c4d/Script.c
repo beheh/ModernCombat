@@ -224,11 +224,12 @@ func Ready()
   //Nicht bei zu wenig Spannung
   if(!Charged())
     return false;
-    
+
   return true;
 }
 
-func Charged() {
+func Charged()
+{
   return charge >= 10;
 }
 
@@ -237,7 +238,8 @@ public func Beep()
   //Erst nach Ablauf des letzten Beeps
   if(GetEffect("IntWait", this)) return;
 
-  if(!Charged()) return;
+  if(!Charged())
+    return;
 
   Sound("CDBT_Ready.ogg");
 

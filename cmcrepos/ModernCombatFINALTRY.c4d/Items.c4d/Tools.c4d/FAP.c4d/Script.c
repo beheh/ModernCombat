@@ -247,7 +247,7 @@ protected func AI_IdleInventory(object pClonk)	{return AI_Inventory(pClonk);}
 
 protected func AI_Inventory(object pClonk)
 {
-  //Wenn wir schon heilen, nichts anderes tun
+  //Wenn am heilen, nichts anderes tun
   if(GetEffect("FAPHeal", this))
     return 2;
 
