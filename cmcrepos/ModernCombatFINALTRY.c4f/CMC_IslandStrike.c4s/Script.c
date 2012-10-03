@@ -165,7 +165,6 @@ func CreateInterior()
   CreateObject(PBRL, 4330, 410, -1)->AutoRespawn();
   CreateObject(PBRL, 4485, 580, -1)->AutoRespawn();
   CreateObject(PBRL, 6220, 510, -1)->AutoRespawn();
-  CreateObject(PBRL, 6445, 410, -1)->AutoRespawn();
   CreateObject(PBRL, 7790, 320, -1)->AutoRespawn();
   CreateObject(PBRL, 7800, 320, -1)->AutoRespawn();
 
@@ -781,6 +780,10 @@ public func ChooserFinished()
    //Geschützstellungen
    CreateObject(GNET, 2560, 340, -1)->Set(SATW);
    CreateObject(GNET, 6590, 340, -1)->Set(SATW);
+
+   //MAV-Stationen
+   CreateObject(MVSN, 2690, 410, -1)->Set(2690,340,1);
+   CreateObject(MVSN, 6460, 410, -1)->Set(6460,340,1);
 
    //Patrouillenboote
    SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1245,510,-1),50*21,300);
