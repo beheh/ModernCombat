@@ -441,12 +441,13 @@ protected func Collection2(object pObj)
     //Freund: Rein. Feind: Raus
     if(!Hostile(GetOwner(this),GetOwner(pObj)) || (GetOwner() == -1) || !GetPassengerCount())
     {
-      if(GetOwner() == NO_OWNER || Hostile(GetOwner(pObj), GetOwner())) { 
+      if(GetOwner() == NO_OWNER || Hostile(GetOwner(pObj), GetOwner()))
+      {
         //Besitz ergreifen
         SetOwnerFade(GetOwner(pObj));
         SetOwner(GetOwner(pObj), pEntrance);
       }
-      
+
       //Soundschleife einschalten
       SoundPassenger("CockpitRadio.ogg", true, GetOwner(pObj));
 
@@ -1424,16 +1425,21 @@ protected func TimerCall()
       CustomMessage(szStr, this, iPlr, 0, 15, SetRGBaValue(GetPlrColorDw(GetOwner(GetPilot())), 128), 0, 0, iFlags);
     }
     var fResetNoPilot = false;
-    if(!GetPilot()) {
+    if(!GetPilot())
+    {
       CustomMessage("@", this, iPlr);
       //Warnung ohne Pilot
-      if(FindObjects(Find_OCF(OCF_CrewMember), Find_Container(this)) && GetThrottle() > 0) {
+      if(FindObjects(Find_OCF(OCF_CrewMember), Find_Container(this)) && GetThrottle() > 0)
+      {
         SoundPassenger("WarningNoPilot.ogg", true, iPlr);
       }
-      else {
+      else
+      {
         SoundPassenger("WarningNoPilot.ogg", false, iPlr);
       }
-    } else {
+    }
+    else
+    {
       SoundPassenger("WarningNoPilot.ogg", false, iPlr);
     }
   }
@@ -1589,7 +1595,8 @@ protected func TimerCall()
 
 /* Sounds */
 
-protected func SoundPassenger(string szSound, bool fSound, int iPlr) {
+protected func SoundPassenger(string szSound, bool fSound, int iPlr)
+{
   var iLoop = -1;
   if(fSound) iLoop = +1;
   Sound(szSound, false, this, 100, iPlr+1, iLoop);
@@ -1675,7 +1682,7 @@ protected func FxEngineTimer(object Target, int EffectNumber, int EffectTime)
   return true;
 }
 
-//eine neue Funktion: Tangens = Sinus / Kosins
+//Neue Funktion: Tangens = Sinus / Kosins
 global func Tan(int angle, int radius)
 {
   return Sin(angle, radius, 10) / Cos(angle, radius, 10);
