@@ -411,6 +411,11 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
           ObjectSetAction(target, "Tumble");
         }
       }
+      
+      //Achievement-Fortschritt (Can't touch this)
+      if(!GetAlive(target) || IsFakeDeath(target))
+    		DoAchievementProgress(1, AC41, GetOwner());
+
       //Auch das MAV nimmt Schaden
       DoDmg(10, DMG_Melee, this, 0, GetController(this)+1, GetID());
       iXDir /= 2;
@@ -432,7 +437,7 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
     {
       DoDmg(20, DMG_Melee, target, 0, GetController(this)+1, GetID());
       AddEffect("MeleeCooldown", this, 1, 30);
-      
+
       //Gesonderter Schaden bei feindlichen MAVs
       if(target && target->~IsMAV())
       {
