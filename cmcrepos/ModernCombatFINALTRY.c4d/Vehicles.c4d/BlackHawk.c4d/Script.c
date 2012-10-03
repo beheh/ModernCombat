@@ -109,7 +109,7 @@ public func IsInHitbox(int x, int y, bool fDraw)
   var y2 = hitbox[0][1];
 
   var su = (y1 >= y);
-  for(var i = 1; i < length; i++)
+  for(var i = 1; i <= length; i++)
   {
     var eu = (y2 >= y);
     if(su != eu && (x1 > x || x2 > x))
