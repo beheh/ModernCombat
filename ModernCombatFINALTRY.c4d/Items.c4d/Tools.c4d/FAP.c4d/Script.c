@@ -247,6 +247,10 @@ protected func AI_IdleInventory(object pClonk)	{return AI_Inventory(pClonk);}
 
 protected func AI_Inventory(object pClonk)
 {
+  //Wenn wir schon heilen, nichts anderes tun
+  if(GetEffect("FAPHeal", this))
+    return 2;
+
   //Benutzen, wenn der Clonk weniger als volles Leben hat und genug Punkte da sind
   if(!pClonk->~IsHealing() && GetPackPoints() > 30 && GetEnergy(pClonk) < GetPhysical("Energy", PHYS_Current, pClonk) / 1000)
   {
