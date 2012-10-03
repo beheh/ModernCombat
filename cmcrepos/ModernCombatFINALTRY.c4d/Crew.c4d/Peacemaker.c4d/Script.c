@@ -68,14 +68,14 @@ public func GetReanimationTarget(pFrom, & body, & defi, fUnderAttack)
     //Defibrillator zum Reanimieren suchen
     if(ContentsCount(CDBT, pFrom))
     {
-      defi = FindObject2(Find_ID(CDBT), Find_Container(pFrom));
+      defi = FindObject2(Find_Func("IsSchockPaddles"), Find_Container(pFrom));
       if(!defi->~Ready())
       {
         olddefi = defi;
       }
     }
     if(!defi)
-      defi = FindObject2(Find_ID(CDBT), Find_Or(Find_Container(Contained(body)), Find_Container(pFrom), Find_NoContainer()), Find_Func("Ready"), Find_Distance(distance, AbsX(GetX(pFrom)), AbsY(GetY(pFrom))), Sort_Distance(AbsX(GetX(pFrom)), AbsY(GetY(pFrom))));
+      defi = FindObject2(Find_Func("IsSchockPaddles"), Find_Or(Find_Container(Contained(body)), Find_Container(pFrom), Find_NoContainer()), Find_Func("Ready"), Find_Distance(distance, AbsX(GetX(pFrom)), AbsY(GetY(pFrom))), Sort_Distance(AbsX(GetX(pFrom)), AbsY(GetY(pFrom))));
     if(defi)
     {
       if(olddefi)
@@ -134,9 +134,10 @@ public func FxAggroTimer(object pTarget, int no)
           if(GetCommand(pTarget) != "Get")
             SetCommand(pTarget, "Get", defi);
         }
-        else if(Contents() != defi)
+        else if(!Contents()->~IsSchockPaddles())
         {
-          ShiftContents(pTarget, 0, CDBT, true);
+          while(!Contents()->~IsSchockPaddles())
+            ShiftContents(pTarget);
         }
         else 
         {
@@ -219,9 +220,10 @@ public func FxAggroTimer(object pTarget, int no)
       EffectVar(99, this, no);
     }
     //Kein Ziel gefunden: Andere Aufgaben suchen
-    CheckIdleInventory();
-    if(!CheckIdleWeapon())
-      FindObject2(Find_Container(this), Find_Func("AI_IdleEquipment", this));
+    if(!Contents()->~RejectShift()) {
+      CheckIdleInventory();
+      CheckIdleWeapon();
+    }
     return;
   }
   EffectVar(1, this, no) = target;
@@ -240,7 +242,7 @@ public func CheckIdleInventory()
     if(result)
     {
       if(result > 1)
-        break;
+        return result;
       continue;
     }
     //Waffe
