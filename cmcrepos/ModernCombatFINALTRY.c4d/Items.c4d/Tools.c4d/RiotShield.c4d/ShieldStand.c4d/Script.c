@@ -160,19 +160,19 @@ public func ControlRight(pByObj)
 
 public func ControlUp(pByObj)
 {
-	if(fRotRight)
-  	TurnLeft();
-	else
-		TurnRight();
+  if(fRotRight)
+    TurnLeft();
+  else
+    TurnRight();
   return true;
 }
 
 public func ControlDown(pByObj)
 {
-	if(!fRotRight)
-  	TurnLeft();
-	else
-		TurnRight();
+  if(!fRotRight)
+    TurnLeft();
+  else
+    TurnRight();
   return true;
 }
 

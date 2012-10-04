@@ -79,7 +79,7 @@ public func ControlThrow(caller)
     return !GetPlrDownDouble(GetController(caller));
 }
 
-public func Activate(pByObj)
+public func ControlDigDouble(pByObj)
 {
   if((pByObj->GetAction() != "WalkArmed") && !pByObj->~IsAiming())
     return true;
@@ -88,8 +88,15 @@ public func Activate(pByObj)
   pTemp->SetAim(Contained()->~AimAngle());
   pTemp->SetDir(Contained()->GetDir());
   pByObj->SetAction("Push",pTemp);
-  
+
+  Sound("RSHL_Deploy.ogg");
+
   return RemoveObject(this);
+}
+
+public func Activate(pByObj)
+{
+  ControlDigDouble(pByObj);
 }
 
 /* Ablegen */

@@ -2,7 +2,6 @@
 Name=Con
 Procedure=NONE
 Facet=24,0,24,17
-FacetTopFace=1
 Delay=20
 Length=4
 EndCall=ConComplete
