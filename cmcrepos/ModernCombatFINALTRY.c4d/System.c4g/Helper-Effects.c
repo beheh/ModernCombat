@@ -21,6 +21,12 @@ global func FxIntUnstuck4KStart(object pTarget, int iEffectNumber, int iTemp, in
         iYDir = Sin(i,j);
         if(!GBackSolid(iXDir,iYDir))
         {
+          for(var k = j; k >= 0; k--)
+          {
+            iXDir = Cos(i,k);
+            iYDir = Sin(i,k);
+            if(GBackSolid(iXDir,iYDir)) break;
+          }
           Normalize4K(iXDir,iYDir);
           EffectVar (0,pTarget,iEffectNumber) = iXDir;
           EffectVar (1,pTarget,iEffectNumber) = iYDir;
