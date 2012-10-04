@@ -471,13 +471,8 @@ public func Reanimation()
   if(Contained(clonk) == this)
   {
     Exit(clonk,0,GetObjHeight(clonk)/2);
-    var i = 0;
-    while(Stuck(clonk) && i <= 20)
-    {
-      SetPosition(GetX(clonk), GetY(clonk)+1, clonk);
-      i++;
-    }
-    if(Stuck(clonk)) SetPosition(GetX(clonk), GetY(clonk)-i, clonk);
+    if(Stuck(clonk))
+      AutoUnstuck(clonk, 0, -1);
   }
 
   //Besitztümer weitergeben
