@@ -594,15 +594,11 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   {
    if(iTeam == 1)
    {
-    iX = 560;
-    iY = 310;
-    if(!Random(2)) iY = 380;
+    return [[560, 310], [560, 380]];
    }
    if(iTeam == 2)
    {
-    iX = 2240;
-    iY = 310;
-    if(!Random(2)) iY = 380;
+    return [[2240, 310], [2240, 380]];
    }
    return(1);
   }
@@ -612,15 +608,11 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   {
    if(iTeam == 1)
    {
-    iX = 940;
-    iY = 250;
-    if(!Random(2)) iY = 410;
+    return [[940, 250], [940, 410]];
    }
    if(iTeam == 2)
    {
-    iX = 1860;
-    iY = 250;
-    if(!Random(2)) iY = 410;
+    return [[1860, 250], [1860, 410]];
    }
    return(1);
   }
