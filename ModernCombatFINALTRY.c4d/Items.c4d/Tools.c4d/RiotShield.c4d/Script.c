@@ -79,7 +79,11 @@ public func ControlThrow(caller)
     return !GetPlrDownDouble(GetController(caller));
 }
 
-public func Activate(pByObj)
+public func DoubleDig(object pByObj) {
+  return Activate(pByObj);
+}
+
+public func Activate(object pByObj)
 {
   if((pByObj->GetAction() != "WalkArmed") && !pByObj->~IsAiming())
     return true;
