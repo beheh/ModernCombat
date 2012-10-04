@@ -167,7 +167,7 @@ public func ControlUp(pByObj)
   return true;
 }
 
-public func ControlDown(pByObj)
+public func ControlDownSingle(pByObj)
 {
   if(!fRotRight)
     TurnLeft();
