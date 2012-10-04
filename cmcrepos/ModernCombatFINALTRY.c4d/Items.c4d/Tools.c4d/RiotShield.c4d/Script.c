@@ -79,7 +79,7 @@ public func ControlThrow(caller)
     return !GetPlrDownDouble(GetController(caller));
 }
 
-public func ControlDigDouble(pByObj)
+public func Activate(pByObj)
 {
   if((pByObj->GetAction() != "WalkArmed") && !pByObj->~IsAiming())
     return true;
