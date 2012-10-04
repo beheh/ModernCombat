@@ -306,14 +306,6 @@ global func RewardsActive()
 
 /* Auswerten */
 
-public func RemovePlayer(int iPlr)
-{
-  if(iPlr == -1) return false;
-
-  //Auswertungsdialog aufrufen
-  SavePlrStatistics(iPlr);
-}
-
 global func RewardEvaluation()
 {
   //Nur mit Belohnungen-Regel fortfahren
@@ -617,13 +609,21 @@ public func SavePlrStatistics(int iPlr)
   return true;
 }
 
-/*global func EliminatePlayer(int iPlr)
+global func EliminatePlayer(int iPlr)
 {
-  if(FindObject(RWDS))
-    FindObject(RWDS)->SavePlrStatistics(iPlr);
+  if(FindObject2(Find_ID(RWDS)))
+    FindObject2(Find_ID(RWDS))->SavePlrStatistics(iPlr);
 
   return _inherited(iPlr, ...);
-}*/
+}
+
+global func SurrenderPlayer(int iPlr)
+{
+  if(FindObject2(Find_ID(RWDS)))
+    FindObject2(Find_ID(RWDS))->SavePlrStatistics(iPlr);
+
+  return _inherited(iPlr, ...);
+}
 
 public func GetFullPlayerData(int iPlr, int iType)
 {
