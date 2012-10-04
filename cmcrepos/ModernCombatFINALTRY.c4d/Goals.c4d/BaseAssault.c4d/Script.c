@@ -21,7 +21,7 @@ public func ChooserFinished()
 
 public func ReportAssaultTargetDestruction(object pTarget, int iTeam)
 {
-  if (GetIndexOf(pTarget, aTargets[iTeam]) == -1)
+  if(GetIndexOf(pTarget, aTargets[iTeam]) == -1)
     return;
 
   _inherited(pTarget, iTeam, ...);
@@ -29,13 +29,13 @@ public func ReportAssaultTargetDestruction(object pTarget, int iTeam)
   //Und gleich mal bekanntgeben
   EventInfo4K(0, Format("$TargetDestruction$", GetTeamColor(iTeam), GetName(pTarget)), GBAS, 0, 0, 0, "Info.ogg");
   GameCall("OnAssaultTargetDestruction", pTarget, iTeam, FindInArray4K(aTargets[iTeam], pTarget));
-  if (pTarget)
+  if(pTarget)
     Explode(50, pTarget);
 
   //Alle Ziele des Teams wurden zerstört! Warnung ausgeben
-  if (!ObjectCount2(Find_InArray(aTargets[iTeam])))
-    for (var i = 0; i < GetPlayerCount(); i++)
-	  if (GetPlayerTeam(GetPlayerByIndex(i)) == iTeam)
+  if(!ObjectCount2(Find_InArray(aTargets[iTeam])))
+    for(var i = 0; i < GetPlayerCount(); i++)
+	  if(GetPlayerTeam(GetPlayerByIndex(i)) == iTeam)
 	    EventInfo4K(GetPlayerByIndex(i)+1, "$NoTargets$", GBAS, 0, 0, 0, "Alarm.ogg");
 }
 
@@ -132,10 +132,10 @@ public func UpdateScoreboard()
 
 private func GetTeamPlayerByIndex(int iPlr, int iTeam)
 {
-  for (var i; i < GetPlayerCount(); i++)
-    if (GetPlayerTeam(GetPlayerByIndex(i)) == iTeam)
+  for(var i; i < GetPlayerCount(); i++)
+    if(GetPlayerTeam(GetPlayerByIndex(i)) == iTeam)
     {
-      if (!iPlr)
+      if(!iPlr)
         return GetPlayerByIndex(i);
        --iPlr;
     }
@@ -145,7 +145,7 @@ private func GetTeamPlayerByIndex(int iPlr, int iTeam)
 public func RemoveScoreboardTeam(int iTeam)
 {
   aScoreboardTeams[iTeam] = false;
-  for (var i; i < GBAS_MaxTargetCount; i++)
+  for(var i; i < GBAS_MaxTargetCount; i++)
   {
     SetScoreboardData(i + iTeam * GBAS_MaxTargetCount, GBAS_Icon);
     SetScoreboardData(i + iTeam * GBAS_MaxTargetCount, GBAS_Name);
@@ -159,28 +159,28 @@ local fulfilled;
 
 public func IsFulfilled()
 {
-  if (FindObject(CHOS)) return;
-  if (fulfilled) return 1;
+  if(FindObject(CHOS)) return;
+  if(fulfilled) return 1;
   
   //Teams durchgehen
-  for (var i; i < GetTeamCount(); i++)
+  for(var i; i < GetTeamCount(); i++)
   {
     var team = GetTeamByIndex(i);
-    if (!GetTeamPlayerCount(team))
+    if(!GetTeamPlayerCount(team))
     {
-      for (var obj in FindObjects(Find_InArray(aTargets[team])))
+      for(var obj in FindObjects(Find_InArray(aTargets[team])))
         DecoExplode(50, obj);
       EliminateTeam(team);
     }
   }
   
   //Gegen Camping während Klassenwahl oder im Menü
-  for (var obj in FindObjects(Find_Func("IsClonk")))
-    if ((GetID(Contained(obj)) == TIM1 || GetID(Contained(obj)) == TIM2) && !ObjectCount2(Find_InArray(aTargets[GetPlayerTeam(GetOwner(obj))])))
+  for(var obj in FindObjects(Find_Func("IsClonk")))
+    if((GetID(Contained(obj)) == TIM1 || GetID(Contained(obj)) == TIM2) && !ObjectCount2(Find_InArray(aTargets[GetPlayerTeam(GetOwner(obj))])))
       EliminatePlayer(GetOwner(obj));
 
   //Nur noch ein Team übrig - Sieg!
-  if (GetActiveTeamCount() == 1)
+  if(GetActiveTeamCount() == 1)
   {
     //Spielende planen
     Schedule("GameOver()", 150);
@@ -208,21 +208,21 @@ public func OnClassSelection(object pCrew)
 
 public func RelaunchPlayer(int iPlr, pClonk, int iKiller)
 {
-  if (iKiller != -2)
+  if(iKiller != -2)
   {
     aDeath[iPlr]++;
-    if (iKiller != -1 && GetPlayerTeam(iPlr) != GetPlayerTeam(iKiller))
+    if(iKiller != -1 && GetPlayerTeam(iPlr) != GetPlayerTeam(iKiller))
       aKill[iKiller]++;
 	Money(iPlr, pClonk, iKiller);
   }
 
   var pCrew = GetCrew(iPlr);
 
-  if (!pCrew || iPlr == -1) return;
+  if(!pCrew || iPlr == -1) return;
 
   //Team hat keine Ziele mehr - Spieler eliminieren
-  if (GetLength(aTargets))
-    if (!ObjectCount2(Find_InArray(aTargets[GetPlayerTeam(iPlr)])))
+  if(GetLength(aTargets))
+    if(!ObjectCount2(Find_InArray(aTargets[GetPlayerTeam(iPlr)])))
       return EliminatePlayer(iPlr);
 
   //Clonk wegstecken
@@ -236,18 +236,18 @@ public func OpenRelaunchMenu(object pCrew, int iSelection)
 {
   SetPlrViewRange(200, pCrew);
   //Zwischendurch alle Ziele vernichtet? Stirb!
-  if (!ObjectCount2(Find_InArray(aTargets[GetPlayerTeam(GetOwner(pCrew))])))
+  if(!ObjectCount2(Find_InArray(aTargets[GetPlayerTeam(GetOwner(pCrew))])))
     return EliminatePlayer(GetOwner(pCrew));
   CloseMenu(pCrew);
   CreateMenu(GBAS, pCrew, this, 0, "$ChoosePoint$", 0, 3, 0, GBAS);
   //Alle vorhandenen Ziele ins Menü setzen
   var array = FindObjects(Find_InArray(aTargets[GetPlayerTeam(GetOwner(pCrew))]));
   SortTargets(array);
-  for (var obj in array)
+  for(var obj in array)
   {
     var dmg = EffectVar(0, obj, GetEffect("IntAssaultTarget", obj));
     var id = GetID(obj);
-    if (id == AHBS) id = obj->GetImitationID();
+    if(id == AHBS) id = obj->GetImitationID();
     AddMenuItem(GetName(obj), Format("DoRelaunch(Object(%d), Object(%d))", ObjectNumber(pCrew), ObjectNumber(obj)), id, pCrew, 100*(dmg-GetDamage(obj))/dmg, 0, GetName(obj));
   }
   SelectMenuItem(iSelection, pCrew);
@@ -259,7 +259,7 @@ public func OnMenuSelection(int iSelection, object pCrew)
   SortTargets(array);
   var obj = array[iSelection];
   //Ziel zerstört? Menü neu öffnen
-  if (!obj)
+  if(!obj)
     return OpenRelaunchMenu(pCrew);
   //Guckloch für das Ziel
   SetPosition(GetX(obj), GetY(obj), Contained(pCrew));
@@ -296,11 +296,13 @@ public func DoRelaunch(object pCrew, object pTarget)
   }
   else
   {
-  	GetBestSpawnpoint(array, GetOwner(pCrew), x, y);
-  	y -= 10;
-    /*var i = Random(GetLength(array));
+    GetBestSpawnpoint(array, GetOwner(pCrew), x, y);
+    y -= 10;
+    /*
+    var i = Random(GetLength(array));
     x = array[i][0];
-    y = array[i][1]-10;*/
+    y = array[i][1]-10;
+    */
   }
 
   SetPosition(x, y, Contained(pCrew));
@@ -314,55 +316,55 @@ private func SortTargets(array &a)
 {
   var result = [], array = a, next, val, dir = GameCall("OccupationDir");
   CleanArray4K(array);
-  if (!dir)
+  if(!dir)
     dir = GOCC_Horizontal;
 
-  if (dir == GOCC_Horizontal)
+  if(dir == GOCC_Horizontal)
   {
-    while (GetLength(array))
-	{
+    while(GetLength(array))
+  {
       val = next = 0;
-	  for (var obj in array)
-	  {
-	    if (!next)
-		{
-		  val = Abs(GetX(obj) - LandscapeWidth()/2);
-		  next = obj;
-		}
-		else
-		  if (Abs(GetX(obj) - LandscapeWidth()/2) < val)
-		  {
-			val = Abs(GetX(obj) - LandscapeWidth()/2);
-			next = obj;
-		  }
-	  }
-	  result[GetLength(result)] = next;
-	  DelArrayItem4K(array, GetIndexOf(next, array));
-	}
+    for(var obj in array)
+    {
+      if(!next)
+    {
+      val = Abs(GetX(obj) - LandscapeWidth()/2);
+      next = obj;
+    }
+    else
+      if(Abs(GetX(obj) - LandscapeWidth()/2) < val)
+      {
+      val = Abs(GetX(obj) - LandscapeWidth()/2);
+      next = obj;
+      }
+    }
+    result[GetLength(result)] = next;
+    DelArrayItem4K(array, GetIndexOf(next, array));
+  }
   }
 
-  if (dir == GOCC_Vertical)
+  if(dir == GOCC_Vertical)
   {
-    while (GetLength(array))
-	{
+    while(GetLength(array))
+    {
       val = next = 0;
-	  for (var obj in array)
-	  {
-	    if (!next)
-		{
-		  val = Abs(GetY(obj) - LandscapeHeight()/2);
-		  next = obj;
-		}
-		else
-		  if (Abs(GetY(obj) - LandscapeHeight()/2) < val)
-		  {
-			val = Abs(GetY(obj) - LandscapeHeight()/2);
-			next = obj;
-		  }
-	  }
-	  result[GetLength(result)] = next;
-	  DelArrayItem4K(array, GetIndexOf(next, array));
-	}
+    for(var obj in array)
+    {
+      if(!next)
+      {
+        val = Abs(GetY(obj) - LandscapeHeight()/2);
+        next = obj;
+      }
+      else
+        if(Abs(GetY(obj) - LandscapeHeight()/2) < val)
+        {
+          val = Abs(GetY(obj) - LandscapeHeight()/2);
+          next = obj;
+        }
+      }
+      result[GetLength(result)] = next;
+      DelArrayItem4K(array, GetIndexOf(next, array));
+    }
   }
 
   return a = result;
