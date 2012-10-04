@@ -742,15 +742,12 @@ func Death()
   FadeOut(pTarget);
 }
 
-public func InstantDie(object pTarget)
+public func InstantDie()
 {
-  if(!pTarget) pTarget = this;
-  if(!pTarget) return;
-
   //Fallanimation überspringen
-  SetPhase(5);
-  Sound("Death", false, pTarget);
-  ClearScheduleCall(pTarget, "DeathSound");
+  SetPhase(GetActMapVal("Length", GetAction(this)));
+  Sound("Death", false, this);
+  ClearScheduleCall(this, "DeathSound");
   return true;
 }
 
