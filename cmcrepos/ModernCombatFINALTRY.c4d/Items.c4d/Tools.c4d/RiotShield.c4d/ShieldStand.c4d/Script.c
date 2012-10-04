@@ -158,6 +158,24 @@ public func ControlRight(pByObj)
   return true;
 }
 
+public func ControlUp(pByObj)
+{
+	if(fRotRight)
+  	TurnLeft();
+	else
+		TurnRight();
+  return true;
+}
+
+public func ControlDown(pByObj)
+{
+	if(!fRotRight)
+  	TurnLeft();
+	else
+		TurnRight();
+  return true;
+}
+
 /* Ausrichtung */
 
 private func TurnLeft()

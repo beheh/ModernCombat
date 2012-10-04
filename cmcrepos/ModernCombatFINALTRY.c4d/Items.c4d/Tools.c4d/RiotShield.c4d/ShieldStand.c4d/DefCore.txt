@@ -8,6 +8,7 @@ Height=17
 Value=40
 Mass=40
 Picture=0,17,50,54
+TopFace=24,0,24,17
 Offset=-12,-8
 Vertices=5
 VertexX=0,10,8,8,-10
