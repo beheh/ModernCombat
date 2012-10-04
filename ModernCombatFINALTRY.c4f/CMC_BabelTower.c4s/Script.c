@@ -823,22 +823,13 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   //LMS/DM-Spielziel
   if(FindObject(GLMS) || FindObject(GTDM))
   {
-   var rand = Random(2);
    if(iTeam == 1)
    {
-    if(!rand)
-     { iX = 460; iY = 310; }
-    if(!--rand)
-     { iX = 710; iY = 310; }
-    return(1);
+    return [[460, 310], [710, 310]];
    }
    if(iTeam == 2)
    {
-    if(!rand)
-     { iX = 500; iY = 1680; }
-    if(!--rand)
-     { iX = 670; iY = 1680; }
-    return(1);
+    return [[500, 1680], [670, 1680]];
    }
   }
 }

@@ -938,29 +938,11 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   {
    if(iTeam == 1)
    {
-    var rand = Random(5);
-    if(!rand)
-     { iX = 3150; iY = 1270; }
-    if(!--rand)
-     { iX = 3315; iY = 1210; }
-    if(!--rand)
-     { iX = 3380; iY = 1270; }
-    if(!--rand)
-     { iX = 3420; iY = 1120; }
-    if(!--rand)
-     { iX = 3550; iY = 1270; }
+    return [[3150, 1270], [3315, 1210], [3380, 1270], [3420, 1120], [3550, 1270]];
    }
    if(iTeam == 2)
    {
-    var rand = Random(4);
-    if(!rand)
-     { iX = 4720; iY = 1230; }
-    if(!--rand)
-     { iX = 4810; iY = 1200; }
-    if(!--rand)
-     { iX = 4820; iY = 1090; }
-    if(!--rand)
-     { iX = 4890; iY = 1160; }
+    return [[4720, 1230], [4810, 1200], [4820, 1090], [4890, 1160]];
    }
    return(1);
   }

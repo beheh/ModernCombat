@@ -431,24 +431,13 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   //HTF/MR/LMS-Spielziel
   if(FindObject(GHTF) || FindObject(GMNR) || FindObject(GLMS))
   {
-   var rand = Random(3);
    if(iTeam == 1)
    {
-    if(!rand)
-     { iX = 380; iY = 550; }
-    if(!--rand)
-     { iX = 475; iY = 630; }
-    if(!--rand)
-     { iX = 585; iY = 680; }
+    return [[380, 550], [475, 630], [585, 680]];
    }
    if(iTeam == 2)
    {
-    if(!rand)
-     { iX = 3655; iY = 680; }
-    if(!--rand)
-     { iX = 3765; iY = 630; }
-    if(!--rand)
-     { iX = 3860; iY = 550; }
+    return [[3655, 680], [3765, 630], [3860, 550]];
    }
    return(1);
   }

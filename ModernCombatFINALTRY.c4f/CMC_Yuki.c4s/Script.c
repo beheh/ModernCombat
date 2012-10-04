@@ -638,24 +638,13 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   //HTF/LMS/DM-Spielziel
   if(FindObject(GHTF) || FindObject(GLMS) || FindObject(GTDM))
   {
-   var rand = Random(3);
    if(iTeam == 1)
    {
-    if(!rand)
-     { iX = 205; iY = 220; }
-    if(!--rand)
-     { iX = 145; iY = 510; }
-    if(!--rand)
-     { iX = 170; iY = 640; }
+    return [[205, 220], [145, 510], [170, 640]];
    }
    if(iTeam == 2)
    {
-    if(!rand)
-     { iX = 1580; iY = 230; }
-    if(!--rand)
-     { iX = 1840; iY = 470; }
-    if(!--rand)
-     { iX = 1670; iY = 600; }
+    return [[1580, 230], [1840, 470], [1670, 600]];
    }
    return(1);
   }
@@ -663,23 +652,15 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   //CTF-Spielziel
   if(FindObject(GCTF))
   {
-   var rand = Random(2);
    if(iTeam == 1)
    {
-    if(!rand)
-      { iX = 205; iY = 220; }
-    if(!--rand)
-      { iX = 270; iY = 250; }
-    return(1);
+    return [[205, 220], [270, 250]];
    }
    else
    {
-    if(!rand)
-      { iX = 1580; iY = 500; }
-    if(!--rand)
-      { iX = 1675; iY = 600; }
-    return(1);
+    return [[1580, 500], [1675, 600]];
    }
+   return(1);
   }
 }
 
