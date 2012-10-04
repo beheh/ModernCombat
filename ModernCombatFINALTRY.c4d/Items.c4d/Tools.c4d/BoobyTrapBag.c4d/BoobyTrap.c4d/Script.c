@@ -15,6 +15,7 @@ public func BarrelXOffset()		{return -850;}
 public func NoArenaRemove()		{return true;}
 public func AttractTracer()		{return false;}
 public func LimitationCount()		{return 2;}
+public func IsTrap() {return true;}
 
 
 /* Initialisierung */

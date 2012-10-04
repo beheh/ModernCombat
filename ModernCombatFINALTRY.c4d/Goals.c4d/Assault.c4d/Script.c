@@ -375,8 +375,11 @@ public func RelaunchPlayer(int iPlr, pClonk, int iKiller)
   else
     var target_index = GetLength(aTargets[iDefender])-1;
 
-  var rand = Random(GetLength(aSpawns[target_index][index]));
-  SetPosition(aSpawns[target_index][index][rand][0], aSpawns[target_index][index][rand][1]-10, tim);
+  //var rand = Random(GetLength(aSpawns[target_index][index]));
+  //SetPosition(aSpawns[target_index][index][rand][0], aSpawns[target_index][index][rand][1]-10, tim);
+  var x, y;
+  GetBestSpawnpoint(aSpawns[target_index][index], iPlr, x, y);
+  SetPosition(x, y-10, tim);
   AddEffect("IntAssaultSpawn", tim, 1, 1, this);
 }
 
