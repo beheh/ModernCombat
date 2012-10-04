@@ -541,6 +541,8 @@ global func RecalcPlayerRank(int iPlr)
         rewards->SetPlayerData(GetTaggedPlayerName(iPlr, true), RWDS_PlayerName, iPlr);
         rewards->SetPlayerData(GetTaggedPlayerName(iPlr, true, true), RWDS_CPlayerName, iPlr);
       }
+
+      GameCallEx("OnPlayerRankUp", iPlr, nRank);
     }
     return aRanks[iPlr];
   }
