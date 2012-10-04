@@ -472,7 +472,7 @@ public func Reanimation()
   {
     Exit(clonk,0,GetObjHeight(clonk)/2);
     if(Stuck(clonk))
-      AutoUnstuck(clonk, 0, -1);
+      AutoUnstuck(clonk, 0, 10);
   }
 
   //Besitztümer weitergeben
