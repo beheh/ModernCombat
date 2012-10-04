@@ -9,6 +9,7 @@ public func AttractTracer()	{return false;}
 public func RejectC4Attach()	{return true;}
 public func IsAttached()	{return pStickTo != false;}
 public func IsC4Explosive()	{return true;}
+public func IsTrap() {return true;}
 
 
 /* Initialisierung */
