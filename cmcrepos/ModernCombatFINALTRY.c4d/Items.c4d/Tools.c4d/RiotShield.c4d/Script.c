@@ -79,7 +79,7 @@ public func ControlThrow(caller)
     return !GetPlrDownDouble(GetController(caller));
 }
 
-public func DoubleDig(object pByObj) {
+public func ControlDigDouble(object pByObj) {
   return Activate(pByObj);
 }
 
