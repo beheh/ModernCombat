@@ -101,5 +101,5 @@ protected func Hit3()
 
 protected func Hit()
 {
-  Sound("HeavyHit*.ogg");
+  Sound("WreckHit*.ogg");
 }
