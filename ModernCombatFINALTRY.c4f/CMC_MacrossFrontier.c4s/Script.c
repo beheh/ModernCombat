@@ -467,7 +467,7 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   if(FindObject(GHTF))
   {
    //Gesonderte Spawnpoints bei 2 Teams
-   if(GetTeamCount() == 2)
+   if(GetActiveTeamCount() == 2)
    {
     if(iTeam == 1)
     {
@@ -489,7 +489,7 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   if(FindObject(GMNR) || FindObject(GLMS) || FindObject(GTDM))
   {
    //Gesonderte Spawnpoints bei 2 Teams
-   if(GetTeamCount() == 2)
+   if(GetActiveTeamCount() == 2)
    {
     if(iTeam == 1)
     {
