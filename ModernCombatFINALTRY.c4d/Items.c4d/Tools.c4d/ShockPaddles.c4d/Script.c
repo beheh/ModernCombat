@@ -281,10 +281,6 @@ protected func Selection()
   Sound("CDBT_Charge.ogg");
 }
 
-protected func FxIntSelectionStop() {
-  Beep();
-}
-
 /* KI Funktion */
 
 public func AI_Inventory(object pClonk)
