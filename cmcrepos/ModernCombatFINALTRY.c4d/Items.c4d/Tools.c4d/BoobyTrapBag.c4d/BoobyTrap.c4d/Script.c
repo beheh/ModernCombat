@@ -270,7 +270,7 @@ public func Detonate()
   if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("BlastFlame",4,20,0,0,150,100);
   if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",2,150,0,0,45,30,RGB(40,20,20));
   if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",2,100,0,0,30,80);
-  Sound("BBTP_Explosion.ogg");
+  Sound("BBTP_Explosion*.ogg");
 
   //Entfernung
   RemoveObject(laser);
