@@ -8,7 +8,7 @@ func ChooserBlockedTeams(id idGoal)
 {
   //Bei CTF: Nur zwei Teams erlauben
   if(idGoal == GCTF)
-    return 3;
+   return 3;
 }
 
 
