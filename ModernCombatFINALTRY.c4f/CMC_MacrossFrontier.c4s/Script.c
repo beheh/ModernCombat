@@ -4,6 +4,12 @@
 #include CSTD
 
 func RecommendedGoals()	{return [GHTF, GTDM];}	//Spielzielempfehlung
+func ChooserBlockedTeams(id idGoal)
+{
+  //Bei CTF: Nur zwei Teams erlauben
+  if(idGoal == GCTF)
+    return 3;
+}
 
 
 /* Initialisierung */
