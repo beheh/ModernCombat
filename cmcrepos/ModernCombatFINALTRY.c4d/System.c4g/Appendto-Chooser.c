@@ -274,6 +274,8 @@ protected func Activate(iPlr)
   MessageWindow(Format("$Choosing$", GetPlayerName(iChoosedPlr)), iPlr);
 }
 
+local blocked_teams;
+
 protected func OpenMenu()
 {
   fRandomMenu = false;
@@ -290,6 +292,50 @@ protected func OpenMenu()
     if(GetMenu(clnk))
       CloseMenu(clnk);
   }
+  
+  blocked_teams = GameCall("ChooserBlockedTeams", GetID(pGoal), pGoal);
+  if(blocked_teams)
+  {
+  	if(!GetTeamConfig(TEAM_AutoGenerateTeams))
+  	{
+  		if(GetType(blocked_teams) == C4V_Array)
+  		{
+  			var teams = [];
+  			for(var i = 0; i < GetTeamCount(); i++)
+  			{
+  				var team = GetTeamByIndex(i);
+					if(GetIndexOf(team, blocked_teams) == -1)
+						teams[GetLength(teams)] = team;
+					else
+						arTeams[team] = false;
+				}
+				var j = 0;
+				
+  			for(var i = 0; i < GetPlayerCount(); i++)
+  			{
+  				var plr = GetPlayerByIndex(i);
+  				if((iTeamMode != CHOS_TeamRandomInvisible && !fRandomMenu) || aPlayerSetting[plr] || GetIndexOf(GetPlayerTeam(plr), blocked_teams) != -1)
+  				{
+  					SetPlayerTeam(plr, teams[((++j) %= GetLength(teams))]);
+  					arTeams[teams[j]] = true;
+  				}
+  			}
+  		}
+  	}
+  	else if(GetType(blocked_teams) == C4V_Int)
+  	{
+  		if(!iTeamCount || (iTeamCount >= blocked_teams && (blocked_teams-1) <= GetPlayerCount(C4PT_User)))
+  			iTeamCount = blocked_teams - 1;
+
+  		for(var i = 0, j = 0; i < GetPlayerCount(); i++)
+  		{
+  			var plr = GetPlayerByIndex(i);
+  			if((iTeamMode != CHOS_TeamRandomInvisible && !fRandomMenu) || aPlayerSetting[plr] || GetPlayerTeam(plr) >= blocked_teams)
+  				SetPlayerTeam(plr, ((++j) %= blocked_teams));
+  		} 
+  	}
+  }
+  
 
   Message("", pClonk);
 
@@ -428,14 +474,21 @@ protected func ChoosePossibleTeams(int iMode, bool fInvisible, int iSelection)
   }
   else
   {
+  	var blocked_teams = GameCall("ChooserBlockedTeams", GetID(pGoal), pGoal);
+  	if(GetType(blocked_teams) != C4V_Array)
+  		blocked_teams = 0;
+  
     for(var i = 0; i < GetTeamCount(); i++)
     {
       var team = GetTeamByIndex(i);
       var clr = GetTeamColor(team);
+      var cmd = Format("SwitchTeam2(%d, %d, %d)", team, iMode, fInvisible);
       if(!arTeams[team])
         clr = 0x777777;
+      if(blocked_teams && GetIndexOf(team, blocked_teams) != -1)
+      	cmd = 0;
 
-      AddMenuItem(Format("<c %x>%s</c>", clr, GetTeamName(team)), Format("SwitchTeam2(%d, %d, %d)", team, iMode, fInvisible), PCMK, pClonk);
+      AddMenuItem(Format("<c %x>%s</c>", clr, GetTeamName(team)), cmd, PCMK, pClonk);
     }
     if(iMode == CHOS_TeamRandom)
     {
@@ -503,8 +556,8 @@ private func SwitchPredefinedTeam(bool fInvisible, int iSelection, int iPlr, int
     arTeams[0] = false;
   }
   else if(iTeamSort == 1)
-    aPlayerSetting[iPlr] = (aPlayerSetting[iPlr] + 1) % (GetTeamCount() + 1);
-
+    aPlayerSetting[iPlr] = (aPlayerSetting[iPlr] + 1) % (iTeamCount + 1);
+	
   SetPlayerTeam(iPlr, Max(aPlayerSetting[iPlr], 1));
 
   return SelectPredefinedTeamMember(fInvisible, iSelection, iTeamSort, iPlr);
@@ -544,7 +597,14 @@ protected func SwitchTeam2(int iTeam, int iMode, bool fInvisible)
 
 protected func ChangeTeamCount(int iChange, int iMode, bool fInvisible)
 {
-  iTeamCount = BoundBy(iTeamCount + iChange, 1, GetPlayerCount(C4PT_User));
+	blocked_teams = GameCall("ChooserBlockedTeams", GetID(pGoal), pGoal);
+  if(GetType(blocked_teams) != C4V_Int)
+		blocked_teams = 0;
+	
+	blocked_teams = (GetPlayerCount(C4PT_User) - blocked_teams + 1) * (!!blocked_teams);
+	blocked_teams *= (blocked_teams >= 0);
+
+  iTeamCount = BoundBy(iTeamCount + iChange, 1, GetPlayerCount(C4PT_User)-blocked_teams);
   for(var i = 0; i < GetLength(aPlayerSetting); i++)
   {
     if(aPlayerSetting[i] > iTeamCount)
@@ -956,12 +1016,34 @@ public func GetPlayerByRank(int iRank, array arExcept)
 protected func SwitchTeam(id dummy, int iPlr)
 {
   var team = GetPlayerTeam(iPlr);
-  if(GetTeamName(GetTeamByIndex(team)))
-    team = GetTeamByIndex(team);
-  else
-    team = GetTeamByIndex(0);
+  var teams = [];
+  
+	blocked_teams = GameCall("ChooserBlockedTeams", GetID(pGoal), pGoal);
+  if(blocked_teams)
+  {
+  	if(!GetTeamConfig(TEAM_AutoGenerateTeams))
+  	{
+  		if(GetType(blocked_teams) == C4V_Array)
+  			for(var i = 0; i < GetTeamCount(); i++)
+  				if(GetIndexOf(GetTeamByIndex(i), blocked_teams) == -1)
+						teams[GetLength(teams)] = GetTeamByIndex(i);
+  	}
+  	else if(GetType(blocked_teams) == C4V_Int)
+  	{
+  		for(var i = 0; i < GetTeamCount(); i++)
+  			if(GetTeamByIndex(i) < blocked_teams)
+  				teams[GetLength(teams)] = GetTeamByIndex(i);
+  	}
+  }
+	else
+		for(var i = 0; i < GetTeamCount(); i++)
+			teams[GetLength(teams)] = GetTeamByIndex(i);
+	
 
-  SetPlayerTeam(iPlr, team);
+  var p = Max(0, GetIndexOf(team, teams));
+	p = (p+1) % GetLength(teams);
+
+  SetPlayerTeam(iPlr, teams[p]);
 
   var sel = GetMenuSelection(GetCursor(iChoosedPlr));
 
