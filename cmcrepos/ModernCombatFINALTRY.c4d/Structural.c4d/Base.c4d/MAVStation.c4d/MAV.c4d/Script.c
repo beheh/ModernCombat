@@ -605,7 +605,11 @@ public func HardKill()
       ammo->Launch(iDir+RandomX(-10,10),120+Random(60),190+Random(40),3,15,6);
       i++;
     }
+
+    //Effekte
+    if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("BlastFlame",4,30,0,0,150,100);
     Sound("BBTP_Explosion*.ogg");
+
     AddEffect("HardKillCooldown", this, 1, 40);
     iHKShots--;
     if(!iHKShots)
