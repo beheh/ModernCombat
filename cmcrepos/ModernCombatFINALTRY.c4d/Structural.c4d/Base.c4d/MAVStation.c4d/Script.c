@@ -46,12 +46,14 @@ public func FxLightTimer(object pTarget, int iEffectNumber, int iEffectTime)
   {
     fMAVExistence = false;
     iBuyCooldown = 200; //Zahl x 5 = Framezahl
+    SetAction("Disabled");
   }
 
   if(iBuyCooldown > 0)
     CreateParticle("PSpark",-4,-13,0,0,20,RGB(255,255,0),this);
   else
   {
+  	if(GetAction() == "Disabled") SetAction("Ready");
     if(GetUser() && fMAVExistence)
       CreateParticle("PSpark",-4,-13,0,0,20,RGB(255,0,0),this);
     else
@@ -137,13 +139,17 @@ public func FxActivityTimer(object pTarget, int iEffectNumber, int iEffectTime)
     }
 
     //MAV deaktivieren
-    if(pMAV)
+    if(pMAV && !pMAV->IsDestroyed())
+    {
       pMAV->Wait();
+      SetAction("Ready");
+    }
+    else
+    	SetAction("Disabled");
 
     //MAV-Station neutralisieren und auf Bereitschaft umstellen
     SetOwner(-1, this);
     controller = 0;
-    SetAction("Ready");
     return;
   }
 
@@ -153,7 +159,7 @@ public func FxActivityTimer(object pTarget, int iEffectNumber, int iEffectTime)
     SetPlrView(GetOwner(controller), controller);
     Sound("BKHK_SwitchFail.ogg", true, this, 100, GetOwner(controller) + 1);
     Sound("CockpitRadio.ogg", true, 0, 100, GetOwner(controller)+1, -1);
-    SetAction("Ready");
+    SetAction("Disabled");
   }
 
   //Funktionstüchtig? Ansonsten abbrechen
@@ -263,16 +269,18 @@ private func ExitClonk(object pByObj)
     Sound("StructureLeave*.ogg", true, this, 100, GetOwner(controller) + 1);
 
     //MAV vorhanden? Deaktivieren
-    if(pMAV)
+    if(pMAV && !pMAV->IsDestroyed())
     {
       pMAV->Wait();
       Sound("BKHK_SwitchFail.ogg", true, this, 100, GetOwner(controller) + 1);
+      SetAction("Ready");
     }
+    else
+    	SetAction("Disabled");
 
     //MAV-Station neutralisieren und auf Bereitschaft umstellen
     SetOwner(-1, this);
     controller = 0;
-    SetAction("Ready");
 
     return(1);
   }
