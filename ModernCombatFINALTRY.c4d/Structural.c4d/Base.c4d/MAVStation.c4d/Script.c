@@ -53,7 +53,8 @@ public func FxLightTimer(object pTarget, int iEffectNumber, int iEffectTime)
     CreateParticle("PSpark",-4,-13,0,0,20,RGB(255,255,0),this);
   else
   {
-  	if(GetAction() == "Disabled") SetAction("Ready");
+    if(GetAction() == "Disabled")
+      SetAction("Ready");
     if(GetUser() && fMAVExistence)
       CreateParticle("PSpark",-4,-13,0,0,20,RGB(255,0,0),this);
     else
@@ -145,7 +146,7 @@ public func FxActivityTimer(object pTarget, int iEffectNumber, int iEffectTime)
       SetAction("Ready");
     }
     else
-    	SetAction("Disabled");
+      SetAction("Disabled");
 
     //MAV-Station neutralisieren und auf Bereitschaft umstellen
     SetOwner(-1, this);
@@ -276,7 +277,7 @@ private func ExitClonk(object pByObj)
       SetAction("Ready");
     }
     else
-    	SetAction("Disabled");
+      SetAction("Disabled");
 
     //MAV-Station neutralisieren und auf Bereitschaft umstellen
     SetOwner(-1, this);
