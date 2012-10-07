@@ -113,8 +113,16 @@ public func IsInHitbox(int x, int y, bool fDraw)
   {
     var eu = (y2 >= y);
     if(su != eu && (x1 > x || x2 > x))
-      inside = !inside;
-
+    {
+      if((y2 - y) * (x2 - x1) <= (y2 - y1) * (x2 - x))
+      {
+      	if(eu)
+   		   	inside = !inside;
+			}
+			else if(!eu)
+				inside = !inside;
+		}
+		
     if(i >= length)
       break;
 
@@ -124,13 +132,6 @@ public func IsInHitbox(int x, int y, bool fDraw)
     x2 = hitbox[i][0];
     y2 = hitbox[i][1];
   }
-
-  /*
-  if(Inside(FrameCounter(), 8150, 8300))
-  {
-    Log("Frame: %d | hitbox: %v | x: %d | y: %d | inside: %v", FrameCounter(), hitbox, x, y, inside);
-  }
-  */
 
   return inside;
 }
