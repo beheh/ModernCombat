@@ -5,9 +5,10 @@
  
 local crosshair;
 local controller;
-local pMav;
+local pMAV, fMAVExistence;
 local iXSpawnOff;
 local iYSpawnOff;
+local iBuyCooldown;
  
 public func RemoveTracer()			{return IsDestroyed();}		//Tracer entfernen, wenn zerstört
 public func DisableCH()				{return true;}			//Eventuelles Fadenkreuz des Clonks ausblenden
@@ -31,7 +32,29 @@ public func Initialize()
 {
   _inherited();
 
+  AddEffect("Light", this, 1, 5, this);
   SetAction("Ready");
+}
+
+public func FxLightTimer(object pTarget, int iEffectNumber, int iEffectTime)
+{
+	iBuyCooldown--;
+
+	if(fMAVExistence && (!pMAV || pMAV->IsDestroyed()))
+	{
+		fMAVExistence = false;
+		iBuyCooldown = 200; //Zahl x 5 = Framezahl
+	}
+
+	if(iBuyCooldown > 0)
+		CreateParticle("PSpark",-4,-13,0,0,20,RGB(255,255,0),this);
+	else
+	{
+		if(GetUser() && fMAVExistence) 
+			CreateParticle("PSpark",-4,-13,0,0,20,RGB(255,0,0),this);
+		else
+			CreateParticle("PSpark",-4,-13,0,0,20,RGB(0,255,0),this);
+	}
 }
 
 /* Spawnkoordinaten festlegen */
@@ -47,8 +70,8 @@ public func Set(int iX, int iY, bool fGlobal)
 public func OnDestruction()
 {
   //MAV deaktivieren
-  if(pMav)
-    pMav->Wait();
+  if(pMAV)
+    pMAV->Wait();
 
   //Aktion und Grafik setzen
   SetOwner(-1);  
@@ -111,8 +134,8 @@ public func FxActivityTimer(object pTarget, int iEffectNumber, int iEffectTime)
     }
 
     //MAV deaktivieren
-    if(pMav)
-      pMav->Wait();
+    if(pMAV)
+      pMAV->Wait();
 
     //MAV-Station neutralisieren und auf Bereitschaft umstellen
     SetOwner(-1, this);
@@ -122,7 +145,7 @@ public func FxActivityTimer(object pTarget, int iEffectNumber, int iEffectTime)
   }
 
   //Pilot steuert nicht oder kein MAV? Abbrechen und MAV-Station auf Bereitschaft wechseln
-  if(GetAction() == "Controlling" && (!pMav || pMav->IsDestroyed()))
+  if(GetAction() == "Controlling" && (!pMAV || pMAV->IsDestroyed()))
   {
     SetPlrView(GetOwner(controller), controller);
     Sound("BKHK_SwitchFail.ogg", true, this, 100, GetOwner(controller) + 1);
@@ -153,11 +176,11 @@ public func FxActivityTimer(object pTarget, int iEffectNumber, int iEffectTime)
   {
     var UserHUD = User->GetHUD();
     
-    if(pMav && pMav->GetAction() == "Flying")
+    if(pMAV && pMAV->GetAction() == "Flying")
     {
-      SetPlrView(GetController(), pMav);
+      SetPlrView(GetController(), pMAV);
       if(UserHUD)
-        UserHUD->Update(pMav->GetAttWeapon(), User->AmmoStoring(),User);
+        UserHUD->Update(pMAV->GetAttWeapon(), User->AmmoStoring(),User);
     }
   }
 }
@@ -194,11 +217,11 @@ protected func ActivateEntrance(pUser)
   pUser->HideCH();
 
   //Besitzer aktualisieren
-  if(pMav && !pMav->IsDestroyed())
+  if(pMAV && !pMAV->IsDestroyed())
   {
-    if(Hostile(GetOwner(this), pMav->GetOwner())) pMav->Reload();
-    pMav->SetOwner(GetOwner(this));
-    pMav->Start();
+    if(Hostile(GetOwner(this), pMAV->GetOwner())) pMAV->Reload();
+    pMAV->SetOwner(GetOwner(this));
+    pMAV->Start();
     Sound("BKHK_Switch.ogg", true, this, 100, GetOwner(pUser) + 1);
     Sound("CockpitRadio.ogg", true, 0, 100, GetOwner(pUser)+1, +1);
     SetAction("Controlling");
@@ -237,9 +260,9 @@ private func ExitClonk(object pByObj)
     Sound("StructureLeave*.ogg", true, this, 100, GetOwner(controller) + 1);
 
     //MAV vorhanden? Deaktivieren
-    if(pMav)
+    if(pMAV)
     {
-      pMav->Wait();
+      pMAV->Wait();
       Sound("BKHK_SwitchFail.ogg", true, this, 100, GetOwner(controller) + 1);
     }
 
@@ -257,103 +280,103 @@ private func ExitClonk(object pByObj)
 
 public func ControlLeft(object pByObj)
 {
-  if(pMav)
-    pMav->ControlLeft(pByObj);
+  if(pMAV)
+    pMAV->ControlLeft(pByObj);
   return true;
 }
 
 public func ControlLeftDouble(object pByObj)
 {
-  if(pMav)
-    pMav->ControlLeftDouble(pByObj);
+  if(pMAV)
+    pMAV->ControlLeftDouble(pByObj);
   return true;
 }
 
 public func ControlLeftReleased(object pByObj)
 {
-  if(pMav)
-    pMav->ControlLeftReleased(pByObj);
+  if(pMAV)
+    pMAV->ControlLeftReleased(pByObj);
   return true;
 }
 
 public func ControlRight(object pByObj)
 {
-  if(pMav)
-    pMav->ControlRight(pByObj);
+  if(pMAV)
+    pMAV->ControlRight(pByObj);
   return true;
 }
 
 public func ControlRightDouble(object pByObj)
 {
-  if(pMav)
-    pMav->ControlRightDouble(pByObj);
+  if(pMAV)
+    pMAV->ControlRightDouble(pByObj);
   return true;
 }
 
 public func ControlRightReleased(object pByObj)
 {
-  if(pMav)
-    pMav->ControlRightReleased(pByObj);
+  if(pMAV)
+    pMAV->ControlRightReleased(pByObj);
   return true;
 }
 
 public func ControlDown(object pByObj)
 {
-  if(pMav)
-    pMav->ControlDown(pByObj);
+  if(pMAV)
+    pMAV->ControlDown(pByObj);
   return true;
 }
 
 public func ControlDownReleased(object pByObj)
 {
-  if(pMav)
-    pMav->ControlDownReleased(pByObj);
+  if(pMAV)
+    pMAV->ControlDownReleased(pByObj);
   return true;
 }
 
 public func ControlDownDouble(object pByObj)
 {
-  if(pMav)
-    pMav->ControlDownDouble(pByObj);
+  if(pMAV)
+    pMAV->ControlDownDouble(pByObj);
   return true;
 }
 
 protected func ControlUp(object pByObj)
 {
-  if(pMav)
-    pMav->ControlUp(pByObj);
+  if(pMAV)
+    pMAV->ControlUp(pByObj);
   return true;
 }
 
 public func ControlUpReleased(object pByObj)
 {
-  if(pMav)
-    pMav->ControlUpReleased(pByObj);
+  if(pMAV)
+    pMAV->ControlUpReleased(pByObj);
   return true;
 }
 
 protected func ControlUpDouble(object pByObj)
 {
-  if(pMav)
-    pMav->ControlUpDouble(pByObj);
+  if(pMAV)
+    pMAV->ControlUpDouble(pByObj);
   return true;
 }
 
 public func ControlDigSingle(object pByObj)
 {
   //Kein MAV: Abbrechen
-  if(!pMav || pMav->IsDestroyed())
+  if(!pMAV || pMAV->IsDestroyed())
     return true;
 
   //MAV zielt? Einstellen
-  if(pMav->IsAiming())
+  if(pMAV->IsAiming())
   {
-    pMav->EndAim();
+    pMAV->EndAim();
     return true;
   }
 
   //MAV deaktivieren
-  pMav->Wait();
+  pMAV->Wait();
 
   //Sicht zurücksetzen und Station auf Bereitschaft umstellen
   SetPlrView(GetOwner(controller), controller);
@@ -373,19 +396,23 @@ protected func ControlDigDouble(object pByObj)
 protected func ControlThrow(object pByObj)
 {
   //Kein MAV? Kaufversuch starten
-  if(!pMav || pMav->IsDestroyed())
+  if(!fMAVExistence && (!pMAV || pMAV->IsDestroyed()))
   {
+  	//Kauf-Cooldown? Dann nicht.
+  	if(iBuyCooldown > 0)	return true;
+  	
     //Genug Geld? Abziehen und MAV erstellen
     if(GetWealth(GetOwner(pByObj)) >= GetDefCoreVal("Value", "DefCore", MAVE))
-    {
+    {    
       //Geld einziehen
       DoWealth(GetOwner(pByObj), -GetDefCoreVal("Value", "DefCore", MAVE));
 
       //MAV erstellen
-      pMav = CreateObject(MAVE,iXSpawnOff,iYSpawnOff,GetOwner(this));
-      pByObj->SetHUDTarget(pMav->GetAttWeapon());
-      pMav->Start();
-      SpawnEffect(pMav);
+      pMAV = CreateObject(MAVE,iXSpawnOff,iYSpawnOff,GetOwner(this));
+      pByObj->SetHUDTarget(pMAV->GetAttWeapon());
+      pMAV->Start();
+      SpawnEffect(pMAV);
+      fMAVExistence = true;
       Sound("BKHK_Switch.ogg", true, this, 100, GetOwner(pByObj) + 1);
       Sound("CockpitRadio.ogg", true, 0, 100, GetOwner(pByObj)+1, +1);
       SetAction("Controlling");
@@ -396,13 +423,13 @@ protected func ControlThrow(object pByObj)
   else
   {
     //MAV-Kontrolle starten
-    if(pMav->GetAction() != "Flying")
+    if(pMAV->GetAction() != "Flying")
     {
       Sound("BKHK_Switch.ogg", true, this, 100, GetOwner(pByObj) + 1);
       Sound("CockpitRadio.ogg", true, 0, 100, GetOwner(pByObj)+1, +1);
       SetAction("Controlling");
     }
-    pMav->ControlThrow(pByObj);
+    pMAV->ControlThrow(pByObj);
   }
 
   return true;
