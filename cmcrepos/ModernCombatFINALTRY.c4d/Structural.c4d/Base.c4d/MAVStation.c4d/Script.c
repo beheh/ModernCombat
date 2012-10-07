@@ -9,7 +9,7 @@ local pMAV, fMAVExistence;
 local iXSpawnOff;
 local iYSpawnOff;
 local iBuyCooldown;
- 
+
 public func RemoveTracer()			{return IsDestroyed();}		//Tracer entfernen, wenn zerstört
 public func DisableCH()				{return true;}			//Eventuelles Fadenkreuz des Clonks ausblenden
 public func MaxDamage()				{return 150;}
@@ -38,23 +38,23 @@ public func Initialize()
 
 public func FxLightTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
-	iBuyCooldown--;
+  iBuyCooldown--;
 
-	if(fMAVExistence && (!pMAV || pMAV->IsDestroyed()))
-	{
-		fMAVExistence = false;
-		iBuyCooldown = 200; //Zahl x 5 = Framezahl
-	}
+  if(fMAVExistence && (!pMAV || pMAV->IsDestroyed()))
+  {
+    fMAVExistence = false;
+    iBuyCooldown = 200; //Zahl x 5 = Framezahl
+  }
 
-	if(iBuyCooldown > 0)
-		CreateParticle("PSpark",-4,-13,0,0,20,RGB(255,255,0),this);
-	else
-	{
-		if(GetUser() && fMAVExistence) 
-			CreateParticle("PSpark",-4,-13,0,0,20,RGB(255,0,0),this);
-		else
-			CreateParticle("PSpark",-4,-13,0,0,20,RGB(0,255,0),this);
-	}
+  if(iBuyCooldown > 0)
+    CreateParticle("PSpark",-4,-13,0,0,20,RGB(255,255,0),this);
+  else
+  {
+    if(GetUser() && fMAVExistence)
+      CreateParticle("PSpark",-4,-13,0,0,20,RGB(255,0,0),this);
+    else
+      CreateParticle("PSpark",-4,-13,0,0,20,RGB(0,255,0),this);
+  }
 }
 
 /* Spawnkoordinaten festlegen */
@@ -398,12 +398,13 @@ protected func ControlThrow(object pByObj)
   //Kein MAV? Kaufversuch starten
   if(!fMAVExistence && (!pMAV || pMAV->IsDestroyed()))
   {
-  	//Kauf-Cooldown? Dann nicht.
-  	if(iBuyCooldown > 0)	return true;
-  	
+    //Abbruch wenn kauf gerade nicht möglich
+    if(iBuyCooldown > 0)
+      return true;
+
     //Genug Geld? Abziehen und MAV erstellen
     if(GetWealth(GetOwner(pByObj)) >= GetDefCoreVal("Value", "DefCore", MAVE))
-    {    
+    {
       //Geld einziehen
       DoWealth(GetOwner(pByObj), -GetDefCoreVal("Value", "DefCore", MAVE));
 
