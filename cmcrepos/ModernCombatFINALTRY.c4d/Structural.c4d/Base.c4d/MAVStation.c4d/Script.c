@@ -75,6 +75,7 @@ public func OnDestruction()
 
   //Aktion und Grafik setzen
   SetOwner(-1);  
+  RemoveEffect("Light", this);
   ChangeDef(BDSN);
   this->~Initialize();
 

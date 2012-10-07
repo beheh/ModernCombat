@@ -5,7 +5,10 @@
 
 local crosshair;
 local controller;
-local pMav;
+local pMAV, fMAVExistence;
+local iXSpawnOff;
+local iYSpawnOff;
+local iBuyCooldown;
 
 public func MaxDamage()		{return 150;}
 public func IsMachine()		{return true;}
