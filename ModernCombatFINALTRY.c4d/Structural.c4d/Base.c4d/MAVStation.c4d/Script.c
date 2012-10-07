@@ -50,15 +50,15 @@ public func FxLightTimer(object pTarget, int iEffectNumber, int iEffectTime)
   }
 
   if(iBuyCooldown > 0)
-    CreateParticle("PSpark",-4,-13,0,0,20,RGB(255,255,0),this);
+    CreateParticle("PSpark",-4,-13,0,0,30,RGB(255,255,0),this);
   else
   {
     if(GetAction() == "Disabled")
       SetAction("Ready");
     if(GetUser() && fMAVExistence)
-      CreateParticle("PSpark",-4,-13,0,0,20,RGB(255,0,0),this);
+      CreateParticle("PSpark",-4,-13,0,0,30,RGB(255,0,0),this);
     else
-      CreateParticle("PSpark",-4,-13,0,0,20,RGB(0,255,0),this);
+      CreateParticle("PSpark",-4,-13,0,0,30,RGB(0,255,0),this);
   }
 }
 
@@ -177,7 +177,7 @@ public func FxActivityTimer(object pTarget, int iEffectNumber, int iEffectTime)
       var rgb = GetPlrColorDw(GetOwner());
     else
       var rgb = RGB(255, 255, 255);
-    CreateParticle("FlashLight", -2, -13, 0, 0 , 45, rgb, this);
+    CreateParticle("FlashLight", -2, -13, 0, 0 , 60, rgb, this);
   }
 
   //HUD aktualisieren
@@ -410,9 +410,12 @@ protected func ControlThrow(object pByObj)
   //Kein MAV? Kaufversuch starten
   if(!fMAVExistence && (!pMAV || pMAV->IsDestroyed()))
   {
-    //Abbruch wenn kauf gerade nicht möglich
+    //Abbruch wenn Kauf gerade nicht möglich
     if(iBuyCooldown > 0)
+    {
+      PlayerMessage(GetOwner(pByObj), "$NoMAV$", this);
       return true;
+    }
 
     //Genug Geld? Abziehen und MAV erstellen
     if(GetWealth(GetOwner(pByObj)) >= GetDefCoreVal("Value", "DefCore", MAVE))
