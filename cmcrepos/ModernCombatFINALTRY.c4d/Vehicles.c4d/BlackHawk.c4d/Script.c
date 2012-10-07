@@ -1441,7 +1441,7 @@ protected func TimerCall()
     {
       CustomMessage("@", this, iPlr);
       //Warnung ohne Pilot
-      if(FindObjects(Find_OCF(OCF_CrewMember), Find_Container(this)) && GetThrottle() > 0)
+      if(FindObjects(Find_OCF(OCF_CrewMember), Find_Owner(iPlr), Find_Container(this)) && GetThrottle() > 0)
       {
         SoundPassenger("WarningNoPilot.ogg", true, iPlr);
       }
