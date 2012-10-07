@@ -32,7 +32,8 @@ public func Initialize()
 {
   _inherited();
 
-	iBuyCooldown = 0;
+  //Kauf-Cooldown zurücksetzen
+  iBuyCooldown = 0;
   AddEffect("Light", this, 1, 5, this);
   SetAction("Ready");
 }
