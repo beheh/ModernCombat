@@ -402,7 +402,7 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
 
         //Ziel schleudern
         var pwr = 18, angle = 45, dir = iXDir / Abs(iXDir);
-        if(GetProcedure(target) != "SWIM")
+        if(target && GetProcedure(target) != "SWIM")
         {
           if(!dir)
              dir--;
