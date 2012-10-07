@@ -1,1 +1,2 @@
 NoMoney=Not enough money!
+NoMAV=No MAV available!
