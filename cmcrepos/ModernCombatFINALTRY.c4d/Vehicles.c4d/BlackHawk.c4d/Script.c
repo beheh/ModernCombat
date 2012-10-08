@@ -411,10 +411,10 @@ protected func Ejection(object ByObj)
   
   //Erst mal löschen
   DeleteActualSeatPassenger(ByObj);
-    
+
   //Soundschleife ausschalten
   SoundPassenger("CockpitRadio.ogg", false, GetOwner(ByObj));
-  SoundPassenger("WarningNoPilot.ogg", false, GetOwner(ByObj));
+  UpdateWarnings();
 
   //Nicht bei Schaden
   if(GetDamage() >= MaxDamage()) return;
@@ -1071,6 +1071,7 @@ private func DeleteActualSeatPassenger(object Obj)
     if(hud)
       RemoveObject(hud);
     SetGraphics(0, this, EFMN,BKHK_PilotLayer, GFXOV_MODE_Object, 0, GFX_BLIT_Additive, this);
+    UpdateWarnings();
   }
   if(GetGunner() == Obj)
   {
@@ -1117,6 +1118,7 @@ public func EnterSeat(int iSeat, object pObj)
     hud = CreateObject(BHUD, 0, 0, GetOwner(pObj));
     hud->~SetHelicopter(this);
     Sound("BKHK_Switch.ogg", false, this, 100, GetOwner(GetPilot()) + 1);
+    UpdateWarnings();
     return true;
   }
 
@@ -1379,7 +1381,6 @@ protected func RejectCollect(id ID, object ByObj)
   return true;
 }
 
-//Für Warnsounds und Grafik zuständig
 protected func TimerCall()
 {
   //Zerstört?
@@ -1395,7 +1396,7 @@ protected func TimerCall()
   {
     if(GetAction() == "Fly" || GetAction() == "Turn") iRotorSpeed += 95;
   }
-  else
+  else {
     if(GetAction() != "Fly" && GetAction() != "Turn")
     {
       if(GetAction() == "EngineStartUp") iRotorSpeed += GetActTime();
@@ -1405,6 +1406,7 @@ protected func TimerCall()
       else if(GetAction() == "EngineShutDown2") iRotorSpeed += 95-60/(30+30)*(30+GetActTime());
       else if(GetAction() == "EngineShutDown3") iRotorSpeed += 95-90/(30+30+30)*(30+30+GetActTime());
     }
+  }
 
   //Absinken, wenn kein Pilot
   if(((!GetPilot() && !GetAutopilot() || GetY() < 100) && throttle) || (GetAction() == "Fly" && !GetPilot() && !GetAutopilot()))
@@ -1429,32 +1431,19 @@ protected func TimerCall()
   for(var first = true, iFlags, i = 0; i < GetPlayerCount(); i++)
   {
     var iPlr = GetPlayerByIndex(i);
-    if(GetPilot() && !Hostile(GetOwner(GetPilot()), iPlr) && (!GetCursor(iPlr) || (GetCursor(iPlr) != GetPilot()) && GetCursor(iPlr)->~GetRealCursor() != GetPilot()))
+    if(GetPilot())
     {
-      if(first)
-        first = false;
-      else
-        iFlags = MSG_Multiple;
-      var szStr = Format("@%s (%s)", GetName(GetPilot()), GetPlayerName(GetOwner(GetPilot())));
-      CustomMessage(szStr, this, iPlr, 0, 15, SetRGBaValue(GetPlrColorDw(GetOwner(GetPilot())), 128), 0, 0, iFlags);
+      if(!Hostile(GetOwner(GetPilot()), iPlr) && (!GetCursor(iPlr) || (GetCursor(iPlr) != GetPilot()) && GetCursor(iPlr)->~GetRealCursor() != GetPilot())) {
+        if(first)
+          first = false;
+        else
+          iFlags = MSG_Multiple;
+        var szStr = Format("@%s (%s)", GetName(GetPilot()), GetPlayerName(GetOwner(GetPilot())));
+        CustomMessage(szStr, this, iPlr, 0, 15, SetRGBaValue(GetPlrColorDw(GetOwner(GetPilot())), 128), 0, 0, iFlags);
+      }
     }
-    var fResetNoPilot = false;
-    if(!GetPilot())
-    {
+    else {    
       CustomMessage("@", this, iPlr);
-      //Warnung ohne Pilot
-      if(FindObjects(Find_OCF(OCF_CrewMember), Find_Owner(iPlr), Find_Container(this)) && GetThrottle() > 0)
-      {
-        SoundPassenger("WarningNoPilot.ogg", true, iPlr);
-      }
-      else
-      {
-        SoundPassenger("WarningNoPilot.ogg", false, iPlr);
-      }
-    }
-    else
-    {
-      SoundPassenger("WarningNoPilot.ogg", false, iPlr);
     }
   }
 
@@ -1609,11 +1598,30 @@ protected func TimerCall()
 
 /* Sounds */
 
+//Warnsounds aktualisieren
+protected func UpdateWarnings() {
+  for(var i = 0; i < GetPlayerCount(); i++)
+  {
+    var iPlr = GetPlayerByIndex(i);
+    if(!GetPilot() && EngineRunning() && FindObject2(Find_OCF(OCF_CrewMember), Find_Owner(iPlr), Find_Container(this))) {
+      SoundPassenger("WarningNoPilot.ogg", true, iPlr);
+    }
+    else {
+      SoundPassenger("WarningNoPilot.ogg", false, iPlr);
+    }
+  }
+}
+
 protected func SoundPassenger(string szSound, bool fSound, int iPlr)
 {
   var iLoop = -1;
   if(fSound) iLoop = +1;
-  Sound(szSound, false, this, 100, iPlr+1, iLoop);
+  if(iLoop > 1) {
+    Log("%s on for %d", szSound, iPlr);
+  } else {
+    Log("%s off for %d", szSound, iPlr);
+  }
+  Sound(szSound, false, this, 0, iPlr+1, iLoop);
 }
 
 /* Physik */
