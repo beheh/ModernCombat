@@ -405,8 +405,8 @@ public func InitPlayerData(int iPlr)
     }
   }
 
-  SetPlayerData(GetTaggedPlayerName(iPlr, true), RWDS_PlayerName, iPlr);
-  SetPlayerData(GetTaggedPlayerName(iPlr, true, true), RWDS_CPlayerName, iPlr);
+  SetPlayerData(GetTaggedPlayerName(iPlr), RWDS_PlayerName, iPlr);
+  SetPlayerData(GetTaggedPlayerName(iPlr), RWDS_CPlayerName, iPlr);
   SetPlayerData(GetPlayerTeam(iPlr), RWDS_PlayerTeam, iPlr);
   SetPlayerData(GetPlayerID(iPlr), RWDS_PlayerID, iPlr);
   if(!aData[iPlr]) aData[iPlr] = CreateArray();
@@ -502,7 +502,7 @@ global func LoadRanks2Cache()
   aRanks = [];
 
   for(var i = 0; i < GetPlayerCount(C4PT_User); i++)
-    aRanks[GetPlayerByIndex(i, C4PT_User)] = CalcRank(GetPlayerByIndex(i, C4PT_User)); 
+    aRanks[GetPlayerByIndex(i, C4PT_User)] = CalcRank(GetPlayerByIndex(i, C4PT_User));
 
   return true;
 }
@@ -533,14 +533,6 @@ global func RecalcPlayerRank(int iPlr)
 
       //Sound-Hinweis
       Sound("RankUp.ogg", true, 0, 100, iPlr+1);
-
-      //Namen updaten
-      var rewards = FindObject2(Find_ID(RWDS));
-      if(rewards)
-      {
-        rewards->SetPlayerData(GetTaggedPlayerName(iPlr, true), RWDS_PlayerName, iPlr);
-        rewards->SetPlayerData(GetTaggedPlayerName(iPlr, true, true), RWDS_CPlayerName, iPlr);
-      }
 
       GameCallEx("OnPlayerRankUp", iPlr, nRank);
     }
@@ -584,6 +576,14 @@ global func CalcRank(int iPlr)
       break;
     }
   }
+  
+  //Namen updaten
+  var rewards;
+  if(rewards = FindObject2(Find_ID(RWDS)))
+  { 
+  	rewards->~SetPlayerData(GetTaggedPlayerName(iPlr, true), RWDS_PlayerName, iPlr);
+ 		rewards->~SetPlayerData(GetTaggedPlayerName(iPlr, true, true), RWDS_CPlayerName, iPlr);
+	}
 
   return rank;
 }
