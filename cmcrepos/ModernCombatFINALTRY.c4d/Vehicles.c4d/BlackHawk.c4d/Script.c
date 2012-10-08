@@ -116,13 +116,14 @@ public func IsInHitbox(int x, int y, bool fDraw)
     {
       if((y2 - y) * (x2 - x1) <= (y2 - y1) * (x2 - x))
       {
-      	if(eu)
-   		   	inside = !inside;
-			}
-			else if(!eu)
-				inside = !inside;
-		}
-		
+        if(eu)
+          inside = !inside;
+      }
+      else
+        if(!eu)
+          inside = !inside;
+    }
+
     if(i >= length)
       break;
 

@@ -576,14 +576,14 @@ global func CalcRank(int iPlr)
       break;
     }
   }
-  
+
   //Namen updaten
   var rewards;
   if(rewards = FindObject2(Find_ID(RWDS)))
   { 
-  	rewards->~SetPlayerData(GetTaggedPlayerName(iPlr, true), RWDS_PlayerName, iPlr);
- 		rewards->~SetPlayerData(GetTaggedPlayerName(iPlr, true, true), RWDS_CPlayerName, iPlr);
-	}
+    rewards->~SetPlayerData(GetTaggedPlayerName(iPlr, true), RWDS_PlayerName, iPlr);
+    rewards->~SetPlayerData(GetTaggedPlayerName(iPlr, true, true), RWDS_CPlayerName, iPlr);
+  }
 
   return rank;
 }
