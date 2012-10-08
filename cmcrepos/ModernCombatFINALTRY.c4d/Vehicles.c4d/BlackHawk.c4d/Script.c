@@ -1396,7 +1396,8 @@ protected func TimerCall()
   {
     if(GetAction() == "Fly" || GetAction() == "Turn") iRotorSpeed += 95;
   }
-  else {
+  else
+  {
     if(GetAction() != "Fly" && GetAction() != "Turn")
     {
       if(GetAction() == "EngineStartUp") iRotorSpeed += GetActTime();
@@ -1442,7 +1443,8 @@ protected func TimerCall()
         CustomMessage(szStr, this, iPlr, 0, 15, SetRGBaValue(GetPlrColorDw(GetOwner(GetPilot())), 128), 0, 0, iFlags);
       }
     }
-    else {    
+    else
+    {
       CustomMessage("@", this, iPlr);
     }
   }
@@ -1603,10 +1605,12 @@ protected func UpdateWarnings() {
   for(var i = 0; i < GetPlayerCount(); i++)
   {
     var iPlr = GetPlayerByIndex(i);
-    if(!GetPilot() && EngineRunning() && FindObject2(Find_OCF(OCF_CrewMember), Find_Owner(iPlr), Find_Container(this))) {
+    if(!GetPilot() && EngineRunning() && FindObject2(Find_OCF(OCF_CrewMember), Find_Owner(iPlr), Find_Container(this)))
+    {
       SoundPassenger("WarningNoPilot.ogg", true, iPlr);
     }
-    else {
+    else
+    {
       SoundPassenger("WarningNoPilot.ogg", false, iPlr);
     }
   }
