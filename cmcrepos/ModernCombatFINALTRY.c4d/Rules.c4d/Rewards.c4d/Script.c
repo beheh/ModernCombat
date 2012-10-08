@@ -405,13 +405,13 @@ public func InitPlayerData(int iPlr)
     }
   }
 
-	if(GetPlayerRank(iPlr) == -1)
-	{
-  	SetPlayerData(GetTaggedPlayerName(iPlr), RWDS_PlayerName, iPlr);
-  	SetPlayerData(GetTaggedPlayerName(iPlr), RWDS_CPlayerName, iPlr);
+  if(GetPlayerRank(iPlr) == -1)
+  {
+    SetPlayerData(GetTaggedPlayerName(iPlr), RWDS_PlayerName, iPlr);
+    SetPlayerData(GetTaggedPlayerName(iPlr), RWDS_CPlayerName, iPlr);
   }
   else
-  	UpdatePlayerNames(iPlr);
+    UpdatePlayerNames(iPlr);
 
   SetPlayerData(GetPlayerTeam(iPlr), RWDS_PlayerTeam, iPlr);
   SetPlayerData(GetPlayerID(iPlr), RWDS_PlayerID, iPlr);
@@ -509,12 +509,12 @@ global func LoadRanks2Cache()
 
   for(var i = 0; i < GetPlayerCount(C4PT_User); i++)
   {
-  	var iPlr = GetPlayerByIndex(i, C4PT_User);
+    var iPlr = GetPlayerByIndex(i, C4PT_User);
     aRanks[iPlr] = CalcRank(iPlr);
     //Namen updaten
-  	if(FindObject2(Find_ID(RWDS)))
-  		FindObject2(Find_ID(RWDS))->UpdatePlayerNames(iPlr);
-	}
+    if(FindObject2(Find_ID(RWDS)))
+      FindObject2(Find_ID(RWDS))->UpdatePlayerNames(iPlr);
+  }
 
   return true;
 }
@@ -549,9 +549,9 @@ global func RecalcPlayerRank(int iPlr)
       info->SetHighlightColor(RGB(0,153,255));
       EventInfo4K(0, Format("$YouHaveBeenPromoted$", GetTaggedPlayerName(iPlr), GetName(info)), GetID(info), 0, 0, 0, "PriorityInfo.ogg");
 
-		  //Namen updaten
-  		if(FindObject2(Find_ID(RWDS)))
-  			FindObject2(Find_ID(RWDS))->UpdatePlayerNames(iPlr);
+      //Namen updaten
+      if(FindObject2(Find_ID(RWDS)))
+        FindObject2(Find_ID(RWDS))->UpdatePlayerNames(iPlr);
 
       //Sound-Hinweis
       Sound("RankUp.ogg", true, 0, 100, iPlr+1);
