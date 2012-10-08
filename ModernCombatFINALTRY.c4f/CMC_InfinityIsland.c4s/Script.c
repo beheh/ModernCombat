@@ -597,7 +597,7 @@ public func ChooserFinished()
    if(!FindObject(NOHC))
    {
     SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,1970,1140,-1),100*21,300);
-    SetupVehicleSpawn([APCE],DIR_Right,CreateObject(VSPW,2130,1140,-1),100*21,300);
+    SetupVehicleSpawn([APCE],DIR_Right,CreateObject(VSPW,2135,1140,-1),100*21,300);
     SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,5495,1200,-1),100*21,300);
 
     var sign = CreateObject(SGNP, 1640, 1170, -1);
