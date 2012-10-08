@@ -405,8 +405,14 @@ public func InitPlayerData(int iPlr)
     }
   }
 
-  SetPlayerData(GetTaggedPlayerName(iPlr), RWDS_PlayerName, iPlr);
-  SetPlayerData(GetTaggedPlayerName(iPlr), RWDS_CPlayerName, iPlr);
+	if(GetPlayerRank(iPlr) == -1)
+	{
+  	SetPlayerData(GetTaggedPlayerName(iPlr), RWDS_PlayerName, iPlr);
+  	SetPlayerData(GetTaggedPlayerName(iPlr), RWDS_CPlayerName, iPlr);
+  }
+  else
+  	UpdatePlayerNames(iPlr);
+
   SetPlayerData(GetPlayerTeam(iPlr), RWDS_PlayerTeam, iPlr);
   SetPlayerData(GetPlayerID(iPlr), RWDS_PlayerID, iPlr);
   if(!aData[iPlr]) aData[iPlr] = CreateArray();
@@ -502,9 +508,21 @@ global func LoadRanks2Cache()
   aRanks = [];
 
   for(var i = 0; i < GetPlayerCount(C4PT_User); i++)
-    aRanks[GetPlayerByIndex(i, C4PT_User)] = CalcRank(GetPlayerByIndex(i, C4PT_User));
+  {
+  	var iPlr = GetPlayerByIndex(i, C4PT_User);
+    aRanks[iPlr] = CalcRank(iPlr);
+    //Namen updaten
+  	if(FindObject2(Find_ID(RWDS)))
+  		FindObject2(Find_ID(RWDS))->UpdatePlayerNames(iPlr);
+	}
 
   return true;
+}
+
+public func UpdatePlayerNames(int iPlr)
+{
+	SetPlayerData(GetTaggedPlayerName(iPlr, true), RWDS_PlayerName, iPlr);
+	SetPlayerData(GetTaggedPlayerName(iPlr, true, true), RWDS_CPlayerName, iPlr);
 }
 
 global func GetPlayerRank(int iPlr)
@@ -530,6 +548,10 @@ global func RecalcPlayerRank(int iPlr)
       var info = CreateObject(GetRankID(nRank), 0, 0, iPlr);
       info->SetHighlightColor(RGB(0,153,255));
       EventInfo4K(0, Format("$YouHaveBeenPromoted$", GetTaggedPlayerName(iPlr), GetName(info)), GetID(info), 0, 0, 0, "PriorityInfo.ogg");
+
+		  //Namen updaten
+  		if(FindObject2(Find_ID(RWDS)))
+  			FindObject2(Find_ID(RWDS))->UpdatePlayerNames(iPlr);
 
       //Sound-Hinweis
       Sound("RankUp.ogg", true, 0, 100, iPlr+1);
@@ -575,14 +597,6 @@ global func CalcRank(int iPlr)
       rank = j;
       break;
     }
-  }
-
-  //Namen updaten
-  var rewards;
-  if(rewards = FindObject2(Find_ID(RWDS)))
-  { 
-    rewards->~SetPlayerData(GetTaggedPlayerName(iPlr, true), RWDS_PlayerName, iPlr);
-    rewards->~SetPlayerData(GetTaggedPlayerName(iPlr, true, true), RWDS_CPlayerName, iPlr);
   }
 
   return rank;
