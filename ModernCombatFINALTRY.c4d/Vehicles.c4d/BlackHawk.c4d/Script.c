@@ -1616,11 +1616,6 @@ protected func SoundPassenger(string szSound, bool fSound, int iPlr)
 {
   var iLoop = -1;
   if(fSound) iLoop = +1;
-  if(iLoop > 1) {
-    Log("%s on for %d", szSound, iPlr);
-  } else {
-    Log("%s off for %d", szSound, iPlr);
-  }
   Sound(szSound, false, this, 0, iPlr+1, iLoop);
 }
 
