@@ -158,7 +158,7 @@ func InitClassMenu(object pClonk)
   if(GetMenu(pClonk))
     CloseMenu(pClonk); //Menü schließen
 
-  OpenMenu(pClonk);
+  AddEffect("ClassMenu", pClonk, 1, 10, this);
 }
 
 func Finish(object pClonk, int iClass)
@@ -211,6 +211,14 @@ private func InfoMenuItems()
   return 6 + !FindObject(NOAM);
 }
 
+public func FxClassMenuTimer(object pTarget)
+{
+	if(!GetMenu(pTarget))
+		OpenMenu(pTarget, selection[GetOwner(pTarget)]);
+
+	return true;
+}
+
 local bNoMenuUpdate;
 
 private func OpenMenu(object pClonk, int iSelection)
@@ -221,9 +229,11 @@ private func OpenMenu(object pClonk, int iSelection)
   var iClass = 1;
   if(!iSelection && lastclass[iOwner])
     iClass = lastclass[iOwner];
-  if(GetMenu(pClonk)) {
+  
+  if(GetMenu(pClonk)) 
     iClass = CalculatePlayerSelection(iOwner, GetMenuSelection(pClonk));
-  }
+  else if(iSelection)
+  	iClass = CalculatePlayerSelection(iOwner, iSelection);
 
   //Menü öffnen
   CloseMenu(pClonk);
