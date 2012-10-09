@@ -80,7 +80,7 @@ public func FMData1T2(int data)
 {
   if(data == FT_Name)		return "$Single$";
 
-  if(data == FM_Damage)		return 15;
+  if(data == FM_Damage)		return 14;
 
   return FMData1(data);
 }

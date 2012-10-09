@@ -102,7 +102,7 @@ public func FMData1T3(int data)
 
   if(data == FM_Auto)		return false;
 
-  if(data == FM_Damage)		return 11;
+  if(data == FM_Damage)		return 12;
 
   return FMData1(data);
 }
