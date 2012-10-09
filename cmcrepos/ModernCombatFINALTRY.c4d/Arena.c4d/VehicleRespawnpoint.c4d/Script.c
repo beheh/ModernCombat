@@ -12,7 +12,7 @@ global func SetupVehicleSpawn(array aType, int iDir, object pTarget, int iFrames
   if(!pTarget) pTarget = this;
   if(!pTarget) return false;
   if(!iFrames) iFrames = 70;
-  if(!iDistance) iDistance = 100;
+  if(!iDistance) iDistance = 200;
 
   var effect = AddEffect("IntVehicleSpawn4K",pTarget,50,1,pTarget); 
 
