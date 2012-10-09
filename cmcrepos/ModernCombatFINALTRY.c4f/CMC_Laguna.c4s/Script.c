@@ -366,10 +366,10 @@ public func ChooserFinished()
    }
 
    //Patrouillenboote
-   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,770,790,-1),10*10);
-   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,1265,789,-1),10*10);
-   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1485,789,-1),10*10);
-   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2605,789,-1),10*10);
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,770,790,-1),50*21);
+   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,1265,789,-1),50*21);
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1485,789,-1),50*21);
+   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2605,789,-1),50*21);
 
    //Objekte entfernen
    RemoveObject(FindObject2(Find_ID(_WIN),Find_InRect(735, 410, 5, 30)));
@@ -397,7 +397,7 @@ public func ChooserFinished()
    //Helikopter und Hinweisschild
    if(!FindObject(NOHC))
    {
-    SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,2895,410,-1),100*21);
+    SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,2895,410,-1),50*21);
 
     var sign = CreateObject(SGNP, 2925, 440, -1);
     sign->SetPhase(2);
@@ -414,10 +414,10 @@ public func ChooserFinished()
    CreateObject(MWCR, 2350, 550, -1);
 
    //Patrouillenboote
-   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,770,790,-1),10*10);
-   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,1265,789,-1),10*10);
-   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1485,789,-1),10*10);
-   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2605,789,-1),10*10);
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,770,790,-1),50*21);
+   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,1265,789,-1),50*21);
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1485,789,-1),50*21);
+   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2605,789,-1),50*21);
   }
 
   //HTF-Spielziel
@@ -446,8 +446,8 @@ public func ChooserFinished()
    }
 
    //Patrouillenboote
-   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1485,789,-1),10*10);
-   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2605,789,-1),10*10);
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1485,789,-1),50*21);
+   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2605,789,-1),50*21);
   }
 
   //LMS/DM-Spielziel
@@ -462,8 +462,8 @@ public func ChooserFinished()
    CreateObject(SGNP, 2745, 570, -1);
 
    //Patrouillenboote
-   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1485,789,-1),10*10);
-   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2605,789,-1),10*10);
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1485,789,-1),50*21);
+   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2605,789,-1),50*21);
   }
 }
 

@@ -279,9 +279,9 @@ func CreateEquipment()
   CreateObject(ATBY,3775,520,-1)->SetRotation(-20);
 
   //Patrouillenboote
-  SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1705,610,-1),50*21,300);
-  SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2990,609,-1),50*21,300);
-  SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,4310,610,-1),50*21,300);
+  SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1705,610,-1),50*21);
+  SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2990,609,-1),50*21);
+  SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,4310,610,-1),50*21);
 
   //Automaten
   var store = CreateObject(WPVM,1500, 530,-1);
@@ -436,8 +436,8 @@ public func ChooserFinished()
   //Helikopter und Hinweisschilder
   if(!FindObject(NOHC))
   {
-   SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,1655,370,-1),100*21,300);
-   SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,4355,370,-1),100*21,300);
+   SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,1655,370,-1),100*21);
+   SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,4355,370,-1),100*21);
 
    var sign = CreateObject(SGNP, 1600, 400, -1);
    sign->SetPhase(2);

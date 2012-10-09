@@ -422,8 +422,8 @@ public func ChooserFinished()
    //Helikopter und Hinweisschilder
    if(!FindObject(NOHC))
    {
-    SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,910,470,-1),60*21,300);
-    SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,4925,420,-1),60*21,300);
+    SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,910,470,-1),100*21);
+    SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,4925,420,-1),100*21);
 
     var sign = CreateObject(SGNP, 840, 500, -1);
     sign->SetPhase(2);
@@ -483,8 +483,8 @@ public func ChooserFinished()
    //Helikopter und Hinweisschilder
    if(!FindObject(NOHC))
    {
-    SetupVehicleSpawn([APCE],DIR_Right,CreateObject(VSPW,910,470,-1),60*21,300);
-    SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,4925,420,-1),60*21,300);
+    SetupVehicleSpawn([APCE],DIR_Right,CreateObject(VSPW,910,470,-1),50*21);
+    SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,4925,420,-1),50*21);
 
     var sign = CreateObject(SGNP, 840, 500, -1);
     sign->SetPhase(2);

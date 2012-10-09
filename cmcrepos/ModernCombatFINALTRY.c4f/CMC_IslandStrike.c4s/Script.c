@@ -753,7 +753,7 @@ public func ChooserFinished()
    //Helikopter und Hinweisschilder
    if(!FindObject(NOHC))
    {
-    SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,4700,390,-1),100*21,300);
+    SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,4700,390,-1),100*21);
 
     sign = CreateObject(SGNP, 4810, 420, -1);
     sign->SetPhase(2);
@@ -786,11 +786,11 @@ public func ChooserFinished()
    CreateObject(MVSN, 6460, 510, -1)->Set(6460,440,1);
 
    //Patrouillenboote
-   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1245,610,-1),50*21,300);
-   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2195,609,-1),50*21,300);
-   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,4640,649,-1),50*21,300);
-   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,5565,650,-1),50*21,300);
-   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,7440,609,-1),50*21,200);
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1245,610,-1),50*21);
+   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2195,609,-1),50*21);
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,4640,649,-1),50*21);
+   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,5565,650,-1),50*21);
+   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,7440,609,-1),50*21);
 
    //Alarmleuchten
    //Flaggenposten 1
@@ -883,7 +883,7 @@ public func ChooserFinished()
    //Helikopter und Hinweisschilder
    if(!FindObject(NOHC))
    {
-    SetupVehicleSpawn([APCE],DIR_Left,CreateObject(VSPW,4730,390,-1),100*21,300);
+    SetupVehicleSpawn([APCE],DIR_Left,CreateObject(VSPW,4730,390,-1),50*21);
 
     sign = CreateObject(SGNP, 4810, 420, -1);
     sign->SetPhase(2);
@@ -965,10 +965,10 @@ public func ChooserFinished()
    CreateObject(MVSN, 7690, 320, -1)->Set(7620,420,1);
 
    //Patrouillenboote
-   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1245,610,-1),50*21,300);
-   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2195,609,-1),50*21,300);
-   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,4640,649,-1),50*21,300);
-   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,6945,609,-1),50*21,200);
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1245,610,-1),50*21);
+   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2195,609,-1),50*21);
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,4640,649,-1),50*21);
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,6945,609,-1),50*21);
   }
 
   //CTF-Spielziel
@@ -999,7 +999,7 @@ public func ChooserFinished()
    //Helikopter und Hinweisschilder
    if(!FindObject(NOHC))
    {
-    SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,4700,390,-1),100*21,300);
+    SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,4700,390,-1),100*21);
 
     sign = CreateObject(SGNP, 4810, 420, -1);
     sign->SetPhase(2);
@@ -1007,8 +1007,8 @@ public func ChooserFinished()
    }
 
    //Patrouillenboote
-   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,4640,649,-1),50*21,300);
-   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,5565,650,-1),50*21,300);
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,4640,649,-1),50*21);
+   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,5565,650,-1),50*21);
 
    //Objekte entfernen
    RemoveObject(aSelfDefense[0]);
@@ -1041,7 +1041,7 @@ public func ChooserFinished()
    //Helikopter und Hinweisschilder
    if(!FindObject(NOHC))
    {
-    SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,4700,390,-1),100*21,300);
+    SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,4700,390,-1),100*21);
 
     sign = CreateObject(SGNP, 4810, 420, -1);
     sign->SetPhase(2);
@@ -1049,8 +1049,8 @@ public func ChooserFinished()
    }
 
    //Patrouillenboote
-   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,4640,649,-1),50*21,300);
-   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,5565,650,-1),50*21,300);
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,4640,649,-1),50*21);
+   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,5565,650,-1),50*21);
 
    //Objekte entfernen
    RemoveObject(aSelfDefense[0]);
