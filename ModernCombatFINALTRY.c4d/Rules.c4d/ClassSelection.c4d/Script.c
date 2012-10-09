@@ -213,10 +213,10 @@ private func InfoMenuItems()
 
 public func FxClassMenuTimer(object pTarget)
 {
-	if(!GetMenu(pTarget))
-		OpenMenu(pTarget, selection[GetOwner(pTarget)]);
+  if(!GetMenu(pTarget))
+    OpenMenu(pTarget, selection[GetOwner(pTarget)]);
 
-	return true;
+  return true;
 }
 
 local bNoMenuUpdate;
@@ -229,11 +229,12 @@ private func OpenMenu(object pClonk, int iSelection)
   var iClass = 1;
   if(!iSelection && lastclass[iOwner])
     iClass = lastclass[iOwner];
-  
-  if(GetMenu(pClonk)) 
+
+  if(GetMenu(pClonk))
     iClass = CalculatePlayerSelection(iOwner, GetMenuSelection(pClonk));
-  else if(iSelection)
-  	iClass = CalculatePlayerSelection(iOwner, iSelection);
+  else
+    if(iSelection)
+      iClass = CalculatePlayerSelection(iOwner, iSelection);
 
   //Menü öffnen
   CloseMenu(pClonk);
