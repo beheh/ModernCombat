@@ -104,6 +104,8 @@ public func FMData1T3(int data)
 
   if(data == FM_Damage)		return 12;
 
+  if(data == FM_SpreadAdd)	return 18;
+
   return FMData1(data);
 }
 
