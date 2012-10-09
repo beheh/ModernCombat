@@ -2119,17 +2119,17 @@ private func UpdateVertices()
   if(GetAction() == "AimCrawl") return;
 
   var x,y,r;
-  WeaponAt(x,y,r);
-  SetVertex(0,0,x/1000 * (GetDir()*2-1),0,2);
-  SetVertex(0,1,y/1000,0,2);
+  WeaponAt(x, y, r);
+  SetVertex(0, 0, x / 1000 * (GetDir() * 2 - 1), 0, 2);
+  SetVertex(0, 1, y / 1000, 0, 2);
 }
 
 private func ResetVertices()
 {
   if(GetAction() == "AimCrawl") return;
 
-  SetVertex(0,0,0);
-  SetVertex(0,1,0);
+  SetVertex(0, 0, 0, 0, 2);
+  SetVertex(0, 1, 0, 0, 2);
 }
 
 public func FxIntCrawl2ScaleTimer()
