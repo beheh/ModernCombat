@@ -87,3 +87,14 @@ public func RelaunchPlayer(int iPlr, object pClonk, int iMurdererPlr)
       EventInfo4K(iPlr+1, Format("$NoLivesLeft$"), GLMS, 0, 0, 0, "Alarm.ogg");
   }
 }
+
+public func OnPlayerRankUp(int iPlr)
+{
+  //Scoreboard-Spielerränge aktualisieren
+  if(GetTeamPlayerCount(GetPlayerTeam(iPlr)) > 1)
+    SetScoreboardData(iPlr, TEAM_PlayerColumn, GetTaggedPlayerName(iPlr, true));
+  else
+    SetScoreboardData(iPlr, TEAM_TeamColumn, GetTaggedPlayerName(iPlr, true), GetPlayerTeam(iPlr));
+
+  return true;
+}
