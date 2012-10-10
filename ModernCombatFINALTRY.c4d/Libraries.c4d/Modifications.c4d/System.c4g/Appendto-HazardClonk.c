@@ -2116,7 +2116,7 @@ protected func AbortCrawl()
 
 private func UpdateVertices()
 {
-  if(GetAction() == "AimCrawl") return;
+  if(IsCrawling()) return;
 
   var x,y,r;
   WeaponAt(x, y, r);
@@ -2126,7 +2126,7 @@ private func UpdateVertices()
 
 private func ResetVertices()
 {
-  if(GetAction() == "AimCrawl") return;
+  if(IsCrawling()) return;
 
   SetVertex(0, 0, 0, 0, 2);
   SetVertex(0, 1, 0, 0, 2);
