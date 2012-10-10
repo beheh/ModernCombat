@@ -310,7 +310,7 @@ public func FxAggroFire(object pTarget, int no)
   }
 
   var maxdist = dist;
-  if(!PathFree(GetX(), GetY(), target->GetX(), target->GetY()))
+  if(!PathFree(GetX(), GetY(), target->GetX(), target->GetY()) && !Contents()->~AI_IgnorePathFree(this, target))
   {
     if(level == 1) maxdist = 0;
     if(level >= 2) maxdist = dist/2;
@@ -396,7 +396,7 @@ public func FxAggroFire(object pTarget, int no)
       if(Contents()->GetBotData(BOT_Ballistic) || ((!Inside(90, angle1, angle2) && !Inside(270, angle1, angle2)) || Contents()->GetFMData(FM_Aim) > 0))
       {
         if(!IsAiming()) StartSquatAiming();
-        if(IsAiming() && !Contents()->~NeedBotControl(this, target))
+        if(IsAiming() && !Contents()->~AI_NeedControl(this, target))
         {
           var tx = target->GetX();
           var ty = target->GetY();
@@ -407,13 +407,12 @@ public func FxAggroFire(object pTarget, int no)
           DoMouseAiming(tx, ty);
         }
       }
-      else
-        if(IsAiming())
-          StopAiming();
-  }
-  if(IsAiming() && !CheckAmmo(Contents()->GetFMData(FM_AmmoID), Contents()->GetFMData(FM_AmmoLoad), Contents(), this))
-    StopAiming();
- }
+      else if(IsAiming() && !Contents()->~AI_NeedAim(this, target))
+      	StopAiming();
+  	}
+  	if(IsAiming() && !CheckAmmo(Contents()->GetFMData(FM_AmmoID), Contents()->GetFMData(FM_AmmoLoad), Contents(), this) && !Contents()->~AI_NeedAim(this, target))
+  		StopAiming();
+ 	}
 
   //Bereits am Feuern?
   if(Contents()->IsRecharging() || Contents()->IsShooting())
@@ -421,15 +420,9 @@ public func FxAggroFire(object pTarget, int no)
 
   //Feuer frei
   if(maxdist != 300 && pathfree && !(Contents()->~IsReloading()))
-  {
     Control2Contents("ControlThrow");
-  }
-  else
-  {
-    if(IsAiming())
-      StopAiming();
-  }
-
+  else if(IsAiming() && !Contents()->~AI_NeedAim(this, target))
+    StopAiming();
   //Message("@My target: %s @%d/%d with level %d", this, target->GetName(), target->GetX(), target->GetY(), level);
 
   //Stufe 2 - Ziel verfolgen
@@ -460,7 +453,7 @@ public func SelectWeapon(int iLevel, object pTarget, bool fFireModes, bool fEmpt
   if(!fEquipment && !CustomContentsCount("IsWeapon"))
     return;
   //Die aktuelle Waffe muss kontrolliert werden?
-  if(Contents()->~NeedBotControl())
+  if(Contents()->~AI_NeedControl())
     return true;
   //Bevorzugten Schadenstyp bestimmen
   var preftype = GetPrefDmgType(pTarget), type;
