@@ -1,2 +1,5 @@
 NoMoney=Not enough money!
 NoMAV=No MAV available!
+AddItem=Equip %s
+Updated=MAV modified with <c ffff33>%s</c>.
+EquipMAV=Choose an item to equip:
