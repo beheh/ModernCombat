@@ -11,8 +11,7 @@ public func StartSpeed()	{return 5;}			//Startgeschwindigkeit
 public func Acceleration()	{return 3;}			//Beschleunigung
 public func MaxSpeed()		{return 100+!fGuided*50;}	//Maximale Geschwindigkeit
 
-public func SecureTime()	{return 70;}			//Mindestflugzeit
-public func SecureDistance()	{return 100;}			//Mindestabstand
+public func SecureTime()	{return 21;}			//Mindestflugzeit
 public func MaxDamage()		{return 5;}			//Maximalschaden bis Absturz
 
 public func ExplosionDamage()	{return 25;}			//Explosionsschaden
@@ -86,7 +85,7 @@ public func Guideable()
 
 public func Secure()
 {
-  return Distance(GetX(), GetY(), sx, sy) <= SecureDistance() && GetEffect("IntSecureTime", this);
+  return GetEffect("IntSecureTime", this);
 }
 
 /* Soundeffekt */
