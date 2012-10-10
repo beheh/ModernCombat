@@ -32,7 +32,7 @@ protected func Initialize()
 
 /* Ablehnung */
 
-public func RejectReanimation()	{return rejected;}
+public func RejectReanimation()	{return rejected || (clonk && !GetAlive(clonk));}
 
 private func Reject()
 {
@@ -138,14 +138,18 @@ protected func FxIntFakeDeathMenuTimer(object pTarget, int iEffect, int iTime)
   if (!pTarget)
     return -1;
   //Tot :C
-  if (!clonk || !GetAlive(clonk) || iTime >= FKDT_SuicideTime * 35)
+  if (!clonk || iTime >= FKDT_SuicideTime * 35)
   {
-    pTarget->~Suicide();
+    pTarget->~Remove();
     return -1;
   }
   var pClonk = pTarget->~GetClonk();
   if(!pClonk)
     return;
+
+	//Leiche soll nicht zu früh ausfaden
+	while(GetEffect("*FadeOut*", pClonk))
+		RemoveEffect("*FadeOut*", pClonk);
 
   if(!(iTime % 10))
   {
@@ -178,7 +182,8 @@ func DoMenu()
 
 private func DeathMenu()
 {
-  Update();
+  if(!GetAlive(clonk))
+  	return;
 
   var selection = GetMenuSelection(clonk);
 
@@ -411,24 +416,29 @@ private func GetRandomTipp(array a, id id)
 
 /* Selbstmord */
 
-public func Update()
-{
-  if(!GetAlive(clonk))
-  {Suicide();}
-}
-
 public func Suicide()
 {
-  //Clonkinventar löschen sofern Arenaregel aktiv
+	//Soundloop beenden
+  Sound("FKDT_ClonkDown.ogg", false, clonk, 100, GetOwner(clonk)+1, -1);
+
+  //Töten
+  if(clonk && GetAlive(clonk)) Kill(clonk);
+  
+  if(symbol)
+  	RemoveObject(symbol);
+}
+
+public func Remove()
+{
+	//Clonkinventar löschen sofern Arenaregel aktiv
   if(FindObject(NODR))
     for(var item in FindObjects(Find_Container(this),Find_Not(Find_OCF(OCF_Living))))
       RemoveObject(item);
 
+  Suicide();
+  
   if(clonk)
   {
-    //Töten
-    if(GetAlive(clonk)) Kill(clonk);
-
     //Leiche "auswerfen" und ausfaden lassen
     Exit(clonk,0,GetObjHeight(clonk)/2);
     clonk->InstantDie();
@@ -463,7 +473,7 @@ public func Destruction()
 public func Reanimation()
 {
   //Kein Clonk?
-  if(!clonk) return;
+  if(!clonk || !GetAlive(clonk)) return;
   //Reanimation abgelehnt?
   if(RejectReanimation()) return;
 
