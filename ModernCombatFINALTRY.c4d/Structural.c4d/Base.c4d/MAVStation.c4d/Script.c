@@ -437,12 +437,12 @@ protected func ControlThrow(object pByObj)
       
       var fItemExists = false;
 
-      if(FindContents(AMPK, pByObj)) {fItemExists = true; AddMenuItem(Format("$AddItem$", GetName(0, AMPK)), "AddItem", AMPK, pByObj, 0, 1);}
-      if(FindContents(FAPK, pByObj)) {fItemExists = true; AddMenuItem(Format("$AddItem$", GetName(0, FAPK)), "AddItem", FAPK, pByObj, 0, 2);}
-      if(FindContents(BWTH, pByObj)) {fItemExists = true; AddMenuItem(Format("$AddItem$", GetName(0, BWTH)), "AddItem", BWTH, pByObj, 0, 3);}
-      if(FindContents(RSHL, pByObj)) {fItemExists = true; AddMenuItem(Format("$AddItem$", GetName(0, RSHL)), "AddItem", RSHL, pByObj, 0, 4);}
-      if(FindContents(BTBG, pByObj)) {fItemExists = true; AddMenuItem(Format("$AddItem$", GetName(0, BTBG)), "AddItem", BTBG, pByObj, 0, 5);}
-      if(FindContents(CDBT, pByObj)) {fItemExists = true; AddMenuItem(Format("$AddItem$", GetName(0, CDBT)), "AddItem", CDBT, pByObj, 0, 6);}
+      if(FindContents(AMPK, pByObj)) {fItemExists = true; AddMenuItem(Format("$AddItem$", GetName(0, AMPK)), "AddItem", AMPK, pByObj, 0, pByObj);}
+      if(FindContents(FAPK, pByObj)) {fItemExists = true; AddMenuItem(Format("$AddItem$", GetName(0, FAPK)), "AddItem", FAPK, pByObj, 0, pByObj);}
+      if(FindContents(BWTH, pByObj)) {fItemExists = true; AddMenuItem(Format("$AddItem$", GetName(0, BWTH)), "AddItem", BWTH, pByObj, 0, pByObj);}
+      if(FindContents(RSHL, pByObj)) {fItemExists = true; AddMenuItem(Format("$AddItem$", GetName(0, RSHL)), "AddItem", RSHL, pByObj, 0, pByObj);}
+      if(FindContents(BTBG, pByObj)) {fItemExists = true; AddMenuItem(Format("$AddItem$", GetName(0, BTBG)), "AddItem", BTBG, pByObj, 0, pByObj);}
+      if(FindContents(CDBT, pByObj)) {fItemExists = true; AddMenuItem(Format("$AddItem$", GetName(0, CDBT)), "AddItem", CDBT, pByObj, 0, pByObj);}
       
       if(!fItemExists)
       	CloseMenu(pByObj);
@@ -465,11 +465,20 @@ protected func ControlThrow(object pByObj)
   return true;
 }
 
-func AddItem(id item, int iType)
+func AddItem(id iItem, object pUser)
 {
-	var pItem = FindContents(item, GetUser());
-	if(pMAV && !pMAV->IsDestroyed() && !LocalN("pItem", pMAV) && pItem)
+	var pItem = FindContents(iItem, pUser);
+	
+	if(pMAV && !pMAV->IsDestroyed() && !LocalN("pItem", pMAV) && pItem && (pUser == GetUser()))
 	{
+		var iType;
+		if(GetID(pItem) == AMPK) iType = 1;
+  	if(GetID(pItem) == FAPK) iType = 2;
+  	if(GetID(pItem) == BWTH) iType = 3;
+  	if(GetID(pItem) == RSHL) iType = 4;
+  	if(GetID(pItem) == BTBG) iType = 5;
+  	if(GetID(pItem) == CDBT) iType = 6;
+
 		if(iType == 5)
 		{
 			pItem->DoPackPoints(-1);
