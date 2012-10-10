@@ -432,6 +432,20 @@ protected func ControlThrow(object pByObj)
       Sound("BKHK_Switch.ogg", true, this, 100, GetOwner(pByObj) + 1);
       Sound("CockpitRadio.ogg", true, 0, 100, GetOwner(pByObj)+1, +1);
       SetAction("Controlling");
+      
+      CreateMenu(MAVE, pByObj, this, 0, "$EquipMAV$", 0, C4MN_Style_Context);
+      
+      var fItemExists = false;
+
+      if(FindContents(AMPK, pByObj)) {fItemExists = true; AddMenuItem(Format("$AddItem$", GetName(0, AMPK)), "AddItem", AMPK, pByObj, 0, 1);}
+      if(FindContents(FAPK, pByObj)) {fItemExists = true; AddMenuItem(Format("$AddItem$", GetName(0, FAPK)), "AddItem", FAPK, pByObj, 0, 2);}
+      if(FindContents(BWTH, pByObj)) {fItemExists = true; AddMenuItem(Format("$AddItem$", GetName(0, BWTH)), "AddItem", BWTH, pByObj, 0, 3);}
+      if(FindContents(RSHL, pByObj)) {fItemExists = true; AddMenuItem(Format("$AddItem$", GetName(0, RSHL)), "AddItem", RSHL, pByObj, 0, 4);}
+      if(FindContents(BTBG, pByObj)) {fItemExists = true; AddMenuItem(Format("$AddItem$", GetName(0, BTBG)), "AddItem", BTBG, pByObj, 0, 5);}
+      if(FindContents(CDBT, pByObj)) {fItemExists = true; AddMenuItem(Format("$AddItem$", GetName(0, CDBT)), "AddItem", CDBT, pByObj, 0, 6);}
+      
+      if(!fItemExists)
+      	CloseMenu(pByObj);
     }
     else
       PlayerMessage(GetOwner(pByObj), "$NoMoney$", this);
@@ -449,4 +463,42 @@ protected func ControlThrow(object pByObj)
   }
 
   return true;
+}
+
+func AddItem(id item, int iType)
+{
+	var pItem = FindContents(item, GetUser());
+	if(pMAV && !pMAV->IsDestroyed() && !LocalN("pItem", pMAV) && pItem)
+	{
+		if(iType == 5)
+		{
+			pItem->DoPackPoints(-1);
+      if(!pItem->GetPackPoints())
+        RemoveObject(pItem);
+      pItem = CreateObject(BTBG);
+      pItem->SetPackPoints(1);
+		}
+		Enter(pMAV, pItem);
+		LocalN("pItem", pMAV) = pItem;
+		LocalN("iItemType", pMAV) = iType;
+		LocalN("iHKShots", pMAV) = 5;
+		SetPhase(iType, pMAV);
+    pMAV->Sound("RSHL_Deploy.ogg");
+
+    //Hilfsnachrichten
+    var szStr = Format("$Updated$", GetName(pItem));
+    CustomMessage(szStr, pMAV, GetOwner(GetUser()));
+
+    if(GetAction() == "Flying")
+    {
+      CustomMessage(szStr, pMAV, GetOwner(), 0, 0, 0, 0, 0, MSG_Multiple);
+
+      for(var i = 0; i < 2; i++)
+      {
+        if(iType == 1) ScheduleCall(pMAV, "AMP", 1, 0, true);
+        if(iType == 2) ScheduleCall(pMAV, "FAP", 1, 0, true, 0);
+        if(iType == 3) ScheduleCall(pMAV, "BlowTorch", 1, 0, true);
+      }
+    }
+	}
 }
