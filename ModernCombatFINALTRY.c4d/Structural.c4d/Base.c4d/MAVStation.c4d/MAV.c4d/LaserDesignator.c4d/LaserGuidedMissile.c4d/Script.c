@@ -7,7 +7,6 @@ public func MaxTime()		{return 400;}	//Maximale Flugzeit
 public func MaxSpeed()		{return 90;}	//Maximale Geschwindigkeit
 
 public func SecureTime()	{return 2;}	//Mindestflugzeit
-public func SecureDistance()	{return 2;}	//Mindestabstand
 public func MaxDamage()		{return 40;}	//Maximalschaden bis Absturz
 
 public func ExplosionDamage()	{return 32;}	//Explosionsschaden
