@@ -1,559 +1,516 @@
-/*-- Schwerverletzter --*/
+/*-- Klassenwahl --*/
 
 #strict 2
 
-static const FKDT_SuicideTime = 15; //Standardzeit bei Fake Death in Sekunden
-static FKDT_QuickTipIDs;
+local crew;
+local lastclass;
+local selection;
 
-local clonk, oldvisrange, oldvisstate, killmsg, aTipps, iTippNr;
-local rejected, symbol;
-local aGrenades;
-
-public func AimAngle()		{}
-public func ReadyToFire()	{}
-public func IsAiming()		{}
-public func MenuQueryCancel()	{return true;}
-public func BlockTime()		{return 35*3;}
-public func RWDS_MenuAbort()	{return true;}
 
 /* Initialisierung */
 
 protected func Initialize()
 {
-  //Anderer Todesschrei zur Unterscheidung zwischen Fake Death und "echtem" Ableben
-  Sound("ClonkDie*.ogg");
-
-  aTipps = [];
-  aGrenades = [];
-  FKDT_QuickTipIDs = [ASTR, MNGN, PSTL, RTLR, PPGN, SGST, SMGN, ATWN, FGRN, FRAG, PGRN, STUN, SGRN, SRBL, AMPK, BTBG, C4PA, DGNN, FAPK, RSHL, CDBT, CUAM, BWTH];
-
-  _inherited();
+  SetPosition(10,10);
+  crew = [];
+  lastclass = [];
+  selection = [];
+  ScheduleCall(0,"Initialized",1);
 }
 
-/* Ablehnung */
-
-public func RejectReanimation()	{return rejected || (clonk && !GetAlive(clonk));}
-
-private func Reject()
+private func Initialized()
 {
-  if(!symbol) return DeathMenu();
-  rejected = !rejected;
+  //Verschwinden wenn Waffenwahl oder InstaGib im Spiel sind
+  if(FindObject(WPCH) || FindObject(IGIB))
+    RemoveObject();
+}
 
-  //Symbol umschalten
-  if(rejected)
-    symbol->SetGraphics("Negative");
-  else
+protected func Activate(iPlr)
+{
+  MessageWindow(GetDesc(),iPlr);
+}
+
+/* (Re-)Spawn */
+
+func InitializePlayer(int iPlayer)
+{
+  var pClonk = GetCrew(iPlayer);
+  if(!pClonk)
   {
-    AddEffect("BlockRejectReanimation", this, 101, BlockTime(), this);
-    symbol->SetGraphics("");
+    ScheduleCall(0,"InitializePlayer",1,0,iPlayer);
+    return;
   }
-  return DeathMenu();
+
+  if(FindObject(CHOS))
+    return;
+
+  ScheduleCall(0,"InitClassMenu",1,0,pClonk);
 }
 
-public func FxBlockRejectReanimationTimer(object target, int nr, int time)
+func ChooserFinished()
 {
-  if(time >= BlockTime())
+  ScheduleCall(0,"InitPlayers",1);
+}
+
+func InitPlayers()
+{
+  for(var i = 0; i < GetPlayerCount(); i++)
+    InitializePlayer(GetPlayerByIndex(i));
+}
+
+public func RelaunchPlayer(int iPlr, object pClonk)
+{
+  if(!pClonk)
+    if(!(pClonk = GetCrew(iPlr)))
+      return ScheduleCall(this,"RelaunchPlayer",1,0,iPlr,pClonk);
+  if(!GetAlive(pClonk))
+    return ScheduleCall(this,"RelaunchPlayer",1,0,iPlr);
+
+  //Menü zeitverzögert erstellen
+  if(!FindObject(CHOS))
+    ScheduleCall(0,"InitClassMenu",10,0,pClonk);
+
+  return;
+}
+
+/* Spawntimer */
+
+public func FxSpawntimerStart(pTarget, iNo, iTemp, iPlr, pClonk, cont)
+{
+  if(iTemp)
     return -1;
-}
-
-/* Erstellung */
-
-public func Set(object pClonk)
-{
-  clonk = pClonk;
-  SetPosition(GetX(pClonk),GetY(pClonk));
-  SetXDir(GetXDir(pClonk));
-  SetYDir(GetYDir(pClonk));
-
-  //Hinweissound für Schwerverletzten
-  Sound("FKDT_FatalHit*.ogg", false, pClonk, 100, GetOwner(pClonk)+1);
-
-  //Reanimationszeichen erstellen
-  symbol = CreateObject(SM01,0,0,GetOwner(pClonk));
-  symbol->Set(this);
-
-  //CTF-Flagge entfernen
-  for(var content in FindObjects(Find_ActionTarget(pClonk),Find_ID(FLA2)))
-    if(GetID(content) == FLA2)
-      content->~AttachTargetLost();
-
-  //Clonk aufnehmen
-  Enter(this, pClonk);
-
-  //Granatensortierung speichern
-  var pGrenadeStoring = pClonk->~GetGrenadeStoring();
-  if(pGrenadeStoring)
-  {
-    var nade, i = ContentsCount(0, pGrenadeStoring);
-    while(--i >= 0) 
-    {
-      nade = GetID(Contents(i, pGrenadeStoring));
-      if(GetIndexOf(nade, aGrenades) != -1)
-        continue;
-      
-      aGrenades[GetLength(aGrenades)] = nade;
-    }
-  }
-  
-  //Evtl. Granaten holen
-  pClonk->~GrabGrenades(this);
-  //Objekte des Clonks aufnehmen
-  GrabContents(pClonk);
-
-  //Aussehen des Clonks imitieren
-  SetGraphics(0,this,GetID(pClonk),1,GFXOV_MODE_Object,0,0,pClonk);
-
-  //Sichtwerte speichern
-  oldvisrange = GetObjPlrViewRange(pClonk);
-  oldvisstate = GetPlrFogOfWar(GetOwner(pClonk));
-
-  //Sichtwerte für den FakeDeath setzen
-  SetFoW(true,GetOwner(pClonk)); 
-  SetPlrViewRange(150,pClonk);
-
-  //Soundloop starten
-  Sound("FKDT_ClonkDown.ogg", false, pClonk, 100, GetOwner(pClonk)+1, +1);
-
-  //Bildschirmfärbung
-  ScreenRGB(pClonk, RGB(255), 120, 4, false, SR4K_LayerDamage);
-
-  //Verzögert Auswahlmenü öffnen
-  AddEffect("IntFakeDeathMenu", this, 1, 1, this);
-}
-
-public func KillMessage(string msg)
-{
-  //Killnachricht setzen
-  killmsg = msg;
-
-  //Spieler hat Hilfen aktiviert: Quicktipp geben
-  if (clonk && !clonk->ShorterDeathMenu())
-    aTipps = GetQuickTipps(this);
-
-  DeathMenu();
-}
-
-protected func FxIntFakeDeathMenuTimer(object pTarget, int iEffect, int iTime)
-{
-  if (!pTarget)
+  if(iPlr < 0)
     return -1;
-  //Tot :C
-  if (!clonk || iTime >= FKDT_SuicideTime * 35)
-  {
-    pTarget->~Remove();
+
+  //EffectVars
+  EffectVar(0, pTarget, iNo) = iPlr;	//Spieler
+  EffectVar(1, pTarget, iNo) = 15;	//Zeit
+  EffectVar(2, pTarget, iNo) = pClonk;	//Clonk
+  EffectVar(3, pTarget, iNo) = cont;	//Container
+
+  PlayerMessage(EffectVar(0, pTarget, iNo), "@$TimeTillRespawn$", 0, EffectVar(1, pTarget, iNo));
+}
+
+public func FxSpawntimerTimer(pTarget, iNo, iTime)
+{
+  EffectVar(1, pTarget, iNo)--;
+  PlayerMessage(EffectVar(0, pTarget, iNo), "@$TimeTillRespawn$", 0, EffectVar(1, pTarget, iNo));
+
+  //Verschwinden wenn Clonk/Behälter weg oder Clonk nicht im Behälter
+  if (!EffectVar(2, pTarget, iNo) || !EffectVar(3, pTarget, iNo) || Contained(EffectVar(2, pTarget, iNo)) != EffectVar(3, pTarget, iNo)) {
+    //Verschwinden wenn Behälter noch vorhanden und TIM1
+    if (GetID(EffectVar(3, pTarget, iNo)) == TIM1)
+      RemoveObject(EffectVar(3, pTarget, iNo));
     return -1;
   }
-  var pClonk = pTarget->~GetClonk();
+
+  if(EffectVar(1, pTarget, iNo) <= 0)
+  {
+    var iPlr = EffectVar(0, pTarget, iNo),
+    class = CalculatePlayerSelection(iPlr, selection[iPlr]);
+    
+    PlayerMessage(iPlr, "@");
+    if(SetupClass(class, iPlr))
+      return -1;
+    class = lastclass[iPlr];
+    if (class && SetupClass(class, iPlr))
+      return -1;
+    class = 1;
+    SetupClass(class, iPlr);
+    return -1;
+  }
+}
+
+public func FxSpawntimerStop(pTarget, iNo, iReason, fTemp)
+{
+  if (!fTemp)
+    PlayerMessage(EffectVar(0, pTarget, iNo), "@");
+}
+
+func InitClassMenu(object pClonk)
+{
+  //Kein Clonk?
   if(!pClonk)
     return;
 
-  //Leichen verbleiben auch ohne Clonk
-  while(GetEffect("*FadeOut*", pClonk))
-    RemoveEffect("*FadeOut*", pClonk);
+  var iPlayer = GetOwner(pClonk);
 
-  if(!(iTime % 10))
+  crew[iPlayer] = pClonk;
+
+  //Clonk in Spawnpoint verschieben
+  if(GetID(Contained(pClonk)) != TIM1)
   {
-    pTarget->~DoMenu();
-
-    var iAlpha = Interpolate2(255, 0, iTime, FKDT_SuicideTime * 35), pScreen = EffectVar(0, pTarget, iEffect);
-    if (!pScreen)
-      pScreen = EffectVar(0, pTarget, iEffect) = ScreenRGB(pClonk, GetScenarioVal("FoWColor"), iAlpha, 0, false, SR4K_LayerFakeDeath);
-    if (pScreen)
-      pScreen->~SetAlpha(iAlpha);
-  }
-  //Statistikenmenü abgebrochen? Zurück zum DeathMenü
-  if(GetType(GetMenu(pClonk)) != C4V_C4ID)
-    pTarget->~DoMenu();
-}
-
-protected func FxIntFakeDeathMenuStop(object pTarget, int iEffect)
-{
-  var pScreen = EffectVar(0, pTarget, iEffect);
-  if (pScreen)
-    RemoveObject(pScreen);
-}
-
-/* Auswahlmenü */
-
-func DoMenu()
-{
-  DeathMenu();
-}
-
-private func DeathMenu()
-{
-  if(!GetAlive(clonk))
-    return;
-
-  var selection = GetMenuSelection(clonk);
-
-  //Bei offenem Statistikmenü nichts unternehmen
-  if(GetMenu(clonk) == RWDS) return;
-
-  CloseMenu(clonk);
-
-  if(GetMenu(clonk)) return;
-
-  //Menü erstellen
-  CreateMenu(FKDT, clonk, this, 0, Format("$Title$"), C4MN_Style_Dialog, true, true);					//Titelzeile
-
-  if(!clonk->ShorterDeathMenu())
-  {
-    if (FindObject(SICD))												//Hinweis
-      AddMenuItem(Format("$Info$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);
+    var tmp = CreateObject(TIM1, AbsX(GetX(pClonk)), AbsY(GetY(pClonk)), iPlayer);
+    SetCategory(GetCategory(tmp) | C4D_Foreground, tmp);
+    SetGraphics(0, tmp, GetID(pClonk), 1, GFXOV_MODE_Object, 0, 1, pClonk);
+    if(FindObject(GOCC))
+      SetVisibility(VIS_None, tmp);
     else
-      AddMenuItem(Format("$Info2$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);
+      SetVisibility(VIS_Owner, tmp);
+    Enter(tmp,pClonk);
   }
 
-  AddMenuItem(Format("$DeathCounter$", 1 + TimeLeft() / 35),"", NONE, clonk, 0, 0, "", 512, 0, 0);			//Counter
+  //Zeitbegrenzung bei LMS, DM und AS
+  if(FindObject(GLMS) || FindObject(GTDM) || FindObject(GASS))
+    AddEffect("Spawntimer", this, 100, 35, this, GetID(), iPlayer, pClonk, tmp);
 
-  if(TimeLeft() < (FKDT_SuicideTime - 1) * 35)
-  {
-    var blocktime;
-    if(GetEffect("BlockRejectReanimation", this))
-    {
-      blocktime = GetEffect("BlockRejectReanimation", this, 0, 6);
-      AddMenuItem(Format("$ReanimationBlocked$", (BlockTime()-blocktime)/35), 0, SM01, clonk, 0, 0, "$ReanimationDescAllow$");
-    }
-    else
-    {
-      if(!RejectReanimation())
-        AddMenuItem("$ReanimationAllow$", "Reject", SM01, clonk, 0, 0, "$ReanimationDescAllow$");			//Ablehnen-Menüpunkt
-      else
-        AddMenuItem("$ReanimationDisallow$", "Reject", SM06, clonk, 0, 0, "$ReanimationDescDisallow$");
-    }
-    if(FindObject(SICD))
-      AddMenuItem("$Suicide$", "Suicide", PSTL, clonk, 0, 0, "$SuicideDesc$");						//Selbstmord-Menüpunkt
+  //Bereits ein Menü offen?
+  if(GetMenu(pClonk))
+    CloseMenu(pClonk); //Menü schließen
 
-    if(FindObject(RWDS))
-      AddMenuItem("$Statistics$", Format("FindObject(RWDS)->Activate(%d)", GetOwner(clonk)), RWDS, clonk);		//Statistik-Menüpunkt
-
-    if(aTipps[iTippNr])
-      AddMenuItem("$NextTipp$", "NextTipp", MCMC, clonk);
-  }
-
-  if(GetType(killmsg) == C4V_String)
-  {
-    AddMenuItem("", "", NONE, clonk, 0, 0, "", 512, 0, 0);								//Leerzeile
-    AddMenuItem(Format("$Killer$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);				//Titel
-
-    AddMenuItem(killmsg, "", NONE, clonk, 0, 0, "", 512);								//Killerinformationen
-  }
-
-  if(GetType(aTipps[iTippNr]) == C4V_Array)
-  {
-    AddMenuItem("", "", NONE, clonk, 0, 0, "", 512, 0, 0);								//Leerzeile
-    AddMenuItem(Format("{{%i}} $Tip$", aTipps[iTippNr][0]), "", NONE, clonk, 0, 0, "", 512, 0, 0);			//Zufälliger Tipp
-    AddMenuItem(aTipps[iTippNr][1], "", NONE, clonk, 0, 0, "", 512, 0, 0);
-  }
-
-  var obj;
-  if((obj = FindObject(RWDS)) && !clonk->ShorterDeathMenu())								//Punktestatistik erstellen
-  {
-    AddMenuItem("", "", NONE, clonk, 0, 0, "", 512, 0, 0);								//Leerzeile
-    AddMenuItem(Format("$Points$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);				//Titel
-    //Einsortieren
-    var aList = [], iPlr, aData = obj->~GetData(), szString = "";
-    while(aData[iPlr] != 0)
-    {
-      var iTeam = obj->~GetPlayerData(RWDS_PlayerTeam, iPlr);
-      if(!aList[iTeam]) aList[iTeam] = [];
-      szString = Format("%s: %d", obj->~GetPlayerData(RWDS_PlayerName, iPlr), obj->~GetPlayerPoints(RWDS_TotalPoints, iPlr));
-      if(clonk->ShorterDeathMenu())
-        szString = Format("%s: %d", obj->~GetPlayerData(RWDS_CPlayerName, iPlr), obj->~GetPlayerPoints(RWDS_TotalPoints, iPlr));
-
-      aList[iTeam][GetLength(aList[iTeam])] = szString;
-      iPlr++;
-    }
-    //Teamweise ausgeben
-    for (var aTeam in aList)
-      if (aTeam)
-        for (var szString in aTeam)
-          if (GetType(szString) == C4V_String)
-            AddMenuItem(szString, "", NONE, clonk, 0, 0, "", 512);
-  }
-  if(selection >= 0) SelectMenuItem(selection, clonk);
+  AddEffect("ClassMenu", pClonk, 1, 10, this);
 }
 
-static const FKDT_MaxTippCount = 10;
-
-public func NextTipp()
+func Finish(object pClonk, int iClass)
 {
-  iTippNr = (iTippNr + 1) % FKDT_MaxTippCount; 
-}
+  if(!pClonk || !Contained(pClonk)) return;
+  var iPlayer = GetOwner(pClonk);
 
-private func GetQuickTipps(object pFake)
-{
-  var aTippList = [], aIDList = [];
-  iTippNr = -1;
-  for(var i = 0; i < FKDT_MaxTippCount; i++)
+  //Menü schließen
+  CloseMenu(GetCursor(iPlayer));
+
+  //Alle Waffen auffüllen
+  for(var wpn in FindObjects(Find_Container(pClonk), Find_Func("IsWeapon")))
   {
-    var tipp, cnt;
-    if(!Random(8))
+    while(wpn->~CycleFM(+1))
     {
-      tipp = GetGeneralTipp();
-      while(GetIndexOf(tipp[1], aTippList) != -1)
-      {
-        tipp = GetGeneralTipp();
-        if(++cnt > 6)
-        {
-          i--;
-          tipp = 0;
-          break;
-        }
-      }
-
-      if(tipp)
-      {
-        aIDList[GetLength(aIDList)] = tipp[0];
-        aTippList[GetLength(aTippList)] = tipp[1];
-      }
+      var ammo = wpn->GetFMData(FM_AmmoID);
+      var load = wpn->GetFMData(FM_AmmoLoad);
+      if(wpn->GetAmmo(ammo) == load) break;
+      //erst entladen
+      DoAmmo(ammo,-load, wpn);
+      //dann neu reinladen
+      DoAmmo(ammo, load, wpn);
     }
-    else
-    {
-      if(iTippNr == -1)
-        iTippNr = i;
-
-      var aObj = FindObjects(Find_Container(pFake), Find_Func("FKDTSupportedID"));
-      var id = GetID(aObj[Random(GetLength(aObj))]);
-      if(!GetLength(aObj))
-        id = FKDT_QuickTipIDs[Random(GetLength(FKDT_QuickTipIDs))];
-
-      tipp = GetRandomTipp(0, id);
-      while(GetIndexOf(tipp[1], aTippList) != -1)
-      { 
-        tipp = GetRandomTipp(0, id);
-        if(++cnt > 6)
-        {
-          i--;
-          tipp = 0;
-          break;
-        }
-      }
-
-      if(tipp)
-      {
-        aIDList[GetLength(aIDList)] = tipp[0];
-        aTippList[GetLength(aTippList)] = tipp[1];
-      }
-    }
+    //noch ein letztes Mal
+    wpn->~CycleFM(+1);
   }
 
-  if(iTippNr == -1)
-    iTippNr = 0;
+  pClonk->~UpdateCharge();
 
-  var tipps = [];
-  for(var i = 0; i < GetLength(aTippList); i++)
-    tipps[i] = [aIDList[i], aTippList[i]];
+  //Aus Spawnpoint entlassen
+  if(GetID(Contained(pClonk)) == TIM1) RemoveObject(Contained(pClonk),true);
 
-  return tipps;
+  //Sound
+  Sound("RSHL_Deploy.ogg", 0, pClonk, 100, GetOwner(pClonk)+1);
+
+  //Effekt entfernen
+  for(var i = 0; i < GetEffectCount("Spawntimer", this); i++)
+    if(EffectVar(0, this, GetEffect("Spawntimer", this, i)) == iPlayer)
+      RemoveEffect("Spawntimer", this, i);
+  PlayerMessage(iPlayer, "@");
+
+  //Broadcasten
+  GameCallEx("OnClassSelection", crew[iPlayer], iClass);
 }
 
-global func FKDTSupportedID()	{return GetIndexOf(GetID(), FKDT_QuickTipIDs) != -1;}
+/* Menü */
 
-/*private func GetQuickTipp(object pFake)
+private func InfoMenuItems()
 {
-  //Standard-Tipp
-  if (!Random(8) || !ContentsCount(0, pFake))
-    return GetGeneralTipp();
-  //Sonst Tipps zu Inventarobjekten
-  var array = [], id = [], tipp;
-    for (var obj in FindObjects(Find_Container(pFake)))
+  return 6 + !FindObject(NOAM);
+}
+
+public func FxClassMenuTimer(object pTarget, int nr)
+{
+  if(!GetMenu(pTarget) || ++EffectVar(0, pTarget, nr) <= 1)
+  {
+  	CloseMenu(pTarget);
+    OpenMenu(pTarget, selection[GetOwner(pTarget)]);
+	}
+	
+  return true;
+}
+
+local bNoMenuUpdate;
+
+private func OpenMenu(object pClonk, int iSelection)
+{
+  var iOwner = GetOwner(pClonk);
+  
+  //Auswahl updaten
+  var iClass = 1;
+  if(!iSelection && lastclass[iOwner])
+    iClass = lastclass[iOwner];
+
+  if(GetMenu(pClonk))
+    iClass = CalculatePlayerSelection(iOwner, GetMenuSelection(pClonk));
+  else if(iSelection)
+    iClass = CalculatePlayerSelection(iOwner, iSelection);
+
+  //Menü öffnen
+  CloseMenu(pClonk);
+  CreateMenu(GetID(), pClonk, this, 0, 0, 0, C4MN_Style_Dialog, true);
+
+  //Icon
+  AddMenuItem(" | ", 0, GetCData(iClass, CData_Icon), pClonk, 0, 0, " ", 2, GetCData(iClass, CData_Facet));
+
+  //Name
+  AddMenuItem(Format("<c ffff33>%s</c>|%s", GetCData(iClass, CData_Name), GetCData(iClass, CData_Desc)), 0, NONE, pClonk, 0, 0, " ");
+
+  //Leerzeile
+  AddMenuItem(" ", 0, NONE, pClonk, 0, 0, " ");
+
+  //Clonktyp
+  AddMenuItem(Format("{{%i}} %s", GetCData(iClass, CData_Clonk), GetName(0, GetCData(iClass, CData_Clonk)), 0, NONE, pClonk, 0, 0, " "));
+
+  //Munition
+  if (!FindObject(NOAM))
+  {
+    var szAmmo = "", aAmmo = GetCData(iClass, CData_Ammo);
+    for (var aEntry in aAmmo)
     {
-      //Hat schon so einen Tipp
-      if (GetIndexOf(GetID(obj), id) != -1 || !(tipp = GetRandomTipp(0, GetID(obj))))
+      if (GetType(aEntry) != C4V_Array || GetType(aEntry[0]) != C4V_C4ID || !aEntry[0]->~IsAmmo())
         continue;
-      //Tipp hinzufügen
-      id[GetLength(id)] = GetID(obj);
-      array[GetLength(array)] = tipp;
+      szAmmo = Format("%s%2dx {{%i}}", szAmmo, aEntry[1], aEntry[0]);
     }
-  //Keine Tipps
-  if (!array || GetType(array) != C4V_Array || !GetLength(array))
-    return GetGeneralTipp();
-  return GetRandomTipp(array);
-}*/
+    AddMenuItem(szAmmo, 0, NONE, pClonk, 0, 0, " ");
+  }
 
-private func GetGeneralTipp()
-{
-  return GetRandomTipp([[FGRN, "$NONE0$"], [CSTR, "$NONE1$"], [SM05, "$NONE2$"], [SM04, "$NONE3$"], [XBRL, "$NONE4$"], [PCMK, "$NONE5$"], [PCMK, "$NONE6$"], [SM01, "$NONE7$"], [PSTL, "$NONE8$"], [BKHK, "$NONE9$"], [SM04, "$NONE10$"]]);
-}
-
-private func GetRandomTipp(array a, id id)
-{
-  if (a)
-    return a[Random(GetLength(a))];
-
-  //Waffen
-  if (id == ASTR) return GetRandomTipp([[ASTR, "$ASTR0$"], [ASTR, "$ASTR1$"]]);
-  if (id == MNGN) return GetRandomTipp([[MNGN, "$MNGN0$"]]);
-  if (id == PSTL) return GetRandomTipp([[PSTL, "$PSTL0$"], [PSTL, "$PSTL1$"]]);
-  if (id == RTLR) return GetRandomTipp([[MISL, "$RTLR0$"], [RTLR, "$RTLR1$"], [MISL, "$RTLR2$"]]);
-  if (id == PPGN) return GetRandomTipp([[PPGN, "$PPGN0$"]]);
-  if (id == SGST) return GetRandomTipp([[SGST, "$SGST0$"]]);
-  if (id == SMGN) return GetRandomTipp([[SMGN, "$SMGN0$"], [SMGN, "$SMGN0$"]]);
-  if (id == ATWN) return GetRandomTipp([[ATWN, "$ATWN0$"], [AAMS, "$ATWN1$"]]);
+  //Gegenstände
+  var szItems = "", aItems = GetCData(iClass, CData_Items), nextline = false, first = true;
+  for (var aEntry in aItems)
+  {
+    if (GetType(aEntry) != C4V_Array || GetType(aEntry[0]) != C4V_C4ID)
+      continue;
+    szItems = Format("%s%2dx {{%i}}     ", szItems, aEntry[1], aEntry[0]);
+    //Nach jedem zweiten Item umbrechen, außer beim letzten
+    if (!first && (nextline = !nextline) && GetIndexOf(aEntry, aItems) < GetLength(aItems) - 1)
+      szItems = Format("%s|", szItems);
+    first = false;
+  }
+  AddMenuItem(szItems, 0, NONE, pClonk, 0, 0, " ");
 
   //Granaten
-  if (id->~IsGrenade() && !Random(6)) return GetRandomTipp([[BOOM, "$NADE0$"]]);
-  if (id == FGRN) return GetRandomTipp([[FGRN, "$FGRN0$"]]);
-  if (id == FRAG) return GetRandomTipp([[FRAG, "$FRAG0$"], [SHRP, "$FRAG1$"]]);
-  if (id == PGRN) return GetRandomTipp([[PGRN, "$PGRN0$"]]);
-  if (id == STUN) return GetRandomTipp([[STUN, "$STUN0$"], [STUN, "$STUN1$"]]);
-  if (id == SGRN) return GetRandomTipp([[SM4K, "$SGRN0$"]]);
-  if (id == SRBL) return GetRandomTipp([[SM08, "$SRBL0$"], [SRBL, "$SRBL1$"]]);
-
-  //Equipment
-  if (id == AMPK) return GetRandomTipp([[AMPK, "$AMPK0$"]]);
-  if (id == BTBG) return GetRandomTipp([[BBTP, "$BTBG0$"], [BBTP, "$BTBG1$"], [BBTP, "$BTBG2$"]]);
-  if (id == C4PA) return GetRandomTipp([[C4PA, "$C4PA0$"], [C4PA, "$C4PA1$"]]);
-  if (id == DGNN) return GetRandomTipp([[DGNN, "$DGNN0$"], [DGNN, "$DGNN1$"]]);
-  if (id == FAPK) return GetRandomTipp([[FAPK, "$FAPK0$"], [FAPK, "$FAPK1$"], [FAPK, "$FAPK2$"]]);
-  if (id == RSHL) return GetRandomTipp([[RSHL, "$RSHL0$"], [RSHL, "$RSHL1$"], [RSHL, "$RSHL2$"], [RSHL, "$RSHL3$"], [SDSD, "$RSHL4$"]]);
-  if (id == CDBT) return GetRandomTipp([[CDBT, "$CDBT0$"], [CDBT, "$CDBT1$"]]);
-  if (id == CUAM) return GetRandomTipp([[CUAM, "$CUAM0$"]]);
-  if (id == BWTH) return GetRandomTipp([[BWTH, "$BWTH0$"], [BWTH, "$BWTH1$"], [BWTH, "$BWTH2$"]]);
-}
-
-/* Selbstmord */
-
-public func Suicide()
-{
-  //Soundloop beenden
-  Sound("FKDT_ClonkDown.ogg", false, clonk, 100, GetOwner(clonk)+1, -1);
-
-  //Töten
-  if(clonk && GetAlive(clonk))
-    Kill(clonk);
-
-  if(symbol)
-    RemoveObject(symbol);
-}
-
-public func Remove()
-{
-  //Clonkinventar löschen sofern Arenaregel aktiv
-  if(FindObject(NODR))
-    for(var item in FindObjects(Find_Container(this),Find_Not(Find_OCF(OCF_Living))))
-      RemoveObject(item);
-
-  Suicide();
-
-  if(clonk)
+  var szGrenades = "", aGrenades = GetCData(iClass, CData_Grenades);
+  for (var aEntry in aGrenades)
   {
-    //Leiche "auswerfen" und ausfaden lassen
-    Exit(clonk,0,GetObjHeight(clonk)/2);
-    clonk->InstantDie();
-    clonk->FadeOut();
+    if (GetType(aEntry) != C4V_Array || GetType(aEntry[0]) != C4V_C4ID || !aEntry[0]->~IsGrenade())
+      continue;
+    szGrenades = Format("%s%2dx {{%i}}     ", szGrenades, aEntry[1], aEntry[0]);
+  }
+  AddMenuItem(szGrenades, 0, NONE, pClonk, 0, 0, " ");
+
+  //Ausrüstung
+  var szGear = "", aGear = GetCData(iClass, CData_Gear);
+  var aAdditionalGear = GameCall("SpecificEquipment");
+
+  if(GetType(aAdditionalGear) == C4V_Array)
+    AddArray4K(aAdditionalGear, aGear);
+
+  if(GetDarkness() >= 3)
+    aGear[GetLength(aGear)] = [FLSH, 1];
+
+  if(FindObject(FDMG))
+    aGear[GetLength(aGear)] = [PPAR, 1];
+
+  var aGearTypes = [];
+  
+  for(var aEntry in aGear)
+  {
+    if(GetType(aEntry) != C4V_Array || GetType(aEntry[0]) != C4V_C4ID || !aEntry[0]->~IsHazardGear())
+      continue;
+
+    if(GetIndexOf(aEntry[0]->~GetGearType(), aGearTypes) > -1)
+      continue;
+
+    aGearTypes[GetLength(aGearTypes)] = aEntry[0]->~GetGearType();
+    szGear = Format("%s%2dx {{%i}}     ", szGear, aEntry[1], aEntry[0]);
+  }
+  AddMenuItem(szGear, 0, NONE, pClonk, 0, 0, " ");
+
+  //Leerzeile
+  AddMenuItem(" ", 0, NONE, pClonk, 0, 0, " ");
+
+  //Die Klassen
+  var i = 0;
+  var displaying = 0;
+  while(GetCData(++i, CData_Name))
+  {
+    if(!GetCData(i, CData_DisplayCondition, iOwner))
+      continue;
+    var szName = GetCData(i, CData_Name);
+    if(!GetCData(i, CData_Condition, iOwner))
+      szName = Format("<c 777777>%s</c>", szName);
+    else
+      szName = Format("<c ffff33>%s</c>", szName);
+
+    AddMenuItem(szName, Format("SetupClass(%d, %d)", i, iOwner), GetCData(i, CData_Icon), pClonk, 0, 0, 0, 2, GetCData(i, CData_Facet));
+    displaying++;
+    if(i == iClass) iSelection = InfoMenuItems() + displaying;
   }
 
-  //Verschwinden
-  RemoveObject();
-}
-
-/* Calls */
-
-public func GetClonk()		{return clonk;}
-
-public func TimeLeft()		{return FKDT_SuicideTime * 35 - GetEffect("IntFakeDeathMenu", this, 0, 6);}
-
-/* Zerstörung */
-
-public func Destruction()
-{
-  while(Contents())
+  if(!bNoMenuUpdate && iSelection >= 0)
   {
-    RemoveObject(Contents());
+    bNoMenuUpdate = true;
+    SelectMenuItem(iSelection, pClonk);
   }
 
-  //Soundloop beenden
-  Sound("FKDT_ClonkDown.ogg", false, clonk, 100, GetOwner(clonk)+1, -1);
+  return true;
 }
 
-/* Wiederbelebung */
-
-public func Reanimation()
+private func CalculatePlayerSelection(int iOwner, int iSelection)
 {
-  //Kein Clonk?
-  if(!clonk || !GetAlive(clonk)) return;
-  //Reanimation abgelehnt?
-  if(RejectReanimation()) return;
-
-  //Clonk "auswerfen"
-  if(Contained(clonk) == this)
+  var iClass = iSelection - InfoMenuItems();
+  for(var i = 1; i <= iClass && i <= GetClassAmount(); i++)
   {
-    Exit(clonk,0,GetObjHeight(clonk)/2);
-    if(Stuck(clonk))
-      AutoUnstuck(clonk, 0, 10);
-  }
-
-  //Besitztümer weitergeben
-  if(GetAlive(clonk))
-  {
-    clonk->GrabContents(this);
-    if(GetLength(aGrenades))
+    if(!GetCData(i, CData_DisplayCondition, iOwner))
     {
-      //Granatensortierung wiederherstellen
-      for(var i = 0; i < GetLength(aGrenades); i++)
-      {
-        var nade = aGrenades[i];
-        for(var item in FindObjects(Find_Container(clonk), Find_ID(nade)))
-        {
-          clonk->~StoreGrenade(item);
-          if(!Contained(item)) RemoveObject(item);
-        }
-      }
-      //Neue Granaten nach ganz unten
-      for(var item in FindObjects(Find_Container(clonk), Find_Func("IsGrenade")))
-      {
-        clonk->~StoreGrenade(item);
-        if(!Contained(item)) RemoveObject(item);
-      }
-    }
-    RemoveEffect("NoAnnounce", clonk);
-  }
-  else
-  {
-    while(Contents())
-    {
-      Exit(Contents(),0,+10);
+      iClass++;
     }
   }
-  //Sichtdaten zurücksetzen
-  SetFoW(oldvisstate,GetOwner(clonk));
-  SetPlrViewRange(oldvisrange,clonk);
-
-  //Achievement-Fortschritt (Lucky Patient)
-  DoAchievementProgress(1, AC27, GetOwner(clonk));
-
-  RemoveObject();
+  return iClass;
 }
 
-public func RejectCollect(id idObj, object pObj)
+public func MenuQueryCancel()	{return 1;}
+
+protected func OnMenuSelection(int iIndex, object pClonk)
 {
-  if(!clonk) return;
-  var val = clonk->~RejectCollect(idObj,pObj);
-  return val;
-}
-
-public func ControlDig(object pCaller)
-{
-  if(pCaller == clonk) return 1;
-  //Herausnehmen per Graben: Holen-Menü öffnen
-  SetCommand(pCaller, "Get", this, 0, 0, 0, 1);
-}
-
-/* Aufschlag */ 
-
-protected func Hit(int xDir, int yDir)
-{
-  var hit = Distance(xDir,yDir);//Max(xDir,yDir);
-
-  if(hit >= 300)
-  {
-    Sound("ClonkImpact*.ogg");
-    Sound("ClonkRustle*.ogg", 0, 0, 50);
-    if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",8,10,0,10,20,100);
-  }
+  selection[GetOwner(pClonk)] = iIndex;
+  if(bNoMenuUpdate)
+    bNoMenuUpdate = false;
   else
-    Sound("ClonkCrawl*.ogg", 0, 0, 50);
+    OpenMenu(pClonk,iIndex);
+}
+
+/* Klassen */
+
+static const CData_Name			= 1;
+static const CData_Desc			= 2;
+static const CData_Clonk		= 3;
+static const CData_Ammo			= 4;
+static const CData_Items		= 5;
+static const CData_Grenades		= 6;
+static const CData_Gear			= 7;
+static const CData_Icon			= 8;
+static const CData_Condition		= 9;
+static const CData_DisplayCondition	= 10;
+static const CData_Facet		= 11;
+
+public func GetCData(int iClass, int iData, int iPlr)
+{
+  return PrivateCall(this, Format("Class%dInfo", iClass), iData, iPlr);
+}
+
+public func SetupClass(int iClass, int iPlr)
+{
+  //Geht nicht
+  if(!GetCData(iClass, CData_Condition, iPlr))
+    return;
+
+  var oldCrew = crew[iPlr];
+
+  //Neuer Clonk
+  var pCrew = crew[iPlr] = CreateObject(GetCData(iClass, CData_Clonk, iPlr), 0, 0, iPlr);
+
+  if(Contained(oldCrew))
+  {
+    var tmp = Contained(oldCrew);
+    SetGraphics(0, tmp, GetID(pCrew), 1, GFXOV_MODE_Object, 0, 1, pCrew);
+    Enter(tmp, pCrew);
+  }
+
+  //Infosektion holen
+  if(GetID(oldCrew) == GetID(pCrew))
+    GrabObjectInfo(oldCrew, pCrew);
+  else
+    MakeCrewMember(pCrew, iPlr);
+  SilentKill4K(oldCrew);
+
+  //Auswählen
+  SelectCrew(iPlr, pCrew, 1);
+  SetPlrView(iPlr, pCrew);
+  SetCursor(iPlr, pCrew, true, false); 
+
+  //Ausrüsten...
+  //Munition
+  if (!FindObject(NOAM))
+  {
+    var aAmmo = GetCData(iClass, CData_Ammo);
+    for (var aEntry in aAmmo)
+      if (GetType(aEntry) == C4V_Array && GetType(aEntry[0]) == C4V_C4ID && aEntry[0]->~IsAmmo())
+        DoAmmo(aEntry[0], aEntry[1], pCrew);
+  }
+
+  //Gegenstände
+  var aItems = GetCData(iClass, CData_Items);
+  for (var aEntry in aItems)
+    if (GetType(aEntry) == C4V_Array && GetType(aEntry[0]) == C4V_C4ID)
+      CreateContents(aEntry[0], pCrew, aEntry[1]);
+
+  //Granaten
+  var aGrenades = GetCData(iClass, CData_Grenades);
+  for (var aEntry in aGrenades)
+    if (GetType(aEntry) == C4V_Array && GetType(aEntry[0]) == C4V_C4ID && aEntry[0]->~IsGrenade())
+      while (aEntry[1]--)
+        CreateObject(aEntry[0], 0, 0, iPlr)->~Activate(pCrew);
+
+  //Ausrüstung
+  var aGear = GetCData(iClass, CData_Gear);
+  var aAdditionalGear = GameCall("SpecificEquipment");
+
+  if(GetType(aAdditionalGear) == C4V_Array)
+    AddArray4K(aAdditionalGear, aGear);
+
+  if(GetDarkness() >= 3)
+    aGear[GetLength(aGear)] = [FLSH, 1];
+
+  //Bei Fallschaden Fallschirme als Zusatzausrüstung
+  if(FindObject(FDMG))
+    aGear[GetLength(aGear)] = [PPAR, 1];
+
+  var aGearTypes = [];
+
+  for(var aEntry in aGear)
+  {
+    if(!aEntry[0])
+      continue;
+
+    if(GetIndexOf(aEntry[0]->~GetGearType(), aGearTypes) > -1)
+      continue;
+
+    aGearTypes[GetLength(aGearTypes)] = aEntry[0]->~GetGearType();
+
+    if(GetType(aEntry) == C4V_Array && GetType(aEntry[0]) == C4V_C4ID && aEntry[0]->~IsHazardGear())
+      while(aEntry[1]--)
+        CreateObject(aEntry[0], 0, 0, iPlr)->~Activate(pCrew);
+  }
+
+  //Nachricht
+  var szAction = Format("%d", GetCData(iClass, CData_Facet));
+  if (!GetActMapVal("Name", szAction, GetCData(iClass, CData_Icon)))
+    szAction = 0;
+  for(var i = 0; i < GetPlayerCount(); i++)
+    if(GetPlayerTeam(i) == GetPlayerTeam(iPlr))
+      EventInfo4K(i+1, Format("$PlayerChoosedClass$", GetTaggedPlayerName(iPlr), GetCData(iClass, CData_Name)), GetCData(iClass, CData_Icon), RGB(220, 220, 220), 0, 0, 0, szAction);
+
+  //Speichern
+  lastclass[iPlr] = iClass;
+
+  Finish(pCrew, iClass);
+
+  return true;
+}
+
+private func Default(int iData)
+{
+  if(iData == CData_Name)		return "<Classname>";
+  if(iData == CData_Desc)		return "<Description>";
+  if(iData == CData_Clonk)		return CIVC;
+  if(iData == CData_Ammo)		return [[STAM, 30]];
+  if(iData == CData_Items)		return [[PSTL, 1]];
+  if(iData == CData_Grenades)		return [[FGRN, 1]];
+  if(iData == CData_Gear)		return [[]];
+  if(iData == CData_Icon)		return GetID();
+  if(iData == CData_Condition)		return true;
+  if(iData == CData_DisplayCondition)	return true;
+  if(iData == CData_Facet)		return;
+  return true;
+}
+
+public func GetClassAmount()
+{
+  var i = 1;
+  while(GetCData(i)) i++;
+  return i;
 }
