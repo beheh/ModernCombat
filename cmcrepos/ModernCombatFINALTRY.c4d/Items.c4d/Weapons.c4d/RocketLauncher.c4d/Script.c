@@ -82,12 +82,12 @@ public func AI_NeedControl(object pBot, object pTarget)
 
 public func AI_NeedAim(object pBot, object pTarget)
 {
-	return pRocket && Distance(GetX(), GetY(), GetX(pRocket), GetY(pRocket)) < BotData1(BOT_Range);
+  return pRocket && Distance(GetX(), GetY(), GetX(pRocket), GetY(pRocket)) < BotData1(BOT_Range);
 }
 
 public func AI_IgnorePathFree(object pBot, object pTarget)
 {
-	return PathFree(GetX(pRocket), GetY(pRocket), GetX(pTarget), GetY(pTarget));
+  return PathFree(GetX(pRocket), GetY(pRocket), GetX(pTarget), GetY(pTarget));
 }
 
 public func LaunchRocket(id rid, int angle, bool unguided)
