@@ -321,6 +321,7 @@ public func FxAggroFire(object pTarget, int no)
   //Ziel verschwunden?
   if(!CheckTarget(target,this,maxdist,0,0,true))
   {
+  	Contents()->~AI_TargetLost(this, target, maxdist);
     EffectVar(1, this, no) = 0;
     if(EffectVar(0, this, no) == 2)
       ClearMacroCommands();
