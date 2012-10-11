@@ -9,7 +9,7 @@ public func StartSpeed()	{return 20;}			//Startgeschwindigkeit
 public func Acceleration()	{return 4;}			//Beschleunigung
 public func MaxSpeed()		{return 150;}			//Maximale Geschwindigkeit
 
-public func SecureTime()	{return 19;}			//Mindestflugzeit
+public func SecureTime()	{return 18;}			//Mindestflugzeit
 
 public func ExplosionDamage()	{return 20;}			//Explosionsschaden
 
