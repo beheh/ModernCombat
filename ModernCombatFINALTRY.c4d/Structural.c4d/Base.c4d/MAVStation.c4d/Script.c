@@ -436,8 +436,8 @@ protected func ControlThrow(object pByObj)
       CreateMenu(MAVE, pByObj, this, 0, "$EquipMAV$", 0, C4MN_Style_Context);
 
       var fItemExists = false;
-      
-			AddMenuItem(Format("$AddItem$", "$Nothing$"), "DummyFunc", SM06, pByObj);
+
+      AddMenuItem(Format("$AddItem$", "$Nothing$"), "DummyFunc", SM06, pByObj);
       if(FindContents(AMPK, pByObj)) {fItemExists = true; AddMenuItem(Format("$AddItem$", GetName(0, AMPK)), "AddItem", AMPK, pByObj, 0, pByObj);}
       if(FindContents(FAPK, pByObj)) {fItemExists = true; AddMenuItem(Format("$AddItem$", GetName(0, FAPK)), "AddItem", FAPK, pByObj, 0, pByObj);}
       if(FindContents(BWTH, pByObj)) {fItemExists = true; AddMenuItem(Format("$AddItem$", GetName(0, BWTH)), "AddItem", BWTH, pByObj, 0, pByObj);}
@@ -517,5 +517,5 @@ func AddItem(id iItem, object pUser)
 
 func DummyFunc()
 {
-	//Nichts
+  //Nichts unternehmen
 }
