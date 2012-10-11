@@ -432,9 +432,9 @@ protected func ControlThrow(object pByObj)
       Sound("BKHK_Switch.ogg", true, this, 100, GetOwner(pByObj) + 1);
       Sound("CockpitRadio.ogg", true, 0, 100, GetOwner(pByObj)+1, +1);
       SetAction("Controlling");
-      
+
       CreateMenu(MAVE, pByObj, this, 0, "$EquipMAV$", 0, C4MN_Style_Context);
-      
+
       var fItemExists = false;
 
       if(FindContents(AMPK, pByObj)) {fItemExists = true; AddMenuItem(Format("$AddItem$", GetName(0, AMPK)), "AddItem", AMPK, pByObj, 0, pByObj);}
@@ -443,9 +443,9 @@ protected func ControlThrow(object pByObj)
       if(FindContents(RSHL, pByObj)) {fItemExists = true; AddMenuItem(Format("$AddItem$", GetName(0, RSHL)), "AddItem", RSHL, pByObj, 0, pByObj);}
       if(FindContents(BTBG, pByObj)) {fItemExists = true; AddMenuItem(Format("$AddItem$", GetName(0, BTBG)), "AddItem", BTBG, pByObj, 0, pByObj);}
       if(FindContents(CDBT, pByObj)) {fItemExists = true; AddMenuItem(Format("$AddItem$", GetName(0, CDBT)), "AddItem", CDBT, pByObj, 0, pByObj);}
-      
+
       if(!fItemExists)
-      	CloseMenu(pByObj);
+        CloseMenu(pByObj);
     }
     else
       PlayerMessage(GetOwner(pByObj), "$NoMoney$", this);
@@ -465,33 +465,35 @@ protected func ControlThrow(object pByObj)
   return true;
 }
 
+/* Modifikationsmenü */
+
 func AddItem(id iItem, object pUser)
 {
-	var pItem = FindContents(iItem, pUser);
-	
-	if(pMAV && !pMAV->IsDestroyed() && !LocalN("pItem", pMAV) && pItem && (pUser == GetUser()))
-	{
-		var iType;
-		if(GetID(pItem) == AMPK) iType = 1;
-  	if(GetID(pItem) == FAPK) iType = 2;
-  	if(GetID(pItem) == BWTH) iType = 3;
-  	if(GetID(pItem) == RSHL) iType = 4;
-  	if(GetID(pItem) == BTBG) iType = 5;
-  	if(GetID(pItem) == CDBT) iType = 6;
+  var pItem = FindContents(iItem, pUser);
 
-		if(iType == 5)
-		{
-			pItem->DoPackPoints(-1);
+  if(pMAV && !pMAV->IsDestroyed() && !LocalN("pItem", pMAV) && pItem && (pUser == GetUser()))
+  {
+    var iType;
+    if(GetID(pItem) == AMPK) iType = 1;
+    if(GetID(pItem) == FAPK) iType = 2;
+    if(GetID(pItem) == BWTH) iType = 3;
+    if(GetID(pItem) == RSHL) iType = 4;
+    if(GetID(pItem) == BTBG) iType = 5;
+    if(GetID(pItem) == CDBT) iType = 6;
+
+    if(iType == 5)
+    {
+      pItem->DoPackPoints(-1);
       if(!pItem->GetPackPoints())
         RemoveObject(pItem);
       pItem = CreateObject(BTBG);
       pItem->SetPackPoints(1);
-		}
-		Enter(pMAV, pItem);
-		LocalN("pItem", pMAV) = pItem;
-		LocalN("iItemType", pMAV) = iType;
-		LocalN("iHKShots", pMAV) = 5;
-		SetPhase(iType, pMAV);
+    }
+    Enter(pMAV, pItem);
+    LocalN("pItem", pMAV) = pItem;
+    LocalN("iItemType", pMAV) = iType;
+    LocalN("iHKShots", pMAV) = 5;
+    SetPhase(iType, pMAV);
     pMAV->Sound("RSHL_Deploy.ogg");
 
     //Hilfsnachrichten
@@ -509,5 +511,5 @@ func AddItem(id iItem, object pUser)
         if(iType == 3) ScheduleCall(pMAV, "BlowTorch", 1, 0, true);
       }
     }
-	}
+  }
 }
