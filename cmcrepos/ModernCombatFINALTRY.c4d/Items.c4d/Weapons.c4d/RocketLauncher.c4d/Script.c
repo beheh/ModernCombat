@@ -74,8 +74,8 @@ public func BotData1(int data)
 
 public func AI_NeedControl(object pBot, object pTarget)
 {
-	if(GetFireTec() == 2)
-		return;
+  if(GetFireTec() == 2)
+    return;
 
   if(pBot)
     pBot->DoMouseAiming(GetX(pBot) + (GetX(pTarget) - GetX(pRocket)), GetY(pBot) + (GetY(pTarget) - GetY(pRocket)), AimAngleChange(true));

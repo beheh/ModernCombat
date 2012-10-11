@@ -561,8 +561,8 @@ public func AI_IdleEquipment(object pBot)
 
 public func AI_TargetLost()
 {
-	if(GetEffect("RepairObjects", this))
+  if(GetEffect("RepairObjects", this))
     RemoveEffect("RepairObjects", this);
-  
+
   return true;
 }
