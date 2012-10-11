@@ -484,7 +484,7 @@ public func InitCH()
   if(!crosshair)
     crosshair = CreateObject(CRH2,0,0,GetOwner());
   crosshair->Set(this);
-  crosshair->SetAngle(90);
+  crosshair->SetAngle((GetDir()*2-1) * 90);
   
   ResetCH();
 }
