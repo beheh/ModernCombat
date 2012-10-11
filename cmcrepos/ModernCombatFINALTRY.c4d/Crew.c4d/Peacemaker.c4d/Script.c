@@ -310,8 +310,8 @@ public func FxAggroFire(object pTarget, int no)
   }
 
   var maxdist = dist;
-  if(!PathFree(GetX(), GetY(), target->GetX(), target->GetY()) && !Contents()->~AI_IgnorePathFree(this, target))
-  {
+  if(!Contents()->~AI_IgnorePathFree(this, target) && !PathFree(GetX(), GetY(), target->GetX(), target->GetY()))
+  { 
     if(level == 1) maxdist = 0;
     if(level >= 2) maxdist = dist/2;
     pathfree = false;
