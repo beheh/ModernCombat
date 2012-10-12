@@ -74,16 +74,16 @@ func CreateInterior()
 
   //Gerüste
   CreateObject(SFFG, 1580, 770, -1)->Set(2);
-  CreateObject(SFFG, 1580, 820, -1);
-  CreateObject(SFFG, 1660, 820, -1);
-  CreateObject(SFFG, 1800, 820, -1);
-  CreateObject(SFFG, 1880, 820, -1);
+  CreateObject(SFFG, 1580, 820, -1)->Set(4);
+  CreateObject(SFFG, 1660, 820, -1)->Set(4);
+  CreateObject(SFFG, 1800, 820, -1)->Set(4);
+  CreateObject(SFFG, 1880, 820, -1)->Set(4);
 
-  CreateObject(SFFG, 2360, 820, -1);
-  CreateObject(SFFG, 2440, 820, -1);
-  CreateObject(SFFG, 2580, 820, -1);
+  CreateObject(SFFG, 2360, 820, -1)->Set(4);
+  CreateObject(SFFG, 2440, 820, -1)->Set(4);
+  CreateObject(SFFG, 2580, 820, -1)->Set(4);
   CreateObject(SFFG, 2660, 770, -1)->Set(3);
-  CreateObject(SFFG, 2660, 820, -1);
+  CreateObject(SFFG, 2660, 820, -1)->Set(4);
 
   //Schutztüren
   CreateObject(GDDR, 1125, 670, -1);
@@ -408,8 +408,8 @@ public func ChooserFinished()
    //Zusätzliche Munition
    if(!FindObject(NOAM))
    {
-    //Kugeln
-    PlaceSpawnpoint(ABOX, 2010, 845);
+    //Gewehrgranaten
+    PlaceSpawnpoint(GBOX, 2010, 845);
 
     //Raketen
     PlaceSpawnpoint(MBOX, 2230, 845);
