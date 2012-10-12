@@ -580,8 +580,8 @@ public func Destruction()
 
 public func FxUpdateAimingTimer(object pTarget, int iNr)
 {
-	UpdateAiming();
-	return true;
+  UpdateAiming();
+  return true;
 }
 
 public func StartAiming() //Wegen fehlendem Hazard-Feature.
@@ -599,11 +599,11 @@ public func StartAiming() //Wegen fehlendem Hazard-Feature.
   SetComDir(COMD_Stop);
 
   InitCrosshair();
-  
-  if(!GetEffect("UpdateAiming", this))
-  	AddEffect("UpdateAiming", this, 1, 1, this);
 
-  // Callback
+  if(!GetEffect("UpdateAiming", this))
+    AddEffect("UpdateAiming", this, 1, 1, this);
+
+  //Callback
   if(Contents()) Contents()->~AimStart();
 }
 
@@ -616,14 +616,14 @@ public func StartSquatAiming() // Anfangen in der Hocke zu zielen
     SetAction("AimSquatLow");
   else
     SetAction("AimSquat");
-    
+
   SetPhase(AimAngle2Phase(90));
   SetComDir(COMD_Stop);
 
   InitCrosshair();
-  
+
   if(!GetEffect("UpdateAiming", this))
-  	AddEffect("UpdateAiming", this, 1, 1, this);
+    AddEffect("UpdateAiming", this, 1, 1, this);
 
   //Callback
   if(Contents()) Contents()->~AimStart();
@@ -639,9 +639,9 @@ public func StopAiming()
     else
       crosshair->SetAngle(+90);
   }
-  
+
   RemoveEffect("UpdateAiming", this);
-  
+
   return _inherited();
 }
 
@@ -666,19 +666,20 @@ public func SetAiming(int iAngle, bool fForceExact)
   UpdateAiming();
 }
 
-public func UpdateAiming() {
+public func UpdateAiming()
+{
   if(!IsAiming())
     return ResetVertices();
 
   var a = crosshair->GetAngle();
 
-  //Position des Attachvertex so verschieben, dass das Kreuz von der Waffe aus ist
+  //Position des Attach-Vertex so verschieben, dass das Kreuz der Waffe aus ist
   UpdateVertices();
 
   if((GetDir() == DIR_Left && a > 0) ||
      (GetDir() == DIR_Right && a < 0))
     crosshair->ChangeDir();
-  
+
   SetPhase(AimAngle2Phase(a));
 }
 
