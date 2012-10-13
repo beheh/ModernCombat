@@ -24,7 +24,7 @@
 #appendto MEZL
 #appendto AIRS
 #appendto NVDN
-
+#appendto BZWP
 
 
 func IsUpgrade(){return false;}
