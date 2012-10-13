@@ -147,9 +147,9 @@ protected func FxIntFakeDeathMenuTimer(object pTarget, int iEffect, int iTime)
   if(!pClonk)
     return;
 
-	//Leiche soll nicht zu früh ausfaden
-	while(GetEffect("*FadeOut*", pClonk))
-		RemoveEffect("*FadeOut*", pClonk);
+  //Leiche soll nicht zu früh ausfaden
+  while(GetEffect("*FadeOut*", pClonk))
+    RemoveEffect("*FadeOut*", pClonk);
 
   if(!(iTime % 10))
   {
@@ -183,7 +183,7 @@ func DoMenu()
 private func DeathMenu()
 {
   if(!GetAlive(clonk))
-  	return;
+    return;
 
   var selection = GetMenuSelection(clonk);
 
@@ -418,25 +418,25 @@ private func GetRandomTipp(array a, id id)
 
 public func Suicide()
 {
-	//Soundloop beenden
+  //Soundloop beenden
   Sound("FKDT_ClonkDown.ogg", false, clonk, 100, GetOwner(clonk)+1, -1);
 
   //Töten
   if(clonk && GetAlive(clonk)) Kill(clonk);
   
   if(symbol)
-  	RemoveObject(symbol);
+    RemoveObject(symbol);
 }
 
 public func Remove()
 {
-	//Clonkinventar löschen sofern Arenaregel aktiv
+  //Clonkinventar löschen sofern Arenaregel aktiv
   if(FindObject(NODR))
     for(var item in FindObjects(Find_Container(this),Find_Not(Find_OCF(OCF_Living))))
       RemoveObject(item);
 
   Suicide();
-  
+
   if(clonk)
   {
     //Leiche "auswerfen" und ausfaden lassen
