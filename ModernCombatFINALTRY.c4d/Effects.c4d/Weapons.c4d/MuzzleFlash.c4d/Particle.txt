@@ -1,6 +1,6 @@
 [Particle]
 Name=MuzzleFlash3
-MaxCount=200
+MaxCount=500
 InitFn=StdInit
 ExecFn=StdExec
 DrawFn=Std

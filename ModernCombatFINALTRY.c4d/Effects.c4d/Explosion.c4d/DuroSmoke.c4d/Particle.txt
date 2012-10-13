@@ -1,6 +1,6 @@
 [Particle]
 Name=Smoke3
-MaxCount=1500
+MaxCount=2000
 InitFn=StdInit
 ExecFn=StdExec
 DrawFn=Std
