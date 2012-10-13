@@ -634,13 +634,13 @@ public func ShockPaddles()
   //Schwerverletzte und Feinde suchen
   if(pItem->Ready() && 
     FindObject2(Find_AtPoint(0 - iXDir/5 - Sgn(iXDir), 0 - iYDir/5 - Sgn(iYDir)),
-  							 Find_OCF(OCF_NotContained),
-  							 Find_Or(
-  							 Find_And(Find_ID(FKDT),		//Schwerverletzter?
-  							 Find_Allied(GetOwner()),   //Verbündet?
-  							 Find_Not(Find_Func("RejectReanimation"))), //Wiederbeleben erlaubt?
-  							 Find_And(Find_OCF(OCF_Alive),	//Lebendig?
-  							 Find_Hostile(GetOwner())))))	//Feind?
+  							Find_OCF(OCF_NotContained),
+  							Find_Or(
+  							Find_And(Find_ID(FKDT),				//Schwerverletzter?
+  							Find_Allied(GetOwner()),			//Verbündet?
+  							Find_Not(Find_Func("RejectReanimation"))),	//Wiederbeleben erlaubt?
+  							Find_And(Find_OCF(OCF_Alive),			//Lebendig?
+  							Find_Hostile(GetOwner())))))			//Feind?
     //Defibrillator aktivieren
     pItem->Activate(this);
 
