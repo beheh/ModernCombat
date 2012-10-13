@@ -1436,7 +1436,8 @@ protected func TimerCall()
     var iPlr = GetPlayerByIndex(i);
     if(GetPilot())
     {
-      if(!Hostile(GetOwner(GetPilot()), iPlr) && (!GetCursor(iPlr) || (GetCursor(iPlr) != GetPilot()) && GetCursor(iPlr)->~GetRealCursor() != GetPilot())) {
+      if(!Hostile(GetOwner(GetPilot()), iPlr) && (!GetCursor(iPlr) || (GetCursor(iPlr) != GetPilot()) && GetCursor(iPlr)->~GetRealCursor() != GetPilot()))
+      {
         if(first)
           first = false;
         else
@@ -1603,7 +1604,8 @@ protected func TimerCall()
 /* Sounds */
 
 //Warnsounds aktualisieren
-protected func UpdateWarnings() {
+protected func UpdateWarnings()
+{
   for(var i = 0; i < GetPlayerCount(); i++)
   {
     var iPlr = GetPlayerByIndex(i);
