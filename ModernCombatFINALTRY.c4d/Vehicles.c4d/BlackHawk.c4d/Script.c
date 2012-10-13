@@ -1195,7 +1195,7 @@ protected func FxCheckGroundStart(pTarget, iNo, iTemp, pHeli)
 protected func FxCheckGroundTimer(pTarget, iNo, iTime)
 {
   var pRope = EffectVar(0, pTarget, iNo);
-  //Knapp über dem Boden, Seil zu lang, Abseildauer zu lang oder falsche Aktion?
+  //Knapp über dem Boden, falsche Aktion oder Seil zu lang?
   if(!PathFree(GetX(pTarget), GetY(pTarget), GetX(pTarget), GetY(pTarget) + 30)
      || pRope->GetRopeLength() > 1000
      || !WildcardMatch(GetAction(pTarget), "*Jump*"))
