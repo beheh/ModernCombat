@@ -1195,12 +1195,12 @@ protected func FxCheckGroundStart(pTarget, iNo, iTemp, pHeli)
 protected func FxCheckGroundTimer(pTarget, iNo, iTime)
 {
   var pRope = EffectVar(0, pTarget, iNo);
-  //Knapp über dem Boden, Seil zu lang, zu lang die Dauer oder falsche Aktion?
+  //Knapp über dem Boden, Seil zu lang, Abseildauer zu lang oder falsche Aktion?
   if(!PathFree(GetX(pTarget), GetY(pTarget), GetX(pTarget), GetY(pTarget) + 30)
-     || pRope->GetRopeLength() > 300
+     || pRope->GetRopeLength() > 1000
      || !WildcardMatch(GetAction(pTarget), "*Jump*"))
   {
-    //Abspringen, Seil zurück zum Heli schicken.
+    //Seil entfernen und Absprung verlangsamen
     RemoveObject(pRope);
     SetYDir(20,pTarget);
     return -1;
