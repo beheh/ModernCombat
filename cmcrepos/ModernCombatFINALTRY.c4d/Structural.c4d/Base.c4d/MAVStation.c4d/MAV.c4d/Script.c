@@ -637,7 +637,8 @@ public func ShockPaddles()
   							 Find_OCF(OCF_NotContained),
   							 Find_Or(
   							 Find_And(Find_ID(FKDT),		//Schwerverletzter?
-  							 Find_Allied(GetOwner())),	//Verbündet?
+  							 Find_Allied(GetOwner()),   //Verbündet?
+  							 Find_Not(Find_Func("RejectReanimation"))), //Wiederbeleben erlaubt?
   							 Find_And(Find_OCF(OCF_Alive),	//Lebendig?
   							 Find_Hostile(GetOwner())))))	//Feind?
     //Defibrillator aktivieren
