@@ -440,6 +440,7 @@ protected func Ejection(object ByObj)
   if(GetDamage() >= MaxDamage()) return;
 
   SetPosition(GetX(pEntrance), GetY(pEntrance)+5, ByObj);
+  AddEffect("HeliEnterCooldown", ByObj, 1, 100);
 
   if(!PathFree(GetX(pEntrance),GetY(pEntrance),GetX(pEntrance),GetY(pEntrance)+100))
     return;
