@@ -419,7 +419,7 @@ protected func Ejection(object ByObj)
   //Nicht bei Schaden
   if(GetDamage() >= MaxDamage()) return;
   
-  AddEffect("HeliEnterCooldown", ByObj, 1, 100);
+  AddEffect("HeliEnterCooldown", ByObj, 1, 40);
 
   if(!PathFree(GetX(),GetY(),GetX(),GetY()+100))
     return;
