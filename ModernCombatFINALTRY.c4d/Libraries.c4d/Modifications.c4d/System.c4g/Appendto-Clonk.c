@@ -775,10 +775,10 @@ protected func ControlUp()
   {
     if(WildcardMatch(GetAction(), "*Walk*"))
       ScheduleCall(0, "JumpSound", 1);
-    if(WildcardMatch(GetAction(), "*Jump*"))
+    if(WildcardMatch(GetAction(), "*Jump*") || WildcardMatch(GetAction(), "*Dive*"))
     {
       var pHeli = FindObject2(Find_ID(ENTR), Find_AtPoint(0, 0), Find_Not(Find_Hostile(GetOwner())));
-      if(pHeli)
+      if(!GetEffect("HeliEnterCooldown", this) && pHeli)
       {
         var parachute = FindObject2(Find_ID(PARA), Find_ActionTarget(this));
         if(parachute)
