@@ -1,6 +1,6 @@
 [Particle]
 Name=Flare2
-MaxCount=500
+MaxCount=1000
 InitFn=StdInit
 ExecFn=StdExec
 DrawFn=Std

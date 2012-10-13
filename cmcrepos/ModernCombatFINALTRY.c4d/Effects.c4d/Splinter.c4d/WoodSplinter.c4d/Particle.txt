@@ -1,6 +1,6 @@
 [Particle]
 Name=WoodSplinter
-MaxCount=300
+MaxCount=500
 InitFn=StdInit
 ExecFn=StdExec
 DrawFn=Std

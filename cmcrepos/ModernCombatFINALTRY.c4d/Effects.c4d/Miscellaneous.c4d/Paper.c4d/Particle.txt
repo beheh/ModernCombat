@@ -1,6 +1,6 @@
 [Particle]
 Name=Paper
-MaxCount=50
+MaxCount=500
 InitFn=StdInit
 ExecFn=StdExec
 DrawFn=Std

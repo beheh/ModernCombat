@@ -1,6 +1,6 @@
 [Particle]
 Name=BlastSparkWave
-MaxCount=100
+MaxCount=800
 InitFn=StdInit
 ExecFn=StdExec
 DrawFn=Std

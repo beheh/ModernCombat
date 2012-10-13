@@ -1,6 +1,6 @@
 [Particle]
 Name=BlastBg
-MaxCount=500
+MaxCount=800
 InitFn=StdInit
 ExecFn=StdExec
 DrawFn=Std
