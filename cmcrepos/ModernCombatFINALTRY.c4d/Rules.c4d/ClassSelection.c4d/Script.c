@@ -215,10 +215,10 @@ public func FxClassMenuTimer(object pTarget, int nr)
 {
   if(!GetMenu(pTarget) || ++EffectVar(0, pTarget, nr) <= 1)
   {
-  	CloseMenu(pTarget);
+    CloseMenu(pTarget);
     OpenMenu(pTarget, selection[GetOwner(pTarget)]);
-	}
-	
+  }
+
   return true;
 }
 
@@ -235,8 +235,9 @@ private func OpenMenu(object pClonk, int iSelection)
 
   if(GetMenu(pClonk))
     iClass = CalculatePlayerSelection(iOwner, GetMenuSelection(pClonk));
-  else if(iSelection)
-    iClass = CalculatePlayerSelection(iOwner, iSelection);
+  else
+    if(iSelection)
+      iClass = CalculatePlayerSelection(iOwner, iSelection);
 
   //Menü öffnen
   CloseMenu(pClonk);
