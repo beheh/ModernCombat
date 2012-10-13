@@ -224,14 +224,3 @@ public func TeamGetScore(int iTeam)
 {
   return aPoints[iTeam];
 }
-
-public func OnPlayerRankUp(int iPlr)
-{
-  //Scoreboard-Spielerränge aktualisieren
-  if(GetTeamPlayerCount(GetPlayerTeam(iPlr)) > 1)
-    SetScoreboardData(iPlr, TEAM_PlayerColumn, GetTaggedPlayerName(iPlr, true));
-  else
-    SetScoreboardData(iPlr, TEAM_TeamColumn, GetTaggedPlayerName(iPlr, true), GetPlayerTeam(iPlr));
-
-  return true;
-}
