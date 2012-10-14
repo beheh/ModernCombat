@@ -1,0 +1,16 @@
+CreatingInterior=Szenario wird eingerichtet...
+CreatingEquipment=Ausrüstung wird plaziert...
+CreatingDecoration=Dekoration wird plaziert...
+
+Team1=Aggressoren
+Team2=Eurocorps
+
+Flag1=Alphabasis West
+Flag2=Alphabasis Süd
+Flag3=Betabasis West
+Flag4=Betabasis Süd
+Flag5=Sendemast
+
+Target1=Primäre Radaranlage
+Target2=Sekundäre Radaranlage
+Target3=Backup-Radaranlage
