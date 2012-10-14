@@ -1,0 +1,16 @@
+CreatingInterior=Creating furniture...
+CreatingEquipment=Placing equipment...
+CreatingDecoration=Placing decoration...
+
+Team1=Aggressors
+Team2=Eurocorps
+
+Flag1=Alpha Base West
+Flag2=Alpha Base East
+Flag3=Beta Base West
+Flag4=Beta Base East
+Flag5=Antenna Tower
+
+Target1=Primary Radar Unit
+Target2=Secondary Radar Unit
+Target3=Backup Radar Unit
