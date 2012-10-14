@@ -21,10 +21,10 @@ protected func Construction()
           ChangeDef(CIVC,this);
           ObjectSetAction(this,"Walk");
         }
-        
+
     return this->Construction(...);
   }
-  
+
   return _inherited(...);
 }
 
@@ -52,7 +52,7 @@ protected func Initialize()
 public func Incineration()
 {
   Extinguish();
-  if (GetAlive()) 
+  if(GetAlive()) 
     Sound("ClonkBurn*.ogg");
   if(IsFakeDeath()) return;
   Schedule("DoDmg(5,DMG_Fire,0,1)",1,20,this);
@@ -115,7 +115,7 @@ public func HurtSounds(int iDmg, int iType)
 
 private func Building()
 {
-  if (!Random(2)) Sound("ClonkBuild*.ogg");
+  if(!Random(2)) Sound("ClonkBuild*.ogg");
   return 1;
 }
 
@@ -260,7 +260,7 @@ protected func DeathAnnounce(int plr, object clonk, int killplr, bool fNoPoints,
   else
     KILL->KTMsg(plr, killplr, clonk, assistplusone - 1);
 
-  KILL->KillStat(GetCursor(killplr),plr); //hier auch clonk->~KillIcon()? könnte lustig sein :>
+  KILL->KillStat(GetCursor(killplr),plr);
 
   AddEffect("NoAnnounce", clonk, 1);
 
@@ -480,7 +480,7 @@ public func MaxContentsCount()	{return 3;}
 
 protected func ControlSpecial()
 {
-  if (Contained())
+  if(Contained())
   {
     if(Contained()->~ContainedSpecial(this))
       return 1;
@@ -524,11 +524,11 @@ protected func ControlSpecial2()
 
 global func FxDmgCheckDamage(object pTarget, int iEffect, int iDmg)
 {
-  if (!IsFakeDeath(pTarget) && iDmg < 0)
+  if(!IsFakeDeath(pTarget) && iDmg < 0)
   {
     var iMaxAlpha = 160;
     var iAlpha = BoundBy(iDmg / -200, 0, iMaxAlpha), pScreen = GetScreenRGB(GetOwner(pTarget), SR4K_LayerDamage);
-    if (pScreen)
+    if(pScreen)
       pScreen->~DoAlpha(iAlpha, iMaxAlpha, 255);
     else
       ScreenRGB(pTarget, RGB(255), iAlpha, 4, false, SR4K_LayerDamage);
