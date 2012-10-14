@@ -13,6 +13,7 @@ public func IsHealing()			{return WildcardMatch(GetAction(), "*Heal*");}
 public func MaxGrenades()		{return 4;}					//Maximal im Inventar und Gürtel tragbare Granaten
 public func DeathAnimationCount()	{return 0;}					//Anzahl Todesanimationen
 
+
 /*----- Initialisierung -----*/
 
 public func Initialize()
@@ -62,7 +63,7 @@ protected func ControlDownDouble()
 {
   if(Control2Grab("ControlDownDouble")) return true;
 
-  if (GetAction() == "Push" || IsRiding())
+  if(GetAction() == "Push" || IsRiding())
   {
     if(GetActionTarget()->~ControlDownDouble(this))
       return true;
@@ -76,11 +77,11 @@ protected func ControlUp()
   ClearMacroCommands();
   SetAggroLevel(0,0,0,0,"ControlUp");
 
-  if (ControlAim("ControlUp")) return 1;
-  if (Control2Grab("ControlUp")) return 0;
-  if (Control2Contents("ControlUp") ) return 1;
-  if (ControlLadder("ControlUp") ) return 1;
-  if (ControlAgility("ControlUp") ) return 1;
+  if(ControlAim("ControlUp"))		return 1;
+  if(Control2Grab("ControlUp"))		return 0;
+  if(Control2Contents("ControlUp"))	return 1;
+  if(ControlLadder("ControlUp"))	return 1;
+  if(ControlAgility("ControlUp"))	return 1;
   if (FindObject2(Find_Func("IsBackDoor"), Find_AtPoint()) && GetEffect("NoDoorEntrance", this)) return 1;
   return(_inherited());
 }
@@ -126,11 +127,11 @@ public func ControlConf(int conf)
   var jnr = GetPlrCoreJumpAndRunControl(GetController());
 
   var iChange;
-  if (Contents())
+  if(Contents())
   iChange = Contents()->~AimAngleChange(jnr) * conf;
 
-  if (!iChange)
-    if (jnr)
+  if(!iChange)
+    if(jnr)
       iChange = conf * 2;
     else
       iChange = conf * 10;
@@ -179,7 +180,7 @@ public func HazardGearSupported(object pGear)//! -> Hazard 2.0
 
 public func ReadyToFire()
 {
-  if (GetProcedure() == "SWIM")
+  if(GetProcedure() == "SWIM")
     return;
   if(GetAction() == "Crawl" && Contents() && Contents()->~CanAim() && Contents()->~IsEquipment())
     return true;
@@ -701,7 +702,7 @@ local punchtype;
 
 private func Punching()
 {
-  if (!Random(3)) Sound("Kime*");
+  if(!Random(3)) Sound("Kime*");
   Sound("Punch*");
   
   if(!punchtype)
@@ -760,7 +761,7 @@ public func ControlDig()
   if(GetAction() != "Fight")//Nicht in Ausgangsstellung?
     return true;
     
-  if (!Random(3)) Sound("Kime*");
+  if(!Random(3)) Sound("Kime*");
   punchtype = 1;
   SetAction("Punch");
 
@@ -1451,32 +1452,32 @@ protected func ScalingLadder()
 
 protected func GetObject2Drop(object pObj)
 {
-//if (GetProcedure() == "PUSH" && GetID(GetActionTarget()) == FKDT)
+//if(GetProcedure() == "PUSH" && GetID(GetActionTarget()) == FKDT)
 //{
     var dropobj, i;
 
-    if (pObj->~IsWeapon())
+    if(pObj->~IsWeapon())
     {
       //Hat die Waffe schon: Geht nicht
-      if (FindContents(GetID(pObj)))
+      if(FindContents(GetID(pObj)))
         return;
 
       //Pistole? Dann weg damit
-      if (dropobj = FindContents(PSTL))
+      if(dropobj = FindContents(PSTL))
         return dropobj;
 
       //Sonst die hinterste Waffe
       for (i = 0; i < ContentsCount(); i++)
-        if (Contents(i) && Contents(i)->~IsWeapon())
+        if(Contents(i) && Contents(i)->~IsWeapon())
           dropobj = Contents(i);
       return dropobj;
     }
 
     //Granate?
-    if (pObj->~IsGrenade())
+    if(pObj->~IsGrenade())
     {
       //Hat schon genug Granaten
-      if (GrenadeCount() >= MaxGrenades())
+      if(GrenadeCount() >= MaxGrenades())
         return;
       //Granate in den Gürtel verfrachten
       pObj->~Activate(this);
@@ -1484,10 +1485,10 @@ protected func GetObject2Drop(object pObj)
     }
 
     //Pack? Versuchen, zusammenzulegen
-    if (pObj->~IsPack())
+    if(pObj->~IsPack())
     {
       var other = FindContents(GetID(pObj), this);
-      if (other)
+      if(other)
       {
         pObj->~JoinPack(other, this);
         return;
@@ -1496,7 +1497,7 @@ protected func GetObject2Drop(object pObj)
 
     //Objekt - hinterstes Objekt rauswerfen
     for (i = 0; i < ContentsCount(); i++)
-      if (Contents(i) && !(Contents(i)->~IsWeapon()) && !Contents(i)->~IsGrenade())
+      if(Contents(i) && !(Contents(i)->~IsWeapon()) && !Contents(i)->~IsGrenade())
         dropobj = Contents(i);
     return dropobj;
 //}
@@ -1632,7 +1633,7 @@ protected func Collection2(object pObj)// Einsammeln
 {
   //Das neue Item nach hinten verschieben (außer es ist Munition oder Granaten)
   if(!(pObj->~IsAmmoPacket()) || !(pObj->~IsGrenade()) || NoAmmo())
-    if (1 == ContentsCount(GetID(pObj)))
+    if(1 == ContentsCount(GetID(pObj)))
       if(!(GetOCF(pObj) & OCF_Living))
       {
         ShiftContents(0,0,0,0);
@@ -1697,10 +1698,10 @@ protected func RejectCollect(id idObj, object pObj)
   }
 
   //Pack?
-  if (pObj->~IsPack())
+  if(pObj->~IsPack())
   {
     var other = FindContents(idObj);
-    if (other)
+    if(other)
     {
       pObj->~JoinPack(other, this);
       return true;
@@ -1897,7 +1898,7 @@ private func ControlAgility(string strControl)
 
   //Einmal links
   if(strControl == "ControlLeftSingle")
-    if (IsJumping())
+    if(IsJumping())
     {
       SetDir(DIR_Left);
       SetComDir(COMD_Left);
@@ -2256,7 +2257,7 @@ public func ControlThrow()
   }
 
   //Bei vorherigem Doppel-Stop nur Ablegen 
-  if (GetPlrDownDouble(GetOwner()))
+  if(GetPlrDownDouble(GetOwner()))
   {
     AddEffect("SquatAimTimeout", this(), 1, 15, this());
     if(Contents(0) && (Contents(0)->~IsWeapon() || Contents(0)->~LockInventory()))
@@ -2274,16 +2275,16 @@ public func ControlThrow()
     if(GetActionTarget()->~ControlThrow(this()))
       return(1); 
 
-  if (Control2Grab("ControlThrow")) return(0);
-  if (Control2Contents("ControlThrow") ) return(1);
-  if (ControlLadder("ControlThrow") ) return(1);
+  if(Control2Grab("ControlThrow"))	return(0);
+  if(Control2Contents("ControlThrow"))	return(1);
+  if(ControlLadder("ControlThrow"))	return(1);
 
   //Steuerung an Effekt weitergeben 
-  if (Control2Effect("ControlThrow")) return(1);
+  if(Control2Effect("ControlThrow"))	return(1);
 
   //Reiten und Werfen
-  if (IsRiding())
-    if (Contents(0))
+  if(IsRiding())
+    if(Contents(0))
     {
       SetAction("RideThrow");
       return(1);
@@ -2304,7 +2305,7 @@ public func ControlUp()
 
 public func ControlUpDouble()
 {
-  if (GetAction() == "Push" || IsRiding())
+  if(GetAction() == "Push" || IsRiding())
   {
     if(GetActionTarget()->~ControlUpDouble(this))
       return true;
@@ -2338,7 +2339,7 @@ public func ReadyToAim()
 
 private func CheckArmed()
 {
-  if(GetAction() == "AimCrawl") if (!IsArmed2()) return SetAction("Crawl");
+  if(GetAction() == "AimCrawl") if(!IsArmed2()) return SetAction("Crawl");
   return _inherited();
 }
 
@@ -2400,7 +2401,7 @@ public func ControlLeft()
 
 public func ControlLeftDouble()
 {
-  if (GetAction() == "Push" || IsRiding())
+  if(GetAction() == "Push" || IsRiding())
   {
     if(GetActionTarget()->~ControlLeftDouble(this))
       return true;
@@ -2419,7 +2420,7 @@ public func ControlRight()
 
 public func ControlRightDouble()
 {
-  if (GetAction() == "Push" || IsRiding())
+  if(GetAction() == "Push" || IsRiding())
   {
     if(GetActionTarget()->~ControlRightDouble(this))
       return true;
