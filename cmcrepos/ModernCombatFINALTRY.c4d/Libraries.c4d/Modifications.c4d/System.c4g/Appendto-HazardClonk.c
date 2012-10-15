@@ -35,7 +35,7 @@ public func SetHUDTarget(pTarget)
 public func ChangeDeathAnim()
 {
   var rnd = Random(DeathAnimationCount()) * !HasCrawled();
-  
+
   SetAction(Format("CMC_Dead%d", rnd), GetActionTarget(), GetActionTarget(1));
   return true;
 }
