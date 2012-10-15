@@ -34,7 +34,8 @@ public func SetHUDTarget(pTarget)
 
 public func ChangeDeathAnim()
 {
-  var rnd = Random(DeathAnimationCount());
+  var rnd = Random(DeathAnimationCount()) * !HasCrawled();
+  
   SetAction(Format("CMC_Dead%d", rnd), GetActionTarget(), GetActionTarget(1));
   return true;
 }
@@ -2031,6 +2032,11 @@ public func IsCrawling()
   return WildcardMatch(GetAction(), "*Crawl*");
 }
 
+public func HasCrawled()
+{
+	return GetEffect("Crawl", this) || GetEffect("CrawlDeath", this);
+}
+
 public func Ready2Crawl()
 {
   return !GetEffect("NoCrawl") && !IsCrawling() && (GetAction() == "WalkArmed" || GetAction() == "Walk");
@@ -2182,7 +2188,7 @@ protected func UpdateTransferZone()
 
 public func FxNoCrawlTimer()	{return -1;}
 
-public func FxCrawlStart(pClonk, iNum)
+public func FxCrawlStart(object pClonk, int iNum)
 {
   // Physical, Shape und Vertixes anpassen
   SetPhysical("Walk", GetPhysical("Walk", 0, pClonk)/4, PHYS_StackTemporary);
@@ -2197,7 +2203,7 @@ public func FxCrawlStart(pClonk, iNum)
   SetPosition(GetX(),GetY()+5);
 }
 
-public func FxCrawlStop(pClonk, iNum)
+public func FxCrawlStop(object pClonk, int iNum, int iReason)
 {
   //Physical, Shape und Vertices zurücksetzen
   ResetPhysical(pClonk, "Walk");
@@ -2210,6 +2216,9 @@ public func FxCrawlStop(pClonk, iNum)
   SetVertexXY(5,-4, 3);
   SetVertexXY(6, 4, 3);
   SetPosition(GetX(),GetY()-5);
+  
+  if(iReason == 4)
+  	AddEffect("CrawlDeath", pClonk, 1, 0, this);
 }
 
 /* Überladungen */
