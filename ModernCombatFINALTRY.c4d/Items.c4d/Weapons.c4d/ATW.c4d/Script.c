@@ -72,6 +72,7 @@ public func BotData1(int data)
   if(data == BOT_Range)		return 1000;
   if(data == BOT_DmgType)	return DMG_Explosion;
   if(data == BOT_Power)		return(BOT_Power_LongLoad);
+  if(data == BOT_Precision) return 3;
   return Default(data);
 }
 
