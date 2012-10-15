@@ -694,9 +694,9 @@ func Death()
 {
   var pTarget = this;
   if(!pTarget) return;
-  
+
   if(pTarget->~HasCrawled())
-  	SetPhase(5, pTarget);
+    SetPhase(5, pTarget);
 
   //Achievements
   ResetAchievementExtra(AC08, GetOwner(pTarget));
