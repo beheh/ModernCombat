@@ -2201,7 +2201,7 @@ public func FxCrawlStart(object pClonk, int iNum)
   SetVertexXY(5,-4,3-5);
   SetVertexXY(6, 4,3-5);
   SetPosition(GetX(),GetY()+5);
-  AddEffect("HasCrawled", pClonk, 1, 0, this);
+  AddEffect("HasCrawled", pClonk, 1, 1, this);
 }
 
 public func FxCrawlStop(object pClonk, int iNum, int iReason)
@@ -2218,7 +2218,7 @@ public func FxCrawlStop(object pClonk, int iNum, int iReason)
   SetVertexXY(6, 4, 3);
   SetPosition(GetX(),GetY()-5);
   if(iReason == 4)
-  	AddEffect("HasCrawled", pClonk, 1, 0, this);
+  	AddEffect("HasCrawled", pClonk, 1, 1, this);
 }
 
 public func FxHasCrawledTimer(object pTarget)
