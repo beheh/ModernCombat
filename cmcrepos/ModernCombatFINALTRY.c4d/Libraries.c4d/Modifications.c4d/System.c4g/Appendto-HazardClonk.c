@@ -2034,7 +2034,7 @@ public func IsCrawling()
 
 public func HasCrawled()
 {
-	return GetEffect("HasCrawled", this);
+  return GetEffect("HasCrawled", this);
 }
 
 public func Ready2Crawl()
@@ -2190,7 +2190,7 @@ public func FxNoCrawlTimer()	{return -1;}
 
 public func FxCrawlStart(object pClonk, int iNum)
 {
-  // Physical, Shape und Vertixes anpassen
+  //Physical, Shape und Vertixes anpassen
   SetPhysical("Walk", GetPhysical("Walk", 0, pClonk)/4, PHYS_StackTemporary);
   SetShape(-8, 2-5, 16, 8);
   SetVertexXY(0, 0,5-5);
@@ -2218,15 +2218,15 @@ public func FxCrawlStop(object pClonk, int iNum, int iReason)
   SetVertexXY(6, 4, 3);
   SetPosition(GetX(),GetY()-5);
   if(iReason == 4)
-  	AddEffect("HasCrawled", pClonk, 1, 1, this);
+    AddEffect("HasCrawled", pClonk, 1, 1, this);
 }
 
 public func FxHasCrawledTimer(object pTarget)
 {
-	if(GetAlive(pTarget) && !pTarget->~IsCrawling() && !WildcardMatch(GetAction(pTarget), "*Dead*"))
-		return -1;
-	
-	return true;
+  if(GetAlive(pTarget) && !pTarget->~IsCrawling() && !WildcardMatch(GetAction(pTarget), "*Dead*"))
+    return -1;
+
+  return true;
 }
 
 /* Überladungen */

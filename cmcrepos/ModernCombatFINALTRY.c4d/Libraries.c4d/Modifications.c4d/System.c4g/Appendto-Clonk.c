@@ -327,7 +327,7 @@ protected func DoPoints()
         AttemptAwardRibbon(RB08, killer, GetOwner());
       //Ribbon-Fortschritt (The Patch)
       if(this->~HasCrawled() && killicon == ASTR)
-      	AttemptAwardRibbon(RB09, killer, GetOwner());
+        AttemptAwardRibbon(RB09, killer, GetOwner());
     }
 
     //Achievement-Fortschritt (First Blood)
