@@ -422,8 +422,8 @@ public func FxAggroFire(object pTarget, int no)
   //Feuer frei
   if(maxdist != 300 && pathfree && !(Contents()->~IsReloading()))
   {
-  	if(AngleOffset4K(Angle(GetX(), GetY(), GetX(target), GetY(target)), Contents()->~AimAngle()) <= Contents()->~GetBotData(BOT_Precision))
-    	Control2Contents("ControlThrow");
+    if(AngleOffset4K(Angle(GetX(), GetY(), GetX(target), GetY(target)), Contents()->~AimAngle()) <= Contents()->~GetBotData(BOT_Precision))
+      Control2Contents("ControlThrow");
   }
   else if(IsAiming() && !Contents()->~AI_NeedAim(this, target))
     StopAiming();

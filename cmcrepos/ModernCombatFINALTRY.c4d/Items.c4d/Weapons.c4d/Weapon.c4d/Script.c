@@ -33,7 +33,7 @@ static const MC_Recharge      = 30;	//Zeit nach Kolbenschlag bis erneut geschlag
 static const MC_Power         = 31;	//Wie weit das Ziel durch Kolbenschläge geschleudert wird
 static const MC_Angle         = 32;	//Mit welchem Winkel das Ziel durch Kolbenschläge geschleudert wird
 
-static const BOT_Precision    = 105; //Bestimmt die nötige Winkeldifferenz zwischen dem Zielwinkel und dem Winkel von Bot und Zielobjekt um abzufeuern. 
+static const BOT_Precision    = 105;	//Bestimmt die nötige Winkeldifferenz zwischen Zielwinkel und Winkel von Bot und Zielobjekt
 
 public func IsWeapon2()			{return true;}	//Nutzt/inkludiert neues Waffensystem WPN2
 public func NoWeaponChoice()		{return GetID() == WPN2;}
@@ -71,10 +71,10 @@ protected func Initialize()
 
 public func Default(int data)
 {
-  if(data == FT_Name)      return;//Wichtig
-  if(data == FT_Condition) return true;
-  if(data == FM_Slot)      return;
-  if(data == BOT_Precision) return 180;
+  if(data == FT_Name)		return;
+  if(data == FT_Condition)	return true;
+  if(data == FM_Slot)		return;
+  if(data == BOT_Precision)	return 180;
   return inherited(data);
 }
 
