@@ -325,6 +325,9 @@ protected func DoPoints()
       //Ribbon-Fortschritt (The Noob)
       if(Contained() && GetID(Contained()) == BKHK)
         AttemptAwardRibbon(RB08, killer, GetOwner());
+      //Ribbon-Fortschritt (The Patch)
+      if(this->~HasCrawled() && killicon == ASTR)
+      	AttemptAwardRibbon(RB09, killer, GetOwner());
     }
 
     //Achievement-Fortschritt (First Blood)
