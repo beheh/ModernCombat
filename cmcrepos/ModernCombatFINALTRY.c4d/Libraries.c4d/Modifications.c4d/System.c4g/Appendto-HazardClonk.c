@@ -2006,12 +2006,16 @@ public func StartCrawling()
      (GetProcedure() == "PUSH") ||
      (GetProcedure() == "CHOP") ||
      (GetProcedure() == "LIFT"))
+  {
+  	AddEffect("HasCrawled", this, 1, 1, this);
     return SetAction("StartCrawl");
-
+	}
+	
   if(IsAiming())
   {
-   StopAiming();
-   return SetAction("StartCrawl");
+  	AddEffect("HasCrawled", this, 1, 1, this);
+  	StopAiming();
+  	return SetAction("StartCrawl");
   }
   return false;
 }
@@ -2201,7 +2205,6 @@ public func FxCrawlStart(object pClonk, int iNum)
   SetVertexXY(5,-4,3-5);
   SetVertexXY(6, 4,3-5);
   SetPosition(GetX(),GetY()+5);
-  AddEffect("HasCrawled", pClonk, 1, 1, this);
 }
 
 public func FxCrawlStop(object pClonk, int iNum, int iReason)
@@ -2223,7 +2226,7 @@ public func FxCrawlStop(object pClonk, int iNum, int iReason)
 
 public func FxHasCrawledTimer(object pTarget)
 {
-  if(GetAlive(pTarget) && !pTarget->~IsCrawling() && !WildcardMatch(GetAction(pTarget), "*Dead*"))
+  if(GetAlive(pTarget) && !pTarget->~IsCrawling() && GetAction(pTarget) != "FlatUp" && !WildcardMatch(GetAction(pTarget), "*Dead*"))
     return -1;
 
   return true;
