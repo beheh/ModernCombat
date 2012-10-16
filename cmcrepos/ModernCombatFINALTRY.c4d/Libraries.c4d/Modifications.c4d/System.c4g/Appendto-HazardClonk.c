@@ -2007,15 +2007,15 @@ public func StartCrawling()
      (GetProcedure() == "CHOP") ||
      (GetProcedure() == "LIFT"))
   {
-  	AddEffect("HasCrawled", this, 1, 1, this);
+    AddEffect("HasCrawled", this, 1, 1, this);
     return SetAction("StartCrawl");
-	}
-	
+  }
+
   if(IsAiming())
   {
-  	AddEffect("HasCrawled", this, 1, 1, this);
-  	StopAiming();
-  	return SetAction("StartCrawl");
+    AddEffect("HasCrawled", this, 1, 1, this);
+    StopAiming();
+    return SetAction("StartCrawl");
   }
   return false;
 }
