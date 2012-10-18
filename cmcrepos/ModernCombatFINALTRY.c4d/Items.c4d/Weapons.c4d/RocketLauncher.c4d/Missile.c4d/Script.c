@@ -27,6 +27,8 @@ public func IgnoreTracer()	{return true;}
 public func IsDamaged()		{return GetEffect("Damaged", this);}
 public func IsRocket()		{return true;}			//Ist eine Rakete
 
+public func AllowHitboxCheck() {return true;}
+
 
 /* Initialisierung */
 
