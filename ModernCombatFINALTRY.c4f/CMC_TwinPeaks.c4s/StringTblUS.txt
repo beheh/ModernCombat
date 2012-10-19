@@ -7,9 +7,9 @@ Team2=Eurocorps
 
 Flag1=Alpha Base West
 Flag2=Alpha Base East
-Flag3=Beta Base West
-Flag4=Beta Base East
-Flag5=Antenna Tower
+Flag3=Antenna Tower
+Flag4=Beta Base West
+Flag5=Beta Base East
 
 Target1=Primary Radar Unit
 Target2=Secondary Radar Unit

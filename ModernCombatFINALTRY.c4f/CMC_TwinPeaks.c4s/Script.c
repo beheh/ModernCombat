@@ -422,13 +422,13 @@ func FlagCaptured(object pPoint, int iTeam)
    aSelfDefense[3]->SetTeam(iTeam);
   }
 
-  if(pPoint == aFlag[2])
+  if(pPoint == aFlag[3])
   {
    aSelfDefense[4]->SetTeam(iTeam);
    aSelfDefense[7]->SetTeam(iTeam);
   }
 
-  if(pPoint == aFlag[3])
+  if(pPoint == aFlag[4])
   {
    aSelfDefense[5]->SetTeam(iTeam);
    aSelfDefense[6]->SetTeam(iTeam);
@@ -512,40 +512,32 @@ public func ChooserFinished()
    aFlag[1] -> AddSpawnPoint(1650,970);
    aFlag[1]->Set("$Flag2$",0,2);
 
-   aFlag[2] = CreateObject(OFPL,3655,820,NO_OWNER);
-   aFlag[2] -> AddSpawnPoint(4080,970);
-   aFlag[2] -> AddSpawnPoint(4080,880);
-   aFlag[2] -> AddSpawnPoint(4170,970);
+   aFlag[2] = CreateObject(OFPL,2865,1310,NO_OWNER);
+   aFlag[2] -> AddSpawnPoint(2730,1450);
+   aFlag[2] -> AddSpawnPoint(2840,1460);
+   aFlag[2] -> AddSpawnPoint(2890,1460);
+   aFlag[2] -> AddSpawnPoint(3000,1450);
    aFlag[2]->Set("$Flag3$",0,2);
 
-   aFlag[3] = CreateObject(OFPL,4325,780,NO_OWNER);
-   aFlag[3] -> AddSpawnPoint(4460,880);
-   aFlag[3] -> AddSpawnPoint(4550,880);
-   aFlag[3] -> AddSpawnPoint(4550,770);
+   aFlag[3] = CreateObject(OFPL,3655,820,NO_OWNER);
+   aFlag[3] -> AddSpawnPoint(4080,970);
+   aFlag[3] -> AddSpawnPoint(4080,880);
+   aFlag[3] -> AddSpawnPoint(4170,970);
+   aFlag[3]->Set("$Flag4$",0,2);
+
+   aFlag[4] = CreateObject(OFPL,4325,780,NO_OWNER);
+   aFlag[4] -> AddSpawnPoint(4460,880);
+   aFlag[4] -> AddSpawnPoint(4550,880);
+   aFlag[4] -> AddSpawnPoint(4550,770);
    if(aTeams[2] == true)
    {
-    aFlag[3]->Set("$Flag4$",100,2);
-    aFlag[3]->Capture(2,1);
+    aFlag[4]->Set("$Flag5$",100,2);
+    aFlag[4]->Capture(2,1);
    }
    else
    {
-    aFlag[3]->Set("$Flag4$",0,2);
+    aFlag[4]->Set("$Flag5$",0,2);
    }
-
-   //Automat
-   var store = CreateObject(WPVM,2865, 1310,-1);
-   store->AddWare(C4PA,-1);
-   store->AddWare(FAPK,-1);
-   store->AddWare(CDBT,-1);
-   store->AddWare(BWTH,-1);
-   store->AddWare(RSHL,-1);
-   store->AddWare(ATWN,-1);
-   store->AddWare(FGRN,-1);
-   store->AddWare(FRAG,-1);
-   store->AddWare(PGRN,-1);
-   store->AddWare(SGRN,-1);
-   store->AddWare(STUN,-1);
-   store->AddWare(SRBL,-1);
 
    //Versorgungskisten (APW)
    var crate = CreateObject (AMCT, 2865, 1350, -1);
@@ -622,7 +614,7 @@ public func ChooserFinished()
   {
    //Flaggenposten
    var flag = CreateObject(OFPL, 2865, 1310, -1);
-   flag->~Set("$Flag5$");
+   flag->~Set("$Flag3$");
 
    //Zusätzliche Munition
    if(!FindObject(NOAM))
@@ -666,7 +658,7 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   //Startsicht
   if(!g_chooserFinished)
   {
-   iX = 2865; iY = 1300;
+   iX = 2865; iY = 1135;
    return(1);
   }
 
