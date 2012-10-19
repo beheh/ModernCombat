@@ -387,8 +387,15 @@ public func FxAggroFire(object pTarget, int no)
       SetDir(DIR_Left);
   }
 
+	var meleeattack;
+	var fNeedAim = Contents()->~AI_NeedAim(this, target);
+	if(!Contents()->GetFMData(FM_Aim) && !fNeedAim && (meleeattack = FindObject2(Find_Not(Find_Exclude(target)), Find_AtPoint())))
+	{
+		if(IsAiming())
+			StopAiming();
+	}
   //Ziel anvisieren
-  if((((!GetCommand() && !GetMacroCommand()) || level != 1) && ReadyToAim()) || IsAiming())
+  else if((((!GetCommand() && !GetMacroCommand()) || level != 1) && ReadyToAim()) || IsAiming())
   {
     if(pathfree && Contents()->GetBotData(BOT_Range) > 30) // Weg frei und keine Nahkampfwaffe?
     {
@@ -408,10 +415,10 @@ public func FxAggroFire(object pTarget, int no)
           DoMouseAiming(tx, ty);
         }
       }
-      else if(IsAiming() && !Contents()->~AI_NeedAim(this, target))
+      else if(IsAiming() && !fNeedAim)
         StopAiming();
     }
-    if(IsAiming() && !CheckAmmo(Contents()->GetFMData(FM_AmmoID), Contents()->GetFMData(FM_AmmoLoad), Contents(), this) && !Contents()->~AI_NeedAim(this, target))
+    if(IsAiming() && !CheckAmmo(Contents()->GetFMData(FM_AmmoID), Contents()->GetFMData(FM_AmmoLoad), Contents(), this) && !fNeedAim)
       StopAiming();
   }
 
@@ -422,10 +429,10 @@ public func FxAggroFire(object pTarget, int no)
   //Feuer frei
   if(maxdist != 300 && pathfree && !(Contents()->~IsReloading()))
   {
-  	if(AngleOffset4K(Angle(GetX(), GetY(), GetX(target), GetY(target)), Contents()->~AimAngle()) <= Contents()->~GetBotData(BOT_Precision))
-    	Control2Contents("ControlThrow");
+    if(meleeattack || AngleOffset4K(Angle(GetX(), GetY(), GetX(target), GetY(target)), Contents()->~AimAngle()) <= Contents()->~GetBotData(BOT_Precision))
+      Control2Contents("ControlThrow");
   }
-  else if(IsAiming() && !Contents()->~AI_NeedAim(this, target))
+  else if(IsAiming() && !fNeedAim)
     StopAiming();
   //Message("@My target: %s @%d/%d with level %d", this, target->GetName(), target->GetX(), target->GetY(), level);
 
