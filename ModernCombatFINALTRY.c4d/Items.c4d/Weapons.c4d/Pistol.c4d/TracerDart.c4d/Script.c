@@ -4,8 +4,10 @@
 #include SHT1
 
 public func TrailColor(int iATime)	{return Color(iATime);}
+public func AllowHitboxCheck()		{return true;}
 
 local iShotAngle, iShotSpeed;
+
 
 /* Schuss */
 
