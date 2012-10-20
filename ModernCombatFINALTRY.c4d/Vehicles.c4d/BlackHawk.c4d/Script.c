@@ -1612,7 +1612,7 @@ protected func UpdateWarnings()
     if(!GetPilot() && EngineRunning())
       SoundPassenger("WarningNoPilot.ogg", true, iPlr);
     else
-    	SoundPassenger("WarningNoPilot.ogg", false, iPlr);
+      SoundPassenger("WarningNoPilot.ogg", false, iPlr);
   }
 }
 
