@@ -387,40 +387,42 @@ public func FxAggroFire(object pTarget, int no)
       SetDir(DIR_Left);
   }
 
-	var meleeattack;
-	var fNeedAim = Contents()->~AI_NeedAim(this, target);
-	if(!Contents()->GetFMData(FM_Aim) && !fNeedAim && (meleeattack = FindObject2(Find_Not(Find_Exclude(target)), Find_AtPoint())))
-	{
-		if(IsAiming())
-			StopAiming();
-	}
-  //Ziel anvisieren
-  else if((((!GetCommand() && !GetMacroCommand()) || level != 1) && ReadyToAim()) || IsAiming())
+  var meleeattack;
+  var fNeedAim = Contents()->~AI_NeedAim(this, target);
+  if(!Contents()->GetFMData(FM_Aim) && !fNeedAim && (meleeattack = FindObject2(Find_Not(Find_Exclude(target)), Find_AtPoint())))
   {
-    if(pathfree && Contents()->GetBotData(BOT_Range) > 30) // Weg frei und keine Nahkampfwaffe?
-    {
-      var angle1 = Angle(GetX(), GetY(), GetX(target), GetY(target)+GetDefHeight(GetID(target))/2)-GetSpread()/50;
-      var angle2 = Angle(GetX(), GetY(), GetX(target), GetY(target)-GetDefHeight(GetID(target))/2)+GetSpread()/50;
-      if(Contents()->GetBotData(BOT_Ballistic) || ((!Inside(90, angle1, angle2) && !Inside(270, angle1, angle2)) || Contents()->GetFMData(FM_Aim) > 0))
-      {
-        if(!IsAiming()) StartSquatAiming();
-        if(IsAiming() && !Contents()->~AI_NeedControl(this, target))
-        {
-          var tx = target->GetX();
-          var ty = target->GetY();
-
-          if(Contents()->GetBotData(BOT_Ballistic))
-            ty -= 25;
-
-          DoMouseAiming(tx, ty);
-        }
-      }
-      else if(IsAiming() && !fNeedAim)
-        StopAiming();
-    }
-    if(IsAiming() && !CheckAmmo(Contents()->GetFMData(FM_AmmoID), Contents()->GetFMData(FM_AmmoLoad), Contents(), this) && !fNeedAim)
+    if(IsAiming())
       StopAiming();
   }
+  //Ziel anvisieren
+  else
+    if((((!GetCommand() && !GetMacroCommand()) || level != 1) && ReadyToAim()) || IsAiming())
+    {
+      if(pathfree && Contents()->GetBotData(BOT_Range) > 30) // Weg frei und keine Nahkampfwaffe?
+      {
+        var angle1 = Angle(GetX(), GetY(), GetX(target), GetY(target)+GetDefHeight(GetID(target))/2)-GetSpread()/50;
+        var angle2 = Angle(GetX(), GetY(), GetX(target), GetY(target)-GetDefHeight(GetID(target))/2)+GetSpread()/50;
+        if(Contents()->GetBotData(BOT_Ballistic) || ((!Inside(90, angle1, angle2) && !Inside(270, angle1, angle2)) || Contents()->GetFMData(FM_Aim) > 0))
+        {
+          if(!IsAiming()) StartSquatAiming();
+          if(IsAiming() && !Contents()->~AI_NeedControl(this, target))
+          {
+            var tx = target->GetX();
+            var ty = target->GetY();
+
+            if(Contents()->GetBotData(BOT_Ballistic))
+              ty -= 25;
+
+            DoMouseAiming(tx, ty);
+          }
+        }
+        else
+          if(IsAiming() && !fNeedAim)
+            StopAiming();
+      }
+      if(IsAiming() && !CheckAmmo(Contents()->GetFMData(FM_AmmoID), Contents()->GetFMData(FM_AmmoLoad), Contents(), this) && !fNeedAim)
+        StopAiming();
+    }
 
   //Bereits am Feuern?
   if(Contents()->IsRecharging() || Contents()->IsShooting())
