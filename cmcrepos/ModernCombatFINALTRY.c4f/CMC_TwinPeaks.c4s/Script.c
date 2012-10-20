@@ -42,12 +42,18 @@ func CreateInterior()
   DrawMaterialQuad("Wall-Stripes",1171,1210,1171,1240,1201,1210,1171,1210,true);
   DrawMaterialQuad("Wall-Stripes",1241,730,1241,700,1271,730,1241,730,true);
   DrawMaterialQuad("Wall-Stripes",1289,1370,1289,1360,1259,1370,1289,1370,true);
-  DrawMaterialQuad("Wall-Stripes",4441,1370,4441,1360,4471,1370,4441,1370,true);
   DrawMaterialQuad("Wall-Concrete3",2021,840,2021,820,1981,840,2021,840,true);
+  DrawMaterialQuad("Wall-Concrete3",2531,1490,2531,1480,2551,1490,2531,1490,true);
+  DrawMaterialQuad("Wall-Concrete3",3201,1490,3201,1480,3181,1490,3201,1490,true);
   DrawMaterialQuad("Wall-Concrete3",3711,840,3711,820,3751,840,3711,840,true);
+  DrawMaterialQuad("Wall-Stripes",4441,1370,4441,1360,4471,1370,4441,1370,true);
   DrawMaterialQuad("Wall-Stripes",4490,730,4490,700,4460,730,4490,730,true);
   DrawMaterialQuad("Wall-Stripes",4570,1210,4570,1240,4540,1210,4570,1210,true);
   DrawMaterialQuad("Wall-Stripes",4541,730,4541,700,4571,730,4541,730,true);
+
+  //Sprungschanzen
+  CreateObject (JMPD, 2565, 1490, -1)->Set(200, -10);
+  CreateObject (JMPD, 3165, 1490, -1)->Set(200, 10);
 
   //Glasscheiben
   CreateObject(_WIN, 1802, 884, -1);
@@ -317,6 +323,10 @@ func CreateDecoration()
   CreateObject(RAI1, 1755, 990, -1)->SetRail([1,1]);
   CreateObject(RAI1, 1510, 780, -1)->SetRail([1,1,1,1,1,1,1,1,1,1,1,1,1]);
   CreateObject(RAI1, 2018, 820, -1)->SetRail([1,1,1,1,1,1,1]);
+  CreateObject(RAI1, 2509, 1480, -1);
+  CreateObject(RAI1, 2581, 1430, -1);
+  CreateObject(RAI1, 3125, 1430, -1);
+  CreateObject(RAI1, 3199, 1480, -1);
   CreateObject(RAI1, 3578, 820, -1)->SetRail([1,1,1,1,1,1,1]);
   CreateObject(RAI1, 3980, 780, -1)->SetRail([1,1,1,1,1,1,1,1,1,1,1,1,1]);
   CreateObject(RAI1, 3935, 990, -1)->SetRail([1,1]);
@@ -346,7 +356,8 @@ func CreateDecoration()
   CreateObject(OLGH, 1615, 660, -1)->Set(1, 12, 1, 1, 60);
   CreateObject(OLGH, 2005, 710, -1)->Set(1, 12, 1, 1, 60);
   CreateObject(OLGH, 2075, 820, -1)->Set(4, 15, 1, 1, 30);
-
+  CreateObject(OLGH, 2565, 1490, -1)->Set(1, 13, 1, 1, 50);
+  CreateObject(OLGH, 3165, 1490, -1)->Set(1, 13, 1, 1, 50);
   CreateObject(OLGH, 3650, 820, -1)->Set(4, 15, 1, 1, 30);
   CreateObject(OLGH, 3725, 710, -1)->Set(1, 12, 1, 1, 60);
   CreateObject(OLGH, 4115, 660, -1)->Set(1, 12, 1, 1, 60);
@@ -378,8 +389,8 @@ func CreateOptionalFeatures()
   CreateObject(BD03,2000,1450,-1);
   CreateObject(BD03,2700,580,-1);
   CreateObject(BD03,3000,1600,-1);
-  CreateObject(BD01,1400,1720,-1)->SetClrModulation(RGB(150,150,150));
   CreateObject(BD02,1750,1720,-1)->SetClrModulation(RGB(150,150,150));
+  CreateObject(BD01,1400,1720,-1)->SetClrModulation(RGB(150,150,150));
 }
 
 /* Bei Turmzusammenfall */
