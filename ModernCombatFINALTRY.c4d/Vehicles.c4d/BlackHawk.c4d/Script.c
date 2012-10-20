@@ -414,7 +414,7 @@ protected func Ejection(object ByObj)
 
   //Soundschleife ausschalten
   SoundPassenger("CockpitRadio.ogg", false, GetOwner(ByObj));
-  UpdateWarnings();
+  SoundPassenger("WarningNoPilot.ogg", false, GetOwner(ByObj));
 
   //Nicht bei Schaden
   if(GetDamage() >= MaxDamage()) return;
@@ -1606,17 +1606,13 @@ protected func TimerCall()
 //Warnsounds aktualisieren
 protected func UpdateWarnings()
 {
-  for(var i = 0; i < GetPlayerCount(); i++)
+  for(var clonks in FindObject2(Find_OCF(OCF_CrewMember), Find_Container(this)))
   {
-    var iPlr = GetPlayerByIndex(i);
-    if(!GetPilot() && EngineRunning() && FindObject2(Find_OCF(OCF_CrewMember), Find_Owner(iPlr), Find_Container(this)))
-    {
+    var iPlr = GetOwner(i);
+    if(!GetPilot() && EngineRunning())
       SoundPassenger("WarningNoPilot.ogg", true, iPlr);
-    }
     else
-    {
-      SoundPassenger("WarningNoPilot.ogg", false, iPlr);
-    }
+    	SoundPassenger("WarningNoPilot.ogg", false, iPlr);
   }
 }
 

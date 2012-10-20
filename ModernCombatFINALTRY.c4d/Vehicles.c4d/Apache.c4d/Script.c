@@ -436,8 +436,8 @@ protected func Ejection(object ByObj)
   DeleteActualSeatPassenger(ByObj);
 
   //Soundschleife übergeben
-  Sound("CockpitRadio.ogg", true, 0, 100, GetOwner(ByObj)+1, -1);
-  UpdateWarnings();
+  SoundPassenger("CockpitRadio.ogg", false, GetOwner(ByObj));
+  SoundPassenger("WarningNoPilot.ogg", false, GetOwner(ByObj));
 
   //Nicht bei Schaden
   if(GetDamage() >= MaxDamage()) return;
