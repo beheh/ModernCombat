@@ -391,7 +391,7 @@ public func EnterSeat(int iSeat, object pObj)
   //Alten Sitz räumen
   DeleteActualSeatPassenger(pObj);
 
-  Sound("RSHL_Deploy.ogg", true, this, 100, GetOwner(pObj) + 1);
+  Sound("StructureEnter*.ogg", true, this, 100, GetOwner(pObj) + 1);
 
   //Pilot
   if (iSeat == APCE_Seat_Pilot)
