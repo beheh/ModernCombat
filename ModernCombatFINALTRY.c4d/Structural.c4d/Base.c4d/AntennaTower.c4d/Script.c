@@ -167,14 +167,14 @@ protected func PrepareCollapse()
       continue;
 
     if(!array[2])
-   	{
-   		if(array[0])
-   			RemoveObject(array[0]);
-   		if(array[1])
-   			RemoveObject(array[1]);
-   		
-   		continue;
-   	}
+    {
+      if(array[0])
+        RemoveObject(array[0]);
+      if(array[1])
+        RemoveObject(array[1]);
+
+      continue;
+    }
 
     if(array[0])
     {
