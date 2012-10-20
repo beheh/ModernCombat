@@ -1316,7 +1316,7 @@ protected func ContactBottom()
   if (GetCon() != 100) return;
   if (GetYDir() > 25)
   {
-    DoDmg(Abs(GetYDir(0, 300) / 2), 0, this, 1,  GetController() + 1);
+    DoDmg(Abs(GetYDir(0, 400) / 2), 0, this, 1,  GetController() + 1);
     for (var i; i < GetVertexNum(); i++)
       if (GetContact(0, i))
         CreateParticle("Blast", GetVertex(i), GetVertex(i, true), 0, 0, RandomX(50,100), RGB(255,255,255));
