@@ -50,7 +50,7 @@ public func IsBulletTarget(id idBullet, object pBullet, object pShooter)
   if(EffectVar(0, pBullet, GetEffect("IntHeliProtection", pBullet)) == this)
     return false;
 
-  if((pBullet && (pBullet->~AllowHitboxCheck() || (idBullet == C4EX && !pBullet->IsAttached())))
+  if(pBullet && (pBullet->~AllowHitboxCheck() || (idBullet == C4EX && !pBullet->IsAttached())))
     if(!IsInHitbox(AbsX(GetX(pBullet)), AbsY(GetY(pBullet))))
       return false;
 
