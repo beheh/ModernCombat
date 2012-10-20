@@ -365,6 +365,7 @@ private func DeleteActualSeatPassenger(object Obj)
     if(hud)
       RemoveObject(hud);
     SetGraphics(0, this, EFMN,BKHK_PilotLayer, GFXOV_MODE_Object, 0, GFX_BLIT_Additive, this);
+    UpdateWarnings();
   }
   if(GetGunner() == Obj)
   {
@@ -407,6 +408,7 @@ public func EnterSeat(int iSeat, object pObj)
     
     hud = CreateObject(AHUD, 0, 0, GetOwner(pObj));
     hud->~SetHelicopter(this);
+    UpdateWarnings();
     return true;
   }
 
@@ -435,6 +437,7 @@ protected func Ejection(object ByObj)
 
   //Soundschleife übergeben
   Sound("CockpitRadio.ogg", true, 0, 100, GetOwner(ByObj)+1, -1);
+  UpdateWarnings();
 
   //Nicht bei Schaden
   if(GetDamage() >= MaxDamage()) return;
