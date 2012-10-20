@@ -3,7 +3,7 @@
 #strict
 #include CSTD
 
-static aFlag,aStationary,aSelfDefense,aTowerInterior, doorw, pRoom;
+static aFlag,aStationary,aSelfDefense,aTowerInterior, doorw1, doorw2, pRoom1, pRoom2;
 
 func RecommendedGoals()	{return [GOCC, GASS];}	//Spielzielempfehlung
 
@@ -256,9 +256,12 @@ func CreateInterior()
   tower->AddNode(2615, 940, 0, CreateObject(REHR, 2620, 950, -1), 0, 1);
 
   //Verbundene Räume
-  doorw = CreateObject(GAT1, 2115, 540, -1);
-  pRoom = CreateObject(ROOM, 2105, 1130, -1);
-  pRoom->Connect(doorw);
+  doorw1 = CreateObject(GAT1, 2115, 520, -1);
+  pRoom1 = CreateObject(ROOM, 2105, 1130, -1);
+  pRoom1->Connect(doorw1);
+  doorw2 = CreateObject(GAT1, 2115, 330, -1);
+  pRoom2 = CreateObject(ROOM, 2115, 563, -1);
+  pRoom2->Connect(doorw2);
 
   //Sounds
 
@@ -328,6 +331,12 @@ func CreateEquipment()
   //Versorgungskiste (Dragnin)
   crate = CreateObject (AMCT, 3500, 920, -1);
   crate->Set(DGNN);
+
+  //Geschützstellungen
+  aTowerInterior[0] = CreateObject(GNET, 2085, 563, -1);
+  aTowerInterior[0] -> Set(0,-90);
+  aTowerInterior[1] = CreateObject(GNET, 2145, 382, -1);
+  aTowerInterior[1] -> Set(0,90);
 
   //Artilleriebatterie
   CreateObject(ATBY,2580,950,-1);
@@ -495,14 +504,18 @@ func OnTowerCollapse()
   if(aTowerInterior[1]) aTowerInterior[1]->DecoExplode(30);
 
   //Türverbindung entfernen
-  doorw->CastSmoke("Smoke3",12,15,0,5,150,250,RGBa(255,255,255,100),RGBa(255,255,255,100));
-  RemoveObject(doorw, true);
-  pRoom->CastSmoke("Smoke3",12,15,0,5,150,250,RGBa(255,255,255,100),RGBa(255,255,255,100));
-  pRoom->Lock();
-  pRoom->SetAction("Idle");
+  doorw1->CastSmoke("Smoke3",12,15,0,5,150,250,RGBa(255,255,255,100),RGBa(255,255,255,100));
+  RemoveObject(doorw1, true);
+  pRoom1->CastSmoke("Smoke3",12,15,0,5,150,250,RGBa(255,255,255,100),RGBa(255,255,255,100));
+  pRoom1->Lock();
+  pRoom1->SetAction("Idle");
   var pContent;
-  while(pContent = Contents(0, pRoom))
-    pRoom->Exit(pContent);
+  while(pContent = Contents(0, pRoom1))
+    pRoom1->Exit(pContent);
+  doorw2->CastSmoke("Smoke3",12,15,0,5,150,250,RGBa(255,255,255,100),RGBa(255,255,255,100));
+  RemoveObject(doorw2, true);
+  pRoom2->CastSmoke("Smoke3",12,15,0,5,150,250,RGBa(255,255,255,100),RGBa(255,255,255,100));
+  RemoveObject(pRoom2, true);
 }
 
 /* Bei Flaggenübernahme */
@@ -628,10 +641,6 @@ public func ChooserFinished()
    CreateObject(GNET, 2280, 970, -1)->Set(0,90,1);
    CreateObject(GNET, 3270, 630, -1)->Set(0,-90,1);
    CreateObject(GNET, 3370, 1012, -1)->Set(0,-90,1);
-   aTowerInterior[0] = CreateObject(GNET, 2085, 563, -1);
-   aTowerInterior[0] -> Set(0,-90);
-   aTowerInterior[1] = CreateObject(GNET, 2145, 382, -1);
-   aTowerInterior[1] -> Set(0,90);
 
    //MAV-Station
    CreateObject(MVSN, 3600, 710, -1)->Set(3515,600,1);
@@ -737,10 +746,6 @@ public func ChooserFinished()
    aStationary[1] -> Set(0,-90,1);
    aStationary[2] = CreateObject(GNET, 3320, 1040, -1);
    aStationary[2] -> Set(0,-90,1);
-   aTowerInterior[0] = CreateObject(GNET, 2085, 563, -1);
-   aTowerInterior[0] -> Set(0,-90);
-   aTowerInterior[1] = CreateObject(GNET, 2145, 382, -1);
-   aTowerInterior[1] -> Set(0,90);
 
    //MAV-Station
    CreateObject(MVSN, 3690, 1180, -1)->Set(3515,600,1);
