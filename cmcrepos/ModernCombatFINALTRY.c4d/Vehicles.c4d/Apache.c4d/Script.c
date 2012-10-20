@@ -91,7 +91,7 @@ protected func Collection2(object pObj)
     if(!Hostile(GetOwner(this),GetOwner(pObj)) || (GetOwner() == -1) || !GetPassengerCount())
     {
       //Soundschleife übergeben
-      Sound("CockpitRadio.ogg", true, 0, 100, GetOwner(pObj)+1, +1);
+      SoundPassenger("CockpitRadio.ogg", true, GetOwner(pObj));
 
       //Freien Sitz belegen
       if(!GetPilot())

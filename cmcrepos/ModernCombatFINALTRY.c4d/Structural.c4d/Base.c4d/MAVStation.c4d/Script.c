@@ -387,7 +387,16 @@ public func ControlDigSingle(object pByObj)
     return true;
   }
 
-  //MAV deaktivieren
+  //MAV (de-)aktivieren
+  if(pMAV->GetAction() != "Flying")
+  {
+    pMAV->Start();
+    Sound("BKHK_Switch.ogg", true, this, 100, GetOwner(pByObj) + 1);
+    Sound("CockpitRadio.ogg", true, 0, 100, GetOwner(pByObj)+1, +1);
+    SetAction("Controlling");
+    return true;
+  }
+  
   pMAV->Wait();
 
   //Sicht zurücksetzen und Station auf Bereitschaft umstellen
