@@ -1606,7 +1606,7 @@ protected func TimerCall()
 //Warnsounds aktualisieren
 protected func UpdateWarnings()
 {
-  for(var clonks in FindObjects(Find_OCF(OCF_CrewMember), Find_Container(this)))
+  for(var i in FindObjects(Find_OCF(OCF_CrewMember), Find_Container(this)))
   {
     var iPlr = GetOwner(i);
     if(!GetPilot() && EngineRunning())
