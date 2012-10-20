@@ -369,7 +369,8 @@ func CreateDecoration()
   CreateObject(SLGH, 1405, 780, -1);
   CreateObject(SLGH, 1510, 780, -1);
   CreateObject(SLGH, 1880, 840, -1);
-
+  CreateObject(SLGH, 2580, 1430, -1);
+  CreateObject(SLGH, 3150, 1430, -1);
   CreateObject(SLGH, 3850, 840, -1);
   CreateObject(SLGH, 4220, 780, -1);
   CreateObject(SLGH, 4325, 780, -1);
