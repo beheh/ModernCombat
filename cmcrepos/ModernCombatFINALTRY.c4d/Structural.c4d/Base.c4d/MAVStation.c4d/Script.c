@@ -396,7 +396,7 @@ public func ControlDigSingle(object pByObj)
     SetAction("Controlling");
     return true;
   }
-  
+
   pMAV->Wait();
 
   //Sicht zurücksetzen und Station auf Bereitschaft umstellen
