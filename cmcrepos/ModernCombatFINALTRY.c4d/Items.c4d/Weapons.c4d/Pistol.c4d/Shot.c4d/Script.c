@@ -5,9 +5,10 @@
 local iTime, lx, ly, pTrail, iDamage,speed,max_dst,dst,fb;
 local shooter,wpnid; // Dingens/Clonk das den Schuss abgefeuert hat.
 
-func NoWarp()	{return true;}
-func IsBullet()	{return true;}
-public func AllowHitboxCheck() {return !Fast();}
+func NoWarp()			{return true;}
+func IsBullet()			{return true;}
+public func AllowHitboxCheck()	{return !Fast();}
+
 
 /* Initialisierung */
 
