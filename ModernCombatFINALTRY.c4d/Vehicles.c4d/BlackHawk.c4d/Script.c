@@ -421,7 +421,9 @@ protected func Ejection(object ByObj)
   
   AddEffect("HeliEnterCooldown", ByObj, 1, 40);
 
-  if(!PathFree(GetX(),GetY(),GetX(),GetY()+100))
+  var x = GetX(ByObj), y = GetY(ByObj), xdir = GetXDir(ByObj, 100), ydir = GetYDir(ByObj, 100);
+  SimFlight(x, y, xdir, ydir, 0, 0, 0, 100);
+  if(Distance(xdir, ydir) < 700)
     return;
 
   if(!GetEffect("CheckGround",ByObj))
