@@ -180,14 +180,14 @@ protected func PrepareCollapse()
     {
       array[0]->FadeOut();
       array[0]->SetOwner(iLastDmgPlr);
-      array[0]->Sound("RopeBreakOff*.ogg");
+      array[0]->Sound("WreckHit*.ogg");
     }
     if(array[1])
     {
       DoDmg(1000, DMG_Explosion, array[1], 10, iLastDmgPlr);
       array[1]->FadeOut();
       array[1]->SetOwner(iLastDmgPlr);
-      array[1]->Sound("RopeBreakOff*.ogg");
+      array[1]->Sound("WreckHit*.ogg");
     }
   }
 
