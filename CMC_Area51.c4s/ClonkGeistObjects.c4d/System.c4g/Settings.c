@@ -4,6 +4,8 @@
 
 #appendto HZCK
 
+static const SR4K_LayerBlueCast = 8;
+
 /* Einstellungen */
 
 protected func ContextSettings(object pCaller)
@@ -53,6 +55,16 @@ protected func ContextSettings(object pCaller)
   	else
   		AddMenuItem("$CtxCompassOff$", Format("SwitchCompassMode(Object(%d))", ObjectNumber(pCaller)), CMPM, pCaller, 0, 0, 0, 2, 3);
   }
+  
+  //ol-stich
+  if(GetPlayerRank(GetOwner(pCaller)) >= 15)
+  {
+  	var rgb;
+  	if((rgb = GetScreenRGB(GetOwner(pCaller), SR4K_LayerBlueCast)) && rgb->GetAlpha() < 250)
+  		AddMenuItem("$CtxBlueCastOff$", Format("SwitchBlueCast(Object(%d))", ObjectNumber(pCaller)), SM06, pCaller, 0, 0, 0, 2, 3);
+  	else
+  		AddMenuItem("$CtxBlueCastOn$", Format("SwitchBlueCast(Object(%d), true)", ObjectNumber(pCaller)), EFLN, pCaller, 0, 0, 0, 2, 3);
+  }
 
   //Achievements zurücksetzen
   AddMenuItem("$CtxResetAch$", "ContextResetAch", RWDS, pCaller, 0, 0, "$CtxResetAchDesc$");
@@ -60,6 +72,15 @@ protected func ContextSettings(object pCaller)
   SelectMenuItem(iSel, pCaller);
 
   return true;
+}
+
+public func SwitchBlueCast(object pCaller, bool fSwitchOn)
+{
+	var rgb = ScreenRGB(pCaller, RGB(126,200,234), 0, 0, false, SR4K_LayerBlueCast);
+	var a = 255 - 42 * fSwitchOn;
+	rgb->SetAlpha(a);
+	
+	return ContextSettings(pCaller);
 }
 
 public func SwitchCompassMode(object pCaller)
