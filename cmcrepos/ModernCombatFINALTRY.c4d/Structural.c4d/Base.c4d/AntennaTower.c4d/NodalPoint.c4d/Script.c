@@ -64,7 +64,7 @@ public func Damage()
     SetYDir(-Cos(angle, 100)/2);
 
     //Sounds
-    Sound("RopeBreakOff*.ogg");
+    Sound("WreckHit*.ogg");
     Sound("RopeHit.ogg");
   }
 
