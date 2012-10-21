@@ -969,6 +969,22 @@ public func ChooserFinished()
    SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2195,609,-1),50*21);
    SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,4640,649,-1),50*21);
    SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,6945,609,-1),50*21);
+
+   //Zusätzliche Munition
+   if(!FindObject(NOAM))
+   {
+    //Versorgungskisten (Kugeln)
+    var crate = CreateObject(AMCT, 3715, 570, -1);
+    crate->Set(ABOX);
+    crate = CreateObject(AMCT, 4320, 570, -1);
+    crate->Set(ABOX);
+    crate = CreateObject(AMCT, 6240, 720, -1);
+    crate->Set(ABOX);
+
+    //Gewehrgranaten
+    PlaceSpawnpoint(GBOX, 2840, 688);
+    PlaceSpawnpoint(GBOX, 7595, 475);
+   }
   }
 
   //CTF-Spielziel
