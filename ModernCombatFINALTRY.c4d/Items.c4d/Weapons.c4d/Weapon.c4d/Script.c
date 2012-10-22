@@ -687,7 +687,7 @@ public func ControlThrow(caller)
         if(target && (Hostile(GetOwner(GetUser()), GetOwner(target)) || GetOwner(target) == NO_OWNER)) //Hier bewusst kein CheckEnemy, da wir auf FF-Checks verzichten
         {
           //Ziel am kriechen?
-          if(WildcardMatch(GetAction(target),"*Crawl*"))
+          if(target->~IsCrawling())
           {
             //Erhöhten Schaden verursachen
             DoDmg(GetMCData(MC_Damage)*3/2,DMG_Melee,target,0,GetController(GetUser())+1,GetID());
