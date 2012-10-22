@@ -4,6 +4,7 @@
 
 local pShield, pUser, iHits;
 local iPrevDir, fAiming, iAimingAngle;
+local fTumbling;
 
 public func IsDrawable()	{return true;}
 public func HandY()		{return -1200;}
@@ -41,23 +42,29 @@ public func CheckChange()
   if(GetUser())
   {
     //Anti-Umfall-Zwischenspeicher-Hack
-    if(GetAction(GetUser()) == "Tumble" && this == Contents(0, GetUser()))
+    if(!fTumbling)
     {
-      ObjectSetAction(GetUser(), "Walk");
-      SetDir(iPrevDir, GetUser());
-      if(fAiming)
+      if(GetAction(GetUser()) == "Tumble" && this == Contents(0, GetUser()))
       {
-        GetUser()->~StartSquatAiming();
-        GetUser()->~SetAiming(iAimingAngle);
+        ObjectSetAction(GetUser(), "Walk");
+        SetDir(iPrevDir, GetUser());
+        if(fAiming)
+        {
+          GetUser()->~StartSquatAiming();
+          GetUser()->~SetAiming(iAimingAngle);
+        }
       }
+      iPrevDir = GetDir(GetUser());
+      fAiming = false;
+      if(GetUser()->~IsAiming())
+        fAiming = true;
+      iAimingAngle = Abs(GetUser()->~AimAngle());
+      if(Contents(0,pUser) != this)
+        RemoveShield();
     }
-    iPrevDir = GetDir(GetUser());
-    fAiming = false;
-    if(GetUser()->~IsAiming())
-      fAiming = true;
-    iAimingAngle = Abs(GetUser()->~AimAngle());
-    if(Contents(0,pUser) != this)
-      RemoveShield();
+    else if(GetAction(GetUser()) != "Tumble") {
+        fTumbling = false;
+    }
   }
   else
   {
@@ -196,6 +203,9 @@ public func Selection()
 {
   //Schild erstellen
   CreateShield();
+
+  if(GetAction(GetUser()) == "Tumble")
+    fTumbling = true;
 }
 
 public func Deselection()
