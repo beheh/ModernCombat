@@ -50,7 +50,7 @@ func CreateInterior()
   CreateObject(LADR, 2120, 528, -1)->Set(35);
 
   //Sprungschanzen
-  CreateObject (JMPD, 365, 330, -1)->Set(105, 20);
+  CreateObject (JMPD, 365, 330, -1)->Set(100, 20);
   CreateObject (JMPD, 1375, 300, -1)->Set(85, 10);
 
   //Stahlbrücken
