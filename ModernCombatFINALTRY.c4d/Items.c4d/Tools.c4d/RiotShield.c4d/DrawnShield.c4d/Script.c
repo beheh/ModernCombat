@@ -84,7 +84,7 @@ public func ExecShove()
     if(victim->~IsCrawling())
     {
       //Erhöhter Schaden
-		  iDmg = iDmg * 3 / 2;
+      iDmg = iDmg * 3 / 2;
       //Ziel zum Aufstehen zwingen
       ObjectSetAction(victim, "KneelUp");
     }
