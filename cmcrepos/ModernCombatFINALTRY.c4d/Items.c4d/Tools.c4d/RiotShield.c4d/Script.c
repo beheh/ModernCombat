@@ -62,13 +62,15 @@ public func CheckChange()
       if(Contents(0,pUser) != this)
         RemoveShield();
     }
-    else if(GetAction(GetUser()) != "Tumble") {
+    else
+      if(GetAction(GetUser()) != "Tumble")
+      {
         fTumbling = false;
-    }
+      }
   }
   else
   {
-    RemoveShield();  
+    RemoveShield();
   }
   return 1;
 }
