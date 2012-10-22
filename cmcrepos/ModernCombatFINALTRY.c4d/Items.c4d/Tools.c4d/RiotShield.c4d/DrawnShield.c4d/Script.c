@@ -56,7 +56,7 @@ public func ExecShove()
   }
 
   //Objekt finden
-  var victim = FindObject2(Find_Or(Find_AtPoint(px,py),Find_AtPoint(px/2,py/2)),
+  var victims = FindObjects(Find_OnLine(px, py + GetDefHeight()/2, px/2, 0 - GetDefHeight()/2),
                  Find_And(Find_Exclude(this()), Find_Exclude(target)),
                  Find_NoContainer(),
                  Find_Or
@@ -77,21 +77,31 @@ public func ExecShove()
                  Sort_Distance(dx-GetX(target),dy-GetY(target)));
 
   //Und verschleudern
-  if(victim)
+  for(var victim in victims)
   {
-    if(!victim->~MeleeHit(this))
-      Fling(victim, (GetDir(target)*2-1)*2, -1);
-    //Schaden durch Schlag wenn das Ziel ein Lebewesen ist
+    //Normaler Schaden
+    var iDmg = 15;
+    if(victim->~IsCrawling())
+    {
+      //Erhöhter Schaden
+		  iDmg = iDmg * 3 / 2;
+      //Ziel zum Aufstehen zwingen
+      ObjectSetAction(victim, "KneelUp");
+    }
+    else
+      if(!victim->~MeleeHit(this))
+        Fling(victim, (GetDir(target)*2-1)*2, -1);
+    //Schaden verursachen wenn das Ziel ein Lebewesen ist
     if(GetOCF(victim) & OCF_Living)
     {
-      DoDmg(15,DMG_Melee,victim,0,GetController()+1,RSHL);
+      DoDmg(iDmg,DMG_Melee,victim,0,GetController()+1,RSHL);
       //Achievement-Fortschritt (Fist of Fury)
       if(GetOCF(victim) & OCF_CrewMember)
         DoAchievementProgress(1, AC36, GetController());
     }
     Sound("RSHL_Shove.ogg", 0, victim);
   }
-  else
+  if(!victims)
   {
     //Luft schlagen
     Sound("GrenadeThrow*.ogg");
