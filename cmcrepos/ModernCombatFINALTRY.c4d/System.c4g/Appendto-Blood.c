@@ -11,6 +11,10 @@
 
 public func OnHit(int iDmg, int iType, object pFrom)
 {
+  //negativer Schaden tut nicht weh
+  if(iDmg <= 0)
+    return;
+
   //Zu hohe Schadenswerte begrenzen
   if(iDmg > 200)
     iDmg = 200;
