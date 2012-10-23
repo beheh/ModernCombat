@@ -225,12 +225,6 @@ protected func FxFAPHealStop(object pTarget, int iEffect, int iReason, bool fTem
 
 /* Sonstiges */
 
-protected func RejectShift()
-{
-  //Wegwurf bei Nutzung verhindern
-  return GetEffect("FAPHeal", this);
-}
-
 protected func Hit()
 {
   Sound("FAPK_Hit*.ogg", false, this);
