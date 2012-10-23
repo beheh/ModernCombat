@@ -484,6 +484,10 @@ public func OnHit(int iDmg, int iType, object pBy)
 {
   _inherited();
 
+  //Negativschaden (also Reparatur) erzeugt keinen Rückstoß
+  if(iDmg < 0)
+    return true;
+
   iXDir-= Sin(Angle(GetX(), GetY(), GetX(pBy), GetY(pBy)), BoundBy(iDmg*3/2, 10, 40));
   iYDir+= Cos(Angle(GetX(), GetY(), GetX(pBy), GetY(pBy)), BoundBy(iDmg*3/2, 10, 40));
   return true;
