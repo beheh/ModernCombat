@@ -71,6 +71,9 @@ public func LaunchRocket(id rid, int angle)
 
   //Rakete abfeuern
   var rocket = CreateObject(rid,x,y+10,GetController(user));
+  if(!rocket)
+  	return;
+
   AddEffect("IntHeliProtection", rocket, 1, 20, 0, BKHK, LocalN("heli", Contained()));
   rocket->Launch(angle, user);
   rocket->Sound("ACRL_Fire*.ogg");
