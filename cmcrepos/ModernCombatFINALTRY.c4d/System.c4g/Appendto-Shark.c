@@ -62,6 +62,8 @@ private func Attack()
 
   //Schaden
   DoDmg(10+Random(20),DMG_Melee,pPrey,0,0,GetID());
+  if(GetID(pPrey) == MDIC && !Random(6) && (!GetAlive(pPrey) || pPrey->~IsFakeDeath()))
+  	SetGraphics(0, this, SKSN);
   SetAction("Jaw");
   Sound("Munch*");
   AddEffect("IntAttackDelay", this, 1, 35);
