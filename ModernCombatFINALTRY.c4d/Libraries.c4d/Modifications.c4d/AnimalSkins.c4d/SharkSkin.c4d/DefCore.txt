@@ -1,7 +1,7 @@
 [DefCore]
 id=SKSN
 Version=4,9,8
-Name=Shark skin
+Name=Shark Skin
 Category=C4D_Vehicle|C4D_SelectVehicle
 Width=56
 Height=22
