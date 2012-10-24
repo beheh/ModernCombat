@@ -484,7 +484,7 @@ public func OnHit(int iDmg, int iType, object pBy)
 {
   _inherited();
 
-  //Negativschaden (also Reparatur) erzeugt keinen Rückstoß
+  //Negativer Schaden erzeugt keinen Rückstoß
   if(iDmg < 0)
     return true;
 
