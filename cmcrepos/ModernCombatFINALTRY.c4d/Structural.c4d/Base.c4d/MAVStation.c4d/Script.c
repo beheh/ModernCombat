@@ -75,7 +75,7 @@ public func Set(int iX, int iY, bool fGlobal)
 public func OnDestruction()
 {
   //MAV deaktivieren
-  if(pMAV)
+  if(pMAV && !pMAV->IsDestroyed())
     pMAV->Wait();
 
   //Aktion und Grafik setzen
@@ -292,84 +292,84 @@ private func ExitClonk(object pByObj)
 
 public func ControlLeft(object pByObj)
 {
-  if(pMAV)
+  if(pMAV && !pMAV->IsDestroyed())
     pMAV->ControlLeft(pByObj);
   return true;
 }
 
 public func ControlLeftDouble(object pByObj)
 {
-  if(pMAV)
+  if(pMAV && !pMAV->IsDestroyed())
     pMAV->ControlLeftDouble(pByObj);
   return true;
 }
 
 public func ControlLeftReleased(object pByObj)
 {
-  if(pMAV)
+  if(pMAV && !pMAV->IsDestroyed())
     pMAV->ControlLeftReleased(pByObj);
   return true;
 }
 
 public func ControlRight(object pByObj)
 {
-  if(pMAV)
+  if(pMAV && !pMAV->IsDestroyed())
     pMAV->ControlRight(pByObj);
   return true;
 }
 
 public func ControlRightDouble(object pByObj)
 {
-  if(pMAV)
+  if(pMAV && !pMAV->IsDestroyed())
     pMAV->ControlRightDouble(pByObj);
   return true;
 }
 
 public func ControlRightReleased(object pByObj)
 {
-  if(pMAV)
+  if(pMAV && !pMAV->IsDestroyed())
     pMAV->ControlRightReleased(pByObj);
   return true;
 }
 
 public func ControlDown(object pByObj)
 {
-  if(pMAV)
+  if(pMAV && !pMAV->IsDestroyed())
     pMAV->ControlDown(pByObj);
   return true;
 }
 
 public func ControlDownReleased(object pByObj)
 {
-  if(pMAV)
+  if(pMAV && !pMAV->IsDestroyed())
     pMAV->ControlDownReleased(pByObj);
   return true;
 }
 
 public func ControlDownDouble(object pByObj)
 {
-  if(pMAV)
+  if(pMAV && !pMAV->IsDestroyed())
     pMAV->ControlDownDouble(pByObj);
   return true;
 }
 
 protected func ControlUp(object pByObj)
 {
-  if(pMAV)
+  if(pMAV && !pMAV->IsDestroyed())
     pMAV->ControlUp(pByObj);
   return true;
 }
 
 public func ControlUpReleased(object pByObj)
 {
-  if(pMAV)
+  if(pMAV && !pMAV->IsDestroyed())
     pMAV->ControlUpReleased(pByObj);
   return true;
 }
 
 protected func ControlUpDouble(object pByObj)
 {
-  if(pMAV)
+  if(pMAV && !pMAV->IsDestroyed())
     pMAV->ControlUpDouble(pByObj);
   return true;
 }
