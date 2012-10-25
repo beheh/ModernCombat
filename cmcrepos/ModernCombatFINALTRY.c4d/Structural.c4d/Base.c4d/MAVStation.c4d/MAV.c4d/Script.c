@@ -522,10 +522,8 @@ public func OnDestruction()
 
   //Deaktivieren
   Wait();
-  SetAction("Destroyed");
-
-  //Verschwinden
-  FadeOut();
+  ChangeDef(BDMV);
+  this->~Initialize();
 }
 
 public func FxC4TimerStop (object pTarget, int iEffectNumber, int iReason, bool fTemp)
