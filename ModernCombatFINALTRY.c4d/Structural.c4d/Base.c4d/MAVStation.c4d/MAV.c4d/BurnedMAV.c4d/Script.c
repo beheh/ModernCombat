@@ -1,4 +1,4 @@
-/*--- Burned MAV ---*/
+/*--- Verbranntes MAV ---*/
 
 #strict 2
 #include CVHC
@@ -26,14 +26,19 @@ public func IsDestroyed()				{return true;}
 public func IsMachine()					{return true;}
 public func IsMAV()					{return true;}
 
-protected func Hit2()
-{
-  //Effekte
-  Sound("HeavyHit*.ogg");
-}
+
+/* Initialisierung */
 
 protected func Initialize()
 {
   SetAction("Destroyed");
   FadeOut();
+}
+
+/* Aufschlag */
+
+protected func Hit2()
+{
+  //Effekt
+  Sound("HeavyHit*.ogg");
 }
