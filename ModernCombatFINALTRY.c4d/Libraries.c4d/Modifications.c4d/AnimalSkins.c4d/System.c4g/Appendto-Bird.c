@@ -12,7 +12,7 @@
 public func Initialize()
 {
   if(!Random(20))
-    SetGraphics(0, this, BDSN);
+    SetGraphics(0, this, BRSN);
 
   return inherited();
 }
