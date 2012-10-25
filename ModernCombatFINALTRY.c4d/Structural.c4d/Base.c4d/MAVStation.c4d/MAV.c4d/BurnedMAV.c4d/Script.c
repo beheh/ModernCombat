@@ -31,7 +31,6 @@ public func IsMAV()					{return true;}
 
 protected func Initialize()
 {
-  SetAction("Destroyed");
   FadeOut();
 }
 
