@@ -1,2 +1,2 @@
-DE:Zerstörtes MAV
+DE:Verbranntes MAV
 US:Burned MAV
