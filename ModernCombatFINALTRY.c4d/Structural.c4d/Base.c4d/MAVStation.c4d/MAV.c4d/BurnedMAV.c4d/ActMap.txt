@@ -1,0 +1,4 @@
+[Action]
+Name=Destroyed
+Facet=0,15,15,15
+NextAction=Hold
