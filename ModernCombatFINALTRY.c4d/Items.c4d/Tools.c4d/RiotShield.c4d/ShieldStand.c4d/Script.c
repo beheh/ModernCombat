@@ -135,13 +135,13 @@ private func Collapse()
 
 public func ControlDigDouble(pClonk)
 {
-  var pTempShield = CreateContents(RSHL);
+  var pTempShield = CreateObject(RSHL);
 
   Collect(pTempShield,pClonk);
 
   Sound("RSHL_Hide.ogg");
 
-  return RemoveObject(this,true);
+  return RemoveObject(this);
 }
 
 public func ControlLeft(pByObj)
@@ -232,4 +232,10 @@ protected func Hit()
 {
   Sound("WPN2_Hit*.ogg",0,0,50);
   return 1;
+}
+
+protected func Transform()
+{
+	CreateObject(RSHL);
+  return RemoveObject(this);
 }
