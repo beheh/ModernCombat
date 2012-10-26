@@ -2,7 +2,7 @@
 
 #strict 2
 
-local szFunction;
+local szFunction, iClass;
 
 
 /* Initalisierung */
@@ -13,13 +13,15 @@ public func Initialize()
   szFunction = "";
 }
 
-global func CreateGOCCSpawner(object pCrew)
+global func CreateGOCCSpawner(object pCrew, int iChoosedClass)
 {
   if(!pCrew) pCrew = this;
   if(!pCrew) return false;
   
   var spawner = CreateObject(OSPW);
   Enter(spawner, pCrew);
+  
+  LocalN("iClass", spawner) = iChoosedClass;
   
   return spawner;
 }
@@ -264,6 +266,10 @@ public func SelectFlagpole(object pObject)
   if(szFunc) szFunction = szFunc;
 
   SpawnOk();
+  
+  if(FindObject(MCSL))
+  	FindObject(MCSL)->SpawnEventInfo(Format("$SpawnAt$", GetName(pObject)), GetOwner(crew), iClass, FindObject(GOCC));
+
   CloseMenu(crew);
 }
 

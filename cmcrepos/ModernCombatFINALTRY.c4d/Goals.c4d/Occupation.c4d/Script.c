@@ -16,6 +16,7 @@ private func StartTickets()		{return 15;}		//Standardticketzahl
 public func IsConfigurable()		{return true;}
 public func GoalExtraValue()		{return iStartTickets;}	//Spielzielinformationen an Scoreboard weitergeben
 public func CustomSpawnSystem()		{return true;}
+public func RejectChoosedClassInfo() {return true;}
 
 
 /* Initialisierung */
@@ -711,12 +712,12 @@ private func RemovePlayer(int iPlr)
 }
 
 
-public func OnClassSelection(object pClonk)
+public func OnClassSelection(object pClonk, int iClass)
 {
   if(FindObject(CHOS))
     return;
 
-  CreateGOCCSpawner(pClonk);
+  CreateGOCCSpawner(pClonk, iClass);
 }
 
 /* Ungenutzte Funktionen */
