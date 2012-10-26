@@ -5,6 +5,11 @@
 global func NoHelicopters()	{return FindObject(NOHC);}
 public func IsChooseable()	{return true;}
 
+protected func Activate(iByPlayer)
+{
+  MessageWindow(GetDesc(), iByPlayer);
+  return 1;
+}
 
 public func ChooserFinished()
 {
