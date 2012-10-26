@@ -7,6 +7,7 @@ Length=4
 EndCall=ConComplete
 Directions=2
 FlipDir=1
+InLiquidAction=LiquidTransformation
 
 [Action]
 Name=Standing
@@ -14,3 +15,12 @@ Procedure=NONE
 Facet=0,0,24,17
 Directions=2
 FlipDir=1
+InLiquidAction=LiquidTransformation
+
+[Action]
+Name=LiquidTransformation
+Procedure=NONE
+Facet=0,0,24,17
+Directions=2
+FlipDir=1
+StartCall=Transform
