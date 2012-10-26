@@ -3,6 +3,7 @@
 #strict 2
 #include CASS
 
+public func RejectChoosedClassInfo() {return true;}
 
 /* Initialisierung */
 
@@ -201,12 +202,12 @@ public func IsFulfilled()
 
 /* Relaunch */
 
-public func OnClassSelection(object pCrew)
+public func OnClassSelection(object pCrew, int iClass)
 {
-  RelaunchPlayer(GetOwner(pCrew), 0, -2);
+  RelaunchPlayer(GetOwner(pCrew), 0, -2, iClass);
 }
 
-public func RelaunchPlayer(int iPlr, pClonk, int iKiller)
+public func RelaunchPlayer(int iPlr, pClonk, int iKiller, int iClass)
 {
   if(iKiller != -2)
   {
@@ -229,10 +230,10 @@ public func RelaunchPlayer(int iPlr, pClonk, int iKiller)
   var tim = CreateObject(TIM2, LandscapeWidth()/2, LandscapeHeight()/2, -1);
   Enter(tim, pCrew);
   ClearScheduleCall(tim, "SpawnOk");
-  OpenRelaunchMenu(pCrew);
+  OpenRelaunchMenu(pCrew, 0, iClass);
 }
 
-public func OpenRelaunchMenu(object pCrew, int iSelection)
+public func OpenRelaunchMenu(object pCrew, int iSelection, int iClass)
 {
   SetPlrViewRange(200, pCrew);
   //Zwischendurch alle Ziele vernichtet? Stirb!
@@ -248,7 +249,7 @@ public func OpenRelaunchMenu(object pCrew, int iSelection)
     var dmg = EffectVar(0, obj, GetEffect("IntAssaultTarget", obj));
     var id = GetID(obj);
     if(id == AHBS) id = obj->GetImitationID();
-    AddMenuItem(GetName(obj), Format("DoRelaunch(Object(%d), Object(%d))", ObjectNumber(pCrew), ObjectNumber(obj)), id, pCrew, 100*(dmg-GetDamage(obj))/dmg, 0, GetName(obj));
+    AddMenuItem(GetName(obj), Format("DoRelaunch(Object(%d), Object(%d), %d)", ObjectNumber(pCrew), ObjectNumber(obj), iClass), id, pCrew, 100*(dmg-GetDamage(obj))/dmg, 0, GetName(obj));
   }
   SelectMenuItem(iSelection, pCrew);
 }
@@ -260,7 +261,7 @@ public func OnMenuSelection(int iSelection, object pCrew)
   var obj = array[iSelection];
   //Ziel zerstört? Menü neu öffnen
   if(!obj)
-    return OpenRelaunchMenu(pCrew);
+    return OpenRelaunchMenu(pCrew, 0, FindObject(MCSL) && LocalN("lastclass", FindObject(MCSL))[GetOwner(pCrew)]);
   //Guckloch für das Ziel
   SetPosition(GetX(obj), GetY(obj), Contained(pCrew));
 }
@@ -270,11 +271,11 @@ public func MenuQueryCancel(int iSelection, object pCrew)
   return GetMenu(pCrew) == GBAS;
 }
 
-public func DoRelaunch(object pCrew, object pTarget)
+public func DoRelaunch(object pCrew, object pTarget, int iClass)
 {
   //Ziel weg? Neu öffnen
   if(!pTarget)
-    return OpenRelaunchMenu(pCrew);
+    return OpenRelaunchMenu(pCrew, iClass);
 
   var container = Contained(pCrew);
   var id = GetID(pTarget);
@@ -304,9 +305,14 @@ public func DoRelaunch(object pCrew, object pTarget)
     y = array[i][1]-10;
     */
   }
+  
+  if(FindObject(MCSL))
+  	FindObject(MCSL)->SpawnEventInfo(Format("$SpawnAt$", GetName(pTarget)), GetOwner(pCrew), iClass, this);
 
   SetPosition(x, y, Contained(pCrew));
   container->Spawn();
+  
+  
   SetPlrViewRange(500, pCrew);
 }
 
