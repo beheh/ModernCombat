@@ -1371,7 +1371,7 @@ protected func RejectCollect(id ID, object ByObj)
   if (GetRotorSpeed() > 0)
   {
     var dir = (!GetDir())*2-1;
-    DoDmg(GetMass(ByObj)*6, DMG_Melee, this, 0, GetController(ByObj)+1, GetID(ByObj));
+    DoDmg(GetMass(ByObj)*4, DMG_Melee, this, 0, GetController(ByObj)+1, GetID(ByObj));
     ProtectedCall(ByObj, "Hit");
     SetXDir((Random(30) + 30) * dir, ByObj);
     SetYDir(RandomX(-25, -15), ByObj);
