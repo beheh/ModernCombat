@@ -1985,7 +1985,7 @@ local crosshair;
 
 global func StopFakeDeath(object pTarget)
 {
-  if(inherited(pTarget))
+  if(_inherited(pTarget))
   {
     if(pTarget->~CanCrawl() && !pTarget->~CanStandUp() && !GBackLiquid(GetX(pTarget), GetY(pTarget)))
     {
