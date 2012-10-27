@@ -3,7 +3,8 @@
 #strict 2
 #include CASS
 
-public func RejectChoosedClassInfo() {return true;}
+public func RejectChoosedClassInfo()	{return true;}
+
 
 /* Initialisierung */
 
@@ -36,8 +37,8 @@ public func ReportAssaultTargetDestruction(object pTarget, int iTeam)
   //Alle Ziele des Teams wurden zerstört! Warnung ausgeben
   if(!ObjectCount2(Find_InArray(aTargets[iTeam])))
     for(var i = 0; i < GetPlayerCount(); i++)
-	  if(GetPlayerTeam(GetPlayerByIndex(i)) == iTeam)
-	    EventInfo4K(GetPlayerByIndex(i)+1, "$NoTargets$", GBAS, 0, 0, 0, "Alarm.ogg");
+      if(GetPlayerTeam(GetPlayerByIndex(i)) == iTeam)
+        EventInfo4K(GetPlayerByIndex(i)+1, "$NoTargets$", GBAS, 0, 0, 0, "Alarm.ogg");
 }
 
 public func GetAssaultTarget(int iIndex, int iTeam)
@@ -74,58 +75,58 @@ public func UpdateScoreboard()
   for(var i, iTeam; i < GetTeamCount(); i++)
   {
     //Team eliminiert
-	  if(!GetTeamName(iTeam = GetTeamByIndex(i)) || !GetTeamPlayerCount(iTeam))
-	  { 
-	    if(aScoreboardTeams[iTeam])
-	      RemoveScoreboardTeam(iTeam);
-	    
-	    continue;
-	  }
-	  RemoveScoreboardTeam(iTeam);
-	  aScoreboardTeams[iTeam] = true;
-  	//Team hat noch Ziele
-	  if(ObjectCount2(Find_InArray(aTargets[iTeam])))
-	  {
-	    for(var k = 0, row = 0; k < GetLength(aTargets[iTeam]); k++)
-	    {
-	      var target = aTargets[iTeam][k];
-	      //Ziel noch da?
-	      if(target)
-	      {
-	        var dmg = Interpolate2(100, 0, GetDamage(target), EffectVar(0, target, GetEffect("IntAssaultTarget", target))),
-	        clr = InterpolateRGBa3(GetTeamColor(iTeam), RGB(255, 255, 255), 100 - dmg, 100);
+    if(!GetTeamName(iTeam = GetTeamByIndex(i)) || !GetTeamPlayerCount(iTeam))
+    { 
+      if(aScoreboardTeams[iTeam])
+        RemoveScoreboardTeam(iTeam);
+
+      continue;
+    }
+    RemoveScoreboardTeam(iTeam);
+    aScoreboardTeams[iTeam] = true;
+    //Team hat noch Ziele
+    if(ObjectCount2(Find_InArray(aTargets[iTeam])))
+    {
+      for(var k = 0, row = 0; k < GetLength(aTargets[iTeam]); k++)
+      {
+        var target = aTargets[iTeam][k];
+        //Ziel noch da?
+        if(target)
+        {
+          var dmg = Interpolate2(100, 0, GetDamage(target), EffectVar(0, target, GetEffect("IntAssaultTarget", target))),
+          clr = InterpolateRGBa3(GetTeamColor(iTeam), RGB(255, 255, 255), 100 - dmg, 100);
           SetScoreboardData(row + iTeam * GBAS_MaxTargetCount, GBAS_Icon, Format("{{%i}}", target->~GetImitationID() || GetID(target)));
-	        SetScoreboardData(row + iTeam * GBAS_MaxTargetCount, GBAS_Name, Format("<c %x>%s</c>", clr, GetName(target)), iTeam);
-	        SetScoreboardData(row + iTeam * GBAS_MaxTargetCount, GBAS_Status, Format("<c %x>%d%</c>", clr, dmg), dmg);
-	        ++row;
-	      }
-	    }
-	  }
-	  //Keine Ziele mehr. Clonks anzeigen
-	  else
-	  {
-	    //Spieler abklappern
-	    for(var l = 0, iPlr; l < GetTeamPlayerCount(iTeam); l++)
-	    {
-	      iPlr = GetTeamPlayerByIndex(l, iTeam);
-	      var clonk = GetCrew(iPlr);
-	      //Kein Clonk?
-	      if(!clonk || !GetPlayerName(iPlr))
-	        continue;
-	      
-	      //Tot?
-	      var symbol = GetID(clonk),
-  	    dmg = 1;
-	      if(GetID(Contained(clonk)) == FKDT || !GetAlive(clonk) || GetID(Contained(clonk)) == TIM1 || GetID(Contained(clonk)) == TIM2)
-	      {
-	        symbol = CDBT;
-	        dmg = 0;
-	      }
+          SetScoreboardData(row + iTeam * GBAS_MaxTargetCount, GBAS_Name, Format("<c %x>%s</c>", clr, GetName(target)), iTeam);
+          SetScoreboardData(row + iTeam * GBAS_MaxTargetCount, GBAS_Status, Format("<c %x>%d%</c>", clr, dmg), dmg);
+          ++row;
+        }
+      }
+    }
+    //Keine Ziele mehr: Clonks anzeigen
+    else
+    {
+      //Spieler abklappern
+      for(var l = 0, iPlr; l < GetTeamPlayerCount(iTeam); l++)
+      {
+        iPlr = GetTeamPlayerByIndex(l, iTeam);
+        var clonk = GetCrew(iPlr);
+        //Kein Clonk?
+        if(!clonk || !GetPlayerName(iPlr))
+          continue;
+
+        //Tot?
+        var symbol = GetID(clonk),
+        dmg = 1;
+        if(GetID(Contained(clonk)) == FKDT || !GetAlive(clonk) || GetID(Contained(clonk)) == TIM1 || GetID(Contained(clonk)) == TIM2)
+        {
+          symbol = CDBT;
+          dmg = 0;
+        }
         SetScoreboardData(l + iTeam * GBAS_MaxTargetCount, GBAS_Icon, Format("{{%i}}", symbol));
-	      SetScoreboardData(l + iTeam * GBAS_MaxTargetCount, GBAS_Name, GetTaggedPlayerName(iPlr, true), iTeam);
+        SetScoreboardData(l + iTeam * GBAS_MaxTargetCount, GBAS_Name, GetTaggedPlayerName(iPlr, true), iTeam);
         SetScoreboardData(l + iTeam * GBAS_MaxTargetCount, GBAS_Status, "", dmg);
-	    }
-	  }
+      }
+    }
   }
   SortScoreboard(GBAS_Status);
   SortScoreboard(GBAS_Name);
@@ -174,7 +175,7 @@ public func IsFulfilled()
       EliminateTeam(team);
     }
   }
-  
+
   //Gegen Camping während Klassenwahl oder im Menü
   for(var obj in FindObjects(Find_Func("IsClonk")))
     if((GetID(Contained(obj)) == TIM1 || GetID(Contained(obj)) == TIM2) && !ObjectCount2(Find_InArray(aTargets[GetPlayerTeam(GetOwner(obj))])))
@@ -214,7 +215,7 @@ public func RelaunchPlayer(int iPlr, pClonk, int iKiller, int iClass)
     aDeath[iPlr]++;
     if(iKiller != -1 && GetPlayerTeam(iPlr) != GetPlayerTeam(iKiller))
       aKill[iKiller]++;
-	Money(iPlr, pClonk, iKiller);
+    Money(iPlr, pClonk, iKiller);
   }
 
   var pCrew = GetCrew(iPlr);
@@ -307,12 +308,11 @@ public func DoRelaunch(object pCrew, object pTarget, int iClass)
   }
   
   if(FindObject(MCSL))
-  	FindObject(MCSL)->SpawnEventInfo(Format("$SpawnAt$", GetName(pTarget)), GetOwner(pCrew), iClass, this);
+    FindObject(MCSL)->SpawnEventInfo(Format("$SpawnAt$", GetName(pTarget)), GetOwner(pCrew), iClass, this);
 
   SetPosition(x, y, Contained(pCrew));
   container->Spawn();
-  
-  
+
   SetPlrViewRange(500, pCrew);
 }
 

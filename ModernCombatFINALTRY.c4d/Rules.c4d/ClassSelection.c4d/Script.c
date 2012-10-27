@@ -482,9 +482,9 @@ public func SetupClass(int iClass, int iPlr)
   if (!GetActMapVal("Name", szAction, GetCData(iClass, CData_Icon)))
     szAction = 0;
   if(!FindObject2(Find_Func("RejectChoosedClassInfo", iPlr, iClass)))
-  	for(var i = 0; i < GetPlayerCount(); i++)
-    	if(GetPlayerTeam(i) == GetPlayerTeam(iPlr))
-      	EventInfo4K(i+1, Format("$PlayerChoosedClass$", GetTaggedPlayerName(iPlr), GetCData(iClass, CData_Name)), GetCData(iClass, CData_Icon), RGB(220, 220, 220), 0, 0, 0, szAction);
+    for(var i = 0; i < GetPlayerCount(); i++)
+      if(GetPlayerTeam(i) == GetPlayerTeam(iPlr))
+        EventInfo4K(i+1, Format("$PlayerChoosedClass$", GetTaggedPlayerName(iPlr), GetCData(iClass, CData_Name)), GetCData(iClass, CData_Icon), RGB(220, 220, 220), 0, 0, 0, szAction);
 
   //Speichern
   lastclass[iPlr] = iClass;
@@ -496,23 +496,23 @@ public func SetupClass(int iClass, int iPlr)
 
 public func SpawnEventInfo(string szAdditional, int iPlr, int iClass, object pByObj, string szInfo)
 {
-	//Falls mehrere Spielziele existieren sollten, brauchen wir keine mehrfachen Messages.
-	if(!pByObj || pByObj != FindObject2(Find_Func("RejectChoosedClassInfo", iPlr, iClass)))
-		return;
-	
-	var str = Format("$PlayerChoosedClass2$", GetTaggedPlayerName(iPlr), GetCData(iClass, CData_Name), szAdditional);
-	if(szInfo)
-		str = szInfo;
-	
-	//Nachricht
+  //Falls mehrere Spielziele existieren sollten, brauchen wir keine mehrfachen Messages.
+  if(!pByObj || pByObj != FindObject2(Find_Func("RejectChoosedClassInfo", iPlr, iClass)))
+    return;
+
+  var str = Format("$PlayerChoosedClass2$", GetTaggedPlayerName(iPlr), GetCData(iClass, CData_Name), szAdditional);
+  if(szInfo)
+    str = szInfo;
+
+  //Nachricht
   var szAction = Format("%d", GetCData(iClass, CData_Facet));
   if (!GetActMapVal("Name", szAction, GetCData(iClass, CData_Icon)))
     szAction = 0;
   for(var i = 0; i < GetPlayerCount(); i++)
     if(GetPlayerTeam(i) == GetPlayerTeam(iPlr))
-    	EventInfo4K(i+1, str, GetCData(iClass, CData_Icon), RGB(220, 220, 220), 0, 0, 0, szAction);
+      EventInfo4K(i+1, str, GetCData(iClass, CData_Icon), RGB(220, 220, 220), 0, 0, 0, szAction);
 
-	return true;
+  return true;
 }
 
 private func Default(int iData)

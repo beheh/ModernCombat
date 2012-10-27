@@ -17,12 +17,12 @@ global func CreateGOCCSpawner(object pCrew, int iChoosedClass)
 {
   if(!pCrew) pCrew = this;
   if(!pCrew) return false;
-  
+
   var spawner = CreateObject(OSPW);
   Enter(spawner, pCrew);
-  
+
   LocalN("iClass", spawner) = iChoosedClass;
-  
+
   return spawner;
 }
 
@@ -41,10 +41,10 @@ public func FxIntSpawnCounterTimer(object pTarget, int iEffectNumber, int iEffec
 {
   if(!pTarget)
     return -1;
-  
+
   var crew = Contents(0, pTarget);
   Sound("Select.ogg",false,crew,100,GetOwner(crew)+1);
-  
+
   if(iEffectTime >= 35*5)
   {
     pTarget->Spawn();
@@ -266,9 +266,9 @@ public func SelectFlagpole(object pObject)
   if(szFunc) szFunction = szFunc;
 
   SpawnOk();
-  
+
   if(FindObject(MCSL))
-  	FindObject(MCSL)->SpawnEventInfo(Format("$SpawnAt$", GetName(pObject)), GetOwner(crew), iClass, FindObject(GOCC));
+    FindObject(MCSL)->SpawnEventInfo(Format("$SpawnAt$", GetName(pObject)), GetOwner(crew), iClass, FindObject(GOCC));
 
   CloseMenu(crew);
 }
@@ -293,7 +293,7 @@ protected func Timer()
 protected func OnMenuSelection(int iSelection)
 {
   var crew;
-  if (spawn || !(crew = Contents()) || !flagpoles) return;
+  if(spawn || !(crew = Contents()) || !flagpoles) return;
   selection = iSelection;
 }
 
