@@ -1244,8 +1244,8 @@ public func ControlThrow(pByObj)
     //Zünder: C4 wird automatisch an das MAV geklebt
     if(GetID(pTemp) == C4PA && pTemp->GetPackPoints() && !RejectC4Attach())
     {
-    	AttachC4(pTemp);
-    	return true;
+      AttachC4(pTemp);
+      return true;
     }
 
     //Vorhandene MAV-Modifizierungen durchsuchen
