@@ -30,6 +30,8 @@ NONE7=Du kannst Sanitätern signalisieren, das du eine Reanimation nicht willst, 
 NONE8=Pistolen und Revolver lassen sich immer <c 33ccff>schneller</c> ziehen als jedwede andere Waffe nachladen.
 NONE9=Die Bewaffnung von Helikoptern schwenkt sich mit [<c 33ccff>Links</c>/<c 33ccff>Rechts</c>], stoppt mit [<c 33ccff>Stop</c>] und lädt mit [<c 33ccff>Springen</c>].
 NONE10=Ein Kolbenschlag verursacht bei liegenden Feinden [<c 33ccff>zusätzlichen</c>] Schaden und zwingt sie zudem, aufzustehen.
+NONE11=Ein MAV kann mit Ausrüstung <c 33ccff>modifiziert</c> werden; dazu einfach bei Kauf einen Gegenstand auswählen oder es Anfassen und den Gegenstand hineinlegen.
+NONE12=Zerstörte Geschützstellungen, MAV-Stationen, Brücken, Artilleriebatterien und mehr können mit einem Schweißbrenner <c 33ccff>repariert</c> werden.
 
 #Waffen
 ASTR0=Nutze den <c 33ccff>Einzelfeuermodus</c> des Sturmgewehrs, um präzise Schüsse auf weit entfernte Gegner abzufeuern.
@@ -82,3 +84,4 @@ CUAM0=Du kannst Verbündeten per [<c 33ccff>Werfen</c>] gepackte Munition übergeb
 BWTH0=Der Schweißbrenner kann feindliche Fahrzeuge und Strukturen <c 33ccff>beschädigen</c>.
 BWTH1=Schweißbrenner <c 33ccff>überhitzen</c> für einen Moment, wenn sie komplett geleert wurden.
 BWTH2=Schweißbrenner können auch verschlossene Türen und Kisten <c 33ccff>zerstören</c>.
+BWTH3=Feindliches Equipment wie Sprengfallen und C4-Sätze können mit Schweißbrennern <c 33ccff>entschärft</c> werden.
