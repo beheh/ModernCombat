@@ -125,7 +125,7 @@ private func ConComplete()
 private func Collapse()
 {
   //Schild erstellen
-  CreateObject(RSHL,0,8,this()->GetOwner());
+  CreateObject(RSHL,0,8,GetOwner());
 
   //Verschwinden
   RemoveObject();
@@ -201,7 +201,7 @@ private func TurnRight()
 public func Destroyed()
 {
   //Schild erstellen
-  CreateObject(RSHL,0,8,this()->GetOwner());
+  CreateObject(RSHL,0,8,GetOwner());
 
   //Effekte
   if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",3,110,0,0,40,100);
