@@ -225,10 +225,10 @@ public func OnDmg(int iDmg, int iType)
 
 protected func WaterContact()
 {
-  if(GetAction() == "Standing")
-    return Destroyed();
+  if(GetEffect("IntCon", this))
+    Collapse();
   else
-    return Collapse();
+    Destroyed();
 }
 
 /* Aufschlag */ 
