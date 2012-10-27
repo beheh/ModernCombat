@@ -441,7 +441,7 @@ protected func ControlThrow(object pByObj)
       Sound("BKHK_Switch.ogg", true, this, 100, GetOwner(pByObj) + 1);
       Sound("CockpitRadio.ogg", true, 0, 100, GetOwner(pByObj)+1, +1);
       SetAction("Controlling");
-      
+
       DirectEquipMenu(pByObj);
     }
     else
@@ -488,16 +488,16 @@ func AddItem(id iItem, object pUser)
       pItem = CreateObject(BTBG);
       pItem->SetPackPoints(1);
     }
-    
+
     if(iType == 7 && pItem->GetPackPoints() && !pMAV->RejectC4Attach())
     {
-    	pMAV->AttachC4(pItem);
-    	CustomMessage(Format("$Updated$", GetName(0, C4EX)), pMAV, GetOwner(GetUser()));
-    	DirectEquipMenu(pUser);
-    	
-    	return true;
+      pMAV->AttachC4(pItem);
+      CustomMessage(Format("$Updated$", GetName(0, C4EX)), pMAV, GetOwner(GetUser()));
+      DirectEquipMenu(pUser);
+
+      return true;
     }
-    
+
     Enter(pMAV, pItem);
     LocalN("pItem", pMAV) = pItem;
     LocalN("iItemType", pMAV) = iType;
@@ -525,12 +525,12 @@ func AddItem(id iItem, object pUser)
 
 func DummyFunc()
 {
-  //Nichts unternehmen; diese Func existiert für die Option "Nichts" im Menü
+  //Nichts unternehmen
 }
 
 func DirectEquipMenu(object pByObj)
 {
-	CreateMenu(MAVE, pByObj, this, 0, "$EquipMAV$", 0, C4MN_Style_Context);
+  CreateMenu(MAVE, pByObj, this, 0, "$EquipMAV$", 0, C4MN_Style_Context);
 
   var fItemExists = false;
 
@@ -541,7 +541,7 @@ func DirectEquipMenu(object pByObj)
   if(FindContents(RSHL, pByObj)) {fItemExists = true; AddMenuItem(Format("$AddItem$", GetName(0, RSHL)), "AddItem", RSHL, pByObj, 0, pByObj);}
   if(FindContents(BTBG, pByObj)) {fItemExists = true; AddMenuItem(Format("$AddItem$", GetName(0, BTBG)), "AddItem", BTBG, pByObj, 0, pByObj);}
   if(FindContents(CDBT, pByObj)) {fItemExists = true; AddMenuItem(Format("$AddItem$", GetName(0, CDBT)), "AddItem", CDBT, pByObj, 0, pByObj);}
-      
+
   var detonator = FindContents(C4PA, pByObj);
   if(detonator && detonator->GetPackPoints() && !pMAV->RejectC4Attach()) {fItemExists = true; AddMenuItem(Format("$AddItem$", GetName(0, C4EX)), "AddItem", C4EX, pByObj, 0, pByObj);}
 
