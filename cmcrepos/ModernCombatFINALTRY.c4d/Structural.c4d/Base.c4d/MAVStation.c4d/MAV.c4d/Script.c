@@ -129,7 +129,7 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
   if(GetY() <= GetDefCoreVal("Offset", "DefCore", MAVE, 1) * -1 && iYTendency <= 0)
   {
     iYTendency = 0;
-    iYDir = 0;
+    iYDir = BoundBy((GetY() + GetDefCoreVal("Offset", "DefCore", MAVE, 1))*-1, 1, 10);
   }
 
   if(!iYTendency && !iYDir)
@@ -1244,8 +1244,8 @@ public func ControlThrow(pByObj)
     //Zünder: C4 wird automatisch an das MAV geklebt
     if(GetID(pTemp) == C4PA && pTemp->GetPackPoints() && !RejectC4Attach())
     {
-      AttachC4(pTemp);
-      return true;
+    	AttachC4(pTemp);
+    	return true;
     }
 
     //Vorhandene MAV-Modifizierungen durchsuchen
@@ -1591,7 +1591,23 @@ public func ContactBottom()
     iYTendency = 0;
 }
 
-/* C4-Funktionen */
+/* Aufschlag */
+
+protected func Collision(int iCollSpeed)
+{
+  iCollSpeed = Abs(iCollSpeed);
+
+  //Effekte
+  Sparks(Random(2)+2,RGB(255,255,Random(5)+255));
+  Sound("HeavyHit*.ogg");
+  DoDmg(iCollSpeed/4);
+}
+
+protected func Hit2()
+{
+  //Effekte
+  Sound("HeavyHit*.ogg");
+}
 
 protected func CountC4()
 {
@@ -1629,22 +1645,4 @@ public func AttachC4(object pDetonator)
   pC4->SetRDir();
   pC4->Sound("C4EX_Attach.ogg");
   return true;
-}
-
-/* Aufschlag */
-
-protected func Collision(int iCollSpeed)
-{
-  iCollSpeed = Abs(iCollSpeed);
-
-  //Effekte
-  Sparks(Random(2)+2,RGB(255,255,Random(5)+255));
-  Sound("HeavyHit*.ogg");
-  DoDmg(iCollSpeed/4);
-}
-
-protected func Hit2()
-{
-  //Effekte
-  Sound("HeavyHit*.ogg");
 }
