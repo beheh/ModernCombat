@@ -751,7 +751,7 @@ func Death()
 public func InstantDie()
 {
   //Fallanimation überspringen
-  SetPhase(GetActMapVal("Length", GetAction(this)));
+  SetPhase(GetActMapVal("Length", GetAction(this))-1);
   Sound("Death", false, this);
   ClearScheduleCall(this, "DeathSound");
   return true;
