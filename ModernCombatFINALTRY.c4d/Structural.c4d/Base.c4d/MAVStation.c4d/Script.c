@@ -441,21 +441,8 @@ protected func ControlThrow(object pByObj)
       Sound("BKHK_Switch.ogg", true, this, 100, GetOwner(pByObj) + 1);
       Sound("CockpitRadio.ogg", true, 0, 100, GetOwner(pByObj)+1, +1);
       SetAction("Controlling");
-
-      CreateMenu(MAVE, pByObj, this, 0, "$EquipMAV$", 0, C4MN_Style_Context);
-
-      var fItemExists = false;
-
-      AddMenuItem(Format("$AddItem$", "$Nothing$"), "DummyFunc", SM06, pByObj);
-      if(FindContents(AMPK, pByObj)) {fItemExists = true; AddMenuItem(Format("$AddItem$", GetName(0, AMPK)), "AddItem", AMPK, pByObj, 0, pByObj);}
-      if(FindContents(FAPK, pByObj)) {fItemExists = true; AddMenuItem(Format("$AddItem$", GetName(0, FAPK)), "AddItem", FAPK, pByObj, 0, pByObj);}
-      if(FindContents(BWTH, pByObj)) {fItemExists = true; AddMenuItem(Format("$AddItem$", GetName(0, BWTH)), "AddItem", BWTH, pByObj, 0, pByObj);}
-      if(FindContents(RSHL, pByObj)) {fItemExists = true; AddMenuItem(Format("$AddItem$", GetName(0, RSHL)), "AddItem", RSHL, pByObj, 0, pByObj);}
-      if(FindContents(BTBG, pByObj)) {fItemExists = true; AddMenuItem(Format("$AddItem$", GetName(0, BTBG)), "AddItem", BTBG, pByObj, 0, pByObj);}
-      if(FindContents(CDBT, pByObj)) {fItemExists = true; AddMenuItem(Format("$AddItem$", GetName(0, CDBT)), "AddItem", CDBT, pByObj, 0, pByObj);}
-
-      if(!fItemExists)
-        CloseMenu(pByObj);
+      
+      DirectEquipMenu(pByObj);
     }
     else
       PlayerMessage(GetOwner(pByObj), "$NoMoney$", this);
@@ -480,6 +467,7 @@ protected func ControlThrow(object pByObj)
 func AddItem(id iItem, object pUser)
 {
   var pItem = FindContents(iItem, pUser);
+  if(iItem == C4EX) pItem = FindContents(C4PA, pUser);
 
   if(pMAV && !pMAV->IsDestroyed() && !LocalN("pItem", pMAV) && pItem && (pUser == GetUser()))
   {
@@ -490,6 +478,7 @@ func AddItem(id iItem, object pUser)
     if(GetID(pItem) == RSHL) iType = 4;
     if(GetID(pItem) == BTBG) iType = 5;
     if(GetID(pItem) == CDBT) iType = 6;
+    if(GetID(pItem) == C4PA) iType = 7;
 
     if(iType == 5)
     {
@@ -499,6 +488,16 @@ func AddItem(id iItem, object pUser)
       pItem = CreateObject(BTBG);
       pItem->SetPackPoints(1);
     }
+    
+    if(iType == 7 && pItem->GetPackPoints() && !pMAV->RejectC4Attach())
+    {
+    	pMAV->AttachC4(pItem);
+    	CustomMessage(Format("$Updated$", GetName(0, C4EX)), pMAV, GetOwner(GetUser()));
+    	DirectEquipMenu(pUser);
+    	
+    	return true;
+    }
+    
     Enter(pMAV, pItem);
     LocalN("pItem", pMAV) = pItem;
     LocalN("iItemType", pMAV) = iType;
@@ -526,5 +525,26 @@ func AddItem(id iItem, object pUser)
 
 func DummyFunc()
 {
-  //Nichts unternehmen
+  //Nichts unternehmen; diese Func existiert für die Option "Nichts" im Menü
+}
+
+func DirectEquipMenu(object pByObj)
+{
+	CreateMenu(MAVE, pByObj, this, 0, "$EquipMAV$", 0, C4MN_Style_Context);
+
+  var fItemExists = false;
+
+  AddMenuItem(Format("$AddItem$", "$Nothing$"), "DummyFunc", SM06, pByObj);
+  if(FindContents(AMPK, pByObj)) {fItemExists = true; AddMenuItem(Format("$AddItem$", GetName(0, AMPK)), "AddItem", AMPK, pByObj, 0, pByObj);}
+  if(FindContents(FAPK, pByObj)) {fItemExists = true; AddMenuItem(Format("$AddItem$", GetName(0, FAPK)), "AddItem", FAPK, pByObj, 0, pByObj);}
+  if(FindContents(BWTH, pByObj)) {fItemExists = true; AddMenuItem(Format("$AddItem$", GetName(0, BWTH)), "AddItem", BWTH, pByObj, 0, pByObj);}
+  if(FindContents(RSHL, pByObj)) {fItemExists = true; AddMenuItem(Format("$AddItem$", GetName(0, RSHL)), "AddItem", RSHL, pByObj, 0, pByObj);}
+  if(FindContents(BTBG, pByObj)) {fItemExists = true; AddMenuItem(Format("$AddItem$", GetName(0, BTBG)), "AddItem", BTBG, pByObj, 0, pByObj);}
+  if(FindContents(CDBT, pByObj)) {fItemExists = true; AddMenuItem(Format("$AddItem$", GetName(0, CDBT)), "AddItem", CDBT, pByObj, 0, pByObj);}
+      
+  var detonator = FindContents(C4PA, pByObj);
+  if(detonator && detonator->GetPackPoints() && !pMAV->RejectC4Attach()) {fItemExists = true; AddMenuItem(Format("$AddItem$", GetName(0, C4EX)), "AddItem", C4EX, pByObj, 0, pByObj);}
+
+  if(!fItemExists)
+    CloseMenu(pByObj);
 }

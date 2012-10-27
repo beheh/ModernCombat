@@ -1242,29 +1242,10 @@ public func ControlThrow(pByObj)
       return false;
       
     //Zünder: C4 wird automatisch an das MAV geklebt
-    if(GetID(pTemp) == C4PA && pTemp->GetPackPoints() && !GetEffect("IntC4Cooldown", pTemp) && !RejectC4Attach())
+    if(GetID(pTemp) == C4PA && pTemp->GetPackPoints() && !RejectC4Attach())
     {
-      //C4 verbrauchen
-      pTemp->DoPackPoints(-1);
-      AddEffect("IntC4Cooldown", pTemp, 1, C4PA_Cooldown, pTemp);
-
-      //Zufällige Position wählen
-      var xOff = GetDefCoreVal("Offset", "DefCore", MAVE, 0);
-      var yOff = GetDefCoreVal("Offset", "DefCore", MAVE, 1);
-      var pC4 = CreateObject(C4EX, RandomX(-xOff, xOff), RandomX(-yOff, yOff), GetOwner(pTemp));
-      pC4->SetR(Random(360));
-      pC4->SetActive(pTemp);
-
-      LocalN("pStickTo", pC4) = this;
-      LocalN("iStickXOffset", pC4) = GetX(pC4)-GetX();
-      LocalN("iStickYOffset", pC4) = GetY(pC4)-GetY();
-      LocalN("iStickROffset", pC4) = GetR(pC4)-GetR();
-      LocalN("iPreviousCategory", pC4) = GetCategory(pC4);
-      SetCategory(C4D_Vehicle, pC4);
-      pC4->SetObjectOrder(this, pC4);
-      pC4->SetRDir();
-      pC4->Sound("C4EX_Attach.ogg");
-      return true;
+    	AttachC4(pTemp);
+    	return true;
     }
 
     //Vorhandene MAV-Modifizierungen durchsuchen
@@ -1639,4 +1620,29 @@ protected func CountC4()
       continue;
     iC4Count++;
   }
+}
+
+public func AttachC4(object pDetonator)
+{
+  //C4 verbrauchen
+  pDetonator->DoPackPoints(-1);
+  AddEffect("IntC4Cooldown", pDetonator, 1, C4PA_Cooldown, pDetonator);
+
+  //Zufällige Position wählen
+  var xOff = GetDefCoreVal("Offset", "DefCore", MAVE, 0);
+  var yOff = GetDefCoreVal("Offset", "DefCore", MAVE, 1);
+  var pC4 = CreateObject(C4EX, RandomX(-xOff, xOff), RandomX(-yOff, yOff), GetOwner(pDetonator));
+  pC4->SetR(Random(360));
+  pC4->SetActive(pDetonator);
+
+  LocalN("pStickTo", pC4) = this;
+  LocalN("iStickXOffset", pC4) = GetX(pC4)-GetX();
+  LocalN("iStickYOffset", pC4) = GetY(pC4)-GetY();
+  LocalN("iStickROffset", pC4) = GetR(pC4)-GetR();
+  LocalN("iPreviousCategory", pC4) = GetCategory(pC4);
+  SetCategory(C4D_Vehicle, pC4);
+  pC4->SetObjectOrder(this, pC4);
+  pC4->SetRDir();
+  pC4->Sound("C4EX_Attach.ogg");
+  return true;
 }
