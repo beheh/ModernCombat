@@ -97,7 +97,7 @@ public func Activate(object pByObj)
   if((pByObj->GetAction() != "WalkArmed") && !pByObj->~IsAiming())
     return true;
 
-  var pTemp = CreateObject(SDSD,0,11,Contained()->GetOwner());
+  var pTemp = CreateObject(SDSD,0,10,Contained()->GetOwner());
   pTemp->SetAim(Contained()->~AimAngle());
   pTemp->SetDir(Contained()->GetDir());
   pByObj->SetAction("Push",pTemp);
