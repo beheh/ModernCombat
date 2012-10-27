@@ -221,6 +221,16 @@ public func OnDmg(int iDmg, int iType)
   return 80;
 }
 
+/* Wasserkontakt */
+
+protected func WaterContact()
+{
+  if(GetAction() == "Standing")
+    return Destroyed();
+  else
+    return Collapse();
+}
+
 /* Aufschlag */ 
 
 protected func Hit3()
@@ -232,10 +242,4 @@ protected func Hit()
 {
   Sound("WPN2_Hit*.ogg",0,0,50);
   return 1;
-}
-
-protected func Transform()
-{
-	CreateObject(RSHL);
-  return RemoveObject(this);
 }
