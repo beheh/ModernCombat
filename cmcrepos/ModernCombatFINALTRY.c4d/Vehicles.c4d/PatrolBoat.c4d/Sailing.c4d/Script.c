@@ -128,11 +128,11 @@ private func Sail()
   var bubble = CreateObject(FXU1,dir*30,+4,-1);
   if(bubble)
   {
-    SetXDir(8, bubble);
-    SetYDir(5, bubble);
+    SetXDir(RandomX(7,10), bubble);
+    SetYDir(RandomX(10,20), bubble);
   }
-  CreateParticle("SlimeGrav",30*dir,-5,(1+Random(4))*dir,-(7+Random(4)) ,xdir*100/30 ,RGBa(100,150,255,100+Random(100)));
-  CreateParticle("SlimeGrav",30*dir,-10,(1+Random(4))*dir,-(7+Random(4)) ,xdir*100/30 ,RGBa(100,150,255,100+Random(100)));
+  CreateParticle("SlimeGrav",30*dir,0,(RandomX(1,6))*dir,-(RandomX(7,13)) ,xdir*100/30 ,RGBa(100,150,255,100+Random(100)));
+  CreateParticle("SlimeGrav",30*dir,5,(RandomX(1,6))*dir,-(RandomX(7,13)) ,xdir*100/30 ,RGBa(100,150,255,100+Random(100)));
 }
 
 /* Steuerung */
