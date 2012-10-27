@@ -32,8 +32,8 @@ public func DoMouseAiming(int iTx, int iTy, int iSpeed)
 
 public func FxIntMouseAimingStart(object pTarget, int iEffectNumber, int iTemp, iAngle, int iSpeed)
 {
-	if(iTemp)
-		return;
+  if(iTemp)
+    return;
 
   EffectVar(0,pTarget,iEffectNumber) = iAngle;
   EffectVar(1,pTarget,iEffectNumber) = GetDir(pTarget);

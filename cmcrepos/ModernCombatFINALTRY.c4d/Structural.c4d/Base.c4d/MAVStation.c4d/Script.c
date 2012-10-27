@@ -441,7 +441,7 @@ protected func ControlThrow(object pByObj)
       Sound("BKHK_Switch.ogg", true, this, 100, GetOwner(pByObj) + 1);
       Sound("CockpitRadio.ogg", true, 0, 100, GetOwner(pByObj)+1, +1);
       SetAction("Controlling");
-      
+
       DirectEquipMenu(pByObj);
     }
     else
@@ -488,16 +488,16 @@ func AddItem(id iItem, object pUser)
       pItem = CreateObject(BTBG);
       pItem->SetPackPoints(1);
     }
-    
+
     if(iType == 7 && pItem->GetPackPoints() && !pMAV->RejectC4Attach())
     {
-    	pMAV->AttachC4(pItem);
-    	CustomMessage(Format("$Updated$", GetName(0, C4EX)), pMAV, GetOwner(GetUser()));
-    	DirectEquipMenu(pUser, true);
-    	
-    	return true;
+      pMAV->AttachC4(pItem);
+      CustomMessage(Format("$Updated$", GetName(0, C4EX)), pMAV, GetOwner(GetUser()));
+      DirectEquipMenu(pUser, true);
+
+      return true;
     }
-    
+
     Enter(pMAV, pItem);
     LocalN("pItem", pMAV) = pItem;
     LocalN("iItemType", pMAV) = iType;
@@ -530,7 +530,7 @@ func DummyFunc()
 
 func DirectEquipMenu(object pByObj, bool fChooseC4)
 {
-	CreateMenu(MAVE, pByObj, this, 0, "$EquipMAV$", 0, C4MN_Style_Context);
+  CreateMenu(MAVE, pByObj, this, 0, "$EquipMAV$", 0, C4MN_Style_Context);
 
   var fItemExists = false;
 
@@ -541,7 +541,7 @@ func DirectEquipMenu(object pByObj, bool fChooseC4)
   if(FindContents(RSHL, pByObj)) {fItemExists++; AddMenuItem(Format("$AddItem$", GetName(0, RSHL)), "AddItem", RSHL, pByObj, 0, pByObj);}
   if(FindContents(BTBG, pByObj)) {fItemExists++; AddMenuItem(Format("$AddItem$", GetName(0, BTBG)), "AddItem", BTBG, pByObj, 0, pByObj);}
   if(FindContents(CDBT, pByObj)) {fItemExists++; AddMenuItem(Format("$AddItem$", GetName(0, CDBT)), "AddItem", CDBT, pByObj, 0, pByObj);}
-      
+
   var detonator = FindContents(C4PA, pByObj);
   if(detonator && detonator->GetPackPoints() && !pMAV->RejectC4Attach())
   {
