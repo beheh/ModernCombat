@@ -30,6 +30,8 @@ NONE7=Show medics that you do not want to be reanimated by clicking on <c 33ccff
 NONE8=Pistols and revolvers are always <c 33ccff>faster</c> drawn then any other weapon can be reloaded.
 NONE9=Chopper weaponary can be turned by tapping [<c 33ccff>Left</c>/<c 33ccff>Right</c>], stopped with [<c 33ccff>Stop</c>] and reloaded with [<c 33ccff>Jump</c>].
 NONE10=Punching an enemy with a gun while he is lying down will inflict [<c 33ccff>additional</c>] damage and also force him to stand up.
+NONE11=A MAV can be <c 33ccff>modified</c> with equipment, just choose an item when buying a MAV or touch it to put the item in.
+NONE12=Destroyed gun emplacements, MAV stations, bridges, artillery batteries and more can be repaired with a <c 33ccff>blow torch</c>.
 
 #Weapons
 ASTR0=Use <c 33ccff>single shots</c> to shoot effective bullets at enemies far away with the assault rifle.
@@ -82,3 +84,4 @@ CUAM0=You can give packed ammo to allies by tapping [<c 33ccff>Throw</c>].
 BWTH0=Blow torches can also <c 33ccff>damage</c> enemy vehicles and structures.
 BWTH1=The blow torch will <c 33ccff>overheat</c> for a moment when it is completely emptied.
 BWTH2=Blow torches can <c 33ccff>destroy</c> locked doors and crates as well.
+BWTH3=Enemy euqipment like booby traps and C4 charges can be <c 33ccff>defused</c> by using blow torches.
