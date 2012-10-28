@@ -503,6 +503,8 @@ public func OnDestruction()
   pItem = 0;
   iItemType = 0;
 
+  RemoveEffect("Bars", this);
+
   //Eventuell vorhandenes C4 entfernen
   for(var pC4 in FindObjects(Find_Distance(50, 0, 0), Find_Func("IsC4Explosive")))
   {

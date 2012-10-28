@@ -25,6 +25,7 @@ local ChargeBar;
 public func IsDestroyed()				{return true;}
 public func IsMachine()					{return true;}
 public func IsMAV()					{return true;}
+public func IsRepairable()  {return false;}
 
 protected func Hit2()
 {
