@@ -1,6 +1,6 @@
 [DefCore]
 id=RB04
-Name=The Stationary
+Name=The Gamer
 Version=4,9,5
 Category=C4D_StaticBack
 Width=502
