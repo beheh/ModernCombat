@@ -1357,14 +1357,14 @@ public func ControlSpecial()
       var start = Contents(0);
       for(var i = 1; i < ContentsCount(); i++)
       {
-      	ShiftContents();
-      	var obj = Contents(0);
-      	if(obj->~CanAim() || obj == start)
-      	{
-      		ShiftContents(0, true);
-      		ShiftContents(0, 0, 0, true);
-      		break;
-      	}
+        ShiftContents();
+        var obj = Contents(0);
+        if(obj->~CanAim() || obj == start)
+        {
+          ShiftContents(0, true);
+          ShiftContents(0, 0, 0, true);
+          break;
+        }
       }
       if(IsSquatAiming() || Contents()->~GetFMData(FM_Aim) != 1)
       {
