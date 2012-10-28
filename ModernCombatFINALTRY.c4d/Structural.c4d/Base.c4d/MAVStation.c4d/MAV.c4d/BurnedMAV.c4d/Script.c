@@ -1,4 +1,4 @@
-/*--- Burned MAV ---*/
+/*--- Verbranntes MAV ---*/
 
 #strict 2
 #include CVHC
@@ -22,23 +22,28 @@ local iHKShots;
 local living_dmg_cooldown;	//Gehört zum Schweißbrenner, ist aber praktischer, wenn direkt hier gespeichert
 local ChargeBar;
 
-public func IsDestroyed()				{return true;}
-public func IsMachine()					{return true;}
-public func IsMAV()					{return true;}
-public func IsRepairable()  {return false;}
+public func IsDestroyed()	{return true;}
+public func IsMachine()		{return true;}
+public func IsMAV()		{return true;}
+public func IsRepairable()	{return false;}
+
+
+/* Initialisierung */
+
+protected func Initialize()
+{
+  SetAction("Destroyed");
+
+  while(GetEffect("TracerDart", this))
+    RemoveEffect("TracerDart", this);
+
+  FadeOut();
+}
+
+/* Aufschlag */
 
 protected func Hit2()
 {
   //Effekte
   Sound("HeavyHit*.ogg");
-}
-
-protected func Initialize()
-{
-  SetAction("Destroyed");
-  
-  while(GetEffect("TracerDart", this))
-  	RemoveEffect("TracerDart", this);
-  
-  FadeOut();
 }
