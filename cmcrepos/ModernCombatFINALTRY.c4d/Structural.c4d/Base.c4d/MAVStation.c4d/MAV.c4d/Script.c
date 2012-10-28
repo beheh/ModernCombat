@@ -469,7 +469,7 @@ private func DamageChecks()
 
 public func OnDmg(int iDmg, int iType)
 {
-  if(!fDestroyed && GetAction() == "Flying") Sound("WarningDamage.ogg",0,0,0,GetOwner()+1);
+  if(iDmg > 0 && !fDestroyed && GetAction() == "Flying") Sound("WarningDamage.ogg",0,0,0,GetOwner()+1);
 
   if(iType == DMG_Melee)	return 0 + 50 * (iItemType == 4);	//Melee
   if(iType == DMG_Fire)		return 40 + 24 * (iItemType == 4);	//Feuer
