@@ -316,8 +316,8 @@ protected func DoPoints()
       //Ribbon-Fortschritt (The Ghost)
       if(killicon->~IsC4Explosive())
         AttemptAwardRibbon(RB03, killer, GetOwner());
-      //Ribbon-Fortschritt (The Stationary)
-      if(IsRiding() && GetActionTarget() && GetActionTarget()->~IsGunEmplacement())
+      //Ribbon-Fortschritt (The Gamer)
+      if(killicon->~IsMAV())
         AttemptAwardRibbon(RB04, killer, GetOwner());
       //Ribbon-Fortschritt (The Artist)
       if(killicon->~IsShockPaddles())
