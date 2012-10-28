@@ -326,8 +326,15 @@ protected func DoPoints()
       if(Contained() && GetID(Contained()) == BKHK)
         AttemptAwardRibbon(RB08, killer, GetOwner());
       //Ribbon-Fortschritt (The Patch)
-      if(this->~HasCrawled() && killicon == ASTR)
-        AttemptAwardRibbon(RB09, killer, GetOwner());
+      if(GetCursor(killer))
+      {
+        var pPflasterKillerClonk = GetCursor(killer);
+        if(pPflasterKillerClonk->~GetRealCursor())
+          pPflasterKillerClonk = pPflasterKillerClonk->~GetRealCursor();
+        
+        if((ObjectDistance(pPflasterKillerClonk, this) >= 500) && killicon == ASTR)
+          AttemptAwardRibbon(RB09, killer, GetOwner());
+      }
     }
 
     //Achievement-Fortschritt (First Blood)
