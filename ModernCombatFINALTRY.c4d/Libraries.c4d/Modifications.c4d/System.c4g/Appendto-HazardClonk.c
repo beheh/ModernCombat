@@ -1283,7 +1283,32 @@ private func QuickInventoryStore(object pObj)
   }
   if(!fExists)
   {
-    QINV_MenuItemIds[iMenu][GetLength(QINV_MenuItemIds[iMenu])] = GetID(pObj);
+    var idObject;
+    var fReplace = false;
+    //Nicht mehr relevante IDs ermitteln
+    for(var i = 0; i < GetLength(QINV_MenuItemIds[iMenu]); i++) {
+      idObject = QINV_MenuItemIds[iMenu][i];
+      if(!ContentsCount(idObject) && !GetGrenade(idObject)) {
+        fReplace = true;
+        break;
+      }
+    }
+    if(fReplace) {
+      //Nicht mehr relevante Referenz bestimmen
+      var idOld = QINV_MenuItemIds[iMenu][i];
+      QINV_MenuItemIds[iMenu][i] = GetID(pObj);
+      //Nicht mehr relevante Referenz verschieben
+      for(i++; i < GetLength(QINV_MenuItemIds[iMenu]); i++) {
+        if(QINV_MenuItemIds[iMenu][i] == GetID(pObj)) {
+          QINV_MenuItemIds[iMenu][i] = idObject;
+          break;
+        }
+      }
+    }
+    else {
+      //Kein Verschieben notwendig
+      QINV_MenuItemIds[iMenu][GetLength(QINV_MenuItemIds[iMenu])] = GetID(pObj);
+    }
   }
 }
 
