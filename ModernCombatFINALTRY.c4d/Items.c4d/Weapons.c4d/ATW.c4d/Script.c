@@ -223,7 +223,7 @@ public func OnEmpty()
   fired = true;
 }
 
-public func Selection()
+public func OnSelect()
 {
   Sound("AT4R_Charge.ogg");
 }
