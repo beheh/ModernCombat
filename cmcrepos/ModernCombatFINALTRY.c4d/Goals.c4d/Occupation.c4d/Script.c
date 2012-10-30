@@ -450,9 +450,13 @@ public func NoTickets(int iTeam)
 
 /* Spiellogik */
 
+local fFulfilled;
+
 public func IsFulfilled()
 {
   if(ObjectCount(CHOS)) return false;
+
+  if(fFulfilled) return true;
 
   var iWinningTeam = GetWinningTeam();
 
@@ -477,7 +481,7 @@ public func IsFulfilled()
     //Sounds
     Sound("Cheer.ogg", true);
 
-    return true;
+    return fFulfilled = true;
   }
 
   //Unentschieden
@@ -494,7 +498,7 @@ public func IsFulfilled()
     //Auswertung
     RewardEvaluation();
 
-    return true;
+    return fFulfilled = true;
   }
 }
 
