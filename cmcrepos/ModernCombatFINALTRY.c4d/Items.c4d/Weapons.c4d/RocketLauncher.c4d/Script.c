@@ -181,7 +181,7 @@ public func OnReload()
   Sound("RTLR_Reload.ogg");
 }
 
-public func Selection()
+public func OnSelect()
 {
   Sound("RTLR_Charge.ogg");
 }
