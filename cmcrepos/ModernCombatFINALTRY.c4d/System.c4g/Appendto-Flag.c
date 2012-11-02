@@ -29,16 +29,16 @@ protected func AttachTargetLost()
 
 public func DropFlag()
 {
-	if(!GetActionTarget())
-		return;
+  if(!GetActionTarget())
+    return;
 
-	SetAction("Lost");
+  SetAction("Lost");
   SetActionTargets();
   SetDir();
-  
+
   while(Contained())
-  	Exit();
-  
+    Exit();
+
   //Falls sie festsitzt, wird sie sofort zurückgebracht
   if(GBackSolid())
   {

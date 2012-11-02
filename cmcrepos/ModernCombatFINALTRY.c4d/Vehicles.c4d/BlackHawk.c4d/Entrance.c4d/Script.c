@@ -20,10 +20,10 @@ func SetOffset(int iX, int iY)
 
 func Collection2(object pUser)
 {
-	var flag;
-	if(pHelicopter->~IsHelicopter())
-		if(flag = FindObject2(Find_ID(FLA2), Find_ActionTarget(pUser)))
-			flag->~DropFlag();
+  var flag;
+  if(pHelicopter->~IsHelicopter())
+    if(flag = FindObject2(Find_ID(FLA2), Find_ActionTarget(pUser)))
+      flag->~DropFlag();
 
   if(!Enter(pHelicopter, pUser)) Exit(pUser);
 }
