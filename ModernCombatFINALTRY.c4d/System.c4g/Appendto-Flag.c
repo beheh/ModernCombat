@@ -24,9 +24,21 @@ protected func Collected(pClonk)
 
 protected func AttachTargetLost()
 {
-  SetAction("Lost");
+  DropFlag();
+}
+
+public func DropFlag()
+{
+	if(!GetActionTarget())
+		return;
+
+	SetAction("Lost");
   SetActionTargets();
   SetDir();
+  
+  while(Contained())
+  	Exit();
+  
   //Falls sie festsitzt, wird sie sofort zurückgebracht
   if(GBackSolid())
   {
