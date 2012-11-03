@@ -1,28 +1,17 @@
-/*-- Wipf --*/
+/*-- Reitwipf --*/
 
 #strict
 #include WIPF
 
 local rider;
 
-public func IsBulletTarget(id idBullet, object pBullet)
-{
-  //Nicht treffbar wenn neutral, außer bei FF
-  if(ObjectCount(NOFF) && GetOwner() == NO_OWNER)
-    return false;
-
-  return true;
-}
-
 
 /* Initialisierung */
 
 func Initialize()
 {
-  SetGraphics(0,0,WIPF);
+  //Stehen und stehenbleiben
   SetAction("Walk");
-  if (Random(2)) SetComDir(COMD_Left());
-  else SetComDir(COMD_Right());
   SetComDir(COMD_Stop());
 }
 
@@ -73,7 +62,8 @@ func ControlUp()
   
 func ControlDownSingle()
 {
-  if (GetAction()S="Walk") {
+  if (GetAction()S="Walk")
+  {
     SetComDir(0);
     SetXDir(0);
   }
@@ -82,11 +72,13 @@ func ControlDownSingle()
 
 func ControlDownDouble()
 {
-  if(!GetXDir()) {
+  if(!GetXDir())
+  {
     ObjectSetAction(rider,"Walk");
     rider=0;
   } else 
-  if (GetAction()S="Walk") {
+  if (GetAction()S="Walk")
+  {
     SetComDir(0);
     SetXDir(0);
   } 
@@ -99,7 +91,8 @@ func ActivateEntrance()
   if(!ObjectCall(rider,"IsRiding")) rider=0;
   // Clonks dürfen auf dem Wipf reiten, wenn er nicht bereits beritten wird und der Wipf bereit ist
   if(GetOCF(Par(0))&OCF_CrewMember() && !rider)
-    if(GetAction()S="Walk" || (GetAction()S="Swim" && !GBackLiquid(3-6*GetDir(),-6))) {
+    if(GetAction()S="Walk" || (GetAction()S="Swim" && !GBackLiquid(3-6*GetDir(),-6)))
+    {
       AdjustVertex();
       SetObjectOrder(this(),Par(0));
       if(InLiquid(Par(0))) SetPosition(GetX()+3-6*GetDir(),GetY()-6,Par(0));
@@ -141,4 +134,41 @@ func Destruction()
 {
   ObjectSetAction(rider,"Walk");
   return(_inherited());
+}
+
+/* Sounds */
+
+private func WalkAction()
+{
+  if(Contained()) return;
+  Sound("ClonkStep*.ogg", 0, 0, 20);
+
+  if(!Random(5))
+    if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",RandomX(3,6),10,0,10,20,100);
+
+  return 1;
+}
+
+private func JumpSound()
+{
+  if(Contained()) return(0);
+
+  if(GetCommand() != "Enter")
+    Sound("ClonkFall*.ogg", 0, 0, 50);
+
+  return 1;
+}
+
+/* Aufschlag */ 
+
+protected func Hit3()
+{
+  Sound("ClonkImpact*.ogg", 0, 0, 25);
+  Sound("ClonkRustle*.ogg", 0, 0, 25);
+}
+
+protected func Hit()
+{
+  Sound("ClonkStep*.ogg", 0, 0, 50);
+  if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",RandomX(4,8),10,0,10,20,100);
 }
