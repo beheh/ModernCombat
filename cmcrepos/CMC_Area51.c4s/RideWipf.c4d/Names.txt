@@ -1,2 +1,2 @@
-DE:Reitbarer Wipf
-US:Ridable Wipf
+DE:Reitwipf
+US:Ride Wipf

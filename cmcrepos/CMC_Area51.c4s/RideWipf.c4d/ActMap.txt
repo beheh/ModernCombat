@@ -6,6 +6,7 @@ FlipDir=1
 Length=18
 Delay=2
 Facet=0,0,24,18
+PhaseCall=WalkAction
 NextAction=Walk
 InLiquidAction=Swim
 
@@ -17,6 +18,7 @@ FlipDir=1
 Length=6
 Delay=2
 Facet=0,18,24,18
+StartCall=JumpSound
 NextAction=Walk
 StartCall=None
 
@@ -28,6 +30,7 @@ FlipDir=1
 Length=18
 Delay=2
 Facet=0,0,24,18
+StartCall=JumpSound
 NextAction=Hold
 InLiquidAction=Swim
 
@@ -74,5 +77,3 @@ Facet=0,54,24,18
 NextAction=Sit
 StartCall=Sitting
 InLiquidAction=Swim
-
- 
