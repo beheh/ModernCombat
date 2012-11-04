@@ -27,8 +27,8 @@ public func Update()
   if(pTarget && GetCategory(pTarget) & C4D_Living && !GetAlive(pTarget))
     return RemoveObject();
 
-  //Verschwinden, wenn kein Ziel/Host oder Ziel verschachtelt oder Host nicht in Sensornähe/inaktiv
-  if(pTarget && pHost && GetOwner(pHost) != NO_OWNER && ((pHost->~IsMAV() && !pHost->IsDestroyed()) || pHost->~IsActive()) && !Contained(pTarget) && ObjectDistance(this, pHost) <= pHost->~SensorDistance())
+  //Verschwinden, wenn kein Ziel/Host oder Ziel verschachtelt oder Host nicht in Sensornähe/inaktiv und Ziel weiterhin detectable (siehe Blend- und Rauchgranaten
+  if(pTarget && pHost && GetOwner(pHost) != NO_OWNER && !Contained(pTarget) && ObjectDistance(this, pHost) <= pHost->~SensorDistance() && (GetCategory(pTarget) & C4D_Living || pTarget->~IsDetectable()))
     return;
 
   RemoveObject();

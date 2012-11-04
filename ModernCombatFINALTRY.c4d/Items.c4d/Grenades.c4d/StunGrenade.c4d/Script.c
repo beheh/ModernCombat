@@ -3,8 +3,11 @@
 #strict 2
 #include NADE
 
+local FadingOut;
+
 public func Color()		{return RGB(0,128,255);}
 public func ContainedDamage()	{return 20;}
+public func IsFadingOut() {return FadingOut;}
 
 
 /* Aktivierung */
@@ -50,6 +53,7 @@ public func Fused()
   for(var i = 0; i <= 3; i++) AddLightFlash(250,0,0,RGB(255,255,255),this);
 
   //Verschwinden
+  FadingOut = true;
   if(OnFire())
     RemoveObject();
   else
