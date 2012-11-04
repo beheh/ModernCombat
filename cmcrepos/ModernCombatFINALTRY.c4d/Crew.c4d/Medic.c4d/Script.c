@@ -7,6 +7,7 @@ static const MDIC_PortraitVersion = 140;
 
 public func WeaponCollectionLimit()	{return 2;}	//Anzahl Waffen im Inventar
 public func ObjectCollectionLimit()	{return 3;}	//Anzahl Objekte im Inventar
+public func DeathAnimationCount()	{return (GetID() == MDIC) && 6;}	//Anzahl Todesanimationen
 protected func IsMedic()		{return 1;}
 
 
