@@ -11,4 +11,4 @@
 #appendto MISL	//Raketen
 
 
-public func IsDetectable()	{return true;}
+public func IsDetectable()	{return !this->~IsFadingOut();}
