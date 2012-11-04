@@ -7,7 +7,7 @@ static const PCMK_PortraitVersion = 150;
 
 public func WeaponCollectionLimit()	{return 3;}	//Anzahl Waffen im Inventar
 public func ObjectCollectionLimit()	{return 2;}	//Anzahl Objekte im Inventar
-public func DeathAnimationCount()	{return 6;}	//Anzahl Todesanimationen
+public func DeathAnimationCount()	{return (GetID() == PCMK) && 6;}	//Anzahl Todesanimationen
 
 
 /* Portrait-Updates */
