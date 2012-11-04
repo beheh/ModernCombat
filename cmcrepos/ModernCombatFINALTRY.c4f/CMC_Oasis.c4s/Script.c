@@ -351,8 +351,8 @@ public func ChooserFinished()
   //Helikopter und Hinweisschilder
   if(!FindObject(NOHC))
   {
-   SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,855,570,-1),100*21);
-   SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,5975,570,-1),100*21);
+   SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,855,570,-1),90*21);
+   SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,5975,570,-1),90*21);
 
    var sign = CreateObject(SGNP, 940, 600, -1);
    sign->SetPhase(2);
@@ -423,9 +423,9 @@ public func ChooserFinished()
   {
    //Flaggen
    if(aTeams[1] == true)
-   {CreateFlag(1,1550,580,GetTeamColor(1));}
+   {CreateFlag(1,2030,610,GetTeamColor(1));}
    if(aTeams[2] == true)
-   {CreateFlag(2,5280,580,GetTeamColor(2));}
+   {CreateFlag(2,4800,610,GetTeamColor(2));}
   }
 }
 
@@ -445,11 +445,11 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   {
    if(iTeam == 1)
    {
-    return [[670, 610], [1130, 620]];
+    return [[1440, 450], [1440, 540], [1560, 570]];
    }
    if(iTeam == 2)
    {
-    return [[5710, 620], [6160, 610]];
+    return [[5270, 570], [5390, 450], [5390, 540]];
    }
    return(1);
   }
