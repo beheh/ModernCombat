@@ -60,7 +60,7 @@ static CSTD_CMCDevelopers;
 
 protected func InitializePlayer(int iPlr, int iX, int iY, object pBase, int iTeam)
 {
-  AddMsgBoardCmd("Votekick", "Votekick(%player%, \"%s\")");
+  AddMsgBoardCmd("votekick", "Votekick(%player%, \"%s\")");
 
   if(GetType(CSTD_CMCDevelopers) != C4V_Array)
     CSTD_CMCDevelopers = [];
