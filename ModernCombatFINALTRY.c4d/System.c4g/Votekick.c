@@ -38,7 +38,7 @@ global func GetClientCount()
 
 /* Votekick starten */
 
-global func votekick(int iPlr, string pars)
+global func Votekick(int iPlr, string pars)
 {
   //Nur bei Runden ohne Host
   if(!NoRealHost())
