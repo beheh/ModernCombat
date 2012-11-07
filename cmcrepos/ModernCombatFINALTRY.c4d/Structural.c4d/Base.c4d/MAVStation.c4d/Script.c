@@ -293,84 +293,84 @@ private func ExitClonk(object pByObj)
 public func ControlLeft(object pByObj)
 {
   if(pMAV && !pMAV->IsDestroyed())
-    pMAV->ControlLeft(pByObj);
+    pMAV->~ControlLeft(pByObj);
   return true;
 }
 
 public func ControlLeftDouble(object pByObj)
 {
   if(pMAV && !pMAV->IsDestroyed())
-    pMAV->ControlLeftDouble(pByObj);
+    pMAV->~ControlLeftDouble(pByObj);
   return true;
 }
 
 public func ControlLeftReleased(object pByObj)
 {
   if(pMAV && !pMAV->IsDestroyed())
-    pMAV->ControlLeftReleased(pByObj);
+    pMAV->~ControlLeftReleased(pByObj);
   return true;
 }
 
 public func ControlRight(object pByObj)
 {
   if(pMAV && !pMAV->IsDestroyed())
-    pMAV->ControlRight(pByObj);
+    pMAV->~ControlRight(pByObj);
   return true;
 }
 
 public func ControlRightDouble(object pByObj)
 {
   if(pMAV && !pMAV->IsDestroyed())
-    pMAV->ControlRightDouble(pByObj);
+    pMAV->~ControlRightDouble(pByObj);
   return true;
 }
 
 public func ControlRightReleased(object pByObj)
 {
   if(pMAV && !pMAV->IsDestroyed())
-    pMAV->ControlRightReleased(pByObj);
+    pMAV->~ControlRightReleased(pByObj);
   return true;
 }
 
 public func ControlDown(object pByObj)
 {
   if(pMAV && !pMAV->IsDestroyed())
-    pMAV->ControlDown(pByObj);
+    pMAV->~ControlDown(pByObj);
   return true;
 }
 
 public func ControlDownReleased(object pByObj)
 {
   if(pMAV && !pMAV->IsDestroyed())
-    pMAV->ControlDownReleased(pByObj);
+    pMAV->~ControlDownReleased(pByObj);
   return true;
 }
 
 public func ControlDownDouble(object pByObj)
 {
   if(pMAV && !pMAV->IsDestroyed())
-    pMAV->ControlDownDouble(pByObj);
+    pMAV->~ControlDownDouble(pByObj);
   return true;
 }
 
 protected func ControlUp(object pByObj)
 {
   if(pMAV && !pMAV->IsDestroyed())
-    pMAV->ControlUp(pByObj);
+    pMAV->~ControlUp(pByObj);
   return true;
 }
 
 public func ControlUpReleased(object pByObj)
 {
   if(pMAV && !pMAV->IsDestroyed())
-    pMAV->ControlUpReleased(pByObj);
+    pMAV->~ControlUpReleased(pByObj);
   return true;
 }
 
 protected func ControlUpDouble(object pByObj)
 {
   if(pMAV && !pMAV->IsDestroyed())
-    pMAV->ControlUpDouble(pByObj);
+    pMAV->~ControlUpDouble(pByObj);
   return true;
 }
 
@@ -456,7 +456,7 @@ protected func ControlThrow(object pByObj)
       Sound("CockpitRadio.ogg", true, 0, 100, GetOwner(pByObj)+1, +1);
       SetAction("Controlling");
     }
-    pMAV->ControlThrow(pByObj);
+    pMAV->~ControlThrow(pByObj);
   }
 
   return true;
