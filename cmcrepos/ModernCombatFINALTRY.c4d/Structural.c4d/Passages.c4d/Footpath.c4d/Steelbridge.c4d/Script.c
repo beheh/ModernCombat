@@ -27,7 +27,7 @@ protected func SwitchMode()
 
 protected func SetIrreparable()
 {
-	norepair = true;
+  norepair = true;
 }
 
 /* Zerstörung */
