@@ -31,11 +31,11 @@ func HitObject(object pObj)
       Sparks(30,RGB(255,128));
     }
   }
-  
+
   if(Hostile(iLastAttacker, GetController()))
-  	//Punkte bei Belohnungssystem (Granatenabwehr)
-  	DoPlayerPoints(BonusPoints("Protection"), RWDS_TeamPoints, iLastAttacker, GetCursor(iLastAttacker), IC16);
-  
+    //Punkte bei Belohnungssystem (Granatenabwehr)
+    DoPlayerPoints(BonusPoints("Protection"), RWDS_TeamPoints, iLastAttacker, GetCursor(iLastAttacker), IC16);
+
   Trigger();
 }
 

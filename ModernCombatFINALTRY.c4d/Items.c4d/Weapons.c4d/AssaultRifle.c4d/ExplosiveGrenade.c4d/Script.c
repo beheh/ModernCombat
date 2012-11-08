@@ -16,8 +16,8 @@ public func AllowHitboxCheck()	{return true;}
 
 protected func Initialize() 
 {
-	iLastAttacker = NO_OWNER;
-	return _inherited();
+  iLastAttacker = NO_OWNER;
+  return _inherited();
 }
 
 /* Start */
@@ -87,9 +87,9 @@ func HitObject(object pObj)
     }
   }
   if(Hostile(iLastAttacker, GetController()) && GetID() != ERND)
-  	//Punkte bei Belohnungssystem (Granatenabwehr)
-  	DoPlayerPoints(BonusPoints("Protection"), RWDS_TeamPoints, iLastAttacker, GetCursor(iLastAttacker), IC16);
-  
+    //Punkte bei Belohnungssystem (Granatenabwehr)
+    DoPlayerPoints(BonusPoints("Protection"), RWDS_TeamPoints, iLastAttacker, GetCursor(iLastAttacker), IC16);
+
   Trigger();
 }
 
@@ -140,7 +140,7 @@ func Damage()
     CastParticles("MetalSplinter",3,80,0,0,45,50,RGB(40,20,20));
     Sparks(8,RGB(255,128));
     Sound("MetalHit*.ogg");
-    
+
     Trigger();
   }
 }
