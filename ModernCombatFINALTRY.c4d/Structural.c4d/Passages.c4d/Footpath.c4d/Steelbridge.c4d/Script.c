@@ -2,11 +2,11 @@
 
 #strict 2
 
-public func IsRepairable()	{return true;}
+public func IsRepairable()	{return !norepair;}
 public func MaxDamage()		{return 150;}
 public func RepairSpeed()	{return 2;}
 
-local ruins, destroyed;
+local ruins, destroyed, norepair;
 
 
 /* Initialisierung */
@@ -22,10 +22,12 @@ protected func Initialize()
 
 protected func SwitchMode()
 {
-  if(ruins)
-    ruins = 0;
-  else
-    ruins = 1;
+  ruins = !ruins;
+}
+
+protected func SetIrreparable()
+{
+	norepair = true;
 }
 
 /* Zerstörung */
