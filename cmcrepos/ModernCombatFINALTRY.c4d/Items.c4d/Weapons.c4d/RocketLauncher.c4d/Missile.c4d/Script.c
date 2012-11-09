@@ -266,7 +266,7 @@ public func Damaged()
   //Effekte
   if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",2,80,0,0,45,20,RGB(40,20,20));
 
-  if(Hostile(iLastAttacker, GetController()))
+  if(!Secure() && Hostile(iLastAttacker, GetController()))
   {
     //Punkte bei Belohnungssystem (Raketenabwehr)
     DoPlayerPoints(BonusPoints("Protection"), RWDS_TeamPoints, iLastAttacker, GetCursor(iLastAttacker), IC16);
