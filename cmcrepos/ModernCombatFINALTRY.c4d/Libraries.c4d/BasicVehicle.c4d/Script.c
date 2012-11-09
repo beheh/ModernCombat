@@ -16,7 +16,7 @@ public func GetLastAttacker()		{return iLastAttacker;}	//Letzer Angreifer
 public func IsDestroyed()		{return fDestroyed;}	//Zerstört
 public func IsCMCVehicle()		{return true;}		//Ist ein CMC Fahrzeug
 public func IsRepairable()		{return true;}		//Reparierbar
-public func RepairSpeed()		{return 1;}		//Standard-Reparaturgeschwindigkeit
+public func RepairSpeed()		{return 0;}		//Standard-Reparaturgeschwindigkeit
 
 
 /* Initialisierung */
