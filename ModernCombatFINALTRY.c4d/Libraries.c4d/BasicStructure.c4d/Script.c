@@ -19,7 +19,8 @@ public func IsDestroyed()		{return fDestroyed;}		//Zerstört
 public func IsCMCStructure()		{return true;}			//Ist eine CMC Struktur
 
 public func IsRepairable()		{return true;}			//Reparierbar
-public func RepairSpeed()		{return 1;}			//Standard-Reparaturgeschwindigkeit
+public func RepairSpeed()		{return 0;}			//Standard-Reparaturgeschwindigkeit
+
 
 /* Initialisierung */
 
