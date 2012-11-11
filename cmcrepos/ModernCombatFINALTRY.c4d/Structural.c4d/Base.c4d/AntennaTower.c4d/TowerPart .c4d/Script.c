@@ -18,7 +18,7 @@ public func FxDmgObjectsTimer(object target, int nr, int time)
   if((GetXDir() < 20 && GetYDir() < 20) || Stuck())
   {
     EffectVar(1, target, nr)++;
-    //Bei keiner bewegung in 15 Sekunden verschwinden
+    //Bei keiner Bewegung in 15 Sekunden verschwinden
     if(EffectVar(1, target, nr) > 200)
       FadeOut();
 
@@ -45,7 +45,10 @@ public func FxDmgObjectsTimer(object target, int nr, int time)
     DoDmg(Max(GetXDir(),GetYDir()), DMG_Melee, obj, 10, GetOwner()+1);
 
     if(GetCategory(obj) & C4D_Living)
+    {
       obj->SetAction("Tumble");
+      Sound("FKDT_FatalHit*.ogg", 0, obj, 40);
+    }
   }
   EffectVar(0, target, nr) = objects;
 }
