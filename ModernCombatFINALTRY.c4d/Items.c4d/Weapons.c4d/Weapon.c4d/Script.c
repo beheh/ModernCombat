@@ -1171,7 +1171,7 @@ private func Reloaded(caller,slot,amount)
 
 /* Nachladen stoppen */
 
-protected func Deselection(object pContainer)
+public func Deselection(object pContainer)
 {
   //Callback
   OnDeselect(firemode);
