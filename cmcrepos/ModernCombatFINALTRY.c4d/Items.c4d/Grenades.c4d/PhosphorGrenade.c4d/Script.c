@@ -25,7 +25,12 @@ public func Fused()
   //Schaden
   Explode(BlastRadius()*2/3);
   DamageObjects(BlastRadius()*3/2,BlastRadius()*2,this);
-  CastObjects(PSPR, 8, 50);
+  for(var i = 0; i < 8; i++) {
+    var pPhosphor = CreateObject(PSPR, 0, 0, GetOwner());
+    SetController(GetController(), pPhosphor);
+    SetXDir(Random(2*50+1)-50, pPhosphor);
+    SetYDir(Random(2*50+1)-50, pPhosphor);
+  }
 
   //Effekte
   CreateParticle("Blast",0,0,0,0,10*BlastRadius(),RGB(20,128,255));
