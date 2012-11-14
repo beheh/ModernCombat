@@ -251,22 +251,22 @@ public func UpdateScoreboard()
   {
     //Team gibts. Hochzählen
     if (GetTeamName(j))
-	  i++;
-	//Team gibts nicht oder keine Spieler drin
-	if (!GetTeamName(j) || !GetTeamPlayerCount(j))
-        {
-	  SetScoreboardData(j, GHTF_Name);
-	  SetScoreboardData(j, GHTF_Points);
-	  SetScoreboardData(j, GHTF_Progress);
-	  continue;
-	}
-	SetScoreboardData(j, GHTF_Name, Format("<c %x>%s</c>", GetTeamFlagColor(j), GetTeamName(j)));
-	SetScoreboardData(j, GHTF_Points, Format("<c %x>%d</c>", GetTeamFlagColor(j), aTeamPoints[j]), aTeamPoints[j]);
-	//Team hat die Flagge
-	if (j == iFlagTeam)
-	  SetScoreboardData(j, GHTF_Progress, Format("<c %x>%02d%</c>", GetTeamFlagColor(j), iProgress), iProgress);
-	else
-	  SetScoreboardData(j, GHTF_Progress, Format("<c %x>00%</c>", GetTeamFlagColor(j)), -1);
+      i++;
+    //Team gibts nicht oder keine Spieler drin
+    if (!GetTeamName(j) || !GetTeamPlayerCount(j))
+    {
+      SetScoreboardData(j, GHTF_Name);
+      SetScoreboardData(j, GHTF_Points);
+      SetScoreboardData(j, GHTF_Progress);
+      continue;
+    }
+    SetScoreboardData(j, GHTF_Name, Format("<c %x>%s</c>", GetTeamFlagColor(j), GetTeamName(j)));
+    SetScoreboardData(j, GHTF_Points, Format("<c %x>%d</c>", GetTeamFlagColor(j), aTeamPoints[j]), aTeamPoints[j]);
+    //Team hat die Flagge
+    if (j == iFlagTeam)
+      SetScoreboardData(j, GHTF_Progress, Format("<c %x>%02d%</c>", GetTeamFlagColor(j), iProgress), iProgress);
+    else
+      SetScoreboardData(j, GHTF_Progress, Format("<c %x>00%</c>", GetTeamFlagColor(j)), -1);
   }
 
   //So... Erstmal nach Flaggenstatus sortieren
@@ -278,12 +278,12 @@ public func UpdateScoreboard()
 public func GetTeamFlagColor(int iTeam)
 {
   //Team hat mehrere Spieler: Teamfarbe
-  if (GetTeamPlayerCount(iTeam) != 1)
+  if(GetTeamPlayerCount(iTeam) != 1)
     return GetTeamColor(iTeam);
   //Ein Spieler: Dessen Spielerfarbe
   for (var i; i < GetPlayerCount(i); i++)
-    if (GetPlayerTeam(GetPlayerByIndex(i)) == iTeam)
-	  return GetPlrColorDw(GetPlayerByIndex(i));
+    if(GetPlayerTeam(GetPlayerByIndex(i)) == iTeam)
+      return GetPlrColorDw(GetPlayerByIndex(i));
   return GetTeamColor(iTeam);
 }
 
