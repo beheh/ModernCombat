@@ -1237,7 +1237,7 @@ private func QuickInventoryThrow()
 
 private func QuickInventorySelect(id idObject, bool fSaveTemporary)
 {
-  var fFound = SelectInventory(0, idObject);
+  var fFound = SelectInventory(idObject);
   if(!fFound) {
     fFound = GrabGrenade(idObject);
     //Wenn wir jetzt exakt eine Granate herausgeholt haben
@@ -1318,24 +1318,19 @@ private func QuickInventoryStore(object pObj)
   }
 }
 
-public func SelectInventory(object pObj, id idObject)
+public func SelectInventory(id idObject)
 {
-  if(!Contents()) return;
-  if(!pObj && !idObject) return;
-  if(pObj == Contents() || GetID(Contents()) == idObject) return true;
-  if(pObj && Contained(pObj) != this) return;
-  if(idObject && !ContentsCount(idObject)) return;
+  if(!idObject || !Contents()) return;
+  if(!ContentsCount(idObject)) return;
+  if(GetID(Contents()) == idObject) return true;
   var aiming = IsAiming() && Contents()->~CanAim();
   var angle = Abs(AimAngle());
   if(aiming) StopAiming();
-  while(GetID(Contents(0)) != GetID(pObj) && GetID(Contents(0)) != idObject)
+  while(GetID(Contents()) != idObject)
   {
-    ShiftContents();
+    ShiftContents(this, 0, idObject, true);
   }
-  ShiftContents(0, 0, 0, false); 
-  //Selection-Call
-  ShiftContents(0, true, 0, true);
-  if(Contents(0)->~CanAim() && aiming)
+  if(Contents()->~CanAim() && aiming)
   {
     if(IsSquatAiming() || Contents()->~GetFMData(FM_Aim) != 1)
     {
