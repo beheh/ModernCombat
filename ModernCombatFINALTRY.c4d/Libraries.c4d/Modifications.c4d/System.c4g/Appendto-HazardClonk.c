@@ -1007,8 +1007,8 @@ protected func ResetData(int iData, bool fContinue)
   {
     ResetPlayerAchievements(GetOwner());
     ResetPlayerRibbons(GetOwner());
-	}
-	
+  }
+
   PlayerMessage(GetOwner(), "$ResetDone$", this);
 }
 

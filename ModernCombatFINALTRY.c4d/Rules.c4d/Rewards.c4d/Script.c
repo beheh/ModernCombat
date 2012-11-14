@@ -23,7 +23,7 @@ protected func Initialize()
   iAchievementCount = 0;
   while(GetName(0, C4Id(Format("AC%02d", iAchievementCount+1))))
     iAchievementCount++;
-  
+
   while(GetName(0, C4Id(Format("RB%02d", iRibbonCount+1))))
     iRibbonCount++;
 
@@ -815,7 +815,7 @@ global func ResetPlayerRibbons(int iPlr)
 {
   for(var i = 1; i <= (iRibbonCount/32)+1; i++)
     SetPlrExtraData(iPlr, Format("CMC_Ribbon%d", i), 0);
-  
+
   //Gegebenenfalls eigenes Ribbon verteilen
   if(IsDeveloper(GetPlayerID(iPlr)))
   {
