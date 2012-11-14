@@ -156,4 +156,4 @@ Beer=Das Bier
 YourGlance=Dein Blick
 YourHarddrive=Deine Festplatte
 YourChat=Dein Chatfenster
-F=Failed
+F=Authentifizierung gescheitert.
