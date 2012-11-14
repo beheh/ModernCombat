@@ -2,7 +2,7 @@
 
 #strict 2
 
-static aAchievementProgress, aAchievementExtra, iAchievementCount, RWDS_aAchievementBlocked;
+static aAchievementProgress, aAchievementExtra, iAchievementCount, iRibbonCount, RWDS_aAchievementBlocked;
 static aRanks, iRankCount;
 local aData, fEvaluation, aStats, aLastPage;
 
@@ -22,9 +22,10 @@ protected func Initialize()
   aLastPage = CreateArray();
   iAchievementCount = 0;
   while(GetName(0, C4Id(Format("AC%02d", iAchievementCount+1))))
-  {
     iAchievementCount++;
-  }
+  
+  while(GetName(0, C4Id(Format("RB%02d", iRibbonCount+1))))
+    iRibbonCount++;
 
   for(var i = 0; i < GetPlayerCount(C4PT_User); i++)
   {
@@ -804,10 +805,27 @@ global func ResetAllPlayerAchievements()
 global func ResetPlayerAchievements(int iPlr)
 {
   SetPlrExtraData(iPlr, "CMC_Achievements", 0);
-  for(var i = 1; GetPlrExtraData(iPlr, Format("CMC_Achievements%d", i)); i++)
-  {
+  for(var i = 1; i <= (iAchievementCount/32)+1; i++)
     SetPlrExtraData(iPlr, Format("CMC_Achievements%d", i), 0);
+
+  return true;
+}
+
+global func ResetPlayerRibbons(int iPlr)
+{
+  for(var i = 1; i <= (iRibbonCount/32)+1; i++)
+    SetPlrExtraData(iPlr, Format("CMC_Ribbon%d", i), 0);
+  
+  //Gegebenenfalls eigenes Ribbon verteilen
+  if(IsDeveloper(GetPlayerID(iPlr)))
+  {
+    var iRibbon = GetPlrExtraData(iPlr, "CMC_Team_Ribbon");
+    if(iRibbon && GetName(0, C4Id(Format("RB%02d", iRibbon))))
+    {
+      AttemptAwardRibbon(C4Id(Format("RB%02d", iRibbon)), iPlr, iPlr);
+    }
   }
+
   return true;
 }
 
