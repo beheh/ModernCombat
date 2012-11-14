@@ -22,9 +22,10 @@ protected func Initialize()
 
 public func ChooserFinished()
 {
-  SetFlag(FindObject(OFLP));
   aTeamPoints = [];
-  AddEffect("IntAddProgress", this, 1, 10 / (GetTeamCount()/2), this);
+  ScheduleCall(this, "UpdateFlag", 1);
+  //Punktegeschwindgikeit
+  AddEffect("IntAddProgress", this, 1, Max(14 - GetActiveTeamCount() * 2, 5), this);  
   UpdateHUDs();
 
   //Spielzielhinweise erstellen
@@ -33,6 +34,14 @@ public func ChooserFinished()
     CreateObject(TK05, 0, 0, GetPlayerByIndex(i));
     Sound("ObjectiveReceipt.ogg", true, 0, 100, GetPlayerByIndex(i));
   }
+}
+
+protected func UpdateFlag() {
+  pFlag = FindObject2(Find_Func("IsFlagpole"));
+  if(!pFlag) return;
+  //Einnahmegeschwindigkeit
+  pFlag->Set(GetName(pFlag), pFlag->GetRange(), Max(18 - GetActiveTeamCount() * 4, 4));
+  return true;
 }
 
 /* Konfiguration */
@@ -106,20 +115,20 @@ protected func FxIntAddProgressTimer()
   var warning = BoundBy(iGoal*3/4, iGoal-5, iGoal-1);
   if ((++iProgress) >= 100) {
     aTeamPoints[team]++;
-	iProgress = 0;
+	  iProgress = 0;
     UpdateHUDs();
-	//Und jedem Spieler im Team 10 Punkte geben.
-	for (var i; i < GetPlayerCount(); i++)
-	  if (GetPlayerTeam(GetPlayerByIndex(i)) == team)
-          {
-            //Punkte bei Belohnungssystem (Flaggenverteidigung)
-	    DoPlayerPoints(BonusPoints("Protection"), RWDS_TeamPoints, GetPlayerByIndex(i), GetCrew(GetPlayerByIndex(i)), IC12);
+	  //Und jedem Spieler im Team 10 Punkte geben.
+	  for (var i; i < GetPlayerCount(); i++)  {
+	    if (GetPlayerTeam(GetPlayerByIndex(i)) == team) {
+        //Punkte bei Belohnungssystem (Flaggenverteidigung)
+	      DoPlayerPoints(BonusPoints("Protection"), RWDS_TeamPoints, GetPlayerByIndex(i), GetCrew(GetPlayerByIndex(i)), IC12);
 	      Sound("Info.ogg", true, 0, 0, GetPlayerByIndex(i)+1);
-	  }
-	  //Die anderen warnen falls nötig
-	  else
-	    if(aTeamPoints[team] == warning)
+	    }
+	    //Spieler warnen
+	    else if(aTeamPoints[team] == warning) {
 	      EventInfo4K(GetPlayerByIndex(i)+1, Format("$TeamReachingGoal$", GetTaggedTeamName(team), iGoal-warning), GHTF, 0, 0, 0, "Alarm.ogg");
+	    }
+    }
   }
 
   //Gewonnen?
@@ -150,15 +159,9 @@ public func IsTeamGoal()		{return 1;}
 
 public func SetFlag(object pFlagPole)
 {
+  if(!pFlagPole || !pFlagPole->~IsFlagpole()) return;
   pFlag = pFlagPole;
-  //GameCall für Szenarien.
-  //Die Funktion sollte anhand der Anzahl der aktiven Teams (1. Parameter) die Zeit berechnen und zurückgeben.
-  var iTime = GameCall("GetHTFTime", GetActiveTeamCount());
-  if (!iTime)
-    iTime = 15/GetActiveTeamCount();
-  if (pFlag)
-    pFlag->~Set(GetName(pFlag), 100, Max(iTime, 1));
-  return pFlag;
+  return !!pFlag;
 }
 
 public func GetFlag()

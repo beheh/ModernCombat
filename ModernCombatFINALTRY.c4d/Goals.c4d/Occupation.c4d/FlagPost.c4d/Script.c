@@ -8,6 +8,7 @@ public func GetAttacker()	{return attacker;}
 public func GetTeam()		{return team;}
 public func GetProcess()	{return process;}
 public func GetTrend()		{return trend;}
+public func GetRange()		{return range;}
 public func IsFullyCaptured()	{return capt;}
 
 public func IsFlagpole()	{return true;}
@@ -156,10 +157,10 @@ protected func Timer()
   attacker = opposition;
 
   if(enemys && !friends)
-    DoProcess(opposition,Min(enemys,3)*(GetTeamCount()/2));
+    DoProcess(opposition,Min(enemys,3));
 
   if(!enemys && friends)
-    DoProcess(team,Min(friends,3)*(GetTeamCount()/2));
+    DoProcess(team,Min(friends,3));
 
   if(trend != iOld)
     ResetAttackers();
