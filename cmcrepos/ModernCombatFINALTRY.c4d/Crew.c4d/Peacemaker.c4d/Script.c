@@ -681,7 +681,7 @@ public func CheckIdleWeapon()
 
   //Waffe wechseln
   if(ContentsCount() != 1 && Contents() != obj)
-    SelectInventory(obj);
+    SelectInventory(GetID(obj));
   //Feuermodus wechseln
   if(obj->GetFireMode() != mode)
     obj->SetFireMode(mode);
