@@ -24,7 +24,7 @@ public func ChooserFinished()
 {
   SetFlag(FindObject(OFLP));
   aTeamPoints = [];
-  AddEffect("IntAddProgress", this, 1, 10, this);
+  AddEffect("IntAddProgress", this, 1, 10 / (GetTeamCount()/2), this);
   UpdateHUDs();
 
   //Spielzielhinweise erstellen
