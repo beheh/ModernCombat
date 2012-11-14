@@ -1004,8 +1004,11 @@ protected func ResetData(int iData, bool fContinue)
   if(iData & 2)
     ResetPlayerStats(GetOwner());
   if(iData & 4)
+  {
     ResetPlayerAchievements(GetOwner());
-
+    ResetPlayerRibbons(GetOwner());
+	}
+	
   PlayerMessage(GetOwner(), "$ResetDone$", this);
 }
 
