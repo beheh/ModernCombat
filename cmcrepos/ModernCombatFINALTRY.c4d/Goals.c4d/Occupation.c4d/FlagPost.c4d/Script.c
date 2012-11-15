@@ -242,12 +242,12 @@ public func UpdateFlag()
   SetFlagPos(process);
 }
 
-protected func SetFlagPos(int iHeight)
+protected func SetFlagPos(int iPercentage)
 {
   if(!flag) return;
-  iHeight = ((((GetDefHeight()+GetDefOffset(GetID(flag),true))*10)/100*(iHeight*10)) / 100)-GetDefOffset(GetID(flag),true);//Prozent umrechnen.
-  iHeight = BoundBy(iHeight,0,GetDefHeight()+GetDefOffset(GetID(flag),true)); //Sicherheit ist wichtig.
-  SetPosition(GetX(),GetY()-iHeight,flag);//Und setzen.
+  var iMaximum = GetDefHeight() - GetDefHeight(GetID(flag));
+  var iHeight = iPercentage * iMaximum / 100 + GetDefHeight(GetID(flag))/2;
+  SetPosition(GetX(),GetY() - iHeight, flag);
 }
 
 public func DoProcess(int iTeam, int iAmount)
