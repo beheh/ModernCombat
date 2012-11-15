@@ -10,7 +10,6 @@ public func GetProcess()	{return process;}
 public func GetTrend()		{return trend;}
 public func GetRange()		{return range;}
 public func IsFullyCaptured()	{return capt;}
-
 public func IsFlagpole()	{return true;}
 
 
