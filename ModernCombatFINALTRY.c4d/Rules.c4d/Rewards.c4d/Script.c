@@ -392,8 +392,7 @@ public func InitPlayerData(int iPlr)
     iDataOld = iDataOld >> 1; //Konvertieren, Bit 0 wird jetzt mitgenutzt
     var iDataNew = GetPlrExtraData(iPlr, "CMC_Achievements1");
     SetPlrExtraData(iPlr, "CMC_Achievements1", iDataOld | iDataNew);
-    //Bei Release folgende Zeile (und diesen Kommentar) entfernen:
-    //SetPlrExtraData(iPlr, "CMC_Achievements", 0);
+    SetPlrExtraData(iPlr, "CMC_Achievements", 0);
   }
 
   //Gegebenenfalls eigenes Ribbon verteilen
