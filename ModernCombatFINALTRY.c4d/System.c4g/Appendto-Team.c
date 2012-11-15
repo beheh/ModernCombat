@@ -92,7 +92,7 @@ global func GetTeamPlayerCount(int iTeam)
 {
   for (var i, count; i < GetPlayerCount(); i++)
     if (GetPlayerTeam(GetPlayerByIndex(i)) == iTeam && GetPlayerName(GetPlayerByIndex(i)))
-	  count++;
+      count++;
   return count;
 }
 

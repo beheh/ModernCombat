@@ -36,7 +36,8 @@ public func ChooserFinished()
   }
 }
 
-protected func UpdateFlag() {
+protected func UpdateFlag()
+{
   pFlag = FindObject2(Find_Func("IsFlagpole"));
   if(!pFlag) return;
   //Einnahmegeschwindigkeit
@@ -113,21 +114,25 @@ protected func FxIntAddProgressTimer()
 
   //Punkte vergeben
   var warning = BoundBy(iGoal*3/4, iGoal-5, iGoal-1);
-  if ((++iProgress) >= 100) {
+  if ((++iProgress) >= 100)
+  {
     aTeamPoints[team]++;
-	  iProgress = 0;
+    iProgress = 0;
     UpdateHUDs();
-	  //Und jedem Spieler im Team 10 Punkte geben.
-	  for (var i; i < GetPlayerCount(); i++)  {
-	    if (GetPlayerTeam(GetPlayerByIndex(i)) == team) {
+    //Und jedem Spieler im Team 10 Punkte geben.
+    for (var i; i < GetPlayerCount(); i++)
+    {
+      if (GetPlayerTeam(GetPlayerByIndex(i)) == team)
+      {
         //Punkte bei Belohnungssystem (Flaggenverteidigung)
-	      DoPlayerPoints(BonusPoints("Protection"), RWDS_TeamPoints, GetPlayerByIndex(i), GetCrew(GetPlayerByIndex(i)), IC12);
-	      Sound("Info.ogg", true, 0, 0, GetPlayerByIndex(i)+1);
-	    }
-	    //Spieler warnen
-	    else if(aTeamPoints[team] == warning) {
-	      EventInfo4K(GetPlayerByIndex(i)+1, Format("$TeamReachingGoal$", GetTaggedTeamName(team), iGoal-warning), GHTF, 0, 0, 0, "Alarm.ogg");
-	    }
+        DoPlayerPoints(BonusPoints("Protection"), RWDS_TeamPoints, GetPlayerByIndex(i), GetCrew(GetPlayerByIndex(i)), IC12);
+        Sound("Info.ogg", true, 0, 0, GetPlayerByIndex(i)+1);
+      }
+      //Spieler warnen
+      else if(aTeamPoints[team] == warning)
+      {
+        EventInfo4K(GetPlayerByIndex(i)+1, Format("$TeamReachingGoal$", GetTaggedTeamName(team), iGoal-warning), GHTF, 0, 0, 0, "Alarm.ogg");
+      }
     }
   }
 
