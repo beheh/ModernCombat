@@ -2457,7 +2457,7 @@ public func ControlLeftDouble()
 {
   if(GetAction() == "Push" || IsRiding())
   {
-    if(GetActionTarget()->~ControlLeftDouble(this))
+    if(GetActionTarget() && GetActionTarget()->~ControlLeftDouble(this))
       return true;
   }
   return _inherited(...);
