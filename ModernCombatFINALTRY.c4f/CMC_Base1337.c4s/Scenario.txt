@@ -1,8 +1,9 @@
 [Head]
 Icon=16
 Title=CMC - Base 1337
+MaxPlayer=12
+MaxPlayerLeague=12
 Loader=Loader_CMC*
-Version=4,9,10,4
 Origin=ModernCombatFINALTRY.c4f\CMC_Base1337.c4s
 
 [Definitions]
