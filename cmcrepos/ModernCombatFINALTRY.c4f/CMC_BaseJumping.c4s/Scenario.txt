@@ -1,9 +1,10 @@
 [Head]
 Icon=16
 Title=CMC - Base Jumping
+MaxPlayer=12
+MaxPlayerLeague=12
 Loader=Loader_CMC*
-Version=4,9,10,4
-Origin=ModernCombatFINALTRY.c4f
+Origin=ModernCombatFINALTRY.c4f\CMC_BaseJumping.c4s
 
 [Definitions]
 Definition1=Objects.c4d
