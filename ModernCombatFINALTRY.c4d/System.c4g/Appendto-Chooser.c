@@ -360,6 +360,42 @@ protected func OpenMenu()
   AddMenuItem("$Finished$", "ConfigurationFinished", CHOS, pClonk,0,0,"$Finished$",2,3);
 }
 
+/* Regelmenü */
+
+protected func OpenRuleMenu(id dummy, int iSelection)
+{
+  var pClonk = GetCursor(iChoosedPlr);
+  // Menü aufmachen
+  CreateMenu(GetID(), pClonk);
+  // Regeln einfügen
+  for(var i=0, idR, def, j, check ; idR = GetDefinition(i, Chooser_Cat) ; i++)
+  {
+    if(DefinitionCall(idR, "IsChooseable") && !GetLength(FindObjects(Find_ID(idR))))
+    {
+      def = CreateObject(idR, 0,0, -1);
+      if(aRules[i])
+      {
+        SetGraphics("Chosen", def, WPCH, 1, GFXOV_MODE_Picture);
+        SetObjDrawTransform(650, 0, 5000, 0, 650, 5000, def, 1);
+      }
+      
+      AddMenuItem("%s", "ChangeRuleConf", idR, pClonk, 0, i, 0, 4, def);
+      
+      if(i == iSelection)
+        check = true;
+      
+      if(!check)
+        j++;
+      
+      RemoveObject(def);
+    }
+  }
+  // Fertig
+  AddMenuItem("$Finished$", "OpenMenu", CHOS, pClonk,0,0,0,2,3);
+  // Menüeintrag auswählen
+  SelectMenuItem(j, pClonk);
+}
+
 protected func OpenEffectMenu(id dummy, int iSelection)
 {
   var pClonk = GetCursor(iChoosedPlr);
