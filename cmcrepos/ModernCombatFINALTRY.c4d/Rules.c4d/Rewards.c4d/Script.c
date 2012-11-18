@@ -91,14 +91,16 @@ public func StatsPoints(int iPlr)
   //Erst mal einsortieren
   var aList = CreateArray();
   var szString;
-  var iPlayer = 0;
-  while(aData[iPlayer] != 0)
+  for(var iPlayer = 0; iPlayer < GetLength(aData); ++iPlayer)
   {
+  	if(!aData[iPlayer])
+  		continue;
+
     var iTeam = GetPlayerData(RWDS_PlayerTeam, iPlayer);
     if(!aList[iTeam]) aList[iTeam] = CreateArray();
+
     szString = Format("%s:| %d $Points$", GetPlayerData(RWDS_CPlayerName, iPlayer), GetPlayerPoints(RWDS_TotalPoints, iPlayer));
-               aList[iTeam][GetLength(aList[iTeam])] = szString;
-               iPlayer++;
+    aList[iTeam][GetLength(aList[iTeam])] = szString;
   }
   //Nach Team ausgeben
   AddMenuItem("<c 33ccff>$PointTable$</c>", 0, NONE, pClonk);
