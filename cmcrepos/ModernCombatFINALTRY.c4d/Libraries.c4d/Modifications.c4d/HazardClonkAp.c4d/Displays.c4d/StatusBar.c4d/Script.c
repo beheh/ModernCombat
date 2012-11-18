@@ -3,7 +3,7 @@
 #strict 2
 
 local obj;
-local iBarCount;
+local iBarCount, tBarCount;
 local fActive;
 
 local iBarType;
@@ -27,9 +27,9 @@ global func GetBarCount(object target, int iOwner, object exclude)
   if(!target) { target = this; }
 
   if(!exclude)
-    return GetLength(FindObjects(Find_Func("IsBar"), Find_Func("BarActive"), Find_ActionTarget(target), Find_Owner(iOwner)));
+    return ObjectCount2(Find_ActionTarget(target), Find_Owner(iOwner), Find_Func("IsBar"), Find_Func("BarActive"));
   else
-    return GetLength(FindObjects(Find_Func("IsBar"), Find_Func("BarActive"), Find_ActionTarget(target), Find_Owner(iOwner), Find_Exclude(exclude)));
+    return ObjectCount2(Find_ActionTarget(target), Find_Owner(iOwner), Find_Exclude(exclude), Find_Func("IsBar"), Find_Func("BarActive"));
 }
 
 
@@ -118,11 +118,11 @@ public func PositionToVertex(bool fForcedYPos)
 
   SetVertex(0, 0, GetVertex(0, 0, obj));
 
-  if(GetBarType() && iBarCount != GetBarCount(obj, GetOwner()))
+  if(GetBarType() && iBarCount != tBarCount)
   {
     var ypos = 10;
 
-    for(var bar in FindObjects(Find_Func("IsBar"), Find_Func("BarActive"), Find_ActionTarget(obj), Find_Owner(GetOwner())))
+    for(var bar in FindObjects(Find_ActionTarget(obj), Find_Owner(GetOwner()), Find_Func("IsBar"), Find_Func("BarActive")))
     {
       if(bar->GetBarType() < GetBarType())
         ypos += 10;
@@ -143,19 +143,18 @@ public func PositionToVertex(bool fForcedYPos)
 
 public func Update(int percent, bool fDeactivate)
 {
-  //Anpassen (falls andere Anzeigen vorhanden)
-  //PositionToVertex();
-
   if(fDeactivate && fActive)
   {
     SetVisibility(VIS_None);
     fActive = false;
+    CallUpdateBarCount();
     return true;
   }
   else if(!fActive && !fDeactivate)
   {
     fActive = true;
     SetVisibility(VIS_Owner);
+    CallUpdateBarCount();
   }
 
   //Prozentbalken anpassen
@@ -166,6 +165,16 @@ public func Update(int percent, bool fDeactivate)
   }
 
   return true;
+}
+
+public func CallUpdateBarCount()
+{
+	return FindObjects(Find_ActionTarget(obj), Find_Owner(GetOwner()), Find_Func("IsBar"), Find_Func("UpdateBarCount"));
+}
+
+public func UpdateBarCount()
+{
+	tBarCount = GetBarCount(obj, GetOwner());
 }
 
 public func AttachTargetLost()
