@@ -320,8 +320,11 @@ public func RelaunchPlayer(int iPlr, pClonk, int iKiller)
   }
 
   //Kein Angreiferteam definiert?
-  if(iAttacker == -1 && GetPlayerTeam(iPlr) != iDefender)
+  if(iAttacker == -1 && GetPlayerTeam(iPlr) && GetPlayerTeam(iPlr) != iDefender)
+  {
+  	Log("Kein Angreifeteam definiert! Player %d (%s) im Team %d (%s)!", iPlr, GetPlayerName(iPlr), GetPlayerTeam(iPlr), GetTeamName(GetPlayerTeam(iPlr)));
     iAttacker = GetPlayerTeam(iPlr);
+	}
 
   //Noch gar keine Ziele: Kurz warten
   if(!GetLength(aTargets[iDefender]))
@@ -579,6 +582,7 @@ private func IsFulfilled()
 {
   if (FindObject(CHOS))
     return;
+  Log("%v = fulfilled", fulfilled);
   if (fulfilled)
     return fulfilled;
 
@@ -609,6 +613,7 @@ private func IsFulfilled()
   //Keine Angreifer übrig: Verteidiger gewinnen
   else if (iAttacker != -1 && (!GetTeamPlayerCount(iAttacker) || (!TeamGetScore(iAttacker) && GetActiveTeamCount() < 2)))
   {
+  	Log("%d = iAttacker | GetTPC: %d | TGS: %d | ActiveTeamCnt: %d", iAttacker, GetTeamPlayerCount(iAttacker), TeamGetScore(iAttacker), GetActiveTeamCount());
     //Angreifer eliminieren 
     EliminateTeam(iAttacker);
 
@@ -634,6 +639,7 @@ private func IsFulfilled()
 
   if (won)
   {
+  	Log("Frm %d won %v", FrameCounter(), won);
     //Spielende planen
     Schedule("GameOver()", 150);
 
