@@ -254,8 +254,11 @@ private func DeathMenu()
     AddMenuItem(Format("$Points$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);				//Titel
     //Einsortieren
     var aList = [], iPlr, aData = obj->~GetData(), szString = "";
-    while(aData[iPlr] != 0)
-    {
+    for(iPlr = 0; iPlr < GetLength(aData); ++iPlr)
+  	{
+  		if(!aData[iPlr])
+  			continue;
+
       var iTeam = obj->~GetPlayerData(RWDS_PlayerTeam, iPlr);
       if(!aList[iTeam]) aList[iTeam] = [];
       szString = Format("%s: %d", obj->~GetPlayerData(RWDS_PlayerName, iPlr), obj->~GetPlayerPoints(RWDS_TotalPoints, iPlr));
@@ -263,7 +266,6 @@ private func DeathMenu()
         szString = Format("%s: %d", obj->~GetPlayerData(RWDS_CPlayerName, iPlr), obj->~GetPlayerPoints(RWDS_TotalPoints, iPlr));
 
       aList[iTeam][GetLength(aList[iTeam])] = szString;
-      iPlr++;
     }
     //Teamweise ausgeben
     for (var aTeam in aList)
