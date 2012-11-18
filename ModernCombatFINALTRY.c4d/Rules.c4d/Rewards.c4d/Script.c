@@ -93,8 +93,8 @@ public func StatsPoints(int iPlr)
   var szString;
   for(var iPlayer = 0; iPlayer < GetLength(aData); ++iPlayer)
   {
-  	if(!aData[iPlayer])
-  		continue;
+    if(!aData[iPlayer])
+      continue;
 
     var iTeam = GetPlayerData(RWDS_PlayerTeam, iPlayer);
     if(!aList[iTeam]) aList[iTeam] = CreateArray();

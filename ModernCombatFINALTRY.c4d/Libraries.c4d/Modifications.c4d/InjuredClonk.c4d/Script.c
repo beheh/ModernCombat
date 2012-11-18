@@ -255,9 +255,9 @@ private func DeathMenu()
     //Einsortieren
     var aList = [], iPlr, aData = obj->~GetData(), szString = "";
     for(iPlr = 0; iPlr < GetLength(aData); ++iPlr)
-  	{
-  		if(!aData[iPlr])
-  			continue;
+    {
+      if(!aData[iPlr])
+        continue;
 
       var iTeam = obj->~GetPlayerData(RWDS_PlayerTeam, iPlr);
       if(!aList[iTeam]) aList[iTeam] = [];

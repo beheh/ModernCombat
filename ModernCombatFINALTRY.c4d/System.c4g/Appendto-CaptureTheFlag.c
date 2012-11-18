@@ -111,11 +111,11 @@ public func OnPlayerRankUp(int iPlr)
     SetScoreboardData(iPlr, TEAM_PlayerColumn, GetTaggedPlayerName(iPlr, true));
   else
     SetScoreboardData(iPlr, TEAM_TeamColumn, GetTaggedPlayerName(iPlr, true), GetPlayerTeam(iPlr));
-  
+
   var team = GetIndexOf(iPlr, aFlagCarrier);
   if(team < 1)
-  	return true;
-  
+    return true;
+
   SetFlagMarker(iPlr, team);
 
   return true;

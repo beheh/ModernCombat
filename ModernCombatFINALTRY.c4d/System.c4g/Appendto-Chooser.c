@@ -365,9 +365,9 @@ protected func OpenMenu()
 protected func OpenRuleMenu(id dummy, int iSelection)
 {
   var pClonk = GetCursor(iChoosedPlr);
-  // Menü aufmachen
+  //Menü erstellen
   CreateMenu(GetID(), pClonk);
-  // Regeln einfügen
+  //Regeln einfügen
   for(var i=0, idR, def, j, check ; idR = GetDefinition(i, Chooser_Cat) ; i++)
   {
     if(DefinitionCall(idR, "IsChooseable") && !GetLength(FindObjects(Find_ID(idR))))
@@ -390,9 +390,9 @@ protected func OpenRuleMenu(id dummy, int iSelection)
       RemoveObject(def);
     }
   }
-  // Fertig
+  //Fertig-Eintrag hinzufügen
   AddMenuItem("$Finished$", "OpenMenu", CHOS, pClonk,0,0,0,2,3);
-  // Menüeintrag auswählen
+  //Menüeintrag auswählen
   SelectMenuItem(j, pClonk);
 }
 
