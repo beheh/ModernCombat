@@ -820,8 +820,8 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   if(FindObject(GASS))
   {if(FindObject(GASS)->GetRespawnPoint(iX, iY, iTeam)) return 1;}
 
-  //LMS/DM-Spielziel
-  if(FindObject(GLMS) || FindObject(GTDM))
+  //LMS-Spielziel
+  if(FindObject(GLMS))
   {
    if(iTeam == 1)
    {
