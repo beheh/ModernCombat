@@ -169,12 +169,12 @@ public func Update(int percent, bool fDeactivate)
 
 public func CallUpdateBarCount()
 {
-	return FindObjects(Find_ActionTarget(obj), Find_Owner(GetOwner()), Find_Func("IsBar"), Find_Func("UpdateBarCount"));
+  return FindObjects(Find_ActionTarget(obj), Find_Owner(GetOwner()), Find_Func("IsBar"), Find_Func("UpdateBarCount"));
 }
 
 public func UpdateBarCount()
 {
-	tBarCount = GetBarCount(obj, GetOwner());
+  tBarCount = GetBarCount(obj, GetOwner());
 }
 
 public func AttachTargetLost()
