@@ -140,7 +140,8 @@ private func Check()
         if(Contained()->~IsAiming() && Contents(0, Contained()) == this) return;
         ThrowAway();
       }
-      else {
+      else
+      {
         ThrowAway();
       }
 
@@ -158,7 +159,7 @@ public func ThrowAway()
 {
   //Kategorie wechseln
   SetCategory(C4D_Vehicle); 
-  //Schütze das zielen einstellen lassen
+  //Waffe auswerfen sofern verschachtelt
   if(Contained())
   {
     //Schützen verlassen
