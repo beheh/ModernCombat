@@ -13,6 +13,7 @@ local iTeamMode, iUsedTeamSort;
 local fRandomMenu;
 
 protected func RecommendedGoals()	{return GameCall("RecommendedGoals");}
+protected func MinTeamCount() {return Min(GetPlayerCount(), 2);}
 
 
 /* Initialisierung */
@@ -570,6 +571,18 @@ protected func SelectPredefinedTeamMember(bool fInvisible, int iSelection, int i
   return true;
 }
 
+public func CountArrayItems(array aArray, value)
+{
+	var i, j = 0;
+	while((i = GetIndexOf(value, aArray)) != -1)
+	{
+		j++;
+		aArray[i] = !value;
+	}
+	
+	return j;
+}
+
 private func SwitchPredefinedTeam(bool fInvisible, int iSelection, int iPlr, int iTeamSort)
 {
   if(iTeamSort == 2)
@@ -601,7 +614,7 @@ private func SwitchPredefinedTeam(bool fInvisible, int iSelection, int iPlr, int
 protected func SwitchTeam2(int iTeam, int iMode, bool fInvisible)
 {
   arTeams[iTeam] = !arTeams[iTeam];
-  if(GetIndexOf(true, arTeams) == -1) //Deaktivierung aller Teams verhindern
+  if(CountArrayItems(arTeams, true) < MinTeamCount()) //Deaktivierung aller Teams verhindern
   {
     Sound("Error", true, 0, 100, iChoosedPlr+1);
     arTeams[iTeam] = true;
@@ -636,10 +649,10 @@ protected func ChangeTeamCount(int iChange, int iMode, bool fInvisible)
   if(GetType(blocked_teams) != C4V_Int)
     blocked_teams = 0;
 
-  blocked_teams = (GetPlayerCount(C4PT_User) - blocked_teams + 1) * (!!blocked_teams);
+  blocked_teams = (GetPlayerCount(C4PT_User) - blocked_teams + MinTeamCount()) * (!!blocked_teams);
   blocked_teams *= (blocked_teams >= 0);
 
-  iTeamCount = BoundBy(iTeamCount + iChange, 1, GetPlayerCount(C4PT_User)-blocked_teams);
+  iTeamCount = BoundBy(iTeamCount + iChange, MinTeamCount(), GetPlayerCount(C4PT_User)-blocked_teams);
   for(var i = 0; i < GetLength(aPlayerSetting); i++)
   {
     if(aPlayerSetting[i] > iTeamCount)
