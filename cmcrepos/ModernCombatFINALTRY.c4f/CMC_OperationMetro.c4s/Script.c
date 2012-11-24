@@ -789,13 +789,13 @@ public func ChooserFinished()
   {
    //Flaggen
    if(aTeams[1] == true)
-   {CreateFlag(1,1960,440,GetTeamColor(1));}
+   {CreateFlag(1,2140,440,GetTeamColor(1));}
    if(aTeams[2] == true)
-   {CreateFlag(2,3280,440,GetTeamColor(2));}
+   {CreateFlag(2,3100,440,GetTeamColor(2));}
 
    //Grenzen setzen
-   CreateObject(BRDR, 950, 0, -1)->Set(0);
-   CreateObject(BRDR, 4290, 0, -1)->Set(1);
+   CreateObject(BRDR, 1030, 0, -1)->Set(0);
+   CreateObject(BRDR, 4210, 0, -1)->Set(1);
 
    //Geschützstellungen
    CreateObject(GNET, 1600, 370, -1)->Set(0,90,1);
@@ -885,8 +885,22 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   if(FindObject(GASS))
   {if(FindObject(GASS)->GetRespawnPoint(iX, iY, iTeam)) return 1;}
 
-  //HTF/MR/CTF/LMS/DM-Spielziel
-  if(FindObject(GHTF) || FindObject(GMNR) || FindObject(GCTF) || FindObject(GLMS) || FindObject(GTDM))
+  //CTF-Spielziel
+  if(FindObject(GCTF))
+  {
+   if(iTeam == 1)
+   {
+    return [[1560, 490], [1580, 360], [1680, 490]];
+   }
+   if(iTeam == 2)
+   {
+    return [[3560, 490], [3660, 360], [3680, 490]];
+   }
+   return(1);
+  }
+
+  //HTF/MR/LMS/DM-Spielziel
+  if(FindObject(GHTF) || FindObject(GMNR) || FindObject(GLMS) || FindObject(GTDM))
   {
    if(iTeam == 1)
    {
