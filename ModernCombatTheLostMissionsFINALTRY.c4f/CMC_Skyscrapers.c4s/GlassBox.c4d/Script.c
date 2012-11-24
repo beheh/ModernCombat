@@ -35,6 +35,7 @@ public func Open(object pObj)
 
     if(!rnd--) CreateContents(BTBG, pObj);	//Sprengfallentasche
     if(!rnd--) CreateContents(CDBT, pObj);	//Defibrillator
+    if(!rnd--) CreateContents(DGNN, pObj);	//Dragnin
 
     if(!rnd--) {var wpn = CreateContents(RVLR, pObj); wpn->DoAmmo(wpn->GetFMData(FM_AmmoID),wpn->GetFMData(FM_AmmoLoad));}	//Revolver
     if(!rnd--) {var wpn = CreateContents(ATWN, pObj); wpn->DoAmmo(wpn->GetFMData(FM_AmmoID),wpn->GetFMData(FM_AmmoLoad));}	//APW
