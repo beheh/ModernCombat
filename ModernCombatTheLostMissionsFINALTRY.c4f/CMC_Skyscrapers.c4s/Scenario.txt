@@ -17,16 +17,16 @@ Goals=GMNR=4;GLMS=10
 Rules=CHOS=1
 
 [Player1]
-Crew=PCMK=1
+Crew=MDIC=1
 
 [Player2]
-Crew=PCMK=1
+Crew=MDIC=1
 
 [Player3]
-Crew=PCMK=1
+Crew=MDIC=1
 
 [Player4]
-Crew=PCMK=1
+Crew=MDIC=1
 
 [Landscape]
 BottomOpen=1
