@@ -1,0 +1,15 @@
+[Action]
+Name=Activated
+FacetBase=1
+NextAction=Stop
+Delay=1
+Length=35
+PhaseCall=Active
+Sound=Fusing
+
+[Action]
+Name=Stop
+FacetBase=1
+Delay=1
+StartCall=Stop
+NextAction=Idle
