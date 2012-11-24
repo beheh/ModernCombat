@@ -13,7 +13,7 @@ local iTeamMode, iUsedTeamSort;
 local fRandomMenu;
 
 protected func RecommendedGoals()	{return GameCall("RecommendedGoals");}
-protected func MinTeamCount() {return Min(GetPlayerCount(), 2);}
+protected func MinTeamCount()	{return Min(GetPlayerCount(), 2);}
 
 
 /* Initialisierung */
@@ -573,14 +573,14 @@ protected func SelectPredefinedTeamMember(bool fInvisible, int iSelection, int i
 
 public func CountArrayItems(array aArray, value)
 {
-	var i, j = 0;
-	while((i = GetIndexOf(value, aArray)) != -1)
-	{
-		j++;
-		aArray[i] = !value;
-	}
-	
-	return j;
+  var i, j = 0;
+  while((i = GetIndexOf(value, aArray)) != -1)
+  {
+    j++;
+    aArray[i] = !value;
+  }
+
+  return j;
 }
 
 private func SwitchPredefinedTeam(bool fInvisible, int iSelection, int iPlr, int iTeamSort)
@@ -614,7 +614,8 @@ private func SwitchPredefinedTeam(bool fInvisible, int iSelection, int iPlr, int
 protected func SwitchTeam2(int iTeam, int iMode, bool fInvisible)
 {
   arTeams[iTeam] = !arTeams[iTeam];
-  if(CountArrayItems(arTeams, true) < MinTeamCount()) //Deaktivierung aller Teams verhindern
+  //Deaktivierung aller Teams verhindern
+  if(CountArrayItems(arTeams, true) < MinTeamCount())
   {
     Sound("Error", true, 0, 100, iChoosedPlr+1);
     arTeams[iTeam] = true;
