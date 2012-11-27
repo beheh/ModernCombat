@@ -2,10 +2,9 @@
 
 #strict 2
 
-
 /* Aufnahme */
 
-public func Collection2(object pObj)
+public func Entrance(object pObj)
 {
   Open(pObj);
 }
