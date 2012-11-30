@@ -201,6 +201,10 @@ func CreateInterior()
   CreateObject (CONS, 1080, 260, -1)
   ->Set(autod);
 
+  //Verbundene Räume
+  var doorw = CreateObject(GAT1, 776, 310, -1);
+  CreateObject(ROOM, 895, 500, -1)->Connect(doorw);
+
   //Sounds
 
   //Wind
@@ -249,9 +253,6 @@ func CreateDecoration()
   CreateObject(TCCN, 925, 260, -1);
   CreateObject(TCCN, 1110, 380, -1)->Light();
   CreateObject(TCCN, 1140, 370, -1)->Light();
-
-  //Raum
-  CreateObject(ROOM, 895, 500, -1);
 
   //Labortische
   CreateObject(LTBL, 185, 440, -1);
