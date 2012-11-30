@@ -45,7 +45,7 @@ public func FxLightTimer(object pTarget, int iEffectNumber, int iEffectTime)
   if(fMAVExistence && (!pMAV || pMAV->IsDestroyed()))
   {
     fMAVExistence = false;
-    iBuyCooldown = 200; //Zahl x 5 = Framezahl
+    iBuyCooldown = 400; //Zahl x 5 = Framezahl
     SetAction("Disabled");
   }
 
