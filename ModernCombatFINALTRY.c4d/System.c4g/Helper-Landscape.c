@@ -55,3 +55,31 @@ global func DrawStripe(string szMat, int iX1, int iY1, int iX2, int iY2, int iWi
                           true);
 }
 //DrawStripe("Tunnel",100,100,200,200,10,45);
+
+global func PlaceGrass(id idGrassType, int iX, int iY, int iWidth, int iHeight, int iAmount, string szGraphic, bool fAllSurfaces)
+{
+  // Grass platzieren
+  var x_dens = 12;
+  if(!iAmount)
+  	iAmount = 1;
+
+  for(var x = iX; x < iX+iWidth; x += x_dens)
+  {
+    var y = iY;
+  	while(y < iY+iHeight && !GBackSemiSolid(x, y))
+    	y += 10;
+
+    if(fAllSurfaces || GetMaterial(x, y + 1) == Material("Earth"))
+    {
+    	var grass = CreateObject(idGrassType, x, y, -1);
+    	if(szGraphic)
+    		SetGraphics(szGraphic, grass, idGrassType);
+    	
+    	if(!--iAmount)
+    		break;
+  	}
+  }
+
+  return 1;
+}
+
