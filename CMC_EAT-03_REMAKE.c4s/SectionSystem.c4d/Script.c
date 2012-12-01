@@ -1,32 +1,32 @@
-/*-- Tutorialobjekt-System --*/
+/*-- Sektionssystem --*/
 
 #strict 2
 
 local arRespawn;
 
-// Hier sind Grundfunktionalitäten für Tutorials. Für Tutorials muss diese Datei inkludiert werden.
-public func IsCMCTutorialGoal() { return true; }
+public func IsCMCTutorialGoal()		{return true;}			//Nur Spielziele müssen zur Nutzung dieses Systems diese Funktion wiedergeben
+public func TutorialIndex()		{return -1;}
+public func UsedRules()			{return [];}			//Regeln, die das Tutorial verwendet
+public func SectionName()		{return "";}			//Sektionsname
+public func Condition(object pByObj)	{return true;}			//Freigabe
+public func HideInMenu()		{return (GetID() == TSYS);}	//Anzeige im Menü
 
-public func TutorialIndex() { return -1; }
 
-public func UsedRules() { return []; } // array[id] - Regeln, die das Tutorial benötigt und laden soll.
-public func SectionName() { return ""; } // string - Sektionsname.
-public func Condition(object pByObj) { return true; } // string - Muss true zurückgeben, um freigeschaltet werden zu können.
-public func HideInMenu() { return (GetID() == TSYS); } // bool - ...Soll das Tutorial im Menü versteckt werden?
+/* Initialisierung */
 
 public func Initialize() 
 {
-	arRespawn = [];
-	for(var i = 0; i < GetPlayerCount(); i++)
-		if(GetType(arRespawn[GetPlayerByIndex(i)]) != C4V_Array)
-			arRespawn[GetPlayerByIndex(i)] = [];
+  arRespawn = [];
+  for(var i = 0; i < GetPlayerCount(); i++)
+    if(GetType(arRespawn[GetPlayerByIndex(i)]) != C4V_Array)
+    arRespawn[GetPlayerByIndex(i)] = [];
 }
 
-public func CreateInterior() { }
-public func CreateEquipment() { }
-public func CreateDecoration() { }
-public func CreateOptionalFeatures() { }
-public func CreateTriggers() { }
+public func CreateInterior()		{ }
+public func CreateEquipment()		{ }
+public func CreateDecoration()		{ }
+public func CreateOptionalFeatures()	{ }
+public func CreateTriggers()		{ }
 
 public func RejectRelaunch(int iPlr) { return false; } // bool - Relaunch ablehnen?
 
@@ -170,5 +170,7 @@ global func FxFakeScriptCounterTimer(object target, int nr)
 	return true;
 }
 
-global func FakeGoto(int iCounter) { g_fakescriptcounter = Max(iCounter, 0); }
-
+global func FakeGoto(int iCounter)
+{
+  g_fakescriptcounter = Max(iCounter, 0);
+}
