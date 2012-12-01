@@ -43,7 +43,7 @@ func CreateInterior()
   //Rampe
   DrawMaterialQuad("Wall-Concrete3",3489,930,3489,920,3459,930,3489,930,true);
 
-  //Aufzug
+  //Aufzüge
   CreateObject(LFTP, 2775, 1210, -1);
   CreateObject(LFTP, 3125, 1210, -1);
 
