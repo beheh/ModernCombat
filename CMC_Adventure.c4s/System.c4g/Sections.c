@@ -19,7 +19,8 @@ global func SECT_SaveObject(object pObj, array &arSavedObjects)
 	}
 	
 	for(var obj in FindObjects(Find_ActionTarget(pObj)))
-		SECT_SaveObject(obj, arSavedObjects);
+		if(GetProcedure(obj) == "ATTACH")
+			SECT_SaveObject(obj, arSavedObjects);
 	
 	if(pObj->~SpecialSaveObjects())
 		for(var obj in pObj->~SpecialSaveObjects())
