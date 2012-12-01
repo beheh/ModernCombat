@@ -58,7 +58,7 @@ public func LoadTutorial(id idTutObj, object pByObj, array aAdditionalObjects)
 	if(!idTutObj->SectionName())
 		return FatalError("No section name given!");
 		
-	var except = FindObjects(Find_ID(PCMK));
+	var except = FindObjects(Find_Or(Find_ID(PCMK), Find_Category(C4D_Environment)));
 	if(aAdditionalObjects)
 		for(var obj in aAdditionalObjects)
 			if(GetIndexOf(obj, except) == -1)
