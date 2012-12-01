@@ -1,0 +1,77 @@
+map SuddenDeath
+{
+  overlay {
+    mat=Earth; tex=Rough;
+    y=75;
+    
+    overlay {
+      mat=Crystal;
+      algo=rndchecker; a=20; b=1;
+      rotate=60;
+      turbulence=100;
+      
+      zoomX=30; zoomY=30;
+    };
+    overlay {
+      mat=Gold; tex=Rough;
+      algo=rndchecker; a=20; b=20;
+      rotate=150;
+      turbulence=100;
+      
+      zoomX=50; zoomY=50;
+    };
+    overlay {
+      mat=Rock; tex=Rough;
+      algo=rndchecker; a=3; b=20;
+      turbulence=100;
+      
+      zoomX=50; zoomY=50;
+    };
+    
+  };
+  
+  overlay {
+    mat=Wall; tex=SMOOTH;
+    y=73; hgt=2;
+  };
+  
+  overlay {
+    mat=Wall; tex=SMOOTH;
+    hgt=73;
+    algo=rndchecker;
+    zoomX=20; zoomY=20;   
+    loosebounds=1;
+    a=2;
+  };
+  /*overlay {
+      mat=Rock; tex=Rough;
+      wdt=100;hgt=10;
+    };*/
+  
+  /*overlay {
+    mat=Wall; tex=SMOOTH;
+    hgt=60;
+    algo=rndchecker;
+    zoomX=75; zoomY=75;
+    
+    overlay {
+      wdt=80;hgt=80;y=10;
+    };
+    overlay {
+      mat=Earth; tex=Rough;
+      wdt=80;hgt=80;y=10;
+      turbulence=100;
+      algo=bozo;
+    };
+  };*/
+  
+  /*mat=Water;
+  overlay {
+    mat=Gold; tex=Rough;
+    x=10;y=10;hgt=80;wdt=80;
+    algo=sin; oy=30; zoomY=50; zoomX=50;
+    rotate=80;
+    turbulence=100;
+    lambda=20;
+  };*/
+};

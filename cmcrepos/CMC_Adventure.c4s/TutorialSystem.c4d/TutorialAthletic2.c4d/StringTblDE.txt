@@ -1,0 +1,32 @@
+//Tutorialtext
+
+Txt01=<c 8888ff>Michael14</c>: Dann fangen wir mal an, nutze die <c ffff33>Sprungschanze</c>, um weiter nach oben zu gelangen!
+Txt02=<c 8888ff>Michael14</c>: Toll. Es ist Zeit fürs <c ffff33>hinlegen</c>, drücke [<c ffff33>Doppelstop</c>+<c ffff33>Graben</c>], um in Liegeposition zu gehen.
+Txt03=<c 8888ff>Michael14</c>: Krieche nun mithilfe der <c ffff33>Richtungstasten</c> durch die engen Gänge.
+Txt04=<c 8888ff>Michael14</c>: Nicht schlecht, aber wie kommt man nun hoch? Da kommt der <c ffff33>Wandsprung</c> ins Spiel. Kletter an einer Wand und drücke [<c ffff33>Doppelrechts</c> bzw. <c ffff33>-links</c>], um dich von der Wand in die entsprechende Richtung zu stoßen und arbeite dich dann weiter vor.
+Txt05=<c 8888ff>Michael14</c>: Ok, aufgepasst: Kriechst du über einen Abgrund wie den solchen, der jetzt vor dir ist, hält sich der Clonk an der Wand <c ffff33>fest</c> und rettet sich so vor dem Fall. Mach mir das mal vor.
+Txt06=<c 8888ff>Michael14</c>: Beeindruckend...fast. Nutze jetzt den <c ffff33>Wandsprung</c> und weiter gehts.
+Txt07=<c 8888ff>Michael14</c>: Nutze jetzt die <c ffff33>Sprungschanze</c> über dir!
+Txt08=<c 8888ff>Michael14</c>: Nicht schlapp machen, durch dieses Durcheinander zum <c ffff33>Ausgang</c> weiter oben!
+Txt09=<c 8888ff>Michael14</c>: Alles klar, hier ist die letzte Grundlage: Der <c ffff33>Backjump</c>. Laufe und drücke [<c ffff33>Links</c> bzw. in diesem Fall <c ffff33>Rechts</c>+<c ffff33>Springen</c>], um in die gegengesetzte Richtung einen Weitsprung auszuführen. Nutze ihn, um auf die andere Seite zu kommen!
+Txt10=<c 8888ff>Michael14</c>: Schön, gehe nun durch den <c ffff33>Ausgang</c> um diese Lektion abzuschließen!
+
+//Terminaltext
+
+Info01=Terminals wie dieses findest du überall durch das Trainingsprogramm hindurch, sie geben dir wichtige Hinweise!
+Info02=Liegend ist der Clonk langsamer und nicht sehr mobil, dafür feuert es sich ausgezeichnet von dieser Position und Gegner haben mehr Probleme, liegende Gegenspieler auszuschalten.
+Info03=Wandsprünge erleichtern den Aufstieg in schwierigem Gelände erheblich, nutze sie auch, um schnell ausweichen zu können.
+Info04=Weiße Konsolen steuern bestimmte Strukturen die zu deinem taktischen Vorteil genutzt werden können. Diese links beispielsweise kontrolliert die Selbstschussanlage (kurz SSA) weiter oben. Du solltest sie deaktivieren bevor du weitergehst!
+Info05=Der Backjump ist nicht nur eine gute Fortbewegungsmöglichkeit, sondern auch eine ausgezeichnete Möglichkeit um gegnerischen Attacken schnell auszuweichen.
+
+//Bestanden-Nachricht
+
+WellDone1=Ausgezeichnet, in kommenden Missionen würdest du nicht mal sofort sterben!
+WellDone2=Herrausragend! Übertreibs aber nicht sonst fängst du mit deinem Kopf noch was auf.
+WellDone3=Sehr schön. Für den Anfang garnicht so gut.
+
+//Versagt-Nachricht
+
+Fail1=Im Ernstfall würde man das wohl als "Epic Fail" bezeichnen.
+Fail2=Sowas würde im richtigen Einsatz Kommentare wie "lol", "woot" oder "noob" einheimsen.
+Fail3=Was war... was war das den... für sowas haben wir nicht mal Text vorbereitet.
