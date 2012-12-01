@@ -11,9 +11,12 @@ global func SECT_SaveObject(object pObj, array &arSavedObjects)
 
 	if(GetObjectStatus(pObj) == C4OS_NORMAL)
 	{
-		if(Contained(pObj))
+		if((GetX(pObj) > LandscapeWidth() || GetY(pObj) > LandscapeHeight()) && !(GetCategory(pObj) & (C4D_Foreground|C4D_Parallax)) && GetProcedure(pObj) != "ATTACH")
+			SetPosition(10, 10, pObj);
+
+		if(Contained(pObj) && GetProcedure(pObj) != "ATTACH")
 			pObj->Exit();
-		
+
 		pObj->SetObjectStatus(C4OS_INACTIVE);
 		arSavedObjects[GetLength(arSavedObjects)] = pObj;
 	}
