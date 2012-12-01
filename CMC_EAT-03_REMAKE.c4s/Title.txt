@@ -1,2 +1,2 @@
-DE:CMC - <c ffff33>EAT 3</c>
-US:CMC - <c ffff33>EAT 3</c>
+DE:CMC - <c ffff33>Training Center</c>
+US:CMC - <c ffff33>Training Center</c>
