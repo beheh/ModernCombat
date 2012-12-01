@@ -1,0 +1,2 @@
+//Tutorialtext
+WaitForOtherPlayers=@Es haben offensichtlich noch nicht alle Spieler den Ausgang erreicht.|Bitte warte auf diese.

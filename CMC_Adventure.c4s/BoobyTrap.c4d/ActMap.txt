@@ -1,0 +1,13 @@
+[Action]
+Name=Fused
+Procedure=NONE
+Directions=1
+Length=4
+Delay=0
+Facet=0,0,8,8
+
+[Action]
+Name=Defused
+Procedure=NONE
+Delay=0
+Facet=0,0,8,8

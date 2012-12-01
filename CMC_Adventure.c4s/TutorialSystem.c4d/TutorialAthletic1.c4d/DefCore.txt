@@ -1,0 +1,8 @@
+[DefCore]
+id=TAT1
+Name=Tutorial: Athletic 1
+Version=4,9,5
+Category=C4D_Goal|C4D_StaticBack
+Width=1
+Height=1
+Picture=0,0,64,64

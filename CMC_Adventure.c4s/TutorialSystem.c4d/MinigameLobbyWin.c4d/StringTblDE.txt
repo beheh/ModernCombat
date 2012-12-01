@@ -1,0 +1,13 @@
+# Einführung
+
+WelcomeMsg6=@<c fafa00>Mit jedem gewonnenen Minispiel rückt ihr eine Stufe weiter!
+WelcomeMsg7=@<c fafa00>Wer zuerst %d Punkte hat, und damit den Thron erreicht, gewinnt!
+WelcomeMsg8=@<c fafa00>Dann fangen wir mal an!
+
+GameDraw=["Unentschieden! Was ist los, meine Oma kann das ja besser!","Alle versagt? Wisst ihr was ein Stein ergibt? Nichts. Ein Stein gegen einen Kopf? Euch!","Schonwieder unentschieden, ich frage mich wie ihr es in meine Devision geschafft habt, da sind Sandsäcke ja nützlicher!"]
+GameMultipleWinners=["%s haben gewonnen! Wusste schon immer das die Ratten sich zusammentun!"]
+GameWinner=["%s hat gewonnen! Das schreit grade zu nach Spott!","%s hat Gewonnen, Wenn das nocheinmal passiert, mach ich euch zu Hackfleisch, Männer."]
+
+And=und
+GoOn=["@<c fafa00>Es geht weiter!"]
+PartyWinner=@<c fafa00>%s ist unser Sieger!
