@@ -1,9 +1,10 @@
 [Head]
-Title=CMC - EAT-03
+Icon=16
+Title=CMC - Training Center
+MaxPlayer=12
+MaxPlayerLeague=12
 Loader=Loader_CMC*
-MaxPlayer=1
-MaxPlayerLeague=1
-Origin=ModernCombat.c4f
+Origin=ModernCombatFINALTRY.c4f
 
 [Definitions]
 Definition1=Objects.c4d
@@ -30,4 +31,3 @@ MapWidth=80,0,64,250
 MapHeight=80,0,40,250
 BottomOpen=1
 NoScan=1
-SkyScrollMode=1
