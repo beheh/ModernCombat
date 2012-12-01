@@ -1,6 +1,6 @@
 [DefCore]
 id=TSYS
-Name=Tutorial: System
+Name=Section System
 Version=4,9,5
 Category=C4D_Goal|C4D_StaticBack
 Width=1

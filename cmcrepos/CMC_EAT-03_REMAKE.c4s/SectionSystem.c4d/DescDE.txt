@@ -1,0 +1,1 @@
+Steuert und kontrolliert das Wechseln zwischen Sektionen.
