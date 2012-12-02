@@ -270,10 +270,6 @@ func CreateEquipment()
   CreateObject(GNET, 1465, 530, -1)->Set(SATW);
   CreateObject(GNET, 4545, 530, -1)->Set(SATW);
 
-  //MAV-Stationen
-  CreateObject(MVSN, 1350, 500, -1)->Set(1520,530,1);
-  CreateObject(MVSN, 4660, 500, -1)->Set(4490,530,1);
-
   //Artilleriebatterien
   CreateObject(ATBY,2231,520,-1)->SetRotation(20);
   CreateObject(ATBY,3775,520,-1)->SetRotation(-20);
@@ -484,6 +480,10 @@ public func ChooserFinished()
    {
     aFlag[2]->Set("$Flag3$",0,2);
    }
+
+   //MAV-Stationen
+   CreateObject(MVSN, 1350, 500, -1)->Set(1520,530,1);
+   CreateObject(MVSN, 4660, 500, -1)->Set(4490,530,1);
   }
 
   //HTF-Spielziel
@@ -492,6 +492,10 @@ public func ChooserFinished()
    //Flaggenposten
    var flag = CreateObject(OFPL, 2990, 380, -1);
    flag->~Set("$Flag2$");
+
+   //MAV-Stationen
+   CreateObject(MVSN, 1350, 500, -1)->Set(1520,530,1);
+   CreateObject(MVSN, 4660, 500, -1)->Set(4490,530,1);
 
    //Zusätzliche Munition
    if(!FindObject(NOAM))
@@ -513,6 +517,10 @@ public func ChooserFinished()
    AddMoneySpawn(2785, 450, [20]);
    AddMoneySpawn(3195, 450, [20]);
    AddMoneySpawn(3675, 510, [20]);
+
+   //MAV-Stationen
+   CreateObject(MVSN, 1350, 500, -1)->Set(1520,530,1);
+   CreateObject(MVSN, 4660, 500, -1)->Set(4490,530,1);
   }
 
   //CTF-Spielziel
@@ -523,6 +531,17 @@ public func ChooserFinished()
    {CreateFlag(1,1520,600,GetTeamColor(1));}
    if(aTeams[2] == true)
    {CreateFlag(2,4490,600,GetTeamColor(2));}
+
+   //MAV-Station
+   CreateObject(MVSN, 2990, 380, -1)->Set(2960,380,1);
+  }
+
+  //LMS/DM-Spielziel
+  if(FindObject(GLMS) || FindObject(GTDM))
+  {
+   //MAV-Stationen
+   CreateObject(MVSN, 1350, 500, -1)->Set(1520,530,1);
+   CreateObject(MVSN, 4660, 500, -1)->Set(4490,530,1);
   }
 }
 
