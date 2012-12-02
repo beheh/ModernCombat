@@ -56,8 +56,16 @@ global func DrawStripe(string szMat, int iX1, int iY1, int iX2, int iY2, int iWi
 }
 //DrawStripe("Tunnel",100,100,200,200,10,45);
 
-global func PlaceGroundDeco(id idDecorationType, int iX, int iY, int iWidth, int iHeight, int iRandom, string szGraphic, bool fAllSurfaces)
+global func PlaceGroundDeco(anyDecorationType, int iX, int iY, int iWidth, int iHeight, int iRandom, string szGraphic, bool fAllSurfaces)
 {
+	if(GetType(anyDecorationType) == C4V_Array)
+	{
+		for(var deco in anyDecorationType)
+			PlaceGroundDeco(deco[0], iX, iY, iWidth, iHeight, iRandom, deco[1], fAllSurfaces);
+
+		return 1;
+	}
+
   //Vegetation platzieren
   var x_dens = 12;
 
@@ -69,9 +77,9 @@ global func PlaceGroundDeco(id idDecorationType, int iX, int iY, int iWidth, int
 
     if((fAllSurfaces || GetMaterial(x, y + 1) == Material("Earth")) && !Random(iRandom))
     {
-      var decoration = CreateObject(idDecorationType, x, y, -1);
+      var decoration = CreateObject(anyDecorationType, x, y, -1);
       if(szGraphic)
-        SetGraphics(szGraphic, decoration, idDecorationType);
+        SetGraphics(szGraphic, decoration, anyDecorationType);
     }
   }
 
