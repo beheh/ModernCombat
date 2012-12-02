@@ -60,8 +60,6 @@ global func PlaceVegetation(id idVegetationType, int iX, int iY, int iWidth, int
 {
   //Vegetation platzieren
   var x_dens = 12;
-  if(!iAmount)
-    iAmount = 1;
 
   for(var x = iX; x < iX+iWidth; x += x_dens)
   {
