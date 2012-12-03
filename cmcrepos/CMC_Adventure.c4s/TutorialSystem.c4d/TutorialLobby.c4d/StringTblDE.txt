@@ -1,3 +1,1 @@
-SectionName=Die Operationsbasis
-
 TxtWelcome=<c 8888ff>Michael14</c>: Willkommen zurück auf der Operationsbasis! Das Trainingsgelände steht dir frei zur Verfügung, entscheide dich für eine Operation, sobald du bereit bist.
