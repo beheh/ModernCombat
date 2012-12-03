@@ -5,7 +5,7 @@
 #include TSYS
 
 public func UsedRules()		{return [NOFD, NOFF, NOAM];}
-public func SectionName()	{return "$SectionName$";}
+public func SectionName()	{return "Lobby";}
 public func HideInMenu()	{return true;}
 
 
@@ -38,11 +38,28 @@ public func CreateInterior()
   CreateObject(LADR, 1855, 750, -1)->Set(19);
   CreateObject(LADR, 2525, 750, -1)->Set(39);
 
+  //Große Bodenluken
+  CreateObject(H24K, 1855, 598, -1);
+  CreateObject(H24K, 2525, 438, -1);
+
   //Schutztüren
   CreateObject(GDDR, 1690, 590, -1);
   CreateObject(GDDR, 2100, 590, -1);
   CreateObject(GDDR, 2550, 430, -1);
   CreateObject(GDDR, 2750, 430, -1);
+
+  //Kisten
+  CreateObject(WCR2, 2020, 510, -1)->AutoRespawn();
+  CreateObject(WCR2, 2090, 510, -1)->AutoRespawn();
+  CreateObject(WCR2, 2670, 350, -1)->AutoRespawn();
+
+  //Metallkisten
+  CreateObject(MWCR, 1800, 510, -1);
+  CreateObject(MWCR, 2690, 350, -1);
+
+  //Verbandskisten
+  CreateObject(BECR, 2090, 492, -1);
+  CreateObject(BECR, 2730, 350, -1)->AutoRespawn();
 
   //Glasscheiben
   CreateObject(_WIN, 1788, 481, -1);
@@ -57,6 +74,27 @@ public func CreateInterior()
 
   //Sandsackbarriere
   CreateObject(SBBA, 1300, 590, -1);
+
+  //Stahlbrücken
+  CreateObject(_HBR, 1355, 602, -1)->SwitchMode();
+  CreateObject(_HBR, 1465, 602, -1)->SwitchMode();
+  CreateObject(_HBR, 1575, 602, -1)->SwitchMode();
+  CreateObject(_HBR, 2235, 442, -1)->SwitchMode();
+  CreateObject(_HBR, 2345, 442, -1)->SwitchMode();
+
+  //Steine
+  CreateObject(STNE, 365, 590, -1);
+  CreateObject(STNE, 830, 610, -1);
+  CreateObject(STNE, 2375, 660, -1);
+  CreateObject(STNE, 2990, 440, -1);
+  CreateObject(STNE, 3200, 450, -1);
+
+  //Explosivtanks
+  CreateObject(XTNK, 2040, 430, -1)->AutoRespawn();
+  CreateObject(XTNK, 2120, 430, -1)->AutoRespawn();
+
+  //Phosphortank
+  CreateObject(PTNK, 2445, 430, -1)->AutoRespawn();
 
   //Grenzen
   CreateObject(BRDR, 1060, 0, -1)->Set(0);
@@ -79,6 +117,9 @@ public func CreateInterior()
   //Hallen
   CreateObject(SE4K, 1980, 480, -1)->Set("Interior*.ogg",665,105);
   CreateObject(SE4K, 2650, 320, -1)->Set("Interior*.ogg",670,105);
+
+  //Lautsprecher
+  CreateObject(SE4K, 2250, 330, -1)->Set("Announce*.ogg",3000,500);
 
 /*
   AutoRespawn(1500,0,CreateObject(PBRL,705,53,-1));
@@ -156,11 +197,11 @@ public func CreateEquipment()
   AutoRespawn(1500,0,CreateObject(TRGT,3200,410,-1));
 
   //Versorgungskiste (Sturmgewehr)
-  var crate = CreateObject(AMCT, 2120, 590, -1);
+  var crate = CreateObject(AMCT, 2200, 590, -1);
   crate->Set(ASTR);
 
   //Versorgungskiste (Schrotflinte)
-  crate = CreateObject(AMCT, 2770, 430, -1);
+  crate = CreateObject(AMCT, 2890, 420, -1);
   crate->Set(PPGN);
 
   //Versorgungskisten (Dragnin)
