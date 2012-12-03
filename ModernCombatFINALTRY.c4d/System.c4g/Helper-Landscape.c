@@ -5,6 +5,8 @@
 #strict 2
 
 
+/* Material zeichnen */
+
 global func DrawRamp(string szMat, int iX, int iY, int iW, int iH)
 {
   DrawMaterialQuad(szMat, iX   , iY   ,
@@ -56,17 +58,19 @@ global func DrawStripe(string szMat, int iX1, int iY1, int iX2, int iY2, int iWi
 }
 //DrawStripe("Tunnel",100,100,200,200,10,45);
 
+/* Bodendekoration plazieren */
+
 global func PlaceGroundDeco(anyDecorationType, int iX, int iY, int iWidth, int iHeight, int iRandom, string szGraphic, bool fAllSurfaces)
 {
-	if(GetType(anyDecorationType) == C4V_Array)
-	{
-		for(var deco in anyDecorationType)
-			PlaceGroundDeco(deco[0], iX, iY, iWidth, iHeight, iRandom, deco[1], fAllSurfaces);
+  //Objekte platzieren
+  if(GetType(anyDecorationType) == C4V_Array)
+  {
+    for(var deco in anyDecorationType)
+      PlaceGroundDeco(deco[0], iX, iY, iWidth, iHeight, iRandom, deco[1], fAllSurfaces);
 
-		return 1;
-	}
+    return 1;
+  }
 
-  //Vegetation platzieren
   var x_dens = 12;
 
   for(var x = iX; x < iX+iWidth; x += x_dens)
