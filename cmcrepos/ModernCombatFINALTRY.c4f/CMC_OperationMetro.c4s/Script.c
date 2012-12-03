@@ -789,9 +789,9 @@ public func ChooserFinished()
   {
    //Flaggen
    if(aTeams[1] == true)
-   {CreateFlag(1,2140,440,GetTeamColor(1));}
+   {CreateFlag(1,1960,440,GetTeamColor(1));}
    if(aTeams[2] == true)
-   {CreateFlag(2,3100,440,GetTeamColor(2));}
+   {CreateFlag(2,3280,440,GetTeamColor(2));}
 
    //Grenzen setzen
    CreateObject(BRDR, 1030, 0, -1)->Set(0);
