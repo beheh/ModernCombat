@@ -4,7 +4,7 @@ Title=CMC - Stylands
 MaxPlayer=12
 MaxPlayerLeague=12
 Loader=Loader_CMC*
-Origin=ModernCombat.c4f\CMC_OperationMetro.c4s
+Origin=ModernCombat.c4f
 
 [Definitions]
 Definition1=Objects.c4d
