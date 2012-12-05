@@ -9,7 +9,7 @@ static g_chooserFinished;
 
 public func ChooserFinished()
 {
-  if(!(FindObject2(Find_Category(C4D_Goal))->~CustomSpawnSystem()))
+  if(!(FindObject2(Find_Category(C4D_Goal)) && FindObject2(Find_Category(C4D_Goal))->~CustomSpawnSystem()))
     g_chooserFinished = true;
 
   //"Keine Munition"-Regel
