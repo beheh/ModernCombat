@@ -183,7 +183,7 @@ public func ChooserFinished()
    AddMoneySpawn(690, 405, [10]);
   }
 
-  //Laufzeitbeitritt verbieten
+  //Laufzeitbeitritt sperren
   SetMaxPlayer();
 }
 

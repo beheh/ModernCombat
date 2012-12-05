@@ -1,13 +1,7 @@
 /*-- Stylands --*/
 
-//Dies ist eine CMC Betaversion, sie enthält neue Elemente welche unter Probe stehen.
-//Gebe uns bitte dein Feedback über Bugtracker oder Forum,
-//Das CMC Team
-
 #strict 2
 #include CSTD
-
-func RecommendedGoals()	{return [GLMS];}	//Spielzielempfehlung
 
 
 /* Regelvoreinstellung */
@@ -32,10 +26,6 @@ func Initialize()
   CreateEquipment();
   //Dekoration plazieren
   CreateDecoration();
-
-  //Hinweis auf Beta-Material
-  Schedule("EventInfo4K(0,Format(\"$MsgBeta$\"),ACHV, 0, 0, 0, \"PriorityInfo.ogg\");", 100);
-
   return(1);
 }
 
@@ -65,7 +55,7 @@ func CreateInterior()
   EarthMaterials(STUN,4,-1);
   EarthMaterials(PGRN,2,-1);
   EarthMaterials(EGRN,3,-1);
-  EarthMaterials(QGRN,3,-1);
+  EarthMaterials(VGRN,3,-1);
 
   //Waffen
   EarthMaterials(ASTR,1,-1);
@@ -104,7 +94,7 @@ public func OnClassSelection(object pClonk)
   CreateContents(CNKT,pClonk);
   CreateContents(FLAG,pClonk);
   CreateContents(EGRN,pClonk)->Activate(pClonk);
-  CreateContents(QGRN,pClonk)->Activate(pClonk);
+  CreateContents(VGRN,pClonk)->Activate(pClonk);
   CreateContents(JTPK, pClonk)->Activate(pClonk);
 }
 
@@ -118,7 +108,7 @@ public func ChooserFinished()
   SetPlayList("CMC_Battle Mode.mid;CMC_Base Groove.ogg;CMC_Firehawk.ogg;CMC_Friendly Unit.ogg;CMC_Getaway.ogg;CMC_Deep Universe.ogg;CMC_Eurocorps.ogg;CMC_Moving Squad.ogg;CMC_Offensive.ogg;CMC_Rock Go On.ogg;CMC_Showtime.ogg;CMC_Slow Motion.ogg;CMC_Striking Force.ogg;CMC_No Good.ogg;CMC_Obsession.ogg;CMC_Your Eyes.ogg");
   Music("CMC_Battle Mode.mid",1);
 
-  //Beitritt verbieten
+  //Laufzeitbeitritt sperren
   SetMaxPlayer();
 }
 

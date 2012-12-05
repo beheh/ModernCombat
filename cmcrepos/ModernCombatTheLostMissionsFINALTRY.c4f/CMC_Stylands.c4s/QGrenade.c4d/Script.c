@@ -1,16 +1,14 @@
-/*-- Treibsandgranate --*/
+/*-- Vibrationsgranate --*/
 
-#strict
+#strict 2
 #include NADE
 
-public func FuseTime(){return(2*35);}
-public func Color(){return(RGB(0,255,0));}//grün!
-public func ContainedDamage(){return(0);}
+public func FuseTime()		{return 2*35;}
+public func Color()		{return RGB(0,255,0);}
+public func ContainedDamage()	{return 0;}
 
-func HitSound()
-{
-  Sound("SGRN_Hit*");
-}
+
+/* Aktivierung */
 
 public func Fused()
 {
@@ -30,4 +28,11 @@ protected func Stop()
 {
   Sound("Pshshsh");
   RemoveObject();
+}
+
+/* Aufschlag */
+
+func HitSound()
+{
+  Sound("SGRN_Hit*.ogg");
 }
