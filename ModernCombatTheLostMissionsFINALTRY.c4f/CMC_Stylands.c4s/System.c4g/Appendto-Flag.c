@@ -8,6 +8,8 @@
 
 protected func Entrance(object container)
 {
-  if (GetAlive(container)) SetOwner(GetOwner(container));
+  if(GetAlive(container))
+    SetOwner(GetOwner(container));
+
   return(_inherited(container, ...));
 }

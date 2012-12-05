@@ -1,2 +1,2 @@
-DE:Treibsandgranate
-US:Quicksand Grenade
+DE:Vibrationsgranate
+US:Vibration Grenade
