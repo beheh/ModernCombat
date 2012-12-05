@@ -1,2 +1,2 @@
 DE:Bausatz
-US:Construction kit
+US:Construction Kit

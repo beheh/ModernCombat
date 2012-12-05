@@ -31,7 +31,7 @@ func CreateInterior()
 {
   Log("$CreatingInterior$");
 
-  //Das Spark-Objekt initialisieren
+  //Spark-Objekt initialisieren
   RemoveAll(_SPK);
   CreateObject(_SPK, LandscapeWidth()/2 ,-5, -1)->SetAction("Wait");
 
@@ -101,9 +101,9 @@ public func OnClonkEquip(object pClonk)
   //Munition: 90 Kugeln, 12 Granaten, 3 Raketen
   if(!FindObject(NOAM))
   {
-   DoAmmo(STAM, 90, pClonk);
-   DoAmmo(GRAM, 12, pClonk);
    DoAmmo(MIAM, 3, pClonk);
+   DoAmmo(GRAM, 12, pClonk);
+   DoAmmo(STAM, 90, pClonk);
   }
 }
 
