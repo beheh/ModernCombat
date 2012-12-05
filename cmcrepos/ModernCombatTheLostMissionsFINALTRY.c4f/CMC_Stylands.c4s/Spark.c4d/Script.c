@@ -2,6 +2,16 @@
 
 #strict 2
 
+protected func Hit()		{return(SetAction("Sparkle"));}
+protected func Removal()	{return(RemoveObject());}
+
+
+protected func Initialize()
+{
+  return(SetAction("Fall"));
+}
+
+/* Funken erstellen */
 
 protected func CreateSpark()
 {
@@ -12,18 +22,10 @@ protected func CreateSpark()
  return true;
 }
 
-protected func Initialize()
-{
-  return(SetAction("Fall"));
-}
-
 protected func CheckHit()
 {
-if (Stuck() || GetContact(0, -1, CNAT_Bottom)) return(Hit());
+  if (Stuck() || GetContact(0, -1, CNAT_Bottom)) return(Hit());
 }
-
-protected func Hit()		{return(SetAction("Sparkle"));}
-protected func Removal()	{return(RemoveObject());}
 
 protected func CastObject()
 {
@@ -34,10 +36,8 @@ protected func CastObject()
 
 protected func RndObjectID()
 {
- //Waffen
  var r = Random(70);
- if (!r) return(RVLR);
- if (!--r) return(ASTR);
+ if (!r) return(ASTR);
  if (!--r) return(PPGN);
  if (!--r) return(MNGN);
  if (!--r) return(RTLR);
@@ -45,7 +45,6 @@ protected func RndObjectID()
  if (!--r) return(SMGN);
  if (!--r) return(ATWN);
 
- //Seltene Objekte
  var r = Random(50);
  if (!r)   return(CATA);
  if (!--r) return(MAGW);
@@ -60,11 +59,12 @@ protected func RndObjectID()
  if (!--r) return(FGRN);
  if (!--r) return(FRAG);
  if (!--r) return(SGRN);
- if (!--r) return(STUN);
- if (!--r) return(QTUN);
- if (!--r) return(ETUN);
+ if (!--r) return(XBRL);
+ if (!--r) return(GSBL);
+ if (!--r) return(PBRL);
+ if (!--r) return(HBRL);
+ if (!--r) return(TBRL);
 
- // Normale Objekte
  r = Random(8);
  if (!r)   return(FLNT);
  if (!--r) return(SFLN);
