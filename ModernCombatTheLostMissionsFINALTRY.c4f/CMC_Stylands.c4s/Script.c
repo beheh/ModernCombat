@@ -18,8 +18,16 @@ func ChooserRuleConfig()
 func Initialize()
 {
   //Wartemusik einstellen
-  SetPlayList("CMC_WaitingforSpawn2.ogg");
-  Music("CMC_WaitingforSpawn2.ogg",1);
+  if(!Random(2))
+  {
+   SetPlayList("CMC_WaitingforSpawn2.ogg");
+   Music("CMC_WaitingforSpawn2.ogg",1);
+  }
+  else
+  {
+   SetPlayList("CMC_WaitingforSpawn.ogg");
+   Music("CMC_WaitingforSpawn.ogg",1);
+  }
   //Einrichtung plazieren
   CreateInterior();
   return(1);
@@ -30,10 +38,6 @@ func Initialize()
 func CreateInterior()
 {
   Log("$CreatingInterior$");
-
-  //Spark-Objekt initialisieren
-  RemoveAll(_SPK);
-  CreateObject(_SPK, LandscapeWidth()/2 ,-5, -1)->SetAction("Wait");
 
   //Erdmaterialien
   //Ausrüstung
@@ -116,6 +120,10 @@ public func ChooserFinished()
   //Starttitel und Musikliste zusammenstellen
   SetPlayList("CMC_Battle Mode.mid;CMC_Base Groove.ogg;CMC_Firehawk.ogg;CMC_Friendly Unit.ogg;CMC_Getaway.ogg;CMC_Deep Universe.ogg;CMC_Eurocorps.ogg;CMC_Moving Squad.ogg;CMC_Offensive.ogg;CMC_Rock Go On.ogg;CMC_Showtime.ogg;CMC_Slow Motion.ogg;CMC_Striking Force.ogg;CMC_No Good.ogg;CMC_Obsession.ogg;CMC_Your Eyes.ogg");
   Music("CMC_Battle Mode.mid",1);
+
+  //Spark-Objekt initialisieren
+  RemoveAll(_SPK);
+  CreateObject(_SPK, LandscapeWidth()/2 ,-5, -1)->SetAction("Wait");
 
   //Laufzeitbeitritt sperren
   SetMaxPlayer();
