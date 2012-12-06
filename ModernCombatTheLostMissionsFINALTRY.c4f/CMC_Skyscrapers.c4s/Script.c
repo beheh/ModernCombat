@@ -11,16 +11,8 @@ func RecommendedGoals()	{return [GLMS];}	//Spielzielempfehlung
 func Initialize()
 {
   //Wartemusik einstellen
-  if(!Random(2))
-  {
-   SetPlayList("CMC_WaitingforSpawn2.ogg");
-   Music("CMC_WaitingforSpawn2.ogg",1);
-  }
-  else
-  {
-   SetPlayList("CMC_WaitingforSpawn.ogg");
-   Music("CMC_WaitingforSpawn.ogg",1);
-  }
+  SetPlayList("CMC_WaitingforSpawn2.ogg");
+  Music("CMC_WaitingforSpawn2.ogg",1);
   //Einrichtung plazieren
   CreateInterior();
   //Ausrüstung plazieren
