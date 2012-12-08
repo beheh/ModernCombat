@@ -109,8 +109,8 @@ public func RelaunchPlayer(int iPlr, object pCrew, killer, int iTeam, bool bFirs
   else
     SetPosition(iX, iY, pCrew);
     
-  if(this->~IsCMCMinigame() && GetType(g_Chars) == C4V_Array)
-  	SetGraphics(g_Chars[iPlr], pCrew, SKIN);
+  /*if(this->~IsCMCMinigame() && GetType(g_Chars) == C4V_Array)
+  	SetGraphics(g_Chars[iPlr], pCrew, SKIN);*/
   
   OnClonkRelaunch(pCrew, fInitPlr);
 }
