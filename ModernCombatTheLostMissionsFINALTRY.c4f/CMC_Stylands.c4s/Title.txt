@@ -1,2 +1,2 @@
-DE:CMC - <c ffff33>Stylands</c>
-US:CMC - <c ffff33>Stylands</c>
+DE:CMC - <c 33ccff>Stylands</c>
+US:CMC - <c 33ccff>Stylands</c>

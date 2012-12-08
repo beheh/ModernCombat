@@ -1,2 +1,2 @@
-DE:CMC - <c ff0000>Skyscrapers</c>
-US:CMC - <c ff0000>Skyscrapers</c>
+DE:CMC - <c 33ccff>Skyscrapers</c>
+US:CMC - <c 33ccff>Skyscrapers</c>
