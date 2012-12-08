@@ -75,20 +75,22 @@ func CreateProductionLine(a)
   if(parts) ClearParts();
   parts = [];
   
-  
   //Mittelstücke platzieren:
   if(!(a == 2))
     for(var i = ((a-2)/(-2))*40+GetBla(a); i <= ((a-2)/2)*40-GetBla(a); i += 40)
-      parts[GetLength(parts)] = CreateObject(PM1C, i, -9, -1);
+      parts[GetLength(parts)] = CreateObject(PM1C, i, 10, -1);
 
   //Endstücke platzieren:
-  parts[GetLength(parts)] = CreateObject(PL1C, (a/(-2))*40+GetBla(a), -9, -1);
-  parts[GetLength(parts)] = CreateObject(PR1C, (a/2)*40-GetBla(a), -9, -1);
+  parts[GetLength(parts)] = CreateObject(PL1C, (a/(-2))*40+GetBla(a), 10, -1);
+  parts[GetLength(parts)] = CreateObject(PR1C, (a/2)*40-GetBla(a), 10, -1);
+  
+  var checkBtm = !GBackSemiSolid(0, 15);
   
   //Allen Teilen Erschaffer übergeben und erneut initializieren:
   for(var part in parts)
   {
     LocalN("father", part) = this;
+    LocalN("fCheckBottom", part) = checkBtm;
     part->Initialize();
   }
   
