@@ -85,7 +85,7 @@ func CreateProductionLine(a)
   parts[GetLength(parts)] = CreateObject(PR1C, (a/2)*40-GetBla(a), 10, -1);
   
   var checkBtm = !GBackSemiSolid(0, 15);
-  
+
   //Allen Teilen Erschaffer übergeben und erneut initializieren:
   for(var part in parts)
   {
