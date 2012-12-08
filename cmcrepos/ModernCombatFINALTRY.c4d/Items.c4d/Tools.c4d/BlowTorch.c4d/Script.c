@@ -382,8 +382,8 @@ public func Use(caller)
       }
       else
       {
-      	if(!obj->~RejectRepair())
-      	{
+        if(!obj->~RejectRepair())
+        {
           //Fahrzeug reparieren
           DoDamage(-2, obj);
 
@@ -447,8 +447,8 @@ public func RejectEntrance(object pObj)
 
 public func Entrance(object pObj)
 {
-	SetOwner(GetOwner(pObj));
-	return true;
+  SetOwner(GetOwner(pObj));
+  return true;
 }
 
 /* HUD */
