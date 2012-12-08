@@ -445,6 +445,12 @@ public func RejectEntrance(object pObj)
     return ContentsCount(GetID(),pObj);
 }
 
+public func Entrance(object pObj)
+{
+	SetOwner(GetOwner(pObj));
+	return true;
+}
+
 /* HUD */
 
 func CustomHUD()	{return true;}
