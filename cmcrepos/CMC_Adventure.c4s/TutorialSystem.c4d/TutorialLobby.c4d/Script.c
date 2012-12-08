@@ -28,7 +28,8 @@ public func Initialize()
 public func CreateInterior()
 {
   //Wahlraum
-  CreateObject(EXIT,1855,510,-1);
+  var exit = CreateObject(EXIT,1855,510,-1);
+  //exit->AddSectionID(TAT1);
 
   //Aufzüge
   CreateObject(LFTP, 1935, 445, -1);

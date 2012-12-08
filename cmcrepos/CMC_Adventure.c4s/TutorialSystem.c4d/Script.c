@@ -40,20 +40,15 @@ public func RelaunchPosition(int &iX, int &iY, object pCrew) { iX = arRespawn[Ge
 
 public func ExitArrived(object pByObj) // Wird aufgerufen, falls der Ausgang des Tutorials erreicht wurde. (pByObj -> Objekt, das den Ausgang betreten hat.)
 { 
-	if(GetID() == TLBY)
-		GameCall("TutorialChooser", pByObj);
-	else
+	for(var i = 0; i < GetPlayerCount(); i++)
 	{
-		for(var i = 0; i < GetPlayerCount(); i++)
+		if(Contained(GetCursor(i)) != Contained(pByObj))
 		{
-			if(Contained(GetCursor(i)) != Contained(pByObj))
-			{
-				PlayerMessage(GetOwner(pByObj), "$WaitForOtherPlayers$", pByObj);
-				return false;
-			}
+			PlayerMessage(GetOwner(pByObj), "$WaitForOtherPlayers$", pByObj);
+			return false;
 		}
-		GameCall("LoadTutorial", TLBY);
 	}
+	GameCall("LoadTutorial", TLBY);
 	
 	return true;
 }
