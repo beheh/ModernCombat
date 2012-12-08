@@ -483,8 +483,8 @@ public func SetupClass(int iClass, int iPlr)
     szAction = 0;
   if(!FindObject2(Find_Func("RejectChoosedClassInfo", iPlr, iClass)))
     for(var i = 0; i < GetPlayerCount(); i++)
-      if(GetPlayerTeam(i) == GetPlayerTeam(iPlr))
-        EventInfo4K(i+1, Format("$PlayerChoosedClass$", GetTaggedPlayerName(iPlr), GetCData(iClass, CData_Name)), GetCData(iClass, CData_Icon), RGB(220, 220, 220), 0, 0, 0, szAction);
+      if(GetPlayerTeam(GetPlayerByIndex(i)) == GetPlayerTeam(iPlr))
+        EventInfo4K(GetPlayerByIndex(i)+1, Format("$PlayerChoosedClass$", GetTaggedPlayerName(iPlr), GetCData(iClass, CData_Name)), GetCData(iClass, CData_Icon), RGB(220, 220, 220), 0, 0, 0, szAction);
 
   //Speichern
   lastclass[iPlr] = iClass;

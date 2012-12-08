@@ -177,7 +177,7 @@ global func TeamEventInfo(int iTeam)
 {
   var cnt = GetTeamPlayerCount(iTeam);
   for(var i = 0; i < cnt; i++)
-    EventInfo4K(1 + GetTeamMemberByIndex(i, iTeam), ...);
+    EventInfo4K(1 + GetTeamMemberByIndex(iTeam, i), ...);
 
   return true;
 }
