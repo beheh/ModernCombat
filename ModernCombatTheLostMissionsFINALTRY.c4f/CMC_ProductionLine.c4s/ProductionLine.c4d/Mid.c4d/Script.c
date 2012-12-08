@@ -26,7 +26,7 @@ func Initialize()
 func CheckPosition()
 {
   SetPosition(GetX(father)+x, GetY(father)+y);
-  
+
   return;
 }
 
@@ -36,16 +36,16 @@ func Push()
 
   var objects = FindObjects(Find_OnLine(-20, -12, 20, -12), Find_Category(C4D_Living|C4D_Object|C4D_Vehicle), Find_Not(Find_Func("IgnoreProductionLine")));
   for(obj in objects)
-  	if(Inside(GetX(obj)-GetX(), -20, 20))
-  		SetPosition(GetX(obj)+Speed()*dir, GetY(obj), obj);
+    if(Inside(GetX(obj)-GetX(), -20, 20))
+      SetPosition(GetX(obj)+Speed()*dir, GetY(obj), obj);
   
   if(fCheckBottom)
-	{
-  	var objects = FindObjects(Find_OnLine(-20, 12, 20, 12), Find_Category(C4D_Living|C4D_Object|C4D_Vehicle), Find_Not(Find_Func("IgnoreProductionLine")));
-  	for(obj in objects)
-  		if(Inside(GetX(obj)-GetX(), -20, 20))
-  			SetPosition(GetX(obj)+Speed()*(-dir), GetY(obj), obj);
-	}
+  {
+    var objects = FindObjects(Find_OnLine(-20, 12, 20, 12), Find_Category(C4D_Living|C4D_Object|C4D_Vehicle), Find_Not(Find_Func("IgnoreProductionLine")));
+    for(obj in objects)
+      if(Inside(GetX(obj)-GetX(), -20, 20))
+        SetPosition(GetX(obj)+Speed()*(-dir), GetY(obj), obj);
+  }
 
   CheckEnds(dir);
   return;
