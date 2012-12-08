@@ -327,48 +327,53 @@ public func Evaluate()
   //Einmalige Auswertung starten
   if(fEvaluation) return 0;
   fEvaluation = true;
-  var db = this;
 
   //Sortieren
   var aList = CreateArray();
-  var iPlr, szFirstLine, szSecondLine;
-  var iPlr = 0;
+  var iPlr, szFirstLine, szSecondLine, aTeam, aStrings;
 
   //Endpunktzahl aktualisieren und Statistiken speichern
-  for(var i = 0; i < GetPlayerCount(C4PT_User); i++)
-    SavePlrStatistics(GetPlayerByIndex(i, C4PT_User));
+  for(iPlr = 0; iPlr < GetPlayerCount(C4PT_User); iPlr++)
+    SavePlrStatistics(GetPlayerByIndex(iPlr, C4PT_User));
 
   //Kopfzeilen erstellen
-  //while(db->GetData()[iPlr] != 0)
+  //while(GetData()[iPlr] != 0)
   AddEvaluationData("$InfoLine$| ", 0);
 
-  for(var iPlr = 0; iPlr < GetLength(db->GetData()); iPlr++)
+  for(iPlr = 0; iPlr < GetLength(GetData()); iPlr++)
   {
-    if(!db->GetData()[iPlr])
+    if(!GetData()[iPlr])
       continue;
 
     if(!aList[GetPlayerTeam(iPlr)]) aList[GetPlayerTeam(iPlr)] = CreateArray();
 
     szFirstLine = Format("$FirstLine$",									//Erste Zeile
-    db->GetPlayerPoints(RWDS_PlayerName, iPlr),								//Spielername
-    db->GetPlayerData(RWDS_StartTotalPoints, iPlr),							//Gesamtpunktzahl am Anfang
-    (db->GetPlayerPoints(RWDS_BattlePoints, iPlr) + db->GetPlayerPoints(RWDS_TeamPoints, iPlr)),	//Gesamtpunktzahl der Runde
-    db->GetPlayerData(RWDS_SavedTotalPoints, iPlr));							//Gesamtpunktzahl
+     GetPlayerPoints(RWDS_PlayerName, iPlr),								//Spielername
+     GetPlayerData(RWDS_StartTotalPoints, iPlr),							//Gesamtpunktzahl am Anfang
+     (GetPlayerPoints(RWDS_BattlePoints, iPlr) + GetPlayerPoints(RWDS_TeamPoints, iPlr)),		//Gesamtpunktzahl der Runde
+     GetPlayerData(RWDS_SavedTotalPoints, iPlr)								//Gesamtpunktzahl
+    );
 
     szSecondLine = Format("$SecondLine$",								//Dritte Zeile
-    db->GetPlayerPoints(RWDS_BattlePoints, iPlr),							//Gefechtspunkte
-    db->GetPlayerPoints(RWDS_TeamPoints, iPlr),								//Teampunkte
-    db->GetPlayerPoints(RWDS_MinusPoints, iPlr));							//Minuspunkte
+     GetPlayerPoints(RWDS_BattlePoints, iPlr),								//Gefechtspunkte
+     GetPlayerPoints(RWDS_TeamPoints, iPlr),								//Teampunkte
+     GetPlayerPoints(RWDS_MinusPoints, iPlr)								//Minuspunkte
+    );
 
     aList[GetPlayerTeam(iPlr)][GetLength(aList[GetPlayerTeam(iPlr)])] = [szFirstLine, szSecondLine];
-    AddEvaluationData(Format("$PlayerLine$", db->GetPlayerData(RWDS_KillCount, iPlr), db->GetPlayerData(RWDS_DeathCount, iPlr), db->GetPlayerData(RWDS_TotalPoints, iPlr)), db->GetPlayerData(RWDS_PlayerID, iPlr));
+    AddEvaluationData(Format("$PlayerLine$",
+     GetPlayerData(RWDS_KillCount, iPlr),
+     GetPlayerData(RWDS_DeathCount, iPlr),
+     GetPlayerData(RWDS_TotalPoints, iPlr)),
+     GetPlayerData(RWDS_PlayerID, iPlr)
+    );
   }
 
   //Teamweise Auflistung der Daten
-  for(var aTeam in aList)
+  for(aTeam in aList)
   {
     if(!aTeam) continue;
-    for(var aStrings in aTeam)
+    for(aStrings in aTeam)
     {
       AddEvaluationData(aStrings[0], 0);
       AddEvaluationData(aStrings[1], 0);
@@ -523,8 +528,8 @@ global func LoadRanks2Cache()
 
 public func UpdatePlayerNames(int iPlr)
 {
-	SetPlayerData(GetTaggedPlayerName(iPlr, true), RWDS_PlayerName, iPlr);
-	SetPlayerData(GetTaggedPlayerName(iPlr, true, true), RWDS_CPlayerName, iPlr);
+  SetPlayerData(GetTaggedPlayerName(iPlr, true), RWDS_PlayerName, iPlr);
+  SetPlayerData(GetTaggedPlayerName(iPlr, true, true), RWDS_CPlayerName, iPlr);
 }
 
 global func GetPlayerRank(int iPlr)
@@ -1040,53 +1045,38 @@ global func FxPointMessageStart(pTarget, iNo, iTemp, szString)
   EffectVar(2,pTarget,iNo) = 0; //Zeit
 }
 
-global func FxPointMessageTimer(pTarget, iNo)
+global func FxPointMessageTimer(object pTarget, int iEffectNumber)
 {
-  var iTime = EffectVar(2,pTarget,iNo);
-  if(!iTime)
+  var pObject, iIndex, pContainer, i, j, iPlr;
+  if(!EffectVar(2,pTarget,iEffectNumber))
   {
-    var pObject, index;
-    if(Contained(pTarget))
+    if(pContainer = Contained(pTarget))
     {
-      var pContainer = Contained(pTarget);
-      var j = 0;
-      while((pObject = Contents(j, pContainer)) != false)
-      {
-        var i = 0;
-        while((index = GetEffect("PointMessage", pObject, i)) != 0)
-        {
-          if(EffectVar(2,pObject,index) > 0) return FX_OK;
-          i++;
-        }
-        j++;
-      }
+      for(i = 0; pObject = Contents(i, pContainer); i++)
+        for(j = 0; iIndex = GetEffect("PointMessage", pObject, j); j++)
+          if(EffectVar(2,pObject,iIndex) > 0) return(FX_OK);
     }
     else
     {
       pObject = pTarget;
-      var i = 0;
-      while((index = GetEffect("PointMessage", pObject, i)) != 0)
-      {
-        if(EffectVar(2,pObject,index) > 0) return FX_OK;
-        i++;
-      }
+      for(i = 0; iIndex = GetEffect("PointMessage", pObject, i); i++)
+        if(EffectVar(2,pObject,iIndex) > 0) return(FX_OK);
     }
     //Sound
     Sound("PointsGet.ogg", 0, pContainer, 100);
 
-    var plr = GetOwner(pTarget);
-    for(var i = 0; i < GetPlayerCount(); i++)
+    var iPlr = GetOwner(pTarget);
+    for(i = 0; i < GetPlayerCount(); i++)
     {
-      if(Hostile(plr, i)) continue;
-      AddEffect("PointPlayerMessage", CreateObject(ARHL,0,0,-1), 130, 1, 0, 0, i, EffectVar(0,pTarget,iNo));
+      if(Hostile(iPlr, GetPlayerByIndex(i))) continue;
+      AddEffect("PointPlayerMessage", CreateObject(ARHL,0,0,-1), 130, 1, 0, 0, GetPlayerByIndex(i), EffectVar(0,pTarget,iEffectNumber));
     }
   }
-  EffectVar(2, pTarget, iNo)++;
-  if(-50+iTime*5 > 255)
-  {
-    return -1;
-  }
-  return FX_OK;
+  EffectVar(2, pTarget, iEffectNumber)++;
+  if(-50+EffectVar(2,pTarget,iEffectNumber)*5 > 255)
+    return(-1);
+
+  return(FX_OK);
 }
 
 global func FxPointPlayerMessageStart(object target, int nr, int temp, int plr, string szMsg)
