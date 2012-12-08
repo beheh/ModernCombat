@@ -1,2 +1,2 @@
-DE:CMC - <c ffff33>Beat Box Galaxy</c>
-US:CMC - <c ffff33>Beat Box Galaxy</c>
+DE:CMC - <c 33ccff>Beat Box Galaxy</c>
+US:CMC - <c 33ccff>Beat Box Galaxy</c>

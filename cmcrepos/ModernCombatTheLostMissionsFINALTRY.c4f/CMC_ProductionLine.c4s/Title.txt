@@ -1,2 +1,2 @@
-DE:CMC - <c ffff33>Production Line</c>
-US:CMC - <c ffff33>Production Line</c>
+DE:CMC - <c 33ccff>Production Line</c>
+US:CMC - <c 33ccff>Production Line</c>
