@@ -20,3 +20,9 @@ FullscreenBG=1
 	File=CMC_BeatBoxGalaxy.c4s
 	Area=24,167,256,26
 	OverlayImage=OverlayBeatBoxGalaxy.png
+
+
+	[Scenario]
+	File=CMC_ProductionLine.c4s
+	Area=24,203,256,26
+	OverlayImage=OverlayProductionLine.png

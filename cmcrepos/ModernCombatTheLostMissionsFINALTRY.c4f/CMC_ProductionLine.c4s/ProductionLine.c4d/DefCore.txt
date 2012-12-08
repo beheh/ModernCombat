@@ -1,0 +1,10 @@
+[DefCore]
+id=PF1C
+Name=Flieﬂband
+Version=4,9,5
+Category=1
+Width=40
+Height=20
+Offset=-20,-10
+Mass=80
+Picture=0,0,64,64
