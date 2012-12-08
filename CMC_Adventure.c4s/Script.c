@@ -11,32 +11,11 @@ public func Initialize()
   wait(3);
 
   //Nachrichtensystem aktivieren
-  SetTutorialMessagePos(MSG_Top | MSG_Left | MSG_WidthRel | MSG_XRel, 15, 50, 50);
+  SetTutorialMessagePos(MSG_WidthRel | MSG_XRel, 15, 50, 50);
   
  	Schedule(Format("LoadTutorial(%i)", TUTORIAL_Lobby), 15);
 
   return(1);
-}
-
-public func TutorialChooser(object pByObj)
-{
-	// Tutorialauswahlmenü
-	
-	CreateMenu(CSTR, pByObj, 0, C4MN_Extra_None, "Tutorialwahl", 0, C4MN_Style_Context);
-	var i, def;
-	while(def = GetDefinition(i++, C4D_Goal))
-	{
-		if(def->~IsCMCTutorialGoal() && !def->~HideInMenu())
-		{
-			if(!def->Condition(pByObj))
-				AddMenuItem(Format("<c 777777>%s</c>", GetName(0, def)), 0, def, pByObj);
-			else
-				AddMenuItem(GetName(0, def), Format("LoadTutorial(%i, Object(%d))", def, ObjectNumber(pByObj)), def, pByObj, 0, 0, GetDesc(0, def));
-		}
-	}
-	AddMenuItem("$Cancel$", Format("CloseMenu(Object(%d))", ObjectNumber(pByObj)), CHOS, pByObj);
-	
-	return true;
 }
 
 static g_TutorialObject; // object - Das Tutorialobjekt was momentan aktiviert ist.
