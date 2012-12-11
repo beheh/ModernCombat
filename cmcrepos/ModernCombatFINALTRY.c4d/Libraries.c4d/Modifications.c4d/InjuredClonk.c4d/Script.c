@@ -409,7 +409,7 @@ private func GetRandomTipp(array a, id id)
   if (id == BTBG) return GetRandomTipp([[BBTP, "$BTBG0$"], [BBTP, "$BTBG1$"], [BBTP, "$BTBG2$"]]);
   if (id == C4PA) return GetRandomTipp([[C4PA, "$C4PA0$"], [C4PA, "$C4PA1$"]]);
   if (id == DGNN) return GetRandomTipp([[DGNN, "$DGNN0$"], [DGNN, "$DGNN1$"]]);
-  if (id == FAPK) return GetRandomTipp([[FAPK, "$FAPK0$"], [FAPK, "$FAPK1$"], [FAPK, "$FAPK2$"]]);
+  if (id == FAPK) return GetRandomTipp([[FAPK, "$FAPK0$"], [FAPK, "$FAPK1$"], [FAPK, "$FAPK2$"], [BECR, "$FAPK3$"]]);
   if (id == RSHL) return GetRandomTipp([[RSHL, "$RSHL0$"], [RSHL, "$RSHL1$"], [RSHL, "$RSHL2$"], [RSHL, "$RSHL3$"], [SDSD, "$RSHL4$"]]);
   if (id == CDBT) return GetRandomTipp([[CDBT, "$CDBT0$"], [CDBT, "$CDBT1$"]]);
   if (id == CUAM) return GetRandomTipp([[CUAM, "$CUAM0$"]]);
