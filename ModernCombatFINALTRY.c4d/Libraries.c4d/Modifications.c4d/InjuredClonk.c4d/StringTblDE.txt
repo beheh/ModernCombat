@@ -73,6 +73,7 @@ DGNN1=Der Heileffekt des Dragnins stoppt, wenn du <c 33ccff>Schaden erleidest</c
 FAPK0=Per [<c 33ccff>Werfen</c>] kannst du als Sanitäter aus dem EHP Dragnin entnehmen.
 FAPK1=Wenn du ein leeres EHP benutzt wird es <c 33ccff>zerstört</c> wenn der Träger kein Sanitäter ist.
 FAPK2=In den Händen eines <c 33ccff>Sanitäters</c> füllt sich das EHP langsam wieder auf.
+FAPK3=Das EHP lässt sich mit <c 33ccff>Verbandsboxen</c> aus Verbandskisten auffüllen.
 RSHL0=Der Schild lässt sich auch <c 33ccff>liegend</c> und <c 33ccff>schwimmend</c> benutzen.
 RSHL1=Stelle dich mit dem Einsatzschild zwischen Freund und Feind und <c 33ccff>schütze</c> dein Team, während sie deinen Gegner ausschalten.
 RSHL2=Der Schild nützt <c 33ccff>nichts</c> gegen Explosionen, allerdings kann man sie von sich fernhalten und Schaden etwas <c 33ccff>reduzieren</c>.

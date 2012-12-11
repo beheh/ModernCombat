@@ -73,6 +73,7 @@ DGNN1=The healing effect of dragnin stops if you <c 33ccff>take damage</c>.
 FAPK0=As a medic, tap [<c 33ccff>Throw</c>] to unpack dragnin out of a FAP.
 FAPK1=If you use an empty FAP it will be <c 33ccff>destroyed</c> when the carrier is not a medic.
 FAPK2=FAPs will slowly reload when carried by a <c 33ccff>medic</c>.
+FAPK3=The FAP can be refilled with <c 33ccff>bandage boxes</c> from bandage crates.
 RSHL0=The riot shield can also be used while <c 33ccff>crawling</c> and <c 33ccff>swimming</c>.
 RSHL1=Stand between the enemy and your allies while using the riot shield, <c 33ccff>protect</c> your team while they take down the enemy.
 RSHL2=The riot shield is <c 33ccff>useless</c> against explosive weapons, but you can keep them away a bit, <c 33ccff>reducing</c> the damage you take.
