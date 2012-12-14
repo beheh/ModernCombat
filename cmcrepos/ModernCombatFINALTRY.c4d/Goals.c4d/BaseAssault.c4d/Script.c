@@ -236,6 +236,7 @@ public func RelaunchPlayer(int iPlr, pClonk, int iKiller, int iClass)
 
 public func OpenRelaunchMenu(object pCrew, int iSelection, int iClass)
 {
+  //Sichtweite setzen
   SetPlrViewRange(200, pCrew);
   //Zwischendurch alle Ziele vernichtet? Stirb!
   if(!ObjectCount2(Find_InArray(aTargets[GetPlayerTeam(GetOwner(pCrew))])))
@@ -313,6 +314,7 @@ public func DoRelaunch(object pCrew, object pTarget, int iClass)
   SetPosition(x, y, Contained(pCrew));
   container->Spawn();
 
+  //Sichtweite setzen
   SetPlrViewRange(500, pCrew);
 }
 

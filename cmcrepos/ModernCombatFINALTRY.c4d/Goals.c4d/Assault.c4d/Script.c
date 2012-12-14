@@ -387,9 +387,9 @@ public func RelaunchPlayer(int iPlr, pClonk, int iKiller)
 
 protected func FxIntAssaultSpawnTimer(object pTarget)
 {
-  if (GetAlive(Contents(0, pTarget)))
+  if(GetAlive(Contents(0, pTarget)))
     pTarget->~Spawn();
-  if (pTarget)
+  if(pTarget)
     RemoveObject(pTarget);
 }
 
@@ -405,7 +405,7 @@ protected func WaitForJoin(int iPlr)
     var target = aTargets[iDefender][GetNextTarget()];
     var tim = CreateObject(TIM1, GetX(target)-GetX(), GetY(target)-GetY(), iPlr);
     Enter(tim, GetCrew(iPlr));
-    SetPlrViewRange(150, tim);
+    SetPlrViewRange(200, tim);
     AddEffect("IntAssaultWaitObject", tim, 1, 0, tim);
     RemoveEffect("Spawn", GetCrew(iPlr));
   }
@@ -414,13 +414,13 @@ protected func WaitForJoin(int iPlr)
   var alive = false;
   for (var obj in FindObjects(Find_Func("IsClonk")))
   {
-    if (GetPlayerTeam(GetOwner(obj)) == iDefender)
+    if(GetPlayerTeam(GetOwner(obj)) == iDefender)
       continue;
-    if (GetAlive(obj) && !GetEffect("IntAssaultWaitObject", Contained(obj))/* && (GetOwner(obj) != iPlr || GetMenu(obj) != MCSL)*/)
+    if(GetAlive(obj) && !GetEffect("IntAssaultWaitObject", Contained(obj))/* && (GetOwner(obj) != iPlr || GetMenu(obj) != MCSL)*/)
       alive = true;
   }
 
-  if (alive)
+  if(alive)
     return ScheduleCall(this, "WaitForJoin", 5, 0, iPlr);
   EliminatePlayer(iPlr);
 }

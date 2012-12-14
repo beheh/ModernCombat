@@ -657,7 +657,7 @@ protected func RelaunchPlayer(int iPlr, object pCrew, int iMurdererPlr, int iTea
   {
     aKill[iMurdererPlr]++;
   }
-  
+
   //Geld verteilen
   Money(iPlr, pCrew, iMurdererPlr);
   
@@ -678,13 +678,13 @@ protected func RelaunchPlayer(int iPlr, object pCrew, int iMurdererPlr, int iTea
   if(!TeamAlive(iTeam))
   {
     return EliminatePlayer(iPlr);
-  }  
+  }
 
   DoTickets(iTeam,-1);
 
   if(!FindObject(CHOS) && !FindObject(MCSL)) //Regelwähler oder Klassenwahl?
     CreateGOCCSpawner(pCrew);
-    
+
   //Flagge anfokussieren
   DoFlag(iTeam, iPlr);
 }
@@ -699,7 +699,7 @@ public func DoFlag(int iTeam, int iPlr)
   {
     SetPlrViewRange(0, pCrew);
   }
-  
+
   return true;
 }
 
