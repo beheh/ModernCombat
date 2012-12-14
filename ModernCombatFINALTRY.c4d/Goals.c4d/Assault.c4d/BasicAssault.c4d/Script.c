@@ -10,6 +10,7 @@ global func IsAssaultTarget()	{return GetEffect("IntAssaultTarget", this);}
 public func IsCMCAssaultGoal()	{return GetID() != CASS;}
 public func CustomSpawnSystem()	{return true;}
 
+
 /* Initialisierung */
 
 protected func Initialize()
@@ -25,8 +26,8 @@ protected func ChooserFinished()
   AddEffect("IntGoal", this, 1, 5, this);
 
   //Keine Klassenwahl? Alle relaunchen
-  if (!FindObject(MCSL))
-    for (var obj in FindObjects(Find_Func("IsClonk")))
+  if(!FindObject(MCSL))
+    for(var obj in FindObjects(Find_Func("IsClonk")))
       ScheduleCall(this, "OnClassSelection", 1, 0, obj);
 }
 
@@ -35,29 +36,29 @@ protected func ChooserFinished()
 global func ReportAssaultTargetDestruction()
 {
   var goal = FindObject2(Find_Func("IsCMCAssaultGoal"));
-  if (goal)
+  if(goal)
     return goal->ReportAssaultTargetDestruction(...);
 }
 
 global func AddAssaultTarget()
 {
   var goal = FindObject2(Find_Func("IsCMCAssaultGoal"));
-  if (goal)
+  if(goal)
     return goal->AddAssaultTarget(...);
 }
 
 global func GetAssaultTarget()
 {
   var goal = FindObject2(Find_Func("IsCMCAssaultGoal"));
-  if (goal)
+  if(goal)
     return goal->GetAssaultTarget(...);
 }
 
 global func Find_InArray(array a)
 {
   var end = [C4FO_Or];
-  for (var i; i < GetLength(a); i++)
-    if (GetType(a[i]) == C4V_C4Object)
+  for(var i; i < GetLength(a); i++)
+    if(GetType(a[i]) == C4V_C4Object)
       end[i+1] = [C4FO_Not, [C4FO_Exclude, a[i]]];
   return end;
 }
@@ -75,16 +76,16 @@ public func AddAssaultTarget(id idTarget, int iX, int iY, int iMaxDamage, int iT
   //Team setzen
   fake->SetTeam(iTeam);
   //Name
-  if (szName)
+  if(szName)
     SetName(szName, fake);
   else
     SetName(GetName(0, idTarget), fake);
   //Ins Array packen
-  if (!aTargets[iTeam])
+  if(!aTargets[iTeam])
     aTargets[iTeam] = [];
   aTargets[iTeam][iIndex] = fake;
   //Relaunchpositionen
-  if (!aSpawn[iTeam])
+  if(!aSpawn[iTeam])
     aSpawn[iTeam] = [];
   aSpawn[iTeam][iIndex] = aSpawns;
   //Assault-Effekt
@@ -105,7 +106,7 @@ public func ReportAssaultTargetDestruction(object pTarget, int iTeam)
         aDmg = aDmg[0];
 
     //Punkte für den letzten Killer
-    if (GetPlayerTeam(iPlr) == iTeam)
+    if(GetPlayerTeam(iPlr) == iTeam)
     {
       //Punkte bei Belohnungssystem (Team-Zielobjektzerstörung)
       DoPlayerPoints(BonusPoints("ASTeamDestruction"), RWDS_MinusPoints, iPlr, GetCrew(iPlr), IC03);
@@ -171,21 +172,21 @@ protected func FxIntAssaultTargetStart(object pTarget, int iEffect, int iTemp, i
 protected func FxIntAssaultTargetTimer(object pTarget, int iEffect)
 {
   //Ziel will keine Leiste
-  if (EffectVar(1, pTarget, iEffect))
+  if(EffectVar(1, pTarget, iEffect))
     return;
 
   //Erstmal die Leiste prüfen
-  if (!EffectVar(2, pTarget, iEffect))
+  if(!EffectVar(2, pTarget, iEffect))
     EffectVar(2, pTarget, iEffect) = CreateObject(EBR2, GetX(pTarget), GetY(pTarget)+GetDefHeight(EffectVar(4, pTarget, iEffect))/2+10, -1);
   var bar = EffectVar(2, pTarget, iEffect);
 
   //Schaden
-  if (EffectVar(3, pTarget, iEffect) < GetDamage(pTarget))
+  if(EffectVar(3, pTarget, iEffect) < GetDamage(pTarget))
     EffectVar(3, pTarget, iEffect)++;
   var dmg = EffectVar(3, pTarget, iEffect), maxdmg = EffectVar(0, pTarget, iEffect), team = pTarget->~GetTeam();
 
   //Bei zu viel Schaden zerstören
-  if (GetDamage(pTarget) > maxdmg)
+  if(GetDamage(pTarget) > maxdmg)
     return ReportAssaultTargetDestruction(pTarget, team);
 
   //Und die Leiste füllen...
@@ -198,7 +199,7 @@ protected func FxIntAssaultTargetTimer(object pTarget, int iEffect)
 
 protected func FxIntAssaultTargetStop(object pTarget, int iEffect, int iCause, bool fTemp)
 {
-  if (!fTemp && EffectVar(2, pTarget, iEffect))
+  if(!fTemp && EffectVar(2, pTarget, iEffect))
     RemoveObject(EffectVar(2, pTarget, iEffect));
 }
 

@@ -129,9 +129,9 @@ private func Check()
   if(!Contained() || !fView) return;
 
   var pRocket;
-  for (var i; i < GetLength(aRockets); i++)
-    if (pRocket = aRockets[i])
-	  break;
+  for(var i; i < GetLength(aRockets); i++)
+    if(pRocket = aRockets[i])
+      break;
 
   if(Contained()->~IsThreat()) //Für Waffengeschütz
     if(pRocket && fView)
@@ -141,7 +141,7 @@ private func Check()
 public func ControlDig(object pBy)
 {
   fView = !fView;
-  if (!fView)
+  if(!fView)
     SetPlrView(GetController(pBy), pBy);
   else
   {
@@ -160,6 +160,6 @@ public func OnEmpty()
 
 public func OnReload()
 {
-  if (!GetEffect("IntNoSound", this))
+  if(!GetEffect("IntNoSound", this))
     Sound("RLSA_Reload.ogg", false, this);
 }

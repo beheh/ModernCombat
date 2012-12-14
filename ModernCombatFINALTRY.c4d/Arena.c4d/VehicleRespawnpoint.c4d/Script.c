@@ -49,10 +49,10 @@ global func FxIntVehicleSpawn4KSpawn(object pTarget, int iEffectNumber)
   var data = RandomIndex4K(aType);
   var id = data[0];
   var x = data[1], y = data[2], wdt = data[3], hgt = data[4];
-  
+
   if(FindObject2(Find_AtRect(x-2, y-2, wdt+4, hgt+4), Find_Func("BlockVehicleSpawn")))
     return;
-  
+
   pVehicle = CreateContents(id, pTarget);
   SetDir(EffectVar(2,pTarget,iEffectNumber), pVehicle);
   if(EffectVar(4, pTarget, iEffectNumber))
@@ -275,7 +275,7 @@ global func FxSpawnBeamTimer(pTarget, iEffectNumber, iTime)
   }
   var v = 255-(iTime*255/iFrames);
   SetClrModulation(RGBa(255,255,255,v),pTarget);
-  
+
   if(iTime >= iFrames)
     return -1;
 }

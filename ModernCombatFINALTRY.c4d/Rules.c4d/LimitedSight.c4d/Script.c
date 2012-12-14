@@ -51,7 +51,7 @@ static const L_AS_Range = 50;
 
 private func SightHelperCnt()
 {
-  return  (L_AS_Distance-L_AS_Range)/L_AS_Range;
+  return(L_AS_Distance-L_AS_Range)/L_AS_Range;
 }
 
 public func FxSightStart(object pTarget,int iEffectNumber, int iTemp)
