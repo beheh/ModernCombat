@@ -81,12 +81,12 @@ public func LaunchGrenade(id idg, int speed, int angle, int mode)
   if(!Stuck(grenade)) SetPosition(GetX(grenade)+xdir/10,GetY(grenade)+ydir/10,grenade);
   SetController(GetController(user), grenade);
   grenade->Launch(xdir+GetXDir(user)/5, ydir/*+GetYDir(user)/4*/, GetFMData(FM_Damage,2));
-  
+
   //Sicht auf Granate wenn der Schütze zielt
   if(!(user->~IsMachine()) && user->~IsAiming())
   {
     SetPlrView(GetController(user),grenade);
-    SetPlrViewRange(100, grenade);
+    SetPlrViewRange(150, grenade);
   }
 
   //Effekte
@@ -113,7 +113,7 @@ public func LaunchGrenade(id idg, int speed, int angle, int mode)
 
 func OnReload()
 {
-  if (!GetEffect("IntNoSound", this))
+  if(!GetEffect("IntNoSound", this))
     Sound("LCAC_Reload.ogg", false, this);
 }
 
@@ -126,6 +126,6 @@ public func OnEmpty()
 public func StopAutoFire()
 {
   //Nur wenn er auch wirklich feuert
-  if (IsRecharging() && !IsReloading())
+  if(IsRecharging() && !IsReloading())
     return _inherited(...);
 }
