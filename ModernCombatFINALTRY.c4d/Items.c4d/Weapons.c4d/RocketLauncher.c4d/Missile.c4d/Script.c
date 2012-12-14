@@ -61,7 +61,7 @@ public func Launch(int iAngle, object pFollow, bool fUnguided)
   SetAction("Travel");
 
   //Sicht setzen
-  if(Guideable()) SetPlrViewRange(120);
+  if(Guideable()) SetPlrViewRange(150);
   SetCategory(C4D_Vehicle);
 
   sx = GetX();
