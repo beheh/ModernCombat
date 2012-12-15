@@ -1530,7 +1530,7 @@ protected func TimerCall()
       //MAVs gesondert behandeln
       if(pClonk->~IsMAV())
       {
-        DoDmg(GetRotorSpeed()*2, DMG_Projectile, pClonk, GetOwner() + 1);
+        DoDmg(300, DMG_Projectile, pClonk, 0, GetOwner() + 1);
         pClonk->Sparks(Random(2)+2,RGB(255,255,Random(5)+255));
         pClonk->Sound("HeavyHit*.ogg");
         AddEffect("NoRotorHit", pClonk, 1, 20, pClonk);
