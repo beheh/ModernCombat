@@ -95,7 +95,9 @@ public func SetupClass(int iClass, int iPlr)
   {
   	var skin = aSkins[Random(GetLength(aSkins))];
   	SetGraphics(skin[1], pCrew, skin[0]);
-  	SetPortrait(skin[1], pCrew, skin[0]);
+  	
+  	if(skin[2])
+  		SetPortrait(Format("Ptr%s%d", skin[1], Random(skin[2])+1), pCrew, skin[0]);
   }
 
   //Nachricht
