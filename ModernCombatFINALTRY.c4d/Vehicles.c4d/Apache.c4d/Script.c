@@ -446,8 +446,8 @@ protected func Ejection(object ByObj)
   AddEffect("HeliEnterCooldown", ByObj, 1, 40);
 
   var x = GetX(ByObj), y = GetY(ByObj), xdir = GetXDir(ByObj, 100), ydir = GetYDir(ByObj, 100);
-  
-  //Kommt der Clonk denn auch auf dem Boden auf? Wenn nicht, auf jeden Fall den Schirm öffnen!
+
+  //Prüfen, ob der Clonk den Boden erreichen wird
   var material = SimFlight(x, y, xdir, ydir, 0, 0, 0, 100);
   if(material && Distance(xdir, ydir) < 700)
     return;
