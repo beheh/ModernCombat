@@ -422,8 +422,10 @@ protected func Ejection(object ByObj)
   AddEffect("HeliEnterCooldown", ByObj, 1, 40);
 
   var x = GetX(ByObj), y = GetY(ByObj), xdir = GetXDir(ByObj, 100), ydir = GetYDir(ByObj, 100);
-  SimFlight(x, y, xdir, ydir, 0, 0, 0, 100);
-  if(Distance(xdir, ydir) < 700)
+  
+  //Kommt der Clonk denn auch auf dem Boden auf? Wenn nicht, auf jeden Fall den Schirm öffnen!
+  var material = SimFlight(x, y, xdir, ydir, 0, 0, 0, 100);
+  if(material && Distance(xdir, ydir) < 700)
     return;
 
   if(!GetEffect("CheckGround",ByObj))
@@ -1530,7 +1532,11 @@ protected func TimerCall()
       //MAVs gesondert behandeln
       if(pClonk->~IsMAV())
       {
-        DoDmg(300, DMG_Projectile, pClonk, 0, GetOwner() + 1);
+      	//Ja, das wäre mit weniger Code zu lösen, aber so muss nicht jedes Mal eine aufwändige Division durchgeführt werden
+      	var MAVDamage;
+      	if(GetRotorSpeed() < 90) MAVDamage = 140 * GetRotorSpeed() / 90; else MAVDamage = 140;
+        
+        DoDmg(MAVDamage, DMG_Projectile, pClonk, 0, GetOwner() + 1);
         pClonk->Sparks(Random(2)+2,RGB(255,255,Random(5)+255));
         pClonk->Sound("HeavyHit*.ogg");
         AddEffect("NoRotorHit", pClonk, 1, 20, pClonk);
