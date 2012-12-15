@@ -1530,7 +1530,7 @@ protected func TimerCall()
       if(GetEffect("NoRotorHit", pClonk))
         continue;
       //MAVs gesondert behandeln
-      if(pClonk->~IsMAV())
+      if(pClonk->~IsMAV() && !pClonk->IsDestroyed())
       {
         var MAVDamage;
         if(GetRotorSpeed() < 90) MAVDamage = 140 * GetRotorSpeed() / 90; else MAVDamage = 140;
