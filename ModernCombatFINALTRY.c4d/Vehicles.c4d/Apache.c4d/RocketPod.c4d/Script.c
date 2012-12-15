@@ -84,6 +84,8 @@ public func LaunchRocket(id rid, int angle)
 
   //Sicht auf Rakete
   SetPlrView(GetController(), rocket);
+  SetPlrViewRange(150, rocket);
+
   aRockets[GetLength(aRockets)] = rocket;
   fView = true;
 
