@@ -17,7 +17,6 @@ private func Class1Info(int iData, int iPlr)
   if(iData == CData_Items)      return [[ASTR, 1], [PSTL, 1], [C4PA, 1], [DGNN, 1]];
   if(iData == CData_Grenades)   return [[STUN, 2], [SGRN, 1]];
   if(iData == CData_Facet)      return 1;
-  if(iData == CData_Skins)	return [[SKIN, "Assault",1]];
   return Default(iData);
 }
 
@@ -33,7 +32,6 @@ private func Class2Info(int iData, int iPlr)
   if(iData == CData_Items)      return [[SMGN, 1], [PSTL, 1], [CDBT, 1], [FAPK, 1]];
   if(iData == CData_Grenades)   return [[FGRN, 1], [FRAG, 2], [SRBL, 1]];
   if(iData == CData_Facet)      return 2;
-  if(iData == CData_Skins)	return [[SKIN, "Medic",1]];
   return Default(iData);
 }
 
@@ -52,7 +50,6 @@ private func Class3Info(int iData, int iPlr)
       return [[MNGN, 1], [RTLR, 1], [BWTH, 1], [AMPK, 1]];
   if(iData == CData_Grenades)   return [[STUN, 2], [SGRN, 1]];
   if(iData == CData_Facet)      return 3;
-  if(iData == CData_Skins)	return [[SKIN, "Supporter",2]];
   return Default(iData);
 }
 
@@ -68,7 +65,6 @@ private func Class4Info(int iData, int iPlr)
   if(iData == CData_Items)      return [[PPGN, 1], [PSTL, 1], [RSHL, 1], [DGNN, 1]];
   if(iData == CData_Grenades)   return [[PGRN, 2], [STUN, 1], [SRBL, 1]];
   if(iData == CData_Facet)      return 4;
-  if(iData == CData_Skins)	return [[SKIN, "Antiskill",2]];
   return Default(iData);
 }
 
@@ -83,6 +79,5 @@ private func Class5Info(int iData, int iPlr)
   if(iData == CData_Items)      return [[SGST, 1], [PSTL, 1], [BTBG, 2], [DGNN, 1]];
   if(iData == CData_Grenades)   return [[PGRN, 2], [FGRN, 2]];
   if(iData == CData_Facet)      return 5;
-  if(iData == CData_Skins)	return [[SKIN, "Artillerist",1]];
   return Default(iData);
 }
