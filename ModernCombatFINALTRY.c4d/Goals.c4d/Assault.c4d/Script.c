@@ -51,10 +51,10 @@ protected func InitializeTickets()
 
 protected func LogTask()
 {
-  for (var i = 0, j; i < GetPlayerCount(); i++)
+  for(var i = 0, j; i < GetPlayerCount(); i++)
   {
     var TaskID = TK02;
-    if (GetPlayerTeam(j = GetPlayerByIndex(i)) == iDefender)
+    if(GetPlayerTeam(j = GetPlayerByIndex(i)) == iDefender)
       TaskID = TK03;
     CreateObject(TaskID, 0, 0, GetPlayerByIndex(i));
     Sound("ObjectiveReceipt.ogg", true, 0, 100, GetPlayerByIndex(i) + 1);
@@ -69,8 +69,8 @@ static const GASS_Spawn_Att = 1;
 public func CalcTickets()
 {
   var A, D;
-  for (var i; i < GetPlayerCount(); i++)
-    if (GetPlayerTeam(GetPlayerByIndex(i)) == iDefender)
+  for(var i; i < GetPlayerCount(); i++)
+    if(GetPlayerTeam(GetPlayerByIndex(i)) == iDefender)
       D++;
     else
       A++;
@@ -84,10 +84,10 @@ public func CalcTickets()
 
 public func AddAssaultTarget(id idTarget, int iX, int iY, int iMaxDamage, int iTeam, string szName, int iIndex, array aSpawn, bool fNoBar)
 {
-  if (_inherited(idTarget, iX, iY, iMaxDamage, iTeam, szName, iIndex, aSpawns, fNoBar))
+  if(_inherited(idTarget, iX, iY, iMaxDamage, iTeam, szName, iIndex, aSpawns, fNoBar))
   {
     //Team setzen
-    if (iTeam && iDefender == -1)
+    if(iTeam && iDefender == -1)
       iDefender = iTeam;
     //Spawnpunkte anders behandeln
     aSpawns[iIndex] = aSpawn;
@@ -117,45 +117,45 @@ public func SetTicketSubtractionTime(int iTime)
 public func ReportAssaultTargetDestruction(object pTarget, int iTeam)
 {
   var index = GetIndexOf(pTarget, aTargets[iTeam]);
-  if (index == -1)
+  if(index == -1)
     return;
 
   _inherited(pTarget, iTeam, ...);
 
   //Auf Zielobjektverbund prüfen
   var fConnectedDestruction = true;;
-  if (GetType(Connected[index]) != C4V_Array)
+  if(GetType(Connected[index]) != C4V_Array)
     fConnectedDestruction = false;
   else
-    for (var i in Connected[index])
-      if (aTargets[iDefender][i])
+    for(var i in Connected[index])
+      if(aTargets[iDefender][i])
         fConnectedDestruction = false;
 
   //Bekanntgabe der Zerstörung
   EventInfo4K(0, Format("$TargetDestruction$", GetTeamColor(iTeam), GetName(pTarget)), GBAS, 0, 0, 0, "RadioConfirm*.ogg");
   GameCall("OnAssaultTargetDestruction", pTarget, iTeam, FindInArray4K(aTargets[iTeam], pTarget), fConnectedDestruction);
-  if (pTarget)
+  if(pTarget)
     Explode(50, pTarget);
 
   //Letztes Ziel
-  if (ObjectCount2(Find_InArray(aTargets[iDefender])) == 1)
-    for (var i, j; i < GetPlayerCount(); i++)
-      if (GetPlayerTeam(j = GetPlayerByIndex(i)) == iDefender)
+  if(ObjectCount2(Find_InArray(aTargets[iDefender])) == 1)
+    for(var i, j; i < GetPlayerCount(); i++)
+      if(GetPlayerTeam(j = GetPlayerByIndex(i)) == iDefender)
         EventInfo4K(j+1, "$DefendLastStation$", GetID(), 0, 0, 0, "Alarm.ogg");
       else
         EventInfo4K(j+1, "$DestroyLastStation$", GetID(), 0, 0, 0, "Alarm.ogg");
 
   //Tickets zurücksetzen, bei verbundenen Zielobjekten nur wenn alle Ziele zerstört sind
-  if (GetType(Connected[index]) != C4V_Array)
+  if(GetType(Connected[index]) != C4V_Array)
     InitializeTickets();
   else
-    if (fConnectedDestruction)
+    if(fConnectedDestruction)
       InitializeTickets();
 }
 
 public func TeamGetScore(int iTeam)
 {
-  if (iTeam == iDefender)
+  if(iTeam == iDefender)
     return ObjectCount2(Find_InArray(aTargets[iDefender]));
   return iTickets;
 }
@@ -163,7 +163,7 @@ public func TeamGetScore(int iTeam)
 public func GetHUDInfo(int iPlayer)
 {
   var clr = GetTeamColor(iDefender), team = GetPlayerTeam(iPlayer);
-  if (team!= iDefender)
+  if(team!= iDefender)
     clr = GetTeamColor(team);
   return Format("<c %x>%d</c>", clr, TeamGetScore(team));
 }
@@ -171,18 +171,18 @@ public func GetHUDInfo(int iPlayer)
 global func ConnectAssaultTargets()
 {
   var goal = FindObject2(Find_Func("IsCMCAssaultGoal"));
-  if (goal)
+  if(goal)
     return goal->~ConnectAssaultTargets(...);
 }
 
 public func ConnectAssaultTargets(array a)
 {
-  for (var i in a)
+  for(var i in a)
   {
     if(!Connected[i])
       Connected[i] = [];
-    for (var j in a)
-      if (j != i)
+    for(var j in a)
+      if(j != i)
         Connected[i][GetLength(Connected[i])] = j;
   }
   return true;
@@ -190,8 +190,8 @@ public func ConnectAssaultTargets(array a)
 
 private func GetNextTarget()
 {
-  for (var i; i < GetLength(aTargets[iDefender]); i++)
-    if (aTargets[iDefender][i])
+  for(var i; i < GetLength(aTargets[iDefender]); i++)
+    if(aTargets[iDefender][i])
       return i;
   return -1;
 }
@@ -213,10 +213,10 @@ protected func FxIntAssaultTargetDamage(object pTarget, int iEffect, int iDamage
   //Nur durchlassen, wenn das Ziel an der Reihe ist
   var iTarget = GetIndexOf(pTarget, aTargets[iDefender]),
   iNext = GetNextTarget();
-  if (iTarget == iNext || (GetType(Connected[iNext]) == C4V_Array && GetIndexOf(iTarget, Connected[iNext]) != -1))
+  if(iTarget == iNext || (GetType(Connected[iNext]) == C4V_Array && GetIndexOf(iTarget, Connected[iNext]) != -1))
     return iDamage;
   var id = pTarget->~GetImitationID();
-  if (!id)
+  if(!id)
     id = GetID(pTarget);
   var size = Distance(0, 0, GetDefWidth(id), GetDefHeight(id)) * 6;
   CreateParticle("TargetShield", GetX(pTarget) - GetX(), GetY(pTarget) - GetY(), Sin(Random(360), 10), -Cos(Random(360), 10), size, InterpolateRGBa3(RGB(255, 255, 255), GetTeamColor(iDefender), 3, 4));
@@ -314,7 +314,7 @@ public func RelaunchPlayer(int iPlr, pClonk, int iKiller)
   if(iKiller != -2)
   {
     aDeath[iPlr]++;
-    if (iKiller != -1 && GetPlayerTeam(iPlr) != GetPlayerTeam(iKiller))
+    if(iKiller != -1 && GetPlayerTeam(iPlr) != GetPlayerTeam(iKiller))
       aKill[iKiller]++;
         Money(iPlr, pClonk, iKiller);
   }
@@ -331,10 +331,10 @@ public func RelaunchPlayer(int iPlr, pClonk, int iKiller)
 
   var index = GASS_Spawn_Att;
   //Verteidiger?
-  if (GetPlayerTeam(iPlr) == iDefender)
+  if(GetPlayerTeam(iPlr) == iDefender)
     index = GASS_Spawn_Def;
 
-  if (iKiller != -2)
+  if(iKiller != -2)
   {
     //Spieler darf gar nicht mehr joinen?
     if(index == GASS_Spawn_Att)
@@ -354,25 +354,25 @@ public func RelaunchPlayer(int iPlr, pClonk, int iKiller)
     {
       iTickets = Max(iTickets-1);
       //Keine Tickets mehr?
-      if (iTickets && iTickets == iWarningTickets)
+      if(iTickets && iTickets == iWarningTickets)
         Schedule(Format("GameCallEx(\"TicketsLow\", %d, %d, true)", iTickets, iDefender), 1);
-      if (!iTickets)
+      if(!iTickets)
         Schedule(Format("GameCallEx(\"NoTickets\", %d, true)", iDefender), 1);
     }
   }
 
   //Clonk wegstecken
   var pCrew = GetCrew(iPlr);
-  if (!pCrew)
+  if(!pCrew)
     return;
   var cont = Contained(pCrew);
   var tim = CreateObject(TIM2, 0, 0, iPlr);
   Enter(tim, pCrew);
-  if (cont)
+  if(cont)
     RemoveObject(cont);
 
   //Spawnpunkt raussuchen
-  if (ObjectCount2(Find_InArray(aTargets[iDefender])))
+  if(ObjectCount2(Find_InArray(aTargets[iDefender])))
     var target_index = GetNextTarget();
   else
     var target_index = GetLength(aTargets[iDefender])-1;
@@ -400,7 +400,7 @@ protected func WaitForJoin(int iPlr)
     return RelaunchPlayer(iPlr, GetCrew(iPlr), -2);
 
   //Wegstecken falls nötig
-  if (!Contained(GetCrew(iPlr)))
+  if(!Contained(GetCrew(iPlr)))
   {
     var target = aTargets[iDefender][GetNextTarget()];
     var tim = CreateObject(TIM1, GetX(target)-GetX(), GetY(target)-GetY(), iPlr);
@@ -412,7 +412,7 @@ protected func WaitForJoin(int iPlr)
 
   //Alle anderen Angreifer sind tot -> verloren!
   var alive = false;
-  for (var obj in FindObjects(Find_Func("IsClonk")))
+  for(var obj in FindObjects(Find_Func("IsClonk")))
   {
     if(GetPlayerTeam(GetOwner(obj)) == iDefender)
       continue;
@@ -428,20 +428,20 @@ protected func WaitForJoin(int iPlr)
 public func GetRespawnPoint(int &iX, int &iY, int iTeam)
 {
   var index = GASS_Spawn_Att;
-  if (iTeam == iDefender)
+  if(iTeam == iDefender)
     index = GASS_Spawn_Def;
 
   //Erstmal checken
-  if (GetType(aTargets) != C4V_Array || !GetLength(aTargets[iDefender]))
+  if(GetType(aTargets) != C4V_Array || !GetLength(aTargets[iDefender]))
     return;
 
   //Nächstes Ziel suchen
   var target;
-  if (ObjectCount2(Find_InArray(aTargets[iDefender])))
+  if(ObjectCount2(Find_InArray(aTargets[iDefender])))
     target = GetNextTarget();
 
   //Kein Ziel? Einfach 0 zurückgeben
-  if (!aTargets[iDefender][target])
+  if(!aTargets[iDefender][target])
     return;
 
   iX = aSpawns[target][index][0][0];
@@ -453,8 +453,8 @@ public func GetRespawnPoint(int &iX, int &iY, int iTeam)
 
 public func TicketsLow(int iRemaining, int iTeam, bool fExclude)
 {
-  for (var i = 0; i < GetPlayerCount(); i++)
-    if ((!fExclude && GetPlayerTeam(GetPlayerByIndex(i)) == iTeam) || (fExclude && GetPlayerTeam(GetPlayerByIndex(i)) != iTeam))
+  for(var i = 0; i < GetPlayerCount(); i++)
+    if((!fExclude && GetPlayerTeam(GetPlayerByIndex(i)) == iTeam) || (fExclude && GetPlayerTeam(GetPlayerByIndex(i)) != iTeam))
       //Nachricht über Tickettiefstand
       EventInfo4K(GetPlayerByIndex(i) + 1, Format("$MsgTicketsLow$", iRemaining), SM03, 0, 0, 0, "Alarm.ogg");
   return true;
@@ -462,8 +462,8 @@ public func TicketsLow(int iRemaining, int iTeam, bool fExclude)
 
 public func NoTickets(int iTeam, bool fExclude)
 {
-  for (var i = 0; i < GetPlayerCount(); i++)
-    if ((!fExclude && GetPlayerTeam(GetPlayerByIndex(i)) == iTeam) || (fExclude && GetPlayerTeam(GetPlayerByIndex(i)) != iTeam))
+  for(var i = 0; i < GetPlayerCount(); i++)
+    if((!fExclude && GetPlayerTeam(GetPlayerByIndex(i)) == iTeam) || (fExclude && GetPlayerTeam(GetPlayerByIndex(i)) != iTeam))
       //Nachricht über Verlust aller Tickets
       EventInfo4K(GetPlayerByIndex(i) + 1, Format("$MsgNoTickets$"), SM03, 0, 0, 0, "Alarm.ogg");
   return true;
@@ -481,12 +481,12 @@ static const GASS_DominationInfo = 100;
 public func UpdateScoreboard()
 {
   //Wird noch eingestellt
-  if (FindObject(CHOS)) return;
+  if(FindObject(CHOS)) return;
 
   //Komplett leeren
   ClearScoreboard();
 
-  if (IsFulfilled())
+  if(IsFulfilled())
     return;
 
   //Erst das nächste Ziel raussuchen
@@ -498,15 +498,15 @@ public func UpdateScoreboard()
   SetScoreboardData(SBRD_Caption, GASS_Name, Format("<c %x>$Targets$</c>", GetTeamColor(iDefender)));
   SetScoreboardData(SBRD_Caption, GASS_Count, Format("<c %x>%d</c>", GetTeamColor(iDefender), ObjectCount2(Find_InArray(aTargets[iDefender]))), 0);
 
-  //Zeile fürs nächste Ziel
-  if (obj)
+  //Zeile für das nächste Ziel
+  if(obj)
   {
     //Ziel und zusammenhängende Ziele anzeigen
     var index = GetIndexOf(obj, aTargets[iDefender]);
     AddScoreboardTarget(obj, index);
-    if (GetType(Connected[index]) == C4V_Array)
-      for (var i; i < GetLength(Connected[index]); i++)
-        if (Connected[index][i])
+    if(GetType(Connected[index]) == C4V_Array)
+      for(var i; i < GetLength(Connected[index]); i++)
+        if(Connected[index][i])
           AddScoreboardTarget(aTargets[iDefender][Connected[index][i]], Connected[index][i]);
   }
 
@@ -519,9 +519,9 @@ public func UpdateScoreboard()
   var color = RGB(255, 255, 255);
   var team = GetTeamByIndex();
   //Nur ein Angreiferteam
-  if (GetActiveTeamCount(true) == 2 - !GetTeamPlayerCount(iDefender))
+  if(GetActiveTeamCount(true) == 2 - !GetTeamPlayerCount(iDefender))
   {
-    if (team == iDefender)
+    if(team == iDefender)
       team = GetTeamByIndex(1);
     string = GetTaggedTeamName(team);
     color = GetTeamColor(team);
@@ -550,14 +550,14 @@ public func UpdateScoreboard()
 
 private func ClearScoreboard()
 {
-  for (var i = 0; i < 20; i++)
-    for (var j = 0; j < 3; j++)
+  for(var i = 0; i < 20; i++)
+    for(var j = 0; j < 3; j++)
       SetScoreboardData(i, j);
 }
 
 private func AddScoreboardTarget(object pTarget, int iRow)
 {
-  if (!pTarget)
+  if(!pTarget)
     return;
   var effect = GetEffect("IntAssaultTarget", pTarget);
   var percent = 100-GetDamage(pTarget)*100/EffectVar(0, pTarget, effect);
@@ -596,9 +596,9 @@ private func IsFulfilled()
     Message("@$AttackersWon$");
 
     //Achievement-Ausgabe
-    for (var i = 0, j; i < GetPlayerCount(); i++)
+    for(var i = 0, j; i < GetPlayerCount(); i++)
     {
-      if (GetPlayerTeam(j = GetPlayerByIndex(i)) == iDefender)
+      if(GetPlayerTeam(j = GetPlayerByIndex(i)) == iDefender)
         continue;
       //Achievement-Fortschritt (Stormtrooper)
       DoAchievementProgress(1, AC25, GetPlayerByIndex(i));
@@ -609,7 +609,7 @@ private func IsFulfilled()
   }
 
   //Keine Angreifer übrig: Verteidiger gewinnen
-  else if (iAttacker != -1 && (!GetTeamPlayerCount(iAttacker) || (!TeamGetScore(iAttacker) && GetActiveTeamCount() < 2)))
+  else if(iAttacker != -1 && (!GetTeamPlayerCount(iAttacker) || (!TeamGetScore(iAttacker) && GetActiveTeamCount() < 2)))
   {
     //Angreifer eliminieren 
     EliminateTeam(iAttacker);
@@ -622,7 +622,7 @@ private func IsFulfilled()
   }
 
   //Keine Verteidiger übrig: Angreifer gewinnen
-  else if (iAttacker != -1 && (!GetTeamPlayerCount(iDefender) || (!TeamGetScore(iDefender) && GetActiveTeamCount() < 2)))
+  else if(iAttacker != -1 && (!GetTeamPlayerCount(iDefender) || (!TeamGetScore(iDefender) && GetActiveTeamCount() < 2)))
   {
     //Verteidiger eliminieren 
     EliminateTeam(iDefender);
@@ -634,7 +634,7 @@ private func IsFulfilled()
     won = true;
   }
 
-  if (won)
+  if(won)
   {
     //Spielende planen
     Schedule("GameOver()", 150);
