@@ -42,6 +42,7 @@ PSTL1=Der sekundäre Feuermodus der Pistole verschießt <c 33ccff>Peilsender</c>, 
 RTLR0=<c 33ccff>Raketen</c> eignen sich für große Distanzen und sind perfekt gegen Fahrzeuge und Strukturen.
 RTLR1=Fordere deine Mitspieler auf, Gegner mit <c 33ccff>Peilsendern</c> zu markieren, um dich zu unterstützen.
 RTLR2=<c 33ccff>Lenke</c> abgefeuerte Raketen, indem du mit dem Raketenwerfer in die entsprechende Richtung zielst.
+RTLR3=Der <c 33ccff>zweite Feuermodus</c> des Raketenwerfers feuert ungelenkte, aber dafür doppelt so schnelle Raketen ab.
 PPGN0=Suche mit der Schrotflinte den <c 33ccff>Nahkampf</c> um maximalen Schaden zu verursachen.
 SGST0=<c 33ccff>Explosivgranaten</c> richten hohen Schaden auf kleiner Fläche an während <c 33ccff>Splittergranaten</c> Feinde festnageln.
 SMGN0=Die Maschinenpistole ist die <c 33ccff>schnellste</c> unter den Waffen, verbraucht aber ebenso schnell ihre Munition.

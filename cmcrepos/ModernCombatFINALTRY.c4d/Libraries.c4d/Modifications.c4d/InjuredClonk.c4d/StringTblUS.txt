@@ -42,6 +42,7 @@ PSTL1=The pistols secondary fire mode shoots <c 33ccff>tracer darts</c> which ma
 RTLR0=<c 33ccff>Rockets</c> are perfect for greater distances and against vehicles and structures.
 RTLR1=Ask your teammates to mark enemies with <c 33ccff>tracer darts</c> to support you.
 RTLR2=<c 33ccff>Guide</c> fired missiles by aiming in the corresponding direction using the rocket launcher.
+RTLR3=The <c 33ccff>second fire mode</c> of the rocket launcher fires unguided but twice as fast missiles.
 PPGN0=Use the pumpgun in <c 33ccff>close combat</c> to cause maximum damage.
 SGST0=<c 33ccff>Explosive grenades</c> do high damage at small range while <c 33ccff>frag grenades</c> pin down enemies.
 SMGN0=The submachine gun is the <c 33ccff>fastest</c> weapon equally to its ammo consumption.
