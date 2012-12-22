@@ -3,7 +3,7 @@
 #strict 2
 #include HZCK
 
-static const PCMK_PortraitVersion = 150;
+static const PCMK_PortraitVersion = 160;
 
 public func WeaponCollectionLimit()	{return 3;}				//Anzahl Waffen im Inventar
 public func ObjectCollectionLimit()	{return 2;}				//Anzahl Objekte im Inventar
