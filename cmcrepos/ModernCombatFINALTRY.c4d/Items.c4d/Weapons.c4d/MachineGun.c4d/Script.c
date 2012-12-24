@@ -36,14 +36,14 @@ public func FMData1(int data)
   if(data == FM_Reload)		return 220;	//Zeit für Nachladen
   if(data == FM_Recharge)	return 4;	//Zeit bis erneut geschossen werden kann
 
-  if(data == FM_Damage)		return 8;	//Schadenswert
-
   if(data == FM_Auto)		return true;	//Automatikfeuer
+
+  if(data == FM_Damage)		return 8;	//Schadenswert
 
   if(data == FM_SpreadAdd)	return 30;	//Bei jedem Schuss hinzuzuaddierende Streuung
   if(data == FM_StartSpread)	return 220;	//Bei Auswahl der Waffe gesetzte Streuung
   if(data == FM_MaxSpread)	return 420;	//Maximaler Streuungswert
-  if(data == FM_MinSpread)  return 20;
+  if(data == FM_MinSpread)	return 20;	//Kleinstmögliche Streuung
 
   return Default(data);
 }

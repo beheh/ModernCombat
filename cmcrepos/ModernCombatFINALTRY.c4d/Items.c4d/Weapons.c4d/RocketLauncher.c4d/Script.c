@@ -8,58 +8,46 @@ public func HandSize()		{return 850;}
 public func HandX()		{return 1000;}
 public func HandY()		{return -2500;}
 public func BarrelXOffset()	{return -3500;}
-public func SelectionTime()	{return 45;}
 public func IsSecondaryWeapon()	{return true;}
+
+public func SelectionTime()	{return 45;}	//Anwahlzeit
 
 local pRocket;
 
 
-/* Raketen - Optische Steuerung */
+/* Raketen */
 
 public func FMData1(int data)
 {
   if(data == FM_Name)		return "$Missiles$";
 
-  if(data == FM_AmmoID)		return MIAM;
-  if(data == FM_AmmoLoad)	return 1;
+  if(data == FM_AmmoID)		return MIAM;	//ID der Munition
+  if(data == FM_AmmoLoad)	return 1;	//Magazingröße
 
-  if(data == FM_Reload)		return 180;
-  if(data == FM_Recharge)	return 200;
+  if(data == FM_Reload)		return 180;	//Zeit für Nachladen
+  if(data == FM_Recharge)	return 200;	//Zeit bis erneut geschossen werden kann
 
-  if(data == FM_Aim)		return 1;
+  if(data == FM_Aim)		return 1;	//Waffe kann nur zielend abgefeuert werden
 
-  if(data == FM_Slot)		return 1;
+  if(data == FM_Slot)		return 1;	//Slot des Feuermodus
 
-  if(data == FM_SpreadAdd)	return 300;
+  if(data == FM_SpreadAdd)	return 300;	//Bei jedem Schuss hinzuzuaddierende Streuung
 
   return Default(data);
 }
 
+/* Raketen - Optische Steuerung */
+
 public func FMData1T1(int data)
 {
   if(data == FT_Name)		return "$Optical$";
-  return FMData1(data);
-}
 
-public func FMData1T2(int data)
-{
-  if(data == FT_Name)		return "$Unguided$";
   return FMData1(data);
-}
-
-public func Fire1()
-{
-  LaunchRocket(MISL,Contained()->~AimAngle(10));
 }
 
 public func Fire1T1()
 {
   Fire1();
-}
-
-public func Fire1T2()
-{
-  LaunchRocket(MISL,Contained()->~AimAngle(10), true);
 }
 
 public func BotData1(int data)
@@ -71,27 +59,24 @@ public func BotData1(int data)
   return Default(data);
 }
 
-/* KI-Steuerung */
+/* Raketen - Ungelenkt */
 
-public func AI_NeedControl(object pBot, object pTarget)
+public func FMData1T2(int data)
 {
-  if(GetFireTec() == 2)
-    return;
-
-  if(pBot)
-    pBot->DoMouseAiming(GetX(pBot) + (GetX(pTarget) - GetX(pRocket)), GetY(pBot) + (GetY(pTarget) - GetY(pRocket)), AimAngleChange(true));
-
-  return pRocket && Distance(GetX(), GetY(), GetX(pRocket), GetY(pRocket)) < BotData1(BOT_Range);
+  if(data == FT_Name)		return "$Unguided$";
+  return FMData1(data);
 }
 
-public func AI_NeedAim(object pBot, object pTarget)
+public func Fire1T2()
 {
-  return GetFireTec() != 2 && pRocket && Distance(GetX(), GetY(), GetX(pRocket), GetY(pRocket)) < BotData1(BOT_Range);
+  LaunchRocket(MISL,Contained()->~AimAngle(10), true);
 }
 
-public func AI_IgnorePathFree(object pBot, object pTarget)
+/* Raketen - Schuss */
+
+public func Fire1()
 {
-  return GetFireTec() != 2 && PathFree(GetX(pRocket), GetY(pRocket), GetX(pTarget), GetY(pTarget));
+  LaunchRocket(MISL,Contained()->~AimAngle(10));
 }
 
 public func LaunchRocket(id rid, int angle, bool unguided)
@@ -162,6 +147,29 @@ public func RejectSwitch()
   //Sicht wegnehmen
   if (!_inherited(...) && pRocket)
     SetPlrView(GetOwner(Contained()), Contained());
+}
+
+/* KI-Steuerung */
+
+public func AI_NeedControl(object pBot, object pTarget)
+{
+  if(GetFireTec() == 2)
+    return;
+
+  if(pBot)
+    pBot->DoMouseAiming(GetX(pBot) + (GetX(pTarget) - GetX(pRocket)), GetY(pBot) + (GetY(pTarget) - GetY(pRocket)), AimAngleChange(true));
+
+  return pRocket && Distance(GetX(), GetY(), GetX(pRocket), GetY(pRocket)) < BotData1(BOT_Range);
+}
+
+public func AI_NeedAim(object pBot, object pTarget)
+{
+  return GetFireTec() != 2 && pRocket && Distance(GetX(), GetY(), GetX(pRocket), GetY(pRocket)) < BotData1(BOT_Range);
+}
+
+public func AI_IgnorePathFree(object pBot, object pTarget)
+{
+  return GetFireTec() != 2 && PathFree(GetX(pRocket), GetY(pRocket), GetX(pTarget), GetY(pTarget));
 }
 
 /* Handeffekt */

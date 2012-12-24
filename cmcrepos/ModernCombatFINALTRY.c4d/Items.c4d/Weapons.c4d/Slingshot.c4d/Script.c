@@ -8,50 +8,52 @@ public func HandX()		{return 4000;}
 public func HandY()		{return 1000;}
 public func BarrelXOffset()	{return -1000;}
 public func BarrelYOffset()	{return -2000;}
-public func SelectionTime()	{return 42;}
 public func IsPrimaryWeapon()	{return true;}
+
+public func SelectionTime()	{return 42;}	//Anwahlzeit
 
 
 /* Nahkampfangriff */
 
 public func GetMCData(int data)
 {
-  if(data == MC_CanStrike)	return 1;
-  if(data == MC_Damage)		return 20;
-  if(data == MC_Recharge)	return 45;
-  if(data == MC_Power)		return 20;
-  if(data == MC_Angle)		return 45;
+  if(data == MC_CanStrike)	return 1;	//Waffe kann Kolbenschlag ausführen
+  if(data == MC_Damage)		return 20;	//Schaden eines Kolbenschlages
+  if(data == MC_Recharge)	return 45;	//Zeit nach Kolbenschlag bis erneut geschlagen oder gefeuert werden kann
+  if(data == MC_Power)		return 20;	//Wie weit das Ziel durch Kolbenschläge geschleudert wird
+  if(data == MC_Angle)		return 45;	//Mit welchem Winkel das Ziel durch Kolbenschläge geschleudert wird
 }
 
-/* Granaten - Explosivgranaten */
+/* Granaten */
 
 public func FMData1(int data)
 {
   if(data == FM_Name)		return "$Grenades$";
 
-  if(data == FM_AmmoID)		return GRAM;
-  if(data == FM_AmmoLoad)	return 8;
+  if(data == FM_AmmoID)		return GRAM;	//ID der Munition
+  if(data == FM_AmmoLoad)	return 8;	//Magazingröße
 
-  if(data == FM_Recharge)	return 50;
+  if(data == FM_SingleReload)	return 1;	//Zeit des einzelnen Nachladens bei Revolversystemen
+  if(data == FM_PrepareReload)	return 30;	//Zeit bevor das eigentliche Nachladen beginnt
+  if(data == FM_FinishReload)	return 35;	//Zeit nach dem Nachladen
 
-  if(data == FM_SingleReload)	return 1;
-  if(data == FM_Reload)		return 210;
-  if(data == FM_PrepareReload)	return 30;
-  if(data == FM_FinishReload)	return 35;
+  if(data == FM_Reload)		return 210;	//Zeit für Nachladen
+  if(data == FM_Recharge)	return 50;	//Zeit bis erneut geschossen werden kann
 
-  if(data == FM_Damage)		return 20;
+  if(data == FM_Damage)		return 20;	//Schadenswert
 
-  if(data == FM_SpreadAdd)	return 200;
-  if(data == FM_StartSpread)	return 80;
-  if(data == FM_MaxSpread)	return 400;
+  if(data == FM_SpreadAdd)	return 200;	//Bei jedem Schuss hinzuzuaddierende Streuung
+  if(data == FM_StartSpread)	return 80;	//Bei Auswahl der Waffe gesetzte Streuung
+  if(data == FM_MaxSpread)	return 400;	//Maximaler Streuungswert
 
   return Default(data);
 }
 
+/* Granaten - Explosivgranaten */
+
 public func FMData1T1(int data)
 {
   if(data == FT_Name)		return "$Explosive$";
-  if(data == FM_Icon)		return ESHL;
 
   return FMData1(data);
 }
@@ -68,6 +70,52 @@ public func BotData1(int data)
   if(data == BOT_Power)		return(BOT_Power_2);
   return Default(data);
 }
+
+/* Granaten - Splittergranaten */
+
+public func FMData1T2(int data)
+{
+  if(data == FT_Name)		return "$Cluster$";
+
+  if(data == FM_Damage)		return 5;	//Schadenswert
+
+  return FMData1(data);
+}
+
+public func Fire1T2()
+{
+  LaunchGrenade(FSHL, 100+Random(40),Contained()->~AimAngle(0,0,true));
+}
+
+public func BotData2(int data)
+{
+  if(data == BOT_Range)		return 500;
+  return Default(data);
+}
+
+/* Granaten - Rauchgranaten */
+
+public func FMData1T3(int data)
+{
+  if(data == FT_Name)		return "$Smoke$";
+
+  if(data == FM_Damage)		return 5;	//Schadenswert
+
+  return FMData1(data);
+}
+
+public func Fire1T3()
+{
+  LaunchGrenade(SSHL, 100+Random(40),Contained()->~AimAngle(0,0,true));
+}
+
+public func BotData3(int data)
+{
+  if(data == BOT_Range)		return 500;
+  return Default(data);
+}
+
+/* Granaten - Schuss */
 
 public func LaunchGrenade(id idg, int speed, int angle, int mode)
 {
@@ -117,53 +165,6 @@ public func LaunchGrenade(id idg, int speed, int angle, int mode)
   Schedule("Sound(\"SGST_Pump.ogg\")", 5);
 }
 
-/* Granaten - Splittergranaten */
-
-public func FMData1T2(int data)
-{
-  if(data == FT_Name)		return "$Cluster$";
-  if(data == FM_Icon)		return FSHL;
-
-  if(data == FM_Damage)		return 5;
-
-  return FMData1(data);
-}
-
-public func Fire1T2()
-{
-  LaunchGrenade(FSHL, 100+Random(40),Contained()->~AimAngle(0,0,true));
-}
-
-public func BotData2(int data)
-{
-  if(data == BOT_Range)		return 500;
-
-  return Default(data);
-}
-
-/* Granaten - Rauchgranaten */
-
-public func FMData1T3(int data)
-{
-  if(data == FT_Name)		return "$Smoke$";
-  if(data == FM_Icon)		return SSHL;
-
-  if(data == FM_Damage)		return 5;
-  return FMData1(data);
-}
-
-public func Fire1T3()
-{
-  LaunchGrenade(SSHL, 100+Random(40),Contained()->~AimAngle(0,0,true));
-}
-
-public func BotData3(int data)
-{
-  if(data == BOT_Range)		return 500;
-
-  return Default(data);
-}
-
 /* Nachladen */
 
 func OnReload()
@@ -180,8 +181,6 @@ func OnFinishReloadStart()
 {
   Sound("SGST_ReloadStop.ogg");
 }
-
-/* Handeffekt */
 
 /* Handeffekt */
 

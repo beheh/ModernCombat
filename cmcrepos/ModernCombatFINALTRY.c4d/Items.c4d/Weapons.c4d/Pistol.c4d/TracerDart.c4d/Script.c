@@ -28,7 +28,7 @@ public func Launch()
   iShotSpeed = Par(1);
   var i = _inherited(...);
   SetPosition(GetX(), GetY() - GetDefCoreVal("Offset", "DefCore", GetID(), 1) / 2);
-  if (!GetEffect("TracerTrail", this))
+  if(!GetEffect("TracerTrail", this))
     AddEffect("TracerTrail", this, 1, 1, this);
   return i;
 }
@@ -151,7 +151,7 @@ private func GlowColor()
 
 global func FxTracerDartStart(object pTarget, int iEffectNumber, int iTemp, int iOwner)
 {
-  if (iTemp) return;
+  if(iTemp) return;
 
   //Besitzer des Schusses festlegen (der Schütze)
   EffectVar(0, pTarget, iEffectNumber) = iOwner;
@@ -173,13 +173,13 @@ global func FxTracerDartTimer(object pTarget, int iEffectNumber)
 
   //Zerstörung wenn Ziel nicht mehr feindlich (z.B. eingenommene SSA)
   var team;
-  if (pTarget && !(team = pTarget->~GetTeam()))
+  if(pTarget && !(team = pTarget->~GetTeam()))
     team = GetPlayerTeam(GetController(pTarget));
-  if (team && team == EffectVar(2, pTarget, iEffectNumber))
+  if(team && team == EffectVar(2, pTarget, iEffectNumber))
     return -1;
 
   //Ziel ordnet Zerstörung an
-  if (pTarget && pTarget->~RemoveTracer(this))
+  if(pTarget && pTarget->~RemoveTracer(this))
     return -1;
 
   //Haftzeit verringern
@@ -189,7 +189,7 @@ global func FxTracerDartTimer(object pTarget, int iEffectNumber)
 
   //Farbe überprüfen
   var color = GetPlrColorDw(EffectVar(0, pTarget, iEffectNumber));
-  if (GetTeamColor(EffectVar(2, pTarget, iEffectNumber)))
+  if(GetTeamColor(EffectVar(2, pTarget, iEffectNumber)))
     color = GetTeamColor(EffectVar(2, pTarget, iEffectNumber));
 
   //Lichteffekt
@@ -198,10 +198,10 @@ global func FxTracerDartTimer(object pTarget, int iEffectNumber)
 
 global func FxTracerDartStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)
 {
-  if (fTemp) return;
+  if(fTemp) return;
 
   var iPlr = EffectVar(0, pTarget, iEffectNumber);
-  if (!GetPlayerName(iPlr)) return;
+  if(!GetPlayerName(iPlr)) return;
   if(!Hostile(GetKiller(pTarget), iPlr) && GetKiller(pTarget) != iPlr)
     if(Contained(pTarget) && GetID(Contained(pTarget)) == FKDT || GetAction(pTarget) == "Dead")
       //Punkte bei Belohnungssystem (Kill Assist durch Peilsender)
