@@ -73,7 +73,7 @@ public func FxEnergyBarsTimer(object target, int nr)
       continue;
 
     var bar = CreateObject(SBAR, 0, 0, GetOwner(target));
-    bar->Set(clonk, RGB(255,0,0), BAR_Energybar, true, "", SM13);
+    bar->Set(clonk, RGB(255,0,0), BAR_Energybar, 0, 0, SM13);
     EffectVar(0, target, nr)[GetLength(EffectVar(0, target, nr))] = bar;
   }
 

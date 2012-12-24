@@ -103,7 +103,7 @@ public func FxReparationBarsTimer(object target, int nr)
       continue;
 
     var bar = CreateObject(SBAR, 0, 0, iPlr);
-    bar->Set(obj, RGB(80,190,255), BAR_Repairbar, true, "", SM12);
+    bar->Set(obj, RGB(80,190,255), BAR_Repairbar, 0, 0, SM12);
     EffectVar(0, target, nr)[GetLength(EffectVar(0, target, nr))] = bar;
   }
 }
