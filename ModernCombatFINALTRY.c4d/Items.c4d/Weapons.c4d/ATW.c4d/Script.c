@@ -5,15 +5,16 @@
 #include WPN2
 #include RTLR
 
+local pRocket, fired;
+
 public func HandSize()		{return 850;}
 public func HandX()		{return 2000;}
 public func HandY()		{return -1000;}
 public func BarrelXOffset()	{return -3500;}
 public func BarrelYOffset()	{return 4000;}
-public func SelectionTime()	{return 70;}
 public func IsSecondaryWeapon()	{return true;}
 
-local pRocket, fired;
+public func SelectionTime()	{return 55;}	//Anwahlzeit
 
 
 /* Initialisierung */
@@ -32,16 +33,16 @@ public func FMData1(int data)
 {
   if(data == FM_Name)		return "$Missiles$";
 
-  if(data == FM_AmmoID)		return MIAM;
-  if(data == FM_AmmoLoad)	return 1;
+  if(data == FM_AmmoID)		return MIAM;	//ID der Munition
+  if(data == FM_AmmoLoad)	return 1;	//Magazingröße
 
-  if(data == FM_Aim)		return 1;
+  if(data == FM_Aim)		return 1;	//Waffe kann nur zielend abgefeuert werden
 
-  if(data == FM_Slot)		return 1;
+  if(data == FM_Slot)		return 1;	//Slot des Feuermodus
 
-  if(data == FM_SpreadAdd)	return 300;
+  if(data == FM_SpreadAdd)	return 300;	//Bei jedem Schuss hinzuzuaddierende Streuung
 
-  if(data == FM_NoAmmoModify)	return 1;
+  if(data == FM_NoAmmoModify)	return 1;	//Waffe nicht nach- oder entladbar
 
   return Default(data);
 }

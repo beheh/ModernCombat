@@ -1,25 +1,28 @@
-/*-- Shotgun --*/
+/*-- Schrotflinte --*/
 
 #strict 2
 #include WPN2
+
+local casings;
 
 public func HandSize()		{return 1000;}
 public func HandX()		{return 5000;}
 public func HandY()		{return -500;}
 public func BarrelYOffset()	{return -2000;}
-public func SelectionTime()	{return 20;}
 public func IsPrimaryWeapon()	{return true;}
+
+public func SelectionTime()	{return 20;}	//Anwahlzeit
 
 
 /* Nahkampfangriff */
 
 public func GetMCData(int data)
 {
-  if(data == MC_CanStrike)	return 1;
-  if(data == MC_Damage)		return 20;
-  if(data == MC_Recharge)	return 40;
-  if(data == MC_Power)		return 20;
-  if(data == MC_Angle)		return 45;
+  if(data == MC_CanStrike)	return 1;	//Waffe kann Kolbenschlag ausführen
+  if(data == MC_Damage)		return 20;	//Schaden eines Kolbenschlages
+  if(data == MC_Recharge)	return 40;	//Zeit nach Kolbenschlag bis erneut geschlagen oder gefeuert werden kann
+  if(data == MC_Power)		return 20;	//Wie weit das Ziel durch Kolbenschläge geschleudert wird
+  if(data == MC_Angle)		return 45;	//Mit welchem Winkel das Ziel durch Kolbenschläge geschleudert wird
 }
 
 /* Kugeln */
@@ -27,22 +30,23 @@ public func GetMCData(int data)
 public func FMData1(int data)
 {
   if(data == FM_Name)		return "$Pellets$";
-    
-  if(data == FM_AmmoID)		return STAM;
-  if(data == FM_AmmoLoad)	return 20;
-  if(data == FM_AmmoUsage)	return 4;
-  
-  if(data == FM_SingleReload)	return 2;
-  if(data == FM_PrepareReload)	return 10;
-  if(data == FM_FinishReload)	return 25;
-    
-  if(data == FM_Reload)		return 75;
-  if(data == FM_Recharge)	return 30;
-  
-  if(data == FM_Damage)		return 45;
-  
-  if(data == FM_SpreadAdd)	return 150;
-  if(data == FM_StartSpread)	return 200;
+
+  if(data == FM_AmmoID)		return STAM;	//ID der Munition
+  if(data == FM_AmmoLoad)	return 20;	//Magazingröße
+  if(data == FM_AmmoUsage)	return 4;	//Munition pro Schuss
+
+  if(data == FM_SingleReload)	return 2;	//Zeit des einzelnen Nachladens bei Revolversystemen
+  if(data == FM_PrepareReload)	return 10;	//Zeit bevor das eigentliche Nachladen beginnt
+  if(data == FM_FinishReload)	return 25;	//Zeit nach dem Nachladen
+
+  if(data == FM_Reload)		return 75;	//Zeit für Nachladen
+  if(data == FM_Recharge)	return 30;	//Zeit bis erneut geschossen werden kann
+
+  if(data == FM_Damage)		return 45;	//Schadenswert
+
+  if(data == FM_SpreadAdd)	return 150;	//Bei jedem Schuss hinzuzuaddierende Streuung
+  if(data == FM_StartSpread)	return 200;	//Bei Auswahl der Waffe gesetzte Streuung
+  if(data == FM_MaxSpread)	return 450;	//Maximaler Streuungswert
 
   return Default(data);
 }
@@ -63,7 +67,7 @@ public func Fire1T1()
 public func BotData1(int data)
 {
   if(data == BOT_Range)		return 100;
-  if(data == BOT_Power)   return(BOT_Power_3);
+  if(data == BOT_Power)		return(BOT_Power_3);
   return Default(data);
 }
 
@@ -90,6 +94,9 @@ public func Fire1()
   AddEffect("Pump", this, 1, 1+GetFMData(FM_Recharge, 1)-25, this);
   Sound("PPGN_Fire*.ogg", 0, ammo);
   Echo("PPGN_Echo*.ogg");
+
+  //Patronenhülse vorhanden
+  casings = 1;
 }
 
 /* Nachladen */
@@ -111,13 +118,19 @@ func OnSingleReloadStart()
 
 public func FxPumpStop(object pTarget)
 {
-  Sound("PPGN_Pump.ogg");
+  if(GetUser())
+  {
+    Sound("PPGN_Pump.ogg");
 
-  if(!GetAmmo()) return;
-
-  var user = GetUser();
-  var dir = GetDir(user)*2-1;
-  SABulletCasing(dir*1,0,-dir*14*(Random(1)+1),-(13+Random(2)),6,RGB(255));
+    //Patrone auswerfen
+    if(casings)
+    {
+      var user = GetUser();
+      var dir = GetDir(user)*2-1;
+      SABulletCasing(dir*1,0,-dir*14*(Random(1)+1),-(13+Random(2)),6,RGB(255));
+      casings = 0;
+    }
+  }
 }
 
 /* Handeffekt */

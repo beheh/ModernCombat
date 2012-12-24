@@ -9,18 +9,20 @@ public func HandSize()		{return 1000;}
 public func HandX()		{return 5000;}
 public func HandY()		{return 1000;}
 public func BarrelYOffset()	{return -2500;}
-public func SelectionTime()	{return 36;}
 public func IsPrimaryWeapon()	{return true;}
+
+public func SelectionTime()	{return 36;}	//Anwahlzeit
+
 
 /* Nahkampfangriff */
 
 public func GetMCData(int data)
 {
-  if(data == MC_CanStrike)	return 1;
-  if(data == MC_Damage)		return 20;
-  if(data == MC_Recharge)	return 40;
-  if(data == MC_Power)		return 20;
-  if(data == MC_Angle)		return 45;
+  if(data == MC_CanStrike)	return 1;	//Waffe kann Kolbenschlag ausführen
+  if(data == MC_Damage)		return 20;	//Schaden eines Kolbenschlages
+  if(data == MC_Recharge)	return 40;	//Zeit nach Kolbenschlag bis erneut geschlagen oder gefeuert werden kann
+  if(data == MC_Power)		return 20;	//Wie weit das Ziel durch Kolbenschläge geschleudert wird
+  if(data == MC_Angle)		return 45;	//Mit welchem Winkel das Ziel durch Kolbenschläge geschleudert wird
 }
 
 /* Kugeln */
@@ -28,22 +30,22 @@ public func GetMCData(int data)
 public func FMData1(int data)
 {
   if(data == FM_Name)		return "$Bullets$";
-    
-  if(data == FM_AmmoID)		return STAM;
-  if(data == FM_AmmoLoad)	return 30;
-  
-  if(data == FM_Reload)		return 90;
-  if(data == FM_Recharge)	return 13;
 
-  if(data == FM_Auto)		return false;
-  
-  if(data == FM_Damage)		return 14;
-  
-  if(data == FM_Slot)		return 1;
-  
-  if(data == FM_SpreadAdd)	return 50;
-  if(data == FM_StartSpread)	return 100;
-  if(data == FM_MaxSpread)	return 450;
+  if(data == FM_AmmoID)		return STAM;	//ID der Munition
+  if(data == FM_AmmoLoad)	return 30;	//Magazingröße
+
+  if(data == FM_Reload)		return 90;	//Zeit für Nachladen
+  if(data == FM_Recharge)	return 13;	//Zeit bis erneut geschossen werden kann
+
+  if(data == FM_Auto)		return false;	//Kein Automatikfeuer
+
+  if(data == FM_Damage)		return 14;	//Schadenswert
+
+  if(data == FM_Slot)		return 1;	//Slot des Feuermodus
+
+  if(data == FM_SpreadAdd)	return 50;	//Bei jedem Schuss hinzuzuaddierende Streuung
+  if(data == FM_StartSpread)	return 100;	//Bei Auswahl der Waffe gesetzte Streuung
+  if(data == FM_MaxSpread)	return 450;	//Maximaler Streuungswert
 
   return Default(data);
 }
@@ -54,10 +56,10 @@ public func FMData1T1(int data)
 {
   if(data == FT_Name)		return "$Burst$";
 
-  if(data == FM_Recharge)	return 15;
+  if(data == FM_Recharge)	return 15;	//Zeit bis erneut geschossen werden kann
 
-  if(data == FM_BurstAmount)	return 3;
-  if(data == FM_BurstRecharge)	return 3;
+  if(data == FM_BurstAmount)	return 3;	//Anzahl Schussabrufe pro Burst
+  if(data == FM_BurstRecharge)	return 3;	//Zeit zwischen einzelnen Bursts
 
   return FMData1(data);
 }
@@ -80,7 +82,7 @@ public func FMData1T2(int data)
 {
   if(data == FT_Name)		return "$Single$";
 
-  if(data == FM_Damage)		return 14;
+  if(data == FM_Damage)		return 14;	//Schadenswert
 
   return FMData1(data);
 }
@@ -116,21 +118,20 @@ public func Fire1()
 public func FMData2(int data)
 {
   if(data == FM_Name)		return "$Grenades$";
-  if(data == FM_AmmoID)		return GRAM;
-  if(data == FM_AmmoLoad)	return 1;
 
-  if(data == FM_Reload)		return 80;
-  if(data == FM_Recharge)	return 1;
+  if(data == FM_AmmoID)		return GRAM;	//ID der Munition
+  if(data == FM_AmmoLoad)	return 1;	//Magazingröße
 
-  if(data == FM_Damage)		return 20;
-  
-  if(data == FM_Slot)		return 2;
-  
-  if(data == FM_Icon)		return XSHL;
-  
-  if(data == FM_SpreadAdd)	return 200;
-  if(data == FM_StartSpread)	return 100;
-  if(data == FM_MaxSpread)	return 400;
+  if(data == FM_Reload)		return 80;	//Zeit für Nachladen
+  if(data == FM_Recharge)	return 1;	//Zeit bis erneut geschossen werden kann
+
+  if(data == FM_Damage)		return 20;	//Schadenswert
+
+  if(data == FM_Slot)		return 2;	//Slot des Feuermodus
+
+  if(data == FM_SpreadAdd)	return 200;	//Bei jedem Schuss hinzuzuaddierende Streuung
+  if(data == FM_StartSpread)	return 100;	//Bei Auswahl der Waffe gesetzte Streuung
+  if(data == FM_MaxSpread)	return 400;	//Maximaler Streuungswert
 
   return Default(data);
 }
@@ -138,7 +139,7 @@ public func FMData2(int data)
 public func FMData2T1(int data)
 {
   if(data == FT_Name)		return "$Explosive$";
-  if(data == FM_Icon)		return M203;
+
   return FMData2(data);
 }
 
@@ -155,7 +156,7 @@ public func Fire2()
 public func BotData2(int data)
 {
   if(data == BOT_Range)		return 90;
-  if(data == BOT_Power)   return(BOT_Power_2);
+  if(data == BOT_Power)		return(BOT_Power_2);
   return Default(data);
 }
 
@@ -164,8 +165,9 @@ public func BotData2(int data)
 public func FMData2T2(int data)
 {
   if(data == FT_Name)		return "$Cluster$";
-  if(data == FM_Icon)		return FSHL;
-  if(data == FM_Damage)		return 5;
+
+  if(data == FM_Damage)		return 5;	//Schadenswert
+
   return FMData2(data);
 }
 
@@ -179,8 +181,9 @@ public func Fire2T2()
 public func FMData2T3(int data)
 {
   if(data == FT_Name)		return "$Smoke$";
-  if(data == FM_Icon)		return SSHL;
-  if(data == FM_Damage)		return 5;
+
+  if(data == FM_Damage)		return 5;	//Schadenswert
+
   return FMData2(data);
 }
 
