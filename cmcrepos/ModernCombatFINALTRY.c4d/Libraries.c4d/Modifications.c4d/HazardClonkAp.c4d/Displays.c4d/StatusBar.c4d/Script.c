@@ -59,9 +59,8 @@ public func Set(object target, int color, int iType, int iLgt, string szIcon, id
   iBarType = iType;
   iDefHeight = GetDefHeight(GetID(target));
   if(!iLgt)
-		iLgt = 100;
-	
-	iLength = iLgt;
+    iLgt = 100;
+  iLength = iLgt;
 
   //Und festsetzen
   SetAction("Attach", target);
@@ -85,7 +84,7 @@ public func Set(object target, int color, int iType, int iLgt, string szIcon, id
 
 public func SetIcon(string szIcon, id idSrcDef, int iXAdjust, int iYAdjust, bool fNoResize)
 {
-	idIconDef = idSrcDef;
+  idIconDef = idSrcDef;
   if(!idIconDef)
     idIconDef = GetID();
 
@@ -99,7 +98,7 @@ public func SetIcon(string szIcon, id idSrcDef, int iXAdjust, int iYAdjust, bool
 
     SetObjDrawTransform(1000, 0, iXAdjust, 0, 1000, iYAdjust, this, BAR_IconLayer);
   }
-  
+
   return true;
 }
 
@@ -165,7 +164,7 @@ public func Update(int percent, bool fDeactivate)
     fActive = true;
     SetVisibility(VIS_Owner);
     if(GetOwner() == NO_OWNER)
-    	SetVisibility(VIS_All);
+      SetVisibility(VIS_All);
 
     CallUpdateBarCount();
   }

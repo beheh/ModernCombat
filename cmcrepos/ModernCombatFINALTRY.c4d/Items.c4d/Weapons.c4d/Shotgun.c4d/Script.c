@@ -47,7 +47,7 @@ public func FMData1(int data)
   if(data == FM_SpreadAdd)	return 150;	//Bei jedem Schuss hinzuzuaddierende Streuung
   if(data == FM_StartSpread)	return 320;	//Bei Auswahl der Waffe gesetzte Streuung
   if(data == FM_MaxSpread)	return 570;	//Maximaler Streuungswert
-  if(data == FM_MinSpread)  return 120;
+  if(data == FM_MinSpread)	return 120;	//Minimal mögliche Streuung
 
   return Default(data);
 }
@@ -87,9 +87,8 @@ public func Fire1()
   var j = GetFMData(FM_Damage, 1)/10;
   for(var i; i < j; i++)
   {
-    //Muss in der Schleife geschehen, da sonst alle Geschosse denselben Austrittswinkel haben
     angle = user->AimAngle(10,0,true);
-    
+
     ammo = SALaunchBullet(x,y,GetController(user),angle,250+Random(20),300,10);
   }
 
