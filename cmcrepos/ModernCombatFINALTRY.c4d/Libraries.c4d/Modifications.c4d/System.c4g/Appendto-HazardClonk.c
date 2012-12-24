@@ -321,20 +321,26 @@ public func UpdateCH()
 
   DoSpread(BoundBy(TestSpread()-spread,0,10));
 
-  var unspread;
+  var unspread, minspread;
   if(c->~IsWeapon())
+  {
     unspread = c->GetFMData(FM_UnSpread);
+    minspread = c->GetFMData(FM_MinSpread);
+  }
   else
+  {
     unspread = c->~UnSpread();
+    minspread = c->~MinSpread();
+  }
 
 
   if(IsAiming())
     if(IsCrawling())
-      DoSpread(-(CH_CrawlSpreadReduction+unspread));
+      DoSpread(-(CH_CrawlSpreadReduction+unspread), 0, minspread);
     else
-      DoSpread(-(CH_AimSpreadReduction+unspread));
+      DoSpread(-(CH_AimSpreadReduction+unspread), 0, minspread);
   else
-    DoSpread(-(CH_StandSpreadReduction+unspread));
+    DoSpread(-(CH_StandSpreadReduction+unspread), 0, minspread);
 
   UpdateAiming();
   return true;
@@ -457,14 +463,14 @@ public func AimAngle(int iMaxAngle, int iRange, bool bSpread)
   return angle;
 }
 
-public func DoSpread(int iChange, int iMax)
+public func DoSpread(int iChange, int iMax, int iMin)
 {
   var wpn = Contents();
   if(!wpn) return;
   if(!wpn->~IsWeapon() && !wpn->~IsGrenade()) return;
   
-  if(iMax) iChange = Max(0,BoundBy(spread+iChange,0,iMax)-spread);
-  spread = BoundBy(spread+iChange,0,CH_MaxSpread);
+  if(iMax) iChange = Max(0,BoundBy(spread+iChange, 0, iMax)-spread);
+  spread = BoundBy(spread+iChange, iMin, CH_MaxSpread);
   
   if(crosshair)
     crosshair->SetSpread(spread);

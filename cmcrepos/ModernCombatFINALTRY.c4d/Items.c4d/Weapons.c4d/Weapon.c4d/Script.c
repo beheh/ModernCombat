@@ -21,6 +21,7 @@ static const FM_StartSpread   = 20;	//Bei Auswahl der Waffe gesetzte Streuung
 static const FM_MaxSpread     = 21;	//Maximaler Streuungswert
 static const FM_UnSpread      = 22;	//Bei jedem Schuss abzuziehende Streuung
 static const FM_NoAmmoModify  = 23;	//Kein Ent-/Nachladen möglich
+static const FM_MinSpread     = 33; //Kleinstmögliche Streuung
 
 static const FT_Name          = 24;	//Name der Feuertechnik
 static const FT_Icon          = 25;	//Icondefinition der Feuertechnik

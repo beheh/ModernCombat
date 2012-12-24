@@ -41,8 +41,9 @@ public func FMData1(int data)
   if(data == FM_Auto)		return true;	//Automatikfeuer
 
   if(data == FM_SpreadAdd)	return 30;	//Bei jedem Schuss hinzuzuaddierende Streuung
-  if(data == FM_StartSpread)	return 200;	//Bei Auswahl der Waffe gesetzte Streuung
-  if(data == FM_MaxSpread)	return 400;	//Maximaler Streuungswert
+  if(data == FM_StartSpread)	return 220;	//Bei Auswahl der Waffe gesetzte Streuung
+  if(data == FM_MaxSpread)	return 420;	//Maximaler Streuungswert
+  if(data == FM_MinSpread)  return 20;
 
   return Default(data);
 }
@@ -106,7 +107,7 @@ public func Fire1()
   user->WeaponEnd(x,y);
 
   //Kugel abfeuern
-  var ammo = SALaunchBullet(x,y,GetController(user),angle+RandomX(-1,+1),270,750,GetFMData(FM_Damage));
+  var ammo = SALaunchBullet(x,y,GetController(user),angle,270,750,GetFMData(FM_Damage));
 
   //Effekte
   MuzzleFlash(RandomX(35,50),user,x,y,angle,0, 0);

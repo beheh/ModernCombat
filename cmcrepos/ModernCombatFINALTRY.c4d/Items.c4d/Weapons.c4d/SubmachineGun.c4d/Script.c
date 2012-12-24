@@ -41,8 +41,9 @@ public func FMData1(int data)
   if(data == FM_Slot)		return 1;
   
   if(data == FM_SpreadAdd)	return 20;
-  if(data == FM_StartSpread)	return 50;
-  if(data == FM_MaxSpread)	return 350;
+  if(data == FM_StartSpread)	return 110;
+  if(data == FM_MaxSpread)	return 410;
+  if(data == FM_MinSpread) return 60;
 
   return Default(data);
 }
@@ -126,7 +127,7 @@ public func Fire1()
   user->WeaponEnd(x,y);
 
   //Kugel abfeuern
-  var ammo = SALaunchBullet(x,y,GetController(user),angle+RandomX(-3,+3),270,550,GetFMData(FM_Damage));
+  var ammo = SALaunchBullet(x,y,GetController(user),angle,270,550,GetFMData(FM_Damage));
 
   //Effekte
   MuzzleFlash(RandomX(30,35),user,x,y,angle,0, 4);
