@@ -13,15 +13,15 @@ static const FM_Slot          = 13;	//Slot des Feuermodus
 static const FM_SingleReload  = 14;	//Zeit des einzelnen Nachladens bei Revolversystemen (z.B. für Schrotflinten)
 static const FM_PrepareReload = 15;	//Zeit bevor das eigentliche Nachladen beginnt (nur interessant wenn auch FM_SingleReload benutzt wird)
 static const FM_FinishReload  = 16;	//Zeit nach dem Nachladen (nur interessant wenn auch FM_SingleReload benutzt wird)
-static const FM_BurstAmount   = 17;	//Anzahl Schussabrufe pro Burst-Betätigung
-static const FM_BurstRecharge = 18;	//Zeit zwischen den einzelnen Bursts
+static const FM_BurstAmount   = 17;	//Anzahl Schussabrufe pro Burst
+static const FM_BurstRecharge = 18;	//Zeit zwischen einzelnen Bursts
 
 static const FM_SpreadAdd     = 19;	//Bei jedem Schuss hinzuzuaddierende Streuung
 static const FM_StartSpread   = 20;	//Bei Auswahl der Waffe gesetzte Streuung
 static const FM_MaxSpread     = 21;	//Maximaler Streuungswert
 static const FM_UnSpread      = 22;	//Bei jedem Schuss abzuziehende Streuung
 static const FM_NoAmmoModify  = 23;	//Kein Ent-/Nachladen möglich
-static const FM_MinSpread     = 33; //Kleinstmögliche Streuung
+static const FM_MinSpread     = 33;	//Kleinstmögliche Streuung
 
 static const FT_Name          = 24;	//Name der Feuertechnik
 static const FT_Icon          = 25;	//Icondefinition der Feuertechnik

@@ -47,7 +47,7 @@ public func FMData1(int data)
   if(data == FM_SpreadAdd)	return 150;	//Bei jedem Schuss hinzuzuaddierende Streuung
   if(data == FM_StartSpread)	return 320;	//Bei Auswahl der Waffe gesetzte Streuung
   if(data == FM_MaxSpread)	return 570;	//Maximaler Streuungswert
-  if(data == FM_MinSpread)  return 120;
+  if(data == FM_MinSpread)	return 120;	//Minimal mögliche Streuung
 
   return Default(data);
 }

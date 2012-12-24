@@ -14,6 +14,9 @@ public func IgnoreTracer()	{return true;}
 public func IsRifleGrenade()	{return true;}		//Ist eine Gewehrgranate
 public func AllowHitboxCheck()	{return true;}
 
+
+/* Initialisierung */
+
 protected func Initialize() 
 {
   iLastAttacker = NO_OWNER;

@@ -27,7 +27,7 @@ public func Initialize()
   DoAmmo(GetFMData(FM_AmmoID), GetFMData(FM_AmmoLoad));
 }
 
-/* Rakete - Optische Steuerung */
+/* Raketen */
 
 public func FMData1(int data)
 {
@@ -47,25 +47,17 @@ public func FMData1(int data)
   return Default(data);
 }
 
+/* Raketen - Optische Steuerung */
+
 public func FMData1T1(int data)
 {
   if(data == FT_Name)		return "$Optical$";
   return FMData1(data);
 }
 
-public func FMData1T2(int data)
-{
-  return;
-}
-
 public func Fire1T1()
 {
   Fire1();
-}
-
-public func Fire1T2()
-{
-  return;
 }
 
 public func BotData1(int data)
@@ -76,6 +68,8 @@ public func BotData1(int data)
   if(data == BOT_Precision)	return 3;
   return Default(data);
 }
+
+/* Raketen - Schuss */
 
 public func Fire1()
 {
