@@ -45,10 +45,10 @@ protected func Initialize()
 
 /* Einstellung */
 
-local tPercent, tRotation, iDefHeight;
+local tPercent, tRotation, iDefHeight, iLength;
 local idIconDef;
 
-public func Set(object target, int color, int iType, bool fIcon, string szIcon, id idSrcDef, int iXAdjust, int iYAdjust, bool fNoResize)
+public func Set(object target, int color, int iType, int iLgt, string szIcon, id idSrcDef, int iXAdjust, int iYAdjust, bool fNoResize)
 {
   SetVisibility(VIS_None);
 
@@ -58,31 +58,21 @@ public func Set(object target, int color, int iType, bool fIcon, string szIcon, 
   iBarCount = GetBarCount(obj, GetOwner());
   iBarType = iType;
   iDefHeight = GetDefHeight(GetID(target));
+  if(!iLgt)
+		iLgt = 100;
+	
+	iLength = iLgt;
 
   //Und festsetzen
   SetAction("Attach", target);
 
   //Färben
   SetClrModulation(color, this, BAR_RowLayer);
+  SetObjDrawTransform(1000 * iLgt / 100, 0, 0, 0, 1000, 0, this);
 
   //Icon zur Identifizierung
-  if(fIcon)
-  {
-    idIconDef = idSrcDef;
-    if(!idIconDef)
-      idIconDef = GetID();
-
-    SetGraphics(szIcon, this, idIconDef, BAR_IconLayer, 1);
-    if(!fNoResize && GetDefWidth(idIconDef) > 16)
-      ResizeIcon(IconSize(), iXAdjust, iYAdjust);
-    else
-    {
-      if(!iXAdjust)
-        iXAdjust = -(21675 + GetDefWidth(idIconDef) * 333); //Berechnet die Position je nach Breite des Icons
-
-      SetObjDrawTransform(1000, 0, iXAdjust, 0, 1000, iYAdjust, this, BAR_IconLayer);
-    }
-  }
+  if(szIcon || idSrcDef)
+    SetIcon(szIcon, idSrcDef, iXAdjust, iYAdjust, fNoResize);
 
   //Balken setzen
   fActive = true;
@@ -93,12 +83,32 @@ public func Set(object target, int color, int iType, bool fIcon, string szIcon, 
   return true;
 }
 
+public func SetIcon(string szIcon, id idSrcDef, int iXAdjust, int iYAdjust, bool fNoResize)
+{
+	idIconDef = idSrcDef;
+  if(!idIconDef)
+    idIconDef = GetID();
+
+  SetGraphics(szIcon, this, idIconDef, BAR_IconLayer, 1);
+  if(!fNoResize && GetDefWidth(idIconDef) > 16)
+    ResizeIcon(IconSize(), iXAdjust, iYAdjust);
+  else
+  {
+    if(!iXAdjust)
+      iXAdjust = -(200 * iLength + 1675 + GetDefWidth(idIconDef) * 333); //Berechnet die Position je nach Breite des Icons
+
+    SetObjDrawTransform(1000, 0, iXAdjust, 0, 1000, iYAdjust, this, BAR_IconLayer);
+  }
+  
+  return true;
+}
+
 public func ResizeIcon(int iNewWidth, int iXAdjust, int iYAdjust)
 {
   //Icongröße verändern
   var iNewSize = iNewWidth * 1000 / Max(GetDefWidth(idIconDef), GetDefHeight(idIconDef));
   if(!iXAdjust)
-    iXAdjust = -(21675 + iNewWidth * 333);
+    iXAdjust = -(200 * iLength + 1675 + iNewWidth * 333);
 
   SetObjDrawTransform(iNewSize, 0, iXAdjust, 0, iNewSize, iYAdjust, this, BAR_IconLayer);
   return true;
@@ -154,13 +164,16 @@ public func Update(int percent, bool fDeactivate)
   {
     fActive = true;
     SetVisibility(VIS_Owner);
+    if(GetOwner() == NO_OWNER)
+    	SetVisibility(VIS_All);
+
     CallUpdateBarCount();
   }
 
   //Prozentbalken anpassen
   if(percent != tPercent)
   {
-    SetObjDrawTransform(10 * percent, 0, -160 * (100 - percent), 0, 1000, 0, 0, BAR_RowLayer);
+    SetObjDrawTransform((10 * iLength / 100) * percent, 0, (-160 * iLength / 100) * (100 - percent), 0, 1000, 0, 0, BAR_RowLayer);
     tPercent = percent;
   }
 

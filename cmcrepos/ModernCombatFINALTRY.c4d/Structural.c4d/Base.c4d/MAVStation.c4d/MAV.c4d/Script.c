@@ -589,7 +589,7 @@ public func HardKill()
   if(!ChargeBar)
   {
     ChargeBar = CreateObject(SBAR, 0, 0, GetOwner());
-    ChargeBar->Set(this, RGB(77, 229, 0), BAR_Ammobar, true, "", SM11);
+    ChargeBar->Set(this, RGB(77, 229, 0), BAR_Ammobar, 0, 0, SM11);
   }
   else
     ChargeBar->Update(20*iHKShots, false);
@@ -652,7 +652,7 @@ public func ShockPaddles()
   if(!ChargeBar)
   {
     ChargeBar = CreateObject(SBAR, 0, 0, GetOwner());
-    ChargeBar->Set(this, RGB(77, 229, 0), BAR_Ammobar, true, "", SM13);
+    ChargeBar->Set(this, RGB(77, 229, 0), BAR_Ammobar, 0, 0, SM13);
   }
   else
     ChargeBar->Update(LocalN("charge", pItem) * 100 / pItem->MaxEnergy(), false);
@@ -668,7 +668,7 @@ public func BlowTorch(bool statusOnly)
   if(!ChargeBar)
   {
     ChargeBar = CreateObject(SBAR, 0, 0, GetOwner());
-    ChargeBar->Set(this, RGB(77, 229, 0), BAR_Ammobar, true, "", SM12);
+    ChargeBar->Set(this, RGB(77, 229, 0), BAR_Ammobar, 0, 0, SM12);
   }
   else
     ChargeBar->Update(LocalN("charge", pItem) * 100 / pItem->MaxEnergy(), false);
@@ -811,7 +811,7 @@ public func AMP(bool statusOnly)
   if(!ChargeBar)
   {
     ChargeBar = CreateObject(SBAR, 0, 0, GetOwner());
-    ChargeBar->Set(this, RGB(77, 229, 0), BAR_Ammobar, true, "", SM11);
+    ChargeBar->Set(this, RGB(77, 229, 0), BAR_Ammobar, 0, 0, SM11);
   }
   else
     ChargeBar->Update(pItem->GetPackPoints() * 100 / pItem->MaxPoints(), false);
@@ -882,7 +882,7 @@ public func FAP(bool statusOnly, int iEffectTime)
   if(!ChargeBar)
   {
     ChargeBar = CreateObject(SBAR, 0, 0, GetOwner());
-    ChargeBar->Set(this, RGB(77, 229, 0), BAR_Ammobar, true, "", SM13);
+    ChargeBar->Set(this, RGB(77, 229, 0), BAR_Ammobar, 0, 0, SM13);
   }
   else
     ChargeBar->Update(pItem->GetPackPoints() * 100 / pItem->MaxPoints(), false);
@@ -1458,7 +1458,7 @@ public func FxBarsTimer(object target, int nr)
         continue;
 
       var bar = CreateObject(SBAR, 0, 0, owner);
-      bar->Set(clonk, RGB(255, 255, 80), BAR_Ammobar, true, "", SM11);
+      bar->Set(clonk, RGB(255, 255, 80), BAR_Ammobar, 0, 0, SM11);
       EffectVar(0, target, nr)[GetLength(EffectVar(0, target, nr))] = bar;
     }
   }
@@ -1487,7 +1487,7 @@ public func FxBarsTimer(object target, int nr)
         continue;
 
         var bar = CreateObject(SBAR, 0, 0, GetOwner(target));
-        bar->Set(clonk, RGB(255,0,0), BAR_Energybar, true, "", SM13);
+        bar->Set(clonk, RGB(255,0,0), BAR_Energybar, 0, 0, SM13);
       EffectVar(0, target, nr)[GetLength(EffectVar(0, target, nr))] = bar;
      }
   }
@@ -1530,7 +1530,7 @@ public func FxBarsTimer(object target, int nr)
         continue;
 
       var bar = CreateObject(SBAR, 0, 0, iPlr);
-      bar->Set(obj, RGB(80,190,255), BAR_Repairbar, true, "", SM12);
+      bar->Set(obj, RGB(80,190,255), BAR_Repairbar, 0, 0, SM12);
       EffectVar(0, target, nr)[GetLength(EffectVar(0, target, nr))] = bar;
     }
   }

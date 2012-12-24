@@ -109,7 +109,7 @@ public func FxAmmoBarsTimer(object target, int nr)
       continue;
 
     var bar = CreateObject(SBAR, 0, 0, owner);
-    bar->Set(clonk, RGB(255, 255, 80), BAR_Ammobar, true, "", SM11);
+    bar->Set(clonk, RGB(255, 255, 80), BAR_Ammobar, 0, 0, SM11);
     EffectVar(0, target, nr)[GetLength(EffectVar(0, target, nr))] = bar;
   }
   return true;
