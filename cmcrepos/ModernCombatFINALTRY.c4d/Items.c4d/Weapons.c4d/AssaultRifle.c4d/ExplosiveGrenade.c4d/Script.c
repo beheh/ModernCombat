@@ -66,7 +66,7 @@ func HitObject(object pObj)
     if(pObj)
     {
       DoDmg(20,DMG_Projectile,pObj);
-      
+
       if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",12, 10, 0, 0, 100, 200, RGBa(255,255,255,100), RGBa(255,255,255,130));
       if(GetOCF(pObj) & OCF_Living)
       {

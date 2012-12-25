@@ -47,7 +47,7 @@ protected func FxTracerTrailTimer()
 
 private func Traveling()
 {
-  //In Wasser zerstören
+  //In Wasser verschwinden
   if(InLiquid()) return Remove();
 
   var iATime = GetActTime();

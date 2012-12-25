@@ -113,7 +113,7 @@ public func Fire1()
   Echo("ASTR_Echo.ogg");
 }
 
-/* Granaten - Explosivgranaten */
+/* Granaten */
 
 public func FMData2(int data)
 {
@@ -135,6 +135,8 @@ public func FMData2(int data)
 
   return Default(data);
 }
+
+/* Granaten - Explosivgranaten */
 
 public func FMData2T1(int data)
 {

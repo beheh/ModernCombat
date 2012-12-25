@@ -50,7 +50,7 @@ public func Launch(int iAngle, object pFollow, bool fUnguided)
 {
   //Geschwindigkeit setzen
   iSpeed = StartSpeed();
-  
+
   //Verfolgung setzen
   fGuided = !fUnguided;
 
@@ -102,7 +102,7 @@ public func FxThrustSoundTimer(object pTarget, int iEffectNumber, int iEffectTim
 
 public func FxFollowStart(object pTarget, int iEffectNumber, int iTemp, obj)
 {
-  if (iTemp)
+  if(iTemp)
     return;
   EffectVar(0,pTarget,iEffectNumber) = obj;
   EffectVar(1,pTarget,iEffectNumber) = 0;
@@ -114,7 +114,7 @@ public func FxFollowTimer(object pTarget, int iEffectNumber, int iEffectTime)
   if(GetAction(pTarget) != "Travel")
   {
     //Licht entfernen?
-    if (pLight)
+    if(pLight)
       RemoveObject(pLight);
     return;
   }
@@ -304,7 +304,7 @@ private func HitObject(pObj)
   {
     if(pObj)
     {
-      if (pObj == EffectVar(0, this, GetEffect("Follow", this)))
+      if(pObj == EffectVar(0, this, GetEffect("Follow", this)))
         return;
       DoDmg(Distance(GetXDir(),GetYDir())/5,DMG_Projectile,pObj);
       if(GetEffectData(EFSM_ExplosionEffects) > 0)  CastSmoke("Smoke3",12,10,0,0,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));

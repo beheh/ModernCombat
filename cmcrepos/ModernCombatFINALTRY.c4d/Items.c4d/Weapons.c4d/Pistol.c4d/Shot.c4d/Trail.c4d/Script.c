@@ -1,6 +1,13 @@
+/*-- Spur --*/
+
 #strict 2
 
 local fRemove, iSpeed, pShot, w, l, r, x, y,dist;
+
+func NoWarp()	{return true;}
+
+
+/* Erstellung */
 
 public func SetFB(int iWidth, int iLength, object pSht, int iDist)
 {
@@ -9,12 +16,12 @@ public func SetFB(int iWidth, int iLength, object pSht, int iDist)
   w = 1000*iWidth/20;
   l = 1000*iLength/100;
   //Log("%d = 1000*%d/20",w,iWidth);
-  
+
   var iXDir = GetXDir(pSht,100);
   var iYDir = GetYDir(pSht,100);
 
   iSpeed = Sqrt(iXDir*iXDir/100+iYDir*iYDir/100);
-  
+
   if(iDist)
   {
     SetXDir(iXDir,0,100);
@@ -58,7 +65,7 @@ public func Set(int iWidth, int iLength, object pSht)
 
 private func Traveling()
 {
-  // The shot is gone -> remove
+  //Mit Projektil verschwinden
   if(!fRemove)
   {
     if(dist)
@@ -73,8 +80,8 @@ private func Traveling()
         Remove();
     }
   }
-  
-  // Display
+
+  //Darstellen
   DrawTransform();
   if(pShot) 
     if(pShot->~TrailColor())
@@ -93,14 +100,10 @@ public func Remove()
 
 public func DrawTransform()
 {
-
-  // skip because nothing has to be transformed
   if(!fRemove && l < 10*Distance(x,y,GetX(),GetY())) return;
 
-  // stretch >-<
   if(fRemove) l = Max(0,l-iSpeed); 
 
-  // stretch <->
   var h = Min(l,10*Distance(x,y,GetX(),GetY()));
 
   var fsin = -Sin(r, 1000), fcos = Cos(r, 1000);
@@ -114,12 +117,9 @@ public func DrawTransform()
   var xadjust = +fcos*xoff + fsin*yoff;
   var yadjust = -fsin*xoff + fcos*yoff;
 
-  // set matrix values
   SetObjDrawTransform
   (
     width, xskew, xadjust,
     yskew, height, yadjust
   );
 }
-
-func NoWarp() { return true; }
