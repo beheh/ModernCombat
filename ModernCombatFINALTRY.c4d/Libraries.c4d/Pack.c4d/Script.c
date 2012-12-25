@@ -30,9 +30,9 @@ public func DoTeamSupport(array aClonks)	{}
 public func Initialize()
 {
   AddEffect("IntPack", this, 1, RefillTime(), this);
-  if (TeamSupportTime())
+  if(TeamSupportTime())
     AddEffect("IntTeamSupport", this, 1, TeamSupportTime(), this);
-  if (PackLight())
+  if(PackLight())
     AddEffect("IntPackLight", this, 1, 1, this);
   SetPackPoints(StartPoints());
 }
@@ -64,9 +64,9 @@ public func SetPackPoints(int iValue)
 protected func FxIntPackTimer()
 {
   //Nicht im Freien
-  if (!Contained()) return;
+  if(!Contained()) return;
   //Weitere Checks
-  if (!CanRefill())
+  if(!CanRefill())
     return false;
   DoPackPoints(1);
 }
@@ -75,10 +75,10 @@ protected func FxIntPackTimer()
 
 protected func FxIntPackLightTimer()
 {
-  if (!Contained())
+  if(!Contained())
     CreateParticle("FapLight", 1, -2, 0, 0, 25, Fill2Color(), this);
   else
-    if (Contents(0, Contained()) == this && IsDrawable() && WildcardMatch(GetAction(Contained()), "*Armed*"))
+    if(Contents(0, Contained()) == this && IsDrawable() && WildcardMatch(GetAction(Contained()), "*Armed*"))
       CreateParticle("FapLight", GetDir(Contained()), -2, 0, 0, 25, Fill2Color(), this);
 }
 
@@ -102,17 +102,17 @@ protected func FxIntTeamSupportTimer()
   var objs;
 
   //Gar keine Punkte?
-  if (!GetPackPoints()) return;
+  if(!GetPackPoints()) return;
   //Liegt irgendwo?
-  if (!Contained()) return;
+  if(!Contained()) return;
   //Träger lebt nicht
-  if (!GetAlive(Contained())) return;
+  if(!GetAlive(Contained())) return;
   //Träger ist kein Clonk
-	if (!Contained()->~IsClonk()) return;
+	if(!Contained()->~IsClonk()) return;
   //Träger simuliert Todeskampf
-  if (IsFakeDeath(Contained())) return;
+  if(IsFakeDeath(Contained())) return;
   //Träger verschachtelt
-  if (Contained(Contained()))
+  if(Contained(Contained()))
   {
     //Egal ob ausgewählt
     objs = FindObjects(Find_OCF(OCF_CrewMember), Find_Container(Contained(Contained())), Find_Exclude(Contained()));
@@ -134,21 +134,21 @@ protected func FxIntTeamSupportTimer()
 public func JoinPack(object pInto, object pMsgObject)
 {
   //Natürlich nur dieselben Packs
-  if (GetID(pInto) != GetID())
+  if(GetID(pInto) != GetID())
     return false;
   //Anderes Pack auffüllen
   var iChange = pInto->~DoPackPoints(GetPackPoints());
   //Und hier abziehen
   DoPackPoints(-iChange);
   //Mitteilung ausgeben
-  if (iChange)
+  if(iChange)
   {
-    if (pMsgObject)
+    if(pMsgObject)
       PlayerMessage(GetOwner(pMsgObject), "$Refilled$", pMsgObject, GetID(), iChange);
     Sound("Merge.ogg", false, pInto);
   }
   //Wir sind leer?
-  if (!GetPackPoints() && DestroyEmptyPack())
+  if(!GetPackPoints() && DestroyEmptyPack())
     RemoveObject();
   //Success!
   return true;
@@ -158,7 +158,7 @@ public func RejectEntrance(object pInto)
 {
   //Hat schon eins: Zusammenlegen
   var other = FindContents(GetID(), pInto);
-  if (other)
+  if(other)
     JoinPack(other, pInto);
   //Clonks können nur eins tragen
   return other && (GetOCF(pInto) & OCF_CrewMember);
