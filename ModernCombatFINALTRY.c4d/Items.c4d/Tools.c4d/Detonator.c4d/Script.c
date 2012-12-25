@@ -7,11 +7,11 @@ local thrown;
 
 static const C4PA_Cooldown = 30;
 
-public func IsDrawable()	{return true;}
+public func IsDrawable()	{return true;}		//Wird sichtbar getragen
 public func HandSize()		{return 1000;}
 public func HandX()		{return 3500;}
-public func IsEquipment()	{return true;}
 
+public func IsEquipment()	{return true;}
 public func MaxPoints()		{return 8;}
 public func StartPoints()	{return 3;}
 public func TeamSupportTime()	{return 0;}

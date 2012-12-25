@@ -3,7 +3,7 @@
 #strict 2
 #include PACK
 
-public func IsDrawable()		{return true;}
+public func IsDrawable()		{return true;}		//Wird sichtbar getragen
 public func HandX()			{return 4000;}
 public func HandY()			{return 10;}
 public func HandSize()			{return 1000;}
@@ -133,7 +133,7 @@ public func AmmoTypes()
 protected func Activate(object pCaller)
 {
   //Hat schon eine Box
-  if (FindContents(CUAM, pCaller))
+  if(FindContents(CUAM, pCaller))
   {
     PlayerMessage(GetOwner(pCaller), "$NoSpace$", pCaller);
     return true;
@@ -162,13 +162,12 @@ protected func Activate(object pCaller)
 
 protected func CreateAmmoPack(id idAmmo, object pCaller, bool fRight, int iIndex)
 {
-  //öha.
-  if (!idAmmo || !pCaller)
+  if(!idAmmo || !pCaller)
     return false;
 
   //Zu wenig Punkte?
   var aAmmo = AmmoTypes()[iIndex];
-  if (GetPackPoints() < aAmmo[2])
+  if(GetPackPoints() < aAmmo[2])
   {
     PlayerMessage(GetOwner(pCaller), "$NeededPoints$", pCaller, aAmmo[2]);
     return false;
@@ -180,7 +179,7 @@ protected func CreateAmmoPack(id idAmmo, object pCaller, bool fRight, int iIndex
   box->~SetAmmoCount(aAmmo[1], true);
 
   //Einsammeln
-  if (!Collect(box, pCaller))
+  if(!Collect(box, pCaller))
   {
     PlayerMessage(GetOwner(pCaller), "$NoSpace$", pCaller);
     return false;
@@ -201,13 +200,13 @@ protected func CreateAmmoPack(id idAmmo, object pCaller, bool fRight, int iIndex
 public func DoTeamSupport(array aClonks)
 {
   //Zu wenig Punkte
-  if (GetPackPoints() < 30)
+  if(GetPackPoints() < 30)
     return false;
 
   for (var pTarget in aClonks)
   {
     //Nur Clonks
-    if (!pTarget->~IsClonk())
+    if(!pTarget->~IsClonk())
       continue;
       
     //Munitionsbedarf feststellen
