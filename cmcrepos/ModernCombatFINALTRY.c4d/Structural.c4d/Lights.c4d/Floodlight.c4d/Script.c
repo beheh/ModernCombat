@@ -1,0 +1,4 @@
+/*-- Scheinwerfer --*/
+
+#strict
+#include FLGH
