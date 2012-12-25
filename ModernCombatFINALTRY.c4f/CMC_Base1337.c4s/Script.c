@@ -404,9 +404,9 @@ func CreateDecoration()
   CreateObject(SCA1, 3500, 910, -1)->SetAction("Grenade");
 
   //Scheinwerfer
-  CreateObject(FLGH, 710, 640, -1)->SetRotation(-80);
-  CreateObject(FLGH, 730, 630, -1)->SetRotation(-30);
-  CreateObject(FLGH, 4130, 1000, -1)->SetRotation(-90);
+  CreateObject(FLH2, 710, 640, -1)->SetRotation(-80);
+  CreateObject(FLH2, 730, 630, -1)->SetRotation(-30);
+  CreateObject(FLH2, 4130, 1000, -1)->SetRotation(-90);
 
   //Regale
   CreateObject(FRAM, 3020, 1200, -1);

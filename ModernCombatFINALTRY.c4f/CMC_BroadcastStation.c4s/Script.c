@@ -286,10 +286,10 @@ func CreateDecoration()
   CreateObject(ETLT, 160, 475, -1);
   CreateObject(ETLT, 1635, 165, -1);
 
-  //Flutlichter
-  CreateObject(FLGH, 475, 360, -1)->SetRotation(-50);
-  CreateObject(FLGH, 790, 340, -1)->SetRotation(40);
-  CreateObject(FLGH, 1110, 150, -1)->SetRotation(-70);
+  //Scheinwerfer
+  CreateObject(FLH2, 475, 360, -1)->SetRotation(-50);
+  CreateObject(FLH2, 790, 340, -1)->SetRotation(40);
+  CreateObject(FLH2, 1110, 150, -1)->SetRotation(-70);
 
   //Spinde
   CreateObject(LCKR, 1140, 710, -1);
