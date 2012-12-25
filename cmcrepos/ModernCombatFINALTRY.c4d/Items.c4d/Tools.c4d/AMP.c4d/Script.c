@@ -22,7 +22,7 @@ public func AI_Inventory(object pClonk)	{return true;}
 
 protected func Initialize()
 {
-  //Regel "Keine Munition" - Wird nicht gebraucht
+  //Keine Munition-Regel vorhanden? Verschwinden
   if(NoAmmo())
     return ScheduleCall(this, "RemoveObject", 1);
 

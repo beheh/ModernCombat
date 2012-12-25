@@ -4,14 +4,16 @@
 
 local ammoid,count;
 
-public func NoWeaponChoice()	{return true;}
-public func IsAmmoPacket()	{return true;}
-public func AmmoID()		{return ammoid;}
-public func AmmoCount()		{return count;}
-public func IsDrawable()	{return true;}
+public func IsDrawable()	{return true;}		//Wird sichtbar getragen
 public func HandSize()		{return 800;}
 public func HandX()		{return 6000;}
 public func HandY()		{return -1000;}
+
+public func NoWeaponChoice()	{return true;}
+public func IsAmmoPacket()	{return true;}		//Ist Munition
+public func AmmoID()		{return ammoid;}	//ID der Munition
+public func AmmoCount()		{return count;}		//Munitionmenge
+
 public func LimitationCount()	{return 3;}
 
 

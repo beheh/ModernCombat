@@ -2,21 +2,22 @@
 
 #strict 2
 
+public func IsDrawable()	{return true;}			//Wird sichtbar getragen
+public func HandSize()		{return 800;}
+public func HandX()		{return 6000;}
+public func HandY()		{return -1000;}
+
 public func IsAmmoPacket()	{return GetID() != MCAM;}	//Ist Munition
 public func AmmoID()		{return STAM;}			//ID der Munition
 public func AmmoCount()		{return 100;}			//Munitionmenge
 public func NoArenaRemove()	{return true;}
-public func IsDrawable()	{return true;}
-public func HandSize()		{return 800;}
-public func HandX()		{return 6000;}
-public func HandY()		{return -1000;}
 
 
 /* Initialisierung */
 
 protected func Initialize()
 {
-  //Keine Munition Regel: Kein Existenzgrund
+  //Keine Munition-Regel vorhanden? Verschwinden
   if(FindObject(NOAM)) Schedule("RemoveObject()", 1);
 
   return 1;
@@ -56,7 +57,7 @@ public func TransferAmmo(object pObj)
   //Punkte, wenn jemandem anders gegeben
   var clonk = Contained(),
   factor = AmmoID()->~GetPointFactor();
-  if (clonk && clonk->~IsClonk() && factor && GetOwner(clonk) != GetOwner(pObj))
+  if(clonk && clonk->~IsClonk() && factor && GetOwner(clonk) != GetOwner(pObj))
   {
     //Punkte bei Belohnungssystem (Munitionierung)
     DoPlayerPoints(BonusPoints("Restocking", AmmoCount()*factor), RWDS_TeamPoints, GetOwner(clonk), GetCursor(GetOwner(clonk)), IC14);
@@ -79,7 +80,7 @@ public func ControlThrow(object caller)
   //Verbündeten suchen
   for (var obj in FindObjects(Find_InRect(-10,-10,20,20),Find_OCF(OCF_CrewMember),Find_Exclude(caller),Find_Allied(GetOwner(caller)),Find_NoContainer()))
     //Kann noch Munition aufnehmen?
-    if (obj->~IsClonk() && MayTransfer(obj))
+    if(obj->~IsClonk() && MayTransfer(obj))
     {
       //Munition geben und abbrechen
       TransferAmmo(obj);
