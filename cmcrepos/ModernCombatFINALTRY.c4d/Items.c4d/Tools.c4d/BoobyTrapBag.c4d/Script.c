@@ -5,12 +5,13 @@
 
 local controller, thrown;
 
-public func IsDrawable()		{return true;}
-public func CanAim()			{return Contained();}
-public func Color()			{return RGB(200,200,200);}
+public func IsDrawable()		{return true;}			//Wird sichtbar getragen
 public func HandX()			{return 5000;}
 public func HandSize()			{return 1000;}
 public func BarrelXOffset()		{return -850;}
+
+public func CanAim()			{return Contained();}
+public func Color()			{return RGB(200,200,200);}
 public func IsEquipment()		{return true;}
 public func NoArenaRemove()		{return true;}
 public func AttractTracer()		{return false;}

@@ -3,7 +3,7 @@
 #strict 2
 #include PACK
 
-public func IsDrawable()	{return true;}
+public func IsDrawable()	{return true;}	//Wird sichtbar getragen
 public func HandX()		{return 4000;}
 public func HandY()		{return 10;}
 public func HandSize()		{return 1000;}
@@ -29,7 +29,7 @@ public func CanRefill()
 public func Activate(object pCaller)
 {
   //Leeres Pack zerstören
-  if (!GetPackPoints() && !pCaller->~IsMedic())
+  if(!GetPackPoints() && !pCaller->~IsMedic())
   {
     Sound("FAPK_Hit.ogg", false, this);
     CastParticles("Paper", RandomX(4, 8), 40, 0, 0, 20, 35, RGB(180, 180, 180), RGBa(240, 240, 240, 150));
@@ -37,31 +37,31 @@ public func Activate(object pCaller)
     return true;
   }
   //Heilt bereits: Stoppen
-  if (GetEffect("FAPHeal", this))
+  if(GetEffect("FAPHeal", this))
   {
     RemoveEffect("FAPHeal", this);
     return true;
   }
   //Wird schon geheilt
-  if (GetEffect("*Heal*", pCaller))
+  if(GetEffect("*Heal*", pCaller))
   {
     PlayerMessage(GetOwner(pCaller), "$AlreadyHealing$", pCaller);
     return true;
   }
   //Ist nicht verwundet
-  if (GetEnergy(pCaller) == GetPhysical("Energy", PHYS_Current, pCaller) / 1000)
+  if(GetEnergy(pCaller) == GetPhysical("Energy", PHYS_Current, pCaller) / 1000)
   {
     PlayerMessage(GetOwner(pCaller), "$NotWounded$", pCaller);
     return true;
   }
   //Falsche Aktion?
-  if (!WildcardMatch(GetAction(pCaller), "*Walk*"))
+  if(!WildcardMatch(GetAction(pCaller), "*Walk*"))
   {
     PlayerMessage(GetOwner(pCaller), "$CantHeal$", pCaller);
     return true;
   }
   //Brennende Clonks löschen
-  if (OnFire(pCaller) && GetPackPoints() >= 30)
+  if(OnFire(pCaller) && GetPackPoints() >= 30)
   {
     Sound("Extinguish", false, pCaller);
     DoPackPoints(-30);
@@ -82,7 +82,7 @@ public func ControlThrow(object pCaller)
   if(pCaller->~IsMedic())
   {
     //Clonk hat schon eine Dragninspritze: Geht nicht
-    if (ContentsCount(DGNN, pCaller))
+    if(ContentsCount(DGNN, pCaller))
       return PlayerMessage(GetOwner(pCaller), "$NoSpace$", pCaller);
 
     //Falsche Aktion?
@@ -110,20 +110,20 @@ public func ControlThrow(object pCaller)
 public func DoTeamSupport(array aClonks)
 {
   //Können nur Sanitäter
-  if (!Contained()->~IsMedic())
+  if(!Contained()->~IsMedic())
     return;
   //Wenn nicht gerade in Gebrauch
-  if (GetEffect("FAPHeal", this))
+  if(GetEffect("FAPHeal", this))
     return;
 
   var a = [];
   //Zuerst die mit vollem Leben aussortieren
   for (var pClonk in aClonks)
-    if (GetEnergy(pClonk) < GetPhysical("Energy", PHYS_Current, pClonk) / 1000)
+    if(GetEnergy(pClonk) < GetPhysical("Energy", PHYS_Current, pClonk) / 1000)
       a[GetLength(a)] = pClonk;
   aClonks = a;
   //Keiner mehr übrig
-  if (!GetLength(aClonks))
+  if(!GetLength(aClonks))
     return;
   //Je mehr geheilt werden, desto schwächer
   var heal = Max(2, 8 - 2 * GetLength(aClonks));
@@ -153,11 +153,11 @@ public func DoTeamSupport(array aClonks)
 
 protected func FxFAPHealStart(object pTarget, int iEffect, int iTemp)
 {
-  if (iTemp)
+  if(iTemp)
     return;
   //Clonk?
   var pClonk = Contained();
-  if (!pClonk || !pClonk->~IsClonk())
+  if(!pClonk || !pClonk->~IsClonk())
     return -1;
   //Heil-Aktion
   ObjectSetAction(pClonk, "Heal");
@@ -169,38 +169,38 @@ protected func FxFAPHealTimer(object pTarget, int iEffect, int iTime)
 {
   //Clonk?
   var pClonk = Contained();
-  if (!pClonk || !pClonk->~IsClonk())
+  if(!pClonk || !pClonk->~IsClonk())
     return -1;
 
   //Clonk heilt nicht mehr
-  if (GetAction(pClonk) != "Heal" || GetComDir(pClonk) != COMD_Stop)
+  if(GetAction(pClonk) != "Heal" || GetComDir(pClonk) != COMD_Stop)
     return -1;
 
   //Pack nicht mehr ausgewählt
-  if (Contents(0, pClonk) != this)
+  if(Contents(0, pClonk) != this)
     return -1;
 
   //Keine Punkte mehr
-  if (!GetPackPoints())
+  if(!GetPackPoints())
     return -1;
 
   //Vollständig geheilt?
-  if (GetEnergy(pClonk) >= GetPhysical("Energy", PHYS_Current, pClonk) / 1000)
+  if(GetEnergy(pClonk) >= GetPhysical("Energy", PHYS_Current, pClonk) / 1000)
     return -1;
 
   //Effekt
   CreateParticle("ShockWave", GetX(pClonk) - GetX(), GetY(pClonk) - GetY(), Random(10), Random(10), 5 * GetObjHeight(pClonk) + 25 + Sin(iTime * 5, 35), RGB(0, 230, 255), pClonk);
 
   //Alle 20 Frames
-  if (!(iTime % 20))
+  if(!(iTime % 20))
     ScreenRGB(pClonk, RGBa(0, 230, 255, 190), 80, 3, false, SR4K_LayerMedicament, 200);
 
   //Alle 40 Frames
-  if (!(iTime % 40))
+  if(!(iTime % 40))
    Sound("FAPK_Healing*.ogg");
 
   //Alle 6 Frames: Heilen
-  if (!(iTime % 6))
+  if(!(iTime % 6))
   {
     DoEnergy(2, pClonk);
     DoPackPoints(-1);
@@ -209,12 +209,12 @@ protected func FxFAPHealTimer(object pTarget, int iEffect, int iTime)
 
 protected func FxFAPHealStop(object pTarget, int iEffect, int iReason, bool fTemp)
 {
-  if (fTemp)
+  if(fTemp)
     return;
 
   //Clonk?
   var pClonk = Contained();
-  if (!pClonk || !pClonk->~IsClonk())
+  if(!pClonk || !pClonk->~IsClonk())
     return;
 
   Sound("FAPK_HealEnd.ogg");

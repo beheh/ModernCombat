@@ -4,18 +4,19 @@
 
 local bActive, bReady, iDir, controller, laser;
 
-public func IsDrawable()		{return true;}
+public func IsDrawable()		{return true;}					//Wird sichtbar getragen
+public func HandX()			{return 5000;}
+public func HandSize()			{return 1000;}
+public func BarrelXOffset()		{return -850;}
+
 public func CanAim()			{return !bActive && Contained();}
 public func IsMine()			{return true;}
 public func Color()			{return RGB(200,200,200);}
 public func IsBulletTarget(idBullet)	{return idBullet == TRDT || !Random(6);}
-public func HandX()			{return 5000;}
-public func HandSize()			{return 1000;}
-public func BarrelXOffset()		{return -850;}
 public func NoArenaRemove()		{return true;}
 public func AttractTracer()		{return false;}
 public func LimitationCount()		{return 2;}
-public func IsSpawnTrap()			{return true;}
+public func IsSpawnTrap()		{return true;}
 
 
 /* Initialisierung */

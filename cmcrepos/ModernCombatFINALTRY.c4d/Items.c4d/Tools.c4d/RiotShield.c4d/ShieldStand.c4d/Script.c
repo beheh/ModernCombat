@@ -70,7 +70,7 @@ public func SetAim(int angle)
 {
   aim_angle = angle;
 
-  if (angle > 0)
+  if(angle > 0)
     fRotRight = true;
   else
     fRotRight = false;
@@ -78,7 +78,7 @@ public func SetAim(int angle)
 
 public func DirChanged()
 {
-  if (fRotRight != GetDir())
+  if(fRotRight != GetDir())
   aim_angle *= -1;
 
   fRotRight = GetDir();

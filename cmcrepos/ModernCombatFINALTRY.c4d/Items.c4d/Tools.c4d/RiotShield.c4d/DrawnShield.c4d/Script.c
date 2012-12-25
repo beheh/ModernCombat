@@ -11,7 +11,8 @@ public func IgnoreTracer()	{return true;}
 public func BlockTracer()	{return true;}
 public func RejectC4Attach()	{return true;}
 public func GetUser()		{return target;}
-public func NoDecoDamage() {return true;}
+public func NoDecoDamage()	{return true;}
+
 
 /* Erstellung */
 

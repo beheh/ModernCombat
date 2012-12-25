@@ -4,9 +4,10 @@
 
 local charge;
 
+public func IsDrawable()		{return true;}		//Wird sichtbar getragen
 public func HandSize()			{return 1000;}
 public func HandX()			{return 4500;}
-public func IsDrawable()		{return true;}
+
 public func MaxEnergy()			{return 100;}
 public func IsEquipment()		{return true;}
 public func NoArenaRemove()		{return true;}
