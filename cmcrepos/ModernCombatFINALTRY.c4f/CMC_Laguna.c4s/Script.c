@@ -253,8 +253,8 @@ func CreateDecoration()
   CreateObject(ENGT, 605, 600, -1);
 
   //Scheinwerfer
-  CreateObject(FLGH, 560, 290, -1)->SetRotation(-90);
-  CreateObject(FLGH, 705, 290, -1)->SetRotation(90);
+  CreateObject(FLH2, 560, 290, -1)->SetRotation(-90);
+  CreateObject(FLH2, 705, 290, -1)->SetRotation(90);
 
   //Schild
   CreateObject(WLSN, 560, 690, -1);

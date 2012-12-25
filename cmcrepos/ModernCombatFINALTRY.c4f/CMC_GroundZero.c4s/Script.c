@@ -319,8 +319,8 @@ func CreateDecoration()
   CreateObject(PLT2, 2540, 290, -1);
 
   //Scheinwerfer
-  CreateObject(FLGH, 1370, 420, -1);
-  CreateObject(FLGH, 1430, 420, -1);
+  CreateObject(FLH2, 1370, 420, -1);
+  CreateObject(FLH2, 1430, 420, -1);
 
   //Flaschen
   CreateObject(BOTL, 290, 448, -1);

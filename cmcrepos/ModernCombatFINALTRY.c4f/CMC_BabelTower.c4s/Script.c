@@ -444,11 +444,11 @@ func CreateDecoration()
   CreateObject(RADR, 460, 320, -1);
   CreateObject(RADR, 710, 320, -1);
 
-  //Flutlichter
-  CreateObject(FLGH, 460, 320, -1)->SetRotation(65);
-  CreateObject(FLGH, 710, 320, -1);
-  CreateObject(FLGH, 285, 470, -1)->SetRotation(65);
-  CreateObject(FLGH, 885, 470, -1)->SetRotation(-65);
+  //Scheinwerfer
+  CreateObject(FLH2, 460, 320, -1)->SetRotation(65);
+  CreateObject(FLH2, 710, 320, -1);
+  CreateObject(FLH2, 285, 470, -1)->SetRotation(65);
+  CreateObject(FLH2, 885, 470, -1)->SetRotation(-65);
 
   //Glühbirne
   CreateObject(LBGH, 585, 900, -1);
