@@ -49,7 +49,7 @@ public func Launch(int iAngle, int iSpeed, int iDist, int iSize, int iTrail, int
   if(!iDmg)     iDamage = 3;
   else iDamage = iDmg;
 
-  SetPosition(GetX(),GetY()+GetDefWidth()/2);
+  SetPosition(GetX(),GetY()+GetDefHeight()/2);
 
   if(!iSize)    iSize = 8;
   if(!iTrail)   iTrail = 300;
@@ -88,7 +88,7 @@ public func LaunchFB(int iAngle, int iSpeed, int iDist, int iSize, int iTrail, i
   if(!iDmg) iDamage = 3;
   else iDamage = iDmg;
 
-  SetPosition(GetX(),GetY()+GetDefWidth()/2);
+  SetPosition(GetX(),GetY()+GetDefHeight()/2);
 
   SetXDir(+Sin(iAngle,iSpeed));
   SetYDir(-Cos(iAngle,iSpeed));
