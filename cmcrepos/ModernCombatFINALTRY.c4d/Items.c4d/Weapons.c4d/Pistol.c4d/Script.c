@@ -21,8 +21,8 @@ public func GetMCData(int data)
   if(data == MC_CanStrike)	return 1;	//Waffe kann Kolbenschlag ausführen
   if(data == MC_Damage)		return 10;	//Schaden eines Kolbenschlages
   if(data == MC_Recharge)	return 35;	//Zeit nach Kolbenschlag bis erneut geschlagen oder gefeuert werden kann
-  if(data == MC_Power)		return 18;	//Wie weit das Ziel durch Kolbenschläge geschleudert wird
-  if(data == MC_Angle)		return 45;	//Mit welchem Winkel das Ziel durch Kolbenschläge geschleudert wird
+  if(data == MC_Power)		return 10;	//Wie weit das Ziel durch Kolbenschläge geschleudert wird
+  if(data == MC_Angle)		return 50;	//Mit welchem Winkel das Ziel durch Kolbenschläge geschleudert wird
 }
 
 /* Kugeln */
