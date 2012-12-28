@@ -39,7 +39,7 @@ public func Set(iDir, bool fKeepSpawns, bool fAbyssKill)
     xh = LandscapeWidth();
     yh = LandscapeHeight()-GetY();
   }
-  if (!fKeepSpawns)
+  if(!fKeepSpawns)
     for(var obj in FindObjects(Find_InRect(x, y, xh, yh), Find_Func("IsSpawnpoint")))
       RemoveObject(obj);
 }
@@ -86,7 +86,7 @@ protected func FxBorderStart(pTarget, iNo, iTemp)
   //Overlay
   EffectVar(1, pTarget, iNo) = ScreenRGB(pTarget, 1, 1, -10, false, SR4K_LayerBorder);
 }
-    
+
 protected func FxBorderTimer(pTarget, iNo, iTime)
 {
   var danger = (GetIndexOf(pTarget, FindObjects(Find_InRect(x, y, xh, yh), Find_OCF(OCF_CrewMember))) != -1);
@@ -109,7 +109,7 @@ protected func FxBorderTimer(pTarget, iNo, iTime)
   PlayerMessage(GetOwner(pTarget), "@$Warning$", pTarget, EffectVar(0, pTarget, iNo));
 
   var obj = EffectVar(1, pTarget, iNo);
-  if (obj)
+  if(obj)
   {
     RemoveEffect("IntRGBFade", obj, 0, true);
     obj->~SetAlpha(128);
@@ -118,17 +118,17 @@ protected func FxBorderTimer(pTarget, iNo, iTime)
 
 protected func FxBorderStop(pTarget, iNo, iReason, fTemp)
 {
-  if (!fTemp)
+  if(!fTemp)
   {
     PlayerMessage(GetOwner(pTarget), "@", pTarget);
-    if (EffectVar(1, pTarget, iNo))
+    if(EffectVar(1, pTarget, iNo))
       ScreenRGB(pTarget, RGB(0, 0, 1, 128), 0, 10, 0, SR4K_LayerBorder);
   }
 }
 
 protected func Destruction()
 {
-  for (var obj in FindObjects(Find_InRect(x, y, xh, yh), Find_OCF(OCF_CrewMember)))
-    if (GetEffect("Border", obj, 0, 4) == this)
+  for(var obj in FindObjects(Find_InRect(x, y, xh, yh), Find_OCF(OCF_CrewMember)))
+    if(GetEffect("Border", obj, 0, 4) == this)
       RemoveEffect("Border", obj);
 }

@@ -29,7 +29,7 @@ protected func Timer()
 
   if(!Random(100))
     if(!GetEffect("IntPush",this))
-      AddEffect ("IntPush", this, 50, 1, this, GetID(), 35*(3+Random(10)));
+      AddEffect("IntPush", this, 50, 1, this, GetID(), 35*(3+Random(10)));
 }
 
 protected func DoFog(x)
