@@ -488,13 +488,13 @@ public func SetupClass(int iClass, int iPlr)
       SetPortrait(Format("Ptr%s%d", skin[1], Random(skin[2])+1), pCrew, skin[0]);
   }
 
-  //Nachricht
   var szAction = Format("%d", GetCData(iClass, CData_Facet));
   if (!GetActMapVal("Name", szAction, GetCData(iClass, CData_Icon)))
     szAction = 0;
   if(!FindObject2(Find_Func("RejectChoosedClassInfo", iPlr, iClass)))
     for(var i = 0; i < GetPlayerCount(); i++)
       if(GetPlayerTeam(GetPlayerByIndex(i)) == GetPlayerTeam(iPlr))
+        //Eventnachricht: Spieler steigt ein
         EventInfo4K(GetPlayerByIndex(i)+1, Format("$PlayerChoosedClass$", GetTaggedPlayerName(iPlr), GetCData(iClass, CData_Name)), GetCData(iClass, CData_Icon), RGB(220, 220, 220), 0, 0, 0, szAction);
 
   //Speichern
@@ -507,7 +507,7 @@ public func SetupClass(int iClass, int iPlr)
 
 public func SpawnEventInfo(string szAdditional, int iPlr, int iClass, object pByObj, string szInfo)
 {
-  //Falls mehrere Spielziele existieren sollten, brauchen wir keine mehrfachen Messages.
+  //Falls mehrere Spielziele existieren sollten, brauchen wir keine mehrfachen Nachrichten
   if(!pByObj || pByObj != FindObject2(Find_Func("RejectChoosedClassInfo", iPlr, iClass)))
     return;
 
@@ -515,12 +515,12 @@ public func SpawnEventInfo(string szAdditional, int iPlr, int iClass, object pBy
   if(szInfo)
     str = szInfo;
 
-  //Nachricht
   var szAction = Format("%d", GetCData(iClass, CData_Facet));
   if (!GetActMapVal("Name", szAction, GetCData(iClass, CData_Icon)))
     szAction = 0;
   for(var i = 0; i < GetPlayerCount(); i++)
     if(GetPlayerTeam(i) == GetPlayerTeam(iPlr))
+      //Eventnachricht: Spieler steigt ein
       EventInfo4K(i+1, str, GetCData(iClass, CData_Icon), RGB(220, 220, 220), 0, 0, 0, szAction);
 
   return true;

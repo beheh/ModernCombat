@@ -27,17 +27,17 @@ public func ReportAssaultTargetDestruction(object pTarget, int iTeam)
     return;
 
   _inherited(pTarget, iTeam, ...);
-  
-  //Und gleich mal bekanntgeben
+
+  //Eventnachricht: Zielobjekt zerstört
   EventInfo4K(0, Format("$TargetDestruction$", GetTeamColor(iTeam), GetName(pTarget)), GBAS, 0, 0, 0, "Info.ogg");
   GameCall("OnAssaultTargetDestruction", pTarget, iTeam, FindInArray4K(aTargets[iTeam], pTarget));
   if(pTarget)
     Explode(50, pTarget);
 
-  //Alle Ziele des Teams wurden zerstört! Warnung ausgeben
   if(!ObjectCount2(Find_InArray(aTargets[iTeam])))
     for(var i = 0; i < GetPlayerCount(); i++)
       if(GetPlayerTeam(GetPlayerByIndex(i)) == iTeam)
+        //Eventnachricht: Alle Zielobjekte zerstört
         EventInfo4K(GetPlayerByIndex(i)+1, "$NoTargets$", GBAS, 0, 0, 0, "Alarm.ogg");
 }
 
@@ -309,6 +309,7 @@ public func DoRelaunch(object pCrew, object pTarget, int iClass)
   }
   
   if(FindObject(MCSL))
+    //Eventnachricht: Hinweis auf Spawnort
     FindObject(MCSL)->SpawnEventInfo(Format("$SpawnAt$", GetName(pTarget)), GetOwner(pCrew), iClass, this);
 
   SetPosition(x, y, Contained(pCrew));

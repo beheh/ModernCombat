@@ -331,7 +331,7 @@ public func FlagLost(object pFlag, int iTeam, int iTeamAttacker, array pAttacker
     {
       if(GetPlayerTeam(GetPlayerByIndex(i)) == iTeam)
       {
-        //Nachricht über Flaggenverlust
+        //Eventnachricht: Flaggenposten verloren
         EventInfo4K(GetPlayerByIndex(i)+1, Format("$MsgFlagLost$", GetName(pFlag), GetTeamColor(iTeamAttacker), GetTeamName(iTeamAttacker)), OFLG, 0, GetTeamColor(iTeamAttacker), 0, "Info.ogg");
       }
     }
@@ -378,7 +378,7 @@ public func FlagCaptured(object pFlag, int iTeam, array pAttackers, bool fRegain
       i++;
     }
   }
-  //Nachricht über Flaggeneroberung
+  //Eventnachricht: Flaggenposten erobert
   EventInfo4K(0, Format("$MsgCaptured$", GetTeamColor(iTeam), GetTeamName(iTeam), GetName(pFlag)), OFLG, 0, GetTeamColor(iTeam), 0, "Info.ogg");
   UpdateScoreboard();
 }
@@ -420,7 +420,7 @@ public func DoTickets(int iTeam, int iChange, bool fNoWarn)
   return true;
 }
 
-/* EventInfos */
+/* Eventnachrichten */
 
 public func TicketsLow(int iRemaining, int iTeam)
 {
@@ -428,7 +428,7 @@ public func TicketsLow(int iRemaining, int iTeam)
   {
     if(GetPlayerTeam(GetPlayerByIndex(i)) == iTeam)
     {
-      //Nachricht über Tickettiefstand
+      //Eventnachricht: Warnung vor Ticketverlust
       EventInfo4K(GetPlayerByIndex(i)+1,Format("$MsgTicketsLow$",iRemaining),SM03,0,0,0,"Alarm.ogg");
     }
   }
@@ -441,7 +441,7 @@ public func NoTickets(int iTeam)
   {
     if(GetPlayerTeam(GetPlayerByIndex(i)) == iTeam)
     {
-      //Nachricht über Verlust aller Tickets
+      //Eventnachricht: Hinweis auf aufgebrauchte Tickets
       EventInfo4K(GetPlayerByIndex(i)+1,Format("$MsgNoTickets$"),SM03,0,0,0,"Alarm.ogg");
     }
   }

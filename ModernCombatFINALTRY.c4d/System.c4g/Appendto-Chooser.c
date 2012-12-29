@@ -1156,10 +1156,11 @@ protected func CreateGoal(id idGoal, int iScore, string szMessage)
   pGoal = goal;
   //Alten Wert setzen
   SetWinScore(iScore, goal);
-  //Alle benachrichtigen
   if(!szMessage)
-     EventInfo4K(0, Format("$Goal$", GetName(0, idGoal)), idGoal, 0, 0, 0, "Info.ogg");
+    //Eventnachricht: Spielziel
+    EventInfo4K(0, Format("$Goal$", GetName(0, idGoal)), idGoal, 0, 0, 0, "Info.ogg");
   else
+    //Eventnachricht: Spielziele
     EventInfo4K(0, szMessage, idGoal, 0, 0, 0, "Info.ogg");
   //Array leeren um erneuten Menüaufruf zu verhindern
   aGoals = CreateArray();
@@ -1427,6 +1428,7 @@ protected func OpenGoalVoteMenu(id id, object pClonk)
   for (var i = 0; i < GetPlayerCount(); i++)
     GoalVoteMenu(0, 0, GetPlayerByIndex(i));
   AddEffect("EvaluateGoalVote", this, 1, 35, this);
+  //Eventnachricht: Spielzielvoting gestartet
   EventInfo4K(0, Format("$GoalVoteBegins$", CHOS_GoalVotingTime), GetID(), 0, 0, 0, "Info.ogg");
 }
 

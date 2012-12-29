@@ -554,6 +554,7 @@ global func RecalcPlayerRank(int iPlr)
 
       var info = CreateObject(GetRankID(nRank), 0, 0, iPlr);
       info->SetHighlightColor(RGB(0,153,255));
+      //Eventnachricht: Beförderung
       EventInfo4K(0, Format("$YouHaveBeenPromoted$", GetTaggedPlayerName(iPlr), GetName(info)), GetID(info), 0, 0, 0, "PriorityInfo.ogg");
 
       //Namen updaten
@@ -913,6 +914,7 @@ global func AwardAchievement(id idAchievement, int iPlr)
   //Achievementanzeige mit blauem Hintergrund
   var achievement = CreateObject(idAchievement, 0, 0, iPlr);
   achievement->SetHighlightColor(RGB(0,153,255));
+  //Eventnachricht: Errungenschaft erhalten
   EventInfo4K(0, Format("$AchievementNewUnlocked$", GetPlrColorDw(iPlr), GetPlayerName(iPlr), GetName(0, idAchievement)), RWDS, 0, 0, 0, "PriorityInfo.ogg");
 
   //Sound-Hinweis
@@ -1025,6 +1027,7 @@ global func AttemptAwardRibbon(id idRibbon, int iPlr, int iPlrFrom)
   }
   else
   {
+    //Eventnachricht: Ehrenband erhalten
     EventInfo4K(0, Format("$RibbonAwarded$", GetPlrColorDw(iPlr), GetPlayerName(iPlr), GetName(0, idRibbon), GetPlrColorDw(iPlrFrom), GetPlayerName(iPlrFrom)), RWDS, 0, 0, 0, "PriorityInfo.ogg");
   }
 
