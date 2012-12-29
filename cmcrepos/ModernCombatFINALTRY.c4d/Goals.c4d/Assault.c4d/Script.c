@@ -519,7 +519,7 @@ public func UpdateScoreboard()
   var color = RGB(255, 255, 255);
   var team = GetTeamByIndex();
   //Nur ein Angreiferteam
-  if(GetActiveTeamCount(true) == 2 - !GetTeamPlayerCount(iDefender))
+  if(GetTeamPlayerCount(iDefender) && GetActiveTeamCount() == 2)
   {
     if(team == iDefender)
       team = GetTeamByIndex(1);
