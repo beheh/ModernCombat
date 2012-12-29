@@ -6,6 +6,7 @@ local fSounded;
 local fHit;
 
 public func IsBulletTarget()	{return true;}
+public func AllowHitboxCheck()	{return true;}
 
 
 /* Initialisierung */
