@@ -131,18 +131,19 @@ public func ReportAssaultTargetDestruction(object pTarget, int iTeam)
       if(aTargets[iDefender][i])
         fConnectedDestruction = false;
 
-  //Bekanntgabe der Zerstörung
+  //Eventnachricht: Zielobjekt zerstört
   EventInfo4K(0, Format("$TargetDestruction$", GetTeamColor(iTeam), GetName(pTarget)), GBAS, 0, 0, 0, "RadioConfirm*.ogg");
   GameCall("OnAssaultTargetDestruction", pTarget, iTeam, FindInArray4K(aTargets[iTeam], pTarget), fConnectedDestruction);
   if(pTarget)
     Explode(50, pTarget);
 
-  //Letztes Ziel
   if(ObjectCount2(Find_InArray(aTargets[iDefender])) == 1)
     for(var i, j; i < GetPlayerCount(); i++)
       if(GetPlayerTeam(j = GetPlayerByIndex(i)) == iDefender)
+        //Eventnachricht: Letztes Zielobjekt verteidigen
         EventInfo4K(j+1, "$DefendLastStation$", GetID(), 0, 0, 0, "Alarm.ogg");
       else
+        //Eventnachricht: Letztes Zielobjekt zerstören
         EventInfo4K(j+1, "$DestroyLastStation$", GetID(), 0, 0, 0, "Alarm.ogg");
 
   //Tickets zurücksetzen, bei verbundenen Zielobjekten nur wenn alle Ziele zerstört sind
@@ -262,9 +263,11 @@ protected func FxTicketSubtractionTimer(object pTarget, int iEffect)
         {
           var cnt = GetTeamPlayerCount(iAttacker);
           for(var i = 0; i < cnt; i++)
+            //Eventnachricht: Hinweis auf Ticketverlust an Angreifer
             EventInfo4K(1+GetTeamMemberByIndex(iAttacker, i), "$TicketLossAttacker$", GetID(), 0, 0, 0, "Alarm.ogg");
 
           for(var i = 0, cnt = GetTeamPlayerCount(iDefender); i < cnt; i++)
+            //Eventnachricht: Hinweis auf Ticketverlust an Verteidiger
             EventInfo4K(1+GetTeamMemberByIndex(iDefender, i), "$TicketLossDefender$", GetID(), 0, 0, 0, "Info.ogg");
         }
 
@@ -280,9 +283,11 @@ protected func FxTicketSubtractionTimer(object pTarget, int iEffect)
       EffectVar(1, pTarget, iEffect) = true;
       var cnt = GetTeamPlayerCount(iAttacker);
       for(var i = 0; i < cnt; i++)
+        //Eventnachricht: Warnung vor Ticketverlust an Angreifer
         EventInfo4K(1+GetTeamMemberByIndex(iAttacker, i), "$TicketLossWarningAttacker$", GetID(), 0, 0, 0, "Info.ogg");
 
       for(var i = 0, cnt = GetTeamPlayerCount(iDefender); i < cnt; i++)
+        //Eventnachricht: Warnung vor Ticketverlust an Verteidiger
         EventInfo4K(1+GetTeamMemberByIndex(iDefender, i), "$TicketLossWarningDefender$", GetID(), 0, 0, 0, "Info.ogg");
     }
   }
@@ -455,7 +460,7 @@ public func TicketsLow(int iRemaining, int iTeam, bool fExclude)
 {
   for(var i = 0; i < GetPlayerCount(); i++)
     if((!fExclude && GetPlayerTeam(GetPlayerByIndex(i)) == iTeam) || (fExclude && GetPlayerTeam(GetPlayerByIndex(i)) != iTeam))
-      //Nachricht über Tickettiefstand
+      //Eventnachricht: Warnung über niedrige Ticketzahl an Angreifer
       EventInfo4K(GetPlayerByIndex(i) + 1, Format("$MsgTicketsLow$", iRemaining), SM03, 0, 0, 0, "Alarm.ogg");
   return true;
 }
@@ -464,7 +469,7 @@ public func NoTickets(int iTeam, bool fExclude)
 {
   for(var i = 0; i < GetPlayerCount(); i++)
     if((!fExclude && GetPlayerTeam(GetPlayerByIndex(i)) == iTeam) || (fExclude && GetPlayerTeam(GetPlayerByIndex(i)) != iTeam))
-      //Nachricht über Verlust aller Tickets
+      //Eventnachricht: Hinweis auf Verlust aller Tickets an Verteidiger
       EventInfo4K(GetPlayerByIndex(i) + 1, Format("$MsgNoTickets$"), SM03, 0, 0, 0, "Alarm.ogg");
   return true;
 }

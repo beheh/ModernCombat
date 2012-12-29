@@ -128,9 +128,9 @@ protected func FxIntAddProgressTimer()
         DoPlayerPoints(BonusPoints("Protection"), RWDS_TeamPoints, GetPlayerByIndex(i), GetCrew(GetPlayerByIndex(i)), IC12);
         Sound("Info.ogg", true, 0, 0, GetPlayerByIndex(i)+1);
       }
-      //Spieler warnen
       else if(aTeamPoints[team] == warning)
       {
+        //Eventnachricht: Hinweis auf Team, das dem Ziel nahe ist
         EventInfo4K(GetPlayerByIndex(i)+1, Format("$TeamReachingGoal$", GetTaggedTeamName(team), iGoal-warning), GHTF, 0, 0, 0, "Alarm.ogg");
       }
     }
@@ -177,17 +177,17 @@ public func GetFlag()
 public func FlagLost(object pFlagPole, int iOldTeam, int iNewTeam, array aAttackers)
 {
   //Ist es die Flagge?
-  if (pFlagPole != pFlag)
+  if(pFlagPole != pFlag)
     return;
   //Punkte für die Angreifer
-  for (var clonk in aAttackers)
+  for(var clonk in aAttackers)
     if(clonk)
       //Punkte bei Belohnungssystem (Flaggenpostenneutralisierung)
       DoPlayerPoints(BonusPoints("Protection"), RWDS_TeamPoints, GetOwner(clonk), clonk, IC13);
 
-  //Eventmessages
-  for (var i; i < GetPlayerCount(); i++)
-    if (GetPlayerTeam(GetPlayerByIndex(i)) == iOldTeam)
+  for(var i; i < GetPlayerCount(); i++)
+    if(GetPlayerTeam(GetPlayerByIndex(i)) == iOldTeam)
+      //Eventnachricht: Flaggenposten verloren
       EventInfo4K(GetPlayerByIndex(i)+1, Format("$MsgFlagLost$", GetName(pFlag), GetTeamColor(iNewTeam), GetTeamName(iNewTeam)), OFLG, 0, GetTeamColor(iNewTeam), 0, "Info.ogg");
 }
 
@@ -216,7 +216,7 @@ public func FlagCaptured(object pFlagPole, int iTeam, array aAttackers, bool fRe
       first = false;
     }
 
-  //Nachricht über Flaggeneroberung
+  //Eventnachricht: Flaggenposten erobert
   EventInfo4K(0, Format("$MsgCaptured$", GetTeamColor(iTeam), GetTeamName(iTeam), GetName(pFlag)), OFLG, 0, GetTeamColor(iTeam), 0, "Info.ogg");
 }
 
