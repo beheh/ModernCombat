@@ -13,30 +13,22 @@ protected func Initialize()
   Sound("ParachuteFly.ogg", false, 0, 25, 0, +1);
 }
 
-/* Aufklappen */
+/* Festlegung */
 
-protected func Opening()
+public func ControlDigDouble(pObj)
 {
-  //Zeit, in den Normalflug überzugehen?
-  if(GetActTime() > 25)
-  {
-    SetObjDrawTransform(1000, 0, 0, 0, 1000, 0, this);
-    SetAction("Fly", GetActionTarget());
-    return;
-  }
+  Set(pObj);
+}
 
-  //Fallschirm zeichnen
-  var w = Sin(36 * GetActTime() / 10, 1000);
-  var h = 40 * GetActTime();
-  SetObjDrawTransform(w, 0, 0, 0, h, InvertA1(500 * GetObjHeight() * h / 1000, 1000 * GetObjHeight()) - 500 * GetObjHeight(), this);
-
-  //Flug prüfen
-  CheckFlight();
+public func Set(object pObj)
+{
+  Sound("ParachuteOpen*.ogg");
+  SetAction("Open", pObj);
 }
 
 /* Timer */
 
-protected func CheckFlight()
+protected func Fly()
 {
   //Freiflug
   if(WildcardMatch(GetAction(),"*Free*"))
@@ -44,16 +36,11 @@ protected func CheckFlight()
     SetActionTargets(0, 0, this);
 
     //Bei baldigem Bodenkontakt zusammenfallen
-    if(GBackSolid(0, 20))
+    if (GBackSolid(0, 20))
       Close();
-
     //Windbeeinflussung
-    if(GetAction() != "Open")
-    {
-      SetXDir(GetWind(GetX(), GetY()) / 8);
-      SetYDir(30, 0, 10);
-    }
-
+    SetXDir(GetWind(GetX(), GetY()) / 8);
+    SetYDir(30, 0, 10);
     //In Wasser zusammenfallen
     if(GetContact(0,-1, CNAT_Bottom) || InLiquid())
     {
@@ -88,14 +75,11 @@ protected func CheckFlight()
       Close();
 
     //Windbeeinflussung
-    if(GetAction() != "Open")
-    {
-      SetXDir(GetWind(GetX(), GetY())/8+iCtrlInfluence, targ);
+    SetXDir(GetWind(GetX(), GetY())/8+iCtrlInfluence, targ);
 
-      //Fall verlangsamen
-      var y = Interpolate2(GetYDir(targ, 100), 300, 1, 5);
-      SetYDir(y, targ, 100);
-    }
+    //Fall verlangsamen
+    var y = Interpolate2(GetYDir(targ, 100), 300, 1, 5);
+    SetYDir(y, targ, 100);
 
     //Manuelles Losmachen durch [Doppelstop] des Objektanhangs
     if(GetPlrDownDouble(GetController(targ)))
@@ -108,7 +92,7 @@ protected func CheckFlight()
         StartFlyFree();
       }
     }
-    //Schwerverletzte und unpassende Aktionen ausführende Clonks lösen sich
+    //Lebewesen
     if(GetCategory(targ) & C4D_Living)
       if(GetID(Contained(targ)) == FKDT)
       {
@@ -119,7 +103,6 @@ protected func CheckFlight()
         if(GetID(targ) != FKDT && GetProcedure(targ) != "FLOAT" && GetProcedure(targ) != "FLIGHT")
           Close();
 
-    //Verschachtelte Anhänge machen sich los
     if(Contained())
     {
       Exit();
@@ -138,7 +121,21 @@ public func StartFlyFree()
   return true;
 }
 
-/* Zusammenfallen */
+/* Auf- und einklappen */
+
+protected func Opening()
+{
+  if(GetActTime() > 25)
+  {
+    SetObjDrawTransform(1000, 0, 0, 0, 1000, 0, this);
+    SetAction("Fly", GetActionTarget());
+    return;
+  }
+  var w = Sin(36 * GetActTime() / 10, 1000);
+  var h = 40 * GetActTime();
+
+  SetObjDrawTransform(w, 0, 0, 0, h, InvertA1(500 * GetObjHeight() * h / 1000, 1000 * GetObjHeight()) - 500 * GetObjHeight(), this);
+}
 
 public func Close()
 {
@@ -149,7 +146,6 @@ public func Close()
 
   SetActionTargets(0, 0);
   Sound("ParachuteClose.ogg");
-
   //Soundschleife beenden
   Sound("ParachuteFly.ogg", false, 0, 25, 0, -1);
 }
@@ -182,11 +178,6 @@ public func Damage()
 
 /* Steuerung */
 
-public func ControlDigDouble(pObj)
-{
-  Set(pObj);
-}
-
 public func ControlLeft(object caller)
 {
   var effect;
@@ -210,23 +201,12 @@ public func ControlDown(object caller)
   return RemoveEffect("ControlInfluence", this);
 }
 
-/* Festlegung */
-
-public func Set(object pObj)
-{
-  Sound("ParachuteOpen*.ogg");
-  SetAction("Open", pObj);
-}
-
-/* Kontrolleffekt */
-
 public func ControlUpdate(object pByObj, int comdir, bool dig, bool throw)
 {
   if(comdir == COMD_Left)
     iCtrlInfluence = BoundBy(iCtrlInfluence-1, -15, 15);
-  else
-    if(comdir == COMD_Right)
-      iCtrlInfluence = BoundBy(iCtrlInfluence-1, -15, 15);
+  else if(comdir == COMD_Right)
+    iCtrlInfluence = BoundBy(iCtrlInfluence-1, -15, 15);
 
   return true;
 }
