@@ -58,7 +58,7 @@ public func Set(object target, int color, int iType, int iLgt, string szIcon, id
   iBarCount = GetBarCount(obj, GetOwner());
   iBarType = iType;
   iDefHeight = GetDefHeight(GetID(target));
-  
+
   if(!iLgt)
     iLgt = 100;
   iLength = iLgt;
@@ -88,15 +88,15 @@ public func Set(object target, int color, int iType, int iLgt, string szIcon, id
 
 public func SetBarColor(int iNewColor)
 {
-	iColor = iNewColor & 0xFFFFFF;
-	return true;
+  iColor = iNewColor & 0xFFFFFF;
+  return true;
 }
 
 public func SetIcon(string szIcon, id idSrcDef, int iXAdjust, int iYAdjust, bool fNoResize)
 {
   if(!idSrcDef)
     idSrcDef = GetID();
-  
+
   aIconData = [szIcon, idSrcDef, iXAdjust, iYAdjust, fNoResize];
 
   SetGraphics(szIcon, this, idSrcDef, BAR_IconLayer, 1);
@@ -108,8 +108,8 @@ public func SetIcon(string szIcon, id idSrcDef, int iXAdjust, int iYAdjust, bool
       iXAdjust = -(200 * iLength + 1675 + GetDefWidth(idSrcDef) * 333); //Berechnet die Position je nach Breite des Icons
 
     if(fIconOnly)
-			iXAdjust = 0; 
-    
+      iXAdjust = 0; 
+
     SetObjDrawTransform(1000, 0, iXAdjust, 0, 1000, iYAdjust, this, BAR_IconLayer);
   }
 
@@ -118,15 +118,15 @@ public func SetIcon(string szIcon, id idSrcDef, int iXAdjust, int iYAdjust, bool
 
 public func ResizeIcon(int iNewWidth, int iXAdjust, int iYAdjust)
 {
-	var idSrcDef = aIconData[1];
+  var idSrcDef = aIconData[1];
 
   //Icongröße verändern
   var iNewSize = iNewWidth * 1000 / Max(GetDefWidth(idSrcDef), GetDefHeight(idSrcDef));
   if(!iXAdjust)
     iXAdjust = -(200 * iLength + 1675 + iNewWidth * 333);
 
-	if(fIconOnly)
-		iXAdjust = 0;
+  if(fIconOnly)
+    iXAdjust = 0;
 
   SetObjDrawTransform(iNewSize, 0, iXAdjust, 0, iNewSize, iYAdjust, this, BAR_IconLayer);
   return true;
@@ -171,22 +171,22 @@ public func PositionToVertex(bool fForcedYPos)
 
 public func SwitchVisibility(bool fHide, bool fShowIcon)
 {
-	if(GetOwner() == NO_OWNER)
+  if(GetOwner() == NO_OWNER)
     SetVisibility(VIS_All);
-	else
-		SetVisibility(VIS_Owner);
+  else
+    SetVisibility(VIS_Owner);
 
-	SetClrModulation(iColor|((255 << 24) * fHide), this, BAR_RowLayer);
-	SetClrModulation(RGBa(255, 255, 255, 255 * (!fShowIcon && fHide)), this, BAR_IconLayer);
-	SetClrModulation(RGBa(255, 255, 255, 255 * fHide), this);
-	
-	fIconOnly = fShowIcon;
-	SetIcon(aIconData[0], aIconData[1], aIconData[2], aIconData[3], aIconData[4]);
+  SetClrModulation(iColor|((255 << 24) * fHide), this, BAR_RowLayer);
+  SetClrModulation(RGBa(255, 255, 255, 255 * (!fShowIcon && fHide)), this, BAR_IconLayer);
+  SetClrModulation(RGBa(255, 255, 255, 255 * fHide), this);
+
+  fIconOnly = fShowIcon;
+  SetIcon(aIconData[0], aIconData[1], aIconData[2], aIconData[3], aIconData[4]);
 }
 
 public func Update(int percent, bool fDeactivate, bool iconOnly)
 {
-	SwitchVisibility(fDeactivate, iconOnly);
+  SwitchVisibility(fDeactivate, iconOnly);
   if(fDeactivate && fActive)
   {
     fActive = false;
