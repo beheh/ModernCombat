@@ -75,7 +75,7 @@ public func Set(object target, int color, int iType, int iLgt, string szIcon, id
 
   //Icon zur Identifizierung
   if(szIcon || idSrcDef)
-    SetIcon(szIcon, idSrcDef, iXAdjust, iYAdjust, fNoResize);
+    SetIcon(szIcon, idSrcDef, iXAdjust, iYAdjust, 0, fNoResize);
 
   //Balken setzen
   fActive = true;
@@ -92,16 +92,16 @@ public func SetBarColor(int iNewColor)
   return true;
 }
 
-public func SetIcon(string szIcon, id idSrcDef, int iXAdjust, int iYAdjust, bool fNoResize)
+public func SetIcon(string szIcon, id idSrcDef, int iXAdjust, int iYAdjust, int iNewSize, bool fNoResize)
 {
   if(!idSrcDef)
     idSrcDef = GetID();
 
-  aIconData = [szIcon, idSrcDef, iXAdjust, iYAdjust, fNoResize];
+  aIconData = [szIcon, idSrcDef, iXAdjust, iYAdjust, iNewSize, fNoResize];
 
   SetGraphics(szIcon, this, idSrcDef, BAR_IconLayer, 1);
-  if(!fNoResize && GetDefWidth(idSrcDef) > 16)
-    ResizeIcon(IconSize(), iXAdjust, iYAdjust);
+  if(!fNoResize && (iNewSize || GetDefWidth(idSrcDef) > 16))
+    ResizeIcon((iNewSize || IconSize()), iXAdjust, iYAdjust);
   else
   {
     if(!iXAdjust)
@@ -181,7 +181,7 @@ public func SwitchVisibility(bool fHide, bool fShowIcon)
   SetClrModulation(RGBa(255, 255, 255, 255 * fHide), this);
 
   fIconOnly = fShowIcon;
-  SetIcon(aIconData[0], aIconData[1], aIconData[2], aIconData[3], aIconData[4]);
+  SetIcon(aIconData[0], aIconData[1], aIconData[2], aIconData[3], aIconData[4], aIconData[5]);
 }
 
 public func Update(int percent, bool fDeactivate, bool iconOnly)
