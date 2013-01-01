@@ -187,8 +187,25 @@ public func IsInRandomTeam(int iPlr)
   return false;
 }
 
-public func RemovePlayer()
+public func RemovePlayer(int iPlr)
 {
+	if(GetType(aTeamMenu) == C4V_Array)
+	{
+		var sel = GetMenuSelection(GetCursor(iChoosedPlr));
+		for(var i = 0; i < GetPlayerCount(); i++)
+			if(GetPlayerByIndex(i) == iPlr)
+				break;
+
+		if(i <= sel)
+			sel--;
+
+		CloseMenu(GetCursor(iChoosedPlr));
+		if(aTeamMenu[0] == 1)
+			ScheduleCall(this, "OpenTeamMenu", 3, 0, aTeamMenu[0], sel);
+		else
+			ScheduleCall(this, "SelectPredefinedTeamMember", 3, 0, aTeamMenu[1], sel, aTeamMenu[3], aTeamMenu[4]);
+	}
+
   var count = 0;
   for(var i = 0; i < GetLength(arTeams); i++) //Mehr Teams als Spieler? Verhindern.
   {
@@ -279,6 +296,7 @@ local blocked_teams;
 
 protected func OpenMenu()
 {
+	aTeamMenu = 0;
   fRandomMenu = false;
   if(GetLength(aGoals))
     return OpenGoalChooseMenu();
@@ -446,8 +464,11 @@ protected func OpenGoalMenu(id dummy, int iSelection)
   return true;
 }
 
+local aTeamMenu;
+
 protected func OpenTeamMenu(id dummy, int iSelection)
 {
+	aTeamMenu = [1, dummy, iSelection];
   fRandomMenu = false;
   var pClonk = GetCursor(iChoosedPlr);
   //Menü erstellen
@@ -475,6 +496,7 @@ protected func OpenTeamMenu(id dummy, int iSelection)
 
 protected func ChoosePossibleTeams(int iMode, bool fInvisible, int iSelection)
 {
+	aTeamMenu = 0;
   if(iMode == CHOS_TeamRandom)
     fRandomMenu = true;
 
@@ -546,6 +568,7 @@ local aPlayerSetting;
 
 protected func SelectPredefinedTeamMember(bool fInvisible, int iSelection, int iTeamSort, int iPlr)
 {
+	aTeamMenu = [2, fInvisible, iSelection, iTeamSort, iPlr];
   var pClonk = GetCursor(iChoosedPlr);
   //Menü erstellen
   CreateMenu(GetID(), pClonk, 0, 0, 0, 0, 1);
