@@ -1437,8 +1437,8 @@ public func Collection2(object pObj)
   if(!pObj || Contained(pObj) != this) return;
   
   if(!pObj->~RejectOwnerChange())
-  	SetOwner(GetOwner(), pObj);
-  
+    SetOwner(GetOwner(), pObj);
+
   //QuickInventar
   QuickInventoryStore(pObj);
 }
