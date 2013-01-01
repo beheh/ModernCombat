@@ -287,12 +287,8 @@ protected func OpenMenu()
   if(!pClonk)
     return ScheduleCall(this, "OpenMenu", 1);
 
-  for(var i = 0; i < GetPlayerCount(); i++)
-  {
-    var clnk = GetCursor(GetPlayerByIndex(i));
-    if(GetMenu(clnk))
-      CloseMenu(clnk);
-  }
+  if(GetMenu(pClonk))
+    CloseMenu(pClonk);
 
   blocked_teams = GameCall("ChooserBlockedTeams", GetID(pGoal), pGoal);
   if(blocked_teams)
