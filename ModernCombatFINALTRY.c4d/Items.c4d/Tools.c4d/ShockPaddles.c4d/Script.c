@@ -214,7 +214,7 @@ func FxShockPaddlesHealDamage(object pTarget, int iEffectNumber, int iChange)
 
 func Ready()
 {
-  //Nicht wenn am Auswählen
+  //Nicht bei Anwahlverzögerung
   if(GetEffect("IntSelection", this))
     return false;
 
@@ -271,15 +271,17 @@ func UpdateHUD(object pHUD)
 
 /* Allgemein */
 
+protected func Selection()
+{
+  //Anwahlverzögerung
+  AddEffect("IntSelection", this, 1, 20, this);
+
+  Sound("CDBT_Charge.ogg");
+}
+
 protected func Hit()
 {
   Sound("WPN2_Hit*.ogg");
-}
-
-protected func Selection()
-{
-  AddEffect("IntSelection", this, 1, 20, this);
-  Sound("CDBT_Charge.ogg");
 }
 
 /* KI Funktion */

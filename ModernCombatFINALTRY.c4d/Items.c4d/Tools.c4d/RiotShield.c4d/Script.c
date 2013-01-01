@@ -80,6 +80,10 @@ public func CheckChange()
 
 public func ControlThrow(caller)
 {
+  //Nicht bei Anwahlverzögerung
+  if(GetEffect("IntSelection", this))
+    return true;
+
   if(pShield && (WildcardMatch(GetAction(caller), "*Armed*") || caller->~IsAiming()))
   {
     pShield->ExecShove();
@@ -89,7 +93,8 @@ public func ControlThrow(caller)
     return !GetPlrDownDouble(GetController(caller));
 }
 
-public func ControlDigDouble(object pByObj) {
+public func ControlDigDouble(object pByObj)
+{
   return Activate(pByObj);
 }
 
@@ -98,6 +103,7 @@ public func Activate(object pByObj)
   if((pByObj->GetAction() != "WalkArmed") && !pByObj->~IsAiming())
     return true;
 
+  //Schildgestell aufstellen
   var pTemp = CreateObject(SDSD,0,10,Contained()->GetOwner());
   pTemp->SetAim(Contained()->~AimAngle());
   pTemp->SetDir(Contained()->GetDir());
@@ -170,13 +176,17 @@ private func CreateShield()
 
 private func RemoveShield()
 {
-  //Kein Schild, kein entfernen
+  //Anwahlverzögerung entfernen sofern vorhanden
+  if(GetEffect("IntSelection", this))
+    RemoveEffect("IntSelection", this);
+
+  //Nichts unternehmen wenn kein Schild
   if(!pShield) return;
 
   SetAction("Idle");
   Sound("RSHL_Hide.ogg");
 
-  //Schild weg
+  //Schild entfernen
   RemoveObject(pShield);
 }
 
@@ -206,6 +216,9 @@ public func Selection()
 {
   //Schild erstellen
   CreateShield();
+
+  //Anwahlverzögerung
+  AddEffect("IntSelection", this, 1, 20, this);
 
   if(GetAction(GetUser()) == "Tumble")
     fTumbling = true;
