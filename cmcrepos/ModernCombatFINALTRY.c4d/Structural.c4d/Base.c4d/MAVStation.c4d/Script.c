@@ -231,7 +231,7 @@ protected func ActivateEntrance(pUser)
   {
     if(Hostile(GetOwner(this), pMAV->GetOwner())) pMAV->Reload();
     pMAV->SetOwner(GetOwner(this));
-    pMAV->Start();
+    pMAV->Start(this);
     Sound("BKHK_Switch.ogg", true, this, 100, GetOwner(pUser) + 1);
     Sound("CockpitRadio.ogg", true, 0, 100, GetOwner(pUser)+1, +1);
     SetAction("Controlling");
@@ -390,7 +390,7 @@ public func ControlDigSingle(object pByObj)
   //MAV (de-)aktivieren
   if(pMAV->GetAction() != "Flying")
   {
-    pMAV->Start();
+    pMAV->Start(this);
     Sound("BKHK_Switch.ogg", true, this, 100, GetOwner(pByObj) + 1);
     Sound("CockpitRadio.ogg", true, 0, 100, GetOwner(pByObj)+1, +1);
     SetAction("Controlling");
@@ -435,7 +435,7 @@ protected func ControlThrow(object pByObj)
       //MAV erstellen
       pMAV = CreateObject(MAVE,iXSpawnOff,iYSpawnOff,GetOwner(this));
       pByObj->SetHUDTarget(pMAV->GetAttWeapon());
-      pMAV->Start();
+      pMAV->Start(this);
       SpawnEffect(pMAV);
       fMAVExistence = true;
       Sound("BKHK_Switch.ogg", true, this, 100, GetOwner(pByObj) + 1);
