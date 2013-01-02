@@ -21,6 +21,7 @@ local iItemType;		//0: Standard (Sensorball), 1: MTP, 2: EHP, 3: Schweißbrenner,
 local iHKShots;
 local living_dmg_cooldown;	//Gehört zum Schweißbrenner, ist aber praktischer, wenn direkt hier gespeichert
 local ChargeBar;
+local pMAVStation;
 
 public func AttractTracer(object pTracer)		{return GetPlayerTeam(GetController(pTracer)) != GetTeam() && !fDestroyed;}
 public func IsBulletTarget()				{return !fDestroyed;}
@@ -245,13 +246,13 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
   for(var first = true, iFlags, i = 0; i < GetPlayerCount(); i++)
   {
     var iPlr = GetPlayerByIndex(i);
-    if(!Hostile(GetOwner(), iPlr) && GetOwner(this) != iPlr)
+    if(pMAVStation && !Hostile(GetOwner(), iPlr) && GetOwner(this) != iPlr)
     {
       if(first)
         first = false;
       else
         iFlags = MSG_Multiple;
-      var szStr = Format("@%s (%s)", GetName(GetCursor(GetOwner())), GetPlayerName(GetOwner()));
+      var szStr = Format("@%s (%s)", GetName(pMAVStation->GetUser()), GetPlayerName(GetOwner()));
       CustomMessage(szStr, cur_Attachment, iPlr, 0, 0, SetRGBaValue(GetPlrColorDw(GetOwner()), 128), 0, 0, iFlags);
     }
   }
@@ -951,10 +952,12 @@ public func FxWaitTimer(object pTarget, int iEffectNumber, int iEffectTime)
   }
 }
 
-public func Start()
+public func Start(object pStation)
 {
   iXDir = GetXDir();
   iYDir = GetYDir();
+  
+  pMAVStation = pStation;
 
   SetAction("Flying");
   SetPhase(iItemType, this);
