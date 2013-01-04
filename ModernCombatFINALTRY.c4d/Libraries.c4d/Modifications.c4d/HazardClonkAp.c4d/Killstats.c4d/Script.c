@@ -208,7 +208,6 @@ public func FxKillStatsAdd(object pTarget, int iEffectNumber, string szNewEffect
     if(running == 3)
       //Achievement-Fortschritt (Third Time Lucky)
       DoAchievementProgress(1, AC31, GetOwner(pTarget));
-
   }
 
   return true;
