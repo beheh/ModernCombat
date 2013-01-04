@@ -36,7 +36,7 @@ global func EventInfo4K(int iPlrPlusOne)
     }
     //Nur wenn sowieso sichtbar
     msg = CreateObject(EI4K,0,0,-1);
-		msg->SetAsGlobal();
+    msg->SetAsGlobal();
     msg->Set(...);
     return msg;
   }
@@ -119,10 +119,10 @@ private func Destruction()
 
 private func SortByActTime(object pExclude)
 {
-	var aSymbols = FindObjects(Find_Owner(GetOwner()), Find_ID(GetID()), Sort_Reverse());
-	if(pExclude)
-  	aSymbols = FindObjects(Find_Owner(GetOwner()), Find_ID(GetID()), Find_Exclude(pExclude), Sort_Reverse());
-  
+  var aSymbols = FindObjects(Find_Owner(GetOwner()), Find_ID(GetID()), Sort_Reverse());
+  if(pExclude)
+    aSymbols = FindObjects(Find_Owner(GetOwner()), Find_ID(GetID()), Find_Exclude(pExclude), Sort_Reverse());
+
   var temp;
 
   //Einträge sortieren
