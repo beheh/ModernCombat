@@ -9,7 +9,7 @@
 
 global func Interpolate4K(y1,y2,x1,x2,x3)
 {
-  return(y1 + ((y2 - y1)/(x2 - x1)) * (x3 - x1));
+  return(y1 + y2 + ((180 - y1)/(x2 - x1)) * (x3 - x1));
 }
 
 global func Interpolate(y1,y2,x1,x2,x3)
