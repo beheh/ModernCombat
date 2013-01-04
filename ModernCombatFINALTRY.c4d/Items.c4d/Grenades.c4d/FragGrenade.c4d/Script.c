@@ -12,11 +12,14 @@ public func ContainedDamage()	{return 120;}
 func Fused()
 {
   //Splitter verschleudern
-  for(var i = 40; i > 0; --i)
+  var i, iAngle, pAmmo;
+  var iR = Angle(GetXDir(),GetYDir()), iSpeed = BoundBy(Distance(GetXDir(),GetYDir()),0,80);
+  // Splitter verschleudern
+  for(i = 40; i > 0; i--)
   {
-    var angle = Interpolate4K(Random(360),Angle(GetXDir(),GetYDir()),0,80,BoundBy(Distance(GetXDir(),GetYDir()),0,80)) - 180;
-    var ammo = CreateObject(SHRP,0,0,GetController());
-    ammo->Launch(angle,70+Random(30),200+Random(100),5,15,20);
+    iAngle = Interpolate4K(Random(360),iR,0,80,iSpeed);
+    pAmmo = CreateObject(SHRP,0,0,GetController());
+    pAmmo->Launch(iAngle,70+Random(30),200+Random(100),5,15,20);
   }
 
   //Effekte
