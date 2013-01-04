@@ -12,9 +12,9 @@ func Trigger()
   //Splitter erzeugen
   for(var i = 20; i > 0; --i)
   {
-   var angle = Random(360);//Interpolate4K(Random(360),Angle(GetXDir(),GetYDir()),0,80,BoundBy(Distance(GetXDir(),GetYDir()),0,80)) - 180;
-   var ammo = CreateObject(SHRP,0,0,GetController());
-   ammo->Launch(angle,70+Random(30),100+Random(100),5,15,20);
+    var angle = Random(360);
+    var ammo = CreateObject(SHRP,0,0,GetController());
+    ammo->Launch(angle,70+Random(30),100+Random(100),5,15,20);
   }
 
   //Effekte
