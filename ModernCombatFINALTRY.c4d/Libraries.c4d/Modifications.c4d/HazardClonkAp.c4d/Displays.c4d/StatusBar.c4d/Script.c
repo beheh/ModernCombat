@@ -22,7 +22,7 @@ public func BarActive()			{return fActive || fIconOnly;}
 public func RejectEntrance()		{return true;}
 public func HasBarType(int barType)	{return (iBarType == barType);}
 public func IconSize()			{return 14;}
-public func HasIcon() {return (GetType(aIconData) == C4V_Array);}
+public func HasIcon()			{return (GetType(aIconData) == C4V_Array);}
 global func GetBarCount(object target, int iOwner, object exclude)
 {  
   if(!target) { target = this; }
@@ -180,12 +180,12 @@ public func SwitchVisibility(bool fHide, bool fShowIcon)
   SetClrModulation(iColor|((255 << 24) * fHide), this, BAR_RowLayer);
   SetClrModulation(RGBa(255, 255, 255, 255 * fHide), this);
 
-	if(HasIcon())
-	{
-  	fIconOnly = fShowIcon;
-  	SetClrModulation(RGBa(255, 255, 255, 255 * (!fShowIcon && fHide)), this, BAR_IconLayer);
-  	SetIcon(aIconData[0], aIconData[1], aIconData[2], aIconData[3], aIconData[4], aIconData[5]);
-	}
+  if(HasIcon())
+  {
+    fIconOnly = fShowIcon;
+    SetClrModulation(RGBa(255, 255, 255, 255 * (!fShowIcon && fHide)), this, BAR_IconLayer);
+    SetIcon(aIconData[0], aIconData[1], aIconData[2], aIconData[3], aIconData[4], aIconData[5]);
+  }
 }
 
 public func Update(int percent, bool fDeactivate, bool iconOnly)
