@@ -18,10 +18,11 @@ static const BAR_RowLayer = 1;
 
 public func GetBarType()		{return iBarType;}
 public func IsBar()			{return true;}
-public func BarActive()			{return fActive;}
+public func BarActive()			{return fActive || fIconOnly;}
 public func RejectEntrance()		{return true;}
 public func HasBarType(int barType)	{return (iBarType == barType);}
 public func IconSize()			{return 14;}
+public func HasIcon() {return (GetType(aIconData) == C4V_Array);}
 global func GetBarCount(object target, int iOwner, object exclude)
 {  
   if(!target) { target = this; }
@@ -139,14 +140,14 @@ public func SetBarCount(int iCount)
 
 local iYPos;
 
-public func PositionToVertex(bool fForcedYPos)
+public func PositionToVertex(bool fForcedYPos, bool fForceUpdate)
 {
-  if(!fActive)
+  if(!BarActive() && !fForceUpdate)
     return true;
 
   SetVertex(0, 0, GetVertex(0, 0, obj));
 
-  if(GetBarType() && iBarCount != tBarCount)
+  if((GetBarType() && iBarCount != tBarCount) || fForceUpdate)
   {
     var ypos = 10;
 
@@ -177,11 +178,14 @@ public func SwitchVisibility(bool fHide, bool fShowIcon)
     SetVisibility(VIS_Owner);
 
   SetClrModulation(iColor|((255 << 24) * fHide), this, BAR_RowLayer);
-  SetClrModulation(RGBa(255, 255, 255, 255 * (!fShowIcon && fHide)), this, BAR_IconLayer);
   SetClrModulation(RGBa(255, 255, 255, 255 * fHide), this);
 
-  fIconOnly = fShowIcon;
-  SetIcon(aIconData[0], aIconData[1], aIconData[2], aIconData[3], aIconData[4], aIconData[5]);
+	if(HasIcon())
+	{
+  	fIconOnly = fShowIcon;
+  	SetClrModulation(RGBa(255, 255, 255, 255 * (!fShowIcon && fHide)), this, BAR_IconLayer);
+  	SetIcon(aIconData[0], aIconData[1], aIconData[2], aIconData[3], aIconData[4], aIconData[5]);
+	}
 }
 
 public func Update(int percent, bool fDeactivate, bool iconOnly)
