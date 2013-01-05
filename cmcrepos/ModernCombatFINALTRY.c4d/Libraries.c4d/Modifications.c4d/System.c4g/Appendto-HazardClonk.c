@@ -1873,7 +1873,7 @@ protected func BackFlip()
 
 private func ControlAgility(string strControl)
 {
-  //In Flüssigkeiten geht das Ganze nicht.
+  //Nich in Flüssigkeiten
   if(InLiquid())
     return;
 
@@ -1887,7 +1887,7 @@ private func ControlAgility(string strControl)
     }
     else
       if(GetProcedure() == "SCALE" && GetDir() != DIR_Left)
-        AddEffect("IntWallJump",this,10,20,this);
+        AddEffect("IntWallJump",this,10,15,this);
     var iEff = AddEffect("ControlStack", this, 110, 5, this);
     EffectVar(0, this, iEff) = COMD_Left;
     return;
@@ -1903,7 +1903,7 @@ private func ControlAgility(string strControl)
     }
     else
       if(GetProcedure() == "SCALE" && GetDir() != DIR_Right)
-        AddEffect("IntWallJump",this,10,20,this);
+        AddEffect("IntWallJump",this,10,15,this);
 
     var iEff = AddEffect("ControlStack", this, 110, 5, this);
     EffectVar(0, this, iEff) = COMD_Right;
@@ -1918,10 +1918,12 @@ private func ControlAgility(string strControl)
       SetDir(DIR_Left);
       SetComDir(COMD_Left);
       WallJumpBoost();
+      StopWallJump();
+
+      //Effekte
       Sound("ClonkAction*.ogg");
       Sound("ClonkStep*.ogg", 0, 0, 50);
       Sound("ClonkRustle*.ogg", 0, 0, 25);
-      StopWallJump();
       return 1;
     }
 
@@ -1933,10 +1935,12 @@ private func ControlAgility(string strControl)
       SetDir(DIR_Right);
       SetComDir(COMD_Right);
       WallJumpBoost();
+      StopWallJump();
+
+      //Effekte
       Sound("ClonkAction*.ogg");
       Sound("ClonkStep*.ogg", 0, 0, 50);
       Sound("ClonkRustle*.ogg", 0, 0, 25);
-      StopWallJump();
       return 1;
     }
 
