@@ -44,11 +44,11 @@ public func Fused()
 
 protected func Sense()
 {
-  //Inaktiv: Nicht suchen
+  //Bei Inaktivität nicht suchen
   if(!active)
     return;
 
-  //Existenz ohne Besitzer sinnlos
+  //Kein Besitzer mehr: Verschwinden
   if(GetOwner() == NO_OWNER)
     return Remove();
 
@@ -58,13 +58,13 @@ protected func Sense()
   		Find_NoContainer(),						//Im Freien
   		Find_Or(Find_OCF(OCF_Alive), Find_Func("IsDetectable"))))	//Lebewesen oder als identifizierbar markiert
   {
-    //Feindlich
+    //Nur feindliche Objekte markieren
     if(!Hostile(GetController(), GetController(pObj))) continue;
 
-    //Beep.
+    //Beep
     Beep();
 
-    //Nicht markieren wenn schon der Fall
+    /Bereits markierte Objekte auslassen
     if(FindObject2(Find_ID(SM08), Find_Action("Attach"), Find_ActionTarget(pObj), Find_Allied(GetOwner())))
       continue;
 
@@ -139,7 +139,7 @@ protected func Damage(int iChange)
     return;
   }
 
-  //Ansonsten Zündung durch Schaden
+  //Ansonsten Zerstörung durch Schaden
   if(GetDamage() < 40 || activated) return;
 
   //Effekte

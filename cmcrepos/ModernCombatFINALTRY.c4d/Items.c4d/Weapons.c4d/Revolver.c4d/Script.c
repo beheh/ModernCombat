@@ -145,7 +145,7 @@ public func Fire2()
   var x,y;
   user->WeaponEnd(x,y);
   var ammo = CreateObject(TRDT,x,y,GetController(user));
-  ammo->Launch(angle,180,800,20,1000);
+  ammo->Launch(angle,180,1000,20,1000);
   Sound("PSTL_TracerFire.ogg", 0, ammo);
 
   //Patronenhülse vorhanden
