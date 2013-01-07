@@ -19,6 +19,8 @@ protected func Collected(pClonk)
   //captureTeam: The team that captured the flag
   //clonk: the clonk who did it
   GameCallEx("FlagCaptured",team, GetPlayerTeam(GetOwner(pClonk)), pClonk);
+  
+  RemoveEffect("AutoReturn", this);
   return 1;
 }
 
@@ -29,6 +31,9 @@ protected func AttachTargetLost()
 
 public func DropFlag()
 {
+	//Flagge nach 60 Sekunden zurückbringen
+  AddEffect("AutoReturn", this, 1, 36 * 60, this);
+
   if(!GetActionTarget())
     return;
 
@@ -49,8 +54,22 @@ public func DropFlag()
   GameCallEx("FlagLost",team);
 }
 
+public func FxAutoReturnTimer()
+{
+	SetR();
+	SetRDir();
+	SetAction("Fly", base);
+	EventInfo4K(0, Format("$FlagReturned$", GetTeamColor(team), GetTeamName(team)), FLA2, 0, GetTeamColor(team));
+	
+	GameCallEx("FlagReturned", team);
+	
+	return -1;
+}
+
 protected func Return2Base(pClonk, nolog)
 {
+	RemoveEffect("AutoReturn", this);
+
   SetR();
   SetRDir();
   SetAction("Fly", base);
