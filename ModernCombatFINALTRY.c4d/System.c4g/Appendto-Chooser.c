@@ -127,10 +127,11 @@ public func UpdateScoreboard()
     var extraval = pGoal->~GoalExtraValue();
     if(extraval) // Extrawerte für die Spielziele (Tickets bei GOCC und so)
     {
-    	if(GetType(extraval) == C4V_Int)
-      	str_extra = Format("(%d)", extraval);
-    	else if(GetType(extraval) == C4V_String)
-    		str_extra = Format("(%s)", extraval);
+      if(GetType(extraval) == C4V_Int)
+        str_extra = Format("(%d)", extraval);
+      else
+        if(GetType(extraval) == C4V_String)
+          str_extra = Format("(%s)", extraval);
     }
   }
   SetScoreboardData(CHOS_SBRD_Goal, 1, Format("%s%s", str_goals, str_extra), 0, true);
