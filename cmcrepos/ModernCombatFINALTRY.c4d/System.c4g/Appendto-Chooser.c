@@ -13,7 +13,7 @@ local iTeamMode, iUsedTeamSort;
 local fRandomMenu;
 
 protected func RecommendedGoals()	{return GameCall("RecommendedGoals");}
-protected func MinTeamCount()	{return Min(GetPlayerCount(), 2);}
+protected func MinTeamCount()		{return Min(GetPlayerCount(), 2);}
 
 
 /* Initialisierung */
@@ -125,7 +125,8 @@ public func UpdateScoreboard()
   {
     str_goals = Format("%s ", GetName(pGoal));
     var extraval = pGoal->~GoalExtraValue();
-    if(extraval) // Extrawerte für die Spielziele (Tickets bei GOCC und so)
+    //Extrawerte für Spielziele
+    if(extraval)
     {
       if(GetType(extraval) == C4V_Int)
         str_extra = Format("(%d)", extraval);
@@ -212,16 +213,17 @@ public func RemovePlayer(int iPlr)
   }
 
   var count = 0;
-  for(var i = 0; i < GetLength(arTeams); i++) //Mehr Teams als Spieler? Verhindern.
+  for(var i = 0; i < GetLength(arTeams); i++) //Bei mehr Teams als Spielern verhindern
   {
     if(arTeams[i])
       count++;
   }
-  
+
   if(GetPlayerCount(C4PT_User)-1 < count && count > 1)
     arTeams[GetIndexOf(true, arTeams)] = false;
-  
-  if(GetTeamConfig(TEAM_AutoGenerateTeams)) //Engine-erstellte Teams
+
+  //Engine-erstellte Teams
+  if(GetTeamConfig(TEAM_AutoGenerateTeams))
     iTeamCount = BoundBy(iTeamCount - 1, 1, GetPlayerCount(C4PT_User)-1);
 
   ClearScoreboard(CHOS_SBRD_Teams + GetPlayerCount()+2, 2);
