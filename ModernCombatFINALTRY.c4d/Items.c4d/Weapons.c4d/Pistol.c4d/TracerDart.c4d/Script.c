@@ -13,7 +13,6 @@ local iShotAngle, iShotSpeed;
 
 private func CreateTrail(int iSize, int iTrail)
 {
-  //pTrail = CreateObject(TRAI,0,0,-1);
   if(pTrail)
   {
     pTrail->Set(iSize+1,iTrail,this);
@@ -39,7 +38,7 @@ protected func FxTracerTrailTimer()
   iY = Cos(iShotAngle, iShotSpeed/10),
   iDist = -1,
   iClr = TrailColor(GetActTime());
-  while (++iDist < iShotSpeed/10)
+  while(++iDist < iShotSpeed/10)
     CreateParticle("Flare", iX + Sin(iShotAngle, iDist) + Random(5) - 2, iY - Cos(iShotAngle, iDist) + Random(5) - 2, Sin(Random(360), Random(10)), Sin(Random(360), Random(10)), 60 + Random(51), iClr);
 }
 
@@ -54,6 +53,7 @@ private func Traveling()
 
   //Ausfaden
   SetClrModulation(Color(iATime));
+
   //Löschen
   if(iATime >= iTime) return Remove();
 
@@ -70,6 +70,7 @@ func Hit(int iXDir, int iYDir)
   SetYDir(iYDir, this, 100);
   EffectCall(this, GetEffect("TracerTrail", this), "Timer");
   LaserLight(30, SetRGBaValue(Color(GetActTime())), 0, 0, 10);
+
   //Entfernen
   Remove();
 }
@@ -77,9 +78,7 @@ func Hit(int iXDir, int iYDir)
 private func HitObject(object pObject)
 {
   if(BulletStrike(pObject))
-  {
     LaserLight(30, SetRGBaValue(Color(GetActTime())), 0, 0, 10);
-  }
 }
 
 public func BulletStrike(object pObj)
@@ -115,6 +114,7 @@ public func BulletStrike(object pObj)
           if(pRocketLauncher) break;
         }
         if(pRocketLauncher)
+          //Eventnachricht: Feindobjekt markiert
           EventInfo4K(iPlr+1, Format("$TargetMarked$", GetPlrColorDw(GetController()), GetPlayerName(GetController())), TRDT, 0, 0, 0, "RadioConfirm*.ogg");
       }
 
@@ -156,8 +156,8 @@ global func FxTracerDartStart(object pTarget, int iEffectNumber, int iTemp, int 
   //Besitzer des Schusses festlegen (der Schütze)
   EffectVar(0, pTarget, iEffectNumber) = iOwner;
 
-  //Haftzeit festsetzen (30 Sekunden)
-  EffectVar(1, pTarget, iEffectNumber) = 30*38;
+  //Haftzeit festsetzen (50 Sekunden)
+  EffectVar(1, pTarget, iEffectNumber) = 50*38;
 
   //Team speichern
   EffectVar(2, pTarget, iEffectNumber) = GetPlayerTeam(iOwner);
@@ -165,7 +165,7 @@ global func FxTracerDartStart(object pTarget, int iEffectNumber, int iTemp, int 
 
 global func FxTracerDartTimer(object pTarget, int iEffectNumber)
 {
-  //Zerstörung wenn Ziel in einem Schwerverletzten liegt
+  //Zerstörung wenn das Ziel in einem Schwerverletzten liegt
   if(Contained(pTarget) && GetID(Contained(pTarget)) == FKDT || GetAction(pTarget) == "Dead") return -1;
 
   //Zerstörung bei Wasserkontakt
