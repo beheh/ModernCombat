@@ -35,11 +35,12 @@ func Set(int iFrames, int iDistance, object pTarget)
 {
   if(!pTarget) return RemoveObject();
   if(!iFrames) iFrames = 35*30;
+
   SetVisibility(VIS_None);
   SetGraphics(0, this, GetID(pTarget), 1, GFXOV_MODE_Base, 0, GFX_BLIT_Additive);
   SetOwner(GetOwner(pTarget));
-  //SetPosition(GetX(pTarget), GetY(pTarget));
   SetClrModulation(GetClrModulation(pTarget)); 
+
   xdir = GetXDir(pTarget);
   ydir = GetYDir(pTarget);
   r = GetR(pTarget);
@@ -72,9 +73,9 @@ func Respawn()
   if(!GetDefCoreVal("SolidMask",0,GetID(obj),3)) return;
 
   for(var o in obj->FindObjects(Find_InRect(-GetObjWidth(obj)/2,-GetObjHeight(obj),GetObjWidth(obj),GetObjHeight(obj)),
-                                Find_Category(C4D_Vehicle | C4D_Living | C4D_Object),
-                                Find_NoContainer(),
-                                Find_Exclude(obj)))
+  				Find_Category(C4D_Vehicle | C4D_Living | C4D_Object),
+  				Find_NoContainer(),
+  				Find_Exclude(obj)))
   {
    AutoUnstuck4K(o);
   }
