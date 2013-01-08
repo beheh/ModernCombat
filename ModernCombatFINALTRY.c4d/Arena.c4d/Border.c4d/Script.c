@@ -53,7 +53,7 @@ private func Check()
     if(!GetEffect("Border", clonk))
     {
       if(Contained(clonk) && (id = GetID(Contained(clonk))) && (id == TIM1 || id == TIM2 || id == FKDT))
-	    continue;
+        continue;
       AddEffect("Border", clonk, 50, 35, this);
     }
   for(var flag in FindObjects(Find_InRect(x, y, xh, yh), Find_ID(FLA2), Find_Action("Lost")))
@@ -65,7 +65,7 @@ private func Check()
 protected func FxBorderStart(pTarget, iNo, iTemp)
 {
   if(iTemp)
-   return -1;
+    return -1;
 
   if(fAbyss)
   {
@@ -80,6 +80,7 @@ protected func FxBorderStart(pTarget, iNo, iTemp)
   //Countdown
   EffectVar(0, pTarget, iNo) = 10;
   Sound("Alarm.ogg", 0, pTarget, 0, GetOwner(pTarget) + 1);
+
   //Hinweisnachricht
   PlayerMessage(GetOwner(pTarget), "@$Warning$", pTarget, EffectVar(0, pTarget, iNo));
 
@@ -91,7 +92,7 @@ protected func FxBorderTimer(pTarget, iNo, iTime)
 {
   var danger = (GetIndexOf(pTarget, FindObjects(Find_InRect(x, y, xh, yh), Find_OCF(OCF_CrewMember))) != -1);
 
-  //Ziel wieder im sicheren oder schwerverletzt?
+  //Ziel wieder im Sicheren oder schwerverletzt?
   if(!danger || IsFakeDeath(pTarget))
     return -1;
 

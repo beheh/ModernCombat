@@ -67,6 +67,7 @@ global func FxIntVehicleSpawn4KSpawn(object pTarget, int iEffectNumber)
   SetPosition(GetX(),GetY(), pVehicle);
   EffectVar(1,pTarget,iEffectNumber) = pVehicle;
   EffectVar(6, pTarget, iEffectNumber) = 0;
+
   return true;
 }
 
@@ -100,7 +101,7 @@ global func FxIntVehicleSpawn4KAddType(object pTarget, int iEffectNumber, id idT
 {
   if(FindInArray4K(EffectVar (0,pTarget,iEffectNumber), idType) == -1)
   {
-   EffectVar(0,pTarget,iEffectNumber)[GetLength(EffectVar(0,pTarget,iEffectNumber))] = [idType, GetDefCoreVal("Offset", 0, idType, 0), GetDefCoreVal("Offset", 0, idType, 1), GetDefWidth(idType), GetDefHeight(idType)];
+    EffectVar(0,pTarget,iEffectNumber)[GetLength(EffectVar(0,pTarget,iEffectNumber))] = [idType, GetDefCoreVal("Offset", 0, idType, 0), GetDefCoreVal("Offset", 0, idType, 1), GetDefWidth(idType), GetDefHeight(idType)];
   }
   return;
 }
@@ -215,6 +216,7 @@ global func FxIntVehicleUnusedTimer(object pTarget, int iEffectNumber, int iTime
     return -1;
   //Timer
   EffectVar(2, pTarget, iEffectNumber)++;
+
   //Damage-Checks
   var iDistance = EffectVar(1,pTarget,iEffectNumber);
   var damage = true;
@@ -224,7 +226,7 @@ global func FxIntVehicleUnusedTimer(object pTarget, int iEffectNumber, int iTime
     damage = false;
   if(FindObject2(Find_Func("IsClonk"), Find_Or(Find_Distance(100, AbsX(GetX(pTarget)), AbsY(GetY(pTarget))), Find_Container(pTarget))))
     damage = false;
-  //Damage
+  //Schaden
   if(damage)
   {
     if(EffectVar(2, pTarget, iEffectNumber) < 30) return;

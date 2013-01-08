@@ -8,8 +8,16 @@ static const MDIC_PortraitVersion = 160;
 public func WeaponCollectionLimit()	{return 2;}				//Anzahl Waffen im Inventar
 public func ObjectCollectionLimit()	{return 3;}				//Anzahl Objekte im Inventar
 public func DeathAnimationCount()	{return (GetID() == MDIC) && 6;}	//Anzahl Todesanimationen
-protected func IsMedic()		{return 1;}
+protected func IsMedic()		{return 1;}				//Ist ein Sanitäter
 
+
+/* Initialisierung */
+
+func Initialize()
+{
+  AddEffect("EnergyBars", this, 1, 1, this);
+  _inherited(...);
+}
 
 public func HazardGearSupported(object pGear)
 {
@@ -17,28 +25,7 @@ public func HazardGearSupported(object pGear)
   return true;
 }
 
-func Initialize()
-{
-  //UpdateMediHUD();
-  AddEffect("EnergyBars", this, 1, 1, this);
-  _inherited(...);
-}
-
-/*protected func UpdateMediHUD()
-{
-  for(var clonk in FindObjects(Find_OCF(OCF_Alive), Find_OCF(OCF_CrewMember), Find_NoContainer(), Find_Exclude(this)))
-  {
-    var breaks = false;
-    for(var bar in FindObjects(Find_ID(HBAR), Find_ActionTarget(clonk)))
-      if(GetOwner(bar) == GetOwner())
-        breaks = true;
-    if(breaks) continue;
-    if(Hostile(GetOwner(clonk),GetOwner())) continue;
-    if(!GetPlayerName(GetController(clonk))) continue;
-    CreateObject(HBAR,AbsX(GetX(clonk)),AbsY(GetY(clonk)),GetOwner())->Set(clonk,RGB(80,190,255));
-  }
-  ScheduleCall(0,"UpdateMediHUD",1);
-}*/
+/* Statusbalkensystem */
 
 public func FxEnergyBarsStart(object target, int nr)
 {
@@ -48,7 +35,7 @@ public func FxEnergyBarsStart(object target, int nr)
 
 public func FxEnergyBarsTimer(object target, int nr)
 {
-  //Balken updaten
+  //Balken aktualisieren
   for(var bar in EffectVar(0, target, nr))
   {
     if(!bar)
@@ -86,6 +73,8 @@ public func FxEnergyBarsStop(object target, int nr)
     if(bar)
       RemoveObject(bar);
 }
+
+/* Tod */
 
 public func Death()
 {
