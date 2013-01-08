@@ -13,10 +13,7 @@ public func Set(string szSoundSet, int iInterval, int iVariation, int iFalloff)
   if(!soundset) soundset = "Wave*.ogg";
 
   interval = iInterval;
-  //if(!interval) interval = 100;
-
   variation = iVariation;
-  //if(!variation) variation = 40;
   
   falloff = iFalloff;
 
