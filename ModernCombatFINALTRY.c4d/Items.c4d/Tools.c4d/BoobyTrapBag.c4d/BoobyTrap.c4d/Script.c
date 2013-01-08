@@ -2,7 +2,7 @@
 
 #strict 2
 
-local bActive, bReady, iDir, controller, laser;
+local bActive, bReady, iDir, controller, laser, rt_defusecnt;
 
 public func IsDrawable()		{return true;}					//Wird sichtbar getragen
 public func HandX()			{return 5000;}
@@ -17,6 +17,7 @@ public func NoArenaRemove()		{return true;}
 public func AttractTracer()		{return false;}
 public func LimitationCount()		{return 2;}
 public func IsSpawnTrap()		{return true;}
+public func IsDefusable()		{return true;}
 
 
 /* Initialisierung */
@@ -309,6 +310,22 @@ public func OnDmg(int iDmg, int iType)
 {
   if(iType == DMG_Fire) return 90;	//Feuer
   if(iType == DMG_Bio)	return 100;	//Säure und biologische Schadstoffe
+}
+
+/* Entschärfung */
+
+public func RTDefuse()
+{
+  rt_defusecnt++;
+  if(rt_defusecnt > 8)
+  {
+    Sound("MISL_ShotDown.ogg");
+    DecoExplode(10);
+
+    return true;
+  }
+
+  return false;
 }
 
 /* Aufnahme */
