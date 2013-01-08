@@ -3,16 +3,20 @@
 #strict 2
 #include NADE
 
-public func Color()		{return RGBa(255,255,255,0);}
-public func ContainedDamage()	{return 0;}
-public func FuseTime()		{return 2*30;}
-public func SensorDistance()	{return 190;}
-public func IsActive()		{return active;}
-public func DoSmoke()		{return false;}
-public func IsDetectable()	{return false;}
-public func LimitationCount()	{return 2;}
+local active, rt_defusecnt;
 
-local active;
+public func DoSmoke()		{return false;}		//Granate erzeugt im Flug keinen Rauch
+public func FuseTime()		{return 2*30;}		//Zeit bis zur Zündung
+public func ThrowSpeed()	{return 65;}		//Wurfgeschwindigkeit
+public func MaxDamage()		{return 20;}		//Benötigter Schaden, um die Granate zu zerstören
+public func ContainedDamage()	{return 0;}		//Schaden bei Detonation innerhalb eines Objekts
+
+public func IsActive()		{return active;}	//Aktivität
+public func IsDetectable()	{return false;}		//Kann von anderen Sensorbällen nicht erkannt werden
+public func SensorDistance()	{return 190;}		//Reichweite des Sensors
+
+public func IsDefusable()	{return active;}
+public func LimitationCount()	{return 2;}
 
 
 /* Aktivierung */
@@ -140,7 +144,7 @@ protected func Damage(int iChange)
   }
 
   //Ansonsten Zerstörung durch Schaden
-  if(GetDamage() < 40 || activated) return;
+  if(GetDamage() < MaxDamage()) return;
 
   //Effekte
   Sparks(2,RGB(250,100));
@@ -148,9 +152,25 @@ protected func Damage(int iChange)
   if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("BlastDirt",2,10,0,0,400,100);
   if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("BlastFlame",2,10,0,0,150,100);
   Sound("BBTP_Hit*.ogg");
-  Sound("MISL_ShotDown.ogg");
 
+  //Verschwinden
   RemoveObject();
+}
+
+/* Entschärfung */
+
+public func RTDefuse()
+{
+  rt_defusecnt++;
+  if(rt_defusecnt > 8)
+  {
+    Sound("MISL_ShotDown.ogg");
+    DecoExplode(10);
+
+    return true;
+  }
+
+  return false;
 }
 
 /* Aufprall */

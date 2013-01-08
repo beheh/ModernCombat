@@ -3,9 +3,9 @@
 #strict 2
 #include NADE
 
-public func Color()		{return RGB(235,199,54);}
-public func ContainedDamage()	{return 100;}
-public func BlastRadius()	{return 10;}
+public func Color()		{return RGB(235,199,54);}	//Farbe des Rauchs
+public func ContainedDamage()	{return 100;}			//Schaden bei Detonation innerhalb eines Objekts
+public func BlastRadius()	{return 10;}			//Explosionsradius
 
 
 /* Aktivierung */

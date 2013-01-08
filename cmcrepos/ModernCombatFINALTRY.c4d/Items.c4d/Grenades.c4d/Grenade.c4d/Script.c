@@ -3,25 +3,28 @@
 #strict 2
 
 public func IsDrawable()	{return true;}
+public func HandX()		{return 3000;}
+public func HandSize()		{return 1000;}
+
 public func IsGrenade()		{return true;}
 public func IsEquipment()	{return true;}
 public func NoWeaponChoice()	{return GetID() == NADE;}
-public func FuseTime()		{return 3*35;}
-public func ContainedDamage()	{return 60;}
 public func CanAim()		{return true;}
 public func IsRecharging()	{return false;}
-public func Color()		{return 0;}
 public func IsDangerous4AI()	{return IsFusing();}
-public func ThrowSpeed()	{return 60;}
-public func HandX()		{return 3000;}
-public func HandSize()		{return 1000;}
-public func ThrowDelay()	{return 20;}
-public func DoSmoke()		{return true;}
 public func IsBouncy()		{return true;}
 public func IsReloading()	{return false;}
 public func IsShooting()	{return false;}
 public func NoArenaRemove()	{return IsFusing();}
 public func LockInventory()	{return !IsFusing();}
+
+public func DoSmoke()		{return true;}		//Granate erzeugt im Flug Rauch
+public func Color()		{return 0;}		//Farbe des Rauchs
+public func FuseTime()		{return 3*35;}		//Zeit bis zur Zündung
+public func ThrowSpeed()	{return 60;}		//Wurfgeschwindigkeit
+public func ThrowDelay()	{return 20;}		//Zeit, bis erneut geworfen werden kann
+public func MaxDamage()		{return 10;}		//Benötigter Schaden, um die Granate zu zerstören/aktivieren
+public func ContainedDamage()	{return 60;}		//Schaden bei Detonation innerhalb eines Objekts
 
 local controller,activated;
 
@@ -106,7 +109,7 @@ public func ControlThrow(object caller)
   if(!Contained(GetUser()))
   {
     GetUser()->~CheckArmed();
-    if(GetUser()->~ReadyToFire() || GetUser()->~ReadyToAttack() && !delay)
+    if(GetUser()->~ReadyToFire() && !delay || GetUser()->~ReadyToAttack() && !delay)
     {
       Throw();
       return true;
@@ -395,7 +398,7 @@ protected func Damage(int iChange)
   }
 
   //Ansonsten Zündung durch Schaden
-  if(GetDamage() < 10 || activated) return;
+  if(GetDamage() < MaxDamage() || activated) return;
     Fused();
 }
 

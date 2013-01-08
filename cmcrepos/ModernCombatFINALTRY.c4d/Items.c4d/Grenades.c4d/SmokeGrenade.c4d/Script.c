@@ -5,9 +5,10 @@
 
 local time;
 
-public func FuseTime()		{return 2*35;}
-public func Color()		{return RGB(128,255,0);}
-public func ContainedDamage()	{return 20;}
+public func Color()		{return RGB(128,255,0);}	//Farbe des Rauchs
+public func FuseTime()		{return 2*35;}			//Zeit bis zur Zündung
+public func ContainedDamage()	{return 20;}			//Schaden bei Detonation innerhalb eines Objekts
+
 public func IsFadingOut()	{return time == 10;}
 
 
@@ -22,7 +23,7 @@ public func Fuse()
 
 public func Fused()
 {
-  //Rauchen (gefährdet die Gesundheit)
+  //Rauch erzeugen
   ScheduleCall(this, "Smoke", 3, 10);
 
   //Effekte
@@ -66,7 +67,7 @@ protected func Damage(int iChange)
   }
 
   //Ansonsten Zündung durch Schaden
-  if(GetDamage() < 10 || activated) return;
+  if(GetDamage() < MaxDamage() || activated) return;
 
   //Effekte
   Sparks(2,RGB(250,100));
@@ -75,7 +76,10 @@ protected func Damage(int iChange)
   if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("BlastFlame",2,10,0,0,150,100);
   Sound("SGRN_Fused.ogg");
 
+  //Rauch erzeugen
   Smoke();
+
+  //Verschwinden
   RemoveObject();
 }
 

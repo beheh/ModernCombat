@@ -5,8 +5,9 @@
 
 local FadingOut;
 
-public func Color()		{return RGB(0,128,255);}
-public func ContainedDamage()	{return 20;}
+public func Color()		{return RGB(0,128,255);}	//Farbe des Rauchs
+public func ContainedDamage()	{return 20;}			//Schaden bei Detonation innerhalb eines Objekts
+
 public func IsFadingOut()	{return FadingOut;}
 
 
@@ -160,10 +161,13 @@ protected func Damage(int iChange)
   }
 
   //Ansonsten Zündung durch Schaden
-  if(GetDamage() < 10 || activated) return;
+  if(GetDamage() < MaxDamage() || activated) return;
     Fused();
 
+  //Zündung
   Fused();
+
+  //Verschwinden
   RemoveObject();
 }
 

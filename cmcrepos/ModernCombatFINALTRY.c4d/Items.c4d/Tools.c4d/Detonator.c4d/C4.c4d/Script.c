@@ -2,14 +2,15 @@
 
 #strict 2
 
-local fuse, active, thrown, pStickTo, iStickXOffset, iStickYOffset, iStickROffset, iPreviousCategory, iBulletsTrigger;
+local fuse, active, thrown, pStickTo, iStickXOffset, iStickYOffset, iStickROffset, iPreviousCategory, iBulletsTrigger, rt_defusecnt;
 
+public func IsAttached()	{return pStickTo != false;}
 public func LimitationCount()	{return 8;}
 public func AttractTracer()	{return false;}
 public func RejectC4Attach()	{return true;}
-public func IsAttached()	{return pStickTo != false;}
 public func IsC4Explosive()	{return true;}
 public func IsSpawnTrap()	{return true;}
+public func IsDefusable()	{return true;}
 
 
 /* Initialisierung */
@@ -164,6 +165,22 @@ public func OnHit(int iDamage, int iType, object pFrom)
 func Incineration()
 {
   BlowUp();
+}
+
+/* Entschärfung */
+
+public func RTDefuse()
+{
+  rt_defusecnt++;
+  if(rt_defusecnt > 8)
+  {
+    Sound("MISL_ShotDown.ogg");
+    DecoExplode(10);
+
+    return true;
+  }
+
+  return false;
 }
 
 /* Schaden */
