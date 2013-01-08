@@ -37,7 +37,7 @@ public func Fused()
   CheckLimitation();
 
   //Entfernung planen
-  ScheduleCall(0,"Remove", 40*30);
+  ScheduleCall(0,"Remove", 50*38);
 }
 
 /* Feindbewegung suchen */
