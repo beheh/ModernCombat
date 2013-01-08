@@ -37,7 +37,7 @@ public func Fused()
   CheckLimitation();
 
   //Entfernung planen
-  ScheduleCall(0,"Remove", 50*38);
+  ScheduleCall(0,"Remove", 40*38);
 }
 
 /* Feindbewegung suchen */
@@ -64,7 +64,7 @@ protected func Sense()
     //Beep
     Beep();
 
-    /Bereits markierte Objekte auslassen
+    //Bereits markierte Objekte auslassen
     if(FindObject2(Find_ID(SM08), Find_Action("Attach"), Find_ActionTarget(pObj), Find_Allied(GetOwner())))
       continue;
 
