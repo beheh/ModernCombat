@@ -163,7 +163,7 @@ public func FxFollowTimer(object pTarget, int iEffectNumber, int iEffectTime)
     //Kann nicht gesteuert werden
     if(!Guideable())
       return;
-
+    
     if(!GetEffect("SensorSuppression", this, 0, 4))
     {
       var obj = EffectVar(0,pTarget,iEffectNumber);
@@ -186,12 +186,12 @@ public func FxFollowTimer(object pTarget, int iEffectNumber, int iEffectTime)
   if(sensor)
   {
     iDAngle = Angle(GetX(sensor), GetY(sensor), GetX(), GetY());
-    iMaxTurn = MaxTracerTurn();
+    iMaxTurn = Random(MaxTracerTurn());
   }
 
   var iDiff = Normalize(iDAngle - iAngle,-180);
   var iTurn = Min(Abs(iDiff),iMaxTurn);
-
+  
   SetR(iAngle+iTurn*((iDiff > 0)*2-1));
 }
 

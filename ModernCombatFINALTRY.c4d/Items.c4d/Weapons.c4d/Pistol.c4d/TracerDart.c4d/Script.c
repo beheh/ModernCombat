@@ -192,8 +192,8 @@ global func FxTracerDartTimer(object pTarget, int iEffectNumber)
   if(GetTeamColor(EffectVar(2, pTarget, iEffectNumber)))
     color = GetTeamColor(EffectVar(2, pTarget, iEffectNumber));
 
-  //Lichteffekt nur wenn feindliche Sensorbälle den Peilsender nicht unterdrücken
-  if(!GetEffect("SensorSuppression", pTarget)) pTarget->CreateParticle("FapLight",0,0,0,0,60, color, this);
+  //Lichteffekt
+  pTarget->CreateParticle("FapLight",0,0,0,0,60, color, this);
 }
 
 global func FxTracerDartStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)
