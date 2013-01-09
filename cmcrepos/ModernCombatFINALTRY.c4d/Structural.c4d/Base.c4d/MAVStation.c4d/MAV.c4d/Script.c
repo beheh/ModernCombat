@@ -556,7 +556,7 @@ protected func Sense()
       continue;
 
     //Ansonsten markieren
-    CreateObject(SM08, GetX(pObj), GetY(pObj), GetOwner())->Set(pObj, this);
+    CreateObject(SM08, GetX(pObj), GetY(pObj), GetOwner())->Set(pObj, this, GetOCF(pObj) & OCF_Alive);
 
     //Achievement-Fortschritt (Intelligence)
     DoAchievementProgress(1, AC21, GetOwner());
