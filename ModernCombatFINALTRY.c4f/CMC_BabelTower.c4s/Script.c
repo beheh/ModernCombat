@@ -21,8 +21,7 @@ public func OccupationDir()
 func Initialize()
 {
   //Wartemusik einstellen
-  SetPlayList("CMC_WaitingforSpawn.ogg");
-  Music("CMC_WaitingforSpawn.ogg",1);
+  SetWaitingMusic();
   //Bildschirmfärbung
   SetGamma(RGB(15,15,15),RGB(118,118,118),RGB(215,215,215));
   //Himmelparallaxität

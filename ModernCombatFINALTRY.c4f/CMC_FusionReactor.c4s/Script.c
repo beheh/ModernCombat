@@ -13,8 +13,7 @@ func RecommendedGoals()	{return [GOCC, GHTF];}	//Spielzielempfehlung
 func Initialize()
 {
   //Wartemusik einstellen
-  SetPlayList("CMC_WaitingforSpawn.ogg");
-  Music("CMC_WaitingforSpawn.ogg",1);
+  SetWaitingMusic();
   //Flaggen
   aFlag = [];
   //Selbstschussanlagen

@@ -13,8 +13,7 @@ func RecommendedGoals()	{return [GOCC, GASS];}	//Spielzielempfehlung
 func Initialize()
 {
   //Wartemusik einstellen
-  SetPlayList("CMC_WaitingforSpawn.ogg");
-  Music("CMC_WaitingforSpawn.ogg",1);
+  SetWaitingMusic();
   //Himmelparallaxität
   SetSkyParallax(0,45,24,0,0,0,0);
   //Hintergrundfärbung

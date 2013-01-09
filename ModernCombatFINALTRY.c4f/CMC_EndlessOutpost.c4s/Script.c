@@ -13,8 +13,7 @@ func RecommendedGoals()	{return [GASS];}	//Spielzielempfehlung
 func Initialize()
 {
   //Wartemusik einstellen
-  SetPlayList("CMC_WaitingforSpawn.ogg");
-  Music("CMC_WaitingforSpawn.ogg",1);
+  SetWaitingMusic();
   //Bildschirmfärbung
   SetGamma(RGB(0,0,0), RGB(80,80,80), RGB(200,200,200));
   //Flaggen
