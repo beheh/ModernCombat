@@ -279,6 +279,21 @@ protected func RemovePlayer(iPlr)
   pCursor->Kill();
 }
 
+/* Wartemusik */
+
+global func SongCount()	{return 2;}	//Anzahl Lieder
+
+global func SetWaitingMusic()
+{
+  var song = Random(SongCount()) + 1; 
+
+  //Musikliste setzen
+  SetPlayList(Format("CMC_WaitingForSpawn%d.ogg", song));
+
+  //Titel abspielen
+  Music("", 1);
+}
+
 /* Zusatzfunktionen */
 
 public func OnClassSelection()	{}
