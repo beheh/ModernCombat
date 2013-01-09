@@ -33,6 +33,7 @@ public func Fused()
 {
   //Einschalten
   active = true;
+  AddEffect("EMP", this, 1, 2, this);
 
   //Effekte
   CreateParticle("PSpark",0,0,0,0,60,GetPlrColorDw(GetOwner()),this);
@@ -45,6 +46,28 @@ public func Fused()
 }
 
 /* Feindbewegung suchen */
+
+protected func FxEMPTimer(object pTarget, int iEffectNumber, int iEffectTime)
+{
+  //Bei Inaktivität nicht suchen
+  if(!active)
+    RemoveEffect("EMP", this);
+
+  //Kein Besitzer mehr: Verschwinden
+  if(GetOwner() == NO_OWNER)
+    RemoveEffect("EMP", this);
+
+  //Zu störende Dinge suchen
+  for (var pObj in FindObjects(Find_Distance(SensorDistance()),			//In Reichweite
+  		Find_Exclude(this),						//Selber ausschließen
+  		Find_NoContainer(),						//Im Freien
+  		Find_Or(Find_OCF(OCF_Alive), Find_Func("AttractTracer"), Find_Func("IsRocket"))))	//Rakete oder Tracer
+  {
+    //Nur feindliche Raketen/Tracer stören
+    var hostile = (Hostile(GetController(), GetController(pObj)));
+    if(hostile && pObj->~IsRocket() || !hostile && GetEffect("TracerDart", pObj)) AddEffect("SensorSuppression", pObj, 1, 3, this);
+  }
+}
 
 protected func Sense()
 {
@@ -73,7 +96,7 @@ protected func Sense()
       continue;
 
     //Ansonsten markieren
-    CreateObject(SM08, GetX(pObj), GetY(pObj), GetOwner())->Set(pObj, this);
+    CreateObject(SM08, GetX(pObj), GetY(pObj), GetOwner())->Set(pObj, this, GetOCF(pObj) & OCF_Alive);
 
     //Achievement-Fortschritt (Intelligence)
     DoAchievementProgress(1, AC21, GetOwner());

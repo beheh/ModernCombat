@@ -7,10 +7,14 @@ local pTarget, pHost;
 
 /* Einstellung */
 
-public func Set(object target, object host)
+public func Set(object target, object host, bool fClonk)
 {
   pHost = host;
   pTarget = target;
+
+  //Clonk? Dann andere Grafik
+  if(!fClonk)
+    SetGraphics("Object", this);
 
   //Positionieren
   SetAction("Attach", pTarget);
