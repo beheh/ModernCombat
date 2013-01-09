@@ -12,7 +12,7 @@ public func Set(object target, object host, bool fClonk)
   pHost = host;
   pTarget = target;
 
-  //Clonk? Dann andere Grafik
+  //Ziel kein Clonk? Andere Grafik setzen
   if(!fClonk)
     SetGraphics("Object", this);
 
