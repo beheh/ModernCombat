@@ -14,8 +14,7 @@ func RecommendedGoals()		{return [GOCC,GMNR];}	//Spielzielempfehlung
 func Initialize()
 {
   //Wartemusik einstellen
-  SetPlayList("CMC_WaitingforSpawn.ogg");
-  Music("CMC_WaitingforSpawn.ogg",1);
+  SetWaitingMusic();
   //Himmelparallaxität
   SetSkyParallax(1, 40, 40, 0, 0, SkyPar_Keep, SkyPar_Keep);
   //Flaggen

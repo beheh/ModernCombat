@@ -11,8 +11,7 @@ func RecommendedGoals()	{return [GTDM];}	//Spielzielempfehlung
 func Initialize()
 {
   //Wartemusik einstellen
-  SetPlayList("CMC_WaitingforSpawn.ogg");
-  Music("CMC_WaitingforSpawn.ogg",1);
+  SetWaitingMusic();
   //Bildschirmfärbung
   SetSkyAdjust(RGBa(255,255,255,128),RGB(64,196,255));
   //Einrichtung plazieren
