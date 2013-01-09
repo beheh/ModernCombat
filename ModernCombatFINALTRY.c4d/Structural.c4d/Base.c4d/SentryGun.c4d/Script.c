@@ -77,6 +77,7 @@ public func OnDmg(int iDmg, int iType)
   if(iType == DMG_Explosion)	return;		//Explosionen und Druckwellen
   if(iType == DMG_Energy)	return 50;	//Energiewaffen
   if(iType == DMG_Bio)		return 100;	//Säure und biologische Schadstoffe
+
   return 50;
 }
 
