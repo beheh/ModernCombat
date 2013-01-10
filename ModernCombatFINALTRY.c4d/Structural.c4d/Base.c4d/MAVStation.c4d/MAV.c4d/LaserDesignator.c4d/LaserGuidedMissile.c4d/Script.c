@@ -37,7 +37,6 @@ public func FxFollowTimer(object pTarget, int iEffectNumber, int iEffectTime)
   //Soll-Winkel
   var iDAngle;
   var iMaxTurn;
-
   //Sonst anvisieren
   if(EffectVar(1,pTarget,iEffectNumber))
   {
@@ -45,15 +44,12 @@ public func FxFollowTimer(object pTarget, int iEffectNumber, int iEffectTime)
     iDAngle = Angle(GetX(), GetY(), GetX(pEnemy), GetY(pEnemy));
     iMaxTurn = MaxTracerTurn();
   }
-  var sensor = GetEffect("SensorSuppression", this, 0, 4);
-  if(sensor)
-    iDAngle = Angle(GetX(sensor), GetY(sensor), GetX(), GetY());
 
   var iAngle = GetR();
   var iDiff = Normalize(iDAngle - iAngle,-180);
   var iTurn = Min(Abs(iDiff),iMaxTurn);
 
-  if(sensor || pEnemy && pEnemy->~Active())
+  if(pEnemy && pEnemy->~Active())
     SetR(iAngle+iTurn*((iDiff > 0)*2-1));
   else
     SetR(GetR()+ RandomX(-6,6));

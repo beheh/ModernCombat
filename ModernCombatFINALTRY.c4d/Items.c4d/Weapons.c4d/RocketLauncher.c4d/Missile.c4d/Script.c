@@ -129,7 +129,6 @@ public func FxFollowTimer(object pTarget, int iEffectNumber, int iEffectTime)
       var pEnemy = EffectVar(1,pTarget,iEffectNumber);
       var del;
       if(!GetEffect("TracerDart", pEnemy)) del = true;
-      if(GetEffect("SensorSuppression", pEnemy)) del = true;
       if(!PathFree(GetX(pTarget), GetY(pTarget), GetX(pEnemy), GetY(pEnemy))) del = true;
       if(del) EffectVar(1,pTarget,iEffectNumber) = 0;
     }
@@ -137,7 +136,6 @@ public func FxFollowTimer(object pTarget, int iEffectNumber, int iEffectTime)
     if(!EffectVar(1,pTarget,iEffectNumber))
       for(var pEnemy in FindObjects(Find_Distance(TracerRadius(), x, y), Sort_Distance(x, y)))
       {
-        if(GetEffect("SensorSuppression", pEnemy)) continue;
         var iEffectTracer = GetEffect("TracerDart", pEnemy);
         if(!iEffectTracer) continue;
         var iTeam = EffectVar(2, pEnemy, iEffectTracer);
@@ -163,35 +161,24 @@ public func FxFollowTimer(object pTarget, int iEffectNumber, int iEffectTime)
     //Kann nicht gesteuert werden
     if(!Guideable())
       return;
-    
-    if(!GetEffect("SensorSuppression", this, 0, 4))
-    {
-      var obj = EffectVar(0,pTarget,iEffectNumber);
-      if(!obj)
-        return;
-      //Schütze nicht mehr am Zielen?
-      if(!obj->~IsAiming())
-        return;
-      //Schütze kann mit der Waffe nicht zielen
-      if(pLauncher && Contents(0, obj) != pLauncher)
-        return;
+    var obj = EffectVar(0,pTarget,iEffectNumber);
+    if(!obj)
+      return;
+    //Schütze nicht mehr am Zielen?
+    if(!obj->~IsAiming())
+      return;
+    //Schütze kann mit der Waffe nicht zielen
+    if(pLauncher && Contents(0, obj) != pLauncher)
+      return;
 
-      iDAngle = obj->AimAngle();
-      iMaxTurn = MaxTurn();
-    }
+    iDAngle = obj->AimAngle();
+    iMaxTurn = MaxTurn();
   }
   var iAngle = GetR();
 
-  var sensor = GetEffect("SensorSuppression", this, 0, 4);
-  if(sensor)
-  {
-    iDAngle = Angle(GetX(sensor), GetY(sensor), GetX(), GetY());
-    iMaxTurn = Random(MaxTracerTurn());
-  }
-
   var iDiff = Normalize(iDAngle - iAngle,-180);
   var iTurn = Min(Abs(iDiff),iMaxTurn);
-  
+
   SetR(iAngle+iTurn*((iDiff > 0)*2-1));
 }
 
