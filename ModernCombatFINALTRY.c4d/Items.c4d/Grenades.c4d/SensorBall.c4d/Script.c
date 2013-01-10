@@ -104,20 +104,14 @@ public func Beep()
 
 private func Remove()
 {
-  //Ausschalten
-  active = false;
-  SetGraphics();
-
   //Effekte
   Sparks(2,RGB(250,100));
   Sparks(2,RGB(0,200));
   if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",4, 10, 0, 0, 120, 140, RGBa(255,255,255,100), RGBa(255,255,255,130));
+  Sound("Limitation.ogg");
 
   //Verschwinden
-  if(OnFire())
-    RemoveObject();
-  else
-    FadeOut();
+  RemoveObject();
 }
 
 /* Aufnahme */
@@ -152,7 +146,7 @@ protected func Damage(int iChange)
   Sparks(2,RGB(0,200));
   if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("BlastDirt",2,10,0,0,400,100);
   if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("BlastFlame",2,10,0,0,150,100);
-  Sound("BBTP_Hit*.ogg");
+  Sound("MISL_ShotDown.ogg");
 
   //Verschwinden
   RemoveObject();
