@@ -176,19 +176,19 @@ public func OnHit(int iDamage, int iType, object pFrom)
 {
   if(Hostile(GetController(pFrom), GetController()))
   {
-  	//Achievement-Fortschritt (Walking Tank)
-  	DoAchievementProgress(iDamage, AC06, GetController());
-  	iHits += iDamage;
-  	if(iHits >= 120)
-  	{
-    	iHits = 0;
-    	//Punkte bei Belohnungssystem (Schildabwehr)
-    	var cursor = GetCursor(GetController());
-    	if(cursor && cursor->~GetRealCursor())
-    		cursor = cursor->~GetRealCursor();
+    //Achievement-Fortschritt (Walking Tank)
+    DoAchievementProgress(iDamage, AC06, GetController());
+    iHits += iDamage;
+    if(iHits >= 120)
+    {
+      iHits = 0;
+      //Punkte bei Belohnungssystem (Schildabwehr)
+      var cursor = GetCursor(GetController());
+      if(cursor && cursor->~GetRealCursor())
+        cursor = cursor->~GetRealCursor();
 
-    	DoPlayerPoints(BonusPoints("Protection"), RWDS_TeamPoints, GetController(), cursor, IC16);
-  	}
+      DoPlayerPoints(BonusPoints("Protection"), RWDS_TeamPoints, GetController(), cursor, IC16);
+    }
   }
 
   //Effekte
