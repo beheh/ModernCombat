@@ -2,7 +2,7 @@
 
 #strict 2
 
-local pShield, pUser, iHits;
+local pShield, pUser;
 local iPrevDir, fAiming, iAimingAngle;
 local fTumbling;
 
@@ -129,8 +129,6 @@ public func Departure()
 
 public func Entrance(object pContainer)
 {
-  if(pContainer != GetUser()) iHits = 0;
-
   //Träger gleich Besitzer
   SetUser(pContainer);
 
@@ -191,19 +189,6 @@ private func RemoveShield()
 }
 
 /* Sonstiges */
-
-public func DoHit(int iHit)
-{
-  //Achievement-Fortschritt (Walking Tank)
-  DoAchievementProgress(iHit, AC06, GetController());
-  iHits += iHit;
-  if(iHits >= 120)
-  {
-    iHits = 0;
-    //Punkte bei Belohnungssystem (Schildabwehr)
-    DoPlayerPoints(BonusPoints("Protection"), RWDS_TeamPoints, GetOwner(Contained()), Contained(), IC16);
-  }
-}
 
 protected func Hit()
 {

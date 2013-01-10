@@ -2,7 +2,7 @@
 
 #strict 2
 
-local target, item, angle, last;
+local target, item, angle, last, iHits;
 
 public func NoWarp()		{return true;}
 public func ShoveTime()		{return 10*3;}
@@ -174,7 +174,23 @@ public func IsBulletTarget(id idBullet, object pBullet, object pShooter, int old
 
 public func OnHit(int iDamage, int iType, object pFrom)
 {
-  if(Hostile(GetController(pFrom), GetController())) item->DoHit(iDamage);
+  if(Hostile(GetController(pFrom), GetController()))
+  {
+  	//Achievement-Fortschritt (Walking Tank)
+  	DoAchievementProgress(iDamage, AC06, GetController());
+  	iHits += iDamage;
+  	if(iHits >= 120)
+  	{
+    	iHits = 0;
+    	//Punkte bei Belohnungssystem (Schildabwehr)
+    	var cursor = GetCursor(GetController());
+    	if(cursor && cursor->~GetRealCursor())
+    		cursor = cursor->~GetRealCursor();
+
+    	DoPlayerPoints(BonusPoints("Protection"), RWDS_TeamPoints, GetController(), cursor, IC16);
+  	}
+  }
+
   //Effekte
   Sound("MetalHit*.ogg");
   if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("Glas", 1+Random(3), 40, 0,0, 40,10, RGBa(200,200,200), RGBa(2,2,200));
