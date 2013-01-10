@@ -23,9 +23,11 @@ public func LimitationCount()	{return 2;}
 
 public func Fuse(object pObjBy)
 {
-  CreateParticle("PSpark", 0, 0, 0, 0, 60, GetPlrColorDw(GetOwner()), this);
+  //Effekte
+  CreateParticle("PSpark", 1, 0, 0, 0, 40, GetPlrColorDw(GetOwner()), this);
   Sound("SNSR_Activate.ogg");
   SetGraphics("Active");
+
   return AddEffect("IntFuse", this, 200, 1, this);
 }
 
@@ -35,7 +37,8 @@ public func Fused()
   active = true;
 
   //Effekte
-  CreateParticle("PSpark",0,0,0,0,60,GetPlrColorDw(GetOwner()),this);
+  CreateParticle("PSpark", 1, 0, 0, 0, 80, GetPlrColorDw(GetOwner()), this);
+  AddLightFlash(100, 0, 0, GetPlrColorDw(GetOwner()), this);
   Sound("SNSR_Fused.ogg");
 
   CheckLimitation();
@@ -90,7 +93,7 @@ public func Beep()
     return;
 
   //Effekte
-  CreateParticle("PSpark", 0, 0, 0, 0, 60, GetPlrColorDw(GetOwner()), this);
+  CreateParticle("PSpark", 1, 0, 0, 0, 80, GetPlrColorDw(GetOwner()), this);
   Sound("SNSR_Beep.ogg");
 
   //Kreissymbol erstellen
