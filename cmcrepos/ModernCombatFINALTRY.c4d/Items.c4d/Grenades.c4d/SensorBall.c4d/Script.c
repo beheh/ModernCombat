@@ -106,6 +106,7 @@ private func Remove()
 {
   //Ausschalten
   active = false;
+  SetGraphics();
 
   //Effekte
   Sparks(2,RGB(250,100));
