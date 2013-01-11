@@ -309,10 +309,10 @@ private func TestSpread()
 
 public func UpdateCH()
 {
-	if((!ReadyToFire() && !ReadyToGrenade()) || !IsArmed())
-		return HideCH();
+  if((!ReadyToFire() && !ReadyToGrenade()) || !IsArmed())
+    return HideCH();
 
-	var c = Contents();
+  var c = Contents();
 
   DoSpread(BoundBy(TestSpread()-spread,0,10));
 
@@ -342,7 +342,7 @@ public func UpdateCH()
     HideCH();
     return;
   }
-  
+
   ShowCH();
 
   UpdateAiming();
