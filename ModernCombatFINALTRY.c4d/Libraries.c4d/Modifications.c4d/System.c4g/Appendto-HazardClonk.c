@@ -309,15 +309,10 @@ private func TestSpread()
 
 public func UpdateCH()
 {
-  if((!ReadyToFire() && !ReadyToGrenade()) || !IsArmed() || GetCursor(GetOwner()) != this)
-  {
-    HideCH();
-    return;
-  }
+	if((!ReadyToFire() && !ReadyToGrenade()) || !IsArmed())
+		return HideCH();
 
-  var c = Contents();
-
-  ShowCH();
+	var c = Contents();
 
   DoSpread(BoundBy(TestSpread()-spread,0,10));
 
@@ -341,6 +336,14 @@ public func UpdateCH()
       DoSpread(-(CH_AimSpreadReduction+unspread), 0, minspread);
   else
     DoSpread(-(CH_StandSpreadReduction+unspread), 0, minspread);
+
+  if(GetCursor(GetOwner()) != this)
+  {
+    HideCH();
+    return;
+  }
+  
+  ShowCH();
 
   UpdateAiming();
   return true;
