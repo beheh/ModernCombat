@@ -91,6 +91,7 @@ protected func ActivateEntrance(object pObj)
 protected func RejectCollect(id objID, object pObj)
 {
   if(GetEffect("NoDoorEntrance", pObj) && !GetEffect("Move2Door", pObj)) return true;
+  if(pObj->~IsWeapon() || pObj->~IsGrenade() || pObj->~IsEquipment()) return true;
 
   return false;
 }
