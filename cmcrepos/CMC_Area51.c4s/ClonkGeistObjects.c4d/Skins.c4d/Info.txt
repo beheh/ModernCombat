@@ -1,2 +1,0 @@
-Benötigte Objekte/Dateien:
-- CMC_Area51.c4s\Skin.c4d

@@ -1,2 +1,0 @@
-SwitchOn=Switch flashlight off
-SwitchOff=Switch flashlight on

@@ -1,1 +1,0 @@
-MsgLocked=Die Truhe ist|abgeschlossen.

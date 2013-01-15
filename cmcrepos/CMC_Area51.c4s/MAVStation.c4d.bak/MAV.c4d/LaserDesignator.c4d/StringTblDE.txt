@@ -1,3 +1,0 @@
-Missiles=LB-Rakete
-Laser=Lasersteuerung
-Reloaded=Jet in Position!

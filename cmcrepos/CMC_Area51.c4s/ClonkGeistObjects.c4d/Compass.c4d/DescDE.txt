@@ -1,1 +1,0 @@
-Visualisiert die direkte Umgebung und hebt taktische Objekte hervor.

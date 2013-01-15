@@ -1,2 +1,0 @@
-DE:MAV
-US:MAV

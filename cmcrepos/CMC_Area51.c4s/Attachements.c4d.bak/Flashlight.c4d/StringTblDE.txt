@@ -1,2 +1,0 @@
-SwitchOn=Taschenlampe einschalten
-SwitchOff=Taschenlampe ausschalten

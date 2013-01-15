@@ -1,2 +1,0 @@
-DE:Apache-Eingang
-US:Apache Entrance
