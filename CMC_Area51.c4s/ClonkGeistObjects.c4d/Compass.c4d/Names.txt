@@ -1,2 +1,0 @@
-DE:Kompass
-US:Compass

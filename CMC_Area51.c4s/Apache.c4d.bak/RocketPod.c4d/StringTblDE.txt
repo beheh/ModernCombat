@@ -1,2 +1,0 @@
-Missiles=Raketen
-Unguided=Ungelenkt

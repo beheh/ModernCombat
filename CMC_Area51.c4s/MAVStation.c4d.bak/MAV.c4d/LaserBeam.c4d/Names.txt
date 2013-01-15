@@ -1,2 +1,0 @@
-DE:Laserstrahl
-US:Laser Beam

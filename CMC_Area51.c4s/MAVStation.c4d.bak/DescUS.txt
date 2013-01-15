@@ -1,1 +1,0 @@
-Allows to control and deploy MAV drones on the battlefield.

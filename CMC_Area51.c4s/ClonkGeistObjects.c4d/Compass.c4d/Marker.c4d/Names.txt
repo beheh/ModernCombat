@@ -1,2 +1,0 @@
-DE:Kompassmarkierung
-US:Compass Marker
