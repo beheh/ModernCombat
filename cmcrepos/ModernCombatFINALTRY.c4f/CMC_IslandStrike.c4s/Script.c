@@ -954,7 +954,7 @@ public func ChooserFinished()
    aStationary[2] -> Set(0,-90);
 
    //MAV-Station
-   CreateObject(MVSN, 7690, 320, -1)->Set(7620,420,1);
+   CreateObject(MVSN, 7690, 420, -1)->Set(7720,420,1);
 
    //Patrouillenboote
    SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1245,610,-1),50*21);
