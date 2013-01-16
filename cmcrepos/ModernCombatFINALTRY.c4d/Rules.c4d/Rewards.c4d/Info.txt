@@ -1,8 +1,8 @@
-Belohnungssystem
+--- Belohnungssystem ---
 
 Dieses System ermöglicht es Spieler und deren Leistung genauer bewerten zu können. Dazu werden Punkte und Ränge vergeben, welche am Ende der Runde ausgewertet und gespeichert werden.
 
-Standardpunkteliste:
+--- Standardpunkteliste ---
 
 Im Gefecht:
 
@@ -59,16 +59,20 @@ Hold the Flag (s.a. Besitznahme):
 
 Flaggenverteidigung			10		Teampunkte		IC12
 
-Assault / Base Assault:
+Assault/Base Assault:
 
 Zielobjektzerstörung			50		Teampunkte		IC03
 Hilfe bei Zielobjektzerstörung		30		Teampunkte		IC03
 Team-Zielobjektzerstörung		-50		Minuspunkte		IC03
 Hilfe bei Team-Zielobjektzerstörung	-30		Minuspunkte		IC03
+Sprengladungsentschärfung		20		Teampunkte		IC15
+Hilfe bei Sprengladungsentschärfung	10		Teampunkte		IC15
+Sprengladungsplazierung			20		Teampunkte		IC15
+Hilfe bei Sprengladungsplazierung	10		Teampunkte		IC15
 
-Spieler erhalten bei der ersten CMC Runde den Rang 0 in ihre Spielerdateien geschrieben. Die erspielten Punkte dienen dabei als Maßstab, umso mehr der Spieler Team- und Gefechtspunkte sammelt, umso höher steigt er im Rang auf.
+--- Standardrangliste ---
 
-Standardrangliste:
+Spieler erhalten bei der ersten CMC Runde den Rang 0 in ihre Spielerdateien eingetragen. Die erspielten Punkte dienen dabei als Maßstab, umso mehr der Spieler Team- und Gefechtspunkte sammelt, umso höher steigt er im Rang auf.
 
 R00:       0
 R01:     225
@@ -111,3 +115,32 @@ R37: 308.000
 R38: 324.000
 R39: 342.000
 R40: 360.000
+
+--- Standardgeldverteilung ---
+
+Für bestimmte Aktionen gibt es zudem auch Geldboni.
+
+Gefecht:
+
+Kill					25
+Teamkill				-20
+Tod					10
+
+Besitznahme:
+
+Flaggenposteneroberung			15
+Hilfe bei Flaggenposteneroberung	10
+Flaggenpostenneutralisierung		10
+Hilfe bei Flaggenpostenneutralisierung	5
+Flaggenpostenrückeroberung		5
+
+Capture the Flag:
+
+Flaggendiebstahl			30
+
+Assault/Base Assault:
+
+Zielobjektzerstörung			30
+Hilfe bei Zielobjektzerstörung		25
+Team-Zielobjektzerstörung		-20
+Hilfe bei Team-Zielobjektzerstörung	-15

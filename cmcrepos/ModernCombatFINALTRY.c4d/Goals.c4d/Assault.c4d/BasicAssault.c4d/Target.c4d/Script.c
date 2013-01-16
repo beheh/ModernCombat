@@ -6,9 +6,8 @@ local aDamage;					//Schaden jedes Spielers
 local iLastDamager;				//Der letzte der Schaden verursacht hat
 local idImitation;				//Welche Definition imitiert wird
 
-public func IsMeleeTarget(object pByObj)	{return (GetPlayerTeam(GetOwner(pByObj->~GetUser())) != GetTeam());}
-public func AttractTracer(pTracer)		{return IsAssaultTarget() && GetPlayerTeam(GetController(pTracer)) != GetTeam();}
-public func GetKillIcon()			{return idImitation;}
+public func GetKillIcon()				{return idImitation;}
+public func IsBulletTarget(id idBullet, object pBullet)	{return false;}
 
 
 /* Initialisierung */
@@ -17,46 +16,6 @@ protected func Initialize()
 {
   aDamage = [];
   iLastDamager = -1;
-}
-
-/* Treffbarkeit */
-
-public func IsBulletTarget(id idBullet, object pBullet)
-{
-  if(pBullet)
-    if(pBullet->~IsC4Explosive() && GetTeam() == GetPlayerTeam(GetOwner(pBullet)))
-      return false;
-  return IsAssaultTarget();
-}
-
-/* Schaden */
-
-public func OnDmg(int iDmg, int iType)
-{
-  if(iType == DMG_Explosion)	return 40;	//Explosionen und Druckwellen
-  return 65;
-}
-
-public func OnHit(int iDamage, int iType, object pFrom)
-{
-  var iPlr = GetOwner(pFrom);
-  if (iPlr == -1)
-    return;
-  iLastDamager = iPlr;
-  SetController(iPlr);
-  aDamage[iPlr] += iDamage;
-}
-
-public func MeleeHit()
-{
-  //Effekte
-  CastSmoke("Smoke3",5,13,-5,-5,50,150);
-  CastSmoke("Smoke3",5,13,5,5,50,150);
-  Sound("DoorKick.ogg");
-
-  DoDmg(14);
-  
-  return true;
 }
 
 /* Assault-Calls */

@@ -71,7 +71,7 @@ public func ExecShove()
                      ),
                      Find_Category(C4D_Living|C4D_Vehicle),
                      Find_Not(Find_Func("IsHelicopter")),
-                     Find_Func("CheckEnemy",this)
+                     Find_Hostile(GetOwner(this))
                    ),
                    Find_Func("IsMeleeTarget", this)
                  ),

@@ -117,7 +117,7 @@ func Use(caller)
       DoAchievementProgress(1, AC04, GetOwner(caller));
 
       //Punkte bei Belohnungssystem (Reanimation)
-      DoPlayerPoints(ReanimationPoints(), RWDS_TeamPoints, GetOwner(caller), caller, IC04);
+      DoPlayerPoints(BonusPoints("Reanimation"), RWDS_TeamPoints, GetOwner(caller), caller, IC04);
 
       //Energie entladen
       charge = BoundBy(charge-20,0,MaxEnergy());
@@ -131,12 +131,13 @@ func Use(caller)
   //Keine Patienten, dann eben Feinde suchen
   if(FindObject2(Find_InRect(-10,-10,20,20),Find_OCF(OCF_Alive),	//Am Leben?
   					Find_NoContainer(),		//Im Freien?
+					Find_Hostile(GetOwner(caller)),	//Feindlich?
   					Find_Exclude(caller)))		//Nicht der Schocker selbst?
   {
     obj = FindObjects(Find_InRect(-10,-10,20,20),Find_OCF(OCF_Alive),Find_NoContainer(),Find_Exclude(caller));
     for(var target in obj)
     {
-      if(target && CheckEnemy(GetUser(),target))
+      if(target)
       {
         //Schaden durch elektrischen Schlag (und Schleudern)
         DoDmg(30+Random(10),DMG_Energy,target,0,GetController(caller)+1,GetID());
