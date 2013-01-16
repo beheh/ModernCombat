@@ -436,14 +436,12 @@ public func ChooserFinished()
   if (FindObject(GASS))
   {
    //Zielobjekte
-   AddAssaultTarget(CMSN, 2025, 711, 150, 2, "$Target1$", 0, [[[2315, 750], [2470, 710], [2600, 640]], [[850, -20], [900, -20], [950, -20]]]);
-   AddAssaultTarget(CMSN, 2255, 600, 150, 2, "$Target2$", 1, [[[2315, 750], [2470, 710], [2600, 640]], [[850, -20], [900, -20], [950, -20]]]);
-
-   AddAssaultTarget(HUT3, 3390, 630, 150, 2, "$Target3$", 2, [[[3770, 710], [3810, 540], [3930, 670]], [[2160, 750], [2190, 600], [2190, 680]]]);
-   AddAssaultTarget(HUT2, 3580, 590, 150, 2, "$Target4$", 3, [[[3770, 710], [3810, 540], [3930, 670]], [[2160, 750], [2190, 600], [2190, 680]]]);
-
-   AddAssaultTarget(PMP2, 4895, 620, 150, 2, "$Target5$", 4, [[[5255, 560], [5300, 640], [5350, 560]], [[3240, 660], [3350, 710], [3450, 630]]]);
-   AddAssaultTarget(PMP2, 4995, 620, 150, 2, "$Target5$", 5, [[[5255, 560], [5300, 640], [5350, 560]], [[3240, 660], [3350, 710], [3450, 630]]]);
+   AddAssaultTarget(CMSN, 2025, 711, 30*30, 2, "$Target1$", 0, [[[2620, 640], [2680, 610], [2735, 670]], [[1080, -20], [1130, -20], [1180, -20]]]);
+   AddAssaultTarget(CMSN, 2250, 600, 30*30, 2, "$Target2$", 1, [[[2620, 640], [2680, 610], [2735, 670]], [[1080, -20], [1130, -20], [1180, -20]]]);
+   AddAssaultTarget(CMSN, 3080, 600, 30*30, 2, "$Target3$", 2, [[[3770, 710], [3810, 540], [3930, 670]], [[2160, 750], [2190, 600], [2190, 680]]]);
+   AddAssaultTarget(HUT3, 3390, 630, 30*30, 2, "$Target4$", 3, [[[3770, 710], [3810, 540], [3930, 670]], [[2160, 750], [2190, 600], [2190, 680]]]);
+   AddAssaultTarget(PMP2, 4385, 600, 30*30, 2, "$Target5$", 4, [[[5255, 560], [5300, 640], [5350, 560]], [[3240, 660], [3350, 710], [3450, 630]]]);
+   AddAssaultTarget(PMP2, 4895, 620, 30*30, 2, "$Target5$", 5, [[[5255, 560], [5300, 640], [5350, 560]], [[3240, 660], [3350, 710], [3450, 630]]]);
 
    //Ziele verbinden
    ConnectAssaultTargets([0, 1]);
@@ -451,20 +449,20 @@ public func ChooserFinished()
    ConnectAssaultTargets([4, 5]);
 
    //Versorgungskiste (Dragnin)
-   crate = CreateObject (AMCT, 1435, 650, -1);
+   crate = CreateObject(AMCT, 1435, 650, -1);
    crate->Set(DGNN);
 
    //Versorgungskiste (Sensorbälle)
-   crate = CreateObject (AMCT, 4380, 690, -1);
+   crate = CreateObject(AMCT, 4380, 690, -1);
    crate->Set(SRBL);
 
    //Versorgungskiste (Sprengfallentaschen)
-   crate = CreateObject (AMCT, 5480, 660, -1);
+   crate = CreateObject(AMCT, 5480, 660, -1);
    crate->Set(BTBG);
 
    //Grenzen setzen
    CreateObject(BRDR, 700, 0, -1)->Set(0,1);
-   CreateObject(BRDR, 2700, 0, -1)->Set(1,1);
+   CreateObject(BRDR, 2850, 0, -1)->Set(1,1);
 
    //Hinweisschilder
    CreateObject(SNPT, 430, 461, -1);
@@ -483,13 +481,9 @@ public func ChooserFinished()
    if(!FindObject(NOHC))
    {
     SetupVehicleSpawn([APCE],DIR_Right,CreateObject(VSPW,910,470,-1),50*21);
-    SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,4925,420,-1),50*21);
 
     var sign = CreateObject(SGNP, 840, 500, -1);
     sign->SetPhase(2);
-    var sign = CreateObject(SGNP, 4990, 450, -1);
-    sign->SetPhase(2);
-    sign->SetMode(1);
    }
   }
 
@@ -571,9 +565,6 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
   {
    if(fConnectedDestroyed)
    {
-    //Ticketabzug anpassen
-    SetTicketSubtractionTime(50);
-
     //Grenze neu setzen
     RemoveAll(BRDR);
     CreateObject(BRDR, 2160, 0, -1)->Set(0,1);

@@ -777,8 +777,8 @@ public func ChooserFinished()
    CreateObject(ROOM, 5735, 500, -1)->Connect(doorw);
 
    //Geschützstellungen
-   CreateObject(GNET, 2560, 440, -1)->Set(SATW);
-   CreateObject(GNET, 6590, 440, -1)->Set(SATW);
+   CreateObject(GNET, 2560, 440, -1)->Set(SATW,-90);
+   CreateObject(GNET, 6590, 440, -1)->Set(SATW,90);
 
    //MAV-Stationen
    CreateObject(MVSN, 2690, 510, -1)->Set(2690,440,1);
@@ -860,20 +860,17 @@ public func ChooserFinished()
   if (FindObject(GASS))
   {
    //Zielobjekte
-   AddAssaultTarget(RADR, 1200, 490, 230, 2, "$Target1$", 0, [[[1550, 500], [1670, 540], [1370, 540]], [[560, 0], [610, 0], [650, 0]]]);
-   AddAssaultTarget(CMSN, 2720, 440, 230, 2, "$Target2$", 1, [[[2870, 510], [2980, 470], [2970, 610]], [[1650, 0], [1670, 0], [1750, 0]]]);
-   AddAssaultTarget(CCP2, 3580, 730, 230, 2, "$Target3$", 2, [[[3795, 510], [3795, 630], [3690, 430]], [[2570, 0], [2700, 0], [2800, 0]]]);
-   AddAssaultTarget(GSTA, 4520, 490, 230, 2, "$Target4$", 3, [[[4760, 560], [4870, 540], [5000, 490]], [[3570, 430], [3600, 510], [3470, 730]]]);
-   AddAssaultTarget(LBPC, 5720, 650, 230, 2, "$Target5$", 4, [[[6040, 480], [6040, 670], [6180, 480]], [[4290, 510], [4320, 570], [4320, 680]]]);
-   AddAssaultTarget(RADR, 6440, 440, 230, 2, "$Target6$", 5, [[[6560, 510], [6880, 610], [6520, 740]], [[5630, 500], [5630, 570], [5730, 650]]]);
-   AddAssaultTarget(CMSN, 7210, 530, 230, 2, "$Target7$", 6, [[[7580, 610], [7565, 510], [7750, 420]], [[6410, 440], [6460, 610], [6370, 610]]]);
-
-   //Ticketabzug anpassen
-   SetTicketSubtractionTime(35);
+   AddAssaultTarget(RADR, 1200, 490, 30*30, 2, "$Target1$", 0, [[[1680, 540], [1790, 530], [1880, 520]], [[560, 0], [610, 0], [650, 0]]]);
+   AddAssaultTarget(CMSN, 2720, 440, 0, 2, "$Target2$", 1, [[[2920, 720], [3025, 610], [3040, 730]], [[1650, 0], [1670, 0], [1710, 0]]]);
+   AddAssaultTarget(CCP2, 3580, 730, 0, 2, "$Target3$", 2, [[[3690, 430], [3795, 510], [3850, 630]], [[2570, 0], [2700, 0], [2800, 0]]]);
+   AddAssaultTarget(GSTA, 4520, 490, 0, 2, "$Target4$", 3, [[[4870, 540], [4930, 530], [5000, 490]], [[3570, 430], [3600, 510], [3470, 730]]]);
+   AddAssaultTarget(LBPC, 5720, 650, 0, 2, "$Target5$", 4, [[[6040, 480], [6115, 452], [6180, 480]], [[4290, 510], [4320, 570], [4320, 680]]]);
+   AddAssaultTarget(RADR, 6440, 440, 0, 2, "$Target6$", 5, [[[6520, 740], [6670, 750], [6695, 609]], [[5630, 500], [5630, 570], [5730, 650]]]);
+   AddAssaultTarget(CMSN, 7210, 530, 30*30, 2, "$Target7$", 6, [[[7565, 510], [7580, 610], [7750, 420]], [[6410, 440], [6460, 610], [6370, 610]]]);
 
    //Grenzen setzen
    CreateObject(BRDR, 440, 0, -1)->Set(0,1);
-   CreateObject(BRDR, 1750, 0, -1)->Set(1,1);
+   CreateObject(BRDR, 1980, 0, -1)->Set(1,1);
 
    //SSA Besitzer setzen
    if(aTeams[2] == true)
@@ -893,6 +890,7 @@ public func ChooserFinished()
    DrawMaterialQuad("Wall-Bricks2", 7230,530, 7250,530, 7250,560, 7230,560);
 
    //Objekte entfernen
+   RemoveObject(aSelfDefense[1]);
    RemoveObject(aSelfDefense[2]);
    RemoveObject(aArtillery[0]);
    RemoveAll(LCKR);
@@ -919,8 +917,8 @@ public func ChooserFinished()
    CreateObject(_HBR, 5440, 662, -1);
 
    //Metallkisten
-   CreateObject(MWCR, 670, 540, -1);
    CreateObject(MWCR, 790, 610, -1);
+   CreateObject(MWCR, 990, 510, -1);
    CreateObject(MWCR, 1070, 570, -1);
    CreateObject(MWCR, 5400, 650, -1);
 
@@ -930,29 +928,24 @@ public func ChooserFinished()
    CreateObject(WCR2, 1330, 540, -1);
    CreateObject(WCR2, 5288, 650, -1);
    CreateObject(WCR2, 5400, 632, -1);
+   CreateObject(WCR2, 5795, 610, -1);
+   CreateObject(WCR2, 5880, 610, -1);
 
    //Verbandskisten
    CreateObject(BECR, 785, 592, -1);
    CreateObject(BECR, 5270, 650, -1);
 
-   //Hinweisschilder
+   //Hinweisschild
    var sign = CreateObject(SNPT, 1460, 500, -1);
    sign->SetAction("Sign2");
    sign->SetMode(1);
-   sign = CreateObject(SGNP, 2530, 570, -1);
-   sign->SetPhase(1);
-   sign->SetMode(1);
-   sign = CreateObject(SGNP, 6620, 570, -1);
-   sign->SetPhase(1);
-   sign->SetMode(1);
 
-   //Verbundene Räume
-   var doorw = CreateObject(GAT1, 2960, 433, -1);
-   CreateObject(ROOM, 3570, 510, -1)->Connect(doorw);
-   doorw = CreateObject(GAT1, 6095, 415, -1);
-   CreateObject(ROOM, 5735, 500, -1)->Connect(doorw);
+   //Versorgungskiste (Dragnin)
+   var crate = CreateObject(AMCT, 560, 540, -1);
+   crate->Set(DGNN);
 
    //Geschützstellungen
+   CreateObject(GNET, 675, 540, -1)->Set(0,90);
    aStationary[0] = CreateObject(GNET, 3570, 430, -1);
    aStationary[0] -> Set(0,-90);
    aStationary[1] = CreateObject(GNET, 4205, 510, -1);
@@ -1084,13 +1077,10 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
   //Ziel 1
   if (!iIndex)
   {
-   //Ticketabzug anpassen
-   SetTicketSubtractionTime(40);
-
    //Grenzen neu setzen
    RemoveAll(BRDR);
    CreateObject(BRDR, 440, 0, -1)->Set(0,1);
-   CreateObject(BRDR, 3100, 0, -1)->Set(1,1);
+   CreateObject(BRDR, 3200, 0, -1)->Set(1,1);
 
    //SSA zerstören
    aSelfDefense[0]->Disarm();
@@ -1117,11 +1107,7 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
    //Grenzen neu setzen
    RemoveAll(BRDR);
    CreateObject(BRDR, 1560, 0, -1)->Set(0,1);
-   CreateObject(BRDR, 3900, 0, -1)->Set(1,1);
-
-   //SSA zerstören
-   aSelfDefense[1]->Disarm();
-   aSelfDefense[1]->DecoExplode(30);
+   CreateObject(BRDR, 3930, 0, -1)->Set(1,1);
 
    //Lampe deaktivieren
    aLamp[07]->EMPShock();
@@ -1138,7 +1124,7 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
    //Grenzen neu setzen
    RemoveAll(BRDR);
    CreateObject(BRDR, 2600, 0, -1)->Set(0,1);
-   CreateObject(BRDR, 5040, 0, -1)->Set(1,1);
+   CreateObject(BRDR, 5140, 0, -1)->Set(1,1);
 
    //Geschützstellung entfernen
    aStationary[0]->DecoExplode(30);
@@ -1153,9 +1139,6 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
   //Ziel 4
   if (iIndex == 3)
   {
-   //Ticketabzug anpassen
-   SetTicketSubtractionTime(45);
-
    //Grenzen neu setzen
    RemoveAll(BRDR);
    CreateObject(BRDR, 3200, 0, -1)->Set(0,1);
@@ -1172,9 +1155,6 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
   //Ziel 5
   if (iIndex == 4)
   {
-   //Ticketabzug anpassen
-   SetTicketSubtractionTime(40);
-
    //Grenzen neu setzen
    RemoveAll(BRDR);
    CreateObject(BRDR, 4190, 0, -1)->Set(0,1);
@@ -1198,9 +1178,6 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
   //Ziel 6
   if (iIndex == 5)
   {
-   //Ticketabzug anpassen
-   SetTicketSubtractionTime(50);
-
    //Grenzen neu setzen
    RemoveAll(BRDR);
    CreateObject(BRDR, 5040, 0, -1)->Set(0,1);

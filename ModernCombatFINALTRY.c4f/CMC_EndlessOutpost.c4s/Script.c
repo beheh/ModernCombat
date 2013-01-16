@@ -92,6 +92,7 @@ func CreateInterior()
   CreateObject(HA4K, 70, 353, -1);
   CreateObject(HA4K, 70, 453, -1);
   CreateObject(HA4K, 720, 413, -1);
+  CreateObject(HA4K, 850, 163, -1);
   CreateObject(HA4K, 1480, 203, -1);
   CreateObject(HA4K, 2080, 213, -1);
   CreateObject(HA4K, 2270, 533, -1);
@@ -104,6 +105,7 @@ func CreateInterior()
 
   //Große Bodenluken
   CreateObject(H24K, 985, 438, -1);
+  CreateObject(H24K, 1205, 208, -1);
   CreateObject(H24K, 1205, 448, -1);
   CreateObject(H24K, 1985, 118, -1);
   CreateObject(H24K, 2285, 118, -1);
@@ -137,7 +139,6 @@ func CreateInterior()
   CreateObject(GDDR, 1065, 430, -1)->SetColorDw(HSL(40, 210, 100, 127));
   CreateObject(GDDR, 1165, 260, -1)->SetColorDw(HSL(40, 210, 100, 127));
   CreateObject(GDDR, 1245, 260, -1)->SetColorDw(HSL(40, 210, 100, 127));
-  CreateObject(GDDR, 1445, 200, -1)->Lock();
   CreateObject(GDDR, 1695, 290, -1)->SetColorDw(HSL(40, 210, 100, 127));
   CreateObject(GDDR, 1795, 210, -1)->SetColorDw(HSL(40, 210, 100, 127));
   CreateObject(GDDR, 1795, 290, -1)->SetColorDw(HSL(40, 210, 100, 127));
@@ -161,7 +162,10 @@ func CreateInterior()
 
   //Kisten
   CreateObject(WCR2, 10, 350, -1)->AutoRespawn();
-  CreateObject(WCR2, 1100, 360, -1);
+  CreateObject(WCR2, 890, 550, -1);
+  CreateObject(WCR2, 1120, 324, -1);
+  CreateObject(WCR2, 1120, 342, -1);
+  CreateObject(WCR2, 1120, 360, -1);
   CreateObject(WCR2, 1460, 70, -1);
   CreateObject(WCR2, 1505, 200, -1)->AutoRespawn();
   CreateObject(WCR2, 1815, 580, -1);
@@ -189,6 +193,7 @@ func CreateInterior()
 
   //Verbandskisten
   CreateObject(BECR, 355, 450, -1)->AutoRespawn();
+  CreateObject(BECR, 1100, 360, -1)->AutoRespawn();
   CreateObject(BECR, 1460, 52, -1);
   CreateObject(BECR, 1795, 580, -1);
   CreateObject(BECR, 2020, 510, -1);
@@ -274,20 +279,21 @@ func CreateInterior()
    aDoor[01]->Lock();
   aDoor[02] = CreateObject(SEDR,1355, 260,-1);
    aDoor[02]->Lock();
-  aDoor[03] = CreateObject(H24K, 1205, 208, -1);
+  aDoor[03] = CreateObject(SEDR,1450, 200,-1);
    aDoor[03]->Lock();
-  aDoor[04] = CreateObject(HA4K, 850, 163, -1);
-   aDoor[04]->Lock();
+  aDoor[04] = CreateObject(HNG2,1435,140,-1);
+
   aDoor[05] = CreateObject(HNG2,1355,550,-1);
-  aDoor[06] = CreateObject(HNG2,1905,490,-1);
-  aDoor[07] = CreateObject(SEDR,1850,110,-1);
+  aDoor[06] = CreateObject(HA4K, 1440, 323, -1);
+   aDoor[06]->Lock();
+  aDoor[07] = CreateObject(HA4K, 1650, 293, -1);
    aDoor[07]->Lock();
-  aDoor[08] = CreateObject(HA4K, 1440, 323, -1);
+
+  aDoor[08] = CreateObject(SEDR,1850,110,-1);
    aDoor[08]->Lock();
-  aDoor[09] = CreateObject(HA4K, 1650, 293, -1);
+  aDoor[09] = CreateObject(HA4K, 1870, 493, -1);
    aDoor[09]->Lock();
-  aDoor[10] = CreateObject(HA4K, 1870, 493, -1);
-   aDoor[10]->Lock();
+  aDoor[10] = CreateObject(HNG2,1905,490,-1);
 
   //Lampen
   aLamp[00]=CreateObject(BLGH,880,300,-1);
@@ -747,15 +753,15 @@ public func ChooserFinished()
    CreateObject(BRDR, 2010, 0, -1)->Set(1);
 
    //Türen öffnen
-   aDoor[00]->Unlock();
-   aDoor[01]->Unlock();
-   aDoor[02]->Unlock();
-   aDoor[03]->Unlock();
-   aDoor[04]->Unlock();
+   aDoor[00]->Open();
+   aDoor[01]->Open();
+   aDoor[02]->Open();
+   aDoor[03]->Open();
+   aDoor[04]->Open();
+
    aDoor[05]->Open();
-   aDoor[08]->Unlock();
-   aDoor[09]->Unlock();
-   aDoor[10]->Lock();
+   aDoor[06]->Unlock();
+   aDoor[07]->Unlock();
 
    //Objekt entfernen
    RemoveObject(FindObject2(Find_ID(AMCT),Find_InRect(1080, 240, 40, 40)));
@@ -776,7 +782,7 @@ public func ChooserFinished()
    CreateObject(CONS, 1810, 485, -1)->Set(aSelfDefense[1]);
 
    //Leitern
-   CreateObject(LADR, 1425, 173, -1)->Set(12);
+   CreateObject(LADR, 1415, 173, -1)->Set(12);
    CreateObject(LADR, 1650, 457, -1)->Set(20);
    CreateObject(LADR, 1705, 190, -1)->Set(9);
 
@@ -791,9 +797,6 @@ public func ChooserFinished()
    //Kisten
    CreateObject(WCR2, 740, 410, -1);
    CreateObject(WCR2, 760, 410, -1);
-   CreateObject(WCR2, 1120, 324, -1);
-   CreateObject(WCR2, 1120, 342, -1);
-   CreateObject(WCR2, 1120, 360, -1);
    CreateObject(WCR2, 1310, 180, -1);
    CreateObject(WCR2, 1740, 472, -1);
 
@@ -813,20 +816,19 @@ public func ChooserFinished()
   if (FindObject(GASS))
   {
    //Zielobjekte
-   AddAssaultTarget(CCP2, 1120, 360, 230, 2, "$Target1$", 0, [[[1320, 260], [1300, 260], [1130, 260]], [[130, 350], [170, 350], [150, 450]]]);
-   AddAssaultTarget(MVNT, 1865, 250, 230, 2, "$Target2$", 1, [[[1570, 70], [1590, 70], [1830, 110]], [[1100, 430], [1140, 430], [1280, 550]]]);
-   AddAssaultTarget(LBPC, 1795, 490, 230, 2, "$Target3$", 2, [[[1980, 400]], [[1280, 430], [1280, 550]]]);
-   AddAssaultTarget(CCP2, 2180, 510, 120, 2, "$Target4$", 3, [[[1880, 110], [2050, 110]], [[1950, 400], [1470, 522], [1420, 390]]]);
-   AddAssaultTarget(LBPC, 2200, 320, 120, 2, "$Target3$", 4, [[[1880, 110], [2050, 110]], [[1950, 400], [1470, 522], [1420, 390]]]);
-   AddAssaultTarget(CMSN, 2350, 210, 120, 2, "$Target5$", 5, [[[1880, 110], [2050, 110]], [[1950, 400], [1470, 522], [1420, 390]]]);
-   AddAssaultTarget(GSTA, 2460, 320, 120, 2, "$Target6$", 6, [[[1880, 110], [2050, 110]], [[1950, 400], [1470, 522], [1420, 390]]]);
-   AddAssaultTarget(CCP1, 2455, 500, 120, 2, "$Target7$", 7, [[[1880, 110], [2050, 110]], [[1950, 400], [1470, 522], [1420, 390]]]);
-
-   //Ticketabzug anpassen
-   SetTicketSubtractionTime(50);
+   AddAssaultTarget(CCP2, 930, 430, 30*30, 2, "$Target1$", 0, [[[1050, 200], [1150, 200], [1250, 200]], [[130, 350], [170, 350], [170, 450]]]);
+   AddAssaultTarget(PMP2, 1150, 560, 30*30, 2, "$Target2$", 1, [[[1050, 200], [1150, 200], [1250, 200]], [[130, 350], [170, 350], [170, 450]]]);
+   AddAssaultTarget(MVNT, 1865, 250, 30*30, 2, "$Target3$", 2, [[[1570, 70], [1590, 70], [1830, 110]], [[1110, 260], [1130, 360],[1130, 430]]]);
+   AddAssaultTarget(LBPC, 1680, 493, 0, 2, "$Target4$", 3, [[[1750, 210], [1810, 110], [1850, 320]], [[1050, 200], [1100, 180], [1110, 260]]]);
+   AddAssaultTarget(CCP2, 2180, 510, 25*30, 2, "$Target5$", 4, [[[1880, 110], [2050, 110]], [[1950, 400], [1470, 522], [1420, 390]]]);
+   AddAssaultTarget(LBPC, 2200, 320, 25*30, 2, "$Target4$", 5, [[[1880, 110], [2050, 110]], [[1950, 400], [1470, 522], [1420, 390]]]);
+   AddAssaultTarget(CMSN, 2350, 210, 25*30, 2, "$Target6$", 6, [[[1880, 110], [2050, 110]], [[1950, 400], [1470, 522], [1420, 390]]]);
+   AddAssaultTarget(GSTA, 2460, 320, 25*30, 2, "$Target7$", 7, [[[1880, 110], [2050, 110]], [[1950, 400], [1470, 522], [1420, 390]]]);
+   AddAssaultTarget(CCP1, 2455, 500, 25*30, 2, "$Target8$", 8, [[[1880, 110], [2050, 110]], [[1950, 400], [1470, 522], [1420, 390]]]);
 
    //Ziele verbinden
-   ConnectAssaultTargets([3, 4, 5, 6, 7]);
+   ConnectAssaultTargets([0, 1]);
+   ConnectAssaultTargets([4, 5, 6, 7, 8]);
 
    //SSA Besitzer setzen
    if(aTeams[2] == true)
@@ -839,7 +841,7 @@ public func ChooserFinished()
    //Geschützstellungen
    CreateObject(GNET, 205, 350, -1)->Set(0,90,1);
    aStationary[0] = CreateObject(GNET, 810, 360, -1);
-   aStationary[0] -> Set(0,-90,1);
+   aStationary[0] -> Set(0,-90);
    aStationary[1] = CreateObject(GNET, 1690, 210, -1);
    aStationary[1] -> Set(0,-90);
    aStationary[2] = CreateObject(GNET, 1730, 490, -1);
@@ -861,6 +863,7 @@ public func ChooserFinished()
 
    //Objekte entfernen
    RemoveObject(FindObject2(Find_ID(_WIN),Find_InRect(800, 330, 805, 360)));
+   RemoveObject(FindObject2(Find_ID(GTBL),Find_InRect(910, 410, 60, 20)));
    RemoveObject(FindObject2(Find_ID(BECR),Find_InRect(2400, 430, 20, 20)));
   }
 
@@ -871,15 +874,15 @@ public func ChooserFinished()
    CreateObject(BRDR, 2010, 0, -1)->Set(1);
 
    //Türen öffnen
-   aDoor[00]->Unlock();
-   aDoor[01]->Unlock();
-   aDoor[02]->Unlock();
-   aDoor[03]->Unlock();
-   aDoor[04]->Unlock();
+   aDoor[00]->Open();
+   aDoor[01]->Open();
+   aDoor[02]->Open();
+   aDoor[03]->Open();
+   aDoor[04]->Open();
+
    aDoor[05]->Open();
-   aDoor[08]->Unlock();
-   aDoor[09]->Unlock();
-   aDoor[10]->Lock();
+   aDoor[06]->Unlock();
+   aDoor[07]->Unlock();
 
    //Objekte entfernen
    RemoveObject(aSelfDefense[0]);
@@ -904,9 +907,6 @@ public func ChooserFinished()
    //Kisten
    CreateObject(WCR2, 740, 410, -1);
    CreateObject(WCR2, 760, 410, -1);
-   CreateObject(WCR2, 1120, 324, -1);
-   CreateObject(WCR2, 1120, 342, -1);
-   CreateObject(WCR2, 1120, 360, -1);
    CreateObject(WCR2, 1310, 180, -1);
    CreateObject(WCR2, 1740, 472, -1);
 
@@ -925,38 +925,41 @@ public func ChooserFinished()
 
 /* Assault Zerstörung */
 
-public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
+public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bool fConnectedDestroyed)
 {
-  //Ziel 1
-  if (!iIndex)
+  //Ziel 1 und 2
+  if (!iIndex || iIndex == 1)
   {
-   //Rauch
-   CreateParticle("GunSmoke",925,340,0,-10,350,1);
-   Smoke(925, 340, 30);
+   if(fConnectedDestroyed)
+   {
+    //Rauch
+    CreateParticle("GunSmoke",925,340,0,-10,350,1);
+    Smoke(925, 340, 30);
 
-   //Türen öffnen
-   aDoor[00]->Open();
-   aDoor[01]->Open();
-   aDoor[02]->Open();
-   aDoor[03]->Unlock();
-   aDoor[04]->Open();
+    //Türen öffnen
+    aDoor[00]->Open();
+    aDoor[01]->Open();
+    aDoor[02]->Open();
+    aDoor[03]->Open();
+    aDoor[04]->Open();
 
-   //SSA zerstören
-   aSelfDefense[0]->Disarm();
-   DecoExplode(30, aSelfDefense[0]);
+    //SSA zerstören
+    aSelfDefense[0]->Disarm();
+    DecoExplode(30, aSelfDefense[0]);
 
-   //Geschützstellung entfernen
-   aStationary[0]->DecoExplode(30);
+    //Geschützstellung entfernen
+    aStationary[0]->DecoExplode(30);
 
-   //Lampen deaktivieren
-   aLamp[00]->EMPShock();
-   aLamp[01]->EMPShock();
-   aLamp[02]->EMPShock();
-   aLamp[03]->EMPShock();
+    //Lampen deaktivieren
+    aLamp[00]->EMPShock();
+    aLamp[01]->EMPShock();
+    aLamp[02]->EMPShock();
+    aLamp[03]->EMPShock();
+   }
   }
 
   //Ziel 2
-  if (iIndex == 1)
+  if (iIndex == 2)
   {
    //Grenze setzen
    CreateObject(BRDR, 700, 0, -1)->Set(0,1);
@@ -980,8 +983,8 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
 
    //Türen öffnen
    aDoor[05]->Open();
-   aDoor[08]->Open();
-   aDoor[09]->Open();
+   aDoor[06]->Unlock();
+   aDoor[07]->Unlock();
 
    //Geschützstellung entfernen
    aStationary[1]->DecoExplode(30);
@@ -1004,11 +1007,8 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
   }
 
   //Ziel 3
-  if (iIndex == 2)
+  if (iIndex == 3)
   {
-   //Ticketabzug anpassen
-   SetTicketSubtractionTime(60);
-
    //Grenze neu setzen
    RemoveAll(BRDR);
    CreateObject(BRDR, 960, 0, -1)->Set(0,1);
@@ -1022,8 +1022,8 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
    Smoke(1870, 435, 30);
 
    //Türen öffnen
-   aDoor[06]->Open();
-   aDoor[07]->Open();
+   aDoor[08]->Open();
+   aDoor[09]->Unlock();
    aDoor[10]->Open();
 
    //SSA zerstören
@@ -1045,7 +1045,7 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
   }
 
   //Ziel 4
-  if (iIndex == 3)
+  if (iIndex == 4)
   {
    //Risse
    CreateObject(FAUD, 2140, 490, -1)->Set(2);
@@ -1065,7 +1065,7 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
   }
 
   //Ziel 5
-  if (iIndex == 4)
+  if (iIndex == 5)
   {
    //Risse
    CreateObject(FAUD, 2150, 290, -1)->Set(3);
@@ -1083,7 +1083,7 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
   }
 
   //Ziel 6
-  if (iIndex == 5)
+  if (iIndex == 6)
   {
    //Risse
    CreateObject(FAUD, 2300, 215, -1)->Set(2);
@@ -1101,7 +1101,7 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
   }
 
   //Ziel 7
-  if (iIndex == 6)
+  if (iIndex == 7)
   {
    //Risse
    CreateObject(FAUD, 2450, 325, -1)->Set(1);
@@ -1119,7 +1119,7 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
   }
 
   //Ziel 8
-  if (iIndex == 7)
+  if (iIndex == 8)
   {
    //Risse
    CreateObject(FAUD, 2410, 500, -1)->Set(2);
