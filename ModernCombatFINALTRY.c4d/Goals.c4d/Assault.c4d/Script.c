@@ -366,6 +366,8 @@ protected func FxIntAssaultTargetTimer(object pTarget, int iNr)
       bar->Update(0, true, true);
       bar->SetIcon(0, SM16, 0, 0, 32);
     }
+    else if(enemycnt == alliescnt)
+    	bar->SetIcon(0, SM19, 0, 0, 32);
 
     //Ladung scharf
     if(process >= PlantTime())
@@ -440,6 +442,8 @@ protected func FxIntAssaultTargetTimer(object pTarget, int iNr)
       EffectVar(6, pTarget, iNr)->Update(0, true);
       defender = [];
     }
+    else if(enemycnt == alliescnt)
+    	bar->SetIcon(0, SM19, 0, 0, 32);
 
     //Ladung wurde entschärft
     if(def_process >= DefuseTime())
