@@ -3,13 +3,33 @@
 #strict 2
 #include CASS
 
-local iAttacker;
-local iDefender;	//Verteidiger-Team
-local iTickets;		//Tickets für die Angreifer
-local iWarningTickets;	//Tickets bei denen gewarnt wird
-local aSpawns;		//Spawnpunkte
-local Connected;	//Verbundene Ziele
-local iTicketSubtrTime;	//Ticketabzugszeit
+local iAttacker;				//Angreifer-Team
+local iDefender;				//Verteidiger-Team
+local iTickets;					//Tickets der Angreifer
+local iWarningTickets;				//Ticketwarnung
+local aSpawns;					//Spawnpunkte
+local Connected;				//Verbundene Ziele
+local iTicketSubtrTime;				//Ticketabzugszeit
+
+public func PlantTime()		{return 3*35;}	//Zeit zur Plazierung einer Sprengladung
+public func DefuseTime()	{return 3*35;}	//Zeit zur Entschärfung einer Sprengladung
+public func GoalExtraValue()
+{
+  var team = GameCall("AssaultDefenderTeam");
+  if(GetTeamCount() > 2)
+    return 0;
+
+  if(!team)
+    return;
+
+  var att = GetTeamByIndex();
+  if(att == team)
+    att = GetTeamByIndex(1);
+
+  return Format("<c %x>%s</c>", GetTeamColor(att), GetTeamName(att));
+}
+
+static const BAR_AssaultBar = 4;
 
 
 /* Initialisierung */
@@ -18,10 +38,11 @@ protected func Initialize()
 {
   iAttacker = -1;
   iDefender = -1;
-  iTickets = 1; //Damit IsFulfilled nicht gleich beendet
+  iTickets = 1;
   aSpawns = [[],[]];
   Connected = [];
   iTicketSubtrTime = GASS_TicketIdleTime;
+
   return _inherited(...);
 }
 
@@ -78,7 +99,6 @@ public func CalcTickets()
   if(!D) return 1; //Keine Verteidiger, für korrektes IsFulfilled
 
   //Ticketformel
-  //return D + (A + 2 * D + D * D) / (A + 1);
   return D + (D * (4 + (20 - D) * D / 12)) / A;
 }
 
@@ -114,13 +134,11 @@ public func SetTicketSubtractionTime(int iTime)
 
 /* Zielobjektzerstörung */
 
-public func ReportAssaultTargetDestruction(object pTarget, int iTeam)
+public func ReportAssaultTargetDestruction(object pTarget, int iTeam, array aAttacker)
 {
   var index = GetIndexOf(pTarget, aTargets[iTeam]);
   if(index == -1)
     return;
-
-  _inherited(pTarget, iTeam, ...);
 
   //Auf Zielobjektverbund prüfen
   var fConnectedDestruction = true;;
@@ -131,11 +149,41 @@ public func ReportAssaultTargetDestruction(object pTarget, int iTeam)
       if(aTargets[iDefender][i])
         fConnectedDestruction = false;
 
+  if(aAttacker)
+  {
+    var assist = false;
+    for(var clonk in aAttacker)
+    {
+      if(clonk)
+        if(assist)
+        {
+          //Punkte bei Belohnungssystem (Hilfe bei Zielobjektzerstörung)
+          DoPlayerPoints(BonusPoints("ASDestructionAssist"), RWDS_TeamPoints, GetOwner(clonk), clonk, IC03);
+          //Geldbonus: 25 Clunker
+          DoWealth(GetOwner(clonk), 25);
+        }
+        else
+        {
+          //Punkte bei Belohnungssystem (Zielobjektzerstörung)
+          DoPlayerPoints(BonusPoints("ASDestruction"), RWDS_TeamPoints, GetOwner(clonk), clonk, IC03);
+          //Geldbonus: 30 Clunker
+          DoWealth(GetOwner(clonk), 30);
+        }
+
+      assist = true;
+    }
+  }
+
   //Eventnachricht: Zielobjekt zerstört
-  EventInfo4K(0, Format("$TargetDestruction$", GetTeamColor(iTeam), GetName(pTarget)), GBAS, 0, 0, 0, "RadioConfirm*.ogg");
+  EventInfo4K(0, Format("$TargetDestruction$", GetTeamColor(iTeam), GetName(pTarget)), GetID(), 0, 0, 0, "RadioConfirm*.ogg");
   GameCall("OnAssaultTargetDestruction", pTarget, iTeam, FindInArray4K(aTargets[iTeam], pTarget), fConnectedDestruction);
+
+  //Zielobjekt explodieren lassen sofern vorhanden
   if(pTarget)
+  {
     Explode(50, pTarget);
+    Sound("StructuralDamage*.ogg", false, pTarget);
+  }
 
   if(ObjectCount2(Find_InArray(aTargets[iDefender])) == 1)
     for(var i, j; i < GetPlayerCount(); i++)
@@ -144,14 +192,13 @@ public func ReportAssaultTargetDestruction(object pTarget, int iTeam)
         EventInfo4K(j+1, "$DefendLastStation$", GetID(), 0, 0, 0, "Alarm.ogg");
       else
         //Eventnachricht: Letztes Zielobjekt zerstören
-        EventInfo4K(j+1, "$DestroyLastStation$", GetID(), 0, 0, 0, "Alarm.ogg");
+        EventInfo4K(j+1, "$DestroyLastStation$", GetID(), 0, 0, 0, "Info.ogg");
 
-  //Tickets zurücksetzen, bei verbundenen Zielobjekten nur wenn alle Ziele zerstört sind
+  //Tickets zurücksetzen (bei verbundenen Zielobjekten nur, wenn alle Ziele zerstört wurden)
   if(GetType(Connected[index]) != C4V_Array)
     InitializeTickets();
-  else
-    if(fConnectedDestruction)
-      InitializeTickets();
+  else if(fConnectedDestruction)
+    InitializeTickets();
 }
 
 public func TeamGetScore(int iTeam)
@@ -204,31 +251,308 @@ public func GetAssaultTarget(int iIndex, int iTeam)
 
 /* Assault-Effekt */
 
-protected func FxIntAssaultTargetDamage(object pTarget, int iEffect, int iDamage)
+protected func FxIntAssaultTargetStart(object pTarget, int iEffect, int iTemp, int iMaxTime, bool fNoBar, id idTarget)
 {
-  //Ticketabzug-Timer zurücksetzen
-  var effect = GetEffect("TicketSubtraction", this);
-  if(effect)
-    EffectCall(this, effect, "Reset");
+  if(iTemp)
+    return;
 
-  //Nur durchlassen, wenn das Ziel an der Reihe ist
+  if(!iMaxTime)
+    iMaxTime = 35 * 30;
+
+  var bar = EffectVar(0, pTarget, iEffect) = CreateObject(SBAR, 0, 0, -1);
+  bar->Set(pTarget, 0xFF0000/*GetTeamColor(pTarget->~GetTeam())*/, BAR_AssaultBar, 200, 0, SM16, 0, 0, true);
+  LocalN("iDefHeight", bar) = GetObjHeight(pTarget);
+  bar->Update(0, true, true);
+  bar->SetIcon(0, SM16, 0, 0, 32);
+  bar->PositionToVertex(0, true);
+
+  EffectVar(1, pTarget, iEffect) = idTarget;
+  EffectVar(2, pTarget, iEffect) = 0;
+  EffectVar(3, pTarget, iEffect) = 0;		//Status
+  EffectVar(4, pTarget, iEffect) = 0;		//Entschärfung
+  EffectVar(5, pTarget, iEffect) = iMaxTime;
+
+  //Entschärfungsbalken
+  bar = EffectVar(6, pTarget, iEffect) = CreateObject(SBAR, 0, 0, -1);
+  bar->Set(pTarget, 0x33CCFF, BAR_AssaultBar+1, 200);
+  LocalN("iDefHeight", bar) = GetObjHeight(pTarget);
+  bar->Update(0, true);
+  bar->PositionToVertex(0, true);
+
+  EffectVar(7, pTarget, iEffect) = [];
+
+  //Bepunktung
+  EffectVar(8, pTarget, iEffect) = [];
+  EffectVar(9, pTarget, iEffect) = [];
+}
+
+protected func FxIntAssaultTargetTimer(object pTarget, int iNr)
+{
+  //Ziel an der Reihe?
   var iTarget = GetIndexOf(pTarget, aTargets[iDefender]),
   iNext = GetNextTarget();
-  if(iTarget == iNext || (GetType(Connected[iNext]) == C4V_Array && GetIndexOf(iTarget, Connected[iNext]) != -1))
-    return iDamage;
-  var id = pTarget->~GetImitationID();
-  if(!id)
-    id = GetID(pTarget);
-  var size = Distance(0, 0, GetDefWidth(id), GetDefHeight(id)) * 6;
-  CreateParticle("TargetShield", GetX(pTarget) - GetX(), GetY(pTarget) - GetY(), Sin(Random(360), 10), -Cos(Random(360), 10), size, InterpolateRGBa3(RGB(255, 255, 255), GetTeamColor(iDefender), 3, 4));
-  Sound("Shield", false, pTarget);
-  return 0;
+
+  var fConnected = GetType(Connected[iNext]) == C4V_Array;
+
+  if(iTarget != iNext && (fConnected && GetIndexOf(iTarget, Connected[iNext]) == -1 || !fConnected))
+    return true;
+
+  var bar = EffectVar(0, pTarget, iNr);
+
+  var idTarget = EffectVar(1, pTarget, iNr);
+
+  var status = EffectVar(2, pTarget, iNr);
+  var process = EffectVar(3, pTarget, iNr);
+  var def_process = EffectVar(4, pTarget, iNr); 
+  var maxTime = EffectVar(5, pTarget, iNr);
+
+  var attacker = EffectVar(8, pTarget, iNr), defender = EffectVar(9, pTarget, iNr);
+
+  var clonks = FindObjects(pTarget->Find_Distance(100), Find_OCF(OCF_CrewMember|OCF_Alive), Find_NoContainer());
+  var aEnemies = [], aAllies = [], team = pTarget->~GetTeam();
+
+  for(var clonk in clonks)
+  {
+    if(GetOwner(clonk) == NO_OWNER) continue;
+    if(!GetPlayerName(GetOwner(clonk)) || !GetPlayerTeam(GetOwner(clonk))) continue;
+    if(!PathFree4K(GetX(pTarget),GetY(pTarget)-GetObjHeight(pTarget)/2,GetX(clonk),GetY(clonk),4)) continue;
+
+    if(GetPlayerTeam(GetOwner(clonk)) == team)
+    {
+      if(status == 3 && GetIndexOf(clonk, defender) == -1)
+        defender[GetLength(defender)] = clonk;
+
+      aAllies[GetLength(aAllies)] = clonk;
+    }
+    else
+    {
+      if(status == 1 && GetIndexOf(clonk, attacker) == -1)
+        attacker[GetLength(attacker)] = clonk;
+
+      aEnemies[GetLength(aEnemies)] = clonk;
+    }
+  }
+
+  var alliescnt = GetLength(aAllies), enemycnt = GetLength(aEnemies);
+
+  if(!status)
+  {
+    //Sprengladung wird plaziert
+    if(enemycnt > alliescnt)
+    {
+      status = 1;
+      process = 1;
+      bar->SetIcon(0, SM17, 0, 0, 32);
+    }
+  }
+
+  else if(status == 1)
+  {
+    //Ticketabzug-Timer zurücksetzen
+    var effect = GetEffect("TicketSubtraction", this);
+    if(effect)
+      EffectCall(this, effect, "Reset");
+
+    bar->Update(process * 100 / PlantTime(), false);
+
+    if(enemycnt > alliescnt)
+      process++;
+    else if(!enemycnt)
+    {
+      process = 0;
+      status = 0;
+      attacker = [];
+
+      bar->Update(0, true, true);
+      bar->SetIcon(0, SM16, 0, 0, 32);
+    }
+
+    //Ladung scharf
+    if(process >= PlantTime())
+    {
+      status = 2;
+      process = maxTime;
+      bar->SetIcon(0, SM18, 0, 0, 32);
+
+      //Eventnachricht: Ladung plaziert, verteidigen
+      TeamEventInfo(iAttacker, Format("$TargetArmedAttacker$", GetName(pTarget)), SM16);
+      //Eventnachricht: Ladung plaziert, entschärfen
+      TeamEventInfo(iDefender, Format("$TargetArmedDefender$", GetName(pTarget)), SM17);
+
+      var assist = false;
+      for(var clonk in attacker)
+      {
+        if(clonk)
+          if(assist)
+          {
+            //Punkte bei Belohnungssystem (Hilfe bei Sprengladungsplazierung)
+            DoPlayerPoints(BonusPoints("ASTargetArmedAssist"), RWDS_TeamPoints, GetOwner(clonk), clonk, IC15);
+          }
+          else
+          {
+            //Punkte bei Belohnungssystem (Sprengladungsplazierung)
+            DoPlayerPoints(BonusPoints("ASTargetArmed"), RWDS_TeamPoints, GetOwner(clonk), clonk, IC15);
+          }
+
+        assist = true;
+      }
+
+      AddEffect("IntAlarmBlink", pTarget, 1, 1, this);
+
+      Sound("AHBS_Fused.ogg", false, pTarget);
+    }
+  }
+
+  //Ladungs-Timer
+  else if(status == 2)
+  {
+    //Ticketabzug-Timer zurücksetzen
+    var effect = GetEffect("TicketSubtraction", this);
+    if(effect)
+      EffectCall(this, effect, "Reset");
+
+    bar->Update(process * 100 / maxTime, false);
+    process--;
+
+    if(enemycnt < alliescnt)
+    {
+      def_process = 1;
+      status = 3;
+    }
+    else if(process <= 0)
+    {
+      SetController(GetOwner(attacker[0]), this);
+      return ReportAssaultTargetDestruction(pTarget, team, attacker);
+    }
+  }
+
+  //Ladung wird entschärft
+  else if(status == 3)
+  {
+    EffectVar(6, pTarget, iNr)->Update(def_process * 100 / DefuseTime(), false);
+
+    if(enemycnt < alliescnt)
+      def_process++;
+    else if(!alliescnt)
+    {
+      def_process = 0;
+      status = 2;
+      EffectVar(6, pTarget, iNr)->Update(0, true);
+      defender = [];
+    }
+
+    //Ladung wurde entschärft
+    if(def_process >= DefuseTime())
+    {
+      process = 0;
+      def_process = 0;
+      status = 0;
+      EffectVar(6, pTarget, iNr)->Update(0, true);
+
+      //Eventnachricht: Ladung entschärft, neue setzen
+      TeamEventInfo(iAttacker, Format("$TargetDefusedAttacker$", GetName(pTarget)), SM17);
+      //Eventnachricht: Ladung entschärft
+      TeamEventInfo(iDefender, Format("$TargetDefusedDefender$", GetName(pTarget)), SM16);
+
+      var assist = false;
+      for(var clonk in defender)
+      {
+        if(clonk)
+          if(assist)
+          {
+            //Punkte bei Belohnungssystem (Hilfe bei Sprengladungsentschärfung)
+            DoPlayerPoints(BonusPoints("ASTargetDefusedAssist"), RWDS_TeamPoints, GetOwner(clonk), clonk, IC15);
+          }
+          else
+          {
+            //Punkte bei Belohnungssystem (Sprengladungsentschärfung)
+            DoPlayerPoints(BonusPoints("ASTargetDefused"), RWDS_TeamPoints, GetOwner(clonk), clonk, IC15);
+          }
+        assist = true;
+      }
+
+      attacker = [];
+      defender = [];
+
+      bar->Update(0, true, true);
+      bar->SetIcon(0, SM16, 0, 0, 32);
+
+      Sound("AHBS_Defused.ogg", false, pTarget);
+    }
+  }
+
+  EffectVar(2, pTarget, iNr) = status;
+  EffectVar(3, pTarget, iNr) = process;		//Status
+  EffectVar(4, pTarget, iNr) = def_process;	//Entschärfung
+  EffectVar(8, pTarget, iNr) = attacker;
+  EffectVar(9, pTarget, iNr) = defender;
+}
+
+protected func FxIntAssaultTargetDamage(object pTarget, int iEffect, int iDamage)		{}
+protected func FxIntAssaultTargetStop(object pTarget, int iEffect, int iCause, bool fTemp)	{}
+
+/* Alarm-Effekt */
+
+protected func FxIntAlarmBlinkStart(object pTarget, int iNr)
+{
+  EffectVar(0, pTarget, iNr) = 18;
+  EffectVar(2, pTarget, iNr) = AddLight(300, RGB(220, 0, 0), pTarget);
+  SetVisibility(VIS_None, EffectVar(2, pTarget, iNr));
+}
+
+protected func FxIntAlarmBlinkTimer(object pTarget, int iNr, int iTime)
+{
+  var light = EffectVar(2, pTarget, iNr);
+
+  var effect = GetEffect("IntAssaultTarget", pTarget);
+  if(!effect)
+    return;
+
+  var process = EffectVar(3, pTarget, effect);
+  var status = EffectVar(2, pTarget, effect);
+  var maxTime = EffectVar(5, pTarget, effect);
+  if(status < 2)
+    return -1;
+
+  //Zeit abgelaufen?
+  if(iTime % EffectVar(0, pTarget, iNr))
+    return;
+
+  //Beep-Geräusch
+  var sound = EffectVar(1, pTarget, iNr) = !EffectVar(1, pTarget, iNr);
+  if(sound)
+  {
+    if(process > maxTime/3*2)
+      Sound("AHBS_Beep1.ogg", false, pTarget);
+    else if(Inside(process, maxTime/3, maxTime/3*2))
+    {
+      Sound("AHBS_Beep2.ogg", false, pTarget);
+      EffectVar(0, pTarget, iNr) = 9;
+    }
+    else if(process < maxTime/3)
+    {
+      Sound("AHBS_Beep3.ogg", false, pTarget);
+      EffectVar(0, pTarget, iNr) = 4;
+    }
+  }
+
+  //Alarmlicht-Blinken
+  if(GetVisibility(light) == VIS_None)
+    SetVisibility(VIS_All, light);
+  else
+    SetVisibility(VIS_None, light);
+}
+
+protected func FxIntAlarmBlinkStop(object pTarget, int iNr)
+{
+  if(EffectVar(2, pTarget, iNr))
+    RemoveObject(EffectVar(2, pTarget, iNr));
 }
 
 /* Ticketabzug-Effekt */
 
-static const GASS_TicketIdleTime = 40; //Zeit in Sekunden, die benötigt werden, damit ein Ticket verloren geht. (Standardeinstellung)
-static const GASS_TicketCooldown = 20; //Zeit in Sekunden, die benötigt werden, damit nach letztem verursachten Schaden der Ticketabzug-Timer beginnt
+static const GASS_TicketIdleTime = 120;	//Zeit in Sekunden, bis bei aktivem Ticketabzug-Timer ein Ticket verloren geht
+static const GASS_TicketCooldown = 300; //Zeit in Sekunden, bis der Ticketabzug-Timer beginnt
 
 protected func FxTicketSubtractionStart(object pTarget, int iEffect)
 { 
@@ -263,11 +587,11 @@ protected func FxTicketSubtractionTimer(object pTarget, int iEffect)
         {
           var cnt = GetTeamPlayerCount(iAttacker);
           for(var i = 0; i < cnt; i++)
-            //Eventnachricht: Hinweis auf Ticketverlust an Angreifer
+            //Eventnachricht: Ticketverlust
             EventInfo4K(1+GetTeamMemberByIndex(iAttacker, i), "$TicketLossAttacker$", GetID(), 0, 0, 0, "Alarm.ogg");
 
           for(var i = 0, cnt = GetTeamPlayerCount(iDefender); i < cnt; i++)
-            //Eventnachricht: Hinweis auf Ticketverlust an Verteidiger
+            //Eventnachricht: Ticketverlust
             EventInfo4K(1+GetTeamMemberByIndex(iDefender, i), "$TicketLossDefender$", GetID(), 0, 0, 0, "Info.ogg");
         }
 
@@ -283,11 +607,11 @@ protected func FxTicketSubtractionTimer(object pTarget, int iEffect)
       EffectVar(1, pTarget, iEffect) = true;
       var cnt = GetTeamPlayerCount(iAttacker);
       for(var i = 0; i < cnt; i++)
-        //Eventnachricht: Warnung vor Ticketverlust an Angreifer
+        //Eventnachricht: Warnung vor Ticketverlust
         EventInfo4K(1+GetTeamMemberByIndex(iAttacker, i), "$TicketLossWarningAttacker$", GetID(), 0, 0, 0, "Info.ogg");
 
       for(var i = 0, cnt = GetTeamPlayerCount(iDefender); i < cnt; i++)
-        //Eventnachricht: Warnung vor Ticketverlust an Verteidiger
+        //Eventnachricht: Hinweis auf Ticketverlust
         EventInfo4K(1+GetTeamMemberByIndex(iDefender, i), "$TicketLossWarningDefender$", GetID(), 0, 0, 0, "Info.ogg");
     }
   }
@@ -299,7 +623,7 @@ protected func FxTicketSubtractionReset(object pTarget, int iEffect)
 {
   EffectVar(1, pTarget, iEffect) = false;
   EffectVar(0, pTarget, iEffect) = GASS_TicketCooldown;
-  
+
   EffectVar(2, pTarget, iEffect) = iTicketSubtrTime;
   if(!EffectVar(2, pTarget, iEffect))
     EffectVar(2, pTarget, iEffect) = GASS_TicketIdleTime;
@@ -335,6 +659,7 @@ public func RelaunchPlayer(int iPlr, pClonk, int iKiller)
     return;
 
   var index = GASS_Spawn_Att;
+
   //Verteidiger?
   if(GetPlayerTeam(iPlr) == iDefender)
     index = GASS_Spawn_Def;
@@ -382,8 +707,6 @@ public func RelaunchPlayer(int iPlr, pClonk, int iKiller)
   else
     var target_index = GetLength(aTargets[iDefender])-1;
 
-  //var rand = Random(GetLength(aSpawns[target_index][index]));
-  //SetPosition(aSpawns[target_index][index][rand][0], aSpawns[target_index][index][rand][1]-10, tim);
   var x, y;
   GetBestSpawnpoint(aSpawns[target_index][index], iPlr, x, y);
   SetPosition(x, y-10, tim);
@@ -415,7 +738,7 @@ protected func WaitForJoin(int iPlr)
     RemoveEffect("Spawn", GetCrew(iPlr));
   }
 
-  //Alle anderen Angreifer sind tot -> verloren!
+  //Alle anderen Angreifer sind eliminiert: Verlieren
   var alive = false;
   for(var obj in FindObjects(Find_Func("IsClonk")))
   {
@@ -445,7 +768,7 @@ public func GetRespawnPoint(int &iX, int &iY, int iTeam)
   if(ObjectCount2(Find_InArray(aTargets[iDefender])))
     target = GetNextTarget();
 
-  //Kein Ziel? Einfach 0 zurückgeben
+  //Kein Ziel? 0 zurückgeben
   if(!aTargets[iDefender][target])
     return;
 
@@ -460,7 +783,7 @@ public func TicketsLow(int iRemaining, int iTeam, bool fExclude)
 {
   for(var i = 0; i < GetPlayerCount(); i++)
     if((!fExclude && GetPlayerTeam(GetPlayerByIndex(i)) == iTeam) || (fExclude && GetPlayerTeam(GetPlayerByIndex(i)) != iTeam))
-      //Eventnachricht: Warnung über niedrige Ticketzahl an Angreifer
+      //Eventnachricht: Hinweis auf niedrige Ticketzahl
       EventInfo4K(GetPlayerByIndex(i) + 1, Format("$MsgTicketsLow$", iRemaining), SM03, 0, 0, 0, "Alarm.ogg");
   return true;
 }
@@ -469,7 +792,7 @@ public func NoTickets(int iTeam, bool fExclude)
 {
   for(var i = 0; i < GetPlayerCount(); i++)
     if((!fExclude && GetPlayerTeam(GetPlayerByIndex(i)) == iTeam) || (fExclude && GetPlayerTeam(GetPlayerByIndex(i)) != iTeam))
-      //Eventnachricht: Hinweis auf Verlust aller Tickets an Verteidiger
+      //Eventnachricht: Hinweis auf aufgebrauchte Tickets
       EventInfo4K(GetPlayerByIndex(i) + 1, Format("$MsgNoTickets$"), SM03, 0, 0, 0, "Alarm.ogg");
   return true;
 }
@@ -523,6 +846,7 @@ public func UpdateScoreboard()
   var string = Format("<c %x>$Attackers$</c>", RGB(255, 255, 255));
   var color = RGB(255, 255, 255);
   var team = GetTeamByIndex();
+
   //Nur ein Angreiferteam
   if(GetTeamPlayerCount(iDefender) && GetActiveTeamCount() == 2)
   {
@@ -565,12 +889,22 @@ private func AddScoreboardTarget(object pTarget, int iRow)
   if(!pTarget)
     return;
   var effect = GetEffect("IntAssaultTarget", pTarget);
-  var percent = 100-GetDamage(pTarget)*100/EffectVar(0, pTarget, effect);
-  var color = InterpolateRGBa3(RGB(255, 255, 255), GetTeamColor(iDefender), percent, 100);
+  var status = EffectVar(2, pTarget, effect);
+  var color = GetTeamColor(iDefender);//InterpolateRGBa3(RGB(255, 255, 255), GetTeamColor(iDefender), percent, 100);
 
   SetScoreboardData(iRow+GASS_TargetRow, GASS_Icon, Format("{{%i}}", pTarget->~GetImitationID()));
   SetScoreboardData(iRow+GASS_TargetRow, GASS_Name, Format("<c %x>%s</c>", color, GetName(pTarget)));
-  SetScoreboardData(iRow+GASS_TargetRow, GASS_Count, Format("<c %x>%d%</c>", color, percent), percent + 50);
+
+  //Statusicon für Zielobjekt ermitteln
+  var icon = SM16;	//Keine Aktivität
+  if(status == 1)
+    icon = SM17;	//Ladung wird plaziert
+  else if(status == 2)
+    icon = SM18;	//Ladung plaziert
+  else if(status == 3)
+    icon = SM16;	//Ladung wird entschärft
+
+  SetScoreboardData(iRow+GASS_TargetRow, GASS_Count, Format("{{%i}}", icon), status + 50);
 }
 
 protected func FxIntGoalTimer()
@@ -614,16 +948,26 @@ private func IsFulfilled()
   }
 
   //Keine Angreifer übrig: Verteidiger gewinnen
-  else if(iAttacker != -1 && (!GetTeamPlayerCount(iAttacker) || (!TeamGetScore(iAttacker) && GetActiveTeamCount() < 2)))
+  else if(iAttacker != -1 && ((!GetTeamPlayerCount(iAttacker, true) && !TeamGetScore(iAttacker)) || !GetTeamPlayerCount(iAttacker)))
   {
-    //Angreifer eliminieren 
-    EliminateTeam(iAttacker);
+    var fEliminate = true;
 
-    //Nachricht über Gewinner
-    Message("@$DefendersWon$");
+    //Check nach noch laufenden Bombentimer 
+    for(var i = 0; i < GetLength(aTargets[iDefender]); i++)
+      if(EffectVar(2, aTargets[iDefender][i], GetEffect("IntAssaultTarget", aTargets[iDefender][i])))
+        fEliminate = false;
 
-    //Vorbei
-    won = true;
+    if(fEliminate)
+    {
+      //Angreifer eliminieren 
+      EliminateTeam(iAttacker);
+
+      //Nachricht über Gewinner
+      Message("@$DefendersWon$");
+
+      //Vorbei
+      won = true;
+    }
   }
 
   //Keine Verteidiger übrig: Angreifer gewinnen
@@ -653,4 +997,29 @@ private func IsFulfilled()
     RemoveAll(GOAL);
     return fulfilled = true;
   }
+}
+
+public func GetTeamPlayerCount(int iTeam, bool fAliveOnly)
+{
+  var count = 0;
+  for(var i = 0; i < GetPlayerCount(); i++)
+    if(GetPlayerTeam(GetPlayerByIndex(i)) == iTeam && GetPlayerName(GetPlayerByIndex(i)))
+    {
+      var pCrew, j = 0, fAlive = true;
+      if(fAliveOnly)
+      {
+        fAlive = false;
+        while(pCrew = GetCrew(GetPlayerByIndex(i), j))
+        {
+          ++j;
+          if(pCrew->~IsFakeDeath())  continue;
+          fAlive = true;
+          break;
+        }
+      }
+      if(fAlive)
+        count++;
+    }
+
+  return count;
 }

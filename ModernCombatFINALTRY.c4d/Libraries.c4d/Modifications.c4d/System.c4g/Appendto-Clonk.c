@@ -296,7 +296,7 @@ protected func DoPoints()
   if(!machinekill)
     if(killer < 0 || killer == GetOwner())
       //Punkte bei Belohnungssystem (Selbstmord)
-      DoPlayerPoints(SuicidePoints(), RWDS_MinusPoints, GetOwner(), this, IC07);
+      DoPlayerPoints(BonusPoints("Suicide"), RWDS_MinusPoints, GetOwner(), this, IC07);
   var aDoomBoom = GetAchievementExtra(AC15, killer);
   if(!aDoomBoom) aDoomBoom = CreateArray();
 
@@ -341,7 +341,7 @@ protected func DoPoints()
     DoAchievementProgress(1, AC37, killer);
   
     //Punkte bei Belohnungssystem (Kill)
-    DoPlayerPoints(KillPoints(), RWDS_BattlePoints, killer, GetCursor(killer), IC01);
+    DoPlayerPoints(BonusPoints("Kill"), RWDS_BattlePoints, killer, GetCursor(killer), IC01);
 
     //Achievements und Punkte für den Killer
     if(GetCursor(killer))
@@ -378,7 +378,7 @@ protected func DoPoints()
           if(GetOwner(pPilot) != GetOwner(pClonk))
           {
             //Punkte bei Belohnungssystem (Kill Assist aus Fahrzeug heraus)
-            DoPlayerPoints(AssistPoints(), RWDS_TeamPoints, GetOwner(pPilot), pPilot, IC02);
+            DoPlayerPoints(BonusPoints("Assist"), RWDS_TeamPoints, GetOwner(pPilot), pPilot, IC02);
 
             //Achievement-Fortschritt (Air Superiority)
             DoAchievementProgress(1,AC28,GetOwner(pPilot));
@@ -410,7 +410,7 @@ protected func DoPoints()
     if(assist != killer && GetPlayerName(assist))
     {
       //Punkte bei Belohnungssystem (Kill Assist)
-      DoPlayerPoints(AssistPoints(), RWDS_BattlePoints, assist, GetCursor(assist), IC02);
+      DoPlayerPoints(BonusPoints("Assist"), RWDS_BattlePoints, assist, GetCursor(assist), IC02);
       //Achievement-Fortschritt (Helping Hand)
       if(!Hostile(assist, killer)) DoAchievementProgress(1, AC01, assist);
     }
@@ -449,7 +449,7 @@ protected func DoPoints()
   //Teamkiller
   if(!Hostile(killer,GetOwner()) && killer != GetOwner() && !(killer < 0))
     //Punkte bei Belohnungssystem (Teamkill)
-    DoPlayerPoints(TeamkillPoints(), RWDS_MinusPoints, killer, GetCursor(killer), IC06);
+    DoPlayerPoints(BonusPoints("Teamkill"), RWDS_MinusPoints, killer, GetCursor(killer), IC06);
 
   //Punkte für Einräucherer/Blender
   var effectno;
