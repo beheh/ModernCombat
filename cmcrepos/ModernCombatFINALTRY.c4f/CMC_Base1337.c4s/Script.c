@@ -229,24 +229,6 @@ func CreateInterior()
   CreateObject(PTNK, 2210, 1120, -1)->AutoRespawn();
   CreateObject(PTNK, 3210, 1040, -1)->AutoRespawn();
 
-  //Selbstschussanlagen
-  aSelfDefense[0] = CreateObject(SEGU, 705, 1069, -1);
-    aSelfDefense[0]->Arm(MISA);
-    CreateObject(CONS, 925, 855, -1)->Set(aSelfDefense[0]);
-
-  aSelfDefense[1] = CreateObject(SEGU, 2960, 839, -1);
-    aSelfDefense[1]->Arm(MISA);
-    CreateObject(CONS, 3310, 920, -1)->Set(aSelfDefense[1]);
-
-  aSelfDefense[2] = CreateObject(SEGU, 3192, 690, -1);
-    aSelfDefense[2]->SetR(90);
-    aSelfDefense[2]->Arm(MISA);
-    CreateObject(CONS, 3435, 790, -1)->Set(aSelfDefense[2]);
-
-  aSelfDefense[3] = CreateObject(SEGU, 3785, 899, -1);
-    aSelfDefense[3]->Arm(MISA);
-    CreateObject(CONS, 3895, 850, -1)->Set(aSelfDefense[3]);
-
   //Sendemast
   var tower = CreateObject(AATR, 2115, 940, -1);
   tower->AddNode(1432, 635, 0, CreateObject(REHR, 1425, 660, -1));
@@ -403,9 +385,9 @@ func CreateDecoration()
   CreateObject(SCA1, 3500, 910, -1)->SetAction("Grenade");
 
   //Scheinwerfer
-  CreateObject(FLH2, 710, 640, -1)->SetRotation(-80);
-  CreateObject(FLH2, 730, 630, -1)->SetRotation(-30);
-  CreateObject(FLH2, 4130, 1000, -1)->SetRotation(-90);
+  CreateObject(FLGH, 710, 640, -1)->SetRotation(-80);
+  CreateObject(FLGH, 730, 630, -1)->SetRotation(-30);
+  CreateObject(FLGH, 4130, 1000, -1)->SetRotation(-90);
 
   //Regale
   CreateObject(FRAM, 3020, 1200, -1);
@@ -426,7 +408,6 @@ func CreateDecoration()
   CreateObject(ETLT, 2805, 1020, -1);
 
   //Glastische
-  CreateObject(GTBL, 3770, 1160, -1);
   CreateObject(GTBL, 3830, 1160, -1);
   CreateObject(GTBL, 3940, 1130, -1);
   CreateObject(GTBL, 4000, 1130, -1);
@@ -437,8 +418,6 @@ func CreateDecoration()
   CreateObject(BOTL, 3055, 940, -1);
   CreateObject(BOTL, 3060, 940, -1);
   CreateObject(BOTL, 3210, 1172, -1);
-  CreateObject(BOTL, 3765, 1148, -1);
-  CreateObject(BOTL, 3770, 1148, -1);
   CreateObject(BOTL, 3825, 1148, -1);
   CreateObject(BOTL, 3830, 1148, -1);
   CreateObject(BOTL, 3835, 1148, -1);
@@ -657,6 +636,24 @@ public func ChooserFinished()
     sign->SetPhase(2);
    }
 
+   //Selbstschussanlagen
+   aSelfDefense[0] = CreateObject(SEGU, 705, 1069, -1);
+   aSelfDefense[0]->Arm(MISA);
+   CreateObject(CONS, 925, 855, -1)->Set(aSelfDefense[0]);
+
+   aSelfDefense[1] = CreateObject(SEGU, 2960, 839, -1);
+   aSelfDefense[1]->Arm(MISA);
+   CreateObject(CONS, 3310, 920, -1)->Set(aSelfDefense[1]);
+
+   aSelfDefense[2] = CreateObject(SEGU, 3192, 690, -1);
+   aSelfDefense[2]->SetR(90);
+   aSelfDefense[2]->Arm(MISA);
+   CreateObject(CONS, 3435, 790, -1)->Set(aSelfDefense[2]);
+
+   aSelfDefense[3] = CreateObject(SEGU, 3785, 899, -1);
+   aSelfDefense[3]->Arm(MISA);
+   CreateObject(CONS, 3895, 850, -1)->Set(aSelfDefense[3]);
+
    //SSA Besitzer setzen
    if(aTeams[1] == true)
      aSelfDefense[0]->SetTeam(1);
@@ -680,15 +677,13 @@ public func ChooserFinished()
   if (FindObject(GASS))
   {
    //Zielobjekte
-   AddAssaultTarget(CMSN, 1960, 1060, 230, 2, "$Target2$", 0, [[[2400, 1050], [2330, 990], [2420, 1010]], [[940, 860], [1035, 900], [1200, 950]]]);
-   AddAssaultTarget(RADR, 2080, 940, 230, 2, "$Target1$", 1, [[[2400, 1050], [2330, 990], [2420, 1010]], [[940, 860], [1035, 900], [1200, 950]]]);
-   AddAssaultTarget(MVNT, 3000, 895, 230, 2, "$Target4$", 2, [[[3030, 1140], [3315, 1110], [3190, 1142]], [[940, 860], [1035, 900], [1200, 950]]]);
-   AddAssaultTarget(RADR, 3125, 750, 230, 2, "$Target1$", 3, [[[3030, 1140], [3315, 1110], [3190, 1142]], [[940, 860], [1035, 900], [1200, 950]]]);
-   AddAssaultTarget(CCP2, 3865, 1040, 230, 2, "$Target3$", 4, [[[4150, 1090], [3880, 1160], [3510, 1180]], [[940, 860], [1035, 900], [1200, 950]]]);
+   AddAssaultTarget(CMSN, 1960, 1060, 30*30, 2, "$Target2$", 0, [[[2400, 1050], [2420, 1010], [2540, 950]], [[940, 860], [1035, 900], [1200, 950]]]);
+   AddAssaultTarget(RADR, 2080, 940, 30*30, 2, "$Target1$", 1, [[[2400, 1050], [2420, 1010], [2540, 950]], [[940, 860], [1035, 900], [1200, 950]]]);
+   AddAssaultTarget(RADR, 3125, 750, 0, 2, "$Target1$", 2, [[[3030, 1140], [3315, 1110], [3190, 1143]], [[940, 860], [1035, 900], [1200, 950]]]);
+   AddAssaultTarget(CCP2, 3770, 1160, 0, 2, "$Target3$", 3, [[[4150, 1090], [3880, 1160], [3510, 1180]], [[940, 860], [1035, 900], [1200, 950]]]);
 
    //Ziele verbinden
    ConnectAssaultTargets([0, 1]);
-   ConnectAssaultTargets([2, 3]);
 
    //Grenzen setzen
    CreateObject(BRDR, 400, 0, -1)->Set(0);
@@ -762,6 +757,22 @@ public func ChooserFinished()
     sign->SetPhase(2);
    }
 
+   //Selbstschussanlagen
+   aSelfDefense[0] = CreateObject(SEGU, 705, 1069, -1);
+   aSelfDefense[0]->Arm(MISA);
+   CreateObject(CONS, 925, 855, -1)->Set(aSelfDefense[0]);
+
+   aSelfDefense[1] = CreateObject(SEGU, 2960, 839, -1);
+   aSelfDefense[1]->Arm(MISA);
+   CreateObject(CONS, 3310, 920, -1)->Set(aSelfDefense[1]);
+
+   aSelfDefense[2] = CreateObject(SEGU, 3192, 690, -1);
+   aSelfDefense[2]->SetR(90);
+   aSelfDefense[2]->Arm(MISA);
+
+   aSelfDefense[3] = CreateObject(SEGU, 3785, 899, -1);
+   aSelfDefense[3]->Arm(MISA);
+
    //SSA Besitzer setzen
    if(aTeams[1] == true)
      aSelfDefense[0]->SetTeam(1);
@@ -812,9 +823,14 @@ public func ChooserFinished()
    CreateObject(GNET, 3370, 1012, -1)->Set(0,-90,1);
    CreateObject(GNET, 3750, 832, -1)->Set(0,-90,1);
 
-   //Objekte entfernen
-   RemoveObject(aSelfDefense[0]);
-   RemoveObject(aSelfDefense[2]);
+   //Selbstschussanlagen
+   aSelfDefense[0] = CreateObject(SEGU, 2960, 839, -1);
+   aSelfDefense[0]->Arm(MISA);
+   CreateObject(CONS, 3310, 920, -1)->Set(aSelfDefense[0]);
+
+   aSelfDefense[1] = CreateObject(SEGU, 3785, 899, -1);
+   aSelfDefense[1]->Arm(MISA);
+   CreateObject(CONS, 3895, 850, -1)->Set(aSelfDefense[1]);
 
    //Patrouillenboot
    SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,2060,1229,-1),50*21);
@@ -823,6 +839,15 @@ public func ChooserFinished()
   //MR-Spielziel
   if (FindObject(GMNR))
   {
+   //Geldsäcke
+   AddMoneySpawn(2680, 950, [20]);
+   AddMoneySpawn(2850, 1190, [15]);
+   AddMoneySpawn(3015, 790, [15]);
+   AddMoneySpawn(3160, 1030, [15]);
+   AddMoneySpawn(3380, 920, [15]);
+   AddMoneySpawn(3380, 920, [15]);
+   AddMoneySpawn(3870, 1030, [20]);
+
    //Grenzen setzen
    CreateObject(BRDR, 1790, 0, -1)->Set(0);
    CreateObject(BRDR, 4230, 0, -1)->Set(1);
@@ -844,18 +869,14 @@ public func ChooserFinished()
    CreateObject(GNET, 3370, 1012, -1)->Set(0,-90,1);
    CreateObject(GNET, 3750, 832, -1)->Set(0,-90,1);
 
-   //Objekte entfernen
-   RemoveObject(aSelfDefense[0]);
-   RemoveObject(aSelfDefense[2]);
+   //Selbstschussanlagen
+   aSelfDefense[0] = CreateObject(SEGU, 2960, 839, -1);
+   aSelfDefense[0]->Arm(MISA);
+   CreateObject(CONS, 3310, 920, -1)->Set(aSelfDefense[0]);
 
-   //Geldsäcke
-   AddMoneySpawn(2680, 950, [20]);
-   AddMoneySpawn(2850, 1190, [15]);
-   AddMoneySpawn(3015, 790, [15]);
-   AddMoneySpawn(3160, 1030, [15]);
-   AddMoneySpawn(3380, 920, [15]);
-   AddMoneySpawn(3380, 920, [15]);
-   AddMoneySpawn(3870, 1030, [20]);
+   aSelfDefense[1] = CreateObject(SEGU, 3785, 899, -1);
+   aSelfDefense[1]->Arm(MISA);
+   CreateObject(CONS, 3895, 850, -1)->Set(aSelfDefense[1]);
 
    //Patrouillenboot
    SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,2060,1229,-1),50*21);
@@ -885,9 +906,14 @@ public func ChooserFinished()
    CreateObject(GNET, 3370, 1012, -1)->Set(0,-90,1);
    CreateObject(GNET, 3750, 832, -1)->Set(0,-90,1);
 
-   //Objekte entfernen
-   RemoveObject(aSelfDefense[0]);
-   RemoveObject(aSelfDefense[2]);
+   //Selbstschussanlagen
+   aSelfDefense[0] = CreateObject(SEGU, 2960, 839, -1);
+   aSelfDefense[0]->Arm(MISA);
+   CreateObject(CONS, 3310, 920, -1)->Set(aSelfDefense[0]);
+
+   aSelfDefense[1] = CreateObject(SEGU, 3785, 899, -1);
+   aSelfDefense[1]->Arm(MISA);
+   CreateObject(CONS, 3895, 850, -1)->Set(aSelfDefense[1]);
 
    //Patrouillenboot
    SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,2060,1229,-1),50*21);
@@ -913,14 +939,9 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
    }
   }
 
-  //Ziel 3 und 4
-  if (iIndex == 2 || iIndex == 3)
+  //Ziel 3
+  if (iIndex == 2)
   {
-   if(fConnectedDestroyed)
-   {
-    //Ticketabzug anpassen
-    SetTicketSubtractionTime(50);
-
     //Grenzen neu setzen
     RemoveAll(BRDR);
     CreateObject(BRDR, 400, 0, -1)->Set(0);
@@ -934,11 +955,10 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
     aSelfDefense[1]->DecoExplode(30);
     aSelfDefense[2]->Disarm();
     aSelfDefense[2]->DecoExplode(30);
-   }
   }
 
-  //Ziel 5
-  if (iIndex == 4)
+  //Ziel 4
+  if (iIndex == 3)
   {
    //Geschützstellung entfernen
    aStationary[2]->DecoExplode(30);

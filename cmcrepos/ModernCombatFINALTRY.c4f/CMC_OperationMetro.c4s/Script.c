@@ -671,18 +671,15 @@ public func ChooserFinished()
   if (FindObject(GASS))
   {
    //Zielobjekte
-   AddAssaultTarget(CMSN, 1900, 440, 230, 2, "$Target1$", 0, [[[2620, 440], [2460, 530], [2410, 580]], [[1020, 460], [1170, 300], [1290, 440]]]);
-   AddAssaultTarget(CMSN, 2570, 620, 230, 2, "$Target1$", 1, [[[3020, 460], [3160, 440], [3220, 440]], [[1800, 440], [1870, 390], [1590, 370]]]);
-   AddAssaultTarget(CMSN, 2670, 620, 230, 2, "$Target2$", 2, [[[3020, 460], [3160, 440], [3220, 440]], [[1800, 440], [1870, 390], [1590, 370]]]);
-   AddAssaultTarget(CMSN, 3680, 370, 230, 2, "$Target1$", 3, [[[4160, 440], [4220, 460], [4340, 460]], [[2780, 530], [2570, 440], [2620, 620]]]);
-   AddAssaultTarget(CMSN, 3800, 440, 230, 2, "$Target2$", 4, [[[4160, 440], [4220, 460], [4340, 460]], [[2780, 530], [2570, 440], [2620, 620]]]);
+   AddAssaultTarget(CMSN, 1900, 440, 30*30, 2, "$Target1$", 0, [[[2570, 440], [2440, 530], [2410, 580]], [[1170, 300], [1170, 440], [1290, 440]]]);
+   AddAssaultTarget(CMSN, 2570, 620, 30*30, 2, "$Target1$", 1, [[[3020, 460], [3160, 440], [3220, 440]], [[1800, 440], [1870, 390], [1590, 370]]]);
+   AddAssaultTarget(CMSN, 2670, 620, 30*30, 2, "$Target2$", 2, [[[3020, 460], [3160, 440], [3220, 440]], [[1800, 440], [1870, 390], [1590, 370]]]);
+   AddAssaultTarget(CMSN, 3680, 370, 30*30, 2, "$Target1$", 3, [[[4160, 440], [4220, 460], [4340, 460]], [[2780, 530], [2570, 440], [2620, 620]]]);
+   AddAssaultTarget(CMSN, 3800, 440, 30*30, 2, "$Target2$", 4, [[[4160, 440], [4220, 460], [4340, 460]], [[2780, 530], [2570, 440], [2620, 620]]]);
 
    //Ziele verbinden
    ConnectAssaultTargets([1, 2]);
    ConnectAssaultTargets([3, 4]);
-
-   //Ticketabzug anpassen
-   SetTicketSubtractionTime(35);
 
    //Grenzen setzen
    CreateObject(BRDR, 520, 0, -1)->Set(0);
@@ -831,9 +828,6 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
   //Ziel 1
   if (!iIndex)
   {
-   //Ticketabzug anpassen
-   SetTicketSubtractionTime(40);
-
    //Grenzen neu setzen
    RemoveAll(BRDR);
    CreateObject(BRDR, 520, 0, -1)->Set(0);
@@ -845,9 +839,6 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
   {
    if(fConnectedDestroyed)
    {
-    //Ticketabzug anpassen
-    SetTicketSubtractionTime(45);
-
     //Grenzen neu setzen
     RemoveAll(BRDR);
     CreateObject(BRDR, 1610, 0, -1)->Set(0);

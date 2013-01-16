@@ -379,11 +379,11 @@ public func ChooserFinished()
   if (FindObject(GASS))
   {
    //Zielobjekte
-   AddAssaultTarget(RADR, 1450, 640, 230, 2, "$Target1$", 0, [[[1730, 630], [1730, 730]], [[580, 290], [610, 350], [580, 490]]]);
-   AddAssaultTarget(CMSN, 1410, 740, 230, 2, "$Target2$", 1, [[[1730, 630], [1730, 730]], [[580, 290], [580, 350], [580, 490]]]);
-   AddAssaultTarget(CCP2, 2050, 760, 230, 2, "$Target3$", 2, [[[2210, 550], [2060, 470]], [[1210, 560], [1190, 730]]]);
-   AddAssaultTarget(GSTA, 2815, 750, 230, 2, "$Target4$", 3, [[[3080, 430], [3220, 600], [3130, 650]], [[1910, 580], [1855, 730], [1905, 450]]]);
-   AddAssaultTarget(LBPC, 2850, 570, 230, 2, "$Target5$", 4, [[[3080, 430], [3220, 600], [3130, 650]], [[1910, 580], [1855, 730], [1905, 450]]]);
+   AddAssaultTarget(RADR, 1450, 640, 30*30, 2, "$Target1$", 0, [[[1735, 630], [1820, 700], [1830, 590]], [[670, 350], [670, 490], [570, 490]]]);
+   AddAssaultTarget(CMSN, 1410, 740, 30*30, 2, "$Target2$", 1, [[[1735, 630], [1820, 700], [1830, 590]], [[670, 350], [670, 490], [570, 490]]]);
+   AddAssaultTarget(CCP2, 2050, 760, 0, 2, "$Target3$", 2, [[[2380, 560], [2420, 670], [2555, 600]], [[1185, 730], [1215, 560], [1310, 760]]]);
+   AddAssaultTarget(GSTA, 2815, 750, 30*30, 2, "$Target4$", 3, [[[3080, 430], [3220, 600], [3130, 650]], [[1910, 580], [1855, 730], [1905, 450]]]);
+   AddAssaultTarget(LBPC, 2745, 570, 30*30, 2, "$Target5$", 4, [[[3080, 430], [3220, 600], [3130, 650]], [[1910, 580], [1855, 730], [1905, 450]]]);
 
    //Ziele verbinden
    ConnectAssaultTargets([0, 1]);
@@ -391,17 +391,7 @@ public func ChooserFinished()
 
    //Grenzen setzen
    CreateObject(BRDR, 230, 0, -1)->Set(0,1);
-   CreateObject(BRDR, 1820, 0, -1)->Set(1,1);
-
-   //Helikopter und Hinweisschild
-   if(!FindObject(NOHC))
-   {
-    SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,2895,410,-1),50*21);
-
-    var sign = CreateObject(SGNP, 2925, 440, -1);
-    sign->SetPhase(2);
-    sign->SetMode(1);
-   }
+   CreateObject(BRDR, 1870, 0, -1)->Set(1,1);
 
    //Objekte entfernen
    RemoveObject(FindObject2(Find_ID(VGMN),Find_InRect(2810, 520, 50, 100)));
@@ -478,7 +468,7 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
     //Grenze neu setzen
     RemoveAll(BRDR);
     CreateObject(BRDR, 510, 0, -1)->Set(0,1);
-    CreateObject(BRDR, 2430, 0, -1)->Set(1,1);
+    CreateObject(BRDR, 2670, 0, -1)->Set(1,1);
 
     //Lampen deaktivieren
     aLamp[00]->EMPShock();
@@ -491,9 +481,6 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
   //Ziel 3
   if(iIndex == 2)
   {
-   //Ticketabzug anpassen
-   SetTicketSubtractionTime(45);
-
    //Grenzen neu setzen
    RemoveAll(BRDR);
    CreateObject(BRDR, 1250, 0, -1)->Set(0,1);
