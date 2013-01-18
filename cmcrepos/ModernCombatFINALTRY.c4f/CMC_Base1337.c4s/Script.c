@@ -188,8 +188,8 @@ func CreateInterior()
   CreateObject(_HBR, 1660, 1182, -1);
   CreateObject(_HBR, 1904, 1072, -1);
   CreateObject(_HBR, 2894, 812, -1);
-  CreateObject(_HBR, 3617, 1174, -1);
-  CreateObject(_HBR, 3617, 1182, -1);
+  CreateObject(_HBR, 3617, 1174, -1)->SetIrreparable();
+  CreateObject(_HBR, 3617, 1182, -1)->SetIrreparable();
 
   //Container
   CreateObject(CON1, 550, 1200, -1);
