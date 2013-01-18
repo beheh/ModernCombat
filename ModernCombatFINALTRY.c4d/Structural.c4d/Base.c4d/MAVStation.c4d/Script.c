@@ -129,7 +129,7 @@ public func FxActivityTimer(object pTarget, int iEffectNumber, int iEffectTime)
     //Aktivität einstellen
     RemoveEffect("Activity", this);
 
-    if(controller)
+    if(controller && GetOCF(controller) & OCF_Alive)
     {
       controller->SetHUDTarget(0);
       controller->~ShowCH();
