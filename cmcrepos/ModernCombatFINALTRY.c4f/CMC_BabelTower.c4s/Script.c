@@ -5,8 +5,9 @@
 
 static aFlag,aSelfDefense;
 
-public func SpecificEquipment()	{return [[JTPK, 1]];}	//Zusatzausrüstung: Jetpack
-func RecommendedGoals()		{return [GOCC];}	//Spielzielempfehlung
+public func SpecificEquipment()		{return [[JTPK, 1]];}	//Zusatzausrüstung: Jetpack
+public func RecommendedGoals()		{return [GOCC];}	//Spielzielempfehlung
+public func AssaultDefenderTeam()	{return 2;}		//Verteidigerteam bei Assault
 
 
 /* OP Flaggenanordnung */

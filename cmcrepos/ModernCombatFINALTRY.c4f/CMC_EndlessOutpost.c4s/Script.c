@@ -5,7 +5,8 @@
 
 static aFlag,aStationary,aDoor,aSelfDefense,aLamp;
 
-func RecommendedGoals()	{return [GASS];}	//Spielzielempfehlung
+func RecommendedGoals()			{return [GASS];}	//Spielzielempfehlung
+public func AssaultDefenderTeam()	{return 2;}		//Verteidigerteam bei Assault
 
 
 /* Initialisierung */
