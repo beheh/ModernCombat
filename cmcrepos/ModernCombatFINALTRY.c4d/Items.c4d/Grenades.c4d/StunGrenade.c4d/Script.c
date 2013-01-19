@@ -5,7 +5,7 @@
 
 local FadingOut;
 
-public func Color()		{return RGB(0,128,255);}	//Farbe des Rauchs
+public func Color()		{return RGB(0,128,255);}	//Farbe
 public func ContainedDamage()	{return 20;}			//Schaden bei Detonation innerhalb eines Objekts
 
 public func IsFadingOut()	{return FadingOut;}
