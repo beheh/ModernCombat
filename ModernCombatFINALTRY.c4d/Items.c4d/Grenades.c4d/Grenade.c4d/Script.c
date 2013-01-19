@@ -19,7 +19,7 @@ public func NoArenaRemove()	{return IsFusing();}
 public func LockInventory()	{return !IsFusing();}
 
 public func DoSmoke()		{return true;}		//Granate erzeugt im Flug Rauch
-public func Color()		{return 0;}		//Farbe des Rauchs
+public func Color()		{return 0;}		//Farbe
 public func FuseTime()		{return 3*35;}		//Zeit bis zur Zündung
 public func ThrowSpeed()	{return 60;}		//Wurfgeschwindigkeit
 public func ThrowDelay()	{return 20;}		//Zeit, bis erneut geworfen werden kann

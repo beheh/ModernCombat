@@ -5,7 +5,7 @@
 
 local time;
 
-public func Color()		{return RGB(128,255,0);}	//Farbe des Rauchs
+public func Color()		{return RGB(128,255,0);}	//Farbe
 public func FuseTime()		{return 2*35;}			//Zeit bis zur Zündung
 public func ContainedDamage()	{return 20;}			//Schaden bei Detonation innerhalb eines Objekts
 

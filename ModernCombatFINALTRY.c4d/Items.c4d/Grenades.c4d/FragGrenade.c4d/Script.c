@@ -3,7 +3,7 @@
 #strict 2
 #include NADE
 
-public func Color()		{return RGB(255,255,0);}	//Farbe des Rauchs
+public func Color()		{return RGB(255,255,0);}	//Farbe
 public func ContainedDamage()	{return 120;}			//Schaden bei Detonation innerhalb eines Objekts
 
 

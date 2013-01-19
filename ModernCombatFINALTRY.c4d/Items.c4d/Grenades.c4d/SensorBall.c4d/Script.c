@@ -5,15 +5,16 @@
 
 local active, rt_defusecnt;
 
-public func DoSmoke()		{return false;}		//Granate erzeugt im Flug keinen Rauch
-public func FuseTime()		{return 2*30;}		//Zeit bis zur Zündung
-public func ThrowSpeed()	{return 65;}		//Wurfgeschwindigkeit
-public func MaxDamage()		{return 20;}		//Benötigter Schaden, um die Granate zu zerstören
-public func ContainedDamage()	{return 0;}		//Schaden bei Detonation innerhalb eines Objekts
+public func DoSmoke()		{return false;}			//Granate erzeugt im Flug keinen Rauch
+public func Color()		{return RGBa(255,255,255,0);}	//Farbe
+public func FuseTime()		{return 2*30;}			//Zeit bis zur Zündung
+public func ThrowSpeed()	{return 65;}			//Wurfgeschwindigkeit
+public func MaxDamage()		{return 20;}			//Benötigter Schaden, um die Granate zu zerstören
+public func ContainedDamage()	{return 0;}			//Schaden bei Detonation innerhalb eines Objekts
 
-public func IsActive()		{return active;}	//Aktivität
-public func IsDetectable()	{return false;}		//Kann von anderen Sensorbällen nicht erkannt werden
-public func SensorDistance()	{return 190;}		//Reichweite des Sensors
+public func IsActive()		{return active;}		//Aktivität
+public func IsDetectable()	{return false;}			//Kann von anderen Sensorbällen nicht erkannt werden
+public func SensorDistance()	{return 190;}			//Reichweite des Sensors
 
 public func IsDefusable()	{return active;}
 public func LimitationCount()	{return 2;}
