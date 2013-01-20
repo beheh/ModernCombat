@@ -763,28 +763,23 @@ public func ChooserFinished()
    aSelfDefense[0]->Arm(MISA);
    CreateObject(CONS, 925, 855, -1)->Set(aSelfDefense[0]);
 
-   aSelfDefense[1] = CreateObject(SEGU, 2960, 839, -1);
+   aSelfDefense[1] = CreateObject(SEGU, 3192, 690, -1);
+   aSelfDefense[1]->SetR(90);
    aSelfDefense[1]->Arm(MISA);
-   CreateObject(CONS, 3310, 920, -1)->Set(aSelfDefense[1]);
 
-   aSelfDefense[2] = CreateObject(SEGU, 3192, 690, -1);
-   aSelfDefense[2]->SetR(90);
+   aSelfDefense[2] = CreateObject(SEGU, 3785, 899, -1);
    aSelfDefense[2]->Arm(MISA);
-
-   aSelfDefense[3] = CreateObject(SEGU, 3785, 899, -1);
-   aSelfDefense[3]->Arm(MISA);
 
    //SSA Besitzer setzen
    if(aTeams[1] == true)
      aSelfDefense[0]->SetTeam(1);
    if(aTeams[2] == true)
-     {aSelfDefense[1]->SetTeam(2); aSelfDefense[2]->SetTeam(2); aSelfDefense[3]->SetTeam(2);}
+     {aSelfDefense[1]->SetTeam(2); aSelfDefense[2]->SetTeam(2);}
 
    //SSA aktivieren
    aSelfDefense[0]->TurnOn();
    aSelfDefense[1]->TurnOn();
    aSelfDefense[2]->TurnOn();
-   aSelfDefense[3]->TurnOn();
 
    //Patrouillenboote
    SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,490,1229,-1),50*21);
@@ -960,8 +955,6 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
     //SSA zerstören
     aSelfDefense[1]->Disarm();
     aSelfDefense[1]->DecoExplode(30);
-    aSelfDefense[2]->Disarm();
-    aSelfDefense[2]->DecoExplode(30);
   }
 
   //Ziel 4
@@ -971,8 +964,8 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
    aStationary[2]->DecoExplode(30);
 
    //SSA zerstören
-   aSelfDefense[3]->Disarm();
-   aSelfDefense[3]->DecoExplode(30);
+   aSelfDefense[2]->Disarm();
+   aSelfDefense[2]->DecoExplode(30);
 
    //Rauch
    CreateParticle("GunSmoke",3865,780,0,-10,300,1);
