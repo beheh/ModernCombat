@@ -8,7 +8,7 @@ public func Activate(object pActivator)
   for (var c4 in GetC4())
   {
     SetController(GetOwner(pActivator), c4);
-    ScheduleCall(c4, "Trigger", 36);
+    ScheduleCall(c4, "Trigger", Max(ObjectDistance(c4) / 20, 1));
   }
 
   //Effekte
