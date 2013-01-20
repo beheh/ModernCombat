@@ -1033,3 +1033,40 @@ public func GetTeamPlayerCount(int iTeam, bool fAliveOnly)
 
   return count;
 }
+
+global func CreateTeamBorder(int iDefenderTeam, int iX, int iY, int iDir, bool fCreateBorderObject, int iTime)
+{
+  //Wartezeit übernehmen oder Standard setzen
+  if(iTime <= 0) iTime = 30;
+  iTime *= 35;
+
+  if(fCreateBorderObject)
+    for(var i = 0; i < GetPlayerCount(); i++)
+      if(GetPlayerTeam(GetPlayerByIndex(i)) != iDefenderTeam)
+        //Eventnachricht: Bereitmachen
+        EventInfo4K(GetPlayerByIndex(i) + 1, "$MsgRegroup$", GetID(), 0, 0, 0, "Info.ogg");
+      else
+        //Eventnachricht: Zurückfallen
+        EventInfo4K(GetPlayerByIndex(i) + 1, "$MsgFallBack$", GetID(), 0, 0, 0, "Alarm.ogg");
+
+  var border = CreateObject(BRDR, iX, iY, NO_OWNER);
+  border->Set(iDir, true, false, true, iDefenderTeam);
+
+  var effect = AddEffect("TeamBorder", border, 1, Max(1, iTime*fCreateBorderObject), 0, GASS);
+  EffectVar(0, border, effect) = iDefenderTeam;
+}
+
+public func FxTeamBorderTimer(object pTarget, int iEffectNumber, int iEffectTime)
+{
+  for(var i = 0; i < GetPlayerCount(); i++)
+    if(GetPlayerTeam(GetPlayerByIndex(i)) != EffectVar(0, pTarget, iEffectNumber))
+      //Eventnachricht: Vorrücken
+      EventInfo4K(GetPlayerByIndex(i) + 1, "$MsgForward$", GetID(), 0, 0, 0, "Info.ogg");
+    else
+      //Eventnachricht: Verteidigen
+      EventInfo4K(GetPlayerByIndex(i) + 1, "$MsgDefend$", GetID(), 0, 0, 0, "Info.ogg"); 
+
+  //Grenze und Effekt entfernen
+  RemoveEffect("TeamBorder", pTarget);
+  RemoveObject(pTarget);
+}
