@@ -933,6 +933,9 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
   {
    if(fConnectedDestroyed)
    {
+    //Teamgrenze setzen
+    CreateTeamBorder(AssaultDefenderTeam(),1300,0,1,1);
+
     //Rauch
     CreateParticle("GunSmoke",925,340,0,-10,350,1);
     Smoke(925, 340, 30);
@@ -959,11 +962,14 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
    }
   }
 
-  //Ziel 2
+  //Ziel 3
   if (iIndex == 2)
   {
    //Grenze setzen
    CreateObject(BRDR, 700, 0, -1)->Set(0,1);
+
+   //Teamgrenze setzen
+   CreateTeamBorder(AssaultDefenderTeam(),0,440,3,1);
 
    //Rauch
    CreateParticle("GunSmoke",1820,170,0,-10,200,1);
@@ -1007,12 +1013,15 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
    CreateObject(FAUD, 1890, 290, -1)->Set(3);
   }
 
-  //Ziel 3
+  //Ziel 4
   if (iIndex == 3)
   {
    //Grenze neu setzen
    RemoveAll(BRDR);
-   CreateObject(BRDR, 960, 0, -1)->Set(0,1);
+   CreateObject(BRDR, 1890, 0, -1)->Set(0,1);
+
+   //Teamgrenze setzen
+   CreateTeamBorder(AssaultDefenderTeam(),2990,0,1,1);
 
    //Rauch
    CreateParticle("GunSmoke",1430,435,0,-10,350,1);
@@ -1045,7 +1054,7 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
    CreateObject(FAUD, 1860, 460, -1)->Set(3);
   }
 
-  //Ziel 4
+  //Ziel 5
   if (iIndex == 4)
   {
    //Risse
@@ -1065,7 +1074,7 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
    Smoke(2180, 490, 50);
   }
 
-  //Ziel 5
+  //Ziel 6
   if (iIndex == 5)
   {
    //Risse
@@ -1083,7 +1092,7 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
    Smoke(2200, 305, 50);
   }
 
-  //Ziel 6
+  //Ziel 7
   if (iIndex == 6)
   {
    //Risse
@@ -1101,7 +1110,7 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
    Smoke(2355, 210, 50);
   }
 
-  //Ziel 7
+  //Ziel 8
   if (iIndex == 7)
   {
    //Risse
@@ -1119,7 +1128,7 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
    Smoke(2440, 310, 50);
   }
 
-  //Ziel 8
+  //Ziel 9
   if (iIndex == 8)
   {
    //Risse

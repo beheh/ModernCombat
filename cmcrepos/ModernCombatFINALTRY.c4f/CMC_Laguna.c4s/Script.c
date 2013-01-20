@@ -471,6 +471,9 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
     CreateObject(BRDR, 510, 0, -1)->Set(0,1);
     CreateObject(BRDR, 2670, 0, -1)->Set(1,1);
 
+    //Teamgrenze setzen
+    CreateTeamBorder(AssaultDefenderTeam(),1620,0,1,1);
+
     //Lampen deaktivieren
     aLamp[00]->EMPShock();
     aLamp[01]->EMPShock();
@@ -485,6 +488,9 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
    //Grenzen neu setzen
    RemoveAll(BRDR);
    CreateObject(BRDR, 1250, 0, -1)->Set(0,1);
+
+   //Teamgrenze setzen
+   CreateTeamBorder(AssaultDefenderTeam(),2290,0,1,1);
 
    //Artillerie entfernen
    aArtillery[0]->DecoExplode(45);

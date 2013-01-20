@@ -1083,6 +1083,9 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
    CreateObject(BRDR, 440, 0, -1)->Set(0,1);
    CreateObject(BRDR, 3200, 0, -1)->Set(1,1);
 
+   //Teamgrenze setzen
+   CreateTeamBorder(AssaultDefenderTeam(),1880,0,1,1);
+
    //SSA zerstören
    aSelfDefense[0]->Disarm();
    aSelfDefense[0]->DecoExplode(30);
@@ -1105,6 +1108,9 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
   //Ziel 2
   if (iIndex == 1)
   {
+   //Teamgrenze setzen
+   CreateTeamBorder(AssaultDefenderTeam(),2990,0,1,1);
+
    //Grenzen neu setzen
    RemoveAll(BRDR);
    CreateObject(BRDR, 1560, 0, -1)->Set(0,1);
@@ -1127,6 +1133,9 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
    CreateObject(BRDR, 2600, 0, -1)->Set(0,1);
    CreateObject(BRDR, 5140, 0, -1)->Set(1,1);
 
+   //Teamgrenze setzen
+   CreateTeamBorder(AssaultDefenderTeam(),3860,0,1,1);
+
    //Geschützstellung entfernen
    aStationary[0]->DecoExplode(30);
 
@@ -1145,6 +1154,9 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
    CreateObject(BRDR, 3200, 0, -1)->Set(0,1);
    CreateObject(BRDR, 6210, 0, -1)->Set(1,1);
 
+   //Teamgrenze setzen
+   CreateTeamBorder(AssaultDefenderTeam(),4910,0,1,1);
+
    //Geschützstellung entfernen
    aStationary[1]->DecoExplode(30);
 
@@ -1160,6 +1172,9 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
    RemoveAll(BRDR);
    CreateObject(BRDR, 4190, 0, -1)->Set(0,1);
    CreateObject(BRDR, 6950, 0, -1)->Set(1,1);
+
+   //Teamgrenze setzen
+   CreateTeamBorder(AssaultDefenderTeam(),5860,0,1,1);
 
    //Spawnpoint entfernen
    RemoveObject(FindObject2(Find_ID(VSPW),Find_InRect(4699, 389, 2, 2)));
@@ -1183,6 +1198,9 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
    RemoveAll(BRDR);
    CreateObject(BRDR, 5040, 0, -1)->Set(0,1);
    CreateObject(BRDR, 7850, 0, -1)->Set(1,1);
+
+   //Teamgrenze setzen
+   CreateTeamBorder(AssaultDefenderTeam(),6560,0,1,1);
 
    //Lampe deaktivieren
    aLamp[14]->EMPShock();

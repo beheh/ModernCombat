@@ -787,6 +787,9 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
     //Grenze neu setzen
     RemoveAll(BRDR);
     CreateObject(BRDR, 0, 920, -1)->Set(2,1);
+
+    //Teamgrenze setzen
+    CreateTeamBorder(AssaultDefenderTeam(),0,1460,2,1);
    }
   }
 
@@ -802,6 +805,9 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
    //Grenze neu setzen
    RemoveAll(BRDR);
    CreateObject(BRDR, 0, 520, -1)->Set(2,1);
+
+   //Teamgrenze setzen
+   CreateTeamBorder(AssaultDefenderTeam(),0,1120,2,1);
   }
 }
 
