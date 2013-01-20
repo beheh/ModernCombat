@@ -4,22 +4,13 @@
 
 local x,y,xh,yh;
 local fAbyss;
-local fTeamAllow, iAllowedTeam;
 
 
 /* Einstellung */
 
-public func Set(int iDir, bool fKeepSpawns, bool fAbyssKill, bool fTeamCheck, int iTeam)
+public func Set(iDir, bool fKeepSpawns, bool fAbyssKill)
 {
   fAbyss = fAbyssKill;
-  
-  //Nur ein Team blocken?
-  if(fTeamCheck)
-  {
-    fTeamAllow = true;
-    iAllowedTeam = iTeam;
-  }
-  
   if(iDir == 0)
   {
     x  = -GetX();
@@ -61,7 +52,7 @@ private func Check()
   for(var clonk in FindObjects(Find_InRect(x, y, xh, yh), Find_OCF(OCF_CrewMember)))
     if(!GetEffect("Border", clonk))
     {
-      if((fTeamAllow && GetPlayerTeam(GetOwner(clonk)) == iAllowedTeam) || Contained(clonk) && (id = GetID(Contained(clonk))) && (id == TIM1 || id == TIM2 || id == FKDT))
+      if(Contained(clonk) && (id = GetID(Contained(clonk))) && (id == TIM1 || id == TIM2 || id == FKDT))
         continue;
       AddEffect("Border", clonk, 50, 35, this);
     }
