@@ -760,6 +760,12 @@ public func ControlThrowSingle()
 
 public func ControlThrowDouble()
 {
+  if(GetAction() == "Push" || IsRiding())
+  {
+    if(GetActionTarget() && GetActionTarget()->~ControlThrowDouble(this))
+      return true;
+  }
+
   if(InCloseCombat()) return ControlThrow(...);
   return _inherited(...);
 }

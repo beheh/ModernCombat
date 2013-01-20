@@ -1370,6 +1370,16 @@ public func ControlThrow(pByObj)
   }
 }
 
+public func ControlThrowDouble(pByObj)
+{
+  for(var pC4 in FindObjects(Find_Distance(50, 0, 0), Find_Func("IsC4Explosive")))
+  {
+    if(LocalN("pStickTo",pC4) != this || Hostile(GetOwner(pC4), GetOwner(this)))
+      continue;
+    ScheduleCall(pC4, "Trigger", 20);
+  }
+}
+
 public func ControlDig(pByObj)
 {
   if(pItem && GetActionTarget(0, pByObj) == this)

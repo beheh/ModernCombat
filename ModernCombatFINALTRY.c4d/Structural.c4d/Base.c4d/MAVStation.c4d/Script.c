@@ -460,6 +460,11 @@ protected func ControlThrow(object pByObj)
   return true;
 }
 
+func ControlThrowDouble(object pByObj)
+{
+  pMAV->~ControlThrowDouble(pByObj);
+}
+
 /* Modifikationsmenü */
 
 func AddItem(id iItem, object pUser)
