@@ -1033,3 +1033,37 @@ public func GetTeamPlayerCount(int iTeam, bool fAliveOnly)
 
   return count;
 }
+
+public func CreateTeamBorder(int iX, int iY, int iDir, int iTime, bool fCreateBorderObject)
+{
+  if(iTime <= 0) iTime = 30;
+  iTime *= 35;
+
+  for(var i = 0; i < GetPlayerCount(); i++)
+    if(GetPlayerTeam(GetPlayerByIndex(i)) == iAttacker)
+      //Eventnachricht: Neu formieren
+      EventInfo4K(GetPlayerByIndex(i) + 1, Format("$MsgRegroup$", iRemaining), SM03, 0, 0, 0);
+    else
+      //Eventnachricht: Zurückfallen
+      EventInfo4K(GetPlayerByIndex(i) + 1, Format("$MsgFallBack$", iRemaining), SM03, 0, 0, 0);
+
+  var border = CreateObject(BRDR, iX, iY, NO_OWNER);
+  border->Set(iDir, true, false, true, iDefender);
+
+  var effect = AddEffect("TeamBorder", this, 1, Max(1, iTime*(!fCreateBorderObject)), this);
+  EffectVar(0, this, effect) = border;
+}
+
+public func FxTeamBorderTimer(object pTarget, int iEffectNumber, int iEffectTime);
+{
+  for(var i = 0; i < GetPlayerCount(); i++)
+    if(GetPlayerTeam(GetPlayerByIndex(i)) == iAttacker)
+      //Eventnachricht: Vorwärts
+      EventInfo4K(GetPlayerByIndex(i) + 1, Format("$MsgForward$", iRemaining), SM03, 0, 0, 0);
+    else
+      //Eventnachricht: Verteidigen
+      EventInfo4K(GetPlayerByIndex(i) + 1, Format("$MsgDefend$", iRemaining), SM03, 0, 0, 0);
+
+  var border = EffectVar(0, this, iEffectNumber);
+  if(border != 0) RemoveObject(border);
+}
