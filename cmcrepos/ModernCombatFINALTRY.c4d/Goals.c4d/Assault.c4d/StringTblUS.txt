@@ -9,7 +9,7 @@ TicketLossAttacker=We <c ff0000>lost</c> some reinforcements! We need to attack 
 TargetArmedAttacker=Bomb has been placed on target <c ffff33>%s</c>, defend it!
 TargetDefusedAttacker=Bomb on target <c ff0000>%s</c> has been defused, we must place a new one!
 AttackerDominate=The attackers are dominating
-MsgFallBack=We have <c ffff33>taken</c> the position, get ready to advance!
+MsgRegroup=We have <c ffff33>taken</c> the position, get ready to advance!
 MsgForward=The next enemy position has been localised, <c ffff33>advance</c>!
 
 // Defenders
@@ -21,7 +21,7 @@ TicketLossDefender=The enemy <c ffff33>lost</c> reinforcements, keep it up!
 TargetArmedDefender=The enemy has placed a bomb on target <c ff0000>%s</c>, defuse it now!
 TargetDefusedDefender=The bomb on target <c ffff33>%s</c> has been defused, good work!
 DefenderDominate=The defenders are dominating
-MsgRegroup=Our position has been <c ff0000>overrun</c>, fall back!
+MsgFallBack=Our position has been <c ff0000>overrun</c>, fall back!
 MsgDefend=Enemy units are on the move to our location, <c ffff33>stand by</c>!
 
 // Other

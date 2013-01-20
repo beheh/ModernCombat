@@ -9,7 +9,7 @@ TicketLossAttacker=Wir haben an Verstärkung <c ff0000>verloren</c>! Wir müssen d
 TargetArmedAttacker=Sprengladung wurde an Zielobjekt <c ffff33>%s</c> platziert, verteidigt es!
 TargetDefusedAttacker=Sprengladung an Zielobjekt <c ff0000>%s</c> wurde entschärft, wir müssen eine neue setzen!
 AttackerDominate=Die Angreifer dominieren
-MsgFallBack=Wir haben die Stellung <c ffff33>eingenommen</c>, bereitmachen zum Vorrücken!
+MsgRegroup=Wir haben die Stellung <c ffff33>eingenommen</c>, bereitmachen zum Vorrücken!
 MsgForward=Die nächste feindliche Stellung wurde lokalisiert, <c ffff33>Ausrücken</c>!
 
 // Verteidiger
@@ -21,7 +21,7 @@ TicketLossDefender=Der Feind hat an Verstärkung <c ffff33>verloren</c>, nicht na
 TargetArmedDefender=Sprengladung wurde an Zielobjekt <c ff0000>%s</c> platziert, entschärft sie!
 TargetDefusedDefender=Sprengladung an Zielobjekt <c ffff33>%s</c> wurde entschärft, gute Arbeit!
 DefenderDominate=Die Verteidiger dominieren
-MsgRegroup=Unsere Stellung wurde <c ff0000>überrannt</c>, zieht euch zurück!
+MsgFallBack=Unsere Stellung wurde <c ff0000>überrannt</c>, zieht euch zurück!
 MsgDefend=Feindliche Einheiten nähern sich unserer Position, <c ffff33>bereithalten</c>!
 
 // Sonstiges
