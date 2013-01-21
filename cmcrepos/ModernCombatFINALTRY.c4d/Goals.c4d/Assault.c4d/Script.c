@@ -426,7 +426,7 @@ protected func FxIntAssaultTargetTimer(object pTarget, int iNr)
     }
     else if(process <= 0)
     {
-      SetController(GetOwner(attacker[0]), this);
+      SetController(GetOwner(attacker[0]), pTarget);
       return ReportAssaultTargetDestruction(pTarget, team, attacker);
     }
   }
