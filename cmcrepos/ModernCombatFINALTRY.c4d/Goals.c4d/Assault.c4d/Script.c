@@ -681,7 +681,7 @@ public func RelaunchPlayer(int iPlr, pClonk, int iKiller)
     {
       //Angreifer: Keine Tickets?
       if(!iTickets)
-        return ScheduleCall(this, "WaitForJoin", 5, 0, iPlr);
+        return AddEffect("WaitForJoin", this, 1, 5, this, 0, iPlr);
     }
     else
       //Verteidiger: Keine Ziele?
@@ -731,11 +731,20 @@ protected func FxIntAssaultSpawnTimer(object pTarget)
     RemoveObject(pTarget);
 }
 
-protected func WaitForJoin(int iPlr)
+protected func FxWaitForJoinStart(object pTarget, int iNr, iTemp, int iPlr)
 {
+	EffectVar(0, pTarget, iNr) = iPlr;
+}
+
+protected func FxWaitForJoinTimer(object pTarget, int iNr)
+{
+	var iPlr = EffectVar(0, pTarget, iNr);
   //Es gibt wieder Tickets!
   if(iTickets || !ObjectCount2(Find_InArray(aTargets[iDefender])))
-    return RelaunchPlayer(iPlr, GetCrew(iPlr), -2);
+  {
+  	RelaunchPlayer(iPlr, GetCrew(iPlr), -2);
+  	return -1;
+	}
 
   //Wegstecken falls nötig
   if(!Contained(GetCrew(iPlr)))
@@ -759,7 +768,7 @@ protected func WaitForJoin(int iPlr)
   }
 
   if(alive)
-    return ScheduleCall(this, "WaitForJoin", 5, 0, iPlr);
+    return;
   EliminatePlayer(iPlr);
 }
 
@@ -1023,6 +1032,14 @@ public func GetTeamPlayerCount(int iTeam, bool fAliveOnly)
         {
           ++j;
           if(pCrew->~IsFakeDeath())  continue;
+          
+          var fWait = false, k = 0, effect;
+          while(effect = GetEffect("WaitForJoin", this, k++))
+          	if(EffectVar(0, this, effect) == GetPlayerByIndex(i))
+          		fWait = true;
+          
+          if(fWait) continue;
+
           fAlive = true;
           break;
         }
