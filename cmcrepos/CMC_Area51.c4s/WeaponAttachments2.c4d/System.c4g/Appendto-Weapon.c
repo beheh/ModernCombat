@@ -150,3 +150,21 @@ func FxLaserDotStop()
   if(pBeam) RemoveObject(pBeam);
   if(pLaser) RemoveObject(pLaser);
 }
+
+global func SALaunchBullet(int iX, int iY, int iOwner, int iAngle, int iSpeed, int iDist, int iDmg, int iRemoveTime, id idType, bool fNoTrail)
+{
+  //ID des Projektils identifizieren
+  var ammoid = idType;
+  //Standard nutzen wenn nicht gefunden
+  if(!ammoid) ammoid = SHTX;
+
+  var iSize = 2;
+  var iTrail = iDmg*10;
+  if(fNoTrail) iTrail = -1;
+
+  //Projektil erstellen
+  var ammo = CreateObject(ammoid,iX,iY,iOwner);
+  ammo->CustomLaunch(iAngle,iSpeed,iDist,iSize,iTrail,iDmg,iRemoveTime);
+
+  return ammo;
+}

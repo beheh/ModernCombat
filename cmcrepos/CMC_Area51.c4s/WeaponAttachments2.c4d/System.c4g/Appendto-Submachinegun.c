@@ -3,6 +3,12 @@
 #strict 2
 #appendto SMGN
 
+func Initialize()
+{
+   iPermittedAtts = AT_ExtendedMag | AT_Laserpointer | AT_Silencer | AT_Foregrip;
+   return _inherited(...);
+}
+
 public func FMData1(int data)
 {
   if(data == FM_AmmoLoad)	return 30 + (iAttachment == AT_ExtendedMag)*6;	//Magazingröße
@@ -25,7 +31,7 @@ public func Fire1()
   user->WeaponEnd(x,y);
 
   //Kugel abfeuern
-  var ammo = SALaunchBullet(x,y,GetController(user),angle,270,550,GetFMData(FM_Damage));
+  var ammo = SALaunchBullet(x,y,GetController(user),angle,270,550,GetFMData(FM_Damage), 0, 0, iAttachment == AT_Silencer);
 
   //Effekte
   SABulletCasing(x/3,y/3,-dir*14,-(14),4);
@@ -36,5 +42,8 @@ public func Fire1()
     Echo("SMGN_Echo.ogg");
   }
   else
-    Sound("PSTL_TracerFire.ogg", 0, ammo);
+  {
+    Sound("WPN2_SilencedFire.ogg", 0, ammo, 100);
+    Smoke(x,y,1);
+  }
 }
