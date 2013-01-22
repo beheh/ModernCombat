@@ -117,6 +117,9 @@ public func SetAngle(int iAngle, int iAPrec)
 
 private func CreateTrail(int iSize, int iTrail)
 {
+	if(iTrail < 0)
+		return;
+
   pTrail = CreateObject(TRAI,0,0,-1);
   if(pTrail)
   {
@@ -498,51 +501,50 @@ public func FxHitCheckTimer(object target, int effect, int time)
 private func HitCheck(int r, int d)
 {
   // calculate length
-  var mx = +Sin(r,d),
-      my = -Cos(r,d),
-      ml = 0;
+  var mx = +Sin(r,100),
+      my = -Cos(r,100),
+      ml = d;
+  var sx = GetX(),
+  		sy = GetY();
 
-  while(++ml)
+	var g = GetGravity();
+	SetGravity(0);
+	var x = sx, y = sy, xdir = mx, ydir = my, fLandscape;
+	fLandscape = SimFlight(x, y, xdir, ydir, 0, 0, d/10);
+	SetGravity(g);
+	
+	if(x == sx && y == sy)
+	{
+		x = BoundBy(x+Sin(r, d), 0, LandscapeWidth());
+		y = BoundBy(y-Cos(r, d), 0, LandscapeHeight());
+	}
+
+  mx = AbsX(x);//+Sin(r,ml);
+  my = AbsY(y);//-Cos(r,ml);
+  
+  for(var pObj in FindObjects(Find_OnLine(0, 0, mx, my), 
+  														Find_NoContainer(), 
+  														Find_Or(Find_Func("IsBulletTarget", GetID(), this, shooter), Find_OCF(OCF_Alive)),
+  														Find_Func("CheckEnemy", this),
+  														Find_Not(Find_Func("HitExclude", this)),
+  														Find_Exclude(this), Find_Exclude(shooter),
+  														Sort_Distance()))
   {
-    if(GBackSolid(mx*ml/d,my*ml/d))
-      break;
-    if(ml>=d)
-      break;
-  }
-
-  mx = +Sin(r,ml);
-  my = -Cos(r,ml);
-
-  for(var i = 0; i < ml; i++ /*i=Min(ml,i++)*/)
-  {
-    var pObj;
-
-    for(pObj in FindObjects(Find_AtPoint(NotZero(mx*i/ml),my*i/ml),
-                         Find_Exclude(this),
-                         Find_Exclude(shooter),
-                         Find_NoContainer(),
-                         Find_Or(Find_Func("IsBulletTarget",GetID(),this,shooter), Find_OCF(OCF_Alive)),
-                         Find_Func("CheckEnemy",this),
-                         Find_Not(Find_Func("HitExclude",this))))
-    {
-      lx = mx*i/ml;
-      ly = my*i/ml;
-      
-      if(HitObject(pObj))
-      {
-        //lx = GetX(pObj);
-        //ly = GetY(pObj);//O_o
-        dst += i;
-        return i;
-      }
-    }
+  	if(HitObject(pObj))
+  	{
+  		var dist = Distance(sx, sy, GetX(pObj), GetY(pObj));
+  		dst += dist;
+  		return dist;
+  	}
   }
 
   lx = mx;
   ly = my;
 
-  if(ml < d)//Nicht in der Luft. :O
+  if(fLandscape)//Nicht in der Luft. :O
     HitLandscape(mx,my);
+  
+  ml = Distance(sx, sy, mx, my);
 
   dst += ml;
   return ml;
