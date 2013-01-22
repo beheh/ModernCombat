@@ -8,6 +8,10 @@ public func FMData1(int data)
   if(data == FM_AmmoLoad)	
     return _inherited(data) + (iAttachment == AT_ExtendedMag)*3;	//Magazingröße
 
+  if(data == FM_SpreadAdd)	return 50 - (iAttachment == AT_Foregrip)*5;	//Bei jedem Schuss hinzuzuaddierende Streuung
+  if(data == FM_StartSpread)	return 100 - (iAttachment == AT_Foregrip)*10;	//Bei Auswahl der Waffe gesetzte Streuung
+  if(data == FM_MaxSpread)	return 450 - (iAttachment == AT_Foregrip)*10;	//Maximaler Streuungswert
+
   return _inherited(data);
 }
 

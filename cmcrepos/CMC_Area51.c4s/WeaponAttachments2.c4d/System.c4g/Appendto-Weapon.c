@@ -5,11 +5,13 @@
 
 local iAttachment, pLaser, pBeam;
 
-static const AT_NoAttachment = 0;	//Kein Waffenaufsatz
-static const AT_ExtendedMag  = 1;	//Erweitertes Magazin
-static const AT_Bayonet      = 2;	//Bajonett
-static const AT_Laser        = 3;	//Laserpointer
-static const AT_Silencer     = 4;	//Schalldämpfer
+static const AT_NoAttachment	= 0;	//Kein Waffenaufsatz
+static const AT_ExtendedMag	= 1;	//Erweitertes Magazin
+static const AT_Bayonet		= 2;	//Bajonett
+static const AT_Laser		= 3;	//Laserpointer
+static const AT_Silencer	= 4;	//Schalldämpfer
+static const AT_Foregrip	= 5;	//Frontgriff
+
 
 /* Waffenaufsatz festlegen */
 
@@ -36,8 +38,7 @@ func FxLaserDotTimer(object pTarget, int iEffectNumber, int iEffectTime)
     if(pLaser) RemoveObject(pLaser);
     return;
   }
-  
-  
+
   if(iAttachment == AT_Laser)
   {
     var iAngle = EffectVar(1, user, GetEffect("ShowWeapon", user));
@@ -49,7 +50,7 @@ func FxLaserDotTimer(object pTarget, int iEffectNumber, int iEffectTime)
     user->WeaponEnd(xPos,yPos);
     xPos += GetX();
     yPos += GetY();
-    
+
     var x = GetX(), y = GetY(), xdir = Sin(iAngle, 30), ydir = Cos(iAngle, -30);
     var gravity = GetGravity();
 
@@ -76,7 +77,7 @@ func FxLaserDotTimer(object pTarget, int iEffectNumber, int iEffectTime)
     {
       if(!pLaser->Active())
         fStart = true;
-        
+
       x = GetX(pEnemy);
       y = GetY(pEnemy);
 
