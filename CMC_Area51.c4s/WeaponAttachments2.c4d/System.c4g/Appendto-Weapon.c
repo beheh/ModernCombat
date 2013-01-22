@@ -11,6 +11,7 @@ static const AT_Bayonet		= 2;	//Bajonett
 static const AT_Laser		= 3;	//Laserpointer
 static const AT_Silencer	= 4;	//Schalldämpfer
 static const AT_Foregrip	= 5;	//Frontgriff
+static const AT_Grenades     = 6; //Granatwerfer
 
 
 /* Waffenaufsatz festlegen */
@@ -18,6 +19,7 @@ static const AT_Foregrip	= 5;	//Frontgriff
 func SetAttachment(int iValue)
 {
   if(GetEffect("LaserDot", this)) RemoveEffect("LaserDot", this);
+  SetFireMode(1);
 
   iAttachment = iValue;
   if(iAttachment == AT_Laser) AddEffect("LaserDot", this, 1, 1, this);
