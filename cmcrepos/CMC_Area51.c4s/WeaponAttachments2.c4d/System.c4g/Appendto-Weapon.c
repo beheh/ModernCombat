@@ -12,6 +12,7 @@ static const AT_Laserpointer		     = 4;	//Laserpointer
 static const AT_Silencer	           = 8;	//Schalldämpfer
 static const AT_Foregrip	           = 16;	//Frontgriff
 static const AT_GrenadeLauncher      = 32; //Granatwerfer
+static const AT_TracerDart           = 64;
 
 
 /* Waffenaufsatz festlegen */
