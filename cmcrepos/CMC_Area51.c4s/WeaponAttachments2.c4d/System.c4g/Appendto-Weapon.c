@@ -18,7 +18,7 @@ static const AT_GrenadeLauncher      = 32; //Granatwerfer
 
 func SetAttachment(int iValue)
 {
-  if(!iPermittedAtts & iValue) return false;
+  if(!(iPermittedAtts & iValue)) return false;
 
   if(GetEffect("LaserDot", this)) RemoveEffect("LaserDot", this);
   SetFireMode(1);
@@ -143,4 +143,10 @@ func FxLaserDotTimer(object pTarget, int iEffectNumber, int iEffectTime)
   SetPosition(x, y, pLaser);
   if(fStart) pLaser->Start();
   }
+}
+
+func FxLaserDotStop()
+{
+  if(pBeam) RemoveObject(pBeam);
+  if(pLaser) RemoveObject(pLaser);
 }
