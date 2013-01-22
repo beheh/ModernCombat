@@ -3,21 +3,23 @@
 #strict 2
 #appendto WPN2
 
-local iAttachment, pLaser, pBeam;
+local iAttachment, iPermittedAtts, pLaser, pBeam;
 
 static const AT_NoAttachment	= 0;	//Kein Waffenaufsatz
-static const AT_ExtendedMag	= 1;	//Erweitertes Magazin
-static const AT_Bayonet		= 2;	//Bajonett
-static const AT_Laser		= 3;	//Laserpointer
-static const AT_Silencer	= 4;	//Schalldämpfer
-static const AT_Foregrip	= 5;	//Frontgriff
-static const AT_Grenades     = 6; //Granatwerfer
+static const AT_ExtendedMag   = 1;	//Erweitertes Magazin
+static const AT_Bayonet		    = 2;	//Bajonett
+static const AT_Laser		      = 4;	//Laserpointer
+static const AT_Silencer	    = 8;	//Schalldämpfer
+static const AT_Foregrip	    = 16;	//Frontgriff
+static const AT_Grenades      = 32; //Granatwerfer
 
 
 /* Waffenaufsatz festlegen */
 
 func SetAttachment(int iValue)
 {
+  if(!iPermittedAtts & iValue) return false;
+
   if(GetEffect("LaserDot", this)) RemoveEffect("LaserDot", this);
   SetFireMode(1);
 
@@ -25,6 +27,8 @@ func SetAttachment(int iValue)
   if(iAttachment == AT_Laser) AddEffect("LaserDot", this, 1, 1, this);
   
   if(Contained()) Contained()->~UpdateCharge();
+  
+  return true;
 }
 
 /* Laserpointer */

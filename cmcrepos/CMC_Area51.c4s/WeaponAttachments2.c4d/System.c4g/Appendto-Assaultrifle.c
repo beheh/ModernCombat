@@ -3,6 +3,8 @@
 #strict 2
 #appendto ASTR
 
+local iPermittedAtts = AT_ExtendedMag | AT_Bayonet | AT_Laser | AT_Silencer | AT_Foregrip | AT_Grenades;
+
 public func FMData1(int data)
 {
   if(data == FM_AmmoLoad)	
