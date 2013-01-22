@@ -2,7 +2,7 @@
 
 #strict 2
 
-local iTime, lx, ly, pTrail, iDamage,speed,max_dst,dst,fb;
+local iTime, lx, ly, pTrail, iDamage,speed,max_dst,dst,fb, fNoTrail;
 local shooter,wpnid; // Dingens/Clonk das den Schuss abgefeuert hat.
 
 func NoWarp()			{return true;}
@@ -45,6 +45,8 @@ public func Launch(int iAngle, int iSpeed, int iDist, int iSize, int iTrail, int
   {
     return LaunchFB(iAngle,iSpeed,iDist,iSize,iTrail,iDmg,iRemoveTime,...);
   }
+
+  if(fNoTrail) SetGraphics("Invisible");
 
   if(!iDmg)     iDamage = 3;
   else iDamage = iDmg;
@@ -569,7 +571,7 @@ public func GetKillIcon()
 
 public func BulletParticle()
 {
-  if(!Fast()) return;
+  if(!Fast() || fNoTrail) return;
   //if(!Random(25-Min(GetCon()/4,25))) return;
 
   var l = Distance(lx,ly)-20;//-hinten
@@ -617,6 +619,7 @@ public func IsSpecialAmmo()	{return true;}
 
 public func CustomLaunch(int iAngle, int iSpeed, int iDist, int iSize, int iTrail, int iDmg, int iRemoveTime)
 {
+  fNoTrail = (iTrail == -1);
   return Launch(iAngle,iSpeed,iDist,iSize,iTrail,iDmg,iRemoveTime);
 }
 
