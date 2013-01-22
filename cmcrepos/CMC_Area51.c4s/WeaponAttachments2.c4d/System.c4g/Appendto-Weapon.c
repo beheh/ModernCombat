@@ -19,17 +19,18 @@ static const AT_TracerDart           = 64;
 
 func SetAttachment(int iValue)
 {
-  if(!(iPermittedAtts & iValue)) return false;
+  if(!(iPermittedAtts & iValue)) return -1;
 
   if(GetEffect("LaserDot", this)) RemoveEffect("LaserDot", this);
   SetFireMode(1);
 
+  var iTemp = iAttachment;
   iAttachment = iValue;
   if(iAttachment == AT_Laserpointer) AddEffect("LaserDot", this, 1, 1, this);
   
   if(Contained()) Contained()->~UpdateCharge();
   
-  return true;
+  return iTemp;
 }
 
 /* Laserpointer */
