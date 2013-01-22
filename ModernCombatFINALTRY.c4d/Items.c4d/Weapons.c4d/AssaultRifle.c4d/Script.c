@@ -56,10 +56,10 @@ public func FMData1T1(int data)
 {
   if(data == FT_Name)		return "$Burst$";
 
-  if(data == FM_Recharge)	return 15;	//Zeit bis erneut geschossen werden kann
+  if(data == FM_Recharge)	return FMData1(data) + 2;	//Zeit bis erneut geschossen werden kann
 
-  if(data == FM_BurstAmount)	return 3;	//Anzahl Schussabrufe pro Burst
-  if(data == FM_BurstRecharge)	return 3;	//Zeit zwischen einzelnen Bursts
+  if(data == FM_BurstAmount)	return 3;			//Anzahl Schussabrufe pro Burst
+  if(data == FM_BurstRecharge)	return 3;			//Zeit zwischen einzelnen Bursts
 
   return FMData1(data);
 }
@@ -168,8 +168,6 @@ public func FMData2T2(int data)
 {
   if(data == FT_Name)		return "$Cluster$";
 
-  if(data == FM_Damage)		return 5;	//Schadenswert
-
   return FMData2(data);
 }
 
@@ -184,7 +182,7 @@ public func FMData2T3(int data)
 {
   if(data == FT_Name)		return "$Smoke$";
 
-  if(data == FM_Damage)		return 5;	//Schadenswert
+  if(data == FM_Damage)		return FMData2(data) + 10;	//Schadenswert
 
   return FMData2(data);
 }

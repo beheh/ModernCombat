@@ -22,18 +22,17 @@ public func FMData1(int data)
 {
   if(data == FM_Name)		return "$Missiles$";
 
-  if(data == FM_AmmoID)		return MIAM;
-  if(data == FM_AmmoLoad)	return 1;
+  if(data == FM_AmmoID)		return MIAM;	//ID der Munition
+  if(data == FM_AmmoLoad)	return 1;	//Magazingröße
 
-  if(data == FM_Reload)		return 400;
+  if(data == FM_Reload)		return 400;	//Zeit für Nachladen
+  if(data == FM_Recharge)	return 10;	//Zeit bis erneut geschossen werden kann
 
-  if(data == FM_Recharge)	return 10;
+  if(data == FM_Slot)		return 1;	//Slot des Feuermodus
 
-  if(data == FM_Slot)		return 1;
-
-  if(data == FM_SpreadAdd)	return 300;
-  if(data == FM_StartSpread)	return 100;
-  if(data == FM_MaxSpread)	return 400;
+  if(data == FM_SpreadAdd)	return 300;	//Bei jedem Schuss hinzuzuaddierende Streuung
+  if(data == FM_StartSpread)	return 100;	//Bei Auswahl der Waffe gesetzte Streuung
+  if(data == FM_MaxSpread)	return 400;	//Maximaler Streuungswert
 
   return Default(data);
 }
@@ -41,6 +40,7 @@ public func FMData1(int data)
 public func FMData1T1(int data)
 {
   if(data == FT_Name)		return "$Laser$";
+
   return FMData1(data);
 }
 
@@ -105,7 +105,4 @@ private func Reloaded(caller,slot,amount)
     PlayerMessage(GetOwner(Contained()), "$Reloaded$", Contained());
     Sound("JetReporting*.ogg",0,0,0,GetOwner(Contained())+1);
   }
-
-  //Callback
-  //OnReloaded(firemode,slot);
 }

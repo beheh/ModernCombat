@@ -14,15 +14,15 @@ public func NoWeaponChoice()	{return true;}
 
 public func FMData1(int data)
 {
-  if(data == FM_AmmoID)		return STAM;
-  if(data == FM_AmmoLoad)	return 9999;
+  if(data == FM_AmmoID)		return STAM;	//ID der Munition
+  if(data == FM_AmmoLoad)	return 9999;	//Magazingröße
 
-  if(data == FM_Reload)		return 2;
-  if(data == FM_Recharge)	return 5;
+  if(data == FM_Reload)		return 2;	//Zeit für Nachladen
+  if(data == FM_Recharge)	return 5;	//Zeit bis erneut geschossen werden kann
 
-  if(data == FM_Auto)		return 1;
+  if(data == FM_Auto)		return 1;	//Slot des Feuermodus
 
-  if(data == FM_Damage)		return 7;
+  if(data == FM_Damage)		return 7;	//Schadenswert
 
   return Default(data);
 }

@@ -21,21 +21,21 @@ public func FMData1(int data)
 {
   if(data == FM_Name)		return "$Bullets$";
 
-  if(data == FM_AmmoID)		return STAM;
-  if(data == FM_AmmoLoad)	return 100;
+  if(data == FM_AmmoID)		return STAM;	//ID der Munition
+  if(data == FM_AmmoLoad)	return 100;	//Magazingröße
 
-  if(data == FM_Reload)		return 200;
-  if(data == FM_Recharge)	return 6;
+  if(data == FM_Reload)		return 200;	//Zeit für Nachladen
+  if(data == FM_Recharge)	return 6;	//Zeit bis erneut geschossen werden kann
 
-  if(data == FM_Auto)		return true;
+  if(data == FM_Auto)		return true;	//Automatikfeuer
 
-  if(data == FM_Damage)		return 9;
+  if(data == FM_Damage)		return 9;	//Schadenswert
 
-  if(data == FM_Slot)		return 1;
+  if(data == FM_Slot)		return 1;	//Slot des Feuermodus
 
-  if(data == FM_SpreadAdd)	return 25;
-  if(data == FM_StartSpread)	return 100;
-  if(data == FM_MaxSpread)	return 400;
+  if(data == FM_SpreadAdd)	return 25;	//Bei jedem Schuss hinzuzuaddierende Streuung
+  if(data == FM_StartSpread)	return 100;	//Bei Auswahl der Waffe gesetzte Streuung
+  if(data == FM_MaxSpread)	return 400;	//Maximaler Streuungswert
 
   return Default(data);
 }
@@ -45,6 +45,7 @@ public func FMData1(int data)
 public func FMData1T1(int data)
 {
   if(data == FT_Name)		return "$Auto$";
+
   return FMData1(data);
 }
 
@@ -101,6 +102,6 @@ public func OnReload()
 public func StopAutoFire()
 {
   //Nur wenn er auch wirklich feuert
-  if (IsRecharging() && !IsReloading())
+  if(IsRecharging() && !IsReloading())
     return _inherited(...);
 }

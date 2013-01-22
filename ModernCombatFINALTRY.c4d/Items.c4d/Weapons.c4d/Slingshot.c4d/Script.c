@@ -77,8 +77,7 @@ public func FMData1T2(int data)
 {
   if(data == FT_Name)		return "$Cluster$";
 
-  if(data == FM_Damage)		return 5;	//Schadenswert
-
+  if(data == FM_Damage)		return FMData1(data) - 15;	//Schadenswert
   return FMData1(data);
 }
 
@@ -99,7 +98,7 @@ public func FMData1T3(int data)
 {
   if(data == FT_Name)		return "$Smoke$";
 
-  if(data == FM_Damage)		return 5;	//Schadenswert
+  if(data == FM_Damage)		return FMData1(data) - 15;	//Schadenswert
 
   return FMData1(data);
 }
