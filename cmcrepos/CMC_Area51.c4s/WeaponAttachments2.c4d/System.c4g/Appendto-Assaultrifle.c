@@ -22,3 +22,9 @@ public func GetMCData(int data)
   
   return _inherited(data);
 }
+
+public func FMData2(int data)
+{
+  if(iAttachment != AT_Grenades) return 0;
+  return _inherited(data);
+}
