@@ -52,6 +52,7 @@ public func FMData1(int data)
 public func FMData1T1(int data)
 {
   if(data == FT_Name)		return "$Optical$";
+
   return FMData1(data);
 }
 

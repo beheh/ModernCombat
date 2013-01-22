@@ -24,18 +24,17 @@ public func FMData1(int data)
 {
   if(data == FM_Name)		return "$Missiles$";
 
-  if(data == FM_AmmoID)		return MIAM;
-  if(data == FM_AmmoLoad)	return 1;
+  if(data == FM_AmmoID)		return MIAM;	//ID der Munition
+  if(data == FM_AmmoLoad)	return 1;	//Magazingröße
 
-  if(data == FM_Reload)		return 235;
+  if(data == FM_Reload)		return 235;	//Zeit für Nachladen
+  if(data == FM_Recharge)	return 10;	//Zeit bis erneut geschossen werden kann
 
-  if(data == FM_Recharge)	return 10;
+  if(data == FM_Slot)		return 1;	//Slot des Feuermodus
 
-  if(data == FM_Slot)		return 1;
-
-  if(data == FM_SpreadAdd)	return 300;
-  if(data == FM_StartSpread)	return 100;
-  if(data == FM_MaxSpread)	return 400;
+  if(data == FM_SpreadAdd)	return 300;	//Bei jedem Schuss hinzuzuaddierende Streuung
+  if(data == FM_StartSpread)	return 100;	//Bei Auswahl der Waffe gesetzte Streuung
+  if(data == FM_MaxSpread)	return 400;	//Maximaler Streuungswert
 
   return Default(data);
 }
@@ -43,6 +42,7 @@ public func FMData1(int data)
 public func FMData1T1(int data)
 {
   if(data == FT_Name)		return "$Optical$";
+
   return FMData1(data);
 }
 
@@ -121,7 +121,7 @@ private func Check()
 public func ControlDig(object pBy)
 {
   fView = !fView;
-  if (!fView)
+  if(!fView)
     SetPlrView(GetController(pBy), pBy);
   else
   {
@@ -140,6 +140,6 @@ public func OnEmpty()
 
 public func OnReload()
 {
-  if (!GetEffect("IntNoSound", this))
+  if(!GetEffect("IntNoSound", this))
     Sound("SATW_Reload.ogg", false, this);
 }

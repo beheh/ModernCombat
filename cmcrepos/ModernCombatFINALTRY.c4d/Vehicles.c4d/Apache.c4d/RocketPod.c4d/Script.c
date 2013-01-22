@@ -24,19 +24,19 @@ public func FMData1(int data)
 {
   if(data == FM_Name)		return "$Missiles$";
 
-  if(data == FM_AmmoID)		return MIAM;
-  if(data == FM_AmmoLoad)	return 4;
+  if(data == FM_AmmoID)		return MIAM;	//ID der Munition
+  if(data == FM_AmmoLoad)	return 4;	//Magazingröße
 
-  if(data == FM_Reload)		return 190;
+  if(data == FM_Reload)		return 190;	//Zeit für Nachladen
 
-  if(data == FM_BurstAmount)	return 6;
-  if(data == FM_BurstRecharge)	return 10;
+  if(data == FM_BurstAmount)	return 6;	//Anzahl Schussabrufe pro Burst
+  if(data == FM_BurstRecharge)	return 10;	//Zeit zwischen einzelnen Bursts
 
-  if(data == FM_Slot)		return 1;
+  if(data == FM_Slot)		return 1;	//Slot des Feuermodus
 
-  if(data == FM_SpreadAdd)	return 300;
-  if(data == FM_StartSpread)	return 100;
-  if(data == FM_MaxSpread)	return 400;
+  if(data == FM_SpreadAdd)	return 300;	//Bei jedem Schuss hinzuzuaddierende Streuung
+  if(data == FM_StartSpread)	return 100;	//Bei Auswahl der Waffe gesetzte Streuung
+  if(data == FM_MaxSpread)	return 400;	//Maximaler Streuungswert
 
   return Default(data);
 }
@@ -44,6 +44,7 @@ public func FMData1(int data)
 public func FMData1T1(int data)
 {
   if(data == FT_Name)		return "$Unguided$";
+
   return FMData1(data);
 }
 
@@ -124,8 +125,8 @@ private func Check()
 
   var pRocket;
   for (var i; i < GetLength(aRockets); i++)
-    if (pRocket = aRockets[i])
-	  break;
+    if(pRocket = aRockets[i])
+      break;
 
   if(Contained()->~IsThreat()) //Für Waffengeschütz
     if(pRocket && fView)
