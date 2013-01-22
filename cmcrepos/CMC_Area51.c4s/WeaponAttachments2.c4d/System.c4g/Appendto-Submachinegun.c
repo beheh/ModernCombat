@@ -5,7 +5,7 @@
 
 public func FMData1(int data)
 {
-  if(data == FM_AmmoLoad)	return 30 + (iAttachment == AT_ExtendedMag)*5;	//Magazingröße
+  if(data == FM_AmmoLoad)	return 30 + (iAttachment == AT_ExtendedMag)*6;	//Magazingröße
 
   return _inherited(data);
 }

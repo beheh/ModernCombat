@@ -5,11 +5,13 @@
 
 local iAttachment, pLaser, pBeam;
 
-static const AT_NoAttachment = 0; //Kein Attachment
-static const AT_ExtendedMag  = 1; //Erweitertes Magazin
-static const AT_Bayonet      = 2; //Bajonett
-static const AT_Laser        = 3; //Laser
-static const AT_Silencer     = 4; //Schalldämpfer
+static const AT_NoAttachment = 0;	//Kein Waffenaufsatz
+static const AT_ExtendedMag  = 1;	//Erweitertes Magazin
+static const AT_Bayonet      = 2;	//Bajonett
+static const AT_Laser        = 3;	//Laserpointer
+static const AT_Silencer     = 4;	//Schalldämpfer
+
+/* Waffenaufsatz festlegen */
 
 func SetAttachment(int iValue)
 {
@@ -20,6 +22,8 @@ func SetAttachment(int iValue)
   
   if(Contained()) Contained()->~UpdateCharge();
 }
+
+/* Laserpointer */
 
 func FxLaserDotTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
