@@ -3,7 +3,13 @@
 #strict 2
 #appendto ASTR
 
-local iPermittedAtts = AT_ExtendedMag | AT_Bayonet | AT_Laser | AT_Silencer | AT_Foregrip | AT_Grenades;
+local iPermittedAtts;
+
+func Initialize()
+{
+   iPermittedAtts = AT_ExtendedMag | AT_Bayonet | AT_Laserpointer | AT_Silencer | AT_Foregrip | AT_GrenadeLauncher;
+   return _inherited(...);
+}
 
 public func FMData1(int data)
 {
@@ -27,6 +33,6 @@ public func GetMCData(int data)
 
 public func FMData2(int data)
 {
-  if(iAttachment != AT_Grenades) return 0;
+  if(iAttachment != AT_GrenadeLauncher) return 0;
   return _inherited(data);
 }

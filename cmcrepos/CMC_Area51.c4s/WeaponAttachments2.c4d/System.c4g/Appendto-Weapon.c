@@ -3,15 +3,15 @@
 #strict 2
 #appendto WPN2
 
-local iAttachment, iPermittedAtts, pLaser, pBeam;
+local iAttachment, pLaser, pBeam, iPermittedAtts;
 
-static const AT_NoAttachment	= 0;	//Kein Waffenaufsatz
-static const AT_ExtendedMag   = 1;	//Erweitertes Magazin
-static const AT_Bayonet		    = 2;	//Bajonett
-static const AT_Laser		      = 4;	//Laserpointer
-static const AT_Silencer	    = 8;	//Schalldämpfer
-static const AT_Foregrip	    = 16;	//Frontgriff
-static const AT_Grenades      = 32; //Granatwerfer
+static const AT_NoAttachment	       = 0;	//Kein Waffenaufsatz
+static const AT_ExtendedMag          = 1;	//Erweitertes Magazin
+static const AT_Bayonet		           = 2;	//Bajonett
+static const AT_Laserpointer		     = 4;	//Laserpointer
+static const AT_Silencer	           = 8;	//Schalldämpfer
+static const AT_Foregrip	           = 16;	//Frontgriff
+static const AT_GrenadeLauncher      = 32; //Granatwerfer
 
 
 /* Waffenaufsatz festlegen */
@@ -24,7 +24,7 @@ func SetAttachment(int iValue)
   SetFireMode(1);
 
   iAttachment = iValue;
-  if(iAttachment == AT_Laser) AddEffect("LaserDot", this, 1, 1, this);
+  if(iAttachment == AT_Laserpointer) AddEffect("LaserDot", this, 1, 1, this);
   
   if(Contained()) Contained()->~UpdateCharge();
   
@@ -45,7 +45,7 @@ func FxLaserDotTimer(object pTarget, int iEffectNumber, int iEffectTime)
     return;
   }
 
-  if(iAttachment == AT_Laser)
+  if(iAttachment == AT_Laserpointer)
   {
     var iAngle = EffectVar(1, user, GetEffect("ShowWeapon", user));
     var fStart = false;
