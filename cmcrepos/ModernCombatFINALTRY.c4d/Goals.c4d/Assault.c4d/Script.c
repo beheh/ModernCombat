@@ -1084,6 +1084,10 @@ public func FxTeamBorderTimer(object pTarget, int iEffectNumber, int iEffectTime
       EventInfo4K(GetPlayerByIndex(i) + 1, "$MsgDefend$", GASS, 0, 0, 0, "Info.ogg"); 
 
   //Grenze und Effekt entfernen
+  if(pTarget)
+  {
+    pTarget->Destruction();
+    RemoveObject(pTarget);
+  }
   RemoveEffect("TeamBorder", pTarget);
-  RemoveObject(pTarget);
 }
