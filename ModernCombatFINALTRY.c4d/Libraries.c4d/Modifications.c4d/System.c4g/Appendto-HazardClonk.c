@@ -360,7 +360,7 @@ protected func DeathAnnounce(int plr, object clonk, int killplr)
   return r;
 }
 
-public func UpdateCharge()
+public func UpdateCharge(bool fForceUpdate)
 {
   UpdateCH();
   
@@ -394,7 +394,7 @@ public func UpdateCharge()
 
   //HUD
   var hud = GetHUD();
-  if(hud) hud->Update(Content, AmmoStoring(),this);
+  if(hud) hud->Update(Content, AmmoStoring(),this, fForceUpdate);
 
   return true;
 }

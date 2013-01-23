@@ -120,7 +120,7 @@ public func ShowWeapons()
   SetVisibility(VIS_Owner);
 }
 
-protected func UpdateHUD(object weapon, object pClonk)
+protected func UpdateHUD(object weapon, object pClonk, bool fForceUpdate)
 {
   if(!pClonk) return true;  
 
@@ -162,7 +162,7 @@ protected func UpdateHUD(object weapon, object pClonk)
     //Munition in der Waffe
     var weaponAmmo = GetAmmo(weapon->~GetFMData(FM_AmmoID), weapon);
     var clonkAmmo = GetAmmo(weapon->~GetFMData(FM_AmmoID), pClonk);
-    if(iLastWeaponAmmo != weaponAmmo || iLastClonkAmmo != clonkAmmo|| iLastWeaponFM != weapon->~GetFireMode() || iLastWeaponFT != weapon->~GetFireTec()) {
+    if(fForceUpdate || iLastWeaponAmmo != weaponAmmo || iLastClonkAmmo != clonkAmmo|| iLastWeaponFM != weapon->~GetFireMode() || iLastWeaponFT != weapon->~GetFireTec()) {
       iLastWeaponAmmo = weaponAmmo;
       iLastClonkAmmo = clonkAmmo;
       iLastWeaponFM = weapon->~GetFireMode();
@@ -251,9 +251,9 @@ protected func UpdateHUD(object weapon, object pClonk)
   return true;
 }
 
-public func Update(object weapon, object ammobag, object who)
+public func Update(object weapon, object ammobag, object who, bool fForceUpdate)
 {
-  UpdateHUD(weapon, who);
+  UpdateHUD(weapon, who, fForceUpdate);
 }
 
 private func ShowSelectProcess(object item)
