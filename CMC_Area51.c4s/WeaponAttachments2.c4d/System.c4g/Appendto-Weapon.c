@@ -28,7 +28,7 @@ func SetAttachment(int iValue)
   iAttachment = iValue;
   if(iAttachment == AT_Laserpointer) AddEffect("LaserDot", this, 1, 1, this);
   
-  if(Contained()) Contained()->~UpdateCharge();
+  if(Contained()) Contained()->~UpdateCharge(true);
   
   return iTemp;
 }

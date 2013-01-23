@@ -34,3 +34,30 @@ public func FMData2(int data)
   if(iAttachment != AT_GrenadeLauncher) return 0;
   return _inherited(data);
 }
+
+public func Fire1()
+{
+  //Austritt bestimmen
+  var user = GetUser();
+  var dir = GetDir(user)*2-1;
+  var angle = user->AimAngle(10,0,true);
+  var x,y;
+  user->WeaponEnd(x,y);
+
+  //Kugel abfeuern
+  var ammo = SALaunchBullet(x,y,GetController(user),angle,270,800,GetFMData(FM_Damage), 0, 0, iAttachment == AT_Silencer);
+
+  //Effekte
+  SABulletCasing(x/3,y/3,-dir*14*(Random(1)+1),-(13+Random(2)),5);
+  if(iAttachment != AT_Silencer)
+  {
+    Sound("ASTR_Fire*.ogg", 0, ammo);
+    MuzzleFlash(RandomX(30,40),user,x,y,angle,0, 0);
+    Echo("ASTR_Echo.ogg");
+  }
+  else
+  {
+    Sound("WPN2_SilencedFire.ogg", 0, ammo, 100);
+    Smoke(x,y,1);
+  }
+}
