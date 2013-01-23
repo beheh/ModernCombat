@@ -532,42 +532,42 @@ private func HitCheck(int r, int d)
   		Find_Exclude(this), Find_Exclude(shooter),
   		Sort_Distance()))
   {
-  	//Position des Treffpunktes berechnen.
-  	var ox = GetX(pObj), oy = GetY(pObj);
-  	
-  	var xOff = GetDefCoreVal("Offset", "DefCore", GetID(pObj), 0) + ox,
-  		  yOff = GetDefCoreVal("Offset", "DefCore", GetID(pObj), 1) + oy;
-  	
-  	if(sx > ox)
-  		xOff += GetDefWidth(GetID(pObj));
-  	if(sy > oy)
-  		yOff += GetDefHeight(GetID(pObj));
-  		
-  	var a = Angle(sx, sy, xOff, yOff);
-  	if(Inside(sx, Min(ox, xOff), Max(ox, xOff)))
-  	{
-  		lx = Sin(r, (yOff - sy) * 1000 / (-Cos(r, 1000)));
-  		ly = -Cos(r, (yOff - sy) * 1000 / (-Cos(r, 1000)));
-  	}
-  	else if(Inside(sy, Min(oy, yOff), Max(oy, yOff)))
-  	{
-  		lx = Sin(r, (xOff - sx) * 1000 / (Sin(r, 1000)));
-  		ly = -Cos(r, (xOff - sx) * 1000 / (Sin(r, 1000)));
-  	}
-  	else if((a >= 180 && a <= r) || (a <= 180 && a > r))
-  	{
-  		lx = Sin(r, (yOff - sy) * 1000 / (-Cos(r, 1000)));
-  		ly = -Cos(r, (yOff - sy) * 1000 / (-Cos(r, 1000)));
-  	}
-  	else
-  	{
-  		lx = Sin(r, (xOff - sx) * 1000 / (Sin(r, 1000)));
-  		ly = -Cos(r, (xOff - sx) * 1000 / (Sin(r, 1000)));
-  	}
-  	
+    //Position des Treffpunktes berechnen
+    var ox = GetX(pObj), oy = GetY(pObj);
+
+    var xOff = GetDefCoreVal("Offset", "DefCore", GetID(pObj), 0) + ox,
+    	yOff = GetDefCoreVal("Offset", "DefCore", GetID(pObj), 1) + oy;
+
+    if(sx > ox)
+      xOff += GetDefWidth(GetID(pObj));
+    if(sy > oy)
+      yOff += GetDefHeight(GetID(pObj));
+
+    var a = Angle(sx, sy, xOff, yOff);
+    if(Inside(sx, Min(ox, xOff), Max(ox, xOff)))
+    {
+      lx = Sin(r, (yOff - sy) * 1000 / (-Cos(r, 1000)));
+      ly = -Cos(r, (yOff - sy) * 1000 / (-Cos(r, 1000)));
+    }
+    else if(Inside(sy, Min(oy, yOff), Max(oy, yOff)))
+    {
+      lx = Sin(r, (xOff - sx) * 1000 / (Sin(r, 1000)));
+      ly = -Cos(r, (xOff - sx) * 1000 / (Sin(r, 1000)));
+    }
+    else if((a >= 180 && a <= r) || (a <= 180 && a > r))
+    {
+      lx = Sin(r, (yOff - sy) * 1000 / (-Cos(r, 1000)));
+      ly = -Cos(r, (yOff - sy) * 1000 / (-Cos(r, 1000)));
+    }
+    else
+    {
+      lx = Sin(r, (xOff - sx) * 1000 / (Sin(r, 1000)));
+      ly = -Cos(r, (xOff - sx) * 1000 / (Sin(r, 1000)));
+    }
+
     if(HitObject(pObj))
     {
-    	var dist = Distance(sx, sy, ox, oy);
+      var dist = Distance(sx, sy, ox, oy);
       dst += dist;
       return dist;
     }
