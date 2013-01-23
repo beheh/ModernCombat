@@ -338,7 +338,7 @@ protected func FxIntAssaultTargetTimer(object pTarget, int iNr)
   if(!status)
   {
     //Sprengladung wird plaziert
-    if(enemycnt > alliescnt)
+    if(!GetEffect("TeamBorder") && enemycnt > alliescnt)
     {
       status = 1;
       process = 1;
@@ -1069,8 +1069,9 @@ global func CreateTeamBorder(int iDefenderTeam, int iX, int iY, int iDir, bool f
   var border = CreateObject(BRDR, iX, iY, NO_OWNER);
   border->Set(iDir, true, false, true, iDefenderTeam);
 
-  var effect = AddEffect("TeamBorder", border, 1, Max(1, iTime*fCreateBorderObject), 0, GASS);
-  EffectVar(0, border, effect) = iDefenderTeam;
+  var effect = AddEffect("TeamBorder", 0, 1, Max(1, iTime*fCreateBorderObject), 0, GASS);
+  EffectVar(0, 0, effect) = iDefenderTeam;
+  EffectVar(1, 0, effect) = border;
 }
 
 public func FxTeamBorderTimer(object pTarget, int iEffectNumber, int iEffectTime)
@@ -1084,10 +1085,10 @@ public func FxTeamBorderTimer(object pTarget, int iEffectNumber, int iEffectTime
       EventInfo4K(GetPlayerByIndex(i) + 1, "$MsgDefend$", GASS, 0, 0, 0, "Info.ogg"); 
 
   //Grenze und Effekt entfernen
-  if(pTarget)
+  if(EffectVar(1, pTarget, iEffectNumber))
   {
-    pTarget->Destruction();
-    RemoveObject(pTarget);
+    EffectVar(1, pTarget, iEffectNumber)->Destruction();
+    RemoveObject(EffectVar(1, pTarget, iEffectNumber));
   }
   RemoveEffect("TeamBorder", pTarget);
 }
