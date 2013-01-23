@@ -3,7 +3,7 @@
 #strict 2
 
 local iTime, lx, ly, pTrail, iDamage,speed,max_dst,dst,fb, fNoTrail;
-local shooter,wpnid; // Dingens/Clonk das den Schuss abgefeuert hat.
+local shooter,wpnid;	//Clonk bzw. Objekt, welches den Schuss abgefeuert hat
 
 func NoWarp()			{return true;}
 func IsBullet()			{return true;}
@@ -19,17 +19,17 @@ public func Initialize()
 
 func Construction(object byObj)
 {
-  //Nichts?
+  //Kein Objekt: Verschwinden
   if(!byObj)
     return;
 
-  //WaffenID?
+  //ID der Waffe setzen
   wpnid = GetID(byObj);
 
-  //Waffe?
+  //Schütze setzen
   shooter = GetShooter(byObj);
 
-  //Team?
+  //Team setzen
   if(shooter->GetTeam())
     SetTeam(shooter->GetTeam());
 }
@@ -39,23 +39,35 @@ public func Fast()
   return FastBullets() || fb;
 }
 
+/* Kugel-Abschuss (langsame Kugeln) */
+
 public func Launch(int iAngle, int iSpeed, int iDist, int iSize, int iTrail, int iDmg, int iRemoveTime)
 {
+  //Schnelle Kugeln: Zu anderer Funktion weiterleiten
   if(Fast())
   {
     return LaunchFB(iAngle,iSpeed,iDist,iSize,iTrail,iDmg,iRemoveTime,...);
   }
 
+  //Kugel (un)sichtbar?
   if(fNoTrail) SetGraphics("Invisible");
 
-  if(!iDmg)     iDamage = 3;
-  else iDamage = iDmg;
+  //Schaden der Kugel setzen
+  if(!iDmg)
+    iDamage = 3;
+  else
+    iDamage = iDmg;
 
-  SetPosition(GetX(),GetY()+GetDefHeight()/2);
+  //Position der Kugel setzen
+  SetPosition(GetX(),GetY()+GetDefWidth()/2);
 
-  if(!iSize)    iSize = 8;
-  if(!iTrail)   iTrail = 300;
+  //Größe und Länge setzen
+  if(!iSize)
+    iSize = 8;
+  if(!iTrail)
+    iTrail = 300;
 
+  //Geschwindigkeit setzen
   speed = iSpeed;
 
   iSize = Min(iSize+2,GetDefWidth());
@@ -72,30 +84,36 @@ public func Launch(int iAngle, int iSpeed, int iDist, int iSize, int iTrail, int
 
   var self = this;
   SetAction("Travel");
-  //Kleiner Sicherheitscheck, ob die Kugel nicht sofort verschwindet
+
+  //Sicherheitscheck, ob die Kugel nicht sofort verschwindet
   if(!self) return;
 
   SetXDir(+Sin(iAngle,iSpeed));
   SetYDir(-Cos(iAngle,iSpeed));
   SetR(+iAngle);
 
-  // Trail erzeugen
+  //Trail erzeugen
   CreateTrail(iSize, iTrail);
 
   AddEffect("HitCheck", this, 1,1, 0, GetID(), shooter);
 }
 
+/* Kugel-Abschuss (schnelle Kugeln) */
+
 public func LaunchFB(int iAngle, int iSpeed, int iDist, int iSize, int iTrail, int iDmg, int iRemoveTime)
 {
-  if(!iDmg) iDamage = 3;
-  else iDamage = iDmg;
+  //Schaden der Kugel setzen
+  if(!iDmg)
+    iDamage = 3;
+  else
+    iDamage = iDmg;
 
+  //Position setzen
   SetPosition(GetX(),GetY()+GetDefHeight()/2);
-
   SetXDir(+Sin(iAngle,iSpeed));
   SetYDir(-Cos(iAngle,iSpeed));
-  SetR(iAngle);//Vielleicht wird das iwo benutzt?
-  DoCon(100*iSize/GetDefWidth()-100);//Und das?
+  SetR(iAngle);
+  DoCon(100*iSize/GetDefWidth()-100);
 
   SetAction("Travel");
 
@@ -140,6 +158,7 @@ private func Traveling()
 
   //Ausfaden
   SetClrModulation(Color(iATime));
+
   //Löschen
   if(iATime >= iTime) return Remove();
 
