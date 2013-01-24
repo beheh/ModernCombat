@@ -300,6 +300,8 @@ private func OnRocketHit(pObj)
 
 private func HitObject(pObj)
 {
+  if(LocalN("pShield", Contained(pLauncher)) == pObj) return;
+
   if(Secure() || GetAction() == "Idle")
   {
     if(pObj)
