@@ -12,6 +12,8 @@ func Activate(object pClonk)
 func SetAttachment(int iValue)
 {
   iAttachment = iValue;
+  SetGraphics(0,0,AttachmentIcon(iAttachment),1,GFXOV_MODE_Picture);    
+  SetObjDrawTransform(500,0,-10000,0,500,-10000, 0, 1);
 }
 
 func GetAttachment()
@@ -49,4 +51,16 @@ func Attach(id iItem, object pUser)
   iAttachment = pWeapon->SetAttachment(iAttachment);
   
   if(!iAttachment) RemoveObject(this);
+}
+
+global func AttachmentIcon(int iAtt)
+{
+  if(iAtt == AT_NoAttachment) return 0;
+  if(iAtt == AT_ExtendedMag) return SM20;
+  if(iAtt == AT_Bayonet) return SM21;
+  if(iAtt == AT_Laserpointer) return SM22;
+  if(iAtt == AT_Silencer) return SM23;
+  if(iAtt == AT_Foregrip) return SM24;
+  if(iAtt == AT_GrenadeLauncher) return SM25;
+  if(iAtt == AT_TracerDart) return SM26;
 }
