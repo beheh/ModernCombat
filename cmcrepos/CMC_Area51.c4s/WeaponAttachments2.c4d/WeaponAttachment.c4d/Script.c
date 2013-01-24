@@ -4,15 +4,22 @@
 
 local iAttachment;
 
-
-/* Steuerung */
-
 func Activate(object pClonk)
 {
   AttachmentMenu(pClonk);
 }
 
-/* Menü */
+func SetAttachment(int iValue)
+{
+  iAttachment = iValue;
+  SetGraphics(0,0,AttachmentIcon(iAttachment),2,GFXOV_MODE_Picture);    
+  SetObjDrawTransform(500,0,-10000,0,500,-10000, 0, 2);
+}
+
+func GetAttachment()
+{
+  return iAttachment;
+}
 
 func AttachmentMenu(object pByObj)
 {
@@ -46,28 +53,14 @@ func Attach(id iItem, object pUser)
   if(!iAttachment) RemoveObject(this);
 }
 
-func SetAttachment(int iValue)
-{
-  iAttachment = iValue;
-  SetGraphics(0,0,AttachmentIcon(iAttachment),1,GFXOV_MODE_Picture);
-  SetObjDrawTransform(500,0,-10000,0,500,-10000, 0, 1);
-}
-
-func GetAttachment()
-{
-  return iAttachment;
-}
-
-/* Icon-ID */
-
 global func AttachmentIcon(int iAtt)
 {
-  if(iAtt == AT_NoAttachment)		return 0;
-  if(iAtt == AT_ExtendedMag)		return SM20;
-  if(iAtt == AT_Bayonet)		return SM21;
-  if(iAtt == AT_Laserpointer)		return SM22;
-  if(iAtt == AT_Silencer)		return SM23;
-  if(iAtt == AT_Foregrip)		return SM24;
-  if(iAtt == AT_GrenadeLauncher)	return SM25;
-  if(iAtt == AT_TracerDart)		return SM26;
+  if(iAtt == AT_NoAttachment) return 0;
+  if(iAtt == AT_ExtendedMag) return SM20;
+  if(iAtt == AT_Bayonet) return SM21;
+  if(iAtt == AT_Laserpointer) return SM22;
+  if(iAtt == AT_Silencer) return SM23;
+  if(iAtt == AT_Foregrip) return SM24;
+  if(iAtt == AT_GrenadeLauncher) return SM25;
+  if(iAtt == AT_TracerDart) return SM26;
 }
