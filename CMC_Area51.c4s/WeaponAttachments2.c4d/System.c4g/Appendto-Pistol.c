@@ -5,7 +5,7 @@
 
 func Initialize()
 {
-   iPermittedAtts = AT_Silencer | AT_TracerDart;
+   iPermittedAtts = AT_Silencer | AT_Laserpointer | AT_TracerDart;
    return _inherited(...);
 }
 
