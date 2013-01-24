@@ -13,7 +13,7 @@ func SetAttachment(int iValue)
 {
   iAttachment = iValue;
   SetGraphics(0,0,AttachmentIcon(iAttachment),2,GFXOV_MODE_Picture);    
-  SetObjDrawTransform(500,0,-10000,0,500,-10000, 0, 2);
+  SetObjDrawTransform(700,0,0,0,700,0, 0, 2);
 }
 
 func GetAttachment()

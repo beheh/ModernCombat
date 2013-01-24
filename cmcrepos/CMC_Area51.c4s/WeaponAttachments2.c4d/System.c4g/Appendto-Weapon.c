@@ -29,7 +29,7 @@ func SetAttachment(int iValue)
   if(iAttachment == AT_Laserpointer) AddEffect("LaserDot", this, 1, 1, this);
   
   SetGraphics(0,0,AttachmentIcon(iAttachment),2,GFXOV_MODE_Picture);    
-  SetObjDrawTransform(500,0,-10000,0,500,-10000, 0, 2);
+  SetObjDrawTransform(500,0,10000,0,500,10000, 0, 2);
   
   if(Contained()) Contained()->~UpdateCharge(true);
   
