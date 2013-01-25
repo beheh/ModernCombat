@@ -18,7 +18,6 @@ public func GetMCData(int data)
 
 func FxLaserDotTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
-var iTime = GetTime();
   for(var i = 0; i < 10; i++)
   {
   //Nutzer festlegen
@@ -33,7 +32,6 @@ var iTime = GetTime();
   var iAngle = EffectVar(1, user, GetEffect("ShowWeapon", user));
   AddTrajectory(pTarget, GetX(pTarget), GetY(pTarget), Sin(iAngle,120), -Cos(iAngle,120), 35*3, RGB(0, 255, 0));
   }
-  Log("%d ms", GetTime() - iTime);
 }
 
 public func FMData1(int data)
