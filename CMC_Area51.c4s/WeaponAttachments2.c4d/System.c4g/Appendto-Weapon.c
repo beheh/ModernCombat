@@ -5,14 +5,14 @@
 
 local iAttachment, pLaser, pBeam;
 
-static const AT_NoAttachment	       = 0;	//Kein Waffenaufsatz
-static const AT_ExtendedMag          = 1;	//Erweitertes Magazin
-static const AT_Bayonet		           = 2;	//Bajonett
-static const AT_Laserpointer		     = 4;	//Laserpointer
-static const AT_Silencer	           = 8;	//Schalldämpfer
-static const AT_Foregrip	           = 16;	//Frontgriff
+static const AT_NoAttachment	       = 0;	 //Kein Waffenaufsatz
+static const AT_ExtendedMag          = 1;	 //Erweitertes Magazin
+static const AT_Bayonet		           = 2;	 //Bajonett
+static const AT_Laserpointer		     = 4;	 //Laserpointer
+static const AT_Silencer	           = 8;	 //Schalldämpfer
+static const AT_Foregrip	           = 16; //Frontgriff
 static const AT_GrenadeLauncher      = 32; //Granatwerfer
-static const AT_TracerDart           = 64;
+static const AT_TracerDart           = 64; //Peilsender
 
 func PermittedAtts()
 {
