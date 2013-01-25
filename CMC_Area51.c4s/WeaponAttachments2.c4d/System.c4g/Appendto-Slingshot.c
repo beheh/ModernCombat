@@ -3,11 +3,9 @@
 #strict 2
 #appendto SGST
 
-
-func Initialize()
+func PermittedAtts()
 {
-   iPermittedAtts = AT_ExtendedMag | AT_Bayonet | AT_Laserpointer;
-   return _inherited(...);
+  return AT_ExtendedMag | AT_Bayonet | AT_Laserpointer;
 }
 
 public func GetMCData(int data)

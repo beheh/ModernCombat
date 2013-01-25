@@ -3,11 +3,9 @@
 #strict 2
 #appendto PSTL
 
-
-func Initialize()
+func PermittedAtts()
 {
-   iPermittedAtts = AT_Silencer | AT_Laserpointer | AT_TracerDart;
-   return _inherited(...);
+  return AT_Silencer | AT_Laserpointer | AT_TracerDart;
 }
 
 public func FMData2(int data)

@@ -3,11 +3,9 @@
 #strict 2
 #appendto SMGN
 
-
-func Initialize()
+func PermittedAtts()
 {
-   iPermittedAtts = AT_ExtendedMag | AT_Laserpointer | AT_Silencer | AT_Foregrip;
-   return _inherited(...);
+  return AT_ExtendedMag | AT_Laserpointer | AT_Silencer | AT_Foregrip;
 }
 
 public func FMData1(int data)
