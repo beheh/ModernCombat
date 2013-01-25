@@ -1,0 +1,7 @@
+weaponattachment=Waffenaufsätze verwalten
+weaponattachment_desc=Wähle die Waffenaufsätze für die|einzelnen Klassen aus.||
+
+back_desc=Zurück zur Klassenwahl.|||
+
+changeattachment=Wähle einen Waffenaufsatz
+changeattachment_desc=Wähle die Waffe, welche ein|Waffenaufsatz erhalten soll.||
