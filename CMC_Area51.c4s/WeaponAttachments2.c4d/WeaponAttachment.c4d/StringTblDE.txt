@@ -1,0 +1,4 @@
+AttachmentMenu=Waffe aufrüsten
+Upgrade=%s aufrüsten
+NoWeapon=Keine kompatible Waffe.
+CantUpgrade=Clonk kann gerade nicht aufrüsten.
