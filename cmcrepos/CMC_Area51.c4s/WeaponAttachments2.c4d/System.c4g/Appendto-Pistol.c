@@ -36,7 +36,7 @@ public func Fire1()
   }
   else
   {
-    Sound("WPN2_SilencedFire.ogg", 0, ammo, 1);
+    Sound("WPN2_SilencerFire*.ogg", 0, ammo, 1);
     Smoke(x,y,1);
   }
 }
