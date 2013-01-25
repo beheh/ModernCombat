@@ -31,7 +31,7 @@ func AttachmentMenu(object pByObj)
   for(var pWeapon in FindObjects(Find_Container(Contained()), Find_Func("IsWeapon2")))
   {
     fItemExists = true;
-    if(LocalN("iPermittedAtts", pWeapon) & iAttachment) AddMenuItem(Format("$Attach$", GetName(0, GetID(pWeapon))), "Attach", GetID(pWeapon), pByObj, 0, pByObj);
+    if(pWeapon->~PermittedAtts() & iAttachment) AddMenuItem(Format("$Attach$", GetName(0, GetID(pWeapon))), "Attach", GetID(pWeapon), pByObj, 0, pByObj);
   }
 
   if(!fItemExists)
