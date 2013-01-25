@@ -7,6 +7,7 @@ func PermittedAtts()
 {
   return AT_ExtendedMag | AT_Bayonet | AT_Laserpointer | AT_Foregrip;
 }
+
 public func FMData1(int data)
 {
   if(data == FM_AmmoLoad)	
