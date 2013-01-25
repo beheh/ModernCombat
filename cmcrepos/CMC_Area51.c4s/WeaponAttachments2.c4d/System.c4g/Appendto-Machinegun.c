@@ -3,19 +3,17 @@
 #strict 2
 #appendto MNGN
 
-
-func Initialize()
+func PermittedAtts()
 {
-   iPermittedAtts = AT_Bayonet | AT_Laserpointer | AT_Foregrip;
-   return _inherited(...);
+  return AT_Bayonet | AT_Laserpointer | AT_Foregrip;
 }
 
 public func FMData1(int data)
 {
 
-  if(data == FM_SpreadAdd)	return 50 - (iAttachment == AT_Foregrip)*5;	//Bei jedem Schuss hinzuzuaddierende Streuung
-  if(data == FM_StartSpread)	return 100 - (iAttachment == AT_Foregrip)*10;	//Bei Auswahl der Waffe gesetzte Streuung
-  if(data == FM_MaxSpread)	return 450 - (iAttachment == AT_Foregrip)*10;	//Maximaler Streuungswert
+  if(data == FM_SpreadAdd)	return _inherited(data) - (iAttachment == AT_Foregrip)*5;	//Bei jedem Schuss hinzuzuaddierende Streuung
+  if(data == FM_StartSpread)	return _inherited(data) - (iAttachment == AT_Foregrip)*10;	//Bei Auswahl der Waffe gesetzte Streuung
+  if(data == FM_MaxSpread)	return _inherited(data) - (iAttachment == AT_Foregrip)*10;	//Maximaler Streuungswert
 
   return _inherited(data);
 }

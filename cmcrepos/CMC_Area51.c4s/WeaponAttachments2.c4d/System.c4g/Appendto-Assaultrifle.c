@@ -3,11 +3,9 @@
 #strict 2
 #appendto ASTR
 
-
-func Initialize()
+func PermittedAtts()
 {
-   iPermittedAtts = AT_ExtendedMag | AT_Bayonet | AT_Laserpointer | AT_Silencer | AT_Foregrip | AT_GrenadeLauncher;
-   return _inherited(...);
+  return AT_ExtendedMag | AT_Bayonet | AT_Laserpointer | AT_Silencer | AT_Foregrip | AT_GrenadeLauncher;
 }
 
 public func FMData1(int data)
