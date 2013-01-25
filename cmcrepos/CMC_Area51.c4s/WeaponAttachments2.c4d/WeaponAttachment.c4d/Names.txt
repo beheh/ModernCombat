@@ -1,0 +1,2 @@
+DE: Waffenattachment
+US: Waffenattachment
