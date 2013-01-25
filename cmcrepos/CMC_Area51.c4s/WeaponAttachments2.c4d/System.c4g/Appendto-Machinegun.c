@@ -3,6 +3,7 @@
 #strict 2
 #appendto MNGN
 
+
 func Initialize()
 {
    iPermittedAtts = AT_Bayonet | AT_Laserpointer | AT_Foregrip;
