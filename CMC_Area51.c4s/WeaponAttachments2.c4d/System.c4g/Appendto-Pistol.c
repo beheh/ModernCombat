@@ -3,6 +3,7 @@
 #strict 2
 #appendto PSTL
 
+
 func Initialize()
 {
    iPermittedAtts = AT_Silencer | AT_Laserpointer | AT_TracerDart;

@@ -3,6 +3,7 @@
 #strict 2
 #appendto SMGN
 
+
 func Initialize()
 {
    iPermittedAtts = AT_ExtendedMag | AT_Laserpointer | AT_Silencer | AT_Foregrip;

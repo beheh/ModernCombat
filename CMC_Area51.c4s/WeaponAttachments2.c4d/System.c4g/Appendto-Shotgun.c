@@ -3,6 +3,7 @@
 #strict 2
 #appendto PPGN
 
+
 func Initialize()
 {
    iPermittedAtts = AT_ExtendedMag | AT_Bayonet | AT_Laserpointer | AT_Foregrip;

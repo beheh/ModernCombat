@@ -3,6 +3,7 @@
 #strict 2
 #appendto ASTR
 
+
 func Initialize()
 {
    iPermittedAtts = AT_ExtendedMag | AT_Bayonet | AT_Laserpointer | AT_Silencer | AT_Foregrip | AT_GrenadeLauncher;

@@ -5,34 +5,46 @@
 
 local iAttachment, pLaser, pBeam, iPermittedAtts;
 
-static const AT_NoAttachment	       = 0;	//Kein Waffenaufsatz
-static const AT_ExtendedMag          = 1;	//Erweitertes Magazin
-static const AT_Bayonet		           = 2;	//Bajonett
-static const AT_Laserpointer		     = 4;	//Laserpointer
-static const AT_Silencer	           = 8;	//Schalldämpfer
-static const AT_Foregrip	           = 16;	//Frontgriff
-static const AT_GrenadeLauncher      = 32; //Granatwerfer
-static const AT_TracerDart           = 64;
+static const AT_NoAttachment		= 0;	//Kein Waffenaufsatz
+static const AT_ExtendedMag		= 1;	//Erweitertes Magazin
+static const AT_Bayonet			= 2;	//Bajonett
+static const AT_Laserpointer		= 4;	//Laserpointer
+static const AT_Silencer		= 8;	//Schalldämpfer
+static const AT_Foregrip		= 16;	//Frontgriff
+static const AT_GrenadeLauncher		= 32;	//Granatwerfer
+static const AT_TracerDart		= 64;	//Peilsender
 
 
 /* Waffenaufsatz festlegen */
 
 func SetAttachment(int iValue)
 {
-  if(iValue && !(iPermittedAtts & iValue)) return -1;
+  //Waffe inkompatibel zum Waffenaufsatz: Abbrechen
+  if(iValue && !(iPermittedAtts & iValue))
+    return -1;
 
-  if(GetEffect("LaserDot", this)) RemoveEffect("LaserDot", this);
+  //Eventuell vorhandenen Lasereffekt entfernen
+  if(GetEffect("LaserDot", this))
+    RemoveEffect("LaserDot", this);
+
+  //Ersten Feuermodus anwählen
   SetFireMode(1);
 
+  //Waffenaufsatz setzen
   var iTemp = iAttachment;
   iAttachment = iValue;
-  if(iAttachment == AT_Laserpointer) AddEffect("LaserDot", this, 1, 1, this);
-  
+
+  //Bei Laserpointer: Effekt hinzufügen
+  if(iAttachment == AT_Laserpointer)
+    AddEffect("LaserDot", this, 1, 1, this);
+
+  //Waffengrafik und -icon setzen
   SetGraphics(0,0,AttachmentIcon(iAttachment),2,GFXOV_MODE_Picture);    
   SetObjDrawTransform(500,0,10000,0,500,10000, 0, 2);
-  
+
+  //Träger vorhanden: HUD aktualisieren
   if(Contained()) Contained()->~UpdateCharge(true);
-  
+
   return iTemp;
 }
 
@@ -155,6 +167,8 @@ func FxLaserDotStop()
   if(pBeam) RemoveObject(pBeam);
   if(pLaser) RemoveObject(pLaser);
 }
+
+/* Kugel abfeuern */
 
 global func SALaunchBullet(int iX, int iY, int iOwner, int iAngle, int iSpeed, int iDist, int iDmg, int iRemoveTime, id idType, bool fNoTrail)
 {
