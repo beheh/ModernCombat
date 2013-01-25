@@ -1,2 +1,2 @@
-DE: Waffenattachment
-US: Waffenattachment
+DE:Waffenaufsatz
+US:Weapon Attachment
