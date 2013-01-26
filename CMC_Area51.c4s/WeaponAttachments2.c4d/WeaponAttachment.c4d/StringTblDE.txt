@@ -1,2 +1,3 @@
-AttachmentMenu=%s verbauen
-Nothing=Nichts
+Upgrade=%s verbauen
+NothingUpgradeable=Nichts aufrüstbares verfügbar.
+CantUpgrade=Clonk kann gerade nicht aufrüsten.
