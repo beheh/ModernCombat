@@ -1,35 +1,60 @@
-/*-- Waffenattachment --*/
+/*-- Waffenaufsatz --*/
 
 #strict 2
 
 local iAttachment;
 
-func Activate(object pClonk)
+public func IsDrawable()	{return true;}			//Wird sichtbar getragen
+public func HandSize()		{return 800;}
+public func HandX()		{return 6000;}
+public func HandY()		{return -1000;}
+
+
+/* Steuerung */
+
+protected func Activate(object pClonk)
 {
   AttachmentMenu(pClonk);
 }
 
-func SetAttachment(int iValue)
+/* Inhalt */
+
+protected func SetAttachment(int iValue)
 {
   iAttachment = iValue;
   SetGraphics(0,0,AttachmentIcon(iAttachment),2,GFXOV_MODE_Picture);    
   SetObjDrawTransform(700,0,0,0,700,0, 0, 2);
 }
 
-func GetAttachment()
+protected func GetAttachment()
 {
   return iAttachment;
 }
 
-func AttachmentMenu(object pByObj)
+/* Menü */
+
+protected func AttachmentMenu(object pByObj)
 {
-  if(!iAttachment) return RemoveObject();
-  
-  CreateMenu(GetID(this), pByObj, this, 0, Format("$AttachmentMenu$", GetName(0, AttachmentIcon(iAttachment))), 0, C4MN_Style_Context);
+  //Kein Inhalt: Verschwinden
+  if(!iAttachment)
+    return RemoveObject();
+
+  //Falsche Aktion?
+  //if(!WildcardMatch(GetAction(pByObj), "*Walk*") && !WildcardMatch(GetAction(pByObj), "*Swim*") && !WildcardMatch(GetAction(pByObj), "*Crawl*") && !WildcardMatch(GetAction(pByObj), "*Jump*"))
+  //{
+  //  PlayerMessage(GetOwner(pByObj), "$CantUpgrade$", pByObj);
+  //  return;
+  //}
+
+  //Clonk anhalten
+  SetComDir(COMD_Stop, pByObj);
+
+  //Menü öffnen
+  CreateMenu(GetID(this), pByObj, this, 0, Format("$Upgrade$", GetName(0, AttachmentIcon(iAttachment))), 0, C4MN_Style_Context);
 
   var fItemExists = false;
 
-  AddMenuItem("$Nothing$", "DummyFunc", SM06, pByObj);
+  //Kompatible Waffen auflisten
   for(var pWeapon in FindObjects(Find_Container(Contained()), Find_Func("IsWeapon2")))
   {
     if(pWeapon->~PermittedAtts() & iAttachment && LocalN("iAttachment", pWeapon) != iAttachment)
@@ -39,34 +64,57 @@ func AttachmentMenu(object pByObj)
     }
   }
 
+  //Keine Waffe gefunden: Menü schließen
   if(!fItemExists)
+  {
+    PlayerMessage(GetOwner(pByObj), "$NothingUpgradeable$", pByObj);
     CloseMenu(pByObj);
+  }
 }
 
-func DummyFunc()
-{
-  //Nichts unternehmen; diese Func existiert für die Option "Nichts" im Menü
-}
+/* Aufrüsten */
 
-func Attach(id iItem, object pUser)
+protected func Attach(id iItem, object pUser)
 {
+  //Aufzurüstende Waffe noch vorhanden?
   var pWeapon = FindContents(iItem, pUser);
   if(!pWeapon) return false;
-  
-  //Ausgebautes Attachment selbst wieder anbringen
+
+  //Ausgebauter Waffenaufsatz selbst wieder anbringen
   SetAttachment(pWeapon->SetAttachment(iAttachment));
-  
-  if(!iAttachment) RemoveObject(this);
+
+  //Sound
+  Sound("WNAT_AddAttachement.ogg",0,pWeapon);
+
+  //Aufgebraucht: Verschwinden
+  if(!iAttachment)
+    RemoveObject(this);
 }
+
+/* Icons */
 
 global func AttachmentIcon(int iAtt)
 {
-  if(iAtt == AT_NoAttachment) return 0;
-  if(iAtt == AT_ExtendedMag) return SM20;
-  if(iAtt == AT_Bayonet) return SM21;
-  if(iAtt == AT_Laserpointer) return SM22;
-  if(iAtt == AT_Silencer) return SM23;
-  if(iAtt == AT_Foregrip) return SM24;
-  if(iAtt == AT_GrenadeLauncher) return SM25;
-  if(iAtt == AT_TracerDart) return SM26;
+  if(iAtt == AT_NoAttachment)		return 0;
+  if(iAtt == AT_ExtendedMag)		return SM20;
+  if(iAtt == AT_Bayonet)		return SM21;
+  if(iAtt == AT_Laserpointer)		return SM22;
+  if(iAtt == AT_Silencer)		return SM23;
+  if(iAtt == AT_Foregrip)		return SM24;
+  if(iAtt == AT_GrenadeLauncher)	return SM25;
+  if(iAtt == AT_TracerDart)		return SM26;
+}
+
+/* Sonstiges */
+
+protected func Hit()
+{
+  Sound("AmmoBoxHit*.ogg");
+  return 1;
+}
+
+protected func Selection()
+{
+  Sound("FAPK_Charge.ogg");
+  return 1;
 }
