@@ -40,11 +40,11 @@ protected func AttachmentMenu(object pByObj)
     return RemoveObject();
 
   //Falsche Aktion?
-  //if(!WildcardMatch(GetAction(pByObj), "*Walk*") && !WildcardMatch(GetAction(pByObj), "*Swim*") && !WildcardMatch(GetAction(pByObj), "*Crawl*") && !WildcardMatch(GetAction(pByObj), "*Jump*"))
-  //{
-  //  PlayerMessage(GetOwner(pByObj), "$CantUpgrade$", pByObj);
-  //  return;
-  //}
+  if(!WildcardMatch(GetAction(pByObj), "*Walk*") && !WildcardMatch(GetAction(pByObj), "*Swim*") && !WildcardMatch(GetAction(pByObj), "*Crawl*") && !WildcardMatch(GetAction(pByObj), "*Jump*"))
+  {
+    PlayerMessage(GetOwner(pByObj), "$CantUpgrade$", pByObj);
+    return;
+  }
 
   //Clonk anhalten
   SetComDir(COMD_Stop, pByObj);
@@ -117,4 +117,12 @@ protected func Selection()
 {
   Sound("FAPK_Charge.ogg");
   return 1;
+}
+
+func ControlThrow(object pByObj)
+{
+  for(var obj in FindObjects(Find_InRect(-10,-10,20,20),Find_OCF(OCF_CrewMember),Find_Exclude(pByObj),Find_Allied(GetOwner(pByObj)),Find_NoContainer()))
+    if(Collect(this, obj)) break;
+
+  return true;
 }
