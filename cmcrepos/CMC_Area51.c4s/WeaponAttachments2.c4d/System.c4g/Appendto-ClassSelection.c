@@ -340,12 +340,12 @@ private func OpenMenu(object pClonk, int iSelection)
     else
       szName = Format("<c ffff33>%s</c>", szName);
 
-    AddMenuItem(szName, Format("SetupClass(%d, %d)", i, iOwner), GetCData(i, CData_Icon), pClonk, 0, 0, 0, 2, GetCData(i, CData_Facet));
+    AddMenuItem(szName, Format("SetupClassAttachment(%d, %d, Object(%d))", 0, i, ObjectNumber(pClonk)), GetCData(i, CData_Icon), pClonk, 0, 0, 0, 2, GetCData(i, CData_Facet));
     displaying++;
     if(i == iClass) iSelection = InfoMenuItems() + displaying;
   }
 
-  AddMenuItem("<c ffff33>$ManageAttachments$</c>", "ManageAttachments", WNAT, pClonk, 0, 0, 0, 2);
+  //AddMenuItem("<c ffff33>$ManageAttachments$</c>", "ManageAttachments", WNAT, pClonk, 0, 0, 0, 2);
   
   if(!bNoMenuUpdate && iSelection >= 0)
   {
@@ -618,7 +618,7 @@ public func AttachmentItem(object pClonk, int iSelection)
     if(i == iClass) iSelection = InfoMenuItems() + displaying;
   }
 
-  AddMenuItem("<c ffff33>$ManageAttachments$</c>", "ManageAttachments", WNAT, pClonk, 0, pClonk, 0, 2);
+  //AddMenuItem("<c ffff33>$ManageAttachments$</c>", "ManageAttachments", WNAT, pClonk, 0, pClonk, 0, 2);
   if(!bNoMenuUpdate && iSelection >= 0)
   {
     bNoMenuUpdate = true;
@@ -664,12 +664,12 @@ public func ManageAttachments(id item, object pClonk)
     else
       szName = Format("<c ffff33>%s</c>", szName);
 
-    AddMenuItem(szName, Format("SetupClassAttachment(%d, Object(%d))", i, ObjectNumber(pClonk)), GetCData(i, CData_Icon), pClonk, 0, pClonk, 0, 2, GetCData(i, CData_Facet));
+    AddMenuItem(szName, Format("SetupClassAttachment(%d, %d, Object(%d))", 0, i, ObjectNumber(pClonk)), GetCData(i, CData_Icon), pClonk, 0, pClonk, 0, 2, GetCData(i, CData_Facet));
     displaying++;
   }
 }
 
-public func SetupClassAttachment(int iClass, object pClonk)
+public func SetupClassAttachment(int iWeapon, int iClass, object pClonk)
 {
   var iOwner = GetOwner(pClonk);
   //Menü öffnen
@@ -695,6 +695,7 @@ public func SetupClassAttachment(int iClass, object pClonk)
   AddMenuItem(" ", 0, NONE, pClonk, 0, 0, " ");
   
   var j = 0;
+  var count = 6;
   //Gegenstände
   var aItems = GetCData(iClass, CData_Items);
   var idWeap, iAtt;
@@ -703,15 +704,27 @@ public func SetupClassAttachment(int iClass, object pClonk)
   
   for (var aEntry in aItems)
   if (GetType(aEntry) == C4V_Array && GetType(aEntry[0]) == C4V_C4ID)
-    for(j = 1; j < 1000000000; j*=2)
+    for(j = 0; j < 1000000000; j*=2)
     {
+      var select = false;
       var szName = Format("%s: %s",GetName(0, aEntry[0]), GetName(0, AttachmentIcon(j)));
       if(idWeap && iAtt && iAtt == j && idWeap == aEntry[0]) 
+      {
+        select = true;
         szName = Format("<c ffff33>%s</c>", szName);
+      }
       else
         szName = Format("<c 777777>%s</c>", szName);
       
-      if(aEntry[0]->~PermittedAtts() & j) {AddMenuItem(szName, Format("ChooseAttachment(%d, %i, %d, Object(%d))", iClass, aEntry[0], j, ObjectNumber(pClonk)), AttachmentIcon(j), pClonk, 0, pClonk, 0, 2, GetCData(i, CData_Facet));}
+      if(aEntry[0]->~PermittedAtts() & j)
+      {
+        count++;
+        AddMenuItem(szName, Format("ChooseAttachment(%d, %i, %d, Object(%d))", iClass, aEntry[0], j, ObjectNumber(pClonk)), AttachmentIcon(j), pClonk, 0, pClonk, 0, 2, GetCData(i, CData_Facet));
+        if(select) SelectMenuItem(count, pClonk);
+      }
+ 
+      //j soll bei 0 anfangen, sich ab 1 dann aber verdoppeln.
+      if(!j) j++;
     }
 
 }
@@ -721,5 +734,6 @@ public func ChooseAttachment(int iClass, id idWeapon, int iAttachment, object pC
   SetPlrExtraData(GetOwner(pClonk), Format("CMC_Weap%d", iClass), idWeapon);
   SetPlrExtraData(GetOwner(pClonk), Format("CMC_Att%d", iClass), iAttachment);
   //if(iSelection == 12) return AttachmentItem(pClonk, 12);
-  OpenMenu(pClonk, iClass + InfoMenuItems());
+  SetupClass(iClass, GetOwner(pClonk));
+  //OpenMenu(pClonk, iClass + InfoMenuItems());
 }
