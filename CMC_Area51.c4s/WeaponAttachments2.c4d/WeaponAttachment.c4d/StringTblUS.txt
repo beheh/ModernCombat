@@ -1,4 +1,2 @@
-AttachmentMenu=Upgrade Weapon
-Upgrade=Upgrade %s
-NoWeapon=No compatible weapon.
-CantUpgrade=Clonk can't upgrade at the moment.
+AttachmentMenu=Attach %s
+Nothing=Nothing
