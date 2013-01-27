@@ -825,7 +825,7 @@ public func ChooserFinished()
    AddAssaultTarget(LBPC, 2200, 320, 25*30, 2, "$Target4$", 5, [[[1880, 110], [2050, 110]], [[1950, 400], [1470, 522], [1420, 390]]]);
    AddAssaultTarget(CMSN, 2350, 210, 25*30, 2, "$Target6$", 6, [[[1880, 110], [2050, 110]], [[1950, 400], [1470, 522], [1420, 390]]]);
    AddAssaultTarget(GSTA, 2460, 320, 25*30, 2, "$Target7$", 7, [[[1880, 110], [2050, 110]], [[1950, 400], [1470, 522], [1420, 390]]]);
-   AddAssaultTarget(CCP1, 2455, 500, 25*30, 2, "$Target8$", 8, [[[1880, 110], [2050, 110]], [[1950, 400], [1470, 522], [1420, 390]]]);
+   AddAssaultTarget(CCP1, 2455, 500, 25*30, 2, "$Target1$", 8, [[[1880, 110], [2050, 110]], [[1950, 400], [1470, 522], [1420, 390]]]);
 
    //Ziele verbinden
    ConnectAssaultTargets([0, 1]);
@@ -1018,10 +1018,10 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
   {
    //Grenze neu setzen
    RemoveAll(BRDR);
-   CreateObject(BRDR, 1890, 0, -1)->Set(0,1);
+   CreateObject(BRDR, 1180, 0, -1)->Set(0,1);
 
    //Teamgrenze setzen
-   CreateTeamBorder(AssaultDefenderTeam(),2990,0,1,1);
+   CreateTeamBorder(AssaultDefenderTeam(),1920,0,1,1);
 
    //Rauch
    CreateParticle("GunSmoke",1430,435,0,-10,350,1);

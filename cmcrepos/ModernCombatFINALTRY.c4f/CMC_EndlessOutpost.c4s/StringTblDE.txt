@@ -11,9 +11,9 @@ Flag3=Lagerhalle
 Flag4=Bürokomplex
 
 Target1=Steuerungseinheit
-Target2=Lüftungssystem
-Target3=Energieumwandler
-Target4=Steuerungseinheit
+Target2=Wasserfilter
+Target3=Lüftungssystem
+Target4=Energieumwandler
 Target5=Datenserver
-Target6=Wasserfilter
-Target7=Zentralserver
+Target6=Zentralserver
+Target7=Wasserfilter
