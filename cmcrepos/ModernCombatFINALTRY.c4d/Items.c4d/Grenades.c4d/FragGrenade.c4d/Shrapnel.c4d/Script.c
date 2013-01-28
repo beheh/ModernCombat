@@ -15,14 +15,22 @@ public func Fast()
 
 public func Launch(int iAngle, int iSpeed, int iDist, int iSize, int iTrail, int iDmg)
 {
-  if(!iDmg)     iDamage = 3;
-  else iDamage = iDmg;
+  //Schaden des Splitters setzen
+  if(!iDmg)
+    iDamage = 3;
+  else
+    iDamage = iDmg;
 
+  //Position des Splitters setzen
   SetPosition(GetX(),GetY()+GetDefWidth()/2);
 
-  if(!iSize)    iSize = 8;
-  if(!iTrail)   iTrail = 300;
+  //Größe und Länge setzen
+  if(!iSize)
+    iSize = 8;
+  if(!iTrail)
+    iTrail = 300;
 
+  //Geschwindigkeit setzen
   speed = iSpeed;
 
   iSize = Min(iSize+2,GetDefWidth());
@@ -39,13 +47,15 @@ public func Launch(int iAngle, int iSpeed, int iDist, int iSize, int iTrail, int
 
   var self = this;
   SetAction("Travel");
-  if(!self) return ; //Kleiner Sicherheitscheck, ob die Kugel nicht sofort verschwindet
+
+  //Sicherheitscheck, ob der Splitter nicht sofort verschwindet
+  if(!self) return ;
 
   SetXDir(+Sin(iAngle,iSpeed));
   SetYDir(-Cos(iAngle,iSpeed));
   SetR(+iAngle);
 
-  // Trail erzeugen
+  //Trail erzeugen
   size = iSize;
   trail_len = iTrail;
   CreateTrail(iSize, iTrail);
@@ -71,10 +81,11 @@ private func Traveling()
 
   //Ausfaden
   SetClrModulation(Color(iATime));
-  //Löschen
+
+  //Flugzeit aufgebraucht: Verschwinden
   if(iATime >= iTime) return Remove();
 
-  //Außerhalb der Landschaft: löschen
+  //Außerhalb der Landschaft: Verschwinden
   if(GetY()<0) return Remove();
 }
 
