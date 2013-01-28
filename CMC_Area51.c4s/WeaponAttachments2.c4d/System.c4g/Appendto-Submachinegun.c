@@ -42,7 +42,7 @@ public func Fire1()
   }
   else
   {
-    Sound("WPN2_SilencerFire*.ogg", 0, ammo, 100);
-    CreateParticle("Smoke2",x,y,GetXDir(user)+RandomX(0,Sin(angle,550)/20),GetYDir(user)+RandomX(0,-Cos(angle,550)/20),RandomX(20,40),RGBa(250,250,250,0),0,0);
+    Sound("WPN2_SilencerFire*.ogg", 0, ammo, 0, GetOwner(user)+1);
+    Sound("WPN2_SilencerFire*.ogg", 0, ammo, 25);
   }
 }
