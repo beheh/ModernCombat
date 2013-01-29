@@ -17,6 +17,7 @@ protected func Initialize()
   crew = [];
   lastclass = [];
   selection = [];
+  submenu = [];
   ScheduleCall(0,"Initialized",1);
 }
 
@@ -235,13 +236,13 @@ private func OpenMenu(object pClonk, int iSelection)
   if(!iSelection && lastclass[iOwner])
     iClass = lastclass[iOwner];
 
-  if(!submenu && GetMenu(pClonk))
+  if(!submenu[GetOwner(pClonk)] && GetMenu(pClonk))
     iClass = CalculatePlayerSelection(iOwner, GetMenuSelection(pClonk));
   else
     if(iSelection)
       iClass = CalculatePlayerSelection(iOwner, iSelection);
       
-  submenu = 0;
+  submenu[GetOwner(pClonk)] = 0;
 
   //Menü öffnen
   CloseMenu(pClonk);
@@ -373,7 +374,7 @@ public func MenuQueryCancel()	{return 1;}
 
 protected func OnMenuSelection(int iIndex, object pClonk)
 {
-  if(submenu) return;
+  if(submenu[GetOwner(pClonk)]) return;
   selection[GetOwner(pClonk)] = iIndex;
   if(bNoMenuUpdate)
     bNoMenuUpdate = false;
@@ -630,7 +631,7 @@ public func ManageAttachments(id item, object pClonk)
   var iOwner = GetOwner(pClonk);
   //Menü öffnen
   CloseMenu(pClonk);
-  submenu = 1;
+  submenu[iOwner] = 1;
   CreateMenu(GetID(), pClonk, this, 0, 0, 0, C4MN_Style_Dialog, true);
 
   //Icon
@@ -671,7 +672,7 @@ public func SetupClassAttachment(int iWeapon, int iClass, object pClonk)
   var iOwner = GetOwner(pClonk);
   //Menü öffnen
   CloseMenu(pClonk);
-  submenu = 2;
+  submenu[iOwner] = 2;
   var i = 0;
 
   CreateMenu(GetID(), pClonk, this, 0, 0, 0, C4MN_Style_Dialog, true);
