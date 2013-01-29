@@ -378,10 +378,7 @@ protected func OnMenuSelection(int iIndex, object pClonk)
   if(bNoMenuUpdate)
     bNoMenuUpdate = false;
   else
-  {
-    if(iIndex == 12) return AttachmentItem(pClonk,iIndex);
     OpenMenu(pClonk,iIndex);
-  }
 }
 
 /* Klassen */
