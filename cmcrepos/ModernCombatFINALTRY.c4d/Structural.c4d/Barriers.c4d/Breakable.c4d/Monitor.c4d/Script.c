@@ -10,6 +10,8 @@ local pLight;
 protected func Initialize()
 {
   SetAction("Activity1");
+
+  //Licht erstellen
   pLight = AddLightAmbience(15);
   return 1;
 }
@@ -23,6 +25,7 @@ public func On()
 
 public func Off()
 {
+  //Licht entfernen
   if(pLight)
     pLight->TurnOff();
 
@@ -38,13 +41,13 @@ protected func Damage()
   if(GetAction() == "Broken") return;
 
   //Effekte
-  CastObjects(SPRK, 7, 50);
-  Sparks(15, RGB(210, 210, 0));
+  if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("Glas", 2+Random(4), 80, 0,0, 20,80, RGBa(200,200,200), RGBa(200,200,200));
   CreateSmokeTrail(RandomX(15,20), Random(360), 0,0, this());
   CreateSmokeTrail(RandomX(15,20), Random(360), 0,0, this());
-  Sound("CrystalHit*");
+  Sound("GlassBreak*.ogg");
   Sound("Blast1");
 
+  //Licht entfernen
   if(pLight) RemoveObject(pLight);
 
   //Umherfliegen

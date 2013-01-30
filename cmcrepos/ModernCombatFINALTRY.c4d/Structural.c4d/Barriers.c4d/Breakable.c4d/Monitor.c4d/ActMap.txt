@@ -6,7 +6,6 @@ NextAction=Off
 
 [Action]
 Name=Broken
-FacetBase=1
 Facet=0,14,17,14,1,1
 NextAction=Hold
 
