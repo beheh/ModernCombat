@@ -4,7 +4,7 @@ CreatingDecoration=Dekoration wird plaziert...
 
 MsgJetpack=<c 33ccff>Jetpacks</c> verfügbar, drücke [<c 33ccff>Doppelspringen</c>], [<c 33ccff>-links</c>] oder [<c 33ccff>-rechts</c>] für Boosts.
 
-Team1=Revolutionäre
+Team1=Technowipf
 Team2=Eurocorps
 
 Flag1=Turmspitze

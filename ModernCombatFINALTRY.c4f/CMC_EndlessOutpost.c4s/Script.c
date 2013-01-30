@@ -239,17 +239,25 @@ func CreateInterior()
   CreateObject(PLLT, 890, 160, -1);
 
   //Container
-  CreateObject(CON1, 220, 450, -1);
-  CreateObject(CON1, 457, 450, -1)->SetPerspective(2);
-  CreateObject(CON1, 1485, 550, -1);
-  CreateObject(CON1, 1495, 520, -1)->SetPerspective(2);
-  CreateObject(CON1, 1680, 520, -1);
-  CreateObject(CON1, 2170, 110, -1);
-  CreateObject(CON1, 2670, 110, -1);
-  CreateObject(CON1, 2690, 83, -1)->SetPerspective();
-  CreateObject(CON1, 2720, 410, -1)->SetPerspective();
-  CreateObject(CON1, 2730, 382, -1);
-  CreateObject(CON1, 2830, 410, -1);
+  CreateObject(CON1, 220, 450, -1)->SetGraphics("5");
+  var container = CreateObject(CON1, 457, 450, -1);
+  container->SetPerspective(2);
+  container->SetGraphics("5");
+  CreateObject(CON1, 1485, 550, -1)->SetGraphics("5");
+  container = CreateObject(CON1, 1495, 520, -1);
+  container->SetPerspective(2);
+  container->SetGraphics("5");
+  CreateObject(CON1, 1680, 520, -1)->SetGraphics("5");
+  CreateObject(CON1, 2170, 110, -1)->SetGraphics("5");
+  CreateObject(CON1, 2670, 110, -1)->SetGraphics("5");
+  container = CreateObject(CON1, 2690, 83, -1);
+  container->SetPerspective();
+  container->SetGraphics("5");
+  container = CreateObject(CON1, 2720, 410, -1);
+  container->SetPerspective();
+  container->SetGraphics("5");
+  CreateObject(CON1, 2730, 382, -1)->SetGraphics("5");
+  CreateObject(CON1, 2830, 410, -1)->SetGraphics("5");
 
   //Auto
   CreateObject(CCAR, 550, 450, -1);
@@ -397,7 +405,7 @@ func CreateDecoration()
   CreateParticle("Fog", 710, 550,0,0,500+Random(100));
 
   //Bildschirme
-  CreateObject(SCA1, 995, 350, -1)->SetAction("Grenade");
+  CreateObject(SCA1, 995, 350, -1)->SetAction("Eurocorps");
   var screen = CreateObject(SCR3, 995, 380, -1);
   screen->SetClrModulation(RGB(255,255,255));
   screen = CreateObject(SCA2, 1570, 150, -1);
@@ -408,7 +416,7 @@ func CreateDecoration()
   screen->SetClrModulation(RGB(255,255,255));
   screen = CreateObject(SCR3, 1580, 260, -1);
   screen->SetClrModulation(RGB(255,255,255));
-  CreateObject(SCA2, 2005, 100, -1)->SetAction("Wompf");
+  CreateObject(SCA1, 2005, 100, -1)->SetAction("Eurocorps");
   screen = CreateObject(SCR3, 2200, 210, -1);
   screen->SetClrModulation(RGB(255,255,255));
   screen = CreateObject(SCA2, 2435, 400, -1);
@@ -440,7 +448,6 @@ func CreateDecoration()
 
   //Tische
   CreateObject(GTBL, 940, 430, -1);
-  CreateObject(GTBL, 1940, 400, -1);
   CreateObject(GTBL, 1940, 110, -1);
 
   //Pflanzen
