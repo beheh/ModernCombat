@@ -694,6 +694,7 @@ public func SetupClassAttachment(id idParamWeapon, int iClass, object pClonk)
   
   var j = 0;
   var count = 6;
+  var fOne = true;
   //Gegenstände
   var aItems = GetCData(iClass, CData_Items);
   var idWeap, idFirstWeap, iAtt, idActualWeap, fNextWeap;
@@ -735,6 +736,7 @@ public func SetupClassAttachment(id idParamWeapon, int iClass, object pClonk)
   if (GetType(aEntry) == C4V_Array && GetType(aEntry[0]) == C4V_C4ID && aEntry[0] == idActualWeap)
     for(j = 0; j < 1000000000; j*=2)
     {
+      if(fOne && j == 2) {j = 1; fOne = false;}
       var select = false;
       var szName = Format("%s: %s",GetName(0, aEntry[0]), GetName(0, AttachmentIcon(j)));
       if(idWeap && iAtt && iAtt == j && idWeap == aEntry[0]) 
