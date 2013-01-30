@@ -730,6 +730,11 @@ public func SetupClassAttachment(id idParamWeapon, int iClass, object pClonk)
   if(fNextWeap)
     idActualWeap = idFirstWeap;
   
+  if(idWeap)
+    AddMenuItem("$Spawn$", Format("ChooseAttachment(%d, %i, %d, Object(%d))", iClass, idWeap, iAtt, ObjectNumber(pClonk)), AttachmentIcon(iAtt), pClonk, 0, pClonk, 0, 2, GetCData(i, CData_Facet));
+  else
+    AddMenuItem("$Spawn$", Format("ChooseAttachment(%d, %i, %d, Object(%d))", iClass, idActualWeap, 0, ObjectNumber(pClonk)), AttachmentIcon(0), pClonk, 0, pClonk, 0, 2, GetCData(i, CData_Facet));
+  AddMenuItem("$Back$", Format("OpenMenu(Object(%d), %d)", ObjectNumber(pClonk), 0), AttachmentIcon(0), pClonk, 0, pClonk, 0, 2, GetCData(i, CData_Facet));
   AddMenuItem(Format("<c ff3333>%s</c>", GetName(0, idActualWeap)), Format("ChangeWeapon(%d, %i, Object(%d))", iClass, idActualWeap, ObjectNumber(pClonk)), idActualWeap, pClonk, 0, pClonk, 0, 2, GetCData(i, CData_Facet));
   
   for (var aEntry in aItems)
@@ -751,7 +756,7 @@ public func SetupClassAttachment(id idParamWeapon, int iClass, object pClonk)
       {
         count++;
         AddMenuItem(szName, Format("ChooseAttachment(%d, %i, %d, Object(%d))", iClass, aEntry[0], j, ObjectNumber(pClonk)), AttachmentIcon(j), pClonk, 0, pClonk, 0, 2, GetCData(i, CData_Facet));
-        if(!idParamWeapon && select) SelectMenuItem(count + 1, pClonk);
+        //if(!idParamWeapon && select) SelectMenuItem(count + 1, pClonk);
       }
  
       //j soll bei 0 anfangen, sich ab 1 dann aber verdoppeln.
