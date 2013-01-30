@@ -2,8 +2,8 @@
 Name=Eurocorps
 Procedure=NONE
 NextAction=Eurocorps
-Delay=3
-Length=20
+Delay=2
+Length=37
 Facet=0,0,40,40
 
 [Action]
