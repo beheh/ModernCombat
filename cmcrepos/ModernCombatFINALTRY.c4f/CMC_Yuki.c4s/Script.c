@@ -80,7 +80,7 @@ func CreateInterior()
   CreateObject(XWCR, 1645, 480, -1)->AutoRespawn();
 
   //Container
-  CreateObject(CON1, 1480, 690, -1);
+  CreateObject(CON1, 1480, 690, -1)->SetGraphics("5");
 
   //Giftfässer
   CreateObject(TBRL, 720, 750, -1)->AutoRespawn();

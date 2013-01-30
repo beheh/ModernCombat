@@ -1,2 +1,0 @@
-DE:CMC - <c ffff33>Double Trouble</c>
-US:CMC - <c ffff33>Double Trouble</c>

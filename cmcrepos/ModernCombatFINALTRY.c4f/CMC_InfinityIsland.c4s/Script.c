@@ -176,9 +176,13 @@ func CreateInterior()
   CreateObject(PIRA, 5810, 1420, -1)->AutoRespawn();
 
   //Container
-  CreateObject(CON1, 1780, 1170, -1);
-  CreateObject(CON1, 1820, 1171, -1)->SetPerspective(2);
-  CreateObject(CON1, 4530, 940, -1)->SetPerspective(2);
+  CreateObject(CON1, 1780, 1171, -1)->SetGraphics("5");
+  var container = CreateObject(CON1, 1820, 1171, -1);
+  container->SetPerspective(2);
+  container->SetGraphics("5");
+  container = CreateObject(CON1, 4530, 940, -1);
+  container->SetPerspective(2);
+  container->SetGraphics("5");
 
   //Hydrauliktüren
   CreateObject(SEDR,1459, 1030,-1);
@@ -577,7 +581,7 @@ public func ChooserFinished()
    store->AddWare(SRBL,-1);
 
    //Geschützstellungen
-   CreateObject(GNET, 1795, 1141, -1)->Set(SATW);
+   CreateObject(GNET, 1795, 1142, -1)->Set(SATW);
    CreateObject(GNET, 2380, 1140, -1)->Set(SATW,90,1);
    CreateObject(GNET, 3880, 660, -1)->Set(SATW,-90,1);
    CreateObject(GNET, 4310, 720, -1)->Set(SATW,90,1);
