@@ -1,7 +1,9 @@
-weaponattachment=Waffenaufsätze verwalten
-weaponattachment_desc=Wähle die Waffenaufsätze für die|einzelnen Klassen aus.||
+ClassAttachment=Klasseneigenschaften
+Spawn=Spawnen
 
-back_desc=Zurück zur Klassenwahl.|||
 
+//TEMPORÄR WEGEN ÜBERLADUNG
+
+Back=Zurück
 changeattachment=Wähle einen Waffenaufsatz
 changeattachment_desc=Wähle die Waffe, welche ein|Waffenaufsatz erhalten soll.||
