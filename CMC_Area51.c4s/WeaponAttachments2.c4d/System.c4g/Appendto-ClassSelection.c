@@ -662,12 +662,12 @@ public func ManageAttachments(id item, object pClonk)
     else
       szName = Format("<c ffff33>%s</c>", szName);
 
-    AddMenuItem(szName, Format("SetupClassAttachment(%d, %d, Object(%d))", 0, i, ObjectNumber(pClonk)), GetCData(i, CData_Icon), pClonk, 0, pClonk, 0, 2, GetCData(i, CData_Facet));
+    AddMenuItem(szName, Format("SetupClassAttachment(%i, %d, Object(%d))", 0, i, ObjectNumber(pClonk)), GetCData(i, CData_Icon), pClonk, 0, pClonk, 0, 2, GetCData(i, CData_Facet));
     displaying++;
   }
 }
 
-public func SetupClassAttachment(int iWeapon, int iClass, object pClonk)
+public func SetupClassAttachment(id idParamWeapon, int iClass, object pClonk)
 {
   var iOwner = GetOwner(pClonk);
   //Menü öffnen
@@ -696,12 +696,43 @@ public func SetupClassAttachment(int iWeapon, int iClass, object pClonk)
   var count = 6;
   //Gegenstände
   var aItems = GetCData(iClass, CData_Items);
-  var idWeap, iAtt;
+  var idWeap, idFirstWeap, iAtt, idActualWeap, fNextWeap;
   idWeap = GetPlrExtraData(iOwner, Format("CMC_Weap%d", iClass));
   iAtt = GetPlrExtraData(iOwner, Format("CMC_Att%d", iClass));
   
   for (var aEntry in aItems)
-  if (GetType(aEntry) == C4V_Array && GetType(aEntry[0]) == C4V_C4ID)
+    if (GetType(aEntry) == C4V_Array && GetType(aEntry[0]) == C4V_C4ID && aEntry[0]->~PermittedAtts())
+    {
+      if(fNextWeap)
+      {
+        idActualWeap = aEntry[0];
+        fNextWeap = false;
+        break;
+      }
+      if(idParamWeapon == aEntry[0])
+        fNextWeap = true;
+      if(!idFirstWeap)
+        idFirstWeap = aEntry[0];
+      
+      if(!idParamWeapon && !idWeap)
+      {
+        idActualWeap = aEntry[0];
+        break;
+      }
+      if(!idParamWeapon && idWeap == aEntry[0])
+      {
+        idActualWeap = aEntry[0];
+        break;
+      }
+    }
+    
+  if(fNextWeap)
+    idActualWeap = idFirstWeap;
+  
+  AddMenuItem(Format("<c ff3333>%s</c>", GetName(0, idActualWeap)), Format("ChangeWeapon(%d, %i, Object(%d))", iClass, idActualWeap, ObjectNumber(pClonk)), idActualWeap, pClonk, 0, pClonk, 0, 2, GetCData(i, CData_Facet));
+  
+  for (var aEntry in aItems)
+  if (GetType(aEntry) == C4V_Array && GetType(aEntry[0]) == C4V_C4ID && aEntry[0] == idActualWeap)
     for(j = 0; j < 1000000000; j*=2)
     {
       var select = false;
@@ -718,7 +749,7 @@ public func SetupClassAttachment(int iWeapon, int iClass, object pClonk)
       {
         count++;
         AddMenuItem(szName, Format("ChooseAttachment(%d, %i, %d, Object(%d))", iClass, aEntry[0], j, ObjectNumber(pClonk)), AttachmentIcon(j), pClonk, 0, pClonk, 0, 2, GetCData(i, CData_Facet));
-        if(select) SelectMenuItem(count, pClonk);
+        if(!idParamWeapon && select) SelectMenuItem(count + 1, pClonk);
       }
  
       //j soll bei 0 anfangen, sich ab 1 dann aber verdoppeln.
@@ -734,4 +765,9 @@ public func ChooseAttachment(int iClass, id idWeapon, int iAttachment, object pC
   //if(iSelection == 12) return AttachmentItem(pClonk, 12);
   SetupClass(iClass, GetOwner(pClonk));
   //OpenMenu(pClonk, iClass + InfoMenuItems());
+}
+
+public func ChangeWeapon(int iClass, id idWeapon, object pClonk)
+{
+  SetupClassAttachment(idWeapon, iClass, pClonk);
 }
