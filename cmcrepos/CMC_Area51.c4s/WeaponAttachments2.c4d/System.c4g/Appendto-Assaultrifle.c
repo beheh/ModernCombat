@@ -23,7 +23,7 @@ public func FMData1(int data)
 public func GetMCData(int data)
 {
   if(data == MC_Damage)		
-    return _inherited(data) + (iAttachment == AT_Bayonet)*10;	//Schaden eines Kolbenschlages
+    return _inherited(data) + (iAttachment == AT_Bayonet)*6;	//Schaden eines Kolbenschlages
   
   return _inherited(data);
 }
