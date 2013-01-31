@@ -32,7 +32,7 @@ Crew=PCMK=1
 Crew=PCMK=1
 
 [Landscape]
-Vegetation=SWD2=3;SWD1=5;TRE1=1;TRE2=2;TRE3=1;BSH2=5;PLM2=9;PLM1=7
+Vegetation=SWD2=3;SWD1=5;TRE1=1;TRE2=2;TRE3=1;BSH2=10;PLM2=9;PLM1=7
 VegetationLevel=100,0,0,100
 TopOpen=1
 MapWidth=179,0,64,250
