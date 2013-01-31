@@ -1,1 +1,2 @@
-Players are rated with points in a round and can gain achievements over multiple ones.
+This rule activates the points and statistics system.
+It allows players to earn points, achievements and ribbons. All data will be saved after finishing a round.

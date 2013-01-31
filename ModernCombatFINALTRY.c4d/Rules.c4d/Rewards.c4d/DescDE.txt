@@ -1,1 +1,2 @@
-Spieler werden innerhalb einer Runde mit Punkten bewertet und können rundenübergreifende Auszeichnungen erhalten.
+Diese Regel aktiviert das Punkte- und Statistiksystem.
+Es erlaubt Spielern, rundenübergreifende Punkte, Errungenschaften und Ehrenbänder zu sammeln. Alle Daten werden bei einem Rundenabschluss in den Spielerdateien der Spieler gespeichert.
