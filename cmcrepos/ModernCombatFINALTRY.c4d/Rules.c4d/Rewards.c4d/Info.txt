@@ -118,7 +118,7 @@ R40: 360.000
 
 --- Standardgeldverteilung ---
 
-Für bestimmte Aktionen gibt es zudem auch Geldboni.
+Für bestimmte Aktionen gibt es zudem auch Geldboni. Man beachte, das Geldboni auch ohne Belohnungen-Regel vergeben werden.
 
 Gefecht:
 
