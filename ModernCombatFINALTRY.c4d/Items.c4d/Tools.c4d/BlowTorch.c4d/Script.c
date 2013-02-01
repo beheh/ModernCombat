@@ -13,7 +13,6 @@ public func IsEquipment()		{return true;}
 public func NoArenaRemove()		{return true;}
 public func IsBlowTorch()		{return true;}
 public func CustomQuickInventoryMenu()	{return QINV_ObjectMenu;}
-public func IgnoreFriendlyFire() {return true;}
 
 public func StartSound()		{return Sound("BWTH_FireStart.ogg");}
 public func StopSound()			{return Sound("BWTH_FireEnd.ogg");}
@@ -81,7 +80,7 @@ public func FxReparationBarsTimer(object target, int nr)
 
     var actTarget = GetActionTarget(0, bar);
 
-    if(!actTarget || CheckEnemy(actTarget) || !(actTarget->~IsRepairable()))
+    if(!actTarget || Hostile(GetOwner(actTarget), iPlr) || !(actTarget->~IsRepairable()))
     {
       RemoveObject(bar);
       continue;
@@ -99,7 +98,7 @@ public func FxReparationBarsTimer(object target, int nr)
     bar->Update(percent, deactivate);
   }
 
-  for(var obj in FindObjects(Find_Func("IsRepairable"), Find_Not(Find_Func("CheckEnemy", this))))
+  for(var obj in FindObjects(Find_Func("IsRepairable"), Find_Not(Find_Hostile(iPlr))))
   {
     if(FindObject2(Find_ID(SBAR), Find_ActionTarget(obj), Find_Owner(iPlr), Find_Func("HasBarType", BAR_Repairbar))) //Hat schon einen Balken?
       continue;
@@ -344,46 +343,43 @@ public func Use(caller)
     						Find_OCF(OCF_Alive),
     						Find_Hostile(GetOwner(caller)),
     						Find_NoContainer()),					//Nicht verschachtelt?
-    						Find_Func("IsFakeRepairable", GetOwner(caller), this)),	//Konsolen?
+    						Find_Func("IsFakeRepairable", GetOwner(caller))),	//Konsolen?
     						Find_AtRect(-10,-10,20,20));
     if(obj)
     {
       //Konsolen reparieren / beschädigen
-      if(obj->~IsFakeRepairable(GetOwner(caller), this))
+      if(obj->~IsFakeRepairable())
         obj = obj->GetRealRepairableObject();
 
-      if(CheckEnemy(this, obj))
+      if(Hostile(GetOwner(obj), GetOwner(caller)))
       {
-				if(obj->~IsRepairable())
+        if(obj->~IsRepairable())
         {
-        	if(obj->GetDamage() <= obj->~MaxDamage() - (1 * obj->~IsDestroyed()))
-        	{
-          	//Feindliche Fahrzeuge beschädigen
-          	DoDmg(5, DMG_Fire, obj);
-		      	
-		      	used = true;
-	        	charge = BoundBy(charge-1, 0, MaxEnergy());
-	      	}
-	      }
-	      else
-	      {
-	        if(!living_dmg_cooldown)
-	        {
-	          //Feindliche Lebewesen verletzen
-	          DoDmg(12,DMG_Fire,obj);
-	
-	          if(!GetAlive(obj) || IsFakeDeath(obj))
-	            //Achievement-Fortschritt (I'll fix you up?)
-	            DoAchievementProgress(1, AC32, GetOwner(GetUser()));
-	
-	          living_dmg_cooldown = 7;
-	        }
-	        if(!Random(7))
-	          DamageSound();
-	
-	        used = true;
-	        charge = BoundBy(charge - 1, 0, MaxEnergy());
-	      }
+          //Feindliche Fahrzeuge beschädigen
+          DoDmg(5, DMG_Fire, obj);
+
+          used = true;
+          charge = BoundBy(charge-1, 0, MaxEnergy());
+        }
+        else
+        {
+          if(!living_dmg_cooldown)
+          {
+            //Feindliche Lebewesen verletzen
+            DoDmg(12,DMG_Fire,obj);
+
+            if(!GetAlive(obj) || IsFakeDeath(obj))
+              //Achievement-Fortschritt (I'll fix you up?)
+              DoAchievementProgress(1, AC32, GetOwner(GetUser()));
+
+            living_dmg_cooldown = 7;
+          }
+          if(!Random(7))
+            DamageSound();
+
+          used = true;
+          charge = BoundBy(charge - 1, 0, MaxEnergy());
+        }
       }
       else
       {
@@ -453,7 +449,6 @@ public func RejectEntrance(object pObj)
 public func Entrance(object pObj)
 {
   SetOwner(GetOwner(pObj));
-  SetTeam(GetTeam(pObj));
   return true;
 }
 
