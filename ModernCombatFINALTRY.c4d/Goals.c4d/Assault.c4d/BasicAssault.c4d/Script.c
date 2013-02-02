@@ -175,26 +175,27 @@ protected func FxIntAssaultTargetTimer(object pTarget, int iEffect)
   if(EffectVar(1, pTarget, iEffect))
     return;
 
+	var team = pTarget->~GetTeam();
+
   //Erstmal die Leiste prüfen
   if(!EffectVar(2, pTarget, iEffect))
-    EffectVar(2, pTarget, iEffect) = CreateObject(EBR2, GetX(pTarget), GetY(pTarget)+GetDefHeight(EffectVar(4, pTarget, iEffect))/2+10, -1);
+  {
+    var bar = EffectVar(2, pTarget, iEffect) = CreateObject(SBAR, 0, 0, -1);
+  	bar->Set(pTarget, GetTeamColor(team), BAR_AssaultBar, 200); 
+  }
   var bar = EffectVar(2, pTarget, iEffect);
 
   //Schaden
   if(EffectVar(3, pTarget, iEffect) < GetDamage(pTarget))
     EffectVar(3, pTarget, iEffect)++;
-  var dmg = EffectVar(3, pTarget, iEffect), maxdmg = EffectVar(0, pTarget, iEffect), team = pTarget->~GetTeam();
+  var dmg = EffectVar(3, pTarget, iEffect), maxdmg = EffectVar(0, pTarget, iEffect);
 
   //Bei zu viel Schaden zerstören
   if(GetDamage(pTarget) > maxdmg)
     return ReportAssaultTargetDestruction(pTarget, team);
 
   //Und die Leiste füllen...
-  SetPosition(GetX(pTarget), GetY(pTarget)+GetDefHeight(EffectVar(4, pTarget, iEffect))/2+10, bar);
-  SetGraphics("Row", bar, GetID(bar), 1, 1, 0, 4);
-  var permill = 1000*(maxdmg-dmg)/maxdmg;
-  SetObjDrawTransform(permill, 0, (permill - 1000) * GetDefWidth(GetID(bar)) / 2 + (1000 - permill) * CASS_BarOffset, 0, 1000, 0, bar, 1);
-  SetClrModulation(GetTeamColor(team), bar, 1);
+  bar->Update(100 * (maxdmg-dmg) / maxdmg);
 }
 
 protected func FxIntAssaultTargetStop(object pTarget, int iEffect, int iCause, bool fTemp)
