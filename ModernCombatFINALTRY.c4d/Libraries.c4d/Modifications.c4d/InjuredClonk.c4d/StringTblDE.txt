@@ -32,6 +32,7 @@ NONE9=Die Bewaffnung von Helikoptern schwenkt sich mit [<c 33ccff>Links</c>/<c 3
 NONE10=Ein Kolbenschlag verursacht bei liegenden Feinden [<c 33ccff>zusätzlichen</c>] Schaden und zwingt sie zudem, aufzustehen.
 NONE11=Ein MAV kann mit Ausrüstung <c 33ccff>modifiziert</c> werden; dazu einfach bei Kauf einen Gegenstand auswählen oder es Anfassen und den Gegenstand hineinlegen.
 NONE12=Zerstörte Geschützstellungen, MAV-Stationen, Brücken, Artilleriebatterien und mehr können mit einem Schweißbrenner <c 33ccff>repariert</c> werden.
+NONE13=Ein Spieler stört und kein Host im Spiel? Tippe <c 33ccff>/votekick</c> ein, um eine Rausschmiss-Umfrage gegen den Spieler zu starten.
 
 #Waffen
 ASTR0=Nutze den <c 33ccff>Einzelfeuermodus</c> des Sturmgewehrs, um präzise Schüsse auf weit entfernte Gegner abzufeuern.

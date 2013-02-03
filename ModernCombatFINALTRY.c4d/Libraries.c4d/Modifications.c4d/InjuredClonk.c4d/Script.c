@@ -377,7 +377,7 @@ global func FKDTSupportedID()	{return GetIndexOf(GetID(), FKDT_QuickTipIDs) != -
 
 private func GetGeneralTipp()
 {
-  return GetRandomTipp([[FGRN, "$NONE0$"], [CSTR, "$NONE1$"], [SM05, "$NONE2$"], [SM04, "$NONE3$"], [XBRL, "$NONE4$"], [PCMK, "$NONE5$"], [PCMK, "$NONE6$"], [SM01, "$NONE7$"], [PSTL, "$NONE8$"], [BKHK, "$NONE9$"], [SM04, "$NONE10$"], [MAVE, "$NONE11$"], [BDSN, "$NONE12$"]]);
+  return GetRandomTipp([[FGRN, "$NONE0$"], [CSTR, "$NONE1$"], [SM05, "$NONE2$"], [SM04, "$NONE3$"], [XBRL, "$NONE4$"], [PCMK, "$NONE5$"], [PCMK, "$NONE6$"], [SM01, "$NONE7$"], [PSTL, "$NONE8$"], [BKHK, "$NONE9$"], [SM04, "$NONE10$"], [MAVE, "$NONE11$"], [BDSN, "$NONE12$"], [CXTX, "$NONE13$"]]);
 }
 
 private func GetRandomTipp(array a, id id)
