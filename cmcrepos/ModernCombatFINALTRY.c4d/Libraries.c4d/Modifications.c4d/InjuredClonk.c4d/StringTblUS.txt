@@ -32,6 +32,7 @@ NONE9=Chopper weaponary can be turned by tapping [<c 33ccff>Left</c>/<c 33ccff>R
 NONE10=Punching an enemy with a gun while he is lying down will inflict [<c 33ccff>additional</c>] damage and also force him to stand up.
 NONE11=A MAV can be <c 33ccff>modified</c> with equipment, just choose an item when buying a MAV or touch it to put the item in.
 NONE12=Destroyed gun emplacements, MAV stations, bridges, artillery batteries and more can be repaired with a <c 33ccff>blow torch</c>.
+NONE13=Annoying player in the game and no host available? Type <c 33ccff>/votekick</c> to start a kick voting against that player.
 
 #Weapons
 ASTR0=Use <c 33ccff>single shots</c> to shoot effective bullets at enemies far away with the assault rifle.
