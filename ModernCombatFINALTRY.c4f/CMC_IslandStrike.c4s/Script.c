@@ -475,7 +475,8 @@ func CreateDecoration()
   CreateObject(MSGN, 6535, 510, -1);
   CreateObject(MSGN, 6545, 510, -1);
 
-  //Pflanzen
+  //Topfpflanzen
+  CreateObject(PLT3, 1030, 640, -1);
   CreateObject(PLNT, 1120, 625, -1);
   CreateObject(PLNT, 2715, 610, -1);
   CreateObject(PLNT, 6435, 610, -1);
@@ -574,8 +575,7 @@ func CreateDecoration()
   CreateObject(ENGT, 7190, 605, -1);
   CreateObject(ENGT, 7390, 605, -1);
 
-  //Topfpflanze
-  CreateObject(PLT2, 1030, 640, -1);
+
 
   //Tische
   CreateObject(GTBL, 1105, 640, -1);

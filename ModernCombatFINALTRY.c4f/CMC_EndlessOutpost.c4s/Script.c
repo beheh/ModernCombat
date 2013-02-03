@@ -326,6 +326,10 @@ func CreateInterior()
   aLamp[11]=CreateObject(BLGH,1940,440,-1);
   aLamp[12]=CreateObject(BLGH,2160,440,-1);
   aLamp[13]=CreateObject(STLH,2355,360,-1);
+  aLamp[14]=CreateObject(ALGH,2600,140,-1);
+  aLamp[14]->SetR(180);
+  aLamp[15]=CreateObject(ALGH,2600,350,-1);
+  aLamp[15]->SetR(180);
 
   //Selbstschussanlagen und Konsolen
   aSelfDefense[0]=CreateObject(SEGU,1345,249,-1);
@@ -423,13 +427,25 @@ func CreateDecoration()
   screen->SetClrModulation(RGB(255,255,255));
   screen = CreateObject(SCR3, 1980, 260, -1);
   screen->SetClrModulation(RGB(255,255,255));
+  screen = CreateObject(SCR3, 2375, 310, -1);
+  screen->SetClrModulation(RGB(255,0,0));
   CreateObject(SCA1, 2405, 100, -1)->SetAction("Eurocorps");
+  screen = CreateObject(SCR3, 2415, 310, -1);
+  screen->SetClrModulation(RGB(255,0,0));
+  screen->SetPhase(5);
   screen = CreateObject(SCR3, 2600, 210, -1);
-  screen->SetClrModulation(RGB(255,255,255));
+  screen->SetClrModulation(RGB(255,255,20));
+  screen = CreateObject(SCR3, 2640, 210, -1);
+  screen->SetClrModulation(RGB(255,255,20));
+  screen->SetPhase(10);
+  screen = CreateObject(SCR3, 2805, 450, -1);
+  screen->SetClrModulation(RGB(00,150,250));
   screen = CreateObject(SCA2, 2835, 400, -1);
   screen->SetAction("Scan2");
+  screen->SetClrModulation(RGB(00,150,250));
   screen = CreateObject(SCR3, 2845, 450, -1);
-  screen->SetClrModulation(RGB(255,255,255));
+  screen->SetClrModulation(RGB(00,150,250));
+  screen->SetPhase(15);
 
   //Labortische
   CreateObject(LTBL,1810, 320, -1);
@@ -453,17 +469,20 @@ func CreateDecoration()
   CreateObject(MNI2, 2705, 518, -1)->Off();
   CreateObject(MNI2, 2955, 92, -1);
 
-  //Tische
-  CreateObject(GTBL, 1340, 430, -1);
+  //Tisch
   CreateObject(GTBL, 2340, 110, -1);
 
-  //Pflanzen
+  //Topfpflanzen
   CreateObject(PLNT, 1220, 240, -1);
   CreateObject(PLNT, 1220, 300, -1);
   CreateObject(PLNT, 1220, 360, -1);
+  CreateObject(PLT3, 1300, 430, -1);
+  CreateObject(PLT3, 1360, 430, -1);
   CreateObject(PLNT, 1800, 308, -1);
   CreateObject(PLNT, 1855, 140, -1);
+  CreateObject(PLT3, 1875, 320, -1);
   CreateObject(PLNT, 2015, 278, -1);
+  CreateObject(PLT3, 2340, 400, -1);
   CreateObject(PLNT, 2355, 98, -1);
 
   //Geländer
@@ -644,11 +663,6 @@ func CreateDecoration()
   CreateObject(FENC, 1750, 200, -1);
   CreateObject(FENC, 1810, 200, -1);
 
-  //Topfpflanzen
-  CreateObject(PLT3, 1300, 430, -1);
-  CreateObject(PLT2, 1875, 320, -1);
-  CreateObject(PLT2, 2350, 400, -1);
-
   //Regale
   CreateObject(FRAM, 1815, 250, -1);
   CreateObject(FRAM, 1840, 250, -1);
@@ -745,7 +759,7 @@ public func ChooserFinished()
     aFlag[0]->Set("$Flag1$",0,2);
    }
 
-   aFlag[1] = CreateObject(OFPL,1310,430,NO_OWNER);
+   aFlag[1] = CreateObject(OFPL,1330,430,NO_OWNER);
    aFlag[1] -> AddSpawnPoint(1330,150);
    aFlag[1] -> AddSpawnPoint(1450,190);
    aFlag[1] -> AddSpawnPoint(1540,190);
@@ -889,7 +903,6 @@ public func ChooserFinished()
 
    //Objekte entfernen
    RemoveObject(FindObject2(Find_ID(_WIN),Find_InRect(1200, 330, 805, 360)));
-   RemoveObject(FindObject2(Find_ID(GTBL),Find_InRect(1310, 410, 60, 20)));
    RemoveObject(FindObject2(Find_ID(BECR),Find_InRect(2800, 430, 20, 20)));
   }
 
@@ -1074,6 +1087,10 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
    aLamp[11]->TurnOff();
    aLamp[12]->TurnOff();
    aLamp[13]->TurnOff();
+
+   //Lampen aktivieren
+   aLamp[14]->TurnOn();
+   aLamp[15]->TurnOn();
 
    //Risse
    CreateObject(FAUD, 2150, 470, -1)->Set(1);

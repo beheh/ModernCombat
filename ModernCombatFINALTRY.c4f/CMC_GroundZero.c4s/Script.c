@@ -314,8 +314,14 @@ func CreateDecoration()
   CreateObject(ENGT, 2635, 510, -1);
 
   //Topfpflanzen
-  CreateObject(PLT2, 260, 290, -1);
-  CreateObject(PLT2, 2540, 290, -1);
+  CreateObject(PLNT, 200, 460, -1);
+  CreateObject(PLT3, 260, 290, -1);
+  CreateObject(PLT3, 580, 390, -1);
+  CreateObject(PLNT, 1010, 310, -1);
+  CreateObject(PLNT, 1790, 310, -1);
+  CreateObject(PLT3, 2230, 390, -1);
+  CreateObject(PLT3, 2540, 290, -1);
+  CreateObject(PLNT, 2600, 460, -1);
 
   //Scheinwerfer
   CreateObject(FLH2, 1370, 420, -1);
@@ -329,12 +335,6 @@ func CreateDecoration()
   CreateObject(MNI2, 310, 448, -1);
   CreateObject(MNI2, 2485, 448, -1);
 
-  //Pflanzen
-  CreateObject(PLNT, 200, 460, -1);
-  CreateObject(PLNT, 1010, 310, -1);
-  CreateObject(PLNT, 1790, 310, -1);
-  CreateObject(PLNT, 2600, 460, -1);
-
   //Schilder
   CreateObject(WLSN, 200, 380, -1);
   CreateObject(WLSN, 2600, 380, -1);
@@ -342,10 +342,6 @@ func CreateDecoration()
   //Zäune
   CreateObject(FENC, 630, 260, -1);
   CreateObject(FENC, 2170, 260, -1);
-
-  //Topfpflanzen
-  CreateObject(PLT3, 580, 390, -1);
-  CreateObject(PLT3, 2230, 390, -1);
 
   //Regale
   CreateObject(FRAM, 555, 440, -1);

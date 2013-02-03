@@ -351,22 +351,20 @@ func CreateDecoration()
   Log("$CreatingDecoration$");
 
   //Topfpflanzen
-  CreateObject(PLT2, 610, 440, -1);
-  CreateObject(PLT2, 730, 440, -1);
-
-  CreateObject(PLT2, 1170, 300, -1);
-  CreateObject(PLT2, 1170, 440, -1);
-  CreateObject(PLT2, 1290, 300, -1);
-  CreateObject(PLT2, 1290, 440, -1);
-  CreateObject(PLT2, 2410, 370, -1);
-  CreateObject(PLT2, 2830, 370, -1);
-  CreateObject(PLT2, 3950, 300, -1);
-  CreateObject(PLT2, 3950, 440, -1);
-  CreateObject(PLT2, 4070, 300, -1);
-  CreateObject(PLT2, 4070, 440, -1);
-
-  CreateObject(PLT2, 4510, 440, -1);
-  CreateObject(PLT2, 4630, 440, -1);
+  CreateObject(PLT3, 610, 440, -1);
+  CreateObject(PLT3, 730, 440, -1);
+  CreateObject(PLT3, 1170, 300, -1);
+  CreateObject(PLT3, 1170, 440, -1);
+  CreateObject(PLT3, 1290, 300, -1);
+  CreateObject(PLT3, 1290, 440, -1);
+  CreateObject(PLT3, 2410, 370, -1);
+  CreateObject(PLT3, 2830, 370, -1);
+  CreateObject(PLT3, 3950, 300, -1);
+  CreateObject(PLT3, 3950, 440, -1);
+  CreateObject(PLT3, 4070, 300, -1);
+  CreateObject(PLT3, 4070, 440, -1);
+  CreateObject(PLT3, 4510, 440, -1);
+  CreateObject(PLT3, 4630, 440, -1);
 
   //Notausgangslichter
   CreateObject(ETLT,1150, 255, -1);

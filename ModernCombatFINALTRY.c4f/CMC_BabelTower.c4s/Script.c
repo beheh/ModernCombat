@@ -485,20 +485,27 @@ func CreateDecoration()
   CreateObject(LCKR, 510, 1610, -1);
   CreateObject(LCKR, 650, 1610, -1);
 
-  //Pflanzen
+  //Topfpflanzen
   CreateObject(PLNT, 375, 700, -1);
   CreateObject(PLNT, 795, 700, -1);
+  CreateObject(PLT3, 585, 870, -1);
   CreateObject(PLNT, 380, 950, -1);
   CreateObject(PLNT, 790, 950, -1);
   CreateObject(PLNT, 380, 1100, -1);
   CreateObject(PLNT, 790, 1100, -1);
+  CreateObject(PLT3, 520, 1120, -1);
+  CreateObject(PLT3, 650, 1120, -1);
   CreateObject(PLNT, 380, 1250, -1);
   CreateObject(PLNT, 790, 1250, -1);
+  CreateObject(PLT3, 415, 1610, -1);
+  CreateObject(PLT3, 755, 1610, -1);
   CreateObject(PLNT, 390, 1690, -1);
   CreateObject(PLNT, 390, 1800, -1);
   CreateObject(PLNT, 785, 1690, -1);
   CreateObject(PLNT, 785, 1800, -1);
   CreateObject(PLNT, 640, 1675, -1);
+  CreateObject(PLT3, 400, 1940, -1);
+  CreateObject(PLT3, 770, 1940, -1);
 
   //Apparaturen
   CreateObject(GADG, 565, 870, -1)->Set(1);
@@ -520,21 +527,15 @@ func CreateDecoration()
   CreateObject(ENGT, 585, 1370, -1);
 
   //Bildschirme
-  CreateObject(SCA2, 585, 810, -1);
+  CreateObject(SCA2, 585, 810, -1)->SetClrModulation(RGB(50,255,0));
   CreateObject(SCR3, 530, 840, -1);
-  CreateObject(SCR3, 640, 840, -1);
-  CreateObject(SCA2, 585, 1490, -1)->SetAction("Clonk");
-  CreateObject(SCR3, 530, 1900, -1);
-  CreateObject(SCR3, 640, 1900, -1);
-
-  //Topfpflanzen
-  CreateObject(PLT3, 585, 870, -1);
-  CreateObject(PLT2, 520, 1120, -1);
-  CreateObject(PLT2, 650, 1120, -1);
-  CreateObject(PLT3, 415, 1610, -1);
-  CreateObject(PLT3, 755, 1610, -1);
-  CreateObject(PLT2, 400, 1940, -1);
-  CreateObject(PLT2, 770, 1940, -1);
+  CreateObject(SCR3, 640, 840, -1)->SetPhase(10);
+  CreateObject(SCA1, 585, 1490, -1)->SetAction("Grenade");
+  var screen = CreateObject(SCA1, 585, 1530, -1)
+  screen->SetAction("Grenade");
+  screen->SetPhase(20);
+  CreateObject(SCR3, 530, 1905, -1)->SetClrModulation(RGB(255,0,0));
+  CreateObject(SCR3, 640, 1905, -1)->SetClrModulation(RGB(00,150,250));
 
   //Flaschen
   CreateObject(BOTL, 770, 1472, -1);
