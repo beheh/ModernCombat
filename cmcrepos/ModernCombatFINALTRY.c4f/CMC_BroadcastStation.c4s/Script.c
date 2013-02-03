@@ -296,7 +296,7 @@ func CreateDecoration()
   CreateObject(LCKR, 1400, 300, -1);
 
   //Topfpflanze
-  CreateObject(PLT2, 520, 500, -1);
+  CreateObject(PLT3, 520, 500, -1);
 
   //Geländer
   CreateObject(RAI1, 1, 490, -1)->SetRail([1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]);

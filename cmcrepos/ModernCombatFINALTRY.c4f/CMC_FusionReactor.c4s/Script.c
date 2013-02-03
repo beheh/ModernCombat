@@ -505,10 +505,10 @@ func CreateDecoration()
   CreateObject(FRAM, 1200, 930, -1);
 
   //Topfpflanzen
-  CreateObject(PLT2, 360, 880, -1);
-  CreateObject(PLT2, 740, 250, -1);
-  CreateObject(PLT2, 1090, 250, -1);
-  CreateObject(PLT2, 1470, 880, -1);
+  CreateObject(PLT3, 360, 880, -1);
+  CreateObject(PLT3, 740, 250, -1);
+  CreateObject(PLT3, 1090, 250, -1);
+  CreateObject(PLT3, 1470, 880, -1);
 
   //Poster
   CreateObject(PSTR, 510, 920, -1)->Set(3);
