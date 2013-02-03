@@ -13,3 +13,11 @@ NextAction=Grenade
 Delay=3
 Length=60
 Facet=0,40,40,40
+
+[Action]
+Name=Medic
+Procedure=NONE
+NextAction=Medic
+Delay=3
+Length=74
+Facet=0,80,40,40
