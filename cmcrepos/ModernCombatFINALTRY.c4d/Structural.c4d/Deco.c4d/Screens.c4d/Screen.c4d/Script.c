@@ -1,4 +1,4 @@
-/*-- Propagandaschirm --*/
+/*-- Bildschirm --*/
 
 #strict 2
 
