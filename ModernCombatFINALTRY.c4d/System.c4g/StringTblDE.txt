@@ -122,6 +122,9 @@ WinMsg=%s hat gewonnen!
 
 # Votekick
 
+HostInfo=Du kannst in einer Runde mit Host keine Umfrage starten.|Spreche den Host auf unliebsame Spieler an.
+LigaInfo=Du kannst in einer Ligarunde keine Umfrage starten.
+PlayerCountInfo=Es müssen mindestens 3 Spieler spielen, um eine Umfrage zu starten.
 SpamProtectInfo=Du darfst nur alle 90 Sekunden eine Umfrage starten.
 ClientChoose=Client-Auswahl
 PlayerChoose=Spielerauswahl

@@ -42,15 +42,15 @@ global func Votekick(int iPlr, string pars)
 {
   //Nur bei Runden ohne Host
   if(!NoRealHost())
-    return false;
+    return PlayerMessage(iPlr, "$HostInfo$", GetCursor(iPlr));
 
   //und ohne Liga
   if(GetLeague())
-    return false;
+    return PlayerMessage(iPlr, "$LigaInfo$", GetCursor(iPlr));
 
   //und bei mindestens 3 Clients
   if(GetClientCount() < 3)
-    return false;
+    return PlayerMessage(iPlr, "$PlayerCountInfo$", GetCursor(iPlr));
 
   //Spammende Spieler blockieren
   if(HasVotekickSpamFilter(iPlr))

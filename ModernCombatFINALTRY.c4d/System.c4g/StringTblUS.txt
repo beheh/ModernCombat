@@ -122,6 +122,9 @@ WinMsg=And the winner is: %s
 
 # Votekick
 
+HostInfo=You can't start a voting in a round with a host.|Talk to the host about unpleasant players.
+LigaInfo=You can't start a voting in a liga round.
+PlayerCountInfo=At least 3 players have to be in the round to start a voting.
 SpamProtectInfo=You are only allowed to start a voting every 90 seconds.
 ClientChoose=Client Selection
 PlayerChoose=Player Selection
