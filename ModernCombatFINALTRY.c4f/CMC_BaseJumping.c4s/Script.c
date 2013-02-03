@@ -366,7 +366,7 @@ func CreateDecoration()
   //Bildschirme
   CreateObject(SCA2, 460, 1425, -1)->SetAction("Scan2");
   CreateObject(SCA1, 1465, 915, -1)->SetAction("Grenade");
-  CreateObject(SCA1, 1615, 915, -1)->SetAction("Eurocorps");
+  CreateObject(SCA1, 1615, 915, -1)->SetAction("Medic");
   CreateObject(SCA2, 2620, 1425, -1)->SetAction("Scan");
 
   //Straﬂenlichter

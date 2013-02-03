@@ -560,7 +560,7 @@ func CreateDecoration()
   //Bildschirme
   CreateObject(SCR1, 2745, 570, -1);
   CreateObject(SCR3, 3555, 695, -1);
-  CreateObject(SCA1, 4375, 580, -1);
+  CreateObject(SCA1, 4375, 580, -1)->SetAction("Grenade");
   CreateObject(SCR1, 6405, 570, -1);
   CreateObject(SCR3, 7310, 510, -1);
 

@@ -403,7 +403,7 @@ func CreateDecoration()
   CreateObject(TCCN, 1520, 880, -1)->Light();
 
   //Bildschirme
-  CreateObject(SCA1, 380, 860, -1);
+  CreateObject(SCA1, 380, 860, -1)->SetAction("Medic");
   CreateObject(SCA1, 435, 290, -1)->SetAction("Grenade");
   CreateObject(SCR3, 790, 230, -1);
   CreateObject(SCR3, 790, 910, -1);
@@ -411,7 +411,7 @@ func CreateDecoration()
   CreateObject(SCA2, 1235, 315, -1)->SetAction("Wompf");
   CreateObject(SCR3, 1040, 230, -1);
   CreateObject(SCR3, 1040, 910, -1);
-  CreateObject(SCA1, 1395, 290, -1);
+  CreateObject(SCA1, 1395, 290, -1)->SetAction("Medic");
   CreateObject(SCA1, 1450, 860, -1)->SetAction("Grenade");
 
   //Labortische
