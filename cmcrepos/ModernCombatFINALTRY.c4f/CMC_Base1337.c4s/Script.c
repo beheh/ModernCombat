@@ -383,7 +383,7 @@ func CreateDecoration()
   CreateObject(ENGT, 3868, 1120, -1);
 
   //Bildschirm
-  CreateObject(SCA1, 3500, 910, -1)->SetAction("Grenade");
+  CreateObject(SCA1, 3500, 910, -1)->SetAction("Medic");
 
   //Scheinwerfer
   CreateObject(FLGH, 710, 640, -1)->SetRotation(-80);

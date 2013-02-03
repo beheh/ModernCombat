@@ -493,7 +493,7 @@ func CreateDecoration()
   CreateObject(SCA1, 2440, 340, -1)->SetAction("Grenade");
   CreateObject(SCR3, 2510, 560, -1)->SetClrModulation(RGB(250,200,10));
   CreateObject(SCR3, 2730, 560, -1)->SetClrModulation(RGB(250,200,10));
-  CreateObject(SCA1, 2800, 340, -1);
+  CreateObject(SCA1, 2800, 340, -1)->SetAction("Medic");
 
   CreateObject(SCR3, 3035, 380, -1)->SetClrModulation(RGB(250,10,10));
   screen = CreateObject(SCR3, 3165, 380, -1);
