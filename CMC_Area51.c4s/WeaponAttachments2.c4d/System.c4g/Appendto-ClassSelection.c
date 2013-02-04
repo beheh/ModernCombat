@@ -100,9 +100,10 @@ public func FxSpawntimerTimer(pTarget, iNo, iTime)
   PlayerMessage(EffectVar(0, pTarget, iNo), "@$TimeTillRespawn$", 0, EffectVar(1, pTarget, iNo));
 
   //Verschwinden wenn Clonk/Behälter weg oder Clonk nicht im Behälter
-  if (!EffectVar(2, pTarget, iNo) || !EffectVar(3, pTarget, iNo) || Contained(EffectVar(2, pTarget, iNo)) != EffectVar(3, pTarget, iNo)) {
+  if (!EffectVar(2, pTarget, iNo) || !EffectVar(3, pTarget, iNo) || Contained(EffectVar(2, pTarget, iNo)) != EffectVar(3, pTarget, iNo))
+  {
     //Verschwinden wenn Behälter noch vorhanden und TIM1
-    if (GetID(EffectVar(3, pTarget, iNo)) == TIM1)
+    if(GetID(EffectVar(3, pTarget, iNo)) == TIM1)
       RemoveObject(EffectVar(3, pTarget, iNo));
     return -1;
   }
@@ -111,7 +112,7 @@ public func FxSpawntimerTimer(pTarget, iNo, iTime)
   {
     var iPlr = EffectVar(0, pTarget, iNo),
     class = CalculatePlayerSelection(iPlr, selection[iPlr]);
-    
+
     PlayerMessage(iPlr, "@");
     if(SetupClass(class, iPlr))
       return -1;
@@ -126,7 +127,7 @@ public func FxSpawntimerTimer(pTarget, iNo, iTime)
 
 public func FxSpawntimerStop(pTarget, iNo, iReason, fTemp)
 {
-  if (!fTemp)
+  if(!fTemp)
     PlayerMessage(EffectVar(0, pTarget, iNo), "@");
 }
 
@@ -157,9 +158,9 @@ func InitClassMenu(object pClonk)
   if(FindObject(GLMS) || FindObject(GTDM) || FindObject(GASS))
     AddEffect("Spawntimer", this, 100, 35, this, GetID(), iPlayer, pClonk, tmp);
 
-  //Bereits ein Menü offen?
+  //Bereits ein Menü vorhanden: Schließen
   if(GetMenu(pClonk))
-    CloseMenu(pClonk); //Menü schließen
+    CloseMenu(pClonk);
 
   AddEffect("ClassMenu", pClonk, 1, 10, this);
 }
@@ -251,7 +252,7 @@ private func OpenMenu(object pClonk, int iSelection)
   //Icon
   AddMenuItem(" | ", 0, GetCData(iClass, CData_Icon), pClonk, 0, 0, " ", 2, GetCData(iClass, CData_Facet));
 
-  //Name
+  //Name und Beschreibung
   AddMenuItem(Format("<c ffff33>%s</c>|%s", GetCData(iClass, CData_Name), GetCData(iClass, CData_Desc)), 0, NONE, pClonk, 0, 0, " ");
 
   //Leerzeile
@@ -341,7 +342,7 @@ private func OpenMenu(object pClonk, int iSelection)
     else
       szName = Format("<c ffff33>%s</c>", szName);
 
-    AddMenuItem(szName, Format("SetupClassAttachment(%d, %d, Object(%d))", 0, i, ObjectNumber(pClonk)), GetCData(i, CData_Icon), pClonk, 0, 0, 0, 2, GetCData(i, CData_Facet));
+    AddMenuItem(szName, Format("OpenMenuAttachment(%d, %d, Object(%d))", 0, i, ObjectNumber(pClonk)), GetCData(i, CData_Icon), pClonk, 0, 0, 0, 2, GetCData(i, CData_Facet));
     displaying++;
     if(i == iClass) iSelection = InfoMenuItems() + displaying;
   }
@@ -562,7 +563,7 @@ public func GetClassAmount()
   return i;
 }
 
-public func SetupClassAttachment(id idParamWeapon, int iClass, object pClonk)
+public func OpenMenuAttachment(id idParamWeapon, int iClass, object pClonk)
 {
   var iOwner = GetOwner(pClonk);
 
@@ -578,7 +579,7 @@ public func SetupClassAttachment(id idParamWeapon, int iClass, object pClonk)
 
   //Name
   AddMenuItem("<c ffff33>$ClassAttachment$</c>", 0, NONE, pClonk, 0, 0, " ");
-  
+
   //Leerzeilen zum Platzhalten
   AddMenuItem("{{IC14}}", 0, NONE, pClonk, 0, 0, " ");
   AddMenuItem("{{IC16}}", 0, NONE, pClonk, 0, 0, " ");
@@ -628,10 +629,7 @@ public func SetupClassAttachment(id idParamWeapon, int iClass, object pClonk)
     idActualWeap = idFirstWeap;
 
   //Spawnen
-  if(idWeap)
-    AddMenuItem("$Spawn$", Format("ChooseAttachment(%d, %i, %d, Object(%d))", iClass, idWeap, iAtt, ObjectNumber(pClonk)), CHOS, pClonk, 0, pClonk, 0, 2, 3);
-  else
-    AddMenuItem("$Spawn$", Format("ChooseAttachment(%d, %i, %d, Object(%d))", iClass, idActualWeap, 0, ObjectNumber(pClonk)), CHOS, pClonk, 0, pClonk, 0, 2, 3);
+  AddMenuItem("$Spawn$", Format("SetupClass(%d, %d)", iClass, pClonk), CHOS, pClonk, 0, pClonk, 0, 2, 3);
 
   //Zurück
   AddMenuItem("$Back$", Format("OpenMenu(Object(%d), %d)", ObjectNumber(pClonk), 0), 0, pClonk, 0, 0, "$Back$");
@@ -646,7 +644,7 @@ public func SetupClassAttachment(id idParamWeapon, int iClass, object pClonk)
     {
       if(fOne && j == 2) {j = 1; fOne = false;}
       var select = false;
-      var szName = Format("%s: %s",GetName(0, aEntry[0]), GetName(0, AttachmentIcon(j)));
+      var szName = Format("%s",GetName(0, AttachmentIcon(j)));
       if(idWeap && iAtt && iAtt == j && idWeap == aEntry[0]) 
       {
         select = true;
@@ -665,18 +663,25 @@ public func SetupClassAttachment(id idParamWeapon, int iClass, object pClonk)
       //j soll bei 0 anfangen, sich ab 1 dann aber verdoppeln.
       if(!j) j++;
     }
-
 }
 
 public func ChooseAttachment(int iClass, id idWeapon, int iAttachment, object pClonk)
 {
+  //Wahl speichern
   SetPlrExtraData(GetOwner(pClonk), Format("CMC_Weap%d", iClass), idWeapon);
   SetPlrExtraData(GetOwner(pClonk), Format("CMC_Att%d", iClass), iAttachment);
-  SetupClass(iClass, GetOwner(pClonk));
-  //OpenMenu(pClonk, iClass + InfoMenuItems());
+
+  //Menü aktualisieren
+  OpenMenuAttachment(0, iClass, pClonk);
+
+  //Sound
+  Sound("WPN2_Modify*.ogg", 0, pClonk, 100, GetOwner(pClonk)+1);
 }
 
 public func ChangeWeapon(int iClass, id idWeapon, object pClonk)
 {
-  SetupClassAttachment(idWeapon, iClass, pClonk);
+  OpenMenuAttachment(idWeapon, iClass, pClonk);
+
+  //Sound
+  Sound("WPN2_Handle*.ogg", 0, pClonk, 100, GetOwner(pClonk)+1);
 }
