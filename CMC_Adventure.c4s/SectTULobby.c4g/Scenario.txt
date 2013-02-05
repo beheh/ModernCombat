@@ -1,0 +1,16 @@
+[Head]
+NoInitialize=1
+
+[Landscape]
+Sky=Default
+SkyFade=255,232,119,155,132,19
+Vegetation=TRE1=1;TRE2=2;TRE3=1;TRE4=5;TRB4=1;BSH2=3
+VegetationLevel=100,0,0,100
+ExactLandscape=0
+TopOpen=0
+BottomOpen=0
+NewStyleLandscape=2
+NoScan=1
+
+[Environment]
+Objects=EGRS=1;LENS=1;ELGT=1
