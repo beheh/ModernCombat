@@ -346,15 +346,15 @@ func CreateDecoration()
   CreateObject(RADR, 3123, 750, -1);
 
   //Risse
-  CreateObject(FAUD, 2990, 940, -1)->Set(2);
-  CreateObject(FAUD, 3000, 970, -1)->Set(3);
-  CreateObject(FAUD, 3730, 720, -1)->Set(2);
-  CreateObject(FAUD, 3750, 740, -1)->Set(1);
-  CreateObject(FAUD, 3780, 810, -1)->Set(3);
-  CreateObject(FAUD, 4000, 1030, -1)->Set(1);
-  CreateObject(FAUD, 4050, 1080, -1)->Set(2);
-  CreateObject(FAUD, 4100, 1050, -1)->Set(3);
-  CreateObject(FAUD, 4270, 1100, -1)->Set(2);
+  CreateObject(FAUD, 2990, 940, -1);
+  CreateObject(FAUD, 3000, 970, -1);
+  CreateObject(FAUD, 3730, 720, -1);
+  CreateObject(FAUD, 3750, 740, -1);
+  CreateObject(FAUD, 3780, 810, -1);
+  CreateObject(FAUD, 4000, 1030, -1);
+  CreateObject(FAUD, 4050, 1080, -1);
+  CreateObject(FAUD, 4100, 1050, -1);
+  CreateObject(FAUD, 4270, 1100, -1);
 
   //Orientierungslichter
   CreateObject(OLGH, 635, 1200, -1)->Set(1, 20, 1, 1, 50);

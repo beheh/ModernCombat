@@ -332,11 +332,11 @@ func CreateDecoration()
   CreateObject(CCP1, 1575, 640, -1);
 
   //Risse
-  CreateObject(FAUD, 560, 345, -1)->Set(2);
-  CreateObject(FAUD, 585, 340, -1)->Set(1);
-  CreateObject(FAUD, 610, 320, -1)->Set(3);
-  CreateObject(FAUD, 1005, 580, -1)->Set(2);
-  CreateObject(FAUD, 1480, 640, -1)->Set(3);
+  CreateObject(FAUD, 560, 345, -1);
+  CreateObject(FAUD, 585, 340, -1);
+  CreateObject(FAUD, 610, 320, -1);
+  CreateObject(FAUD, 1005, 580, -1);
+  CreateObject(FAUD, 1480, 640, -1);
 
   //Automat
   CreateObject(VGMN, 1440, 830, -1)->Set(3);

@@ -1046,11 +1046,11 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
    aLamp[10]->EMPShock();
 
    //Risse
-   CreateObject(FAUD, 2240, 280, -1)->Set(2);
-   CreateObject(FAUD, 2245, 170, -1)->Set(2);
-   CreateObject(FAUD, 2250, 225, -1)->Set(3);
-   CreateObject(FAUD, 2290, 290, -1)->Set(3);
-   CreateObject(FAUD, 2300, 180, -1)->Set(1);
+   CreateObject(FAUD, 2240, 280, -1);
+   CreateObject(FAUD, 2245, 170, -1);
+   CreateObject(FAUD, 2250, 225, -1);
+   CreateObject(FAUD, 2290, 290, -1);
+   CreateObject(FAUD, 2300, 180, -1);
   }
 
   //Ziel 4
@@ -1093,20 +1093,20 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
    aLamp[15]->TurnOn();
 
    //Risse
-   CreateObject(FAUD, 2150, 470, -1)->Set(1);
-   CreateObject(FAUD, 2205, 430, -1)->Set(2);
-   CreateObject(FAUD, 2260, 460, -1)->Set(3);
+   CreateObject(FAUD, 2150, 470, -1);
+   CreateObject(FAUD, 2205, 430, -1);
+   CreateObject(FAUD, 2260, 460, -1);
   }
 
   //Ziel 5
   if (iIndex == 4)
   {
    //Risse
-   CreateObject(FAUD, 2540, 490, -1)->Set(2);
-   CreateObject(FAUD, 2585, 470, -1)->Set(1);
-   CreateObject(FAUD, 2600, 520, -1)->Set(3);
-   CreateObject(FAUD, 2620, 495, -1)->Set(2);
-   CreateObject(FAUD, 2660, 485, -1)->Set(3);
+   CreateObject(FAUD, 2540, 490, -1);
+   CreateObject(FAUD, 2585, 470, -1);
+   CreateObject(FAUD, 2600, 520, -1);
+   CreateObject(FAUD, 2620, 495, -1);
+   CreateObject(FAUD, 2660, 485, -1);
 
    //Rauch
    CreateParticle("GunSmoke",2530,510,0,-10,450,1);
@@ -1122,8 +1122,8 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
   if (iIndex == 5)
   {
    //Risse
-   CreateObject(FAUD, 2550, 290, -1)->Set(3);
-   CreateObject(FAUD, 2600, 310, -1)->Set(1);
+   CreateObject(FAUD, 2550, 290, -1);
+   CreateObject(FAUD, 2600, 310, -1);
 
    //Rauch
    CreateParticle("GunSmoke",2565,320,0,-10,450,1);
@@ -1140,8 +1140,8 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
   if (iIndex == 6)
   {
    //Risse
-   CreateObject(FAUD, 2700, 215, -1)->Set(2);
-   CreateObject(FAUD, 2805, 270, -1)->Set(3);
+   CreateObject(FAUD, 2700, 215, -1);
+   CreateObject(FAUD, 2805, 270, -1);
 
    //Rauch
    CreateParticle("GunSmoke",2730,210,0,-10,450,1);
@@ -1158,8 +1158,8 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
   if (iIndex == 7)
   {
    //Risse
-   CreateObject(FAUD, 2850, 325, -1)->Set(1);
-   CreateObject(FAUD, 2870, 410, -1)->Set(2);
+   CreateObject(FAUD, 2850, 325, -1);
+   CreateObject(FAUD, 2870, 410, -1);
 
    //Rauch
    CreateParticle("GunSmoke",2800,320,0,-10,450,1);
@@ -1176,8 +1176,8 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
   if (iIndex == 8)
   {
    //Risse
-   CreateObject(FAUD, 2810, 500, -1)->Set(2);
-   CreateObject(FAUD, 2860, 510, -1)->Set(1);
+   CreateObject(FAUD, 2810, 500, -1);
+   CreateObject(FAUD, 2860, 510, -1);
 
    //Rauch
    CreateParticle("GunSmoke",2810,500,0,-10,450,1);

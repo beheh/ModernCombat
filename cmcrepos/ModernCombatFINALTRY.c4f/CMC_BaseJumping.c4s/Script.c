@@ -345,15 +345,15 @@ func CreateDecoration()
   CreateObject(TCCN, 1785, 940, -1);
 
   //Risse
-  CreateObject(FAUD, 560, 1350, -1)->Set(2);
-  CreateObject(FAUD, 590, 1370, -1)->Set(3);
-  CreateObject(FAUD, 1060, 650, -1)->Set(1);
-  CreateObject(FAUD, 1060, 690, -1)->Set(2);
-  CreateObject(FAUD, 1090, 720, -1)->Set(2);
-  CreateObject(FAUD, 1720, 1420, -1)->Set(2);
-  CreateObject(FAUD, 1710, 1410, -1)->Set(1);
-  CreateObject(FAUD, 2220, 870, -1)->Set(3);
-  CreateObject(FAUD, 2240, 850, -1)->Set(1);
+  CreateObject(FAUD, 560, 1350, -1);
+  CreateObject(FAUD, 590, 1370, -1);
+  CreateObject(FAUD, 1090, 720, -1);
+  CreateObject(FAUD, 1100, 650, -1);
+  CreateObject(FAUD, 1100, 690, -1);
+  CreateObject(FAUD, 1720, 1420, -1);
+  CreateObject(FAUD, 1710, 1410, -1);
+  CreateObject(FAUD, 2220, 870, -1);
+  CreateObject(FAUD, 2240, 850, -1);
 
   //Ventillatoren
   CreateObject(VENT, 740, 1350, -1)->SetCon(30);
