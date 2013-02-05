@@ -37,6 +37,6 @@ public func Fire1()
   else
   {
     Sound("WPN2_SilencerFire*.ogg", 0, ammo, 0, GetOwner(user)+1);
-    Sound("WPN2_SilencerFire*.ogg", 0, ammo, 25);
+    Sound("WPN2_SilencerFire*.ogg", 0, ammo, 10);
   }
 }
