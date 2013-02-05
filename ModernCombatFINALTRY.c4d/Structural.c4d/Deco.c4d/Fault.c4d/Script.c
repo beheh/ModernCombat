@@ -2,26 +2,17 @@
 
 #strict 2
 
-local graphics;
+private func GraphicsCount()	{return 5;}	//Anzahl Grafiken (abzüglich 1)
 
 
 /* Initalisierung */
 
 func Initialize()
 {
-  graphics = 0;
-}
+  //Zufällige Grafik setzen
+  var random = Random(GraphicsCount());
+  SetAction(Format("Fault%d", random+1));
 
-/* Einstellungen */
-
-func Set(int i)
-{
-  graphics = i;
-  SetGraphics(Format("%d",i));
-}
-
-public func Serialize(array& extra)
-{
-  if(graphics)
-	  extra[GetLength(extra)] = Format("Set(%d)", graphics);
+  //Zufällige Rotation
+  SetR(RandomX(0,359));
 }
