@@ -407,6 +407,9 @@ func CreateDecoration()
   CreateObject(TCCN, 1090, 410, -1);
 
   //Nebel
+  CreateParticle("Fog", 130, 660,0,0,900+Random(100));
+  CreateParticle("Fog", 250, 650,0,0,1000+Random(100));
+  CreateParticle("Fog", 280, 620,0,0,900+Random(100));
   CreateParticle("Fog", 510, 600,0,0,900+Random(100));
   CreateParticle("Fog", 580, 640,0,0,400+Random(100));
   CreateParticle("Fog", 660, 630,0,0,700+Random(100));
