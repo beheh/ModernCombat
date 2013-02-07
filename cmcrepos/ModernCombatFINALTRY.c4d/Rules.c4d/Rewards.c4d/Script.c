@@ -364,7 +364,7 @@ public func Evaluate()
     AddEvaluationData(Format("$PlayerLine$",
      GetPlayerData(RWDS_KillCount, iPlr),
      GetPlayerData(RWDS_DeathCount, iPlr),
-     GetPlayerData(RWDS_TotalPoints, iPlr)),
+     (GetPlayerPoints(RWDS_BattlePoints, iPlr) + GetPlayerPoints(RWDS_TeamPoints, iPlr))),
      GetPlayerData(RWDS_PlayerID, iPlr)
     );
   }
