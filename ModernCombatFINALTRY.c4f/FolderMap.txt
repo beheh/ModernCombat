@@ -1,18 +1,18 @@
 [FolderMap]
 MinResX=640
 MinResY=480
-ScenInfoArea=564,92,215,427
+ScenInfoArea=739,99,223,418
 FullscreenBG=1
 
 	[Scenario]
 	File=Credits.c4f
-	Area=659,56,70,28
+	Area=839,56,70,28
 	OverlayImage=Highlight.png
 
 
 	[Scenario]
 	File=Info.c4f
-	Area=739,56,40,28
+	Area=919,56,40,28
 	OverlayImage=Highlight.png
 
 
