@@ -281,11 +281,11 @@ protected func RemovePlayer(iPlr)
 
 /* Wartemusik */
 
-global func SongCount()	{return 2;}	//Anzahl Lieder
+global func SongCount()	{return 3;}	//Anzahl Lieder
 
 global func SetWaitingMusic()
 {
-  var song = Random(SongCount()) + 1; 
+  var song = Random(SongCount()) + 1;
 
   //Musikliste setzen
   SetPlayList(Format("CMC_WaitingForSpawn%d.ogg", song));
