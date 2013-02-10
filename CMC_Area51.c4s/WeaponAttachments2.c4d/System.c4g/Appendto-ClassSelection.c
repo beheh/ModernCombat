@@ -629,7 +629,7 @@ public func OpenMenuAttachment(id idParamWeapon, int iClass, object pClonk)
     idActualWeap = idFirstWeap;
 
   //Spawnen
-  AddMenuItem("$Spawn$", Format("SetupClass(%d, %d)", iClass, pClonk), CHOS, pClonk, 0, pClonk, 0, 2, 3);
+  AddMenuItem("$Spawn$", Format("SetupClass(%d, %d)", iClass, iOwner), CHOS, pClonk, 0, pClonk, 0, 2, 3);
 
   //Zurück
   AddMenuItem("$Back$", Format("OpenMenu(Object(%d), %d)", ObjectNumber(pClonk), 0), 0, pClonk, 0, 0, "$Back$");
