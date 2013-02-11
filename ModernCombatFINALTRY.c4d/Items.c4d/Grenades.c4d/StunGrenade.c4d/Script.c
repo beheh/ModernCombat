@@ -25,6 +25,9 @@ public func Fused()
   //Zu blendende Objekte suchen
   for(var obj in FindObjects(Find_OCF(OCF_CrewMember),Find_Distance(250)))
   {
+    if(Contained(obj) && !Contained(obj)->~IsHelicopter())
+      continue;
+      
     //Intensität errechnen
     var intensity = ((270-ObjectDistance(this,obj))*470/250)/2;
 
