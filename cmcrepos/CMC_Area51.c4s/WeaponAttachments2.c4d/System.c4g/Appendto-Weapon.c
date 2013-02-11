@@ -19,6 +19,11 @@ func PermittedAtts()
   return AT_NoAttachment;
 }
 
+func GetAttachment()
+{
+  return iAttachment;
+}
+
 /* Waffenaufsatz festlegen */
 
 func SetAttachment(int iValue)
@@ -170,10 +175,14 @@ global func SALaunchBullet(int iX, int iY, int iOwner, int iAngle, int iSpeed, i
   var iSize = 2;
   var iTrail = iDmg*10;
   if(fNoTrail) iTrail = -1;
+  
+  var iAttachment = 0;
+  if(this)
+    iAttachment = LocalN("iAttachment", this);
 
   //Projektil erstellen
-  var ammo = CreateObject(ammoid,iX,iY,iOwner);
-  ammo->CustomLaunch(iAngle,iSpeed,iDist,iSize,iTrail,iDmg,iRemoveTime);
+  var ammo = CreateObject(ammoid, iX, iY, iOwner);
+  ammo->CustomLaunch(iAngle, iSpeed, iDist, iSize, iTrail, iDmg, iRemoveTime, iAttachment);
 
   return ammo;
 }

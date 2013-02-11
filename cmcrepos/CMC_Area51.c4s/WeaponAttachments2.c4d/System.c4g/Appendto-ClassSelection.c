@@ -563,7 +563,7 @@ public func GetClassAmount()
   return i;
 }
 
-public func OpenMenuAttachment(id idParamWeapon, int iClass, object pClonk)
+public func OpenMenuAttachment(id idParamWeapon, int iClass, object pClonk, int iSelection)
 {
   var iOwner = GetOwner(pClonk);
 
@@ -590,7 +590,7 @@ public func OpenMenuAttachment(id idParamWeapon, int iClass, object pClonk)
   AddMenuItem(" ", 0, NONE, pClonk, 0, 0, " ");
   
   var j = 0;
-  var count = 6;
+  var count = 9;
   var fOne = true;
 
   //Gegenstände
@@ -635,7 +635,7 @@ public func OpenMenuAttachment(id idParamWeapon, int iClass, object pClonk)
   AddMenuItem("$Back$", Format("OpenMenu(Object(%d), %d)", ObjectNumber(pClonk), 0), 0, pClonk, 0, 0, "$Back$");
 
   //Waffen-Wechsler
-  AddMenuItem(Format("<c ff3333>%s</c>", GetName(0, idActualWeap)), Format("ChangeWeapon(%d, %i, Object(%d))", iClass, idActualWeap, ObjectNumber(pClonk)), idActualWeap, pClonk, 0, pClonk, 0, 2, GetCData(i, CData_Facet));
+  AddMenuItem(Format("<c ff3333>%s</c>", GetName(0, idActualWeap)), Format("ChangeWeapon(%d, %i, Object(%d), %d)", iClass, idActualWeap, ObjectNumber(pClonk), count), idActualWeap, pClonk, 0, pClonk, 0, 2, GetCData(i, CData_Facet));
 
   //Waffenaufsätze
   for (var aEntry in aItems)
@@ -656,31 +656,35 @@ public func OpenMenuAttachment(id idParamWeapon, int iClass, object pClonk)
       if(aEntry[0]->~PermittedAtts() & j)
       {
         count++;
-        AddMenuItem(szName, Format("ChooseAttachment(%d, %i, %d, Object(%d))", iClass, aEntry[0], j, ObjectNumber(pClonk)), AttachmentIcon(j), pClonk, 0, pClonk, 0, 2, GetCData(i, CData_Facet));
+        AddMenuItem(szName, Format("ChooseAttachment(%d, %i, %d, Object(%d), %d, %d)", iClass, aEntry[0], j, ObjectNumber(pClonk), count, select), AttachmentIcon(j), pClonk, 0, pClonk, 0, 2, GetCData(i, CData_Facet));
         //if(!idParamWeapon && select) SelectMenuItem(count + 1, pClonk);
       }
- 
+
       //j soll bei 0 anfangen, sich ab 1 dann aber verdoppeln.
       if(!j) j++;
     }
+    
+  if(iSelection) SelectMenuItem(iSelection, pClonk);
 }
 
-public func ChooseAttachment(int iClass, id idWeapon, int iAttachment, object pClonk)
+public func ChooseAttachment(int iClass, id idWeapon, int iAttachment, object pClonk, int iSelection, bool fSelected)
 {
+  if(fSelected) return SetupClass(iClass, GetOwner(pClonk));
+
   //Wahl speichern
   SetPlrExtraData(GetOwner(pClonk), Format("CMC_Weap%d", iClass), idWeapon);
   SetPlrExtraData(GetOwner(pClonk), Format("CMC_Att%d", iClass), iAttachment);
 
   //Menü aktualisieren
-  OpenMenuAttachment(0, iClass, pClonk);
+  OpenMenuAttachment(0, iClass, pClonk, iSelection);
 
   //Sound
   Sound("WPN2_Modify*.ogg", 0, pClonk, 100, GetOwner(pClonk)+1);
 }
 
-public func ChangeWeapon(int iClass, id idWeapon, object pClonk)
+public func ChangeWeapon(int iClass, id idWeapon, object pClonk, int iSelection)
 {
-  OpenMenuAttachment(idWeapon, iClass, pClonk);
+  OpenMenuAttachment(idWeapon, iClass, pClonk, iSelection);
 
   //Sound
   Sound("WPN2_Handle*.ogg", 0, pClonk, 100, GetOwner(pClonk)+1);

@@ -30,7 +30,7 @@ func FxLaserDotTimer(object pTarget, int iEffectNumber, int iEffectTime)
   }
 
   var iAngle = EffectVar(1, user, GetEffect("ShowWeapon", user));
-  AddTrajectory(pTarget, GetX(pTarget), GetY(pTarget), Sin(iAngle,120), -Cos(iAngle,120), 35*3, RGB(0, 255, 0));
+  AddTrajectory(pTarget, GetX(pTarget), GetY(pTarget), Sin(iAngle,120), -Cos(iAngle,120), 35*3, RGB(255*IsReloading(), 255*(!IsReloading()), 0));
   }
 }
 
