@@ -40,20 +40,22 @@ func CreateInterior()
   CreateObject(LADR, 430, 930, -1)->Set(23, LADR_Left|LADR_Right|LADR_Front|LADR_Additional, "W");
   CreateObject(LADR, 460, 1240, -1)->Set(35, LADR_Left|LADR_Right|LADR_Front|LADR_Additional, "W");
 
-  CreateObject(LADR, 460, 540, -1)->Set(4);
+  CreateObject(LADR, 460, 545, -1)->Set(13);
   CreateObject(LADR, 790, 750, -1)->Set(19);
   CreateObject(LADR, 1220, 1178, -1)->Set(41, LADR_Left|LADR_Right|LADR_Front|LADR_Additional, "W");
   CreateObject(LADR, 1250, 844, -1)->Set(27);
+  CreateObject(LADR, 1374, 640, -1)->Set(6);
 
   CreateObject(LADR, 2020, 850, -1)->Set(19);
   CreateObject(LADR, 2040, 1170, -1)->Set(40, LADR_Left|LADR_Right|LADR_Front|LADR_Additional, "W");
   CreateObject(LADR, 2200, 1170, -1)->Set(40, LADR_Left|LADR_Right|LADR_Front|LADR_Additional, "W");
   CreateObject(LADR, 2220, 850, -1)->Set(19);
 
+  CreateObject(LADR, 2866, 640, -1)->Set(6);
   CreateObject(LADR, 2990, 844, -1)->Set(27);
   CreateObject(LADR, 3020, 1178, -1)->Set(41, LADR_Left|LADR_Right|LADR_Front|LADR_Additional, "W");
   CreateObject(LADR, 3450, 750, -1)->Set(19);
-  CreateObject(LADR, 3780, 540, -1)->Set(4);
+  CreateObject(LADR, 3780, 545, -1)->Set(13);
 
   CreateObject(LADR, 3780, 1240, -1)->Set(35, LADR_Left|LADR_Right|LADR_Front|LADR_Additional, "W");
   CreateObject(LADR, 3810, 930, -1)->Set(23, LADR_Left|LADR_Right|LADR_Front|LADR_Additional, "W");
@@ -103,14 +105,14 @@ func CreateInterior()
   CreateObject(SBBA, 1350, 850, -1)->Right();
   CreateObject(SBBA, 1391, 590, -1);
   CreateObject(SBBA, 1430, 590, -1)->Right();
-  CreateObject(SBBA, 1460, 670, -1)->Right();
+  CreateObject(SBBA, 1470, 670, -1)->Right();
 
   CreateObject(SBBA, 1961, 750, -1);
   CreateObject(SBBA, 1961, 850, -1);
   CreateObject(SBBA, 2280, 750, -1)->Right();
   CreateObject(SBBA, 2280, 850, -1)->Right();
 
-  CreateObject(SBBA, 2780, 670, -1);
+  CreateObject(SBBA, 2770, 670, -1);
   CreateObject(SBBA, 2811, 590, -1);
   CreateObject(SBBA, 2850, 590, -1)->Right();
   CreateObject(SBBA, 2890, 850, -1);
@@ -238,12 +240,10 @@ func CreateDecoration()
   CreateObject(RAI3, 350, 560, -1)->SetRail([1,1]);
   CreateObject(RAI1, 630, 590, -1)->SetRail([1,1,1,1,1,1,1,1]);
   CreateObject(RAI3, 1090, 670, -1);
-
   CreateObject(RAI1, 1125, 620, -1)->SetRail([1,1,1,1,1,1]);
   CreateObject(RAI1, 1255, 620, -1);
-  CreateObject(RAI3, 1440, 670, -1);
-
-  CreateObject(RAI3, 2770, 670, -1);
+  CreateObject(RAI3, 1450, 670, -1);
+  CreateObject(RAI3, 2760, 670, -1);
   CreateObject(RAI1, 2960, 620, -1);
   CreateObject(RAI1, 3000, 620, -1)->SetRail([1,1,1,1,1,1]);
   CreateObject(RAI3, 3120, 670, -1);
