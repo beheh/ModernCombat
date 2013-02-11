@@ -7,7 +7,6 @@ local FadingOut;
 
 public func Color()		{return RGB(0,128,255);}	//Farbe
 public func ContainedDamage()	{return 20;}			//Schaden bei Detonation innerhalb eines Objekts
-
 public func IsFadingOut()	{return FadingOut;}
 
 
@@ -25,9 +24,10 @@ public func Fused()
   //Zu blendende Objekte suchen
   for(var obj in FindObjects(Find_OCF(OCF_CrewMember),Find_Distance(250)))
   {
+    //Ziel verschachtelt: Auslassen, es sei denn, der Container ist ein Helikopter
     if(Contained(obj) && !Contained(obj)->~IsHelicopter())
       continue;
-      
+
     //Intensität errechnen
     var intensity = ((270-ObjectDistance(this,obj))*470/250)/2;
 
