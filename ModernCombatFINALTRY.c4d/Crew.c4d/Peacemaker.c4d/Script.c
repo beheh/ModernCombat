@@ -14,19 +14,18 @@ public func DeathAnimationCount()	{return (GetID() == PCMK) && 6;}	//Anzahl Tode
 
 protected func Recruitment()
 {
-  var id = GetObjectInfoCoreVal("id", "ObjectInfo", this);
-  if(GetCrewExtraData(this, "CMC_Portrait") < PCMK_PortraitVersion)
+  if(GetID() == PCMK)
   {
-    SetCrewExtraData(this, "CMC_Portrait", PCMK_PortraitVersion);
-    if(id != CLNK)
+    if(GetCrewExtraData(this, "CMC_Portrait") < PCMK_PortraitVersion)
+    {
+      SetCrewExtraData(this, "CMC_Portrait", PCMK_PortraitVersion);
       SetPortrait("random", this, GetID(), true, true);
-    else
-      //Gegebenenfalls zurücksetzen
-      SetPortrait("random", this, id, true, true);
+    }
   }
-
   return _inherited(...);
 }
+
+/* Aktionen */
 
 public func CanUse(id idObj)
 {
