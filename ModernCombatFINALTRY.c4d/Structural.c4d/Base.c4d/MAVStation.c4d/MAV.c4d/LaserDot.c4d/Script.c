@@ -12,7 +12,6 @@ public func Active()	{return fActive;}
 func Initialize()
 {
   SetVisibility(VIS_None);
-  Start();
 }
 
 /* Leuchten */

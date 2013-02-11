@@ -297,13 +297,14 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
 
     var xPos = GetX(), yPos = GetY(), x = GetX(), y = GetY(), xdir = Sin(AimAngle(), 30), ydir = Cos(AimAngle(), -30);
     var gravity = GetGravity();
+    var fStart = false;
 
     SetGravity(0);
     if (!SimFlight(x, y, xdir, ydir))
       pLaser->Stop();
     else 
       if(!pLaser->Active())
-        pLaser->Start();
+        fStart = true;
     SetGravity(gravity);
 
     xdir = Sin(AimAngle(), 3000);
@@ -311,7 +312,7 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
 
     var pEnemy;
 
-    if(pLaser->Active())
+    if(pLaser->Active() || fStart)
       pEnemy = FindObject2(Find_OnLine(0, 0, x - xPos, y - yPos), Find_Hostile(GetOwner(this)), Find_NoContainer(), Find_Or(Find_OCF(OCF_Alive), Find_Func("IsBulletTarget", GetID(), this, this), Find_Func("IsCMCVehicle")), Sort_Distance(0, 0));
     else
       pEnemy = FindObject2(Find_OnLine(0, 0, xdir, ydir), Find_Hostile(GetOwner(this)), Find_NoContainer(), Find_Or(Find_OCF(OCF_Alive), Find_Func("IsBulletTarget", GetID(), this, this), Find_Func("IsCMCVehicle")), Sort_Distance(0, 0));
@@ -320,7 +321,7 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
     if(pEnemy)
     {
       if(!pLaser->Active())
-        pLaser->Start();
+        fStart = true;
 
       x = GetX(pEnemy);
       y = GetY(pEnemy);
@@ -372,13 +373,15 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
   pBeam->SetVisibility(VIS_Owner | VIS_Allies);
 
   //Laser passend strecken
-  if(pEnemy || pLaser->Active())
+  if(pEnemy || pLaser->Active() || fStart)
     pBeam->SetObjDrawTransform(100 * Distance(xPos, yPos, x, y), 0, -458 * Distance(xPos, yPos, x, y), 0, 1000, 0);
   else
     pBeam->SetObjDrawTransform(100 * Distance(xPos, yPos, xPos + xdir/3, yPos + ydir/3), 0, -458 * Distance(xPos, yPos, xPos + xdir/3, yPos + ydir/3), 0, 1000, 0);
 
   pBeam->SetR(AimAngle()+90);
   SetPosition(x, y, pLaser);
+  if(fStart)
+    pLaser->Start();
   }
 
   //Feindliche Clonks zum Rammen suchen
