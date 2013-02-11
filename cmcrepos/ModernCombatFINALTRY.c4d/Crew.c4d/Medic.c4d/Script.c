@@ -87,7 +87,7 @@ public func Death()
 
 protected func Recruitment()
 {
-  if (GetCrewExtraData(this, "CMC_Portrait") < MDIC_PortraitVersion)
+  if(GetCrewExtraData(this, "CMC_Portrait") < MDIC_PortraitVersion)
   {
     SetCrewExtraData(this, "CMC_Portrait", MDIC_PortraitVersion);
     SetPortrait("random", this, GetID(), true, true);
