@@ -293,14 +293,14 @@ protected func FxIntAssaultTargetTimer(object pTarget, int iNr)
   iNext = GetNextTarget();
 
   var fConnected = GetType(Connected[iNext]) == C4V_Array;
-  
+
   var bar = EffectVar(0, pTarget, iNr);
 
   if(iTarget != iNext && (fConnected && GetIndexOf(iTarget, Connected[iNext]) == -1 || !fConnected))
   {
-  	bar->Update(0, true);
+    bar->Update(0, true);
     return true;
-	}
+  }
 
   var idTarget = EffectVar(1, pTarget, iNr);
 
