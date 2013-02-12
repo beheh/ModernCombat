@@ -27,7 +27,7 @@ public func FMData1(int data)
   if(data == FM_AmmoID)		return MIAM;	//ID der Munition
   if(data == FM_AmmoLoad)	return 1;	//Magazingröße
 
-  if(data == FM_Reload)		return 235;	//Zeit für Nachladen
+  if(data == FM_Reload)		return 205;	//Zeit für Nachladen
   if(data == FM_Recharge)	return 10;	//Zeit bis erneut geschossen werden kann
 
   if(data == FM_Slot)		return 1;	//Slot des Feuermodus
