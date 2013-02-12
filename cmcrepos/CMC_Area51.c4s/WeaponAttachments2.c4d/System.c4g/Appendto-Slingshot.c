@@ -23,14 +23,15 @@ func FxLaserDotTimer(object pTarget, int iEffectNumber, int iEffectTime)
   //Nutzer festlegen
   var user = this->~GetUser();
   var x, y, z;
-  if(!user || !user->~IsClonk() || !user->WeaponAt(x, y, z) || Contents(0, user) != this || (iAttachment != AT_Laserpointer))
+  if(!user || !user->~IsClonk() || !user->WeaponAt(x, y, z) || !user->IsAiming() || Contents(0, user) != this || (iAttachment != AT_Laserpointer))
   {
     RemoveTrajectory(pTarget);
     return;
   }
 
   var iAngle = EffectVar(1, user, GetEffect("ShowWeapon", user));
-  AddTrajectory(pTarget, GetX(pTarget), GetY(pTarget), Sin(iAngle,120), -Cos(iAngle,120), 35*3, RGB(255*IsReloading(), 255*(!IsReloading()), 0));
+  var empty = IsReloading() || !GetCharge();
+  AddTrajectory(pTarget, GetX(pTarget), GetY(pTarget), Sin(iAngle,120), -Cos(iAngle,120), 35*3, RGB(255*(empty), 255*(!empty), 0));
   }
 }
 
