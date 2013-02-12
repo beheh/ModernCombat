@@ -2,15 +2,7 @@
 
 ClassAttachment=Klasseneigenschaften
 Spawn=Spawnen
-
-NoAttachment=Kein Waffenaufsatz ist in|Verwendung.||
-ExtendedMag=Die Waffe verwendet Magazine|mit größerer Kapazität und kann|so länger feuern, bis erneut|nachgeladen werden muss.
-Bayonet=Das Kampfmesser am Lauf der Waffe|verbessert den Maximalschaden des|Kolbenschlages und stärkt so die|Nahkampffähigkeit.
-Laserpointer=Der Laserpointer erzeugt einen|sichtbaren Laser für einfacheres|Anvisieren und Erfassen von|gegnerischen Zielen.
-Silencer=Der Schalldämpfer senkt Schuss-|geräusche und -effekte, sodass|die Position des Schützen|schwerer zu ermitteln ist.
-Foregrip=Der Frontgriff ermöglicht dem|Schützen eine bessere Handhabung|der Waffe, sodass diese beim|Feuern weniger verzieht.
-GrenadeLauncher=Ein aufmontierter Granatenwerfer|erlaubt in einem weiteren Feuer-|modus das Abfeuern von Explosiv-,|Splitter- und Rauchgranaten.
-TracerDart=Der Peilsenderaufsatz erlaubt der|Waffe das Abfeuern von Peilsendern|in einem weiteren Feuermodus, um|gegnerische Objekte zu markieren.
+DescAttachments=["Kein Waffenaufsatz ist in|Verwendung.|| ","Die Waffe verwendet Magazine|mit größerer Kapazität und kann|so länger feuern, bis erneut|nachgeladen werden muss.","Das Kampfmesser am Lauf der Waffe|verbessert den Maximalschaden des|Kolbenschlages und stärkt so die|Nahkampffähigkeit.","Der Laserpointer erzeugt einen|sichtbaren Laser für einfacheres|Anvisieren und Erfassen von|gegnerischen Zielen.","Der Schalldämpfer senkt Schuss-|geräusche und -effekte, sodass|die Position des Schützen|schwerer zu ermitteln ist.","Der Frontgriff ermöglicht dem|Schützen eine bessere Handhabung|der Waffe, sodass diese beim|Feuern weniger verzieht.","Ein aufmontierter Granatenwerfer|erlaubt in einem weiteren Feuer-|modus das Abfeuern von Explosiv-,|Splitter- und Rauchgranaten.","Der Peilsenderaufsatz erlaubt der|Waffe das Abfeuern von Peilsendern|in einem weiteren Feuermodus, um|gegnerische Objekte zu markieren."]
 
 //TEMPORÄR WEGEN ÜBERLADUNG
 

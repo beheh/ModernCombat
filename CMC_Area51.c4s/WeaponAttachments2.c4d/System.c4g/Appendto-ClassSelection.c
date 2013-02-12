@@ -571,28 +571,10 @@ public func OpenMenuAttachment(id idParamWeapon, int iClass, object pClonk, int 
   CloseMenu(pClonk);
   submenu[iOwner] = 2;
   var i = 0;
-
-  CreateMenu(GetID(), pClonk, this, 0, 0, 0, C4MN_Style_Dialog, true);
-
-  //Icon
-  AddMenuItem(" | ", 0, GetCData(iClass, CData_Icon), pClonk, 0, 0, " ", 2, 11);
-
-  //Name
-  AddMenuItem("<c ffff33>$ClassAttachment$</c>", 0, NONE, pClonk, 0, 0, " ");
-
-  //Leerzeilen zum Platzhalten
-  AddMenuItem("{{IC14}}", 0, NONE, pClonk, 0, 0, " ");
-  AddMenuItem("{{IC16}}", 0, NONE, pClonk, 0, 0, " ");
-  AddMenuItem("{{IC19}}", 0, NONE, pClonk, 0, 0, " ");
-  AddMenuItem("{{IC05}}", 0, NONE, pClonk, 0, 0, " ");
-
-  //Leerzeile
-  AddMenuItem(" ", 0, NONE, pClonk, 0, 0, " ");
-  
   var j = 0;
-  var count = 9;
+  var count = 8;
   var fOne = true;
-
+  
   //Gegenstände
   var aItems = GetCData(iClass, CData_Items);
   var idWeap, idFirstWeap, iAtt, idActualWeap, fNextWeap;
@@ -627,6 +609,32 @@ public func OpenMenuAttachment(id idParamWeapon, int iClass, object pClonk, int 
 
   if(fNextWeap)
     idActualWeap = idFirstWeap;
+
+  CreateMenu(GetID(), pClonk, this, 0, 0, 0, C4MN_Style_Dialog, true);
+
+  //Icon
+  AddMenuItem(" | ", 0, GetCData(iClass, CData_Icon), pClonk, 0, 0, " ", 2, 11);
+
+  //Name
+
+  //Leerzeilen zum Platzhalten
+  var iterations = 0;
+  var iTempAtt = iAtt;
+  var DescAtts = $DescAttachments$;
+    
+  while(iTempAtt > 0)
+  {
+    iterations++;
+    iTempAtt/=2;
+  }
+  AddMenuItem(Format("<c ffff33>%s</c>|%s", GetName(0, AttachmentIcon(iAtt)), DescAtts[iterations]), 0, NONE, pClonk, 0, 0, " ");
+
+  AddMenuItem(" | ", 0, NONE, pClonk, 0, 0, " ");
+  AddMenuItem(" | ", 0, NONE, pClonk, 0, 0, " ");
+  AddMenuItem(" ", 0, NONE, pClonk, 0, 0, " ");
+
+  //Leerzeile
+  AddMenuItem(" ", 0, NONE, pClonk, 0, 0, " ");
 
   //Spawnen
   AddMenuItem("$Spawn$", Format("SetupClass(%d, %d)", iClass, iOwner), CHOS, pClonk, 0, pClonk, 0, 2, 3);
