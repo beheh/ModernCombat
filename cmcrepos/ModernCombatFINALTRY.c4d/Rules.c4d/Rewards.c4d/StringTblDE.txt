@@ -9,6 +9,7 @@ AchievedAchievements=<c ffff33>%d</c> / %d Errungenschaften
 NextRank=Aktueller Rang: %s (%d)|Nächster Rang: %s (%d)
 YourRank=Aktueller Rang: %s (%d)
 YouHaveBeenPromoted=%s wurde auf den Rang <c ffff33>%s</c> befördert!
+UntilRankUp=Punkte bis Beförderung
 
 # Errungenschaften
 
