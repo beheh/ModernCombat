@@ -13,6 +13,14 @@ public func IsMaster()
   return fMaster;
 }
 
+private func IsDay()
+{
+	if(GetDarkness(1000) > ELGT_MaxDarkness)
+		return false;
+	
+	return _inherited(...);
+}
+
 /* Initialisierung */
 
 protected func Initialize()
