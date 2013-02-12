@@ -77,13 +77,13 @@ public func KMsg(int plr1, int plr2, object clonk, int plr3)
   if(killer != victim)
   {
     var killerstr, dstr, energystr;
-    
+
     //Killer selbst tot?
     if(Contained(GetCursor(killer)) && GetID(Contained(GetCursor(killer))) == FKDT)
       energystr = "({{SM01}})";
     else
       energystr = Format("({{SM13}} <c ff0000>%d%</c>)", (GetEnergy(GetCursor(killer))*100/(GetPhysical("Energy", 0, GetCursor(killer))/1000)));
-    
+
     if(assist != -1 && GetPlayerName(assist) && assist != killer && assist != victim)
     {
       dstr = Format("%s %s + <c %x>%s</c>", GetTaggedPlayerName(killer), energystr, RGB(180,180,180), GetPlayerName(assist));
