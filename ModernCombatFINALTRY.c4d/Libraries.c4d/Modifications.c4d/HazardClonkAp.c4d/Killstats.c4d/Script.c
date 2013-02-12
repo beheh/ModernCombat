@@ -76,16 +76,23 @@ public func KMsg(int plr1, int plr2, object clonk, int plr3)
   var dmsg = msg;
   if(killer != victim)
   {
-    var killerstr, dstr;
+    var killerstr, dstr, energystr;
+    
+    //Killer selbst tot?
+    if(Contained(GetCursor(killer)) && GetID(Contained(GetCursor(killer))) == FKDT)
+      energystr = "({{SM01}})";
+    else
+      energystr = Format("({{SM13}} <c ff0000>%d%</c>)", (GetEnergy(GetCursor(killer))*100/(GetPhysical("Energy", 0, GetCursor(killer))/1000)));
+    
     if(assist != -1 && GetPlayerName(assist) && assist != killer && assist != victim)
     {
-      dstr = Format("%s ({{SM13}} <c ff0000>%d%</c>) + <c %x>%s</c>", GetTaggedPlayerName(killer), (GetEnergy(GetCursor(killer))*100/(GetPhysical("Energy", 0, GetCursor(killer))/1000)), RGB(180,180,180), GetPlayerName(assist));
+      dstr = Format("%s %s + <c %x>%s</c>", GetTaggedPlayerName(killer), energystr, RGB(180,180,180), GetPlayerName(assist));
       killerstr = Format("%s + <c %x>%s</c>", GetTaggedPlayerName(killer), RGB(180,180,180), GetPlayerName(assist));
     }
     else
     {
       killerstr = GetTaggedPlayerName(killer);
-      dstr = Format("%s ({{SM13}} <c ff0000>%d%</c>)", GetTaggedPlayerName(killer), (GetEnergy(GetCursor(killer))*100/(GetPhysical("Energy", 0, GetCursor(killer))/1000)));
+      dstr = Format("%s %s", GetTaggedPlayerName(killer), energystr);
     }
     dmsg = Format("%s %s", dstr, msg);
     msg = Format("%s %s", killerstr, msg);
