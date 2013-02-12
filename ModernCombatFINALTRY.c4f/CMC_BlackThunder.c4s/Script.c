@@ -145,7 +145,7 @@ func CreateInterior()
   CreateObject(SNPT, 280, 1210, -1)->Light();
   CreateObject(SGNP, 1190, 1200, -1);
   CreateObject(SNPT, 1930, 1170, -1)->Light();
-  CreateObject(SGNP, 2960, 1270, -1);
+  CreateObject(SGNP, 2960, 1210, -1);
   CreateObject(SNPT, 3710, 1280, -1)->Light();
 
   //Grenze
