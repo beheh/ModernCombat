@@ -790,7 +790,10 @@ public func StatsStatistics(int iPlr)
       percent--; j--;
     }
 
-    AddMenuItem(Format("{{%i}} (%d) - %d - (%d) {{%i}}", GetRankID(rank), (bpoints + tpoints), k2-(bpoints + tpoints), k2, GetRankID(rank+1)), 0, 0, pClonk);
+    //AddMenuItem(Format("{{%i}} (%d) - %d - (%d) {{%i}}", GetRankID(rank), (bpoints + tpoints), k2-(bpoints + tpoints), k2, GetRankID(rank+1)), 0, 0, pClonk);
+    AddMenuItem(Format("{{%i}} %d - %d {{%i}}", GetRankID(rank), (bpoints + tpoints), k2, GetRankID(rank+1)), 0, 0, pClonk);
+    AddMenuItem(Format("%d $UntilRankUp$", k2-(bpoints + tpoints)), 0, 0, pClonk);
+    
     AddMenuItem(Format("%s</c>", str), 0, 0, pClonk);
   }
 
