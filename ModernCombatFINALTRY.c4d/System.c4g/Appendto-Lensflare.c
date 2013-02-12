@@ -15,10 +15,10 @@ public func IsMaster()
 
 private func IsDay()
 {
-	if(GetDarkness(1000) > ELGT_MaxDarkness)
-		return false;
-	
-	return _inherited(...);
+  if(GetDarkness(1000) > ELGT_MaxDarkness)
+    return false;
+
+  return _inherited(...);
 }
 
 /* Initialisierung */
