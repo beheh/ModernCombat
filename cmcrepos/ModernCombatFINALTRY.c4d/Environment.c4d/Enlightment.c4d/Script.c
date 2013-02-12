@@ -19,7 +19,7 @@ func Initialize()
 public func Enlight()
 {
   //Nicht wenn Dunkel oder Nacht
-  if(IsNight() || GetDarkness(1000) > ELGT_MaxDarkness) 
+  if(IsNight() || GetDarkness(1000) > ELGT_MaxDarkness)
   {
     fEnlightment = false;
     return;
@@ -63,39 +63,39 @@ func FxEnvLightTimer(object pTarget)	{}
 
 private func Check()
 {
-	if(FindObject(CHOS))
-	{
-		var activated = GetDarkness(1000) <= ELGT_MaxDarkness;
-		fEnlightment = false;
-		for(var pObj in FindObjects(Find_ID(LGHC)))
+  if(FindObject(CHOS))
+  {
+    var activated = GetDarkness(1000) <= ELGT_MaxDarkness;
+    fEnlightment = false;
+    for(var pObj in FindObjects(Find_ID(LGHC)))
     {
-      if(GetEffect("EnvLight", pObj)) 
+      if(GetEffect("EnvLight", pObj))
       {
-      	if(activated)
-    			SetVisibility(VIS_All, pObj);
-    		else
-      		SetVisibility(VIS_None, pObj);
-      	
-      	fEnlightment = true;
+        if(activated)
+          SetVisibility(VIS_All, pObj);
+        else
+          SetVisibility(VIS_None, pObj);
+
+        fEnlightment = true;
       }
     }
-	}
+  }
   else if(IsNight() || GetDarkness(1000) > ELGT_MaxDarkness || !GetEffectData(EFSM_Enlight))
   {
     if(fEnlightment == true)
     {
-    	for(var pObj in FindObjects(Find_Or(Find_ID(TIM1), Find_ID(LGHC)))) 
-    	{
-    	  if(GetEffect("EnvLight", pObj)) 
-    	  {
-    	  	pObj->FadeOut();
-    	    fEnlightment = false;
-    	  }
-    	}
+      for(var pObj in FindObjects(Find_Or(Find_ID(TIM1), Find_ID(LGHC))))
+      {
+        if(GetEffect("EnvLight", pObj))
+        {
+          pObj->FadeOut();
+          fEnlightment = false;
+        }
+      }
     }
   }
-  if(fEnlightment == false) 
-    if(!IsNight()) 
-      if(GetDarkness(1000) <= ELGT_MaxDarkness) 
+  if(fEnlightment == false)
+    if(!IsNight())
+      if(GetDarkness(1000) <= ELGT_MaxDarkness)
         return Enlight();
 }
