@@ -4,6 +4,7 @@
 
 local fEnlightment;
 
+static const ELGT_MaxDarkness = 350;
 
 /* Initialisierung */
 
@@ -18,7 +19,7 @@ func Initialize()
 public func Enlight()
 {
   //Nicht wenn Dunkel oder Nacht
-  if(IsNight() || GetDarkness() > 0) 
+  if(IsNight() || GetDarkness(1000) > ELGT_MaxDarkness) 
   {
     fEnlightment = false;
     return;
@@ -39,17 +40,14 @@ public func Enlight()
 
     //Berechnen, ab wo kein Material mehr ist
     var SizeY = 0;
-    var iY = 0;
-    while(!(lite->GBackSolid(GetX(), GetY()+iY)) && iY < LandscapeHeight())
-    {
-      SizeY += 6;
-      ++iY;
-    }
+    var x = GetX(holder), y = GetY(holder), xdir = 0, ydir = 0;
+    SimFlight(x, y, xdir, ydir);
+    SizeY = y * 6;
 
     lite->ChangeSizeXY(SizeX, SizeY);
     lite->ChangeR(CurrentR);
     lite->TurnOn();
-    lite->FadeIn();
+    //lite->FadeIn();
 
     //Effekt zur Erkennung anhängen
     AddEffect("EnvLight", lite, 50, 100, this, ELGT);
@@ -65,20 +63,39 @@ func FxEnvLightTimer(object pTarget)	{}
 
 private func Check()
 {
-  if(IsNight() || GetDarkness() > 0 || !GetEffectData(EFSM_Enlight))
+	if(FindObject(CHOS))
+	{
+		var activated = GetDarkness(1000) <= ELGT_MaxDarkness;
+		fEnlightment = false;
+		for(var pObj in FindObjects(Find_ID(LGHC)))
+    {
+      if(GetEffect("EnvLight", pObj)) 
+      {
+      	if(activated)
+    			SetVisibility(VIS_All, pObj);
+    		else
+      		SetVisibility(VIS_None, pObj);
+      	
+      	fEnlightment = true;
+      }
+    }
+	}
+  else if(IsNight() || GetDarkness(1000) > ELGT_MaxDarkness || !GetEffectData(EFSM_Enlight))
   {
     if(fEnlightment == true)
-      for(var pObj in FindObjects(Find_ID(TIM1), Find_ID(LGHC))) 
-      {
-        if(GetEffect("EnvLight", pObj)) 
-        {
-          pObj->FadeOut();
-          fEnlightment = false;
-        }
-      }
-     }
+    {
+    	for(var pObj in FindObjects(Find_Or(Find_ID(TIM1), Find_ID(LGHC)))) 
+    	{
+    	  if(GetEffect("EnvLight", pObj)) 
+    	  {
+    	  	pObj->FadeOut();
+    	    fEnlightment = false;
+    	  }
+    	}
+    }
+  }
   if(fEnlightment == false) 
     if(!IsNight()) 
-      if(GetDarkness() == 0) 
+      if(GetDarkness(1000) <= ELGT_MaxDarkness) 
         return Enlight();
 }
