@@ -26,7 +26,7 @@ func Timer()
   {
     if(sway == 0)
       CalcMax();
-  
+
     if(dir == 0)
     {
       sway++;
@@ -39,9 +39,7 @@ func Timer()
       if(sway <= -max)
         dir = 0;
     }
-    
-    //r += BoundBy(GetWind(0,-2),0,GetWind(0,-2)/Abs(GetWind(0,-2)));
-    
+
     var r2 = Sin(sway*90/max,max);
     SetDTRotation (r2,0,0,this);
   }
@@ -53,10 +51,5 @@ protected func SetDTRotation (int r, int xoff, int yoff, object obj)
 {
   var fsin=Sin(r, 1000), fcos=Cos(r, 1000);
 
-  SetObjDrawTransform
-  (
-    +fcos, +fsin, (1000-fcos)*xoff - fsin*yoff,
-    -fsin, +fcos, (1000-fcos)*yoff + fsin*xoff,
-    obj
-  );
+  SetObjDrawTransform(+fcos, +fsin, (1000-fcos)*xoff - fsin*yoff, -fsin, +fcos, (1000-fcos)*yoff + fsin*xoff, obj);
 }
