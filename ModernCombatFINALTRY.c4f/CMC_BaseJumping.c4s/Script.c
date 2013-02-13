@@ -308,12 +308,12 @@ func CreateDecoration()
   CreateObject(MUMT, 1870, 330, -1);
 
   //Hinweisschilder
-  CreateObject(WLSN, 665, 1540, -1)->SetPhase(3);
-  CreateObject(WLSN, 1110, 1490, -1)->SetPhase(3);
-  CreateObject(WLSN, 1110, 1520, -1)->SetPhase(2);
-  CreateObject(WLSN, 1970, 1490, -1)->SetPhase(4);
-  CreateObject(WLSN, 1970, 1520, -1)->SetPhase(2);
-  CreateObject(WLSN, 2415, 1540, -1)->SetPhase(4);
+  CreateObject(WLSN, 665, 1540, -1)->Set("A");
+  CreateObject(WLSN, 1110, 1490, -1)->Set("A");
+  CreateObject(WLSN, 1110, 1520, -1)->Set("Heights");
+  CreateObject(WLSN, 1970, 1490, -1)->Set("B");
+  CreateObject(WLSN, 1970, 1520, -1)->Set("Heights");
+  CreateObject(WLSN, 2415, 1540, -1)->Set("B");
 
   //Verbrannte Zauberwerkstatt
   CreateObject(BMWS, 1300, 835, -1);

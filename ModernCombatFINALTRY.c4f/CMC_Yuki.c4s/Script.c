@@ -422,7 +422,7 @@ func CreateDecoration()
   //Schilder
   CreateObject(MSGN, 250, 720, -1);
   CreateObject(MSGN, 280, 720, -1);
-  CreateObject(WLSN, 550, 520, -1);
+  CreateObject(WLSN, 550, 520, -1)->Set("Explosives");
   CreateObject(MSGN, 1310, 750, -1);
   CreateObject(MSGN, 1340, 750, -1);
 

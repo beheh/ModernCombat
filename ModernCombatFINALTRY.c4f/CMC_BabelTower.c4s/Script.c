@@ -558,12 +558,12 @@ func CreateDecoration()
   CreateObject(GTBL, 640, 1690, -1);
 
   //Schilder
-  CreateObject(WLSN, 180, 1930, -1)->SetPhase(2);
+  CreateObject(WLSN, 180, 1930, -1)->Set("Heights");
   CreateObject(ESGN, 440, 800, -1);
   CreateObject(ESGN, 730, 800, -1);
   CreateObject(ESGN, 490, 1235, -1);
   CreateObject(ESGN, 680, 1235, -1);
-  CreateObject(WLSN, 920, 910, -1)->SetPhase(2);
+  CreateObject(WLSN, 920, 910, -1)->Set("Heights");
 
   //Ventillatoren
   CreateObject(VENT, 500, 1670, -1)->SetCon(20);

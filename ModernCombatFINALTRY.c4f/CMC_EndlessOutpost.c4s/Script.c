@@ -528,7 +528,7 @@ func CreateDecoration()
   CreateObject(VGMN, 2380, 400, -1)->Set(3);
 
   //Schild
-  CreateObject(WLSN, 2265, 310, -1);
+  CreateObject(WLSN, 1830, 540, -1)->Set("Explosives");
 
   //Wald
   CreateObject(TRE3,75,458,-1);

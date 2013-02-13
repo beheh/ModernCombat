@@ -562,16 +562,14 @@ func CreateDecoration()
 
   //Hinweisschilder
   CreateObject(SGNP, 420, 460, -1)->SetMode(1);
-  CreateObject(WLSN, 640, 400, -1)->SetPhase(3);
-  CreateObject(WLSN, 1080, 400, -1)->SetPhase(3);
-
-  CreateObject(WLSN, 1960, 400, -1)->SetPhase(4);
-  CreateObject(WLSN, 2320, 400, -1)->SetPhase(4);
-  CreateObject(WLSN, 2920, 400, -1)->SetPhase(5);
-  CreateObject(WLSN, 3280, 400, -1)->SetPhase(5);
-
-  CreateObject(WLSN, 4160, 400, -1)->SetPhase(6);
-  CreateObject(WLSN, 4600, 400, -1)->SetPhase(6);
+  CreateObject(WLSN, 640, 400, -1)->Set("A");
+  CreateObject(WLSN, 1080, 400, -1)->Set("A");
+  CreateObject(WLSN, 1960, 400, -1)->Set("B");
+  CreateObject(WLSN, 2320, 400, -1)->Set("B");
+  CreateObject(WLSN, 2920, 400, -1)->Set("C");
+  CreateObject(WLSN, 3280, 400, -1)->Set("C");
+  CreateObject(WLSN, 4160, 400, -1)->Set("D");
+  CreateObject(WLSN, 4600, 400, -1)->Set("D");
   CreateObject(SGNP, 4820, 460, -1)->SetMode(1);
 
   //Labortische

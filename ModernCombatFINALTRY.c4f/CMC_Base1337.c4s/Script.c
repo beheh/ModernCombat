@@ -163,8 +163,8 @@ func CreateInterior()
   //Schilder
   CreateObject(MSGN, 620, 1200, -1);
   CreateObject(MSGN, 660, 1200, -1);
-  CreateObject(WLSN, 1290, 935, -1)->SetPhase(2);
-  CreateObject(WLSN, 3405, 900, -1)->SetPhase(1);
+  CreateObject(WLSN, 1290, 935, -1)->Set("Heights");
+  CreateObject(WLSN, 3405, 900, -1)->Set("Explosives");
   CreateObject(MSGN, 2600, 1220, -1);
   CreateObject(MSGN, 2620, 1220, -1);
   CreateObject(MSGN, 2640, 1220, -1);

@@ -257,7 +257,7 @@ func CreateDecoration()
   CreateObject(FLH2, 705, 290, -1)->SetRotation(90);
 
   //Schild
-  CreateObject(WLSN, 560, 690, -1);
+  CreateObject(WLSN, 590, 540, -1)->Set("Heights");
 
   //Regale
   CreateObject(FRAM, 580, 690, -1);
