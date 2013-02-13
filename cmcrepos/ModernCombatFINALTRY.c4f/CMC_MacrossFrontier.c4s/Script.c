@@ -280,7 +280,7 @@ func CreateDecoration()
   CreateObject(ETLT, 1520, 345, -1);
 
   //Schilder
-  CreateObject(WLSN, 440, 450, -1);
+  CreateObject(WLSN, 440, 450, -1)->Set("Explosives");
   CreateObject(MSGN, 600, 470, -1);
   CreateObject(MSGN, 630, 460, -1);
   CreateObject(MSGN, 660, 450, -1);
@@ -288,7 +288,7 @@ func CreateDecoration()
   CreateObject(MSGN, 890, 370, -1);
   CreateObject(MSGN, 920, 380, -1);
   CreateObject(MSGN, 950, 390, -1);
-  CreateObject(WLSN, 1125, 370, -1);
+  CreateObject(WLSN, 1125, 370, -1)->Set("Explosives");
 
   //Alarmlampen
   CreateObject(ALGH, 710, 170, -1)->TurnOn();

@@ -336,8 +336,8 @@ func CreateDecoration()
   CreateObject(MNI2, 2485, 448, -1);
 
   //Schilder
-  CreateObject(WLSN, 200, 380, -1);
-  CreateObject(WLSN, 2600, 380, -1);
+  CreateObject(WLSN, 200, 380, -1)->Set("Explosives");
+  CreateObject(WLSN, 2600, 380, -1)->Set("Explosives");
 
   //Zäune
   CreateObject(FENC, 630, 260, -1);
