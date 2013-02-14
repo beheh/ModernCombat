@@ -325,8 +325,13 @@ protected func ContainedThrow(object ByObj)
 
   //Schütze: Feuer eröffnen/einstellen
   if(ByObj == GetGunner())
-    if(!GetPlrCoreJumpAndRunControl(GetController(ByObj)))
-      pMGStation->~ControlThrow(ByObj);
+    if(GetPilot())
+    {
+      if(!GetPlrCoreJumpAndRunControl(GetController(ByObj)))
+        pMGStation->~ControlThrow(ByObj);
+    }
+    else
+      RefuseLaunch(ByObj);
 
   return true;
 }
