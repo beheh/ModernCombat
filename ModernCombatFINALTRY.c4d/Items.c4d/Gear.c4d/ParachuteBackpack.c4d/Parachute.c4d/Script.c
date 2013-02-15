@@ -125,6 +125,14 @@ public func StartFlyFree()
 
 protected func Opening()
 {
+  var targ = GetActionTarget();
+  if(!targ || GetID(Contained(targ)) == FKDT || (GetProcedure(targ) != "FLOAT" && GetProcedure(targ) != "FLIGHT"))
+  {
+    Close();
+    RemoveEffect("Flying", targ);
+    return;
+  }
+
   if(GetActTime() > 25)
   {
     SetObjDrawTransform(1000, 0, 0, 0, 1000, 0, this);
