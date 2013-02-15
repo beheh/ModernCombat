@@ -9,22 +9,43 @@ local mode;
 
 func Initialize()
 {
+  //Standardwerte setzen
   SetAction("Exist");
+  Set("Danger");
+}
+
+/* Blinken */
+
+func Blink()
+{
+  AddLightFlash(100,0,0,RGB(255,0,0));
 }
 
 /* Einstellungen */
+
+func Set(string szIcon)
+{
+  //Grafik aufdrucken
+  if(mode)
+    SetGraphics("Metal",0,GetID(this),2,GFXOV_MODE_Action, szIcon);
+  else
+    SetGraphics(0,0,GetID(this),2,GFXOV_MODE_Action, szIcon);
+}
 
 func SetMode(int iMode)
 {
   if(iMode == true)
   {
-    SetGraphics("Metal");
     mode = 1;
+    SetGraphics("Metal");
+    SetAction("Exist2");
+    Set("Danger");
   }
   else
   {
-    SetGraphics("");
     mode = 0;
+    SetGraphics("");
+    SetAction("Exist");
   }
 }
 
@@ -46,6 +67,7 @@ func Damage()
     CastSmoke("Smoke3",12,10,0,0,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
     Sound("CrateCrack.ogg");
 
+    //Verschwinden
     RemoveObject();
   }
 }

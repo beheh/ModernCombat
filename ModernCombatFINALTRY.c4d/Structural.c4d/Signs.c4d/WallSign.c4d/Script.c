@@ -1,19 +1,16 @@
 /*-- Wandschild --*/
 
 #strict 2
+#include SGNP
+
+func Damage()	{return;}	//Unzerstörbar
 
 
 /* Intialisierung */
 
 func Initialize()
 {
+  //Standardwerte setzen
   SetAction("Exist");
-}
-
-/* Icon setzen */
-
-func Set(string szIcon)
-{
-  //Grafik aufdrucken
-  SetGraphics(0,0,GetID(this),2,GFXOV_MODE_Action, szIcon);
+  Set("Explosives");
 }
