@@ -281,7 +281,7 @@ protected func RemovePlayer(iPlr)
 
 /* Wartemusik */
 
-global func SongCount()	{return 3;}	//Anzahl Lieder
+global func SongCount()	{return 2;}	//Anzahl Lieder
 
 global func SetWaitingMusic()
 {
