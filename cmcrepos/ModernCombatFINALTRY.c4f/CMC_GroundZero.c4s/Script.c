@@ -452,6 +452,10 @@ public func ChooserFinished()
     aFlag[4]->Set("$Flag5$",0,2);
    }
 
+   //Grenzen setzen
+   CreateObject(BRDR, 330, 0, -1)->Set(0);
+   CreateObject(BRDR, 3070, 0, -1)->Set(1);
+
    //SSA Besitzer setzen
    if(aTeams[1] == true)
    {aSelfDefense[0]->SetTeam(1);}
@@ -480,6 +484,10 @@ public func ChooserFinished()
 
    AddAssaultTarget(CCP2, 3000, 390, 400, 2, "$Flag5$", 0, [[2970, 540], [2900, 540], [2840, 560]]);
    AddAssaultTarget(CMSN, 2110, 520, 300, 2, "$Flag4$", 1, [[2170, 320], [1980, 320], [2100, 170]]);
+
+   //Grenzen setzen
+   CreateObject(BRDR, 330, 0, -1)->Set(0);
+   CreateObject(BRDR, 3070, 0, -1)->Set(1);
 
    //SSA Besitzer setzen
    if(aTeams[1] == true)
