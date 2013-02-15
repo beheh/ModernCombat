@@ -99,8 +99,8 @@ func CreateInterior()
 
   //Hinweisschild
   var sign = CreateObject(SGNP, 1390, 550, -1);
-  sign->SetPhase(1);
   sign->SetMode(1);
+  sign->Set("Turret");
 
   //Selbstschussanlage und Konsole
   aSelfDefense[0] = CreateObject(SEGU, 1305, 369, -1);

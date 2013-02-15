@@ -298,8 +298,8 @@ public func ChooserFinished()
   {
    SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,2770,480,-1),100*21);
 
-   CreateObject(SGNP, 2655, 550, -1)->SetPhase(2);
-   CreateObject(SGNP, 2885, 550, -1)->SetPhase(2);
+   CreateObject(SGNP, 2655, 550, -1)->Set("Helicopter");
+   CreateObject(SGNP, 2885, 550, -1)->Set("Helicopter");
   }
 
   //OP-Spielziel

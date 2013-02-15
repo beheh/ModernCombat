@@ -281,11 +281,11 @@ func CreateInterior()
 
   //Hinweisschilder
   var sign = CreateObject(SGNP, 990, 640, -1);
-  sign->SetPhase(1);
   sign->SetMode(1);
+  sign->Set("Turret");
   sign = CreateObject(SGNP, 1740, 640, -1);
-  sign->SetPhase(1);
   sign->SetMode(1);
+  sign->Set("Turret");
   sign = CreateObject(SNPT, 400, 430, -1);
   sign->SetAction("Sign2");
   sign->Light();

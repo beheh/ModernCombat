@@ -123,6 +123,7 @@ func CreateInterior()
   CreateObject(BECR, 3705, 292, -1);
   CreateObject(BECR, 4120, 580, -1)->AutoRespawn();
   CreateObject(BECR, 5190, 1240, -1)->AutoRespawn();
+  CreateObject(BECR, 5380, 1270, -1);
 
   //Explosive Kisten
   CreateObject(XWCR, 1845, 1170, -1)->AutoRespawn();
@@ -143,6 +144,10 @@ func CreateInterior()
   CreateObject(GSBL, 1635, 1030, -1)->AutoRespawn();
   CreateObject(GSBL, 4220, 818, -1)->AutoRespawn();
   CreateObject(GSBL, 5160, 1238, -1)->AutoRespawn();
+
+  //Stahlbrücken
+  CreateObject(_HBR, 5325, 1282, -1);
+  CreateObject(_HBR, 5395, 1282, -1);
 
   //Gerüste
   CreateObject(SFFG, 4715, 1240, -1)->Set(5);
@@ -605,9 +610,9 @@ public func ChooserFinished()
     SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,5495,1200,-1),100*21);
 
     var sign = CreateObject(SGNP, 1640, 1170, -1);
-    sign->SetPhase(2);
     sign->SetMode(1);
-    CreateObject(SGNP, 5445, 1230, -1)->SetPhase(2);
+    sign->Set("Helicopter");
+    CreateObject(SGNP, 5405, 1270, -1)->Set("Helicopter");
    }
 
    //SSA Besitzer setzen
@@ -617,13 +622,6 @@ public func ChooserFinished()
    //SSA aktivieren
    aSelfDefense[0]->TurnOn();
    aSelfDefense[1]->TurnOn();
-
-   //Stahlbrücken
-   CreateObject(_HBR, 5325, 1282, -1);
-   CreateObject(_HBR, 5395, 1282, -1);
-
-   //Verbandskiste
-   CreateObject(BECR, 5380, 1270, -1);
 
    //Grenzen setzen
    CreateObject(BRDR, 910, 0, -1)->Set(0);
@@ -698,6 +696,10 @@ public func ChooserFinished()
    CreateObject(BRDR, 3900, 0, -1)->Set(1,1);
    CreateObject(BRDR, 0, 700, -1)->Set(2,1);
 
+   //Hinweisschilder
+   CreateObject(SGNP, 830, 1220, -1);
+   CreateObject(SGNP, 6010, 1210, -1);
+
    //SSA Besitzer setzen
    if(aTeams[1] == true)
    {aSelfDefense[0]->SetTeam(1); aSelfDefense[1]->SetTeam(1);}
@@ -736,9 +738,9 @@ public func ChooserFinished()
     SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,5495,1200,-1),50*21);
 
     var sign = CreateObject(SGNP, 1640, 1170, -1);
-    sign->SetPhase(2);
     sign->SetMode(1);
-    CreateObject(SGNP, 5445, 1230, -1)->SetPhase(2);
+    sign->Set("Helicopter");
+    CreateObject(SGNP, 5405, 1270, -1)->Set("Helicopter");
    }
 
    //Patrouillenboote
@@ -765,7 +767,6 @@ public func ChooserFinished()
    CreateObject(SGNP, 3160, 1280, -1);
    CreateObject(SGNP, 3260, 1210, -1);
    CreateObject(SGNP, 3420, 1130, -1);
-
    CreateObject(SGNP, 5065, 1170, -1);
    CreateObject(SGNP, 5100, 1250, -1);
    CreateObject(SGNP, 5180, 1240, -1);
@@ -792,7 +793,6 @@ public func ChooserFinished()
    CreateObject(SGNP, 3160, 1280, -1);
    CreateObject(SGNP, 3260, 1210, -1);
    CreateObject(SGNP, 3420, 1130, -1);
-
    CreateObject(SGNP, 5065, 1170, -1);
    CreateObject(SGNP, 5100, 1250, -1);
    CreateObject(SGNP, 5180, 1240, -1);
@@ -838,7 +838,6 @@ public func ChooserFinished()
    CreateObject(SGNP, 3160, 1280, -1);
    CreateObject(SGNP, 3260, 1210, -1);
    CreateObject(SGNP, 3420, 1130, -1);
-
    CreateObject(SGNP, 5065, 1170, -1);
    CreateObject(SGNP, 5100, 1250, -1);
    CreateObject(SGNP, 5180, 1240, -1);
@@ -862,7 +861,6 @@ public func ChooserFinished()
    CreateObject(SGNP, 3160, 1280, -1);
    CreateObject(SGNP, 3260, 1210, -1);
    CreateObject(SGNP, 3420, 1130, -1);
-
    CreateObject(SGNP, 5065, 1170, -1);
    CreateObject(SGNP, 5100, 1250, -1);
    CreateObject(SGNP, 5180, 1240, -1);

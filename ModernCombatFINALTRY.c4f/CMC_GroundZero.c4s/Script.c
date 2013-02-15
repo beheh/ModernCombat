@@ -148,14 +148,6 @@ func CreateInterior()
   CreateObject(SBBA, 1455, 420, -1)->Right();
   CreateObject(SBBA, 2375, 290, -1);
 
-  //Hinweisschilder
-  var sign = CreateObject(SGNP, 480, 450, -1);
-  sign->SetPhase(1);
-  sign->SetMode(1);
-  sign = CreateObject(SGNP, 2320, 450, -1);
-  sign->SetPhase(1);
-  sign->SetMode(1);
-
   //Schutztüren
   CreateObject(GDDR, 230, 290, -1);
   CreateObject(GDDR, 350, 390, -1);
@@ -336,8 +328,8 @@ func CreateDecoration()
   CreateObject(MNI2, 2485, 448, -1);
 
   //Schilder
-  CreateObject(WLSN, 200, 380, -1)->Set("Explosives");
-  CreateObject(WLSN, 2600, 380, -1)->Set("Explosives");
+  CreateObject(WLSN, 200, 380, -1);
+  CreateObject(WLSN, 2600, 380, -1);
 
   //Zäune
   CreateObject(FENC, 630, 260, -1);
@@ -461,6 +453,14 @@ public func ChooserFinished()
    //SSA anschalten
    aSelfDefense[0]->TurnOn();
    aSelfDefense[1]->TurnOn();
+
+   //Hinweisschilder
+   var sign = CreateObject(SGNP, 480, 450, -1);
+   sign->SetMode(1);
+   sign->Set("Turret");
+   sign = CreateObject(SGNP, 2320, 450, -1);
+   sign->SetMode(1);
+   sign->Set("Turret");
   }
 
   //Base Assault-Spielziel
@@ -482,6 +482,14 @@ public func ChooserFinished()
    //SSA anschalten
    aSelfDefense[0]->TurnOn();
    aSelfDefense[1]->TurnOn();
+
+   //Hinweisschilder
+   var sign = CreateObject(SGNP, 480, 450, -1);
+   sign->SetMode(1);
+   sign->Set("Turret");
+   sign = CreateObject(SGNP, 2320, 450, -1);
+   sign->SetMode(1);
+   sign->Set("Turret");
   }
 
   //HTF-Spielziel
@@ -507,6 +515,10 @@ public func ChooserFinished()
    CreateObject(SGNP, 2340, 450, -1);
    CreateObject(SGNP, 2385, 290, -1);
 
+   //Objekte entfernen
+   RemoveObject(aSelfDefense[0]);
+   RemoveObject(aSelfDefense[1]);
+
    //Zusätzliche Munition
    if(!FindObject(NOAM))
    {
@@ -521,6 +533,12 @@ public func ChooserFinished()
   //MR-Spielziel
   if (FindObject(GMNR))
   {
+   //Geldsäcke
+   AddMoneySpawn(1100, 545, [20]);
+   AddMoneySpawn(1400, 165, [20]);
+   AddMoneySpawn(1400, 415, [20]);
+   AddMoneySpawn(1700, 545, [20]);
+
    //Grenzen setzen
    CreateObject(BRDR, 440, 0, -1)->Set(0);
    CreateObject(BRDR, 2360, 0, -1)->Set(1);
@@ -531,11 +549,9 @@ public func ChooserFinished()
    CreateObject(SGNP, 2340, 450, -1);
    CreateObject(SGNP, 2385, 290, -1);
 
-   //Geldsäcke
-   AddMoneySpawn(1100, 545, [20]);
-   AddMoneySpawn(1400, 165, [20]);
-   AddMoneySpawn(1400, 415, [20]);
-   AddMoneySpawn(1700, 545, [20]);
+   //Objekte entfernen
+   RemoveObject(aSelfDefense[0]);
+   RemoveObject(aSelfDefense[1]);
   }
 
   //CTF-Spielziel
@@ -556,6 +572,10 @@ public func ChooserFinished()
    CreateObject(SGNP, 460, 450, -1);
    CreateObject(SGNP, 2340, 450, -1);
    CreateObject(SGNP, 2385, 290, -1);
+
+   //Objekte entfernen
+   RemoveObject(aSelfDefense[0]);
+   RemoveObject(aSelfDefense[1]);
   }
 
   //LMS/DM-Spielziel
@@ -570,6 +590,10 @@ public func ChooserFinished()
    CreateObject(SGNP, 720, 450, -1);
    CreateObject(SGNP, 2080, 390, -1);
    CreateObject(SGNP, 2080, 450, -1);
+
+   //Objekte entfernen
+   RemoveObject(aSelfDefense[0]);
+   RemoveObject(aSelfDefense[1]);
   }
 }
 

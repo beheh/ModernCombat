@@ -491,11 +491,11 @@ public func ChooserFinished()
    sign->SetAction("Sign3");
    sign->Light();
    sign = CreateObject(SGNP, 1875, 840, -1);
-   sign->SetPhase(2);
    sign->SetMode(1);
+   sign->Set("Helicopter");
    sign = CreateObject(SGNP, 3855, 840, -1);
-   sign->SetPhase(2);
    sign->SetMode(1);
+   sign->Set("Helicopter");
   }
 
   //SSA Besitzer setzen

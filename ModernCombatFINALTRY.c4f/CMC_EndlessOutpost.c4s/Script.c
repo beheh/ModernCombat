@@ -208,6 +208,9 @@ func CreateInterior()
   CreateObject(GSBL, 3000, 560, -1)->AutoRespawn();
   CreateObject(GSBL, 3190, 110, -1);
 
+  //Hinweisschild
+  CreateObject(SGNP, 265, 450, -1);
+
   //Explosive Kisten
   CreateObject(XWCR, 1945, 320, -1)->AutoRespawn();
   CreateObject(XWCR, 2550, 210, -1)->AutoRespawn();
@@ -527,9 +530,6 @@ func CreateDecoration()
   CreateObject(VGMN, 2295, 110, -1);
   CreateObject(VGMN, 2380, 400, -1)->Set(3);
 
-  //Schild
-  CreateObject(WLSN, 1830, 540, -1)->Set("Explosives");
-
   //Wald
   CreateObject(TRE3,75,458,-1);
   CreateObject(TRE3,165,458,-1);
@@ -812,11 +812,11 @@ public func ChooserFinished()
 
    //Hinweisschilder
    var sign = CreateObject(SGNP, 1180, 410, -1);
-   sign->SetPhase(1);
    sign->SetMode(1);
+   sign->Set("Turret");
    sign = CreateObject(SGNP, 1810, 550, -1);
-   sign->SetPhase(1);
    sign->SetMode(1);
+   sign->Set("Turret");
 
    //Konsole erstellen
    CreateObject(CONS, 2210, 485, -1)->Set(aSelfDefense[1]);
@@ -898,11 +898,11 @@ public func ChooserFinished()
 
    //Hinweisschilder
    var sign = CreateObject(SGNP, 1180, 410, -1);
-   sign->SetPhase(1);
    sign->SetMode(1);
+   sign->Set("Turret");
    sign = CreateObject(SGNP, 1810, 550, -1);
-   sign->SetPhase(1);
    sign->SetMode(1);
+   sign->Set("Turret");
 
    //Objekte entfernen
    RemoveObject(FindObject2(Find_ID(_WIN),Find_InRect(1200, 330, 805, 360)));
