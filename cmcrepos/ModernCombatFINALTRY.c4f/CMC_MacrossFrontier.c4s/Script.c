@@ -280,7 +280,7 @@ func CreateDecoration()
   CreateObject(ETLT, 1520, 345, -1);
 
   //Schilder
-  CreateObject(WLSN, 440, 450, -1)->Set("Explosives");
+  CreateObject(WLSN, 440, 450, -1);
   CreateObject(MSGN, 600, 470, -1);
   CreateObject(MSGN, 630, 460, -1);
   CreateObject(MSGN, 660, 450, -1);
@@ -288,7 +288,7 @@ func CreateDecoration()
   CreateObject(MSGN, 890, 370, -1);
   CreateObject(MSGN, 920, 380, -1);
   CreateObject(MSGN, 950, 390, -1);
-  CreateObject(WLSN, 1125, 370, -1)->Set("Explosives");
+  CreateObject(WLSN, 1125, 370, -1);
 
   //Alarmlampen
   CreateObject(ALGH, 710, 170, -1)->TurnOn();
@@ -416,11 +416,11 @@ public func ChooserFinished()
   {
    //Hinweisschilder
    var sign = CreateObject(SGNP, 560, 480, -1);
-   sign->SetPhase(1);
    sign->SetMode(1);
+   sign->Set("Turret");
    var sign = CreateObject(SGNP, 990, 400, -1);
-   sign->SetPhase(1);
    sign->SetMode(1);
+   sign->Set("Turret");
 
    //Geldsäcke
    AddMoneySpawn(610, 240, [20]);
@@ -434,11 +434,11 @@ public func ChooserFinished()
   {
    //Hinweisschilder
    var sign = CreateObject(SGNP, 560, 480, -1);
-   sign->SetPhase(1);
    sign->SetMode(1);
+   sign->Set("Turret");
    var sign = CreateObject(SGNP, 990, 400, -1);
-   sign->SetPhase(1);
    sign->SetMode(1);
+   sign->Set("Turret");
 
    //Flaggen
    CreateFlag(1,110,440,GetTeamColor(1)); 
@@ -450,11 +450,11 @@ public func ChooserFinished()
   {
    //Hinweisschilder
    var sign = CreateObject(SGNP, 560, 480, -1);
-   sign->SetPhase(1);
    sign->SetMode(1);
+   sign->Set("Turret");
    var sign = CreateObject(SGNP, 990, 400, -1);
-   sign->SetPhase(1);
    sign->SetMode(1);
+   sign->Set("Turret");
   }
 }
 

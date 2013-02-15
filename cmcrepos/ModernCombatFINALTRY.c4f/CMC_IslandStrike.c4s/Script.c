@@ -756,8 +756,8 @@ public func ChooserFinished()
     SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,4700,390,-1),100*21);
 
     sign = CreateObject(SGNP, 4810, 420, -1);
-    sign->SetPhase(2);
     sign->SetMode(1);
+    sign->Set("Helicopter");
    }
 
    //Hinweisschilder
@@ -765,11 +765,11 @@ public func ChooserFinished()
    sign->SetAction("Sign2");
    sign->SetMode(1);
    sign = CreateObject(SGNP, 2530, 570, -1);
-   sign->SetPhase(1);
    sign->SetMode(1);
+   sign->Set("Turret");
    sign = CreateObject(SGNP, 6620, 570, -1);
-   sign->SetPhase(1);
    sign->SetMode(1);
+   sign->Set("Turret");
 
    //Verbundene Räume
    var doorw = CreateObject(GAT1, 2960, 433, -1);
@@ -883,8 +883,8 @@ public func ChooserFinished()
     SetupVehicleSpawn([APCE],DIR_Left,CreateObject(VSPW,4730,390,-1),50*21);
 
     sign = CreateObject(SGNP, 4810, 420, -1);
-    sign->SetPhase(2);
     sign->SetMode(1);
+    sign->Set("Helicopter");
    }
 
    //Boden
@@ -1011,8 +1011,8 @@ public func ChooserFinished()
     SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,4700,390,-1),100*21);
 
     sign = CreateObject(SGNP, 4810, 420, -1);
-    sign->SetPhase(2);
     sign->SetMode(1);
+    sign->Set("Helicopter");
    }
 
    //Patrouillenboote
@@ -1053,8 +1053,8 @@ public func ChooserFinished()
     SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,4700,390,-1),100*21);
 
     sign = CreateObject(SGNP, 4810, 420, -1);
-    sign->SetPhase(2);
     sign->SetMode(1);
+    sign->Set("Helicopter");
    }
 
    //Patrouillenboote

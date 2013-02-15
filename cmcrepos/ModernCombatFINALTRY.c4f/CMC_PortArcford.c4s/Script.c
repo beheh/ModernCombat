@@ -425,11 +425,11 @@ public func ChooserFinished()
     SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,910,470,-1),100*21);
     SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,4925,420,-1),100*21);
 
-    var sign = CreateObject(SGNP, 840, 500, -1);
-    sign->SetPhase(2);
-    var sign = CreateObject(SGNP, 4990, 450, -1);
-    sign->SetPhase(2);
+    var sign = CreateObject(SGNP, 990, 500, -1);
+    sign->Set("Helicopter");
+    var sign = CreateObject(SGNP, 5035, 480, -1);
     sign->SetMode(1);
+    sign->Set("Helicopter");
    }
   }
 
@@ -483,8 +483,8 @@ public func ChooserFinished()
    {
     SetupVehicleSpawn([APCE],DIR_Right,CreateObject(VSPW,910,470,-1),50*21);
 
-    var sign = CreateObject(SGNP, 840, 500, -1);
-    sign->SetPhase(2);
+    var sign = CreateObject(SGNP, 990, 500, -1);
+    sign->Set("Helicopter");
    }
   }
 

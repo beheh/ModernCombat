@@ -164,7 +164,7 @@ func CreateInterior()
   CreateObject(MSGN, 620, 1200, -1);
   CreateObject(MSGN, 660, 1200, -1);
   CreateObject(WLSN, 1290, 935, -1)->Set("Heights");
-  CreateObject(WLSN, 3405, 900, -1)->Set("Explosives");
+  CreateObject(WLSN, 3405, 900, -1);
   CreateObject(MSGN, 2600, 1220, -1);
   CreateObject(MSGN, 2620, 1220, -1);
   CreateObject(MSGN, 2640, 1220, -1);
@@ -602,16 +602,16 @@ public func ChooserFinished()
 
    //Hinweisschilder
    var sign = CreateObject(SGNP, 780, 1160, -1);
-   sign->SetPhase(1);
+   sign->Set("Turret");
    sign = CreateObject(SGNP, 2885, 960, -1);
-   sign->SetPhase(1);
    sign->SetMode(1);
+   sign->Set("Turret");
    sign = CreateObject(SGNP, 3070, 800, -1);
-   sign->SetPhase(1);
    sign->SetMode(1);
+   sign->Set("Turret");
    sign = CreateObject(SGNP, 3575, 1040, -1);
-   sign->SetPhase(1);
    sign->SetMode(1);
+   sign->Set("Turret");
    CreateObject(SGNP, 3970, 540, -1);
    CreateObject(SGNP, 4165, 510, -1);
 
@@ -631,10 +631,10 @@ public func ChooserFinished()
     SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,1190,820,-1),100*21);
 
     var sign = CreateObject(SGNP, 800, 720, -1);
-    sign->SetPhase(2);
+    sign->Set("Helicopter");
     CreateObject(SNPT, 1160,850, -1)->SetAction("Sign3");
     sign = CreateObject(SGNP, 1310, 820, -1);
-    sign->SetPhase(2);
+    sign->Set("Helicopter");
    }
 
    //Selbstschussanlagen
@@ -717,16 +717,13 @@ public func ChooserFinished()
 
    //Hinweisschilder
    var sign = CreateObject(SGNP, 780, 1160, -1);
-   sign->SetPhase(1);
-   sign = CreateObject(SGNP, 2885, 960, -1);
-   sign->SetPhase(1);
-   sign->SetMode(1);
+   sign->Set("Turret");
    sign = CreateObject(SGNP, 3070, 800, -1);
-   sign->SetPhase(1);
    sign->SetMode(1);
+   sign->Set("Turret");
    sign = CreateObject(SGNP, 3575, 1040, -1);
-   sign->SetPhase(1);
    sign->SetMode(1);
+   sign->Set("Turret");
    CreateObject(SGNP, 3970, 540, -1);
    CreateObject(SGNP, 4165, 510, -1);
 
@@ -752,10 +749,10 @@ public func ChooserFinished()
     SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,1190,820,-1),50*21);
 
     var sign = CreateObject(SGNP, 800, 720, -1);
-    sign->SetPhase(2);
+    sign->Set("Helicopter");
     CreateObject(SNPT, 1160,850, -1)->SetAction("Sign3");
     sign = CreateObject(SGNP, 1310, 820, -1);
-    sign->SetPhase(2);
+    sign->Set("Helicopter");
    }
 
    //Selbstschussanlagen
@@ -804,11 +801,11 @@ public func ChooserFinished()
    //Hinweisschilder
    CreateObject(SNPT, 1650, 1170, -1);
    var sign = CreateObject(SGNP, 2885, 960, -1);
-   sign->SetPhase(1);
    sign->SetMode(1);
+   sign->Set("Turret");
    sign = CreateObject(SGNP, 3575, 1040, -1);
-   sign->SetPhase(1);
    sign->SetMode(1);
+   sign->Set("Turret");
    CreateObject(SGNP, 3970, 540, -1);
    CreateObject(SGNP, 4165, 510, -1);
 
@@ -851,11 +848,11 @@ public func ChooserFinished()
    //Hinweisschilder
    CreateObject(SNPT, 1650, 1170, -1);
    var sign = CreateObject(SGNP, 2885, 960, -1);
-   sign->SetPhase(1);
    sign->SetMode(1);
+   sign->Set("Turret");
    sign = CreateObject(SGNP, 3575, 1040, -1);
-   sign->SetPhase(1);
    sign->SetMode(1);
+   sign->Set("Turret");
    CreateObject(SGNP, 3970, 540, -1);
    CreateObject(SGNP, 4165, 510, -1);
 
@@ -888,11 +885,11 @@ public func ChooserFinished()
    //Hinweisschilder
    CreateObject(SNPT, 1650, 1170, -1);
    var sign = CreateObject(SGNP, 2885, 960, -1);
-   sign->SetPhase(1);
    sign->SetMode(1);
+   sign->Set("Turret");
    sign = CreateObject(SGNP, 3575, 1040, -1);
-   sign->SetPhase(1);
    sign->SetMode(1);
+   sign->Set("Turret");
    CreateObject(SGNP, 3970, 540, -1);
    CreateObject(SGNP, 4165, 510, -1);
 

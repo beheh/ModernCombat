@@ -124,7 +124,6 @@ func CreateInterior()
   CreateObject(XBRL, 580, 350, -1)->AutoRespawn();
   CreateObject(XBRL, 680, 690, -1)->AutoRespawn();
   CreateObject(XBRL, 1975, 490, -1)->AutoRespawn();
-  CreateObject(XBRL, 2815, 440, -1)->AutoRespawn();
 
   //Phosphorfässer
   CreateObject(HBRL, 1020, 510, -1)->AutoRespawn();
@@ -360,9 +359,9 @@ public func ChooserFinished()
    {
     SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,2895,410,-1),100*21);
 
-    var sign = CreateObject(SGNP, 2925, 440, -1);
-    sign->SetPhase(2);
+    var sign = CreateObject(SGNP, 2805, 440, -1);
     sign->SetMode(1);
+    sign->Set("Helicopter");
    }
 
    //Patrouillenboote

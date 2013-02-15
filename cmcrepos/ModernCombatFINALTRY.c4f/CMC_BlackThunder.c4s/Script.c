@@ -312,11 +312,11 @@ public func ChooserFinished()
 
    CreateObject(SNPT, 630, 590, -1)->SetAction("Sign3");
    var sign = CreateObject(SGNP, 1290, 670, -1);
-   sign->SetPhase(2);
    sign->SetMode(1);
+   sign->Set("Helicopter");
    sign = CreateObject(SGNP, 2940, 670, -1);
-   sign->SetPhase(2);
    sign->SetMode(1);
+   sign->Set("Helicopter");
    CreateObject(SNPT, 3610, 590, -1)->SetAction("Sign3");
   }
 

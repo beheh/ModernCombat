@@ -435,11 +435,11 @@ public func ChooserFinished()
    SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,4355,370,-1),100*21);
 
    var sign = CreateObject(SGNP, 1600, 400, -1);
-   sign->SetPhase(2);
    sign->SetMode(1);
+   sign->Set("Helicopter");
    sign = CreateObject(SGNP, 4410, 400, -1);
-   sign->SetPhase(2);
    sign->SetMode(1);
+   sign->Set("Helicopter");
   }
 
   //OP-Spielziel
