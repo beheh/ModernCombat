@@ -13,12 +13,12 @@ public func ExplosionDamage()	{return 32;}	//Explosionsschaden
 public func ExplosionRadius()	{return 32;}	//Radius
 
 
-public func FxFollowStart(object pTarget, int iEffectNumber, int iTemp, obj)
+public func FxFollowStart(object pTarget, int iEffectNumber, int iTemp, object pObj)
 {
   if (iTemp)
     return;
-  EffectVar(0,pTarget,iEffectNumber) = obj;
-  EffectVar(1,pTarget,iEffectNumber) = obj->GetLaser();
+  EffectVar(0,pTarget,iEffectNumber) = pObj;
+  EffectVar(1,pTarget,iEffectNumber) = pObj->GetLaser();
 }
 
 public func FxFollowTimer(object pTarget, int iEffectNumber, int iEffectTime)
@@ -31,8 +31,6 @@ public func FxFollowTimer(object pTarget, int iEffectNumber, int iEffectTime)
       RemoveObject(pLight);
     return;
   }
-
-  var x = GetX(pTarget)-GetX(), y = GetY(pTarget)-GetY();
 
   //Soll-Winkel
   var iDAngle;
