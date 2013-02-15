@@ -15,52 +15,47 @@ global func FxIntUnstuck4KStart(object pTarget, int iEffectNumber, int iTemp, in
   {
     for(var j = 10; j < 60;j+=10)
     {
-      for(var i = -180; i < 360-180; i+=45)//In 45° Schritten testen.
+      for(var i = -180; i < 180; i+=45)//In 45° Schritten testen.
       {
         iXDir = Cos(i,j);
         iYDir = Sin(i,j);
+
         if(!GBackSolid(iXDir,iYDir))
         {
-          for(var k = j; k >= 0; k--)
-          {
-            iXDir = Cos(i,k);
-            iYDir = Sin(i,k);
-            if(GBackSolid(iXDir,iYDir)) break;
-          }
-          Normalize4K(iXDir,iYDir);
           EffectVar (0,pTarget,iEffectNumber) = iXDir;
           EffectVar (1,pTarget,iEffectNumber) = iYDir;
-          return(1);
+          return 1;
         }
       }
     }
 
     EffectVar (0,pTarget,iEffectNumber) =  0;
-    EffectVar (1,pTarget,iEffectNumber) = -1;
+    EffectVar (1,pTarget,iEffectNumber) = -10;
   }
   else
   {
     EffectVar (0,pTarget,iEffectNumber) = iXDir;
     EffectVar (1,pTarget,iEffectNumber) = iYDir;
   }
-  return(1);
+  return 1;
 }
 
 global func FxIntUnstuck4KTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
   if(!Stuck(pTarget))
-    return(-1);
+    return -1;
 
   if(iEffectTime > 12)
   {
+  	EffectVar(2, pTarget, iEffectNumber) = true;
     AutoUnstuck4K(pTarget, EffectVar (0,pTarget,iEffectNumber), EffectVar (1,pTarget,iEffectNumber));
-    return(-1);
+    return -1;
   }
 
   SetPosition(GetX(pTarget)  +	EffectVar (0,pTarget,iEffectNumber)/10,
               GetY(pTarget)  +  EffectVar (1,pTarget,iEffectNumber)/10);
 
-  return(0);
+  return;
 }
 
 global func AutoUnstuck(object pTarget, int iXDir, int iYDir)
@@ -71,7 +66,9 @@ global func AutoUnstuck(object pTarget, int iXDir, int iYDir)
 global func AutoUnstuck4K(object pTarget, int iXDir, int iYDir)
 {
   if(!pTarget) pTarget = this;
-  if(!GetEffect("IntUnstuck4K",pTarget))
+
+  var effect = GetEffect("IntUnstuck4K",pTarget);
+  if(!effect || EffectVar(2, pTarget, effect))
     AddEffect("IntUnstuck4K",pTarget,1,1,pTarget,0,iXDir,iYDir); 
 }
 
