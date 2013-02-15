@@ -36,191 +36,191 @@ func CreateInterior()
   Log("$CreatingInterior$");
 
   //Aufzüge
-  CreateObject(LFTP, 165, 500, -1);
-  CreateObject(LFTP, 615, 380, -1);
-  CreateObject(LFTP, 1025, 390, -1);
-  var liftp = CreateObject (LFTP, 1105, 185, -1);
+  CreateObject(LFTP, 465, 500, -1);
+  CreateObject(LFTP, 915, 380, -1);
+  CreateObject(LFTP, 1325, 390, -1);
+  var liftp = CreateObject (LFTP, 1405, 185, -1);
   liftp->DisableVertical();
-  CreateObject(LFTP, 1775, 400, -1);
-  CreateObject(LFTP, 2185, 405, -1);
-  CreateObject(LFTP, 2635, 435, -1);
+  CreateObject(LFTP, 2075, 400, -1);
+  CreateObject(LFTP, 2485, 405, -1);
+  CreateObject(LFTP, 2935, 435, -1);
 
   //Leitern
-  CreateObject(LADR, 40, 534, -1)->Set(17);
-  CreateObject(LADR, 535, 320, -1)->Set(7);
-  CreateObject(LADR, 695, 320, -1)->Set(7);
-  CreateObject(LADR, 835, 580, -1)->Set(16);
+  CreateObject(LADR, 340, 534, -1)->Set(17);
+  CreateObject(LADR, 835, 320, -1)->Set(7);
+  CreateObject(LADR, 995, 320, -1)->Set(7);
+  CreateObject(LADR, 1235, 580, -1)->Set(16);
 
-  CreateObject(LADR, 1025, 313, -1)->Set(17);
-  CreateObject(LADR, 1205, 520, -1)->Set(9);
-  CreateObject(LADR, 1595, 520, -1)->Set(9);
-  CreateObject(LADR, 1775, 310, -1)->Set(17);
+  CreateObject(LADR, 1325, 313, -1)->Set(17);
+  CreateObject(LADR, 1505, 520, -1)->Set(9);
+  CreateObject(LADR, 1895, 520, -1)->Set(9);
+  CreateObject(LADR, 2075, 310, -1)->Set(17);
 
-  CreateObject(LADR, 1965, 580, -1)->Set(16);
-  CreateObject(LADR, 2105, 320, -1)->Set(7);
-  CreateObject(LADR, 2265, 320, -1)->Set(7);
-  CreateObject(LADR, 2760, 534, -1)->Set(17);
+  CreateObject(LADR, 2265, 580, -1)->Set(16);
+  CreateObject(LADR, 2405, 320, -1)->Set(7);
+  CreateObject(LADR, 2565, 320, -1)->Set(7);
+  CreateObject(LADR, 3060, 534, -1)->Set(17);
 
   //Bodenluken
-  CreateObject(HA4K, 40, 393, -1);
-  CreateObject(HA4K, 2760, 393, -1);
+  CreateObject(HA4K, 340, 393, -1);
+  CreateObject(HA4K, 3060, 393, -1);
 
   //Große Bodenluken
-  CreateObject(H24K, 1025, 178, -1);
-  CreateObject(H24K, 1775, 178, -1);
+  CreateObject(H24K, 1325, 178, -1);
+  CreateObject(H24K, 2075, 178, -1);
 
   //Stahlbrücken
-  CreateObject(_HBR, 304, 352, -1);
-  CreateObject(_HBR, 2497, 352, -1);
+  CreateObject(_HBR, 604, 352, -1);
+  CreateObject(_HBR, 2797, 352, -1);
 
   //Glasscheiben
-  CreateObject(_WIN, 912, 320, -1);
-  CreateObject(_WIN, 912, 370, -1);
-  CreateObject(_WIN, 912, 420, -1);
-  CreateObject(_WIN, 922, 260, -1);
-  CreateObject(_WIN, 982, 170, -1);
-  CreateObject(_WIN, 1128, 260, -1);
-  CreateObject(_WIN, 1138, 320, -1);
-  CreateObject(_WIN, 1138, 370, -1);
-  CreateObject(_WIN, 1138, 420, -1);
+  CreateObject(_WIN, 1212, 320, -1);
+  CreateObject(_WIN, 1212, 370, -1);
+  CreateObject(_WIN, 1212, 420, -1);
+  CreateObject(_WIN, 1222, 260, -1);
+  CreateObject(_WIN, 1282, 170, -1);
+  CreateObject(_WIN, 1428, 260, -1);
+  CreateObject(_WIN, 1438, 320, -1);
+  CreateObject(_WIN, 1438, 370, -1);
+  CreateObject(_WIN, 1438, 420, -1);
 
-  CreateObject(_WIN, 1662, 320, -1);
-  CreateObject(_WIN, 1662, 370, -1);
-  CreateObject(_WIN, 1662, 420, -1);
-  CreateObject(_WIN, 1672, 260, -1);
-  CreateObject(_WIN, 1818, 170, -1);
-  CreateObject(_WIN, 1878, 260, -1);
-  CreateObject(_WIN, 1888, 320, -1);
-  CreateObject(_WIN, 1888, 370, -1);
-  CreateObject(_WIN, 1888, 420, -1);
+  CreateObject(_WIN, 1962, 320, -1);
+  CreateObject(_WIN, 1962, 370, -1);
+  CreateObject(_WIN, 1962, 420, -1);
+  CreateObject(_WIN, 1972, 260, -1);
+  CreateObject(_WIN, 2118, 170, -1);
+  CreateObject(_WIN, 2178, 260, -1);
+  CreateObject(_WIN, 2188, 320, -1);
+  CreateObject(_WIN, 2188, 370, -1);
+  CreateObject(_WIN, 2188, 420, -1);
 
   //Explosivtanks
-  CreateObject(XTNK, 300, 390, -1)->AutoRespawn();
-  CreateObject(XTNK, 2500, 390, -1)->AutoRespawn();
+  CreateObject(XTNK, 600, 390, -1)->AutoRespawn();
+  CreateObject(XTNK, 2800, 390, -1)->AutoRespawn();
 
   //Kisten
-  CreateObject(WCR2, 1115, 420, -1)->AutoRespawn();
-  CreateObject(WCR2, 1330, 630, -1)->AutoRespawn();
-  CreateObject(WCR2, 1480, 630, -1)->AutoRespawn();
-  CreateObject(WCR2, 1685, 420, -1)->AutoRespawn();
+  CreateObject(WCR2, 1415, 420, -1)->AutoRespawn();
+  CreateObject(WCR2, 1630, 630, -1)->AutoRespawn();
+  CreateObject(WCR2, 1780, 630, -1)->AutoRespawn();
+  CreateObject(WCR2, 1985, 420, -1)->AutoRespawn();
 
   //Metallkisten
-  CreateObject(MWCR, 510, 320, -1);
-  CreateObject(MWCR, 652, 390, -1);
-  CreateObject(MWCR, 2290, 320, -1);
-  CreateObject(MWCR, 2150, 390, -1);
+  CreateObject(MWCR, 810, 320, -1);
+  CreateObject(MWCR, 952, 390, -1);
+  CreateObject(MWCR, 2590, 320, -1);
+  CreateObject(MWCR, 2450, 390, -1);
 
   //Verbandskisten
-  CreateObject(BECR, 225, 390, -1)->AutoRespawn();
-  CreateObject(BECR, 2575, 390, -1)->AutoRespawn();
+  CreateObject(BECR, 525, 390, -1)->AutoRespawn();
+  CreateObject(BECR, 2875, 390, -1)->AutoRespawn();
 
   //Explosive Kisten
-  CreateObject(XWCR, 1155, 320, -1)->AutoRespawn();
-  CreateObject(XWCR, 1645, 320, -1)->AutoRespawn();
+  CreateObject(XWCR, 1455, 320, -1)->AutoRespawn();
+  CreateObject(XWCR, 1945, 320, -1)->AutoRespawn();
 
   //Explosivfässer
-  CreateObject(XBRL, 335, 280, -1)->AutoRespawn();
-  CreateObject(XBRL, 425, 450, -1)->AutoRespawn();
-  CreateObject(XBRL, 760, 450, -1)->AutoRespawn();
-  CreateObject(XBRL, 2035, 450, -1)->AutoRespawn();
-  CreateObject(XBRL, 2375, 450, -1)->AutoRespawn();
-  CreateObject(XBRL, 2465, 280, -1)->AutoRespawn();
+  CreateObject(XBRL, 635, 280, -1)->AutoRespawn();
+  CreateObject(XBRL, 725, 450, -1)->AutoRespawn();
+  CreateObject(XBRL, 1060, 450, -1)->AutoRespawn();
+  CreateObject(XBRL, 2335, 450, -1)->AutoRespawn();
+  CreateObject(XBRL, 2675, 450, -1)->AutoRespawn();
+  CreateObject(XBRL, 2765, 280, -1)->AutoRespawn();
 
   //Phosphorfässer
-  CreateObject(HBRL, 440, 450, -1)->AutoRespawn();
-  CreateObject(HBRL, 2360, 450, -1)->AutoRespawn();
+  CreateObject(HBRL, 740, 450, -1)->AutoRespawn();
+  CreateObject(HBRL, 2660, 450, -1)->AutoRespawn();
 
   //Gasflaschen
-  CreateObject(GSBL, 970, 370, -1)->AutoRespawn();
-  CreateObject(GSBL, 1830, 370, -1)->AutoRespawn();
+  CreateObject(GSBL, 1270, 370, -1)->AutoRespawn();
+  CreateObject(GSBL, 2130, 370, -1)->AutoRespawn();
 
   //Benzintanks
-  CreateObject(XTNK, 320, 280, -1)->AutoRespawn();
-  CreateObject(XTNK, 2480, 280, -1)->AutoRespawn();
+  CreateObject(XTNK, 620, 280, -1)->AutoRespawn();
+  CreateObject(XTNK, 2780, 280, -1)->AutoRespawn();
 
   //Phosphortanks
-  CreateObject(PTNK, 450, 450, -1)->AutoRespawn();
-  CreateObject(PTNK, 2355, 450, -1)->AutoRespawn();
+  CreateObject(PTNK, 750, 450, -1)->AutoRespawn();
+  CreateObject(PTNK, 2655, 450, -1)->AutoRespawn();
 
   //Sandsackbarrieren
-  CreateObject(SBBA, 425, 290, -1)->Right();
-  CreateObject(SBBA, 1345, 420, -1);
-  CreateObject(SBBA, 1455, 420, -1)->Right();
-  CreateObject(SBBA, 2375, 290, -1);
+  CreateObject(SBBA, 725, 290, -1)->Right();
+  CreateObject(SBBA, 1645, 420, -1);
+  CreateObject(SBBA, 1755, 420, -1)->Right();
+  CreateObject(SBBA, 2675, 290, -1);
 
   //Schutztüren
-  CreateObject(GDDR, 230, 290, -1);
-  CreateObject(GDDR, 350, 390, -1);
-  CreateObject(GDDR, 350, 460, -1);
+  CreateObject(GDDR, 530, 290, -1);
+  CreateObject(GDDR, 650, 390, -1);
+  CreateObject(GDDR, 650, 460, -1);
 
-  CreateObject(GDDR, 530, 450, -1);
-  CreateObject(GDDR, 540, 390, -1);
-  CreateObject(GDDR, 580, 320, -1);
-  CreateObject(GDDR, 650, 320, -1);
-  CreateObject(GDDR, 690, 390, -1);
-  CreateObject(GDDR, 700, 450, -1);
+  CreateObject(GDDR, 830, 450, -1);
+  CreateObject(GDDR, 840, 390, -1);
+  CreateObject(GDDR, 880, 320, -1);
+  CreateObject(GDDR, 950, 320, -1);
+  CreateObject(GDDR, 990, 390, -1);
+  CreateObject(GDDR, 1000, 450, -1);
 
-  CreateObject(GDDR, 990, 260, -1)->SetColorDw(HSL(0, 0, 120, 127));
-  CreateObject(GDDR, 990, 370, -1)->SetColorDw(HSL(0, 0, 120, 127));
-  CreateObject(GDDR, 1060, 260, -1)->SetColorDw(HSL(0, 0, 120, 127));
-  CreateObject(GDDR, 1060, 370, -1)->SetColorDw(HSL(0, 0, 120, 127));
+  CreateObject(GDDR, 1290, 260, -1)->SetColorDw(HSL(0, 0, 120, 127));
+  CreateObject(GDDR, 1290, 370, -1)->SetColorDw(HSL(0, 0, 120, 127));
+  CreateObject(GDDR, 1360, 260, -1)->SetColorDw(HSL(0, 0, 120, 127));
+  CreateObject(GDDR, 1360, 370, -1)->SetColorDw(HSL(0, 0, 120, 127));
 
-  CreateObject(GDDR, 1740, 260, -1)->SetColorDw(HSL(0, 0, 120, 127));
-  CreateObject(GDDR, 1740, 370, -1)->SetColorDw(HSL(0, 0, 120, 127));
-  CreateObject(GDDR, 1810, 260, -1)->SetColorDw(HSL(0, 0, 120, 127));
-  CreateObject(GDDR, 1810, 370, -1)->SetColorDw(HSL(0, 0, 120, 127));
+  CreateObject(GDDR, 2040, 260, -1)->SetColorDw(HSL(0, 0, 120, 127));
+  CreateObject(GDDR, 2040, 370, -1)->SetColorDw(HSL(0, 0, 120, 127));
+  CreateObject(GDDR, 2110, 260, -1)->SetColorDw(HSL(0, 0, 120, 127));
+  CreateObject(GDDR, 2110, 370, -1)->SetColorDw(HSL(0, 0, 120, 127));
 
-  CreateObject(GDDR, 2100, 450, -1);
-  CreateObject(GDDR, 2110, 390, -1);
-  CreateObject(GDDR, 2150, 320, -1);
-  CreateObject(GDDR, 2220, 320, -1);
-  CreateObject(GDDR, 2260, 390, -1);
-  CreateObject(GDDR, 2270, 450, -1);
+  CreateObject(GDDR, 2400, 450, -1);
+  CreateObject(GDDR, 2410, 390, -1);
+  CreateObject(GDDR, 2450, 320, -1);
+  CreateObject(GDDR, 2520, 320, -1);
+  CreateObject(GDDR, 2560, 390, -1);
+  CreateObject(GDDR, 2570, 450, -1);
 
-  CreateObject(GDDR, 2450, 390, -1);
-  CreateObject(GDDR, 2450, 460, -1);
-  CreateObject(GDDR, 2570, 290, -1);
+  CreateObject(GDDR, 2750, 390, -1);
+  CreateObject(GDDR, 2750, 460, -1);
+  CreateObject(GDDR, 2870, 290, -1);
 
   //Selbstschussanlagen und Konsolen
-  aSelfDefense[0] = CreateObject(SEGU, 415, 329, -1);
+  aSelfDefense[0] = CreateObject(SEGU, 715, 329, -1);
     aSelfDefense[0]->Arm(MISA);
-    CreateObject(CONS, 250, 385, -1)->Set(aSelfDefense[0]);
+    CreateObject(CONS, 550, 385, -1)->Set(aSelfDefense[0]);
   
-  aSelfDefense[1] = CreateObject(SEGU, 2385, 329, -1);
+  aSelfDefense[1] = CreateObject(SEGU, 2685, 329, -1);
     aSelfDefense[1]->Arm(MISA);
-    CreateObject(CONS, 2550, 385, -1)->Set(aSelfDefense[1]);
+    CreateObject(CONS, 2850, 385, -1)->Set(aSelfDefense[1]);
 
   //Tore und Konsolen
-  var autod = CreateObject (HNG3, 1400, 610, -1);
+  var autod = CreateObject (HNG3, 1700, 610, -1);
   autod->Open();
-  CreateObject (CONS, 1270, 605, -1)
+  CreateObject (CONS, 1570, 605, -1)
   ->Set(autod);
-  var autod = CreateObject (HNG3, 1400, 520, -1);
+  var autod = CreateObject (HNG3, 1700, 520, -1);
   autod->Open();
-  CreateObject (CONS, 1530, 605, -1)
+  CreateObject (CONS, 1830, 605, -1)
   ->Set(autod);
 
   //Sounds
 
   //Wind
-  CreateObject(SE4K, 800, 160, -1)->Set("WindSound*.ogg",775,250);
-  CreateObject(SE4K, 1990, 160, -1)->Set("WindSound*.ogg",775,250);
+  CreateObject(SE4K, 1100, 160, -1)->Set("WindSound*.ogg",775,250);
+  CreateObject(SE4K, 2290, 160, -1)->Set("WindSound*.ogg",775,250);
 
   //Hallen
-  CreateObject(SE4K, 190, 340, -1)->Set("Interior*.ogg",665,105);
-  CreateObject(SE4K, 615, 340, -1)->Set("Interior*.ogg",670,105);
-  CreateObject(SE4K, 1025, 340, -1)->Set("Interior*.ogg",665,105);
-  CreateObject(SE4K, 1775, 340, -1)->Set("Interior*.ogg",670,105);
-  CreateObject(SE4K, 2185, 340, -1)->Set("Interior*.ogg",665,105);
-  CreateObject(SE4K, 2610, 340, -1)->Set("Interior*.ogg",670,105);
+  CreateObject(SE4K, 490, 340, -1)->Set("Interior*.ogg",665,105);
+  CreateObject(SE4K, 915, 340, -1)->Set("Interior*.ogg",670,105);
+  CreateObject(SE4K, 1325, 340, -1)->Set("Interior*.ogg",665,105);
+  CreateObject(SE4K, 2075, 340, -1)->Set("Interior*.ogg",670,105);
+  CreateObject(SE4K, 2485, 340, -1)->Set("Interior*.ogg",665,105);
+  CreateObject(SE4K, 2910, 340, -1)->Set("Interior*.ogg",670,105);
 
   //Rush Hour
-  CreateObject(SE4K, 820, 390, -1)->Set("Traffic*.ogg",245,70);
-  CreateObject(SE4K, 1970, 390, -1)->Set("Traffic*.ogg",245,70);
+  CreateObject(SE4K, 1120, 390, -1)->Set("Traffic*.ogg",245,70);
+  CreateObject(SE4K, 2270, 390, -1)->Set("Traffic*.ogg",245,70);
 
   //Sirenen
-  CreateObject(SE4K, 450, 350, -1)->Set("Siren*.ogg",4000,140);
-  CreateObject(SE4K, 2350, 350, -1)->Set("Siren*.ogg",4000,140);
+  CreateObject(SE4K, 750, 350, -1)->Set("Siren*.ogg",4000,140);
+  CreateObject(SE4K, 2650, 350, -1)->Set("Siren*.ogg",4000,140);
 }
 
 func CreateEquipment()
@@ -228,22 +228,22 @@ func CreateEquipment()
   Log("$CreatingEquipment$");
 
   //Kugeln
-  PlaceSpawnpoint(ABOX, 130, 285);
-  PlaceSpawnpoint(ABOX, 1100, 250);
-  PlaceSpawnpoint(ABOX, 1700, 250);
-  PlaceSpawnpoint(ABOX, 2670, 285);
+  PlaceSpawnpoint(ABOX, 430, 285);
+  PlaceSpawnpoint(ABOX, 1400, 250);
+  PlaceSpawnpoint(ABOX, 2100, 250);
+  PlaceSpawnpoint(ABOX, 2970, 285);
 
   //Gewehrgranaten
-  PlaceSpawnpoint(GBOX, 1100, 615);
-  PlaceSpawnpoint(GBOX, 1580, 615);
+  PlaceSpawnpoint(GBOX, 1400, 615);
+  PlaceSpawnpoint(GBOX, 1880, 615);
 
   //Raketen
-  PlaceSpawnpoint(MBOX, 950, 250);
-  PlaceSpawnpoint(MBOX, 1850, 250);
+  PlaceSpawnpoint(MBOX, 1250, 250);
+  PlaceSpawnpoint(MBOX, 2150, 250);
 
   //Artilleriebatterien
-  CreateObject(ATBY,725,320,-1)->SetRotation(20);
-  CreateObject(ATBY,2073,320,-1)->SetRotation(-20);
+  CreateObject(ATBY,1025,320,-1)->SetRotation(20);
+  CreateObject(ATBY,2373,320,-1)->SetRotation(-20);
 }
 
 func CreateDecoration()
@@ -251,120 +251,128 @@ func CreateDecoration()
   Log("$CreatingDecoration$");
 
   //Radios
-  CreateObject(RDIO, 280, 540, -1);
-  CreateObject(RDIO, 2520, 540, -1);
+  CreateObject(RDIO, 580, 540, -1);
+  CreateObject(RDIO, 2820, 540, -1);
 
   //Leitkegel
-  CreateObject(TCCN, 815, 450, -1)->Light();
-  CreateObject(TCCN, 875, 460, -1)->Light();
-  CreateObject(TCCN, 1165, 460, -1)->Light();
-  CreateObject(TCCN, 1215, 440, -1)->Light();
-  CreateObject(TCCN, 1585, 440, -1)->Light();
-  CreateObject(TCCN, 1635, 460, -1)->Light();
-  CreateObject(TCCN, 1925, 460, -1)->Light();
-  CreateObject(TCCN, 1985, 450, -1)->Light();
+  CreateObject(TCCN, 1215, 450, -1)->Light();
+  CreateObject(TCCN, 1275, 460, -1)->Light();
+  CreateObject(TCCN, 1465, 460, -1)->Light();
+  CreateObject(TCCN, 1515, 440, -1)->Light();
+  CreateObject(TCCN, 1885, 440, -1)->Light();
+  CreateObject(TCCN, 1935, 460, -1)->Light();
+  CreateObject(TCCN, 2225, 460, -1)->Light();
+  CreateObject(TCCN, 2285, 450, -1)->Light();
 
   //Geländer
-  CreateObject(RAI1, 0, 120, -1)->SetRail([1,1,1]);
-  CreateObject(RAI1, 360, 390, -1)->SetRail([1]);
-  CreateObject(RAI1, 360, 460, -1)->SetRail([1]);
-  CreateObject(RAI1, 1330, 420, -1)->SetRail([1,1,1,1,1,1,1]);
-  CreateObject(RAI1, 2415, 390, -1)->SetRail([1]);
-  CreateObject(RAI1, 2415, 460, -1)->SetRail([1]);
-  CreateObject(RAI1, 2740, 120, -1)->SetRail([1,1,1]);
+  CreateObject(RAI1, -3, 120, -1)->SetRail([1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]);
+  CreateObject(RAI1, 660, 390, -1)->SetRail([1]);
+  CreateObject(RAI1, 660, 460, -1)->SetRail([1]);
+  CreateObject(RAI1, 1630, 420, -1)->SetRail([1,1,1,1,1,1,1]);
+  CreateObject(RAI1, 2715, 390, -1)->SetRail([1]);
+  CreateObject(RAI1, 2715, 460, -1)->SetRail([1]);
+  CreateObject(RAI1, 3037, 120, -1)->SetRail([1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]);
 
   //Radare
-  CreateObject(RADR, 170, 220, -1);
-  CreateObject(RADR, 2630, 220, -1);
+  CreateObject(RADR, 470, 220, -1);
+  CreateObject(RADR, 2930, 220, -1);
 
   //Automaten
-  CreateObject(VGMN, 225, 460, -1);
-  CreateObject(VGMN, 2570, 460, -1)->Set(2);
+  CreateObject(VGMN, 525, 460, -1);
+  CreateObject(VGMN, 2870, 460, -1)->Set(2);
 
   //Glastische
-  CreateObject(GTBL, 300, 460, -1);
-  CreateObject(GTBL, 2500, 460, -1);
+  CreateObject(GTBL, 600, 460, -1);
+  CreateObject(GTBL, 2800, 460, -1);
 
   //Wandlampen
-  CreateObject(BLGH, 940, 310, -1);
-  CreateObject(BLGH, 1110, 310, -1);
-  CreateObject(BLGH, 1690, 305, -1);
-  CreateObject(BLGH, 1860, 305, -1);
+  CreateObject(BLGH, 1240, 310, -1);
+  CreateObject(BLGH, 1410, 310, -1);
+  CreateObject(BLGH, 1990, 305, -1);
+  CreateObject(BLGH, 2160, 305, -1);
 
   //Büsche
-  CreateObject(BSH2, 1230, 450, -1);
-  CreateObject(BSH2, 1245, 450, -1);
-  CreateObject(BSH2, 1550, 450, -1);
-  CreateObject(BSH2, 1565, 450, -1);
+  CreateObject(BSH2, 1530, 450, -1);
+  CreateObject(BSH2, 1545, 450, -1);
+  CreateObject(BSH2, 1850, 450, -1);
+  CreateObject(BSH2, 1865, 450, -1);
 
   //Bäume
-  CreateObject(TRE3, 1300, 433, -1);
-  CreateObject(TRE3, 1500, 433, -1);
+  CreateObject(TRE3, 1600, 433, -1);
+  CreateObject(TRE3, 1800, 433, -1);
 
   //Lüftungsgitter
-  CreateObject(ENGT, 165, 510, -1);
-  CreateObject(ENGT, 2635, 510, -1);
+  CreateObject(ENGT, 465, 510, -1);
+  CreateObject(ENGT, 2935, 510, -1);
 
   //Topfpflanzen
-  CreateObject(PLNT, 200, 460, -1);
-  CreateObject(PLT3, 260, 290, -1);
-  CreateObject(PLT3, 580, 390, -1);
-  CreateObject(PLNT, 1010, 310, -1);
-  CreateObject(PLNT, 1790, 310, -1);
-  CreateObject(PLT3, 2230, 390, -1);
-  CreateObject(PLT3, 2540, 290, -1);
-  CreateObject(PLNT, 2600, 460, -1);
+  CreateObject(PLNT, 500, 460, -1);
+  CreateObject(PLT3, 560, 290, -1);
+  CreateObject(PLT3, 880, 390, -1);
+  CreateObject(PLNT, 1310, 310, -1);
+  CreateObject(PLNT, 2090, 310, -1);
+  CreateObject(PLT3, 2530, 390, -1);
+  CreateObject(PLT3, 2840, 290, -1);
+  CreateObject(PLNT, 2900, 460, -1);
 
   //Scheinwerfer
-  CreateObject(FLH2, 1370, 420, -1);
-  CreateObject(FLH2, 1430, 420, -1);
+  CreateObject(FLH2, 1670, 420, -1);
+  CreateObject(FLH2, 1730, 420, -1);
 
   //Flaschen
-  CreateObject(BOTL, 290, 448, -1);
-  CreateObject(BOTL, 2510, 448, -1);
+  CreateObject(BOTL, 590, 448, -1);
+  CreateObject(BOTL, 2810, 448, -1);
 
   //Monitore
-  CreateObject(MNI2, 310, 448, -1);
-  CreateObject(MNI2, 2485, 448, -1);
+  CreateObject(MNI2, 610, 448, -1);
+  CreateObject(MNI2, 2785, 448, -1);
 
   //Schilder
-  CreateObject(WLSN, 200, 380, -1);
-  CreateObject(WLSN, 2600, 380, -1);
+  CreateObject(WLSN, 500, 380, -1);
+  CreateObject(WLSN, 2900, 380, -1);
 
   //Zäune
-  CreateObject(FENC, 630, 260, -1);
-  CreateObject(FENC, 2170, 260, -1);
+  CreateObject(FENC, 930, 260, -1);
+  CreateObject(FENC, 2470, 260, -1);
 
   //Regale
-  CreateObject(FRAM, 555, 440, -1);
-  CreateObject(FRAM, 675, 440, -1);
-  CreateObject(FRAM, 985, 420, -1);
-  CreateObject(FRAM, 985, 440, -1);
-  CreateObject(FRAM, 1065, 420, -1);
-  CreateObject(FRAM, 1065, 440, -1);
+  CreateObject(FRAM, 855, 440, -1);
+  CreateObject(FRAM, 975, 440, -1);
+  CreateObject(FRAM, 1285, 420, -1);
+  CreateObject(FRAM, 1285, 440, -1);
+  CreateObject(FRAM, 1365, 420, -1);
+  CreateObject(FRAM, 1365, 440, -1);
 
-  CreateObject(FRAM, 1735, 420, -1);
-  CreateObject(FRAM, 1735, 440, -1);
-  CreateObject(FRAM, 1815, 420, -1);
-  CreateObject(FRAM, 1815, 440, -1);
-  CreateObject(FRAM, 2125, 440, -1);
-  CreateObject(FRAM, 2245, 440, -1);
+  CreateObject(FRAM, 2035, 420, -1);
+  CreateObject(FRAM, 2035, 440, -1);
+  CreateObject(FRAM, 2115, 420, -1);
+  CreateObject(FRAM, 2115, 440, -1);
+  CreateObject(FRAM, 2425, 440, -1);
+  CreateObject(FRAM, 2545, 440, -1);
 
   //Straßenlichter
-  CreateObject(SLGH, 120, 220, -1);
-  CreateObject(SLGH, 2680, 220, -1);
+  CreateObject(SLGH, 60, 120, -1);
+  CreateObject(SLGH, 160, 120, -1);
+  CreateObject(SLGH, 260, 120, -1);
+  CreateObject(SLGH, 360, 120, -1);
+  CreateObject(SLGH, 420, 220, -1);
+  CreateObject(SLGH, 2980, 220, -1);
+  CreateObject(SLGH, 3040, 120, -1);
+  CreateObject(SLGH, 3140, 120, -1);
+  CreateObject(SLGH, 3240, 120, -1);
+  CreateObject(SLGH, 3340, 120, -1);
 
   //Notausgangslichter
-  CreateObject(ETLT, 325, 430, -1);
-  CreateObject(ETLT, 2475, 430, -1);
+  CreateObject(ETLT, 625, 430, -1);
+  CreateObject(ETLT, 2775, 430, -1);
 }
 
 func CreateOptionalFeatures()
 {
   //Hintergründe
-  CreateObject(BD04,220,550,-1);
-  CreateObject(BD04,727,550,-1);
-  CreateObject(BD04,1234,550,-1);
+  CreateObject(BD04,520,550,-1);
+  CreateObject(BD04,1027,550,-1);
+  CreateObject(BD04,1534,550,-1);
 }
 
 /* Bei Flaggenübernahme */
@@ -397,10 +405,10 @@ public func ChooserFinished()
   if(FindObject(GOCC))
   {
    //Flaggenposten
-   aFlag[0] = CreateObject(OFPL,100,390,NO_OWNER);
-   aFlag[0] -> AddSpawnPoint(100,570);
-   aFlag[0] -> AddSpawnPoint(110,210);
-   aFlag[0] -> AddSpawnPoint(260,450);
+   aFlag[0] = CreateObject(OFPL,400,390,NO_OWNER);
+   aFlag[0] -> AddSpawnPoint(400,570);
+   aFlag[0] -> AddSpawnPoint(410,210);
+   aFlag[0] -> AddSpawnPoint(560,450);
    if(aTeams[1] == true)
    {
     aFlag[0]->Set("$Flag1$",100,2);
@@ -411,29 +419,29 @@ public func ChooserFinished()
     aFlag[0]->Set("$Flag1$",0,2);
    }
 
-   aFlag[1] = CreateObject(OFPL,780,450,NO_OWNER);
-   aFlag[1] -> AddSpawnPoint(550,310);
-   aFlag[1] -> AddSpawnPoint(570,380);
-   aFlag[1] -> AddSpawnPoint(640,250);
+   aFlag[1] = CreateObject(OFPL,1080,450,NO_OWNER);
+   aFlag[1] -> AddSpawnPoint(850,310);
+   aFlag[1] -> AddSpawnPoint(870,380);
+   aFlag[1] -> AddSpawnPoint(940,250);
    aFlag[1]->Set("$Flag2$",0,2);
 
-   aFlag[2] = CreateObject(OFPL,1400,420,NO_OWNER);
-   aFlag[2] -> AddSpawnPoint(1060,310);
-   aFlag[2] -> AddSpawnPoint(1090,410);
-   aFlag[2] -> AddSpawnPoint(1710,410);
-   aFlag[2] -> AddSpawnPoint(1740,310);
+   aFlag[2] = CreateObject(OFPL,1700,420,NO_OWNER);
+   aFlag[2] -> AddSpawnPoint(1360,310);
+   aFlag[2] -> AddSpawnPoint(1390,410);
+   aFlag[2] -> AddSpawnPoint(2010,410);
+   aFlag[2] -> AddSpawnPoint(2040,310);
    aFlag[2]->Set("$Flag3$",0,2);
 
-   aFlag[3] = CreateObject(OFPL,2020,450,NO_OWNER);
-   aFlag[3] -> AddSpawnPoint(2160,250);
-   aFlag[3] -> AddSpawnPoint(2230,380);
-   aFlag[3] -> AddSpawnPoint(2250,310);
+   aFlag[3] = CreateObject(OFPL,2320,450,NO_OWNER);
+   aFlag[3] -> AddSpawnPoint(2460,250);
+   aFlag[3] -> AddSpawnPoint(2530,380);
+   aFlag[3] -> AddSpawnPoint(2550,310);
    aFlag[3]->Set("$Flag4$",0,2);
 
-   aFlag[4] = CreateObject(OFPL,2690,390,NO_OWNER);
-   aFlag[4] -> AddSpawnPoint(2540,450);
-   aFlag[4] -> AddSpawnPoint(2690,210);
-   aFlag[4] -> AddSpawnPoint(2700,570);
+   aFlag[4] = CreateObject(OFPL,2990,390,NO_OWNER);
+   aFlag[4] -> AddSpawnPoint(2840,450);
+   aFlag[4] -> AddSpawnPoint(2990,210);
+   aFlag[4] -> AddSpawnPoint(3000,570);
    if(aTeams[2] == true)
    {
     aFlag[4]->Set("$Flag5$",100,2);
@@ -455,10 +463,10 @@ public func ChooserFinished()
    aSelfDefense[1]->TurnOn();
 
    //Hinweisschilder
-   var sign = CreateObject(SGNP, 480, 450, -1);
+   var sign = CreateObject(SGNP, 780, 450, -1);
    sign->SetMode(1);
    sign->Set("Turret");
-   sign = CreateObject(SGNP, 2320, 450, -1);
+   sign = CreateObject(SGNP, 2620, 450, -1);
    sign->SetMode(1);
    sign->Set("Turret");
   }
@@ -467,11 +475,11 @@ public func ChooserFinished()
   if(FindObject(GBAS))
   {
    //Strukturen
-   AddAssaultTarget(CCP2, 100, 390, 400, 1, "$Flag1$", 0, [[130, 540], [200, 540], [260, 560]]);
-   AddAssaultTarget(CMSN, 990, 520, 300, 1, "$Flag2$", 1, [[930, 320], [1120, 320], [1000, 170]]);
+   AddAssaultTarget(CCP2, 400, 390, 400, 1, "$Flag1$", 0, [[430, 540], [500, 540], [560, 560]]);
+   AddAssaultTarget(CMSN, 1290, 520, 300, 1, "$Flag2$", 1, [[1230, 320], [1420, 320], [1300, 170]]);
 
-   AddAssaultTarget(CCP2, 2700, 390, 400, 2, "$Flag5$", 0, [[2670, 540], [2600, 540], [2540, 560]]);
-   AddAssaultTarget(CMSN, 1810, 520, 300, 2, "$Flag4$", 1, [[1870, 320], [1680, 320], [1800, 170]]);
+   AddAssaultTarget(CCP2, 3000, 390, 400, 2, "$Flag5$", 0, [[2970, 540], [2900, 540], [2840, 560]]);
+   AddAssaultTarget(CMSN, 2110, 520, 300, 2, "$Flag4$", 1, [[2170, 320], [1980, 320], [2100, 170]]);
 
    //SSA Besitzer setzen
    if(aTeams[1] == true)
@@ -484,10 +492,10 @@ public func ChooserFinished()
    aSelfDefense[1]->TurnOn();
 
    //Hinweisschilder
-   var sign = CreateObject(SGNP, 480, 450, -1);
+   var sign = CreateObject(SGNP, 780, 450, -1);
    sign->SetMode(1);
    sign->Set("Turret");
-   sign = CreateObject(SGNP, 2320, 450, -1);
+   sign = CreateObject(SGNP, 2620, 450, -1);
    sign->SetMode(1);
    sign->Set("Turret");
   }
@@ -496,24 +504,24 @@ public func ChooserFinished()
   if (FindObject(GHTF))
   {
    //Flaggenposten
-   var flag = CreateObject(OFPL, 1400,420, -1);
+   var flag = CreateObject(OFPL, 1700,420, -1);
    flag->~Set("$Flag3$");
 
    //Grenzen setzen
-   CreateObject(BRDR, 440, 0, -1)->Set(0);
-   CreateObject(BRDR, 2360, 0, -1)->Set(1);
+   CreateObject(BRDR, 740, 0, -1)->Set(0);
+   CreateObject(BRDR, 2660, 0, -1)->Set(1);
 
    //Sandsackbarrieren
-   CreateObject(SBBA, 1221, 440, -1);
-   CreateObject(SBBA, 1281, 430, -1);
-   CreateObject(SBBA, 1520, 430, -1)->Right();
-   CreateObject(SBBA, 1580, 440, -1)->Right();
+   CreateObject(SBBA, 1521, 440, -1);
+   CreateObject(SBBA, 1581, 430, -1);
+   CreateObject(SBBA, 1820, 430, -1)->Right();
+   CreateObject(SBBA, 1880, 440, -1)->Right();
 
    //Hinweisschilder
-   CreateObject(SGNP, 410, 290, -1);
-   CreateObject(SGNP, 460, 450, -1);
-   CreateObject(SGNP, 2340, 450, -1);
-   CreateObject(SGNP, 2385, 290, -1);
+   CreateObject(SGNP, 710, 290, -1);
+   CreateObject(SGNP, 760, 450, -1);
+   CreateObject(SGNP, 2640, 450, -1);
+   CreateObject(SGNP, 2685, 290, -1);
 
    //Objekte entfernen
    RemoveObject(aSelfDefense[0]);
@@ -523,10 +531,10 @@ public func ChooserFinished()
    if(!FindObject(NOAM))
    {
     //Kugeln
-    PlaceSpawnpoint(ABOX, 1370, 415);
+    PlaceSpawnpoint(ABOX, 1670, 415);
 
     //Raketen
-    PlaceSpawnpoint(MBOX, 1430, 415);
+    PlaceSpawnpoint(MBOX, 1730, 415);
    }
   }
 
@@ -534,20 +542,20 @@ public func ChooserFinished()
   if (FindObject(GMNR))
   {
    //Geldsäcke
-   AddMoneySpawn(1100, 545, [20]);
-   AddMoneySpawn(1400, 165, [20]);
-   AddMoneySpawn(1400, 415, [20]);
-   AddMoneySpawn(1700, 545, [20]);
+   AddMoneySpawn(1400, 545, [20]);
+   AddMoneySpawn(1700, 165, [20]);
+   AddMoneySpawn(1700, 415, [20]);
+   AddMoneySpawn(2000, 545, [20]);
 
    //Grenzen setzen
-   CreateObject(BRDR, 440, 0, -1)->Set(0);
-   CreateObject(BRDR, 2360, 0, -1)->Set(1);
+   CreateObject(BRDR, 740, 0, -1)->Set(0);
+   CreateObject(BRDR, 2660, 0, -1)->Set(1);
 
    //Hinweisschilder
-   CreateObject(SGNP, 410, 290, -1);
-   CreateObject(SGNP, 460, 450, -1);
-   CreateObject(SGNP, 2340, 450, -1);
-   CreateObject(SGNP, 2385, 290, -1);
+   CreateObject(SGNP, 710, 290, -1);
+   CreateObject(SGNP, 760, 450, -1);
+   CreateObject(SGNP, 2640, 450, -1);
+   CreateObject(SGNP, 2685, 290, -1);
 
    //Objekte entfernen
    RemoveObject(aSelfDefense[0]);
@@ -559,19 +567,19 @@ public func ChooserFinished()
   {
    //Flaggen
    if(aTeams[1] == true)
-   {CreateFlag(1,790,450,GetTeamColor(1));}
+   {CreateFlag(1,1090,450,GetTeamColor(1));}
    if(aTeams[2] == true)
-   {CreateFlag(2,2010,450,GetTeamColor(2));}
+   {CreateFlag(2,2310,450,GetTeamColor(2));}
 
    //Grenzen setzen
-   CreateObject(BRDR, 440, 0, -1)->Set(0);
-   CreateObject(BRDR, 2360, 0, -1)->Set(1);
+   CreateObject(BRDR, 740, 0, -1)->Set(0);
+   CreateObject(BRDR, 2660, 0, -1)->Set(1);
 
    //Hinweisschilder
-   CreateObject(SGNP, 410, 290, -1);
-   CreateObject(SGNP, 460, 450, -1);
-   CreateObject(SGNP, 2340, 450, -1);
-   CreateObject(SGNP, 2385, 290, -1);
+   CreateObject(SGNP, 710, 290, -1);
+   CreateObject(SGNP, 760, 450, -1);
+   CreateObject(SGNP, 2640, 450, -1);
+   CreateObject(SGNP, 2685, 290, -1);
 
    //Objekte entfernen
    RemoveObject(aSelfDefense[0]);
@@ -582,14 +590,14 @@ public func ChooserFinished()
   if(FindObject(GLMS) || FindObject(GTDM))
   {
    //Grenzen setzen
-   CreateObject(BRDR, 700, 0, -1)->Set(0);
-   CreateObject(BRDR, 2100, 0, -1)->Set(1);
+   CreateObject(BRDR, 1000, 0, -1)->Set(0);
+   CreateObject(BRDR, 2400, 0, -1)->Set(1);
 
    //Hinweisschilder
-   CreateObject(SGNP, 720, 390, -1);
-   CreateObject(SGNP, 720, 450, -1);
-   CreateObject(SGNP, 2080, 390, -1);
-   CreateObject(SGNP, 2080, 450, -1);
+   CreateObject(SGNP, 1020, 390, -1);
+   CreateObject(SGNP, 1020, 450, -1);
+   CreateObject(SGNP, 2380, 390, -1);
+   CreateObject(SGNP, 2380, 450, -1);
 
    //Objekte entfernen
    RemoveObject(aSelfDefense[0]);
@@ -604,7 +612,7 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   //Startsicht
   if(!g_chooserFinished)
   {
-   iX = 1400; iY = 300;
+   iX = 1700; iY = 300;
    return(1);
   }
 
@@ -613,11 +621,11 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   {
    if(iTeam == 1)
    {
-    return [[560, 310], [560, 380]];
+    return [[860, 310], [860, 380]];
    }
    if(iTeam == 2)
    {
-    return [[2240, 310], [2240, 380]];
+    return [[2540, 310], [2540, 380]];
    }
    return(1);
   }
@@ -627,11 +635,11 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   {
    if(iTeam == 1)
    {
-    return [[940, 250], [940, 410]];
+    return [[1240, 250], [1240, 410]];
    }
    if(iTeam == 2)
    {
-    return [[1860, 250], [1860, 410]];
+    return [[2160, 250], [2160, 410]];
    }
    return(1);
   }
