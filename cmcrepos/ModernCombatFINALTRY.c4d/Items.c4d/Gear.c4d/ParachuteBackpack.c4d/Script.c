@@ -53,7 +53,7 @@ public func ControlUpDouble()
 
 public func FxFlyingTimer(object target)
 {
-  if(WildcardMatch(GetAction(target), "*Walk*"))  return -1;
+  if(GetProcedure(target) != "FLOAT" && GetProcedure(target) != "FLIGHT")  return -1;
 }
 
 public func ControlRightDouble()	{return 0;}
