@@ -96,6 +96,6 @@ private func Check()
   }
   if(fEnlightment == false)
     if(!IsNight())
-      if(GetDarkness(1000) <= ELGT_MaxDarkness)
+      if(GetDarkness(1000) >= ELGT_MaxDarkness)
         return Enlight();
 }
