@@ -458,8 +458,15 @@ protected func Ejection(object ByObj)
     return;
 
   if(!GetEffect("CheckGround",ByObj))
+  {
+    if(ByObj->~IsArmed())
+      ByObj->SetAction("JumpArmed");
+    else
+      ByObj->SetAction("Jump");
+    
     CreateObject(PARA,GetX(ByObj),GetY(ByObj),GetOwner(ByObj))->Set(ByObj);
-
+  }
+  
   return true;
 }
 
