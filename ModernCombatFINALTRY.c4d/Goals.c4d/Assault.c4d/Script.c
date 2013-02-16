@@ -30,7 +30,7 @@ public func GoalExtraValue()
 }
 
 static const BAR_AssaultBar = 4;
-
+static const GASS_PlantRadius = 100;
 
 /* Initialisierung */
 
@@ -286,7 +286,7 @@ protected func FxIntAssaultTargetStart(object pTarget, int iEffect, int iTemp, i
   EffectVar(9, pTarget, iEffect) = [];
 }
 
-protected func FxIntAssaultTargetTimer(object pTarget, int iNr)
+protected func FxIntAssaultTargetTimer(object pTarget, int iNr, int iTime)
 {
   //Ziel an der Reihe?
   var iTarget = GetIndexOf(pTarget, aTargets[iDefender]),
@@ -311,7 +311,7 @@ protected func FxIntAssaultTargetTimer(object pTarget, int iNr)
 
   var attacker = EffectVar(8, pTarget, iNr), defender = EffectVar(9, pTarget, iNr);
 
-  var clonks = FindObjects(pTarget->Find_Distance(100), Find_OCF(OCF_CrewMember|OCF_Alive), Find_NoContainer());
+  var clonks = FindObjects(pTarget->Find_Distance(GASS_PlantRadius), Find_OCF(OCF_CrewMember|OCF_Alive), Find_NoContainer());
   var aEnemies = [], aAllies = [], team = pTarget->~GetTeam();
 
   for(var clonk in clonks)
@@ -411,6 +411,8 @@ protected func FxIntAssaultTargetTimer(object pTarget, int iNr)
 
       Sound("AHBS_Fused.ogg", false, pTarget);
     }
+    else if(!(iTime % 90))
+    	ShowPlantRadius(pTarget);
   }
 
   //Ladungs-Timer
@@ -494,6 +496,8 @@ protected func FxIntAssaultTargetTimer(object pTarget, int iNr)
 
       Sound("AHBS_Defused.ogg", false, pTarget);
     }
+    else if(!(iTime % 90))
+    	ShowPlantRadius(pTarget);
   }
 
   EffectVar(2, pTarget, iNr) = status;
@@ -505,6 +509,17 @@ protected func FxIntAssaultTargetTimer(object pTarget, int iNr)
 
 protected func FxIntAssaultTargetDamage(object pTarget, int iEffect, int iDamage)		{}
 protected func FxIntAssaultTargetStop(object pTarget, int iEffect, int iCause, bool fTemp)	{}
+
+protected func ShowPlantRadius(object pTarget)
+{
+	var obj = CreateObject(SM09, 0, 0, -1);
+	obj->Set(pTarget);
+	
+	var wdt = GASS_PlantRadius * 2000 / GetDefWidth(SM09);
+
+	obj->SetObjDrawTransform(wdt, 0, 0, 0, wdt, 0);
+	return true;
+}
 
 /* Alarm-Effekt */
 
