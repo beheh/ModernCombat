@@ -463,10 +463,10 @@ protected func Ejection(object ByObj)
       ByObj->SetAction("JumpArmed");
     else
       ByObj->SetAction("Jump");
-    
+
     CreateObject(PARA,GetX(ByObj),GetY(ByObj),GetOwner(ByObj))->Set(ByObj);
   }
-  
+
   return true;
 }
 

@@ -798,13 +798,12 @@ protected func ControlUp()
           parachute->StartFlyFree();
 
         Enter(pHeli, this);
-        
-        //Don't even ask!
+
         if(this->~IsArmed())
           SetAction("WalkArmed");
         else
           SetAction("Walk");
-        
+
         return true;
       }
     }
