@@ -5,7 +5,7 @@
 local idSpawn, iMaxCount, iRespawnTime, iTakeTime;
 
 public func IsSpawnpoint()	{return true;}
-public func NoPackMerge() {return true;}
+public func NoPackMerge()	{return true;}
 
 
 /* Initialisierung */

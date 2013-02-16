@@ -108,7 +108,7 @@ protected func FxIntTeamSupportTimer()
   //Träger lebt nicht
   if(!GetAlive(Contained())) return;
   //Träger ist kein Clonk
-	if(!Contained()->~IsClonk()) return;
+  if(!Contained()->~IsClonk()) return;
   //Träger simuliert Todeskampf
   if(IsFakeDeath(Contained())) return;
   //Träger verschachtelt
