@@ -536,8 +536,8 @@ private func HitCheck(int r, int d)
 
   if(x == sx && y == sy)
   {
-    x = BoundBy(x+Sin(r, d), 0, LandscapeWidth());
-    y = BoundBy(y-Cos(r, d), 0, LandscapeHeight());
+    x += Sin(r, d);
+    y -= Cos(r, d);
   }
 
   mx = AbsX(x);//+Sin(r,ml);
