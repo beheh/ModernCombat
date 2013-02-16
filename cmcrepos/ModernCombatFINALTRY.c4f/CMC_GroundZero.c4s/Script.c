@@ -49,7 +49,7 @@ func CreateInterior()
   CreateObject(LADR, 340, 534, -1)->Set(17);
   CreateObject(LADR, 835, 320, -1)->Set(7);
   CreateObject(LADR, 995, 320, -1)->Set(7);
-  CreateObject(LADR, 1235, 580, -1)->Set(16);
+  CreateObject(LADR, 1135, 580, -1)->Set(16);
 
   CreateObject(LADR, 1325, 313, -1)->Set(17);
   CreateObject(LADR, 1505, 520, -1)->Set(9);
@@ -68,6 +68,15 @@ func CreateInterior()
   //Große Bodenluken
   CreateObject(H24K, 1325, 178, -1);
   CreateObject(H24K, 2075, 178, -1);
+
+  //Hydrauliktüren
+  var door = CreateObject(SLDR, 320, 390, -1);
+  door->Lock();
+  door->SetMaxDamage(-1);
+
+  door = CreateObject(SLDR, 3080, 390, -1);
+  door->Lock();
+  door->SetMaxDamage(-1);
 
   //Stahlbrücken
   CreateObject(_HBR, 604, 352, -1);
@@ -95,8 +104,16 @@ func CreateInterior()
   CreateObject(_WIN, 2188, 420, -1);
 
   //Explosivtanks
+  CreateObject(XTNK, 10, 120, -1);
+  CreateObject(XTNK, 110, 120, -1);
+  CreateObject(XTNK, 210, 120, -1);
+  CreateObject(XTNK, 310, 120, -1);
   CreateObject(XTNK, 600, 390, -1)->AutoRespawn();
   CreateObject(XTNK, 2800, 390, -1)->AutoRespawn();
+  CreateObject(XTNK, 3085, 120, -1);
+  CreateObject(XTNK, 3185, 120, -1);
+  CreateObject(XTNK, 3285, 120, -1);
+  CreateObject(XTNK, 3385, 120, -1);
 
   //Kisten
   CreateObject(WCR2, 1415, 420, -1)->AutoRespawn();
@@ -180,6 +197,18 @@ func CreateInterior()
   CreateObject(GDDR, 2750, 390, -1);
   CreateObject(GDDR, 2750, 460, -1);
   CreateObject(GDDR, 2870, 290, -1);
+
+  //Container
+  CreateObject(CON1, 70, 358, -1)->SetPerspective(3);
+  CreateObject(CON1, 70, 390, -1)->SetPerspective(3);
+  CreateObject(CON1, 167, 358, -1)->SetPerspective(2);
+  CreateObject(CON1, 165, 390, -1)->SetPerspective(2);
+  CreateObject(CON1, 240, 390, -1);
+  CreateObject(CON1, 3150, 390, -1)->SetPerspective(2);
+  CreateObject(CON1, 3240, 358, -1);
+  CreateObject(CON1, 3240, 390, -1);
+  CreateObject(CON1, 3325, 358, -1)->SetPerspective(3);
+  CreateObject(CON1, 3325, 390, -1)->SetPerspective(3);
 
   //Selbstschussanlagen und Konsolen
   aSelfDefense[0] = CreateObject(SEGU, 715, 329, -1);
@@ -286,10 +315,12 @@ func CreateDecoration()
   CreateObject(GTBL, 2800, 460, -1);
 
   //Wandlampen
+  CreateObject(BLGH, 165, 340, -1);
   CreateObject(BLGH, 1240, 310, -1);
   CreateObject(BLGH, 1410, 310, -1);
   CreateObject(BLGH, 1990, 305, -1);
   CreateObject(BLGH, 2160, 305, -1);
+  CreateObject(BLGH, 3235, 340, -1);
 
   //Büsche
   CreateObject(BSH2, 1530, 450, -1);
