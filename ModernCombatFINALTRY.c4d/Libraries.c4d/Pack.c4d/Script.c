@@ -158,7 +158,7 @@ public func RejectEntrance(object pInto)
 {
   //Hat schon eins: Zusammenlegen
   var other = FindContents(GetID(), pInto);
-  if(other)
+  if(other && !pInto->~NoPackMerge())
     JoinPack(other, pInto);
   //Clonks können nur eins tragen
   return other && (GetOCF(pInto) & OCF_CrewMember);
