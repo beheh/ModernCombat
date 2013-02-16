@@ -615,9 +615,7 @@ public func OpenMenuAttachment(id idParamWeapon, int iClass, object pClonk, int 
   //Icon
   AddMenuItem(" | ", 0, GetCData(iClass, CData_Icon), pClonk, 0, 0, " ", 2, 11);
 
-  //Name
-
-  //Leerzeilen zum Platzhalten
+  //Name und Beschreibung
   var iterations = 0;
   var iTempAtt = iAtt;
   var DescAtts = $DescAttachments$;
@@ -629,12 +627,16 @@ public func OpenMenuAttachment(id idParamWeapon, int iClass, object pClonk, int 
   }
   AddMenuItem(Format("<c ffff33>%s</c>|%s", GetName(0, AttachmentIcon(iAtt)), DescAtts[iterations]), 0, NONE, pClonk, 0, 0, " ");
 
+  //Leerzeilen-Platzhalter
   AddMenuItem(" | ", 0, NONE, pClonk, 0, 0, " ");
   AddMenuItem(" | ", 0, NONE, pClonk, 0, 0, " ");
   AddMenuItem(" ", 0, NONE, pClonk, 0, 0, " ");
-
-  //Leerzeile
   AddMenuItem(" ", 0, NONE, pClonk, 0, 0, " ");
+  if(!FindObject(NOAM))
+  {
+    AddMenuItem(" ", 0, NONE, pClonk, 0, 0, " ");
+    count++;
+  }
 
   //Spawnen
   AddMenuItem("$Spawn$", Format("SetupClass(%d, %d)", iClass, iOwner), CHOS, pClonk, 0, pClonk, 0, 2, 3);
@@ -643,7 +645,8 @@ public func OpenMenuAttachment(id idParamWeapon, int iClass, object pClonk, int 
   AddMenuItem("$Back$", Format("OpenMenu(Object(%d), %d)", ObjectNumber(pClonk), 0), 0, pClonk, 0, 0, "$Back$");
 
   //Waffen-Wechsler
-  AddMenuItem(Format("<c ff3333>%s</c>", GetName(0, idActualWeap)), Format("ChangeWeapon(%d, %i, Object(%d), %d)", iClass, idActualWeap, ObjectNumber(pClonk), count), idActualWeap, pClonk, 0, pClonk, 0, 2, GetCData(i, CData_Facet));
+  if(idActualWeap)
+    AddMenuItem(Format("<c ff3333>%s</c>", GetName(0, idActualWeap)), Format("ChangeWeapon(%d, %i, Object(%d), %d)", iClass, idActualWeap, ObjectNumber(pClonk), count), idActualWeap, pClonk, 0, pClonk, 0, 2, GetCData(i, CData_Facet));
 
   //Waffenaufsätze
   for (var aEntry in aItems)

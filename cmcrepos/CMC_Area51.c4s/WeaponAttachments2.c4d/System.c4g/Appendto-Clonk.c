@@ -5,9 +5,9 @@
 
 local killattachment;
 
-public func KillAttachment(int iKillAttachment)
+public func KillAttachment(int iKillAttachment, bool fReset)
 {
-  if(iKillAttachment)
+  if(fReset)
     killattachment = iKillAttachment;
   return killattachment;
 }
