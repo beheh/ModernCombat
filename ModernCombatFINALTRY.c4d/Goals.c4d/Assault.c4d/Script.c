@@ -412,7 +412,7 @@ protected func FxIntAssaultTargetTimer(object pTarget, int iNr, int iTime)
       Sound("AHBS_Fused.ogg", false, pTarget);
     }
     else if(!(iTime % 90))
-    	ShowPlantRadius(pTarget);
+      ShowPlantRadius(pTarget);
   }
 
   //Ladungs-Timer
@@ -497,7 +497,7 @@ protected func FxIntAssaultTargetTimer(object pTarget, int iNr, int iTime)
       Sound("AHBS_Defused.ogg", false, pTarget);
     }
     else if(!(iTime % 90))
-    	ShowPlantRadius(pTarget);
+      ShowPlantRadius(pTarget);
   }
 
   EffectVar(2, pTarget, iNr) = status;
@@ -510,15 +510,23 @@ protected func FxIntAssaultTargetTimer(object pTarget, int iNr, int iTime)
 protected func FxIntAssaultTargetDamage(object pTarget, int iEffect, int iDamage)		{}
 protected func FxIntAssaultTargetStop(object pTarget, int iEffect, int iCause, bool fTemp)	{}
 
+/* Umkreis-Effekt */
+
 protected func ShowPlantRadius(object pTarget)
 {
-	var obj = CreateObject(SM09, 0, 0, -1);
-	obj->Set(pTarget);
-	
-	var wdt = GASS_PlantRadius * 2000 / GetDefWidth(SM09);
+  //Kreis-Symbol erstellen
+  var obj = CreateObject(SM09, 0, 0, -1);
+  obj->Set(pTarget);
 
-	obj->SetObjDrawTransform(wdt, 0, 0, 0, wdt, 0);
-	return true;
+  //Symbolgröße anpassen
+  var wdt = GASS_PlantRadius * 2000 / GetDefWidth(SM09);
+
+  //Symbol konfigurieren
+  obj->SetObjDrawTransform(wdt, 0, 0, 0, wdt, 0);
+  obj->SetGraphics("Big");
+  obj->SetColorDw(RGB(255,0,0));
+
+  return true;
 }
 
 /* Alarm-Effekt */
