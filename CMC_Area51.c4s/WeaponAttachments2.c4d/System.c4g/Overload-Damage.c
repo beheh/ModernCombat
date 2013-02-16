@@ -59,7 +59,7 @@ global func DoDmg(int iDmg, int iType, object pTarget, int iPrecision, int dmgpl
       }
     
     pTarget->~KillIcon(idKillIcon);
-    pTarget->~KillAttachment(iKillAttachment);
+    pTarget->~KillAttachment(iKillAttachment, true);
   }
 
   //Schaden machen

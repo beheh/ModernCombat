@@ -64,3 +64,53 @@ public func Fire1()
   if(Inside(GetAmmo(GetFMData(FM_AmmoID)), 1, GetFMData(FM_AmmoLoad)/3))
     Sound("MNGN_Click.ogg", 0, ammo, 0, GetOwner(user)+1);
 }
+
+public func LaunchGrenade(id idg, int speed, int angle, int mode)
+{
+  //Austritt bestimmen
+  var user = Contained();
+  var dir = GetDir(user)*2-1;
+  var x,y;
+  user->WeaponEnd(x,y);
+
+  //Anpassung des Winkels
+  angle = BoundBy(angle/*+GetYDir(user)*/+dir,-360,360);
+  //Geschwindigkeit einstellen
+  var xdir = Sin(angle,speed);
+  var ydir = -Cos(angle,speed);
+
+  //Granate abfeuern
+  var grenade=CreateObject(idg, x, y, GetController(user));
+  if(!Stuck(grenade)) SetPosition(GetX(grenade)+xdir/10,GetY(grenade)+ydir/10,grenade);
+  SetController(GetController(user), grenade);
+  grenade->Launch(xdir+GetXDir(user)/5, ydir/*+GetYDir(user)/10*/, GetFMData(FM_Damage,2), 0, 0, 0, iAttachment);
+
+  //Sicht auf Granate wenn der Schütze zielt
+  if(!(user->~IsMachine()) && user->~IsAiming())
+  {
+    SetPlrView(GetController(user),grenade);
+    SetPlrViewRange(100, grenade);
+  }
+
+  //Effekte
+  if(GetEffectData(EFSM_ExplosionEffects) > 0)
+  {
+    CreateParticle("Thrust",x,y,GetXDir(user),GetYDir(user),80,RGBa(255,200,200,0),0,0);
+
+    for(var i=0; i<20; ++i)
+    {
+      CreateParticle("Smoke2",x+RandomX(-5,+5),y+RandomX(-5,+5),
+      		GetXDir(user)+RandomX(0,xdir/4),GetYDir(user)+RandomX(0,ydir/4),
+      		RandomX(80,140),RGBa(200,200,200,0),0,0);
+
+      CreateParticle("BlastSpark1",x+RandomX(-5,+5),y+RandomX(-5,+5),
+      		GetXDir(user)+RandomX(0,xdir/4),GetYDir(user)+RandomX(0,ydir/4),
+      		RandomX(40,70),RGBa(200,200,200,0),0,0);
+    }
+  }
+  Sound("ASTR_LauncherFire*.ogg", 0, grenade);
+  Echo("SGST_Echo.ogg");
+
+  //Patronenhülse vorhanden
+  casing = 1;
+}

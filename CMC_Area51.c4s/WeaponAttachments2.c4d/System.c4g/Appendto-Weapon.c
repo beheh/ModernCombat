@@ -24,6 +24,11 @@ func GetAttachment()
   return iAttachment;
 }
 
+func GetLaser()
+{
+  return pLaser;
+}
+
 /* Waffenaufsatz festlegen */
 
 func SetAttachment(int iValue)
@@ -223,14 +228,14 @@ public func ControlThrow(caller)
           if(target->~IsCrawling())
           {
             //Erhöhten Schaden verursachen
-            DoDmg(GetMCData(MC_Damage)*3/2,DMG_Melee,target,0,GetController(GetUser())+1,GetID());
+            DoDmg(GetMCData(MC_Damage)*3/2,DMG_Melee,target,0,GetController(GetUser())+1,GetID(), GetAttachment());
             //Ziel zum Aufstehen zwingen
             ObjectSetAction(target, "KneelUp");
           }
           else
           {
             //Schaden verursachen
-            DoDmg(GetMCData(MC_Damage),DMG_Melee,target,0,GetController(GetUser())+1,GetID());
+            DoDmg(GetMCData(MC_Damage),DMG_Melee,target,0,GetController(GetUser())+1,GetID(), GetAttachment());
             SetCommand(GetUser(), "");
             SetComDir(COMD_None, GetUser());
   
