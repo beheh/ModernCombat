@@ -580,7 +580,7 @@ global func FakeDeath(object pTarget)
   pTarget->OnFakeDeath();
 
   //Lebensenergie
-  DoEnergy(10 - GetEnergy(pTarget), pTarget);
+  DoEnergy(1 - GetEnergy(pTarget), pTarget);
 
   //Achievements
   var data = GetAchievementExtra(AC08, GetKiller(pTarget)); 
