@@ -484,8 +484,8 @@ public func ChooserFinished()
    }
 
    //Grenzen setzen
-   CreateObject(BRDR, 330, 0, -1)->Set(0);
-   CreateObject(BRDR, 3070, 0, -1)->Set(1);
+   CreateObject(BRDR, 320, 0, -1)->Set(0);
+   CreateObject(BRDR, 3080, 0, -1)->Set(1);
 
    //SSA Besitzer setzen
    if(aTeams[1] == true)
@@ -517,8 +517,8 @@ public func ChooserFinished()
    AddAssaultTarget(CMSN, 2110, 520, 300, 2, "$Flag4$", 1, [[2170, 320], [1980, 320], [2100, 170]]);
 
    //Grenzen setzen
-   CreateObject(BRDR, 330, 0, -1)->Set(0);
-   CreateObject(BRDR, 3070, 0, -1)->Set(1);
+   CreateObject(BRDR, 320, 0, -1)->Set(0);
+   CreateObject(BRDR, 3080, 0, -1)->Set(1);
 
    //SSA Besitzer setzen
    if(aTeams[1] == true)

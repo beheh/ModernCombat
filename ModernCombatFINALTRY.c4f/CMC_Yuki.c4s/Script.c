@@ -110,116 +110,90 @@ func CreateInterior()
   CreateObject(_HBR, 1245, 762, -1)->SwitchMode();
 
   //Türenteam 1
-
   aDoor1[0] = CreateObject(SLDR, 205, 400, -1);
   aDoor1[0]->Lock();
   aDoor1[0]->Close();
   aDoor1[0]->SetMaxDamage(-1);
-
   aDoor1[1] = CreateObject(SLDR, 205, 720, -1);
   aDoor1[1]->Lock();
   aDoor1[1]->Close();
   aDoor1[1]->SetMaxDamage(-1);
-
   aDoor1[2] = CreateObject(SLDR, 655, 610, -1);
   aDoor1[2]->Lock();
   aDoor1[2]->Close();
   aDoor1[2]->SetMaxDamage(-1);
-
   aDoor1[3] = CreateObject(SLDR, 1105, 380, -1);
   aDoor1[3]->Lock();
   aDoor1[3]->Close();
   aDoor1[3]->SetMaxDamage(-1);
-
   aDoor1[4] = CreateObject(SLDR, 1105, 750, -1);
   aDoor1[4]->Lock();
   aDoor1[4]->Close();
   aDoor1[4]->SetMaxDamage(-1);
-
   aDoor1[5] = CreateObject(SLDR, 1535, 640, -1);
   aDoor1[5]->Lock();
   aDoor1[5]->Close();
   aDoor1[5]->SetMaxDamage(-1);
 
   //Türenteam 2
-
   aDoor2[0] = CreateObject(SLDR, 205, 520, -1);
   aDoor2[0]->Lock();
   aDoor2[0]->Open();
   aDoor2[0]->SetMaxDamage(-1);
-
   aDoor2[1] = CreateObject(SLDR, 655, 350, -1);
   aDoor2[1]->Lock();
   aDoor2[1]->Open();
   aDoor2[1]->SetMaxDamage(-1);
-
   aDoor2[2] = CreateObject(SLDR, 655, 750, -1);
   aDoor2[2]->Lock();
   aDoor2[2]->Open();
   aDoor2[2]->SetMaxDamage(-1);
-
   aDoor2[3] = CreateObject(SLDR, 1105, 590, -1);
   aDoor2[3]->Lock();
   aDoor2[3]->Open();
   aDoor2[3]->SetMaxDamage(-1);
-
   aDoor2[4] = CreateObject(SLDR, 1535, 380, -1);
   aDoor2[4]->Lock();
   aDoor2[4]->Open();
   aDoor2[4]->SetMaxDamage(-1);
 
-  //Ampeln
-
+  //Lampen
   aLamp1[0] = CreateObject(ALGH, 234, 600, -1);
   aLamp1[0]->SetR(90);
   aLamp1[0]->TurnOff();
-
   aLamp2[0] = CreateObject(ALGH, 234, 620, -1);
   aLamp2[0]->SetR(90);
   aLamp2[0]->TurnOff();
-
   aLamp3[0] = CreateObject(ALGH, 234, 640, -1);
   aLamp3[0]->ChangeLightColor(255,255,0,80);
   aLamp3[0]->SetR(90);
   aLamp3[0]->TurnOff();
-
-
-  aLamp1[1] = CreateObject(ALGH, 980, 619, -1);
+  aLamp1[1] = CreateObject(ALGH, 690, 679, -1);
   aLamp1[1]->SetR(180);
   aLamp1[1]->TurnOff();
-
-  aLamp2[1] = CreateObject(ALGH, 1000, 619, -1);
+  aLamp2[1] = CreateObject(ALGH, 710, 679, -1);
   aLamp2[1]->SetR(180);
   aLamp2[1]->TurnOff();
-
-  aLamp3[1] = CreateObject(ALGH, 1020, 619, -1);
+  aLamp3[1] = CreateObject(ALGH, 730, 679, -1);
   aLamp3[1]->ChangeLightColor(255,255,0,80);
   aLamp3[1]->SetR(180);
   aLamp3[1]->TurnOff();
-
-
   aLamp1[2] = CreateObject(ALGH, 1150, 669, -1);
   aLamp1[2]->SetR(180);
   aLamp1[2]->TurnOff();
-
   aLamp2[2] = CreateObject(ALGH, 1170, 669, -1);
   aLamp2[2]->SetR(180);
   aLamp2[2]->TurnOff();
-
   aLamp3[2] = CreateObject(ALGH, 1190, 669, -1);
   aLamp3[2]->ChangeLightColor(255,255,0,80);
   aLamp3[2]->SetR(180);
   aLamp3[2]->TurnOff();
-
-
   aLamp1[3] = CreateObject(ALGH, 1640, 499, -1);
   aLamp1[3]->SetR(180);
   aLamp1[3]->TurnOff();
-
   aLamp2[3] = CreateObject(ALGH, 1660, 499, -1);
   aLamp2[3]->SetR(180);
   aLamp2[3]->TurnOff();
-
   aLamp3[3] = CreateObject(ALGH, 1680, 499, -1);
   aLamp3[3]->ChangeLightColor(255,255,0,80);
   aLamp3[3]->SetR(180);
