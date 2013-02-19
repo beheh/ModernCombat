@@ -99,7 +99,7 @@ func Use(caller)
       //Patient wiederbeleben
       StopFakeDeath(obj);
       //Energieschub
-      DoEnergy(24, obj);
+      DoEnergy(29, obj);
        //Restliche Energie mit Heilungseffekt übergeben
       AddEffect("ShockPaddlesHeal",obj,20,1,0,GetID(),HealAmount(),HealRate());
   
@@ -178,7 +178,7 @@ func Use(caller)
 /* Selbstheilungseffekt durch Wiederbelebung */
 
 func HealRate()		{return 3;}
-func HealAmount()	{return 55;}
+func HealAmount()	{return 50;}
 
 func FxShockPaddlesHealStart(object pTarget, int iEffectNumber, int iTemp, int iHealAmount, int iHealRate)
 {
