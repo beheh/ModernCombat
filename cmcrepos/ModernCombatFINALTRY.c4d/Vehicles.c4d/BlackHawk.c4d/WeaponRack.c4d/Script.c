@@ -155,7 +155,7 @@ public func ControlThrow(pByObj)
   if(!GetAttWeapon())
     return true;
   SetController(GetController(pByObj), GetAttWeapon());
-  if(GetAttWeapon()->IsShooting())
+  if(GetAttWeapon()->IsShooting() && !GetPlrCoreJumpAndRunControl(GetController(pByObj)))
     GetAttWeapon()->StopAutoFire();
   else
     GetAttWeapon()->ControlThrow(this);
