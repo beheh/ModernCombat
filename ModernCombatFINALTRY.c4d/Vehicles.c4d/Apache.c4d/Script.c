@@ -123,12 +123,14 @@ protected func ContainedUp(object ByObj)
     //Startup-Sequence
     if (!throttle && (GetAction() == "Stand" || GetAction() == "EngineShutDown"))
       SetAction("EngineStartUp");
-    //beim Flug mehr Schub
-    if(GetAction() == "Fly" || GetAction() == "Turn")
-      if(GetPlrCoreJumpAndRunControl(GetOwner(GetPilot())) && !GetAutopilot())
-        AddEffect("BlackhawkChangeThrottle", this, 50, 3, this, GetID(), BKHK_ThrottleSpeed);
-      else
+    //Schub geben
+    if(!GetPlrCoreJumpAndRunControl(GetOwner(GetPilot()))) {
+      if(GetAction() == "Fly" || GetAction() == "Turn")
         throttle = BoundBy(throttle + BKHK_ThrottleSpeed, 0, BKHK_MaxThrottle);
+    }
+    else {
+      AddEffect("BlackhawkChangeThrottle", this, 50, 3, this, GetID(), BKHK_ThrottleSpeed);
+    }
   }
 
   //Schütze
@@ -152,7 +154,7 @@ protected func ContainedDown(object ByObj)
       SetAction("EngineShutDown");
     //Vom Gas weg
     if(GetAction() == "Fly" || GetAction() == "Turn")
-      if(GetPlrCoreJumpAndRunControl(GetOwner(GetPilot())) && !GetAutopilot())
+      if(GetPlrCoreJumpAndRunControl(GetOwner(GetPilot())))
         AddEffect("BlackhawkChangeThrottle", this, 50, 3, this, GetID(), -BKHK_ThrottleSpeed);
       else
         throttle = BoundBy(throttle - BKHK_ThrottleSpeed, 0, BKHK_MaxThrottle);
