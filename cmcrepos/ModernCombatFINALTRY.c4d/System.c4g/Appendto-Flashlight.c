@@ -18,18 +18,18 @@ public func GearEffect(object pClonk)
 
 private func CheckRotation()
 {
-  if (!user || Contained(user))
+  if(!user || Contained(user))
   {
-    if (light)
+    if(light)
       RemoveObject(light);
     return;
   }
-  if (!light)
+  if(!light)
   {
     light = AddLightCone(1000, RGBa(255, 255, 220, 90), user);
     light->ChangeSizeXY(1900, 6000);
     light->ChangeOffset(0, -2, true);
   }
-  if (light && user)
+  if(light && user)
     light->ChangeR(user->~AimAngle(20));
 }
