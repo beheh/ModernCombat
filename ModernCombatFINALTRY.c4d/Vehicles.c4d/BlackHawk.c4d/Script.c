@@ -511,10 +511,12 @@ protected func FxBlackhawkChangeThrottleTimer(object pTarget, int iNumber, int i
   if(GetAction() != "Fly" && GetAction() != "Turn") return FX_OK;
   var old = throttle;
   throttle = BoundBy(throttle + EffectVar(0, pTarget, iNumber), 0, BKHK_MaxThrottle);
-  if(old == throttle && throttle == 0) {
+  if(old == throttle && throttle == 0)
+  {
     SetAction("EngineShutDown");
   }
-  if(old == throttle) {
+  if(old == throttle)
+  {
     return -1;
   }
   return FX_OK;
@@ -535,11 +537,13 @@ protected func ContainedUp(object ByObj)
     if (!throttle && (GetAction() == "Stand" || GetAction() == "EngineShutDown"))
       SetAction("EngineStartUp");
     //Schub geben
-    if(!GetPlrCoreJumpAndRunControl(GetOwner(GetPilot()))) {
+    if(!GetPlrCoreJumpAndRunControl(GetOwner(GetPilot())))
+    {
       if(GetAction() == "Fly" || GetAction() == "Turn")
         throttle = BoundBy(throttle + BKHK_ThrottleSpeed, 0, BKHK_MaxThrottle);
     }
-    else {
+    else
+    {
       AddEffect("BlackhawkChangeThrottle", this, 50, 3, this, GetID(), BKHK_ThrottleSpeed);
     }
   }

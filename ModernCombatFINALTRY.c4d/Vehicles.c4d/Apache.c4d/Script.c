@@ -124,11 +124,13 @@ protected func ContainedUp(object ByObj)
     if (!throttle && (GetAction() == "Stand" || GetAction() == "EngineShutDown"))
       SetAction("EngineStartUp");
     //Schub geben
-    if(!GetPlrCoreJumpAndRunControl(GetOwner(GetPilot()))) {
+    if(!GetPlrCoreJumpAndRunControl(GetOwner(GetPilot())))
+    {
       if(GetAction() == "Fly" || GetAction() == "Turn")
         throttle = BoundBy(throttle + BKHK_ThrottleSpeed, 0, BKHK_MaxThrottle);
     }
-    else {
+    else
+    {
       AddEffect("BlackhawkChangeThrottle", this, 50, 3, this, GetID(), BKHK_ThrottleSpeed);
     }
   }
