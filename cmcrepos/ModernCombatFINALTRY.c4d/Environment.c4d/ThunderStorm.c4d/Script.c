@@ -18,7 +18,7 @@ protected func Initialize()
   DoClouds();
 
   //Globaler Regensound als Loop
-  Sound("Rain.ogg",true,0,80,0,+1);
+  Sound("Rain.ogg",true,0,50,0,+1);
 
   return true;
 }
