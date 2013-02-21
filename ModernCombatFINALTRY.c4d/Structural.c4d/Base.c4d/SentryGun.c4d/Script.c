@@ -229,7 +229,8 @@ public func Activity()
 	    Shooting = false;
    		GetAttWeapon()->StopAutoFire();
   	}
- 		GotTarget = Search();
+  	if(!(GetActTime()%3)) //Nur alle 3 Frames
+ 		  GotTarget = Search();
 	}
 	else
 	{
