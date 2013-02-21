@@ -218,60 +218,49 @@ public func Activity()
     }
   }
   if(GotTarget)
-  	aim_angle += BoundBy(target_angle-AimAngle(),-1,1);
-       
+    aim_angle += BoundBy(target_angle-AimAngle(),-1,1);
+
   /* Feinde suchen */
-  
+
   if(!GotTarget)
   {
-  	if(Shooting)
-  	{
-	    Shooting = false;
-   		GetAttWeapon()->StopAutoFire();
-  	}
-  	if(!(GetActTime()%3)) //Nur alle 3 Frames
- 		  GotTarget = Search();
-	}
-	else
-	{
-		target_angle = Angle(GetX(), GetY() + 7, GetX(GotTarget), GetY(GotTarget));
-		
-		if((MaxRotRight() >= 360) && (target_angle < MaxRotRight()-360))
-    	target_angle += 360;
-		
-		if(Abs(AimAngle() - target_angle) < 15)
-		{
-		    Shooting = true;
-		    if(!GetAttWeapon()->IsShooting())
-			    GetAttWeapon()->Fire(this);
-	  	  if(GetAmmo(GetAttWeapon()->GetFMData(FM_AmmoID), GetAttWeapon()) < GetAttWeapon()->GetFMData(FM_AmmoUsage))
-					Reload();
-		}
-		else
-		{
-	    Shooting = false;
-   		GetAttWeapon()->StopAutoFire();
-		}
-		
-		if(!CheckTarget(GotTarget,this))
-			GotTarget = 0;
-		else if(!PathFree(GetX(),GetY()+7,GetX(GotTarget), GetY(GotTarget)))
-			GotTarget = 0;
-		else if(ObjectDistance(GotTarget,this) > SearchLength())
-			GotTarget = 0;
-	}
-	 
-  /*
-  //Berechnung
-  iAngle = aim_angle;
-  iWidth =  Sin(iAngle, SearchLength());
-  iHeight = -Cos(iAngle, SearchLength());
-
-  if(iWidth < 0)
-    Search(iWidth, -iWidth, iHeight);
+    if(Shooting)
+    {
+      Shooting = false;
+        GetAttWeapon()->StopAutoFire();
+    }
+    //Nur alle 3 Frames
+    if(!(GetActTime()%3))
+      GotTarget = Search();
+  }
   else
-    Search(0, iWidth, iHeight);
-  */
+  {
+    target_angle = Angle(GetX(), GetY() + 7, GetX(GotTarget), GetY(GotTarget));
+
+    if((MaxRotRight() >= 360) && (target_angle < MaxRotRight()-360))
+      target_angle += 360;
+
+    if(Abs(AimAngle() - target_angle) < 15)
+    {
+      Shooting = true;
+      if(!GetAttWeapon()->IsShooting())
+        GetAttWeapon()->Fire(this);
+      if(GetAmmo(GetAttWeapon()->GetFMData(FM_AmmoID), GetAttWeapon()) < GetAttWeapon()->GetFMData(FM_AmmoUsage))
+        Reload();
+    }
+    else
+    {
+      Shooting = false;
+        GetAttWeapon()->StopAutoFire();
+    }
+
+    if(!CheckTarget(GotTarget,this))
+      GotTarget = 0;
+    else if(!PathFree(GetX(),GetY()+7,GetX(GotTarget), GetY(GotTarget)))
+      GotTarget = 0;
+    else if(ObjectDistance(GotTarget,this) > SearchLength())
+      GotTarget = 0;
+  }
 }
 
 public func Search(int iX, int iWidth, int iHeight)
@@ -281,49 +270,49 @@ public func Search(int iX, int iWidth, int iHeight)
   /*DrawParticleLine("PSpark", 0, 0, -70 + Sin(aim_angle, SearchLength()), SearchLength(), 10, 80, RGB(255, 0, 0));
   DrawParticleLine("PSpark", 0, 0, 70 + Sin(aim_angle, SearchLength()), SearchLength(), 10, 80, RGB(255, 0, 0));*/ 
 
-	var Targets = FindTargets(this, SearchLength());
-	var pTarget = 0;
+  var Targets = FindTargets(this, SearchLength());
+  var pTarget = 0;
   for(pAim in Targets)
   {
-		if(GetOwner() != NO_OWNER)
-			if(GetOwner(pAim) == GetOwner() || !Hostile(GetOwner(pAim), GetOwner()))
-				continue;
+    if(GetOwner() != NO_OWNER)
+      if(GetOwner(pAim) == GetOwner() || !Hostile(GetOwner(pAim), GetOwner()))
+        continue;
 
-		if(!CheckTarget(pAim,this))
-			continue;
+    if(!CheckTarget(pAim,this))
+      continue;
 
-		//Winkel zum Ziel
-		target_angle = Angle(GetX(), GetY() + 7, GetX(pAim), GetY(pAim));
+    //Winkel zum Ziel
+    target_angle = Angle(GetX(), GetY() + 7, GetX(pAim), GetY(pAim));
 
-		target_angle = Normalize(target_angle, 0);
-		if(MaxRotRight() < 360 && (target_angle < MaxRotLeft() || target_angle > MaxRotRight()))
-    	continue;
+    target_angle = Normalize(target_angle, 0);
+    if(MaxRotRight() < 360 && (target_angle < MaxRotLeft() || target_angle > MaxRotRight()))
+      continue;
     else if(MaxRotRight() >= 360 && (target_angle < MaxRotLeft() && target_angle > MaxRotRight()-360))
       continue;
 
-		var pTarget = pAim;
-		break;
+    var pTarget = pAim;
+    break;
   }
-  
-	if(Shooting && !pTarget)
-	{
-		Shooting = false;
-		GetAttWeapon()->StopAutoFire();
-	}
 
-	if(!pTarget)
-  	GotTarget = true;
+  if(Shooting && !pTarget)
+  {
+    Shooting = false;
+    GetAttWeapon()->StopAutoFire();
+  }
+
+  if(!pTarget)
+    GotTarget = true;
 
   return pTarget;
 }
 
 private func Reload()
 {
-  // Munitionsart
+  //Munitionsart
   var AmmoID = GetAttWeapon()->~GetFMData(FM_AmmoID);
-  // Erzeugen
+  //Erzeugen
   Local(0, CreateContents(AmmoID)) = GetAttWeapon()->~GetFMData(FM_AmmoLoad);
-  // Waffe soll nachladen
+  //Waffe soll nachladen
   GetAttWeapon()->~Reloaded(this);
   GetAttWeapon()->~StopAutoFire();
 }
