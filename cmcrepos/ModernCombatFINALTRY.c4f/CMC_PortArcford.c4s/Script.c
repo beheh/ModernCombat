@@ -553,7 +553,7 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
     CreateObject(BRDR, 4100, 0, -1)->Set(1,1);
 
     //Teamgrenze setzen
-    CreateTeamBorder(AssaultDefenderTeam(),2500,0,1,1);
+    FindObject(GASS)->CreateTeamBorder(AssaultDefenderTeam(),2500,0,1,1);
 
     //Spawnpoint entfernen
     RemoveObject(FindObject2(Find_ID(VSPW),Find_InRect(909, 469, 2, 2)));
@@ -575,7 +575,7 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
     CreateObject(BRDR, 5600, 0, -1)->Set(1,1);
 
     //Teamgrenze setzen
-    CreateTeamBorder(AssaultDefenderTeam(),3850,0,1,1);
+    FindObject(GASS)->CreateTeamBorder(AssaultDefenderTeam(),3850,0,1,1);
 
     //Geschützstellung entfernen
     aStationary[2]->DecoExplode(30);

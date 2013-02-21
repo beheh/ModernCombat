@@ -976,7 +976,7 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
    if(fConnectedDestroyed)
    {
     //Teamgrenze setzen
-    CreateTeamBorder(AssaultDefenderTeam(),1700,0,1,1);
+    FindObject(GASS)->CreateTeamBorder(AssaultDefenderTeam(),1700,0,1,1);
 
     //Rauch
     CreateParticle("GunSmoke",1325,340,0,-10,350,1);
@@ -1012,7 +1012,7 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
    CreateObject(BRDR, 1100, 0, -1)->Set(0,1);
 
    //Teamgrenze setzen
-   CreateTeamBorder(AssaultDefenderTeam(),0,440,3,1);
+   FindObject(GASS)->CreateTeamBorder(AssaultDefenderTeam(),0,440,3,1);
 
    //Rauch
    CreateParticle("GunSmoke",2220,170,0,-10,200,1);
@@ -1064,7 +1064,7 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
    CreateObject(BRDR, 1580, 0, -1)->Set(0,1);
 
    //Teamgrenze setzen
-   CreateTeamBorder(AssaultDefenderTeam(),2320,0,1,1);
+   FindObject(GASS)->CreateTeamBorder(AssaultDefenderTeam(),2320,0,1,1);
 
    //Rauch
    CreateParticle("GunSmoke",1830,435,0,-10,350,1);
