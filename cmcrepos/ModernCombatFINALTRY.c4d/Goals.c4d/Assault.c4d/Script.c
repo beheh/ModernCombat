@@ -32,6 +32,7 @@ public func GoalExtraValue()
 static const BAR_AssaultBar = 4;
 static const GASS_PlantRadius = 100;
 
+
 /* Initialisierung */
 
 protected func Initialize()
@@ -340,7 +341,7 @@ protected func FxIntAssaultTargetTimer(object pTarget, int iNr, int iTime)
 
   if(!status)
   {
-  	bar->Update(0, true, true);
+    bar->Update(0, true, true);
 
     //Sprengladung wird plaziert
     if(!GetEffect("TeamBorder", this) && enemycnt > alliescnt)
