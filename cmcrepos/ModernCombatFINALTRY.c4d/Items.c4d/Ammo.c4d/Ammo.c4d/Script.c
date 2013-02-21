@@ -65,7 +65,7 @@ public func TransferAmmo(object pObj)
     DoAchievementProgress(AmmoID()->~MaxAmmo()/10*factor, AC03, GetOwner(clonk));
   }
 
-  //Nachricht ausgeben
+  //Hinweisnachricht ausgeben (Munition aufgenommen)
   HelpMessage(GetOwner(pObj), "$Collected$", pObj, AmmoCount(), AmmoID());
   DoAmmo(AmmoID(), AmmoCount(), pObj);
   pObj->~AmmoTransferred();

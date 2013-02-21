@@ -1163,7 +1163,7 @@ private func Reloaded(caller,slot,amount)
   //Munition aus Clonk entfernen
   DoAmmo(ammoid, -amount, caller);
 
-  //Geladene Munitionsmenge angeben
+  //Hinweisnachricht ausgeben (Nachgelandene Munition)
   if(amount > 0) HelpMessage(GetOwner(caller),"$Reloaded$",caller,amount,ammoid);
 
   //Callback
@@ -1234,7 +1234,7 @@ public func SetFireMode(int i)
   //Sound
   Sound("WPN2_Switch*.ogg");
   
-  //Gewählten Feuermodus angeben
+  //Hinweisnachricht ausgeben (Gewählter Feuermodus)
   HelpMessage(GetOwner(GetUser()),"$FireModeChanged$",GetUser(),GetFMData(FM_Name),GetFMData(FM_AmmoID));
 
   return 1;
