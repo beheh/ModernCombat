@@ -177,8 +177,12 @@ public func Throw()
 
 public func Activate(pCaller)
 {
+  //Granate in den Granatengürtel des Clonks lagern
   pCaller->~StoreGrenade(this);
+
+  //Hinweisnachricht ausgeben (Granate aufgenommen)
   HelpMessage(GetOwner(pCaller),"$Collected$",pCaller,GetID());
+
   return true;
 }
 
@@ -186,6 +190,8 @@ public func AI_IdleInventory(pCaller)
 {
   return Activate(pCaller);
 }
+
+/* Aufnahme */
 
 public func RejectEntrance()
 {
@@ -200,12 +206,14 @@ public func Collection(object pObj)
 
 public func Departure(object pObj)
 {
-  if(IsFusing())
-    SetCategory(C4D_Vehicle);
+  //Kategorie wechseln
+  if(IsFusing()) SetCategory(C4D_Vehicle);
+
+  //Timer-Anzeige entfernen
   PlayerMessage(GetController(pObj)," ",pObj);
 }
 
-/* Effekt bei Aktivität */
+/* Effekt bei aktiver Granate */
 
 public func FxIntFuseStart()
 {
@@ -215,28 +223,31 @@ public func FxIntFuseStart()
 
 public func FxIntFuseTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
+  //Container ermitteln
   var c = Contained();
+
+  //Rauch erstellen wenn im Freien
   if(!c && DoSmoke())
   {
     var vel=Abs(GetXDir())+Abs(GetYDir());
     var alpha=Max(0,60-vel);
     var rgb = Color();
     if(!rgb) rgb = RGB(100,100,100);
-
-     CreateParticle("Smoke2", -GetXDir()/6, -GetYDir()/6, RandomX(-10, 10), -5,
-                          vel/3+RandomX(10, 20), SetRGBaValue(rgb,alpha)); 
+     CreateParticle("Smoke2", -GetXDir()/6, -GetYDir()/6, RandomX(-10, 10), -5, vel/3+RandomX(10, 20), SetRGBaValue(rgb,alpha));
   }
   else if(c)
   {
-    if (c->~IsClonk() && !GetAlive(c) || c->~IsFakeDeath())
+    //Timer-Anzeige erstellen
+    if(c->~IsClonk() && !GetAlive(c) || c->~IsFakeDeath())
       Exit(0, 0, 8);
     else if(Contents(0, c) == this)
-      PlayerMessage(GetController(c),"<c %x>•</c>",c,InterpolateRGBa2(RGB(0,255),RGB(255,255),RGB(255,0),0,FuseTime(),iEffectTime));    
+      PlayerMessage(GetController(c),"<c %x>{{SM20}}</c>",c,InterpolateRGBa2(RGB(0,255),RGB(255,255),RGB(255,0),0,FuseTime(),iEffectTime));
   }
 
+  //Zeit abgelaufen: Effekt stoppen
   if(iEffectTime < FuseTime()) return;
 
-  //Nochmal falls Clonk gestorben ist und die Granate rausfliegt
+  //Container sicherheitshalber erneut ermitteln, sollte dieser gestorben sein
   c = Contained();
 
   if(c)
@@ -259,19 +270,19 @@ public func FxIntFuseTimer(object pTarget, int iEffectNumber, int iEffectTime)
 
 public func FxIntFuseStop(object pTarget)	{}
 
+/* Zündung */
+
 public func Fuse()
 {
   Sound("GrenadeActivate.ogg");
   SetGraphics("Active");
-  return AddEffect ("IntFuse",this,200,1,this);
+  return AddEffect("IntFuse",this,200,1,this);
 }
 
 public func IsFusing()
 {
   return GetEffect("IntFuse",this);
 }
-
-/* Zündung */
 
 public func Fused2(object pContainer)
 {
@@ -342,11 +353,11 @@ public func SetUser(object pUser)
 /* Effekt für Trefferüberprüfung */
 
 // EffectVars:
-// 0 - alte X-Position
-// 1 - alte Y-Position
+// 0 - Alte X-Position
+// 1 - Alte Y-Position
 // 2 - Schütze (Objekt, das die Waffe abgefeuert hat, üblicherweise ein Clonk)
 // 3 - ID des Schützen
-// 4 - Scharf? Wenn true wird der Schütze vom Projektil getroffen 
+// 4 - Scharf? Wenn true, wird der Schütze vom Projektil getroffen 
 
 public func FxHitCheckStart(object target, int effect, int temp, object byObj)
 {
