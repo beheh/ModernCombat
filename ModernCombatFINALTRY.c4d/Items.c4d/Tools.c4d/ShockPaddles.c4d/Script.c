@@ -89,41 +89,38 @@ func Use(caller)
   var obj;
   if(obj = FindObject2(Find_InRect(-10,-10,20,20),Find_ID(FKDT),			//Schwerverletzter?
 						  Find_Allied(GetOwner(caller)),	//Verbündet?
-						  Find_NoContainer()))			//Im Freien?
+						  Find_NoContainer(),	//Im Freien?
+						  Find_Not(Find_Func("RejectReanimation")))) //Verweigert die Reanimation nicht
   {
-    //Reanimation abgelehnt?
-    if(!obj->~RejectReanimation())
-    {
-      obj = obj->GetClonk();
+    obj = obj->GetClonk();
 
-      //Patient wiederbeleben
-      StopFakeDeath(obj);
-      //Energieschub
-      DoEnergy(29, obj);
-       //Restliche Energie mit Heilungseffekt übergeben
-      AddEffect("ShockPaddlesHeal",obj,20,1,0,GetID(),HealAmount(),HealRate());
-  
-      //Effekte
-      Sound("CDBT_Shock.ogg");
-      Sound("ClonkCough*.ogg", 0, obj);
-      obj->Sparks(10,RGB(250,150,0), (GetDir(Contained())*2-1)*HandX()*2/1000);
-      obj->Sparks(5,RGB(100,100,250), (GetDir(Contained())*2-1)*HandX()*2/1000);
-      if(GetEffectData(EFSM_BulletEffects) >1)  obj->AddLightFlash(40+Random(20),0,0,RGB(0,140,255));
+    //Patient wiederbeleben
+    StopFakeDeath(obj);
+    //Energieschub
+    DoEnergy(29, obj);
+     //Restliche Energie mit Heilungseffekt übergeben
+    AddEffect("ShockPaddlesHeal",obj,20,1,0,GetID(),HealAmount(),HealRate());
 
-      //Eventnachricht: Spieler reanimiert Spieler
-      EventInfo4K(0,Format("$MsgReanimation$",GetTaggedPlayerName(GetOwner(caller)), GetTaggedPlayerName(GetOwner(obj))),FKDT);
+    //Effekte
+    Sound("CDBT_Shock.ogg");
+    Sound("ClonkCough*.ogg", 0, obj);
+    obj->Sparks(10,RGB(250,150,0), (GetDir(Contained())*2-1)*HandX()*2/1000);
+    obj->Sparks(5,RGB(100,100,250), (GetDir(Contained())*2-1)*HandX()*2/1000);
+    if(GetEffectData(EFSM_BulletEffects) >1)  obj->AddLightFlash(40+Random(20),0,0,RGB(0,140,255));
 
-      //Achievement-Fortschritt (Shock Therapist)
-      DoAchievementProgress(1, AC04, GetOwner(caller));
+    //Eventnachricht: Spieler reanimiert Spieler
+    EventInfo4K(0,Format("$MsgReanimation$",GetTaggedPlayerName(GetOwner(caller)), GetTaggedPlayerName(GetOwner(obj))),FKDT);
 
-      //Punkte bei Belohnungssystem (Reanimation)
-      DoPlayerPoints(BonusPoints("Reanimation"), RWDS_TeamPoints, GetOwner(caller), caller, IC04);
+    //Achievement-Fortschritt (Shock Therapist)
+    DoAchievementProgress(1, AC04, GetOwner(caller));
 
-      //Energie entladen
-      charge = BoundBy(charge-20,0,MaxEnergy());
+    //Punkte bei Belohnungssystem (Reanimation)
+    DoPlayerPoints(BonusPoints("Reanimation"), RWDS_TeamPoints, GetOwner(caller), caller, IC04);
 
-      return 1;
-    }
+    //Energie entladen
+    charge = BoundBy(charge-20,0,MaxEnergy());
+
+    return 1;
   }
 
   obj=0;
