@@ -87,10 +87,10 @@ func Use(caller)
 
   //Patienten suchen
   var obj;
-  if(obj = FindObject2(Find_InRect(-10,-10,20,20),Find_ID(FKDT),			//Schwerverletzter?
-						  Find_Allied(GetOwner(caller)),	//Verbündet?
-						  Find_NoContainer(),	//Im Freien?
-						  Find_Not(Find_Func("RejectReanimation")))) //Verweigert die Reanimation nicht
+  if(obj = FindObject2(Find_InRect(-10,-10,20,20),Find_ID(FKDT),				//Schwerverletzter?
+						  Find_Allied(GetOwner(caller)),		//Verbündet?
+						  Find_NoContainer(),				//Im Freien?
+						  Find_Not(Find_Func("RejectReanimation"))))	//Verweigert die Reanimation nicht?
   {
     obj = obj->GetClonk();
 
@@ -98,7 +98,7 @@ func Use(caller)
     StopFakeDeath(obj);
     //Energieschub
     DoEnergy(29, obj);
-     //Restliche Energie mit Heilungseffekt übergeben
+    //Restliche Energie mit Heilungseffekt übergeben
     AddEffect("ShockPaddlesHeal",obj,20,1,0,GetID(),HealAmount(),HealRate());
 
     //Effekte
