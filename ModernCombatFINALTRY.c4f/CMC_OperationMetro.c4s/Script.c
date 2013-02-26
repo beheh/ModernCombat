@@ -483,7 +483,7 @@ func CreateDecoration()
   screen = CreateObject(SCR3, 1560, 310, -1);
   screen->SetClrModulation(RGB(255,255,255));
   screen->SetPhase(5);
-  CreateObject(SCA2, 1590, 500, -1);
+  CreateObject(SCA2, 1590, 500, -1)->SetAction("News");
   CreateObject(SCA2, 1650, 500, -1)->SetAction("Clonk");
   screen = CreateObject(SCR3, 2075, 380, -1);
   screen->SetClrModulation(RGB(255,255,255));
@@ -500,7 +500,7 @@ func CreateDecoration()
   screen->SetClrModulation(RGB(255,255,255));
   screen->SetPhase(5);
   CreateObject(SCA2, 3590, 500, -1)->SetAction("Wompf");
-  CreateObject(SCA2, 3650, 500, -1);
+  CreateObject(SCA2, 3650, 500, -1)->SetAction("News");
   CreateObject(SCR3, 3680, 310, -1)->SetClrModulation(RGB(250,10,10));
   CreateObject(SCA2, 3740, 320, -1)->SetAction("Clonk");
   screen = CreateObject(SCR3, 3800, 310, -1);
