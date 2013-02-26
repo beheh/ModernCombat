@@ -109,22 +109,40 @@ func CreateInterior()
   CreateObject(XTNK, 2500, 440, -1)->AutoRespawn();
 
   //Container
-  CreateObject(CON1, 25, 440, -1)->SetPerspective(2);
-  CreateObject(CON1, 75, 440, -1);
-  CreateObject(CON1, 120, 640, -1)->SetPerspective();
-  CreateObject(CON1, 250, 640, -1)->SetPerspective(3);
-  CreateObject(CON1, 265, 614, -1)->SetPerspective(2);
-
-  CreateObject(CON1, 530, 440, -1)->SetPerspective(2);
-  CreateObject(CON1, 530, 640, -1);
-  CreateObject(CON1, 1365, 440, -1)->SetPerspective(3);
-  CreateObject(CON1, 2200, 440, -1)->SetPerspective(2);
-  CreateObject(CON1, 2200, 640, -1);
-
-  CreateObject(CON1, 2475, 642, -1)->SetPerspective();
-  CreateObject(CON1, 2500, 614, -1)->SetPerspective(2);
-  CreateObject(CON1, 2530, 642, -1);
-  CreateObject(CON1, 2680, 440, -1)->SetPerspective(3);
+  var container = CreateObject(CON1, 25, 442, -1);
+  container->SetPerspective(2);
+  container->SetGraphics("5");
+  CreateObject(CON1, 75, 440, -1)->SetGraphics("5");
+  container = CreateObject(CON1, 120, 640, -1);
+  container->SetPerspective();
+  container->SetGraphics("5");
+  container = CreateObject(CON1, 250, 640, -1);
+  container->SetPerspective(3);
+  container->SetGraphics("5");
+  container = CreateObject(CON1, 265, 614, -1);
+  container->SetPerspective(2);
+  container->SetGraphics("5");
+  container = CreateObject(CON1, 530, 440, -1);
+  container->SetPerspective(2);
+  container->SetGraphics("5");
+  CreateObject(CON1, 530, 640, -1)->SetGraphics("5");
+  container = CreateObject(CON1, 1365, 440, -1);
+  container->SetPerspective(3);
+  container->SetGraphics("5");
+  container = CreateObject(CON1, 2200, 440, -1);
+  container->SetPerspective(2);
+  container->SetGraphics("5");
+  CreateObject(CON1, 2200, 640, -1)->SetGraphics("5");
+  container = CreateObject(CON1, 2475, 642, -1);
+  container->SetPerspective();
+  container->SetGraphics("5");
+  container = CreateObject(CON1, 2500, 614, -1);
+  container->SetPerspective(2);
+  container->SetGraphics("5");
+  CreateObject(CON1, 2530, 642, -1)->SetGraphics("5");
+  container = CreateObject(CON1, 2680, 440, -1);
+  container->SetPerspective(3);
+  container->SetGraphics("5");
 
   //Autos
   var car = CreateObject(CCAR, 50, 641, -1);
@@ -413,7 +431,7 @@ func CreateDecoration()
   //Bildschirme
   CreateObject(SCR3, 360, 520, -1);
   CreateObject(SCA2, 680, 765, -1)->SetAction("Wompf");
-  CreateObject(SCA2, 2045, 765, -1)->SetAction("Clonk");
+  CreateObject(SCA2, 2045, 765, -1)->SetAction("News");
   CreateObject(SCR3, 2370, 520, -1);
 
   //Monitore

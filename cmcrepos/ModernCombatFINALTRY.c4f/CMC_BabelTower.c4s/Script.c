@@ -527,7 +527,7 @@ func CreateDecoration()
   CreateObject(ENGT, 585, 1370, -1);
 
   //Bildschirme
-  CreateObject(SCA2, 585, 810, -1)->SetClrModulation(RGB(50,255,0));
+  CreateObject(SCA2, 585, 810, -1)->SetAction("News");
   CreateObject(SCR3, 530, 840, -1);
   CreateObject(SCR3, 640, 840, -1)->SetPhase(10);
   CreateObject(SCA1, 585, 1490, -1)->SetAction("Grenade");
