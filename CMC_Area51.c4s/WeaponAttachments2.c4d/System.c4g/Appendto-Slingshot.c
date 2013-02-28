@@ -37,7 +37,7 @@ func FxLaserDotTimer(object pTarget, int iEffectNumber, int iEffectTime)
 
 public func FMData1(int data)
 {
-  if(data == FM_AmmoLoad)	return _inherited(data) + (iAttachment == AT_ExtendedMag)*1;	//Magazingröße
+  if(data == FM_AmmoLoad)	return _inherited(data) + (iAttachment == AT_ExtendedMag)*2;	//Magazingröße
 
   return _inherited(data);
 }
