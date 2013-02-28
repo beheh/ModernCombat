@@ -10,7 +10,7 @@ func PermittedAtts()
 
 public func FMData1(int data)
 {
-  if(data == FM_AmmoLoad)	return 30 + (iAttachment == AT_ExtendedMag)*6;	//Magazingröße
+  if(data == FM_AmmoLoad)	return 30 + (iAttachment == AT_ExtendedMag)*9;	//Magazingröße
 
   if(data == FM_SpreadAdd)	return 20 - (iAttachment == AT_Foregrip)*5;	//Bei jedem Schuss hinzuzuaddierende Streuung
   if(data == FM_StartSpread)	return 110 - (iAttachment == AT_Foregrip)*10;	//Bei Auswahl der Waffe gesetzte Streuung
