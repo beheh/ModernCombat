@@ -25,3 +25,17 @@ Length=6
 Procedure=NONE
 Facet=0,270,80,90
 NextAction=Hold
+
+[Action]
+Name=Sign5
+Length=6
+Procedure=NONE
+Facet=0,360,80,90
+NextAction=Hold
+
+[Action]
+Name=Sign6
+Length=6
+Procedure=NONE
+Facet=0,450,80,90
+NextAction=Hold
