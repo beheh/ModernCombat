@@ -208,7 +208,10 @@ func CreateInterior()
   CreateObject(GSBL, 3000, 560, -1)->AutoRespawn();
   CreateObject(GSBL, 3190, 110, -1);
 
-  //Hinweisschild
+  //Hinweisschilder
+  var sign = CreateObject(SNPT, 70, 450, -1);
+  sign->SetAction("Sign6");
+  sign->Light();
   CreateObject(SGNP, 265, 450, -1);
 
   //Explosive Kisten
@@ -531,7 +534,6 @@ func CreateDecoration()
   CreateObject(VGMN, 2380, 400, -1)->Set(3);
 
   //Wald
-  CreateObject(TRE3,75,458,-1);
   CreateObject(TRE3,165,458,-1);
   CreateObject(TRE3,265,458,-1);
   CreateObject(TRE3,355,458,-1);
@@ -694,7 +696,6 @@ func CreateDecoration()
   CreateObject(FRAM, 2215, 110, -1);
 
   //Straﬂenlichter
-  CreateObject(SLGH, 80, 450, -1);
   CreateObject(SLGH, 180, 450, -1);
   CreateObject(SLGH, 280, 450, -1);
   CreateObject(SLGH, 415, 450, -1);
