@@ -298,7 +298,10 @@ func CreateInterior()
     CreateObject(CONS, 2420, 525, -1)->Set(aSelfDefense[3]);
 
   //Hinweisschilder
-  var sign = CreateObject(SGNP, 990, 640, -1);
+  var sign = CreateObject(SNPT, 190, 655, -1);
+  sign->SetMode(1);
+  sign->SetAction("Sign6");
+  sign = CreateObject(SGNP, 990, 640, -1);
   sign->SetMode(1);
   sign->Set("Turret");
   sign = CreateObject(SGNP, 1740, 640, -1);
@@ -310,6 +313,9 @@ func CreateInterior()
   sign = CreateObject(SNPT, 2330, 430, -1);
   sign->SetAction("Sign2");
   sign->Light();
+  sign = CreateObject(SNPT, 2530, 655, -1);
+  sign->SetMode(1);
+  sign->SetAction("Sign6");
 
   //Grenzen
   CreateObject(BRDR, 170, 0, -1)->Set(0);
