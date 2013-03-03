@@ -5,7 +5,7 @@
 
 func PermittedAtts()
 {
-  return AT_ExtendedMag | AT_Bayonet | AT_Laserpointer | AT_Silencer | AT_Foregrip | AT_GrenadeLauncher;
+  return AT_ExtendedMag | AT_Bayonet | AT_Laserpointer | AT_Silencer | AT_Foregrip;
 }
 
 public func FMData1(int data)
@@ -25,12 +25,6 @@ public func GetMCData(int data)
   if(data == MC_Damage)		
     return _inherited(data) + (iAttachment == AT_Bayonet)*6;			//Schaden eines Kolbenschlages
   
-  return _inherited(data);
-}
-
-public func FMData2(int data)
-{
-  if(iAttachment != AT_GrenadeLauncher) return 0;
   return _inherited(data);
 }
 

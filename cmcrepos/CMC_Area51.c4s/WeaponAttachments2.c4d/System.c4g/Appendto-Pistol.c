@@ -5,13 +5,7 @@
 
 func PermittedAtts()
 {
-  return AT_Silencer | AT_Laserpointer | AT_TracerDart;
-}
-
-public func FMData2(int data)
-{
-  if(iAttachment != AT_TracerDart) return 0;
-  return _inherited(data);
+  return AT_Silencer | AT_Laserpointer;
 }
 
 public func Fire1()
