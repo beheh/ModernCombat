@@ -5,7 +5,15 @@
 
 func PermittedAtts()
 {
-  return AT_Silencer | AT_Laserpointer;
+  return AT_ExtendedMag | AT_Silencer | AT_Laserpointer;
+}
+
+public func FMData1(int data)
+{
+  if(data == FM_AmmoLoad)
+    return _inherited(data) + (iAttachment == AT_ExtendedMag)*6;		//Magazingröße
+
+  return _inherited(data);
 }
 
 public func Fire1()
