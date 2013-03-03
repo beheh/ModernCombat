@@ -7,9 +7,9 @@ local fAAMode;
 local curPrio;
 local powerMode;
 
-public func SearchLength()  {return 350+fAAMode*150;}	//Suchlänge
-public func MaxRotLeft()			{return 80+GetR();}			//Maximaler Winkel links
-public func MaxRotRight()			{return 280+GetR();}			//Maximaler Winkel rechts
+public func SearchLength()  {return 350 + fAAMode*150;}	//Suchlänge
+public func MaxRotLeft()			{return 110 + GetR() - fAAMode*40;}			//Maximaler Winkel links
+public func MaxRotRight()			{return 250 + GetR() + fAAMode*40;}			//Maximaler Winkel rechts
 
 func Set(bool fMode)
 {
@@ -126,7 +126,7 @@ public func Activity()
       GotTarget = 0;
     }
 
-    if(curPrio < 3 && (powerMode > 0 || !(GetActTime()%2)))
+    if(curPrio < 5 && (powerMode > 0 || !(GetActTime()%2)))
         GotTarget = SearchAA();
     
     if(GotTarget)
@@ -178,10 +178,17 @@ public func SearchAA()
     
     if(pAim->~IsHelicopter())
       priority = 1;
-    if(GetOCF(pAim) & OCF_Alive)
+    if(pAim->~IsMAV())
       priority = 2;
-    if(pAim->~IsRifleGrenade() || pAim->~IsRocket())
+    if(GetOCF(pAim) & OCF_Alive)
       priority = 3;
+    if(pAim->~IsRifleGrenade() || pAim->~IsRocket())
+    {
+      if(pAim->~IsRocket() && pAim->~IsDamaged())
+        priority = 4;
+      else
+        priority = 5;
+    }
 
     if(priority > curPrio)
     {
@@ -208,7 +215,9 @@ func FindAATargets(int maxDist)
                 Find_Func("IsRifleGrenade"),
                 Find_Func("IsRocket"),
                 Find_Func("IsHelicopter"),
+                Find_Func("IsMAV"),
                 Find_And(Find_OCF(OCF_Alive))),
+    Find_Not(Find_Func("IsDestroyed")),
     Find_Hostile(GetOwner()),
 		Sort_Distance()
         );
@@ -237,7 +246,7 @@ func ValidTarget(object pT)
 	var oy = GetY(pT);
 	  
 	//Winkel zum Ziel
-  target_angle = Angle(GetX(), GetY() + 7, ox, oy);
+  target_angle = Angle(GetX(), GetY(), ox, oy);
   target_angle = Normalize(target_angle, 0);
   if(MaxRotRight() < 360 && (target_angle < MaxRotLeft() || target_angle > MaxRotRight()))
     return;
