@@ -10,10 +10,10 @@ func PermittedAtts()
 
 public func FMData1(int data)
 {
-
-  if(data == FM_SpreadAdd)	return _inherited(data) - (iAttachment == AT_Foregrip)*5;	//Bei jedem Schuss hinzuzuaddierende Streuung
-  if(data == FM_StartSpread)	return _inherited(data) - (iAttachment == AT_Foregrip)*10;	//Bei Auswahl der Waffe gesetzte Streuung
-  if(data == FM_MaxSpread)	return _inherited(data) - (iAttachment == AT_Foregrip)*10;	//Maximaler Streuungswert
+  if(data == FM_SpreadAdd)	return 30 - (iAttachment == AT_Foregrip)*4;	//Bei jedem Schuss hinzuzuaddierende Streuung
+  if(data == FM_StartSpread)	return 220 - (iAttachment == AT_Foregrip)*20;	//Bei Auswahl der Waffe gesetzte Streuung
+  if(data == FM_MaxSpread)	return 420 - (iAttachment == AT_Foregrip)*70;	//Maximaler Streuungswert
+  if(data == FM_MinSpread)	return 20 - (iAttachment == AT_Foregrip)*10;	//Kleinstmögliche Streuung
 
   return _inherited(data);
 }

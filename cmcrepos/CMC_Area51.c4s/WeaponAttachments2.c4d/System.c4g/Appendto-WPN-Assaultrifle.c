@@ -10,14 +10,25 @@ func PermittedAtts()
 
 public func FMData1(int data)
 {
-  if(data == FM_AmmoLoad)	
+  if(data == FM_AmmoLoad)
     return _inherited(data) + (iAttachment == AT_ExtendedMag)*6;		//Magazingröße
 
-  if(data == FM_SpreadAdd)	return 50 - (iAttachment == AT_Foregrip)*5;	//Bei jedem Schuss hinzuzuaddierende Streuung
-  if(data == FM_StartSpread)	return 100 - (iAttachment == AT_Foregrip)*10;	//Bei Auswahl der Waffe gesetzte Streuung
-  if(data == FM_MaxSpread)	return 450 - (iAttachment == AT_Foregrip)*10;	//Maximaler Streuungswert
+  if(data == FM_SpreadAdd)	return 50 - (iAttachment == AT_Foregrip)*10;	//Bei jedem Schuss hinzuzuaddierende Streuung
+  if(data == FM_StartSpread)	return 100 - (iAttachment == AT_Foregrip)*20;	//Bei Auswahl der Waffe gesetzte Streuung
+  if(data == FM_MaxSpread)	return 450 - (iAttachment == AT_Foregrip)*150;	//Maximaler Streuungswert
 
   return _inherited(data);
+}
+
+public func FMData1T2(int data)
+{
+  if(data == FT_Name)		return "$Single$";
+
+  if(data == FM_Damage)		return 14;	//Schadenswert
+
+  if(data == FM_SpreadAdd)	return _inherited(data) + 20;	//Bei jedem Schuss hinzuzuaddierende Streuung
+
+  return FMData1(data);
 }
 
 public func GetMCData(int data)
