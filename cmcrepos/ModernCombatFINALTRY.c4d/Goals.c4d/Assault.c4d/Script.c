@@ -760,18 +760,18 @@ protected func FxIntAssaultSpawnTimer(object pTarget)
 
 protected func FxWaitForJoinStart(object pTarget, int iNr, iTemp, int iPlr)
 {
-	EffectVar(0, pTarget, iNr) = iPlr;
+  EffectVar(0, pTarget, iNr) = iPlr;
 }
 
 protected func FxWaitForJoinTimer(object pTarget, int iNr)
 {
-	var iPlr = EffectVar(0, pTarget, iNr);
+  var iPlr = EffectVar(0, pTarget, iNr);
   //Es gibt wieder Tickets!
   if(iTickets || !ObjectCount2(Find_InArray(aTargets[iDefender])))
   {
-  	RelaunchPlayer(iPlr, GetCrew(iPlr), -2);
-  	return -1;
-	}
+    RelaunchPlayer(iPlr, GetCrew(iPlr), -2);
+    return -1;
+  }
 
   //Wegstecken falls nötig
   if(!Contained(GetCrew(iPlr)))
@@ -1059,12 +1059,12 @@ public func GetTeamPlayerCount(int iTeam, bool fAliveOnly)
         {
           ++j;
           if(pCrew->~IsFakeDeath())  continue;
-          
+
           var fWait = false, k = 0, effect;
           while(effect = GetEffect("WaitForJoin", this, k++))
-          	if(EffectVar(0, this, effect) == GetPlayerByIndex(i))
-          		fWait = true;
-          
+            if(EffectVar(0, this, effect) == GetPlayerByIndex(i))
+              fWait = true;
+
           if(fWait) continue;
 
           fAlive = true;
