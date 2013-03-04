@@ -344,7 +344,7 @@ protected func FxIntAssaultTargetTimer(object pTarget, int iNr, int iTime)
     bar->Update(0, true, true);
 
     //Sprengladung wird plaziert
-    if(!GetEffect("TeamBorder", this) && enemycnt && !alliescnt)
+    if(!GetEffect("TeamBorder", this) && enemycnt)
     {
       status = 1;
       process = 1;
@@ -426,7 +426,7 @@ protected func FxIntAssaultTargetTimer(object pTarget, int iNr, int iTime)
     bar->Update(process * 100 / maxTime, false);
     process--;
 
-    if(!enemycnt && alliescnt)
+    if(alliescnt)
     {
       def_process = 1;
       status = 3;
