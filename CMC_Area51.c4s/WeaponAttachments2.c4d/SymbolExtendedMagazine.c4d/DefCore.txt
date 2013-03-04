@@ -1,5 +1,5 @@
 [DefCore]
-id=SM20
+id=SM21
 Name=Symbol
 Version=4,9,5
 Category=1
