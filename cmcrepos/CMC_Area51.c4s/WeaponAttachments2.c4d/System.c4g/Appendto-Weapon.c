@@ -36,11 +36,13 @@ func SetAttachment(int iValue)
   if(iValue && !(PermittedAtts() & iValue)) return -1;
 
   if(GetEffect("LaserDot", this)) RemoveEffect("LaserDot", this);
+  if(GetEffect("Silencer", this)) RemoveEffect("Silencer", this);
   SetFireMode(1);
 
   var iTemp = iAttachment;
   iAttachment = iValue;
   if(iAttachment == AT_Laserpointer) AddEffect("LaserDot", this, 1, 1, this);
+  if(iAttachment == AT_Silencer) AddEffect("Silencer", this, 1, 1, this);
   
   SetGraphics(0,0,AttachmentIcon(iAttachment),2,GFXOV_MODE_Picture);    
   SetObjDrawTransform(500,0,10000,0,500,10000, 0, 2);
@@ -168,6 +170,143 @@ func FxLaserDotStop()
 {
   if(pBeam) RemoveObject(pBeam);
   if(pLaser) RemoveObject(pLaser);
+}
+
+//EffektVar 0: Alphawert
+//EffektVar 1: X-Position
+//EffektVar 2: Y-Position
+//EffektVar 3: Clonk
+func FxSilencerTimer(object pTarget, int iEffectNumber, int iEffectTime)
+{
+  if(!EffectVar(3, pTarget, iEffectNumber))
+  {
+    var pContainer = Contained(pTarget);
+    if(pContainer && Contents(0, pContainer) == pTarget)
+      EffectVar(3, pTarget, iEffectNumber) = pContainer;
+    return;
+  }
+  else if(Contents(0, EffectVar(3, pTarget, iEffectNumber)) != pTarget)
+  {
+    EffectVar(0, pTarget, iEffectNumber) = 0;
+    EffectVar(3, pTarget, iEffectNumber) = 0;
+    SetClrModulation(RGBa(255, 255, 255, EffectVar(0, pTarget, iEffectNumber)), EffectVar(3, pTarget, iEffectNumber));
+    return;
+  }
+
+  if(EffectVar(0, pTarget, iEffectNumber) < 200)
+    EffectVar(0, pTarget, iEffectNumber) += 2;
+    
+  if(EffectVar(1, pTarget, iEffectNumber) != GetX(pTarget) || EffectVar(2, pTarget, iEffectNumber) != GetY(pTarget))
+  {
+    EffectVar(1, pTarget, iEffectNumber) = GetX(pTarget);
+    EffectVar(2, pTarget, iEffectNumber) = GetY(pTarget);
+    EffectVar(0, pTarget, iEffectNumber) = 0;
+  }
+  
+  SetClrModulation(RGBa(255, 255, 255, EffectVar(0, pTarget, iEffectNumber)), EffectVar(3, pTarget, iEffectNumber));
+}
+
+func FxSilencerStop(object pTarget, int iEffectNumber, int iEffectTime)
+{
+  if(!EffectVar(3, pTarget, iEffectNumber))
+    SetClrModulation(RGBa(255, 255, 255, 0), EffectVar(3, pTarget, iEffectNumber));
+}
+
+global func FxShowWeaponUpdate(object pTarget, int iNumber, int iTime) {
+  //Waffe aktualisieren:
+  var xoff, yoff, r;  //Offset, Winkel
+  var dodraw = false;
+  //kein Inventar oder falsche Aktion
+  if(!Contents(0,pTarget))
+    return EffectCall(pTarget, iNumber, "Reset");
+  //Die Waffe momentan überhaupt anzeigen?
+  if(!(pTarget->~WeaponAt(xoff, yoff, r)))
+    return EffectCall(pTarget, iNumber, "Reset");
+  var obj = Contents(0,pTarget), id=GetID(obj);
+  //Waffe nicht mehr aktuell
+  if(obj && EffectVar(6, pTarget, iNumber) != obj) {
+    //neues Objekt ist Waffe, oder ein Objekt, das gezeichnet werden soll
+    if(obj->~IsWeapon() || obj->~IsDrawable())
+    {
+      dodraw = true;
+      EffectVar(0, pTarget, iNumber) = id;
+      EffectVar(6, pTarget, iNumber) = obj;
+      SetGraphics(0, pTarget,id, WeaponDrawLayer, GFXOV_MODE_Object,0,GFX_BLIT_Parent,obj);
+    }
+    //neues Objekt ist keine Waffe
+    else
+      return EffectCall(pTarget, iNumber, "Reset");
+  }
+
+  id = EffectVar(0, pTarget, iNumber);
+  obj = EffectVar(6, pTarget, iNumber);
+
+  if(!obj) return -1;
+
+  //Ausrichtung nach Blickrichtung des Clonks
+  //Variablen für die Transformation
+
+  var width, height;  //Breiten- und Höhenverzerrung der Waffe
+  var xskew, yskew;   //Zerrung der Waffe, wird zur Rotation gebraucht
+  var size;           //Größe der Waffe in der Hand: 1000 = 100%
+  //Variablen für die Position
+  var dir;            //Richtung in die das Objekt schaut
+  
+  //schnell noch Rotation dazurechnen oder so!
+  if(GetEffect("StrikeRecharge", obj))
+    r += -Max(Sin(GetEffect("StrikeRecharge", obj, 0, 6)*90/(obj->~GetMCData(MC_Recharge)/4),20),0);
+  else
+    r += obj->~HandR();
+  
+  //Variablen mit Werten versehen
+  width = height = xskew = yskew = 1;
+  size = id->~HandSize();
+  if(!size) size = 1000;
+  dir  = GetDir()*2-1;
+  if(r > 180 || r < -180)
+    dir *= -1;
+  r *= dir;
+
+  if (!dodraw && 90*dir+r == EffectVar(1, pTarget, iNumber) && GetAction(pTarget) == EffectVar(8, pTarget, iNumber))
+    return;
+
+  var xfact = size * obj->~HandX();    //Attachpunkte dazurechnen
+  var yfact = size * obj->~HandY();
+
+  xoff += Cos(r,xfact)/1000 + dir*Sin(r,yfact)/1000;
+  yoff -= Cos(r,yfact)/1000 - dir*Sin(r,xfact)/1000;
+
+  if(dir == 1) 
+    height = xskew = yskew = -1;
+
+  r = -90*dir-r-90;
+  height *= width *= Cos(r, size);
+  xskew *= Sin(r, size);
+  yskew *= -xskew;
+  xoff *= dir;
+
+  //Waffe
+  SetObjDrawTransform(1000,xskew,xoff,yskew,1000,yoff, pTarget, WeaponDrawLayer); //position
+  SetObjDrawTransform(width,xskew,0,yskew,height,0, obj); //Größe und Rotation
+  if(GetEffect("Silencer", obj))
+    SetClrModulation(RGBa(255, 255, 255, EffectVar(0, obj, GetEffect("Silencer", obj))), obj);}
+
+  //Daten
+  var w = GetDefCoreVal("Width",0,id)/2;
+  var brlx = id->~BarrelXOffset();
+  var brly = id->~BarrelYOffset();
+
+  //abspeichern, damit abrufbar
+  r = -r-90;
+  var r2 = (Angle(0,0,w-brlx/1000,brly/1000)-90)*dir;
+  var dist = Distance(0,0,w*1000-brlx,brly);
+  EffectVar(1, pTarget, iNumber) = r;
+  EffectVar(2, pTarget, iNumber) = xoff-Sin(r,size*w);
+  EffectVar(3, pTarget, iNumber) = yoff+Cos(r,size*w);
+  EffectVar(4, pTarget, iNumber) = xoff+Sin(r+r2,size*(dist))/1000;
+  EffectVar(5, pTarget, iNumber) = yoff-Cos(r+r2,size*(dist))/1000;
+  EffectVar(7, pTarget, iNumber) = GetDir(pTarget);
+  EffectVar(8, pTarget, iNumber) = GetAction(pTarget);
 }
 
 global func SALaunchBullet(int iX, int iY, int iOwner, int iAngle, int iSpeed, int iDist, int iDmg, int iRemoveTime, id idType, bool fNoTrail)
