@@ -289,7 +289,7 @@ global func FxShowWeaponUpdate(object pTarget, int iNumber, int iTime) {
   SetObjDrawTransform(1000,xskew,xoff,yskew,1000,yoff, pTarget, WeaponDrawLayer); //position
   SetObjDrawTransform(width,xskew,0,yskew,height,0, obj); //Größe und Rotation
   if(GetEffect("Silencer", obj))
-    SetClrModulation(RGBa(255, 255, 255, EffectVar(0, obj, GetEffect("Silencer", obj))), obj);}
+    SetClrModulation(RGBa(255, 255, 255, EffectVar(0, obj, GetEffect("Silencer", obj))), obj);
 
   //Daten
   var w = GetDefCoreVal("Width",0,id)/2;
