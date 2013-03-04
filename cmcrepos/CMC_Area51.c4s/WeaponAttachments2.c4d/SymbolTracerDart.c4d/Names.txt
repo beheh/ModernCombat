@@ -1,2 +1,0 @@
-DE:Peilsender
-US:Tracer Dart

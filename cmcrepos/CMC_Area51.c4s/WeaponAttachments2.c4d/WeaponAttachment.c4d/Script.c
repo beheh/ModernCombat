@@ -4,7 +4,7 @@
 
 local iAttachment;
 
-public func IsDrawable()	{return true;}			//Wird sichtbar getragen
+public func IsDrawable()	{return true;}		//Wird sichtbar getragen
 public func HandSize()		{return 800;}
 public func HandX()		{return 6000;}
 public func HandY()		{return -1000;}
@@ -96,13 +96,11 @@ protected func Attach(id iItem, object pUser)
 global func AttachmentIcon(int iAtt)
 {
   if(iAtt == AT_NoAttachment)		return 0;
-  if(iAtt == AT_ExtendedMag)		return SM20;
-  if(iAtt == AT_Bayonet)		return SM21;
-  if(iAtt == AT_Laserpointer)		return SM22;
-  if(iAtt == AT_Silencer)		return SM23;
-  if(iAtt == AT_Foregrip)		return SM24;
-  if(iAtt == AT_GrenadeLauncher)	return SM25;
-  if(iAtt == AT_TracerDart)		return SM26;
+  if(iAtt == AT_ExtendedMag)		return SM21;
+  if(iAtt == AT_Bayonet)		return SM22;
+  if(iAtt == AT_Laserpointer)		return SM23;
+  if(iAtt == AT_Silencer)		return SM24;
+  if(iAtt == AT_Foregrip)		return SM25;
 }
 
 /* Sonstiges */

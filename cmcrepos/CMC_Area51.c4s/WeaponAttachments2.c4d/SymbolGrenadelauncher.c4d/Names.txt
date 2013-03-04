@@ -1,2 +1,0 @@
-DE:Granatwerfer
-US:Grenade Launcher
