@@ -196,7 +196,7 @@ func Finish(object pClonk, int iClass)
   if(GetID(Contained(pClonk)) == TIM1) RemoveObject(Contained(pClonk),true);
 
   //Sound
-  Sound("RSHL_Deploy.ogg", 0, pClonk, 100, GetOwner(pClonk)+1);
+  Sound("RSHL_Deploy.ogg", 1, pClonk, 100, GetOwner(pClonk)+1);
 
   //Effekt entfernen
   for(var i = 0; i < GetEffectCount("Spawntimer", this); i++)
@@ -231,8 +231,8 @@ local bNoMenuUpdate;
 private func OpenMenu(object pClonk, int iSelection)
 {
   var iOwner = GetOwner(pClonk);
-  
-  //Auswahl updaten
+
+  //Auswahl aktualisieren
   var iClass = 1;
   if(!iSelection && lastclass[iOwner])
     iClass = lastclass[iOwner];
@@ -242,7 +242,7 @@ private func OpenMenu(object pClonk, int iSelection)
   else
     if(iSelection)
       iClass = CalculatePlayerSelection(iOwner, iSelection);
-      
+
   submenu[GetOwner(pClonk)] = 0;
 
   //Menü öffnen
@@ -574,13 +574,13 @@ public func OpenMenuAttachment(id idParamWeapon, int iClass, object pClonk, int 
   var j = 0;
   var count = 8;
   var fOne = true;
-  
+
   //Gegenstände
   var aItems = GetCData(iClass, CData_Items);
   var idWeap, idFirstWeap, iAtt, idActualWeap, fNextWeap;
   idWeap = GetPlrExtraData(iOwner, Format("CMC_Weap%d", iClass));
   iAtt = GetPlrExtraData(iOwner, Format("CMC_Att%d", iClass));
-  
+
   for (var aEntry in aItems)
     if (GetType(aEntry) == C4V_Array && GetType(aEntry[0]) == C4V_C4ID && aEntry[0]->~PermittedAtts())
     {
@@ -594,7 +594,7 @@ public func OpenMenuAttachment(id idParamWeapon, int iClass, object pClonk, int 
         fNextWeap = true;
       if(!idFirstWeap)
         idFirstWeap = aEntry[0];
-      
+
       if(!idParamWeapon && !idWeap)
       {
         idActualWeap = aEntry[0];
@@ -619,7 +619,7 @@ public func OpenMenuAttachment(id idParamWeapon, int iClass, object pClonk, int 
   var iterations = 0;
   var iTempAtt = iAtt;
   var DescAtts = $DescAttachments$;
-    
+
   while(iTempAtt > 0)
   {
     iterations++;
@@ -674,7 +674,7 @@ public func OpenMenuAttachment(id idParamWeapon, int iClass, object pClonk, int 
       //j soll bei 0 anfangen, sich ab 1 dann aber verdoppeln.
       if(!j) j++;
     }
-    
+
   if(iSelection) SelectMenuItem(iSelection, pClonk);
 }
 
@@ -690,7 +690,7 @@ public func ChooseAttachment(int iClass, id idWeapon, int iAttachment, object pC
   OpenMenuAttachment(0, iClass, pClonk, iSelection);
 
   //Sound
-  Sound("WPN2_Modify*.ogg", 0, pClonk, 100, GetOwner(pClonk)+1);
+  Sound("WPN2_Modify*.ogg", 1, pClonk, 100, GetOwner(pClonk)+1);
 }
 
 public func ChangeWeapon(int iClass, id idWeapon, object pClonk, int iSelection)
@@ -698,5 +698,5 @@ public func ChangeWeapon(int iClass, id idWeapon, object pClonk, int iSelection)
   OpenMenuAttachment(idWeapon, iClass, pClonk, iSelection);
 
   //Sound
-  Sound("WPN2_Handle*.ogg", 0, pClonk, 100, GetOwner(pClonk)+1);
+  Sound("WPN2_Handle*.ogg", 1, pClonk, 100, GetOwner(pClonk)+1);
 }
