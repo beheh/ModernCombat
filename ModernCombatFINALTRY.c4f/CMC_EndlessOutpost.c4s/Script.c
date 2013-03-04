@@ -185,6 +185,7 @@ func CreateInterior()
   CreateObject(WCR2, 2815, 500, -1);
 
   //Metallkisten
+  CreateObject(MWCR, 550, 300, -1);
   CreateObject(MWCR, 1590, 570, -1);
   CreateObject(MWCR, 1610, 570, -1);
   CreateObject(MWCR, 2310, 320, -1)->AutoRespawn();
@@ -340,8 +341,7 @@ func CreateInterior()
   //Selbstschussanlagen und Konsolen
   aSelfDefense[0]=CreateObject(SEGU,1345,249,-1);
   aSelfDefense[0]->Arm(MISA);
-  CreateObject(CONS, 1450, 550, -1)->Set(aSelfDefense[0]);
-
+  CreateObject(CONS, 1330, 540, -1)->Set(aSelfDefense[0]);
   aSelfDefense[1]=CreateObject(SEGU,1895,369,-1);
   aSelfDefense[1]->Arm(MISA);
 
@@ -881,6 +881,9 @@ public func ChooserFinished()
    //SSA anschalten
    aSelfDefense[0]->TurnOn();
    aSelfDefense[1]->TurnOn();
+
+   //Konsole
+   CreateObject(CONS, 1835, 540, -1)->Set(aSelfDefense[1]);
 
    //Geschützstellungen
    CreateObject(GNET, 605, 350, -1)->Set(0,90,1);
