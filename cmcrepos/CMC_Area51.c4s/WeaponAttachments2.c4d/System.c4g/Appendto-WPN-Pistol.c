@@ -29,9 +29,9 @@ public func Fire1()
   var ammo = SALaunchBullet(x,y,GetController(user),angle,250,400,GetFMData(FM_Damage), 0, 0, iAttachment == AT_Silencer);
 
   //Effekte
-  SABulletCasing(x/3,y/3,-dir*14*(Random(1)+1),-(13+Random(2)),4);
   if(iAttachment != AT_Silencer)
   {
+    SABulletCasing(x/3,y/3,-dir*14*(Random(1)+1),-(13+Random(2)),4);
     Sound("PSTL_Fire*.ogg", 0, ammo);
     MuzzleFlash(RandomX(35,40),user,x,y,angle,0, 4);
     Echo("PSTL_Echo.ogg");
@@ -40,5 +40,8 @@ public func Fire1()
   {
     Sound("WPN2_SilencerFire*.ogg", 0, ammo, 0, GetOwner(user)+1);
     Sound("WPN2_SilencerFire*.ogg", 0, ammo, 10);
+    
+    if(GetEffect("Silencer", this))
+      EffectVar(0, this, GetEffect("Silencer", this)) -= BoundBy(25, 0, EffectVar(0, this, GetEffect("Silencer", this)));
   }
 }
