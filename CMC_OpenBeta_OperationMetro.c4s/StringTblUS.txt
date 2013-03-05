@@ -1,0 +1,15 @@
+CreatingInterior=Creating furniture...
+CreatingEquipment=Placing equipment...
+CreatingDecoration=Placing decoration...
+
+Team1=Eurocorps
+Team2=Aggressors
+
+Flag1=Line A
+Flag2=Line B
+Flag3=Line C
+Flag4=Line D
+Flag5=Traffic Hub
+
+Target1=Data Server
+Target2=Backup Server
