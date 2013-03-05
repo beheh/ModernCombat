@@ -118,6 +118,9 @@ public func LaunchGrenade(id idg, int speed, int angle, int mode)
   }
   Sound("ASTR_LauncherFire*.ogg", 0, grenade);
   Echo("SGST_Echo.ogg");
+  
+  if(GetEffect("Silencer", this))
+      EffectVar(0, this, GetEffect("Silencer", this)) = 0;
 
   //Patronenhülse vorhanden
   casing = 1;
