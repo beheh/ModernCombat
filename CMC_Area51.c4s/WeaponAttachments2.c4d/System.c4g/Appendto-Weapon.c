@@ -183,12 +183,16 @@ func FxSilencerTimer(object pTarget, int iEffectNumber, int iEffectTime)
     var pContainer = Contained(pTarget);
     if(pContainer && Contents(0, pContainer) == pTarget)
       EffectVar(3, pTarget, iEffectNumber) = pContainer;
+
+    EffectVar(0, pTarget, iEffectNumber) = 0;
+    SetClrModulation(RGBa(255, 255, 255, 0), pTarget);
     return;
   }
   else if(Contents(0, EffectVar(3, pTarget, iEffectNumber)) != pTarget)
   {
     EffectVar(0, pTarget, iEffectNumber) = 0;
     SetClrModulation(RGBa(255, 255, 255, EffectVar(0, pTarget, iEffectNumber)), EffectVar(3, pTarget, iEffectNumber));
+    SetClrModulation(RGBa(255, 255, 255, 0), pTarget);
     EffectVar(3, pTarget, iEffectNumber) = 0;
     return;
   }
