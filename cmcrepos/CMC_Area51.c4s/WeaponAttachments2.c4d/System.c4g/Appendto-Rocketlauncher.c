@@ -14,7 +14,7 @@ public func FMData1T3(int data)
 {
   if(GetAttachment() != AT_Laserpointer) return 0;
   
-  if(data == FT_Name)		return "$Laserguided$";
+  if(data == FT_Name)		return "$Laser$";
   return FMData1(data);
 }
 

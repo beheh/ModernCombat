@@ -7,6 +7,9 @@ DescAttachments=["Kein Waffenaufsatz ist in|Verwendung.|| ","Die Waffe verwendet
 //Der Schalldämpfer senkt Schuss-|geräusche und -effekte, sodass|die Position des Schützen|schwerer zu ermitteln ist.
 //"Ein aufmontierter Granatenwerfer|erlaubt in einem weiteren Feuer-|modus das Abfeuern von Explosiv-,|Splitter- und Rauchgranaten.","Der Peilsenderaufsatz erlaubt der|Waffe das Abfeuern von Peilsendern|in einem weiteren Feuermodus, um|gegnerische Objekte zu markieren."
 
+//Raketenwerfer
+Laser=Lasersteuerung
+
 //TEMPORÄR WEGEN ÜBERLADUNG
 
 Back=Zurück
