@@ -52,9 +52,9 @@ public func Fire1()
   var ammo = SALaunchBullet(x,y,GetController(user),angle,270,800,GetFMData(FM_Damage), 0, 0, iAttachment == AT_Silencer);
 
   //Effekte
-  SABulletCasing(x/3,y/3,-dir*14*(Random(1)+1),-(13+Random(2)),5);
   if(iAttachment != AT_Silencer)
   {
+    SABulletCasing(x/3,y/3,-dir*14*(Random(1)+1),-(13+Random(2)),5);
     Sound("ASTR_Fire*.ogg", 0, ammo);
     MuzzleFlash(RandomX(30,40),user,x,y,angle,0, 0);
     Echo("ASTR_Echo.ogg");
@@ -63,6 +63,9 @@ public func Fire1()
   {
     Sound("WPN2_SilencerFire*.ogg", 0, ammo, 0, GetOwner(user)+1);
     Sound("WPN2_SilencerFire*.ogg", 0, ammo, 10);
+    
+    if(GetEffect("Silencer", this))
+      EffectVar(0, this, GetEffect("Silencer", this)) -= BoundBy(25, 0, EffectVar(0, this, GetEffect("Silencer", this)));
   }
 
   //Klickgeräusch bei wenig Munition

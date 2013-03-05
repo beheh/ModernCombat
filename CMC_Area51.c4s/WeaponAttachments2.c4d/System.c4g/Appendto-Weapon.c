@@ -188,28 +188,36 @@ func FxSilencerTimer(object pTarget, int iEffectNumber, int iEffectTime)
   else if(Contents(0, EffectVar(3, pTarget, iEffectNumber)) != pTarget)
   {
     EffectVar(0, pTarget, iEffectNumber) = 0;
-    EffectVar(3, pTarget, iEffectNumber) = 0;
     SetClrModulation(RGBa(255, 255, 255, EffectVar(0, pTarget, iEffectNumber)), EffectVar(3, pTarget, iEffectNumber));
+    EffectVar(3, pTarget, iEffectNumber) = 0;
     return;
   }
 
-  if(EffectVar(0, pTarget, iEffectNumber) < 200)
-    EffectVar(0, pTarget, iEffectNumber) += 2;
-    
+  var Alpha = EffectVar(0, pTarget, iEffectNumber);
+
   if(EffectVar(1, pTarget, iEffectNumber) != GetX(pTarget) || EffectVar(2, pTarget, iEffectNumber) != GetY(pTarget))
   {
     EffectVar(1, pTarget, iEffectNumber) = GetX(pTarget);
     EffectVar(2, pTarget, iEffectNumber) = GetY(pTarget);
-    EffectVar(0, pTarget, iEffectNumber) = 0;
+    
+    if(EffectVar(0, pTarget, iEffectNumber) >= 4)
+      EffectVar(0, pTarget, iEffectNumber) -= 4;
   }
+  else if(EffectVar(0, pTarget, iEffectNumber) < 200)
+    EffectVar(0, pTarget, iEffectNumber) += 2;
   
-  SetClrModulation(RGBa(255, 255, 255, EffectVar(0, pTarget, iEffectNumber)), EffectVar(3, pTarget, iEffectNumber));
+  if(Alpha != EffectVar(0, pTarget, iEffectNumber))
+  {
+    SetClrModulation(RGBa(255, 255, 255, EffectVar(0, pTarget, iEffectNumber)), EffectVar(3, pTarget, iEffectNumber));
+  }
 }
 
 func FxSilencerStop(object pTarget, int iEffectNumber, int iEffectTime)
 {
-  if(!EffectVar(3, pTarget, iEffectNumber))
+  if(EffectVar(3, pTarget, iEffectNumber))
     SetClrModulation(RGBa(255, 255, 255, 0), EffectVar(3, pTarget, iEffectNumber));
+  if(pTarget)
+    SetClrModulation(RGBa(255, 255, 255, 0), pTarget);
 }
 
 global func FxShowWeaponUpdate(object pTarget, int iNumber, int iTime) {
@@ -267,6 +275,9 @@ global func FxShowWeaponUpdate(object pTarget, int iNumber, int iTime) {
     dir *= -1;
   r *= dir;
 
+  if(GetEffect("Silencer", obj))
+    SetClrModulation(RGBa(255, 255, 255, EffectVar(0, obj, GetEffect("Silencer", obj))), obj);
+
   if (!dodraw && 90*dir+r == EffectVar(1, pTarget, iNumber) && GetAction(pTarget) == EffectVar(8, pTarget, iNumber))
     return;
 
@@ -288,8 +299,6 @@ global func FxShowWeaponUpdate(object pTarget, int iNumber, int iTime) {
   //Waffe
   SetObjDrawTransform(1000,xskew,xoff,yskew,1000,yoff, pTarget, WeaponDrawLayer); //position
   SetObjDrawTransform(width,xskew,0,yskew,height,0, obj); //Größe und Rotation
-  if(GetEffect("Silencer", obj))
-    SetClrModulation(RGBa(255, 255, 255, EffectVar(0, obj, GetEffect("Silencer", obj))), obj);
 
   //Daten
   var w = GetDefCoreVal("Width",0,id)/2;
