@@ -10,8 +10,9 @@ local szDesc;
 local iSize;
 local highlight;
 
-public func IsInfoDisplay() { return true; }
-public func GetHighlight() { return highlight; }
+public func IsInfoDisplay()	{return true;}
+public func GetHighlight()	{return highlight;}
+
 
 /* Initialisierung */
 
@@ -125,7 +126,8 @@ public func FxIntFadeTimer(object target, int nr)
   return -1;
 }
 
-public func FxIntFadeStop(object target, int nr) {
+public func FxIntFadeStop(object target, int nr)
+{
   RemoveObject(target);
 }
 
