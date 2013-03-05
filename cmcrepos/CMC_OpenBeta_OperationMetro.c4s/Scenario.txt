@@ -10,6 +10,7 @@ Origin=ModernCombat.c4f\CMC_OperationMetro.c4s
 Definition1=Objects.c4d
 Definition2=Hazard.c4d
 Definition3=ModernCombat.c4d
+Definition4=ModernCombat.c4f\CMC_OperationMetro.c4s\MetroTrain.c4d
 
 [Game]
 StructNeedEnergy=0
