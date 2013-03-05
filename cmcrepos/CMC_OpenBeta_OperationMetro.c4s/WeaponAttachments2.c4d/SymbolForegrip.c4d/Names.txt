@@ -1,0 +1,2 @@
+DE:Frontgriff
+US:Foregrip
