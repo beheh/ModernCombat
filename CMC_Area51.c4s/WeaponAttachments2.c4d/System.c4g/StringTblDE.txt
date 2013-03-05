@@ -2,7 +2,10 @@
 
 ClassAttachment=Klasseneigenschaften
 Spawn=Spawnen
-DescAttachments=["Kein Waffenaufsatz ist in|Verwendung.|| ","Die Waffe verwendet Magazine|mit größerer Kapazität und kann|so länger feuern, bis erneut|nachgeladen werden muss.","Das Bajonett am Lauf der Waffe|verbessert den Maximalschaden des|Kolbenschlages und stärkt so die|Nahkampffähigkeit.","Der Laserpointer erzeugt einen|sichtbaren Laser für einfacheres|Anvisieren und Erfassen von|gegnerischen Zielen.","Der Schalldämpfer senkt Schuss-|geräusche und -effekte, sodass|die Position des Schützen|schwerer zu ermitteln ist.","Der Frontgriff ermöglicht dem|Schützen eine bessere Handhabung|der Waffe, sodass diese beim|Feuern weniger verzieht.","Ein aufmontierter Granatenwerfer|erlaubt in einem weiteren Feuer-|modus das Abfeuern von Explosiv-,|Splitter- und Rauchgranaten.","Der Peilsenderaufsatz erlaubt der|Waffe das Abfeuern von Peilsendern|in einem weiteren Feuermodus, um|gegnerische Objekte zu markieren."]
+DescAttachments=["Kein Waffenaufsatz ist in|Verwendung.|| ","Die Waffe verwendet Magazine|mit größerer Kapazität und kann|so länger feuern, bis erneut|nachgeladen werden muss.","Das Bajonett am Lauf der Waffe|verbessert den Maximalschaden des|Kolbenschlages und stärkt so die|Nahkampffähigkeit.","Der Laserpointer erzeugt einen|sichtbaren Laser für einfacheres|Anvisieren und Erfassen von|gegnerischen Zielen.","Der Schalldämpfer senkt Schuss-|geräusche und -effekte und gibt|dem Schützen so Tarnfähigkeiten|für Schleichstrategien.","Der Frontgriff ermöglicht dem|Schützen eine bessere Handhabung|der Waffe, sodass diese beim|Feuern weniger verzieht."]
+
+//Der Schalldämpfer senkt Schuss-|geräusche und -effekte, sodass|die Position des Schützen|schwerer zu ermitteln ist.
+//"Ein aufmontierter Granatenwerfer|erlaubt in einem weiteren Feuer-|modus das Abfeuern von Explosiv-,|Splitter- und Rauchgranaten.","Der Peilsenderaufsatz erlaubt der|Waffe das Abfeuern von Peilsendern|in einem weiteren Feuermodus, um|gegnerische Objekte zu markieren."
 
 //TEMPORÄR WEGEN ÜBERLADUNG
 

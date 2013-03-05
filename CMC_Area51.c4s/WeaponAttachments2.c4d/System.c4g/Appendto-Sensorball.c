@@ -24,7 +24,8 @@ protected func Sense()
 
     //Beep
     Beep();
-    
+
+    //Getarnte Objekte enttarnen
     if(GetEffect("Silencer", Contents(0, pObj)))
       EffectVar(0, Contents(0, pObj), GetEffect("Silencer", Contents(0, pObj))) = 0;
 
