@@ -28,7 +28,7 @@ func Initialize()
   //Dekoration plazieren
   CreateDecoration();
   //Hinweis auf Open Beta verzögert ausgeben
-  ScheduleCall(0, "InformPlayers", 50); 
+  Schedule("GameCall(\"InformPlayers\")", 80);
   return(1);
 }
 
@@ -602,17 +602,6 @@ func CreateDecoration()
   CreateObject(VEN3, 3450, 300, -1)->SetCon(15);
 }
 
-public func InformPlayers()
-{
-  //Open Beta-Hinweise erstellen
-  for(var i = 0; i < GetPlayerCount(); i++)
-  {
-    DoScoreboardShow(1, GetPlayerByIndex(i) + 1);
-    CreateObject(TKOB, 0, 0, GetPlayerByIndex(i));
-    Sound("ObjectiveReceipt.ogg", true, 0, 100, GetPlayerByIndex(i) + 1);
-  }
-}
-
 /* Regelwähler */
 
 public func ChooserFinished()
@@ -912,5 +901,18 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
     return [[3770, 360], [3770, 430], [3950, 430]];
    }
    return(1);
+  }
+}
+
+public func InformPlayers()
+{
+  EventInfo4K(0,Format("$MsgOpenBeta$"),SM14, 0, 0, 0, "PriorityInfo.ogg");
+
+  //Open Beta-Hinweise erstellen
+  for(var i = 0; i < GetPlayerCount(); i++)
+  {
+    DoScoreboardShow(1, GetPlayerByIndex(i) + 1);
+    CreateObject(TKOB, 0, 0, GetPlayerByIndex(i));
+    Sound("ObjectiveReceipt.ogg", true, 0, 100, GetPlayerByIndex(i) + 1);
   }
 }
