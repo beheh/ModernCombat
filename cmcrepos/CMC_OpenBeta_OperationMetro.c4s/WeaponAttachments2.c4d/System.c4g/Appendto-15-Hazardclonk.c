@@ -44,3 +44,16 @@ public func UpdateCH()
   UpdateAiming(); 
   return true; 
 }
+
+public func DoSpread(int iChange, int iMax, int iMin)
+{
+  var wpn = Contents();
+  if(!wpn) return;
+  if(!wpn->~IsWeapon() && !wpn->~IsGrenade()) return;
+  
+  if(iMax) iChange = Max(0,BoundBy(spread+iChange, 0, iMax)-spread);
+  spread = BoundBy(spread+iChange, iMin, CH_MaxSpread);
+  
+  if(crosshair)
+    crosshair->SetSpread(spread);
+}
