@@ -11,8 +11,7 @@ static const AT_Bayonet			= 2;	//Bajonett
 static const AT_Laserpointer		= 4;	//Laserpointer
 static const AT_Silencer		= 8;	//Schalldämpfer
 static const AT_Foregrip		= 16;	//Frontgriff
-static const AT_GrenadeLauncher		= 32;	//Granatwerfer
-static const AT_TracerDart		= 64;	//Peilsender
+static const AT_Anthrax      = 32;  //Anthrax-Munition
 
 func PermittedAtts()
 {
@@ -178,16 +177,21 @@ func FxLaserDotStop()
 //EffektVar 3: Clonk
 func FxSilencerTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
+  //Clonk verschwunden? Neuen suchen und Waffentarnung entfernen
   if(!EffectVar(3, pTarget, iEffectNumber))
   {
     var pContainer = Contained(pTarget);
     if(pContainer && Contents(0, pContainer) == pTarget)
       EffectVar(3, pTarget, iEffectNumber) = pContainer;
 
-    EffectVar(0, pTarget, iEffectNumber) = 0;
-    SetClrModulation(RGBa(255, 255, 255, 0), pTarget);
+    if(EffectVar(0, pTarget, iEffectNumber))
+    {
+      EffectVar(0, pTarget, iEffectNumber) = 0;
+      SetClrModulation(RGBa(255, 255, 255, 0), pTarget);
+    }
     return;
   }
+  //Nicht oder nicht vorn im Inventar? Tarnung bei Waffe und Clonk entfernen, Clonk wieder vergessen
   else if(Contents(0, EffectVar(3, pTarget, iEffectNumber)) != pTarget)
   {
     EffectVar(0, pTarget, iEffectNumber) = 0;
@@ -199,6 +203,7 @@ func FxSilencerTimer(object pTarget, int iEffectNumber, int iEffectTime)
 
   var Alpha = EffectVar(0, pTarget, iEffectNumber);
 
+  //Clonk hat sich bewegt? Tarnung abschwächen
   if(EffectVar(1, pTarget, iEffectNumber) != GetX(pTarget) || EffectVar(2, pTarget, iEffectNumber) != GetY(pTarget))
   {
     EffectVar(1, pTarget, iEffectNumber) = GetX(pTarget);
@@ -207,13 +212,13 @@ func FxSilencerTimer(object pTarget, int iEffectNumber, int iEffectTime)
     if(EffectVar(0, pTarget, iEffectNumber) >= 4)
       EffectVar(0, pTarget, iEffectNumber) -= 4;
   }
+  //Sonst Tarnung erhöhen
   else if(EffectVar(0, pTarget, iEffectNumber) < 200)
     EffectVar(0, pTarget, iEffectNumber) += 2;
   
+  //Tarnung verändert? Dann neuen Wert setzen
   if(Alpha != EffectVar(0, pTarget, iEffectNumber))
-  {
     SetClrModulation(RGBa(255, 255, 255, EffectVar(0, pTarget, iEffectNumber)), EffectVar(3, pTarget, iEffectNumber));
-  }
 }
 
 func FxSilencerStop(object pTarget, int iEffectNumber, int iEffectTime)
