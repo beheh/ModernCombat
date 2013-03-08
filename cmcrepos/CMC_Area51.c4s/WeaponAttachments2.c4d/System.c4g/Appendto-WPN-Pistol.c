@@ -12,6 +12,8 @@ public func FMData1(int data)
 {
   if(data == FM_AmmoLoad)
     return _inherited(data) + (iAttachment == AT_ExtendedMag)*6;		//Magazingröße
+    
+  if(data == FM_Damage)		return 12 - (iAttachment == AT_Silencer)*((Random(10)<6)+(Random(10)<6));	//Schadenswert
 
   return _inherited(data);
 }
