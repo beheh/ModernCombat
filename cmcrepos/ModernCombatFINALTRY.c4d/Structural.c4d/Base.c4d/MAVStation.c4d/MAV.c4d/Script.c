@@ -325,40 +325,54 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
 
       x = GetX(pEnemy);
       y = GetY(pEnemy);
+      
+      var xLeft = GetDefCoreVal("Offset", "DefCore", GetID(pEnemy), 0) + x;
+      var xRight = GetDefCoreVal("Width", "DefCore", GetID(pEnemy)) + GetDefCoreVal("Offset", "DefCore", GetID(pEnemy), 0) + x;
+      
+      var yUp = GetDefCoreVal("Offset", "DefCore", GetID(pEnemy), 1) + y;
+      var yDown = GetDefCoreVal("Height", "DefCore", GetID(pEnemy)) + GetDefCoreVal("Offset", "DefCore", GetID(pEnemy), 1) + y;
 
-      var xOff, yOff;
-
-      if(xPos > x)
-        xOff = GetDefCoreVal("Width", "DefCore", GetID(pEnemy)) + GetDefCoreVal("Offset", "DefCore", GetID(pEnemy), 0) + x;
-      else
-        xOff = GetDefCoreVal("Offset", "DefCore", GetID(pEnemy), 0) + x;
-
-      if(yPos > y)
-        yOff = GetDefCoreVal("Height", "DefCore", GetID(pEnemy)) + GetDefCoreVal("Offset", "DefCore", GetID(pEnemy), 1) + y;
-      else
-        yOff = GetDefCoreVal("Offset", "DefCore", GetID(pEnemy), 1) + y;
-
-      if(Inside(xPos, Min(x, xOff), Max(x, xOff)))
+      if(Inside(xPos, xLeft, xRight) && Inside(yPos, yUp, yDown))
       {
-        x = Sin(AimAngle(), (yOff - yPos) * 1000 / (-Cos(AimAngle(), 1000))) + xPos;
-        y = -Cos(AimAngle(), (yOff - yPos) * 1000 / (-Cos(AimAngle(), 1000))) + yPos;
+        x = xPos;
+        y = yPos;
       }
       else
-        if(Inside(yPos, Min(y, yOff), Max(y, yOff)))
-        {
-          x = Sin(AimAngle(), (xOff - xPos) * 1000 / (Sin(AimAngle(), 1000))) + xPos;
-          y = -Cos(AimAngle(), (xOff - xPos) * 1000 / (Sin(AimAngle(), 1000))) + yPos;
-        }
-      else
-        if((Angle(xPos, yPos, xOff, yOff) >= 180 && Angle(xPos, yPos, xOff, yOff) < AimAngle()) || (Angle(xPos, yPos, xOff, yOff) <= 180 && Angle(xPos, yPos, xOff, yOff) > AimAngle()))
+      {
+        var xOff, yOff;
+
+        if(xPos > x)
+          xOff = xRight;
+        else
+          xOff = xLeft;
+
+        if(yPos > y)
+          yOff = yDown;
+        else
+          yOff = yUp;
+
+        if(Inside(xPos, Min(x, xOff), Max(x, xOff)))
         {
           x = Sin(AimAngle(), (yOff - yPos) * 1000 / (-Cos(AimAngle(), 1000))) + xPos;
           y = -Cos(AimAngle(), (yOff - yPos) * 1000 / (-Cos(AimAngle(), 1000))) + yPos;
         }
-      else
-      {
-        x = Sin(AimAngle(), (xOff - xPos) * 1000 / (Sin(AimAngle(), 1000))) + xPos;
-        y = -Cos(AimAngle(), (xOff - xPos) * 1000 / (Sin(AimAngle(), 1000))) + yPos;
+        else
+          if(Inside(yPos, Min(y, yOff), Max(y, yOff)))
+          {
+            x = Sin(AimAngle(), (xOff - xPos) * 1000 / (Sin(AimAngle(), 1000))) + xPos;
+            y = -Cos(AimAngle(), (xOff - xPos) * 1000 / (Sin(AimAngle(), 1000))) + yPos;
+          }
+        else
+          if((Angle(xPos, yPos, xOff, yOff) >= 180 && Angle(xPos, yPos, xOff, yOff) < AimAngle()) || (Angle(xPos, yPos, xOff, yOff) <= 180 && Angle(xPos, yPos, xOff, yOff) > AimAngle()))
+          {
+            x = Sin(AimAngle(), (yOff - yPos) * 1000 / (-Cos(AimAngle(), 1000))) + xPos;
+            y = -Cos(AimAngle(), (yOff - yPos) * 1000 / (-Cos(AimAngle(), 1000))) + yPos;
+          }
+        else
+        {
+          x = Sin(AimAngle(), (xOff - xPos) * 1000 / (Sin(AimAngle(), 1000))) + xPos;
+          y = -Cos(AimAngle(), (xOff - xPos) * 1000 / (Sin(AimAngle(), 1000))) + yPos;
+        }
       }
 
   }
