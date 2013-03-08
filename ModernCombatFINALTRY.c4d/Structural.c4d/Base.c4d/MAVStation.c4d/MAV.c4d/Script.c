@@ -325,10 +325,10 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
 
       x = GetX(pEnemy);
       y = GetY(pEnemy);
-      
+
       var xLeft = GetDefCoreVal("Offset", "DefCore", GetID(pEnemy), 0) + x;
       var xRight = GetDefCoreVal("Width", "DefCore", GetID(pEnemy)) + GetDefCoreVal("Offset", "DefCore", GetID(pEnemy), 0) + x;
-      
+
       var yUp = GetDefCoreVal("Offset", "DefCore", GetID(pEnemy), 1) + y;
       var yDown = GetDefCoreVal("Height", "DefCore", GetID(pEnemy)) + GetDefCoreVal("Offset", "DefCore", GetID(pEnemy), 1) + y;
 
