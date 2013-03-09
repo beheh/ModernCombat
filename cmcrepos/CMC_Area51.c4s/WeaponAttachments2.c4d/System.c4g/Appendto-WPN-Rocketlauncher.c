@@ -13,10 +13,11 @@ func PermittedAtts()
 
 public func FMData1T1(int data)
 {
-  if(GetAttachment() != AT_Laserpointer)
-    if(data == FT_Name)		return "$Optical$";
-  else
-    if(data == FT_Name)		return "$Laser$";
+  if(data == FT_Name)
+    if(GetAttachment() != AT_Laserpointer)
+      return "$Optical$";
+    else
+      return "$Laser$";
 
   return FMData1(data);
 }
