@@ -1,33 +1,39 @@
-/*-- Raketenwerfer --*/
+/*-- Raketenwerfer-Erweiterung für Waffenupgrades --*/
 
 #strict 2
 #appendto RTLR
+
 
 func PermittedAtts()
 {
   return AT_Laserpointer;
 }
 
-/* Raketen - Lasergelenkt */
+/* Raketen - Lasersteuerung */
 
-public func FMData1T3(int data)
+public func FMData1T1(int data)
 {
-  if(GetAttachment() != AT_Laserpointer) return 0;
-  
-  if(data == FT_Name)		return "$Laser$";
+  if(GetAttachment() != AT_Laserpointer)
+    if(data == FT_Name)		return "$Optical$";
+  else
+    if(data == FT_Name)		return "$Laser$";
+
   return FMData1(data);
 }
 
-public func Fire1T3()
+/* Raketen - Schuss */
+
+public func Fire1()
 {
-  if(GetAttachment() != AT_Laserpointer) return 0;
-  
-  LaunchRocket(MISL,Contained()->~AimAngle(10), false, true);
+  if(GetAttachment() != AT_Laserpointer)
+    LaunchRocket(MISL,Contained()->~AimAngle(10));
+  else
+    LaunchRocket(MISL,Contained()->~AimAngle(10), false, true);
 }
 
 func FxLaserDotTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
-  if(aFM_FireTec[0] != 3)
+  if(aFM_FireTec[0] != 1)
   {
     if(pBeam) RemoveObject(pBeam);
     if(pLaser) RemoveObject(pLaser);
