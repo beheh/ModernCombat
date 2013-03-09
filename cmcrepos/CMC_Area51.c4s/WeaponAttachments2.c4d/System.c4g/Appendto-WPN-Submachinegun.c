@@ -16,7 +16,7 @@ public func FMData1(int data)
   if(data == FM_StartSpread)	return 110 - (iAttachment == AT_Foregrip)*20;	//Bei Auswahl der Waffe gesetzte Streuung
   if(data == FM_MaxSpread)	return 410 - (iAttachment == AT_Foregrip)*110;	//Maximaler Streuungswert
   if(data == FM_MinSpread)	return 60 - (iAttachment == AT_Foregrip)*20;	//Kleinstmögliche Streuung
-  
+
   if(data == FM_Damage)		return 6 - (iAttachment == AT_Silencer)*(Random(10)<6);	//Schadenswert
 
   return _inherited(data);

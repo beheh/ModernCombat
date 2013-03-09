@@ -16,7 +16,7 @@ public func FMData1(int data)
   if(data == FM_SpreadAdd)	return 50 - (iAttachment == AT_Foregrip)*10;	//Bei jedem Schuss hinzuzuaddierende Streuung
   if(data == FM_StartSpread)	return 100 - (iAttachment == AT_Foregrip)*20;	//Bei Auswahl der Waffe gesetzte Streuung
   if(data == FM_MaxSpread)	return 450 - (iAttachment == AT_Foregrip)*150;	//Maximaler Streuungswert
-  
+
   if(data == FM_Damage)		return 14 - (iAttachment == AT_Silencer)*((Random(10)<7)+(Random(10)<7)); //Schadenswert
 
   return _inherited(data);
@@ -35,9 +35,11 @@ public func FMData1T2(int data)
 
 public func GetMCData(int data)
 {
-  if(data == MC_Damage)		
-    return _inherited(data) + (iAttachment == AT_Bayonet)*6;			//Schaden eines Kolbenschlages
-  
+  if(data == MC_Damage)
+    return _inherited(data) + (iAttachment == AT_Bayonet)*6;	//Schaden eines Kolbenschlages
+  if(data == MC_Recharge)
+    return _inherited(data) + (iAttachment == AT_Bayonet)*10;	//Zeit nach Kolbenschlag bis erneut geschlagen oder gefeuert werden kann
+
   return _inherited(data);
 }
 
@@ -65,7 +67,8 @@ public func Fire1()
   {
     Sound("WPN2_SilencerFire*.ogg", 0, ammo, 0, GetOwner(user)+1);
     Sound("WPN2_SilencerFire*.ogg", 0, ammo, 10);
-    
+
+    //Tarnung abschwächen
     if(GetEffect("Silencer", this))
       EffectVar(0, this, GetEffect("Silencer", this)) -= BoundBy(25, 0, EffectVar(0, this, GetEffect("Silencer", this)));
   }
@@ -121,8 +124,9 @@ public func LaunchGrenade(id idg, int speed, int angle, int mode)
   Sound("ASTR_LauncherFire*.ogg", 0, grenade);
   Echo("SGST_Echo.ogg");
 
+  //Schalldämpfer vorhanden: Enttarnen
   if(GetEffect("Silencer", this))
-      EffectVar(0, this, GetEffect("Silencer", this)) = 0;
+    EffectVar(0, this, GetEffect("Silencer", this)) = 0;
 
   //Patronenhülse vorhanden
   casing = 1;
