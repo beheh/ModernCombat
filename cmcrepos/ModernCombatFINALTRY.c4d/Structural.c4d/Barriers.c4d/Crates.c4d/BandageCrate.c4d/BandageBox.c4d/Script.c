@@ -39,7 +39,7 @@ public func RejectEntrance(object pObj)
 
 protected func Damage(int iChange)
 {
-  if(GetDamage() < 10) return ;
+  if(GetDamage() < 10) return;
   Destruct();
 }
 
