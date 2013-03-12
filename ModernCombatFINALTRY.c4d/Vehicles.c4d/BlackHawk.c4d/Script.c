@@ -828,8 +828,15 @@ protected func ContainedThrow(object ByObj)
 
   //Schütze: Feuer eröffnen/einstellen
   if(ByObj == GetGunner())
+  {
     if(!GetPlrCoreJumpAndRunControl(GetController(ByObj)))
-      pMGStation->~ControlThrow(ByObj);
+    {
+    	if(GetPilot())
+    		pMGStation->~ControlThrow(ByObj);
+		 	else
+		 		RefuseLaunch(ByObj);
+		}
+	}
   //Koordinator
   if(ByObj == GetCoordinator())
     if(GetPilot())
@@ -849,10 +856,18 @@ protected func ContainedDig(object pBy)
 public func ContainedUpdate(object ByObj, int comdir, bool dig, bool throw)
 {
   if(ByObj == GetGunner())
+  {
+  	if(throw && !GetPilot())
+  	{
+  		pMGStation->StopAutoFire();
+  		return RefuseLaunch(ByObj);
+  	}
+
     if(throw)
       return pMGStation->ControlThrow(ByObj);
     else
       return pMGStation->StopAutoFire();
+  }
 }
 
 //eine Funktion, welche einfach nur die Richtung eines Objektes ändert
