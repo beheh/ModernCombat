@@ -7,10 +7,10 @@ MaxUserSelect=4
 Width=10
 Height=14
 Offset=-5,-7
-Vertices=2
-VertexX=0,0
-VertexY=5,-5
-VertexFriction=20,20
+Vertices=4
+VertexX=2,2,-2,-2
+VertexY=5,-5,5,-5
+VertexFriction=50,50,50,50
 Value=45
 Mass=10
 Components=PARA=1
