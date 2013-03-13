@@ -331,11 +331,11 @@ protected func ContainedThrow(object ByObj)
   if(ByObj == GetGunner())
     if(!GetPlrCoreJumpAndRunControl(GetController(ByObj)))
     {
-    	if(GetPilot())
+      if(GetPilot())
         pMGStation->~ControlThrow(ByObj);
-		  else
-		    RefuseLaunch(ByObj);
-		}
+      else
+        RefuseLaunch(ByObj);
+    }
 
   return true;
 }
