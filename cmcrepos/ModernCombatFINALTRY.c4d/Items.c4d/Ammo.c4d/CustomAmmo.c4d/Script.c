@@ -29,8 +29,20 @@ public func SetAmmoID(id idType)
   if(idType->~IsAmmo())
   {
     ammoid = idType;
-    SetGraphics(0,0,idType,2,GFXOV_MODE_Picture);
-    SetObjDrawTransform(500, 0, 0, 0, 500, 0, this, 2);
+
+    if(idType == STAM)
+      SetGraphics(0,0, ABOX);
+    else
+    if(idType == GRAM)
+      SetGraphics(0,0, GBOX);
+    else
+    if(idType == MIAM)
+      SetGraphics(0,0, MBOX);
+    else
+    {
+      SetGraphics(0,0,idType,2,GFXOV_MODE_Picture);
+      SetObjDrawTransform(500, 0, 0, 0, 500, 0, this, 2);
+    }
   }
   return false;
 }

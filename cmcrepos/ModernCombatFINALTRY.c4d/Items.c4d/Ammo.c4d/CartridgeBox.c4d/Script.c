@@ -1,4 +1,4 @@
-/*-- Munitionsbox --*/
+/*-- Patronenbox --*/
 
 #strict 2
 #include MCAM
