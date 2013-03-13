@@ -43,7 +43,7 @@ public func ControlThrow(object caller)
     return; 
 
   //Normales Ablegen
-  if (GetPlrDownDouble(GetController(caller)))
+  if(GetPlrDownDouble(GetController(caller)))
     return _inherited(...);
 
   //Träger = Besitzer
@@ -66,21 +66,21 @@ public func Throw()
   vtx, vty;			//Offset für Zusatzvertex
 
   //Kriechen
-  if (user->~IsCrawling())
+  if(user->~IsCrawling())
   {
     x = 10;
-    if (!GetDir(user))
+    if(!GetDir(user))
       x = -10;
     y = 1;
     doplace = 1;
   }
 
   //Klettern
-  else if (GetProcedure(user) == "SCALE")
+  else if(GetProcedure(user) == "SCALE")
   {
     x = 3;
     iDir = -90;
-    if (!GetDir(user))
+    if(!GetDir(user))
     {
       x = -3;
       iDir = 90;
@@ -90,33 +90,33 @@ public func Throw()
   }
 
   //Hangeln
-  else if (GetProcedure(user) == "HANGLE")
+  else if(GetProcedure(user) == "HANGLE")
   {
     y = -6;
     iDir = 160;
-    if (!GetDir(user))
+    if(!GetDir(user))
       iDir = -160;
     doplace = 2;
     vty = -2;
   }
 
   //Klettern an Leitern
-  else if (GetAction(user) == "ScaleLadder")
+  else if(GetAction(user) == "ScaleLadder")
     doplace = 1;
 
   //Laufen und Zielen
-  else if (GetProcedure(user) == "WALK" || user->~IsAiming())
+  else if(GetProcedure(user) == "WALK" || user->~IsAiming())
   {
     doplace = 1;
     y = 6;
   }
 
   //Sonst: Bereit zu feuern?
-  else if (user->~ReadyToFire())
+  else if(user->~ReadyToFire())
     doplace = 1;
 
   //Bei nicht identifizierbarer Aktion
-  if (!doplace) return;
+  if(!doplace) return;
   Exit(this, x, y - GetDefOffset(GetID(), 1));
 
   //Effekte
@@ -129,7 +129,7 @@ public func Throw()
 
   //Grafik setzen
   SetAction("Fused");
-  if (doplace == 1)
+  if(doplace == 1)
   {
     if(Inside(iDir, -180, -130)) SetPhase(3);
     if(Inside(iDir, -129, -78))  SetPhase(0);
@@ -141,7 +141,7 @@ public func Throw()
     SetObjDrawTransform(1000, 0, 0, 0, 1000, 0);
   }
 
-  if (doplace == 2)
+  if(doplace == 2)
   {
     SetPhase();
     var s = Sin(-iDir, 1000), c = Cos(-iDir, 1000);
@@ -149,7 +149,7 @@ public func Throw()
   }
 
   //Vertex zur besseren Haftung
-  if (vtx || vty)
+  if(vtx || vty)
     AddVertex(vtx, vty);
 
   var nextmine = user->~GrabGrenade(GetID());
@@ -208,7 +208,7 @@ public func ControlUp(object pObjBy)
 	var pPack = CreateObject(BTBG, 0, 0, GetOwner(pObjBy));
 
   //Einsammeln wenn möglich, sonst zumindest loslassen
-  if (!Collect(pPack, pObjBy))
+  if(!Collect(pPack, pObjBy))
     SetCommand(pObjBy, "UnGrab");
   
   //Claymore auf jeden Fall entfernen
