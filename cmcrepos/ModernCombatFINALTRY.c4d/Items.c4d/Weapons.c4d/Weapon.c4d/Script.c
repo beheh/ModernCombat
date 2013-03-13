@@ -1478,10 +1478,10 @@ global func FxShowWeaponUpdate(object pTarget, int iNumber, int iTime) {
     //neues Objekt ist Waffe, oder ein Objekt, das gezeichnet werden soll
     if(obj->~IsWeapon() || obj->~IsDrawable())
     {
-    	//vorheriges Waffenobjekt auf Normalgröße skalieren
-    	if(EffectVar(6, pTarget, iNumber))
-    		SetObjDrawTransform(1000, 0, 0, 0, 1000, 0, EffectVar(6, pTarget, iNumber));
-    
+      //Vorheriges Waffenobjekt auf Normalgröße skalieren
+      if(EffectVar(6, pTarget, iNumber))
+        SetObjDrawTransform(1000, 0, 0, 0, 1000, 0, EffectVar(6, pTarget, iNumber));
+
       dodraw = true;
       EffectVar(0, pTarget, iNumber) = id;
       EffectVar(6, pTarget, iNumber) = obj;
@@ -1540,9 +1540,9 @@ global func FxShowWeaponUpdate(object pTarget, int iNumber, int iTime) {
   xoff *= dir;
 
   //Waffe
-  SetObjDrawTransform(1000,xskew,xoff,yskew,1000,yoff, pTarget, WeaponDrawLayer); //position
-  SetObjDrawTransform(width,xskew,0,yskew,height, 0, obj); //Größe und Rotation
-  
+  SetObjDrawTransform(1000,xskew,xoff,yskew,1000,yoff, pTarget, WeaponDrawLayer);	//Position
+  SetObjDrawTransform(width,xskew,0,yskew,height, 0, obj);				//Größe und Rotation
+
   //Daten
   var w = GetDefCoreVal("Width",0,id)/2;
   var brlx = id->~BarrelXOffset();
