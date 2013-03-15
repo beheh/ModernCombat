@@ -404,7 +404,7 @@ func CreateDecoration()
 
   //Bildschirme
   CreateObject(SCA1, 380, 860, -1)->SetAction("Medic");
-  CreateObject(SCA1, 435, 290, -1)->SetAction("Grenade");
+  CreateObject(SCA1, 435, 290, -1)->SetAction("CMC");
   CreateObject(SCR3, 790, 230, -1);
   CreateObject(SCR3, 790, 910, -1);
   CreateObject(SCA2, 595, 315, -1)->SetAction("Clonk");

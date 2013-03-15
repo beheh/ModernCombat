@@ -92,9 +92,9 @@ func CreateInterior()
   CreateObject(XWCR, 710, 710, -1)->AutoRespawn();
 
   //Container
-  CreateObject(CON1, 300, 710, -1);
-  CreateObject(CON1, 359, 710, -1);
-  CreateObject(CON1, 1090, 710, -1);
+  CreateObject(CON1, 300, 710, -1)->SetGraphics("4");
+  CreateObject(CON1, 359, 710, -1)->SetGraphics("4");
+  CreateObject(CON1, 1090, 710, -1)->SetGraphics("4");
 
   //Giftfässer
   CreateObject(TBRL, 50, 710, -1);

@@ -530,10 +530,8 @@ func CreateDecoration()
   CreateObject(SCA2, 585, 810, -1)->SetAction("News");
   CreateObject(SCR3, 530, 840, -1);
   CreateObject(SCR3, 640, 840, -1)->SetPhase(10);
-  CreateObject(SCA1, 585, 1490, -1)->SetAction("Grenade");
-  var screen = CreateObject(SCA1, 585, 1530, -1);
-  screen->SetAction("Grenade");
-  screen->SetPhase(20);
+  CreateObject(SCA1, 585, 1490, -1)->SetAction("CMC");
+  CreateObject(SCA1, 585, 1530, -1)->SetAction("Grenade");
   CreateObject(SCR3, 530, 1905, -1)->SetClrModulation(RGB(255,0,0));
   CreateObject(SCR3, 640, 1905, -1)->SetClrModulation(RGB(00,150,250));
 
