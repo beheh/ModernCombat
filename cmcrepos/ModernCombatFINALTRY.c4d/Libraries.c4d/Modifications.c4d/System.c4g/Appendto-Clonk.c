@@ -617,7 +617,7 @@ global func FakeDeath(object pTarget)
   pTarget->~ResetAssist();
 
   SetComDir(COMD_Stop,pTarget);
-  
+
   //Spielziele benachrichtigen
   GameCallEx("IsFulfilled");
 
