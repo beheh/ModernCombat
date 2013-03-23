@@ -3,7 +3,7 @@
 #strict 2
 #appendto WPN2
 
-local iAttachment, pLaser, pBeam;
+local iAttachment, pLaser, pBeam, pLight;
 
 static const AT_NoAttachment		= 0;	//Kein Waffenaufsatz
 static const AT_ExtendedMag		= 1;	//Erweitertes Magazin
@@ -11,7 +11,8 @@ static const AT_Bayonet			= 2;	//Bajonett
 static const AT_Laserpointer		= 4;	//Laserpointer
 static const AT_Silencer		= 8;	//Schalldämpfer
 static const AT_Foregrip		= 16;	//Frontgriff
-static const AT_Anthrax		= 32;	//Anthrax-Munition
+static const AT_Anthrax			= 32;	//Anthrax-Munition
+
 
 func PermittedAtts()
 {
@@ -34,20 +35,26 @@ func SetAttachment(int iValue)
 {
   if(iValue && !(PermittedAtts() & iValue)) return -1;
 
-  if(GetEffect("LaserDot", this)) RemoveEffect("LaserDot", this);
-  if(GetEffect("Silencer", this)) RemoveEffect("Silencer", this);
+  //Eventuell vorhandene Effekte entfernen
+  if(GetEffect("LaserDot", this))	RemoveEffect("LaserDot", this);
+  if(GetEffect("Silencer", this))	RemoveEffect("Silencer", this);
+
+  //Feuermodus zurücksetzen
   SetFireMode(1);
 
+  //Eventuell entsprechenden Effekt setzen
   var iTemp = iAttachment;
   iAttachment = iValue;
-  if(iAttachment == AT_Laserpointer) AddEffect("LaserDot", this, 1, 1, this);
-  if(iAttachment == AT_Silencer) AddEffect("Silencer", this, 1, 1, this);
-  
+  if(iAttachment == AT_Laserpointer)	AddEffect("LaserDot", this, 1, 1, this);
+  if(iAttachment == AT_Silencer)	AddEffect("Silencer", this, 1, 1, this);
+
+  //Waffenaufsatz-Symbol setzen
   SetGraphics(0,0,AttachmentIcon(iAttachment),2,GFXOV_MODE_Picture);    
   SetObjDrawTransform(500,0,10000,0,500,10000, 0, 2);
-  
+
+  //Waffen-HUD aktualisieren
   if(Contained()) Contained()->~UpdateCharge(true);
-  
+
   return iTemp;
 }
 
@@ -57,6 +64,8 @@ func FxLaserDotTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
   //Nutzer festlegen
   var user = this->~GetUser();
+
+  //Situation prüfen
   var x, y, z;
   if(!user || !user->~IsClonk() || !user->WeaponAt(x, y, z) || Contents(0, user) != this)
   {
@@ -171,6 +180,8 @@ func FxLaserDotStop()
   if(pLaser) RemoveObject(pLaser);
 }
 
+/* Schalldämpfer */
+
 //EffektVar 0: Alphawert
 //EffektVar 1: X-Position
 //EffektVar 2: Y-Position
@@ -229,7 +240,8 @@ func FxSilencerStop(object pTarget, int iEffectNumber, int iEffectTime)
     SetClrModulation(RGBa(255, 255, 255, 0), pTarget);
 }
 
-global func FxShowWeaponUpdate(object pTarget, int iNumber, int iTime) {
+global func FxShowWeaponUpdate(object pTarget, int iNumber, int iTime)
+{
   //Waffe aktualisieren:
   var xoff, yoff, r;  //Offset, Winkel
   var dodraw = false;
@@ -241,7 +253,8 @@ global func FxShowWeaponUpdate(object pTarget, int iNumber, int iTime) {
     return EffectCall(pTarget, iNumber, "Reset");
   var obj = Contents(0,pTarget), id=GetID(obj);
   //Waffe nicht mehr aktuell
-  if(obj && EffectVar(6, pTarget, iNumber) != obj) {
+  if(obj && EffectVar(6, pTarget, iNumber) != obj)
+  {
     //neues Objekt ist Waffe, oder ein Objekt, das gezeichnet werden soll
     if(obj->~IsWeapon() || obj->~IsDrawable())
     {
@@ -395,7 +408,7 @@ public func ControlThrow(caller)
             DoDmg(GetMCData(MC_Damage),DMG_Melee,target,0,GetController(GetUser())+1,GetID(), GetAttachment());
             SetCommand(GetUser(), "");
             SetComDir(COMD_None, GetUser());
-  
+
             //Ziel schleudern
             var pwr = GetMCData(MC_Power), angle = GetMCData(MC_Angle);
             if(GetProcedure(target) != "SWIM")
@@ -436,11 +449,14 @@ public func ControlThrow(caller)
   }
   if (meleeattacked)
   {
-    //Soundeffekte
+    //Sound
     Sound("ClonkMelee*.ogg", 0, this);
     Sound("WPN2_Punch*.ogg", 0, this);
     if(iAttachment == AT_Bayonet)
-      Sound("BKHK_RotorHit*.ogg", 0, this);
+      if(GetOCF(target) & OCF_Alive)
+        Sound("BKHK_RotorHit*.ogg", 0, this);
+      else
+        Sound("WPN2_BayonetHit.ogg", 0, this);
 
     //Cooldown
     AddEffect("StrikeRecharge", this, 1, 1, this);
