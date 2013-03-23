@@ -131,3 +131,9 @@ public func LaunchGrenade(id idg, int speed, int angle, int mode)
   //Patronenhülse vorhanden
   casing = 1;
 }
+
+func OnSelect()
+{
+  Sound("ASTR_Charge.ogg");
+  if(iAttachment) HelpMessage(GetOwner(Contained(this)), Format("%s | %s", GetName(0, AttachmentIcon(iAttachment)), GetName(0, GetID(this))), Contained(this));
+}
