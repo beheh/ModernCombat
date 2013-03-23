@@ -5,7 +5,7 @@
 
 func PermittedAtts()
 {
-  return AT_ExtendedMag | AT_Bayonet | AT_Laserpointer | AT_Silencer | AT_Foregrip;
+  return AT_ExtendedMag | AT_Bayonet | AT_Laserpointer | AT_Foregrip;
 }
 
 public func FMData1(int data)
