@@ -20,8 +20,6 @@ public func Initialize()
 {
   InitCH();
   UpdateGrenadeCount();
-  //if(Contained())
-    //HideCH();
   return _inherited(...);
 }
 
@@ -47,11 +45,6 @@ protected func Control2Grab(string command)
   if(GetProcedure() == "PUSH" && GetActionTarget())
   return GetActionTarget()->~Control2Grab(command,this,...);
 }
-
-/*protected func ControlThrow()
-{
-  return _inherited();
-}*/
 
 protected func ControlDigDouble()
 {
@@ -83,7 +76,7 @@ protected func ControlUp()
   if(Control2Contents("ControlUp"))	return 1;
   if(ControlLadder("ControlUp"))	return 1;
   if(ControlAgility("ControlUp"))	return 1;
-  if (FindObject2(Find_Func("IsBackDoor"), Find_AtPoint()) && GetEffect("NoDoorEntrance", this)) return 1;
+  if(FindObject2(Find_Func("IsBackDoor"), Find_AtPoint()) && GetEffect("NoDoorEntrance", this))	return 1;
   return(_inherited());
 }
 
@@ -108,7 +101,7 @@ func ResetShowWeapon(object pNew)
 {
   var effect = GetEffect("ShowWeapon",this); 
   if(!effect) return false;
-  
+
   if(pNew)
   {
     EffectVar(0, this, effect) = GetID(pNew);
@@ -119,7 +112,7 @@ func ResetShowWeapon(object pNew)
     EffectVar(0, this, effect) = 0;
     EffectVar(1, this, effect) = 0;
   }
-  
+
   return true;
 }
 
@@ -141,7 +134,7 @@ public func ControlConf(int conf)
 }
 public func DoAiming(int iChange)
 {
-  //zielen wir überhaupt?
+  //Wird gezielt?
   if(!IsAiming())
     return;
 
@@ -165,53 +158,56 @@ public func Incineration(int iPlr)
 
 /*----- HazardGear -----*/
 
-//Nicht jede Clonkart kann alles tragen. (z.B. Sanitäter)
+//Nicht jede Clonkart kann alles tragen (z.B. Sanitäter)
 
 public func EquipGear(object pGear)
 {
-  // überhaupt benutzbar
+  //Benutzbarkeit prüfen
   if(!pGear || !pGear->~IsHazardGear() || !HazardGearSupported(pGear)) return false;
   return _inherited(pGear);
 }
 
-public func HazardGearSupported(object pGear)//! -> Hazard 2.0
+public func HazardGearSupported(object pGear)
 {
-  return true; //Standartmäßig alles schlucken.
+  return true;
 }
+
+/*----- Feuerbereitschaft -----*/
 
 public func ReadyToFire()
 {
+  //Nicht wenn am schwimmen...
   if(GetProcedure() == "SWIM")
     return;
+
   if(GetAction() == "Crawl" && Contents() && Contents()->~CanAim() && Contents()->~IsEquipment())
     return true;
 
-  //In Gebäude
+  //...wenn verschachtelt...
   if(Contained()) return false;
-  
+
   if(GetActionTarget())
   {
-    //Reitet
+    //...reitend...
     if(IsRiding()) return;
-    //Schiebt
+    //...oder schiebend
     if(GetProcedure() == "PUSH") return;
   }
 
   var a = GetAction();
 
-  //Nur beim Laufen, Schwimmen oder Springen
+  //Nur beim Laufen, Schwimmen, Springen...
   if(a == "WalkArmed" || a == "SwimArmed" || a == "JumpArmed")
     return true;
 
-  //Importiert aus den Funktionalitäten: JetpackFlight und Aim
+  //...oder speziellen Jetpack- oder Aim-Aktionen
   if(a == "JetpackFlight") return true;
-
   if(WildcardMatch(a, "Aim*")) return true;
 }
 
-//Wegen SwimArmed
 public func ReadyToAttack()
 {
+  //Spezialtest für SwimArmed
   if(ReadyToFire()) return true;
   if(GetProcedure() == "SWIM") return true;
   return false;
@@ -227,26 +223,21 @@ public func ReadyToGrenade()
 
 /*----- CMC Zielsystem -----*/
 
-static const CH_ShowAlways = 1;
+static const CH_ShowAlways = 1;			//Fadenkreuzanzeige
 
-static const CH_MaxSpread = 500;
+static const CH_MaxSpread = 500;		//Maximale Streuung
 
-static const CH_WalkSpread = 80;
-static const CH_JumpSpread = 140;
-static const CH_ScaleSpread = 200;
-static const CH_HangleSpread = 200;
+static const CH_WalkSpread = 80;		//Streuung beim Laufen
+static const CH_JumpSpread = 140;		//Streuung beim Springen
+static const CH_ScaleSpread = 200;		//Streuung beim Klettern
+static const CH_HangleSpread = 200;		//Streuung beim Hangeln
 
-static const CH_CrawlSpreadReduction = 4;
-static const CH_AimSpreadReduction = 4;
-static const CH_StandSpreadReduction = 3;
+static const CH_StandSpreadReduction = 3;	//Streureduktion beim Laufen
+static const CH_AimSpreadReduction = 4;		//Streureduktion beim Zielen
+static const CH_CrawlSpreadReduction = 4;	//Streureduktion beim Kriechen
 
 local crosshair,ammobag;
 local spread, handr;
-
-/*func HandR()
-{
-  return false;//return handr/CH_Spread_Prec;
-}*/
 
 public func GetCrosshair()
 {
@@ -327,7 +318,6 @@ public func UpdateCH()
     unspread = c->~UnSpread();
     minspread = c->~MinSpread();
   }
-
 
   if(IsAiming())
     if(IsCrawling())
