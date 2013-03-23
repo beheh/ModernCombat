@@ -300,14 +300,18 @@ private func TestSpread()
 
 public func UpdateCH()
 {
+  //Keine Feuerbereitschaft: Verstecken
   if((!ReadyToFire() && !ReadyToGrenade()) || !IsArmed())
     return HideCH();
 
   var c = Contents();
 
+  //Streuung hinzufügen
   DoSpread(BoundBy(TestSpread()-spread,0,10));
 
   var unspread, minspread;
+
+  //Waffeninformationen einholen
   if(c->~IsWeapon())
   {
     unspread = c->GetFMData(FM_UnSpread);
@@ -319,6 +323,7 @@ public func UpdateCH()
     minspread = c->~MinSpread();
   }
 
+  //Streuung abziehen
   if(IsAiming())
     if(IsCrawling())
       DoSpread(-(CH_CrawlSpreadReduction+unspread), 0, minspread);
