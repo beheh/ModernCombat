@@ -122,12 +122,11 @@ public func FxFollowTimer(object pTarget, int iEffectNumber, int iEffectTime)
       RemoveObject(pLight);
     return;
   }
-  
-  if(!fLaserGuided)
-    EffectVar(1,pTarget,iEffectNumber) = 0;
-  else
+
+  //Lasergesteuert?
+  if(fLaserGuided) 
     EffectVar(1,pTarget,iEffectNumber) = pLauncher->~GetLaser();
-  
+
   //Rakete unterstützt Peilsender?
   if(pTarget->~TracerCompatible() && Guideable() && !fLaserGuided)
   {
