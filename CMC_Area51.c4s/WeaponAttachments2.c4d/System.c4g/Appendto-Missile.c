@@ -124,7 +124,7 @@ public func FxFollowTimer(object pTarget, int iEffectNumber, int iEffectTime)
   }
 
   //Lasergesteuert?
-  if(fLaserGuided) 
+  if(fLaserGuided)
     EffectVar(1,pTarget,iEffectNumber) = pLauncher->~GetLaser();
 
   //Rakete unterstützt Peilsender?
@@ -157,15 +157,13 @@ public func FxFollowTimer(object pTarget, int iEffectNumber, int iEffectTime)
   //Soll-Winkel
   var iDAngle;
   var iMaxTurn;
+
   //Sonst anvisieren
-  if(fLaserGuided)
+  if(EffectVar(1,pTarget,iEffectNumber))
   {
-    if(EffectVar(1,pTarget,iEffectNumber))
-    {
-      var pEnemy = EffectVar(1,pTarget,iEffectNumber);
-      iDAngle = Angle(GetX(), GetY(), GetX(pEnemy), GetY(pEnemy));
-      iMaxTurn = MaxTracerTurn();
-    }
+    var pEnemy = EffectVar(1,pTarget,iEffectNumber);
+    iDAngle = Angle(GetX(), GetY(), GetX(pEnemy), GetY(pEnemy));
+    iMaxTurn = MaxTracerTurn();
   }
   else
   {
