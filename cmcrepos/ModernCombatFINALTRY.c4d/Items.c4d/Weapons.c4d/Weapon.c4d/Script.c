@@ -1026,7 +1026,8 @@ private func Shoot(object caller)
   {
     shooting = false;
     OnEmpty();
-    if(GetFMData(FM_Auto)) {
+    if(GetFMData(FM_Auto))
+    {
       OnAutoStop(firemode); 
       OnFireStop(firemode);
     }
@@ -1036,7 +1037,7 @@ private func Shoot(object caller)
       ScheduleCall(this, "Reload", 5);
   }
   if(!GetFMData(FM_Auto) && !GetFMData(FM_BurstAmount)) OnFireStop(firemode);
-  //HZCK soll Munition doch bitte neu anschauen
+  //HZCK soll Munition aktualisieren
   if(user)
     user->~UpdateCharge();
   return true;
