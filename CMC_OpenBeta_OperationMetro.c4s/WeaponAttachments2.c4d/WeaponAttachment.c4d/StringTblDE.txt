@@ -1,3 +1,0 @@
-Upgrade=%s verbauen
-NothingUpgradeable=Nichts aufrüstbares verfügbar.
-CantUpgrade=Clonk kann gerade nicht aufrüsten.

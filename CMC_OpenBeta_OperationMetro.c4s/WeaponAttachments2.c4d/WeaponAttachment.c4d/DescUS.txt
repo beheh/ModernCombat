@@ -1,3 +1,0 @@
-This box contains a weapon attachment.
-
-[Double Dig] to attach the attachment to a weapon.
