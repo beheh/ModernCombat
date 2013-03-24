@@ -187,10 +187,9 @@ public func FxFollowTimer(object pTarget, int iEffectNumber, int iEffectTime)
 
   var iDiff = Normalize(iDAngle - iAngle,-180);
   var iTurn = Min(Abs(iDiff),iMaxTurn);
-  
+
   if(fLaserGuided && (!pEnemy || !pEnemy->~Active()))
-  	iTurn = 0;
-  
+    iTurn = 0;
   SetR(iAngle+iTurn*((iDiff > 0)*2-1));
 }
 
