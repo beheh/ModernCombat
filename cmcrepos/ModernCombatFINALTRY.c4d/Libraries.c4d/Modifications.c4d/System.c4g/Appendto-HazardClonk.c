@@ -2518,3 +2518,11 @@ global func GetParachute(object target)
 
   return FindObject2(Find_ID(PARA), Find_ActionTarget(target));
 }
+
+protected func CheckStuck()
+{
+  //Verhindert Festhängen am Mittelvertex
+  if(!GetXDir()) if(Abs(GetYDir()) < 5)
+    if(GBackSolid(0, GetVertex(0,1,this())+1))
+      SetPosition(GetX(), GetY() + 1);
+}
