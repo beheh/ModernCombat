@@ -8,6 +8,33 @@ func PermittedAtts()
   return AT_ExtendedMag | AT_Bayonet | AT_Laserpointer;
 }
 
+func FxLaserDotTimer(object pTarget, int iEffectNumber, int iEffectTime)
+{
+	if(firemode == 2)
+ 	{
+ 		if(pBeam) RemoveObject(pBeam);
+    if(pLaser) RemoveObject(pLaser);
+ 	
+ 		//Nutzer festlegen
+		var user = this->~GetUser();
+		var x, y, z;
+		if(!user || !user->~IsClonk() || !user->WeaponAt(x, y, z) || !user->IsAiming() || Contents(0, user) != this || iAttachment != AT_Laserpointer)
+		{
+			RemoveTrajectory(pTarget);
+			return;
+		}
+
+		var iAngle = EffectVar(1, user, GetEffect("ShowWeapon", user));
+		var empty = IsReloading() || !GetCharge();
+		AddTrajectory(pTarget, GetX(pTarget), GetY(pTarget), Sin(iAngle, 90), -Cos(iAngle, 90), 35*3, RGB(255*empty, 255*(!empty), 0));
+	}
+	else
+	{
+		RemoveTrajectory(pTarget);
+		return _inherited(...);
+	}
+}
+
 public func FMData1(int data)
 {
   if(data == FM_AmmoLoad)
