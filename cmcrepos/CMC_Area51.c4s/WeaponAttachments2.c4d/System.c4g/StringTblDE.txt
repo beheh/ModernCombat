@@ -14,6 +14,7 @@ Laser=Lasersteuerung
 //TEMPORÄR WEGEN ÜBERLADUNG
 
 Back=Zurück
+NoAttachment=Kein Waffenaufsatz
 changeattachment=Wähle einen Waffenaufsatz
 changeattachment_desc=Wähle die Waffe, welche ein|Waffenaufsatz erhalten soll.||
 TimeTillRespawn=Noch <c ff0000>%d Sekunden</c> bis zum Respawn.
