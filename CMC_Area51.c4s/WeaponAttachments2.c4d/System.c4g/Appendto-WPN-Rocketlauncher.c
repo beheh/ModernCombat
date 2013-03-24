@@ -34,7 +34,7 @@ public func Fire1()
 
 func FxLaserDotTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
-  if(aFM_FireTec[0] != 1)
+  if(aFM_FireTec[0] != 1 || IsReloading())
   {
     if(pBeam) RemoveObject(pBeam);
     if(pLaser) RemoveObject(pLaser);
