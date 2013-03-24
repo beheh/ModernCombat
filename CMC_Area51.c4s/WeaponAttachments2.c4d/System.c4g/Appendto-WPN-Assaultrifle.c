@@ -13,7 +13,7 @@ public func FMData1(int data)
   if(data == FM_AmmoLoad)
     return _inherited(data) + (iAttachment == AT_ExtendedMag)*6;			//Magazingröße
 
-  if(data == FM_SpreadAdd)	return 50 - (iAttachment == AT_Laserpointer)*8;	//Bei jedem Schuss hinzuzuaddierende Streuung
+  if(data == FM_SpreadAdd)	return 50 - (iAttachment == AT_Laserpointer)*8;		//Bei jedem Schuss hinzuzuaddierende Streuung
   if(data == FM_StartSpread)	return 100 - (iAttachment == AT_Laserpointer)*20;	//Bei Auswahl der Waffe gesetzte Streuung
   if(data == FM_MaxSpread)	return 450 - (iAttachment == AT_Laserpointer)*150;	//Maximaler Streuungswert
 
@@ -130,10 +130,4 @@ public func LaunchGrenade(id idg, int speed, int angle, int mode)
 
   //Patronenhülse vorhanden
   casing = 1;
-}
-
-func OnSelect()
-{
-  Sound("ASTR_Charge.ogg");
-  if(iAttachment) HelpMessage(GetOwner(Contained(this)), Format("%s | %s", GetName(0, AttachmentIcon(iAttachment)), GetName(0, GetID(this))), Contained(this));
 }
