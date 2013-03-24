@@ -581,8 +581,8 @@ public func OpenMenuAttachment(id idParamWeapon, int iClass, object pClonk, int 
   idWeap = GetPlrExtraData(iOwner, Format("CMC_Weap%d", iClass));
   iAtt = GetPlrExtraData(iOwner, Format("CMC_Att%d", iClass));
 
-  for (var aEntry in aItems)
-    if (GetType(aEntry) == C4V_Array && GetType(aEntry[0]) == C4V_C4ID && aEntry[0]->~PermittedAtts())
+  for(var aEntry in aItems)
+    if(GetType(aEntry) == C4V_Array && GetType(aEntry[0]) == C4V_C4ID && aEntry[0]->~PermittedAtts())
     {
       if(fNextWeap)
       {
@@ -625,7 +625,12 @@ public func OpenMenuAttachment(id idParamWeapon, int iClass, object pClonk, int 
     iterations++;
     iTempAtt/=2;
   }
-  AddMenuItem(Format("<c ffff33>%s</c>|%s", GetName(0, AttachmentIcon(iAtt)), DescAtts[iterations]), 0, NONE, pClonk, 0, 0, " ");
+  
+  var name = GetName(0, AttachmentIcon(iAtt));
+  if(!iAtt)
+  	name = "$NoAttachment$";
+
+  AddMenuItem(Format("<c ffff33>%s</c>|%s", name, DescAtts[iterations]), 0, NONE, pClonk, 0, 0, " ");
 
   //Leerzeilen-Platzhalter
   AddMenuItem(" | ", 0, NONE, pClonk, 0, 0, " ");
@@ -649,31 +654,40 @@ public func OpenMenuAttachment(id idParamWeapon, int iClass, object pClonk, int 
     AddMenuItem(Format("<c ff3333>%s</c>", GetName(0, idActualWeap)), Format("ChangeWeapon(%d, %i, Object(%d), %d)", iClass, idActualWeap, ObjectNumber(pClonk), count), idActualWeap, pClonk, 0, pClonk, 0, 2, GetCData(i, CData_Facet));
 
   //Waffenaufsätze
-  for (var aEntry in aItems)
-  if (GetType(aEntry) == C4V_Array && GetType(aEntry[0]) == C4V_C4ID && aEntry[0] == idActualWeap)
-    for(j = 0; j < 1000000000; j*=2)
-    {
-      if(fOne && j == 2) {j = 1; fOne = false;}
-      var select = false;
-      var szName = Format("%s",GetName(0, AttachmentIcon(j)));
-      if(idWeap && iAtt && iAtt == j && idWeap == aEntry[0]) 
-      {
-        select = true;
-        szName = Format("<c ffff33>%s</c>", szName);
-      }
-      else
-        szName = Format("<c 777777>%s</c>", szName);
-      
-      if(aEntry[0]->~PermittedAtts() & j)
-      {
-        count++;
-        AddMenuItem(szName, Format("ChooseAttachment(%d, %i, %d, Object(%d), %d, %d)", iClass, aEntry[0], j, ObjectNumber(pClonk), count, select), AttachmentIcon(j), pClonk, 0, pClonk, 0, 2, GetCData(i, CData_Facet));
-        //if(!idParamWeapon && select) SelectMenuItem(count + 1, pClonk);
-      }
+  for(j = 0; j < 1000000000; j*=2)
+  {
+    if(fOne && j == 2) {j = 1; fOne = false;}
 
-      //j soll bei 0 anfangen, sich ab 1 dann aber verdoppeln.
-      if(!j) j++;
+    var select = false;
+    var szName = Format("%s",GetName(0, AttachmentIcon(j)));
+    if(idWeap && iAtt && iAtt == j && idWeap == idActualWeap) 
+    {
+      select = true;
+      szName = Format("<c ffff33>%s</c>", szName);
     }
+    else
+      szName = Format("<c 777777>%s</c>", szName);
+    
+    if(idActualWeap->~PermittedAtts() & j)
+    {
+      count++;
+      AddMenuItem(szName, Format("ChooseAttachment(%d, %i, %d, Object(%d), %d, %d)", iClass, idActualWeap, j, ObjectNumber(pClonk), count, select), AttachmentIcon(j), pClonk, 0, pClonk, 0, 2, GetCData(i, CData_Facet));
+      //if(!idParamWeapon && select) SelectMenuItem(count + 1, pClonk);
+    }
+
+    //j soll bei 0 anfangen, sich ab 1 dann aber verdoppeln.
+    if(!j) j++;
+  }
+  
+  var clr = 0x777777, select = false;
+  if(idWeap == idActualWeap && !iAtt)
+  {
+  	select = true;
+  	clr = 0xFFFF33;
+	}
+	
+	if(idActualWeap)
+  	AddMenuItem(Format("<c %x>$NoAttachment$</c>", clr), Format("ChooseAttachment(%d, %i, 0, Object(%d), %d, %d)", iClass, idActualWeap, ObjectNumber(pClonk), count+1, select), ROCK, pClonk, 0, pClonk, 0, 2, GetCData(i, CData_Facet));
 
   if(iSelection) SelectMenuItem(iSelection, pClonk);
 }
