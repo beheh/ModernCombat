@@ -1,2 +1,0 @@
-DE:CMC - <c 33ccff>Open Beta</c> - <c ffff33>Operation Métro</c>
-US:CMC - <c 33ccff>Open Beta</c> - <c ffff33>Operation Métro</c>
