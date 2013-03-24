@@ -1,7 +1,8 @@
-/*-- Granatwerfer-Erweiterung für Waffenupgrades --*/
+/*-- Slingshot-Erweiterung für Waffenupgrades --*/
 
 #strict 2
 #appendto SGST
+
 
 func PermittedAtts()
 {
@@ -40,6 +41,10 @@ func FxLaserDotTimer(object pTarget, int iEffectNumber, int iEffectTime)
 public func FMData1(int data)
 {
   if(data == FM_AmmoLoad)	return _inherited(data) + (iAttachment == AT_ExtendedMag)*2;	//Magazingröße
+
+  if(data == FM_SpreadAdd)	return 200 - (iAttachment == AT_Laserpointer)*10;	//Bei jedem Schuss hinzuzuaddierende Streuung
+  if(data == FM_StartSpread)	return 80 - (iAttachment == AT_Laserpointer)*20;	//Bei Auswahl der Waffe gesetzte Streuung
+  if(data == FM_MaxSpread)	return 400 - (iAttachment == AT_Laserpointer)*150;	//Maximaler Streuungswert
 
   return _inherited(data);
 }

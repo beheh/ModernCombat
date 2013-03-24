@@ -4,7 +4,7 @@
 
 local iAttachment;
 
-public func IsDrawable()	{return true;}		//Wird sichtbar getragen
+public func IsDrawable()	{return true;}	//Wird sichtbar getragen
 public func HandSize()		{return 800;}
 public func HandX()		{return 6000;}
 public func HandY()		{return -1000;}
@@ -100,7 +100,7 @@ global func AttachmentIcon(int iAtt)
   if(iAtt == AT_Bayonet)		return SM22;
   if(iAtt == AT_Laserpointer)		return SM23;
   if(iAtt == AT_Silencer)		return SM24;
-  if(iAtt == AT_Foregrip)		return SM25;
+  if(iAtt == AT_Flashlight)		return SM25;
 }
 
 /* Sonstiges */
@@ -116,6 +116,8 @@ protected func Selection()
   Sound("FAPK_Charge.ogg");
   return 1;
 }
+
+/* Übergabe an andere */
 
 func ControlThrow(object pByObj)
 {

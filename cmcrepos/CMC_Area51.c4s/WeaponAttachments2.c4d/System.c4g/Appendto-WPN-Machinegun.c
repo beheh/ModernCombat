@@ -5,18 +5,18 @@
 
 func PermittedAtts()
 {
-  return AT_ExtendedMag | AT_Bayonet | AT_Laserpointer | AT_Foregrip;
+  return AT_ExtendedMag | AT_Bayonet | AT_Laserpointer;
 }
 
 public func FMData1(int data)
 {
   if(data == FM_AmmoLoad)
-    return _inherited(data) + (iAttachment == AT_ExtendedMag)*20;		//Magazingröße
+    return _inherited(data) + (iAttachment == AT_ExtendedMag)*20;			//Magazingröße
 
-  if(data == FM_SpreadAdd)	return 30 - (iAttachment == AT_Foregrip)*4;	//Bei jedem Schuss hinzuzuaddierende Streuung
-  if(data == FM_StartSpread)	return 220 - (iAttachment == AT_Foregrip)*20;	//Bei Auswahl der Waffe gesetzte Streuung
-  if(data == FM_MaxSpread)	return 420 - (iAttachment == AT_Foregrip)*70;	//Maximaler Streuungswert
-  if(data == FM_MinSpread)	return 20 - (iAttachment == AT_Foregrip)*10;	//Kleinstmögliche Streuung
+  if(data == FM_SpreadAdd)	return 30 - (iAttachment == AT_Laserpointer)*4;		//Bei jedem Schuss hinzuzuaddierende Streuung
+  if(data == FM_StartSpread)	return 220 - (iAttachment == AT_Laserpointer)*20;	//Bei Auswahl der Waffe gesetzte Streuung
+  if(data == FM_MaxSpread)	return 420 - (iAttachment == AT_Laserpointer)*70;	//Maximaler Streuungswert
+  if(data == FM_MinSpread)	return 20 - (iAttachment == AT_Laserpointer)*10;	//Kleinstmögliche Streuung
 
   return _inherited(data);
 }
