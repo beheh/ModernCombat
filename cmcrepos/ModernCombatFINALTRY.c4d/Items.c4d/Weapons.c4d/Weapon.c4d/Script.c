@@ -1026,7 +1026,8 @@ private func Shoot(object caller)
   {
     shooting = false;
     OnEmpty();
-    if(GetFMData(FM_Auto)) {
+    if(GetFMData(FM_Auto))
+    {
       OnAutoStop(firemode); 
       OnFireStop(firemode);
     }
@@ -1036,7 +1037,7 @@ private func Shoot(object caller)
       ScheduleCall(this, "Reload", 5);
   }
   if(!GetFMData(FM_Auto) && !GetFMData(FM_BurstAmount)) OnFireStop(firemode);
-  //HZCK soll Munition doch bitte neu anschauen
+  //HZCK soll Munition aktualisieren
   if(user)
     user->~UpdateCharge();
   return true;
@@ -1248,10 +1249,10 @@ public func GetFMData(int data, int i, int t)
   //i nicht angegeben? Muss nicht, ist aktueller dann
   if(!i) i=firemode;
   if(!t) t=GetFireTec(i);
-  
+
   //Revolversystem: Nachladezeit errechnen
   if(data == FM_Reload && GetFMData(FM_SingleReload))
-  	return GetFMData(FM_SingleReload) * GetFMData(FM_AmmoLoad) + GetFMData(FM_PrepareReload) + GetFMData(FM_FinishReload);
+    return GetFMData(FM_SingleReload) * GetFMData(FM_AmmoLoad) + GetFMData(FM_PrepareReload) + GetFMData(FM_FinishReload);
 
   var value,ammoid;
   if(CheckFireTec(t,i))

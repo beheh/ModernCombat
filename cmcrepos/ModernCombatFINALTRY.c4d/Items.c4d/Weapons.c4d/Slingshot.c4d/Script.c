@@ -37,7 +37,6 @@ public func FMData1(int data)
   if(data == FM_PrepareReload)	return 30;	//Zeit bevor das eigentliche Nachladen beginnt
   if(data == FM_FinishReload)	return 35;	//Zeit nach dem Nachladen
 
-  if(data == FM_Reload)		return 210;	//Zeit für Nachladen
   if(data == FM_Recharge)	return 50;	//Zeit bis erneut geschossen werden kann
 
   if(data == FM_Damage)		return 20;	//Schadenswert
