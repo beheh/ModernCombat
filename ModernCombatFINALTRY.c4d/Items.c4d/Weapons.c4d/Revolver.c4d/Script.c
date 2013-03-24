@@ -35,7 +35,6 @@ public func FMData1(int data)
   if(data == FM_AmmoLoad)	return 6;	//Magazingröße
   if(data == FM_AmmoUsage)	return 1;	//Munition pro Schuss
 
-  if(data == FM_Reload)		return 90;	//Zeit für Nachladen
   if(data == FM_Recharge)	return 15;	//Zeit bis erneut geschossen werden kann
 
   if(data == FM_SingleReload)	return 7;	//Zeit des einzelnen Nachladens bei Revolversystemen
