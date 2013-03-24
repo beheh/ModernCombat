@@ -5,17 +5,17 @@
 
 func PermittedAtts()
 {
-  return AT_ExtendedMag | AT_Laserpointer | AT_Silencer | AT_Foregrip;
+  return AT_ExtendedMag | AT_Laserpointer | AT_Silencer;
 }
 
 public func FMData1(int data)
 {
   if(data == FM_AmmoLoad)	return 30 + (iAttachment == AT_ExtendedMag)*9;	//Magazingröße
 
-  if(data == FM_SpreadAdd)	return 20 - (iAttachment == AT_Foregrip)*4;	//Bei jedem Schuss hinzuzuaddierende Streuung
-  if(data == FM_StartSpread)	return 110 - (iAttachment == AT_Foregrip)*20;	//Bei Auswahl der Waffe gesetzte Streuung
-  if(data == FM_MaxSpread)	return 410 - (iAttachment == AT_Foregrip)*110;	//Maximaler Streuungswert
-  if(data == FM_MinSpread)	return 60 - (iAttachment == AT_Foregrip)*20;	//Kleinstmögliche Streuung
+  if(data == FM_SpreadAdd)	return 20 - (iAttachment == AT_Laserpointer)*4;		//Bei jedem Schuss hinzuzuaddierende Streuung
+  if(data == FM_StartSpread)	return 110 - (iAttachment == AT_Laserpointer)*20;	//Bei Auswahl der Waffe gesetzte Streuung
+  if(data == FM_MaxSpread)	return 410 - (iAttachment == AT_Laserpointer)*110;	//Maximaler Streuungswert
+  if(data == FM_MinSpread)	return 60 - (iAttachment == AT_Laserpointer)*20;	//Kleinstmögliche Streuung
 
   if(data == FM_Damage)		return 6 - (iAttachment == AT_Silencer)*(Random(10)<6);	//Schadenswert
 
@@ -24,14 +24,14 @@ public func FMData1(int data)
 
 public func FMData1T2(int data)
 {
-  if(data == FM_MinSpread)	return FMData1(data) - (iAttachment == AT_Foregrip)*10;	//Kleinstmögliche Streuung
+  if(data == FM_MinSpread)	return FMData1(data) - (iAttachment == AT_Laserpointer)*10;	//Kleinstmögliche Streuung
 
   return _inherited(data);
 }
 
 public func FMData1T3(int data)
 {
-  if(data == FM_MinSpread)	return FMData1(data) - (iAttachment == AT_Foregrip)*20;	//Kleinstmögliche Streuung
+  if(data == FM_MinSpread)	return FMData1(data) - (iAttachment == AT_Laserpointer)*20;	//Kleinstmögliche Streuung
 
   return _inherited(data);
 }

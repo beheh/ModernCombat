@@ -10,8 +10,8 @@ static const AT_ExtendedMag		= 1;	//Erweitertes Magazin
 static const AT_Bayonet			= 2;	//Bajonett
 static const AT_Laserpointer		= 4;	//Laserpointer
 static const AT_Silencer		= 8;	//Schalldämpfer
-static const AT_Foregrip		= 16;	//Frontgriff
-static const AT_Anthrax			= 32;	//Anthrax-Munition
+static const AT_Flashlight		= 16;	//Taschenlampe
+static const AT_Anthrax			= 32;	//Anthrax-Aufsatz
 
 
 func PermittedAtts()
