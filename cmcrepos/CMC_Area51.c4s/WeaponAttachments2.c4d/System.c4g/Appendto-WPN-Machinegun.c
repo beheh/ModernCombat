@@ -53,9 +53,3 @@ public func Fire1()
   if(Inside(GetAmmo(GetFMData(FM_AmmoID)), 1, GetFMData(FM_AmmoLoad)/3))
     Sound("MNGN_Click.ogg", 0, ammo, 0, GetOwner(user)+1);
 }
-
-func OnSelect()
-{
-  Sound("MNGN_Charge.ogg");
-  if(iAttachment) HelpMessage(GetOwner(Contained(this)), Format("%s | %s", GetName(0, AttachmentIcon(iAttachment)), GetName(0, GetID(this))), Contained(this));
-}

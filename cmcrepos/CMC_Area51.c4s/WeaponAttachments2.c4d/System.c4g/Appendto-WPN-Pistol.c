@@ -52,9 +52,3 @@ public func Fire1()
       EffectVar(0, this, GetEffect("Silencer", this)) -= BoundBy(25, 0, EffectVar(0, this, GetEffect("Silencer", this)));
   }
 }
-
-func OnSelect()
-{
-  Sound("PSTL_Charge.ogg");
-  if(iAttachment) HelpMessage(GetOwner(Contained(this)), Format("%s | %s", GetName(0, AttachmentIcon(iAttachment)), GetName(0, GetID(this))), Contained(this));
-}

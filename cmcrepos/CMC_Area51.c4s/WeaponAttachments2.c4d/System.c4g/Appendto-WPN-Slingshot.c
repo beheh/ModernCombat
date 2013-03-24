@@ -48,9 +48,3 @@ public func FMData1(int data)
 
   return _inherited(data);
 }
-
-func OnSelect()
-{
-  Sound("SGST_Charge.ogg");
-  if(iAttachment) HelpMessage(GetOwner(Contained(this)), Format("%s | %s", GetName(0, AttachmentIcon(iAttachment)), GetName(0, GetID(this))), Contained(this));
-}

@@ -86,9 +86,3 @@ public func LaunchRocket(id rid, int angle, bool unguided, bool fLaserGuided)
   }
   Echo("RTLR_Echo.ogg");
 }
-
-func OnSelect()
-{
-  Sound("RTLR_Charge.ogg");
-  if(iAttachment) HelpMessage(GetOwner(Contained(this)), Format("%s | %s", GetName(0, AttachmentIcon(iAttachment)), GetName(0, GetID(this))), Contained(this));
-}
