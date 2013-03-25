@@ -22,3 +22,4 @@ PlayerChoosedClass=%s joins as <c ffff33>%s</c>
 PlayerChoosedClass2=%s joins as <c ffff33>%s</c> %s
 NotEnoughAmmo=Not enough {{%i}}!
 Single=Single Fire
+Unguided=Unguided

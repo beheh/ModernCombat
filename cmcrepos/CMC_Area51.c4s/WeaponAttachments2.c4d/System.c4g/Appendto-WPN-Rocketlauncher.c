@@ -9,22 +9,20 @@ func PermittedAtts()
   return AT_Laserpointer;
 }
 
-/* Raketen - Lasersteuerung */
+/* Raketen - Ungelenkt/Lastersteuerung */
 
-public func FMData1T1(int data)
+public func FMData1T2(int data)
 {
   if(data == FT_Name)
     if(GetAttachment() != AT_Laserpointer)
-      return "$Optical$";
+      return "$Unguided$";
     else
       return "$Laser$";
 
   return FMData1(data);
 }
 
-/* Raketen - Schuss */
-
-public func Fire1()
+public func Fire1T2()
 {
   if(GetAttachment() != AT_Laserpointer)
     LaunchRocket(MISL,Contained()->~AimAngle(10));
@@ -34,7 +32,7 @@ public func Fire1()
 
 func FxLaserDotTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
-  if(aFM_FireTec[0] != 1 || IsReloading())
+  if(aFM_FireTec[0] != 2 || IsReloading())
   {
     if(pBeam) RemoveObject(pBeam);
     if(pLaser) RemoveObject(pLaser);
