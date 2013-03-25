@@ -7,7 +7,7 @@ local crew;
 local lastclass;
 local selection;
 local submenu;
-
+local aOpenBetaStats;
 
 /* Initialisierung */
 
@@ -18,6 +18,7 @@ protected func Initialize()
   lastclass = [];
   selection = [];
   submenu = [];
+
   ScheduleCall(0,"Initialized",1);
 }
 
@@ -332,6 +333,14 @@ private func OpenMenu(object pClonk, int iSelection)
   //Die Klassen
   var i = 0;
   var displaying = 0;
+  
+  var obInitialize = false;
+  if(!aOpenBetaStats)
+  {
+  	obInitialize = true;
+  	aOpenBetaStats = [];
+  }
+
   while(GetCData(++i, CData_Name))
   {
     if(!GetCData(i, CData_DisplayCondition, iOwner))
@@ -344,6 +353,16 @@ private func OpenMenu(object pClonk, int iSelection)
 
     AddMenuItem(szName, Format("OpenMenuAttachment(%d, %d, Object(%d))", 0, i, ObjectNumber(pClonk)), GetCData(i, CData_Icon), pClonk, 0, 0, 0, 2, GetCData(i, CData_Facet));
     displaying++;
+    
+    if(obInitialize)
+    {
+    	aOpenBetaStats[i] = [szName];
+			var aItems = GetCData(i, CData_Items);
+			for(var aEntry in aItems)
+				if(GetType(aEntry) == C4V_Array && GetType(aEntry[0]) == C4V_C4ID && aEntry[0]->~IsWeapon())
+				  aOpenBetaStats[i][GetLength(aOpenBetaStats[i])] = [aEntry[0]];
+    }
+
     if(i == iClass) iSelection = InfoMenuItems() + displaying;
   }
 
@@ -450,7 +469,21 @@ public func SetupClass(int iClass, int iPlr)
       var idWeap, iAtt;
       idWeap = GetPlrExtraData(iPlr, Format("CMC_Weap%d", iClass));
       iAtt = GetPlrExtraData(iPlr, Format("CMC_Att%d", iClass));
-      if(idWeap && iAtt && idWeap == aEntry[0]) tempItem->SetAttachment(iAtt);
+      if(idWeap && iAtt && idWeap == aEntry[0])
+      { 
+      	tempItem->SetAttachment(iAtt);
+    		for(var i = 0; i < GetLength(aOpenBetaStats[iClass]); i++)
+    		{
+    			var j = 0;
+    			for(; 2**j < 2**30; j++)
+    				if(2**j == iAtt)
+    					break;
+
+    			var item = aOpenBetaStats[iClass][i];
+    			if(GetType(item) == C4V_Array && item[0] == idWeap)
+    				aOpenBetaStats[iClass][i][j]++;
+    		}
+    	}
     }
 
   //Granaten
