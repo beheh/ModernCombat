@@ -322,15 +322,12 @@ func CreateDecoration()
   CreateObject(TCCN, 2400, 1480, -1);
   CreateObject(TCCN, 2430, 1480, -1)->Light();
   CreateObject(TCCN, 2460, 1480, -1);
-
   CreateObject(TCCN, 2835, 1310, -1);
   CreateObject(TCCN, 2895, 1310, -1);
-
   CreateObject(TCCN, 3270, 1480, -1);
   CreateObject(TCCN, 3300, 1480, -1)->Light();
   CreateObject(TCCN, 3330, 1480, -1);
   CreateObject(TCCN, 3360, 1480, -1)->Light();
-
 
   //Geländer
   CreateObject(RAI3, 1195, 700, -1)->SetRail([1,1]);
@@ -345,6 +342,10 @@ func CreateDecoration()
   CreateObject(RAI1, 3980, 780, -1)->SetRail([1,1,1,1,1,1,1,1,1,1,1,1,1]);
   CreateObject(RAI1, 3935, 990, -1)->SetRail([1,1]);
   CreateObject(RAI3, 4495, 700, -1)->SetRail([1,1]);
+
+  //Bildschirme
+  CreateObject(SCA2, 1155, 873, -1)->SetAction("News");
+  CreateObject(SCA2, 4575, 873, -1)->SetAction("News");
 
   //Verbrannte Burgen
   CreateObject(CSB2, 1465, 1270, -1)->SetR(-2);
