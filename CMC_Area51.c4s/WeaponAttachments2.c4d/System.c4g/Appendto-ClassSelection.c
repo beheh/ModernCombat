@@ -625,10 +625,10 @@ public func OpenMenuAttachment(id idParamWeapon, int iClass, object pClonk, int 
     iterations++;
     iTempAtt/=2;
   }
-  
+
   var name = GetName(0, AttachmentIcon(iAtt));
   if(!iAtt)
-  	name = "$NoAttachment$";
+    name = "$NoAttachment$";
 
   AddMenuItem(Format("<c ffff33>%s</c>|%s", name, DescAtts[iterations]), 0, NONE, pClonk, 0, 0, " ");
 
@@ -682,12 +682,12 @@ public func OpenMenuAttachment(id idParamWeapon, int iClass, object pClonk, int 
   var clr = 0x777777, select = false;
   if(idWeap == idActualWeap && !iAtt)
   {
-  	select = true;
-  	clr = 0xFFFF33;
-	}
-	
-	if(idActualWeap)
-  	AddMenuItem(Format("<c %x>$NoAttachment$</c>", clr), Format("ChooseAttachment(%d, %i, 0, Object(%d), %d, %d)", iClass, idActualWeap, ObjectNumber(pClonk), count+1, select), ROCK, pClonk, 0, pClonk, 0, 2, GetCData(i, CData_Facet));
+    select = true;
+    clr = 0xFFFF33;
+  }
+
+  if(idActualWeap)
+    AddMenuItem(Format("<c %x>$NoAttachment$</c>", clr), Format("ChooseAttachment(%d, %i, 0, Object(%d), %d, %d)", iClass, idActualWeap, ObjectNumber(pClonk), count+1, select), ROCK, pClonk, 0, pClonk, 0, 2, GetCData(i, CData_Facet));
 
   if(iSelection) SelectMenuItem(iSelection, pClonk);
 }
