@@ -75,10 +75,8 @@ global func DoDmg(int iDmg, int iType, object pTarget, int iPrecision, int dmgpl
   return DoDamage(dmg/1000, pTarget, 0, dmgplayer);
 }
 
+/* Verbesserte (durch genaue) Schadensvergabe (ersetzt nicht DoDmg) */
 
-/* DoDmg2, ähnlich wie DoDmg, Schadenswerte lassen sich jedoch mit Präzision korrekt angeben. 
- * Aus Abwärtskompatibilitätsgründen bleibt DoDmg so drin */
- 
 global func DoDmg2(int iDmg, int iType, object pTarget, int iPrecision, int dmgplayer, id idKillIcon, int iKillAttachment)
 {
   if(!pTarget)
@@ -142,7 +140,7 @@ global func DoDmg2(int iDmg, int iType, object pTarget, int iPrecision, int dmgp
     pFrom = this;
   if(!pFrom) pFrom = GetCrew(dmgdealer);
 
-	dmg = dmg * 1000 / iPrecision;
+  dmg = dmg * 1000 / iPrecision;
 
   pTarget->~LastDamageType(iType);
   pTarget->~OnHit(dmg/1000, iType, pFrom);
