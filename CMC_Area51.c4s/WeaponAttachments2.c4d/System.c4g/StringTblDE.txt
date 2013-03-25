@@ -19,3 +19,4 @@ PlayerChoosedClass2=%s steigt als <c ffff33>%s</c> %s ein
 NotEnoughAmmo=Nicht genug {{%i}}!
 Single=Einzelfeuer
 Optical=Optisches Lenken
+Unguided=Ungelenkt
