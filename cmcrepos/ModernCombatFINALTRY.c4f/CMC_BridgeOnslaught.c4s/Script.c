@@ -436,8 +436,10 @@ func CreateDecoration()
 
   //Bildschirme
   CreateObject(SCR3, 360, 520, -1);
-  CreateObject(SCA2, 680, 765, -1)->SetAction("Wompf");
-  CreateObject(SCA2, 2045, 765, -1)->SetAction("News");
+  CreateObject(SCA2, 640, 765, -1)->SetAction("News");
+  CreateObject(SCA2, 700, 765, -1)->SetAction("Clonk");
+  CreateObject(SCA2, 2030, 765, -1)->SetAction("Wompf");
+  CreateObject(SCA2, 2090, 765, -1)->SetAction("News");
   CreateObject(SCR3, 2370, 520, -1);
 
   //Monitore
