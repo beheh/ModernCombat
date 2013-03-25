@@ -217,7 +217,7 @@ private func InfoMenuItems()
 
 public func FxClassMenuTimer(object pTarget, int nr)
 {
-  if(!GetMenu(pTarget) || ++EffectVar(0, pTarget, nr) <= 1)
+  if(!GetMenu(pTarget) || (GetMenu(pTarget) != GetID() && ++EffectVar(0, pTarget, nr) <= 1))
   {
     CloseMenu(pTarget);
     OpenMenu(pTarget, selection[GetOwner(pTarget)]);
