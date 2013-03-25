@@ -243,12 +243,18 @@ func CreateDecoration()
   CreateObject(RAI1, 1125, 620, -1)->SetRail([1,1,1,1,1,1]);
   CreateObject(RAI1, 1255, 620, -1);
   CreateObject(RAI3, 1450, 670, -1);
+
+  CreateObject(RAI1, 2081, 850, -1)->SetRail([1,1,1,1]);
+
   CreateObject(RAI3, 2760, 670, -1);
   CreateObject(RAI1, 2960, 620, -1);
   CreateObject(RAI1, 3000, 620, -1)->SetRail([1,1,1,1,1,1]);
   CreateObject(RAI3, 3120, 670, -1);
   CreateObject(RAI1, 3460, 590, -1)->SetRail([1,1,1,1,1,1,1,1]);
   CreateObject(RAI3, 3847, 560, -1)->SetRail([1,1]);
+
+  //Bildschirm
+  CreateObject(SCA2, 2120, 830, -1)->SetAction("News");
 
   //Verbranntes Schloss
   CreateObject(CSB3, 2690, 990, -1)->SetR(2);
