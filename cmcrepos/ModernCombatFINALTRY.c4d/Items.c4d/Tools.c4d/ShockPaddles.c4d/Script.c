@@ -179,6 +179,9 @@ func HealAmount()	{return 50;}
 
 func FxShockPaddlesHealStart(object pTarget, int iEffectNumber, int iTemp, int iHealAmount, int iHealRate)
 {
+	if(iTemp)
+		return true;
+
   //Heilungsrate und -menge festlegen
   EffectVar(0,pTarget,iEffectNumber) = iHealAmount;	//Heilung pro Frame
   EffectVar(1,pTarget,iEffectNumber) = iHealRate;	//Zeitdauer der Heilung
