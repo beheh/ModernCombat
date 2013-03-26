@@ -152,13 +152,9 @@ public func Fire2()
 
 /* Handeffekt */
 
-public func HandR()
-{
-  var effect = IsReloading();
-  if(effect)
-    return -BoundBy(GetEffect(0,this,effect,6)*2,0,-20);
-  return;
-}
+public func ReloadAnimation() { return true; }
+public func MaxReloadRotation() { return -20; }
+public func ReloadAnimationSpeed() { return 2; }
 
 /* Allgemein */
 
