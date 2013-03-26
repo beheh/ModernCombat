@@ -470,20 +470,23 @@ public func SetupClass(int iClass, int iPlr)
       idWeap = GetPlrExtraData(iPlr, Format("CMC_Weap%d", iClass));
       iAtt = GetPlrExtraData(iPlr, Format("CMC_Att%d", iClass));
       if(idWeap && iAtt && idWeap == aEntry[0])
-      {
-        tempItem->SetAttachment(iAtt);
-        for(var i = 0; i < GetLength(aOpenBetaStats[iClass]); i++)
-        {
-          var j = 0;
-          for(; 2**j < 2**30; j++)
-            if(2**j == iAtt)
-              break;
+      { 
+      	tempItem->SetAttachment(iAtt);
+    		for(var i = 0; i < GetLength(aOpenBetaStats[iClass]); i++)
+    		{
+    			var j = 0;
+    			for(; 2**j < 2**30; j++)
+    				if(2**j == iAtt)
+    					break;
 
-          var item = aOpenBetaStats[iClass][i];
-          if(GetType(item) == C4V_Array && item[0] == idWeap)
-            aOpenBetaStats[iClass][i][j]++;
-        }
-      }
+					if(!iAtt)
+						j = -1;
+
+    			var item = aOpenBetaStats[iClass][i];
+    			if(GetType(item) == C4V_Array && item[0] == idWeap)
+    				aOpenBetaStats[iClass][i][j+2]++;
+    		}
+    	}
     }
 
   //Granaten
@@ -666,7 +669,10 @@ public func OpenMenuAttachment(id idParamWeapon, int iClass, object pClonk, int 
   AddMenuItem(Format("<c ffff33>%s</c>|%s", name, DescAtts[iterations]), 0, NONE, pClonk, 0, 0, " ");
 
   //Leerzeilen-Platzhalter
-  AddMenuItem(" ||| ", 0, NONE, pClonk, 0, 0, " ");
+  AddMenuItem(" | ", 0, NONE, pClonk, 0, 0, " ");
+  AddMenuItem(" | ", 0, NONE, pClonk, 0, 0, " ");
+  AddMenuItem(" ", 0, NONE, pClonk, 0, 0, " ");
+  AddMenuItem(" ", 0, NONE, pClonk, 0, 0, " ");
   if(!FindObject(NOAM))
   {
     AddMenuItem(" ", 0, NONE, pClonk, 0, 0, " ");
@@ -743,4 +749,11 @@ public func ChangeWeapon(int iClass, id idWeapon, object pClonk, int iSelection)
 
   //Sound
   Sound("WPN2_Handle*.ogg", 1, pClonk, 100, GetOwner(pClonk)+1);
+}
+
+public func OnGameOver()
+{
+  aOpenBetaStats[0] = [Random(65536) * FrameCounter(), GetScenTitle()];
+  Log("%v", aOpenBetaStats);
+	return _inherited(...);
 }
