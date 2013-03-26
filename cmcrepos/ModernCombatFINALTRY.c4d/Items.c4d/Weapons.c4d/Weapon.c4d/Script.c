@@ -479,6 +479,7 @@ public func FxReloadStart(object pTarget, int iNumber, int iTemp, int iTime,iSlo
   EffectVar(4,pTarget,iNumber) = EffectVar(0,pTarget,iNumber);
   EffectVar(5,pTarget,iNumber) = -1;
   EffectVar(6,pTarget,iNumber) = 0;
+  EffectVar(7,pTarget,iNumber) = GetFMData(FM_PrepareReload) + EffectVar(0, pTarget, iNumber);
 
   //Reload-End-Spam verhindern
   if(GetFMData(FM_SingleReload))
@@ -653,6 +654,44 @@ public func Reload(int iFM)
   AddEffect("Reload", this, 1, 1, this, 0, 0,iSlot);
 
   return true;
+}
+
+//Schwenkanimtaion beim Nachladen
+public func HandR()
+{
+	var effect = IsReloading(); 
+	if(!effect || !this->~ReloadAnimation())
+	{
+		if(this->~RechargeAnimation() && IsRecharging())
+			effect = IsRecharging();
+		else
+			return;
+		
+		if(!effect)
+			return;
+	}
+	
+	//Keine Schwenkanimation wenn Nachladen beendet (Revolversystem)
+	if(effect == IsReloading() && EffectVar(5, this, effect) > 0)
+		return;
+	
+	var max = this->~MaxReloadRotation();
+	if(effect == IsRecharging())
+		max = this->~MaxRechargeRotation();
+
+	var speed = (this->~ReloadAnimationSpeed() || 1);
+	var time = GetEffect(0, this, effect, 6) * speed;
+	var reload = EffectVar(7, this, effect);// + GetFMData(FM_BurstRecharge);
+
+	if(effect == IsRecharging())
+		reload = GetFMData(FM_Recharge);
+
+	if(time / ((reload * speed) / 2) == 1)
+		time -= (time % ((reload * speed) / 2)) * 2;
+	else if(time / ((reload * speed) / 2) > 1)
+		time = 0;
+
+	return -BoundBy(time, 0, max);
 }
 
 /*----- Werfen -----*/
@@ -1249,10 +1288,6 @@ public func GetFMData(int data, int i, int t)
   //i nicht angegeben? Muss nicht, ist aktueller dann
   if(!i) i=firemode;
   if(!t) t=GetFireTec(i);
-
-  //Revolversystem: Nachladezeit errechnen
-  if(data == FM_Reload && GetFMData(FM_SingleReload))
-    return GetFMData(FM_SingleReload) * GetFMData(FM_AmmoLoad) + GetFMData(FM_PrepareReload) + GetFMData(FM_FinishReload);
 
   var value,ammoid;
   if(CheckFireTec(t,i))
