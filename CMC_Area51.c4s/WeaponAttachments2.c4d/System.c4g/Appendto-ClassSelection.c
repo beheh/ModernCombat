@@ -7,7 +7,7 @@ local crew;
 local lastclass;
 local selection;
 local submenu;
-local aOpenBetaStats;
+local aOpenBetaStats; //Beta-Datenerfassung
 
 /* Initialisierung */
 
@@ -334,6 +334,7 @@ private func OpenMenu(object pClonk, int iSelection)
   var i = 0;
   var displaying = 0;
   
+  //Beta-Datenerfassung
   var obInitialize = false;
   if(!aOpenBetaStats)
   {
@@ -354,6 +355,7 @@ private func OpenMenu(object pClonk, int iSelection)
     AddMenuItem(szName, Format("OpenMenuAttachment(%d, %d, Object(%d))", 0, i, ObjectNumber(pClonk)), GetCData(i, CData_Icon), pClonk, 0, 0, 0, 2, GetCData(i, CData_Facet));
     displaying++;
     
+    //Beta-Datenerfassung
     if(obInitialize)
     {
     	aOpenBetaStats[i] = [szName];
@@ -472,6 +474,8 @@ public func SetupClass(int iClass, int iPlr)
       if(idWeap && iAtt && idWeap == aEntry[0])
       { 
       	tempItem->SetAttachment(iAtt);
+
+    		//Beta-Datenerfassung
     		for(var i = 0; i < GetLength(aOpenBetaStats[iClass]); i++)
     		{
     			var j = 0;
@@ -751,8 +755,11 @@ public func ChangeWeapon(int iClass, id idWeapon, object pClonk, int iSelection)
   Sound("WPN2_Handle*.ogg", 1, pClonk, 100, GetOwner(pClonk)+1);
 }
 
+//Beta-Datenerfassung
 public func OnGameOver()
 {
+	//GetScenTitle ist nicht syncsicher, sorgt jedoch für Übersichtlichkeit in der Datenbank.
+	// -> Wird jedoch nur zu Rundenende(!) aufgerufen, daher keine großartigen Spielverluste.
   aOpenBetaStats[0] = [Random(65536) * FrameCounter(), GetScenTitle()];
   Log("%v", aOpenBetaStats);
 	return _inherited(...);
