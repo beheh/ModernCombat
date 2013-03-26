@@ -152,9 +152,9 @@ public func Fire2()
 
 /* Handeffekt */
 
-public func ReloadAnimation() { return true; }
-public func MaxReloadRotation() { return -20; }
-public func ReloadAnimationSpeed() { return 2; }
+public func ReloadAnimation()		{return true;}
+public func MaxReloadRotation()		{return -20;}
+public func ReloadAnimationSpeed()	{return 2;}
 
 /* Allgemein */
 
