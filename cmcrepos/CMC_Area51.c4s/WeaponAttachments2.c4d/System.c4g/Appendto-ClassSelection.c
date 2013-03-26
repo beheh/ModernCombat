@@ -473,24 +473,24 @@ public func SetupClass(int iClass, int iPlr)
       iAtt = GetPlrExtraData(iPlr, Format("CMC_Att%d", iClass));
       if(idWeap && iAtt && idWeap == aEntry[0])
       { 
-      	tempItem->SetAttachment(iAtt);
+        tempItem->SetAttachment(iAtt);
 
-    		//Beta-Datenerfassung
-    		for(var i = 0; i < GetLength(aOpenBetaStats[iClass]); i++)
-    		{
-    			var j = 0;
-    			for(; 2**j < 2**30; j++)
-    				if(2**j == iAtt)
-    					break;
+        //Beta-Datenerfassung
+        for(var i = 0; i < GetLength(aOpenBetaStats[iClass]); i++)
+        {
+          var j = 0;
+          for(; 2**j < 2**30; j++)
+          if(2**j == iAtt)
+              break;
 
-					if(!iAtt)
-						j = -1;
+          if(!iAtt)
+            j = -1;
 
-    			var item = aOpenBetaStats[iClass][i];
-    			if(GetType(item) == C4V_Array && item[0] == idWeap)
-    				aOpenBetaStats[iClass][i][j+2]++;
-    		}
-    	}
+          var item = aOpenBetaStats[iClass][i];
+          if(GetType(item) == C4V_Array && item[0] == idWeap)
+            aOpenBetaStats[iClass][i][j+2]++;
+        }
+      }
     }
 
   //Granaten
@@ -758,9 +758,10 @@ public func ChangeWeapon(int iClass, id idWeapon, object pClonk, int iSelection)
 //Beta-Datenerfassung
 public func OnGameOver()
 {
-	//GetScenTitle ist nicht syncsicher, sorgt jedoch für Übersichtlichkeit in der Datenbank.
-	// -> Wird jedoch nur zu Rundenende(!) aufgerufen, daher keine großartigen Spielverluste.
+  //GetScenTitle ist nicht syncsicher, sorgt jedoch für Übersichtlichkeit in der Datenbank.
+  //-> Wird jedoch nur zu Rundenende(!) aufgerufen, daher keine großartigen Spielverluste.
   aOpenBetaStats[0] = [Random(65536) * FrameCounter(), GetScenTitle()];
   Log("%v", aOpenBetaStats);
-	return _inherited(...);
+
+  return _inherited(...);
 }
