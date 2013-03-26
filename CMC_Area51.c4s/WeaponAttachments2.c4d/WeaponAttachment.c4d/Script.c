@@ -96,11 +96,11 @@ protected func Attach(id iItem, object pUser)
 global func AttachmentIcon(int iAtt)
 {
   if(iAtt == AT_NoAttachment)		return 0;
-  if(iAtt == AT_ExtendedMag)		return SM21;
-  if(iAtt == AT_Bayonet)		return SM22;
-  if(iAtt == AT_Laserpointer)		return SM23;
-  if(iAtt == AT_Silencer)		return SM24;
-  if(iAtt == AT_Flashlight)		return SM25;
+  if(iAtt == AT_ExtendedMag)		return AI01;
+  if(iAtt == AT_Bayonet)		return AI02;
+  if(iAtt == AT_Laserpointer)		return AI03;
+  if(iAtt == AT_Silencer)		return AI04;
+  if(iAtt == AT_Flashlight)		return AI05;
 }
 
 /* Sonstiges */
