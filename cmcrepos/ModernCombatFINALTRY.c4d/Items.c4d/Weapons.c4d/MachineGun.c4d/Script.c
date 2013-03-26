@@ -116,17 +116,17 @@ public func Fire1()
 
 /* Handeffekt */
 
-public func ReloadAnimation() { return true; }
-public func RechargeAnimation() { return true; }
-public func MaxRechargeRotation() { return 1; }
+public func ReloadAnimation()		{return true;}
+public func RechargeAnimation()		{return true;}
+public func MaxRechargeRotation()	{return 1;}
 
 public func HandR()
 {
   var effect = IsReloading();
   if(effect)
     return Max(Sin(GetEffect(0,this,effect,6)*90/80,20),0);
-	else
-		return _inherited(...);
+  else
+    return _inherited(...);
 }
 
 /* Allgemein */

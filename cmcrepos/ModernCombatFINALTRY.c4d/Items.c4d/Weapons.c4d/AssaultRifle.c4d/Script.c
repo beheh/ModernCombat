@@ -246,11 +246,11 @@ public func LaunchGrenade(id idg, int speed, int angle, int mode)
 
 /* Handeffekt */
 
-public func ReloadAnimation() { return true; }
-public func RechargeAnimation() { return true; }
-public func MaxReloadRotation() { return 10; }
-public func MaxRechargeRotation() { return 1; }
-public func ReloadAnimationSpeed() { return 1 + !!IsReloading(); }
+public func ReloadAnimation()		{return true;}
+public func RechargeAnimation()		{return true;}
+public func MaxReloadRotation()		{return 10;}
+public func MaxRechargeRotation()	{ return 1;}
+public func ReloadAnimationSpeed()	{ return 1 + !!IsReloading();}
 
 /* Allgemein */
 
@@ -275,7 +275,7 @@ func OnReload(i)
 
 func OnSelect()
 {
-   Sound("ASTR_Charge.ogg");
+  Sound("ASTR_Charge.ogg");
 }
 
 public func OnSelectFT(int iFireMode, int iFireTec)

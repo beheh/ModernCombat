@@ -38,8 +38,8 @@ public func FMData1(int data)
   if(data == FM_SingleReload)	return 2;	//Zeit des einzelnen Nachladens bei Revolversystemen
   if(data == FM_PrepareReload)	return 10;	//Zeit bevor das eigentliche Nachladen beginnt
   if(data == FM_FinishReload)	return 25;	//Zeit nach dem Nachladen
-  if(data == FM_Reload)				return 75;
 
+  if(data == FM_Reload)		return 75;	//Zeit für Nachladen
   if(data == FM_Recharge)	return 30;	//Zeit bis erneut geschossen werden kann
 
   if(data == FM_Damage)		return 45;	//Schadenswert
@@ -138,11 +138,11 @@ public func FxPumpStop(object pTarget)
 
 /* Handeffekt */
 
-public func ReloadAnimation() { return true; }
-public func RechargeAnimation() { return true; }
-public func MaxReloadRotation() { return 17; }
-public func MaxRechargeRotation() { return 17; }
-public func ReloadAnimationSpeed() { return 2; }
+public func ReloadAnimation()		{return true;}
+public func RechargeAnimation()		{return true;}
+public func MaxReloadRotation()		{return 17;}
+public func MaxRechargeRotation()	{return 17;}
+public func ReloadAnimationSpeed()	{return 2;}
 
 /* Allgemein */
 
