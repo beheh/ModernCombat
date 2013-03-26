@@ -101,6 +101,7 @@ global func AttachmentIcon(int iAtt)
   if(iAtt == AT_Laserpointer)		return AI03;
   if(iAtt == AT_Silencer)		return AI04;
   if(iAtt == AT_Flashlight)		return AI05;
+  if(iAtt == AT_Anthrax)		return AI06;
 }
 
 /* Sonstiges */
