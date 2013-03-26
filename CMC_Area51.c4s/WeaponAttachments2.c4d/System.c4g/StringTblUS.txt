@@ -2,7 +2,7 @@
 
 ClassAttachment=Class Details
 Spawn=Spawn
-DescAttachments=["No weapon attachment in use.||| ","Die Waffe verwendet Magazine|mit größerer Kapazität und kann|so länger feuern, bis erneut|nachgeladen werden muss.","Das Bajonett am Lauf der Waffe|verbessert den Maximalschaden des|Kolbenschlages und stärkt so die|Nahkampffähigkeit.","Der Laserpointer erzeugt einen|sichtbaren Laser für einfacheres|Anvisieren und Erfassen von|gegnerischen Zielen.","Der Schalldämpfer senkt Schuss-|geräusche und -effekte und gibt|dem Schützen so Tarnfähigkeiten|für Schleichstrategien.","Der Frontgriff ermöglicht dem|Schützen eine bessere Handhabung|der Waffe, sodass diese beim|Feuern weniger verzieht."]
+DescAttachments=["Not using any weapon attachment|results in overall balanced|weapon characteristics.|","The weapon uses ammo clips|of bigger size and can shot|longer until it needs to|reload again.","The bayonet on the barrel of the|weapon increases the maximum|damage of melee strikes with it,|improving close combat abilities.","The laser pointer creates a|visible laser beam for easier|aiming and acquisition of enemy|targets.","The silencer reduces fire sounds|and effects while firing, thus|giving stealth abilities and|strategies to the shooter."]
 NoAttachment=No Weapon Attachment
 
 //Raketenwerfer
