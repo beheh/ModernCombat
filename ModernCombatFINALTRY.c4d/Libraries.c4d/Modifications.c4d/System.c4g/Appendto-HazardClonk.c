@@ -1066,6 +1066,12 @@ protected func PackAmmo(id idType, int iCaller)
   //Munition aus dem Munitionsgürtel entnehmen
   DoAmmo(idType,-iChange);
 
+  if(!Collect(pPack,this))
+  {
+    DoAmmo(idType,+iChange);
+    return RemoveObject(pPack);
+  }
+
   //Inventar auf erstellte Munition wechseln
   ShiftContents(pCaller, 0, CUAM);
 
