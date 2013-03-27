@@ -1051,22 +1051,26 @@ protected func PackAmmo(id idType, int iCaller)
 {
   var pCaller = Object(iCaller);
 
+  //Hat schon eine Box
+  if(FindContents(CUAM, pCaller))
+  {
+    PlayerMessage(GetOwner(pCaller), "$NoSpace$", pCaller);
+    return true;
+  }
+
   //Selbstgepackte Munition als CUAM erstellen
   var pPack = CreateObject(CUAM,0,0,GetOwner());
-
   pPack->SetAmmoID(idType);
   var iChange = pPack->DoAmmoCount(GetAmmo(idType));
+
+  //Munition aus dem Munitionsgürtel entnehmen
   DoAmmo(idType,-iChange);
-  
-  if(!Collect(pPack,this))
-  {
-    DoAmmo(idType,+iChange); 
-    return RemoveObject(pPack);
-  }
+
+  //Inventar auf erstellte Munition wechseln
+  ShiftContents(pCaller, 0, CUAM);
 
   Sound("PackAmmo.ogg");
 
-  //Menü schließen (nicht mehr als eine Munitionsbox tragbar)
   CloseMenu(pCaller);
 }
 
@@ -1074,15 +1078,15 @@ protected func DoAmmoPack(id idType)
 {
   var ap = idType->~AmmoPackID();
   if(!ap || !FindDefinition(ap)) return 0;
-  
+
   var my_count = GetAmmo(idType);
   var ap_count = ap->AmmoCount();
 
   if(my_count < ap_count) return 0;
-  
+
   var pack = CreateObject(ap,0,0,GetOwner());
   DoAmmo(idType,-ap_count);
-  
+
   return pack;
 }
 
@@ -1099,7 +1103,8 @@ local QINV_MenuOrder; //Reihenfolge im Menü
 local QINV_MenuItemIds; //ID-Reihenfolge der aufgesammelten Objekte einer Kategorie
 local QINV_GrenadeTemporary; //Granate zum Wegstecken
 
-public func Initialize() {
+public func Initialize()
+{
   QINV_MenuOrder = [RMEN_UpItem, RMEN_RightItem, RMEN_DownItem,  RMEN_LeftItem];
   QINV_MenuItemIds = [];
   QINV_GrenadeTemporary = 0;
@@ -1107,9 +1112,11 @@ public func Initialize() {
 }
 
 //Gibt die erste auch im Inventar vorhande ID einer Menükategorie zurück
-public func GetQuickInventoryMenuItem(int iMenu) {
+public func GetQuickInventoryMenuItem(int iMenu)
+{
   var aItems = GetQuickInventoryMenuItems(iMenu);
-  for(var i = 0; i < GetLength(aItems); i++) {
+  for(var i = 0; i < GetLength(aItems); i++)
+  {
     if(ContentsCount(aItems[i]) || GetGrenade(aItems[i])) return aItems[i];
   }
   return false;
@@ -1139,7 +1146,8 @@ private func GetQuickInventoryMenuItemCount(int iMenu)
   return iCount;
 }
 
-public func QuickInventory(int iMenu, int iPage) {
+public func QuickInventory(int iMenu, int iPage)
+{
   if(!iMenu) iMenu = QINV_MainMenu;
 
   //Inventar überhaupt vorhanden?
@@ -1245,26 +1253,27 @@ private func QuickInventoryThrow()
 private func QuickInventorySelect(id idObject, bool fSaveTemporary)
 {
   var fFound = SelectInventory(idObject);
-  if(!fFound) {
+  if(!fFound)
+  {
     fFound = GrabGrenade(idObject);
     //Wenn wir jetzt exakt eine Granate herausgeholt haben
     if(fSaveTemporary && fFound && !QINV_GrenadeTemporary && ContentsCount(idObject))
       QINV_GrenadeTemporary = idObject;
   }
-  
-  if(QINV_GrenadeTemporary && !fSaveTemporary) {
+
+  if(QINV_GrenadeTemporary && !fSaveTemporary)
+  {
     var pGrenade = 0;
     if(GetID(Contents()) != QINV_GrenadeTemporary) pGrenade = FindObject2(Find_ID(QINV_GrenadeTemporary), Find_Container(this));
     if(pGrenade) StoreGrenade(pGrenade);
     QINV_GrenadeTemporary = 0;
   }
-  
+
   return fFound;
 }
 
 private func QuickInventoryStore(object pObj)
 {
-  
   //Menü ermitteln
   //Manuell?
   var iMenu = pObj->~CustomQuickInventoryMenu();
@@ -1278,7 +1287,7 @@ private func QuickInventoryStore(object pObj)
   if(!iMenu && pObj->~IsGrenade()) iMenu = QINV_GrenadeMenu;
   //Sonst einfach nur Objekt
   if(!iMenu) iMenu = QINV_ObjectMenu;
-  
+
   //Und einsortieren
   var fExists = false;
   if(!QINV_MenuItemIds) QINV_MenuItemIds = [];
@@ -1360,7 +1369,7 @@ public func ControlSpecial()
   [$CtrlInventoryDesc$|Image=INVT]
 
   ClearMacroCommands();
-  
+
   //ControlSpecial an Container weitergeben (z.B. Fahrzeuge)
   if(Contained() && Contained()->~ContainedSpecial(this))
     return true;
@@ -1433,7 +1442,7 @@ public func Collection2(object pObj)
   //Granatenzahl im HUD neu berechnen
   if(pObj->~IsGrenade()) UpdateGrenadeCount();
   if(!pObj || Contained(pObj) != this) return;
-  
+
   if(!pObj->~RejectOwnerChange())
     SetOwner(GetOwner(), pObj);
 
@@ -1565,7 +1574,7 @@ protected func HasGrenades()
 public func GrenadeMenu(object pCaller)
 {
   CreateMenu(GRNS,pCaller,this,0,"$CtxGrenadeMenu$",0,C4MN_Style_Context);
-  
+
   var id_list = CreateArray();
   var nade, i = ContentsCount(0, pGrenadeStoring)-1;
   while(i >= 0) {
@@ -1573,7 +1582,7 @@ public func GrenadeMenu(object pCaller)
     i--;
     if(FindInArray4K(id_list,GetID(nade)) != -1) continue;
     id_list[GetLength(id_list)] = GetID(nade);
-    
+
     AddMenuItem(Format("<c %x>%.2s</c>",nade->Color(),GetName(nade)), "GrabGrenade", GetID(nade), pCaller,
                 ObjectCount2(Find_ID(GetID(nade)), Find_Container(pGrenadeStoring)),
                 0, GetDesc(nade));
@@ -1648,9 +1657,9 @@ protected func Initialize()
 {
   if(!pGrenadeStoring)
     pGrenadeStoring = CreateObject(GRNS,0,0,GetOwner());
-    
+
   pGrenadeStoring->SetUser(this);
-  
+
   return _inherited(...);
 }
 
@@ -1702,7 +1711,7 @@ protected func RejectCollect(id idObj, object pObj)
     // Davon kann man in jeden Fall _eines_ im Inventar haben
     if(!CustomContentsCount("IsAmmoPacket"))
       return;
-  
+
   //Waffe?
   if(pObj ->~ IsWeapon())
   {
@@ -1719,7 +1728,7 @@ protected func RejectCollect(id idObj, object pObj)
     else
       return;
   }
-  
+
   //Granate?
   if(pObj ->~ IsGrenade())
   {
@@ -1753,13 +1762,13 @@ protected func RejectCollect(id idObj, object pObj)
   //Wieviel haben wir denn schon im inventar?
   if(ContentsCount() - (CustomContentsCount("IsWeapon") + CustomContentsCount("IsGrenade")) >= ObjectCollectionLimit())
     return 1;
-  
+
   // nicht angelegte Ausrüstung nochmal aufsammeln
   for(var gear in aGear)
     if(gear)
       if(GetID(gear) == idObj)
         return 1;
-  
+
   // Ok
   return;
 }
