@@ -9,6 +9,7 @@ DropItem=Objekt ablegen
 CtxGrenadeMenu=Granaten
 AmmoBag=Munitionsgürtel
 CtrlInventoryDesc=Inventar
+NoSpace=Inventar bereits belegt.
 
 #QuickInventory
 
