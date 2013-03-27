@@ -2,12 +2,12 @@
 
 #strict 2
 
-local CharsWAmmo,
-      CharsMaxAmmo,
-      CharsClonkAmmo,
-      CharsGrenade,
-      CharEqS,
-      rechargebar;
+local CharsWAmmo,	//Zähler-Munitionswert
+      CharsMaxAmmo,	//Nenner-Munitionswert
+      CharsClonkAmmo,	//Clonk-Munitionswert
+      CharsGrenade,	//Clonk-Granatenwert
+      CharEqS,		//Gleichheitszeichen
+      rechargebar;	//Balken
 
 local pLastItem;
 local iLastWeaponAmmo;
@@ -23,41 +23,53 @@ public func ColorLow()		{return RGB(255, 150, 0);}
 
 protected func Initialize()
 {
+  //Am unteren, linken Bildschirmrand positionieren
   SetPosition(155, -80); 
 
-  CharsWAmmo = [CreateObject(HCHA, -105, 0, GetOwner()), CreateObject(HCHA, -85, 0, GetOwner()), CreateObject(HCHA, -65, 0, GetOwner())];
+  //Zähler-Munitionswert setzen
+  CharsWAmmo = [CreateObject(HCHA, -106, 3, GetOwner()), CreateObject(HCHA, -86, 3, GetOwner()), CreateObject(HCHA, -66, 3, GetOwner())];
 
-  CharsMaxAmmo = [CreateObject(HCHA, -35, 3, GetOwner()), CreateObject(HCHA, -20, 3, GetOwner()), CreateObject(HCHA, -5, 3, GetOwner())];
+  //Nenner-Munitionswert setzen
+  CharsMaxAmmo = [CreateObject(HCHA, -33, 5, GetOwner()), CreateObject(HCHA, -17, 5, GetOwner()), CreateObject(HCHA, -1, 5, GetOwner())];
   ResizeChars(CharsMaxAmmo, 750);
 
-  CharEqS = CreateObject(HCHA, 11, 3, GetOwner());
+  //Gleichheitszeichen setzen
+  CharEqS = CreateObject(HCHA, 17, 4, GetOwner());
   CharEqS->Set(61);
 
-  CharsClonkAmmo = [CreateObject(HCHA, 23, 4, GetOwner()), CreateObject(HCHA, 37, 4, GetOwner()), CreateObject(HCHA, 51, 4, GetOwner())];
+  //Clonk-Munitionswert setzen
+  CharsClonkAmmo = [CreateObject(HCHA, 32, 5, GetOwner()), CreateObject(HCHA, 46, 5, GetOwner()), CreateObject(HCHA, 60, 5, GetOwner())];
   for(var char in CharsClonkAmmo)
     char->SetClrModulation(RGB(0, 255, 255));
+  ResizeChars(CharsClonkAmmo, 750);
 
-  ResizeChars(CharsClonkAmmo, 700);
-
+  //Clonk-Granatenwert setzen
   CharsGrenade = [CreateObject(HCHA, -105, -25, GetOwner()), CreateObject(HCHA, -95, -27, GetOwner()), CreateObject(HCHA, -115, -28, GetOwner())];
   CharsGrenade[0]->Set(120, RGB(255, 255, 0));
   CharsGrenade[2]->Set(1337);
   ResizeChars(CharsGrenade, 650);
 
+  //Balken setzen
   rechargebar = CreateObject(RBAR, 0, -15, GetOwner()); 
 
+  //Alle Werte initialisieren
   iLastWeaponAmmo = -1;
   iLastWeaponFT = -1;
   iLastWeaponFM = -1;
 
+  //Sichtbarkeit nur für den Besitzer
   SetVisibility(VIS_Owner);
 }
 
+/* Symbolgrößen verändern */
+
 public func ResizeChars(chars, int size)
 {
+  //Keine Angabe: Normalgröße annehmen
   if(!size)
     size = 1000;
 
+  //Symbol transformieren
   if(GetType(chars) == C4V_Array)
     for(var char in chars)
       SetObjDrawTransform(size, 0, 0, 0, size, 0, char);
@@ -67,6 +79,8 @@ public func ResizeChars(chars, int size)
   return true;
 }
 
+/* Timer */
+
 protected func Timer()
 {
   if(GetOwner() == NO_OWNER || !GetPlayerName(GetOwner()) || (!GetAlive(GetCrew(GetOwner())))) 
@@ -75,27 +89,34 @@ protected func Timer()
   }
 }
 
+/* Sichtbarkeit und Aktualisierung von HUD-Elementen */
+
 public func HideWeapons()
 {
   pLastItem = 0;
-  
+
   if(GetVisibility() == VIS_None)
     return true;
 
+  //Alle Munitionsanzeigen unsichtbar machen
   for(var char in CharsWAmmo)
     SetVisibility(VIS_None, char);
-
   for(var char in CharsMaxAmmo)
     SetVisibility(VIS_None, char);
-
   if(!NoAmmo())
   {
     for(var char in CharsClonkAmmo)
       SetVisibility(VIS_None, char);
     SetVisibility(VIS_None, CharEqS); 
   }
+
+  //Balken unsichtbar machen
   SetVisibility(VIS_None, rechargebar);
+
+  //Textanzeige neutralisieren
   CustomMessage("", this, NO_OWNER);
+
+  //HUD unsichtbar machen
   SetVisibility(VIS_None);
 }
 
@@ -104,12 +125,11 @@ public func ShowWeapons()
   if(GetVisibility() == VIS_Owner)
     return true;
 
+  //Alle Munitionsanzeigen sichtbar machen
   for(var char in CharsWAmmo)
     SetVisibility(VIS_Owner, char);
-
   for(var char in CharsMaxAmmo)
     SetVisibility(VIS_Owner, char);
-
   if(!NoAmmo())
   {
     for(var char in CharsClonkAmmo)
@@ -117,6 +137,8 @@ public func ShowWeapons()
 
     SetVisibility(VIS_Owner, CharEqS);
   }
+
+  //HUD sichtbar machen
   SetVisibility(VIS_Owner);
 }
 
@@ -124,12 +146,14 @@ protected func UpdateHUD(object weapon, object pClonk, bool fForceUpdate)
 {
   if(!pClonk) return true;  
 
-  //Granaten updaten
+  //Granatenanzeige aktualisieren
   var grenades = Format("%d", pClonk->~GrenadeCount());
   CharsGrenade[1]->Set(GetChar(grenades));
 
+  //Keine Waffe: HUD unsichtbar machen
   if(!weapon) return HideWeapons();
 
+  //Waffe gewechselt: Balken unsichtbar machen
   if(pLastItem != weapon)
   {  
     SetVisibility(VIS_None, rechargebar);
@@ -139,6 +163,7 @@ protected func UpdateHUD(object weapon, object pClonk, bool fForceUpdate)
     iLastWeaponFT = -1;
   }
 
+  //Keine Munition: Clonk-Munitionswert unsichtbar machen
   if(NoAmmo() && GetVisibility(CharEqS) == VIS_Owner)
   {
     for(var char in CharsClonkAmmo)
@@ -229,14 +254,14 @@ protected func UpdateHUD(object weapon, object pClonk, bool fForceUpdate)
     {
       SetVisibility(VIS_Owner, rechargebar);
       var recharge = weapon->GetRecharge();
-      var x = -122+(176*recharge/100);
+      var x = -122+(193*recharge/100);
       SetPosition(GetX()+x, GetY()-15, rechargebar);
     }
     else if(weapon->IsReloading())
     {
       SetVisibility(VIS_Owner, rechargebar);
       var charge = (weapon->GetCharge()/10);
-      var x = -122+(176*charge/100);
+      var x = -122+(193*charge/100);
       SetPosition(GetX()+x, GetY()-15, rechargebar);
     }
     else if(ShowSelectProcess(weapon))
@@ -294,7 +319,7 @@ public func Recharge(int part, int max)
   else
     SetVisibility(VIS_None, rechargebar);
 
-  var x = -122+(176*part/max);
+  var x = -122+(193*part/max);
   SetPosition(GetX()+x, GetY()-15, rechargebar);
   return 1;
 }
@@ -305,7 +330,7 @@ public func Ammo(int iAmmoCount, int iAmmoLoad, string szName, bool fShow, int d
   var i = 0;
   //dwColorW zur Färbung der ersten Zahl (Momentan geladene Munition)
   if(!dwColorW) dwColorW = ColorEmpty()*(!iAmmoCount);
-  
+
   for(var char in CharsWAmmo)
   {
     char->Set(GetChar(wAmmo, i), dwColorW);
