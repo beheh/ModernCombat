@@ -9,6 +9,7 @@ DropItem=Drop Item
 CtxGrenadeMenu=Grenades
 AmmoBag=Ammobag
 CtrlInventoryDesc=Inventory
+NoSpace=Inventory is full.
 
 #QuickInventory
 
