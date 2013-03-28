@@ -38,7 +38,7 @@ func SetAttachment(int iValue)
   //Eventuell vorhandene Effekte entfernen
   if(GetEffect("LaserDot", this))	RemoveEffect("LaserDot", this);
   if(GetEffect("Silencer", this))	RemoveEffect("Silencer", this);
-  if(GetEffect("Flashlight", this)) RemoveEffect("FlashLight", this);
+  if(GetEffect("Flashlight", this))	RemoveEffect("FlashLight", this);
 
   //Feuermodus zurücksetzen
   SetFireMode(1);
@@ -62,36 +62,36 @@ func SetAttachment(int iValue)
 
 /* Taschenlampe */
 
-public func SensorDistance() { return 150; }
-public func FlashlightAngle() { return 30; }
+public func SensorDistance()	{return 150;}
+public func FlashlightAngle()	{return 30;}
 
 public func FxFlashlightTimer(object pTarget, int iNr, int iTime)
 {
-	var user = this->~GetUser();
-	var light = EffectVar(0, pTarget, iNr);
-	
-	//Spieler hat schon eine Taschenlampe ausgerüstet
-	if(user->~HasGear(0, FLSH))
-		SetVisibility(VIS_None, light);
-	else
-	{
-		if(!light)
-		{
-			light = EffectVar(0, pTarget, iNr) = AddLightCone(1000, RGBa(255, 255, 220, 90), user);
-			light->ChangeSizeXY(1900, 6000);
-			light->ChangeOffset(0, 0, true);
-		}
+  var user = this->~GetUser();
+  var light = EffectVar(0, pTarget, iNr);
 
-		light->ChangeR(user->~AimAngle());
-	}
-	
-	if(iTime % 4)
-		return;
-	
-	var iAngleMin = user->~AimAngle()-FlashlightAngle()/2;
-	var iAngleMax = user->~AimAngle()+FlashlightAngle()/2;
-	
-	//Zu markierende Gefahren suchen
+  //Spieler hat schon eine Taschenlampe ausgerüstet
+  if(user->~HasGear(0, FLSH))
+    SetVisibility(VIS_None, light);
+  else
+  {
+    if(!light)
+    {
+      light = EffectVar(0, pTarget, iNr) = AddLightCone(1000, RGBa(255, 255, 220, 90), user);
+      light->ChangeSizeXY(1900, 6000);
+      light->ChangeOffset(0, 0, true);
+    }
+
+    light->ChangeR(user->~AimAngle());
+  }
+
+  if(iTime % 4)
+    return;
+
+  var iAngleMin = user->~AimAngle()-FlashlightAngle()/2;
+  var iAngleMax = user->~AimAngle()+FlashlightAngle()/2;
+
+  //Zu markierende Gefahren suchen
   for (var pObj in FindObjects(Find_Distance(SensorDistance()),			//In Reichweite
   		Find_Hostile(GetController(user)),					//Nur feindliche Objekte markieren
   		Find_Or(Find_OCF(OCF_Alive), Find_Func("IsDetectable")), //Lebewesen oder als identifizierbar markiert
@@ -102,7 +102,7 @@ public func FxFlashlightTimer(object pTarget, int iNr, int iTime)
     if(pObj == user || FindObject2(Find_ActionTarget(pObj), Find_ID(SM08), Find_Allied(GetController(user))))
       continue;
 
-		//Objekt im Suchkegel?
+    //Objekt im Suchkegel?
     var target_angle = Normalize(Angle(GetX(), GetY(), GetX(pObj), GetY(pObj)), -180);
 
     if(iAngleMax < 180 && (target_angle < iAngleMin || target_angle > iAngleMax))
@@ -114,7 +114,7 @@ public func FxFlashlightTimer(object pTarget, int iNr, int iTime)
     CreateObject(SM08, GetX(pObj), GetY(pObj), GetController(user))->Set(pObj, this, GetOCF(pObj) & OCF_Alive);
   }
 
-	return true;
+  return true;
 }
 
 /* Laserpointer */
@@ -209,7 +209,6 @@ func FxLaserDotTimer(object pTarget, int iEffectNumber, int iEffectTime)
         x = Sin(iAngle, (xOff - xPos) * 1000 / (Sin(iAngle, 1000))) + xPos;
         y = -Cos(iAngle, (xOff - xPos) * 1000 / (Sin(iAngle, 1000))) + yPos;
       }
-
   }
 
   //Laser zeichnen
@@ -245,6 +244,7 @@ func FxLaserDotStop()
 //EffektVar 1: X-Position
 //EffektVar 2: Y-Position
 //EffektVar 3: Clonk
+
 func FxSilencerTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
   //Clonk verschwunden: Neuen suchen und Waffentarnung entfernen
@@ -278,15 +278,15 @@ func FxSilencerTimer(object pTarget, int iEffectNumber, int iEffectTime)
   {
     EffectVar(1, pTarget, iEffectNumber) = GetX(pTarget);
     EffectVar(2, pTarget, iEffectNumber) = GetY(pTarget);
-    
+
     if(EffectVar(0, pTarget, iEffectNumber) >= 4)
       EffectVar(0, pTarget, iEffectNumber) -= 4;
   }
   //Sonst: Tarnung erhöhen
   else if(EffectVar(0, pTarget, iEffectNumber) < 200)
     EffectVar(0, pTarget, iEffectNumber) += 2;
-  
-  //Tarnung verändert? Neuen Wert setzen
+
+  //Tarnung verändert: Neuen Wert setzen
   if(Alpha != EffectVar(0, pTarget, iEffectNumber))
     SetClrModulation(RGBa(255, 255, 255, EffectVar(0, pTarget, iEffectNumber)), EffectVar(3, pTarget, iEffectNumber));
 }
@@ -314,7 +314,7 @@ global func FxShowWeaponUpdate(object pTarget, int iNumber, int iTime)
   //Waffe nicht mehr aktuell
   if(obj && EffectVar(6, pTarget, iNumber) != obj)
   {
-    //neues Objekt ist Waffe, oder ein Objekt, das gezeichnet werden soll
+    //Neues Objekt ist Waffe, oder ein Objekt, das gezeichnet werden soll
     if(obj->~IsWeapon() || obj->~IsDrawable())
     {
       dodraw = true;
@@ -335,18 +335,18 @@ global func FxShowWeaponUpdate(object pTarget, int iNumber, int iTime)
   //Ausrichtung nach Blickrichtung des Clonks
   //Variablen für die Transformation
 
-  var width, height;  //Breiten- und Höhenverzerrung der Waffe
-  var xskew, yskew;   //Zerrung der Waffe, wird zur Rotation gebraucht
-  var size;           //Größe der Waffe in der Hand: 1000 = 100%
+  var width, height;		//Breiten- und Höhenverzerrung der Waffe
+  var xskew, yskew;		//Zerrung der Waffe, wird zur Rotation gebraucht
+  var size;			//Größe der Waffe in der Hand: 1000 = 100%
   //Variablen für die Position
-  var dir;            //Richtung in die das Objekt schaut
-  
+  var dir;			//Richtung, in die das Objekt schaut
+
   //schnell noch Rotation dazurechnen oder so!
   if(GetEffect("StrikeRecharge", obj))
     r += -Max(Sin(GetEffect("StrikeRecharge", obj, 0, 6)*90/(obj->~GetMCData(MC_Recharge)/4),20),0);
   else
     r += obj->~HandR();
-  
+
   //Variablen mit Werten versehen
   width = height = xskew = yskew = 1;
   size = id->~HandSize();
@@ -362,7 +362,7 @@ global func FxShowWeaponUpdate(object pTarget, int iNumber, int iTime)
   if (!dodraw && 90*dir+r == EffectVar(1, pTarget, iNumber) && GetAction(pTarget) == EffectVar(8, pTarget, iNumber))
     return;
 
-  var xfact = size * obj->~HandX();    //Attachpunkte dazurechnen
+  var xfact = size * obj->~HandX();	//Attachpunkte dazurechnen
   var yfact = size * obj->~HandY();
 
   xoff += Cos(r,xfact)/1000 + dir*Sin(r,yfact)/1000;
@@ -378,15 +378,15 @@ global func FxShowWeaponUpdate(object pTarget, int iNumber, int iTime)
   xoff *= dir;
 
   //Waffe
-  SetObjDrawTransform(1000,xskew,xoff,yskew,1000,yoff, pTarget, WeaponDrawLayer); //position
-  SetObjDrawTransform(width,xskew,0,yskew,height,0, obj); //Größe und Rotation
+  SetObjDrawTransform(1000,xskew,xoff,yskew,1000,yoff, pTarget, WeaponDrawLayer);	//Position
+  SetObjDrawTransform(width,xskew,0,yskew,height,0, obj);				//Größe und Rotation
 
   //Daten
   var w = GetDefCoreVal("Width",0,id)/2;
   var brlx = id->~BarrelXOffset();
   var brly = id->~BarrelYOffset();
 
-  //abspeichern, damit abrufbar
+  //Abspeichern, damit abrufbar
   r = -r-90;
   var r2 = (Angle(0,0,w-brlx/1000,brly/1000)-90)*dir;
   var dist = Distance(0,0,w*1000-brlx,brly);
@@ -409,7 +409,7 @@ global func SALaunchBullet(int iX, int iY, int iOwner, int iAngle, int iSpeed, i
   var iSize = 2;
   var iTrail = iDmg*10;
   if(fNoTrail) iTrail = -1;
-  
+
   var iAttachment = 0;
   if(this)
     iAttachment = LocalN("iAttachment", this);
