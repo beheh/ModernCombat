@@ -101,8 +101,8 @@ public func FxFlashlightTimer(object pTarget, int iNr, int iTime)
 
   //Zu markierende Gefahren suchen
   for (var pObj in FindObjects(Find_Distance(SensorDistance()),			//In Reichweite
-  		Find_Hostile(GetController(user)),					//Nur feindliche Objekte markieren
-  		Find_Or(Find_OCF(OCF_Alive), Find_Func("IsDetectable")), //Lebewesen oder als identifizierbar markiert
+  		Find_Hostile(GetController(user)),				//Nur feindliche Objekte markieren
+  		Find_Or(Find_OCF(OCF_Alive), Find_Func("IsDetectable")),	//Lebewesen oder als identifizierbar markiert
   		Find_NoContainer(),						//Im Freien
   		Find_Exclude(this))) 						//Selber ausschlieﬂen
   {
