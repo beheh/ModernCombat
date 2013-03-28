@@ -70,9 +70,9 @@ public func FxFlashlightTimer(object pTarget, int iNr, int iTime)
   var user = this->~GetUser();
   var light = EffectVar(0, pTarget, iNr);
 
-	var deactivate = false;
-	if(!user || Contents(0, user) != this)
-		deactivate = true;
+  var deactivate = false;
+  if(!user || Contents(0, user) != this)
+    deactivate = true;
 
   //Spieler hat schon eine Taschenlampe ausgerüstet
   if((deactivate && light) || (user && user->~HasGear(0, FLSH)))
@@ -89,7 +89,7 @@ public func FxFlashlightTimer(object pTarget, int iNr, int iTime)
       	SetVisibility(VIS_None, light);
     }
 
-		SetVisibility(VIS_All, light);
+    SetVisibility(VIS_All, light);
     light->ChangeR(user->~AimAngle());
   }
 
