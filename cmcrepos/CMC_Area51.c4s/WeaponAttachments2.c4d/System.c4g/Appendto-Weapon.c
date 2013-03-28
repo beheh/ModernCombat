@@ -38,6 +38,7 @@ func SetAttachment(int iValue)
   //Eventuell vorhandene Effekte entfernen
   if(GetEffect("LaserDot", this))	RemoveEffect("LaserDot", this);
   if(GetEffect("Silencer", this))	RemoveEffect("Silencer", this);
+  if(GetEffect("Flashlight", this)) RemoveEffect("FlashLight", this);
 
   //Feuermodus zur¸cksetzen
   SetFireMode(1);
@@ -47,6 +48,7 @@ func SetAttachment(int iValue)
   iAttachment = iValue;
   if(iAttachment == AT_Laserpointer)	AddEffect("LaserDot", this, 1, 1, this);
   if(iAttachment == AT_Silencer)	AddEffect("Silencer", this, 1, 1, this);
+  if(iAttachment == AT_Flashlight)	AddEffect("Flashlight", this, 1, 1, this);
 
   //Waffenaufsatz-Symbol setzen
   SetGraphics(0,0,AttachmentIcon(iAttachment),2,GFXOV_MODE_Picture);    
@@ -56,6 +58,63 @@ func SetAttachment(int iValue)
   if(Contained()) Contained()->~UpdateCharge(true);
 
   return iTemp;
+}
+
+/* Taschenlampe */
+
+public func SensorDistance() { return 150; }
+public func FlashlightAngle() { return 30; }
+
+public func FxFlashlightTimer(object pTarget, int iNr, int iTime)
+{
+	var user = this->~GetUser();
+	var light = EffectVar(0, pTarget, iNr);
+	
+	//Spieler hat schon eine Taschenlampe ausger¸stet
+	if(user->~HasGear(0, FLSH))
+		SetVisibility(VIS_None, light);
+	else
+	{
+		if(!light)
+		{
+			light = EffectVar(0, pTarget, iNr) = AddLightCone(1000, RGBa(255, 255, 220, 90), user);
+			light->ChangeSizeXY(1900, 6000);
+			light->ChangeOffset(0, 0, true);
+		}
+
+		light->ChangeR(user->~AimAngle());
+	}
+	
+	if(iTime % 4)
+		return;
+	
+	var iAngleMin = user->~AimAngle()-FlashlightAngle()/2;
+	var iAngleMax = user->~AimAngle()+FlashlightAngle()/2;
+	
+	//Zu markierende Gefahren suchen
+  for (var pObj in FindObjects(Find_Distance(SensorDistance()),			//In Reichweite
+  		Find_Hostile(GetController(user)),					//Nur feindliche Objekte markieren
+  		Find_Or(Find_OCF(OCF_Alive), Find_Func("IsDetectable")), //Lebewesen oder als identifizierbar markiert
+  		Find_NoContainer(),						//Im Freien
+  		Find_Exclude(this))) 						//Selber ausschlieﬂen
+  {
+    //Bereits markierte Objekte auslassen
+    if(pObj == user || FindObject2(Find_ActionTarget(pObj), Find_ID(SM08), Find_Allied(GetController(user))))
+      continue;
+
+		//Objekt im Suchkegel?
+    var target_angle = Normalize(Angle(GetX(), GetY(), GetX(pObj), GetY(pObj)), -180);
+
+    if(iAngleMax < 180 && (target_angle < iAngleMin || target_angle > iAngleMax))
+      continue;
+    else if(iAngleMax >= 180 && (target_angle < iAngleMin && target_angle > iAngleMax-360))
+      continue;
+
+    //Ansonsten markieren
+    CreateObject(SM08, GetX(pObj), GetY(pObj), GetController(user))->Set(pObj, this, GetOCF(pObj) & OCF_Alive);
+  }
+
+	return true;
 }
 
 /* Laserpointer */
