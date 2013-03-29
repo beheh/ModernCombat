@@ -25,20 +25,27 @@ public func Set(object target, object host, bool fClonk, int remove_time)
 
   //Sichtbarkeit gegenüber Verbündeten
   SetVisibility(VIS_Allies | VIS_Owner);
-  
+
   AddEffect("Remover", this, 1, 1, this);
 }
 
 protected func FxRemoverTimer(object pTarget, int iNr, int iReason) 
 {
-	if(!--iEffectRemoveTime)
-		return -1;
+  if(!--iEffectRemoveTime)
+    return -1;
 }
 
-protected func FxRemoverStop() { return RemoveObject(); }
-public func RefreshRemoveTimer() { iEffectRemoveTime = iRemoveTime; }
+protected func FxRemoverStop()
+{
+  return RemoveObject();
+}
+
+public func RefreshRemoveTimer()
+{
+  iEffectRemoveTime = iRemoveTime;
+}
 
 /* Aufnahme */
 
-public func RejectEntrance() { return RemoveObject(); }
-public func AttachTargetLost() { return RemoveObject(); }
+public func RejectEntrance()		{return RemoveObject();}
+public func AttachTargetLost()		{return RemoveObject();}
