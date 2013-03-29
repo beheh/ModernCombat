@@ -86,16 +86,16 @@ public func FxFlashlightTimer(object pTarget, int iNr, int iTime)
       light->ChangeOffset(0, 0, true);
     }
 
-		if(deactivate)
-     	SetVisibility(VIS_None, light);
+    if(deactivate)
+      SetVisibility(VIS_None, light);
     else
-    	SetVisibility(VIS_All, light);
+      SetVisibility(VIS_All, light);
 
     light->ChangeR(user->~AimAngle());
   }
   
   if(!user && light)
-  	RemoveObject(light);
+    RemoveObject(light);
 
   if(deactivate || iTime % 4)
     return;
@@ -111,15 +111,15 @@ public func FxFlashlightTimer(object pTarget, int iNr, int iTime)
   		Find_Exclude(this))) 						//Selber ausschließen
   {
     if(pObj == user)
-    	continue;
-    
+      continue;
+
     //Bereits markierte Objekte auslassen
     var tag;
     if(tag = FindObject2(Find_ActionTarget(pObj), Find_ID(SM08), Find_Allied(GetController(user))))
     {
-    	tag->~RefreshRemoveTimer();
+      tag->~RefreshRemoveTimer();
       continue;
-		}
+    }
 
     //Objekt im Suchkegel?
     var target_angle = Normalize(Angle(GetX(), GetY(), GetX(pObj), GetY(pObj)), -180);

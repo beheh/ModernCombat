@@ -34,9 +34,9 @@ protected func Sense()
     var tag;
     if(tag = FindObject2(Find_ID(SM08), Find_Action("Attach"), Find_ActionTarget(pObj), Find_Allied(GetOwner())))
     {
-    	tag->~RefreshRemoveTimer();
+      tag->~RefreshRemoveTimer();
       continue;
-		}
+    }
 
     //Ansonsten markieren
     CreateObject(SM08, GetX(pObj), GetY(pObj), GetOwner())->Set(pObj, this, GetOCF(pObj) & OCF_Alive, 26);
