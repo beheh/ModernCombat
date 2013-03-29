@@ -6,7 +6,7 @@
 
 func PermittedAtts()
 {
-  return AT_ExtendedMag | AT_Bayonet | AT_Laserpointer;
+  return AT_ExtendedMag | AT_Bayonet | AT_Laserpointer | AT_Flashlight;
 }
 
 public func GetMCData(int data)
