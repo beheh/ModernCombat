@@ -77,21 +77,25 @@ public func FxFlashlightTimer(object pTarget, int iNr, int iTime)
   //Spieler hat schon eine Taschenlampe ausgerüstet
   if((deactivate && light) || (user && user->~HasGear(0, FLSH)))
     SetVisibility(VIS_None, light);
-  else
+  else if(user)
   {
     if(!light)
     {
       light = EffectVar(0, pTarget, iNr) = AddLightCone(1000, RGBa(255, 255, 220, 90), user);
       light->ChangeSizeXY(1900, 6000);
       light->ChangeOffset(0, 0, true);
-
-      if(deactivate)
-      	SetVisibility(VIS_None, light);
     }
 
-    SetVisibility(VIS_All, light);
+		if(deactivate)
+     	SetVisibility(VIS_None, light);
+    else
+    	SetVisibility(VIS_All, light);
+
     light->ChangeR(user->~AimAngle());
   }
+  
+  if(!user && light)
+  	RemoveObject(light);
 
   if(deactivate || iTime % 4)
     return;
@@ -106,9 +110,16 @@ public func FxFlashlightTimer(object pTarget, int iNr, int iTime)
   		Find_NoContainer(),						//Im Freien
   		Find_Exclude(this))) 						//Selber ausschließen
   {
+    if(pObj == user)
+    	continue;
+    
     //Bereits markierte Objekte auslassen
-    if(pObj == user || FindObject2(Find_ActionTarget(pObj), Find_ID(SM08), Find_Allied(GetController(user))))
+    var tag;
+    if(tag = FindObject2(Find_ActionTarget(pObj), Find_ID(SM08), Find_Allied(GetController(user))))
+    {
+    	tag->~RefreshRemoveTimer();
       continue;
+		}
 
     //Objekt im Suchkegel?
     var target_angle = Normalize(Angle(GetX(), GetY(), GetX(pObj), GetY(pObj)), -180);
@@ -119,7 +130,7 @@ public func FxFlashlightTimer(object pTarget, int iNr, int iTime)
       continue;
 
     //Ansonsten markieren
-    CreateObject(SM08, GetX(pObj), GetY(pObj), GetController(user))->Set(pObj, this, GetOCF(pObj) & OCF_Alive);
+    CreateObject(SM08, GetX(pObj), GetY(pObj), GetController(user))->Set(pObj, this, GetOCF(pObj) & OCF_Alive, 26);
   }
 
   return true;

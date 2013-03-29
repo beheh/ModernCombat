@@ -5,10 +5,11 @@
 
 /* Einstellung */
 
-public func Set(object target, object host, bool fClonk)
+public func Set(object target, object host, bool fClonk, int remove_time)
 {
   pHost = host;
   pTarget = target;
+  iRemoveTime = iEffectRemoveTime = remove_time;
 
   //Ziel kein Clonk? Andere Grafik setzen
   if(!fClonk)
@@ -25,6 +26,7 @@ public func Set(object target, object host, bool fClonk)
 
   //Effekt zur Lebensanzeige
   AddEffect("ShowEnergyBar", this, 1, 1, this, 0, GetOwner(host), target);
+  AddEffect("Remover", this, 1, 1, this);
 }
 
 /* Statusbalkeneffekt für feindliche Energie */

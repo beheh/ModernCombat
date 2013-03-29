@@ -2,15 +2,16 @@
 
 #strict 2
 
-local pTarget, pHost;
+local pTarget, pHost, iRemoveTime, iEffectRemoveTime;
 
 
 /* Einstellung */
 
-public func Set(object target, object host, bool fClonk)
+public func Set(object target, object host, bool fClonk, int remove_time)
 {
   pHost = host;
   pTarget = target;
+  iRemoveTime = iEffectRemoveTime = remove_time;
 
   //Ziel kein Clonk? Andere Grafik setzen
   if(!fClonk)
@@ -24,23 +25,20 @@ public func Set(object target, object host, bool fClonk)
 
   //Sichtbarkeit gegenüber Verbündeten
   SetVisibility(VIS_Allies | VIS_Owner);
+  
+  AddEffect("Remover", this, 1, 1, this);
 }
 
-public func Update()
+protected func FxRemoverTimer(object pTarget, int iNr, int iReason) 
 {
-  if(pTarget && GetCategory(pTarget) & C4D_Living && !GetAlive(pTarget))
-    return RemoveObject();
-
-  //Verschwinden, wenn kein Ziel/Host oder Ziel verschachtelt/Host nicht in Sensornähe/inaktiv oder Ziel am ausblenden
-  if(pTarget && pHost && GetOwner(pHost) != NO_OWNER && !Contained(pTarget) && ObjectDistance(this, pHost) <= pHost->~SensorDistance() && (GetCategory(pTarget) & C4D_Living || pTarget->~IsDetectable()))
-    return;
-
-  RemoveObject();
+	if(!--iEffectRemoveTime)
+		return -1;
 }
+
+protected func FxRemoverStop() { return RemoveObject(); }
+public func RefreshRemoveTimer() { iEffectRemoveTime = iRemoveTime; }
 
 /* Aufnahme */
 
-public func RejectEntrance(object pObj)
-{
-  RemoveObject();
-}
+public func RejectEntrance() { return RemoveObject(); }
+public func AttachTargetLost() { return RemoveObject(); }

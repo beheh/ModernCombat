@@ -569,11 +569,15 @@ protected func Sense()
     Beep();
 
     //Nicht markieren wenn schon der Fall
-    if(FindObject2(Find_ID(SM08), Find_Action("Attach"), Find_ActionTarget(pObj), Find_Allied(GetOwner())))
-      continue;
+    var tag;
+    if(tag = FindObject2(Find_ID(SM08), Find_Action("Attach"), Find_ActionTarget(pObj), Find_Allied(GetOwner())))
+    {
+    	tag->~RefreshRemoveTimer();
+     	continue;
+		}
 
     //Ansonsten markieren
-    CreateObject(SM08, GetX(pObj), GetY(pObj), GetOwner())->Set(pObj, this, GetOCF(pObj) & OCF_Alive);
+    CreateObject(SM08, GetX(pObj), GetY(pObj), GetOwner())->Set(pObj, this, GetOCF(pObj) & OCF_Alive, 26);
 
     //Achievement-Fortschritt (Intelligence)
     DoAchievementProgress(1, AC21, GetOwner());
