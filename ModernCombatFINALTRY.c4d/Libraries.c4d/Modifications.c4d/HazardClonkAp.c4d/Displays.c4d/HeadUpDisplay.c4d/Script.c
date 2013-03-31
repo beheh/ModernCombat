@@ -44,10 +44,10 @@ protected func Initialize()
   ResizeChars(CharsClonkAmmo, 750);
 
   //Clonk-Granatenwert setzen
-  CharsGrenade = [CreateObject(HCHA, -105, -25, GetOwner()), CreateObject(HCHA, -95, -27, GetOwner()), CreateObject(HCHA, -115, -28, GetOwner())];
+  CharsGrenade = [CreateObject(HCHA, 98, 6, GetOwner()), CreateObject(HCHA, 112, 5, GetOwner()), CreateObject(HCHA, 84, 3, GetOwner())];
   CharsGrenade[0]->Set(120, RGB(255, 255, 0));
   CharsGrenade[2]->Set(1337);
-  ResizeChars(CharsGrenade, 650);
+  ResizeChars(CharsGrenade, 750);
 
   //Balken setzen
   rechargebar = CreateObject(RBAR, 0, -15, GetOwner()); 
@@ -116,6 +116,11 @@ public func HideWeapons()
   //Textanzeige neutralisieren
   CustomMessage("", this, NO_OWNER);
 
+  //Granatenwert an Seite verschieben
+  CharsGrenade[0]->SetPosition(GetX(CharsGrenade[0])-192, GetY(CharsGrenade[0]), CharsGrenade[0]);
+  CharsGrenade[1]->SetPosition(GetX(CharsGrenade[1])-192, GetY(CharsGrenade[1]), CharsGrenade[1]);
+  CharsGrenade[2]->SetPosition(GetX(CharsGrenade[2])-192, GetY(CharsGrenade[2]), CharsGrenade[2]);
+
   //HUD unsichtbar machen
   SetVisibility(VIS_None);
 }
@@ -137,6 +142,11 @@ public func ShowWeapons()
 
     SetVisibility(VIS_Owner, CharEqS);
   }
+
+  //Granatenwert an Ursprungsort zurückverschieben
+  CharsGrenade[0]->SetPosition(GetX(CharsGrenade[0])+192, GetY(CharsGrenade[0]), CharsGrenade[0]);
+  CharsGrenade[1]->SetPosition(GetX(CharsGrenade[1])+192, GetY(CharsGrenade[1]), CharsGrenade[1]);
+  CharsGrenade[2]->SetPosition(GetX(CharsGrenade[2])+192, GetY(CharsGrenade[2]), CharsGrenade[2]);
 
   //HUD sichtbar machen
   SetVisibility(VIS_Owner);
@@ -254,14 +264,14 @@ protected func UpdateHUD(object weapon, object pClonk, bool fForceUpdate)
     {
       SetVisibility(VIS_Owner, rechargebar);
       var recharge = weapon->GetRecharge();
-      var x = -122+(193*recharge/100);
+      var x = -122+(244*recharge/100);
       SetPosition(GetX()+x, GetY()-15, rechargebar);
     }
     else if(weapon->IsReloading())
     {
       SetVisibility(VIS_Owner, rechargebar);
       var charge = (weapon->GetCharge()/10);
-      var x = -122+(193*charge/100);
+      var x = -122+(244*charge/100);
       SetPosition(GetX()+x, GetY()-15, rechargebar);
     }
     else if(ShowSelectProcess(weapon))
@@ -319,7 +329,7 @@ public func Recharge(int part, int max)
   else
     SetVisibility(VIS_None, rechargebar);
 
-  var x = -122+(193*part/max);
+  var x = -122+(244*part/max);
   SetPosition(GetX()+x, GetY()-15, rechargebar);
   return 1;
 }
