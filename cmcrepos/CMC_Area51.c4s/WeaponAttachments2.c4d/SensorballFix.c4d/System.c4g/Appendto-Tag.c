@@ -27,7 +27,7 @@ public func Set(object target, object host, bool fClonk, int remove_time)
   //Effekt zur Lebensanzeige
   if(GetOCF(pTarget) & OCF_Alive)
     AddEffect("ShowEnergyBar", this, 1, 1, this, 0, GetOwner(host), pTarget);
-  
+
   AddEffect("Remover", this, 1, 1, this);
 }
 
