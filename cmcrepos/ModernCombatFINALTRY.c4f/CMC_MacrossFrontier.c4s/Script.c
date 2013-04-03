@@ -137,8 +137,14 @@ func CreateInterior()
   car->SetSolidMask(GetPhase() * 60, 26, 60, 26);
 
   //Kisten
+  CreateObject(WCR2, 405, 302, -1);
+  CreateObject(WCR2, 405, 320, -1);
+
   CreateObject(WCR2, 445, 230, -1)->AutoRespawn();
   CreateObject(WCR2, 980, 90, -1)->AutoRespawn();
+
+  CreateObject(WCR2, 1145, 222, -1);
+  CreateObject(WCR2, 1145, 240, -1);
 
   //Metallkisten
   CreateObject(MWCR, 305, 440, -1)->AutoRespawn();
