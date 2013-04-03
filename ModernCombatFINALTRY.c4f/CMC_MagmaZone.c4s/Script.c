@@ -323,6 +323,16 @@ public func ChooserFinished()
    {
     aFlag[5]->Set("$Flag6$",0,2);
    }
+
+   //Zusätzliche Munition
+   if(!FindObject(NOAM))
+   {
+    //Versorgungskiste (Kugeln)
+    var crate = CreateObject(AMCT, 245, 550, -1);
+    crate->Set(ABOX);
+    crate = CreateObject(AMCT, 2075, 560, -1);
+    crate->Set(ABOX);
+   }
   }
 
   //Base Assault-Spielziel
@@ -336,6 +346,16 @@ public func ChooserFinished()
    AddAssaultTarget(CCP2, 2280, 210, 400, 2, "$Flag6$", 0, [[2100, 310], [2000, 310], [1900, 320]]);
    AddAssaultTarget(CMSN, 1840, 130, 300, 2, "$Flag4$", 1, [[1845, 240], [1770, 220]]);
    AddAssaultTarget(CCP1, 1710, 330, 300, 2, "$Flag5$", 2, [[1610, 500], [1820, 450], [1885, 475]]);
+
+   //Zusätzliche Munition
+   if(!FindObject(NOAM))
+   {
+    //Versorgungskiste (Kugeln)
+    var crate = CreateObject(AMCT, 245, 550, -1);
+    crate->Set(ABOX);
+    crate = CreateObject(AMCT, 2075, 560, -1);
+    crate->Set(ABOX);
+   }
   }
 
   //CTF-Spielziel
@@ -346,6 +366,16 @@ public func ChooserFinished()
    {CreateFlag(1,455,330,GetTeamColor(1));}
    if(aTeams[2] == true)
    {CreateFlag(2,2010,310,GetTeamColor(2));}
+
+   //Zusätzliche Munition
+   if(!FindObject(NOAM))
+   {
+    //Versorgungskiste (Kugeln)
+    var crate = CreateObject(AMCT, 965, 620, -1);
+    crate->Set(ABOX);
+    crate = CreateObject(AMCT, 1825, 450, -1);
+    crate->Set(ABOX);
+   }
   }
 
   //LMS/DM-Spielziel
@@ -363,6 +393,16 @@ public func ChooserFinished()
    CreateObject(SGNP, 1850, 130, -1);
    CreateObject(SGNP, 1850, 450, -1);
    CreateObject(SGNP, 1960, 300, -1);
+
+   //Zusätzliche Munition
+   if(!FindObject(NOAM))
+   {
+    //Versorgungskiste (Kugeln)
+    var crate = CreateObject(AMCT, 965, 620, -1);
+    crate->Set(ABOX);
+    crate = CreateObject(AMCT, 1825, 450, -1);
+    crate->Set(ABOX);
+   }
   }
 }
 
