@@ -25,7 +25,9 @@ public func Set(object target, object host, bool fClonk, int remove_time)
   SetVisibility(VIS_Allies | VIS_Owner);
 
   //Effekt zur Lebensanzeige
-  AddEffect("ShowEnergyBar", this, 1, 1, this, 0, GetOwner(host), target);
+  if(GetOCF(pTarget) & OCF_Alive)
+    AddEffect("ShowEnergyBar", this, 1, 1, this, 0, GetOwner(host), pTarget);
+  
   AddEffect("Remover", this, 1, 1, this);
 }
 
