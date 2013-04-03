@@ -135,10 +135,6 @@ func CreateEquipment()
 {
   Log("$CreatingEquipment$");
 
-  //Versorgungskiste (Kugeln)
-  var crate = CreateObject(AMCT, 1315, 460, -1);
-  crate->Set(ABOX);
-
   //Gewehrgranaten
   PlaceSpawnpoint(GBOX, 1290, 80);
 
@@ -330,6 +326,8 @@ public func ChooserFinished()
     //Versorgungskiste (Kugeln)
     var crate = CreateObject(AMCT, 245, 550, -1);
     crate->Set(ABOX);
+    crate = CreateObject(AMCT, 1315, 460, -1);
+    crate->Set(ABOX);
     crate = CreateObject(AMCT, 2075, 560, -1);
     crate->Set(ABOX);
    }
@@ -353,6 +351,8 @@ public func ChooserFinished()
     //Versorgungskiste (Kugeln)
     var crate = CreateObject(AMCT, 245, 550, -1);
     crate->Set(ABOX);
+    crate = CreateObject(AMCT, 1315, 460, -1);
+    crate->Set(ABOX);
     crate = CreateObject(AMCT, 2075, 560, -1);
     crate->Set(ABOX);
    }
@@ -371,7 +371,7 @@ public func ChooserFinished()
    if(!FindObject(NOAM))
    {
     //Versorgungskiste (Kugeln)
-    var crate = CreateObject(AMCT, 965, 620, -1);
+    var crate = CreateObject(AMCT, 605, 520, -1);
     crate->Set(ABOX);
     crate = CreateObject(AMCT, 1825, 450, -1);
     crate->Set(ABOX);
@@ -388,7 +388,7 @@ public func ChooserFinished()
    //Hinweisschilder
    CreateObject(SGNP, 525, 350, -1);
    CreateObject(SGNP, 585, 650, -1);
-   CreateObject(SGNP, 600, 520, -1);
+   CreateObject(SGNP, 560, 530, -1);
    CreateObject(SGNP, 660, 150, -1);
    CreateObject(SGNP, 1850, 130, -1);
    CreateObject(SGNP, 1850, 450, -1);
@@ -398,7 +398,7 @@ public func ChooserFinished()
    if(!FindObject(NOAM))
    {
     //Versorgungskiste (Kugeln)
-    var crate = CreateObject(AMCT, 965, 620, -1);
+    var crate = CreateObject(AMCT, 605, 520, -1);
     crate->Set(ABOX);
     crate = CreateObject(AMCT, 1825, 450, -1);
     crate->Set(ABOX);
