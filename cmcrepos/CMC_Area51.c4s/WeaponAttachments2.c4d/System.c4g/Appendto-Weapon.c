@@ -113,14 +113,6 @@ public func FxFlashlightTimer(object pTarget, int iNr, int iTime)
     if(pObj == user)
       continue;
 
-    //Bereits markierte Objekte auslassen
-    var tag;
-    if(tag = FindObject2(Find_ActionTarget(pObj), Find_ID(SM08), Find_Allied(GetController(user))))
-    {
-      tag->~RefreshRemoveTimer();
-      continue;
-    }
-
     //Objekt im Suchkegel?
     var target_angle = Normalize(Angle(GetX(), GetY(), GetX(pObj), GetY(pObj)), -180);
 
@@ -128,6 +120,14 @@ public func FxFlashlightTimer(object pTarget, int iNr, int iTime)
       continue;
     else if(iAngleMax >= 180 && (target_angle < iAngleMin && target_angle > iAngleMax-360))
       continue;
+
+    //Bereits markierte Objekte auslassen
+    var tag;
+    if(tag = FindObject2(Find_ActionTarget(pObj), Find_ID(SM08), Find_Allied(GetController(user))))
+    {
+      tag->~RefreshRemoveTimer();
+      continue;
+    }
 
     //Ansonsten markieren
     CreateObject(SM08, GetX(pObj), GetY(pObj), GetController(user))->Set(pObj, this, GetOCF(pObj) & OCF_Alive, 26);
