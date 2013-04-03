@@ -25,7 +25,7 @@ public func FMData1T2(int data)
 public func Fire1T2()
 {
   if(GetAttachment() != AT_Laserpointer)
-    LaunchRocket(MISL,Contained()->~AimAngle(10));
+    LaunchRocket(MISL,Contained()->~AimAngle(10), true);
   else
     LaunchRocket(MISL,Contained()->~AimAngle(10), false, true);
 }

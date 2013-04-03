@@ -157,7 +157,7 @@ func FxLaserDotTimer(object pTarget, int iEffectNumber, int iEffectTime)
     var iAngle = EffectVar(1, user, GetEffect("ShowWeapon", user));
     var fStart = false;
     if(!pLaser)
-      pLaser = CreateObject(LRDT,0,0,GetOwner(this));
+      pLaser = CreateObject(LRDT,0,0,GetOwner(GetUser(this)));
 
     var xPos, yPos;
     user->WeaponEnd(xPos,yPos);
@@ -181,9 +181,9 @@ func FxLaserDotTimer(object pTarget, int iEffectNumber, int iEffectTime)
     var pEnemy;
 
     if(pLaser->Active() || fStart)
-      pEnemy = FindObject2(Find_OnLine(0, 0, x - xPos, y - yPos), Find_Hostile(GetOwner(this)), Find_NoContainer(), Find_Or(Find_OCF(OCF_Alive), Find_Func("IsBulletTarget", GetID(), this, this), Find_Func("IsCMCVehicle")), Sort_Distance(0, 0));
+      pEnemy = FindObject2(Find_OnLine(0, 0, x - xPos, y - yPos), Find_Hostile(GetOwner(GetUser(this))), Find_NoContainer(), Find_Or(Find_OCF(OCF_Alive), Find_Func("IsBulletTarget", GetID(), this, this), Find_Func("IsCMCVehicle")), Sort_Distance(0, 0));
     else
-      pEnemy = FindObject2(Find_OnLine(0, 0, xdir, ydir), Find_Hostile(GetOwner(this)), Find_NoContainer(), Find_Or(Find_OCF(OCF_Alive), Find_Func("IsBulletTarget", GetID(), this, this), Find_Func("IsCMCVehicle")), Sort_Distance(0, 0));
+      pEnemy = FindObject2(Find_OnLine(0, 0, xdir, ydir), Find_Hostile(GetOwner(GetUser(this))), Find_NoContainer(), Find_Or(Find_OCF(OCF_Alive), Find_Func("IsBulletTarget", GetID(), this, this), Find_Func("IsCMCVehicle")), Sort_Distance(0, 0));
 
     //Feinderkennung
     if(pEnemy)
@@ -232,7 +232,7 @@ func FxLaserDotTimer(object pTarget, int iEffectNumber, int iEffectTime)
 
   //Laser zeichnen
   if(!pBeam)  
-    pBeam = CreateObject(LRBM, 0, 0, GetOwner(this));
+    pBeam = CreateObject(LRBM, 0, 0, GetOwner(GetUser(this)));
   else
     pBeam->SetPosition(xPos, yPos);
 
