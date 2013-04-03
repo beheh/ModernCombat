@@ -304,6 +304,10 @@ func FxSilencerTimer(object pTarget, int iEffectNumber, int iEffectTime)
   //Sonst: Tarnung erhöhen
   else if(EffectVar(0, pTarget, iEffectNumber) < 200)
     EffectVar(0, pTarget, iEffectNumber) += 2;
+    
+  //Clonk reitet oder ist markiert? Sichtbar machen
+  if(EffectVar(3, pTarget, iEffectNumber)->~IsRiding() || FindObject2(Find_ID(SM08), Find_ActionTarget(EffectVar(3, pTarget, iEffectNumber)), Find_Action("Attach")))
+    EffectVar(0, pTarget, iEffectNumber) = 0;
 
   //Tarnung verändert: Neuen Wert setzen
   if(Alpha != EffectVar(0, pTarget, iEffectNumber))

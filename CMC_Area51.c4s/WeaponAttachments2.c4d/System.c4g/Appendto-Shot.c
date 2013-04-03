@@ -13,11 +13,9 @@ public func BulletStrike(object pObj)
     {
       var Anthrax = GetEffect("Anthrax", pObj);
       if(!Anthrax)
-      {
         Anthrax = AddEffect("Anthrax", pObj, 20, 1, 0, GetID());
-        EffectVar(1, pObj, Anthrax) = iDamage*2; //Zeitraum zwischen 2 Schadensausstößen
-      }
       EffectVar(0, pObj, Anthrax) = iDamage*2/3; //Gesamtschaden
+      EffectVar(1, pObj, Anthrax) = iDamage; //Zeitraum zwischen 2 Schadensausstößen
     }
     if(iAttachment == AT_Anthrax)
       iDamage = iDamage*2/3;
