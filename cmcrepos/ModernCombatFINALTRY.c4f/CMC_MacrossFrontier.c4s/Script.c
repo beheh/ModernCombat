@@ -181,15 +181,6 @@ func CreateInterior()
   CreateObject(STNE, 145, 55, -1);
   CreateObject(STNE, 1390, 40, -1);
 
-  //Selbstschussanlagen und Konsolen
-  var selfd = CreateObject(SEGU, 700, 219, -1);
-  selfd->Arm(MISA);
-  CreateObject(CONS, 570, 225, -1)->Set(selfd);
-
-  var selfd = CreateObject (SEGU, 850, 139, -1);
-  selfd->Arm(MISA);
-  CreateObject (CONS, 975, 140, -1)->Set(selfd);
-
   //Tore und Konsolen
   var autod = CreateObject (HNG3, 610, 340, -1);
   autod->Open();
@@ -395,7 +386,6 @@ public func ChooserFinished()
    flag->~Set("$Flag1$");
 
    //Objekte entfernen
-   RemoveAll(SEGU);
    RemoveAll(JPTP);
    RemoveAll(JMPD);
 
