@@ -30,7 +30,7 @@ public func GetMCData(int data)
 public func FMData1(int data)
 {
   if(data == FM_Name)		return "$Bullets$";
-    
+
   if(data == FM_AmmoID)		return STAM;	//ID der Munition
   if(data == FM_AmmoLoad)	return 6;	//Magazingröße
   if(data == FM_AmmoUsage)	return 1;	//Munition pro Schuss
@@ -43,9 +43,9 @@ public func FMData1(int data)
   if(data == FM_FinishReload)	return 20;	//Zeit nach dem Nachladen
 
   if(data == FM_Damage)		return 21;	//Schadenswert
-  
+
   if(data == FM_Slot)		return 1;	//Slot des Feuermodus
-  
+
   if(data == FM_SpreadAdd)	return 110;	//Bei jedem Schuss hinzuzuaddierende Streuung
   if(data == FM_StartSpread)	return 30;	//Bei Auswahl der Waffe gesetzte Streuung
   if(data == FM_MaxSpread)	return 220;	//Maximaler Streuungswert
@@ -103,16 +103,16 @@ public func Fire1()
 public func FMData2(int data)
 {
   if(data == FM_Name)		return "$TracerDart$";
-    
+
   if(data == FM_AmmoID)		return STAM;	//ID der Munition
   if(data == FM_AmmoLoad)	return 1;	//Magazingröße
 
   if(data == FM_Reload)		return 80;	//Zeit für Nachladen
 
   if(data == FM_Auto)		return false;	//Kein Automatikfeuer
-  
+
   if(data == FM_Damage)		return 0;	//Schadenswert
-  
+
   if(data == FM_Slot)		return 2;	//Slot des Feuermodus
 
   if(data == FM_SpreadAdd)	return 60;	//Bei jedem Schuss hinzuzuaddierende Streuung
