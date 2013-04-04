@@ -93,7 +93,7 @@ public func FxFlashlightTimer(object pTarget, int iNr, int iTime)
 
     light->ChangeR(user->~AimAngle());
   }
-  
+
   if(!user && light)
     RemoveObject(light);
 
