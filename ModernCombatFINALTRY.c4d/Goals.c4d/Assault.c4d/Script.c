@@ -589,10 +589,10 @@ protected func FxIntAlarmBlinkStop(object pTarget, int iNr)
 /* Ticketabzug-Effekt */
 
 static const GASS_TicketIdleTime = 120;	//Zeit in Sekunden, bis bei aktivem Ticketabzug-Timer ein Ticket verloren geht
-static const GASS_TicketCooldown = 300; //Zeit in Sekunden, bis der Ticketabzug-Timer beginnt
+static const GASS_TicketCooldown = 240; //Zeit in Sekunden, bis der Ticketabzug-Timer beginnt
 
 protected func FxTicketSubtractionStart(object pTarget, int iEffect)
-{ 
+{
   EffectVar(0, pTarget, iEffect) = GASS_TicketCooldown; 
   EffectVar(2, pTarget, iEffect) = iTicketSubtrTime;
   if(!EffectVar(2, pTarget, iEffect))
