@@ -566,7 +566,7 @@ public func ChooserFinished()
     aFlag[4]->Set("$Flag5$",0,2);
    }
 
-   //Versorgungskisten (APW)
+   //Versorgungskiste (APW)
    var crate = CreateObject (AMCT, 2865, 1350, -1);
    crate->Set(ATWN);
   }
@@ -598,7 +598,7 @@ public func ChooserFinished()
    store->AddWare(STUN,-1);
    store->AddWare(SRBL,-1);
 
-   //Versorgungskisten (APW)
+   //Versorgungskiste (APW)
    var crate = CreateObject (AMCT, 2865, 1350, -1);
    crate->Set(ATWN);
   }
@@ -631,7 +631,7 @@ public func ChooserFinished()
    store->AddWare(STUN,-1);
    store->AddWare(SRBL,-1);
 
-   //Versorgungskisten (APW)
+   //Versorgungskiste (APW)
    var crate = CreateObject (AMCT, 2865, 1350, -1);
    crate->Set(ATWN);
   }
@@ -672,7 +672,7 @@ public func ChooserFinished()
    store->AddWare(STUN,-1);
    store->AddWare(SRBL,-1);
 
-   //Versorgungskisten (APW)
+   //Versorgungskiste (APW)
    var crate = CreateObject (AMCT, 2865, 1350, -1);
    crate->Set(ATWN);
   }
