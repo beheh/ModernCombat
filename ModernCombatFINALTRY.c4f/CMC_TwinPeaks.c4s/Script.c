@@ -647,10 +647,10 @@ public func ChooserFinished()
    if(!FindObject(NOAM))
    {
     //Kugeln
-    PlaceSpawnpoint(ABOX, 2850, 1345);
+    PlaceSpawnpoint(ABOX, 2840, 1465);
 
     //Gewehrgranaten
-    PlaceSpawnpoint(GBOX, 2880, 1345);
+    PlaceSpawnpoint(GBOX, 2890, 1465);
    }
   }
 
