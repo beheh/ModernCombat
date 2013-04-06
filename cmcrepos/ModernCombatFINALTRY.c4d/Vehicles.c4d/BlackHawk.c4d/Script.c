@@ -1295,6 +1295,16 @@ public func OnDamage(int iDamage)
     Sound("MetalHit*.ogg");
   }
 
+  //Kritische Treffer verletzen die Besatzung
+  if(iDamage >= 20)
+  {
+    for(var obj in FindObjects(Find_Container(this), Find_Not(Find_ID(FKDT))))
+    {
+      if(GetOCF(obj) & OCF_Alive && GetID(Contained(obj)) != FKDT)
+        DoDmg(iDamage/3,DMG_Melee,obj,0,GetLastAttacker()+1,GetID());
+    }
+  }
+
   return true;
 }
 
