@@ -502,9 +502,6 @@ public func ChooserFinished()
     //Versorgungskiste (Kugeln)
     var crate = CreateObject(AMCT, 2965, 460, -1);
     crate->Set(ABOX);
-
-    //Raketen
-    PlaceSpawnpoint(MBOX, 2890, 525);
    }
   }
 
