@@ -67,14 +67,14 @@ public func FlashlightAngle()	{return 30;}
 
 public func FxFlashlightTimer(object pTarget, int iNr, int iTime)
 {
-	var user = this->~GetUser(), prevUser = EffectVar(1, pTarget, iNr);
+  var user = this->~GetUser(), prevUser = EffectVar(1, pTarget, iNr);
   var light = EffectVar(0, pTarget, iNr);
 
   var deactivate = false;
   if(!user || Contents(0, user) != this || Contained(user))
     deactivate = true;
 
-	//Licht bei Benutzerwechsel entfernen
+  //Licht bei Benutzerwechsel entfernen
   if((user != prevUser) && light)
     RemoveObject(light);
 
@@ -98,7 +98,7 @@ public func FxFlashlightTimer(object pTarget, int iNr, int iTime)
     light->ChangeR(user->~AimAngle());
   }
 
-	EffectVar(1, pTarget, iNr) = user;
+  EffectVar(1, pTarget, iNr) = user;
 
   if(deactivate || iTime % 4)
     return;
@@ -111,7 +111,7 @@ public func FxFlashlightTimer(object pTarget, int iNr, int iTime)
   		Find_Hostile(GetController(user)),				//Nur feindliche Objekte markieren
   		Find_Or(Find_OCF(OCF_Alive), Find_Func("IsDetectable")),	//Lebewesen oder als identifizierbar markiert
   		Find_NoContainer(),						//Im Freien
-  		Find_Exclude(this))) 						//Selber ausschließen
+  		Find_Exclude(this)))						//Selber ausschließen
   {
     if(pObj == user)
       continue;
@@ -141,14 +141,14 @@ public func FxFlashlightTimer(object pTarget, int iNr, int iTime)
 
 public func FxFlashlightStop(object pTarget, int iNr, int iReason, bool fTemp)
 {
-	if(fTemp)
-		return;
+  if(fTemp)
+    return;
 
-	//Licht löschen
-	if(EffectVar(0, pTarget, iNr))
-		RemoveObject(EffectVar(0, pTarget, iNr));
+  //Licht löschen
+  if(EffectVar(0, pTarget, iNr))
+    RemoveObject(EffectVar(0, pTarget, iNr));
 
-	return true;
+  return true;
 }
 
 /* Laserpointer */
