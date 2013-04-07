@@ -11,11 +11,13 @@ public func BulletStrike(object pObj)
   {
     if(iAttachment == AT_Anthrax && GetOCF(pObj) & OCF_Alive)
     {
-      var Anthrax = GetEffect("Anthrax", pObj);
-      if(!Anthrax)
-        Anthrax = AddEffect("Anthrax", pObj, 20, 1, 0, GetID());
-      EffectVar(0, pObj, Anthrax) = iDamage*2/3; //Gesamtschaden
-      EffectVar(1, pObj, Anthrax) = iDamage; //Zeitraum zwischen 2 Schadensausstößen
+      var anthrax = GetEffect("Anthrax", pObj);
+      if(!anthrax)
+        anthrax = AddEffect("Anthrax", pObj, 20, 1, 0, GetID());
+
+      EffectVar(0, pObj, anthrax) = iDamage*2/3; //Gesamtschaden
+      EffectVar(1, pObj, anthrax) = iDamage; //Zeitraum zwischen 2 Schadensausstößen
+      EffectVar(2, pObj, anthrax) = shooter; //Schütze
     }
     if(iAttachment == AT_Anthrax)
       iDamage = iDamage*2/3;
@@ -31,12 +33,12 @@ public func CustomLaunch(int iAngle, int iSpeed, int iDist, int iSize, int iTrai
   return Launch(iAngle,iSpeed,iDist,iSize,iTrail,iDmg,iRemoveTime);
 }
 
-func FxAnthraxStart(object pTarget, int iEffectNumber, int iTemp, int iDamageAmount, int iDamageRate)
+func FxAnthraxStart(object pTarget, int iEffectNumber, int iTemp)
 {
   if(iTemp)
-    if(GetPhysical("Walk", 2, pTarget) <= GetPhysical("Walk", 1, 0, GetID(pTarget))*5/10)
+  	if(GetPhysical("Walk", 2, pTarget) <= GetPhysical("Walk", 1, 0, GetID(pTarget))*5/10)
       return;
-
+	
   //Lähmung
   //SetPhysical("Walk", GetPhysical("Walk", 2, pTarget)/2, 3, pTarget);
   //SetPhysical("Jump", GetPhysical("Jump", 2, pTarget)/2, 3, pTarget);
@@ -53,25 +55,21 @@ func FxAnthraxTimer(object pTarget, int iEffectNumber, int iEffectTime)
   //Damage machen
   if(!(iEffectTime % EffectVar(1, pTarget, iEffectNumber)))
   {
-    DoDmg(1, DMG_Bio, pTarget, 0, 0, 0, AT_Anthrax);
-    EffectVar(0,pTarget,iEffectNumber)--;
+    DoDmg(1, DMG_Bio, pTarget, 0, GetOwner(EffectVar(2, pTarget, iEffectNumber))+1, 0, AT_Anthrax);
+    EffectVar(0, pTarget, iEffectNumber)--;
   }
   
   //Schon leer?
-  if(!EffectVar(0,pTarget,iEffectNumber))
-  {
+  if(!EffectVar(0, pTarget, iEffectNumber))
     return -1;
-  }
+
   //FakeDeath?
   if(Contained(pTarget) && GetID(Contained(pTarget)) == FKDT)
-  {
     return -1;
-  }
+
   //Bildschirm Effekt
   if(!(iEffectTime % 20))
-  {
-    ScreenRGB(pTarget,RGBa(45, 230, 25, 190), 80, 3,false, SR4K_LayerMedicament, 200);
-  }
+    ScreenRGB(pTarget, RGBa(45, 230, 25, 190), 80, 3, false, SR4K_LayerMedicament, 200);
 }
 
 func FxAnthraxStop(object pTarget, no, reason, temp)
