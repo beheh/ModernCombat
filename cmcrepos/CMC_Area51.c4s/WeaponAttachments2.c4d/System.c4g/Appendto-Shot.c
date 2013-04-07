@@ -15,9 +15,9 @@ public func BulletStrike(object pObj)
       if(!anthrax)
         anthrax = AddEffect("Anthrax", pObj, 20, 1, 0, GetID());
 
-      EffectVar(0, pObj, anthrax) = iDamage*2/3; //Gesamtschaden
-      EffectVar(1, pObj, anthrax) = iDamage; //Zeitraum zwischen 2 Schadensausstößen
-      EffectVar(2, pObj, anthrax) = shooter; //Schütze
+      EffectVar(0, pObj, anthrax) = iDamage*2/3;	//Gesamtschaden
+      EffectVar(1, pObj, anthrax) = iDamage;		//Zeitraum zwischen 2 Schadensausstößen
+      EffectVar(2, pObj, anthrax) = shooter;		//Schütze
     }
     if(iAttachment == AT_Anthrax)
       iDamage = iDamage*2/3;
@@ -36,9 +36,9 @@ public func CustomLaunch(int iAngle, int iSpeed, int iDist, int iSize, int iTrai
 func FxAnthraxStart(object pTarget, int iEffectNumber, int iTemp)
 {
   if(iTemp)
-  	if(GetPhysical("Walk", 2, pTarget) <= GetPhysical("Walk", 1, 0, GetID(pTarget))*5/10)
+    if(GetPhysical("Walk", 2, pTarget) <= GetPhysical("Walk", 1, 0, GetID(pTarget))*5/10)
       return;
-	
+
   //Lähmung
   //SetPhysical("Walk", GetPhysical("Walk", 2, pTarget)/2, 3, pTarget);
   //SetPhysical("Jump", GetPhysical("Jump", 2, pTarget)/2, 3, pTarget);
