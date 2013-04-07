@@ -51,7 +51,7 @@ public func KMsg(int plr1, int plr2, object clonk, int plr3)
   msg = Format("{{%i}}",killicon); 
   
   //Attachment? Dann dranschreiben!
-  if(killattachment)
+  if(killattachment && killicon->~IsWeapon())
     msg = Format("%s{{%i}}", msg, AttachmentIcon(killattachment));
   if(typeicon && killicon != typeicon)
     if(killicon)
