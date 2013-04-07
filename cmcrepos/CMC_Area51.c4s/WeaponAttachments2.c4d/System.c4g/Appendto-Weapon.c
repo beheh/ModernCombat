@@ -67,12 +67,16 @@ public func FlashlightAngle()	{return 30;}
 
 public func FxFlashlightTimer(object pTarget, int iNr, int iTime)
 {
-  var user = this->~GetUser();
+	var user = this->~GetUser(), prevUser = EffectVar(1, pTarget, iNr);
   var light = EffectVar(0, pTarget, iNr);
 
   var deactivate = false;
-  if(!user || Contents(0, user) != this)
+  if(!user || Contents(0, user) != this || Contained(user))
     deactivate = true;
+
+	//Licht bei Benutzerwechsel entfernen
+  if((user != prevUser) && light)
+    RemoveObject(light);
 
   //Spieler hat schon eine Taschenlampe ausgerüstet
   if((deactivate && light) || (user && user->~HasGear(0, FLSH)))
@@ -94,8 +98,7 @@ public func FxFlashlightTimer(object pTarget, int iNr, int iTime)
     light->ChangeR(user->~AimAngle());
   }
 
-  if(!user && light)
-    RemoveObject(light);
+	EffectVar(1, pTarget, iNr) = user;
 
   if(deactivate || iTime % 4)
     return;
@@ -134,6 +137,18 @@ public func FxFlashlightTimer(object pTarget, int iNr, int iTime)
   }
 
   return true;
+}
+
+public func FxFlashlightStop(object pTarget, int iNr, int iReason, bool fTemp)
+{
+	if(fTemp)
+		return;
+
+	//Licht löschen
+	if(EffectVar(0, pTarget, iNr))
+		RemoveObject(EffectVar(0, pTarget, iNr));
+
+	return true;
 }
 
 /* Laserpointer */
