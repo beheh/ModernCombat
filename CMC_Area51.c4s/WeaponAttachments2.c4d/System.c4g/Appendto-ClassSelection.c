@@ -263,7 +263,7 @@ private func OpenMenu(object pClonk, int iSelection)
   AddMenuItem(Format("{{%i}} %s", GetCData(iClass, CData_Clonk), GetName(0, GetCData(iClass, CData_Clonk)), 0, NONE, pClonk, 0, 0, " "));
 
   //Munition
-  if (!FindObject(NOAM))
+  if(!FindObject(NOAM))
   {
     var szAmmo = "", aAmmo = GetCData(iClass, CData_Ammo);
     for (var aEntry in aAmmo)
@@ -274,6 +274,8 @@ private func OpenMenu(object pClonk, int iSelection)
     }
     AddMenuItem(szAmmo, 0, NONE, pClonk, 0, 0, " ");
   }
+  else
+    AddMenuItem(" ", 0, NONE, pClonk, 0, 0, " ");
 
   //Gegenstände
   var szItems = "", aItems = GetCData(iClass, CData_Items), nextline = false, first = true;
@@ -672,16 +674,8 @@ public func OpenMenuAttachment(id idParamWeapon, int iClass, object pClonk, int 
 
   AddMenuItem(Format("<c ffff33>%s</c>|%s", name, DescAtts[iterations]), 0, NONE, pClonk, 0, 0, " ");
 
-  //Leerzeilen-Platzhalter
-  AddMenuItem(" | ", 0, NONE, pClonk, 0, 0, " ");
-  AddMenuItem(" | ", 0, NONE, pClonk, 0, 0, " ");
-  AddMenuItem(" ", 0, NONE, pClonk, 0, 0, " ");
-  AddMenuItem(" ", 0, NONE, pClonk, 0, 0, " ");
-  if(!FindObject(NOAM))
-  {
-    AddMenuItem(" ", 0, NONE, pClonk, 0, 0, " ");
-    count++;
-  }
+  //Leerzeilen
+  AddMenuItem(" |||| ", 0, NONE, pClonk, 0, 0, " ");
 
   //Spawnen
   AddMenuItem("$Spawn$", Format("SetupClass(%d, %d)", iClass, iOwner), CHOS, pClonk, 0, pClonk, 0, 2, 3);
