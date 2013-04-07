@@ -1554,21 +1554,21 @@ protected func FxEvaluateGoalVoteTimer(pTarget, iEffect, iTime)
       array[GetLength(array)] = aGoals[i];
   }
   
-  //Empfohlene Spielziele rausfiltern
- 	var rGoals = RecommendedGoals(), array2 = [];
+  //Empfohlene Spielziele heraussuchen
+  var rGoals = RecommendedGoals(), array2 = [];
   for(var i = 0; i < GetLength(array); i++)
   {
-  	if(GetIndexOf(array[i], rGoals) >= 0)
-  		array2[GetLength(array2)] = array[i];
+    if(GetIndexOf(array[i], rGoals) >= 0)
+      array2[GetLength(array2)] = array[i];
   }
-  
+
   //Und zufällig eins auswählen
   var idGoal = array[Random(GetLength(array))];
 
- 	//Haben empfohlene Spielziele die Höchstpunktzahl erreicht, dann darunter auswählen
+  //Empfohlene Spielziele haben die Höchstpunktzahl erreicht: Darunter auswählen
   if(GetLength(array2))
-  	idGoal = array2[Random(GetLength(array2))];
-  
+    idGoal = array2[Random(GetLength(array2))];
+
   str = Format("$Goal$ (%s)", GetName(0, idGoal), str);
   if (idGoal)
     CreateGoal(idGoal, aTempGoalSave[GetIndexOf(idGoal, aGoals)], str);
