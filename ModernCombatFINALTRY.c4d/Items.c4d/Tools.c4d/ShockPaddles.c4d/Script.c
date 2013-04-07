@@ -175,7 +175,7 @@ func Use(caller)
 /* Selbstheilungseffekt durch Wiederbelebung */
 
 func HealRate()		{return 3;}
-func HealAmount()	{return 50;}
+func HealAmount()	{return 70;}
 
 func FxShockPaddlesHealStart(object pTarget, int iEffectNumber, int iTemp, int iHealAmount, int iHealRate)
 {
