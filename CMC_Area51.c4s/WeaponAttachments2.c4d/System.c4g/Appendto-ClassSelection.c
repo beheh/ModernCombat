@@ -213,7 +213,7 @@ func Finish(object pClonk, int iClass)
 
 private func InfoMenuItems()
 {
-  return 6 + !FindObject(NOAM);
+  return 7;
 }
 
 public func FxClassMenuTimer(object pTarget, int nr)
@@ -614,7 +614,7 @@ public func OpenMenuAttachment(id idParamWeapon, int iClass, object pClonk, int 
   submenu[iOwner] = 2;
   var i = 0;
   var j = 0;
-  var count = 8;
+  var count = 5;
   var fOne = true;
 
   //Gegenstände
