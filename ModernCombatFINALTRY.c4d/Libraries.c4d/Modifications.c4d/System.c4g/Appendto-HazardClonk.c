@@ -1152,6 +1152,16 @@ private func GetQuickInventoryMenuItemCount(int iMenu)
   return iCount;
 }
 
+//Prüft, ob die nachfolgenden Seiten über anwählbare Items verfügen
+private func QuickInventoryNextPageActive(array aItems, int iCurrentPage)
+{
+	for(var i = (iCurrentPage+1)*3; i < GetLength(aItems); i++)
+    if(aItems[i] && (ContentsCount(aItems[i]) || GetGrenade(aItems[i])))
+      return true;
+  
+  return false;
+}
+
 public func QuickInventory(int iMenu, int iPage)
 {
   if(!iMenu) iMenu = QINV_MainMenu;
@@ -1218,7 +1228,9 @@ public func QuickInventory(int iMenu, int iPage)
       {
         if(i >= iPage*3+3)
         {
-          pRing->AddLeftItem("$NextPage$", "QuickInventoryPaging", [iMenu, iPage+1], SM05);
+          if(QuickInventoryNextPageActive(aItems, iPage))
+          	pRing->AddLeftItem("$NextPage$", "QuickInventoryPaging", [iMenu, iPage+1], SM05);
+
           break;
         }
         if(aItems[i])
