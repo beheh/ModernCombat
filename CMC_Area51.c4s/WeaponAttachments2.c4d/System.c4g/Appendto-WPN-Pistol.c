@@ -10,15 +10,16 @@ func PermittedAtts()
 
 public func FMData1(int data)
 {
-  if(data == FM_AmmoLoad)
-    return _inherited(data) + (iAttachment == AT_ExtendedMag)*6;		//Magazingröße
+  if(data == FM_Reload)		return _inherited(data) + (iAttachment == AT_ExtendedMag)*17;			//Zeit für Nachladen
+
+  if(data == FM_AmmoLoad)	return _inherited(data) + (iAttachment == AT_ExtendedMag)*6;			//Magazingröße
 
   if(data == FM_Damage)		return 12 - (iAttachment == AT_Silencer)*((Random(10)<6)+(Random(10)<6));	//Schadenswert
 
-  if(data == FM_SpreadAdd)	return 60 - (iAttachment == AT_Laserpointer)*4;		//Bei jedem Schuss hinzuzuaddierende Streuung
-  if(data == FM_StartSpread)	return 30 - (iAttachment == AT_Laserpointer)*20;	//Bei Auswahl der Waffe gesetzte Streuung
-  if(data == FM_MaxSpread)	return 220 - (iAttachment == AT_Laserpointer)*70;	//Maximaler Streuungswert
-  if(data == FM_MinSpread)	return 20 - (iAttachment == AT_Laserpointer)*10;	//Kleinstmögliche Streuung
+  if(data == FM_SpreadAdd)	return 60 - (iAttachment == AT_Laserpointer)*4;					//Bei jedem Schuss hinzuzuaddierende Streuung
+  if(data == FM_StartSpread)	return 30 - (iAttachment == AT_Laserpointer)*20;				//Bei Auswahl der Waffe gesetzte Streuung
+  if(data == FM_MaxSpread)	return 220 - (iAttachment == AT_Laserpointer)*70;				//Maximaler Streuungswert
+  if(data == FM_MinSpread)	return 20 - (iAttachment == AT_Laserpointer)*10;				//Kleinstmögliche Streuung
 
   return _inherited(data);
 }
@@ -50,5 +51,27 @@ public func Fire1()
 
     if(GetEffect("Silencer", this))
       EffectVar(0, this, GetEffect("Silencer", this)) -= BoundBy(25, 0, EffectVar(0, this, GetEffect("Silencer", this)));
+  }
+}
+
+public func OnReload(i)
+{
+  if(i == 1)
+  {
+    if(iAttachment == AT_ExtendedMag)
+      Sound("PSTL_Reload2.ogg");
+    else
+      Sound("PSTL_Reload.ogg");
+  }
+  if(i == 2)
+  {
+    Sound("PSTL_TracerReload.ogg");
+    if(casing)
+    {
+      var user = GetUser();
+      var dir = GetDir(user)*2-1;
+      SABulletCasing(dir*1,0,-dir*14*(Random(1)+1),-(13+Random(2)),6,RGB(150,150,150));
+      casing = 0;
+    }
   }
 }

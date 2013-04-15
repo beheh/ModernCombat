@@ -27,3 +27,4 @@ NotEnoughAmmo=Nicht genug {{%i}}!
 Single=Einzelfeuer
 Optical=Optisches Lenken
 Unguided=Ungelenkt
+Warning=Achtung, kehre zum Schlachtfeld zurück!|Eliminierung in|<c ff0000>%d</c>
