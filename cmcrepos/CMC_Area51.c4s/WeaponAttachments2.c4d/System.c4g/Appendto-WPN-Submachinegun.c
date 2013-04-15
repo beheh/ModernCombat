@@ -10,14 +10,16 @@ func PermittedAtts()
 
 public func FMData1(int data)
 {
-  if(data == FM_AmmoLoad)	return 30 + (iAttachment == AT_ExtendedMag)*9;	//Magazingröße
+  if(data == FM_Reload)		return _inherited(data) + (iAttachment == AT_ExtendedMag)*16;	//Zeit für Nachladen
 
-  if(data == FM_SpreadAdd)	return 20 - (iAttachment == AT_Laserpointer)*4;		//Bei jedem Schuss hinzuzuaddierende Streuung
-  if(data == FM_StartSpread)	return 110 - (iAttachment == AT_Laserpointer)*20;	//Bei Auswahl der Waffe gesetzte Streuung
-  if(data == FM_MaxSpread)	return 410 - (iAttachment == AT_Laserpointer)*110;	//Maximaler Streuungswert
-  if(data == FM_MinSpread)	return 60 - (iAttachment == AT_Laserpointer)*20;	//Kleinstmögliche Streuung
+  if(data == FM_AmmoLoad)	return 30 + (iAttachment == AT_ExtendedMag)*9;			//Magazingröße
 
-  if(data == FM_Damage)		return 6 - (iAttachment == AT_Silencer)*(Random(10)<6);	//Schadenswert
+  if(data == FM_SpreadAdd)	return 20 - (iAttachment == AT_Laserpointer)*4;			//Bei jedem Schuss hinzuzuaddierende Streuung
+  if(data == FM_StartSpread)	return 110 - (iAttachment == AT_Laserpointer)*20;		//Bei Auswahl der Waffe gesetzte Streuung
+  if(data == FM_MaxSpread)	return 410 - (iAttachment == AT_Laserpointer)*110;		//Maximaler Streuungswert
+  if(data == FM_MinSpread)	return 60 - (iAttachment == AT_Laserpointer)*20;		//Kleinstmögliche Streuung
+
+  if(data == FM_Damage)		return 6 - (iAttachment == AT_Silencer)*(Random(10)<6);		//Schadenswert
 
   return _inherited(data);
 }
@@ -68,4 +70,12 @@ public func Fire1()
   //Klickgeräusch bei wenig Munition
   if(Inside(GetAmmo(GetFMData(FM_AmmoID)), 1, GetFMData(FM_AmmoLoad)/3))
     Sound("MNGN_Click.ogg", 0, ammo, 0, GetOwner(user)+1);
+}
+
+func OnReload()
+{
+  if(iAttachment == AT_ExtendedMag)
+    Sound("SMGN_Reload2.ogg");
+  else
+    Sound("SMGN_Reload.ogg");
 }
