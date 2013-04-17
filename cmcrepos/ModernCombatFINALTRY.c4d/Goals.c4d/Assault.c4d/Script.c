@@ -404,6 +404,9 @@ protected func FxIntAssaultTargetTimer(object pTarget, int iNr, int iTime)
           {
             //Punkte bei Belohnungssystem (Sprengladungsplazierung)
             DoPlayerPoints(BonusPoints("ASTargetArmed"), RWDS_TeamPoints, GetOwner(clonk), clonk, IC15);
+
+            //Achievement-Fortschritt (Bomberman)
+            DoAchievementProgress(1, AC43, GetOwner(clonk));
           }
 
         assist = true;
@@ -485,6 +488,9 @@ protected func FxIntAssaultTargetTimer(object pTarget, int iNr, int iTime)
           {
             //Punkte bei Belohnungssystem (Sprengladungsentschärfung)
             DoPlayerPoints(BonusPoints("ASTargetDefused"), RWDS_TeamPoints, GetOwner(clonk), clonk, IC15);
+
+            //Achievement-Fortschritt (Firewall)
+            DoAchievementProgress(1, AC44, GetOwner(clonk));
           }
         assist = true;
       }
