@@ -982,7 +982,7 @@ public func CreateSpotlights()
 
 public func RemoveSpotlights()
 {
-  if(pSpotlight[0])
+  if(pSpotlight && pSpotlight[0])
     RemoveObject(pSpotlight[0]);
 
   return true;
