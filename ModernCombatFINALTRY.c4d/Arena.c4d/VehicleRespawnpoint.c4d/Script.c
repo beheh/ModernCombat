@@ -46,7 +46,21 @@ global func FxIntVehicleSpawn4KSpawn(object pTarget, int iEffectNumber)
 {
   var pVehicle = EffectVar(1,pTarget,iEffectNumber);
   var aType = EffectVar(0,pTarget,iEffectNumber);
+  
+  if(NoHelicopters())
+  {
+  	for(var i = 0; i < GetLength(aType); i++)
+  	{
+  		var array = aType[i];
+  		if(array[0] && array[0]->~IsHelicopter())
+  			DelArrayItem4K(aType, i--);
+  	}
+  }
+  
   var data = RandomIndex4K(aType);
+  if(!data)
+  	return;
+  
   var id = data[0];
   var x = data[1], y = data[2], wdt = data[3], hgt = data[4];
 
