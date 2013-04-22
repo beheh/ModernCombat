@@ -37,7 +37,7 @@ public func FMData1T2(int data)
 public func GetMCData(int data)
 {
   if(data == MC_Damage)
-    return _inherited(data) + (iAttachment == AT_Bayonet)*6;	//Schaden eines Kolbenschlages
+    return _inherited(data) + (iAttachment == AT_Bayonet)*8;	//Schaden eines Kolbenschlages
   if(data == MC_Recharge)
     return _inherited(data) + (iAttachment == AT_Bayonet)*10;	//Zeit nach Kolbenschlag bis erneut geschlagen oder gefeuert werden kann
 
