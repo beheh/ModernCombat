@@ -36,16 +36,20 @@ func Hit(int iXDir, int iYDir)
   if(GBackSolid(+5,0)) SetXDir(-iXDir/12);
 
   if(Abs(GetXDir()) < 1 && Abs(GetYDir()) < 1) return;
-
   SetRDir();
   SetR();
 }
 
+/* Hülsenauswurf */
+
 global func BulletCasing(int iX, int iY, int iXDir, int iYDir, int iSize, int iColor, int bForceLow)
 {
+  //Effektstufe prüfen
   if(!GetEffectData(EFSM_BulletCasing)) return;
+
   var xd,yd;
 
+  //Bewegung ermitteln
   if(this)
   {
     xd = iXDir + GetXDir(this);
@@ -55,8 +59,10 @@ global func BulletCasing(int iX, int iY, int iXDir, int iYDir, int iSize, int iC
   xd = iXDir + RandomX(-3,3);
   yd = iYDir + RandomX(-3,3);
 
+  //Größe festlegen
   if(!iSize) iSize = 5;
 
+  //Patronenhülse erstellen
   var tmp = CreateObject(BHUL,iX,iY,NO_OWNER);
   SetXDir(xd, tmp);
   SetYDir(yd, tmp);
