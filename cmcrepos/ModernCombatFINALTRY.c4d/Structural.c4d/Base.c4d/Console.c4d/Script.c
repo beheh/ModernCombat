@@ -20,7 +20,7 @@ public func IsFakeRepairable(int iPlr)
 
 protected func Timer(pClonk)
 {
-  //Selbstzerstörung wenn kein Zielobjekt
+  //Kein Zielobjekt: Selbstzerstörung
   if(!target)
   {
    if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",4,50,0,0,40,150);
@@ -30,10 +30,9 @@ protected func Timer(pClonk)
   }
 
   //Blinkeffekt
-  if(Random(2)) 
-    CreateParticle("NoGravSpark", 3, 1, 0, 0, 50, RGBa(250, 10, 10, 50));
-  else
-   CreateParticle("NoGravSpark", 3, 3, 0, 0, 50, RGBa(10, 10, 250, 50));
+  AddLightFlash(100,0,0,RGB(0,0,255));
+  CreateParticle("NoGravSpark", -8, 1, 0, 0, 50, RGBa(0, 0, 255, 50));
+  CreateParticle("NoGravSpark", 8, 1, 0, 0, 50, RGBa(0, 0, 255, 50));
 }
 
 /* Bedienung */
