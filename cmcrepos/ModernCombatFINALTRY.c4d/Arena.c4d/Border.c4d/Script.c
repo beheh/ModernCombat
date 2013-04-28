@@ -20,6 +20,7 @@ public func Set(int iDir, bool fKeepSpawns, bool fAbyssKill, bool fTeamCheck, in
     iAllowedTeam = iTeam;
   }
 
+  //Suchrichtung einstellen
   if(iDir == 0)
   {
     x  = -GetX();
@@ -48,6 +49,8 @@ public func Set(int iDir, bool fKeepSpawns, bool fAbyssKill, bool fTeamCheck, in
     xh = LandscapeWidth();
     yh = LandscapeHeight()-GetY();
   }
+
+  //Spawnpoints entfernen?
   if(!fKeepSpawns)
     for(var obj in FindObjects(Find_InRect(x, y, xh, yh), Find_Func("IsSpawnpoint")))
       RemoveObject(obj);
