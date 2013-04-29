@@ -132,6 +132,7 @@ public func ControlConf(int conf)
 
   DoAiming(iChange);
 }
+
 public func DoAiming(int iChange)
 {
   //Wird gezielt?
@@ -176,14 +177,14 @@ public func HazardGearSupported(object pGear)
 
 public func ReadyToFire()
 {
-  //Nicht wenn am schwimmen...
+  //Nicht wenn am schwimmen,...
   if(GetProcedure() == "SWIM")
     return;
 
   if(GetAction() == "Crawl" && Contents() && Contents()->~CanAim() && Contents()->~IsEquipment())
     return true;
 
-  //...wenn verschachtelt...
+  //...wenn verschachtelt,...
   if(Contained()) return false;
 
   if(GetActionTarget())
@@ -374,16 +375,16 @@ public func UpdateCharge(bool fForceUpdate)
   if(IsRiding() && GetActionTarget()->~UpdateCharge(this))
     return true;
 
-  //Ggf. an angefasstes Objekt weiterleiten
+  //Gegebenenfalls an angefasstes Objekt weiterleiten
   var Content = Contents();
   if(GetAction() == "Push" && GetActionTarget() && GetActionTarget()->~IsWeapon())
     Content = GetActionTarget();
 
-  //Ggf. an Gebäude/Fahrzeug weiterleten
+  //Gegebenenfalls an Gebäude/Fahrzeug weiterleiten
   if(Contained() && Contained()->~IsWeapon())
     Content = Contained();
 
-  //Ggf. speziell zugewiesenes Objekt
+  //Gegebenenfalls an speziell zugewiesenes Objekt weiterleiten
   if(pHUDTarget)
     Content = pHUDTarget;
 
@@ -571,7 +572,7 @@ public func Entrance(object pContainer)
   return _inherited(pContainer);
 }
 
-protected func Departure()      //Gebäude verlassen
+protected func Departure()	//Gebäude verlassen
 {
   UpdateCharge();
   return _inherited(...);
@@ -590,7 +591,7 @@ public func FxUpdateAimingTimer(object pTarget, int iNr)
   return true;
 }
 
-public func StartAiming() //Wegen fehlendem Hazard-Feature.
+public func StartAiming()	//Wegen fehlendem Hazard-Feature
 {
   if(Contained()) return Contained()->~StartAiming();
 
@@ -613,7 +614,7 @@ public func StartAiming() //Wegen fehlendem Hazard-Feature.
   if(Contents()) Contents()->~AimStart();
 }
 
-public func StartSquatAiming() // Anfangen in der Hocke zu zielen
+public func StartSquatAiming()	//Anfangen in der Hocke zu zielen
 {
   if(Contained()) return Contained()->~StartAiming();
 
@@ -813,7 +814,7 @@ private func Control2Contents(string command)
 
 /* Hilfen-Kontext deaktivieren */
 
-protected func NoContext() {}
+protected func NoContext()	{}
 
 protected func ContextHelpMessagesOn()
 {
@@ -872,7 +873,7 @@ protected func ContextSettings(object pCaller)
   else
     AddMenuItem("$CtxRadioMusicOff$", Format("SwitchRadioMusicMode(Object(%d))", ObjectNumber(pCaller)), SM06, pCaller, 0, 0, "$CtxRadioMusicDesc$");
 
-  //Achievements zurücksetzen
+  //Spielerdaten zurücksetzen
   AddMenuItem("$CtxResetData$", "ContextResetData", RWDS, pCaller, 0, 0, "$CtxResetDataDesc$");
 
   SelectMenuItem(iSel, pCaller);
