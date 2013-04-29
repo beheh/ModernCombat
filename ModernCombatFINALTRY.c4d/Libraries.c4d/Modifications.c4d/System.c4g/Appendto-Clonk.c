@@ -12,6 +12,7 @@ local LastDmgType;
 
 protected func Construction()
 {
+  //Temporäre Umwandlung in einen CMC-Clonk
   if(GetID() == CLNK)
   {
     if(!Redefine2(CIVC))
@@ -33,14 +34,16 @@ protected func Construction()
 protected func Initialize()
 {
   _inherited();
+
   //Schadenseffekt einfügen
   if(!GetEffect("DmgCheck",this))
     AddEffect("DmgCheck",this,1,0);
 
-  //Assistkiller
+  //Assistkiller initialisieren
   ResetAssist();
 
-  //Fake Death Effekt einfügen
+
+  //Fake Death-Effekt einfügen
   if(IsClonk() && (GetOwner() != NO_OWNER) && (GetPlayerType(GetOwner()) != C4PT_Script))
     AddEffect("FakeDeath",this,10,0,this);
 
@@ -51,9 +54,14 @@ protected func Initialize()
 
 public func Incineration()
 {
+  //Clonk sofort löschen
   Extinguish();
+
+  //Sound
   if(GetAlive()) 
     Sound("ClonkBurn*.ogg");
+
+  //Schadenseffekt setzen sofern lebendig
   if(IsFakeDeath()) return;
   Schedule("DoDmg(5,DMG_Fire,0,1)",1,20,this);
   AddFireEffect(this,30,FIRE_Red,1);
@@ -176,8 +184,9 @@ public func OnHit(int iChange, int iType, object pFrom)
   else
     machinekill = false;
 
+  //Mögliche Assists ermitteln
   var iByPlayer = GetController(pFrom);
-  if(iByPlayer == GetOwner() || !Hostile(iByPlayer, GetOwner())) return _inherited(...); //Yay, Selfassist!11
+  if(iByPlayer == GetOwner() || !Hostile(iByPlayer, GetOwner())) return _inherited(...);
   for(var i=0; i < GetLength(assistkiller); i++)
   {
     if(!assistkiller[i]) assistkiller[i] = [-1, 0];
@@ -222,6 +231,7 @@ func Hit2(int xDir, int yDir)
 
   var hit = Distance(xDir,yDir);//Max(xDir,yDir);
 
+  //Effekte
   if(hit >= 800)
   {
     Sound("ClonkImpact*.ogg");
@@ -235,13 +245,13 @@ func Hit2(int xDir, int yDir)
     if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",4,8,0,10,20,50);
   }
 
+  //Schaden bei Fallschaden-Regel
   if(!FindObject(FDMG) || hit <= 700) return _inherited(xDir,yDir,...);
-
   DoDmg((hit-700)*2/10,DMG_Melee,this,0,GetKiller(this)+1,SM10);
 
   if(GetAlive(this))
     Sound("ClonkPain*.ogg");
-  
+
   return _inherited(xDir,yDir,...);
 }
 
@@ -251,7 +261,7 @@ protected func DeathAnnounce(int plr, object clonk, int killplr, bool fNoPoints,
 {
   if(!clonk) clonk = this;
   if(!clonk) return;
-  if(!GetAlive(clonk) && IsFakeDeath(clonk)) return; //FakeDeath-Hack
+  if(!GetAlive(clonk) && IsFakeDeath(clonk)) return;
   if(GetEffect("NoAnnounce", clonk)) return;
 
   //Selfkill?
@@ -331,7 +341,7 @@ protected func DoPoints()
         var pPflasterKillerClonk = GetCursor(killer);
         if(pPflasterKillerClonk->~GetRealCursor())
           pPflasterKillerClonk = pPflasterKillerClonk->~GetRealCursor();
-        
+
         if((ObjectDistance(pPflasterKillerClonk, this) >= 500) && killicon == ASTR)
           AttemptAwardRibbon(RB09, killer, GetOwner());
       }
@@ -339,7 +349,7 @@ protected func DoPoints()
 
     //Achievement-Fortschritt (First Blood)
     DoAchievementProgress(1, AC37, killer);
-  
+
     //Punkte bei Belohnungssystem (Kill)
     DoPlayerPoints(BonusPoints("Kill"), RWDS_BattlePoints, killer, GetCursor(killer), IC01);
 
@@ -429,7 +439,7 @@ protected func DoPoints()
 
   //Achievement-Fortschritt (Non-Swimmer)
   if(GBackLiquid()) DoAchievementProgress(1, AC11, GetOwner());
-  
+
   //Selbstmord
   if(LastDamageType() == DMG_Explosion && killer == GetOwner())
   {
@@ -645,7 +655,6 @@ global func IsFakeDeath(object pTarget)
 {
   if(!pTarget) pTarget = this;
   if(!pTarget) return false;
-  //if(!pTarget->~IsClonk()) return(false);
 
   return GetID(Contained(pTarget)) == FKDT;
 }
@@ -741,7 +750,7 @@ func Death()
   // Bei Soforttod Todesnachricht einblenden und Achievements bearbeiten
   if(FindObject(NOFD))
   {
-    // Todesnachricht:
+    //Todesnachricht
     pTarget->DeathAnnounce(GetOwner(pTarget), pTarget, GetKiller(pTarget), false, pTarget->~GetAssist(GetKiller(pTarget)) + 1);
   }
 
