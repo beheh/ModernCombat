@@ -80,7 +80,7 @@ public func Set(object target, int color, int iType, int iLgt, string szIcon, id
 
   //Balken setzen
   fActive = true;
-  PositionToVertex();
+  PositionToVertex(0, true);
 
   fActive = false;
 
