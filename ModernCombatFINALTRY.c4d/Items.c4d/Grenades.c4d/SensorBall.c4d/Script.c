@@ -61,10 +61,12 @@ protected func Sense()
     return Remove();
 
   //Zu markierende Gefahren suchen
-  for (var pObj in FindObjects(Find_Distance(SensorDistance()),			//In Reichweite
+  var aList =	FindObjects(Find_Distance(SensorDistance()),			//In Reichweite
   		Find_Exclude(this),						//Selber ausschlieﬂen
   		Find_NoContainer(),						//Im Freien
-  		Find_Or(Find_OCF(OCF_Alive), Find_Func("IsDetectable"))))	//Lebewesen oder als identifizierbar markiert
+  		Find_Or(Find_OCF(OCF_Alive), Find_Func("IsDetectable")));	//Lebewesen oder als identifizierbar markiert;
+
+  for (var pObj in aList)
   {
     //Nur feindliche Objekte markieren
     if(!Hostile(GetController(), GetController(pObj))) continue;
@@ -86,6 +88,7 @@ protected func Sense()
     //Achievement-Fortschritt (Intelligence)
     DoAchievementProgress(1, AC21, GetOwner());
   }
+
   return 1;
 }
 
