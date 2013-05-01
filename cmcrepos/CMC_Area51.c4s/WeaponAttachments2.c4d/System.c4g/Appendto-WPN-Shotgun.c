@@ -13,7 +13,7 @@ public func FMData1(int data)
   if(data == FM_AmmoLoad)
     return _inherited(data) + (iAttachment == AT_ExtendedMag)*8;			//Magazingröße
 
-  if(data == FM_SingleReload)	return 2 + (iAttachment == AT_ExtendedMag);		//Zeit des einzelnen Nachladens bei Revolversystemen
+  if(data == FM_Reload)	return 75 + (iAttachment == AT_ExtendedMag) * 30;		//Zeit des einzelnen Nachladens bei Revolversystemen
 
   if(data == FM_SpreadAdd)	return 150 - (iAttachment == AT_Laserpointer)*3;	//Bei jedem Schuss hinzuzuaddierende Streuung
   if(data == FM_StartSpread)	return 320 - (iAttachment == AT_Laserpointer)*70;	//Bei Auswahl der Waffe gesetzte Streuung
