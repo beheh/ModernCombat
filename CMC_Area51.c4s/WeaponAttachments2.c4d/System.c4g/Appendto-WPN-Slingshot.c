@@ -22,7 +22,7 @@ public func GetMCData(int data)
 public func FMData1(int data)
 {
   if(data == FM_AmmoLoad)	return _inherited(data) + (iAttachment == AT_ExtendedMag)*2;	//Magazingröße
-	if(data == FM_Reload) return 210 + (iAttachment == AT_ExtendedMag) * 52;
+  if(data == FM_Reload)	return 210 + (iAttachment == AT_ExtendedMag) * 52;
 
   if(data == FM_SpreadAdd)	return 200 - (iAttachment == AT_Laserpointer)*10;	//Bei jedem Schuss hinzuzuaddierende Streuung
   if(data == FM_StartSpread)	return 80 - (iAttachment == AT_Laserpointer)*20;	//Bei Auswahl der Waffe gesetzte Streuung

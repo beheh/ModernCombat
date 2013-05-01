@@ -657,7 +657,7 @@ public func OpenMenuAttachment(id idParamWeapon, int iClass, object pClonk, int 
   //Icon
   var facet = 11;
   if(NoAttachments())
-  	facet = GetCData(iClass, CData_Facet);
+    facet = GetCData(iClass, CData_Facet);
   AddMenuItem(" | ", 0, GetCData(iClass, CData_Icon), pClonk, 0, 0, " ", 2, facet);
 
   //Name und Beschreibung
@@ -677,93 +677,93 @@ public func OpenMenuAttachment(id idParamWeapon, int iClass, object pClonk, int 
 
   if(!NoAttachments())
   {
-  	AddMenuItem(Format("<c ffff33>%s</c>|%s", name, DescAtts[iterations]), 0, NONE, pClonk, 0, 0, " ");
-	
-		//Leerzeilen
-  	AddMenuItem(" |||| ", 0, NONE, pClonk, 0, 0, " ");
-	}
-	else
-	{
-		//Bei aktivierter Keine Waffenaufsätze-Regel Klasseninformationen anzeigen.
-	
-		//Name und Beschreibung
-		AddMenuItem(Format("<c ffff33>%s</c>|%s", GetCData(iClass, CData_Name), GetCData(iClass, CData_Desc)), 0, NONE, pClonk, 0, 0, " ");
+    AddMenuItem(Format("<c ffff33>%s</c>|%s", name, DescAtts[iterations]), 0, NONE, pClonk, 0, 0, " ");
 
-		//Leerzeile
-		AddMenuItem(" ", 0, NONE, pClonk, 0, 0, " ");
+    //Leerzeilen
+    AddMenuItem(" |||| ", 0, NONE, pClonk, 0, 0, " ");
+  }
+  else
+  {
+    //Bei aktivierter Keine Waffenaufsätze-Regel Klasseninformationen anzeigen
 
-		//Clonktyp
-		AddMenuItem(Format("{{%i}} %s", GetCData(iClass, CData_Clonk), GetName(0, GetCData(iClass, CData_Clonk)), 0, NONE, pClonk, 0, 0, " "));
+    //Name und Beschreibung
+    AddMenuItem(Format("<c ffff33>%s</c>|%s", GetCData(iClass, CData_Name), GetCData(iClass, CData_Desc)), 0, NONE, pClonk, 0, 0, " ");
 
-		//Munition
-		if(!FindObject(NOAM))
-		{
-		  var szAmmo = "", aAmmo = GetCData(iClass, CData_Ammo);
-		  for (var aEntry in aAmmo)
-		  {
-		    if (GetType(aEntry) != C4V_Array || GetType(aEntry[0]) != C4V_C4ID || !aEntry[0]->~IsAmmo())
-		      continue;
-		    szAmmo = Format("%s%2dx {{%i}}", szAmmo, aEntry[1], aEntry[0]);
-		  }
-		  AddMenuItem(szAmmo, 0, NONE, pClonk, 0, 0, " ");
-		}
-		else
-		  AddMenuItem(" ", 0, NONE, pClonk, 0, 0, " ");
+    //Leerzeile
+    AddMenuItem(" ", 0, NONE, pClonk, 0, 0, " ");
 
-		//Gegenstände
-		var szItems = "", aItems = GetCData(iClass, CData_Items), nextline = false, first = true;
-		for (var aEntry in aItems)
-		{
-		  if (GetType(aEntry) != C4V_Array || GetType(aEntry[0]) != C4V_C4ID)
-		    continue;
-		  szItems = Format("%s%2dx {{%i}}     ", szItems, aEntry[1], aEntry[0]);
-		  //Nach jedem zweiten Item umbrechen, außer beim letzten
-		  if (!first && (nextline = !nextline) && GetIndexOf(aEntry, aItems) < GetLength(aItems) - 1)
-		    szItems = Format("%s|", szItems);
-		  first = false;
-		}
-		AddMenuItem(szItems, 0, NONE, pClonk, 0, 0, " ");
+    //Clonktyp
+    AddMenuItem(Format("{{%i}} %s", GetCData(iClass, CData_Clonk), GetName(0, GetCData(iClass, CData_Clonk)), 0, NONE, pClonk, 0, 0, " "));
 
-		//Granaten
-		var szGrenades = "", aGrenades = GetCData(iClass, CData_Grenades);
-		for (var aEntry in aGrenades)
-		{
-		  if (GetType(aEntry) != C4V_Array || GetType(aEntry[0]) != C4V_C4ID || !aEntry[0]->~IsGrenade())
-		    continue;
-		  szGrenades = Format("%s%2dx {{%i}}     ", szGrenades, aEntry[1], aEntry[0]);
-		}
-		AddMenuItem(szGrenades, 0, NONE, pClonk, 0, 0, " ");
+    //Munition
+    if(!FindObject(NOAM))
+    {
+      var szAmmo = "", aAmmo = GetCData(iClass, CData_Ammo);
+      for (var aEntry in aAmmo)
+      {
+        if(GetType(aEntry) != C4V_Array || GetType(aEntry[0]) != C4V_C4ID || !aEntry[0]->~IsAmmo())
+          continue;
+        szAmmo = Format("%s%2dx {{%i}}", szAmmo, aEntry[1], aEntry[0]);
+      }
+      AddMenuItem(szAmmo, 0, NONE, pClonk, 0, 0, " ");
+    }
+    else
+      AddMenuItem(" ", 0, NONE, pClonk, 0, 0, " ");
 
-		//Ausrüstung
-		var szGear = "", aGear = GetCData(iClass, CData_Gear);
-		var aAdditionalGear = GameCall("SpecificEquipment");
+    //Gegenstände
+    var szItems = "", aItems = GetCData(iClass, CData_Items), nextline = false, first = true;
+    for (var aEntry in aItems)
+    {
+      if(GetType(aEntry) != C4V_Array || GetType(aEntry[0]) != C4V_C4ID)
+        continue;
+      szItems = Format("%s%2dx {{%i}}     ", szItems, aEntry[1], aEntry[0]);
+      //Nach jedem zweiten Item umbrechen, außer beim letzten
+      if(!first && (nextline = !nextline) && GetIndexOf(aEntry, aItems) < GetLength(aItems) - 1)
+        szItems = Format("%s|", szItems);
+      first = false;
+    }
+    AddMenuItem(szItems, 0, NONE, pClonk, 0, 0, " ");
 
-		if(GetType(aAdditionalGear) == C4V_Array)
-		  AddArray4K(aAdditionalGear, aGear);
+    //Granaten
+    var szGrenades = "", aGrenades = GetCData(iClass, CData_Grenades);
+    for (var aEntry in aGrenades)
+    {
+      if(GetType(aEntry) != C4V_Array || GetType(aEntry[0]) != C4V_C4ID || !aEntry[0]->~IsGrenade())
+        continue;
+      szGrenades = Format("%s%2dx {{%i}}     ", szGrenades, aEntry[1], aEntry[0]);
+    }
+    AddMenuItem(szGrenades, 0, NONE, pClonk, 0, 0, " ");
 
-		if(GetDarkness() >= 3 && NoAttachments())
-		  aGear[GetLength(aGear)] = [FLSH, 1];
+    //Ausrüstung
+    var szGear = "", aGear = GetCData(iClass, CData_Gear);
+    var aAdditionalGear = GameCall("SpecificEquipment");
 
-		if(FindObject(FDMG))
-		  aGear[GetLength(aGear)] = [PPAR, 1];
+    if(GetType(aAdditionalGear) == C4V_Array)
+      AddArray4K(aAdditionalGear, aGear);
 
-		var aGearTypes = [];
-		
-		for(var aEntry in aGear)
-		{
-		  if(GetType(aEntry) != C4V_Array || GetType(aEntry[0]) != C4V_C4ID || !aEntry[0]->~IsHazardGear())
-		    continue;
+    if(GetDarkness() >= 3 && NoAttachments())
+      aGear[GetLength(aGear)] = [FLSH, 1];
 
-		  if(GetIndexOf(aEntry[0]->~GetGearType(), aGearTypes) > -1)
-		    continue;
+    if(FindObject(FDMG))
+      aGear[GetLength(aGear)] = [PPAR, 1];
 
-		  aGearTypes[GetLength(aGearTypes)] = aEntry[0]->~GetGearType();
-		  szGear = Format("%s%2dx {{%i}}     ", szGear, aEntry[1], aEntry[0]);
-  	}
-  	AddMenuItem(szGear, 0, NONE, pClonk, 0, 0, " ");
+    var aGearTypes = [];
 
-  	//Leerzeile
-  	AddMenuItem(" ", 0, NONE, pClonk, 0, 0, " ");
+    for(var aEntry in aGear)
+    {
+      if(GetType(aEntry) != C4V_Array || GetType(aEntry[0]) != C4V_C4ID || !aEntry[0]->~IsHazardGear())
+        continue;
+
+      if(GetIndexOf(aEntry[0]->~GetGearType(), aGearTypes) > -1)
+        continue;
+
+      aGearTypes[GetLength(aGearTypes)] = aEntry[0]->~GetGearType();
+      szGear = Format("%s%2dx {{%i}}     ", szGear, aEntry[1], aEntry[0]);
+    }
+    AddMenuItem(szGear, 0, NONE, pClonk, 0, 0, " ");
+
+    //Leerzeile
+    AddMenuItem(" ", 0, NONE, pClonk, 0, 0, " ");
   }
 
   //Spawnen
@@ -772,48 +772,48 @@ public func OpenMenuAttachment(id idParamWeapon, int iClass, object pClonk, int 
   //Zurück
   AddMenuItem("$Back$", Format("OpenMenu(Object(%d), %d)", ObjectNumber(pClonk), InfoMenuItems()+iClass), 0, pClonk, 0, 0, "$Back$");
 
-	if(!NoAttachments())
-	{
-		//Waffen-Wechsler
-		if(idActualWeap)
-		  AddMenuItem(Format("<c ff3333>%s</c>", GetName(0, idActualWeap)), Format("ChangeWeapon(%d, %i, Object(%d), %d)", iClass, idActualWeap, ObjectNumber(pClonk), count), idActualWeap, pClonk, 0, pClonk, 0, 2, GetCData(i, CData_Facet));
+  if(!NoAttachments())
+  {
+    //Waffen-Wechsler
+    if(idActualWeap)
+      AddMenuItem(Format("<c ff3333>%s</c>", GetName(0, idActualWeap)), Format("ChangeWeapon(%d, %i, Object(%d), %d)", iClass, idActualWeap, ObjectNumber(pClonk), count), idActualWeap, pClonk, 0, pClonk, 0, 2, GetCData(i, CData_Facet));
 
-		//Waffenaufsätze
-		for(j = 0; j < 1000000000; j*=2)
-		{
-		  if(fOne && j == 2) {j = 1; fOne = false;}
+    //Waffenaufsätze
+    for(j = 0; j < 1000000000; j*=2)
+    {
+      if(fOne && j == 2) {j = 1; fOne = false;}
 
-		  var select = false;
-		  var szName = Format("%s",GetName(0, AttachmentIcon(j)));
-		  if(idWeap && iAtt && iAtt == j && idWeap == idActualWeap) 
-		  {
-		    select = true;
-		    szName = Format("<c ffff33>%s</c>", szName);
-		  }
-		  else
-		    szName = Format("<c 777777>%s</c>", szName);
-		  
-		  if(idActualWeap->~PermittedAtts() & j)
-		  {
-		    count++;
-		    AddMenuItem(szName, Format("ChooseAttachment(%d, %i, %d, Object(%d), %d, %d)", iClass, idActualWeap, j, ObjectNumber(pClonk), count, select), AttachmentIcon(j), pClonk, 0, pClonk, 0, 2, GetCData(i, CData_Facet));
-		    //if(!idParamWeapon && select) SelectMenuItem(count + 1, pClonk);
-		  }
+      var select = false;
+      var szName = Format("%s",GetName(0, AttachmentIcon(j)));
+      if(idWeap && iAtt && iAtt == j && idWeap == idActualWeap) 
+      {
+        select = true;
+        szName = Format("<c ffff33>%s</c>", szName);
+      }
+      else
+        szName = Format("<c 777777>%s</c>", szName);
 
-		  //j soll bei 0 anfangen, sich ab 1 dann aber verdoppeln.
-		  if(!j) j++;
-		}
-		
-		var clr = 0x777777, select = false;
-		if(idWeap == idActualWeap && !iAtt)
-		{
-		  select = true;
-		  clr = 0xFFFF33;
-		}
+      if(idActualWeap->~PermittedAtts() & j)
+      {
+        count++;
+        AddMenuItem(szName, Format("ChooseAttachment(%d, %i, %d, Object(%d), %d, %d)", iClass, idActualWeap, j, ObjectNumber(pClonk), count, select), AttachmentIcon(j), pClonk, 0, pClonk, 0, 2, GetCData(i, CData_Facet));
+        //if(!idParamWeapon && select) SelectMenuItem(count + 1, pClonk);
+      }
 
-		if(idActualWeap)
-		  AddMenuItem(Format("<c %x>$NoAttachment$</c>", clr), Format("ChooseAttachment(%d, %i, 0, Object(%d), %d, %d)", iClass, idActualWeap, ObjectNumber(pClonk), count+1, select), SM06, pClonk, 0, pClonk, 0, 2, GetCData(i, CData_Facet));
-	}
+      //j soll bei 0 anfangen, sich ab 1 dann aber verdoppeln.
+      if(!j) j++;
+    }
+
+    var clr = 0x777777, select = false;
+    if(idWeap == idActualWeap && !iAtt)
+    {
+      select = true;
+      clr = 0xFFFF33;
+    }
+
+    if(idActualWeap)
+      AddMenuItem(Format("<c %x>$NoAttachment$</c>", clr), Format("ChooseAttachment(%d, %i, 0, Object(%d), %d, %d)", iClass, idActualWeap, ObjectNumber(pClonk), count+1, select), SM06, pClonk, 0, pClonk, 0, 2, GetCData(i, CData_Facet));
+  }
 
   if(iSelection) SelectMenuItem(iSelection, pClonk);
 }
