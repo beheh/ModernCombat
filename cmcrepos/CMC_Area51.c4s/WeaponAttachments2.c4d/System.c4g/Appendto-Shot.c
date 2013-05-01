@@ -18,6 +18,7 @@ public func BulletStrike(object pObj)
       EffectVar(0, pObj, anthrax) = iDamage*2/3;	//Gesamtschaden
       EffectVar(1, pObj, anthrax) = iDamage;		//Zeitraum zwischen 2 Schadensausstößen
       EffectVar(2, pObj, anthrax) = shooter;		//Schütze
+      EffectVar(3, pObj, anthrax) = wpnid;
     }
     if(iAttachment == AT_Anthrax)
       iDamage = iDamage*2/3;
@@ -55,7 +56,7 @@ func FxAnthraxTimer(object pTarget, int iEffectNumber, int iEffectTime)
   //Damage machen
   if(!(iEffectTime % EffectVar(1, pTarget, iEffectNumber)))
   {
-    DoDmg(1, DMG_Bio, pTarget, 0, GetOwner(EffectVar(2, pTarget, iEffectNumber))+1, 0, AT_Anthrax);
+    DoDmg(1, DMG_Bio, pTarget, 0, GetOwner(EffectVar(2, pTarget, iEffectNumber))+1, EffectVar(3, pTarget, iEffectNumber), AT_Anthrax);
     EffectVar(0, pTarget, iEffectNumber)--;
   }
   
