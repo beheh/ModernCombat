@@ -81,8 +81,8 @@ public func FxFlashlightTimer(object pTarget, int iNr, int iTime)
   //Spieler hat schon eine Taschenlampe ausgerüstet
   if((deactivate && light) || (user && user->~HasGear(0, FLSH)))
   {
-  	if(light)
-    	SetVisibility(VIS_None, light);
+    if(light)
+      SetVisibility(VIS_None, light);
   }
   else if(user)
   {
