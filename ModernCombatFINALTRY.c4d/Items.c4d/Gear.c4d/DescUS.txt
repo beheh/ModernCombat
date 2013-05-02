@@ -1,1 +1,3 @@
-Important gear for the clonk.
+Clonks can use gear to get additional abilities.
+
+Gear can be used with [Double Dig]. It is possible to manage gear in the context menu.
