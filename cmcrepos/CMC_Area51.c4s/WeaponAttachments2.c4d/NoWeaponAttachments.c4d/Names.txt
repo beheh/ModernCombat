@@ -1,2 +1,2 @@
 DE:Keine Waffenaufsätze
-US:No Attachments
+US:No Weapon Attachments
