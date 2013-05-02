@@ -1,2 +1,2 @@
-DE:Symbol
-US:Symbol
+DE:Flugbahnanzeige
+US:Trajectory Indicator
