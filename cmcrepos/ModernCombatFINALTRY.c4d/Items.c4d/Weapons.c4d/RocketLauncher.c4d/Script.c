@@ -59,6 +59,11 @@ public func BotData1(int data)
   return Default(data);
 }
 
+public func Fire1()
+{
+  LaunchRocket(MISL,Contained()->~AimAngle(10));
+}
+
 /* Raketen - Ungelenkt */
 
 public func FMData1T2(int data)
@@ -74,11 +79,6 @@ public func Fire1T2()
 }
 
 /* Raketen - Schuss */
-
-public func Fire1()
-{
-  LaunchRocket(MISL,Contained()->~AimAngle(10));
-}
 
 public func LaunchRocket(id rid, int angle, bool unguided)
 {
