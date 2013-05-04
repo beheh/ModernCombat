@@ -86,65 +86,65 @@ public func FxFlashlightTimer(object pTarget, int iNr, int iTime)
   }
   else if(user)
   {
-  	var angle = user->~AimAngle();
-  	
-  	//Wackel- und Schwenkeffekte beim Laufen/Springen
-		if((WildcardMatch(GetAction(user), "*Walk*") || WildcardMatch(GetAction(user), "*Kneel*") || WildcardMatch(GetAction(user), "*Flat*")))
-		{
-			//Ruckeleffekt bei Landung
-			if(EffectVar(4, pTarget, iNr))
-			{
-				if(WildcardMatch(GetAction(user), "*Kneel*") || WildcardMatch(GetAction(user), "*Flat*"))
-					EffectVar(4, pTarget, iNr) = 2;
+    var angle = user->~AimAngle();
 
-				EffectVar(5, pTarget, iNr)++;
-				EffectVar(2, pTarget, iNr) = Random(5 + 4*(EffectVar(4, pTarget, iNr)-1))-2 * EffectVar(4, pTarget, iNr);
-			
-				if(EffectVar(5, pTarget, iNr) >= (EffectVar(4, pTarget, iNr)*5))
-					EffectVar(4, pTarget, iNr) = EffectVar(5, pTarget, iNr) = 0;
-			}
-			//Leichtes Wackeln beim Laufen
-			else if(!Inside(GetXDir(user), -10, 10))
-			{
-				if(iTime % 5)
-					EffectVar(3, pTarget, iNr) = 0;
-				else
-				{
-					if(EffectVar(2, pTarget, iNr) >= 1)
-						EffectVar(3, pTarget, iNr) = -1;
-					else if(EffectVar(2, pTarget, iNr) <= -1)
-						EffectVar(3, pTarget, iNr) = +1;
-					else if(!EffectVar(3, pTarget, iNr))
-						EffectVar(3, pTarget, iNr) = -1;
-				}
-			}
-		}
-		//Taschenlampe nach oben/unten schwenken während des Sprungs
-		else if(WildcardMatch(GetAction(user), "*Jump*"))
-		{
-			if(GetYDir(user) > 0 && EffectVar(2, pTarget, iNr) > -5)
-				EffectVar(3, pTarget, iNr) = -1;
-			else if(GetYDir(user) < 0 && EffectVar(2, pTarget, iNr) < 5)
-				EffectVar(3, pTarget, iNr) = +1;
-			else
-				EffectVar(3, pTarget, iNr) = 0;
-		
-			if(!GetYDir(user))
-				EffectVar(3, pTarget, iNr) = 0;
-			
-			EffectVar(4, pTarget, iNr) = true;
-		}
-		//Zusatzrotation zurücksetzen, falls nicht am Springen/Laufen/Landen
-		else if(EffectVar(2, pTarget, iNr) != 0)
-		{
-			EffectVar(4, pTarget, iNr) = false;
-			EffectVar(3, pTarget, iNr) = BoundBy(EffectVar(2, pTarget, iNr) * -2, -1, 1);
-		}
-		else
-			EffectVar(3, pTarget, iNr) = 0;
+    //Wackel- und Schwenkeffekte beim Laufen/Springen
+    if((WildcardMatch(GetAction(user), "*Walk*") || WildcardMatch(GetAction(user), "*Kneel*") || WildcardMatch(GetAction(user), "*Flat*")))
+    {
+      //Ruckeleffekt bei Landung
+      if(EffectVar(4, pTarget, iNr))
+      {
+        if(WildcardMatch(GetAction(user), "*Kneel*") || WildcardMatch(GetAction(user), "*Flat*"))
+          EffectVar(4, pTarget, iNr) = 2;
 
-		var handr = this->~HandR() * (GetDir(user) * 2 - 1);
-		angle += handr + (EffectVar(2, pTarget, iNr) += EffectVar(3, pTarget, iNr));
+        EffectVar(5, pTarget, iNr)++;
+        EffectVar(2, pTarget, iNr) = Random(5 + 4*(EffectVar(4, pTarget, iNr)-1))-2 * EffectVar(4, pTarget, iNr);
+
+        if(EffectVar(5, pTarget, iNr) >= (EffectVar(4, pTarget, iNr)*5))
+          EffectVar(4, pTarget, iNr) = EffectVar(5, pTarget, iNr) = 0;
+      }
+      //Leichtes Wackeln beim Laufen
+      else if(!Inside(GetXDir(user), -10, 10))
+      {
+        if(iTime % 5)
+          EffectVar(3, pTarget, iNr) = 0;
+        else
+        {
+          if(EffectVar(2, pTarget, iNr) >= 1)
+            EffectVar(3, pTarget, iNr) = -1;
+          else if(EffectVar(2, pTarget, iNr) <= -1)
+            EffectVar(3, pTarget, iNr) = +1;
+          else if(!EffectVar(3, pTarget, iNr))
+            EffectVar(3, pTarget, iNr) = -1;
+        }
+      }
+    }
+    //Taschenlampe nach oben/unten schwenken während des Sprungs
+    else if(WildcardMatch(GetAction(user), "*Jump*"))
+    {
+      if(GetYDir(user) > 0 && EffectVar(2, pTarget, iNr) > -5)
+        EffectVar(3, pTarget, iNr) = -1;
+      else if(GetYDir(user) < 0 && EffectVar(2, pTarget, iNr) < 5)
+        EffectVar(3, pTarget, iNr) = +1;
+      else
+        EffectVar(3, pTarget, iNr) = 0;
+
+      if(!GetYDir(user))
+        EffectVar(3, pTarget, iNr) = 0;
+
+      EffectVar(4, pTarget, iNr) = true;
+    }
+    //Zusatzrotation zurücksetzen, falls nicht am Springen/Laufen/Landen
+    else if(EffectVar(2, pTarget, iNr) != 0)
+    {
+      EffectVar(4, pTarget, iNr) = false;
+      EffectVar(3, pTarget, iNr) = BoundBy(EffectVar(2, pTarget, iNr) * -2, -1, 1);
+    }
+    else
+      EffectVar(3, pTarget, iNr) = 0;
+
+    var handr = this->~HandR() * (GetDir(user) * 2 - 1);
+    angle += handr + (EffectVar(2, pTarget, iNr) += EffectVar(3, pTarget, iNr));
 
     if(!light)
     {
