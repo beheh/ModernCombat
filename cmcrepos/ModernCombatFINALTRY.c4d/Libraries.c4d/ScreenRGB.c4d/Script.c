@@ -157,7 +157,7 @@ func CursorCheck()
 
   var cursor = false;
   var targetcursor = target;
-  if(target->~GetRealCursor())
+  if(target && target->~GetRealCursor())
   	targetcursor = target->~GetRealCursor();
   
   if(GetCursor(GetOwner()))
