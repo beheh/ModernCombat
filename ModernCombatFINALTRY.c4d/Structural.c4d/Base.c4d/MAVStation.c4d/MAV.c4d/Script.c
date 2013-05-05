@@ -46,7 +46,7 @@ public func TeamSupportRange()				{return 80;}
 public func RejectC4Attach()				{iC4Count++; return iC4Count > 3;}
 
 public func IsBorderTarget() {return true;}
-public func GetRealCursor() {return pMAVStation->GetUser();}
+public func GetRealCursor() {return IsActive() && pMAVStation->GetUser();}
 
 public func MaxRotLeft()
 {
