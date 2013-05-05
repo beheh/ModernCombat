@@ -104,17 +104,17 @@ protected func FxBorderStart(pTarget, iNo, iTemp)
 protected func FxBorderTimer(pTarget, iNo, iTime)
 {
   //var danger = (GetIndexOf(pTarget, FindObjects(Find_InRect(x, y, xh, yh), Find_OCF(OCF_CrewMember))) != -1);
-	
-	//Prüfen, ob Spieler noch im Grenzgebiet ist
-	var danger = false;
-	if(!iSearchDir && GetX(pTarget) < GetX())
-		danger = true;
-	else if(iSearchDir == 1 && GetX(pTarget) > GetX())
-		danger = true;
-	else if(iSearchDir == 2 && GetY(pTarget) < GetY())
-		danger = true;
-	else if(iSearchDir == 3 && GetY(pTarget) > GetY())
-		danger = true;
+
+  //Prüfen, ob Spieler noch im Grenzgebiet ist
+  var danger = false;
+  if(!iSearchDir && GetX(pTarget) < GetX())
+    danger = true;
+  else if(iSearchDir == 1 && GetX(pTarget) > GetX())
+    danger = true;
+  else if(iSearchDir == 2 && GetY(pTarget) < GetY())
+    danger = true;
+  else if(iSearchDir == 3 && GetY(pTarget) > GetY())
+    danger = true;
 
   //Ziel wieder im Sicheren oder schwerverletzt?
   if(!danger || IsFakeDeath(pTarget))
