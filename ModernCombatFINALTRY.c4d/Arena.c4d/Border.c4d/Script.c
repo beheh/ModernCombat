@@ -4,7 +4,7 @@
 
 local x,y,xh,yh;
 local fAbyss;
-local fTeamAllow, iAllowedTeam;
+local fTeamAllow, iAllowedTeam, iSearchDir;
 
 
 /* Einstellung */
@@ -12,6 +12,7 @@ local fTeamAllow, iAllowedTeam;
 public func Set(int iDir, bool fKeepSpawns, bool fAbyssKill, bool fTeamCheck, int iTeam)
 {
   fAbyss = fAbyssKill;
+  iSearchDir = iDir;
 
   //Teamspezifisch suchen?
   if(fTeamCheck)
@@ -61,7 +62,7 @@ public func Set(int iDir, bool fKeepSpawns, bool fAbyssKill, bool fTeamCheck, in
 private func Check()
 {
   var id;
-  for(var clonk in FindObjects(Find_InRect(x, y, xh, yh), Find_OCF(OCF_CrewMember)))
+  for(var clonk in FindObjects(Find_InRect(x, y, xh, yh), Find_Or(Find_OCF(OCF_CrewMember), Find_Func("IsBorderTarget"))))
     if(!GetEffect("Border", clonk))
     {
       if((fTeamAllow && GetPlayerTeam(GetOwner(clonk)) == iAllowedTeam) || Contained(clonk) && (id = GetID(Contained(clonk))) && (id == TIM1 || id == TIM2 || id == FKDT))
@@ -102,7 +103,18 @@ protected func FxBorderStart(pTarget, iNo, iTemp)
 
 protected func FxBorderTimer(pTarget, iNo, iTime)
 {
-  var danger = (GetIndexOf(pTarget, FindObjects(Find_InRect(x, y, xh, yh), Find_OCF(OCF_CrewMember))) != -1);
+  //var danger = (GetIndexOf(pTarget, FindObjects(Find_InRect(x, y, xh, yh), Find_OCF(OCF_CrewMember))) != -1);
+	
+	//Prüfen, ob Spieler noch im Grenzgebiet ist
+	var danger = false;
+	if(!iSearchDir && GetX(pTarget) < GetX())
+		danger = true;
+	else if(iSearchDir == 1 && GetX(pTarget) > GetX())
+		danger = true;
+	else if(iSearchDir == 2 && GetY(pTarget) < GetY())
+		danger = true;
+	else if(iSearchDir == 3 && GetY(pTarget) > GetY())
+		danger = true;
 
   //Ziel wieder im Sicheren oder schwerverletzt?
   if(!danger || IsFakeDeath(pTarget))
