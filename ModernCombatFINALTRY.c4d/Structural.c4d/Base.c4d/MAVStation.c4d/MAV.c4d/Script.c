@@ -1368,7 +1368,7 @@ public func ControlThrow(pByObj)
   //MAV aktivieren
   if(GetAction() == "Wait")
   {
-    Start();
+    Start(pMAVStation);
     return true;
   }
 
