@@ -44,9 +44,9 @@ public func SensorDistance()				{return 190;}
 public func IsActive()					{return GetAction(this) == "Flying";}
 public func TeamSupportRange()				{return 80;}
 public func RejectC4Attach()				{iC4Count++; return iC4Count > 3;}
+public func IsBorderTarget()				{return true;}
+public func GetRealCursor()				{return IsActive() && pMAVStation->GetUser();}
 
-public func IsBorderTarget() {return true;}
-public func GetRealCursor() {return IsActive() && pMAVStation->GetUser();}
 
 public func MaxRotLeft()
 {
@@ -518,7 +518,7 @@ public func OnHit(int iDmg, int iType, object pBy)
 
 public func BorderDestruction()
 {
-	return OnDestruction();
+  return OnDestruction();
 }
 
 public func OnDestruction()

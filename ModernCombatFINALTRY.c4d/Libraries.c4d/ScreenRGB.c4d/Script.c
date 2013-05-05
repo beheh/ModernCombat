@@ -152,14 +152,14 @@ public func DoAlpha(int iValue, int iMin, int iMax)
 
 func CursorCheck()
 {
-	if(GetOwner(target) != GetOwner())
-		SetOwner(GetOwner(target));
+  if(GetOwner(target) != GetOwner())
+    SetOwner(GetOwner(target));
 
   var cursor = false;
   var targetcursor = target;
   if(target && target->~GetRealCursor())
-  	targetcursor = target->~GetRealCursor();
-  
+    targetcursor = target->~GetRealCursor();
+
   if(GetCursor(GetOwner()))
   {
     if(GetCursor(GetOwner()) == targetcursor)

@@ -82,16 +82,16 @@ protected func FxBorderStart(pTarget, iNo, iTemp)
 
   if(fAbyss)
   {
-  	if(GetOCF(pTarget) & OCF_CrewMember)
-  	{
-		  //Opfer sofort töten
-		  pTarget->~KillIcon(SM10);
-		  pTarget->~LastDamageType(DMG_Melee);
-		  Kill(pTarget);
-		}
-		else
-			pTarget->~BorderDestruction();
-		
+    if(GetOCF(pTarget) & OCF_CrewMember)
+    {
+      //Opfer sofort töten
+      pTarget->~KillIcon(SM10);
+      pTarget->~LastDamageType(DMG_Melee);
+      Kill(pTarget);
+    }
+    else
+      pTarget->~BorderDestruction();
+
     return -1;
   }
 
@@ -129,15 +129,15 @@ protected func FxBorderTimer(pTarget, iNo, iTime)
   {
     if(GetOCF(pTarget) & OCF_CrewMember)
     {
-		  //Opfer töten
-		  pTarget->~KillIcon(SM15);
-		  pTarget->~LastDamageType(DMG_Projectile);
-		  Kill(pTarget);
-		}
-		else
-			pTarget->~BorderDestruction();
+      //Opfer töten
+      pTarget->~KillIcon(SM15);
+      pTarget->~LastDamageType(DMG_Projectile);
+      Kill(pTarget);
+    }
+    else
+      pTarget->~BorderDestruction();
 
-		Sound("BRDR_Fire.ogg", true, pTarget);
+    Sound("BRDR_Fire.ogg", true, pTarget);
     return -1;
   }
 
