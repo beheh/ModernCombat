@@ -15,7 +15,7 @@ func Initialize()
   //Wartemusik einstellen
   SetWaitingMusic();
   //Bildschirmfärbung
-  SetGamma(RGB(2,3,10), RGB(131,135,158), RGB(252,253,255) );
+  SetGamma(RGB(2,3,10), RGB(131,135,158), RGB(252,253,255));
   //Himmelparallaxität
   SetSkyParallax(0,15,15);
   //Flaggen
@@ -499,6 +499,10 @@ public func ChooserFinished()
    //Flaggenposten
    var flag = CreateObject(OFPL, 2990, 380, -1);
    flag->~Set("$Flag2$");
+
+   //Teamgrenzen
+   CreateObject(BRDR, 2000, 0, -1)->Set(0,1,0,1,1);
+   CreateObject(BRDR, 4010, 0, -1)->Set(1,1,0,1,2);
 
    //MAV-Stationen
    CreateObject(MVSN, 1350, 500, -1)->Set(1520,530,1);

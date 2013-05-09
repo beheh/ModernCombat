@@ -10,7 +10,3 @@ Flag2=Alphabasis Süd
 Flag3=Sendemast
 Flag4=Betabasis West
 Flag5=Betabasis Süd
-
-Target1=Primäre Radaranlage
-Target2=Sekundäre Radaranlage
-Target3=Backup-Radaranlage
