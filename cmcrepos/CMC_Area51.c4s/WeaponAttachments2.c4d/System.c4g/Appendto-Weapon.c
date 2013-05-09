@@ -151,6 +151,7 @@ public func FxFlashlightTimer(object pTarget, int iNr, int iTime)
       light = EffectVar(0, pTarget, iNr) = AddLightCone(1000, RGBa(255, 255, 220, 40), user);
       light->ChangeSizeXY(1900, 6000);
       light->ChangeOffset(0, 0, true);
+      light->Lock();
     }
 
     if(deactivate)
