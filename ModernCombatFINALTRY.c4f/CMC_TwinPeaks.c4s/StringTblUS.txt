@@ -10,7 +10,3 @@ Flag2=Alpha Base East
 Flag3=Antenna Tower
 Flag4=Beta Base West
 Flag5=Beta Base East
-
-Target1=Primary Radar Unit
-Target2=Secondary Radar Unit
-Target3=Backup Radar Unit

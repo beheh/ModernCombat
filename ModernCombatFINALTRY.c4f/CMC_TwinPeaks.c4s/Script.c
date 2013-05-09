@@ -571,38 +571,6 @@ public func ChooserFinished()
    crate->Set(ATWN);
   }
 
-  //Base Assault-Spielziel
-  if(FindObject(GBAS))
-  {
-   //Zielobjekte
-   AddAssaultTarget(RADR, 1215, 580, 400, 1, "$Target3$", 0, [[1175, 780], [1175, 890], [1255, 780]]);
-   AddAssaultTarget(RADR, 1615, 660, 300, 1, "$Target2$", 1, [[1550, 890], [1550, 980]]);
-   AddAssaultTarget(RADR, 2005, 710, 300, 1, "$Target1$", 2, [[1650, 890], [1650, 980]]);
-
-   AddAssaultTarget(RADR, 3725, 710, 400, 2, "$Target1$", 0, [[4070, 890], [4070, 980]]);
-   AddAssaultTarget(RADR, 4115, 660, 300, 2, "$Target2$", 1, [[4170, 890], [4170, 980]]);
-   AddAssaultTarget(RADR, 4515, 580, 300, 2, "$Target3$", 2, [[4475, 780], [4550, 780], [4550, 890]]);
-
-   //Automat
-   var store = CreateObject(WPVM,2865, 1310,-1);
-   store->AddWare(C4PA,-1);
-   store->AddWare(FAPK,-1);
-   store->AddWare(CDBT,-1);
-   store->AddWare(BWTH,-1);
-   store->AddWare(RSHL,-1);
-   store->AddWare(ATWN,-1);
-   store->AddWare(FGRN,-1);
-   store->AddWare(FRAG,-1);
-   store->AddWare(PGRN,-1);
-   store->AddWare(SGRN,-1);
-   store->AddWare(STUN,-1);
-   store->AddWare(SRBL,-1);
-
-   //Versorgungskiste (APW)
-   var crate = CreateObject (AMCT, 2865, 1350, -1);
-   crate->Set(ATWN);
-  }
-
   //MR-Spielziel
   if (FindObject(GMNR))
   {
