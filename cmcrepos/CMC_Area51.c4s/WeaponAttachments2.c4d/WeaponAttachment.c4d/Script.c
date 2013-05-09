@@ -9,11 +9,21 @@ public func HandSize()		{return 800;}
 public func HandX()		{return 6000;}
 public func HandY()		{return -1000;}
 
+protected func Initialize()
+{
+	if(NoAttachments())
+		return RemoveObject();
+	
+	return true;
+}
 
 /* Steuerung */
 
 protected func Activate(object pClonk)
 {
+	if(NoAttachments())
+		return;
+
   AttachmentMenu(pClonk);
 }
 
