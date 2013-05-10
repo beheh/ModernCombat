@@ -159,8 +159,8 @@ public func FxFlashlightTimer(object pTarget, int iNr, int iTime)
     else
       SetVisibility(VIS_All, light);
 
-		var x, y;
-		user->WeaponBegin(x, y);
+    var x, y;
+    user->WeaponBegin(x, y);
     light->ChangeOffset(x*dir, y * -1, true);
     light->ChangeR(angle);
   }
