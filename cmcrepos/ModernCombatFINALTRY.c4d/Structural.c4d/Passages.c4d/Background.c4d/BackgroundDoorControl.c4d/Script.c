@@ -57,7 +57,6 @@ protected func Collection2(object pObj)
     if(target)
     {
       AddEffect("Move2Door", pObj, 200, 15, this);
-      //return();
     }
 
   return _inherited(pObj, ...);
@@ -74,8 +73,12 @@ protected func ActivateEntrance(object pObj)
   if(!fNoProcedureCheck && GetProcedure(pObj) == "FLIGHT" || GetProcedure(pObj) == "HANGLE" || GetProcedure(pObj) == "SCALE" || GetProcedure(pObj) == "KNEEL")
     return false;
 
+  //Eintritt verweigern wenn der Ausgang in einem Sperrgebiet liegt
   if(FindObject2(Find_ID(BRDR), Find_Func("IsDangerous", pObj, GetX(target), GetY(target))) && !GetEffect("Move2Door", pObj))
+  {
+    PlayerMessage(GetOwner(pObj), "$Restricted$", pObj);
     return false;
+  }
 
   //Bei Clonks auf deren Walk-Aktion wechseln, um Campen zu vermeiden
   if(pObj->~IsClonk())
