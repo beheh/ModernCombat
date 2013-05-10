@@ -28,3 +28,10 @@ Single=Einzelfeuer
 Optical=Optisches Lenken
 Unguided=Ungelenkt
 Warning=Achtung, kehre zum Schlachtfeld zurück!|Eliminierung in|<c ff0000>%d</c>
+
+
+# HazardClonk-Appendto.c
+
+CtxUnbuckleDesc=Ausrüstung ablegen
+CtxUnbuckleItem=%s ablegen
+CtxDetachAttachment=%s abnehmen
