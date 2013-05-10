@@ -638,10 +638,10 @@ public func ChooserFinished()
   {
    //Zielobjekte
    AddAssaultTarget(CMSN, 710, 800, 400, 1, "$Flag2$", 0, [[640, 640], [420, 630]]);
-   AddAssaultTarget(CCP2, 425, 430, 300, 1, "$Flag1$", 1, [[230, 440], [330, 530]]);
+   AddAssaultTarget(CCP2, 490, 440, 300, 1, "$Flag1$", 1, [[230, 440], [330, 530]]);
 
    AddAssaultTarget(CMSN, 2010, 800, 400, 2, "$Flag4$", 0, [[2090, 640], [2310, 630]]);
-   AddAssaultTarget(CCP2, 2305, 430, 300, 2, "$Flag5$", 1, [[2400, 530], [2500, 440]]);
+   AddAssaultTarget(CCP2, 2240, 440, 300, 2, "$Flag5$", 1, [[2400, 530], [2500, 440]]);
 
    //SSA Besitzer setzen
    if(aTeams[1] == true)
@@ -691,6 +691,16 @@ public func ChooserFinished()
    AddMoneySpawn(1365, 305, [20]);
    AddMoneySpawn(1365, 805, [20]);
    AddMoneySpawn(1655, 435, [20]);
+
+   //SSA Besitzer setzen
+   if(aTeams[1] == true)
+   {aSelfDefense[0]->SetTeam(1);}
+   if(aTeams[2] == true)
+   {aSelfDefense[3]->SetTeam(2);}
+
+   //SSA anschalten
+   aSelfDefense[0]->TurnOn();
+   aSelfDefense[3]->TurnOn();
   }
 
   //CTF-Spielziel
@@ -711,6 +721,14 @@ public func ChooserFinished()
    //SSA anschalten
    aSelfDefense[0]->TurnOn();
    aSelfDefense[3]->TurnOn();
+  }
+
+  //DM/LMS-Spielziel
+  if(FindObject(GTDM) || FindObject(GLMS))
+  {
+   //Objekte entfernen
+   RemoveObject(aSelfDefense[0]);
+   RemoveObject(aSelfDefense[3]);
   }
 }
 
