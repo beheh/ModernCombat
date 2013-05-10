@@ -68,7 +68,6 @@ public func CheckChange()
       {
         fTumbling = false;
       }
-    
     szLastAction = GetAction(GetUser());
   }
   else
