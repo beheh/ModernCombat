@@ -190,6 +190,11 @@ public func FxFlashlightTimer(object pTarget, int iNr, int iTime)
       continue;
     else if(iAngleMax >= 180 && (target_angle < iAngleMin && target_angle > iAngleMax-360))
       continue;
+    
+    if(GetEffect("FlashlightBlindness", pObj))
+			EffectCall(pObj, GetEffect("FlashlightBlindness", pObj), "Refresh");
+		else
+			AddEffect("FlashlightBlindness", pObj, 100, 1, 0, WPN2);
 
     //Bereits markierte Objekte auslassen
     var tag;
@@ -216,6 +221,48 @@ public func FxFlashlightStop(object pTarget, int iNr, int iReason, bool fTemp)
     RemoveObject(EffectVar(0, pTarget, iNr));
 
   return true;
+}
+
+public func FxFlashlightBlindnessStart(object pTarget, int iNr, temp)
+{
+	if(temp)
+		return;
+	
+	EffectVar(0, pTarget, iNr) = ScreenRGB(pTarget, RGB(255, 255, 255), 0, 0, false, SR4K_LayerLight);
+	EffectVar(1, pTarget, iNr) = 6;
+}
+
+static const WPN2_Flashlight_MinAlpha = 130;
+
+public func FxFlashlightBlindnessTimer(object pTarget, int iNr)
+{
+	var rgb = EffectVar(0, pTarget, iNr);
+	if(!rgb)
+		rgb = EffectVar(0, pTarget, iNr) = ScreenRGB(pTarget, RGBa(255, 255, 255, 254), 0, 0, false, SR4K_LayerLight);
+
+	if(rgb->GetAlpha() < WPN2_Flashlight_MinAlpha)
+		return;
+
+	if(--EffectVar(1, pTarget, iNr) <= 0)
+	{
+		if(GetEffect("IntFlashbang", pTarget))
+			return;
+
+		rgb->DoAlpha(-5, WPN2_Flashlight_MinAlpha, 255);
+	}
+	else
+		rgb->DoAlpha(+15, WPN2_Flashlight_MinAlpha, 255);
+	
+	if(!rgb)
+		return -1;
+	
+	return true;
+}
+
+public func FxFlashlightBlindnessRefresh(object pTarget, int iNr)
+{
+	EffectVar(1, pTarget, iNr) = 6;
+	return true;
 }
 
 /* Laserpointer */
