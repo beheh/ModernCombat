@@ -75,26 +75,26 @@ private func Check()
 
 public func IsDangerous(object pFor, int iX, int iY)
 {
-	if(!(GetOCF(pFor) & OCF_CrewMember) && !pFor->~IsBorderTarget())
-		return false;
-	
-	var cursor = pFor;
-	if(!(GetOCF(pFor) & OCF_CrewMember))
-		cursor = pFor->~GetRealCursor();
+  if(!(GetOCF(pFor) & OCF_CrewMember) && !pFor->~IsBorderTarget())
+    return false;
 
-	if(fTeamAllow && GetPlayerTeam(GetOwner(cursor)) == iAllowedTeam)
-		return false;
-	
-	if(!iSearchDir && x < GetX())
-		return true;
-	else if(iSearchDir == 1 && x > GetX())
-		return true;
-	else if(iSearchDir == 2 && y < GetY())
-		return true;
-	else if(iSearchDir == 3 && y > GetY())
-		return true;
-	
-	return false;
+  var cursor = pFor;
+  if(!(GetOCF(pFor) & OCF_CrewMember))
+    cursor = pFor->~GetRealCursor();
+
+  if(fTeamAllow && GetPlayerTeam(GetOwner(cursor)) == iAllowedTeam)
+    return false;
+
+  if(!iSearchDir && x < GetX())
+    return true;
+  else if(iSearchDir == 1 && x > GetX())
+    return true;
+  else if(iSearchDir == 2 && y < GetY())
+    return true;
+  else if(iSearchDir == 3 && y > GetY())
+    return true;
+
+  return false;
 }
 
 /* Effekt */
@@ -125,7 +125,7 @@ protected func FxBorderStart(pTarget, iNo, iTemp)
 
   //Hinweisnachricht
   if(GetOCF(pTarget) & OCF_CrewMember || pTarget->~GetRealCursor())
-  	PlayerMessage(GetOwner(pTarget), "$Warning$", pTarget, EffectVar(0, pTarget, iNo));
+    PlayerMessage(GetOwner(pTarget), "$Warning$", pTarget, EffectVar(0, pTarget, iNo));
 
   //Overlay
   EffectVar(1, pTarget, iNo) = ScreenRGB(pTarget, 1, 1, -10, false, SR4K_LayerBorder);
@@ -169,9 +169,9 @@ protected func FxBorderTimer(pTarget, iNo, iTime)
   EffectVar(0, pTarget, iNo)--;
 
   if(GetOCF(pTarget) & OCF_CrewMember || pTarget->~GetRealCursor())
-  	PlayerMessage(GetOwner(pTarget), "$Warning$", pTarget, EffectVar(0, pTarget, iNo));
+    PlayerMessage(GetOwner(pTarget), "$Warning$", pTarget, EffectVar(0, pTarget, iNo));
   else
-  	Message("");
+    Message("");
 
   var obj = EffectVar(1, pTarget, iNo);
   if(obj)
