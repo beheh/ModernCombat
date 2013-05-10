@@ -87,9 +87,10 @@ public func FxFlashlightTimer(object pTarget, int iNr, int iTime)
   else if(user)
   {
     var angle = user->~AimAngle();
+    var dir = GetDir(user) * 2 - 1;
 
     //Wackel- und Schwenkeffekte beim Laufen/Springen
-    if((WildcardMatch(GetAction(user), "*Walk*") || WildcardMatch(GetAction(user), "*Kneel*") || WildcardMatch(GetAction(user), "*Flat*")))
+    if((WildcardMatch(GetAction(user), "*Walk*") && !Inside(GetXDir(user), -10, 10)) || WildcardMatch(GetAction(user), "*Kneel*") || WildcardMatch(GetAction(user), "*Flat*"))
     {
       //Ruckeleffekt bei Landung
       if(EffectVar(4, pTarget, iNr))
@@ -123,9 +124,9 @@ public func FxFlashlightTimer(object pTarget, int iNr, int iTime)
     else if(WildcardMatch(GetAction(user), "*Jump*"))
     {
       if(GetYDir(user) > 0 && EffectVar(2, pTarget, iNr) > -5)
-        EffectVar(3, pTarget, iNr) = -1;
+        EffectVar(3, pTarget, iNr) = -1 * dir;
       else if(GetYDir(user) < 0 && EffectVar(2, pTarget, iNr) < 5)
-        EffectVar(3, pTarget, iNr) = +1;
+        EffectVar(3, pTarget, iNr) = +1 * dir;
       else
         EffectVar(3, pTarget, iNr) = 0;
 
@@ -143,7 +144,7 @@ public func FxFlashlightTimer(object pTarget, int iNr, int iTime)
     else
       EffectVar(3, pTarget, iNr) = 0;
 
-    var handr = this->~HandR() * (GetDir(user) * 2 - 1);
+    var handr = this->~HandR() * dir;
     angle += handr + (EffectVar(2, pTarget, iNr) += EffectVar(3, pTarget, iNr));
 
     if(!light)
