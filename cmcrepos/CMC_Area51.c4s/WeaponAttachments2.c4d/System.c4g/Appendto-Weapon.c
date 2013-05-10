@@ -124,9 +124,9 @@ public func FxFlashlightTimer(object pTarget, int iNr, int iTime)
     else if(WildcardMatch(GetAction(user), "*Jump*"))
     {
       if(GetYDir(user) > 0 && EffectVar(2, pTarget, iNr) > -5)
-        EffectVar(3, pTarget, iNr) = -1 * dir;
+        EffectVar(3, pTarget, iNr) = -1;
       else if(GetYDir(user) < 0 && EffectVar(2, pTarget, iNr) < 5)
-        EffectVar(3, pTarget, iNr) = +1 * dir;
+        EffectVar(3, pTarget, iNr) = +1;
       else
         EffectVar(3, pTarget, iNr) = 0;
 
@@ -145,7 +145,7 @@ public func FxFlashlightTimer(object pTarget, int iNr, int iTime)
       EffectVar(3, pTarget, iNr) = 0;
 
     var handr = this->~HandR() * dir;
-    angle += handr + (EffectVar(2, pTarget, iNr) += EffectVar(3, pTarget, iNr));
+    angle += handr + (EffectVar(2, pTarget, iNr) += EffectVar(3, pTarget, iNr)) * dir;
 
     if(!light)
     {
