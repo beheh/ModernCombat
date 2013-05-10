@@ -35,3 +35,4 @@ Warning=Achtung, kehre zum Schlachtfeld zurück!|Eliminierung in|<c ff0000>%d</c>
 CtxUnbuckleDesc=Ausrüstung ablegen
 CtxUnbuckleItem=%s ablegen
 CtxDetachAttachment=%s abnehmen
+CtxGrenadeMenu=Granaten

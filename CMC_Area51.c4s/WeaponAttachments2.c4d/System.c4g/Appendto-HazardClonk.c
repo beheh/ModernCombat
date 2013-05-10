@@ -48,3 +48,12 @@ public func HasAttachmentWeapons()
 		if(obj->~IsWeapon2() && obj->~GetAttachment() != AT_NoAttachment)
 			return true;
 }
+
+//Wegen der OpenBeta: Damit der Menüeintrag nicht von dem "Ausrüstung ablegen" Eintrag verschiebt.
+
+protected func ContextGrenadeMenu(object pCaller)
+{
+  [$CtxGrenadeMenu$|Image=GRNS|Condition=HasGrenades]
+  Sound("GrenadeCharge.ogg", 1, 0,0, GetOwner()+1);
+  GrenadeMenu(pCaller);
+}
