@@ -149,9 +149,8 @@ public func FxFlashlightTimer(object pTarget, int iNr, int iTime)
 
     if(!light)
     {
-      light = EffectVar(0, pTarget, iNr) = AddLightCone(1000, RGBa(255, 255, 220, 40), user);
-      light->ChangeSizeXY(1900, 6000);
-      light->ChangeOffset(0, 0, true);
+      light = EffectVar(0, pTarget, iNr) = AddLightCone2(1000, RGBa(255, 255, 220, 40), user);
+      light->ChangeSizeXY(1400, 6000);
       light->Lock();
     }
 
@@ -160,6 +159,9 @@ public func FxFlashlightTimer(object pTarget, int iNr, int iTime)
     else
       SetVisibility(VIS_All, light);
 
+		var x, y;
+		user->WeaponBegin(x, y);
+    light->ChangeOffset(x*dir, y * -1, true);
     light->ChangeR(angle);
   }
 
