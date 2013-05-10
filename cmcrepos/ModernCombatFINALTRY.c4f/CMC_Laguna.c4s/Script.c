@@ -420,6 +420,10 @@ public func ChooserFinished()
    CreateObject(BRDR, 1300, 0, -1)->Set(0);
    CreateObject(BRDR, 2770, 0, -1)->Set(1);
 
+   //Teamgrenzen
+   CreateObject(BRDR, 1630, 0, -1)->Set(0,1,0,1,1);
+   CreateObject(BRDR, 2340, 0, -1)->Set(1,1,0,1,2);
+
    //Hinweisschilder
    CreateObject(SGNP, 1255, 590, -1);
    CreateObject(SGNP, 2745, 570, -1);

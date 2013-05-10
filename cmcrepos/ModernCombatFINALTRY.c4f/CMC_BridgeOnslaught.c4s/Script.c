@@ -661,6 +661,10 @@ public func ChooserFinished()
    var flag = CreateObject(OFPL, 1365,413, -1);
    flag->~Set("$Flag3$");
 
+   //Teamgrenzen
+   CreateObject(BRDR, 900, 0, -1)->Set(0,1,0,1,1);
+   CreateObject(BRDR, 1830, 0, -1)->Set(1,1,0,1,2);
+
    //SSA Besitzer setzen
    if(aTeams[1] == true)
    {aSelfDefense[0]->SetTeam(1);}

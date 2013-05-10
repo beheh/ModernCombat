@@ -415,6 +415,10 @@ public func ChooserFinished()
    //Flaggenposten
    var flag = CreateObject(OFPL, 3415, 480, -1);
    flag->~Set("$Flag3$");
+
+   //Teamgrenzen
+   CreateObject(BRDR, 2490, 0, -1)->Set(0,1,0,1,1);
+   CreateObject(BRDR, 4340, 0, -1)->Set(1,1,0,1,2);
   }
 
   //CTF-Spielziel

@@ -550,6 +550,10 @@ public func ChooserFinished()
    CreateObject(BRDR, 740, 0, -1)->Set(0);
    CreateObject(BRDR, 2660, 0, -1)->Set(1);
 
+   //Teamgrenzen
+   CreateObject(BRDR, 1210, 0, -1)->Set(0,1,0,1,1);
+   CreateObject(BRDR, 2190, 0, -1)->Set(1,1,0,1,2);
+
    //Sandsackbarrieren
    CreateObject(SBBA, 1521, 440, -1);
    CreateObject(SBBA, 1581, 430, -1);
