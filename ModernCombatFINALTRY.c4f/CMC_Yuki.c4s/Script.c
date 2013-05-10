@@ -574,6 +574,10 @@ public func ChooserFinished()
    var flag = CreateObject(OFPL, 860,680, -1);
    flag->~Set("$Flag3$");
 
+   //Teamgrenzen
+   CreateObject(BRDR, 620, 0, -1)->Set(0,1,0,1,1);
+   CreateObject(BRDR, 1140, 0, -1)->Set(1,1,0,1,2);
+
    //Waffenautomat entfernen
    RemoveAll(WPVM);
 

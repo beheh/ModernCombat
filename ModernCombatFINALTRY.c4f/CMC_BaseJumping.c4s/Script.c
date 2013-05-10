@@ -570,6 +570,10 @@ public func ChooserFinished()
    var flag = CreateObject(OFPL, 1540,780, -1);
    flag->~Set("$Flag4$");
 
+   //Teamgrenzen
+   CreateObject(BRDR, 1050, 0, -1)->Set(0,1,0,1,1);
+   CreateObject(BRDR, 2030, 0, -1)->Set(1,1,0,1,2);
+
    //Zusätzliche Munition
    if(!FindObject(NOAM))
    {
