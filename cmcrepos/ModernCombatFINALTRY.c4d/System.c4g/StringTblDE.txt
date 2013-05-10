@@ -78,6 +78,16 @@ TeamsSortedRandomly=Zufall
 TeamsSortedRandomlyAndInv=Zufällig und unsichtbar
 TeamsSortedByRank=Nach Rang
 Random=Zufällig
+RotatedTeams=Abwechselnde Teamwahl
+ChooseCaptains=Teamcaptains auswählen
+NoCaptain=<c 777777>Kein Teamcaptain</c>
+TeamCaptainsLeft=Es müssen noch %d Teamcaptains ausgewählt werden.
+StartTeamRotationDeactivated=<c 777777>Teamauswahl starten</c>
+StartTeamRotation=Teamauswahl starten
+TeamSortedByRotation=Teamcaptains
+TeamRotationBegins=Die Teamauswahl startet!
+TeamRotationEnd=Die Teams wurden ausgewählt.
+TimeRemaining=Noch %d Sekunden
 
 #KI
 
