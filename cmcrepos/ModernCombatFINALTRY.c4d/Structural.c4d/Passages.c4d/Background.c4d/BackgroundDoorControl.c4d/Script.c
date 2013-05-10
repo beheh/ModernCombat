@@ -74,7 +74,7 @@ protected func ActivateEntrance(object pObj)
   if(!fNoProcedureCheck && GetProcedure(pObj) == "FLIGHT" || GetProcedure(pObj) == "HANGLE" || GetProcedure(pObj) == "SCALE" || GetProcedure(pObj) == "KNEEL")
     return false;
 
-  if(FindObject2(Find_ID(BRDR), Find_Func("IsDangerous", pObj, GetX(target), GetY(target))))
+  if(FindObject2(Find_ID(BRDR), Find_Func("IsDangerous", pObj, GetX(target), GetY(target))) && !GetEffect("Move2Door", pObj))
     return false;
 
   //Bei Clonks auf deren Walk-Aktion wechseln, um Campen zu vermeiden

@@ -75,7 +75,7 @@ private func Check()
 
 public func IsDangerous(object pFor, int iX, int iY)
 {
-  if(!(GetOCF(pFor) & OCF_CrewMember) && !pFor->~IsBorderTarget())
+  if(!pFor || (!(GetOCF(pFor) & OCF_CrewMember) && !pFor->~IsBorderTarget()))
     return false;
 
   var cursor = pFor;
@@ -85,13 +85,13 @@ public func IsDangerous(object pFor, int iX, int iY)
   if(fTeamAllow && GetPlayerTeam(GetOwner(cursor)) == iAllowedTeam)
     return false;
 
-  if(!iSearchDir && x < GetX())
+  if(!iSearchDir && iX < GetX())
     return true;
-  else if(iSearchDir == 1 && x > GetX())
+  else if(iSearchDir == 1 && iX > GetX())
     return true;
-  else if(iSearchDir == 2 && y < GetY())
+  else if(iSearchDir == 2 && iY < GetY())
     return true;
-  else if(iSearchDir == 3 && y > GetY())
+  else if(iSearchDir == 3 && iY > GetY())
     return true;
 
   return false;
