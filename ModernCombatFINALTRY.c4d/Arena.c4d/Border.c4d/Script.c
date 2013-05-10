@@ -100,7 +100,8 @@ protected func FxBorderStart(pTarget, iNo, iTemp)
   Sound("Alarm.ogg", 0, pTarget, 0, GetOwner(pTarget) + 1);
 
   //Hinweisnachricht
-  PlayerMessage(GetOwner(pTarget), "@$Warning$", pTarget, EffectVar(0, pTarget, iNo));
+  if(GetOCF(pTarget) & OCF_CrewMember || pTarget->~GetRealCursor())
+  	PlayerMessage(GetOwner(pTarget), "$Warning$", pTarget, EffectVar(0, pTarget, iNo));
 
   //Overlay
   EffectVar(1, pTarget, iNo) = ScreenRGB(pTarget, 1, 1, -10, false, SR4K_LayerBorder);
@@ -142,7 +143,11 @@ protected func FxBorderTimer(pTarget, iNo, iTime)
   }
 
   EffectVar(0, pTarget, iNo)--;
-  PlayerMessage(GetOwner(pTarget), "@$Warning$", pTarget, EffectVar(0, pTarget, iNo));
+
+  if(GetOCF(pTarget) & OCF_CrewMember || pTarget->~GetRealCursor())
+  	PlayerMessage(GetOwner(pTarget), "$Warning$", pTarget, EffectVar(0, pTarget, iNo));
+  else
+  	Message("");
 
   var obj = EffectVar(1, pTarget, iNo);
   if(obj)
