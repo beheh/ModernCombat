@@ -500,10 +500,6 @@ public func ChooserFinished()
    var flag = CreateObject(OFPL, 2990, 380, -1);
    flag->~Set("$Flag2$");
 
-   //Teamgrenzen
-   CreateObject(BRDR, 2000, 0, -1)->Set(0,1,0,1,1);
-   CreateObject(BRDR, 4010, 0, -1)->Set(1,1,0,1,2);
-
    //MAV-Stationen
    CreateObject(MVSN, 1350, 500, -1)->Set(1520,530,1);
    CreateObject(MVSN, 4660, 500, -1)->Set(4490,530,1);
