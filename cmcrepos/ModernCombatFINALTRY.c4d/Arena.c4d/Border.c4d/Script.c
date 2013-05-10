@@ -73,6 +73,30 @@ private func Check()
     RemoveObject(flag);
 }
 
+public func IsDangerous(object pFor, int iX, int iY)
+{
+	if(!(GetOCF(pFor) & OCF_CrewMember) && !pFor->~IsBorderTarget())
+		return false;
+	
+	var cursor = pFor;
+	if(!(GetOCF(pFor) & OCF_CrewMember))
+		cursor = pFor->~GetRealCursor();
+
+	if(fTeamAllow && GetPlayerTeam(GetOwner(cursor)) == iAllowedTeam)
+		return false;
+	
+	if(!iSearchDir && x < GetX())
+		return true;
+	else if(iSearchDir == 1 && x > GetX())
+		return true;
+	else if(iSearchDir == 2 && y < GetY())
+		return true;
+	else if(iSearchDir == 3 && y > GetY())
+		return true;
+	
+	return false;
+}
+
 /* Effekt */
 
 protected func FxBorderStart(pTarget, iNo, iTemp)

@@ -73,6 +73,9 @@ protected func ActivateEntrance(object pObj)
   //Objekt kann nicht eintreten wenn am hangeln, klettern oder in der Luft
   if(!fNoProcedureCheck && GetProcedure(pObj) == "FLIGHT" || GetProcedure(pObj) == "HANGLE" || GetProcedure(pObj) == "SCALE" || GetProcedure(pObj) == "KNEEL")
     return false;
+  
+  if(FindObject2(Find_ID(BRDR), Find_Func("IsDangerous", pObj, GetX(target), GetY(target))))
+  	return false;
 
   //Bei Clonks auf deren Walk-Aktion wechseln, um Campen zu vermeiden
   if(pObj->~IsClonk())
