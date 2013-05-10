@@ -11,18 +11,18 @@ public func HandY()		{return -1000;}
 
 protected func Initialize()
 {
-	if(NoAttachments())
-		return RemoveObject();
-	
-	return true;
+  if(NoAttachments())
+    return RemoveObject();
+
+  return true;
 }
 
 /* Steuerung */
 
 protected func Activate(object pClonk)
 {
-	if(NoAttachments())
-		return;
+  if(NoAttachments())
+    return;
 
   AttachmentMenu(pClonk);
 }
