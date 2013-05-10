@@ -46,7 +46,7 @@ global func ScreenRGB(object pTarget, int dwRGBa, int iAlphaAdd, int iFadeRate, 
 {
   var obj;
   if(iLayer)
-    obj = GetScreenRGB(GetOwner(pTarget), iLayer);
+    obj = GetScreenRGB(GetOwner(pTarget), iLayer, pTarget);
 
   if(!obj && pTarget && GetCategory(pTarget) & C4D_Living && !(GetOCF(pTarget) & OCF_Alive))
     return false;
@@ -58,14 +58,14 @@ global func ScreenRGB(object pTarget, int dwRGBa, int iAlphaAdd, int iFadeRate, 
   return obj;
 }
 
-global func GetScreenRGB(int iPlr, int iLayer)
+global func GetScreenRGB(int iPlr, int iLayer, pTarget)
 {
-  return FindObject2(Find_ID(S24K), Find_Func("SameLayer", iLayer), Find_Owner(iPlr));
+  return FindObject2(Find_ID(S24K), Find_Func("SameLayer", iLayer, pTarget), Find_Owner(iPlr));
 }
 
-public func SameLayer(int iLayer)
+public func SameLayer(int iLayer, object pTarget)
 {
-  return layer && layer == iLayer;
+  return (layer && layer == iLayer) && (target && target == pTarget);
 }
 
 public func Set(object pTarget, int dwRGBa, int iAlphaAdd, int iFadeRate, bool bAdditive, int iLayer, int iMin)
