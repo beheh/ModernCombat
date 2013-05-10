@@ -4,7 +4,7 @@
 
 local pShield, pUser;
 local iPrevDir, fAiming, iAimingAngle;
-local fTumbling;
+local fTumbling, szLastAction;
 
 public func IsDrawable()	{return true;}	//Wird sichtbar getragen
 public func HandY()		{return -1200;}
@@ -47,7 +47,7 @@ public func CheckChange()
     {
       if(GetAction(GetUser()) == "Tumble" && this == Contents(0, GetUser()))
       {
-        ObjectSetAction(GetUser(), "Walk");
+        ObjectSetAction(GetUser(), szLastAction);
         SetDir(iPrevDir, GetUser());
         if(fAiming)
         {
@@ -68,6 +68,8 @@ public func CheckChange()
       {
         fTumbling = false;
       }
+    
+    szLastAction = GetAction(GetUser());
   }
   else
   {
