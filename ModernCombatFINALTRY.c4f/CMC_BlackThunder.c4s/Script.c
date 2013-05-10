@@ -107,10 +107,10 @@ func CreateInterior()
   CreateObject(SBBA, 1430, 590, -1)->Right();
   CreateObject(SBBA, 1470, 670, -1)->Right();
 
+  CreateObject(SBBA, 1953, 850, -1);
   CreateObject(SBBA, 1961, 750, -1);
-  CreateObject(SBBA, 1961, 850, -1);
   CreateObject(SBBA, 2280, 750, -1)->Right();
-  CreateObject(SBBA, 2280, 850, -1)->Right();
+  CreateObject(SBBA, 2288, 850, -1)->Right();
 
   CreateObject(SBBA, 2770, 670, -1);
   CreateObject(SBBA, 2811, 590, -1);
