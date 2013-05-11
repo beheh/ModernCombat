@@ -940,12 +940,15 @@ protected func CreateTeams(int iTeamSort, int iMode, bool fNoTeamMenu)
     //Menü erstellen
     CreateMenu(GetID(), pClonk, 0, 0, 0, 0, 1);
 
-    AddMenuItem("$ChooseCaptains$", 0, TEAM, pClonk);
-
     //Teams auflisten
     for(var j = 0; j < GetPlayerCount(); j++)
     {
       var plr = GetPlayerByIndex(j);
+      
+      //Team des Teamcaptains wurde nachträglich deaktiviert
+      if(aTeamCaptains[plr] && !arTeams[aTeamCaptains[plr]] || aTeamCaptains[plr] > iTeamCount)
+      	aTeamCaptains[plr] = 0;
+      
       var team_name = GetTeamName(aTeamCaptains[plr]);
       if(!aTeamCaptains[plr])
         team_name = "$NoCaptain$";
@@ -955,12 +958,9 @@ protected func CreateTeams(int iTeamSort, int iMode, bool fNoTeamMenu)
 
     //Nur wenn es genausoviele TeamCaptains gibt, wie es Teams gibt
     if(GetAvailableTeamCount()-GetTeamCaptainCount() > 0)
-    {
-      AddMenuItem(Format("$TeamCaptainsLeft$", GetAvailableTeamCount()-GetTeamCaptainCount()), 0, TEAM, pClonk);
-      AddMenuItem("$StartTeamRotationDeactivated$", 0, TEAM, pClonk);
-    }
+      AddMenuItem("$StartTeamRotationDeactivated$", 0, CHOS, pClonk, 0, 0, 0, 2, 3);
     else
-      AddMenuItem("$StartTeamRotation$", "StartTeamRotation", TEAM, pClonk);
+      AddMenuItem("$StartTeamRotation$", "StartTeamRotation", CHOS, pClonk, 0, 0, 0, 2, 3);
 
     AddMenuItem("$Back$", Format("ChoosePossibleTeams(CHOS_TeamRotation)"), 0, pClonk, 0, 0, "$Back$");
     return;
@@ -1002,7 +1002,7 @@ public func GetAvailableTeamCount()
 public func SwitchTeamCaptain(int iPlr)
 {
   var f = (GetAvailableTeamCount()-GetTeamCaptainCount() > 0);
-  var iSelection = GetMenuSelection(GetCursor(iChoosedPlr));
+  //var iSelection = GetMenuSelection(GetCursor(iChoosedPlr));
 
   if(GetAvailableTeamCount()-GetTeamCaptainCount() <= 0)
     aTeamCaptains[iPlr] = 0;
@@ -1030,7 +1030,10 @@ public func SwitchTeamCaptain(int iPlr)
     var team = aTeamCaptains[iPlr];
     for(var i = team; i < GetLength(arTeams); i++)
       if(arTeams[i] && GetIndexOf(i, aTeamCaptains) == -1)
+      {
         team = i;
+      	break;
+      }
 
     if(team == aTeamCaptains[iPlr])
       team = 0;
@@ -1038,15 +1041,13 @@ public func SwitchTeamCaptain(int iPlr)
     aTeamCaptains[iPlr] = team;
   }
 
-  if(f && !(GetAvailableTeamCount()-GetTeamCaptainCount() > 0))
-    iSelection--;
-  else if(!f && (GetAvailableTeamCount()-GetTeamCaptainCount() > 0))
-    iSelection++;
-
   SetPlayerTeam(iPlr, Max(1, aTeamCaptains[iPlr]));
 
+  //Geräusch
+  Sound("Grab", 1,0,0,1);
+
   CreateTeams(0, CHOS_TeamRotation);
-  SelectMenuItem(iSelection, GetCursor(iChoosedPlr));
+  SelectMenuItem(iPlr, GetCursor(iChoosedPlr));
 
   return true;
 }
@@ -1405,6 +1406,16 @@ protected func LoadRuleCfg()
 
 protected func InitializePlayer(int iPlr, int iX, int iY, object pBase, int iTeam, id idExtra)
 {
+	if(CountArrayItems(arTeams, true) < MinTeamCount())
+	{
+		arTeams[0] = true;
+		var index = GetIndexOf(false, arTeams);
+		if(index != -1)
+			arTeams[index] = true;
+		
+		arTeams[0] = false;
+	}
+
   if(GetPlayerType(iPlr) == C4PT_Script)
     for(var i = 1 ; i < aAI[iTeam] ; i++)
       CreateClonk(iPlr);
