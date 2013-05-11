@@ -78,6 +78,16 @@ TeamsSortedRandomly=Randomly
 TeamsSortedRandomlyAndInv=Randomly and invisible
 TeamsSortedByRank=By Rank
 Random=Random
+RotatedTeams=Rotated Teams
+ChooseCaptains=Choose Team Captains
+NoCaptain=<c 777777>No Team Captain</c>
+TeamCaptainsLeft=%d more team captains needed.
+StartTeamRotationDeactivated=<c 777777>Start Team Selection</c>
+StartTeamRotation=Start Team Selection
+TeamSortedByRotation=Team Captains
+TeamRotationBegins=Team Selection is starting!
+TeamRotationEnd=The teams have been selected.
+TimeRemaining=%d seconds left
 
 #AI
 
