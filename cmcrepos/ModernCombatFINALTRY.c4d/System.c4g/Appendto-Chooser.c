@@ -175,18 +175,18 @@ public func UpdateScoreboard()
     var team_name;
     if(iTeamMode == CHOS_TeamRotation)
     {
-    	if(aTeamCaptains[plr] || !iTeamCaptainState)
-    		team_name = GetTeamName(GetPlayerTeam(plr));
-    	else
-    		team_name = "$NoCaptain$";
+      if(aTeamCaptains[plr] || !iTeamCaptainState)
+        team_name = GetTeamName(GetPlayerTeam(plr));
+      else
+        team_name = "$NoCaptain$";
     }
     else
     {
-		  if((iTeamMode != CHOS_TeamRandomInvisible && !fRandomMenu) || aPlayerSetting[plr])
-		    team_name = GetTeamName(GetPlayerTeam(plr));
-		  else
-		    team_name = "$Random$";
-		}
+      if((iTeamMode != CHOS_TeamRandomInvisible && !fRandomMenu) || aPlayerSetting[plr])
+        team_name = GetTeamName(GetPlayerTeam(plr));
+      else
+        team_name = "$Random$";
+    }
 
     SetScoreboardData(row_id, 0, GetTaggedPlayerName(plr, true), CHOS_SBRD_Teams+plr, true);
     SetScoreboardData(row_id, 1, team_name, 0, true);
@@ -197,9 +197,9 @@ public func UpdateScoreboard()
 
 public func IsInRandomTeam(int iPlr)
 {
-	if(iTeamMode == CHOS_TeamRotation)
-		if(!aTeamCaptains[iPlr] && iTeamCaptainState)
-			return true;
+  if(iTeamMode == CHOS_TeamRotation)
+    if(!aTeamCaptains[iPlr] && iTeamCaptainState)
+      return true;
 
   if(iTeamMode != CHOS_TeamRandomInvisible && !fRandomMenu)
     return false;
@@ -310,8 +310,8 @@ private func ChoosePlayer()
 
 protected func Activate(iPlr)
 {
-	if(GetEffect("TeamRotationChoosePlr", this))
-		return false;
+  if(GetEffect("TeamRotationChoosePlr", this))
+    return false;
 
   if(iPlr == iChoosedPlr)
     return OpenMenu();
@@ -534,8 +534,8 @@ protected func ChoosePossibleTeams(int iMode, bool fInvisible, int iSelection)
   
   var caption = "$CreateTeams$";
   if(iMode == CHOS_TeamRotation)
-  	caption = "$ChooseCaptains$";
-  
+    caption = "$ChooseCaptains$";
+
   if(GetTeamConfig(TEAM_AutoGenerateTeams)) //Engine-erstelltes Team
   {
     if(!iTeamCount)
@@ -610,14 +610,13 @@ protected func SelectPredefinedTeamMember(bool fInvisible, int iSelection, int i
     var team_name = GetTeamName(GetPlayerTeam(plr));
     if(!aPlayerSetting[plr])
       team_name = "$Random$";
-   	
-   	AddMenuItem(Format("%s (%s)", GetTaggedPlayerName(plr, true), team_name), Format("SwitchPredefinedTeam(%v, %d, %d, %d)", fInvisible, iSelection, plr, iTeamSort), PCMK, pClonk);
+
+    AddMenuItem(Format("%s (%s)", GetTaggedPlayerName(plr, true), team_name), Format("SwitchPredefinedTeam(%v, %d, %d, %d)", fInvisible, iSelection, plr, iTeamSort), PCMK, pClonk);
   }
-  
   AddMenuItem("$Back$", Format("ChoosePossibleTeams(CHOS_TeamRandom, %v, %d)", fInvisible, iSelection), 0, pClonk, 0, 0, "$Back$");
-  
+
   SelectMenuItem(iPlr, pClonk);
-  
+
   return true;
 }
 
@@ -721,11 +720,11 @@ protected func InitializeTeam()
   return true;
 }
 
-static const CHOS_TeamManual		= 0; // Manuell
-static const CHOS_TeamRandom		= 1; // Zufällig
-static const CHOS_TeamRandomInvisible	= 2; // Zufällig & unsichtbar
-static const CHOS_TeamAutobalance	= 3; // Autobalanced
-static const CHOS_TeamRotation  = 4; //Abwechselnd
+static const CHOS_TeamManual		= 0;	//Manuell
+static const CHOS_TeamRandom		= 1;	//Zufällig
+static const CHOS_TeamRandomInvisible	= 2;	//Zufällig & unsichtbar
+static const CHOS_TeamAutobalance	= 3;	//Autobalanced
+static const CHOS_TeamRotation		= 4;	//Abwechselnd
 
 protected func CreateTeams(int iTeamSort, int iMode, bool fNoTeamMenu)
 {
@@ -830,7 +829,7 @@ protected func CreateTeams(int iTeamSort, int iMode, bool fNoTeamMenu)
     var max_rows = nr_cnt / team_count + (nr_cnt % team_count);	//Max. Anzahl von Zeilen
     var max_nr = sum_nrs / team_count + (sum_nrs % team_count);	//Höchste zu erreichende Zahl
 
-    if(AB_GetMaxPlayerRank(arNumbers, true) > max_nr) //Sonderregelung: Höhere Zahl in der Liste als die höchste, zu erreichende Zahl
+    if(AB_GetMaxPlayerRank(arNumbers, true) > max_nr)		//Sonderregelung: Höhere Zahl in der Liste als die höchste, zu erreichende Zahl
     {
       max_nr = AB_GetMaxPlayerRank(arNumbers, true);
       max_rows = 0x7FFFFFFF;
@@ -933,38 +932,38 @@ protected func CreateTeams(int iTeamSort, int iMode, bool fNoTeamMenu)
   }
   else if(iMode == CHOS_TeamRotation)
   {
-  	iTeamCaptainState = 1;
+    iTeamCaptainState = 1;
 
-  	var pClonk = GetCursor(iChoosedPlr);
-		CloseMenu(pClonk);
-		
-		//Menü erstellen
-		CreateMenu(GetID(), pClonk, 0, 0, 0, 0, 1);
+    var pClonk = GetCursor(iChoosedPlr);
+    CloseMenu(pClonk);
 
-		AddMenuItem("$ChooseCaptains$", 0, TEAM, pClonk);
-		
-	  //Teams auflisten
-		for(var j = 0; j < GetPlayerCount(); j++)
-		{
-			var plr = GetPlayerByIndex(j);
-			var team_name = GetTeamName(aTeamCaptains[plr]);
-			if(!aTeamCaptains[plr])
-				team_name = "$NoCaptain$";
+    //Menü erstellen
+    CreateMenu(GetID(), pClonk, 0, 0, 0, 0, 1);
 
-		 	AddMenuItem(Format("%s (%s)", GetTaggedPlayerName(plr, true), team_name), Format("SwitchTeamCaptain(%d)", plr), PCMK, pClonk);
-		}
-		
-		//Nur wenn es genausoviele TeamCaptains gibt, wie es Teams gibt
-		if(GetAvailableTeamCount()-GetTeamCaptainCount() > 0)
-		{
-			AddMenuItem(Format("$TeamCaptainsLeft$", GetAvailableTeamCount()-GetTeamCaptainCount()), 0, TEAM, pClonk);
-			AddMenuItem("$StartTeamRotationDeactivated$", 0, TEAM, pClonk);
-		}
-		else
-			AddMenuItem("$StartTeamRotation$", "StartTeamRotation", TEAM, pClonk);
+    AddMenuItem("$ChooseCaptains$", 0, TEAM, pClonk);
 
-		AddMenuItem("$Back$", Format("ChoosePossibleTeams(CHOS_TeamRotation)"), 0, pClonk, 0, 0, "$Back$");
-		return;
+    //Teams auflisten
+    for(var j = 0; j < GetPlayerCount(); j++)
+    {
+      var plr = GetPlayerByIndex(j);
+      var team_name = GetTeamName(aTeamCaptains[plr]);
+      if(!aTeamCaptains[plr])
+        team_name = "$NoCaptain$";
+
+      AddMenuItem(Format("%s (%s)", GetTaggedPlayerName(plr, true), team_name), Format("SwitchTeamCaptain(%d)", plr), PCMK, pClonk);
+    }
+
+    //Nur wenn es genausoviele TeamCaptains gibt, wie es Teams gibt
+    if(GetAvailableTeamCount()-GetTeamCaptainCount() > 0)
+    {
+      AddMenuItem(Format("$TeamCaptainsLeft$", GetAvailableTeamCount()-GetTeamCaptainCount()), 0, TEAM, pClonk);
+      AddMenuItem("$StartTeamRotationDeactivated$", 0, TEAM, pClonk);
+    }
+    else
+      AddMenuItem("$StartTeamRotation$", "StartTeamRotation", TEAM, pClonk);
+
+    AddMenuItem("$Back$", Format("ChoosePossibleTeams(CHOS_TeamRotation)"), 0, pClonk, 0, 0, "$Back$");
+    return;
   }
 
   if(fNoTeamMenu)
@@ -975,195 +974,195 @@ protected func CreateTeams(int iTeamSort, int iMode, bool fNoTeamMenu)
 
 public func GetTeamCaptainCount()
 {
-	var count = 0;
-	for(var i = 0; i < GetLength(aTeamCaptains); i++)
-		if(aTeamCaptains[i])
-			count++;
-	
-	return count;
+  var count = 0;
+  for(var i = 0; i < GetLength(aTeamCaptains); i++)
+    if(aTeamCaptains[i])
+      count++;
+
+  return count;
 }
 
 public func GetAvailableTeamCount()
 {
-	if(GetTeamConfig(TEAM_AutoGenerateTeams))
-		return iTeamCount;
-	else
-	{
-		var count, i;
-		for(i = 0; i < GetLength(arTeams); i++)
-			if(arTeams[i])
-				count++;
-		
-		return count;
-	}
-	
-	return 0;
+  if(GetTeamConfig(TEAM_AutoGenerateTeams))
+    return iTeamCount;
+  else
+  {
+    var count, i;
+    for(i = 0; i < GetLength(arTeams); i++)
+      if(arTeams[i])
+        count++;
+
+    return count;
+  }
+
+  return 0;
 }
 
 public func SwitchTeamCaptain(int iPlr)
 {
-	var f = (GetAvailableTeamCount()-GetTeamCaptainCount() > 0);
-	var iSelection = GetMenuSelection(GetCursor(iChoosedPlr));
+  var f = (GetAvailableTeamCount()-GetTeamCaptainCount() > 0);
+  var iSelection = GetMenuSelection(GetCursor(iChoosedPlr));
 
-	if(GetAvailableTeamCount()-GetTeamCaptainCount() <= 0)
-		aTeamCaptains[iPlr] = 0;
-	else if(GetTeamConfig(TEAM_AutoGenerateTeams)) //Engine-erstelltes Team
-	{
-		var i = aTeamCaptains[iPlr]+1;
-		if(i >= iTeamCount)
-			i = 1;
+  if(GetAvailableTeamCount()-GetTeamCaptainCount() <= 0)
+    aTeamCaptains[iPlr] = 0;
+  else if(GetTeamConfig(TEAM_AutoGenerateTeams)) //Engine-erstelltes Team
+  {
+    var i = aTeamCaptains[iPlr]+1;
+    if(i >= iTeamCount)
+      i = 1;
 
-		while(i != aTeamCaptains[iPlr])
-		{
-			if(GetIndexOf(i, aTeamCaptains) == -1)
-				break;
-		
-			if(iTeamCount < i)
-				i++;
-			else
-				i = 1;
-		}
-		
-		aTeamCaptains[iPlr] = i;
-	}
-	else
-	{
-		var team = aTeamCaptains[iPlr];
-		for(var i = team; i < GetLength(arTeams); i++)
-			if(arTeams[i] && GetIndexOf(i, aTeamCaptains) == -1)
-				team = i;
-		
-		if(team == aTeamCaptains[iPlr])
-			team = 0;
-		
-		aTeamCaptains[iPlr] = team;
-	}
+    while(i != aTeamCaptains[iPlr])
+    {
+      if(GetIndexOf(i, aTeamCaptains) == -1)
+        break;
 
-	if(f && !(GetAvailableTeamCount()-GetTeamCaptainCount() > 0))
-		iSelection--;
-	else if(!f && (GetAvailableTeamCount()-GetTeamCaptainCount() > 0))
-		iSelection++;
+      if(iTeamCount < i)
+        i++;
+      else
+        i = 1;
+    }
 
-	SetPlayerTeam(iPlr, Max(1, aTeamCaptains[iPlr]));
+    aTeamCaptains[iPlr] = i;
+  }
+  else
+  {
+    var team = aTeamCaptains[iPlr];
+    for(var i = team; i < GetLength(arTeams); i++)
+      if(arTeams[i] && GetIndexOf(i, aTeamCaptains) == -1)
+        team = i;
 
-	CreateTeams(0, CHOS_TeamRotation);
-	SelectMenuItem(iSelection, GetCursor(iChoosedPlr));
+    if(team == aTeamCaptains[iPlr])
+      team = 0;
 
-	return true;
+    aTeamCaptains[iPlr] = team;
+  }
+
+  if(f && !(GetAvailableTeamCount()-GetTeamCaptainCount() > 0))
+    iSelection--;
+  else if(!f && (GetAvailableTeamCount()-GetTeamCaptainCount() > 0))
+    iSelection++;
+
+  SetPlayerTeam(iPlr, Max(1, aTeamCaptains[iPlr]));
+
+  CreateTeams(0, CHOS_TeamRotation);
+  SelectMenuItem(iSelection, GetCursor(iChoosedPlr));
+
+  return true;
 }
 
 public func StartTeamRotation()
 {
-	iTeamCaptainState = 2;
-	SetScoreboardData(CHOS_SBRD_Teams, 1, "$TeamSortedByRotation$", 0, true);
+  iTeamCaptainState = 2;
+  SetScoreboardData(CHOS_SBRD_Teams, 1, "$TeamSortedByRotation$", 0, true);
 
-	var captains = [], players = [];
-	for(var i = 0; i < GetPlayerCount(); i++)
-	{
-		var plr = GetPlayerByIndex(i);
+  var captains = [], players = [];
+  for(var i = 0; i < GetPlayerCount(); i++)
+  {
+    var plr = GetPlayerByIndex(i);
 
-		if(aTeamCaptains[plr])
-			captains[GetLength(captains)] = plr;
-		else
-			players[GetLength(players)] = plr;
-	}
-	var start = Random(GetLength(captains));
-	
-	//Gibt keine weiteren Spieler? Dann zum Teammenü springen.
-	if(!GetLength(players))
-		return TeamRotationEnd();
-	//Nur ein Captain? Dann Spieler in das Team des Captains stecken 
-	else if(GetLength(captains) == 1)
-	{
-		for(var plr in players)
-			SetPlayerTeam(plr, GetPlayerTeam(captains[0]));
-		
-		return TeamRotationEnd();
-	}
-	
-	EventInfo4K(0, "$TeamRotationBegins$");
-	AddEffect("TeamRotationChoosePlr", this, 100, 36, this, 0, start, captains, players);
-	return true;
+    if(aTeamCaptains[plr])
+      captains[GetLength(captains)] = plr;
+    else
+      players[GetLength(players)] = plr;
+  }
+  var start = Random(GetLength(captains));
+
+  //Keine weiteren Spieler: Zum Teammenü springen
+  if(!GetLength(players))
+    return TeamRotationEnd();
+  //Nur ein Captain: Spieler dessen Team zuweisen
+  else if(GetLength(captains) == 1)
+  {
+    for(var plr in players)
+      SetPlayerTeam(plr, GetPlayerTeam(captains[0]));
+
+    return TeamRotationEnd();
+  }
+
+  EventInfo4K(0, "$TeamRotationBegins$");
+  AddEffect("TeamRotationChoosePlr", this, 100, 36, this, 0, start, captains, players);
+  return true;
 }
 
 public func TeamRotationEnd()
 {
-	iTeamCaptainState = 0;
-	EventInfo4K(0, "$TeamRotationEnd$");
-	OpenTeamMenu();
-	
-	return true;
+  iTeamCaptainState = 0;
+  EventInfo4K(0, "$TeamRotationEnd$");
+  OpenTeamMenu();
+
+  return true;
 }
 
-static const CHOS_TeamRotation_ChooseTime = 10; //Zeit in Sekunden pro Wahl
+static const CHOS_TeamRotation_ChooseTime = 10;	//Zeit in Sekunden pro Wahl
 
 public func FxTeamRotationChoosePlrStart(object pTarget, int iNr, temp, int iStartIndex, array aCaptains, array aAvailablePlayers)
 {
-	if(temp)
-		return;
+  if(temp)
+    return;
 
-	EffectVar(0, pTarget, iNr) = iStartIndex;
-	EffectVar(1, pTarget, iNr) = aCaptains;
-	EffectVar(3, pTarget, iNr) = aAvailablePlayers;
-	EffectVar(2, pTarget, iNr) = CHOS_TeamRotation_ChooseTime;
-	
-	FxTeamRotationChoosePlrTimer(pTarget, iNr);
-	
-	return true;
+  EffectVar(0, pTarget, iNr) = iStartIndex;
+  EffectVar(1, pTarget, iNr) = aCaptains;
+  EffectVar(3, pTarget, iNr) = aAvailablePlayers;
+  EffectVar(2, pTarget, iNr) = CHOS_TeamRotation_ChooseTime;
+
+  FxTeamRotationChoosePlrTimer(pTarget, iNr);
+
+  return true;
 }
 
 public func FxTeamRotationChoosePlrTimer(object pTarget, int iNr)
-{	
-	var cpt = EffectVar(1, pTarget, iNr)[EffectVar(0, pTarget, iNr)];
-	var obj = GetCursor(cpt);
-	if(obj->~GetRealCursor())
-		obj = obj->~GetRealCursor();
+{
+  var cpt = EffectVar(1, pTarget, iNr)[EffectVar(0, pTarget, iNr)];
+  var obj = GetCursor(cpt);
+  if(obj->~GetRealCursor())
+    obj = obj->~GetRealCursor();
 
-	if(EffectVar(2, pTarget, iNr) <= 0)
-		return EffectCall(pTarget, iNr, "Choose", EffectVar(3, pTarget, iNr)[Random(GetLength(EffectVar(3, pTarget, iNr)))], cpt);
-	
-	if(GetLength(EffectVar(3, pTarget, iNr)) == 1)
-		return EffectCall(pTarget, iNr, "Choose", EffectVar(3, pTarget, iNr)[0], cpt);
-	
-	CloseMenu(obj);
-	
-	CreateMenu(GetID(), obj, this, 0, 0, 0, 1);
-	AddMenuItem(Format("$TimeRemaining$", EffectVar(2, pTarget, iNr)), 0, TEAM, obj);
-	
-	for(var plr in EffectVar(3, pTarget, iNr))
-		AddMenuItem(GetTaggedPlayerName(plr, true), Format("EffectCall(Object(%d), %d, \"Choose\", %d, %d)", ObjectNumber(pTarget), iNr, plr, cpt), PCMK, obj);
+  if(EffectVar(2, pTarget, iNr) <= 0)
+    return EffectCall(pTarget, iNr, "Choose", EffectVar(3, pTarget, iNr)[Random(GetLength(EffectVar(3, pTarget, iNr)))], cpt);
 
-	EffectVar(2, pTarget, iNr)--;
-	
-	return true;
+  if(GetLength(EffectVar(3, pTarget, iNr)) == 1)
+    return EffectCall(pTarget, iNr, "Choose", EffectVar(3, pTarget, iNr)[0], cpt);
+
+  CloseMenu(obj);
+
+  CreateMenu(GetID(), obj, this, 0, 0, 0, 1);
+  AddMenuItem(Format("$TimeRemaining$", EffectVar(2, pTarget, iNr)), 0, TEAM, obj);
+
+  for(var plr in EffectVar(3, pTarget, iNr))
+    AddMenuItem(GetTaggedPlayerName(plr, true), Format("EffectCall(Object(%d), %d, \"Choose\", %d, %d)", ObjectNumber(pTarget), iNr, plr, cpt), PCMK, obj);
+
+  EffectVar(2, pTarget, iNr)--;
+
+  return true;
 }
 
 public func FxTeamRotationChoosePlrNext(object pTarget, int iNr)
 {
-	if(++EffectVar(0, pTarget, iNr) == GetLength(EffectVar(1, pTarget, iNr)))
-		EffectVar(0, pTarget, iNr) = 0;
-	
-	EffectVar(2, pTarget, iNr) = CHOS_TeamRotation_ChooseTime;
-	
-	FxTeamRotationChoosePlrTimer(pTarget, iNr);
-	
-	return true;
+  if(++EffectVar(0, pTarget, iNr) == GetLength(EffectVar(1, pTarget, iNr)))
+    EffectVar(0, pTarget, iNr) = 0;
+
+  EffectVar(2, pTarget, iNr) = CHOS_TeamRotation_ChooseTime;
+
+  FxTeamRotationChoosePlrTimer(pTarget, iNr);
+
+  return true;
 }
 
 public func FxTeamRotationChoosePlrChoose(object pTarget, int iNr, int iPlr, int iCpt)
 {
-	DelArrayItem4K(EffectVar(3, pTarget, iNr), GetIndexOf(iPlr, EffectVar(3, pTarget, iNr)));
+  DelArrayItem4K(EffectVar(3, pTarget, iNr), GetIndexOf(iPlr, EffectVar(3, pTarget, iNr)));
 
-	SetPlayerTeam(iPlr, aTeamCaptains[iCpt]);
-	if(GetLength(EffectVar(3, pTarget, iNr)) >= 1)
-		EffectCall(pTarget, iNr, "Next");
-	else
-	{
-		RemoveEffect("TeamRotationChoosePlr", pTarget);
-		TeamRotationEnd();
-	}
+  SetPlayerTeam(iPlr, aTeamCaptains[iCpt]);
+  if(GetLength(EffectVar(3, pTarget, iNr)) >= 1)
+    EffectCall(pTarget, iNr, "Next");
+  else
+  {
+    RemoveEffect("TeamRotationChoosePlr", pTarget);
+    TeamRotationEnd();
+  }
 
-	return true;
+  return true;
 }
 
 /* Weitere Autobalance Methoden, zur Übersichtlichkeit ausgelagert. */
@@ -1481,7 +1480,7 @@ protected func ConfigurationFinished2()
     if(!fStandard && !check)
       continue;
     else if(fStandard && !check)
-   	{
+    {
       deactivated = Format("%s%s<c %x>%s</c>", deactivated, comma[0], GetRuleColor(def, true), GetName(0, def));
       comma[0] = ", ";
     }
