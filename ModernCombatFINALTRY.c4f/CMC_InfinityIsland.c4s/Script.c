@@ -760,20 +760,46 @@ public func ChooserFinished()
    flag->~Set("$Flag3$");
 
    //Grenzen setzen
-   CreateObject(BRDR, 3130, 0, -1)->Set(0);
-   CreateObject(BRDR, 5310, 0, -1)->Set(1);
+   CreateObject(BRDR, 2890, 0, -1)->Set(0);
+   CreateObject(BRDR, 6010, 0, -1)->Set(1);
 
    //Teamgrenzen
    CreateObject(BRDR, 3620, 0, -1)->Set(0,1,0,1,1);
    CreateObject(BRDR, 4600, 0, -1)->Set(1,1,0,1,2);
 
-   //Hinweisschilder
-   CreateObject(SGNP, 3160, 1280, -1);
-   CreateObject(SGNP, 3260, 1210, -1);
-   CreateObject(SGNP, 3420, 1130, -1);
-   CreateObject(SGNP, 5065, 1170, -1);
-   CreateObject(SGNP, 5100, 1250, -1);
-   CreateObject(SGNP, 5180, 1240, -1);
+   //Hinweisschild
+   CreateObject(SGNP, 6010, 1210, -1);
+
+   //Leitern
+   CreateObject(LADR, 2965, 1267, -1)->Set(4);
+   CreateObject(LADR, 3115, 1267, -1)->Set(4);
+
+   //Gerüste
+   CreateObject(SFFG, 3010, 1280, -1)->Set(4);
+   var plat = CreateObject(SFFG, 3010, 1330, -1);
+   plat->Set(5);
+   plat->SetClrModulation(RGB(125,125,250));
+   CreateObject(SFFG, 3070, 1280, -1)->Set(4);
+   plat = CreateObject(SFFG, 3070, 1330, -1);
+   plat->Set(5);
+   plat->SetClrModulation(RGB(125,125,250));
+
+   //Boje
+   CreateObject(BUOY, 2890, 1293,  -1);
+
+   //Büsche
+   CreateObject(BSH2, 3030, 1260, -1);
+   CreateObject(BSH2, 3050, 1275, -1);
+
+   //Helikopter und Hinweisschilder
+   if(!FindObject(NOHC))
+   {
+    SetupVehicleSpawn([BKHK],DIR_Right,CreateObject(VSPW,3045,1200,-1),50*21);
+    SetupVehicleSpawn([BKHK],DIR_Left,CreateObject(VSPW,5495,1200,-1),50*21);
+
+    CreateObject(SGNP, 3160, 1280, -1)->Set("Helicopter");
+    CreateObject(SGNP, 5405, 1270, -1)->Set("Helicopter");
+   }
 
    //Patrouillenboote
    SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,3210,1269,-1),50*21);
