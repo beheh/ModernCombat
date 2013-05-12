@@ -65,9 +65,9 @@ global func GetScreenRGB(int iPlr, int iLayer, pTarget)
 
 public func SameLayer(int iLayer, object pTarget)
 {
-	var targetcheck = true;
-	if(pTarget)
-		targetcheck = (target == pTarget);
+  var targetcheck = true;
+  if(pTarget)
+    targetcheck = (target == pTarget);
 
   return (layer && layer == iLayer) && targetcheck;
 }
