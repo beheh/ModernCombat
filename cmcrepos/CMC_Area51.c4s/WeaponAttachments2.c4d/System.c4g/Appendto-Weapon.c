@@ -162,13 +162,13 @@ public func FxFlashlightTimer(object pTarget, int iNr, int iTime)
     var x, y;
     if(GetEffect("ShowWeapon", user))
     {
-		  user->WeaponBegin(x, y);
-		  
-		  //Lichtkegel2 wird nicht attached
-		  SetPosition(GetX(user), GetY(user), light);
-		  light->ChangeOffset(x*dir, y * -1, true);
-		  light->ChangeR(angle);
-		}
+      user->WeaponBegin(x, y);
+
+      //Lichtkegel wird nicht attached
+      SetPosition(GetX(user), GetY(user), light);
+      light->ChangeOffset(x*dir, y * -1, true);
+      light->ChangeR(angle);
+    }
   }
 
   EffectVar(1, pTarget, iNr) = user;
@@ -199,11 +199,11 @@ public func FxFlashlightTimer(object pTarget, int iNr, int iTime)
     
     if(PathFree(GetX(), GetY(), GetX(pObj), GetY(pObj)))
     {
-		  if(GetEffect("FlashlightBlindness", pObj))
-				EffectCall(pObj, GetEffect("FlashlightBlindness", pObj), "Refresh");
-			else
-				AddEffect("FlashlightBlindness", pObj, 100, 1, 0, WPN2);
-		}
+      if(GetEffect("FlashlightBlindness", pObj))
+        EffectCall(pObj, GetEffect("FlashlightBlindness", pObj), "Refresh");
+      else
+        AddEffect("FlashlightBlindness", pObj, 100, 1, 0, WPN2);
+    }
 
     //Bereits markierte Objekte auslassen
     var tag;
