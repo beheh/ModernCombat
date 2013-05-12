@@ -134,7 +134,7 @@ func Use(caller)
     obj = FindObjects(Find_InRect(-10,-10,20,20),Find_OCF(OCF_Alive),Find_NoContainer(),Find_Exclude(caller));
     for(var target in obj)
     {
-      if(target)
+      if(target && !target->~HitExclude(this))
       {
         //Schaden durch elektrischen Schlag (und Schleudern)
         DoDmg(30+Random(10),DMG_Energy,target,0,GetController(caller)+1,GetID());

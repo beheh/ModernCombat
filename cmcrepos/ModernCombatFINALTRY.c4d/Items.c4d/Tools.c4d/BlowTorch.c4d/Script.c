@@ -344,7 +344,8 @@ public func Use(caller)
     						Find_Hostile(GetOwner(caller)),
     						Find_NoContainer()),					//Nicht verschachtelt?
     						Find_Func("IsFakeRepairable", GetOwner(caller))),	//Konsolen?
-    						Find_AtRect(-10,-10,20,20));
+    						Find_AtRect(-10,-10,20,20),
+    						Find_Not(Find_Func("HitExclude", this)));
     if(obj)
     {
       //Konsolen reparieren / beschädigen

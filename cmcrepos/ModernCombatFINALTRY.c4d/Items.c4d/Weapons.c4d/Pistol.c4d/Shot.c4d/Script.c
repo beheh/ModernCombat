@@ -486,6 +486,7 @@ public func FxHitCheckTimer(object target, int effect, int time)
   {
     if(obj == target) continue;
     if(obj == exclude) continue;
+    if(obj->~HitExclude(target)) continue;
     if(!CheckEnemy(obj,target)) continue;
     if(obj->~IsBulletTarget(GetID(target),target,EffectVar(2, target, effect), oldx, oldy) || GetOCF(obj) & OCF_Alive)
     {
