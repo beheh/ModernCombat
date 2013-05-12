@@ -946,7 +946,7 @@ protected func CreateTeams(int iTeamSort, int iMode, bool fNoTeamMenu)
       var plr = GetPlayerByIndex(j);
 
       //Team des Teamcaptains wurde nachträglich deaktiviert
-      if(aTeamCaptains[plr] && !arTeams[aTeamCaptains[plr]] || aTeamCaptains[plr] > iTeamCount)
+      if((!GetTeamConfig(TEAM_AutoGenerateTeams) && aTeamCaptains[plr] && !arTeams[aTeamCaptains[plr]]) || (GetTeamConfig(TEAM_AutoGenerateTeams) && aTeamCaptains[plr] > iTeamCount))
         aTeamCaptains[plr] = 0;
 
       var team_name = GetTeamName(aTeamCaptains[plr]);
@@ -1009,20 +1009,21 @@ public func SwitchTeamCaptain(int iPlr)
   else if(GetTeamConfig(TEAM_AutoGenerateTeams))	//Engine-erstelltes Team
   {
     var i = aTeamCaptains[iPlr]+1;
-    if(i >= iTeamCount)
-      i = 1;
+    if(i > iTeamCount)
+      i = 0;
 
-    while(i != aTeamCaptains[iPlr])
+    while(i != aTeamCaptains[iPlr] && i)
     {
       if(GetIndexOf(i, aTeamCaptains) == -1)
         break;
 
-      if(iTeamCount < i)
+      if(i < iTeamCount)
         i++;
       else
-        i = 1;
+        i = 0;
     }
 
+		Log("_TEAM CAPTAINS: %v, i: %d", aTeamCaptains, i);
     aTeamCaptains[iPlr] = i;
   }
   else
@@ -1125,6 +1126,10 @@ public func FxTeamRotationChoosePlrTimer(object pTarget, int iNr)
   if(GetLength(EffectVar(3, pTarget, iNr)) == 1)
     return EffectCall(pTarget, iNr, "Choose", EffectVar(3, pTarget, iNr)[0], cpt);
 
+	var sel = 0;
+	if(EffectVar(2, pTarget, iNr) != CHOS_TeamRotation_ChooseTime)
+		sel = GetMenuSelection(obj);
+
   CloseMenu(obj);
 
   CreateMenu(GetID(), obj, this, 0, 0, 0, 1);
@@ -1133,6 +1138,7 @@ public func FxTeamRotationChoosePlrTimer(object pTarget, int iNr)
   for(var plr in EffectVar(3, pTarget, iNr))
     AddMenuItem(GetTaggedPlayerName(plr, true), Format("EffectCall(Object(%d), %d, \"Choose\", %d, %d)", ObjectNumber(pTarget), iNr, plr, cpt), PCMK, obj);
 
+	SelectMenuItem(sel, obj);
   EffectVar(2, pTarget, iNr)--;
 
   return true;
@@ -1159,6 +1165,7 @@ public func FxTeamRotationChoosePlrChoose(object pTarget, int iNr, int iPlr, int
     EffectCall(pTarget, iNr, "Next");
   else
   {
+  	CloseMenu(GetCursor(iChoosedPlr));
     RemoveEffect("TeamRotationChoosePlr", pTarget);
     TeamRotationEnd();
   }
