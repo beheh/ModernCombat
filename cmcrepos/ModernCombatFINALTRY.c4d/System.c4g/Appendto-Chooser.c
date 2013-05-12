@@ -531,7 +531,7 @@ protected func ChoosePossibleTeams(int iMode, bool fInvisible, int iSelection)
 
   //Menü erstellen
   CreateMenu(GetID(), pClonk, 0, 0, 0, 0, 1);
-  
+
   var caption = "$CreateTeams$";
   if(iMode == CHOS_TeamRotation)
     caption = "$ChooseCaptains$";
@@ -944,11 +944,11 @@ protected func CreateTeams(int iTeamSort, int iMode, bool fNoTeamMenu)
     for(var j = 0; j < GetPlayerCount(); j++)
     {
       var plr = GetPlayerByIndex(j);
-      
+
       //Team des Teamcaptains wurde nachträglich deaktiviert
       if(aTeamCaptains[plr] && !arTeams[aTeamCaptains[plr]] || aTeamCaptains[plr] > iTeamCount)
-      	aTeamCaptains[plr] = 0;
-      
+        aTeamCaptains[plr] = 0;
+
       var team_name = GetTeamName(aTeamCaptains[plr]);
       if(!aTeamCaptains[plr])
         team_name = "$NoCaptain$";
@@ -1006,7 +1006,7 @@ public func SwitchTeamCaptain(int iPlr)
 
   if(GetAvailableTeamCount()-GetTeamCaptainCount() <= 0)
     aTeamCaptains[iPlr] = 0;
-  else if(GetTeamConfig(TEAM_AutoGenerateTeams)) //Engine-erstelltes Team
+  else if(GetTeamConfig(TEAM_AutoGenerateTeams))	//Engine-erstelltes Team
   {
     var i = aTeamCaptains[iPlr]+1;
     if(i >= iTeamCount)
@@ -1406,15 +1406,15 @@ protected func LoadRuleCfg()
 
 protected func InitializePlayer(int iPlr, int iX, int iY, object pBase, int iTeam, id idExtra)
 {
-	if(CountArrayItems(arTeams, true) < MinTeamCount())
-	{
-		arTeams[0] = true;
-		var index = GetIndexOf(false, arTeams);
-		if(index != -1)
-			arTeams[index] = true;
-		
-		arTeams[0] = false;
-	}
+  if(CountArrayItems(arTeams, true) < MinTeamCount())
+  {
+    arTeams[0] = true;
+    var index = GetIndexOf(false, arTeams);
+    if(index != -1)
+      arTeams[index] = true;
+
+    arTeams[0] = false;
+  }
 
   if(GetPlayerType(iPlr) == C4PT_Script)
     for(var i = 1 ; i < aAI[iTeam] ; i++)
@@ -1816,7 +1816,7 @@ protected func FxEvaluateGoalVoteTimer(pTarget, iEffect, iTime)
     if(aGoalsChosen[i] == highest)
       array[GetLength(array)] = aGoals[i];
   }
-  
+
   //Empfohlene Spielziele heraussuchen
   var rGoals = RecommendedGoals(), array2 = [];
   for(var i = 0; i < GetLength(array); i++)
