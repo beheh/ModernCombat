@@ -261,7 +261,7 @@ private func Check()
 				Find_Not(Find_Distance(10)),				//Nah genug?
 				Find_OCF(OCF_Alive),					//Lebewesen?
 				Find_NoContainer()) )					//Im Freien?
-    if(PathFree(GetX(),GetY(),GetX(pVictim),GetY(pVictim)))				//Freies Schussfeld?
+    if(!pVictim->~HitExclude(this) && PathFree(GetX(),GetY(),GetX(pVictim),GetY(pVictim)))				//Freies Schussfeld?
       Detonate();
   return 1;
 }

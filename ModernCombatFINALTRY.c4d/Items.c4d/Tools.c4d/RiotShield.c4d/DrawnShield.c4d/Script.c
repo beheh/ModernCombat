@@ -80,6 +80,9 @@ public func ExecShove()
   //Und verschleudern
   for(var victim in victims)
   {
+  	if(victim->~HitExclude(this))
+  		continue;
+  
     //Normaler Schaden
     var iDmg = 15;
     if(victim->~IsCrawling())

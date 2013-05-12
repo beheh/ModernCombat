@@ -721,6 +721,9 @@ public func ControlThrow(caller)
     var obj = FindObjects(Find_InRect(-15+10*dir,-10,20,20), Find_Or(Find_OCF(OCF_Alive), Find_Func("IsMeleeTarget", this)), Find_NoContainer(), Find_Exclude(caller));
     for(var target in obj)
     {
+    	if(target->~HitExclude(this))
+    		continue;
+    
       if(GetOCF(target) & OCF_Alive)
       {
         //Ziel feindlich?

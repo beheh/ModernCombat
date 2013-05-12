@@ -31,6 +31,7 @@ public func FxHitCheckTimer(object target, int effect, int time)
     //Excludes
     if(obj == target) continue;
     if(obj == exclude) continue;
+		if(obj->~HitExclude(target)) continue;
 
     //CheckEnemy
     if(!CheckEnemy(obj,target)) continue;
