@@ -207,6 +207,9 @@ func Finish(object pClonk, int iClass)
 
   //Broadcasten
   GameCallEx("OnClassSelection", crew[iPlayer], iClass);
+  
+  //Spawnschutz hinzufügen
+  AddEffect("Spawnprotection", pClonk, 1, 1, 0, GetID());
 }
 
 /* Menü */
