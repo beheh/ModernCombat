@@ -1,5 +1,5 @@
 [Action]
 Name=Attach
-Procedure=ATTACH
+Procedure=NONE
 Delay=0
 Facet=0,0,200,200
