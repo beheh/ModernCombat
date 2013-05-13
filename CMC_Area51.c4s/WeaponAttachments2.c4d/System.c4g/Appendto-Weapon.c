@@ -63,6 +63,7 @@ func SetAttachment(int iValue)
 /* Taschenlampe */
 
 public func SensorDistance()	{return 200;}
+public func BlindEffectDistance() { return 150; }
 public func FlashlightAngle()	{return 30;}
 
 public func FxFlashlightTimer(object pTarget, int iNr, int iTime)
@@ -190,14 +191,15 @@ public func FxFlashlightTimer(object pTarget, int iNr, int iTime)
       continue;
 
     //Objekt im Suchkegel?
-    var target_angle = Normalize(Angle(GetX(), GetY(), GetX(pObj), GetY(pObj)), -180);
+    var x = GetX(), y = GetY(), ox = GetX(pObj), oy = GetY(pObj);
+    var target_angle = Normalize(Angle(x, y, ox, oy), -180);
 
     if(iAngleMax < 180 && (target_angle < iAngleMin || target_angle > iAngleMax))
       continue;
     else if(iAngleMax >= 180 && (target_angle < iAngleMin && target_angle > iAngleMax-360))
       continue;
     
-    if(PathFree(GetX(), GetY(), GetX(pObj), GetY(pObj)))
+    if(PathFree(x, y, ox, oy) && Distance(x, y, ox, oy) < BlindEffectDistance())
     {
       if(GetEffect("FlashlightBlindness", pObj))
         EffectCall(pObj, GetEffect("FlashlightBlindness", pObj), "Refresh");
@@ -260,7 +262,7 @@ public func FxFlashlightBlindnessTimer(object pTarget, int iNr)
 		rgb->DoAlpha(-5, WPN2_Flashlight_MinAlpha, 255);
 	}
 	else
-		rgb->DoAlpha(+15, WPN2_Flashlight_MinAlpha, 255);
+		rgb->DoAlpha(+18, WPN2_Flashlight_MinAlpha, 255);
 	
 	if(!rgb)
 		return -1;
