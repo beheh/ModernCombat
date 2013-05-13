@@ -63,7 +63,7 @@ func SetAttachment(int iValue)
 /* Taschenlampe */
 
 public func SensorDistance()	{return 200;}
-public func BlindEffectDistance() { return 150; }
+public func BlindEffectDistance()	{return 150;}
 public func FlashlightAngle()	{return 30;}
 
 public func FxFlashlightTimer(object pTarget, int iNr, int iTime)
