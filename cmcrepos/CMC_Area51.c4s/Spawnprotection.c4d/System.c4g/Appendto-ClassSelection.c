@@ -5,7 +5,7 @@
 #appendto MCSL
 
 
-static const MCSL_Spawnprotection_Time = 180; //5 Sekunden
+static const MCSL_Spawnprotection_Time = 108; //5 Sekunden
 
 public func FxSpawnprotectionStart(object pTarget, int iNr)
 {
