@@ -257,11 +257,11 @@ private func Check()
 
   var pVictim;
   for( var pVictim in FindObjects(Find_OnLine(0,0,Sin(iDir,80,1),-Cos(iDir,80,1)), 
-				Find_Func("CheckEnemy",this,0,true),			//Gegner?
-				Find_Not(Find_Distance(10)),				//Nah genug?
-				Find_OCF(OCF_Alive),					//Lebewesen?
-				Find_NoContainer()) )					//Im Freien?
-    if(!pVictim->~HitExclude(this) && PathFree(GetX(),GetY(),GetX(pVictim),GetY(pVictim)))				//Freies Schussfeld?
+				Find_Func("CheckEnemy",this,0,true),				//Gegner?
+				Find_Not(Find_Distance(10)),					//Nah genug?
+				Find_OCF(OCF_Alive),						//Lebewesen?
+				Find_NoContainer()) )						//Im Freien?
+    if(!pVictim->~HitExclude(this) && PathFree(GetX(),GetY(),GetX(pVictim),GetY(pVictim)))	//Freies Schussfeld?
       Detonate();
   return 1;
 }
