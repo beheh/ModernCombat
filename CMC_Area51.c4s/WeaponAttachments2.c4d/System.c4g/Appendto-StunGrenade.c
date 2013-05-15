@@ -6,8 +6,8 @@
 
 public func FxIntFlashbangStart(object pTarget, int iEffectNumber, int iTemp, intensity, owner)
 {
-	if(iTemp)
-		return;
+  if(iTemp)
+    return;
 
   //Keine Intensität?
   if(!intensity) return -1;
