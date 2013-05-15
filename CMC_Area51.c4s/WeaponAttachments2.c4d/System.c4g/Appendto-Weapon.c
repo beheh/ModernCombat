@@ -239,7 +239,7 @@ public func FxFlashlightBlindnessStart(object pTarget, int iNr, temp)
 	if(temp)
 		return;
 	
-	EffectVar(0, pTarget, iNr) = ScreenRGB(pTarget, RGB(255, 255, 255), 0, 0, false, SR4K_LayerLight);
+	EffectVar(0, pTarget, iNr) = ScreenRGB(pTarget, RGBa(255, 255, 255, 254), 0, 0, false, SR4K_LayerLight);
 	EffectVar(1, pTarget, iNr) = 6;
 }
 
@@ -264,8 +264,46 @@ public func FxFlashlightBlindnessTimer(object pTarget, int iNr)
 	else
 		rgb->DoAlpha(+18, WPN2_Flashlight_MinAlpha, 255);
 	
+		
 	if(!rgb)
 		return -1;
+
+	if(!GetEffect("IntFlashbang", pTarget))
+	{
+		if(!Contained() && rgb)
+		{
+			var a = rgb->~GetAlpha(), c;
+		  for(var i = 0; i < GetPlayerCount(); i++)
+		  {
+		    var pCursor = GetCursor(GetPlayerByIndex(i))->~GetRealCursor();
+		    if(!pCursor && !(pCursor = GetCursor(GetPlayerByIndex(i)))) 
+		   		continue;
+
+		    if(Contained(pCursor))
+		    	continue;
+
+				var srgb = GetScreenRGB(GetPlayerByIndex(i), SR4K_LayerLight, pCursor);
+				var val;
+				
+				if(srgb)
+		    	val = srgb->~GetAlpha();
+		    
+		    if(val && 255-a >= val)
+		    	val = 255 - val;
+		    else
+		    	val = 255 - a;
+		    
+		    var flag = 0;
+		    if(c != 0)
+		    	flag = MSG_Multiple;
+		    
+		    CustomMessage(Format("<c %x>{{SM07}}</c>", RGBa(255,255,255,BoundBy(val, 1, 254))), pTarget, GetPlayerByIndex(i), 0, 0, 0, 0, 0, flag); 
+		    c++;
+		  }
+		}
+		else
+		  Message("@", pTarget); 
+	}
 	
 	return true;
 }
