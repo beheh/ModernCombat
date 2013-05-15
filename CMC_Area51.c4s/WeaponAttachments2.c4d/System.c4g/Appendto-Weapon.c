@@ -38,7 +38,7 @@ func SetAttachment(int iValue)
   //Eventuell vorhandene Effekte entfernen
   if(GetEffect("LaserDot", this))	RemoveEffect("LaserDot", this);
   if(GetEffect("Silencer", this))	RemoveEffect("Silencer", this);
-  if(GetEffect("Flashlight", this))	RemoveEffect("FlashLight", this);
+  if(GetEffect("Flashlight", this))	RemoveEffect("Flashlight", this);
 
   //Feuermodus zurücksetzen
   SetFireMode(1);
