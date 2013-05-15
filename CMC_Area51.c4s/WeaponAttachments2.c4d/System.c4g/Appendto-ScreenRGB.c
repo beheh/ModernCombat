@@ -25,7 +25,7 @@ public func Set(object pTarget, int dwRGBa, int iAlphaAdd, int iFadeRate, bool b
 
   var a_save = a;
   SplitRGBaValue(dwRGBa,r,g,b,a);
-  if(a_save < 255)
+  if(a_save < 255 || !a)
   	a = BoundBy(a_save-iAlphaAdd,iMin,255);
 
   if(!fade)

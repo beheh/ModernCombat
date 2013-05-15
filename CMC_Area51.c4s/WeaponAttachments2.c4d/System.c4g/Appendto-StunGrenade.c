@@ -6,8 +6,8 @@
 
 public func FxIntFlashbangStart(object pTarget, int iEffectNumber, int iTemp, intensity, owner)
 {
-  if(iTemp)
-    return;
+	if(iTemp)
+		return;
 
   //Keine Intensität?
   if(!intensity) return -1;
@@ -45,7 +45,7 @@ public func FxIntFlashbangStart(object pTarget, int iEffectNumber, int iTemp, in
   		return -1;
   }
  
-  var flash = ScreenRGB(pTarget,RGBa(255,255,255,a), 0, 0, false, SR4K_LayerLight);
+  var flash = ScreenRGB(pTarget,RGB(255,255,255), 0, 0, false, SR4K_LayerLight)->SetAlpha(a);
   if(!flash)
     return -1;
   else
