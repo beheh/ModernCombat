@@ -276,6 +276,14 @@ public func FxFlashlightBlindnessRefresh(object pTarget, int iNr)
 	return true;
 }
 
+public func FxFlashlightBlindnessStop(object pTarget, int iNr)
+{
+	if(EffectVar(0, pTarget, iNr))
+		RemoveObject(EffectVar(0, pTarget, iNr));
+	
+	return true;
+}
+
 /* Laserpointer */
 
 func FxLaserDotTimer(object pTarget, int iEffectNumber, int iEffectTime)
