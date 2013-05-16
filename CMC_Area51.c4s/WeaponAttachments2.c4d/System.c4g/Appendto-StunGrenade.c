@@ -45,7 +45,8 @@ public func FxIntFlashbangStart(object pTarget, int iEffectNumber, int iTemp, in
   		return -1;
   }
  
-  var flash = ScreenRGB(pTarget,RGB(255,255,255), 0, 0, false, SR4K_LayerLight)->SetAlpha(a);
+  var flash = ScreenRGB(pTarget,RGB(255,255,255), 0, 0, false, SR4K_LayerLight);
+  flash->SetAlpha(a);
   if(!flash)
     return -1;
   else
