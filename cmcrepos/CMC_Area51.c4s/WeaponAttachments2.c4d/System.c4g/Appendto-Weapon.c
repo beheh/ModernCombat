@@ -72,7 +72,7 @@ public func FxFlashlightTimer(object pTarget, int iNr, int iTime)
   var light = EffectVar(0, pTarget, iNr);
 
   var deactivate = false;
-  if(!user || Contents(0, user) != this || Contained(user))
+  if(!user || Contents(0, user) != this || Contained(user) || !GetEffect("ShowWeapon", user))
     deactivate = true;
 
   //Licht bei Benutzerwechsel entfernen
