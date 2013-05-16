@@ -405,7 +405,7 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
   if((Abs(GetXDir()) + Abs(GetYDir()) >= 25) && !GetEffect("MeleeCooldown", this))
   {
     var strike;
-    var target = FindObject2(Find_AtPoint(0, 0), Find_Hostile(GetOwner(this)), Find_NoContainer(), Find_OCF(OCF_Alive));
+    var target = FindObject2(Find_AtPoint(0, 0), Find_Hostile(GetOwner(this)), Find_NoContainer(), Find_OCF(OCF_Alive), Find_Not(Find_Func("HitExclude", this)));
     if(target)
     {
       //Ziel am kriechen?
@@ -454,7 +454,7 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
 
     //Andere Ziele suchen
     if(target = FindObject2(Find_Func("IsMeleeTarget", this),
-      Find_Or(Find_AtPoint(0, 0), Find_AtRect(-xOff + (GetXDir() / 2)*(iXDir<0), -yOff + (GetYDir() / 2)*(iYDir<0), xOff*2 + (GetXDir() / 2)*(iXDir>0), yOff*2 + (GetYDir() / 2)*(iYDir>0)))))
+      Find_Or(Find_AtPoint(0, 0), Find_AtRect(-xOff + (GetXDir() / 2)*(iXDir<0), -yOff + (GetYDir() / 2)*(iYDir<0), xOff*2 + (GetXDir() / 2)*(iXDir>0), yOff*2 + (GetYDir() / 2)*(iYDir>0))), Find_Not(Find_Func("HitExclude", this))))
     {
       DoDmg(20, DMG_Melee, target, 0, GetController(this)+1, GetID());
       AddEffect("MeleeCooldown", this, 1, 30);
@@ -674,7 +674,8 @@ public func ShockPaddles()
   							Find_Allied(GetOwner()),			//Verbündet?
   							Find_Not(Find_Func("RejectReanimation"))),	//Wiederbeleben erlaubt?
   							Find_And(Find_OCF(OCF_Alive),			//Lebendig?
-  							Find_Hostile(GetOwner())))))			//Feind?
+  							Find_Hostile(GetOwner()),     //Feind?
+  							Find_Not(Find_Func("HitExclude", this))))))	  //Darf getroffen werden?
     //Defibrillator aktivieren
     pItem->Activate(this);
 
@@ -751,7 +752,8 @@ public func BlowTorch(bool statusOnly)
   	Find_Hostile(GetOwner(this)),
   	Find_NoContainer()),						//Nicht verschachtelt?
   	Find_Func("IsFakeRepairable", GetOwner(this))),			//Konsolen?
-  	Find_AtRect(-10,-10,10,10));
+  	Find_AtRect(-10,-10,10,10),
+  	Find_Not(Find_Func("HitExclude", this)));
   if(obj)
   {
     //Konsolen reparieren / beschädigen
