@@ -4,6 +4,30 @@
 
 #appendto HZCK
 
+protected func RejectCollect(id idObj, object pObj)
+{
+	if(FindContents(idObj, this) && pObj->~IsWeapon2() && pObj->~GetAttachment() != AT_NoAttachment && Contained(pObj))
+	{
+		var att = CreateObject(WNAT, 0, 0, GetOwner());
+		if(Collect(att, this))
+		{
+			att->SetAttachment(pObj->GetAttachment());
+			Sound("Merge.ogg");
+			
+			//Schedule, um die "Holen nicht möglich"-Meldung zu überschreiben.
+			Schedule(Format("PlayerMessage(%d, \"$AttachmentCollected$\", this)", GetOwner(), GetName(0, AttachmentIcon(pObj->GetAttachment()))), 1, 0, this);
+
+			pObj->~SetAttachment(AT_NoAttachment);
+		}
+		else if(att)
+			RemoveObject(att);
+		
+		return true;
+	}
+		
+	return _inherited(idObj, pObj, ...);
+}
+
 // Ausrüstung ablegen
 protected func ContextUnbuckle(object pCaller)
 {
