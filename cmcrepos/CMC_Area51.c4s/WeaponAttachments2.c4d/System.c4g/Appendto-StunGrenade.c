@@ -57,14 +57,17 @@ public func FxIntFlashbangTimer(object pTarget, int iEffectNumber, int iEffectTi
 {
 	var rgb = EffectVar(1,pTarget,iEffectNumber);
 	if(!rgb) return -1;
-  //var i = EffectVar(0,pTarget,iEffectNumber)--;
 
-	//Aktuelle Intensität anhand des ScreenRGB-Alphawerts ermitteln
-  var i = ((255-rgb->~GetAlpha()) * 100 / 255)-1;
+	var i;
+	if(--EffectVar(0, pTarget, iEffectNumber) >= 100)
+		i = EffectVar(0, pTarget, iEffectNumber);
+	else
+		//Aktuelle Intensität anhand des ScreenRGB-Alphawerts ermitteln
+  	i = ((255-rgb->~GetAlpha()) * 100 / 255)-1;
 
   if(i <= 0) return -1;
   
-  var a = BoundBy(255-(i*255/100),0,255);
+  var a = BoundBy(255-(i*255/100)-1,0,255);
   rgb->SetAlpha(a);
   
   var val, num, pCursor, c, flag;
