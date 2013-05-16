@@ -36,3 +36,4 @@ CtxUnbuckleDesc=Ausrüstung ablegen
 CtxUnbuckleItem=%s ablegen
 CtxDetachAttachment=%s abnehmen
 CtxGrenadeMenu=Granaten
+AttachmentCollected=Waffenaufsatz <c ffff33>%s</c> aufgesammelt
