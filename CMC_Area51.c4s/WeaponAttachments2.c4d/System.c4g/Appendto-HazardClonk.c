@@ -24,7 +24,12 @@ protected func RejectCollect(id idObj, object pObj)
 		
 		return true;
 	}
-		
+
+	//Waffenaufsatzobjekte erhalten einen zusätzlichen Inventarslot
+	if(pObj->~IsAttachmentPack())
+		if(!CustomContentsCount("IsAttachmentPack"))
+      return;
+
 	return _inherited(idObj, pObj, ...);
 }
 
