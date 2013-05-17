@@ -65,7 +65,11 @@ public func DetachAttachment(dummy, object pWeapon)
 	
 	var att = pWeapon->~GetAttachment();
 	pWeapon->SetAttachment(AT_NoAttachment);
-	CreateContents(WNAT, this)->SetAttachment(att);
+
+	var obj = CreateObject(WNAT, 0, 0, GetOwner());
+	obj->SetAttachment(att);
+	Collect(obj, this);
+	//CreateContents(WNAT, this)->SetAttachment(att);
 	
 	return true;
 }
