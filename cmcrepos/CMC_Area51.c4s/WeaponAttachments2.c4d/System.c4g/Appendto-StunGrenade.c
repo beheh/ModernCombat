@@ -84,16 +84,18 @@ public func FxIntFlashbangTimer(object pTarget, int iEffectNumber, int iEffectTi
 	    	continue;
 
 			var srgb = GetScreenRGB(GetPlayerByIndex(i), SR4K_LayerLight, pCursor);
-			var val;
+			var val = 0;
 			
 			if(srgb)
+	    {
 	    	val = srgb->~GetAlpha();
 	    
-	    if(val && 255-a >= val)
-	    	val = 255 - val;
-	    else
-	    	val = 255 - a;
-	    
+			  if(val > 127)
+					val = 255-val;
+			}
+			else
+				val = 255-a;
+
 	    var flag = 0;
 	    if(c != 0)
 	    	flag = MSG_Multiple;
