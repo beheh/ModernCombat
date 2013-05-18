@@ -82,6 +82,8 @@ public func HasAttachmentWeapons()
 			return true;
 }
 
+protected func FunnyBug() { return HasGear() || HasAttachmentWeapons(); }
+
 //Wegen der OpenBeta: Damit der Menüeintrag nicht von dem "Ausrüstung ablegen" Eintrag verschiebt.
 
 protected func ContextGrenadeMenu(object pCaller)
