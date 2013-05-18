@@ -572,7 +572,6 @@ protected func Sense()
   				Find_Hostile(GetOwner()),					//Nur Feinde
   				Find_Or(Find_OCF(OCF_Alive), Find_Func("IsDetectable"))))	//Lebewesen oder als identifizierbar markiert
   {
-
     //Beep.
     Beep();
 
@@ -674,8 +673,8 @@ public func ShockPaddles()
   							Find_Allied(GetOwner()),			//Verbündet?
   							Find_Not(Find_Func("RejectReanimation"))),	//Wiederbeleben erlaubt?
   							Find_And(Find_OCF(OCF_Alive),			//Lebendig?
-  							Find_Hostile(GetOwner()),     //Feind?
-  							Find_Not(Find_Func("HitExclude", this))))))	  //Darf getroffen werden?
+  							Find_Hostile(GetOwner()),			//Feind?
+  							Find_Not(Find_Func("HitExclude", this))))))	//Darf getroffen werden?
     //Defibrillator aktivieren
     pItem->Activate(this);
 
