@@ -135,9 +135,10 @@ public func KillMessage(string msg)
 
 protected func FxIntFakeDeathMenuTimer(object pTarget, int iEffect, int iTime)
 {
-  if (!pTarget)
+  if(!pTarget)
     return -1;
-  //Tot :C
+
+  //Tot: Abbruch
   if (!clonk || iTime >= FKDT_SuicideTime * 35)
   {
     pTarget->~Remove();
@@ -150,7 +151,6 @@ protected func FxIntFakeDeathMenuTimer(object pTarget, int iEffect, int iTime)
   //Leiche soll nicht zu früh ausfaden
   while(GetEffect("*FadeOut*", pClonk))
     RemoveEffect("*FadeOut*", pClonk);
-
   if(!(iTime % 10))
   {
     pTarget->~DoMenu();
@@ -161,7 +161,8 @@ protected func FxIntFakeDeathMenuTimer(object pTarget, int iEffect, int iTime)
     if (pScreen)
       pScreen->~SetAlpha(iAlpha);
   }
-  //Statistikenmenü abgebrochen? Zurück zum DeathMenü
+
+  //Statistikenmenü geschlossen: Zurück zum DeathMenü
   if(GetType(GetMenu(pClonk)) != C4V_C4ID)
     pTarget->~DoMenu();
 }
@@ -169,7 +170,7 @@ protected func FxIntFakeDeathMenuTimer(object pTarget, int iEffect, int iTime)
 protected func FxIntFakeDeathMenuStop(object pTarget, int iEffect)
 {
   var pScreen = EffectVar(0, pTarget, iEffect);
-  if (pScreen)
+  if(pScreen)
     RemoveObject(pScreen);
 }
 
@@ -195,21 +196,22 @@ private func DeathMenu()
   if(GetMenu(clonk)) return;
 
   //Menü erstellen
-  CreateMenu(FKDT, clonk, this, 0, Format("$Title$"), C4MN_Style_Dialog, true, true);					//Titelzeile
+  CreateMenu(FKDT, clonk, this, 0, Format("$Title$"), C4MN_Style_Dialog, true, true);				//Titelzeile
 
   if(!clonk->ShorterDeathMenu())
   {
-    if (FindObject(SICD))												//Hinweis
+    if (FindObject(SICD))											//Hinweistext
       AddMenuItem(Format("$Info$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);
     else
       AddMenuItem(Format("$Info2$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);
   }
 
-  AddMenuItem(Format("$DeathCounter$", 1 + TimeLeft() / 35),"", NONE, clonk, 0, 0, "", 512, 0, 0);			//Counter
+  AddMenuItem(Format("$DeathCounter$", 1 + TimeLeft() / 35),"", NONE, clonk, 0, 0, "", 512, 0, 0);		//Zeitanzeige
 
   if(TimeLeft() < (FKDT_SuicideTime - 1) * 35)
   {
     var blocktime;
+    //Button blockieren wenn freigegeben
     if(GetEffect("BlockRejectReanimation", this))
     {
       blocktime = GetEffect("BlockRejectReanimation", this, 0, 6);
@@ -218,15 +220,15 @@ private func DeathMenu()
     else
     {
       if(!RejectReanimation())
-        AddMenuItem("$ReanimationAllow$", "Reject", SM01, clonk, 0, 0, "$ReanimationDescAllow$");			//Ablehnen-Menüpunkt
+        AddMenuItem("$ReanimationAllow$", "Reject", SM01, clonk, 0, 0, "$ReanimationDescAllow$");		//Ablehnen-Menüpunkt
       else
         AddMenuItem("$ReanimationDisallow$", "Reject", SM06, clonk, 0, 0, "$ReanimationDescDisallow$");
     }
     if(FindObject(SICD))
-      AddMenuItem("$Suicide$", "Suicide", PSTL, clonk, 0, 0, "$SuicideDesc$");						//Selbstmord-Menüpunkt
+      AddMenuItem("$Suicide$", "Suicide", PSTL, clonk, 0, 0, "$SuicideDesc$");					//Selbstmord-Menüpunkt
 
     if(FindObject(RWDS))
-      AddMenuItem("$Statistics$", Format("FindObject(RWDS)->Activate(%d)", GetOwner(clonk)), RWDS, clonk);		//Statistik-Menüpunkt
+      AddMenuItem("$Statistics$", Format("FindObject(RWDS)->Activate(%d)", GetOwner(clonk)), RWDS, clonk);	//Statistik-Menüpunkt
 
     if(aTipps[iTippNr])
       AddMenuItem("$NextTipp$", "NextTipp", MCMC, clonk);
@@ -234,24 +236,24 @@ private func DeathMenu()
 
   if(GetType(killmsg) == C4V_String)
   {
-    AddMenuItem("", "", NONE, clonk, 0, 0, "", 512, 0, 0);								//Leerzeile
-    AddMenuItem(Format("$Killer$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);				//Titel
+    AddMenuItem("", "", NONE, clonk, 0, 0, "", 512, 0, 0);							//Leerzeile
+    AddMenuItem(Format("$Killer$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);			//Titel
 
-    AddMenuItem(killmsg, "", NONE, clonk, 0, 0, "", 512);								//Killerinformationen
+    AddMenuItem(killmsg, "", NONE, clonk, 0, 0, "", 512);							//Killerinformationen
   }
 
   if(GetType(aTipps[iTippNr]) == C4V_Array)
   {
-    AddMenuItem("", "", NONE, clonk, 0, 0, "", 512, 0, 0);								//Leerzeile
-    AddMenuItem(Format("{{%i}} $Tip$", aTipps[iTippNr][0]), "", NONE, clonk, 0, 0, "", 512, 0, 0);			//Zufälliger Tipp
+    AddMenuItem("", "", NONE, clonk, 0, 0, "", 512, 0, 0);							//Leerzeile
+    AddMenuItem(Format("{{%i}} $Tip$", aTipps[iTippNr][0]), "", NONE, clonk, 0, 0, "", 512, 0, 0);		//Zufälliger Tipp
     AddMenuItem(aTipps[iTippNr][1], "", NONE, clonk, 0, 0, "", 512, 0, 0);
   }
 
   var obj;
-  if((obj = FindObject(RWDS)) && !clonk->ShorterDeathMenu())								//Punktestatistik erstellen
+  if((obj = FindObject(RWDS)) && !clonk->ShorterDeathMenu())							//Punktestatistik erstellen
   {
-    AddMenuItem("", "", NONE, clonk, 0, 0, "", 512, 0, 0);								//Leerzeile
-    AddMenuItem(Format("$Points$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);				//Titel
+    AddMenuItem("", "", NONE, clonk, 0, 0, "", 512, 0, 0);							//Leerzeile
+    AddMenuItem(Format("$Points$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);			//Titel
     //Einsortieren
     var aList = [], iPlr, aData = obj->~GetData(), szString = "";
     for(iPlr = 0; iPlr < GetLength(aData); ++iPlr)
