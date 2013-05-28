@@ -42,6 +42,8 @@ StdRules=<c ffcc00>Standardregeln</c>:
 GoalChose=Spielziel konfigurieren
 Back=Zurück
 Finished=Fertig
+ChangeHost=Menü weitergeben
+ChangeHostInfo=Spielzielwahl weitergeben
 
 #Effekte
 
