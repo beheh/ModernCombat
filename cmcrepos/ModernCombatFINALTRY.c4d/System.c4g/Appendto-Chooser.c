@@ -310,7 +310,7 @@ private func ChoosePlayer()
 
 protected func Activate(iPlr)
 {
-  if(GetEffect("TeamRotationChoosePlr", this))
+  if(GetEffect("TeamRotationChoosePlr", this) || GetEffect("EvaluateGoalVote", this))
     return false;
 
   if(iPlr == iChoosedPlr)
