@@ -245,6 +245,12 @@ public func RemovePlayer(int iPlr)
   ClearScoreboard(CHOS_SBRD_Teams + GetPlayerCount()+2, 2);
   InitScoreboard();
   ScheduleCall(this, "UpdateScoreboard", 1);
+  
+  //Neuen Host identifizieren und Menü öffnen
+  iChoosedPlr = -1;
+  ScheduleCall(this, "ChoosePlayer", 15);
+  ScheduleCall(this, "OpenMenu", 16);
+  
   return true;
 }
 
