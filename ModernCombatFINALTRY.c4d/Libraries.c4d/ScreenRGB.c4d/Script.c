@@ -3,7 +3,7 @@
 #strict 2
 
 local r,g,b,a;
-local target,layer,fade;
+local target,targetset,layer,fade;
 
 static const SR4K_LayerSmoke		= 1;
 static const SR4K_LayerLight		= 2;
@@ -76,6 +76,9 @@ public func Set(object pTarget, int dwRGBa, int iAlphaAdd, int iFadeRate, bool b
 {
   target = pTarget;
   layer = iLayer;
+  
+  if(target)
+  	targetset = true;
 
   if(target && GetCategory(target) & C4D_Living && !(GetOCF(target) & OCF_Alive))
     return RemoveObject();
@@ -156,6 +159,9 @@ public func DoAlpha(int iValue, int iMin, int iMax)
 
 func CursorCheck()
 {
+	if(targetset && !target)
+		return RemoveObject();
+
   if(GetOwner(target) != GetOwner())
     SetOwner(GetOwner(target));
 
