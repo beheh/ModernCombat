@@ -245,14 +245,14 @@ public func RemovePlayer(int iPlr)
   ClearScoreboard(CHOS_SBRD_Teams + GetPlayerCount()+2, 2);
   InitScoreboard();
   ScheduleCall(this, "UpdateScoreboard", 1);
-  
+
   //Neuen Host identifizieren und Menü öffnen
   if(iChoosedPlr = iPlr)
   {
-		iChoosedPlr = -1;
-		ScheduleCall(this, "ChoosePlayer", 15);
-		ScheduleCall(this, "OpenMenu", 16);
-	}
+    iChoosedPlr = -1;
+    ScheduleCall(this, "ChoosePlayer", 15);
+    ScheduleCall(this, "OpenMenu", 16);
+  }
 
   return true;
 }
@@ -407,7 +407,7 @@ protected func OpenMenu()
   //Effekte
   AddMenuItem("$Effects$", "OpenEffectMenu", EFMN, pClonk, 0,0, "$EffectInfo$");
   //Menüweitergabe
-  AddMenuItem("$ChangeHost$", "ChangeHostMenu", FLNT, pClonk, 0,0, "$ChangeHostInfo$");
+  AddMenuItem("$ChangeHost$", "ChangeHostMenu", MCMC, pClonk, 0,0, "$ChangeHostInfo$");
   //Fertig
   AddMenuItem("$Finished$", "ConfigurationFinished", CHOS, pClonk,0,0,"$Finished$",2,3);
 }
@@ -1651,7 +1651,7 @@ protected func OpenGoalChooseMenu()
 
 public func ChangeHostMenu()
 {
-	var pClonk = GetCursor(iChoosedPlr);
+  var pClonk = GetCursor(iChoosedPlr);
   if(!pClonk)
     return ScheduleCall(this, "OpenMenu", 1);
 
@@ -1664,31 +1664,34 @@ public func ChangeHostMenu()
   
   for(var i = 0; i < GetPlayerCount(C4PT_User); i++)
   {
-  	var plr = GetPlayerByIndex(i, C4PT_User);
-  	var clr = 0x777777, name = GetPlayerName(i), cmd = 0;
-  	if(iChoosedPlr != plr)
-  	{
-  		clr = GetPlrColorDw(plr);
-  		cmd = "ChangeHostPlayer";
-  	}
-  	
-  	AddMenuItem(Format("<c %x>%s</c>", clr, name), cmd, 0, pClonk, 0, plr);
+    var plr = GetPlayerByIndex(i, C4PT_User);
+    var clr = 0x777777, name = GetPlayerName(i), cmd = 0;
+    if(iChoosedPlr != plr)
+    {
+      clr = GetPlrColorDw(plr);
+      cmd = "ChangeHostPlayer";
+    }
+
+    AddMenuItem(Format("<c %x>%s</c>", clr, name), cmd, 0, pClonk, 0, plr);
   }
-  
+
   AddMenuItem("$Back$", "OpenMenu", 0, pClonk, 0, 0, "$Back$");
   return true;
 }
 
 public func ChangeHostPlayer(id dummy, int iPlr)
 {
-	var pClonk = GetCursor(iChoosedPlr);
+  var pClonk = GetCursor(iChoosedPlr);
   if(!pClonk)
     return ScheduleCall(this, "OpenMenu", 1);
 
   CloseMenu(pClonk);
 
-	iChoosedPlr = iPlr;
-	return OpenMenu();
+  //Eventnachricht: Neuer Host
+  EventInfo4K(0, Format("$NewHost$", GetPlrColorDw(iPlr), GetPlayerName(iPlr)), CHOS, 0, 0, 0, "Info.ogg");
+
+  iChoosedPlr = iPlr;
+  return OpenMenu();
 }
 
 /* Random */

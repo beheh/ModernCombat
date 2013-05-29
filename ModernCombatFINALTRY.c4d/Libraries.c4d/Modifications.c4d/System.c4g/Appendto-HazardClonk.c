@@ -1473,14 +1473,14 @@ public func Ejection(object pObj)
 {
   RemoveEffect("SelectItem",pObj);
   UpdateGrenadeCount();
-  
+
   var cObj = Contents();
   if(cObj && cObj->~SelectionTime())
   {
-  	AddEffect("SelectItem", cObj, 20, cObj->~SelectionTime(), 0, GetID());
+    AddEffect("SelectItem", cObj, 20, cObj->~SelectionTime(), 0, GetID());
     ScheduleCall(this, "CheckArmed", 1);
   }
-  
+
   return _inherited(pObj,...);
 }
 

@@ -76,9 +76,9 @@ public func Set(object pTarget, int dwRGBa, int iAlphaAdd, int iFadeRate, bool b
 {
   target = pTarget;
   layer = iLayer;
-  
+
   if(target)
-  	targetset = true;
+    targetset = true;
 
   if(target && GetCategory(target) & C4D_Living && !(GetOCF(target) & OCF_Alive))
     return RemoveObject();
@@ -159,8 +159,8 @@ public func DoAlpha(int iValue, int iMin, int iMax)
 
 func CursorCheck()
 {
-	if(targetset && !target)
-		return RemoveObject();
+  if(targetset && !target)
+    return RemoveObject();
 
   if(GetOwner(target) != GetOwner())
     SetOwner(GetOwner(target));
