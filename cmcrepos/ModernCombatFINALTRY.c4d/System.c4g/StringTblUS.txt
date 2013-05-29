@@ -42,6 +42,9 @@ StdRules=<c ffcc00>Standard rules</c>:
 GoalChose=Configure goal
 Back=Back
 Finished=Finished
+ChangeHost=Transfer menu
+ChangeHostInfo=Transfer selection menu
+NewHost=<c %x>%s</c> <c ffff33>configures</c> the game now
 
 #Effects
 

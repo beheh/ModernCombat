@@ -147,8 +147,8 @@ public func BeginAttack()
   //Zerstört?
   if(IsDestroyed()) return;
 
-  //EventMessage
-  if(GetController() != -1) EventInfo4K(0, Format("$ArtilleryLaunch$",  GetPlrColorDw(GetController()), GetPlayerName(GetController())), ATBY, 0, 0, 0, "RadioConfirm*.ogg");
+  //Eventnachricht: Artillerieschlag
+  if(GetController() != -1) EventInfo4K(0, Format("$ArtilleryLaunch$", GetPlrColorDw(GetController()), GetPlayerName(GetController())), ATBY, 0, 0, 0, "RadioConfirm*.ogg");
   Sound("StrikeAlert.ogg", false, this, 100);
   return true;
 }
