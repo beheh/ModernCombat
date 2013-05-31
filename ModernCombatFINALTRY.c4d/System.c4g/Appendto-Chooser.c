@@ -1092,7 +1092,7 @@ public func StartTeamRotation()
     return TeamRotationEnd();
   }
 
-  EventInfo4K(0, "$TeamRotationBegins$");
+  EventInfo4K(0, "$TeamRotationBegins$", CHOS);
   AddEffect("TeamRotationChoosePlr", this, 100, 36, this, 0, start, captains, players);
   return true;
 }
@@ -1100,7 +1100,7 @@ public func StartTeamRotation()
 public func TeamRotationEnd()
 {
   iTeamCaptainState = 0;
-  EventInfo4K(0, "$TeamRotationEnd$");
+  EventInfo4K(0, "$TeamRotationEnd$", CHOS);
   OpenTeamMenu();
 
   return true;
@@ -1141,12 +1141,17 @@ public func FxTeamRotationChoosePlrTimer(object pTarget, int iNr)
     sel = GetMenuSelection(obj);
 
   CloseMenu(obj);
+  
+  if(EffectVar(2, pTarget, iNr) <= 5)
+  	Sound("Select.ogg", true);
 
   CreateMenu(GetID(), obj, this, 0, 0, 0, 1);
   AddMenuItem(Format("$TimeRemaining$", EffectVar(2, pTarget, iNr)), 0, TEAM, obj);
 
   for(var plr in EffectVar(3, pTarget, iNr))
     AddMenuItem(GetTaggedPlayerName(plr, true), Format("EffectCall(Object(%d), %d, \"Choose\", %d, %d)", ObjectNumber(pTarget), iNr, plr, cpt), PCMK, obj);
+
+	AddMenuItem("$ChooseRandom$", Format("EffectCall(Object(%d), %d, \"Choose\", %d, %d)", ObjectNumber(pTarget), iNr, EffectVar(3, pTarget, iNr)[Random(GetLength(EffectVar(3, pTarget, iNr)))], cpt), MCMC, obj);
 
   SelectMenuItem(sel, obj);
   EffectVar(2, pTarget, iNr)--;
@@ -1175,8 +1180,8 @@ public func FxTeamRotationChoosePlrChoose(object pTarget, int iNr, int iPlr, int
     EffectCall(pTarget, iNr, "Next");
   else
   {
-    CloseMenu(GetCursor(iChoosedPlr));
-    RemoveEffect("TeamRotationChoosePlr", pTarget);
+  	RemoveEffect("TeamRotationChoosePlr", pTarget);
+    CloseMenu(GetCursor(iCpt));
     TeamRotationEnd();
   }
 
