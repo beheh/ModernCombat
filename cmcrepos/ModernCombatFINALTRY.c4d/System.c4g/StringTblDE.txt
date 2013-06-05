@@ -90,7 +90,8 @@ StartTeamRotation=Teamauswahl starten
 TeamSortedByRotation=Teamcaptains
 TeamRotationBegins=Die Teamauswahl startet!
 TeamRotationEnd=Die Teams wurden ausgewählt.
-TimeRemaining=Noch %d Sekunden
+TimeRemaining=Spielerwahl (%d)
+ChooseRandom=Zufall
 
 #KI
 
