@@ -3,6 +3,7 @@
 #strict 2
 #appendto SM08
 
+
 /* Einstellung */
 
 public func Set(object target, object host, bool fClonk, int remove_time)
