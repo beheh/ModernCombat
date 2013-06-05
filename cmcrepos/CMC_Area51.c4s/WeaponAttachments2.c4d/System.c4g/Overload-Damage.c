@@ -148,5 +148,3 @@ global func DoDmg2(int iDmg, int iType, object pTarget, int iPrecision, int dmgp
     return DoEnergy(-dmg, pTarget, true, 0, dmgplayer);
   return DoDamage(dmg/1000, pTarget, 0, dmgplayer);
 }
-
-
