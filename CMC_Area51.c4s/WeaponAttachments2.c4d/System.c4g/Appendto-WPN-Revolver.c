@@ -5,7 +5,7 @@
 
 func PermittedAtts()
 {
-  return AT_Laserpointer | AT_Flashlight | AT_Anthrax;
+  return AT_Laserpointer | AT_Flashlight;
 }
 
 public func FMData1(int data)

@@ -10,8 +10,12 @@ public func HandX()		{return 6000;}
 public func HandY()		{return -1000;}
 public func IsAttachmentPack() {return true;}
 
+
+/* Initialisierung */
+
 protected func Initialize()
 {
+  //Keine Waffenaufsätze-Regel vorhanden? Verschwinden
   if(NoAttachments())
     return RemoveObject();
 
@@ -112,7 +116,6 @@ global func AttachmentIcon(int iAtt)
   if(iAtt == AT_Laserpointer)		return AI03;
   if(iAtt == AT_Silencer)		return AI04;
   if(iAtt == AT_Flashlight)		return AI05;
-  if(iAtt == AT_Anthrax)		return AI06;
 }
 
 /* Sonstiges */
