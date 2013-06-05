@@ -1141,9 +1141,9 @@ public func FxTeamRotationChoosePlrTimer(object pTarget, int iNr)
     sel = GetMenuSelection(obj);
 
   CloseMenu(obj);
-  
+
   if(EffectVar(2, pTarget, iNr) <= 5)
-  	Sound("Select.ogg", true);
+    Sound("Select.ogg", true);
 
   CreateMenu(GetID(), obj, this, 0, 0, 0, 1);
   AddMenuItem(Format("$TimeRemaining$", EffectVar(2, pTarget, iNr)), 0, TEAM, obj);
@@ -1151,7 +1151,7 @@ public func FxTeamRotationChoosePlrTimer(object pTarget, int iNr)
   for(var plr in EffectVar(3, pTarget, iNr))
     AddMenuItem(GetTaggedPlayerName(plr, true), Format("EffectCall(Object(%d), %d, \"Choose\", %d, %d)", ObjectNumber(pTarget), iNr, plr, cpt), PCMK, obj);
 
-	AddMenuItem("$ChooseRandom$", Format("EffectCall(Object(%d), %d, \"Choose\", %d, %d)", ObjectNumber(pTarget), iNr, EffectVar(3, pTarget, iNr)[Random(GetLength(EffectVar(3, pTarget, iNr)))], cpt), MCMC, obj);
+  AddMenuItem("$ChooseRandom$", Format("EffectCall(Object(%d), %d, \"Choose\", %d, %d)", ObjectNumber(pTarget), iNr, EffectVar(3, pTarget, iNr)[Random(GetLength(EffectVar(3, pTarget, iNr)))], cpt), CXIN, obj);
 
   SelectMenuItem(sel, obj);
   EffectVar(2, pTarget, iNr)--;
@@ -1616,11 +1616,12 @@ private func Eastern(object P)
 protected func OpenGoalChooseMenu()
 {
   var pClonk = GetCursor(iChoosedPlr);
-  if (!pClonk || !GetLength(aGoals))
+  if(!pClonk || !GetLength(aGoals))
     return ScheduleCall(this, "OpenMenu", 1);
 
   CloseMenu(pClonk);
 
+  //Nur ein Spielziel verfügbar: Direkt auswählen
   if(GetLength(aGoals) == 1)
     return CreateGoal(aGoals[0], aTempGoalSave[0]);
 
@@ -1631,6 +1632,7 @@ protected func OpenGoalChooseMenu()
   if(!rGoals)
     rGoals = [];
 
+  //Spielziele auflisten
   for(var goal in aGoals)
   {
     var obj = CreateObject(TIM1, 0, 0, -1);
@@ -1647,7 +1649,7 @@ protected func OpenGoalChooseMenu()
     i++;
   }
   //Menüweitergabe
-  AddMenuItem("$ChangeHost$", "ChangeHostMenu", 0, pClonk, 0,0, "$ChangeHostInfo$");
+  AddMenuItem("$ChangeHost$", "ChangeHostMenu", MCMC, pClonk, 0,0, "$ChangeHostInfo$");
   //Zufall
   AddMenuItem("$RandomGoal$", "OpenGoalRandomMenu", GetID(), pClonk, 0, pClonk, "$RandomGoal$");
   //Abstimmung
