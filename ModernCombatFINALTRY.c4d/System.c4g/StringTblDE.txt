@@ -88,10 +88,10 @@ TeamCaptainsLeft=Es müssen noch %d Teamcaptains ausgewählt werden.
 StartTeamRotationDeactivated=<c 777777>Teamauswahl starten</c>
 StartTeamRotation=Teamauswahl starten
 TeamSortedByRotation=Teamcaptains
-TeamRotationBegins=Die Teamauswahl startet!
-TeamRotationEnd=Die Teams wurden ausgewählt.
+TeamRotationBegins=Der Host startet eine Teamwahl, alle Teamcaptains können nacheinander ihre eigenen Mitspieler <c ffff33>wählen</c>!
+TeamRotationEnd=Die Teams wurden <c ffff33>ausgewählt</c>.
 TimeRemaining=Spielerwahl (%d)
-ChooseRandom=Zufall
+ChooseRandom=Zufälliger Spieler
 
 #KI
 
