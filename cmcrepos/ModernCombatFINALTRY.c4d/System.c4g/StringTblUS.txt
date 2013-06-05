@@ -89,9 +89,10 @@ StartTeamRotationDeactivated=<c 777777>Start Team Selection</c>
 StartTeamRotation=Start Team Selection
 TeamSortedByRotation=Team Captains
 TeamRotationBegins=Team Selection is starting!
-TeamRotationEnd=The teams have been selected.
+TeamRotationBegins=The host has started a team selection, all team captains can <c ffff33>choose</c> their own teammates one by one!
+TeamRotationEnd=The teams have been <c ffff33>selected</c>.
 TimeRemaining=Player Selection (%d)
-ChooseRandom=Random
+ChooseRandom=Random Player
 
 #AI
 
