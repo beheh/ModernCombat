@@ -8,7 +8,7 @@ public func IsDrawable()	{return true;}	//Wird sichtbar getragen
 public func HandSize()		{return 800;}
 public func HandX()		{return 6000;}
 public func HandY()		{return -1000;}
-public func IsAttachmentPack() {return true;}
+public func IsAttachmentPack()	{return true;}
 
 
 /* Initialisierung */
