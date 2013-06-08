@@ -4,6 +4,8 @@
 #include LGHC
 
 
+/* Erstellung */
+
 global func AddLightCone2(int iSize, int iColor, object pTarget)
 {
   if(!pTarget && !(pTarget = this))
