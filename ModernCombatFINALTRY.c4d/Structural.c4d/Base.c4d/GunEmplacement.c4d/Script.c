@@ -300,8 +300,11 @@ public func FxActivityTimer(object pTarget, int iEffectNumber, int iEffectTime)
 
     if(controller)
     {
-      controller->SetHUDTarget(0);
-      controller->~ShowCH();
+    	if(GetOCF(controller) & OCF_Alive)
+    	{
+      		controller->SetHUDTarget(0);
+      		controller->~ShowCH();
+      	}
       SetPlrView(GetOwner(controller), controller);
     }
 
