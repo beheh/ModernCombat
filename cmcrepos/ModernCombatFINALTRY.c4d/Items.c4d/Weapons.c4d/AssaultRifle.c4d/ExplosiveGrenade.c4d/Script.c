@@ -13,6 +13,7 @@ func ExplodeDelay()		{return 35*3;}
 public func IgnoreTracer()	{return true;}
 public func IsRifleGrenade()	{return true;}		//Ist eine Gewehrgranate
 public func AllowHitboxCheck()	{return true;}
+public func RejectC4Attach()	{return true;}
 
 
 /* Initialisierung */
