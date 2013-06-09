@@ -28,13 +28,11 @@ public func IsDamaged()		{return GetEffect("Damaged", this);}
 public func IsRocket()		{return true;}			//Ist eine Rakete
 
 public func AllowHitboxCheck() {return true;}
-
-/* Nur 1 C4 pro Rakete */
 public func RejectC4Attach()
 {
-	for(var pC4 in FindObjects(Find_Distance(50, 0, 0), Find_Func("IsC4Explosive")))
-		if(LocalN("pStickTo",pC4) == this)
-			return 1;
+  for(var pC4 in FindObjects(Find_Distance(50, 0, 0), Find_Func("IsC4Explosive")))
+    if(LocalN("pStickTo",pC4) == this)
+      return 1;
 }
 
 
