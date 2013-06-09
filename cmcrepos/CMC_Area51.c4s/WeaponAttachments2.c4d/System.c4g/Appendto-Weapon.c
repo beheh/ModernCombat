@@ -41,6 +41,9 @@ func SetAttachment(int iValue)
 
   //Feuermodus zurücksetzen
   SetFireMode(1);
+  
+  //War ein erweitertes Magazin drin? Waffe entladen.
+  if(iAttachment == AT_ExtendedMag) Empty();
 
   //Eventuell entsprechenden Effekt setzen
   var iTemp = iAttachment;
