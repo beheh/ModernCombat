@@ -2,7 +2,7 @@
 
 ClassAttachment=Class Details
 Spawn=Spawn
-DescAttachments=["Not using any weapon attachment|results in overall balanced|weapon characteristics.|","The weapon uses ammo clips|of bigger size and can shot|longer until it needs to|reload again.","The bayonet on the barrel of the|weapon increases the maximum|damage of melee strikes with it,|improving close combat abilities.","The laser pointer creates a|visible laser beam for easier|aiming and acquisition of enemy|targets.","The silencer reduces fire sounds|and effects while firing, thus|giving stealth abilities and|strategies to the shooter.","The weapon emits a light beam|in which all enemy units and|their equipment will be|spotted.","This attachment modifies the|firing mechanics of the weapon,|enabling it to use anthrax|ammunition to poison enemies."]
+DescAttachments=["Not using any weapon attachment|results in overall balanced|weapon characteristics.|","The weapon uses ammo clips|of bigger size and can shot|longer until it needs to|reload again.","The bayonet on the barrel of the|weapon increases the maximum|damage of melee strikes with it,|improving close combat abilities.","The laser pointer creates a|visible laser beam for easier|aiming and acquisition of enemy|targets.","The silencer reduces fire sounds|and effects while firing, thus|giving stealth abilities and|strategies to the shooter.","The weapon emits a light beam|in which all enemy units and|their equipment will be|spotted."]
 NoAttachment=No Weapon Attachment
 
 //Raketenwerfer
