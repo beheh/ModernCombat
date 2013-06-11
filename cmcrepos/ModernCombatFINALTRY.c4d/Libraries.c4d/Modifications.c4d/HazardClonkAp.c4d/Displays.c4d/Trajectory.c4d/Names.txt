@@ -1,0 +1,2 @@
+DE:Flugbahnanzeige
+US:Trajectory Indicator

@@ -1,0 +1,3 @@
+Eine Box welche einen Waffenaufsatz enthält.
+
+[Doppelgraben] zum Anbringen an einer Waffe, [Werfen] zum Übergeben an Verbündete.

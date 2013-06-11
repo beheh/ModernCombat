@@ -10,6 +10,10 @@ CtxGrenadeMenu=Grenades
 AmmoBag=Ammobag
 CtrlInventoryDesc=Inventory
 NoSpace=Inventory is full.
+CtxUnbuckleDesc=Unbuckle Gear
+CtxUnbuckleItem=Unbuckle %s
+CtxDetachAttachment=Detach %s
+AttachmentCollected=Attachment <c ffff33>%s</c> collected
 
 #QuickInventory
 

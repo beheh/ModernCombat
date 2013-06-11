@@ -10,6 +10,10 @@ CtxGrenadeMenu=Granaten
 AmmoBag=Munitionsgürtel
 CtrlInventoryDesc=Inventar
 NoSpace=Inventar bereits belegt.
+CtxUnbuckleDesc=Ausrüstung ablegen
+CtxUnbuckleItem=%s ablegen
+CtxDetachAttachment=%s abnehmen
+AttachmentCollected=Waffenaufsatz <c ffff33>%s</c> aufgesammelt
 
 #QuickInventory
 

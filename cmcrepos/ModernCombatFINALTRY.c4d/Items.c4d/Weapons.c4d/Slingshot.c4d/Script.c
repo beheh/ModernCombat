@@ -13,15 +13,22 @@ public func IsPrimaryWeapon()	{return true;}
 public func SelectionTime()	{return 42;}	//Anwahlzeit
 
 
+/* Kompatible Waffenaufsätze */
+
+func PermittedAtts()
+{
+  return AT_ExtendedMag | AT_Bayonet | AT_Laserpointer | AT_Flashlight;
+}
+
 /* Nahkampfangriff */
 
 public func GetMCData(int data)
 {
-  if(data == MC_CanStrike)	return 1;	//Waffe kann Kolbenschlag ausführen
-  if(data == MC_Damage)		return 20;	//Schaden eines Kolbenschlages
-  if(data == MC_Recharge)	return 45;	//Zeit nach Kolbenschlag bis erneut geschlagen oder gefeuert werden kann
-  if(data == MC_Power)		return 20;	//Wie weit das Ziel durch Kolbenschläge geschleudert wird
-  if(data == MC_Angle)		return 45;	//Mit welchem Winkel das Ziel durch Kolbenschläge geschleudert wird
+  if(data == MC_CanStrike)	return 1;					//Waffe kann Kolbenschlag ausführen
+  if(data == MC_Damage)		return 20 + (iAttachment == AT_Bayonet)*8;	//Schaden eines Kolbenschlages
+  if(data == MC_Recharge)	return 45 + (iAttachment == AT_Bayonet)*7;	//Zeit nach Kolbenschlag bis erneut geschlagen oder gefeuert werden kann
+  if(data == MC_Power)		return 20;					//Wie weit das Ziel durch Kolbenschläge geschleudert wird
+  if(data == MC_Angle)		return 45;					//Mit welchem Winkel das Ziel durch Kolbenschläge geschleudert wird
 }
 
 /* Granaten */
@@ -30,21 +37,21 @@ public func FMData1(int data)
 {
   if(data == FM_Name)		return "$Grenades$";
 
-  if(data == FM_AmmoID)		return GRAM;	//ID der Munition
-  if(data == FM_AmmoLoad)	return 8;	//Magazingröße
+  if(data == FM_AmmoID)		return GRAM;						//ID der Munition
+  if(data == FM_AmmoLoad)	return 8 + (iAttachment == AT_ExtendedMag)*2;		//Magazingröße
 
-  if(data == FM_SingleReload)	return 1;	//Zeit des einzelnen Nachladens bei Revolversystemen
-  if(data == FM_PrepareReload)	return 30;	//Zeit bevor das eigentliche Nachladen beginnt
-  if(data == FM_FinishReload)	return 35;	//Zeit nach dem Nachladen
+  if(data == FM_SingleReload)	return 1;						//Zeit des einzelnen Nachladens bei Revolversystemen
+  if(data == FM_PrepareReload)	return 30;						//Zeit bevor das eigentliche Nachladen beginnt
+  if(data == FM_FinishReload)	return 35;						//Zeit nach dem Nachladen
 
-  if(data == FM_Reload)		return 210;	//Zeit für Nachladen
-  if(data == FM_Recharge)	return 50;	//Zeit bis erneut geschossen werden kann
+  if(data == FM_Reload)		return 210 + (iAttachment == AT_ExtendedMag) * 52;	//Zeit für Nachladen
+  if(data == FM_Recharge)	return 50;						//Zeit bis erneut geschossen werden kann
 
-  if(data == FM_Damage)		return 20;	//Schadenswert
+  if(data == FM_Damage)		return 20;						//Schadenswert
 
-  if(data == FM_SpreadAdd)	return 200;	//Bei jedem Schuss hinzuzuaddierende Streuung
-  if(data == FM_StartSpread)	return 80;	//Bei Auswahl der Waffe gesetzte Streuung
-  if(data == FM_MaxSpread)	return 400;	//Maximaler Streuungswert
+  if(data == FM_SpreadAdd)	return 200 - (iAttachment == AT_Laserpointer)*10;	//Bei jedem Schuss hinzuzuaddierende Streuung
+  if(data == FM_StartSpread)	return 80 - (iAttachment == AT_Laserpointer)*20;	//Bei Auswahl der Waffe gesetzte Streuung
+  if(data == FM_MaxSpread)	return 400 - (iAttachment == AT_Laserpointer)*150;	//Maximaler Streuungswert
 
   return Default(data);
 }
@@ -162,6 +169,24 @@ public func LaunchGrenade(id idg, int speed, int angle, int mode)
   Sound("SGST_Fire.ogg", 0, grenade);
   Echo("SGST_Echo.ogg");
   Schedule("Sound(\"SGST_Pump.ogg\")", 5);
+}
+
+/* Laserpointer */
+
+func FxLaserDotTimer(object pTarget, int iEffectNumber, int iEffectTime)
+{
+  //Nutzer festlegen
+  var user = this->~GetUser();
+  var x, y, z;
+  if(!user || !user->~IsClonk() || !user->WeaponAt(x, y, z) || !user->IsAiming() || Contents(0, user) != this || iAttachment != AT_Laserpointer)
+  {
+    RemoveTrajectory(pTarget);
+    return;
+  }
+
+  var iAngle = EffectVar(1, user, GetEffect("ShowWeapon", user));
+  var empty = IsReloading() || !GetCharge();
+  AddTrajectory(pTarget, GetX(pTarget), GetY(pTarget), Sin(iAngle, 120), -Cos(iAngle, 120), 35*3, RGB(255*empty, 255*(!empty), 0));
 }
 
 /* Nachladen */

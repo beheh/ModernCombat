@@ -14,7 +14,7 @@ func Trigger()
   {
     var angle = Random(360);
     var ammo = CreateObject(SHRP,0,0,GetController());
-    ammo->Launch(angle,70+Random(30),100+Random(100),5,15,20);
+    ammo->Launch(angle,70+Random(30),100+Random(100),5,15,20, iAttachment);
   }
 
   //Effekte

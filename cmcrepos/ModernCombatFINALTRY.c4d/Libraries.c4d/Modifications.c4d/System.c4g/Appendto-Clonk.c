@@ -6,6 +6,7 @@
 local assistkiller, machinekill;
 local killicon;
 local LastDmgType;
+local killattachment;
 
 
 /* Erstellung */
@@ -211,6 +212,13 @@ public func LastDamageType(int type)
   if(type)
     LastDmgType = type;
   return LastDmgType;
+}
+
+public func KillAttachment(int iKillAttachment, bool fReset)
+{
+  if(fReset)
+    killattachment = iKillAttachment;
+  return killattachment;
 }
 
 /* Reject Shift */

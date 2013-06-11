@@ -5,6 +5,7 @@
 
 local active,sx,sy, start;
 local iLastAttacker;
+local iAttachment;
 
 public func Color()		{return RGB(255,0,0);}
 public func BlastRadius()	{return 30;}
@@ -18,7 +19,7 @@ public func RejectC4Attach()	{return true;}
 
 /* Initialisierung */
 
-protected func Initialize() 
+protected func Initialize()
 {
   iLastAttacker = NO_OWNER;
   return _inherited();
@@ -26,8 +27,9 @@ protected func Initialize()
 
 /* Start */
 
-func Launch(int xdir, int ydir, int iDmg,a,b,c)
+func Launch(int xdir, int ydir, int iDmg,a,b,c, int attachment)
 {
+  iAttachment = attachment;
   SetCategory(C4D_Vehicle);
   active = true;
   sx = GetX();
@@ -66,7 +68,7 @@ func HitObject(object pObj)
   {
     if(pObj)
     {
-      DoDmg(20,DMG_Projectile,pObj);
+      DoDmg(20, DMG_Projectile, pObj, 0, 0, 0, iAttachment);
 
       if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",12, 10, 0, 0, 100, 200, RGBa(255,255,255,100), RGBa(255,255,255,130));
       if(GetOCF(pObj) & OCF_Living)
@@ -100,7 +102,7 @@ func HitObject(object pObj)
 func Trigger(object pObj)
 {
   Explode(BlastRadius()*2/3);
-  DamageObjects(BlastRadius()*3/2,BlastRadius()/2,this);
+  DamageObjects(BlastRadius()*3/2,BlastRadius()/2,this, 0, 0, iAttachment);
   CreateParticle("Blast",0,0,0,0,10*BlastRadius(),RGB(255,255,128));
   Sound("ShellExplosion*.ogg");
 }

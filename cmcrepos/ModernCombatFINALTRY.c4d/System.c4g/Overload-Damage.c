@@ -5,7 +5,7 @@
 #strict 2
 
 
-global func DoDmg(int iDmg, int iType, object pTarget, int iPrecision, int dmgplayer, id idKillIcon)
+global func DoDmg(int iDmg, int iType, object pTarget, int iPrecision, int dmgplayer, id idKillIcon, int iKillAttachment)
 {
   if(!pTarget)
     if(!(pTarget = this))
@@ -32,10 +32,10 @@ global func DoDmg(int iDmg, int iType, object pTarget, int iPrecision, int dmgpl
     if(!idKillIcon && this)//Kein Killicon?
     {
       idKillIcon = this->~GetKillIcon();
-      
+
       if(!idKillIcon)
         idKillIcon = GetID(this);
-      
+
       if(idKillIcon->~IsClonk())
         idKillIcon = 0;      
     }
@@ -59,6 +59,7 @@ global func DoDmg(int iDmg, int iType, object pTarget, int iPrecision, int dmgpl
       }
     
     pTarget->~KillIcon(idKillIcon);
+    pTarget->~KillAttachment(iKillAttachment, true);
   }
 
   //Schaden machen

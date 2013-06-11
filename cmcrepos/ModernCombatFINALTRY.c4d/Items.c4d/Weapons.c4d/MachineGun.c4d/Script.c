@@ -13,15 +13,22 @@ public func IsPrimaryWeapon()	{return true;}
 public func SelectionTime()	{return 36;}	//Anwahlzeit
 
 
+/* Kompatible Waffenaufsätze */
+
+func PermittedAtts()
+{
+  return AT_ExtendedMag | AT_Bayonet | AT_Laserpointer | AT_Flashlight;
+}
+
 /* Nahkampfangriff */
 
 public func GetMCData(int data)
 {
-  if(data == MC_CanStrike)	return 1;	//Waffe kann Kolbenschlag ausführen
-  if(data == MC_Damage)		return 20;	//Schaden eines Kolbenschlages
-  if(data == MC_Recharge)	return 45;	//Zeit nach Kolbenschlag bis erneut geschlagen oder gefeuert werden kann
-  if(data == MC_Power)		return 20;	//Wie weit das Ziel durch Kolbenschläge geschleudert wird
-  if(data == MC_Angle)		return 45;	//Mit welchem Winkel das Ziel durch Kolbenschläge geschleudert wird
+  if(data == MC_CanStrike)	return 1;					//Waffe kann Kolbenschlag ausführen
+  if(data == MC_Damage)		return 20 + (iAttachment == AT_Bayonet)*8;	//Schaden eines Kolbenschlages
+  if(data == MC_Recharge)	return 45 + (iAttachment == AT_Bayonet)*7;	//Zeit nach Kolbenschlag bis erneut geschlagen oder gefeuert werden kann
+  if(data == MC_Power)		return 20;					//Wie weit das Ziel durch Kolbenschläge geschleudert wird
+  if(data == MC_Angle)		return 45;					//Mit welchem Winkel das Ziel durch Kolbenschläge geschleudert wird
 }
 
 /* Kugeln */
@@ -30,20 +37,20 @@ public func FMData1(int data)
 {
   if(data == FM_Name)		return "$Bullets$";
 
-  if(data == FM_AmmoID)		return STAM;	//ID der Munition
-  if(data == FM_AmmoLoad)	return 60;	//Magazingröße
+  if(data == FM_AmmoID)		return STAM;						//ID der Munition
+  if(data == FM_AmmoLoad)	return 60 + (iAttachment == AT_ExtendedMag)*20;		//Magazingröße
 
-  if(data == FM_Reload)		return 220;	//Zeit für Nachladen
-  if(data == FM_Recharge)	return 4;	//Zeit bis erneut geschossen werden kann
+  if(data == FM_Reload)		return 220 + (iAttachment == AT_ExtendedMag)*16;	//Zeit für Nachladen
+  if(data == FM_Recharge)	return 4;						//Zeit bis erneut geschossen werden kann
 
-  if(data == FM_Auto)		return true;	//Automatikfeuer
+  if(data == FM_Auto)		return true;						//Automatikfeuer
 
-  if(data == FM_Damage)		return 8;	//Schadenswert
+  if(data == FM_Damage)		return 8;						//Schadenswert
 
-  if(data == FM_SpreadAdd)	return 30;	//Bei jedem Schuss hinzuzuaddierende Streuung
-  if(data == FM_StartSpread)	return 220;	//Bei Auswahl der Waffe gesetzte Streuung
-  if(data == FM_MaxSpread)	return 420;	//Maximaler Streuungswert
-  if(data == FM_MinSpread)	return 20;	//Kleinstmögliche Streuung
+  if(data == FM_SpreadAdd)	return 30 - (iAttachment == AT_Laserpointer)*4;		//Bei jedem Schuss hinzuzuaddierende Streuung
+  if(data == FM_StartSpread)	return 220 - (iAttachment == AT_Laserpointer)*20;	//Bei Auswahl der Waffe gesetzte Streuung
+  if(data == FM_MaxSpread)	return 420 - (iAttachment == AT_Laserpointer)*70;	//Maximaler Streuungswert
+  if(data == FM_MinSpread)	return 20 - (iAttachment == AT_Laserpointer)*10;	//Kleinstmögliche Streuung
 
   return Default(data);
 }
@@ -112,6 +119,10 @@ public func Fire1()
   SABulletCasing(x/3,y/3,-dir*14*(Random(1)+1),-(13+Random(2)),5);
   Sound("MNGN_Fire.ogg", 0, ammo);
   Echo("MNGN_Echo.ogg");
+
+  //Klickgeräusch bei wenig Munition
+  if(Inside(GetAmmo(GetFMData(FM_AmmoID)), 1, GetFMData(FM_AmmoLoad)/3))
+    Sound("MNGN_Click.ogg", 0, ammo, 0, GetOwner(user)+1);
 }
 
 /* Handeffekt */
@@ -138,7 +149,10 @@ protected func OnFireStop(int iSlot)
 
 func OnReload()
 {
-  Sound("MNGN_Reload.ogg");
+  if(iAttachment == AT_ExtendedMag)
+    Sound("MNGN_Reload2.ogg");
+  else
+    Sound("MNGN_Reload.ogg");
 }
 
 func OnSelect()

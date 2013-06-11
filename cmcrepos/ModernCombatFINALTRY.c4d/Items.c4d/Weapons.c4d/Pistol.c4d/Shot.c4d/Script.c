@@ -3,7 +3,7 @@
 #strict 2
 
 local iTime, lx, ly, pTrail, iDamage,speed,max_dst,dst,fb, fNoTrail;
-local shooter,wpnid;	//Clonk bzw. Objekt, welches den Schuss abgefeuert hat
+local shooter,wpnid,iAttachment;	//Schütze, Waffe und Waffenaufsatz
 
 func NoWarp()			{return true;}
 func IsBullet()			{return true;}
@@ -389,7 +389,7 @@ public func OnBulletHit(object pObject, int iX, int iY)
 public func BulletStrike(object pObj)
 {
   if(pObj)
-    DoDmg(iDamage, DMG_Projectile, pObj, 0, 0, 0, wpnid);
+    DoDmg(iDamage, DMG_Projectile, pObj, 0, 0, 0, iAttachment);
   return true;
 }
 
@@ -670,9 +670,10 @@ global func GetShooter(object weapon)
 //public func IsSpecialAmmo()	{return SHTX == GetID();}
 public func IsSpecialAmmo()	{return true;}
 
-public func CustomLaunch(int iAngle, int iSpeed, int iDist, int iSize, int iTrail, int iDmg, int iRemoveTime)
+public func CustomLaunch(int iAngle, int iSpeed, int iDist, int iSize, int iTrail, int iDmg, int iRemoveTime, int Attachment)
 {
   fNoTrail = (iTrail == -1);
+  iAttachment = Attachment;
   return Launch(iAngle,iSpeed,iDist,iSize,iTrail,iDmg,iRemoveTime);
 }
 
