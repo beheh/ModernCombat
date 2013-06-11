@@ -5,6 +5,7 @@
 local crew;
 local lastclass;
 local selection;
+local submenu;
 
 
 /* Initialisierung */
@@ -15,6 +16,8 @@ protected func Initialize()
   crew = [];
   lastclass = [];
   selection = [];
+  submenu = [];
+
   ScheduleCall(0,"Initialized",1);
 }
 
@@ -97,9 +100,10 @@ public func FxSpawntimerTimer(pTarget, iNo, iTime)
   PlayerMessage(EffectVar(0, pTarget, iNo), "@$TimeTillRespawn$", 0, EffectVar(1, pTarget, iNo));
 
   //Verschwinden wenn Clonk/Behälter weg oder Clonk nicht im Behälter
-  if (!EffectVar(2, pTarget, iNo) || !EffectVar(3, pTarget, iNo) || Contained(EffectVar(2, pTarget, iNo)) != EffectVar(3, pTarget, iNo)) {
+  if (!EffectVar(2, pTarget, iNo) || !EffectVar(3, pTarget, iNo) || Contained(EffectVar(2, pTarget, iNo)) != EffectVar(3, pTarget, iNo))
+  {
     //Verschwinden wenn Behälter noch vorhanden und TIM1
-    if (GetID(EffectVar(3, pTarget, iNo)) == TIM1)
+    if(GetID(EffectVar(3, pTarget, iNo)) == TIM1)
       RemoveObject(EffectVar(3, pTarget, iNo));
     return -1;
   }
@@ -108,7 +112,7 @@ public func FxSpawntimerTimer(pTarget, iNo, iTime)
   {
     var iPlr = EffectVar(0, pTarget, iNo),
     class = CalculatePlayerSelection(iPlr, selection[iPlr]);
-    
+
     PlayerMessage(iPlr, "@");
     if(SetupClass(class, iPlr))
       return -1;
@@ -123,7 +127,7 @@ public func FxSpawntimerTimer(pTarget, iNo, iTime)
 
 public func FxSpawntimerStop(pTarget, iNo, iReason, fTemp)
 {
-  if (!fTemp)
+  if(!fTemp)
     PlayerMessage(EffectVar(0, pTarget, iNo), "@");
 }
 
@@ -154,9 +158,9 @@ func InitClassMenu(object pClonk)
   if(FindObject(GLMS) || FindObject(GTDM) || FindObject(GASS))
     AddEffect("Spawntimer", this, 100, 35, this, GetID(), iPlayer, pClonk, tmp);
 
-  //Bereits ein Menü offen?
+  //Bereits ein Menü vorhanden: Schließen
   if(GetMenu(pClonk))
-    CloseMenu(pClonk); //Menü schließen
+    CloseMenu(pClonk);
 
   AddEffect("ClassMenu", pClonk, 1, 10, this);
 }
@@ -192,7 +196,7 @@ func Finish(object pClonk, int iClass)
   if(GetID(Contained(pClonk)) == TIM1) RemoveObject(Contained(pClonk),true);
 
   //Sound
-  Sound("RSHL_Deploy.ogg", 0, pClonk, 100, GetOwner(pClonk)+1);
+  Sound("RSHL_Deploy.ogg", 1, pClonk, 100, GetOwner(pClonk)+1);
 
   //Effekt entfernen
   for(var i = 0; i < GetEffectCount("Spawntimer", this); i++)
@@ -208,12 +212,12 @@ func Finish(object pClonk, int iClass)
 
 private func InfoMenuItems()
 {
-  return 6 + !FindObject(NOAM);
+  return 7;
 }
 
 public func FxClassMenuTimer(object pTarget, int nr)
 {
-  if(!GetMenu(pTarget) || ++EffectVar(0, pTarget, nr) <= 1)
+  if(!GetMenu(pTarget) || (GetMenu(pTarget) != GetID() && ++EffectVar(0, pTarget, nr) <= 1))
   {
     CloseMenu(pTarget);
     OpenMenu(pTarget, selection[GetOwner(pTarget)]);
@@ -227,17 +231,19 @@ local bNoMenuUpdate;
 private func OpenMenu(object pClonk, int iSelection)
 {
   var iOwner = GetOwner(pClonk);
-  
-  //Auswahl updaten
+
+  //Auswahl aktualisieren
   var iClass = 1;
   if(!iSelection && lastclass[iOwner])
     iClass = lastclass[iOwner];
 
-  if(GetMenu(pClonk))
+  if(!submenu[GetOwner(pClonk)] && GetMenu(pClonk))
     iClass = CalculatePlayerSelection(iOwner, GetMenuSelection(pClonk));
   else
     if(iSelection)
       iClass = CalculatePlayerSelection(iOwner, iSelection);
+
+  submenu[GetOwner(pClonk)] = 0;
 
   //Menü öffnen
   CloseMenu(pClonk);
@@ -246,7 +252,7 @@ private func OpenMenu(object pClonk, int iSelection)
   //Icon
   AddMenuItem(" | ", 0, GetCData(iClass, CData_Icon), pClonk, 0, 0, " ", 2, GetCData(iClass, CData_Facet));
 
-  //Name
+  //Name und Beschreibung
   AddMenuItem(Format("<c ffff33>%s</c>|%s", GetCData(iClass, CData_Name), GetCData(iClass, CData_Desc)), 0, NONE, pClonk, 0, 0, " ");
 
   //Leerzeile
@@ -256,7 +262,7 @@ private func OpenMenu(object pClonk, int iSelection)
   AddMenuItem(Format("{{%i}} %s", GetCData(iClass, CData_Clonk), GetName(0, GetCData(iClass, CData_Clonk)), 0, NONE, pClonk, 0, 0, " "));
 
   //Munition
-  if (!FindObject(NOAM))
+  if(!FindObject(NOAM))
   {
     var szAmmo = "", aAmmo = GetCData(iClass, CData_Ammo);
     for (var aEntry in aAmmo)
@@ -267,6 +273,8 @@ private func OpenMenu(object pClonk, int iSelection)
     }
     AddMenuItem(szAmmo, 0, NONE, pClonk, 0, 0, " ");
   }
+  else
+    AddMenuItem(" ", 0, NONE, pClonk, 0, 0, " ");
 
   //Gegenstände
   var szItems = "", aItems = GetCData(iClass, CData_Items), nextline = false, first = true;
@@ -299,7 +307,7 @@ private func OpenMenu(object pClonk, int iSelection)
   if(GetType(aAdditionalGear) == C4V_Array)
     AddArray4K(aAdditionalGear, aGear);
 
-  if(GetDarkness() >= 3)
+  if(GetDarkness() >= 3 && NoAttachments())
     aGear[GetLength(aGear)] = [FLSH, 1];
 
   if(FindObject(FDMG))
@@ -336,7 +344,7 @@ private func OpenMenu(object pClonk, int iSelection)
     else
       szName = Format("<c ffff33>%s</c>", szName);
 
-    AddMenuItem(szName, Format("SetupClass(%d, %d)", i, iOwner), GetCData(i, CData_Icon), pClonk, 0, 0, 0, 2, GetCData(i, CData_Facet));
+    AddMenuItem(szName, Format("OpenMenuAttachment(%d, %d, Object(%d))", 0, i, ObjectNumber(pClonk)), GetCData(i, CData_Icon), pClonk, 0, 0, 0, 2, GetCData(i, CData_Facet));
     displaying++;
     if(i == iClass) iSelection = InfoMenuItems() + displaying;
   }
@@ -367,6 +375,7 @@ public func MenuQueryCancel()	{return 1;}
 
 protected func OnMenuSelection(int iIndex, object pClonk)
 {
+  if(submenu[GetOwner(pClonk)]) return;
   selection[GetOwner(pClonk)] = iIndex;
   if(bNoMenuUpdate)
     bNoMenuUpdate = false;
@@ -438,7 +447,16 @@ public func SetupClass(int iClass, int iPlr)
   var aItems = GetCData(iClass, CData_Items);
   for (var aEntry in aItems)
     if (GetType(aEntry) == C4V_Array && GetType(aEntry[0]) == C4V_C4ID)
-      CreateContents(aEntry[0], pCrew, aEntry[1]);
+    {
+      var tempItem = CreateContents(aEntry[0], pCrew, aEntry[1]);
+      var idWeap, iAtt;
+      idWeap = GetPlrExtraData(iPlr, Format("CMC_Weap%d", iClass));
+      iAtt = GetPlrExtraData(iPlr, Format("CMC_Att%d", iClass));
+      if(idWeap && iAtt && idWeap == aEntry[0] && !NoAttachments())
+      { 
+        tempItem->SetAttachment(iAtt);
+      }
+    }
 
   //Granaten
   var aGrenades = GetCData(iClass, CData_Grenades);
@@ -454,7 +472,7 @@ public func SetupClass(int iClass, int iPlr)
   if(GetType(aAdditionalGear) == C4V_Array)
     AddArray4K(aAdditionalGear, aGear);
 
-  if(GetDarkness() >= 3)
+  if(GetDarkness() >= 3 && NoAttachments())
     aGear[GetLength(aGear)] = [FLSH, 1];
 
   //Bei Fallschaden Fallschirme als Zusatzausrüstung
@@ -548,4 +566,240 @@ public func GetClassAmount()
   var i = 1;
   while(GetCData(i)) i++;
   return i;
+}
+
+public func OpenMenuAttachment(id idParamWeapon, int iClass, object pClonk, int iSelection)
+{
+  var iOwner = GetOwner(pClonk);
+
+  //Menü öffnen
+  CloseMenu(pClonk);
+  submenu[iOwner] = 2;
+  var i = 0;
+  var j = 0;
+  var count = 5;
+  var fOne = true;
+
+  //Gegenstände
+  var aItems = GetCData(iClass, CData_Items);
+  var idWeap, idFirstWeap, iAtt, idActualWeap, fNextWeap;
+  idWeap = GetPlrExtraData(iOwner, Format("CMC_Weap%d", iClass));
+  iAtt = GetPlrExtraData(iOwner, Format("CMC_Att%d", iClass));
+
+  for(var aEntry in aItems)
+    if(GetType(aEntry) == C4V_Array && GetType(aEntry[0]) == C4V_C4ID && aEntry[0]->~PermittedAtts())
+    {
+      if(fNextWeap)
+      {
+        idActualWeap = aEntry[0];
+        fNextWeap = false;
+        break;
+      }
+      if(idParamWeapon == aEntry[0])
+        fNextWeap = true;
+      if(!idFirstWeap)
+        idFirstWeap = aEntry[0];
+
+      if(!idParamWeapon && !idWeap)
+      {
+        idActualWeap = aEntry[0];
+        break;
+      }
+      if(!idParamWeapon && idWeap == aEntry[0])
+      {
+        idActualWeap = aEntry[0];
+        break;
+      }
+    }
+
+  if(fNextWeap)
+    idActualWeap = idFirstWeap;
+
+  CreateMenu(GetID(), pClonk, this, 0, 0, 0, C4MN_Style_Dialog, true);
+
+  //Icon
+  var facet = 11;
+  if(NoAttachments())
+    facet = GetCData(iClass, CData_Facet);
+  AddMenuItem(" | ", 0, GetCData(iClass, CData_Icon), pClonk, 0, 0, " ", 2, facet);
+
+  //Name und Beschreibung
+  var iterations = 0;
+  var iTempAtt = iAtt;
+  var DescAtts = $DescAttachments$;
+
+  while(iTempAtt > 0)
+  {
+    iterations++;
+    iTempAtt/=2;
+  }
+
+  var name = GetName(0, AttachmentIcon(iAtt));
+  if(!iAtt)
+    name = "$NoAttachment$";
+
+  if(!NoAttachments())
+  {
+    AddMenuItem(Format("<c ffff33>%s</c>|%s", name, DescAtts[iterations]), 0, NONE, pClonk, 0, 0, " ");
+
+    //Leerzeilen
+    AddMenuItem(" |||| ", 0, NONE, pClonk, 0, 0, " ");
+  }
+  else
+  {
+    //Bei aktivierter Keine Waffenaufsätze-Regel Klasseninformationen anzeigen
+
+    //Name und Beschreibung
+    AddMenuItem(Format("<c ffff33>%s</c>|%s", GetCData(iClass, CData_Name), GetCData(iClass, CData_Desc)), 0, NONE, pClonk, 0, 0, " ");
+
+    //Leerzeile
+    AddMenuItem(" ", 0, NONE, pClonk, 0, 0, " ");
+
+    //Clonktyp
+    AddMenuItem(Format("{{%i}} %s", GetCData(iClass, CData_Clonk), GetName(0, GetCData(iClass, CData_Clonk)), 0, NONE, pClonk, 0, 0, " "));
+
+    //Munition
+    if(!FindObject(NOAM))
+    {
+      var szAmmo = "", aAmmo = GetCData(iClass, CData_Ammo);
+      for (var aEntry in aAmmo)
+      {
+        if(GetType(aEntry) != C4V_Array || GetType(aEntry[0]) != C4V_C4ID || !aEntry[0]->~IsAmmo())
+          continue;
+        szAmmo = Format("%s%2dx {{%i}}", szAmmo, aEntry[1], aEntry[0]);
+      }
+      AddMenuItem(szAmmo, 0, NONE, pClonk, 0, 0, " ");
+    }
+    else
+      AddMenuItem(" ", 0, NONE, pClonk, 0, 0, " ");
+
+    //Gegenstände
+    var szItems = "", aItems = GetCData(iClass, CData_Items), nextline = false, first = true;
+    for (var aEntry in aItems)
+    {
+      if(GetType(aEntry) != C4V_Array || GetType(aEntry[0]) != C4V_C4ID)
+        continue;
+      szItems = Format("%s%2dx {{%i}}     ", szItems, aEntry[1], aEntry[0]);
+      //Nach jedem zweiten Item umbrechen, außer beim letzten
+      if(!first && (nextline = !nextline) && GetIndexOf(aEntry, aItems) < GetLength(aItems) - 1)
+        szItems = Format("%s|", szItems);
+      first = false;
+    }
+    AddMenuItem(szItems, 0, NONE, pClonk, 0, 0, " ");
+
+    //Granaten
+    var szGrenades = "", aGrenades = GetCData(iClass, CData_Grenades);
+    for (var aEntry in aGrenades)
+    {
+      if(GetType(aEntry) != C4V_Array || GetType(aEntry[0]) != C4V_C4ID || !aEntry[0]->~IsGrenade())
+        continue;
+      szGrenades = Format("%s%2dx {{%i}}     ", szGrenades, aEntry[1], aEntry[0]);
+    }
+    AddMenuItem(szGrenades, 0, NONE, pClonk, 0, 0, " ");
+
+    //Ausrüstung
+    var szGear = "", aGear = GetCData(iClass, CData_Gear);
+    var aAdditionalGear = GameCall("SpecificEquipment");
+
+    if(GetType(aAdditionalGear) == C4V_Array)
+      AddArray4K(aAdditionalGear, aGear);
+
+    if(GetDarkness() >= 3 && NoAttachments())
+      aGear[GetLength(aGear)] = [FLSH, 1];
+
+    if(FindObject(FDMG))
+      aGear[GetLength(aGear)] = [PPAR, 1];
+
+    var aGearTypes = [];
+
+    for(var aEntry in aGear)
+    {
+      if(GetType(aEntry) != C4V_Array || GetType(aEntry[0]) != C4V_C4ID || !aEntry[0]->~IsHazardGear())
+        continue;
+
+      if(GetIndexOf(aEntry[0]->~GetGearType(), aGearTypes) > -1)
+        continue;
+
+      aGearTypes[GetLength(aGearTypes)] = aEntry[0]->~GetGearType();
+      szGear = Format("%s%2dx {{%i}}     ", szGear, aEntry[1], aEntry[0]);
+    }
+    AddMenuItem(szGear, 0, NONE, pClonk, 0, 0, " ");
+
+    //Leerzeile
+    AddMenuItem(" ", 0, NONE, pClonk, 0, 0, " ");
+  }
+
+  //Spawnen
+  AddMenuItem("$Spawn$", Format("SetupClass(%d, %d)", iClass, iOwner), CHOS, pClonk, 0, pClonk, 0, 2, 3);
+
+  //Zurück
+  AddMenuItem("$Back$", Format("OpenMenu(Object(%d), %d)", ObjectNumber(pClonk), InfoMenuItems()+iClass), 0, pClonk, 0, 0, "$Back$");
+
+  if(!NoAttachments())
+  {
+    //Waffen-Wechsler
+    if(idActualWeap)
+      AddMenuItem(Format("<c ff3333>%s</c>", GetName(0, idActualWeap)), Format("ChangeWeapon(%d, %i, Object(%d), %d)", iClass, idActualWeap, ObjectNumber(pClonk), count), idActualWeap, pClonk, 0, pClonk, 0, 2, GetCData(i, CData_Facet));
+
+    //Waffenaufsätze
+    for(j = 0; j < 1000000000; j*=2)
+    {
+      if(fOne && j == 2) {j = 1; fOne = false;}
+
+      var select = false;
+      var szName = Format("%s",GetName(0, AttachmentIcon(j)));
+      if(idWeap && iAtt && iAtt == j && idWeap == idActualWeap) 
+      {
+        select = true;
+        szName = Format("<c ffff33>%s</c>", szName);
+      }
+      else
+        szName = Format("<c 777777>%s</c>", szName);
+
+      if(idActualWeap->~PermittedAtts() & j)
+      {
+        count++;
+        AddMenuItem(szName, Format("ChooseAttachment(%d, %i, %d, Object(%d), %d, %d)", iClass, idActualWeap, j, ObjectNumber(pClonk), count, select), AttachmentIcon(j), pClonk, 0, pClonk, 0, 2, GetCData(i, CData_Facet));
+        //if(!idParamWeapon && select) SelectMenuItem(count + 1, pClonk);
+      }
+
+      //j soll bei 0 anfangen, sich ab 1 dann aber verdoppeln.
+      if(!j) j++;
+    }
+
+    var clr = 0x777777, select = false;
+    if(idWeap == idActualWeap && !iAtt)
+    {
+      select = true;
+      clr = 0xFFFF33;
+    }
+
+    if(idActualWeap)
+      AddMenuItem(Format("<c %x>$NoAttachment$</c>", clr), Format("ChooseAttachment(%d, %i, 0, Object(%d), %d, %d)", iClass, idActualWeap, ObjectNumber(pClonk), count+1, select), SM06, pClonk, 0, pClonk, 0, 2, GetCData(i, CData_Facet));
+  }
+
+  if(iSelection) SelectMenuItem(iSelection, pClonk);
+}
+
+public func ChooseAttachment(int iClass, id idWeapon, int iAttachment, object pClonk, int iSelection, bool fSelected)
+{
+  if(fSelected) return SetupClass(iClass, GetOwner(pClonk));
+
+  //Wahl speichern
+  SetPlrExtraData(GetOwner(pClonk), Format("CMC_Weap%d", iClass), idWeapon);
+  SetPlrExtraData(GetOwner(pClonk), Format("CMC_Att%d", iClass), iAttachment);
+
+  //Menü aktualisieren
+  OpenMenuAttachment(0, iClass, pClonk, iSelection);
+
+  //Sound
+  Sound("WPN2_Modify*.ogg", 1, pClonk, 100, GetOwner(pClonk)+1);
+}
+
+public func ChangeWeapon(int iClass, id idWeapon, object pClonk, int iSelection)
+{
+  OpenMenuAttachment(idWeapon, iClass, pClonk, iSelection);
+
+  //Sound
+  Sound("WPN2_Handle*.ogg", 1, pClonk, 100, GetOwner(pClonk)+1);
 }

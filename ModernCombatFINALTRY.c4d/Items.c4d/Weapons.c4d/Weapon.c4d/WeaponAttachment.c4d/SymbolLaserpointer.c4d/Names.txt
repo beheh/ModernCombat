@@ -1,0 +1,2 @@
+DE:Laserpointer
+US:Laser Pointer

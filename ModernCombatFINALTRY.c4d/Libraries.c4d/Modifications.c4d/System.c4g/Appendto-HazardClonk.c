@@ -1017,6 +1017,64 @@ protected func ResetData(int iData, bool fContinue)
   PlayerMessage(GetOwner(), "$ResetDone$", this);
 }
 
+/* Ausrüstung ablegen */
+
+protected func FunnyBug()	{return HasGear() || HasAttachmentWeapons();}
+
+protected func ContextUnbuckle(object pCaller)
+{
+  [$CtxUnbuckleDesc$|Image=HARM|Condition=FunnyBug]
+  if(!HasGear() && !HasAttachmentWeapons())
+    return;
+
+  CreateMenu(HARM, 0, 0, 0, 0, 0, 1);
+
+  //Alle Ausrüstungen auflisten
+  for(var i; i < GetLength(aGear); ++i) 
+  {
+    var gear = aGear[i];
+    if(gear)
+      AddMenuItem("$CtxUnbuckleItem$", Format("TakeOffGear(0, %d)", i), GetID(gear));
+  }
+
+  //Alle Waffenaufsätze auflisten
+  var obj, i = 0;
+  while(obj = Contents(i++))
+    if(obj->~IsWeapon2() && obj->~GetAttachment() != AT_NoAttachment)
+      AddMenuItem(Format("$CtxDetachAttachment$", GetName(0, AttachmentIcon(obj->GetAttachment()))), "DetachAttachment", 0, this, 0, obj, 0, 4, obj);
+
+  return true;
+}
+
+public func DetachAttachment(dummy, object pWeapon)
+{
+  if(!pWeapon->~IsWeapon2() || pWeapon->~GetAttachment() == AT_NoAttachment)
+    return;
+
+  var att = pWeapon->~GetAttachment();
+  pWeapon->SetAttachment(AT_NoAttachment);
+
+  //Waffenaufsatzobjekt erstellen
+  var obj = CreateObject(WNAT, 0, 0, GetOwner());
+  obj->SetAttachment(att);
+  Collect(obj, this);
+
+  //Waffen-HUD aktualisieren
+  UpdateCharge(true);
+
+  Sound("WNAT_RemoveAttachement.ogg");
+
+  return true;
+}
+
+public func HasAttachmentWeapons()
+{
+  var obj, i;
+  while(obj = Contents(i++))
+    if(obj->~IsWeapon2() && obj->~GetAttachment() != AT_NoAttachment)
+      return true;
+}
+
 /* Munitionsgürtel */
 
 private func AmmoBagContextCheck()
@@ -1737,6 +1795,31 @@ protected func RejectCollect(id idObj, object pObj)
   if(pObj ->~ IsAmmoPacket())
     // Davon kann man in jeden Fall _eines_ im Inventar haben
     if(!CustomContentsCount("IsAmmoPacket"))
+      return;
+
+  //Waffenaufsatz?
+  if(FindContents(idObj, this) && pObj->~IsWeapon2() && pObj->~GetAttachment() != AT_NoAttachment && Contained(pObj))
+  {
+    var att = CreateObject(WNAT, 0, 0, GetOwner());
+    if(Collect(att, this))
+    {
+      att->SetAttachment(pObj->GetAttachment());
+      Sound("Merge.ogg");
+
+      //Überschreibt die "Holen nicht möglich"-Nachricht
+      Schedule(Format("PlayerMessage(%d, \"$AttachmentCollected$\", this)", GetOwner(), GetName(0, AttachmentIcon(pObj->GetAttachment()))), 1, 0, this);
+
+      pObj->~SetAttachment(AT_NoAttachment);
+    }
+    else if(att)
+      RemoveObject(att);
+
+    return true;
+  }
+
+  //Waffenaufsatzobjekte erhalten einen zusätzlichen Inventarslot
+  if(pObj->~IsAttachmentPack())
+    if(!CustomContentsCount("IsAttachmentPack"))
       return;
 
   //Waffe?

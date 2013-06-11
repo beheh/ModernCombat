@@ -15,6 +15,13 @@ public func SelectionTime()	{return 45;}	//Anwahlzeit
 local pRocket;
 
 
+/* Kompatible Waffenaufsätze */
+
+func PermittedAtts()
+{
+  return AT_Laserpointer;
+}
+
 /* Raketen */
 
 public func FMData1(int data)
@@ -64,23 +71,30 @@ public func Fire1()
   LaunchRocket(MISL,Contained()->~AimAngle(10));
 }
 
-/* Raketen - Ungelenkt */
+/* Raketen - Ungelenkt/Lastersteuerung */
 
 public func FMData1T2(int data)
 {
-  if(data == FT_Name)		return "$Unguided$";
+  if(data == FT_Name)
+    if(GetAttachment() != AT_Laserpointer)
+      return "$Unguided$";
+    else
+      return "$Laser$";
 
   return FMData1(data);
 }
 
 public func Fire1T2()
 {
-  LaunchRocket(MISL,Contained()->~AimAngle(10), true);
+  if(GetAttachment() != AT_Laserpointer)
+    LaunchRocket(MISL,Contained()->~AimAngle(10), true);
+  else
+    LaunchRocket(MISL,Contained()->~AimAngle(10), false, true);
 }
 
 /* Raketen - Schuss */
 
-public func LaunchRocket(id rid, int angle, bool unguided)
+public func LaunchRocket(id rid, int angle, bool unguided, bool fLaserGuided)
 {
   //Austritt bestimmen
   var user = GetUser();
@@ -89,7 +103,7 @@ public func LaunchRocket(id rid, int angle, bool unguided)
 
   //Rakete abfeuern
   var rocket = CreateObject(rid,x,y+10,GetController(user));
-  rocket->Launch(angle, user, unguided);
+  rocket->Launch(angle, user, unguided, fLaserGuided);
   Sound("RTLR_Launch*.ogg", 0, rocket);
   SetController(GetController(user), rocket);
 
@@ -171,6 +185,19 @@ public func AI_NeedAim(object pBot, object pTarget)
 public func AI_IgnorePathFree(object pBot, object pTarget)
 {
   return GetFireTec() != 2 && PathFree(GetX(pRocket), GetY(pRocket), GetX(pTarget), GetY(pTarget));
+}
+
+/* Laserpointer */
+
+func FxLaserDotTimer(object pTarget, int iEffectNumber, int iEffectTime)
+{
+  if(aFM_FireTec[0] != 2 || IsReloading())
+  {
+    if(pBeam) RemoveObject(pBeam);
+    if(pLaser) RemoveObject(pLaser);
+    return;
+  }
+  else return _inherited(...);
 }
 
 /* Handeffekt */

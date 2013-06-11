@@ -30,6 +30,7 @@ public func KMsg(int plr1, int plr2, object clonk, int plr3)
 
   //Icon setzen
   var killicon = clonk->~KillIcon();
+  var killattachment = clonk->~KillAttachment();
   if(!killicon) killicon = SKUL;
 
   if(type)
@@ -62,6 +63,10 @@ public func KMsg(int plr1, int plr2, object clonk, int plr3)
 
   //Nachricht konstruieren
   msg = Format("{{%i}}",killicon); 
+
+  //Attachment vorhanden: Hinzufügen
+  if(killattachment && killicon->~IsWeapon())
+    msg = Format("%s{{%i}}", msg, AttachmentIcon(killattachment));
   if(typeicon && killicon != typeicon)
     if(killicon)
     {

@@ -14,15 +14,22 @@ public func IsPrimaryWeapon()	{return true;}
 public func SelectionTime()	{return 20;}	//Anwahlzeit
 
 
+/* Kompatible Waffenaufsätze */
+
+func PermittedAtts()
+{
+  return AT_ExtendedMag | AT_Bayonet | AT_Laserpointer | AT_Flashlight;
+}
+
 /* Nahkampfangriff */
 
 public func GetMCData(int data)
 {
-  if(data == MC_CanStrike)	return 1;	//Waffe kann Kolbenschlag ausführen
-  if(data == MC_Damage)		return 20;	//Schaden eines Kolbenschlages
-  if(data == MC_Recharge)	return 40;	//Zeit nach Kolbenschlag bis erneut geschlagen oder gefeuert werden kann
-  if(data == MC_Power)		return 20;	//Wie weit das Ziel durch Kolbenschläge geschleudert wird
-  if(data == MC_Angle)		return 45;	//Mit welchem Winkel das Ziel durch Kolbenschläge geschleudert wird
+  if(data == MC_CanStrike)	return 1;					//Waffe kann Kolbenschlag ausführen
+  if(data == MC_Damage)		return 20 + (iAttachment == AT_Bayonet)*6;	//Schaden eines Kolbenschlages
+  if(data == MC_Recharge)	return 40 + (iAttachment == AT_Bayonet)*10;	//Zeit nach Kolbenschlag bis erneut geschlagen oder gefeuert werden kann
+  if(data == MC_Power)		return 20;					//Wie weit das Ziel durch Kolbenschläge geschleudert wird
+  if(data == MC_Angle)		return 45;					//Mit welchem Winkel das Ziel durch Kolbenschläge geschleudert wird
 }
 
 /* Kugeln */
@@ -31,23 +38,23 @@ public func FMData1(int data)
 {
   if(data == FM_Name)		return "$Pellets$";
 
-  if(data == FM_AmmoID)		return STAM;	//ID der Munition
-  if(data == FM_AmmoLoad)	return 20;	//Magazingröße
-  if(data == FM_AmmoUsage)	return 4;	//Munition pro Schuss
+  if(data == FM_AmmoID)		return STAM;						//ID der Munition
+  if(data == FM_AmmoLoad)	return 20 + (iAttachment == AT_ExtendedMag)*8;		//Magazingröße
+  if(data == FM_AmmoUsage)	return 4;						//Munition pro Schuss
 
-  if(data == FM_SingleReload)	return 2;	//Zeit des einzelnen Nachladens bei Revolversystemen
-  if(data == FM_PrepareReload)	return 10;	//Zeit bevor das eigentliche Nachladen beginnt
-  if(data == FM_FinishReload)	return 25;	//Zeit nach dem Nachladen
+  if(data == FM_SingleReload)	return 2;						//Zeit des einzelnen Nachladens bei Revolversystemen
+  if(data == FM_PrepareReload)	return 10;						//Zeit bevor das eigentliche Nachladen beginnt
+  if(data == FM_FinishReload)	return 25;						//Zeit nach dem Nachladen
 
-  if(data == FM_Reload)		return 75;	//Zeit für Nachladen
-  if(data == FM_Recharge)	return 30;	//Zeit bis erneut geschossen werden kann
+  if(data == FM_Reload)		return 75 + (iAttachment == AT_ExtendedMag) * 30;	//Zeit des einzelnen Nachladens bei Revolversystemen
+  if(data == FM_Recharge)	return 30;						//Zeit bis erneut geschossen werden kann
 
-  if(data == FM_Damage)		return 45;	//Schadenswert
+  if(data == FM_Damage)		return 45;						//Schadenswert
 
-  if(data == FM_SpreadAdd)	return 150;	//Bei jedem Schuss hinzuzuaddierende Streuung
-  if(data == FM_StartSpread)	return 320;	//Bei Auswahl der Waffe gesetzte Streuung
-  if(data == FM_MaxSpread)	return 570;	//Maximaler Streuungswert
-  if(data == FM_MinSpread)	return 120;	//Minimal mögliche Streuung
+  if(data == FM_SpreadAdd)	return 150 - (iAttachment == AT_Laserpointer)*3;	//Bei jedem Schuss hinzuzuaddierende Streuung
+  if(data == FM_StartSpread)	return 320 - (iAttachment == AT_Laserpointer)*70;	//Bei Auswahl der Waffe gesetzte Streuung
+  if(data == FM_MaxSpread)	return 570 - (iAttachment == AT_Laserpointer)*70;	//Maximaler Streuungswert
+  if(data == FM_MinSpread)	return 120 - (iAttachment == AT_Laserpointer)*20;	//Minimal mögliche Streuung
 
   return Default(data);
 }

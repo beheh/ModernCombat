@@ -182,7 +182,7 @@ global func BlastObject(int level, object obj, int cause_plr_plus_one)
   return true;
 }
 
-global func DamageObjects(int iDistance, int iDamage, object pObject, int iX, int iY)
+global func DamageObjects(int iDistance, int iDamage, object pObject, int iX, int iY, int iAttachment)
 {
   if(!pObject) pObject = this;
   var x = GetX(pObject)+iX;
@@ -196,7 +196,7 @@ global func DamageObjects(int iDistance, int iDamage, object pObject, int iX, in
                              pObject->Find_Exclude(this),
                              Find_NoContainer()))
   {
-  	DoDmg(iDamage - (Distance(GetX(obj),GetY(obj),x,y)*iDamage/iDistance), DMG_Explosion, obj, 0, dealer+1, icon);
+    DoDmg(iDamage - (Distance(GetX(obj),GetY(obj),x,y)*iDamage/iDistance), DMG_Explosion, obj, 0, dealer+1, icon, iAttachment);
   }
   return true;
 }

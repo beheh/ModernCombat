@@ -14,6 +14,13 @@ public func IsSecondaryWeapon()	{return true;}
 public func SelectionTime()	{return 10;}	//Anwahlzeit
 
 
+/* Kompatible Waffenaufsätze */
+
+func PermittedAtts()
+{
+  return AT_ExtendedMag | AT_Silencer | AT_Laserpointer | AT_Flashlight;
+}
+
 /* Nahkampfangriff */
 
 public func GetMCData(int data)
@@ -31,22 +38,23 @@ public func FMData1(int data)
 {
   if(data == FM_Name)		return "$Bullets$";
 
-  if(data == FM_AmmoID)		return STAM;	//ID der Munition
-  if(data == FM_AmmoLoad)	return 15;	//Magazingröße
+  if(data == FM_AmmoID)		return STAM;									//ID der Munition
+  if(data == FM_AmmoLoad)	return 15 + (iAttachment == AT_ExtendedMag)*6;					//Magazingröße
 
-  if(data == FM_Reload)		return 40;	//Zeit für Nachladen
-  if(data == FM_Recharge)	return 5;	//Zeit bis erneut geschossen werden kann
+  if(data == FM_Reload)		return 40 + (iAttachment == AT_ExtendedMag)*17;					//Zeit für Nachladen
 
-  if(data == FM_Auto)		return false;	//Kein Automatikfeuer
+  if(data == FM_Recharge)	return 5;									//Zeit bis erneut geschossen werden kann
 
-  if(data == FM_Damage)		return 12;	//Schadenswert
+  if(data == FM_Auto)		return false;									//Kein Automatikfeuer
 
-  if(data == FM_Slot)		return 1;	//Slot des Feuermodus
+  if(data == FM_Damage)		return 12 - (iAttachment == AT_Silencer)*((Random(10)<6)+(Random(10)<6));	//Schadenswert
 
-  if(data == FM_SpreadAdd)	return 60;	//Bei jedem Schuss hinzuzuaddierende Streuung
-  if(data == FM_StartSpread)	return 30;	//Bei Auswahl der Waffe gesetzte Streuung
-  if(data == FM_MaxSpread)	return 220;	//Maximaler Streuungswert
-  if(data == FM_MinSpread)	return 20;	//Kleinstmögliche Streuung
+  if(data == FM_Slot)		return 1;									//Slot des Feuermodus
+
+  if(data == FM_SpreadAdd)	return 60 - (iAttachment == AT_Laserpointer)*4;					//Bei jedem Schuss hinzuzuaddierende Streuung
+  if(data == FM_StartSpread)	return 30 - (iAttachment == AT_Laserpointer)*20;				//Bei Auswahl der Waffe gesetzte Streuung
+  if(data == FM_MaxSpread)	return 220 - (iAttachment == AT_Laserpointer)*70;				//Maximaler Streuungswert
+  if(data == FM_MinSpread)	return 20 - (iAttachment == AT_Laserpointer)*10;				//Kleinstmögliche Streuung
 
   return Default(data);
 }
@@ -84,13 +92,24 @@ public func Fire1()
   user->WeaponEnd(x,y);
 
   //Kugel abfeuern
-  var ammo = SALaunchBullet(x,y,GetController(user),angle,250,400,GetFMData(FM_Damage));
+  var ammo = SALaunchBullet(x,y,GetController(user),angle,250,400,GetFMData(FM_Damage), 0, 0, iAttachment == AT_Silencer);
 
   //Effekte
-  MuzzleFlash(RandomX(35,40),user,x,y,angle,0, 4);
-  SABulletCasing(x/3,y/3,-dir*14*(Random(1)+1),-(13+Random(2)),4);
-  Sound("PSTL_Fire*.ogg", 0, ammo);
-  Echo("PSTL_Echo.ogg");
+  if(iAttachment != AT_Silencer)
+  {
+    SABulletCasing(x/3,y/3,-dir*14*(Random(1)+1),-(13+Random(2)),4);
+    Sound("PSTL_Fire*.ogg", 0, ammo);
+    MuzzleFlash(RandomX(35,40),user,x,y,angle,0, 4);
+    Echo("PSTL_Echo.ogg");
+  }
+  else
+  {
+    Sound("WPN2_SilencerFire*.ogg", 0, ammo, 0, GetOwner(user)+1);
+    Sound("WPN2_SilencerFire*.ogg", 0, ammo, 10);
+
+    if(GetEffect("Silencer", this))
+      EffectVar(0, this, GetEffect("Silencer", this)) -= BoundBy(25, 0, EffectVar(0, this, GetEffect("Silencer", this)));
+  }
 }
 
 /* Peilsender */
@@ -167,7 +186,10 @@ public func OnReload(i)
 {
   if(i == 1)
   {
-    Sound("PSTL_Reload.ogg");
+    if(iAttachment == AT_ExtendedMag)
+      Sound("PSTL_Reload2.ogg");
+    else
+      Sound("PSTL_Reload.ogg");
   }
   if(i == 2)
   {

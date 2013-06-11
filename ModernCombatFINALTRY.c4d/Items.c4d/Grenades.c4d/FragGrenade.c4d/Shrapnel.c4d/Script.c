@@ -3,23 +3,24 @@
 #strict 2
 #include SHTX
 
-local hitcnt,size,trail_len;
+local hitcnt, size, trail_len, iAttachment;
 
 public func IsSpecialAmmo()	{return false;}
+public func Fast()		{return false;}
 
 
-public func Fast()
-{
-  return false;
-}
+/* Abschuss */
 
-public func Launch(int iAngle, int iSpeed, int iDist, int iSize, int iTrail, int iDmg)
+public func Launch(int iAngle, int iSpeed, int iDist, int iSize, int iTrail, int iDmg, int attachment)
 {
   //Schaden des Splitters setzen
   if(!iDmg)
     iDamage = 3;
   else
     iDamage = iDmg;
+
+  //Attachment setzen
+  iAttachment = attachment;
 
   //Position des Splitters setzen
   SetPosition(GetX(),GetY()+GetDefWidth()/2);
@@ -63,6 +64,8 @@ public func Launch(int iAngle, int iSpeed, int iDist, int iSize, int iTrail, int
   AddEffect("HitCheck", this, 1,1, 0, GetID(), shooter);
 }
 
+/* Im Flug */
+
 private func CreateTrail(int iSize, int iTrail)
 {
   pTrail = CreateObject(TRAI,0,0,-1);
@@ -100,6 +103,8 @@ public func TrailColor(int iATime)
   var iPrg = 100*iATime/iTime;
   return RGBa(255-iPrg*2,255-iPrg*2,255-iPrg*2,iPrg*2);
 }
+
+/* Treffer und Aufprall */
 
 public func Hit(int iXDir, int iYDir)
 {
@@ -191,11 +196,11 @@ public func BulletStrike(object pObj)
 
     if(GetID(pObj) == RSLH)
     {
-      DoDmg(1,DMG_Projectile,pObj,0,0,wpnid);
+      DoDmg(1,DMG_Projectile,pObj,0,0,wpnid, iAttachment);
     }
     else
     {
-      DoDmg(iDamage,DMG_Projectile,pObj,0,0,wpnid);
+      DoDmg(iDamage,DMG_Projectile,pObj,0,0,wpnid, iAttachment);
     }
 
     return true;

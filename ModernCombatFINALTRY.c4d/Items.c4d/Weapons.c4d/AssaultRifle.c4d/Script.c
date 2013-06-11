@@ -14,15 +14,22 @@ public func IsPrimaryWeapon()	{return true;}
 public func SelectionTime()	{return 36;}	//Anwahlzeit
 
 
+/* Kompatible Waffenaufsätze */
+
+func PermittedAtts()
+{
+  return AT_ExtendedMag | AT_Bayonet | AT_Laserpointer | AT_Flashlight;
+}
+
 /* Nahkampfangriff */
 
 public func GetMCData(int data)
 {
-  if(data == MC_CanStrike)	return 1;	//Waffe kann Kolbenschlag ausführen
-  if(data == MC_Damage)		return 20;	//Schaden eines Kolbenschlages
-  if(data == MC_Recharge)	return 40;	//Zeit nach Kolbenschlag bis erneut geschlagen oder gefeuert werden kann
-  if(data == MC_Power)		return 20;	//Wie weit das Ziel durch Kolbenschläge geschleudert wird
-  if(data == MC_Angle)		return 45;	//Mit welchem Winkel das Ziel durch Kolbenschläge geschleudert wird
+  if(data == MC_CanStrike)	return 1;					//Waffe kann Kolbenschlag ausführen
+  if(data == MC_Damage)		return 20 + (iAttachment == AT_Bayonet)*8;	//Schaden eines Kolbenschlages
+  if(data == MC_Recharge)	return 40 + (iAttachment == AT_Bayonet)*10;	//Zeit nach Kolbenschlag bis erneut geschlagen oder gefeuert werden kann
+  if(data == MC_Power)		return 20;					//Wie weit das Ziel durch Kolbenschläge geschleudert wird
+  if(data == MC_Angle)		return 45;					//Mit welchem Winkel das Ziel durch Kolbenschläge geschleudert wird
 }
 
 /* Kugeln */
@@ -31,21 +38,21 @@ public func FMData1(int data)
 {
   if(data == FM_Name)		return "$Bullets$";
 
-  if(data == FM_AmmoID)		return STAM;	//ID der Munition
-  if(data == FM_AmmoLoad)	return 30;	//Magazingröße
+  if(data == FM_AmmoID)		return STAM;									//ID der Munition
+  if(data == FM_AmmoLoad)	return 30 + (iAttachment == AT_ExtendedMag)*6;					//Magazingröße
 
-  if(data == FM_Reload)		return 90;	//Zeit für Nachladen
-  if(data == FM_Recharge)	return 13;	//Zeit bis erneut geschossen werden kann
+  if(data == FM_Reload)		return 90 + (iAttachment == AT_ExtendedMag)*16;					//Zeit für Nachladen
+  if(data == FM_Recharge)	return 13;									//Zeit bis erneut geschossen werden kann
 
-  if(data == FM_Auto)		return false;	//Kein Automatikfeuer
+  if(data == FM_Auto)		return false;									//Kein Automatikfeuer
 
-  if(data == FM_Damage)		return 14;	//Schadenswert
+  if(data == FM_Damage)		return 14 - (iAttachment == AT_Silencer)*((Random(10)<7)+(Random(10)<7));	//Schadenswert
 
-  if(data == FM_Slot)		return 1;	//Slot des Feuermodus
+  if(data == FM_Slot)		return 1;									//Slot des Feuermodus
 
-  if(data == FM_SpreadAdd)	return 50;	//Bei jedem Schuss hinzuzuaddierende Streuung
-  if(data == FM_StartSpread)	return 100;	//Bei Auswahl der Waffe gesetzte Streuung
-  if(data == FM_MaxSpread)	return 450;	//Maximaler Streuungswert
+  if(data == FM_SpreadAdd)	return 50 - (iAttachment == AT_Laserpointer)*8;					//Bei jedem Schuss hinzuzuaddierende Streuung
+  if(data == FM_StartSpread)	return 100 - (iAttachment == AT_Laserpointer)*20;				//Bei Auswahl der Waffe gesetzte Streuung
+  if(data == FM_MaxSpread)	return 450 - (iAttachment == AT_Laserpointer)*150;				//Maximaler Streuungswert
 
   return Default(data);
 }
@@ -82,7 +89,9 @@ public func FMData1T2(int data)
 {
   if(data == FT_Name)		return "$Single$";
 
-  if(data == FM_Damage)		return 14;	//Schadenswert
+  if(data == FM_Damage)		return 14;			//Schadenswert
+
+  if(data == FM_SpreadAdd)	return _inherited(data) + 20;	//Bei jedem Schuss hinzuzuaddierende Streuung
 
   return FMData1(data);
 }
@@ -104,13 +113,29 @@ public func Fire1()
   user->WeaponEnd(x,y);
 
   //Kugel abfeuern
-  var ammo = SALaunchBullet(x,y,GetController(user),angle,270,800,GetFMData(FM_Damage));
+  var ammo = SALaunchBullet(x,y,GetController(user),angle,270,800,GetFMData(FM_Damage), 0, 0, iAttachment == AT_Silencer);
 
   //Effekte
-  MuzzleFlash(RandomX(30,40),user,x,y,angle,0, 0);
-  SABulletCasing(x/3,y/3,-dir*14*(Random(1)+1),-(13+Random(2)),5);
-  Sound("ASTR_Fire*.ogg", 0, ammo);
-  Echo("ASTR_Echo.ogg");
+  if(iAttachment != AT_Silencer)
+  {
+    SABulletCasing(x/3,y/3,-dir*14*(Random(1)+1),-(13+Random(2)),5);
+    Sound("ASTR_Fire*.ogg", 0, ammo);
+    MuzzleFlash(RandomX(30,40),user,x,y,angle,0, 0);
+    Echo("ASTR_Echo.ogg");
+  }
+  else
+  {
+    Sound("WPN2_SilencerFire*.ogg", 0, ammo, 0, GetOwner(user)+1);
+    Sound("WPN2_SilencerFire*.ogg", 0, ammo, 10);
+
+    //Tarnung abschwächen
+    if(GetEffect("Silencer", this))
+      EffectVar(0, this, GetEffect("Silencer", this)) -= BoundBy(25, 0, EffectVar(0, this, GetEffect("Silencer", this)));
+  }
+
+  //Klickgeräusch bei wenig Munition
+  if(Inside(GetAmmo(GetFMData(FM_AmmoID)), 1, GetFMData(FM_AmmoLoad)/3))
+    Sound("MNGN_Click.ogg", 0, ammo, 0, GetOwner(user)+1);
 }
 
 /* Granaten */
@@ -212,7 +237,7 @@ public func LaunchGrenade(id idg, int speed, int angle, int mode)
   var grenade=CreateObject(idg, x, y, GetController(user));
   if(!Stuck(grenade)) SetPosition(GetX(grenade)+xdir/10,GetY(grenade)+ydir/10,grenade);
   SetController(GetController(user), grenade);
-  grenade->Launch(xdir+GetXDir(user)/5, ydir/*+GetYDir(user)/10*/, GetFMData(FM_Damage,2));
+  grenade->Launch(xdir+GetXDir(user)/5, ydir/*+GetYDir(user)/10*/, GetFMData(FM_Damage,2), 0, 0, 0, iAttachment);
 
   //Sicht auf Granate wenn der Schütze zielt
   if(!(user->~IsMachine()) && user->~IsAiming())
@@ -240,8 +265,41 @@ public func LaunchGrenade(id idg, int speed, int angle, int mode)
   Sound("ASTR_LauncherFire*.ogg", 0, grenade);
   Echo("SGST_Echo.ogg");
 
+  //Schalldämpfer vorhanden: Enttarnen
+  if(GetEffect("Silencer", this))
+    EffectVar(0, this, GetEffect("Silencer", this)) = 0;
+
   //Patronenhülse vorhanden
   casing = 1;
+}
+
+/* Laserpointer */
+
+func FxLaserDotTimer(object pTarget, int iEffectNumber, int iEffectTime)
+{
+  if(firemode == 2)
+  {
+    if(pBeam) RemoveObject(pBeam);
+    if(pLaser) RemoveObject(pLaser);
+
+    //Nutzer festlegen
+    var user = this->~GetUser();
+    var x, y, z;
+    if(!user || !user->~IsClonk() || !user->WeaponAt(x, y, z) || !user->IsAiming() || Contents(0, user) != this || iAttachment != AT_Laserpointer)
+    {
+      RemoveTrajectory(pTarget);
+      return;
+    }
+
+    var iAngle = EffectVar(1, user, GetEffect("ShowWeapon", user));
+    var empty = IsReloading() || !GetCharge();
+    AddTrajectory(pTarget, GetX(pTarget), GetY(pTarget), Sin(iAngle, 90), -Cos(iAngle, 90), 35*3, RGB(255*empty, 255*(!empty), 0));
+  }
+  else
+  {
+    RemoveTrajectory(pTarget);
+    return _inherited(...);
+  }
 }
 
 /* Handeffekt */
@@ -258,7 +316,10 @@ func OnReload(i)
 {
   if(i == 1)
   {
-    Sound("ASTR_Reload.ogg");
+    if(iAttachment == AT_ExtendedMag)
+      Sound("ASTR_Reload2.ogg");
+    else
+      Sound("ASTR_Reload.ogg");
   }
   if(i == 2)
   {

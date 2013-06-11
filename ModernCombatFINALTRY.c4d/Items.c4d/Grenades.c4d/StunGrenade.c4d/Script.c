@@ -68,6 +68,9 @@ public func Fused()
 
 public func FxIntFlashbangStart(object pTarget, int iEffectNumber, int iTemp, intensity, owner)
 {
+  if(iTemp)
+    return;
+
   //Keine Intensität?
   if(!intensity) return -1;
 
@@ -80,21 +83,18 @@ public func FxIntFlashbangStart(object pTarget, int iEffectNumber, int iTemp, in
   //Stärke berechnen und Blendung erstellen
   var a = BoundBy(255-(intensity*255/100),0,255);
 
-  //Ziel bereits geblendet? Hinzuaddieren
-  if(GetEffectCount("IntFlashbang", pTarget) > 1)
+  //Ziel bereits geblendet: Hinzuaddieren
+  var srgb = GetScreenRGB(GetOwner(pTarget), SR4K_LayerLight, pTarget);
+  if(srgb)
   {
-    for(var i = 0; i < GetEffectCount("IntFlashbang", pTarget); i++)
-    {
-       var nr = GetEffect("IntFlashbang", pTarget, i);
-      if(nr != iEffectNumber)
-      {
-        EffectVar(0, pTarget, nr) = BoundBy(EffectVar(0, pTarget, nr) + intensity, 0, 255);
-        return -1;
-      }
-    }
+    srgb->~DoAlpha(255-a, 0, 255);
+
+    if(GetEffectCount("IntFlashbang", pTarget) > 1)
+      return -1;
   }
 
-  var flash = ScreenRGB(pTarget,RGBa(255,255,255,a), 0, 0, false, SR4K_LayerLight);
+  var flash = ScreenRGB(pTarget,RGB(255,255,255), 0, 0, false, SR4K_LayerLight);
+  flash->SetAlpha(a);
   if(!flash)
     return -1;
   else
@@ -103,42 +103,57 @@ public func FxIntFlashbangStart(object pTarget, int iEffectNumber, int iTemp, in
 
 public func FxIntFlashbangTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
-  var i = EffectVar(0,pTarget,iEffectNumber)--;
+  var rgb = EffectVar(1,pTarget,iEffectNumber);
+  if(!rgb) return -1;
+
+  var i;
+  if(--EffectVar(0, pTarget, iEffectNumber) >= 100)
+    i = EffectVar(0, pTarget, iEffectNumber);
+  else
+    //Aktuelle Intensität anhand des ScreenRGB-Alphawerts ermitteln
+    i = ((255-rgb->~GetAlpha()) * 100 / 255)-1;
+
   if(i <= 0) return -1;
-  if(!EffectVar(1,pTarget,iEffectNumber)) return -1;
-  
-  var a = BoundBy(255-(i*255/100),0,255);
-  EffectVar(1,pTarget,iEffectNumber)->SetAlpha(a);
-  
+
+  var a = BoundBy(255-(i*255/100)-1,0,255);
+  rgb->SetAlpha(a);
+
   var val, num, pCursor, c, flag;
   if(!Contained())
   {
+    var a = rgb->~GetAlpha(), c;
     for(var i = 0; i < GetPlayerCount(); i++)
     {
-      pCursor = GetCursor(GetPlayerByIndex(i))->~GetRealCursor();
-      if(!pCursor) pCursor = GetCursor(GetPlayerByIndex(i));
-      if(!pCursor) continue;
-      if(Contained(pCursor)) continue;
-      num = GetEffect("IntFlashbang", pCursor);
-      if(num)
+      var pCursor = GetCursor(GetPlayerByIndex(i))->~GetRealCursor();
+      if(!pCursor && !(pCursor = GetCursor(GetPlayerByIndex(i)))) 
+        continue;
+
+      if(Contained(pCursor))
+        continue;
+
+      var srgb = GetScreenRGB(GetPlayerByIndex(i), SR4K_LayerLight, pCursor);
+      var val = 0;
+
+      if(srgb)
       {
-        val = 255-BoundBy((EffectVar(0,pCursor,num)-1)*255/100,0,255);
-        if(255-a < val) val = 255-a;
+        val = srgb->~GetAlpha();
+
+        if(val > 127)
+          val = 255-val;
       }
       else
-      {
         val = 255-a;
-      }
-      flag = 0;
-      if(c != 0) flag = MSG_Multiple;
+
+      var flag = 0;
+      if(c != 0)
+        flag = MSG_Multiple;
+
       CustomMessage(Format("<c %x>{{SM07}}</c>", RGBa(255,255,255,BoundBy(val, 1, 254))), pTarget, GetPlayerByIndex(i), 0, 0, 0, 0, 0, flag); 
       c++;
     }
   }
   else
-  {
-    Message("@", pTarget); 
-  }
+    Message("@", pTarget);
 }
 
 public func FxIntFlashbangStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)
