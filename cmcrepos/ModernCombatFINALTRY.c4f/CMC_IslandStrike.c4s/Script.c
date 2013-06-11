@@ -1108,13 +1108,13 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
   //Ziel 2
   if (iIndex == 1)
   {
-   //Teamgrenze setzen
-   FindObject(GASS)->CreateTeamBorder(AssaultDefenderTeam(),2990,0,1,1);
-
    //Grenzen neu setzen
    RemoveAll(BRDR);
    CreateObject(BRDR, 1560, 0, -1)->Set(0,1);
    CreateObject(BRDR, 3930, 0, -1)->Set(1,1);
+
+   //Teamgrenze setzen
+   FindObject(GASS)->CreateTeamBorder(AssaultDefenderTeam(),2990,0,1,1);
 
    //Lampe deaktivieren
    aLamp[07]->EMPShock();
@@ -1134,7 +1134,7 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
    CreateObject(BRDR, 5140, 0, -1)->Set(1,1);
 
    //Teamgrenze setzen
-   FindObject(GASS)->CreateTeamBorder(AssaultDefenderTeam(),3860,0,1,1);
+   FindObject(GASS)->CreateTeamBorder(AssaultDefenderTeam(),3120,0,1,1);
 
    //Geschützstellung entfernen
    aStationary[0]->DecoExplode(30);
