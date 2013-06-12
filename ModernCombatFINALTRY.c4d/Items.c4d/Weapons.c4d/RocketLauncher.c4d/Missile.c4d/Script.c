@@ -27,13 +27,8 @@ public func IgnoreTracer()	{return true;}
 public func IsDamaged()		{return GetEffect("Damaged", this);}
 public func IsRocket()		{return true;}			//Ist eine Rakete
 
-public func AllowHitboxCheck() {return true;}
-public func RejectC4Attach()
-{
-  for(var pC4 in FindObjects(Find_Distance(50, 0, 0), Find_Func("IsC4Explosive")))
-    if(LocalN("pStickTo",pC4) == this)
-      return 1;
-}
+public func AllowHitboxCheck()	{return true;}
+public func RejectC4Attach()	{return true;}
 
 
 /* Initialisierung */
