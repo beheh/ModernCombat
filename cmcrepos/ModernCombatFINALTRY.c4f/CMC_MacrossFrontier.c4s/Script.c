@@ -281,7 +281,7 @@ func CreateDecoration()
   CreateObject(MSGN, 600, 470, -1);
   CreateObject(MSGN, 630, 460, -1);
   CreateObject(MSGN, 660, 450, -1);
-  CreateObject(ESGN, 805, 430, -1);
+  CreateObject(ESGN, 805, 435, -1);
   CreateObject(MSGN, 890, 370, -1);
   CreateObject(MSGN, 920, 380, -1);
   CreateObject(MSGN, 950, 390, -1);
@@ -338,8 +338,10 @@ func CreateDecoration()
   CreateObject(ENGT, 520, 360, -1);
   CreateObject(ENGT, 1030, 280, -1);
 
-  //Feuerlöcher
-  CreateObject(FIEX, 790, 429, -1);
+  //Feuerlöscher
+  CreateObject(FIEX, 340, 435, -1);
+  CreateObject(FIEX, 790, 435, -1);
+  CreateObject(FIEX, 1210, 355, -1);
 
   //Poster
   CreateObject(PSTR, 760, 437, -1)->Set(3);
