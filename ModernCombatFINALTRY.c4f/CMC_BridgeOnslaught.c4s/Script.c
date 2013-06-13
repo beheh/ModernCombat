@@ -501,7 +501,7 @@ func CreateDecoration()
   CreateObject(ENGT, 2590, 430, -1);
   CreateObject(ENGT, 2690, 430, -1);
 
-  //Feuerlöcher
+  //Feuerlöscher
   CreateObject(FIEX, 115, 430, -1);
   CreateObject(FIEX, 315, 630, -1);
   CreateObject(FIEX, 1285, 510, -1);

@@ -169,9 +169,8 @@ func CreateDecoration()
   //Radar
   CreateObject(RADR, 2085, 240, -1);
 
-  //Feuerlöcher
+  //Feuerlöscher
   CreateObject(FIEX, 215, 295, -1);
-  CreateObject(FIEX, 765, 385, -1);
   CreateObject(FIEX, 1375, 335, -1);
   CreateObject(FIEX, 2320, 205, -1);
 
