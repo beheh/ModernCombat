@@ -7,7 +7,7 @@ local fAAMode;
 local curPrio;
 local powerMode;
 
-public func SearchLength()  {return 350 + fAAMode*150;}	//Suchlänge
+public func SearchLength()  {return 350 + fAAMode*400;}	//Suchlänge
 public func MaxRotLeft()			{return 110 + GetR() - fAAMode*40;}			//Maximaler Winkel links
 public func MaxRotRight()			{return 250 + GetR() + fAAMode*40;}			//Maximaler Winkel rechts
 
@@ -169,7 +169,7 @@ public func Activity()
 public func SearchAA()
 {
   var pAim;
-  var Targets = FindAATargets(SearchLength()*3/2);
+  var Targets = FindAATargets(SearchLength());
   var pTarget = GotTarget;
   
   for(pAim in Targets)
