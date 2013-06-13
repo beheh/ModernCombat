@@ -85,7 +85,7 @@ protected func Hit3()
 {
   DoDamage(20);
 }
-  
+
 protected func Hit(int iPlr)
 {
   Sound("BarrelImpact*.ogg");

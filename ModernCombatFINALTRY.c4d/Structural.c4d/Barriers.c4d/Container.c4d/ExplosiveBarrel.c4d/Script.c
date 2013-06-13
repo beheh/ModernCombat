@@ -114,7 +114,7 @@ public func OnHit(int iDamage, int iType, object pFrom)
 {
   Sound("BarrelDamaged*.ogg");
 }
-  
+
 protected func Hit()
 {
   Sound("BarrelImpact*.ogg");

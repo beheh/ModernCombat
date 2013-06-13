@@ -35,9 +35,9 @@ global func FxGasEffectTimer(object target, int effect, int time)
     flame->SetController(GetController(target));
     flame->Launch(10-Random(20),10-Random(20),true,30-(time*30/175));
   }
-  
+
   target->CreateParticle("FrSprk",0,0,15-Random(30),15-Random(30),200, RGBa(160,255,0,time*255/175));
-  
+
   if(time >= 175)
     RemoveObject(target);
 }

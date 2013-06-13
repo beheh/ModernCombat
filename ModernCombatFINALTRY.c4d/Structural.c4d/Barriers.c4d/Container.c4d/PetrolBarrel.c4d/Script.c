@@ -23,9 +23,9 @@ func BlowUp(int iPlr)
   FadeOut();
 
   //if(Stuck()) return;
-  
+
   var iDamage = 25;
-    
+
   var flamecount, strength;
   for(strength = 30; strength > 10; strength -= 9)
   {
