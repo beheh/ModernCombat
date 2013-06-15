@@ -875,7 +875,7 @@ public func ChooserFinished()
 
    //SSA Besitzer setzen
    if(aTeams[2] == true)
-   {aSelfDefense[0]->SetTeam(2); aSelfDefense[1]->SetTeam(2); aSelfDefense[3]->SetTeam(2);}
+   {aSelfDefense[1]->SetTeam(2); aSelfDefense[3]->SetTeam(2);}
 
    //Helikopter und Hinweisschilder
    if(!FindObject(NOHC))
@@ -891,6 +891,7 @@ public func ChooserFinished()
    DrawMaterialQuad("Wall-Bricks2", 7230,530, 7250,530, 7250,560, 7230,560);
 
    //Objekte entfernen
+   RemoveObject(aSelfDefense[0]);
    RemoveObject(aSelfDefense[1]);
    RemoveObject(aSelfDefense[2]);
    RemoveObject(aArtillery[0]);
@@ -1085,10 +1086,6 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
 
    //Teamgrenze setzen
    FindObject(GASS)->CreateTeamBorder(AssaultDefenderTeam(),1880,0,1,1);
-
-   //SSA zerstören
-   aSelfDefense[0]->Disarm();
-   aSelfDefense[0]->DecoExplode(30);
 
    //Lampen deaktivieren
    aLamp[00]->EMPShock();
