@@ -377,8 +377,7 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
           y = -Cos(AimAngle(), (xOff - xPos) * 1000 / (Sin(AimAngle(), 1000))) + yPos;
         }
       }
-
-  }
+  	}
 
   //Laser zeichnen
   if(!pBeam)  
