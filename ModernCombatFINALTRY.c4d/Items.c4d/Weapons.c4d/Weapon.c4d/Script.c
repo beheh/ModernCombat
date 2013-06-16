@@ -667,39 +667,39 @@ public func Reload(int iFM)
 //Schwenkanimtaion beim Nachladen
 public func HandR()
 {
-	var effect = IsReloading(); 
-	if(!effect || !this->~ReloadAnimation())
-	{
-		if(this->~RechargeAnimation() && IsRecharging())
-			effect = IsRecharging();
-		else
-			return;
-		
-		if(!effect)
-			return;
-	}
-	
-	//Keine Schwenkanimation wenn Nachladen beendet (Revolversystem)
-	if(effect == IsReloading() && EffectVar(5, this, effect) > 0)
-		return;
-	
-	var max = this->~MaxReloadRotation();
-	if(effect == IsRecharging())
-		max = this->~MaxRechargeRotation();
+  var effect = IsReloading(); 
+  if(!effect || !this->~ReloadAnimation())
+  {
+    if(this->~RechargeAnimation() && IsRecharging())
+      effect = IsRecharging();
+    else
+      return;
 
-	var speed = (this->~ReloadAnimationSpeed() || 1);
-	var time = GetEffect(0, this, effect, 6) * speed;
-	var reload = EffectVar(7, this, effect);// + GetFMData(FM_BurstRecharge);
+    if(!effect)
+      return;
+  }
 
-	if(effect == IsRecharging())
-		reload = GetFMData(FM_Recharge);
+  //Keine Schwenkanimation wenn Nachladen beendet (Revolversystem)
+  if(effect == IsReloading() && EffectVar(5, this, effect) > 0)
+    return;
 
-	if(time / ((reload * speed) / 2) == 1)
-		time -= (time % ((reload * speed) / 2)) * 2;
-	else if(time / ((reload * speed) / 2) > 1)
-		time = 0;
+  var max = this->~MaxReloadRotation();
+  if(effect == IsRecharging())
+    max = this->~MaxRechargeRotation();
 
-	return -BoundBy(time, 0, max);
+  var speed = (this->~ReloadAnimationSpeed() || 1);
+  var time = GetEffect(0, this, effect, 6) * speed;
+  var reload = EffectVar(7, this, effect);// + GetFMData(FM_BurstRecharge);
+
+  if(effect == IsRecharging())
+    reload = GetFMData(FM_Recharge);
+
+  if(time / ((reload * speed) / 2) == 1)
+    time -= (time % ((reload * speed) / 2)) * 2;
+  else if(time / ((reload * speed) / 2) > 1)
+    time = 0;
+
+  return -BoundBy(time, 0, max);
 }
 
 /*----- Werfen -----*/
@@ -1859,8 +1859,8 @@ func FxLaserDotTimer(object pTarget, int iEffectNumber, int iEffectTime)
     
     if(!SimFlight(x, y, xdir, ydir, 0, 0, WPN2_ATLaserpointer_Range/3))
     {
-    	x = Sin(iAngle, WPN2_ATLaserpointer_Range) + xPos;
-    	y = -Cos(iAngle, WPN2_ATLaserpointer_Range) + yPos;
+      x = Sin(iAngle, WPN2_ATLaserpointer_Range) + xPos;
+      y = -Cos(iAngle, WPN2_ATLaserpointer_Range) + yPos;
       pLaser->Stop();
     }
     else if(!pLaser->Active())
@@ -1872,8 +1872,11 @@ func FxLaserDotTimer(object pTarget, int iEffectNumber, int iEffectTime)
     ydir = Cos(iAngle, -3000);
 
     var pEnemy;
-    pEnemy = FindObject2(Find_OnLine(0, 0, x - xPos, y - yPos), Find_NoContainer(), Find_Or(Find_Func("IsSmoking"), Find_And(Find_Hostile(GetOwner(GetUser(this))), Find_Or(Find_OCF(OCF_Alive), Find_Func("IsBulletTarget", GetID(), this, this), Find_Func("IsCMCVehicle")))), Sort_Distance(0, 0));
-
+    if(pLaser->Active() || fStart)
+      pEnemy = FindObject2(Find_OnLine(0, 0, x - xPos, y - yPos), Find_NoContainer(), Find_Or(Find_Func("IsSmoking"), Find_And(Find_Hostile(GetOwner(this)), Find_Or(Find_OCF(OCF_Alive), Find_Func("IsBulletTarget", GetID(), this, this), Find_Func("IsCMCVehicle")))), Sort_Distance(0, 0));
+    else
+      pEnemy = FindObject2(Find_OnLine(0, 0, xdir, ydir), Find_NoContainer(), Find_Or(Find_Func("IsSmoking"), Find_And(Find_Hostile(GetOwner(this)), Find_Or(Find_OCF(OCF_Alive), Find_Func("IsBulletTarget", GetID(), this, this), Find_Func("IsCMCVehicle")))), Sort_Distance(0, 0));
+  
     //Feinderkennung
     if(pEnemy)
     {
@@ -1883,39 +1886,55 @@ func FxLaserDotTimer(object pTarget, int iEffectNumber, int iEffectTime)
       x = GetX(pEnemy);
       y = GetY(pEnemy);
 
-      var xOff, yOff;
+      var xLeft = GetDefCoreVal("Offset", "DefCore", GetID(pEnemy), 0) + x +10*pEnemy->~IsSmoking();
+      var xRight = GetDefCoreVal("Width", "DefCore", GetID(pEnemy)) + GetDefCoreVal("Offset", "DefCore", GetID(pEnemy), 0) + x -10*pEnemy->~IsSmoking();
 
-      if(xPos > x)
-        xOff = GetDefCoreVal("Width", "DefCore", GetID(pEnemy)) + GetDefCoreVal("Offset", "DefCore", GetID(pEnemy), 0) + x;
-      else
-        xOff = GetDefCoreVal("Offset", "DefCore", GetID(pEnemy), 0) + x;
+      var yUp = GetDefCoreVal("Offset", "DefCore", GetID(pEnemy), 1) + y +10*pEnemy->~IsSmoking();
+      var yDown = GetDefCoreVal("Height", "DefCore", GetID(pEnemy)) + GetDefCoreVal("Offset", "DefCore", GetID(pEnemy), 1) + y -10*pEnemy->~IsSmoking();
 
-      if(yPos > y)
-        yOff = GetDefCoreVal("Height", "DefCore", GetID(pEnemy)) + GetDefCoreVal("Offset", "DefCore", GetID(pEnemy), 1) + y;
-      else
-        yOff = GetDefCoreVal("Offset", "DefCore", GetID(pEnemy), 1) + y;
-
-      if(Inside(xPos, Min(x, xOff), Max(x, xOff)))
+      if(Inside(xPos, xLeft, xRight) && Inside(yPos, yUp, yDown))
       {
-        x = Sin(iAngle, (yOff - yPos) * 1000 / (-Cos(iAngle, 1000))) + xPos;
-        y = -Cos(iAngle, (yOff - yPos) * 1000 / (-Cos(iAngle, 1000))) + yPos;
-      }
-      else if(Inside(yPos, Min(y, yOff), Max(y, yOff)))
-      {
-        x = Sin(iAngle, (xOff - xPos) * 1000 / (Sin(iAngle, 1000))) + xPos;
-        y = -Cos(iAngle, (xOff - xPos) * 1000 / (Sin(iAngle, 1000))) + yPos;
-      }
-      else if((Angle(xPos, yPos, xOff, yOff) >= 180 && Angle(xPos, yPos, xOff, yOff) < iAngle) || (Angle(xPos, yPos, xOff, yOff) <= 180 && Angle(xPos, yPos, xOff, yOff) > iAngle))
-      {
-        x = Sin(iAngle, (yOff - yPos) * 1000 / (-Cos(iAngle, 1000))) + xPos;
-        y = -Cos(iAngle, (yOff - yPos) * 1000 / (-Cos(iAngle, 1000))) + yPos;
+        x = xPos;
+        y = yPos;
       }
       else
       {
-        x = Sin(iAngle, (xOff - xPos) * 1000 / (Sin(iAngle, 1000))) + xPos;
-        y = -Cos(iAngle, (xOff - xPos) * 1000 / (Sin(iAngle, 1000))) + yPos;
+        var xOff, yOff;
+
+        if(xPos > x)
+          xOff = xRight;
+        else
+          xOff = xLeft;
+
+        if(yPos > y)
+          yOff = yDown;
+        else
+          yOff = yUp;
+
+        if(Inside(xPos, Min(x, xOff), Max(x, xOff)))
+        {
+          x = Sin(iAngle, (yOff - yPos) * 1000 / (-Cos(iAngle, 1000))) + xPos;
+          y = -Cos(iAngle, (yOff - yPos) * 1000 / (-Cos(iAngle, 1000))) + yPos;
+        }
+        else
+          if(Inside(yPos, Min(y, yOff), Max(y, yOff)))
+          {
+            x = Sin(iAngle, (xOff - xPos) * 1000 / (Sin(iAngle, 1000))) + xPos;
+            y = -Cos(iAngle, (xOff - xPos) * 1000 / (Sin(iAngle, 1000))) + yPos;
+          }
+        else
+          if((Angle(xPos, yPos, xOff, yOff) >= 180 && Angle(xPos, yPos, xOff, yOff) < iAngle) || (Angle(xPos, yPos, xOff, yOff) <= 180 && Angle(xPos, yPos, xOff, yOff) > iAngle))
+          {
+            x = Sin(iAngle, (yOff - yPos) * 1000 / (-Cos(iAngle, 1000))) + xPos;
+            y = -Cos(iAngle, (yOff - yPos) * 1000 / (-Cos(iAngle, 1000))) + yPos;
+          }
+        else
+        {
+          x = Sin(iAngle, (xOff - xPos) * 1000 / (Sin(iAngle, 1000))) + xPos;
+          y = -Cos(iAngle, (xOff - xPos) * 1000 / (Sin(iAngle, 1000))) + yPos;
+        }
       }
-  	}
+    }
 
     //Laser zeichnen
     if(!pBeam)  
@@ -1927,7 +1946,11 @@ func FxLaserDotTimer(object pTarget, int iEffectNumber, int iEffectTime)
     pBeam->SetVisibility(VIS_Owner | VIS_Allies);
 
     //Laser passend strecken
-    pBeam->SetObjDrawTransform(100 * Distance(xPos, yPos, x, y), 0, -450 * Distance(xPos, yPos, x, y), 0, 1000, 0);
+    if(pEnemy || pLaser->Active() || fStart)
+      pBeam->SetObjDrawTransform(100 * Distance(xPos, yPos, x, y), 0, -453 * Distance(xPos, yPos, x, y), 0, 1000, 0);
+    else
+      pBeam->SetObjDrawTransform(100 * Distance(xPos, yPos, xPos + xdir/3, yPos + ydir/3), 0, -453 * Distance(xPos, yPos, xPos + xdir/3, yPos + ydir/3), 0, 1000, 0);
+
     pBeam->SetR(iAngle+90);
     SetPosition(x, y, pLaser);
 
