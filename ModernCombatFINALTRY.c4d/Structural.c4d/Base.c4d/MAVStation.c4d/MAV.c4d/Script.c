@@ -316,9 +316,9 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
     var pEnemy;
 
     if(pLaser->Active() || fStart)
-      pEnemy = FindObject2(Find_OnLine(0, 0, x - xPos, y - yPos), Find_NoContainer(), Find_Or(Find_Func("IsSmoking"), (Find_Hostile(GetOwner(this)), Find_Or(Find_OCF(OCF_Alive), Find_Func("IsBulletTarget", GetID(), this, this), Find_Func("IsCMCVehicle")))), Sort_Distance(0, 0));
+      pEnemy = FindObject2(Find_OnLine(0, 0, x - xPos, y - yPos), Find_NoContainer(), Find_Or(Find_Func("IsSmoking"), Find_And(Find_Hostile(GetOwner(this)), Find_Or(Find_OCF(OCF_Alive), Find_Func("IsBulletTarget", GetID(), this, this), Find_Func("IsCMCVehicle")))), Sort_Distance(0, 0));
     else
-      pEnemy = FindObject2(Find_OnLine(0, 0, xdir, ydir), Find_NoContainer(), Find_Or(Find_Func("IsSmoking"), (Find_Hostile(GetOwner(this)), Find_Or(Find_OCF(OCF_Alive), Find_Func("IsBulletTarget", GetID(), this, this), Find_Func("IsCMCVehicle")))), Sort_Distance(0, 0));
+      pEnemy = FindObject2(Find_OnLine(0, 0, xdir, ydir), Find_NoContainer(), Find_Or(Find_Func("IsSmoking"), Find_And(Find_Hostile(GetOwner(this)), Find_Or(Find_OCF(OCF_Alive), Find_Func("IsBulletTarget", GetID(), this, this), Find_Func("IsCMCVehicle")))), Sort_Distance(0, 0));
 
     //Feinderkennung
     if(pEnemy)
@@ -329,11 +329,11 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
       x = GetX(pEnemy);
       y = GetY(pEnemy);
 
-      var xLeft = GetDefCoreVal("Offset", "DefCore", GetID(pEnemy), 0) + x;
-      var xRight = GetDefCoreVal("Width", "DefCore", GetID(pEnemy)) + GetDefCoreVal("Offset", "DefCore", GetID(pEnemy), 0) + x;
+      var xLeft = GetDefCoreVal("Offset", "DefCore", GetID(pEnemy), 0) + x +10*pEnemy->~IsSmoking();
+      var xRight = GetDefCoreVal("Width", "DefCore", GetID(pEnemy)) + GetDefCoreVal("Offset", "DefCore", GetID(pEnemy), 0) + x -10*pEnemy->~IsSmoking();
 
-      var yUp = GetDefCoreVal("Offset", "DefCore", GetID(pEnemy), 1) + y;
-      var yDown = GetDefCoreVal("Height", "DefCore", GetID(pEnemy)) + GetDefCoreVal("Offset", "DefCore", GetID(pEnemy), 1) + y;
+      var yUp = GetDefCoreVal("Offset", "DefCore", GetID(pEnemy), 1) + y +10*pEnemy->~IsSmoking();
+      var yDown = GetDefCoreVal("Height", "DefCore", GetID(pEnemy)) + GetDefCoreVal("Offset", "DefCore", GetID(pEnemy), 1) + y -10*pEnemy->~IsSmoking();
 
       if(Inside(xPos, xLeft, xRight) && Inside(yPos, yUp, yDown))
       {
