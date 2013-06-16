@@ -1,2 +1,0 @@
-DE:Taschenlampe
-US:Flashlight

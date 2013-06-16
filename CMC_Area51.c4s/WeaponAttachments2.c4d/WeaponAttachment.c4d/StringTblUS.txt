@@ -1,3 +1,0 @@
-Upgrade=Use %s
-NothingUpgradeable=Nothing upgradeable available.
-CantUpgrade=Clonk can't upgrade at the moment.
