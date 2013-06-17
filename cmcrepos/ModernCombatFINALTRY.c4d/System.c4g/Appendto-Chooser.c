@@ -596,7 +596,13 @@ protected func ChoosePossibleTeams(int iMode, bool fInvisible, int iSelection)
       AddMenuItem("$PredefinedTeamMember$", Format("SelectPredefinedTeamMember(%v, %d, 2)", fInvisible, GetTeamCount()+1), TEAM, pClonk);
     }
 
-    AddMenuItem(caption, Format("CreateTeams(2, %d)", iMode+fInvisible), CHOS, pClonk, 0, 0, 0, 2, 3);
+		var cmd = 0;
+		if(CreateTeamsAllowed(iMode))
+			cmd = Format("CreateTeams(2, %d)", iMode+fInvisible);
+		else
+			caption = "<c 777777>$ChooseCaptains$</c>";
+
+    AddMenuItem(caption, cmd, CHOS, pClonk, 0, 0, 0, 2, 3);
     AddMenuItem("$Back$", "OpenTeamMenu", 0, pClonk, 0, 0, "$Back$");
   }
 
@@ -607,6 +613,27 @@ protected func ChoosePossibleTeams(int iMode, bool fInvisible, int iSelection)
 }
 
 local aPlayerSetting;
+
+public func CreateTeamsAllowed(int iMode)
+{
+	if(iMode == CHOS_TeamRotation)
+	{
+		if(GetTeamConfig(TEAM_AutoGenerateTeams) && iTeamCount+2 > GetPlayerCount()) //Engine-erstelltes Team
+			return false;
+		else if(!GetTeamConfig(TEAM_AutoGenerateTeams))
+		{
+			var teamcnt;
+			for(var team in arTeams)
+				if(team)
+					teamcnt++;
+			
+			if(teamcnt+2 > GetPlayerCount())
+				return false;
+		}
+	}
+
+	return true;
+}
 
 protected func SelectPredefinedTeamMember(bool fInvisible, int iSelection, int iTeamSort, int iPlr)
 {
