@@ -5,7 +5,7 @@
 
 local motor, motoridle, turn_end_dir;
 
-public func MaxDamage()		{return 200;}
+public func MaxDamage()		{return 250;}
 public func OnOwnerLoss()	{motor->SetOwner(NO_OWNER);}
 public func BlockVehicleSpawn()	{return true;}
 
@@ -29,7 +29,7 @@ func SetUp()
   motor = CreateObject(OBMT,0,0,GetOwner());
   motor->SetBoat(this);
   motor->UpdateDmg();
-  
+
   SetDir(dir);
   TurnEnd();
   return 1;
@@ -110,7 +110,7 @@ private func Sail()
 
   if(!GetComDir()) return ;
 
-  var xdir = Min(Abs(GetXDir())+2,30);
+  var xdir = Min(Abs(GetXDir())+3,30);
 
   Sound("MotorLoop.ogg",false,motor,100,0,+1);
   Sound("MotorIdleLoop.ogg",false,motoridle,100,0,-1);
@@ -163,7 +163,7 @@ func Stop()
    Sound("MotorIdleLoop.ogg",false,motoridle,100,0,+1);
 }
 
-/* Kontrolle ob verwendet */
+/* Kontrolle ob in Verwendung */
 
 public func GetActionTarget()
 {
@@ -253,7 +253,7 @@ protected func FxIntTurnTimer(object target, int number, int time)
   var phases = GetActMapVal("Length", "Turn");
   //Schon vorbei
   if(time == delay * phases) return -1;
-  //Eine Sinus-Kurve von -90 bis +90 Grad hernehmen um die neue Position der Clonks zu bestimmen.
+  //Eine Sinus-Kurve von -90 bis +90 Grad hernehmen um die neue Position der Clonks zu bestimmen
   var sin_phase = (time * 180 / (phases * delay)) - 90;
   var pos_phase = Sin(sin_phase, 50) + 50;
   // Clonkpositionen anpassen
