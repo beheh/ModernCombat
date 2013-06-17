@@ -561,13 +561,7 @@ private func HitCheck(int r, int d)
     var yUp = GetDefCoreVal("Offset", "DefCore", GetID(pObj), 1) + oy;
     var yDown = GetDefCoreVal("Height", "DefCore", GetID(pObj)) + GetDefCoreVal("Offset", "DefCore", GetID(pObj), 1) + oy;
 
-    if(Inside(sx, xLeft, xRight) && Inside(sy, yUp, yDown))
-    {
-      lx = sx;
-      ly = sy;
-      fNoTrail = true;
-    }
-    else
+    if(!(Inside(sx, xLeft, xRight) && Inside(sy, yUp, yDown)))
     {
       var xOff, yOff;
 
