@@ -133,8 +133,8 @@ public func Damage(int change)
   //Bei Seilhalterungen Schaden nullifizieren
   if(WorkingRopesCount())
     DoDamage(-GetDamage());
-  //Ansonsten bei 200 Schaden zusammenfallen
-  else if(GetDamage() > 200)
+  //Ansonsten bei 150 Schaden zusammenfallen
+  else if(GetDamage() > 150)
     PrepareCollapse();
 
   return true;
@@ -192,7 +192,7 @@ protected func PrepareCollapse()
   }
 
   //Zusammensturz planen
-  ScheduleCall(0, "Collapse", 150);
+  ScheduleCall(0, "Collapse", 100);
 
   //Effekte
   CreateParticle("Smoke2",0,-200,-10,0,5*50);
@@ -283,16 +283,24 @@ protected func Collapse()
   //Effekte
   CreateParticle("Blast",0,-200,-10,0,5*50,RGB(255,255,128));
   CreateParticle("Blast",0,-200,10,0,5*50,RGB(255,255,128));
+  CreateParticle("Smoke2",0,-200,-10,0,5*80);
+  CreateParticle("Smoke2",0,-200,10,0,5*80);
 
   CreateParticle("Blast",0,-50,-10,0,5*50,RGB(255,255,128));
   CreateParticle("Blast",0,-50,10,0,5*50,RGB(255,255,128));
+  CreateParticle("Smoke2",0,-50,-10,0,5*80);
+  CreateParticle("Smoke2",0,-50,10,0,5*80);
 
   CreateParticle("Blast",0,100,-10,0,5*50,RGB(255,255,128));
   CreateParticle("Blast",0,100,10,0,5*50,RGB(255,255,128));
+  CreateParticle("Smoke2",0,100,-10,0,5*80);
+  CreateParticle("Smoke2",0,100,10,0,5*80);
 
   CreateParticle("Blast",0,250,-10,0,5*50,RGB(255,255,128));
   CreateParticle("Blast",0,250,10,0,5*50,RGB(255,255,128));
-  
+  CreateParticle("Smoke2",0,250,-10,0,5*80);
+  CreateParticle("Smoke2",0,250,10,0,5*80);
+
   CastParticles("ConcreteSplinter", RandomX(8,16), 80, 0, -200, 20, 50);
   CastParticles("ConcreteSplinter", RandomX(8,16), 80, 0, -50, 20, 50);
   CastParticles("ConcreteSplinter", RandomX(8,16), 80, 0, 100, 20, 50);

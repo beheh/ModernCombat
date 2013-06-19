@@ -2,6 +2,8 @@
 
 #strict 2
 
+local hit;
+
 
 /* Initalisierung */
 
@@ -76,4 +78,13 @@ public func Hit(int iXDir, int iYDir)
   if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("ConcreteSplinter", RandomX(8,16), 80, AbsX(x), AbsY(y)-1, 20, 50);
 
   return true;
+}
+
+public func Hit3()
+{
+  if(hit) return;
+  hit = true;
+
+  //Rauch erzeugen
+  CastObjects(SM4K,2,20);
 }
