@@ -1897,39 +1897,70 @@ func FxLaserDotTimer(object pTarget, int iEffectNumber, int iEffectTime)
       else
       {
         var xOff, yOff;
-
+        
+				//Wenn xPos größer x (Objektmittelpunkt), dann ist der Aufprallpunkt rechts vom Ziel; sonst links
         if(xPos > x)
           xOff = xRight;
         else
           xOff = xLeft;
 
+				//Wenn yPos größer y (Objektmittelpunkt), dann ist der Aufprallpunkt unterhalb vom Ziel; sonst oberhalb
         if(yPos > y)
           yOff = yDown;
         else
           yOff = yUp;
 
+				//Wenn xPos zwischen x und der näheren Seite zu xPos liegt, dann setze x und y so:
         if(Inside(xPos, Min(x, xOff), Max(x, xOff)))
-        {
-          x = Sin(iAngle, (yOff - yPos) * 1000 / (-Cos(iAngle, 1000))) + xPos;
-          y = -Cos(iAngle, (yOff - yPos) * 1000 / (-Cos(iAngle, 1000))) + yPos;
+        { 
+        	var temp = (yOff - yPos) * 1000 / (-Cos(iAngle, 1000));
+          x = Sin(iAngle, temp) + xPos;
+          y = -Cos(iAngle, temp) + yPos;
         }
         else
+        	//Wenn yPos zwischen y und der näheren Seite zu yPos liegt, dann setze x und y so:
           if(Inside(yPos, Min(y, yOff), Max(y, yOff)))
           {
-            x = Sin(iAngle, (xOff - xPos) * 1000 / (Sin(iAngle, 1000))) + xPos;
-            y = -Cos(iAngle, (xOff - xPos) * 1000 / (Sin(iAngle, 1000))) + yPos;
+          	var temp = (xOff - xPos) * 1000 / (Sin(iAngle, 1000));
+            x = Sin(iAngle, temp) + xPos;
+            y = -Cos(iAngle, temp) + yPos;
           }
-        else
+          //Sonst prüfe, ob ein Punkt an der X- oder der Y-Kante näher am Objektmittelpunkt ist und wähle den richtigen.
+        	else
+        	{
+        		var temp = (yOff - yPos) * 1000 / (-Cos(iAngle, 1000));
+        		var xOne = Sin(iAngle, temp) + xPos;
+          	var yOne = -Cos(iAngle, temp) + yPos;
+          
+          	temp = (xOff - xPos) * 1000 / (Sin(iAngle, 1000));
+          	var xTwo = Sin(iAngle, temp) + xPos;
+          	var	yTwo = -Cos(iAngle, temp) + yPos;
+          
+          	if(Distance(xOne, yOne, x, y) < Distance(xTwo, yTwo, x, y))
+          	{
+          		x = xOne;
+          		y = yOne;
+          	}
+          	else
+          	{
+          		x = xTwo;
+          		y = yTwo;
+          	}
+        	}
+        
+        /*
+        	//Wenn der Winkel zur am nächsten liegenden Ecke des Objekts größer ist als 180 und kleiner als der aktuelle Winkel oder kleiner als 180 und größer als der aktuelle Winkel, dann setze x und y so:
           if((Angle(xPos, yPos, xOff, yOff) >= 180 && Angle(xPos, yPos, xOff, yOff) < iAngle) || (Angle(xPos, yPos, xOff, yOff) <= 180 && Angle(xPos, yPos, xOff, yOff) > iAngle))
           {
             x = Sin(iAngle, (yOff - yPos) * 1000 / (-Cos(iAngle, 1000))) + xPos;
             y = -Cos(iAngle, (yOff - yPos) * 1000 / (-Cos(iAngle, 1000))) + yPos;
           }
-        else
-        {
-          x = Sin(iAngle, (xOff - xPos) * 1000 / (Sin(iAngle, 1000))) + xPos;
-          y = -Cos(iAngle, (xOff - xPos) * 1000 / (Sin(iAngle, 1000))) + yPos;
-        }
+          //Sonst setze x und y so:
+        	else
+        	{
+          	x = Sin(iAngle, (xOff - xPos) * 1000 / (Sin(iAngle, 1000))) + xPos;
+          	y = -Cos(iAngle, (xOff - xPos) * 1000 / (Sin(iAngle, 1000))) + yPos;
+        	}*/
       }
     }
 
