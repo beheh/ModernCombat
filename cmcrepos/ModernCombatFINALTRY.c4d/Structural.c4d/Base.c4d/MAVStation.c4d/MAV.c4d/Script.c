@@ -356,25 +356,37 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
 
         if(Inside(xPos, Min(x, xOff), Max(x, xOff)))
         {
-          x = Sin(AimAngle(), (yOff - yPos) * 1000 / (-Cos(AimAngle(), 1000))) + xPos;
-          y = -Cos(AimAngle(), (yOff - yPos) * 1000 / (-Cos(AimAngle(), 1000))) + yPos;
+        	var temp = (yOff - yPos) * 1000 / (-Cos(AimAngle(), 1000));
+          x = Sin(AimAngle(), temp) + xPos;
+          y = -Cos(AimAngle(), temp) + yPos;
         }
         else
           if(Inside(yPos, Min(y, yOff), Max(y, yOff)))
           {
-            x = Sin(AimAngle(), (xOff - xPos) * 1000 / (Sin(AimAngle(), 1000))) + xPos;
-            y = -Cos(AimAngle(), (xOff - xPos) * 1000 / (Sin(AimAngle(), 1000))) + yPos;
-          }
-        else
-          if((Angle(xPos, yPos, xOff, yOff) >= 180 && Angle(xPos, yPos, xOff, yOff) < AimAngle()) || (Angle(xPos, yPos, xOff, yOff) <= 180 && Angle(xPos, yPos, xOff, yOff) > AimAngle()))
-          {
-            x = Sin(AimAngle(), (yOff - yPos) * 1000 / (-Cos(AimAngle(), 1000))) + xPos;
-            y = -Cos(AimAngle(), (yOff - yPos) * 1000 / (-Cos(AimAngle(), 1000))) + yPos;
+          	var temp = (xOff - xPos) * 1000 / (Sin(AimAngle(), 1000));
+            x = Sin(AimAngle(), temp) + xPos;
+            y = -Cos(AimAngle(), temp) + yPos;
           }
         else
         {
-          x = Sin(AimAngle(), (xOff - xPos) * 1000 / (Sin(AimAngle(), 1000))) + xPos;
-          y = -Cos(AimAngle(), (xOff - xPos) * 1000 / (Sin(AimAngle(), 1000))) + yPos;
+        	var temp = (yOff - yPos) * 1000 / (-Cos(AimAngle(), 1000));
+        	var xOne = Sin(AimAngle(), temp) + xPos;
+         	var yOne = -Cos(AimAngle(), temp) + yPos;
+          
+         	temp = (xOff - xPos) * 1000 / (Sin(AimAngle(), 1000));
+         	var xTwo = Sin(AimAngle(), temp) + xPos;
+         	var	yTwo = -Cos(AimAngle(), temp) + yPos;
+          
+         	if(Distance(xOne, yOne, x, y) < Distance(xTwo, yTwo, x, y))
+         	{
+         		x = xOne;
+         		y = yOne;
+         	}
+         	else
+         	{
+         		x = xTwo;
+         		y = yTwo;
+         	}
         }
       }
   	}
