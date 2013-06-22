@@ -578,36 +578,36 @@ private func HitCheck(int r, int d)
       var a = Angle(sx, sy, xOff, yOff);
       if(Inside(sx, Min(ox, xOff), Max(ox, xOff)))
       {
-      	var temp = (yOff - sy) * 1000 / (-Cos(r, 1000));
+        var temp = (yOff - sy) * 1000 / (-Cos(r, 1000));
         lx = Sin(r, temp);
         ly = -Cos(r, temp);
       }
       else if(Inside(sy, Min(oy, yOff), Max(oy, yOff)))
       {
-      	var temp = (xOff - sx) * 1000 / (Sin(r, 1000));
+        var temp = (xOff - sx) * 1000 / (Sin(r, 1000));
         lx = Sin(r, temp);
         ly = -Cos(r, temp);
       }
       else
       {
-      	var temp = (yOff - sy) * 1000 / (-Cos(r, 1000));
+        var temp = (yOff - sy) * 1000 / (-Cos(r, 1000));
         var lxOne = Sin(r, temp);
         var lyOne = -Cos(r, temp);
-				
-				temp = (xOff - sx) * 1000 / (Sin(r, 1000));
+
+        temp = (xOff - sx) * 1000 / (Sin(r, 1000));
         var lxTwo = Sin(r, temp);
         var lyTwo = -Cos(r, temp);
-        
-        //Wenn der erste Punkt weiter weg ist, wähle ihn. Sonst den anderen.
+
+        //Wenn erster Punkt weiter weg, diesen wählen, sonst den anderen
         if(Distance(lxOne, lyOne) > Distance(lxTwo, lyTwo))
         {
-        	lx = lxOne;
-        	ly = lyOne;
+          lx = lxOne;
+          ly = lyOne;
         }
         else
         {
-        	lx = lxTwo;
-        	ly = lyTwo;
+          lx = lxTwo;
+          ly = lyTwo;
         }
       }
     }
