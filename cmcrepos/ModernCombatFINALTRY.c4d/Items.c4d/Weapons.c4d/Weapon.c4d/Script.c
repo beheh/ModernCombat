@@ -1883,11 +1883,11 @@ func FxLaserDotTimer(object pTarget, int iEffectNumber, int iEffectTime)
       x = GetX(pEnemy);
       y = GetY(pEnemy);
 
-      var xLeft = GetDefCoreVal("Offset", "DefCore", GetID(pEnemy), 0) + x +10*pEnemy->~IsSmoking();
-      var xRight = GetDefCoreVal("Width", "DefCore", GetID(pEnemy)) + GetDefCoreVal("Offset", "DefCore", GetID(pEnemy), 0) + x -10*pEnemy->~IsSmoking();
+      var xLeft = GetDefCoreVal("Offset", "DefCore", GetID(pEnemy), 0) + x +25*pEnemy->~IsSmoking();
+      var xRight = GetDefCoreVal("Width", "DefCore", GetID(pEnemy)) + GetDefCoreVal("Offset", "DefCore", GetID(pEnemy), 0) + x -25*pEnemy->~IsSmoking();
 
-      var yUp = GetDefCoreVal("Offset", "DefCore", GetID(pEnemy), 1) + y +10*pEnemy->~IsSmoking();
-      var yDown = GetDefCoreVal("Height", "DefCore", GetID(pEnemy)) + GetDefCoreVal("Offset", "DefCore", GetID(pEnemy), 1) + y -10*pEnemy->~IsSmoking();
+      var yUp = GetDefCoreVal("Offset", "DefCore", GetID(pEnemy), 1) + y +25*pEnemy->~IsSmoking();
+      var yDown = GetDefCoreVal("Height", "DefCore", GetID(pEnemy)) + GetDefCoreVal("Offset", "DefCore", GetID(pEnemy), 1) + y -25*pEnemy->~IsSmoking();
 
       if(Inside(xPos, xLeft, xRight) && Inside(yPos, yUp, yDown))
       {
