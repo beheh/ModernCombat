@@ -135,7 +135,7 @@ public func FxFlashlightBlindnessStart(object pTarget, int iNr, temp)
   EffectVar(1, pTarget, iNr) = 6;
 }
 
-static const Flashlight_MinAlpha = 30;
+static const Flashlight_MinAlpha = 70;
 static const Flashlight_MaxAlpha = 200;
 
 public func FxFlashlightBlindnessTimer(object pTarget, int iNr)
@@ -143,7 +143,7 @@ public func FxFlashlightBlindnessTimer(object pTarget, int iNr)
   var rgb = EffectVar(0, pTarget, iNr);
   var pUser = EffectVar(2, pTarget, iNr);
   var iBlindDistance = EffectVar(3, pTarget, iNr);
-  var distAlpha = Min(255, Flashlight_MinAlpha + (Flashlight_MaxAlpha * Distance(GetX(pTarget), GetY(pTarget), GetX(pUser), GetY(pUser))) / iBlindDistance);
+  var distAlpha = Max(Flashlight_MinAlpha, (Flashlight_MaxAlpha * Distance(GetX(pTarget), GetY(pTarget), GetX(pUser), GetY(pUser))) / iBlindDistance);
   
   if(!rgb)
     rgb = EffectVar(0, pTarget, iNr) = ScreenRGB(pTarget, RGBa(255, 255, 255, 254), 0, 0, false, SR4K_LayerLight);
