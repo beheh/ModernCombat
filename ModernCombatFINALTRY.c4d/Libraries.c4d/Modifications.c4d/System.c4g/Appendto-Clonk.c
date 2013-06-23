@@ -135,6 +135,12 @@ private func WalkSound()
   return 1;
 }
 
+private func SwimSound()
+{
+  Sound("ClonkSwim*.ogg", 0, 0, 75);
+  return 1;
+}
+
 private func CrawlStartSound()
 {
   Sound("ClonkFall*.ogg", 0, 0, 50);

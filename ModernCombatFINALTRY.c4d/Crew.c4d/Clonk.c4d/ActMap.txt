@@ -93,6 +93,7 @@ Delay=15
 Facet=0,80,16,20,0,0
 NextAction=Swim
 StartCall=CheckArmed
+PhaseCall=SwimSound
 
 [Action]
 Name=Hangle
@@ -302,6 +303,7 @@ Delay=15
 Facet=0,280,16,20,0,0
 NextAction=SwimArmed
 StartCall=CheckArmed
+PhaseCall=SwimSound
 
 [Action]
 Name=JumpArmed
