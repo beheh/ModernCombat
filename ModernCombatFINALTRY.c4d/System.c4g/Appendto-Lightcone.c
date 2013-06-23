@@ -39,8 +39,8 @@ public func Update()
 public func Draw()
 {
   var dir;
-  if(!bDir) dir = 1;
-  else      dir = 1-GetDir(GetActionTarget())*2;
+  if(!bDir)	dir = 1;
+  else		dir = 1-GetDir(GetActionTarget())*2;
 
   var alphamod, sizemod;
   CalcLight(alphamod, sizemod);
@@ -60,4 +60,14 @@ public func Draw()
     +fcos*width/1000, +fsin*height/1000, (((1000-fcos)*xoff - fsin*yoff)*height)/1000+iOffX*1000*dir,
     -fsin*width/1000, +fcos*height/1000, (((1000-fcos)*yoff + fsin*xoff - 64000)*height)/1000+iOffY*1000
   );
+}
+
+/* Erstellung */
+
+global func AddLightCone2(int iSize, int iColor, object pTarget)
+{
+  if(!pTarget && !(pTarget = this))
+    return;
+
+  return CreateLight(LGH2, iSize, iColor, pTarget);
 }
