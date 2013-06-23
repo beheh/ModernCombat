@@ -484,7 +484,7 @@ public func Reanimation()
   //Bildschirmfärbung
   var pScreen = GetScreenRGB(GetOwner(clonk), SR4K_LayerDamage);
   if(pScreen) RemoveObject(pScreen);
-  AddEffect("FlashlightBlindness", clonk, 150, 1, 0, WPN2);
+  AddEffect("FlashlightBlindness", clonk, 150, 1, 0, LHC2);
 
   //Clonk "auswerfen"
   if(Contained(clonk) == this)
