@@ -1652,7 +1652,7 @@ public func FxFlashlightTimer(object pTarget, int iNr, int iTime)
 
     if(!light)
     {
-      light = EffectVar(0, pTarget, iNr) = AddLightCone2(1000, RGBa(255, 255, 220, 40), user);
+      light = EffectVar(0, pTarget, iNr) = AddLightCone3(1000, RGBa(255, 255, 220, 40), user, FlashlightAngle(), SensorDistance(), BlindEffectDistance());
       light->ChangeSizeXY(1400, 6000);
       light->Lock();
     }
@@ -1679,47 +1679,7 @@ public func FxFlashlightTimer(object pTarget, int iNr, int iTime)
   if(deactivate || iTime % 4)
     return;
 
-  var iAngleMin = angle-FlashlightAngle()/2;
-  var iAngleMax = angle+FlashlightAngle()/2;
-
-  //Zu markierende Gefahren suchen
-  for (var pObj in FindObjects(Find_Distance(SensorDistance()),			//In Reichweite
-  		Find_Hostile(GetController(user)),				//Nur feindliche Objekte markieren
-  		Find_Or(Find_OCF(OCF_Alive), Find_Func("IsDetectable")),	//Lebewesen oder als identifizierbar markiert
-  		Find_NoContainer(),						//Im Freien
-  		Find_Exclude(this)))						//Selber ausschlieﬂen
-  {
-    if(pObj == user)
-      continue;
-
-    //Objekt im Suchkegel?
-    var x = GetX(), y = GetY(), ox = GetX(pObj), oy = GetY(pObj);
-    var target_angle = Normalize(Angle(x, y, ox, oy), -180);
-
-    if(iAngleMax < 180 && (target_angle < iAngleMin || target_angle > iAngleMax))
-      continue;
-    else if(iAngleMax >= 180 && (target_angle < iAngleMin && target_angle > iAngleMax-360))
-      continue;
-    
-    if(pObj->~IsClonk() && PathFree(x, y, ox, oy) && Distance(x, y, ox, oy) < BlindEffectDistance())
-    {
-      if(GetEffect("FlashlightBlindness", pObj))
-        EffectCall(pObj, GetEffect("FlashlightBlindness", pObj), "Refresh");
-      else
-        AddEffect("FlashlightBlindness", pObj, 100, 1, 0, WPN2);
-    }
-
-    //Bereits markierte Objekte auslassen
-    var tag;
-    if(tag = FindObject2(Find_ActionTarget(pObj), Find_ID(SM08), Find_Allied(GetController(user))))
-    {
-      tag->~RefreshRemoveTimer();
-      continue;
-    }
-
-    //Ansonsten markieren
-    CreateObject(SM08, GetX(pObj), GetY(pObj), GetController(user))->Set(pObj, this, GetOCF(pObj) & OCF_Alive, 26);
-  }
+  light->SpotAndBlind(user, angle);
 
   return true;
 }
@@ -1730,92 +1690,6 @@ public func FxFlashlightStop(object pTarget, int iNr, int iReason, bool fTemp)
     return;
 
   //Licht lˆschen
-  if(EffectVar(0, pTarget, iNr))
-    RemoveObject(EffectVar(0, pTarget, iNr));
-
-  return true;
-}
-
-public func FxFlashlightBlindnessStart(object pTarget, int iNr, temp)
-{
-  if(temp)
-    return;
-
-  EffectVar(0, pTarget, iNr) = ScreenRGB(pTarget, RGBa(255, 255, 255, 254), 0, 0, false, SR4K_LayerLight);
-  EffectVar(1, pTarget, iNr) = 6;
-}
-
-static const WPN2_Flashlight_MinAlpha = 130;
-
-public func FxFlashlightBlindnessTimer(object pTarget, int iNr)
-{
-  var rgb = EffectVar(0, pTarget, iNr);
-  if(!rgb)
-    rgb = EffectVar(0, pTarget, iNr) = ScreenRGB(pTarget, RGBa(255, 255, 255, 254), 0, 0, false, SR4K_LayerLight);
-
-  if(rgb->GetAlpha() < WPN2_Flashlight_MinAlpha)
-    return;
-
-  if(--EffectVar(1, pTarget, iNr) <= 0)
-  {
-    if(GetEffect("IntFlashbang", pTarget))
-      return;
-
-    rgb->DoAlpha(-5, WPN2_Flashlight_MinAlpha, 255);
-  }
-  else
-    rgb->DoAlpha(+18, WPN2_Flashlight_MinAlpha, 255);
-
-  if(!rgb)
-    return -1;
-
-  if(!GetEffect("IntFlashbang", pTarget))
-  {
-    if(!Contained() && rgb)
-    {
-      var a = rgb->~GetAlpha(), c;
-      for(var i = 0; i < GetPlayerCount(); i++)
-      {
-        var pCursor = GetCursor(GetPlayerByIndex(i))->~GetRealCursor();
-        if(!pCursor && !(pCursor = GetCursor(GetPlayerByIndex(i)))) 
-          continue;
-
-        if(Contained(pCursor))
-          continue;
-
-        var srgb = GetScreenRGB(GetPlayerByIndex(i), SR4K_LayerLight, pCursor);
-        var val;
-
-        if(srgb)
-          val = srgb->~GetAlpha();
-
-        if(val && 255-a >= val)
-          val = 255 - val;
-        else
-          val = 255 - a;
-
-        var flag = 0;
-        if(c != 0)
-          flag = MSG_Multiple;
-
-        CustomMessage(Format("<c %x>{{SM07}}</c>", RGBa(255,255,255,BoundBy(val, 1, 254))), pTarget, GetPlayerByIndex(i), 0, 0, 0, 0, 0, flag); 
-        c++;
-        }
-      }
-      else
-        Message("@", pTarget); 
-    }
-  return true;
-}
-
-public func FxFlashlightBlindnessRefresh(object pTarget, int iNr)
-{
-  EffectVar(1, pTarget, iNr) = 6;
-  return true;
-}
-
-public func FxFlashlightBlindnessStop(object pTarget, int iNr)
-{
   if(EffectVar(0, pTarget, iNr))
     RemoveObject(EffectVar(0, pTarget, iNr));
 
