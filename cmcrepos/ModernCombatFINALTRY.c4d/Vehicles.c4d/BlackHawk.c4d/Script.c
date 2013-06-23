@@ -969,13 +969,12 @@ public func SwitchSpotlights()
 public func UpdateSpotlights()
 {
   pSpotlight[0]->ChangeR(pMGStation->AimAngle());
-  pSpotlight[0]->SpotAndBlind(pMGStation, pMGStation->AimAngle());
   return true;
 }
 
 public func CreateSpotlights()
 {
-  pSpotlight[0] = AddLightCone3(5000, RGBa(255,255,220,70), pMGStation, 60, 0, 500);
+  pSpotlight[0] = CreateLight(LHC2, 5000, RGBa(255,255,220,70), pMGStation);
   pSpotlight[0]->ChangeR(pMGStation->AimAngle());
   pSpotlight[0]->ChangeOffset(0, 3);
   return true;
