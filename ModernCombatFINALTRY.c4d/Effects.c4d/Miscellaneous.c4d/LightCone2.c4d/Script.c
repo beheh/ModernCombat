@@ -1,7 +1,7 @@
 /*-- Lichtkegel --*/
 
 #strict 2
-#include LGHC
+#include LHC2
 
 
 /* Erstellung */
