@@ -110,7 +110,9 @@ func SpotAndBlind(object pUser, int iAngle)
       
       EffectCall(pObj, GetEffect("FlashlightBlindness", pObj), "Refresh", pUser, iBlindEffectDistance);
     }
-
+		
+		
+		if(!iSensorDistance) return;
     //Bereits markierte Objekte auslassen
     var tag;
     if(tag = FindObject2(Find_ActionTarget(pObj), Find_ID(SM08), Find_Allied(GetController(pUser))))
