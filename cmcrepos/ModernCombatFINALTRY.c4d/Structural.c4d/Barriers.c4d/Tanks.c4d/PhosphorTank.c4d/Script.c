@@ -2,6 +2,7 @@
 
 #strict 2
 
+
 /* Entzündung */
 
 func Incineration()
@@ -31,8 +32,8 @@ func BlowUp(iPlr)
   if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter", 15+Random(5), 100, 0,0, 35,50,RGB(40,20,20));
   if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("Glas", 10+Random(5), 100, 0,0, 60,100, RGBa(200,200,200), RGBa(200,200,200));
   Sound("Inflame");
-  Sound("StructuralDamage*.ogg");
-  Sound("Debris*.ogg");
+  Sound("StructureHeavyHit*.ogg");
+  Sound("StructureDebris*.ogg");
 
   //Phosphor verschleudern
   for(var i = 0; i <= 20; i++)

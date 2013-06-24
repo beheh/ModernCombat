@@ -66,7 +66,7 @@ public func OnDestruction()
   Sound("MotorIdleLoop.ogg",false,motoridle,100,0,-1);
   Sound("MotorLoop.ogg",false,motor,100,0,-1);
   Sound("OutOfAir.ogg");
-  Sound("StructuralDamage*.ogg");
+  Sound("StructureHit*.ogg");
 
   //Verschwinden
   var obj = CreateObject(BPBT);

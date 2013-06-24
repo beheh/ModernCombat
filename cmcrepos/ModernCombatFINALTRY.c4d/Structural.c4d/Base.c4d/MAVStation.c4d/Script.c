@@ -99,6 +99,7 @@ public func OnDestruction()
   if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",8,15,0,5,250,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
   if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("ConcreteSplinter", 8, 100, 0, 0, 40, 15, RGB(40, 20, 20));
   if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("ConcreteSplinter", 4, 100, 0, 0, 40, 15);
+  Sound("StructureHeavyHit*.ogg");
 }
 
 public func OnRepair()

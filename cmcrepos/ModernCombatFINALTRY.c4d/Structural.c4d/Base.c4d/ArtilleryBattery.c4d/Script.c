@@ -159,7 +159,7 @@ public func Shoot()
 {
   //Zerstört?
   if(IsDestroyed()) return;
-	
+
   var iX=Sin(GetR(pCannon),34);
   var iY=-Cos(GetR(pCannon),34)-3;
    
@@ -195,6 +195,7 @@ public func OnDestruction()
   if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",15,20,0,0,220,500);
   if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("ConcreteSplinter",4,110,0,0,40,100);
   if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("ConcreteSplinter",8,150,0,0,40,15,RGB(40,20,20));
+  Sound("StructureHeavyHit*.ogg");
 }
 
 public func OnDmg(int iDmg, int iType)

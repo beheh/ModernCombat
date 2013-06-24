@@ -40,8 +40,8 @@ func DestroyWreck()
     Sound("C4EX_WaterDetonation.ogg");
   else
     Sound("C4EX_Detonation*.ogg");
-  Sound("StructuralDamage*.ogg");
-  Sound("Debris*.ogg");
+  Sound("StructureHit*.ogg");
+  Sound("StructureDebris*.ogg");
 
   //Explosion
   Explode(40);

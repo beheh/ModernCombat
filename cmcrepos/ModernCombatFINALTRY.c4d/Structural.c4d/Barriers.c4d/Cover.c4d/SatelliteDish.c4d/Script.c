@@ -27,7 +27,7 @@ func InstaExplode()
   }
   CastSmoke("Smoke3",8,15,0,-5,250,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
   AddFireEffect(this,50,RGB(80,80,80),true,30);
-  Sound("StructuralDamage*.ogg");
+  Sound("StructureHit*.ogg");
 
   SetGraphics("Destroyed");
 }
