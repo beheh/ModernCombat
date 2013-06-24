@@ -40,7 +40,7 @@ func Damage()
 
     //Effekte
     Sound("FreezerLoop", 0,0,0,0, -1);
-    Sound("StructuralDamage*.ogg");
+    Sound("StructureHit*.ogg");
     Schedule("CastObjects(SPRK, 1, 15, RandomX(-10, 10), RandomX(-15, 15));", 3, 15, this());
     if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter", 10, 100, 0,0, 80);
     AddFireEffect(this,100,RGB(80,80,80),true,30);

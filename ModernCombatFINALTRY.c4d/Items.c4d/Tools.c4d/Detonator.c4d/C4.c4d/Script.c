@@ -124,7 +124,7 @@ public func BlowUp()
     Sound("C4EX_WaterDetonation.ogg");
   else
     Sound("C4EX_Detonation*.ogg");
-  Sound("Debris*.ogg");
+  Sound("StructureDebris*.ogg");
 
   //Effekte
   var helper = CreateObject(TIM1,0,0,-1);

@@ -24,7 +24,6 @@ func Damage()
     CastSmoke("Smoke3",12,10,0,0,100,200,RGBa(255,255,255,50),RGBa(255,255,255,130));
     Sound("RockBreak*");
     Sound("Blast2");
-    Sound("Debris*.ogg");
 
     //Verschwinden
     RemoveObject();

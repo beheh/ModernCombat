@@ -25,7 +25,7 @@ protected func Timer(pClonk)
   {
    if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",4,50,0,0,40,150);
    CastSmoke("Smoke3",5,10,0,0,50,200, RGBa(255,255,255,0));
-   Sound("StructuralDamage*.ogg");
+   Sound("StructureHit*.ogg");
    return RemoveObject();
   }
 

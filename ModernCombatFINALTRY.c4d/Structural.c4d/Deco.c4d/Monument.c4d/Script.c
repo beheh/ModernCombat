@@ -27,7 +27,7 @@ func Damage()
     CastSmoke("Smoke3",10,20,20,30,100,200,RGBa(255,255,255,50),RGBa(255,255,255,130));
     Sound("RockBreak*");
     Sound("Blast2");
-    Sound("Debris*.ogg");
+    Sound("StructureDebris*.ogg");
 
     //Aussehen verändern
     SetPhase(6);
@@ -45,8 +45,7 @@ func Damage()
     CastSmoke("Smoke3",10,20,0,0,100,200,RGBa(255,255,255,50),RGBa(255,255,255,130));
     Sound("RockBreak*");
     Sound("Blast2");
-    Sound("Debris*.ogg");
-
+    Sound("StructureDebris*.ogg");
 
     //Aussehen verändern
     SetPhase(5);
@@ -62,7 +61,7 @@ func Damage()
     CastSmoke("Smoke3",15,20,-20,20,100,200,RGBa(255,255,255,50),RGBa(255,255,255,130));
     Sound("RockBreak*");
     Sound("Blast2");
-    Sound("Debris*.ogg");
+    Sound("StructureDebris*.ogg");
 
     //Aussehen verändern
     SetPhase(4);
@@ -78,7 +77,7 @@ func Damage()
     CastSmoke("Smoke3",15,20,0,-45,100,200,RGBa(255,255,255,50),RGBa(255,255,255,130));
     Sound("RockBreak*");
     Sound("Blast2");
-    Sound("Debris*.ogg");
+    Sound("StructureDebris*.ogg");
 
     //Aussehen verändern
     SetPhase(3);
@@ -94,7 +93,7 @@ func Damage()
     CastSmoke("Smoke3",15,20,20,5,100,200,RGBa(255,255,255,50),RGBa(255,255,255,130));
     Sound("RockBreak*");
     Sound("Blast2");
-    Sound("Debris*.ogg");
+    Sound("StructureDebris*.ogg");
 
     //Aussehen verändern
     SetPhase(2);
@@ -112,7 +111,7 @@ func Damage()
     CastSmoke("Smoke3",10,20,20,-40,100,200,RGBa(255,255,255,50),RGBa(255,255,255,130));
     Sound("RockBreak*");
     Sound("Blast2");
-    Sound("Debris*.ogg");
+    Sound("StructureDebris*.ogg");
 
     //Aussehen verändern
     SetPhase(1);

@@ -307,7 +307,7 @@ protected func Collapse()
   CastParticles("ConcreteSplinter", RandomX(8,16), 80, 0, 250, 20, 50);
 
   //Sound
-  Sound("StructuralDamage*.ogg");
+  Sound("StructureHeavyHit*.ogg");
   Sound("BigExplosion.ogg");
   Echo("TowerBreakingEcho.ogg");
 }

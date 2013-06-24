@@ -183,7 +183,7 @@ public func ReportAssaultTargetDestruction(object pTarget, int iTeam, array aAtt
   if(pTarget)
   {
     Explode(50, pTarget);
-    Sound("StructuralDamage*.ogg", false, pTarget);
+    Sound("StructureHeavyHit*.ogg", false, pTarget);
   }
 
   if(ObjectCount2(Find_InArray(aTargets[iDefender])) == 1)

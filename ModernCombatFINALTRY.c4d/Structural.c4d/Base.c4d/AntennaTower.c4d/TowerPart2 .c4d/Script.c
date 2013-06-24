@@ -17,7 +17,7 @@ func Initialize()
 
 public func Hit(int iXDir, int iYDir)
 {
-  Sound("StructuralDamage*.ogg");
+  Sound("StructureHit*.ogg");
 
   //Spielerbildschirme schütteln
   ShakeViewPort(50, this);
