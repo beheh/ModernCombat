@@ -38,21 +38,21 @@ public func FMData1(int data)
 {
   if(data == FM_Name)		return "$Bullets$";
 
-  if(data == FM_AmmoID)		return STAM;									//ID der Munition
-  if(data == FM_AmmoLoad)	return 30 + (iAttachment == AT_ExtendedMag)*6;					//Magazingröße
+  if(data == FM_AmmoID)		return STAM;						//ID der Munition
+  if(data == FM_AmmoLoad)	return 30 + (iAttachment == AT_ExtendedMag)*6;		//Magazingröße
 
-  if(data == FM_Reload)		return 90 + (iAttachment == AT_ExtendedMag)*16;					//Zeit für Nachladen
-  if(data == FM_Recharge)	return 13;									//Zeit bis erneut geschossen werden kann
+  if(data == FM_Reload)		return 90 + (iAttachment == AT_ExtendedMag)*16;		//Zeit für Nachladen
+  if(data == FM_Recharge)	return 13;						//Zeit bis erneut geschossen werden kann
 
-  if(data == FM_Auto)		return false;									//Kein Automatikfeuer
+  if(data == FM_Auto)		return false;						//Kein Automatikfeuer
 
-  if(data == FM_Damage)		return 14 - (iAttachment == AT_Silencer)*((Random(10)<7)+(Random(10)<7));	//Schadenswert
+  if(data == FM_Damage)		return 14;						//Schadenswert
 
-  if(data == FM_Slot)		return 1;									//Slot des Feuermodus
+  if(data == FM_Slot)		return 1;						//Slot des Feuermodus
 
-  if(data == FM_SpreadAdd)	return 50 - (iAttachment == AT_Laserpointer)*8;					//Bei jedem Schuss hinzuzuaddierende Streuung
-  if(data == FM_StartSpread)	return 100 - (iAttachment == AT_Laserpointer)*20;				//Bei Auswahl der Waffe gesetzte Streuung
-  if(data == FM_MaxSpread)	return 450 - (iAttachment == AT_Laserpointer)*150;				//Maximaler Streuungswert
+  if(data == FM_SpreadAdd)	return 50 - (iAttachment == AT_Laserpointer)*8;		//Bei jedem Schuss hinzuzuaddierende Streuung
+  if(data == FM_StartSpread)	return 100 - (iAttachment == AT_Laserpointer)*20;	//Bei Auswahl der Waffe gesetzte Streuung
+  if(data == FM_MaxSpread)	return 450 - (iAttachment == AT_Laserpointer)*150;	//Maximaler Streuungswert
 
   return Default(data);
 }
@@ -113,25 +113,13 @@ public func Fire1()
   user->WeaponEnd(x,y);
 
   //Kugel abfeuern
-  var ammo = SALaunchBullet(x,y,GetController(user),angle,270,800,GetFMData(FM_Damage), 0, 0, iAttachment == AT_Silencer);
+  var ammo = SALaunchBullet(x,y,GetController(user),angle,270,800,GetFMData(FM_Damage));
 
   //Effekte
-  if(iAttachment != AT_Silencer)
-  {
-    SABulletCasing(x/3,y/3,-dir*14*(Random(1)+1),-(13+Random(2)),5);
-    Sound("ASTR_Fire*.ogg", 0, ammo);
-    MuzzleFlash(RandomX(30,40),user,x,y,angle,0, 0);
-    Echo("ASTR_Echo.ogg");
-  }
-  else
-  {
-    Sound("WPN2_SilencerFire*.ogg", 0, ammo, 0, GetOwner(user)+1);
-    Sound("WPN2_SilencerFire*.ogg", 0, ammo, 10);
-
-    //Tarnung abschwächen
-    if(GetEffect("Silencer", this))
-      EffectVar(0, this, GetEffect("Silencer", this)) -= BoundBy(25, 0, EffectVar(0, this, GetEffect("Silencer", this)));
-  }
+  SABulletCasing(x/3,y/3,-dir*14*(Random(1)+1),-(13+Random(2)),5);
+  Sound("ASTR_Fire*.ogg", 0, ammo);
+  MuzzleFlash(RandomX(30,40),user,x,y,angle,0, 0);
+  Echo("ASTR_Echo.ogg");
 
   //Klickgeräusch bei wenig Munition
   if(Inside(GetAmmo(GetFMData(FM_AmmoID)), 1, GetFMData(FM_AmmoLoad)/3))
@@ -264,10 +252,6 @@ public func LaunchGrenade(id idg, int speed, int angle, int mode)
   }
   Sound("ASTR_LauncherFire*.ogg", 0, grenade);
   Echo("SGST_Echo.ogg");
-
-  //Schalldämpfer vorhanden: Enttarnen
-  if(GetEffect("Silencer", this))
-    EffectVar(0, this, GetEffect("Silencer", this)) = 0;
 
   //Patronenhülse vorhanden
   casing = 1;

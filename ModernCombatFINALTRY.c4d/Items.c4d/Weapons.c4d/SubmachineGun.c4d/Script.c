@@ -152,7 +152,8 @@ public func Fire1()
   {
     Sound("WPN2_SilencerFire*.ogg", 0, ammo, 0, GetOwner(user)+1);
     Sound("WPN2_SilencerFire*.ogg", 0, ammo, 10);
-    
+    Echo("WPN2_SilencerEcho.ogg");
+
     if(GetEffect("Silencer", this))
       EffectVar(0, this, GetEffect("Silencer", this)) -= BoundBy(10, 0, EffectVar(0, this, GetEffect("Silencer", this)));
   }
