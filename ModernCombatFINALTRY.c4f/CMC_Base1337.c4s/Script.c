@@ -495,6 +495,13 @@ func OnTowerCollapse()
   RemoveObject(doorw2, true);
   pRoom2->CastSmoke("Smoke3",12,15,0,5,150,250,RGBa(255,255,255,100),RGBa(255,255,255,100));
   RemoveObject(pRoom2, true);
+
+  //OP-Spielziel
+  if(FindObject(GOCC))
+  {
+   //Flaggenposten verschieben
+   aFlag[1]->MoveFlagpost(2080,940,1);
+  }
 }
 
 /* Bei Flaggenübernahme */
@@ -547,7 +554,7 @@ public func ChooserFinished()
     aFlag[0]->Set("$Flag1$",0,2);
    }
 
-   aFlag[1] = CreateObject(OFPL,2080,940,NO_OWNER);
+   aFlag[1] = CreateObject(OFPL,2115,383,NO_OWNER);
    aFlag[1] -> AddSpawnPoint(1970,1050);
    aFlag[1] -> AddSpawnPoint(2130,1120);
    aFlag[1] -> AddSpawnPoint(2400,1040);
