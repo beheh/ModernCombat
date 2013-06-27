@@ -26,15 +26,7 @@ public func Initialize()
   UpdateFlag();
 }
 
-/* Timereffekt */
-
-public func FxIntFlagpoleTimer(object pTarget)
-{
-  if(!pTarget)
-   return(-1);
-  pTarget->Timer();
-  return;
-}
+/* Einstellungen */
 
 public func Set(string szName, int iRange, int iSpeed)
 {
@@ -50,7 +42,7 @@ public func Set(string szName, int iRange, int iSpeed)
   AddEffect("IntFlagpole",this,10,iSpeed,this);
 }
 
-/* Spawnpoint setzen */
+/* Spawnpoints setzen */
 
 public func AddSpawnPoint(int iX, int iY, string szFunction)
 {
@@ -105,6 +97,14 @@ protected func ResetAttackers()
 
 /* Timer */
 
+public func FxIntFlagpoleTimer(object pTarget)
+{
+  if(!pTarget)
+   return(-1);
+  pTarget->Timer();
+  return;
+}
+
 protected func Timer()
 {
   var enemys,friends,opposition;
@@ -113,36 +113,40 @@ protected func Timer()
 
   trend = 0;
 
-  //Erst mal schauen ob noch alle da sind
+  //Alle vorhanden?
   var del;
   var clonks = FindObjects(Find_Distance(range),Find_OCF(OCF_Alive),Find_NoContainer());
-  for(var pClonk in pAttackers) {
+  for(var pClonk in pAttackers)
+  {
     del = true;
-    for(var clonk in clonks) {
-      if(clonk == pClonk) {
+    for(var clonk in clonks)
+    {
+      if(clonk == pClonk)
+      {
       	del = false;
         break;
       }
     }
-    //Falls nicht mehr da -> weg damit
+    //Nein: Entfernen
     if(del)
       pAttackers[FindInArray4K(pAttackers, pClonk)] = 0;
   }
-  
+
   //Leere Einträge entfernen
   CleanArray4K(pAttackers);
-  
+
   var aFriends = CreateArray();
   var aEnemies = CreateArray();
   var clonks = FindObjects(Find_Distance(range),Find_OCF(OCF_Alive),Find_NoContainer());
-  
+
   for(clonk in clonks)
   {
     if(GetOwner(clonk) == NO_OWNER) continue;
     if(!GetPlayerName(GetOwner(clonk)) || !GetPlayerTeam(GetOwner(clonk))) continue;
     if(!PathFree4K(GetX(this()),GetY(this())-GetDefHeight(GetID())/2,GetX(clonk),GetY(clonk),4)) continue;
     if(Contained(clonk)) continue;
-    if(GetPlayerTeam(GetOwner(clonk)) == team) {
+    if(GetPlayerTeam(GetOwner(clonk)) == team)
+    {
       friends++;
       aFriends[GetLength(aFriends)] = clonk;
     }
@@ -170,22 +174,26 @@ protected func Timer()
   if(trend > 0)
     pClonks = aFriends;
 
-  for(var clonk in pClonks) {
+  for(var clonk in pClonks)
+  {
     if(!clonk) continue;
     var new = true;
-    //Schauen ob wir ihn schon finden können;
-    for(var pClonk in pAttackers) {
+    //Clonk auffindbar?
+    for(var pClonk in pAttackers)
+    {
       if(pClonk == clonk) new = false;
       if(!new) break;
     }
-    //Er ist neu? Dann rein damit!
+    //Neu: Einstellen
     if(new) pAttackers[GetLength(pAttackers)] = clonk;
   }
 
-  if(enemys && friends) {
+  if(enemys && friends)
+  {
     Message("$MsgFoughtOver$", flag, GetTeamColor(team), GetName());
   }
-  else if(trend == 0) {
+  else if(trend == 0)
+  {
     Message("", flag);
   }
 }
@@ -197,7 +205,8 @@ public func Capture(int iTeam, bool bSilent)
   team = iTeam;
   capt = true;
   var fRegained = false;
-  if(!bSilent) {
+  if(!bSilent)
+  {
     if(lastowner == team) fRegained = true;
     GameCallEx("FlagCaptured", this, team, pAttackers, fRegained);
   }
@@ -225,15 +234,18 @@ public func UpdateFlag()
 {
   if(!flag) return;
 
-  if(team) {
+  if(team)
+  {
     SetColorDw(RGB(0,0,0), flag);
-    for(var i = 0; i < GetPlayerCount(); i++) {
+    for(var i = 0; i < GetPlayerCount(); i++)
+    {
       if(GetPlayerTeam(GetPlayerByIndex(i)) != team) continue;
-	    flag->SetOwner(GetPlayerByIndex(i));
-    	break;
+      flag->SetOwner(GetPlayerByIndex(i));
+      break;
     }
   }
-  else {
+  else
+  {
     SetOwner(NO_OWNER, flag);
     SetColorDw(RGB(255, 255, 255), flag);
   }
@@ -270,15 +282,17 @@ public func DoProcess(int iTeam, int iAmount)
   if(old > process)
    trend = -1;
 
-  if((old == 100 && trend < 0) || (old == 0 && trend > 0)) {
+  if((old == 100 && trend < 0) || (old == 0 && trend > 0))
+  {
     GameCallEx("FlagAttacked", this, team, pAttackers);
   }
-  
+
   //Flagge wird übernommen
-  if(process < 100 && trend != 0) {
+  if(process < 100 && trend != 0)
+  {
     Capturing(iTeam);
   }
-  
+
   //Flagge ist fertig übernommen
   if((process >= 100) && (old < 100))
   {
