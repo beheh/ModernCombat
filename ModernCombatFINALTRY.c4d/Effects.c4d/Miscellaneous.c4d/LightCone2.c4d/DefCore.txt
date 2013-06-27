@@ -1,5 +1,5 @@
 [DefCore]
-id=LGH2
+id=LHC3
 Version=4,9,8,2
 Name=Light Cone
 Category=C4D_Vehicle|C4D_Foreground|C4D_MouseIgnore
