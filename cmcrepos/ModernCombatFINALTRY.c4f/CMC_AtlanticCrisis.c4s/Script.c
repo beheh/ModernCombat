@@ -16,8 +16,6 @@ func Initialize()
   SetWaitingMusic();
   //Bildschirmfärbung
   SetGamma(RGB(2,3,10), RGB(131,135,158), RGB(252,253,255));
-  //Himmelparallaxität
-  SetSkyParallax(0,15,15);
   //Flaggen
   aFlag = [];
   //Einrichtung plazieren
@@ -416,9 +414,9 @@ func CreateDecoration()
 func CreateOptionalFeatures()
 {
   //Hintergründe
-  CreateObject(BD03,700,800,-1)->SetClrModulation(RGB(150,150,150));
-  CreateObject(BD03,1700,500,-1)->SetClrModulation(RGB(150,150,150));
-  CreateObject(BD03,3000,800,-1)->SetClrModulation(RGB(150,150,150));
+  CreateObject(BD03,700,800,-1)->SetClrModulation(RGBa(50,50,50,5));
+  CreateObject(BD03,1700,700,-1)->SetClrModulation(RGBa(50,50,50,5));
+  CreateObject(BD03,3000,800,-1)->SetClrModulation(RGBa(50,50,50,5));
 }
 
 /* Regelwähler */
