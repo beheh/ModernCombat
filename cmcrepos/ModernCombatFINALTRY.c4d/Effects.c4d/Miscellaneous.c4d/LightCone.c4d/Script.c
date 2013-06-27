@@ -71,7 +71,7 @@ global func AddLightCone(int iSize, int iColor, object pTarget, int iNewFlashlig
     return;
 
 	if(!LightConeID)
-		LightConeID = LGH2;
+		LightConeID = LGHC;
 
   var result = CreateLight(LightConeID, iSize, iColor, pTarget);
   if(DefinitionCall(LightConeID, "IsModernLight"))
