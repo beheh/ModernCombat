@@ -11,6 +11,7 @@ local iFlashlightAngle;
 public func Lock()	{return fLocked = true;}
 public func UnLock()	{return fLocked = false;}
 public func IsLocked()	{return fLocked;}
+public func IsModernLight() {return true;}
 
 
 public func ChangeSizeXY()
@@ -73,9 +74,12 @@ global func AddLightCone(int iSize, int iColor, object pTarget, int iNewFlashlig
 		LightConeID = LGH2;
 
   var result = CreateLight(LightConeID, iSize, iColor, pTarget);
-  LocalN("iSensorDistance", result) = iNewSensorDistance;
-  LocalN("iBlindEffectDistance", result) = iNewBlindEffectDistance;
-  LocalN("iFlashlightAngle", result) = iNewFlashlightAngle;
+  if(DefinitionCall(LightConeID, "IsModernLight"))
+  {
+  	LocalN("iSensorDistance", result) = iNewSensorDistance;
+  	LocalN("iBlindEffectDistance", result) = iNewBlindEffectDistance;
+  	LocalN("iFlashlightAngle", result) = iNewFlashlightAngle;
+  }
 
   return result;
 }
