@@ -64,21 +64,15 @@ public func Draw()
 }
 
 /* Erstellung */
-
-global func AddLightCone2(int iSize, int iColor, object pTarget)
+global func AddLightCone(int iSize, int iColor, object pTarget, int iNewFlashlightAngle, int iNewSensorDistance, int iNewBlindEffectDistance, id LightConeID)
 {
   if(!pTarget && !(pTarget = this))
     return;
 
-  return CreateLight(LGH2, iSize, iColor, pTarget);
-}
+	if(!LightConeID)
+		LightConeID = LGH2;
 
-global func AddLightCone3(int iSize, int iColor, object pTarget, int iNewFlashlightAngle, int iNewSensorDistance, int iNewBlindEffectDistance)
-{
-  if(!pTarget && !(pTarget = this))
-    return;
-
-  var result = CreateLight(LGH2, iSize, iColor, pTarget);
+  var result = CreateLight(LightConeID, iSize, iColor, pTarget);
   LocalN("iSensorDistance", result) = iNewSensorDistance;
   LocalN("iBlindEffectDistance", result) = iNewBlindEffectDistance;
   LocalN("iFlashlightAngle", result) = iNewFlashlightAngle;
