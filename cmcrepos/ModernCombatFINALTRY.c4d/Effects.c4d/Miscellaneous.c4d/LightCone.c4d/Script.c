@@ -65,20 +65,22 @@ public func Draw()
 }
 
 /* Erstellung */
+
 global func AddLightCone(int iSize, int iColor, object pTarget, int iNewFlashlightAngle, int iNewSensorDistance, int iNewBlindEffectDistance, id LightConeID)
 {
+  //Kein Ziel: Abbruch
   if(!pTarget && !(pTarget = this))
     return;
 
-	if(!LightConeID)
-		LightConeID = LGHC;
+  if(!LightConeID)
+    LightConeID = LGHC;
 
   var result = CreateLight(LightConeID, iSize, iColor, pTarget);
   if(DefinitionCall(LightConeID, "IsModernLight"))
   {
-  	LocalN("iSensorDistance", result) = iNewSensorDistance;
-  	LocalN("iBlindEffectDistance", result) = iNewBlindEffectDistance;
-  	LocalN("iFlashlightAngle", result) = iNewFlashlightAngle;
+    LocalN("iSensorDistance", result) = iNewSensorDistance;
+    LocalN("iBlindEffectDistance", result) = iNewBlindEffectDistance;
+    LocalN("iFlashlightAngle", result) = iNewFlashlightAngle;
   }
 
   return result;
@@ -95,7 +97,7 @@ func SpotAndBlind(object pUser, int iAngle)
   {
     if(pObj == pUser)
       continue;
-    
+
     var iAngleMin = iAngle-iFlashlightAngle/2;
     var iAngleMax = iAngle+iFlashlightAngle/2;
 
@@ -111,7 +113,7 @@ func SpotAndBlind(object pUser, int iAngle)
     if(iBlindEffectDistance && pObj->~IsClonk() && PathFree(x, y, ox, oy) && Distance(x, y, ox, oy) < iBlindEffectDistance)
     {
       if(!GetEffect("FlashlightBlindness", pObj))
-        AddEffect("FlashlightBlindness", pObj, 100, 1, 0, LGH2);
+        AddEffect("FlashlightBlindness", pObj, 100, 1, 0, LHC3);
 
       EffectCall(pObj, GetEffect("FlashlightBlindness", pObj), "Refresh", pUser, iBlindEffectDistance);
     }

@@ -975,7 +975,7 @@ public func UpdateSpotlights()
 
 public func CreateSpotlights()
 {
-  pSpotlight[0] = AddLightCone(5000, RGBa(255,255,220,70), pMGStation, 60, 0, 500, LHC2);
+  pSpotlight[0] = AddLightCone(5000, RGBa(255,255,220,70), pMGStation, 60, 0, 200, LHC2);
   pSpotlight[0]->ChangeR(pMGStation->AimAngle());
   pSpotlight[0]->ChangeOffset(0, 3);
   return true;
