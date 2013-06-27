@@ -1652,7 +1652,7 @@ public func FxFlashlightTimer(object pTarget, int iNr, int iTime)
 
     if(!light)
     {
-      light = EffectVar(0, pTarget, iNr) = AddLightCone(1000, RGBa(255, 255, 220, 40), user, FlashlightAngle(), SensorDistance(), BlindEffectDistance());
+      light = EffectVar(0, pTarget, iNr) = AddLightCone(1000, RGBa(255, 255, 220, 40), user, FlashlightAngle(), SensorDistance(), BlindEffectDistance(), LGH2);
       light->ChangeSizeXY(1400, 6000);
       light->Lock();
     }
