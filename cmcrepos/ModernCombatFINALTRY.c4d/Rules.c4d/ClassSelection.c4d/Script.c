@@ -612,13 +612,13 @@ public func OpenMenuAttachment(id idParamWeapon, int iClass, object pClonk, int 
       }
     }
 
-	//Zweiter Fall kommt vor, wenn die gespeicherte Waffe/das Attachment für die Klasse nicht existieren, z.B. weil die Klasse verändert wurde
+  //Zweiter Fall kommt vor, wenn die gespeicherte Waffe/das Attachment für die Klasse nicht existieren, z.B. weil die Klasse verändert wurde
   if(fNextWeap || idActualWeap == 0)
     idActualWeap = idFirstWeap;
-    
+
   if(idActualWeap != idWeap || !(idWeap->~PermittedAtts() & iAtt))
-  	iAtt = 0;
-  	
+    iAtt = 0;
+
   CreateMenu(GetID(), pClonk, this, 0, 0, 0, C4MN_Style_Dialog, true);
 
   //Icon
