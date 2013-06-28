@@ -612,9 +612,13 @@ public func OpenMenuAttachment(id idParamWeapon, int iClass, object pClonk, int 
       }
     }
 
-  if(fNextWeap)
+	//Zweiter Fall kommt vor, wenn die gespeicherte Waffe/das Attachment für die Klasse nicht existieren, z.B. weil die Klasse verändert wurde
+  if(fNextWeap || idActualWeap == 0)
     idActualWeap = idFirstWeap;
-
+    
+  if(idActualWeap != idWeap || !(idWeap->~PermittedAtts() & iAtt))
+  	iAtt = 0;
+  	
   CreateMenu(GetID(), pClonk, this, 0, 0, 0, C4MN_Style_Dialog, true);
 
   //Icon
@@ -638,7 +642,7 @@ public func OpenMenuAttachment(id idParamWeapon, int iClass, object pClonk, int 
   if(!iAtt)
     name = "$NoAttachment$";
 
-  if(!NoAttachments())
+  if(!NoAttachments() && idActualWeap)
   {
     AddMenuItem(Format("<c ffff33>%s</c>|%s", name, DescAtts[iterations]), 0, NONE, pClonk, 0, 0, " ");
 
@@ -735,11 +739,10 @@ public func OpenMenuAttachment(id idParamWeapon, int iClass, object pClonk, int 
   //Zurück
   AddMenuItem("$Back$", Format("OpenMenu(Object(%d), %d)", ObjectNumber(pClonk), InfoMenuItems()+iClass), 0, pClonk, 0, 0, "$Back$");
 
-  if(!NoAttachments())
+  if(!NoAttachments() && idActualWeap)
   {
     //Waffen-Wechsler
-    if(idActualWeap)
-      AddMenuItem(Format("<c ff3333>%s</c>", GetName(0, idActualWeap)), Format("ChangeWeapon(%d, %i, Object(%d), %d)", iClass, idActualWeap, ObjectNumber(pClonk), count), idActualWeap, pClonk, 0, pClonk, 0, 2, GetCData(i, CData_Facet));
+    AddMenuItem(Format("<c ff3333>%s</c>", GetName(0, idActualWeap)), Format("ChangeWeapon(%d, %i, Object(%d), %d)", iClass, idActualWeap, ObjectNumber(pClonk), count), idActualWeap, pClonk, 0, pClonk, 0, 2, GetCData(i, CData_Facet));
 
     //Waffenaufsätze
     for(j = 0; j < 1000000000; j*=2)
