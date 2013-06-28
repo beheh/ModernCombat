@@ -1,1 +1,1 @@
-Kabooom!
+Steuert Explosionen und deren Effekte.

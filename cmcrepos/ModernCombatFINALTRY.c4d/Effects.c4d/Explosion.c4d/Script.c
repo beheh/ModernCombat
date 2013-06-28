@@ -3,6 +3,8 @@
 #strict 2
 
 
+/* Explosion */
+
 global func Explode(int iLevel, object pObj, id idEffect, string szEffect, bool fDeco)
 {
   //Existenz bestätigen
@@ -219,6 +221,4 @@ global func FxSmokeTrailTimer(object pTarget, int iEffectNumber, int iEffectTime
   EffectVar(5, pTarget, iEffectNumber) = iYDir;
 }
 
-global func FxSmokeTrailStop()
-{
-}
+global func FxSmokeTrailStop()	{}
