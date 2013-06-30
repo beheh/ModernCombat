@@ -6,7 +6,6 @@ Category=C4D_Object
 Width=4
 Height=16
 Offset=-2,0
-Value=0
 Mass=5
 Picture=4,0,64,64
 Vertices=2
