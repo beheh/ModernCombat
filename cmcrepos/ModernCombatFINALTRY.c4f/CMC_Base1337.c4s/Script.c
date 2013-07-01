@@ -735,7 +735,7 @@ public func ChooserFinished()
    CreateObject(SGNP, 4165, 510, -1);
 
    //Versorgungskiste (APW)
-   var crate = CreateObject (AMCT, 4180, 960, -1);
+   var crate = CreateObject (AMCT, 3860, 1040, -1);
    crate->Set(ATWN);
 
    //Geschützstellungen
@@ -773,6 +773,7 @@ public func ChooserFinished()
 
    aSelfDefense[2] = CreateObject(SEGU, 3785, 899, -1);
    aSelfDefense[2]->Arm(MISA);
+   CreateObject(CONS, 3405, 1175, -1)->Set(aSelfDefense[2]);
 
    //SSA Besitzer setzen
    if(aTeams[1] == true)
