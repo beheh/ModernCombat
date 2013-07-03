@@ -772,6 +772,9 @@ public func ControlThrow(caller)
             {
               //Achievement-Fortschritt (Eat this!)
               DoAchievementProgress(1, AC14, GetOwner(GetUser()));
+              if(iAttachment == AT_Bayonet)
+                //Achievement-Fortschritt (Assassin)
+                DoAchievementProgress(1, AC45, GetOwner(GetUser()));
               //Ribbon-Fortschritt (The Tuna)
               AttemptAwardRibbon(RB07, GetOwner(GetUser()), GetOwner(target));
             }
