@@ -301,7 +301,6 @@ public func StatsRibbon(int iPlr, int iSelect, int iOffset)
   return true;
 }
 
-
 global func RewardsActive()
 {
   return FindObject2(Find_ID(RWDS)) != false;
@@ -862,7 +861,7 @@ public func SetPlayerAchievement(int iPlr, id idAchievement, bool fAwarded)
 
   var iData = GetPlrExtraData(iPlr, Format("CMC_Achievements%d", iBlock));
   SetPlrExtraData(iPlr, Format("CMC_Achievements%d", iBlock), iData ^ fAwarded << (iSlot % 32));
-  
+
   return true;
 }
 
@@ -888,7 +887,7 @@ public func SetPlayerRibbon(int iPlr, id idRibbon, bool fAwarded)
 
   var iData = GetPlrExtraData(iPlr, Format("CMC_Ribbon%d", iBlock));
   SetPlrExtraData(iPlr, Format("CMC_Ribbon%d", iBlock), iData ^ fAwarded << (iSlot % 32));
-  
+
   return true;
 }
 
