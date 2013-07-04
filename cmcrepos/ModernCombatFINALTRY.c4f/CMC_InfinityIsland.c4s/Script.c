@@ -481,6 +481,8 @@ func CreateOptionalFeatures()
 
 func OnTowerCollapse()
 {
+  EventInfo4K(0,Format("$MsgCollapse$"),AATR, 0, 0, 0, "RadioConfirm*.ogg");
+
   //Geschützstellungen entfernen
   if(aTowerInterior[0]) aTowerInterior[0]->DecoExplode(30);
   if(aTowerInterior[1]) aTowerInterior[1]->DecoExplode(30);

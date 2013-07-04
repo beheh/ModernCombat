@@ -3,6 +3,7 @@ CreatingEquipment=Placing equipment...
 CreatingDecoration=Placing decoration...
 
 MsgParachute=<c 33ccff>Parachutes</c> available, press [<c 33ccff>Double Jump</c>] while falling to activate.
+MsgCollapse=<c ff0000>Warning</c>: The local antenna tower <c ffff33>collapses</c>
 
 Team1=Eurocorps
 Team2=Aggressors

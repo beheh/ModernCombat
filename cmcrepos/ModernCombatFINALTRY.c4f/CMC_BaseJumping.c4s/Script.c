@@ -452,6 +452,13 @@ func CreateOptionalFeatures()
   CreateObject(BD07,2000,1720,-1);
 }
 
+/* Bei Turmzusammenfall */
+
+func OnTowerCollapse()
+{
+  EventInfo4K(0,Format("$MsgCollapse$"),AATR, 0, 0, 0, "RadioConfirm*.ogg");
+}
+
 /* Bei Relaunch */
  
 public func OnClassSelection(object pClonk)
