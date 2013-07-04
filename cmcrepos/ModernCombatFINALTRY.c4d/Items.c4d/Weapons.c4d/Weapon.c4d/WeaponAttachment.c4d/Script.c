@@ -22,15 +22,7 @@ protected func Initialize()
   return true;
 }
 
-/* Steuerung */
 
-protected func Activate(object pClonk)
-{
-  if(NoAttachments())
-    return;
-
-  AttachmentMenu(pClonk);
-}
 
 /* Inhalt */
 
@@ -44,6 +36,16 @@ protected func SetAttachment(int iValue)
 protected func GetAttachment()
 {
   return iAttachment;
+}
+
+/* Aktivierung */
+
+protected func Activate(object pClonk)
+{
+  if(NoAttachments())
+    return;
+
+  AttachmentMenu(pClonk);
 }
 
 /* Menü */
@@ -137,7 +139,11 @@ protected func Selection()
 func ControlThrow(object pByObj)
 {
   for(var obj in FindObjects(Find_InRect(-10,-10,20,20),Find_OCF(OCF_CrewMember),Find_Exclude(pByObj),Find_Allied(GetOwner(pByObj)),Find_NoContainer()))
-    if(Collect(this, obj)) break;
+    if(Collect(this, obj))
+    {
+      Sound("FAPK_Charge.ogg");
+      break;
+    }
 
   return true;
 }
