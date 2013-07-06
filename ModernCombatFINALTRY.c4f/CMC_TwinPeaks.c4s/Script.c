@@ -3,7 +3,7 @@
 #strict
 #include CSTD
 
-static aFlag, aSelfDefense, aTowerInterior, doorw1, doorw2, pRoom1, pRoom2;
+static aFlag,aSelfDefense,aTowerInterior,doorw1,doorw2,pRoom1,pRoom2;
 
 public func SpecificEquipment()	{return [[PPAR, 1]];}	//Zusatzausrüstung: Fallschirmrucksack
 func RecommendedGoals()		{return [GOCC,GHTF];}	//Spielzielempfehlung

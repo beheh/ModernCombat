@@ -3,7 +3,7 @@
 #strict
 #include CSTD
 
-static aFlag, aSelfDefense, switchright, switchleft;
+static aFlag,aSelfDefense,switchright,switchleft;
 
 func RecommendedGoals()	{return [GHTF, GCTF];}	//Spielzielempfehlung
 
@@ -169,7 +169,7 @@ func CreateInterior()
 
   //Metallkisten
   CreateObject(MWCR, 75, 413, -1);
-  CreateObject(MWCR, 300, 640, -1);
+  CreateObject(MWCR, 305, 640, -1);
   CreateObject(MWCR, 570, 800, -1)->AutoRespawn();
   CreateObject(MWCR, 650, 270, -1)->AutoRespawn();
   CreateObject(MWCR, 1065, 640, -1)->AutoRespawn();
@@ -504,8 +504,8 @@ func CreateDecoration()
   //Feuerlöscher
   CreateObject(FIE2, 115, 435, -1);
   CreateObject(FIE2, 315, 635, -1);
-  CreateObject(FIE2, 480, 725, -1);
-  CreateObject(FIE2, 2250, 725, -1);
+  CreateObject(FIEX, 480, 725, -1);
+  CreateObject(FIEX, 2250, 725, -1);
   CreateObject(FIE2, 2415, 635, -1);
   CreateObject(FIE2, 2615, 435, -1);
 

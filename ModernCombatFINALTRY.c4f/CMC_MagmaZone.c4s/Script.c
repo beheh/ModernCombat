@@ -3,7 +3,7 @@
 #strict
 #include CSTD
 
-static aFlag, aSelfDefense;
+static aFlag,aSelfDefense;
 
 func RecommendedGoals()	{return [GOCC, GBAS];}	//Spielzielempfehlung
 

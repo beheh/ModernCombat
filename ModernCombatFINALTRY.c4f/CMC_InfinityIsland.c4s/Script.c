@@ -3,7 +3,7 @@
 #strict
 #include CSTD
 
-static aFlag,aSelfDefense,aStationary,aTowerInterior, doorw, pRoom;
+static aFlag,aSelfDefense,aStationary,aTowerInterior,doorw,pRoom;
 
 func RecommendedGoals()			{return [GOCC, GASS];}	//Spielzielempfehlung
 public func AssaultDefenderTeam()	{return 2;}		//Verteidigerteam bei Assault
