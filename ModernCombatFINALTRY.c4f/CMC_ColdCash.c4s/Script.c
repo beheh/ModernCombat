@@ -258,6 +258,10 @@ func CreateDecoration()
   CreateObject(FENC, 1250, 470, -1);
   CreateObject(FENC, 4290, 470, -1);
 
+  //Feuerlöscher
+  CreateObject(FIE2, 1570, 465, -1);
+  CreateObject(FIE2, 3970, 465, -1);
+
   //Lüftungsgitter
   CreateObject(ENGT, 1370, 510, -1)->SetCon(70);
   CreateObject(ENGT, 1400, 510, -1)->SetCon(70);

@@ -252,8 +252,9 @@ func CreateDecoration()
   CreateObject(PIPL, 670, 665, -1)->Right()->Right()->Right()->Right()->Right()->Down()->Down()->Down()->Down()->Down()->Down();
 
   //Feuerlöscher
-  CreateObject(FIEX, 540, 705, -1);
-  CreateObject(FIEX, 1380, 295, -1);
+  CreateObject(FIE2, 545, 500, -1);
+  CreateObject(FIE2, 540, 705, -1);
+  CreateObject(FIE2, 1380, 295, -1);
 
   //Automat
   CreateObject(VGMN, 510, 710, -1);

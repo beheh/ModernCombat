@@ -286,6 +286,10 @@ func CreateDecoration()
   CreateObject(FENC, 4650, 660, -1);
   CreateObject(FENC, 4710, 660, -1);
 
+  //Feuerlöscher
+  CreateObject(FIE2, 4765, 655, -1);
+  CreateObject(FIE2, 5080, 655, -1);
+
   //Satellitenschüssel
   CreateObject(SADH, 3440, 630, -1);
 

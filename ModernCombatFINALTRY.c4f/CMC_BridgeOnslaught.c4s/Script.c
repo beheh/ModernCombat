@@ -169,7 +169,7 @@ func CreateInterior()
 
   //Metallkisten
   CreateObject(MWCR, 75, 413, -1);
-  CreateObject(MWCR, 305, 640, -1);
+  CreateObject(MWCR, 300, 640, -1);
   CreateObject(MWCR, 570, 800, -1)->AutoRespawn();
   CreateObject(MWCR, 650, 270, -1)->AutoRespawn();
   CreateObject(MWCR, 1065, 640, -1)->AutoRespawn();
@@ -502,11 +502,12 @@ func CreateDecoration()
   CreateObject(ENGT, 2690, 430, -1);
 
   //Feuerlöscher
-  CreateObject(FIEX, 115, 430, -1);
-  CreateObject(FIEX, 315, 630, -1);
-  CreateObject(FIEX, 1285, 510, -1);
-  CreateObject(FIEX, 2415, 630, -1);
-  CreateObject(FIEX, 2615, 430, -1);
+  CreateObject(FIE2, 115, 435, -1);
+  CreateObject(FIE2, 315, 635, -1);
+  CreateObject(FIE2, 480, 725, -1);
+  CreateObject(FIE2, 2250, 725, -1);
+  CreateObject(FIE2, 2415, 635, -1);
+  CreateObject(FIE2, 2615, 435, -1);
 
   //Büsche
   CreateObject(BSH2, 505, 515, -1);
