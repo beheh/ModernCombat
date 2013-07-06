@@ -4,7 +4,7 @@
 #include CSTR
 
 public func IsMachine()		{return true;}
-public func MaxDamage()		{return 120;}
+public func MaxDamage()		{return 80;}
 public func RepairSpeed()	{return 3;}
 
 
