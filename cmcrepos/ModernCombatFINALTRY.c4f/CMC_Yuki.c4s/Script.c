@@ -386,10 +386,10 @@ func CreateDecoration()
   CreateObject(FRAM, 1590, 380, -1);
 
   //Feuerlöscher
-  CreateObject(FIEX, 185, 515, -1);
-  CreateObject(FIEX, 620, 755, -1);
-  CreateObject(FIEX, 1135, 745, -1);
-  CreateObject(FIEX, 1695, 475, -1);
+  CreateObject(FIE2, 185, 515, -1);
+  CreateObject(FIE2, 620, 755, -1);
+  CreateObject(FIE2, 1135, 745, -1);
+  CreateObject(FIE2, 1695, 475, -1);
 
   //Apparaturen
   CreateObject(GADG, 1195, 750, -1)->Set(1);

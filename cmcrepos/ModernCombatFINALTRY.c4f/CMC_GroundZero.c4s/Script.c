@@ -381,6 +381,10 @@ func CreateDecoration()
   CreateObject(FRAM, 2425, 440, -1);
   CreateObject(FRAM, 2545, 440, -1);
 
+  //Feuerlöscher
+  CreateObject(FIE2, 1365, 455, -1);
+  CreateObject(FIE2, 2035, 455, -1);
+
   //Straßenlichter
   CreateObject(SLGH, 60, 120, -1);
   CreateObject(SLGH, 160, 120, -1);

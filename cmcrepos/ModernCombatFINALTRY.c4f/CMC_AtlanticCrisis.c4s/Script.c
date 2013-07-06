@@ -384,6 +384,11 @@ func CreateDecoration()
   CreateObject(VEN3, 3600, 500, -1)->SetCon(30);
   CreateObject(VENT, 4630, 590, -1)->SetCon(30);
 
+  //Feuerlöscher
+  CreateObject(FIE2, 1530, 595, -1);
+  CreateObject(FIE2, 2970, 455, -1);
+  CreateObject(FIE2, 4480, 595, -1);
+
   //Geländer
   CreateObject(RAI1, 1280, 500, -1)->SetRail([1,1,1,1]);
   CreateObject(RAI1, 1450, 530, -1)->SetRail([1,1,1,1,1,1,1,1,1,1]);

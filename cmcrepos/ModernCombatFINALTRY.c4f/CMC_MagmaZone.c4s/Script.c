@@ -170,9 +170,9 @@ func CreateDecoration()
   CreateObject(RADR, 2085, 240, -1);
 
   //Feuerlöscher
-  CreateObject(FIEX, 215, 295, -1);
-  CreateObject(FIEX, 1375, 335, -1);
-  CreateObject(FIEX, 2320, 205, -1);
+  CreateObject(FIE2, 215, 295, -1);
+  CreateObject(FIE2, 1375, 335, -1);
+  CreateObject(FIE2, 2320, 205, -1);
 
   //Bildschirme
   CreateObject(SCR3, 410, 271, -1);

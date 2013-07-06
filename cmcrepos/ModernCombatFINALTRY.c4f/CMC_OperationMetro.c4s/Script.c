@@ -470,6 +470,10 @@ func CreateDecoration()
   CreateObject(TCCN, 4625, 440, -1);
   CreateObject(TCCN, 4695, 440, -1)->Light();
 
+  //Feuerlöscher
+  CreateObject(FIE2, 2290, 435, -1);
+  CreateObject(FIE2, 2950, 435, -1);
+
   //Bildschirme
   CreateObject(SCR3, 490, 380, -1)->SetClrModulation(RGB(250,10,10));
   var screen = CreateObject(SCR3, 875, 380, -1);

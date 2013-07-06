@@ -339,9 +339,9 @@ func CreateDecoration()
   CreateObject(ENGT, 1030, 280, -1);
 
   //Feuerlöscher
-  CreateObject(FIEX, 340, 435, -1);
-  CreateObject(FIEX, 790, 435, -1);
-  CreateObject(FIEX, 1210, 355, -1);
+  CreateObject(FIE2, 340, 435, -1);
+  CreateObject(FIE2, 790, 435, -1);
+  CreateObject(FIE2, 1210, 355, -1);
 
   //Poster
   CreateObject(PSTR, 760, 437, -1)->Set(3);

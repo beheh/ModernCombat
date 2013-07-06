@@ -265,6 +265,12 @@ func CreateDecoration()
   CreateObject(FENC, 2580, 770, -1)->Set(2);
   CreateObject(FENC, 2930, 670, -1);
 
+  //Feuerlöscher
+  CreateObject(FIE2, 500, 555, -1);
+  CreateObject(FIE2, 1200, 665, -1);
+  CreateObject(FIE2, 3040, 665, -1);
+  CreateObject(FIE2, 3740, 555, -1);
+
   //Schilder
   CreateObject(MSGN, 775, 760, -1);
   CreateObject(MSGN, 1125, 760, -1);
