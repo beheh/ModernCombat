@@ -167,7 +167,7 @@ protected func InitializeHitbox()
 
 protected func FxIntHeliProtectionStart(object pTarget, int iEffect, int iTemp, object pObj)
 {
-  if (!iTemp)
+  if(!iTemp)
     EffectVar(0, pTarget, iEffect) = pObj;
 }
 
@@ -240,7 +240,7 @@ public func GetPassengerCount()
 {
   var i;
   for (var passenger in aSeats)
-    if (passenger)
+    if(passenger)
       i++;
   return i;
 }
@@ -355,20 +355,20 @@ protected func FxBlackhawkAutopilotTimer(object pTarget, int iNumber, int iTime)
   }
   if(GetX(pTarget) > iX+50)
   {
-    if (GetAction()=="Fly" || GetAction()=="Turn")
+    if(GetAction()=="Fly" || GetAction()=="Turn")
     rotation = BoundBy(rotation - BKHK_ControlSpeed, -BKHK_AutoMaxRotation, BKHK_AutoMaxRotation);
-    if (rotation < 0 && GetDir() && GetAction()=="Fly")
+    if(rotation < 0 && GetDir() && GetAction()=="Fly")
     {
-      if (GetAction() == "Turn" || GetContact(this, -1)) return true;
+      if(GetAction() == "Turn" || GetContact(this, -1)) return true;
       SetAction("Turn");
     }
   }
   else
   if(GetX(pTarget) < iX-50)
   {
-    if (GetAction()=="Fly" || GetAction()=="Turn") 
+    if(GetAction()=="Fly" || GetAction()=="Turn") 
     rotation = BoundBy(rotation + BKHK_ControlSpeed, -BKHK_AutoMaxRotation, BKHK_AutoMaxRotation);
-    if (rotation > 0 && !GetDir() && GetAction()=="Fly")
+    if(rotation > 0 && !GetDir() && GetAction()=="Fly")
     {
       if(GetAction() == "Turn" || GetContact(this, -1)) return true;
       SetAction("Turn");
@@ -443,13 +443,13 @@ protected func Ejection(object ByObj)
 
 protected func ControlCommand(string szCommand, object Target, int TargetX, int TargetY, object target2, int Data, object ByObj)
 {
-  if (szCommand == "Exit")
+  if(szCommand == "Exit")
   {
     var rot = GetDir()*180-90 + GetR() + GetDir()*120-60;
     Exit(ByObj, Sin(rot,25), -Cos(rot,25), GetR(), GetXDir(0,1), GetYDir(0,1), GetRDir());
     return true;
   }
-  if (szCommand == "MoveTo" || szCommand == "Attack")
+  if(szCommand == "MoveTo" || szCommand == "Attack")
   {
     if(ByObj == GetPilot())
       SetAutopilot(Target, TargetX, TargetY);
@@ -527,14 +527,14 @@ protected func ContainedUp(object ByObj)
   [$CtrlUp$]
 
   //Pilot
-  if (ByObj == GetPilot())
+  if(ByObj == GetPilot())
   {
     if(GetY() < 80)
       return;
     //Autopilot aus
     ResetAutopilot();
     //Startup-Sequence
-    if (!throttle && (GetAction() == "Stand" || GetAction() == "EngineShutDown"))
+    if(!throttle && (GetAction() == "Stand" || GetAction() == "EngineShutDown"))
       SetAction("EngineStartUp");
     //Schub geben
     if(!GetPlrCoreJumpAndRunControl(GetOwner(GetPilot())))
@@ -549,10 +549,10 @@ protected func ContainedUp(object ByObj)
   }
 
   //Schütze
-  if (ByObj == GetGunner())
+  if(ByObj == GetGunner())
     pMGStation->~ControlUp(ByObj);
   //Koordinator
-  if (ByObj == GetCoordinator())
+  if(ByObj == GetCoordinator())
     pRocketStation->~ControlUp(ByObj);
 
   return true;
@@ -563,7 +563,7 @@ protected func ContainedDown(object ByObj)
   [$CtrlDown$]
 
   //Pilot
-  if (ByObj == GetPilot())
+  if(ByObj == GetPilot())
   {
     //Autopilot aus
     ResetAutopilot();
@@ -609,7 +609,7 @@ protected func ContainedUpDouble(object ByObj)
   [$CtrlUpD$]
   
   //Pilot
-  if (ByObj == GetPilot())
+  if(ByObj == GetPilot())
   {
     if(GetY() < 80)
       return;
@@ -628,15 +628,15 @@ protected func ContainedDownDouble(object ByObj)
   [$CtrlDownD$]
 
   //Pilot
-  if (ByObj == GetPilot())
+  if(ByObj == GetPilot())
   {
     //Autopilot aus
     ResetAutopilot();
     //Motor aus
-    if (throttle == 0 && (GetAction() == "Fly" || GetAction() == "EngineStartUp") && GetContact(0, -1, CNAT_Bottom))
+    if(throttle == 0 && (GetAction() == "Fly" || GetAction() == "EngineStartUp") && GetContact(0, -1, CNAT_Bottom))
       SetAction("EngineShutDown");
     //Vom Gas weg
-    if (GetAction() == "Fly")
+    if(GetAction() == "Fly")
       throttle = BoundBy(throttle - BKHK_ThrottleSpeed*2, 0, 170);
   }
 
@@ -650,11 +650,11 @@ protected func ContainedLeft(object ByObj)
   [$CtrlLeft$]
 
   //Pilot
-  if (ByObj == GetPilot())
+  if(ByObj == GetPilot())
   {
     //Autopilot aus
     ResetAutopilot();
-    if (GetAction() == "Fly" || GetAction() == "Turn")
+    if(GetAction() == "Fly" || GetAction() == "Turn")
       if(GetPlrCoreJumpAndRunControl(GetController(ByObj)))
         rotation = -BKHK_MaxRotation;
       else
@@ -686,14 +686,14 @@ protected func ContainedRight(object ByObj, fRelease)
   [$CtrlRight$]
   
   //Pilot
-  if (ByObj == GetPilot())
+  if(ByObj == GetPilot())
   {
     //Autopilot aus
     ResetAutopilot();
     if(fRelease)
       rotation = GetR();
     else 
-      if (GetAction() == "Fly" || GetAction() == "Turn")
+      if(GetAction() == "Fly" || GetAction() == "Turn")
         if(GetPlrCoreJumpAndRunControl(GetController(ByObj)))
           rotation = BKHK_MaxRotation;
         else
@@ -714,12 +714,12 @@ protected func ContainedLeftDouble(object ByObj)
 {
   [$CtrlLeftD$]
   //Pilot
-  if (ByObj == GetPilot())
+  if(ByObj == GetPilot())
   {
     //Autopilot aus
     ResetAutopilot();
-    if (GetDir() && GetAction() == "Fly")
-      if (GetAction() == "Turn" || GetContact(this, -1))
+    if(GetDir() && GetAction() == "Fly")
+      if(GetAction() == "Turn" || GetContact(this, -1))
         return true;
       else
         SetAction("Turn");
@@ -750,12 +750,12 @@ protected func ContainedRightDouble(object ByObj)
   [$CtrlRightD$]
   
   //Pilot
-  if (ByObj == GetPilot())
+  if(ByObj == GetPilot())
   {
     //Autopilot aus
     ResetAutopilot();
-    if (!GetDir() && GetAction() == "Fly")
-      if (GetAction() == "Turn" || GetContact(this, -1))
+    if(!GetDir() && GetAction() == "Fly")
+      if(GetAction() == "Turn" || GetContact(this, -1))
         return true;
       else
         SetAction("Turn");
@@ -786,10 +786,10 @@ protected func ContainedThrow(object ByObj)
   [Image=KOKR|$CtrlThrow$]
   
   //nicht wenn kaputt
-  if (GetDamage() > MaxDamage())
+  if(GetDamage() > MaxDamage())
     return true;
   //Piloten-Speedmenü
-  if (ByObj == GetPilot())
+  if(ByObj == GetPilot())
   {
     var ring = CreateSpeedMenu(this, ByObj);
 
@@ -849,7 +849,7 @@ protected func ContainedThrow(object ByObj)
 
 protected func ContainedDig(object pBy)
 {
-  if (pBy == GetCoordinator())
+  if(pBy == GetCoordinator())
     pRocketStation->~ControlDig(pBy);
 }
 
@@ -1139,7 +1139,7 @@ private func DeleteActualSeatPassenger(object Obj)
 public func EnterSeat(int iSeat, object pObj)
 {
   //Besetzt
-  if (aSeats[iSeat])
+  if(aSeats[iSeat])
   {
     SeatOccupied(0, pObj);
     return false;
@@ -1151,7 +1151,7 @@ public func EnterSeat(int iSeat, object pObj)
   Sound("StructureEnter*.ogg", true, this, 100, GetOwner(pObj) + 1);
 
   //Pilot
-  if (iSeat == BKHK_Seat_Pilot)
+  if(iSeat == BKHK_Seat_Pilot)
   {
     SetController(GetOwner(pObj));
     SetGraphics("Pilot", this, GetID(), BKHK_PilotLayer, GFXOV_MODE_ExtraGraphics, 0, GFX_BLIT_Custom, this);
@@ -1164,7 +1164,7 @@ public func EnterSeat(int iSeat, object pObj)
   }
 
   //Schütze
-  if (iSeat == BKHK_Seat_Gunner)
+  if(iSeat == BKHK_Seat_Gunner)
   {
     SetGraphics("Passenger", this, GetID(), BKHK_PassengerLayer, GFXOV_MODE_ExtraGraphics, 0, GFX_BLIT_Custom, this);
     GetGunner() = pObj;
@@ -1173,7 +1173,7 @@ public func EnterSeat(int iSeat, object pObj)
   }
 
   //Koordinator
-  if (iSeat == BKHK_Seat_Coordinator)
+  if(iSeat == BKHK_Seat_Coordinator)
   {
     SetGraphics("Passenger", this, GetID(), BKHK_PassengerLayer, GFXOV_MODE_ExtraGraphics, 0, GFX_BLIT_Custom, this);
     GetCoordinator() = pObj;
@@ -1182,7 +1182,7 @@ public func EnterSeat(int iSeat, object pObj)
   }
 
   //Passagier 1
-  if (iSeat == BKHK_Seat_Passenger1)
+  if(iSeat == BKHK_Seat_Passenger1)
   {
     SetGraphics("Passenger", this, GetID(), BKHK_PassengerLayer, GFXOV_MODE_ExtraGraphics, 0, GFX_BLIT_Custom, this);
     GetPassenger1() = pObj;
@@ -1190,7 +1190,7 @@ public func EnterSeat(int iSeat, object pObj)
   }
 
   //Passagier 2
-  if (iSeat == BKHK_Seat_Passenger2)
+  if(iSeat == BKHK_Seat_Passenger2)
   {
     SetGraphics("Passenger", this, GetID(), BKHK_PassengerLayer, GFXOV_MODE_ExtraGraphics, 0, GFX_BLIT_Custom, this);
     GetPassenger2() = pObj;
@@ -1346,7 +1346,7 @@ public func OnDestruction()
 
 protected func ContactTop()
 {
-  if (GetCon() != 100) return;
+  if(GetCon() != 100) return;
   DoDmg(Abs(GetYDir(0, 500) / -2), 0, this, 1,  GetController() + 1);
   for (var i; i < GetVertexNum(); i++)
     if(GetContact(0, i))
@@ -1362,12 +1362,12 @@ protected func ContactTop()
 
 protected func ContactBottom()
 {
-  if (GetCon() != 100) return;
-  if (GetYDir() > 25)
+  if(GetCon() != 100) return;
+  if(GetYDir() > 25)
   {
     DoDmg(Abs(GetYDir(0, 500) / 2), 0, this, 1,  GetController() + 1);
     for (var i; i < GetVertexNum(); i++)
-      if (GetContact(0, i))
+      if(GetContact(0, i))
         CreateParticle("Blast", GetVertex(i), GetVertex(i, true), 0, 0, RandomX(50,100), RGB(255,255,255));
     Sound("HeavyHit*.ogg", false, pMGStation);
     SetYDir(GetYDir() * -2 / 3);
@@ -1379,12 +1379,12 @@ protected func ContactBottom()
 
 protected func ContactLeft()
 {
-  if (GetCon() != 100) return;
-  if (Abs(GetXDir()) > 20 || Abs(GetYDir()) > 20)
+  if(GetCon() != 100) return;
+  if(Abs(GetXDir()) > 20 || Abs(GetYDir()) > 20)
   {
     DoDmg(Sqrt(GetXDir(0, 500)**2 + GetYDir(0, 500)**2), 0, this, 1,  GetController() + 1);
     for (var i; i < GetVertexNum(); i++)
-      if (GetContact(0, i))
+      if(GetContact(0, i))
         CreateParticle("Blast", GetVertex(i), GetVertex(i, true), 0, 0, RandomX(50, 100), RGB(255, 255, 255));
     Sound("HeavyHit*.ogg", false, pMGStation);
   }
@@ -1395,12 +1395,12 @@ protected func ContactLeft()
 
 protected func ContactRight()
 {
-  if (GetCon() != 100) return;
-  if (Abs(GetXDir()) > 20 || Abs(GetYDir()) > 20)
+  if(GetCon() != 100) return;
+  if(Abs(GetXDir()) > 20 || Abs(GetYDir()) > 20)
   {
     DoDmg(Sqrt(GetXDir(0, 500)**2 + GetYDir(0, 500)**2), 0, this, 1,  GetController() + 1);
     for (var i; i < GetVertexNum(); i++)
-      if (GetContact(0, i))
+      if(GetContact(0, i))
         CreateParticle("Blast", GetVertex(i), GetVertex(i, true), 0, 0, RandomX(50, 100), RGB(255, 255, 255));
     Sound("HeavyHit*.ogg", false, pMGStation);
   }
@@ -1412,10 +1412,10 @@ protected func ContactRight()
 protected func RejectCollect(id ID, object ByObj)
 {
   //Objekte im Helikopter ablegbar
-  if (Contained(ByObj))
+  if(Contained(ByObj))
     return;
   //Von außen kommend: Schaden
-  if (GetRotorSpeed() > 0)
+  if(GetRotorSpeed() > 0)
   {
     var dir = (!GetDir())*2-1;
     DoDmg(GetMass(ByObj)*4, DMG_Melee, this, 0, GetController(ByObj)+1, GetID(ByObj));
@@ -1424,7 +1424,7 @@ protected func RejectCollect(id ID, object ByObj)
     SetYDir(RandomX(-25, -15), ByObj);
     return true;
   }
-  else if (GetOCF(ByObj) & OCF_HitSpeed2)
+  else if(GetOCF(ByObj) & OCF_HitSpeed2)
   {
     ProtectedCall(ByObj, "Hit");
     return true;
@@ -1617,21 +1617,21 @@ protected func TimerCall()
   if(GetDamage() >= MaxDamage() / 2)
   {
     for (var a = 0; a < 3; a++)
-      if (!GBackLiquid(-Sin(GetR() + iDir * 80, 25), +Cos(GetR() + iDir * 80, 25)))
+      if(!GBackLiquid(-Sin(GetR() + iDir * 80, 25), +Cos(GetR() + iDir * 80, 25)))
         Smoke(-Sin(GetR() + iDir * 80, 25), +Cos(GetR() + iDir * 80, 25), Random(10));
   }
   if(GetDamage() >= MaxDamage() * 3 / 4)
   {
-    if (!GBackLiquid(-Sin(GetR() + iDir * 80, 25), +Cos(GetR() + iDir * 80, 25)))
+    if(!GBackLiquid(-Sin(GetR() + iDir * 80, 25), +Cos(GetR() + iDir * 80, 25)))
       CreateParticle("Blast", -Sin(GetR() + iDir * 80, 25) + RandomX(-10, 10), +Cos(GetR() + iDir * 80, 25) + RandomX(-10, 10),0, -10, 100 + Random(30), RGB(255, 255, 255), this);
-    if (!GBackLiquid(-Sin(GetR() + iDir * 80, 25), +Cos(GetR() + iDir * 80, 25)))
+    if(!GBackLiquid(-Sin(GetR() + iDir * 80, 25), +Cos(GetR() + iDir * 80, 25)))
       CreateParticle("Blast", -Sin(GetR() - iDir * 60, 25) + RandomX(-10, 10), +Cos(GetR() + iDir * 100, 25) + RandomX(-10, 10),0, -10, 100 + Random(30), RGB(255, 255, 255), this);
 
     if(EngineRunning())
     {
       if(GetDamage() < MaxDamage() * 3 / 4) 
       {
-        if (!(iWarningSound % 36))
+        if(!(iWarningSound % 36))
         for (var obj in FindObjects(Find_OCF(OCF_CrewMember), Find_Container(this)))
           Sound("WarningDamage.ogg", false, pMGStation, 100, GetOwner(obj) + 1);
         iWarningSound++;
@@ -1640,7 +1640,7 @@ protected func TimerCall()
       }
       else
       {
-        if (!(iWarningSound % 20))
+        if(!(iWarningSound % 20))
         {
           Local(2) = 0;
           for (var obj in FindObjects(Find_OCF(OCF_CrewMember), Find_Container(this)))
@@ -1648,7 +1648,7 @@ protected func TimerCall()
               Sound("WarningDamageCritical.ogg", false, pMGStation, 100, GetOwner(obj) + 1);
         }
         iWarningSound++;
-        if (iWarningSound >= 100)
+        if(iWarningSound >= 100)
           iWarningSound = 0;
       }
     }
@@ -1721,7 +1721,7 @@ protected func FxEngineTimer(object Target, int EffectNumber, int EffectTime)
   var Fg, Fv, Fh, Fw, Fs, dFv, dFh, m, mh, g, av, ah;  //physikalische Kräfte
 
   //Überprüfung, ob überhaupt noch ein Pilot vorhanden ist...
-  if (Target->GetPilot() || Target->GetAutopilot())
+  if(Target->GetPilot() || Target->GetAutopilot())
   {
     //Rotation anpassen
     var speed;
