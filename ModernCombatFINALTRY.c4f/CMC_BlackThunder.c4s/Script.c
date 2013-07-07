@@ -272,12 +272,16 @@ func CreateDecoration()
   CreateObject(FIE2, 3740, 555, -1);
 
   //Schilder
+  CreateObject(ESGN, 480, 550, -1);
   CreateObject(MSGN, 775, 760, -1);
+  CreateObject(ESGN, 1220, 665, -1);
   CreateObject(MSGN, 1125, 760, -1);
   CreateObject(MSGN, 2015, 850, -1);
   CreateObject(MSGN, 2235, 850, -1);
+  CreateObject(ESGN, 3020, 665, -1);
   CreateObject(MSGN, 3125, 760, -1);
   CreateObject(MSGN, 3475, 760, -1);
+  CreateObject(ESGN, 3760, 550, -1);
 
   //Orientierungslichter
   CreateObject(OLGH, 700, 590, -1)->Set(4, 15, 1, 1, 30);
