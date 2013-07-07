@@ -245,7 +245,7 @@ public func SetAmmoCount(int iSlot, int iAmount)
 global func GetAmmo(id ammoid, object target)
 {
   if(!target) target=this;
-  
+
   if(target->~IsWeapon2())
     return GetAmmo2(target->GetSlot(),target);
   return _inherited(ammoid,target);
@@ -254,16 +254,16 @@ global func GetAmmo(id ammoid, object target)
 global func GetAmmo2(int slot, object target)
 {
   if(!target) target=this;
-  
+
   //Entsprechendes Munitionslagerobjekt suchen
   var obj = target ->~ AmmoStoring();
   if(!obj) obj = target;
-  
+
   //Keine Munition Regel
   if(ObjectCount(NOAM))
     if(target ->~ IsAmmoStorage())
       return;
-  
+
   return target->GetAmmoCount(slot);
 }
 
@@ -280,19 +280,19 @@ global func DoAmmo2(int slot, id ammoid, int change, object target)
 {
   //Gar keine Munition
   if(!(ammoid->~IsAmmo())) return;
-  
+
   //Kann 0 sein bei Objektlokalen Aufrufen
   if(!target) target=this;
-  
+
   //Entsprechendes Munitionslagerobjekt suchen
   var obj = target ->~ AmmoStoring();
   if(!obj) obj = target;
-  
+
   //Keine Munition Regel
   if(ObjectCount(NOAM))
     if(obj ->~ IsAmmoStorage())
       return;
-    
+
   //Alten Munitionsstand speichern
   var oldammoamount = obj->GetAmmo(ammoid);
   var truechange;
@@ -302,18 +302,18 @@ global func DoAmmo2(int slot, id ammoid, int change, object target)
     truechange= Max(oldammoamount+change, 0);
   else
     truechange= Max(Min(maxamount, oldammoamount+change), 0);
-  
+
   var ammoload = target->~GetFMData(FM_AmmoLoad);
   if(ammoload)
   truechange = Min(ammoload, truechange);
-  
+
   //Neuer Wert dem Objekt geben
   target->SetAmmoCount(slot,truechange);
   target->SetAmmoType(slot,ammoid);
-  
+
   //Wenn Muni alle, Typ nullen
   if(truechange==0) target->SetAmmoType(slot,0);
-  
+
   //Differenz zurückgeben: Tatsächliche Änderung.
   return truechange-oldammoamount;
 }
@@ -322,7 +322,7 @@ global func DoAmmo2(int slot, id ammoid, int change, object target)
 
 public func Empty()
 {
-   Empty2(GetSlot());
+  Empty2(GetSlot());
 }
 
 public func Empty2(int iSlot)
@@ -425,7 +425,6 @@ public func IsRecharging()
 {
   if(IsCanceling()) return true;
   return _inherited();
-
 }
 
 public func GetRecharge()

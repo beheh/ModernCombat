@@ -22,8 +22,6 @@ protected func Initialize()
   return true;
 }
 
-
-
 /* Inhalt */
 
 protected func SetAttachment(int iValue)
