@@ -1408,20 +1408,34 @@ protected func ContactRight()
   return true;
 }
 
-//Objekt, die in den Rotor geraten, verursachen Schaden
+//Objekte, die in den Rotor geraten, verursachen Schaden am Helikopter
 protected func RejectCollect(id ID, object ByObj)
 {
-  //Objekte im Helikopter ablegbar
+  //Objekt im Helikopter: Aufnahme erlauben
   if(Contained(ByObj))
     return;
-  //Von außen kommend: Schaden
-  if(GetRotorSpeed() > 0)
+
+  //Von außen kommend während Rotor aktiv: Aufprallen
+  if(GetRotorSpeed() > 10)
   {
-    var dir = (!GetDir())*2-1;
-    DoDmg(GetMass(ByObj)*4, DMG_Melee, this, 0, GetController(ByObj)+1, GetID(ByObj));
+    //Kein Cooldown vorhanden: Schaden nehmen
+    if(!GetEffect("NoRotorHit", ByObj))
+    {
+      //Schaden errechnen
+      var dir = (!GetDir())*2-1;
+      DoDmg(GetMass(ByObj)*3, DMG_Melee, this, 0, GetController(ByObj)+1, GetID(ByObj));
+
+      //Cooldown
+      AddEffect("NoRotorHit", ByObj, 1, 30, ByObj);
+    }
+
+    //Aufprall simulieren
     ProtectedCall(ByObj, "Hit");
+
+    //Objekt verschleudern
     SetXDir((Random(30) + 30) * dir, ByObj);
     SetYDir(RandomX(-25, -15), ByObj);
+
     return true;
   }
   else if(GetOCF(ByObj) & OCF_HitSpeed2)
@@ -1577,6 +1591,7 @@ protected func TimerCall()
       //MAVs gesondert behandeln
       if(pClonk->~IsMAV())
       {
+        //Cooldown
         AddEffect("NoRotorHit", pClonk, 1, 20, pClonk);
         if(pClonk->IsDestroyed()) continue;
 
@@ -1592,6 +1607,7 @@ protected func TimerCall()
       Fling(pClonk, GetXDir(pClonk, 1) * 3 / 2 + RandomX(-1, 1), RandomX(-3, -2) - Pow(GetRotorSpeed(), 2) / 15000);
       DoDmg(GetRotorSpeed() / 4, DMG_Projectile, pClonk, 0, GetOwner() + 1);
       Sound("BKHK_RotorHit*.ogg", false, pClonk);
+      //Cooldown
       AddEffect("NoRotorHit", pClonk, 1, 20, pClonk);
       //Achievement-Fortschritt (Meat Grinder)
       if(GetPilot() && (!GetAlive(pClonk) || IsFakeDeath(pClonk)))
