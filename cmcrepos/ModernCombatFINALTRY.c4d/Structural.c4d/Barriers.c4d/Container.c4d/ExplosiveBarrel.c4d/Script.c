@@ -7,6 +7,12 @@ local damaged;
 public func IsBulletTarget()		{return !damaged;}
 public func IsCraneGrabable()		{return !damaged;}
 public func IgnoreFriendlyFire()	{return 1;}
+public func IsMeleeTarget(object obj)
+{
+  if(damaged) return;
+  if(obj) if(GetID(obj) == RSLH || GetID(obj) == BWTH) return 1;
+  return;
+}
 
 
 /* Aufrichtung */
