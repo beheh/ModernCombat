@@ -1,0 +1,2 @@
+DE:Bodenplatte
+US:Floor Panel
