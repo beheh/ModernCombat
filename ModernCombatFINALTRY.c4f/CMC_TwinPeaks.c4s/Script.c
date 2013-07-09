@@ -55,12 +55,12 @@ func CreateInterior()
   CreateObject (JMPD, 3165, 1490, -1)->Set(200, 10);
 
   //Glasscheiben
-  CreateObject(_WIN, 1802, 884, -1);
-  CreateObject(_WIN, 1802, 913, -1);
-  CreateObject(_WIN, 1802, 942, -1);
-  CreateObject(_WIN, 3928, 884, -1);
-  CreateObject(_WIN, 3928, 913, -1);
-  CreateObject(_WIN, 3928, 942, -1);
+  CreateObject(PANE, 1802, 884, -1);
+  CreateObject(PANE, 1802, 913, -1);
+  CreateObject(PANE, 1802, 942, -1);
+  CreateObject(PANE, 3928, 884, -1);
+  CreateObject(PANE, 3928, 913, -1);
+  CreateObject(PANE, 3928, 942, -1);
 
   //Leitern
   CreateObject(LADR, 1215, 971, -1)->Set(33);

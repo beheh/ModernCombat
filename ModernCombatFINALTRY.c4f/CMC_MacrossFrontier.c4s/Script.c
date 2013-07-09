@@ -119,14 +119,14 @@ func CreateInterior()
   CreateObject (JMPD, 840, 360, -1)->Set(91, 13);
 
   //Glasscheiben
-  CreateObject(_WIN, 115, 340, -1);
-  CreateObject(_WIN, 115, 370, -1);
+  CreateObject(PANE, 115, 340, -1);
+  CreateObject(PANE, 115, 370, -1);
 
-  CreateObject(_WIN, 578, 420, -1);
-  CreateObject(_WIN, 972, 340, -1);
+  CreateObject(PANE, 578, 420, -1);
+  CreateObject(PANE, 972, 340, -1);
 
-  CreateObject(_WIN, 1430, 260, -1);
-  CreateObject(_WIN, 1430, 290, -1);
+  CreateObject(PANE, 1430, 260, -1);
+  CreateObject(PANE, 1430, 290, -1);
 
   //Autos
   var car = CreateObject(CCAR, 40, 60, -1);

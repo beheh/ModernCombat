@@ -96,11 +96,10 @@ func CreateInterior()
   CreateObject(H24K, 2145, 648, -1);
 
   //Glasscheiben
-  CreateObject(_WIN, 1262, 510, -1);
-  CreateObject(_WIN, 1262, 520, -1);
-
-  CreateObject(_WIN, 1468, 510, -1);
-  CreateObject(_WIN, 1468, 520, -1);
+  CreateObject(PANE, 1262, 510, -1);
+  CreateObject(PANE, 1262, 520, -1);
+  CreateObject(PANE, 1468, 510, -1);
+  CreateObject(PANE, 1468, 520, -1);
 
   //Explosivtanks
   CreateObject(XTNK, 230, 440, -1)->AutoRespawn();

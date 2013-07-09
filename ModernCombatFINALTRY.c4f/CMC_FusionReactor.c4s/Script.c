@@ -213,20 +213,20 @@ func CreateInterior()
   CreateObject(FRME, 1330, 312, -1);
 
   //Glasscheiben
-  CreateObject(_WIN, 492, 831, -1);
-  CreateObject(_WIN, 492, 860, -1);
-  CreateObject(_WIN, 552, 230, -1);
-  CreateObject(_WIN, 552, 250, -1);
+  CreateObject(PANE, 492, 831, -1);
+  CreateObject(PANE, 492, 860, -1);
+  CreateObject(PANE, 552, 230, -1);
+  CreateObject(PANE, 552, 250, -1);
 
-  CreateObject(_WIN, 618, 470, -1);
-  CreateObject(_WIN, 618, 690, -1);
-  CreateObject(_WIN, 1212, 470, -1);
-  CreateObject(_WIN, 1212, 690, -1);
+  CreateObject(PANE, 618, 470, -1);
+  CreateObject(PANE, 618, 690, -1);
+  CreateObject(PANE, 1212, 470, -1);
+  CreateObject(PANE, 1212, 690, -1);
 
-  CreateObject(_WIN, 1278, 230, -1);
-  CreateObject(_WIN, 1278, 250, -1);
-  CreateObject(_WIN, 1338, 831, -1);
-  CreateObject(_WIN, 1338, 860, -1);
+  CreateObject(PANE, 1278, 230, -1);
+  CreateObject(PANE, 1278, 250, -1);
+  CreateObject(PANE, 1338, 831, -1);
+  CreateObject(PANE, 1338, 860, -1);
 
   //Kisten
   CreateObject(WCR2, 160, 300, -1);

@@ -96,12 +96,12 @@ func CreateInterior()
   CreateObject(SHRK, 1030, 850, -1)->AutoRespawn();
 
   //Glasscheiben
-  CreateObject(_WIN, 512, 440, -1);
-  CreateObject(_WIN, 512, 640, -1);
-  CreateObject(_WIN, 738, 440, -1);
-  CreateObject(_WIN, 738, 640, -1);
-  CreateObject(_WIN, 2792, 490, -1);
-  CreateObject(_WIN, 2998, 490, -1);
+  CreateObject(PANE, 512, 440, -1);
+  CreateObject(PANE, 512, 640, -1);
+  CreateObject(PANE, 738, 440, -1);
+  CreateObject(PANE, 738, 640, -1);
+  CreateObject(PANE, 2792, 490, -1);
+  CreateObject(PANE, 2998, 490, -1);
 
   //Kisten
   CreateObject(WCR2, 620, 490, -1)->AutoRespawn();
@@ -371,8 +371,8 @@ public func ChooserFinished()
    SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2605,789,-1),50*21);
 
    //Objekte entfernen
-   RemoveObject(FindObject2(Find_ID(_WIN),Find_InRect(735, 410, 5, 30)));
-   RemoveObject(FindObject2(Find_ID(_WIN),Find_InRect(2790, 460, 5, 30)));
+   RemoveObject(FindObject2(Find_ID(PANE),Find_InRect(735, 410, 5, 30)));
+   RemoveObject(FindObject2(Find_ID(PANE),Find_InRect(2790, 460, 5, 30)));
   }
 
   //Assault-Spielziel

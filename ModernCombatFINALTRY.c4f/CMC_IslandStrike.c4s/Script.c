@@ -120,12 +120,12 @@ func CreateInterior()
   DrawMaterialQuad("Wall-Concrete2",6701,610,6671,600,6671,610,6686,610,true);
 
   //Glasscheiben
-  CreateObject(_WIN, 982, 430, -1);
-  CreateObject(_WIN, 1068, 430, -1);
-  CreateObject(_WIN, 5092, 570, -1);
-  CreateObject(_WIN, 5148, 570, -1);
-  CreateObject(_WIN, 5282, 570, -1);
-  CreateObject(_WIN, 5338, 570, -1);
+  CreateObject(PANE, 982, 430, -1);
+  CreateObject(PANE, 1068, 430, -1);
+  CreateObject(PANE, 5092, 570, -1);
+  CreateObject(PANE, 5148, 570, -1);
+  CreateObject(PANE, 5282, 570, -1);
+  CreateObject(PANE, 5338, 570, -1);
 
   //Kisten
   CreateObject(WCR2, 3605, 600, -1)->AutoRespawn();

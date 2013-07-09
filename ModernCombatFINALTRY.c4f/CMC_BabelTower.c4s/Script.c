@@ -248,34 +248,34 @@ func CreateInterior()
 
   //Glasscheiben
   //Links
-  CreateObject(_WIN, 372, 800, -1);
-  CreateObject(_WIN, 372, 950, -1);
-  CreateObject(_WIN, 372, 1000, -1);
-  CreateObject(_WIN, 372, 1100, -1);
-  CreateObject(_WIN, 372, 1150, -1);
-  CreateObject(_WIN, 372, 1320, -1);
-  CreateObject(_WIN, 372, 1370, -1);
-  CreateObject(_WIN, 372, 1440, -1);
-  CreateObject(_WIN, 372, 1490, -1);
-  CreateObject(_WIN, 372, 1690, -1);
-  CreateObject(_WIN, 372, 1750, -1);
-  CreateObject(_WIN, 372, 1800, -1);
-  CreateObject(_WIN, 372, 1850, -1);
+  CreateObject(PANE, 372, 800, -1);
+  CreateObject(PANE, 372, 950, -1);
+  CreateObject(PANE, 372, 1000, -1);
+  CreateObject(PANE, 372, 1100, -1);
+  CreateObject(PANE, 372, 1150, -1);
+  CreateObject(PANE, 372, 1320, -1);
+  CreateObject(PANE, 372, 1370, -1);
+  CreateObject(PANE, 372, 1440, -1);
+  CreateObject(PANE, 372, 1490, -1);
+  CreateObject(PANE, 372, 1690, -1);
+  CreateObject(PANE, 372, 1750, -1);
+  CreateObject(PANE, 372, 1800, -1);
+  CreateObject(PANE, 372, 1850, -1);
 
   //Rechts
-  CreateObject(_WIN, 798, 800, -1);
-  CreateObject(_WIN, 798, 950, -1);
-  CreateObject(_WIN, 798, 1000, -1);
-  CreateObject(_WIN, 798, 1100, -1);
-  CreateObject(_WIN, 798, 1150, -1);
-  CreateObject(_WIN, 798, 1320, -1);
-  CreateObject(_WIN, 798, 1370, -1);
-  CreateObject(_WIN, 798, 1440, -1);
-  CreateObject(_WIN, 798, 1490, -1);
-  CreateObject(_WIN, 798, 1690, -1);
-  CreateObject(_WIN, 798, 1750, -1);
-  CreateObject(_WIN, 798, 1800, -1);
-  CreateObject(_WIN, 798, 1850, -1);
+  CreateObject(PANE, 798, 800, -1);
+  CreateObject(PANE, 798, 950, -1);
+  CreateObject(PANE, 798, 1000, -1);
+  CreateObject(PANE, 798, 1100, -1);
+  CreateObject(PANE, 798, 1150, -1);
+  CreateObject(PANE, 798, 1320, -1);
+  CreateObject(PANE, 798, 1370, -1);
+  CreateObject(PANE, 798, 1440, -1);
+  CreateObject(PANE, 798, 1490, -1);
+  CreateObject(PANE, 798, 1690, -1);
+  CreateObject(PANE, 798, 1750, -1);
+  CreateObject(PANE, 798, 1800, -1);
+  CreateObject(PANE, 798, 1850, -1);
 
   //Kisten
   CreateObject(WCR2, 655, 870, -1)->AutoRespawn();
@@ -555,7 +555,7 @@ func CreateDecoration()
   CreateObject(GTBL, 530, 1690, -1);
   CreateObject(GTBL, 640, 1690, -1);
 
-  //Schilder
+  //Hinweisschilder
   CreateObject(WLSN, 180, 1930, -1)->Set("Heights");
   CreateObject(ESGN, 440, 800, -1);
   CreateObject(ESGN, 730, 800, -1);
