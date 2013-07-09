@@ -2,16 +2,51 @@
 
 #strict 2
 
-public func IsMeleeTarget()			{return true;}
-public func CanBeHitByShockwaves()		{return(true);}
-public func BlastObjectsShockwaveCheck()	{return(true);}
+local damaged;
 
+public func IsMeleeTarget()			{return true;}
+public func CanBeHitByShockwaves()		{return true;}
+public func BlastObjectsShockwaveCheck()	{return true;}
+public func MaxDamage()				{return 10;}
+public func IsBulletTarget(id def)
+{
+  if(def->~NoDecoDamage()) return false;
+  return true;
+}
+
+
+/* Schaden */
+
+public func OnHit(int iDamage, int iType, object pFrom)
+{
+  if(GetDamage()+10>=MaxDamage())
+    Shatter(BoundBy(iDamage,10,20),pFrom);
+  else
+    DoDamage(10);
+}
+
+public func MeleeHit(pFrom)
+{
+  if(GetDamage()+10>=MaxDamage())
+    Shatter(BoundBy(20),pFrom);
+  else
+    DoDamage(10);
+
+  return true;
+}
+
+public func OnShockwaveHit(iLevel,iX,iY)
+{
+  DoDamage(10);
+}
 
 /* Zerstörung */
 
 public func Damage()
 {
-  if(GetDamage() > 10)
+  if(damaged)
+    return;
+  if(GetDamage() > MaxDamage())
   {
     Shatter();
     return;
@@ -19,19 +54,11 @@ public func Damage()
   return 1;
 }
 
-public func OnHit(int iDamage, int iType, object pFrom)
-{
-  Shatter(BoundBy(iDamage,10,20),pFrom);
-}
-
-public func MeleeHit(pFrom)
-{
-  Shatter(BoundBy(20),pFrom);
-  return true;
-}
-
 public func Shatter(int iPower, object pFrom)
 {
+  if(damaged) return;
+  damaged = true;
+
   if(!iPower) iPower = 10;
   var angle = 0;
   var spread = 360;
@@ -49,15 +76,4 @@ public func Shatter(int iPower, object pFrom)
 
   if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("Glas", 2+Random(4), 50, 0,0, 60,10, RGBa(200,200,200), RGBa(200,200,200));
   RemoveObject();
-}
-
-public func IsBulletTarget(id def)
-{
-  if(def->~NoDecoDamage()) return false;
-  return true;
-}
-
-public func OnShockwaveHit(iLevel,iX,iY)
-{
-  Shatter(BoundBy(20));
 }
