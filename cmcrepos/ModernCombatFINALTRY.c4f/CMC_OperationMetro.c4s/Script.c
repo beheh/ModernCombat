@@ -91,47 +91,47 @@ func CreateInterior()
   CreateObject(HA4K, 3450, 303, -1);
 
   //Glasscheiben
-  CreateObject(_WIN, 522, 360, -1);
-  CreateObject(_WIN, 522, 389, -1);
+  CreateObject(PANE, 522, 360, -1);
+  CreateObject(PANE, 522, 389, -1);
 
-  CreateObject(_WIN, 848, 273, -1);
-  CreateObject(_WIN, 848, 302, -1);
-  CreateObject(_WIN, 848, 331, -1);
-  CreateObject(_WIN, 848, 360, -1);
-  CreateObject(_WIN, 848, 389, -1);
+  CreateObject(PANE, 848, 273, -1);
+  CreateObject(PANE, 848, 302, -1);
+  CreateObject(PANE, 848, 331, -1);
+  CreateObject(PANE, 848, 360, -1);
+  CreateObject(PANE, 848, 389, -1);
 
-  CreateObject(_WIN, 1032, 273, -1);
-  CreateObject(_WIN, 1032, 302, -1);
-  CreateObject(_WIN, 1032, 331, -1);
-  CreateObject(_WIN, 1032, 360, -1);
-  CreateObject(_WIN, 1032, 389, -1);
+  CreateObject(PANE, 1032, 273, -1);
+  CreateObject(PANE, 1032, 302, -1);
+  CreateObject(PANE, 1032, 331, -1);
+  CreateObject(PANE, 1032, 360, -1);
+  CreateObject(PANE, 1032, 389, -1);
 
-  CreateObject(_WIN, 2048, 360, -1);
-  CreateObject(_WIN, 2048, 389, -1);
+  CreateObject(PANE, 2048, 360, -1);
+  CreateObject(PANE, 2048, 389, -1);
 
-  CreateObject(_WIN, 2232, 360, -1);
-  CreateObject(_WIN, 2232, 389, -1);
+  CreateObject(PANE, 2232, 360, -1);
+  CreateObject(PANE, 2232, 389, -1);
 
-  CreateObject(_WIN, 3008, 360, -1);
-  CreateObject(_WIN, 3008, 389, -1);
+  CreateObject(PANE, 3008, 360, -1);
+  CreateObject(PANE, 3008, 389, -1);
 
-  CreateObject(_WIN, 3192, 360, -1);
-  CreateObject(_WIN, 3192, 389, -1);
+  CreateObject(PANE, 3192, 360, -1);
+  CreateObject(PANE, 3192, 389, -1);
 
-  CreateObject(_WIN, 4208, 273, -1);
-  CreateObject(_WIN, 4208, 302, -1);
-  CreateObject(_WIN, 4208, 331, -1);
-  CreateObject(_WIN, 4208, 360, -1);
-  CreateObject(_WIN, 4208, 389, -1);
+  CreateObject(PANE, 4208, 273, -1);
+  CreateObject(PANE, 4208, 302, -1);
+  CreateObject(PANE, 4208, 331, -1);
+  CreateObject(PANE, 4208, 360, -1);
+  CreateObject(PANE, 4208, 389, -1);
 
-  CreateObject(_WIN, 4392, 273, -1);
-  CreateObject(_WIN, 4392, 302, -1);
-  CreateObject(_WIN, 4392, 331, -1);
-  CreateObject(_WIN, 4392, 360, -1);
-  CreateObject(_WIN, 4392, 389, -1);
+  CreateObject(PANE, 4392, 273, -1);
+  CreateObject(PANE, 4392, 302, -1);
+  CreateObject(PANE, 4392, 331, -1);
+  CreateObject(PANE, 4392, 360, -1);
+  CreateObject(PANE, 4392, 389, -1);
 
-  CreateObject(_WIN, 4718, 360, -1);
-  CreateObject(_WIN, 4718, 389, -1);
+  CreateObject(PANE, 4718, 360, -1);
+  CreateObject(PANE, 4718, 389, -1);
 
   //U-Bahnzüge
   CreateObject(MOTN, 480, 460, -1);

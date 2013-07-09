@@ -88,17 +88,17 @@ func CreateInterior()
   CreateObject(SBBA, 2785, 300, -1);
 
   //Glasscheiben
-  CreateObject(_WIN, 572, 211, -1);
-  CreateObject(_WIN, 572, 240, -1);
+  CreateObject(PANE, 572, 211, -1);
+  CreateObject(PANE, 572, 240, -1);
 
-  CreateObject(_WIN, 627, 211, -1);
-  CreateObject(_WIN, 627, 240, -1);
+  CreateObject(PANE, 627, 211, -1);
+  CreateObject(PANE, 627, 240, -1);
 
-  CreateObject(_WIN, 2652, 211, -1);
-  CreateObject(_WIN, 2652, 240, -1);
+  CreateObject(PANE, 2652, 211, -1);
+  CreateObject(PANE, 2652, 240, -1);
 
-  CreateObject(_WIN, 2707, 211, -1);
-  CreateObject(_WIN, 2707, 240, -1);
+  CreateObject(PANE, 2707, 211, -1);
+  CreateObject(PANE, 2707, 240, -1);
 
   //Steine
   CreateObject(STNE, 300, 550, -1);

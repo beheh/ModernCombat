@@ -274,19 +274,28 @@ func CreateInterior()
   CreateObject(CCAR, 950, 450, -1);
 
   //Glasscheiben
-  CreateObject(_WIN, 1202, 240, -1);
-  CreateObject(_WIN, 1202, 300, -1);
-  CreateObject(_WIN, 1202, 360, -1);
+  CreateObject(PANE, 1202, 240, -1);
+  CreateObject(PANE, 1202, 300, -1);
+  CreateObject(PANE, 1202, 360, -1);
 
-  CreateObject(_WIN, 1482, 310, -1);
-  CreateObject(_WIN, 1482, 335, -1);
-  CreateObject(_WIN, 1482, 360, -1);
+  CreateObject(PANE, 1482, 310, -1);
+  CreateObject(PANE, 1482, 335, -1);
+  CreateObject(PANE, 1482, 360, -1);
 
-  CreateObject(_WIN, 1547, 310, -1);
-  CreateObject(_WIN, 1547, 335, -1);
-  CreateObject(_WIN, 1547, 360, -1);
+  CreateObject(PANE, 1547, 310, -1);
+  CreateObject(PANE, 1547, 335, -1);
+  CreateObject(PANE, 1547, 360, -1);
 
-  CreateObject(_WIN, 1842, 140, -1);
+  CreateObject(PAN2, 1785, 265, -1);
+  CreateObject(PAN2, 1815, 265, -1);
+  CreateObject(PANE, 1842, 140, -1);
+  CreateObject(PAN2, 1845, 265, -1);
+
+  CreateObject(PAN2, 2445, 325, -1);
+
+  CreateObject(PAN2, 2575, 215, -1);
+  CreateObject(PAN2, 2605, 215, -1);
+  CreateObject(PAN2, 2635, 215, -1);
 
   //Steine
   CreateObject(STNE, 70, 680, -1)->Set(4);
@@ -913,7 +922,7 @@ public func ChooserFinished()
    sign->Set("Turret");
 
    //Objekte entfernen
-   RemoveObject(FindObject2(Find_ID(_WIN),Find_InRect(1200, 330, 805, 360)));
+   RemoveObject(FindObject2(Find_ID(PANE),Find_InRect(1200, 330, 805, 360)));
    RemoveObject(FindObject2(Find_ID(BECR),Find_InRect(2800, 430, 20, 20)));
   }
 

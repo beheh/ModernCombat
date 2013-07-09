@@ -69,13 +69,13 @@ func CreateInterior()
   CreateObject(H24K, 4205, 478, -1);
 
   //Glasscheiben
-  CreateObject(_WIN, 1282, 410, -1);
-  CreateObject(_WIN, 1718, 410, -1);
-  CreateObject(_WIN, 1718, 470, -1);
+  CreateObject(PANE, 1282, 410, -1);
+  CreateObject(PANE, 1718, 410, -1);
+  CreateObject(PANE, 1718, 470, -1);
 
-  CreateObject(_WIN, 3822, 410, -1);
-  CreateObject(_WIN, 3822, 470, -1);
-  CreateObject(_WIN, 4258, 410, -1);
+  CreateObject(PANE, 3822, 410, -1);
+  CreateObject(PANE, 3822, 470, -1);
+  CreateObject(PANE, 4258, 410, -1);
 
   //Schutztüren
   CreateObject(GDDR, 1290, 510, -1)->SetColorDw(HSL(145, 210, 100, 127));

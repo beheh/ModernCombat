@@ -103,10 +103,10 @@ func CreateInterior()
   DrawMaterialQuad("Granite-Rock", 4570, 1228, 4630, 1228, 4570, 1230, 4630, 1230, 1);
 
   //Glasscheiben
-  CreateObject(_WIN, 1432, 1081, -1);
-  CreateObject(_WIN, 1432, 1110, -1);
-  CreateObject(_WIN, 1638, 1081, -1);
-  CreateObject(_WIN, 1638, 1110, -1);
+  CreateObject(PANE, 1432, 1081, -1);
+  CreateObject(PANE, 1432, 1110, -1);
+  CreateObject(PANE, 1638, 1081, -1);
+  CreateObject(PANE, 1638, 1110, -1);
 
   //Kisten
   CreateObject(WCR2, 1690, 1170, -1)->AutoRespawn();

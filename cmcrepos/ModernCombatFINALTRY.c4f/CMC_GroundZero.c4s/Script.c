@@ -83,25 +83,25 @@ func CreateInterior()
   CreateObject(_HBR, 2797, 352, -1);
 
   //Glasscheiben
-  CreateObject(_WIN, 1212, 320, -1);
-  CreateObject(_WIN, 1212, 370, -1);
-  CreateObject(_WIN, 1212, 420, -1);
-  CreateObject(_WIN, 1222, 260, -1);
-  CreateObject(_WIN, 1282, 170, -1);
-  CreateObject(_WIN, 1428, 260, -1);
-  CreateObject(_WIN, 1438, 320, -1);
-  CreateObject(_WIN, 1438, 370, -1);
-  CreateObject(_WIN, 1438, 420, -1);
+  CreateObject(PANE, 1212, 320, -1);
+  CreateObject(PANE, 1212, 370, -1);
+  CreateObject(PANE, 1212, 420, -1);
+  CreateObject(PANE, 1222, 260, -1);
+  CreateObject(PANE, 1282, 170, -1);
+  CreateObject(PANE, 1428, 260, -1);
+  CreateObject(PANE, 1438, 320, -1);
+  CreateObject(PANE, 1438, 370, -1);
+  CreateObject(PANE, 1438, 420, -1);
 
-  CreateObject(_WIN, 1962, 320, -1);
-  CreateObject(_WIN, 1962, 370, -1);
-  CreateObject(_WIN, 1962, 420, -1);
-  CreateObject(_WIN, 1972, 260, -1);
-  CreateObject(_WIN, 2118, 170, -1);
-  CreateObject(_WIN, 2178, 260, -1);
-  CreateObject(_WIN, 2188, 320, -1);
-  CreateObject(_WIN, 2188, 370, -1);
-  CreateObject(_WIN, 2188, 420, -1);
+  CreateObject(PANE, 1962, 320, -1);
+  CreateObject(PANE, 1962, 370, -1);
+  CreateObject(PANE, 1962, 420, -1);
+  CreateObject(PANE, 1972, 260, -1);
+  CreateObject(PANE, 2118, 170, -1);
+  CreateObject(PANE, 2178, 260, -1);
+  CreateObject(PANE, 2188, 320, -1);
+  CreateObject(PANE, 2188, 370, -1);
+  CreateObject(PANE, 2188, 420, -1);
 
   //Explosivtanks
   CreateObject(XTNK, 10, 120, -1);

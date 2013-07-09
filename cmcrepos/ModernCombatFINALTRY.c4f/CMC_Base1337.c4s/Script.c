@@ -90,10 +90,14 @@ func CreateInterior()
   CreateObject(GDDR, 3290, 800, -1)->Lock();
 
   //Glasscheiben
-  CreateObject(_WIN, 3292, 901, -1);
-  CreateObject(_WIN, 3292, 930, -1);
-  CreateObject(_WIN, 3528, 891, -1);
-  CreateObject(_WIN, 3528, 920, -1);
+  CreateObject(PAN2, 3165, 935, -1);
+  CreateObject(PAN2, 3215, 935, -1);
+  CreateObject(PAN2, 3245, 935, -1);
+  CreateObject(PAN2, 3275, 935, -1);
+  CreateObject(PANE, 3292, 901, -1);
+  CreateObject(PANE, 3292, 930, -1);
+  CreateObject(PANE, 3528, 891, -1);
+  CreateObject(PANE, 3528, 920, -1);
 
   //Kisten
   CreateObject(WCR2, 570, 1172, -1)->AutoRespawn();
