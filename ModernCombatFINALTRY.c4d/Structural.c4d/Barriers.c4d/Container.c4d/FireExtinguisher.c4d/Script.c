@@ -6,6 +6,12 @@
 local damaged;
 
 public func IsBulletTarget(idBullet)	{return idBullet == TRDT || !Random(6);}
+public func IsMeleeTarget(object obj)
+{
+  if(damaged) return;
+  if(obj) if(GetID(obj) == BWTH) return 1;
+  return;
+}
 
 
 /* Zerstörung */
