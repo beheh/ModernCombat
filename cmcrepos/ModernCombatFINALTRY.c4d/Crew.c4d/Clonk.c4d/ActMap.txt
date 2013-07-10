@@ -447,7 +447,6 @@ Facet=0,240,16,20,0,0
 NextAction=Hold
 NoOtherAction=1
 ObjectDisabled=1
-StartCall=ChangeDeathAnim
 
 [Action]
 Name=CMC_Dead1
