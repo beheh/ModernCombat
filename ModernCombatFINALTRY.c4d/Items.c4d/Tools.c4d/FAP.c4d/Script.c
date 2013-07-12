@@ -60,13 +60,6 @@ public func Activate(object pCaller)
     PlayerMessage(GetOwner(pCaller), "$CantHeal$", pCaller);
     return true;
   }
-  //Brennende Clonks löschen
-  if(OnFire(pCaller) && GetPackPoints() >= 30)
-  {
-    Sound("Extinguish", false, pCaller);
-    DoPackPoints(-30);
-    Extinguish(pCaller);
-  }
   //Clonk anhalten
   SetComDir(COMD_Stop, pCaller);
   //Heilen
