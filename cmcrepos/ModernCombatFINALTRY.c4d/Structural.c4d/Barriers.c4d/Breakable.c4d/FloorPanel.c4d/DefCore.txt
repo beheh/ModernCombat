@@ -8,4 +8,4 @@ Height=5
 Offset=-15,-2
 Mass=5
 SolidMask=30,0,30,5,0,0
-Picture=0,5,34,29
+Picture=0,5,36,20
