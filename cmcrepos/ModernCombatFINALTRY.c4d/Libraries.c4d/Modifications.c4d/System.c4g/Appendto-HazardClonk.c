@@ -2092,6 +2092,12 @@ private func ControlAgility(string strControl)
   }
 }
 
+private func IsJumping() {
+  if(GetAction() == "Dive")
+    return(true);
+  return(WildcardMatch(GetAction(),"Jump*") || WildcardMatch(GetAction(),"JetpackFlight"));
+}
+
 /* Backflip starten */
 
 public func JumpStart(bool bBackflip)
