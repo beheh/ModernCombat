@@ -1540,6 +1540,7 @@ func SetAttachment(int iValue)
   if(GetEffect("LaserDot", this))	RemoveEffect("LaserDot", this);
   if(GetEffect("Silencer", this))	RemoveEffect("Silencer", this);
   if(GetEffect("Flashlight", this))	RemoveEffect("Flashlight", this);
+	RemoveTrajectory(this);
 
   //Feuermodus zurücksetzen
   SetFireMode(1);
