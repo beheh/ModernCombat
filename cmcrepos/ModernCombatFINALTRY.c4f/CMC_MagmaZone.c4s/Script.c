@@ -14,6 +14,8 @@ func Initialize()
 {
   //Wartemusik einstellen
   SetWaitingMusic();
+  //Himmelparallaxität
+  SetSkyParallax(0, 15, 15);
   //Flaggen
   aFlag = [];
   //Selbstschussanlage

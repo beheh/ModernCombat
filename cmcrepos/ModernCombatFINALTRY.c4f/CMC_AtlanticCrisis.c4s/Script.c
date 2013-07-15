@@ -14,6 +14,8 @@ func Initialize()
 {
   //Wartemusik einstellen
   SetWaitingMusic();
+  //Himmelparallaxität
+  SetSkyParallax(1, 20, 15);
   //Bildschirmfärbung
   SetGamma(RGB(2,3,10), RGB(131,135,158), RGB(252,253,255));
   //Flaggen
