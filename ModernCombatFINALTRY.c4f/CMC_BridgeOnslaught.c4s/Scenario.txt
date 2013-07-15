@@ -35,10 +35,9 @@ BottomOpen=1
 MapWidth=179,0,64,250
 MapHeight=94,0,40,250
 NoScan=1
-SkyScrollMode=1
 
 [Weather]
-Climate=94,3,0,100
+Climate=100,0,0,100
 
 [Environment]
 Objects=OWL1=1;DOFO=1;EGLN=3;ELGT=1;DARK=3;SWFL=1

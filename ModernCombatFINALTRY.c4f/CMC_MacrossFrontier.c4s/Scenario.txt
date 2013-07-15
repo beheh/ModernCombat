@@ -34,7 +34,6 @@ VegetationLevel=100,0,0,100
 MapWidth=80,0,64,250
 MapHeight=80,0,40,250
 NoScan=1
-SkyScrollMode=1
 
 [Environment]
 Objects=EGRS=1;STRM=1;DARK=3

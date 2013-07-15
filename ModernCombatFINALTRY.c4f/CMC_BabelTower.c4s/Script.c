@@ -23,10 +23,10 @@ func Initialize()
 {
   //Wartemusik einstellen
   SetWaitingMusic();
-  //Bildschirmfärbung
-  SetGamma(RGB(15,15,15),RGB(118,118,118),RGB(215,215,215));
   //Himmelparallaxität
   SetSkyParallax(0,15,15);
+  //Bildschirmfärbung
+  SetGamma(RGB(15,15,15),RGB(118,118,118),RGB(215,215,215));
   //Flaggen
   aFlag = [];
   //Selbstschussanlagen

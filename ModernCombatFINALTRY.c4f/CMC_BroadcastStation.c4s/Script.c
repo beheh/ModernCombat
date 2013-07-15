@@ -12,6 +12,8 @@ func Initialize()
 {
   //Wartemusik einstellen
   SetWaitingMusic();
+  //Himmelparallaxität
+  SetSkyParallax(1, 20, 15);
   //Bildschirmfärbung
   SetSkyAdjust(RGBa(255,255,255,128),RGB(64,196,255));
   //Einrichtung plazieren

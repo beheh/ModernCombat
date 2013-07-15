@@ -30,17 +30,16 @@ Crew=PCMK=1
 Crew=PCMK=1
 
 [Landscape]
+Sky=Default
+SkyFade=12,22,99,255,255,255
 Vegetation=BSH2=8;TRE4=9
+VegetationLevel=100,0,0,100
 MapWidth=64,0,64,10000
 MapHeight=99,0,40,10000
-SkyFade=12,22,99,255,255,255
 NoScan=1
-SkyScrollMode=1
 
 [Weather]
-Climate=94,4,0,100
-StartSeason=100,0,0,100
-Wind=20,4,-100,100
+Climate=100,0,0,100
 
 [Environment]
-Objects=ELGT=1;DOFO=1;EGLN=5
+Objects=ELGT=1;DOFO=1;EGLN=5;SWFL=1

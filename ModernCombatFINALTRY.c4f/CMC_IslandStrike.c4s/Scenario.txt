@@ -36,7 +36,6 @@ MapWidth=64,0,64,10000
 MapHeight=99,0,40,10000
 NoScan=1
 NewStyleLandscape=2
-SkyScrollMode=1
 
 [Environment]
 Objects=EGRS=1;EGLN=3;BRDS=1;ELGT=1
