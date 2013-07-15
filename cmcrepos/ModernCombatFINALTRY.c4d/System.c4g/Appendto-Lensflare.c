@@ -51,12 +51,11 @@ protected func ManageFlares()
   {
     if(fixed) return;
     fixed = true;
-
   }
   else
   {
     if(fixed) fixed = false;
-  }  
+  }
   //Unskalierten Vektor ermitteln
   var iVectorX = GetVectorX(GetOwner());
   var iVectorY = GetVectorY(GetOwner());
