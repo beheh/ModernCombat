@@ -4,7 +4,7 @@
 
 local charge;
 
-public func IsDrawable()		{return true;}		//Wird sichtbar getragen
+public func IsDrawable()		{return true;}			//Wird sichtbar getragen
 public func HandSize()			{return 1000;}
 public func HandX()			{return 4500;}
 

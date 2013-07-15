@@ -14,7 +14,6 @@ func Fused()
   //Splitter verschleudern
   var i, iAngle, pAmmo;
   var iR = Angle(GetXDir(),GetYDir()), iSpeed = BoundBy(Distance(GetXDir(),GetYDir()),0,80);
-  // Splitter verschleudern
   for(i = 40; i > 0; i--)
   {
     iAngle = Interpolate4K(Random(360),iR,0,80,iSpeed);
