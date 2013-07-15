@@ -22,7 +22,7 @@ func Initialize()
 func Timer()
 {
   //Steckt irgendwo drin: Raus da
-  if (Contained())
+  if(Contained())
     Exit(this, GetX(Contained())-GetX(), GetY(Contained())-GetY());
 
   var speed = Distance(GetXDir(),GetYDir());

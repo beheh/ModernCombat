@@ -81,5 +81,5 @@ public func FxShowEnergyBarStop(object target, int nr, int reason, bool temp)
 
 /* Aufnahme */
 
-public func RejectEntrance()		{return RemoveObject();}
-public func AttachTargetLost()		{return RemoveObject();}
+public func RejectEntrance()	{return RemoveObject();}
+public func AttachTargetLost()	{return RemoveObject();}
