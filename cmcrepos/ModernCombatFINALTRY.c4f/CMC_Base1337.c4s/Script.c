@@ -155,7 +155,7 @@ func CreateInterior()
   CreateObject(GSBL, 880, 780, -1)->AutoRespawn();
   CreateObject(GSBL, 1530, 1170, -1);
   CreateObject(GSBL, 1540, 1170, -1);
-  CreateObject(GSBL, 2120, 563, -1);
+  CreateObject(GSBL, 2140, 563, -1);
   CreateObject(GSBL, 2180, 1120, -1)->AutoRespawn();
   CreateObject(GSBL, 2720, 960, -1)->AutoRespawn();
   CreateObject(GSBL, 3770, 832, -1)->AutoRespawn();
@@ -320,9 +320,9 @@ func CreateEquipment()
 
   //Geschützstellungen
   aTowerInterior[0] = CreateObject(GNET, 2085, 563, -1);
-  aTowerInterior[0] -> Set(0,-90);
+  aTowerInterior[0] -> Set(0,-90,1);
   aTowerInterior[1] = CreateObject(GNET, 2145, 382, -1);
-  aTowerInterior[1] -> Set(0,90);
+  aTowerInterior[1] -> Set(0,90,1);
 
   //Artilleriebatterie
   CreateObject(ATBY,2580,950,-1);
