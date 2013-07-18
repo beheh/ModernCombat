@@ -200,6 +200,12 @@ func CreateInterior()
   CreateObject(BRDR, 625, 0, -1)->Set(0);
   CreateObject(BRDR, 6205, 0, -1)->Set(1);
 
+  //Verbundene Räume
+  var doorw = CreateObject(GAT1, 2030, 690, -1);
+  CreateObject(ROM2, 1545, 580, -1)->Connect(doorw);
+  doorw = CreateObject(GAT1, 4800, 690, -1);
+  CreateObject(ROM2, 5285, 580, -1)->Connect(doorw);
+
   //Sounds
 
   //Zikaden
@@ -365,7 +371,7 @@ public func ChooserFinished()
   if(FindObject(GOCC))
   {
    //Flaggenposten
-   aFlag[0] = CreateObject(OFPL,1550,580,NO_OWNER);
+   aFlag[0] = CreateObject(OFPL,1570,580,NO_OWNER);
    aFlag[0] -> AddSpawnPoint(670,610);
    aFlag[0] -> AddSpawnPoint(1130,620);
    if(aTeams[1] == true)
@@ -395,7 +401,7 @@ public func ChooserFinished()
    aFlag[3] -> AddSpawnPoint(4290,470);
    aFlag[3]->Set("$Flag4$",0,2);
 
-   aFlag[4] = CreateObject(OFPL,5280,580,NO_OWNER);
+   aFlag[4] = CreateObject(OFPL,5260,580,NO_OWNER);
    aFlag[4] -> AddSpawnPoint(5710,620);
    aFlag[4] -> AddSpawnPoint(6160,610);
    if(aTeams[2] == true)
