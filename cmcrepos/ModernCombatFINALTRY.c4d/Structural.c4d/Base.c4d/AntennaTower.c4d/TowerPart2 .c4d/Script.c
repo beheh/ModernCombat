@@ -17,11 +17,10 @@ func Initialize()
 
 public func Hit(int iXDir, int iYDir)
 {
-  Sound("StructureHit*.ogg");
-
   //Spielerbildschirme schütteln
   ShakeViewPort(50, this);
 
+  //Effekte
   if(GetEffectData(EFSM_ExplosionEffects) > 1)
   {
     var x = GetX(), y = GetY(), xdir, ydir;
@@ -36,6 +35,8 @@ public func Hit(int iXDir, int iYDir)
 
     CastParticles("GroundSmoke", RandomX(4,12), 80, AbsX(x), AbsY(y)-1, (iXDir + iYDir) / 4, (iXDir + iYDir) / 2, clr, clr);
   }
+  CastSmoke("Smoke",4,10,0,0,500,100,RGBa(255,255,255,0));
+  Sound("StructureHit*.ogg");
 
   return true;
 }

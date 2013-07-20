@@ -59,11 +59,10 @@ public func FxDmgObjectsTimer(object target, int nr, int time)
 
 public func Hit(int iXDir, int iYDir)
 {
-  Sound("StructureHit*.ogg");
-
   //Spielerbildschirme schütteln
   ShakeViewPort(50, this);
 
+  //Effekte
   var x = GetX(), y = GetY(), xdir, ydir;
   SimFlight(x, y, xdir, ydir, 50, 100);
   var mat = GetMaterial(x, y);
@@ -75,7 +74,9 @@ public func Hit(int iXDir, int iYDir)
   		Min(GetMaterialVal("Color", "Material", mat, 2 + clr_offset), 255));
 
   CastParticles("GroundSmoke", RandomX(4,12), 80, AbsX(x), AbsY(y)-1, (iXDir + iYDir) / 4, (iXDir + iYDir) / 2, clr, clr);
+  CastSmoke("Smoke",4,10,0,0,500,100,RGBa(255,255,255,0));
   if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("ConcreteSplinter", RandomX(8,16), 80, AbsX(x), AbsY(y)-1, 20, 50);
+  Sound("StructureHit*.ogg");
 
   return true;
 }
