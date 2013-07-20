@@ -367,6 +367,12 @@ func CreateInterior()
   CreateObject(SE4K, 2440, 280, -1)->Set("Interior*.ogg",665,105);
   CreateObject(SE4K, 2765, 400, -1)->Set("Interior*.ogg",670,105);
 
+  //Rush Hour
+  CreateObject(SE4K, 200, 400, -1)->Set("Traffic*.ogg",245,70);
+
+  //Sirenen
+  CreateObject(SE4K, 100, 400, -1)->Set("Siren*.ogg",4000,140);
+
   //Eulen
   CreateObject(SE4K, 800, 620, -1)->Set("Owl.wav",1400,35);
 
@@ -728,8 +734,10 @@ func CreateDecoration()
 
 func CreateOptionalFeatures()
 {
-  //Hintergrund
+  //Hintergründe
   CreateObject(BD03,900,200,-1)->SetClrModulation(RGB(150,150,150));
+  CreateObject(BD10,300,870,-1)->SetClrModulation(RGB(130,130,130));
+  CreateObject(BD10,1690,870,-1)->SetClrModulation(RGB(130,130,130));
 }
 
 /* Bei Flaggenübernahme */

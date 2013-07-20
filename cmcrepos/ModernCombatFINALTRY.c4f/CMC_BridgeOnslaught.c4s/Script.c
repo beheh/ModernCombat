@@ -540,6 +540,19 @@ func CreateDecoration()
   CreateObject(VEN3, 2240, 595, -1)->SetCon(20);
 }
 
+func CreateOptionalFeatures()
+{
+  //Hintergründe
+  var back = CreateObject(BD10,300,900,-1);
+  back->SetClrModulation(RGB(130,130,130));
+  back->Local()=65;
+  back->Local(1)=80;
+  back = CreateObject(BD10,1690,900,-1);
+  back->SetClrModulation(RGB(130,130,130));
+  back->Local()=65;
+  back->Local(1)=80;
+}
+
 /* Bei Flaggenübernahme */
 
 func FlagCaptured(object pPoint, int iTeam)
