@@ -405,9 +405,11 @@ func CreateDecoration()
 func CreateOptionalFeatures()
 {
   //Hintergründe
-  CreateObject(BD04,520,550,-1);
-  CreateObject(BD04,1027,550,-1);
-  CreateObject(BD04,1534,550,-1);
+  CreateObject(BD04,520,550,-1)->Local()=50;
+  CreateObject(BD04,1027,550,-1)->Local()=50;
+  CreateObject(BD04,1534,550,-1)->Local()=50;
+  CreateObject(BD10,300,650,-1)->SetClrModulation(RGB(130,130,130));
+  CreateObject(BD10,1690,650,-1)->SetClrModulation(RGB(130,130,130));
 }
 
 /* Bei Flaggenübernahme */
