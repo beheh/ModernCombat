@@ -355,11 +355,6 @@ protected func FxIntAssaultTargetTimer(object pTarget, int iNr, int iTime)
 
   else if(status == 1)
   {
-    //Ticketabzug-Timer zurücksetzen
-    var effect = GetEffect("TicketSubtraction", this);
-    if(effect)
-      EffectCall(this, effect, "Reset");
-
     bar->Update(process * 100 / PlantTime(), false);
 
     if(enemycnt && !alliescnt)
@@ -385,6 +380,11 @@ protected func FxIntAssaultTargetTimer(object pTarget, int iNr, int iTime)
       status = 2;
       process = maxTime;
       bar->SetIcon(0, SM18, 0, 0, 32);
+
+      //Ticketabzug-Timer zurücksetzen
+      var effect = GetEffect("TicketSubtraction", this);
+      if(effect)
+        EffectCall(this, effect, "Reset");
 
       //Eventnachricht: Ladung plaziert, verteidigen
       TeamEventInfo(iAttacker, Format("$TargetArmedAttacker$", GetName(pTarget)), SM16);
