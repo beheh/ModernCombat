@@ -1,0 +1,10 @@
+[DefCore]
+id=PILR
+Name=Pillar
+Version=4,9,5,0
+Category=C4D_StaticBack
+Width=24
+Height=70
+Offset=-12,-35
+Mass=200
+Picture=24,0,45,116
