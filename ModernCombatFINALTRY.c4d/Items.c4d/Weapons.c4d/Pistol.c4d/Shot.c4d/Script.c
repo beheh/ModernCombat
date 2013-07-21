@@ -555,11 +555,23 @@ private func HitCheck(int r, int d)
     //Position des Treffpunktes berechnen
     var ox = GetX(pObj), oy = GetY(pObj);
 
-    var xLeft = GetDefCoreVal("Offset", "DefCore", GetID(pObj), 0) + ox;
-    var xRight = GetDefCoreVal("Width", "DefCore", GetID(pObj)) + GetDefCoreVal("Offset", "DefCore", GetID(pObj), 0) + ox;
+		//Objektwerte verwenden statt Definitionswerte (bspw. für Assaulttargets)
+		if(pObj->~BulletCheckObjectHitbox())
+		{
+			var xLeft = GetObjectVal("Offset", 0, pObj, 0) + ox;
+			var xRight = GetObjectVal("Width", 0, pObj) + GetObjectVal("Offset", 0, pObj, 0) + ox;
+			
+			var yUp = GetObjectVal("Offset", 0, pObj, 1) + oy;
+			var yDown = GetObjectVal("Height", 0, pObj) + GetObjectVal("Offset", 0, pObj, 1) + oy;
+		}
+		else
+		{
+		  var xLeft = GetDefCoreVal("Offset", "DefCore", GetID(pObj), 0) + ox;
+		  var xRight = GetDefCoreVal("Width", "DefCore", GetID(pObj)) + GetDefCoreVal("Offset", "DefCore", GetID(pObj), 0) + ox;
 
-    var yUp = GetDefCoreVal("Offset", "DefCore", GetID(pObj), 1) + oy;
-    var yDown = GetDefCoreVal("Height", "DefCore", GetID(pObj)) + GetDefCoreVal("Offset", "DefCore", GetID(pObj), 1) + oy;
+		  var yUp = GetDefCoreVal("Offset", "DefCore", GetID(pObj), 1) + oy;
+		  var yDown = GetDefCoreVal("Height", "DefCore", GetID(pObj)) + GetDefCoreVal("Offset", "DefCore", GetID(pObj), 1) + oy;
+		}
 
     if(!(Inside(sx, xLeft, xRight) && Inside(sy, yUp, yDown)))
     {
