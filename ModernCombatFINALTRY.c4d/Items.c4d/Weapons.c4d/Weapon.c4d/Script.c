@@ -1762,22 +1762,22 @@ func FxLaserDotTimer(object pTarget, int iEffectNumber, int iEffectTime)
 
       //Objektwerte verwenden statt Definitionswerte (bspw. für Assaulttargets)
       if(pEnemy->~BulletCheckObjectHitbox())
-			{
-				var xLeft = GetObjectVal("Offset", 0, pEnemy, 0) + x + 25*pEnemy->~IsSmoking();
-				var xRight = GetObjectVal("Width", 0, pEnemy) + GetObjectVal("Offset", 0, pEnemy, 0) + x - 25*pEnemy->~IsSmoking();
-			
-				var yUp = GetObjectVal("Offset", 0, pEnemy, 1) + y + 25*pEnemy->~IsSmoking();
-				var yDown = GetObjectVal("Height", 0, pEnemy) + GetObjectVal("Offset", 0, pEnemy, 1) + y - 25*pEnemy->~IsSmoking();
-			}
-			else
-			{
-				var xLeft = GetDefCoreVal("Offset", "DefCore", GetID(pEnemy), 0) + x + 25*pEnemy->~IsSmoking();
-				var xRight = GetDefCoreVal("Width", "DefCore", GetID(pEnemy)) + GetDefCoreVal("Offset", "DefCore", GetID(pEnemy), 0) + x - 25*pEnemy->~IsSmoking();
+      {
+        var xLeft = GetObjectVal("Offset", 0, pEnemy, 0) + x + 25*pEnemy->~IsSmoking();
+        var xRight = GetObjectVal("Width", 0, pEnemy) + GetObjectVal("Offset", 0, pEnemy, 0) + x - 25*pEnemy->~IsSmoking();
 
-				var yUp = GetDefCoreVal("Offset", "DefCore", GetID(pEnemy), 1) + y + 25*pEnemy->~IsSmoking();
-				var yDown = GetDefCoreVal("Height", "DefCore", GetID(pEnemy)) + GetDefCoreVal("Offset", "DefCore", GetID(pEnemy), 1) + y - 25*pEnemy->~IsSmoking();
-			}
-			
+        var yUp = GetObjectVal("Offset", 0, pEnemy, 1) + y + 25*pEnemy->~IsSmoking();
+        var yDown = GetObjectVal("Height", 0, pEnemy) + GetObjectVal("Offset", 0, pEnemy, 1) + y - 25*pEnemy->~IsSmoking();
+      }
+      else
+      {
+        var xLeft = GetDefCoreVal("Offset", "DefCore", GetID(pEnemy), 0) + x + 25*pEnemy->~IsSmoking();
+        var xRight = GetDefCoreVal("Width", "DefCore", GetID(pEnemy)) + GetDefCoreVal("Offset", "DefCore", GetID(pEnemy), 0) + x - 25*pEnemy->~IsSmoking();
+
+        var yUp = GetDefCoreVal("Offset", "DefCore", GetID(pEnemy), 1) + y + 25*pEnemy->~IsSmoking();
+        var yDown = GetDefCoreVal("Height", "DefCore", GetID(pEnemy)) + GetDefCoreVal("Offset", "DefCore", GetID(pEnemy), 1) + y - 25*pEnemy->~IsSmoking();
+      }
+
       if(Inside(xPos, xLeft, xRight) && Inside(yPos, yUp, yDown))
       {
         x = xPos;

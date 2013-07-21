@@ -8,7 +8,7 @@ local idImitation;				//Welche Definition imitiert wird
 
 public func GetKillIcon()				{return idImitation;}
 public func IsBulletTarget(id idBullet, object pBullet)	{return !FindObject(GASS);}
-public func BulletCheckObjectHitbox() { return true; }
+public func BulletCheckObjectHitbox()			{return true;}
 
 
 /* Initialisierung */
