@@ -387,20 +387,6 @@ public func ChooserFinished()
    RemoveObject(FindObject2(Find_ID(SNPT),Find_InRect(3570, 500, 50, 50)));
   }
 
-  //Base Assault-Spielziel
-  if(FindObject(GBAS))
-  {
-   //Zielobjekte
-   AddAssaultTarget(RADR, 485, 500, 400, 1, "$Flag1$", 0, [[480, 640], [510, 730], [585, 690]]);
-   AddAssaultTarget(CMSN, 1330, 670, 300, 1, "$Flag2$", 1, [[1160, 670], [1300, 850], [1455, 670]]);
-
-   AddAssaultTarget(RADR, 3755, 500, 400, 2, "$Flag4$", 0, [[3760, 640], [3730, 730], [3655, 690]]);
-   AddAssaultTarget(CMSN, 2910, 670, 300, 2, "$Flag3$", 1, [[3080, 670], [2940, 850], [2785, 670]]);
-
-   //Objekt entfernen
-   RemoveObject(aArtillery[0]);
-  }
-
   //MR-Spielziel
   if (FindObject(GMNR))
   {
