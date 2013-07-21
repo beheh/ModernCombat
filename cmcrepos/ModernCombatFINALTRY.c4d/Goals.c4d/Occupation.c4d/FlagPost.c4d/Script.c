@@ -21,7 +21,7 @@ public func Initialize()
   lastowner = 0;
   Set();
   if(!flag)
-   flag = CreateObject(OFLG);
+    flag = CreateObject(OFLG);
   pAttackers = CreateArray();
   UpdateFlag();
 }
@@ -57,19 +57,12 @@ public func GetSpawnPoint(int &iX, int &iY, string &szFunction, int iPlr)
 {
   if(!GetLength(spawnpoints))
   {
-   iY = -30;
-   return;
+    iY = -30;
+    return;
   }
 
   var iX, iY, szFunction;
   szFunction = GetBestSpawnpoint(spawnpoints, iPlr, iX, iY)[2];
-
-  /*
-  var rnd = Random(GetLength(spawnpoints));
-  iX = spawnpoints[rnd][0];
-  iY = spawnpoints[rnd][1];
-  szFunction = spawnpoints[rnd][2];
-  */
 }
 
 /* Wird angegriffen */
@@ -78,9 +71,9 @@ public func IsAttacked()
 {
   for(clonk in FindObjects(Find_Distance(range),Find_OCF(OCF_Alive), Find_NoContainer()))
   {
-   if(GetOwner(clonk) == NO_OWNER) continue;
-   if(GetPlayerTeam(GetOwner(clonk)) != team)
-    return true;
+    if(GetOwner(clonk) == NO_OWNER) continue;
+    if(GetPlayerTeam(GetOwner(clonk)) != team)
+      return true;
   }
   return false;
 }
@@ -100,7 +93,7 @@ protected func ResetAttackers()
 public func FxIntFlagpoleTimer(object pTarget)
 {
   if(!pTarget)
-   return(-1);
+    return(-1);
   pTarget->Timer();
   return;
 }
@@ -108,7 +101,7 @@ public func FxIntFlagpoleTimer(object pTarget)
 protected func Timer()
 {
   var enemys,friends,opposition;
-  
+
   var iOld = trend;
 
   trend = 0;
@@ -268,19 +261,19 @@ public func DoProcess(int iTeam, int iAmount)
   //Eventuelle Gegnerflagge abnehmen
   if(team)
   {
-   if(iTeam != team && (process != 0))
-    iAmount = -iAmount;
+    if(iTeam != team && (process != 0))
+      iAmount = -iAmount;
   }
   else
-   team = iTeam;
+    team = iTeam;
 
   process = BoundBy(process+iAmount,0,100);
 
   if(old < process)
-   trend = +1;
+    trend = +1;
 
   if(old > process)
-   trend = -1;
+    trend = -1;
 
   if((old == 100 && trend < 0) || (old == 0 && trend > 0))
   {
@@ -302,11 +295,11 @@ public func DoProcess(int iTeam, int iAmount)
   //Neutrale Flagge
   if((process <= 0) && (old > 0))
   {
-   if(team && lastowner != iTeam) GameCallEx("FlagLost", this, team, iTeam, pAttackers);
-   //lastowner = team;
-   attacker = 0;
-   capt = false;
-   team = iTeam;
+    if(team && lastowner != iTeam) GameCallEx("FlagLost", this, team, iTeam, pAttackers);
+    //lastowner = team;
+    attacker = 0;
+    capt = false;
+    team = iTeam;
   }
 
   UpdateFlag();

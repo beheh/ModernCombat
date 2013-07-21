@@ -74,7 +74,7 @@ protected func Collection2(object pObject)
   if(!(GetOCF(pObject) & OCF_CrewMember)) return;
   SetOwner(GetController(pObject));
 
-  //Bei der Initialisierung die Werte speichern.
+  //Bei Initialisierung die Werte speichern
   oldvisrange = GetObjPlrViewRange(pObject);
   oldvisstate = GetPlrFogOfWar(GetOwner(pObject));
 
