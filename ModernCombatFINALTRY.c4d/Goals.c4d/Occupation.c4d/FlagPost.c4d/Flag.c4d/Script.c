@@ -1,7 +1,9 @@
-/*-- Fahne --*/
+/*-- Flagge --*/
 
 #strict 2
 
+
+/* Initialisierung */
 
 protected func Initialize()
 {
@@ -14,8 +16,11 @@ protected func Initialize()
 
 private func Wind()
 {
+  //Sound
   if(Random(6))
-   Sound("FlagWave*.ogg");
+    Sound("FlagWave*.ogg");
+
+  //Animation an Wind ausrichten
   if(GetAction() == "Fly")
     SetDir(BoundBy(GetWind() / 15 + 3, 0, 6));
 }
