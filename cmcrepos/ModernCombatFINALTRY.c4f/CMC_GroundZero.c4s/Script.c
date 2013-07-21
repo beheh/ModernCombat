@@ -5,7 +5,7 @@
 
 static aFlag,aSelfDefense;
 
-func RecommendedGoals()	{return [GOCC, GCTF];}	//Spielzielempfehlung
+func RecommendedGoals()	{return [GOCC, GBAS];}	//Spielzielempfehlung
 
 
 /* Initialisierung */
