@@ -76,8 +76,8 @@ func CreateInterior()
   CreateObject(HA4K, 1230, 873, -1);
   CreateObject(H24K, 1015, 1378, -1);
   CreateObject(H24K, 1355, 1378, -1);
-  aPillarInterior[20] = CreateObject(HA4K, 1040, 1493, -1);
-  aPillarInterior[26] = CreateObject(HA4K, 1330, 1493, -1);
+  CreateObject(HA4K, 1040, 1493, -1);
+  CreateObject(HA4K, 1330, 1493, -1);
 
   //Gerüste
   //Links
@@ -292,16 +292,16 @@ func CreateInterior()
 
   //Glasscheiben
   //Links
-  aPillarInterior[2] = CreateObject(PANE, 972, 950, -1);
-  aPillarInterior[3] = CreateObject(PANE, 972, 1000, -1);
-  aPillarInterior[4] = CreateObject(PANE, 972, 1052, -1);
-  aPillarInterior[5] = CreateObject(PANE, 972, 1081, -1);
-  aPillarInterior[6] = CreateObject(PANE, 972, 1110, -1);
-  aPillarInterior[7] = CreateObject(PANE, 972, 1160, -1);
-  aPillarInterior[16] = CreateObject(PANE, 972, 1320, -1);
-  aPillarInterior[17] = CreateObject(PANE, 972, 1370, -1);
-  aPillarInterior[18] = CreateObject(PANE, 972, 1440, -1);
-  aPillarInterior[19] = CreateObject(PANE, 972, 1490, -1);
+  aPillarInterior[0] = CreateObject(PANE, 972, 950, -1);
+  aPillarInterior[1] = CreateObject(PANE, 972, 1000, -1);
+  aPillarInterior[2] = CreateObject(PANE, 972, 1052, -1);
+  aPillarInterior[3] = CreateObject(PANE, 972, 1081, -1);
+  aPillarInterior[4] = CreateObject(PANE, 972, 1110, -1);
+  aPillarInterior[5] = CreateObject(PANE, 972, 1160, -1);
+  aPillarInterior[6] = CreateObject(PANE, 972, 1320, -1);
+  aPillarInterior[7] = CreateObject(PANE, 972, 1370, -1);
+  aPillarInterior[8] = CreateObject(PANE, 972, 1440, -1);
+  aPillarInterior[9] = CreateObject(PANE, 972, 1490, -1);
   CreateObject(PANE, 972, 1690, -1);
   CreateObject(PANE, 972, 1750, -1);
   CreateObject(PANE, 972, 1800, -1);
@@ -314,10 +314,10 @@ func CreateInterior()
   aPillarInterior[13] = CreateObject(PANE, 1398, 1081, -1);
   aPillarInterior[14] = CreateObject(PANE, 1398, 1110, -1);
   aPillarInterior[15] = CreateObject(PANE, 1398, 1160, -1);
-  aPillarInterior[22] = CreateObject(PANE, 1398, 1320, -1);
-  aPillarInterior[23] = CreateObject(PANE, 1398, 1370, -1);
-  aPillarInterior[24] = CreateObject(PANE, 1398, 1440, -1);
-  aPillarInterior[25] = CreateObject(PANE, 1398, 1490, -1);
+  aPillarInterior[16] = CreateObject(PANE, 1398, 1320, -1);
+  aPillarInterior[17] = CreateObject(PANE, 1398, 1370, -1);
+  aPillarInterior[18] = CreateObject(PANE, 1398, 1440, -1);
+  aPillarInterior[19] = CreateObject(PANE, 1398, 1490, -1);
   CreateObject(PANE, 1398, 1690, -1);
   CreateObject(PANE, 1398, 1750, -1);
   CreateObject(PANE, 1398, 1800, -1);
@@ -626,10 +626,10 @@ func CreateDecoration()
   CreateObject(PLNT, 975, 700, -1);
   CreateObject(PLNT, 1395, 700, -1);
   CreateObject(PLT3, 1185, 870, -1);
-  aPillarInterior[0] = CreateObject(PLNT, 980, 950, -1);
-  aPillarInterior[8] = CreateObject(PLNT, 1390, 950, -1);
-  aPillarInterior[1] = CreateObject(PLNT, 980, 1100, -1);
-  aPillarInterior[9] = CreateObject(PLNT, 1390, 1100, -1);
+  aPillarInterior[20] = CreateObject(PLNT, 980, 950, -1);
+  aPillarInterior[21] = CreateObject(PLNT, 1390, 950, -1);
+  aPillarInterior[22] = CreateObject(PLNT, 980, 1100, -1);
+  aPillarInterior[23] = CreateObject(PLNT, 1390, 1100, -1);
   CreateObject(PLT3, 1120, 1120, -1);
   CreateObject(PLT3, 1250, 1120, -1);
   CreateObject(PLNT, 980, 1250, -1);
@@ -683,9 +683,9 @@ func CreateDecoration()
   CreateObject(SCA2, 1185, 810, -1)->SetAction("News");
   CreateObject(SCR3, 1130, 840, -1);
   CreateObject(SCR3, 1240, 840, -1)->SetPhase(10);
-  aPillarInterior[21] = CreateObject(SCA1, 1015, 1460, -1);
-  aPillarInterior[27] = CreateObject(SCA1, 1355, 1460, -1);
-  aPillarInterior[27]->SetPhase(10);
+  aPillarInterior[24] = CreateObject(SCA1, 1015, 1460, -1);
+  aPillarInterior[25] = CreateObject(SCA1, 1355, 1460, -1);
+  aPillarInterior[25]->SetPhase(10);
   CreateObject(SCA1, 1185, 1490, -1)->SetAction("CMC");
   CreateObject(SCA1, 1185, 1530, -1)->SetAction("Grenade");
   CreateObject(SCR3, 1130, 1905, -1)->SetClrModulation(RGB(255,0,0));
@@ -807,8 +807,8 @@ func OnPillarCollapseL1(int iPlr)
   if(aPillarInterior[3]) aPillarInterior[3]->RemoveObject();
   if(aPillarInterior[4]) aPillarInterior[4]->RemoveObject();
   if(aPillarInterior[5]) aPillarInterior[5]->RemoveObject();
-  if(aPillarInterior[6]) aPillarInterior[6]->RemoveObject();
-  if(aPillarInterior[7]) aPillarInterior[7]->RemoveObject();
+  if(aPillarInterior[20]) aPillarInterior[20]->DecoExplode(10);
+  if(aPillarInterior[22]) aPillarInterior[22]->DecoExplode(10);
 }
 
 func OnPillarCollapseL2(int iPlr)
@@ -824,7 +824,7 @@ func OnPillarCollapseL2(int iPlr)
 
   //Hintergrund zeichnen
   DrawMaterialQuad("BackWall-Column1",970,1290,980,1290,980,1521,970,1521,true);
-  DrawMaterialQuad("BackWall-Column1",980,1490,1030,1490,1030,1521,980,1521,true);
+  DrawMaterialQuad("BackWall-Column1",980,1500,1030,1500,1030,1521,980,1521,true);
 
   //Effekte
   if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("ConcreteSplinter",10,110,970,1330,60,100);
@@ -840,12 +840,11 @@ func OnPillarCollapseL2(int iPlr)
   CastSmoke("Smoke",5,30,1005,1500,220,500);
 
   //Objekte entfernen
-  if(aPillarInterior[16]) aPillarInterior[16]->RemoveObject();
-  if(aPillarInterior[17]) aPillarInterior[17]->RemoveObject();
-  if(aPillarInterior[18]) aPillarInterior[18]->RemoveObject();
-  if(aPillarInterior[19]) aPillarInterior[19]->RemoveObject();
-  if(aPillarInterior[20]) aPillarInterior[20]->DecoExplode(10);
-  if(aPillarInterior[21]) aPillarInterior[21]->DecoExplode(10);
+  if(aPillarInterior[6]) aPillarInterior[6]->RemoveObject();
+  if(aPillarInterior[7]) aPillarInterior[7]->RemoveObject();
+  if(aPillarInterior[8]) aPillarInterior[8]->RemoveObject();
+  if(aPillarInterior[9]) aPillarInterior[9]->RemoveObject();
+  if(aPillarInterior[24]) aPillarInterior[24]->DecoExplode(15);
 }
 
 func OnPillarCollapseR1(int iPlr)
@@ -882,14 +881,14 @@ func OnPillarCollapseR1(int iPlr)
   CastSmoke("Smoke",5,30,1390,1140,220,500);
 
   //Objekte entfernen
-  if(aPillarInterior[8]) aPillarInterior[8]->RemoveObject();
-  if(aPillarInterior[9]) aPillarInterior[9]->RemoveObject();
   if(aPillarInterior[10]) aPillarInterior[10]->RemoveObject();
   if(aPillarInterior[11]) aPillarInterior[11]->RemoveObject();
   if(aPillarInterior[12]) aPillarInterior[12]->RemoveObject();
   if(aPillarInterior[13]) aPillarInterior[13]->RemoveObject();
   if(aPillarInterior[14]) aPillarInterior[14]->RemoveObject();
   if(aPillarInterior[15]) aPillarInterior[15]->RemoveObject();
+  if(aPillarInterior[21]) aPillarInterior[21]->DecoExplode(10);
+  if(aPillarInterior[23]) aPillarInterior[23]->DecoExplode(10);
 }
 
 func OnPillarCollapseR2(int iPlr)
@@ -904,7 +903,7 @@ func OnPillarCollapseR2(int iPlr)
   Fling(debris, RandomX(-5,5), RandomX(-5,5));
 
   //Hintergrund zeichnen
-  DrawMaterialQuad("BackWall-Column1",1340,1490,1390,1490,1390,1521,1340,1521,true);
+  DrawMaterialQuad("BackWall-Column1",1340,1500,1390,1500,1390,1521,1340,1521,true);
   DrawMaterialQuad("BackWall-Column1",1390,1290,1401,1290,1401,1521,1390,1521,true);
 
   //Effekte
@@ -921,12 +920,11 @@ func OnPillarCollapseR2(int iPlr)
   CastSmoke("Smoke",5,30,1365,1500,220,500);
 
   //Objekte entfernen
-  if(aPillarInterior[22]) aPillarInterior[22]->RemoveObject();
-  if(aPillarInterior[23]) aPillarInterior[23]->RemoveObject();
-  if(aPillarInterior[24]) aPillarInterior[24]->RemoveObject();
-  if(aPillarInterior[25]) aPillarInterior[25]->RemoveObject();
-  if(aPillarInterior[26]) aPillarInterior[26]->DecoExplode(10);
-  if(aPillarInterior[27]) aPillarInterior[27]->DecoExplode(10);
+  if(aPillarInterior[16]) aPillarInterior[16]->RemoveObject();
+  if(aPillarInterior[17]) aPillarInterior[17]->RemoveObject();
+  if(aPillarInterior[18]) aPillarInterior[18]->RemoveObject();
+  if(aPillarInterior[19]) aPillarInterior[19]->RemoveObject();
+  if(aPillarInterior[25]) aPillarInterior[25]->DecoExplode(15);
 }
 
 /* Bei Turmzusammenfall */
