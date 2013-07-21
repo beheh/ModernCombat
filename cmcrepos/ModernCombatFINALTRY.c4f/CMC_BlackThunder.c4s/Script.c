@@ -420,8 +420,8 @@ public func ChooserFinished()
    flag->~Set("$Flag5$");
 
    //Teamgrenzen
-   CreateObject(BRDR, 1620, 0, -1)->Set(0,1,0,1,1);
-   CreateObject(BRDR, 2620, 0, -1)->Set(1,1,0,1,2);
+   CreateObject(BRDR, 1760, 0, -1)->Set(0,1,0,1,1);
+   CreateObject(BRDR, 2480, 0, -1)->Set(1,1,0,1,2);
 
    //Objekt entfernen
    RemoveObject(aArtillery[0]);
