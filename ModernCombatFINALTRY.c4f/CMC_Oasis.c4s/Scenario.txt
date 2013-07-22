@@ -36,7 +36,6 @@ VegetationLevel=100,0,0,100
 MapWidth=64,0,64,10000
 MapHeight=99,0,40,10000
 NoScan=1
-NewStyleLandscape=2
 
 [Environment]
 Objects=EGRS=1;LENS=1
