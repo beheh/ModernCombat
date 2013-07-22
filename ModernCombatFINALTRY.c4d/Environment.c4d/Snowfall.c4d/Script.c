@@ -3,9 +3,17 @@
 #strict 2
 
 
-/* Timer */
+/* Initialisierung */
 
-private func Snow()
+protected func Initialize()
+{
+  //Positionieren
+  SetPosition();
+}
+
+/* Schneeerstellung */
+
+private func Timer()
 {
   //Effektmanager beachten
   if(!GetEffectData(EFSM_Fog)) return;

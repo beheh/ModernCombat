@@ -9,6 +9,7 @@ local skyfade;
 
 protected func Initialize()
 {
+  //Positionieren
   SetPosition();
 
   //Materialregen starten
@@ -37,7 +38,7 @@ global func DoClouds()
   }
 }
 
-/* Timer */
+/* Sturmverhalten */
 
 protected func Timer()
 {

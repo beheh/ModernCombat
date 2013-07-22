@@ -9,7 +9,9 @@ local vel;
 
 protected func Initialize()
 {
+  //Positionieren
   SetPosition();
+
   vel = 30;
 
   //Nebel auf Landschaft plazieren
@@ -27,6 +29,7 @@ protected func Timer()
   //Nebel erstellen
   DoFog();
 
+  //Zufällige Bewegung des Windes
   if(!Random(100))
     if(!GetEffect("IntPush",this))
       AddEffect("IntPush", this, 50, 1, this, GetID(), 35*(3+Random(10)));
@@ -34,7 +37,7 @@ protected func Timer()
 
 protected func DoFog(x)
 {
-  //Atmosphärischen Nebel an den Kartenrändern erstellen
+  //Neuen Nebel an Kartenrändern erstellen
   var grey = 100+Random(155);
 
   var obj = this;
