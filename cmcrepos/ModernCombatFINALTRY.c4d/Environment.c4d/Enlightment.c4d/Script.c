@@ -6,11 +6,14 @@ local fEnlightment;
 
 static const ELGT_MaxDarkness = 350;
 
+
 /* Initialisierung */
 
 func Initialize() 
 {
-  SetPosition(0,0);
+  //Positionieren
+  SetPosition();
+
   fEnlightment = false;
 }
 
@@ -29,10 +32,9 @@ public func Enlight()
 
   //Einheitliche Rotation
   var CurrentR = 180+RandomX(10, 20)*(Random(2)*2-1);
-  //var Red, Green, Blue;
   //X-Größe
   var SizeX = RandomX(50,100);
-  //Platzieren nach Landschaftsbreite
+  //Platzierung nach Landschaftsbreite
   for(var i = 0; i < LandscapeWidth()/250; ++i) 
   {
     var holder = CreateObject(TIM1, Random(LandscapeWidth()), -10, -1);
@@ -47,7 +49,6 @@ public func Enlight()
     lite->ChangeSizeXY(SizeX, SizeY);
     lite->ChangeR(CurrentR);
     lite->TurnOn();
-    //lite->FadeIn();
 
     //Effekt zur Erkennung anhängen
     AddEffect("EnvLight", lite, 50, 100, this, ELGT);
@@ -61,7 +62,9 @@ public func Enlight()
 
 func FxEnvLightTimer(object pTarget)	{}
 
-private func Check()
+/* Timer */
+
+private func Timer()
 {
   if(FindObject(CHOS))
   {

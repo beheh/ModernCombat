@@ -9,7 +9,8 @@ local skyfade;
 
 protected func Initialize()
 {
-  return true;
+  //Positionieren
+  SetPosition();
 }
 
 protected func Destruction()
@@ -20,8 +21,9 @@ protected func Destruction()
 
 /* Explosionen */
 
-protected func Make()
+protected func Timer()
 {
+  //Hintergrundeffekte erstellen
   if(skyfade) skyfade-=20;
 
   if(skyfade <= 255) SetSkyAdjust(RGBa(255,255,255,220), RGB(skyfade,skyfade,skyfade));
@@ -39,6 +41,9 @@ protected func Make()
   }
   if(Random(65-ObjectCount(GetID())*5)) return true;
   skyfade = 300;
+
+  //Sound
   Sound("Warflair*.ogg",1);
+
   return true;
 }

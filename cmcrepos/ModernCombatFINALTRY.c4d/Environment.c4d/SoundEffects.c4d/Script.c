@@ -5,7 +5,7 @@
 local soundset,interval,variation,falloff,globalsound;
 
 
-/* Erstellung */
+/* Einstellung */
 
 public func Set(string szSoundSet, int iInterval, int iVariation, int iFalloff)
 {
@@ -14,7 +14,7 @@ public func Set(string szSoundSet, int iInterval, int iVariation, int iFalloff)
 
   interval = iInterval;
   variation = iVariation;
-  
+
   falloff = iFalloff;
 
   if(iInterval)
