@@ -2,7 +2,7 @@
 id=FRAG
 Name=Fraggrenade
 Category=C4D_Object|C4D_SelectMaterial|C4D_SelectHomebase
-MaxUserSelect=8
+MaxUserSelect=10
 Width=5
 Height=6
 Offset=-2,-3
