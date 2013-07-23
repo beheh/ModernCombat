@@ -69,36 +69,36 @@ public func UseOwnHitbox() {return true;}
 
 public func BulletHitboxCheck(int bul_start_x, int bul_start_y, int bul_end_x, int bul_end_y)
 {
-	if(!iHitboxDistance || !aHitboxAngles)
+  if(!iHitboxDistance || !aHitboxAngles)
     return false;
 
-	bul_start_x = AbsX(bul_start_x) * 10; 
-	bul_start_y = AbsY(bul_start_y) * 10; 
-	bul_end_x   = AbsX(bul_end_x)   * 10;
-	bul_end_y   = AbsY(bul_end_y)   * 10;
-	
-	var hitbox = GetHitboxPoints();
-	var length = GetLength(hitbox);
-	
-	var x1 = hitbox[length-1][0] * 10;
+  bul_start_x = AbsX(bul_start_x) * 10; 
+  bul_start_y = AbsY(bul_start_y) * 10; 
+  bul_end_x   = AbsX(bul_end_x)   * 10;
+  bul_end_y   = AbsY(bul_end_y)   * 10;
+
+  var hitbox = GetHitboxPoints();
+  var length = GetLength(hitbox);
+
+  var x1 = hitbox[length-1][0] * 10;
   var y1 = hitbox[length-1][1] * 10;
   var x2 = hitbox[0][0] * 10;
   var y2 = hitbox[0][1] * 10;
 
   for(var i = 0; i <= length-1; i++)
   {
-  	if(Inside(((bul_start_x-x1)*(y1-bul_start_y)-(bul_start_y-y1)*(bul_end_x-bul_start_x))/((x2-x1)*(bul_end_y-bul_start_y)-(y2-y1)*(bul_end_x-bul_start_x)), 0, 10))
-  		return true;
-  	
-  	if(i >= length-1)
-  		break;
-  	
-  	x1 = hitbox[i][0] * 10;
-  	y1 = hitbox[i][1] * 10;
-  	x2 = hitbox[i+1][0] * 10;
-  	y2 = hitbox[i+1][1] * 10;
+    if(Inside(((bul_start_x-x1)*(y1-bul_start_y)-(bul_start_y-y1)*(bul_end_x-bul_start_x))/((x2-x1)*(bul_end_y-bul_start_y)-(y2-y1)*(bul_end_x-bul_start_x)), 0, 10))
+      return true;
+
+    if(i >= length-1)
+      break;
+
+    x1 = hitbox[i][0] * 10;
+    y1 = hitbox[i][1] * 10;
+    x2 = hitbox[i+1][0] * 10;
+    y2 = hitbox[i+1][1] * 10;
   }
-  
+
   return false;
 }
 
@@ -106,14 +106,14 @@ public func GetHitboxPoints()
 {
   var distance = iHitboxDistance;
   var angle = aHitboxAngles;
-	var hitbox = [];
+  var hitbox = [];
   for(var a in angle)
   {
     a += GetR();
     a = a + (45 - a) * 2;
     hitbox[GetLength(hitbox)] = [Cos(a, distance)+HitboxXOffset(), -Sin(a, distance)+HitboxYOffset()];
   }
-  
+
   return hitbox;
 }
 
