@@ -1,6 +1,7 @@
 [DefCore]
 id=RB05
 Name=The Artist
+Version=4,9,5
 Category=C4D_StaticBack
 Width=502
 Height=143

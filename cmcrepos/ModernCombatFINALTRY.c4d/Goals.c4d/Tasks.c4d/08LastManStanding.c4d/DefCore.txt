@@ -1,6 +1,7 @@
 [DefCore]
 id=TK08
 Name=Last Man Standing
+Version=4,9,5
 Category=C4D_StaticBack
 Width=502
 Height=143

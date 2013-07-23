@@ -1,5 +1,6 @@
 [DefCore]
 id=WNAT
+Version=4,9,8,2
 Name=Weapon Attachment
 Category=C4D_Object|C4D_SelectMaterial
 MaxUserSelect=5

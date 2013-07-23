@@ -1,5 +1,6 @@
 [DefCore]
 id=ATR2
+Version=4,9,8,2
 Name=Tower Part
 Category=C4D_Structure
 Width=96

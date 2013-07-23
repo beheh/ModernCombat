@@ -1,5 +1,6 @@
 [DefCore]
 id=BDGE
+Version=4,9,8,2
 Name=Bandage Box
 Category=C4D_Vehicle
 Width=10

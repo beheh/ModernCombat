@@ -1,6 +1,7 @@
 [DefCore]
 id=CDBT
 Name=Shock Paddles
+Version=4,9,5
 Category=C4D_Object|C4D_SelectMaterial|C4D_SelectHomebase
 MaxUserSelect=5
 Width=6

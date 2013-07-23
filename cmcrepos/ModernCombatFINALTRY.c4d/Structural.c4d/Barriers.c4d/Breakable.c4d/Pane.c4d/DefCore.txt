@@ -1,6 +1,7 @@
 [DefCore]
 id=PANE
 Name=Pane
+Version=4,9,8,2
 Category=1
 Width=5
 Height=29

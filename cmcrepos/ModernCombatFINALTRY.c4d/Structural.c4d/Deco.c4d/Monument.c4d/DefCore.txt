@@ -1,7 +1,9 @@
 [DefCore]
 id=MUMT
 Name=Monument
+Version=4,5,9
 Category=C4D_StaticBack
+MaxUserSelect=0
 Width=110
 Height=126
 Offset=-55,-63

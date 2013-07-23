@@ -1,6 +1,7 @@
 [DefCore]
 id=C4EX
 Name=C4 Charge
+Version=4,9,5
 Category=C4D_Vehicle
 Width=9
 Height=4

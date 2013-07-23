@@ -1,5 +1,6 @@
 [DefCore]
 id=PTNK
+Version=4,9,8,2
 Name=Phosphor Tank
 Category=C4D_Structure
 Width=62

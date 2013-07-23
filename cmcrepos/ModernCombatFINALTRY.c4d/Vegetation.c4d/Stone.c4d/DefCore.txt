@@ -1,6 +1,7 @@
 [DefCore]
 id=STNE
 Name=Stone
+Version=4,6,2
 Category=C4D_Object|C4D_SelectVegetation
 Width=32
 Height=32

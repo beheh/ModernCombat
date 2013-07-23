@@ -1,5 +1,6 @@
 [DefCore]
 id=DBRS
+Version=4,9,8,2
 Name=Debris
 Category=C4D_Structure
 Width=40

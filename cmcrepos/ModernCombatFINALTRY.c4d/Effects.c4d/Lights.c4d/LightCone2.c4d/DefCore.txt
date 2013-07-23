@@ -1,5 +1,6 @@
 [DefCore]
 id=LHC3
+Version=4,9,8,2
 Name=Light Cone
 Category=C4D_Vehicle|C4D_Foreground|C4D_MouseIgnore
 Width=200
@@ -7,6 +8,7 @@ Height=128
 Offset=-100,-64
 Vertices=1
 VertexCNAT=64
+Components=LIGH=1
 Picture=0,0,200,128
 Rotate=1
 StretchGrowth=1

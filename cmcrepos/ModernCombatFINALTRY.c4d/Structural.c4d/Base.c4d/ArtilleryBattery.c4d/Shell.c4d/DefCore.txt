@@ -1,5 +1,6 @@
 [DefCore]
 id=ABLT
+Version=4,9,8,2
 Name=Shell
 Category=C4D_Vehicle
 Width=5

@@ -1,6 +1,7 @@
 [DefCore]
 id=SM01
 Name=Symbol
+Version=4,9,5
 Category=C4D_StaticBack|C4D_Foreground
 Width=45
 Height=32
