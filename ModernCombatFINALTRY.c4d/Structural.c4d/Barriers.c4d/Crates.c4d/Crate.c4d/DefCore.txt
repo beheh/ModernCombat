@@ -1,7 +1,6 @@
 [DefCore]
 id=WCR2
 Name=Wood Crate
-Version=4,9,5,0
 Category=C4D_Vehicle
 Width=24
 Height=18

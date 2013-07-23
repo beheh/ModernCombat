@@ -1,7 +1,6 @@
 [DefCore]
 id=FLRE
 Name=Flare
-Version=4,9,5
 Category=C4D_Vehicle
 Width=50
 Height=50

@@ -1,6 +1,5 @@
 [DefCore]
 id=CON1
-Version=4,9,8,2
 Name=Container
 Category=C4D_Structure
 Width=64

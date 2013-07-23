@@ -1,7 +1,6 @@
 [DefCore]
 id=AC16
 Name=In the Face
-Version=4,9,5
 Category=C4D_StaticBack
 Width=502
 Height=143

@@ -1,7 +1,6 @@
 [DefCore]
 id=GSBL
 Name=Gas Bottle
-Version=4,9,8,2
 Category=C4D_Vehicle
 Width=8
 Height=21
