@@ -1,5 +1,6 @@
 [DefCore]
 id=VEN3
+Version=4,9,8,2
 Name=Ventilator
 Category=C4D_StaticBack
 Width=128

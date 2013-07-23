@@ -1,5 +1,6 @@
 [DefCore]
 id=SM05
+Version=4,9,8,2
 Name=Symbol
 Category=C4D_StaticBack
 Width=1

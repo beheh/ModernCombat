@@ -1,5 +1,6 @@
 [DefCore]
 id=PACK
 Name=Pack
+Version=4,9,10,4
 Category=1
 Picture=0,0,64,64

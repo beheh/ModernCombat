@@ -1,5 +1,6 @@
 [DefCore]
 id=TRDT
+Version=4,9,8,2
 Name=Tracer Dart
 Category=C4D_Vehicle
 Width=11

@@ -1,6 +1,7 @@
 [DefCore]
 id=RSHL
 Name=Riot Shield
+Version=4,9,9,0
 Category=C4D_Object|C4D_SelectMaterial|C4D_SelectHomebase
 MaxUserSelect=5
 Width=12

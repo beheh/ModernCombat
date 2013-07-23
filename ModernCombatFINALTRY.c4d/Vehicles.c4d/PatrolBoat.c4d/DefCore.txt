@@ -1,5 +1,6 @@
 [DefCore]
 id=PBOT
+Version=4,9,8
 Name=Patrol Boat
 Category=C4D_Vehicle
 Width=80

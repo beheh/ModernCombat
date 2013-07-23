@@ -1,5 +1,6 @@
 [DefCore]
 id=MIAM
+Version=4,9,8,2
 Name=Missiles
 Category=C4D_StaticBack
 Picture=0,0,64,64

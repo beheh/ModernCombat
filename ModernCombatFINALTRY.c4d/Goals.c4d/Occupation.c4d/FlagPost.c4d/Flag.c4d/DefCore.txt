@@ -1,6 +1,7 @@
 [DefCore]
 id=OFLG
 Name=Flag
+Version=4,9,5
 Category=1
 Width=15
 Height=20

@@ -1,5 +1,6 @@
 [DefCore]
 id=IDSP
 Name=Info Display
+Version=4,9,5
 Category=C4D_StaticBack
 Picture=0,0,64,64

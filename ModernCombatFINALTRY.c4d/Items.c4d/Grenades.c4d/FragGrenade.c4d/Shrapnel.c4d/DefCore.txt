@@ -1,5 +1,6 @@
 [DefCore]
 id=SHRP
+Version=4,9,8,2
 Name=Shrapnel
 Category=C4D_Vehicle
 Width=11

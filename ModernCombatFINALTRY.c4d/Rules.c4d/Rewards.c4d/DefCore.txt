@@ -1,5 +1,6 @@
 [DefCore]
 id=RWDS
+Version=4,9,8
 Name=Rewards
 Category=C4D_StaticBack|C4D_Rule
 MaxUserSelect=1

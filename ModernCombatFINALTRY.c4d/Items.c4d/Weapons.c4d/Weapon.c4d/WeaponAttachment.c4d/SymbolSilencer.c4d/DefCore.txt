@@ -1,6 +1,7 @@
 [DefCore]
 id=AI04
 Name=Silencer
+Version=4,9,5
 Category=1
 Width=64
 Height=64

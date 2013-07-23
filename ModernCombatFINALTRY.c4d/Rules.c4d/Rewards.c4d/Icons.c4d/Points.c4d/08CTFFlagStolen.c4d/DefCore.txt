@@ -1,5 +1,6 @@
 [DefCore]
 id=IC08
+Version=4,9,5
 Category=1
 Width=25
 Height=25

@@ -1,11 +1,14 @@
 [DefCore]
 id=ACCN
 Name=Automatic Cannon
+Version=4,9,5
 Category=3600
 Width=23
 Height=6
 Offset=-11,-3
-Mass=25
+Value=150
+Mass=30
+Components=METL=6;
 Picture=0,6,138,136
 Vertices=1
 VertexY=+2

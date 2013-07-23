@@ -8,4 +8,5 @@ Offset=-32,-9
 Picture=0,0,63,17
 Rotate=1
 NoStabilize=1
+Version=4,9,5
 Oversize=1

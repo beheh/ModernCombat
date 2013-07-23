@@ -1,5 +1,6 @@
 [DefCore]
 id=SGNP
+Version=4,9,8
 Name=Sign
 Category=C4D_Structure
 Width=24

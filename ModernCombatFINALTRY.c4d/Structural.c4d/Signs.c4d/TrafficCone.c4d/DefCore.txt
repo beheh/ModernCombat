@@ -1,5 +1,6 @@
 [DefCore]
 id=TCCN
+Version=4,9,8,2
 Name=Traffic Cone
 Category=C4D_Vehicle
 Width=10

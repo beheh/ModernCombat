@@ -1,5 +1,6 @@
 [DefCore]
 id=ATBY
+Version=4,9,8,2
 Name=Artillery Battery
 Category=C4D_Structure
 MaxUserSelect=10

@@ -1,5 +1,6 @@
 [DefCore]
 id=BDMV
+Version=4,9,8
 Name=Burned MAV
 Category=C4D_Vehicle
 Width=15

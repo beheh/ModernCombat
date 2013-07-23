@@ -1,6 +1,7 @@
 [DefCore]
 id=SM4K
 Name=Smoke
+Version=4,9,5,0
 Category=C4D_Vehicle | C4D_Foreground | C4D_MouseIgnore
 Width=100
 Height=100
@@ -18,3 +19,4 @@ ContactCalls=1
 
 [Physical]
 Float=100000
+

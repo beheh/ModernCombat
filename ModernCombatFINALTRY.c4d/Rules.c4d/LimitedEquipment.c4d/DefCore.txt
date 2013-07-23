@@ -1,5 +1,6 @@
 [DefCore]
 id=LIMT
+Version=4,9,10,4
 Name=Limited Equipment
 Category=C4D_StaticBack|C4D_Rule
 MaxUserSelect=1

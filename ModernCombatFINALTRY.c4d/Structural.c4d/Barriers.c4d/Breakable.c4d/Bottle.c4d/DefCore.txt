@@ -1,5 +1,6 @@
 [DefCore]
 id=BOTL
+Version=4,9,8,2
 Name=Bottle
 Category=C4D_Vehicle
 Width=4

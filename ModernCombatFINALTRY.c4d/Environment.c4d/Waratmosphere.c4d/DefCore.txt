@@ -1,6 +1,7 @@
 [DefCore]
 id=WRAE
 Name=Waratmosphere
+Version=4,9,5
 Category=C4D_StaticBack|C4D_Environment|C4D_MouseIgnore
 MaxUserSelect=5
 Width=1

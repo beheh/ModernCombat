@@ -1,6 +1,7 @@
 [DefCore]
 id=SFFG
 Name=Scaffolding
+Version=4,9,5,0
 Category=C4D_StaticBack
 Width=80
 Height=50

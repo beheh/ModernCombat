@@ -1,11 +1,14 @@
 [DefCore]
 id=H24K
 Name=Big Hatch
+Version=4,9,5
 Category=2
 Width=30
 Height=30
 Offset=-15,-25
+Value=20
 Mass=100
+Components=METL=4;
 Picture=0,60,64,42
 Vertices=2
 VertexX=-16,+16
@@ -13,3 +16,4 @@ VertexFriction=100,100
 SolidMask=0,30,30,30
 TopFace=0,30,30,30
 Grab=2
+ 

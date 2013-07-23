@@ -1,6 +1,7 @@
 [DefCore]
 id=AI03
 Name=Laser Pointer
+Version=4,9,5
 Category=1
 Width=64
 Height=64

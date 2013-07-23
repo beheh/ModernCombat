@@ -1,6 +1,7 @@
 [DefCore]
 id=_JW2
-Name=Jet Wreck
+Name=JetWreck
+Version=4,9,5,0
 Category=C4D_Vehicle
 Width=71
 Height=32
@@ -15,3 +16,4 @@ VertexX=32,-25
 VertexY=10,10
 VertexCNAT=0,0
 VertexFriction=95,40
+

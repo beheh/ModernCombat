@@ -1,5 +1,6 @@
 [DefCore]
 id=CIVC
+Version=4,9,5
 Name=Clonk
 Category=C4D_Living|C4D_SelectHomebase
 MaxUserSelect=3

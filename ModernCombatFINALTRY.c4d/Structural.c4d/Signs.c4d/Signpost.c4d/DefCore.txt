@@ -1,6 +1,7 @@
 [DefCore]
 id=SNPT
 Name=Signpost
+Version=4,9,5
 Category=C4D_Structure
 Width=80
 Height=90

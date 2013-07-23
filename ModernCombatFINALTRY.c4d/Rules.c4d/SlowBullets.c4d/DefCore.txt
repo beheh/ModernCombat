@@ -1,5 +1,6 @@
 [DefCore]
 id=SBUL
+Version=4,9,5
 Name=SlowBullets
 Category=C4D_StaticBack|C4D_Rule
 MaxUserSelect=1

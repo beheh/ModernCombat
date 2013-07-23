@@ -1,5 +1,6 @@
 [DefCore]
 id=XTNK
+Version=4,9,8,2
 Name=Fuel Tank
 Category=C4D_Structure
 Width=62

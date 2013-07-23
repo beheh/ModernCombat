@@ -1,5 +1,6 @@
 [DefCore]
 id=SM12
+Version=4,9,5
 Name=Symbol
 Category=1
 Width=32

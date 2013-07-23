@@ -2,6 +2,7 @@
 id=BKHK
 Name=Blackhawk
 Category=C4D_Vehicle|C4D_SelectVehicle
+Version=4,9,5
 Picture=926,120,196,60
 Value=400
 Mass=1500

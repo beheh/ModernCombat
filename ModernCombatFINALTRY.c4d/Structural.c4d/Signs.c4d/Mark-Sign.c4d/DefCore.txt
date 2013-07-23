@@ -1,5 +1,6 @@
 [DefCore]
 id=MSGN
+Version=4,9,8,2
 Name=Mark
 Category=C4D_StaticBack
 Width=5

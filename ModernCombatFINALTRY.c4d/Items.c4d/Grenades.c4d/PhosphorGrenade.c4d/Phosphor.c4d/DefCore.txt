@@ -1,6 +1,7 @@
 [DefCore]
 id=PSPR
 Name=Phosphor
+Version=4,9,5
 Category=4
 Width=4
 Height=4
@@ -12,3 +13,4 @@ VertexY=1
 VertexFriction=200
 Timer=1
 TimerCall=Timer
+ 

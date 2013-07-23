@@ -1,6 +1,7 @@
 [DefCore]
 id=GHTF
 Name=Hold The Flag
+Version=4,9,10,3
 Category=C4D_Goal|C4D_StaticBack
 Width=1
 Height=1
