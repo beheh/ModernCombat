@@ -1,7 +1,6 @@
 [DefCore]
 id=FKDT
 Name=Injured Clonk
-Version=4,9,5
 Category=C4D_Vehicle
 Width=16
 Height=20

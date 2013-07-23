@@ -1,6 +1,5 @@
 [DefCore]
 id=GAT1
-Version=4,9,8,2
 Name=Gate
 Category=C4D_StaticBack
 Width=20

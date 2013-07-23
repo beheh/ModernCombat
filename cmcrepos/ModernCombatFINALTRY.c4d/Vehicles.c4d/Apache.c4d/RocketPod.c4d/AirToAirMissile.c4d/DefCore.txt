@@ -1,7 +1,6 @@
 [DefCore]
 id=AAML
 Name=Air-to-Air Missile
-Version=4,9,5
 Category=C4D_Object
 Width=6
 Height=16

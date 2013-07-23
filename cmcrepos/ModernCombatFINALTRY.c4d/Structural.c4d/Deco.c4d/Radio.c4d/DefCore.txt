@@ -1,7 +1,6 @@
 [DefCore]
 id=RDIO
 Name=Radio
-Version=4,9,5,0
 Category=C4D_Vehicle
 Width=11
 Height=16
