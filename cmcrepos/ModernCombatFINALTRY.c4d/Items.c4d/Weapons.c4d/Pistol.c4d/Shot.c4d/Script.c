@@ -552,9 +552,9 @@ private func HitCheck(int r, int d)
   		Find_Exclude(this), Find_Exclude(shooter),
   		Sort_Distance()))
   {
-  	//Bei eigenen Hitbox einen eigenen Bulletcheck ausführen (bspw für Helikopterhitbox)
-  	if(pObj->~UseOwnHitbox() && !pObj->~BulletHitboxCheck(sx, sy, x, y))
-  		continue;
+    //Bei eigener Hitbox eigenen Bulletcheck ausführen (z.B. bei Helikoptern)
+    if(pObj->~UseOwnHitbox() && !pObj->~BulletHitboxCheck(sx, sy, x, y))
+      continue;
     //Position des Treffpunktes berechnen
     var ox = GetX(pObj), oy = GetY(pObj);
 
