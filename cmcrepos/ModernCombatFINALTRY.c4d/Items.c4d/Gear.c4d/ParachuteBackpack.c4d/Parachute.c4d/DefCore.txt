@@ -1,7 +1,6 @@
 [DefCore]
 id=PARA
 Name=Parachute
-Version=4,9,5,0
 Category=C4D_Vehicle
 Width=72
 Height=55
