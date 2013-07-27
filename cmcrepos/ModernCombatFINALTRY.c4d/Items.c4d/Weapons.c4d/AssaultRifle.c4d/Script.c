@@ -91,7 +91,7 @@ public func FMData1T2(int data)
 
   if(data == FM_Damage)		return 14;			//Schadenswert
 
-  if(data == FM_SpreadAdd)	return _inherited(data) + 20;	//Bei jedem Schuss hinzuzuaddierende Streuung
+  if(data == FM_SpreadAdd)	FMData1(data) + 450;	//Bei jedem Schuss hinzuzuaddierende Streuung
 
   return FMData1(data);
 }
