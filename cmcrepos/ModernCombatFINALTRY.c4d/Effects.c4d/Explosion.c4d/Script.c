@@ -12,6 +12,7 @@ global func Explode(int iLevel, object pObj, id idEffect, string szEffect, bool 
     if(!(pObj=this))
       return;
 
+  //Position und Situation feststellen
   var x = AbsX(GetX(pObj)),
       y = AbsY(GetY(pObj));
 
@@ -21,12 +22,11 @@ global func Explode(int iLevel, object pObj, id idEffect, string szEffect, bool 
   var opt_angle = Angle(xdir,ydir);
   var speed = BoundBy(Distance(xdir,ydir),0,60);
 
-  //Feuer-, Funken- und Dirt-Effekte
+  //Explosionseffekte
   var i=0, count = 3+iLevel/8, angle = Random(360);
   while((count > 0) && (++i < count*10))
   {
     angle += RandomX(40,80);
-
     angle = Interpolate4K(angle,opt_angle,0,60,speed);
     angle -= 180;
 
@@ -36,13 +36,16 @@ global func Explode(int iLevel, object pObj, id idEffect, string szEffect, bool 
     if(GBackSolid(x+smokex,y+smokey))
       continue;
     var level = iLevel + Random(iLevel/5);
+    CreateSmokeTrail(level,angle,smokex,smokey,pObj);
 
+    //Feuer
     var a = angle+RandomX(-15,+15);
     if(GetEffectData(EFSM_ExplosionEffects) > 2)
       for(var i = 7; i > 0; i--)
       CreateParticle("BlastSpark1", smokex, smokey, +Sin(a,level+RandomX(-5,+5)), -Cos(a,level+RandomX(-5,+5)), 25+Random(50));
-
     if(GetEffectData(EFSM_ExplosionEffects) > 1) CreateParticle("BlastFlame", smokex, smokey, +Sin(angle,level/2), -Cos(angle,level/2), level*5);
+
+    //Dreck
     if(GetEffectData(EFSM_ExplosionEffects) > 0)
     {
       for(var i = Random(3)+1; i > 0; i--)
@@ -51,8 +54,6 @@ global func Explode(int iLevel, object pObj, id idEffect, string szEffect, bool 
         CreateParticle("BlastDirt", smokex, smokey, +Sin(a,level+RandomX(-20,+20)), -Cos(a,level+RandomX(-20,+20)), level*RandomX(7,12));
       }
     }
-    //Rauchspuren
-    CreateSmokeTrail(level,angle,smokex,smokey,pObj);
     count--;
   }
 
@@ -68,15 +69,20 @@ global func Explode(int iLevel, object pObj, id idEffect, string szEffect, bool 
     AddLightFlash(iSize/3, x, y, RGBa(255,220,64,15));
   }
 
-  //Feuer-Effekt
+  //Weitere Feuereffekte
   angle = Interpolate4K(0,opt_angle,0,120,speed);
   angle -= 180;
   CreateParticle("BlastBg",0,0,+Sin(angle,100),-Cos(angle,100),iLevel*20);
-  //Deaktiviert
-  //CreateParticle("BlastBg",0,0,0,-1,iLevel*20);
 
   //Der eigentliche, klassische Blast-Partikel
   CreateParticle("Blast",x,y,0,0,iLevel*11);
+
+  //Sounds
+  if(iLevel >29)
+  {
+    Echo("StructureDebris*.ogg",1);
+    Echo("ExplosionEcho*.ogg",1);
+  }
 
   //Standartverhalten
   if(!fDeco)
