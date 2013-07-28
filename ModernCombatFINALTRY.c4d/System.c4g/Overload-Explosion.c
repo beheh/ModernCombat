@@ -9,61 +9,61 @@
 
 global func DoExplosion(int x, int y, int level, object inobj, int cause_plr, id effect_def, string effect_particle, object layer)
 {
-  //Container nach ContainBlast.
+  //Container nach ContainBlast
   var container = inobj;
 
   //ƒuﬂersten Container finden
   while (container)
-   if(GetDefContainBlast(GetID(container)))
-    break;
-   else
-    container = Contained(container);
+    if(GetDefContainBlast(GetID(container)))
+      break;
+    else
+      container = Contained(container);
 
   //Explosion drauﬂen: Explosionseffekte erzeugen
   if(!container)
   {
-   KnockDownObjects(x,y,level*3,layer,cause_plr+1);
+    KnockDownObjects(x,y,level*3,layer,cause_plr+1);
 
-   //Material entz¸nden
-    if(!IncinerateLandscape(x,y))
-     if(!IncinerateLandscape(x,y-10))
-      if(!IncinerateLandscape(x-5,y-5))
-       IncinerateLandscape(x+5,y-5);
+    //Material entz¸nden
+      if(!IncinerateLandscape(x,y))
+        if(!IncinerateLandscape(x,y-10))
+          if(!IncinerateLandscape(x-5,y-5))
+            IncinerateLandscape(x+5,y-5);
 
-   //Grafikeffekt
-   var blast;
-   if(effect_particle)
-    effect_def = 0;
-   else
-    effect_particle = "Blast";
+    //Grafikeffekt
+    var blast;
+    if(effect_particle)
+      effect_def = 0;
+    else
+      effect_particle = "Blast";
 
-   if(effect_def)
-   {
-    if(blast = CreateConstruction(effect_def, x,y+level, cause_plr, level*5))
-     blast->~Activate();
-   }
-   else
-   {
-   var vis;
-   if(GBackLiquid(x,y))
+    if(effect_def)
     {
-     vis = 100;
-
-     var k = 3;
-
-     for(var i = level/k; i > 0; i--)
-     {
-      var a = Random(360);
-      var d = Random(level);
-      if(GetEffectData(EFSM_ExplosionEffects) > 1) Bubble (x-Sin(a,d),y+Cos(a,d));
-     }
+      if(blast = CreateConstruction(effect_def, x,y+level, cause_plr, level*5))
+        blast->~Activate();
     }
-   CreateParticle(effect_particle, x,y, 0,0, level*10, RGBa(255,255,255,vis));
-   if(effect_particle == "Blast")
-    if(!CastParticles("FSpark", level/5+1, level, x,y, level*5+10,level*10+10, 0x00ef0000,0xffff1010))
-     if(blast = CreateConstruction(FXB1, x,y+level, cause_plr, level*5))
-      blast->~Activate();
-   }
+    else
+    {
+      var vis;
+      if(GBackLiquid(x,y))
+      {
+        vis = 100;
+
+        var k = 3;
+
+        for(var i = level/k; i > 0; i--)
+        {
+          var a = Random(360);
+          var d = Random(level);
+          if(GetEffectData(EFSM_ExplosionEffects) > 1) Bubble (x-Sin(a,d),y+Cos(a,d));
+        }
+      }
+    CreateParticle(effect_particle, x,y, 0,0, level*10, RGBa(255,255,255,vis));
+    if(effect_particle == "Blast")
+      if(!CastParticles("FSpark", level/5+1, level, x,y, level*5+10,level*10+10, 0x00ef0000,0xffff1010))
+        if(blast = CreateConstruction(FXB1, x,y+level, cause_plr, level*5))
+          blast->~Activate();
+    }
   }
   //Schaden in den Objekten bzw. drauﬂen
   BlastObjects2(x+GetX(),y+GetY(), level, inobj, cause_plr+1, layer);
@@ -202,31 +202,44 @@ global func DamageObjects(int iDistance, int iDamage, object pObject, int iX, in
   return true;
 }
 
+/* Fake-Explosion */
+
 global func FakeExplode(int iLevel, int iControllerPlusOne, object obj)
 {
+  //Existenz best‰tigen
   if(!obj) obj = this;
   if(!obj) return false;
+
+  //Dummy erstellen und explodieren
   var dummy = CreateObject(GetID(obj), 0, 0, iControllerPlusOne-1);
   SetPosition(GetX(), GetY(), dummy);
   SetController(iControllerPlusOne-1, dummy);
   Explode(iLevel, dummy);
   if(dummy) RemoveObject(dummy);
+
   return true;
 }
 
+/* Dekorativer Explosion */
+
 global func DecoExplode(int iLevel, object pObj)
 {
+  //Existenz best‰tigen
   if(!pObj && !(pObj = this))
     return;
 
+  //Explosion
   Explode(iLevel, pObj, 0, 0, true);
 
+  //Effekte
   var x = GetX(pObj)-GetX(), y = GetY(pObj)-GetY();
 
   CreateParticle("Blast", x, y, 0, 0, 10*iLevel);
   CastParticles("FSpark", iLevel/5+1, iLevel, x, y, iLevel*5+10, iLevel*10+10, RGBa(255), RGBa(255,20,20,255));
-  
+
+  //Sound 
   Sound(Format("Blast%d", BoundBy(iLevel/10-1, 1, 3)), 0, pObj);
 
+  //Objekt entfernen
   RemoveObject(pObj);
 }

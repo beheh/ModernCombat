@@ -43,7 +43,7 @@ public func ControlUpDouble()
       //Fallschirm erstellen und anhängen
       CreateObject(PARA, 0, 0, GetOwner(pTarget))->Set(pTarget);
       AddEffect("Flying", pTarget, 101, 5, this);
-      Sound("PPAR_Activate.ogg", false, pTarget,50);
+      Sound("PPAR_Activate.ogg", false, pTarget,75);
     }
     return true;
   }
