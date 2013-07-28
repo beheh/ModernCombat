@@ -78,13 +78,18 @@ global func Explode(int iLevel, object pObj, id idEffect, string szEffect, bool 
   CreateParticle("Blast",x,y,0,0,iLevel*11);
 
   //Sounds
-  if(iLevel >29)
+  if(iLevel >= 20)
   {
-    Echo("StructureDebris*.ogg",1);
-    Echo("ExplosionEcho*.ogg",1);
+    if(iLevel >= 30)
+    {
+      Echo(Format("Explosion%sEcho*.ogg",["","Big"][Min((iLevel-30)/10,1)]),1);
+      Echo("StructureDebris*.ogg",1);
+    }
+    else
+      Echo("ExplosionSmallEcho*.ogg",1);
   }
 
-  //Standartverhalten
+  //Standardverhalten
   if(!fDeco)
     return inherited(iLevel, pObj, idEffect, szEffect);
 }
