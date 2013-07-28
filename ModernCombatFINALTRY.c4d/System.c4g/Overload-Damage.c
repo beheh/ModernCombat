@@ -5,11 +5,15 @@
 #strict 2
 
 
+/* Schaden verursachen */
+
 global func DoDmg(int iDmg, int iType, object pTarget, int iPrecision, int dmgplayer, id idKillIcon, int iKillAttachment)
 {
+  //Existenz bestätigen
   if(!pTarget)
     if(!(pTarget = this))
       return;
+
   if(!iPrecision)
     iPrecision = 10;
 
@@ -18,7 +22,7 @@ global func DoDmg(int iDmg, int iType, object pTarget, int iPrecision, int dmgpl
   if(dmgdealer < 0)
     dmgdealer = GetController(pTarget);
 
-  var red = pTarget->~OnDmg(iDmg, iType); //reduction
+  var red = pTarget->~OnDmg(iDmg, iType);
   dmg = iDmg*(100-red)*iPrecision;
 
   if (!dmg || red == 100) return;
@@ -57,7 +61,7 @@ global func DoDmg(int iDmg, int iType, object pTarget, int iPrecision, int dmgpl
         else
           idKillIcon = KAMB;
       }
-    
+
     pTarget->~KillIcon(idKillIcon);
     pTarget->~KillAttachment(iKillAttachment, true);
   }
