@@ -69,7 +69,6 @@ func Hit()
     Sound("C4EX_WaterDetonation.ogg");
   else
     Sound("C4EX_Detonation*.ogg");
-  Sound("StructureDebris*.ogg");
 }
 
 public func Damage()

@@ -59,7 +59,6 @@ func InstaExplode(int iPlr)
   if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("Glas", 5+Random(5), 100, 0,0, 60,100, RGBa(200,200,200), RGBa(200,200,200));
   CastParticles("MetalCrateSplinter", 5+Random(5), 100, 0,0, 60,100,RGB(50,50,50));
   Sound("StructureHit*.ogg");
-  Sound("StructureDebris*.ogg");
 
   //Explosion
   BlowUp(iPlr);
