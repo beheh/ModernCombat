@@ -387,9 +387,9 @@ protected func FxIntAssaultTargetTimer(object pTarget, int iNr, int iTime)
         EffectCall(this, effect, "Reset");
 
       //Eventnachricht: Ladung plaziert, verteidigen
-      TeamEventInfo(iAttacker, Format("$TargetArmedAttacker$", GetName(pTarget)), SM16);
+      TeamEventInfo(iAttacker, Format("$TargetArmedAttacker$", GetName(pTarget)), SM16, 0, 0, 0, "Info.ogg");
       //Eventnachricht: Ladung plaziert, entschärfen
-      TeamEventInfo(iDefender, Format("$TargetArmedDefender$", GetName(pTarget)), SM17);
+      TeamEventInfo(iDefender, Format("$TargetArmedDefender$", GetName(pTarget)), SM17, 0, 0, 0, "Info.ogg");
 
       var assist = false;
       for(var clonk in attacker)
@@ -472,9 +472,9 @@ protected func FxIntAssaultTargetTimer(object pTarget, int iNr, int iTime)
       EffectVar(6, pTarget, iNr)->Update(0, true);
 
       //Eventnachricht: Ladung entschärft, neue setzen
-      TeamEventInfo(iAttacker, Format("$TargetDefusedAttacker$", GetName(pTarget)), SM17);
+      TeamEventInfo(iAttacker, Format("$TargetDefusedAttacker$", GetName(pTarget)), SM17, 0, 0, 0, "Info.ogg");
       //Eventnachricht: Ladung entschärft
-      TeamEventInfo(iDefender, Format("$TargetDefusedDefender$", GetName(pTarget)), SM16);
+      TeamEventInfo(iDefender, Format("$TargetDefusedDefender$", GetName(pTarget)), SM16, 0, 0, 0, "Info.ogg");
 
       var assist = false;
       for(var clonk in defender)
