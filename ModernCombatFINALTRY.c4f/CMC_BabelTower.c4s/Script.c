@@ -774,11 +774,13 @@ func OnPillarCollapseL1(int iPlr)
 
   //Trümmer verschleudern
   var debris = CreateObject(DBRS, 980,940, iPlr);
-  Fling(debris, RandomX(-5,5), RandomX(-5,5));
+  Fling(debris, RandomX(-4,-2), RandomX(-2,2));
   debris = CreateObject(DBRS, 980,1040, iPlr);
-  Fling(debris, RandomX(-5,5), RandomX(-5,5));
+  Fling(debris, RandomX(-4,-2), RandomX(-2,2));
+  debris = CreateObject(DBRS, 980,1040, iPlr);
+  Fling(debris, RandomX(2,4), RandomX(-2,2));
   debris = CreateObject(DBRS, 980,1140, iPlr);
-  Fling(debris, RandomX(-5,5), RandomX(-5,5));
+  Fling(debris, RandomX(-4,-2), RandomX(-2,2));
 
   //Hintergrund zeichnen
   DrawMaterialQuad("BackWall-Column1",970,900,990,900,990,1181,970,1181,true);
@@ -818,9 +820,11 @@ func OnPillarCollapseL2(int iPlr)
 
   //Trümmer verschleudern
   var debris = CreateObject(DBRS, 970,1330, iPlr);
-  Fling(debris, RandomX(-5,5), RandomX(-5,5));
+  Fling(debris, RandomX(-4,-2), RandomX(-2,2));
   debris = CreateObject(DBRS, 970,1450, iPlr);
-  Fling(debris, RandomX(-5,5), RandomX(-5,5));
+  Fling(debris, RandomX(-4,-2), RandomX(-2,2));
+  debris = CreateObject(DBRS, 970,1450, iPlr);
+  Fling(debris, RandomX(2,4), RandomX(-2,2));
 
   //Hintergrund zeichnen
   DrawMaterialQuad("BackWall-Column1",970,1290,980,1290,980,1521,970,1521,true);
@@ -854,11 +858,13 @@ func OnPillarCollapseR1(int iPlr)
 
   //Trümmer verschleudern
   var debris = CreateObject(DBRS, 1390,940, iPlr);
-  Fling(debris, RandomX(-5,5), RandomX(-5,5));
+  Fling(debris, RandomX(2,4), RandomX(-2,2));
   debris = CreateObject(DBRS, 1390,1040, iPlr);
-  Fling(debris, RandomX(-5,5), RandomX(-5,5));
+  Fling(debris, RandomX(2,4), RandomX(-2,2));
+  debris = CreateObject(DBRS, 1390,1040, iPlr);
+  Fling(debris, RandomX(-4,-2), RandomX(-2,2));
   debris = CreateObject(DBRS, 1390,1140, iPlr);
-  Fling(debris, RandomX(-5,5), RandomX(-5,5));
+  Fling(debris, RandomX(2,4), RandomX(-2,2));
 
   //Hintergrund zeichnen
   DrawMaterialQuad("BackWall-Column1",1331,900,1400,900,1400,1181,1331,1181,true);
@@ -898,9 +904,11 @@ func OnPillarCollapseR2(int iPlr)
 
   //Trümmer verschleudern
   var debris = CreateObject(DBRS, 1400,1330, iPlr);
-  Fling(debris, RandomX(-5,5), RandomX(-5,5));
+  Fling(debris, RandomX(2,4), RandomX(-2,2));
   debris = CreateObject(DBRS, 1400,1450, iPlr);
-  Fling(debris, RandomX(-5,5), RandomX(-5,5));
+  Fling(debris, RandomX(2,4), RandomX(-2,2));
+  debris = CreateObject(DBRS, 1400,1450, iPlr);
+  Fling(debris, RandomX(-4,-2), RandomX(-2,2));
 
   //Hintergrund zeichnen
   DrawMaterialQuad("BackWall-Column1",1340,1500,1390,1500,1390,1521,1340,1521,true);

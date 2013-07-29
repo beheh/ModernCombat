@@ -3,6 +3,8 @@
 #strict
 #include CSTD
 
+static aPillarInterior;
+
 func RecommendedGoals()	{return [GTDM];}	//Spielzielempfehlung
 
 
@@ -16,6 +18,8 @@ func Initialize()
   SetSkyParallax(1, 20, 15);
   //Bildschirmfärbung
   SetSkyAdjust(RGBa(255,255,255,128),RGB(64,196,255));
+  //Säulenobjekte
+  aPillarInterior = [];
   //Einrichtung plazieren
   CreateInterior();
   //Ausrüstung plazieren
@@ -166,6 +170,11 @@ func CreateInterior()
 
   //Grenze
   CreateObject(BRDR, 0, 860, -1)->Set(3,0,1);
+
+  //Säulen
+  var pillar = CreateObject(PILR, 430, 710, -1);
+  pillar->Set("OnPillarCollapse");
+  pillar->SetClrModulation(RGB(200,200,200));
 
   //Sounds
 
@@ -352,17 +361,60 @@ func CreateDecoration()
   CreateObject(CLGH, 40, 625, -1);
   CreateObject(CLGH, 100, 465, -1);
   CreateObject(CLGH, 200, 465, -1);
-  CreateObject(CLGH, 280, 625, -1);
+  aPillarInterior[0] = CreateObject(CLGH, 280, 625, -1);
   CreateObject(CLGH, 300, 465, -1);
-  CreateObject(CLGH, 340, 625, -1);
-  CreateObject(CLGH, 400, 625, -1);
-  CreateObject(CLGH, 460, 625, -1);
+  aPillarInterior[1] = CreateObject(CLGH, 340, 625, -1);
+  aPillarInterior[2] = CreateObject(CLGH, 400, 625, -1);
+  aPillarInterior[3] = CreateObject(CLGH, 460, 625, -1);
   CreateObject(CLGH, 575, 465, -1);
   CreateObject(CLGH, 1230, 655, -1);
   CreateObject(CLGH, 1300, 655, -1);
   CreateObject(CLGH, 1360, 275, -1);
   CreateObject(CLGH, 1595, 155, -1);
   CreateObject(CLGH, 1815, 155, -1);
+}
+
+/* Bei Säulenzerstörungen */
+
+func OnPillarCollapse(int iPlr)
+{
+  //Spielerbildschirme schütteln
+  ShakeViewPort(100, this);
+
+  //Trümmer verschleudern
+  var debris = CreateObject(DBRS, 280,630, iPlr);
+  Fling(debris, RandomX(-2,2), RandomX(0,3));
+  debris = CreateObject(DBRS, 370,630, iPlr);
+  Fling(debris, RandomX(-2,2), RandomX(0,3));
+  debris = CreateObject(DBRS, 460,630, iPlr);
+  Fling(debris, RandomX(-2,2), RandomX(0,3));
+
+  //Hintergrund zeichnen
+  DrawMaterialQuad("BackWall-Metal4",240,590,520,590,520,621,240,621,true);
+  DrawMaterialQuad("BackWall-Column1",420,590,440,590,440,621,420,621,true);
+
+  //Effekte
+  if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("ConcreteSplinter",10,110,280,610,60,100);
+  if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("ConcreteSplinter",10,110,340,610,60,100);
+  if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("ConcreteSplinter",10,110,400,610,60,100);
+  if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("ConcreteSplinter",10,110,460,610,60,100);
+  if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("ConcreteSplinter",10,110,520,610,60,100);
+  CastSmoke("Smoke3",10,30,280,610,220,500);
+  CastSmoke("Smoke3",10,30,340,610,220,500);
+  CastSmoke("Smoke3",10,30,400,610,220,500);
+  CastSmoke("Smoke3",10,30,460,610,220,500);
+  CastSmoke("Smoke3",10,30,520,610,220,500);
+  CastSmoke("Smoke",5,30,280,610,220,500);
+  CastSmoke("Smoke",5,30,340,610,220,500);
+  CastSmoke("Smoke",5,30,400,610,220,500);
+  CastSmoke("Smoke",5,30,460,610,220,500);
+  CastSmoke("Smoke",5,30,520,610,220,500);
+
+  //Objekte entfernen
+  if(aPillarInterior[0]) aPillarInterior[0]->RemoveObject();
+  if(aPillarInterior[1]) aPillarInterior[1]->RemoveObject();
+  if(aPillarInterior[2]) aPillarInterior[2]->RemoveObject();
+  if(aPillarInterior[3]) aPillarInterior[3]->RemoveObject();
 }
 
 /* Regelwähler */
