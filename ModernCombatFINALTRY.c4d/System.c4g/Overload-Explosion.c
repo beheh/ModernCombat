@@ -222,7 +222,7 @@ global func FakeExplode(int iLevel, int iControllerPlusOne, object obj)
 
 /* Dekorativer Explosion */
 
-global func DecoExplode(int iLevel, object pObj)
+global func DecoExplode(int iLevel, object pObj, int iNoRemove)
 {
   //Existenz bestätigen
   if(!pObj && !(pObj = this))
@@ -233,7 +233,6 @@ global func DecoExplode(int iLevel, object pObj)
 
   //Effekte
   var x = GetX(pObj)-GetX(), y = GetY(pObj)-GetY();
-
   CreateParticle("Blast", x, y, 0, 0, 10*iLevel);
   CastParticles("FSpark", iLevel/5+1, iLevel, x, y, iLevel*5+10, iLevel*10+10, RGBa(255), RGBa(255,20,20,255));
 
@@ -241,5 +240,6 @@ global func DecoExplode(int iLevel, object pObj)
   Sound(Format("Blast%d", BoundBy(iLevel/10-1, 1, 3)), 0, pObj);
 
   //Objekt entfernen
-  RemoveObject(pObj);
+  if(!iNoRemove)
+    RemoveObject(pObj);
 }
