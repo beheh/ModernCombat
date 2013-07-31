@@ -1337,7 +1337,7 @@ public func OnDamage(int iDamage)
   //Sound
   if(!EffectCall(this, GetEffect("IntVehicleUnused", this), "Damaging"))
   {
-    Sound("MetalHit*.ogg");
+    Sound("BulletHitMetal*.ogg");
   }
 
   //Kritische Treffer verletzen die Besatzung

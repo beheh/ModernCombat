@@ -195,7 +195,7 @@ public func OnHit(int iDamage, int iType, object pFrom)
   }
 
   //Effekte
-  Sound("MetalHit*.ogg");
+  Sound("BulletHitMetal*.ogg");
   if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("Glas", 1+Random(3), 40, 0,0, 40,10, RGBa(200,200,200), RGBa(2,2,200));
   if(GetEffectData(EFSM_ExplosionEffects) > 0) if(!Random(5)) Sparks(Random(2)+6,RGB(255,255,Random(5)+255));
 }

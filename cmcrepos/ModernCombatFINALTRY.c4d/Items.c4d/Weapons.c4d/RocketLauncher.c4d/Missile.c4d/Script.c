@@ -331,7 +331,7 @@ private func HitObject(pObj)
       }
       else
       {
-        Sound("MetalHit*.ogg");
+        Sound("BulletHitMetal*.ogg");
         Sparks(30,RGB(255,128));
         if(GetEffectData(EFSM_ExplosionEffects) > 0)  CastSmoke("Smoke3",12,10,0,0,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
       }
