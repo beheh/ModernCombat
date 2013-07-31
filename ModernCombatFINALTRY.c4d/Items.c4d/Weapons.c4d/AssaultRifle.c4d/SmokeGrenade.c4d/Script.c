@@ -27,7 +27,7 @@ func HitObject(object pObj)
     }
     else
     {
-      Sound("MetalHit*.ogg");
+      Sound("BulletHitMetal*.ogg");
       Sparks(30,RGB(255,128));
     }
   }

@@ -1044,7 +1044,7 @@ private func Shoot(object caller)
   {
     var x,y;
     user->WeaponEnd(x,y);
-    
+
     if(!PathFree(GetX(),GetY(),GetX()+x,GetY()+y) && !GBackSolid(x, y))
     {
       PlayerMessage(GetOwner(user), "$NotAbleToShoot$", user);

@@ -77,7 +77,7 @@ func HitObject(object pObj)
       }
       else
       {
-        Sound("MetalHit*.ogg");
+        Sound("BulletHitMetal*.ogg");
         Sparks(30,RGB(255,128));
       }
       RemoveObject();
@@ -145,7 +145,7 @@ func Damage()
     //Effekte
     CastParticles("MetalSplinter",3,80,0,0,45,50,RGB(40,20,20));
     Sparks(8,RGB(255,128));
-    Sound("MetalHit*.ogg");
+    Sound("BulletHitMetal*.ogg");
 
     Trigger();
   }

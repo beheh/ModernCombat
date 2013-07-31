@@ -78,7 +78,7 @@ private func ChooseActivity()
 
 protected func Hit()
 {
-  Sound("MetalHit*.WAV");
+  Sound("MetalHit*");
   return 1;
 }
 

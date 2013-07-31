@@ -43,7 +43,6 @@ protected func Initialize()
   //Assistkiller initialisieren
   ResetAssist();
 
-
   //Fake Death-Effekt einfügen
   if(IsClonk() && (GetOwner() != NO_OWNER) && (GetPlayerType(GetOwner()) != C4PT_Script))
     AddEffect("FakeDeath",this,10,0,this);
