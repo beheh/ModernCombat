@@ -6,7 +6,6 @@
 local hitcnt, size, trail_len, iAttachment;
 
 public func IsSpecialAmmo()	{return false;}
-public func Fast()		{return false;}
 
 
 /* Abschuss */
@@ -152,7 +151,7 @@ public func Hit(int iXDir, int iYDir)
 
     return ;
   }
-  return inherited(...);
+  return HitLandscape();
 }
 
 private func HitObject(object pObject)
@@ -172,6 +171,26 @@ private func HitObject(object pObject)
       Remove();
     return true;
   }
+}
+
+private func HitLandscape()
+{
+  OnHitLandscape();
+
+  //Umliegende Objekte beschädigen
+  var objs = FindObjects(Find_AtPoint(), Find_NoContainer(), Find_Or(Find_Func("IsBulletTarget",GetID(),this,shooter), Find_OCF(OCF_Alive)), Find_Func("CheckEnemy",this), Find_Not(Find_Func(ObjectCall(this,"HitExclude"))));  
+  {
+    for(var pTarget in objs)
+      HitObject(pTarget);
+  }
+
+  HitObject();
+}
+
+public func OnHitLandscape()
+{
+  Sound("BulletHit*.ogg");
+  Sound("Crumble*.ogg");
 }
 
 public func BulletStrike(object pObj)
@@ -217,4 +236,144 @@ public func OnShrapnelHit(object pObject, int iX, int iY)
     if(Distance(lx,ly) > 20)
       Sound("SharpnelImpact*.ogg");
   }
+}
+
+/* Effekt für Trefferüberprüfung */
+
+// EffectVars:
+// 0 - alte X-Position
+// 1 - alte Y-Position
+// 2 - Schütze (Objekt, das die Waffe abgefeuert hat, üblicherweise ein Clonk)
+// 3 - ID des Schützen
+// 4 - Scharf? Wenn true wird der Schütze vom Projektil getroffen 
+// 5 - niemals den Schützen treffen
+
+public func FxHitCheckStart(object target, int effect, int temp, object byObj, bool neverShooter)
+{
+  if(temp) return;
+  EffectVar(0, target, effect) = GetX(target);
+  EffectVar(1, target, effect) = GetY(target);
+  if(!byObj)
+    byObj = target;
+  if(Contained(byObj))
+    byObj = (Contained(byObj));
+  EffectVar(2, target, effect) = byObj;
+  EffectVar(3, target, effect) = GetID(byObj);
+  EffectVar(4, target, effect) = false;
+  EffectVar(5, target, effect) = neverShooter;
+}
+
+public func FxHitCheckTimer(object target, int effect, int time)
+{
+  var obj;
+  // Oh man. :O
+  var oldx = EffectVar(0, target, effect);
+  var oldy = EffectVar(1, target, effect);
+  var newx = GetX(target);
+  var newy = GetY(target);
+  EffectVar(0, target, effect) = GetX(target);
+  EffectVar(1, target, effect) = GetY(target);
+
+  //Schuss schon Scharf?
+  var exclude = EffectVar(2, target, effect);
+  //Selbst nicht treffbar
+  if(EffectVar(4, target, effect)) exclude = target;
+
+  //DrawParticleLine("NoGravSpark",newx-oldx, newy-oldy,0,0,1,25,RGB(255,0,0),RGB(0,0,255));
+  // Wir suchen nach Objekten entlang der Linie die wir uns seit dem letzten Check
+  // bewegt haben. Und sortieren sie nach Distanz (entfernten zuerst, da wir die zuerst passieren)
+  for(obj in FindObjects(Find_OnLine(oldx,oldy,newx,newy),
+                         Find_NoContainer(),
+                         Sort_Distance(oldx, oldy)))
+  {
+    if(obj == target) continue;
+    if(obj == exclude) continue;
+    if(obj->~HitExclude(target)) continue;
+    if(!CheckEnemy(obj,target)) continue;
+    if(obj->~IsBulletTarget(GetID(target),target,EffectVar(2, target, effect), oldx, oldy) || GetOCF(obj) & OCF_Alive)
+    {
+      if(!target)
+        return -1;
+      DebugLog("%s IsBulletTarget: %i, %s, %s","HitCheck",GetName(obj),GetID(target),GetName(target),GetName(EffectVar(2, target, effect)));
+      return target-> ~HitObject(obj);
+    }
+  }
+
+  EffectVar(0, target, effect) = GetX(target);
+  EffectVar(1, target, effect) = GetY(target);
+
+  //Der Schuss wird erst "scharf gemacht", d.h. kann den Schützen selbst treffen, wenn der Schuss einmal die Shape des Schützen verlassen hat.
+
+  if(!EffectVar(5,target,effect))
+  {
+    if(!EffectVar(4, target, effect))
+    {
+      //Scharf?
+      var ready = true;
+      //Check nach Objekten mit ID des Schützen an momentaner Stelle
+      for(var foo in FindObjects(Find_AtPoint(GetX(target),GetY(target)),Find_ID(EffectVar(3, target, effect))))
+      //Gefundenes der Schütze?
+      if(foo == EffectVar(2, target, effect))
+        ready = false;
+      if(ready)
+      //Treffbarkeit einstellen
+      EffectVar(4, target, effect) = true;
+    }
+  }
+}
+
+public func Ricochet(int iX, int iY)
+{
+  if(GBackSolid()) return;
+  if(iDamage <= 1) return;
+
+  var I = Wrap4K(GetR(),0,360);
+  var A = SurfaceNormal4K(iX,iY,2);
+  var O = Wrap4K(Flip(A,I-180),0,360);
+  var H = Wrap4K(OffsetX(O,I),0,360);
+
+  /*Log("In:%d] Surface:%d] Abprallwinkel:%d] Reflektionswinkel:%d]",I,A,H,O);
+
+  DrawParticleLine ("PSpark",0,0,Sin(I,100),-Cos(I,100),4,30,RGB(0,255),RGB(0,255));
+  DrawParticleLine ("PSpark",0,0,Sin(A,100),-Cos(A,100),2,20,RGB(255),RGB(255));
+  DrawParticleLine ("PSpark",0,0,Sin(O,100),-Cos(O,100),4,30,RGB(0,128,255),RGB(0,128,255));
+  DrawParticleLine ("PSpark",0,0,Sin(H,100),-Cos(H,100),2,20,RGB(0,128,255),RGB(255,255,255));*/
+
+  if(H <= RicochetAngle())//Winkel okay?
+  {
+    var O = A+(A-I)+180;
+    iDamage = iDamage-iDamage*(H*50/RicochetAngle())/100;//Maximal 50% abziehen.
+    Sound("Ricochet*.ogg");
+
+    SetXDir(+Sin(O,speed));
+    SetYDir(-Cos(O,speed));
+    SetR(O);
+
+    var effect = GetEffect("HitCheck",this);
+    if(effect)
+    {
+      EffectVar(0,this,effect) = GetX();
+      EffectVar(1,this,effect) = GetY();
+    }
+
+    var oldtrail = pTrail;
+    CreateTrail(oldtrail->LocalN("w")/1000*20, oldtrail->LocalN("l")/1000*100);
+
+    oldtrail->SetPosition(GetX()+iX,GetY()+iY);
+    oldtrail->SetXDir();
+    oldtrail->SetYDir();
+    //oldtrail->RemoveObject();
+    return true;
+  }
+}
+
+public func Remove(int iRemoveTime)
+{
+  if(pTrail)
+  {
+    SetPosition(GetX(),GetY(),pTrail);
+    pTrail->Remove();
+  }
+
+  RemoveObject();
 }
