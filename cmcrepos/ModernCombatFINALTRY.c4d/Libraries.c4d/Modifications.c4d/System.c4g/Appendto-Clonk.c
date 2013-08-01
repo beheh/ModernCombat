@@ -131,6 +131,7 @@ private func WalkSound()
 {
   if(Contained()) return;
   Sound("ClonkStep*.ogg", 0, 0, 25);
+  if(!Random(6)) Sound("ClonkVestRustle*.ogg", 0, 0, 25);
   return 1;
 }
 
@@ -150,6 +151,7 @@ private func CrawlStartSound()
 private func CrawlSound()
 {
   Sound("ClonkCrawl*.ogg", 0, 0, 25);
+  if(!Random(6)) Sound("ClonkVestRustle*.ogg", 0, 0, 25);
   return 1;
 }
 
@@ -850,7 +852,10 @@ protected func JumpSound()
 {
   if(!Contained())
     if(GetCommand() != "Enter")
+    {
       Sound("ClonkFall*.ogg", 0, 0, 60);
+      if(!Random(6)) Sound("ClonkVestRustle*.ogg", 0, 0, 25);
+    }
 }
 
 private func Riding()

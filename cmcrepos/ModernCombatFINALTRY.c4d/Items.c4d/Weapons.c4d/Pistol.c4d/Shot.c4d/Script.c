@@ -2,8 +2,8 @@
 
 #strict 2
 
-local iTime, lx, ly, pTrail, iDamage,speed,max_dst,dst,fb, fNoTrail;
-local shooter,wpnid,iAttachment;	//Schütze, Waffe und Waffenaufsatz
+local iTime,lx,ly,pTrail,iDamage,speed,max_dst,dst,fb,fNoTrail;
+local shooter,wpnid,iAttachment;					//Schütze, Waffe und Waffenaufsatz
 
 func NoWarp()			{return true;}
 func IsBullet()			{return true;}
@@ -91,9 +91,9 @@ private func CreateTrail(int iSize, int iTrail)
   }
 }
 
-/* Querschläger usw. */
+/* Querschläger */
 
-public func RicochetAngle()//maximaler Abprallwinkel
+public func RicochetAngle()	//maximaler Abprallwinkel
 {
   if(GetID() != SHTX) return;
   return 50;
@@ -161,16 +161,21 @@ public func Ricochet(int iX, int iY)
     Sound("Ricochet*.ogg");
 
     HitCheck(O,max_dst-dst);
+
     return true;
   }
 }
 
+/* Aufprall und Treffer */
+
 private func HitLandscape()
 {
+  //Koordinaten bestimmen
   var x,y;
   x = lx;
   y = ly;
 
+  //Der eigentliche Aufprall
   OnHitLandscape(x,y);
 
   //Umliegende Objekte beschädigen
@@ -180,48 +185,75 @@ private func HitLandscape()
       HitObject(pTarget);
   }
 
+  //Verschwinden
   HitObject();
 }
 
 public func OnHitLandscape(int iX, int iY)
 {
-  var tmp = CreateObject(TRAI,iX,iY,-1);
-  Sound("BulletHit*.ogg", 0, tmp);
-  Sound("Crumble*.ogg", 0, tmp);
-  RemoveObject(tmp);
-
   var rgb = 0;
+  var tmp = CreateObject(TIM1,iX,iY,-1);	//Sound-Objekt
 
+  //Aufprall auf Material?
   if(GBackSolid(iX,iY))
-  {    
+  {
+    //Material und dessen Farbe bestimmen
     var mat = GetMaterial(iX,iY);
     var rand = Random(3);
     rgb = RGB(GetMaterialColor(mat,rand,0),
-              GetMaterialColor(mat,rand,1),
-              GetMaterialColor(mat,rand,2));
+    		GetMaterialColor(mat,rand,1),
+    		GetMaterialColor(mat,rand,2));
+
+    //Material grabbar?
+    if(GetMaterialVal("DigFree", "Material", mat))
+    {
+      //Material weggraben und versprühen
+      CastPXS(MaterialName(mat), 20, 40, iX, iY);
+      DigFree(GetX()+iX, GetY()+iY, 5);
+
+      //Sounds
+      Sound("BulletHitSoft*.ogg", 0, tmp);
+      Sound("Crumble*.ogg", 0, tmp);
+    }
+    else
+    {
+      //Sounds
+      Sound("BulletHit*.ogg", 0, tmp);
+      Sound("Crumble*.ogg", 0, tmp);
+    }
+  }
+  else
+  {
+    //Sounds
+    Sound("BulletHit*.ogg", 0, tmp);
+    Sound("Crumble*.ogg", 0, tmp);
   }
 
+  //Aufpralleffekte
   if(rgb)
   {
-    //Partikeleffekte
     var alphamod, sizemod;
     CalcLight(alphamod, sizemod);
     SmokeBurst((100*GetCon()/100)*sizemod/100,iX,iY,GetR()-180,0,rgb);
   }
+
+  //Sound-Objekt entfernen
+  RemoveObject(tmp);
 }
 
 public func HitObject(object pObject)
 {
+  //Schütze kann sich nicht selbst treffen
   if(shooter && pObject)
     if(pObject == shooter)
-      return false;//>:O
+      return false;
 
+  //Objekt treffen
   if(BulletStrike(pObject))
   {
     var x,y;
     x = lx;
     y = ly;
-    
     OnBulletHit(pObject,x,y);
 
     Remove();
@@ -231,15 +263,18 @@ public func HitObject(object pObject)
 
 public func OnBulletHit(object pObject, int iX, int iY)
 {
+  //Zu treffendes Objekt vorhanden?
   if(pObject)
   {
-    var tmp = CreateObject(TRAI, iX, iY, NO_OWNER);
+    //Soundeffekt
+    var tmp = CreateObject(TIM1, iX, iY, NO_OWNER);
     Sound("BulletImpact*.ogg", 0, tmp);
     RemoveObject(tmp);
-    
-    if(GetOCF(pObject) & OCF_Living)//Für Lebewesen keine Funken-Effekte.
-      return;
   }
+
+  //Lebewesen erhalten keine zusätzlichen Effekte
+  if(GetOCF(pObject) & OCF_Living)
+    return;
 
   //Partikel verschleudern
   var iAngle, iSpeed, iSize;
