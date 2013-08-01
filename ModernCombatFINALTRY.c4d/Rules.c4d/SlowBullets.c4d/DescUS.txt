@@ -1,1 +1,0 @@
-Bullets are slower then usually. It is therefore possible to see them in-flight which makes it easier to avoid them.  
