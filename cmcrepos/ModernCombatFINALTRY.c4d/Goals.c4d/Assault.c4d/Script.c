@@ -26,7 +26,7 @@ public func GoalExtraValue()
   if(att == team)
     att = GetTeamByIndex(1);
 
-  return Format("<c %x>%s</c>", GetTeamColor(att), GetTeamName(att));
+  return Format("{{SM19}}: <c %x>%s</c>", GetTeamColor(att), GetTeamName(att));
 }
 
 static const BAR_AssaultBar = 4;
