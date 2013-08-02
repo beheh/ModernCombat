@@ -183,7 +183,7 @@ protected func FxIntAssaultTargetTimer(object pTarget, int iEffect)
     var bar = EffectVar(2, pTarget, iEffect) = CreateObject(SBAR, 0, 0, -1);
     bar->Set(pTarget, GetTeamColor(team), BAR_AssaultBar, 200);
     bar->ChangeDefHeight(GetObjHeight(pTarget));
-    bar->ChangeDefOffset(-GetObjHeight(pTarget)/2-5);
+    bar->ChangeDefOffset(-GetObjHeight(pTarget)/2);
     bar->PositionToVertex(0, true); 
   }
   var bar = EffectVar(2, pTarget, iEffect);
