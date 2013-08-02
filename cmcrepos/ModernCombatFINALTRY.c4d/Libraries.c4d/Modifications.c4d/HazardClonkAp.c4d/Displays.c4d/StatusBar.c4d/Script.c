@@ -46,7 +46,7 @@ protected func Initialize()
 
 /* Einstellung */
 
-local tPercent, tRotation, iDefHeight, iLength, iColor;
+local tPercent, tRotation, iDefHeight, iDefOffset, iLength, iColor;
 local aIconData, fIconOnly;
 
 public func Set(object target, int color, int iType, int iLgt, string szIcon, id idSrcDef, int iXAdjust, int iYAdjust, bool fNoResize)
@@ -59,6 +59,7 @@ public func Set(object target, int color, int iType, int iLgt, string szIcon, id
   iBarCount = GetBarCount(obj, GetOwner());
   iBarType = iType;
   iDefHeight = GetDefHeight(GetID(target));
+	iDefOffset = GetDefOffset(GetID(target), 1);
 
   if(!iLgt)
     iLgt = 100;
@@ -157,18 +158,21 @@ public func PositionToVertex(bool fForcedYPos, bool fForceUpdate)
         ypos += 10;
     }
 
-    SetVertex(0, 1, GetVertex(0, 1, obj) - iDefHeight / 2 - ypos);
+    SetVertex(0, 1, GetVertex(0, 1, obj) - (iDefHeight + iDefOffset) - ypos);
     iBarCount = GetBarCount(obj, GetOwner());
     iYPos = ypos;
   }
   else if(GetR(obj) != tRotation || fForcedYPos)
   {
-    SetVertex(0, 1, GetVertex(0, 1, obj) - iDefHeight / 2 - iYPos);
+    SetVertex(0, 1, GetVertex(0, 1, obj) - (iDefHeight + iDefOffset) - iYPos);
     tRotation = GetR(obj);
   }
 
   return true;
 }
+
+public func ChangeDefHeight(int iNewHeight) { return iDefHeight = iNewHeight; }
+public func ChangeDefOffset(int iNewOffset) { return iDefOffset = iNewOffset; }
 
 public func SwitchVisibility(bool fHide, bool fShowIcon)
 {
