@@ -59,7 +59,7 @@ public func Set(object target, int color, int iType, int iLgt, string szIcon, id
   iBarCount = GetBarCount(obj, GetOwner());
   iBarType = iType;
   iDefHeight = GetDefHeight(GetID(target));
-	iDefOffset = GetDefOffset(GetID(target), 1);
+  iDefOffset = GetDefOffset(GetID(target), 1);
 
   if(!iLgt)
     iLgt = 100;
@@ -171,8 +171,8 @@ public func PositionToVertex(bool fForcedYPos, bool fForceUpdate)
   return true;
 }
 
-public func ChangeDefHeight(int iNewHeight) { return iDefHeight = iNewHeight; }
-public func ChangeDefOffset(int iNewOffset) { return iDefOffset = iNewOffset; }
+public func ChangeDefHeight(int iNewHeight)	{return iDefHeight = iNewHeight;}
+public func ChangeDefOffset(int iNewOffset)	{return iDefOffset = iNewOffset;}
 
 public func SwitchVisibility(bool fHide, bool fShowIcon)
 {
