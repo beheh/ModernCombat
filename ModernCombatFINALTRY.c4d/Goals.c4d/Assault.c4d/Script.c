@@ -262,7 +262,8 @@ protected func FxIntAssaultTargetStart(object pTarget, int iEffect, int iTemp, i
 
   var bar = EffectVar(0, pTarget, iEffect) = CreateObject(SBAR, 0, 0, -1);
   bar->Set(pTarget, 0xFF0000/*GetTeamColor(pTarget->~GetTeam())*/, BAR_AssaultBar, 200, 0, SM16, 0, 0, true);
-  LocalN("iDefHeight", bar) = GetObjHeight(pTarget);
+  bar->ChangeDefHeight(GetObjHeight(pTarget));
+  bar->ChangeDefOffset(-GetObjHeight(pTarget)/2);
   bar->Update(0, true, true);
   bar->SetIcon(0, SM16, 0, 0, 32);
   bar->PositionToVertex(0, true);
@@ -276,7 +277,8 @@ protected func FxIntAssaultTargetStart(object pTarget, int iEffect, int iTemp, i
   //Entschärfungsbalken
   bar = EffectVar(6, pTarget, iEffect) = CreateObject(SBAR, 0, 0, -1);
   bar->Set(pTarget, 0x33CCFF, BAR_AssaultBar+1, 200);
-  LocalN("iDefHeight", bar) = GetObjHeight(pTarget);
+  bar->ChangeDefHeight(GetObjHeight(pTarget));
+  bar->ChangeDefOffset(-GetObjHeight(pTarget)/2);
   bar->Update(0, true);
   bar->PositionToVertex(0, true);
 
