@@ -263,7 +263,7 @@ protected func FxIntAssaultTargetStart(object pTarget, int iEffect, int iTemp, i
   var bar = EffectVar(0, pTarget, iEffect) = CreateObject(SBAR, 0, 0, -1);
   bar->Set(pTarget, 0xFF0000/*GetTeamColor(pTarget->~GetTeam())*/, BAR_AssaultBar, 200, 0, SM16, 0, 0, true);
   bar->ChangeDefHeight(GetObjHeight(pTarget));
-  bar->ChangeDefOffset(-GetObjHeight(pTarget)/2);
+  bar->ChangeDefOffset(-GetObjHeight(pTarget)/2+5);
   bar->Update(0, true, true);
   bar->SetIcon(0, SM16, 0, 0, 32);
   bar->PositionToVertex(0, true);
