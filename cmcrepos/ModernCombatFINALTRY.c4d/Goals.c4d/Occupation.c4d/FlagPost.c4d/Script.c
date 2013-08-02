@@ -245,7 +245,6 @@ public func UpdateFlag()
   {
     bar = CreateObject(SBAR, 0, 0, -1);
     bar->Set(this, RGB(255, 255, 255), BAR_FlagBar, 100, 0, SM21, 0, 0, true);
-    bar->ChangeDefOffset(-5);
     //bar->PositionToVertex(0, true);
     bar->SetIcon(0, SM21, 0, 0, 32);
     bar->Update(0, true, true);
