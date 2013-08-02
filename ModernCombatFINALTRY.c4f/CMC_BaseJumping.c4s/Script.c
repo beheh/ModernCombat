@@ -462,7 +462,7 @@ func OnTowerCollapse()
 public func OnClassSelection(object pClonk)
 {
   //LMS/MR-Spielziel
-  if (FindObject(GLMS) || FindObject(GMNR))
+  if (FindObject(GLMS) || FindObject(GCTF) || FindObject(GMNR))
   {
    AddEffect("IntPara", pClonk, 1, 1);
    Sound("Airstrike2", 0, pClonk);
@@ -599,6 +599,26 @@ public func ChooserFinished()
    AddMoneySpawn(2310, 1560, [20]);
    AddMoneySpawn(2605, 330, [15]);
   }
+
+  //CTF-Spielziel
+  if(FindObject(GCTF))
+  {
+   //Flaggen
+   if(aTeams[1] == true)
+   {CreateFlag(1,1190,330,GetTeamColor(1));}
+   if(aTeams[2] == true)
+   {CreateFlag(2,1890,330,GetTeamColor(2));}
+
+   //Leitern
+   CreateObject(LADR, 305, 1478, -1)->Set(12);
+   CreateObject(LADR, 2775, 1478, -1)->Set(12);
+
+   //Sprungschanzen
+   CreateObject(JMPD, 210, 1370, -1)->Set(160, 5);
+   CreateObject(JMPD, 535, 940, -1)->Set(145, 5);
+   CreateObject(JMPD, 2545, 940, -1)->Set(145, -5);
+   CreateObject(JMPD, 2870, 1370, -1)->Set(160, -5);
+  }
 }
 
 /* Relaunch */
@@ -636,6 +656,20 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
    if(iTeam == 2)
    {
     return [[2395, 0], [2150, 0], [1865, 0]];
+   }
+   return(1);
+  }
+
+  //CTF-Spielziel
+  if(FindObject(GCTF))
+  {
+   if(iTeam == 1)
+   {
+    return [[600, 0], [640, 0], [690, 0]];
+   }
+   if(iTeam == 2)
+   {
+    return [[2390, 0], [2440, 0], [2480, 0]];
    }
    return(1);
   }
