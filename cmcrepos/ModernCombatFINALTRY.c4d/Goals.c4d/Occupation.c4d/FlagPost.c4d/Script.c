@@ -326,7 +326,6 @@ public func DoProcess(int iTeam, int iAmount)
   }
 
   UpdateFlag();
-  bar->Update(process);
   bar->SetBarColor(GetTeamColor(iTeam));
   if(process >= 100)
   {
@@ -342,6 +341,8 @@ public func DoProcess(int iTeam, int iAmount)
     bar->SetIcon(0, SM22, 0, 0, 32);
     iconState = 1;
   }
+  if(iconState != 0)
+  	bar->Update(process);
 
   return process;
 }
