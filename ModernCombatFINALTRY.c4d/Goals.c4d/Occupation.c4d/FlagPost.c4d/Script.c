@@ -159,28 +159,28 @@ protected func Timer()
   if(!enemys && friends)
     DoProcess(team,Min(friends,3));
 
-	if((!enemys) == (!friends))
-	{
-		if(!friends)
-		{
-			if(iconState != 0) //Ja ich weiß, geht auch !iconState, aber so ist das konsistent zu unten
-			{
-				bar->SetIcon(0, SM21, 0, 0, 32);
-				bar->Update(0, true, true);
-				iconState = 0;
-			}
-		}
-		else
-		{
-			if(iconState != 2)
-			{
-				bar->SetIcon(0, SM23, 0, 0, 32);
-				bar->SetBarColor(GetTeamColor(team));
-				bar->Update(process);
-				iconState = 2;
-			}
-		}
-	}
+  if((!enemys) == (!friends))
+  {
+    if(!friends)
+    {
+      if(iconState != 0) //Ja ich weiß, geht auch !iconState, aber so ist das konsistent zu unten
+      {
+        bar->SetIcon(0, SM21, 0, 0, 32);
+        bar->Update(0, true, true);
+        iconState = 0;
+      }
+    }
+    else
+    {
+      if(iconState != 2)
+      {
+        bar->SetIcon(0, SM23, 0, 0, 32);
+        bar->SetBarColor(GetTeamColor(team));
+        bar->Update(process);
+        iconState = 2;
+      }
+    }
+  }
 
   if(trend != iOld)
     ResetAttackers();
@@ -241,7 +241,7 @@ public func UpdateFlag()
 {
   if(!flag) return;
 
-	if(!bar)
+  if(!bar)
   {
     bar = CreateObject(SBAR, 0, 0, -1);
     bar->Set(this, RGB(255, 255, 255), BAR_FlagBar, 100, 0, SM21, 0, 0, true);
@@ -265,7 +265,7 @@ public func UpdateFlag()
     SetOwner(NO_OWNER, flag);
     SetColorDw(RGB(255, 255, 255), flag);
   }
-  
+
   SetFlagPos(process);
 }
 
@@ -330,17 +330,17 @@ public func DoProcess(int iTeam, int iAmount)
   bar->SetBarColor(GetTeamColor(iTeam));
   if(process >= 100)
   {
-  	if(iconState != 0) //Ja ich weiß, geht auch !iconState, aber so ist das konsistent zu unten
-		{
-			bar->SetIcon(0, SM21, 0, 0, 32);
-			bar->Update(0, true, true);
-			iconState = 0;
-		}
-	}
-	else if(iconState != 1)
+    if(iconState != 0) //Ja ich weiß, geht auch !iconState, aber so ist das konsistent zu unten
+    {
+      bar->SetIcon(0, SM21, 0, 0, 32);
+      bar->Update(0, true, true);
+      iconState = 0;
+    }
+  }
+  else if(iconState != 1)
   {
-  		bar->SetIcon(0, SM22, 0, 0, 32);
-  		iconState = 1;
+    bar->SetIcon(0, SM22, 0, 0, 32);
+    iconState = 1;
   }
 
   return process;
