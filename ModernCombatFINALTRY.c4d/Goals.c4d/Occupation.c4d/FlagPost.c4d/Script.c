@@ -2,7 +2,7 @@
 
 #strict 2
 
-local team,process,range,flag,attacker,spawnpoints,trend,capt,pAttackers,lastowner;
+local team,process,range,flag,bar,attacker,spawnpoints,trend,capt,pAttackers,lastowner, iconState;
 
 public func GetAttacker()	{return attacker;}
 public func GetTeam()		{return team;}
@@ -12,6 +12,7 @@ public func GetRange()		{return range;}
 public func IsFullyCaptured()	{return capt;}
 public func IsFlagpole()	{return true;}
 
+static const BAR_FlagBar = 5;
 
 /* Initalisierung */
 
@@ -158,6 +159,28 @@ protected func Timer()
   if(!enemys && friends)
     DoProcess(team,Min(friends,3));
 
+	if((!enemys) == (!friends))
+	{
+		if(!friends)
+		{
+			if(iconState != 0) //Ja ich weiß, geht auch !iconState, aber so ist das konsistent zu unten
+			{
+				bar->SetIcon(0, SM21, 0, 0, 32);
+				bar->Update(0, true, true);
+				iconState = 0;
+			}
+		}
+		else
+		{
+			if(iconState != 2)
+			{
+				bar->SetIcon(0, SM23, 0, 0, 32);
+				bar->Update(process);
+				iconState = 2;
+			}
+		}
+	}
+
   if(trend != iOld)
     ResetAttackers();
 
@@ -179,15 +202,6 @@ protected func Timer()
     }
     //Neu: Einstellen
     if(new) pAttackers[GetLength(pAttackers)] = clonk;
-  }
-
-  if(enemys && friends)
-  {
-    Message("$MsgFoughtOver$", flag, GetTeamColor(team), GetName());
-  }
-  else if(trend == 0)
-  {
-    Message("", flag);
   }
 }
 
@@ -211,7 +225,6 @@ public func Capture(int iTeam, bool bSilent)
 protected func Capturing(int iTeam)
 {
   attacker = iTeam;
-  Message("$MsgCapturing$",flag,GetTeamColor(iTeam),GetTeamName(iTeam),GetName());
 }
 
 public func NoTeam()
@@ -227,6 +240,14 @@ public func UpdateFlag()
 {
   if(!flag) return;
 
+	if(!bar)
+  {
+    bar = CreateObject(SBAR, 0, 0, -1);
+    bar->Set(this, RGB(255, 255, 255), BAR_FlagBar, 100, 0, SM21, 0, 0, true);
+    //bar->PositionToVertex(0, true);
+    bar->SetIcon(0, SM21, 0, 0, 32);
+    iconState = 0;
+  }
   if(team)
   {
     SetColorDw(RGB(0,0,0), flag);
@@ -236,13 +257,19 @@ public func UpdateFlag()
       flag->SetOwner(GetPlayerByIndex(i));
       break;
     }
+    bar->SetBarColor(GetTeamColor(team));
   }
   else
   {
     SetOwner(NO_OWNER, flag);
     SetColorDw(RGB(255, 255, 255), flag);
+    bar->SetBarColor(RGB(255, 255, 255));
   }
 
+	if(!attacker)
+		bar->Update(0, true, true);
+	else
+		bar->Update(process);
   SetFlagPos(process);
 }
 
@@ -303,6 +330,20 @@ public func DoProcess(int iTeam, int iAmount)
   }
 
   UpdateFlag();
+  if(process >= 100)
+  {
+  	if(iconState != 0) //Ja ich weiß, geht auch !iconState, aber so ist das konsistent zu unten
+		{
+			bar->SetIcon(0, SM21, 0, 0, 32);
+			bar->Update(0, true, true);
+			iconState = 0;
+		}
+	}
+	else if(iconState != 1)
+  {
+  		bar->SetIcon(0, SM22, 0, 0, 32);
+  		iconState = 1;
+  }
 
   return process;
 }
