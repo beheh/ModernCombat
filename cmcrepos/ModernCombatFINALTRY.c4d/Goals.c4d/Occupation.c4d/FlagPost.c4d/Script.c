@@ -117,7 +117,7 @@ protected func Timer()
     {
       if(clonk == pClonk)
       {
-      	del = false;
+        del = false;
         break;
       }
     }
@@ -163,7 +163,7 @@ protected func Timer()
   {
     if(!friends)
     {
-      if(iconState != 0) //Ja ich weiß, geht auch !iconState, aber so ist das konsistent zu unten
+      if(iconState != 0)
       {
         bar->SetIcon(0, SM21, 0, 0, 32);
         bar->Update(0, true, true);
@@ -329,7 +329,7 @@ public func DoProcess(int iTeam, int iAmount)
   bar->SetBarColor(GetTeamColor(iTeam));
   if(process >= 100)
   {
-    if(iconState != 0) //Ja ich weiß, geht auch !iconState, aber so ist das konsistent zu unten
+    if(iconState != 0)
     {
       bar->SetIcon(0, SM21, 0, 0, 32);
       bar->Update(0, true, true);
@@ -342,7 +342,7 @@ public func DoProcess(int iTeam, int iAmount)
     iconState = 1;
   }
   if(iconState != 0)
-  	bar->Update(process);
+    bar->Update(process);
 
   return process;
 }
