@@ -46,7 +46,7 @@ public func OnDestroyed(iType)
 {
   //Effekte
   if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("WoodSplinter", 3, 80, 0,0, 70, 155);
-  Sound("CrateCrack.ogg");
+  Sound("CrateDestruct*.ogg");
 
   SetAction("Destroyed");
 }

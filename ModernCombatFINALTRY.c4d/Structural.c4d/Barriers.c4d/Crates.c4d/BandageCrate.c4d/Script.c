@@ -18,7 +18,7 @@ func Damage()
       CastParticles("Paper", RandomX(20, 30), 40, 0, 0, 20, 35, RGB(180, 180, 180), RGBa(240, 240, 240, 150));
     }
     CastParticles("WoodCrateSplinter", 4, 50, 0,0, 141);
-    Sound("CrateCrack.ogg");
+    Sound("CrateDestruct*.ogg");
     Sound("WoodCrack*.ogg");
 
     //Verband auswerfen
