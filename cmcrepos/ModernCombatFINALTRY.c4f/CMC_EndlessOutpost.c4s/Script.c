@@ -108,7 +108,8 @@ func CreateInterior()
   CreateObject(H24K, 1385, 438, -1);
   CreateObject(H24K, 1605, 208, -1);
   CreateObject(H24K, 1605, 448, -1);
-  CreateObject(H24K, 2385, 118, -1);
+  aDoor[11] = CreateObject(H24K, 2385, 118, -1);
+  aDoor[11]->Lock();
   CreateObject(H24K, 2685, 118, -1);
   CreateObject(H24K, 2875, 118, -1);
 
@@ -290,6 +291,11 @@ func CreateInterior()
   CreateObject(PAN2, 1815, 265, -1);
   CreateObject(PANE, 1842, 140, -1);
   CreateObject(PAN2, 1845, 265, -1);
+
+  CreateObject(PAN2, 2225, 215, -1);
+  CreateObject(PAN2, 2225, 295, -1);
+  CreateObject(PAN2, 2305, 215, -1);
+  CreateObject(PAN2, 2305, 295, -1);
 
   CreateObject(PAN2, 2445, 325, -1);
 
@@ -527,6 +533,7 @@ func CreateDecoration()
   CreateObject(RAI1, 2705, 110, -1)->SetRail([1,1,1,1,1,1,1,1]);
 
   //Ventillatoren
+  CreateObject(MVNT, 2265, 250, -1);
   CreateObject(VENT, 2980, 180, -1)->SetCon(15);
   CreateObject(VENT, 2980, 210, -1)->SetCon(15);
   CreateObject(VENT, 2990, 470, -1)->SetCon(23);
@@ -880,7 +887,7 @@ public func ChooserFinished()
    //Zielobjekte
    AddAssaultTarget(CCP2, 1330, 430, 30*30, 2, "$Target1$", 0, [[[1450, 200], [1550, 200], [1650, 200]], [[530, 350], [570, 350], [570, 450]]]);
    AddAssaultTarget(PMP2, 1550, 560, 30*30, 2, "$Target2$", 1, [[[1450, 200], [1550, 200], [1650, 200]], [[530, 350], [570, 350], [570, 450]]]);
-   AddAssaultTarget(MVNT, 2265, 250, 25*30, 2, "$Target3$", 2, [[[1970, 70], [1990, 70], [2230, 110]], [[1510, 260], [1530, 360],[1530, 430]]]);
+   AddAssaultTarget(CMSN, 2265, 320, 30*30, 2, "$Target3$", 2, [[[1940, 70], [2410, 110], [2450, 110]], [[1510, 260], [1530, 360],[1530, 430]]]);
    AddAssaultTarget(LBPC, 2080, 493, 30*30, 2, "$Target4$", 3, [[[2150, 210], [2210, 110], [2250, 320]], [[1450, 200], [1400, 180], [1510, 260]]]);
    AddAssaultTarget(CCP2, 2580, 510, 25*30, 2, "$Target5$", 4, [[[2280, 110], [2450, 110]], [[1955, 550], [1870, 522], [1820, 390]]]);
    AddAssaultTarget(LBPC, 2600, 320, 30*30, 2, "$Target4$", 5, [[[2280, 110], [2450, 110]], [[1955, 550], [1870, 522], [1820, 390]]]);
@@ -1013,6 +1020,7 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
     aDoor[02]->Open();
     aDoor[03]->Open();
     aDoor[04]->Open();
+    aDoor[08]->Open();
 
     //SSA zerstören
     aSelfDefense[0]->Disarm();
@@ -1055,6 +1063,9 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
    CreateParticle("GunSmoke",2275,290,0,-10,230,1);
    Smoke(2270, 1880, 30);
    CreateParticle("GunSmoke",2300,290,0,-10,210,1);
+
+   //Objekt entfernen
+   FindObject(MVNT)->DecoExplode(30);
 
    //Türen öffnen
    aDoor[05]->Open();
@@ -1100,9 +1111,9 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
    Smoke(2270, 435, 30);
 
    //Türen öffnen
-   aDoor[08]->Open();
    aDoor[09]->Unlock();
    aDoor[10]->Open();
+   aDoor[11]->Open();
 
    //SSA zerstören
    aSelfDefense[1]->Disarm();
