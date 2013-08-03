@@ -1195,7 +1195,7 @@ public func EnterSeat(int iSeat, object pObj)
   //Sound
   Sound("StructureEnter*.ogg", true, this, 100, GetOwner(pObj) + 1);
   if(GetPilot())
-    Sound("StructureEnter*.ogg", true, this, 100, GetOwner(GetPilot()) + 1);
+    Sound("StructureEnter*.ogg", true, this, 50, GetOwner(GetPilot()) + 1);
 
   //Pilot
   if(iSeat == BKHK_Seat_Pilot)
