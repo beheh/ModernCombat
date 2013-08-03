@@ -526,13 +526,25 @@ protected func Collection2(object pObj)
       if(!GetPilot())
         return EnterSeat(BKHK_Seat_Pilot, pObj);
       if(!GetGunner())
+      {
+        Sound("StructureEnter*.ogg", true, this, 50, GetOwner(GetPilot()) + 1);
         return EnterSeat(BKHK_Seat_Gunner, pObj);
+      }
       if(!GetCoordinator())
-        return EnterSeat(BKHK_Seat_Coordinator, pObj);        
+      {
+        Sound("StructureEnter*.ogg", true, this, 50, GetOwner(GetPilot()) + 1);
+        return EnterSeat(BKHK_Seat_Coordinator, pObj);
+      }
       if(!GetPassenger1())
-        return EnterSeat(BKHK_Seat_Passenger1, pObj);        
+      {
+        Sound("StructureEnter*.ogg", true, this, 50, GetOwner(GetPilot()) + 1);
+        return EnterSeat(BKHK_Seat_Passenger1, pObj);
+      }
       if(!GetPassenger2())
+      {
+        Sound("StructureEnter*.ogg", true, this, 50, GetOwner(GetPilot()) + 1);
         return EnterSeat(BKHK_Seat_Passenger2, pObj);
+      }
 
       //Kein Platz mehr
       return SetCommand(pObj, "Exit");
@@ -1194,8 +1206,6 @@ public func EnterSeat(int iSeat, object pObj)
 
   //Sound
   Sound("StructureEnter*.ogg", true, this, 100, GetOwner(pObj) + 1);
-  if(GetPilot())
-    Sound("StructureEnter*.ogg", true, this, 50, GetOwner(GetPilot()) + 1);
 
   //Pilot
   if(iSeat == BKHK_Seat_Pilot)
