@@ -22,4 +22,4 @@ Major
 Officer
 General
 Commander
-* %s of the Elite
+*%s of the Elite
