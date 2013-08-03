@@ -7,7 +7,7 @@ static FKDT_QuickTipIDs;
 
 local clonk, oldvisrange, oldvisstate, killmsg, aTipps, iTippNr;
 local rejected, symbol;
-local aGrenades;
+local aGrenades, aContents;
 
 public func AimAngle()		{}
 public func ReadyToFire()	{}
@@ -98,6 +98,10 @@ public func Set(object pClonk)
   //Evtl. Granaten holen
   pClonk->~GrabGrenades(this);
   //Objekte des Clonks aufnehmen
+  var iCount = ContentsCount(0, pClonk);
+  aContents = CreateArray(iCount);
+  for(i = 0; i < iCount; i++)
+  	aContents[i] = GetID(Contents(i, pClonk));
   GrabContents(pClonk);
 
   //Aussehen des Clonks imitieren
@@ -497,6 +501,12 @@ public func Reanimation()
   //Besitztümer weitergeben
   if(GetAlive(clonk))
   {
+  	for(i = 0; i < GetLength(aContents); i++)
+  	{
+  		var item;
+  		if(item = FindContents(aContents[i], this))
+  			Enter(clonk, item);
+  	}
     clonk->GrabContents(this);
     if(GetLength(aGrenades))
     {
