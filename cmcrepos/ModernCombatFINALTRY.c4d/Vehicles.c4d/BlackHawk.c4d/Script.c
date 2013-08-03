@@ -1374,7 +1374,7 @@ public func OnDestruction()
   FakeExplode(70, GetLastAttacker() + 1);
   FakeExplode(50, GetLastAttacker() + 1);
   RemoveObject();
-  Sound("BigExplosion.ogg", false, this);
+  Sound("ExplosionHuge.ogg", false, this);
   Sound("StructureHit*.ogg", false, this);
 
   //Wrack erstellen

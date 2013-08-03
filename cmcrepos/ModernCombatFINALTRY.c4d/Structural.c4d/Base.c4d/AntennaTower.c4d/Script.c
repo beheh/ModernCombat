@@ -308,6 +308,6 @@ protected func Collapse()
 
   //Sound
   Sound("StructureHeavyHit*.ogg");
-  Sound("BigExplosion.ogg");
+  Sound("ExplosionHuge.ogg");
   Echo("TowerBreakingEcho.ogg");
 }

@@ -34,7 +34,7 @@ public func Damage(int iChange, int iPlr)
     CastSmoke("Smoke3",10,20,0,-20,220,500);
     CastSmoke("Smoke3",10,20,0,20,220,500);
     Sound("StructureHeavyHit*.ogg");
-    Sound("BigExplosion.ogg");
+    Sound("ExplosionHuge.ogg");
     Echo("TowerBreakingEcho.ogg",1);
 
     //Verschwinden
