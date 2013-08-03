@@ -20,7 +20,7 @@ func Damage()
     CastSmoke("Smoke3",3,10,-20,0,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
     CastSmoke("Smoke3",4,10,0,0,150,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
     CastSmoke("Smoke3",3,10,20,0,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
-    Sound("WoodCrack*.ogg");
+    Sound("CrateDestruct*.ogg");
 
     //Verschwinden
     RemoveObject();
@@ -76,7 +76,7 @@ func Damage()
     //Effekte
     if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("WoodSplinter",4,100,20,-15,100,80);
     CastSmoke("Smoke3",3,10,20,-10,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
-    Sound("CrateCrack.ogg");
+    Sound("CrateDestruct*.ogg");
 
     iStatus = 1;
     return(1);
