@@ -492,7 +492,7 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
       //Effekte
       if(!strike)
       {
-        Sound("HeavyHit*.ogg");
+        Sound("VehicleHit*.ogg");
         if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",2,40,0,0,0,50,60);
         Sparks(Random(2)+2,RGB(255,255,Random(5)+255));
       }
@@ -1657,14 +1657,14 @@ protected func Collision(int iCollSpeed)
 
   //Effekte
   Sparks(Random(2)+2,RGB(255,255,Random(5)+255));
-  Sound("HeavyHit*.ogg");
+  Sound("VehicleHit*.ogg");
   DoDmg(iCollSpeed/4);
 }
 
 protected func Hit2()
 {
   //Effekte
-  Sound("HeavyHit*.ogg");
+  Sound("VehicleHit*.ogg");
 }
 
 protected func CountC4()

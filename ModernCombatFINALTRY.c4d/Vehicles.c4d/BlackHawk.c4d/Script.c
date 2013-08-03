@@ -1192,7 +1192,10 @@ public func EnterSeat(int iSeat, object pObj)
   //Alten Sitz räumen
   DeleteActualSeatPassenger(pObj);
 
+  //Sound
   Sound("StructureEnter*.ogg", true, this, 100, GetOwner(pObj) + 1);
+  if(GetPilot())
+    Sound("StructureEnter*.ogg", true, this, 100, GetOwner(GetPilot()) + 1);
 
   //Pilot
   if(iSeat == BKHK_Seat_Pilot)
@@ -1397,7 +1400,7 @@ protected func ContactTop()
       CreateParticle("Blast", GetVertex(i), GetVertex(i, true), 0, 0, RandomX(50, 100), RGB(255, 255, 255));
 
   //Sound
-  Sound("HeavyHit*.ogg", false, pMGStation);
+  Sound("VehicleHit*.ogg", false, pMGStation);
   if(throttle > BKHK_MaxThrottle / 2)
     throttle = BKHK_MaxThrottle / 2;
   Schedule(Format("SetYDir(%d)", GetYDir() / -2), 1);
@@ -1413,7 +1416,7 @@ protected func ContactBottom()
     for (var i; i < GetVertexNum(); i++)
       if(GetContact(0, i))
         CreateParticle("Blast", GetVertex(i), GetVertex(i, true), 0, 0, RandomX(50,100), RGB(255,255,255));
-    Sound("HeavyHit*.ogg", false, pMGStation);
+    Sound("VehicleHeavyHit*.ogg", false, pMGStation);
     SetYDir(GetYDir() * -2 / 3);
   }
   if(GetContact(0, -1, CNAT_Left | CNAT_Right) && throttle)
@@ -1430,7 +1433,7 @@ protected func ContactLeft()
     for (var i; i < GetVertexNum(); i++)
       if(GetContact(0, i))
         CreateParticle("Blast", GetVertex(i), GetVertex(i, true), 0, 0, RandomX(50, 100), RGB(255, 255, 255));
-    Sound("HeavyHit*.ogg", false, pMGStation);
+    Sound("VehicleHeavyHit*.ogg", false, pMGStation);
   }
   //Abprallen
   SetXDir(Max(GetXDir(),40) / -2, this);
@@ -1446,7 +1449,7 @@ protected func ContactRight()
     for (var i; i < GetVertexNum(); i++)
       if(GetContact(0, i))
         CreateParticle("Blast", GetVertex(i), GetVertex(i, true), 0, 0, RandomX(50, 100), RGB(255, 255, 255));
-    Sound("HeavyHit*.ogg", false, pMGStation);
+    Sound("VehicleHeavyHit*.ogg", false, pMGStation);
   }
   SetXDir(Max(GetXDir(), 40) / -2,this);
   return true;
@@ -1644,7 +1647,7 @@ protected func TimerCall()
 
         DoDmg(MAVDamage, DMG_Projectile, pClonk, 0, GetOwner() + 1);
         pClonk->Sparks(Random(2)+2,RGB(255,255,Random(5)+255));
-        pClonk->Sound("HeavyHit*.ogg");
+        pClonk->Sound("VehicleHit*.ogg");
         continue;
       }
       //Ansonsten von Clonk ausgehen
