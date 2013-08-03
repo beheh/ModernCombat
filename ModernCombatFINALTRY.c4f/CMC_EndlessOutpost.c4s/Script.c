@@ -287,15 +287,10 @@ func CreateInterior()
   CreateObject(PANE, 1547, 335, -1);
   CreateObject(PANE, 1547, 360, -1);
 
-  CreateObject(PAN2, 1785, 265, -1);
-  CreateObject(PAN2, 1815, 265, -1);
   CreateObject(PANE, 1842, 140, -1);
-  CreateObject(PAN2, 1845, 265, -1);
 
   CreateObject(PAN2, 2225, 215, -1);
-  CreateObject(PAN2, 2225, 295, -1);
   CreateObject(PAN2, 2305, 215, -1);
-  CreateObject(PAN2, 2305, 295, -1);
 
   CreateObject(PAN2, 2445, 325, -1);
 
