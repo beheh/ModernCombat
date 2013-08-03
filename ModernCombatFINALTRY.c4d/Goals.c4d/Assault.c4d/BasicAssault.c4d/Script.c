@@ -190,7 +190,7 @@ protected func FxIntAssaultTargetTimer(object pTarget, int iEffect)
 
   //Schaden
   if(EffectVar(3, pTarget, iEffect) < GetDamage(pTarget))
-    EffectVar(3, pTarget, iEffect)++;
+    EffectVar(3, pTarget, iEffect) = GetDamage(pTarget);
   var dmg = EffectVar(3, pTarget, iEffect), maxdmg = EffectVar(0, pTarget, iEffect);
 
   //Bei zu viel Schaden zerstören
