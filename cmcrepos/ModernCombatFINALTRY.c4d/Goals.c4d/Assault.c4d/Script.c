@@ -278,7 +278,7 @@ protected func FxIntAssaultTargetStart(object pTarget, int iEffect, int iTemp, i
   bar = EffectVar(6, pTarget, iEffect) = CreateObject(SBAR, 0, 0, -1);
   bar->Set(pTarget, 0x33CCFF, BAR_AssaultBar+1, 200);
   bar->ChangeDefHeight(GetObjHeight(pTarget));
-  bar->ChangeDefOffset(-GetObjHeight(pTarget)/2);
+  bar->ChangeDefOffset(-GetObjHeight(pTarget)/2+5);
   bar->Update(0, true);
   bar->PositionToVertex(0, true);
 
