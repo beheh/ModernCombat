@@ -1186,13 +1186,14 @@ public func FxTeamRotationChoosePlrTimer(object pTarget, int iNr)
   return true;
 }
 
-public func FxTeamRotationChoosePlrNext(object pTarget, int iNr)
+public func FxTeamRotationChoosePlrNext(object pTarget, int iNr, int iCpt)
 {
   if(++EffectVar(0, pTarget, iNr) == GetLength(EffectVar(1, pTarget, iNr)))
     EffectVar(0, pTarget, iNr) = 0;
 
   EffectVar(2, pTarget, iNr) = CHOS_TeamRotation_ChooseTime;
 
+	CloseMenu(GetCursor(iCpt));
   FxTeamRotationChoosePlrTimer(pTarget, iNr);
 
   return true;
@@ -1204,7 +1205,7 @@ public func FxTeamRotationChoosePlrChoose(object pTarget, int iNr, int iPlr, int
 
   SetPlayerTeam(iPlr, aTeamCaptains[iCpt]);
   if(GetLength(EffectVar(3, pTarget, iNr)) >= 1)
-    EffectCall(pTarget, iNr, "Next");
+    EffectCall(pTarget, iNr, "Next", iCpt);
   else
   {
     RemoveEffect("TeamRotationChoosePlr", pTarget);
