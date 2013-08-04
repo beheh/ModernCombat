@@ -1070,7 +1070,7 @@ public func SwitchTeamCaptain(int iPlr)
       if(arTeams[i] && GetIndexOf(i, aTeamCaptains) == -1)
       {
         team = i;
-      	break;
+        break;
       }
 
     if(team == aTeamCaptains[iPlr])
@@ -1193,7 +1193,7 @@ public func FxTeamRotationChoosePlrNext(object pTarget, int iNr, int iCpt)
 
   EffectVar(2, pTarget, iNr) = CHOS_TeamRotation_ChooseTime;
 
-	CloseMenu(GetCursor(iCpt));
+  CloseMenu(GetCursor(iCpt));
   FxTeamRotationChoosePlrTimer(pTarget, iNr);
 
   return true;
