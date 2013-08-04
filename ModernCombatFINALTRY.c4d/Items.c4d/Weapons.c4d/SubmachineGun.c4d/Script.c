@@ -87,7 +87,7 @@ public func FMData1T2(int data)
 
   if(data == FM_Auto)		return false;							//Kein Automatikfeuer
 
-  if(data == FM_Damage)		return FMData1(data) + 2;					//Schadenswert
+  if(data == FM_Damage)		return FMData1(data) + 1;					//Schadenswert
 
   if(data == FM_BurstAmount)	return 3;							//Anzahl Schussabrufe pro Burst
   if(data == FM_BurstRecharge)	return 2;							//Zeit zwischen einzelnen Bursts
