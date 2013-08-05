@@ -11,7 +11,7 @@ Definition3=ModernCombatFINALTRY.c4d
 [Game]
 StructNeedEnergy=0
 Goals=MELE=1
-Rules=NMTT=1;FDMG=1;FGRV=1;TKNW=1;TACC=1;NOFF=1;NOFD=1;NOWH=1
+Rules=NMTT=1;FDMG=1;FGRV=1;TKNW=1;TACC=1;NOFF=1;NOFD=1;NOWH=1;BGRL=1
 
 [Player1]
 Wealth=160,0,0,250

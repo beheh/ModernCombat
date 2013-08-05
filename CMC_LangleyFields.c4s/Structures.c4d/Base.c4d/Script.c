@@ -5,6 +5,7 @@
 
 local basement;	//Fundament
 
+public func RequiredEnergy() 			{return 20;}
 
 /* Konstruktion */
 
