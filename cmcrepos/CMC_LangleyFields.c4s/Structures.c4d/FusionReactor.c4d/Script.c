@@ -1,10 +1,12 @@
-/*-- Fusionsreactor --*/
+/*-- Fusionsreaktor --*/
 
 #strict 2
 #include CCBS
 
 local basement;	//Fundament
 
+public func TechLevel()           {return 1;}
+public func EnergyProduction()		{return 40;} 
 
 /* Konstruktion */
 
