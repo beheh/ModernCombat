@@ -1,4 +1,4 @@
-/*-- Fusionsreaktor --*/
+/*-- Raffinerie --*/
 
 #strict 2
 #include CCBS
@@ -7,14 +7,14 @@ local basement;	//Fundament
 
 public func TechLevel()		{return 1;}	//Techstufe
 public func BuildingRadius()	{return 100;}	//Bauradius
-public func EnergyProduction()	{return 100;}	//Energiehersteller
+public func RequiredEnergy() 	{return 50;}	//Energieverbraucher
 
 
 /* Konstruktion */
 
 protected func Construction()
 {
-  basement = CreateObject(BT02,0,8,GetOwner());
+  basement = CreateObject(BT03,0,8,GetOwner());
 }
 
 /* Initalisierung */

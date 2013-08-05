@@ -5,7 +5,9 @@
 
 local basement;	//Fundament
 
-public func RequiredEnergy() 			{return 20;}
+public func BuildingRadius()	{return 200;}	//Bauradius
+public func EnergyProduction()	{return 50;}	//Energiehersteller
+
 
 /* Konstruktion */
 
