@@ -1,7 +1,7 @@
 [Action]
 Name=OpenDoor
 Procedure=NONE
-Length=12
+Length=13
 Delay=2
 Facet=0,110,48,35,25,75
 FacetBase=1
@@ -21,7 +21,7 @@ EndCall=CloseEntrance
 [Action]
 Name=CloseDoor
 Procedure=NONE
-Length=12
+Length=13
 Delay=2
 Facet=0,110,48,35,25,75
 FacetBase=1
