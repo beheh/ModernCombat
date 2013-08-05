@@ -1,0 +1,24 @@
+[DefCore]
+id=CFRT
+Name=Fusion Reactor
+Category=C4D_Structure|C4D_SelectBuilding|C4D_SelectKnowledge
+MaxUserSelect=5
+Width=128
+Height=80
+Offset=-64,-40
+Vertices=3
+VertexX=-64,0,64
+VertexY=39,39,39
+VertexFriction=100,100,100
+Value=200
+Mass=400
+Picture=0,0,128,80
+SolidMask=128,0,128,80
+TopFace=256,0,128,80
+Entrance=-8,20,16,20
+Exclusive=1
+ColorByOwner=1
+Construction=1
+
+[Physical]
+Energy=100000
