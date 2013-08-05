@@ -1045,7 +1045,7 @@ private func Shoot(object caller)
     var x,y;
     user->WeaponEnd(x,y);
 
-    if(!PathFree(GetX(),GetY(),GetX()+x,GetY()+y) && !GBackSolid(x, y))
+    if(!PathFree(GetX(),GetY(),GetX()+x,GetY()+y))
     {
       PlayerMessage(GetOwner(user), "$NotAbleToShoot$", user);
       RemoveEffect("BurstFire", this);
