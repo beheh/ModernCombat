@@ -10,7 +10,44 @@ func Initialize()
 {
   //Himmelparallaxität
   SetSkyParallax(1, 20, 15);
+  //Einrichtung plazieren
+  CreateInterior();
   return(1);
+}
+
+/* Plazierungsliste */
+
+func CreateInterior()
+{
+  Log("$CreatingInterior$");
+
+  //Grenzen
+  CreateObject(BRDR, 660, 0, -1)->Set(0);
+  CreateObject(BRDR, 6340, 0, -1)->Set(1);
+
+/*
+  //Sounds
+
+  //Wind
+  CreateObject(SE4K, 930, 220, -1)->Set("WindSound*.ogg",775,250);
+  CreateObject(SE4K, 2120, 220, -1)->Set("WindSound*.ogg",775,250);
+  CreateObject(SE4K, 3300, 220, -1)->Set("WindSound*.ogg",775,250);
+
+  //Hallen
+  CreateObject(SE4K, 620, 520, -1)->Set("Interior*.ogg",665,105);
+  CreateObject(SE4K, 1270, 600, -1)->Set("Interior*.ogg",670,105);
+  CreateObject(SE4K, 2970, 600, -1)->Set("Interior*.ogg",670,105);
+  CreateObject(SE4K, 3620, 520, -1)->Set("Interior*.ogg",665,105);
+
+  //Jungel
+  CreateObject(SE4K, 200, 1100, -1)->Set("Jungle*.ogg",800,200);
+  CreateObject(SE4K, 800, 1100, -1)->Set("Jungle*.ogg",300,200);
+  CreateObject(SE4K, 1400, 1100, -1)->Set("Jungle*.ogg",800,200);
+  CreateObject(SE4K, 2000, 1100, -1)->Set("Jungle*.ogg",300,200);
+  CreateObject(SE4K, 2600, 1100, -1)->Set("Jungle*.ogg",800,200);
+  CreateObject(SE4K, 3500, 1100, -1)->Set("Jungle*.ogg",300,200);
+  CreateObject(SE4K, 4100, 1100, -1)->Set("Jungle*.ogg",800,200);
+*/
 }
 
 /* Relaunch */
@@ -91,12 +128,12 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   var rand = Random(2);
   if(iTeam == 1)
   {
-    iX = RandomX(315,605);
+    iX = RandomX(1260,1360);
     iY = -50;
   }
   else
   {
-    iX = RandomX(2335,2615);
+    iX = RandomX(5640,5740);
     iY = -50;
   }
 }
