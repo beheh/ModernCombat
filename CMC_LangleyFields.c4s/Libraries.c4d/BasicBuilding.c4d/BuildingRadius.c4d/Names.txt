@@ -1,2 +1,2 @@
 DE:Bauradius
-US:Building radius
+US:Building Radius
