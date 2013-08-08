@@ -64,13 +64,53 @@ public func OpenBuildingMenu(dummy, object pTarget, int iSel)
 			if(!CanBuild(building, pTarget))
 				clr = 0xFF0000;
 		
-			AddMenuItem(Format("<c %x>%s</c>", clr, GetName(0, building)), Format("StartBuilding(%i, Object(%d), %d)", building, ObjectNumber(pTarget), entry++), building, pTarget);
+			AddMenuItem(Format("<c %x>%s</c>", clr, GetName(0, building)), Format("StartBuildingPreviewMode(%i, Object(%d), %d)", building, ObjectNumber(pTarget), entry++), building, pTarget);
 		}
 	}
 	
 	SelectMenuItem(iSel, pTarget);
 	
 	return true;
+}
+
+local fBuildingPreview, idBuildingPreview, pBuildingPreviewTarget, iBuildingPreviewEntry;
+
+public func StartBuildingPreviewMode(id idBuilding, object pTarget, int iEntry)
+{
+	fBuildingPreview = true;
+	idBuildingPreview = idBuilding;
+	pBuildingPreviewTarget = pTarget;
+	iBuildingPreviewEntry = iEntry;
+	
+	return true;
+}
+
+public func ControlThrow()
+{
+	if(fBuildingPreview)
+	{
+		fBuildingPreview = false;
+		StartBuilding(idBuildingPreview, pBuildingPreviewTarget, iBuildingPreviewEntry);
+		return true;
+	}
+	return _inherited(...);
+}
+
+public func ControlDig()
+{
+	if(fBuildingPreview)
+	{
+		for(var obj in FindObjects(Find_ID(BGRS), Find_Owner(GetOwner(pBuildingPreviewTarget))))
+			if(obj)
+				RemoveObject(obj); 
+
+		RemoveEffect("PreviewBuilding", this);
+		fBuildingPreview = false;
+		OpenBuildingMenu(0, pBuildingPreviewTarget, iBuildingPreviewEntry);
+		return true;
+	}
+
+	return _inherited(...);
 }
 
 public func MenuQueryCancel(int iSelection, object pMenuObj)
@@ -207,9 +247,9 @@ public func StartBuilding(id idBuilding, object pTarget, int selection)
 			RemoveObject(obj); 
 	RemoveEffect("PreviewBuilding", this);
 
-	if(!CanBuild(idBuilding, pTarget))
-		return OpenBuildingMenu(0, pTarget, selection);
-	
+	if(!CanBuild(idBuilding, pTarget)) //ToDo: Meldung ausgeben
+		return false;
+
 	var pBuilding = CreateConstruction(idBuilding, 0, 10, GetOwner(pTarget), 1, true, true);
 	if(!pBuilding)
 		return;
