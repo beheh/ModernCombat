@@ -356,6 +356,40 @@ protected func DeathAnnounce(int plr, object clonk, int killplr)
   return r;
 }
 
+//Hazard-Deathfunktion ohne Effektlöschung (s. #011955)
+protected func Death() {
+  var plr = GetOwner();
+
+  // Sound und Meldung
+  Sound("Die");
+  DeathAnnounce(GetOwner(), this, GetKiller());
+	NoDeathAnnounce(); // nicht nochmal aufrufen
+  // Letztes Mannschaftsmitglied func tot() { neuer Einsatz
+  
+  if(GetPlayerType(GetOwner()) == C4PT_Script)
+    GameCallEx("RelaunchPlayer", GetOwner(), this, GetKiller());
+  else
+  {
+    var gotcrew;
+    for(var i; i < GetCrewCount(plr); i++)
+      if(GetOCF(GetCrew(plr, i)) & OCF_Alive)
+        gotcrew = true;
+  
+    if(!gotcrew)
+      GameCallEx("RelaunchPlayer", GetOwner(), this, GetKiller());
+  }
+
+  if(ammobag)
+    RemoveObject(ammobag);
+
+  FadeOut(this);
+
+  Death2(...);
+  if(HasGear()) TakeOffGear();
+
+  return true;
+}
+
 public func UpdateCharge(bool fForceUpdate)
 {
   UpdateCH();
