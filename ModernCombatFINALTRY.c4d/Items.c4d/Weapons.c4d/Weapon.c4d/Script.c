@@ -1749,7 +1749,7 @@ func FxLaserDotTimer(object pTarget, int iEffectNumber, int iEffectTime)
     ydir = Cos(iAngle, -3000);
 
     var pEnemy;
-    pEnemy = FindObject2(Find_OnLine(0, 0, x - xPos, y - yPos), Find_NoContainer(), Find_Or(Find_Func("IsSmoking"), Find_And(Find_Hostile(GetOwner(this)), Find_Or(Find_OCF(OCF_Alive), Find_Func("IsBulletTarget", GetID(), this, this), Find_Func("IsCMCVehicle")))), Sort_Distance(0, 0));
+    pEnemy = FindObject2(Find_OnLine(0, 0, x - xPos, y - yPos), Find_NoContainer(), Find_Or(Find_Func("IsSmoking"), Find_And(Find_Func("CheckEnemy", this), Find_Or(Find_OCF(OCF_Alive), Find_Func("IsBulletTarget", GetID(), this, this)))), Find_Exclude(user), Sort_Distance(0, 0));
 
     //Feinderkennung
     if(pEnemy)
