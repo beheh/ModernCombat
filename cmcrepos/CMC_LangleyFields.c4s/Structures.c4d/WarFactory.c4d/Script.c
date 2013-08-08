@@ -6,7 +6,7 @@
 local basement;	//Fundament
 
 public func TechLevel()		{return 3;}	//Techstufe
-public func BuildingRadius()	{return 100;}	//Bauradius
+public func BuildingRadius()	{return 200;}	//Bauradius
 public func RequiredEnergy() 	{return 100;}	//Energieverbraucher
 
 
