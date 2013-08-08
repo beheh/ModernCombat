@@ -1,0 +1,14 @@
+[DefCore]
+id=BGRS
+Name=Building Radius
+Version=4,9,5
+Category=C4D_StaticBack|C4D_MouseIgnore|C4D_Foreground
+MaxUserSelect=0
+Width=100
+Height=100
+Offset=-50,-50
+Picture=0,0,100,100
+Vertices=1
+VertexY=0
+VertexX=0
+VertexFriction=20

@@ -1,0 +1,5 @@
+BuidlBuilding=Bauen
+RepairBuilding=Reparieren
+SellBuilding=Verkaufen
+Close=Schlieﬂen
+TechLevel=<c 00aa00>- Technikstufe %d -</c>
