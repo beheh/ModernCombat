@@ -367,95 +367,104 @@ private func HitCheck(int r, int d)
   mx = AbsX(x);//+Sin(r,ml);
   my = AbsY(y);//-Cos(r,ml);
   
-  for(var pObj in FindObjects(Find_OnLine(0, 0, mx, my), 
+  var pObj = FindObject2(Find_OnLine(0, 0, mx, my), 
   		Find_NoContainer(), 
   		Find_Or(Find_Func("IsBulletTarget", GetID(), this, shooter), Find_OCF(OCF_Alive)),
   		Find_Func("CheckEnemy", this),
   		Find_Not(Find_Func("HitExclude", this)),
   		Find_Exclude(this), Find_Exclude(shooter),
-  		Sort_Distance()))
+  		Find_Or(Find_Not(Find_Func("UseOwnHitbox")), Find_Func("BulletHitboxCheck", sx, sy, x, y)),
+  		Sort_Distance());
+  /*for(var pObj in FindObjects(Find_OnLine(0, 0, mx, my), 
+  		Find_NoContainer(), 
+  		Find_Or(Find_Func("IsBulletTarget", GetID(), this, shooter), Find_OCF(OCF_Alive)),
+  		Find_Func("CheckEnemy", this),
+  		Find_Not(Find_Func("HitExclude", this)),
+  		Find_Exclude(this), Find_Exclude(shooter),
+  		Sort_Distance()))*/
+  if(pObj)
   {
-    //Bei eigener Hitbox eigenen Bulletcheck ausführen (z.B. bei Helikoptern)
-    if(pObj->~UseOwnHitbox() && !pObj->~BulletHitboxCheck(sx, sy, x, y))
-      continue;
-    //Position des Treffpunktes berechnen
-    var ox = GetX(pObj), oy = GetY(pObj);
+  	//Bei eigener Hitbox eigenen Bulletcheck ausführen (z.B. bei Helikoptern)
+		//if(pObj->~UseOwnHitbox() && !pObj->~BulletHitboxCheck(sx, sy, x, y))
+		//  continue;
+		//Position des Treffpunktes berechnen
+		var ox = GetX(pObj), oy = GetY(pObj);
 
-    //Objektwerte verwenden statt Definitionswerte (bspw. für Assaulttargets)
-    if(pObj->~BulletCheckObjectHitbox())
-    {
-      var xLeft = GetObjectVal("Offset", 0, pObj, 0) + ox;
-      var xRight = GetObjectVal("Width", 0, pObj) + GetObjectVal("Offset", 0, pObj, 0) + ox;
+		//Objektwerte verwenden statt Definitionswerte (bspw. für Assaulttargets)
+		if(pObj->~BulletCheckObjectHitbox())
+		{
+		  var xLeft = GetObjectVal("Offset", 0, pObj, 0) + ox;
+		  var xRight = GetObjectVal("Width", 0, pObj) + GetObjectVal("Offset", 0, pObj, 0) + ox;
 
-      var yUp = GetObjectVal("Offset", 0, pObj, 1) + oy;
-      var yDown = GetObjectVal("Height", 0, pObj) + GetObjectVal("Offset", 0, pObj, 1) + oy;
-    }
-    else
-    {
-      var xLeft = GetDefCoreVal("Offset", "DefCore", GetID(pObj), 0) + ox;
-      var xRight = GetDefCoreVal("Width", "DefCore", GetID(pObj)) + GetDefCoreVal("Offset", "DefCore", GetID(pObj), 0) + ox;
+		  var yUp = GetObjectVal("Offset", 0, pObj, 1) + oy;
+		  var yDown = GetObjectVal("Height", 0, pObj) + GetObjectVal("Offset", 0, pObj, 1) + oy;
+		}
+		else
+		{
+		  var xLeft = GetDefCoreVal("Offset", "DefCore", GetID(pObj), 0) + ox;
+		  var xRight = GetDefCoreVal("Width", "DefCore", GetID(pObj)) + GetDefCoreVal("Offset", "DefCore", GetID(pObj), 0) + ox;
 
-      var yUp = GetDefCoreVal("Offset", "DefCore", GetID(pObj), 1) + oy;
-      var yDown = GetDefCoreVal("Height", "DefCore", GetID(pObj)) + GetDefCoreVal("Offset", "DefCore", GetID(pObj), 1) + oy;
-    }
+		  var yUp = GetDefCoreVal("Offset", "DefCore", GetID(pObj), 1) + oy;
+		  var yDown = GetDefCoreVal("Height", "DefCore", GetID(pObj)) + GetDefCoreVal("Offset", "DefCore", GetID(pObj), 1) + oy;
+		}
 
-    if(!(Inside(sx, xLeft, xRight) && Inside(sy, yUp, yDown)))
-    {
-      var xOff, yOff;
+		if(!(Inside(sx, xLeft, xRight) && Inside(sy, yUp, yDown)))
+		{
+		  var xOff, yOff;
 
-      if(sx > ox)
-        xOff = xRight;
-      else
-        xOff = xLeft;
+		  if(sx > ox)
+		    xOff = xRight;
+		  else
+		    xOff = xLeft;
 
-      if(sy > oy)
-        yOff = yDown;
-      else
-        yOff = yUp;
+		  if(sy > oy)
+		    yOff = yDown;
+		  else
+		    yOff = yUp;
 
-      var a = Angle(sx, sy, xOff, yOff);
-      if(Inside(sx, Min(ox, xOff), Max(ox, xOff)))
-      {
-        var temp = (yOff - sy) * 1000 / (-Cos(r, 1000));
-        lx = Sin(r, temp);
-        ly = -Cos(r, temp);
-      }
-      else if(Inside(sy, Min(oy, yOff), Max(oy, yOff)))
-      {
-        var temp = (xOff - sx) * 1000 / (Sin(r, 1000));
-        lx = Sin(r, temp);
-        ly = -Cos(r, temp);
-      }
-      else
-      {
-        var temp = (yOff - sy) * 1000 / (-Cos(r, 1000));
-        var lxOne = Sin(r, temp);
-        var lyOne = -Cos(r, temp);
+		  var a = Angle(sx, sy, xOff, yOff);
+		  if(Inside(sx, Min(ox, xOff), Max(ox, xOff)))
+		  {
+		    var temp = (yOff - sy) * 1000 / (-Cos(r, 1000));
+		    lx = Sin(r, temp);
+		    ly = -Cos(r, temp);
+		  }
+		  else if(Inside(sy, Min(oy, yOff), Max(oy, yOff)))
+		  {
+		    var temp = (xOff - sx) * 1000 / (Sin(r, 1000));
+		    lx = Sin(r, temp);
+		    ly = -Cos(r, temp);
+		  }
+		  else
+		  {
+		    var temp = (yOff - sy) * 1000 / (-Cos(r, 1000));
+		    var lxOne = Sin(r, temp);
+		    var lyOne = -Cos(r, temp);
 
-        temp = (xOff - sx) * 1000 / (Sin(r, 1000));
-        var lxTwo = Sin(r, temp);
-        var lyTwo = -Cos(r, temp);
+		    temp = (xOff - sx) * 1000 / (Sin(r, 1000));
+		    var lxTwo = Sin(r, temp);
+		    var lyTwo = -Cos(r, temp);
 
-        //Wenn erster Punkt weiter weg, diesen wählen, sonst den anderen
-        if(Distance(lxOne, lyOne) > Distance(lxTwo, lyTwo))
-        {
-          lx = lxOne;
-          ly = lyOne;
-        }
-        else
-        {
-          lx = lxTwo;
-          ly = lyTwo;
-        }
-      }
-    }
-    if(HitObject(pObj))
-    {
-      var dist = Distance(sx, sy, ox, oy);
-      dst += dist;
-      return dist;
-    }
-  }
+		    //Wenn erster Punkt weiter weg, diesen wählen, sonst den anderen
+		    if(Distance(lxOne, lyOne) > Distance(lxTwo, lyTwo))
+		    {
+		      lx = lxOne;
+		      ly = lyOne;
+		    }
+		    else
+		    {
+		      lx = lxTwo;
+		      ly = lyTwo;
+		    }
+		  }
+		}
+		if(HitObject(pObj))
+		{
+		  var dist = Distance(sx, sy, ox, oy);
+		  dst += dist;
+		  return dist;
+		}
+	}
 
   lx = mx;
   ly = my;
