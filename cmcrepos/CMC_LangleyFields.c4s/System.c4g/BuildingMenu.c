@@ -21,6 +21,7 @@ protected func ContextBuilding(object pCaller)
 
 public func OpenBuildingMenu(dummy, object pTarget, int iSel)
 {
+	AddEffect("PreviewBuilding", this, 100, 1, this);
 	CreateMenu(CBAS, pTarget, this, C4MN_Extra_Value, 0, 0, C4MN_Style_Context, 0, BGRS);
 	var plr = GetOwner(pTarget);
 	
@@ -79,9 +80,87 @@ public func MenuQueryCancel(int iSelection, object pMenuObj)
 		for(var obj in FindObjects(Find_ID(BGRS), Find_Owner(GetOwner(pMenuObj))))
 			if(obj)
 				RemoveObject(obj);
+		
+		RemoveEffect("PreviewBuilding", this);
 	}
 	
 	return false;
+}
+
+public func OnMenuSelection(int iIndex, object pMenuObject)
+{
+	var buildings = [], def = 0, i = 0;
+	while(def = GetDefinition(++i, C4D_Structure))
+		if(def->~IsCMCBuilding())
+		{
+			var lvl = def->~TechLevel();
+			if(!buildings[lvl])
+				buildings[lvl] = [];
+			
+			buildings[lvl][GetLength(buildings[lvl])] = def;
+		}
+	
+	var entry = 0, b;
+	for(var lvl = 0; lvl < GetLength(buildings); lvl++)
+	{
+		if(!buildings[lvl])
+			continue;
+		
+		entry++;
+		
+		for(var building in buildings[lvl])
+		{
+			if(entry == iIndex)
+			{
+				b = building;
+				break;
+			}
+			entry++;
+		}
+	}
+
+	EffectCall(this, GetEffect("PreviewBuilding", this), "Change", b);
+	return true;
+}
+
+public func FxPreviewBuildingStart(object pTarget, int iNr, temp)
+{
+	if(temp) return;
+	
+	var tim = EffectVar(0, pTarget, iNr) = CreateObject(TIM1, 0, 0, GetOwner(pTarget));
+	tim->SetVisibility(VIS_Owner);
+}
+
+public func FxPreviewBuildingTimer(object pTarget, int iNr)
+{
+	SetPosition(GetX()+EffectVar(1, pTarget, iNr), GetY()+EffectVar(2, pTarget, iNr), EffectVar(0, pTarget, iNr));
+	
+	if(!CanBuild(EffectVar(3, pTarget, iNr), this))
+		SetClrModulation(RGB(255), EffectVar(0, pTarget, iNr), 1);
+	else
+		SetClrModulation(RGB(255, 255, 255), EffectVar(0, pTarget, iNr), 1);
+	return true;
+}
+
+public func FxPreviewBuildingChange(object pTarget, int iNr, id idNewDef)
+{
+	var wdt = GetDefWidth(idNewDef), hgt = GetDefHeight(idNewDef);
+	var offx = GetDefOffset(idNewDef), offy = GetDefOffset(idNewDef, 1);
+	SetShape(offx, offy, wdt, hgt, EffectVar(0, pTarget, iNr));
+	SetGraphics(0, EffectVar(0, pTarget, iNr), idNewDef, 1, GFXOV_MODE_Base);
+	
+	EffectVar(1, pTarget, iNr) = -(wdt/2+offx);
+	EffectVar(2, pTarget, iNr) = -(hgt+offy)+10;
+	EffectVar(3, pTarget, iNr) = idNewDef;
+	return true;
+}
+
+public func FxPreviewBuildingStop(object pTarget, int iNr)
+{
+	if(EffectVar(0, pTarget, iNr))
+		RemoveObject(EffectVar(0, pTarget, iNr));
+	
+	return true;
 }
 
 public func CanBuild(id idBuilding, object pTarget)
@@ -123,13 +202,14 @@ public func OpenSellMenu() { return true; }
 
 public func StartBuilding(id idBuilding, object pTarget, int selection)
 {
+	for(var obj in FindObjects(Find_ID(BGRS), Find_Owner(GetOwner(pTarget))))
+		if(obj)
+			RemoveObject(obj); 
+	RemoveEffect("PreviewBuilding", this);
+
 	if(!CanBuild(idBuilding, pTarget))
 		return OpenBuildingMenu(0, pTarget, selection);
 	
-	for(var obj in FindObjects(Find_ID(BGRS), Find_Owner(GetOwner(pMenuObj))))
-		if(obj)
-			RemoveObject(obj); 
-
 	var pBuilding = CreateConstruction(idBuilding, 0, 10, GetOwner(pTarget), 1, true, true);
 	if(!pBuilding)
 		return;
