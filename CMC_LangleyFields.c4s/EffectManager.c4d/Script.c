@@ -40,6 +40,9 @@ public func Initialize()
 	return true;
 }
 
+//Vorrübergehend für Tests: Geldcheat.
+public func InitializePlayer(int iPlr) { SetWealth(iPlr, 0x7FFFFFFF); }
+
 public func FxEnergyManagementTimer()
 {
 	var buildings = FindObjects(Find_Func("IsCMCBuilding"));

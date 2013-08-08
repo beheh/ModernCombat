@@ -1,0 +1,3 @@
+/*-- Bauradius --*/
+
+#strict 2

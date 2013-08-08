@@ -19,9 +19,23 @@ protected func ContextBuilding(object pCaller)
 	return true;
 }
 
-public func OpenBuildingMenu(dummy, object pTarget)
+public func OpenBuildingMenu(dummy, object pTarget, int iSel)
 {
-	CreateMenu(CBAS, pTarget, this, C4MN_Extra_Value, 0, 0, C4MN_Style_Context);
+	CreateMenu(CBAS, pTarget, this, C4MN_Extra_Value, 0, 0, C4MN_Style_Context, 0, BGRS);
+	var plr = GetOwner(pTarget);
+	
+	for(var obj in FindObjects(Find_Category(C4D_Structure), Find_Allied(plr), Find_Func("BuildingRadius")))
+		if(obj)
+		{
+			var radiusObj = CreateObject(BGRS, 0, 0, plr), size = obj->~BuildingRadius() * 1000 / 50;
+			radiusObj->SetAction("Be", obj);
+			radiusObj->SetObjDrawTransform(size, 0, 0, 0, size, 0);
+			radiusObj->SetVisibility(VIS_Owner);
+			
+			var wdt = GetObjWidth(obj), hgt = GetObjHeight(obj), offx = GetObjectVal("Offset", 0, obj, 0), offy = GetObjectVal("Offset", 0, obj, 1);
+			radiusObj->SetVertex(0, 0, wdt/2+offx+GetVertex(0, 0, obj));
+			radiusObj->SetVertex(0, 1, hgt/2+offy+GetVertex(0, 1, obj));
+		}
 	
 	var buildings = [], def = 0, i = 0;
 	while(def = GetDefinition(++i, C4D_Structure))
@@ -34,35 +48,93 @@ public func OpenBuildingMenu(dummy, object pTarget)
 			buildings[lvl][GetLength(buildings[lvl])] = def;
 		}
 	
+	var entry;
 	for(var lvl = 0; lvl < GetLength(buildings); lvl++)
 	{
 		if(!buildings[lvl])
 			continue;
 		
 		AddMenuItem(Format("$TechLevel$", lvl), 0, 0, pTarget);
+		entry++;
 		
 		for(var building in buildings[lvl])
 		{
-			if(!GetPlrKnowledge(GetOwner(pTarget), building))
-				continue;
-			
-			//Falls nicht baubar ausgrauen/rot färben (Check fehlt noch)
-			AddMenuItem(GetName(0, building), "StartBuilding", building, pTarget);
+			var clr = 0xFFFFFF;
+			if(!CanBuild(building, pTarget))
+				clr = 0xFF0000;
+		
+			AddMenuItem(Format("<c %x>%s</c>", clr, GetName(0, building)), Format("StartBuilding(%i, Object(%d), %d)", building, ObjectNumber(pTarget), entry++), building, pTarget);
 		}
 	}
 	
+	SelectMenuItem(iSel, pTarget);
+	
 	return true;
+}
+
+public func MenuQueryCancel(int iSelection, object pMenuObj)
+{
+	if(GetMenu(pMenuObj) == BGRS)
+	{
+		for(var obj in FindObjects(Find_ID(BGRS), Find_Owner(GetOwner(pMenuObj))))
+			if(obj)
+				RemoveObject(obj);
+	}
+	
+	return false;
+}
+
+public func CanBuild(id idBuilding, object pTarget)
+{
+	//Bauradius
+	if(idBuilding->~NeedBuildingRadius())
+		if(!FindObject2(Find_Category(C4D_Structure), Find_Allied(GetOwner(pTarget)), Find_Func("CheckBuildingRadius", GetX(), GetY()+10)))
+			return false;
+	
+	//Verfügbares Geld
+	if(GetValue(0, idBuilding) > GetWealth(GetOwner(pTarget)))
+		return false;
+	
+	//Freigeschaltet
+	if(!GetPlrKnowledge(GetOwner(pTarget), idBuilding) && GetTeamTechLevel(GetPlayerTeam(GetOwner(pTarget))) < idBuilding->~TechLevel())
+		return false;
+	
+	//Genügend freier Platz
+	
+	
+	//Gebäudespezifische Anforderungen
+	if(!idBuilding->~BuildingConditions(pTarget, GetX(), GetY()+10-GetDefHeight(idBuilding)/2))
+		return false;
+	
+	return true;
+}
+
+global func CheckBuildingRadius(int iX, int iY)
+{
+	var rad;
+	if(!(rad = this->~BuildingRadius()))
+		return false;
+	
+	return Distance(GetX(), GetY(), iX, iY) <= rad;
 }
 
 public func OpenRepairMenu() { return true; }
 public func OpenSellMenu() { return true; }
 
-public func StartBuilding(id idBuilding, object pTarget)
+public func StartBuilding(id idBuilding, object pTarget, int selection)
 {
+	if(!CanBuild(idBuilding, pTarget))
+		return OpenBuildingMenu(0, pTarget, selection);
+	
+	for(var obj in FindObjects(Find_ID(BGRS), Find_Owner(GetOwner(pMenuObj))))
+		if(obj)
+			RemoveObject(obj); 
+
 	var pBuilding = CreateConstruction(idBuilding, 0, 10, GetOwner(pTarget), 1, true, true);
 	if(!pBuilding)
 		return;
 
+	DoWealth(GetOwner(pTarget), -GetValue(0, idBuilding));
 	AddEffect("AutoBuild", pBuilding, 10, 1);
 }
 

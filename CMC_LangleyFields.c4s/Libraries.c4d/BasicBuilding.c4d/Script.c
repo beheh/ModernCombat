@@ -21,7 +21,7 @@ public func MaxDamage()			{return 500;}				//Maximaler Schadenswert bis zur Zers
 
 /* Bauanforderungen */
 
-public func BuildingConditions(int iPlr, int iX, int iY) {return true;}
+public func BuildingConditions(object pBy, int iX, int iY) {return true;}
 
 /* Konstruktion */
 
