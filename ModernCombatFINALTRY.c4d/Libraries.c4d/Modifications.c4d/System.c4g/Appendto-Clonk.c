@@ -727,7 +727,11 @@ global func FxFakeDeathDamage(object pTarget, int iEffectNumber, int iDmgEngy, i
 
 /* Endgültiger Tod */
 
-func Death() { return Death2(); }
+func Death()
+{
+  //Umgehung von Hazard-Effektentfernung
+  return Death2();
+}
 
 func Death2()
 {
