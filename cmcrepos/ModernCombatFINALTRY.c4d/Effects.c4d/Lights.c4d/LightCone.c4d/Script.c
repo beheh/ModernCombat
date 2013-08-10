@@ -178,7 +178,11 @@ public func FxFlashlightBlindnessTimer(object pTarget, int iNr)
       var a = rgb->~GetAlpha(), c;
       for(var i = 0; i < GetPlayerCount(); i++)
       {
-        var pCursor = GetCursor(GetPlayerByIndex(i))->~GetRealCursor();
+        var pCursor = GetCursor(GetPlayerByIndex(i));
+        if(!pCursor)
+        	continue;
+        
+        pCursor = pCursor->~GetRealCursor();
         if(!pCursor && !(pCursor = GetCursor(GetPlayerByIndex(i))))
           continue;
 
