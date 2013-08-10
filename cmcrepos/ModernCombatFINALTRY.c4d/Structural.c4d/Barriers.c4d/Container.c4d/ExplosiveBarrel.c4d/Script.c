@@ -15,6 +15,44 @@ public func IsMeleeTarget(object obj)
 }
 
 
+/* Steuerung */
+
+public func ControlRightDouble(object pByObj)
+{
+  if(damaged)
+    return;
+  if(!pByObj)
+    return;
+
+  //Clonk drehen und anhalten
+  pByObj->SetDir(1);
+  pByObj->SetAction("Throw");
+  pByObj->SetComDir(COMD_Stop);
+
+  //Tonne anschieben
+  Fling(this, 2, -1);
+
+  Sound("RSHL_Shove.ogg");
+}
+
+public func ControlLeftDouble(object pByObj)
+{
+  if(damaged)
+    return;
+  if(!pByObj)
+    return;
+
+  //Clonk drehen und anhalten
+  pByObj->SetDir();
+  pByObj->SetAction("Throw");
+  pByObj->SetComDir(COMD_Stop);
+
+  //Tonne anschieben
+  Fling(this, -2, -1);
+
+  Sound("RSHL_Shove.ogg");
+}
+
 /* Aufrichtung */
 
 public func FloatUpright()
