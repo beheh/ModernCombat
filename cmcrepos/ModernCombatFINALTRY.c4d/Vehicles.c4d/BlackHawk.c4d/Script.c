@@ -88,7 +88,7 @@ public func BulletHitboxCheck(int bul_start_x, int bul_start_y, int bul_end_x, i
   for(var i = 0; i <= length-1; i++)
   {
     if(Inside(((bul_start_y - y1 + ((x1 - bul_start_x)*(bul_end_y - bul_start_y)/(bul_end_x - bul_start_x)))*1000/
-    					 (-((x2 - x1)*(bul_end_y - bul_start_y)/(bul_end_x - bul_start_x))+(y2 -y1))), 0, 1000))
+    					(-((x2 - x1)*(bul_end_y - bul_start_y)/(bul_end_x - bul_start_x))+(y2 -y1))), 0, 1000))
       return true;
 
     if(i >= length-1)
