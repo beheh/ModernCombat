@@ -89,11 +89,11 @@ global func AddLightCone(int iSize, int iColor, object pTarget, int iNewFlashlig
 func SpotAndBlind(object pUser, int iAngle)
 {
   //Zu markierende Gefahren suchen
-  for(var pObj in FindObjects(Find_Distance(Max(iSensorDistance, iBlindEffectDistance)),			//In Reichweite
-  		Find_Hostile(GetController(pUser)),				//Nur feindliche Objekte markieren
-  		Find_Or(Find_OCF(OCF_Alive), Find_Func("IsDetectable")),	//Lebewesen oder als identifizierbar markiert
-  		Find_NoContainer(),						//Im Freien
-  		Find_Exclude(this)))						//Selber ausschlieﬂen
+  for(var pObj in FindObjects(Find_Distance(Max(iSensorDistance, iBlindEffectDistance)),	//In Reichweite
+  		Find_Hostile(GetController(pUser)),						//Nur feindliche Objekte markieren
+  		Find_Or(Find_OCF(OCF_Alive), Find_Func("IsDetectable")),			//Lebewesen oder als identifizierbar markiert
+  		Find_NoContainer(),								//Im Freien
+  		Find_Exclude(this)))								//Selber ausschlieﬂen
   {
     if(pObj == pUser)
       continue;
@@ -117,7 +117,6 @@ func SpotAndBlind(object pUser, int iAngle)
 
       EffectCall(pObj, GetEffect("FlashlightBlindness", pObj), "Refresh", pUser, iBlindEffectDistance);
     }
-
 
     if(!iSensorDistance) return;
     //Bereits markierte Objekte auslassen
