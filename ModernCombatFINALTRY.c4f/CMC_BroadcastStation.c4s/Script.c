@@ -48,6 +48,9 @@ func CreateInterior()
 
   CreateObject(LADR, 810, 420, -1)->Set(9);
 
+  CreateObject(LADR, 940, 400, -1)->Set(20);
+  CreateObject(LADR, 1025, 315, -1)->Set(20);
+
   CreateObject(LADR, 1050, 798, -1)->Set(10);
   CreateObject(LADR, 1145, 190, -1)->Set(5);
   CreateObject(LADR, 1360, 572, -1)->Set(33);
