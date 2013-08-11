@@ -470,14 +470,14 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
    //Gesonderte Spawnpoints bei 2 Teams
    if(GetActiveTeamCount() == 2)
    {
-    if(iTeam == 1)
+    if(iTeam == GetTeamByIndex(0))
     {
      return [[220, 200], [220, 430], [250, 140]];
     }
-    else
+    if(iTeam == GetTeamByIndex(1))
     {
      return [[1265, 85], [1295, 120], [1330, 350]];
-     }
+    }
     return(1);
    }
    else
@@ -492,14 +492,14 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
    //Gesonderte Spawnpoints bei 2 Teams
    if(GetActiveTeamCount() == 2)
    {
-    if(iTeam == 1)
+    if(iTeam == GetTeamByIndex(0))
     {
      return [[220, 200], [220, 430], [250, 140]];
     }
-    else
+    if(iTeam == GetTeamByIndex(1))
     {
      return [[1265, 85], [1295, 120], [1330, 350]];
-     }
+    }
     return(1);
    }
    else
@@ -511,11 +511,11 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   //CTF-Spielziel
   if(FindObject(GCTF))
   {
-   if(iTeam == 1)
+   if(iTeam == GetTeamByIndex(0))
    {
     return [[220, 200], [250, 140], [365, 200]];
    }
-   else
+   if(iTeam == GetTeamByIndex(1))
    {
     return [[1135, 120], [1265, 85], [1295, 120]];
    }
