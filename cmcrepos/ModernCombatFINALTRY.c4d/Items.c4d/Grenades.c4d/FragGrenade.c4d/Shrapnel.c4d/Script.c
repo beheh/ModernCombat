@@ -6,7 +6,7 @@
 local hitcnt, size, trail_len, iAttachment, iStartFrame;
 
 public func IsSpecialAmmo()	{return false;}
-public func TumbleTime() {return 10;} //Dauer des Zeitfensters in denen Splitter tumblen lassen
+public func TumbleTime()	{return 10;}	//Dauer des Zeitfensters in denen Splitter tumblen lassen
 
 
 /* Abschuss */
@@ -30,7 +30,7 @@ public func Launch(int iAngle, int iSpeed, int iDist, int iSize, int iTrail, int
     iSize = 8;
   if(!iTrail)
     iTrail = 300;
-  
+
   iStartFrame = FrameCounter();
 
   //Geschwindigkeit setzen
