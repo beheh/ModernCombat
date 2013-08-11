@@ -909,7 +909,8 @@ public func ChooserFinished()
    //Konsole
    CreateObject(CONS, 7635, 465, -1)->Set(aSelfDefense[3]);
 
-   //Leiter
+   //Leitern
+   CreateObject(LADR, 6025, 450, -1)->Set(12);
    CreateObject(LADR, 7700, 590, -1)->Set(13);
 
    //Stahlbrücken
