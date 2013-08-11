@@ -458,11 +458,11 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
    //Gesonderte Spawnpoints bei 2 Teams
    if(GetActiveTeamCount() == 2)
    {
-    if(iTeam == 1)
+    if(iTeam == GetTeamByIndex(0))
     {
      return [[210, 480], [260, 700], [520, 490]];
     }
-    if(iTeam == 2)
+    if(iTeam == GetTeamByIndex(1))
     {
      return [[1535, 300], [1635, 240], [1690, 420]];
     }
