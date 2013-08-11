@@ -96,13 +96,13 @@ private func Traveling()
 
 private func Color(int iATime)
 {
-  var iPrg = Max(0, 100*(iATime-TumbleTime())/(iTime-TumbleTime()));
+  var iPrg = 100*iATime/iTime;
   return RGBa(255-iPrg*2,255-iPrg*2,255-iPrg*2,iPrg*2);
 }
 
 public func TrailColor(int iATime)
 {
-  var iPrg = Max(0, 100*(iATime-TumbleTime())/(iTime-TumbleTime()));
+  var iPrg = 100*iATime/iTime;
   return RGBa(255-iPrg*2,255-iPrg*2,255-iPrg*2,iPrg*2);
 }
 

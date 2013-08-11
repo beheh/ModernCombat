@@ -8,10 +8,10 @@ local iSensorDistance;
 local iBlindEffectDistance;
 local iFlashlightAngle;
 
-public func Lock()	{return fLocked = true;}
-public func UnLock()	{return fLocked = false;}
-public func IsLocked()	{return fLocked;}
-public func IsModernLight() {return true;}
+public func Lock()		{return fLocked = true;}
+public func UnLock()		{return fLocked = false;}
+public func IsLocked()		{return fLocked;}
+public func IsModernLight()	{return true;}
 
 
 public func ChangeSizeXY()
