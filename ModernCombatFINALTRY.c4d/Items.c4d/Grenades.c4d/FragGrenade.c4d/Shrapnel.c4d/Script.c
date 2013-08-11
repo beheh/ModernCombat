@@ -3,9 +3,10 @@
 #strict 2
 #include SHTX
 
-local hitcnt, size, trail_len, iAttachment;
+local hitcnt, size, trail_len, iAttachment, iStartFrame;
 
 public func IsSpecialAmmo()	{return false;}
+public func TumbleTime() {return 10;} //Dauer des Zeitfensters in denen Splitter tumblen lassen
 
 
 /* Abschuss */
@@ -29,6 +30,8 @@ public func Launch(int iAngle, int iSpeed, int iDist, int iSize, int iTrail, int
     iSize = 8;
   if(!iTrail)
     iTrail = 300;
+  
+  iStartFrame = FrameCounter();
 
   //Geschwindigkeit setzen
   speed = iSpeed;
@@ -207,7 +210,7 @@ public func BulletStrike(object pObj)
     if(GetID(pObj) != RSLH)
       AddEffect("IntShrapnelHit",pObj,1,10,0,GetID());
 
-    if(GetOCF(pObj) & OCF_Alive)
+    if(GetOCF(pObj) & OCF_Alive && iStartFrame+TumbleTime() > FrameCounter())
     {
       //Fling(pObj,GetXDir()/20 + GetXDir(pObj),GetYDir()/20 + GetYDir(pObj));
       ObjectSetAction(pObj, "Tumble");
