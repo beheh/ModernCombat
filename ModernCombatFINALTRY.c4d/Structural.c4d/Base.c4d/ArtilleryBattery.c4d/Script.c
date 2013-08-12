@@ -39,7 +39,7 @@ func Rotation()
   }
 
   if(iCooldown <= 0)
-      CreateParticle("PSpark",18,-9,0,0,40,RGB(0,255,0,100),this);
+    CreateParticle("PSpark",18,-9,0,0,40,RGB(0,255,0,100),this);
   else
   {
     iCooldown -= 3;
@@ -55,7 +55,6 @@ func Rotation()
 
   if(bDirection==0) {Sound("CannonRotation"); SetR(GetR(pCannon)+1,pCannon);}
   if(bDirection==1) {Sound("CannonRotation"); SetR(GetR(pCannon)-1,pCannon);}
-
 }
 
 func SetRotation(aRotation)
@@ -162,7 +161,7 @@ public func Shoot()
 
   var iX=Sin(GetR(pCannon),34);
   var iY=-Cos(GetR(pCannon),34)-3;
-   
+
   var pProjectile = CreateObject(ABLT,iX,iY,GetOwner(byObj));
   SetController(GetController(), pProjectile);
   SetXDir( Sin(GetR(pCannon),RandomX(135,165)),pProjectile,10);
