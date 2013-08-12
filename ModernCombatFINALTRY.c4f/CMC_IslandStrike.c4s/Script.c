@@ -613,7 +613,7 @@ func FlagCaptured(object pPoint, int iTeam)
 public func OnClassSelection(object pClonk, int iTeam)
 {
   //Assault-Spielziel
-  if (FindObject(GASS))
+  if(FindObject(GASS))
   {
    if(GetPlayerTeam(GetOwner(pClonk)) == 1)
    {
@@ -860,7 +860,7 @@ public func ChooserFinished()
   }
 
   //Assault-Spielziel
-  if (FindObject(GASS))
+  if(FindObject(GASS))
   {
    //Zielobjekte
    AddAssaultTarget(RADR, 1200, 490, 30*30, 2, "$Target1$", 0, [[[1680, 540], [1790, 530], [1880, 520]], [[560, 0], [610, 0], [650, 0]]]);
@@ -1080,7 +1080,7 @@ public func ChooserFinished()
 public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
 {
   //Ziel 1
-  if (!iIndex)
+  if(!iIndex)
   {
    //Grenzen neu setzen
    RemoveAll(BRDR);
@@ -1106,7 +1106,7 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
   }
 
   //Ziel 2
-  if (iIndex == 1)
+  if(iIndex == 1)
   {
    //Grenzen neu setzen
    RemoveAll(BRDR);
@@ -1126,7 +1126,7 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
   }
 
   //Ziel 3
-  if (iIndex == 2)
+  if(iIndex == 2)
   {
    //Grenzen neu setzen
    RemoveAll(BRDR);
@@ -1147,7 +1147,7 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
   }
 
   //Ziel 4
-  if (iIndex == 3)
+  if(iIndex == 3)
   {
    //Grenzen neu setzen
    RemoveAll(BRDR);
@@ -1166,7 +1166,7 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
   }
 
   //Ziel 5
-  if (iIndex == 4)
+  if(iIndex == 4)
   {
    //Grenzen neu setzen
    RemoveAll(BRDR);
@@ -1192,7 +1192,7 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
   }
 
   //Ziel 6
-  if (iIndex == 5)
+  if(iIndex == 5)
   {
    //Grenzen neu setzen
    RemoveAll(BRDR);
@@ -1207,7 +1207,7 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
   }
 
   //Ziel 7
-  if (iIndex == 6)
+  if(iIndex == 6)
   {
    //Artillerie entfernen
    aArtillery[3]->DecoExplode(45);

@@ -671,7 +671,7 @@ public func ChooserFinished()
   }
 
   //Assault-Spielziel
-  if (FindObject(GASS))
+  if(FindObject(GASS))
   {
    //Zielobjekte
    AddAssaultTarget(CMSN, 1900, 440, 30*30, 2, "$Target1$", 0, [[[2570, 440], [2440, 530], [2410, 580]], [[1170, 300], [1170, 440], [1290, 440]]]);
@@ -730,7 +730,7 @@ public func ChooserFinished()
   }
 
   //HTF-Spielziel
-  if (FindObject(GHTF))
+  if(FindObject(GHTF))
   {
    //Flaggenposten
    var flag = CreateObject(OFPL, 2620, 620, -1);
@@ -760,7 +760,7 @@ public func ChooserFinished()
   }
 
   //MR-Spielziel
-  if (FindObject(GMNR))
+  if(FindObject(GMNR))
   {
    //Geldsäcke
    AddMoneySpawn(2040, 295, [20]);
@@ -833,7 +833,7 @@ public func ChooserFinished()
 public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bool fConnectedDestroyed)
 {
   //Ziel 1
-  if (!iIndex)
+  if(!iIndex)
   {
    //Grenzen neu setzen
    RemoveAll(BRDR);
@@ -845,7 +845,7 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
   }
 
   //Ziel 2 und 3
-  if (iIndex == 1 || iIndex == 2)
+  if(iIndex == 1 || iIndex == 2)
   {
    if(fConnectedDestroyed)
    {
@@ -863,7 +863,7 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
   }
 
   //Ziel 3 und 4
-  if (iIndex == 3 || iIndex == 4)
+  if(iIndex == 3 || iIndex == 4)
   {
    if(fConnectedDestroyed)
    {

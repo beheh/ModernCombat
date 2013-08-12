@@ -387,7 +387,7 @@ public func ChooserFinished()
   Music("CMC_Rock Go On.ogg");
 
   //HTF-Spielziel
-  if (FindObject(GHTF))
+  if(FindObject(GHTF))
   {
    //Flaggenposten
    var flag = CreateObject(OFPL, 795,360, -1);
@@ -407,7 +407,7 @@ public func ChooserFinished()
   }
 
   //MR-Spielziel
-  if (FindObject(GMNR))
+  if(FindObject(GMNR))
   {
    //Hinweisschilder
    var sign = CreateObject(SGNP, 560, 480, -1);

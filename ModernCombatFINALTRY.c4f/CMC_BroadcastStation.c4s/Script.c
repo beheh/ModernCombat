@@ -431,7 +431,7 @@ public func ChooserFinished()
   Music("CMC_Deep Universe.ogg");
 
   //MR-Spielziel
-  if (FindObject(GMNR))
+  if(FindObject(GMNR))
   {
     //Geldsäcke
     AddMoneySpawn(490, 355, [20]);

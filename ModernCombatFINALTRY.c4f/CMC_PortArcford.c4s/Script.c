@@ -318,7 +318,7 @@ func CreateOptionalFeatures()
 public func OnClassSelection(object pClonk, int iTeam)
 {
   //Assault-Spielziel
-  if (FindObject(GASS))
+  if(FindObject(GASS))
   {
    if(GetPlayerTeam(GetOwner(pClonk)) == 1)
    {
@@ -438,7 +438,7 @@ public func ChooserFinished()
   }
 
   //Assault-Spielziel
-  if (FindObject(GASS))
+  if(FindObject(GASS))
   {
    //Zielobjekte
    AddAssaultTarget(CMSN, 2025, 711, 30*30, 2, "$Target1$", 0, [[[2620, 640], [2680, 610], [2735, 670]], [[1080, -20], [1130, -20], [1180, -20]]]);
@@ -493,7 +493,7 @@ public func ChooserFinished()
   }
 
   //MR-Spielziel
-  if (FindObject(GMNR))
+  if(FindObject(GMNR))
   {
    //Geldsäcke
    AddMoneySpawn(2630, 635, [20]);
@@ -547,7 +547,7 @@ public func ChooserFinished()
 public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bool fConnectedDestroyed)
 {
   //Ziel 1 und 2
-  if (!iIndex || iIndex == 1)
+  if(!iIndex || iIndex == 1)
   {
    if(fConnectedDestroyed)
    {
@@ -569,7 +569,7 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
   }
 
   //Ziel 3 und 4
-  if (iIndex == 2 || iIndex == 3)
+  if(iIndex == 2 || iIndex == 3)
   {
    if(fConnectedDestroyed)
    {
@@ -587,7 +587,7 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
   }
 
   //Ziel 5 und 6
-  if (iIndex == 4 || iIndex == 5)
+  if(iIndex == 4 || iIndex == 5)
   {
    if(fConnectedDestroyed)
    {
