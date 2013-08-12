@@ -6,12 +6,23 @@
 func RecommendedGoals()	{return [GLMS];}	//Spielzielempfehlung
 
 
+/* Regelvoreinstellung */
+
+func ChooserRuleConfig()
+{
+  //Abgewandelter Regelsatz: Kein FriendlyFire, Fallschaden, Keine Schwerverletzten, Flagge abnehmbar
+  var array = [RWDS, NOFF, FDMG, SICD, LIMT];
+  return(array);
+}
+
 /* Initialisierung */
 
 func Initialize()
 {
   //Wartemusik einstellen
   SetWaitingMusic();
+  //Himmelparallaxität
+  SetSkyParallax(1, 45, 15);
   //Einrichtung plazieren
   CreateInterior();
   //Ausrüstung plazieren
@@ -31,7 +42,7 @@ func CreateInterior()
   CreateObject(LADR, 440, 444, -1)->Set(17);
   CreateObject(LADR, 801, 444, -1)->Set(17);
 
-  //Bodenlucken
+  //Bodenluken
   CreateObject(HA4K,440,303,-1);
   CreateObject(HA4K,800,303,-1);
 

@@ -82,7 +82,7 @@ public func OnClonkEquip(object pClonk)
   }
 
   //Fallschirm erstellen
-  CreateObject(PARA,0,0,GetOwner(pClonk))->Set(pClonk);
+  AddEffect("IntPara", pClonk, 1, 1);
 
   //Ausrüstung: Revolver, Bausatz, Flagge, Erdgranate, Erdbebengranate, Fallschirmrucksack
   var wpn = CreateContents(RVLR, pClonk);
@@ -102,6 +102,12 @@ public func OnClonkEquip(object pClonk)
   }
 }
 
+global func FxIntParaTimer(object pTarget)
+{
+  CreateObject(PARA,0,0,GetOwner(pTarget))->Set(pTarget);
+  return -1;
+}
+
 /* Regelwähler */
 
 public func ChooserFinished()
@@ -116,6 +122,20 @@ public func ChooserFinished()
   RemoveAll(_SPK);
   CreateObject(_SPK, LandscapeWidth()/2 ,-5, -1)->SetAction("Wait");
 
+  //Keine Munition-Regel nicht vorhanden: Munition kaufbar
+  if(!FindObject(NOAM))
+  {
+   for(var i = 0; i < GetPlayerCount(); i++)
+   {
+     DoHomebaseMaterial(GetPlayerByIndex(i) + 1, ABOX, 10);
+     DoHomebaseMaterial(GetPlayerByIndex(i) + 1, GBOX, 8);
+     DoHomebaseMaterial(GetPlayerByIndex(i) + 1, MBOX, 5);
+
+     DoHomebaseProduction(GetPlayerByIndex(i) + 1, ABOX, 5);
+     DoHomebaseProduction(GetPlayerByIndex(i) + 1, GBOX, 4);
+     DoHomebaseProduction(GetPlayerByIndex(i) + 1, MBOX, 2);
+   }
+  }
   //Laufzeitbeitritt sperren
   SetMaxPlayer();
 }

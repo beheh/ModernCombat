@@ -5,7 +5,6 @@
 #strict 2
 #appendto NOHC
 #appendto NOAM
-#appendto NOFD
-#appendto SBUL
+#appendto NOAT
 
 public func IsChooseable()	{return false;}

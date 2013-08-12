@@ -1,1 +1,0 @@
-Eine Box. Sie wechselt nach einem bestimmten Muster von fest zu transparent und zurück.

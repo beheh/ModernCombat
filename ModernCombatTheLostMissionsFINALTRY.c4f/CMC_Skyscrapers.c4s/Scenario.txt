@@ -4,12 +4,12 @@ Title=CMC - Skyscrapers
 MaxPlayer=12
 MaxPlayerLeague=12
 Loader=Loader_CMC*
-Origin=ModernCombatTheLostMissionsFINALTRY.c4f
+Origin=ModernCombat.c4f
 
 [Definitions]
 Definition1=Objects.c4d
 Definition2=Hazard.c4d
-Definition3=ModernCombat.c4d
+Definition3=ModernCombatFINALTRY.c4d
 
 [Game]
 StructNeedEnergy=0
@@ -32,7 +32,6 @@ Crew=MDIC=1
 BottomOpen=1
 MapWidth=80,0,64,250
 MapHeight=80,0,40,250
-SkyScrollMode=1
 
 [Environment]
 Objects=DOFO=1

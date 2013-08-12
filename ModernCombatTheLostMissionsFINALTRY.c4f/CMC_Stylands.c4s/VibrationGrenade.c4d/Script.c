@@ -19,9 +19,11 @@ public func Fused()
 
 protected func Active()
 {
+  //Material freirütteln
   ShakeFree(GetX(this),GetY(this),35-GetActTime());
-  //if(!(GetActTime() % 5))
-    CreateParticle("GunSmoke",0,0,0,0,10*(35-GetActTime()),RGBa(0,255,0,64));
+
+  //Raucheffekt
+  CreateParticle("GunSmoke",0,0,0,0,10*(35-GetActTime()),RGBa(0,255,0,64));
 }
 
 protected func Stop()
