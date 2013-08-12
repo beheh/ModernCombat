@@ -688,7 +688,7 @@ public func ChooserFinished()
   }
 
   //Assault-Spielziel
-  if (FindObject(GASS))
+  if(FindObject(GASS))
   {
    //Zielobjekte
    AddAssaultTarget(CMSN, 1960, 1060, 30*30, 2, "$Target2$", 0, [[[2400, 1050], [2420, 1010], [2540, 950]], [[940, 860], [1035, 900], [1200, 950]]]);
@@ -844,7 +844,7 @@ public func ChooserFinished()
   }
 
   //MR-Spielziel
-  if (FindObject(GMNR))
+  if(FindObject(GMNR))
   {
    //Geldsäcke
    AddMoneySpawn(2680, 950, [20]);
@@ -932,7 +932,7 @@ public func ChooserFinished()
 public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bool fConnectedDestroyed)
 {
   //Ziel 1 und 2
-  if (!iIndex || iIndex == 1)
+  if(!iIndex || iIndex == 1)
   {
    if(fConnectedDestroyed)
    {
@@ -950,7 +950,7 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
   }
 
   //Ziel 3
-  if (iIndex == 2)
+  if(iIndex == 2)
   {
     //Grenzen neu setzen
     RemoveAll(BRDR);
@@ -969,7 +969,7 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
   }
 
   //Ziel 4
-  if (iIndex == 3)
+  if(iIndex == 3)
   {
    //Geschützstellung entfernen
    aStationary[2]->DecoExplode(30);

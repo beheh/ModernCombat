@@ -580,7 +580,7 @@ public func ChooserFinished()
   }
 
   //MR-Spielziel
-  if (FindObject(GMNR))
+  if(FindObject(GMNR))
   {
    //Geldsäcke
    AddMoneySpawn(1405, 775, [15]);
@@ -613,7 +613,7 @@ public func ChooserFinished()
   }
 
   //HTF-Spielziel
-  if (FindObject(GHTF))
+  if(FindObject(GHTF))
   {
    //Flaggenposten
    var flag = CreateObject(OFPL, 2865, 1310, -1);
@@ -635,7 +635,7 @@ public func ChooserFinished()
   }
 
   //LMS-Spielziel
-  if (FindObject(GLMS))
+  if(FindObject(GLMS))
   {
    //Automat
    var store = CreateObject(WPVM,2865, 1310,-1);

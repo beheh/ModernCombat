@@ -877,7 +877,7 @@ public func ChooserFinished()
   }
 
   //Assault-Spielziel
-  if (FindObject(GASS))
+  if(FindObject(GASS))
   {
    //Zielobjekte
    AddAssaultTarget(CCP2, 1330, 430, 30*30, 2, "$Target1$", 0, [[[1450, 200], [1550, 200], [1650, 200]], [[530, 350], [570, 350], [570, 450]]]);
@@ -998,7 +998,7 @@ public func ChooserFinished()
 public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bool fConnectedDestroyed)
 {
   //Ziel 1 und 2
-  if (!iIndex || iIndex == 1)
+  if(!iIndex || iIndex == 1)
   {
    if(fConnectedDestroyed)
    {
@@ -1033,7 +1033,7 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
   }
 
   //Ziel 3
-  if (iIndex == 2)
+  if(iIndex == 2)
   {
    //Grenze neu setzen
    RemoveAll(BRDR);
@@ -1088,7 +1088,7 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
   }
 
   //Ziel 4
-  if (iIndex == 3)
+  if(iIndex == 3)
   {
    //Grenze neu setzen
    RemoveAll(BRDR);
@@ -1133,7 +1133,7 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
   }
 
   //Ziel 5
-  if (iIndex == 4)
+  if(iIndex == 4)
   {
    //Risse
    CreateObject(FAUD, 2540, 490, -1);
@@ -1153,7 +1153,7 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
   }
 
   //Ziel 6
-  if (iIndex == 5)
+  if(iIndex == 5)
   {
    //Risse
    CreateObject(FAUD, 2550, 290, -1);
@@ -1171,7 +1171,7 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
   }
 
   //Ziel 7
-  if (iIndex == 6)
+  if(iIndex == 6)
   {
    //Risse
    CreateObject(FAUD, 2700, 215, -1);
@@ -1189,7 +1189,7 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
   }
 
   //Ziel 8
-  if (iIndex == 7)
+  if(iIndex == 7)
   {
    //Risse
    CreateObject(FAUD, 2850, 325, -1);
@@ -1207,7 +1207,7 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
   }
 
   //Ziel 9
-  if (iIndex == 8)
+  if(iIndex == 8)
   {
    //Risse
    CreateObject(FAUD, 2810, 500, -1);

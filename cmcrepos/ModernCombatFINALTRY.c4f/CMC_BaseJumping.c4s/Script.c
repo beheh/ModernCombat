@@ -462,7 +462,7 @@ func OnTowerCollapse()
 public func OnClassSelection(object pClonk)
 {
   //LMS/MR-Spielziel
-  if (FindObject(GLMS) || FindObject(GMNR))
+  if(FindObject(GLMS) || FindObject(GMNR))
   {
    AddEffect("IntPara", pClonk, 1, 1);
    Sound("Airstrike2", 0, pClonk);
@@ -569,7 +569,7 @@ public func ChooserFinished()
   }
 
   //HTF-Spielziel
-  if (FindObject(GHTF))
+  if(FindObject(GHTF))
   {
    //Flaggenposten
    var flag = CreateObject(OFPL, 1540,780, -1);
@@ -588,7 +588,7 @@ public func ChooserFinished()
   }
 
   //MR-Spielziel
-  if (FindObject(GMNR))
+  if(FindObject(GMNR))
   {
    //Geldsäcke
    AddMoneySpawn(475, 330, [15]);

@@ -1144,7 +1144,7 @@ public func ChooserFinished()
   }
 
   //Assault-Spielziel
-  if (FindObject(GASS))
+  if(FindObject(GASS))
   {
    //Zielobjekte
    AddAssaultTarget(CMSN, 1005, 1490, 25*30, 2, "$Target1$", 0, [[[755, 1240], [1185, 1250], [1610, 1240]], [[1040, 1940], [1185, 1920], [1330, 1940]]]);
@@ -1231,7 +1231,7 @@ public func ChooserFinished()
 public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bool fConnectedDestroyed)
 {
   //Ziel 1 und 2
-  if (!iIndex || iIndex == 1)
+  if(!iIndex || iIndex == 1)
   {
    if(fConnectedDestroyed)
    {
@@ -1244,7 +1244,7 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
   }
 
   //Ziel 3
-  if (iIndex == 2)
+  if(iIndex == 2)
   {
    //SSA zerstören
    aSelfDefense[0]->Disarm();
