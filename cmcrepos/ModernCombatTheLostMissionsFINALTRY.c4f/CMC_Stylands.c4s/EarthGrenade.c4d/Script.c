@@ -43,7 +43,7 @@ func DoCircle(string szMat, int iROut, int iRIn)
     			y - Cos(r+10, iRIn),
 
     			x + Sin(r, iRIn),
-    			y - Cos(r, iRIn));                                                            
+    			y - Cos(r, iRIn));
   }
 }
 

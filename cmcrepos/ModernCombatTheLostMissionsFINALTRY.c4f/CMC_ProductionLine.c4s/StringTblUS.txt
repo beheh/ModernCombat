@@ -1,9 +1,0 @@
-CreatingFurniture=Creating furniture...
-CreatingEquipment=Placing equipment...
-
-Team1=Eurocorps
-Team2=Intruders
-
-Flag1=West Base
-Flag2=Drilling Platform
-Flag3=East Base

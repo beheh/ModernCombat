@@ -8,5 +8,6 @@
 #appendto NODR
 #appendto RWDS
 #appendto WPST
+#appendto NOAT
 
 public func IsChooseable()	{return false;}

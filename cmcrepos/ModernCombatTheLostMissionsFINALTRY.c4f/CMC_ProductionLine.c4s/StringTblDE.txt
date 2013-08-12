@@ -1,9 +1,0 @@
-CreatingFurniture=Szenario wird eingerichtet...
-CreatingEquipment=Ausrüstung wird plaziert...
-
-Team1=Eurocorps
-Team2=Eindringlinge
-
-Flag1=Westliche Basis
-Flag2=Bohrplattform
-Flag3=Östliche Basis
