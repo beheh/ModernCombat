@@ -1,22 +1,18 @@
-/*-- Straßenlicht --*/
+/*-- Verkehrsampel --*/
 
 #strict 2
-#include BLGH
+
+local broken;
 
 
-func CreateLight()
+/* Initialisierung */
+
+func Initialize()
 {
-  pLight = AddLightCone(3500,RGBa(255,255,255,70),this());
-  pLight -> ChangeR(180);
-  pLight -> TurnOn();
+  SetAction("YellowHold");
 }
 
 /* Zerstörung */
-
-public func IsBulletTarget(id def)
-{
-  return false;
-}
 
 func Damage()
 {
@@ -26,10 +22,8 @@ func Damage()
   {
     broken = true;
 
-    //Licht entfernen
-    if(Light())
-      Light()->RemoveObject();
-    SetAction("Idle");
+    //Aktivität einstellen
+    SetAction("Stand");
 
     //Umkippen
     SetCategory(C4D_Vehicle);
