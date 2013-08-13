@@ -1,6 +1,6 @@
 [Action]
 Name=Stand
-Facet=0,0,21,50
+Facet=0,0,15,50
 FacetBase=1
 Delay=1
 NextAction=Hold
@@ -9,15 +9,15 @@ NextAction=Hold
 Name=Red
 Length=1
 Delay=300
-Facet=21,0,5,17,9,6
+Facet=15,0,4,17,6,5
 FacetBase=1
-NextAction=YellowToGreen
+NextAction=ToGreen
 
 [Action]
-Name=YellowToGreen
+Name=ToGreen
 Length=1
 Delay=80
-Facet=26,0,5,17,9,6
+Facet=19,0,4,17,6,5
 FacetBase=1
 NextAction=Green
 
@@ -25,15 +25,15 @@ NextAction=Green
 Name=Green
 Length=1
 Delay=300
-Facet=31,0,5,17,9,6
+Facet=23,0,4,17,6,5
 FacetBase=1
-NextAction=YellowToRed
+NextAction=ToRed
 
 [Action]
-Name=YellowToRed
+Name=ToRed
 Length=1
 Delay=80
-Facet=26,0,5,17,9,6
+Facet=15,17,4,17,6,5
 FacetBase=1
 NextAction=Red
 
@@ -41,6 +41,6 @@ NextAction=Red
 Name=YellowHold
 Length=2
 Delay=50
-Facet=21,17,5,17,9,6
+Facet=15,17,4,17,6,5
 FacetBase=1
 NextAction=YellowHold
