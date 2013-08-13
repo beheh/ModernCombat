@@ -2019,7 +2019,7 @@ global func FxShowWeaponUpdate(object pTarget, int iNumber, int iTime)
   if(GetEffect("Silencer", obj))
     SetClrModulation(RGBa(255, 255, 255, EffectVar(0, obj, GetEffect("Silencer", obj))), obj);
 
-  if (!dodraw && 90*dir+r == EffectVar(1, pTarget, iNumber) && GetAction(pTarget) == EffectVar(8, pTarget, iNumber))
+  if (!dodraw && 90*dir+r == EffectVar(1, pTarget, iNumber) && GetAction(pTarget) == EffectVar(8, pTarget, iNumber) && GetDir(pTarget) == EffectVar(7, pTarget, iNumber))
     return;
 
   var xfact = size * obj->~HandX();	//Attach-Punkte dazurechnen
