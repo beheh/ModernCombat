@@ -1,7 +1,7 @@
 [FolderMap]
 MinResX=640
 MinResY=480
-ScenInfoArea=564,92,215,427
+ScenInfoArea=739,99,223,418
 FullscreenBG=1
 
 	[Scenario]
@@ -14,15 +14,3 @@ FullscreenBG=1
 	File=CMC_Stylands.c4s
 	Area=24,131,256,26
 	OverlayImage=OverlayStylands.png
-
-
-	[Scenario]
-	File=CMC_BeatBoxGalaxy.c4s
-	Area=24,167,256,26
-	OverlayImage=OverlayBeatBoxGalaxy.png
-
-
-	[Scenario]
-	File=CMC_ProductionLine.c4s
-	Area=24,203,256,26
-	OverlayImage=OverlayProductionLine.png
