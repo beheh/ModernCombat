@@ -732,6 +732,10 @@ func CreateDecoration()
   CreateObject(ETLT, 1620, 235, -1);
   CreateObject(ETLT, 1880, 170, -1);
   CreateObject(ETLT, 2930, 395, -1);
+
+  //Verkehrsampeln
+  CreateObject(TLGH, 830, 450, -1);
+  CreateObject(TLGH, 950, 450, -1);
 }
 
 func CreateOptionalFeatures()
