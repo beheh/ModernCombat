@@ -1717,7 +1717,7 @@ public func ChangeHostMenu()
   for(var i = 0; i < GetPlayerCount(C4PT_User); i++)
   {
     var plr = GetPlayerByIndex(i, C4PT_User);
-    var clr = 0x777777, name = GetPlayerName(i), cmd = 0;
+    var clr = 0x777777, name = GetPlayerName(plr), cmd = 0;
     if(iChoosedPlr != plr)
     {
       clr = GetPlrColorDw(plr);
