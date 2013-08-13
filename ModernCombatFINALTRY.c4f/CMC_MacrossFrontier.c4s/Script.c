@@ -276,6 +276,10 @@ func CreateDecoration()
   CreateObject(ETLT, 895, 460, -1);
   CreateObject(ETLT, 1520, 345, -1);
 
+  //Verkehrsampeln
+  CreateObject(TLGH, 90, 60, -1);
+  CreateObject(TLGH, 1460, 40, -1);
+
   //Schilder
   CreateObject(WLSN, 440, 450, -1);
   CreateObject(MSGN, 600, 470, -1);

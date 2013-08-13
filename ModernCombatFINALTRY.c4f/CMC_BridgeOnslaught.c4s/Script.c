@@ -300,18 +300,6 @@ func CreateInterior()
   var sign = CreateObject(SNPT, 190, 655, -1);
   sign->SetMode(1);
   sign->SetAction("Sign6");
-  sign = CreateObject(SGNP, 990, 640, -1);
-  sign->SetMode(1);
-  sign->Set("Turret");
-  sign = CreateObject(SGNP, 1740, 640, -1);
-  sign->SetMode(1);
-  sign->Set("Turret");
-  sign = CreateObject(SNPT, 400, 430, -1);
-  sign->SetAction("Sign2");
-  sign->Light();
-  sign = CreateObject(SNPT, 2330, 430, -1);
-  sign->SetAction("Sign2");
-  sign->Light();
   sign = CreateObject(SNPT, 2530, 655, -1);
   sign->SetMode(1);
   sign->SetAction("Sign6");
@@ -432,6 +420,12 @@ func CreateDecoration()
   //Notausgangslichter
   CreateObject(ETLT, 750, 770, -1);
   CreateObject(ETLT, 1980, 770, -1);
+
+  //Verkehrsampeln
+  CreateObject(TLGH, 260, 440, -1);
+  CreateObject(TLGH, 425, 630, -1);
+  CreateObject(TLGH, 2305, 630, -1);
+  CreateObject(TLGH, 2470, 440, -1);
 
   //Bildschirme
   CreateObject(SCR3, 360, 520, -1);
@@ -644,6 +638,14 @@ public func ChooserFinished()
    //SSA anschalten
    aSelfDefense[0]->TurnOn();
    aSelfDefense[3]->TurnOn();
+
+   //Hinweisschilder
+   var sign = CreateObject(SGNP, 990, 640, -1);
+   sign->SetMode(1);
+   sign->Set("Turret");
+   sign = CreateObject(SGNP, 1740, 640, -1);
+   sign->SetMode(1);
+   sign->Set("Turret");
   }
 
   //Base Assault-Spielziel
@@ -665,6 +667,20 @@ public func ChooserFinished()
    //SSA anschalten
    aSelfDefense[0]->TurnOn();
    aSelfDefense[3]->TurnOn();
+
+   //Hinweisschilder
+   var sign = CreateObject(SGNP, 990, 640, -1);
+   sign->SetMode(1);
+   sign->Set("Turret");
+   sign = CreateObject(SGNP, 1740, 640, -1);
+   sign->SetMode(1);
+   sign->Set("Turret");
+   sign = CreateObject(SNPT, 400, 430, -1);
+   sign->SetAction("Sign2");
+   sign->Light();
+   sign = CreateObject(SNPT, 2330, 430, -1);
+   sign->SetAction("Sign2");
+   sign->Light();
   }
 
   //HTF-Spielziel
@@ -687,6 +703,20 @@ public func ChooserFinished()
    //SSA anschalten
    aSelfDefense[0]->TurnOn();
    aSelfDefense[3]->TurnOn();
+
+   //Hinweisschilder
+   var sign = CreateObject(SGNP, 990, 640, -1);
+   sign->SetMode(1);
+   sign->Set("Turret");
+   sign = CreateObject(SGNP, 1740, 640, -1);
+   sign->SetMode(1);
+   sign->Set("Turret");
+   sign = CreateObject(SNPT, 400, 430, -1);
+   sign->SetAction("Sign2");
+   sign->Light();
+   sign = CreateObject(SNPT, 2330, 430, -1);
+   sign->SetAction("Sign2");
+   sign->Light();
 
    //Zusätzliche Munition
    if(!FindObject(NOAM))
@@ -718,6 +748,20 @@ public func ChooserFinished()
    //SSA anschalten
    aSelfDefense[0]->TurnOn();
    aSelfDefense[3]->TurnOn();
+
+   //Hinweisschilder
+   var sign = CreateObject(SGNP, 990, 640, -1);
+   sign->SetMode(1);
+   sign->Set("Turret");
+   sign = CreateObject(SGNP, 1740, 640, -1);
+   sign->SetMode(1);
+   sign->Set("Turret");
+   sign = CreateObject(SNPT, 400, 430, -1);
+   sign->SetAction("Sign2");
+   sign->Light();
+   sign = CreateObject(SNPT, 2330, 430, -1);
+   sign->SetAction("Sign2");
+   sign->Light();
   }
 
   //CTF-Spielziel
@@ -738,6 +782,20 @@ public func ChooserFinished()
    //SSA anschalten
    aSelfDefense[0]->TurnOn();
    aSelfDefense[3]->TurnOn();
+
+   //Hinweisschilder
+   var sign = CreateObject(SGNP, 990, 640, -1);
+   sign->SetMode(1);
+   sign->Set("Turret");
+   sign = CreateObject(SGNP, 1740, 640, -1);
+   sign->SetMode(1);
+   sign->Set("Turret");
+   sign = CreateObject(SNPT, 400, 430, -1);
+   sign->SetAction("Sign2");
+   sign->Light();
+   sign = CreateObject(SNPT, 2330, 430, -1);
+   sign->SetAction("Sign2");
+   sign->Light();
   }
 
   //DM/LMS-Spielziel
@@ -746,6 +804,14 @@ public func ChooserFinished()
    //Objekte entfernen
    RemoveObject(aSelfDefense[0]);
    RemoveObject(aSelfDefense[3]);
+
+   //Hinweisschilder
+   var sign = CreateObject(SGNP, 990, 640, -1);
+   sign->SetMode(1);
+   sign->Set("Turret");
+   sign = CreateObject(SGNP, 1740, 640, -1);
+   sign->SetMode(1);
+   sign->Set("Turret");
   }
 }
 
