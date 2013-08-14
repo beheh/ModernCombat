@@ -8,6 +8,6 @@ Team2=Eurocorps
 Flag1=Westliche Station
 Flag2=Nachschublager
 Flag3=Aussichtsdeck
-Flag4=Posten
+Flag4=Verteiler
 Flag5=Kernplattform
 Flag6=Östliche Station
