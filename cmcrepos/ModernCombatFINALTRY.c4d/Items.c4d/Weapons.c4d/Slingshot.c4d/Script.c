@@ -3,6 +3,8 @@
 #strict 2
 #include WPN2
 
+local casings;
+
 public func HandSize()		{return 1050;}
 public func HandX()		{return 4000;}
 public func HandY()		{return 1000;}
@@ -169,6 +171,9 @@ public func LaunchGrenade(id idg, int speed, int angle, int mode)
   Sound("SGST_Fire.ogg", 0, grenade);
   Echo("SGST_Echo.ogg");
   Schedule("Sound(\"SGST_Pump.ogg\")", 5);
+
+  //Patronenhülse hinzufügen
+  casings++;
 }
 
 /* Laserpointer */
@@ -194,6 +199,15 @@ func FxLaserDotTimer(object pTarget, int iEffectNumber, int iEffectTime)
 func OnReload()
 {
   Sound("SGST_ReloadStart.ogg");
+
+  var j = casings;
+  for(var i; i = j; j--)
+  {
+    var user = GetUser();
+    var dir = GetDir(user)*2-1;
+    SABulletCasing(dir*1,0,-dir*14*(Random(1)+1),-(10+Random(2)),6,RGB(255,0,0));
+  }
+  casings = 0;
 }
 
 func OnSingleReloadStart()

@@ -24,10 +24,13 @@ public func Set(int iSize)
 
 func Hit(int iXDir, int iYDir)
 {
-  if(GetCon() > 100)
-    Sound("BigHullHit*.ogg",false,0,0,0,0,0,300);
+  if(GetCon() >= 140)
+    Sound("CasingBigHit*.ogg",false,0,0,0,0,0,300);
   else
-    Sound("HullHit*.ogg",false,0,0,0,0,0,300);
+  if(GetCon() > 100)
+    Sound("CasingHollowHit*.ogg",false,0,0,0,0,0,300);
+  else
+    Sound("CasingHit*.ogg",false,0,0,0,0,0,300);
 
   //Entsprechende Hüpfbewegung
   if(GBackSolid(0,+5)) SetYDir(-iYDir/26);
