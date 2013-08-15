@@ -312,7 +312,7 @@ func OnReload(i)
     {
       var user = GetUser();
       var dir = GetDir(user)*2-1;
-      SABulletCasing(dir*1,0,-dir*14*(Random(1)+1),-(13+Random(2)),6,RGB(150,150,150));
+      SABulletCasing(dir*1,0,-dir*14*(Random(1)+1),-(13+Random(2)),6,RGB(255,0,0));
       casing = 0;
     }
   }
