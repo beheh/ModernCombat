@@ -9,6 +9,6 @@ Team4=Delta
 
 Flag1=Delta-Base
 Flag2=Alpha-Base
-Flag3=Center
+Flag3=Fusion Chamber
 Flag4=Gamma-Base
 Flag5=Beta-Base

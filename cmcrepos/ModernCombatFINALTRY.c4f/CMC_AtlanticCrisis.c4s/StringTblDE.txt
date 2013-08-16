@@ -5,6 +5,6 @@ CreatingDecoration=Dekoration wird plaziert...
 Team1=Eurocorps
 Team2=Aggressoren
 
-Flag1=Westliche Basis
+Flag1=Westliche Anlegestelle
 Flag2=Bohrplattform
-Flag3=Östliche Basis
+Flag3=Östliche Anlegestelle

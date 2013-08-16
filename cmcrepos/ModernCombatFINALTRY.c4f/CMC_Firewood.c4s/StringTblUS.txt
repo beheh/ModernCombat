@@ -9,7 +9,7 @@ Team4=Delta
 
 Flag1=West Tower
 Flag2=West Tunnel
-Flag3=Drilling Platform
-Flag4=Supply Port
+Flag3=Plateau
+Flag4=Pier
 Flag5=East Tunnel
 Flag6=East Tower
