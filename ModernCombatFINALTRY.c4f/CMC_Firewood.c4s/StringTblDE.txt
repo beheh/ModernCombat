@@ -9,7 +9,7 @@ Team4=Delta
 
 Flag1=Westturm
 Flag2=Westlicher Tunnel
-Flag3=Bohrplattform
-Flag4=Versorgungsdepot
+Flag3=Hochebene
+Flag4=Anlegestelle
 Flag5=Östlicher Tunnel
 Flag6=Ostturm

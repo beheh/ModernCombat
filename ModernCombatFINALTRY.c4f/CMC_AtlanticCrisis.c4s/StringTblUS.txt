@@ -5,6 +5,6 @@ CreatingDecoration=Placing decoration...
 Team1=Eurocorps
 Team2=Aggressors
 
-Flag1=West Base
+Flag1=West Pier
 Flag2=Drilling Platform
-Flag3=East Base
+Flag3=East Pier

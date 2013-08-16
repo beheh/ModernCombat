@@ -9,7 +9,7 @@ Team4=Delta
 
 Flag1=Alpha-Basis
 Flag2=Delta-Basis
-Flag3=Ruine
-Flag4=Ruinenzentrum
+Flag3=Abgrund
+Flag4=Ruinen
 Flag5=Gamma-Basis
 Flag6=Beta-Basis

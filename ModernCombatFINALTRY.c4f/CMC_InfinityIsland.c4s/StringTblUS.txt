@@ -7,10 +7,10 @@ MsgCollapse=<c ff0000>Warning</c>: The local antenna tower <c ffff33>collapses</
 Team1=Eurocorps
 Team2=Aggressors
 
-Flag1=Eurocorps Assault Cruiser
+Flag1=Assault Cruiser
 Flag2=Plateau
 Flag3=Island Peak
-Flag4=Aggressors Outpost
+Flag4=Village
 
 Target1=Water Filter
 Target2=Radar Unit

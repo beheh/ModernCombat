@@ -7,10 +7,10 @@ MsgCollapse=<c ff0000>Achtung</c>: Der lokale Sendemast <c ffff33>stürzt ein</c>
 Team1=Eurocorps
 Team2=Aggressoren
 
-Flag1=Eurocorps Angriffskreuzer
+Flag1=Angriffskreuzer
 Flag2=Hochebene
 Flag3=Inselgipfel
-Flag4=Aggressoren-Vorposten
+Flag4=Siedlung
 
 Target1=Wasserfilter
 Target2=Radaranlage
