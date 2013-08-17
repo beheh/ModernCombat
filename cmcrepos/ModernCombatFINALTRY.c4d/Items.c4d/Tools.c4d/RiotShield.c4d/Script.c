@@ -48,6 +48,8 @@ public func CheckChange()
       if(GetAction(GetUser()) == "Tumble" && this == Contents(0, GetUser()))
       {
         ObjectSetAction(GetUser(), szLastAction);
+        if(szLastAction == "ScaleLadder")
+          GetUser()->GrabLadder();
         SetDir(iPrevDir, GetUser());
         if(fAiming)
         {
