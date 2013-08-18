@@ -4,7 +4,7 @@
 
 local pShield, pUser;
 local iPrevDir, fAiming, iAimingAngle;
-local fTumbling, szLastAction;
+local fTumbling, szLastAction, fLastShieldActive;
 
 public func IsDrawable()	{return true;}	//Wird sichtbar getragen
 public func HandY()		{return -1200;}
@@ -47,6 +47,9 @@ public func CheckChange()
     {
       if(GetAction(GetUser()) == "Tumble" && this == Contents(0, GetUser()))
       {
+      	if(fLastShieldActive)
+      		return;
+
         ObjectSetAction(GetUser(), szLastAction);
         if(szLastAction == "ScaleLadder")
           GetUser()->GrabLadder();
@@ -71,6 +74,10 @@ public func CheckChange()
         fTumbling = false;
       }
     szLastAction = GetAction(GetUser());
+    if(pShield)
+    	fLastShieldActive = ActIdle(pShield);
+    else
+    	fLastShieldActive = false;
   }
   else
   {
