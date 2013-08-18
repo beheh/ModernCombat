@@ -43,11 +43,11 @@ public func FMData1(int data)
   if(data == FM_AmmoLoad)	return 8 + (iAttachment == AT_ExtendedMag)*2;		//Magazingröße
 
   if(data == FM_SingleReload)	return 1;						//Zeit des einzelnen Nachladens bei Revolversystemen
-  if(data == FM_PrepareReload)	return 30;						//Zeit bevor das eigentliche Nachladen beginnt
-  if(data == FM_FinishReload)	return 35;						//Zeit nach dem Nachladen
+  if(data == FM_PrepareReload)	return 25;						//Zeit bevor das eigentliche Nachladen beginnt
+  if(data == FM_FinishReload)	return 30;						//Zeit nach dem Nachladen
 
   if(data == FM_Reload)		return 210 + (iAttachment == AT_ExtendedMag) * 52;	//Zeit für Nachladen
-  if(data == FM_Recharge)	return 50;						//Zeit bis erneut geschossen werden kann
+  if(data == FM_Recharge)	return 60;						//Zeit bis erneut geschossen werden kann
 
   if(data == FM_Damage)		return 20;						//Schadenswert
 
