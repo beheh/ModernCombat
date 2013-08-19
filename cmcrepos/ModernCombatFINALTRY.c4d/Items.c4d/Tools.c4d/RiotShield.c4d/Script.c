@@ -47,12 +47,10 @@ public func CheckChange()
     {
       if(GetAction(GetUser()) == "Tumble" && this == Contents(0, GetUser()))
       {
-      	if(fLastShieldActive)
-      		return;
+        if(fLastShieldActive)
+          return;
 
         ObjectSetAction(GetUser(), szLastAction);
-        if(szLastAction == "ScaleLadder")
-          GetUser()->GrabLadder();
         SetDir(iPrevDir, GetUser());
         if(fAiming)
         {
@@ -75,9 +73,9 @@ public func CheckChange()
       }
     szLastAction = GetAction(GetUser());
     if(pShield)
-    	fLastShieldActive = ActIdle(pShield);
+      fLastShieldActive = ActIdle(pShield);
     else
-    	fLastShieldActive = false;
+      fLastShieldActive = false;
   }
   else
   {
