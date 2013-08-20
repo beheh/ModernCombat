@@ -63,6 +63,8 @@ public func AddUpgrade(id idUpgrade)
 	return true;
 }
 
+public func GetUpgradeList() { return aUpgradeList; }
+
 /* Zerstörung */
 
 public func Destruction()
@@ -91,10 +93,10 @@ public func OpenBuildingMenu(object pMenuObj)
 		AddMenuItem(" ", 0, 0, pMenuObj);
 	
 	//Upgrademenü
-	AddMenuItem("$UpgradeMenu$", "OpenUpgradeMenu", CCUS , pMenuObj);
+	AddMenuItem("$UpgradeMenu$", "OpenUpgradeMenu", CCUS, pMenuObj, 0, pMenuObj);
 	//Kaufmenü
 	if(this->~IsBase())
-		AddMenuItem("$BuyMenu$", "OpenBuyMenu", GOLD, pMenuObj);
+		AddMenuItem("$BuyMenu$", "OpenBuyMenu", GOLD, pMenuObj, 0, pMenuObj);
 	
 	return true;
 }
@@ -103,7 +105,20 @@ public func AdditionalBuildingMenu(object pMenuObj) { }
 
 public func OpenUpgradeMenu(id dummy, object pMenuObj)
 {
+	CloseMenu(pMenuObj);
+	CreateMenu(GetID(), pMenuObj, this, C4MN_Extra_None, Format("%s - $UpgradeMenu$", GetName(this)), 0, C4MN_Style_Dialog);
 	
+	for(var upgrade in PossibleUpgrades())
+	{
+		if(GetIndexOf(upgrade, aUpgradeList) > -1)
+			AddMenuItem(Format("<c 777777>%s</c>", GetName(0, upgrade)), 0, upgrade, pMenuObj);
+		else if(!upgrade->~CanBeResearched(this))
+			AddMenuItem(Format("<c FF0000>%s</c>", GetName(0, upgrade)), 0, upgrade, pMenuObj);
+		else
+			AddMenuItem(GetName(0, upgrade), "StartUpgrade", upgrade, pMenuObj, 0, pMenuObj);
+	}
+	
+	return true;
 }
 
 public func OpenBuyMenu(id dummy, object pMenuObj)
