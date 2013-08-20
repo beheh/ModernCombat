@@ -86,3 +86,8 @@ global func GetTeamUpgrade(int iTeam, id idUpgrade)
 {
 	return (GetIndexOf(idUpgrade, LocalN("aTeamUpgrades", BuildingSystem())[iTeam]) > -1);
 }
+
+global func GetTeamUpgradeList(int iTeam)
+{
+	return LocalN("aTeamUpgrades", BuildingSystem())[iTeam];
+}
