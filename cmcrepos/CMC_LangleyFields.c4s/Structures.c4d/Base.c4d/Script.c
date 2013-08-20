@@ -5,6 +5,7 @@
 
 local basement;	//Fundament
 
+public func IsBase()					{return true;} //Heimatbasis
 public func BuildingRadius()	{return 400;}	//Bauradius
 public func EnergyProduction()	{return 50;}	//Energiehersteller
 

@@ -1,0 +1,2 @@
+UpgradeMenu=Upgrades
+BuyMenu=Buy
