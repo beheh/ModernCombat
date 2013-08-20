@@ -3,7 +3,7 @@
 #strict 2
 #include DOOR	//Clonk-eigenes Türsystem
 
-local iEnergyAmount;
+local iEnergyAmount, aObjectList, aUpgradeList;
 
 public func IsCMCBuilding()		{return true;}
 
@@ -15,6 +15,8 @@ public func RequiredEnergy()		{return 0;}				//Benötigte Energie
 public func EnergyProduction()		{return 0;}				//Erzeugt Energie
 public func HasEnoughEnergy()		{return !CurrentRequiredEnergy();}
 public func CurrentRequiredEnergy()	{return RequiredEnergy()-iEnergyAmount;}
+
+public func PossibleUpgrades() {return [];}
 
 public func MaxDamage()			{return 500;}				//Maximaler Schadenswert bis zur Zerstörung
 
@@ -33,6 +35,43 @@ protected func Construction()
 
 public func Initialize()
 {
+	for(var upgrade in PossibleUpgrades())
+		if(upgrade->~IsGroupUpgrade() && GetTeamUpgrade(GetPlayerTeam(GetOwner()), upgrade))
+			AddUpgrade(upgrade);
+	
+	return true;
+}
+
+public func AddObject(object pObj)
+{
+	if(!aObjectList)
+		aObjectList = [];
+	
+  aObjectList[GetLength(aObjectList)] = pObj;
+  this->~OnAddObject(pObj);
+  return true;
+}
+
+public func AddUpgrade(id idUpgrade)
+{
+	if(!aUpgradeList)
+		aUpgradeList = [];
+	
+	aUpgradeList[GetLength(aUpgradeList)] = idUpgrade;
+	this->~OnUpgrade(idUpgrade);
+	return true;
+}
+
+/* Zerstörung */
+
+public func Destruction()
+{
+	//Zugehörige Objekte mitlöschen
+	for(var obj in aObjectList)
+		if(obj)
+			RemoveObject(obj);
+	
+	return true;
 }
 
 public func EnergySupply(int iAmount, object pBy)
@@ -63,3 +102,5 @@ public func SendEnergy()
 
   return energy;
 }
+
+public func OnUpgrade(id idUpgrade) { }
