@@ -24,3 +24,12 @@ protected func Initialize()
   Sound("CCBS_PowerUp.ogg");
   return _inherited(...);
 }
+
+/* Effekte */
+
+private func Smoke()
+{
+  //Effekte
+  CastSmoke("Smoke",3,10,-20,-30,100,500);
+  CastSmoke("Smoke",3,10,40,-30,100,500);
+}
