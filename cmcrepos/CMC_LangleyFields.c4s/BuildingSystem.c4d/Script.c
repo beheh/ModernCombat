@@ -31,11 +31,12 @@ protected func Activate(iByPlayer)
   return(1);
 }
 
-local aTechLevels;
+local aTechLevels, aTeamUpgrades;
 
 public func Initialize()
 {
 	aTechLevels = [];
+	aTeamUpgrades = [];
 	AddEffect("EnergyManagement", this, 1, 36, this);
 	return true;
 }
@@ -61,9 +62,27 @@ public func FxEnergyManagementTimer()
 	return true;
 }
 
+global func BuildingSystem() { return FindObject2(Find_ID(BGRL)); }
 
+global func GetTeamTechLevel(int iTeam) { return LocalN("aTechLevels", BuildingSystem())[iTeam]; }
+global func SetTeamTechLevel(int iTeam, int iLevel) { return LocalN("aTechLevels", BuildingSystem())[iTeam] = iLevel; } 
 
-global func GetTeamTechLevel(int iTeam) { return LocalN("aTechLevels", FindObject2(Find_ID(BGRL)))[iTeam]; }
-global func SetTeamTechLevel(int iTeam, int iLevel) { return LocalN("aTechLevels", FindObject2(Find_ID(BGRL)))[iTeam] = iLevel; } 
+global func AddTeamUpgrade(int iTeam, id idUpgrade)
+{
+	if(!LocalN("aTeamUpgrades", BuildingSystem())[iTeam])
+		LocalN("aTeamUpgrades", BuildingSystem())[iTeam] = [idUpgrade];
+	else
+		LocalN("aTeamUpgrades", BuildingSystem())[iTeam][GetLength(LocalN("aTeamUpgrades", BuildingSystem())[iTeam])] = idUpgrade;
+	
+	for(var obj in FindObjects(Find_Category(C4D_Structure), Find_Func("IsCMCBuilding")))
+		if(GetPlayerTeam(GetOwner(obj)) == iTeam && GetIndexOf(idUpgrade, obj->~PossibleUpgrades()) > -1)
+			obj->AddUpgrade(idUpgrade);
+			
+	
+	return true;
+}
 
-
+global func GetTeamUpgrade(int iTeam, id idUpgrade)
+{
+	return (GetIndexOf(idUpgrade, LocalN("aTeamUpgrades", BuildingSystem())[iTeam]) > -1);
+}
