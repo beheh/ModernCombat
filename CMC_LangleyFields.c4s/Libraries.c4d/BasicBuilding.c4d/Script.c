@@ -48,7 +48,7 @@ public func AddObject(object pObj)
 		aObjectList = [];
 	
   aObjectList[GetLength(aObjectList)] = pObj;
-  this->~OnAddObject(pObj);
+  OnAddObject(pObj);
   return true;
 }
 
@@ -58,7 +58,7 @@ public func AddUpgrade(id idUpgrade)
 		aUpgradeList = [];
 	
 	aUpgradeList[GetLength(aUpgradeList)] = idUpgrade;
-	this->~OnUpgrade(idUpgrade);
+	OnUpgrade(idUpgrade);
 	return true;
 }
 
@@ -104,3 +104,4 @@ public func SendEnergy()
 }
 
 public func OnUpgrade(id idUpgrade) { }
+public func OnAddObject(object pObj) { } 
