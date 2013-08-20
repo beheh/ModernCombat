@@ -67,6 +67,14 @@ public func HitboxHeight()	{return 44;}	//Höhe der Hitbox
 
 public func UseOwnHitbox() {return true;}
 
+public func BulletHitboxFactor(int ax, int ay, int bx, int by, int cx, int cy, int dx, int dy)
+{
+	if(ax == bx)
+		return (ay-cy)*1000/(dy-cy);
+	else
+		return ((ay+(cx-ax)*(by-ay)/(bx-ax)-cy)*1000)/((dy - cy)-(dx-cx)*(by-ay)/(bx-ax));
+}
+
 public func BulletHitboxCheck(int bul_start_x, int bul_start_y, int bul_end_x, int bul_end_y)
 {
   if(!iHitboxDistance || !aHitboxAngles)
@@ -87,8 +95,10 @@ public func BulletHitboxCheck(int bul_start_x, int bul_start_y, int bul_end_x, i
 
   for(var i = 0; i <= length-1; i++)
   {
-    if(Inside(((bul_start_y - y1 + ((x1 - bul_start_x)*(bul_end_y - bul_start_y)/(bul_end_x - bul_start_x)))*1000/
-    					(-((x2 - x1)*(bul_end_y - bul_start_y)/(bul_end_x - bul_start_x))+(y2 -y1))), 0, 1000))
+  	var fac1 = BulletHitboxFactor(bul_start_x, bul_start_y, bul_end_x, bul_end_y, x1, y1, x2, y2);
+  	var fac2 = BulletHitboxFactor(x1, y1, x2, y2, bul_start_x, bul_start_y, bul_end_x, bul_end_y);
+  	
+    if(Inside(fac1, 0, 1000) && Inside(fac2, 0, 1000))
       return true;
 
     if(i >= length-1)
