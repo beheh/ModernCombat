@@ -20,7 +20,7 @@ protected func Hit3()
     CastParticles("GunSmoke", 15, 35, -20, 0, 300, 500);
     CastParticles("MetalSplinter", 8, 200, 0, 0, 100, 50, RGB(40, 20, 20));
   }
-  Sound("WreckHit*.ogg");
+  Sound("VehicleHeavyHit*.ogg");
 }
 
 protected func Hit()
