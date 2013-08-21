@@ -64,15 +64,14 @@ public func HitboxXOffset()	{return -10;}	//X-Abstand vom Offset zum Hitboxmitte
 public func HitboxYOffset()	{return 8;}	//Y-Abstand vom Offset zum Hitboxmittelpunkt
 public func HitboxWidth()	{return 180;}	//Breite der Hitbox
 public func HitboxHeight()	{return 44;}	//Höhe der Hitbox
-
-public func UseOwnHitbox() {return true;}
+public func UseOwnHitbox()	{return true;}
 
 public func BulletHitboxFactor(int ax, int ay, int bx, int by, int cx, int cy, int dx, int dy)
 {
-	if(ax == bx)
-		return (ay-cy)*1000/(dy-cy);
-	else
-		return ((ay+(cx-ax)*(by-ay)/(bx-ax)-cy)*1000)/((dy - cy)-(dx-cx)*(by-ay)/(bx-ax));
+  if(ax == bx)
+    return(ay-cy)*1000/(dy-cy);
+  else
+    return((ay+(cx-ax)*(by-ay)/(bx-ax)-cy)*1000)/((dy - cy)-(dx-cx)*(by-ay)/(bx-ax));
 }
 
 public func BulletHitboxCheck(int bul_start_x, int bul_start_y, int bul_end_x, int bul_end_y)
@@ -95,9 +94,9 @@ public func BulletHitboxCheck(int bul_start_x, int bul_start_y, int bul_end_x, i
 
   for(var i = 0; i <= length-1; i++)
   {
-  	var fac1 = BulletHitboxFactor(bul_start_x, bul_start_y, bul_end_x, bul_end_y, x1, y1, x2, y2);
-  	var fac2 = BulletHitboxFactor(x1, y1, x2, y2, bul_start_x, bul_start_y, bul_end_x, bul_end_y);
-  	
+    var fac1 = BulletHitboxFactor(bul_start_x, bul_start_y, bul_end_x, bul_end_y, x1, y1, x2, y2);
+    var fac2 = BulletHitboxFactor(x1, y1, x2, y2, bul_start_x, bul_start_y, bul_end_x, bul_end_y);
+
     if(Inside(fac1, 0, 1000) && Inside(fac2, 0, 1000))
       return true;
 
@@ -294,7 +293,7 @@ public func GetThrottle()       {return throttle;}
 public func GetPassengerCount()
 {
   var i;
-  for (var passenger in aSeats)
+  for(var passenger in aSeats)
     if(passenger)
       i++;
   return i;
@@ -940,7 +939,7 @@ public func ContainedUpdate(object ByObj, int comdir, bool dig, bool throw)
 //eine Funktion, welche einfach nur die Richtung eines Objektes ändert
 protected func ChangeDir()
 {
-  for (var i = 0; i < GetDefCoreVal("Vertices", "DefCore", GetID()); i++)
+  for(var i = 0; i < GetDefCoreVal("Vertices", "DefCore", GetID()); i++)
     SetVertex(i, 0, (GetDir() * 2 - 1) * GetDefCoreVal("VertexX", "DefCore", GetID(), i), this, 2);
   SetDir(!GetDir());
 
@@ -1416,7 +1415,7 @@ protected func ContactTop()
 {
   if(GetCon() != 100) return;
   DoDmg(Abs(GetYDir(0, 500) / -2), 0, this, 1,  GetController() + 1);
-  for (var i; i < GetVertexNum(); i++)
+  for(var i; i < GetVertexNum(); i++)
     if(GetContact(0, i))
       CreateParticle("Blast", GetVertex(i), GetVertex(i, true), 0, 0, RandomX(50, 100), RGB(255, 255, 255));
 
@@ -1434,7 +1433,7 @@ protected func ContactBottom()
   if(GetYDir() > 25)
   {
     DoDmg(Abs(GetYDir(0, 500) / 2), 0, this, 1,  GetController() + 1);
-    for (var i; i < GetVertexNum(); i++)
+    for(var i; i < GetVertexNum(); i++)
       if(GetContact(0, i))
         CreateParticle("Blast", GetVertex(i), GetVertex(i, true), 0, 0, RandomX(50,100), RGB(255,255,255));
     Sound("VehicleHeavyHit*.ogg", false, pMGStation);
@@ -1451,7 +1450,7 @@ protected func ContactLeft()
   if(Abs(GetXDir()) > 20 || Abs(GetYDir()) > 20)
   {
     DoDmg(Sqrt(GetXDir(0, 500)**2 + GetYDir(0, 500)**2), 0, this, 1,  GetController() + 1);
-    for (var i; i < GetVertexNum(); i++)
+    for(var i; i < GetVertexNum(); i++)
       if(GetContact(0, i))
         CreateParticle("Blast", GetVertex(i), GetVertex(i, true), 0, 0, RandomX(50, 100), RGB(255, 255, 255));
     Sound("VehicleHeavyHit*.ogg", false, pMGStation);
@@ -1467,7 +1466,7 @@ protected func ContactRight()
   if(Abs(GetXDir()) > 20 || Abs(GetYDir()) > 20)
   {
     DoDmg(Sqrt(GetXDir(0, 500)**2 + GetYDir(0, 500)**2), 0, this, 1,  GetController() + 1);
-    for (var i; i < GetVertexNum(); i++)
+    for(var i; i < GetVertexNum(); i++)
       if(GetContact(0, i))
         CreateParticle("Blast", GetVertex(i), GetVertex(i, true), 0, 0, RandomX(50, 100), RGB(255, 255, 255));
     Sound("VehicleHeavyHit*.ogg", false, pMGStation);
@@ -1700,7 +1699,7 @@ protected func TimerCall()
   //Schadensverhalten
   if(GetDamage() >= MaxDamage() / 2)
   {
-    for (var a = 0; a < 3; a++)
+    for(var a = 0; a < 3; a++)
       if(!GBackLiquid(-Sin(GetR() + iDir * 80, 25), +Cos(GetR() + iDir * 80, 25)))
         Smoke(-Sin(GetR() + iDir * 80, 25), +Cos(GetR() + iDir * 80, 25), Random(10));
   }
@@ -1716,7 +1715,7 @@ protected func TimerCall()
       if(GetDamage() < MaxDamage() * 3 / 4) 
       {
         if(!(iWarningSound % 36))
-        for (var obj in FindObjects(Find_OCF(OCF_CrewMember), Find_Container(this)))
+        for(var obj in FindObjects(Find_OCF(OCF_CrewMember), Find_Container(this)))
           Sound("WarningDamage.ogg", false, pMGStation, 100, GetOwner(obj) + 1);
         iWarningSound++;
         if(iWarningSound >= 100)
@@ -1727,7 +1726,7 @@ protected func TimerCall()
         if(!(iWarningSound % 20))
         {
           Local(2) = 0;
-          for (var obj in FindObjects(Find_OCF(OCF_CrewMember), Find_Container(this)))
+          for(var obj in FindObjects(Find_OCF(OCF_CrewMember), Find_Container(this)))
             if(obj != GetPilot())
               Sound("WarningDamageCritical.ogg", false, pMGStation, 100, GetOwner(obj) + 1);
         }
