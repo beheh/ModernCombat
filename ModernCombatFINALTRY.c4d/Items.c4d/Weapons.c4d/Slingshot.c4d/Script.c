@@ -168,9 +168,9 @@ public func LaunchGrenade(id idg, int speed, int angle, int mode)
       		RandomX(60,90),RGBa(200,200,200,0),0,0);
     }
   }
-  Sound("SGST_Fire.ogg", 0, grenade);
+  Sound("SGST_Fire*.ogg", 0, grenade);
   Echo("SGST_Echo.ogg");
-  Schedule("Sound(\"SGST_Pump.ogg\")", 5);
+  Schedule("Sound(\"SGST_Pump.ogg\")", 30);
 
   //Patronenhülse hinzufügen
   casings++;
