@@ -18,7 +18,7 @@ protected func Initialize()
   //Wolkendecke erstellen
   DoClouds();
 
-  //Globaler Regensound als Loop
+  //Globale Regengeräusche starten
   Sound("Rain.ogg",true,0,50,0,+1);
 
   return true;
@@ -110,9 +110,18 @@ protected func FxThunderTimer(object target, int nr, int iTime)
   }
 }
 
+/* Entfernung */
+
 protected func Destruction()
 {
+  //Regengeräusche stoppen
+  Sound("Rain.ogg",true,0,50,0,-1);
+
+  //Wolken entfernen
   ClearParticles("Cloud");
-  SetSkyAdjust(RGBa(255,255,255,220), RGB(0,0,0));
+
+  //Himmelsfarbe zurücksetzen
+  SetSkyAdjust(RGBa(250,250,250));
+
   return true;
 }

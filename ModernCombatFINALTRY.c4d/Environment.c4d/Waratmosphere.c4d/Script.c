@@ -13,12 +13,6 @@ protected func Initialize()
   SetPosition();
 }
 
-protected func Destruction()
-{
-  SetSkyAdjust(RGBa(255,255,255,220), RGB(0, 0, 0));
-  return true;
-}
-
 /* Explosionen */
 
 protected func Timer()
@@ -26,7 +20,7 @@ protected func Timer()
   //Hintergrundeffekte erstellen
   if(skyfade) skyfade-=20;
 
-  if(skyfade <= 255) SetSkyAdjust(RGBa(255,255,255,220), RGB(skyfade,skyfade,skyfade));
+  if(skyfade <= 255) SetSkyAdjust(RGBa(255,255,255,100), RGB(skyfade,skyfade,skyfade));
   if(!Random(40-ObjectCount(GetID())*5) && GetEffectData(EFSM_Waratmosphere))
   {
     var x = Random(LandscapeWidth()), y = Random(LandscapeHeight()),dis=Random(100)+200;
@@ -44,6 +38,16 @@ protected func Timer()
 
   //Sound
   Sound("Warflair*.ogg",1);
+
+  return true;
+}
+
+/* Entfernung */
+
+protected func Destruction()
+{
+  //Himmelsfarbe zurücksetzen
+  SetSkyAdjust(RGBa(250,250,250));
 
   return true;
 }
