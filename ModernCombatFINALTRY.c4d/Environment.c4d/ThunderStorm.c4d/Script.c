@@ -45,7 +45,7 @@ protected func Timer()
   //Hintergrund beleuchten
   if(skyfade) skyfade-=20;
 
-  if(skyfade <= 255) SetSkyAdjust(RGBa(255,255,255,100), RGB(skyfade,skyfade,skyfade));
+  if(skyfade <= 100) SetSkyAdjust(RGBa(255,255,255,100), RGB(skyfade,skyfade,skyfade));
 
   if(!Random(350) && !skyfade)
   {
