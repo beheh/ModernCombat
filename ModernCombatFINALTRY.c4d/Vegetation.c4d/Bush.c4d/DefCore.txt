@@ -4,11 +4,13 @@ Name=Bush
 Version=4,9,5,0
 Category=C4D_SelectVegetation|C4D_Foreground|C4D_StaticBack
 MaxUserSelect=10
+Timer=350
+TimerCall=Seed
 Width=40
 Height=30
 Offset=-20,-15
 Value=4
-Mass=2
+Mass=200
 Components=WOOD=2
 Picture=0,0,40,30
 Vertices=3

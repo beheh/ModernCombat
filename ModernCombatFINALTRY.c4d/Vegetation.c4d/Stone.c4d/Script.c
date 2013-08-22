@@ -7,8 +7,9 @@
 
 protected func Initialize() 
 {
+  //Aktion und Aussehen setzen
   SetAction("Standard");
-  var phase = Random(6);
+  var phase = Random(8);
   SetPhase(phase);
   SetSolidMask(phase * 32, 0, 32, 32);
 }
