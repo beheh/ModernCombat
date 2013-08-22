@@ -40,4 +40,4 @@ MapHeight=80,0,40,250
 NoScan=1
 
 [Environment]
-Objects=LENS=1;SONE=1;ELGT=1;DOFO=1
+Objects=LENS=1;DOFO=1

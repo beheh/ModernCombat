@@ -37,7 +37,7 @@ MapHeight=94,0,40,250
 NoScan=1
 
 [Environment]
-Objects=DOFO=1;EGLN=3
+Objects=DOFO=1
 
 [Animals]
 Animal=BIRD=2
