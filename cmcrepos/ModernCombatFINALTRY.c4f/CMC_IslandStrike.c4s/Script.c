@@ -295,6 +295,9 @@ func CreateInterior()
   doorw->SetClrModulation(RGB(125,125,205));
   CreateObject(GAT1, 4215, 615, -1)->Connect(doorw);
 
+  //Sonne umplatzieren
+  FindObject(LENS)->SetPosition(4165,100);
+
   //Tore und Konsolen
   var autod = CreateObject (HNG3, 2780, 720, -1);
   autod->Open();

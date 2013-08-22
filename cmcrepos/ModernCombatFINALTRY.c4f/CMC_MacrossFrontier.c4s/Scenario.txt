@@ -36,4 +36,4 @@ MapHeight=80,0,40,250
 NoScan=1
 
 [Environment]
-Objects=EGRS=1;STRM=1;DARK=3
+Objects=STRM=1;EGRS=1;DARK=2

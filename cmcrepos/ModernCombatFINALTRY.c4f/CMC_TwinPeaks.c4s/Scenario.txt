@@ -39,7 +39,7 @@ MapHeight=94,0,40,250
 NoScan=1
 
 [Environment]
-Objects=DOFO=1;EGRS=1;ELGT=1
+Objects=EGRS=1;ELGT=1;DOFO=1
 
 [Animals]
 Animal=BIRD=3
