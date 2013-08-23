@@ -114,8 +114,11 @@ public func BulletStrike(object pObj)
           if(pRocketLauncher) break;
         }
         if(pRocketLauncher)
+        {
           //Eventnachricht: Feindobjekt markiert
-          EventInfo4K(iPlr+1, Format("$TargetMarked$", GetPlrColorDw(GetController()), GetPlayerName(GetController())), TRDT, 0, 0, 0, "RadioConfirm*.ogg");
+          EventInfo4K(iPlr+1, Format("$TargetMarked$", GetPlrColorDw(GetController()), GetPlayerName(GetController())), TRDT, 0, 0, 0, "Info_Event.ogg");
+          Sound("RadioConfirm*.ogg", true, 0, 0, iPlr+1);
+        }
       }
 
       if(Hostile(GetOwner(pObj), GetController()))

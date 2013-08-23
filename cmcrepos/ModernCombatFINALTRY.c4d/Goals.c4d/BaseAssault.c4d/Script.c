@@ -14,7 +14,7 @@ public func ChooserFinished()
   for(var i = 0; i < GetPlayerCount(); i++)
   {
     CreateObject(TK04, 0, 0, GetPlayerByIndex(i));
-    Sound("ObjectiveReceipt.ogg", true, 0, 100, GetPlayerByIndex(i) + 1);
+    Sound("Info_Round.ogg", true, 0, 100, GetPlayerByIndex(i) + 1);
   }
   return _inherited(...);
 }
@@ -29,7 +29,7 @@ public func ReportAssaultTargetDestruction(object pTarget, int iTeam)
   _inherited(pTarget, iTeam, ...);
 
   //Eventnachricht: Zielobjekt zerstört
-  EventInfo4K(0, Format("$TargetDestruction$", GetTeamColor(iTeam), GetName(pTarget)), GBAS, 0, 0, 0, "Info.ogg");
+  EventInfo4K(0, Format("$TargetDestruction$", GetTeamColor(iTeam), GetName(pTarget)), GBAS, 0, 0, 0, "Info_Objective.ogg");
   GameCall("OnAssaultTargetDestruction", pTarget, iTeam, FindInArray4K(aTargets[iTeam], pTarget));
   if(pTarget)
     Explode(50, pTarget);
@@ -38,7 +38,7 @@ public func ReportAssaultTargetDestruction(object pTarget, int iTeam)
     for(var i = 0; i < GetPlayerCount(); i++)
       if(GetPlayerTeam(GetPlayerByIndex(i)) == iTeam)
         //Eventnachricht: Alle Zielobjekte zerstört
-        EventInfo4K(GetPlayerByIndex(i)+1, "$NoTargets$", GBAS, 0, 0, 0, "Alarm.ogg");
+        EventInfo4K(GetPlayerByIndex(i)+1, "$NoTargets$", GBAS, 0, 0, 0, "Info_Alarm.ogg");
 }
 
 public func GetAssaultTarget(int iIndex, int iTeam)

@@ -39,7 +39,7 @@ public func RelaunchPlayer(int iPlr, object pClonk, int iMurdererPlr)
       if(!Teams() || GetTeamPlayerCount(mTeam) == 1)
         message = Format("$DMPlayerIsWinning$", GetTaggedPlayerName(iMurdererPlr), winscore - score);
 
-      EnemyEventInfo(iMurdererPlr, message, GTDM, 0, 0, 0, "Alarm.ogg");
+      EnemyEventInfo(iMurdererPlr, message, GTDM, 0, 0, 0, "Info_Alarm.ogg");
     }
     else
       aMessages[mTeam] = false;
@@ -53,7 +53,7 @@ public func ChooserFinished()
   {
     DoScoreboardShow(1, GetPlayerByIndex(i) + 1);
     CreateObject(TK07, 0, 0, GetPlayerByIndex(i));
-    Sound("ObjectiveReceipt.ogg", true, 0, 100, GetPlayerByIndex(i) + 1);
+    Sound("Info_Round.ogg", true, 0, 100, GetPlayerByIndex(i) + 1);
   }
   return _inherited(...);
 }

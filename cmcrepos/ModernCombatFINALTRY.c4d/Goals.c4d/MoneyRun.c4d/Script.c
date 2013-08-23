@@ -54,7 +54,7 @@ public func ChooserFinished()
   {
     DoScoreboardShow(1, GetPlayerByIndex(i) + 1);
     CreateObject(TK09, 0, 0, GetPlayerByIndex(i));
-    Sound("ObjectiveReceipt.ogg", true, 0, 100, GetPlayerByIndex(i) + 1);
+    Sound("Info_Round.ogg", true, 0, 100, GetPlayerByIndex(i) + 1);
   }
 
   return _inherited(...);
@@ -333,14 +333,17 @@ private func GoalMoney(int iPlr, int iAmount)
       var message = Format("$EnemyTeamIsWinning$", GetTaggedTeamName(GetPlayerTeam(iPlr)));
       if(!Teams() || GetTeamPlayerCount(GetPlayerTeam(iPlr)) == 1)
         message = Format("$EnemyPlayerIsWinning$", GetTaggedPlayerName(iPlr));
-        EnemyEventInfo(iPlr, message, GMNR, 0, 0, 0, "Alarm.ogg");
+        //Eventnachricht: Gegnerischer Spieler gewinnt bald
+        EnemyEventInfo(iPlr, message, GMNR, 0, 0, 0, "Info_Alarm.ogg");
       /*for(var i = 0; i < GetPlayerCount(); i++)
       {
         var plr = GetPlayerByIndex(i);
         if(Teams() && GetPlayerTeam(plr) != GetPlayerTeam(iPlr) && GetTeamPlayerCount(GetPlayerTeam(iPlr)) > 1)
-          EventInfo4K(plr+1, Format("$EnemyTeamIsWinning$", GetTaggedTeamName(GetPlayerTeam(iPlr))));
+          //Eventnachricht: Gegnerisches Team gewinnt bald
+          EventInfo4K(plr+1, Format("$EnemyTeamIsWinning$", GetTaggedTeamName(GetPlayerTeam(iPlr))), GMNR, 0, 0, 0, "Info_Alarm.ogg");
         else if((!Teams() || GetTeamPlayerCount(GetPlayerTeam(iPlr)) == 1) && plr != iPlr)
-          EventInfo4K(plr+1, Format("$EnemyPlayerIsWinning$", GetTaggedPlayerName(iPlr)));
+          //Eventnachricht: Gegnerischer Spieler gewinnt bald
+          EventInfo4K(plr+1, Format("$EnemyPlayerIsWinning$", GetTaggedPlayerName(iPlr)), GMNR, 0, 0, 0, "Info_Alarm.ogg");
       }*/
     }
   }
