@@ -454,7 +454,7 @@ func CreateOptionalFeatures()
 
 func OnTowerCollapse()
 {
-  EventInfo4K(0,Format("$MsgCollapse$"),AATR, 0, 0, 0, "RadioConfirm*.ogg");
+  EventInfo4K(0,Format("$MsgCollapse$"),AATR, 0, 0, 0, "Info_Event.ogg");
 }
 
 /* Bei Relaunch */
@@ -487,7 +487,7 @@ public func ChooserFinished()
 
   //Verzögerte Hinweisnachricht ausgeben
   if(!FindObject(FDMG))
-    Schedule("EventInfo4K(0,Format(\"$MsgParachute$\"),PPAR, 0, 0, 0, \"PriorityInfo.ogg\");", 100);
+    Schedule("EventInfo4K(0,Format(\"$MsgParachute$\"),PPAR, 0, 0, 0, \"Info_Event.ogg\");", 100);
 
   //Teams abfragen
   var aTeams = [false,false,false,false,false];
