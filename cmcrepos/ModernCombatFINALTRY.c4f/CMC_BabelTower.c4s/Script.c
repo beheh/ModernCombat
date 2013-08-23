@@ -939,7 +939,7 @@ func OnPillarCollapseR2(int iPlr)
 
 func OnTowerCollapse()
 {
-  EventInfo4K(0,Format("$MsgCollapse$"),AATR, 0, 0, 0, "RadioConfirm*.ogg");
+  EventInfo4K(0,Format("$MsgCollapse$"),AATR, 0, 0, 0, "Info_Event.ogg");
 
   //Objekte entfernen
   if(aTowerInterior[0]) aTowerInterior[0]->DecoExplode(30);
@@ -1002,7 +1002,7 @@ public func ChooserFinished()
   Music("CMC_Friendly Unit.ogg");
 
   //Verzögerte Hinweisnachricht ausgeben
-  Schedule("EventInfo4K(0,Format(\"$MsgJetpack$\"),JTPK, 0, 0, 0, \"PriorityInfo.ogg\");", 100);
+  Schedule("EventInfo4K(0,Format(\"$MsgJetpack$\"),JTPK, 0, 0, 0, \"Info_Event.ogg\");", 100);
 
   //Teams abfragen
   var aTeams = [false,false,false,false,false];
