@@ -36,6 +36,7 @@ protected func SetEffectLevel(id dummy, int iLevel)
   //Bei Ligaspielen nicht möglich
   if(GetLeague()) return;
   EFSM_SetEffects(iLevel);
+  //Eventnachricht: Effektstufe geändert
   EventInfo4K(0, Format("$NewLevel$", iLevel), EFMN);
 }
 

@@ -64,7 +64,7 @@ public func ChooserFinished()
   {
     DoScoreboardShow(1, GetPlayerByIndex(i) + 1);
     CreateObject(TK08, 0, 0, GetPlayerByIndex(i));
-    Sound("ObjectiveReceipt.ogg", true, 0, 100, GetPlayerByIndex(i) + 1);
+    Sound("Info_Round.ogg", true, 0, 100, GetPlayerByIndex(i) + 1);
   }
   return _inherited(...);
 }
@@ -83,11 +83,11 @@ public func RelaunchPlayer(int iPlr, object pClonk, int iMurdererPlr)
   {
     if(warning)
       //Eventnachricht: Warnung vor niedriger Respawnzahl
-      EventInfo4K(iPlr+1, Format("$LivesLow$", aPlayerLives[iPlr]), GLMS, 0, 0, 0, "Alarm.ogg");
+      EventInfo4K(iPlr+1, Format("$LivesLow$", aPlayerLives[iPlr]), GLMS, 0, 0, 0, "Info_Alarm.ogg");
     else
       if(iWinScore > 1)
         //Eventnachricht: Hinweis auf aufgebrauchte Respawns
-        EventInfo4K(iPlr+1, Format("$NoLivesLeft$"), GLMS, 0, 0, 0, "Alarm.ogg");
+        EventInfo4K(iPlr+1, Format("$NoLivesLeft$"), GLMS, 0, 0, 0, "Info_Alarm.ogg");
   }
 }
 

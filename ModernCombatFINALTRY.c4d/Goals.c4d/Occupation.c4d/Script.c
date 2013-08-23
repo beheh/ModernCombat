@@ -82,7 +82,7 @@ public func ChooserFinished()
   {
     DoScoreboardShow(1, GetPlayerByIndex(i) + 1);
     CreateObject(TK01, 0, 0, GetPlayerByIndex(i));
-    Sound("ObjectiveReceipt.ogg", true, 0, 100, GetPlayerByIndex(i) + 1);
+    Sound("Info_Round.ogg", true, 0, 100, GetPlayerByIndex(i) + 1);
   }
 }
 
@@ -332,7 +332,7 @@ public func FlagLost(object pFlag, int iTeam, int iTeamAttacker, array pAttacker
       if(GetPlayerTeam(GetPlayerByIndex(i)) == iTeam)
       {
         //Eventnachricht: Flaggenposten verloren
-        EventInfo4K(GetPlayerByIndex(i)+1, Format("$MsgFlagLost$", GetName(pFlag), GetTeamColor(iTeamAttacker), GetTeamName(iTeamAttacker)), SM23, 0, GetTeamColor(iTeamAttacker), 0, "Info.ogg");
+        EventInfo4K(GetPlayerByIndex(i)+1, Format("$MsgFlagLost$", GetName(pFlag), GetTeamColor(iTeamAttacker), GetTeamName(iTeamAttacker)), SM23, 0, GetTeamColor(iTeamAttacker), 0, "Info_Event.ogg");
       }
     }
   }
@@ -379,7 +379,7 @@ public func FlagCaptured(object pFlag, int iTeam, array pAttackers, bool fRegain
     }
   }
   //Eventnachricht: Flaggenposten erobert
-  EventInfo4K(0, Format("$MsgCaptured$", GetTeamColor(iTeam), GetTeamName(iTeam), GetName(pFlag)), SM22, 0, GetTeamColor(iTeam), 0, "Info.ogg");
+  EventInfo4K(0, Format("$MsgCaptured$", GetTeamColor(iTeam), GetTeamName(iTeam), GetName(pFlag)), SM22, 0, GetTeamColor(iTeam), 0, "Info_Objective.ogg");
   UpdateScoreboard();
 }
 
@@ -428,8 +428,8 @@ public func TicketsLow(int iRemaining, int iTeam)
   {
     if(GetPlayerTeam(GetPlayerByIndex(i)) == iTeam)
     {
-      //Eventnachricht: Warnung vor Ticketverlust
-      EventInfo4K(GetPlayerByIndex(i)+1,Format("$MsgTicketsLow$",iRemaining),SM03,0,0,0,"Alarm.ogg");
+      //Eventnachricht: Warnung vor niedrigen Tickets
+      EventInfo4K(GetPlayerByIndex(i)+1,Format("$MsgTicketsLow$",iRemaining),SM03,0,0,0,"Info_Event.ogg");
     }
   }
   return true;
@@ -442,7 +442,7 @@ public func NoTickets(int iTeam)
     if(GetPlayerTeam(GetPlayerByIndex(i)) == iTeam)
     {
       //Eventnachricht: Hinweis auf aufgebrauchte Tickets
-      EventInfo4K(GetPlayerByIndex(i)+1,Format("$MsgNoTickets$"),SM03,0,0,0,"Alarm.ogg");
+      EventInfo4K(GetPlayerByIndex(i)+1,Format("$MsgNoTickets$"),SM03,0,0,0,"Info_Alarm.ogg");
     }
   }
   return true;

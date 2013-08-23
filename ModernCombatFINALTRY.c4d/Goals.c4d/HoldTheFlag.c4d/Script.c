@@ -32,7 +32,7 @@ public func ChooserFinished()
   for(var i = 0; i < GetPlayerCount(); i++)
   {
     CreateObject(TK05, 0, 0, GetPlayerByIndex(i));
-    Sound("ObjectiveReceipt.ogg", true, 0, 100, GetPlayerByIndex(i));
+    Sound("Info_Round.ogg", true, 0, 100, GetPlayerByIndex(i));
   }
 }
 
@@ -126,12 +126,12 @@ protected func FxIntAddProgressTimer()
       {
         //Punkte bei Belohnungssystem (Flaggenverteidigung)
         DoPlayerPoints(BonusPoints("Protection"), RWDS_TeamPoints, GetPlayerByIndex(i), GetCrew(GetPlayerByIndex(i)), IC12);
-        Sound("Info.ogg", true, 0, 0, GetPlayerByIndex(i)+1);
+        Sound("Info_Event.ogg", true, 0, 0, GetPlayerByIndex(i)+1);
       }
       else if(aTeamPoints[team] == warning)
       {
         //Eventnachricht: Hinweis auf Team, das dem Ziel nahe ist
-        EventInfo4K(GetPlayerByIndex(i)+1, Format("$TeamReachingGoal$", GetTaggedTeamName(team), iGoal-warning), GHTF, 0, 0, 0, "Alarm.ogg");
+        EventInfo4K(GetPlayerByIndex(i)+1, Format("$TeamReachingGoal$", GetTaggedTeamName(team), iGoal-warning), GHTF, 0, 0, 0, "Info_Alarm.ogg");
       }
     }
   }
@@ -188,7 +188,7 @@ public func FlagLost(object pFlagPole, int iOldTeam, int iNewTeam, array aAttack
   for(var i; i < GetPlayerCount(); i++)
     if(GetPlayerTeam(GetPlayerByIndex(i)) == iOldTeam)
       //Eventnachricht: Flaggenposten verloren
-      EventInfo4K(GetPlayerByIndex(i)+1, Format("$MsgFlagLost$", GetName(pFlag), GetTeamColor(iNewTeam), GetTeamName(iNewTeam)), SM23, 0, GetTeamColor(iNewTeam), 0, "Info.ogg");
+      EventInfo4K(GetPlayerByIndex(i)+1, Format("$MsgFlagLost$", GetName(pFlag), GetTeamColor(iNewTeam), GetTeamName(iNewTeam)), SM23, 0, GetTeamColor(iNewTeam), 0, "Info_Event.ogg");
 }
 
 public func FlagCaptured(object pFlagPole, int iTeam, array aAttackers, bool fRegained)
@@ -217,7 +217,7 @@ public func FlagCaptured(object pFlagPole, int iTeam, array aAttackers, bool fRe
     }
 
   //Eventnachricht: Flaggenposten erobert
-  EventInfo4K(0, Format("$MsgCaptured$", GetTeamColor(iTeam), GetTeamName(iTeam), GetName(pFlag)), SM22, 0, GetTeamColor(iTeam), 0, "Info.ogg");
+  EventInfo4K(0, Format("$MsgCaptured$", GetTeamColor(iTeam), GetTeamName(iTeam), GetName(pFlag)), SM22, 0, GetTeamColor(iTeam), 0, "Info_Objective.ogg");
 }
 
 /* Scoreboard */

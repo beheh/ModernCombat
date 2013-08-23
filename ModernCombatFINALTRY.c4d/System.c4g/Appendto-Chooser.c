@@ -1136,7 +1136,9 @@ public func StartTeamRotation()
     return TeamRotationEnd();
   }
 
-  EventInfo4K(0, "$TeamRotationBegins$", CHOS);
+  //Eventnachricht: Teamrotation beginnt
+  EventInfo4K(0, "$TeamRotationBegins$", CHOS, 0, 0, 0, "Info_Event.ogg");
+
   AddEffect("TeamRotationChoosePlr", this, 100, 36, this, 0, start, captains, players);
   return true;
 }
@@ -1144,7 +1146,8 @@ public func StartTeamRotation()
 public func TeamRotationEnd()
 {
   iTeamCaptainState = 0;
-  EventInfo4K(0, "$TeamRotationEnd$", CHOS);
+  //Eventnachricht: Teamrotation beendet
+  EventInfo4K(0, "$TeamRotationEnd$", CHOS, 0, 0, 0, "Info_Event.ogg");
   OpenTeamMenu();
 
   return true;
@@ -1513,11 +1516,11 @@ protected func CreateGoal(id idGoal, int iScore, string szMessage)
   //Alten Wert setzen
   SetWinScore(iScore, goal);
   if(!szMessage)
-    //Eventnachricht: Spielziel
-    EventInfo4K(0, Format("$Goal$", GetName(0, idGoal)), idGoal, 0, 0, 0, "Info.ogg");
+    //Eventnachricht: Spielziel gewählt
+    EventInfo4K(0, Format("$Goal$", GetName(0, idGoal)), idGoal, 0, 0, 0, "Info_Event.ogg");
   else
-    //Eventnachricht: Spielziele
-    EventInfo4K(0, szMessage, idGoal, 0, 0, 0, "Info.ogg");
+    //Eventnachricht: Spielziele gewählt
+    EventInfo4K(0, szMessage, idGoal, 0, 0, 0, "Info_Event.ogg");
   //Array leeren um erneuten Menüaufruf zu verhindern
   aGoals = CreateArray();
   //Normales Menü öffnen
@@ -1581,7 +1584,8 @@ protected func ConfigurationFinished2()
   log = Format("%s%s%s%s", log, activated, deactivated, optional);
   //Dunkelheit erzeugen
   log = Format("%s, %s x%d", log, GetName(0, DARK), iDarkCount);
-  EventInfo4K(0,log,CHOS, 0, 0, 0, "Info.ogg");
+  //Eventnachricht: Dunkelheit
+  EventInfo4K(0,log,CHOS, 0, 0, 0, "Info_Event.ogg");
   //Schneller GameCall für Einstellungen
   GameCallEx("ChooserFinished");
 
@@ -1740,7 +1744,7 @@ public func ChangeHostPlayer(id dummy, int iPlr)
   CloseMenu(pClonk);
 
   //Eventnachricht: Neuer Host
-  EventInfo4K(0, Format("$NewHost$", GetPlrColorDw(iPlr), GetPlayerName(iPlr)), CHOS, 0, 0, 0, "Info.ogg");
+  EventInfo4K(0, Format("$NewHost$", GetPlrColorDw(iPlr), GetPlayerName(iPlr)), CHOS, 0, 0, 0, "Info_Event.ogg");
 
   iChoosedPlr = iPlr;
   return OpenMenu();
@@ -1834,7 +1838,7 @@ protected func OpenGoalVoteMenu(id id, object pClonk)
     GoalVoteMenu(0, 0, GetPlayerByIndex(i));
   AddEffect("EvaluateGoalVote", this, 1, 35, this);
   //Eventnachricht: Spielzielvoting gestartet
-  EventInfo4K(0, Format("$GoalVoteBegins$", CHOS_GoalVotingTime), GetID(), 0, 0, 0, "Info.ogg");
+  EventInfo4K(0, Format("$GoalVoteBegins$", CHOS_GoalVotingTime), CHOS, 0, 0, 0, "Info_Event.ogg");
 }
 
 protected func GoalVoteMenu(id id, object pClonk, int iPlr)

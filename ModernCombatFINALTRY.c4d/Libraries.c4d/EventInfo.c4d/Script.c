@@ -70,7 +70,7 @@ public func Set(string szText, id idIcon, int dwTextColor, int dwIconColor, stri
   //Sound für betreffenden Spieler abspielen
   if (GetOwner() != NO_OWNER)
   {
-    if(!szSound) szSound = "EI4K_NewMessage.ogg";
+    if(!szSound) szSound = "Info_General.ogg";
     Sound(szSound,true,0,0,GetOwner()+1);
   }
 

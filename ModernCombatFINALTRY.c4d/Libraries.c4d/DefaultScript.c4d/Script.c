@@ -258,7 +258,7 @@ public func OnGameOver()
   //Belohnungen-Regel
   if(FindObject(RWDS))
   {
-    Sound("ObjectiveReceipt.ogg");
+    Sound("Info_Round.ogg");
 
     //Endmusik einstellen
     SetPlayList("CMC_End of War.ogg", true);
