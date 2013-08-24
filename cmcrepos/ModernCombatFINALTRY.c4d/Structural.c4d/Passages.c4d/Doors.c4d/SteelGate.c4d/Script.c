@@ -1,4 +1,4 @@
-/*--- Hangartor ---*/
+/*--- Stahltor ---*/
 
 #strict 2
 #include CSTR
