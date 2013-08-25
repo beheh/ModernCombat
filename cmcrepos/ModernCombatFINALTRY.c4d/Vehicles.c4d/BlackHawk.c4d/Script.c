@@ -68,7 +68,7 @@ public func UseOwnHitbox()	{return true;}
 
 public func BulletHitboxFactor(int ax, int ay, int bx, int by, int cx, int cy, int dx, int dy)
 {
-  return ((cx-ax)*(dy-cy)-(cy-ay)*(dx-cx))*1000/((bx-ax)*(dy-cy)-(by-ay)*(dx-cx));
+  return((cx-ax)*(dy-cy)-(cy-ay)*(dx-cx))*1000/((bx-ax)*(dy-cy)-(by-ay)*(dx-cx));
 }
 
 local aBulHitboxParameter, iLastBulHitboxCheckFrm, fBulHitboxResult;
@@ -78,11 +78,11 @@ public func BulletHitboxCheck(int bul_start_x, int bul_start_y, int bul_end_x, i
   if(!iHitboxDistance || !aHitboxAngles)
     return false;
 
-  //Find_Func ruft pro Frame ggf. mehrfach auf -> keine neuen Berechnungen
+  //Find_Func ruft pro Frame gegebenenfalls mehrfach auf: Keine neuen Berechnungen
   var par = aBulHitboxParameter;
   if(aBulHitboxParameter && (iLastBulHitboxCheckFrm == FrameCounter()))
-  	if(par[0] == bul_start_x && par[1] == bul_start_y && par[2] == bul_end_x && par[3] == bul_end_y && par[4] == GetX() && par[5] == GetY() && par[6] == GetR())
-  		return fBulHitboxResult;
+    if(par[0] == bul_start_x && par[1] == bul_start_y && par[2] == bul_end_x && par[3] == bul_end_y && par[4] == GetX() && par[5] == GetY() && par[6] == GetR())
+      return fBulHitboxResult;
 
   aBulHitboxParameter = [bul_start_x, bul_start_y, bul_end_x, bul_end_y, GetX(), GetY(), GetR()];
   iLastBulHitboxCheckFrm = FrameCounter();
@@ -106,7 +106,7 @@ public func BulletHitboxCheck(int bul_start_x, int bul_start_y, int bul_end_x, i
     var fac2 = BulletHitboxFactor(x1, y1, x2, y2, bul_start_x, bul_start_y, bul_end_x, bul_end_y);
 
     if(Inside(fac1, 0, 1000) && Inside(fac2, 0, 1000))
-      return (fBulHitboxResult = true);
+      return(fBulHitboxResult = true);
 
     if(i >= length-1)
       break;
@@ -117,7 +117,7 @@ public func BulletHitboxCheck(int bul_start_x, int bul_start_y, int bul_end_x, i
     y2 = hitbox[i+1][1];
   }
 
-  return (fBulHitboxResult = false);
+  return(fBulHitboxResult = false);
 }
 
 public func GetHitboxPoints()
