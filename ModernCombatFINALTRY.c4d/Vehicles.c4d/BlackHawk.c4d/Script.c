@@ -68,10 +68,7 @@ public func UseOwnHitbox()	{return true;}
 
 public func BulletHitboxFactor(int ax, int ay, int bx, int by, int cx, int cy, int dx, int dy)
 {
-  if(ax == bx)
-    return(ay-cy)*1000/(dy-cy);
-  else
-    return((ay+(cx-ax)*(by-ay)/(bx-ax)-cy)*1000)/((dy - cy)-(dx-cx)*(by-ay)/(bx-ax));
+  return ((cx-ax)*(dy-cy)-(cy-ay)*(dx-cx))*1000/((bx-ax)*(dy-cy)-(by-ay)*(dx-cx));
 }
 
 public func BulletHitboxCheck(int bul_start_x, int bul_start_y, int bul_end_x, int bul_end_y)
