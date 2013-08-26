@@ -421,9 +421,32 @@ func CreateDecoration()
 func CreateOptionalFeatures()
 {
   //Hintergründe
-  CreateObject(BD03,700,800,-1)->SetClrModulation(RGBa(50,50,50,5));
-  CreateObject(BD03,1700,700,-1)->SetClrModulation(RGBa(50,50,50,5));
-  CreateObject(BD03,3000,800,-1)->SetClrModulation(RGBa(50,50,50,5));
+  var back = CreateObject(BD03,700,800,-1);
+  if(FindObject(STRM))
+   back->SetClrModulation(RGBa(50,50,50,5));
+  back = CreateObject(BD03,1700,700,-1);
+  if(FindObject(STRM))
+   back->SetClrModulation(RGBa(50,50,50,5));
+  back = CreateObject(BD03,3000,800,-1);
+  if(FindObject(STRM))
+   back->SetClrModulation(RGBa(50,50,50,5));
+}
+
+/* Sturmerstellung */
+
+func FormStorm()
+{
+  //Sturm erstellen
+  CreateObject(STRM);
+
+  //Dunkelheit erhöhen
+  if(GetDarkness() < 3)
+   FadeDarkness(3,60);
+
+  //Hintergründe verdunkeln
+  var back = FindObjects(Find_Func("IsDeco"));
+  for (var pObj in back)
+   pObj->SetClrModulation(RGBa(50,50,50,5));
 }
 
 /* Regelwähler */
@@ -440,6 +463,9 @@ public func ChooserFinished()
   var aTeams = [false,false,false,false,false];
   for(var i = 0; i < GetPlayerCount(); i++)
    aTeams[GetPlayerTeam(GetPlayerByIndex(i))] = true;
+
+  //Zeitverzögertes Gewitter
+  Schedule("GameCall(\"FormStorm\")", RandomX(4000,8000));
 
   //Helikopter und Hinweisschilder
   if(!FindObject(NOHC))
