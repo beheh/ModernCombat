@@ -580,8 +580,6 @@ func CreateDecoration()
   CreateObject(ENGT, 7190, 605, -1);
   CreateObject(ENGT, 7390, 605, -1);
 
-
-
   //Tische
   CreateObject(GTBL, 1105, 640, -1);
 }
@@ -589,9 +587,36 @@ func CreateDecoration()
 func CreateOptionalFeatures()
 {
   //Hintergründe
-  CreateObject(BD03,400,350,-1);
-  CreateObject(BD05,1800,900,-1);
-  CreateObject(BD03,4500,350,-1);
+  var back = CreateObject(BD03,400,350,-1);
+  if(FindObject(STRM))
+   back->SetClrModulation(RGBa(50,50,50,5));
+  back = CreateObject(BD05,1800,900,-1);
+  if(FindObject(STRM))
+   back->SetClrModulation(RGBa(50,50,50,5));
+  back = CreateObject(BD03,4500,350,-1);
+  if(FindObject(STRM))
+   back->SetClrModulation(RGBa(50,50,50,5));
+}
+
+/* Sturmerstellung */
+
+func FormStorm()
+{
+  //Sturm erstellen
+  CreateObject(STRM);
+
+  //Dunkelheit erhöhen
+  if(GetDarkness() < 3)
+   FadeDarkness(3,60);
+
+  //Hintergründe verdunkeln
+  var back = FindObjects(Find_Func("IsDeco"));
+  for (var pObj in back)
+   pObj->SetClrModulation(RGBa(50,50,50,5));
+
+  //Umwelteffekte entfernen
+  RemoveAll(BRDS);
+  RemoveAll(LENS);
 }
 
 /* Bei Flaggenübernahme */
@@ -1180,7 +1205,7 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
    FindObject(GASS)->CreateTeamBorder(AssaultDefenderTeam(),5860,0,1,1);
 
    //Spawnpoint entfernen
-   RemoveObject(FindObject2(Find_ID(VSPW),Find_InRect(4699, 389, 2, 2)));
+   RemoveObject(FindObject2(Find_ID(VSPW),Find_InRect(4729, 389, 2, 2)));
 
    //Geschützstellung entfernen
    aStationary[2]->DecoExplode(30);
@@ -1207,6 +1232,9 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
 
    //Lampe deaktivieren
    aLamp[14]->EMPShock();
+
+   //Zeitverzögertes Gewitter
+   Schedule("GameCall(\"FormStorm\")", RandomX(900,2700));
   }
 
   //Ziel 7
