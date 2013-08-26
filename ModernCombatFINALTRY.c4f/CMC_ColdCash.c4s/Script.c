@@ -179,10 +179,6 @@ func CreateEquipment()
   PlaceSpawnpoint(MBOX, 1310, 355);
   PlaceSpawnpoint(MBOX, 4230, 355);
 
-  //Geschützstellungen
-  CreateObject(GNET, 1520, 360, -1)->Set(SATW);
-  CreateObject(GNET, 4020, 360, -1)->Set(SATW);
-
   //MAV-Stationen
   CreateObject(MVSN, 1615, 470, -1)->Set(1570,360,1);
   CreateObject(MVSN, 3925, 470, -1)->Set(3970,360,1);
@@ -341,6 +337,10 @@ public func ChooserFinished()
    {
     aFlag[2]->Set("$Flag3$",0,2);
    }
+
+   //Geschützstellungen
+   CreateObject(GNET, 1520, 360, -1)->Set(SATW,90);
+   CreateObject(GNET, 4020, 360, -1)->Set(SATW,-90);
   }
 
   //Base Assault-Spielziel
@@ -352,6 +352,10 @@ public func ChooserFinished()
 
    AddAssaultTarget(CMSN, 4060, 510, 300, 2, "$Target1$", 3, [[4290, 580], [4440, 580]]);
    AddAssaultTarget(RADR, 3970, 320, 400, 2, "$Target2$", 2, [[4180, 360], [4250, 470]]);
+
+   //Geschützstellungen
+   CreateObject(GNET, 1520, 360, -1);
+   CreateObject(GNET, 4020, 360, -1);
   }
 
   //HTF-Spielziel
@@ -364,6 +368,10 @@ public func ChooserFinished()
    //Teamgrenzen
    CreateObject(BRDR, 1910, 0, -1)->Set(0,1,0,1,1);
    CreateObject(BRDR, 3630, 0, -1)->Set(1,1,0,1,2);
+
+   //Geschützstellungen
+   CreateObject(GNET, 1520, 360, -1)->Set(SATW,90);
+   CreateObject(GNET, 4020, 360, -1)->Set(SATW,-90);
 
    //Zusätzliche Munition
    if(!FindObject(NOAM))
@@ -384,6 +392,10 @@ public func ChooserFinished()
    AddMoneySpawn(2180, 455, [30]);
    AddMoneySpawn(2770, 625, [30]);
    AddMoneySpawn(3360, 455, [30]);
+
+   //Geschützstellungen
+   CreateObject(GNET, 1520, 360, -1)->Set(SATW,90);
+   CreateObject(GNET, 4020, 360, -1)->Set(SATW,-90);
   }
 
   //CTF-Spielziel
@@ -394,6 +406,18 @@ public func ChooserFinished()
    {CreateFlag(1,1480,510,GetTeamColor(1));}
    if(aTeams[2] == true)
    {CreateFlag(2,4060,510,GetTeamColor(2));}
+
+   //Geschützstellungen
+   CreateObject(GNET, 1520, 360, -1)->Set(SATW,90);
+   CreateObject(GNET, 4020, 360, -1)->Set(SATW,-90);
+  }
+
+  //LMS/DM-Spielziel
+  if(FindObject(GLMS) || FindObject(GTDM))
+  {
+   //Geschützstellungen
+   CreateObject(GNET, 1520, 360, -1)->Set(SATW,90);
+   CreateObject(GNET, 4020, 360, -1)->Set(SATW,-90);
   }
 }
 
