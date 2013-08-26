@@ -2,7 +2,7 @@
 
 #strict 2
 
-local skyfade;
+local darken,beginfade,skyfade,lighten;
 
 
 /* Initialisierung */
@@ -15,11 +15,17 @@ protected func Initialize()
   //Materialregen starten
   LaunchRain(0, Material("Rain"), LandscapeWidth(), 100)->SetCategory(1);
 
+  //Globale Regengeräusche starten
+  Sound("Rain.ogg",true,0,50,0,+1);
+
   //Wolkendecke erstellen
   DoClouds();
 
-  //Globale Regengeräusche starten
-  Sound("Rain.ogg",true,0,50,0,+1);
+  //Hintergrundfärbung justieren
+  beginfade = 250;
+  skyfade = 240;
+  SetSkyAdjust(RGBa(255,255,255,beginfade), RGB(skyfade,skyfade,skyfade));
+  Sound("STRM_ThunderStrike*.ogg",true);
 
   return true;
 }
@@ -42,17 +48,54 @@ global func DoClouds()
 
 protected func Timer()
 {
-  //Hintergrund beleuchten
-  if(skyfade) skyfade-=20;
+  //Verdunkelung bei Sturmbeginn
+  if(!darken)
+  {
+    beginfade-=5;
+    skyfade-=8;
 
+    if(beginfade == 100)
+      darken = 1;
+    else
+      SetSkyAdjust(RGBa(255,255,255,beginfade), RGB(skyfade,skyfade,skyfade));
+
+    return 1;
+  }
+
+  //Aufhellung bei Sturmende
+  if(lighten)
+  {
+    beginfade-=2;
+
+    SetSkyAdjust(RGBa(255,255,255,beginfade), RGB(skyfade,skyfade,skyfade));
+
+    if(beginfade == 0)
+    {
+      //Wolkendecke stoppen und entfernen
+      PushParticles("Cloud", 0, 0);
+      ClearParticles("Cloud");
+
+      //Verschwinden
+      RemoveObject();
+    }
+
+    return 1;
+  }
+
+  //Hintergrundbeleuchtung normalisieren falls nötig
+  if(skyfade > 0) skyfade-=5;
   if(skyfade <= 100) SetSkyAdjust(RGBa(255,255,255,100), RGB(skyfade,skyfade,skyfade));
 
-  if(!Random(350) && !skyfade)
+  //Zufällig den Hintergrund erhellen
+  if(!Random(350) && skyfade <= 0)
   {
-    skyfade = 300;
-    ThunderSound(Format("Thunder%d.ogg", Random(4)+1), Random(LandscapeWidth()));
+    skyfade = 250;
+    Sound("STRM_Thunder*.ogg",true,0,50);
     return true;
   }
+  else
+  if(!Random(250))
+    ThunderSound(Format("STRM_DistantThunder%d.ogg", Random(4)+1), Random(LandscapeWidth()));
 
   //Zufällig Blitz erstellen
   if(!Random(550))
@@ -60,7 +103,7 @@ protected func Timer()
     var x = Random(LandscapeWidth());
     var lightning = CreateObject(FXL1,x,1,NO_OWNER);
     lightning->Activate(x, 1, -20, 41, +5, 15);
-    ThunderSound(Format("ThunderStrike%d.ogg", Random(2)+1), x);
+    ThunderSound(Format("STRM_ThunderStrike%d.ogg", Random(5)+1), x);
     lightning->AddLightFlash(1500+Random(1500),0,0,RGB(200,255,255), lightning);
     return;
   }
@@ -112,16 +155,21 @@ protected func FxThunderTimer(object target, int nr, int iTime)
 
 /* Entfernung */
 
-protected func Destruction()
+protected func ClearEffects()
 {
+  //Aufhellung starten
+  lighten = 1;
+
+  //Regen entfernen
+  RemoveAll(FXP1);
+
   //Regengeräusche stoppen
   Sound("Rain.ogg",true,0,50,0,-1);
 
-  //Wolken entfernen
-  ClearParticles("Cloud");
+  //Wolkendecke wegbewegen
+  PushParticles("Cloud", 0, -10);
 
-  //Himmelsfarbe zurücksetzen
-  SetSkyAdjust(RGBa(250,250,250));
+  Sound("STRM_DistantThunder*.ogg",true,0,50);
 
   return true;
 }
