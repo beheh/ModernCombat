@@ -317,31 +317,31 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
 
     if(pLaser->Active() || fStart)
       pEnemy = FindObject2(Find_OnLine(0, 0, x - xPos, y - yPos), 
-    	  Find_NoContainer(),
-    	  Find_Or(Find_Func("IsSmoking"), 
-    		  Find_And(Find_Func("CheckEnemy", this),
-    			  Find_Or(Find_OCF(OCF_Alive),
-    				  Find_Func("IsBulletTarget", GetID(), this, this)
-    			  )
-    		  )
-    	  ),
-    	  Find_Exclude(this),
-    	  Find_Or(Find_Not(Find_Func("UseOwnHitbox")), Find_Func("BulletHitboxCheck", xPos, yPos, x, y)),
-    	  Sort_Distance(0, 0)
+        Find_NoContainer(),
+        Find_Or(Find_Func("IsSmoking"), 
+          Find_And(Find_Func("CheckEnemy", this),
+            Find_Or(Find_OCF(OCF_Alive),
+              Find_Func("IsBulletTarget", GetID(), this, this)
+            )
+          )
+        ),
+        Find_Exclude(this),
+        Find_Or(Find_Not(Find_Func("UseOwnHitbox")), Find_Func("BulletHitboxCheck", xPos, yPos, x, y)),
+        Sort_Distance(0, 0)
       );
     else
       pEnemy = FindObject2(Find_OnLine(0, 0, xdir, ydir), 
-    	  Find_NoContainer(),
-    	  Find_Or(Find_Func("IsSmoking"), 
-    		  Find_And(Find_Func("CheckEnemy", this),
-    			  Find_Or(Find_OCF(OCF_Alive),
-    				  Find_Func("IsBulletTarget", GetID(), this, this)
-    			  )
-    		  )
-    	  ),
-    	  Find_Exclude(this),
-    	  Find_Or(Find_Not(Find_Func("UseOwnHitbox")), Find_Func("BulletHitboxCheck", xPos, yPos, x, y)),
-    	  Sort_Distance(0, 0)
+        Find_NoContainer(),
+        Find_Or(Find_Func("IsSmoking"), 
+          Find_And(Find_Func("CheckEnemy", this),
+            Find_Or(Find_OCF(OCF_Alive),
+              Find_Func("IsBulletTarget", GetID(), this, this)
+            )
+         )
+        ),
+        Find_Exclude(this),
+        Find_Or(Find_Not(Find_Func("UseOwnHitbox")), Find_Func("BulletHitboxCheck", xPos, yPos, x, y)),
+        Sort_Distance(0, 0)
       );
     
     
@@ -1034,7 +1034,7 @@ public func Start(object pStation)
 {
   iXDir = GetXDir();
   iYDir = GetYDir();
-  
+
   pMAVStation = pStation;
 
   SetAction("Flying");

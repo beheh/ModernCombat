@@ -4,7 +4,7 @@
 #include WEPN
 
 local stopauto,firemode,shooting,ratecount,stopburst;
-local iAttachment, pLaser, pBeam, pLight;
+local iAttachment,pLaser,pBeam,pLight;
 
 local aSlot_Type;			//Munitionstyp
 local aSlot_Amount;			//Munitionsmenge
