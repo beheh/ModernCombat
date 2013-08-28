@@ -76,7 +76,7 @@ global func AddLightCone(int iSize, int iColor, object pTarget, int iNewFlashlig
     LightConeID = LGHC;
 
   var result = CreateLight(LightConeID, iSize, iColor, pTarget);
-  if(DefinitionCall(LightConeID, "IsModernLight"))
+  if(result->~IsModernLight())
   {
     LocalN("iSensorDistance", result) = iNewSensorDistance;
     LocalN("iBlindEffectDistance", result) = iNewBlindEffectDistance;
@@ -100,6 +100,8 @@ func SpotAndBlind(object pUser, int iAngle)
 
     var iAngleMin = iAngle-iFlashlightAngle/2;
     var iAngleMax = iAngle+iFlashlightAngle/2;
+    
+    var iDist = Distance(x, y, ox, oy);
 
     //Objekt im Suchkegel?
     var x = GetX(pUser), y = GetY(pUser), ox = GetX(pObj), oy = GetY(pObj);
@@ -110,7 +112,7 @@ func SpotAndBlind(object pUser, int iAngle)
     else if(iAngleMax >= 180 && (target_angle < iAngleMin && target_angle > iAngleMax-360))
       continue;
 
-    if(iBlindEffectDistance && pObj->~IsClonk() && PathFree(x, y, ox, oy) && Distance(x, y, ox, oy) < iBlindEffectDistance)
+    if(iBlindEffectDistance && pObj->~IsClonk() && PathFree(x, y, ox, oy) && iDist < iBlindEffectDistance)
     {
       if(!GetEffect("FlashlightBlindness", pObj))
         AddEffect("FlashlightBlindness", pObj, 100, 1, 0, LHC3);
@@ -118,7 +120,7 @@ func SpotAndBlind(object pUser, int iAngle)
       EffectCall(pObj, GetEffect("FlashlightBlindness", pObj), "Refresh", pUser, iBlindEffectDistance);
     }
 
-    if(!iSensorDistance) return;
+    if(!iSensorDistance || iDist > iSensorDistance) return;
     //Bereits markierte Objekte auslassen
     var tag;
     if(tag = FindObject2(Find_ActionTarget(pObj), Find_ID(SM08), Find_Allied(GetController(pUser))))
@@ -149,7 +151,7 @@ public func FxFlashlightBlindnessTimer(object pTarget, int iNr)
   var rgb = EffectVar(0, pTarget, iNr);
   var pUser = EffectVar(2, pTarget, iNr);
   var iBlindDistance = EffectVar(3, pTarget, iNr);
-  var distAlpha = Max(Flashlight_MinAlpha, (Flashlight_MaxAlpha * Distance(GetX(pTarget), GetY(pTarget), GetX(pUser), GetY(pUser))) / iBlindDistance);
+  var distAlpha = EffectVar(4, pTarget, iNr) = Max(Flashlight_MinAlpha, (Flashlight_MaxAlpha * Distance(GetX(pTarget), GetY(pTarget), GetX(pUser), GetY(pUser))) / iBlindDistance);
 
   if(!rgb)
     rgb = EffectVar(0, pTarget, iNr) = ScreenRGB(pTarget, RGBa(255, 255, 255, 254), 0, 0, false, SR4K_LayerLight);
@@ -165,7 +167,7 @@ public func FxFlashlightBlindnessTimer(object pTarget, int iNr)
     rgb->DoAlpha(-5, distAlpha, 255);
   }
   else
-    rgb->DoAlpha(+18, distAlpha, 255);
+    rgb->DoAlpha(+18, Min(rgb->GetAlpha()+18, distAlpha), 255);
 
   if(!rgb)
     return -1;
@@ -215,6 +217,11 @@ public func FxFlashlightBlindnessTimer(object pTarget, int iNr)
 
 public func FxFlashlightBlindnessRefresh(object pTarget, int iNr, object pUser, int iBlindDistance)
 {
+	if(EffectVar(2, pTarget, iNr) != pUser &&
+		EffectVar(1, pTarget, iNr) >= 0 &&
+		Max(Flashlight_MinAlpha, (Flashlight_MaxAlpha * Distance(GetX(pTarget), GetY(pTarget), GetX(pUser), GetY(pUser))) / iBlindDistance) > EffectVar(4, pTarget, iNr)
+		)
+		return false;
   EffectVar(1, pTarget, iNr) = 6;
   EffectVar(2, pTarget, iNr) = pUser;
   EffectVar(3, pTarget, iNr) = iBlindDistance;
