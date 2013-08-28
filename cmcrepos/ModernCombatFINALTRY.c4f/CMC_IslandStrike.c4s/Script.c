@@ -1217,6 +1217,9 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
    aLamp[11]->EMPShock();
    aLamp[12]->EMPShock();
    aLamp[13]->EMPShock();
+
+   //Zeitverzögertes Gewitter
+   Schedule("GameCall(\"FormStorm\")", RandomX(900,2700));
   }
 
   //Ziel 6
@@ -1232,9 +1235,6 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
 
    //Lampe deaktivieren
    aLamp[14]->EMPShock();
-
-   //Zeitverzögertes Gewitter
-   Schedule("GameCall(\"FormStorm\")", RandomX(900,2700));
   }
 
   //Ziel 7
