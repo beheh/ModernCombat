@@ -62,4 +62,8 @@ protected func ControlDig(pClonk)
 public func Set(pTarget)
 {
   target = pTarget;
+
+  //Konsolen, die keine SSA steuern, grün färben
+  if(GetID(pTarget) != SEGU)
+    SetClrModulation(RGB(0,150,0));
 }
