@@ -118,8 +118,6 @@ func SpotAndBlind(object pUser, int iAngle)
 
       EffectCall(pObj, GetEffect("FlashlightBlindness", pObj), "Refresh", pUser, iBlindEffectDistance);
     }
-    	
-    
 
     if(!iSensorDistance || iDist > iSensorDistance) return;
     //Bereits markierte Objekte auslassen
@@ -218,13 +216,13 @@ public func FxFlashlightBlindnessTimer(object pTarget, int iNr)
 
 public func FxFlashlightBlindnessRefresh(object pTarget, int iNr, object pUser, int iBlindDistance)
 {
-	var iDistAlpha = Max(Flashlight_MinAlpha, (Flashlight_MaxAlpha * Distance(GetX(pTarget), GetY(pTarget), GetX(pUser), GetY(pUser))) / iBlindDistance);
-	if(EffectVar(2, pTarget, iNr) &&
-		EffectVar(2, pTarget, iNr) != pUser &&
-		EffectVar(1, pTarget, iNr) >= 0 &&
-		iDistAlpha > EffectVar(4, pTarget, iNr)
-		)
-		return false;
+  var iDistAlpha = Max(Flashlight_MinAlpha, (Flashlight_MaxAlpha * Distance(GetX(pTarget), GetY(pTarget), GetX(pUser), GetY(pUser))) / iBlindDistance);
+  if(EffectVar(2, pTarget, iNr) &&
+    EffectVar(2, pTarget, iNr) != pUser &&
+    EffectVar(1, pTarget, iNr) >= 0 &&
+    iDistAlpha > EffectVar(4, pTarget, iNr)
+    )
+    return false;
   EffectVar(1, pTarget, iNr) = 6;
   EffectVar(2, pTarget, iNr) = pUser;
   EffectVar(3, pTarget, iNr) = iBlindDistance;
