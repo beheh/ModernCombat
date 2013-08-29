@@ -142,8 +142,8 @@ public func FxFlashlightBlindnessStart(object pTarget, int iNr, temp)
   EffectVar(1, pTarget, iNr) = 6;
 }
 
-static const Flashlight_MinAlpha = 100;
-static const Flashlight_MaxAlpha = 200;
+static const Flashlight_MinAlpha = 80;
+static const Flashlight_MaxAlpha = 180;
 
 public func FxFlashlightBlindnessTimer(object pTarget, int iNr)
 {
