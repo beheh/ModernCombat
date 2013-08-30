@@ -44,7 +44,7 @@ public func Enlight()
     var SizeY = 0;
     var x = GetX(holder), y = GetY(holder), xdir = 0, ydir = 0;
     SimFlight(x, y, xdir, ydir);
-    SizeY = y * 6;
+    SizeY = y * 12;
 
     lite->ChangeSizeXY(SizeX, SizeY);
     lite->ChangeR(CurrentR);
