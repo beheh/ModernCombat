@@ -73,6 +73,16 @@ public func BulletHitboxFactor(int ax, int ay, int bx, int by, int cx, int cy, i
 
 local aBulHitboxParameter, iLastBulHitboxCheckFrm, fBulHitboxResult;
 
+public func BulletHitboxStretch(int bul_start_x, int bul_start_y, int bul_end_x, int bul_end_y)
+{
+  var par = aBulHitboxParameter;
+  if(fBulHitboxResult && aBulHitboxParameter && (iLastBulHitboxCheckFrm == FrameCounter()))
+    if(par[0] == bul_start_x && par[1] == bul_start_y && par[2] == bul_end_x && par[3] == bul_end_y && par[4] == GetX() && par[5] == GetY() && par[6] == GetR())
+      return [par[7], par[8]];
+      
+  return [-1];
+}
+
 public func BulletHitboxCheck(int bul_start_x, int bul_start_y, int bul_end_x, int bul_end_y)
 {
   if(!iHitboxDistance || !aHitboxAngles)
@@ -100,13 +110,20 @@ public func BulletHitboxCheck(int bul_start_x, int bul_start_y, int bul_end_x, i
   var x2 = hitbox[0][0];
   var y2 = hitbox[0][1];
 
+	fBulHitboxResult = false;
+	aBulHitboxParameter[8] = 0;
   for(var i = 0; i <= length-1; i++)
   {
     var fac1 = BulletHitboxFactor(bul_start_x, bul_start_y, bul_end_x, bul_end_y, x1, y1, x2, y2);
     var fac2 = BulletHitboxFactor(x1, y1, x2, y2, bul_start_x, bul_start_y, bul_end_x, bul_end_y);
 
     if(Inside(fac1, 0, 1000) && Inside(fac2, 0, 1000))
-      return(fBulHitboxResult = true);
+    {
+    	if(!aBulHitboxParameter[7] || fac1 < aBulHitboxParameter[7])
+    		aBulHitboxParameter[7] = fac1;
+    		aBulHitboxParameter[8]++;
+      fBulHitboxResult = true;
+    }
 
     if(i >= length-1)
       break;
@@ -117,7 +134,7 @@ public func BulletHitboxCheck(int bul_start_x, int bul_start_y, int bul_end_x, i
     y2 = hitbox[i+1][1];
   }
 
-  return(fBulHitboxResult = false);
+  return fBulHitboxResult;
 }
 
 public func GetHitboxPoints()
