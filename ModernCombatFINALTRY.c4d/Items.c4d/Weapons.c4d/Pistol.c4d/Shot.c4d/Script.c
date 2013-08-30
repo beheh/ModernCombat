@@ -377,76 +377,102 @@ private func HitCheck(int r, int d)
   		Sort_Distance());
   if(pObj)
   {
-    //Bei eigener Hitbox eigenen Bulletcheck ausführen (z.B. bei Helikoptern)
-    var ox = GetX(pObj), oy = GetY(pObj);
+  	var stretch;
+		if(pObj->~UseOwnHitbox() && (stretch = pObj->BulletHitboxStretch(sx, sy, x, y))[0] > 0 && stretch[1] != 4)
+		{
+			if(stretch[1] == 1)
+			{
+				lx = 0;
+				ly = 0;
+			}
+			else
+			{
+				var dist = Distance(sx, sy, x, y);
+				lx = Sin(r, (dist * stretch[0]) / 1000);
+				ly = -Cos(r, (dist * stretch[0]) / 1000);
+			}
+		}
+		else
+		{
+    	//Bei eigener Hitbox eigenen Bulletcheck ausführen (z.B. bei Helikoptern)
+    	var ox = GetX(pObj), oy = GetY(pObj);
 
-    //Objektwerte verwenden statt Definitionswerte (bspw. für Assaulttargets)
-    if(pObj->~BulletCheckObjectHitbox())
-    {
-      var xLeft = GetObjectVal("Offset", 0, pObj, 0) + ox;
-      var xRight = GetObjectVal("Width", 0, pObj) + GetObjectVal("Offset", 0, pObj, 0) + ox;
+    	//Objektwerte verwenden statt Definitionswerte (bspw. für Assaulttargets)
+    	if(pObj->~BulletCheckObjectHitbox())
+    	{
+      	var xLeft = GetObjectVal("Offset", 0, pObj, 0) + ox;
+      	var xRight = GetObjectVal("Width", 0, pObj) + GetObjectVal("Offset", 0, pObj, 0) + ox;
 
-      var yUp = GetObjectVal("Offset", 0, pObj, 1) + oy;
-      var yDown = GetObjectVal("Height", 0, pObj) + GetObjectVal("Offset", 0, pObj, 1) + oy;
-    }
-    else
-    {
-      var xLeft = GetDefCoreVal("Offset", "DefCore", GetID(pObj), 0) + ox;
-      var xRight = GetDefCoreVal("Width", "DefCore", GetID(pObj)) + GetDefCoreVal("Offset", "DefCore", GetID(pObj), 0) + ox;
-
-      var yUp = GetDefCoreVal("Offset", "DefCore", GetID(pObj), 1) + oy;
-      var yDown = GetDefCoreVal("Height", "DefCore", GetID(pObj)) + GetDefCoreVal("Offset", "DefCore", GetID(pObj), 1) + oy;
-    }
-
-    if(!(Inside(sx, xLeft, xRight) && Inside(sy, yUp, yDown)))
-    {
-      var xOff, yOff;
-
-      if(sx > ox)
-        xOff = xRight;
-      else
-        xOff = xLeft;
-
-      if(sy > oy)
-        yOff = yDown;
-      else
-        yOff = yUp;
-
-      var a = Angle(sx, sy, xOff, yOff);
-      if(Inside(sx, Min(ox, xOff), Max(ox, xOff)))
+      	var yUp = GetObjectVal("Offset", 0, pObj, 1) + oy;
+      	var yDown = GetObjectVal("Height", 0, pObj) + GetObjectVal("Offset", 0, pObj, 1) + oy;
+    	}
+    	else if(pObj->~UseOwnHitbox())
       {
-        var temp = (yOff - sy) * 1000 / (-Cos(r, 1000));
-        lx = Sin(r, temp);
-        ly = -Cos(r, temp);
-      }
-      else if(Inside(sy, Min(oy, yOff), Max(oy, yOff)))
-      {
-        var temp = (xOff - sx) * 1000 / (Sin(r, 1000));
-        lx = Sin(r, temp);
-        ly = -Cos(r, temp);
-      }
-      else
-      {
-        var temp = (yOff - sy) * 1000 / (-Cos(r, 1000));
-        var lxOne = Sin(r, temp);
-        var lyOne = -Cos(r, temp);
+       	var xLeft = -pObj->HitboxWidth()/2 + ox + 25*pObj->~IsSmoking();
+       	var xRight = pObj->HitboxWidth()/2 + ox - 25*pObj->~IsSmoking();
 
-        temp = (xOff - sx) * 1000 / (Sin(r, 1000));
-        var lxTwo = Sin(r, temp);
-        var lyTwo = -Cos(r, temp);
-
-        //Wenn erster Punkt weiter weg, diesen wählen, sonst den anderen
-        if(Distance(lxOne, lyOne) > Distance(lxTwo, lyTwo))
-        {
-          lx = lxOne;
-          ly = lyOne;
-        }
-        else
-        {
-          lx = lxTwo;
-          ly = lyTwo;
-        }
+       	var yUp = -pObj->HitboxHeight()/2 + oy + 25*pObj->~IsSmoking();
+       	var yDown = pObj->HitboxHeight()/2 + oy - 25*pObj->~IsSmoking();
       }
+    	else
+    	{
+      	var xLeft = GetDefCoreVal("Offset", "DefCore", GetID(pObj), 0) + ox;
+      	var xRight = GetDefCoreVal("Width", "DefCore", GetID(pObj)) + GetDefCoreVal("Offset", "DefCore", GetID(pObj), 0) + ox;
+
+      	var yUp = GetDefCoreVal("Offset", "DefCore", GetID(pObj), 1) + oy;
+      	var yDown = GetDefCoreVal("Height", "DefCore", GetID(pObj)) + GetDefCoreVal("Offset", "DefCore", GetID(pObj), 1) + oy;
+    	}
+
+    	if(!(Inside(sx, xLeft, xRight) && Inside(sy, yUp, yDown)))
+    	{
+      	var xOff, yOff;
+
+      	if(sx > ox)
+        	xOff = xRight;
+      	else
+        	xOff = xLeft;
+
+      	if(sy > oy)
+        	yOff = yDown;
+      	else
+        	yOff = yUp;
+
+      	var a = Angle(sx, sy, xOff, yOff);
+      	if(Inside(sx, Min(ox, xOff), Max(ox, xOff)))
+      	{
+        	var temp = (yOff - sy) * 1000 / (-Cos(r, 1000));
+        	lx = Sin(r, temp);
+        	ly = -Cos(r, temp);
+      	}
+      	else if(Inside(sy, Min(oy, yOff), Max(oy, yOff)))
+      	{
+        	var temp = (xOff - sx) * 1000 / (Sin(r, 1000));
+        	lx = Sin(r, temp);
+        	ly = -Cos(r, temp);
+      	}
+      	else
+      	{
+        	var temp = (yOff - sy) * 1000 / (-Cos(r, 1000));
+        	var lxOne = Sin(r, temp);
+        	var lyOne = -Cos(r, temp);
+
+        	temp = (xOff - sx) * 1000 / (Sin(r, 1000));
+        	var lxTwo = Sin(r, temp);
+        	var lyTwo = -Cos(r, temp);
+
+        	//Wenn erster Punkt weiter weg, diesen wählen, sonst den anderen
+        	if(Distance(lxOne, lyOne) > Distance(lxTwo, lyTwo))
+        	{
+          	lx = lxOne;
+          	ly = lyOne;
+        	}
+        	else
+        	{
+          	lx = lxTwo;
+          	ly = lyTwo;
+        	}
+      	}
+    	}
     }
     if(HitObject(pObj))
     {
