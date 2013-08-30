@@ -369,6 +369,8 @@ protected func FxIntAssaultTargetTimer(object pTarget, int iNr, int iTime)
     {
       process++;
       bar->SetIcon(0, SM17, 0, 0, 32);
+
+      Sound("AHBS_Progress*.ogg", false, pTarget);
     }
     //Keine Angreifer vorhanden: Platzierung abbrechen
     else if(!enemycnt)
@@ -465,6 +467,8 @@ protected func FxIntAssaultTargetTimer(object pTarget, int iNr, int iTime)
     {
       def_process++;
       bar->SetIcon(0, SM16, 0, 0, 32);
+
+      Sound("AHBS_Progress*.ogg", false, pTarget);
     }
     //Keine Verteidiger vorhanden: Entschärfung abbrechen
     else if(!alliescnt)
