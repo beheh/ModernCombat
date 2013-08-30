@@ -351,80 +351,106 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
       if(!pLaser->Active())
         fStart = true;
 
-      x = GetX(pEnemy);
-      y = GetY(pEnemy);
+			var stretch;
+			if(pEnemy->~UseOwnHitbox() && (stretch = pEnemy->BulletHitboxStretch(xPos, yPos, x, y))[0] > 0 && stretch[1] != 4)
+			{
+				if(stretch[1] == 1)
+				{
+					x = xPos;
+					y = yPos;
+				}
+				else
+				{
+					var dist = Distance(xPos, yPos, x, y);
+					x = Sin(AimAngle(), (dist * stretch[0]) / 1000) + xPos;
+					y = -Cos(AimAngle(), (dist * stretch[0]) / 1000) + yPos;
+				}
+			}
+			else
+			{
+      	x = GetX(pEnemy);
+      	y = GetY(pEnemy);
 
-      //Objektwerte verwenden statt Definitionswerte (bspw. für Assaulttargets)
-      if(pEnemy->~BulletCheckObjectHitbox())
-      {
-        var xLeft = GetObjectVal("Offset", 0, pEnemy, 0) + x + 25*pEnemy->~IsSmoking();
-        var xRight = GetObjectVal("Width", 0, pEnemy) + GetObjectVal("Offset", 0, pEnemy, 0) + x - 25*pEnemy->~IsSmoking();
+      	//Objektwerte verwenden statt Definitionswerte (bspw. für Assaulttargets)
+      	if(pEnemy->~BulletCheckObjectHitbox())
+      	{
+        	var xLeft = GetObjectVal("Offset", 0, pEnemy, 0) + x + 25*pEnemy->~IsSmoking();
+        	var xRight = GetObjectVal("Width", 0, pEnemy) + GetObjectVal("Offset", 0, pEnemy, 0) + x - 25*pEnemy->~IsSmoking();
 
-        var yUp = GetObjectVal("Offset", 0, pEnemy, 1) + y + 25*pEnemy->~IsSmoking();
-        var yDown = GetObjectVal("Height", 0, pEnemy) + GetObjectVal("Offset", 0, pEnemy, 1) + y - 25*pEnemy->~IsSmoking();
-      }
-      else
-      {
-        var xLeft = GetDefCoreVal("Offset", "DefCore", GetID(pEnemy), 0) + x + 25*pEnemy->~IsSmoking();
-        var xRight = GetDefCoreVal("Width", "DefCore", GetID(pEnemy)) + GetDefCoreVal("Offset", "DefCore", GetID(pEnemy), 0) + x - 25*pEnemy->~IsSmoking();
+        	var yUp = GetObjectVal("Offset", 0, pEnemy, 1) + y + 25*pEnemy->~IsSmoking();
+        	var yDown = GetObjectVal("Height", 0, pEnemy) + GetObjectVal("Offset", 0, pEnemy, 1) + y - 25*pEnemy->~IsSmoking();
+      	}
+      	else if(pEnemy->~UseOwnHitbox())
+      	{
+        	var xLeft = -pEnemy->HitboxWidth()/2 + x + 25*pEnemy->~IsSmoking();
+        	var xRight = pEnemy->HitboxWidth()/2 + x - 25*pEnemy->~IsSmoking();
 
-        var yUp = GetDefCoreVal("Offset", "DefCore", GetID(pEnemy), 1) + y + 25*pEnemy->~IsSmoking();
-        var yDown = GetDefCoreVal("Height", "DefCore", GetID(pEnemy)) + GetDefCoreVal("Offset", "DefCore", GetID(pEnemy), 1) + y - 25*pEnemy->~IsSmoking();
-      }
+        	var yUp = -pEnemy->HitboxHeight()/2 + y + 25*pEnemy->~IsSmoking();
+        	var yDown = pEnemy->HitboxHeight()/2 + y - 25*pEnemy->~IsSmoking();
+      	}
+      	else
+      	{
+        	var xLeft = GetDefCoreVal("Offset", "DefCore", GetID(pEnemy), 0) + x + 25*pEnemy->~IsSmoking();
+        	var xRight = GetDefCoreVal("Width", "DefCore", GetID(pEnemy)) + GetDefCoreVal("Offset", "DefCore", GetID(pEnemy), 0) + x - 25*pEnemy->~IsSmoking();
 
-      if(Inside(xPos, xLeft, xRight) && Inside(yPos, yUp, yDown))
-      {
-        x = xPos;
-        y = yPos;
-      }
-      else
-      {
-        var xOff, yOff;
+        	var yUp = GetDefCoreVal("Offset", "DefCore", GetID(pEnemy), 1) + y + 25*pEnemy->~IsSmoking();
+        	var yDown = GetDefCoreVal("Height", "DefCore", GetID(pEnemy)) + GetDefCoreVal("Offset", "DefCore", GetID(pEnemy), 1) + y - 25*pEnemy->~IsSmoking();
+      	}
 
-        if(xPos > x)
-          xOff = xRight;
-        else
-          xOff = xLeft;
+      	if(Inside(xPos, xLeft, xRight) && Inside(yPos, yUp, yDown))
+      	{
+        	x = xPos;
+        	y = yPos;
+      	}
+      	else
+      	{
+        	var xOff, yOff;
 
-        if(yPos > y)
-          yOff = yDown;
-        else
-          yOff = yUp;
+        	if(xPos > x)
+          	xOff = xRight;
+        	else
+          	xOff = xLeft;
 
-        if(Inside(xPos, Min(x, xOff), Max(x, xOff)))
-        {
-          var temp = (yOff - yPos) * 1000 / (-Cos(AimAngle(), 1000));
-          x = Sin(AimAngle(), temp) + xPos;
-          y = -Cos(AimAngle(), temp) + yPos;
-        }
-        else
-          if(Inside(yPos, Min(y, yOff), Max(y, yOff)))
-          {
-            var temp = (xOff - xPos) * 1000 / (Sin(AimAngle(), 1000));
-            x = Sin(AimAngle(), temp) + xPos;
-            y = -Cos(AimAngle(), temp) + yPos;
-          }
-        else
-        {
-          var temp = (yOff - yPos) * 1000 / (-Cos(AimAngle(), 1000));
-          var xOne = Sin(AimAngle(), temp) + xPos;
-          var yOne = -Cos(AimAngle(), temp) + yPos;
+        	if(yPos > y)
+          	yOff = yDown;
+        	else
+          	yOff = yUp;
 
-          temp = (xOff - xPos) * 1000 / (Sin(AimAngle(), 1000));
-          var xTwo = Sin(AimAngle(), temp) + xPos;
-          var	yTwo = -Cos(AimAngle(), temp) + yPos;
+        	if(Inside(xPos, Min(x, xOff), Max(x, xOff)))
+        	{
+          	var temp = (yOff - yPos) * 1000 / (-Cos(AimAngle(), 1000));
+          	x = Sin(AimAngle(), temp) + xPos;
+          	y = -Cos(AimAngle(), temp) + yPos;
+        	}
+        	else
+          	if(Inside(yPos, Min(y, yOff), Max(y, yOff)))
+          	{
+            	var temp = (xOff - xPos) * 1000 / (Sin(AimAngle(), 1000));
+            	x = Sin(AimAngle(), temp) + xPos;
+            	y = -Cos(AimAngle(), temp) + yPos;
+          	}
+        	else
+        	{
+          	var temp = (yOff - yPos) * 1000 / (-Cos(AimAngle(), 1000));
+          	var xOne = Sin(AimAngle(), temp) + xPos;
+          	var yOne = -Cos(AimAngle(), temp) + yPos;
 
-          if(Distance(xOne, yOne, x, y) < Distance(xTwo, yTwo, x, y))
-          {
-            x = xOne;
-            y = yOne;
-          }
-          else
-          {
-            x = xTwo;
-            y = yTwo;
-          }
-        }
+          	temp = (xOff - xPos) * 1000 / (Sin(AimAngle(), 1000));
+          	var xTwo = Sin(AimAngle(), temp) + xPos;
+          	var	yTwo = -Cos(AimAngle(), temp) + yPos;
+
+          	if(Distance(xOne, yOne, x, y) < Distance(xTwo, yTwo, x, y))
+          	{
+            	x = xOne;
+            	y = yOne;
+          	}
+          	else
+          	{
+            	x = xTwo;
+            	y = yTwo;
+          	}
+        	}
+      	}
       }
     }
 
