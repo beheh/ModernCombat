@@ -153,7 +153,7 @@ public func FxActivityTimer(object pTarget, int iEffectNumber, int iEffectTime)
     return;
   }
 
-  //Pilot steuert nicht oder kein MAV? Abbrechen und MAV-Station auf Bereitschaft wechseln
+  //Pilot steuert nicht oder kein MAV: Abbrechen und MAV-Station auf Bereitschaft wechseln
   if(GetAction() == "Controlling" && (!pMAV || pMAV->IsDestroyed()))
   {
     SetPlrView(GetOwner(controller), controller);
@@ -162,7 +162,7 @@ public func FxActivityTimer(object pTarget, int iEffectNumber, int iEffectTime)
     SetAction("Disabled");
   }
 
-  //Funktionstüchtig? Ansonsten abbrechen
+  //Nicht funktionstüchtig: Abbrechen
   if(EMPShocked()) return;
   if(IsDestroyed()) return;
   if(IsRepairing()) return;
