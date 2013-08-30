@@ -318,6 +318,7 @@ protected func FxIntAssaultTargetTimer(object pTarget, int iNr, int iTime)
   var clonks = FindObjects(pTarget->Find_Distance(GASS_PlantRadius), Find_OCF(OCF_CrewMember|OCF_Alive), Find_NoContainer());
   var aEnemies = [], aAllies = [], team = pTarget->~GetTeam();
 
+  //Fraktionen identifizieren
   for(var clonk in clonks)
   {
     if(GetOwner(clonk) == NO_OWNER) continue;
@@ -340,13 +341,15 @@ protected func FxIntAssaultTargetTimer(object pTarget, int iNr, int iTime)
     }
   }
 
+  //Angreifer- und Verteidigeraufkommen jeweils zusammenrechnen
   var alliescnt = GetLength(aAllies), enemycnt = GetLength(aEnemies);
 
+  //Status 0: Keine Aktivität
   if(!status)
   {
     bar->Update(0, true, true);
 
-    //Sprengladung wird plaziert
+    //Angreifer vorhanden: Sprengladung wird platziert
     if(!GetEffect("TeamBorder", this) && enemycnt)
     {
       status = 1;
@@ -356,15 +359,18 @@ protected func FxIntAssaultTargetTimer(object pTarget, int iNr, int iTime)
     }
   }
 
+  //Status 1: Sprengladung wird platziert
   else if(status == 1)
   {
     bar->Update(process * 100 / PlantTime(), false);
 
+    //Nur Angreifer vorhanden: Platzierung voranbringen
     if(enemycnt && !alliescnt)
     {
       process++;
       bar->SetIcon(0, SM17, 0, 0, 32);
     }
+    //Keine Angreifer vorhanden: Platzierung abbrechen
     else if(!enemycnt)
     {
       process = 0;
@@ -374,10 +380,11 @@ protected func FxIntAssaultTargetTimer(object pTarget, int iNr, int iTime)
       bar->Update(0, true, true);
       bar->SetIcon(0, SM16, 0, 0, 32);
     }
+    //Angreifer und Verteidiger vorhanden: Platzierung blockieren
     else if(enemycnt && alliescnt)
       bar->SetIcon(0, SM19, 0, 0, 32);
 
-    //Ladung scharf
+    //Platzierung erfolgreich: Sprengladung ist scharf
     if(process >= PlantTime())
     {
       status = 2;
@@ -421,7 +428,7 @@ protected func FxIntAssaultTargetTimer(object pTarget, int iNr, int iTime)
     }
   }
 
-  //Ladungs-Timer
+  //Status 2: Sprengladung ist scharf
   else if(status == 2)
   {
     //Ticketabzug-Timer zurücksetzen
@@ -433,12 +440,14 @@ protected func FxIntAssaultTargetTimer(object pTarget, int iNr, int iTime)
     bar->SetIcon(0, SM18, 0, 0, 32);
     process--;
 
+    //Verteidiger vorhanden: Entschärfung starten
     if(alliescnt)
     {
       def_process = 1;
       status = 3;
       ShowPlantRadius(pTarget);
     }
+    //Countdown abgelaufen: Sprengsatz explodiert
     else if(process <= 0)
     {
       SetController(GetOwner(attacker[0]), pTarget);
@@ -446,16 +455,18 @@ protected func FxIntAssaultTargetTimer(object pTarget, int iNr, int iTime)
     }
   }
 
-  //Ladung wird entschärft
+  //Status 3: Sprengladung wird entschärft
   else if(status == 3)
   {
     EffectVar(6, pTarget, iNr)->Update(def_process * 100 / DefuseTime(), false);
 
+    //Nur Verteidiger vorhanden: Entschärfung voranbringen
     if(!enemycnt && alliescnt)
     {
       def_process++;
       bar->SetIcon(0, SM16, 0, 0, 32);
     }
+    //Keine Verteidiger vorhanden: Entschärfung abbrechen
     else if(!alliescnt)
     {
       def_process = 0;
@@ -463,10 +474,11 @@ protected func FxIntAssaultTargetTimer(object pTarget, int iNr, int iTime)
       EffectVar(6, pTarget, iNr)->Update(0, true);
       defender = [];
     }
+    //Angreifer und Verteidiger vorhanden: Entschärfung blockieren
     else if(enemycnt && alliescnt)
       bar->SetIcon(0, SM19, 0, 0, 32);
 
-    //Ladung wurde entschärft
+    //Entschärfung erfolgreich: Status zurücksetzen
     if(def_process >= DefuseTime())
     {
       process = 0;
@@ -509,11 +521,11 @@ protected func FxIntAssaultTargetTimer(object pTarget, int iNr, int iTime)
     }
   }
 
-  EffectVar(2, pTarget, iNr) = status;
+  EffectVar(2, pTarget, iNr) = status;		//Bomben-Zustand
   EffectVar(3, pTarget, iNr) = process;		//Status
   EffectVar(4, pTarget, iNr) = def_process;	//Entschärfung
-  EffectVar(8, pTarget, iNr) = attacker;
-  EffectVar(9, pTarget, iNr) = defender;
+  EffectVar(8, pTarget, iNr) = attacker;	//Angreifer
+  EffectVar(9, pTarget, iNr) = defender;	//Verteidiger
 }
 
 protected func FxIntAssaultTargetDamage(object pTarget, int iEffect, int iDamage)		{}
