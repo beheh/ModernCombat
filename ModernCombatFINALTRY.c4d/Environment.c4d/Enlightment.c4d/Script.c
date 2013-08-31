@@ -44,11 +44,12 @@ public func Enlight()
     var SizeY = 0;
     var x = GetX(holder), y = GetY(holder), xdir = 0, ydir = 0;
     SimFlight(x, y, xdir, ydir);
-    SizeY = y * 12;
+    SizeY = y * 6;
 
     lite->ChangeSizeXY(SizeX, SizeY);
     lite->ChangeR(CurrentR);
     lite->TurnOn();
+    lite->SetAlpha(0);
 
     //Effekt zur Erkennung anhängen
     AddEffect("EnvLight", lite, 50, 100, this, ELGT);
