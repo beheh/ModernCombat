@@ -1904,7 +1904,7 @@ protected func RejectCollect(id idObj, object pObj)
   }
 
   //Wieviel haben wir denn schon im inventar?
-  if(ContentsCount() - (CustomContentsCount("IsWeapon") + CustomContentsCount("IsGrenade") - CustomContentsCount("IsAttachmentPack")) >= ObjectCollectionLimit())
+  if(ContentsCount() - (CustomContentsCount("IsWeapon") + CustomContentsCount("IsGrenade") + CustomContentsCount("IsAttachmentPack")) >= ObjectCollectionLimit())
     return 1;
 
   // nicht angelegte Ausrüstung nochmal aufsammeln
