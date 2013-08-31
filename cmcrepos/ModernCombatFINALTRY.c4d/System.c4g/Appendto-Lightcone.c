@@ -1,4 +1,6 @@
-/*-- Neues Script --*/
+/*-- Lichtkegel --*/
+
+//Modifiziert den hazard-eigenen Lichtkegel für CMC.
 
 #strict 2
 
@@ -6,29 +8,30 @@
 
 local fAlpha, iAlpha;
 
+
 public func SetAlpha(int iValue)
 {
-	iAlpha = iValue;
-	fAlpha = true;
-	Draw();
-	return true;
+  iAlpha = iValue;
+  fAlpha = true;
+  Draw();
+  return true;
 }
 
 public func Draw()
 {
   var dir;
   if(!bDir) dir = 1;
-  else      dir = 1-GetDir(GetActionTarget())*2;
+  else dir = 1-GetDir(GetActionTarget())*2;
 
   var alphamod, sizemod;
   CalcLight(alphamod, sizemod);
-	if(fAlpha)
-	{
-		alphamod = -60;
-		var r,g,b,a;
-		SplitRGBaValue(GetClrModulation(), r, g, b, a);
-		SetClrModulation(RGBa(r, g, b, iAlpha));
-	}
+  if(fAlpha)
+  {
+    alphamod = -60;
+    var r,g,b,a;
+    SplitRGBaValue(GetClrModulation(), r, g, b, a);
+    SetClrModulation(RGBa(r, g, b, iAlpha));
+  }
 
   if(this->~IsLocked()) //Nur bei CMC Lichtkegel
     sizemod = 100;
