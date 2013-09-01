@@ -1278,6 +1278,10 @@ public func QuickInventory(int iMenu, int iPage)
       var idItem = GetQuickInventoryMenuItem(iDisplayMenu);
       if(idItem)
       {
+      	//Hardcoded Iconänderung für Munitionsobjekte
+      	if(idItem == CUAM)
+      		idItem = FindContents(CUAM)->~SpeedMenuIcon();
+
         var iItemCount = GetQuickInventoryMenuItemCount(iDisplayMenu);
         if(iItemCount < 2)
         {
@@ -1329,7 +1333,13 @@ public func QuickInventory(int iMenu, int iPage)
         if(aItems[i])
         {
           if(!ContentsCount(aItems[i]) && !GetGrenade(aItems[i])) continue;
-          pRing->Add(QINV_MenuOrder[i-iPage*3], GetName(0, aItems[i]), "QuickInventorySelect", aItems[i], aItems[i], 0, SMIN);
+          var idIcon = aItems[i];
+          
+          //Hardcoded Iconänderung für Munitionsobjekte
+		    	if(idIcon == CUAM)
+		    		idIcon = FindContents(CUAM)->~SpeedMenuIcon();
+          
+          pRing->Add(QINV_MenuOrder[i-iPage*3], GetName(0, aItems[i]), "QuickInventorySelect", aItems[i], idIcon, 0, SMIN);
         }
       }
       pRing->AddThrowItem("$Use$", "QuickInventoryThrow", 0, SM04);

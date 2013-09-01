@@ -24,6 +24,13 @@ protected func Initialize()
   CheckLimitation();
 }
 
+public func SpeedMenuIcon()
+{
+	if(ammoid == STAM)	return ABOX;
+	if(ammoid == GRAM)	return GBOX;
+	if(ammoid == MIAM)  return MBOX;
+}
+
 public func SetAmmoID(id idType)
 {
   if(idType->~IsAmmo())
