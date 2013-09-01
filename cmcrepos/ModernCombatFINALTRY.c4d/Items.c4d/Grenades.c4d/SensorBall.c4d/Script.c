@@ -46,6 +46,16 @@ public func Fused()
 
   //Entfernung planen
   ScheduleCall(0,"Remove", 40*38);
+
+  //Allen verbündeten Spielern Sicht per eigenen Platzhalter-Objekt gewähren
+  var i, iPlr, pObj;
+  for(i = 0; (iPlr = GetPlayerByIndex(i)) != -1; i++)
+  {
+    if(Hostile(GetOwner(),iPlr)) continue;
+    pObj = CreateObject(TIM1,0,0,iPlr);
+    Schedule("SetPlrViewRange(++Local(0)*10,this(),1)",1,20,pObj);
+    Enter(this(),pObj);
+  }
 }
 
 /* Feindbewegung suchen */
@@ -115,6 +125,15 @@ public func Beep()
 
 private func Remove()
 {
+  var pObj;
+  //Platzhalter-Objekte entfernen
+  while(pObj = Contents(0,this()))
+  {
+    Exit(pObj);
+    Schedule("SetPlrViewRange(--Local(0)*10,this(),1)",1,19,pObj);
+    Schedule("RemoveObject(this())",20,1,pObj);
+  }
+
   //Effekte
   Sparks(2,RGB(250,100));
   Sparks(2,RGB(0,200));
@@ -152,6 +171,15 @@ protected func Damage(int iChange)
   //Ansonsten Zerstörung durch Schaden
   if(GetDamage() < MaxDamage()) return;
 
+  //Platzhalter-Objekte entfernen
+  var pObj;
+  while(pObj = Contents(0,this()))
+  {
+    Exit(pObj);
+    Schedule("SetPlrViewRange(--Local(0)*10,this(),1)",1,19,pObj);
+    Schedule("RemoveObject(this())",20,1,pObj);
+  }
+
   //Effekte
   Sparks(2,RGB(250,100));
   Sparks(2,RGB(0,200));
@@ -170,6 +198,15 @@ public func RTDefuse()
   rt_defusecnt++;
   if(rt_defusecnt > 8)
   {
+    // Sichtobjekte dekorativ entfernen
+    var pObj;
+    while(pObj = Contents(0,this()))
+    {
+      Exit(pObj);
+      Schedule("SetPlrViewRange(--Local(0)*10,this(),1)",1,19,pObj);
+      Schedule("RemoveObject(this())",20,1,pObj);
+    }
+
     Sound("MISL_ShotDown.ogg");
     DecoExplode(10);
 
