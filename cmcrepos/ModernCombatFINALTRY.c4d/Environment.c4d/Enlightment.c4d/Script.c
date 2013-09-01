@@ -22,7 +22,7 @@ func Initialize()
 public func Enlight()
 {
   //Nicht wenn Dunkel oder Nacht
-  if(IsNight() || GetDarkness(1000) > ELGT_MaxDarkness)
+  if(IsNight() || GetDarkness(1000) > ELGT_MaxDarkness || !GetEffectData(EFSM_Enlight))
   {
     fEnlightment = false;
     return;
@@ -100,6 +100,6 @@ private func Timer()
   }
   if(fEnlightment == false)
     if(!IsNight())
-      if(GetDarkness(1000) <= ELGT_MaxDarkness)
+      if(GetDarkness(1000) <= ELGT_MaxDarkness || !GetEffectData(EFSM_Enlight))
         return Enlight();
 }
