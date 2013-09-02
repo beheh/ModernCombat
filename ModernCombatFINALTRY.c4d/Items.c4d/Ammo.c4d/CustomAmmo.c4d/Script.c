@@ -24,11 +24,13 @@ protected func Initialize()
   CheckLimitation();
 }
 
+/* Icon-Info für QuickInventory */
+
 public func SpeedMenuIcon()
 {
-	if(ammoid == STAM)	return ABOX;
-	if(ammoid == GRAM)	return GBOX;
-	if(ammoid == MIAM)  return MBOX;
+  if(ammoid == STAM)	return ABOX;
+  if(ammoid == GRAM)	return GBOX;
+  if(ammoid == MIAM)	return MBOX;
 }
 
 public func SetAmmoID(id idType)
