@@ -675,7 +675,7 @@ public func ChooserFinished()
   {
    //Zielobjekte
    AddAssaultTarget(CMSN, 1900, 440, 30*30, 2, "$Target1$", 0, [[[2570, 440], [2440, 530], [2410, 580]], [[1170, 300], [1170, 440], [1290, 440]]]);
-   AddAssaultTarget(CMSN, 2570, 620, 30*30, 2, "$Target1$", 1, [[[3020, 460], [3160, 440], [3220, 440]], [[1800, 440], [1870, 390], [1590, 370]]]);
+   AddAssaultTarget(CMSN, 2620, 370, 30*30, 2, "$Target1$", 1, [[[3020, 460], [3160, 440], [3220, 440]], [[1800, 440], [1870, 390], [1590, 370]]]);
    AddAssaultTarget(CMSN, 2670, 620, 30*30, 2, "$Target2$", 2, [[[3020, 460], [3160, 440], [3220, 440]], [[1800, 440], [1870, 390], [1590, 370]]]);
    AddAssaultTarget(CMSN, 3680, 370, 30*30, 2, "$Target1$", 3, [[[4160, 440], [4220, 460], [4340, 460]], [[2780, 530], [2570, 440], [2620, 620]]]);
    AddAssaultTarget(CMSN, 3800, 440, 30*30, 2, "$Target2$", 4, [[[4160, 440], [4220, 460], [4340, 460]], [[2780, 530], [2570, 440], [2620, 620]]]);
@@ -687,6 +687,16 @@ public func ChooserFinished()
    //Grenzen setzen
    CreateObject(BRDR, 520, 0, -1)->Set(0);
    CreateObject(BRDR, 2780, 0, -1)->Set(1,1);
+
+   //Gerüste
+   CreateObject(SFFG, 2960, 390, -1)->Set(4);
+   CreateObject(SFFG, 2960, 440, -1)->Set(5);
+
+   //Metallkiste
+   CreateObject(MWCR, 2990, 340, -1)->AutoRespawn();
+
+   //Boden
+   DrawMaterialQuad("BackWall-Stripes", 2590,370, 2650,370, 2650,380, 2590,380);
 
    //Objekte entfernen
    RemoveObject(FindObject2(Find_ID(AMCT),Find_InRect(1910, 420, 30, 30)));
