@@ -70,14 +70,28 @@ public func BotData1(int data)
   return Default(data);
 }
 
-/* Raketen - Schuss */
-
 public func Fire1()
 {
   LaunchRocket(AAMS,Contained()->~AimAngle(10));
 }
 
-public func LaunchRocket(id rid, int angle)
+/* Raketen - Ungelenkt */
+
+public func FMData1T2(int data)
+{
+  if(data == FT_Name)	return "$Unguided$";
+
+  return FMData1(data);
+}
+
+public func Fire1T2()
+{
+  LaunchRocket(AAMS,Contained()->~AimAngle(10), true);
+}
+
+/* Raketen - Schuss */
+
+public func LaunchRocket(id rid, int angle, bool unguided)
 {
   //Austritt bestimmen
   var user = GetUser();
@@ -86,12 +100,12 @@ public func LaunchRocket(id rid, int angle)
 
   //Rakete abfeuern
   var rocket = CreateObject(rid,x,y+10,GetController(user));
-  rocket->Launch(angle, user);
+  rocket->Launch(angle, user, unguided);
   Sound("AT4R_Launch.ogg", 0, rocket);
   SetController(GetController(user), rocket);
 
   //Sicht auf Rakete  
-  SetPlrView(GetController(user), rocket);
+  if(!unguided) SetPlrView(GetController(user), rocket);
   pRocket = rocket;
 
   //Effekte
@@ -145,7 +159,7 @@ private func Check()
 
   //Sicht auf existierende Rakete setzen
   if(Contained()->~IsAiming())
-    if(pRocket)
+    if(pRocket && pRocket->Guideable())
       SetPlrView(GetOwner(Contained()), pRocket);
 }
 
