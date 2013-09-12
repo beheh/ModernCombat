@@ -1702,7 +1702,7 @@ protected func TimerCall()
       //Cooldown
       AddEffect("NoRotorHit", pClonk, 1, 20, pClonk);
       //Achievement-Fortschritt (Meat Grinder)
-      if(GetPilot() && (!GetAlive(pClonk) || IsFakeDeath(pClonk)))
+      if(GetPilot() && (pClonk->~IsClonk()) && (!GetAlive(pClonk) || IsFakeDeath(pClonk)))
         DoAchievementProgress(1, AC29, GetController(GetPilot()));
     }
 
