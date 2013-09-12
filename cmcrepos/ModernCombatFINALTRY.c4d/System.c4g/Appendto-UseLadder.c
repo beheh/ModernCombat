@@ -134,6 +134,7 @@ protected func FxScalingLadderTimer(object pTarget, int iEffectNumber)
   	{
   		iPosY = iNewPosY;
   		if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",2,2,0,2,4,100);
+  		Sound("AHBS_Progress*.ogg", 0, this);
   	}
   		
   	else
