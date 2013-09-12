@@ -56,6 +56,7 @@ protected func ControlDigDouble()
 protected func ControlDownDouble()
 {
   if(Control2Grab("ControlDownDouble")) return true;
+  if(ControlLadder("ControlDownDouble"))	return true;
 
   if(GetAction() == "Push" || IsRiding())
   {
