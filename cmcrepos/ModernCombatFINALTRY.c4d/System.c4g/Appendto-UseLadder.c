@@ -36,7 +36,10 @@ private func ControlLadder(string strControl, par1)
 
   //Rauf
   if(strControl S= "ControlUp" && !GetPlrCoreJumpAndRunControl(GetController()))
+  {
     SetComDir(COMD_Up);
+    Sound("LADR_Slide.ogg", 0, this, 40, 0, -1);
+  }
   //Runter
   if(strControl S= "ControlDown" && !GetPlrCoreJumpAndRunControl(GetController()))
     SetComDir(COMD_Down);
@@ -50,6 +53,7 @@ private func ControlLadder(string strControl, par1)
       SetComDir(COMD_Stop);
       if(!AdjustLadderOffset(GetActionTarget()))
         SetDir(DIR_Right());
+      Sound("LADR_Slide.ogg", 0, this, 40, 0, -1);
     }
     //Abspringen
     else
@@ -69,6 +73,7 @@ private func ControlLadder(string strControl, par1)
       SetComDir(COMD_Stop);
       if(!AdjustLadderOffset(GetActionTarget()))
         SetDir(DIR_Left);
+      Sound("LADR_Slide.ogg", 0, this, 40, 0, -1);
     }
     //Loslassen
     else
@@ -81,7 +86,10 @@ private func ControlLadder(string strControl, par1)
 
   //Runterrutschen
   if(strControl S= "ControlDownDouble" && effect)
+  {
     EffectVar(1, this, effect) = true;
+    Sound("LADR_Slide.ogg", 0, this, 40, 0, +1);
+  }
 
   //Werfen
   if(strControl S= "ControlThrow") LadderThrow();
@@ -135,8 +143,7 @@ protected func FxScalingLadderTimer(object pTarget, int iEffectNumber)
     if(fSliding && PathFree(iPosX, iLastY + iYAdd, iPosX, iNewPosY/100 + iYAdd))
     {
       iPosY = iNewPosY;
-      if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",2,2,(GetDir(pTarget)*2-1)*6,2,4,70);
-      //Sound("LADR_Slide.ogg", 0, this);
+      if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",RandomX(2,4),RandomX(2,8),(GetDir(pTarget)*2-1)*6,2,4,70);
     }
     else
     {
@@ -173,4 +180,39 @@ protected func FxScalingLadderTimer(object pTarget, int iEffectNumber)
   SetXDir(0); SetYDir(0);
 
   EffectVar(0, pTarget, iEffectNumber) = iPosY;
+}
+
+public func ReleaseLadder(int iXDir, int iYDir)
+{
+  var dir;
+
+  var diffx, pLadder = GetActionTarget(), xpos = GetX(pLadder);
+  //Leiter noch vorhanden?
+  if(!pLadder)
+    return(0);
+
+  lastladder = pLadder;
+
+  Sound("LADR_Slide.ogg", 0, this, 40, 0, -1);
+
+  //Klettereffekt beenden
+  RemoveEffect("ScalingLadder", this());
+
+  //und runter von der Leiter
+  if(dir < 0 || GetContact(0,1,CNAT_Bottom))
+  {
+    SetAction("Walk");
+  }
+  if(dir > 0)
+  {
+    SetAction("Hangle");
+  }
+  else
+    if(GetAction() ne "Tumble")  
+      SetAction("Jump");
+
+  SetXDir(iXDir);
+  SetYDir(iYDir);
+
+  return(1);
 }
