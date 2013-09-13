@@ -22,16 +22,31 @@ private func ControlLadder(string strControl, par1)
   }
 
   var effect;
-  if((effect = GetEffect("ScalingLadder", this())) && strControl ne "ControlDown")
-    EffectVar(1, this, effect) = false;
+  if((effect = GetEffect("ScalingLadder", this())) && strControl ne "ControlDown" && par1 != COMD_Down)
+  	EffectVar(1, this, effect) = false;
 
-  //Jump and Run-Steuerung
-  if(strControl S= "ControlUpdate")
+  //Log("%s: %s",GetName(),strControl); //DEBUGZ!
+
+  // JnR
+  if (strControl S= "ControlUpdate")
   {
     var comdir = par1;
+    // Strip away COMD_Left/COMD_Right, this is handled via ControlLeft/ControlRight
     if(ComDirLike(comdir, COMD_Left)) comdir = ComDirTransform(comdir, COMD_Right);
     if(ComDirLike(comdir, COMD_Right)) comdir = ComDirTransform(comdir, COMD_Left);
     SetComDir(comdir);
+    
+    //Sliden!
+    if(comdir == COMD_Down)
+    {
+    	if(GetPlrDownDouble(GetOwner()))
+    	{
+    		EffectVar(1, this, effect) = true;
+    		Sound("LADR_Slide.ogg", 0, this, 40, 0, +1);
+    	}
+    }
+    else
+    	Sound("LADR_Slide.ogg", 0, this, 40, 0, -1);
   }
 
   //Rauf
