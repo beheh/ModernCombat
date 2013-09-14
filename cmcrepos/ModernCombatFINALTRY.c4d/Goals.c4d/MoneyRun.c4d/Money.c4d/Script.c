@@ -24,10 +24,10 @@ public func Set(par)
 
 public func Refill()
 {
-  if (!Money)
+  if(!Money)
     return false;
   iCurrent = Money;
-  if (GetType(Money) == C4V_Array)
+  if(GetType(Money) == C4V_Array)
     iCurrent = iCurrent[Random(GetLength(iCurrent))];
   return true;
 }
@@ -41,11 +41,14 @@ public func GetCurrent()
 
 protected func FxIntShowTimer(object pTarget, int iEffect, int iTime)
 {
-  if (!Random(3))
-    CreateParticle("NoGravSpark", 5 - Random(11), 5 + Random(6), 0, -2 -Random(3), 25, RGBa(255, 224, 160, 96));
-  if (!pTarget->~GetCurrent())
+  //Effekte
+  if(!Random(3)) CreateParticle("NoGravSpark", 5 - Random(11), 5 + Random(6), 0, -2 -Random(3), 25, RGBa(255, 224, 160, 96));
+
+  //Sichtbarkeit nur wenn Geld vorhanden ist
+  if(!pTarget->~GetCurrent())
     return SetVisibility(VIS_None, pTarget);
   SetVisibility(VIS_All, pTarget);
+
   SetObjDrawTransform(1000, 0, 0, 0, 1000, 1000 * Sin(2 * iTime, GetDefCoreVal("Height", "DefCore", GetID(pTarget)) / 2));
 }
 
@@ -62,10 +65,10 @@ protected func FxIntSignalMoneyTimer(object pTarget, int iEffect)
 protected func RejectEntrance(object pInto)
 {
   //Nichts geben wenn nichts da
-  if (!iCurrent)
+  if(!iCurrent)
     return true;
   //Nur von Clonks einsammelbar
-  if (!pInto || !pInto->~IsClonk())
+  if(!pInto || !pInto->~IsClonk())
     return true;
   //Das Ganze übernimmt das Spielziel
   AddEffect("IntMoneyCollected", 0, 1, GMNR_MoneySpawnTime, 0, 0, iCurrent, pInto);
