@@ -7,10 +7,8 @@ local iStartTickets;
 local iWarningTickets;
 local aTicket;
 
-static const GOCC_Horizontal = 1;
-static const GOCC_Vertical = 2;
-static const GOCC_FlagColumn = 1;
-static const GOCC_ProgressColumn = 2;
+static const GOCC_Horizontal		= 1;
+static const GOCC_Vertical		= 2;
 
 private func StartTickets()		{return 15;}		//Standardticketzahl
 public func IsConfigurable()		{return true;}
@@ -219,14 +217,21 @@ private func ChangeStartTickets(id dummy, int iChange)
 
 /* Scoreboard */
 
+static const GOCC_FlagColumn		= 1;
+static const GOCC_ProgressColumn	= 2;
+
 protected func InitScoreboard()
 {  
+  //Wird noch eingestellt
   if(FindObject(CHOS)) return;
+
   UpdateHUDs();
 
   //Titelzeile
   SetScoreboardData(SBRD_Caption, SBRD_Caption, Format("%s",GetName()), SBRD_Caption);
-  SetScoreboardData(SBRD_Caption, GOCC_FlagColumn, "{{OSPW}}", SBRD_Caption);
+
+  //Spaltentitel
+  SetScoreboardData(SBRD_Caption, GOCC_FlagColumn, "{{SM21}}", SBRD_Caption);
   SetScoreboardData(SBRD_Caption, GOCC_ProgressColumn, "{{SM02}}", SBRD_Caption);
 
   UpdateScoreboard();
@@ -237,18 +242,18 @@ protected func InitScoreboard()
 private func UpdateScoreboard()
 {
   //Wird noch eingestellt
-  if (FindObject(CHOS)) return;
+  if(FindObject(CHOS)) return;
 
-  //Zeile
+  //Flaggenposten
   var i = 0;
   var data;
-  //Flaggen
   for(var flag in GetFlags())
   {
-    //Erst mal weiß annehmen
+    //Textfarbe ermitteln
     var color = GetTeamColor(flag->GetTeam()),
     prog = flag->GetProcess();
     color = RGBa(Interpolate2(255, GetRGBaValue(color, 1), prog, 100), Interpolate2(255, GetRGBaValue(color, 2), prog, 100), Interpolate2(255, GetRGBaValue(color, 3), prog, 100));
+    //Entsprechend der Ausrichtung des Szenarios sortieren
     if(GetDirection() == GOCC_Horizontal)
       data = GetX(flag);
     if(GetDirection() == GOCC_Vertical)

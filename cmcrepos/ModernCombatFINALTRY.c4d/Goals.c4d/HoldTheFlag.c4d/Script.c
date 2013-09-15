@@ -234,8 +234,10 @@ public func UpdateScoreboard()
 
   //Titelzeile
   SetScoreboardData(SBRD_Caption, GHTF_Name, Format("%d $Points$", iGoal));
+
+  //Spaltentitel
   SetScoreboardData(SBRD_Caption, GHTF_Points, "{{GHTF}}");
-  SetScoreboardData(SBRD_Caption, GHTF_Progress, "{{OFPL}}");
+  SetScoreboardData(SBRD_Caption, GHTF_Progress, "{{SM02}}");
 
   //Flaggenzeile
   var color = GetTeamFlagColor(pFlag->GetTeam()),
@@ -244,9 +246,9 @@ public func UpdateScoreboard()
   SetScoreboardData(GHTF_FlagRow, GHTF_Name, Format("<c %x>%s</c>", color, GetName(pFlag)));
   SetScoreboardData(GHTF_FlagRow, GHTF_Progress, Format("<c %x>%d%</c>", color, prog), GHTF_FlagRow);
   var icon, trend = pFlag->GetTrend();
-  if (!trend) icon = IC12;
-  if (trend == -1) icon = IC13;
-  if (trend == 1) icon = IC10;
+  if (!trend)		icon = SM21;	//Keine Aktivität
+  if (trend == -1)	icon = SM23;	//Angriff
+  if (trend == 1)	icon = SM22;	//Verteidigung
   SetScoreboardData(GHTF_FlagRow, GHTF_Points, Format("{{%i}}", icon), GHTF_FlagRow-1);
 
   //Leere Zeile
