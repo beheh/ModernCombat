@@ -931,13 +931,13 @@ public func UpdateScoreboard()
   SetScoreboardData(2, GASS_Name, string);
   SetScoreboardData(2, GASS_Count, Format("<c %x>%d</c>", color, iTickets), 201);
   
-  var icon = IC10;
+  var icon = SM17;
   var str = "$AttackerDominate$";
   var effect = GetEffect("TicketSubtraction", this);
 
   if(EffectVar(1, this, effect))
   {
-    icon = IC12;
+    icon = SM16;
     str = "$DefenderDominate$";
   }
 
