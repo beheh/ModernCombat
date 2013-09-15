@@ -85,7 +85,7 @@ public func Set(object target, int color, int iType, int iLgt, string szIcon, id
 
   //Sichtbarkeit durch FoW
   if(fVisibility)
-    SetCategory(C4D_IgnoreFoW);
+    SetCategory(C4D_StaticBack|C4D_Foreground|C4D_IgnoreFoW);
 
   fActive = false;
 
