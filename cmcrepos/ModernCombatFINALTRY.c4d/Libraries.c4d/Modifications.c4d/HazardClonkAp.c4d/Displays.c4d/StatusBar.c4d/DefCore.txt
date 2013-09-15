@@ -2,7 +2,7 @@
 id=SBAR
 Version=4,9,8,2
 Name=Status Bar
-Category=C4D_StaticBack|C4D_Foreground|C4D_IgnoreFoW
+Category=C4D_StaticBack|C4D_Foreground
 Width=40
 Height=16
 Offset=-20,-8

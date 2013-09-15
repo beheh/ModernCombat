@@ -49,7 +49,7 @@ protected func Initialize()
 local tPercent, tRotation, iDefHeight, iDefOffset, iLength, iColor;
 local aIconData, fIconOnly;
 
-public func Set(object target, int color, int iType, int iLgt, string szIcon, id idSrcDef, int iXAdjust, int iYAdjust, bool fNoResize)
+public func Set(object target, int color, int iType, int iLgt, string szIcon, id idSrcDef, int iXAdjust, int iYAdjust, bool fNoResize, bool fVisibility)
 {
   SetVisibility(VIS_None);
 
@@ -82,6 +82,10 @@ public func Set(object target, int color, int iType, int iLgt, string szIcon, id
   //Balken setzen
   fActive = true;
   PositionToVertex(0, true);
+
+  //Sichtbarkeit durch FoW
+  if(fVisibility)
+    SetCategory(C4D_IgnoreFoW);
 
   fActive = false;
 
