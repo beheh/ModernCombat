@@ -424,9 +424,23 @@ public func ChooserFinished()
    CreateObject(BRDR, 1630, 0, -1)->Set(0,1,0,1,1);
    CreateObject(BRDR, 2340, 0, -1)->Set(1,1,0,1,2);
 
+   //Objekte entfernen
+   RemoveObject(aArtillery[0]);
+   RemoveObject(aArtillery[1]);
+
    //Hinweisschilder
    CreateObject(SGNP, 1255, 590, -1);
    CreateObject(SGNP, 2745, 570, -1);
+
+   //Stahlbrücken
+   CreateObject(_HBR, 2228, 770, -1);
+   CreateObject(_HBR, 2300, 770, -1);
+
+   //Versorgungskisten (APW)
+   var crate = CreateObject(AMCT, 1855, 490, -1);
+   crate->Set(ATWN);
+   var crate = CreateObject(AMCT, 2130, 470, -1);
+   crate->Set(ATWN);
 
    //Zusätzliche Munition
    if(!FindObject(NOAM))
@@ -450,9 +464,23 @@ public func ChooserFinished()
    CreateObject(BRDR, 1300, 0, -1)->Set(0);
    CreateObject(BRDR, 2770, 0, -1)->Set(1);
 
+   //Objekte entfernen
+   RemoveObject(aArtillery[0]);
+   RemoveObject(aArtillery[1]);
+
    //Hinweisschilder
    CreateObject(SGNP, 1255, 590, -1);
    CreateObject(SGNP, 2745, 570, -1);
+
+   //Stahlbrücken
+   CreateObject(_HBR, 2228, 770, -1);
+   CreateObject(_HBR, 2300, 770, -1);
+
+   //Versorgungskisten (APW)
+   var crate = CreateObject(AMCT, 1855, 490, -1);
+   crate->Set(ATWN);
+   var crate = CreateObject(AMCT, 2130, 470, -1);
+   crate->Set(ATWN);
 
    //Patrouillenboote
    SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1485,789,-1),50*21);
