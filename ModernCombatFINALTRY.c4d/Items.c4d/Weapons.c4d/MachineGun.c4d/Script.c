@@ -47,7 +47,7 @@ public func FMData1(int data)
 
   if(data == FM_Damage)		return 8;						//Schadenswert
 
-  if(data == FM_SpreadAdd)	return 30 - (iAttachment == AT_Laserpointer)*4;		//Bei jedem Schuss hinzuzuaddierende Streuung
+  if(data == FM_SpreadAdd)	return 30 - (iAttachment == AT_Laserpointer)*3;		//Bei jedem Schuss hinzuzuaddierende Streuung
   if(data == FM_StartSpread)	return 220 - (iAttachment == AT_Laserpointer)*20;	//Bei Auswahl der Waffe gesetzte Streuung
   if(data == FM_MaxSpread)	return 420 - (iAttachment == AT_Laserpointer)*70;	//Maximaler Streuungswert
   if(data == FM_MinSpread)	return 20 - (iAttachment == AT_Laserpointer)*10;	//Kleinstmögliche Streuung
@@ -83,7 +83,7 @@ public func FMData1T2(int data)
 {
   if(data == FT_Name)		return "$Burst$";
 
-  if(data == FM_Recharge)	return FMData1(data) + 26;	//Zeit bis erneut geschossen werden kann
+  if(data == FM_Recharge)	return FMData1(data) + 20;	//Zeit bis erneut geschossen werden kann
 
   if(data == FM_BurstAmount)	return 4;			//Anzahl Schussabrufe pro Burst
   if(data == FM_BurstRecharge)	return 4;			//Zeit zwischen einzelnen Bursts
@@ -91,6 +91,8 @@ public func FMData1T2(int data)
   if(data == FM_Damage)		return FMData1(data) + 1;	//Schadenswert
 
   if(data == FM_Auto)		return false;			//Kein Automatikfeuer
+
+  if(data == FM_SpreadAdd)	return FMData1(data) + 10;	//Bei jedem Schuss hinzuzuaddierende Streuung
 
   return FMData1(data);
 }
@@ -144,6 +146,10 @@ public func HandR()
 
 protected func OnFireStop(int iSlot)
 {
+  //Streuung erhöhen wenn Dauerfeuer
+  if(iSlot == 1)
+    DoSpread(+8);
+
   Sound("MNGN_Click.ogg");
 }
 
