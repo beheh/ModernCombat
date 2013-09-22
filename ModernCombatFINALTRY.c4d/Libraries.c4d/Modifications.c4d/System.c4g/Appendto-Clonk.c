@@ -428,6 +428,11 @@ protected func DoPoints()
         //Achievement-Fortschritt (Tower Defence)
         DoAchievementProgress(1, AC40, killer);
       }
+      else if(KillIcon() == MOTN)
+      {
+        //Achievement-Fortschritt (Trained)
+        DoAchievementProgress(1, AC48, killer);
+      }
     }
 
     //Killassist
@@ -454,6 +459,17 @@ protected func DoPoints()
 
   //Achievement-Fortschritt (Non-Swimmer)
   if(GBackLiquid()) DoAchievementProgress(1, AC11, GetOwner());
+
+  var killicon = KillIcon();
+
+  if(killicon)
+  {
+    if(KillIcon() == AHBS)
+    {
+      //Achievement-Fortschritt (Ultimate Sacrifice)
+      DoAchievementProgress(1, AC46, GetOwner());
+    }
+  }
 
   //Selbstmord
   if(LastDamageType() == DMG_Explosion && killer == GetOwner())

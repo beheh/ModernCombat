@@ -14,6 +14,9 @@ func Damage(int iChange, int iPlr)
 
 func BlowUp(int iPlr)
 {
+  //Achievement-Fortschritt (Barrel Roll)
+  DoAchievementProgress(1, AC47, iPlr);
+
   //Effekt
   Sound("Inflame");
   if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",50,20,0,0,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
