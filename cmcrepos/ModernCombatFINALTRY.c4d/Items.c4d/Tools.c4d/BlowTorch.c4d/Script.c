@@ -140,7 +140,13 @@ public func Timer()
 
   //Akku um einen Punkt aufladen
   if(!GetEffect("RepairObjects", this))
-    charge = BoundBy(charge+3,0,MaxEnergy());
+    if(charge > 0)
+      charge = BoundBy(charge+3,0,MaxEnergy());
+    else
+    {
+      Sound("BWTH_Charge.ogg",0,0,25);
+      charge = BoundBy(charge+20,0,MaxEnergy());
+    }
 
   return true;
 }
@@ -459,7 +465,7 @@ func CustomHUD()	{return true;}
 
 func UpdateHUD(object pHUD)
 {
-  var color = RGB(255, 255, 255);
+  var color = RGB(255, 0, 0)*(Inside(charge, 0, 19));
   pHUD->Ammo(charge, MaxEnergy(), GetName(), true, color);
 }
 
