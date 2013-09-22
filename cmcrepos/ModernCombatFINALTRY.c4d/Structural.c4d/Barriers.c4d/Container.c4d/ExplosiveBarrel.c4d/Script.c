@@ -131,6 +131,9 @@ func InstaExplode(int iPlr)
 
 func BlowUp(int iPlr)
 {
+  //Achievement-Fortschritt (Barrel Roll)
+  DoAchievementProgress(1, AC47, iPlr);
+
   SetAction("Wreck");
   FakeExplode(30, iPlr+1);
   Extinguish();

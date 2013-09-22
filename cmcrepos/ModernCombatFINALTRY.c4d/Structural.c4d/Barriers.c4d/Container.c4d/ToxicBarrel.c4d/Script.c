@@ -14,6 +14,9 @@ func Damage(int iChange, int iPlr)
 
 func BlowUp(int iPlr)
 {
+  //Achievement-Fortschritt (Barrel Roll)
+  DoAchievementProgress(1, AC47, iPlr);
+
   //Effekt
   if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",4,100,0,0,20,70,RGB(0,250,0));
 
