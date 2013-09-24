@@ -40,16 +40,16 @@ global func GetClientCount()
 
 global func Votekick(int iPlr, string pars)
 {
-  //Nur bei Runden ohne Host
+  //Bei Runden ohne Host für alle; ansonsten nur für den Host
   if(!NoRealHost() && GetPlrClientNr(iPlr))
   {
-  	if(GetEffect("Votekick") && GetLength(pars))
-		{
-		  if(WildcardMatch(pars, "*y*"))
-		    EffectCall(0, GetEffect("Votekick"), "Add", iPlr, false);
-		}
-		else
-    	return PlayerMessage(iPlr, "$HostInfo$", GetCursor(iPlr));
+    if(GetEffect("Votekick") && GetLength(pars))
+    {
+      if(WildcardMatch(pars, "*y*"))
+        EffectCall(0, GetEffect("Votekick"), "Add", iPlr, false);
+    }
+    else
+      return PlayerMessage(iPlr, "$HostInfo$", GetCursor(iPlr));
   }
 
   //und ohne Liga
