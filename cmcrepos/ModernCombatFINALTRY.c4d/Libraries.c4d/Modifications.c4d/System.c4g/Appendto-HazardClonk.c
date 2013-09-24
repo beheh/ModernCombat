@@ -1574,6 +1574,8 @@ public func Collection2(object pObj)
 
 public func Ejection(object pObj)
 {
+	AddEffect("MatJumpProtection", pObj, 1, 40, this);
+
   RemoveEffect("SelectItem",pObj);
   UpdateGrenadeCount();
 
@@ -1683,6 +1685,16 @@ protected func GetObject2Drop(object pObj)
     return dropobj;
 //}
   //return _inherited(pObj, ...);
+}
+
+/* Materialjump verhindern */
+
+protected func QueryCatchBlow(object pBy)
+{
+	if(GetEffect("MatJumpProtection", pBy) && GetEffect("MatJumpProtection", pBy, 0, 4) == this)
+		return true;
+	
+	return _inherited(pBy, ...);
 }
 
 /*----- Allgemeines -----*/
