@@ -41,7 +41,7 @@ global func GetClientCount()
 global func Votekick(int iPlr, string pars)
 {
   //Nur bei Runden ohne Host
-  if(!NoRealHost())
+  if(!NoRealHost() && !GetPlrClientNr(iPlr))
     return PlayerMessage(iPlr, "$HostInfo$", GetCursor(iPlr));
 
   //und ohne Liga
