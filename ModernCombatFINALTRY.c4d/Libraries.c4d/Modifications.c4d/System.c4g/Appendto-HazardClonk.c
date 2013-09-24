@@ -1691,7 +1691,7 @@ protected func GetObject2Drop(object pObj)
 
 protected func QueryCatchBlow(object pBy)
 {
-  if(GetEffect("MatJumpProtection", pBy) && GetEffect("MatJumpProtection", pBy, 0, 4) == this)
+  if(GetEffect("MatJumpProtection", pBy) && GetEffect("MatJumpProtection", pBy, 0, 4) == this && !GameCall("AllowMaterialJump"))
     return true;
 
   return _inherited(pBy, ...);
