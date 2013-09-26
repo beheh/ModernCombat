@@ -272,7 +272,7 @@ func CreateEquipment()
   crate = CreateObject (AMCT, 2480, 250, -1);
   crate->Set(MBOX);
 
-  //Versorgungskiste (APW)
+  //Versorgungskisten (APW)
   crate = CreateObject (AMCT, 810, 440, -1);
   crate->Set(ATWN);
   crate = CreateObject (AMCT, 2270, 440, -1);
