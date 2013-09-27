@@ -999,7 +999,9 @@ public func ChooserFinished()
    if(!FindObject(NOAM))
    {
     //Versorgungskisten (Kugeln)
-    var crate = CreateObject(AMCT, 3715, 570, -1);
+    var crate = CreateObject(AMCT, 2700, 610, -1);
+    crate->Set(ABOX);
+    crate = CreateObject(AMCT, 3715, 570, -1);
     crate->Set(ABOX);
     crate = CreateObject(AMCT, 4320, 570, -1);
     crate->Set(ABOX);

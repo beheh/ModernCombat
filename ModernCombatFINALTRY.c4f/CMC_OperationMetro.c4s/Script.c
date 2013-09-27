@@ -313,6 +313,10 @@ func CreateEquipment()
 {
   Log("$CreatingEquipment$");
 
+  //Raketen
+  PlaceSpawnpoint(MBOX, 1860, 295);
+  PlaceSpawnpoint(MBOX, 3380, 295);
+
   //Versorgungskisten (Kugeln)
   var crate = CreateObject (AMCT, 1120, 440, -1);
   crate->Set(ABOX);
@@ -328,18 +332,6 @@ func CreateEquipment()
   crate->Set(GBOX);
   crate = CreateObject (AMCT, 2640, 440, -1);
   crate->Set(GBOX);
-
-  //Versorgungskisten (Raketen)
-  crate = CreateObject (AMCT, 670, 440, -1);
-  crate->Set(MBOX);
-  crate = CreateObject (AMCT, 4570, 440, -1);
-  crate->Set(MBOX);
-
-  //Versorgungskisten (APW)
-  crate = CreateObject (AMCT, 640, 440, -1);
-  crate->Set(ATWN);
-  crate = CreateObject (AMCT, 4600, 440, -1);
-  crate->Set(ATWN);
 
   //Versorgungskisten (Dragnin)
   crate = CreateObject (AMCT, 1930, 440, -1);
@@ -668,6 +660,12 @@ public func ChooserFinished()
    CreateObject(GNET, 1600, 370, -1)->Set(0,90,1);
    CreateObject(GNET, 3640, 370, -1)->Set(0,-90,1);
    CreateObject(GNET, 4410, 440, -1)->Set(0,-90,1);
+
+   //Versorgungskisten (APW)
+   crate = CreateObject (AMCT, 1650, 500, -1);
+   crate->Set(ATWN);
+   crate = CreateObject (AMCT, 3590, 500, -1);
+   crate->Set(ATWN);
   }
 
   //Assault-Spielziel
@@ -758,15 +756,11 @@ public func ChooserFinished()
    CreateObject(GNET, 1600, 370, -1)->Set(0,90,1);
    CreateObject(GNET, 3640, 370, -1)->Set(0,-90,1);
 
-   //Zusätzliche Munition
-   if(!FindObject(NOAM))
-   {
-    //Versorgungskiste (Raketen)
-    var crate = CreateObject(AMCT, 1590, 500, -1);
-    crate->Set(MBOX);
-    var crate = CreateObject(AMCT, 3650, 500, -1);
-    crate->Set(MBOX);
-   }
+   //Versorgungskisten (APW)
+   crate = CreateObject (AMCT, 1650, 500, -1);
+   crate->Set(ATWN);
+   crate = CreateObject (AMCT, 3590, 500, -1);
+   crate->Set(ATWN);
   }
 
   //MR-Spielziel
@@ -786,15 +780,11 @@ public func ChooserFinished()
    CreateObject(GNET, 1600, 370, -1)->Set(0,90,1);
    CreateObject(GNET, 3640, 370, -1)->Set(0,-90,1);
 
-   //Zusätzliche Munition
-   if(!FindObject(NOAM))
-   {
-    //Versorgungskiste (Raketen)
-    var crate = CreateObject(AMCT, 1590, 500, -1);
-    crate->Set(MBOX);
-    var crate = CreateObject(AMCT, 3650, 500, -1);
-    crate->Set(MBOX);
-   }
+   //Versorgungskisten (APW)
+   crate = CreateObject (AMCT, 1650, 500, -1);
+   crate->Set(ATWN);
+   crate = CreateObject (AMCT, 3590, 500, -1);
+   crate->Set(ATWN);
   }
 
   //CTF-Spielziel
@@ -814,15 +804,11 @@ public func ChooserFinished()
    CreateObject(GNET, 1600, 370, -1)->Set(0,90,1);
    CreateObject(GNET, 3640, 370, -1)->Set(0,-90,1);
 
-   //Zusätzliche Munition
-   if(!FindObject(NOAM))
-   {
-    //Versorgungskiste (Raketen)
-    var crate = CreateObject(AMCT, 1590, 500, -1);
-    crate->Set(MBOX);
-    var crate = CreateObject(AMCT, 3650, 500, -1);
-    crate->Set(MBOX);
-   }
+   //Versorgungskisten (APW)
+   crate = CreateObject (AMCT, 1650, 500, -1);
+   crate->Set(ATWN);
+   crate = CreateObject (AMCT, 3590, 500, -1);
+   crate->Set(ATWN);
   }
 
   //LMS/DM-Spielziel
@@ -835,6 +821,12 @@ public func ChooserFinished()
    //Geschützstellungen
    CreateObject(GNET, 1600, 370, -1)->Set(0,90,1);
    CreateObject(GNET, 3640, 370, -1)->Set(0,-90,1);
+
+   //Versorgungskisten (APW)
+   crate = CreateObject (AMCT, 1650, 500, -1);
+   crate->Set(ATWN);
+   crate = CreateObject (AMCT, 3590, 500, -1);
+   crate->Set(ATWN);
   }
 }
 
