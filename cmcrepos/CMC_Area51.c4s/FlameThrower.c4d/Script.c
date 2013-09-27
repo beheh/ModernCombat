@@ -44,7 +44,7 @@ public func FMData1(int data)
   if(data == FM_SpreadAdd)	return 20;
   if(data == FM_StartSpread)	return 100;
   if(data == FM_MaxSpread)	return 500;
-  
+
   if(data == FM_NoAmmoModify)	return 1;
 
   return Default(data);
@@ -115,17 +115,17 @@ public func OnSelect()
 
 private func Check()
 {
-	if(!fired)
-		return;
-		
-	if(Contained() && Contained()->~IsClonk())
+  if(!fired)
+    return;
+
+  if(Contained() && Contained()->~IsClonk())
   {
-	  if(Contained()->~IsAiming() && Contents(0, Contained()) == this)
-	  	return;
-	  ThrowAway();
-	}
+    if(Contained()->~IsAiming() && Contents(0, Contained()) == this)
+    	return;
+    ThrowAway();
+  }
   else
-  	ThrowAway();
+    ThrowAway();
 }
 
 public func ThrowAway()
@@ -153,7 +153,7 @@ public func ThrowAway()
 
 private func OnEmpty()
 {
-	fired = true;
+  fired = true;
 }
 
 public func RejectEntrance()
