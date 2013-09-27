@@ -326,11 +326,13 @@ public func FxIntResupplyTimer(object pTarget, int iEffectNumber, int iEffectTim
   EffectCall(pTarget, iEffectNumber, "UpdateMessages");
 }
 
-public func FxIntResupplyUpdateMessages(object pTarget, int iEffectNumber) {
+public func FxIntResupplyUpdateMessages(object pTarget, int iEffectNumber)
+{
   var pCrate = EffectVar(0, pTarget, iEffectNumber);
   var szMessage = Format("@{{%i}}|%d/%d", pCrate->GetSpawnID(), ContentsCount(pCrate->GetSpawnID(), pCrate), pCrate->GetMaxCount());
   //Alle anfassenden Clonks aktualisieren
-  for(var pClonk in FindObjects(Find_OCF(OCF_CrewMember), Find_Action("Push"), Find_ActionTarget(pCrate))) {
+  for(var pClonk in FindObjects(Find_OCF(OCF_CrewMember), Find_Action("Push"), Find_ActionTarget(pCrate)))
+  {
     PlayerMessage(GetController(pClonk), szMessage, pClonk);
   }
 }
