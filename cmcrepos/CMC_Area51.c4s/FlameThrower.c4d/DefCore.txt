@@ -17,3 +17,5 @@ Components=METL=3
 Picture=0,9,64,64
 Rebuy=1
 Collectible=1
+Timer=1
+TimerCall=Check

@@ -3,6 +3,8 @@
 #strict 2
 #include WPN2
 
+local fired = false;
+
 public func HandSize()		{return(1000);}
 public func HandX()		{return(5000);}
 public func HandY()		{return(-2500);}
@@ -42,6 +44,8 @@ public func FMData1(int data)
   if(data == FM_SpreadAdd)	return 20;
   if(data == FM_StartSpread)	return 100;
   if(data == FM_MaxSpread)	return 500;
+  
+  if(data == FM_NoAmmoModify)	return 1;
 
   return Default(data);
 }
@@ -107,4 +111,52 @@ public func OnReload()
 public func OnSelect()
 {
   Sound("MNGN_Charge.ogg");
+}
+
+private func Check()
+{
+	if(!fired)
+		return;
+		
+	if(Contained() && Contained()->~IsClonk())
+  {
+	  if(Contained()->~IsAiming() && Contents(0, Contained()) == this)
+	  	return;
+	  ThrowAway();
+	}
+  else
+  	ThrowAway();
+}
+
+public func ThrowAway()
+{
+  //Kategorie wechseln
+  SetCategory(C4D_Vehicle); 
+  //Waffe auswerfen sofern verschachtelt
+  if(Contained())
+  {
+    //Schützen verlassen
+    var dir = +1;
+    if(GetDir(GetUser()) == DIR_Right)
+      dir = -1;
+
+    Exit(0, 0, 0, Random((360)+1), dir,-3, Random(11)-5);
+
+    Sound("AT4R_ThrowAway.ogg");
+  }
+
+  //Verschwinden
+  FadeOut();
+  
+  return true;
+}
+
+private func OnEmpty()
+{
+	fired = true;
+}
+
+public func RejectEntrance()
+{
+  return fired;
 }
