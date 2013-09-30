@@ -46,7 +46,7 @@ public func FMData1(int data)
   if(data == FM_Recharge)	return 15;	//Zeit bis erneut geschossen werden kann
 
   if(data == FM_SingleReload)	return 7;	//Zeit des einzelnen Nachladens bei Revolversystemen
-  if(data == FM_PrepareReload)	return 20;	//Zeit bevor das eigentliche Nachladen beginnt
+  if(data == FM_PrepareReload)	return 10;	//Zeit bevor das eigentliche Nachladen beginnt
   if(data == FM_FinishReload)	return 20;	//Zeit nach dem Nachladen
 
   if(data == FM_Damage)		return 21;	//Schadenswert
