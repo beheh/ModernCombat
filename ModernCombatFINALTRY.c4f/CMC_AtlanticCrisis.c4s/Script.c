@@ -266,8 +266,8 @@ func CreateEquipment()
   PlaceSpawnpoint(MBOX, 3860, 515);
 
   //Geschützstellungen
-  CreateObject(GNET, 1465, 530, -1)->Set(SATW);
-  CreateObject(GNET, 4545, 530, -1)->Set(SATW);
+  CreateObject(GNET, 1465, 530, -1)->Set(LCAC);
+  CreateObject(GNET, 4545, 530, -1)->Set(LCAC);
 
   //Artilleriebatterien
   CreateObject(ATBY,2231,520,-1)->SetRotation(20);

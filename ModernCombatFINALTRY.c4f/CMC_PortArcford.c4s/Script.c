@@ -416,8 +416,8 @@ public func ChooserFinished()
    CreateObject(SGNP, 610, 490, -1);
 
    //Geschützstellungen
-   CreateObject(GNET, 1040, 510, -1)->Set(0,0,1);
-   CreateObject(GNET, 5225, 480, -1)->Set(0,0,1);
+   CreateObject(GNET, 1040, 510, -1)->Set(LCAC,0,1);
+   CreateObject(GNET, 5225, 480, -1)->Set(LCAC,0,1);
 
    //MAV-Stationen
    CreateObject(MVSN, 2320, 750, -1)->Set(2190,520,1);
@@ -480,7 +480,7 @@ public func ChooserFinished()
    aStationary[2] = CreateObject(GNET, 3340, 630, -1);
    aStationary[2] -> Set(0,-90);
    aStationary[3] = CreateObject(GNET, 4320, 690, -1);
-   aStationary[3] -> Set(0,-90);
+   aStationary[3] -> Set(0,-90,1);
 
    //Helikopter und Hinweisschilder
    if(!FindObject(NOHC))

@@ -320,9 +320,9 @@ func CreateEquipment()
 
   //Geschützstellungen
   aTowerInterior[0] = CreateObject(GNET, 2085, 563, -1);
-  aTowerInterior[0] -> Set(0,-90,1);
+  aTowerInterior[0] -> Set(LCAC,-90,1);
   aTowerInterior[1] = CreateObject(GNET, 2145, 382, -1);
-  aTowerInterior[1] -> Set(0,90,1);
+  aTowerInterior[1] -> Set(LCAC,90,1);
 
   //Artilleriebatterie
   CreateObject(ATBY,2580,950,-1);
@@ -631,7 +631,7 @@ public func ChooserFinished()
    //Geschützstellungen
    CreateObject(GNET, 2030, 940, -1)->Set(SATW,0,1);
    CreateObject(GNET, 2280, 970, -1)->Set(0,90,1);
-   CreateObject(GNET, 3270, 630, -1)->Set(0,-90,1);
+   CreateObject(GNET, 3270, 630, -1)->Set(LCAC,-90,1);
    CreateObject(GNET, 3370, 1012, -1)->Set(0,-90,1);
 
    //MAV-Station
@@ -748,7 +748,7 @@ public func ChooserFinished()
    aStationary[0] = CreateObject(GNET, 2030, 940, -1);
    aStationary[0] -> Set(SATW,0,1);
    aStationary[1] = CreateObject(GNET, 3270, 630, -1);
-   aStationary[1] -> Set(0,-90,1);
+   aStationary[1] -> Set(LCAC,-90,1);
    aStationary[2] = CreateObject(GNET, 3320, 1040, -1);
    aStationary[2] -> Set(0,-90,1);
 
@@ -812,6 +812,9 @@ public func ChooserFinished()
    CreateObject(BRDR, 1790, 0, -1)->Set(0);
    CreateObject(BRDR, 4230, 0, -1)->Set(1);
 
+   //Objekt entfernen
+   aTowerInterior[0]->RemoveObject();
+
    //Hinweisschilder
    CreateObject(SNPT, 1650, 1170, -1);
    var sign = CreateObject(SGNP, 2885, 960, -1);
@@ -859,6 +862,9 @@ public func ChooserFinished()
    CreateObject(BRDR, 1790, 0, -1)->Set(0);
    CreateObject(BRDR, 4230, 0, -1)->Set(1);
 
+   //Objekt entfernen
+   aTowerInterior[0]->RemoveObject();
+
    //Hinweisschilder
    CreateObject(SNPT, 1650, 1170, -1);
    var sign = CreateObject(SGNP, 2885, 960, -1);
@@ -895,6 +901,9 @@ public func ChooserFinished()
    //Grenzen setzen
    CreateObject(BRDR, 1790, 0, -1)->Set(0);
    CreateObject(BRDR, 4230, 0, -1)->Set(1);
+
+   //Objekt entfernen
+   aTowerInterior[0]->RemoveObject();
 
    //Hinweisschilder
    CreateObject(SNPT, 1650, 1170, -1);

@@ -39,7 +39,7 @@ func CreateInterior()
   CreateObject(LADR, 700, 1570, -1)->Set(9);
   CreateObject(LADR, 740, 434, -1)->Set(22);
   CreateObject(LADR, 890, 1706, -1)->Set(16);
-  CreateObject(LADR, 1365, 1099, -1)->Set(19);
+  CreateObject(LADR, 1360, 1099, -1)->Set(20);
   CreateObject(LADR, 1380, 926, -1)->Set(11);
   CreateObject(LADR, 1185, 1697, -1)->Set(15);
   CreateObject(LADR, 1425, 1697, -1)->Set(15);
@@ -47,7 +47,7 @@ func CreateInterior()
   CreateObject(LADR, 1625, 1519, -1)->Set(60);
   CreateObject(LADR, 1655, 1697, -1)->Set(15);
   CreateObject(LADR, 1700, 926, -1)->Set(11);
-  CreateObject(LADR, 1715, 1099, -1)->Set(19);
+  CreateObject(LADR, 1720, 1099, -1)->Set(20);
   CreateObject(LADR, 1895, 1697, -1)->Set(15);
   CreateObject(LADR, 2190, 1706, -1)->Set(16);
   CreateObject(LADR, 2340, 434, -1)->Set(22);
@@ -283,10 +283,10 @@ func CreateEquipment()
   crate->Set(DGNN);
 
   //Geschützstellungen
-  CreateObject(GNET, 1000, 440, -1)->Set(SATW,0,1);
+  CreateObject(GNET, 1000, 440, -1)->Set(LCAC,0,1);
   CreateObject(GNET, 1300, 1110, -1)->Set(SATW,-90,1);
   CreateObject(GNET, 1780, 1110, -1)->Set(SATW,90,1);
-  CreateObject(GNET, 2080, 440, -1)->Set(SATW,0,1);
+  CreateObject(GNET, 2080, 440, -1)->Set(LCAC,0,1);
 
   //Artilleriebatterien
   CreateObject(ATBY,320,850,-1)->SetRotation(60);

@@ -265,10 +265,10 @@ func CreateEquipment()
   PlaceSpawnpoint(MBOX, 6080, 595);
 
   //Geschützstellungen
-  CreateObject(GNET, 920, 600, -1)->Set(SATW);
-  CreateObject(GNET, 1980, 410, -1)->Set(0,90);
-  CreateObject(GNET, 4850, 410, -1)->Set(0,-90);
-  CreateObject(GNET, 5910, 600, -1)->Set(SATW);
+  CreateObject(GNET, 920, 600, -1)->Set(LCAC);
+  CreateObject(GNET, 1980, 410, -1)->Set(SATW,90,1);
+  CreateObject(GNET, 4850, 410, -1)->Set(SATW,-90,1);
+  CreateObject(GNET, 5910, 600, -1)->Set(LCAC);
 
   //MAV-Stationen
   CreateObject(MVSN, 1270, 530, -1)->Set(1420,410,1);

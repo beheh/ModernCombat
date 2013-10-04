@@ -354,8 +354,8 @@ public func ChooserFinished()
    AddAssaultTarget(RADR, 3970, 320, 400, 2, "$Target2$", 2, [[4180, 360], [4250, 470]]);
 
    //Geschützstellungen
-   CreateObject(GNET, 1520, 360, -1);
-   CreateObject(GNET, 4020, 360, -1);
+   CreateObject(GNET, 1520, 360, -1)->Set(LCAC);
+   CreateObject(GNET, 4020, 360, -1)->Set(LCAC);
   }
 
   //HTF-Spielziel

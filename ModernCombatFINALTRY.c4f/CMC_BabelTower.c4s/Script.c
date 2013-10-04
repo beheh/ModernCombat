@@ -540,15 +540,15 @@ func CreateEquipment()
 
   //Geschützstellungen
   aTowerInterior[2] = CreateObject(GNET, 1150, 162, -1);
-  aTowerInterior[2] -> Set(0,-90);
+  aTowerInterior[2] -> Set(LCAC,-90);
   aTowerInterior[3] = CreateObject(GNET, 1220, 162, -1);
-  aTowerInterior[3] -> Set(0,90);
+  aTowerInterior[3] -> Set(LCAC,90);
   CreateObject(GNET, 1045, 410, -1)->Set(0,-90);
   CreateObject(GNET, 1325, 410, -1)->Set(0,90);
   CreateObject(GNET, 980, 800, -1)->Set(0,-90);
   CreateObject(GNET, 1390, 800, -1)->Set(0,90);
-  CreateObject(GNET, 865, 1240, -1);
-  CreateObject(GNET, 1505, 1240, -1);
+  CreateObject(GNET, 865, 1240, -1)->Set(LCAC);
+  CreateObject(GNET, 1505, 1240, -1)->Set(LCAC);
 }
 
 func CreateDecoration()

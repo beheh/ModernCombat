@@ -1036,8 +1036,8 @@ public func ChooserFinished()
    CreateObject(SGNP, 6870, 610, -1);
 
    //Geschützstellungen
-   CreateObject(GNET, 3570, 430, -1)->Set(SATW,0,1);
-   CreateObject(GNET, 6590, 440, -1)->Set(SATW,0,1);
+   CreateObject(GNET, 3570, 430, -1)->Set(LCAC,0,1);
+   CreateObject(GNET, 6590, 440, -1)->Set(LCAC,0,1);
 
    //Helikopter und Hinweisschilder
    if(!FindObject(NOHC))
