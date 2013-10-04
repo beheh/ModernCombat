@@ -292,7 +292,7 @@ func CreateEquipment()
   //Geschützstellungen
   CreateObject(GNET, 1065, 890, -1)->Set(0,-90);
   CreateObject(GNET, 1725, 980, -1)->Set(SATW,90);
-  CreateObject(GNET, 1775, 700, -1)->Set(SATW);
+  CreateObject(GNET, 1775, 700, -1)->Set(LCAC);
   CreateObject(GNET, 2165, 890, -1)->Set(0,90);
   CreateObject(GNET, 2830, 1350, -1)->Set(0,-90);
   aTowerInterior[0] = CreateObject(GNET, 2835, 933, -1);
@@ -301,7 +301,7 @@ func CreateEquipment()
   aTowerInterior[1] -> Set(SATW,90,1);
   CreateObject(GNET, 2900, 1350, -1)->Set(0,90);
   CreateObject(GNET, 3565, 890, -1)->Set(0,-90);
-  CreateObject(GNET, 3955, 700, -1)->Set(SATW);
+  CreateObject(GNET, 3955, 700, -1)->Set(LCAC);
   CreateObject(GNET, 4005, 980, -1)->Set(SATW,-90);
   CreateObject(GNET, 4665, 890, -1)->Set(0,90);
 
