@@ -38,3 +38,6 @@ NoScan=1
 
 [Environment]
 Objects=SWFL=1;EGRS=1;EGLN=3;DARK=2
+
+[Animals]
+Animal=BIRD=3
