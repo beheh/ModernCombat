@@ -1067,7 +1067,7 @@ global func FxPointMessageTimer(object pTarget, int iEffectNumber)
         if(EffectVar(2,pObject,iIndex) > 0) return(FX_OK);
     }
     //Sound
-    Sound("PointsGet.ogg", 0, pContainer, 100);
+    Sound("PointsGet.ogg", 0, pContainer, 100, GetOwner(pTarget));
 
     var iPlr = GetOwner(pTarget);
     for(i = 0; i < GetPlayerCount(); i++)
