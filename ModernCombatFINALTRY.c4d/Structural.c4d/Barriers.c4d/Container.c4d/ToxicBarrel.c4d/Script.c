@@ -17,8 +17,10 @@ func BlowUp(int iPlr)
   //Achievement-Fortschritt (Barrel Roll)
   DoAchievementProgress(1, AC47, iPlr);
 
-  //Effekt
+  //Effekte
   if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",4,100,0,0,20,70,RGB(0,250,0));
+  Sound("SGRN_Fused.ogg");
+  Sound("Crackle.ogg");
 
   SetAction("Wreck");
   SetController(iPlr);
