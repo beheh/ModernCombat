@@ -252,6 +252,12 @@ func CreateEquipment()
   crate = CreateObject (AMCT, 1300, 430, -1);
   crate->Set(GBOX);
 
+  //Versorgungskisten (Dragnin)
+  crate = CreateObject (AMCT, 870, 760, -1);
+  crate->Set(DGNN);
+  crate = CreateObject (AMCT, 1695, 830, -1);
+  crate->Set(DGNN);
+
   //Raketen
   PlaceSpawnpoint(MBOX, 1320, 575);
 
@@ -603,9 +609,16 @@ public func ChooserFinished()
   {
    //Flaggen
    if(aTeams[1] == true)
-   {CreateFlag(1,435,520,GetTeamColor(1));}
+   {CreateFlag(1,635,540,GetTeamColor(1));}
    if(aTeams[2] == true)
-   {CreateFlag(2,2130,480,GetTeamColor(2));}
+   {CreateFlag(2,1740,560,GetTeamColor(2));}
+
+   //Boden
+   DrawMaterialQuad("Wall-Stripes", 590,540, 650,540, 650,551, 590,551);
+   DrawMaterialQuad("Wall-Stripes", 1700,560, 1760,560, 1760,571, 1700,571);
+
+   //Objekt entfernen
+   RemoveObject(FindObject2(Find_ID(HBRL),Find_InRect(1710, 540, 20, 30)));
   }
 }
 
@@ -639,11 +652,11 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   {
    if(iTeam == 1)
    {
-    return [[505, 220], [570, 250]];
+    return [[470, 640], [505, 220], [570, 250]];
    }
    else
    {
-    return [[1880, 500], [1975, 600]];
+    return [[1825, 230], [1975, 600], [2075, 470]];
    }
    return(1);
   }
