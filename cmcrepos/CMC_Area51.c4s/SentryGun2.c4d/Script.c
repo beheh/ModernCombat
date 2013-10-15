@@ -318,12 +318,18 @@ public func Activity()
       GotTarget = 0;
     }
 
+		var fHasTarget = GotTarget;
+		
     if(curPrio < 5 && (powerMode > 0 || !(GetActTime()%2)))
         GotTarget = SearchAA();
     
     if(GotTarget)
     {
+    	if(!fHasTarget)
+    		Sound("BipBipBip.wav", false, this, 50);
+    		
       powerMode = 100;
+      
       var target_angle = Angle(GetX(), GetY(), GetX(GotTarget), GetY(GotTarget));
     
       if((MaxRotRight() >= 360) && (target_angle < MaxRotRight()-360))
@@ -482,9 +488,9 @@ func ValidTarget(object pT)
   if((GetOCF(pT) & OCF_Alive) && GetProcedure(pT) != "FLIGHT") return;
   
   if(!IsBulletTarget()) return;
-  
+
   if(!CheckEnemy(this, pT, true))	return;
-  
+
   var ox = GetX(pT);
 	var oy = GetY(pT);
 	
@@ -492,7 +498,7 @@ func ValidTarget(object pT)
 		return;
 	if(rightborder && ox > rightborder)
 		return;
-	  
+		
 	//Winkel zum Ziel
   target_angle = Angle(GetX(), GetY(), ox, oy);
   target_angle = Normalize(target_angle, 0);
@@ -500,7 +506,7 @@ func ValidTarget(object pT)
     return;
   else if(MaxRotRight() >= 360 && (target_angle < MaxRotLeft() && target_angle > MaxRotRight()-360))
     return;
-    
+
 	// Pfad frei
   var simX = GetX();
 	var simY = GetY();
