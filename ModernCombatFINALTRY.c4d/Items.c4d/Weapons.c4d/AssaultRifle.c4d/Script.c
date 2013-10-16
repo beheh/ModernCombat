@@ -223,7 +223,6 @@ public func LaunchGrenade(id idg, int speed, int angle, int mode)
 
   //Granate abfeuern
   var grenade=CreateObject(idg, x, y, GetController(user));
-  if(!Stuck(grenade)) SetPosition(GetX(grenade)+xdir/10,GetY(grenade)+ydir/10,grenade);
   SetController(GetController(user), grenade);
   grenade->Launch(xdir+GetXDir(user)/5, ydir/*+GetYDir(user)/10*/, GetFMData(FM_Damage,2), 0, 0, 0, iAttachment);
 
