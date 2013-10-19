@@ -60,7 +60,7 @@ public func Initialize()
 
 /* Einstellungen */
 
-func Set(bool fMode, int rot)
+func Set(bool fMode, int rot, bool active)
 {
   fAAMode = fMode;
 
@@ -76,12 +76,22 @@ func Set(bool fMode, int rot)
       fsin, +fcos, -(1000-fcos)*0,
       this, 5
     );
+    Arm(MISA);
   }
   else
   {
     SetAction("Turn");
     SetR(rot);
     SetGraphics(0, this, 0, 5);
+    Arm(MISA);
+  }
+  
+  if(active != fActive)
+  {
+  	if(active)
+  		TurnOn();
+  	else
+  		TurnOff();
   }
 }
 
@@ -330,7 +340,7 @@ public func Activity()
     		
       powerMode = 100;
       
-      var target_angle = Angle(GetX(), GetY(), GetX(GotTarget), GetY(GotTarget));
+      target_angle = Angle(GetX(), GetY(), GetX(GotTarget), GetY(GotTarget));
     
       if((MaxRotRight() >= 360) && (target_angle < MaxRotRight()-360))
         target_angle += 360;
@@ -353,7 +363,11 @@ public func Activity()
     }
     else
     {
-      aim_angle += BoundBy(180-aim_angle,-5,5);
+    	if(!(GetActTime()%30))
+    	{
+    		target_angle = BoundBy(AimAngle() + RandomX(-10, 10), MaxRotLeft(), MaxRotRight());
+    	}
+      aim_angle += BoundBy(target_angle-AimAngle(),-3,3);
       if(Shooting)
       {
         Shooting = false;
@@ -500,7 +514,7 @@ func ValidTarget(object pT)
 		return;
 		
 	//Winkel zum Ziel
-  target_angle = Angle(GetX(), GetY(), ox, oy);
+  var target_angle = Angle(GetX(), GetY(), ox, oy);
   target_angle = Normalize(target_angle, 0);
   if(MaxRotRight() < 360 && (target_angle < MaxRotLeft() || target_angle > MaxRotRight()))
     return;
