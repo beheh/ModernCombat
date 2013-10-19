@@ -36,7 +36,7 @@ public func Fused()
   //Effekte
   CreateParticle("Blast",0,0,0,0,10*BlastRadius(),RGB(20,128,255));
 
-  if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",50,20,0,0,100,200,RGBa(255,255,255,100),RGBa(255,0,255,130));
+  if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",50,20,0,0,100,200,RGBa(100,150,250,130));
   if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",8,200,0,0,45,20,RGB(40,20,20));
   Sound("PhosphorExplosion.ogg");
   Sound("GrenadeExplosion*.ogg");

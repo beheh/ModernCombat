@@ -81,11 +81,6 @@ protected func FxGSBL_SmokeTimer(pTarget, iNo, iTime)
 
 /* Aufschlag */ 
 
-protected func Hit3()
-{
-  DoDamage(20);
-}
-
 protected func Hit(int iPlr)
 {
   Sound("BarrelImpact*.ogg");

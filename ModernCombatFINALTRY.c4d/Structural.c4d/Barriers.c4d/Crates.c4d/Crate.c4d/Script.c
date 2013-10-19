@@ -39,6 +39,12 @@ public func MeleeHit(object pByObj)
 
 /* Aufschlag */ 
 
+protected func Hit3()
+{
+  Sound("WoodCrack3.ogg");
+  DoDamage(20);
+}
+
 protected func Hit()
 {
   Sound("CrateImpact*.ogg");

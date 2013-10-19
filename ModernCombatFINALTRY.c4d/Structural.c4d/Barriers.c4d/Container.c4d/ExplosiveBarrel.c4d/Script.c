@@ -154,7 +154,11 @@ public func OnDmg(int iDmg, int iType)
 
 protected func Hit3()
 {
-  DoDamage(20);
+  if(!damaged)
+  {
+    Sound("BarrelDamaged*.ogg");
+    DoDamage(20);
+  }
 }
 
 public func OnHit(int iDamage, int iType, object pFrom)
