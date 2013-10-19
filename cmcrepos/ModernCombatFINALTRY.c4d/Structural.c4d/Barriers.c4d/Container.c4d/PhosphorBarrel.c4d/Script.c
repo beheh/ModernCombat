@@ -19,7 +19,7 @@ func BlowUp(int iPlr)
 
   //Effekt
   Sound("PhosphorExplosion.ogg");
-  if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",50,20,0,0,100,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
+  if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",50,20,0,0,100,200,RGBa(100,150,250,130));
   if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",4,100,0,0,20,70,RGB(50,0,250));
 
   SetAction("Wreck");
@@ -37,5 +37,9 @@ func BlowUp(int iPlr)
 
 protected func Hit3()
 {
-  DoDamage(50);
+  if(!damaged)
+  {
+    Sound("BarrelDamaged*.ogg");
+    DoDamage(50);
+  }
 }
