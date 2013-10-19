@@ -363,9 +363,9 @@ public func Activity()
     }
     else
     {
-    	if(!(GetActTime()%30))
+    	if(!(GetActTime()%80))
     	{
-    		target_angle = BoundBy(AimAngle() + RandomX(-10, 10), MaxRotLeft(), MaxRotRight());
+    		target_angle = BoundBy(AimAngle() + 50 - 100*Random(2), MaxRotLeft(), MaxRotRight());
     	}
       aim_angle += BoundBy(target_angle-AimAngle(),-3,3);
       if(Shooting)
