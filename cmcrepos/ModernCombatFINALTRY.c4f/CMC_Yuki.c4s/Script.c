@@ -55,6 +55,7 @@ func CreateInterior()
   CreateObject(LADR, 1620, 810, -1)->Set(40);
   CreateObject(LADR, 1690, 730, -1)->Set(45);
   CreateObject(LADR, 1770, 805, -1)->Set(10);
+  CreateObject(LADR, 1795, 620, -1)->Set(15);
 
   CreateObject(LADR, 1905, 620, -1)->Set(17);
   CreateObject(LADR, 1930, 360, -1)->Set(14);
@@ -110,52 +111,56 @@ func CreateInterior()
   CreateObject(_HBR, 1545, 762, -1)->SwitchMode();
 
   //Türenteam 1
-  aDoor1[0] = CreateObject(SLDR, 505, 400, -1);
+  aDoor1[0] = CreateObject(SLDR, 505, 520, -1);
   aDoor1[0]->Lock();
-  aDoor1[0]->Close();
+  aDoor1[0]->Open();
   aDoor1[0]->SetMaxDamage(-1);
-  aDoor1[1] = CreateObject(SLDR, 505, 720, -1);
+  aDoor1[1] = CreateObject(SLDR, 955, 350, -1);
   aDoor1[1]->Lock();
-  aDoor1[1]->Close();
+  aDoor1[1]->Open();
   aDoor1[1]->SetMaxDamage(-1);
-  aDoor1[2] = CreateObject(SLDR, 955, 610, -1);
+  aDoor1[2] = CreateObject(SLDR, 955, 750, -1);
   aDoor1[2]->Lock();
-  aDoor1[2]->Close();
+  aDoor1[2]->Open();
   aDoor1[2]->SetMaxDamage(-1);
   aDoor1[3] = CreateObject(SLDR, 1405, 380, -1);
   aDoor1[3]->Lock();
-  aDoor1[3]->Close();
+  aDoor1[3]->Open();
   aDoor1[3]->SetMaxDamage(-1);
   aDoor1[4] = CreateObject(SLDR, 1405, 750, -1);
   aDoor1[4]->Lock();
-  aDoor1[4]->Close();
+  aDoor1[4]->Open();
   aDoor1[4]->SetMaxDamage(-1);
-  aDoor1[5] = CreateObject(SLDR, 1835, 640, -1);
+  aDoor1[5] = CreateObject(SLDR, 1835, 500, -1);
   aDoor1[5]->Lock();
-  aDoor1[5]->Close();
+  aDoor1[5]->Open();
   aDoor1[5]->SetMaxDamage(-1);
 
   //Türenteam 2
-  aDoor2[0] = CreateObject(SLDR, 505, 520, -1);
+  aDoor2[0] = CreateObject(SLDR, 505, 400, -1);
   aDoor2[0]->Lock();
-  aDoor2[0]->Open();
+  aDoor2[0]->Close();
   aDoor2[0]->SetMaxDamage(-1);
-  aDoor2[1] = CreateObject(SLDR, 955, 350, -1);
+  aDoor2[1] = CreateObject(SLDR, 505, 720, -1);
   aDoor2[1]->Lock();
-  aDoor2[1]->Open();
+  aDoor2[1]->Close();
   aDoor2[1]->SetMaxDamage(-1);
-  aDoor2[2] = CreateObject(SLDR, 955, 750, -1);
+  aDoor2[2] = CreateObject(SLDR, 955, 610, -1);
   aDoor2[2]->Lock();
-  aDoor2[2]->Open();
+  aDoor2[2]->Close();
   aDoor2[2]->SetMaxDamage(-1);
   aDoor2[3] = CreateObject(SLDR, 1405, 590, -1);
   aDoor2[3]->Lock();
-  aDoor2[3]->Open();
+  aDoor2[3]->Close();
   aDoor2[3]->SetMaxDamage(-1);
   aDoor2[4] = CreateObject(SLDR, 1835, 380, -1);
   aDoor2[4]->Lock();
-  aDoor2[4]->Open();
+  aDoor2[4]->Close();
   aDoor2[4]->SetMaxDamage(-1);
+  aDoor2[5] = CreateObject(SLDR, 1835, 640, -1);
+  aDoor2[5]->Lock();
+  aDoor2[5]->Close();
+  aDoor2[5]->SetMaxDamage(-1);
 
   //Lampen
   aLamp1[0] = CreateObject(ALGH, 534, 600, -1);
@@ -556,7 +561,7 @@ public func ChooserFinished()
    aFlag[3]->Set("$Flag4$",0,2);
 
    aFlag[4] = CreateObject(OFPL,2150,480,NO_OWNER);
-   aFlag[4] -> AddSpawnPoint(1880,500);
+   aFlag[4] -> AddSpawnPoint(1880,550);
    aFlag[4] -> AddSpawnPoint(1975,600);
    aFlag[4] -> AddSpawnPoint(2090,570);
    if(aTeams[2] == true)
@@ -577,7 +582,7 @@ public func ChooserFinished()
    AddAssaultTarget(CMSN, 450, 520, 350, 1, "$Flag1$", 0, [[470, 650], [510, 230], [630, 270]]);
    AddAssaultTarget(CMSN, 910, 350, 300, 1, "$Flag2$", 1, [[650, 270], [600, 400], [680, 420]]);
 
-   AddAssaultTarget(CMSN, 2140, 480, 350, 2, "$Flag5$", 0, [[2110, 580], [1880, 510], [1970, 610]]);
+   AddAssaultTarget(CMSN, 2140, 480, 350, 2, "$Flag5$", 0, [[2110, 580], [1880, 560], [1970, 610]]);
    AddAssaultTarget(CMSN, 1730, 380, 300, 2, "$Flag4$", 1, [[1770, 250], [1715, 190]]);
   }
 
@@ -707,18 +712,25 @@ protected func Script250()
 
   EventInfo4K(0,Format("$MsgDoor$"),STDR, 0, 0, 0, "Info_Event.ogg");
 
-  aDoor1[0]->Open();
-  aDoor1[1]->Open();
-  aDoor1[2]->Open();
-  aDoor1[3]->Open();
-  aDoor1[4]->Open();
-  aDoor1[5]->Open();
+  aDoor1[0]->Close();
+  aDoor1[1]->Close();
+  aDoor1[2]->Close();
+  aDoor1[3]->Close();
+  aDoor1[4]->Close();
+  aDoor1[5]->Close();
 
-  aDoor2[0]->Close();
-  aDoor2[1]->Close();
-  aDoor2[2]->Close();
-  aDoor2[3]->Close();
-  aDoor2[4]->Close();
+  aDoor2[0]->Open();
+  aDoor2[0]->AddLightFlash(100,0,0,RGB(0,0,255));
+  aDoor2[1]->Open();
+  aDoor2[1]->AddLightFlash(100,0,0,RGB(0,0,255));
+  aDoor2[2]->Open();
+  aDoor2[2]->AddLightFlash(100,0,0,RGB(0,0,255));
+  aDoor2[3]->Open();
+  aDoor2[3]->AddLightFlash(100,0,0,RGB(0,0,255));
+  aDoor2[4]->Open();
+  aDoor2[4]->AddLightFlash(100,0,0,RGB(0,0,255));
+  aDoor2[5]->Open();
+  aDoor2[5]->AddLightFlash(100,0,0,RGB(0,0,255));
 
   return(1);
 }
@@ -766,18 +778,25 @@ protected func Script500()
 
   EventInfo4K(0,Format("$MsgDoor$"),STDR, 0, 0, 0, "Info_Event.ogg");
 
-  aDoor1[0]->Close();
-  aDoor1[1]->Close();
-  aDoor1[2]->Close();
-  aDoor1[3]->Close();
-  aDoor1[4]->Close();
-  aDoor1[5]->Close();
+  aDoor1[0]->Open();
+  aDoor1[0]->AddLightFlash(100,0,0,RGB(0,0,255));
+  aDoor1[1]->Open();
+  aDoor1[1]->AddLightFlash(100,0,0,RGB(0,0,255));
+  aDoor1[2]->Open();
+  aDoor1[2]->AddLightFlash(100,0,0,RGB(0,0,255));
+  aDoor1[3]->Open();
+  aDoor1[3]->AddLightFlash(100,0,0,RGB(0,0,255));
+  aDoor1[4]->Open();
+  aDoor1[4]->AddLightFlash(100,0,0,RGB(0,0,255));
+  aDoor1[5]->Open();
+  aDoor1[5]->AddLightFlash(100,0,0,RGB(0,0,255));
 
-  aDoor2[0]->Open();
-  aDoor2[1]->Open();
-  aDoor2[2]->Open();
-  aDoor2[3]->Open();
-  aDoor2[4]->Open();
+  aDoor2[0]->Close();
+  aDoor2[1]->Close();
+  aDoor2[2]->Close();
+  aDoor2[3]->Close();
+  aDoor2[4]->Close();
+  aDoor2[5]->Close();
 
   goto(0);
 }
