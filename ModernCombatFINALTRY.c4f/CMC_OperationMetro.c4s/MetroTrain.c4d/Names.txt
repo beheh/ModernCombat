@@ -1,2 +1,0 @@
-DE:U-Bahnzug
-US:Metro Train
