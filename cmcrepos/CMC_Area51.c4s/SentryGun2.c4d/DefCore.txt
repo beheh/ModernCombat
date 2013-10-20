@@ -15,5 +15,5 @@ VertexFriction=20,100,100
 Value=90
 Mass=170
 Components=METL=6
-Picture=595,0,64,57
+Picture=612,0,64,57
 Rotate=90

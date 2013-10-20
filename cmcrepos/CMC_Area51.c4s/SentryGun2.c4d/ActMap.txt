@@ -43,7 +43,7 @@ EndCall=StopRepair
 [Action]
 Name=Tower
 Procedure=NONE
-Facet=576,0,19,29
+Facet=576,0,36,29
 Directions=1
 Length=1
 NextAction=Tower
