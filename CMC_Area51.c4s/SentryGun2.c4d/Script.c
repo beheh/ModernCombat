@@ -35,19 +35,6 @@ public func RemoveTracer()			{return IsDestroyed();}			//Tracer entfernen, wenn 
 public func BonusPointCondition()		{return fActive;}
 
 
-global func Erschaffen(object me, int xpos, int ypos)
-{
-	var sentry;
-	if(me)
-		sentry = me->CreateObject(AASN, 0, 0, -1);
-	else
-		sentry = CreateObject(AASN, xpos, ypos, -1);
-	sentry->Arm(MIS2);
-	sentry->TurnOn();
-	sentry->Set(1, 180);
-	return sentry;
-}
-
 /* Initialisierung */
 
 public func Initialize() 
@@ -60,38 +47,39 @@ public func Initialize()
 
 /* Einstellungen */
 
-func Set(bool fMode, int rot, bool active)
+func Set(id idWeapon, bool fMode, bool active, int rot)
 {
-  fAAMode = fMode;
+  //Waffe erstellen
+  if(idWeapon)
+    Arm(idWeapon);
+  else
+    Arm(MISA);
 
+  //Modus setzen
+  fAAMode = fMode;
   if(fAAMode)
   {
     SetAction("Tower");
     SetGraphics(0, this, GetID(), 5, GFXOV_MODE_Action, "Turn");
-    SetR(rot);
     var fsin=Sin(rot, 1000), fcos=Cos(rot, 1000);
-    // set matrix values
-    SetObjDrawTransform (
-      +fcos, -fsin, fsin*0,
-      fsin, +fcos, -(1000-fcos)*0,
-      this, 5
-    );
-    Arm(MISA);
+    SetObjDrawTransform(+fcos, -fsin, fsin*0, fsin, +fcos, -(1000-fcos)*0, this, 5);
   }
   else
   {
     SetAction("Turn");
-    SetR(rot);
     SetGraphics(0, this, 0, 5);
-    Arm(MISA);
   }
-  
+
+  //SSA rotieren
+  SetR(rot);
+
+  //SSA einschalten
   if(active != fActive)
   {
-  	if(active)
-  		TurnOn();
-  	else
-  		TurnOff();
+    if(active)
+      TurnOn();
+    else
+      TurnOff();
   }
 }
 
