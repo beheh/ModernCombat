@@ -422,20 +422,29 @@ func CreateDecoration()
   CreateObject(FLH2, 2170, 480, -1)->SetRotation(-55);
 
   //Glühbirnen
-  CreateObject(LAT1, 375, 465, -1);
-  CreateObject(LAT1, 385, 170, -1);
+  CreateObject(LAT1, 125, 425, -1);
+  CreateObject(LAT1, 250, 190, -1);
 
-  CreateObject(LAT1, 1070, 470, -1);
-  CreateObject(LAT1, 1135, 470, -1);
-  CreateObject(LAT1, 1165, 430, -1);
+  CreateObject(LAT1, 625, 585, -1);
+  CreateObject(LAT1, 750, 375, -1);
+  CreateObject(LAT1, 785, 700, -1);
 
-  CreateObject(LAT1, 1530, 395, -1);
+  CreateObject(LAT1, 1085, 470, -1);
+  CreateObject(LAT1, 1120, 475, -1);
+
+  CreateObject(LAT1, 1275, 340, -1);
+
   CreateObject(LAT1, 1570, 595, -1);
   CreateObject(LAT1, 1585, 405, -1);
-  CreateObject(LAT1, 1640, 375, -1);
+  CreateObject(LAT1, 1620, 410, -1);
+  CreateObject(LAT1, 1725, 570, -1);
 
-  CreateObject(LAT1, 2075, 160, -1);
-  CreateObject(LAT1, 2125, 180, -1);
+  CreateObject(LAT1, 1985, 410, -1);
+  CreateObject(LAT1, 2050, 310, -1);
+
+  CreateObject(LAT1, 2255, 185, -1);
+  CreateObject(LAT1, 2385, 345, -1);
+  CreateObject(LAT1, 2405, 525, -1);
 
   //Spinde
   CreateObject(LCKR, 440, 725, -1);
