@@ -8,6 +8,6 @@ NextAction=Hold
 [Action]
 Name=On
 Procedure=FLOAT
-Facet=8,0,9,18
+Facet=9,0,9,18
 Delay=0
 NextAction=Hold
