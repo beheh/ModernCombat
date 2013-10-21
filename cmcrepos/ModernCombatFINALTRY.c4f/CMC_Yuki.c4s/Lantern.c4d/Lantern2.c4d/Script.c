@@ -30,7 +30,7 @@ func Damage()
   SetAction("Off");
 
   //Effekte
-  if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",5,10,0,0,100,150,RGBa(255,50,50,120),RGBa(255,255,255,150));
+  if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",5,15,0,0,100,150,RGBa(255,50,50,120));
   CastParticles("SplinterGlass", 5, 35, 0, 0, 20, 20, RGBa(255,255,255,0), RGBa(255,255,255,0));
   Sparks(7+Random(5), RGBa(255,255,150,100));
   Sound("GlassBreak*.ogg");
