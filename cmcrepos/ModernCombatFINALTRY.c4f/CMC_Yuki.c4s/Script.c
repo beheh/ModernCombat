@@ -207,7 +207,7 @@ func CreateInterior()
   //Grenzen
   CreateObject(BRDR, 330, 0, -1)->Set(0);
   CreateObject(BRDR, 2230, 0, -1)->Set(1);
-  CreateObject(BRDR, 0, 1380, -1)->Set(3,0,1);
+  CreateObject(BRDR, 0, 1100, -1)->Set(3,0,1);
 
   //Sounds
 
