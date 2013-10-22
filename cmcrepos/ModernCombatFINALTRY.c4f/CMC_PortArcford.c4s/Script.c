@@ -270,8 +270,8 @@ func CreateDecoration()
   CreateObject(MNI2, 4830, 642, -1);
 
   //Markierungsschilder
-  CreateObject(MSGN, 4760, 560, -1);
-  CreateObject(MSGN, 5110, 560, -1);
+  CreateObject(MSGN, 4745, 560, -1);
+  CreateObject(MSGN, 5105, 560, -1);
 
   //Zäune
   CreateObject(FENC, 2340, 680, -1);

@@ -476,9 +476,11 @@ func CreateDecoration()
   CreateObject(ESGN, 2960, 605, -1);
   CreateObject(ESGN, 5830, 605, -1);
   CreateObject(ESGN, 6200, 605, -1);
-  CreateObject(MSGN, 6525, 510, -1);
-  CreateObject(MSGN, 6535, 510, -1);
-  CreateObject(MSGN, 6545, 510, -1);
+  CreateObject(MSGN, 6520, 510, -1);
+  CreateObject(MSGN, 6530, 510, -1);
+  CreateObject(MSGN, 6540, 510, -1);
+  CreateObject(MSGN, 7142, 460, -1);
+  CreateObject(MSGN, 7418, 460, -1);
 
   //Topfpflanzen
   CreateObject(PLT3, 1030, 640, -1);

@@ -377,19 +377,20 @@ func CreateDecoration()
   CreateObject(RADR, 5535, 1230, -1);
 
   //Schilder
-  CreateObject(MSGN, 1288, 1260, -1);
-  CreateObject(MSGN, 1428, 1260, -1);
+  CreateObject(MSGN, 1282, 1260, -1);
+  CreateObject(MSGN, 1410, 1260, -1);
+  CreateObject(MSGN, 1780, 1260, -1);
   CreateObject(ESGN, 1500, 1025, -1);
-  CreateObject(MSGN, 1710, 1170, -1);
-  CreateObject(MSGN, 1745, 1170, -1);
-  CreateObject(MSGN, 1776, 1260, -1);
-  CreateObject(MSGN, 1870, 1170, -1);
-  CreateObject(MSGN, 1905, 1170, -1);
-  CreateObject(MSGN, 2030, 1170, -1);
-  CreateObject(MSGN, 2065, 1170, -1);
-  CreateObject(MSGN, 2190, 1170, -1);
-  CreateObject(MSGN, 2225, 1170, -1);
-  CreateObject(MSGN, 2376, 1260, -1);
+  CreateObject(MSGN, 1705, 1170, -1);
+  CreateObject(MSGN, 1735, 1170, -1);
+  CreateObject(MSGN, 1790, 1260, -1);
+  CreateObject(MSGN, 1865, 1170, -1);
+  CreateObject(MSGN, 1895, 1170, -1);
+  CreateObject(MSGN, 2025, 1170, -1);
+  CreateObject(MSGN, 2055, 1170, -1);
+  CreateObject(MSGN, 2185, 1170, -1);
+  CreateObject(MSGN, 2215, 1170, -1);
+  CreateObject(MSGN, 2370, 1260, -1);
 
   //Apparaturen
   CreateObject(GADG, 4690, 1240, -1)->Set(1);
