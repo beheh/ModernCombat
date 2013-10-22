@@ -1,0 +1,11 @@
+[Action]
+Name=Exist
+Facet=0,0,5,27
+Delay=1
+NextAction=Hold
+
+[Action]
+Name=Destroyed
+Facet=0,27,5,27
+Delay=1
+NextAction=Hold
