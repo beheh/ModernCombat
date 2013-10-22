@@ -247,7 +247,9 @@ func CreateDecoration()
   //Schilder
   CreateObject(ESGN, 460, 385, -1);
   CreateObject(MSGN, 915, 390, -1);
-  CreateObject(MSGN, 2375, 390, -1);
+  CreateObject(MSGN, 1485, 120, -1);
+  CreateObject(MSGN, 1795, 120, -1);
+  CreateObject(MSGN, 2365, 390, -1);
   CreateObject(ESGN, 2820, 385, -1);
 
   //Bojen

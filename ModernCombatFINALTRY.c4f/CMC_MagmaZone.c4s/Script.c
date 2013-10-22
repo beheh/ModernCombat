@@ -227,9 +227,9 @@ func CreateDecoration()
 
   //Schilder
   CreateObject(MSGN, 140, 300, -1);
-  CreateObject(MSGN, 235, 300, -1);
+  CreateObject(MSGN, 230, 300, -1);
   CreateObject(MSGN, 2240, 210, -1);
-  CreateObject(MSGN, 2340, 210, -1);
+  CreateObject(MSGN, 2330, 210, -1);
 }
 
 /* Bei Flaggenübernahme */

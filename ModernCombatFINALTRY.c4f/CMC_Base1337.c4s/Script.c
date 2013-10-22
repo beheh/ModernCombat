@@ -165,8 +165,8 @@ func CreateInterior()
   CreateObject(SNPT, 2700, 960, -1)->Light();
 
   //Schilder
-  CreateObject(MSGN, 620, 1200, -1);
-  CreateObject(MSGN, 660, 1200, -1);
+  CreateObject(MSGN, 615, 1200, -1);
+  CreateObject(MSGN, 655, 1200, -1);
   CreateObject(WLSN, 1290, 935, -1)->Set("Heights");
   CreateObject(WLSN, 3405, 900, -1);
   CreateObject(MSGN, 2600, 1220, -1);

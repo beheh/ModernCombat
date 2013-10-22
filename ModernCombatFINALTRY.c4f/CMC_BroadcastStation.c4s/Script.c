@@ -290,7 +290,9 @@ func CreateDecoration()
   CreateObject(GADG, 1730, 180, -1)->Set(1);
 
   //Schilder
+  CreateObject(MSGN, 395, 360, -1);
   CreateObject(WLSN, 480, 700, -1)->Set("Bio");
+  CreateObject(MSGN, 535, 360, -1);
   CreateObject(MSGN, 765, 710, -1);
   CreateObject(MSGN, 850, 710, -1);
   CreateObject(MSGN, 940, 710, -1);

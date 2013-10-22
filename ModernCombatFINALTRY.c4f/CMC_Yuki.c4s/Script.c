@@ -409,11 +409,11 @@ func CreateDecoration()
   CreateObject(GADG, 1800, 380, -1)->Set(1);
 
   //Schilder
-  CreateObject(MSGN, 550, 720, -1);
-  CreateObject(MSGN, 580, 720, -1);
+  CreateObject(MSGN, 545, 720, -1);
+  CreateObject(MSGN, 575, 720, -1);
   CreateObject(WLSN, 850, 520, -1);
-  CreateObject(MSGN, 1610, 750, -1);
-  CreateObject(MSGN, 1640, 750, -1);
+  CreateObject(MSGN, 1605, 750, -1);
+  CreateObject(MSGN, 1635, 750, -1);
 
   //Scheinwerfer
   CreateObject(FLH2, 540, 720, -1)->SetRotation(30);

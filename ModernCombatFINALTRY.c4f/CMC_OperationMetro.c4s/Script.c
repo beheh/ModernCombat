@@ -377,6 +377,10 @@ func CreateDecoration()
   vmachine->Set(3);
   CreateObject(VGMN, 3760, 370, -1)->Set(2);
 
+  //Schilder
+  CreateObject(MSGN, 940, 440, -1);
+  CreateObject(MSGN, 4300, 440, -1);
+
   //Geländer
   CreateObject(RAI1, 1120, 300, -1)->SetRail([1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1]);
   CreateObject(RAI1, 1590, 370, -1);
