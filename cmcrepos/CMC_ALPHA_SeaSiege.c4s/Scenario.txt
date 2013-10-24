@@ -31,13 +31,14 @@ Crew=PCMK=1
 Crew=PCMK=1
 
 [Landscape]
-Vegetation=SWD2=5;SWD1=5;SHEL=4
+Sky=Default
+SkyFade=255,232,119,155,132,19
+Vegetation=SWD2=5;SWD1=5;SHEL=4;PLM2=10;PLM1=10;BSH2=10
 VegetationLevel=100,0,0,100
 MapWidth=80,0,64,250
 MapHeight=80,0,40,250
 NoScan=1
-SkyScrollMode=1
 NewStyleLandscape=2
 
 [Environment]
-Objects=STRM=1;LENS=1;SONE=1;ELGT=1
+Objects=EGRS=1;EGLN=3;BRDS=1;LENS=1
