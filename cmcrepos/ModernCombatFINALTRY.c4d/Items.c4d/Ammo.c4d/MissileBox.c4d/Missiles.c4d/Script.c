@@ -4,5 +4,5 @@
 
 
 public func IsAmmo()		{return true;}	//Ist Munitionsart
-public func MaxAmmo()		{return 15;}	//Maximal tragbar
+public func MaxAmmo()		{return 12;}	//Maximal tragbar
 public func GetPointFactor()	{return 10;}
