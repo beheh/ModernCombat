@@ -164,6 +164,13 @@ private func Folded()
   FadeOut();
 }
 
+/* Aufnahme verhindern */
+
+public func RejectEntrance()
+{
+  return true;
+}
+
 /* Schaden */
 
 public func Damage()
