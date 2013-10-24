@@ -120,15 +120,3 @@ OverloadTextures
 113=BrownRock-Canyon3
 114=BrownRock-Canyon4
 115=BrownRock-Rough
-116=Coral1-Coral1
-117=Coral1-Coral2
-118=Coral1-Coral3
-119=Coral1-Coral4
-120=Coral2-Coral1
-121=Coral2-Coral2
-122=Coral2-Coral3
-123=Coral2-Coral4
-124=Coral3-Coral1
-125=Coral3-Coral2
-126=Coral3-Coral3
-127=Coral3-Coral4
