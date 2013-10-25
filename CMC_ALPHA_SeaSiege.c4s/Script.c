@@ -62,57 +62,6 @@ func CreateInterior()
   CreateObject(HA4K, 7600, 973, -1);
   CreateObject(HA4K, 7710, 973, -1);
 
-/*
-  //Große Bodenluken
-  CreateObject(H24K, 2035, 1378, -1);
-  CreateObject(H24K, 2445, 1328, -1);
-  CreateObject(H24K, 2445, 1488, -1);
-  CreateObject(H24K, 2745, 1378, -1);
-  CreateObject(H24K, 4035, 1428, -1);
-  CreateObject(H24K, 4045, 1588, -1);
-  CreateObject(H24K, 4165, 1428, -1);
-  CreateObject(H24K, 5885, 1428, -1);
-  CreateObject(H24K, 6005, 1588, -1);
-  CreateObject(H24K, 6015, 1428, -1);
-  CreateObject(H24K, 7305, 1378, -1);
-  CreateObject(H24K, 7605, 1328, -1);
-  CreateObject(H24K, 7605, 1488, -1);
-  CreateObject(H24K, 8015, 1378, -1);
-
-  //Rampen
-  DrawMaterialQuad("Wall-Plate",1300,1321,1300,1361,1260,1321,1300,1321,true);
-
-  DrawMaterialQuad("Wall-PlateBlue",1341,1150,1341,1140,1371,1150,1341,1150,true);
-  DrawMaterialQuad("Wall-Plate",1371,1160,1371,1150,1401,1160,1371,1160,true);
-  DrawMaterialQuad("Wall-PlateBlue",1401,1171,1401,1161,1431,1171,1401,1171,true);
-
-  DrawMaterialQuad("Wall-Metal2",1371,1300,1371,1290,1341,1300,1371,1300,true);
-  DrawMaterialQuad("Wall-Metal2",1400,1290,1400,1280,1370,1290,1400,1290,true);
-  DrawMaterialQuad("Wall-Plate",1430,1280,1430,1270,1400,1280,1430,1280,true);
-  DrawMaterialQuad("Wall-Plate",1460,1270,1460,1260,1430,1270,1460,1270,true);
-
-  DrawMaterialQuad("Wall-Plate",1731,1270,1731,1260,1761,1270,1731,1270,true);
-  DrawMaterialQuad("Wall-Plate",1761,1281,1761,1271,1791,1281,1761,1281,true);
-  DrawMaterialQuad("Wall-Metal2",1791,1291,1791,1281,1821,1291,1791,1291,true);
-  DrawMaterialQuad("Wall-Metal2",1821,1301,1821,1291,1851,1301,1821,1301,true);
-
-  DrawMaterialQuad("Wall-PlateBlue",2252,1170,2252,1160,2222,1170,2252,1170,true);
-  DrawMaterialQuad("Wall-Plate",2280,1160,2280,1150,2250,1160,2280,1160,true);
-  DrawMaterialQuad("Wall-PlateBlue",2311,1150,2311,1140,2281,1150,2311,1150,true);
-
-  DrawMaterialQuad("Wall-Plate",2231,1321,2231,1361,2391,1321,2231,1321,true);
-
-  DrawMaterialQuad("Wall-Stripes", 2290, 1279, 2350, 1279, 2290, 1280, 2350, 1280, 1);
-  DrawMaterialQuad("Rock-ROUGH", 3130, 1278, 3180, 1278, 3130, 1280, 3180, 1280, 1);
-  DrawMaterialQuad("Rock-ROUGH", 3350, 1278, 3400, 1278, 3350, 1280, 3400, 1280, 1);
-  DrawMaterialQuad("Rock-ROUGH", 3500, 1278, 3570, 1278, 3500, 1280, 3570, 1280, 1);
-  DrawMaterialQuad("Granite-Rock", 4570, 1228, 4630, 1228, 4570, 1230, 4630, 1230, 1);
-
-  //Glasscheiben
-  CreateObject(_WIN, 4062, 1520, -1);
-  CreateObject(_WIN, 5988, 1520, -1);
-*/
-
   //Kisten
   CreateObject(WCR2, 2360, 970, -1)->AutoRespawn();
   CreateObject(WCR2, 7690, 970, -1)->AutoRespawn();
@@ -242,10 +191,12 @@ func CreateInterior()
   tower->AddNode(5640, 1185, 2, CreateObject(REHR, 5645, 1190, -1), 0, 2);
 
   //Verbundene Räume
+  /*
   var doorw2 = CreateObject(GAT1, 2395, 935, -1);
   CreateObject(ROOM, 3500, 940, -1)->Connect(doorw2);
   doorw2 = CreateObject(GAT1, 7655, 935, -1);
   CreateObject(ROOM, 6550, 940, -1)->Connect(doorw2);
+  */
   doorw = CreateObject(GAT1, 5025, 490, -1);
   pRoom = CreateObject(ROOM, 5025, 940, -1);
   pRoom->Connect(doorw);
@@ -264,46 +215,40 @@ func CreateInterior()
   CreateObject(SE4K, 9100, 300, -1)->Set("WindSound*.ogg",3000,105);
 
   //Hallen
-  CreateObject(SE4K, 2390, 1510, -1)->Set("Interior*.ogg",665,105);
-  CreateObject(SE4K, 3990, 1620, -1)->Set("Interior*.ogg",665,105);
-  CreateObject(SE4K, 6060, 1620, -1)->Set("Interior*.ogg",665,105);
-  CreateObject(SE4K, 7660, 1510, -1)->Set("Interior*.ogg",665,105);
+  CreateObject(SE4K, 2390, 850, -1)->Set("Interior*.ogg",665,105);
+  CreateObject(SE4K, 3500, 840, -1)->Set("Interior*.ogg",665,105);
+  CreateObject(SE4K, 5025, 740, -1)->Set("Interior*.ogg",665,105);
+  CreateObject(SE4K, 6550, 840, -1)->Set("Interior*.ogg",665,105);
+  CreateObject(SE4K, 7660, 850, -1)->Set("Interior*.ogg",665,105);
 
   //Möven
-  CreateObject(SE4K, 1000, 950, -1)->Set("SeaSounds*.ogg",140,35);
-  CreateObject(SE4K, 2000, 950, -1)->Set("SeaSounds*.ogg",140,35);
-  CreateObject(SE4K, 3000, 950, -1)->Set("SeaSounds*.ogg",140,35);
-  CreateObject(SE4K, 7050, 950, -1)->Set("SeaSounds*.ogg",140,35);
-  CreateObject(SE4K, 8050, 950, -1)->Set("SeaSounds*.ogg",140,35);
-  CreateObject(SE4K, 9050, 950, -1)->Set("SeaSounds*.ogg",140,35);
+  CreateObject(SE4K, 500, 950, -1)->Set("SeaSounds*.ogg",140,35);
+  CreateObject(SE4K, 1300, 950, -1)->Set("SeaSounds*.ogg",140,35);
+  CreateObject(SE4K, 3880, 950, -1)->Set("SeaSounds*.ogg",140,35);
+  CreateObject(SE4K, 6170, 950, -1)->Set("SeaSounds*.ogg",140,35);
+  CreateObject(SE4K, 8750, 950, -1)->Set("SeaSounds*.ogg",140,35);
+  CreateObject(SE4K, 9550, 950, -1)->Set("SeaSounds*.ogg",140,35);
 
   //Erdrutsche
-  CreateObject(SE4K, 4710, 1380, -1)->Set("FallingDirt*.ogg",950,250);
-  CreateObject(SE4K, 5340, 1380, -1)->Set("FallingDirt*.ogg",950,250);
+  CreateObject(SE4K, 1065, 980, -1)->Set("FallingDirt*.ogg",950,250);
+  CreateObject(SE4K, 8990, 980, -1)->Set("FallingDirt*.ogg",950,250);
 
   //Wellen
-  CreateObject(SE4K, 500, 1050, -1)->Set("Wave*.ogg",105,35);
-  CreateObject(SE4K, 1000, 1050, -1)->Set("Wave*.ogg",105,35);
-  CreateObject(SE4K, 1500, 1050, -1)->Set("Wave*.ogg",105,35);
-  CreateObject(SE4K, 2000, 1050, -1)->Set("Wave*.ogg",105,35);
-  CreateObject(SE4K, 2500, 1050, -1)->Set("Wave*.ogg",105,35);
-  CreateObject(SE4K, 3500, 1050, -1)->Set("Wave*.ogg",105,35);
-  CreateObject(SE4K, 4000, 1050, -1)->Set("Wave*.ogg",105,35);
-  CreateObject(SE4K, 4500, 1050, -1)->Set("Wave*.ogg",105,35);
-  CreateObject(SE4K, 5000, 1050, -1)->Set("Wave*.ogg",105,35);
-  CreateObject(SE4K, 5500, 1050, -1)->Set("Wave*.ogg",105,35);
-  CreateObject(SE4K, 6000, 1050, -1)->Set("Wave*.ogg",105,35);
-  CreateObject(SE4K, 6500, 1050, -1)->Set("Wave*.ogg",105,35);
-  CreateObject(SE4K, 7000, 1050, -1)->Set("Wave*.ogg",105,35);
-  CreateObject(SE4K, 7500, 1050, -1)->Set("Wave*.ogg",105,35);
-  CreateObject(SE4K, 8000, 1050, -1)->Set("Wave*.ogg",105,35);
-  CreateObject(SE4K, 8500, 1050, -1)->Set("Wave*.ogg",105,35);
-  CreateObject(SE4K, 9000, 1050, -1)->Set("Wave*.ogg",105,35);
-  CreateObject(SE4K, 9500, 1050, -1)->Set("Wave*.ogg",105,35);
-  CreateObject(SE4K, 10000, 1050, -1)->Set("Wave*.ogg",105,35);
+  CreateObject(SE4K, 500, 1000, -1)->Set("Wave*.ogg",105,35);
+  CreateObject(SE4K, 1300, 1000, -1)->Set("Wave*.ogg",105,35);
+  CreateObject(SE4K, 2890, 1000, -1)->Set("Wave*.ogg",105,35);
+  CreateObject(SE4K, 4270, 1000, -1)->Set("Wave*.ogg",105,35);
+  CreateObject(SE4K, 5025, 1000, -1)->Set("Wave*.ogg",105,35);
+  CreateObject(SE4K, 5770, 1000, -1)->Set("Wave*.ogg",105,35);
+  CreateObject(SE4K, 7160, 1000, -1)->Set("Wave*.ogg",105,35);
+  CreateObject(SE4K, 8760, 1000, -1)->Set("Wave*.ogg",105,35);
+  CreateObject(SE4K, 9580, 1000, -1)->Set("Wave*.ogg",105,35);
 
-  //Lautsprecher
-  CreateObject(SE4K, 5025, 720, -1)->Set("Announce*.ogg",3000,200);
+  //Jungel
+  CreateObject(SE4K, 1520, 950, -1)->Set("Jungle*.ogg",140,70);
+  CreateObject(SE4K, 1950, 780, -1)->Set("Jungle*.ogg",140,70);
+  CreateObject(SE4K, 8120, 780, -1)->Set("Jungle*.ogg",140,70);
+  CreateObject(SE4K, 8525, 950, -1)->Set("Jungle*.ogg",140,70);
 }
 
 func CreateEquipment()
@@ -494,7 +439,7 @@ func OnTowerCollapse()
   if(FindObject(GOCC))
   {
    //Flaggenposten verschieben
-   aFlag[2]->MoveFlagpost(5025,940,1,"$Flag6$");
+   aFlag[2]->MoveFlagpost(5025,940,0,"$Flag6$");
   }
 }
 
@@ -606,6 +551,10 @@ public func ChooserFinished()
    //Grenzen setzen
    CreateObject(BRDR, 1115, 0, -1)->Set(0);
    CreateObject(BRDR, 8930, 0, -1)->Set(1);
+
+   //Hinweisschilder
+   CreateObject(SGNP, 1130, 1010, -1);
+   CreateObject(SGNP, 8920, 1010, -1);
 
    //Patrouillenboote
    SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,2340,1009,-1),50*21);

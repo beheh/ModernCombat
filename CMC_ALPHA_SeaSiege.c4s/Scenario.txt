@@ -1,6 +1,6 @@
 [Head]
 Icon=16
-Title=CMC - Sea Siege
+Title=CMC - Tropical Storm
 MaxPlayer=12
 MaxPlayerLeague=12
 Loader=Loader_CMC*
@@ -42,3 +42,6 @@ NewStyleLandscape=2
 
 [Environment]
 Objects=EGRS=1;EGLN=3;BRDS=1;LENS=1
+
+[Animals]
+Animal=BIRD=3
