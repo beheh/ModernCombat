@@ -1,1 +1,2 @@
-Collected=%dx {{%i}} collected.
+BombCollected=<c ffff33>%s</c> has picked up the bomb!
+BombDropped=<c ffff33>%s</c> has dropped the bomb!
