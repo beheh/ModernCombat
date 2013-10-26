@@ -28,14 +28,17 @@ public func FxBaseAssaultBombStart(object pTarget, int iNr)
 
 public func FxBaseAssaultBombTimer(object pTarget, int iNr, int iTime)
 {
-  if(!(iTime % 174)) //Alle 5 Sekunden blinken
+  //Blinken
+  if(!(iTime % 100))
   {
-  	pTarget->CreateParticle("PSpark", 0, 0, 0, 0, 100, RGB(255), pTarget);
-  	Sound("AHBS_Beep1.ogg", false, pTarget);
-	}
+    //Effekte
+    //pTarget->CreateParticle("PSpark", 0, 0, 0, 0, 300, RGB(255), pTarget);
+    pTarget->AddLightFlash (300, 0, 0, RGB(255,0,0), pTarget);
+    Sound("AHBS_Beep1.ogg", false, pTarget);
+  }
 
-	if(pTarget->~IsFakeDeath())
-		return -1;
+  if(pTarget->~IsFakeDeath())
+    return -1;
 }
 
 public func FxBaseAssaultBombStop(object pTarget, int iNr, int iReason)
