@@ -1,4 +1,4 @@
-/*-- Neues Script --*/
+/*-- Zielobjekt --*/
 
 #strict 2
 

@@ -1,12 +1,12 @@
-/*-- Neues Script --*/
+/*-- Assault --*/
 
 #strict 2
-
 #appendto GASS
+
 
 public func IsAttackable(object pTarget, int iNr)
 {
-	//Ziel an der Reihe?
+  //Ziel an der Reihe?
   var iTarget = GetIndexOf(pTarget, aTargets[iDefender]),
   iNext = GetNextTarget();
 
@@ -34,7 +34,7 @@ public func OnPlantingComplete(array aAttackers, object pTarget)
   TeamEventInfo(iAttacker, Format("$TargetArmedAttacker$", GetName(pTarget)), SM16, 0, 0, 0, "Info_Event.ogg");
   //Eventnachricht: Ladung plaziert, entschärfen
   TeamEventInfo(iDefender, Format("$TargetArmedDefender$", GetName(pTarget)), SM17, 0, 0, 0, "Info_Event.ogg");
-  
+
   return true;
 }
 
@@ -45,15 +45,15 @@ public func OnDefusingComplete(array aDefenders, object pTarget)
   //Eventnachricht: Ladung entschärft
   TeamEventInfo(iDefender, Format("$TargetDefusedDefender$", GetName(pTarget)), SM16, 0, 0, 0, "Info_Event.ogg");
 
-	return true;
+  return true;
 }
 
 public func OnBombTimer(object pTarget)
 {
-	//Ticketabzug-Timer zurücksetzen
+  //Ticketabzug-Timer zurücksetzen
   var effect = GetEffect("TicketSubtraction", this);
   if(effect)
     EffectCall(this, effect, "Reset");
 
-	return true;
+  return true;
 }
