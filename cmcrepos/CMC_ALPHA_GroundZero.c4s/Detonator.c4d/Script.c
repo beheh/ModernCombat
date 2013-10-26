@@ -7,7 +7,7 @@ public func IsSpecialGoalItem() { return true; }
 
 public func OnSpawnpointCollect(object pSpawn, object pClonk)
 {
-	EventInfo4K(0, Format("%s hat die Bombe!", GetTaggedPlayerName(GetOwner(pClonk))), C4PA);
+	EventInfo4K(0, Format("$BombCollected$", GetTaggedPlayerName(GetOwner(pClonk))), C4PA);
 	AddBombObject(pClonk);
 	RemoveObject(pSpawn);
 	RemoveObject(this);
@@ -42,7 +42,7 @@ public func FxBaseAssaultBombStop(object pTarget, int iNr, int iReason)
 {
 	if(iReason >= 3 || (pTarget && pTarget->~IsFakeDeath())) //Checken ob innerhalb von Lava/Grenzgebiet
 	{
-		EventInfo4K(0, Format("%s hat die Bombe fallen gelassen!", GetTaggedPlayerName(GetOwner(pTarget))), C4PA);
+		EventInfo4K(0, Format("$BombDropped$", GetTaggedPlayerName(GetOwner(pTarget))), C4PA);
 		PlaceBombSpawnpoint(GetX(pTarget), GetY(pTarget));
 	}
 
