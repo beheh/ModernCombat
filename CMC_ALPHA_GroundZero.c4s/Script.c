@@ -434,7 +434,7 @@ public func ChooserFinished()
    AddAssaultTarget(CCP2, 560, 460, 400, 1, "$Flag1$", 0, [[430, 220], [560,290], [700, 290]]);
    AddAssaultTarget(CMSN, 1290, 520, 300, 1, "$Flag2$", 1, [[880, 390], [880, 450], [915, 260]]);
 
-   AddAssaultTarget(CCP2, 3000, 390, 400, 2, "$Flag5$", 0, [[2485, 260], [2520, 390], [2520, 450]]);
+   AddAssaultTarget(CCP2, 2110, 520, 400, 2, "$Flag5$", 0, [[2485, 260], [2520, 390], [2520, 450]]);
    AddAssaultTarget(CMSN, 2840, 460, 300, 2, "$Flag4$", 1, [[2700, 290], [2840, 290], [2970, 220]]);
 
    //Sprengsatz-Spawn
