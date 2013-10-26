@@ -1,1 +1,2 @@
-Collected=%dx {{%i}} aufgenommen.
+BombCollected=%s hat die Bombe aufgenommen!
+BombDropped=%s hat die Bombe fallen gelassen!

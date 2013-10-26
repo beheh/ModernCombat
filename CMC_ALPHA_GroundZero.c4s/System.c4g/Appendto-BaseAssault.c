@@ -83,7 +83,8 @@ public func OnDefusingComplete(array aDefenders)
 
 public func ReportAssaultTargetDestruction()
 {
-	PlaceBombSpawnpoint();
+	EventInfo4K(0, "$BombSpawnDelay$");
+	ScheduleCall(this, "PlaceBombSpawnpoint", 35*10);
 	return _inherited(...);
 }
 
