@@ -431,11 +431,11 @@ public func ChooserFinished()
   if(FindObject(GBAS))
   {
    //Strukturen
-   AddAssaultTarget(CCP2, 400, 390, 400, 1, "$Flag1$", 0, [[430, 540], [500, 540], [560, 560]]);
-   AddAssaultTarget(CMSN, 1290, 520, 300, 1, "$Flag2$", 1, [[1230, 320], [1420, 320], [1300, 170]]);
+   AddAssaultTarget(CCP2, 560, 460, 400, 1, "$Flag1$", 0, [[430, 220], [560,290], [700, 290]]);
+   AddAssaultTarget(CMSN, 1290, 520, 300, 1, "$Flag2$", 1, [[880, 390], [880, 450], [915, 260]]);
 
-   AddAssaultTarget(CCP2, 3000, 390, 400, 2, "$Flag5$", 0, [[2970, 540], [2900, 540], [2840, 560]]);
-   AddAssaultTarget(CMSN, 2110, 520, 300, 2, "$Flag4$", 1, [[2170, 320], [1980, 320], [2100, 170]]);
+   AddAssaultTarget(CCP2, 3000, 390, 400, 2, "$Flag5$", 0, [[2485, 260], [2520, 390], [2520, 450]]);
+   AddAssaultTarget(CMSN, 2840, 460, 300, 2, "$Flag4$", 1, [[2700, 290], [2840, 290], [2970, 220]]);
 
    //Sprengsatz-Spawn
    SetupBombSpawnpoint(1700, 410);
