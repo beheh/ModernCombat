@@ -26,8 +26,14 @@ public func FxBaseAssaultBombStart(object pTarget, int iNr)
 	SetGraphics(0, pTarget, EFLN, EffectVar(0, pTarget, iNr) = GetUnusedOverlayID(1, pTarget), GFXOV_MODE_Base);
 }
 
-public func FxBaseAssaultBombTimer(object pTarget)
+public func FxBaseAssaultBombTimer(object pTarget, int iNr, int iTime)
 {
+  if(!(iTime % 174)) //Alle 5 Sekunden blinken
+  {
+  	pTarget->CreateParticle("PSpark", 0, 0, 0, 0, 100, RGB(255), pTarget);
+  	Sound("AHBS_Beep1.ogg", false, pTarget);
+	}
+
 	if(pTarget->~IsFakeDeath())
 		return -1;
 }
