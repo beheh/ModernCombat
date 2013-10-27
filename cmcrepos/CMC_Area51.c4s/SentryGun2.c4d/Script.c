@@ -16,6 +16,7 @@ local curPrio;
 local powerMode;
 local leftborder;
 local rightborder;
+local fTurning;
 
 public func MaxDamage()				{return 100;}				//Maximaler Schaden
 public func RepairSpeed()			{return 4;}				//Reparatur-Geschwindigkeit
@@ -107,6 +108,9 @@ public func OnDestruction()
   //Effekte
   if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",3,20,0,0,220,500);
   if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("ConcreteSplinter",4,100,0,0,40,15,RGB(40,20,20));
+  
+  //Drehsound
+  Sound("ATBY_CannonRotation.ogg", false, this, 50, 0, -1);
 }
 
 public func Destruction()
@@ -255,7 +259,26 @@ public func Activity()
     }
 
     //Drehung festlegen
+    var prevAngle = aim_angle;
     aim_angle += BoundBy(target_angle-AimAngle(),-1,1);
+    if(prevAngle != aim_angle)
+    {
+    	if(!fTurning)
+    	{
+    		Sound("ATBY_CannonStart.ogg", false, this);
+   			Sound("ATBY_CannonRotation.ogg", false, this, 50, 0, 1);
+   		}
+    	fTurning = true;
+    }
+    else
+    {
+    	if(fTurning)
+    	{
+    		Sound("ATBY_CannonStop.ogg", false, this);
+    		Sound("ATBY_CannonRotation.ogg", false, this, 50, 0, -1);
+    	}
+    	fTurning = false;
+    }
 
     //Kein Ziel: Eventuelles Feuer einstellen und alle 3 Frames neue Ziele suchen
     if(!GotTarget)
@@ -343,7 +366,26 @@ public func Activity()
       if((MaxRotRight() >= 360) && (target_angle < MaxRotRight()-360))
         target_angle += 360;
 
+			var prevAngle = aim_angle;
       aim_angle += BoundBy(target_angle-AimAngle(),-5,5);
+      if(prevAngle != aim_angle)
+    	{
+    		if(!fTurning)
+    		{
+    			Sound("ATBY_CannonStart.ogg", false, this);
+   				Sound("ATBY_CannonRotation.ogg", false, this, 50, 0, 1);
+   			}
+    		fTurning = true;
+    	}
+    	else
+    	{
+    		if(fTurning)
+    		{
+    			Sound("ATBY_CannonStop.ogg", false, this);
+    			Sound("ATBY_CannonRotation.ogg", false, this, 50, 0, -1);
+    		}
+    		fTurning = false;
+    	}
 
       //Wenn Ziel im Visier, entsprechend das Feuer eröffnen/einstellen
       if(Abs(AimAngle() - target_angle) < 15)
@@ -374,7 +416,26 @@ public func Activity()
           else
             target_angle = BoundBy(AimAngle() + 50 - 100*Random(2), MaxRotLeft(), MaxRotRight());
       }
+      var prevAngle = aim_angle;
       aim_angle += BoundBy(target_angle-AimAngle(),-3,3);
+      if(prevAngle != aim_angle)
+    	{
+    		if(!fTurning)
+    		{
+    			Sound("ATBY_CannonStart.ogg", false, this);
+   				Sound("ATBY_CannonRotation.ogg", false, this, 50, 0, 1);
+   			}
+    		fTurning = true;
+    	}
+    	else
+    	{
+    		if(fTurning)
+    		{
+    			Sound("ATBY_CannonStop.ogg", false, this);
+    			Sound("ATBY_CannonRotation.ogg", false, this, 50, 0, -1);
+    		}
+    		fTurning = false;
+    	}
 
       //Eventuelles Feuer einstellen
       if(Shooting)
