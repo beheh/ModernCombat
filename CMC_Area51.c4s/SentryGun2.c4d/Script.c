@@ -108,9 +108,9 @@ public func OnDestruction()
   //Effekte
   if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",3,20,0,0,220,500);
   if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("ConcreteSplinter",4,100,0,0,40,15,RGB(40,20,20));
-  
-  //Drehsound
-  Sound("ATBY_CannonRotation.ogg", false, this, 50, 0, -1);
+
+  //Eventuelles Waffenbewegungsgeräusch stoppen
+  Sound("ATBY_CannonRotation.ogg", false, this, 30, 0, -1);
 }
 
 public func Destruction()
@@ -263,21 +263,22 @@ public func Activity()
     aim_angle += BoundBy(target_angle-AimAngle(),-1,1);
     if(prevAngle != aim_angle)
     {
-    	if(!fTurning)
-    	{
-    		Sound("ATBY_CannonStart.ogg", false, this);
-   			Sound("ATBY_CannonRotation.ogg", false, this, 50, 0, 1);
-   		}
-    	fTurning = true;
+      //Sounds für Waffenbewegung
+      if(!fTurning)
+      {
+        Sound("ATBY_CannonStart.ogg", false, this, 30);
+   	    Sound("ATBY_CannonRotation.ogg", false, this, 30, 0, 1);
+   	  }
+      fTurning = true;
     }
     else
     {
-    	if(fTurning)
-    	{
-    		Sound("ATBY_CannonStop.ogg", false, this);
-    		Sound("ATBY_CannonRotation.ogg", false, this, 50, 0, -1);
-    	}
-    	fTurning = false;
+      if(fTurning)
+      {
+        Sound("ATBY_CannonStop.ogg", false, this, 30);
+        Sound("ATBY_CannonRotation.ogg", false, this, 30, 0, -1);
+      }
+      fTurning = false;
     }
 
     //Kein Ziel: Eventuelles Feuer einstellen und alle 3 Frames neue Ziele suchen
@@ -366,26 +367,26 @@ public func Activity()
       if((MaxRotRight() >= 360) && (target_angle < MaxRotRight()-360))
         target_angle += 360;
 
-			var prevAngle = aim_angle;
+      var prevAngle = aim_angle;
       aim_angle += BoundBy(target_angle-AimAngle(),-5,5);
       if(prevAngle != aim_angle)
-    	{
-    		if(!fTurning)
-    		{
-    			Sound("ATBY_CannonStart.ogg", false, this);
-   				Sound("ATBY_CannonRotation.ogg", false, this, 50, 0, 1);
-   			}
-    		fTurning = true;
-    	}
-    	else
-    	{
-    		if(fTurning)
-    		{
-    			Sound("ATBY_CannonStop.ogg", false, this);
-    			Sound("ATBY_CannonRotation.ogg", false, this, 50, 0, -1);
-    		}
-    		fTurning = false;
-    	}
+      {
+        if(!fTurning)
+        {
+          Sound("ATBY_CannonStart.ogg", false, this, 30);
+          Sound("ATBY_CannonRotation.ogg", false, this, 30, 0, 1);
+        }
+        fTurning = true;
+      }
+      else
+      {
+        if(fTurning)
+        {
+          Sound("ATBY_CannonStop.ogg", false, this, 30);
+          Sound("ATBY_CannonRotation.ogg", false, this, 30, 0, -1);
+        }
+        fTurning = false;
+      }
 
       //Wenn Ziel im Visier, entsprechend das Feuer eröffnen/einstellen
       if(Abs(AimAngle() - target_angle) < 15)
@@ -419,23 +420,23 @@ public func Activity()
       var prevAngle = aim_angle;
       aim_angle += BoundBy(target_angle-AimAngle(),-3,3);
       if(prevAngle != aim_angle)
-    	{
-    		if(!fTurning)
-    		{
-    			Sound("ATBY_CannonStart.ogg", false, this);
-   				Sound("ATBY_CannonRotation.ogg", false, this, 50, 0, 1);
-   			}
-    		fTurning = true;
-    	}
-    	else
-    	{
-    		if(fTurning)
-    		{
-    			Sound("ATBY_CannonStop.ogg", false, this);
-    			Sound("ATBY_CannonRotation.ogg", false, this, 50, 0, -1);
-    		}
-    		fTurning = false;
-    	}
+      {
+        if(!fTurning)
+        {
+          Sound("ATBY_CannonStart.ogg", false, this, 30);
+          Sound("ATBY_CannonRotation.ogg", false, this, 30, 0, 1);
+        }
+        fTurning = true;
+      }
+      else
+      {
+        if(fTurning)
+        {
+          Sound("ATBY_CannonStop.ogg", false, this, 30);
+          Sound("ATBY_CannonRotation.ogg", false, this, 30, 0, -1);
+        }
+        fTurning = false;
+      }
 
       //Eventuelles Feuer einstellen
       if(Shooting)
