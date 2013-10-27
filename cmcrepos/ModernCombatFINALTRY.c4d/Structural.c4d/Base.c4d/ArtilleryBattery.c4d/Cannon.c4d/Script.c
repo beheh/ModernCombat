@@ -18,3 +18,8 @@ func EjectBullet()
 {
   SABulletCasing(0, 0, RandomX(-20,-10), RandomX(-30,-20), 12);
 }
+
+func Stop()
+{
+  Sound("ATBY_CannonStop.ogg");
+}

@@ -5,7 +5,8 @@ Facet=60,0,6,68
 Length=11
 Delay=3
 NextAction=Aim
-Sound=CannonRotation
+Sound=ATBY_CannonRotation.ogg
+EndCall=Stop
 
 [Action]
 Name=Aim
