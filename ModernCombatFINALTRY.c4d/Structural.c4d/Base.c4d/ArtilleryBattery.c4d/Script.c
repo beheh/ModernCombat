@@ -48,13 +48,35 @@ func Rotation()
 
   if(!bRotate) return;
 
-  if(!FindObject2(Find_Action("Push"), Find_ActionTarget(this))) {bRotate = 0; Sound("CannonStop"); return;}
+  if(!FindObject2(Find_Action("Push"), Find_ActionTarget(this)))
+  {
+    bRotate = 0;
+    //Geschützrotationsgeräusche stoppen
+    StopCannonSound();
+    return;
+  }
 
-  if(GetR(pCannon)> 80) {bRotate=0; SetR(GetR(pCannon)-1,pCannon); Sound("CannonStop"); return;}
-  if(GetR(pCannon)<-80) {bRotate=0; SetR(GetR(pCannon)+1,pCannon); Sound("CannonStop"); return;}
+  if(GetR(pCannon)> 80)
+  {
+    bRotate=0;
+    SetR(GetR(pCannon)-1,pCannon);
+    //Geschützrotationsgeräusche stoppen
+    StopCannonSound();
+    return;
+  }
+  if(GetR(pCannon)<-80)
+  {
+    bRotate=0;
+    SetR(GetR(pCannon)+1,pCannon);
+    //Geschützrotationsgeräusche stoppen
+    StopCannonSound();
+    return;
+  }
 
-  if(bDirection==0) {Sound("CannonRotation"); SetR(GetR(pCannon)+1,pCannon);}
-  if(bDirection==1) {Sound("CannonRotation"); SetR(GetR(pCannon)-1,pCannon);}
+  if(bDirection==0)
+    SetR(GetR(pCannon)+1,pCannon);
+  if(bDirection==1)
+    SetR(GetR(pCannon)-1,pCannon);
 }
 
 func SetRotation(aRotation)
@@ -71,6 +93,12 @@ func ControlRight(pByObj)
   if(IsDestroyed())
     return PlayerMessage(GetOwner(pByObj),"$Destroyed$", this);
 
+  if(!bRotate)
+  {
+    //Geschützrotationsgeräusche
+    StartCannonSound();
+  }
+
   bRotate=1;
   bDirection=0;
 }
@@ -80,6 +108,12 @@ func ControlLeft(pByObj)
   //Zerstört?
   if(IsDestroyed())
     return PlayerMessage(GetOwner(pByObj),"$Destroyed$", this);
+
+  if(!bRotate)
+  {
+    //Geschützrotationsgeräusche
+    StartCannonSound();
+  }
 
   bRotate=1;
   bDirection=1;
@@ -91,8 +125,12 @@ func ControlDown(pByObj)
   if(IsDestroyed())
     return PlayerMessage(GetOwner(pByObj),"$Destroyed$", this);
 
+  if(bRotate)
+  {
+    //Geschützrotationsgeräusche stoppen
+    StopCannonSound();
+  }
   bRotate=0;
-  Sound("CannonStop");
 }
 
 func ControlUp(pByObj)
@@ -180,6 +218,20 @@ public func Shoot()
   Echo("RTLR_Echo.ogg");
 }
 
+/* Sound */
+
+public func StartCannonSound()
+{
+  Sound("ATBY_CannonStart.ogg", false, this, 50);
+  Sound("ATBY_CannonRotation.ogg", false, this, 50, 0, 1);
+}
+
+public func StopCannonSound()
+{
+  Sound("ATBY_CannonStop.ogg", false, this, 50);
+  Sound("ATBY_CannonRotation.ogg", false, this, 30, 0, -1);
+}
+
 /* Schaden */
 
 public func OnDestruction()
@@ -191,6 +243,9 @@ public func OnDestruction()
   iCooldown = 0;
 
   RemoveEffect("ShowWeapon", this); 
+
+  //Eventuelles Geschützbewegungsgeräusch stoppen
+  Sound("ATBY_CannonRotation.ogg", false, this, 30, 0, -1);
 
   //Effekte
   if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",15,20,0,0,220,500);
