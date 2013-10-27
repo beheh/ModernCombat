@@ -243,7 +243,7 @@ public func Activity()
     if(target_angle < MaxRotLeft() || target_angle > MaxRotRight())
       target_angle = AimAngle();
     //Alle 80 Frames eine zufällige Bewegung nach links oder rechts
-    if(!(GetActTime()%80))
+    if(!GotTarget && !(GetActTime()%80))
     {
       if(target_angle == MaxRotRight())
         target_angle -= 50;
@@ -254,13 +254,8 @@ public func Activity()
           target_angle = BoundBy(AimAngle() + 50 - 100*Random(2), MaxRotLeft(), MaxRotRight());
     }
 
-    //Kein Ziel: Zufällige Bewegung ausführen
-    if(!GotTarget)
-    {
-      aim_angle += BoundBy(target_angle-AimAngle(),-3,3);
-    }
-    if(GotTarget)
-      aim_angle += BoundBy(target_angle-AimAngle(),-1,1);
+    //Drehung festlegen
+    aim_angle += BoundBy(target_angle-AimAngle(),-1,1);
 
     //Kein Ziel: Eventuelles Feuer einstellen und alle 3 Frames neue Ziele suchen
     if(!GotTarget)
@@ -302,6 +297,17 @@ public func Activity()
         GotTarget = 0;
       else if(ObjectDistance(GotTarget,this) > SearchLength())
         GotTarget = 0;
+      else
+      {
+      	//Winkel zum Ziel
+    		var search_angle = Angle(GetX(), GetY() + 7, GetX(GotTarget), GetY(GotTarget));
+
+    		search_angle = Normalize(search_angle, 0);
+    		if(MaxRotRight() < 360 && (search_angle < MaxRotLeft() || search_angle > MaxRotRight()))
+      		GotTarget = 0;
+    		else if(MaxRotRight() >= 360 && (search_angle < MaxRotLeft() && search_angle > MaxRotRight()-360))
+      		GotTarget = 0;
+      }
     }
   }
   //Ansonsten AA-Patrouille fahren
@@ -400,12 +406,12 @@ public func Search(int iX, int iWidth, int iHeight)
       continue;
 
     //Winkel zum Ziel
-    var target_angle = Angle(GetX(), GetY() + 7, GetX(pAim), GetY(pAim));
+    var search_angle = Angle(GetX(), GetY() + 7, GetX(pAim), GetY(pAim));
 
-    target_angle = Normalize(target_angle, 0);
-    if(MaxRotRight() < 360 && (target_angle < MaxRotLeft() || target_angle > MaxRotRight()))
+    search_angle = Normalize(search_angle, 0);
+    if(MaxRotRight() < 360 && (search_angle < MaxRotLeft() || search_angle > MaxRotRight()))
       continue;
-    else if(MaxRotRight() >= 360 && (target_angle < MaxRotLeft() && target_angle > MaxRotRight()-360))
+    else if(MaxRotRight() >= 360 && (search_angle < MaxRotLeft() && search_angle > MaxRotRight()-360))
       continue;
 
     var pTarget = pAim;
