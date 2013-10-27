@@ -201,16 +201,16 @@ public func GetWeaponR()
   return EffectVar(1, this, number);
 }
 
+/* Zielerfassung und Suchbewegung */
+
 public func Activity()
 {
-  //Waffe vorhanden?
-  if(!GetAttWeapon()) return;
-  //Zerstört?
-  if(EMPShocked()) return;
-  if(IsDestroyed()) return;
-  //Aktiviert/nicht am reparieren?
-  if(!fActive) return;
-  if(IsRepairing()) return;
+  //Bereitschaft prüfen: Waffe vorhanden/kein EMP-Einfluss/nicht zerstört/ist eingeschaltet/nicht am reparieren
+  if(!GetAttWeapon())	return;
+  if(EMPShocked())	return;
+  if(IsDestroyed())	return;
+  if(!fActive)		return;
+  if(IsRepairing())	return;
 
   //Wenn nicht schon gesetzt: Turn-Action
   if(!fAAMode)
@@ -221,10 +221,10 @@ public func Activity()
   else if(GetAction() != "Tower")
     SetAction("Tower");
 
-  //Owner updaten
+  //Besitzer aktualisieren
   cur_Attachment->SetTeam(GetTeam());
 
-  // alle 30 Frames
+  //Alle 30 Frames blinken
   if(!(GetActTime()%30))
   {
     if(GetTeam())
@@ -236,32 +236,33 @@ public func Activity()
     CreateParticle("FlashLight",0,4,0,0,3*15,rgb,this);
   }
 
-  /* Patrouille fahren */
-  if(!fAAMode)  
+  //Im Standard-Modus entsprechende Patrouille fahren
+  if(!fAAMode)
   {
-  	if(target_angle < MaxRotLeft() || target_angle > MaxRotRight())
-  		target_angle = AimAngle();
+    //Rotation feststellen
+    if(target_angle < MaxRotLeft() || target_angle > MaxRotRight())
+      target_angle = AimAngle();
+    //Alle 80 Frames eine zufällige Bewegung nach links oder rechts
     if(!(GetActTime()%80))
-   	{
-   		if(target_angle == MaxRotRight())
-   			target_angle -= 50;
-   		else
-   			if(target_angle == MaxRotLeft())
-   				target_angle += 50;
-   			else
-   				target_angle = BoundBy(AimAngle() + 50 - 100*Random(2), MaxRotLeft(), MaxRotRight());
-   	}
-    
+    {
+      if(target_angle == MaxRotRight())
+        target_angle -= 50;
+      else
+        if(target_angle == MaxRotLeft())
+          target_angle += 50;
+        else
+          target_angle = BoundBy(AimAngle() + 50 - 100*Random(2), MaxRotLeft(), MaxRotRight());
+    }
+
+    //Kein Ziel: Zufällige Bewegung ausführen
     if(!GotTarget)
     {
       aim_angle += BoundBy(target_angle-AimAngle(),-3,3);
     }
-
     if(GotTarget)
       aim_angle += BoundBy(target_angle-AimAngle(),-1,1);
 
-    /* Feinde suchen */
-  
+    //Kein Ziel: Eventuelles Feuer einstellen und alle 3 Frames neue Ziele suchen
     if(!GotTarget)
     {
       if(Shooting)
@@ -269,17 +270,18 @@ public func Activity()
         Shooting = false;
           GetAttWeapon()->StopAutoFire();
       }
-      //Nur alle 3 Frames
       if(!(GetActTime()%3))
         GotTarget = Search();
     }
+    //Ansonsten Ziel verfolgen und Feuer eröffnen
     else
     {
       target_angle = Angle(GetX(), GetY() + 7, GetX(GotTarget), GetY(GotTarget));
-  
+
       if((MaxRotRight() >= 360) && (target_angle < MaxRotRight()-360))
         target_angle += 360;
-  
+
+      //Wenn Ziel im Visier, entsprechend das Feuer eröffnen/einstellen
       if(Abs(AimAngle() - target_angle) < 15)
       {
         Shooting = true;
@@ -302,34 +304,42 @@ public func Activity()
         GotTarget = 0;
     }
   }
+  //Ansonsten AA-Patrouille fahren
   else
   {
     powerMode--;
+
+    //Keine Ziele: Prioritäten zurücksetzen
     if(!ValidTarget(GotTarget))
     {
       curPrio = 0;
       GotTarget = 0;
     }
 
-		var fHasTarget = GotTarget;
-		
+    var fHasTarget = GotTarget;
+
+    //Ziele suchen
     if(curPrio < 5 && (powerMode > 0 || !(GetActTime()%2)))
-        GotTarget = SearchAA();
-    
+      GotTarget = SearchAA();
+
+    //Ziel vorhanden: Verfolgen und Feuer eröffnen
     if(GotTarget)
     {
-    	if(!fHasTarget)
-    		Sound("BipBipBip.wav", false, this, 50);
-    		
+      //Signalgeräusch bei neuer Zielerfassung
+      if(!fHasTarget)
+        Sound("BBTP_Alarm.ogg", false, this, 50);
+
       powerMode = 100;
-      
+
+      //Rotation berechnen
       target_angle = Angle(GetX(), GetY(), GetX(GotTarget), GetY(GotTarget));
-    
+
       if((MaxRotRight() >= 360) && (target_angle < MaxRotRight()-360))
         target_angle += 360;
-    
+
       aim_angle += BoundBy(target_angle-AimAngle(),-5,5);
-      
+
+      //Wenn Ziel im Visier, entsprechend das Feuer eröffnen/einstellen
       if(Abs(AimAngle() - target_angle) < 15)
       {
         Shooting = true;
@@ -344,23 +354,27 @@ public func Activity()
         GetAttWeapon()->StopAutoFire();
       }
     }
+    //Ansonsten zufällige Bewegung ausführen
     else
     {
-    	if(!(GetActTime()%80))
-   		{
-   			if(target_angle == MaxRotRight())
-   				target_angle -= 50;
-   			else
-   				if(target_angle == MaxRotLeft())
-   					target_angle += 50;
-   				else
-   					target_angle = BoundBy(AimAngle() + 50 - 100*Random(2), MaxRotLeft(), MaxRotRight());
-   		}
+      //Alle 80 Frames eine zufällige Bewegung nach links oder rechts
+      if(!(GetActTime()%80))
+      {
+        if(target_angle == MaxRotRight())
+          target_angle -= 50;
+        else
+          if(target_angle == MaxRotLeft())
+            target_angle += 50;
+          else
+            target_angle = BoundBy(AimAngle() + 50 - 100*Random(2), MaxRotLeft(), MaxRotRight());
+      }
       aim_angle += BoundBy(target_angle-AimAngle(),-3,3);
+
+      //Eventuelles Feuer einstellen
       if(Shooting)
       {
         Shooting = false;
-          GetAttWeapon()->StopAutoFire();
+        GetAttWeapon()->StopAutoFire();
       }
       curPrio = 0;
     }
@@ -422,10 +436,10 @@ public func SearchAA()
     
     if(pAim->~IsHelicopter())
     {
-    	if(!pAim->~GetPassengerCount())
-      	priority = 1;
+      if(!pAim->~GetPassengerCount())
+        priority = 1;
       else
-      	priority = 2;
+        priority = 2;
     }
     if(pAim->~IsMAV())
       priority = 3;
@@ -458,30 +472,30 @@ func FindAATargets(int maxDist)
   var y = GetY();
 
   var preTargets = FindObjects(
-		Find_Distance(maxDist, AbsX(x), AbsY(y)),
-		Find_NoContainer(),
+        Find_Distance(maxDist, AbsX(x), AbsY(y)),
+        Find_NoContainer(),
         Find_Or(
                 Find_Func("IsRifleGrenade"),
                 Find_Func("IsRocket"),
                 Find_And(Find_Func("IsHelicopter"), Find_Func("IsBulletTarget")),
                 Find_Func("IsMAV"),
                 Find_And(Find_OCF(OCF_Alive))),
-    Find_Not(Find_Func("IsDestroyed")),
-		Sort_Distance()
+        Find_Not(Find_Func("IsDestroyed")),
+        Sort_Distance()
         );
 
   var gravity = GetGravity();
   SetGravity(0);
-  
+
   for(pT in preTargets)
   {
     if(ValidTarget(pT))
-		  // dann rein in Ergebnismenge...
-		  targets[GetLength(targets)] = pT;
-	}
-	
-	SetGravity(gravity);
-	return targets;
+      //In Ergebnismenge aufnehmen
+      targets[GetLength(targets)] = pT;
+  }
+
+  SetGravity(gravity);
+  return targets;
 }
 
 func ValidTarget(object pT)
@@ -495,14 +509,14 @@ func ValidTarget(object pT)
   if(!CheckEnemy(this, pT, true))	return;
 
   var ox = GetX(pT);
-	var oy = GetY(pT);
-	
-	if(leftborder && ox < leftborder)
-		return;
-	if(rightborder && ox > rightborder)
-		return;
-		
-	//Winkel zum Ziel
+  var oy = GetY(pT);
+
+  if(leftborder && ox < leftborder)
+    return;
+  if(rightborder && ox > rightborder)
+    return;
+
+  //Winkel zum Ziel
   var target_angle = Angle(GetX(), GetY(), ox, oy);
   target_angle = Normalize(target_angle, 0);
   if(MaxRotRight() < 360 && (target_angle < MaxRotLeft() || target_angle > MaxRotRight()))
@@ -510,16 +524,16 @@ func ValidTarget(object pT)
   else if(MaxRotRight() >= 360 && (target_angle < MaxRotLeft() && target_angle > MaxRotRight()-360))
     return;
 
-	// Pfad frei
-	if(!PathFree(GetX(), GetY(), ox, oy))
+  //Pfad frei
+  if(!PathFree(GetX(), GetY(), ox, oy))
     return;
 
-	// unsichtbare Ziele
-	if(!CheckVisibility(pT, this))
-		return;
+  //unsichtbare Ziele
+  if(!CheckVisibility(pT, this))
+    return;
 
-	//Alles in Ordnung
-	return true;
+  //Alles in Ordnung
+  return true;
 }
 
 private func Reload()
