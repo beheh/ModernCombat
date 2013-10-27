@@ -48,7 +48,7 @@ public func Initialize()
 
 /* Einstellungen */
 
-func Set(id idWeapon, bool fMode, bool active, int rot)
+func Set(id idWeapon, bool fMode, bool active, int rot, int left, int right)
 {
   //Waffe erstellen
   if(idWeapon)
@@ -71,10 +71,6 @@ func Set(id idWeapon, bool fMode, bool active, int rot)
     SetGraphics(0, this, 0, 5);
   }
 
-  //SSA rotieren
-  SetR(rot);
-  target_angle = AimAngle();
-
   //SSA einschalten
   if(active != fActive)
   {
@@ -83,6 +79,16 @@ func Set(id idWeapon, bool fMode, bool active, int rot)
     else
       TurnOff();
   }
+
+  //SSA rotieren
+  SetR(rot);
+  target_angle = AimAngle();
+
+  //Zielerfassung einschränken
+  if(left)
+    leftborder = left;
+  if(right)
+    rightborder = right;
 }
 
 /* Schaden */
