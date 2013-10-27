@@ -20,7 +20,7 @@ local rightborder;
 public func MaxDamage()				{return 100;}				//Maximaler Schaden
 public func RepairSpeed()			{return 4;}				//Reparatur-Geschwindigkeit
 public func GetAttWeapon()			{return cur_Attachment;}		//Waffe
-public func SearchLength()			{return 350 + fAAMode*400;}		//Suchlänge
+public func SearchLength()			{return 350 + fAAMode*300;}		//Suchlänge
 public func MaxRotLeft()			{return 110 + GetR() - fAAMode*40;}	//Maximaler Winkel links
 public func MaxRotRight()			{return 250 + GetR() + fAAMode*40;}	//Maximaler Winkel rechts
 public func AimAngle()				{return aim_angle+GetR();}		//Winkel auf Ziel
