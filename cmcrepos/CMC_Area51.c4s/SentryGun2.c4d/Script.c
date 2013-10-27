@@ -267,8 +267,8 @@ public func Activity()
       if(!fTurning)
       {
         Sound("ATBY_CannonStart.ogg", false, this, 30);
-   	    Sound("ATBY_CannonRotation.ogg", false, this, 30, 0, 1);
-   	  }
+        Sound("ATBY_CannonRotation.ogg", false, this, 30, 0, 1);
+      }
       fTurning = true;
     }
     else
