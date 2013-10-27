@@ -72,6 +72,7 @@ func Set(id idWeapon, bool fMode, bool active, int rot)
 
   //SSA rotieren
   SetR(rot);
+  target_angle = AimAngle();
 
   //SSA einschalten
   if(active != fActive)
@@ -238,30 +239,24 @@ public func Activity()
   /* Patrouille fahren */
   if(!fAAMode)  
   {
-    // alle 5 Frames
-    if(!(GetActTime()%5))
+  	if(target_angle < MaxRotLeft() || target_angle > MaxRotRight())
+  		target_angle = AimAngle();
+    if(!(GetActTime()%80))
+   	{
+   		if(target_angle == MaxRotRight())
+   			target_angle -= 50;
+   		else
+   			if(target_angle == MaxRotLeft())
+   				target_angle += 50;
+   			else
+   				target_angle = BoundBy(AimAngle() + 50 - 100*Random(2), MaxRotLeft(), MaxRotRight());
+   	}
+    
+    if(!GotTarget)
     {
-      //Zu weit links?
-      if(AimAngle() <= MaxRotLeft())
-      {
-        //Wir fahren zurück
-        iPat_Dir = 1;
-        target_angle = MaxRotRight();
-        GotTarget = 0;
-      }
-      //Oder zu weit rechts?
-      else if(AimAngle() >= MaxRotRight())
-      {
-        //Hinfahren
-        iPat_Dir = -1;
-        target_angle = MaxRotLeft();
-        GotTarget = 0;
-      }
-      if(!GotTarget)
-      {
-        aim_angle += iPat_Dir*3;
-      }
+      aim_angle += BoundBy(target_angle-AimAngle(),-3,3);
     }
+
     if(GotTarget)
       aim_angle += BoundBy(target_angle-AimAngle(),-1,1);
 
@@ -352,9 +347,15 @@ public func Activity()
     else
     {
     	if(!(GetActTime()%80))
-    	{
-    		target_angle = BoundBy(AimAngle() + 50 - 100*Random(2), MaxRotLeft(), MaxRotRight());
-    	}
+   		{
+   			if(target_angle == MaxRotRight())
+   				target_angle -= 50;
+   			else
+   				if(target_angle == MaxRotLeft())
+   					target_angle += 50;
+   				else
+   					target_angle = BoundBy(AimAngle() + 50 - 100*Random(2), MaxRotLeft(), MaxRotRight());
+   		}
       aim_angle += BoundBy(target_angle-AimAngle(),-3,3);
       if(Shooting)
       {
@@ -385,7 +386,7 @@ public func Search(int iX, int iWidth, int iHeight)
       continue;
 
     //Winkel zum Ziel
-    target_angle = Angle(GetX(), GetY() + 7, GetX(pAim), GetY(pAim));
+    var target_angle = Angle(GetX(), GetY() + 7, GetX(pAim), GetY(pAim));
 
     target_angle = Normalize(target_angle, 0);
     if(MaxRotRight() < 360 && (target_angle < MaxRotLeft() || target_angle > MaxRotRight()))
@@ -510,12 +511,7 @@ func ValidTarget(object pT)
     return;
 
 	// Pfad frei
-  var simX = GetX();
-	var simY = GetY();
-	var xdir = Sin(target_angle, 10);
-	var ydir = -Cos(target_angle, 10);
-
-	if(SimFlight(simX, simY, xdir, ydir) && (Distance(GetX(), GetY(), simX, simY) < Distance(GetX(), GetY(), ox, oy)))
+	if(!PathFree(GetX(), GetY(), ox, oy))
     return;
 
 	// unsichtbare Ziele
