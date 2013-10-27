@@ -299,14 +299,14 @@ public func Activity()
         GotTarget = 0;
       else
       {
-      	//Winkel zum Ziel
-    		var search_angle = Angle(GetX(), GetY() + 7, GetX(GotTarget), GetY(GotTarget));
+        //Winkel zum Ziel
+        var search_angle = Angle(GetX(), GetY() + 7, GetX(GotTarget), GetY(GotTarget));
 
-    		search_angle = Normalize(search_angle, 0);
-    		if(MaxRotRight() < 360 && (search_angle < MaxRotLeft() || search_angle > MaxRotRight()))
-      		GotTarget = 0;
-    		else if(MaxRotRight() >= 360 && (search_angle < MaxRotLeft() && search_angle > MaxRotRight()-360))
-      		GotTarget = 0;
+        search_angle = Normalize(search_angle, 0);
+        if(MaxRotRight() < 360 && (search_angle < MaxRotLeft() || search_angle > MaxRotRight()))
+          GotTarget = 0;
+        else if(MaxRotRight() >= 360 && (search_angle < MaxRotLeft() && search_angle > MaxRotRight()-360))
+          GotTarget = 0;
       }
     }
   }
