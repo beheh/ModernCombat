@@ -233,7 +233,7 @@ public func UpdateScoreboard()
   if (FindObject(CHOS)) return;
 
   //Titelzeile
-  SetScoreboardData(SBRD_Caption, GHTF_Name, Format("%d $Points$", iGoal));
+  SetScoreboardData(SBRD_Caption, GHTF_Name, GetName());//Format("%d $Points$", iGoal));
 
   //Spaltentitel
   SetScoreboardData(SBRD_Caption, GHTF_Points, "{{GHTF}}");
@@ -254,6 +254,10 @@ public func UpdateScoreboard()
   //Leere Zeile
   SetScoreboardData(GHTF_FlagRow-1, GHTF_Progress, "", GHTF_FlagRow-1);
   SetScoreboardData(GHTF_FlagRow-1, GHTF_Points, "", GHTF_FlagRow-1);
+
+	//Benötigte Punktzahl
+	SetScoreboardData(GHTF_FlagRow-2, GHTF_Name, "$SbrdGoalPoints$", GHTF_FlagRow-1);
+	SetScoreboardData(GHTF_FlagRow-2, GHTF_Points, Format("%d", iGoal), GHTF_FlagRow-1);
 
   //Alle Teams
   var iFlagTeam = pFlag->~GetTeam();
