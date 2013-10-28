@@ -7,7 +7,7 @@ local fHit;
 
 public func IsBulletTarget()	{return true;}
 public func AllowHitboxCheck()	{return true;}
-public func IsArtilleryShell() {return true;}
+public func IsArtilleryShell()	{return true;}
 
 
 /* Initialisierung */
