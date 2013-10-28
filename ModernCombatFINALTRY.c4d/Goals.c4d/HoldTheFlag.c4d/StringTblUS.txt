@@ -14,3 +14,4 @@ MorePoints=More points
 LessPoints=Less points
 Finished=Finished
 Points=Points
+SbrdGoalPoints=Target Score

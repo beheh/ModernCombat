@@ -26,15 +26,15 @@ public func RejectEntrance(object pClonk)
       if(NoAmmo()) return 1;
     }
 
-		//Munition sofort in Munitionsgürtel legen
-		var fAmmo = pObj->~IsAmmoPacket();
-		if(pObj && fAmmo)
-			pObj->~TransferAmmo(pClonk);
+    //Munition sofort in Munitionsgürtel legen
+    var fAmmo = pObj->~IsAmmoPacket();
+    if(pObj && fAmmo)
+      pObj->~TransferAmmo(pClonk);
     else
-    	Collect(pObj, pClonk);
+      Collect(pObj, pClonk);
 
     if(Contained(pObj) == this && !fAmmo)
-	  	RemoveObject(pObj);
+      RemoveObject(pObj);
     else
     {
       Sound("Grab", 0, pClonk, 0, GetOwner(pClonk)+1);
