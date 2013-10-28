@@ -26,18 +26,21 @@ public func RejectEntrance(object pClonk)
       if(NoAmmo()) return 1;
     }
 
-    Collect(pObj, pClonk);
-    if(Contained(pObj) == this)
-	  RemoveObject(pObj);
+		//Munition sofort in Munitionsgürtel legen
+		var fAmmo = pObj->~IsAmmoPacket();
+		if(pObj && fAmmo)
+			pObj->~TransferAmmo(pClonk);
+    else
+    	Collect(pObj, pClonk);
+
+    if(Contained(pObj) == this && !fAmmo)
+	  	RemoveObject(pObj);
     else
     {
       Sound("Grab", 0, pClonk, 0, GetOwner(pClonk)+1);
       Collected(GetOwner(pClonk), pClonk);
-      // Munition
-      if(pObj && pObj->~IsAmmoPacket())
-	    pObj->~TransferAmmo(pClonk);
       // Waffe, gleich einsatzbereit!
-      else if(pObj && pObj->~IsWeapon())
+      if(pObj && pObj->~IsWeapon())
         DoAmmo(pObj->GetFMData(FM_AmmoID),pObj->GetFMData(FM_AmmoLoad),pObj);
     }
   }
