@@ -522,10 +522,12 @@ public func SearchAA()
     if(pAim->~IsRifleGrenade() || pAim->~IsRocket())
     {
       if(pAim->~IsRocket() && pAim->~IsDamaged())
-        priority = 5;
+        priority = 8;
       else
         priority = 6;
     }
+    if(pAim->~IsArtilleryShell())
+    	priority = 7;
 
     if(priority > curPrio)
     {
@@ -553,13 +555,11 @@ func FindAATargets(int maxDist)
                 Find_Func("IsRocket"),
                 Find_And(Find_Func("IsHelicopter"), Find_Func("IsBulletTarget")),
                 Find_Func("IsMAV"),
+                Find_Func("IsArtilleryShell"),
                 Find_And(Find_OCF(OCF_Alive))),
         Find_Not(Find_Func("IsDestroyed")),
         Sort_Distance()
         );
-
-  var gravity = GetGravity();
-  SetGravity(0);
 
   for(pT in preTargets)
   {
@@ -568,7 +568,6 @@ func FindAATargets(int maxDist)
       targets[GetLength(targets)] = pT;
   }
 
-  SetGravity(gravity);
   return targets;
 }
 
