@@ -527,7 +527,7 @@ public func SearchAA()
         priority = 6;
     }
     if(pAim->~IsArtilleryShell())
-    	priority = 7;
+      priority = 7;
 
     if(priority > curPrio)
     {
