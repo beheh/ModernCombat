@@ -203,7 +203,7 @@ public func Shoot()
   var iY=-Cos(GetR(pCannon),34)-3;
 
   var pProjectile = CreateObject(ABLT,iX,iY,GetOwner(byObj));
-  SetController(GetController(), pProjectile);
+  SetOwner(GetController(), pProjectile);
   SetXDir( Sin(GetR(pCannon),RandomX(135,165)),pProjectile,10);
   SetYDir(-Cos(GetR(pCannon),RandomX(135,165)),pProjectile,10);
 
