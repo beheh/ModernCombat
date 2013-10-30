@@ -142,3 +142,7 @@ global func AngleOffset4K(int iBase, int iSecond)
 
   return(offset);
 }
+
+/* Vorzeichen eines Wertes*/
+
+global func Sgn(int x)					{if (x < 0) return -1; if (x > 0) return 1; return 0;}

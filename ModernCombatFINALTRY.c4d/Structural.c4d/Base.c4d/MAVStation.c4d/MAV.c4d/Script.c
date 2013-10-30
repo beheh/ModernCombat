@@ -34,7 +34,6 @@ public func UpdateCharge()				{return 1;}
 public func GetAttWeapon()				{return cur_Attachment;}
 public func IsAiming()					{return fIsAiming;}
 public func GetLaser()					{return pLaser;}
-public func Sgn(int x)					{if (x < 0) return -1; if (x > 0) return 1; return 0;}
 public func IsMAV()					{return true;}
 public func MaxDamage()					{return 60;}
 public func IsRepairable()				{return !fDestroyed;}
