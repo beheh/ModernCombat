@@ -23,28 +23,28 @@ local living_dmg_cooldown;	//Gehört zum Schweißbrenner, ist aber praktischer, we
 local ChargeBar;
 local pMAVStation;
 
-public func AttractTracer(object pTracer)		{return GetPlayerTeam(GetController(pTracer)) != GetTeam() && !fDestroyed;}
-public func IsBulletTarget()				{return !fDestroyed;}
-public func IsDestroyed()				{return fDestroyed;}
-public func AimAngle()					{return iAimAngle;}  //Winkel auf Ziel
-public func ReadyToFire()				{return 1;}
-public func IsMachine()					{return true;}
-public func IsThreat()					{return !IsDestroyed();}
-public func UpdateCharge()				{return 1;}
-public func GetAttWeapon()				{return cur_Attachment;}
-public func IsAiming()					{return fIsAiming;}
-public func GetLaser()					{return pLaser;}
-public func IsMAV()					{return true;}
-public func MaxDamage()					{return 60;}
-public func IsRepairable()				{return !fDestroyed;}
-public func IsMeleeTarget(object attacker)		{return !fDestroyed && Hostile(GetOwner(this), GetOwner(attacker));}
-public func MeleeHit(object pWeapon)			{return DoDmg(MaxDamage()+1, DMG_Melee, this, 0, GetOwner(pWeapon));}
-public func SensorDistance()				{return 190;}
-public func IsActive()					{return GetAction(this) == "Flying";}
-public func TeamSupportRange()				{return 80;}
-public func RejectC4Attach()				{iC4Count++; return iC4Count > 3;}
-public func IsBorderTarget()				{return true;}
-public func GetRealCursor()				{return IsActive() && pMAVStation->GetUser();}
+public func AttractTracer(object pTracer)	{return GetPlayerTeam(GetController(pTracer)) != GetTeam() && !fDestroyed;}
+public func IsBulletTarget()			{return !fDestroyed;}
+public func IsDestroyed()			{return fDestroyed;}
+public func AimAngle()				{return iAimAngle;}  //Winkel auf Ziel
+public func ReadyToFire()			{return 1;}
+public func IsMachine()				{return true;}
+public func IsThreat()				{return !IsDestroyed();}
+public func UpdateCharge()			{return 1;}
+public func GetAttWeapon()			{return cur_Attachment;}
+public func IsAiming()				{return fIsAiming;}
+public func GetLaser()				{return pLaser;}
+public func IsMAV()				{return true;}
+public func MaxDamage()				{return 60;}
+public func IsRepairable()			{return !fDestroyed;}
+public func IsMeleeTarget(object attacker)	{return !fDestroyed && Hostile(GetOwner(this), GetOwner(attacker));}
+public func MeleeHit(object pWeapon)		{return DoDmg(MaxDamage()+1, DMG_Melee, this, 0, GetOwner(pWeapon));}
+public func SensorDistance()			{return 190;}
+public func IsActive()				{return GetAction(this) == "Flying";}
+public func TeamSupportRange()			{return 80;}
+public func RejectC4Attach()			{iC4Count++; return iC4Count > 3;}
+public func IsBorderTarget()			{return true;}
+public func GetRealCursor()			{return IsActive() && pMAVStation->GetUser();}
 
 
 public func MaxRotLeft()
