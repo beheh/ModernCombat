@@ -49,9 +49,9 @@ public func Initialize()
 
 func Set(id idWeapon, bool fMode, bool active, int rot, int left, int right)
 {
-	//Alte Waffe entfernen
-	Disarm();
-	
+  //Alte Waffe entfernen
+  Disarm();
+
   //Waffe erstellen
   if(idWeapon)
     Arm(idWeapon);
@@ -299,7 +299,7 @@ public func Activity()
       }
       if(!(GetActTime()%3))
         GotTarget = Search();
-        
+
       if(GotTarget)
         Sound("BBTP_Alarm.ogg", false, this, 50);
     }
@@ -503,8 +503,8 @@ public func Search(int iX, int iWidth, int iHeight)
 
 public func GetPriority(object pSuspect)
 {
-	var priority = 0;
-    
+  var priority = 0;
+
   if(pSuspect->~IsHelicopter())
   {
     if(!pSuspect->~GetPassengerCount())
@@ -525,8 +525,8 @@ public func GetPriority(object pSuspect)
   }
   if(pSuspect->~IsArtilleryShell())
     priority = 7;
-      
-	return priority;
+
+  return priority;
 }
 
 public func SearchAA()
@@ -538,16 +538,16 @@ public func SearchAA()
   var curPrio = 0;
   if(pTarget)
   {
-  	iAngleDist = Abs(target_angle - AimAngle());
-  	//Log("%d, %d, %d", iAngleDist, target_angle, AimAngle());
-  	curPrio = GetPriority(pTarget);
+    iAngleDist = Abs(target_angle - AimAngle());
+    //Log("%d, %d, %d", iAngleDist, target_angle, AimAngle());
+    curPrio = GetPriority(pTarget);
   }
   
   for(pAim in Targets)
   {
-  	if(pTarget == pAim)
-  		continue;
-  		
+    if(pTarget == pAim)
+      continue;
+
     var priority = GetPriority(pAim);
 
     if(priority > curPrio)
@@ -558,22 +558,22 @@ public func SearchAA()
     }
     else if (priority == curPrio)
     {
-    	var iCheckAngle = Angle(GetX(), GetY() + 7, GetX(pAim), GetY(pAim));
+      var iCheckAngle = Angle(GetX(), GetY() + 7, GetX(pAim), GetY(pAim));
 
       if((MaxRotRight() >= 360) && (iCheckAngle < MaxRotRight()-360))
         iCheckAngle += 360;
-      
+
       var iCheckDist = Abs(iCheckAngle - AimAngle());
-      
+
       if(iCheckDist < iAngleDist)
       {
-      	pTarget = pAim;
-      	curPrio = priority;
-      	iAngleDist = iCheckDist;
+        pTarget = pAim;
+        curPrio = priority;
+        iAngleDist = iCheckDist;
       }
     }
   }
-  
+
   return pTarget;
 }
 
@@ -614,7 +614,7 @@ func ValidTarget(object pT)
   if(!pT) return;
 
   if((GetOCF(pT) & OCF_Alive) && GetProcedure(pT) != "FLIGHT") return;
-  
+
   if(!IsBulletTarget()) return;
 
   if(!CheckEnemy(this, pT, true))	return;
@@ -627,8 +627,8 @@ func ValidTarget(object pT)
   if(rightborder && ox > rightborder)
     return;
 
-	if(Distance(GetX(), GetY(), ox, oy) > SearchDistance())
-		return;
+  if(Distance(GetX(), GetY(), ox, oy) > SearchDistance())
+    return;
 
   //Winkel zum Ziel
   var target_angle = Angle(GetX(), GetY() + 7, ox, oy);
