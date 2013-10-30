@@ -12,7 +12,6 @@ local fActive;
 local GotTarget;
 local last_id;
 local fAAMode;
-local curPrio;
 local powerMode;
 local leftborder;
 local rightborder;
@@ -21,7 +20,7 @@ local fTurning;
 public func MaxDamage()				{return 100;}				//Maximaler Schaden
 public func RepairSpeed()			{return 4;}				//Reparatur-Geschwindigkeit
 public func GetAttWeapon()			{return cur_Attachment;}		//Waffe
-public func SearchLength()			{return 350 + fAAMode*300;}		//Suchlänge
+public func SearchDistance()			{return 350 + fAAMode*300;}		//Suchlänge
 public func MaxRotLeft()			{return 110 + GetR() - fAAMode*40;}	//Maximaler Winkel links
 public func MaxRotRight()			{return 250 + GetR() + fAAMode*40;}	//Maximaler Winkel rechts
 public func AimAngle()				{return aim_angle+GetR();}		//Winkel auf Ziel
@@ -50,6 +49,9 @@ public func Initialize()
 
 func Set(id idWeapon, bool fMode, bool active, int rot, int left, int right)
 {
+	//Alte Waffe entfernen
+	Disarm();
+	
   //Waffe erstellen
   if(idWeapon)
     Arm(idWeapon);
@@ -297,6 +299,9 @@ public func Activity()
       }
       if(!(GetActTime()%3))
         GotTarget = Search();
+        
+      if(GotTarget)
+        Sound("BBTP_Alarm.ogg", false, this, 50);
     }
     //Ansonsten Ziel verfolgen und Feuer eröffnen
     else
@@ -325,7 +330,7 @@ public func Activity()
         GotTarget = 0;
       else if(!PathFree(GetX(),GetY()+7,GetX(GotTarget), GetY(GotTarget)))
         GotTarget = 0;
-      else if(ObjectDistance(GotTarget,this) > SearchLength())
+      else if(ObjectDistance(GotTarget,this) > SearchDistance())
         GotTarget = 0;
       else
       {
@@ -348,27 +353,26 @@ public func Activity()
     //Keine Ziele: Prioritäten zurücksetzen
     if(!ValidTarget(GotTarget))
     {
-      curPrio = 0;
       GotTarget = 0;
     }
 
     var fHasTarget = GotTarget;
 
     //Ziele suchen
-    if(curPrio < 5 && (powerMode > 0 || !(GetActTime()%2)))
+    if(powerMode > 0 || !(GetActTime()%2))
       GotTarget = SearchAA();
 
     //Ziel vorhanden: Verfolgen und Feuer eröffnen
     if(GotTarget)
     {
       //Signalgeräusch bei neuer Zielerfassung
-      if(!fHasTarget)
+      if(GotTarget != fHasTarget)
         Sound("BBTP_Alarm.ogg", false, this, 50);
 
       powerMode = 100;
 
       //Rotation berechnen
-      target_angle = Angle(GetX(), GetY(), GetX(GotTarget), GetY(GotTarget));
+      target_angle = Angle(GetX(), GetY() + 7, GetX(GotTarget), GetY(GotTarget));
 
       if((MaxRotRight() >= 360) && (target_angle < MaxRotRight()-360))
         target_angle += 360;
@@ -450,7 +454,6 @@ public func Activity()
         Shooting = false;
         GetAttWeapon()->StopAutoFire();
       }
-      curPrio = 0;
     }
   }
 }
@@ -459,10 +462,10 @@ public func Search(int iX, int iWidth, int iHeight)
 {
   var pAim;
 
-  /*DrawParticleLine("PSpark", 0, 0, -70 + Sin(aim_angle, SearchLength()), SearchLength(), 10, 80, RGB(255, 0, 0));
-  DrawParticleLine("PSpark", 0, 0, 70 + Sin(aim_angle, SearchLength()), SearchLength(), 10, 80, RGB(255, 0, 0));*/ 
+  /*DrawParticleLine("PSpark", 0, 0, -70 + Sin(aim_angle, SearchDistance()), SearchDistance(), 10, 80, RGB(255, 0, 0));
+  DrawParticleLine("PSpark", 0, 0, 70 + Sin(aim_angle, SearchDistance()), SearchDistance(), 10, 80, RGB(255, 0, 0));*/ 
 
-  var Targets = FindTargets(this, SearchLength());
+  var Targets = FindTargets(this, SearchDistance());
   var pTarget = 0;
   for(pAim in Targets)
   {
@@ -498,41 +501,76 @@ public func Search(int iX, int iWidth, int iHeight)
   return pTarget;
 }
 
+public func GetPriority(object pSuspect)
+{
+	var priority = 0;
+    
+  if(pSuspect->~IsHelicopter())
+  {
+    if(!pSuspect->~GetPassengerCount())
+      priority = 1;
+    else
+      priority = 2;
+  }
+  if(pSuspect->~IsMAV())
+    priority = 3;
+  if(GetOCF(pSuspect) & OCF_Alive)
+    priority = 4;
+  if(pSuspect->~IsRifleGrenade() || pSuspect->~IsRocket())
+  {
+    if(pSuspect->~IsRocket() && pSuspect->~IsDamaged())
+      priority = 6;
+    else
+      priority = 8;
+  }
+  if(pSuspect->~IsArtilleryShell())
+    priority = 7;
+      
+	return priority;
+}
+
 public func SearchAA()
 {
   var pAim;
-  var Targets = FindAATargets(SearchLength());
+  var Targets = FindAATargets(SearchDistance());
   var pTarget = GotTarget;
+  var iAngleDist = 360;
+  var curPrio = 0;
+  if(pTarget)
+  {
+  	iAngleDist = Abs(target_angle - AimAngle());
+  	//Log("%d, %d, %d", iAngleDist, target_angle, AimAngle());
+  	curPrio = GetPriority(pTarget);
+  }
   
   for(pAim in Targets)
   {
-    var priority = 0;
-    
-    if(pAim->~IsHelicopter())
-    {
-      if(!pAim->~GetPassengerCount())
-        priority = 1;
-      else
-        priority = 2;
-    }
-    if(pAim->~IsMAV())
-      priority = 3;
-    if(GetOCF(pAim) & OCF_Alive)
-      priority = 4;
-    if(pAim->~IsRifleGrenade() || pAim->~IsRocket())
-    {
-      if(pAim->~IsRocket() && pAim->~IsDamaged())
-        priority = 8;
-      else
-        priority = 6;
-    }
-    if(pAim->~IsArtilleryShell())
-      priority = 7;
+  	if(pTarget == pAim)
+  		continue;
+  		
+    var priority = GetPriority(pAim);
 
     if(priority > curPrio)
     {
       pTarget = pAim;
       curPrio = priority;
+      iAngleDist = iCheckDist;
+    }
+    else if (priority == curPrio)
+    {
+    	var iCheckAngle = Angle(GetX(), GetY() + 7, GetX(pAim), GetY(pAim));
+
+      if((MaxRotRight() >= 360) && (iCheckAngle < MaxRotRight()-360))
+        iCheckAngle += 360;
+      
+      var iCheckDist = Abs(iCheckAngle - AimAngle());
+      
+      if(iCheckDist < iAngleDist)
+      {
+      	pTarget = pAim;
+      	curPrio = priority;
+      	iAngleDist = iCheckDist;
+      }
     }
   }
   
@@ -589,8 +627,11 @@ func ValidTarget(object pT)
   if(rightborder && ox > rightborder)
     return;
 
+	if(Distance(GetX(), GetY(), ox, oy) > SearchDistance())
+		return;
+
   //Winkel zum Ziel
-  var target_angle = Angle(GetX(), GetY(), ox, oy);
+  var target_angle = Angle(GetX(), GetY() + 7, ox, oy);
   target_angle = Normalize(target_angle, 0);
   if(MaxRotRight() < 360 && (target_angle < MaxRotLeft() || target_angle > MaxRotRight()))
     return;
@@ -598,7 +639,7 @@ func ValidTarget(object pT)
     return;
 
   //Pfad frei
-  if(!PathFree(GetX(), GetY(), ox, oy))
+  if(!PathFree(GetX(), GetY() + 7, ox, oy))
     return;
 
   //unsichtbare Ziele
