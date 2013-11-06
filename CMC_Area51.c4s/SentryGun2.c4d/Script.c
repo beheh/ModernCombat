@@ -61,17 +61,9 @@ func Set(id idWeapon, bool fMode, bool active, int rot, int left, int right)
   //Modus setzen
   fAAMode = fMode;
   if(fAAMode)
-  {
     SetAction("Tower");
-    SetGraphics(0, this, GetID(), 5, GFXOV_MODE_Action, "Turn");
-    var fsin=Sin(rot, 1000), fcos=Cos(rot, 1000);
-    SetObjDrawTransform(+fcos, -fsin, fsin*0, fsin, +fcos, -(1000-fcos)*0, this, 5);
-  }
   else
-  {
     SetAction("Turn");
-    SetGraphics(0, this, 0, 5);
-  }
 
   //SSA einschalten
   if(active != fActive)
@@ -130,6 +122,11 @@ public func OnRepair()
 {
   //Neu bewaffnen
   Arm(last_id);
+
+  if(fAAMode)
+    SetAction("Tower");
+  else
+    SetAction("Turn");
 }
 
 /* Aufrufe */
