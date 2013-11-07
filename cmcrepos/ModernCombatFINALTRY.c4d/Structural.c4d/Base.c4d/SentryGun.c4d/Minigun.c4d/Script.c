@@ -9,6 +9,7 @@ public func HandX()		{return 7000;}
 public func HandY()		{return 0;}
 public func NoWeaponChoice()	{return true;}
 
+local fNoSpread = false;
 
 /* Kugeln - Dauerfeuer */
 
@@ -31,7 +32,7 @@ public func Fire1()
 {
   //Austritt bestimmen
   var user = GetUser();
-  var angle = user->AimAngle()+RandomX(-3,+3);
+  var angle = user->AimAngle()+(!fNoSpread)*RandomX(-3,+3);
   var dir = GetDir(user)*2-1;
   var iX;
   var iY;
