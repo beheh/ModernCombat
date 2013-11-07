@@ -61,7 +61,10 @@ func Set(id idWeapon, bool fMode, bool active, int rot, int left, int right)
   //Modus setzen
   fAAMode = fMode;
   if(fAAMode)
+  {
     SetAction("Tower");
+    LocalN("fNoSpread", cur_Attachment) = true;
+  }
   else
     SetAction("Turn");
 
