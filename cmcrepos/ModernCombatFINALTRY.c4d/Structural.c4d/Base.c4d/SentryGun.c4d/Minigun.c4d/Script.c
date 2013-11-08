@@ -4,7 +4,7 @@
 
 #include WEPN
 
-local fNoSpread = false;
+local fNoSpread;
 
 public func HandSize()		{return 1000;}
 public func HandX()		{return 7000;}
