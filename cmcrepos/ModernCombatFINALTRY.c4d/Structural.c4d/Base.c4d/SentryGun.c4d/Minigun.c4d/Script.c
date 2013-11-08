@@ -4,12 +4,13 @@
 
 #include WEPN
 
+local fNoSpread = false;
+
 public func HandSize()		{return 1000;}
 public func HandX()		{return 7000;}
 public func HandY()		{return 0;}
 public func NoWeaponChoice()	{return true;}
 
-local fNoSpread = false;
 
 /* Kugeln - Dauerfeuer */
 
@@ -41,9 +42,6 @@ public func Fire1()
   //Kugel abfeuern
   var ammo = CreateObject(SHTX, iX, iY, GetController(user));
   ammo->CustomLaunch(angle, 350, 650, 2, GetFMData(FM_Damage) * 10, GetFMData(FM_Damage));
-
-  //var ammo = CreateObject(SHTX, iX, iY, GetController(user));
-  //ammo->Launch(angle, 300, 600, 2, 100, 3, 1);
 
   //Effekte
   MuzzleFlash(40+Random(60),user,iX,iY,angle);

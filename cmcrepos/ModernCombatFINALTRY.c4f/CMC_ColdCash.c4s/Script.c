@@ -373,6 +373,14 @@ public func ChooserFinished()
    CreateObject(GNET, 1520, 360, -1)->Set(SATW,90);
    CreateObject(GNET, 4020, 360, -1)->Set(SATW,-90);
 
+   //Selbstschussanlagen
+   var selfdef = CreateObject(SEGU, 1740, 510, -1);
+   selfdef->Set(0,1,1,180,0,2150);
+   selfdef->SetTeam(1);
+   selfdef = CreateObject(SEGU, 3800, 510, -1);
+   selfdef->Set(0,1,1,180,3390);
+   selfdef->SetTeam(2);
+
    //Zusätzliche Munition
    if(!FindObject(NOAM))
    {

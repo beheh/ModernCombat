@@ -413,6 +413,14 @@ public func ChooserFinished()
    CreateObject(BRDR, 1760, 0, -1)->Set(0,1,0,1,1);
    CreateObject(BRDR, 2480, 0, -1)->Set(1,1,0,1,2);
 
+   //Selbstschussanlagen
+   var selfdef = CreateObject(SEGU, 1135, 620, -1);
+   selfdef->Set(0,1,1,180,0,1680);
+   selfdef->SetTeam(1);
+   selfdef = CreateObject(SEGU, 3105, 620, -1);
+   selfdef->Set(0,1,1,180,2560);
+   selfdef->SetTeam(2);
+
    //Objekt entfernen
    RemoveObject(aArtillery[0]);
 

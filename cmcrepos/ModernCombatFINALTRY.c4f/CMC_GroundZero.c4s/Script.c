@@ -212,12 +212,10 @@ func CreateInterior()
 
   //Selbstschussanlagen und Konsolen
   aSelfDefense[0] = CreateObject(SEGU, 715, 329, -1);
-    aSelfDefense[0]->Arm(MISA);
-    CreateObject(CONS, 550, 385, -1)->Set(aSelfDefense[0]);
-  
+  CreateObject(CONS, 550, 385, -1)->Set(aSelfDefense[0]);
+
   aSelfDefense[1] = CreateObject(SEGU, 2685, 329, -1);
-    aSelfDefense[1]->Arm(MISA);
-    CreateObject(CONS, 2850, 385, -1)->Set(aSelfDefense[1]);
+  CreateObject(CONS, 2850, 385, -1)->Set(aSelfDefense[1]);
 
   //Tore und Konsolen
   var autod = CreateObject (HNG3, 1700, 610, -1);
