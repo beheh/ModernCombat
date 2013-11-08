@@ -579,6 +579,14 @@ public func ChooserFinished()
    CreateObject(BRDR, 1050, 0, -1)->Set(0,1,0,1,1);
    CreateObject(BRDR, 2030, 0, -1)->Set(1,1,0,1,2);
 
+   //Selbstschussanlagen
+   var selfdef = CreateObject(SEGU, 740, 1490, -1);
+   selfdef->Set(0,1,1,180);
+   selfdef->SetTeam(1);
+   selfdef = CreateObject(SEGU, 2340, 1490, -1);
+   selfdef->Set(0,1,1,180);
+   selfdef->SetTeam(2);
+
    //Zusätzliche Munition
    if(!FindObject(NOAM))
    {
@@ -617,11 +625,11 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   {
    if(iTeam == 1)
    {
-    return [[600, 1480], [740, 1480], [860, 1560]];
+    return [[600, 1480], [625, 1560], [860, 1560]];
    }
    if(iTeam == 2)
    {
-    return [[2480, 1480], [2340, 1480], [2220, 1560]];
+    return [[2480, 1480], [2455, 1560], [2220, 1560]];
    }
    return(1);
   }

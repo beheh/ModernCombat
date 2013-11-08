@@ -279,22 +279,18 @@ func CreateInterior()
 
   //Selbstschussanlagen und Konsolen
   aSelfDefense[0] = CreateObject(SEGU, 590, 329, -1);
-    aSelfDefense[0]->Arm(MISA);
-    CreateObject(CONS, 310, 525, -1)->Set(aSelfDefense[0]);
+  CreateObject(CONS, 310, 525, -1)->Set(aSelfDefense[0]);
 
   aSelfDefense[1] = CreateObject(SEGU, 1252, 556, -1);
-    aSelfDefense[1]->SetR(90);
-    aSelfDefense[1]->Arm(MISA);
-    CreateObject(CONS, 1280, 515, -1)->Set(aSelfDefense[1]);
+  aSelfDefense[1]->Set(0,0,0,90);
+  CreateObject(CONS, 1280, 515, -1)->Set(aSelfDefense[1]);
 
   aSelfDefense[2] = CreateObject(SEGU, 1478, 556, -1);
-    aSelfDefense[2]->SetR(-90);
-    aSelfDefense[2]->Arm(MISA);
-    CreateObject(CONS, 1450, 515, -1)->Set(aSelfDefense[2]);
+  aSelfDefense[2]->Set(0,0,0,-90);
+  CreateObject(CONS, 1450, 515, -1)->Set(aSelfDefense[2]);
 
   aSelfDefense[3] = CreateObject(SEGU, 2140, 329, -1);
-    aSelfDefense[3]->Arm(MISA);
-    CreateObject(CONS, 2420, 525, -1)->Set(aSelfDefense[3]);
+  CreateObject(CONS, 2420, 525, -1)->Set(aSelfDefense[3]);
 
   //Hinweisschilder
   var sign = CreateObject(SNPT, 190, 655, -1);

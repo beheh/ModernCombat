@@ -482,6 +482,11 @@ public func ChooserFinished()
    aStationary[3] = CreateObject(GNET, 4320, 690, -1);
    aStationary[3] -> Set(0,-90,1);
 
+   //Selbstschussanlage
+   var selfdef = CreateObject(SEGU, 1040, 510, -1);
+   selfdef->Set(0,1,1,180,0,1470);
+   selfdef->SetTeam(1);
+
    //Helikopter und Hinweisschilder
    if(!FindObject(NOHC))
    {

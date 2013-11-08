@@ -457,30 +457,24 @@ func CreateInterior()
 
   //Selbstschussanlagen und Konsolen
   //Basis 2
-  aSelfDefense[0] = CreateObject (SEGU, 1065, 698, -1);
-  aSelfDefense[0]->Arm(MISA);
+  aSelfDefense[0] = CreateObject(SEGU, 1065, 700, -1);
   CreateObject(CONS, 1065, 645, -1)->Set(aSelfDefense[0]);
 
-  aSelfDefense[1] = CreateObject (SEGU, 1305, 698, -1);
-  aSelfDefense[1]->Arm(MISA);
+  aSelfDefense[1] = CreateObject(SEGU, 1305, 700, -1);
   CreateObject(CONS, 1305, 645, -1)->Set(aSelfDefense[1]);
 
   //Basis 3
-  aSelfDefense[2] = CreateObject (SEGU, 1080, 1318, -1);
-  aSelfDefense[2]->Arm(MISA);
+  aSelfDefense[2] = CreateObject(SEGU, 1080, 1320, -1);
   CreateObject (CONS, 1130, 1360, -1)->Set(aSelfDefense[2]);
 
-  aSelfDefense[3] = CreateObject (SEGU, 1290, 1318, -1);
-  aSelfDefense[3]->Arm(MISA);
+  aSelfDefense[3] = CreateObject(SEGU, 1290, 1320, -1);
   CreateObject(CONS, 1240, 1360, -1)->Set(aSelfDefense[3]);
 
   //Basis 4
-  aSelfDefense[4] = CreateObject (SEGU, 745, 1765, -1);
-  aSelfDefense[4]->Arm(MISA);
+  aSelfDefense[4] = CreateObject(SEGU, 745, 1765, -1);
   CreateObject (CONS, 770, 1985, -1)->Set(aSelfDefense[4]);
 
-  aSelfDefense[5] = CreateObject (SEGU, 1625, 1765, -1);
-  aSelfDefense[5]->Arm(MISA);
+  aSelfDefense[5] = CreateObject(SEGU, 1625, 1765, -1);
   CreateObject(CONS, 1605, 1985, -1)->Set(aSelfDefense[5]);
 
   //Sendemast

@@ -211,15 +211,13 @@ func CreateInterior()
   CreateObject (CONS, 1570, 1105, -1)->Set(autod);
 
   //Selbstschussanlagen
-  aSelfDefense[0] = CreateObject(SEGU, 1310, 1142, -1);
-    aSelfDefense[0]->Arm(MISA);
-    aSelfDefense[0]->SetR(180);
-    CreateObject(CONS, 1420, 1025, -1)->Set(aSelfDefense[0]);
+  aSelfDefense[0] = CreateObject(SEGU, 1310, 1140, -1);
+  aSelfDefense[0]->Set(0,1,0,180);
+  CreateObject(CONS, 1420, 1025, -1)->Set(aSelfDefense[0]);
 
-  aSelfDefense[1] = CreateObject(SEGU, 2340, 1142, -1);
-    aSelfDefense[1]->Arm(MISA);
-    aSelfDefense[1]->SetR(180);
-    CreateObject(CONS, 1650, 1025, -1)->Set(aSelfDefense[1]);
+  aSelfDefense[1] = CreateObject(SEGU, 2340, 1140, -1);
+  aSelfDefense[1]->Set(0,1,0,180);
+  CreateObject(CONS, 1650, 1025, -1)->Set(aSelfDefense[1]);
 
   //Seegras und Muscheln entfernen
   for(var obj in FindObjects(Find_Or(Find_ID(SWD1), Find_ID(SWD2), Find_ID(SHEL)), Find_InRect(1250, 1270, 1150, 35)))

@@ -613,6 +613,9 @@ public func ChooserFinished()
    CreateObject(BRDR, 400, 0, -1)->Set(0);
    CreateObject(BRDR, 4230, 0, -1)->Set(1);
 
+   //Kiste
+   CreateObject(WCR2, 1350, 740, -1);
+
    //Hinweisschilder
    var sign = CreateObject(SGNP, 780, 1160, -1);
    sign->Set("Turret");
@@ -651,34 +654,27 @@ public func ChooserFinished()
    }
 
    //Selbstschussanlagen
-   aSelfDefense[0] = CreateObject(SEGU, 705, 1069, -1);
-   aSelfDefense[0]->Arm(MISA);
+   aSelfDefense[0] = CreateObject(SEGU, 705, 1070, -1);
+   aSelfDefense[0]->Set(0,0,1);
    CreateObject(CONS, 925, 855, -1)->Set(aSelfDefense[0]);
 
-   aSelfDefense[1] = CreateObject(SEGU, 2960, 839, -1);
-   aSelfDefense[1]->Arm(MISA);
+   aSelfDefense[1] = CreateObject(SEGU, 2960, 840, -1);
+   aSelfDefense[1]->Set(0,0,1);
    CreateObject(CONS, 3310, 920, -1)->Set(aSelfDefense[1]);
 
    aSelfDefense[2] = CreateObject(SEGU, 3192, 690, -1);
-   aSelfDefense[2]->SetR(90);
-   aSelfDefense[2]->Arm(MISA);
+   aSelfDefense[2]->Set(0,1,1,90);
    CreateObject(CONS, 3435, 790, -1)->Set(aSelfDefense[2]);
 
-   aSelfDefense[3] = CreateObject(SEGU, 3785, 899, -1);
-   aSelfDefense[3]->Arm(MISA);
+   aSelfDefense[3] = CreateObject(SEGU, 3785, 900, -1);
+   aSelfDefense[3]->Set(0,0,1);
    CreateObject(CONS, 3895, 850, -1)->Set(aSelfDefense[3]);
 
    //SSA Besitzer setzen
    if(aTeams[1] == true)
-     aSelfDefense[0]->SetTeam(1);
+    aSelfDefense[0]->SetTeam(1);
    if(aTeams[2] == true)
-     {aSelfDefense[1]->SetTeam(2); aSelfDefense[2]->SetTeam(2); aSelfDefense[3]->SetTeam(2);}
-
-   //SSA aktivieren
-   aSelfDefense[0]->TurnOn();
-   aSelfDefense[1]->TurnOn();
-   aSelfDefense[2]->TurnOn();
-   aSelfDefense[3]->TurnOn();
+    {aSelfDefense[1]->SetTeam(2); aSelfDefense[2]->SetTeam(2); aSelfDefense[3]->SetTeam(2);}
 
    //Patrouillenboote
    SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,490,1229,-1),50*21);
@@ -710,7 +706,8 @@ public func ChooserFinished()
    RemoveObject(FindObject2(Find_ID(LADR),Find_InRect(3910, 860, 30, 90)));
    RemoveObject(FindObject2(Find_ID(CONS),Find_InRect(3880, 830, 30, 30)));
 
-   //Leiter
+   //Leitern
+   CreateObject(LADR, 1325, 795, -1)->Set(6);
    CreateObject(LADR, 3920, 1108, -1)->Set(16);
 
    //Metallkisten
@@ -769,28 +766,26 @@ public func ChooserFinished()
    }
 
    //Selbstschussanlagen
-   aSelfDefense[0] = CreateObject(SEGU, 705, 1069, -1);
-   aSelfDefense[0]->Arm(MISA);
+   aSelfDefense[0] = CreateObject(SEGU, 705, 1070, -1);
+   aSelfDefense[0]->Set(0,0,1);
    CreateObject(CONS, 925, 855, -1)->Set(aSelfDefense[0]);
 
    aSelfDefense[1] = CreateObject(SEGU, 3192, 690, -1);
-   aSelfDefense[1]->SetR(90);
-   aSelfDefense[1]->Arm(MISA);
+   aSelfDefense[1]->Set(0,0,1,90);
 
-   aSelfDefense[2] = CreateObject(SEGU, 3785, 899, -1);
-   aSelfDefense[2]->Arm(MISA);
+   aSelfDefense[2] = CreateObject(SEGU, 3785, 900, -1);
+   aSelfDefense[2]->Set(0,0,1);
    CreateObject(CONS, 3405, 1175, -1)->Set(aSelfDefense[2]);
+
+   aSelfDefense[3] = CreateObject(SEGU, 1350, 740, -1);
+   aSelfDefense[3]->Set(0,1,1,180);
+   CreateObject(CONS, 925, 855, -1)->Set(aSelfDefense[0]);
 
    //SSA Besitzer setzen
    if(aTeams[1] == true)
-     aSelfDefense[0]->SetTeam(1);
+    {aSelfDefense[0]->SetTeam(1); aSelfDefense[3]->SetTeam(1);}
    if(aTeams[2] == true)
-     {aSelfDefense[1]->SetTeam(2); aSelfDefense[2]->SetTeam(2);}
-
-   //SSA aktivieren
-   aSelfDefense[0]->TurnOn();
-   aSelfDefense[1]->TurnOn();
-   aSelfDefense[2]->TurnOn();
+    {aSelfDefense[1]->SetTeam(2); aSelfDefense[2]->SetTeam(2);}
 
    //Patrouillenboote
    SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,490,1229,-1),50*21);
@@ -834,13 +829,11 @@ public func ChooserFinished()
    CreateObject(GNET, 3750, 832, -1)->Set(0,-90,1);
 
    //Selbstschussanlagen
-   aSelfDefense[0] = CreateObject(SEGU, 2960, 839, -1);
-   aSelfDefense[0]->Arm(MISA);
+   aSelfDefense[0] = CreateObject(SEGU, 2960, 840, -1);
    CreateObject(CONS, 3310, 920, -1)->Set(aSelfDefense[0]);
 
-   aSelfDefense[1] = CreateObject(SEGU, 3785, 899, -1);
-   aSelfDefense[1]->Arm(MISA);
-   CreateObject(CONS, 3895, 850, -1)->Set(aSelfDefense[1]);
+   aSelfDefense[1] = CreateObject(SEGU, 3785, 900, -1);
+   CreateObject(CONS, 3405, 1175, -1)->Set(aSelfDefense[1]);
 
    //Patrouillenboot
    SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,2060,1229,-1),50*21);
@@ -883,13 +876,11 @@ public func ChooserFinished()
    CreateObject(GNET, 3750, 832, -1)->Set(0,-90,1);
 
    //Selbstschussanlagen
-   aSelfDefense[0] = CreateObject(SEGU, 2960, 839, -1);
-   aSelfDefense[0]->Arm(MISA);
+   aSelfDefense[0] = CreateObject(SEGU, 2960, 840, -1);
    CreateObject(CONS, 3310, 920, -1)->Set(aSelfDefense[0]);
 
-   aSelfDefense[1] = CreateObject(SEGU, 3785, 899, -1);
-   aSelfDefense[1]->Arm(MISA);
-   CreateObject(CONS, 3895, 850, -1)->Set(aSelfDefense[1]);
+   aSelfDefense[1] = CreateObject(SEGU, 3785, 900, -1);
+   CreateObject(CONS, 3405, 1175, -1)->Set(aSelfDefense[1]);
 
    //Patrouillenboot
    SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,2060,1229,-1),50*21);
@@ -923,13 +914,11 @@ public func ChooserFinished()
    CreateObject(GNET, 3750, 832, -1)->Set(0,-90,1);
 
    //Selbstschussanlagen
-   aSelfDefense[0] = CreateObject(SEGU, 2960, 839, -1);
-   aSelfDefense[0]->Arm(MISA);
+   aSelfDefense[0] = CreateObject(SEGU, 2960, 840, -1);
    CreateObject(CONS, 3310, 920, -1)->Set(aSelfDefense[0]);
 
-   aSelfDefense[1] = CreateObject(SEGU, 3785, 899, -1);
-   aSelfDefense[1]->Arm(MISA);
-   CreateObject(CONS, 3895, 850, -1)->Set(aSelfDefense[1]);
+   aSelfDefense[1] = CreateObject(SEGU, 3785, 900, -1);
+   CreateObject(CONS, 3405, 1175, -1)->Set(aSelfDefense[1]);
 
    //Patrouillenboot
    SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,2060,1229,-1),50*21);

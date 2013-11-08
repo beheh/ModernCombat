@@ -305,28 +305,20 @@ func CreateInterior()
 
   //Selbstschussanlagen und Konsolen
   aSelfDefense[0] = CreateObject(SEGU, 358, 832, -1);
-    aSelfDefense[0]->SetR(-90);
-    aSelfDefense[0]->Arm(MISA);
-    aSelfDefense[0]->TurnOn();
-    aSelfDefense[0]->SetAutoRepair(1000);
+  aSelfDefense[0]->Set(0,0,0,-90);
+  aSelfDefense[0]->SetAutoRepair(1000);
 
   aSelfDefense[1] = CreateObject(SEGU, 1412, 262, -1);
-    aSelfDefense[1]->SetR(90);
-    aSelfDefense[1]->Arm(MISA);
-    aSelfDefense[1]->TurnOn();
-    aSelfDefense[1]->SetAutoRepair(1000);
+  aSelfDefense[1]->Set(0,0,0,90);
+  aSelfDefense[1]->SetAutoRepair(1000);
 
   aSelfDefense[2] = CreateObject(SEGU, 1472, 832, -1);
-    aSelfDefense[2]->SetR(90);
-    aSelfDefense[2]->Arm(MISA);
-    aSelfDefense[2]->TurnOn();
-    aSelfDefense[2]->SetAutoRepair(1000);
+  aSelfDefense[2]->Set(0,0,0,90);
+  aSelfDefense[2]->SetAutoRepair(1000);
 
   aSelfDefense[3] = CreateObject(SEGU, 418, 262, -1);
-    aSelfDefense[3]->SetR(-90);
-    aSelfDefense[3]->Arm(MISA);
-    aSelfDefense[3]->TurnOn();
-    aSelfDefense[3]->SetAutoRepair(1000);
+  aSelfDefense[3]->Set(0,0,0,-90);
+  aSelfDefense[3]->SetAutoRepair(1000);
 
   //Grenzen
   CreateObject(BRDR, 200, 0, -1)->Set(0);
@@ -594,6 +586,12 @@ public func ChooserFinished()
   {aSelfDefense[2]->SetTeam(3);}
   if(aTeams[4] == true)
   {aSelfDefense[3]->SetTeam(4);}
+
+  //SSA anschalten
+  aSelfDefense[0]->TurnOn();
+  aSelfDefense[1]->TurnOn();
+  aSelfDefense[2]->TurnOn();
+  aSelfDefense[3]->TurnOn();
 
   //OP-Spielziel
   if(FindObject(GOCC))

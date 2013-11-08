@@ -317,24 +317,16 @@ func CreateInterior()
 
   //Selbstschussanlagen
   aSelfDefense[0] = CreateObject(SEGU, 1095, 409, -1);
-    aSelfDefense[0]->Arm(MISA);
-    aSelfDefense[0]->TurnOn();
-    CreateObject(CONS, 1155, 630, -1)->Set(aSelfDefense[0]);
+  CreateObject(CONS, 1155, 630, -1)->Set(aSelfDefense[0]);
 
   aSelfDefense[1] = CreateObject(SEGU, 2565, 479, -1);
-    aSelfDefense[1]->Arm(MISA);
-    aSelfDefense[1]->TurnOn();
-    CreateObject(CONS, 2800, 600, -1)->Set(aSelfDefense[1]);
+  CreateObject(CONS, 2800, 600, -1)->Set(aSelfDefense[1]);
 
   aSelfDefense[2] = CreateObject(SEGU, 6585, 479, -1);
-    aSelfDefense[2]->Arm(MISA);
-    aSelfDefense[2]->TurnOn();
-    CreateObject(CONS, 6355, 600, -1)->Set(aSelfDefense[2]);
+  CreateObject(CONS, 6355, 600, -1)->Set(aSelfDefense[2]);
 
   aSelfDefense[3] = CreateObject(SEGU, 7190, 579, -1);
-    aSelfDefense[3]->Arm(MISA);
-    aSelfDefense[3]->TurnOn();
-    CreateObject(CONS, 7260, 520, -1)->Set(aSelfDefense[3]);
+  CreateObject(CONS, 7260, 520, -1)->Set(aSelfDefense[3]);
 
   //Seegras entfernen
   for(var obj in FindObjects(Find_Or(Find_ID(SWD1), Find_ID(SWD2)), Find_InRect(1190, 490, 910, 150)))
@@ -778,6 +770,12 @@ public func ChooserFinished()
    if(aTeams[2] == true)
    {aSelfDefense[2]->SetTeam(2); aSelfDefense[3]->SetTeam(2);}
 
+   //SSA anschalten
+   aSelfDefense[0]->TurnOn();
+   aSelfDefense[1]->TurnOn();
+   aSelfDefense[2]->TurnOn();
+   aSelfDefense[3]->TurnOn();
+
    //Grenzen setzen
    CreateObject(BRDR, 440, 0, -1)->Set(0);
    CreateObject(BRDR, 7860, 0, -1)->Set(1);
@@ -907,7 +905,10 @@ public func ChooserFinished()
 
    //SSA Besitzer setzen
    if(aTeams[2] == true)
-   {aSelfDefense[1]->SetTeam(2); aSelfDefense[3]->SetTeam(2);}
+    aSelfDefense[3]->SetTeam(2);
+
+   //SSA anschalten
+   aSelfDefense[3]->TurnOn();
 
    //Helikopter und Hinweisschilder
    if(!FindObject(NOHC))

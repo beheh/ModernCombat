@@ -1,1 +1,1 @@
-A rack for a stationary gun.
+An automated, stationary high performance gun.

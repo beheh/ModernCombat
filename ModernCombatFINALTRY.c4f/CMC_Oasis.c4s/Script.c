@@ -425,6 +425,14 @@ public func ChooserFinished()
    //Teamgrenzen
    CreateObject(BRDR, 2490, 0, -1)->Set(0,1,0,1,1);
    CreateObject(BRDR, 4340, 0, -1)->Set(1,1,0,1,2);
+
+   //Selbstschussanlagen
+   var selfdef = CreateObject(SEGU, 2035, 610, -1);
+   selfdef->Set(0,1,1,180,0,2500);
+   selfdef->SetTeam(1);
+   selfdef = CreateObject(SEGU, 4795, 610, -1);
+   selfdef->Set(0,1,1,180,4330);
+   selfdef->SetTeam(2);
   }
 
   //CTF-Spielziel
