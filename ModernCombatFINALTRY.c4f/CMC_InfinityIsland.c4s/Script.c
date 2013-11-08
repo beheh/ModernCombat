@@ -770,6 +770,14 @@ public func ChooserFinished()
    CreateObject(BRDR, 3620, 0, -1)->Set(0,1,0,1,1);
    CreateObject(BRDR, 4600, 0, -1)->Set(1,1,0,1,2);
 
+   //Selbstschussanlagen
+   var selfdef = CreateObject(SEGU, 3085, 1230, -1);
+   selfdef->Set(0,1,1,180,0,3430);
+   selfdef->SetTeam(1);
+   selfdef = CreateObject(SEGU, 5450, 1230, -1);
+   selfdef->Set(0,1,1,180,4850);
+   selfdef->SetTeam(2);
+
    //Geschützstellungen
    CreateObject(GNET, 3260, 1210, -1)->Set(LCAC);
    CreateObject(GNET, 5060, 1170, -1)->Set(LCAC);
