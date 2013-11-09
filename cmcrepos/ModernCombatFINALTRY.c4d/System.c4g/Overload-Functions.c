@@ -39,6 +39,9 @@ global func GetTaggedPlayerName(int iPlr, bool fRank, bool fCompact)
 
 global func ShiftContents(object pObj, bool fShiftBack, id idTarget, bool fDoCalls)
 {
+	if(!pObj)
+		pObj = this;
+
   if(fDoCalls)
     Contents(0, pObj)->~Deselection(pObj);
 

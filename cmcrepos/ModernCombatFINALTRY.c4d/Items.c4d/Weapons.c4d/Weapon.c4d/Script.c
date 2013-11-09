@@ -1230,15 +1230,51 @@ private func Reloaded(caller,slot,amount)
 
 /* Nachladen stoppen */
 
+static TESTDESELECT;
+
 public func Deselection(object pContainer)
 {
+  //Schalldämpfer-Daten bei Waffenwechsel an nächste Waffe weitergeben
+  var silencer;
+  if((silencer = GetEffect("Silencer", this)) && EffectVar(3, this, silencer)) 
+  {
+    var clonk = EffectVar(3, this, silencer);
+  	var contents = Contents(1, clonk);
+
+  	//Hardcode: Wenn der Clonk zielt, dann die nächste Waffe raussuchen 
+  	if(clonk->~IsAiming() && CanAim())
+  	{
+   		for(var i = 0; i < ContentsCount(0, clonk); i++)
+      {
+        var obj = Contents(i, clonk);
+        if(obj && obj->~CanAim() && (obj != this))
+        {
+        	contents = obj;
+          break;
+        }
+      }
+  	}
+
+  	var effect = GetEffect("Silencer", contents);
+  	
+  	if(contents && contents->~IsWeapon2() && effect)
+  	{
+  		EffectVar(0, contents, effect) = EffectVar(0, this, silencer);
+  		EffectVar(3, contents, effect) = EffectVar(3, this, silencer);
+  		EffectVar(4, contents, effect) = EffectVar(0, this, silencer);
+  		EffectVar(0, this, silencer) = 0;
+  		EffectVar(3, this, silencer) = 0;
+  		SetClrModulation(RGB(255, 255, 255), this);
+  	}
+  }
+
   //Callback
   OnDeselect(firemode);
   //Laden stoppen
   if(!GetFMData(FM_SingleReload))
     PauseReload();
   //Automatischen Schuss stoppen
-  if(GetFMData(FM_Auto) && IsRecharging()) stopauto=true; 
+  if(GetFMData(FM_Auto) && IsRecharging()) stopauto=true;
 }
 
 /*----- Feuermodus (z.B. Kugeln, Granaten, Raketen...) -----*/
@@ -1938,7 +1974,7 @@ func FxSilencerTimer(object pTarget, int iEffectNumber, int iEffectTime)
     if(pContainer && Contents(0, pContainer) == pTarget)
       EffectVar(3, pTarget, iEffectNumber) = pContainer;
 
-    if(EffectVar(0, pTarget, iEffectNumber))
+    if(EffectVar(0, pTarget, iEffectNumber) && !(Contents(0, pContainer)->~IsWeapon2() && GetEffect("Silencer", Contents(0, pContainer))))
     {
       EffectVar(0, pTarget, iEffectNumber) = 0;
       SetClrModulation(RGBa(255, 255, 255, 0), pTarget);
@@ -1947,12 +1983,18 @@ func FxSilencerTimer(object pTarget, int iEffectNumber, int iEffectTime)
   }
   //Nicht oder nicht vorne im Inventar: Tarnung bei Waffe und Clonk entfernen, Clonk vergessen
   else if(Contents(0, EffectVar(3, pTarget, iEffectNumber)) != pTarget)
-  {
+  { 
     EffectVar(0, pTarget, iEffectNumber) = 0;
     SetClrModulation(RGBa(255, 255, 255, EffectVar(0, pTarget, iEffectNumber)), EffectVar(3, pTarget, iEffectNumber));
     SetClrModulation(RGBa(255, 255, 255, 0), pTarget);
     EffectVar(3, pTarget, iEffectNumber) = 0;
     return;
+  }
+
+  if(EffectVar(4, pTarget, iEffectNumber))
+  {
+  	EffectVar(0, pTarget, iEffectNumber) = EffectVar(4, pTarget, iEffectNumber);
+  	EffectVar(4, pTarget, iEffectNumber) = 0;
   }
 
   var Alpha = EffectVar(0, pTarget, iEffectNumber);
