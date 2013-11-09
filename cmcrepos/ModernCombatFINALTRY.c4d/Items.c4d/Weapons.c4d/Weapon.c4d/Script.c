@@ -1239,33 +1239,33 @@ public func Deselection(object pContainer)
   if((silencer = GetEffect("Silencer", this)) && EffectVar(3, this, silencer)) 
   {
     var clonk = EffectVar(3, this, silencer);
-  	var contents = Contents(1, clonk);
+    var contents = Contents(1, clonk);
 
-  	//Hardcode: Wenn der Clonk zielt, dann die nächste Waffe raussuchen 
-  	if(clonk->~IsAiming() && CanAim())
-  	{
-   		for(var i = 0; i < ContentsCount(0, clonk); i++)
+    //Wenn der Clonk zielt, nächste Waffe raussuchen
+    if(clonk->~IsAiming() && CanAim())
+    {
+      for(var i = 0; i < ContentsCount(0, clonk); i++)
       {
         var obj = Contents(i, clonk);
         if(obj && obj->~CanAim() && (obj != this))
         {
-        	contents = obj;
+          contents = obj;
           break;
         }
       }
-  	}
+    }
 
-  	var effect = GetEffect("Silencer", contents);
-  	
-  	if(contents && contents->~IsWeapon2() && effect)
-  	{
-  		EffectVar(0, contents, effect) = EffectVar(0, this, silencer);
-  		EffectVar(3, contents, effect) = EffectVar(3, this, silencer);
-  		EffectVar(4, contents, effect) = EffectVar(0, this, silencer);
-  		EffectVar(0, this, silencer) = 0;
-  		EffectVar(3, this, silencer) = 0;
-  		SetClrModulation(RGB(255, 255, 255), this);
-  	}
+    var effect = GetEffect("Silencer", contents);
+
+    if(contents && contents->~IsWeapon2() && effect)
+    {
+      EffectVar(0, contents, effect) = EffectVar(0, this, silencer);
+      EffectVar(3, contents, effect) = EffectVar(3, this, silencer);
+      EffectVar(4, contents, effect) = EffectVar(0, this, silencer);
+      EffectVar(0, this, silencer) = 0;
+      EffectVar(3, this, silencer) = 0;
+      SetClrModulation(RGB(255, 255, 255), this);
+    }
   }
 
   //Callback
@@ -1983,7 +1983,7 @@ func FxSilencerTimer(object pTarget, int iEffectNumber, int iEffectTime)
   }
   //Nicht oder nicht vorne im Inventar: Tarnung bei Waffe und Clonk entfernen, Clonk vergessen
   else if(Contents(0, EffectVar(3, pTarget, iEffectNumber)) != pTarget)
-  { 
+  {
     EffectVar(0, pTarget, iEffectNumber) = 0;
     SetClrModulation(RGBa(255, 255, 255, EffectVar(0, pTarget, iEffectNumber)), EffectVar(3, pTarget, iEffectNumber));
     SetClrModulation(RGBa(255, 255, 255, 0), pTarget);
@@ -1993,8 +1993,8 @@ func FxSilencerTimer(object pTarget, int iEffectNumber, int iEffectTime)
 
   if(EffectVar(4, pTarget, iEffectNumber))
   {
-  	EffectVar(0, pTarget, iEffectNumber) = EffectVar(4, pTarget, iEffectNumber);
-  	EffectVar(4, pTarget, iEffectNumber) = 0;
+    EffectVar(0, pTarget, iEffectNumber) = EffectVar(4, pTarget, iEffectNumber);
+    EffectVar(4, pTarget, iEffectNumber) = 0;
   }
 
   var Alpha = EffectVar(0, pTarget, iEffectNumber);
