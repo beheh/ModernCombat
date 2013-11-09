@@ -1527,9 +1527,9 @@ public func ControlSpecial()
         {
           ShiftContents(0, true);
           ShiftContents(0, 0, 0, true);
-          
+
           if(obj != start)
-          	start->~Deselection(this);
+            start->~Deselection(this);
           break;
         }
       }
