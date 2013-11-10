@@ -39,8 +39,12 @@ public func BonusPointCondition()		{return fActive;}
 
 public func Initialize() 
 {
+  //(Waffen)Grafik setzen
   AddEffect("ShowWeapon",this,1,1,this,GetID());
   SetGraphics(0,this,GetID(),3,5,0,0,this);
+
+  //Standardbewaffnung und -einstellungen
+  Set();
 
   return inherited();
 }
