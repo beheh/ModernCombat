@@ -18,7 +18,7 @@ public func Set(string szName)
 
 public func Damage(int iChange, int iPlr)
 {
-  if(GetDamage() > 120)
+  if(GetDamage() > 90)
   {
     //Zusammensturz melden
     if(iName)
@@ -41,7 +41,7 @@ public func Damage(int iChange, int iPlr)
     RemoveObject();
   }
   else
-  if(GetDamage() > 80 && iStatus < 2)
+  if(GetDamage() > 60 && iStatus < 2)
   {
     //Aussehen verändern
     SetGraphics("3");
@@ -57,7 +57,7 @@ public func Damage(int iChange, int iPlr)
     return(1);
   }
   else
-  if(GetDamage() > 40 && iStatus < 1)
+  if(GetDamage() > 30 && iStatus < 1)
   {
     //Aussehen verändern
     SetGraphics("2");
