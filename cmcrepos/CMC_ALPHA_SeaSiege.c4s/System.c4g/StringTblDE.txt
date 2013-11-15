@@ -1,0 +1,3 @@
+# Appendto-BaseAssault.c
+
+BombSpawnDelay=Nächste Sprengladung wird gesucht, <c ffff33>bereithalten</c>!

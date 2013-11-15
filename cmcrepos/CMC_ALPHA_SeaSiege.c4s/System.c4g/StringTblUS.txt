@@ -1,0 +1,3 @@
+# Appendto-BaseAssault.c
+
+BombSpawnDelay=Searching for the new bomb, <c ffff33>stand by</c>!

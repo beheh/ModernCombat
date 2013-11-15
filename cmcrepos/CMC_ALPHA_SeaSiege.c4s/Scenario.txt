@@ -13,9 +13,11 @@ Definition3=ModernCombatFINALTRY.c4d
 Definition4=Missions.c4f\Pearls.c4s\Wreck.c4d
 Definition5=FarWorlds.c4d\Jungle.c4d\Animals.c4d\Piranha.c4d
 
+Definition6=ModernCombatFINALTRY.c4f\Backgrounds.c4d
+
 [Game]
 StructNeedEnergy=0
-Goals=GOCC=1
+Goals=GBAS=1;GOCC=1
 Rules=MCSL=1;CHOS=1
 
 [Player1]
