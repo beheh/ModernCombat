@@ -8,7 +8,7 @@ public func TracerCompatible()	{return false;}
 public func MaxTime()		{return 250;}			//Maximale Flugzeit
 
 public func StartSpeed()	{return 1;}			//Startgeschwindigkeit
-public func Acceleration()	{return 5;}			//Beschleunigung
+public func Acceleration()	{return 5+!fGuided*2;}		//Beschleunigung
 public func MaxSpeed()		{return 120+!fGuided*30;}	//Maximale Geschwindigkeit
 
 public func MaxDamage()		{return 30;}			//Maximalschaden bis Absturz
