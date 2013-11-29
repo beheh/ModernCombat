@@ -17,8 +17,8 @@ public func Fused()
 
   //Schaden
   if(!GetContact(this, -1))
-  	for(var obj in FindObjects(Find_Distance(BlastRadius()*3/2), Find_Func("IsClonk")))
-  		AddEffect("Ribbon_TheBugfixer", obj, 1, 10, 0, GetID(), GetController());
+    for(var obj in FindObjects(Find_Distance(BlastRadius()*3/2), Find_Func("IsClonk")))
+      AddEffect("Ribbon_TheBugfixer", obj, 1, 10, 0, GetID(), GetController());
 
   Explode(BlastRadius()*2/3);
   DamageObjects(BlastRadius()*3/2,BlastRadius()*2,this);
@@ -31,7 +31,7 @@ public func Fused()
 
 public func FxRibbon_TheBugfixerStart(object pTarget, int iNr, int iTmep, int iKiller)
 {
-	EffectVar(0, pTarget, iNr) = iKiller;
+  EffectVar(0, pTarget, iNr) = iKiller;
 }
 
 /* Schockwelle */
