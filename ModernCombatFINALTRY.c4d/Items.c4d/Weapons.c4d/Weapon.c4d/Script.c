@@ -1301,17 +1301,17 @@ public func SetFireMode(int i)
   }
 
   CancelReload(firemode);
-   
+
   //Schussmodus umstellen
   firemode = i;
   stopauto = false;
   ratecount = GetFMData(FM_AmmoRate, i);
   
   ResumeReload(i);
-  
+
   //Sound
   Sound("WPN2_Switch*.ogg");
-  
+
   //Hinweisnachricht ausgeben (Gewählter Feuermodus)
   HelpMessage(GetOwner(GetUser()),"$FireModeChanged$",GetUser(),GetFMData(FM_Name),GetFMData(FM_AmmoID));
 

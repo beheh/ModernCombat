@@ -1464,15 +1464,15 @@ public func SelectInventory(id idObject)
   var aiming = IsAiming() && Contents()->~CanAim();
   var angle = Abs(AimAngle());
   if(aiming) StopAiming();
-  
+
   var obj = Contents();
   while(GetID(Contents()) != idObject)
   {
     ShiftContents(this, 0, idObject, true);
   }
-  
+
   if(obj != Contents())
-  	obj->~Deselection(this, Contents());
+    obj->~Deselection(this, Contents());
 
   if(Contents()->~CanAim() && aiming)
   {
