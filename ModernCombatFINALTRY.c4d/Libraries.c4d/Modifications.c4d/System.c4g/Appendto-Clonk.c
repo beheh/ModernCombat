@@ -362,17 +362,17 @@ protected func DoPoints()
       }
       //Ribbon-Fortschritt (The Glyn)
       if(killicon == AAMS)
-      	AttemptAwardRibbon(RB11, killer, GetOwner());
-      
+        AttemptAwardRibbon(RB11, killer, GetOwner());
+
       //Ribbon-Fortschritt (The Bugfixer)
       var effect;
       if(killicon == FGRN && (effect = GetEffect("Ribbon_TheBugfixer", this)) && EffectVar(0, this, effect) == killer)
-      	AttemptAwardRibbon(RB12, killer, GetOwner());
+        AttemptAwardRibbon(RB12, killer, GetOwner());
     }
 
-		//Ribon-Fortschritt (The Avenger)
+    //Ribon-Fortschritt (The Avenger)
     if(RewardsActive() && LocalN("aRibbonAvenger", FindObject(RWDS))[killer])
-    	AttemptAwardRibbon(RB10, killer, GetOwner());
+      AttemptAwardRibbon(RB10, killer, GetOwner());
 
     //Achievement-Fortschritt (First Blood)
     DoAchievementProgress(1, AC37, killer);
@@ -805,12 +805,12 @@ func Death2()
 
   if(IsFakeDeath())
   {
-  	if(RewardsActive())
-  	{
-  	  if(IsDeveloper(GetPlayerID(GetKiller(pTarget))) && GetPlrExtraData(GetKiller(pTarget), "CMC_Team_Ribbon") == 10)
-    		LocalN("aRibbonAvenger", FindObject(RWDS))[GetOwner()] = true;
-    	else
-    		LocalN("aRibbonAvenger", FindObject(RWDS))[GetOwner()] = false;
+    if(RewardsActive())
+    {
+      if(IsDeveloper(GetPlayerID(GetKiller(pTarget))) && GetPlrExtraData(GetKiller(pTarget), "CMC_Team_Ribbon") == 10)
+        LocalN("aRibbonAvenger", FindObject(RWDS))[GetOwner()] = true;
+      else
+        LocalN("aRibbonAvenger", FindObject(RWDS))[GetOwner()] = false;
     }
 
     pTarget->InstantDie();

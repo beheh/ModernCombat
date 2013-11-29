@@ -222,18 +222,18 @@ public func StatsAchievement(int iPlr, int iSelect, int iOffset)
 
 public func GetPlrAvailableRibbonCount(int iPlr)
 {
-	var id, i, count;
-	while(GetName(0, id = C4Id(Format("RB%02d", ++i))))
+  var id, i, count;
+  while(GetName(0, id = C4Id(Format("RB%02d", ++i))))
   {
-  	if(id->~RibbonDisabled())
-  	{
-  		if(GetPlayerRibbon(iPlr, id))
-  	    count++;
-  	}
-  	else
-  	  count++;
+    if(id->~RibbonDisabled())
+    {
+      if(GetPlayerRibbon(iPlr, id))
+        count++;
+    }
+    else
+      count++;
   }
-  
+
   return count;
 }
 
@@ -248,7 +248,7 @@ public func StatsRibbonList(int iPlr, int iIndex, int iOffset)
       return;
   }
   if(!CreateMenu(GetID(), pClonk, this, 0, 0, 0, C4MN_Style_Dialog)) return;
-  
+
   var ribbonCount = GetPlrAvailableRibbonCount(iPlr);
   aLastPage[iPlr] = [RWDS_Page_RibbonList, iIndex, iOffset];
 
@@ -261,36 +261,36 @@ public func StatsRibbonList(int iPlr, int iIndex, int iOffset)
   var idRibbon, i, count;
   while(GetName(0, (idRibbon = C4Id(Format("RB%02d", ++i)))))
   {
-  	if(idRibbon->~RibbonDisabled() && !GetPlayerRibbon(iPlr, idRibbon))
-  		continue;
-  
-  	count++;
-  	
-  	if(count > iOffset)
-    {
-		  if(GetPlayerRibbon(iPlr, idRibbon))
-		    AddMenuItem(Format("<c ffff33>%s</c>", GetName(0, idRibbon)), Format("StatsRibbon(%d, %d, %d)", iPlr, i, iOffset), NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
-		  else
-		    AddMenuItem(Format("<c 777777>%s</c>", GetName(0, idRibbon)), Format("StatsRibbon(%d, %d, %d)", iPlr, i, iOffset), NONE, pClonk, 0, 0, "", 0, 0, 0);
-		}
+    if(idRibbon->~RibbonDisabled() && !GetPlayerRibbon(iPlr, idRibbon))
+      continue;
 
-  	if(count >= 10+iOffset)
-  		break;
+    count++;
+
+    if(count > iOffset)
+    {
+      if(GetPlayerRibbon(iPlr, idRibbon))
+        AddMenuItem(Format("<c ffff33>%s</c>", GetName(0, idRibbon)), Format("StatsRibbon(%d, %d, %d)", iPlr, i, iOffset), NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
+      else
+        AddMenuItem(Format("<c 777777>%s</c>", GetName(0, idRibbon)), Format("StatsRibbon(%d, %d, %d)", iPlr, i, iOffset), NONE, pClonk, 0, 0, "", 0, 0, 0);
+    }
+
+    if(count >= 10+iOffset)
+      break;
   }
 
   //Leerzeile
   AddMenuItem(" ", 0, NONE, pClonk);
-  
+
   //Weiter
   if(iOffset+10 <= ribbonCount-1)
     AddMenuItem("$NextPage$", Format("StatsRibbonList(%d, 0, %d)", iPlr, BoundBy(iOffset+10, 0, ribbonCount)), NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
-  
+
   var szCmd = 0;
   if(iOffset > 0)
     szCmd = Format("StatsRibbonList(%d, 0, %d)", iPlr, BoundBy(iOffset-10, 0), i);
   else
     szCmd = Format("StatsList(%d, 0, %d, 1)", iPlr, iAchievementCount-(iAchievementCount%10));
-  
+
   //Zurück
   AddMenuItem("$LastPage$", szCmd, NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
 
