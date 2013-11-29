@@ -1464,10 +1464,16 @@ public func SelectInventory(id idObject)
   var aiming = IsAiming() && Contents()->~CanAim();
   var angle = Abs(AimAngle());
   if(aiming) StopAiming();
+  
+  var obj = Contents();
   while(GetID(Contents()) != idObject)
   {
     ShiftContents(this, 0, idObject, true);
   }
+  
+  if(obj != Contents())
+  	obj->~Deselection(this, Contents());
+
   if(Contents()->~CanAim() && aiming)
   {
     if(IsSquatAiming() || Contents()->~GetFMData(FM_Aim) != 1)
@@ -1529,7 +1535,7 @@ public func ControlSpecial()
           ShiftContents(0, 0, 0, true);
 
           if(obj != start)
-            start->~Deselection(this);
+            start->~Deselection(this, Contents());
           break;
         }
       }
