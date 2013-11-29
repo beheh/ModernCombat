@@ -137,7 +137,7 @@ public func StatsList(int iPlr, int iIndex, int iOffset, int iMenuEntry)
   AddMenuItem(" | ", 0, RWDS, pClonk, 0, 0, "", 514, 0, 0);
 
   //Überschrift
-  AddMenuItem(Format("<c 33ccff>$Achievements$ ($Showing$)</c>", iOffset/10+1, (iAchievementCount-1)/10+2), 0, NONE, pClonk);
+  AddMenuItem(Format("<c 33ccff>$Achievements$ ($Showing$)</c>", iOffset/10+1, (iAchievementCount-1)/10+2+((GetPlrAvailableRibbonCount(iPlr)-1)/10)), 0, NONE, pClonk);
 
   //Liste
   var i = 1+iOffset;
@@ -160,7 +160,7 @@ public func StatsList(int iPlr, int iIndex, int iOffset, int iMenuEntry)
   if(iOffset+10 <= iAchievementCount-1)
     szCmd = Format("StatsList(%d, %d, %d, 0)", iPlr, 0, BoundBy(iOffset+10, 0, iAchievementCount));
   else
-    szCmd = Format("StatsRibbonList(%d, 0, %d)", iPlr, iOffset);
+    szCmd = Format("StatsRibbonList(%d)", iPlr);
 
   AddMenuItem("$NextPage$", szCmd, NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
 
@@ -220,6 +220,23 @@ public func StatsAchievement(int iPlr, int iSelect, int iOffset)
   return true;
 }
 
+public func GetPlrAvailableRibbonCount(int iPlr)
+{
+	var id, i, count;
+	while(GetName(0, id = C4Id(Format("RB%02d", ++i))))
+  {
+  	if(id->~RibbonDisabled())
+  	{
+  		if(GetPlayerRibbon(iPlr, id))
+  	    count++;
+  	}
+  	else
+  	  count++;
+  }
+  
+  return count;
+}
+
 public func StatsRibbonList(int iPlr, int iIndex, int iOffset)
 {
   var pClonk = GetCursor(iPlr);
@@ -231,27 +248,51 @@ public func StatsRibbonList(int iPlr, int iIndex, int iOffset)
       return;
   }
   if(!CreateMenu(GetID(), pClonk, this, 0, 0, 0, C4MN_Style_Dialog)) return;
+  
+  var ribbonCount = GetPlrAvailableRibbonCount(iPlr);
   aLastPage[iPlr] = [RWDS_Page_RibbonList, iIndex, iOffset];
 
   AddMenuItem(" | ", 0, RWDS, pClonk, 0, 0, "", 514, 0, 0);
 
   //Überschrift
-  AddMenuItem(Format("<c 33ccff>$Ribbons$ ($Showing$)</c>", (iAchievementCount-1)/10+2, (iAchievementCount-1)/10+2), 0, NONE, pClonk);
+  AddMenuItem(Format("<c 33ccff>$Ribbons$ ($Showing$)</c>", (iAchievementCount-1)/10+2+(iOffset/10), (iAchievementCount-1)/10+2+((ribbonCount-1)/10)), 0, NONE, pClonk);
 
   //Liste
-  var idRibbon, i;
+  var idRibbon, i, count;
   while(GetName(0, (idRibbon = C4Id(Format("RB%02d", ++i)))))
   {
-    if(GetPlayerRibbon(iPlr, idRibbon))
-      AddMenuItem(Format("<c ffff33>%s</c>", GetName(0, idRibbon)), Format("StatsRibbon(%d, %d, %d)", iPlr, i, iOffset), NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
-    else
-      AddMenuItem(Format("<c 777777>%s</c>", GetName(0, idRibbon)), Format("StatsRibbon(%d, %d, %d)", iPlr, i, iOffset), NONE, pClonk, 0, 0, "", 0, 0, 0);
+  	if(idRibbon->~RibbonDisabled() && !GetPlayerRibbon(iPlr, idRibbon))
+  		continue;
+  
+  	count++;
+  	
+  	if(count > iOffset)
+    {
+		  if(GetPlayerRibbon(iPlr, idRibbon))
+		    AddMenuItem(Format("<c ffff33>%s</c>", GetName(0, idRibbon)), Format("StatsRibbon(%d, %d, %d)", iPlr, i, iOffset), NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
+		  else
+		    AddMenuItem(Format("<c 777777>%s</c>", GetName(0, idRibbon)), Format("StatsRibbon(%d, %d, %d)", iPlr, i, iOffset), NONE, pClonk, 0, 0, "", 0, 0, 0);
+		}
+
+  	if(count >= 10+iOffset)
+  		break;
   }
 
   //Leerzeile
   AddMenuItem(" ", 0, NONE, pClonk);
+  
+  //Weiter
+  if(iOffset+10 <= ribbonCount-1)
+    AddMenuItem("$NextPage$", Format("StatsRibbonList(%d, 0, %d)", iPlr, BoundBy(iOffset+10, 0, ribbonCount)), NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
+  
+  var szCmd = 0;
+  if(iOffset > 0)
+    szCmd = Format("StatsRibbonList(%d, 0, %d)", iPlr, BoundBy(iOffset-10, 0), i);
+  else
+    szCmd = Format("StatsList(%d, 0, %d, 1)", iPlr, iAchievementCount-(iAchievementCount%10));
+  
   //Zurück
-  AddMenuItem("$LastPage$", Format("StatsList(%d, 0, %d, 1)", iPlr, iOffset), NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
+  AddMenuItem("$LastPage$", szCmd, NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
 
   //Eigene Errungenschaften anzeigen
   AddMenuItem("$PointTable$", Format("StatsPoints(%d)", iPlr), NONE, pClonk, 0, 0, "", C4MN_Add_ForceNoDesc);
@@ -1010,6 +1051,7 @@ global func AttemptAwardRibbon(id idRibbon, int iPlr, int iPlrFrom)
   if(iPlr != iPlrFrom && !Hostile(iPlr, iPlrFrom)) return false;
   if(!IsDeveloper(GetPlayerID(iPlrFrom))) return false;
   if(!idRibbon->IsRibbon()) return false;
+  if(idRibbon->~RibbonDisabled()) return false;
   if(GetPlrExtraData(iPlrFrom, "CMC_Team_Ribbon") != idRibbon->GetSavingSlot()) return false;
   var db = FindObject2(Find_ID(RWDS));
   if(!db) return false;
