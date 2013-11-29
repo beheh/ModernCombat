@@ -43,7 +43,7 @@ global func ShiftContents(object pObj, bool fShiftBack, id idTarget, bool fDoCal
     pObj = this;
 
   if(fDoCalls)
-    Contents(0, pObj)->~Deselection(pObj);
+    Contents(0, pObj)->~Deselection(pObj, Contents(1, pObj));
 
   return _inherited(pObj, fShiftBack, idTarget, fDoCalls);
 }

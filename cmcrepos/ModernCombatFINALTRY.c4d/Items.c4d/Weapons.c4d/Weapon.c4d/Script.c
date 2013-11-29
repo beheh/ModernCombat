@@ -1230,30 +1230,14 @@ private func Reloaded(caller,slot,amount)
 
 /* Nachladen stoppen */
 
-static TESTDESELECT;
-
-public func Deselection(object pContainer)
+public func Deselection(object pContainer, object pNextItem)
 {
   //Schalldämpfer-Daten bei Waffenwechsel an nächste Waffe weitergeben
   var silencer;
   if((silencer = GetEffect("Silencer", this)) && EffectVar(3, this, silencer)) 
   {
     var clonk = EffectVar(3, this, silencer);
-    var contents = Contents(1, clonk);
-
-    //Wenn der Clonk zielt, nächste Waffe raussuchen
-    if(clonk->~IsAiming() && CanAim())
-    {
-      for(var i = 0; i < ContentsCount(0, clonk); i++)
-      {
-        var obj = Contents(i, clonk);
-        if(obj && obj->~CanAim() && (obj != this))
-        {
-          contents = obj;
-          break;
-        }
-      }
-    }
+    var contents = pNextItem;
 
     var effect = GetEffect("Silencer", contents);
 
