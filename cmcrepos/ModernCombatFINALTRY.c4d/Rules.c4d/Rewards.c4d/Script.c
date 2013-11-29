@@ -4,7 +4,7 @@
 
 static aAchievementProgress, aAchievementExtra, iAchievementCount, iRibbonCount, RWDS_aAchievementBlocked;
 static aRanks, iRankCount;
-local aData, fEvaluation, aStats, aLastPage;
+local aData, fEvaluation, aStats, aLastPage, aRibbonAvenger;
 
 public func IsChooseable()	{return true;}
 public func RWDS_MenuAbort()	{return true;}
@@ -18,6 +18,7 @@ protected func Initialize()
   fEvaluation = false;
   aAchievementProgress = CreateArray();
   aAchievementExtra = CreateArray();
+  aRibbonAvenger = CreateArray();
   RWDS_aAchievementBlocked = CreateArray();
   aLastPage = CreateArray();
   iAchievementCount = 0;

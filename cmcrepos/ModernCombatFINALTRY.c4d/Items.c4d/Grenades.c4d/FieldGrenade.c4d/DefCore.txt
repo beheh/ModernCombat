@@ -13,6 +13,7 @@ Vertices=4
 VertexX=-2,-2,2,2
 VertexY=-3,2,-3,2
 VertexFriction=300,300,300,300
+VertexCNAT=5,9,6,10
 Rebuy=1
 Collectible=1
 Rotate=1
