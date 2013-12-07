@@ -27,8 +27,8 @@ public func ChooserFinished()
 {
   for(var pClonk in FindObjects(Find_OCF(OCF_CrewMember), Find_Not(Find_Owner(NO_OWNER))))
   {
-    if(!GameCallEx("RejectViewRangeChange",700-3*GetDarkness(100)))
-      SetPlrViewRange(700-3*GetDarkness(100),pClonk);
+    if(!GameCallEx("RejectViewRangeChange",500-GetDarkness(100)))
+      SetPlrViewRange(500-GetDarkness(100),pClonk);
 
     var tmp = AddLightAmbience(80,pClonk);
     tmp->ChangeColor(RGBa(255,255,255,110));
