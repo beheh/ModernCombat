@@ -137,14 +137,10 @@ protected func FxBorderTimer(pTarget, iNo, iTime)
 
   //Prüfen, ob Spieler noch im Grenzgebiet ist
   var danger = false;
-  if(!iSearchDir && GetX(pTarget) < GetX())
-    danger = true;
-  else if(iSearchDir == 1 && GetX(pTarget) > GetX())
-    danger = true;
-  else if(iSearchDir == 2 && GetY(pTarget) < GetY())
-    danger = true;
-  else if(iSearchDir == 3 && GetY(pTarget) > GetY())
-    danger = true;
+
+  for(var pBorder in FindObjects(Find_ID(BRDR)))
+    if(danger = pBorder->IsDangerous(pTarget, GetX(pTarget), GetY(pTarget)))
+      break;
 
   //Ziel wieder im Sicheren oder schwerverletzt?
   if(!danger || IsFakeDeath(pTarget))
