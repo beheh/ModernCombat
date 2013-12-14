@@ -9,12 +9,6 @@
 protected func MenuQueryCancel()	{return true;}
 
 
-/*private func InitScoreboard()
-{
-  if(FindObject(CHOS)) return;
-  return _inherited();
-}*/
-
 protected func Initialize()
 {
   aPoints = CreateArray();
@@ -111,6 +105,24 @@ global func GetTeamMemberByIndex(int iTeam, int iIndex)
   }
 
   return -1;
+}
+
+global func GetActiveTeamByIndex(int iIndex)
+{
+  var aTeams = [];
+  for(var i, iTeam; i != GetPlayerCount(); i++)
+    if(iTeam = GetPlayerTeam(GetPlayerByIndex(i)))
+      if(GetIndexOf(iTeam, aTeams) == -1)
+        aTeams[GetLength(aTeams)] = iTeam;
+
+  if (aTeams[iIndex])
+  {
+    return aTeams[iIndex];
+  }
+  else
+  {
+    return -1;
+  }
 }
 
 /* Auswertung */
