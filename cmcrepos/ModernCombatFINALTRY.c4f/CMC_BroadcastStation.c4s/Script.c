@@ -384,7 +384,7 @@ func CreateDecoration()
 func OnPillarCollapse(int iPlr)
 {
   //Spielerbildschirme schütteln
-  ShakeViewPort(100, this);
+  ShakeViewPort(800, this);
 
   //Trümmer verschleudern
   var debris = CreateObject(DBRS, 280,630, iPlr);
