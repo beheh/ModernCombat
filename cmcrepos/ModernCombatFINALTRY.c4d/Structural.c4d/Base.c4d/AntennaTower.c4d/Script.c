@@ -228,7 +228,7 @@ protected func Collapse()
   SetSolidMask();
 
   //Spielerbildschirme schütteln
-  ShakeViewPort(500, this);
+  ShakeViewPort(800, this);
 
   //Maststücke erstellen
   var part = CreateObject(ATRP, 0,-200, iLastDmgPlr);
