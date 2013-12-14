@@ -764,7 +764,7 @@ func CreateOptionalFeatures()
 func OnPillarCollapseL1(int iPlr)
 {
   //Spielerbildschirme schütteln
-  ShakeViewPort(100, this);
+  ShakeViewPort(800, this);
 
   //Trümmer verschleudern
   var debris = CreateObject(DBRS, 980,940, iPlr);
@@ -810,7 +810,7 @@ func OnPillarCollapseL1(int iPlr)
 func OnPillarCollapseL2(int iPlr)
 {
   //Spielerbildschirme schütteln
-  ShakeViewPort(100, this);
+  ShakeViewPort(800, this);
 
   //Trümmer verschleudern
   var debris = CreateObject(DBRS, 970,1330, iPlr);
@@ -848,7 +848,7 @@ func OnPillarCollapseL2(int iPlr)
 func OnPillarCollapseR1(int iPlr)
 {
   //Spielerbildschirme schütteln
-  ShakeViewPort(100, this);
+  ShakeViewPort(800, this);
 
   //Trümmer verschleudern
   var debris = CreateObject(DBRS, 1390,940, iPlr);
@@ -894,7 +894,7 @@ func OnPillarCollapseR1(int iPlr)
 func OnPillarCollapseR2(int iPlr)
 {
   //Spielerbildschirme schütteln
-  ShakeViewPort(100, this);
+  ShakeViewPort(800, this);
 
   //Trümmer verschleudern
   var debris = CreateObject(DBRS, 1400,1330, iPlr);
