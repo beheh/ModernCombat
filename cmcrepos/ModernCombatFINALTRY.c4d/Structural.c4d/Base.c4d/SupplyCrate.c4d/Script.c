@@ -309,7 +309,7 @@ public func FxIntResupplyTimer(object pTarget, int iEffectNumber, int iEffectTim
   else
   {
     var fAmmo = obj->~IsAmmoPacket();
-    
+
     //Munition direkt in den Munitionsgürtel
     if(obj && fAmmo)
       obj->~TransferAmmo(pTarget);
