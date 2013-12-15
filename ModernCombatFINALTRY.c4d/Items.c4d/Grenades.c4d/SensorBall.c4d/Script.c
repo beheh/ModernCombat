@@ -41,13 +41,14 @@ public func Fused()
   CreateParticle("PSpark", 1, 0, 0, 0, 80, GetPlrColorDw(GetOwner()), this);
   AddLightFlash(100, 0, 0, GetPlrColorDw(GetOwner()), this);
   Sound("SNSR_Fused.ogg");
+  Sound("SNSR_Scan.ogg", false, this, 50, 0, +1);
 
   CheckLimitation();
 
   //Entfernung planen
   ScheduleCall(0,"Remove", 40*38);
 
-  //Allen verbündeten Spielern Sicht per eigenen Platzhalter-Objekt gewähren
+  //Allen verbündeten Spielern Sicht per eigenen Platzhalter-Objekten gewähren
   var i, iPlr, pObj;
   for(i = 0; (iPlr = GetPlayerByIndex(i)) != -1; i++)
   {
@@ -139,6 +140,7 @@ private func Remove()
   Sparks(2,RGB(0,200));
   if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",4, 10, 0, 0, 120, 140, RGBa(255,255,255,100), RGBa(255,255,255,130));
   Sound("Limitation.ogg");
+  Sound("SNSR_Scan.ogg", false, this, 50, 0, -1);
 
   //Verschwinden
   RemoveObject();
@@ -186,6 +188,7 @@ protected func Damage(int iChange)
   if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("BlastDirt",2,10,0,0,400,100);
   if(GetEffectData(EFSM_ExplosionEffects) > 0) CastParticles("BlastFlame",2,10,0,0,150,100);
   Sound("MISL_ShotDown.ogg");
+  Sound("SNSR_Scan.ogg", false, this, 50, 0, -1);
 
   //Verschwinden
   RemoveObject();
@@ -208,6 +211,7 @@ public func RTDefuse()
     }
 
     Sound("MISL_ShotDown.ogg");
+    Sound("SNSR_Scan.ogg", false, this, 50, 0, -1);
     DecoExplode(10);
 
     return true;
