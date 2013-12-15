@@ -308,16 +308,17 @@ public func FxIntResupplyTimer(object pTarget, int iEffectNumber, int iEffectTim
   }
   else
   {
-    if(!Collect(obj, pTarget))
+    var fAmmo = obj->~IsAmmoPacket();
+    
+    //Munition direkt in den Munitionsgürtel
+    if(obj && fAmmo)
+      obj->~TransferAmmo(pTarget);
+    else if(!Collect(obj, pTarget))
       return;
 
     //Waffen direkt laden
-    if(obj->~IsWeapon())
+    if(obj && obj->~IsWeapon())
       DoAmmo(obj->GetFMData(FM_AmmoID), obj->GetFMData(FM_AmmoLoad), obj);
-
-    //Munition direkt in den Munitionsgürtel
-    if(obj->~IsAmmoPacket())
-      obj->~TransferAmmo(pTarget);
   }
   
   Sound("AMCT_Take.ogg", false, pTarget); 
