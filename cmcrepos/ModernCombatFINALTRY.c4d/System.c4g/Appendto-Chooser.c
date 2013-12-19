@@ -247,7 +247,7 @@ public func RemovePlayer(int iPlr)
   ScheduleCall(this, "UpdateScoreboard", 1);
 
   //Neuen Host identifizieren und Menü öffnen
-  if(iChoosedPlr = iPlr)
+  if(iChoosedPlr == iPlr)
   {
     iChoosedPlr = -1;
     ScheduleCall(this, "ChoosePlayer", 15);
