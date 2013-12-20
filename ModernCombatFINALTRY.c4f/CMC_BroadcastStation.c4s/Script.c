@@ -174,7 +174,7 @@ func CreateInterior()
   //Grenze
   CreateObject(BRDR, 0, 860, -1)->Set(3,0,1);
 
-  //Säulen
+  //Säule
   var pillar = CreateObject(PILR, 430, 710, -1);
   pillar->Set("OnPillarCollapse");
   pillar->SetClrModulation(RGB(200,200,200));
