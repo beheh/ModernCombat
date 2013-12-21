@@ -295,7 +295,7 @@ public func Fused2(object pContainer)
     }
   }
   RemoveEffect("HitCheck",this);
-  Fused();
+  Fused(pContainer);
 }
 
 public func Fused()

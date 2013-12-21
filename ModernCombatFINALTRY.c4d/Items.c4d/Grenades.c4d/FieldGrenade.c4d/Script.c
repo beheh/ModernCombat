@@ -10,13 +10,13 @@ public func BlastRadius()	{return 40;}		//Explosionsradius
 
 /* Aktivierung */
 
-public func Fused()
+public func Fused(object pContainer)
 {
   var helper = CreateObject(TIM1,0,0,-1);
   AddEffect("IntShockWave",helper,10,1,0,GetID()); 
 
   //Schaden
-  if(!GetContact(this, -1))
+  if(!GetContact(this, -1) && !pContainer)
     for(var obj in FindObjects(Find_Distance(BlastRadius()*3/2), Find_Func("IsClonk")))
       AddEffect("Ribbon_TheBugfixer", obj, 1, 10, 0, GetID(), GetController());
 
