@@ -55,7 +55,7 @@ global func FxIntUnstuck4KTimer(object pTarget, int iEffectNumber, int iEffectTi
     return -1;
   }
 
-  SetPosition(GetX(pTarget)  +	iXDir/10+!!(iXDir%10), //check nach semisolid fehlt
+  SetPosition(GetX(pTarget)  +	iXDir/10+!!(iXDir%10),
               GetY(pTarget)  +  iYDir/10+!!(iYDir%10));
 
   return;
