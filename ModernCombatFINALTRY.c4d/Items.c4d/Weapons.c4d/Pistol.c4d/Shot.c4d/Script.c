@@ -2,7 +2,7 @@
 
 #strict 2
 
-local iTime,lx,ly,pTrail,iDamage,speed,max_dst,dst,fb,fNoTrail;
+local iTime,lx,ly,pTrail,iDamage,speed,max_dst,dst,fb,fNoTrail,iMaxHits,iHitReduction;
 local shooter,wpnid,iAttachment;					//Schütze, Waffe und Waffenaufsatz
 
 func NoWarp()			{return true;}
@@ -36,20 +36,25 @@ func Construction(object byObj)
 
 /* Kugel-Abschuss (langsame Kugeln) */
 
-public func Launch(int iAngle, int iSpeed, int iDist, int iSize, int iTrail, int iDmg, int iRemoveTime)
+public func Launch(int iAngle, int iSpeed, int iDist, int iSize, int iTrail, int iDmg, int iRemoveTime, int iMultiHit, int iMultiHitReduce)
 {
-  return LaunchFB(iAngle,iSpeed,iDist,iSize,iTrail,iDmg,iRemoveTime,...);
+  return LaunchFB(iAngle,iSpeed,iDist,iSize,iTrail,iDmg,iRemoveTime,iMultiHit,iMultiHitReduce,...);
 }
 
-/* Kugel-Abschuss (schnelle Kugeln) */
-
-public func LaunchFB(int iAngle, int iSpeed, int iDist, int iSize, int iTrail, int iDmg, int iRemoveTime)
+public func LaunchFB(int iAngle, int iSpeed, int iDist, int iSize, int iTrail, int iDmg, int iRemoveTime, int iMultiHit, int iMultiHitReduce)
 {
   //Schaden der Kugel setzen
   if(!iDmg)
     iDamage = 3;
   else
     iDamage = iDmg;
+  
+  if(iMultiHit > 1)
+  	iMaxHits = iMultiHit;
+  else
+  	iMaxHits = 1;
+  	
+  iHitReduction = iMultiHitReduce;
 
   //Position setzen
   SetPosition(GetX(),GetY()+GetDefHeight()/2);
@@ -255,8 +260,6 @@ public func HitObject(object pObject)
     x = lx;
     y = ly;
     OnBulletHit(pObject,x,y);
-
-    Remove();
     return true;
   }
 }
@@ -367,119 +370,137 @@ private func HitCheck(int r, int d)
   mx = AbsX(x);//+Sin(r,ml);
   my = AbsY(y);//-Cos(r,ml);
   
-  var pObj = FindObject2(Find_OnLine(0, 0, mx, my), 
+	var aExcludes = [2, [5, shooter], [5, this]];
+	//Find_Exclude(this), Find_Exclude(shooter)
+	
+  for(var i = 0; i < iMaxHits; i++)
+  {
+  	var pObj = FindObject2(Find_OnLine(0, 0, mx, my), 
     Find_NoContainer(), 
     Find_Or(Find_Func("IsBulletTarget", GetID(), this, shooter), Find_OCF(OCF_Alive)),
     Find_Func("CheckEnemy", this),
     Find_Not(Find_Func("HitExclude", this)),
-    Find_Exclude(this), Find_Exclude(shooter),
+    aExcludes,
     Find_Or(Find_Not(Find_Func("UseOwnHitbox")), Find_Func("BulletHitboxCheck", sx, sy, x, y)),
     Sort_Distance());
-  if(pObj)
-  {
-    var stretch;
-    if(pObj->~UseOwnHitbox() && (stretch = pObj->BulletHitboxStretch(sx, sy, x, y))[0] > 0 && stretch[1] != 4)
-    {
-      if(stretch[1] == 1)
-      {
-        lx = 0;
-        ly = 0;
-      }
-      else
-      {
-        var dist = Distance(sx, sy, x, y);
-        lx = Sin(r, (dist * stretch[0]) / 1000);
-        ly = -Cos(r, (dist * stretch[0]) / 1000);
-      }
-    }
-    else
-    {
-      //Bei eigener Hitbox eigenen Bulletcheck ausführen (z.B. bei Helikoptern)
-      var ox = GetX(pObj), oy = GetY(pObj);
+  	if(pObj)
+	  {
+ 	   var stretch;
+ 	   if(pObj->~UseOwnHitbox() && (stretch = pObj->BulletHitboxStretch(sx, sy, x, y))[0] > 0 && stretch[1] != 4)
+ 	   {
+ 	     if(stretch[1] == 1)
+ 	     {
+ 	       lx = 0;
+ 	       ly = 0;
+ 	     }
+ 	     else
+ 	     {
+ 	       var dist = Distance(sx, sy, x, y);
+ 	       lx = Sin(r, (dist * stretch[0]) / 1000);
+ 	       ly = -Cos(r, (dist * stretch[0]) / 1000);
+ 	     }
+ 	   }
+ 	   else
+ 	   {
+ 	     //Bei eigener Hitbox eigenen Bulletcheck ausführen (z.B. bei Helikoptern)
+  	    var ox = GetX(pObj), oy = GetY(pObj);
 
-      //Objektwerte verwenden statt Definitionswerte (bspw. für Assaulttargets)
-      if(pObj->~BulletCheckObjectHitbox())
-      {
-        var xLeft = GetObjectVal("Offset", 0, pObj, 0) + ox;
-        var xRight = GetObjectVal("Width", 0, pObj) + GetObjectVal("Offset", 0, pObj, 0) + ox;
+  	    //Objektwerte verwenden statt Definitionswerte (bspw. für Assaulttargets)
+  	    if(pObj->~BulletCheckObjectHitbox())
+  	    {
+  	      var xLeft = GetObjectVal("Offset", 0, pObj, 0) + ox;
+  	      var xRight = GetObjectVal("Width", 0, pObj) + GetObjectVal("Offset", 0, pObj, 0) + ox;
 
-        var yUp = GetObjectVal("Offset", 0, pObj, 1) + oy;
-        var yDown = GetObjectVal("Height", 0, pObj) + GetObjectVal("Offset", 0, pObj, 1) + oy;
-      }
-      else if(pObj->~UseOwnHitbox())
-      {
-        var xLeft = -pObj->HitboxWidth()/2 + ox + 25*pObj->~IsSmoking();
-        var xRight = pObj->HitboxWidth()/2 + ox - 25*pObj->~IsSmoking();
-
-        var yUp = -pObj->HitboxHeight()/2 + oy + 25*pObj->~IsSmoking();
-        var yDown = pObj->HitboxHeight()/2 + oy - 25*pObj->~IsSmoking();
-      }
-      else
-      {
-        var xLeft = GetDefCoreVal("Offset", "DefCore", GetID(pObj), 0) + ox;
-        var xRight = GetDefCoreVal("Width", "DefCore", GetID(pObj)) + GetDefCoreVal("Offset", "DefCore", GetID(pObj), 0) + ox;
-
-        var yUp = GetDefCoreVal("Offset", "DefCore", GetID(pObj), 1) + oy;
-        var yDown = GetDefCoreVal("Height", "DefCore", GetID(pObj)) + GetDefCoreVal("Offset", "DefCore", GetID(pObj), 1) + oy;
-      }
-
-      if(!(Inside(sx, xLeft, xRight) && Inside(sy, yUp, yDown)))
-      {
-        var xOff, yOff;
-
-        if(sx > ox)
-          xOff = xRight;
-        else
-          xOff = xLeft;
-
-        if(sy > oy)
-          yOff = yDown;
-        else
-          yOff = yUp;
-
-        var a = Angle(sx, sy, xOff, yOff);
-        if(Inside(sx, Min(ox, xOff), Max(ox, xOff)))
-        {
-          var temp = (yOff - sy) * 1000 / (-Cos(r, 1000));
-          lx = Sin(r, temp);
-          ly = -Cos(r, temp);
-        }
-        else if(Inside(sy, Min(oy, yOff), Max(oy, yOff)))
-        {
-          var temp = (xOff - sx) * 1000 / (Sin(r, 1000));
-          lx = Sin(r, temp);
-          ly = -Cos(r, temp);
-        }
-        else
-        {
-          var temp = (yOff - sy) * 1000 / (-Cos(r, 1000));
-          var lxOne = Sin(r, temp);
-          var lyOne = -Cos(r, temp);
-
-          temp = (xOff - sx) * 1000 / (Sin(r, 1000));
-          var lxTwo = Sin(r, temp);
-          var lyTwo = -Cos(r, temp);
-
-          //Wenn erster Punkt weiter weg, diesen wählen, sonst den anderen
-          if(Distance(lxOne, lyOne) > Distance(lxTwo, lyTwo))
-          {
-            lx = lxOne;
-            ly = lyOne;
-          }
-          else
-          {
-            lx = lxTwo;
-            ly = lyTwo;
-          }
-        }
-      }
-    }
-    if(HitObject(pObj))
-    {
-      var dist = Distance(sx, sy, ox, oy);
-      dst += dist;
-      return dist;
-    }
+  	      var yUp = GetObjectVal("Offset", 0, pObj, 1) + oy;
+  	      var yDown = GetObjectVal("Height", 0, pObj) + GetObjectVal("Offset", 0, pObj, 1) + oy;
+  	    }
+  	    else if(pObj->~UseOwnHitbox())
+  	    {
+  	      var xLeft = -pObj->HitboxWidth()/2 + ox + 25*pObj->~IsSmoking();
+  	      var xRight = pObj->HitboxWidth()/2 + ox - 25*pObj->~IsSmoking();
+	
+  	      var yUp = -pObj->HitboxHeight()/2 + oy + 25*pObj->~IsSmoking();
+  	      var yDown = pObj->HitboxHeight()/2 + oy - 25*pObj->~IsSmoking();
+  	    }
+  	    else
+  	    {
+  	      var xLeft = GetDefCoreVal("Offset", "DefCore", GetID(pObj), 0) + ox;
+  	      var xRight = GetDefCoreVal("Width", "DefCore", GetID(pObj)) + GetDefCoreVal("Offset", "DefCore", GetID(pObj), 0) + ox;
+	
+  	      var yUp = GetDefCoreVal("Offset", "DefCore", GetID(pObj), 1) + oy;
+        	var yDown = GetDefCoreVal("Height", "DefCore", GetID(pObj)) + GetDefCoreVal("Offset", "DefCore", GetID(pObj), 1) + oy;
+  	    }
+	
+  	    if(!(Inside(sx, xLeft, xRight) && Inside(sy, yUp, yDown)))
+  	    {
+  	      var xOff, yOff;
+	
+  	      if(sx > ox)
+  	        xOff = xRight;
+  	      else
+  	        xOff = xLeft;
+	
+  	      if(sy > oy)
+  	        yOff = yDown;
+  	      else
+  	        yOff = yUp;
+	
+  	      var a = Angle(sx, sy, xOff, yOff);
+  	      if(Inside(sx, Min(ox, xOff), Max(ox, xOff)))
+  	      {
+  	        var temp = (yOff - sy) * 1000 / (-Cos(r, 1000));
+  	        lx = Sin(r, temp);
+  	        ly = -Cos(r, temp);
+  	      }
+  	      else if(Inside(sy, Min(oy, yOff), Max(oy, yOff)))
+  	      {
+  	        var temp = (xOff - sx) * 1000 / (Sin(r, 1000));
+  	        lx = Sin(r, temp);
+  	        ly = -Cos(r, temp);
+  	      }
+  	      else
+  	      {
+  	        var temp = (yOff - sy) * 1000 / (-Cos(r, 1000));
+  	        var lxOne = Sin(r, temp);
+  	        var lyOne = -Cos(r, temp);
+	
+  	        temp = (xOff - sx) * 1000 / (Sin(r, 1000));
+          	var lxTwo = Sin(r, temp);
+  	        var lyTwo = -Cos(r, temp);
+	
+  	        //Wenn erster Punkt weiter weg, diesen wählen, sonst den anderen
+  	        if(Distance(lxOne, lyOne) > Distance(lxTwo, lyTwo))
+  	        {
+  	          lx = lxOne;
+  	          ly = lyOne;
+  	        }
+          	else
+  	        {
+  	          lx = lxTwo;
+  	          ly = lyTwo;
+  	        }
+  	      }
+  	    }
+  	  }
+  	  var fAlive = GetOCF(pObj) & OCF_Alive;
+  	  if(HitObject(pObj))
+  	  {
+      	var dist = Distance(sx, sy, ox, oy);
+  	    dst += dist;
+  	    if(!fAlive || i == (iMaxHits - 1))
+  	    {
+  	    	Remove();
+  	    	return dist;
+  	    }
+  	    else
+  	    {
+  	    	aExcludes[GetLength(aExcludes)] = [5, pObj];
+  	    	Log("Before %d", iDamage);
+  	    	iDamage = (iDamage * (100 - iHitReduction)) / 100;
+  	    	Log("After %d", iDamage);
+  	    }
+  	  }
+  	}
   }
 
   lx = mx;
@@ -559,11 +580,11 @@ global func GetShooter(object weapon)
 //public func IsSpecialAmmo()	{return SHTX == GetID();}
 public func IsSpecialAmmo()	{return true;}
 
-public func CustomLaunch(int iAngle, int iSpeed, int iDist, int iSize, int iTrail, int iDmg, int iRemoveTime, int Attachment)
+public func CustomLaunch(int iAngle, int iSpeed, int iDist, int iSize, int iTrail, int iDmg, int iRemoveTime, int Attachment, int iMultiHit, int iMultiHitReduce)
 {
   fNoTrail = (iTrail == -1);
   iAttachment = Attachment;
-  return Launch(iAngle,iSpeed,iDist,iSize,iTrail,iDmg,iRemoveTime);
+  return Launch(iAngle,iSpeed,iDist,iSize,iTrail,iDmg,iRemoveTime, iMultiHit, iMultiHitReduce);
 }
 
 public func CustomBulletCasing(int iX, int iY, int iXDir, int iYDir, int iSize, int iColor)

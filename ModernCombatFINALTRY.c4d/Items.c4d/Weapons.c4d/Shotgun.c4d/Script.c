@@ -55,6 +55,9 @@ public func FMData1(int data)
   if(data == FM_StartSpread)	return 320 - (iAttachment == AT_Laserpointer)*70;	//Bei Auswahl der Waffe gesetzte Streuung
   if(data == FM_MaxSpread)	return 570 - (iAttachment == AT_Laserpointer)*70;	//Maximaler Streuungswert
   if(data == FM_MinSpread)	return 120 - (iAttachment == AT_Laserpointer)*20;	//Minimal mögliche Streuung
+  
+  if(data == FM_MultiHit) return 3;
+  if(data == FM_MultiHitReduce) return 50;
 
   return Default(data);
 }
