@@ -10,18 +10,19 @@ global func InvertA1(int Val1, int Val2)
   return Val2/2 + (Val2/2 -Val1);
 }
 
-//Prüft, ob das Objekt in nur-solidem Material ist
+/* Prüft, ob ein Objekt ausschließlich in-solidem Material ist */
+
 global func StuckSolid(object pTarget)
 {
-	if(!pTarget && !(pTarget = this))
-		return true;
+  if(!pTarget && !(pTarget = this))
+    return true;
 
-	for(var i = 0, x, y; i <= GetVertexNum(); i++)
-	{
-		x = GetVertex(i, false, pTarget); y = GetVertex(i, true, pTarget);
-		if(!pTarget->GBackSemiSolid(x, y) && pTarget->GBackSolid(x, y))
-			return true;
-	}
+  for(var i = 0, x, y; i <= GetVertexNum(); i++)
+  {
+    x = GetVertex(i, false, pTarget); y = GetVertex(i, true, pTarget);
+    if(!pTarget->GBackSemiSolid(x, y) && pTarget->GBackSolid(x, y))
+      return true;
+  }
 }
 
 /* Objekt zu Overlay (Sven2) */
