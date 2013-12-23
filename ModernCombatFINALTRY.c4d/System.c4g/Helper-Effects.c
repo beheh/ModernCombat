@@ -45,8 +45,8 @@ global func FxIntUnstuck4KTimer(object pTarget, int iEffectNumber, int iEffectTi
   if(!StuckSolid(pTarget))
     return -1;
 
-	var iXDir = EffectVar(0, pTarget, iEffectNumber),
-			iYDir = EffectVar(1, pTarget, iEffectNumber);
+  var iXDir = EffectVar(0, pTarget, iEffectNumber),
+      iYDir = EffectVar(1, pTarget, iEffectNumber);
 
   if(iEffectTime > 12)
   {
