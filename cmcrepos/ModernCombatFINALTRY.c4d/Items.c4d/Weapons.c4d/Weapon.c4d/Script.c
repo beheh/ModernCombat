@@ -10,39 +10,42 @@ local aSlot_Type;			//Munitionstyp
 local aSlot_Amount;			//Munitionsmenge
 local aFM_FireTec;			//Feuertechnik
 
-static const FM_Slot          = 13;	//Slot des Feuermodus
-static const FM_SingleReload  = 14;	//Zeit des einzelnen Nachladens bei Revolversystemen (z.B. für Schrotflinten)
-static const FM_PrepareReload = 15;	//Zeit bevor das eigentliche Nachladen beginnt (nur interessant wenn auch FM_SingleReload benutzt wird)
-static const FM_FinishReload  = 16;	//Zeit nach dem Nachladen (nur interessant wenn auch FM_SingleReload benutzt wird)
-static const FM_BurstAmount   = 17;	//Anzahl Schussabrufe pro Burst
-static const FM_BurstRecharge = 18;	//Zeit zwischen einzelnen Bursts
+static const FM_Slot           = 13;	//Slot des Feuermodus
+static const FM_SingleReload   = 14;	//Zeit des einzelnen Nachladens bei Revolversystemen (z.B. für Schrotflinten)
+static const FM_PrepareReload  = 15;	//Zeit bevor das eigentliche Nachladen beginnt (nur interessant wenn auch FM_SingleReload benutzt wird)
+static const FM_FinishReload   = 16;	//Zeit nach dem Nachladen (nur interessant wenn auch FM_SingleReload benutzt wird)
+static const FM_BurstAmount    = 17;	//Anzahl Schussabrufe pro Burst
+static const FM_BurstRecharge  = 18;	//Zeit zwischen einzelnen Bursts
 
-static const FM_SpreadAdd     = 19;	//Bei jedem Schuss hinzuzuaddierende Streuung
-static const FM_StartSpread   = 20;	//Bei Auswahl der Waffe gesetzte Streuung
-static const FM_MaxSpread     = 21;	//Maximaler Streuungswert
-static const FM_UnSpread      = 22;	//Bei jedem Schuss abzuziehende Streuung
-static const FM_NoAmmoModify  = 23;	//Kein Ent-/Nachladen möglich
-static const FM_MinSpread     = 33;	//Kleinstmögliche Streuung
+static const FM_SpreadAdd      = 19;	//Bei jedem Schuss hinzuzuaddierende Streuung
+static const FM_StartSpread    = 20;	//Bei Auswahl der Waffe gesetzte Streuung
+static const FM_MaxSpread      = 21;	//Maximaler Streuungswert
+static const FM_UnSpread       = 22;	//Bei jedem Schuss abzuziehende Streuung
+static const FM_NoAmmoModify   = 23;	//Kein Ent-/Nachladen möglich
+static const FM_MinSpread      = 33;	//Kleinstmögliche Streuung
 
-static const FT_Name          = 24;	//Name der Feuertechnik
-static const FT_Icon          = 25;	//Icondefinition der Feuertechnik
-static const FT_IconFacet     = 26;	//Facet, siehe AddMenuItem
-static const FT_Condition     = 27;	//Wie FM_Condition, für Feuertechniken
+static const FM_MultiHit       = 34;  //Durchschlagsfähigkeit (Zahl der Clonktreffer) einer Kugel
+static const FM_MultiHitReduce = 35;  //Schadensreduzierung einer Kugel nach jedem Durchschlag in Prozent
 
-static const MC_CanStrike     = 28;	//Waffe kann Kolbenschlag ausführen
-static const MC_Damage        = 29;	//Schaden eines Kolbenschlages
-static const MC_Recharge      = 30;	//Zeit nach Kolbenschlag bis erneut geschlagen oder gefeuert werden kann
-static const MC_Power         = 31;	//Wie weit das Ziel durch Kolbenschläge geschleudert wird
-static const MC_Angle         = 32;	//Mit welchem Winkel das Ziel durch Kolbenschläge geschleudert wird
+static const FT_Name           = 24;	//Name der Feuertechnik
+static const FT_Icon           = 25;	//Icondefinition der Feuertechnik
+static const FT_IconFacet      = 26;	//Facet, siehe AddMenuItem
+static const FT_Condition      = 27;	//Wie FM_Condition, für Feuertechniken
 
-static const BOT_Precision    = 105;	//Bestimmt die nötige Winkeldifferenz zwischen Zielwinkel und Winkel von Bot und Zielobjekt
+static const MC_CanStrike      = 28;	//Waffe kann Kolbenschlag ausführen
+static const MC_Damage         = 29;	//Schaden eines Kolbenschlages
+static const MC_Recharge       = 30;	//Zeit nach Kolbenschlag bis erneut geschlagen oder gefeuert werden kann
+static const MC_Power          = 31;	//Wie weit das Ziel durch Kolbenschläge geschleudert wird
+static const MC_Angle          = 32;	//Mit welchem Winkel das Ziel durch Kolbenschläge geschleudert wird
 
-static const AT_NoAttachment	= 0;	//Kein Waffenaufsatz
-static const AT_ExtendedMag	= 1;	//Erweitertes Magazin
-static const AT_Bayonet		= 2;	//Bajonett
-static const AT_Laserpointer	= 4;	//Laserpointer
-static const AT_Silencer	= 8;	//Schalldämpfer
-static const AT_Flashlight	= 16;	//Taschenlampe
+static const BOT_Precision     = 105;	//Bestimmt die nötige Winkeldifferenz zwischen Zielwinkel und Winkel von Bot und Zielobjekt
+
+static const AT_NoAttachment	 = 0;	  //Kein Waffenaufsatz
+static const AT_ExtendedMag	   = 1;	  //Erweitertes Magazin
+static const AT_Bayonet		     = 2;	  //Bajonett
+static const AT_Laserpointer	 = 4;	  //Laserpointer
+static const AT_Silencer	     = 8;	  //Schalldämpfer
+static const AT_Flashlight	   = 16;	//Taschenlampe
 
 public func IsWeapon2()			{return true;}	//Nutzt/inkludiert neues Waffensystem WPN2
 public func NoWeaponChoice()		{return GetID() == WPN2;}
@@ -84,6 +87,8 @@ public func Default(int data)
   if(data == FT_Condition)	return true;
   if(data == FM_Slot)		return;
   if(data == BOT_Precision)	return 180;
+  if(data == FM_MultiHit) return 1;
+  if(data == FM_MultiHitReduce) return 100;
   return inherited(data);
 }
 
@@ -2155,12 +2160,18 @@ global func SALaunchBullet(int iX, int iY, int iOwner, int iAngle, int iSpeed, i
   if(fNoTrail) iTrail = -1;
 
   var iAttachment = 0;
-  if(this)
+  var iMultiHit = 1;
+  var iMultiHitReduce = 100;
+  if(this && this->~IsWeapon2())
+  {
     iAttachment = LocalN("iAttachment", this);
+    iMultiHit = this->GetFMData(FM_MultiHit);
+    iMultiHitReduce = this->GetFMData(FM_MultiHitReduce);
+  }
 
   //Projektil erstellen
   var ammo = CreateObject(ammoid, iX, iY, iOwner);
-  ammo->CustomLaunch(iAngle, iSpeed, iDist, iSize, iTrail, iDmg, iRemoveTime, iAttachment);
+  ammo->CustomLaunch(iAngle, iSpeed, iDist, iSize, iTrail, iDmg, iRemoveTime, iAttachment, iMultiHit, iMultiHitReduce);
 
   return ammo;
 }
