@@ -42,18 +42,21 @@ global func FxIntUnstuck4KStart(object pTarget, int iEffectNumber, int iTemp, in
 
 global func FxIntUnstuck4KTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
-  if(!Stuck(pTarget))
+  if(!StuckSolid(pTarget))
     return -1;
+
+	var iXDir = EffectVar(0, pTarget, iEffectNumber),
+			iYDir = EffectVar(1, pTarget, iEffectNumber);
 
   if(iEffectTime > 12)
   {
     EffectVar(2, pTarget, iEffectNumber) = true;
-    AutoUnstuck4K(pTarget, EffectVar (0,pTarget,iEffectNumber), EffectVar (1,pTarget,iEffectNumber));
+    AutoUnstuck4K(pTarget, iXDir, iYDir);
     return -1;
   }
 
-  SetPosition(GetX(pTarget)  +	EffectVar (0,pTarget,iEffectNumber)/10,
-              GetY(pTarget)  +  EffectVar (1,pTarget,iEffectNumber)/10);
+  SetPosition(GetX(pTarget)  +	iXDir/10+!!(iXDir%10), //check nach semisolid fehlt
+              GetY(pTarget)  +  iYDir/10+!!(iYDir%10));
 
   return;
 }
