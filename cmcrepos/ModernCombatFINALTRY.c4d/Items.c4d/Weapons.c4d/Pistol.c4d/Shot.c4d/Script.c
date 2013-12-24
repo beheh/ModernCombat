@@ -531,7 +531,7 @@ public func HitLiquid(int iStartX, int iStartY, int iLiqX, int iLiqY)
 
   CreateParticle("MuzzleFlash4", x, y, +Sin(angle, 500), -Cos(angle, 500), 180, 0, temp);
   CastPXS("Rain", 4, 20, x, y-4);
-  Sound("BulletHitWater*.ogg", false, temp, 100);
+  Sound("BulletHitWater*.ogg", false, temp, 50);
 
   for(var i = 0; i < 5; i++)
   {
