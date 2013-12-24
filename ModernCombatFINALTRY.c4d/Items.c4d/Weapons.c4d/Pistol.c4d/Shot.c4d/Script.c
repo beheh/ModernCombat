@@ -536,6 +536,9 @@ public func HitLiquid(int iStartX, int iStartY, int iLiqX, int iLiqY)
 	for(var i = 0; i < 5; i++)
 	{
 		var bubble = CreateObject(FXU1, x, y+2, NO_OWNER);
+		if(!bubble)
+		  break;
+
 		bubble->SetXDir(+Sin(angle+Random(30)-15, 100));
 		bubble->SetYDir(-Cos(angle+Random(30)-15, 100));
 	}
