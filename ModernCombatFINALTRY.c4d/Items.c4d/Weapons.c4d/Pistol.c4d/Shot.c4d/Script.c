@@ -359,6 +359,9 @@ private func HitCheck(int r, int d)
   SetGravity(0);
   var x = sx, y = sy, xdir = mx, ydir = my, fLandscape;
   fLandscape = SimFlight(x, y, xdir, ydir, 0, 0, d/10);
+  
+  var liqX = sx, liqY = sy, liqXdir = mx, liqYdir = my, fLiquid;
+  fLiquid = SimFlight(liqX, liqY, liqXdir, liqYdir, 25, 49, d/10);
   SetGravity(g);
 
   if(x == sx && y == sy)
@@ -488,6 +491,9 @@ private func HitCheck(int r, int d)
         dst += dist;
         if(!fAlive || i == (iMaxHits - 1))
         {
+        	if(fLiquid && Distance(sx, sy, lx, ly) > Distance(sx, sy, liqX, liqY)+5)
+        		HitLiquid(sx, sy, liqX, liqY);
+
           Remove();
           return dist;
         }
@@ -504,6 +510,9 @@ private func HitCheck(int r, int d)
 
   lx = mx;
   ly = my;
+  
+  if(fLiquid)
+  	HitLiquid(sx, sy, liqX, liqY);
 
   if(fLandscape)//Nicht in der Luft. :O
     HitLandscape(mx,my);
@@ -512,6 +521,24 @@ private func HitCheck(int r, int d)
 
   dst += ml;
   return ml;
+}
+
+public func HitLiquid(int iStartX, int iStartY, int iLiqX, int iLiqY)
+{
+	var angle = Angle(iStartX, iStartY, iLiqX, iLiqY);
+	var x = AbsX(iLiqX), y = AbsY(iLiqY);
+	var temp = CreateObject(TIM1, x, y, NO_OWNER);
+
+	CreateParticle("MuzzleFlash4", x, y, +Sin(angle, 500), -Cos(angle, 500), 180, 0, temp);
+	CastPXS("Rain", 4, 20, x, y-4);
+	Sound("Splash*", false, temp, 100);
+	
+	for(var i = 0; i < 5; i++)
+	{
+		var bubble = CreateObject(FXU1, x, y+2, NO_OWNER);
+		bubble->SetXDir(+Sin(angle+Random(30)-15, 100));
+		bubble->SetYDir(-Cos(angle+Random(30)-15, 100));
+	}
 }
 
 private func NotZero(int a)
