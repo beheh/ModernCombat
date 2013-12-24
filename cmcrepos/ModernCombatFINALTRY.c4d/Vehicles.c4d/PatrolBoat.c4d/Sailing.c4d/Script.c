@@ -5,7 +5,7 @@
 
 local motor, motoridle, turn_end_dir;
 
-public func MaxDamage()		{return 250;}
+public func MaxDamage()		{return 350;}
 public func OnOwnerLoss()	{motor->SetOwner(NO_OWNER);}
 public func BlockVehicleSpawn()	{return true;}
 
@@ -82,9 +82,13 @@ public func OnDestruction()
 
 public func OnDmg(int iDmg, int iType)
 {
-  if(iType == DMG_Fire)		return 60;	//Feuer
+  if(iType == DMG_Energy)	return -20;	//Energie
   if(iType == DMG_Bio)		return 100;	//Säure und biologische Schadstoffe
-  return;
+  if(iType == DMG_Fire)		return 60;	//Feuer
+  if(iType == DMG_Explosion)	return -40;	//Explosionen
+  if(iType == DMG_Projectile)	return 90;	//Projektile
+
+  return 30;
 }
 
 /* Landung */
