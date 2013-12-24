@@ -531,14 +531,11 @@ public func HitLiquid(int iStartX, int iStartY, int iLiqX, int iLiqY)
 
 	CreateParticle("MuzzleFlash4", x, y, +Sin(angle, 500), -Cos(angle, 500), 180, 0, temp);
 	CastPXS("Rain", 4, 20, x, y-4);
-	Sound("Splash*", false, temp, 100);
+	Sound("BulletHitWater*.ogg", false, temp, 100);
 	
 	for(var i = 0; i < 5; i++)
 	{
 		var bubble = CreateObject(FXU1, x, y+2, NO_OWNER);
-		if(!bubble)
-		  break;
-
 		bubble->SetXDir(+Sin(angle+Random(30)-15, 100));
 		bubble->SetYDir(-Cos(angle+Random(30)-15, 100));
 	}
