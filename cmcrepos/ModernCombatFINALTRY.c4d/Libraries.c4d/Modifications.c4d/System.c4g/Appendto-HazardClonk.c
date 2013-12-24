@@ -55,6 +55,8 @@ protected func ControlDigDouble()
 
 protected func ControlDownDouble()
 {
+  var iRopeEffect;
+
   if(Control2Grab("ControlDownDouble")) return true;
   if(ControlLadder("ControlDownDouble")) return true;
 
@@ -63,6 +65,15 @@ protected func ControlDownDouble()
     if(GetActionTarget()->~ControlDownDouble(this))
       return true;
   }
+
+  if(iRopeEffect = GetEffect("CheckGround",this))
+  {
+    //Seil entfernen und Absprung verlangsamen
+    RemoveObject(EffectVar(0,this,iRopeEffect));
+    SetYDir(20,this);
+    RemoveEffect("CheckGround",this);
+  }
+
   return _inherited();
 }
 
