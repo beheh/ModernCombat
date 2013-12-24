@@ -491,8 +491,8 @@ private func HitCheck(int r, int d)
         dst += dist;
         if(!fAlive || i == (iMaxHits - 1))
         {
-        	if(fLiquid && Distance(sx, sy, lx, ly) > Distance(sx, sy, liqX, liqY)+5)
-        		HitLiquid(sx, sy, liqX, liqY);
+          if(fLiquid && Distance(sx, sy, lx, ly) > Distance(sx, sy, liqX, liqY)+5)
+            HitLiquid(sx, sy, liqX, liqY);
 
           Remove();
           return dist;
@@ -512,7 +512,7 @@ private func HitCheck(int r, int d)
   ly = my;
   
   if(fLiquid)
-  	HitLiquid(sx, sy, liqX, liqY);
+    HitLiquid(sx, sy, liqX, liqY);
 
   if(fLandscape)//Nicht in der Luft. :O
     HitLandscape(mx,my);
@@ -525,23 +525,23 @@ private func HitCheck(int r, int d)
 
 public func HitLiquid(int iStartX, int iStartY, int iLiqX, int iLiqY)
 {
-	var angle = Angle(iStartX, iStartY, iLiqX, iLiqY);
-	var x = AbsX(iLiqX), y = AbsY(iLiqY);
-	var temp = CreateObject(TIM1, x, y, NO_OWNER);
+  var angle = Angle(iStartX, iStartY, iLiqX, iLiqY);
+  var x = AbsX(iLiqX), y = AbsY(iLiqY);
+  var temp = CreateObject(TIM1, x, y, NO_OWNER);
 
-	CreateParticle("MuzzleFlash4", x, y, +Sin(angle, 500), -Cos(angle, 500), 180, 0, temp);
-	CastPXS("Rain", 4, 20, x, y-4);
-	Sound("BulletHitWater*.ogg", false, temp, 100);
-	
-	for(var i = 0; i < 5; i++)
-	{
-		var bubble = CreateObject(FXU1, x, y+2, NO_OWNER);
-		if(!bubble)
-			break;
-		
-		bubble->SetXDir(+Sin(angle+Random(30)-15, 100));
-		bubble->SetYDir(-Cos(angle+Random(30)-15, 100));
-	}
+  CreateParticle("MuzzleFlash4", x, y, +Sin(angle, 500), -Cos(angle, 500), 180, 0, temp);
+  CastPXS("Rain", 4, 20, x, y-4);
+  Sound("BulletHitWater*.ogg", false, temp, 100);
+
+  for(var i = 0; i < 5; i++)
+  {
+    var bubble = CreateObject(FXU1, x, y+2, NO_OWNER);
+    if(!bubble)
+      break;
+
+    bubble->SetXDir(+Sin(angle+Random(30)-15, 100));
+    bubble->SetYDir(-Cos(angle+Random(30)-15, 100));
+  }
 }
 
 private func NotZero(int a)
