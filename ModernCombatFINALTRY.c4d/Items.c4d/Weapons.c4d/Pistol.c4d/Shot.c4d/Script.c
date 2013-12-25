@@ -511,7 +511,7 @@ private func HitCheck(int r, int d)
   lx = mx;
   ly = my;
   
-  if(fLiquid && Distance(sx, sy, mx, my) < Distance(sx, sy, liqX, liqY))
+  if(fLiquid && Distance(sx, sy, GetX()+mx, GetY()+my) < Distance(sx, sy, liqX, liqY))
     HitLiquid(sx, sy, liqX, liqY);
 
   if(fLandscape)//Nicht in der Luft. :O
