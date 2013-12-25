@@ -529,7 +529,7 @@ public func HitLiquid(int iStartX, int iStartY, int iLiqX, int iLiqY)
   var x = AbsX(iLiqX), y = AbsY(iLiqY);
   var temp = CreateObject(TIM1, x, y, NO_OWNER);
 
-  CreateParticle("MuzzleFlash4", x, y, +Sin(angle, 500), -Cos(angle, 500), 180, 0, temp);
+  CreateParticle("Splash", x, y, +Sin(angle, 500), -Cos(angle, 500), 180, 0, temp);
   Splash(x, y+1, 15);
   Sound("BulletHitWater*.ogg", false, temp, 50);
 
