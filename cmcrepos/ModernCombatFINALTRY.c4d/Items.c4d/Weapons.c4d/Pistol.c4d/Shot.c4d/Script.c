@@ -491,7 +491,7 @@ private func HitCheck(int r, int d)
         dst += dist;
         if(!fAlive || i == (iMaxHits - 1))
         {
-          if(fLiquid && Distance(sx, sy, lx, ly) > Distance(sx, sy, liqX, liqY)+5)
+          if(fLiquid && Distance(sx, sy, GetX()+lx, GetY()+ly) > Distance(sx, sy, liqX, liqY)+5)
             HitLiquid(sx, sy, liqX, liqY);
 
           Remove();
@@ -511,7 +511,7 @@ private func HitCheck(int r, int d)
   lx = mx;
   ly = my;
   
-  if(fLiquid)
+  if(fLiquid && Distance(sx, sy, mx, my) < Distance(sx, sy, liqX, liqY))
     HitLiquid(sx, sy, liqX, liqY);
 
   if(fLandscape)//Nicht in der Luft. :O
