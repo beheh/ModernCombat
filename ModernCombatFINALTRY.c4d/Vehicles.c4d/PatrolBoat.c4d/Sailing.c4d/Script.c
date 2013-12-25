@@ -178,9 +178,9 @@ public func GetActionTarget()
 
 private func SetDirection(int comdir)
 {
-  // Richtungsänderung nach oben/unten geht auch mit "Turn", aber eine
-  // ComDir-Aenderung, die wieder eine Turn-Action erfordern würde muss
-  // warten, bis die jetzige Turn-Action fertig ist.
+  //Richtungsänderung nach oben/unten geht auch mit "Turn", aber eine
+  //ComDir-Änderung, die wieder eine Turn-Action erfordern würde muss
+  //warten, bis die jetzige Turn-Action fertig ist
   if(GetAction() == "Turn")
   {
     turn_end_dir = comdir;
@@ -314,4 +314,11 @@ private func TurnEnd()
     turn_end_dir = -1;
   }
   motor->UpdateShape();
+}
+
+/* Aufschlag */
+
+protected func Hit()
+{
+  Sound("VehicleHeavyHit*.ogg",false,0,50);
 }
