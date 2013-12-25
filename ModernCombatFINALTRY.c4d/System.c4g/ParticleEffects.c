@@ -35,6 +35,37 @@ global func MuzzleFlash(int iSize, object pClonk, int iX, int iY, int iAngle, in
   AddLightFlash(iSize*25, iX, iY, iColor);
 }
 
+/* Splash */
+
+global func Splash(int tx, int ty, int amount)
+{
+	//Nur, wenn darüber frei ist
+	if(GBackSemiSolid(tx, ty-15)) return;
+	
+	var mat = GetMaterial(tx, ty);
+	
+	//Prüfen ob flüssig
+	if(Inside(GetMaterialVal("Density", "Material", mat), 25, 49))
+	{
+		var x = tx, y = ty, xdir, ydir = -10, g = GetGravity();
+		SetGravity(0);
+		
+		var fSurface = SimFlight(x, y, xdir, ydir, -1, 24, 50);
+		SetGravity(g);
+		
+		if(!fSurface)
+			return false;
+		else
+			y -= 2;
+
+		for(var cnt = 0; cnt < amount; cnt++)
+			if(GBackLiquid(tx, ty) && !GBackSemiSolid(tx, y))
+				InsertMaterial(ExtractLiquid(tx, ty), tx, y, Random(15)-7, -Random(20));
+	}
+	
+	return true;
+}
+
 /* Rauch */
 
 //Überprüft auf Wasser und erstellt in gleichem Luftblasen statt Rauch.
