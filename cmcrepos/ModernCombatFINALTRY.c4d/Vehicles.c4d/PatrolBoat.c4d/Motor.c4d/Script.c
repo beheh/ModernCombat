@@ -5,6 +5,7 @@
 public func MaxDamage()			{return 200;}
 public func IgnoreFriendlyFire()	{return true;}
 public func IsBulletTarget()		{return GetActionTarget() && GetActionTarget()->DefaultBulletTarget(...);}
+public func BulletCheckObjectHitbox() {return true;}
 
 local motoridle;
 
