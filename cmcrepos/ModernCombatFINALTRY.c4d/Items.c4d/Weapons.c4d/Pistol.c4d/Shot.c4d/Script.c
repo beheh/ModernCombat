@@ -529,7 +529,8 @@ public func HitLiquid(int iStartX, int iStartY, int iLiqX, int iLiqY)
   var x = AbsX(iLiqX), y = AbsY(iLiqY);
   var temp = CreateObject(TIM1, x, y, NO_OWNER);
 
-  CreateParticle("Splash", x, y, +Sin(angle, 500), -Cos(angle, 500), 180, 0, temp);
+  var mat = GetMaterial(x, y+1);
+  CreateParticle("Splash", x, y, +Sin(angle, 500), -Cos(angle, 500), 180, RGB(GetMaterialColor(mat), GetMaterialColor(mat, 0, 1), GetMaterialColor(mat, 0, 2)), temp);
   Splash(x, y+1, 15);
   Sound("BulletHitWater*.ogg", false, temp, 50);
 
