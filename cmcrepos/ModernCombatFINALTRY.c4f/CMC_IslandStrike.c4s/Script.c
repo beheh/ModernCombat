@@ -945,20 +945,31 @@ public func ChooserFinished()
    CreateObject(LADR, 7700, 590, -1)->Set(13);
 
    //Stahlbrücken
+   CreateObject(_HBR, 495, 622, -1);
+   CreateObject(_HBR, 565, 622, -1);
+   CreateObject(_HBR, 635, 622, -1);
    CreateObject(_HBR, 705, 622, -1);
    CreateObject(_HBR, 775, 622, -1);
+   CreateObject(_HBR, 2125, 532, -1);
+   CreateObject(_HBR, 2195, 532, -1);
    CreateObject(_HBR, 5230, 662, -1);
    CreateObject(_HBR, 5300, 662, -1);
    CreateObject(_HBR, 5370, 662, -1);
    CreateObject(_HBR, 5440, 662, -1);
 
+   //Gerüst
+   CreateObject(SFFG, 650, 540, -1)->Set(4);
+
    //Metallkisten
+   CreateObject(MWCR, 678, 490, -1);
    CreateObject(MWCR, 790, 610, -1);
    CreateObject(MWCR, 990, 510, -1);
    CreateObject(MWCR, 1070, 570, -1);
+   CreateObject(MWCR, 2219, 520, -1);
    CreateObject(MWCR, 5400, 650, -1);
 
    //Kisten
+   CreateObject(WCR2, 630, 610, -1);
    CreateObject(WCR2, 890, 580, -1);
    CreateObject(WCR2, 1310, 540, -1);
    CreateObject(WCR2, 1330, 540, -1);
@@ -968,7 +979,9 @@ public func ChooserFinished()
    CreateObject(WCR2, 5880, 610, -1);
 
    //Verbandskisten
+   CreateObject(BECR, 650, 610, -1);
    CreateObject(BECR, 785, 592, -1);
+   CreateObject(BECR, 2120, 520, -1);
    CreateObject(BECR, 5270, 650, -1);
 
    //Hinweisschild
