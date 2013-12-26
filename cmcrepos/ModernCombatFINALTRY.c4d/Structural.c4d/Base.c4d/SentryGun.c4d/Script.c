@@ -376,7 +376,7 @@ public func Activity()
       powerMode = 100;
 
       //Rotation berechnen
-      target_angle = Angle(GetX(), GetY() + 7, GetX(GotTarget), GetY(GotTarget));
+      target_angle = Angle(GetX(), GetY(), GetX(GotTarget), GetY(GotTarget));
 
       if((MaxRotRight() >= 360) && (target_angle < MaxRotRight()-360))
         target_angle += 360;
