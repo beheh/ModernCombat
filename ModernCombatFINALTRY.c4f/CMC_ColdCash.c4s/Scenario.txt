@@ -1,5 +1,5 @@
 [Head]
-Icon=16
+Icon=51
 Title=CMC - Cold Cash
 MaxPlayer=12
 MaxPlayerLeague=12
