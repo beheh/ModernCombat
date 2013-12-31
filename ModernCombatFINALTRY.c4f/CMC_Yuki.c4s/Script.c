@@ -237,10 +237,6 @@ func CreateInterior()
   CreateObject(SE4K, 600, 870, -1)->Set("FallingDirt*.ogg",950,250);
   CreateObject(SE4K, 1170, 870, -1)->Set("FallingDirt*.ogg",850,250);
   CreateObject(SE4K, 1720, 870, -1)->Set("FallingDirt*.ogg",850,250);
-
-  //Lautsprecher
-  CreateObject(SE4K, 1150, 510, -1)->Set("Announce*.ogg",3000,200);
-  CreateObject(SE4K, 1730, 520, -1)->Set("Announce*.ogg",3000,200);
 }
 
 func CreateEquipment()
@@ -697,6 +693,8 @@ protected func Script230()
   aLamp2[1]->TurnOn();
   aLamp2[2]->TurnOn();
   aLamp2[3]->TurnOn();
+
+  Sound("Announce*.ogg",1);
 }
 
 protected func Script240()
@@ -763,6 +761,8 @@ protected func Script480()
   aLamp2[1]->TurnOn();
   aLamp2[2]->TurnOn();
   aLamp2[3]->TurnOn();
+
+  Sound("Announce*.ogg",1);
 }
 
 protected func Script490()
