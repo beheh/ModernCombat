@@ -1,3 +1,3 @@
-Ermöglicht das Reparieren von erheblich beschädigten Strukturen und Fahrzeugen. Eignet sich auch zum Beschädigen von Feindgut.
+Kann verbündete Strukturen, Ausrüstung und Fahrzeuge reparieren und feindliche beschädigen oder entschärfen. Der Schweißbrenner lädt verbrauchtes Gas automatisch über Zeit nach.
 
-Schweißbrenner per [Werfen] ein- und ausschalten.
+[Werfen] um Brenner ein- oder auszuschalten.

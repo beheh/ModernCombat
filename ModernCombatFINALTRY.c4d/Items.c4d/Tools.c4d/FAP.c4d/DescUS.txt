@@ -1,3 +1,3 @@
-Contains medicaments, bandage material, dragnin and more equipment to supply wounded clonks.
+Contains all sorts of medicaments to heal injured clonks. Replenishes its content over time.
 
-Press [Throw] to extract dragnin injections as a medic and hold it in hands to heal wounded close by.
+[Double Dig] to use and [Throw] to extract dragnin as a medic. The FAP automatically heals friendly units near by.

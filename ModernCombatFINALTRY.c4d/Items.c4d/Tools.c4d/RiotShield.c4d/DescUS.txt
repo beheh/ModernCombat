@@ -1,3 +1,3 @@
-The tactical riot shield reliably protects against projectile fire.
+The tactical riot shield protects against projectile fire and stabilizes the user.
 
-Intrusive enemies can be pushed back by punching by pressing [Throw]. Press [Triple Stop] to aim. [Double Dig] allows to deploy a shield stand.
+[Throw] to punch and [Triple Stop] to aim. [Double Dig] allows to deploy a shield stand.
