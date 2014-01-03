@@ -1,1 +1,3 @@
-Der Raketenwerfer eignet sich zur Elimination gepanzerter Einheiten. Abgefeuerte Raketen können zudem optisch ins Ziel gelenkt werden, indem der Raketenwerfer nach Abschuss in die entsprechende Richtung zeigt.
+Der Raketenwerfer feuert hochexplosive Raketen und eignet sich so zur Zerstörung gepanzerter Ziele.
+
+Abgefeuerte Raketen können optisch ins Ziel gelenkt werden, indem der Raketenwerfer in die entsprechende Richtung zeigt.

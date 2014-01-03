@@ -1,1 +1,3 @@
-Die Slingshot feuert mit revolverartigem Ladesystem Gewehrgranaten. Sie ist eine der effektivsten Langstreckenwaffen im Arsenal und erlaubt den Beschuss von sicherer Entfernung.
+Die Slingshot ist eine Langstreckenwaffe, welche Gewehrgranaten über weite Distanzen und mit schneller Feuerrate abfeuert.
+
+Die verfügbaren Granatentypen erlauben dabei verschiedener Strategien.

@@ -1,1 +1,3 @@
-Eine kompakte, effiziente Maschinenpistole. Hohe Schussfrequenzen im Nahkampf durchlöchern buchstäblich jeden Gegner während Einzel- und Stoßfeuer weiter entfernte Gegner zielsicher treffen.
+Die Maschinenpistole bietet sehr hohe Feuerraten die Ziele buchstäblich durchlöchern.
+
+Das Nutzen von Einzel-, Stoß- und Dauerfeuer erlaubt dabei das zielsichere Treffen auch weiter entfernter Ziele.

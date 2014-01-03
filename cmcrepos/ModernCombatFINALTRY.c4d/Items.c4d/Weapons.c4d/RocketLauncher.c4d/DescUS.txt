@@ -1,1 +1,3 @@
-The rocket launcher is suited to eliminate armored targets. Launched missiles can be guided optically into the target by pointing the rocket launcher to the respective direction.
+The rocket launcher fires high explosive missiles which are suited to destroy armored targets.
+
+Launched missiles can be guided optically into the target by pointing the rocket launcher to the respective direction.

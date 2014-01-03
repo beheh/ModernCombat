@@ -1,1 +1,3 @@
-Kraftvolle Handfeuerwaffe mit langsam aufeinanderfolgenden, stark verziehenden aber auch ebenso verheerenden Schüssen. Peilsender erlauben dem Schützen das Markieren von Zielen.
+Die Schüsse eines Revolvers können mehrere Ziele durchschlagen, was ihn zu einer starken Sekundärwaffe macht. Er ist aber auch ungenauer und langsamer als normale Pistolen.
+
+Ein Peilsenderaufsatz erlaubt das Markieren von Zielen.
