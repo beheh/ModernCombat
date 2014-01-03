@@ -10,7 +10,7 @@ func RecommendedGoals()	{return [GLMS];}	//Spielzielempfehlung
 
 func ChooserRuleConfig()
 {
-  //Abgewandelter Regelsatz: Kein FriendlyFire, Fallschaden, Keine Schwerverletzten, Flagge abnehmbar
+  //Abgewandelter Regelsatz: Belohnungssystem, Kein FriendlyFire, Fallschaden, Keine Schwerverletzten, Limitierte Ausrüstung
   var array = [RWDS, NOFF, FDMG, SICD, LIMT];
   return(array);
 }
