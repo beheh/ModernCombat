@@ -1,3 +1,3 @@
-Enthält alle nötigen Arten von Munition.
+Enthält alle möglichen Arten von Munition und regeneriert den Inhalt mit der Zeit.
 
-Auf [Doppelgraben] kann Munition für den Eigenverbrauch entnommen werden, halte es in Händen um Verbündete in der Nähe aufzustocken.
+[Doppelgraben] um Munitionsboxen zu entnehmen. Das MTP munitioniert automatisch Verbündete in der Nähe.

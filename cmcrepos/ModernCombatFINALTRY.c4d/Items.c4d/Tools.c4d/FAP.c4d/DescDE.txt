@@ -1,3 +1,3 @@
-Enthält Medikamente, Verbandszeug, Dragnin und weiteres Equipment zur Versorgung von verletzten Clonks.
+Enthält Medikamente zur Versorgung von verletzten Clonks und regeneriert den Inhalt mit der Zeit.
 
-Drücke [Werfen] um als Sanitäter Dragninspritzen zu entnehmen und halte es in Händen, um Verwundete in der Nähe zu heilen.
+[Doppelgraben] zum verwenden und [Werfen] um als Sanitäter Dragnin zu entnehmen. Das EHP heilt automatisch Verbündete in der Nähe.

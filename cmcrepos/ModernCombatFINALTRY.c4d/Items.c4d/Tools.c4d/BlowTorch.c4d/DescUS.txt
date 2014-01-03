@@ -1,3 +1,3 @@
-Allows to patch up substantially damaged structures and vehicles. Can be used to damage enemy gear as well.
+Can repair allied structures, equipment and vehicles as well as damage or defuse enemy objects. The blow torch automatically reloads used up fuel over time.
 
-(De-)Activate blow torch by tapping [Throw].
+[Throw] to switch on or off.

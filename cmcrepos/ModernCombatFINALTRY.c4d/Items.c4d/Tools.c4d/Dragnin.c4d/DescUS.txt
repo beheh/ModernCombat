@@ -1,3 +1,3 @@
-The user instantly recives a smaller energy burst.
+The user instantly recives an energy burst.
 
-Press [Throw] to inject it to allied clonks but be careful: If the patient is getting an adrenalin boost which is triggered by damage, the healing effect will be blocked.
+[Double Dig] to inject. [Throw] to give the injection to allies. Warning: Injuries accruing while healing will neutralize the dragnin.

@@ -1,3 +1,3 @@
 The parachute backpack can save the life of a falling clonk and transport him over bigger obstacles.
 
-Press [Double Dig] to buckle on. Activate by hitting [Double Jump] as the clonk falls fast while enough free space is below him.
+[Double Dig] to buckle on. [Double Jump] to activate as the clonk falls fast while enough free space is below him.

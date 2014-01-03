@@ -1,3 +1,3 @@
-Ermöglichst die Wiederbelebung von Schwerverletzten mithilfe von elektrischen Schlägen.
+Der Defibrillator kann Schwerverletzte mithilfe von elektrischen Schlägen wiederbeleben. Kann auch benutzt werden um Feinde zu verletzen.
 
-Shock austeilen mit [Werfen] oder [Doppelgraben], die Nutzung an gesunden Patienten ist nicht empfohlen.
+[Werfen] oder [Doppelgraben] zum Abgeben eines elektrischen Schocks.

@@ -1,3 +1,3 @@
-Die Sprengfallentasche erlaubt das Legen von Sprengfallen die primär dazu genutzt werden, Versorgungswege zu sichern. Ein Infrarotlaser an den Fallen erkennt feindliche Einheiten und schleudert diesen in einer Explosion mehrere Splitter entgegen.
+Die Sprengfallentasche erlaubt das Legen von Sprengfallen die dazu genutzt werden, Wege zu sichern oder Fallen aufzustellen.
 
-Drücke [Werfen] um eine Falle in Laufrichtung zu legen oder [Dreifachstopp], um sie im Zielmodus auszurichten.
+[Werfen] um eine Falle in Laufrichtung zu legen oder [Dreifachstopp], um sie zuvor im Zielmodus auszurichten.

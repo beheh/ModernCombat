@@ -1,3 +1,3 @@
 A detonator and explosives for blowing up enemy structures or even hostile squads.
 
-Hit [Throw] to deploy C4 explosives and [Double Dig] to remotely detonate them.
+[Throw] to deploy C4 explosives and [Double Dig] to remotely detonate them.
