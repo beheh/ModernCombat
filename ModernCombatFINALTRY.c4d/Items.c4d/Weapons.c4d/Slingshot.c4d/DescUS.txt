@@ -1,1 +1,3 @@
-The Slingshot fires rifle grenades with a revolverlike reload system. It is one of the most effective long-range weapons in the arsenal and allows to rain down artillery barrages at targets from safe distance.
+The slingshot is a long-range weapon which fires rifle grenades over great distances and with a fast firing rate.
+
+The available grenade types allow for different strategies.

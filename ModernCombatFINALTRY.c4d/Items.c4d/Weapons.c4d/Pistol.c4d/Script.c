@@ -108,6 +108,7 @@ public func Fire1()
     Sound("WPN2_SilencerFire*.ogg", 0, ammo, 10);
     Echo("WPN2_SilencerEcho.ogg");
 
+    //Tarneffekt des Schützen schwächen
     if(GetEffect("Silencer", this))
       EffectVar(0, this, GetEffect("Silencer", this)) -= BoundBy(25, 0, EffectVar(0, this, GetEffect("Silencer", this)));
   }

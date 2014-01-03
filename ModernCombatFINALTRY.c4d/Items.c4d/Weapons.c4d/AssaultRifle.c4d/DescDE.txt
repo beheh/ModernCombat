@@ -1,1 +1,3 @@
-Das Sturmgewehr ist bekannt für Genauigkeit und Durchschlagskraft und die Standardwaffe für viele Clonkverbände. Der Granatenwerferaufsatz hebt die Kampfkraft noch weiter an.
+Das Sturmgewehr bietet Durchschlagskraft und eine hohe Genauigkeit bei kontrolliertem Schießen.
+
+Ein Granatenwerferaufsatz erlaubt das Abfeuern von Gewehrgranaten.
