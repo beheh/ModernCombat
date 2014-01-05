@@ -54,7 +54,7 @@ func CreateInterior()
 
   CreateObject(LADR, 1590, 208, -1)->Set(10);
   CreateObject(LADR, 1640, 410, -1)->Set(24);
-  CreateObject(LADR, 1640, 600, -1)->Set(9);
+  CreateObject(LADR, 1640, 576, -1)->Set(6);
   CreateObject(LADR, 1690, 208, -1)->Set(10);
 
   CreateObject(LADR, 1795, 360, -1)->Set(9, LADR_Left|LADR_Right|LADR_Front|LADR_Additional, "W");
@@ -224,11 +224,11 @@ func CreateEquipment()
   PlaceSpawnpoint(MBOX, 2700, 235);
 
   //Gewehrgranaten
-  PlaceSpawnpoint(GBOX, 1640, 580);
+  PlaceSpawnpoint(GBOX, 1640, 575);
 
   //Patrouillenboote
   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,675,609,-1),50*21);
-  SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1640,609,-1),50*21);
+  SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,1640,570,-1),50*21);
   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2595,609,-1),50*21);
 }
 
@@ -443,7 +443,10 @@ public func ChooserFinished()
    if(aTeams[3] == true)
    {CreateFlag(3,1640,100,GetTeamColor(3));}
    if(aTeams[4] == true)
-   {CreateFlag(4,1660,520,GetTeamColor(4));}
+   {CreateFlag(4,1640,580,GetTeamColor(4));}
+
+   //Objekt entfernen
+   RemoveObject(FindObject2(Find_ID(SPNP),Find_InRect(1620, 550, 40, 30)));
   }
 }
 
