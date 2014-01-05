@@ -49,7 +49,7 @@ func CreateInterior()
 
   //Leitern
   CreateObject(LADR, 970, 868, -1)->Set(10);
-  CreateObject(LADR, 1030, 1216, -1)->Set(6);
+  CreateObject(LADR, 1030, 1192, -1)->Set(3);
   CreateObject(LADR, 1180, 930, -1)->Set(9);
   CreateObject(LADR, 1990, 1050, -1)->Set(13);
   CreateObject(LADR, 2050, 1220, -1)->Set(20);
@@ -678,7 +678,7 @@ public func ChooserFinished()
 
    //Patrouillenboote
    SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,490,1229,-1),50*21);
-   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1180,1229,-1),50*21);
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,635,1229,-1),50*21);
    SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2480,1229,-1),50*21);
    SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2550,1229,-1),50*21);
   }
@@ -789,7 +789,7 @@ public func ChooserFinished()
 
    //Patrouillenboote
    SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,490,1229,-1),50*21);
-   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1180,1229,-1),50*21);
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,635,1229,-1),50*21);
    SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2550,1229,-1),50*21);
   }
 

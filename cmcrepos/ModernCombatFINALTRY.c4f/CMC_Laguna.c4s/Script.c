@@ -366,8 +366,7 @@ public func ChooserFinished()
 
    //Patrouillenboote
    SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,770,790,-1),50*21);
-   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,1265,789,-1),50*21);
-   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1485,789,-1),50*21);
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,2070,750,-1),50*21);
    SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2605,789,-1),50*21);
 
    //Objekte entfernen
@@ -404,7 +403,6 @@ public func ChooserFinished()
 
    //Patrouillenboote
    SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,770,790,-1),50*21);
-   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,1265,789,-1),50*21);
    SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1485,789,-1),50*21);
    SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2605,789,-1),50*21);
   }
