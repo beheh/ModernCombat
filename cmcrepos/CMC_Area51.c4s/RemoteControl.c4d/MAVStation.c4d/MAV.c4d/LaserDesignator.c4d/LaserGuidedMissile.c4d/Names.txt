@@ -1,0 +1,2 @@
+DE:Luft-Boden-Rakete
+US:Air-to-ground Missile

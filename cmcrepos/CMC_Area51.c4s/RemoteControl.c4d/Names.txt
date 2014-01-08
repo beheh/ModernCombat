@@ -1,0 +1,2 @@
+DE:Fernsteuerung
+US:Remote control

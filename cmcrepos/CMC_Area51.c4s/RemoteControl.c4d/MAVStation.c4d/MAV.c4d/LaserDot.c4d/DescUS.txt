@@ -1,0 +1,1 @@
+This dot paints a target for missiles.
