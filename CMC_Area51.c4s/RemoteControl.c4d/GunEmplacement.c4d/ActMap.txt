@@ -1,0 +1,13 @@
+[Action]
+Name=Destroyed
+FacetBase=0
+FacetTopFace=1
+Facet=0,37,32,18,0,0
+
+[Action]
+Name=Ready
+FacetBase=1
+Facet=32,45,12,9,20,1
+Delay=3
+Length=20
+NextAction=Ready

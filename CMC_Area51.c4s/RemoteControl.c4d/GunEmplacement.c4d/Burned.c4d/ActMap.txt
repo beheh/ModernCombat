@@ -1,0 +1,6 @@
+[Action]
+Name=Destroyed
+Length=3
+FacetBase=0
+FacetTopFace=1
+Facet=0,0,32,18,0,0
