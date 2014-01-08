@@ -223,6 +223,7 @@ protected func ActivateEntrance(pUser, fRemote)
 	if(!fRemote)
 	{
   	ObjectSetAction(pUser, "RideStill", this());
+  	Sound("StructureEnter*.ogg", true, this, 100, GetOwner(pUser) + 1);
   	
   	if(pRemoteControl)
     {
@@ -249,8 +250,6 @@ protected func ActivateEntrance(pUser, fRemote)
     Sound("CockpitRadio.ogg", true, 0, 100, GetOwner(pUser)+1, +1);
     SetAction("Controlling");
   }
-
-  Sound("StructureEnter*.ogg", true, this, 100, GetOwner(pUser) + 1);
 
   //Aktivität per Effekt starten
   if(!GetEffect("Activity",this))
@@ -373,7 +372,7 @@ public func ControlDownDouble(object pByObj)
   return true;
 }
 
-protected func ControlUp(object pByObj)
+public func ControlUp(object pByObj)
 {
   if(pMAV && !pMAV->IsDestroyed())
     pMAV->~ControlUp(pByObj);
