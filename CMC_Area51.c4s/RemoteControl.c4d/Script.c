@@ -6,15 +6,44 @@ local pTarget;
 local fControlling;
 local pClonk;
 
+public func IsDrawable()	{return true;}	//Wird sichtbar getragen
+public func HandX()		{return 4000;}
+public func HandY()		{return 10;}
+public func HandSize()		{return 1000;}
+
 func Activate(object pCaller) {
   
   if(fControlling)
   {
-  	fControlling = false;
+  	Cancel();
   	return;
   }
   
-  var pGun = FindObject2(Find_AtPoint(), Find_Or(Find_Func("IsGunEmplacement"), Find_Func("IsMAVStation")));
+  if(pTarget)
+  {
+  	SetComDir(COMD_Stop, pCaller);
+		Sound("Bsss.wav", 1, 0, 0, GetOwner(pCaller));
+		fControlling = true;
+		SetPlrView(GetOwner(pClonk), ViewTarget());
+		if(!pTarget->~ActivateEntrance(pCaller, true))
+			Cancel();
+  }
+  else
+		PlayerMessage(GetOwner(pCaller), "No target!", this);
+		
+  return true;
+}
+
+func ControlThrow(object pCaller)
+{
+	if(pTarget && fControlling)
+	{
+		SetPlrView(GetOwner(pClonk), ViewTarget());
+		pTarget->~ControlThrow(pCaller);
+		return true;
+	}
+	
+	var pGun = FindObject2(Find_AtPoint(), Find_Or(Find_Func("IsGunEmplacement"), Find_Func("IsMAVStation")));
 
 	if(pTarget)
 	{
@@ -29,32 +58,6 @@ func Activate(object pCaller) {
 	pTarget = pGun;
 	if(pTarget)
 		LocalN("pRemoteControl", pTarget) = this;
-  return true;
-}
-
-func ControlThrow(object pCaller)
-{
-	if(pTarget)
-	{
-		if(fControlling)
-		{
-			SetPlrView(GetOwner(pClonk), ViewTarget());
-			pTarget->~ControlThrow(pCaller);
-			return true;
-		}
-	
-		SetComDir(COMD_Stop, pCaller);
-		Sound("Bsss.wav", 1, 0, 0, GetOwner(pCaller));
-		fControlling = true;
-		SetPlrView(GetOwner(pClonk), ViewTarget());
-		if(!pTarget->~ActivateEntrance(pCaller, true))
-			Cancel();
-	}
-	else
-	{
-		PlayerMessage(GetOwner(pCaller), "No target!", this);
-	}
-	
 	return true;
 }
 
@@ -86,7 +89,7 @@ func RelayControl(object pCaller, string szControl)
 	if(pTarget)
 	{
 		SetPlrView(GetOwner(pClonk), ViewTarget());
-		ObjectCall(pTarget, szControl);
+		pTarget->eval(Format("%s(%d)", szControl, pCaller));
 		return true;
 	}
 }
