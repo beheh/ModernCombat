@@ -14,7 +14,7 @@ private func Class1Info(int iData, int iPlr)
   if(iData == CData_Desc)       return "$assault_desc$";
   if(iData == CData_Clonk)      return PCMK;
   if(iData == CData_Ammo)       return [[STAM, 90], [GRAM, 8]];
-  if(iData == CData_Items)      return [[ASTR, 1], [PSTL, 1], [C4PA, 1], [DGNN, 1]];
+  if(iData == CData_Items)      return [[ASTR, 1], [PSTL, 1], [C4PA, 3], [DGNN, 1]];
   if(iData == CData_Grenades)   return [[STUN, 2], [SGRN, 1]];
   if(iData == CData_Facet)      return 1;
   if(iData == CData_Skins)	return [[SKIN, "Assault",2]];
