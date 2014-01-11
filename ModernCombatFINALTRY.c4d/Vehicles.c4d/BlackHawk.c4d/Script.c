@@ -41,6 +41,7 @@ public func IsMachine()			{return true;}
 public func MaxDamage()			{return 200;}
 public func IsThreat()			{return true;}
 public func IsHelicopter()		{return true;}
+public func RejectPull()		{return true;}
 
 public func EngineRunning()		{return GetEffect("Engine", this);}
 public func GetRotorSpeed()		{return iRotorSpeed;}
