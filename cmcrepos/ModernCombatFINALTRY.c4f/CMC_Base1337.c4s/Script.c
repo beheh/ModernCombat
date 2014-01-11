@@ -494,6 +494,7 @@ func OnTowerCollapse()
   pRoom1->CastSmoke("Smoke3",12,15,0,5,150,250,RGBa(255,255,255,100),RGBa(255,255,255,100));
   pRoom1->Lock();
   pRoom1->SetAction("Idle");
+  pRoom1->SetClrModulation(RGBa(100,100,100,5));
   var pContent;
   while(pContent = Contents(0, pRoom1))
     pRoom1->Exit(pContent);
