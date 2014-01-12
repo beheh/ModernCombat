@@ -214,7 +214,7 @@ func CreateInterior()
 
   //Seegras und Muscheln entfernen
   for(var obj in FindObjects(Find_Or(Find_ID(SWD1), Find_ID(SWD2), Find_ID(SHEL)), Find_InRect(1280, 370, 3450, 280)))
-    RemoveObject(obj);
+   RemoveObject(obj);
 
   //Grenzen
   CreateObject(BRDR, 1170, 0, -1)->Set(0);

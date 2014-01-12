@@ -330,11 +330,11 @@ func CreateInterior()
 
   //Seegras entfernen
   for(var obj in FindObjects(Find_Or(Find_ID(SWD1), Find_ID(SWD2)), Find_InRect(1190, 490, 910, 150)))
-    RemoveObject(obj);
+   RemoveObject(obj);
   for(var obj in FindObjects(Find_Or(Find_ID(SWD1), Find_ID(SWD2)), Find_InRect(4590, 470, 1030, 230)))
-    RemoveObject(obj);
+   RemoveObject(obj);
   for(var obj in FindObjects(Find_Or(Find_ID(SWD1), Find_ID(SWD2)), Find_InRect(7120, 360, 710, 270)))
-    RemoveObject(obj);
+   RemoveObject(obj);
 
   //Sounds
 

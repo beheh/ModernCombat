@@ -487,7 +487,7 @@ public func ChooserFinished()
 
   //Verzögerte Hinweisnachricht ausgeben
   if(!FindObject(FDMG))
-    Schedule("EventInfo4K(0,Format(\"$MsgParachute$\"),PPAR, 0, 0, 0, \"Info_Event.ogg\");", 100);
+   Schedule("EventInfo4K(0,Format(\"$MsgParachute$\"),PPAR, 0, 0, 0, \"Info_Event.ogg\");", 100);
 
   //Teams abfragen
   var aTeams = [false,false,false,false,false];

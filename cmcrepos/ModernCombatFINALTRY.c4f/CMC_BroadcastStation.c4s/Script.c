@@ -439,11 +439,11 @@ public func ChooserFinished()
   //MR-Spielziel
   if(FindObject(GMNR))
   {
-    //Geldsäcke
-    AddMoneySpawn(490, 355, [20]);
-    AddMoneySpawn(850, 705, [20]);
-    AddMoneySpawn(1090, 145, [20]);
-    AddMoneySpawn(1320, 845, [20]);
+   //Geldsäcke
+   AddMoneySpawn(490, 355, [20]);
+   AddMoneySpawn(850, 705, [20]);
+   AddMoneySpawn(1090, 145, [20]);
+   AddMoneySpawn(1320, 845, [20]);
   }
 }
 

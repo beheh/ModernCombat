@@ -221,7 +221,7 @@ func CreateInterior()
 
   //Seegras und Muscheln entfernen
   for(var obj in FindObjects(Find_Or(Find_ID(SWD1), Find_ID(SWD2), Find_ID(SHEL)), Find_InRect(1250, 1270, 1150, 35)))
-    RemoveObject(obj);
+   RemoveObject(obj);
 
   //Sendemast
   var tower = CreateObject(AATR, 3670, 850, -1);
@@ -453,13 +453,13 @@ func CreateDecoration()
   rail->SetCategory(C4D_StaticBack);
   rail->SetRail([1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1]);
   for(var i = 0; i <= 19; i++)
-    rail->SetClrModulation(RGB(200, 200, 200), this, i);
+   rail->SetClrModulation(RGB(200, 200, 200), this, i);
   CreateObject(RAI1, 1463, 980, -1)->SetRail([1,3,1,3,1,3,1,3,1,3,1,3,1]);
   rail = CreateObject(RAI1, 1728, 1260, -1);
   rail->SetCategory(C4D_StaticBack);
   rail->SetRail([1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1]);
   for(var i = 0; i <= 65; i++)
-    rail->SetClrModulation(RGB(200, 200, 200), this, i);
+   rail->SetClrModulation(RGB(200, 200, 200), this, i);
   CreateObject(RAI1, 2318, 1140, -1)->SetRail([1,3,1,3,1]);
 
   //Lüftungsgitter
@@ -497,7 +497,7 @@ func OnTowerCollapse()
   pRoom->SetClrModulation(RGBa(100,100,100,5));
   var pContent;
   while(pContent = Contents(0, pRoom))
-    pRoom->Exit(pContent);
+   pRoom->Exit(pContent);
 }
 
 /* Bei Flaggenübernahme */
