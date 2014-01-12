@@ -2,17 +2,27 @@
 
 #strict 2
 
+public func RWDS_MenuAbort()	{return true;}
+
 
 /* Auswahlmenü */
 
 protected func Activate(iByPlayer)
 {
   var pClonk = GetCursor(iByPlayer);
+  if(GetMenu(pClonk))
+  {
+    if(GetMenu(pClonk)->~RWDS_MenuAbort())
+      CloseMenu(pClonk);
+    else
+      return;
+  }
+  if(!CreateMenu(GetID(), pClonk, this, 0, 0, 0, C4MN_Style_Dialog)) return;
+
   //Wenn Spieler 1 und keine Liga
   if(iByPlayer == GetPlayerByIndex(0, C4PT_User) && !GetLeague())
   {
     //Menü öffnen
-    if(GetMenu(pClonk)) return;
     CreateMenu(GetID(), pClonk, 0,0,GetName(),0, 1);
     for(var i = 1; i <= 3; i++)
     {
@@ -28,7 +38,7 @@ protected func Activate(iByPlayer)
     if(EFSM_Level == 0) szLevel = "$Custom$";
     MessageWindow(Format("$Desc$", szLevel),iByPlayer);
   }
-  return(1);
+  return 1;
 }
 
 protected func SetEffectLevel(id dummy, int iLevel)
