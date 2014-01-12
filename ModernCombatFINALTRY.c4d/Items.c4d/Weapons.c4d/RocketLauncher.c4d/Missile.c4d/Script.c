@@ -94,17 +94,13 @@ public func Secure()
 
 public func StartChasing()
 {
-  if(GetEffect("Follow", this) && EffectVar(1, this, GetEffect("Follow", this)) && !fTracerChasing)
-  {
-    Sound("BBTP_Alarm.ogg", 0, this);
-    Sound("AT4R_Empty.ogg", 0, pLauncher);
-    fTracerChasing = true;
-  }
-  else
-  {
-    Sound("MISL_Switch.ogg", 0, this, 0, GetOwner());
-    Sound("AT4R_Empty.ogg", 0, pLauncher);
-  }
+	if(GetEffect("Follow", this) && EffectVar(1, this, GetEffect("Follow", this)) && !fTracerChasing)
+	{
+		Sound("BBTP_Alarm.ogg", 0, this);
+		fTracerChasing = true;
+	}
+	else
+		CustomMessage("No target!", this, GetOwner());
 }
 
 /* Soundeffekt */
@@ -133,10 +129,10 @@ public func FxFollowTimer(object pTarget, int iEffectNumber, int iEffectTime)
   //Nichts unternehmen wenn abgeschossen
   if(GetAction(pTarget) != "Travel")
   {
-    //Laser entfernen
-    if(EffectVar(2, pTarget, iEffectNumber))
-        RemoveObject(EffectVar(2, pTarget, iEffectNumber));
-
+  	//Laser entfernen
+  	if(EffectVar(2, pTarget, iEffectNumber))
+    		RemoveObject(EffectVar(2, pTarget, iEffectNumber));
+    		
     //Licht entfernen?
     if(pLight)
       RemoveObject(pLight);
@@ -164,10 +160,10 @@ public func FxFollowTimer(object pTarget, int iEffectNumber, int iEffectTime)
     //Haben wir noch ein markiertes Ziel?
     if(!EffectVar(1,pTarget,iEffectNumber))
     {
-      fTracerChasing = false;
-      EffectVar(3, pTarget, iEffectNumber) = 0;
-      if(EffectVar(2, pTarget, iEffectNumber))
-        RemoveObject(EffectVar(2, pTarget, iEffectNumber));
+    	fTracerChasing = false;
+    	EffectVar(3, pTarget, iEffectNumber) = 0;
+    	if(EffectVar(2, pTarget, iEffectNumber))
+    		RemoveObject(EffectVar(2, pTarget, iEffectNumber));
       for(var pEnemy in FindObjects(Find_Distance(TracerRadius(), x, y), Sort_Distance(x, y)))
       {
         var iEffectTracer = GetEffect("TracerDart", pEnemy);
@@ -187,61 +183,72 @@ public func FxFollowTimer(object pTarget, int iEffectNumber, int iEffectTime)
   //Sonst anvisieren
   if(EffectVar(1,pTarget,iEffectNumber))
   {
-    var pEnemy = EffectVar(1,pTarget,iEffectNumber);
-    var pBeam = EffectVar(2, pTarget, iEffectNumber);
-    if(!fTracerChasing)
-    {
-      var xPos = GetX(pTarget);
-      var yPos = GetY(pTarget);
-      var x = GetX(pEnemy);
-      var y = GetY(pEnemy);
-      //Laser zeichnen
-      if(!pBeam)  
-        pBeam = CreateObject(LRBM, 0, 0, GetOwner(pTarget));
-      else
-        pBeam->SetPosition(xPos, yPos);
+  	var pEnemy = EffectVar(1,pTarget,iEffectNumber);
+  	var pBeam = EffectVar(2, pTarget, iEffectNumber);
+  	if(!fTracerChasing)
+  	{
+  		var xPos = GetX(pTarget);
+  		var yPos = GetY(pTarget);
+  		var x = GetX(pEnemy);
+  		var y = GetY(pEnemy);
+  		//Laser zeichnen
+    	if(!pBeam)  
+      	pBeam = CreateObject(LRBM, 0, 0, GetOwner(pTarget));
+      pBeam->SetPosition(x, y);
 
-      //Sichtbarkeit nur für Besitzer
-      pBeam->SetVisibility(VIS_Owner);
+    	//Sichtbarkeit nur für Besitzer
+    	pBeam->SetVisibility(VIS_Owner);
 
-      //Laser passend strecken
-       pBeam->SetObjDrawTransform(100 * Distance(xPos, yPos, x, y), 0, -453 * Distance(xPos, yPos, x, y), 0, 1000, 0);
+    	//Laser passend strecken
+     	pBeam->SetObjDrawTransform(100 * Distance(xPos, yPos, x, y), 0, -453 * Distance(xPos, yPos, x, y), 0, 1000, 0);
 
-      pBeam->SetR(Angle(xPos, yPos, x, y)+90);
+    	pBeam->SetR(Angle(x, y, xPos, yPos)+90);
+    	
+    	EffectVar(2, pTarget, iEffectNumber) = pBeam;
+    	
+    	//Da noch keine Autosteuerung erfolgt, normale Steuerung fortsetzen
+    	//Kann nicht gesteuert werden
+    	if(!Guideable())
+      	return;
+    	var obj = EffectVar(0,pTarget,iEffectNumber);
+    	if(!obj)
+      	return;
+    	//Schütze nicht mehr am Zielen?
+    	if(!obj->~IsAiming())
+      	return;
+    	//Schütze kann mit der Waffe nicht zielen
+    	if(pLauncher && Contents(0, obj) != pLauncher)
+      	return;
 
-      EffectVar(2, pTarget, iEffectNumber) = pBeam;
+    	iDAngle = obj->AimAngle();
+    	iMaxTurn = MaxTurn();
+  	}
+  	else
+  	{
+  		if(pBeam)
+  		{
+  			var xPos = GetX(pTarget);
+  			var yPos = GetY(pTarget);
+  			var x = GetX(pEnemy);
+  			var y = GetY(pEnemy);
 
-      //Da noch keine Autosteuerung erfolgt, normale Steuerung fortsetzen
-      //Kann nicht gesteuert werden
-      if(!Guideable())
-        return;
-      var obj = EffectVar(0,pTarget,iEffectNumber);
-      if(!obj)
-        return;
-      //Schütze nicht mehr am Zielen?
-      if(!obj->~IsAiming())
-        return;
-      //Schütze kann mit der Waffe nicht zielen
-      if(pLauncher && Contents(0, obj) != pLauncher)
-        return;
+      	pBeam->SetPosition(x, y);
 
-      iDAngle = obj->AimAngle();
-      iMaxTurn = MaxTurn();
-    }
-    else
-    {
-      if(pBeam)
-      {
-        var iAlpha = EffectVar(3, pTarget, iEffectNumber);
-        iAlpha += 5;
-        if(iAlpha >= 255)
-          RemoveObject(pBeam);
-        else
-          SetClrModulation(RGBa(255, 255, 255, iAlpha), pBeam);
-        EffectVar(3, pTarget, iEffectNumber) = iAlpha;
-      }
-      iDAngle = Angle(GetX(), GetY(), GetX(pEnemy), GetY(pEnemy));
-      iMaxTurn = MaxTracerTurn();
+    		//Laser passend strecken
+     		pBeam->SetObjDrawTransform(100 * Distance(xPos, yPos, x, y), 0, -453 * Distance(xPos, yPos, x, y), 0, 1000, 0);
+
+    		pBeam->SetR(Angle(x, y, xPos, yPos)+90);
+  		
+  			var iAlpha = EffectVar(3, pTarget, iEffectNumber);
+  			iAlpha += 3;
+  			if(iAlpha >= 255)
+  				RemoveObject(pBeam);
+  			else
+  				SetClrModulation(RGBa(255, 255, 255, iAlpha), pBeam);
+  			EffectVar(3, pTarget, iEffectNumber) = iAlpha;
+  		}
+    	iDAngle = Angle(GetX(), GetY(), GetX(pEnemy), GetY(pEnemy));
+    	iMaxTurn = MaxTracerTurn();
     }
   }
   else
@@ -274,9 +281,9 @@ public func FxFollowTimer(object pTarget, int iEffectNumber, int iEffectTime)
 
 public func FxFollowStop(pTarget, iEffectNumber)
 {
-  var pBeam = EffectVar(2, pTarget, iEffectNumber);
-  if(pBeam)
-    RemoveObject(pBeam);
+	var pBeam = EffectVar(2, pTarget, iEffectNumber);
+	if(pBeam)
+		RemoveObject(pBeam);
 }
 
 private func Traveling()
