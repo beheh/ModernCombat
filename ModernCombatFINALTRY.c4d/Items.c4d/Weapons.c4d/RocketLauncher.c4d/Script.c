@@ -221,3 +221,53 @@ public func OnSelect()
 {
   Sound("RTLR_Charge.ogg");
 }
+
+/*----- Werfen -----*/
+
+public func ControlThrow(caller)
+{
+  //Nutzer ist Schütze
+  SetUser(caller);
+
+  //Unterstützt der Schussmodus das zielen aber es wird nicht gezielt?
+  if(GetFMData(FM_Aim)>0 && !(GetUser()->~IsAiming()) && !(GetUser()->~AimOverride()))
+  {
+    //Bereit zum Zielen?
+    if(GetUser()->~ReadyToAim())
+      //Zielen starten
+      GetUser()->StartAiming();
+    return 1;
+  }
+
+  //Feuern! Fehlgeschlagen?
+  if(!Fire())
+  {
+    var ammoid = GetFMData(FM_AmmoID);
+    var ammousage = GetFMData(FM_AmmoUsage);
+    //Nachladen wenn möglich sofern Munition verbraucht
+    if(pRocket && GetAction(pRocket) != "Fall" && !pRocket->IsDamaged() && pRocket->Guideable())
+    {
+    	if(pRocket && Contained() && Contents(0, Contained()) == this && Contained()->~IsClonk() && Contained()->~IsAiming() && GetEffect("Follow", pRocket))
+    	{
+    		pRocket->StartChasing();
+    	}
+		}
+		else
+		{
+    	if(!CheckAmmo(ammoid,ammousage,this))
+      	if(CheckAmmo(ammoid,ammousage,GetUser()))
+      	{
+        	Reload();
+      	}
+      	//Nicht genügend Munition
+      	else
+      	{
+        	//Unmöglichkeit des Nachladens angeben
+        	PlayerMessage(GetOwner(caller), "$NotEnoughAmmo$", caller, ammoid);
+        	Sound("WPN2_Empty.ogg");
+      	}
+    }
+  }
+
+  return 1;
+}
