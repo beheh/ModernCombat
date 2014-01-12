@@ -3,7 +3,7 @@
 #strict 2
 #include MISS
 
-local sx, sy, pLauncher, pLight, iLastAttacker, fGuided, fLaserGuided;
+local sx, sy, pLauncher, pLight, iLastAttacker, fGuided, fLaserGuided, fTracerChasing;
 
 public func MaxTime()		{return 200;}			//Maximale Flugzeit
 
@@ -92,6 +92,17 @@ public func Secure()
   return GetEffect("IntSecureTime", this);
 }
 
+public func StartChasing()
+{
+	if(GetEffect("Follow", this) && EffectVar(1, this, GetEffect("Follow", this)))
+	{
+		Sound("BBTP_Alarm.ogg", 0, this);
+		fTracerChasing = true;
+	}
+	else
+		CustomMessage("No target!", this, GetOwner());
+}
+
 /* Soundeffekt */
 
 public func FxThrustSoundTimer(object pTarget, int iEffectNumber, int iEffectTime)
@@ -143,6 +154,11 @@ public func FxFollowTimer(object pTarget, int iEffectNumber, int iEffectTime)
     }
     //Haben wir noch ein markiertes Ziel?
     if(!EffectVar(1,pTarget,iEffectNumber))
+    {
+    	fTracerChasing = false;
+    	EffectVar(3, pTarget, iEffectNumber) = 0;
+    	if(EffectVar(2, pTarget, iEffectNumber))
+    		RemoveObject(EffectVar(2, pTarget, iEffectNumber));
       for(var pEnemy in FindObjects(Find_Distance(TracerRadius(), x, y), Sort_Distance(x, y)))
       {
         var iEffectTracer = GetEffect("TracerDart", pEnemy);
@@ -151,9 +167,9 @@ public func FxFollowTimer(object pTarget, int iEffectNumber, int iEffectTime)
         if(iTeam != GetPlayerTeam(GetController())) continue;
         if(!PathFree(GetX(), GetY(), GetX(pEnemy), GetY(pEnemy))) continue;
         EffectVar(1, pTarget, iEffectNumber) = pEnemy;
-        Sound("BBTP_Alarm.ogg", 0, pTarget);
         break;
       }
+    }
   }
   //Soll-Winkel
   var iDAngle;
@@ -162,9 +178,62 @@ public func FxFollowTimer(object pTarget, int iEffectNumber, int iEffectTime)
   //Sonst anvisieren
   if(EffectVar(1,pTarget,iEffectNumber))
   {
-    var pEnemy = EffectVar(1,pTarget,iEffectNumber);
-    iDAngle = Angle(GetX(), GetY(), GetX(pEnemy), GetY(pEnemy));
-    iMaxTurn = MaxTracerTurn();
+  	var pEnemy = EffectVar(1,pTarget,iEffectNumber);
+  	var pBeam = EffectVar(2, pTarget, iEffectNumber);
+  	if(!fTracerChasing)
+  	{
+  		var xPos = GetX(pTarget);
+  		var yPos = GetY(pTarget);
+  		var x = GetX(pEnemy);
+  		var y = GetY(pEnemy);
+  		//Laser zeichnen
+    	if(!pBeam)  
+      	pBeam = CreateObject(LRBM, 0, 0, GetOwner(pTarget));
+    	else
+      	pBeam->SetPosition(xPos, yPos);
+
+    	//Sichtbarkeit nur für Besitzer
+    	pBeam->SetVisibility(VIS_Owner);
+
+    	//Laser passend strecken
+     	pBeam->SetObjDrawTransform(100 * Distance(xPos, yPos, x, y), 0, -453 * Distance(xPos, yPos, x, y), 0, 1000, 0);
+
+    	pBeam->SetR(Angle(xPos, yPos, x, y)+90);
+    	
+    	EffectVar(2, pTarget, iEffectNumber) = pBeam;
+    	
+    	//Da noch keine Autosteuerung erfolgt, normale Steuerung fortsetzen
+    	//Kann nicht gesteuert werden
+    	if(!Guideable())
+      	return;
+    	var obj = EffectVar(0,pTarget,iEffectNumber);
+    	if(!obj)
+      	return;
+    	//Schütze nicht mehr am Zielen?
+    	if(!obj->~IsAiming())
+      	return;
+    	//Schütze kann mit der Waffe nicht zielen
+    	if(pLauncher && Contents(0, obj) != pLauncher)
+      	return;
+
+    	iDAngle = obj->AimAngle();
+    	iMaxTurn = MaxTurn();
+  	}
+  	else
+  	{
+  		if(pBeam)
+  		{
+  			var iAlpha = EffectVar(3, pTarget, iEffectNumber);
+  			iAlpha += 5;
+  			if(iAlpha >= 255)
+  				RemoveObject(pBeam);
+  			else
+  				SetClrModulation(RGBa(255, 255, 255, iAlpha), pBeam);
+  			EffectVar(3, pTarget, iEffectNumber) = iAlpha;
+  		}
+    	iDAngle = Angle(GetX(), GetY(), GetX(pEnemy), GetY(pEnemy));
+    	iMaxTurn = MaxTracerTurn();
+    }
   }
   else
   {
@@ -192,6 +261,13 @@ public func FxFollowTimer(object pTarget, int iEffectNumber, int iEffectTime)
   if(fLaserGuided && (!pEnemy || !pEnemy->~Active()))
     iTurn = 0;
   SetR(iAngle+iTurn*((iDiff > 0)*2-1));
+}
+
+public func FxFollowStop(pTarget, iEffectNumber)
+{
+	var pBeam = EffectVar(2, pTarget, iEffectNumber);
+	if(pBeam)
+		RemoveObject(pBeam);
 }
 
 private func Traveling()
