@@ -146,6 +146,50 @@ public func ControlDig(object pBy)
   }
 }
 
+/*----- Werfen -----*/
+
+public func ControlThrow(caller)
+{
+  //Nutzer ist Schütze
+  SetUser(caller);
+
+  //Feuern! Fehlgeschlagen?
+  if(!Fire())
+  {
+  	var pRocket;
+  	for(var i = 0; i < GetLength(aRockets); i++)
+  		if(aRockets[i] && GetAction(aRockets[i]) != "Fall" && !aRockets[i]->IsDamaged() && aRockets[i]->Guideable() && GetEffect("Follow", aRockets[i]))
+  		{
+  			pRocket = aRockets[i];
+  			break;
+  		}
+
+    for(var i = 0; i < GetLength(aRockets); i++)
+  		if(aRockets[i])
+  		{
+  			EffectVar(1, aRockets[i], GetEffect("Follow", aRockets[i])) = EffectVar(1, pRocket, GetEffect("Follow", pRocket));
+  			aRockets[i]->StartChasing();
+  		}
+  }
+  else
+  {
+    if(GetFMData(FM_BurstAmount) > 1 && !GetEffect("BurstFire", this))
+    {
+      var rechargetime = GetFMData(FM_BurstRecharge);
+      if(rechargetime)
+        AddEffect("BurstFire", this, 1, rechargetime, this, 0, GetFMData(FM_BurstAmount));
+      else
+      {
+        for(var i = GetFMData(FM_BurstAmount); i > 0; i--)
+          if(!Fire())
+            return 1;
+      }
+    }
+  }  
+
+  return 1;
+}
+
 /* Allgemein */
 
 public func OnEmpty()
