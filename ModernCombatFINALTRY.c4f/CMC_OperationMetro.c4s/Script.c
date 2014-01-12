@@ -388,28 +388,28 @@ func CreateDecoration()
   rail->SetCategory(C4D_StaticBack);
   rail->SetRail([1,3,1,3,1,3,1,3,1]);
   for(var i = 0; i <= 11; i++)
-    rail->SetClrModulation(RGB(200, 200, 200), this, i);
+   rail->SetClrModulation(RGB(200, 200, 200), this, i);
 
   CreateObject(RAI1, 2240, 440, -1);
   rail = CreateObject(RAI1, 2260, 440, -1);
   rail->SetCategory(C4D_StaticBack);
   rail->SetRail([1,3,1,3,1]);
   for(var i = 0; i <= 7; i++)
-    rail->SetClrModulation(RGB(200, 200, 200), this, i);
+   rail->SetClrModulation(RGB(200, 200, 200), this, i);
   CreateObject(RAI1, 2392, 370, -1)->SetRail([1,3,1,3,1,3,1,3,1,3,1,3,1]);
   CreateObject(RAI1, 2703, 370, -1)->SetRail([1,3,1,3,1,3,1,3,1,3,1,3,1]);
   rail = CreateObject(RAI1, 2920, 440, -1);
   rail->SetCategory(C4D_StaticBack);
   rail->SetRail([1,3,1,3,1]);
   for(var i = 0; i <= 7; i++)
-    rail->SetClrModulation(RGB(200, 200, 200), this, i);
+   rail->SetClrModulation(RGB(200, 200, 200), this, i);
   CreateObject(RAI1, 2980, 440, -1);
 
   rail = CreateObject(RAI1, 3530, 370, -1);
   rail->SetCategory(C4D_StaticBack);
   rail->SetRail([1,3,1,3,1,3,1,3,1]);
   for(var i = 0; i <= 11; i++)
-    rail->SetClrModulation(RGB(200, 200, 200), this, i);
+   rail->SetClrModulation(RGB(200, 200, 200), this, i);
   CreateObject(RAI1, 3630, 370, -1);
   CreateObject(RAI1, 3915, 300, -1)->SetRail([1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1]);
 
