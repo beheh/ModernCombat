@@ -94,8 +94,8 @@ public func Set(object pClonk)
       aGrenades[GetLength(aGrenades)] = nade;
     }
   }
-  
-  //Evtl. Granaten holen
+
+  //Eventuell Granaten holen
   pClonk->~GrabGrenades(this);
   //Objekte des Clonks aufnehmen
   var iCount = ContentsCount(0, pClonk);
@@ -131,7 +131,7 @@ public func KillMessage(string msg)
   killmsg = msg;
 
   //Spieler hat Hilfen aktiviert: Quicktipp geben
-  if (clonk && !clonk->ShorterDeathMenu())
+  if(clonk && !clonk->ShorterDeathMenu())
     aTipps = GetQuickTipps(this);
 
   DeathMenu();
@@ -143,7 +143,7 @@ protected func FxIntFakeDeathMenuTimer(object pTarget, int iEffect, int iTime)
     return -1;
 
   //Tot: Abbruch
-  if (!clonk || iTime >= FKDT_SuicideTime * 35)
+  if(!clonk || iTime >= FKDT_SuicideTime * 35)
   {
     pTarget->~Remove();
     return -1;
@@ -160,9 +160,9 @@ protected func FxIntFakeDeathMenuTimer(object pTarget, int iEffect, int iTime)
     pTarget->~DoMenu();
 
     var iAlpha = Interpolate2(255, 0, iTime, FKDT_SuicideTime * 35), pScreen = EffectVar(0, pTarget, iEffect);
-    if (!pScreen)
+    if(!pScreen)
       pScreen = EffectVar(0, pTarget, iEffect) = ScreenRGB(pClonk, GetScenarioVal("FoWColor"), iAlpha, 0, false, SR4K_LayerFakeDeath);
-    if (pScreen)
+    if(pScreen)
       pScreen->~SetAlpha(iAlpha);
   }
 
@@ -192,8 +192,8 @@ private func DeathMenu()
 
   var selection = GetMenuSelection(clonk);
 
-  //Bei offenem Statistikmenü nichts unternehmen
-  if(GetMenu(clonk) == RWDS) return;
+  //Bei offenem Statistikmenü oder Effektmanager nichts unternehmen
+  if(GetMenu(clonk) == RWDS ||GetMenu(clonk) == EFMN) return;
 
   CloseMenu(clonk);
 
@@ -204,7 +204,7 @@ private func DeathMenu()
 
   if(!clonk->ShorterDeathMenu())
   {
-    if (FindObject(SICD))											//Hinweistext
+    if(FindObject(SICD))											//Hinweistext
       AddMenuItem(Format("$Info$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);
     else
       AddMenuItem(Format("$Info2$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);
@@ -234,8 +234,11 @@ private func DeathMenu()
     if(FindObject(RWDS))
       AddMenuItem("$Statistics$", Format("FindObject(RWDS)->Activate(%d)", GetOwner(clonk)), RWDS, clonk);	//Statistik-Menüpunkt
 
+    if(FindObject(EFMN) && GetOwner(clonk) == GetPlayerByIndex(0, C4PT_User) && !GetLeague())
+      AddMenuItem("$EffectLevel$", Format("FindObject(EFMN)->Activate(%d)", GetOwner(clonk)), EFMN, clonk);	//Effektstufe-Menüpunkt
+
     if(aTipps[iTippNr])
-      AddMenuItem("$NextTipp$", "NextTipp", MCMC, clonk);
+      AddMenuItem("$NextTipp$", "NextTipp", MCMC, clonk);							//Nächster Tipp-Menüpunkt
   }
 
   if(GetType(killmsg) == C4V_String)
@@ -275,9 +278,9 @@ private func DeathMenu()
     }
     //Teamweise ausgeben
     for (var aTeam in aList)
-      if (aTeam)
+      if(aTeam)
         for (var szString in aTeam)
-          if (GetType(szString) == C4V_String)
+          if(GetType(szString) == C4V_String)
             AddMenuItem(szString, "", NONE, clonk, 0, 0, "", 512);
   }
   if(selection >= 0) SelectMenuItem(selection, clonk);
@@ -362,21 +365,21 @@ global func FKDTSupportedID()	{return GetIndexOf(GetID(), FKDT_QuickTipIDs) != -
 /*private func GetQuickTipp(object pFake)
 {
   //Standard-Tipp
-  if (!Random(8) || !ContentsCount(0, pFake))
+  if(!Random(8) || !ContentsCount(0, pFake))
     return GetGeneralTipp();
   //Sonst Tipps zu Inventarobjekten
   var array = [], id = [], tipp;
     for (var obj in FindObjects(Find_Container(pFake)))
     {
       //Hat schon so einen Tipp
-      if (GetIndexOf(GetID(obj), id) != -1 || !(tipp = GetRandomTipp(0, GetID(obj))))
+      if(GetIndexOf(GetID(obj), id) != -1 || !(tipp = GetRandomTipp(0, GetID(obj))))
         continue;
       //Tipp hinzufügen
       id[GetLength(id)] = GetID(obj);
       array[GetLength(array)] = tipp;
     }
   //Keine Tipps
-  if (!array || GetType(array) != C4V_Array || !GetLength(array))
+  if(!array || GetType(array) != C4V_Array || !GetLength(array))
     return GetGeneralTipp();
   return GetRandomTipp(array);
 }*/
@@ -388,38 +391,38 @@ private func GetGeneralTipp()
 
 private func GetRandomTipp(array a, id id)
 {
-  if (a)
+  if(a)
     return a[Random(GetLength(a))];
 
   //Waffen
-  if (id == ASTR) return GetRandomTipp([[ASTR, "$ASTR0$"], [ASTR, "$ASTR1$"]]);
-  if (id == MNGN) return GetRandomTipp([[MNGN, "$MNGN0$"]]);
-  if (id == PSTL) return GetRandomTipp([[PSTL, "$PSTL0$"], [PSTL, "$PSTL1$"]]);
-  if (id == RTLR) return GetRandomTipp([[MISL, "$RTLR0$"], [RTLR, "$RTLR1$"], [MISL, "$RTLR2$"], [MISL, "$RTLR3$"]]);
-  if (id == PPGN) return GetRandomTipp([[PPGN, "$PPGN0$"]]);
-  if (id == SGST) return GetRandomTipp([[SGST, "$SGST0$"]]);
-  if (id == SMGN) return GetRandomTipp([[SMGN, "$SMGN0$"], [SMGN, "$SMGN0$"]]);
-  if (id == ATWN) return GetRandomTipp([[ATWN, "$ATWN0$"], [AAMS, "$ATWN1$"]]);
+  if(id == ASTR) return GetRandomTipp([[ASTR, "$ASTR0$"], [ASTR, "$ASTR1$"]]);
+  if(id == MNGN) return GetRandomTipp([[MNGN, "$MNGN0$"]]);
+  if(id == PSTL) return GetRandomTipp([[PSTL, "$PSTL0$"], [PSTL, "$PSTL1$"]]);
+  if(id == RTLR) return GetRandomTipp([[MISL, "$RTLR0$"], [RTLR, "$RTLR1$"], [MISL, "$RTLR2$"], [MISL, "$RTLR3$"]]);
+  if(id == PPGN) return GetRandomTipp([[PPGN, "$PPGN0$"]]);
+  if(id == SGST) return GetRandomTipp([[SGST, "$SGST0$"]]);
+  if(id == SMGN) return GetRandomTipp([[SMGN, "$SMGN0$"], [SMGN, "$SMGN0$"]]);
+  if(id == ATWN) return GetRandomTipp([[ATWN, "$ATWN0$"], [AAMS, "$ATWN1$"]]);
 
   //Granaten
-  if (id->~IsGrenade() && !Random(6)) return GetRandomTipp([[BOOM, "$NADE0$"]]);
-  if (id == FGRN) return GetRandomTipp([[FGRN, "$FGRN0$"]]);
-  if (id == FRAG) return GetRandomTipp([[FRAG, "$FRAG0$"], [SHRP, "$FRAG1$"]]);
-  if (id == PGRN) return GetRandomTipp([[PGRN, "$PGRN0$"]]);
-  if (id == STUN) return GetRandomTipp([[STUN, "$STUN0$"], [STUN, "$STUN1$"]]);
-  if (id == SGRN) return GetRandomTipp([[SM4K, "$SGRN0$"]]);
-  if (id == SRBL) return GetRandomTipp([[SM08, "$SRBL0$"], [SRBL, "$SRBL1$"]]);
+  if(id->~IsGrenade() && !Random(6)) return GetRandomTipp([[BOOM, "$NADE0$"]]);
+  if(id == FGRN) return GetRandomTipp([[FGRN, "$FGRN0$"]]);
+  if(id == FRAG) return GetRandomTipp([[FRAG, "$FRAG0$"], [SHRP, "$FRAG1$"]]);
+  if(id == PGRN) return GetRandomTipp([[PGRN, "$PGRN0$"]]);
+  if(id == STUN) return GetRandomTipp([[STUN, "$STUN0$"], [STUN, "$STUN1$"]]);
+  if(id == SGRN) return GetRandomTipp([[SM4K, "$SGRN0$"]]);
+  if(id == SRBL) return GetRandomTipp([[SM08, "$SRBL0$"], [SRBL, "$SRBL1$"]]);
 
   //Equipment
-  if (id == AMPK) return GetRandomTipp([[AMPK, "$AMPK0$"]]);
-  if (id == BTBG) return GetRandomTipp([[BBTP, "$BTBG0$"], [BBTP, "$BTBG1$"], [BBTP, "$BTBG2$"]]);
-  if (id == C4PA) return GetRandomTipp([[C4PA, "$C4PA0$"], [C4PA, "$C4PA1$"]]);
-  if (id == DGNN) return GetRandomTipp([[DGNN, "$DGNN0$"], [DGNN, "$DGNN1$"]]);
-  if (id == FAPK) return GetRandomTipp([[FAPK, "$FAPK0$"], [FAPK, "$FAPK1$"], [FAPK, "$FAPK2$"], [BECR, "$FAPK3$"]]);
-  if (id == RSHL) return GetRandomTipp([[RSHL, "$RSHL0$"], [RSHL, "$RSHL1$"], [RSHL, "$RSHL2$"], [RSHL, "$RSHL3$"], [SDSD, "$RSHL4$"]]);
-  if (id == CDBT) return GetRandomTipp([[CDBT, "$CDBT0$"], [CDBT, "$CDBT1$"]]);
-  if (id == CUAM) return GetRandomTipp([[CUAM, "$CUAM0$"]]);
-  if (id == BWTH) return GetRandomTipp([[BWTH, "$BWTH0$"], [BWTH, "$BWTH1$"], [BWTH, "$BWTH2$"], [BWTH, "$BWTH3$"]]);
+  if(id == AMPK) return GetRandomTipp([[AMPK, "$AMPK0$"]]);
+  if(id == BTBG) return GetRandomTipp([[BBTP, "$BTBG0$"], [BBTP, "$BTBG1$"], [BBTP, "$BTBG2$"]]);
+  if(id == C4PA) return GetRandomTipp([[C4PA, "$C4PA0$"], [C4PA, "$C4PA1$"]]);
+  if(id == DGNN) return GetRandomTipp([[DGNN, "$DGNN0$"], [DGNN, "$DGNN1$"]]);
+  if(id == FAPK) return GetRandomTipp([[FAPK, "$FAPK0$"], [FAPK, "$FAPK1$"], [FAPK, "$FAPK2$"], [BECR, "$FAPK3$"]]);
+  if(id == RSHL) return GetRandomTipp([[RSHL, "$RSHL0$"], [RSHL, "$RSHL1$"], [RSHL, "$RSHL2$"], [RSHL, "$RSHL3$"], [SDSD, "$RSHL4$"]]);
+  if(id == CDBT) return GetRandomTipp([[CDBT, "$CDBT0$"], [CDBT, "$CDBT1$"]]);
+  if(id == CUAM) return GetRandomTipp([[CUAM, "$CUAM0$"]]);
+  if(id == BWTH) return GetRandomTipp([[BWTH, "$BWTH0$"], [BWTH, "$BWTH1$"], [BWTH, "$BWTH2$"], [BWTH, "$BWTH3$"]]);
 }
 
 /* Selbstmord */
