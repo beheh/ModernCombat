@@ -94,7 +94,7 @@ public func Secure()
 
 public func StartChasing()
 {
-	if(GetEffect("Follow", this) && EffectVar(1, this, GetEffect("Follow", this)))
+	if(GetEffect("Follow", this) && EffectVar(1, this, GetEffect("Follow", this)) && !fTracerChasing)
 	{
 		Sound("BBTP_Alarm.ogg", 0, this);
 		fTracerChasing = true;
@@ -129,6 +129,10 @@ public func FxFollowTimer(object pTarget, int iEffectNumber, int iEffectTime)
   //Nichts unternehmen wenn abgeschossen
   if(GetAction(pTarget) != "Travel")
   {
+  	//Laser entfernen
+  	if(EffectVar(2, pTarget, iEffectNumber))
+    		RemoveObject(EffectVar(2, pTarget, iEffectNumber));
+    		
     //Licht entfernen?
     if(pLight)
       RemoveObject(pLight);
@@ -150,6 +154,7 @@ public func FxFollowTimer(object pTarget, int iEffectNumber, int iEffectTime)
       var del;
       if(!GetEffect("TracerDart", pEnemy)) del = true;
       if(!PathFree(GetX(pTarget), GetY(pTarget), GetX(pEnemy), GetY(pEnemy))) del = true;
+      if(!fTracerChasing && Distance(GetX(pTarget), GetY(pTarget), GetX(pEnemy), GetY(pEnemy)) > TracerRadius()) del = true;
       if(del) EffectVar(1,pTarget,iEffectNumber) = 0;
     }
     //Haben wir noch ein markiertes Ziel?
