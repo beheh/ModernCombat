@@ -247,25 +247,25 @@ public func ControlThrow(caller)
     //Nachladen wenn möglich sofern Munition verbraucht
     if(pRocket && GetAction(pRocket) != "Fall" && !pRocket->IsDamaged() && pRocket->Guideable())
     {
-    	if(pRocket && Contained() && Contents(0, Contained()) == this && Contained()->~IsClonk() && Contained()->~IsAiming() && GetEffect("Follow", pRocket))
-    	{
-    		pRocket->StartChasing();
-    	}
-		}
-		else
-		{
-    	if(!CheckAmmo(ammoid,ammousage,this))
-      	if(CheckAmmo(ammoid,ammousage,GetUser()))
-      	{
-        	Reload();
-      	}
-      	//Nicht genügend Munition
-      	else
-      	{
-        	//Unmöglichkeit des Nachladens angeben
-        	PlayerMessage(GetOwner(caller), "$NotEnoughAmmo$", caller, ammoid);
-        	Sound("WPN2_Empty.ogg");
-      	}
+      if(pRocket && Contained() && Contents(0, Contained()) == this && Contained()->~IsClonk() && Contained()->~IsAiming() && GetEffect("Follow", pRocket))
+      {
+        pRocket->StartChasing();
+      }
+    }
+    else
+    {
+      if(!CheckAmmo(ammoid,ammousage,this))
+        if(CheckAmmo(ammoid,ammousage,GetUser()))
+        {
+          Reload();
+        }
+        //Nicht genügend Munition
+        else
+        {
+          //Unmöglichkeit des Nachladens angeben
+          PlayerMessage(GetOwner(caller), "$NotEnoughAmmo$", caller, ammoid);
+          Sound("WPN2_Empty.ogg");
+        }
     }
   }
 
