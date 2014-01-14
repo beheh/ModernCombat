@@ -91,6 +91,20 @@ public func LaunchRocket(id rid, int angle)
   aRockets[GetLength(aRockets)] = rocket;
   fView = true;
 
+	//Neue Rakete auf Ziele der Vorgänger aufschalten, sofern möglich
+	var pRocket;
+  for(var i = 0; i < GetLength(aRockets); i++)
+  	if(aRockets[i] && GetAction(aRockets[i]) != "Fall" && !aRockets[i]->IsDamaged() && aRockets[i]->Guideable() && GetEffect("Follow", aRockets[i]))
+  	{
+  		pRocket = aRockets[i];
+  		break;
+  	}
+  if(pRocket && LocalN("fTracerChasing", pRocket))
+  {
+  	EffectVar(1, rocket, GetEffect("Follow", rocket)) = EffectVar(1, pRocket, GetEffect("Follow", pRocket));
+  	rocket->StartChasing();
+  }
+
   //Effekte
   var ax, ay, xdir, ydir;
   user->WeaponBegin(ax,ay);
@@ -154,7 +168,7 @@ public func ControlThrow(caller)
   SetUser(caller);
 
   //Feuern! Fehlgeschlagen?
-  if(!Fire())
+  if(IsRecharging() || !Fire())
   {
   	var pRocket;
   	for(var i = 0; i < GetLength(aRockets); i++)
