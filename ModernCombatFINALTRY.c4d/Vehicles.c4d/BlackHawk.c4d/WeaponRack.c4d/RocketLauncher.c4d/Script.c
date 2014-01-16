@@ -91,18 +91,18 @@ public func LaunchRocket(id rid, int angle)
   aRockets[GetLength(aRockets)] = rocket;
   fView = true;
 
-	//Neue Rakete auf Ziele der Vorgänger aufschalten, sofern möglich
-	var pRocket;
+  //Sofern möglich: Neue Rakete auf Ziele der Vorgänger aufschalten
+  var pRocket;
   for(var i = 0; i < GetLength(aRockets); i++)
-  	if(aRockets[i] && GetAction(aRockets[i]) != "Fall" && !aRockets[i]->IsDamaged() && aRockets[i]->Guideable() && GetEffect("Follow", aRockets[i]))
-  	{
-  		pRocket = aRockets[i];
-  		break;
-  	}
+    if(aRockets[i] && GetAction(aRockets[i]) != "Fall" && !aRockets[i]->IsDamaged() && aRockets[i]->Guideable() && GetEffect("Follow", aRockets[i]))
+    {
+      pRocket = aRockets[i];
+      break;
+    }
   if(pRocket && LocalN("fTracerChasing", pRocket))
   {
-  	EffectVar(1, rocket, GetEffect("Follow", rocket)) = EffectVar(1, pRocket, GetEffect("Follow", pRocket));
-  	rocket->StartChasing();
+    EffectVar(1, rocket, GetEffect("Follow", rocket)) = EffectVar(1, pRocket, GetEffect("Follow", pRocket));
+    rocket->StartChasing();
   }
 
   //Effekte
@@ -170,20 +170,20 @@ public func ControlThrow(caller)
   //Feuern! Fehlgeschlagen?
   if(IsRecharging() || !Fire())
   {
-  	var pRocket;
-  	for(var i = 0; i < GetLength(aRockets); i++)
-  		if(aRockets[i] && GetAction(aRockets[i]) != "Fall" && !aRockets[i]->IsDamaged() && aRockets[i]->Guideable() && GetEffect("Follow", aRockets[i]))
-  		{
-  			pRocket = aRockets[i];
-  			break;
-  		}
+    var pRocket;
+    for(var i = 0; i < GetLength(aRockets); i++)
+      if(aRockets[i] && GetAction(aRockets[i]) != "Fall" && !aRockets[i]->IsDamaged() && aRockets[i]->Guideable() && GetEffect("Follow", aRockets[i]))
+      {
+        pRocket = aRockets[i];
+        break;
+      }
 
     for(var i = 0; i < GetLength(aRockets); i++)
-  		if(aRockets[i])
-  		{
-  			EffectVar(1, aRockets[i], GetEffect("Follow", aRockets[i])) = EffectVar(1, pRocket, GetEffect("Follow", pRocket));
-  			aRockets[i]->StartChasing();
-  		}
+      if(aRockets[i])
+      {
+        EffectVar(1, aRockets[i], GetEffect("Follow", aRockets[i])) = EffectVar(1, pRocket, GetEffect("Follow", pRocket));
+        aRockets[i]->StartChasing();
+      }
   }
   else
   {
@@ -199,7 +199,7 @@ public func ControlThrow(caller)
             return 1;
       }
     }
-  }  
+  }
 
   return 1;
 }
