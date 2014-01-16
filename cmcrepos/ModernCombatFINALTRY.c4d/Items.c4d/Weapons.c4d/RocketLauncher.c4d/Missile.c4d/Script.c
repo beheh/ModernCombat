@@ -97,13 +97,13 @@ public func StartChasing()
   if(GetEffect("Follow", this) && EffectVar(1, this, GetEffect("Follow", this)) && !fTracerChasing)
   {
     Sound("BBTP_Alarm.ogg", 0, this);
-    Sound("AT4R_Empty.ogg", 0, pLauncher);
+    Sound("AT4R_Empty.ogg", 0, pLauncher, 50);
     fTracerChasing = true;
   }
   else
   {
     Sound("MISL_Switch.ogg", 0, this, 0, GetOwner());
-    Sound("AT4R_Empty.ogg", 0, pLauncher);
+    Sound("AT4R_Empty.ogg", 0, pLauncher, 50);
   }
 }
 
