@@ -195,7 +195,7 @@ public func OnSelect()
   Sound("RTLR_Charge.ogg");
 }
 
-/*----- Werfen -----*/
+/* Werfen */
 
 public func ControlThrow(caller)
 {

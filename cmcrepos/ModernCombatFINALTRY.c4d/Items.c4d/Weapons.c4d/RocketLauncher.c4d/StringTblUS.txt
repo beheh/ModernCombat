@@ -1,5 +1,4 @@
 Missiles=Missiles
 Optical=Optical Guidance
 Unguided=Unguided
-Laser=Laser Guidance
 NotEnoughAmmo=Not enough {{%i}}!
