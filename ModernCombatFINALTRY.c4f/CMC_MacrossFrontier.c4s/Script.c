@@ -148,7 +148,6 @@ func CreateInterior()
 
   //Metallkisten
   CreateObject(MWCR, 305, 440, -1)->AutoRespawn();
-  CreateObject(MWCR, 840, 500, -1);
   CreateObject(MWCR, 1240, 360, -1)->AutoRespawn();
 
   //Verbandskiste
@@ -162,7 +161,6 @@ func CreateInterior()
   CreateObject(PBRL, 465, 460, -1)->AutoRespawn();
   CreateObject(PBRL, 500, 480, -1)->AutoRespawn();
   CreateObject(PBRL, 515, 480, -1)->AutoRespawn();
-
   CreateObject(PBRL, 1040, 400, -1)->AutoRespawn();
   CreateObject(PBRL, 1055, 400, -1)->AutoRespawn();
   CreateObject(PBRL, 1095, 387, -1)->AutoRespawn();
@@ -181,6 +179,7 @@ func CreateInterior()
   //Gasflaschen
   CreateObject(GSBL, 40, 440, -1)->AutoRespawn();
   CreateObject(GSBL, 460, 230, -1)->AutoRespawn();
+  CreateObject(GSBL, 840, 500, -1)->AutoRespawn();
   CreateObject(GSBL, 1220, 360, -1)->AutoRespawn();
 
   //Steine
