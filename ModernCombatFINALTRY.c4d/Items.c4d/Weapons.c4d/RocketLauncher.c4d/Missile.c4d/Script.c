@@ -193,10 +193,11 @@ public func FxFollowTimer(object pTarget, int iEffectNumber, int iEffectTime)
 
       //Laser passend strecken
       pBeam->SetObjDrawTransform(100 * Distance(xPos, yPos, x, y), 0, -453 * Distance(xPos, yPos, x, y), 0, 1000, 0);
-
       pBeam->SetR(Angle(x, y, xPos, yPos)+90);
 
       EffectVar(2, pTarget, iEffectNumber) = pBeam;
+
+      Sound("MISL_Click.ogg", 0, this, 50, GetOwner());
 
       //Da noch keine automatische Steuerung erfolgt, normale Steuerung fortsetzen
       //Kann nicht gesteuert werden
