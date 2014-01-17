@@ -771,14 +771,18 @@ public func ChooserFinished()
   if(FindObject(GMNR))
   {
    //Geldsäcke
-   AddMoneySpawn(2040, 295, [20]);
+   AddMoneySpawn(2040, 435, [20]);
    AddMoneySpawn(2620, 435, [20]);
    AddMoneySpawn(2620, 615, [20]);
-   AddMoneySpawn(3200, 295, [20]);
+   AddMoneySpawn(3200, 435, [20]);
 
    //Grenzen setzen
    CreateObject(BRDR, 950, 0, -1)->Set(0);
    CreateObject(BRDR, 4290, 0, -1)->Set(1);
+
+   //Teamgrenzen
+   CreateObject(BRDR, 1810, 0, -1)->Set(0,1,0,1,1);
+   CreateObject(BRDR, 3430, 0, -1)->Set(1,1,0,1,2);
 
    //Geschützstellungen
    CreateObject(GNET, 1600, 370, -1)->Set(0,90,1);

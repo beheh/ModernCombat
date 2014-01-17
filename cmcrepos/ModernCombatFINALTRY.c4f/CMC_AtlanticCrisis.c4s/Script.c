@@ -565,9 +565,21 @@ public func ChooserFinished()
    AddMoneySpawn(3195, 450, [20]);
    AddMoneySpawn(3675, 510, [20]);
 
+   //Teamgrenzen
+   CreateObject(BRDR, 2000, 0, -1)->Set(0,1,0,1,1);
+   CreateObject(BRDR, 4010, 0, -1)->Set(1,1,0,1,2);
+
    //MAV-Stationen
    CreateObject(MVSN, 1350, 500, -1)->Set(1520,530,1);
    CreateObject(MVSN, 4660, 500, -1)->Set(4490,530,1);
+
+   //Selbstschussanlagen
+   var selfdef = CreateObject(SEGU, 1690, 540, -1);
+   selfdef->Set(0,1,1,180,0,2100);
+   selfdef->SetTeam(1);
+   selfdef = CreateObject(SEGU, 4320, 540, -1);
+   selfdef->Set(0,1,1,180,3910);
+   selfdef->SetTeam(2);
   }
 
   //CTF-Spielziel

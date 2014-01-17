@@ -735,6 +735,10 @@ public func ChooserFinished()
    AddMoneySpawn(1365, 805, [20]);
    AddMoneySpawn(1655, 435, [20]);
 
+   //Teamgrenzen
+   CreateObject(BRDR, 900, 0, -1)->Set(0,1,0,1,1);
+   CreateObject(BRDR, 1830, 0, -1)->Set(1,1,0,1,2);
+
    //SSA Besitzer setzen
    if(aTeams[1] == true)
    {aSelfDefense[0]->SetTeam(1);}

@@ -572,39 +572,6 @@ public func ChooserFinished()
    crate->Set(ATWN);
   }
 
-  //MR-Spielziel
-  if(FindObject(GMNR))
-  {
-   //Geldsäcke
-   AddMoneySpawn(1405, 775, [15]);
-   AddMoneySpawn(1850, 835, [15]);
-
-   AddMoneySpawn(2740, 1465, [20]);
-   AddMoneySpawn(2990, 1465, [20]);
-
-   AddMoneySpawn(3880, 835, [15]);
-   AddMoneySpawn(4325, 775, [15]);
-
-   //Automat
-   var store = CreateObject(WPVM,2865, 1310,-1);
-   store->AddWare(C4PA,-1);
-   store->AddWare(FAPK,-1);
-   store->AddWare(CDBT,-1);
-   store->AddWare(BWTH,-1);
-   store->AddWare(RSHL,-1);
-   store->AddWare(ATWN,-1);
-   store->AddWare(FGRN,-1);
-   store->AddWare(FRAG,-1);
-   store->AddWare(PGRN,-1);
-   store->AddWare(SGRN,-1);
-   store->AddWare(STUN,-1);
-   store->AddWare(SRBL,-1);
-
-   //Versorgungskiste (APW)
-   var crate = CreateObject (AMCT, 2865, 1350, -1);
-   crate->Set(ATWN);
-  }
-
   //HTF-Spielziel
   if(FindObject(GHTF))
   {
@@ -625,6 +592,39 @@ public func ChooserFinished()
     //Gewehrgranaten
     PlaceSpawnpoint(GBOX, 2890, 1465);
    }
+  }
+
+  //MR-Spielziel
+  if(FindObject(GMNR))
+  {
+   //Geldsäcke
+   AddMoneySpawn(2200, 885, [15]);
+   AddMoneySpawn(2740, 1465, [20]);
+   AddMoneySpawn(2990, 1465, [20]);
+   AddMoneySpawn(3530, 885, [15]);
+
+   //Teamgrenzen
+   CreateObject(BRDR, 1820, 0, -1)->Set(0,1,0,1,1);
+   CreateObject(BRDR, 3910, 0, -1)->Set(1,1,0,1,2);
+
+   //Automat
+   var store = CreateObject(WPVM,2865, 1310,-1);
+   store->AddWare(C4PA,-1);
+   store->AddWare(FAPK,-1);
+   store->AddWare(CDBT,-1);
+   store->AddWare(BWTH,-1);
+   store->AddWare(RSHL,-1);
+   store->AddWare(ATWN,-1);
+   store->AddWare(FGRN,-1);
+   store->AddWare(FRAG,-1);
+   store->AddWare(PGRN,-1);
+   store->AddWare(SGRN,-1);
+   store->AddWare(STUN,-1);
+   store->AddWare(SRBL,-1);
+
+   //Versorgungskiste (APW)
+   var crate = CreateObject (AMCT, 2865, 1350, -1);
+   crate->Set(ATWN);
   }
 
   //LMS-Spielziel
