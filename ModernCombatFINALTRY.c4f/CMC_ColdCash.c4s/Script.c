@@ -401,6 +401,10 @@ public func ChooserFinished()
    AddMoneySpawn(2770, 625, [30]);
    AddMoneySpawn(3360, 455, [30]);
 
+   //Teamgrenzen
+   CreateObject(BRDR, 1910, 0, -1)->Set(0,1,0,1,1);
+   CreateObject(BRDR, 3630, 0, -1)->Set(1,1,0,1,2);
+
    //Geschützstellungen
    CreateObject(GNET, 1520, 360, -1)->Set(SATW,90);
    CreateObject(GNET, 4020, 360, -1)->Set(SATW,-90);
