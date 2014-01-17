@@ -3,7 +3,7 @@
 #strict 2
 #include MISS
 
-local sx, sy, pLauncher, pLight, iLastAttacker, fGuided, fLaserGuided, fTracerChasing;
+local sx, sy, pLauncher, pLight, iLastAttacker, fGuided, fTracerChasing;
 
 public func MaxTime()		{return 200;}			//Maximale Flugzeit
 
@@ -47,14 +47,13 @@ protected func Construction(object pBy)
     pLauncher = pBy;
 }
 
-public func Launch(int iAngle, object pFollow, bool fUnguided, bool laserguided)
+public func Launch(int iAngle, object pFollow, bool fUnguided)
 {
   //Geschwindigkeit setzen
   iSpeed = StartSpeed();
 
   //Verfolgung setzen
   fGuided = !fUnguided;
-  fLaserGuided = laserguided;
 
   //Winkel setzen
   SetR(iAngle);
@@ -122,10 +121,7 @@ public func FxFollowStart(object pTarget, int iEffectNumber, int iTemp, obj)
   if(iTemp)
     return;
   EffectVar(0,pTarget,iEffectNumber) = obj;
-  if(!fLaserGuided)
-    EffectVar(1,pTarget,iEffectNumber) = 0;
-  else
-    EffectVar(1,pTarget,iEffectNumber) = obj->~GetLaser();
+  EffectVar(1,pTarget,iEffectNumber) = 0;
 }
 
 public func FxFollowTimer(object pTarget, int iEffectNumber, int iEffectTime)
@@ -133,22 +129,14 @@ public func FxFollowTimer(object pTarget, int iEffectNumber, int iEffectTime)
   //Nichts unternehmen wenn abgeschossen
   if(GetAction(pTarget) != "Travel")
   {
-    //Laser entfernen
-    if(EffectVar(2, pTarget, iEffectNumber))
-      RemoveObject(EffectVar(2, pTarget, iEffectNumber));
-
     //Licht entfernen?
     if(pLight)
       RemoveObject(pLight);
     return;
   }
 
-  //Lasergesteuert?
-  if(fLaserGuided)
-    EffectVar(1,pTarget,iEffectNumber) = pLauncher->~GetLaser();
-
   //Rakete unterstützt Peilsender?
-  if(pTarget->~TracerCompatible() && Guideable() && !fLaserGuided)
+  if(pTarget->~TracerCompatible() && Guideable())
   {
     var x = GetX(pTarget)-GetX(), y = GetY(pTarget)-GetY();
     //Gültigkeit des Ziels prüfen
@@ -278,8 +266,6 @@ public func FxFollowTimer(object pTarget, int iEffectNumber, int iEffectTime)
   var iDiff = Normalize(iDAngle - iAngle,-180);
   var iTurn = Min(Abs(iDiff),iMaxTurn);
 
-  if(fLaserGuided && (!pEnemy || !pEnemy->~Active()))
-    iTurn = 0;
   SetR(iAngle+iTurn*((iDiff > 0)*2-1));
 }
 
