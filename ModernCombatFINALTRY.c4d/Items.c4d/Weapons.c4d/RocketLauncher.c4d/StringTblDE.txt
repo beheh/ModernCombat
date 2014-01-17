@@ -2,3 +2,4 @@ Missiles=Raketen
 Optical=Optisches Lenken
 Unguided=Ungelenkt
 Laser=Lasersteuerung
+NotEnoughAmmo=Nicht genug {{%i}}!
