@@ -5,8 +5,8 @@ CreatingDecoration=Dekoration wird plaziert...
 Team1=Aggressoren
 Team2=Eurocorps
 
-Flag1=Eurocorps Luftwaffenbasis
+Flag1=Aggressorenstützpunkt
 Flag2=Westliches Depot
 Flag3=Östliches Depot
-Flag4=Aggressorenstützpunkt
+Flag4=Eurocorps Luftwaffenbasis
 Flag5=Schützenbunker
