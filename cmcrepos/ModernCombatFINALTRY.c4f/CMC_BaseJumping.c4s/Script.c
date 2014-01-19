@@ -465,6 +465,7 @@ public func OnClassSelection(object pClonk)
   if(FindObject(GLMS) || FindObject(GMNR))
   {
    AddEffect("IntPara", pClonk, 1, 1);
+   AddEffect("Flying", pClonk, 101, 5);
    Sound("Airstrike2", 0, pClonk);
   }
 }
