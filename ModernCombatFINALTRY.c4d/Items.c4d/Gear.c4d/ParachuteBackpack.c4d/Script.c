@@ -51,7 +51,7 @@ public func ControlUpDouble()
   return false;
 }
 
-public func FxFlyingTimer(object target)
+global func FxFlyingTimer(object target)
 {
   if(GetProcedure(target) != "FLOAT" && GetProcedure(target) != "FLIGHT")  return -1;
 }
