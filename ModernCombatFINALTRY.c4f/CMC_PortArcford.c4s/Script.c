@@ -325,6 +325,7 @@ public func OnClassSelection(object pClonk, int iTeam)
     if(GetAssaultTarget(0,1) || GetAssaultTarget(1,1))
     {
      AddEffect("IntPara", pClonk, 1, 1);
+     AddEffect("Flying", pClonk, 101, 5);
      Sound("Airstrike2", 0, pClonk);
     }
    }

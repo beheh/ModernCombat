@@ -641,7 +641,8 @@ public func OnClassSelection(object pClonk, int iTeam)
    {
     if(GetAssaultTarget(0,1) || GetAssaultTarget(1,1) || GetAssaultTarget(2,1))
     {
-     Schedule("AddEffect(\"IntPara\", this, 1, 1)", 5,0,pClonk);
+     AddEffect("IntPara", pClonk, 1, 1);
+     AddEffect("Flying", pClonk, 101, 5);
      Sound("Airstrike2", 0, pClonk);
     }
    }
