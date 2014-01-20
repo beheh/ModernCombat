@@ -516,6 +516,7 @@ protected func Ejection(object ByObj)
       ByObj->SetAction("Jump");
 
     CreateObject(PARA,GetX(ByObj),GetY(ByObj),GetOwner(ByObj))->Set(ByObj);
+    AddEffect("Flying", ByObj, 101, 5);
   }
 
   return true;
