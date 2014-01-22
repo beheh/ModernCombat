@@ -326,7 +326,7 @@ public func DoProcess(int iTeam, int iAmount)
   }
 
   UpdateFlag();
-  
+
   var clr = GetTeamColor(iTeam), plr;
   if(GetTeamConfig(TEAM_AutoGenerateTeams) && GetTeamPlayerCount(iTeam) <= 1 && (plr = GetTeamMemberByIndex(iTeam, 0)) > -1)
     clr = GetPlrColorDw(plr);
