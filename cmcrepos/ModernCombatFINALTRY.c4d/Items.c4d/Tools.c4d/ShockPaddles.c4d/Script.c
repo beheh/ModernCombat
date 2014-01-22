@@ -131,7 +131,7 @@ func Use(caller)
 					Find_Hostile(GetOwner(caller)),	//Feindlich?
   					Find_Exclude(caller)))		//Nicht der Schocker selbst?
   {
-    obj = FindObjects(Find_InRect(-10,-10,20,20),Find_OCF(OCF_Alive),Find_NoContainer(),Find_Exclude(caller));
+    obj = FindObjects(Find_InRect(-10,-10,20,20),Find_OCF(OCF_Alive),Find_NoContainer(),Find_Exclude(caller), Find_Hostile(GetOwner(caller)));
     for(var target in obj)
     {
       if(target && !target->~HitExclude(this))
