@@ -326,7 +326,12 @@ public func DoProcess(int iTeam, int iAmount)
   }
 
   UpdateFlag();
-  bar->SetBarColor(GetTeamColor(iTeam));
+  
+  var clr = GetTeamColor(iTeam), plr;
+  if(GetTeamConfig(TEAM_AutoGenerateTeams) && GetTeamPlayerCount(iTeam) <= 1 && (plr = GetTeamMemberByIndex(iTeam, 0)) > -1)
+    clr = GetPlrColorDw(plr);
+
+  bar->SetBarColor(clr);
   if(process >= 100)
   {
     if(iconState != 0)
