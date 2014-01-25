@@ -65,7 +65,6 @@ public func HitboxXOffset()	{return -10;}	//X-Abstand vom Offset zum Hitboxmitte
 public func HitboxYOffset()	{return 8;}	//Y-Abstand vom Offset zum Hitboxmittelpunkt
 public func HitboxWidth()	{return 180;}	//Breite der Hitbox
 public func HitboxHeight()	{return 44;}	//Höhe der Hitbox
-public func UseOwnHitbox()	{return true;}
 
 protected func FxIntHeliProtectionStart(object pTarget, int iEffect, int iTemp, object pObj)
 {
