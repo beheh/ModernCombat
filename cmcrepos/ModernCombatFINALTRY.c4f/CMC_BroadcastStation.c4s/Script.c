@@ -219,9 +219,11 @@ func CreateEquipment()
   crate->Set(ABOX);
 
   //Gewehrgranaten
+  PlaceSpawnpoint(GBOX, 190, 705);
   PlaceSpawnpoint(GBOX, 1490, 550);
 
   //Raketen
+  PlaceSpawnpoint(MBOX, 335, 395);
   PlaceSpawnpoint(MBOX, 1645, 170);
 }
 
