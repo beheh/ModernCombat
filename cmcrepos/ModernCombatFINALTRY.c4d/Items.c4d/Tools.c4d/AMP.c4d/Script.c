@@ -154,7 +154,12 @@ protected func Activate(object pCaller)
   for (var i = 0; i < GetLength(AmmoTypes()); i++)
   {
     var aAmmo = AmmoTypes()[i];
-    AddMenuItem(Format("%d %s", aAmmo[1], GetName(0, aAmmo[0])), "CreateAmmoPack", aAmmo[0], pCaller, aAmmo[2], pCaller, 0, C4MN_Add_ForceNoDesc | 128, 0, i);
+    var iColor = RGB(255,255,51);
+    if(GetPackPoints() < aAmmo[2])
+      iColor = RGB(119,119,119);
+    else if(aAmmo[0]->~MaxAmmo() && GetAmmo(aAmmo[0],pCaller)+aAmmo[1] > aAmmo[0]->~MaxAmmo())
+      iColor = RGB(255,255,255);
+    AddMenuItem(Format("<c %x>%d %s</c>", iColor, aAmmo[1], GetName(0, aAmmo[0])), "CreateAmmoPack", aAmmo[0], pCaller, aAmmo[2], pCaller, 0, C4MN_Add_ForceNoDesc | 128, 0, i);
   }
 
   return true;
