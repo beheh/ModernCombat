@@ -1,6 +1,6 @@
 /*-- Glühbirne - Grundobjekt --*/
 
-#strict
+#strict 2
 
 local bulb;
 
@@ -8,8 +8,8 @@ local bulb;
 public func Initialize()
 {
   bulb = CreateObject(LAT2);
-  bulb->Init(this(),50); 
-  return(1);
+  bulb->Init(this,50); 
+  return 1;
 }
 
 public func Set(int Length)

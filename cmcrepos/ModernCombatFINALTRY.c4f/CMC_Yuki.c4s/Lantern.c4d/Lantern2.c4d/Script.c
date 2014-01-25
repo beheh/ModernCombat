@@ -1,40 +1,86 @@
-/*-- Laterne --*/
+﻿/*-- Laterne --*/
 
-#strict
+#strict 2
 #include BULB
 
+local unstucking;
 
-func IsBulletTarget(id ID)
+
+private func Adjust()
 {
-  if(broken) return;
-  var shot = FindObject(ID,0,0,-1,-1);
-  if(!shot)
-    return(0);
+  if(!base)
+  {
+    RemoveObject(cable);
+    RemoveObject();
+  }
+  if(!dir)
+    return;
 
-  speed += shot->GetXDir();
-  speed = BoundBy(speed,-55,55);
-  dir = BoundBy(-speed,-1,1);
+  //In Material zurückpendeln
+  if(Stuck())
+  {
+    if(!unstucking)
+    {
+      unstucking = true;
+      dir = -dir;
+      speed = -dir*5;
+    }
+  }
+  else
+    unstucking = false;
+
+  //Position anpassen
+  UpdatePos();
+
+  phase += speed;
+  speed += dir;
+
+  if((speed > 0 && dir < 0) || (speed < 0 && dir > 0))
+    if(speed%5)
+      speed += dir;
+
+  if(Abs(phase) >= 900)
+  {
+    speed = 0;
+    phase = phase/Abs(phase)*899;
+  }
+
+  if((phase >= 0 && speed >= 0 && dir > 0) || (phase <= 0 && speed <= 0 && dir < 0))
+  {
+    dir *= -1;
+    if(Abs(speed) < 15)
+    {
+      speed+=dir;
+      phase+=dir;
+      if(Abs(speed) < 7 && Abs(phase) < 5)
+      {
+        dir = 0;
+        speed = 0;
+        speed = 0;
+      }
+    }
+  }
+  SetR(Angle(GetX(),GetY(),base->GetX(),base->GetY()));
+
+  //Kabel anpassen
+  cable->Update();
+}
+
+public func IsBulletTarget(id idBullet, object pBullet, object pShooter)
+{
+  if(!unstucking)
+  {
+    speed += pBullet->GetXDir();
+    speed = BoundBy(speed,-55,55);
+    dir = BoundBy(-speed,-1,1);
+  }
   return(1);
 }
 
-/* Zerst�rung */
-
-func Damage()
+public func Damage()
 {
-  if(broken) return;
-  broken = true;
-
-  //Licht ausschalten
-  if(Light())
-    Light()->TurnOff();
-  SetAction("Off");
-
-  //Effekte
-  if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",5,15,0,0,100,150,RGBa(255,50,50,120));
-  CastParticles("SplinterGlass", 5, 35, 0, 0, 20, 20, RGBa(255,255,255,0), RGBa(255,255,255,0));
-  Sparks(7+Random(5), RGBa(255,255,150,100));
-  Sound("GlassBreak*.ogg");
-
-  //Verschwinden
-  FadeOut();
+  RemoveObject(cable);
+  RemoveObject(base);
+  Explode(5);
+  return;
 }
