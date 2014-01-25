@@ -1,4 +1,4 @@
-/*-- Hitbox --*/
+/*-- Erweiterte Hitbox --*/
 
 #strict 2
 
