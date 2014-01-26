@@ -11,6 +11,7 @@ public func HitboxXOffset()	{return 0;}	//X-Abstand vom Offset zum Hitboxmittelp
 public func HitboxYOffset()	{return 0;}	//Y-Abstand vom Offset zum Hitboxmittelpunkt
 public func HitboxWidth()	{return 10;}	//Breite der Hitbox
 public func HitboxHeight()	{return 10;}	//Höhe der Hitbox
+public func HitboxRotation() {return 0;}  //Hitbox rotieren (zusätzlich zur Objektrotation)
 public func UseOwnHitbox()	{return true;}
 
 public func BulletHitboxFactor(int ax, int ay, int bx, int by, int cx, int cy, int dx, int dy)
@@ -91,7 +92,7 @@ public func GetHitboxPoints()
   var hitbox = [];
   for(var a in angle)
   {
-    a += GetR();
+    a += GetR()+HitboxRotation();
     a = a + (45 - a) * 2;
     hitbox[GetLength(hitbox)] = [Cos(a, distance)+HitboxXOffset(), -Sin(a, distance)+HitboxYOffset()];
   }
