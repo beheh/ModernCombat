@@ -11,7 +11,7 @@ public func HitboxXOffset()	{return 0;}	//X-Abstand vom Offset zum Hitboxmittelp
 public func HitboxYOffset()	{return 0;}	//Y-Abstand vom Offset zum Hitboxmittelpunkt
 public func HitboxWidth()	{return 10;}	//Breite der Hitbox
 public func HitboxHeight()	{return 10;}	//Höhe der Hitbox
-public func HitboxRotation() {return 0;}  //Hitbox rotieren (zusätzlich zur Objektrotation)
+public func HitboxRotation()	{return 0;}	//Hitbox rotieren (zusätzlich zur Objektrotation)
 public func UseOwnHitbox()	{return true;}
 
 public func BulletHitboxFactor(int ax, int ay, int bx, int by, int cx, int cy, int dx, int dy)
@@ -27,7 +27,7 @@ public func BulletHitboxStretch(int bul_start_x, int bul_start_y, int bul_end_x,
   if(fBulHitboxResult && aBulHitboxParameter && (iLastBulHitboxCheckFrm == FrameCounter()))
     if(par[0] == bul_start_x && par[1] == bul_start_y && par[2] == bul_end_x && par[3] == bul_end_y && par[4] == GetX() && par[5] == GetY() && par[6] == GetR())
       return [par[7], par[8]];
-      
+
   return [-1];
 }
 
@@ -58,8 +58,8 @@ public func BulletHitboxCheck(int bul_start_x, int bul_start_y, int bul_end_x, i
   var x2 = hitbox[0][0];
   var y2 = hitbox[0][1];
 
-	fBulHitboxResult = false;
-	aBulHitboxParameter[8] = 0;
+  fBulHitboxResult = false;
+  aBulHitboxParameter[8] = 0;
   for(var i = 0; i <= length-1; i++)
   {
     var fac1 = BulletHitboxFactor(bul_start_x, bul_start_y, bul_end_x, bul_end_y, x1, y1, x2, y2);
@@ -67,9 +67,9 @@ public func BulletHitboxCheck(int bul_start_x, int bul_start_y, int bul_end_x, i
 
     if(Inside(fac1, 0, 1000) && Inside(fac2, 0, 1000))
     {
-    	if(!aBulHitboxParameter[7] || fac1 < aBulHitboxParameter[7])
-    		aBulHitboxParameter[7] = fac1;
-    		aBulHitboxParameter[8]++;
+      if(!aBulHitboxParameter[7] || fac1 < aBulHitboxParameter[7])
+        aBulHitboxParameter[7] = fac1;
+        aBulHitboxParameter[8]++;
       fBulHitboxResult = true;
     }
 
