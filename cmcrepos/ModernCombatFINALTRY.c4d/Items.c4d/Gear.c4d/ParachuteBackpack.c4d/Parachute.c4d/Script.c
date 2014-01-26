@@ -36,7 +36,7 @@ protected func Fly()
     SetActionTargets(0, 0, this);
 
     //Bei baldigem Bodenkontakt zusammenfallen
-    if (GBackSolid(0, 20))
+    if(GBackSolid(0, 20))
       Close();
     //Windbeeinflussung
     SetXDir(GetWind(GetX(), GetY()) / 8);
@@ -52,14 +52,14 @@ protected func Fly()
   else
   {
     var targ = GetActionTarget();
-    if (!targ)
+    if(!targ)
     {
       StartFlyFree();
       return;
     }
 
     //Bei baldigem Bodenkontakt zusammenfallen
-    if (GBackSolid(0, 20))
+    if(GBackSolid(0, 20))
     {
       //Zusatzeffekte bei Objekteanhang
       if(targ)
@@ -162,6 +162,9 @@ private func Folded()
 {
   //Verschwinden
   FadeOut();
+
+  //Soundschleife beenden
+  Sound("ParachuteFly.ogg", false, 0, 25, 0, -1);
 }
 
 /* Aufnahme verhindern */
@@ -169,6 +172,15 @@ private func Folded()
 public func RejectEntrance()
 {
   return true;
+}
+
+/* Verlust des Anhangs */
+
+public func AttachTargetLost()
+{
+  if(ActIdle())
+    StartFlyFree();
+  return;
 }
 
 /* Schaden */
