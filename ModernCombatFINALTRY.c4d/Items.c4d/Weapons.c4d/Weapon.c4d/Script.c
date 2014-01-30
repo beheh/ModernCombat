@@ -1785,7 +1785,7 @@ func FxLaserDotTimer(object pTarget, int iEffectNumber, int iEffectTime)
     	),
     	Find_Exclude(user),
     	Find_Or(Find_Not(Find_Func("UseOwnHitbox")), Find_Func("BulletHitboxCheck", xPos, yPos, x, y)),
-    	Sort_Distance(0, 0)
+    	Sort_Func("SHTX_SortDistance",xPos, yPos, x, y, iAngle, this)
     );
 
     //Feinderkennung
@@ -1793,112 +1793,111 @@ func FxLaserDotTimer(object pTarget, int iEffectNumber, int iEffectTime)
     {
       if(!pLaser->Active())
         fStart = true;
-        
-			var stretch;
-			if(pEnemy->~UseOwnHitbox() && (stretch = pEnemy->BulletHitboxStretch(xPos, yPos, x, y))[0] > 0 && stretch[1] != 4)
-			{
-				if(stretch[1] == 1)
-				{
-					x = xPos;
-					y = yPos;
-				}
-				else
-				{
-					var dist = Distance(xPos, yPos, x, y);
-					x = Sin(iAngle, (dist * stretch[0]) / 1000) + xPos;
-					y = -Cos(iAngle, (dist * stretch[0]) / 1000) + yPos;
-				}
-			}
-			else
-			{
-      	x = GetX(pEnemy);
-      	y = GetY(pEnemy);
 
-      	//Objektwerte verwenden statt Definitionswerte (bspw. für Assaulttargets)
-      	if(pEnemy->~BulletCheckObjectHitbox())
-      	{
-        	var xLeft = GetObjectVal("Offset", 0, pEnemy, 0) + x + 25*pEnemy->~IsSmoking();
-        	var xRight = GetObjectVal("Width", 0, pEnemy) + GetObjectVal("Offset", 0, pEnemy, 0) + x - 25*pEnemy->~IsSmoking();
+      var stretch;
+      if(pEnemy->~UseOwnHitbox() && (stretch = pEnemy->BulletHitboxStretch(xPos, yPos, x, y))[0] > 0 && stretch[1] != 4)
+      {
+        if(stretch[1] == 1)
+        {
+          x = xPos;
+          y = yPos;
+        }
+        else
+        {
+          var dist = Distance(xPos, yPos, x, y);
+          x = Sin(iAngle, (dist * stretch[0]) / 1000) + xPos;
+          y = -Cos(iAngle, (dist * stretch[0]) / 1000) + yPos;
+        }
+      }
+      else
+      {
+        x = GetX(pEnemy);
+        y = GetY(pEnemy);
 
-        	var yUp = GetObjectVal("Offset", 0, pEnemy, 1) + y + 25*pEnemy->~IsSmoking();
-        	var yDown = GetObjectVal("Height", 0, pEnemy) + GetObjectVal("Offset", 0, pEnemy, 1) + y - 25*pEnemy->~IsSmoking();
-      	}
-      	else if(pEnemy->~UseOwnHitbox())
-      	{
-        	var xLeft = -pEnemy->HitboxWidth()/2 + x + 25*pEnemy->~IsSmoking();
-        	var xRight = pEnemy->HitboxWidth()/2 + x - 25*pEnemy->~IsSmoking();
+        //Objektwerte verwenden statt Definitionswerte (z.B. für Assault-Ziele)
+        if(pEnemy->~BulletCheckObjectHitbox())
+        {
+          var xLeft = GetObjectVal("Offset", 0, pEnemy, 0) + x + 25*pEnemy->~IsSmoking();
+          var xRight = GetObjectVal("Width", 0, pEnemy) + GetObjectVal("Offset", 0, pEnemy, 0) + x - 25*pEnemy->~IsSmoking();
 
-        	var yUp = -pEnemy->HitboxHeight()/2 + y + 25*pEnemy->~IsSmoking();
-        	var yDown = pEnemy->HitboxHeight()/2 + y - 25*pEnemy->~IsSmoking();
-      	}
-      	else
-      	{
-        	var xLeft = GetDefCoreVal("Offset", "DefCore", GetID(pEnemy), 0) + x + 25*pEnemy->~IsSmoking();
-        	var xRight = GetDefCoreVal("Width", "DefCore", GetID(pEnemy)) + GetDefCoreVal("Offset", "DefCore", GetID(pEnemy), 0) + x - 25*pEnemy->~IsSmoking();
+          var yUp = GetObjectVal("Offset", 0, pEnemy, 1) + y + 25*pEnemy->~IsSmoking();
+          var yDown = GetObjectVal("Height", 0, pEnemy) + GetObjectVal("Offset", 0, pEnemy, 1) + y - 25*pEnemy->~IsSmoking();
+        }
+        else if(pEnemy->~UseOwnHitbox())
+        {
+          var xLeft = -pEnemy->HitboxWidth()/2 + x + 25*pEnemy->~IsSmoking();
+          var xRight = pEnemy->HitboxWidth()/2 + x - 25*pEnemy->~IsSmoking();
 
-        	var yUp = GetDefCoreVal("Offset", "DefCore", GetID(pEnemy), 1) + y + 25*pEnemy->~IsSmoking();
-        	var yDown = GetDefCoreVal("Height", "DefCore", GetID(pEnemy)) + GetDefCoreVal("Offset", "DefCore", GetID(pEnemy), 1) + y - 25*pEnemy->~IsSmoking();
-      	}
+          var yUp = -pEnemy->HitboxHeight()/2 + y + 25*pEnemy->~IsSmoking();
+          var yDown = pEnemy->HitboxHeight()/2 + y - 25*pEnemy->~IsSmoking();
+        }
+        else
+        {
+          var xLeft = GetDefCoreVal("Offset", "DefCore", GetID(pEnemy), 0) + x + 25*pEnemy->~IsSmoking();
+          var xRight = GetDefCoreVal("Width", "DefCore", GetID(pEnemy)) + GetDefCoreVal("Offset", "DefCore", GetID(pEnemy), 0) + x - 25*pEnemy->~IsSmoking();
 
-			
-      	if(Inside(xPos, xLeft, xRight) && Inside(yPos, yUp, yDown))
-      	{
-       		x = xPos;
-        	y = yPos;
-      	}
-      	else
-      	{
-        	var xOff, yOff;
+          var yUp = GetDefCoreVal("Offset", "DefCore", GetID(pEnemy), 1) + y + 25*pEnemy->~IsSmoking();
+          var yDown = GetDefCoreVal("Height", "DefCore", GetID(pEnemy)) + GetDefCoreVal("Offset", "DefCore", GetID(pEnemy), 1) + y - 25*pEnemy->~IsSmoking();
+        }
 
-        	//Wenn xPos größer x (Objektmittelpunkt), dann Aufprallpunkt rechts vom Ziel; sonst links
-        	if(xPos > x)
-          	xOff = xRight;
-        	else
-          	xOff = xLeft;
+        if(Inside(xPos, xLeft, xRight) && Inside(yPos, yUp, yDown))
+        {
+          x = xPos;
+          y = yPos;
+        }
+        else
+        {
+          var xOff, yOff;
 
-        	//Wenn yPos größer y (Objektmittelpunkt), dann Aufprallpunkt unterhalb vom Ziel; sonst oberhalb
-        	if(yPos > y)
-          	yOff = yDown;
-        	else
-          	yOff = yUp;
+          //Wenn xPos größer x (Objektmittelpunkt), dann Aufprallpunkt rechts vom Ziel; sonst links
+          if(xPos > x)
+            xOff = xRight;
+          else
+            xOff = xLeft;
 
-        	//Wenn xPos zwischen x und der näheren Seite zu xPos liegt, dann setze x und y so:
-        	if(Inside(xPos, Min(x, xOff), Max(x, xOff)))
-        	{
-          	var temp = (yOff - yPos) * 1000 / (-Cos(iAngle, 1000));
-          	x = Sin(iAngle, temp) + xPos;
-          	y = -Cos(iAngle, temp) + yPos;
-        	}
-        	else
-          	//Wenn yPos zwischen y und der näheren Seite zu yPos liegt, dann setze x und y so:
-          	if(Inside(yPos, Min(y, yOff), Max(y, yOff)))
-          	{
-            	var temp = (xOff - xPos) * 1000 / (Sin(iAngle, 1000));
-            	x = Sin(iAngle, temp) + xPos;
-            	y = -Cos(iAngle, temp) + yPos;
-          	}
-          	//Sonst prüfe, ob ein Punkt an der X- oder der Y-Kante näher am Objektmittelpunkt ist und wähle den richtigen.
-          	else
-          	{
-            	var temp = (yOff - yPos) * 1000 / (-Cos(iAngle, 1000));
-            	var xOne = Sin(iAngle, temp) + xPos;
-            	var yOne = -Cos(iAngle, temp) + yPos;
+          //Wenn yPos größer y (Objektmittelpunkt), dann Aufprallpunkt unterhalb vom Ziel; sonst oberhalb
+          if(yPos > y)
+            yOff = yDown;
+          else
+            yOff = yUp;
 
-            	temp = (xOff - xPos) * 1000 / (Sin(iAngle, 1000));
-            	var xTwo = Sin(iAngle, temp) + xPos;
-            	var yTwo = -Cos(iAngle, temp) + yPos;
+          //Wenn xPos zwischen x und der näheren Seite zu xPos liegt, dann setze x und y so:
+          if(Inside(xPos, Min(x, xOff), Max(x, xOff)))
+          {
+            var temp = (yOff - yPos) * 1000 / (-Cos(iAngle, 1000));
+            x = Sin(iAngle, temp) + xPos;
+            y = -Cos(iAngle, temp) + yPos;
+          }
+          else
+            //Wenn yPos zwischen y und der näheren Seite zu yPos liegt, dann setze x und y so:
+            if(Inside(yPos, Min(y, yOff), Max(y, yOff)))
+            {
+              var temp = (xOff - xPos) * 1000 / (Sin(iAngle, 1000));
+              x = Sin(iAngle, temp) + xPos;
+              y = -Cos(iAngle, temp) + yPos;
+            }
+            //Sonst prüfen, ob ein Punkt an der X- oder der Y-Kante näher am Objektmittelpunkt ist und den richtigen wählen
+            else
+            {
+              var temp = (yOff - yPos) * 1000 / (-Cos(iAngle, 1000));
+              var xOne = Sin(iAngle, temp) + xPos;
+              var yOne = -Cos(iAngle, temp) + yPos;
 
-            	if(Distance(xOne, yOne, x, y) < Distance(xTwo, yTwo, x, y))
-            	{
-              	x = xOne;
-              	y = yOne;
-            	}
-            	else
-            	{
-              	x = xTwo;
-              	y = yTwo;
-            	}
-          	}
+              temp = (xOff - xPos) * 1000 / (Sin(iAngle, 1000));
+              var xTwo = Sin(iAngle, temp) + xPos;
+              var yTwo = -Cos(iAngle, temp) + yPos;
+
+              if(Distance(xOne, yOne, x, y) < Distance(xTwo, yTwo, x, y))
+              {
+                x = xOne;
+                y = yOne;
+              }
+              else
+              {
+                x = xTwo;
+                y = yTwo;
+              }
+            }
 
         /*
           //Wenn der Winkel zur am nächsten liegenden Ecke des Objekts größer ist als 180 und kleiner als der aktuelle Winkel oder kleiner als 180 und größer als der aktuelle Winkel, dann setze x und y so:
@@ -1914,8 +1913,8 @@ func FxLaserDotTimer(object pTarget, int iEffectNumber, int iEffectTime)
             y = -Cos(iAngle, (xOff - xPos) * 1000 / (Sin(iAngle, 1000))) + yPos;
           }
         */
-      	}
-    	}
+        }
+      }
     }
 
     //Laser zeichnen

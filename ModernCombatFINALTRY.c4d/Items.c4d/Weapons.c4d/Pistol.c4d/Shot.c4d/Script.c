@@ -384,7 +384,7 @@ private func HitCheck(int r, int d)
     Find_Not(Find_Func("HitExclude", this)),
     aExcludes,
     Find_Or(Find_Not(Find_Func("UseOwnHitbox")), Find_Func("BulletHitboxCheck", sx, sy, x, y)),
-    Sort_Distance());
+    Sort_Func("SHTX_SortDistance", sx, sy, x, y, r));
     if(pObj)
     {
       var stretch;
@@ -471,7 +471,7 @@ private func HitCheck(int r, int d)
             var lyTwo = -Cos(r, temp);
 
             //Wenn erster Punkt weiter weg, diesen wählen, sonst den anderen
-            if(Distance(lxOne, lyOne) > Distance(lxTwo, lyTwo))
+            if(Distance(lxOne, lyOne, GetX(), GetY()) > Distance(lxTwo, lyTwo, GetX(), GetY()))
             {
               lx = lxOne;
               ly = lyOne;
@@ -625,4 +625,108 @@ public func CustomBulletCasing(int iX, int iY, int iXDir, int iYDir, int iSize, 
 public func FMMod(int iType,Data)
 {
   return Data;
+}
+
+global func SHTX_SortDistance(int sx, int sy, int x, int y, int r)
+{
+  //Bestimmung des Aufprallpunktes
+  //Helikopter-Hitbox möglichst mitbeachten; Anschließend wird die Distance von Kugelstart bis zum Aufprallpunkt zurückgegeben und in so_data[index][1] gespeichert; so_data und so_objects werden auch noch in den lokalen Variablen gespeichert
+  var stretch, lx, ly;
+  if(this->~UseOwnHitbox() && (stretch = this->BulletHitboxStretch(sx, sy, x, y))[0] > 0 && stretch[1] != 4)
+  {
+    if(stretch[1] == 1)
+    {
+      lx = 0;
+      ly = 0;
+    }
+    else
+    {
+      var dist = Distance(sx, sy, x, y);
+      lx = Sin(r, (dist * stretch[0]) / 1000);
+      ly = -Cos(r, (dist * stretch[0]) / 1000);
+    }
+  }
+  else
+  {
+    //Bei eigener Hitbox eigenen Bulletcheck ausführen (z.B. bei Helikoptern)
+    var ox = GetX(this), oy = GetY(this);
+
+    //Objektwerte verwenden statt Definitionswerte (z.B. bei Assault-Zielen)
+    if(this->~BulletCheckObjectHitbox())
+    {
+      var xLeft = GetObjectVal("Offset", 0, this, 0) + ox;
+      var xRight = GetObjectVal("Width", 0, this) + GetObjectVal("Offset", 0, this, 0) + ox;
+
+      var yUp = GetObjectVal("Offset", 0, this, 1) + oy;
+      var yDown = GetObjectVal("Height", 0, this) + GetObjectVal("Offset", 0, this, 1) + oy;
+    }
+    else if(this->~UseOwnHitbox())
+    {
+      var xLeft = -this->HitboxWidth()/2 + ox + 25*this->~IsSmoking();
+      var xRight = this->HitboxWidth()/2 + ox - 25*this->~IsSmoking();
+
+      var yUp = -this->HitboxHeight()/2 + oy + 25*this->~IsSmoking();
+      var yDown = this->HitboxHeight()/2 + oy - 25*this->~IsSmoking();
+    }
+    else
+    {
+      var xLeft = GetDefCoreVal("Offset", "DefCore", GetID(this), 0) + ox;
+      var xRight = GetDefCoreVal("Width", "DefCore", GetID(this)) + GetDefCoreVal("Offset", "DefCore", GetID(this), 0) + ox;
+
+      var yUp = GetDefCoreVal("Offset", "DefCore", GetID(this), 1) + oy;
+      var yDown = GetDefCoreVal("Height", "DefCore", GetID(this)) + GetDefCoreVal("Offset", "DefCore", GetID(this), 1) + oy;
+    }
+
+    if(!(Inside(sx, xLeft, xRight) && Inside(sy, yUp, yDown)))
+    {
+      var xOff, yOff;
+
+      if(sx > ox)
+        xOff = xRight;
+      else
+        xOff = xLeft;
+
+      if(sy > oy)
+        yOff = yDown;
+      else
+        yOff = yUp;
+
+      var a = Angle(sx, sy, xOff, yOff);
+      if(Inside(sx, Min(ox, xOff), Max(ox, xOff)))
+      {
+        var temp = (yOff - sy) * 1000 / (-Cos(r, 1000));
+        lx = Sin(r, temp);
+        ly = -Cos(r, temp);
+      }
+      else if(Inside(sy, Min(oy, yOff), Max(oy, yOff)))
+      {
+        var temp = (xOff - sx) * 1000 / (Sin(r, 1000));
+        lx = Sin(r, temp);
+        ly = -Cos(r, temp);
+      }
+      else
+      {
+        var temp = (yOff - sy) * 1000 / (-Cos(r, 1000));
+        var lxOne = Sin(r, temp);
+        var lyOne = -Cos(r, temp);
+
+        temp = (xOff - sx) * 1000 / (Sin(r, 1000));
+        var lxTwo = Sin(r, temp);
+        var lyTwo = -Cos(r, temp);
+
+        //Wenn erster Punkt weiter weg, diesen wählen, sonst den anderen
+        if(Distance(lxOne, lyOne) > Distance(lxTwo, lyTwo))
+        {
+          lx = lxOne;
+          ly = lyOne;
+        }
+        else
+        {
+          lx = lxTwo;
+          ly = lyTwo;
+        }
+      }
+    }
+  }
+  return Distance(lx, ly);
 }
