@@ -2,8 +2,8 @@
 
 #strict 2
 
-public func CanBeHitByShockwaves()		{return(true);}
-public func BlastObjectsShockwaveCheck()	{return(true);}
+public func CanBeHitByShockwaves()		{return true;}
+public func BlastObjectsShockwaveCheck()	{return true;}
 
 
 /* Schaden */
