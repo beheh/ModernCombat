@@ -490,10 +490,10 @@ private func HitCheck(int r, int d)
       {
         var dist = Distance(sx, sy, ox, oy);
         dst += dist;
-        
+
         if(iObj->~IsMultiHitTarget() == 2)
-        	i--;
-        
+          i--;
+
         if((!fAlive && !iObj->~IsMultiHitTarget()) || i == (iMaxHits - 1) || iDamage == 0)
         {
           if(fLiquid && Distance(sx, sy, GetX()+lx, GetY()+ly) > Distance(sx, sy, liqX, liqY)+5)
@@ -504,8 +504,8 @@ private func HitCheck(int r, int d)
         }
         else
         {
-        	if(pObj)
-          	aExcludes[GetLength(aExcludes)] = [5, pObj];
+          if(pObj)
+            aExcludes[GetLength(aExcludes)] = [5, pObj];
           //Log("Before %d", iDamage);
           iDamage = (iDamage * (100 - iHitReduction)) / 100;
           //Log("After %d", iDamage);
