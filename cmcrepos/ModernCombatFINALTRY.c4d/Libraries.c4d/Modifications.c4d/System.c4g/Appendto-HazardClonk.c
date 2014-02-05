@@ -1203,16 +1203,16 @@ protected func DoAmmoPack(id idType)
 
 /* QuickInventory */
 
-static const QINV_MainMenu = 1;
-static const QINV_PrimaryMenu = 2;
-static const QINV_SecondaryMenu = 3;
-static const QINV_EquipmentMenu = 4;
-static const QINV_ObjectMenu = 5;
-static const QINV_GrenadeMenu = 6;
+static const QINV_MainMenu	= 1;
+static const QINV_PrimaryMenu	= 2;
+static const QINV_SecondaryMenu	= 3;
+static const QINV_EquipmentMenu	= 4;
+static const QINV_ObjectMenu	= 5;
+static const QINV_GrenadeMenu	= 6;
 
-local QINV_MenuOrder; //Reihenfolge im Menü
-local QINV_MenuItemIds; //ID-Reihenfolge der aufgesammelten Objekte einer Kategorie
-local QINV_GrenadeTemporary; //Granate zum Wegstecken
+local QINV_MenuOrder;		//Reihenfolge im Menü
+local QINV_MenuItemIds;		//ID-Reihenfolge der aufgesammelten Objekte einer Kategorie
+local QINV_GrenadeTemporary;	//Granate zum Wegstecken
 
 public func Initialize()
 {
@@ -1257,13 +1257,18 @@ private func GetQuickInventoryMenuItemCount(int iMenu)
   return iCount;
 }
 
-//Prüft, ob die nachfolgenden Seiten über anwählbare Items verfügen
+//Prüft, ob die nachfolgenden Seiten über mehr als ein anwählbares Item verfügen
 private func QuickInventoryNextPageActive(array aItems, int iCurrentPage)
 {
+  var iItems = 0;
   for(var i = (iCurrentPage+1)*3; i < GetLength(aItems); i++)
+  {
     if(aItems[i] && (ContentsCount(aItems[i]) || GetGrenade(aItems[i])))
+      iItems++;
+    if(iItems > 1)
       return true;
-  
+  }
+
   return false;
 }
 
@@ -1275,7 +1280,8 @@ public func QuickInventory(int iMenu, int iPage)
   if(ContentsCount() + iGrenadeCount < 1) return;
 
   //Hauptmenü
-  if(iMenu == QINV_MainMenu) {
+  if(iMenu == QINV_MainMenu)
+  {
     //Granate zurücksetzen
     QINV_GrenadeTemporary = 0;
 
@@ -1318,7 +1324,8 @@ public func QuickInventory(int iMenu, int iPage)
   }
 
   //Submenüs
-  if(iMenu == QINV_PrimaryMenu || iMenu == QINV_SecondaryMenu || iMenu == QINV_EquipmentMenu || iMenu == QINV_ObjectMenu || iMenu == QINV_GrenadeMenu) {
+  if(iMenu == QINV_PrimaryMenu || iMenu == QINV_SecondaryMenu || iMenu == QINV_EquipmentMenu || iMenu == QINV_ObjectMenu || iMenu == QINV_GrenadeMenu)
+  {
     var aItems = GetQuickInventoryMenuItems(iMenu);
     if(GetLength(aItems))
     {
@@ -1338,13 +1345,16 @@ public func QuickInventory(int iMenu, int iPage)
         if(i >= iPage*3+3)
         {
           if(QuickInventoryNextPageActive(aItems, iPage))
+          {
             pRing->AddLeftItem("$NextPage$", "QuickInventoryPaging", [iMenu, iPage+1], SM05);
 
-          break;
+            break;
+          }
         }
         if(aItems[i])
         {
           if(!ContentsCount(aItems[i]) && !GetGrenade(aItems[i])) continue;
+          pRing->Add(QINV_MenuOrder[Min(i-iPage*3,3)], GetName(0, aItems[i]), "QuickInventorySelect", aItems[i], aItems[i], 0, SMIN);
           var idIcon = aItems[i];
 
           //Spezifisch das Icon von gepackten Munitionsboxen erfassen
