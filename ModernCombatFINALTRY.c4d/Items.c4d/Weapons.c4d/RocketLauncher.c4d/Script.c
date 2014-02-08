@@ -15,34 +15,23 @@ public func SelectionTime()	{return 45;}	//Anwahlzeit
 local pRocket;
 
 
-/* Kompatible Waffenaufsätze */
-
-func PermittedAtts()
-{
-  return AT_ExtendedMag;
-}
-
 /* Raketen */
 
 public func FMData1(int data)
 {
   if(data == FM_Name)		return "$Missiles$";
 
-  if(data == FM_AmmoID)		return MIAM;					//ID der Munition
-  if(data == FM_AmmoLoad)	return 1 + (iAttachment == AT_ExtendedMag)*1;	//Magazingröße
+  if(data == FM_AmmoID)		return MIAM;	//ID der Munition
+  if(data == FM_AmmoLoad)	return 1;	//Magazingröße
 
-  if(data == FM_Reload)		return 180;					//Zeit für Nachladen
-  if(data == FM_Recharge)	return 200;					//Zeit bis erneut geschossen werden kann
+  if(data == FM_Reload)		return 180;	//Zeit für Nachladen
+  if(data == FM_Recharge)	return 200;	//Zeit bis erneut geschossen werden kann
 
-  if(data == FM_SingleReload)	return (iAttachment == AT_ExtendedMag)*20;	//Zeit des einzelnen Nachladens bei Revolversystemen
-  if(data == FM_PrepareReload)	return (iAttachment == AT_ExtendedMag)*40;	//Zeit bevor das eigentliche Nachladen beginnt
-  if(data == FM_FinishReload)	return (iAttachment == AT_ExtendedMag)*30;	//Zeit nach dem Nachladen
+  if(data == FM_Aim)		return 1;	//Waffe kann nur zielend abgefeuert werden
 
-  if(data == FM_Aim)		return 1;					//Waffe kann nur zielend abgefeuert werden
+  if(data == FM_Slot)		return 1;	//Slot des Feuermodus
 
-  if(data == FM_Slot)		return 1;					//Slot des Feuermodus
-
-  if(data == FM_SpreadAdd)	return 300;					//Bei jedem Schuss hinzuzuaddierende Streuung
+  if(data == FM_SpreadAdd)	return 300;	//Bei jedem Schuss hinzuzuaddierende Streuung
 
   return Default(data);
 }
@@ -158,7 +147,7 @@ private func Check()
 public func RejectSwitch()
 {
   //Sicht wegnehmen
-  if (!_inherited(...) && pRocket)
+  if(!_inherited(...) && pRocket)
     SetPlrView(GetOwner(Contained()), Contained());
 }
 
@@ -199,22 +188,7 @@ public func HandR()
 
 public func OnReload()
 {
-  if(iAttachment == AT_ExtendedMag)
-    Sound("RTLR_ReloadStart.ogg");
-  else
-    Sound("RTLR_Reload.ogg");
-}
-
-func OnSingleReloadStart()
-{
-  if(iAttachment == AT_ExtendedMag)
-    Sound("RTLR_Reload2.ogg");
-}
-
-func OnFinishReloadStart()
-{
-  if(iAttachment == AT_ExtendedMag)
-    Sound("RTLR_ReloadStop.ogg");
+  Sound("RTLR_Reload.ogg");
 }
 
 /* Allgemein */
@@ -241,7 +215,7 @@ public func ControlThrow(caller)
     if(GetUser()->~ReadyToAim())
       //Zielen starten
       GetUser()->StartAiming();
-      
+
     if(!CheckAmmo(ammoid,ammousage,this) && !(pRocket && GetAction(pRocket) != "Fall" && !pRocket->IsDamaged() && pRocket->Guideable()))
       if(CheckAmmo(ammoid,ammousage,GetUser()))
       {
@@ -253,7 +227,6 @@ public func ControlThrow(caller)
   //Feuern! Fehlgeschlagen?
   if(!Fire())
   {
-    
     if(pRocket && GetAction(pRocket) != "Fall" && !pRocket->IsDamaged() && pRocket->Guideable())
     {
       if(pRocket && Contained() && Contents(0, Contained()) == this && Contained()->~IsClonk() && Contained()->~IsAiming() && GetEffect("Follow", pRocket))
