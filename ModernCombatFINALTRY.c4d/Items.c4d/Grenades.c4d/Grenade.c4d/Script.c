@@ -316,6 +316,8 @@ func GetCharge()
   return user->GrenadeCount(GetID())+1;
 }
 
+/* HUD */
+
 func CustomHUD()		{return true;}
 
 func UpdateHUD(object pHUD)
@@ -324,7 +326,6 @@ func UpdateHUD(object pHUD)
   if(!user) return ;
   if(!user->~MaxGrenades()) return 0;
 
-  pHUD->Charge(user->GrenadeCount(GetID()),(user->MaxGrenades() - user->GrenadeCount()) + user->GrenadeCount(GetID()));
   pHUD->Ammo(1,user->GrenadeCount(GetID()), GetName(), true);
   pHUD->Recharge(GetThrowDelayTime(GetUser()), ThrowDelay());
 }
