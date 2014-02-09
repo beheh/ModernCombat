@@ -7,4 +7,4 @@ Width=24
 Height=70
 Offset=-12,-35
 Mass=200
-Picture=24,0,45,116
+Picture=144,0,45,116
