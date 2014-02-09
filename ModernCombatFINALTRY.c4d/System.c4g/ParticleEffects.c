@@ -238,3 +238,72 @@ global func FxDamageEffectTimer(object target, int number, int time)
   CreateParticle("Smoke2",GetX(target)+x,GetY(target)+y,xdir,ydir,RandomX(80*size/100,380*size/100),smoke);
   CreateParticle("Thrust",GetX(target)+x,GetY(target)+y,xdir,ydir,RandomX(120*size/100,size*2),thrust);
 }
+
+/* Bereichspartikel */
+
+/*
+  Erstellt im Rechteck "iPosition" "times"*"iAmount" Partikel des Typs "szName" "step"-mal der Größe "iSize.
+
+  string sName			- Name des Partikels
+  array aAmount[min, max]	- Bereich der Anzahl der Partikel
+  array aPosition[x,y,w,h]	- Zielrechteck der Partikel
+  array aTime[step, times]	- Zeitraum zwischen zwei Wiederholungen / Anzahl der Wiederholungen
+  array aSize[min, max]		- Bereich der Größe der Partikel
+  int iColor			- Farbe der Partikel
+*/
+
+global func AddParticlesInRect(string sName, array aAmount, array aPosition, array aTime, array aSize, int iColor)
+{
+  var iEffect = AddEffect("ParticlesInRectEffect",0,200,aTime[0],0,0);
+  EffectVar(0, 0, iEffect) = sName;
+  EffectVar(1, 0, iEffect) = aAmount[0];	//Min-Wert
+  
+  if(aAmount[0] < aAmount[1])
+    EffectVar(2, 0, iEffect) = aAmount[1];	//Max-Wert
+  else 
+    EffectVar(2, 0, iEffect) = aAmount[0];
+    
+  EffectVar(3, 0, iEffect) = aPosition[0];	//X-Position
+  EffectVar(4, 0, iEffect) = aPosition[1];	//Y-Position
+  EffectVar(5, 0, iEffect) = aPosition[2];	//Weite
+  EffectVar(6, 0, iEffect) = aPosition[3];	//Höhe
+  EffectVar(7, 0, iEffect) = aSize[0];		//Min-Größe
+
+  if(aSize[0] < aSize[1])
+    EffectVar(8, 0, iEffect) = aSize[1];	//Max-Größe
+  else 
+    EffectVar(8,0, iEffect) = aSize[0];
+
+  EffectVar(9, 0, iEffect) = aTime[1];		//Anzahl Wiederholungen
+  EffectVar(10, 0, iEffect) = iColor;		//Farbe der Partikel
+
+  var iLoop = aAmount[0] + Random(aAmount[1] - aAmount[0]);
+  for(var i=0; i < iLoop; i++)
+    CreateParticle(sName, aPosition[0] + Random(aPosition[2]), aPosition[1] + Random(aPosition[3]), 0, 0, aSize[0] + Random(aSize[1] - aSize[0]), iColor);
+
+  return(1);
+}
+
+global func FxParticlesInRectEffectTimer(szNewEffect, iEffectNumber, iEffectTarget, iNewEffectNumber)
+{
+  var sName = EffectVar(0, 0, iEffectNumber);
+  var iMinAmount = EffectVar(1, 0, iEffectNumber);
+  var iMaxAmount = EffectVar(2, 0, iEffectNumber);
+  var iX = EffectVar(3, 0, iEffectNumber);
+  var iY = EffectVar(4, 0, iEffectNumber);
+  var iW = EffectVar(5, 0, iEffectNumber);
+  var iH = EffectVar(6, 0, iEffectNumber);
+  var iMinSize = EffectVar(7, 0, iEffectNumber);
+  var iMaxSize = EffectVar(8, 0, iEffectNumber);
+  var iColor = EffectVar(10, 0, iEffectNumber);
+
+  if(EffectVar(9, 0, iEffectNumber))
+    EffectVar(9, 0, iEffectNumber)--;
+  else 
+    return -1;
+
+  var iLoop = iMinAmount + Random(iMaxAmount - iMinAmount);
+  for(var i=0; i < iLoop; i++)
+    CreateParticle(sName, iX + Random(iW), iY + Random(iH), 0, 0, iMinSize + Random(iMaxSize - iMinSize), iColor);
+  return 1; 
+}
