@@ -16,9 +16,9 @@ func Initialize()
   //Wartemusik einstellen
   SetWaitingMusic();
   //Himmelparallaxität
-  SetSkyParallax(0, 15, 15);
+  SetSkyParallax(0,15,15);
   //Bildschirmfärbung
-  SetGamma(RGB(2,3,10), RGB(131,135,158), RGB(252,253,255));
+  SetGamma(RGB(2,3,10),RGB(131,135,158),RGB(252,253,255));
   //Flaggen
   aFlag = [];
   //Artillerie

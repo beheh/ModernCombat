@@ -16,7 +16,7 @@ func Initialize()
   //Wartemusik einstellen
   SetWaitingMusic();
   //Bildschirmfärbung
-  SetGamma(RGB(0,0,0), RGB(80,80,80), RGB(200,200,200));
+  SetGamma(RGB(0,0,0),RGB(80,80,80),RGB(200,200,200));
   //Flaggen
   aFlag = [];
   //Geschützstellungen
