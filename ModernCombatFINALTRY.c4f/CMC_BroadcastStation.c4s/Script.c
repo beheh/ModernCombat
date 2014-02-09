@@ -3,8 +3,6 @@
 #strict
 #include CSTD
 
-static aPillarInterior;
-
 func RecommendedGoals()	{return [GTDM];}	//Spielzielempfehlung
 
 
@@ -15,11 +13,9 @@ func Initialize()
   //Wartemusik einstellen
   SetWaitingMusic();
   //Himmelparallaxität
-  SetSkyParallax(1, 20, 15);
+  SetSkyParallax(1,20,15);
   //Bildschirmfärbung
   SetSkyAdjust(RGBa(255,255,255,128),RGB(64,196,255));
-  //Säulenobjekte
-  aPillarInterior = [];
   //Einrichtung plazieren
   CreateInterior();
   //Ausrüstung plazieren
@@ -175,9 +171,7 @@ func CreateInterior()
   CreateObject(BRDR, 0, 860, -1)->Set(3,0,1);
 
   //Säule
-  var pillar = CreateObject(PILR, 430, 710, -1);
-  pillar->Set("OnPillarCollapse");
-  pillar->SetClrModulation(RGB(200,200,200));
+  CreateObject(PILR, 430, 710, -1)->Set("PreparePillarCollapse");
 
   //Sounds
 
@@ -368,11 +362,11 @@ func CreateDecoration()
   CreateObject(CLGH, 40, 625, -1);
   CreateObject(CLGH, 100, 465, -1);
   CreateObject(CLGH, 200, 465, -1);
-  aPillarInterior[0] = CreateObject(CLGH, 280, 625, -1);
+  CreateObject(CLGH, 280, 625, -1);
   CreateObject(CLGH, 300, 465, -1);
-  aPillarInterior[1] = CreateObject(CLGH, 340, 625, -1);
-  aPillarInterior[2] = CreateObject(CLGH, 400, 625, -1);
-  aPillarInterior[3] = CreateObject(CLGH, 460, 625, -1);
+  CreateObject(CLGH, 340, 625, -1);
+  CreateObject(CLGH, 400, 625, -1);
+  CreateObject(CLGH, 460, 625, -1);
   CreateObject(CLGH, 575, 465, -1);
   CreateObject(CLGH, 1230, 655, -1);
   CreateObject(CLGH, 1300, 655, -1);
@@ -383,49 +377,62 @@ func CreateDecoration()
 
 /* Bei Säulenzerstörungen */
 
-func OnPillarCollapse(int iPlr)
+func PreparePillarCollapse(int iPlr)
 {
   //Spielerbildschirme schütteln
-  ShakeViewPort(800, this);
-
-  //Trümmer verschleudern
-  var debris = CreateObject(DBRS, 280,630, iPlr);
-  Fling(debris, RandomX(-2,2), RandomX(0,1));
-  debris = CreateObject(DBRS, 320,630, iPlr);
-  Fling(debris, RandomX(-2,2), RandomX(0,1));
-  debris = CreateObject(DBRS, 380,630, iPlr);
-  Fling(debris, RandomX(-2,2), RandomX(0,1));
-  debris = CreateObject(DBRS, 440,630, iPlr);
-  Fling(debris, RandomX(-2,2), RandomX(0,1));
-  debris = CreateObject(DBRS, 480,630, iPlr);
-  Fling(debris, RandomX(-2,2), RandomX(0,1));
-
-  //Hintergrund zeichnen
-  DrawMaterialQuad("BackWall-Metal4",240,590,520,590,520,621,240,621,true);
-  DrawMaterialQuad("BackWall-Column1",420,590,440,590,440,621,420,621,true);
+  ShakeViewPort(100);
 
   //Effekte
+  AddParticlesInRect("Smoke3",[10,20],[240,590,280,30],[10,30],[200,400]);
+  AddParticlesInRect("Smoke",[10,20],[240,620,280,10],[10,25],[200,400]);
+
+  //Lampen ausschalten
+  for(var obj in FindObjects(Find_ID(CLGH), Find_InRect(270,620,200,10)))
+  {
+   obj->Damage();
+   obj->TurnOff();
+  }
+
+  //Zerstörung planen
+  Schedule(Format("GameCall(\"OnPillarCollapse\", %d)", iPlr), 200);
+}
+
+func OnPillarCollapse(int iPlr)
+{
+  //Effekte
+  var effect = CreateObject(TIM1,380,610);
+  effect->ShakeViewPort(800, this);
+  effect->Sound("StructureHit*.ogg");
+  effect->Schedule("RemoveObject()",100);
   if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("ConcreteSplinter",10,110,280,610,60,100);
   if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("ConcreteSplinter",10,110,340,610,60,100);
   if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("ConcreteSplinter",10,110,400,610,60,100);
   if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("ConcreteSplinter",10,110,460,610,60,100);
   if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("ConcreteSplinter",10,110,520,610,60,100);
-  CastSmoke("Smoke3",10,30,280,610,220,500);
-  CastSmoke("Smoke3",10,30,340,610,220,500);
-  CastSmoke("Smoke3",10,30,400,610,220,500);
-  CastSmoke("Smoke3",10,30,460,610,220,500);
-  CastSmoke("Smoke3",10,30,520,610,220,500);
-  CastSmoke("Smoke",5,30,280,610,220,500);
-  CastSmoke("Smoke",5,30,340,610,220,500);
-  CastSmoke("Smoke",5,30,400,610,220,500);
-  CastSmoke("Smoke",5,30,460,610,220,500);
-  CastSmoke("Smoke",5,30,520,610,220,500);
 
-  //Objekte entfernen
-  if(aPillarInterior[0]) aPillarInterior[0]->RemoveObject();
-  if(aPillarInterior[1]) aPillarInterior[1]->RemoveObject();
-  if(aPillarInterior[2]) aPillarInterior[2]->RemoveObject();
-  if(aPillarInterior[3]) aPillarInterior[3]->RemoveObject();
+  //Hintergrund zeichnen
+  DrawMaterialQuad("BackWall-Metal4",240,590,520,590,520,621,240,621,true);
+  DrawMaterialQuad("BackWall-Column1",420,590,440,590,440,621,420,621,true);
+
+  //Lebewesen verletzen
+  for(var obj in FindObjects(Find_OCF(OCF_Alive), Find_InRect(240,620,280,10)))
+   DoDmg(200, DMG_Explosion, obj, 0, iPlr + 1);
+
+  //Lampen entfernen
+  for(var obj in FindObjects(Find_ID(CLGH), Find_InRect(270,620,200,10)))
+   RemoveObject(obj);
+
+  //Trümmer verschleudern
+  var debris = CreateObject(DBRS, 280,630, iPlr);
+  Fling(debris, RandomX(-4,4), RandomX(2,3));
+  debris = CreateObject(DBRS, 320,630, iPlr);
+  Fling(debris, RandomX(-4,4), RandomX(2,3));
+  debris = CreateObject(DBRS, 380,630, iPlr);
+  Fling(debris, RandomX(-4,4), RandomX(2,3));
+  debris = CreateObject(DBRS, 440,630, iPlr);
+  Fling(debris, RandomX(-4,4), RandomX(2,3));
+  debris = CreateObject(DBRS, 480,630, iPlr);
+  Fling(debris, RandomX(-4,4), RandomX(2,3));
 }
 
 /* Regelwähler */

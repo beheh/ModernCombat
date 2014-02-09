@@ -18,7 +18,7 @@ func Initialize()
   //Himmelparallaxität
   SetSkyParallax(0,50,15);
   //Bildschirmfärbung
-  SetGamma(RGB(7,6,0), RGB(152,147,128), RGB(255,254,236));
+  SetGamma(RGB(7,6,0),RGB(152,147,128),RGB(255,254,236));
   //Flaggen
   aFlag = [];
   //Geschützstellungen
