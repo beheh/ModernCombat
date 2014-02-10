@@ -1,6 +1,6 @@
 /*-- Hai --*/
 
-//Haie meiden Schlauchboote und verfügen über erweiterte Angriffe.
+//Haie meiden Schlauchboote und verfügen über erweiterte Angriffe, zudem sind ihre Leichen nicht mehr anfassbar.
 
 #strict 2
 
@@ -80,4 +80,15 @@ protected func Activity()
   if(boot = FindObject2(Find_ID(SPBT),Find_Distance(200)))
     if(GetY(boot) - GetY() < 40)
       SetComDir(BoundBy(GetComDir(), COMD_DownRight, COMD_DownLeft));
+}
+
+/* Tod */
+
+protected func Death()
+{
+  SetDir(0);
+  ChangeDef(DSHK);
+  SetAction("Dead");
+  SetObjectLayer(this());
+  return 1;
 }
