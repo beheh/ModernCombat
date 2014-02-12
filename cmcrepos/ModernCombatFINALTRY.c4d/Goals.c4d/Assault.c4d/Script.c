@@ -183,8 +183,9 @@ public func ReportAssaultTargetDestruction(object pTarget, int iTeam, array aAtt
   //Zielobjekt explodieren lassen sofern vorhanden
   if(pTarget)
   {
-    Explode(50, pTarget);
+    ShakeViewPort(400, pTarget);
     Sound("StructureHeavyHit*.ogg", false, pTarget);
+    Explode(50, pTarget);
   }
 
   if(ObjectCount2(Find_InArray(aTargets[iDefender])) == 1)
