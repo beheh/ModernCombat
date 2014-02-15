@@ -94,7 +94,7 @@ public func UpdateHUD(object pHUD)
 {
   var color = ColorEmpty()*(Inside(GetPackPoints(), 0, MinValue()));
   if(!color)
-  	color = ColorLow()*(Inside(GetPackPoints(), MinValue()+1, MinValue2()));
+    color = ColorLow()*(Inside(GetPackPoints(), MinValue()+1, MinValue2()));
   pHUD->~Charge(GetPackPoints(), MaxPoints());
   pHUD->~Ammo(GetPackPoints(), MaxPoints(), GetName(), true, color);
 }
