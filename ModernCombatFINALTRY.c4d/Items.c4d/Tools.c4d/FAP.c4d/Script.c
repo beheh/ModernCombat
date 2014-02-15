@@ -13,6 +13,9 @@ public func MaxPoints()		{return 150;}
 public func RefillTime()	{return 30;}
 public func TeamSupportTime()	{return 20;}
 
+public func MinValue()		{return 39;}
+public func MinValue2()		{return 79;}
+
 local iHealed;
 
 

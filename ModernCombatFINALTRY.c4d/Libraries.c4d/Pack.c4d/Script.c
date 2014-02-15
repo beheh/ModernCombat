@@ -85,12 +85,16 @@ protected func FxIntPackLightTimer()
 /* HUD */
 
 public func CustomHUD()		{return true;}
+public func ColorEmpty()	{return RGB(255, 0, 0);}
 public func ColorLow()		{return RGB(255, 150, 0);}
-public func MinValue()		{return MaxPoints()/3;}
+public func MinValue()		{return MaxPoints()/4;}
+public func MinValue2()		{return MaxPoints()/2;}
 
 public func UpdateHUD(object pHUD)
 {
-  var color = ColorLow()*(Inside(GetPackPoints(), 1, MinValue()));
+  var color = ColorEmpty()*(Inside(GetPackPoints(), 0, MinValue()));
+  if(!color)
+  	color = ColorLow()*(Inside(GetPackPoints(), MinValue()+1, MinValue2()));
   pHUD->~Charge(GetPackPoints(), MaxPoints());
   pHUD->~Ammo(GetPackPoints(), MaxPoints(), GetName(), true, color);
 }

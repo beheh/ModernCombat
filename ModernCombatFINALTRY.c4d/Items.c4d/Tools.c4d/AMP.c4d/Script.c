@@ -15,6 +15,7 @@ public func TeamSupportTime()		{return 60;}
 
 public func IsEquipment()       	{return !NoAmmo();}
 public func MinValue()			{return 49;}
+public func MinValue2()			{return 99;}
 public func AI_Inventory(object pClonk)	{return true;}
 
 
