@@ -47,7 +47,7 @@ global func Splash(int tx, int ty, int amount)
   //Prüfen ob flüssig
   if(Inside(GetMaterialVal("Density", "Material", mat), 25, 49))
   {
-    var x = tx, y = ty, xdir, ydir = -10, g = GetGravity();
+    var x = tx+GetX(), y = ty+GetY(), xdir, ydir = -10, g = GetGravity();
     SetGravity(0);
 
     var fSurface = SimFlight(x, y, xdir, ydir, -1, 24, 50);
@@ -59,8 +59,8 @@ global func Splash(int tx, int ty, int amount)
       y -= 2;
 
     for(var cnt = 0; cnt < amount; cnt++)
-      if(GBackLiquid(tx, ty) && !GBackSemiSolid(tx, y))
-        InsertMaterial(ExtractLiquid(tx, ty), tx, y, Random(15)-7, -Random(20));
+      if(GBackLiquid(tx, ty) && !GBackSemiSolid(tx, AbsY(y)))
+        InsertMaterial(ExtractLiquid(tx, ty), tx, AbsY(y), Random(15)-7, -Random(20));
   }
 
   return true;
