@@ -704,11 +704,11 @@ public func SetAiming(int iAngle, bool fForceExact)
   if(!IsAiming())
     return;
 
-  // Winkel anpassen, wenn keine freie Auswahl (klassische Steuerung)
+  //Winkel anpassen, wenn keine freie Auswahl (klassische Steuerung)
   if(!GetPlrCoreJumpAndRunControl(GetController()) && !fForceExact)
     iAngle = iAngle-iAngle%AIM_Step;
 
-  // Winkel wird zu groß?
+  //Winkel wird zu groß?
   if(iAngle > AIM_Max || iAngle < 0)
     return;
 
@@ -834,25 +834,18 @@ public func ControlDigDouble()
 
 private func Control2Contents(string command)
 {
-  // Haben wir was angefasst?
+  //Haben wir was angefasst?
   if(GetAction() == "Push")
     return false;
-  // Pause Reload: nicht wieder anfangen ey!!!
-  /*  if(command == "ControlThrow")
-  {
-    if(WildcardMatch(GetAction(),"Scale*") || GetAction() == "Hangle")
-      return true;
-  }*/ //Auskommentiert wegen C4
-
   //Callback verhindert?
   if(GetEffect("SelectItem",Contents()))
   {
     if(command == "ControlUpdate")
       return Contents()->~ControlUpdate(this, Par(1));
-    
+
     return command == "ControlThrow" || command == "ControlDig";
   }
-  // Getragenes Objekt hat spezielle Steuerungsauswertung
+  //Getragenes Objekt hat spezielle Steuerungsauswertung
   return ObjectCall(Contents(), command, this, Par(1), Par(2), Par(3), Par(4), Par(5), Par(6), Par(7));
 }
 
@@ -1134,17 +1127,16 @@ protected func ContextAmmobag(object pCaller)
 {
   [$AmmoBag$|Image=ABOX|Condition=AmmoBagContextCheck]
   var ammo, x;
+
   //Menü erzeugen
   CreateMenu(ABOX,this,0,0,GetName(0,ABAG),0,1,1);
-  
   var ambg = ammobag;
-  
-  //Munition finden und hinzufügen
+
+  //Inhalt des Munitionsgürtels identifizieren
   while(ammo = Contents(x,ambg))
   {
-    //Nur Munition
+    //Davon nur echte Munition listen
     if(!ammo ->~IsAmmo()) continue;
-    //hinzufügen
     AddMenuItem(GetName(ammo),"PackAmmo", GetID(ammo), this, GetAmmo(GetID(ammo)),ObjectNumber(pCaller),GetDesc(ammo));
     //Zählervariable erhöhen
     x++;
@@ -1544,7 +1536,7 @@ public func ControlSpecial()
     if(IsAiming() && Contents()->~CanAim())
     {
       var angle = Abs(AimAngle());
-      // nächste Waffe suchen
+      //Nächste Waffe suchen
       var start = Contents(0);
       for(var i = 1; i < ContentsCount(); i++)
       {
@@ -1641,7 +1633,7 @@ public func ControlContents(id idTarget)
   return _inherited(idTarget);
 }
 
-protected func ContentsDestruction()      // Wenn Inhaltsobjekte verschwinden
+protected func ContentsDestruction()	//Wenn Inhaltsobjekte verschwinden
 {
   //Nach Waffe suchen
   ScheduleCall(this, "CheckArmed", 1);
@@ -1717,10 +1709,11 @@ protected func GetObject2Drop(object pObj)
   //return _inherited(pObj, ...);
 }
 
-/* Materialjump verhindern */
+/* Treffer durch dritte Objekte */
 
 protected func QueryCatchBlow(object pBy)
 {
+  //Materialjump verhindern
   if(GetEffect("MatJumpProtection", pBy) && GetEffect("MatJumpProtection", pBy, 0, 4) == this && !GameCall("AllowMaterialJump"))
     return true;
 
@@ -1852,7 +1845,7 @@ public func IsArmed()
   return false;
 }
 
-protected func Collection2(object pObj)// Einsammeln
+protected func Collection2(object pObj)	//Einsammeln
 {
   //Das neue Item nach hinten verschieben (außer es ist Munition oder Granaten)
   if(!(pObj->~IsAmmoPacket()) || !(pObj->~IsGrenade()) || NoAmmo())
@@ -1880,7 +1873,7 @@ protected func RejectCollect(id idObj, object pObj)
   if(idObj == SPNP) return;
   //Munitionspaket?
   if(pObj ->~ IsAmmoPacket())
-    // Davon kann man in jeden Fall _eines_ im Inventar haben
+    //Davon kann man in jeden Fall eines im Inventar haben
     if(!CustomContentsCount("IsAmmoPacket"))
       return;
 
@@ -1915,8 +1908,7 @@ protected func RejectCollect(id idObj, object pObj)
     //Sonderbehandlung?
     if(!(pObj ->~ OnCollection(this)))
     {
-      //nein. Standardprozedur:
-      //schon so eine Waffe im Inventar? Oder bereits 3 andere Waffen?
+      //Waffe des selben Typs bereits vorhanden oder bereits 3 andere Waffen?
       if(ContentsCount(idObj) || CustomContentsCount("IsWeapon") >= WeaponCollectionLimit())
         return 1;  //Ja, nicht aufnehmen
       else
@@ -1933,13 +1925,14 @@ protected func RejectCollect(id idObj, object pObj)
       return;
     else
     {
-      if(GrenadeCount() >= MaxGrenades())//Schon genug Granaten im Gürtel/Inventar?
+      //Granatengürtel bereits voll?
+      if(GrenadeCount() >= MaxGrenades())
       {
         return 1;
       }
       
       if(CustomContentsCount("IsGrenade"))
-        ScheduleCall(pObj,"Activate",1,0,this);//Oha...
+        ScheduleCall(pObj,"Activate",1,0,this);
 
       return;
     }
@@ -1956,17 +1949,16 @@ protected func RejectCollect(id idObj, object pObj)
     }
   }
 
-  //Wieviel haben wir denn schon im inventar?
+  //Wie viel haben wir denn schon im inventar?
   if(ContentsCount() - (CustomContentsCount("IsWeapon") + CustomContentsCount("IsGrenade") + CustomContentsCount("IsAttachmentPack")) >= ObjectCollectionLimit())
     return 1;
 
-  // nicht angelegte Ausrüstung nochmal aufsammeln
+  //Nicht angelegte Ausrüstung nochmal aufsammeln
   for(var gear in aGear)
     if(gear)
       if(GetID(gear) == idObj)
         return 1;
 
-  // Ok
   return;
 }
 
@@ -2238,7 +2230,6 @@ public func FxControlStackEffect(string newEffect, object pTarget, int iNo)
 static const CRAWL_AIM_Max = 50;
 local crosshair;
 
-
 /* Hinlegen */
 
 global func StopFakeDeath(object pTarget)
@@ -2250,7 +2241,7 @@ global func StopFakeDeath(object pTarget)
       pTarget->SetAction("Crawl");
     }
   }
-     
+
   return true;
 }
 
@@ -2314,8 +2305,8 @@ public func CanStandUp2()
 {
   //Aufstehen möglich, wenn Material über Clonk grabbar ist
   if(GBackSolid(0,-7-5))
-   if(!GetMaterialVal("DigFree","Material",GetMaterial(0,-7-5)))
-    return false;
+    if(!GetMaterialVal("DigFree","Material",GetMaterial(0,-7-5)))
+      return false;
 
   return true;
 }
@@ -2359,17 +2350,15 @@ protected func AbortCrawl()
 {
   var act = GetAction();
 
-  // Bei manchen Aktionen nicht abbrechen
-  if(act == "Scale")  return SetAction("Crawl");	//Anstoßen an der Wand
-  if(act == "Hangle") return SetAction("Crawl");	//Anstoßen an der Decke
+  //Bei manchen Aktionen nicht abbrechen
+  if(act == "Scale")  return SetAction("Crawl");	//Anstoßen an Wand
+  if(act == "Hangle") return SetAction("Crawl");	//Anstoßen an Decke
   if(act == "Tumble") return SetAction("Crawl");	//Bei Objekttreffern liegen bleiben
-  if(act == "Walk")   return SetAction("Crawl");	//Mysteriöse Walk-Aktion
+  if(act == "Walk")   return SetAction("Crawl");	//Walk-Aktion unterdrücken
 
   if(act != "AimCrawl" && WildcardMatch(act, "Aim*"))
   {
-   //var phase = GetPhase();
    SetAction("AimCrawl");
-   //SetPhase(phase);
    return 1;
   }
 
@@ -2392,10 +2381,7 @@ protected func AbortCrawl()
     while(i-- > 0)
     {
       if(!Stuck())
-      {
-        //SetPosition(GetX()-dir,GetY());
         break;
-      }
       SetPosition(GetX()+dir,GetY());
     }
 
@@ -2406,7 +2392,7 @@ protected func AbortCrawl()
     return 1;
   }
   if(IsCrawling())  return;
-  // Shape und Vertices zurücksetzen
+  //Shape und Vertices zurücksetzen
   RemoveEffect("Crawl", this);
   SetAction("FlatUp"); 
 }
@@ -2452,7 +2438,7 @@ public func FxNoCrawlTimer()	{return -1;}
 
 public func FxCrawlStart(object pClonk, int iNum)
 {
-  //Physical, Shape und Vertixes anpassen
+  //Physical, Shape und Vertices anpassen
   SetPhysical("Walk", GetPhysical("Walk", 0, pClonk)/4, PHYS_StackTemporary);
   SetShape(-8, 2-5, 16, 8);
   SetVertexXY(0, 0,5-5);
@@ -2494,25 +2480,31 @@ public func FxHasCrawledTimer(object pTarget)
 
 public func ControlThrow()
 {
+  //Werfen zu Liegebeginn nicht möglich
   if(GetAction() == "StartCrawl")
     return 1;
-    
+
+  //Wenn liegend, bewaffnet und bereit zum zielen: Zielvorgang starten
   if(IsCrawling() && IsArmed() && !ReadyToFire() && ReadyToAim())
   {
     StartAiming();
     return 1;
   }
+
+  //Ansonsten aktuell angewähltes Objekt überprüfen
   if(IsCrawling() && !IsAiming())
   {
     var obj = Contents();
     if(obj)
     {
+      //Mit Objekt kann nicht gezielt werden?
       if(!obj->~CanAim())
       {
         if(obj->~ControlThrow(this)) return 1;
         var dir = -(GetDir()*2-1);
         var angle = -45;
 
+        //Objekt wegwerfen
         Exit(obj);
         SetController(GetOwner(this), obj);
         SetPosition(GetX(this)-(dir*8),GetY(this), obj);
@@ -2528,6 +2520,7 @@ public func ControlThrow()
       }
       else
       {
+        //Ansonsten Zielvorgang starten
         StartAiming();
         return 1;
       }
