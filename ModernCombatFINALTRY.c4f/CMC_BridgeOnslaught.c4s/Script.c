@@ -447,8 +447,8 @@ func CreateDecoration()
   CreateObject(GAT1, 1655, 520, -1);
 
   //Scheinwerfer
-  CreateObject(FLH2, 190, 440, -1)->SetRotation(30);
-  CreateObject(FLH2, 2535, 440, -1)->SetRotation(-30);
+  CreateObject(FLGH, 190, 440, -1)->SetRotation(30);
+  CreateObject(FLGH, 2535, 440, -1)->SetRotation(-30);
 
   //Zäune
   CreateObject(FENC, 210, 440, -1)->Set(2);

@@ -147,8 +147,8 @@ func CreateDecoration()
   CreateObject(FNDB, 1100, 750, -1)->SetR(2);
 
   //Scheinwerfer
-  CreateObject(FLH2, 455, 630, -1)->SetRotation(30);
-  CreateObject(FLH2, 975, 470, -1)->SetRotation(100);
+  CreateObject(FLGH, 455, 630, -1)->SetRotation(30);
+  CreateObject(FLGH, 975, 470, -1)->SetRotation(100);
 
   //Glühbirne
   CreateObject(LBGH, 1340, 645, -1);
