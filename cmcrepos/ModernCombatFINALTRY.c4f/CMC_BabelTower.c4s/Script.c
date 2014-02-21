@@ -550,18 +550,18 @@ func CreateDecoration()
   CreateObject(OLGH, 1185, 1830, -1)->Set(2, 15, 1, 1, 40);
 
   //Scheinwerfer
-  CreateObject(FLH2, 1060, 320, -1)->SetRotation(10);
-  CreateObject(FLH2, 1310, 320, -1)->SetRotation(-10);
-  var light = CreateObject(FLH2, 885, 472, -1);
+  CreateObject(FLGH, 1060, 320, -1)->SetRotation(10);
+  CreateObject(FLGH, 1310, 320, -1)->SetRotation(-10);
+  var light = CreateObject(FLGH, 885, 472, -1);
   light ->SetRotation(65);
   light -> SetCategory(C4D_StaticBack);
-  light = CreateObject(FLH2, 1485, 472, -1);
+  light = CreateObject(FLGH, 1485, 472, -1);
   light ->SetRotation(-65);
   light -> SetCategory(C4D_StaticBack);
-  light = CreateObject(FLH2, 620, 2192, -1);
+  light = CreateObject(FLGH, 620, 2192, -1);
   light ->SetRotation(-50);
   light -> SetCategory(C4D_StaticBack);
-  light = CreateObject(FLH2, 1745, 2192, -1);
+  light = CreateObject(FLGH, 1745, 2192, -1);
   light ->SetRotation(50);
   light -> SetCategory(C4D_StaticBack);
 

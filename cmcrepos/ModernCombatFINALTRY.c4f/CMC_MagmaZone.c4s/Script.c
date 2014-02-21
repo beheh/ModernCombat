@@ -210,9 +210,9 @@ func CreateDecoration()
   CreateObject(BSH2, 2305, 515, -1);
 
   //Scheinwerfer
-  CreateObject(FLH2, 445, 330, -1)->SetRotation(20);
-  CreateObject(FLH2, 1775, 290, -1)->SetRotation(-80);
-  CreateObject(FLH2, 2160, 240, -1)->SetRotation(-20);
+  CreateObject(FLGH, 445, 330, -1)->SetRotation(20);
+  CreateObject(FLGH, 1775, 290, -1)->SetRotation(-80);
+  CreateObject(FLGH, 2160, 240, -1)->SetRotation(-20);
 
   //Geländer
   CreateObject(RAI1, 143, 300, -1)->SetRail([1,3,1,3,1,3,1]);

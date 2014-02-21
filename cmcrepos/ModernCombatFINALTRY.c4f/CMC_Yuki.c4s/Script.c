@@ -412,10 +412,10 @@ func CreateDecoration()
   CreateObject(MSGN, 1635, 750, -1);
 
   //Scheinwerfer
-  CreateObject(FLH2, 540, 720, -1)->SetRotation(30);
-  CreateObject(FLH2, 825, 550, -1)->SetRotation(-40);
-  CreateObject(FLH2, 1715, 560, -1)->SetRotation(-15);
-  CreateObject(FLH2, 2170, 480, -1)->SetRotation(-55);
+  CreateObject(FLGH, 540, 720, -1)->SetRotation(30);
+  CreateObject(FLGH, 825, 550, -1)->SetRotation(-40);
+  CreateObject(FLGH, 1715, 560, -1)->SetRotation(-15);
+  CreateObject(FLGH, 2170, 480, -1)->SetRotation(-55);
 
   //Glühbirnen
   CreateObject(LAT1, 125, 425, -1);
