@@ -1538,14 +1538,17 @@ public func ControlSpecial()
       var angle = Abs(AimAngle());
       //Nächste Waffe suchen
       var start = Contents(0);
-      for(var i = 1; i < ContentsCount(); i++)
+      for(var i = 0; i < ContentsCount(); i++)
       {
         ShiftContents();
         var obj = Contents(0);
         if(obj->~CanAim() || obj == start)
         {
-          ShiftContents(0, true);
-          ShiftContents(0, 0, 0, true);
+        	if(obj != start)
+        	{
+          	ShiftContents(0, true);
+          	ShiftContents(0, 0, 0, true);
+					}
 
           if(obj != start)
             start->~Deselection(this, Contents());
