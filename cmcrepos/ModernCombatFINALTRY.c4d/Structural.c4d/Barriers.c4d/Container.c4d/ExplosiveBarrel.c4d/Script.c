@@ -67,7 +67,7 @@ public func FloatUpright()
     else
     {
       if(GetR() < -90) {SetR(GetR()+1);}
-      if(GetR() > -90) {SetR(GetR()-1);}		
+      if(GetR() > -90) {SetR(GetR()-1);}
     }
   }
 }
@@ -134,11 +134,14 @@ func BlowUp(int iPlr)
   //Achievement-Fortschritt (Barrel Roll)
   DoAchievementProgress(1, AC47, iPlr);
 
+  //Zu Wrack wechseln
   SetAction("Wreck");
   FakeExplode(30, iPlr+1);
-  Extinguish();
-
   SetRDir(RandomX(-40,+40));
+  Extinguish();
+  SetObjectLayer(this());
+
+  //Effekte
   AddFireEffect(this,50,RGB(80,80,80),true,30);
   FadeOut();
 }
