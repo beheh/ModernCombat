@@ -3,7 +3,7 @@
 #strict
 #include CSTD
 
-static aFlag,aStationary,aSelfDefense,aLamp,aArtillery;
+static aFlag,aStationary,aSelfDefense,aArtillery;
 
 func RecommendedGoals()			{return [GOCC, GASS];}	//Spielzielempfehlung
 public func AssaultDefenderTeam()	{return 2;}		//Verteidigerteam bei Assault
@@ -25,8 +25,6 @@ func Initialize()
   aStationary = [];
   //Selbstschussanlagen
   aSelfDefense = [];
-  //Lampen
-  aLamp = [];
   //Artillerie
   aArtillery = [];
   //Einrichtung plazieren
@@ -267,22 +265,22 @@ func CreateInterior()
   CreateObject(PTNK, 6295, 510, -1)->AutoRespawn();
 
   //Lampen
-  aLamp[00]=CreateObject(BLGH, 1025, 360, -1);
-  aLamp[01]=CreateObject(LLGH, 1035, 620, -1);
-  aLamp[02]=CreateObject(BLGH, 1160, 545, -1);
-  aLamp[03]=CreateObject(LLGH, 1250, 590, -1);
-  aLamp[04]=CreateObject(LLGH, 1340, 590, -1);
-  aLamp[05]=CreateObject(LLGH, 1500, 590, -1);
-  aLamp[06]=CreateObject(LLGH, 1655, 590, -1);
-  aLamp[07]=CreateObject(BLGH, 2690, 490, -1);
-  aLamp[08]=CreateObject(BLGH, 3585, 575, -1);
-  aLamp[09]=CreateObject(BLGH, 4335, 485, -1);
-  aLamp[10]=CreateObject(BLGH, 4335, 625, -1);
-  aLamp[11]=CreateObject(LLGH, 5120, 640, -1);
-  aLamp[12]=CreateObject(LLGH, 5310, 640, -1);
-  aLamp[13]=CreateObject(BLGH, 5725, 605, -1);
-  aLamp[14]=CreateObject(BLGH, 6445, 485, -1);
-  aLamp[15]=CreateObject(LLGH, 7280, 510, -1);
+  CreateObject(BLGH, 1025, 360, -1);
+  CreateObject(LLGH, 1035, 620, -1);
+  CreateObject(BLGH, 1160, 545, -1);
+  CreateObject(LLGH, 1250, 590, -1);
+  CreateObject(LLGH, 1340, 590, -1);
+  CreateObject(LLGH, 1500, 590, -1);
+  CreateObject(LLGH, 1655, 590, -1);
+  CreateObject(BLGH, 2690, 490, -1);
+  CreateObject(BLGH, 3585, 575, -1);
+  CreateObject(BLGH, 4335, 485, -1);
+  CreateObject(BLGH, 4335, 625, -1);
+  CreateObject(LLGH, 5120, 640, -1);
+  CreateObject(LLGH, 5310, 640, -1);
+  CreateObject(BLGH, 5725, 605, -1);
+  CreateObject(BLGH, 6445, 485, -1);
+  CreateObject(LLGH, 7280, 510, -1);
 
   //Kran
   CreateObject(CRN1, 4000, 459, -1)->Set(42);
@@ -1137,14 +1135,12 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
    //Teamgrenze setzen
    FindObject(GASS)->CreateTeamBorder(AssaultDefenderTeam(),1880,0,1,1);
 
-   //Lampen deaktivieren
-   aLamp[00]->EMPShock();
-   aLamp[01]->EMPShock();
-   aLamp[02]->EMPShock();
-   aLamp[03]->EMPShock();
-   aLamp[04]->EMPShock();
-   aLamp[05]->EMPShock();
-   aLamp[06]->EMPShock();
+   //Lampen ausschalten
+   for(var obj in FindObjects(Find_Or(Find_ID(BLGH), Find_ID(LLGH)), Find_InRect(1000,330,680,310)))
+   {
+    obj->EMPShock();
+    obj->TurnOff();
+   }
 
    //Rauch
    CreateParticle("GunSmoke",1155,640,0,-10,100,1);
@@ -1163,8 +1159,12 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
    //Teamgrenze setzen
    FindObject(GASS)->CreateTeamBorder(AssaultDefenderTeam(),2990,0,1,1);
 
-   //Lampe deaktivieren
-   aLamp[07]->EMPShock();
+   //Lampe ausschalten
+   for(var obj in FindObjects(Find_ID(BLGH), Find_InRect(2670,470,40,30)))
+   {
+    obj->EMPShock();
+    obj->TurnOff();
+   }
 
    //Rauch
    CreateParticle("GunSmoke",2780,610,0,-10,100,1);
@@ -1189,8 +1189,12 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
    //Artillerie entfernen
    aArtillery[1]->DecoExplode(45);
 
-   //Lampe deaktivieren
-   aLamp[08]->EMPShock();
+   //Lampe ausschalten
+   for(var obj in FindObjects(Find_ID(BLGH), Find_InRect(3560,550,40,30)))
+   {
+    obj->EMPShock();
+    obj->TurnOff();
+   }
   }
 
   //Ziel 4
@@ -1207,9 +1211,12 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
    //Geschützstellung entfernen
    aStationary[1]->DecoExplode(30);
 
-   //Lampen deaktivieren
-   aLamp[09]->EMPShock();
-   aLamp[10]->EMPShock();
+   //Lampen ausschalten
+   for(var obj in FindObjects(Find_ID(BLGH), Find_InRect(4310,450,40,180)))
+   {
+    obj->EMPShock();
+    obj->TurnOff();
+   }
   }
 
   //Ziel 5
@@ -1232,10 +1239,12 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
    //Artillerie entfernen
    aArtillery[2]->DecoExplode(45);
 
-   //Lampen deaktivieren
-   aLamp[11]->EMPShock();
-   aLamp[12]->EMPShock();
-   aLamp[13]->EMPShock();
+   //Lampen ausschalten
+   for(var obj in FindObjects(Find_Or(Find_ID(BLGH), Find_ID(LLGH)), Find_InRect(5100,580,650,70)))
+   {
+    obj->EMPShock();
+    obj->TurnOff();
+   }
 
    //Zeitverzögertes Gewitter
    Schedule("GameCall(\"FormStorm\")", RandomX(900,2700));
@@ -1252,8 +1261,12 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
    //Teamgrenze setzen
    FindObject(GASS)->CreateTeamBorder(AssaultDefenderTeam(),6560,0,1,1);
 
-   //Lampe deaktivieren
-   aLamp[14]->EMPShock();
+   //Lampe ausschalten
+   for(var obj in FindObjects(Find_ID(BLGH), Find_InRect(6420,460,40,30)))
+   {
+    obj->EMPShock();
+    obj->TurnOff();
+   }
   }
 
   //Ziel 7
@@ -1266,8 +1279,12 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
    aSelfDefense[3]->Disarm();
    aSelfDefense[3]->DecoExplode(30);
 
-   //Lampe deaktivieren
-   aLamp[15]->EMPShock();
+   //Lampe ausschalten
+   for(var obj in FindObjects(Find_ID(LLGH), Find_InRect(7270,490,30,30)))
+   {
+    obj->EMPShock();
+    obj->TurnOff();
+   }
   }
 }
 

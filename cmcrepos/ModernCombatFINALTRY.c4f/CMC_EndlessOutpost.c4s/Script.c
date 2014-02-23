@@ -3,7 +3,7 @@
 #strict
 #include CSTD
 
-static aFlag,aStationary,aDoor,aSelfDefense,aLamp;
+static aFlag,aStationary,aDoor,aSelfDefense;
 
 func RecommendedGoals()			{return [GASS];}	//Spielzielempfehlung
 public func AssaultDefenderTeam()	{return 2;}		//Verteidigerteam bei Assault
@@ -25,8 +25,6 @@ func Initialize()
   aDoor = [];
   //Selbstschussanlagen
   aSelfDefense = [];
-  //Lampen
-  aLamp = [];
   //Einrichtung plazieren
   CreateInterior();
   //Ausrüstung plazieren
@@ -329,24 +327,22 @@ func CreateInterior()
   aDoor[10] = CreateObject(HNG2,2305,490,-1);
 
   //Lampen
-  aLamp[00]=CreateObject(BLGH,1280,300,-1);
-  aLamp[01]=CreateObject(BLGH,1380,300,-1);
-  aLamp[02]=CreateObject(CLGH,1445,475,-1);
-  aLamp[03]=CreateObject(CLGH,1525,475,-1);
-  aLamp[04]=CreateObject(LLGH,1583,380,-1);
-  aLamp[05]=CreateObject(LLGH,1627,295,-1);
-  aLamp[06]=CreateObject(STLH,1830,225,-1);
-  aLamp[07]=CreateObject(STLH,2050,95,-1);
-  aLamp[08]=CreateObject(BLGH,1700,305,-1);
-  aLamp[09]=CreateObject(BLGH,1700,390,-1);
-  aLamp[10]=CreateObject(BLGH,2265,270,-1);
-  aLamp[11]=CreateObject(BLGH,1940,440,-1);
-  aLamp[12]=CreateObject(BLGH,2160,440,-1);
-  aLamp[13]=CreateObject(STLH,2355,360,-1);
-  aLamp[14]=CreateObject(ALGH,2600,140,-1);
-  aLamp[14]->SetR(180);
-  aLamp[15]=CreateObject(ALGH,2600,350,-1);
-  aLamp[15]->SetR(180);
+  CreateObject(BLGH,1280,300,-1);
+  CreateObject(BLGH,1380,300,-1);
+  CreateObject(CLGH,1445,475,-1);
+  CreateObject(CLGH,1525,475,-1);
+  CreateObject(LLGH,1583,380,-1);
+  CreateObject(LLGH,1627,295,-1);
+  CreateObject(STLH,1830,225,-1);
+  CreateObject(STLH,2050,95,-1);
+  CreateObject(BLGH,1700,305,-1);
+  CreateObject(BLGH,1700,390,-1);
+  CreateObject(BLGH,2265,270,-1);
+  CreateObject(BLGH,1940,440,-1);
+  CreateObject(BLGH,2160,440,-1);
+  CreateObject(STLH,2355,360,-1);
+  CreateObject(ALGH,2600,140,-1)->SetR(180);
+  CreateObject(ALGH,2600,350,-1)->SetR(180);
 
   //Selbstschussanlagen und Konsolen
   aSelfDefense[0]=CreateObject(SEGU,1345,249,-1);
@@ -1026,11 +1022,12 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
     //Geschützstellung entfernen
     aStationary[0]->DecoExplode(30);
 
-    //Lampen deaktivieren
-    aLamp[00]->EMPShock();
-    aLamp[01]->EMPShock();
-    aLamp[02]->EMPShock();
-    aLamp[03]->EMPShock();
+    //Lampen ausschalten
+    for(var obj in FindObjects(Find_Or(Find_ID(BLGH), Find_ID(CLGH), Find_ID(LLGH), Find_ID(ETLT)), Find_InRect(1250,210,470,280)))
+    {
+     obj->EMPShock();
+     obj->TurnOff();
+    }
    }
   }
 
@@ -1072,14 +1069,12 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
    //Geschützstellung entfernen
    aStationary[1]->DecoExplode(30);
 
-   //Lampen deaktivieren
-   aLamp[04]->EMPShock();
-   aLamp[05]->EMPShock();
-   aLamp[06]->EMPShock();
-   aLamp[07]->EMPShock();
-   aLamp[08]->EMPShock();
-   aLamp[09]->EMPShock();
-   aLamp[10]->EMPShock();
+   //Lampen ausschalten
+   for(var obj in FindObjects(Find_Or(Find_ID(BLGH), Find_ID(STLH), Find_ID(ETLT)), Find_InRect(1820,80,460,200)))
+   {
+    obj->EMPShock();
+    obj->TurnOff();
+   }
 
    //Risse
    CreateObject(FAUD, 2240, 280, -1);
@@ -1119,14 +1114,16 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
    //Geschützstellung entfernen
    aStationary[2]->DecoExplode(30);
 
-   //Lampen deaktivieren
-   aLamp[11]->TurnOff();
-   aLamp[12]->TurnOff();
-   aLamp[13]->TurnOff();
+   //Lampen ausschalten
+   for(var obj in FindObjects(Find_Or(Find_ID(BLGH), Find_ID(STLH)), Find_InRect(1910,340,460,110)))
+   {
+    obj->EMPShock();
+    obj->TurnOff();
+   }
 
-   //Lampen aktivieren
-   aLamp[14]->TurnOn();
-   aLamp[15]->TurnOn();
+   //Lampen einschalten
+   for(var obj in FindObjects(Find_ID(ALGH), Find_InRect(2580,120,40,240)))
+    obj->TurnOn();
 
    //Risse
    CreateObject(FAUD, 2150, 470, -1);

@@ -3,7 +3,7 @@
 #strict
 #include CSTD
 
-static aFlag,aLamp,aArtillery;
+static aFlag,aArtillery;
 
 func RecommendedGoals()			{return [GOCC, GASS];}	//Spielzielempfehlung
 public func AssaultDefenderTeam()	{return 2;}		//Verteidigerteam bei Assault
@@ -21,8 +21,6 @@ func Initialize()
   SetSkyAdjust(RGBa(255,255,255,220));
   //Flaggen
   aFlag = [];
-  //Lampen
-  aLamp = [];
   //Artillerie
   aArtillery = [];
   //Einrichtung plazieren
@@ -160,12 +158,12 @@ func CreateInterior()
   CreateObject(GDDR, 735, 690, -1);
 
   //Lampen
-  aLamp[00]=CreateObject(BLGH, 560, 440, -1);
-  aLamp[01]=CreateObject(BLGH, 560, 580, -1);
-  aLamp[02]=CreateObject(BLGH, 690, 440, -1);
-  aLamp[03]=CreateObject(BLGH, 690, 580, -1);
-  aLamp[04]=CreateObject(BLGH, 2850, 520, -1);
-  aLamp[05]=CreateObject(BLGH, 2940, 520, -1);
+  CreateObject(BLGH, 560, 440, -1);
+  CreateObject(BLGH, 560, 580, -1);
+  CreateObject(BLGH, 690, 440, -1);
+  CreateObject(BLGH, 690, 580, -1);
+  CreateObject(BLGH, 2850, 520, -1);
+  CreateObject(BLGH, 2940, 520, -1);
 
   //Sounds
 
@@ -502,12 +500,6 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
 
     //Teamgrenze setzen
     FindObject(GASS)->CreateTeamBorder(AssaultDefenderTeam(),1620,0,1,1);
-
-    //Lampen deaktivieren
-    aLamp[00]->EMPShock();
-    aLamp[01]->EMPShock();
-    aLamp[02]->EMPShock();
-    aLamp[03]->EMPShock();
    }
   }
 
@@ -535,9 +527,12 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
     CreateParticle("GunSmoke",2810,440,0,-10,250,1);
     CreateParticle("GunSmoke",2980,440,0,-10,350,1);
 
-    //Lampen deaktivieren
-    aLamp[04]->EMPShock();
-    aLamp[05]->EMPShock();
+    //Lampen ausschalten
+    for(var obj in FindObjects(Find_Or(Find_ID(BLGH), Find_ID(ETLT)), Find_InRect(2820,490,160,60)))
+    {
+     obj->EMPShock();
+     obj->TurnOff();
+    }
    }
   }
 }

@@ -943,6 +943,11 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
     //Teamgrenze setzen
     FindObject(GASS)->CreateTeamBorder(AssaultDefenderTeam(),2620,0,1,1);
 
+    //Sendemast zerstören
+    var pTower;
+    if(pTower = FindObject2(Find_ID(AATR),Find_Not(Find_Func("IsDestroyed")))) 
+     pTower->~PrepareCollapse();
+
     //Geschützstellung entfernen
     aStationary[0]->DecoExplode(30);
    }
