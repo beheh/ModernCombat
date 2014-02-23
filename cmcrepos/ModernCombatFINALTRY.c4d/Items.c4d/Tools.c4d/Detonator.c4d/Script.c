@@ -18,6 +18,9 @@ public func TeamSupportTime()	{return 0;}
 public func PackLight()		{return false;}
 public func DestroyEmptyPack()	{return !GetC4();}
 
+public func MinValue()		{return 0;}
+public func MinValue2()		{return 1;}
+
 
 public func GetC4()
 {
