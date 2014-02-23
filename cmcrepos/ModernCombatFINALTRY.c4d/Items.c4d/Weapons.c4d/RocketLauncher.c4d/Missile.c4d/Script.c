@@ -484,8 +484,8 @@ private func Fall()
 private func Detonate()
 {
   //Schaden verursachen
-  DamageObjects(ExplosionRadius(), ExplosionDamage()/2, this);
   Explode(ExplosionDamage()*3/2);
+  DamageObjects(ExplosionRadius(), ExplosionDamage()/2, this);
 }
 
 public func Destruction()
