@@ -84,7 +84,7 @@ public func KMsg(int plr1, int plr2, object clonk, int plr3)
     var killerstr, dstr, energystr;
     var cursor = GetCursor(killer);
     if(cursor->~GetRealCursor())
-    	cursor = cursor->GetRealCursor();
+      cursor = cursor->GetRealCursor();
 
     //Killer selbst tot?
     if(Contained(GetCursor(killer)) && GetID(Contained(cursor)) == FKDT)
