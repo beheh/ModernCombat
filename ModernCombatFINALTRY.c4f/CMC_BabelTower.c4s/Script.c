@@ -1242,6 +1242,13 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
 
     //Teamgrenze setzen
     FindObject(GASS)->CreateTeamBorder(AssaultDefenderTeam(),0,1370,2,1);
+
+    //Lampen ausschalten
+    for(var obj in FindObjects(Find_ID(LLGH), Find_InRect(1110,1440,150,460)))
+    {
+     obj->EMPShock();
+     obj->TurnOff();
+    }
    }
   }
 
@@ -1253,6 +1260,29 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
    DecoExplode(30, aSelfDefense[0]);
    aSelfDefense[1]->Disarm();
    DecoExplode(30, aSelfDefense[1]);
+
+   //Lampen ausschalten
+   for(var obj in FindObjects(Find_Or(Find_ID(BULB), Find_ID(BLGH), Find_ID(LLGH)), Find_InRect(1130,790,110,530)))
+   {
+    obj->EMPShock();
+    obj->TurnOff();
+   }
+  }
+
+  //Ziel 4
+  if(iIndex == 3)
+  {
+   //Sendemast zerstören
+   var pTower;
+   if(pTower = FindObject2(Find_ID(AATR),Find_Not(Find_Func("IsDestroyed")))) 
+    pTower->~PrepareCollapse();
+
+   //Lampen ausschalten
+   for(var obj in FindObjects(Find_ID(CLGH), Find_InRect(1180,160,10,460)))
+   {
+    obj->EMPShock();
+    obj->TurnOff();
+   }
   }
 }
 
