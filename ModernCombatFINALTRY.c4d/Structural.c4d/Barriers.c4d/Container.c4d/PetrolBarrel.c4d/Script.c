@@ -11,23 +11,21 @@ func BlowUp(int iPlr)
   //Achievement-Fortschritt (Barrel Roll)
   DoAchievementProgress(1, AC47, iPlr);
 
-  //Effekt
-  if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",4,100,0,0,20,70,RGB(250,0,0));
-  FakeExplode(20, iPlr+1);
-  //Sound
-  Sound("Inflame");
-
+  //Zu Wrack wechseln
   SetAction("Wreck");
-  Extinguish();
+  FakeExplode(20, iPlr+1);
   SetRDir(RandomX(-40,+40));
-  AddFireEffect(this,50,RGB(80,80,80),true,30);
+  Extinguish();
+  SetObjectLayer(this());
 
-  //Langsam verschwinden
+  //Effekte
+  if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",4,100,0,0,20,70,RGB(250,0,0));
+  Sound("Inflame");
+  AddFireEffect(this,50,RGB(80,80,80),true,30);
   FadeOut();
 
   //Flammenwalze erstellen
   var iDamage = 25;
-
   var flamecount, strength;
   for(strength = 30; strength > 10; strength -= 9)
   {

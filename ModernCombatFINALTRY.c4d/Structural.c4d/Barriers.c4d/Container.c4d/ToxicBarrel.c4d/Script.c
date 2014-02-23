@@ -17,17 +17,20 @@ func BlowUp(int iPlr)
   //Achievement-Fortschritt (Barrel Roll)
   DoAchievementProgress(1, AC47, iPlr);
 
+  //Zu Wrack wechseln
+  SetAction("Wreck");
+  SetController(iPlr);
+  SetRDir(RandomX(-40,+40));
+  Extinguish();
+  SetObjectLayer(this());
+
   //Effekte
   if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",50,20,0,0,100,200,RGBa(100,250,100,130));
   if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",4,100,0,0,20,70,RGB(0,250,0));
   Sound("SGRN_Fused.ogg");
   Sound("Crackle.ogg");
 
-  SetAction("Wreck");
-  SetController(iPlr);
-  Extinguish();
-  SetRDir(RandomX(-40,+40));
-
+  //Giftgas verströmen
   AddEffect("GasEffect", this, 1, 1, 0, GetID());
 }
 
