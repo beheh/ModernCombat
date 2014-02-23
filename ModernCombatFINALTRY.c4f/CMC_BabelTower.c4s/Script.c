@@ -1250,6 +1250,20 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
      obj->TurnOff();
     }
    }
+
+   //Säule zerstören
+   if(!iIndex)
+   {
+    var pObj;
+    if(pObj = FindObject2(Find_ID(PILR),Find_Local("iName","PreparePillarCollapseL2"),Find_Not(Find_Action("Destroyed"))))
+     DoDamage(500,pObj);
+   }
+   else
+   {
+    var pObj;
+    if(pObj = FindObject2(Find_ID(PILR),Find_Local("iName","PreparePillarCollapseR2"),Find_Not(Find_Action("Destroyed"))))
+     DoDamage(500,pObj);
+   }
   }
 
   //Ziel 3
