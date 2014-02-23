@@ -1544,11 +1544,11 @@ public func ControlSpecial()
         var obj = Contents(0);
         if(obj->~CanAim() || obj == start)
         {
-        	if(obj != start)
-        	{
-          	ShiftContents(0, true);
-          	ShiftContents(0, 0, 0, true);
-					}
+          if(obj != start)
+          {
+            ShiftContents(0, true);
+            ShiftContents(0, 0, 0, true);
+          }
 
           if(obj != start)
             start->~Deselection(this, Contents());
