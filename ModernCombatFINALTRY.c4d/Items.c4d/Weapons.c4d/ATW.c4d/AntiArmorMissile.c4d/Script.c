@@ -28,6 +28,6 @@ private func Detonate()
   DoDmg(BoundBy(InvertA1(ObjectDistance(obj), 40),0,20), DMG_Explosion, obj, 0, GetOwner()+1, GetID());
 
   //Schaden verursachen
-  DamageObjects(ExplosionRadius(), ExplosionDamage()/2, this);
   Explode(ExplosionDamage()*3/2);
+  DamageObjects(ExplosionRadius(), ExplosionDamage()/2, this);
 }

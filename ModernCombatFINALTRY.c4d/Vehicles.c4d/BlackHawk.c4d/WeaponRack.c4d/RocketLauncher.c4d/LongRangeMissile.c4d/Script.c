@@ -21,4 +21,5 @@ public func MaxTracerTurn()	{return 9;}			//max. Drehung bei Zielverfolgung
 private func Detonate()
 {
   Explode(ExplosionDamage());
+  DamageObjects(ExplosionRadius(), ExplosionDamage()/2, this);
 }

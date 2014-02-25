@@ -23,4 +23,5 @@ public func MaxTurn()		{return 7;}			//max. Drehung
 private func Detonate()
 {
   Explode(ExplosionDamage());
+  DamageObjects(ExplosionRadius(), ExplosionDamage()/2, this);
 }
