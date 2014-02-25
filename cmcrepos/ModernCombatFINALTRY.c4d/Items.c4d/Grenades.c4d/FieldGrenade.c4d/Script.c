@@ -15,11 +15,11 @@ public func Fused(object pContainer)
   var helper = CreateObject(TIM1,0,0,-1);
   AddEffect("IntShockWave",helper,10,1,0,GetID()); 
 
-  //Schaden
   if(!GetContact(this, -1) && !pContainer)
     for(var obj in FindObjects(Find_Distance(BlastRadius()*3/2), Find_Func("IsClonk")))
       AddEffect("Ribbon_TheBugfixer", obj, 1, 10, 0, GetID(), GetController());
 
+  //Schaden verursachen
   Explode(BlastRadius()*2/3);
   DamageObjects(BlastRadius()*3/2,BlastRadius()*2,this);
 
