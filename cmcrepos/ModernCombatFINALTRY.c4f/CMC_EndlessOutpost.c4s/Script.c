@@ -344,7 +344,7 @@ func CreateInterior()
   CreateObject(ALGH,2600,140,-1)->SetR(180);
   CreateObject(ALGH,2600,350,-1)->SetR(180);
 
-  //Selbstschussanlagen und Konsolen
+  //Selbstschussanlagen und Konsole
   aSelfDefense[0]=CreateObject(SEGU,1345,249,-1);
   CreateObject(CONS, 1330, 540, -1)->Set(aSelfDefense[0]);
   aSelfDefense[1]=CreateObject(SEGU,1895,369,-1);

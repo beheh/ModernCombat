@@ -177,7 +177,7 @@ func CreateInterior()
   CreateObject(CONS, 4560, 885, -1)->Set(aSelfDefense[6]);
 
   aSelfDefense[7] = CreateObject(SEGU, 4550, 1241, -1);
-  aSelfDefense[7]->Set(0,1,1,45);
+  aSelfDefense[7]->Set(0,0,1,45);
   CreateObject(CONS, 4490, 975, -1)->Set(aSelfDefense[7]);
 
   //Sendemast
@@ -500,22 +500,6 @@ public func ChooserFinished()
    sign->Set("Helicopter");
   }
 
-  //SSA Besitzer setzen
-  if(aTeams[1] == true)
-  {aSelfDefense[0]->SetTeam(1); aSelfDefense[1]->SetTeam(1); aSelfDefense[2]->SetTeam(1); aSelfDefense[3]->SetTeam(1);}
-  if(aTeams[2] == true)
-  {aSelfDefense[4]->SetTeam(2); aSelfDefense[5]->SetTeam(2); aSelfDefense[6]->SetTeam(2); aSelfDefense[7]->SetTeam(2);}
-
-  //SSA aktivieren
-  aSelfDefense[0]->TurnOn();
-  aSelfDefense[1]->TurnOn();
-  aSelfDefense[2]->TurnOn();
-  aSelfDefense[3]->TurnOn();
-  aSelfDefense[4]->TurnOn();
-  aSelfDefense[5]->TurnOn();
-  aSelfDefense[6]->TurnOn();
-  aSelfDefense[7]->TurnOn();
-
   //OP-Spielziel
   if(FindObject(GOCC))
   {
@@ -570,6 +554,22 @@ public func ChooserFinished()
    //Versorgungskiste (APW)
    var crate = CreateObject (AMCT, 2865, 1350, -1);
    crate->Set(ATWN);
+
+   //SSA Besitzer setzen
+   if(aTeams[1] == true)
+   {aSelfDefense[0]->SetTeam(1); aSelfDefense[1]->SetTeam(1); aSelfDefense[2]->SetTeam(1); aSelfDefense[3]->SetTeam(1);}
+   if(aTeams[2] == true)
+   {aSelfDefense[4]->SetTeam(2); aSelfDefense[5]->SetTeam(2); aSelfDefense[6]->SetTeam(2); aSelfDefense[7]->SetTeam(2);}
+
+   //SSA aktivieren
+   aSelfDefense[0]->TurnOn();
+   aSelfDefense[1]->TurnOn();
+   aSelfDefense[2]->TurnOn();
+   aSelfDefense[3]->TurnOn();
+   aSelfDefense[4]->TurnOn();
+   aSelfDefense[5]->TurnOn();
+   aSelfDefense[6]->TurnOn();
+   aSelfDefense[7]->TurnOn();
   }
 
   //HTF-Spielziel
@@ -592,6 +592,24 @@ public func ChooserFinished()
     //Gewehrgranaten
     PlaceSpawnpoint(GBOX, 2890, 1465);
    }
+
+   //SSA Besitzer setzen
+   if(aTeams[1] == true)
+    aSelfDefense[3]->SetTeam(1);
+   if(aTeams[2] == true)
+    aSelfDefense[4]->SetTeam(2);
+
+   //SSA aktivieren
+   aSelfDefense[3]->TurnOn();
+   aSelfDefense[4]->TurnOn();
+
+   //Objekte entfernen
+   RemoveObject(aSelfDefense[0]);
+   RemoveObject(aSelfDefense[1]);
+   RemoveObject(aSelfDefense[2]);
+   RemoveObject(aSelfDefense[5]);
+   RemoveObject(aSelfDefense[6]);
+   RemoveObject(aSelfDefense[7]);
   }
 
   //MR-Spielziel
@@ -625,6 +643,24 @@ public func ChooserFinished()
    //Versorgungskiste (APW)
    var crate = CreateObject (AMCT, 2865, 1350, -1);
    crate->Set(ATWN);
+
+   //SSA Besitzer setzen
+   if(aTeams[1] == true)
+    aSelfDefense[3]->SetTeam(1);
+   if(aTeams[2] == true)
+    aSelfDefense[4]->SetTeam(2);
+
+   //SSA aktivieren
+   aSelfDefense[3]->TurnOn();
+   aSelfDefense[4]->TurnOn();
+
+   //Objekte entfernen
+   RemoveObject(aSelfDefense[0]);
+   RemoveObject(aSelfDefense[1]);
+   RemoveObject(aSelfDefense[2]);
+   RemoveObject(aSelfDefense[5]);
+   RemoveObject(aSelfDefense[6]);
+   RemoveObject(aSelfDefense[7]);
   }
 
   //LMS-Spielziel
@@ -648,6 +684,22 @@ public func ChooserFinished()
    //Versorgungskiste (APW)
    var crate = CreateObject (AMCT, 2865, 1350, -1);
    crate->Set(ATWN);
+
+   //SSA Besitzer setzen
+   if(aTeams[1] == true)
+   {aSelfDefense[0]->SetTeam(1); aSelfDefense[1]->SetTeam(1); aSelfDefense[2]->SetTeam(1); aSelfDefense[3]->SetTeam(1);}
+   if(aTeams[2] == true)
+   {aSelfDefense[4]->SetTeam(2); aSelfDefense[5]->SetTeam(2); aSelfDefense[6]->SetTeam(2); aSelfDefense[7]->SetTeam(2);}
+
+   //SSA aktivieren
+   aSelfDefense[0]->TurnOn();
+   aSelfDefense[1]->TurnOn();
+   aSelfDefense[2]->TurnOn();
+   aSelfDefense[3]->TurnOn();
+   aSelfDefense[4]->TurnOn();
+   aSelfDefense[5]->TurnOn();
+   aSelfDefense[6]->TurnOn();
+   aSelfDefense[7]->TurnOn();
   }
 }
 
