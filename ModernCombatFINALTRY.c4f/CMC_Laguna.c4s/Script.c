@@ -392,6 +392,7 @@ public func ChooserFinished()
 
    //Objekte entfernen
    RemoveObject(FindObject2(Find_ID(VGMN),Find_InRect(2810, 520, 50, 100)));
+   RemoveObject(FindObject2(Find_ID(LADR),Find_InRect(2820, 680, 15, 30)));
    RemoveObject(aArtillery[1]);
    RemoveAll(SPVM);
 
