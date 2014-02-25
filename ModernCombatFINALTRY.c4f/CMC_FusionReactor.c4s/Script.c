@@ -303,7 +303,7 @@ func CreateInterior()
   var doorw = CreateObject(ROOM, 965, 120, -1);
   CreateObject(ROOM, 975, 1070, -1)->Connect(doorw);
 
-  //Selbstschussanlagen und Konsolen
+  //Selbstschussanlagen
   aSelfDefense[0] = CreateObject(SEGU, 358, 832, -1);
   aSelfDefense[0]->Set(0,0,0,-90);
   aSelfDefense[0]->SetAutoRepair(1000);
