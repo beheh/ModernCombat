@@ -7,6 +7,21 @@ static aFlag;
 
 func RecommendedGoals()	{return [GOCC,GHTF];}	//Spielzielempfehlung
 
+func LightsOff()
+{
+	for(var light in FindObjects(Find_Func("IsLamp")))
+	{
+		light->~TurnOff();
+	}
+}
+
+func LightsOn()
+{
+	for(var light in FindObjects(Find_Func("IsLamp")))
+	{
+		light->~TurnOn();
+	}
+}
 
 /* Initialisierung */
 
