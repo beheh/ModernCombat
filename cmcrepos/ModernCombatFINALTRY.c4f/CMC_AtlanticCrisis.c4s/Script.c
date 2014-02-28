@@ -3,24 +3,39 @@
 #strict
 #include CSTD
 
-static aFlag;
+static aFlag, aLights, iLightsCounter;
 
 func RecommendedGoals()	{return [GOCC,GHTF];}	//Spielzielempfehlung
 
 func LightsOff()
 {
+	aLights = [];
 	for(var light in FindObjects(Find_Func("IsLamp")))
-	{
 		light->~TurnOff();
-	}
 }
 
 func LightsOn()
 {
-	for(var light in FindObjects(Find_Func("IsLamp")))
-	{
-		light->~TurnOn();
-	}
+	aLights = FindObjects(Find_Func("IsLamp"));
+	iLightsCounter = 0;
+	if(aLights[iLightsCounter])
+		Schedule("LightsOnHelper();", 50);
+	else
+		return -1;
+}
+
+func LightsOnHelper()
+{
+	while(!aLights[iLightsCounter])
+		if(iLightsCounter >= GetLength(aLights) - 1)
+			return;
+		else
+			iLightsCounter++;
+
+	aLights[iLightsCounter]->~TurnOn();
+	aLights[iLightsCounter] = 0;
+	
+	Schedule("LightsOnHelper();", 50);
 }
 
 /* Initialisierung */
