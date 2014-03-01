@@ -141,12 +141,18 @@ public func OnRepair()
 public func TurnOn()
 {
   fActive = true;
+
+  if(fTurning && !fDestroyed)
+    SoundStart();
 }
 
 public func TurnOff()
 {
   fActive = false;
   if(GetAttWeapon()) GetAttWeapon()->StopAutoFire();
+
+  if(fTurning && !fDestroyed)
+    SoundStop();
 }
 
 public func Arm(id idWeapon)
@@ -275,21 +281,14 @@ public func Activity()
     aim_angle += BoundBy(target_angle-AimAngle(),-1,1);
     if(prevAngle != aim_angle)
     {
-      //Sounds für Waffenbewegung
       if(!fTurning)
-      {
-        Sound("ATBY_CannonStart.ogg", false, this, 30);
-        Sound("ATBY_CannonRotation.ogg", false, this, 30, 0, 1);
-      }
+        SoundStart();
       fTurning = true;
     }
     else
     {
       if(fTurning)
-      {
-        Sound("ATBY_CannonStop.ogg", false, this, 30);
-        Sound("ATBY_CannonRotation.ogg", false, this, 30, 0, -1);
-      }
+        SoundStop();
       fTurning = false;
     }
 
@@ -386,19 +385,13 @@ public func Activity()
       if(prevAngle != aim_angle)
       {
         if(!fTurning)
-        {
-          Sound("ATBY_CannonStart.ogg", false, this, 30);
-          Sound("ATBY_CannonRotation.ogg", false, this, 30, 0, 1);
-        }
+          SoundStart();
         fTurning = true;
       }
       else
       {
         if(fTurning)
-        {
-          Sound("ATBY_CannonStop.ogg", false, this, 30);
-          Sound("ATBY_CannonRotation.ogg", false, this, 30, 0, -1);
-        }
+          SoundStop();
         fTurning = false;
       }
 
@@ -436,19 +429,13 @@ public func Activity()
       if(prevAngle != aim_angle)
       {
         if(!fTurning)
-        {
-          Sound("ATBY_CannonStart.ogg", false, this, 30);
-          Sound("ATBY_CannonRotation.ogg", false, this, 30, 0, 1);
-        }
+          SoundStart();
         fTurning = true;
       }
       else
       {
         if(fTurning)
-        {
-          Sound("ATBY_CannonStop.ogg", false, this, 30);
-          Sound("ATBY_CannonRotation.ogg", false, this, 30, 0, -1);
-        }
+          SoundStop();
         fTurning = false;
       }
 
@@ -673,6 +660,22 @@ public func EMPShock()
   if(GetAttWeapon())
    GetAttWeapon()->StopAutoFire();
   return 1;
+}
+
+/* Sounds */
+
+public func SoundStart()
+{
+  //Sounds für Waffenbewegung starten
+  Sound("ATBY_CannonStart.ogg", false, this, 30);
+  Sound("ATBY_CannonRotation.ogg", false, this, 30, 0, 1);
+}
+
+public func SoundStop()
+{
+  //Sounds für Waffenbewegung stoppen
+  Sound("ATBY_CannonStop.ogg", false, this, 30);
+  Sound("ATBY_CannonRotation.ogg", false, this, 30, 0, -1);
 }
 
 /* Konsolensteuerung */

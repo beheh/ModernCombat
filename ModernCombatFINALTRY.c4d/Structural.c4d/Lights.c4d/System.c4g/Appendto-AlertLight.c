@@ -11,7 +11,7 @@
 public func Switch()
 {
   if(broken) return;
-  Sound("LightSwitch.ogg");
+  Sound("LightSwitch*.ogg");
 
   if(GetAction() = "On")
     TurnOff();

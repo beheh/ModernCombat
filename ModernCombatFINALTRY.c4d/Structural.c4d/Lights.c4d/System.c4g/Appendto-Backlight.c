@@ -40,7 +40,7 @@ public func Light()
 public func Switch()
 {
   if(broken) return;
-  Sound("LightSwitch.ogg");
+  Sound("LightSwitch*.ogg");
 
   if(GetAction() == "On")
     TurnOff();
@@ -82,7 +82,7 @@ public func EMPShockEnd()
   {
     SetAction("On");
     if(Light()) Light()->TurnOn();
-    Sound("LightSwitch.ogg");
+    Sound("LightSwitch*.ogg");
   }
 }
 
@@ -123,7 +123,7 @@ func Reactivate()
   {
     SetAction("On");
     if(Light()) Light()->TurnOn();
-    Sound("LightSwitch.ogg");
+    Sound("LightSwitch*.ogg");
   }
 
   broken = false;
