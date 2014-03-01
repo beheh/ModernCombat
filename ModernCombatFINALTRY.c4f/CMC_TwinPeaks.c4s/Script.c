@@ -715,7 +715,7 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   }
 
   //HTF/MR/LMS-Spielziel
-  if(FindObject(GHTF) || FindObject(GMNR) || FindObject(GCTF) || FindObject(GLMS))
+  if(FindObject(GHTF) || FindObject(GMNR) || FindObject(GLMS))
   {
    if(iTeam == 1)
    {
