@@ -1,5 +1,4 @@
 #DeathMenu
-Title=Clonk <c ff0000>eliminiert</c>!
 Suicide=Selbstmord
 SuicideDesc=Gibt dem Clonk den Todesstoß.
 ReanimationBlocked=<c 777777>Reanimation ist erlaubt</c> (%d)
@@ -9,9 +8,7 @@ ReanimationDisallow=<c 777777>Reanimation ist abgelehnt</c>
 ReanimationDescDisallow=Verweigere die Reanimation durch Verbündete.
 Statistics=Statistik
 EffectLevel=Effektstufe
-Info=<c ff0000>%s</c> wurde eliminiert. Warte auf einen Sanitäter oder gebe den Clonk auf.
-Info2=<c ff0000>%s</c> wurde eliminiert. Warte auf eine Reanimation durch einen Sanitäter.
-DeathCounter=Tod in <c ffff33>%d</c> Sekunden.
+DeathCounter=Tod in <c ffff33>%d</c> Sekunden
 Killer=<c ffff33>Killer</c>
 Tip=<c ffff33>Tipp</c>
 Points=<c ffff33>Punktestand</c>
