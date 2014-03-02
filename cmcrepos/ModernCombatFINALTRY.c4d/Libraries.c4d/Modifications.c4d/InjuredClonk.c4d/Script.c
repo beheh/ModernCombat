@@ -16,6 +16,7 @@ public func MenuQueryCancel()	{return true;}
 public func BlockTime()		{return 35*3;}
 public func RWDS_MenuAbort()	{return true;}
 
+
 /* Initialisierung */
 
 protected func Initialize()
@@ -200,23 +201,12 @@ private func DeathMenu()
   if(GetMenu(clonk)) return;
 
   //Menü erstellen
-  CreateMenu(FKDT, clonk, this, 0, Format("$Title$"), C4MN_Style_Dialog, true, true);				//Titelzeile
-
-  if(!clonk->ShorterDeathMenu())
-  {
-    if(FindObject(SICD))											//Hinweistext
-      AddMenuItem(Format("$Info$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);
-    else
-      AddMenuItem(Format("$Info2$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);
-  }
-
-  AddMenuItem(Format("$DeathCounter$", 1 + TimeLeft() / 35),"", NONE, clonk, 0, 0, "", 512, 0, 0);		//Zeitanzeige
+  CreateMenu(FKDT, clonk, this, 0, Format("$DeathCounter$", 1 + TimeLeft() / 35), C4MN_Style_Dialog, true, true);		//Titelzeile mit Zeitanzeige
 
   if(TimeLeft() < (FKDT_SuicideTime - 1) * 35)
   {
     var blocktime;
-    //Button blockieren wenn freigegeben
-    if(GetEffect("BlockRejectReanimation", this))
+    if(GetEffect("BlockRejectReanimation", this))										//Ablehnen-Menüpunkt
     {
       blocktime = GetEffect("BlockRejectReanimation", this, 0, 6);
       AddMenuItem(Format("$ReanimationBlocked$", (BlockTime()-blocktime)/35), 0, SM01, clonk, 0, 0, "$ReanimationDescAllow$");
@@ -224,65 +214,71 @@ private func DeathMenu()
     else
     {
       if(!RejectReanimation())
-        AddMenuItem("$ReanimationAllow$", "Reject", SM01, clonk, 0, 0, "$ReanimationDescAllow$");		//Ablehnen-Menüpunkt
+        AddMenuItem("$ReanimationAllow$", "Reject", SM01, clonk, 0, 0, "$ReanimationDescAllow$");
       else
         AddMenuItem("$ReanimationDisallow$", "Reject", SM06, clonk, 0, 0, "$ReanimationDescDisallow$");
     }
     if(FindObject(SICD))
-      AddMenuItem("$Suicide$", "Suicide", PSTL, clonk, 0, 0, "$SuicideDesc$");					//Selbstmord-Menüpunkt
+      AddMenuItem("$Suicide$", "Suicide", PSTL, clonk, 0, 0, "$SuicideDesc$");							//Selbstmord-Menüpunkt
 
     if(FindObject(RWDS))
-      AddMenuItem("$Statistics$", Format("FindObject(RWDS)->Activate(%d)", GetOwner(clonk)), RWDS, clonk);	//Statistik-Menüpunkt
+      AddMenuItem("$Statistics$", Format("FindObject(RWDS)->Activate(%d)", GetOwner(clonk)), RWDS, clonk);			//Statistik-Menüpunkt
 
     if(FindObject(EFMN) && GetOwner(clonk) == GetPlayerByIndex(0, C4PT_User) && !GetLeague())
-      AddMenuItem("$EffectLevel$", Format("FindObject(EFMN)->Activate(%d)", GetOwner(clonk)), EFMN, clonk);	//Effektstufe-Menüpunkt
+      AddMenuItem("$EffectLevel$", Format("FindObject(EFMN)->Activate(%d)", GetOwner(clonk)), EFMN, clonk);			//Effektstufe-Menüpunkt
 
-    if(aTipps[iTippNr])
-      AddMenuItem("$NextTipp$", "NextTipp", MCMC, clonk);							//Nächster Tipp-Menüpunkt
+    if(aTipps[iTippNr] && !clonk->ShorterDeathMenu())
+      AddMenuItem("$NextTipp$", "NextTipp", MCMC, clonk);									//Nächster Tipp-Menüpunkt
   }
 
   if(GetType(killmsg) == C4V_String)
   {
-    AddMenuItem("", "", NONE, clonk, 0, 0, "", 512, 0, 0);							//Leerzeile
-    AddMenuItem(Format("$Killer$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);			//Titel
+    AddMenuItem("", "", NONE, clonk, 0, 0, "", 512, 0, 0);									//Leerzeile
+    AddMenuItem(Format("$Killer$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);					//Titel
 
-    AddMenuItem(killmsg, "", NONE, clonk, 0, 0, "", 512);							//Killerinformationen
+    AddMenuItem(killmsg, "", NONE, clonk, 0, 0, "", 512);									//Killerinformationen
   }
 
-  if(GetType(aTipps[iTippNr]) == C4V_Array)
+  if(!clonk->ShorterDeathMenu())
   {
-    AddMenuItem("", "", NONE, clonk, 0, 0, "", 512, 0, 0);							//Leerzeile
-    AddMenuItem(Format("{{%i}} $Tip$", aTipps[iTippNr][0]), "", NONE, clonk, 0, 0, "", 512, 0, 0);		//Zufälliger Tipp
-    AddMenuItem(aTipps[iTippNr][1], "", NONE, clonk, 0, 0, "", 512, 0, 0);
-  }
-
-  var obj;
-  if((obj = FindObject(RWDS)) && !clonk->ShorterDeathMenu())							//Punktestatistik erstellen
-  {
-    AddMenuItem("", "", NONE, clonk, 0, 0, "", 512, 0, 0);							//Leerzeile
-    AddMenuItem(Format("$Points$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);			//Titel
-    //Einsortieren
-    var aList = [], iPlr, aData = obj->~GetData(), szString = "";
-    for(iPlr = 0; iPlr < GetLength(aData); ++iPlr)
+    var obj;
+    if((obj = FindObject(RWDS)))												//Punktestatistik erstellen
     {
-      if(!aData[iPlr])
-        continue;
+      AddMenuItem("", "", NONE, clonk, 0, 0, "", 512, 0, 0);									//Leerzeile
+      AddMenuItem(Format("$Points$", GetName(clonk)),"", NONE, clonk, 0, 0, "", 512, 0, 0);					//Titel
 
-      var iTeam = obj->~GetPlayerData(RWDS_PlayerTeam, iPlr);
-      if(!aList[iTeam]) aList[iTeam] = [];
-      szString = Format("%s: %d", obj->~GetPlayerData(RWDS_PlayerName, iPlr), obj->~GetPlayerPoints(RWDS_TotalPoints, iPlr));
-      if(clonk->ShorterDeathMenu())
-        szString = Format("%s: %d", obj->~GetPlayerData(RWDS_CPlayerName, iPlr), obj->~GetPlayerPoints(RWDS_TotalPoints, iPlr));
+      //Einsortieren
+      var aList = [], iPlr, aData = obj->~GetData(), szString = "";
+      for(iPlr = 0; iPlr < GetLength(aData); ++iPlr)
+      {
+        if(!aData[iPlr])
+          continue;
 
-      aList[iTeam][GetLength(aList[iTeam])] = szString;
+        var iTeam = obj->~GetPlayerData(RWDS_PlayerTeam, iPlr);
+        if(!aList[iTeam]) aList[iTeam] = [];
+        szString = Format("%s: %d", obj->~GetPlayerData(RWDS_PlayerName, iPlr), obj->~GetPlayerPoints(RWDS_TotalPoints, iPlr));
+        if(clonk->ShorterDeathMenu())
+          szString = Format("%s: %d", obj->~GetPlayerData(RWDS_CPlayerName, iPlr), obj->~GetPlayerPoints(RWDS_TotalPoints, iPlr));
+
+        aList[iTeam][GetLength(aList[iTeam])] = szString;
+      }
+
+      //Teamweise ausgeben
+      for (var aTeam in aList)
+        if(aTeam)
+          for (var szString in aTeam)
+            if(GetType(szString) == C4V_String)
+              AddMenuItem(szString, "", NONE, clonk, 0, 0, "", 512);
     }
-    //Teamweise ausgeben
-    for (var aTeam in aList)
-      if(aTeam)
-        for (var szString in aTeam)
-          if(GetType(szString) == C4V_String)
-            AddMenuItem(szString, "", NONE, clonk, 0, 0, "", 512);
+
+    if(GetType(aTipps[iTippNr]) == C4V_Array)
+    {
+      AddMenuItem("", "", NONE, clonk, 0, 0, "", 512, 0, 0);									//Leerzeile
+      AddMenuItem(Format("{{%i}} $Tip$", aTipps[iTippNr][0]), "", NONE, clonk, 0, 0, "", 512, 0, 0);				//Zufälliger Tipp
+      AddMenuItem(aTipps[iTippNr][1], "", NONE, clonk, 0, 0, "", 512, 0, 0);
+    }
   }
+
   if(selection >= 0) SelectMenuItem(selection, clonk);
 }
 
