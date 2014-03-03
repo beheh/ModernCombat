@@ -19,6 +19,7 @@ local pRotation, pThrottle, pAltitude, pWind;
 local fDamage, iDamageRemaining;
 local fFlares, fSmokeWall;
 
+
 /* Initialisierung */
 
 public func Initialize() 
@@ -70,14 +71,14 @@ protected func SetState(int iNewState, bool fKeepSound, bool fUpdate)
     SetClrModulation(RGBa(255,153,0,50));
     SetClrModulation(RGBa(255,153,0,50), this, BHUD_Overlay_Warning);
     dwArrowColor = RGBa(255,153,0,50);
-    Sound("WarningLockon.ogg", false, this, 100, GetOwner()+1, +1);
+    Sound("WarningLockOn.ogg", false, this, 100, GetOwner()+1, +1);
   }
   else
   {
     SetClrModulation(RGBa(255,255,255,255), this, BHUD_Overlay_Warning);
     if(!fKeepSound)
     {
-      Sound("WarningLockon.ogg", false, this, 100, GetOwner()+1, -1);
+      Sound("WarningLockOn.ogg", false, this, 100, GetOwner()+1, -1);
     }
   }
   if(iState == BHUD_Ready)
