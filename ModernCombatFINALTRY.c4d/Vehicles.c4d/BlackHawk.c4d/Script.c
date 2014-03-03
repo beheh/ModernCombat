@@ -152,7 +152,7 @@ public func GetRocket()
   var fRocket = false;
   for(var pCheck in aRockets)
   {
-    if(FindObject(NOFF) && !Hostile(GetOwner(pCheck), GetOwner())) continue;
+    if(!Hostile(GetOwner(pCheck), GetOwner())) continue;
     if(ObjectDistance(pCheck, this) <= 150) fRocket = true;
     var aObj = FindObjects(Find_ID(GetID()), Find_OnLine(AbsX(GetX(pCheck)), AbsY(GetY(pCheck)), AbsX(GetX(pCheck)+Sin(GetR(pCheck), 800)), AbsX(GetX(pCheck)-Cos(GetR(pCheck), 800))));
     for(var pCheck in aObj)
