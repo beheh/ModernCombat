@@ -554,6 +554,7 @@ protected func ContainedDownDouble(object ByObj)
       throttle = BoundBy(throttle - BKHK_ThrottleSpeed*2, 0, 170);
   }
 
+  //Passagiere
   if(ByObj == GetPassenger1() || ByObj == GetPassenger2())
     SetCommand(ByObj,"Exit");
   return true;
@@ -784,7 +785,7 @@ public func ContainedUpdate(object ByObj, int comdir, bool dig, bool throw)
   }
 }
 
-//eine Funktion, welche einfach nur die Richtung eines Objektes ändert
+//Eine Funktion, welche die Richtung eines Objektes ändert
 protected func ChangeDir()
 {
   for(var i = 0; i < GetDefCoreVal("Vertices", "DefCore", GetID()); i++)

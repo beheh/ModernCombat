@@ -1538,7 +1538,7 @@ protected func ConfigurationFinished2()
   Death = true;
   //Regeln erzeugen
   var i = 0, j = 0, pCrew, tmp, log, def;
-  if (IsStandardSetting())
+  if(IsStandardSetting())
     log = "$StdRules$";
   else
     log = "$Rules$";
@@ -1615,12 +1615,12 @@ private func IsStandardSetting()
   var a = GameCall("ChooserRuleConfig"), i;
   for (var i = 0; i < GetLength(aRules); i++)
   {
-    if (GetIndexOf(GetDefinition(i, Chooser_Cat), a) != -1)
+    if(GetIndexOf(GetDefinition(i, Chooser_Cat), a) != -1)
     {
-      if (!aRules[i]) //Regel im Standardsatz, aber nicht ausgewählt
+      if(!aRules[i]) //Regel im Standardsatz, aber nicht ausgewählt
         return false;
     }
-    else if (aRules[i]) //Regel ausgewählt, aber nicht Standard
+    else if(aRules[i]) //Regel ausgewählt, aber nicht Standard
       return false;
   }
   return true;
@@ -1762,12 +1762,12 @@ protected func OpenGoalRandomMenu(id id, object pClonk)
   if(!rGoals)
     rGoals = [];
 
-  if (!aGoalsChecked)
+  if(!aGoalsChecked)
     aGoalsChecked = [];
   var fChecked = false;
   for (var i = 0; i < GetLength(aGoals); i++)
   {
-    if (!aGoals[i])
+    if(!aGoals[i])
       continue;
 
     var obj = CreateObject(TIM1, 0, 0, -1);
@@ -1779,7 +1779,7 @@ protected func OpenGoalRandomMenu(id id, object pClonk)
       SetObjDrawTransform(600, 0, 8500, 0, 600, 8500, obj, 1);
     }
 
-    if (aGoalsChecked[i])
+    if(aGoalsChecked[i])
     {
       AddMenuItem("%s", "CheckRandomGoal", aGoals[i], pClonk, 0, pClonk, GetDesc(0, aGoals[i]), 4, obj);
       fChecked = true;
@@ -1789,7 +1789,7 @@ protected func OpenGoalRandomMenu(id id, object pClonk)
 
     RemoveObject(obj);
   }
-  if (fChecked)
+  if(fChecked)
     AddMenuItem("$GoalRandomChoose$", "GoalRandomChoose", GetID(), pClonk, 0, pClonk, "$GoalRandomChoose$", 2, 3);
   else
     AddMenuItem("<c 777777>$GoalRandomChoose$</c>", 0, GetID(), pClonk, 0, pClonk, "$GoalRandomChoose$", 2, 3);
@@ -1809,10 +1809,10 @@ protected func GoalRandomChoose(id id, object pClonk)
 {
   var array = [];
   for (var i = 0; i < GetLength(aGoals); i++)
-    if (aGoalsChecked[i])
+    if(aGoalsChecked[i])
       array[GetLength(array)] = aGoals[i];
   var idGoal = array[Random(GetLength(array))];
-  if (!idGoal)
+  if(!idGoal)
     return OpenGoalRandomMenu(0, pClonk);
   return CreateGoal(idGoal, aTempGoalSave[GetIndexOf(idGoal, aGoals)]);
 }
@@ -1832,7 +1832,7 @@ protected func CheckGoalVoteMenu(id id, object pClonk)
 
 protected func OpenGoalVoteMenu(id id, object pClonk)
 {
-  if (!aGoalsVoted)
+  if(!aGoalsVoted)
     aGoalsVoted = [];
   for (var i = 0; i < GetPlayerCount(); i++)
     GoalVoteMenu(0, 0, GetPlayerByIndex(i));
@@ -1843,19 +1843,19 @@ protected func OpenGoalVoteMenu(id id, object pClonk)
 
 protected func GoalVoteMenu(id id, object pClonk, int iPlr)
 {
-  if (!pClonk && !(pClonk = GetCrew(iPlr)))
+  if(!pClonk && !(pClonk = GetCrew(iPlr)))
     return;
-  if (iPlr == NO_OWNER && (iPlr = GetOwner(pClonk)) == NO_OWNER)
+  if(iPlr == NO_OWNER && (iPlr = GetOwner(pClonk)) == NO_OWNER)
     return false;
   var iSelection = GetMenuSelection(pClonk);
   CloseMenu(pClonk);
 
   var iTime = GetEffect("EvaluateGoalVote", this, 0, 6);
-  if (iTime >= CHOS_GoalVotingTime * 35)
+  if(iTime >= CHOS_GoalVotingTime * 35)
     return false;
 
   CreateMenu(GetID(), pClonk, 0, 0, 0, 0, C4MN_Style_Context);
-  if (!aGoalsVoted[iPlr])
+  if(!aGoalsVoted[iPlr])
     aGoalsVoted[iPlr] = [];
 
   var rGoals = RecommendedGoals();
@@ -1874,7 +1874,7 @@ protected func GoalVoteMenu(id id, object pClonk, int iPlr)
       SetObjDrawTransform(600, 0, 8500, 0, 600, 8500, obj, 1);
     }
 
-    if (aGoalsVoted[iPlr][i])
+    if(aGoalsVoted[iPlr][i])
       AddMenuItem("%s", "CheckVoteGoal", aGoals[i], pClonk, 0, pClonk, GetDesc(0, aGoals[i]), 4, obj);
     else
       AddMenuItem("<c 777777>%s</c>", "CheckVoteGoal", aGoals[i], pClonk, 0, pClonk, GetDesc(0, aGoals[i]), 4, obj);
@@ -1953,7 +1953,7 @@ protected func FxEvaluateGoalVoteTimer(pTarget, iEffect, iTime)
     idGoal = array2[Random(GetLength(array2))];
 
   str = Format("$Goal$ (%s)", GetName(0, idGoal), str);
-  if (idGoal)
+  if(idGoal)
     CreateGoal(idGoal, aTempGoalSave[GetIndexOf(idGoal, aGoals)], str);
   else
     OpenGoalChooseMenu();
