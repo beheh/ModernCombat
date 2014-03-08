@@ -3,7 +3,7 @@ CreatingEquipment=Ausrüstung wird plaziert...
 CreatingDecoration=Dekoration wird plaziert...
 
 Team1=Eurocorps
-Team2=Aggressoren
+Team2=Wipfinalisten
 
 Flag1=Westliche Lagerhalle
 Flag2=Bohrplattform
