@@ -132,22 +132,22 @@ public func SetIcon(id idIcon)
 
 protected func Open()
 {
-  if (GetAction() == "Closed")
+  if(GetAction() == "Closed")
     return SetAction("Opening");
 }
 
 protected func Close()
 {
-  if (GetAction() == "Open")
-    return SetAction("Closing");	    
+  if(GetAction() == "Open")
+    return SetAction("Closing");
 }
 
 /* Anfassen und Loslassen */
 
 protected func Grabbed(object pClonk, bool fGrab)
 {
-  if(!fGrab)
-    RemoveEffect("IntResupply", pClonk);
+  if(GetEffect("IntResupply", pClonk) && !fGrab)
+    Message("", pClonk);
   if(!CheckGrab())
     return;
   if(idSpawn && pClonk && fGrab && GetAction() == "Open")
@@ -187,10 +187,11 @@ protected func Opened()
 
 protected func CheckResupply(object pClonk, bool bStart)
 {
-  if(GetEffect("IntResupply", pClonk))
-    RemoveEffect("IntResupply", pClonk);
-
-  AddEffect("IntResupply", pClonk, 10, iTakeTime, 0, GetID(), this, bStart);
+  var iEffect = GetEffect("IntResupply", pClonk);
+  if(!iEffect)
+    AddEffect("IntResupply", pClonk, 10, iTakeTime, 0, GetID(), this, bStart);
+  else
+    EffectCall(pClonk, iEffect, "UpdateMessages");
 }
 
 protected func Closing() 
