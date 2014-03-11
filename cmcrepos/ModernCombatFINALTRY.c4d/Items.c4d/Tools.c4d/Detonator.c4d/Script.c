@@ -18,9 +18,6 @@ public func TeamSupportTime()	{return 0;}
 public func PackLight()		{return false;}
 public func DestroyEmptyPack()	{return !GetC4();}
 
-public func MinValue()		{return 0;}
-public func MinValue2()		{return 1;}
-
 
 public func GetC4()
 {
@@ -137,13 +134,18 @@ public func JoinPack(object pInto, object pMsgObj)
   return i;
 }
 
-/* Sonstiges */
+/* HUD */
+
+public func MinValue()		{return 0;}
+public func MinValue2()		{return 1;}
 
 public func UpdateHUD(object pHUD)
 {
   _inherited(pHUD, ...);
   pHUD->Recharge(GetEffect("IntC4Cooldown", this, 0, 6), C4PA_Cooldown);
 }
+
+/* Sonstiges */
 
 public func OnRefill()
 {

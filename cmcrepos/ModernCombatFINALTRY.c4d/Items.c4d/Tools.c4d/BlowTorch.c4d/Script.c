@@ -461,12 +461,18 @@ public func Entrance(object pObj)
 
 /* HUD */
 
-func CustomHUD()	{return true;}
+public func CustomHUD()		{return true;}
+public func ColorEmpty()	{return RGB(255, 0, 0);}
+public func ColorLow()		{return RGB(255, 150, 0);}
+public func MinValue()		{return 0;}
+public func MinValue2()		{return 49;}
 
 func UpdateHUD(object pHUD)
 {
-  var color = RGB(255, 0, 0)*(Inside(charge, 0, 19));
-  pHUD->Ammo(charge, MaxEnergy(), GetName(), true, color);
+  var color = ColorEmpty()*(Inside(charge, 0, MinValue()));
+  if(!color)
+    color = ColorLow()*(Inside(charge, MinValue()+1, MinValue2()));
+  pHUD->~Ammo(charge, MaxEnergy(), GetName(), true, color);
 }
 
 /* Allgemein */
