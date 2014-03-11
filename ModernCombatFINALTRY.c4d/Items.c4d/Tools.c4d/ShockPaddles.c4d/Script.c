@@ -258,13 +258,19 @@ public func RejectEntrance(object pObj)
 
 /* HUD */
 
-func CustomHUD()	{return true;}
+public func CustomHUD()		{return true;}
+public func ColorEmpty()	{return RGB(255, 0, 0);}
+public func ColorLow()		{return RGB(255, 150, 0);}
+public func MinValue()		{return 9;}
+public func MinValue2()		{return 19;}
 
 func UpdateHUD(object pHUD)
 {
-  var color = RGB(255, 0, 0)*(Inside(charge, 0, 9));
-  pHUD->Charge(charge,MaxEnergy());
-  pHUD->Ammo(charge, MaxEnergy(), GetName(), true, color);
+  var color = ColorEmpty()*(Inside(charge, 0, MinValue()));
+  if(!color)
+    color = ColorLow()*(Inside(charge, MinValue()+1, MinValue2()));
+  pHUD->~Charge(charge, MaxEnergy());
+  pHUD->~Ammo(charge, MaxEnergy(), GetName(), true, color);
   if(GetEffect("IntSelection", this) != 0)
     pHUD->Recharge(GetEffect("IntSelection", this, 0, 6), GetEffect("IntSelection", this, 0, 3)-1);
   if(GetAction() == "Reload")
