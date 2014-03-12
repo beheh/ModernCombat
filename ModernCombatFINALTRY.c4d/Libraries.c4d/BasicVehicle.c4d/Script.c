@@ -6,17 +6,17 @@ local fDestroyed;
 local iLastAttacker;
 local aDealers;
 
-public func OnDamage()			{}			//Beim Erhalten von Schaden
-public func OnDestruction()		{}			//Bei der Zerstörung des Fahrzeugs
-public func OnOwnerLoss(int iPrevious)	{}			//Bei Verlust des Besitzers durch Effekt
-public func MaxDamage()			{return 100;}		//Maximalschaden
-public func BonusPointCondition()	{return true;}		//Ob bei der Zerstörung Punkte vergeben werden
+public func OnDamage()			{}					//Beim Erhalten von Schaden
+public func OnDestruction()		{}					//Bei der Zerstörung des Fahrzeugs
+public func MaxDamage()			{return 100;}				//Maximalschaden
+public func BonusPointCondition()	{return true;}				//Ob bei der Zerstörung Punkte vergeben werden
 
-public func GetLastAttacker()		{return iLastAttacker;}	//Letzer Angreifer
-public func IsDestroyed()		{return fDestroyed;}	//Zerstört
-public func IsCMCVehicle()		{return true;}		//Ist ein CMC Fahrzeug
-public func IsRepairable()		{return true;}		//Reparierbar
-public func RepairSpeed()		{return 0;}		//Standard-Reparaturgeschwindigkeit
+public func GetLastAttacker()		{return iLastAttacker;}			//Letzer Angreifer
+public func IsDestroyed()		{return fDestroyed;}			//Zerstört
+public func IsCMCVehicle()		{return true;}				//Ist ein CMC Fahrzeug
+public func IsRepairable()		{return true;}				//Reparierbar
+public func RepairSpeed()		{return 0;}				//Standard-Reparaturgeschwindigkeit
+public func RemoveTracer()		{return GetOwner() == NO_OWNER;}	//Tracer entfernen, wenn neutral
 
 
 /* Initialisierung */
@@ -54,7 +54,7 @@ public func RejectRepair()
   return iRejectRepairCounter;
 }
 
-/* Unbenutzt */
+/* Unbenutztes Fahrzeug */
 
 global func FxVehicleNoOwnerStart(object pTarget, int iEffectNumber)
 {
