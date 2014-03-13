@@ -444,7 +444,10 @@ protected func ControlThrow(object pByObj)
       DirectEquipMenu(pByObj);
     }
     else
-      PlayerMessage(GetOwner(pByObj), "$NoMoney$", this);
+    {
+      Sound("BKHK_SwitchFail.ogg", false, pByObj, 100, GetOwner(pByObj)+1);
+      PlayerMessage(GetOwner(pByObj), Format("$NotEnoughMoney$",GetDefCoreVal("Value", "DefCore", MAVE)), this);
+    }
   }
   else
   {
