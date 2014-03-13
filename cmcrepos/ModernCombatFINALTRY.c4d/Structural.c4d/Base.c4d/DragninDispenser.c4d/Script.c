@@ -11,16 +11,28 @@ public func RejectCollect(id idObj, object pObj)
 {
   //Objekt kein EHP?
   if(idObj != FAPK)
+  {
+    Sound("BKHK_SwitchFail.ogg", false, pObj, 100, GetOwner(pObj)+1);
     return PlayerMessage(GetOwner(pObj), "$EnterEHP$", this);
+  }
   //Bereits besetzt?
   if(packet)
+  {
+    Sound("BKHK_SwitchFail.ogg", false, pObj, 100, GetOwner(pObj)+1);
     return PlayerMessage(GetOwner(pObj), "$AlreadyCharging$", this);
+  }
   //Schon voll?
   if(pObj->~GetPackPoints() >= pObj->~MaxPoints())
+  {
+    Sound("BKHK_SwitchFail.ogg", false, pObj, 100, GetOwner(pObj)+1);
     return PlayerMessage(GetOwner(pObj), "$NoChargeNeeded$", this);
+  }
   //Nicht genug Geld?
   if(GetWealth(GetOwner(pObj)) < GetValue(0, FAPK) - GetValue(pObj))
-    return PlayerMessage(GetOwner(pObj), "$NotEnoughFunds$", this);
+  {
+    Sound("BKHK_SwitchFail.ogg", false, pObj, 100, GetOwner(pObj)+1);
+    return PlayerMessage(GetOwner(pObj), Format("$NotEnoughMoney$",GetValue(0, FAPK) - GetValue(pObj)), this);
+  }
 }
 
 /* Aufladung */

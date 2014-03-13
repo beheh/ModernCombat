@@ -1,4 +1,4 @@
-NoMoney=Not enough money!
+NotEnoughMoney=Not enough money:|<c ff0000>%d</c>
 NoMAV=No MAV available!
 AddItem=Equip %s
 Updated=MAV modified with <c ffff33>%s</c>.

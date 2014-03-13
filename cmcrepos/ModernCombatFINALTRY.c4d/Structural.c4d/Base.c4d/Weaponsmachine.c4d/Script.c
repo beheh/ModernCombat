@@ -2,18 +2,23 @@
 
 #strict 2
 
-//tolle Waffenliste!
 local aWare;
 local aCount;
 
-func Initialize() {
+
+/* Initialisierung */
+
+func Initialize()
+{
   aWare = CreateArray();
   aCount = CreateArray();
 }
 
-//Ware anzeigen
-func Display() {
-  //haben wir überhaupt Ware?
+/* Bildschirmeffekt */
+
+func Display()
+{
+  //Ware vorhanden?
   if(!GetLength(aWare))
     return SetGraphics(0,0,0,1);
 
@@ -21,36 +26,41 @@ func Display() {
   SetGraphics(0,this,aWare[i],1,GFXOV_MODE_IngamePicture,0,1);
   if(!aCount[i])
     SetClrModulation(RGB(150,100,100),0,1);
-    
+
   SetObjDrawTransform(218,0,-16000,0,203,-6000,0,1);
 }
 
-public func SortWare() {
-  if(GetLength(aWare) != GetLength(aCount))
-    return Log("Waffenautomat-PANICK. Den Devs melden!");
-  
+public func SortWare()
+{
   var length;
   while(Par(length++));
-  
+
   var ware = CreateArray(), count = CreateArray();
-  
+
   //Nach Kategorie sortieren
-  for(var y = 0; y < length; y++) {
+  for(var y = 0; y < length; y++)
+  {
     ware[y] = CreateArray();
     count[y] = CreateArray();
-    for(var x = 0; x < GetLength(aWare); x++) {
-      if(DefinitionCall(aWare[x],Par(y))) {
+    for(var x = 0; x < GetLength(aWare); x++)
+    {
+      if(DefinitionCall(aWare[x],Par(y)))
+      {
         AddToArray(ware[y],aWare[x]);
         AddToArray(count[y],aCount[x]);
       }
     }
   }
-  
+
   //Nach Preis sortieren
-  for(var y = 0; y < length; y++) {
-    for(var x = 0; x < GetLength(ware[y]); x++) {
-      for(var z = x+1; z < GetLength(ware[y]); z++) {
-        if(GetDefValue(ware[y][z]) < GetDefValue(ware[y][x])) {
+  for(var y = 0; y < length; y++)
+  {
+    for(var x = 0; x < GetLength(ware[y]); x++)
+    {
+      for(var z = x+1; z < GetLength(ware[y]); z++)
+      {
+        if(GetDefValue(ware[y][z]) < GetDefValue(ware[y][x]))
+        {
           var tmp = ware[y][x];
           ware[y][x] = ware[y][z];
           ware[y][z] = tmp;
@@ -61,84 +71,90 @@ public func SortWare() {
       }
     }
   }
-  
-  //Wieder sortiert ins Array tun
+
+  //Neue Sortierung speichern
   aWare = aCount = CreateArray();
   var cnt;
-  for(var y = 0; y < length; y++) {
-    for(var x = 0; x < GetLength(ware[y]); x++) {
+  for(var y = 0; y < length; y++)
+  {
+    for(var x = 0; x < GetLength(ware[y]); x++)
+    {
       aWare[cnt] = ware[y][x];
       aCount[cnt] = count[y][x];
       cnt++;
     }
   }
-  
 }
 
-private func AddToArray(&a, add) {
+private func AddToArray(&a, add)
+{
   a[GetLength(a)] = add;
 }
 
+/* Kaufmenü */
 
-/* Menüzeugs */
-
-public func ControlDigDouble(object pByObj) {
+public func ControlDigDouble(object pByObj)
+{
   if(!GetLength(aWare))
-    return 0;
+    return;
   CreateBuyMenu(pByObj);
 }
 
-protected func CreateBuyMenu(object pClonk) {
+protected func CreateBuyMenu(object pClonk)
+{
   if(!pClonk)
-    return 0;
+    return;
   CreateMenu(WPVM, pClonk, this,0,0,0,0,1);
   for(var x; x < GetLength(aWare); x++)
     AddBuyMenuItem(aWare[x], pClonk, aCount[x]);
 }
 
-private func AddBuyMenuItem(id id, object pClonk, int iCount) {
-  //bei NoAmmo-Regel Munition nicht anzeigen
-  if(DefinitionCall(id,"IsAmmoPacket") && NoAmmo())
-    return ;
-    
+private func AddBuyMenuItem(id id, object pClonk, int iCount)
+{
   if(!id || !pClonk)
-    return ;
-  // noch mehr Variablen
+    return;
+
+  //Bei Keine Munition-Regel keine Munition anzeigen
+  if(DefinitionCall(id,"IsAmmoPacket") && NoAmmo())
+    return;
+
   var name = GetName(0,id),
       obj = CreateObject(id),
       wealth = GetDefValue(id),
       iPlayer = GetOwner(pClonk),
       bMoney = false;
-    
-  //Kann sich der Spieler die Waffe leisten?
-  if(GetWealth(iPlayer) < wealth || iCount == 0) {
+
+  //Käufer kann sich das Objekt leisten?
+  if(GetWealth(iPlayer) < wealth || iCount == 0)
+  {
     name = Format("<c 646464>%s</c>",name);
     SetClrModulation(RGB(100,100,100), obj);
     bMoney = true;
   }
 
-  //Hiermit können andere sachen, die den Waffenautomaten includen, noch Grafisches Zeugs mit den Icons machen
+  //Zusatzeffekte abrufen
   this->~AdaptMenuItem(obj, iPlayer);
 
   var func = "BuyItem";
   if (obj->~IsPack())
     func = "BuyPack";
-  //hinzufügen
+
+  //Hinzufügen
   if(!iCount)
-    AddMenuItem(Format("%3d$: %s",wealth,name),func,id,pClonk,0,pClonk,GetDesc(0,id),4|C4MN_Add_ForceCount, obj);
+    AddMenuItem(Format("%3d: %s",wealth,name),func,id,pClonk,0,pClonk,GetDesc(0,id),4|C4MN_Add_ForceCount, obj);
   else if(bMoney)
-    AddMenuItem(Format("%3d$: %s",wealth,name),func,id,pClonk,0,pClonk,GetDesc(0,id),4, obj);
+    AddMenuItem(Format("%3d: %s",wealth,name),func,id,pClonk,0,pClonk,GetDesc(0,id),4, obj);
   else if(iCount < 0)
-    AddMenuItem(Format("%3d$: %s",wealth,name),func,id,pClonk,0,pClonk,GetDesc(0,id),4, obj);
+    AddMenuItem(Format("%3d: %s",wealth,name),func,id,pClonk,0,pClonk,GetDesc(0,id),4, obj);
   else
-    AddMenuItem(Format("%3d$: %s",wealth,name),func,id,pClonk,iCount,pClonk,GetDesc(0,id),4, obj);
-    
-  RemoveObject(obj); //Hilfsobjekt löschen
+    AddMenuItem(Format("%3d: %s",wealth,name),func,id,pClonk,iCount,pClonk,GetDesc(0,id),4, obj);
+
+  RemoveObject(obj);
 }
 
-//Kaufbar?
-private func BuyAble(id Item, int Plr) {
-  //genug Geld?
+private func BuyAble(id Item, int Plr)
+{
+  //Genug Geld?
   if(GetWealth(Plr) < GetDefValue(Item))
     return false;
   if(GetWareCount(Item) == 0)
@@ -149,34 +165,30 @@ private func BuyAble(id Item, int Plr) {
 private func BuyItem(id Item, object pClonk)
 {
   var iPlr = GetOwner(pClonk);
-  //kaufbar?
+  //Kaufbar?
   if(!BuyAble(Item,iPlr))
-    return Sound("Error", 0, 0, 0, iPlr + 1);
-  
+    return Sound("BKHK_SwitchFail.ogg", 0, 0, 0, iPlr + 1);
   //Objekt erzeugen
   var tmp = CreateObject(Item, 0, -GetDefOffset(GetID(), 1), iPlr);
-  //einsammelbar?
+  //Einsammelbar?
   if(pClonk->~RejectCollect(Item, tmp))
   {
     RemoveObject(tmp);
-    //nein. :(
-    return Sound("Error", 0, 0, 0, iPlr + 1);
+    return Sound("BKHK_SwitchFail.ogg", 0, 0, 0, iPlr + 1);
   }
-  //Kaufen!
+  //Kaufen
   else
   {
     //Waffe?
     if(tmp->~IsWeapon())
-      //n bisschen Muni gibts gratis dazu!
+      //Waffen laden
       tmp->DoAmmo(tmp->GetFMData(FM_AmmoID), tmp->GetFMData(FM_AmmoLoad));
-    
+
     Enter(pClonk,tmp);
   }
-  
-  
-  //Geld abziehn
+
+  //Geld abziehen
   DoWealth(iPlr, -GetDefValue(Item));
-  //*Ca-Ching*
   Sound("Cash", 0, 0, 0, iPlr + 1);
 
   DoWare(Item, -1);
@@ -191,15 +203,14 @@ protected func BuyPack(id idPack, object pClonk)
 {
   var iPlr = GetOwner(pClonk);
   if(!BuyAble(idPack, iPlr))
-    return Sound("Error", 0, 0, 0, iPlr + 1);
+    return Sound("BKHK_SwitchFail.ogg", 0, 0, 0, iPlr + 1);
 
   //Pack erstellen und einsammeln lassen
   var obj = CreateObject(idPack, 0, -GetDefOffset(GetID(), 1), iPlr);
   Collect(obj, pClonk);
 
-  //Geld abziehn
+  //Geld abziehen
   DoWealth(iPlr, -Value(idPack));
-  //*Ca-Ching*
   Sound("Cash", 0, 0, 0, iPlr + 1);
 
   DoWare(idPack, -1);
@@ -213,11 +224,13 @@ protected func BuyPack(id idPack, object pClonk)
 /* Warenhandling-Funktionen */
 
 //Warenbestand ändern
-public func DoWare(id ID, int iChange) {
+public func DoWare(id ID, int iChange)
+{
   //Ware nicht im Angebot?
   if(!FindWare(ID))
     return false;
-  if(!ID) {
+  if(!ID)
+  {
     for(var ware in aWare)
       ChangeWare(ware,iChange);
   }
@@ -225,23 +238,23 @@ public func DoWare(id ID, int iChange) {
     ChangeWare(GetWare(ID),iChange);
 }
 
-//nur eine interne Funktion, die die Ware dann wirklich ändert
-//Damit man den Check nicht immer schreiben muss
-private func ChangeWare(int iIndex, int iChange) {
+//Interne Funktion, die die Ware dann wirklich ändert
+private func ChangeWare(int iIndex, int iChange)
+{
   //Ware ist unendlich oft verfügbar?
   if(aCount[iIndex] < 0)
-    return ; //nichts tun.
-  
+    return ;
+
   aCount[iIndex] += iChange;
-  //Anzahl < 0?
+  //Anzahl kleiner als 0?
   if(aCount[iIndex] < 0)
     //Anzahl auf 0 setzen
-    //sonst wäre die Ware ja auf einmal unendlich oft zu haben.
     aCount[iIndex] = 0;
 }
 
 //Ware hinzufügen
-public func AddWare(id ID, int iCount) {
+public func AddWare(id ID, int iCount)
+{
   //keine ID angegeben?
   if(!ID)
     //nix tun
@@ -261,30 +274,34 @@ public func AddWare(id ID, int iCount) {
 }
 
 //Alle Waren eines Typs hinzufügen
-public func AddWares(string szCallback, int iCount) {
+public func AddWares(string szCallback, int iCount)
+{
   var id, defz;
   //alle Definitionen durchgehn
-  while(id = GetDefinition(defz++)) {
+  while(id = GetDefinition(defz++))
+  {
     //Objekt kann nicht gewählt werden?
     if(DefinitionCall(id,"NoWeaponChoice"))
-      continue; //weiter
+      continue; //Weiter
     //Objekt ist vom richtigen Typ?
     if(DefinitionCall(id,szCallback))
-      AddWare(id,iCount); //hinzufügen.
+      AddWare(id,iCount); //Hinzufügen
   }
 }
 
 //Ware entfernen
-public func RemoveWare(id ID) {
-  //wenn nichts angegeben, alles entfernen
-  if(!ID) {
+public func RemoveWare(id ID)
+{
+  //Wenn nichts angegeben, alles entfernen
+  if(!ID)
+  {
     aWare = aCount = CreateArray();
     return true;
   }
-   
+
   if(!FindWare(ID))
     return false;
-   
+
   var x = GetWare(ID);
   aWare[x] = 0;
   aCount[x] = 0;
@@ -292,53 +309,58 @@ public func RemoveWare(id ID) {
 }
 
 //Warenindex abfragen
-private func GetWare(id ID) {
+private func GetWare(id ID)
+{
   for(var x; x < GetLength(aWare); x++)
     if(aWare[x] == ID)
       return x;
-  //haben wir nicht? -1 zurückgeben.
   return -1;
 }
 
 //Anzahl einer Ware abfragen
-public func GetWareCount(id ID) {
+public func GetWareCount(id ID)
+{
   for(var x; x < GetLength(aWare); x++)
     if(aWare[x] == ID)
       return aCount[x];
 }
 
 //Warenliste abfragen
-public func GetWareList() {
+public func GetWareList()
+{
   return aWare;
 }
 
-// Waren nach Kategorie abfragten
+//Waren nach Kategorie abfragten
 public func GetWares(string szCallback)
 {
-	var ret = CreateArray();
-	for(var x; x < GetLength(aWare); x++)
-		if(DefinitionCall(aWare[x], szCallback))
-			ret[GetLength(ret)] = aWare[x];
-	return ret;
+  var ret = CreateArray();
+  for(var x; x < GetLength(aWare); x++)
+    if(DefinitionCall(aWare[x], szCallback))
+      ret[GetLength(ret)] = aWare[x];
+  return ret;
 }
 
-//bestimmte Ware auf bestimmten Wert setzen. Oder alle.
-public func SetWare(id id, int iCount) {
+//Bestimmte Ware auf bestimmten Wert setzen
+public func SetWare(id id, int iCount)
+{
   for(var x; x < GetLength(aWare); x++)
     if(!id || id == aWare[x])
       aCount[x] = iCount;
 }
 
-private func FindWare(id ID) {
+private func FindWare(id ID)
+{
   for(var x in aWare)
     if(x == ID)
       return true;
-  
+
   return false;
 }
 
 //Bei Aufsammlung zur Warenliste hinzufügen
-func RejectCollect(id id, object pObj) {
+func RejectCollect(id id, object pObj)
+{
   if(FindWare(id))
     return RemoveObject(pObj);
   AddWare(id, 0);
@@ -348,8 +370,9 @@ func RejectCollect(id id, object pObj) {
 
 public func Serialize(array& extra)
 {
-	if (GetLength(aWare)) {
-		extra[GetLength(extra)] = Format("LocalN(\"aWare\")=%v", aWare);
-		extra[GetLength(extra)] = Format("LocalN(\"aCount\")=%v", aCount);
-	}
+  if(GetLength(aWare))
+  {
+    extra[GetLength(extra)] = Format("LocalN(\"aWare\")=%v", aWare);
+    extra[GetLength(extra)] = Format("LocalN(\"aCount\")=%v", aCount);
+  }
 }
