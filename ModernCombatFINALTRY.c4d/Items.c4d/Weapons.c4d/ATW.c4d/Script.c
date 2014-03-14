@@ -173,11 +173,14 @@ public func ThrowAway()
   if(Contained())
   {
     //Schützen verlassen
-    var dir = +1;
+    var dir = +1, rot = 0;
     if(GetDir(GetUser()) == DIR_Right)
+    {
       dir = -1;
+      rot = 180;
+    }
 
-    Exit(0, 0, 0, Random((360)+1), dir,-3, Random(11)-5);
+    Exit(0, 0, 0, rot, dir,-3, RandomX(-8,8));
 
     Sound("AT4R_ThrowAway.ogg");
   }

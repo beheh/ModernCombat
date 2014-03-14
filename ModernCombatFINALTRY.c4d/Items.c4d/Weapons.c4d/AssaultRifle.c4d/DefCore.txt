@@ -16,3 +16,4 @@ VertexY=0,2,-4,0
 VertexFriction=100,100,80,100
 Rebuy=1
 Collectible=1
+Rotate=1

@@ -2192,6 +2192,19 @@ global func SABulletCasing(int iX, int iY, int iXDir, int iYDir, int iSize, int 
   return ammoid->CustomBulletCasing(GetX()+iX,GetY()+iY,iXDir,iYDir,iSize,iColor);
 }
 
+/* Waffe aufgenommen */
+
+protected func Entrance(object pContainer)
+{
+  //Rotation zurücksetzen
+  SetR();
+
+  //Nutzer festlegen
+  SetUser(pContainer);
+}
+
+/* Aufprall */
+
 func Hit()
 {
   Sound("WPN2_Hit*.ogg");
