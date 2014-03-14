@@ -100,6 +100,14 @@ public func RejectEntrance(object pObj)
   return false;
 }
 
+/* Aufnahme */
+
+protected func Entrance()
+{
+  //Rotation zurücksetzen
+  SetR();
+}
+
 /* Dragnineffekt */
 
 func HealRate()		{return 2;}
