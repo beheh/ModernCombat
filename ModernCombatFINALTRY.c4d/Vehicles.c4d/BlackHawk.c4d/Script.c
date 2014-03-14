@@ -1440,7 +1440,7 @@ protected func TimerCall()
   else if(pSpotlight[0])
     RemoveSpotlights();
 
-  /*Nach gestorbenen Clonks suchen
+  /*Verstorbene Passagiere auswerfen
   if(Contents())
   {
     var fUpdate = false;
@@ -1451,6 +1451,7 @@ protected func TimerCall()
     //if(fUpdate) UpdateSeats();
   }*/
 
+  //Freigewordene Sitze entsprechend aktualisieren
   if(!(GetActTime() % 50))
   {
     if(!GetAlive(GetPilot()))

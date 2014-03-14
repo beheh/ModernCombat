@@ -29,7 +29,7 @@ public func OnShockwaveHit(iLevel,iX,iY)
   Damage();
 }
 
-/* Aufschlag */ 
+/* Aufschlag */
 
 protected func Hit3()
 {
