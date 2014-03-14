@@ -96,14 +96,14 @@ func CreateInterior()
   CreateObject(GDDR, 3115, 670, -1)->SetColorDw(HSL(145, 210, 100, 127));
 
   //Sandsackbarrieren
-  CreateObject(SBBA, 360, 560, -1);
+  CreateObject(SBBA, 361, 560, -1);
   CreateObject(SBBA, 401, 440, -1);
   CreateObject(SBBA, 440, 440, -1)->Right();
-  CreateObject(SBBA, 710, 760, -1);
+  CreateObject(SBBA, 711, 760, -1);
   CreateObject(SBBA, 780, 760, -1)->Right();
 
-  CreateObject(SBBA, 1100, 670, -1);
-  CreateObject(SBBA, 1100, 760, -1);
+  CreateObject(SBBA, 1101, 670, -1);
+  CreateObject(SBBA, 1101, 760, -1);
   CreateObject(SBBA, 1350, 850, -1)->Right();
   CreateObject(SBBA, 1391, 590, -1);
   CreateObject(SBBA, 1430, 590, -1)->Right();
@@ -114,14 +114,14 @@ func CreateInterior()
   CreateObject(SBBA, 2280, 750, -1)->Right();
   CreateObject(SBBA, 2288, 850, -1)->Right();
 
-  CreateObject(SBBA, 2770, 670, -1);
+  CreateObject(SBBA, 2771, 670, -1);
   CreateObject(SBBA, 2811, 590, -1);
   CreateObject(SBBA, 2850, 590, -1)->Right();
-  CreateObject(SBBA, 2890, 850, -1);
+  CreateObject(SBBA, 2891, 850, -1);
   CreateObject(SBBA, 3140, 670, -1)->Right();
   CreateObject(SBBA, 3140, 760, -1)->Right();
 
-  CreateObject(SBBA, 3460, 760, -1);
+  CreateObject(SBBA, 3461, 760, -1);
   CreateObject(SBBA, 3530, 760, -1)->Right();
   CreateObject(SBBA, 3801, 440, -1);
   CreateObject(SBBA, 3840, 440, -1)->Right();
