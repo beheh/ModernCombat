@@ -410,7 +410,9 @@ private func HitObject(pObj)
       if(GetOCF(pObj) & OCF_Living)
       {
         Sound("SharpnelImpact*.ogg");
-        Fling(pObj,GetXDir()/15,GetYDir()/15-1);
+
+        //Kollision berechnen
+        Fling(pObj,Min(100, GetXDir())/15, Min(100, GetYDir())/15);
       }
       else
       {
