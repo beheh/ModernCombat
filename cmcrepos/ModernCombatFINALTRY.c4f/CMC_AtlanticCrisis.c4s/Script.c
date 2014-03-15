@@ -10,18 +10,23 @@ func RecommendedGoals()	{return [GOCC,GHTF];}	//Spielzielempfehlung
 func LightsOff()
 {
 	aLights = [];
-	for(var light in FindObjects(Find_Func("IsLamp"), Sort_Distance()))
+	for(var light in FindObjects(Find_Func("IsLamp"), Sort_Func("Lamp_SortX")))
 		light->~TurnOff();
 }
 
 func LightsOn()
 {
-	aLights = FindObjects(Find_Func("IsLamp"), Sort_Distance());
+	aLights = FindObjects(Find_Func("IsLamp"), Sort_Func("Lamp_SortX"));
 	iLightsCounter = 0;
 	if(aLights[iLightsCounter])
 		Schedule("LightsOnHelper();", 50);
 	else
 		return -1;
+}
+
+global func Lamp_SortX()
+{
+	return GetX();
 }
 
 func LightsOnHelper()
