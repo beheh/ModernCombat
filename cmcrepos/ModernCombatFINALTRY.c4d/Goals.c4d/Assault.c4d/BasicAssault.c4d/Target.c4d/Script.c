@@ -7,7 +7,7 @@ local iLastDamager;				//Der letzte der Schaden verursacht hat
 local idImitation;				//Welche Definition imitiert wird
 
 public func GetKillIcon()				{return idImitation;}
-public func IsBulletTarget(id idBullet, object pBullet)	{return !FindObject(GASS);}
+public func IsBulletTarget(id idBullet, object pBullet)	{return !FindObject2(Find_Func("IsCMCAssaultGoal"));}
 public func BulletCheckObjectHitbox()			{return true;}
 
 

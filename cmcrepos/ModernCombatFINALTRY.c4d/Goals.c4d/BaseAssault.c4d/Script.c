@@ -26,6 +26,9 @@ public func ReportAssaultTargetDestruction(object pTarget, int iTeam)
   if(GetIndexOf(pTarget, aTargets[iTeam]) == -1)
     return;
 
+  EventInfo4K(0, "$BombSpawnDelay$", C4P2, 0, 0, 0, "Info_Objective.ogg");
+  ScheduleCall(this, "PlaceBombSpawnpoint", 35*10);
+  
   _inherited(pTarget, iTeam, ...);
 
   //Eventnachricht: Zielobjekt zerstört
@@ -56,80 +59,107 @@ protected func FxIntGoalTimer()
 
 /* Scoreboard */
 
-static const GBAS_Icon = -1;
-static const GBAS_Name = 0;
-static const GBAS_Status = 1;
-static const GBAS_MaxTargetCount = 8;	//8 Ziele darf jedes Team maximal haben
-
-local aScoreboardTeams;
+static const GBAS_Icon = 0;
+static const GBAS_TargetName = 1;
+static const GBAS_TargetState = 2;
 
 public func UpdateScoreboard()
 {
-  if(!aScoreboardTeams)
-    aScoreboardTeams = [];
+	//Wird noch eingestellt
+  if(FindObject(CHOS)) return;
 
   //Titelzeile
   SetScoreboardData(SBRD_Caption, SBRD_Caption, GetName());
 
+	//Informationen zur Bombe
+	SetScoreboardData(SBRD_Caption, GBAS_Icon, Format("{{C4P2}}"));
+	SetScoreboardData(SBRD_Caption, GBAS_TargetName, Format("$Bomb$"));
+	
+	//Zustand der Bombe ermitteln (Icons fehlen)
+	var state = "", bomb = GetBomb();
+	if(bomb)
+		state = "Idle";
+	else
+	{
+		var bomb_carrier, e;
+		for(var obj in FindObjects(Find_OCF(OCF_CrewMember)))
+			if(e = GetEffect("BaseAssaultBomb", obj))
+			{
+				bomb_carrier = obj;
+				break;
+			}
+		
+		//Anzeigen wer die Bombe trägt
+		var status = 0;
+		for(var i = 0; i < GetLength(aTargets); i++)
+		{
+			if(!aTargets[i])
+				continue;
+			for(var target in aTargets[i])
+			{
+				var e;
+				if((e = GetEffect("IntAssaultTarget", target)) && (status = EffectVar(2, target, e)))
+					break;
+			}
+			
+			if(status)
+				break;
+		}
+		
+		if(!status)
+		{
+			//Bombe nicht verfügbar (am respawnen)
+			if(!bomb_carrier)
+				state = "Unavailable";
+			//Bombe wird getragen
+			else
+				state = Format("Carried by %s", GetTaggedPlayerName(GetOwner(bomb_carrier)));
+		}
+		//Bombe wird platziert
+		else if(status == 1)
+			state = Format("Placed by %s", GetTaggedPlayerName(GetOwner(bomb_carrier)));
+		//Bombe ist platziert
+		else if(status >= 2)
+			state = "Placed";
+	}
+	SetScoreboardData(SBRD_Caption, GBAS_TargetState, state);
+
+  //Leerzeile
+  SetScoreboardData(0, 0, " ", 0);
+
   //Teams auflisten
-  for(var i, iTeam; i < GetTeamCount(); i++)
+  for(var i = 0; i < GetTeamCount(); i++)
   {
-    //Team eliminiert
-    if(!GetTeamName(iTeam = GetTeamByIndex(i)) || !GetTeamPlayerCount(iTeam))
-    { 
-      if(aScoreboardTeams[iTeam])
-        RemoveScoreboardTeam(iTeam);
+    var team = GetTeamByIndex(i);
+    var name = GetTaggedTeamName(team);
+    var clr = GetTeamColor(team);
+    var plr;
 
+    //Kein Spieler im Team? Dann nicht anzeigen
+    if(GetTeamMemberByIndex(team, 0) == -1)
       continue;
-    }
-    RemoveScoreboardTeam(iTeam);
-    aScoreboardTeams[iTeam] = true;
-    //Team hat noch Ziele
-    if(ObjectCount2(Find_InArray(aTargets[iTeam])))
-    {
-      for(var k = 0, row = 0; k < GetLength(aTargets[iTeam]); k++)
-      {
-        var target = aTargets[iTeam][k];
-        //Ziel noch da?
-        if(target)
-        {
-          var dmg = Interpolate2(100, 0, GetDamage(target), EffectVar(0, target, GetEffect("IntAssaultTarget", target))),
-          clr = InterpolateRGBa3(GetTeamColor(iTeam), RGB(255, 255, 255), 100 - dmg, 100);
-          SetScoreboardData(row + iTeam * GBAS_MaxTargetCount, GBAS_Icon, Format("{{%i}}", target->~GetImitationID() || GetID(target)));
-          SetScoreboardData(row + iTeam * GBAS_MaxTargetCount, GBAS_Name, Format("<c %x>%s</c>", clr, GetName(target)), iTeam);
-          SetScoreboardData(row + iTeam * GBAS_MaxTargetCount, GBAS_Status, Format("<c %x>%d%</c>", clr, dmg), dmg);
-          ++row;
-        }
-      }
-    }
-    //Keine Ziele mehr: Clonks anzeigen
-    else
-    {
-      //Spieler abklappern
-      for(var l = 0, iPlr; l < GetTeamPlayerCount(iTeam); l++)
-      {
-        iPlr = GetTeamPlayerByIndex(l, iTeam);
-        var clonk = GetCrew(iPlr);
-        //Kein Clonk?
-        if(!clonk || !GetPlayerName(iPlr))
-          continue;
 
-        //Tot?
-        var symbol = GetID(clonk),
-        dmg = 1;
-        if(GetID(Contained(clonk)) == FKDT || !GetAlive(clonk) || GetID(Contained(clonk)) == TIM1 || GetID(Contained(clonk)) == TIM2)
-        {
-          symbol = CDBT;
-          dmg = 0;
-        }
-        SetScoreboardData(l + iTeam * GBAS_MaxTargetCount, GBAS_Icon, Format("{{%i}}", symbol));
-        SetScoreboardData(l + iTeam * GBAS_MaxTargetCount, GBAS_Name, GetTaggedPlayerName(iPlr, true), iTeam);
-        SetScoreboardData(l + iTeam * GBAS_MaxTargetCount, GBAS_Status, "", dmg);
-      }
-    }
+		for(var j = 0; j < GetLength(aTargets[team]); j++)
+		{
+			var target = aTargets[team][j], e = GetEffect("IntAssaultTarget", target), state = EffectVar(2, target, e);
+			if(!target)
+				continue;
+
+			SetScoreboardData(team*100+j, GBAS_Icon, Format("{{%i}}", EffectVar(1, target, e)));
+			SetScoreboardData(team*100+j, GBAS_TargetName, Format("<c %x>%s</c>", GetTeamColor(team), GetName(target)));
+			
+			//Statusicon für Zielobjekt ermitteln
+			var icon = SM16;  //Keine Aktivität
+			if(state == 1)
+				icon = SM17;	  //Ladung wird plaziert
+			else if(state == 2)
+				icon = SM18;	  //Ladung plaziert
+			else if(state == 3)
+				icon = SM16;	  //Ladung wird entschärft
+
+			SetScoreboardData(team*100+j, GBAS_TargetState, Format("{{%i}}", icon));
+		}
   }
-  SortScoreboard(GBAS_Status);
-  SortScoreboard(GBAS_Name);
 }
 
 private func GetTeamPlayerByIndex(int iPlr, int iTeam)
@@ -201,6 +231,106 @@ public func IsFulfilled()
   }
 }
 
+/* Spawnmechanik */
+
+global func SetupBombSpawnpoint()
+{
+  if(FindObject(GBAS))
+    return FindObject(GBAS)->~SetupBombSpawnpoint(...);
+
+  return false;
+}
+
+global func PlaceBombSpawnpoint()
+{
+  if(FindObject(GBAS))
+    return FindObject(GBAS)->~PlaceBombSpawnpoint(...);
+
+  return false;
+}
+
+public func GetBomb() { return FindObject(C4P2); }
+
+local bombSpawnX, bombSpawnY;
+
+public func SetupBombSpawnpoint(int iX, int iY)
+{
+  bombSpawnX = iX;
+  bombSpawnY = iY;
+  PlaceBombSpawnpoint();
+  return true;
+}
+
+public func PlaceBombSpawnpoint(int iX, int iY)
+{
+  if(!iX)
+    iX = bombSpawnX;
+  if(!iY)
+    iY = bombSpawnY;
+
+  var bomb = CreateObject(C4P2, AbsX(iX), AbsY(iY), NO_OWNER);
+  if(!SpawningConditions(bomb))
+  {
+  	EventInfo4K(0, "$BombRespawn$", C4P2, 0, 0, 0, "Info_Objective.ogg");
+  	bomb->SetPosition(bombSpawnX, bombSpawnY);
+  }
+
+  return true;
+}
+
+public func SpawningConditions(object pBomb)
+{
+	var x = GetX(pBomb), y = GetY(pBomb)+2;
+	//Befindet sich in Grenzgebieten?
+	if(FindObject2(Find_ID(BRDR), Find_Func("IsDangerous", pBomb, x, y)))
+		return false;
+	//Außerhalb der Map?
+	if(!Inside(x, 0, LandscapeWidth()) || !Inside(y, 0, LandscapeHeight()))
+		return false;
+	//Innerhalb von Lava/Säure?
+	var mat = GetMaterial(AbsX(x), AbsY(y));
+	if(GetMaterialVal("Corrosive", "Material", mat) || GetMaterialVal("Incindiary", "Material", mat))
+		return false;
+	
+	return true;
+}
+
+public func PlantingCondition(object pTarget, object pAssaultTarget)
+{
+  if(GetEffect("BaseAssaultBomb", pTarget) || EffectVar(2, pAssaultTarget, GetEffect("IntAssaultTarget", pAssaultTarget)) > 1)
+    return true;
+
+  return false;
+}
+
+public func OnPlantingComplete(array aAttackers)
+{
+  for(var clonk in aAttackers)
+    if(GetEffect("BaseAssaultBomb", clonk))
+      RemoveEffect("BaseAssaultBomb", clonk);
+
+  return true;
+}
+
+public func OnDefusingComplete(array aDefenders)
+{
+  var fBomb = false;
+  for(var clonk in aDefenders)
+    if(clonk && !(clonk->~IsFakeDeath()))
+    {
+      fBomb = true;
+      C4P2->AddBombObject(clonk);
+      break;
+    }
+
+  if(!fBomb)
+    PlaceBombSpawnpoint();
+  /*if(GetLength(aDefenders) > 0)
+    C4P2->AddBombObject(aDefenders[0]);*/
+
+  return true;
+}
+
 /* Relaunch */
 
 public func OnClassSelection(object pCrew, int iClass)
@@ -248,10 +378,9 @@ public func OpenRelaunchMenu(object pCrew, int iSelection, int iClass)
   SortTargets(array);
   for(var obj in array)
   {
-    var dmg = EffectVar(0, obj, GetEffect("IntAssaultTarget", obj));
     var id = GetID(obj);
     if(id == AHBS) id = obj->GetImitationID();
-    AddMenuItem(GetName(obj), Format("DoRelaunch(Object(%d), Object(%d), %d)", ObjectNumber(pCrew), ObjectNumber(obj), iClass), id, pCrew, 100*(dmg-GetDamage(obj))/dmg, 0, GetName(obj));
+    AddMenuItem(GetName(obj), Format("DoRelaunch(Object(%d), Object(%d), %d)", ObjectNumber(pCrew), ObjectNumber(obj), iClass), id, pCrew, 0, 0, GetName(obj));
   }
   SelectMenuItem(iSelection, pCrew);
 }

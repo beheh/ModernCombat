@@ -1874,9 +1874,14 @@ protected func RejectCollect(id idObj, object pObj)
       return 1;
   //Spawnpunkt-Hack
   if(idObj == SPNP) return;
+  
+  //Spezielle Spielzielitems immer aufsammeln
+  if(pObj->~IsSpecialGoalItem())
+  	return;
+  
   //Munitionspaket?
   if(pObj ->~ IsAmmoPacket())
-    //Davon kann man in jeden Fall eines im Inventar haben
+    // Davon kann man in jeden Fall _eines_ im Inventar haben
     if(!CustomContentsCount("IsAmmoPacket"))
       return;
 
@@ -1911,7 +1916,8 @@ protected func RejectCollect(id idObj, object pObj)
     //Sonderbehandlung?
     if(!(pObj ->~ OnCollection(this)))
     {
-      //Waffe des selben Typs bereits vorhanden oder bereits 3 andere Waffen?
+      //nein. Standardprozedur:
+      //schon so eine Waffe im Inventar? Oder bereits 3 andere Waffen?
       if(ContentsCount(idObj) || CustomContentsCount("IsWeapon") >= WeaponCollectionLimit())
         return 1;  //Ja, nicht aufnehmen
       else
@@ -1928,14 +1934,13 @@ protected func RejectCollect(id idObj, object pObj)
       return;
     else
     {
-      //Granatengürtel bereits voll?
-      if(GrenadeCount() >= MaxGrenades())
+      if(GrenadeCount() >= MaxGrenades())//Schon genug Granaten im Gürtel/Inventar?
       {
         return 1;
       }
       
       if(CustomContentsCount("IsGrenade"))
-        ScheduleCall(pObj,"Activate",1,0,this);
+        ScheduleCall(pObj,"Activate",1,0,this);//Oha...
 
       return;
     }
@@ -1952,16 +1957,17 @@ protected func RejectCollect(id idObj, object pObj)
     }
   }
 
-  //Wie viel haben wir denn schon im inventar?
+  //Wieviel haben wir denn schon im inventar?
   if(ContentsCount() - (CustomContentsCount("IsWeapon") + CustomContentsCount("IsGrenade") + CustomContentsCount("IsAttachmentPack")) >= ObjectCollectionLimit())
     return 1;
 
-  //Nicht angelegte Ausrüstung nochmal aufsammeln
+  // nicht angelegte Ausrüstung nochmal aufsammeln
   for(var gear in aGear)
     if(gear)
       if(GetID(gear) == idObj)
         return 1;
 
+  // Ok
   return;
 }
 
