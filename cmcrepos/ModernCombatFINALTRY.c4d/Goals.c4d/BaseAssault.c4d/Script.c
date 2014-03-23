@@ -26,9 +26,10 @@ public func ReportAssaultTargetDestruction(object pTarget, int iTeam)
   if(GetIndexOf(pTarget, aTargets[iTeam]) == -1)
     return;
 
+  //Eventnachricht: Bombe wird gesucht
   EventInfo4K(0, "$BombSpawnDelay$", C4P2, 0, 0, 0, "Info_Objective.ogg");
   ScheduleCall(this, "PlaceBombSpawnpoint", 35*10);
-  
+
   _inherited(pTarget, iTeam, ...);
 
   //Eventnachricht: Zielobjekt zerstört
@@ -65,64 +66,65 @@ static const GBAS_TargetState = 2;
 
 public func UpdateScoreboard()
 {
-	//Wird noch eingestellt
+  //Wird noch eingestellt
   if(FindObject(CHOS)) return;
 
   //Titelzeile
   SetScoreboardData(SBRD_Caption, SBRD_Caption, GetName());
 
-	//Informationen zur Bombe
-	SetScoreboardData(SBRD_Caption, GBAS_Icon, Format("{{C4P2}}"));
-	SetScoreboardData(SBRD_Caption, GBAS_TargetName, Format("$Bomb$"));
-	
-	//Zustand der Bombe ermitteln (Icons fehlen)
-	var state = "", bomb = GetBomb();
-	if(bomb)
-		state = "Idle";
-	else
-	{
-		var bomb_carrier, e;
-		for(var obj in FindObjects(Find_OCF(OCF_CrewMember)))
-			if(e = GetEffect("BaseAssaultBomb", obj))
-			{
-				bomb_carrier = obj;
-				break;
-			}
-		
-		//Anzeigen wer die Bombe trägt
-		var status = 0;
-		for(var i = 0; i < GetLength(aTargets); i++)
-		{
-			if(!aTargets[i])
-				continue;
-			for(var target in aTargets[i])
-			{
-				var e;
-				if((e = GetEffect("IntAssaultTarget", target)) && (status = EffectVar(2, target, e)))
-					break;
-			}
-			
-			if(status)
-				break;
-		}
-		
-		if(!status)
-		{
-			//Bombe nicht verfügbar (am respawnen)
-			if(!bomb_carrier)
-				state = "Unavailable";
-			//Bombe wird getragen
-			else
-				state = Format("Carried by %s", GetTaggedPlayerName(GetOwner(bomb_carrier)));
-		}
-		//Bombe wird platziert
-		else if(status == 1)
-			state = Format("Placed by %s", GetTaggedPlayerName(GetOwner(bomb_carrier)));
-		//Bombe ist platziert
-		else if(status >= 2)
-			state = "Placed";
-	}
-	SetScoreboardData(SBRD_Caption, GBAS_TargetState, state);
+  //Informationen zur Bombe
+  SetScoreboardData(SBRD_Caption, GBAS_Icon, Format("{{C4P2}}"));
+  SetScoreboardData(SBRD_Caption, GBAS_TargetName, Format("$Bomb$"));
+
+  //Zustand der Bombe ermitteln (Icons fehlen)
+  var state = "", bomb = GetBomb();
+  //Zuerst von Bombe im Freien ausgehen
+  if(bomb)
+    state = "$BombIdle$";
+  else
+  {
+    var bomb_carrier, e;
+    for(var obj in FindObjects(Find_OCF(OCF_CrewMember)))
+      if(e = GetEffect("BaseAssaultBomb", obj))
+      {
+        bomb_carrier = obj;
+        break;
+      }
+
+    //Anzeigen wer die Bombe trägt
+    var status = 0;
+    for(var i = 0; i < GetLength(aTargets); i++)
+    {
+      if(!aTargets[i])
+        continue;
+      for(var target in aTargets[i])
+      {
+        var e;
+        if((e = GetEffect("IntAssaultTarget", target)) && (status = EffectVar(2, target, e)))
+          break;
+      }
+
+      if(status)
+        break;
+    }
+
+    if(!status)
+    {
+      //Kein Bombenträger verfügbar: Als gesucht melden
+      if(!bomb_carrier)
+        state = "$SearchingBomb$";
+      //Ansonsten Träger anzeigen
+      else
+        state = Format("$BombInPossession$", GetTaggedPlayerName(GetOwner(bomb_carrier)));
+    }
+    //Bombe wird platziert
+    else if(status == 1)
+      state = Format("$BombPlacing$", GetTaggedPlayerName(GetOwner(bomb_carrier)));
+    //Bombe ist platziert
+    else if(status >= 2)
+      state = "$BombPlaced$";
+  }
+  SetScoreboardData(SBRD_Caption, GBAS_TargetState, state);
 
   //Leerzeile
   SetScoreboardData(0, 0, " ", 0);
@@ -139,26 +141,26 @@ public func UpdateScoreboard()
     if(GetTeamMemberByIndex(team, 0) == -1)
       continue;
 
-		for(var j = 0; j < GetLength(aTargets[team]); j++)
-		{
-			var target = aTargets[team][j], e = GetEffect("IntAssaultTarget", target), state = EffectVar(2, target, e);
-			if(!target)
-				continue;
+    for(var j = 0; j < GetLength(aTargets[team]); j++)
+    {
+      var target = aTargets[team][j], e = GetEffect("IntAssaultTarget", target), state = EffectVar(2, target, e);
+      if(!target)
+        continue;
 
-			SetScoreboardData(team*100+j, GBAS_Icon, Format("{{%i}}", EffectVar(1, target, e)));
-			SetScoreboardData(team*100+j, GBAS_TargetName, Format("<c %x>%s</c>", GetTeamColor(team), GetName(target)));
-			
-			//Statusicon für Zielobjekt ermitteln
-			var icon = SM16;  //Keine Aktivität
-			if(state == 1)
-				icon = SM17;	  //Ladung wird plaziert
-			else if(state == 2)
-				icon = SM18;	  //Ladung plaziert
-			else if(state == 3)
-				icon = SM16;	  //Ladung wird entschärft
+      SetScoreboardData(team*100+j, GBAS_Icon, Format("{{%i}}", EffectVar(1, target, e)));
+      SetScoreboardData(team*100+j, GBAS_TargetName, Format("<c %x>%s</c>", GetTeamColor(team), GetName(target)));
 
-			SetScoreboardData(team*100+j, GBAS_TargetState, Format("{{%i}}", icon));
-		}
+      //Statusicon für Zielobjekt ermitteln
+      var icon = SM16;	//Keine Aktivität
+      if(state == 1)
+        icon = SM17;	//Ladung wird plaziert
+      else if(state == 2)
+        icon = SM18;	//Ladung plaziert
+      else if(state == 3)
+        icon = SM16;	//Ladung wird entschärft
+
+      SetScoreboardData(team*100+j, GBAS_TargetState, Format("{{%i}}", icon));
+    }
   }
 }
 
@@ -231,7 +233,7 @@ public func IsFulfilled()
   }
 }
 
-/* Spawnmechanik */
+/* Bombenspawnmechanik */
 
 global func SetupBombSpawnpoint()
 {
@@ -249,7 +251,7 @@ global func PlaceBombSpawnpoint()
   return false;
 }
 
-public func GetBomb() { return FindObject(C4P2); }
+public func GetBomb()	{return FindObject(C4P2);}
 
 local bombSpawnX, bombSpawnY;
 
@@ -271,8 +273,9 @@ public func PlaceBombSpawnpoint(int iX, int iY)
   var bomb = CreateObject(C4P2, AbsX(iX), AbsY(iY), NO_OWNER);
   if(!SpawningConditions(bomb))
   {
-  	EventInfo4K(0, "$BombRespawn$", C4P2, 0, 0, 0, "Info_Objective.ogg");
-  	bomb->SetPosition(bombSpawnX, bombSpawnY);
+  //Eventnachricht: Bombe gesichtet
+    EventInfo4K(0, "$BombSpawned$", C4P2, 0, 0, 0, "Info_Objective.ogg");
+    bomb->SetPosition(bombSpawnX, bombSpawnY);
   }
 
   return true;
@@ -280,19 +283,19 @@ public func PlaceBombSpawnpoint(int iX, int iY)
 
 public func SpawningConditions(object pBomb)
 {
-	var x = GetX(pBomb), y = GetY(pBomb)+2;
-	//Befindet sich in Grenzgebieten?
-	if(FindObject2(Find_ID(BRDR), Find_Func("IsDangerous", pBomb, x, y)))
-		return false;
-	//Außerhalb der Map?
-	if(!Inside(x, 0, LandscapeWidth()) || !Inside(y, 0, LandscapeHeight()))
-		return false;
-	//Innerhalb von Lava/Säure?
-	var mat = GetMaterial(AbsX(x), AbsY(y));
-	if(GetMaterialVal("Corrosive", "Material", mat) || GetMaterialVal("Incindiary", "Material", mat))
-		return false;
-	
-	return true;
+  var x = GetX(pBomb), y = GetY(pBomb)+2;
+  //Befindet sich in Grenzgebieten?
+  if(FindObject2(Find_ID(BRDR), Find_Func("IsDangerous", pBomb, x, y)))
+    return false;
+  //Außerhalb der Map?
+  if(!Inside(x, 0, LandscapeWidth()) || !Inside(y, 0, LandscapeHeight()))
+    return false;
+  //Innerhalb von Lava/Säure?
+  var mat = GetMaterial(AbsX(x), AbsY(y));
+  if(GetMaterialVal("Corrosive", "Material", mat) || GetMaterialVal("Incindiary", "Material", mat))
+    return false;
+
+  return true;
 }
 
 public func PlantingCondition(object pTarget, object pAssaultTarget)

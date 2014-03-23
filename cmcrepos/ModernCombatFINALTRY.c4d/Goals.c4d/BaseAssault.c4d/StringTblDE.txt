@@ -3,6 +3,17 @@
 TargetDestruction=Das Zielobjekt <c %x>%s</c> wurde zerstört!
 NoTargets=<c ff0000>Achtung</c>: Alle unsere Zielobjekte wurden <c ff0000>zerstört</c>!
 
+// Sprengladung
+
+Bomb=Sprengladung
+SearchingBomb=wird gesucht
+BombIdle=im Freien
+BombInPossession=in Besitz von %s
+BombPlacing=wird von %s platziert
+BombPlaced=scharf
+BombSpawnDelay=Nächste Sprengladung wird gesucht, <c ffff33>bereithalten</c>!
+BombSpawned=Sprengladung wurde gesichtet, <c ffff33>holt</c> sie euch!
+
 // Sonstiges
 
 TeamHasWon={{GBAS}} <c ffff33>Base Assault</c> - Rundenende|Team %s hat diese Schlacht <c ffff33>gewonnen</c>!
