@@ -1,25 +1,28 @@
-/*-- Zünder --*/
+/*-- Sprengladung --*/
 
 #strict 2
-#include PACK
 
 public func IsSpecialGoalItem()	{return true;}
-public func IsBorderTarget() {return true;}
+public func IsBorderTarget()	{return true;}
+
+
+/* Initialisierung */
 
 public func Initialize()
 {
-	AddEffect("BombEffect", this, 101, 100, this);
-	return _inherited(...);
+  AddEffect("BombEffect", this, 101, 100, this);
+  return _inherited(...);
 }
 
 /* Aufnahme */
 
 public func RejectEntrance(object pContainer)
 {
-	if(!(GetOCF(pContainer) & OCF_CrewMember))
-		return true;
-	
-	return false;
+  //Kann nur von Clonks aufgehoben werden
+  if(!(GetOCF(pContainer) & OCF_CrewMember))
+    return true;
+
+  return false;
 }
 
 public func Entrance(object pClonk)
@@ -43,18 +46,18 @@ public func AddBombObject(object pTarget)
 
 public func FxBombEffectTimer(object pTarget)
 {
-	Beep(pTarget);
-	return true;
+  Beep(pTarget);
+  return true;
 }
 
 /* Trageeffekt für Bombenträger */
 
 public func Beep(object pTarget)
 {
-	pTarget->AddLightFlash(300, 0, 0, RGB(255), pTarget);
-	Sound("AHBS_Beep1.ogg", false, pTarget);
-	
-	return true;
+  pTarget->AddLightFlash(300, 0, 0, RGB(255), pTarget);
+  Sound("AHBS_Beep1.ogg", false, pTarget);
+
+  return true;
 }
 
 public func FxBaseAssaultBombStart(object pTarget, int iNr)
