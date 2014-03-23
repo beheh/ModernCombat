@@ -198,9 +198,9 @@ public func IsAttackable() { return true; }
 protected func FxIntAssaultTargetTimer(object pTarget, int iNr, int iTime)
 {
   if(!IsAttackable(pTarget, iNr))
-  	return;
+    return;
 
-	var bar = EffectVar(0, pTarget, iNr); 
+  var bar = EffectVar(0, pTarget, iNr); 
 
   var idTarget = EffectVar(1, pTarget, iNr);
 
@@ -230,7 +230,7 @@ protected func FxIntAssaultTargetTimer(object pTarget, int iNr, int iTime)
     }
     else
     {
-    	if(!PlantingCondition(clonk, pTarget)) continue;
+      if(!PlantingCondition(clonk, pTarget)) continue;
       if(status == 1 && GetIndexOf(clonk, attacker) == -1)
         attacker[GetLength(attacker)] = clonk;
 
@@ -312,9 +312,9 @@ protected func FxIntAssaultTargetTimer(object pTarget, int iNr, int iTime)
       }
 
       AddEffect("IntAlarmBlink", pTarget, 1, 1, this);
-			
+
       Sound("AHBS_Fused.ogg", false, pTarget);
-    	this->~OnPlantingComplete(attacker, pTarget);
+      this->~OnPlantingComplete(attacker, pTarget);
     }
   }
 
