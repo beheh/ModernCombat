@@ -16,6 +16,7 @@ static const FM_PrepareReload	= 15;	//Zeit bevor das eigentliche Nachladen begin
 static const FM_FinishReload	= 16;	//Zeit nach dem Nachladen (nur interessant wenn auch FM_SingleReload benutzt wird)
 static const FM_BurstAmount	= 17;	//Anzahl Schussabrufe pro Burst
 static const FM_BurstRecharge	= 18;	//Zeit zwischen einzelnen Bursts
+static const FM_ProjectileID	= 36;	//ID des verschossenen Projektils
 
 static const FM_SpreadAdd	= 19;	//Bei jedem Schuss hinzuzuaddierende Streuung
 static const FM_StartSpread	= 20;	//Bei Auswahl der Waffe gesetzte Streuung
@@ -1049,6 +1050,14 @@ private func Shoot(object caller)
   {
     var x,y;
     user->WeaponEnd(x,y);
+
+    var projectileid = GetFMData(FM_ProjectileID);
+
+    if(DefinitionCall(projectileid,"IsRocket"))
+    {
+       x = x + Sin(user->GetWeaponR(), GetDefHeight(projectileid) - GetDefCoreVal("VertexY","DefCore",projectileid));
+       y = y - Cos(user->GetWeaponR(), GetDefHeight(projectileid) - GetDefCoreVal("VertexY","DefCore",projectileid));
+    }
 
     if(!PathFree(GetX(),GetY(),GetX()+x,GetY()+y))
     {
