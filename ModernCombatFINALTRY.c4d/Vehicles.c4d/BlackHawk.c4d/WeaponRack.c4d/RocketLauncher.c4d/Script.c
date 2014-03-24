@@ -80,7 +80,7 @@ public func LaunchRocket(id rid, int angle)
   var rocket = CreateObject(rid,x,y+10,GetController(user));
   if(!rocket) return;
   AddEffect("IntHeliProtection", rocket, 1, 20, 0, BKHK, LocalN("heli", Contained()));
-  rocket->Launch(angle, user);
+  rocket->Launch(angle, user, 0, LocalN("heli", Contained())->GetXDir(), LocalN("heli", Contained())->GetYDir());
   rocket->Sound("RLSA_Fire*.ogg");
   SetController(GetController(), rocket);
 
