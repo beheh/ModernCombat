@@ -3,7 +3,7 @@
 #strict 2
 #include MISS
 
-local sx, sy, pLauncher, pLight, iLastAttacker, fGuided, fTracerChasing;
+local sx, sy, iStartY, iStartX, pLauncher, pLight, iLastAttacker, fGuided, fTracerChasing;
 
 public func MaxTime()		{return 200;}			//Maximale Flugzeit
 
@@ -47,7 +47,7 @@ protected func Construction(object pBy)
     pLauncher = pBy;
 }
 
-public func Launch(int iAngle, object pFollow, bool fUnguided)
+public func Launch(int iAngle, object pFollow, bool fUnguided, int iXDir, int iYDir)
 {
   //Geschwindigkeit setzen
   iSpeed = StartSpeed();
@@ -57,9 +57,12 @@ public func Launch(int iAngle, object pFollow, bool fUnguided)
 
   //Winkel setzen
   SetR(iAngle);
-  SetXDir(+Sin(iAngle,iSpeed));
-  SetYDir(-Cos(iAngle,iSpeed));
+  SetXDir(+Sin(iAngle,iSpeed)+iXDir);
+  SetYDir(-Cos(iAngle,iSpeed)+iYDir);
   SetAction("Travel");
+  
+  iStartX = iXDir;
+  iStartY = iYDir;
 
   //Sicht setzen
   if(Guideable()) SetPlrViewRange(150);
@@ -306,6 +309,50 @@ private func Traveling()
 
   //Rauchspur
   if(!GBackLiquid()) Smoking();
+}
+
+private func Accelerate() { 
+  if(iSpeed < MaxSpeed())
+  {
+    iSpeed += Acceleration();
+    
+    var iXDiff = Abs(Sin(GetR(),MaxSpeed())) - Abs(Sin(GetR(),iSpeed));
+    var iYDiff = Abs(-Cos(GetR(),MaxSpeed())) - Abs(-Cos(GetR(),iSpeed));
+    
+    var iTemp = iStartX - iXDiff;
+    if(iTemp > 0)
+    {
+    	iTemp = iStartX/iXDiff;
+    	iStartX /= iTemp;
+    	iStartY /= iTemp;
+    }
+    
+    iTemp = iStartY - iXDiff;
+    if(iTemp > 0)
+    {
+    	iTemp = iStartY/iXDiff;
+    	iStartX /= iTemp;
+    	iStartY /= iTemp;
+    }
+  }
+	else
+	{
+		iStartX = 0;
+		iStartY = 0;
+	}
+	/*
+	var fSX = Sgn(iStartX);
+	var fSY = Sgn(iStartY);
+
+	iStartX -= fSX*Acceleration();
+	iStartY -= fSY*Acceleration();
+	
+	if(fSX != Sgn(iStartX)) iStartX = 0;
+	if(fSY != Sgn(iStartY)) iStartY = 0;
+	*/
+	
+  SetXDir(+Sin(GetR(),iSpeed)+iStartX);
+  SetYDir(-Cos(GetR(),iSpeed)+iStartY);
 }
 
 private func StopThrust()

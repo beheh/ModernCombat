@@ -77,7 +77,7 @@ public func LaunchRocket(id rid, int angle)
     return;
 
   AddEffect("IntHeliProtection", rocket, 1, 20, 0, BKHK, LocalN("heli", Contained()));
-  rocket->Launch(angle, user);
+  rocket->Launch(angle, user, 0, LocalN("heli", Contained())->GetXDir(), LocalN("heli", Contained())->GetYDir());
   rocket->Sound("ACRL_Fire*.ogg");
   SetController(GetController(), rocket);
 
