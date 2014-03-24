@@ -25,6 +25,7 @@ public func FMData1(int data)
   if(data == FM_Name)		return "$Missiles$";
 
   if(data == FM_AmmoID)		return MIAM;	//ID der Munition
+  if(data == FM_ProjectileID)	return AAML;	//ID des Projektils
   if(data == FM_AmmoLoad)	return 4;	//Magazingröße
 
   if(data == FM_Reload)		return 190;	//Zeit für Nachladen
