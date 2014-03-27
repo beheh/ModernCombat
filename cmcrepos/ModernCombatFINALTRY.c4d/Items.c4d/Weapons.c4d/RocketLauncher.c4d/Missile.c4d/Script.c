@@ -60,7 +60,7 @@ public func Launch(int iAngle, object pFollow, bool fUnguided, int iXDir, int iY
   SetXDir(+Sin(iAngle,iSpeed)+iXDir);
   SetYDir(-Cos(iAngle,iSpeed)+iYDir);
   SetAction("Travel");
-  
+
   iStartX = iXDir;
   iStartY = iYDir;
 
@@ -311,46 +311,47 @@ private func Traveling()
   if(!GBackLiquid()) Smoking();
 }
 
-private func Accelerate() { 
+private func Accelerate()
+{
   if(iSpeed < MaxSpeed())
   {
     iSpeed += Acceleration();
-    
+
     var iXDiff = Abs(Sin(GetR(),MaxSpeed())) - Abs(Sin(GetR(),iSpeed));
     var iYDiff = Abs(-Cos(GetR(),MaxSpeed())) - Abs(-Cos(GetR(),iSpeed));
-    
+
     var iTemp = iStartX - iXDiff;
     if(iTemp > 0)
     {
-    	iTemp = iStartX/iXDiff;
-    	iStartX /= iTemp;
-    	iStartY /= iTemp;
+      iTemp = iStartX/iXDiff;
+      iStartX /= iTemp;
+      iStartY /= iTemp;
     }
-    
+
     iTemp = iStartY - iXDiff;
     if(iTemp > 0)
     {
-    	iTemp = iStartY/iXDiff;
-    	iStartX /= iTemp;
-    	iStartY /= iTemp;
+      iTemp = iStartY/iXDiff;
+      iStartX /= iTemp;
+      iStartY /= iTemp;
     }
   }
-	else
-	{
-		iStartX = 0;
-		iStartY = 0;
-	}
-	/*
-	var fSX = Sgn(iStartX);
-	var fSY = Sgn(iStartY);
+  else
+  {
+    iStartX = 0;
+    iStartY = 0;
+  }
+/*
+  var fSX = Sgn(iStartX);
+  var fSY = Sgn(iStartY);
 
-	iStartX -= fSX*Acceleration();
-	iStartY -= fSY*Acceleration();
-	
-	if(fSX != Sgn(iStartX)) iStartX = 0;
-	if(fSY != Sgn(iStartY)) iStartY = 0;
-	*/
-	
+  iStartX -= fSX*Acceleration();
+  iStartY -= fSY*Acceleration();
+
+  if(fSX != Sgn(iStartX)) iStartX = 0;
+  if(fSY != Sgn(iStartY)) iStartY = 0;
+*/
+
   SetXDir(+Sin(GetR(),iSpeed)+iStartX);
   SetYDir(-Cos(GetR(),iSpeed)+iStartY);
 }
