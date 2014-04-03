@@ -13,6 +13,11 @@ BombPlacing=wird von %s platziert
 BombPlaced=scharf
 BombSpawnDelay=Nächste Sprengladung wird gesucht, <c ffff33>bereithalten</c>!
 BombSpawned=Sprengladung wurde gesichtet, <c ffff33>holt</c> sie euch!
+BombLost=Sprengladung verloren, <c ffff33>bereithalten</c> für die nächste Ladung!
+TargetArmedAttacker=Sprengladung wurde an Zielobjekt <c ffff33>%s</c> platziert, verteidigt es!
+TargetDefusedAttacker=Sprengladung an Zielobjekt <c ff0000>%s</c> wurde entschärft, wir müssen eine neue setzen!
+TargetArmedDefender=Sprengladung wurde an Zielobjekt <c ff0000>%s</c> platziert, entschärft sie!
+TargetDefusedDefender=Sprengladung an Zielobjekt <c ffff33>%s</c> wurde entschärft, gute Arbeit!
 
 // Sonstiges
 

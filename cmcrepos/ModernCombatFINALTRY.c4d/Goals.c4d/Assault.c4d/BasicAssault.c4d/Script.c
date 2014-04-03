@@ -4,7 +4,7 @@
 #include TEAM
 
 local aSpawn;			//Spawnpunkte
-local aTargets, aTargetCount;			//Ziele
+local aTargets, aTargetCount;	//Ziele
 
 global func IsAssaultTarget()	{return GetEffect("IntAssaultTarget", this);}
 public func IsCMCAssaultGoal()	{return GetID() != CASS;}

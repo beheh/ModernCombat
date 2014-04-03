@@ -146,12 +146,12 @@ public func UpdateScoreboard()
       var target = aTargets[team][j], e = GetEffect("IntAssaultTarget", target), state = EffectVar(2, target, e);
       if(!target)
       {
-      	//Eintrag ausleeren
-      	SetScoreboardData(team*100+j, GBAS_Icon);
-      	SetScoreboardData(team*100+j, GBAS_TargetName);
-      	SetScoreboardData(team*100+j, GBAS_TargetState);
+        //Eintrag ausleeren
+        SetScoreboardData(team*100+j, GBAS_Icon);
+        SetScoreboardData(team*100+j, GBAS_TargetName);
+        SetScoreboardData(team*100+j, GBAS_TargetState);
         continue;
-			}
+      }
 
       SetScoreboardData(team*100+j, GBAS_Icon, Format("{{%i}}", EffectVar(1, target, e)));
       SetScoreboardData(team*100+j, GBAS_TargetName, Format("<c %x>%s</c>", GetTeamColor(team), GetName(target)));
@@ -264,7 +264,7 @@ public func SetupBombSpawnpoint(array aSpawnCoordinates)
 {
   bombSpawns = aSpawnCoordinates;
   if(!bombSpawns)
-  	bombSpawns = [[]];
+    bombSpawns = [[]];
 
   PlaceBombSpawnpoint();
   return true;
@@ -272,23 +272,23 @@ public func SetupBombSpawnpoint(array aSpawnCoordinates)
 
 public func PlaceBombSpawnpoint(int iX, int iY)
 {
-	if(!iX && !iY)
-	{
-		//Eventnachricht: Bombe gesichtet
+  if(!iX && !iY)
+  {
+    //Eventnachricht: Bombe gesichtet
     EventInfo4K(0, "$BombSpawned$", C4P2, 0, 0, 0, "Info_Objective.ogg");
-    
-  	var sp = bombSpawns[Random(GetLength(bombSpawns))];
-  	iX = sp[0]; iY = sp[1];
-	}
+
+    var sp = bombSpawns[Random(GetLength(bombSpawns))];
+    iX = sp[0]; iY = sp[1];
+  }
 
   var bomb = CreateObject(C4P2, AbsX(iX), AbsY(iY), NO_OWNER);
   if(!SpawningConditions(bomb))
   {
-  	//Eventnachricht: Bombe verloren/entfernt
+    //Eventnachricht: Bombe verloren
     EventInfo4K(0, "$BombLost$", C4P2, 0, 0, 0, "Info_Objective.ogg");
-    
+
     var sp = bombSpawns[Random(GetLength(bombSpawns))];
-  	iX = sp[0]; iY = sp[1];
+    iX = sp[0]; iY = sp[1];
     bomb->SetPosition(iX, iY);
   }
 
@@ -326,10 +326,10 @@ public func OnPlantingComplete(array aAttackers, object pTarget)
     if(GetEffect("BaseAssaultBomb", clonk))
       RemoveEffect("BaseAssaultBomb", clonk);
 
-	//Eventnachricht: Ladung plaziert, verteidigen
+  //Eventnachricht: Ladung plaziert, verteidigen
   for(var i = 0,team; i < GetTeamCount(); i++)
-  	if((team = GetTeamByIndex(i)) && team != GetTeam(pTarget))
-  		TeamEventInfo(team, Format("$TargetArmedAttacker$", GetName(pTarget)), SM16, 0, 0, 0, "Info_Event.ogg");
+    if((team = GetTeamByIndex(i)) && team != GetTeam(pTarget))
+      TeamEventInfo(team, Format("$TargetArmedAttacker$", GetName(pTarget)), SM16, 0, 0, 0, "Info_Event.ogg");
   //Eventnachricht: Ladung plaziert, entschärfen
   TeamEventInfo(GetTeam(pTarget), Format("$TargetArmedDefender$", GetName(pTarget)), SM17, 0, 0, 0, "Info_Event.ogg");
 
@@ -351,11 +351,11 @@ public func OnDefusingComplete(array aDefenders, object pTarget)
     PlaceBombSpawnpoint();
   /*if(GetLength(aDefenders) > 0)
     C4P2->AddBombObject(aDefenders[0]);*/
-  
+
   //Eventnachricht: Ladung entschärft, neue setzen
   for(var i = 0,team; i < GetTeamCount(); i++)
-  	if((team = GetTeamByIndex(i)) && team != GetTeam(pTarget))
-  		TeamEventInfo(team, Format("$TargetDefusedAttacker$", GetName(pTarget)), SM17, 0, 0, 0, "Info_Event.ogg");
+    if((team = GetTeamByIndex(i)) && team != GetTeam(pTarget))
+      TeamEventInfo(team, Format("$TargetDefusedAttacker$", GetName(pTarget)), SM17, 0, 0, 0, "Info_Event.ogg");
   //Eventnachricht: Ladung entschärft
   TeamEventInfo(GetTeam(pTarget), Format("$TargetDefusedDefender$", GetName(pTarget)), SM16, 0, 0, 0, "Info_Event.ogg");
 
