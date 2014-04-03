@@ -74,6 +74,9 @@ public func FxBaseAssaultBombTimer(object pTarget, int iNr, int iTime)
     //Effekte
     C4P2->Beep(pTarget);
   }
+  
+  if(!(Random(20)) && GetProcedure(pTarget) == "WALK" && (Abs(GetXDir(pTarget)) > 5 || Abs(GetYDir(pTarget)) > 5))
+  	Sound("BOMB_Rustle*.ogg", 0, pTarget, 100);
 
   //Träger verstorben: Sprengladung fallenlassen
   if(pTarget->~IsFakeDeath())

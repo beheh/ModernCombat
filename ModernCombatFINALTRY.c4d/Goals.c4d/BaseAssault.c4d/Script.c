@@ -145,7 +145,13 @@ public func UpdateScoreboard()
     {
       var target = aTargets[team][j], e = GetEffect("IntAssaultTarget", target), state = EffectVar(2, target, e);
       if(!target)
+      {
+      	//Eintrag ausleeren
+      	SetScoreboardData(team*100+j, GBAS_Icon);
+      	SetScoreboardData(team*100+j, GBAS_TargetName);
+      	SetScoreboardData(team*100+j, GBAS_TargetState);
         continue;
+			}
 
       SetScoreboardData(team*100+j, GBAS_Icon, Format("{{%i}}", EffectVar(1, target, e)));
       SetScoreboardData(team*100+j, GBAS_TargetName, Format("<c %x>%s</c>", GetTeamColor(team), GetName(target)));
@@ -178,12 +184,11 @@ private func GetTeamPlayerByIndex(int iPlr, int iTeam)
 
 public func RemoveScoreboardTeam(int iTeam)
 {
-  aScoreboardTeams[iTeam] = false;
-  for(var i; i < GBAS_MaxTargetCount; i++)
+  for(var i; i < aTargetCount[iTeam]; i++)
   {
-    SetScoreboardData(i + iTeam * GBAS_MaxTargetCount, GBAS_Icon);
-    SetScoreboardData(i + iTeam * GBAS_MaxTargetCount, GBAS_Name);
-    SetScoreboardData(i + iTeam * GBAS_MaxTargetCount, GBAS_Status);
+    SetScoreboardData(100*iTeam+i, GBAS_Icon);
+    SetScoreboardData(100*iTeam+i, GBAS_TargetName);
+    SetScoreboardData(100*iTeam+i, GBAS_TargetState);
   }
 }
 
@@ -253,29 +258,38 @@ global func PlaceBombSpawnpoint()
 
 public func GetBomb()	{return FindObject(C4P2);}
 
-local bombSpawnX, bombSpawnY;
+local bombSpawns;
 
-public func SetupBombSpawnpoint(int iX, int iY)
+public func SetupBombSpawnpoint(array aSpawnCoordinates)
 {
-  bombSpawnX = iX;
-  bombSpawnY = iY;
+  bombSpawns = aSpawnCoordinates;
+  if(!bombSpawns)
+  	bombSpawns = [[]];
+
   PlaceBombSpawnpoint();
   return true;
 }
 
 public func PlaceBombSpawnpoint(int iX, int iY)
 {
-  if(!iX)
-    iX = bombSpawnX;
-  if(!iY)
-    iY = bombSpawnY;
+	if(!iX && !iY)
+	{
+		//Eventnachricht: Bombe gesichtet
+    EventInfo4K(0, "$BombSpawned$", C4P2, 0, 0, 0, "Info_Objective.ogg");
+    
+  	var sp = bombSpawns[Random(GetLength(bombSpawns))];
+  	iX = sp[0]; iY = sp[1];
+	}
 
   var bomb = CreateObject(C4P2, AbsX(iX), AbsY(iY), NO_OWNER);
   if(!SpawningConditions(bomb))
   {
-  //Eventnachricht: Bombe gesichtet
-    EventInfo4K(0, "$BombSpawned$", C4P2, 0, 0, 0, "Info_Objective.ogg");
-    bomb->SetPosition(bombSpawnX, bombSpawnY);
+  	//Eventnachricht: Bombe verloren/entfernt
+    EventInfo4K(0, "$BombLost$", C4P2, 0, 0, 0, "Info_Objective.ogg");
+    
+    var sp = bombSpawns[Random(GetLength(bombSpawns))];
+  	iX = sp[0]; iY = sp[1];
+    bomb->SetPosition(iX, iY);
   }
 
   return true;
@@ -306,16 +320,23 @@ public func PlantingCondition(object pTarget, object pAssaultTarget)
   return false;
 }
 
-public func OnPlantingComplete(array aAttackers)
+public func OnPlantingComplete(array aAttackers, object pTarget)
 {
   for(var clonk in aAttackers)
     if(GetEffect("BaseAssaultBomb", clonk))
       RemoveEffect("BaseAssaultBomb", clonk);
 
+	//Eventnachricht: Ladung plaziert, verteidigen
+  for(var i = 0,team; i < GetTeamCount(); i++)
+  	if((team = GetTeamByIndex(i)) && team != GetTeam(pTarget))
+  		TeamEventInfo(team, Format("$TargetArmedAttacker$", GetName(pTarget)), SM16, 0, 0, 0, "Info_Event.ogg");
+  //Eventnachricht: Ladung plaziert, entschärfen
+  TeamEventInfo(GetTeam(pTarget), Format("$TargetArmedDefender$", GetName(pTarget)), SM17, 0, 0, 0, "Info_Event.ogg");
+
   return true;
 }
 
-public func OnDefusingComplete(array aDefenders)
+public func OnDefusingComplete(array aDefenders, object pTarget)
 {
   var fBomb = false;
   for(var clonk in aDefenders)
@@ -330,6 +351,13 @@ public func OnDefusingComplete(array aDefenders)
     PlaceBombSpawnpoint();
   /*if(GetLength(aDefenders) > 0)
     C4P2->AddBombObject(aDefenders[0]);*/
+  
+  //Eventnachricht: Ladung entschärft, neue setzen
+  for(var i = 0,team; i < GetTeamCount(); i++)
+  	if((team = GetTeamByIndex(i)) && team != GetTeam(pTarget))
+  		TeamEventInfo(team, Format("$TargetDefusedAttacker$", GetName(pTarget)), SM17, 0, 0, 0, "Info_Event.ogg");
+  //Eventnachricht: Ladung entschärft
+  TeamEventInfo(GetTeam(pTarget), Format("$TargetDefusedDefender$", GetName(pTarget)), SM16, 0, 0, 0, "Info_Event.ogg");
 
   return true;
 }

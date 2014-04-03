@@ -4,7 +4,7 @@
 #include TEAM
 
 local aSpawn;			//Spawnpunkte
-local aTargets;			//Ziele
+local aTargets, aTargetCount;			//Ziele
 
 global func IsAssaultTarget()	{return GetEffect("IntAssaultTarget", this);}
 public func IsCMCAssaultGoal()	{return GetID() != CASS;}
@@ -16,6 +16,7 @@ public func CustomSpawnSystem()	{return true;}
 protected func Initialize()
 {
   aTargets = [];
+  aTargetCount = [];
   aKill = [];
   aDeath = [];
   aSpawn = [];
@@ -84,6 +85,7 @@ public func AddAssaultTarget(id idTarget, int iX, int iY, int iMaxDamage, int iT
   if(!aTargets[iTeam])
     aTargets[iTeam] = [];
   aTargets[iTeam][iIndex] = fake;
+  aTargetCount[iTeam]++;
   //Relaunchpositionen
   if(!aSpawn[iTeam])
     aSpawn[iTeam] = [];
