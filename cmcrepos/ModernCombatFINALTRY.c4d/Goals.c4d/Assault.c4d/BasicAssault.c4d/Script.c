@@ -232,6 +232,7 @@ protected func FxIntAssaultTargetTimer(object pTarget, int iNr, int iTime)
     }
     else
     {
+    	Log("%v", PlantingCondition(clonk, pTarget));
       if(!PlantingCondition(clonk, pTarget)) continue;
       if(status == 1 && GetIndexOf(clonk, attacker) == -1)
         attacker[GetLength(attacker)] = clonk;

@@ -10,7 +10,7 @@ public func IsBorderTarget()	{return true;}
 
 public func Initialize()
 {
-  AddEffect("BombEffect", this, 101, 100, this);
+  AddEffect("BombEffect", this, 101, 2, this);
   return _inherited(...);
 }
 
@@ -44,9 +44,18 @@ public func AddBombObject(object pTarget)
   return true;
 }
 
-public func FxBombEffectTimer(object pTarget)
+public func FxBombEffectTimer(object pTarget, int iEffect, int iTime)
 {
-  Beep(pTarget);
+	//Bombe befindet sich in Grenzgebieten/Lava/Säure/etc.
+	if(FindObject(GBAS) && !(FindObject(GBAS)->SpawningConditions(pTarget)))
+	{
+		FindObject(GBAS)->DelayedBombRespawn(pTarget, 0, 0);
+		return -1;
+	}
+
+	if(!(iTime % 100))
+  	Beep(pTarget);
+
   return true;
 }
 
@@ -63,7 +72,10 @@ public func Beep(object pTarget)
 public func FxBaseAssaultBombStart(object pTarget, int iNr)
 {
   //Grafik setzen
-  SetGraphics(0, pTarget, EFLN, EffectVar(0, pTarget, iNr) = GetUnusedOverlayID(1, pTarget), GFXOV_MODE_Base);
+  SetGraphics(0, pTarget, SM24, EffectVar(0, pTarget, iNr) = GetUnusedOverlayID(1, pTarget), GFXOV_MODE_Base);
+  SetObjDrawTransform(500, 0, 0, 0, 500, -1000*35, pTarget, EffectVar(0, pTarget, iNr));
+  
+  EffectVar(1, pTarget, iNr) = AddLight(300, RGBa(255, 0, 0, 60), pTarget);
 }
 
 public func FxBaseAssaultBombTimer(object pTarget, int iNr, int iTime)
@@ -96,4 +108,7 @@ public func FxBaseAssaultBombStop(object pTarget, int iNr, int iReason)
 
   //Grafik löschen
   SetGraphics(0, pTarget, 0, EffectVar(0, pTarget, iNr), GFXOV_MODE_Base);
+  
+  if(EffectVar(1, pTarget, iNr))
+  	RemoveObject(EffectVar(1, pTarget, iNr));
 }
