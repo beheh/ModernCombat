@@ -7,6 +7,7 @@ public func RejectChoosedClassInfo()	{return true;}
 
 static const GBAS_BombRespawnDelay = 360;
 
+
 /* Initialisierung */
 
 public func ChooserFinished()
@@ -214,13 +215,13 @@ public func IsFulfilled()
     }
     else
     {
-    	//Keine Zielobjekte mehr? Eliminieren
-    	for(var target in aTargets[team])
-    		if(target)
-    			break;
-    	
-    	if(!target)
-    		EliminateTeam(team);
+      //Keine Zielobjekte mehr: Team eliminieren
+      for(var target in aTargets[team])
+        if(target)
+          break;
+
+      if(!target)
+        EliminateTeam(team);
     }
   }
 
@@ -273,10 +274,10 @@ local bombSpawns;
 
 public func DelayedBombRespawn(object pBomb, int iX, int iY)
 {
-	//Eventnachricht: Bombe verloren
-	EventInfo4K(0, "$BombLost$", C4P2, 0, 0, 0, "Info_Objective.ogg");
+  //Eventnachricht: Bombe verloren
+  EventInfo4K(0, "$BombLost$", C4P2, 0, 0, 0, "Info_Objective.ogg");
 
-	RemoveObject(pBomb);
+  RemoveObject(pBomb);
   ScheduleCall(this, "PlaceBombSpawnpoint", GBAS_BombRespawnDelay, 0, iX, iY, true);
 }
 
@@ -305,13 +306,13 @@ public func PlaceBombSpawnpoint(int iX, int iY, bool fNoDelay)
   if(!SpawningConditions(bomb))
   {
     if(!fNoDelay)
-			DelayedBombRespawn(bomb, 0, 0);
-		else
-		{
-			var sp = bombSpawns[Random(GetLength(bombSpawns))];
-		  iX = sp[0]; iY = sp[1];
-		  bomb->SetPosition(iX, iY);
-  	}
+      DelayedBombRespawn(bomb, 0, 0);
+    else
+    {
+      var sp = bombSpawns[Random(GetLength(bombSpawns))];
+      iX = sp[0]; iY = sp[1];
+      bomb->SetPosition(iX, iY);
+    }
   }
 
   return true;

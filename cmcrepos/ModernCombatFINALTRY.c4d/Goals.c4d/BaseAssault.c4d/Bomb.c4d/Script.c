@@ -46,15 +46,16 @@ public func AddBombObject(object pTarget)
 
 public func FxBombEffectTimer(object pTarget, int iEffect, int iTime)
 {
-	//Bombe befindet sich in Grenzgebieten/Lava/Säure/etc.
-	if(FindObject(GBAS) && !(FindObject(GBAS)->SpawningConditions(pTarget)))
-	{
-		FindObject(GBAS)->DelayedBombRespawn(pTarget, 0, 0);
-		return -1;
-	}
+  //Bombe in Grenzgebiet, Lava oder Säure: Entfernen und neue anfordern
+  if(FindObject(GBAS) && !(FindObject(GBAS)->SpawningConditions(pTarget)))
+  {
+    FindObject(GBAS)->DelayedBombRespawn(pTarget, 0, 0);
+    return -1;
+  }
 
-	if(!(iTime % 100))
-  	Beep(pTarget);
+  //Effekte
+  if(!(iTime % 100))
+    Beep(pTarget);
 
   return true;
 }
@@ -64,7 +65,7 @@ public func FxBombEffectTimer(object pTarget, int iEffect, int iTime)
 public func Beep(object pTarget)
 {
   pTarget->AddLightFlash(300, 0, 0, RGB(255), pTarget);
-  Sound("AHBS_Beep1.ogg", false, pTarget);
+  Sound("BOMB_Beep.ogg", false, pTarget);
 
   return true;
 }
@@ -74,7 +75,7 @@ public func FxBaseAssaultBombStart(object pTarget, int iNr)
   //Grafik setzen
   SetGraphics(0, pTarget, SM24, EffectVar(0, pTarget, iNr) = GetUnusedOverlayID(1, pTarget), GFXOV_MODE_Base);
   SetObjDrawTransform(500, 0, 0, 0, 500, -1000*35, pTarget, EffectVar(0, pTarget, iNr));
-  
+
   EffectVar(1, pTarget, iNr) = AddLight(300, RGBa(255, 0, 0, 60), pTarget);
 }
 
@@ -108,7 +109,7 @@ public func FxBaseAssaultBombStop(object pTarget, int iNr, int iReason)
 
   //Grafik löschen
   SetGraphics(0, pTarget, 0, EffectVar(0, pTarget, iNr), GFXOV_MODE_Base);
-  
+
   if(EffectVar(1, pTarget, iNr))
-  	RemoveObject(EffectVar(1, pTarget, iNr));
+    RemoveObject(EffectVar(1, pTarget, iNr));
 }
