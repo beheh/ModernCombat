@@ -1,7 +1,6 @@
 // Targets
 
 TargetDestruction=Target <c %x>%s</c> has been destroyed!
-NoTargets=<c ff0000>Warning</c>: All our targets have been <c ff0000>destroyed</c>!
 
 // Bomb
 
