@@ -39,12 +39,6 @@ public func ReportAssaultTargetDestruction(object pTarget, int iTeam)
   GameCall("OnAssaultTargetDestruction", pTarget, iTeam, FindInArray4K(aTargets[iTeam], pTarget));
   if(pTarget)
     Explode(50, pTarget);
-
-  if(!ObjectCount2(Find_InArray(aTargets[iTeam])))
-    for(var i = 0; i < GetPlayerCount(); i++)
-      if(GetPlayerTeam(GetPlayerByIndex(i)) == iTeam)
-        //Eventnachricht: Alle Zielobjekte zerstört
-        EventInfo4K(GetPlayerByIndex(i)+1, "$NoTargets$", GBAS, 0, 0, 0, "Info_Alarm.ogg");
 }
 
 public func GetAssaultTarget(int iIndex, int iTeam)

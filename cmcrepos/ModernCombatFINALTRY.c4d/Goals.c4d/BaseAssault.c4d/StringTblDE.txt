@@ -1,7 +1,6 @@
 // Zielobjekte
 
 TargetDestruction=Das Zielobjekt <c %x>%s</c> wurde zerstört!
-NoTargets=<c ff0000>Achtung</c>: Alle unsere Zielobjekte wurden <c ff0000>zerstört</c>!
 
 // Sprengladung
 
