@@ -5,6 +5,7 @@
 
 public func RejectChoosedClassInfo()	{return true;}
 
+static const GBAS_BombRespawnDelay = 360;
 
 /* Initialisierung */
 
@@ -28,7 +29,7 @@ public func ReportAssaultTargetDestruction(object pTarget, int iTeam)
 
   //Eventnachricht: Bombe wird gesucht
   EventInfo4K(0, "$BombSpawnDelay$", C4P2, 0, 0, 0, "Info_Objective.ogg");
-  ScheduleCall(this, "PlaceBombSpawnpoint", 35*10);
+  ScheduleCall(this, "PlaceBombSpawnpoint", GBAS_BombRespawnDelay);
 
   _inherited(pTarget, iTeam, ...);
 
@@ -211,6 +212,16 @@ public func IsFulfilled()
         DecoExplode(50, obj);
       EliminateTeam(team);
     }
+    else
+    {
+    	//Keine Zielobjekte mehr? Eliminieren
+    	for(var target in aTargets[team])
+    		if(target)
+    			break;
+    	
+    	if(!target)
+    		EliminateTeam(team);
+    }
   }
 
   //Gegen Camping während Klassenwahl oder im Menü
@@ -260,6 +271,15 @@ public func GetBomb()	{return FindObject(C4P2);}
 
 local bombSpawns;
 
+public func DelayedBombRespawn(object pBomb, int iX, int iY)
+{
+	//Eventnachricht: Bombe verloren
+	EventInfo4K(0, "$BombLost$", C4P2, 0, 0, 0, "Info_Objective.ogg");
+
+	RemoveObject(pBomb);
+  ScheduleCall(this, "PlaceBombSpawnpoint", GBAS_BombRespawnDelay, 0, iX, iY, true);
+}
+
 public func SetupBombSpawnpoint(array aSpawnCoordinates)
 {
   bombSpawns = aSpawnCoordinates;
@@ -270,7 +290,7 @@ public func SetupBombSpawnpoint(array aSpawnCoordinates)
   return true;
 }
 
-public func PlaceBombSpawnpoint(int iX, int iY)
+public func PlaceBombSpawnpoint(int iX, int iY, bool fNoDelay)
 {
   if(!iX && !iY)
   {
@@ -284,12 +304,14 @@ public func PlaceBombSpawnpoint(int iX, int iY)
   var bomb = CreateObject(C4P2, AbsX(iX), AbsY(iY), NO_OWNER);
   if(!SpawningConditions(bomb))
   {
-    //Eventnachricht: Bombe verloren
-    EventInfo4K(0, "$BombLost$", C4P2, 0, 0, 0, "Info_Objective.ogg");
-
-    var sp = bombSpawns[Random(GetLength(bombSpawns))];
-    iX = sp[0]; iY = sp[1];
-    bomb->SetPosition(iX, iY);
+    if(!fNoDelay)
+			DelayedBombRespawn(bomb, 0, 0);
+		else
+		{
+			var sp = bombSpawns[Random(GetLength(bombSpawns))];
+		  iX = sp[0]; iY = sp[1];
+		  bomb->SetPosition(iX, iY);
+  	}
   }
 
   return true;

@@ -265,10 +265,10 @@ public func IsAttackable(object pTarget, int iNr)
   if(iTarget != iNext && (fConnected && GetIndexOf(iTarget, Connected[iNext]) == -1 || !fConnected))
   {
     bar->Update(0, true);
-    return true;
+    return false;
   }
 
-  return false;
+  return true;
 }
 
 public func OnPlantingComplete(array aAttackers, object pTarget)
