@@ -337,13 +337,15 @@ public func ChooserFinished()
   if(FindObject(GBAS))
   {
    //Strukturen
-   AddAssaultTarget(CCP2, 180, 300, 400, 1, "$Flag1$", 0, [[350, 460], [245, 550], [550, 350]]);
-   AddAssaultTarget(CMSN, 680, 150, 300, 1, "$Flag2$", 1, [[610, 300], [840, 260], [880, 270]]);
-   AddAssaultTarget(CCP1, 780, 390, 300, 1, "$Flag3$", 2, [[730, 520], [825, 580], [605, 520]]);
+   AddAssaultTarget(CCP2, 190, 300, 300, 1, "$Target1$", 0, [[275, 570], [350, 460], [435, 620]]);
+   AddAssaultTarget(GSTA, 780, 390, 300, 1, "$Target2$", 1, [[520, 350], [605, 520], [830, 650]]);
+   AddAssaultTarget(CMSN, 840, 260, 300, 1, "$Target3$", 2, [[610, 140], [615, 300], [870, 130]]);
+   AddAssaultTarget(CMSN, 1665, 160, 300, 2, "$Target3$", 3, [[1865, 255], [1930, 310], [1950, 140]]);
+   AddAssaultTarget(GSTA, 1710, 330, 300, 2, "$Target2$", 4, [[1615, 500], [1820, 450], [1970, 300]]);
+   AddAssaultTarget(CCP2, 2260, 210, 300, 2, "$Target1$", 5, [[1950, 140], [2100, 480], [2150, 560]]);
 
-   AddAssaultTarget(CCP2, 2280, 210, 400, 2, "$Flag6$", 0, [[2100, 310], [2000, 310], [1900, 320]]);
-   AddAssaultTarget(CMSN, 1840, 130, 300, 2, "$Flag4$", 1, [[1845, 240], [1770, 220]]);
-   AddAssaultTarget(CCP1, 1710, 330, 300, 2, "$Flag5$", 2, [[1610, 500], [1820, 450], [1885, 475]]);
+   //Sprengsatz-Spawn
+   SetupBombSpawnpoint([[1320, 300],[1320,340],[1360,460]]);
 
    //Zusätzliche Munition
    if(!FindObject(NOAM))

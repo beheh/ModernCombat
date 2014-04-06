@@ -11,3 +11,7 @@ Flag3=Aussichtsdeck
 Flag4=Verteiler
 Flag5=Kernplattform
 Flag6=Östliche Station
+
+Target1=Radaranlage
+Target2=Wasserfilter
+Target3=Datenserver

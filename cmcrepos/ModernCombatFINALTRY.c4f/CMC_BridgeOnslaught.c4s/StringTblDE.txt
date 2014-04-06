@@ -10,3 +10,6 @@ Flag2=Westliches Depot
 Flag3=Wachzentrale
 Flag4=Östliches Depot
 Flag5=Östlicher Eingang
+
+Target1=Überwachungssystem
+Target2=Kommunikationsserver

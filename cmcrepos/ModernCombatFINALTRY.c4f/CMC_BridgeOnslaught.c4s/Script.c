@@ -648,11 +648,13 @@ public func ChooserFinished()
   if(FindObject(GBAS))
   {
    //Zielobjekte
-   AddAssaultTarget(CMSN, 710, 800, 400, 1, "$Flag2$", 0, [[640, 640], [420, 630]]);
-   AddAssaultTarget(CCP2, 490, 440, 300, 1, "$Flag1$", 1, [[230, 440], [330, 530]]);
+   AddAssaultTarget(CCP2, 640, 440, 300, 1, "$Target1$", 0, [[230, 440], [330, 530]]);
+   AddAssaultTarget(CMSN, 830, 800, 300, 1, "$Target2$", 1, [[640, 640], [420, 630]]);
+   AddAssaultTarget(CMSN, 1900, 800, 300, 2, "$Target2$", 2, [[2090, 640], [2310, 630]]);
+   AddAssaultTarget(CCP2, 2090, 440, 300, 2, "$Target1$", 3, [[2400, 530], [2500, 440]]);
 
-   AddAssaultTarget(CMSN, 2010, 800, 400, 2, "$Flag4$", 0, [[2090, 640], [2310, 630]]);
-   AddAssaultTarget(CCP2, 2240, 440, 300, 2, "$Flag5$", 1, [[2400, 530], [2500, 440]]);
+   //Sprengsatz-Spawn
+   SetupBombSpawnpoint([[1365, 410],[1365,520],[1365,810]]);
 
    //SSA Besitzer setzen
    if(aTeams[1] == true)

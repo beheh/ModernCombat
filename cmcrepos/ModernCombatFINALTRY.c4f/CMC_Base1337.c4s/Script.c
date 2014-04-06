@@ -794,52 +794,6 @@ public func ChooserFinished()
    SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2550,1229,-1),50*21);
   }
 
-  //Base Assault-Spielziel
-  if(FindObject(GBAS))
-  {
-   //Zielobjekte
-   AddAssaultTarget(RADR, 2080, 940, 400, 1, "$Target1$", 0, [[1970, 1060], [2130, 1130], [2400, 1050]]);
-   AddAssaultTarget(CMSN, 3050, 1200, 300, 1, "$Target2$", 1, [[2650, 1080], [2670, 1150], [2610, 1220]]);
-
-   AddAssaultTarget(CMSN, 3490, 1040, 300, 2, "$Target2$", 0, [[3730, 1170], [3910, 1160], [4140, 1090]]);
-   AddAssaultTarget(RADR, 3390, 620, 400, 2, "$Target1$", 1, [[3550, 821], [3600, 860], [3750, 831]]);
-
-   //Grenzen setzen
-   CreateObject(BRDR, 1790, 0, -1)->Set(0);
-   CreateObject(BRDR, 4230, 0, -1)->Set(1);
-
-   //Objekt entfernen
-   aTowerInterior[0]->RemoveObject();
-
-   //Hinweisschilder
-   CreateObject(SNPT, 1650, 1170, -1);
-   var sign = CreateObject(SGNP, 2885, 960, -1);
-   sign->SetMode(1);
-   sign->Set("Turret");
-   sign = CreateObject(SGNP, 3575, 1040, -1);
-   sign->SetMode(1);
-   sign->Set("Turret");
-   CreateObject(SGNP, 3970, 540, -1);
-   CreateObject(SGNP, 4165, 510, -1);
-
-   //Geschützstellungen
-   CreateObject(GNET, 2115, 1070, -1)->Set(0,90,1);
-   CreateObject(GNET, 2280, 970, -1)->Set(0,90,1);
-   CreateObject(GNET, 3020, 1140, -1)->Set(0,90,1);
-   CreateObject(GNET, 3370, 1012, -1)->Set(0,-90,1);
-   CreateObject(GNET, 3750, 832, -1)->Set(0,-90,1);
-
-   //Selbstschussanlagen
-   aSelfDefense[0] = CreateObject(SEGU, 2960, 840, -1);
-   CreateObject(CONS, 3310, 920, -1)->Set(aSelfDefense[0]);
-
-   aSelfDefense[1] = CreateObject(SEGU, 3785, 900, -1);
-   CreateObject(CONS, 3405, 1175, -1)->Set(aSelfDefense[1]);
-
-   //Patrouillenboot
-   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,2060,1229,-1),50*21);
-  }
-
   //MR-Spielziel
   if(FindObject(GMNR))
   {
