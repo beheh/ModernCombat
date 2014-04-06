@@ -10,3 +10,6 @@ Flag2=Westsquare
 Flag3=Parkanlage
 Flag4=Ostsquare
 Flag5=Östliches Lagerhaus
+
+Target1=Wasserfilter
+Target2=Zentralserver

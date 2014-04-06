@@ -8,3 +8,6 @@ Team2=Aggressoren
 Flag1=Westliche Anlegestelle
 Flag2=Bohrplattform
 Flag3=Östliche Anlegestelle
+
+Target1=Radaranlage
+Target2=Steuerungseinheit

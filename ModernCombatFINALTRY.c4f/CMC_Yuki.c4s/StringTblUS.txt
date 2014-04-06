@@ -12,3 +12,6 @@ Flag2=Entrance
 Flag3=Depot
 Flag4=Radio Station
 Flag5=East Shaft
+
+Target1=Central Server
+Target2=Communication Server

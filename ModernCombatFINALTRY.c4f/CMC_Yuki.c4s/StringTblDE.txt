@@ -12,3 +12,6 @@ Flag2=Eingang
 Flag3=Depot
 Flag4=Funkstation
 Flag5=Östlicher Schacht
+
+Target1=Zentralserver
+Target2=Kommunikationsserver

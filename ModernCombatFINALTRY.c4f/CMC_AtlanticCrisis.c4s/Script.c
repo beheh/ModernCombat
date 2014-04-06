@@ -559,6 +559,25 @@ public func ChooserFinished()
    CreateObject(MVSN, 4660, 500, -1)->Set(4490,530,1);
   }
 
+  //Base Assault-Spielziel
+  if(FindObject(GBAS))
+  {
+   //Strukturen
+   AddAssaultTarget(RADR, 1919, 600, 300, 1, "$Target1$", 0, [[1360,500], [1420,520], [1600,400]]);
+   AddAssaultTarget(CMSN, 2470, 600, 300, 1, "$Target2$", 1, [[2185,520], [2270,520]]);
+   AddAssaultTarget(CMSN, 3540, 600, 300, 2, "$Target2$", 2, [[3740,520], [3825,520]]);
+   AddAssaultTarget(RADR, 4089, 600, 300, 2, "$Target1$", 3, [[4410,400], [4590,520], [4650,500]]);
+
+   //Sprengsatz-Spawn
+   SetupBombSpawnpoint([[2990, 380],[2990,530]]);
+
+   //Boden
+   DrawMaterialQuad("BackWall-Stripes", 1900,600, 1940,600, 1940,610, 1900,610);
+   DrawMaterialQuad("BackWall-Metal2", 2420,600, 2490,600, 2490,610, 2420,610);
+   DrawMaterialQuad("BackWall-Metal2", 3520,600, 3580,600, 3580,610, 3520,610);
+   DrawMaterialQuad("BackWall-Stripes", 4070,600, 4110,600, 4110,610, 4070,610);
+  }
+
   //HTF-Spielziel
   if(FindObject(GHTF))
   {

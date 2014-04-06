@@ -11,3 +11,7 @@ Flag3=Observation Deck
 Flag4=Distributor
 Flag5=Core Platform
 Flag6=Eastern Station
+
+Target1=Radar Unit
+Target2=Water Filter
+Target3=Data Server

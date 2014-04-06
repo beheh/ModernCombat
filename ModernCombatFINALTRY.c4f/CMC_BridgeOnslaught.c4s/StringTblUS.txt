@@ -10,3 +10,6 @@ Flag2=West Depot
 Flag3=Guarding Office
 Flag4=East Depot
 Flag5=East Entrance
+
+Target1=Surveillance System
+Target2=Communication Server

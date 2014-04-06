@@ -584,11 +584,13 @@ public func ChooserFinished()
   if(FindObject(GBAS))
   {
    //Zielobjekte
-   AddAssaultTarget(CMSN, 450, 520, 350, 1, "$Flag1$", 0, [[470, 650], [510, 230], [630, 270]]);
-   AddAssaultTarget(CMSN, 910, 350, 300, 1, "$Flag2$", 1, [[650, 270], [600, 400], [680, 420]]);
+   AddAssaultTarget(RADR, 450, 520, 300, 1, "$Target1$", 0, [[470, 650], [510, 230], [630, 270]]);
+   AddAssaultTarget(CMSN, 645, 720, 300, 1, "$Target2$", 1, [[620, 540], [655, 400], [825, 550]]);
+   AddAssaultTarget(CMSN, 1670, 690, 300, 2, "$Target2$", 2, [[1555, 340], [1720, 830], [1735, 380]]);
+   AddAssaultTarget(RADR, 2140, 480, 300, 2, "$Target1$", 3, [[1770, 250], [2115, 580], [2145, 250]]);
 
-   AddAssaultTarget(CMSN, 2140, 480, 350, 2, "$Flag5$", 0, [[2110, 580], [1880, 560], [1970, 610]]);
-   AddAssaultTarget(CMSN, 1730, 380, 300, 2, "$Flag4$", 1, [[1770, 250], [1715, 190]]);
+   //Sprengsatz-Spawn
+   SetupBombSpawnpoint([[1140, 400],[1160,680],[1210,750]]);
   }
 
   //HTF-Spielziel
