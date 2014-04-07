@@ -32,6 +32,7 @@ public func Entrance(object pClonk)
 
   //Effekt an Clonk übergeben
   AddBombObject(pClonk);
+  Sound("RSHL_Deploy.ogg",0,pClonk);
 
   //Verschwinden
   RemoveObject(this);
@@ -112,4 +113,12 @@ public func FxBaseAssaultBombStop(object pTarget, int iNr, int iReason)
 
   if(EffectVar(1, pTarget, iNr))
     RemoveObject(EffectVar(1, pTarget, iNr));
+}
+
+/* Allgemein */
+
+protected func Hit()
+{
+  Sound("AmmoBoxHit*.ogg");
+  Sound("CrateImpact*.ogg");
 }
