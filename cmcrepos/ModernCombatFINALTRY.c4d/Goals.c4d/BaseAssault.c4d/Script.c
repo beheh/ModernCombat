@@ -38,7 +38,13 @@ public func ReportAssaultTargetDestruction(object pTarget, int iTeam)
   EventInfo4K(0, Format("$TargetDestruction$", GetTeamColor(iTeam), GetName(pTarget)), GBAS, 0, 0, 0, "Info_Objective.ogg");
   GameCall("OnAssaultTargetDestruction", pTarget, iTeam, FindInArray4K(aTargets[iTeam], pTarget));
   if(pTarget)
+  {
+    //Effekte
+    Sound("StructureHeavyHit*.ogg", false, pTarget);
+    ShakeViewPort(400, pTarget);
+
     Explode(50, pTarget);
+  }
 }
 
 public func GetAssaultTarget(int iIndex, int iTeam)
@@ -204,7 +210,13 @@ public func IsFulfilled()
     if(!GetTeamPlayerCount(team))
     {
       for(var obj in FindObjects(Find_InArray(aTargets[team])))
+      {
+        //Effekte
+        Sound("StructureHeavyHit*.ogg", false, obj);
+        ShakeViewPort(400, obj);
+
         DecoExplode(50, obj);
+      }
       EliminateTeam(team);
     }
     else
@@ -246,6 +258,10 @@ public func IsFulfilled()
 
 /* Bombenspawnmechanik */
 
+public func GetBomb()	{return FindObject(C4P2);}
+
+local bombSpawns;
+
 global func SetupBombSpawnpoint()
 {
   if(FindObject(GBAS))
@@ -262,18 +278,25 @@ global func PlaceBombSpawnpoint()
   return false;
 }
 
-public func GetBomb()	{return FindObject(C4P2);}
-
-local bombSpawns;
+/* Bombe entfernen und neue Bombe planen */
 
 public func DelayedBombRespawn(object pBomb, int iX, int iY)
 {
   //Eventnachricht: Bombe verloren
   EventInfo4K(0, "$BombLost$", C4P2, 0, 0, 0, "Info_Objective.ogg");
 
-  RemoveObject(pBomb);
+  //Effekte
+  Sound("StructureHeavyHit*.ogg", false, pBomb);
+  ShakeViewPort(400, pBomb);
+
+  //Bombe explodieren lassen
+  Explode(50, pBomb);
+
+  //Neue Bombenplatzierung planen
   ScheduleCall(this, "PlaceBombSpawnpoint", GBAS_BombRespawnDelay, 0, iX, iY, true);
 }
+
+/* Bombe platzieren */
 
 public func SetupBombSpawnpoint(array aSpawnCoordinates)
 {
@@ -366,8 +389,6 @@ public func OnDefusingComplete(array aDefenders, object pTarget)
 
   if(!fBomb)
     PlaceBombSpawnpoint();
-  /*if(GetLength(aDefenders) > 0)
-    C4P2->AddBombObject(aDefenders[0]);*/
 
   //Eventnachricht: Ladung entschärft, neue setzen
   for(var i = 0,team; i < GetTeamCount(); i++)

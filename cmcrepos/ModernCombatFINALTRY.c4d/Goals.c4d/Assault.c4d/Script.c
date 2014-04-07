@@ -183,8 +183,10 @@ public func ReportAssaultTargetDestruction(object pTarget, int iTeam, array aAtt
   //Zielobjekt explodieren lassen sofern vorhanden
   if(pTarget)
   {
-    ShakeViewPort(400, pTarget);
+    //Effekte
     Sound("StructureHeavyHit*.ogg", false, pTarget);
+    ShakeViewPort(400, pTarget);
+
     Explode(50, pTarget);
   }
 
