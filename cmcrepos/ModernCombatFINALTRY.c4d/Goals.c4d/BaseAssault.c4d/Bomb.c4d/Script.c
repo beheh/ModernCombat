@@ -10,7 +10,13 @@ public func IsBorderTarget()	{return true;}
 
 public func Initialize()
 {
+  //Bombeneffekt
   AddEffect("BombEffect", this, 101, 2, this);
+
+  //Effekte
+  AddLight(300, RGBa(255, 0, 0, 60));
+  Sound("RSHL_Deploy.ogg");
+
   return _inherited(...);
 }
 
