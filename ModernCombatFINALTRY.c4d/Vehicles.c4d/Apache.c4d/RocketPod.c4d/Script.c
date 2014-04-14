@@ -159,3 +159,9 @@ public func OnReload()
   if (!GetEffect("IntNoSound", this))
     Sound("RLSA_Reload.ogg", false, this);
 }
+
+public func FxBurstFireStop()
+{
+	if(GetAmmoCount() != 0 && GetAmmoCount() != FMData1(FM_AmmoLoad))
+		OnEmpty();
+}
