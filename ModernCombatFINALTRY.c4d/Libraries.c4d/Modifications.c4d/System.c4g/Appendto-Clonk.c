@@ -329,28 +329,28 @@ protected func DoPoints()
   {  
     var killicon = KillIcon();
 
-    //Ribbons
+    //Ehrenbänder
     if(killicon)
     {
-      //Ribbon-Fortschritt (The Boss)
+      //Ehrenband-Fortschritt (The Boss)
       if(killicon->~IsBlowTorch())
         AttemptAwardRibbon(RB01, killer, GetOwner());
-      //Ribbon-Fortschritt (The Code)
+      //Ehrenband-Fortschritt (The Code)
       if(killicon->~IsRocket())
         AttemptAwardRibbon(RB02, killer, GetOwner());
-      //Ribbon-Fortschritt (The Ghost)
+      //Ehrenband-Fortschritt (The Ghost)
       if(killicon->~IsC4Explosive())
         AttemptAwardRibbon(RB03, killer, GetOwner());
-      //Ribbon-Fortschritt (The Gamer)
+      //Ehrenband-Fortschritt (The Gamer)
       if(killicon->~IsMAV())
         AttemptAwardRibbon(RB04, killer, GetOwner());
-      //Ribbon-Fortschritt (The Artist)
+      //Ehrenband-Fortschritt (The Artist)
       if(killicon->~IsShockPaddles())
         AttemptAwardRibbon(RB05, killer, GetOwner());
-      //Ribbon-Fortschritt (The Noob)
+      //Ehrenband-Fortschritt (The Noob)
       if(Contained() && GetID(Contained()) == BKHK)
         AttemptAwardRibbon(RB08, killer, GetOwner());
-      //Ribbon-Fortschritt (The Patch)
+      //Ehrenband-Fortschritt (The Patch)
       if(GetCursor(killer))
       {
         var pPflasterKillerClonk = GetCursor(killer);
@@ -360,17 +360,16 @@ protected func DoPoints()
         if((ObjectDistance(pPflasterKillerClonk, this) >= 500) && killicon == ASTR)
           AttemptAwardRibbon(RB09, killer, GetOwner());
       }
-      //Ribbon-Fortschritt (The Glyn)
+      //Ehrenband-Fortschritt (The Glyn)
       if(killicon == AAMS)
         AttemptAwardRibbon(RB11, killer, GetOwner());
-
-      //Ribbon-Fortschritt (The Bugfixer)
+      //Ehrenband-Fortschritt (The Bugfixer)
       var effect;
       if(killicon == FGRN && (effect = GetEffect("Ribbon_TheBugfixer", this)) && EffectVar(0, this, effect) == killer)
         AttemptAwardRibbon(RB12, killer, GetOwner());
     }
 
-    //Ribon-Fortschritt (The Avenger)
+    //Ehrenband-Fortschritt (The Avenger)
     if(RewardsActive() && LocalN("aRibbonAvenger", FindObject(RWDS))[killer])
       AttemptAwardRibbon(RB10, killer, GetOwner());
 
@@ -736,7 +735,7 @@ global func FxFakeDeathDamage(object pTarget, int iEffectNumber, int iDmgEngy, i
         {
           //Achievement-Fortschritt (Fly-By)
           DoAchievementProgress(1, AC10, GetKiller(pTarget)); 
-          //Ribbon-Fortschritt (The Eagle)
+          //Ehrenband-Fortschritt (The Eagle)
           AttemptAwardRibbon(RB06, GetKiller(pTarget), GetOwner());
         }
     }
