@@ -162,6 +162,6 @@ public func OnReload()
 
 public func FxBurstFireStop()
 {
-	if(GetAmmoCount() != 0 && GetAmmoCount() != FMData1(FM_AmmoLoad))
-		OnEmpty();
+  if(GetAmmoCount() != 0 && GetAmmoCount() != FMData1(FM_AmmoLoad))
+    OnEmpty();
 }
