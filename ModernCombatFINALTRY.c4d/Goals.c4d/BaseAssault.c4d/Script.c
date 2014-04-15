@@ -41,16 +41,16 @@ public func ReportAssaultTargetDestruction(object pTarget, int iTeam)
 
     Explode(50, pTarget);
   }
-  
+
   //Auf Spielende überprüfen
   IsFulfilled();
-  
+
   //Eventnachricht: Bombe wird gesucht
   if(!fulfilled)
   {
-		EventInfo4K(0, "$BombSpawnDelay$", C4P2, 0, 0, 0, "Info_Objective.ogg");
-		ScheduleCall(this, "PlaceBombSpawnpoint", GBAS_BombRespawnDelay);
-	}
+    EventInfo4K(0, "$BombSpawnDelay$", C4P2, 0, 0, 0, "Info_Objective.ogg");
+    ScheduleCall(this, "PlaceBombSpawnpoint", GBAS_BombRespawnDelay);
+  }
 }
 
 public func GetAssaultTarget(int iIndex, int iTeam)
@@ -133,13 +133,13 @@ public func UpdateScoreboard()
       state = "$BombPlaced$";
   }
   if(!fulfilled)
-  	SetScoreboardData(SBRD_Caption, GBAS_TargetState, state);
-	else
-	{
-		SetScoreboardData(SBRD_Caption, GBAS_Icon, 0);
-		SetScoreboardData(SBRD_Caption, GBAS_TargetName, 0);
-		SetScoreboardData(SBRD_Caption, GBAS_TargetState, 0);
-	}
+    SetScoreboardData(SBRD_Caption, GBAS_TargetState, state);
+  else
+  {
+    SetScoreboardData(SBRD_Caption, GBAS_Icon, 0);
+    SetScoreboardData(SBRD_Caption, GBAS_TargetName, 0);
+    SetScoreboardData(SBRD_Caption, GBAS_TargetState, 0);
+  }
   //Leerzeile
   SetScoreboardData(0, 0, " ", 0);
 
@@ -294,8 +294,8 @@ global func PlaceBombSpawnpoint()
 
 public func DelayedBombRespawn(object pBomb, int iX, int iY)
 {
-	if(fulfilled)
-		return false;
+  if(fulfilled)
+    return false;
 
   //Eventnachricht: Bombe verloren
   EventInfo4K(0, "$BombLost$", C4P2, 0, 0, 0, "Info_Objective.ogg");
