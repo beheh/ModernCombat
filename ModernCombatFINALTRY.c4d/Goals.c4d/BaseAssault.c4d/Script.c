@@ -7,6 +7,8 @@ public func RejectChoosedClassInfo()	{return true;}
 
 static const GBAS_BombRespawnDelay = 360;
 
+local fGameOver;
+
 
 /* Initialisierung */
 
@@ -46,7 +48,7 @@ public func ReportAssaultTargetDestruction(object pTarget, int iTeam)
   IsFulfilled();
 
   //Eventnachricht: Bombe wird gesucht
-  if(!fulfilled)
+  if(!fGameOver)
   {
     EventInfo4K(0, "$BombSpawnDelay$", C4P2, 0, 0, 0, "Info_Objective.ogg");
     ScheduleCall(this, "PlaceBombSpawnpoint", GBAS_BombRespawnDelay);
@@ -215,6 +217,8 @@ public func IsFulfilled()
   if(FindObject(CHOS)) return;
   if(fulfilled) return 1;
   
+  var activeteams = 0;
+  
   //Teams durchgehen
   for(var i; i < GetTeamCount(); i++)
   {
@@ -240,8 +244,13 @@ public func IsFulfilled()
 
       if(!target)
         EliminateTeam(team);
+      else
+      	activeteams++;
     }
   }
+  
+  if(activeteams <= 1)
+  	fGameOver = true;
 
   //Gegen Camping während Klassenwahl oder im Menü
   for(var obj in FindObjects(Find_Func("IsClonk")))
