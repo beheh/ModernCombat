@@ -89,53 +89,55 @@ public func UpdateScoreboard()
   //Zustand der Bombe ermitteln (Icons fehlen)
   var state = "", bomb = GetBomb();
   //Zuerst von Bombe im Freien ausgehen
-  if(bomb)
-    state = "$BombIdle$";
-  else
+  if(!fGameOver)
   {
-    var bomb_carrier, e;
-    for(var obj in FindObjects(Find_OCF(OCF_CrewMember)))
-      if(e = GetEffect("BaseAssaultBomb", obj))
-      {
-        bomb_carrier = obj;
-        break;
-      }
-
-    //Anzeigen wer die Bombe trägt
-    var status = 0;
-    for(var i = 0; i < GetLength(aTargets); i++)
+    if(bomb)
+      state = "$BombIdle$";
+    else
     {
-      if(!aTargets[i])
-        continue;
-      for(var target in aTargets[i])
+      var bomb_carrier, e;
+      for(var obj in FindObjects(Find_OCF(OCF_CrewMember)))
+        if(e = GetEffect("BaseAssaultBomb", obj))
+        {
+          bomb_carrier = obj;
+          break;
+        }
+
+      //Anzeigen wer die Bombe trägt
+      var status = 0;
+      for(var i = 0; i < GetLength(aTargets); i++)
       {
-        var e;
-        if((e = GetEffect("IntAssaultTarget", target)) && (status = EffectVar(2, target, e)))
+        if(!aTargets[i])
+          continue;
+        for(var target in aTargets[i])
+        {
+          var e;
+          if((e = GetEffect("IntAssaultTarget", target)) && (status = EffectVar(2, target, e)))
+            break;
+        }
+
+        if(status)
           break;
       }
 
-      if(status)
-        break;
+      if(!status)
+      {
+        //Kein Bombenträger verfügbar: Als gesucht melden
+        if(!bomb_carrier)
+          state = "$SearchingBomb$";
+        //Ansonsten Träger anzeigen
+        else
+          state = Format("$BombInPossession$", GetTaggedPlayerName(GetOwner(bomb_carrier)));
+      }
+      //Bombe wird platziert
+      else if(status == 1)
+        state = Format("$BombPlacing$", GetTaggedPlayerName(GetOwner(bomb_carrier)));
+      //Bombe ist platziert
+      else if(status >= 2)
+        state = "$BombPlaced$";
     }
-
-    if(!status)
-    {
-      //Kein Bombenträger verfügbar: Als gesucht melden
-      if(!bomb_carrier)
-        state = "$SearchingBomb$";
-      //Ansonsten Träger anzeigen
-      else
-        state = Format("$BombInPossession$", GetTaggedPlayerName(GetOwner(bomb_carrier)));
-    }
-    //Bombe wird platziert
-    else if(status == 1)
-      state = Format("$BombPlacing$", GetTaggedPlayerName(GetOwner(bomb_carrier)));
-    //Bombe ist platziert
-    else if(status >= 2)
-      state = "$BombPlaced$";
-  }
-  if(!fulfilled)
     SetScoreboardData(SBRD_Caption, GBAS_TargetState, state);
+  }
   else
   {
     SetScoreboardData(SBRD_Caption, GBAS_Icon, 0);
@@ -216,9 +218,9 @@ public func IsFulfilled()
 {
   if(FindObject(CHOS)) return;
   if(fulfilled) return 1;
-  
+
   var activeteams = 0;
-  
+
   //Teams durchgehen
   for(var i; i < GetTeamCount(); i++)
   {
@@ -245,12 +247,12 @@ public func IsFulfilled()
       if(!target)
         EliminateTeam(team);
       else
-      	activeteams++;
+        activeteams++;
     }
   }
-  
+
   if(activeteams <= 1)
-  	fGameOver = true;
+    fGameOver = true;
 
   //Gegen Camping während Klassenwahl oder im Menü
   for(var obj in FindObjects(Find_Func("IsClonk")))
