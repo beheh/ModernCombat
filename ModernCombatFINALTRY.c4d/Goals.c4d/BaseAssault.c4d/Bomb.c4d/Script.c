@@ -6,6 +6,8 @@ public func IsSpecialGoalItem()	{return true;}
 public func IsBorderTarget()	{return true;}
 
 
+static const BAR_BASBombBar = 5;
+
 /* Initialisierung */
 
 public func Initialize()
@@ -16,6 +18,12 @@ public func Initialize()
   //Effekte
   AddLight(300, RGBa(255, 0, 0, 60));
   Sound("RSHL_Deploy.ogg");
+  
+  var bar = CreateObject(SBAR, 0, 0, -1);
+  bar->Set(this, 0, BAR_BASBombBar, 100, 0, SM24, 0, 11000, true);
+  bar->Update(0, true, true);
+  bar->SetIcon(0, SM24, 0, 11000, 32);
+  bar->PositionToVertex(0, true);
 
   return _inherited(...);
 }
@@ -80,9 +88,15 @@ public func Beep(object pTarget)
 public func FxBaseAssaultBombStart(object pTarget, int iNr)
 {
   //Grafik setzen
-  SetGraphics(0, pTarget, SM24, EffectVar(0, pTarget, iNr) = GetUnusedOverlayID(1, pTarget), GFXOV_MODE_Base);
-  SetObjDrawTransform(500, 0, 0, 0, 500, -1000*35, pTarget, EffectVar(0, pTarget, iNr));
+  /*SetGraphics(0, pTarget, SM24, EffectVar(0, pTarget, iNr) = GetUnusedOverlayID(1, pTarget), GFXOV_MODE_Base);
+  SetObjDrawTransform(500, 0, 0, 0, 500, -1000*35, pTarget, EffectVar(0, pTarget, iNr));*/
+  var bar = CreateObject(SBAR, 0, 0, -1);
+  bar->Set(pTarget, 0, BAR_BASBombBar, 100, 0, SM24, 0, 11000, true);
+  bar->Update(0, true, true);
+  bar->SetIcon(0, SM24, 0, 11000, 32);
+  bar->PositionToVertex(0, true);
 
+  EffectVar(0, pTarget, iNr) = bar;
   EffectVar(1, pTarget, iNr) = AddLight(300, RGBa(255, 0, 0, 60), pTarget);
 }
 
@@ -115,7 +129,9 @@ public func FxBaseAssaultBombStop(object pTarget, int iNr, int iReason)
   }
 
   //Grafik löschen
-  SetGraphics(0, pTarget, 0, EffectVar(0, pTarget, iNr), GFXOV_MODE_Base);
+  //SetGraphics(0, pTarget, 0, EffectVar(0, pTarget, iNr), GFXOV_MODE_Base);
+  if(EffectVar(0, pTarget, iNr))
+  	RemoveObject(EffectVar(0, pTarget, iNr));
 
   if(EffectVar(1, pTarget, iNr))
     RemoveObject(EffectVar(1, pTarget, iNr));
