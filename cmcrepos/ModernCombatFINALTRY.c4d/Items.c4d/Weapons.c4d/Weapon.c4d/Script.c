@@ -1053,7 +1053,7 @@ private func Shoot(object caller)
 
     var projectileid = GetFMData(FM_ProjectileID);
 
-    if(DefinitionCall(projectileid,"IsRocket"))
+    if(DefinitionCall(projectileid,"IsRocket") && !user->~DenyWeaponPathFreeCheck())
     {
        x = x + Sin(user->GetWeaponR(), GetDefHeight(projectileid) - GetDefCoreVal("VertexY","DefCore",projectileid));
        y = y - Cos(user->GetWeaponR(), GetDefHeight(projectileid) - GetDefCoreVal("VertexY","DefCore",projectileid));
