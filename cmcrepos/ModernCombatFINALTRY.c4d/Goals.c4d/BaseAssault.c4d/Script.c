@@ -5,7 +5,7 @@
 
 public func RejectChoosedClassInfo()	{return true;}
 
-static const GBAS_BombRespawnDelay = 360;
+static const GBAS_BombRespawnDelay = 420;
 
 local fGameOver;
 
