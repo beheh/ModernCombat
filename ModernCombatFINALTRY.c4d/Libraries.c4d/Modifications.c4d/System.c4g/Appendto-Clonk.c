@@ -444,6 +444,12 @@ protected func DoPoints()
         //Achievement-Fortschritt (Trained)
         DoAchievementProgress(1, AC48, killer);
       }
+      
+      if(GetEffect("BaseAssaultBomb", this))
+      {
+      	//Achievement-Fortschritt (Quarterback)
+      	DoAchievementProgress(1, AC50, killer);
+      }
     }
 
     //Killassist

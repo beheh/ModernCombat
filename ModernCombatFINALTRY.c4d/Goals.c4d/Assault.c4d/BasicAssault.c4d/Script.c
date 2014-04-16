@@ -371,9 +371,9 @@ protected func FxIntAssaultTargetTimer(object pTarget, int iNr, int iTime)
     //Entschärfung erfolgreich: Status zurücksetzen
     if(def_process >= DefuseTime())
     {
-      process = 0;
-      def_process = 0;
+    	def_process = 0;
       status = 0;
+    
       EffectVar(6, pTarget, iNr)->Update(0, true);
 
       var assist = false;
@@ -400,10 +400,11 @@ protected func FxIntAssaultTargetTimer(object pTarget, int iNr, int iTime)
       bar->SetIcon(0, SM16, 0, 0, 32);
 
       Sound("AHBS_Defused.ogg", false, pTarget);
-      this->~OnDefusingComplete(defender, pTarget);
+      this->~OnDefusingComplete(defender, pTarget, process);
 
       attacker = [];
       defender = [];
+      process = 0;
     }
   }
 
