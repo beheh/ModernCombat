@@ -9,6 +9,7 @@ protected func Incineration()	{Extinguish();}
 public func OnDmg()		{return 0;}
 protected func Construction()	{return 0;}	//Kein Fundament
 
+
 /* Initialisierung */
 
 protected func Initialize()
