@@ -1,0 +1,2 @@
+DE:Sonnenschirm
+US:Sunshade
