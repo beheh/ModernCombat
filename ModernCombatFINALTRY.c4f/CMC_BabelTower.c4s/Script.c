@@ -537,6 +537,10 @@ func CreateDecoration()
 {
   Log("$CreatingDecoration$");
 
+  //Sonnenschirme
+  CreateObject(SNSE, 1085, 320, -1);
+  CreateObject(SNSE, 1285, 320, -1)->SetColorDw(HSL(145, 210, 100, 127));
+
   //Radio
   CreateObject(RDIO, 720, 1640, -1);
 
