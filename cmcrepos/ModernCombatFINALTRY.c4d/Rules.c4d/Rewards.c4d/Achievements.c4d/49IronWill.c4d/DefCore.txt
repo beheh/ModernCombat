@@ -1,6 +1,6 @@
 [DefCore]
 id=AC49
-Name=Trained
+Name=Iron Will
 Version=4,9,5
 Category=C4D_StaticBack
 Width=502
