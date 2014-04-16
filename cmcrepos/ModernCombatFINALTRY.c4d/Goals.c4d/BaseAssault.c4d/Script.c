@@ -329,8 +329,8 @@ public func SetupBombSpawnpoint(array aSpawnCoordinates)
   bombSpawns = aSpawnCoordinates;
   if(!bombSpawns)
     bombSpawns = [[]];
-
-  PlaceBombSpawnpoint();
+  
+  ScheduleCall(this, "PlaceBombSpawnpoint", GBAS_BombRespawnDelay, 0, 0, 0, true);
   return true;
 }
 
