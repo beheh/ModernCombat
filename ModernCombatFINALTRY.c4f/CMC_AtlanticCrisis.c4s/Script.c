@@ -7,41 +7,6 @@ static aFlag, aLights, iLightsCounter;
 
 func RecommendedGoals()	{return [GOCC,GHTF];}	//Spielzielempfehlung
 
-func LightsOff()
-{
-	aLights = [];
-	for(var light in FindObjects(Find_Func("IsLamp"), Sort_Func("Lamp_SortX")))
-		light->~TurnOff();
-}
-
-func LightsOn()
-{
-	aLights = FindObjects(Find_Func("IsLamp"), Sort_Func("Lamp_SortX"));
-	iLightsCounter = 0;
-	if(aLights[iLightsCounter])
-		Schedule("LightsOnHelper();", 50);
-	else
-		return -1;
-}
-
-global func Lamp_SortX()
-{
-	return GetX();
-}
-
-func LightsOnHelper()
-{
-	while(!aLights[iLightsCounter])
-		if(iLightsCounter >= GetLength(aLights) - 1)
-			return;
-		else
-			iLightsCounter++;
-
-	aLights[iLightsCounter]->~TurnOn();
-	aLights[iLightsCounter] = 0;
-	
-	Schedule("LightsOnHelper();", 50);
-}
 
 /* Initialisierung */
 
@@ -61,6 +26,8 @@ func Initialize()
   CreateEquipment();
   //Dekoration plazieren
   CreateDecoration();
+  //Lichter ausschalten
+  LightsOff();
   return(1);
 }
 
@@ -482,6 +449,47 @@ func FormStorm()
   var back = FindObjects(Find_Func("IsDeco"));
   for (var pObj in back)
    pObj->SetClrModulation(RGBa(50,50,50,5));
+
+  //Lichter einschalten
+  LightsOn();
+}
+
+/* Lichtverwaltung */
+
+func LightsOff()
+{
+  aLights = [];
+  for(var light in FindObjects(Find_Func("IsLamp"), Sort_Func("Lamp_SortX")))
+    light->~TurnOff();
+}
+
+func LightsOn()
+{
+  aLights = FindObjects(Find_Func("IsLamp"), Sort_Func("Lamp_SortX"));
+  iLightsCounter = 0;
+  if(aLights[iLightsCounter])
+    Schedule("LightsOnHelper();", 50);
+  else
+    return -1;
+}
+
+global func Lamp_SortX()
+{
+  return GetX();
+}
+
+func LightsOnHelper()
+{
+  while(!aLights[iLightsCounter])
+    if(iLightsCounter >= GetLength(aLights) - 1)
+      return;
+    else
+      iLightsCounter++;
+
+  aLights[iLightsCounter]->~TurnOn();
+  aLights[iLightsCounter] = 0;
+
+  Schedule("LightsOnHelper();", 50);
 }
 
 /* Regelwähler */
