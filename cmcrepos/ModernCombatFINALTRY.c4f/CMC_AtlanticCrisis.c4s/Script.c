@@ -218,6 +218,9 @@ func CreateInterior()
   for(var obj in FindObjects(Find_Or(Find_ID(SWD1), Find_ID(SWD2), Find_ID(SHEL)), Find_InRect(1280, 370, 3450, 280)))
    RemoveObject(obj);
 
+  //Wasseroberfläche ebnen
+  DrawMaterialQuad("Water",1631,610,4379,610,4379,615,1631,615,1);
+
   //Grenzen
   CreateObject(BRDR, 1170, 0, -1)->Set(0);
   CreateObject(BRDR, 4835, 0, -1)->Set(1);
@@ -276,9 +279,9 @@ func CreateEquipment()
   CreateObject(ATBY,3775,520,-1)->SetRotation(-20);
 
   //Patrouillenboote
-  SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1705,610,-1),50*21);
+  SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1705,609,-1),50*21);
   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2990,570,-1),50*21);
-  SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,4310,610,-1),50*21);
+  SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,4310,609,-1),50*21);
 
   //Automaten
   var store = CreateObject(WPVM,1500, 530,-1);

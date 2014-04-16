@@ -165,6 +165,10 @@ func CreateInterior()
   CreateObject(BLGH, 2850, 520, -1);
   CreateObject(BLGH, 2940, 520, -1);
 
+  //Wasseroberfläche ebnen
+  DrawMaterialQuad("Water",510,790,740,790,740,795,510,795,1);
+  DrawMaterialQuad("Water",1940,790,2100,790,2100,795,1940,795,1);
+
   //Sounds
 
   //Wind
