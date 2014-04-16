@@ -235,6 +235,9 @@ func CreateInterior()
   pRoom = CreateObject(ROOM, 4125, 640, -1);
   pRoom->Connect(doorw);
 
+  //Wasseroberfläche ebnen
+  DrawMaterialQuad("Water",1761,1270,2380,1270,2380,1271,1766,1271,1);
+
   //Sounds
 
   //Zikaden
@@ -641,8 +644,8 @@ public func ChooserFinished()
    CreateObject(SGNP, 6010, 1210, -1);
 
    //Patrouillenboote
-   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1821,1270,-1),50*21);
-   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1891,1270,-1),50*21);
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1821,1269,-1),50*21);
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1904,1269,-1),50*21);
    SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,4165,1269,-1),50*21);
    SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,4235,1269,-1),50*21);
   }
@@ -753,8 +756,8 @@ public func ChooserFinished()
    }
 
    //Patrouillenboote
-   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1821,1270,-1),50*21);
-   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1891,1270,-1),50*21);
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1821,1269,-1),50*21);
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1904,1269,-1),50*21);
    SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,3610,1269,-1),50*21);
 
    //Objekt entfernen

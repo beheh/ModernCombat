@@ -249,6 +249,9 @@ func CreateInterior()
   pRoom2 = CreateObject(ROOM, 2115, 563, -1);
   pRoom2->Connect(doorw2);
 
+  //Wasseroberfläche ebnen
+  DrawMaterialQuad("Water",540,1230,700,1230,700,1235,540,1235,1);
+
   //Sounds
 
   //Möven

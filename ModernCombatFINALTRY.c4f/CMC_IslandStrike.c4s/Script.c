@@ -334,6 +334,11 @@ func CreateInterior()
   for(var obj in FindObjects(Find_Or(Find_ID(SWD1), Find_ID(SWD2)), Find_InRect(7120, 360, 710, 270)))
    RemoveObject(obj);
 
+  //Wasseroberfläche ebnen
+  DrawMaterialQuad("Water",1201,610,1700,610,1700,615,1201,615,1);
+  DrawMaterialQuad("Water",5040,650,5609,650,5609,655,5040,655,1);
+  DrawMaterialQuad("Water",7170,610,7410,610,7410,615,7170,615,1);
+
   //Sounds
 
   //Möven
