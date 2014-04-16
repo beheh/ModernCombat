@@ -262,6 +262,16 @@ public func IsFulfilled()
   //Nur noch ein Team übrig - Sieg!
   if(GetActiveTeamCount() == 1)
   {
+  	//Achievement-Ausgabe
+    for(var i = 0, j; i < GetPlayerCount(); i++)
+    {
+    	if(ObjectCount2(Find_InArray(aTargets[GetPlayerTeam(GetPlayerByIndex(i))])) == 1)
+      {
+		    //Achievement-Fortschritt (<noname>)
+		    DoAchievementProgress(1, AC49, GetPlayerByIndex(i));
+    	}
+    }
+  
     //Spielende planen
     Schedule("GameOver()", 150);
 
@@ -388,9 +398,19 @@ public func PlantingCondition(object pTarget, object pAssaultTarget)
 
 public func OnPlantingComplete(array aAttackers, object pTarget)
 {
+	var e;
   for(var clonk in aAttackers)
-    if(GetEffect("BaseAssaultBomb", clonk))
+  {
+    if(e = GetEffect("BaseAssaultBomb", clonk))
+    {
+    	if(EffectVar(2, clonk, e))
+    	{
+    		//Achievement-Fortschritt (Counterstrike)
+				DoAchievementProgress(1, AC52, GetOwner(clonk));
+    	}
       RemoveEffect("BaseAssaultBomb", clonk);
+    }
+  }
 
   //Eventnachricht: Ladung plaziert, verteidigen
   for(var i = 0,team; i < GetTeamCount(); i++)
@@ -402,14 +422,17 @@ public func OnPlantingComplete(array aAttackers, object pTarget)
   return true;
 }
 
-public func OnDefusingComplete(array aDefenders, object pTarget)
+public func OnDefusingComplete(array aDefenders, object pTarget, int iProcess)
 {
-  var fBomb = false;
+  var fBomb = false, carrier;
   for(var clonk in aDefenders)
     if(clonk && !(clonk->~IsFakeDeath()))
     {
       fBomb = true;
       C4P2->AddBombObject(clonk);
+      EffectVar(2, clonk, GetEffect("BaseAssaultBomb", clonk)) = true;
+      
+      carrier = clonk;
       break;
     }
 
@@ -422,6 +445,12 @@ public func OnDefusingComplete(array aDefenders, object pTarget)
       TeamEventInfo(team, Format("$TargetDefusedAttacker$", GetName(pTarget)), SM17, 0, 0, 0, "Info_Event.ogg");
   //Eventnachricht: Ladung entschärft
   TeamEventInfo(GetTeam(pTarget), Format("$TargetDefusedDefender$", GetName(pTarget)), SM16, 0, 0, 0, "Info_Event.ogg");
+  
+  if(iProcess < EffectVar(5, pTarget, GetEffect("IntAssaultTarget", pTarget))/20)
+	{
+		//Achievement-Fortschritt (No Bang on Time)
+		DoAchievementProgress(1, AC51, GetOwner(carrier));
+	}
 
   return true;
 }
