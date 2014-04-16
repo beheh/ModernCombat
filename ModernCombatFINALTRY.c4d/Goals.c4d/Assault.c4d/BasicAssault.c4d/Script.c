@@ -371,9 +371,9 @@ protected func FxIntAssaultTargetTimer(object pTarget, int iNr, int iTime)
     //Entschärfung erfolgreich: Status zurücksetzen
     if(def_process >= DefuseTime())
     {
-    	def_process = 0;
+      def_process = 0;
       status = 0;
-    
+
       EffectVar(6, pTarget, iNr)->Update(0, true);
 
       var assist = false;

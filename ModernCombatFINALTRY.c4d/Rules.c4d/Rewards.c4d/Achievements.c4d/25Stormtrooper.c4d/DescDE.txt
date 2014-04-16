@@ -1,1 +1,1 @@
-Zerstöre in einer Runde Assault als Angreifer alle Zielobjekte.
+Zerstöre in Assault als Angreifer alle Zielobjekte.

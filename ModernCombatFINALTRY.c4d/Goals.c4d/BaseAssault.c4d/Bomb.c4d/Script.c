@@ -96,7 +96,7 @@ public func FxBaseAssaultBombStart(object pTarget, int iNr)
 
   EffectVar(0, pTarget, iNr) = bar;
   EffectVar(1, pTarget, iNr) = AddLight(300, RGBa(255, 0, 0, 60), pTarget);
-  //EffectVar(2) reserviert für Counterstrike-Achievement
+  //EffectVar(2) für Counterstrike-Errungenschaft reserviert
 }
 
 public func FxBaseAssaultBombTimer(object pTarget, int iNr, int iTime)
