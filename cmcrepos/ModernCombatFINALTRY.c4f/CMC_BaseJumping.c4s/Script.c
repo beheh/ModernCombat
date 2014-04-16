@@ -301,6 +301,14 @@ func CreateDecoration()
 {
   Log("$CreatingDecoration$");
 
+  //Sonnenschirme
+  CreateObject(SNSE, 1075, 390, -1)->SetColorDw(HSL(145, 210, 100, 127));
+  CreateObject(SNSE, 1130, 350, -1)->SetColorDw(HSL(145, 210, 100, 127));
+  CreateObject(SNSE, 1325, 810, -1)->SetColorDw(HSL(145, 210, 100, 127));
+  CreateObject(SNSE, 1755, 810, -1)->SetColorDw(HSL(40, 210, 100, 127));
+  CreateObject(SNSE, 1950, 350, -1)->SetColorDw(HSL(40, 210, 100, 127));
+  CreateObject(SNSE, 2000, 390, -1)->SetColorDw(HSL(40, 210, 100, 127));
+
   //Denkmäler
   CreateObject(MUMT, 1210, 330, -1);
   CreateObject(MUMT, 1870, 330, -1);
