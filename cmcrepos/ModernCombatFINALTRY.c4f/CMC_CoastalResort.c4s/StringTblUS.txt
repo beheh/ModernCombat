@@ -1,0 +1,13 @@
+CreatingInterior=Creating furniture...
+CreatingEquipment=Placing equipment...
+CreatingDecoration=Placing decoration...
+
+Team1=Eurocorps
+Team2=Aggressors
+
+Flag1=Eurocorps-Basis
+Flag2=Vorposten West
+Flag3=Resort
+Flag4=Vorposten Ost
+Flag5=Aggressoren-Basis
+Flag6=Trümmer

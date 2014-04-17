@@ -156,3 +156,9 @@ FullscreenBG=1
 	File=CMC_TwinPeaks.c4s
 	Area=291,455,256,26
 	OverlayImage=OverlayTwinPeaks.png
+
+
+	[Scenario]
+	File=CMC_CoastalResort.c4s
+	Area=291,491,256,26
+	OverlayImage=OverlayCoastalResort.png
