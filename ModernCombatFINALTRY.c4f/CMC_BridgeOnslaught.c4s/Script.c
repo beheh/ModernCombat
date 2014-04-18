@@ -648,10 +648,10 @@ public func ChooserFinished()
   if(FindObject(GBAS))
   {
    //Zielobjekte
-   AddAssaultTarget(CCP2, 640, 440, 300, 1, "$Target1$", 0, [[230, 440], [330, 530]]);
-   AddAssaultTarget(CMSN, 830, 800, 300, 1, "$Target2$", 1, [[640, 640], [420, 630]]);
-   AddAssaultTarget(CMSN, 1900, 800, 300, 2, "$Target2$", 2, [[2090, 640], [2310, 630]]);
-   AddAssaultTarget(CCP2, 2090, 440, 300, 2, "$Target1$", 3, [[2400, 530], [2500, 440]]);
+   AddAssaultTarget(CCP2, 640, 440, 350, 1, "$Target1$", 0, [[230, 440], [330, 530]]);
+   AddAssaultTarget(CMSN, 830, 800, 350, 1, "$Target2$", 1, [[640, 640], [420, 630]]);
+   AddAssaultTarget(CMSN, 1900, 800, 350, 2, "$Target2$", 2, [[2090, 640], [2310, 630]]);
+   AddAssaultTarget(CCP2, 2090, 440, 350, 2, "$Target1$", 3, [[2400, 530], [2500, 440]]);
 
    //Sprengsatz-Spawn
    SetupBombSpawnpoint([[1365, 410],[1365,520],[1365,810]]);

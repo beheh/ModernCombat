@@ -15,3 +15,7 @@ Flag4=Bunkeranlage
 Flag5=Aggressorenstützpunkt
 Flag6=Landezone B
 Flag7=Östlicher Wachturm
+
+Target1=Energieumwandler
+Target2=Steuerungseinheit
+Target3=Radaranlage

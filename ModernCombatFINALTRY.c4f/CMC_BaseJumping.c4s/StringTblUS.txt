@@ -15,3 +15,7 @@ Flag4=Bunker Facility
 Flag5=Aggressors' Base
 Flag6=Landing Zone B
 Flag7=East Watchtower
+
+Target1=Energy Converter
+Target2=Control Unit
+Target3=Radar Unit

@@ -577,6 +577,41 @@ public func ChooserFinished()
    aFlag[6]->Set("$Flag7$",0,2);
   }
 
+  //Base Assault-Spielziel
+  if(FindObject(GBAS))
+  {
+   //Zielobjekte
+   AddAssaultTarget(LBPC, 450, 850, 350, 1, "$Target1$", 0, [[390, 940], [520, 940]]);
+   AddAssaultTarget(CMSN, 1060, 1570, 350, 1, "$Target2$", 1, [[600, 1490], [625, 1570], [720, 1490]]);
+   AddAssaultTarget(RADR, 1210, 330, 350, 1, "$Target3$", 2, [[720, 250], [720, 290], [740, 440]]);
+   AddAssaultTarget(RADR, 1870, 330, 350, 2, "$Target3$", 3, [[2340, 440], [2360, 250], [2360, 290]]);
+   AddAssaultTarget(CMSN, 2020, 1570, 350, 2, "$Target2$", 4, [[2360, 1490], [2455, 1570], [2480, 1490]]);
+   AddAssaultTarget(LBPC, 2630, 850, 350, 2, "$Target1$", 5, [[2560, 940], [2690, 940]]);
+
+   //Sprengsatz-Spawn
+   SetupBombSpawnpoint([[1540, 780],[1540,920]]);
+
+   //Selbstschussanlagen
+   var selfdef = CreateObject(SEGU, 740, 1490, -1);
+   selfdef->Set(0,1,1,180);
+   selfdef->SetTeam(1);
+   selfdef = CreateObject(SEGU, 2340, 1490, -1);
+   selfdef->Set(0,1,1,180);
+   selfdef->SetTeam(2);
+
+   //Zusätzliche Munition
+   if(!FindObject(NOAM))
+   {
+    //Raketen
+    PlaceSpawnpoint(MBOX, 1570, 915);
+   }
+
+   //Objekte entfernen
+   RemoveObject(FindObject2(Find_ID(MNI2),Find_InRect(1520, 880, 30, 40)));
+   RemoveObject(FindObject2(Find_ID(BECR),Find_InRect(1520, 880, 30, 40)));
+   RemoveObject(FindObject2(Find_ID(RSPT),Find_InRect(1520, 880, 30, 40)));
+  }
+
   //HTF-Spielziel
   if(FindObject(GHTF))
   {
