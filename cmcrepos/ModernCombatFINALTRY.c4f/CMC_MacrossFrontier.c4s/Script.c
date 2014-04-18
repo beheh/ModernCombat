@@ -65,11 +65,10 @@ func CreateInterior()
   var door = CreateObject(SLDR, 55, 440, -1);
   door->Lock();
   door->SetMaxDamage(-1);
-
   door = CreateObject(SLDR, 855, 500, -1);
   door->Lock();
   door->SetMaxDamage(-1);
-
+  CreateObject(PKEY, 840, 495, -1)->Set(door,1337);
   door = CreateObject(SLDR, 1495, 360, -1);
   door->Lock();
   door->SetMaxDamage(-1);
@@ -139,10 +138,10 @@ func CreateInterior()
   //Kisten
   CreateObject(WCR2, 405, 302, -1);
   CreateObject(WCR2, 405, 320, -1);
-
   CreateObject(WCR2, 445, 230, -1)->AutoRespawn();
   CreateObject(WCR2, 980, 90, -1)->AutoRespawn();
-
+  var crate = CreateObject(WCR2, 918, 500, -1);
+  CreateContents(RVLR,crate,3);
   CreateObject(WCR2, 1145, 222, -1);
   CreateObject(WCR2, 1145, 240, -1);
 
@@ -262,7 +261,7 @@ func CreateDecoration()
   //Apparaturen
   CreateObject(GADG, 210, 440, -1);
   CreateObject(GADG, 560, 420, -1);
-  CreateObject(GADG, 920, 500, -1)->Set(1);
+  CreateObject(GADG, 875, 500, -1)->Set(1);
   CreateObject(GADG, 990, 340, -1);
   CreateObject(GADG, 1340, 360, -1);
 
