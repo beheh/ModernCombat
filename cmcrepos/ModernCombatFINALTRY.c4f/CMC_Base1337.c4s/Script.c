@@ -683,7 +683,7 @@ public func ChooserFinished()
    //Patrouillenboote
    SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,490,1229,-1),50*21);
    SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,635,1229,-1),50*21);
-   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2480,1229,-1),50*21);
+   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2465,1229,-1),50*21);
    SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2550,1229,-1),50*21);
   }
 

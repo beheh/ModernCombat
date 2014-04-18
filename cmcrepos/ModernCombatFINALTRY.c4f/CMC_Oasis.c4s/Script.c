@@ -89,8 +89,8 @@ func CreateInterior()
   CreateObject(STNE, 1685, 600, -1)->Set(2);
   CreateObject(STNE, 2445, 710, -1);
   CreateObject(STNE, 2915, 680, -1)->Set(1);
-  CreateObject(STNE, 3275, 580, -1)->Set(2);
-  CreateObject(STNE, 3555, 580, -1)->Set(0);
+  CreateObject(STNE, 3275, 583, -1)->Set(2);
+  CreateObject(STNE, 3555, 583, -1)->Set(0);
   CreateObject(STNE, 3915, 680, -1)->Set(3);
   CreateObject(STNE, 4385, 710, -1);
   CreateObject(STNE, 5150, 600, -1)->Set(1);

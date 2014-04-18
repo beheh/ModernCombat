@@ -169,6 +169,9 @@ func CreateInterior()
   DrawMaterialQuad("Water",510,790,740,790,740,795,510,795,1);
   DrawMaterialQuad("Water",1940,790,2100,790,2100,795,1940,795,1);
 
+  //Tunnel ebnen
+  DrawMaterialQuad("Tunnel-SMOOTH",1300,772,1420,772,1420,790,1300,790,1);
+
   //Sounds
 
   //Wind
@@ -367,8 +370,8 @@ public func ChooserFinished()
    }
 
    //Patrouillenboote
-   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,770,790,-1),50*21);
-   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,2070,750,-1),50*21);
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,770,789,-1),50*21);
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,2070,751,-1),50*21);
    SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2605,789,-1),50*21);
 
    //Objekte entfernen
@@ -405,7 +408,7 @@ public func ChooserFinished()
    CreateObject(MWCR, 2350, 550, -1);
 
    //Patrouillenboote
-   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,770,790,-1),50*21);
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,770,789,-1),50*21);
    SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1485,789,-1),50*21);
    SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2605,789,-1),50*21);
   }
