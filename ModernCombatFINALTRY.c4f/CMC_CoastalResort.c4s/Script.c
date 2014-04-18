@@ -853,14 +853,16 @@ public func ChooserFinished()
    CreateObject(SGNP, 7520, 1010, -1);
 
    //Patrouillenboote
-   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,2340,1009,-1),50*21);
-   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,2450,1009,-1),50*21);
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,2250,1009,-1),50*21);
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,2360,1009,-1),50*21);
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,2470,1009,-1),50*21);
    SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,2955,951,-1),50*21);
    SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,3780,951,-1),50*21);
    SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,4710,951,-1),50*21);
    SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,5535,951,-1),50*21);
-   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,6200,1009,-1),50*21);
-   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,6310,1009,-1),50*21);
+   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,6180,1009,-1),50*21);
+   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,6290,1009,-1),50*21);
+   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,6400,1009,-1),50*21);
   }
 
   //Base Assault-Spielziel
@@ -902,14 +904,16 @@ public func ChooserFinished()
    CreateObject(SGNP, 7520, 1010, -1);
 
    //Patrouillenboote
-   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,2340,1009,-1),50*21);
-   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,2450,1009,-1),50*21);
-   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,2955,950,-1),50*21);
-   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,3780,950,-1),50*21);
-   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,4710,950,-1),50*21);
-   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,5535,950,-1),50*21);
-   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,6200,1009,-1),50*21);
-   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,6310,1009,-1),50*21);
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,2250,1009,-1),50*21);
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,2360,1009,-1),50*21);
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,2470,1009,-1),50*21);
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,2955,951,-1),50*21);
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,3780,951,-1),50*21);
+   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,4710,951,-1),50*21);
+   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,5535,951,-1),50*21);
+   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,6180,1009,-1),50*21);
+   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,6290,1009,-1),50*21);
+   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,6400,1009,-1),50*21);
   }
 
   //HTF-Spielziel
@@ -932,20 +936,26 @@ public func ChooserFinished()
    selfdef->SetTeam(2);
 
    //Grenzen setzen
-   CreateObject(BRDR, 2730, 0, -1)->Set(0);
-   CreateObject(BRDR, 5760, 0, -1)->Set(1);
+   CreateObject(BRDR, 2650, 0, -1)->Set(0);
+   CreateObject(BRDR, 5840, 0, -1)->Set(1);
 
    //Hinweisschilder
-   CreateObject(SGNP, 2840, 960, -1);
-   CreateObject(SGNP, 5650, 960, -1);
+   CreateObject(SGNP, 2480, 970, -1);
+   CreateObject(SGNP, 6170, 970, -1);
+
+   //Leitern
+   CreateObject(LADR, 2825, 990, -1)->Set(3);
+   CreateObject(LADR, 5665, 990, -1)->Set(3);
 
    //Patrouillenboote
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,2710,1009,-1),50*21);
    SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,2800,1009,-1),50*21);
-   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,2955,950,-1),50*21);
-   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,3780,950,-1),50*21);
-   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,4710,950,-1),50*21);
-   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,5535,950,-1),50*21);
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,2955,951,-1),50*21);
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,3780,951,-1),50*21);
+   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,4710,951,-1),50*21);
+   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,5535,951,-1),50*21);
    SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,5690,1009,-1),50*21);
+   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,5780,1009,-1),50*21);
   }
 
   //LMS/DM-Spielziel
@@ -960,20 +970,26 @@ public func ChooserFinished()
    selfdef->SetTeam(2);
 
    //Grenzen setzen
-   CreateObject(BRDR, 2730, 0, -1)->Set(0);
-   CreateObject(BRDR, 5760, 0, -1)->Set(1);
+   CreateObject(BRDR, 2650, 0, -1)->Set(0);
+   CreateObject(BRDR, 5840, 0, -1)->Set(1);
 
    //Hinweisschilder
-   CreateObject(SGNP, 2840, 960, -1);
-   CreateObject(SGNP, 5650, 960, -1);
+   CreateObject(SGNP, 2480, 970, -1);
+   CreateObject(SGNP, 6170, 970, -1);
+
+   //Leitern
+   CreateObject(LADR, 2825, 990, -1)->Set(3);
+   CreateObject(LADR, 5665, 990, -1)->Set(3);
 
    //Patrouillenboote
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,2710,1009,-1),50*21);
    SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,2800,1009,-1),50*21);
-   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,2955,950,-1),50*21);
-   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,3780,950,-1),50*21);
-   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,4710,950,-1),50*21);
-   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,5535,950,-1),50*21);
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,2955,951,-1),50*21);
+   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,3780,951,-1),50*21);
+   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,4710,951,-1),50*21);
+   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,5535,951,-1),50*21);
    SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,5690,1009,-1),50*21);
+   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,5780,1009,-1),50*21);
   }
 }
 

@@ -280,7 +280,7 @@ func CreateEquipment()
 
   //Patrouillenboote
   SetupVehicleSpawn([PBOT],DIR_Right,CreateObject(VSPW,1705,609,-1),50*21);
-  SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2990,570,-1),50*21);
+  SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,2990,571,-1),50*21);
   SetupVehicleSpawn([PBOT],DIR_Left,CreateObject(VSPW,4310,609,-1),50*21);
 
   //Automaten
