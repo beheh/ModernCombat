@@ -259,7 +259,7 @@ public func OnDeathAnnounce(object pCrew, int iKiller, int iAssist)
   var iChange;
   //Ungeklärte Ursache oder Selbstmord
   if (iKiller == NO_OWNER || iPlr == iKiller)
-    GoalMoney(iPlr, iChange = -10);
+    GoalMoney(iPlr, iChange = -20);
   else
     //Teamkill
     if (GetPlayerTeam(iPlr) == GetPlayerTeam(iKiller))
