@@ -96,6 +96,11 @@ protected func ActivateEntrance(object pObj)
 
 protected func RejectCollect(id objID, object pObj)
 {
+  if(FindObject2(Find_ID(BRDR), Find_Func("IsDangerous", pObj, GetX(target), GetY(target))))
+  {
+    PlayerMessage(GetOwner(pObj), "$Restricted$", pObj);
+    return true;
+  }
   if(GetEffect("NoDoorEntrance", pObj) && !GetEffect("Move2Door", pObj)) return true;
   if(pObj->~IsWeapon() || pObj->~IsGrenade() || pObj->~IsEquipment()) return true;
 
