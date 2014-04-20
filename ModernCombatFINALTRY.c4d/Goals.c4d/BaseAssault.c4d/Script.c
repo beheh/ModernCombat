@@ -340,7 +340,7 @@ public func SetupBombSpawnpoint(array aSpawnCoordinates)
   if(!bombSpawns)
     bombSpawns = [[]];
 
-	EventInfo4K(0, "$BombSpawnDelay$", C4P2, 0, 0, 0, "Info_Objective.ogg");
+  EventInfo4K(0, "$BombSpawnDelay$", C4P2, 0, 0, 0, "Info_Objective.ogg");
   ScheduleCall(this, "PlaceBombSpawnpoint", GBAS_BombRespawnDelay, 0, 0, 0, true);
   return true;
 }
