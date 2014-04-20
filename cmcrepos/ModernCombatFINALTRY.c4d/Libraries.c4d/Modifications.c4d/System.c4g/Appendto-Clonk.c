@@ -445,7 +445,7 @@ protected func DoPoints()
         DoAchievementProgress(1, AC48, killer);
       }
 
-      if(GetEffect("BaseAssaultBomb", this))
+      if(GetEffect("BaseAssaultBomb", pClonk))
       {
         //Achievement-Fortschritt (Quarterback)
         DoAchievementProgress(1, AC50, killer);
