@@ -8,35 +8,34 @@
 
 /* Ein- und Ausschalten */
 
-public func Switch()
+public func TurnOn(bool fSound)
 {
-  if(broken) return;
-  Sound("LightSwitch*.ogg");
+  if(broken)		return;
+  if(EMPShocked())	return;
 
-  if(GetAction() = "On")
-    TurnOff();
-  else
-    TurnOn();
-}
-
-public func TurnOn()
-{
-  if(broken) return;
-  if(EMPShocked()) return;
   bOn = true;
   SetAction("On");
+
   if(pLight) pLight->TurnOn();
   if(pAlert) pAlert->TurnOn();
+
+  if(!fSound)
+    Sound("LightSwitch*.ogg");
 }
 
-public func TurnOff()
+public func TurnOff(bool fSound)
 {
-  if(broken) return;
+  if(broken)		return;
+
+  bOn = false;
   if(!SetAction("Off"))
     SetAction("Idle");
-  bOn = false;
+
   if(pLight) pLight->TurnOff();
   if(pAlert) pAlert->TurnOff();
+
+  if(!fSound)
+    Sound("LightSwitch*.ogg");
 }
 
 /* (Temporäre) Zerstörung */
@@ -70,6 +69,7 @@ func Reactivate()
     SetAction("On");
     if(pLight) pLight->TurnOn();
     if(pAlert) pAlert->TurnOn();
+    Sound("LightSwitch*.ogg");
   }
 
   broken = false;

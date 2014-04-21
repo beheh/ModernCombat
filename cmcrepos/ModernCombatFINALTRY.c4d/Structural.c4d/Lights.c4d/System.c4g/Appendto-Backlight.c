@@ -21,9 +21,11 @@ protected func Initialize()
   //Licht erstellen
   CreateLight();
   //Einschalten
-  TurnOn();
+  TurnOn(1);
   bOn = true;
 }
+
+/* Lichtverwaltung */
 
 protected func CreateLight()
 {
@@ -39,8 +41,8 @@ public func Light()
 
 public func Switch()
 {
-  if(broken) return;
-  Sound("LightSwitch*.ogg");
+  if(broken)		return;
+  if(EMPShocked())	return;
 
   if(GetAction() == "On")
     TurnOff();
@@ -48,24 +50,32 @@ public func Switch()
     TurnOn();
 }
 
-public func TurnOn()
+public func TurnOn(bool fSound)
 {
-  if(broken) return;
-  if(EMPShocked()) return;
+  if(broken)		return;
+  if(EMPShocked())	return;
+
   bOn = true;
   SetAction("On");
   if(Light())
     Light()->TurnOn();
+
+  if(!fSound)
+    Sound("LightSwitch*.ogg");
 }
 
-public func TurnOff()
+public func TurnOff(bool fSound)
 {
-  if(broken) return;
+  if(broken)		return;
+
+  bOn = false;
   if(!SetAction("Off"))
     SetAction("Idle");
-  bOn = false;
   if(Light())
     Light()->TurnOff();
+
+  if(!fSound)
+    Sound("LightSwitch*.ogg");
 }
 
 /* EMP Effekt */
@@ -90,9 +100,10 @@ public func EMPShockEnd()
 
 public func IsBulletTarget(id def)
 {
-  if(broken) return ;
-  if(!bOn) return ;
-  if(def->~NoDecoDamage()) return;
+  if(broken)			return;
+  if(!bOn)			return;
+  if(def->~NoDecoDamage())	return;
+
   return Random(2);
 }
 

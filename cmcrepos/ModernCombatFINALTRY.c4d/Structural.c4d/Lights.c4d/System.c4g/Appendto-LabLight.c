@@ -15,6 +15,6 @@ protected func Initialize()
   //Licht erstellen
   CreateLight();
   //Einschalten
-  TurnOn();
+  TurnOn(1);
   bOn = true;
 }
