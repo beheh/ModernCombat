@@ -567,7 +567,7 @@ func OnPillarCollapseL(int iPlr)
   DrawMap(3840,500,151,261, "map Empty{};");
 
   //Lebewesen verletzen
-  for(var obj in FindObjects(Find_OCF(OCF_Alive), Find_InRect(3840,550,160,240)))
+  for(var obj in FindObjects(Find_OCF(OCF_Alive), Find_InRect(3840,570,160,220)))
    DoDmg(200, DMG_Explosion, obj, 0, iPlr + 1);
 
   //Dekoration entfernen
@@ -585,19 +585,19 @@ func OnPillarCollapseL(int iPlr)
   while(pContent = Contents(0, pRoom1))
    pRoom1->Exit(pContent);
 
-  //Lebewesen schwer verletzen
-  for(var obj in FindObjects(Find_OCF(OCF_Alive), Find_InRect(3840, 550, 150, 270)))
-   DoDmg(200, DMG_Explosion, obj, 0, iPlr + 1);
-
   //Trümmer verschleudern
   var debris = CreateObject(DBRS, 3915,560, iPlr);
   Fling(debris, RandomX(3,6), RandomX(-2,1));
+  SetRDir(RandomX(-20,20),debris);
   debris = CreateObject(DBRS, 3915,620, iPlr);
   Fling(debris, RandomX(3,6), RandomX(-2,1));
+  SetRDir(RandomX(-20,20),debris);
   debris = CreateObject(DBRS, 3915,680, iPlr);
   Fling(debris, RandomX(3,6), RandomX(-2,1));
+  SetRDir(RandomX(-20,20),debris);
   debris = CreateObject(DBRS, 3915,740, iPlr);
   Fling(debris, RandomX(3,6), RandomX(-2,1));
+  SetRDir(RandomX(-20,20),debris);
 
   //Leiter
   CreateObject(LADR, 4007, 869, -1)->Set(9);
@@ -646,7 +646,7 @@ func OnPillarCollapseR(int iPlr)
   DrawMap(4500,500,151,261, "map Empty{};");
 
   //Lebewesen verletzen
-  for(var obj in FindObjects(Find_OCF(OCF_Alive), Find_InRect(4490,550,160,240)))
+  for(var obj in FindObjects(Find_OCF(OCF_Alive), Find_InRect(4490,570,160,220)))
    DoDmg(200, DMG_Explosion, obj, 0, iPlr + 1);
 
   //Dekoration entfernen
@@ -664,19 +664,19 @@ func OnPillarCollapseR(int iPlr)
   while(pContent = Contents(0, pRoom2))
    pRoom2->Exit(pContent);
 
-  //Lebewesen schwer verletzen
-  for(var obj in FindObjects(Find_OCF(OCF_Alive), Find_InRect(4500, 550, 150, 270)))
-   DoDmg(200, DMG_Explosion, obj, 0, iPlr + 1);
-
   //Trümmer verschleudern
   var debris = CreateObject(DBRS, 4575,560, iPlr);
   Fling(debris, RandomX(-3,-6), RandomX(-2,1));
+  SetRDir(RandomX(-20,20),debris);
   debris = CreateObject(DBRS, 4575,620, iPlr);
   Fling(debris, RandomX(-3,-6), RandomX(-2,1));
+  SetRDir(RandomX(-20,20),debris);
   debris = CreateObject(DBRS, 4575,680, iPlr);
   Fling(debris, RandomX(-3,-6), RandomX(-2,1));
+  SetRDir(RandomX(-20,20),debris);
   debris = CreateObject(DBRS, 4575,740, iPlr);
   Fling(debris, RandomX(-3,-6), RandomX(-2,1));
+  SetRDir(RandomX(-20,20),debris);
 
   //Leiter
   CreateObject(LADR, 4485, 869, -1)->Set(9);

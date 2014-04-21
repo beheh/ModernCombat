@@ -792,12 +792,16 @@ func OnPillarCollapseL1(int iPlr)
   //Trümmer verschleudern
   var debris = CreateObject(DBRS, 980,940, iPlr);
   Fling(debris, RandomX(-4,-2), RandomX(-2,1));
+  SetRDir(RandomX(-20,20),debris);
   debris = CreateObject(DBRS, 980,1040, iPlr);
   Fling(debris, RandomX(-4,-2), RandomX(-2,1));
+  SetRDir(RandomX(-20,20),debris);
   debris = CreateObject(DBRS, 980,1040, iPlr);
   Fling(debris, RandomX(2,4), RandomX(-2,1));
+  SetRDir(RandomX(-20,20),debris);
   debris = CreateObject(DBRS, 980,1140, iPlr);
   Fling(debris, RandomX(-4,-2), RandomX(-2,1));
+  SetRDir(RandomX(-20,20),debris);
 }
 
 func PreparePillarCollapseL2(int iPlr)
@@ -839,11 +843,14 @@ func OnPillarCollapseL2(int iPlr)
   //Trümmer verschleudern
   var debris = CreateObject(DBRS, 970,1330, iPlr);
   Fling(debris, RandomX(-4,-2), RandomX(-2,1));
+  SetRDir(RandomX(-20,20),debris);
   debris = CreateObject(DBRS, 970,1450, iPlr);
   debris->Sound("StructureIntegrity*.ogg");
   Fling(debris, RandomX(-4,-2), RandomX(-2,1));
+  SetRDir(RandomX(-20,20),debris);
   debris = CreateObject(DBRS, 970,1450, iPlr);
   Fling(debris, RandomX(2,4), RandomX(-2,1));
+  SetRDir(RandomX(-20,20),debris);
 }
 
 func PreparePillarCollapseR1(int iPlr)
@@ -886,13 +893,17 @@ func OnPillarCollapseR1(int iPlr)
   //Trümmer verschleudern
   var debris = CreateObject(DBRS, 1390,940, iPlr);
   Fling(debris, RandomX(2,4), RandomX(-2,1));
+  SetRDir(RandomX(-20,20),debris);
   debris = CreateObject(DBRS, 1390,1040, iPlr);
   debris->Sound("StructureIntegrity*.ogg");
   Fling(debris, RandomX(2,4), RandomX(-2,1));
+  SetRDir(RandomX(-20,20),debris);
   debris = CreateObject(DBRS, 1390,1040, iPlr);
   Fling(debris, RandomX(-4,-2), RandomX(-2,1));
+  SetRDir(RandomX(-20,20),debris);
   debris = CreateObject(DBRS, 1390,1140, iPlr);
   Fling(debris, RandomX(2,4), RandomX(-2,1));
+  SetRDir(RandomX(-20,20),debris);
 }
 
 func PreparePillarCollapseR2(int iPlr)
@@ -934,11 +945,14 @@ func OnPillarCollapseR2(int iPlr)
   //Trümmer verschleudern
   var debris = CreateObject(DBRS, 1400,1330, iPlr);
   Fling(debris, RandomX(2,4), RandomX(-2,1));
+  SetRDir(RandomX(-20,20),debris);
   debris = CreateObject(DBRS, 1400,1450, iPlr);
   debris->Sound("StructureIntegrity*.ogg");
   Fling(debris, RandomX(2,4), RandomX(-2,1));
+  SetRDir(RandomX(-20,20),debris);
   debris = CreateObject(DBRS, 1400,1450, iPlr);
   Fling(debris, RandomX(-4,-2), RandomX(-2,1));
+  SetRDir(RandomX(-20,20),debris);
 }
 
 /* Bei Turmzusammenfall */
