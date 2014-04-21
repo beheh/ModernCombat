@@ -441,8 +441,10 @@ func CreateDecoration()
 
   //Straßenlichter
   CreateObject(SLGH, 2300, 970, -1);
+  CreateObject(SLGH, 2960, 960, -1);
   CreateObject(SLGH, 3790, 920, -1);
   CreateObject(SLGH, 4700, 920, -1);
+  CreateObject(SLGH, 5530, 960, -1);
   CreateObject(SLGH, 6350, 970, -1);
 
   //Büsche
@@ -729,7 +731,7 @@ func LightsOff()
 {
   aLights = [];
   for(var light in FindObjects(Find_Func("IsLamp"), Sort_Func("Lamp_SortX")))
-    light->~TurnOff();
+    light->~TurnOff(1);
 }
 
 func LightsOn()
