@@ -44,7 +44,7 @@ public func FMData1(int data)
 
   if(data == FM_Auto)		return true;						//Automatikfeuer
   
-  if(data == FM_Damage)		return 6;	//Schadenswert
+  if(data == FM_Damage)		return 6;						//Schadenswert
   
   if(data == FM_Slot)		return 1;						//Slot des Feuermodus
   

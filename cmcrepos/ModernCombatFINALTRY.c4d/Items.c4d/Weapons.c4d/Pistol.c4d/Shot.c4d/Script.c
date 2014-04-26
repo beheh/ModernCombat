@@ -304,17 +304,17 @@ public func OnBulletHit(object pObject, int iX, int iY)
 public func BulletStrike(object pObj)
 {
   if(pObj)
-  	if(iAttachment != AT_Silencer)
-    	DoDmg(iDamage, DMG_Projectile, pObj, 0, 0, 0, iAttachment);
+    if(iAttachment != AT_Silencer)
+      DoDmg(iDamage, DMG_Projectile, pObj, 0, 0, 0, iAttachment);
     else
     {
-    	var x = 5;
-    	var stepsize = 150;
-    	var maxsteps = 3;
-			var step = Min(maxsteps, (Distance(GetX(), GetY(), GetX(pObj), GetY(pObj)) / stepsize));
-			var newDamage = iDamage - (((iDamage * step) / x) + (Random(x) < ((iDamage * step) % x)));
-			Message(Format("%d", newDamage), pObj);
-			DoDmg(newDamage, DMG_Projectile, pObj, 0, 0, 0, iAttachment);
+      //Schadensreduktion bei schallgedämpften Waffen
+      var x = 5;
+      var stepsize = 150;
+      var maxsteps = 3;
+      var step = Min(maxsteps, (Distance(GetX(), GetY(), GetX(pObj), GetY(pObj)) / stepsize));
+      var newDamage = iDamage - (((iDamage * step) / x) + (Random(x) < ((iDamage * step) % x)));
+      DoDmg(newDamage, DMG_Projectile, pObj, 0, 0, 0, iAttachment);
     }
   return true;
 }
