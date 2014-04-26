@@ -38,23 +38,23 @@ public func FMData1(int data)
 {
   if(data == FM_Name)		return "$Bullets$";
 
-  if(data == FM_AmmoID)		return STAM;									//ID der Munition
-  if(data == FM_AmmoLoad)	return 15 + (iAttachment == AT_ExtendedMag)*6;					//Magazingröße
+  if(data == FM_AmmoID)		return STAM;						//ID der Munition
+  if(data == FM_AmmoLoad)	return 15 + (iAttachment == AT_ExtendedMag)*6;		//Magazingröße
 
-  if(data == FM_Reload)		return 40 + (iAttachment == AT_ExtendedMag)*17;					//Zeit für Nachladen
+  if(data == FM_Reload)		return 40 + (iAttachment == AT_ExtendedMag)*17;		//Zeit für Nachladen
 
-  if(data == FM_Recharge)	return 5;									//Zeit bis erneut geschossen werden kann
+  if(data == FM_Recharge)	return 5;						//Zeit bis erneut geschossen werden kann
 
-  if(data == FM_Auto)		return false;									//Kein Automatikfeuer
+  if(data == FM_Auto)		return false;						//Kein Automatikfeuer
 
-  if(data == FM_Damage)		return 12;	//Schadenswert
+  if(data == FM_Damage)		return 12;						//Schadenswert
 
-  if(data == FM_Slot)		return 1;									//Slot des Feuermodus
+  if(data == FM_Slot)		return 1;						//Slot des Feuermodus
 
-  if(data == FM_SpreadAdd)	return 60 - (iAttachment == AT_Laserpointer)*4;					//Bei jedem Schuss hinzuzuaddierende Streuung
-  if(data == FM_StartSpread)	return 30 - (iAttachment == AT_Laserpointer)*20;				//Bei Auswahl der Waffe gesetzte Streuung
-  if(data == FM_MaxSpread)	return 220 - (iAttachment == AT_Laserpointer)*70;				//Maximaler Streuungswert
-  if(data == FM_MinSpread)	return 20 - (iAttachment == AT_Laserpointer)*10;				//Kleinstmögliche Streuung
+  if(data == FM_SpreadAdd)	return 60 - (iAttachment == AT_Laserpointer)*4;		//Bei jedem Schuss hinzuzuaddierende Streuung
+  if(data == FM_StartSpread)	return 30 - (iAttachment == AT_Laserpointer)*20;	//Bei Auswahl der Waffe gesetzte Streuung
+  if(data == FM_MaxSpread)	return 220 - (iAttachment == AT_Laserpointer)*70;	//Maximaler Streuungswert
+  if(data == FM_MinSpread)	return 20 - (iAttachment == AT_Laserpointer)*10;	//Kleinstmögliche Streuung
 
   return Default(data);
 }

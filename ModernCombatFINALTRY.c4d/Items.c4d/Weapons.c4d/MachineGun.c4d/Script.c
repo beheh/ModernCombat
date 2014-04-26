@@ -17,7 +17,7 @@ public func SelectionTime()	{return 36;}	//Anwahlzeit
 
 func PermittedAtts()
 {
-  return AT_ExtendedMag | AT_Bayonet | AT_Laserpointer | AT_Flashlight;
+  return AT_ExtendedMag | AT_Silencer | AT_Bayonet | AT_Laserpointer | AT_Flashlight;
 }
 
 /* Nahkampfangriff */
@@ -114,13 +114,26 @@ public func Fire1()
   user->WeaponEnd(x,y);
 
   //Kugel abfeuern
-  var ammo = SALaunchBullet(x,y,GetController(user),angle,270,750,GetFMData(FM_Damage));
+  var ammo = SALaunchBullet(x,y,GetController(user),angle,270,750,GetFMData(FM_Damage), 0, 0,iAttachment == AT_Silencer);
 
   //Effekte
-  MuzzleFlash(RandomX(35,50),user,x,y,angle,0, 0);
-  SABulletCasing(x/3,y/3,-dir*14*(Random(1)+1),-(13+Random(2)),5);
-  Sound("MNGN_Fire.ogg", 0, ammo);
-  Echo("MNGN_Echo.ogg");
+  if(iAttachment != AT_Silencer)
+  {
+    MuzzleFlash(RandomX(35,50),user,x,y,angle,0, 0);
+    SABulletCasing(x/3,y/3,-dir*14*(Random(1)+1),-(13+Random(2)),5);
+    Sound("MNGN_Fire.ogg", 0, ammo);
+    Echo("MNGN_Echo.ogg");
+  }
+  else
+  {
+    Sound("WPN2_SilencerFire*.ogg", 0, ammo, 0, GetOwner(user)+1);
+    Sound("WPN2_SilencerFire*.ogg", 0, ammo, 30);
+    Echo("WPN2_SilencerEcho.ogg");
+
+    //Tarneffekt des Schützen schwächen
+    if(GetEffect("Silencer", this))
+      EffectVar(0, this, GetEffect("Silencer", this)) -= BoundBy(25, 0, EffectVar(0, this, GetEffect("Silencer", this)));
+  }
 
   //Klickgeräusch bei wenig Munition
   if(Inside(GetAmmo(GetFMData(FM_AmmoID)), 1, GetFMData(FM_AmmoLoad)/3))
