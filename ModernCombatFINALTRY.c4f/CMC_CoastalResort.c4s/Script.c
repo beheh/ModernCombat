@@ -430,14 +430,14 @@ func CreateDecoration()
   CreateObject(SLBB, 6410, 1310, -1)->SetR(-30);
 
   //Bambush¸tten
-  CreateObject(HUT1, 1510, 992, -1);
-  CreateObject(HUT1, 1720, 922, -1)->SetR(-5);
-  CreateObject(HUT1, 1980, 832, -1)->SetR(-1);
-  CreateObject(HUT1, 3190, 932, -1)->SetR(1);
-  CreateObject(HUT1, 5295, 932, -1)->SetR(-1);
-  CreateObject(HUT1, 6720, 805, -1)->SetR(1);
-  CreateObject(HUT1, 6860, 902, -1)->SetR(5);
-  CreateObject(HUT1, 7050, 972, -1);
+  CreateObject(HTB1, 1510, 992, -1);
+  CreateObject(HTB1, 1720, 922, -1)->SetR(-5);
+  CreateObject(HTB1, 1980, 832, -1)->SetR(-1);
+  CreateObject(HTB1, 3190, 932, -1)->SetR(1);
+  CreateObject(HTB1, 5295, 932, -1)->SetR(-1);
+  CreateObject(HTB1, 6720, 805, -1)->SetR(1);
+  CreateObject(HTB1, 6860, 902, -1)->SetR(5);
+  CreateObject(HTB1, 7050, 972, -1);
 
   //Straﬂenlichter
   CreateObject(SLGH, 2300, 970, -1);
