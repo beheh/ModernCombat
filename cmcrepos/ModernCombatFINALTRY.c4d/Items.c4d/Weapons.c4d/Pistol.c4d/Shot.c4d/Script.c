@@ -482,7 +482,7 @@ private func HitCheck(int r, int d)
             var lyTwo = -Cos(r, temp);
 
             //Wenn erster Punkt weiter weg, diesen wählen, sonst den anderen
-            if(Distance(lxOne, lyOne, GetX(), GetY()) > Distance(lxTwo, lyTwo, GetX(), GetY()))
+            if(Distance(lxOne, lyOne) > Distance(lxTwo, lyTwo))
             {
               lx = lxOne;
               ly = lyOne;
