@@ -47,7 +47,7 @@ public func FMData1(int data)
 
   if(data == FM_Auto)		return false;									//Kein Automatikfeuer
 
-  if(data == FM_Damage)		return 12 - (iAttachment == AT_Silencer)*((Random(10)<6)+(Random(10)<6));	//Schadenswert
+  if(data == FM_Damage)		return 12;	//Schadenswert
 
   if(data == FM_Slot)		return 1;									//Slot des Feuermodus
 
