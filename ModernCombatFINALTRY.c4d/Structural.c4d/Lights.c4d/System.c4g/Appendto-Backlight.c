@@ -82,7 +82,7 @@ public func TurnOff(bool fSound)
 
 public func EMPShock()
 {
-  TurnOff();
+  TurnOff(1);
   EMPShockEffect(800+Random(200));
 }
 
