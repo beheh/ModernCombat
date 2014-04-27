@@ -45,8 +45,6 @@ global func BonusPoints(string szType, extraData)
   //Assault/Base Assault
   if(szType == "ASDestruction")			return 50;		//Zielobjektzerstörung
   if(szType == "ASDestructionAssist")		return 20;		//Hilfe bei Zielobjektzerstörung
-  if(szType == "ASTeamDestruction")		return -50;		//Team-Zielobjektzerstörung
-  if(szType == "ASTeamDestructionAssist")	return -20;		//Hilfe bei Team-Zielobjektzerstörung
   if(szType == "ASTargetDefused")		return 20;		//Sprengladungsentschärfung
   if(szType == "ASTargetDefusedAssist")		return 10;		//Hilfe bei Sprengladungsentschärfung
   if(szType == "ASTargetArmed")			return 20;		//Sprengladungsplazierung
