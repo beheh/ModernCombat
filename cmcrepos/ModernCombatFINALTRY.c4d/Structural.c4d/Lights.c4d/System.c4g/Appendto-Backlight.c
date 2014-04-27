@@ -41,13 +41,14 @@ public func Light()
 
 public func Switch()
 {
-  if(broken)		return;
-  if(EMPShocked())	return;
-
   if(GetAction() == "On")
     TurnOff();
   else
+  {
+    if(broken)		return;
+    if(EMPShocked())	return;
     TurnOn();
+  }
 }
 
 public func TurnOn(bool fSound)
@@ -66,8 +67,6 @@ public func TurnOn(bool fSound)
 
 public func TurnOff(bool fSound)
 {
-  if(broken)		return;
-
   bOn = false;
   if(!SetAction("Off"))
     SetAction("Idle");
