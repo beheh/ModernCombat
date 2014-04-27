@@ -859,6 +859,8 @@ public func ChooserFinished()
 
 public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bool fConnectedDestroyed)
 {
+  if(!FindObject(GASS) || FindObject(GBAS)) return(0);
+
   //Ziel 1
   if(!iIndex)
   {
