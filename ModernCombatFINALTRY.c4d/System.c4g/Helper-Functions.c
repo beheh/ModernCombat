@@ -20,7 +20,7 @@ global func StuckSolid(object pTarget)
   for(var i = 0, x, y; i <= GetVertexNum(); i++)
   {
     x = GetVertex(i, false, pTarget); y = GetVertex(i, true, pTarget);
-    if(!pTarget->GBackSemiSolid(x, y) && pTarget->GBackSolid(x, y))
+    if(MaterialName(GetMaterial(x,y)) == "Vehicle" || (!pTarget->GBackSemiSolid(x, y) && pTarget->GBackSolid(x, y)))
       return true;
   }
 }
