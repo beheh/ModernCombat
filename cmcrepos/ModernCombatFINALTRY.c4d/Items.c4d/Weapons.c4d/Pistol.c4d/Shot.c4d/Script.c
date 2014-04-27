@@ -304,17 +304,18 @@ public func OnBulletHit(object pObject, int iX, int iY)
 public func BulletStrike(object pObj)
 {
   if(pObj)
-  	if(iAttachment != AT_Silencer)
-    	DoDmg(iDamage, DMG_Projectile, pObj, 0, 0, 0, iAttachment);
+    if(iAttachment != AT_Silencer)
+      DoDmg(iDamage, DMG_Projectile, pObj, 0, 0, 0, iAttachment);
     else
     {
-    	var x = 9;
-    	var stepsize = 75;
-    	var maxsteps = 6;
-			var step = BoundBy((Distance(GetX(), GetY(), GetX(pObj), GetY(pObj)) / stepsize), 1, maxsteps) - 1;
-			var newDamage = iDamage - ((iDamage * step) / x);
-			Message(Format("%d red: %d step: %d dist: %d", newDamage, ((iDamage * step) / x), step, Distance(GetX(), GetY(), GetX(pObj), GetY(pObj))), pObj);
-			DoDmg(newDamage, DMG_Projectile, pObj, 0, 0, 0, iAttachment);
+      //Schadensreduzierung auf Entfernung bei schallgedämpften Waffen
+      var x = 9;
+      var stepsize = 75;
+      var maxsteps = 6;
+      var step = BoundBy((Distance(GetX(), GetY(), GetX(pObj), GetY(pObj)) / stepsize), 1, maxsteps) - 1;
+      var newDamage = iDamage - ((iDamage * step) / x);
+      //Message(Format("%d red: %d step: %d dist: %d", newDamage, ((iDamage * step) / x), step, Distance(GetX(), GetY(), GetX(pObj), GetY(pObj))), pObj);
+      DoDmg(newDamage, DMG_Projectile, pObj, 0, 0, 0, iAttachment);
     }
   return true;
 }
