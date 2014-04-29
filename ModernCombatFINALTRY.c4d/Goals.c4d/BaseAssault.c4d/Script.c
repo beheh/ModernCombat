@@ -25,12 +25,15 @@ public func ChooserFinished()
 
 /* Bekanntgabe */
 
-public func ReportAssaultTargetDestruction(object pTarget, int iTeam)
+public func ReportAssaultTargetDestruction(object pTarget, int iTeam, array aAttackers)
 {
   if(GetIndexOf(pTarget, aTargets[iTeam]) == -1)
     return;
 
-  _inherited(pTarget, iTeam, ...);
+  _inherited(pTarget, iTeam, aAttackers, ...);
+
+	//Punkte bei Belohnungssystem (Zielobjektzerstörung)
+  DoPlayerPoints(BonusPoints("ASDestruction"), RWDS_TeamPoints, GetOwner(aAttackers[0]), aAttackers[0], IC03);
 
   //Eventnachricht: Zielobjekt zerstört
   EventInfo4K(0, Format("$TargetDestruction$", GetTeamColor(iTeam), GetName(pTarget)), GBAS, 0, 0, 0, "Info_Objective.ogg");
@@ -411,6 +414,9 @@ public func OnPlantingComplete(array aAttackers, object pTarget)
       }
       RemoveEffect("BaseAssaultBomb", clonk);
     }
+    
+    //Punkte bei Belohnungssystem ()
+    DoPlayerPoints(BonusPoints("ASTargetArmedAssist"), RWDS_TeamPoints, GetOwner(clonk), clonk, IC12);
   }
 
   //Eventnachricht: Ladung plaziert, verteidigen
