@@ -28,9 +28,9 @@ public func Initialize()
 {
   closed = true;
   Unlock();
-  SetMaxDamage(50); // default
+  SetMaxDamage(50);	//Standardmaximalschaden
   AddEffect("CheckOpen",this,1,5,this);
-  
+
   UpdateTransferZone();
 }
 
@@ -41,21 +41,16 @@ public func UpdateTransferZone()
 
 public func ControlTransfer(object obj, int x, int y)
 {
-  //Versperrt und Türe zu!
+  //Versperrt und verschlossen: Nichts unternehmen
   if(lock && closed)
     return false;
-  
+
   var dir = 1;
   if(GetX(obj) < GetX())
     dir = -1;
-  
-  //Türe zu?
+
   if(closed)
-    //Nahe genug herkommen, damit sie aufgeht.
-      return AddCommand(obj,"MoveTo",0,GetX()+10*dir,GetY());
-  
-  //Türe offen -> Durchgehn \o/
-  
+    return AddCommand(obj,"MoveTo",0,GetX()+10*dir,GetY());
 }
 
 /* Schlossfunktionen */
@@ -102,18 +97,20 @@ public func SwitchOff()		{Close();}
 
 public func Open()
 {
-  if(destroyed) return ;
-  if(!closed) return ;
+  if(destroyed)		return;
+  if(!closed)		return;
   OnOpen();
   closed = false;
 }
 
 public func Close()
 {
-  if(destroyed) return ;
-  if(closed) return ;
+  if(destroyed)		return;
+  if(closed)		return;
   OnClose();
   closed = true;
+
+  //Tür verfügt über SolidMask: Eventuell feststeckende Objekte freimachen
   if(!GetDefCoreVal("SolidMask",0,GetID(),3)) return;
   for(var o in FindObjects(Find_InRect(-GetObjWidth()/2,-GetObjHeight()/2,GetObjWidth(),GetObjHeight()),
   				Find_Category(C4D_Vehicle | C4D_Living | C4D_Object),
@@ -173,7 +170,7 @@ private func SomeonesApproaching()
     aClonks = FindObjects(Find_InRect(-35 * i, -GetObjHeight() / 2, 35, GetObjHeight()),
     				Find_NoContainer(),
     				Find_OCF(OCF_Alive),
-    				Find_Not(Find_Func("IsAlien")) );
+    				Find_Not(Find_Func("IsAlien")));
     if(GetLength(aClonks) > 0)
     {
       return true;
