@@ -32,7 +32,7 @@ public func ReportAssaultTargetDestruction(object pTarget, int iTeam, array aAtt
 
   _inherited(pTarget, iTeam, aAttackers, ...);
 
-	//Punkte bei Belohnungssystem (Zielobjektzerstörung)
+  //Punkte bei Belohnungssystem (Zielobjektzerstörung)
   DoPlayerPoints(BonusPoints("ASDestruction"), RWDS_TeamPoints, GetOwner(aAttackers[0]), aAttackers[0], IC03);
 
   //Eventnachricht: Zielobjekt zerstört
@@ -414,9 +414,9 @@ public func OnPlantingComplete(array aAttackers, object pTarget)
       }
       RemoveEffect("BaseAssaultBomb", clonk);
     }
-    
-    //Punkte bei Belohnungssystem ()
-    DoPlayerPoints(BonusPoints("ASTargetArmedAssist"), RWDS_TeamPoints, GetOwner(clonk), clonk, IC12);
+
+    //Punkte bei Belohnungssystem (Hilfe bei Sprengladungsplazierung)
+    DoPlayerPoints(BonusPoints("ASTargetArmedAssist"), RWDS_TeamPoints, GetOwner(clonk), clonk, IC15);
   }
 
   //Eventnachricht: Ladung plaziert, verteidigen
