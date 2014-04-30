@@ -9,6 +9,7 @@ local left;
 
 func Initialize()
 {
+  //Eventuell feststeckende Objekte freimachen
   Unstuck();
 }
 

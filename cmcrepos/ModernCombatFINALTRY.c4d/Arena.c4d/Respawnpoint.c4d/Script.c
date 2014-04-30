@@ -72,6 +72,7 @@ func Respawn()
 
   if(!GetDefCoreVal("SolidMask",0,GetID(obj),3)) return;
 
+  //Eventuell feststeckende Objekte freimachen
   for(var o in obj->FindObjects(Find_InRect(-GetObjWidth(obj)/2,-GetObjHeight(obj),GetObjWidth(obj),GetObjHeight(obj)),
   				Find_Category(C4D_Vehicle | C4D_Living | C4D_Object),
   				Find_NoContainer(),
