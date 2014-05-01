@@ -63,8 +63,6 @@ Assault/Base Assault:
 
 Zielobjektzerstörung			50		Teampunkte		IC03
 Hilfe bei Zielobjektzerstörung		30		Teampunkte		IC03
-Team-Zielobjektzerstörung		-50		Minuspunkte		IC03
-Hilfe bei Team-Zielobjektzerstörung	-30		Minuspunkte		IC03
 Sprengladungsentschärfung		20		Teampunkte		IC15
 Hilfe bei Sprengladungsentschärfung	10		Teampunkte		IC15
 Sprengladungsplazierung			20		Teampunkte		IC15
