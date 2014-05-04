@@ -24,7 +24,6 @@ local ChargeBar;
 local pMAVStation;
 
 public func AttractTracer(object pTracer)	{return GetPlayerTeam(GetController(pTracer)) != GetTeam() && !fDestroyed;}
-public func IsBulletTarget()			{return !fDestroyed;}
 public func IsDestroyed()			{return fDestroyed;}
 public func AimAngle()				{return iAimAngle;}  //Winkel auf Ziel
 public func ReadyToFire()			{return 1;}
@@ -56,6 +55,14 @@ public func MaxRotLeft()
 public func MaxRotRight()
 {
   return 240;
+}
+
+public func IsBulletTarget()			
+{
+  if(fDestroyed)
+    return;
+  else
+    return DefaultBulletTarget(...);
 }
 
 
