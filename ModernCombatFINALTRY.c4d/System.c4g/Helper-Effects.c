@@ -10,17 +10,18 @@
 //Effekt, der Objekte aus Materialien herauszieht.
 
 global func FxIntUnstuck4KStart(object pTarget, int iEffectNumber, int iTemp, int iXDir, int iYDir)
-{
+{	
   if(!iXDir && !iYDir)
   {
     for(var j = 10; j < 60;j+=10)
     {
-      for(var i = -180; i < 180; i+=45)//In 45° Schritten testen.
+    	//In 45° Schritten testen.
+      for(var i = -180; i < 180; i+=45)
       {
         iXDir = Cos(i,j);
         iYDir = Sin(i,j);
-
-        if(!GBackSolid(iXDir,iYDir))
+		
+        if(!StuckSolid(pTarget,iXDir,iYDir))
         {
           EffectVar (0,pTarget,iEffectNumber) = iXDir;
           EffectVar (1,pTarget,iEffectNumber) = iYDir;
