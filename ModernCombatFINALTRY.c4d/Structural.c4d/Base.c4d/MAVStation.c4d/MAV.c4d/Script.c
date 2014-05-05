@@ -57,7 +57,7 @@ public func MaxRotRight()
   return 240;
 }
 
-public func IsBulletTarget()			
+public func IsBulletTarget()
 {
   if(fDestroyed)
     return;
