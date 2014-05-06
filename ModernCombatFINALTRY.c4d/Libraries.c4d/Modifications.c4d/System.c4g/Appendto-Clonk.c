@@ -643,16 +643,16 @@ global func FakeDeath(object pTarget)
   //Achievements
   if(Hostile(GetOwner(pTarget), GetKiller(pTarget)))
   {
-		var data = GetAchievementExtra(AC08, GetKiller(pTarget)); 
-		if(!data) data = CreateArray(); 
-		data[GetOwner(pTarget)]++; 
-		SetAchievementExtra(data, AC08, GetKiller(pTarget));
-		if(data[GetOwner(pTarget)] >= AC08->GetAchievementScore()) 
-		{ 
-		  //Achievement-Fortschritt (Epic Kill)
-		  AwardAchievement(AC08, GetKiller(pTarget)); 
-		}
-	}
+    var data = GetAchievementExtra(AC08, GetKiller(pTarget));
+    if(!data) data = CreateArray();
+    data[GetOwner(pTarget)]++;
+    SetAchievementExtra(data, AC08, GetKiller(pTarget));
+    if(data[GetOwner(pTarget)] >= AC08->GetAchievementScore())
+    {
+      //Achievement-Fortschritt (Epic Kill)
+      AwardAchievement(AC08, GetKiller(pTarget));
+    }
+  }
 
   ResetAchievementProgress(AC12, GetOwner());
   ResetAchievementProgress(AC14, GetOwner());
