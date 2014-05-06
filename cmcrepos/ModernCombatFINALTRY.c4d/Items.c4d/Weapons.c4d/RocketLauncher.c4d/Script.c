@@ -25,7 +25,7 @@ public func FMData1(int data)
   if(data == FM_ProjectileID)	return MISL;	//ID des Projektils
   if(data == FM_AmmoLoad)	return 1;	//Magazingröße
 
-  if(data == FM_Reload)		return 180;	//Zeit für Nachladen
+  if(data == FM_Reload)		return 150;	//Zeit für Nachladen
   if(data == FM_Recharge)	return 200;	//Zeit bis erneut geschossen werden kann
 
   if(data == FM_Aim)		return 1;	//Waffe kann nur zielend abgefeuert werden
