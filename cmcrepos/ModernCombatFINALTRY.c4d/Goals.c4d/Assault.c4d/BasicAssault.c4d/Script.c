@@ -362,10 +362,10 @@ protected func FxIntAssaultTargetTimer(object pTarget, int iNr, int iTime)
         if(clonk)
           if(assist)
           {
-          	//Keine Bepunktung für Hilfe in Base Assault
-          	if(!FindObject2(Find_ID(GBAS)))
-		          //Punkte bei Belohnungssystem (Hilfe bei Sprengladungsentschärfung)
-		          DoPlayerPoints(BonusPoints("ASTargetDefusedAssist"), RWDS_TeamPoints, GetOwner(clonk), clonk, IC15);
+            //Keine Bepunktung für Hilfe in Base Assault
+            if(!FindObject2(Find_ID(GBAS)))
+              //Punkte bei Belohnungssystem (Hilfe bei Sprengladungsentschärfung)
+              DoPlayerPoints(BonusPoints("ASTargetDefusedAssist"), RWDS_TeamPoints, GetOwner(clonk), clonk, IC15);
           }
           else
           {
