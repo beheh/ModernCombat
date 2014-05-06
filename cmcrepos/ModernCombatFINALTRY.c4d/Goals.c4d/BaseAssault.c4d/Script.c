@@ -414,9 +414,6 @@ public func OnPlantingComplete(array aAttackers, object pTarget)
       }
       RemoveEffect("BaseAssaultBomb", clonk);
     }
-
-    //Punkte bei Belohnungssystem (Hilfe bei Sprengladungsplazierung)
-    DoPlayerPoints(BonusPoints("ASTargetArmedAssist"), RWDS_TeamPoints, GetOwner(clonk), clonk, IC15);
   }
 
   //Eventnachricht: Ladung plaziert, verteidigen
