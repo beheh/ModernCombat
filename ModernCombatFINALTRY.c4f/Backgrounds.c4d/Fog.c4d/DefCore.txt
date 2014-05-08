@@ -5,4 +5,5 @@ Version=4,9,5
 Category=1
 Width=2315
 Height=524
+Picture=0,0,1,1
 Offset=-1150,-260
