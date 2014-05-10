@@ -1667,8 +1667,44 @@ public func FxBarsStop(object target, int nr)
 
 /* Kontaktfunktionen */
 
+private func ContactHitCheck(int x, int y, int x2)
+{
+  if((Abs(GetXDir()) + Abs(GetYDir()) >= 25) && !GetEffect("MeleeCooldown", this))
+  {
+    var target = FindObject2(Find_AtPoint(x, y), Find_Func("IsMeleeTarget", this), Find_NoContainer(), Find_Exclude(this), Find_Not(Find_Func("HitExclude", this)));
+    
+    //Unten gibt es 2 Vertices, an denen man anstoßen kann. Daher müssen im Zweifelsfall beide geprüft werden. Dafür ist auch das x2 da
+    if(!target)
+    	target = FindObject2(Find_AtPoint(x2, y), Find_Func("IsMeleeTarget", this), Find_NoContainer(), Find_Exclude(this), Find_Not(Find_Func("HitExclude", this)));
+    	
+    if(target && (Hostile(GetOwner(this), GetOwner(target)) || GetOwner(target) == NO_OWNER))
+    {
+      DoDmg(20, DMG_Melee, target, 0, GetController(this)+1, GetID());
+      AddEffect("MeleeCooldown", this, 1, 30);
+
+      //Gesonderter Schaden bei feindlichen MAVs
+      if(target && target->~IsMAV())
+      {
+        target->DoDmg(20, DMG_Melee, this, 0, GetController(target)+1, GetID(target));
+        AddEffect("MeleeCooldown", target, 1, 30);
+      }
+
+      //Effekte
+      Sound("VehicleHit*.ogg");
+      Sound("WPN2_Punch*.ogg");
+      if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",2,40,0,0,0,50,60);
+      Sparks(Random(2)+2,RGB(255,255,Random(5)+255));
+      
+      return true;
+    }
+	}
+}
+
 public func ContactLeft()
 {
+	if(ContactHitCheck(GetDefCoreVal("VertexX", "DefCore", GetID(), 3), GetDefCoreVal("VertexY", "DefCore", GetID(), 3)))
+		return true;
+
   if(GetXDir()<=-30)
     Collision(GetXDir());
 
@@ -1679,9 +1715,12 @@ public func ContactLeft()
 
 public func ContactRight()
 {
+	if(ContactHitCheck(GetDefCoreVal("VertexX", "DefCore", GetID(), 4), GetDefCoreVal("VertexY", "DefCore", GetID(), 4)))
+		return true;
+
   if(GetXDir()>=30)
     Collision(GetXDir());
-
+    
   iXDir = 0;
   if(iXTendency > 0)
     iXTendency = 0;
@@ -1689,6 +1728,9 @@ public func ContactRight()
 
 public func ContactTop()
 {
+	if(ContactHitCheck(GetDefCoreVal("VertexX", "DefCore", GetID(), 5), GetDefCoreVal("VertexY", "DefCore", GetID(), 5)))
+		return true;
+
   if(GetYDir()<=-30)
     Collision(GetYDir());
 
@@ -1699,6 +1741,9 @@ public func ContactTop()
 
 public func ContactBottom()
 {
+	if(ContactHitCheck(GetDefCoreVal("VertexX", "DefCore", GetID(), 1), GetDefCoreVal("VertexY", "DefCore", GetID(), 1), GetDefCoreVal("VertexX", "DefCore", GetID(), 2)))
+		return true;
+
   if(GetYDir()>=30)
     Collision(GetYDir());
 
