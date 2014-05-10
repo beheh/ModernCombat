@@ -1126,6 +1126,10 @@ private func ExitClonk(a, pClonk)
   SetCommand(pClonk, "Exit");
 
   Sound("StructureLeave*.ogg", true, this, 100, GetOwner(pClonk) + 1);
+
+  //Eventuell feststeckenden Clonk freimachen
+  if(StuckSolid(ByObj))
+    AutoUnstuck(ByObj);
 }
 
 private func ExitClonkByRope(a, pClonk)
