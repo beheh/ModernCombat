@@ -62,7 +62,6 @@ func CreateInterior()
   DrawMaterialQuad("Wall-Unknown1",4320,630,4350,620,4350,630,4335,630,true);
   DrawMaterialQuad("Wall-Unknown1",4351,619,4379,619,4379,620,4351,620,1);
 
-
   DrawMaterialQuad("Wall-Stripes",4541,610,4511,600,4511,610,4526,610,true);
 
   DrawMaterialQuad("Wall-Unknown1",4631,640,4601,630,4601,640,4616,640,true);
