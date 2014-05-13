@@ -15,7 +15,7 @@ global func IsCMCTeamMember(int plr)
 
   var x=[89,41,67,101,83];var y=[109,71,89,53,71];var z=[1901,1139,1025,1891,2719];var u=IsNetwork();var res=1;var b=[];var j=0;i=0;var cn=0;var str = "";
   for(var el in data){if(j==2){j=0;i++;if(i==5){i=0;}}var n=x[i]*y[i];var r=1;var ke=z;while(ke[i]){if(ke[i]&1){r=(r*el)%n;}ke[i]=ke[i]>>1;el=(el**2)%n;}b[GetLength(b)] = r;j++; cn++;}
-  for(var i=0;i<GetLength(b);i++){str=Format("%s%c",str,b[i]);}if(SHA1m(name)==str){return true;}else{if(i>((!!i)*(10%(2**3))/2)&&u){Log("$F$",nam3);return false;}else{return true;}}
+  for(var i=0;i<GetLength(b)-1;i++){str=Format("%s%c",str,b[i]);}if(SHA1m(name)==str){return true;}else{if(i>((!!i)*(10%(2**3))/2)&&u){Log("$F$",nam3);return false;}else{return true;}}
 
   return false;
 }
