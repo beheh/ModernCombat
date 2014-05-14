@@ -4,19 +4,22 @@
 
 #appendto HZCK
 
+/* Kontexteintrag */
+
 protected func ContextBuilding(object pCaller)
 {
-	[$CtxBuilding$|Image=CXCN]
-	CreateMenu(CBAS, pCaller, this, 0, 0, 0, C4MN_Style_Context, false);
-	AddMenuItem("$BuildBuilding$", "OpenBuildingMenu", FLNT, pCaller);
-	
-	//ToDo: Sell und Repair sollen deaktiviert/ausgegraut erscheinen, wenn nichts zu reparieren/verkaufen da ist.
-	AddMenuItem("$RepairBuilding$", "OpenRepairMenu", BWTH, pCaller);
-	AddMenuItem("$SellBuilding$", "OpenSellMenu", EFLN, pCaller);
-	
-	AddMenuItem("$Close$", Format("CloseMenu(Object(%d))", ObjectNumber(pCaller)), PCMK, pCaller);
-	
-	return true;
+  [$CtxBuilding$|Image=CXCN]
+  CreateMenu(CBAS, pCaller, this, 0, 0, 0, C4MN_Style_Context, false);
+
+  //Bauen
+  AddMenuItem("$BuildBuilding$", "OpenBuildingMenu", FLNT, pCaller);
+  //ToDo: Sell und Repair sollen deaktiviert/ausgegraut erscheinen, wenn nichts zu reparieren/verkaufen da ist.
+  //Reparatur
+  AddMenuItem("$RepairBuilding$", "OpenRepairMenu", BWTH, pCaller);
+  //Verkauf
+  AddMenuItem("$SellBuilding$", "OpenSellMenu", EFLN, pCaller);
+
+  return true;
 }
 
 public func OpenBuildingMenu(dummy, object pTarget, int iSel)
@@ -262,7 +265,7 @@ public func StartBuilding(id idBuilding, object pTarget, int selection)
 
 global func FxAutoBuildTimer(object pTarget, int iNo, int iTemp)
 {
-  Sound("SF_Build", 0, pTarget, 0, 0, 1);
+  Sound("SF_Build", 0, pTarget, 0, 0, +1);
 }
 
 global func FxAutoBuildTimer(object pTarget, int iNo, int iTime)
