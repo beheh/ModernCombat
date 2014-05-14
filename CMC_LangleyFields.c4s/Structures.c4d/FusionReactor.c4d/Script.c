@@ -22,6 +22,7 @@ protected func Construction()
 protected func Initialize()
 {
   Sound("CCBS_PowerUp.ogg");
+  Sound("CFRT_Fuse.ogg",50,0,0,0,+1);
   return _inherited(...);
 }
 

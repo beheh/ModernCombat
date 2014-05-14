@@ -7,19 +7,17 @@ local iEnergyAmount, aObjectList, aUpgradeList;
 
 public func IsCMCBuilding()		{return true;}
 
-public func IsBase()					  {return false;}				//Heimatbasis
-public func BuildingRadius()		{return 0;}				//Bauradius
-public func NeedBuildingRadius()	{return true;}				//Nur in Bauradius
-public func TechLevel()			{return 0;}				//Benötigte Techstufe
+public func IsBase()			{return false;}					//Heimatbasis
+public func BuildingRadius()		{return 0;}					//Bauradius
+public func NeedBuildingRadius()	{return true;}					//Nur in Bauradius
+public func TechLevel()			{return 0;}					//Benötigte Techstufe
 
-public func RequiredEnergy()		{return 0;}				//Benötigte Energie
-public func EnergyProduction()		{return 0;}				//Erzeugt Energie
-public func HasEnoughEnergy()		{return !CurrentRequiredEnergy();}
-public func CurrentRequiredEnergy()	{return RequiredEnergy()-iEnergyAmount;}
-
-public func PossibleUpgrades() {return [];}
-
-public func MaxDamage()			{return 500;}				//Maximaler Schadenswert bis zur Zerstörung
+public func RequiredEnergy()		{return 0;}					//Benötigte Energie
+public func EnergyProduction()		{return 0;}					//Erzeugt Energie
+public func HasEnoughEnergy()		{return !CurrentRequiredEnergy();}		//Energieversorgung
+public func CurrentRequiredEnergy()	{return RequiredEnergy()-iEnergyAmount;}	//Benötigte Energie
+public func PossibleUpgrades()		{return [];}					//Mögliche Upgrades
+public func MaxDamage()			{return 500;}					//Maximaler Schadenswert bis zur Zerstörung
 
 
 /* Bauanforderungen */
@@ -36,18 +34,18 @@ protected func Construction()
 
 public func Initialize()
 {
-	for(var upgrade in PossibleUpgrades())
-		if(upgrade->~IsGroupUpgrade() && GetTeamUpgrade(GetPlayerTeam(GetOwner()), upgrade))
-			AddUpgrade(upgrade);
-	
-	return true;
+  for(var upgrade in PossibleUpgrades())
+    if(upgrade->~IsGroupUpgrade() && GetTeamUpgrade(GetPlayerTeam(GetOwner()), upgrade))
+      AddUpgrade(upgrade);
+
+  return true;
 }
 
 public func AddObject(object pObj)
 {
-	if(!aObjectList)
-		aObjectList = [];
-	
+  if(!aObjectList)
+    aObjectList = [];
+
   aObjectList[GetLength(aObjectList)] = pObj;
   OnAddObject(pObj);
   return true;
@@ -55,75 +53,77 @@ public func AddObject(object pObj)
 
 public func AddUpgrade(id idUpgrade)
 {
-	if(!aUpgradeList)
-		aUpgradeList = [];
-	
-	aUpgradeList[GetLength(aUpgradeList)] = idUpgrade;
-	OnUpgrade(idUpgrade);
-	return true;
+  if(!aUpgradeList)
+    aUpgradeList = [];
+
+  aUpgradeList[GetLength(aUpgradeList)] = idUpgrade;
+  OnUpgrade(idUpgrade);
+  return true;
 }
 
-public func GetUpgradeList() { return aUpgradeList; }
+public func GetUpgradeList()	{return aUpgradeList;}
 
 /* Zerstörung */
 
 public func Destruction()
 {
-	//Zugehörige Objekte mitlöschen
-	for(var obj in aObjectList)
-		if(obj)
-			RemoveObject(obj);
-	
-	return true;
+  //Zugehörige Objekte mitlöschen
+  for(var obj in aObjectList)
+    if(obj)
+      RemoveObject(obj);
+
+  return true;
 }
 
 /* Gebäudemenü */
 
 public func ContainedUp(object pCaller)
 {
-	OpenBuildingMenu(pCaller);
-	return true;
+  OpenBuildingMenu(pCaller);
+  return true;
 }
 
 public func OpenBuildingMenu(object pMenuObj)
 {
-	CreateMenu(GetID(), pMenuObj, this, C4MN_Extra_None, GetName(this), 0, C4MN_Style_Dialog);
-	//Gebäudespezifische Menüeinträge
-	if(AdditionalBuildingMenu())
-		AddMenuItem(" ", 0, 0, pMenuObj);
-	
-	//Upgrademenü
-	AddMenuItem("$UpgradeMenu$", "OpenUpgradeMenu", CCUS, pMenuObj, 0, pMenuObj);
-	//Kaufmenü
-	if(this->~IsBase())
-		AddMenuItem("$BuyMenu$", "OpenBuyMenu", GOLD, pMenuObj, 0, pMenuObj);
-	
-	return true;
+  //Menü erstellen
+  CreateMenu(GetID(), pMenuObj, this, C4MN_Extra_None, GetName(this), 0, C4MN_Style_Dialog);
+
+  //Gebäudespezifische Menüeinträge
+  if(AdditionalBuildingMenu())
+    AddMenuItem(" ", 0, 0, pMenuObj);
+  //Upgrademenü
+  AddMenuItem("$UpgradeMenu$", "OpenUpgradeMenu", CCUS, pMenuObj, 0, pMenuObj);
+  //Kaufmenü
+  if(this->~IsBase())
+    AddMenuItem("$BuyMenu$", "OpenBuyMenu", GOLD, pMenuObj, 0, pMenuObj);
+
+  return true;
 }
 
-public func AdditionalBuildingMenu(object pMenuObj) { }
+public func AdditionalBuildingMenu(object pMenuObj)
+{
+}
 
 public func OpenUpgradeMenu(id dummy, object pMenuObj)
 {
-	CloseMenu(pMenuObj);
-	CreateMenu(GetID(), pMenuObj, this, C4MN_Extra_None, Format("%s - $UpgradeMenu$", GetName(this)), 0, C4MN_Style_Dialog);
-	
-	for(var upgrade in PossibleUpgrades())
-	{
-		if(GetIndexOf(upgrade, aUpgradeList) > -1)
-			AddMenuItem(Format("<c 777777>%s</c>", GetName(0, upgrade)), 0, upgrade, pMenuObj);
-		else if(!upgrade->~CanBeResearched(this))
-			AddMenuItem(Format("<c FF0000>%s</c>", GetName(0, upgrade)), 0, upgrade, pMenuObj);
-		else
-			AddMenuItem(GetName(0, upgrade), "StartUpgrade", upgrade, pMenuObj, 0, pMenuObj);
-	}
-	
-	return true;
+  CloseMenu(pMenuObj);
+  CreateMenu(GetID(), pMenuObj, this, C4MN_Extra_None, Format("%s - $UpgradeMenu$", GetName(this)), 0, C4MN_Style_Dialog);
+
+  for(var upgrade in PossibleUpgrades())
+  {
+    if(GetIndexOf(upgrade, aUpgradeList) > -1)
+      AddMenuItem(Format("<c 777777>%s</c>", GetName(0, upgrade)), 0, upgrade, pMenuObj);
+    else if(!upgrade->~CanBeResearched(this))
+      AddMenuItem(Format("<c FF0000>%s</c>", GetName(0, upgrade)), 0, upgrade, pMenuObj);
+    else
+      AddMenuItem(GetName(0, upgrade), "StartUpgrade", upgrade, pMenuObj, 0, pMenuObj);
+  }
+
+  return true;
 }
 
 public func OpenBuyMenu(id dummy, object pMenuObj)
 {
-	
 }
 
 /* Energieversorgung */
@@ -157,5 +157,5 @@ public func SendEnergy()
   return energy;
 }
 
-public func OnUpgrade(id idUpgrade) { }
-public func OnAddObject(object pObj) { } 
+public func OnUpgrade(id idUpgrade)	{}
+public func OnAddObject(object pObj)	{}
