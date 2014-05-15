@@ -10,22 +10,35 @@ public func DoMouseAiming(int iTx, int iTy, int iSpeed)
 {
   if(!Contained())
   {
-   var iAngle = Normalize(Angle(GetX(),GetY(),iTx,iTy),-180);
+     var iAngle = Normalize(Angle(GetX(),GetY(),iTx,iTy),-180);
 
-   if(iAngle > 0)
-    SetDir(DIR_Right);
-   else
-     SetDir(DIR_Left);
+     if(iAngle > 0)
+       SetDir(DIR_Right);
+     else
+       SetDir(DIR_Left);
 
-   //Winkel wird zu groß?
-   iAngle = BoundBy(iAngle,-this->~AimMax(),+this->~AimMax());
+     //Winkel wird zu groß?
 
-   var old = crosshair->GetAngle();
-   if((Abs(AngleOffset4K(old,iAngle)) < 5)/* || GetEffect("IntMouseAiming",this)*/)
-     this->~FireAimWeapon();
+     iAngle = BoundBy(iAngle,-this->~AimMax(),+this->~AimMax());
 
-   AddEffect("IntMouseAiming", this, 10, 1, this, 0, iAngle, iSpeed);
-   return true;
+	 var eMouseAiming = GetEffect("IntMouseAiming",this);
+	 
+	 //Winkel gleich? Feuer frei und Effekt löschen, weil unnötig
+
+     if(crosshair->GetAngle() == iAngle) 
+	 {
+       this->~FireAimWeapon();
+	   if(eMouseAiming)
+	     RemoveEffect(0,this,eMouseAiming);
+	 }  	 
+	 else //Ansonsten Winkel updaten, bzw. dorthin zielen, falls Effekt nicht existiert
+
+	   if(eMouseAiming)
+	     EffectVar(0,this,eMouseAiming) = iAngle;
+	   else
+         AddEffect("IntMouseAiming", this, 10, 1, this, 0, iAngle, iSpeed); 
+   
+     return true;
   }
   return false;
 }
