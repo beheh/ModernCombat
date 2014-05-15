@@ -2,7 +2,7 @@
 
 #strict 2
 
-local fuse, active, thrown, pStickTo, iStickXOffset, iStickYOffset, iStickROffset, iPreviousCategory, iBulletsTrigger, rt_defusecnt;
+local fuse, active, thrown, pStickTo, iStickROffset, iStickAngle, iStickDistance, iPreviousCategory, iBulletsTrigger, rt_defusecnt;
 
 public func IsAttached()	{return pStickTo != false;}
 public func LimitationCount()	{return 8;}
@@ -77,7 +77,8 @@ protected func Timer()
   CheckFuse();
   if(pStickTo && !Contained(pStickTo) && pStickTo->~IsBulletTarget(GetID(), this))
   {
-    SetPosition(GetX(pStickTo)+iStickXOffset, GetY(pStickTo)+iStickYOffset, this, false);
+  	var dir = GetDir(pStickTo)*2-1;
+    SetPosition(GetX(pStickTo)+Sin(GetR(pStickTo)+iStickAngle, iStickDistance)*dir, GetY(pStickTo)-Cos(dir*GetR(pStickTo)+iStickAngle, iStickDistance), this, false);
     SetXDir();
     SetYDir();
     SetR(GetR(pStickTo)+iStickROffset);
@@ -88,9 +89,9 @@ protected func Timer()
     if(pStickTo)
     {
       Sound("C4EX_Attach.ogg");
-      iStickXOffset = GetX()-GetX(pStickTo);
-      iStickYOffset = GetY()-GetY(pStickTo);
       iStickROffset = GetR()-GetR(pStickTo);
+      iStickDistance = Distance(GetX(pStickTo), GetY(pStickTo), GetX(), GetY());
+      iStickAngle = Angle(GetX(pStickTo), GetY(pStickTo), GetX(), GetY());
       iPreviousCategory = GetCategory();
       SetCategory(C4D_Vehicle);
       SetObjectOrder(pStickTo, this);
