@@ -77,7 +77,7 @@ protected func Timer()
   CheckFuse();
   if(pStickTo && !Contained(pStickTo) && pStickTo->~IsBulletTarget(GetID(), this))
   {
-  	var dir = GetDir(pStickTo)*2-1;
+    var dir = GetDir(pStickTo)*2-1;
     SetPosition(GetX(pStickTo)+Sin(GetR(pStickTo)+iStickAngle, iStickDistance)*dir, GetY(pStickTo)-Cos(dir*GetR(pStickTo)+iStickAngle, iStickDistance), this, false);
     SetXDir();
     SetYDir();
