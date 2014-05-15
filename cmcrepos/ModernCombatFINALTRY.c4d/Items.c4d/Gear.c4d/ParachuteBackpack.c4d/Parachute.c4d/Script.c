@@ -52,7 +52,7 @@ protected func Fly()
   else
   {
     var targ = GetActionTarget();
-    if(!targ)
+    if(!targ || GetAction(GetActionTarget()) == "JetpackFlight")
     {
       StartFlyFree();
       return;
