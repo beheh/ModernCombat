@@ -78,6 +78,9 @@ protected func Timer()
   if(pStickTo && !Contained(pStickTo) && pStickTo->~IsBulletTarget(GetID(), this))
   {
     var dir = GetDir(pStickTo)*2-1;
+    if(GetActMapVal("Directions", GetAction(pStickTo), GetID(pStickTo)) < 2)
+    	dir = 1;
+    
     SetPosition(GetX(pStickTo)+Sin(GetR(pStickTo)+iStickAngle, iStickDistance)*dir, GetY(pStickTo)-Cos(dir*GetR(pStickTo)+iStickAngle, iStickDistance), this, false);
     SetXDir();
     SetYDir();
@@ -88,14 +91,7 @@ protected func Timer()
     pStickTo = FindObject2(Find_AtPoint(), Find_Func("IsBulletTarget", GetID(), this), Find_Not(Find_Func("RejectC4Attach", this)), Find_NoContainer(), Find_Not(Find_OCF(OCF_Living)));
     if(pStickTo)
     {
-      Sound("C4EX_Attach.ogg");
-      iStickROffset = GetR()-GetR(pStickTo);
-      iStickDistance = Distance(GetX(pStickTo), GetY(pStickTo), GetX(), GetY());
-      iStickAngle = Angle(GetX(pStickTo), GetY(pStickTo), GetX(), GetY());
-      iPreviousCategory = GetCategory();
-      SetCategory(C4D_Vehicle);
-      SetObjectOrder(pStickTo, this);
-      SetRDir();
+      StickTo(pStickTo);
     }
     else
     {
@@ -103,6 +99,21 @@ protected func Timer()
     }
   }
   if(iBulletsTrigger) iBulletsTrigger--;
+}
+
+public func StickTo(object pObj)
+{
+	pStickTo = pObj;
+	Sound("C4EX_Attach.ogg");
+  iStickROffset = GetR()-GetR(pStickTo);
+  iStickDistance = Distance(GetX(pStickTo), GetY(pStickTo), GetX(), GetY());
+  iStickAngle = Angle(GetX(pStickTo), GetY(pStickTo), GetX(), GetY());
+  iPreviousCategory = GetCategory();
+  SetCategory(C4D_Vehicle);
+  SetObjectOrder(pStickTo, this);
+  SetRDir();
+  
+  return true;
 }
 
 /* Zündung */

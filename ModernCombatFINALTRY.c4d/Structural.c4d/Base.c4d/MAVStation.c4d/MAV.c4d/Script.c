@@ -1795,15 +1795,7 @@ public func AttachC4(object pDetonator)
   var pC4 = CreateObject(C4EX, RandomX(-xOff, xOff), RandomX(-yOff, yOff), GetOwner(pDetonator));
   pC4->SetR(Random(360));
   pC4->SetActive(pDetonator);
+	pC4->StickTo(this);
 
-  LocalN("pStickTo", pC4) = this;
-  LocalN("iStickXOffset", pC4) = GetX(pC4)-GetX();
-  LocalN("iStickYOffset", pC4) = GetY(pC4)-GetY();
-  LocalN("iStickROffset", pC4) = GetR(pC4)-GetR();
-  LocalN("iPreviousCategory", pC4) = GetCategory(pC4);
-  SetCategory(C4D_Vehicle, pC4);
-  pC4->SetObjectOrder(this, pC4);
-  pC4->SetRDir();
-  pC4->Sound("C4EX_Attach.ogg");
   return true;
 }
