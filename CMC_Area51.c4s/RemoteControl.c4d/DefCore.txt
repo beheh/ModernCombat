@@ -15,4 +15,5 @@ VertexY=1
 VertexFriction=20
 Rebuy=1
 Collectible=1
- 
+Timer=1
+TimerCall=Check
