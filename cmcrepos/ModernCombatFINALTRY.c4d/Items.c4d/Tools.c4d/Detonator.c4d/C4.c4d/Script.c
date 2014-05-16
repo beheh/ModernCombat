@@ -79,8 +79,8 @@ protected func Timer()
   {
     var dir = GetDir(pStickTo)*2-1;
     if(GetActMapVal("Directions", GetAction(pStickTo), GetID(pStickTo)) < 2)
-    	dir = 1;
-    
+      dir = 1;
+
     SetPosition(GetX(pStickTo)+Sin(GetR(pStickTo)+iStickAngle, iStickDistance)*dir, GetY(pStickTo)-Cos(dir*GetR(pStickTo)+iStickAngle, iStickDistance), this, false);
     SetXDir();
     SetYDir();
@@ -103,8 +103,8 @@ protected func Timer()
 
 public func StickTo(object pObj)
 {
-	pStickTo = pObj;
-	Sound("C4EX_Attach.ogg");
+  pStickTo = pObj;
+  Sound("C4EX_Attach.ogg");
   iStickROffset = GetR()-GetR(pStickTo);
   iStickDistance = Distance(GetX(pStickTo), GetY(pStickTo), GetX(), GetY());
   iStickAngle = Angle(GetX(pStickTo), GetY(pStickTo), GetX(), GetY());
@@ -112,7 +112,7 @@ public func StickTo(object pObj)
   SetCategory(C4D_Vehicle);
   SetObjectOrder(pStickTo, this);
   SetRDir();
-  
+
   return true;
 }
 

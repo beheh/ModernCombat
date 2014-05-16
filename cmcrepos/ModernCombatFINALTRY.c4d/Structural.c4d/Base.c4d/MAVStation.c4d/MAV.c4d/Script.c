@@ -1795,7 +1795,7 @@ public func AttachC4(object pDetonator)
   var pC4 = CreateObject(C4EX, RandomX(-xOff, xOff), RandomX(-yOff, yOff), GetOwner(pDetonator));
   pC4->SetR(Random(360));
   pC4->SetActive(pDetonator);
-	pC4->StickTo(this);
+  pC4->StickTo(this);
 
   return true;
 }
