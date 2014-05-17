@@ -1,0 +1,17 @@
+[DefCore]
+id=ATCR
+Name=Automatic Rifle
+Version=4,9,5
+Category=C4D_Object|C4D_SelectMaterial|C4D_SelectHomebase
+MaxUserSelect=4
+Width=20
+Height=6
+Offset=-10,-3
+Value=45
+Mass=15
+Picture=0,6,64,64
+Vertices=1
+VertexY=+1
+VertexFriction=100
+Rebuy=1
+Collectible=1

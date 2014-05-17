@@ -1,0 +1,2 @@
+DE:Kriegsnebel
+US:Fog of War

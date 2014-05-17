@@ -1,0 +1,18 @@
+[DefCore]
+id=BHBL
+Name=Blackhawk Building Lot
+Category=C4D_Structure|C4D_SelectBuilding|C4D_SelectKnowledge
+Version=4,9,5
+Picture=0,0,230,60
+Offset=-115,-30
+Vertices=4
+MaxUserSelect=2
+Width=230
+Height=60
+Value=200
+Mass=5000
+Components=METL=15;
+VertexX=-110,-50,50,110
+VertexY=27,27,27,27
+VertexFriction=100,100,100,100
+Construction=1

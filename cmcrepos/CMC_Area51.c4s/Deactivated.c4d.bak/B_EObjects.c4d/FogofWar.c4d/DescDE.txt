@@ -1,0 +1,1 @@
+Die Spielersicht wird durch feste Wände blockiert, Clonks können immer nur direkt auf der Sichtlinie liegende Objekte sehen.

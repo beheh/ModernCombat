@@ -1,0 +1,46 @@
+#Clonk
+
+CtxStatistics=Statistics
+CtrlMenuDesc=Menü
+DropItem=Drop Item
+
+#Hazardclonk
+
+CtxGrenadeMenu=Grenades
+AmmoBag=Ammobag
+CtrlInventoryDesc=Inventory
+QuickInventory=QuickInventory
+ContentsCount=%d items
+
+#Settings
+
+Settings=Settings
+
+CtxQuickInventoryOn=QuickInventory
+CtxQuickInventoryOff=<c 777777>QuickInventory</c>
+CtxQuickInventoryDesc=Enables the QuickInventory ringmenu, replacing the traditional switching inside the inventory.
+CtxHelpMessagesOn=Help messages
+CtxHelpMessagesOff=<c 777777>Help messages</c>
+CtxHelpMessagesDesc=Shows help messages above clonks.
+CtxInvLockOn=Inventory Lock
+CtxInvLockOff=<c 777777>Inventory Lock</c>
+CtxInvLockDesc=Prevents dropping weapons by key command, instead, an additional context entry can be selected to do so.
+CtxShorterDMOn=Compact Injured Menu
+CtxShorterDMOff=<c 777777>Compact Injured Menu</c>
+CtxShorterDMDesc=Reduces the injured menu and hides additional information.
+CtxRadioMusicOn=Radio Music
+CtxRadioMusicOff=<c 777777>Radio Music</c>
+CtxRadioMusicDesc=(De)Activates radio music for this player (if there are multiple players on one client, the music is deactivated, if all players have chosen same).
+CtxResetAch=Reset Achievements
+CtxResetAchDesc=Permanently reset all personal achievements.
+CtxCompassOn=Compass
+CtxCompassOff=<c 777777>Compass</c>
+CtxBlueCastOn=Blue Cast
+CtxBlueCastOff=<c 777777>Blue Cast</c>
+ResetAchInfo=Reset?|<c 777777>The reset is completed after the round ends.</c>
+ResetAchYes=Reset
+ResetAchNo=Keep achievements
+ResetAchDone=Achievements have been reset.
+
+#General
+Grenades=Grenades

@@ -1,0 +1,142 @@
+#Clonk
+
+CtxStatistics=Statistiken
+CtrlMenuDesc=Menü
+DropItem=Objekt ablegen
+
+#Hazardclonk
+
+CtxGrenadeMenu=Granaten
+AmmoBag=Munitionsgürtel
+CtrlInventoryDesc=Inventar
+QuickInventory=QuickInventar
+ContentsCount=%d Objekte
+
+#Einstellungen
+
+Settings=Einstellungen
+CtxQuickInventoryOn=QuickInventar
+CtxQuickInventoryOff=<c 777777>QuickInventar</c>
+CtxQuickInventoryDesc=Aktiviert das QuickInventar-Ringmenü, welches das traditionelle Durchwechseln des Inventars ersetzt.
+CtxHelpMessagesOn=Hilfen
+CtxHelpMessagesOff=<c 777777>Hilfen</c>
+CtxHelpMessagesDesc=Zeigt Hilfsnachrichten über dem Clonk.
+CtxInvLockOn=Inventarsperre
+CtxInvLockOff=<c 777777>Inventarsperre</c>
+CtxInvLockDesc=Verhindert das Ablegen von Waffen per Tastenbefehl und erweitert das Kontextmenü um einen Alternativbefehl zum Ablegen.
+CtxShorterDMOn=Kompaktes Schwerverletztenmenü
+CtxShorterDMOff=<c 777777>Kompaktes Schwerverletztenmenü</c>
+CtxShorterDMDesc=Verkleinert das Schwerverletztenmenü und blendet die meisten Zusatzinformationen aus.
+CtxRadioMusicOn=Radiomusik
+CtxRadioMusicOff=<c 777777>Radiomusik</c>
+CtxRadioMusicDesc=(De)Aktiviert Radiomusik für diesen Spieler (bei mehreren Spielern an einem Clienten ist die Musik deaktiviert, wenn alle gleicheres eingestellt haben).
+CtxResetAch=Errungenschaften zurücksetzen
+CtxResetAchDesc=Alle eigenen Errungenschaften dauerhaft zurücksetzen.
+CtxCompassOn=Kompass
+CtxCompassOff=<c 777777>Kompass</c>
+CtxBlueCastOn=Blaustich
+CtxBlueCastOff=<c 777777>Blaustich</c>
+ResetAchInfo=Wirklich zurücksetzen?|<c 777777>Das endgültige Zurücksetzen erfolgt nach dem Rundenende.</c>
+ResetAchYes=Zurücksetzen
+ResetAchNo=Nicht zurücksetzen
+ResetAchDone=Errungenschaften wurden zurückgesetzt.
+
+#General
+Grenades=Granaten
+
+# Chooser
+
+#Allgemein
+
+ChoosingPlayer=%s wählt jetzt die Spielkonfiguration, bitte noch etwas Geduld...
+Choosing=%s sucht gerade die Regeln aus, noch ein wenig Geduld...
+Goal=Das Spielziel wurde gewählt: <c ffff33>%s</c>
+Rules=<c ff0000>Regelwahl</c>: 
+StdRules=<c ffcc00>Standardregeln</c>: 
+GoalChose=Spielziel konfigurieren
+Back=Zurück
+Finished=Fertig
+
+#Effekte
+
+Effects=Effektstufe
+MoreEffects=Effektstufe erhöhen
+LessEffects=Effektstufe senken
+EffectInfo=Effektstufe setzen
+
+#Regeln
+
+CreateRules=Spielregeln
+RuleInfo=Spielregel einstellen
+
+#Dunkelheit
+
+DarknessChose=Intensität der Dunkelheit
+MoreDarkness=Dunkelheit erhöhen
+LessDarkness=Dunkelheit senken
+
+#Teams
+
+TeamArrangement=Teams
+TeamInfo=Teameinteilung konfigurieren
+RandomTeams=Zufällig anordnen
+AutoBalanceTeams=Nach Rang anordnen
+TeamCount=Teamanzahl
+IncTeamCnt=Teamanzahl erhöhen
+DecTeamCnt=Teamanzahl verringern
+SwitchInvisible=Unsichtbar
+CreateTeams=Teams aufstellen
+TeamsSortedManually=Manuell
+TeamsSortedRandomly=Zufall
+TeamsSortedRandomlyAndInv=Zufällig und unsichtbar
+TeamsSortedByRank=Nach Rang
+Random=Zufällig
+
+#KI
+
+AIMenu=KIs einstellen
+AIInfo=Diverse Einstellungen für KIs
+OneAIMore=Ein Bot mehr
+OneAILess=Ein Bot weniger
+NewTeam=Neues Team
+FairTeams=Faire Teams
+FairTeamsInfo=Alle Teams auffüllen, so dass überall die gleiche Anzahl Clonks vorhanden ist
+OnlyDeleteLastTeam=Das letzte Team muss als erstes entfernt werden!
+
+#Spielziel
+
+MoreWinScore=Punktzahl erhöhen
+LessWinScore=Punktzahl senken
+
+#Spielzielwahl
+
+RandomGoal=Zufallsspielziel
+GoalRandomChoose=Spielziel auswürfeln
+VoteGoal=Spielzielabstimmung
+BeginVote=Abstimmung starten?
+BeginVoteYes=Ja
+BeginVoteNo=Nein
+GoalVoteBegins=Der Host startet eine Spielzielwahl, du hast <c ffff33>%d</c> Sekunden um deine(n) Favorit(en) zu wählen!
+
+#Compass
+
+CompassMenu=Kompasseinstellungen
+CompassInfo=Kompass für diese Runde konfigurieren
+CompassActivated=Kompass aktiviert
+CompassDeactivated=Kompass deaktiviert
+CompassIntervall=Aktualisierungsrate: %d Frames
+MoreFrames=Erhöhen
+LessFrames=Verringern
+
+#MTP
+
+TakeAmmo=Munition entnehmen
+NeededPoints=Es werden <c ff0000>%d</c> Punkte zum Entpacken benötigt.
+AmmoReceived=%dx {{%i}} erhalten.
+NoSpace=Inventar bereits belegt.
+CantTake=Clonk kann gerade nicht entpacken.
+PrevPage=Vorherige Seite
+NextPage=NächsteSeite
+
+#Memberdetection
+F=%s has failed.

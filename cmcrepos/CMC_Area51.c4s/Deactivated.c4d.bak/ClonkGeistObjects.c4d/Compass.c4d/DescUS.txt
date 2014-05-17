@@ -1,0 +1,1 @@
+Visualizes the direct environment and highlights tactical objects.
