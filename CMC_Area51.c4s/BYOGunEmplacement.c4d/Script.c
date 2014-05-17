@@ -239,7 +239,7 @@ private func Reload()
   if(userWeapon->Reload())
   {
   	reloading = true;
-  	Local(0, CreateContents(AmmoID)) = GetAttWeapon()->~GetFMData(FM_AmmoLoad);
+  	Local(0, CreateContents(AmmoID)) = Min(GetAmmo(AmmoID, GetUser()), GetAttWeapon()->~GetFMData(FM_AmmoLoad));
   	GetAttWeapon()->~Reload();
   }
 }
@@ -355,6 +355,7 @@ public func FxActivityTimer(object pTarget, int iEffectNumber, int iEffectTime)
   if(reloading && !userWeapon->IsReloading())
   {
   	reloading = false;
+  	GetAttWeapon()->CancelReload();
   	LocalN("stopauto", GetAttWeapon()) = false;
   	GetAttWeapon()->SetAmmoCount(userWeapon->GetSlot(), userWeapon->GetAmmo2(userWeapon->GetSlot()));
   }
