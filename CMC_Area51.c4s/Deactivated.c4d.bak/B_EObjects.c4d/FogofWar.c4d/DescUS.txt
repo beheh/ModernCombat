@@ -1,0 +1,1 @@
+The sight is blocked by solid objects, Clonks can only see objects which are directly in their line of sight.

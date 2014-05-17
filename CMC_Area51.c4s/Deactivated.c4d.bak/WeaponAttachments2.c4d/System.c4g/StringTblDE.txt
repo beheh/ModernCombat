@@ -1,0 +1,39 @@
+//Klassenwahl
+
+ClassAttachment=Klasseneigenschaften
+Spawn=Spawnen
+DescAttachments=["Der Verzicht auf einen Waffen-|aufsatz ergibt insgesamt aus-|geglichene Waffeneigenenschaften.|||-<c 00ff00>Keine negativen Effekte</c>|-<c ff0000>Keine Spezialeigenschaften</c>","Die Waffe verwendet Magazine|mit größerer Kapazität und kann|so länger feuern, bis erneut|nachgeladen werden muss.||-<c 00ff00>Größere Magazine</c>|-<c ff0000>Längeres Nachladen</c>","Das Bajonett am Lauf der Waffe|erhöht den Maximalschaden des|Kolbenschlages und stärkt so die|Nahkampffähigkeit.||-<c 00ff00>Höherer Nahkampfschaden</c>|-<c ff0000>Längere Schlagzeiten</c>","Der Laserpointer erzeugt einen|sichtbaren Laser und erleichtert|so das Anvisieren von Zielen und|die Handhabung der Waffe.||-<c 00ff00>Niedrigere Streuung</c>|-<c ff0000>Laserstrahl warnt den Feind</c>","Der Schalldämpfer senkt Schuss-|geräusche und -effekte und gibt|dem Schützen so Tarnfähigkeiten|für Schleichstrategien.||-<c 00ff00>Ermöglicht Tarnfähigkeiten</c>|-<c ff0000>Niedrigerer Schaden</c>","Die Waffe erzeugt einen Licht-|kegel, in dem alle feindliche|Objekte und Einheiten gesichtet|werden.||-<c 00ff00>Ermöglicht Sensorfähigkeiten</c>|-<c ff0000>Lichtstrahl warnt den Feind</c>"]
+NoAttachment=Kein Waffenaufsatz
+
+//"Der Schalldämpfer senkt Schuss-|
+//geräusche und -effekte und gibt|
+//dem Schützen so Tarnfähigkeiten|
+//für Schleichstrategien.||
+//-<c 00ff00>Ermöglicht Tarnfähigkeiten</c>|
+//-<c ff0000>Niedrigerer Schaden</c>"
+
+//Raketenwerfer
+Laser=Lasersteuerung
+
+//TEMPORÄR WEGEN ÜBERLADUNG
+
+Back=Zurück
+changeattachment=Wähle einen Waffenaufsatz
+changeattachment_desc=Wähle die Waffe, welche ein|Waffenaufsatz erhalten soll.||
+TimeTillRespawn=Noch <c ff0000>%d Sekunden</c> bis zum Respawn.
+PlayerChoosedClass=%s steigt als <c ffff33>%s</c> ein
+PlayerChoosedClass2=%s steigt als <c ffff33>%s</c> %s ein
+NotEnoughAmmo=Nicht genug {{%i}}!
+Single=Einzelfeuer
+Optical=Optisches Lenken
+Unguided=Ungelenkt
+Warning=Achtung, kehre zum Schlachtfeld zurück!|Eliminierung in|<c ff0000>%d</c>
+
+
+# HazardClonk-Appendto.c
+
+CtxUnbuckleDesc=Ausrüstung ablegen
+CtxUnbuckleItem=%s ablegen
+CtxDetachAttachment=%s abnehmen
+CtxGrenadeMenu=Granaten
+AttachmentCollected=Waffenaufsatz <c ffff33>%s</c> aufgesammelt

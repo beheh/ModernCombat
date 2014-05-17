@@ -1,0 +1,23 @@
+[DefCore]
+id=WBRL
+Name=Water Barrel
+Version=4,9,5,0
+Category=C4D_Vehicle
+Width=10
+Height=16
+Offset=-5,-8
+Mass=25
+Picture=11,0,64,64
+Vertices=4
+ContactIncinerate=2
+Grab=1
+Rotate=1
+NoBurnDecay=1
+VertexX=-5,5,5,-5
+VertexY=-8,-8,8,8
+VertexCNAT=5,6,10,9
+VertexFriction=80,80,80,80
+AttractLightning=1
+Float=1
+Timer=1
+TimerCall=FloatUpright

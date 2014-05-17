@@ -1,0 +1,2 @@
+DE:Schnellfeuergewehr
+US:Automatic Rifle
