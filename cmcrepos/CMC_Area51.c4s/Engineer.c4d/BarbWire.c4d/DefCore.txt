@@ -1,5 +1,5 @@
 [DefCore]
-id=BDWE
+id=BBWE
 Version=4,9,8
 Name=Barbwire
 Category=C4D_Structure

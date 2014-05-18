@@ -24,6 +24,9 @@ public func Initialize()
 
 protected func Check()
 {
+  if(!iHits)
+  	return;
+
   //Clonks suchen
   for(var obj in FindObjects(Find_InRect(-10, -10, 20, 15), Find_OCF(OCF_Alive), Find_Hostile(GetOwner()), Find_NoContainer()))
   {
