@@ -1,1 +1,1 @@
-Eine Barrikade aus Stacheldraht, welche feindliche Clonks beim Vorrücken behindert und verletzt. Nutzt sich laufend ab wenn Feinde sich hindurchbewegen.
+Eine Barrikade aus Stacheldraht, welche feindliche Clonks am Vorrücken behindert und verletzt. Nutzt sich laufend ab wenn Feinde sich hindurchbewegen.

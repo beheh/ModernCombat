@@ -7,7 +7,7 @@
 local plans;
 
 public func RefillTime() {return 30;}
-public func Initialize() {plans = [BDWE, BNGT, HLSM]; return _inherited(...);}
+public func Initialize() {plans = [BBWE, BNGT, HLSM]; return _inherited(...);}
 
 public func Activate(pClonk)
 { 
