@@ -13,14 +13,22 @@ local iTeamMode, iUsedTeamSort;
 local fRandomMenu;
 local iTeamCaptainState;
 
+static const CHOS_LeagueAutostart = 60;
+
 protected func RecommendedGoals()	{return GameCall("RecommendedGoals");}
 protected func MinTeamCount()		{return Min(GetPlayerCount(), 2);}
 
+//NUR ZUM TESTEN/DEBUGGEN
+//global func GetLeague() { return "ASD"; }
 
 /* Initialisierung */
 
 protected func Initialize()
 {
+	//Autostart bei Liga initialisieren
+	if(GetLeague())
+		AddEffect("LeagueAutostart", this, 1, 35, this);
+
   //Scoreboard initialisieren
   ScheduleCall(this, "InitScoreboard", 3);
 
@@ -65,6 +73,19 @@ protected func Initialize()
   //Falls in der Lobby zufällig & unsichtbar gewählt wurde, entsprechende Eigenvariante einsetzen
   if(!GetTeamConfig(TEAM_AutoGenerateTeams) && GetTeamConfig(TEAM_Dist) == 3)
     ScheduleCall(this, "CreateTeams", 5, 0, 2-GetTeamConfig(TEAM_AutoGenerateTeams), CHOS_TeamRandomInvisible, true);
+}
+
+public func FxLeagueAutostartTimer(object pTarget, int iNr, int iTime)
+{
+	if(CHOS_LeagueAutostart - (iTime/35) < 5)
+		Sound("Select.ogg", true);
+	
+	if(iTime >= CHOS_LeagueAutostart*35)
+	{
+		CloseMenu(GetCursor(iChoosedPlr));
+		ConfigurationFinished();
+		return -1;
+	}
 }
 
 /* Statusanzeige im Scoreboard */
@@ -389,14 +410,16 @@ protected func OpenMenu()
   Message("", pClonk);
 
   CreateMenu(GetID(), pClonk, 0, 0, 0, 0, 1);
-  //Spielregeln
   if(!GetLeague())
+  {
+  	//Spielregeln
     AddMenuItem("$CreateRules$", "OpenRuleMenu", CTFL, pClonk, 0,0, "$RuleInfo$");
-  //Dunkelheit
-  if(IsDark())
-    AddMenuItem("%s", "OpenDarknessMenu", DARK, pClonk,0,0,"$DarknessChose$");
+  	//Dunkelheit
+  	if(IsDark())
+  	  AddMenuItem("%s", "OpenDarknessMenu", DARK, pClonk,0,0,"$DarknessChose$");
+  }
   //Spielziel
-  if(pGoal && pGoal->~IsConfigurable() && !GetLeague())
+  if(pGoal && pGoal->~IsConfigurable())
     AddMenuItem("%s", "OpenGoalMenu", GetID(pGoal), pClonk,0,0,"$GoalChose$");
   //Teameinteilung
   if(GetTeamCount() && !GetLeague())
@@ -1529,6 +1552,14 @@ protected func CreateGoal(id idGoal, int iScore, string szMessage)
 
 /* Konfiguration abschließen */
 
+protected func ConfigurationFinished()
+{
+	if(GetEffect("LeagueAutostart", this))
+		RemoveEffect("LeagueAutostart", this);
+	
+	return _inherited(...);
+}
+
 protected func ConfigurationFinished2()
 {
   //Zufällige und unsichtbare Teams
@@ -1673,6 +1704,9 @@ protected func OpenGoalChooseMenu()
   //Nur ein Spielziel verfügbar: Direkt auswählen
   if(GetLength(aGoals) == 1)
     return CreateGoal(aGoals[0], aTempGoalSave[0]);
+
+  if(GetLeague())
+  	return OpenGoalVoteMenu(GetID(), pClonk);
 
   CreateMenu(GetID(), pClonk, 0, 0, 0, 0, 1);
 

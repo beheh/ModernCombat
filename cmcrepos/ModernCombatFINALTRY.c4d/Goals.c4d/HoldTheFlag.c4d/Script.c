@@ -81,7 +81,11 @@ private func OpenGoalMenu(id dummy, int iSelection)
 private func ChangeWinpoints(id dummy, int iChange)
 {
   //Stand verändern
-  iGoal = BoundBy(iGoal+iChange,1,100); //100 ist Maximum.
+  if(!GetLeague())
+  	iGoal = BoundBy(iGoal+iChange,1,100); //100 ist Maximum.
+  else
+  	iGoal = BoundBy(iGoal+iChange,10,25);
+  	
   //Sound
   Sound("Grab", 1,0,0,1);
   //Menü wieder öffnen
