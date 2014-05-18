@@ -28,7 +28,7 @@ protected func Check()
   	return;
 
   //Clonks suchen
-  for(var obj in FindObjects(Find_InRect(-10, -10, 20, 15), Find_OCF(OCF_Alive), Find_Hostile(GetOwner()), Find_NoContainer()))
+  for(var obj in FindObjects(Find_InRect(-13, -10, 26, 15), Find_OCF(OCF_Alive), Find_Hostile(GetOwner()), Find_NoContainer()))
   {
     if(GetEffect("BarbedWireHit", obj))
       continue;
