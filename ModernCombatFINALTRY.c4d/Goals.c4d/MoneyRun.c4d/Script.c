@@ -92,7 +92,10 @@ private func OpenGoalMenu(id dummy, int iSelection)
 private func ChangeCredits(id dummy, int iChange)
 {
   //Stand verändern (maximal 1000 Credits)
-  iGoal = BoundBy(iGoal + iChange,100,1000);
+  if(!GetLeague())
+  	iGoal = BoundBy(iGoal + iChange,100,1000);
+  else
+  	iGoal = BoundBy(iGoal + iChange,200,500);
   //Sound
   Sound("Grab", 1,0,0,1);
   //Menü wieder öffnen
