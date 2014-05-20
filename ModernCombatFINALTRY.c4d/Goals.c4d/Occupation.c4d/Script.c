@@ -205,11 +205,11 @@ private func OpenGoalMenu(id dummy, int iSelection)
 
 private func ChangeStartTickets(id dummy, int iChange)
 {
-  //Stand verändern (maximal 100 Tickets)
+  //Zu erreichenden Punktestand verändern (maximal 100 (normal) oder 32 (Liga) Tickets)
   if(!GetLeague())
-  	iStartTickets = BoundBy(iStartTickets+iChange,0,100);
+    iStartTickets = BoundBy(iStartTickets+iChange,0,100);
   else
-  	iStartTickets = BoundBy(iStartTickets+iChange,10,32);
+    iStartTickets = BoundBy(iStartTickets+iChange,10,32);
   //Sound
   Sound("Grab", 1,0,0,1);
   //Menü wieder öffnen

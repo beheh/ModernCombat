@@ -13,7 +13,7 @@ local iTeamMode, iUsedTeamSort;
 local fRandomMenu;
 local iTeamCaptainState;
 
-static const CHOS_LeagueAutostart = 60;
+static const CHOS_LeagueAutostart = 60;	//Zeit bis zum automatischen Rundenstart bei Ligarunden
 
 protected func RecommendedGoals()	{return GameCall("RecommendedGoals");}
 protected func MinTeamCount()		{return Min(GetPlayerCount(), 2);}
@@ -25,10 +25,9 @@ protected func MinTeamCount()		{return Min(GetPlayerCount(), 2);}
 
 protected func Initialize()
 {
-	//Autostart bei Liga initialisieren
-	if(GetLeague())
-		AddEffect("LeagueAutostart", this, 1, 35, this);
-
+  //Bei Ligarunden Autostart initialisieren
+  if(GetLeague())
+    AddEffect("LeagueAutostart", this, 1, 35, this);
   //Scoreboard initialisieren
   ScheduleCall(this, "InitScoreboard", 3);
 
@@ -77,15 +76,15 @@ protected func Initialize()
 
 public func FxLeagueAutostartTimer(object pTarget, int iNr, int iTime)
 {
-	if(CHOS_LeagueAutostart - (iTime/35) < 5)
-		Sound("Select.ogg", true);
-	
-	if(iTime >= CHOS_LeagueAutostart*35)
-	{
-		CloseMenu(GetCursor(iChoosedPlr));
-		ConfigurationFinished();
-		return -1;
-	}
+  if(CHOS_LeagueAutostart - (iTime/35) < 5)
+    Sound("Select.ogg", true);
+
+  if(iTime >= CHOS_LeagueAutostart*35)
+  {
+    CloseMenu(GetCursor(iChoosedPlr));
+    ConfigurationFinished();
+    return -1;
+  }
 }
 
 /* Statusanzeige im Scoreboard */
@@ -412,11 +411,11 @@ protected func OpenMenu()
   CreateMenu(GetID(), pClonk, 0, 0, 0, 0, 1);
   if(!GetLeague())
   {
-  	//Spielregeln
+    //Spielregeln
     AddMenuItem("$CreateRules$", "OpenRuleMenu", CTFL, pClonk, 0,0, "$RuleInfo$");
-  	//Dunkelheit
-  	if(IsDark())
-  	  AddMenuItem("%s", "OpenDarknessMenu", DARK, pClonk,0,0,"$DarknessChose$");
+    //Dunkelheit
+    if(IsDark())
+      AddMenuItem("%s", "OpenDarknessMenu", DARK, pClonk,0,0,"$DarknessChose$");
   }
   //Spielziel
   if(pGoal && pGoal->~IsConfigurable())
@@ -1554,10 +1553,10 @@ protected func CreateGoal(id idGoal, int iScore, string szMessage)
 
 protected func ConfigurationFinished()
 {
-	if(GetEffect("LeagueAutostart", this))
-		RemoveEffect("LeagueAutostart", this);
-	
-	return _inherited(...);
+  if(GetEffect("LeagueAutostart", this))
+    RemoveEffect("LeagueAutostart", this);
+
+  return _inherited(...);
 }
 
 protected func ConfigurationFinished2()
@@ -1706,7 +1705,7 @@ protected func OpenGoalChooseMenu()
     return CreateGoal(aGoals[0], aTempGoalSave[0]);
 
   if(GetLeague())
-  	return OpenGoalVoteMenu(GetID(), pClonk);
+    return OpenGoalVoteMenu(GetID(), pClonk);
 
   CreateMenu(GetID(), pClonk, 0, 0, 0, 0, 1);
 
