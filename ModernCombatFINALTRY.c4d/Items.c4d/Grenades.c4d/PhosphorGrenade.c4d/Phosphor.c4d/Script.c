@@ -31,21 +31,21 @@ func Timer()
   //var size = (50/40)*speed+20;//Wir dehen das ganze auf 20-70 aus.
   //size = BoundBy (size,3,70);
 
-  speed = BoundBy (speed,1,40);
-  speed = (255/40)*speed;//Wir dehen das ganze auf 0-255 aus.
+	if(!(GetActTime() % 5))
+	{
+  	speed = BoundBy (speed,1,40);
+  	speed = (255/40)*speed;//Wir dehen das ganze auf 0-255 aus.
 
-  var rgb = RGB(speed,BoundBy(speed,140,255),255);
+  	var rgb = RGB(speed,BoundBy(speed,140,255),255);
 
-  SetClrModulation(rgb);
-  if (light)
-    light->ChangeColor(rgb);
+  	SetClrModulation(rgb);
+  	if (light)
+    	light->ChangeColor(rgb);
+  }
   /*if(last_size != size)
     light->ChangeSize (size);
 
   last_size = size;*/
-
-  var aObjects = CreateArray();
-  aObjects = FindObjects(Find_AtPoint(),Find_NoContainer());
 
   BurnObjects();
 
