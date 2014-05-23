@@ -21,74 +21,77 @@ func Initialize()
 
 func Timer()
 {
-  //Steckt irgendwo drin: Raus da
+  //Auswerfen wenn verschachtelt
   if(Contained())
     Exit(this, GetX(Contained())-GetX(), GetY(Contained())-GetY());
 
+  //Geschwindigkeit bestimmen
   var speed = Distance(GetXDir(),GetYDir());
   speed += Random(3);
 
-  //var size = (50/40)*speed+20;//Wir dehen das ganze auf 20-70 aus.
-  //size = BoundBy (size,3,70);
+  if(!(GetActTime() % 5))
+  {
+    speed = BoundBy (speed,1,40);
+    speed = (255/40)*speed;	//Erhöhen von 0 auf 255
 
-	if(!(GetActTime() % 5))
-	{
-  	speed = BoundBy (speed,1,40);
-  	speed = (255/40)*speed;//Wir dehen das ganze auf 0-255 aus.
-
-  	var rgb = RGB(speed,BoundBy(speed,140,255),255);
-
-  	SetClrModulation(rgb);
-  	if (light)
-    	light->ChangeColor(rgb);
+  //Färbung
+    var rgb = RGB(speed,BoundBy(speed,140,255),255);
+    SetClrModulation(rgb);
+    if(light)
+      light->ChangeColor(rgb);
   }
-  /*if(last_size != size)
-    light->ChangeSize (size);
 
-  last_size = size;*/
-
+  //Ziele suchen und verbrennen
   BurnObjects();
 
-  if(GetEffectData(EFSM_ExplosionEffects) > 0) 
-  {
+  //Effekte
+  if(GetEffectData(EFSM_ExplosionEffects) > 0)
     if(!Random(20))
       CastObjects(SPRK, 1, 20);
-  }
 
+
+  //Brennzeit verwalten
   life--;
-
   if(GBackLiquid())
   {
     CastObjects(FXU1, Random(3),10);
     life -= 10;
   }
-
   if(life <= 0)
     RemoveObject();
 }
 
 func BurnObjects()
 {
+  //Objekte suchen
   for(var pTarget in FindObjects(Find_Distance(10), Find_Not(Find_ID(GetID())), Find_NoContainer(), Find_Or(Find_Func("IsBulletTarget", GetID()), Find_OCF(OCF_Prey))) )
   {
-    //könnte ja sein, dass jemand in "IsBulletTarget" das Objekt löscht o_O
     if(!pTarget)
       continue;
-    //Treffen!
+    //Objekt verbrennen
     HitObject(pTarget);
   }
 }
 
 func HitObject(pObj)
 {
+  //Lebenwesen mit Effekt belegen
   if(GetOCF(pObj) & OCF_Living)
     AddEffect("Phosphored", pObj, 50, 20, this, GetID());
+
+  //Schaden verursachen
   DoDmg(3, DMG_Fire, pObj, 1);
   AddFireEffect(pObj,50,FIRE_Red,1);
+
   //Anzündbares anzünden, aber nicht Lebewesen
-  if(pObj) //existiert es überhaupt noch?
+  if(pObj)
     if(GetOCF(pObj) & OCF_Inflammable && !(GetOCF(pObj) & OCF_Living))
       Incinerate(pObj, GetController()+1);
+
+  //Effekte
+  if(!Random(20))
+    Sound("Crackle.ogg",0,0,RandomX(20,40));
+
   return true;
 }
 
