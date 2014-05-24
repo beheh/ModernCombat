@@ -9,6 +9,8 @@ public func IsBulletTarget()	{return true;}
 public func AllowHitboxCheck()	{return true;}
 public func IsArtilleryShell()	{return true;}
 
+public func IgnoreEnemyCheck()	{return true;} //Ignoriert Feindcheck bei Fahrzeugen
+
 
 /* Initialisierung */
 
