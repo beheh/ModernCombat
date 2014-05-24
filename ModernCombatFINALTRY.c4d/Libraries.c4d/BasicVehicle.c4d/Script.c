@@ -131,7 +131,7 @@ public func DefaultBulletTarget(id idBullet, object pBullet, object pShooter)
   //Wir schließen hier Verbündete gezielt aus
   //Damit müssen wir den Sonderfall nicht in den EnemyChecks einbauen
   //C4 darf speziell immer, wenn jemandem zugehörig
-  if(idBullet != C4EX)
+  if(!idBullet->~IgnoreEnemyCheck())
     if(pBullet && GetOwner(pBullet) != NO_OWNER && !Hostile(GetOwner(pBullet), GetOwner()))
       return false;
   return true;
