@@ -37,6 +37,7 @@ public func MeleeHit()
   CastSmoke("Smoke3",5,10,0,10,20,150);
   Sound("DoorKick.ogg");
 
+  //Schaden nehmen
   DoDmg(27);
   
   return true;

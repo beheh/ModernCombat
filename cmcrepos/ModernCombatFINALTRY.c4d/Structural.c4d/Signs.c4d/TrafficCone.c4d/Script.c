@@ -35,7 +35,7 @@ func Damage(int iChange, int iPlr)
   if(GetDamage() > 60)
   {
     CastParticles("Paper", RandomX(4, 6), 60, 0, 0, 40, 35, GetColorDw());
-    Sound("WoodHit*.WAV");
+    Sound("WoodHit*");
     RemoveObject(0, 1);
   }
 
@@ -48,6 +48,6 @@ func Damage(int iChange, int iPlr)
 
 protected func Hit()
 {
-  Sound("WoodHit*.WAV");
+  Sound("WoodHit*");
   return 1;
 }

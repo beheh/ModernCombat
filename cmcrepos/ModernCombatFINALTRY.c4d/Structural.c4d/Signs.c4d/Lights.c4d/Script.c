@@ -35,7 +35,9 @@ func SetCount(int iCount)	{count = iCount;}
 func GetCount()			{return count;}
 
 func SetDistance(int iDist)	{distance = iDist;}
-func GetDistance()	{return distance;}
+func GetDistance()		{return distance;}
+
+/* Konfiguration */
 
 func Set(int iCount, int iDist, bool bLeft, bool bRight, int iTimer)
 {
@@ -49,6 +51,8 @@ func Set(int iCount, int iDist, bool bLeft, bool bRight, int iTimer)
   RemoveEffect("IntOLights");
   AddEffect("IntOLights",this,50,iTimer,this,GetID()); 
 }
+
+/* Timer */
 
 func Timer()
 {
