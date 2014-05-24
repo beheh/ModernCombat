@@ -3,6 +3,7 @@
 #strict 2
 #include BDOR
 
+
 /* Sounds */
 
 private func SoundOpenDoor()

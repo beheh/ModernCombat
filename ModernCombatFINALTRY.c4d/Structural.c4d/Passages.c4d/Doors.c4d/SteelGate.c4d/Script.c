@@ -107,16 +107,13 @@ public func OnRepair()
 public func OnDestruction()
 {
   //Effekte
-  if(GetEffectData(EFSM_ExplosionEffects) > 0)
-  {
-    CastSmoke("Smoke3",5,20,0,20,220,500);
-    CastSmoke("Smoke3",5,20,0,-20,220,500);
-  }
   if(GetEffectData(EFSM_ExplosionEffects) > 1)
   {
     CastParticles("MetalSplinter",4,110,0,20,40,100);
     CastParticles("MetalSplinter",4,110,0,-20,40,100);
   }
+  CastSmoke("Smoke3",5,20,0,20,220,500);
+  CastSmoke("Smoke3",5,20,0,-20,220,500);
 
   //Tor sofort offen
   Opened();

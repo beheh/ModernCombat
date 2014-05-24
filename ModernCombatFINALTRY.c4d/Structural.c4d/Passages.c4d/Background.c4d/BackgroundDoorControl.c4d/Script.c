@@ -41,7 +41,7 @@ public func GetTarget()
 
 public func Connect(pTarget)
 {
-  if(!pTarget->~IsBackDoor()) return ;
+  if(!pTarget->~IsBackDoor()) return;
   target = pTarget;
 
   if(pTarget->GetTarget() != this)
@@ -150,7 +150,6 @@ func Collection2(obj)
         }
         SetCommand(clonk, "Exit");
       }
-
     }
   }
   return _inherited(obj);
