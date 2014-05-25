@@ -68,3 +68,11 @@ public func OnPlayerRankUp(int iPlr)
 
   return true;
 }
+
+public func WinScoreChange(int iNewScore)
+{
+	if(GetLeague())
+		iNewScore = BoundBy(iNewScore, 10, 30);
+	
+	return iNewScore;
+}
