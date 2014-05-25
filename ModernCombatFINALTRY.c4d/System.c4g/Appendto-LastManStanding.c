@@ -104,8 +104,9 @@ public func OnPlayerRankUp(int iPlr)
 
 public func WinScoreChange(int iNewScore)
 {
-	if(GetLeague())
-		iNewScore = BoundBy(iNewScore, 5, 15);
-	
-	return _inherited(iNewScore);
+  //Einstellbarer Punktestand bei Ligarunden begrenzen
+  if(GetLeague())
+    iNewScore = BoundBy(iNewScore, 5, 15);
+
+  return _inherited(iNewScore);
 }
