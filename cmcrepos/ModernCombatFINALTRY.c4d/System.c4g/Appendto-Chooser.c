@@ -91,7 +91,7 @@ static const CHOS_SBRD_Goal	= 0;
 static const CHOS_SBRD_Rules	= 1;
 static const CHOS_SBRD_Effect	= 2;
 static const CHOS_SBRD_Darkness	= 3;
-static const CHOS_SBRD_Timer  = 4;
+static const CHOS_SBRD_Timer	= 4;
 static const CHOS_SBRD_Teams	= 5;
 
 public func InitScoreboard()
@@ -110,8 +110,8 @@ public func InitScoreboard()
   SetScoreboardData(CHOS_SBRD_Teams, 1, "$TeamsSortedManually$", 0, true);
   if(GetLeague())
   {
-  	SetScoreboardData(CHOS_SBRD_Timer, 0, "$ScoreboardTimer$", CHOS_SBRD_Timer, true);
-  	SetScoreboardData(CHOS_SBRD_Timer, 1, "-", 0, true);
+    SetScoreboardData(CHOS_SBRD_Timer, 0, "$ScoreboardTimer$", CHOS_SBRD_Timer, true);
+    SetScoreboardData(CHOS_SBRD_Timer, 1, "-", 0, true);
   }
 
   SortScoreboard(0);
@@ -215,9 +215,9 @@ public func UpdateScoreboard()
     SetScoreboardData(row_id, 0, GetTaggedPlayerName(plr, true), CHOS_SBRD_Teams+plr, true);
     SetScoreboardData(row_id, 1, team_name, 0, true);
   }
-  
+
   if(GetLeague() && GetEffect("LeagueAutostart", this))
-  	SetScoreboardData(CHOS_SBRD_Timer, 1, Format("%d", CHOS_LeagueAutostart - (GetEffect("LeagueAutostart", this, 0, 6)/35)), 0, true);
+    SetScoreboardData(CHOS_SBRD_Timer, 1, Format("%d", CHOS_LeagueAutostart - (GetEffect("LeagueAutostart", this, 0, 6)/35)), 0, true);
 
   SortScoreboard(0);
 }
@@ -1538,7 +1538,7 @@ protected func InitializePlayer(int iPlr, int iX, int iY, object pBase, int iTea
 
 protected func CreateGoal(id idGoal, int iScore, string szMessage)
 {
-	//Bei Ligarunden Autostart initialisieren
+  //Bei Ligarunden Autostart initialisieren
   if(GetLeague())
     AddEffect("LeagueAutostart", this, 1, 35, this);
 
