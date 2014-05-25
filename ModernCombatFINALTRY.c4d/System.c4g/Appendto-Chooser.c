@@ -18,8 +18,6 @@ static const CHOS_LeagueAutostart = 60;	//Zeit bis zum automatischen Rundenstart
 protected func RecommendedGoals()	{return GameCall("RecommendedGoals");}
 protected func MinTeamCount()		{return Min(GetPlayerCount(), 2);}
 
-//NUR ZUM TESTEN/DEBUGGEN
-//global func GetLeague() { return "ASD"; }
 
 /* Initialisierung */
 
@@ -73,7 +71,7 @@ protected func Initialize()
 
 public func FxLeagueAutostartTimer(object pTarget, int iNr, int iTime)
 {
-  if(CHOS_LeagueAutostart - (iTime/35) < 5)
+  if(CHOS_LeagueAutostart - (iTime/35) < 10)
     Sound("Select.ogg", true);
 
   if(iTime >= CHOS_LeagueAutostart*35)
