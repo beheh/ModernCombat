@@ -127,6 +127,7 @@ ScoreboardRules=Spielregel(n):
 ScoreboardEffects=Effektstufe:
 ScoreboardDarkness=Dunkelheitsstufe:
 ScoreboardTeams=Teamverteilung:
+ScoreboardTimer=Runde startet in:
 
 # Team
 
