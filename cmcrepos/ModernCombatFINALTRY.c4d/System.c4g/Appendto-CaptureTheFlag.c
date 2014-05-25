@@ -126,5 +126,5 @@ public func WinScoreChange(int iNewScore)
 	if(GetLeague())
 		iNewScore = BoundBy(iNewScore, 3, 6);
 	
-	return iNewScore;
+	return _inherited(iNewScore);
 }

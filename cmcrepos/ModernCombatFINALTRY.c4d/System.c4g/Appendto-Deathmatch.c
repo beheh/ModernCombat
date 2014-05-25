@@ -74,5 +74,5 @@ public func WinScoreChange(int iNewScore)
 	if(GetLeague())
 		iNewScore = BoundBy(iNewScore, 10, 30);
 	
-	return iNewScore;
+	return _inherited(iNewScore);
 }
