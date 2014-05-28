@@ -88,7 +88,7 @@ protected func Death()
 {
   SetDir(0);
   ChangeDef(DSHK);
-  SetAction("Dead");
-  SetObjectLayer(this());
+  SetAction("Dead", this);
+  SetObjectLayer(this);
   return 1;
 }

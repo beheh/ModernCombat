@@ -42,7 +42,7 @@ func Destruction()
 
   //Verschwinden
   ChangeDef(BPBT);
-  FadeOut();
+  this->FadeOut();
 }
 
 /* Aktivierung */
@@ -58,7 +58,7 @@ private func Floating()
   if(Inside(GetR(),-5,+5))
   {
     ChangeDef(SPBT);
-    SetAction("LowerSail");
+    SetAction("LowerSail", this);
     this->~Initialize();
   }
 }

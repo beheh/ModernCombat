@@ -56,10 +56,10 @@ func Damage(int change)
       ChangeDef(_HBB);
 
       //SolidMask entfernen
-      SetSolidMask();
+      this->SetSolidMask();
 
       //Verschwinden
-      FadeOut();
+      this->FadeOut();
     }
   }
 
