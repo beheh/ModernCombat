@@ -120,20 +120,20 @@ public func OnDestruction()
 
   //Definitions- und Aktionswechsel
   ChangeDef(_GTB);
-  SetAction("Destroyed");
+  SetAction("Destroyed", this);
 
   //Grafik setzen
   if(iRot == 90)
-    SetPhase(1);
+    SetPhase(1, this);
   else if(iRot == -90)
-    SetPhase(2);
+    SetPhase(2, this);
   else if(iRot == 0)
-    SetPhase(0);
+    SetPhase(0, this);
 
   //Schützen auswerfen sofern vorhanden
-  if(GetUser())
+  if(this->GetUser())
   {
-    var pUser = GetUser();
+    var pUser = this->GetUser();
 
     ObjectSetAction(pUser, "Walk");
     SetActionTargets(0, 0, pUser);

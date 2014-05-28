@@ -98,8 +98,8 @@ private func LandOn()
   Stop();
   RemoveObject(motor);
   ChangeDef(PBOT);
-  SetAction("JustLanded");
-  Sound("MotorIdleLoop.ogg",false,motoridle,100,0,-1);
+  SetAction("JustLanded", this);
+  Sound("MotorIdleLoop.ogg", false, motoridle, 100, 0, -1);
 }
 
 private func SoundSailDown()	{Sound("SailDown");}

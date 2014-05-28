@@ -85,9 +85,9 @@ public func OnDestruction()
   this->~Initialize();
 
   //Pilot vorhanden? Auswerfen
-  if(GetUser())
+  if(this->GetUser())
   {
-    var pUser = GetUser();
+    var pUser = this->GetUser();
 
     ObjectSetAction(pUser, "Walk");
     SetActionTargets(0, 0, pUser);
