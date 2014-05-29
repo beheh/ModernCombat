@@ -1051,7 +1051,6 @@ global func AttemptAwardRibbon(id idRibbon, int iPlr, int iPlrFrom)
   if(iPlr != iPlrFrom && !Hostile(iPlr, iPlrFrom)) return false;
   if(!IsDeveloper(GetPlayerID(iPlrFrom))) return false;
   if(!idRibbon->IsRibbon()) return false;
-  if(idRibbon->~RibbonDisabled()) return false;
   if(GetPlrExtraData(iPlrFrom, "CMC_Team_Ribbon") != idRibbon->GetSavingSlot()) return false;
   var db = FindObject2(Find_ID(RWDS));
   if(!db) return false;
