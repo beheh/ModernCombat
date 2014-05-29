@@ -13,6 +13,17 @@ public func IsSecondaryWeapon()	{return true;}
 public func SelectionTime()	{return 45;}	//Anwahlzeit
 
 local pRocket;
+local lastX, lastY, lastXTemp, lastYTemp;
+
+func Initialize()
+{
+	lastX = GetX();
+	lastY = GetY();
+	lastXTemp = GetX();
+	lastYTemp = GetY();
+	
+	return _inherited(...);
+}
 
 
 /* Raketen */
@@ -91,7 +102,7 @@ public func LaunchRocket(id rid, int angle, bool unguided)
 
   //Rakete abfeuern
   var rocket = CreateObject(rid,x,y+10,GetController(user));
-  rocket->Launch(angle, user, unguided);
+  rocket->Launch(angle, user, unguided, ((GetX()-lastX) * 10), ((GetY()-lastY) * 10));
   Sound("RTLR_Launch*.ogg", 0, rocket);
   SetController(GetController(user), rocket);
 
@@ -102,8 +113,8 @@ public func LaunchRocket(id rid, int angle, bool unguided)
   //Effekte
   var ax, ay, xdir, ydir;
   user->WeaponBegin(ax,ay);
-  xdir = ax-x;
-  ydir = ay-y;
+  xdir = ax-x + (GetX()-lastX);
+  ydir = ay-y + (GetY()-lastY);
 
   if(GetEffectData(EFSM_ExplosionEffects) > 1) Sparks(5,RGB(255,128),ax-x,ay-y);
   if(GetEffectData(EFSM_ExplosionEffects) > 0)
@@ -137,6 +148,11 @@ public func AimAngleChange(bool fJNR)
 
 private func Check()
 {
+	lastX = lastXTemp;
+	lastY = lastYTemp;
+	lastXTemp = GetX();
+	lastYTemp = GetY();
+
   if(!pRocket || !Contained() || Contents(0, Contained()) != this || !Contained()->~IsClonk() || !pRocket->Guideable()) return;
 
   //Sicht auf existierende Rakete setzen
