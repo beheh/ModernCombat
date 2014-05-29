@@ -173,6 +173,14 @@ func CreateInterior()
   //Säule
   CreateObject(PILR, 430, 710, -1)->Set("PreparePillarCollapse");
 
+  //Sendemast
+  var tower = CreateObject(AATR, 970, 710, -1);
+  tower->SwitchMode();
+  tower->AddNode(459, 353, 0, CreateObject(REHR, 450, 360, -1), 0, 2);
+  tower->AddNode(1076, 143, 0, CreateObject(REHR, 1080, 150, -1), 0, 2);
+  tower->AddNode(1313, 578, 2, CreateObject(REHR, 1315, 585, -1), -16, 2);
+  tower->AddNode(749, 690, 3, CreateObject(REHR, 740, 710, -1));
+
   //Sounds
 
   //Wind
@@ -428,11 +436,19 @@ func OnPillarCollapse(int iPlr)
   debris = CreateObject(DBRS, 320,630, iPlr);
   Fling(debris, RandomX(-4,4), RandomX(2,3));
   debris = CreateObject(DBRS, 380,630, iPlr);
+  debris->Sound("StructureIntegrity*.ogg");
   Fling(debris, RandomX(-4,4), RandomX(2,3));
   debris = CreateObject(DBRS, 440,630, iPlr);
   Fling(debris, RandomX(-4,4), RandomX(2,3));
   debris = CreateObject(DBRS, 480,630, iPlr);
   Fling(debris, RandomX(-4,4), RandomX(2,3));
+}
+
+/* Bei Turmzusammenfall */
+
+func OnTowerCollapse()
+{
+  EventInfo4K(0,Format("$MsgCollapse$"),AATR, 0, 0, 0, "Info_Event.ogg");
 }
 
 /* Regelwähler */
