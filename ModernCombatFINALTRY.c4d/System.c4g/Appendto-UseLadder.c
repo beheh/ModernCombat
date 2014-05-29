@@ -101,7 +101,7 @@ private func ControlLadder(string strControl, par1)
   //Runterrutschen
   if(strControl S= "ControlDownDouble" && effect)
   {
-  	SetComDir(COMD_Down);
+    SetComDir(COMD_Down);
     EffectVar(1, this, effect) = true;
     Sound("LADR_Slide.ogg", 0, this, 40, 0, +1);
   }
