@@ -7,6 +7,7 @@
 
 local fixed;
 
+
 public func IsMaster()
 {
   return fMaster;
@@ -44,11 +45,11 @@ protected func Initialize()
 
 public func InitializePlayer(int iPlr)
 {
-	//Bereits schon im Einsatz?
-	if(FindObject2(Find_ID(LENS), Find_Owner(iPlr), Find_Action("ManageFlares")))
-		return;
+  //Bereits im Einsatz?
+  if(FindObject2(Find_ID(LENS), Find_Owner(iPlr), Find_Action("ManageFlares")))
+    return;
 
-	return _inherited(iPlr, ...);
+  return _inherited(iPlr, ...);
 }
 
 /* Flare-Verwaltung */
