@@ -173,6 +173,9 @@ func CreateInterior()
   //Säule
   CreateObject(PILR, 430, 710, -1)->Set("PreparePillarCollapse");
 
+  //Sonne umplatzieren
+  FindObject(LENS)->SetPosition(920,125);
+
   //Sendemast
   var tower = CreateObject(AATR, 970, 710, -1);
   tower->SwitchMode();
