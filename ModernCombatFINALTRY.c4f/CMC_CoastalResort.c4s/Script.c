@@ -5,7 +5,7 @@
 
 static aFlag,aSelfDefense,doorw1,doorw2,pRoom1,pRoom2,aLights,iLightsCounter;
 
-func RecommendedGoals()			{return [GOCC, GASS];}	//Spielzielempfehlung
+func RecommendedGoals()			{return [GOCC, GBAS];}	//Spielzielempfehlung
 public func AssaultDefenderTeam()	{return 2;}		//Verteidigerteam bei Assault
 
 
