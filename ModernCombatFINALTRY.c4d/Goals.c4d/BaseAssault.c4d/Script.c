@@ -34,6 +34,8 @@ public func ReportAssaultTargetDestruction(object pTarget, int iTeam, array aAtt
 
   //Punkte bei Belohnungssystem (Zielobjektzerstörung)
   DoPlayerPoints(BonusPoints("ASDestruction"), RWDS_TeamPoints, GetOwner(aAttackers[0]), aAttackers[0], IC03);
+  //Geldbonus: 30 Clunker
+  DoWealth(GetOwner(aAttackers[0]), 30);
 
   //Eventnachricht: Zielobjekt zerstört
   EventInfo4K(0, Format("$TargetDestruction$", GetTeamColor(iTeam), GetName(pTarget)), GBAS, 0, 0, 0, "Info_Objective.ogg");
