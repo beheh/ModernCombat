@@ -15,16 +15,19 @@ public func SelectionTime()	{return 45;}	//Anwahlzeit
 local pRocket;
 local lastX, lastY, lastXTemp, lastYTemp;
 
+
+/* Initialisierung */
+
 func Initialize()
 {
-	lastX = GetX();
-	lastY = GetY();
-	lastXTemp = GetX();
-	lastYTemp = GetY();
-	
-	return _inherited(...);
-}
+  //Positionsänderungen ermitteln
+  lastX = GetX();
+  lastY = GetY();
+  lastXTemp = GetX();
+  lastYTemp = GetY();
 
+  return _inherited(...);
+}
 
 /* Raketen */
 
@@ -148,10 +151,11 @@ public func AimAngleChange(bool fJNR)
 
 private func Check()
 {
-	lastX = lastXTemp;
-	lastY = lastYTemp;
-	lastXTemp = GetX();
-	lastYTemp = GetY();
+  //Positionsänderungen ermitteln
+  lastX = lastXTemp;
+  lastY = lastYTemp;
+  lastXTemp = GetX();
+  lastYTemp = GetY();
 
   if(!pRocket || !Contained() || Contents(0, Contained()) != this || !Contained()->~IsClonk() || !pRocket->Guideable()) return;
 
