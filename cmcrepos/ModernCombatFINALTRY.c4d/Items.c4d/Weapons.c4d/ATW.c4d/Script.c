@@ -143,10 +143,11 @@ public func LaunchRocket(id rid, int angle, bool unguided)
 
 private func Check()
 {
-	lastX = lastXTemp;
-	lastY = lastYTemp;
-	lastXTemp = GetX();
-	lastYTemp = GetY();
+  //Positionsänderungen ermitteln
+  lastX = lastXTemp;
+  lastY = lastYTemp;
+  lastXTemp = GetX();
+  lastYTemp = GetY();
 
   //Wegwurf wenn Rakete abgefeuert und/oder explodiert
   if(fired)

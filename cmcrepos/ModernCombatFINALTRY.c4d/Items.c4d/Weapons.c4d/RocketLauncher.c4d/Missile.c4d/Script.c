@@ -18,7 +18,7 @@ public func ExplosionDamage()	{return 25;}			//Explosionsschaden
 public func ExplosionRadius()	{return 25;}			//Radius
 
 public func TracerCompatible()	{return true;}			//Peilsendersuchende Rakete
-public func TracerRadius()	{return 300;}
+public func TracerRadius()	{return 350;}
 
 public func MaxTurn()		{return 6;}			//max. Drehung
 public func MaxTracerTurn()	{return 8;}			//max. Drehung bei Zielverfolgung
