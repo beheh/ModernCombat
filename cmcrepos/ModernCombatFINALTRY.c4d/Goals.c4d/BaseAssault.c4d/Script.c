@@ -536,7 +536,7 @@ public func DoRelaunch(object pCrew, object pTarget, int iClass)
 {
   //Ziel weg? Neu öffnen
   if(!pTarget)
-    return OpenRelaunchMenu(pCrew, iClass);
+    return OpenRelaunchMenu(pCrew, 0, iClass);
 
   var container = Contained(pCrew);
   var id = GetID(pTarget);
