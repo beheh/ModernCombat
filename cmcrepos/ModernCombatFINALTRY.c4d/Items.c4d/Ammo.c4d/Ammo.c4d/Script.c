@@ -50,7 +50,7 @@ public func TransferAmmo(object pObj)
   //Transfer abbrechen wenn das Ziel genug besitzt
   if(!MayTransfer(pObj))
   {
-    PlayerMessage(GetOwner(pObj),"$NotMoreAmmo$",pObj,AmmoID());
+    PlayerMessage(GetOwner(pObj),"$NotMoreAmmo$",pObj,AmmoID()->~MaxAmmo(),AmmoID());
     return;
   }
 

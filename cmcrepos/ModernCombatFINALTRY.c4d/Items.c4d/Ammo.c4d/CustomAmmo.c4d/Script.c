@@ -109,7 +109,7 @@ public func TransferAmmo(object pObj)
   //Nicht wenn das Ziel schon zu viel hat
   if(!MayTransfer(pObj))
   {
-    PlayerMessage(GetOwner(pObj),"$NotMoreAmmo$",pObj,AmmoID());
+    PlayerMessage(GetOwner(pObj),"$NotMoreAmmo$",pObj,AmmoID()->~MaxAmmo(),AmmoID());
     return;
   }
 
