@@ -370,10 +370,8 @@ func CreateDecoration()
   CreateObject(OLGH, 3540, 600, -1)->Set(1, 20, 1, 1, 50);
 
   //Automaten
-  CreateObject(VGMN, 3820, 1160, -1)->SetPhase(20);
-  var automat = CreateObject(VGMN, 3850, 1160, -1);
-  automat->Set(2);
-  automat->SetPhase(10);
+  CreateObject(VGMN, 3820, 1160, -1);
+  CreateObject(VGMN, 3850, 1160, -1)->Set(2);
   CreateObject(VGMN, 3880, 1160, -1)->Set(3);
 
   //Bojen

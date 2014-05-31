@@ -349,9 +349,7 @@ func CreateDecoration()
 
   //Automaten
   CreateObject(VGMN, 2840, 530, -1);
-  var automat = CreateObject(VGMN, 3140, 530, -1);
-  automat->Set(3);
-  automat->SetPhase(10);
+  var automat = CreateObject(VGMN, 3140, 530, -1)->Set(3);
 
   //Büsche
   CreateObject(BSH2, 2770, 570, -1);

@@ -873,8 +873,8 @@ public func ChooserFinished()
    //Strukturen
    AddAssaultTarget(CCP2, 2700, 990, 350, 1, "$Flag1$", 0, [[1930,950], [1980,840], [2030,970]]);
    AddAssaultTarget(CMSN, 3500, 1000, 350, 1, "$Flag2$", 1, [[2860,870], [2860,960], [2955,960]]);
-   AddAssaultTarget(CCP2, 4990, 1000, 350, 2, "$Flag5$", 0, [[5535,960], [5630,960], [5630,870]]);
-   AddAssaultTarget(CMSN, 5790, 990, 350, 2, "$Flag4$", 1, [[6620,970], [6675,840], [6720,950]]);
+   AddAssaultTarget(CCP2, 4990, 1000, 350, 2, "$Flag4$", 0, [[5535,960], [5630,960], [5630,870]]);
+   AddAssaultTarget(CMSN, 5790, 990, 350, 2, "$Flag5$", 1, [[6620,970], [6675,840], [6720,950]]);
 
    //Sprengsatz-Spawn
    SetupBombSpawnpoint([[4245, 790],[4245,900]]);
