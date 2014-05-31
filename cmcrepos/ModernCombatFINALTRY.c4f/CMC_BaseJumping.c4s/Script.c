@@ -388,7 +388,7 @@ func CreateDecoration()
   CreateObject(ETLT, 2350, 1555, -1);
 
   //Automaten
-  CreateObject(VGMN, 1270, 940, -1)->SetPhase(10);
+  CreateObject(VGMN, 1270, 940, -1);
   CreateObject(VGMN, 1810, 940, -1)->Set(3);
 
   //Regale
