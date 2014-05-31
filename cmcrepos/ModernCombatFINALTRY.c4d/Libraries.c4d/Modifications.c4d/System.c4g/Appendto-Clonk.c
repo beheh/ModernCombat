@@ -347,8 +347,10 @@ protected func DoPoints()
       //Ehrenband-Fortschritt (The Artist)
       if(killicon->~IsShockPaddles())
         AttemptAwardRibbon(RB05, killer, GetOwner());
+      
+      var e = GetEffect("FakeDeathContained", this);
       //Ehrenband-Fortschritt (The Noob)
-      if(Contained() && GetID(Contained()) == BKHK)
+      if(e && EffectVar(1, this, e) == BKHK)
         AttemptAwardRibbon(RB08, killer, GetOwner());
       //Ehrenband-Fortschritt (The Patch)
       if(GetCursor(killer))
@@ -629,12 +631,20 @@ global func PauseFakeDeath(bool fPause, object pTarget)
   return;
 }
 
+global func FxFakeDeathContainedStart(object pTarget, int iNr, int iTemp, object pContainer, id idContainer)
+{
+	EffectVar(0, pTarget, iNr) = pContainer;
+	EffectVar(1, pTarget, iNr) = idContainer;
+}
+
 global func FakeDeath(object pTarget)
 {
   if(!pTarget) pTarget = this;
   if(!pTarget) return false;
   if(!pTarget->IsClonk()) return false;
-
+  
+  if(Contained(pTarget))
+		AddEffect("FakeDeathContained", pTarget, 1, 3, 0, 0, Contained(pTarget), GetID(Contained(pTarget)));
   pTarget->OnFakeDeath();
 
   //Lebensenergie
