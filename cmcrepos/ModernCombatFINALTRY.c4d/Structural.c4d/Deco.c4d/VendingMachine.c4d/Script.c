@@ -11,8 +11,10 @@ protected func Initialize()
 {
   //Soundeffekt
   Sound("FreezerLoop", 0,0,0,0, +1);
-  //Aktionsschleife starten
+
+  //Aktionsschleife an zufälliger Stelle starten
   SetAction("Glow");
+  SetPhase(RandomX(0,23));
 }
 
 /* Aussehen festlegen */
