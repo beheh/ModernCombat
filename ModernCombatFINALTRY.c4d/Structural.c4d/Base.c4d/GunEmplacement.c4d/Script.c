@@ -118,6 +118,17 @@ public func OnDestruction()
 
   var iRot = iRotation;
 
+  //Schützen auswerfen sofern vorhanden
+  if(this->GetUser())
+  {
+    var pUser = this->GetUser();
+
+    ObjectSetAction(pUser, "Walk");
+    SetActionTargets(0, 0, pUser);
+    pUser->SetHUDTarget(0);
+    pUser->~ShowCH();
+  }
+
   //Definitions- und Aktionswechsel
   ChangeDef(_GTB);
   SetAction("Destroyed", this);
@@ -129,17 +140,6 @@ public func OnDestruction()
     SetPhase(2, this);
   else if(iRot == 0)
     SetPhase(0, this);
-
-  //Schützen auswerfen sofern vorhanden
-  if(this->GetUser())
-  {
-    var pUser = this->GetUser();
-
-    ObjectSetAction(pUser, "Walk");
-    SetActionTargets(0, 0, pUser);
-    pUser->SetHUDTarget(0);
-    pUser->~ShowCH();
-  }
 
   //Effekte
   if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",8,15,0,5,250,200,RGBa(255,255,255,100),RGBa(255,255,255,130));
