@@ -268,7 +268,7 @@ public func StartBuilding(id idBuilding, object pTarget, int selection)
 
 /* Bau-Effekt (by henry4k) */
 
-global func FxAutoBuildTimer(object pTarget, int iNo, int iTemp)
+global func FxAutoBuildStart(object pTarget, int iNo, int iTemp)
 {
   Sound("SF_Build", 0, pTarget, 0, 0, +1);
 }
