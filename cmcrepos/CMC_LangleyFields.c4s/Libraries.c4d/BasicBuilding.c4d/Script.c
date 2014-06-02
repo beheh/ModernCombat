@@ -126,11 +126,11 @@ public func OpenUpgradeMenu(id dummy, object pMenuObj)
 public func CountHombeaseMaterial(int iPlr, int iOffset, bool fHide)
 {
 	var i = iOffset,j,def;
-	while(def = GetHomebaseMaterial(plr, 0, i++, BuyCategory()))
+	while(def = GetHomebaseMaterial(iPlr, 0, i++, BuyCategory()))
 	{
 		if(fHide)
 		{
-			if(GetHomebaseMaterial(plr, def))
+			if(GetHomebaseMaterial(iPlr, def))
 				j++;
 		}
 		else
