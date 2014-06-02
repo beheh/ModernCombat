@@ -176,12 +176,17 @@ public func FxPreviewBuildingStart(object pTarget, int iNr, temp)
 
 public func FxPreviewBuildingTimer(object pTarget, int iNr)
 {
-	SetPosition(GetX()+EffectVar(1, pTarget, iNr), GetY()+EffectVar(2, pTarget, iNr), EffectVar(0, pTarget, iNr));
+	var tim = EffectVar(0, pTarget, iNr);
+	
+	//Anstatt Clonks ins Nichts zu schießen, lieber Vorschau abbrechen (bspw. bei Grenzobjekten) -> noch ordentlich fixen! 
+	if(!tim)
+		return -1;
+	SetPosition(GetX()+EffectVar(1, pTarget, iNr), GetY()+EffectVar(2, pTarget, iNr), tim);
 	
 	if(!CanBuild(EffectVar(3, pTarget, iNr), this))
-		SetClrModulation(RGB(255), EffectVar(0, pTarget, iNr), 1);
+		SetClrModulation(RGB(255), tim, 1);
 	else
-		SetClrModulation(RGB(255, 255, 255), EffectVar(0, pTarget, iNr), 1);
+		SetClrModulation(RGB(255, 255, 255), tim, 1);
 	return true;
 }
 
