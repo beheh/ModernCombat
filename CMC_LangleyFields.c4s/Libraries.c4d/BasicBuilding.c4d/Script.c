@@ -19,6 +19,7 @@ public func CurrentRequiredEnergy()	{return RequiredEnergy()-iEnergyAmount;}	//B
 public func PossibleUpgrades()		{return [];}					//Mögliche Upgrades
 public func MaxDamage()			{return 500;}					//Maximaler Schadenswert bis zur Zerstörung
 
+public func BuyCategory() {return C4D_All;}
 
 /* Bauanforderungen */
 
@@ -122,8 +123,66 @@ public func OpenUpgradeMenu(id dummy, object pMenuObj)
   return true;
 }
 
-public func OpenBuyMenu(id dummy, object pMenuObj)
+public func CountHombeaseMaterial(int iPlr, int iOffset, bool fHide)
 {
+	var i = iOffset,j,def;
+	while(def = GetHomebaseMaterial(plr, 0, i++, BuyCategory()))
+	{
+		if(fHide)
+		{
+			if(GetHomebaseMaterial(plr, def))
+				j++;
+		}
+		else
+			j++;
+	}
+
+	return j;
+}
+
+public func OpenBuyMenu(id dummy, object pMenuObj, int iOffset)
+{
+	CloseMenu(pMenuObj);
+  CreateMenu(GetID(), pMenuObj, this, C4MN_Extra_None, Format("%s - $BuyMenu$", GetName(this)), 0, C4MN_Style_Dialog);
+
+	var def = 0, i = iOffset, plr = GetOwner(pMenuObj), sel, sel2;
+	while(def = GetHomebaseMaterial(plr, 0, i++, BuyCategory()))
+	{
+		var amount = GetHomebaseMaterial(plr, def);
+		
+		if(amount)
+		{
+			if(GetWealth(GetOwner(pMenuObj)) > GetValue(0, def))
+			{
+				AddMenuItem(GetName(0, def), "ProcessBuy", def, pMenuObj, amount, iOffset);
+				if(def != dummy)
+					sel++;
+				else
+					sel2 = true;
+			}
+			else
+				AddMenuItem(Format("<c 990000>%s</c>", GetName(0, def)), 0, def, pMenuObj, amount, iOffset);
+		} 
+		else
+			AddMenuItem(Format("<c 777777>%s</c>", GetName(0, def)), 0, def, pMenuObj, amount, iOffset);
+	}
+	
+	if(sel2)
+		SelectMenuItem(sel, pMenuObj);
+
+	//todo: 
+	// - Kaufmenü auf Seitensystem umbasteln (ähnlich wie Achievements)
+	// - Nicht verfügbare Items ggf. ausblenden (fHide)
+	
+	return true;
+}
+
+public func ProcessBuy(id idItem, object pMenuObj, int iOffset)
+{
+	if(GetWealth(GetOwner(pMenuObj)) > GetValue(0, idItem))
+		Buy(idItem, GetOwner(pMenuObj), GetOwner(pMenuObj), this);
+
+	return OpenBuyMenu(idItem, pMenuObj, iOffset);
 }
 
 /* Energieversorgung */
