@@ -78,6 +78,12 @@ public func Destruction()
 
 /* Gebäudemenü */
 
+public func MenuHeader(object pMenuObj, string szName)
+{
+	CloseMenu(pMenuObj);
+  CreateMenu(GetID(), pMenuObj, this, C4MN_Extra_None, Format("%s - %s", GetName(this), szName), 0, C4MN_Style_Dialog);
+}
+
 public func ContainedUp(object pCaller)
 {
   OpenBuildingMenu(pCaller);
@@ -90,8 +96,7 @@ public func OpenBuildingMenu(object pMenuObj)
   CreateMenu(GetID(), pMenuObj, this, C4MN_Extra_None, GetName(this), 0, C4MN_Style_Dialog);
 
   //Gebäudespezifische Menüeinträge
-  if(AdditionalBuildingMenu())
-    AddMenuItem(" ", 0, 0, pMenuObj);
+  AdditionalBuildingMenu(pMenuObj)
   //Upgrademenü
   AddMenuItem("$UpgradeMenu$", "OpenUpgradeMenu", CCUS, pMenuObj, 0, pMenuObj);
   //Kaufmenü
@@ -107,8 +112,7 @@ public func AdditionalBuildingMenu(object pMenuObj)
 
 public func OpenUpgradeMenu(id dummy, object pMenuObj)
 {
-  CloseMenu(pMenuObj);
-  CreateMenu(GetID(), pMenuObj, this, C4MN_Extra_None, Format("%s - $UpgradeMenu$", GetName(this)), 0, C4MN_Style_Dialog);
+	MenuHeader(pMenuObj, "$UpgradeMenu$");
 
   for(var upgrade in PossibleUpgrades())
   {
@@ -142,8 +146,7 @@ public func CountHombeaseMaterial(int iPlr, int iOffset, bool fHide)
 
 public func OpenBuyMenu(id dummy, object pMenuObj, int iOffset)
 {
-	CloseMenu(pMenuObj);
-  CreateMenu(GetID(), pMenuObj, this, C4MN_Extra_None, Format("%s - $BuyMenu$", GetName(this)), 0, C4MN_Style_Dialog);
+	MenuHeader(pMenuObj, "$BuyMenu$");
 
 	var def = 0, i = iOffset, plr = GetOwner(pMenuObj), sel, sel2;
 	while(def = GetHomebaseMaterial(plr, 0, i++, BuyCategory()))
