@@ -27,7 +27,7 @@ protected func Initialize()
 
 public func AdditionalBuildingMenu(object pMenuObj)
 {
-	AddMenuItem("$CreateVehicles$", "OpenVehicleMenu", CVHC, pMenuObj, 0, 0, "$VehicleMenuDesc$");
+	AddMenuItem("$CreateVehicles$", "OpenVehicleMenu", CVHC, pMenuObj, 0, pMenuObj, "$VehicleMenuDesc$");
 	return true;
 }
 
