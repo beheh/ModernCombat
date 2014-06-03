@@ -96,7 +96,7 @@ public func OpenBuildingMenu(object pMenuObj)
   CreateMenu(GetID(), pMenuObj, this, C4MN_Extra_None, GetName(this), 0, C4MN_Style_Dialog);
 
   //Gebäudespezifische Menüeinträge
-  AdditionalBuildingMenu(pMenuObj)
+  AdditionalBuildingMenu(pMenuObj);
   //Upgrademenü
   AddMenuItem("$UpgradeMenu$", "OpenUpgradeMenu", CCUS, pMenuObj, 0, pMenuObj);
   //Kaufmenü
