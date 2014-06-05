@@ -10,4 +10,3 @@ Flag2=Vorposten West
 Flag3=Resort
 Flag4=Vorposten Ost
 Flag5=Aggressoren-Basis
-Flag6=Trümmer
