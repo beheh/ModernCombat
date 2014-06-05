@@ -24,8 +24,8 @@ protected func Death()
 {
   SetDir(0);
   ChangeDef(DPIR);
-  SetAction("Dead");
-  FadeOut();
+  SetAction("Dead", this);
+  this->FadeOut(this);
 }
 
 protected func Activity() 
