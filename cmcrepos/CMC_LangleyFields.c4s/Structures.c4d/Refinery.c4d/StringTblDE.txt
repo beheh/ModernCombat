@@ -1,0 +1,2 @@
+ResourceProcessInfo=Verarbeitung Fortschritt: %d/%d
+ResourceProcessInactive=<c 777777>Verarbeitung inaktiv</c>
