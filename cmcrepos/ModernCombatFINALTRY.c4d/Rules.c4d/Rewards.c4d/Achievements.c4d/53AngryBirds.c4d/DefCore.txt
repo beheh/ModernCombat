@@ -1,6 +1,6 @@
 [DefCore]
 id=AC53
-Name=Mission accomplished
+Name=Angry Birds
 Version=4,9,5
 Category=C4D_StaticBack
 Width=502

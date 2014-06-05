@@ -1,4 +1,4 @@
-/*-- Börd --*/
+/*-- Angry Birds --*/
 
 #strict 2
 #include ACHV

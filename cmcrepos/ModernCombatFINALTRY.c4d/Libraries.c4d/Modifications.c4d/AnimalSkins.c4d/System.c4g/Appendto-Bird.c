@@ -8,6 +8,7 @@
 
 local fHasNewSkin;
 
+
 /* Initialisierung */
 
 public func Initialize()
@@ -21,23 +22,26 @@ public func Initialize()
   return inherited();
 }
 
+/* Tod */
+
 protected func Death()
 {
-	if(GetKiller() != NO_OWNER)
-	{
-		var killer = GetKiller();
-		var progress = GetAchievementExtra(AC53, killer);
-		if(!progress)
-			progress = CreateArray(2);
-		if(!fHasNewSkin)
-			progress[0]++;
-		else
-			progress[1]++;
-		SetAchievementExtra(progress, AC53, killer);
-		
-		if(progress[0] > 1 && progress[1] > 0)
-			AwardAchievement(AC53, killer);
-	}
+  if(GetKiller() != NO_OWNER)
+  {
+    var killer = GetKiller();
+    var progress = GetAchievementExtra(AC53, killer);
+    if(!progress)
+      progress = CreateArray(2);
+    if(!fHasNewSkin)
+      progress[0]++;
+    else
+      progress[1]++;
+    SetAchievementExtra(progress, AC53, killer);
+
+    if(progress[0] > 1 && progress[1] > 0)
+      //Achievement-Fortschritt (Angry Birds)
+      AwardAchievement(AC53, killer);
+  }
 
   _inherited(...);
 }
