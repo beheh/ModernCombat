@@ -39,6 +39,12 @@ public func Initialize()
   for(var upgrade in PossibleUpgrades())
     if(upgrade->~IsGroupUpgrade() && GetTeamUpgrade(GetPlayerTeam(GetOwner()), upgrade))
       AddUpgrade(upgrade);
+  
+  if(!aUpgradeList)
+    aUpgradeList = [];
+
+  if(!aObjectList)
+    aObjectList = [];
 
   return true;
 }
@@ -53,6 +59,88 @@ public func AddObject(object pObj)
   return true;
 }
 
+/* Upgrades */
+
+public func CanResearch(id idUpgrade)
+{
+	//Upgrade nicht erforschbar für dieses Gebäude
+	if(GetIndexOf(idUpgrade, PossibleUpgrades()) == -1)
+		return false;
+	
+	//Upgrade ist bereits erforscht
+	if(GetIndexOf(idUpgrade, aUpgradeList) != -1)
+		return false;
+	
+	//Ist gerade am erforschen
+	if(GetEffect("ResearchingUpgrade", this))
+		return false;
+	
+	//Hat genug Geld?
+	if(GetWealth(GetOwner()) < idUpgrade->~ResearchCost())
+		return false;
+	
+	//Erfordeliche Upgrades schon erforscht?
+	if(!BaseUpgradesResearched(idUpgrade))
+		return false;
+	
+	//Weitere Bedingungen
+	if(!FurtherUpgradeConditions(idUpgrade, idUpgrade->~ResearchDuration(), idUpgrade->~ResearchCost()))
+		return false;
+	
+	//Upgradeseitige Bedingungen
+	if(!idUpgrade->~UpgradeConditions(this))
+		return false;
+	
+	return true;
+}
+
+public func ResearchUpgrade(id idUpgrade)
+{
+	//Auf Bedingungen überprüfen
+	if(!CanResearch(idUpgrade))
+		return false;
+
+	//Geld abziehen
+	SetWealth(GetOwner(), GetWealth(GetOwner())-idUpgrade->~ResearchCost());
+	
+	//Upgrade entwickeln!
+	var effect = AddEffect("ResearchingUpgrade", this, 1, idUpgrade->~ResearchDuration(), this, 0, idUpgrade);
+	OnResearchingUpgradeStart(effect, idUpgrade, idUpgrade->~ResearchDuration(), idUpgrade->~ResearchCost());
+	
+	return effect;
+}
+
+public func FxResearchingUpgradeStart(object pTarget, int iNr, int iTemp, id idUpgrade)
+{
+	if(iTemp)
+		return;
+
+	EffectVar(0, pTarget, iNr) = idUpgrade;
+	
+	//Uralte Standard Clonk-Sounds op!!1 :D
+	Sound("Research", 0, this, 100, 0, +1);
+	return true;
+}
+
+public func FxResearchingUpgradeStop(object pTarget, int iNr)
+{
+	EffectVar(0, pTarget, iNr)->Researched(pTarget);
+	Sound("Research", 0, this, 100, 0, -1);
+	Sound("ResearchDone", 0, this);
+
+	return true;
+}
+
+public func BaseUpgradesResearched(id idUpgrade)
+{
+	for(var baseupg in idUpgrade->~ResearchBase())
+		if(baseupg)
+			if(GetIndexOf(baseupg, aUpgradeList) == -1 && !GetTeamUpgrade(GetPlayerTeam(GetOwner()), baseupg))
+				return false;
+	
+	return true;
+}
+
 public func AddUpgrade(id idUpgrade)
 {
   if(!aUpgradeList)
@@ -64,6 +152,8 @@ public func AddUpgrade(id idUpgrade)
 }
 
 public func GetUpgradeList()	{return aUpgradeList;}
+public func OnResearchingUpgradeStart(int iEffect, id idUpgrade, int iDuration, int iCost) {return;}
+public func FurtherUpgradeConditions(id idUpgrade, int iDuration, int iCost) {return true;}
 
 /* Zerstörung */
 
@@ -119,10 +209,10 @@ public func OpenUpgradeMenu(id dummy, object pMenuObj)
   {
     if(GetIndexOf(upgrade, aUpgradeList) > -1)
       AddMenuItem(Format("<c 777777>%s</c>", GetName(0, upgrade)), 0, upgrade, pMenuObj);
-    else if(!upgrade->~CanBeResearched(this))
-      AddMenuItem(Format("<c FF0000>%s</c>", GetName(0, upgrade)), 0, upgrade, pMenuObj);
+    else if(!CanResearch(upgrade))
+      AddMenuItem(Format("<c ff0000>%s</c>", GetName(0, upgrade)), 0, upgrade, pMenuObj);
     else
-      AddMenuItem(GetName(0, upgrade), "StartUpgrade", upgrade, pMenuObj, 0, pMenuObj);
+      AddMenuItem(GetName(0, upgrade), "ResearchUpgrade", upgrade, pMenuObj, 0, pMenuObj);
   }
 
   return true;
