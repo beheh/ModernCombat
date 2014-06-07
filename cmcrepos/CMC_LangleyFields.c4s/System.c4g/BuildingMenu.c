@@ -4,6 +4,7 @@
 
 #appendto HZCK
 
+
 /* Kontexteintrag */
 
 protected func ContextBuilding(object pCaller)
@@ -245,25 +246,25 @@ global func CheckBuildingRadius(int iX, int iY)
 	return Distance(GetX(), GetY(), iX, iY) <= rad;
 }
 
-public func OpenRepairMenu() { return true; }
-public func OpenSellMenu() { return true; }
+public func OpenRepairMenu()	{return true;}
+public func OpenSellMenu()	{return true;}
 
 public func StartBuilding(id idBuilding, object pTarget, int selection)
 {
-	for(var obj in FindObjects(Find_ID(BGRS), Find_Owner(GetOwner(pTarget))))
-		if(obj)
-			RemoveObject(obj); 
-	RemoveEffect("PreviewBuilding", this);
+  for(var obj in FindObjects(Find_ID(BGRS), Find_Owner(GetOwner(pTarget))))
+    if(obj)
+      RemoveObject(obj);
+  RemoveEffect("PreviewBuilding", this);
 
-	if(!CanBuild(idBuilding, pTarget)) //ToDo: Meldung ausgeben
-		return false;
+  if(!CanBuild(idBuilding, pTarget)) //ToDo: Meldung ausgeben
+    return false;
 
-	var pBuilding = CreateConstruction(idBuilding, 0, 10, GetOwner(pTarget), 1, true, true);
-	if(!pBuilding)
-		return;
+  var pBuilding = CreateConstruction(idBuilding, 0, 10, GetOwner(pTarget), 1, true, true);
+  if(!pBuilding)
+    return;
 
-	DoWealth(GetOwner(pTarget), -GetValue(0, idBuilding));
-	AddEffect("AutoBuild", pBuilding, 10, 1);
+  DoWealth(GetOwner(pTarget), -GetValue(0, idBuilding));
+  AddEffect("AutoBuild", pBuilding, 10, 1);
 }
 
 /* Bau-Effekt (by henry4k) */

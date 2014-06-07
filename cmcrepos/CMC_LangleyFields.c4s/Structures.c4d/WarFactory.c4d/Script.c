@@ -25,55 +25,57 @@ protected func Initialize()
   return _inherited(...);
 }
 
+/* Menüführung */
+
 public func AdditionalBuildingMenu(object pMenuObj)
 {
-	AddMenuItem("$CreateVehicles$", "OpenVehicleMenu", CVHC, pMenuObj, 0, pMenuObj, "$VehicleMenuDesc$");
-	return true;
+  AddMenuItem("$CreateVehicles$", "OpenVehicleMenu", CVHC, pMenuObj, 0, pMenuObj, "$VehicleMenuDesc$");
+  return true;
 }
 
 public func OpenVehicleMenu(id dummy, object pMenuObj)
 {
-	MenuHeader(pMenuObj, "$VehicleMenu$");
+  MenuHeader(pMenuObj, "$VehicleMenu$");
 
-	var def, i, plr = GetOwner(pMenuObj);
-	while(def = GetPlrKnowledge(plr, 0, i++, C4D_Vehicle))
-		if(def)
-			AddMenuItem(GetName(0, def), "StartVehicleCreatingProcess", def, pMenuObj);
-	
-	return true;
+  var def, i, plr = GetOwner(pMenuObj);
+  while(def = GetPlrKnowledge(plr, 0, i++, C4D_Vehicle))
+    if(def)
+      AddMenuItem(GetName(0, def), "StartVehicleCreatingProcess", def, pMenuObj);
+
+  return true;
 }
+
+/* Fahrzeugkonstruktion */
 
 public func StartVehicleCreatingProcess(id idDef, object pMenuObj)
 {
-	//Checks ob bauen soll etc. fehlen
-	
-	
-	AddEffect("CreateVehicle", this, 1, 36, this, 0, GetOwner(pMenuObj), idDef);
+  //Checks ob bauen soll etc. fehlen
+
+  AddEffect("CreateVehicle", this, 1, 36, this, 0, GetOwner(pMenuObj), idDef);
 }
 
 public func FxCreateVehicleStart(object pTarget, int iNr, int iTemp, int iOwner, id idDef)
 {
-	EffectVar(0, pTarget, iNr) = iOwner;
-	EffectVar(1, pTarget, iNr) = idDef;
-	
-	Sound("SF_Build", 0, pTarget, 0, 0, +1);
+  EffectVar(0, pTarget, iNr) = iOwner;
+  EffectVar(1, pTarget, iNr) = idDef;
+
+  Sound("SF_Build", 0, pTarget, 0, 0, +1);
 }
 
 public func FxCreateVehicleTimer(object pTarget, int iNr, int iTime)
 {
-	//Entrancewerte	
+  //Entrancewerte
   for(var i = 10; i > 0; i--)
     pTarget->CreateParticle("Frazzle", -43+Random(48), 10+Random(35), RandomX(-20, 20), RandomX(-20, 20), 30, HSL(60, 150, RandomX(150, 250)), pTarget);
 
-	if(iTime > 360)
-		return -1;
+  if(iTime > 360)
+    return -1;
 }
 
 public func FxCreateVehicleStop(object pTarget, int iNr)
 {
-	Sound("SF_Build", 0, pTarget, 0, 0, -1);
-	
-	CreateObject(EffectVar(1, pTarget, iNr), -22, 35, EffectVar(0, pTarget, iNr));
-	return true;
-}
+  Sound("SF_Build", 0, pTarget, 0, 0, -1);
 
+  CreateObject(EffectVar(1, pTarget, iNr), -22, 35, EffectVar(0, pTarget, iNr));
+  return true;
+}

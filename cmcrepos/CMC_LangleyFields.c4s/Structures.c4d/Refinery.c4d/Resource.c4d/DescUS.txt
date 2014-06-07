@@ -1,3 +1,3 @@
-A box containing a weapon attachment.
+A transport box which contains raw material.
 
-[Double Dig] to attach the attachment to a weapon. [Throw] to give to allies.
+[Double Dig] to sell directly. For complete processing, a refinery is needed.
