@@ -1,2 +1,5 @@
 UpgradeMenu=Upgrades
 BuyMenu=Kaufen
+Showing=Seite %d von %d
+NextPage=Nächste Seite
+LastPage=Vorherige Seite

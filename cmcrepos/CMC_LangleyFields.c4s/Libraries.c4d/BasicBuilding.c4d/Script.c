@@ -171,7 +171,9 @@ public func Destruction()
 
 public func MenuHeader(object pMenuObj, string szName)
 {
-  CloseMenu(pMenuObj);
+	if(GetMenu(pMenuObj))
+  	CloseMenu(pMenuObj);
+
   CreateMenu(GetID(), pMenuObj, this, C4MN_Extra_None, Format("%s - %s", GetName(this), szName), 0, C4MN_Style_Dialog);
 }
 
@@ -218,7 +220,7 @@ public func OpenUpgradeMenu(id dummy, object pMenuObj)
   return true;
 }
 
-public func CountHombeaseMaterial(int iPlr, int iOffset, bool fHide)
+public func CountHomebaseMaterial(int iPlr, int iOffset, bool fHide)
 {
   var i = iOffset,j,def;
   while(def = GetHomebaseMaterial(iPlr, 0, i++, BuyCategory()))
@@ -235,12 +237,18 @@ public func CountHombeaseMaterial(int iPlr, int iOffset, bool fHide)
   return j;
 }
 
-public func OpenBuyMenu(id dummy, object pMenuObj, int iOffset)
+public func OpenBuyMenu(id dummy, object pMenuObj, int iOffset, int iButton)
 {
   MenuHeader(pMenuObj, "$BuyMenu$");
+  
+  var iMaterialCount = CountHomebaseMaterial(GetOwner(pMenuObj));
+  
+  //Seitenanzeige
+  AddMenuItem(Format("<c 33ccff>$Showing$</c>", iOffset/10+1, (iMaterialCount)/10+1), 0, NONE, pMenuObj);
 
   var def = 0, i = iOffset, plr = GetOwner(pMenuObj), sel, sel2;
-  while(def = GetHomebaseMaterial(plr, 0, i++, BuyCategory()))
+   
+  while((def = GetHomebaseMaterial(plr, 0, i++, BuyCategory())) && i <= 10+iOffset)
   {
     var amount = GetHomebaseMaterial(plr, def);
 
@@ -248,24 +256,44 @@ public func OpenBuyMenu(id dummy, object pMenuObj, int iOffset)
     {
       if(GetWealth(GetOwner(pMenuObj)) > GetValue(0, def))
       {
-        AddMenuItem(GetName(0, def), "ProcessBuy", def, pMenuObj, amount, iOffset);
+        AddMenuItem(GetName(0, def), Format("ProcessBuy(%i, Object(%d), %d)", def, ObjectNumber(pMenuObj), iOffset), def, pMenuObj, amount);
         if(def != dummy)
-          sel++;
+        {
+        	if(!sel2)
+          	sel++;
+        }
         else
+        {
           sel2 = true;
+        	sel++;
+        }
       }
       else
-        AddMenuItem(Format("<c 990000>%s</c>", GetName(0, def)), 0, def, pMenuObj, amount, iOffset);
+        AddMenuItem(Format("<c 990000>%s</c>", GetName(0, def)), 0, def, pMenuObj, amount);
     }
     else
-      AddMenuItem(Format("<c 777777>%s</c>", GetName(0, def)), 0, def, pMenuObj, amount, iOffset);
+      AddMenuItem(Format("<c 777777>%s</c>", GetName(0, def)), 0, def, pMenuObj, amount);
   }
+  
+  //Leerzeile
+  AddMenuItem(" ", 0, NONE, pMenuObj);
+	
+	if(iOffset+10 <= iMaterialCount)
+  	AddMenuItem("$NextPage$", Format("OpenBuyMenu(%i, Object(%d), %d, 1)", GetID(), ObjectNumber(pMenuObj), BoundBy(iOffset+10, 0, iMaterialCount)), NONE, pMenuObj, 0, 0, "", C4MN_Add_ForceNoDesc);
+
+  //Zurück
+  if(iOffset > 0)
+    AddMenuItem("$LastPage$", Format("OpenBuyMenu(%i, Object(%d), %d, 2)", GetID(), ObjectNumber(pMenuObj), BoundBy(iOffset-10, 0, iMaterialCount)), NONE, pMenuObj, 0, 0, "", C4MN_Add_ForceNoDesc);
+  else if(iButton == 2)
+  	iButton = 1;
 
   if(sel2)
     SelectMenuItem(sel, pMenuObj);
+  else if(iButton)
+  	SelectMenuItem(i-iOffset+iButton, pMenuObj);
 
   //todo: 
-  // - Kaufmenü auf Seitensystem umbasteln (ähnlich wie Achievements)
+  // - Selection-Verschiebung bei aufgekauften Items etc.
   // - Nicht verfügbare Items ggf. ausblenden (fHide)
 
   return true;
