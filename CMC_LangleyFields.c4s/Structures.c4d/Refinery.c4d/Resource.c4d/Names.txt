@@ -1,2 +1,2 @@
-DE:Waffenaufsatz
-US:Weapon Attachment
+DE:Ware
+US:Goods

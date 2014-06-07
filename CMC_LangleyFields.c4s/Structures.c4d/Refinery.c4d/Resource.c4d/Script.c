@@ -1,4 +1,4 @@
-/*-- Ressource --*/
+/*-- Ware --*/
 
 #strict 2
 
@@ -9,6 +9,7 @@ public func HandSize()		{return 800;}
 public func HandX()		{return 6000;}
 public func HandY()		{return -1000;}
 
+
 /* Inhalt */
 
 protected func Set(int iValue, int iDuration)
@@ -17,8 +18,8 @@ protected func Set(int iValue, int iDuration)
   duration = iDuration;
 }
 
-public func GetVal() { return value; }
-public func GetDuration() { return duration; }
+public func GetVal()		{return value;}
+public func GetDuration()	{return duration;}
 
 /* Aktivierung */
 
