@@ -3,7 +3,7 @@
 #strict 2
 #include DOOR	//Clonk-eigenes Türsystem
 
-local iEnergyAmount, aObjectList, aUpgradeList;
+local iEnergyAmount, aObjectList, aUpgradeList, fDestroyed, iLastAttacker;
 
 public func IsCMCBuilding()		{return true;}
 
@@ -18,6 +18,7 @@ public func HasEnoughEnergy()		{return !CurrentRequiredEnergy();}		//Energievers
 public func CurrentRequiredEnergy()	{return RequiredEnergy()-iEnergyAmount;}	//Benötigte Energie
 public func PossibleUpgrades()		{return [];}					//Mögliche Upgrades
 public func MaxDamage()			{return 500;}					//Maximaler Schadenswert bis zur Zerstörung
+public func IsDestroyed()   {return fDestroyed;}
 
 public func BuyCategory() {return C4D_All;}
 
@@ -159,6 +160,75 @@ public func GetUpgradeList()	{return aUpgradeList;}
 public func OnResearchingUpgradeStart(int iEffect, id idUpgrade, int iDuration, int iCost) {return;}
 public func FurtherUpgradeConditions(id idUpgrade, int iDuration, int iCost) {return true;}
 
+/* Schaden */
+
+public func Damage(int change)
+{
+  //Struktur zerstören, aber mehr Schaden als den Maximalen nicht zulassen
+  if(change > 0 && IsDestroyed())
+  {
+    if(GetDamage() > MaxDamage())
+      DoDamage(-(GetDamage()-MaxDamage()));
+  }
+
+  //Bei höherem Schaden als dem Maximalen entsprechend zerstören
+  if(GetDamage() > MaxDamage() && !IsDestroyed())
+  {
+    Destroyed();
+  }
+
+  //Bei beendetem Reparaturvorgang Sonderfunktionen aufrufen
+  /*if(IsDestroyed() && GetDamage() == 0 && !IsRepairing())
+  {
+    fDestroyed = false;
+    ObjectSetAction(this, "RepairStop");
+    OnRepair();
+  }*/
+}
+
+public func Destroyed()
+{
+  //Status setzen
+  //SetAction("Destroyed");
+  fDestroyed = true;
+
+  //Schaden auf Maximalwert setzen
+  if(GetDamage() > MaxDamage())
+    DoDamage(-(GetDamage()-MaxDamage()));
+
+  //Punkte bei Belohnungssystem (Strukturzerstörung)
+  /*if(BonusPointCondition() && iLastAttacker != -1)
+    if((GetOwner() != -1 && Hostile(GetOwner(), iLastAttacker)) || (GetOwner() == -1 && !GetTeam(this)) || (GetTeam(this) != GetPlayerTeam(iLastAttacker)))
+      DoPlayerPoints(BonusPoints("Destruction"), RWDS_BattlePoints, iLastAttacker, GetCursor(iLastAttacker), IC03);*/
+
+  //Explosion
+  FakeExplode(20, iLastAttacker+1);
+
+  //Sound
+  Sound("Blast2", false, this);
+
+  //Letzen Angreifer zurücksetzen
+  iLastAttacker = -1;
+
+  //Callback
+  OnDestruction();
+  
+  //Löschen planen (Momentan noch nicht besonders fancy)
+  Schedule("RemoveObject()", 35*6, 1, this);
+}
+
+public func OnDestruction() {}
+
+public func OnDmg(int iDmg, int iType)
+{
+  return 50;	//Default
+}
+
+public func OnHit(int iDmg, int iType, object pBy)
+{
+  if(!IsDestroyed())	
+    iLastAttacker = GetController(pBy);
+}
 /* Zerstörung */
 
 public func Destruction()
