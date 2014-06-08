@@ -3,3 +3,7 @@ BuyMenu=Kaufen
 Showing=Seite %d von %d
 NextPage=Nächste Seite
 LastPage=Vorherige Seite
+NoUpgrades=Keine Upgrades in Entwicklung.
+IsUpgrading=Upgrade: %s (%d / %d)
+ActiveUpgrades=Aktive Upgrades:
+UpgradesToResearch=Erforschbare Upgrades:

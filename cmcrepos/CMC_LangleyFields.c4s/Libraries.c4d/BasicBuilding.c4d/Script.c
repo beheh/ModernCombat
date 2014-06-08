@@ -131,6 +131,10 @@ public func FxResearchingUpgradeStop(object pTarget, int iNr)
 	return true;
 }
 
+public func GetUpgradeResearchProgress() {return GetEffect("ResearchingUpgrade", this, 0, 6);}
+public func GetUpgradeResearchDuration() {return GetEffect("ResearchingUpgrade", this, 0, 3);}
+public func IsResearchingUpgrades() {return GetEffect("ResearchingUpgrade", this);}
+
 public func BaseUpgradesResearched(id idUpgrade)
 {
 	for(var baseupg in idUpgrade->~ResearchBase())
@@ -199,23 +203,48 @@ public func OpenBuildingMenu(object pMenuObj)
   return true;
 }
 
-public func AdditionalBuildingMenu(object pMenuObj)
-{
-}
+public func AdditionalBuildingMenu(object pMenuObj) {}
 
 public func OpenUpgradeMenu(id dummy, object pMenuObj)
 {
   MenuHeader(pMenuObj, "$UpgradeMenu$");
+  
+  if(!IsResearchingUpgrades())
+  	AddMenuItem("$NoUpgrades$", 0, NONE, pMenuObj);
+	else
+	{
+		var upgradeID = EffectVar(0, this, IsResearchingUpgrades());
+		AddMenuItem(Format("$IsUpgrading$", GetName(0, upgradeID), GetUpgradeResearchProgress(), GetUpgradeResearchDuration()), 0, upgradeID, pMenuObj);
+	}
+	
+	//Leerzeile
+	AddMenuItem(" ", 0, NONE, pMenuObj);
+	
+	var aMenuUpgradeList = [[],[]];
+	
+	aMenuUpgradeList[0] = aUpgradeList;
 
   for(var upgrade in PossibleUpgrades())
-  {
-    if(GetIndexOf(upgrade, aUpgradeList) > -1)
-      AddMenuItem(Format("<c 777777>%s</c>", GetName(0, upgrade)), 0, upgrade, pMenuObj);
-    else if(!CanResearch(upgrade))
-      AddMenuItem(Format("<c ff0000>%s</c>", GetName(0, upgrade)), 0, upgrade, pMenuObj);
-    else
-      AddMenuItem(GetName(0, upgrade), "ResearchUpgrade", upgrade, pMenuObj, 0, pMenuObj);
-  }
+    if(GetIndexOf(upgrade, aUpgradeList) == -1)
+			aMenuUpgradeList[1][GetLength(aMenuUpgradeList[1])] = upgrade;
+
+	if(GetLength(aMenuUpgradeList[0]))
+	{
+		AddMenuItem("$ActiveUpgrades$", 0, NONE, pMenuObj);
+		for(var upgrade in aMenuUpgradeList[0])
+		  AddMenuItem(Format("%s", GetName(0, upgrade)), 0, upgrade, pMenuObj);
+	}
+	if(GetLength(aMenuUpgradeList[1]))
+	{
+		AddMenuItem("$UpgradesToResearch$", 0, NONE, pMenuObj);
+		for(var upgrade in aMenuUpgradeList[1])
+		{
+		  if(!CanResearch(upgrade))
+		    AddMenuItem(Format("<c ff0000>%s</c>", GetName(0, upgrade)), 0, upgrade, pMenuObj);
+		  else
+		    AddMenuItem(GetName(0, upgrade), "ResearchUpgrade", upgrade, pMenuObj, 0, pMenuObj);
+		}
+	}
 
   return true;
 }
