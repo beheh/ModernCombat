@@ -16,31 +16,31 @@ public func UseOwnHitbox()	{return true;}
 
 public func ExplosionHitbox(int iEX, int iEY, int iER)
 {
-	if(!iHitboxDistance || !aHitboxAngles)
+  if(!iHitboxDistance || !aHitboxAngles)
     return false;
-  
-  var hitbox = GetHitboxPoints();
-  
- 	iEX = AbsX(iEX); iEY = AbsY(iEY);
 
-	for(var i = 0; i < GetLength(hitbox); i++)
-	{
-		var p1 = hitbox[i], p2 = hitbox[(i+1) % (GetLength(hitbox))];
-		var v1 = [p2[0]-p1[0], p2[1]-p1[1]], v2 = [iEX-p1[0],iEY-p1[1]];
-		var t = (v1[0]*v2[0]+v1[1]*v2[1])*1000/Sqrt(v1[0]**2+v1[1]**2)**2;
-		
-		if(t > 1000)
-			t = 1000;
-		else if(t < 0)
-			t = 0;
-		
-		var vd = [p1[0]+(v1[0]*t)/1000, p1[1]+(v1[1]*t)/1000];
-		
-		if(Distance(iEX, iEY, vd[0], vd[1]) < iER)
-			return true;
-	}
-	
-	return false;
+  var hitbox = GetHitboxPoints();
+
+  iEX = AbsX(iEX); iEY = AbsY(iEY);
+
+  for(var i = 0; i < GetLength(hitbox); i++)
+  {
+    var p1 = hitbox[i], p2 = hitbox[(i+1) % (GetLength(hitbox))];
+    var v1 = [p2[0]-p1[0], p2[1]-p1[1]], v2 = [iEX-p1[0],iEY-p1[1]];
+    var t = (v1[0]*v2[0]+v1[1]*v2[1])*1000/Sqrt(v1[0]**2+v1[1]**2)**2;
+
+    if(t > 1000)
+      t = 1000;
+    else if(t < 0)
+      t = 0;
+
+    var vd = [p1[0]+(v1[0]*t)/1000, p1[1]+(v1[1]*t)/1000];
+
+    if(Distance(iEX, iEY, vd[0], vd[1]) < iER)
+      return true;
+  }
+
+  return false;
 }
 
 public func BulletHitboxFactor(int ax, int ay, int bx, int by, int cx, int cy, int dx, int dy)
