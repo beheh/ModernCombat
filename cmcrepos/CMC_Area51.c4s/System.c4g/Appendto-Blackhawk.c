@@ -4,12 +4,12 @@
 
 #appendto BKHK
 
-local EMP;
+local fEMP;
 
 func EMP()
 {
-	EMP = !EMP;
-	if(EMP)
+	fEMP = !fEMP;
+	if(fEMP)
 		Message("EMP an!", this);
 	else
 		Message("EMP aus!", this);
