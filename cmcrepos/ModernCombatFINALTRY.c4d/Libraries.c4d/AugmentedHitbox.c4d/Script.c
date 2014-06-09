@@ -14,6 +14,36 @@ public func HitboxHeight()	{return 10;}	//Höhe der Hitbox
 public func HitboxRotation()	{return 0;}	//Hitbox rotieren (zusätzlich zur Objektrotation)
 public func UseOwnHitbox()	{return true;}
 
+public func ExplosionHitbox(int iEX, int iEY, int iER)
+{
+	if(!iHitboxDistance || !aHitboxAngles)
+    return false;
+  
+  var hitbox = GetHitboxPoints();
+  
+ 	iEX = AbsX(iEX); iEY = AbsY(iEY);
+
+	for(var i = 0; i < GetLength(hitbox); i++)
+	{
+		var p1 = hitbox[i], p2 = hitbox[(i+1) % (GetLength(hitbox))];
+		var v1 = [p2[0]-p1[0], p2[1]-p1[1]], v2 = [iEX-p1[0],iEY-p1[1]];
+		var t = (v1[0]*v2[0]+v1[1]*v2[1])*1000/Sqrt(v1[0]**2+v1[1]**2)**2;
+		
+		if(t > 1000)
+			t = 1000;
+		else if(t < 0)
+			t = 0;
+		
+		var vd = [p1[0]+(v1[0]*t)/1000, p1[1]+(v1[1]*t)/1000];
+		
+		if(Distance(iEX, iEY, vd[0], vd[1]) < iER)
+			return true;
+	}
+	
+	return false;
+}
+
+
 public func BulletHitboxFactor(int ax, int ay, int bx, int by, int cx, int cy, int dx, int dy)
 {
   return((cx-ax)*(dy-cy)-(cy-ay)*(dx-cx))*1000/((bx-ax)*(dy-cy)-(by-ay)*(dx-cx));
@@ -63,131 +93,3 @@ public func BulletHitboxCheck(int bul_start_x, int bul_start_y, int bul_end_x, i
   for(var i = 0; i <= length-1; i++)
   {
     var fac1 = BulletHitboxFactor(bul_start_x, bul_start_y, bul_end_x, bul_end_y, x1, y1, x2, y2);
-    var fac2 = BulletHitboxFactor(x1, y1, x2, y2, bul_start_x, bul_start_y, bul_end_x, bul_end_y);
-
-    if(Inside(fac1, 0, 1000) && Inside(fac2, 0, 1000))
-    {
-      if(!aBulHitboxParameter[7] || fac1 < aBulHitboxParameter[7])
-        aBulHitboxParameter[7] = fac1;
-        aBulHitboxParameter[8]++;
-      fBulHitboxResult = true;
-    }
-
-    if(i >= length-1)
-      break;
-
-    x1 = hitbox[i][0];
-    y1 = hitbox[i][1];
-    x2 = hitbox[i+1][0];
-    y2 = hitbox[i+1][1];
-  }
-
-  return fBulHitboxResult;
-}
-
-public func GetHitboxPoints()
-{
-  var distance = iHitboxDistance;
-  var angle = aHitboxAngles;
-  var hitbox = [];
-  for(var a in angle)
-  {
-    a += GetR()+HitboxRotation();
-    a = a + (45 - a) * 2;
-    hitbox[GetLength(hitbox)] = [Cos(a, distance)+HitboxXOffset(), -Sin(a, distance)+HitboxYOffset()];
-  }
-
-  return hitbox;
-}
-
-public func IsInHitbox(int x, int y, bool fDraw)
-{
-  if(!iHitboxDistance || !aHitboxAngles)
-    return false;
-
-  var hitbox = GetHitboxPoints();
-
-  if(fDraw)
-  {
-    var lastpoint = 0;
-    for(var point in hitbox)
-    {
-      if(!lastpoint)
-      {
-        lastpoint = point;
-        continue;
-      }
-
-      DrawParticleLine("PSpark", lastpoint[0], lastpoint[1], point[0], point[1], 5, 30, RGB(255), RGB(255));
-      lastpoint = point;
-    }
-
-    DrawParticleLine("PSpark", lastpoint[0], lastpoint[1], hitbox[0][0], hitbox[0][1], 5, 30, RGB(255), RGB(255));
-    return true;
-  }
-
-  var inside = false;
-
-  var length = GetLength(hitbox);
-
-  var x1 = hitbox[length-1][0];
-  var y1 = hitbox[length-1][1];
-  var x2 = hitbox[0][0];
-  var y2 = hitbox[0][1];
-
-  var su = (y1 >= y);
-  for(var i = 1; i <= length; i++)
-  {
-    var eu = (y2 >= y);
-    if(su != eu && (x1 > x || x2 > x))
-    {
-      if((y2 - y) * (x2 - x1) <= (y2 - y1) * (x2 - x))
-      {
-        if(eu)
-          inside = !inside;
-      }
-      else
-        if(!eu)
-          inside = !inside;
-    }
-
-    if(i >= length)
-      break;
-
-    su = eu;
-    y1 = y2;
-    x1 = x2;
-    x2 = hitbox[i][0];
-    y2 = hitbox[i][1];
-  }
-
-  return inside;
-}
-
-public func SwitchHitboxVisibility()
-{
-  var effect = GetEffect("ShowHitbox", this);
-  if(!effect)
-    AddEffect("ShowHitbox", this, 101, 10, this);
-  else
-    EffectVar(0, this, effect) = !EffectVar(0, this, effect);
-
-  return true;
-}
-
-public func FxShowHitboxTimer(object target, int nr)
-{
-  if(!EffectVar(0, target, nr))
-    target->IsInHitbox(0, 0, true);
-
-  return true;
-}
-
-protected func InitializeHitbox()
-{
-  //Hitbox erstellen
-  iHitboxDistance = Distance(0, 0, HitboxWidth()/2, HitboxHeight()/2);
-  aHitboxAngles = [Angle(0, 0, HitboxWidth()/2, HitboxHeight()/2), Angle(0, 0, -(HitboxWidth()/2), HitboxHeight()/2), Angle(0, 0, -(HitboxWidth()/2), -(HitboxHeight()/2)), Angle(0, 0, HitboxWidth()/2, -(HitboxHeight()/2))];
-
-  return true;
-}
