@@ -606,8 +606,8 @@ protected func ControlThrow(object byObj)
 
 public func ControlUpdate(object byObj, int comdir, bool dig, bool throw) 
 {
-  if(!throw)
-    return GetAttWeapon()->StopAutoFire();
+  if(!throw && GetAttWeapon())
+    return GetAttWeapon()->~StopAutoFire();
 }
 
 /* Sonstiges */
