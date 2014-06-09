@@ -24,7 +24,7 @@ public func Initialize()
 
 protected func Check()
 {
-  if(!iHits)
+  if(!iHits && fDestroyed)
   	return;
 
   //Clonks suchen
