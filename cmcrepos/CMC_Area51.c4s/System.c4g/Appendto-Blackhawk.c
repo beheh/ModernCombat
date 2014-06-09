@@ -1,4 +1,4 @@
-/*-- EMP-Schock --*/
+/*-- fEMP-Schock --*/
 
 #strict 2
 
@@ -10,9 +10,9 @@ func EMP()
 {
 	fEMP = !fEMP;
 	if(fEMP)
-		Message("EMP an!", this);
+		Message("fEMP an!", this);
 	else
-		Message("EMP aus!", this);
+		Message("fEMP aus!", this);
 }
 
 protected func ContainedUp(object ByObj)
@@ -20,7 +20,7 @@ protected func ContainedUp(object ByObj)
   [$CtrlUp$]
 
   //Pilot
-  if(ByObj == GetPilot() && !EMP)
+  if(ByObj == GetPilot() && !fEMP)
   {
     if(GetY() < 80)
       return;
@@ -56,7 +56,7 @@ protected func ContainedDown(object ByObj)
   [$CtrlDown$]
 
   //Pilot
-  if(ByObj == GetPilot() && !EMP)
+  if(ByObj == GetPilot() && !fEMP)
   {
     //Autopilot aus
     ResetAutopilot();
@@ -86,7 +86,7 @@ protected func ContainedUpDouble(object ByObj)
   [$CtrlUpD$]
   
   //Pilot
-  if(ByObj == GetPilot() && !EMP)
+  if(ByObj == GetPilot() && !fEMP)
   {
     if(GetY() < 80)
       return;
@@ -105,7 +105,7 @@ protected func ContainedDownDouble(object ByObj)
   [$CtrlDownD$]
 
   //Pilot
-  if(ByObj == GetPilot() && !EMP)
+  if(ByObj == GetPilot() && !fEMP)
   {
     //Autopilot aus
     ResetAutopilot();
@@ -128,7 +128,7 @@ protected func ContainedLeft(object ByObj)
   [$CtrlLeft$]
 
   //Pilot
-  if(ByObj == GetPilot() && !EMP)
+  if(ByObj == GetPilot() && !fEMP)
   {
     //Autopilot aus
     ResetAutopilot();
@@ -154,7 +154,7 @@ protected func ContainedRight(object ByObj, fRelease)
   [$CtrlRight$]
   
   //Pilot
-  if(ByObj == GetPilot() && !EMP)
+  if(ByObj == GetPilot() && !fEMP)
   {
     //Autopilot aus
     ResetAutopilot();
@@ -182,7 +182,7 @@ protected func ContainedLeftDouble(object ByObj)
 {
   [$CtrlLeftD$]
   //Pilot
-  if(ByObj == GetPilot() && !EMP)
+  if(ByObj == GetPilot() && !fEMP)
   {
     //Autopilot aus
     ResetAutopilot();
@@ -208,7 +208,7 @@ protected func ContainedRightDouble(object ByObj)
   [$CtrlRightD$]
   
   //Pilot
-  if(ByObj == GetPilot() && !EMP)
+  if(ByObj == GetPilot() && !fEMP)
   {
     //Autopilot aus
     ResetAutopilot();
@@ -237,7 +237,7 @@ protected func ContainedThrow(object ByObj)
   if(GetDamage() > MaxDamage())
     return true;
   //Piloten-Speedmenü
-  if(ByObj == GetPilot() && !EMP)
+  if(ByObj == GetPilot() && !fEMP)
   {
     var ring = CreateSpeedMenu(this, ByObj);
 
