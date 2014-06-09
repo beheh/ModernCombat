@@ -6,6 +6,15 @@
 
 local EMP;
 
+func EMP()
+{
+	EMP = !EMP;
+	if(EMP)
+		Message("EMP an!", this);
+	else
+		Message("EMP aus!", this);
+}
+
 protected func ContainedUp(object ByObj)
 {
   [$CtrlUp$]

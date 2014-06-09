@@ -36,7 +36,7 @@ protected func CreateConstructionSite(idType)
 	
   // Besitzer setzen für CreateConstruction
   SetOwner(GetOwner(Contained()));
-  var obj = CreateObject(idType);
+  var obj = CreateObject(idType, 0, 0, GetOwner());
   if(idType == BNGT)
   {
   	if(GetDir(Contained()) == DIR_Left)

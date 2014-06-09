@@ -7,7 +7,6 @@ Origin=ModernCombatFINALTRY.c4f
 Definition1=Objects.c4d
 Definition2=Hazard.c4d
 Definition3=ModernCombatFINALTRY.c4d
-Definition4=ModernCombatFINALTRY.c4f/Backgrounds.c4d
 
 [Game]
 StructNeedEnergy=0
