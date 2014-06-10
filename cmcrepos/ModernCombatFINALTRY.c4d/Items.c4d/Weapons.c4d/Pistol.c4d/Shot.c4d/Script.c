@@ -500,6 +500,9 @@ private func HitCheck(int r, int d)
       var iObj = GetID(pObj);
       if(HitObject(pObj))
       {
+      	if(i > 0 && pObj && Hostile(GetOwner(), GetOwner(pObj)) && GetID(Contained(pObj)) == FKDT)
+      		AwardAchievement(AC54, GetOwner());
+      	
         var dist = Distance(sx, sy, ox, oy);
         dst += dist;
 
