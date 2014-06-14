@@ -20,7 +20,7 @@ public func Initialize()
 
 public func OnOpen()
 {
-  if(GetAction() == "Open" || GetAction() == "Opened") return ;
+  if(GetAction() == "Open" || GetAction() == "Opened") return;
   SetAction("Open");
   Sound("Airlock1");
 }
@@ -32,7 +32,7 @@ public func OnOpened()
 
 public func OnClose()
 {
-  if(GetAction() == "Closed" || GetAction() == "Close") return ;
+  if(GetAction() == "Closed" || GetAction() == "Close") return;
   SetAction("Close");
   Sound("Airlock2");
   SetSolidMask(0, 0, 20, 20,3);
@@ -73,9 +73,17 @@ private func SomeonesApproaching()
 
 public func ControlUp(object pByObj)
 {
-  if(GetAction() != "Destroyed")
+  if(GetAction() != "Destroyed" && GetAction() != "Close")
     if(!lock)
       OnOpen();
+  return 1;
+}
+
+public func ControlDig(object pByObj)
+{
+  if(GetAction() != "Destroyed" && GetAction() != "Open")
+    if(!lock)
+      OnClose();
   return 1;
 }
 
@@ -120,7 +128,7 @@ public func ControlTransfer(object obj, int x, int y)
 global func DebugCmds(object pTarget, bool fLog)
 {
   if(!pTarget) pTarget = this;
-  if(!pTarget) return ;
+  if(!pTarget) return;
 
   var i,name,target,target_name,x,y,list = "<CMD-LIST>";
   while(name = GetCommand(pTarget,0,i))
