@@ -2,6 +2,7 @@
 
 #strict 2
 
+
 /* Aufnahme */
 
 public func Entrance(object pObj)
