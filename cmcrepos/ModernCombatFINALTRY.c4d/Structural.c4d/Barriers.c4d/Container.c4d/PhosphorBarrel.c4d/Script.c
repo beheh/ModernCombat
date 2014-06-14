@@ -31,7 +31,10 @@ func BlowUp(int iPlr)
   FadeOut();
 
   //Phosphor verschleudern
-  CastObjects(PSPR, 8, 50);
+  for(var i = 0; i <= 8; i++)
+  {
+    CreateObject(PSPR, AbsX(GetX()), AbsY(GetY())-GetDefHeight(GetID())/2, GetController())->SetSpeed(RandomX(-50,50), RandomX(-50,50));
+  }
 }
 
 /* Aufprall */
