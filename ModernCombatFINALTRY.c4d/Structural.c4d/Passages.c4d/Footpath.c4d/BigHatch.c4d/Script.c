@@ -18,7 +18,7 @@ public func Initialize()
 
 public func OnClose()
 {
-  if(GetAction() == "Closed" || GetAction() == "Close") return ;
+  if(GetAction() == "Closed" || GetAction() == "Close") return;
   SetAction("Close");
   Sound("Airlock2");
   SetSolidMask(0, 30, 30, 30);
