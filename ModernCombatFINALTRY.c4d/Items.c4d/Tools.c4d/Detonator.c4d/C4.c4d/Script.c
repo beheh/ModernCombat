@@ -111,7 +111,7 @@ public func StickTo(object pObj)
   
   iStickAngle = Angle(GetX(pStickTo), GetY(pStickTo), GetX(), GetY());
   
-  if(!GetDir() && GetActMapVal("Directions", GetAction(pStickTo), GetID(pStickTo)) > 1)
+  if(!GetDir(pStickTo) && GetActMapVal("Directions", GetAction(pStickTo), GetID(pStickTo)) > 1)
   	iStickAngle *= -1;
   
   iPreviousCategory = GetCategory();
