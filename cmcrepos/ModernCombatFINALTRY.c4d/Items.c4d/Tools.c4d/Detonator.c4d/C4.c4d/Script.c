@@ -108,7 +108,12 @@ public func StickTo(object pObj)
   Sound("C4EX_Attach.ogg");
   iStickROffset = GetR()-GetR(pStickTo);
   iStickDistance = Distance(GetX(pStickTo), GetY(pStickTo), GetX(), GetY());
+  
   iStickAngle = Angle(GetX(pStickTo), GetY(pStickTo), GetX(), GetY());
+  
+  if(!GetDir() && GetActMapVal("Directions", GetAction(pStickTo), GetID(pStickTo)) > 1)
+  	iStickAngle *= -1;
+  
   iPreviousCategory = GetCategory();
   SetCategory(C4D_Vehicle);
   SetObjectOrder(pStickTo, this);
