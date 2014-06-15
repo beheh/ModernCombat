@@ -7,7 +7,7 @@ static const APCE_Seat_Pilot = 1;
 static const APCE_Seat_Gunner = 2;
 local pEntrance;
 
-public func MaxDamage()		{return 190;}
+public func MaxDamage()		{return 200;}
 
 
 /* Hitbox */
