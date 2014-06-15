@@ -1193,8 +1193,8 @@ public func OnDmg(int iDmg, int iType)
   if(iType == DMG_Bio)		return 100;	//Säure und biologische Schadstoffe
   if(iType == DMG_Melee)	return 80;	//Nahkampf
   if(iType == DMG_Fire)		return 50;	//Feuer
-  if(iType == DMG_Explosion)	return -70;	//Explosionen
-  if(iType == DMG_Projectile)	return 70;	//Projektile
+  if(iType == DMG_Explosion)	return -50;	//Explosionen
+  if(iType == DMG_Projectile)	return 80;	//Projektile
 
   return 50;
 }
