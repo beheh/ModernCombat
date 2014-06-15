@@ -47,7 +47,9 @@ global func FxIntUnstuck4KTimer(object pTarget, int iEffectNumber, int iEffectTi
     return -1;
 
   var iXDir = EffectVar(0, pTarget, iEffectNumber),
-      iYDir = EffectVar(1, pTarget, iEffectNumber);
+  iYDir = EffectVar(1, pTarget, iEffectNumber),
+  iXCache = EffectVar(3, pTarget, iEffectNumber),
+  iYCache = EffectVar(4, pTarget, iEffectNumber);
 
   if(iEffectTime > 12)
   {
@@ -56,8 +58,27 @@ global func FxIntUnstuck4KTimer(object pTarget, int iEffectNumber, int iEffectTi
     return -1;
   }
 
-  SetPosition(GetX(pTarget)  +	iXDir/10+!!(iXDir%10),
-              GetY(pTarget)  +  iYDir/10+!!(iYDir%10));
+  iXCache += (Abs(iXDir)%10)*Sgn(iXDir);
+  iXDir = iXDir/10;
+  if(iXCache > 10)
+  {
+    iXDir += Sgn(iXCache);
+    iXCache -= 10;
+  }
+
+  iYCache += (Abs(iYDir)%10)*Sgn(iYDir);
+  iYDir = iYDir/10;
+  if(iYCache > 10)
+  {
+    iYDir += Sgn(iYCache);
+    iYCache -= 10;
+  }
+
+  EffectVar(3, pTarget, iEffectNumber) = iXCache;
+  EffectVar(4, pTarget, iEffectNumber) = iYCache;
+  
+  SetPosition(GetX(pTarget)  + iXDir,
+  GetY(pTarget) + iYDir);
 
   return;
 }
