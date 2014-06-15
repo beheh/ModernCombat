@@ -2,7 +2,7 @@
 
 #strict 2
 
-local vel;
+local oldwind;
 
 
 /* Initialisierung */
@@ -12,11 +12,33 @@ protected func Initialize()
   //Positionieren
   SetPosition();
 
-  vel = 30;
+  oldwind = GetFogWind();
 
   //Nebel auf Landschaft plazieren
   for(var i = LandscapeWidth()/10; i > 0; i--)
-   DoFog(i*10);
+    DoFog(i*10);
+}
+
+/* Ermittlung der Windbewegung */
+
+protected func GetFogWind()
+{
+  var wind = GetWind(0,0,true);
+
+  if(!wind)
+  {
+    if(!oldwind)
+      wind = (Random(2)*2-1)*10;
+    else
+      wind = Sgn(oldwind)*10;
+  }
+
+  if(wind > 0)
+    BoundBy(wind, 10,40);
+  else
+    BoundBy(wind, -40,-10);
+
+  return wind;
 }
 
 /* Nebelerstellung */
@@ -24,53 +46,24 @@ protected func Initialize()
 protected func Timer()
 {
   //Effektmanager beachten
-  if(!GetEffectData(EFSM_Fog)) return;
+  if(GetEffectData(EFSM_Fog))
+  {
+    //Nebel erstellen
+    if(GetWind(0,0,true)>0)
+      DoFog(0);
+    else
+      DoFog(LandscapeWidth());
 
-  //Nebel erstellen
-  DoFog();
-
-  //Zufällige Bewegung des Windes
-  if(!Random(100))
-    if(!GetEffect("IntPush",this))
-      AddEffect("IntPush", this, 50, 1, this, GetID(), 35*(3+Random(10)));
+    //Partikel entsprechend dem Wind schieben
+    var fogwind = GetFogWind();
+    PushParticles("Fog", -(oldwind-fogwind), 0);
+    oldwind = fogwind;
+  }
 }
 
 protected func DoFog(x)
 {
   //Neuen Nebel an Kartenrändern erstellen
   var grey = 100+Random(155);
-
-  var obj = this;
-  if(!Random(3))
-    obj = 0;
-
-  CreateParticle ("Fog", x, Random(LandscapeHeight()), vel+Random(15), 0, 300+Random(600), RGBa(grey,grey,grey,Random(100)), obj, false); 
-}
-
-public func FxIntPushStart(object pTarget, int iEffectNumber, int iTemp, duration)
-{
-  EffectVar(0,pTarget,iEffectNumber) = duration;
-}
-
-public func FxIntPushTimer(object pTarget, int iEffectNumber, int iEffectTime)
-{
-  var duration = EffectVar(0,pTarget,iEffectNumber);
-
-  if(iEffectTime >= duration) return -1;
-
-  if(iEffectTime < duration/3)
-  {
-    vel+=2;
-    PushParticles("Fog",+2);
-  }
-  else
-  {
-    vel--;
-    PushParticles("Fog",-1);
-  }
-}
-
-public func FxIntPushStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)
-{
-  vel = 30;
+  CreateParticle("Fog", x, Random(LandscapeHeight()), oldwind, 0, 300+Random(600), RGBa(grey,grey,grey,Random(100)), this);
 }
