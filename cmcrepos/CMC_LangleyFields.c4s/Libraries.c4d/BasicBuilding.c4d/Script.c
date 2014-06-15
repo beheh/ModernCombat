@@ -261,6 +261,10 @@ public func OpenBuildingMenu(object pMenuObj)
 {
   //Menü erstellen
   CreateMenu(GetID(), pMenuObj, this, C4MN_Extra_None, GetName(this), 0, C4MN_Style_Dialog);
+  
+  AddMenuItem(Format("$Hitpoints$", GetDamage(), MaxDamage()), 0, NONE, pMenuObj);
+  
+  AddMenuItem(" ", 0, NONE, pMenuObj); 
 
   //Gebäudespezifische Menüeinträge
   AdditionalBuildingMenu(pMenuObj);

@@ -7,3 +7,4 @@ NoUpgrades=Keine Upgrades in Entwicklung.
 IsUpgrading=Upgrade: %s (%d / %d)
 ActiveUpgrades=Aktive Upgrades:
 UpgradesToResearch=Erforschbare Upgrades:
+Hitpoints=Schaden: %d/%d
