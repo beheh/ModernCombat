@@ -70,6 +70,10 @@ func CreateInterior()
   var autod = CreateObject (HNG3, 1040, 1140, -1);
   autod->Open();
   CreateObject (CONS, 650, 1105, -1)->Set(autod);
+  
+  //Ziplines
+  CreateZipline(1860, 650, 810, 1010);
+  CreateZipline(220, 650, 1270, 1010);
 }
 
 func CreateEquipment()

@@ -1,0 +1,17 @@
+[Action]
+Name=Connect
+Procedure=NONE
+Delay=1
+Length=1
+FacetBase=1
+NextAction=Connect
+StartCall=Connecting
+
+[Action]
+Name=ConnectStatic
+Procedure=NONE
+Delay=30
+Length=1
+FacetBase=1
+NextAction=ConnectStatic
+StartCall=Connecting
