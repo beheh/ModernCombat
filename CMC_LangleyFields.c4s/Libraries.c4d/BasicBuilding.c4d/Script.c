@@ -261,9 +261,7 @@ public func OpenBuildingMenu(object pMenuObj)
 {
   //Menü erstellen
   CreateMenu(GetID(), pMenuObj, this, C4MN_Extra_None, GetName(this), 0, C4MN_Style_Dialog);
-  
   AddMenuItem(Format("$Hitpoints$", GetDamage(), MaxDamage()), 0, NONE, pMenuObj);
-  
   AddMenuItem(" ", 0, NONE, pMenuObj); 
 
   //Gebäudespezifische Menüeinträge
@@ -380,20 +378,20 @@ public func OpenBuyMenu(id dummy, object pMenuObj, int iOffset, int iButton)
   
   //Leerzeile
   AddMenuItem(" ", 0, NONE, pMenuObj);
-	
-	if(iOffset+10 <= iMaterialCount)
-  	AddMenuItem("$NextPage$", Format("OpenBuyMenu(%i, Object(%d), %d, 1)", GetID(), ObjectNumber(pMenuObj), BoundBy(iOffset+10, 0, iMaterialCount)), NONE, pMenuObj, 0, 0, "", C4MN_Add_ForceNoDesc);
+
+  if(iOffset+10 <= iMaterialCount)
+    AddMenuItem("$NextPage$", Format("OpenBuyMenu(%i, Object(%d), %d, 1)", GetID(), ObjectNumber(pMenuObj), BoundBy(iOffset+10, 0, iMaterialCount)), NONE, pMenuObj, 0, 0, "", C4MN_Add_ForceNoDesc);
 
   //Zurück
   if(iOffset > 0)
     AddMenuItem("$LastPage$", Format("OpenBuyMenu(%i, Object(%d), %d, 2)", GetID(), ObjectNumber(pMenuObj), BoundBy(iOffset-10, 0, iMaterialCount)), NONE, pMenuObj, 0, 0, "", C4MN_Add_ForceNoDesc);
   else if(iButton == 2)
-  	iButton = 1;
+    iButton = 1;
 
   if(sel2)
     SelectMenuItem(sel, pMenuObj);
   else if(iButton)
-  	SelectMenuItem(i-iOffset+iButton, pMenuObj);
+    SelectMenuItem(i-iOffset+iButton, pMenuObj);
 
   //todo: 
   // - Selection-Verschiebung bei aufgekauften Items etc.

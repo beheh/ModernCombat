@@ -40,47 +40,47 @@ static const CWFY_Category_Grenades = 3;
 
 public func OpenEquipmentMenu(id dummy, object pMenuObj)
 {
-	MenuHeader(pMenuObj, "$EquipmentMenu$");
-	
-	AddMenuItem("$ChooseCategory$", 0, NONE, pMenuObj);
-	
-	AddMenuItem("$CategoryWeapons$", Format("OpenEquipCategory(Object(%d), %d)", ObjectNumber(pMenuObj), CWFY_Category_Weapon), WPN2, pMenuObj);
-	AddMenuItem("$CategoryEquipment$", Format("OpenEquipCategory(Object(%d), %d)", ObjectNumber(pMenuObj), CWFY_Category_Equipment), C4PA, pMenuObj);
-	AddMenuItem("$CategoryGrenades$", Format("OpenEquipCategory(Object(%d), %d)", ObjectNumber(pMenuObj), CWFY_Category_Grenades), NADE, pMenuObj);
+  MenuHeader(pMenuObj, "$EquipmentMenu$");
+
+  AddMenuItem("$ChooseCategory$", 0, NONE, pMenuObj);
+
+  AddMenuItem("$CategoryWeapons$", Format("OpenEquipCategory(Object(%d), %d)", ObjectNumber(pMenuObj), CWFY_Category_Weapon), WPN2, pMenuObj);
+  AddMenuItem("$CategoryEquipment$", Format("OpenEquipCategory(Object(%d), %d)", ObjectNumber(pMenuObj), CWFY_Category_Equipment), C4PA, pMenuObj);
+  AddMenuItem("$CategoryGrenades$", Format("OpenEquipCategory(Object(%d), %d)", ObjectNumber(pMenuObj), CWFY_Category_Grenades), NADE, pMenuObj);
 }
 
 public func OpenEquipCategory(object pMenuObj, int iCat, int iSelection)
 {
-	MenuHeader(pMenuObj, "$CategoryWeapons$");
+  MenuHeader(pMenuObj, "$CategoryWeapons$");
 
-	var def, i, sel;
-	while(def = GetPlrKnowledge(GetOwner(pMenuObj), 0, i++, C4D_Object))
-	{
-		if(iCat == CWFY_Category_Weapon)
-		{
-			if(!def->~IsWeapon())
-				continue;
-		}
-		else if(iCat == CWFY_Category_Equipment)
-		{
-			if(!def->~IsEquipment())
-				continue;
-			if(def->~IsGrenade())
-				continue;
-		}
-		else if(iCat == CWFY_Category_Grenades)
-		{
-			if(!def->~IsGrenade())
-				continue;
-		}
-		
-		AddMenuItem(GetName(0, def), Format("ProcessBuy(%i, Object(%d), %d, %d)", def, ObjectNumber(pMenuObj), iCat, sel++), def, pMenuObj);
-	}
+  var def, i, sel;
+  while(def = GetPlrKnowledge(GetOwner(pMenuObj), 0, i++, C4D_Object))
+  {
+    if(iCat == CWFY_Category_Weapon)
+    {
+      if(!def->~IsWeapon())
+        continue;
+    }
+    else if(iCat == CWFY_Category_Equipment)
+    {
+      if(!def->~IsEquipment())
+        continue;
+      if(def->~IsGrenade())
+        continue;
+    }
+    else if(iCat == CWFY_Category_Grenades)
+    {
+      if(!def->~IsGrenade())
+        continue;
+    }
 
-	AddMenuItem("$Back$", "OpenEquipmentMenu", NONE, pMenuObj, 0, pMenuObj); 
-	SelectMenuItem(iSelection, pMenuObj);
-	
-	return true;
+    AddMenuItem(GetName(0, def), Format("ProcessBuy(%i, Object(%d), %d, %d)", def, ObjectNumber(pMenuObj), iCat, sel++), def, pMenuObj);
+  }
+
+  AddMenuItem("$Back$", "OpenEquipmentMenu", NONE, pMenuObj, 0, pMenuObj); 
+  SelectMenuItem(iSelection, pMenuObj);
+
+  return true;
 }
 
 public func ProcessBuy(id idItem, object pMenuObj, int iCategory, int iSelection)
