@@ -97,6 +97,7 @@ public func FxBaseAssaultBombStart(object pTarget, int iNr)
   EffectVar(0, pTarget, iNr) = bar;
   EffectVar(1, pTarget, iNr) = AddLight(300, RGBa(255, 0, 0, 60), pTarget);
   //EffectVar(2) für Counterstrike-Errungenschaft reserviert
+  EffectVar(3, pTarget, iNr) = GetTaggedPlayerName(GetOwner(pTarget));
 }
 
 public func FxBaseAssaultBombTimer(object pTarget, int iNr, int iTime)
@@ -121,7 +122,7 @@ public func FxBaseAssaultBombStop(object pTarget, int iNr, int iReason)
   if(iReason >= 3 || (pTarget && pTarget->~IsFakeDeath()))
   {
     //Eventnachricht: Sprengladung fallengelassen
-    EventInfo4K(0, Format("$BombDropped$", GetTaggedPlayerName(GetOwner(pTarget))), C4P2, 0, 0, 0, "Info_Event.ogg");
+    EventInfo4K(0, Format("$BombDropped$", EffectVar(3, pTarget, iNr)), C4P2, 0, 0, 0, "Info_Event.ogg");
 
     //Sprengladung erstellen und platzieren
     PlaceBombSpawnpoint(GetX(pTarget), GetY(pTarget));
