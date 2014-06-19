@@ -30,6 +30,43 @@ global func CreateZipline(int iX1, int iY1, int iX2, int iY2)
   return true;
 } 
 
+//Trennt das Seil am Anfang/Ende ab 
+public func CutRope(bool fEnd, int iPlrPlusOne)
+{
+	//Höhenunterschiede berücksichtigen
+	if(GetPoint(0, true) > GetPoint(GetPointNum()-1, true))
+		fEnd = !fEnd;
+
+	var index = 0;
+	if(fEnd)
+		index = GetPointNum()-1;
+	
+	//Temporäres Knotenpunktobjekt erzeugen
+	var temp = CreateObject(NLPT, GetPoint(index), GetPoint(index, true)+4, iPlrPlusOne-1);
+	temp->SetCategory(C4D_Object);
+	
+	var actTarget = GetActionTarget(1);
+	if(fEnd)
+		actTarget = GetActionTarget();
+
+	ConnectObjects(actTarget, temp);
+	SetZipline(false);
+	SetStaticMode(false);
+
+	//In Richtung zum ActionTarget schleudern
+  var angle = Angle(GetX(temp), GetY(temp), GetX(actTarget), GetY(actTarget));
+  SetXDir(+Sin(angle, 100)/2, temp);
+  SetYDir(-Cos(angle, 100)/2, temp);
+
+  //Partikel- und Soundeffekte
+  //...
+  
+  FadeOut(temp);
+	FadeOut();
+
+	return true;
+}
+
 public func SetZipline(bool fSet)
 {
 	fZipline = fSet;
