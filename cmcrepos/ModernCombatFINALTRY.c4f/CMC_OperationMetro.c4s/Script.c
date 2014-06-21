@@ -244,8 +244,6 @@ func CreateInterior()
   bridge = CreateObject(_HBR, 2355, 420, -1);
   bridge->SetR(-45);
   bridge->SetIrreparable();
-  CreateObject(_HBR, 2585, 510, -1);
-  CreateObject(_HBR, 2655, 510, -1);
   bridge = CreateObject(_HBR, 2885, 420, -1);
   bridge->SetR(45);
   bridge->SetIrreparable();
