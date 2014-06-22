@@ -174,11 +174,10 @@ protected func Timer()
     {
       if(iconState != 2)
       {
-      	var clr = GetTeamColor(team), plr;
-				if(GetTeamConfig(TEAM_AutoGenerateTeams) && GetTeamPlayerCount(team) <= 1 && (plr = GetTeamMemberByIndex(team, 0)) > -1)
-					clr = GetPlrColorDw(plr);
+        var clr = GetTeamColor(team), plr;
+        if(GetTeamConfig(TEAM_AutoGenerateTeams) && GetTeamPlayerCount(team) <= 1 && (plr = GetTeamMemberByIndex(team, 0)) > -1)
+          clr = GetPlrColorDw(plr);
 
-      
         bar->SetIcon(0, SM23, 0, 0, 32);
         bar->SetBarColor(clr);
         bar->Update(process);
