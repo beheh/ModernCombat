@@ -299,7 +299,7 @@ public func GetTeamFlagColor(int iTeam)
   if(GetTeamPlayerCount(iTeam) != 1)
     return GetTeamColor(iTeam);
   //Ein Spieler: Dessen Spielerfarbe
-  for (var i; i < GetPlayerCount(i); i++)
+  for (var i; i < GetPlayerCount(); i++)
     if(GetPlayerTeam(GetPlayerByIndex(i)) == iTeam)
       return GetPlrColorDw(GetPlayerByIndex(i));
   return GetTeamColor(iTeam);
