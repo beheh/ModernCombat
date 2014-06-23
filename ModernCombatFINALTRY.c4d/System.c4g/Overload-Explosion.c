@@ -169,9 +169,9 @@ global func BlastObjects2(int x, int y, int level, object container, int cause_p
         //Log("%v v(%v %v)   d(%v %v)  m=%v  l=%v  s=%v", obj, vx,vy, dx,dy, mass_fact, level, shock_speed);
         var killerplr = GetKiller(obj);
         Fling(obj, vx, vy, 100, true);
-        
+
         if(cat & C4D_Living)
-        	SetKiller(killerplr, obj);
+          SetKiller(killerplr, obj);
       }
     }
   }
