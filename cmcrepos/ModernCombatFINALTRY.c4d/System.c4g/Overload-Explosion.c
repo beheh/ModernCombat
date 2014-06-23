@@ -167,7 +167,11 @@ global func BlastObjects2(int x, int y, int level, object container, int cause_p
           if(ovy*vy > 0) vy = (Sqrt(vy*vy + ovy*ovy) - Abs(vy)) * Abs(vy)/vy;
         }
         //Log("%v v(%v %v)   d(%v %v)  m=%v  l=%v  s=%v", obj, vx,vy, dx,dy, mass_fact, level, shock_speed);
-        Fling(obj, vx,vy, 100, true);
+        var killerplr = GetKiller(obj);
+        Fling(obj, vx, vy, 100, true);
+        
+        if(cat & C4D_Living)
+        	SetKiller(killerplr, obj);
       }
     }
   }
