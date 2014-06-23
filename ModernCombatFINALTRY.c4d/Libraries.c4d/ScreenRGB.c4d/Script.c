@@ -3,7 +3,7 @@
 #strict 2
 
 local r,g,b,a;
-local target,targetset,layer,fade;
+local target,targetset,layer,fade,minalpha;
 
 static const SR4K_LayerSmoke		= 1;
 static const SR4K_LayerLight		= 2;
@@ -76,6 +76,7 @@ public func Set(object pTarget, int dwRGBa, int iAlphaAdd, int iFadeRate, bool b
 {
   target = pTarget;
   layer = iLayer;
+  minalpha = iMin;
 
   if(target)
     targetset = true;
@@ -118,12 +119,12 @@ public func FxIntRGBFadeStart(object pTarget, int iEffectNumber, int iTemp)
 
 public func FxIntRGBFadeTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
-  a = BoundBy(a+fade,0,255);
+  a = BoundBy(a+fade,minalpha,255);
   SetClrModulation(RGBa(r,g,b,a), pTarget);
-
+  
   if(a <= 0)
     return -1;
-
+	
   if (!GetPlayerName(GetOwner(pTarget)))
     return -1;
 
