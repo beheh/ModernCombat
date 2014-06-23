@@ -112,8 +112,8 @@ protected func FxIntAddProgressTimer()
   if (!pFlag->IsFullyCaptured())
   {
     iProgress = 0;
-	//Nochmal updaten damit nicht das falsche Team die Prozente zugeschrieben bekommt
-	return UpdateScoreboard();
+    //Nochmal updaten damit nicht das falsche Team die Prozente zugeschrieben bekommt
+    return UpdateScoreboard();
   }
 
   //Punkte vergeben

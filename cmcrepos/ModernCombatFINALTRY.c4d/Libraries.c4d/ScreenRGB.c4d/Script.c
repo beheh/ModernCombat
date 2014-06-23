@@ -121,10 +121,10 @@ public func FxIntRGBFadeTimer(object pTarget, int iEffectNumber, int iEffectTime
 {
   a = BoundBy(a+fade,minalpha,255);
   SetClrModulation(RGBa(r,g,b,a), pTarget);
-  
+
   if(a <= 0)
     return -1;
-	
+
   if (!GetPlayerName(GetOwner(pTarget)))
     return -1;
 
