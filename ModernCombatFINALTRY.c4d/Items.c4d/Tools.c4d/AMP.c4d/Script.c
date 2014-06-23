@@ -53,18 +53,6 @@ public func FxAmmoBarsTimer(object target, int nr)
     }
     return 0;
   }
-  else if(Contents(0, Contained()) != this)
-  {
-    if(!EffectVar(1, target, nr))
-    {
-      for(var bar in EffectVar(0, target, nr))
-        if(bar)
-          bar->Update(0, true);
-
-      EffectVar(1, target, nr) = true;
-    }
-    return 0;
-  }
   EffectVar(1, target, nr) = false;
 
   var owner = GetOwner(Contained());
