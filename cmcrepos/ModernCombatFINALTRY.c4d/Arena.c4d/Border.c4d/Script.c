@@ -189,7 +189,7 @@ protected func FxBorderStop(pTarget, iNo, iReason, fTemp)
 
 protected func Destruction()
 {
-  for(var obj in FindObjects(Find_InRect(x, y, xh, yh), Find_OCF(OCF_CrewMember)))
+  for(var obj in FindObjects(Find_OCF(OCF_CrewMember)))
     if(GetEffect("Border", obj, 0, 4) == this)
       RemoveEffect("Border", obj);
 }
