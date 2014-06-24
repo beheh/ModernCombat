@@ -13,6 +13,6 @@ Flag5=Werft
 
 Target1=Bewegungsmelder
 Target2=Sendeanlage
-Target3=Nachschubhütte
+Target3=Kommunikationsserver
 Target4=Truppenunterkunft
 Target5=Ölfilter
