@@ -13,6 +13,6 @@ Flag5=Shipyard
 
 Target1=Motion Detector
 Target2=Transmitter
-Target3=Supplies Hut
+Target3=Communication Server
 Target4=Billet
 Target5=Oil Filter
