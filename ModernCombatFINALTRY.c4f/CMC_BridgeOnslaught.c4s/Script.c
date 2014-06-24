@@ -1,6 +1,6 @@
 /*-- Bridge Onslaught --*/
 
-#strict
+#strict 2
 #include CSTD
 
 static aFlag,aSelfDefense,switchright,switchleft;
@@ -26,7 +26,7 @@ func Initialize()
   CreateEquipment();
   //Dekoration plazieren
   CreateDecoration();
-  return(1);
+  return 1;
 }
 
 /* Plazierungslisten */
@@ -825,7 +825,7 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   if(!g_chooserFinished)
   {
    iX = 1365; iY = 570;
-   return(1);
+   return 1;
   }
 
   //HTF/MR/CTF/LMS/DM-Spielziel
@@ -839,6 +839,6 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
    {
     return [[2110, 790], [2240, 430], [2310, 620]];
    }
-   return(1);
+   return 1;
   }
 }

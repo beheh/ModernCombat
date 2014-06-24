@@ -1,6 +1,6 @@
 /*-- Macross Frontier --*/
 
-#strict
+#strict 2
 #include CSTD
 
 func RecommendedGoals()	{return [GHTF, GTDM];}	//Spielzielempfehlung
@@ -28,7 +28,7 @@ func Initialize()
   CreateDecoration();
   //Kein CTF bei mehr als 2 Teams
   if(GetTeamCount() > 2) RemoveAll(GCTF);
-  return(1);
+  return 1;
 }
 
 /* Plazierungslisten */
@@ -463,7 +463,7 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   if(!g_chooserFinished)
   {
    iX = 785; iY = 350;
-   return(1);
+   return 1;
   }
 
   //HTF-Spielziel
@@ -480,7 +480,7 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
     {
      return [[1265, 85], [1295, 120], [1330, 350]];
     }
-    return(1);
+    return 1;
    }
    else
    {
@@ -502,7 +502,7 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
     {
      return [[1265, 85], [1295, 120], [1330, 350]];
     }
-    return(1);
+    return 1;
    }
    else
    {
@@ -521,6 +521,6 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
    {
     return [[1135, 120], [1265, 85], [1295, 120]];
    }
-   return(1);
+   return 1;
   }
 }

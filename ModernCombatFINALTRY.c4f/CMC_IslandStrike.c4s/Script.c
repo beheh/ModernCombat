@@ -1,6 +1,6 @@
 /*-- Island Strike --*/
 
-#strict
+#strict 2
 #include CSTD
 
 static aFlag,aStationary,aSelfDefense,aArtillery;
@@ -33,7 +33,7 @@ func Initialize()
   CreateEquipment();
   //Dekoration plazieren
   CreateDecoration();
-  return(1); 
+  return 1; 
 }
 
 /* Plazierungslisten */
@@ -1302,7 +1302,7 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   if(!g_chooserFinished)
   {
    iX = 1700; iY = 450;
-   return(1);
+   return 1;
   }
 
   //Assault-Spielziel
@@ -1320,7 +1320,7 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
    {
     return [[6325, 600], [6460, 600]];
    }
-   return(1);
+   return 1;
   }
 
   //LMS/DM-Spielziel
@@ -1334,6 +1334,6 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
    {
     return [[5700, 430], [5785, 600]];
    }
-   return(1);
+   return 1;
   }
 }

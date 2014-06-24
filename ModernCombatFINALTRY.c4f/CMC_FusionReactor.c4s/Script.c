@@ -1,6 +1,6 @@
 /*-- Fusion Reactor --*/
 
-#strict
+#strict 2
 #include CSTD
 
 static aFlag,aSelfDefense;
@@ -26,7 +26,7 @@ func Initialize()
   CreateEquipment();
   //Dekoration plazieren
   CreateDecoration();
-  return(1);
+  return 1;
 }
 
 /* Plazierungslisten */
@@ -728,7 +728,7 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   if(!g_chooserFinished)
   {
    iX = 915; iY = 730;
-   return(1);
+   return 1;
   }
 
   //HTF/MR/LMS/DM-Spielziel
@@ -750,6 +750,6 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
    {
     return [[380, 290], [620, 320]];
    }
-   return(1);
+   return 1;
   }
 }

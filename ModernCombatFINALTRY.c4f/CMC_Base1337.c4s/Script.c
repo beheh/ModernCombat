@@ -1,6 +1,6 @@
 /*-- Base 1337 --*/
 
-#strict
+#strict 2
 #include CSTD
 
 static aFlag,aStationary,aSelfDefense,aTowerInterior,doorw1,doorw2,pRoom1,pRoom2;
@@ -31,7 +31,7 @@ func Initialize()
   CreateEquipment();
   //Dekoration plazieren
   CreateDecoration();
-  return(1);
+  return 1;
 }
 
 /* Plazierungslisten */
@@ -952,7 +952,7 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   if(!g_chooserFinished)
   {
    iX =2310; iY = 960;
-   return(1);
+   return 1;
   }
 
   //Assault-Spielziel
@@ -970,6 +970,6 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
    {
     return [[3980, 820], [3600, 850], [3515, 590]];
    }
-   return(1);
+   return 1;
   }
 }

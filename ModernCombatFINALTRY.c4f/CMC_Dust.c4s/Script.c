@@ -1,6 +1,6 @@
 /*-- Dust --*/
 
-#strict
+#strict 2
 #include CSTD
 
 static aFlag;
@@ -24,7 +24,7 @@ func Initialize()
   CreateEquipment();
   //Dekoration plazieren
   CreateDecoration();
-  return(1);
+  return 1;
 }
 
 /* Plazierungslisten */
@@ -317,7 +317,7 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   if(!g_chooserFinished)
   {
    iX = 875; iY = 565;
-   return(1);
+   return 1;
   }
 
   //HTF/MR/LMS/DM-Spielziel
@@ -339,7 +339,7 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
    {
     return [[180, 310], [330, 400], [400, 210]];
    }
-   return(1);
+   return 1;
   }
 
   //CTF-Spielziel
@@ -361,6 +361,6 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
    {
     return [[480, 285], [580, 285]];
    }
-   return(1);
+   return 1;
   }
 }

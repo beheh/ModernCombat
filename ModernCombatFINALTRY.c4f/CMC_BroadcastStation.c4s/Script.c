@@ -1,6 +1,6 @@
 /*-- Broadcast Station --*/
 
-#strict
+#strict 2
 #include CSTD
 
 func RecommendedGoals()	{return [GTDM];}	//Spielzielempfehlung
@@ -22,7 +22,7 @@ func Initialize()
   CreateEquipment();
   //Dekoration plazieren
   CreateDecoration();
-  return(1);
+  return 1;
 }
 
 /* Plazierungslisten */
@@ -483,7 +483,7 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   if(!g_chooserFinished)
   {
    iX = 875; iY = 630;
-   return(1);
+   return 1;
   }
 
   //MR/LMS/DM-Spielziel
@@ -500,12 +500,12 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
     {
      return [[1535, 300], [1635, 240], [1690, 420]];
     }
-    return(1);
+    return 1;
    }
    else
    {
     return [[210, 480], [260, 700], [595, 410], [1155, 180], [1525, 650], [1635, 240], [1690, 420]];
    }
-   return(1);
+   return 1;
   }
 }

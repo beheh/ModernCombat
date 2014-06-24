@@ -1,6 +1,6 @@
 /*-- Coastal Resort --*/
 
-#strict
+#strict 2
 #include CSTD
 
 static aFlag,aSelfDefense,doorw1,doorw2,pRoom1,pRoom2,aLights,iLightsCounter;
@@ -29,7 +29,7 @@ func Initialize()
   CreateDecoration();
   //Lichter ausschalten
   LightsOff();
-  return(1);
+  return 1;
 }
 
 /* Plazierungslisten */
@@ -1003,7 +1003,7 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   if(!g_chooserFinished)
   {
    iX = 4245; iY = 860;
-   return(1);
+   return 1;
   }
 
   //HTF/LMS/DM-Spielziel
@@ -1017,6 +1017,6 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
    {
     return [[5535, 950], [5630, 950], [5630, 860]];
    }
-   return(1);
+   return 1;
   }
 }
