@@ -1,6 +1,6 @@
 /*-- Endless Outpost --*/
 
-#strict
+#strict 2
 #include CSTD
 
 static aFlag,aStationary,aDoor,aSelfDefense;
@@ -31,7 +31,7 @@ func Initialize()
   CreateEquipment();
   //Dekoration plazieren
   CreateDecoration();
-  return(1);
+  return 1;
 }
 
 /* Plazierungslisten */
@@ -1232,7 +1232,7 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   if(!g_chooserFinished)
   {
    iX =1160; iY = 300;
-   return(1);
+   return 1;
   }
 
   //Assault-Spielziel
@@ -1250,6 +1250,6 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
    {
     return [[2140, 200], [2140, 280]];
    }
-   return(1);
+   return 1;
   }
 }

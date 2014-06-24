@@ -1,6 +1,6 @@
 /*-- Ground Zero --*/
 
-#strict
+#strict 2
 #include CSTD
 
 static aFlag,aSelfDefense;
@@ -26,7 +26,7 @@ func Initialize()
   CreateEquipment();
   //Dekoration plazieren
   CreateDecoration();
-  return(1); 
+  return 1; 
 }
 
 /* Plazierungslisten */
@@ -666,7 +666,7 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   if(!g_chooserFinished)
   {
    iX = 1700; iY = 300;
-   return(1);
+   return 1;
   }
 
   //HTF/MR/CTF-Spielziel
@@ -680,7 +680,7 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
    {
     return [[2540, 310], [2540, 380]];
    }
-   return(1);
+   return 1;
   }
 
   //LMS/DM-Spielziel
@@ -694,6 +694,6 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
    {
     return [[2160, 250], [2160, 410]];
    }
-   return(1);
+   return 1;
   }
 }

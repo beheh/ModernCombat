@@ -1,6 +1,6 @@
 /*-- Operation Métro --*/
 
-#strict
+#strict 2
 #include CSTD
 
 static aFlag,aStationary;
@@ -27,7 +27,7 @@ func Initialize()
   CreateEquipment();
   //Dekoration plazieren
   CreateDecoration();
-  return(1);
+  return 1;
 }
 
 /* Plazierungslisten */
@@ -857,7 +857,7 @@ public func ChooserFinished()
 
 public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bool fConnectedDestroyed)
 {
-  if(!FindObject(GASS) || FindObject(GBAS)) return(0);
+  if(!FindObject(GASS) || FindObject(GBAS)) return;
 
   //Ziel 1
   if(!iIndex)
@@ -908,7 +908,7 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   if(!g_chooserFinished)
   {
    iX = 1110; iY = 320;
-   return(1);
+   return 1;
   }
 
   //Assault-Spielziel
@@ -926,7 +926,7 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
    {
     return [[3560, 490], [3660, 360], [3680, 490]];
    }
-   return(1);
+   return 1;
   }
 
   //HTF/MR/LMS/DM-Spielziel
@@ -940,6 +940,6 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
    {
     return [[3770, 360], [3770, 430], [3950, 430]];
    }
-   return(1);
+   return 1;
   }
 }

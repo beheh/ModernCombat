@@ -1,6 +1,6 @@
 /*-- Oasis --*/
 
-#strict
+#strict 2
 #include CSTD
 
 static aFlag;
@@ -24,7 +24,7 @@ func Initialize()
   CreateEquipment();
   //Dekoration plazieren
   CreateDecoration();
-  return(1); 
+  return 1; 
 }
 
 /* Plazierungslisten */
@@ -454,7 +454,7 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   if(!g_chooserFinished)
   {
    iX = 3415; iY = 360;
-   return(1);
+   return 1;
   }
 
   //HTF/CTF/LMS/DM-Spielziel
@@ -468,6 +468,6 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
    {
     return [[5270, 570], [5390, 450], [5390, 540]];
    }
-   return(1);
+   return 1;
   }
 }

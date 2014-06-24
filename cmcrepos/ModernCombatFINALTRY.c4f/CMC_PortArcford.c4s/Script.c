@@ -1,6 +1,6 @@
 /*-- Port Arcford --*/
 
-#strict
+#strict 2
 #include CSTD
 
 static aFlag,aStationary;
@@ -29,7 +29,7 @@ func Initialize()
   CreateEquipment();
   //Dekoration plazieren
   CreateDecoration();
-  return(1); 
+  return 1; 
 }
 
 /* Plazierungslisten */
@@ -615,7 +615,7 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   if(!g_chooserFinished)
   {
    iX = 2120; iY = 590;
-   return(1);
+   return 1;
   }
 
   //Assault-Spielziel
@@ -633,6 +633,6 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
    {
     return [[3745, 630], [3810, 530], [3790, 700]];
    }
-   return(1);
+   return 1;
   }
 }

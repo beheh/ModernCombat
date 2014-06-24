@@ -1,6 +1,6 @@
 /*-- Magma Zone --*/
 
-#strict
+#strict 2
 #include CSTD
 
 static aFlag,aSelfDefense;
@@ -26,7 +26,7 @@ func Initialize()
   CreateEquipment();
   //Dekoration plazieren
   CreateDecoration();
-  return(1);
+  return 1;
 }
 
 /* Plazierungslisten */
@@ -417,7 +417,7 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   if(!g_chooserFinished)
   {
    iX = 1745; iY = 350;
-   return(1);
+   return 1;
   }
 
   //CTF-Spielziel
@@ -431,7 +431,7 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
    {
     return [[2355, 230], [2450, 200]];
    }
-   return(1);
+   return 1;
   }
 
   //LMS/DM-Spielziel
@@ -445,6 +445,6 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
    {
     return [[2025, 350], [2045, 230]];
    }
-   return(1);
+   return 1;
   }
 }

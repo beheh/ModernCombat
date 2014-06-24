@@ -1,6 +1,6 @@
 /*-- Babel Tower --*/
 
-#strict
+#strict 2
 #include CSTD
 
 static aFlag,aTowerInterior,aSelfDefense;
@@ -39,7 +39,7 @@ func Initialize()
   CreateEquipment();
   //Dekoration plazieren
   CreateDecoration();
-  return(1);
+  return 1;
 }
 
 /* Plazierungslisten */
@@ -1326,7 +1326,7 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   if(!g_chooserFinished)
   {
    iX = 1185; iY = 1310;
-   return(1);
+   return 1;
   }
 
   //Assault-Spielziel

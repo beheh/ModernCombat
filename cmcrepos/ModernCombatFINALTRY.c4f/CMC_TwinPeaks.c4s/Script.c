@@ -1,6 +1,6 @@
 /*-- Twin Peaks --*/
 
-#strict
+#strict 2
 #include CSTD
 
 static aFlag,aSelfDefense,aTowerInterior,doorw1,doorw2,pRoom1,pRoom2;
@@ -27,7 +27,7 @@ func Initialize()
   CreateEquipment();
   //Dekoration plazieren
   CreateDecoration();
-  return(1);
+  return 1;
 }
 
 /* Plazierungslisten */
@@ -711,7 +711,7 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   if(!g_chooserFinished)
   {
    iX = 2865; iY = 1135;
-   return(1);
+   return 1;
   }
 
   //HTF/MR/LMS-Spielziel
@@ -725,6 +725,6 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
    {
     return [[4070, 970], [4460, 880], [4590, 880]];
    }
-   return(1);
+   return 1;
   }
 }

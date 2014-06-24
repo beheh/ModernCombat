@@ -1,6 +1,6 @@
 /*-- Laguna --*/
 
-#strict
+#strict 2
 #include CSTD
 
 static aFlag,aArtillery;
@@ -29,7 +29,7 @@ func Initialize()
   CreateEquipment();
   //Dekoration plazieren
   CreateDecoration();
-  return(1); 
+  return 1; 
 }
 
 /* Plazierungslisten */
@@ -553,7 +553,7 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   if(!g_chooserFinished)
   {
    iX = 410; iY = 620;
-   return(1);
+   return 1;
   }
 
   //Assault-Spielziel
@@ -571,6 +571,6 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
    {
     return [[2560, 660], [2650, 690]];
    }
-   return(1);
+   return 1;
   }
 }

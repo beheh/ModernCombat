@@ -1,6 +1,6 @@
 /*-- Yuki --*/
 
-#strict
+#strict 2
 #include CSTD
 
 static aDoor1,aDoor2,aLamp1,aLamp2,aLamp3,aFlag;
@@ -34,7 +34,7 @@ func Initialize()
   CreateEquipment();
   //Dekoration plazieren
   CreateDecoration();
-  return(1);
+  return 1;
 }
 
 /* Plazierungslisten */
@@ -642,7 +642,7 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   if(!g_chooserFinished)
   {
    iX = 1160; iY = 670;
-   return(1);
+   return 1;
   }
 
   //HTF/LMS/DM-Spielziel
@@ -656,7 +656,7 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
    {
     return [[1880, 230], [2140, 470], [1970, 600]];
    }
-   return(1);
+   return 1;
   }
 
   //CTF-Spielziel
@@ -670,7 +670,7 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
    {
     return [[1825, 230], [1975, 600], [2075, 470]];
    }
-   return(1);
+   return 1;
   }
 }
 
@@ -741,7 +741,7 @@ protected func Script250()
   aDoor2[5]->Open();
   aDoor2[5]->AddLightFlash(100,0,0,RGB(0,0,255));
 
-  return(1);
+  return 1;
 }
 
 protected func Script470()

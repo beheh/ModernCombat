@@ -1,6 +1,6 @@
 /*-- Atlantic Crisis --*/
 
-#strict
+#strict 2
 #include CSTD
 
 static aFlag, aLights, iLightsCounter;
@@ -28,7 +28,7 @@ func Initialize()
   CreateDecoration();
   //Lichter ausschalten
   LightsOff();
-  return(1);
+  return 1;
 }
 
 /* Plazierungslisten */
@@ -677,7 +677,7 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   if(!g_chooserFinished)
   {
    iX = 2990; iY = 440;
-   return(1);
+   return 1;
   }
 
   //HTF/MR/CTF/LMS/DM-Spielziel

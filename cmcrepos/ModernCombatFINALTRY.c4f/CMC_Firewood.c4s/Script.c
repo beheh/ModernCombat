@@ -1,6 +1,6 @@
 /*-- Firewood --*/
 
-#strict
+#strict 2
 #include CSTD
 
 static aFlag;
@@ -26,7 +26,7 @@ func Initialize()
   CreateEquipment();
   //Dekoration plazieren
   CreateDecoration();
-  return(1); 
+  return 1; 
 }
 
 /* Plazierungslisten */
@@ -458,7 +458,7 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   if(!g_chooserFinished)
   {
    iX = 1640; iY = 210;
-   return(1);
+   return 1;
   }
 
   //CTF-Spielziel
@@ -480,7 +480,7 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
    {
     return [[1460, 370], [1820, 370]];
    }
-   return(1);
+   return 1;
   }
 
   //LMS/DM-Spielziel
@@ -502,6 +502,6 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
    {
     return [[1555, 400], [1725, 400]];
    }
-   return(1);
+   return 1;
   }
 }

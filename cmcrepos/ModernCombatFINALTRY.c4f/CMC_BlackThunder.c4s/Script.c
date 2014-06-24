@@ -1,6 +1,6 @@
 /*-- Black Thunder --*/
 
-#strict
+#strict 2
 #include CSTD
 
 static aFlag,aArtillery;
@@ -29,7 +29,7 @@ func Initialize()
   CreateEquipment();
   //Dekoration plazieren
   CreateDecoration();
-  return(1);
+  return 1;
 }
 
 /* Plazierungslisten */
@@ -444,7 +444,7 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   if(!g_chooserFinished)
   {
    iX = 2220; iY = 600;
-   return(1);
+   return 1;
   }
 
   //HTF/MR/LMS-Spielziel
@@ -458,6 +458,6 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
    {
     return [[3655, 680], [3765, 630], [3860, 550]];
    }
-   return(1);
+   return 1;
   }
 }

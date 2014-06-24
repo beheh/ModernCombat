@@ -1,6 +1,6 @@
 /*-- Infinity Island --*/
 
-#strict
+#strict 2
 #include CSTD
 
 static aFlag,aSelfDefense,aStationary,aTowerInterior,doorw,pRoom;
@@ -33,7 +33,7 @@ func Initialize()
   CreateEquipment();
   //Dekoration plazieren
   CreateDecoration();
-  return(1); 
+  return 1; 
 }
 
 /* Plazierungslisten */
@@ -989,7 +989,7 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   if(!g_chooserFinished)
   {
    iX = 3730; iY = 740;
-   return(1);
+   return 1;
   }
 
   //HTF/MR/CTF/LMS/DM-Spielziel
@@ -1003,6 +1003,6 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
    {
     return [[4720, 1230], [4810, 1200], [4820, 1090], [4890, 1160]];
    }
-   return(1);
+   return 1;
   }
 }

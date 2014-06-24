@@ -1,6 +1,6 @@
 /*-- Base Jumping --*/
 
-#strict
+#strict 2
 #include CSTD
 
 static aFlag;
@@ -23,7 +23,7 @@ func Initialize()
   CreateEquipment();
   //Dekoration plazieren
   CreateDecoration();
-  return(1);
+  return 1;
 }
 
 /* Plazierungslisten */
@@ -653,7 +653,7 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   if(!g_chooserFinished)
   {
    iX =1540; iY = 490;
-   return(1);
+   return 1;
   }
 
   //HTF-Spielziel
@@ -667,7 +667,7 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
    {
     return [[2480, 1480], [2455, 1560], [2220, 1560]];
    }
-   return(1);
+   return 1;
   }
 
   //MR/LMS-Spielziel
@@ -681,6 +681,6 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
    {
     return [[2395, 0], [2150, 0], [1865, 0]];
    }
-   return(1);
+   return 1;
   }
 }

@@ -1,6 +1,6 @@
 /*-- Cold Cash --*/
 
-#strict
+#strict 2
 #include CSTD
 
 static aFlag;
@@ -26,7 +26,7 @@ func Initialize()
   CreateEquipment();
   //Dekoration plazieren
   CreateDecoration();
-  return(1);
+  return 1;
 }
 
 /* Plazierungslisten */
@@ -448,7 +448,7 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   if(!g_chooserFinished)
   {
    iX = 2770; iY = 420;
-   return(1);
+   return 1;
   }
 
   //HTF/MR/CTF/LMS/DM-Spielziel
@@ -462,6 +462,6 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
    {
     return [[4170, 350], [4320, 460]];
    }
-   return(1);
+   return 1;
   }
 }
