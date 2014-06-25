@@ -59,9 +59,9 @@ public func GetShield()
 {
   //Schild entfernen sofern vorhanden
   if(pShield)
-    RemoveObject(pShield);
+    return(RemoveObject(pShield));
 
-  //Schild erstellen
+  //Ansonsten Schild erstellen
   pShield = CreateObject(RSLH, 0, 0, GetOwner(this));
   pShield->Set(this, this);
 }
@@ -114,6 +114,7 @@ private func ConComplete()
   while(pTemp = FindObject2(Find_ActionTarget(this), Find_Action("Push")))
     ObjectSetAction(pTemp, "Walk");
 
+  //Schild konfigurieren
   SetAction("Standing");
   GetShield();
 
@@ -131,17 +132,57 @@ private func Collapse()
   RemoveObject();
 }
 
-/* Steuerung */
+/* Abbau */
 
-public func ControlDigDouble(pClonk)
+protected func FxIntDesTimer(object target, int number, iEffectTime)
 {
-  var pTempShield = CreateObject(RSHL);
+  //Keine Arbeiter: Bestehen bleiben
+  if(!FindObject2(Find_ActionTarget(this),Find_Action("Push")) && GetActTime() > 5)
+  {
+    if(GetEffect("IntDes", this))
+      RemoveEffect("IntDes", this);
 
-  Collect(pTempShield,pClonk);
+    //Schild konfigurieren
+    SetAction("Standing");
+    GetShield();
+  }
+
+  //Abbaugeräusche
+  if(!(iEffectTime%30))
+  {
+    Sound("WPN2_Hit*.ogg",0,0,50);
+  }
+}
+
+private func DesComplete()
+{
+  if(GetEffect("IntDes", this))
+    RemoveEffect("IntDes", this);
+
+  var pTemp;
+  while(pTemp = FindObject2(Find_ActionTarget(this), Find_Action("Push")))
+    ObjectSetAction(pTemp, "Walk");
+
+  //Schild erstellen
+  CreateObject(RSHL,0,8,GetOwner());
 
   Sound("RSHL_Hide.ogg");
 
   return RemoveObject(this);
+}
+
+/* Steuerung */
+
+public func ControlDigDouble(pClonk)
+{
+  //Schild entfernen
+  GetShield();
+
+  //Animation und Effekt setzen
+  SetAction("Des");
+  AddEffect("IntDes", this(), 1, 1, this());
+
+  Sound("RSHL_Hide.ogg");
 }
 
 public func ControlLeft(pByObj)

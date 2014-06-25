@@ -10,6 +10,18 @@ FlipDir=1
 InLiquidAction=Collapse
 
 [Action]
+Name=Des
+Procedure=NONE
+Facet=24,0,24,17
+Delay=17
+Length=4
+EndCall=DesComplete
+Directions=2
+FlipDir=1
+Reverse=1
+InLiquidAction=Collapse
+
+[Action]
 Name=Standing
 Procedure=NONE
 Facet=0,0,24,17
