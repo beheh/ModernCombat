@@ -422,6 +422,7 @@ public func Damaged()
 public func FxDamagedTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
   CreateParticle("Thrust",0,0,0,0,70+Random(30),RGBa(255,255,255,0),0,0);
+  SetR(Angle(GetX(), GetY(), GetX()+GetXDir(), GetY()+GetYDir()));
 }
 
 public func Hit()

@@ -34,6 +34,9 @@ func InstaExplode(int iPlr)
   //Sound
   Sound("MISL_Thrust.ogg",0,0,0,-1,1);
 
+  //Owner setzen
+  SetOwner(iPlr);
+
   //Explosion
   ScheduleCall(this, "BlowUp", 25,0,iPlr);
 }
@@ -84,7 +87,7 @@ protected func FxGSBL_SmokeTimer(pTarget, iNo, iTime)
 protected func Hit(int iPlr)
 {
   Sound("BarrelImpact*.ogg");
-  if(!damaged) return 1;
-    BlowUp(iPlr);
+  if(damaged)
+    BlowUp(GetController());
   return 1;
 }
