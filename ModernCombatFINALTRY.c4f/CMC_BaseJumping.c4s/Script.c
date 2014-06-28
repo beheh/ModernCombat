@@ -639,7 +639,7 @@ public func ChooserFinished()
    AddMoneySpawn(770, 1560, [20]);
    AddMoneySpawn(1430, 400, [15]);
    AddMoneySpawn(1540, 770, [15]);
-   AddMoneySpawn(1640, 400, [15]);
+   AddMoneySpawn(1650, 400, [15]);
    AddMoneySpawn(2310, 1560, [20]);
    AddMoneySpawn(2605, 330, [15]);
   }
