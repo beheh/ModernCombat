@@ -649,6 +649,15 @@ public func OnClassSelection(object pClonk, int iTeam)
      Sound("Airstrike2", 0, pClonk);
     }
    }
+   if(GetPlayerTeam(GetOwner(pClonk)) == 2)
+   {
+    if(!GetAssaultTarget(0,1) && !GetAssaultTarget(1,1) && GetAssaultTarget(2,1))
+    {
+     AddEffect("IntPara", pClonk, 1, 1);
+     AddEffect("Flying", pClonk, 101, 5);
+     Sound("Airstrike2", 0, pClonk);
+    }
+   }
   }
 }
  
@@ -897,7 +906,7 @@ public func ChooserFinished()
    //Zielobjekte
    AddAssaultTarget(RADR, 1200, 490, 30*30, 2, "$Target1$", 0, [[[1680, 540], [1790, 530], [1880, 520]], [[560, 0], [610, 0], [650, 0]]]);
    AddAssaultTarget(CMSN, 2720, 440, 0, 2, "$Target2$", 1, [[[2920, 720], [3025, 610], [3040, 730]], [[1650, 0], [1670, 0], [1710, 0]]]);
-   AddAssaultTarget(CCP2, 3580, 730, 0, 2, "$Target3$", 2, [[[3690, 430], [3795, 510], [3850, 630]], [[2570, 0], [2700, 0], [2800, 0]]]);
+   AddAssaultTarget(CCP2, 3580, 730, 0, 2, "$Target3$", 2, [[[3750, 0], [3800, 0], [3850, 0]], [[2570, 0], [2700, 0], [2800, 0]]]);
    AddAssaultTarget(GSTA, 4520, 490, 0, 2, "$Target4$", 3, [[[4870, 540], [4930, 530], [5000, 490]], [[3570, 430], [3600, 510], [3470, 730]]]);
    AddAssaultTarget(LBPC, 5720, 650, 0, 2, "$Target5$", 4, [[[6040, 480], [6115, 452], [6180, 480]], [[4290, 510], [4320, 570], [4320, 680]]]);
    AddAssaultTarget(RADR, 6440, 440, 0, 2, "$Target6$", 5, [[[6520, 740], [6670, 750], [6695, 609]], [[5630, 500], [5630, 570], [5730, 650]]]);
