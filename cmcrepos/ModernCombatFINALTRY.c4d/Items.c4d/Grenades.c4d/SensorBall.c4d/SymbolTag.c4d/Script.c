@@ -20,8 +20,11 @@ public func Set(object target, object host, bool fClonk, int remove_time)
   //Positionieren
   SetAction("Attach", pTarget);
 
-  //Farbe des Besitzers übernehmen
+  //Besitzer setzen
   SetOwner(GetOwner(pHost));
+
+  //Farbe
+  SetColor(RGB(255,255,255), this);
 
   //Sichtbarkeit gegenüber Verbündeten
   SetVisibility(VIS_Allies | VIS_Owner);
@@ -55,7 +58,7 @@ public func FxShowEnergyBarStart(object target, int nr, int temp, int owner, obj
 {
   if(temp) return;
   var bar = CreateObject(SBAR, 0, 0, owner);
-  bar->Set(GetActionTarget(0,target), GetColorDw(target), BAR_Energybar);
+  bar->Set(GetActionTarget(0,target), RGB(255,255,255), BAR_Energybar);
   SetVisibility(VIS_Owner|VIS_Allies, bar);
   EffectVar(0, target, nr) = bar;
   EffectVar(1, target, nr) = owner;
