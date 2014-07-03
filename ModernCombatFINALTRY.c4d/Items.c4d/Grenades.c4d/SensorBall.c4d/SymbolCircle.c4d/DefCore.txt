@@ -7,4 +7,3 @@ Width=397
 Height=397
 Offset=-199,-199
 Picture=397,0,397,397
-ColorByOwner=1

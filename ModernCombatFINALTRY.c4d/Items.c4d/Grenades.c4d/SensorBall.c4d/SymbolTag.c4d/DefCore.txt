@@ -7,4 +7,3 @@ Width=25
 Height=25
 Offset=-12,-12
 Picture=100,0,25,25
-ColorByOwner=1
