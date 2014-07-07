@@ -24,7 +24,7 @@ public func IsDefusable()		{return true;}
 
 func Initialize()
 {
-  //inaktiv erstellen
+  //Inaktiv erstellen
   SetAction("Defused");
   return 1;
 }
@@ -40,7 +40,7 @@ public func ControlThrow(object caller)
   var index;
   for(index = 0; Contents(index) == this; index++);
   for(var i = 0; GetID(Contents(i)) == GetID() && Contents(i) != this && index > i; i++)
-    return; 
+    return;
 
   //Normales Ablegen
   if(GetPlrDownDouble(GetController(caller)))
@@ -163,11 +163,9 @@ private func FinFuse()
   if(!bActive)
     return;
 
+  //Licht setzen
   var iColor = LightenColor(GetPlrColorDw(controller), 192);
   SetClrModulation(RGBa(255, 255, 255, 80));
-
-  //Blinkeffekt
-  CreateParticle("PSpark", 0, 0, 0, 0, 60, iColor, this);
   //Laser erstellen
   laser = CreateObject(LASR, 0, 0, controller);
   laser -> Set(iDir, 3, 60, 0, 0, this, 0, true);
@@ -178,22 +176,27 @@ private func FinFuse()
   flag->Set(this);
   SetDir(BoundBy(-iDir, 0, 1), flag);
 
+  //Effekte
+  CreateParticle("PSpark", 0, 0, 0, 0, 60, iColor, this);
+  Sound("BBTP_Alarm.ogg", 0, 0, 50);
+
   CheckLimitation();
   bReady=true;
-  Sound("BBTP_Alarm.ogg", 0, 0, 50);
 }
 
 /* Deaktivierung */
 
 public func ControlUp(object pObjBy)
 {
+  //Kein Aufheben wenn verschachtelt
   if(Contained()) return;
 
+  //Punkte für feindlichen Entschärfer
   if(Hostile(GetOwner(),GetOwner(pObjBy)))
     //Punkte bei Belohnungssystem (Entschärfung)
     DoPlayerPoints(BonusPoints("TechnicalTask"), RWDS_TeamPoints, GetOwner(pObjBy), pObjBy, IC15);
 
-  //Träger = Besitzer
+  //Entschärfer ist neuer Besitzer
   controller = GetOwner(pObjBy);
   SetController(controller);
   SetOwner(controller);
@@ -205,15 +208,16 @@ public func ControlUp(object pObjBy)
   if(bReady)
     Defuse();
 
-	var pPack = CreateObject(BTBG, 0, 0, GetOwner(pObjBy));
+  //Sprengfallentasche erstellen
+  var pPack = CreateObject(BTBG, 0, 0, GetOwner(pObjBy));
 
-  //Einsammeln wenn möglich, sonst zumindest loslassen
+  //Einsammeln wenn möglich, ansonsten loslassen
   if(!Collect(pPack, pObjBy))
     SetCommand(pObjBy, "UnGrab");
-  
-  //Claymore auf jeden Fall entfernen
+
+  //Sprengfalle entfernen
   RemoveObject(this);
-  	
+
   return true;
 }
 
@@ -228,11 +232,15 @@ private func Defuse()
   var flag = FindObject2(Find_ID(MFLG),Find_ActionTarget(this));
   if(flag) RemoveObject(flag);
 
+  //Grafik und Rotation zurücksetzen
   SetClrModulation();
   SetObjDrawTransform(1000,0,0,0,1000);
-  Sound("BBTP_Charge.ogg");
-  bReady=false;
   SetR();
+
+  //Effekt
+  Sound("BBTP_Charge.ogg");
+
+  bReady=false;
   return 1;
 }
 
@@ -270,11 +278,15 @@ private func Check()
 
 public func Detonate()
 {
+  //Gespeicherten Besitzer übernehmen
+  SetController(controller);
+  SetOwner(controller);
+
   //Splitter verschleudern
   var i = 0;
   while(i < 12)
   {
-    var ammo = CreateObject(SHRP,0,0,GetOwner());
+    var ammo = CreateObject(SHRP,0,0,GetOwner(controller));
     ammo->Launch(iDir+RandomX(-15,15),100+Random(80),100+Random(50),3,20,50);
     i++;
   }
@@ -308,13 +320,24 @@ protected func Damage(int iChange)
   }
 
   //Zündung durch Schaden
-  if(GetDamage() < 5) return ;
+  if(GetDamage() < 5) return;
+
+  //Anfassende Clonks automatisch loslassen lassen
+  var pTemp;
+  while(pTemp = FindObject2(Find_ActionTarget(this), Find_Action("Push")))
+    ObjectSetAction(pTemp, "Walk");
+  //Erneutes Anfassen verhindern
+  SetObjectLayer(this());
+  //Zündung planen
+  ScheduleCall(this, "Detonate",20);
+
+  //Effekte
   Sound("BBTP_Alarm.ogg");
   Sound("MISL_ShotDown.ogg");
-  //Zündung verzögert
-  ScheduleCall(this, "Detonate",20);
+
   //Sofortige Zündung bei hohem Schaden
-  if(GetDamage() < 10) return ;
+  if(GetDamage() < 10) return;
+  //Zündung
   Detonate();
 }
 
