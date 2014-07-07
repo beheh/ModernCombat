@@ -63,8 +63,8 @@ protected func Damage()
 
 public func IsBulletTarget(id def)
 {
-  if(GetAction() != "Broken") return 1;
-  if(def->~NoDecoDamage()) return;
+  if(GetAction() != "Broken")	return 1;
+  if(def->~NoDecoDamage())	return;
 }
 
 private func ChooseActivity()

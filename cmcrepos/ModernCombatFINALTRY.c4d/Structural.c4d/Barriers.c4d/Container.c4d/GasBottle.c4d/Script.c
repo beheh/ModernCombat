@@ -30,7 +30,7 @@ func InstaExplode(int iPlr)
   SetRDir(RandomX(-15,15));
   SetXDir(Sin(GetR(),45));
   SetYDir(-Cos(GetR(),45));
-  
+
   //Sound
   Sound("MISL_Thrust.ogg",0,0,0,-1,1);
 
@@ -86,8 +86,11 @@ protected func FxGSBL_SmokeTimer(pTarget, iNo, iTime)
 
 protected func Hit(int iPlr)
 {
-  Sound("BarrelImpact*.ogg");
+  //Explosion bei Beschädigung
   if(damaged)
     BlowUp(GetController());
+  else
+    Sound("BarrelImpact*.ogg");
+
   return 1;
 }

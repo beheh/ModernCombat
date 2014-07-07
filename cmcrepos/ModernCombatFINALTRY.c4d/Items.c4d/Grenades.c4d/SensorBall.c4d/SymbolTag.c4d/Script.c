@@ -13,7 +13,7 @@ public func Set(object target, object host, bool fClonk, int remove_time)
   pTarget = target;
   iRemoveTime = iEffectRemoveTime = remove_time;
 
-  //Ziel kein Clonk? Andere Grafik setzen
+  //Ziel kein Clonk: Andere Grafik setzen
   if(!fClonk)
     SetGraphics("Object", this);
 
