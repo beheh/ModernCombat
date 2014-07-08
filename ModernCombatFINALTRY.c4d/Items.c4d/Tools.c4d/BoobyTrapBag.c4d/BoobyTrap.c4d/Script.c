@@ -49,7 +49,7 @@ public func ControlThrow(object caller)
   //Träger = Besitzer
   controller = GetOwner(caller);
   SetController(controller);
-  SetOwner(controller);
+  SetOwner(GetOwner(controller));
 
   Throw();
   return true;
@@ -199,7 +199,7 @@ public func ControlUp(object pObjBy)
   //Entschärfer ist neuer Besitzer
   controller = GetOwner(pObjBy);
   SetController(controller);
-  SetOwner(controller);
+  SetOwner(GetOwner(controller));
 
   //Deaktivieren
   bActive=false;
@@ -280,7 +280,7 @@ public func Detonate()
 {
   //Gespeicherten Besitzer übernehmen
   SetController(controller);
-  SetOwner(controller);
+  SetOwner(GetOwner(controller));
 
   //Splitter verschleudern
   var i = 0;
