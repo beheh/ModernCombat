@@ -11,3 +11,11 @@ func Initialize()
   SetAction("Scan");
   AddFrame();
 }
+
+/* Serialisierung */
+
+public func Serialize(array& extra)
+{
+if(GetAction() != "Scan")
+    extra[GetLength(extra)] = Format("SetAction(%s)",GetAction());
+}
