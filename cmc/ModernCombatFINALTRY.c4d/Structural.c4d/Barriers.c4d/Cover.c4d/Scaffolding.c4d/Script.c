@@ -80,3 +80,11 @@ public func OnDmg(int iDmg, int iType)
 {
   if(iType == DMG_Bio)		return 100;	//Säure und biologische Schadstoffe
 }
+
+/* Serialisierung */
+
+public func Serialize(array& extra)
+{
+if(iStatus > 1)
+    extra[GetLength(extra)] = Format("Set(%d)",iStatus);
+}

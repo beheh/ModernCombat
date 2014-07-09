@@ -21,7 +21,10 @@ protected func Initialize()
 
 public func Set(int i)
 {
-  SetGraphics(Format("%d", i));
+  if(i != 0)
+    SetGraphics(Format("%d", i));
+  else
+    SetGraphics("");
 }
 
 /* Zerstörung */
@@ -55,4 +58,12 @@ func Damage()
 public func OnDmg(int iDmg, int iType)
 {
   if(iType == DMG_Bio)		return 100;	//Säure und biologische Schadstoffe
+}
+
+/* Serialisierung */
+
+public func Serialize(array& extra)
+{
+if(GetGraphics(1) != "")
+    extra[GetLength(extra)] = Format("Set(%d)",GetGraphics(1));
 }
