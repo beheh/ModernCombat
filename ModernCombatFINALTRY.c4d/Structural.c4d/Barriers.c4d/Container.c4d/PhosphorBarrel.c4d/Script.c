@@ -8,7 +8,7 @@
 
 func Damage(int iChange, int iPlr)
 {
-  if(GetDamage() < 70) return ;
+  if(GetDamage() < 70) return;
   InstaExplode(iPlr);
 }
 

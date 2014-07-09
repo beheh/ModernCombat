@@ -18,8 +18,10 @@ protected func Initialize()
 
 public func On()
 {
+  //Licht erstellen
   if(pLight)
     pLight->TurnOn();
+
   SetAction("Activity1");
 }
 
@@ -30,7 +32,6 @@ public func Off()
     pLight->TurnOff();
 
   SetGraphics(0,0,0,1);
-
   return(SetAction("Off"));
 }
 
