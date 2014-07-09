@@ -38,7 +38,7 @@ private func ControlLadder(string strControl, par1)
 
     if(comdir == COMD_Down)
     {
-      if(GetPlrDownDouble(GetOwner()))
+      if(GetPlrDownDouble(GetOwner()) && CanSlideLadder())
       {
         EffectVar(1, this, effect) = true;
         Sound("LADR_Slide.ogg", 0, this, 40, 0, +1);
@@ -99,7 +99,7 @@ private func ControlLadder(string strControl, par1)
   }
 
   //Runterrutschen
-  if(strControl S= "ControlDownDouble" && effect)
+  if(strControl S= "ControlDownDouble" && effect && CanSlideLadder())
   {
     SetComDir(COMD_Down);
     EffectVar(1, this, effect) = true;
@@ -113,6 +113,14 @@ private func ControlLadder(string strControl, par1)
   if(strControl S= "ControlDig") LadderDig();
 
   return(1);
+}
+
+public func CanSlideLadder()
+{
+	if(GetPhysical("Scale", 0, this) < GetPhysical("Scale", 0, 0, GetID()))
+		return false;
+	
+	return true;
 }
 
 protected func FxScalingLadderTimer(object pTarget, int iEffectNumber)
