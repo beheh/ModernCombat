@@ -305,7 +305,7 @@ func CreateDecoration()
   CreateObject(RADR, 5940, 460, -1);
 
   //Büsche
-  CreateObject(BSH2, 920, 510, -1);
+  CreateObject(BSH2, 920, 510, -1)->SetCategory(C4D_StaticBack);
   CreateObject(BSH2, 2650, 670, -1);
   CreateObject(BSH2, 3520, 560, -1);
   CreateObject(BSH2, 5370, 500, -1);
