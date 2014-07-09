@@ -793,6 +793,9 @@ public func FxRideZiplineTimer(object pTarget, int iNr)
 	if(!rope)
 		return -1;
 	
+	if(!rope->~IsZipline())
+		return -1;
+	
 	if(GetAction(pTarget) != "ZiplineRide")
 		return -1;
 	

@@ -31,40 +31,75 @@ global func CreateZipline(int iX1, int iY1, int iX2, int iY2)
 } 
 
 //Trennt das Seil am Anfang/Ende ab 
-public func CutRope(bool fEnd, int iPlrPlusOne)
+public func CutRope(int iPosition, int iPlrPlusOne)
 {
 	//Höhenunterschiede berücksichtigen
-	if(GetPoint(0, true) > GetPoint(GetPointNum()-1, true))
-		fEnd = !fEnd;
+	if(iPosition && GetPoint(0, true) > GetPoint(GetPointNum()-1, true))
+		iPosition = iPosition+((!(iPosition-1))*2-1);
 
-	var index = 0;
-	if(fEnd)
-		index = GetPointNum()-1;
-	
-	//Temporäres Knotenpunktobjekt erzeugen
-	var temp = CreateObject(NLPT, GetPoint(index), GetPoint(index, true)+4, iPlrPlusOne-1);
-	temp->SetCategory(C4D_Object);
-	
-	var actTarget = GetActionTarget(1);
-	if(fEnd)
-		actTarget = GetActionTarget();
-
-	ConnectObjects(actTarget, temp);
 	SetZipline(false);
 	SetStaticMode(false);
 
-	//In Richtung zum ActionTarget schleudern
-  var angle = Angle(GetX(temp), GetY(temp), GetX(actTarget), GetY(actTarget));
-  SetXDir(+Sin(angle, 100)/2, temp);
-  SetYDir(-Cos(angle, 100)/2, temp);
+	var at0 = GetActionTarget(), at1 = GetActionTarget(1);
+	var angle = Angle(GetX(at0), GetY(at0), GetX(at1), GetY(at1));
+	var temp1, temp2;
 
-  //Partikel- und Soundeffekte
-  //...
-  
-  FadeOut(temp);
+	if(!iPosition || iPosition == 1)
+	{
+		temp1 = CutRopeEnd(0, angle, iPlrPlusOne);
+		
+		if(iPosition)
+		{
+			ConnectObjects(at1, temp1);
+			SetXDir(+Sin(angle, 100)/2, temp1);
+			SetYDir(-Cos(angle, 100)/2, temp1);
+		}
+	}
+	if(!iPosition || iPosition == 2)
+	{
+		temp2 = CutRopeEnd(true, angle+180, iPlrPlusOne);
+		
+		if(iPosition)
+		{
+			ConnectObjects(at0, temp2);
+			SetXDir(+Sin(angle+180, 100)/2, temp2);
+			SetYDir(-Cos(angle+180, 100)/2, temp2);
+		}
+	}
+	
+	if(!iPosition)
+	{
+		ConnectObjects(temp1, temp2);
+		SetXDir(+Sin(angle, 100)/3, temp1);
+		SetYDir(-Cos(angle, 100)/3, temp1);
+		SetXDir(+Sin(angle+180, 100)/3, temp2);
+		SetYDir(-Cos(angle+180, 100)/3, temp2);
+	}
+
 	FadeOut();
 
 	return true;
+}
+
+private func CutRopeEnd(bool fEnd, int iAngle, int iPlrPlusOne)
+{
+	var index = 0;
+	if(fEnd)
+		index = GetPointNum()-1;
+  
+  var xoff, yoff;
+  xoff = Sin(iAngle, GetDefWidth(NLPT), 100);
+  yoff = -Cos(iAngle, GetDefHeight(NLPT), 100);
+	
+	//Temporäres Knotenpunktobjekt erzeugen
+	var temp = CreateObject(NLPT, GetPoint(index)+xoff, GetPoint(index, true)+yoff, iPlrPlusOne-1);
+	temp->SetCategory(C4D_Object);
+
+  //Partikel- und Soundeffekte
+  //...
+
+	FadeOut(temp);
+	return temp;
 }
 
 public func SetZipline(bool fSet)
@@ -335,204 +370,3 @@ func MoveRope(pObj1, pObj2)
 func SetRopeEnd(pObj, iRopeVtx, iObjVtx, iWhichEnd)
 {
   var x, y;
-  x = GetX(pObj) + GetVertex(iObjVtx, 0, pObj);
-  y = GetY(pObj) + GetVertex(iObjVtx, 1, pObj);
-  //Wenn durch die Bewegung des angebundenen Objekts das Seil durch solides
-  //ginge, einen Vertex an der letzten Position des Objekts einfügen
-  //wenn das Objekt selbst in fester Materie steckt, hülfe das auch nichts
-  if(!GBackSolid(x - GetX(), y - GetY()))
-  {
-    if(!PathFree(x, y, GetPoint(iRopeVtx + iWhichEnd, 0), GetPoint(iRopeVtx + iWhichEnd, 1)))
-      InsertPoint(iRopeVtx - BoundBy(iWhichEnd, -1, 0), x, y);
-    else
-      SetPoint(iRopeVtx, x, y);
-  }
-}
-
-private func InsertPoint(iIndex, x, y)
-{
-  if(!AddPoint()) return 0;
-  for(var i = GetPointNum() - 1; i > iIndex; i--)
-    SetPoint(i, GetPoint(i - 1, 0), GetPoint(i - 1, 1));
-  SetPoint(iIndex, x, y);
-  return 1;
-}
-
-func Connecting()
-{
-  //Wenn angeknüpfte Objekte verloren gehen: Seil löschen
-  if(!GetActionTarget(0) || !GetActionTarget(1)) return RemoveObject();
-  var pTarget1 = GetRealContainer(GetActionTarget(0));
-  var pTarget2 = GetRealContainer(GetActionTarget(1));
-  MoveRope(GetActionTarget(0), GetActionTarget(1));
-  if(pTarget1 == pTarget2) return 0;
-  iCalcedLength = CalcLength(pTarget1, pTarget2);  
-  var iDifference = iCalcedLength - iLength;
-  iLength = Max(iLength + GetActionTarget(0)->~RopeAskChangeLength(iDifference, this), 3);
-  iLength = Max(iLength + GetActionTarget(1)->~RopeAskChangeLength(iDifference, this), 3);
-  iDifference = iCalcedLength - iLength;
-  if(iDifference <= 0) return 0;
-  //Bei zu kurzer Seillänge nicht mehr ziehen, um Aufschaukeln zu verhindern
-  if(iCalcedLength < 5) return 0;
-  // freie, verbundene Seilrollen ziehen sich nicht gegenseitig an
-  if(GetID(pTarget1) == CL5P && GetID(pTarget2) == CL5P && !Contained(pTarget1) && !Contained(pTarget2))
-    return 0;
-  //Wenn eine Seilrolle Seil gibt, dann in Ruhe lassen, außer, sie dämpft
-  //Den Fall von Clonks oder das Seil es einfach tun soll
-  if(LocalN("iPull", pPulley) > 0 && Contained(pPulley))
-    if(GetProcedure(Contained(pPulley)) != "FLIGHT")
-      return 0;
-  if(Local(8,this))
-    return 0;
-  //Ansonsten Objekte zueinander bewegen
-  PullObject((3 * GetPoint(1) + GetPoint(2)) / 4, (3 * GetPoint(1, 1) + GetPoint(2, 1)) / 4, iDifference, pTarget1, pTarget2, iVtx1);
-  PullObject((GetPoint(GetPointNum() - 3) + 3 * GetPoint(GetPointNum() - 2)) / 4, (GetPoint(GetPointNum() - 3, 1) + 3 * GetPoint(GetPointNum() - 2, 1)) / 4, iDifference, pTarget2, pTarget1, iVtx2);
-
-/*
-  var iAngle = Angle(GetPoint(), GetPoint(0, 1), GetPoint(1), GetPoint(1, 1));
-  var iX = Sin(iAngle, 8) + GetX(pTarget1);
-  var iY = Cos(iAngle, 8) + GetY(pTarget1);
-  PullObject(iX, iY, iDifference, pTarget2, pTarget1, iVtx1);
-  SetLandscapePixel(iX, iY, RGB(1, 1, 1));
-
-  iAngle = Angle(GetPoint(GetPointNum() - 1), GetPoint(GetPointNum() - 1, 1), GetPoint(GetPointNum() - 2), GetPoint(GetPointNum() - 2, 1));
-  iX = Sin(iAngle, 8) + GetX(pTarget2);
-  iY = Cos(iAngle, 8) + GetY(pTarget2);
-  PullObject(iX, iY, iDifference, pTarget1, pTarget2, iVtx2);
-  SetLandscapePixel(iX, iY, RGB(1, 1, 1));
-*/
-}
-
-private func PullObject(iToX, iToY, iLength, pObj, pObj2, iVtx)	//pObj wird versetzt
-{
-	if(fDisablePhysics)
-		return;
-
-  if(!pObj || !pObj2) return 0;
-  if(pObj->~RejectPull(this)) return;
-  //Gefesselte Clonks lassen sich abführen
-  if(GetEffect("IntTied", pObj2))
-    return 0;
-  //Gebäude (oder Inhaltsobjekte) sowie Hintergrundobjekte gar nicht ziehen
-  if(GetCategory(pObj) & C4D_Structure || GetCategory(pObj) & C4D_StaticBack)
-    return 0;
-  //Objekt aus dem eigenen Grafikbereich heraus nicht ziehen
-  for(var pObj3 in FindObjects(Find_AtPoint(GetX(pObj2) + GetVertex(pObj2->~GetVertexToConnect(), 0, pObj2), GetY(pObj2) + GetVertex(pObj2->~GetVertexToConnect(), 1, pObj2))))
-    if(pObj3 == pObj)
-      return 0;
-  //Anker ziehen keine Schiffe nach unten
-  if(pObj->~IsBoat() && GetActionTarget() && GetActionTarget(1))
-  {
-    if((GetActionTarget() == pObj && GetActionTarget(1)->~IsAnchor() && !Contained(GetActionTarget(1)))
-    || (GetActionTarget(1) == pObj && GetActionTarget()->~IsAnchor() && !Contained(GetActionTarget())))
-      return 0;
-  }
-  //Float-Einfluss: z.B. Luftschiffe können heben
-  if(GetProcedure(pObj) == "FLOAT")
-    iLength = Max(0, iLength - (GetPhysical("Float", 0, pObj) / 20));
-
-  var fFound;
-  for(var x = 1; x <= 5; x++)
-    if(GBackSolid(iToX + x - GetX(), iToY - GetY()))
-    {
-      iToX -= 7 - x;
-      fFound = 7 - x;
-      break;
-    }
-  if(!fFound)
-  for(var x = 1; x <= 5; x++)
-    if(GBackSolid(iToX - x - GetX(), iToY - GetY()))
-    {
-      iToX += 7 - x;
-      fFound = 7 - x;
-	    break;
-    }
-  var iLen = Min(iLength, Distance(iToX, iToY, GetX(pObj) + GetVertex(iVtx, 0, pObj), GetY(pObj) + GetVertex(iVtx, 1, pObj)));
-  var iAngle = MakeThisAngleUseful(Angle(GetX(pObj) + GetVertex(iVtx, 0, pObj), GetY(pObj) + GetVertex(iVtx, 1, pObj), iToX, iToY), -180, +180);
-  var iAngle2 = MakeThisAngleUseful(Angle(0, 0, GetVertex(iVtx, 0, pObj), GetVertex(iVtx, 1, pObj)), -180, +180);
-  var x = Sin(iAngle, iLen * 20);
-  var y = Cos(iAngle, iLen * 20);
-  if(Stuck(pObj)) return 0;
-  SetXDir(BoundBy(GetXDir(pObj, 100) + x, -1000, 1000), pObj, 100);
-  SetYDir(BoundBy(GetYDir(pObj, 100) - y, -1000, 1000), pObj, 100);
-  if(!InLiquid(pObj))
-    SetRDir(GetRDir(pObj, 100) + (iAngle - iAngle2) / 10, pObj, 100);
-  if(iLength > 30)
-  SetPosition(GetX(pObj) + BoundBy(x, -1, 1), GetY(pObj) - BoundBy(y, -1, 1), pObj);
-  //Falls das Objekt dann feststecken würde, nicht wirklich versetzen
-  if(Stuck(pObj))
-    SetPosition(GetX(pObj) - BoundBy(x, -1, 1), GetY(pObj) + BoundBy(y, -1, 1), pObj);
- }
-
-func MakeThisAngleUseful(iAngle, iM, iP)
-{
-  while(iAngle > iP) iAngle -= 360;
-  while(iAngle < iM) iAngle += 360;
-  return iAngle;
-}
-
-private func GetMiddlestVertex(pObj)
-{
-  var i, s = 1000, t, n;
-  if(n = pObj->~GetVertexToConnect()) return n - 1;
-  //Alle Vertices durchgehen
-  for(i = GetVertexNum(pObj); i >= 0; i--)
-  {
-    //x-Differenz zur Mitte + y-Differenz
-    t = (Abs(GetVertex(i, 0, pObj)) + Abs(GetVertex(i, 1, pObj)));
-    //s: kürzester Abstand bis jetzt
-    if(s > t)
-    {
-      //n: Vertex mit kürzestem Abstand
-      s = t;
-      n = i;
-    }
-  }
-  return n;
-}
-
-public func SetObject(pObj, iActionTarget)
-{
-  //1. Actiontarget
-  if(!iActionTarget)
-  {
-    //Action und 2.Actiontarget bleiben erhalten
-    iVtx1 = GetMiddlestVertex(pObj);
-    if(IsStatic())
-      SetAction("ConnectStatic", pObj, GetActionTarget(1));
-    else
-      SetAction("Connect", pObj, GetActionTarget(1));
-  }
-  //2.Actiontarget
-  else
-  {
-    iVtx2 = GetMiddlestVertex(pObj);
-    if(IsStatic())
-      SetAction("ConnectStatic", GetActionTarget(), pObj);
-    else
-      SetAction("Connect", GetActionTarget(), pObj);
-  }
-  return 1;
-}
-
-/* Einsammeln als Hintergrundobjekt verhindern */
-
-private func RejectEntrance(pObj)
-{
-  if(GetCategory() & C4D_StaticBack)
-    return 1;
-  return _inherited(pObj, ...);
-}
-
-protected func Hit()
-{
-  Sound("WoodHit*");
-  return 1;
-}
-
-global func GetRealContainer(pObj)
-{
-  var pRet = pObj;
-  while(Contained(pRet)) pRet = Contained(pRet);
-  return pRet;
-}
