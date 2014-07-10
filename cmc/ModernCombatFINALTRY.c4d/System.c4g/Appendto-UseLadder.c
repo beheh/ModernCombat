@@ -117,10 +117,10 @@ private func ControlLadder(string strControl, par1)
 
 public func CanSlideLadder()
 {
-	if(GetPhysical("Scale", 0, this) < GetPhysical("Scale", 0, 0, GetID()))
-		return false;
-	
-	return true;
+  if(GetPhysical("Scale", 0, this) < GetPhysical("Scale", 0, 0, GetID()))
+    return false;
+
+  return true;
 }
 
 protected func FxScalingLadderTimer(object pTarget, int iEffectNumber)
