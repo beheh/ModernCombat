@@ -262,6 +262,8 @@ public func OpenBuildingMenu(object pMenuObj)
   AddMenuItem(Format("$Hitpoints$", GetDamage(), MaxDamage()), 0, NONE, pMenuObj);
   AddMenuItem(" ", 0, NONE, pMenuObj); 
 
+  //Gebäudespezifische Statusanzeigen
+  AdditionalStatusMenu(pMenuObj);
   //Gebäudespezifische Menüeinträge
   AdditionalBuildingMenu(pMenuObj);
   //Upgrademenü
@@ -273,6 +275,7 @@ public func OpenBuildingMenu(object pMenuObj)
   return true;
 }
 
+public func AdditionalStatusMenu(object pMenuObj) {}
 public func AdditionalBuildingMenu(object pMenuObj) {}
 
 public func OpenUpgradeMenu(id dummy, object pMenuObj)

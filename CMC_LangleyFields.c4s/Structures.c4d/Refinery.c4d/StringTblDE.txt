@@ -1,2 +1,3 @@
-ResourceProcessInfo=Verarbeitung Fortschritt: %d/%d
+ResourceProcessInfo=Verarbeitung: %d Resourcen
+ResourceProcessRate=Einnahmen: %d,%03d Credits/Sekunde
 ResourceProcessInactive=<c 777777>Verarbeitung inaktiv</c>

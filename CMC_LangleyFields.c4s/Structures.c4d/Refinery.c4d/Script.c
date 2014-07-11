@@ -34,12 +34,19 @@ protected func Initialize()
 
 /* Menüführung */
 
-public func AdditionalBuildingMenu(object pMenuObj)
+public func AdditionalStatusMenu(object pMenuObj)
 {
-  /*if(IsProcessing())
-    AddMenuItem(Format("$ResourceProcessInfo$", GetProcessProgress(), GetProcessDuration()), 0, GetID(), pMenuObj);
+	var process_rate;
+  for(var refinery in FindObjects(Find_Func("IsProcessing")))
+    process_rate += 36*1000/refinery->ProcessingInterval();
+
+  if(IsProcessing())
+  {
+    AddMenuItem(Format("$ResourceProcessInfo$", GetTeamResources(GetPlayerTeam(GetOwner()))), 0, 0, pMenuObj);
+    AddMenuItem(Format("$ResourceProcessRate$", process_rate/1000, process_rate%1000), 0, 0, pMenuObj);    
+  }
   else
-    AddMenuItem("$ResourceProcessInactive$", 0, GetID(), pMenuObj);*/
+    AddMenuItem("$ResourceProcessInactive$", 0, GetID(), pMenuObj);
   return true;
 }
 
