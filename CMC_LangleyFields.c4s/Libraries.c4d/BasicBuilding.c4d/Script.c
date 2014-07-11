@@ -3,7 +3,7 @@
 #strict 2
 #include DOOR	//Clonk-eigenes Türsystem
 
-local iEnergyAmount, aObjectList, aUpgradeList, fDestroyed, iLastAttacker;
+local fHasEnergy, aObjectList, aUpgradeList, fDestroyed, iLastAttacker;
 
 public func IsCMCBuilding()		{return true;}
 
@@ -14,8 +14,6 @@ public func TechLevel()			{return 0;}					//Benötigte Techstufe
 
 public func RequiredEnergy()		{return 0;}					//Benötigte Energie
 public func EnergyProduction()		{return 0;}					//Erzeugt Energie
-public func HasEnoughEnergy()		{return !CurrentRequiredEnergy();}		//Energieversorgung
-public func CurrentRequiredEnergy()	{return RequiredEnergy()-iEnergyAmount;}	//Benötigte Energie
 public func PossibleUpgrades()		{return [];}					//Mögliche Upgrades
 public func MaxDamage()			{return 500;}					//Maximaler Schadenswert bis zur Zerstörung
 public func IsDestroyed()   {return fDestroyed;}
@@ -410,34 +408,29 @@ public func ProcessBuy(id idItem, object pMenuObj, int iOffset)
 
 /* Energieversorgung */
 
-public func EnergySupply(int iAmount, object pBy)
+static const CCBS_EnergyProd = 1;
+static const CCBS_EnergyNeed = 2;
+
+public func GetEnergyData(int iData)
 {
-  iEnergyAmount += iAmount;
+	if(GetCon() >= 100)
+	{
+		if(iData == CCBS_EnergyProd)
+			return EnergyProduction();
+		if(iData == CCBS_EnergyNeed)
+			return RequiredEnergy();
+	}
+	
+	return 0;
+}
+
+public func EnergySupply(bool fEnergy, int iEnergySupply, int iEnergyNeed)
+{
+  fHasEnergy = fEnergy;
   return true;
 }
 
-public func ResetCurrentEnergy()	{iEnergyAmount = 0;}
-
-public func SendEnergy()
-{
-  var energy = EnergyProduction();
-  if(energy <= 0)
-    return;
-
-  var plr = GetOwner();
-  var objects = FindObjects(Find_Func("CurrentRequiredEnergy"), Find_Allied(plr), Sort_Distance());
-  for(var obj in objects)
-  {
-    if(energy <= 0)
-      break;
-
-    var supply = Min(energy, obj->RequiredEnergy());
-    obj->~EnergySupply(supply, this);
-    energy -= supply;
-  }
-
-  return energy;
-}
+public func HasEnergy() { return fHasEnergy; }
 
 public func OnUpgrade(id idUpgrade)	{}
 public func OnAddObject(object pObj)	{}
