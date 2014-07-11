@@ -46,19 +46,32 @@ public func InitializePlayer(int iPlr) { SetWealth(iPlr, 0x7FFFFFFF); }
 
 public func FxEnergyManagementTimer()
 {
-	var buildings = FindObjects(Find_Func("IsCMCBuilding"));
-	if(!buildings)
-		return false;
-	
-	for(var obj in buildings)
-		obj->ResetCurrentEnergy();
-	
-	for(var obj in buildings)
-		obj->SendEnergy();
+  //Energie für jedes Team managen
+	for(var i = 0; i < GetTeamCount(); i++)
+	{
+		var team = GetTeamByIndex(i), plr;
+		if((plr = GetTeamMemberByIndex(team)) < 0)
+		  continue;
 
-	for(var obj in buildings)
-		obj->~EnergySupplyFinished();
-	
+		var buildings = FindObjects(Find_Func("IsCMCBuilding"), Find_Allied(plr));
+		if(!buildings)
+			return false;
+
+		var iEnergySupply, iEnergyNeed;
+		for(var obj in buildings)
+			iEnergySupply += obj->GetEnergyData(CCBS_EnergyProd);
+
+		for(var obj in buildings)
+			iEnergyNeed += obj->GetEnergyData(CCBS_EnergyNeed);
+
+		var fEnergy = false;
+		if(iEnergySupply-iEnergyNeed >= 0)
+			fEnergy = true;
+
+		for(var obj in buildings)
+			obj->~EnergySupply(fEnergy, iEnergySupply, iEnergyNeed);
+	}
+ 
 	return true;
 }
 
