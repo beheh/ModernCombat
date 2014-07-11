@@ -8,7 +8,7 @@ local basement;	//Fundament
 public func TechLevel()		{return 2;}	//Techstufe
 public func BuildingRadius()	{return 200;}	//Bauradius
 public func RequiredEnergy() 	{return 50;}	//Energieverbraucher
-
+public func ProcessingInterval() {return 3;} //Intervall der Verarbeitung
 
 /* Konstruktion */
 
@@ -26,6 +26,8 @@ protected func Initialize()
   //Techlevel 3 freischalten
   if(GetTeamTechLevel(GetPlayerTeam(GetOwner())) == 2)
     SetTeamTechLevel(GetPlayerTeam(GetOwner()), 3);
+  
+  AddEffect("ProcessingResource", this, 1, ProcessingInterval(), this);
 
   return _inherited(...);
 }
@@ -34,10 +36,10 @@ protected func Initialize()
 
 public func AdditionalBuildingMenu(object pMenuObj)
 {
-  if(IsProcessing())
+  /*if(IsProcessing())
     AddMenuItem(Format("$ResourceProcessInfo$", GetProcessProgress(), GetProcessDuration()), 0, GetID(), pMenuObj);
   else
-    AddMenuItem("$ResourceProcessInactive$", 0, GetID(), pMenuObj);
+    AddMenuItem("$ResourceProcessInactive$", 0, GetID(), pMenuObj);*/
   return true;
 }
 
@@ -46,23 +48,79 @@ public func AdditionalBuildingMenu(object pMenuObj)
 public func Collection2(object pObj)
 {
   //Verarbeitung von Ressourcen beginnen
-  if(GetID(pObj) == RSCE)
-    if(!IsProcessing())
-      ProcessingResources();
+  if(CanProcess(pObj))
+  	Process(pObj);
 
   return _inherited(pObj, ...);
 }
 
-public func AddWare(int iValue, int iDuration)
+public func CanProcess(object pObj)
 {
-  var resource = CreateObject(RSCE, 0, 0, NO_OWNER);
-  resource->Set(iValue, iDuration);
-  Enter(this, resource);
+  //Keine Lebewesen, Fahrzeuge und Co. verarbeiten
+	if(!(GetCategory(pObj) & C4D_Object))
+		return false;
+	//Verarbeitung Objektseitig verboten
+	if(pObj->~RejectProcessing())
+		return false;
+
+	return true;
+}
+
+//data darf object/int/id sein (bzw. array aus object/int/id)
+public func Process(data, bool fNoRemove)
+{
+  //Datentyp past?
+	var type = GetType(data);
+	if(type != C4V_C4Object && type != C4V_C4ID && type != C4V_Int && type != C4V_Array)
+		return FatalError(Format("Got wrong datatype! (%d) Only object, id, int or array are supported!"));
+
+  var value = 0;
+  if(type == C4V_C4Object)
+  {
+  	value = GetValue(data);
+  	if(!fNoRemove)
+  	  RemoveObject(data);
+  }
+  else if(type == C4V_C4ID)
+  	value = GetValue(0, data);
+  else if(type == C4V_Int)
+  	value = data;
+  else if(type == C4V_Array)
+  {
+  	for(var entry in data)
+  	  value += Process(entry);
+  }
+
+  DoTeamResources(GetPlayerTeam(GetOwner()), value);
+
+  return value;
 }
 
 /* Raffination */
 
-public func IsProcessing()		{ return GetEffect("ProcessResource", this); }
+public func IsProcessing() { return EffectVar(0, this, GetEffect("ProcessingResource", this)); }
+
+public func FxProcessingResourceTimer(object pTarget, int iNr)
+{
+	var team = GetPlayerTeam(GetOwner(pTarget));
+	var amount = GetTeamResources(team);
+	
+	if(!amount)
+	{
+		EffectVar(0, pTarget, iNr) = false;
+		return true;
+	}
+	else
+	{
+		EffectVar(0, pTarget, iNr) = true;
+	  DoTeamResources(team, -1);
+	  SetWealth(GetOwner(pTarget), GetWealth(GetOwner(pTarget))+1);
+	}
+
+  return true;
+}
+
+/*public func IsProcessing()		{ return GetEffect("ProcessResource", this); }
 public func GetProcessProgress()	{ return GetEffect("ProcessingDuration", this, 0, 6); }
 public func GetProcessDuration()	{ return GetEffect("ProcessingDuration", this, 0, 3); } 
 
@@ -116,4 +174,4 @@ public func FxProcessingDurationStop(object pTarget, int iNr)
   ScheduleCall(this, "ProcessingResources", 1);
 
   return;
-}
+}*/

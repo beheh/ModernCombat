@@ -31,12 +31,13 @@ protected func Activate(iByPlayer)
   return(1);
 }
 
-local aTechLevels, aTeamUpgrades;
+local aTechLevels, aTeamUpgrades, aTeamResources;
 
 public func Initialize()
 {
 	aTechLevels = [];
 	aTeamUpgrades = [];
+	aTeamResources = [];
 	AddEffect("EnergyManagement", this, 1, 36, this);
 	return true;
 }
@@ -95,12 +96,11 @@ global func AddTeamUpgrade(int iTeam, id idUpgrade)
 	return true;
 }
 
-global func GetTeamUpgrade(int iTeam, id idUpgrade)
-{
-	return (GetIndexOf(idUpgrade, LocalN("aTeamUpgrades", BuildingSystem())[iTeam]) > -1);
-}
+global func GetTeamUpgrade(int iTeam, id idUpgrade) {return (GetIndexOf(idUpgrade, LocalN("aTeamUpgrades", BuildingSystem())[iTeam]) > -1); }
+global func GetTeamUpgradeList(int iTeam) {	return LocalN("aTeamUpgrades", BuildingSystem())[iTeam]; }
 
-global func GetTeamUpgradeList(int iTeam)
-{
-	return LocalN("aTeamUpgrades", BuildingSystem())[iTeam];
-}
+global func DoTeamResources(int iTeam, int iAmount) { return LocalN("aTeamResources", BuildingSystem())[iTeam] += iAmount; }
+global func GetTeamResources(int iTeam) { return LocalN("aTeamResources", BuildingSystem())[iTeam]; }
+
+
+
