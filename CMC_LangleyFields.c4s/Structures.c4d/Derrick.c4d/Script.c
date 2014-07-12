@@ -6,10 +6,8 @@
 #include DRCK
 #include CCBS
 
-public func TechLevel()			{return 0;}					//Benötigte Techstufe
+public func TechLevel()			{return 1;}					//Benötigte Techstufe
 public func RequiredEnergy()		{return 50;}					//Benötigte Energie
-public func PossibleUpgrades()		{return [];}					//Mögliche Upgrades
-
 
 /* Lokale Variablen */
 
@@ -20,6 +18,21 @@ public func Initialize()
 {
 	AddEffect("SendResources", this, 1, 36, this);
 	return _inherited();
+}
+
+private func PipeHeadCheck()
+{
+  // Bei Bedarf Bohrkopf und Leitung erzeugen
+  if (!pDrillHead) 
+  {              
+    // Bohrkopf
+    pDrillHead = CreateObject(PIPH, 0, 36, GetOwner());
+    pDrillHead->Set(this);
+    SetAction("Pump", pDrillHead);
+    ObjectSetAction(pDrillHead, "Stop", this);
+    CreateObject(DPLI, 0, 0, -1)->Init(this, pDrillHead);
+  }
+  return pDrillHead;
 }
 
 public func AcceptedMaterials() { return [Material("Oil")]; } // Kann nur Öl bohren

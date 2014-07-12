@@ -1,5 +1,5 @@
 [DefCore]
-id=EVTR
+id=CEVR
 Name=Elevator
 Category=C4D_Structure|C4D_SelectBuilding|C4D_SelectKnowledge
 MaxUserSelect=5
