@@ -2,9 +2,7 @@
 
 #strict 2
 
-
 // Lokale Variablen
-
 local closed;							//Offen?
 local lock;							//Tür ist verschließbar (geht nicht automatisch auf)
 local destroyed;						//zerstört
