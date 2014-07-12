@@ -1,1 +1,3 @@
-Der Standard-Fusionsreaktor bietet eine zuverlässige Energieversorgung für die Basis durch umweltfreundliche Fusion.
+Der Fusionsreaktor bietet eine zuverlässige Energieversorgung für die Basis durch umweltfreundliche Fusion.
+
+Mithilfe von Upgrades kann die Energieproduktion eines Fusionsreaktors erhöht werden.
