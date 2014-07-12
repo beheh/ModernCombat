@@ -113,7 +113,7 @@ public func Close()
   //Tür verfügt über SolidMask: Eventuell feststeckende Objekte freimachen
   if(!GetDefCoreVal("SolidMask",0,GetID(),3)) return;
   for(var o in FindObjects(Find_InRect(-GetObjWidth()/2,-GetObjHeight()/2,GetObjWidth(),GetObjHeight()),
-  				Find_Category(C4D_Vehicle | C4D_Living | C4D_Object),
+  				Find_Category(C4D_Living),
   				Find_NoContainer(),
   				Find_Exclude(this),
   				Find_Not(Find_ID(LADR))))
