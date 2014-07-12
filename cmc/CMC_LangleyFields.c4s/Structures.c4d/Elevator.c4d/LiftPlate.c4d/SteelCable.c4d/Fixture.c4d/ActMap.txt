@@ -1,0 +1,6 @@
+[Action]
+Name=Fixture
+Procedure=ATTACH
+Delay=1
+Facet=0,0,1,1
+NextAction=Fixture
