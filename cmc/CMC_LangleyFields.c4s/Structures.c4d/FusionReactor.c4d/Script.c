@@ -26,6 +26,8 @@ protected func Initialize()
 {
   Sound("CCBS_PowerUp.ogg");
   Sound("CFRT_Fuse.ogg",50,0,0,0,+1);
+  if(GetTeamTechLevel(GetPlayerTeam(GetOwner())) < 2)
+    SetTeamTechLevel(GetPlayerTeam(GetOwner()), 2);
   return _inherited(...);
 }
 
