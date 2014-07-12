@@ -78,7 +78,7 @@ public func Process(data, bool fNoRemove)
 {
   //Datentyp past?
 	var type = GetType(data);
-	if(type != C4V_C4Object && type != C4V_C4ID && type != C4V_Int && type != C4V_Array)
+	if(type && type != C4V_C4Object && type != C4V_C4ID && type != C4V_Int && type != C4V_Array)
 		return FatalError(Format("Got wrong datatype! (%d) Only object, id, int or array are supported!"));
 
   var value = 0;
