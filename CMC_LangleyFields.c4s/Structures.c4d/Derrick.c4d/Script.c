@@ -100,7 +100,7 @@ public func OnMaterialTransfer(int iMaterial)
 public func FxSendResourcesTimer(object pTarget, int iNr)
 {
   var ref;
-  if(!(ref = FindObject2(Find_ID(CRFY), Find_Distance(RefineryRange()))))
+  if(!(ref = FindObject2(Find_ID(CRFY), Find_Distance(RefineryRange()), Find_Allied(GetOwner()), Find_Not(Find_OCF(OCF_Construct)))))
     return true;
 
   ref->Process(iLiquidValue/1000);

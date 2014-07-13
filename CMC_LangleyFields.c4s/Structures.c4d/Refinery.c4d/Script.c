@@ -55,6 +55,9 @@ public func Collection2(object pObj)
 
 public func CanProcess(object pObj)
 {
+  //Baustelle
+  if(GetCon() < 100)
+    return false;
   //Keine Lebewesen, Fahrzeuge und Co. verarbeiten
 	if(!(GetCategory(pObj) & C4D_Object))
 		return false;
