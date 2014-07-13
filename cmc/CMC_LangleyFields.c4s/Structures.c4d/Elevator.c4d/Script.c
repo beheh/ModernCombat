@@ -7,6 +7,8 @@ local steelcable, case;
 
 public func TechLevel()		{return 1;}	//Techstufe
 public func RequiredEnergy() 	{return 50;}	//Energieverbraucher
+public func BasementID()	{return BT03;}	//Fundament
+
 
 /* Initalisierung */
 

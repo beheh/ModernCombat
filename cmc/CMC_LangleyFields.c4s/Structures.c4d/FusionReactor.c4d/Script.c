@@ -9,7 +9,9 @@ public func TechLevel()		{return 1;}			//Techstufe
 public func BuildingRadius()	{return 200;}			//Bauradius
 public func EnergyProduction()	{return 100+iAdditionalEnergy;}	//Energiehersteller
 public func PossibleUpgrades()   {return aPUpgrades;}
-public func BasementID()			{return BT04;}
+public func BasementID()	{return BT04;}
+
+
 
 /* Konstruktion */
 
