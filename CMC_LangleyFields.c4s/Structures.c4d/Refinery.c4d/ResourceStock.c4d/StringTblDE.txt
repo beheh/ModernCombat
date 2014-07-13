@@ -1,0 +1,4 @@
+ClonkStock=Füllen:|%d/%d
+ClonkStockFull=Kein Platz mehr!
+LorryStock=Füllen:|%d Ressourcen
+LorryStockFull=Lore voll!

@@ -2,7 +2,7 @@
 
 #strict 2
 
-local value, duration;
+local value;
 
 public func IsDrawable()	{return true;}	//Wird sichtbar getragen
 public func HandSize()		{return 800;}
@@ -12,14 +12,12 @@ public func HandY()		{return -1000;}
 
 /* Inhalt */
 
-protected func Set(int iValue, int iDuration)
+protected func Set(int iValue)
 {
   value = iValue;
-  duration = iDuration;
 }
 
-public func GetVal()		{return value;}
-public func GetDuration()	{return duration;}
+public func CalcValue() { return value; }
 
 /* Aktivierung */
 

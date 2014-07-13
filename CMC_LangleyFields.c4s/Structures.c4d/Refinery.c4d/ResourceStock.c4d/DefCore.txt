@@ -1,0 +1,18 @@
+[DefCore]
+id=RSTK
+Name=Resource Stock
+Category=C4D_Structure|C4D_SelectBuilding|C4D_SelectKnowledge
+MaxUserSelect=5
+Width=128
+Height=80
+Offset=-64,-40
+Vertices=3
+VertexX=-64,0,64
+VertexY=39,39,39
+VertexFriction=100,100,100
+Value=350
+Mass=500
+Picture=0,0,128,80
+SolidMask=128,0,128,80
+TopFace=256,0,128,80
+Exclusive=1
