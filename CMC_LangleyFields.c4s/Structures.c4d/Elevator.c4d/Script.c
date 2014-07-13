@@ -13,10 +13,15 @@ public func RequiredEnergy() 	{return 50;}	//Energieverbraucher
 
 protected func Construction()
 {
+<<<<<<< HEAD
   //Fundament erstellen
   //basement = CreateObject(BT02,0,8,GetOwner()); Ben�tigt spezielles Fundament
 
   steelcable = [];
+=======
+  aPUpgrades = [U_FR, U_SP, U_WA, U_WT];
+  return _inherited(...);
+>>>>>>> * Gebäudesystem: Fundamente gefixt, Gebäudefundamente werden nun vom BasicBuilding erstellt
 }
 
 /* Initalisierung */
