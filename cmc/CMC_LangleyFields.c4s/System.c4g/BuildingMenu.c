@@ -10,6 +10,8 @@
 protected func ContextBuilding(object pCaller)
 {
   [$CtxBuilding$|Image=CXCN]
+  SetXDir(0, pCaller);
+  SetComDir(COMD_Stop, pCaller);
   CreateMenu(CBAS, pCaller, this, 0, 0, 0, C4MN_Style_Context, false);
 
   //Bauen
@@ -235,11 +237,12 @@ public func CheckBuild(id idBuilding, object pTarget)
       return false;
 
   //Genügend freier Platz
-  /*Var(0) = GetX(); Var(1) = GetY();
-  FindConstructionSite(idBuilding, 0, 1);
-  //Log("(%d|%d) ; (%d|%d)", GetX(), GetY(), Var(), Var(1));
-  if(GetX() != Var(0) || GetY() != Var(1))
-    return false;*/
+  Var(0) = GetX(); Var(1) = GetY();
+  //FindConstructionSite funktioniert nicht mit Clonk-Calls
+  if(!FindObject2(Find_ID(BGRL))->FindConstructionSite(idBuilding, 0, 1))
+    return false;
+  if(GetX() != Var(0) || !Inside(Var(1), GetY(), GetY()+10))
+    return false;
 
   //Gebäudespezifische Anforderungen
   if(!idBuilding->~BuildingConditions(pTarget, GetX(), GetY()+10-GetDefHeight(idBuilding)/2))
