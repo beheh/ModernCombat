@@ -6,13 +6,18 @@
 public func TechLevel()		{return 3;}	//Techstufe
 public func BuildingRadius()	{return 200;}	//Bauradius
 public func RequiredEnergy() 	{return 100;}	//Energieverbraucher
-public func BasementID()		{return BT01;}
+public func BasementID()	{return BT01;}	//Fundament
 
 /* Initalisierung */
 
 protected func Initialize()
 {
-  Sound("CCBS_PowerUp.ogg");
+  //Effekte
+  if(HasEnergy())
+    Sound("Building_PowerOn.ogg");
+  else
+    Sound("Building_PowerOff.ogg");
+
   return _inherited(...);
 }
 
@@ -20,14 +25,17 @@ protected func Initialize()
 
 public func AdditionalBuildingMenu(object pMenuObj)
 {
+  //Fahrzeuge bauen
   AddMenuItem("$CreateVehicles$", "OpenVehicleMenu", CVHC, pMenuObj, 0, pMenuObj, "$VehicleMenuDesc$");
+  //Ausrüstung kaufen
   AddMenuItem("$BuyEquipment$", "OpenEquipmentMenu", GEAR, pMenuObj, 0, pMenuObj, "$EquipmentMenuDesc$");
+
   return true;
 }
 
-static const CWFY_Category_Weapon = 1;
-static const CWFY_Category_Equipment = 2;
-static const CWFY_Category_Grenades = 3;
+static const CWFY_Category_Weapon	= 1;
+static const CWFY_Category_Equipment	= 2;
+static const CWFY_Category_Grenades	= 3;
 
 public func OpenEquipmentMenu(id dummy, object pMenuObj)
 {

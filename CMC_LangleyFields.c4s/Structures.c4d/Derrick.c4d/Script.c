@@ -19,7 +19,15 @@ local pDrillHead, iLiquidValue;
 
 public func Initialize()
 {
+  //Umliegende Raffinerien beliefern
   AddEffect("SendResources", this, 1, 36, this);
+
+  //Effekte
+  if(HasEnergy())
+    Sound("Building_PowerOn.ogg");
+  else
+    Sound("Building_PowerOff.ogg");
+
   return _inherited();
 }
 
