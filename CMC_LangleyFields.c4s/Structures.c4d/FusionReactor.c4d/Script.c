@@ -29,10 +29,8 @@ protected func Initialize()
   if(GetTeamTechLevel(GetPlayerTeam(GetOwner())) < 2)
     SetTeamTechLevel(GetPlayerTeam(GetOwner()), 2);
 
-  AddEffect("SmokeEffects", this, 100, 26, this);
-
   //Effekte
-  Sound("CFRT_PowerOn.ogg");
+  AddEffect("SmokeEffects", this, 100, 26, this);  Sound("CFRT_PowerOn.ogg");
   Sound("CFRT_Fuse.ogg",false,0,75,0,+1);
 
   return _inherited(...);
@@ -52,8 +50,8 @@ public func Destroyed()
 
 public func FxSmokeEffectsTimer()
 {
-	Smoke();
-	return true;
+  Smoke();
+  return true;
 }
 
 private func Smoke()
