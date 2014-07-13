@@ -30,7 +30,9 @@ public func AdditionalStatusMenu(object pMenuObj)
 {
 	var process_rate;
   for(var refinery in FindObjects(Find_Func("IsProcessing")))
-    process_rate += 36*1000/refinery->ProcessingInterval();
+  {
+    process_rate += 36*1000/(refinery->ProcessingInterval()*(4*!HasEnergy()+1));
+  }
 
   if(IsProcessing())
   {
@@ -104,6 +106,14 @@ public func IsProcessing() { return EffectVar(0, this, GetEffect("ProcessingReso
 
 public func FxProcessingResourceTimer(object pTarget, int iNr)
 {
+  //Verarbeitung verlangsamen
+  if(!HasEnergy())
+  {
+    EffectVar(1, pTarget, iNr)++;
+    if(EffectVar(1, pTarget, iNr) % 5)
+      return true;
+  }
+
 	var team = GetPlayerTeam(GetOwner(pTarget));
 	var amount = GetTeamResources(team);
 	
