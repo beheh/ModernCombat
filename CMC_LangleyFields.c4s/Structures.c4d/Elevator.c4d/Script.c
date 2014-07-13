@@ -3,7 +3,7 @@
 #strict 2
 #include CCBS
 
-local basement, steelcable, case;	//Fundament
+local basement, steelcable, case;
 
 public func TechLevel()		{return 1;}	//Techstufe
 public func RequiredEnergy() 	{return 50;}	//Energieverbraucher
@@ -13,7 +13,9 @@ public func RequiredEnergy() 	{return 50;}	//Energieverbraucher
 
 protected func Construction()
 {
+  //Fundament erstellen
   //basement = CreateObject(BT02,0,8,GetOwner()); Benötigt spezielles Fundament
+
   steelcable = [];
 }
 
@@ -21,35 +23,47 @@ protected func Construction()
 
 protected func Initialize()
 {
+  //Fahrstuhlplattform erstellen
+  CreateCase();
+
+  //Effekte
   Sound("CCBS_PowerUp.ogg");
   Sound("CFRT_Fuse.ogg",50,0,0,0,+1);
-  CreateCase();
 
   return _inherited(...);
 }
 
+/* Plattform */
+
 public func CreateCase()
 {
-	case = CreateObject(CHLP, 0, GetObjHeight()/2, GetOwner());
-	case->Set(this);
-	steelcable[0] = CreateObject(SLCB, -24, 0, GetOwner());
-	steelcable[1] = CreateObject(SLCB, -17, 0, GetOwner());
-	steelcable[2] = CreateObject(SLCB, +17, 0, GetOwner());
-	steelcable[3] = CreateObject(SLCB, +24, 0, GetOwner());
-	
-	var fBack = true;
-	for(var obj in steelcable)
-		obj->Set(CreateObject(FXTR, 0, 0, NO_OWNER)->Set(case, 0, 25), (fBack = !fBack));
+  //Plattform erstellen
+  case = CreateObject(CHLP, 0, GetObjHeight()/2, GetOwner());
+  case->Set(this);
 
-	return true;
+  //Dekorative Seile erstellen
+  steelcable[0] = CreateObject(SLCB, -24, 0, GetOwner());
+  steelcable[1] = CreateObject(SLCB, -17, 0, GetOwner());
+  steelcable[2] = CreateObject(SLCB, +17, 0, GetOwner());
+  steelcable[3] = CreateObject(SLCB, +24, 0, GetOwner());
+
+  //Seile konfigurieren
+  var fBack = true;
+  for(var obj in steelcable)
+    obj->Set(CreateObject(FXTR, 0, 0, NO_OWNER)->Set(case, 0, 25), (fBack = !fBack));
+
+  return true;
 }
 
 public func OnRemoveCase()
 {
-	for(var obj in steelcable)
-		if(obj)
-			RemoveObject(obj);
+  //Seile entfernen
+  for(var obj in steelcable)
+    if(obj)
+      RemoveObject(obj);
 
-	CreateCase();
-	return true;
+  //Neue Plattform erstellen
+  CreateCase();
+
+  return true;
 }

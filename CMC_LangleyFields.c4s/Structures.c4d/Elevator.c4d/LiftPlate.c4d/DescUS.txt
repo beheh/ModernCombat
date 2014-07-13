@@ -1,6 +1,1 @@
-A floating platform for underground missions.
-
-Control:
-  - up / down = movement-direction
-  - left / right = stop movement
-  - double-dig   = dig a pit
+A platform for vertical transport.

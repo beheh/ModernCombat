@@ -1,8 +1,8 @@
-/*-- Schwebelift --*/
+/*-- Plattform --*/
 
 #strict 2
-
 #include ELEC
+
 
 /* TimerCall */
 

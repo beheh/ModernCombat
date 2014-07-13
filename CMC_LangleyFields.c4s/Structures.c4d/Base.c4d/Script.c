@@ -21,6 +21,16 @@ protected func Construction()
 
 protected func Initialize()
 {
-  Sound("CCBS_PowerUp.ogg");
+  //Effekt
+  Sound("Building_BaseUp.ogg",true,0,0,GetOwner()+1);
+
+  return _inherited(...);
+}
+
+public func Destroyed()
+{
+  //Effekt
+  Sound("Building_BaseDown.ogg",true,0,0,GetOwner()+1);
+
   return _inherited(...);
 }
