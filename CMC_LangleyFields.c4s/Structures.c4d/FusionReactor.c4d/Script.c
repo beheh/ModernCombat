@@ -31,7 +31,17 @@ protected func Initialize()
 
   //Effekte
   Sound("CFRT_PowerOn.ogg");
-  Sound("CFRT_Fuse.ogg",50,0,0,0,+1);
+  Sound("CFRT_Fuse.ogg",false,0,75,0,+1);
+
+  return _inherited(...);
+}
+
+/* Zerstörung */
+
+public func Destroyed()
+{
+  //Effekt
+  Sound("CFRT_Fuse.ogg",false,0,0,0,-1);
 
   return _inherited(...);
 }
