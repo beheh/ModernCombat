@@ -19,14 +19,6 @@ protected func Set(int iValue)
 
 public func CalcValue() { return value; }
 
-/* Aktivierung */
-
-protected func Activate(object pClonk)
-{
-  SetWealth(GetOwner(pClonk), GetWealth(GetOwner(pClonk))+value/2);
-  Sound("GetCash*.ogg");
-}
-
 /* Sonstiges */
 
 protected func Hit()
