@@ -1,4 +1,4 @@
-/*--- Bohrturm ---*/
+/*--- Pumpstation ---*/
 
 #strict 2
 
@@ -6,8 +6,9 @@
 #include DRCK
 #include CCBS
 
-public func TechLevel()			{return 1;}		//Benötigte Techstufe
-public func RequiredEnergy()		{return 50;}		//Benötigte Energie
+public func TechLevel()		{return 1;}	//Benötigte Techstufe
+public func RequiredEnergy()	{return 50;}	//Benötigte Energie
+public func BasementID()	{return BT05;}	//Fundament
 
 
 /* Lokale Variablen */
@@ -92,7 +93,6 @@ protected func ControlUp(pCaller)
 }
 
 /* Pumpkontrolle */
-
 
 protected func ReadyToPump()
 {

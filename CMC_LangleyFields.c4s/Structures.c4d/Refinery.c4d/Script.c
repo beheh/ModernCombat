@@ -3,22 +3,29 @@
 #strict 2
 #include CCBS
 
-public func TechLevel()		{return 2;}	//Techstufe
-public func BuildingRadius()	{return 200;}	//Bauradius
-public func RequiredEnergy() 	{return 50;}	//Energieverbraucher
-public func ProcessingInterval() {return 3;} //Intervall der Verarbeitung
-public func BasementID()			{return BT02;}
+public func TechLevel()			{return 2;}	//Techstufe
+public func BuildingRadius()		{return 200;}	//Bauradius
+public func RequiredEnergy() 		{return 50;}	//Energieverbraucher
+public func BasementID()		{return BT02;}	//Fundament
+
+public func ProcessingInterval()	{return 2;}	//Intervall der Verarbeitung
+
 
 /* Initalisierung */
 
 protected func Initialize()
 {
-  Sound("CCBS_PowerUp.ogg");
-
-  //Techlevel 3 freischalten
+  //Techlevel anheben
   if(GetTeamTechLevel(GetPlayerTeam(GetOwner())) == 2)
     SetTeamTechLevel(GetPlayerTeam(GetOwner()), 3);
-  
+
+  //Effekte
+  if(HasEnergy())
+    Sound("Building_PowerOn.ogg");
+  else
+    Sound("Building_PowerOff.ogg");
+
+  //Ressourcenverarbeitung
   AddEffect("ProcessingResource", this, 1, ProcessingInterval(), this);
 
   return _inherited(...);
@@ -34,6 +41,7 @@ public func AdditionalStatusMenu(object pMenuObj)
     process_rate += 36*1000/(refinery->ProcessingInterval()*(4*!HasEnergy()+1));
   }
 
+  //Bei Ressourcenverarbeitung entsprechende Informationen einblenden
   if(IsProcessing())
   {
     AddMenuItem(Format("$ResourceProcessInfo$", GetTeamResources(GetPlayerTeam(GetOwner()))), 0, 0, pMenuObj);
@@ -41,6 +49,7 @@ public func AdditionalStatusMenu(object pMenuObj)
   }
   else
     AddMenuItem("$ResourceProcessInactive$", 0, GetID(), pMenuObj);
+
   return true;
 }
 
@@ -50,63 +59,67 @@ public func Collection2(object pObj)
 {
   //Verarbeitung von Ressourcen beginnen
   if(CanProcess(pObj))
-  	Process(pObj);
+    Process(pObj);
 
   return _inherited(pObj, ...);
 }
 
 public func CanProcess(object pObj)
 {
-  //Baustelle
+  //Nicht fertiggestellte Raffinerien können noch nichts verarbeiten
   if(GetCon() < 100)
     return false;
-  //Keine Lebewesen, Fahrzeuge und Co. verarbeiten
-	if(!(GetCategory(pObj) & C4D_Object))
-		return false;
-	//Verarbeitung Objektseitig verboten
-	if(pObj->~RejectProcessing())
-		return false;
+  //Keine Lebewesen oder Fahrzeuge verarbeiten
+  if(!(GetCategory(pObj) & C4D_Object))
+    return false;
+  //Als Ausnahmen markierte Objekte auslassen
+  if(pObj->~RejectProcessing())
+    return false;
 
-	return true;
+  return true;
 }
+
+/* Material in Ressourcen umwandeln */
 
 //data darf object/int/id sein (bzw. array aus object/int/id)
 public func Process(data, bool fNoRemove)
 {
-  //Datentyp past?
-	var type = GetType(data);
-	if(type && type != C4V_C4Object && type != C4V_C4ID && type != C4V_Int && type != C4V_Array)
-		return FatalError(Format("Got wrong datatype! (%d) Only object, id, int or array are supported!"));
+  //Debug: Falsche Datentypen melden
+  var type = GetType(data);
+  if(type && type != C4V_C4Object && type != C4V_C4ID && type != C4V_Int && type != C4V_Array)
+    return FatalError(Format("Got wrong datatype! (%d) Only object, id, int or array are supported!"));
 
+  //Wert des Materials ermitteln
   var value = 0;
   if(type == C4V_C4Object)
   {
-  	value = GetValue(data);
-  	if(!fNoRemove)
-  	  RemoveObject(data);
+    value = GetValue(data);
+    if(!fNoRemove)
+      RemoveObject(data);
   }
   else if(type == C4V_C4ID)
-  	value = GetValue(0, data);
+    value = GetValue(0, data);
   else if(type == C4V_Int)
-  	value = data;
+    value = data;
   else if(type == C4V_Array)
   {
-  	for(var entry in data)
-  	  value += Process(entry);
+    for(var entry in data)
+      value += Process(entry);
   }
 
+  //Ressourcen gutschreiben
   DoTeamResources(GetPlayerTeam(GetOwner()), value);
 
   return value;
 }
 
-/* Raffination */
+/* Ressourcenverarbeitung zu Credits */
 
-public func IsProcessing() { return EffectVar(0, this, GetEffect("ProcessingResource", this)); }
+public func IsProcessing()	{return EffectVar(0, this, GetEffect("ProcessingResource", this));}
 
 public func FxProcessingResourceTimer(object pTarget, int iNr)
 {
-  //Verarbeitung verlangsamen
+  //Bei fehlender Stromversorgung verlangsamte Produktion
   if(!HasEnergy())
   {
     EffectVar(1, pTarget, iNr)++;
@@ -114,76 +127,26 @@ public func FxProcessingResourceTimer(object pTarget, int iNr)
       return true;
   }
 
-	var team = GetPlayerTeam(GetOwner(pTarget));
-	var amount = GetTeamResources(team);
-	
-	if(!amount)
-	{
-		EffectVar(0, pTarget, iNr) = false;
-		return true;
-	}
-	else
-	{
-		EffectVar(0, pTarget, iNr) = true;
-	  DoTeamResources(team, -1);
-	  SetWealth(GetOwner(pTarget), GetWealth(GetOwner(pTarget))+1);
-	}
+  //Besitzer und Ressourcen ermitteln
+  var team = GetPlayerTeam(GetOwner(pTarget));
+  var amount = GetTeamResources(team);
+
+  //Ressourcen vorhanden: In Credits umwandeln
+  if(!amount)
+  {
+    EffectVar(0, pTarget, iNr) = false;
+    return true;
+  }
+  else
+  {
+    EffectVar(0, pTarget, iNr) = true;
+    //Ressourcen abziehen
+    DoTeamResources(team, -1);
+    //Credits gutschreiben
+    SetWealth(GetOwner(pTarget), GetWealth(GetOwner(pTarget))+1);
+    //Effekt
+    Sound("CRFY_Credits.ogg",true,0,20,GetOwner()+1);
+  }
 
   return true;
 }
-
-/*public func IsProcessing()		{ return GetEffect("ProcessResource", this); }
-public func GetProcessProgress()	{ return GetEffect("ProcessingDuration", this, 0, 6); }
-public func GetProcessDuration()	{ return GetEffect("ProcessingDuration", this, 0, 3); } 
-
-public func ProcessingResources()
-{
-  //Keine Ressourcen gefunden
-  if(!FindContents(RSCE, this))
-  {
-    if(IsProcessing())
-      RemoveEffect("ProcessResource", this);
-
-    return;
-  }
-
-  //Höherer Wert: Höhere Priorität
-  var highest;
-  for(var resource in FindObjects(Find_Container(this), Find_ID(RSCE)))
-  {
-    if(!highest)
-      highest = resource;
-    else if(highest->~GetVal() < resource->~GetVal())
-      highest = resource;
-  }
-
-  if(!highest)
-    return;
-
-  if(!IsProcessing())
-    AddEffect("ProcessResource", this, 1, 0, this);
-
-  AddEffect("ProcessingDuration", this, 1, highest->GetDuration(), this, 0, highest->GetVal());
-
-  if(highest)
-    RemoveObject(highest);
-}
-
-public func FxProcessingDurationStart(object pTarget, int iNr, int iTemp, int iValue)
-{
-  if(iTemp)
-    return;
-
-  EffectVar(0, pTarget, iNr) = iValue;
-}
-
-public func FxProcessingDurationStop(object pTarget, int iNr)
-{
-  //Geld vergeben
-  SetWealth(GetOwner(), GetWealth(GetOwner())+EffectVar(0, pTarget, iNr));
-
-  //Weitermachen
-  ScheduleCall(this, "ProcessingResources", 1);
-
-  return;
-}*/
