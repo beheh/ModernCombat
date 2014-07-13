@@ -15,7 +15,7 @@ protected func Timer()
   ChangeClonkGrabs();
   // Feststecken -> Schachtbohrung
   if(Stuck() && GetComDir() != COMD_Stop)
-    if(Elevator()->HasEnergy())
+    if(HasEnergy())
       DigFreeRect(GetX() - GetObjWidth()/2, GetY() - GetObjHeight()/2, GetObjWidth(), GetObjHeight());
   if(!timer) Activity();
 }
@@ -25,8 +25,7 @@ protected func Riding()
   var elev = Elevator();
   if(!elev) return Halt();
   // Energieverbrauch
-  if(NoEnergy())
-    Halt();
+  NoEnergy();
 }
 
 private func FindWaitingClonk()
@@ -171,8 +170,7 @@ private func Drilling()
   if(!FindObject2(Find_InRect(-wdt/2,-wdt/2,wdt,wdt), Find_Action("Push")))
     return Halt();
   // Energieverbrauch
-  if(NoEnergy())
-    Halt();
+  NoEnergy();
 
   return true;
 }
@@ -195,6 +193,19 @@ private func SelfMovement()
   return true;
 }
 
+private func SetMoveTo(iPos)
+{
+  if(NoEnergy() && AutoMoveDir) return true;
+  
+  SetAction("Ride"); 
+  var iDir = 0;
+  
+  if(iPos > GetY()) iDir = +3;
+  if(iPos < GetY()) iDir = -3;
+  SetCommand(this,"MoveTo", 0, GetX(), Max(iPos, RangeTop) + iDir);
+  SetYDir(0);
+  return true;
+}
 
 /* Steuerung */
 
@@ -213,13 +224,39 @@ protected func ControlCommand(strCommand, oTarget, iTx, iTy)
 private func DoControlDown(pObj)
 {  
   if(!Elevator()) return;
-  if(NoEnergy()) return;
+  NoEnergy();
 
   Sound("Click");
   if(Hostile(GetController(pObj), GetOwner()))
     return;
 
   SetMoveTo(LandscapeHeight() - GetObjHeight()/2);
+}
+
+private func DoControlUp(pObj)
+{
+  if(!Elevator()) return;
+  NoEnergy();
+
+  Sound("Click");
+  if(Hostile(GetController(pObj), GetOwner()))
+    return;
+
+  SetMoveTo(RangeTop);
+}
+
+private func DoControlDig(pObj)
+{
+  if(!Elevator()) return;
+  NoEnergy();
+
+  Sound("Click");
+  if(Hostile(GetController(pObj), GetOwner()))
+    return;
+
+  SetCommand(this,"None");
+  SetAction("Drill");
+  SetComDir(COMD_Down);
 }
 
 private func FindVehicle(vehicle) 
@@ -259,10 +296,17 @@ private func Elevator()
   return oElev;
 }
 
+public func HasEnergy() { return Elevator()->HasEnergy(); }
+
 private func NoEnergy()
 {
-  if(Elevator()->HasEnergy()) return;
-  Halt();
+  if(!HasEnergy())
+  {
+    SetPhysical("Float", GetPhysical("Float", 1, 0, GetID())/2, PHYS_Temporary, this);
+    return;
+  }
+  
+  SetPhysical("Float", GetPhysical("Float", 1, 0, GetID()), PHYS_Temporary, this);
   //Sound("ElevatorNoEnergy");
   return true;
 }
