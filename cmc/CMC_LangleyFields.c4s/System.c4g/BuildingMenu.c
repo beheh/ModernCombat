@@ -94,6 +94,9 @@ public func ControlThrow()
 {
   if(fBuildingPreview)
   {
+    if(!CheckBuild(idBuildingPreview, this))
+      return true;
+  
     fBuildingPreview = false;
     StartBuilding(idBuildingPreview, pBuildingPreviewTarget, iBuildingPreviewEntry);
     return true;
