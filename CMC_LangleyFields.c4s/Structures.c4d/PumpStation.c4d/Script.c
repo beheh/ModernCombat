@@ -50,7 +50,7 @@ private func PipeHeadCheck()
 }
 
 public func AcceptedMaterials()		{return [Material("Oil")];}	//Nur Öl fördern
-public func LiquidValueCapacity()	{return 500;}			//Maximum an speicherbaren Credits
+public func LiquidValueCapacity()	{return 62;}			//Maximum an speicherbaren Credits
 public func RefineryRange()		{return 300;}			//Maximale Reichweite bis zur nächsten Raffinerie
 public func LineConnectType()		{return DPIP;}
 
