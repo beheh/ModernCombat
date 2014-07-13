@@ -22,5 +22,5 @@ Procedure=FLOAT
 Length=1
 Delay=100
 Facet=0,0,56,26
-NextAction=Travel
+NextAction=Ride
 EndCall=Waiting
