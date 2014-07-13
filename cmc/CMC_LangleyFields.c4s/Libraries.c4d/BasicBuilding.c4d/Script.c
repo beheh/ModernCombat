@@ -3,22 +3,23 @@
 #strict 2
 #include DOOR	//Clonk-eigenes Türsystem
 
-local fHasEnergy, aObjectList, aUpgradeList, fDestroyed, iLastAttacker;
+local pBasement, fHasEnergy, aObjectList, aUpgradeList, fDestroyed, iLastAttacker;
 
-public func IsCMCBuilding()		{return true;}
+public func IsCMCBuilding()			{return true;}
+public func BasementID()				{return;}        				
 
-public func IsBase()			{return false;}					//Heimatbasis
-public func BuildingRadius()		{return 0;}					//Bauradius
-public func NeedBuildingRadius()	{return true;}					//Nur in Bauradius
-public func TechLevel()			{return 0;}					//Benötigte Techstufe
+public func IsBase()						{return false;}				//Heimatbasis
+public func BuildingRadius()			{return 0;}					//Bauradius
+public func NeedBuildingRadius()	{return true;}				//Nur in Bauradius
+public func TechLevel()					{return 0;}					//Benötigte Techstufe
 
-public func RequiredEnergy()		{return 0;}					//Benötigte Energie
+public func RequiredEnergy()			{return 0;}					//Benötigte Energie
 public func EnergyProduction()		{return 0;}					//Erzeugt Energie
 public func PossibleUpgrades()		{return [];}					//Mögliche Upgrades
-public func MaxDamage()			{return 500;}					//Maximaler Schadenswert bis zur Zerstörung
-public func IsDestroyed()   {return fDestroyed;}
+public func MaxDamage()				{return 500;}					//Maximaler Schadenswert bis zur Zerstörung
+public func IsDestroyed()				{return fDestroyed;}
 
-public func BuyCategory() {return C4D_All;}
+public func BuyCategory()				{return C4D_All;}
 
 
 /* Bauanforderungen */
@@ -29,6 +30,8 @@ public func BuildingConditions(object pBy, int iX, int iY) {return true;}
 
 protected func Construction()
 {
+  if(BasementID())
+    pBasement = CreateObject(BasementID(),0,GetDefHeight(BasementID()),GetOwner());
 }
 
 /* Initialisierung */
@@ -213,6 +216,8 @@ public func Destroyed()
   
   //Löschen planen (Momentan noch nicht besonders fancy)
   Schedule("RemoveObject()", 35*6, 1, this);
+  //todo!
+  Schedule("RemoveObject()", 35*6, 1, pBasement);
 }
 
 public func OnDestruction() {}

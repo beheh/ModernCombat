@@ -1,3 +1,0 @@
-/*-- Fundament --*/
-
-#strict 2

@@ -3,19 +3,11 @@
 #strict 2
 #include CCBS
 
-local basement;	//Fundament
-
 public func TechLevel()		{return 2;}	//Techstufe
 public func BuildingRadius()	{return 200;}	//Bauradius
 public func RequiredEnergy() 	{return 50;}	//Energieverbraucher
 public func ProcessingInterval() {return 3;} //Intervall der Verarbeitung
-
-/* Konstruktion */
-
-protected func Construction()
-{
-  basement = CreateObject(BT03,0,8,GetOwner());
-}
+public func BasementID()			{return BT02;}
 
 /* Initalisierung */
 

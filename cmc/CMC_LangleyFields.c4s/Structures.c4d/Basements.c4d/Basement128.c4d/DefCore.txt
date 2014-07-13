@@ -1,5 +1,5 @@
 [DefCore]
-id=BT02
+id=BT04
 Name=Basement
 Category=C4D_Structure
 Width=128

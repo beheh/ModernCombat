@@ -2,13 +2,13 @@
 id=BT03
 Name=Basement
 Category=C4D_Structure
-Width=120
+Width=121
 Height=8
-Offset=-60,-4
+Offset=-61,-4
 Vertices=4
 VertexX=-60,60,-60,60
 VertexY=-4,-4,4,4
 VertexFriction=5,5,5,5
-Picture=0,0,120,8
-SolidMask=0,0,120,8
+Picture=0,0,121,8
+SolidMask=0,0,121,8
 Construction=1

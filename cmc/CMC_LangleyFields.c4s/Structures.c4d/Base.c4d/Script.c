@@ -3,20 +3,10 @@
 #strict 2
 #include CCBS
 
-local basement;	//Fundament
-
 public func IsBase()		{return true;}	//Heimatbasis
 public func BuildingRadius()	{return 400;}	//Bauradius
 public func EnergyProduction()	{return 50;}	//Energiehersteller
-
-
-/* Konstruktion */
-
-protected func Construction()
-{
-  basement = CreateObject(BT01,0,8,GetOwner());
-}
-
+public func BasementID()	{return BT03;}
 /* Initalisierung */
 
 protected func Initialize()

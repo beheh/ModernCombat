@@ -3,21 +3,29 @@
 #strict 2
 #include CCBS
 
+<<<<<<< HEAD
 local basement;
+=======
+>>>>>>> * Gebäudesystem: Fundamente gefixt, Gebäudefundamente werden nun vom BasicBuilding erstellt
 local aPUpgrades, iAdditionalEnergy;
 
 public func TechLevel()		{return 1;}			//Techstufe
 public func BuildingRadius()	{return 200;}			//Bauradius
 public func EnergyProduction()	{return 100+iAdditionalEnergy;}	//Energiehersteller
+<<<<<<< HEAD
 public func PossibleUpgrades()	{return aPUpgrades;}
 
+=======
+public func PossibleUpgrades()   {return aPUpgrades;}
+public func BasementID()			{return BT04;}
+>>>>>>> * Gebäudesystem: Fundamente gefixt, Gebäudefundamente werden nun vom BasicBuilding erstellt
 
 /* Konstruktion */
 
 protected func Construction()
 {
-  basement = CreateObject(BT02,0,8,GetOwner());
   aPUpgrades = [U_FR, U_SP, U_WA, U_WT];
+  return _inherited(...);
 }
 
 /* Initalisierung */
