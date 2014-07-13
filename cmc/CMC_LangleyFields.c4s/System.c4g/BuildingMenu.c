@@ -263,6 +263,7 @@ public func StartBuilding(id idBuilding, object pTarget, int selection)
   if(!pBuilding)
     return;
 
+  //Gras im Baugebiet entfernen
   var wdt = GetDefWidth(idBuilding), hgt = GetDefHeight(idBuilding);
   for(var grass in pBuilding->FindObjects(Find_ID(GRAS), pBuilding->Find_AtRect(-wdt/2, -hgt, wdt, hgt)))
     grass->OnShockwaveHit();

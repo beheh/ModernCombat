@@ -28,7 +28,7 @@ protected func Initialize()
 
 public func AdditionalStatusMenu(object pMenuObj)
 {
-	var process_rate;
+  var process_rate;
   for(var refinery in FindObjects(Find_Func("IsProcessing")))
   {
     process_rate += 36*1000/(refinery->ProcessingInterval()*(4*!HasEnergy()+1));
