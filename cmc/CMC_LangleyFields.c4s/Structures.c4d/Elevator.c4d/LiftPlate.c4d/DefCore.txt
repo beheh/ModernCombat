@@ -1,6 +1,6 @@
 [DefCore]
 id=CHLP
-Name=HoverLift
+Name=Platform
 Version=4,9,1,4
 Category=4
 TimerCall=Activity

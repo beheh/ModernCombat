@@ -1,6 +1,1 @@
-Eine schwebende Plattform für unterirdische Aufgaben.
-
-Bedienung:
-  - oben / unten   = Bewegungsrichtung
-  - links / rechts = Liftplatte anhalten
-  - doppel-graben  = Schacht bohren
+Eine Plattform für vertikalen Transport.

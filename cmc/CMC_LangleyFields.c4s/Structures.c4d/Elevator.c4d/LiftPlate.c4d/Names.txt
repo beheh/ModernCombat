@@ -1,2 +1,2 @@
-DE:Schwebelift
-US:liftplate
+DE:Plattform
+US:Platform
