@@ -183,7 +183,7 @@ public func FxPreviewBuildingTimer(object pTarget, int iNr)
     return -1;
   SetPosition(GetX()+EffectVar(1, pTarget, iNr), GetY()+EffectVar(2, pTarget, iNr), tim);
 
-  if(!CanBuild(EffectVar(3, pTarget, iNr), this))
+  if(!CheckBuild(EffectVar(3, pTarget, iNr), this))
     SetClrModulation(RGB(255), tim, 1);
   else
     SetClrModulation(RGB(255, 255, 255), tim, 1);
@@ -213,11 +213,6 @@ public func FxPreviewBuildingStop(object pTarget, int iNr)
 
 public func CanBuild(id idBuilding, object pTarget)
 {
-  //Bauradius
-  if(idBuilding->~NeedBuildingRadius())
-    if(!FindObject2(Find_Category(C4D_Structure), Find_Allied(GetOwner(pTarget)), Find_Func("CheckBuildingRadius", GetX(), GetY()+10)))
-      return false;
-
   //Verfügbares Geld
   if(GetValue(0, idBuilding) > GetWealth(GetOwner(pTarget)))
     return false;
@@ -226,8 +221,25 @@ public func CanBuild(id idBuilding, object pTarget)
   if(!GetPlrKnowledge(GetOwner(pTarget), idBuilding) && GetTeamTechLevel(GetPlayerTeam(GetOwner(pTarget))) < idBuilding->~TechLevel())
     return false;
 
-  //Genügend freier Platz
+  return true;
+}
 
+public func CheckBuild(id idBuilding, object pTarget)
+{
+  if(!CanBuild(idBuilding, pTarget))
+    return false;
+
+  //Bauradius
+  if(idBuilding->~NeedBuildingRadius())
+    if(!FindObject2(Find_Category(C4D_Structure), Find_Allied(GetOwner(pTarget)), Find_Func("CheckBuildingRadius", GetX(), GetY()+10)))
+      return false;
+
+  //Genügend freier Platz
+  /*Var(0) = GetX(); Var(1) = GetY();
+  FindConstructionSite(idBuilding, 0, 1);
+  //Log("(%d|%d) ; (%d|%d)", GetX(), GetY(), Var(), Var(1));
+  if(GetX() != Var(0) || GetY() != Var(1))
+    return false;*/
 
   //Gebäudespezifische Anforderungen
   if(!idBuilding->~BuildingConditions(pTarget, GetX(), GetY()+10-GetDefHeight(idBuilding)/2))
@@ -239,6 +251,9 @@ public func CanBuild(id idBuilding, object pTarget)
 global func CheckBuildingRadius(int iX, int iY)
 {
   var rad;
+  if(this->~GetCon() < 100)
+    return false;
+
   if(!(rad = this->~BuildingRadius()))
     return false;
 
@@ -255,7 +270,7 @@ public func StartBuilding(id idBuilding, object pTarget, int selection)
       RemoveObject(obj);
   RemoveEffect("PreviewBuilding", this);
 
-  if(!CanBuild(idBuilding, pTarget)) //ToDo: Meldung ausgeben
+  if(!CheckBuild(idBuilding, pTarget)) //ToDo: Meldung ausgeben
     return false;
 
   //Gebäudebaustelle erstellen
