@@ -1,0 +1,3 @@
+Pumpstationen fördern Flüssigkeiten aus dem Erdboden zu naheliegenden Raffinerien zur weiteren verarbeitung.
+
+Anfassen und [Springen] und [Stop] zum Bewegen des Bohrkopfes, [Links] oder [Rechts] zum anhalten.
