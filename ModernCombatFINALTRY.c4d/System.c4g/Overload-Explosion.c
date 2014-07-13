@@ -153,12 +153,9 @@ global func BlastObjects2(int x, int y, int level, object container, int cause_p
         mass_fact = BoundBy(GetMass(obj)*mass_mul/1000, 4, mass_fact);
         var dx = 100*(GetX(obj)-x)+Random(51)-25;
         var dy = 100*(GetY(obj)-y)+Random(51)-25;
-        var vx, vy;
-        if(dx)
-        {
-          vx = Abs(dx)/dx * (100*level-Abs(dx)) * shock_speed / level / mass_fact;
-        }
-        vy = (Abs(dy) - 100*level) * shock_speed / level / mass_fact;
+        var vx = Sgn(dx) * BoundBy(100*level-Abs(dx),0,100*level) * shock_speed / level / mass_fact;
+        var vy = Sgn(dy) * BoundBy(100*level-Abs(dy),0,100*level) * shock_speed / level / mass_fact;
+		
         if(cat & C4D_Object)
         {
           //Objekte nicht zu schnell werden lassen
