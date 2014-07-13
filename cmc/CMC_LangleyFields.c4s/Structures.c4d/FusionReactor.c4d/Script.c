@@ -30,7 +30,7 @@ protected func Initialize()
     SetTeamTechLevel(GetPlayerTeam(GetOwner()), 2);
 
   //Effekte
-  Sound("CCBS_PowerUp.ogg");
+  Sound("CFRT_PowerOn.ogg");
   Sound("CFRT_Fuse.ogg",50,0,0,0,+1);
 
   return _inherited(...);

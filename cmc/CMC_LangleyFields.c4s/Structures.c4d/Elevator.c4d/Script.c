@@ -14,13 +14,15 @@ public func BasementID()	{return BT03;}	//Fundament
 
 protected func Initialize()
 {
-  steelcable = [];
   //Fahrstuhlplattform erstellen
+  steelcable = [];
   CreateCase();
 
   //Effekte
-  Sound("CCBS_PowerUp.ogg");
-  Sound("CFRT_Fuse.ogg",50,0,0,0,+1);
+  if(HasEnergy())
+    Sound("Building_PowerOn.ogg");
+  else
+    Sound("Building_PowerOff.ogg");
 
   return _inherited(...);
 }
