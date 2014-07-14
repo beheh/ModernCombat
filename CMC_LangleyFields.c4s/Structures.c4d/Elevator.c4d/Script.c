@@ -8,6 +8,7 @@ local steelcable, case;
 
 public func TechLevel()		{return TECHLEVEL_1;}	//Techstufe
 public func RequiredEnergy()	{return 50;}		//Energieverbraucher
+public func MaxDamage()		{return 150;}		//Maximaler Schadenswert bis zur Zerstörung
 
 
 /* Initalisierung */

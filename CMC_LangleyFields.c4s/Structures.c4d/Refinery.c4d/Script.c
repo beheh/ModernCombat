@@ -8,6 +8,7 @@ public func TechLevel()			{return TECHLEVEL_2;}	//Benötigte Techstufe
 public func ProvideTechLevel()		{return TECHLEVEL_3;}	//Vorhandene Techstufe
 public func BuildingRadius()		{return 200;}		//Bauradius
 public func RequiredEnergy()		{return 50;}		//Energieverbraucher
+public func MaxDamage()			{return 150;}		//Maximaler Schadenswert bis zur Zerstörung
 
 public func ProcessingInterval()	{return 2;}		//Intervall der Verarbeitung
 

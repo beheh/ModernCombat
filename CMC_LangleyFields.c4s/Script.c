@@ -21,6 +21,12 @@ func CreateInterior()
 {
   Log("$CreatingInterior$");
 
+  //Nachschublager
+  CreateObject(SYSK, 795, 440, -1);
+  CreateObject(SYSK, 2980, 470, -1);
+  CreateObject(SYSK, 4020, 470, -1);
+  CreateObject(SYSK, 6200, 440, -1);
+
   //Grenzen
   CreateObject(BRDR, 660, 0, -1)->Set(0);
   CreateObject(BRDR, 6340, 0, -1)->Set(1);

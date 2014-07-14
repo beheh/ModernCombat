@@ -1,2 +1,0 @@
-DE:Ressourcenlager
-US:Resource stock

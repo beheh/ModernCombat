@@ -7,13 +7,13 @@
 #include CCBS
 #include BT05
 
-public func TechLevel()		{return TECHLEVEL_1;}	//Benötigte Techstufe
-public func RequiredEnergy()	{return 50;}		//Benötigte Energie
-
-/* Lokale Variablen */
-
 local pBarrel;
 local pDrillHead, iLiquidValue;
+
+public func TechLevel()		{return TECHLEVEL_1;}	//Benötigte Techstufe
+public func RequiredEnergy()	{return 50;}		//Benötigte Energie
+public func MaxDamage()		{return 150;}		//Maximaler Schadenswert bis zur Zerstörung
+
 
 /* Initialisierung */
 
