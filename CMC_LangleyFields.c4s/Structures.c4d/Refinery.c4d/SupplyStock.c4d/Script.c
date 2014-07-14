@@ -30,6 +30,12 @@ protected func Initialize()
 public func Fill(int iAmount)
 {
   stock = BoundBy(iAmount, 0, MaximumAmount());
+  
+  //Grafik aktualisieren
+  SetPhase(5-stock/(MaximumAmount()/5));
+  if(!stock)
+    SetPhase(6);
+
   return true;
 }
 
