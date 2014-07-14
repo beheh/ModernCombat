@@ -5,11 +5,10 @@
 #include DRBS
 #include DRCK
 #include CCBS
+#include BT05
 
 public func TechLevel()		{return TECHLEVEL_1;}	//Benötigte Techstufe
 public func RequiredEnergy()	{return 50;}	//Benötigte Energie
-public func BasementID()	{return BT05;}	//Fundament
-
 
 /* Lokale Variablen */
 

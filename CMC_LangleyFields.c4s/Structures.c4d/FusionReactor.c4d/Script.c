@@ -2,6 +2,7 @@
 
 #strict 2
 #include CCBS
+#include BT04
 
 local aPUpgrades, iAdditionalEnergy;
 
@@ -12,8 +13,6 @@ public func ProvideTechLevel() {return TECHLEVEL_2;}
 public func BuildingRadius()	{return 200;}			//Bauradius
 public func EnergyProduction()	{return 100+iAdditionalEnergy;}	//Energiehersteller
 public func PossibleUpgrades()   {return aPUpgrades;}
-public func BasementID()	{return BT04;}
-
 
 
 /* Konstruktion */
