@@ -1,4 +1,4 @@
-BuildlBuilding=Bauen
+BuildBuilding=Bauen
 RepairBuilding=Reparieren
 SellBuilding=Verkaufen
 Close=Schließen
