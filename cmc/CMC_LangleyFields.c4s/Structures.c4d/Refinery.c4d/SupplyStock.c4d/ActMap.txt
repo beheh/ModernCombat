@@ -1,7 +1,7 @@
 [Action]
 Name=Stand
 Procedure=NONE
-Length=6
+Length=7
 FacetBase=1
 Facet=0,61,96,50,2,0
 NextAction=Hold
