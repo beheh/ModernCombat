@@ -1,1 +1,1 @@
-Refinery.
+The refinery converts resources from different sources to usable credits and is a important part of a normal operating base.

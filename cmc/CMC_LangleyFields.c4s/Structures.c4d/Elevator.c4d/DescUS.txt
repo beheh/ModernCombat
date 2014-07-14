@@ -1,1 +1,3 @@
-Elevator.
+Allows vertical transport of clonks and material.
+
+The elevator can dig through material with [Doubledig] and goes automatically to waiting clonks.

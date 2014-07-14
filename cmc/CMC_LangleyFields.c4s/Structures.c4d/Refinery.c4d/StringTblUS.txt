@@ -1,0 +1,3 @@
+ResourceProcessInfo=Processing: %d resources
+ResourceProcessRate=Income: %d,%03d credits/second
+ResourceProcessInactive=<c 777777>Processing inactive</c>

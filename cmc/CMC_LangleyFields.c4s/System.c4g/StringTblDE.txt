@@ -1,3 +1,6 @@
+TxtLorryisfull=Lore ist|voll.
+
+CtxBuilding=Baumenü
 BuildBuilding=Bauen
 RepairBuilding=Reparieren
 SellBuilding=Verkaufen

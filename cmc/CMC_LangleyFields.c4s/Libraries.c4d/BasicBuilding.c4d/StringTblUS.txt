@@ -1,2 +1,10 @@
 UpgradeMenu=Upgrades
 BuyMenu=Buy
+Showing=Page %d of %d
+NextPage=Next page
+LastPage=Previous page
+NoUpgrades=No upgrades available.
+IsUpgrading=Upgrade: %s (%d / %d)
+ActiveUpgrades=Active upgrades:
+UpgradesToResearch=Researchable upgrades:
+Hitpoints=Damage: %d/%d

@@ -2,3 +2,4 @@ CtrlDrillDesc=Drill
 CtrlRetractDesc=Retract
 CtrlStopDesc=Stop
 
+ErrNoRefinery=No refinery in range!

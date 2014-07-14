@@ -1,1 +1,1 @@
-Reducing the effect level may raise the performance of slow network rounds. Level 3 represents normal effect presentation.
+Manages the backgroundsystems for the building system.
