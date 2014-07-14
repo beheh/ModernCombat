@@ -16,7 +16,7 @@ protected func ContextBuilding(object pCaller)
   //Menü öffnen
   CreateMenu(CBAS, pCaller, this, 0, 0, 0, C4MN_Style_Context, false);
   //Bauen
-  AddMenuItem("$BuildBuilding$", "OpenBuildingMenu", FLNT, pCaller);
+  AddMenuItem("$BuildBuilding$", "OpenBuildingMenu", CXCN, pCaller);
   //ToDo: Sell und Repair sollen deaktiviert/ausgegraut erscheinen, wenn nichts zu reparieren/verkaufen da ist.
   //Reparatur
   AddMenuItem("$RepairBuilding$", "OpenRepairMenu", BWTH, pCaller);
@@ -274,7 +274,15 @@ public func BuildingDecoMessage(id idBuilding, object pObj)
   if(b->~IsBase())
     Concat(info, Format("{{HUT1}} $True$ "));
   if(b->~ProvideTechLevel())
-    Concat(info, Format("{{SM01}} %d ", b->ProvideTechLevel()));
+  {
+    var lvl = -1, i = b->ProvideTechLevel();
+    while(i)
+    {
+      i /= 2;
+      lvl++;
+    }
+    Concat(info, Format("{{SM01}} %d ", lvl));
+  }
   if(b->~BuildingRadius())
     Concat(info, Format("{{CXCN}} %d ", b->BuildingRadius()));
   if(b->~RequiredEnergy())
