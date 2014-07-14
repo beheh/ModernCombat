@@ -1,0 +1,16 @@
+# Hauptmenü
+CreateVehicles=Create vehicles
+VehicleMenuDesc=Create vehicles
+BuyEquipment=Buy equipment
+EquipmentMenuDesc=Buy equipment
+
+#Ausrüstungsmenü
+EquipmentMenu=Equipment menu
+ChooseCategory=Category:
+CategoryWeapons=Weapons
+CategoryEquipment=Equipment
+CategoryGrenades=Grenades
+
+VehicleMenu=Vehiclemenu
+
+Back=Back

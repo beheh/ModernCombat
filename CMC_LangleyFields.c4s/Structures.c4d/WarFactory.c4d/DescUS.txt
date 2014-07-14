@@ -1,1 +1,1 @@
-War Factory.
+The warfactory allows building heavy vehicles.

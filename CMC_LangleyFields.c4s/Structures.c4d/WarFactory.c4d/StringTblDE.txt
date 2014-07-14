@@ -1,5 +1,5 @@
 # Hauptmenü
-CreateVehicle=Fahrzeuge erstellen
+CreateVehicles=Fahrzeuge erstellen
 VehicleMenuDesc=Fahrzeuge erstellen
 BuyEquipment=Ausrüstung kaufen
 EquipmentMenuDesc=Ausrüstung kaufen
@@ -12,3 +12,5 @@ CategoryEquipment=Ausrüstungsgegenstände
 CategoryGrenades=Granaten
 
 VehicleMenu=Fahrzeugmenü
+
+Back=Zurück
