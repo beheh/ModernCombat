@@ -22,11 +22,26 @@ protected func Initialize()
     Sound("Building_PowerOn.ogg");
   else
     Sound("Building_PowerOff.ogg");
+  AddEffect("SmokeEffects", this, 100, 26, this);
 
   //Ressourcenverarbeitung
   AddEffect("ProcessingResource", this, 1, ProcessingInterval(), this);
 
   return _inherited(...);
+}
+
+/* Effekte */
+
+public func FxSmokeEffectsTimer()
+{
+  Smoke();
+  return true;
+}
+
+private func Smoke()
+{
+  //Effekte
+  CastSmoke("Smoke",3,10,40,-35,100,500);
 }
 
 /* Menüführung */
