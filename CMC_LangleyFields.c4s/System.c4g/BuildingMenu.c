@@ -185,6 +185,8 @@ public func MenuQueryCancel(int iSelection, object pMenuObj)
 {
   if(GetMenu(pMenuObj) == BGRS || GetTechLevelByID(GetMenu(pMenuObj)))
   {
+    DecoMessage("", GetOwner(pMenuObj)+1);
+  
     //Bauradiusvorschau löschen
     for(var obj in FindObjects(Find_ID(BGRS), Find_Owner(GetOwner(pMenuObj))))
       if(obj)
@@ -198,6 +200,37 @@ public func MenuQueryCancel(int iSelection, object pMenuObj)
 
 public func OnMenuSelection(int iIndex, object pObj)
 {
+  //Techstufenauswahl
+  if(GetMenu(pObj) == BGRS)
+  {
+    var lvl = 1;
+    while(iIndex)
+    {
+      lvl *= 2;
+      iIndex--;
+    }
+
+    //Nachricht mit Gebäudeübersicht generieren
+    var str = "@$MsgTechLevelBuildings$", buildings = GetTechLevelBuildings(lvl), start = true;
+    for(var building in buildings)
+    {
+      var comma = ", ";
+      if(start)
+      {
+        comma = "";
+        start = false;
+      }
+      var clr = 0xFFFFFF;
+      if(!CanBuild(building, this))
+        clr = 0xFF0000;
+      
+      str = Format("%s%s{{%i}} <c %x>%s</c>", str, comma, building, clr, GetName(0, building));
+    }
+    
+    DecoMessage(str, GetOwner(pObj)+1);
+    return true;
+  }
+
   var lvl;
   if(lvl = GetTechLevelByID(GetMenu(pObj)))
   {
@@ -213,10 +246,66 @@ public func OnMenuSelection(int iIndex, object pObj)
     }
 
     EffectCall(this, GetEffect("PreviewBuilding", this), "Change", b);
+    
+    //Nachricht mit Gebäudedetails generieren
+    if(!b)
+      DecoMessage("", GetOwner(pObj)+1);
+    else
+      BuildingDecoMessage(b, pObj);
   }
   else
     return _inherited(...);
 
+  return true;
+}
+
+public func BuildingDecoMessage(id idBuilding, object pObj)
+{
+  var b = idBuilding;
+  
+  var clr = 0x00FF00, error = -1;
+  if((error = CheckBuild(b, this, error)) != -1)
+    clr = 0xFF0000;
+
+  var str = Format("<c %x>%s</c>||%s", clr, GetName(0, b), GetDesc(0, b)), info = "";
+  
+  if(b->~MaxDamage())
+    Concat(info, Format("{{SM12}} %d ", b->MaxDamage()));
+  if(b->~IsBase())
+    Concat(info, Format("{{HUT1}} $True$ "));
+  if(b->~ProvideTechLevel())
+    Concat(info, Format("{{SM01}} %d ", b->ProvideTechLevel()));
+  if(b->~BuildingRadius())
+    Concat(info, Format("{{CXCN}} %d ", b->BuildingRadius()));
+  if(b->~RequiredEnergy())
+    Concat(info, Format("{{CXEC}} %d ", b->RequiredEnergy()));
+  if(b->~EnergyProduction())
+    Concat(info, Format("{{ENRG}} %d ", b->EnergyProduction()));
+  
+  var errorstr = BuildingErrors(b, this, error);
+  if(GetLength(errorstr))
+    errorstr = Format("||<c ff0000>%s</c>", errorstr);
+
+  str = Format("@%s%s||%s", str, errorstr, info);
+  DecoMessage(str, GetOwner(pObj)+1);
+  return true;
+}
+
+public func BuildingErrors(id idBuilding, object pTarget, int iError)
+{
+  if(iError == BERROR_WrongBuildingID) return "$ErrWrongBuildingID$";
+  if(iError == BERROR_NotEnoughMoney)  return "$ErrNotEnoughMoney$";
+  if(iError == BERROR_NotAvailable)    return "$ErrNotAvailable$";
+  if(iError == BERROR_BuildingRadius)  return "$ErrBuildingRadius$";
+  if(iError == BERROR_NotEnoughSpace)  return "$ErrNotEnoughSpace$";
+  if(iError == BERROR_SpecialError)    return idBuilding->~BuildingConditions(pTarget, GetX(), GetY()+10-GetDefHeight(idBuilding)/2, true);
+  
+  return "";
+}
+
+public func Concat(string &szStr, string szStr2)
+{
+  szStr = Format("%s%s", szStr, szStr2);
   return true;
 }
 
@@ -228,7 +317,7 @@ public func FxPreviewBuildingStart(object pTarget, int iNr, temp)
   tim->SetVisibility(VIS_Owner);
 }
 
-public func FxPreviewBuildingTimer(object pTarget, int iNr)
+public func FxPreviewBuildingTimer(object pTarget, int iNr, int iTime)
 {
   var tim = EffectVar(0, pTarget, iNr);
 
@@ -239,6 +328,9 @@ public func FxPreviewBuildingTimer(object pTarget, int iNr)
 
   if(!EffectVar(3, pTarget, iNr) || !EffectVar(3, pTarget, iNr)->~IsCMCBuilding())
     return true;
+  
+  if(!(iTime % 5))
+    BuildingDecoMessage(EffectVar(3, pTarget, iNr), this);
 
   if(!CheckBuild(EffectVar(3, pTarget, iNr), this))
     SetClrModulation(RGB(255), tim, 1);
@@ -262,49 +354,100 @@ public func FxPreviewBuildingChange(object pTarget, int iNr, id idNewDef)
 
 public func FxPreviewBuildingStop(object pTarget, int iNr)
 {
+  DecoMessage("", GetOwner(pTarget));
+
   if(EffectVar(0, pTarget, iNr))
     RemoveObject(EffectVar(0, pTarget, iNr));
 
   return true;
 }
 
-public func CanBuild(id idBuilding, object pTarget)
+static const BERROR_WrongBuildingID = 1;
+static const BERROR_NotEnoughMoney = 2;
+static const BERROR_NotAvailable = 3;
+static const BERROR_BuildingRadius = 4;
+static const BERROR_NotEnoughSpace = 5;
+static const BERROR_SpecialError = 6;
+
+//iError muss -1 sein, damit gespeichert wird
+public func CanBuild(id idBuilding, object pTarget, int iError)
 {
   if(!idBuilding || !idBuilding->~IsCMCBuilding())
-    return false;
+  {
+    if(iError)
+      iError = BERROR_WrongBuildingID;
+    return iError;
+  }
 
   //Verfügbares Geld
   if(GetValue(0, idBuilding) > GetWealth(GetOwner(pTarget)))
-    return false;
+  {
+    if(iError)
+      iError = BERROR_NotEnoughMoney;
+    return iError;
+  }
 
   //Freigeschaltet
-  if(!GetPlrKnowledge(GetOwner(pTarget), idBuilding) && !GetTeamTechLevel(GetPlayerTeam(GetOwner(pTarget)), idBuilding->~TechLevel()))
-    return false;
+  if(!GetTeamTechLevel(GetPlayerTeam(GetOwner(pTarget)), idBuilding->~TechLevel()))
+  {
+    if(iError)
+      iError = BERROR_NotAvailable;
+    return iError;
+  }
+
+  if(iError)
+    return -1;
 
   return true;
 }
 
-public func CheckBuild(id idBuilding, object pTarget)
+public func CheckBuild(id idBuilding, object pTarget, int iError)
 {
-  if(!CanBuild(idBuilding, pTarget))
+  var err = CanBuild(idBuilding, pTarget, iError);
+  if(!err && !iError)
     return false;
+  if(err != -1 && iError)
+    return err;
+  /*if((CanBuild(idBuilding, pTarget, iError)) != -1 || !iError)
+    return iError;*/
 
   //Bauradius
   if(idBuilding->~NeedBuildingRadius())
     if(!FindObject2(Find_Category(C4D_Structure), Find_Allied(GetOwner(pTarget)), Find_Func("CheckBuildingRadius", GetX(), GetY()+10)))
-      return false;
+    {
+      if(iError)
+        iError = BERROR_BuildingRadius;
+      return iError;
+    }
 
   //Genügend freier Platz
   Var(0) = GetX(); Var(1) = GetY();
   //FindConstructionSite funktioniert nicht mit Clonk-Calls
   if(!FindObject2(Find_ID(BGRL))->FindConstructionSite(idBuilding, 0, 1))
-    return false;
+  {
+    if(iError)
+      iError = BERROR_NotEnoughSpace;
+
+    return iError;
+  }
   if(GetX() != Var(0) || !Inside(Var(1), GetY(), GetY()+10))
-    return false;
+  {
+    if(iError)
+      iError = BERROR_NotEnoughSpace;
+
+    return iError;
+  }
 
   //Gebäudespezifische Anforderungen
   if(!idBuilding->~BuildingConditions(pTarget, GetX(), GetY()+10-GetDefHeight(idBuilding)/2))
-    return false;
+  {
+    if(iError)
+      iError = BERROR_SpecialError;
+    return iError;
+  }
+
+  if(iError)
+    return -1;
 
   return true;
 }

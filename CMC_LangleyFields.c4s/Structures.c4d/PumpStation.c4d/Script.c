@@ -14,6 +14,18 @@ public func TechLevel()		{return TECHLEVEL_1;}	//Benötigte Techstufe
 public func RequiredEnergy()	{return 50;}		//Benötigte Energie
 public func MaxDamage()		{return 150;}		//Maximaler Schadenswert bis zur Zerstörung
 
+public func BuildingConditions(object pBy, int iX, int iY, bool fReturnError)
+{
+  if(!FindObject2(Find_ID(CRFY), Find_Allied(GetOwner(pBy)), Find_Distance(RefineryRange(), AbsX(iX), AbsY(iY))))
+  {
+    if(fReturnError)
+      return Format("$ErrNoRefinery$");
+    else
+      return false;
+  }
+  return true;
+}
+
 
 /* Initialisierung */
 
@@ -108,10 +120,14 @@ public func FxSendResourcesTimer(object pTarget, int iNr)
 {
   var ref;
   if(!(ref = FindObject2(Find_ID(CRFY), Find_Distance(RefineryRange()), Find_Allied(GetOwner()), Find_Not(Find_OCF(OCF_Construct)))))
-    return true;
+    return false;
+  
+  if(!(iLiquidValue/1000))
+    return false;
 
   ref->Process(iLiquidValue/1000);
   iLiquidValue = 0;
+  return true;
 }
 
 /* Zerstörung */

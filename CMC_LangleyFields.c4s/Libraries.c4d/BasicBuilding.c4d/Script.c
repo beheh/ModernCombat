@@ -16,6 +16,7 @@ public func NeedBuildingRadius()	{return true;}			//Nur in Bauradius
 
 public func RequiredEnergy()		{return 0;}			//Benötigte Energie
 public func EnergyProduction()		{return 0;}			//Erzeugt Energie
+public func AdditionalEnergyProduction() {return 0;} //Zusätzlich erzeugte Energie (durch Upgrades o.ä.)
 public func PossibleUpgrades()		{return [];}			//Mögliche Upgrades
 public func MaxDamage()			{return 500;}			//Maximaler Schadenswert bis zur Zerstörung
 public func IsDestroyed()		{return fDestroyed;}
@@ -24,7 +25,7 @@ public func BuyCategory()		{return C4D_All;}
 
 /* Bauanforderungen */
 
-public func BuildingConditions(object pBy, int iX, int iY) {return true;}
+public func BuildingConditions(object pBy, int iX, int iY, bool fReturnError) {return true;}
 
 /* Initialisierung */
 
@@ -445,7 +446,7 @@ public func GetEnergyData(int iData)
 	if(GetCon() >= 100)
 	{
 		if(iData == CCBS_EnergyProd)
-			return EnergyProduction();
+			return EnergyProduction()+AdditionalEnergyProduction();
 		if(iData == CCBS_EnergyNeed)
 			return RequiredEnergy();
 	}

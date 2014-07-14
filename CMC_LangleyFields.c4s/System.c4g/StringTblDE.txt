@@ -9,3 +9,12 @@ TechLevel1=Technikstufe 1
 TechLevel2=Technikstufe 2
 TechLevel3=Technikstufe 3
 Back=Zurück
+
+MsgTechLevelBuildings=Technikstufe verfügt über folgende Gebäude:|
+True=Ja
+
+ErrWrongBuildingID=Ist kein gültiges CMC Gebäude!
+ErrNotEnoughMoney=Nicht genügend Geld!
+ErrNotAvailable=Technikstufe nicht erforscht!
+ErrBuildingRadius=Nicht im Bauradius!
+ErrNotEnoughSpace=Nicht genügend Platz!
