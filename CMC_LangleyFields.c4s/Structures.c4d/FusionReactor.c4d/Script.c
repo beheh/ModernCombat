@@ -93,7 +93,9 @@ public func UpgradeOffset(id idUpgrade, int &iX, int &iY)
   }
   else if(idUpgrade == U_WA)	//Wasserturbine
   {
-    iX = -10;
+    var x, y;
+    FindWaterSource(x, y);
+    iX = -10*Sgn(-x);
     iY = 8;
   }
   else if(idUpgrade == U_WT)	//Windanlage
@@ -148,16 +150,73 @@ public func FxSolarPanelTimer(object pTarget, int iNr)
 
 /* Upgrade: Wasserturbine */
 
+public func FindWaterSource(int &iX, int &iY)
+{
+  //10px zu beiden Seiten hin nach Wasser absuchen
+  
+  //Es fehlen noch erweiterte Checks ob es sich um ein "größeres Gewösser" handelt
+  for(var i = -64;i > -75; i--)
+  {
+    var x = GetX()+i, y = GetY()+40,xdir,ydir;
+    SimFlight(x,y,xdir,ydir,25);
+    
+    if(Abs(y-GetY()-40) < 15 && GetMaterial(AbsX(x), AbsY(y)+11) == Material("Water"))
+    {
+      iX = AbsX(x);
+      iY = AbsY(y)+11;
+      return true;
+    }
+  }
+  for(i = 64;i < 75; i++)
+  {
+    var x = GetX()+i, y = GetY()+40,xdir,ydir;
+    SimFlight(x,y,xdir,ydir,25);
+    
+    if(Abs(y-GetY()-40) < 15 && GetMaterial(AbsX(x), AbsY(y)+11) == Material("Water"))
+    {
+      iX = AbsX(x);
+      iY = AbsY(y)+11;
+      return true;
+    }
+  }
+  
+  return false;
+}
+
 public func SetupWaterTurbine()
 {
   //Eventuelle Starteffekte/-sounds  
-  AddEffect("WaterTurbine", this, 100, 35, 0, GetID());
+  AddEffect("WaterTurbine", this, 100, 35, this);
+  return true;
+}
+
+public func FxWaterTurbineStart(object pTarget, int iNr)
+{
+  FindWaterSource(EffectVar(0, pTarget, iNr), EffectVar(1, pTarget, iNr));
+  
+  //Starteffekte
+  Sound("MotorLoop.ogg", 0, this, 40, 0, +1);
   return true;
 }
 
 public func FxWaterTurbineTimer(object pTarget, int iNr)
 {
-  //...todo
+  var x = EffectVar(0, pTarget, iNr), y = EffectVar(1, pTarget, iNr);
+  if(GetMaterial(x, y) == Material("Water"))
+    SetAdditionalEnergy(50);
+  
+  //Effekte
+  
+  
+  return true;
+}
+
+public func FxWaterTurbineStop(object pTarget, int iNr)
+{
+  //Stopeffekte (Gebäude zerstört)
+  Sound("MotorLoop.ogg", 0, this, 40, 0, -1);
+  
+  return true;
 }
 
 /* Upgrade: Windanlge */
