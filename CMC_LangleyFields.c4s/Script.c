@@ -1,6 +1,6 @@
 /*-- Langley Fields --*/
 
-#strict
+#strict 2
 #include CSTD
 
 
@@ -73,10 +73,11 @@ public func Relaunch(int iPlr, object pCrew, object pKiller, int iTeam)
 {
   //Kein ordentlicher Spieler?
   if(GetOwner(pCrew) == NO_OWNER || iPlr == NO_OWNER || !GetPlayerName(iPlr))
-    return();
+    return;
 
   //Kein Team
-  if(!iTeam) iTeam = GetPlayerTeam(iPlr);
+  if(!iTeam)
+    iTeam = GetPlayerTeam(iPlr);
 
   //Clonk tot?
   if(!GetAlive(pCrew))
