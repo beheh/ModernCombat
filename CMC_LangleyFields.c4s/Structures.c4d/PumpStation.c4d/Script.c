@@ -8,7 +8,7 @@
 #include BT05
 
 public func TechLevel()		{return TECHLEVEL_1;}	//Benötigte Techstufe
-public func RequiredEnergy()	{return 50;}	//Benötigte Energie
+public func RequiredEnergy()	{return 50;}		//Benötigte Energie
 
 /* Lokale Variablen */
 

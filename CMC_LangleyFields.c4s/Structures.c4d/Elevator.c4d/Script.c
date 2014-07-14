@@ -7,7 +7,7 @@
 local steelcable, case;
 
 public func TechLevel()		{return TECHLEVEL_1;}	//Techstufe
-public func RequiredEnergy() 	{return 50;}	//Energieverbraucher
+public func RequiredEnergy()	{return 50;}		//Energieverbraucher
 
 
 /* Initalisierung */

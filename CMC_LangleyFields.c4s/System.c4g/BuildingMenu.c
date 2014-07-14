@@ -10,9 +10,11 @@
 protected func ContextBuilding(object pCaller)
 {
   [$CtxBuilding$|Image=CXCN]
-  SetComDir(COMD_Stop, pCaller);
-  CreateMenu(CBAS, pCaller, this, 0, 0, 0, C4MN_Style_Context, false);
 
+  //Clonk anhalten
+  SetComDir(COMD_Stop, pCaller);
+  //Menü öffnen
+  CreateMenu(CBAS, pCaller, this, 0, 0, 0, C4MN_Style_Context, false);
   //Bauen
   AddMenuItem("$BuildBuilding$", "OpenBuildingMenu", FLNT, pCaller);
   //ToDo: Sell und Repair sollen deaktiviert/ausgegraut erscheinen, wenn nichts zu reparieren/verkaufen da ist.
@@ -24,14 +26,15 @@ protected func ContextBuilding(object pCaller)
   return true;
 }
 
-//Menüicon-IDs für GetMenu zur Unterscheidung
+/* Techlevel-Menüicon-IDs */
+
 public func TechLevelMenuID(int iLevel)
 {
-  if(iLevel == TECHLEVEL_Start) return ERTH;
-  if(iLevel == TECHLEVEL_1) return LOAM;
-  if(iLevel == TECHLEVEL_2) return ROCK;
-  if(iLevel == TECHLEVEL_3) return FLNT;
-  
+  if(iLevel == TECHLEVEL_Start)	return ERTH;
+  if(iLevel == TECHLEVEL_1)		return LOAM;
+  if(iLevel == TECHLEVEL_2)		return ROCK;
+  if(iLevel == TECHLEVEL_3)		return FLNT;
+
   return NONE;
 }
 
@@ -45,9 +48,10 @@ public func GetTechLevelByID(id idMenuID)
 
     lvl *= 2;
   }
-  
   return false;
-} 
+}
+
+/* Bauradienanzeige */
 
 public func CreateBuildingRadiusPreview(object pTarget)
 {
@@ -232,7 +236,7 @@ public func FxPreviewBuildingTimer(object pTarget, int iNr)
   if(!tim)
     return -1;
   SetPosition(GetX()+EffectVar(1, pTarget, iNr), GetY()+EffectVar(2, pTarget, iNr), tim);
-  
+
   if(!EffectVar(3, pTarget, iNr) || !EffectVar(3, pTarget, iNr)->~IsCMCBuilding())
     return true;
 

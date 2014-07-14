@@ -4,14 +4,12 @@
 #include CCBS
 #include BT02
 
-//Technikstufe
-public func TechLevel()			{return TECHLEVEL_2;}
-public func ProvideTechLevel() {return TECHLEVEL_3;}
+public func TechLevel()			{return TECHLEVEL_2;}	//Benötigte Techstufe
+public func ProvideTechLevel()		{return TECHLEVEL_3;}	//Vorhandene Techstufe
+public func BuildingRadius()		{return 200;}		//Bauradius
+public func RequiredEnergy()		{return 50;}		//Energieverbraucher
 
-public func BuildingRadius()		{return 200;}	//Bauradius
-public func RequiredEnergy() 		{return 50;}	//Energieverbraucher
-
-public func ProcessingInterval()	{return 2;}	//Intervall der Verarbeitung
+public func ProcessingInterval()	{return 2;}		//Intervall der Verarbeitung
 
 
 /* Initalisierung */
