@@ -100,10 +100,7 @@ public func Relaunch(int iPlr, object pCrew, object pKiller, int iTeam)
   }
 
   if(lowest == 1000 || lowest == iPlr)
-  {
-    pCrew->CreateContents(CNKT);
     pCrew->CreateContents(FLAG);
-  }
   
   if(Contained(pCrew))
     SetPosition(iX, iY, Contained(pCrew));
