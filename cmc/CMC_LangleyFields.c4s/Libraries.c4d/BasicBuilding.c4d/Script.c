@@ -19,6 +19,8 @@ public func PossibleUpgrades()		{return [];}					//Mögliche Upgrades
 public func MaxDamage()				{return 500;}					//Maximaler Schadenswert bis zur Zerstörung
 public func IsDestroyed()				{return fDestroyed;}
 
+public func ProvideTechLevel()    {return TECHLEVEL_None;}
+
 public func BuyCategory()				{return C4D_All;}
 
 
@@ -38,6 +40,10 @@ protected func Construction()
 
 public func Initialize()
 {
+  var team = GetPlayerTeam(GetOwner());
+  if(ProvideTechLevel())
+    SetTeamTechLevel(team, ProvideTechLevel(), true);  
+
   for(var upgrade in PossibleUpgrades())
     if(upgrade->~IsGroupUpgrade() && GetTeamUpgrade(GetPlayerTeam(GetOwner()), upgrade))
       AddUpgrade(upgrade);
@@ -187,6 +193,16 @@ public func Damage(int change)
   }*/
 }
 
+public func CheckProvideTechLevel(int iLevel) { return ProvideTechLevel() == iLevel; }
+public func ResetTechLevel()
+{
+  if(ProvideTechLevel())
+    if(!FindObject2(Find_Category(C4D_Structure), Find_Func("CheckProvideTechLevel", ProvideTechLevel()), Find_Not(Find_Func("IsDestroyed")), Find_Allied(GetOwner())))
+      SetTeamTechLevel(GetPlayerTeam(GetOwner()), ProvideTechLevel(), false);
+  
+  return true;
+}
+
 public func Destroyed()
 {
   //Status setzen
@@ -218,6 +234,11 @@ public func Destroyed()
   Schedule("RemoveObject()", 35*6, 1, this);
   //todo!
   Schedule("RemoveObject()", 35*6, 1, pBasement);
+  
+  //ggf. Technikstufe zurücksetzen
+  ResetTechLevel();
+  
+  return true;
 }
 
 public func OnDestruction() {}
@@ -236,6 +257,9 @@ public func OnHit(int iDmg, int iType, object pBy)
 
 public func Destruction()
 {
+  //ggf. Technikstufe zurücksetzen
+  ResetTechLevel();
+
   //Zugehörige Objekte mitlöschen
   for(var obj in aObjectList)
     if(obj)
@@ -265,7 +289,15 @@ public func OpenBuildingMenu(object pMenuObj)
   //Menü erstellen
   CreateMenu(GetID(), pMenuObj, this, C4MN_Extra_None, GetName(this), 0, C4MN_Style_Dialog);
   AddMenuItem(Format("$Hitpoints$", GetDamage(), MaxDamage()), 0, NONE, pMenuObj);
-  AddMenuItem(" ", 0, NONE, pMenuObj); 
+  AddMenuItem(" ", 0, NONE, pMenuObj);
+  
+  //Techstufe prüfen
+  if(!GetTeamTechLevel(GetPlayerTeam(GetOwner()), TechLevel()))
+  {
+    //"Notfallmenü"
+    EmergencyBuildingMenu(pMenuObj);
+    return true;
+  }
 
   //Gebäudespezifische Statusanzeigen
   AdditionalStatusMenu(pMenuObj);
@@ -282,6 +314,7 @@ public func OpenBuildingMenu(object pMenuObj)
 
 public func AdditionalStatusMenu(object pMenuObj) {}
 public func AdditionalBuildingMenu(object pMenuObj) {}
+public func EmergencyBuildingMenu(object pMenuObj) {}
 
 public func OpenUpgradeMenu(id dummy, object pMenuObj)
 {
