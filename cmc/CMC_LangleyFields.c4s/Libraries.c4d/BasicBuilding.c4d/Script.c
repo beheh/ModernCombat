@@ -5,23 +5,21 @@
 
 local fHasEnergy, aObjectList, aUpgradeList, fDestroyed, iLastAttacker;
 
-public func IsCMCBuilding()			{return true;}
-public func BasementID()				{return;}
+public func IsCMCBuilding()		{return true;}			//Ist CMC-Gebäude
+public func BasementID()		{return;}			//Fundament
 
-public func IsBase()						{return false;}				//Heimatbasis
-public func BuildingRadius()			{return 0;}					//Bauradius
-public func NeedBuildingRadius()	{return true;}				//Nur in Bauradius
-public func TechLevel()					{return 0;}					//Benötigte Techstufe
+public func ProvideTechLevel()		{return TECHLEVEL_None;}	//Vorhandener Techlevel
+public func TechLevel()			{return 0;}			//Benötigte Techstufe
+public func IsBase()			{return false;}			//Heimatbasis
+public func BuildingRadius()		{return 0;}			//Bauradius
+public func NeedBuildingRadius()	{return true;}			//Nur in Bauradius
 
-public func RequiredEnergy()			{return 0;}					//Benötigte Energie
-public func EnergyProduction()		{return 0;}					//Erzeugt Energie
-public func PossibleUpgrades()		{return [];}					//Mögliche Upgrades
-public func MaxDamage()				{return 500;}					//Maximaler Schadenswert bis zur Zerstörung
-public func IsDestroyed()				{return fDestroyed;}
-
-public func ProvideTechLevel()			{return TECHLEVEL_None;}	//Vorhandener Techlevel
-
-public func BuyCategory()				{return C4D_All;}
+public func RequiredEnergy()		{return 0;}			//Benötigte Energie
+public func EnergyProduction()		{return 0;}			//Erzeugt Energie
+public func PossibleUpgrades()		{return [];}			//Mögliche Upgrades
+public func MaxDamage()			{return 500;}			//Maximaler Schadenswert bis zur Zerstörung
+public func IsDestroyed()		{return fDestroyed;}
+public func BuyCategory()		{return C4D_All;}
 
 
 /* Bauanforderungen */

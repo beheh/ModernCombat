@@ -11,6 +11,7 @@ public func ProvideTechLevel()	{return TECHLEVEL_2;}		//Vorhandene Techstufe
 public func BuildingRadius()	{return 200;}			//Bauradius
 public func EnergyProduction()	{return 100+iAdditionalEnergy;}	//Energiehersteller
 public func PossibleUpgrades()	{return aPUpgrades;}		//Mögliche Upgrades
+public func MaxDamage()		{return 200;}			//Maximaler Schadenswert bis zur Zerstörung
 
 
 /* Konstruktion */
