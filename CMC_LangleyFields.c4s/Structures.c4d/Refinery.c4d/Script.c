@@ -3,7 +3,10 @@
 #strict 2
 #include CCBS
 
-public func TechLevel()			{return 2;}	//Techstufe
+//Technikstufe
+public func TechLevel()			{return TECHLEVEL_2;}
+public func ProvideTechLevel() {return TECHLEVEL_3;}
+
 public func BuildingRadius()		{return 200;}	//Bauradius
 public func RequiredEnergy() 		{return 50;}	//Energieverbraucher
 public func BasementID()		{return BT02;}	//Fundament
@@ -15,10 +18,6 @@ public func ProcessingInterval()	{return 2;}	//Intervall der Verarbeitung
 
 protected func Initialize()
 {
-  //Techlevel anheben
-  if(GetTeamTechLevel(GetPlayerTeam(GetOwner())) == 2)
-    SetTeamTechLevel(GetPlayerTeam(GetOwner()), 3);
-
   //Effekte
   if(HasEnergy())
     Sound("Building_PowerOn.ogg");

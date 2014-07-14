@@ -3,7 +3,7 @@
 #strict 2
 #include CCBS
 
-public func TechLevel()		{return 3;}	//Techstufe
+public func TechLevel()		{return TECHLEVEL_3;}	//Techstufe
 public func BuildingRadius()	{return 200;}	//Bauradius
 public func RequiredEnergy() 	{return 100;}	//Energieverbraucher
 public func BasementID()	{return BT01;}	//Fundament

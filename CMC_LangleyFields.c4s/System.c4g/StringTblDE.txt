@@ -3,3 +3,9 @@ RepairBuilding=Reparieren
 SellBuilding=Verkaufen
 Close=Schließen
 TechLevel=<c 00aa00>- Technikstufe %d -</c>
+
+TechLevelStart=Technikstufe 0
+TechLevel1=Technikstufe 1
+TechLevel2=Technikstufe 2
+TechLevel3=Technikstufe 3
+Back=Zurück

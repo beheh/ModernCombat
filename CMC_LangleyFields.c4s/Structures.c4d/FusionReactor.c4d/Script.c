@@ -5,7 +5,10 @@
 
 local aPUpgrades, iAdditionalEnergy;
 
-public func TechLevel()		{return 1;}			//Techstufe
+//Technikstufe
+public func TechLevel()		{return TECHLEVEL_1;}
+public func ProvideTechLevel() {return TECHLEVEL_2;}
+
 public func BuildingRadius()	{return 200;}			//Bauradius
 public func EnergyProduction()	{return 100+iAdditionalEnergy;}	//Energiehersteller
 public func PossibleUpgrades()   {return aPUpgrades;}
@@ -25,10 +28,6 @@ protected func Construction()
 
 protected func Initialize()
 {
-  //Techlevel anheben
-  if(GetTeamTechLevel(GetPlayerTeam(GetOwner())) < 2)
-    SetTeamTechLevel(GetPlayerTeam(GetOwner()), 2);
-
   //Effekte
   AddEffect("SmokeEffects", this, 100, 26, this);
   Sound("CFRT_PowerOn.ogg");

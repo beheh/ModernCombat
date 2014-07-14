@@ -10,7 +10,6 @@
 protected func ContextBuilding(object pCaller)
 {
   [$CtxBuilding$|Image=CXCN]
-  SetXDir(0, pCaller);
   SetComDir(COMD_Stop, pCaller);
   CreateMenu(CBAS, pCaller, this, 0, 0, 0, C4MN_Style_Context, false);
 
@@ -25,11 +24,38 @@ protected func ContextBuilding(object pCaller)
   return true;
 }
 
-public func OpenBuildingMenu(dummy, object pTarget, int iSel)
+//Menüicon-IDs für GetMenu zur Unterscheidung
+public func TechLevelMenuID(int iLevel)
 {
-  AddEffect("PreviewBuilding", this, 100, 1, this);
-  CreateMenu(CBAS, pTarget, this, C4MN_Extra_Value, 0, 0, C4MN_Style_Context, 0, BGRS);
+  if(iLevel == TECHLEVEL_Start) return ERTH;
+  if(iLevel == TECHLEVEL_1) return LOAM;
+  if(iLevel == TECHLEVEL_2) return ROCK;
+  if(iLevel == TECHLEVEL_3) return FLNT;
+  
+  return NONE;
+}
+
+public func GetTechLevelByID(id idMenuID)
+{
+  var lvl = 1;
+  while(lvl > 0)
+  {
+    if(TechLevelMenuID(lvl) == idMenuID)
+      return lvl;
+
+    lvl *= 2;
+  }
+  
+  return false;
+} 
+
+public func CreateBuildingRadiusPreview(object pTarget)
+{
   var plr = GetOwner(pTarget);
+
+  for(var obj in FindObjects(Find_ID(BGRS), Find_Owner(GetOwner(pTarget))))
+    if(obj)
+      RemoveObject(obj);
 
   for(var obj in FindObjects(Find_Category(C4D_Structure), Find_Allied(plr), Find_Func("BuildingRadius")))
     if(obj)
@@ -43,35 +69,65 @@ public func OpenBuildingMenu(dummy, object pTarget, int iSel)
       radiusObj->SetVertex(0, 0, wdt/2+offx+GetVertex(0, 0, obj));
       radiusObj->SetVertex(0, 1, hgt/2+offy+GetVertex(0, 1, obj));
     }
+  
+  return true;
+}
 
+public func GetTechLevelBuildings(int iLevel)
+{
   var buildings = [], def = 0, i = 0;
   while(def = GetDefinition(++i, C4D_Structure))
-    if(def->~IsCMCBuilding())
-    {
-      var lvl = def->~TechLevel();
-      if(!buildings[lvl])
-        buildings[lvl] = [];
+    if(def->~IsCMCBuilding() && def->TechLevel() == iLevel)
+      buildings[GetLength(buildings)] = def;
 
-      buildings[lvl][GetLength(buildings[lvl])] = def;
-    }
+  return buildings;
+}
 
+public func OpenTechLevelMenu(int iLevel, object pTarget, int iSel)
+{
+  if(!GetEffect("PreviewBuilding", this))
+    AddEffect("PreviewBuilding", this, 100, 1, this);
+
+  var buildings = GetTechLevelBuildings(iLevel);
+  
+  CreateMenu(CBAS, pTarget, this, C4MN_Extra_Value, 0, 0, C4MN_Style_Context, 0, TechLevelMenuID(iLevel));
+  
+  //Gebäude auflisten
   var entry;
-  for(var lvl = 0; lvl < GetLength(buildings); lvl++)
+  for(var building in buildings)
   {
-    if(!buildings[lvl])
-      continue;
-    AddMenuItem(Format("$TechLevel$", lvl), 0, 0, pTarget);
-    entry++;
+    var clr = 0xFFFFFF;
+    if(!CanBuild(building, pTarget))
+      clr = 0xFF0000;
 
-    for(var building in buildings[lvl])
-    {
-      var clr = 0xFFFFFF;
-      if(!CanBuild(building, pTarget))
-        clr = 0xFF0000;
-
-      AddMenuItem(Format("<c %x>%s</c>", clr, GetName(0, building)), Format("StartBuildingPreviewMode(%i, Object(%d), %d)", building, ObjectNumber(pTarget), entry++), building, pTarget);
-    }
+    AddMenuItem(Format("<c %x>%s</c>", clr, GetName(0, building)), Format("StartBuildingPreviewMode(%i, Object(%d), %d)", building, ObjectNumber(pTarget), entry++), building, pTarget);
   }
+  
+  var pos;
+  while(iLevel/=2)
+    pos++;
+
+  //Zurück
+  AddMenuItem("$Back$", Format("OpenBuildingMenu(0, Object(%d), %d)", ObjectNumber(pTarget), pos), NONE, pTarget);
+  
+  SelectMenuItem(iSel, pTarget);
+  
+  return true;
+}
+
+public func OpenBuildingMenu(dummy, object pTarget, int iSel)
+{
+  //Vorschauobjekte/-effekte erstellen
+  CreateBuildingRadiusPreview(pTarget);
+  if(!GetEffect("PreviewBuilding", this))
+    AddEffect("PreviewBuilding", this, 100, 1, this);
+  
+  //Technikstufe auswählen
+  CreateMenu(CBAS, pTarget, this, C4MN_Extra_Value, 0, 0, C4MN_Style_Context, 0, BGRS);
+  AddMenuItem("$TechLevelStart$", Format("OpenTechLevelMenu(%d, Object(%d))", TECHLEVEL_Start, ObjectNumber(this)), NONE, this);
+  AddMenuItem("$TechLevel1$", Format("OpenTechLevelMenu(%d, Object(%d))", TECHLEVEL_1, ObjectNumber(this)), NONE, this);
+  AddMenuItem("$TechLevel2$", Format("OpenTechLevelMenu(%d, Object(%d))", TECHLEVEL_2, ObjectNumber(this)), NONE, this);
+  AddMenuItem("$TechLevel3$", Format("OpenTechLevelMenu(%d, Object(%d))", TECHLEVEL_3, ObjectNumber(this)), NONE, this);
 
   SelectMenuItem(iSel, pTarget);
 
@@ -114,7 +170,7 @@ public func ControlDig()
 
     RemoveEffect("PreviewBuilding", this);
     fBuildingPreview = false;
-    OpenBuildingMenu(0, pBuildingPreviewTarget, iBuildingPreviewEntry);
+    OpenTechLevelMenu(idBuildingPreview->~TechLevel(), pBuildingPreviewTarget, iBuildingPreviewEntry);
     return true;
   }
 
@@ -123,8 +179,9 @@ public func ControlDig()
 
 public func MenuQueryCancel(int iSelection, object pMenuObj)
 {
-  if(GetMenu(pMenuObj) == BGRS)
+  if(GetMenu(pMenuObj) == BGRS || GetTechLevelByID(GetMenu(pMenuObj)))
   {
+    //Bauradiusvorschau löschen
     for(var obj in FindObjects(Find_ID(BGRS), Find_Owner(GetOwner(pMenuObj))))
       if(obj)
         RemoveObject(obj);
@@ -135,28 +192,13 @@ public func MenuQueryCancel(int iSelection, object pMenuObj)
   return false;
 }
 
-public func OnMenuSelection(int iIndex, object pMenuObject)
+public func OnMenuSelection(int iIndex, object pObj)
 {
-  var buildings = [], def = 0, i = 0;
-  while(def = GetDefinition(++i, C4D_Structure))
-    if(def->~IsCMCBuilding())
-    {
-      var lvl = def->~TechLevel();
-      if(!buildings[lvl])
-        buildings[lvl] = [];
-
-      buildings[lvl][GetLength(buildings[lvl])] = def;
-    }
-  
-  var entry = 0, b;
-  for(var lvl = 0; lvl < GetLength(buildings); lvl++)
+  var lvl;
+  if(lvl = GetTechLevelByID(GetMenu(pObj)))
   {
-    if(!buildings[lvl])
-      continue;
-
-    entry++;
-
-    for(var building in buildings[lvl])
+    var buildings = GetTechLevelBuildings(lvl), entry = 0, b;
+    for(var building in buildings)
     {
       if(entry == iIndex)
       {
@@ -165,9 +207,12 @@ public func OnMenuSelection(int iIndex, object pMenuObject)
       }
       entry++;
     }
-  }
 
-  EffectCall(this, GetEffect("PreviewBuilding", this), "Change", b);
+    EffectCall(this, GetEffect("PreviewBuilding", this), "Change", b);
+  }
+  else
+    return _inherited(...);
+
   return true;
 }
 
@@ -187,6 +232,9 @@ public func FxPreviewBuildingTimer(object pTarget, int iNr)
   if(!tim)
     return -1;
   SetPosition(GetX()+EffectVar(1, pTarget, iNr), GetY()+EffectVar(2, pTarget, iNr), tim);
+  
+  if(!EffectVar(3, pTarget, iNr) || !EffectVar(3, pTarget, iNr)->~IsCMCBuilding())
+    return true;
 
   if(!CheckBuild(EffectVar(3, pTarget, iNr), this))
     SetClrModulation(RGB(255), tim, 1);
@@ -218,12 +266,15 @@ public func FxPreviewBuildingStop(object pTarget, int iNr)
 
 public func CanBuild(id idBuilding, object pTarget)
 {
+  if(!idBuilding || !idBuilding->~IsCMCBuilding())
+    return false;
+
   //Verfügbares Geld
   if(GetValue(0, idBuilding) > GetWealth(GetOwner(pTarget)))
     return false;
 
   //Freigeschaltet
-  if(!GetPlrKnowledge(GetOwner(pTarget), idBuilding) && GetTeamTechLevel(GetPlayerTeam(GetOwner(pTarget))) < idBuilding->~TechLevel())
+  if(!GetPlrKnowledge(GetOwner(pTarget), idBuilding) && !GetTeamTechLevel(GetPlayerTeam(GetOwner(pTarget)), idBuilding->~TechLevel()))
     return false;
 
   return true;

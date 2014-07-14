@@ -6,7 +6,7 @@
 #include DRCK
 #include CCBS
 
-public func TechLevel()		{return 1;}	//Benötigte Techstufe
+public func TechLevel()		{return TECHLEVEL_1;}	//Benötigte Techstufe
 public func RequiredEnergy()	{return 50;}	//Benötigte Energie
 public func BasementID()	{return BT05;}	//Fundament
 

@@ -43,7 +43,13 @@ public func Initialize()
 }
 
 //Vorrübergehend für Tests: Geldcheat.
-public func InitializePlayer(int iPlr) { SetWealth(iPlr, 0x7FFFFFFF); }
+public func InitializePlayer(int iPlr)
+{
+  if(!aTechLevels[GetPlayerTeam(iPlr)])
+    aTechLevels[GetPlayerTeam(iPlr)] = TECHLEVEL_Start;
+
+  SetWealth(iPlr, 0x7FFFFFFF);
+}
 
 public func FxEnergyManagementTimer()
 {
@@ -78,8 +84,25 @@ public func FxEnergyManagementTimer()
 
 global func BuildingSystem() { return FindObject2(Find_ID(BGRL)); }
 
-global func GetTeamTechLevel(int iTeam) { return LocalN("aTechLevels", BuildingSystem())[iTeam]; }
-global func SetTeamTechLevel(int iTeam, int iLevel) { return LocalN("aTechLevels", BuildingSystem())[iTeam] = iLevel; } 
+//TechLevel
+static const TECHLEVEL_None = 0;
+static const TECHLEVEL_Start = 1;
+static const TECHLEVEL_1 = 2;
+static const TECHLEVEL_2 = 4;
+static const TECHLEVEL_3 = 8;
+
+global func GetTeamTechLevel(int iTeam, int iLevel) { return LocalN("aTechLevels", BuildingSystem())[iTeam] & iLevel ; }
+global func SwitchTeamTechLevel(int iTeam, int iLevel) { return LocalN("aTechLevels", BuildingSystem())[iTeam] ^= iLevel; }
+
+global func SetTeamTechLevel(int iTeam, int iLevel, bool fSet)
+{
+  //Bleibt gleich?
+  if(GetTeamTechLevel(iTeam, iLevel) == fSet)
+    return true;
+  
+  SwitchTeamTechLevel(iTeam, iLevel);
+  return true;
+} 
 
 global func AddTeamUpgrade(int iTeam, id idUpgrade)
 {
