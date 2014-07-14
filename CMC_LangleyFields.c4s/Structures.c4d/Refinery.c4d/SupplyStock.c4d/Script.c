@@ -183,7 +183,7 @@ public func FxResourceStockCooldownStart(object pTarget, int iNr, int iTemp, obj
 
 public func FxResourceStockCooldownTimer(object pTarget, int iNr, int iTime)
 {
-  var objects = pTarget->FindObjects(pTarget->Find_AtPoint(), Find_ID(RSTK)), found = false;
+  var objects = pTarget->FindObjects(pTarget->Find_AtPoint(), Find_ID(SYSK)), found = false;
   for(var obj in objects)
   {
     if(obj == EffectVar(0, pTarget, iNr))
