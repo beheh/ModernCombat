@@ -11,7 +11,7 @@ private func BasementWidth()	{return(116);}
 protected func Initialize()
 {
   //Bug in CR Basements, der verhindert, dass im inkludierten Gebäude Initialize aufgerufen wird.
-  if(GetID() != BasementID() ) 
+  if(GetID() != BasementID() )
     return _inherited(...);
   SetAction("Consolidate");
   MoveOutClonks();

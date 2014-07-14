@@ -287,8 +287,8 @@ private func Passenger()
 
 public func Set(object pObj)
 {
-	oElev = pObj;
-	return true;
+  oElev = pObj;
+  return true;
 }
 
 private func Elevator()
@@ -316,13 +316,13 @@ public func IsElevator() { return true; }
 /* Transfer */
 
 protected func UpdateTransferZone()
-{         
+{
   if(!Elevator()) return SetTransferZone();
   SetTransferZone(-GetObjWidth()/2, GetY(oElev) - GetY(), GetObjWidth(), RangeBottom - GetY(oElev) + GetObjHeight()/2);
   return true;
 }
 
-protected func ControlTransfer(pObj, iTx, iTy)  
+protected func ControlTransfer(pObj, iTx, iTy)
 {
   // Fahrstuhl gehört dem Gegner? Dann nicht.
   if(Hostile(GetController(pObj), GetOwner())) return;
@@ -366,5 +366,5 @@ protected func ControlTransfer(pObj, iTx, iTy)
 func Destruction()
 {
   if(Elevator())
-  	Elevator()->OnRemoveCase();
+    Elevator()->OnRemoveCase();
 }

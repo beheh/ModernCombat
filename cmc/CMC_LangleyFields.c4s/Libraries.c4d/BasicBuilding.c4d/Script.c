@@ -6,7 +6,7 @@
 local fHasEnergy, aObjectList, aUpgradeList, fDestroyed, iLastAttacker;
 
 public func IsCMCBuilding()			{return true;}
-public func BasementID()				{return;}        				
+public func BasementID()				{return;}
 
 public func IsBase()						{return false;}				//Heimatbasis
 public func BuildingRadius()			{return 0;}					//Bauradius
@@ -19,7 +19,7 @@ public func PossibleUpgrades()		{return [];}					//Mögliche Upgrades
 public func MaxDamage()				{return 500;}					//Maximaler Schadenswert bis zur Zerstörung
 public func IsDestroyed()				{return fDestroyed;}
 
-public func ProvideTechLevel()    {return TECHLEVEL_None;}
+public func ProvideTechLevel()			{return TECHLEVEL_None;}	//Vorhandener Techlevel
 
 public func BuyCategory()				{return C4D_All;}
 
@@ -34,7 +34,7 @@ public func Initialize()
 {
   var team = GetPlayerTeam(GetOwner());
   if(ProvideTechLevel())
-    SetTeamTechLevel(team, ProvideTechLevel(), true);  
+    SetTeamTechLevel(team, ProvideTechLevel(), true);
 
   for(var upgrade in PossibleUpgrades())
     if(upgrade->~IsGroupUpgrade() && GetTeamUpgrade(GetPlayerTeam(GetOwner()), upgrade))
@@ -185,7 +185,7 @@ public func Damage(int change)
   }*/
 }
 
-public func CheckProvideTechLevel(int iLevel) { return ProvideTechLevel() == iLevel; }
+public func CheckProvideTechLevel(int iLevel)	{return ProvideTechLevel() == iLevel;}
 public func ResetTechLevel()
 {
   if(ProvideTechLevel())
@@ -224,10 +224,10 @@ public func Destroyed()
   
   //Löschen planen (Momentan noch nicht besonders fancy)
   Schedule("RemoveObject()", 35*6, 1, this);
-  
+
   //ggf. Technikstufe zurücksetzen
   ResetTechLevel();
-  
+
   return true;
 }
 
@@ -280,7 +280,7 @@ public func OpenBuildingMenu(object pMenuObj)
   CreateMenu(GetID(), pMenuObj, this, C4MN_Extra_None, GetName(this), 0, C4MN_Style_Dialog);
   AddMenuItem(Format("$Hitpoints$", GetDamage(), MaxDamage()), 0, NONE, pMenuObj);
   AddMenuItem(" ", 0, NONE, pMenuObj);
-  
+
   //Techstufe prüfen
   if(!GetTeamTechLevel(GetPlayerTeam(GetOwner()), TechLevel()))
   {

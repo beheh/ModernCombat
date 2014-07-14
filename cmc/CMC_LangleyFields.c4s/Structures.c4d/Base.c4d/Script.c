@@ -4,14 +4,13 @@
 #include CCBS
 #include BT02
 
-//Technikstufe
-public func TechLevel()   {return TECHLEVEL_Start;}
-public func ProvideTechLevel() {return TECHLEVEL_1;}
+public func TechLevel()			{return TECHLEVEL_Start;}	//Benötigte Techstufe
+public func ProvideTechLevel()		{return TECHLEVEL_1;}		//Vorhandene Techstufe
+public func IsBase()			{return true;}			//Heimatbasis
+public func NeedBuildingRadius()	{return false;}			//Benötigt keinen Bauradius
+public func BuildingRadius()		{return 400;}			//Bauradius
+public func EnergyProduction()		{return 50;}			//Energiehersteller
 
-public func IsBase()			{return true;}	//Heimatbasis
-public func NeedBuildingRadius()	{return false;}	//Benötigt keinen Bauradius
-public func BuildingRadius()		{return 400;}	//Bauradius
-public func EnergyProduction()		{return 50;}	//Energiehersteller
 
 /* Initalisierung */
 
