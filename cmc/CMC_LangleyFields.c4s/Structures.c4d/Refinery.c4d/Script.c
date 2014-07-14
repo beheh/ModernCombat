@@ -2,6 +2,7 @@
 
 #strict 2
 #include CCBS
+#include BT02
 
 //Technikstufe
 public func TechLevel()			{return TECHLEVEL_2;}
@@ -9,7 +10,6 @@ public func ProvideTechLevel() {return TECHLEVEL_3;}
 
 public func BuildingRadius()		{return 200;}	//Bauradius
 public func RequiredEnergy() 		{return 50;}	//Energieverbraucher
-public func BasementID()		{return BT02;}	//Fundament
 
 public func ProcessingInterval()	{return 2;}	//Intervall der Verarbeitung
 

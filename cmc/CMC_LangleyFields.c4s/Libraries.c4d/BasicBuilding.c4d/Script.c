@@ -3,7 +3,7 @@
 #strict 2
 #include DOOR	//Clonk-eigenes Türsystem
 
-local pBasement, fHasEnergy, aObjectList, aUpgradeList, fDestroyed, iLastAttacker;
+local fHasEnergy, aObjectList, aUpgradeList, fDestroyed, iLastAttacker;
 
 public func IsCMCBuilding()			{return true;}
 public func BasementID()				{return;}        				
@@ -27,14 +27,6 @@ public func BuyCategory()				{return C4D_All;}
 /* Bauanforderungen */
 
 public func BuildingConditions(object pBy, int iX, int iY) {return true;}
-
-/* Konstruktion */
-
-protected func Construction()
-{
-  if(BasementID())
-    pBasement = CreateObject(BasementID(),0,GetDefHeight(BasementID()),GetOwner());
-}
 
 /* Initialisierung */
 
@@ -232,8 +224,6 @@ public func Destroyed()
   
   //Löschen planen (Momentan noch nicht besonders fancy)
   Schedule("RemoveObject()", 35*6, 1, this);
-  //todo!
-  Schedule("RemoveObject()", 35*6, 1, pBasement);
   
   //ggf. Technikstufe zurücksetzen
   ResetTechLevel();

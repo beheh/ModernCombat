@@ -2,6 +2,7 @@
 
 #strict 2
 #include CCBS
+#include BT02
 
 //Technikstufe
 public func TechLevel()   {return TECHLEVEL_Start;}
@@ -11,7 +12,6 @@ public func IsBase()			{return true;}	//Heimatbasis
 public func NeedBuildingRadius()	{return false;}	//Benötigt keinen Bauradius
 public func BuildingRadius()		{return 400;}	//Bauradius
 public func EnergyProduction()		{return 50;}	//Energiehersteller
-public func BasementID()		{return BT02;}	//Fundament
 
 /* Initalisierung */
 
