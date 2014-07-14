@@ -287,7 +287,7 @@ public func BuildingDecoMessage(id idBuilding, object pObj)
     errorstr = Format("||<c ff0000>%s</c>", errorstr);
 
   str = Format("@%s%s||%s", str, errorstr, info);
-  DecoMessage(str, GetOwner(pObj)+1);
+  DecoMessage(str, GetOwner(pObj)+1, Format("%i", b));
   return true;
 }
 
