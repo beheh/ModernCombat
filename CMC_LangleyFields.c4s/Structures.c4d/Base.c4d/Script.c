@@ -14,10 +14,15 @@ public func EnergyProduction()		{return 50;}			//Energiehersteller
 
 /* Initalisierung */
 
-protected func Initialize()
+protected func Construction()
 {
   SetTeamTechLevel(GetPlayerTeam(GetOwner()), TECHLEVEL_Start, false);
 
+  return _inherited(...);
+}
+
+protected func Initialize()
+{
   //Effekt
   Sound("Building_BaseUp.ogg",true,0,0,GetOwner()+1);
 

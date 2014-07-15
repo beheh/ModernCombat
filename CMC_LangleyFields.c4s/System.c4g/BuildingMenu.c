@@ -107,12 +107,13 @@ public func OpenTechLevelMenu(int iLevel, object pTarget, int iSel)
     AddMenuItem(Format("<c %x>%s</c>", clr, GetName(0, building)), Format("StartBuildingPreviewMode(%i, Object(%d), %d)", building, ObjectNumber(pTarget), entry++), building, pTarget);
   }
   
-  var pos;
+  var pos, lvl = iLevel;
   while(iLevel/=2)
     pos++;
 
   //Zurück
-  AddMenuItem("$Back$", Format("OpenBuildingMenu(0, Object(%d), %d)", ObjectNumber(pTarget), pos), NONE, pTarget);
+  if(lvl != TECHLEVEL_Start)
+    AddMenuItem("$Back$", Format("OpenBuildingMenu(0, Object(%d), %d)", ObjectNumber(pTarget), pos), NONE, pTarget);
   
   SelectMenuItem(iSel, pTarget);
   
@@ -126,9 +127,11 @@ public func OpenBuildingMenu(dummy, object pTarget, int iSel)
   if(!GetEffect("PreviewBuilding", this))
     AddEffect("PreviewBuilding", this, 100, 1, this);
   
+  if(GetTeamTechLevel(GetPlayerTeam(GetOwner(pTarget)), TECHLEVEL_Start))
+    return OpenTechLevelMenu(TECHLEVEL_Start, pTarget);
+  
   //Technikstufe auswählen
   CreateMenu(CBAS, pTarget, this, C4MN_Extra_Value, 0, 0, C4MN_Style_Context, 0, BGRS);
-  AddMenuItem("$TechLevelStart$", Format("OpenTechLevelMenu(%d, Object(%d))", TECHLEVEL_Start, ObjectNumber(this)), NONE, this);
   AddMenuItem("$TechLevel1$", Format("OpenTechLevelMenu(%d, Object(%d))", TECHLEVEL_1, ObjectNumber(this)), NONE, this);
   AddMenuItem("$TechLevel2$", Format("OpenTechLevelMenu(%d, Object(%d))", TECHLEVEL_2, ObjectNumber(this)), NONE, this);
   AddMenuItem("$TechLevel3$", Format("OpenTechLevelMenu(%d, Object(%d))", TECHLEVEL_3, ObjectNumber(this)), NONE, this);
@@ -203,7 +206,7 @@ public func OnMenuSelection(int iIndex, object pObj)
   //Techstufenauswahl
   if(GetMenu(pObj) == BGRS)
   {
-    var lvl = 1;
+    var lvl = TECHLEVEL_1;
     while(iIndex)
     {
       lvl *= 2;
