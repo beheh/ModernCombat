@@ -20,6 +20,7 @@ public func AdditionalEnergyProduction()	{return 0;}			//Zusätzlich erzeugte Ene
 public func PossibleUpgrades()			{return [];}			//Mögliche Upgrades
 public func MaxDamage()				{return 500;}			//Maximaler Schadenswert bis zur Zerstörung
 public func IsDestroyed()			{return fDestroyed;}
+public func IsRepairable()    {return true;}
 public func BuyCategory()			{return C4D_All;}
 
 
@@ -288,7 +289,7 @@ public func OpenBuildingMenu(object pMenuObj)
   AddMenuItem(" ", 0, NONE, pMenuObj);
 
   //Techstufe prüfen
-  if(!GetTeamTechLevel(GetPlayerTeam(GetOwner()), TechLevel()))
+  if(!GetTeamTechLevel(GetPlayerTeam(GetOwner()), TechLevel()) && TechLevel() != TECHLEVEL_Start)
   {
     //"Notfallmenü"
     EmergencyBuildingMenu(pMenuObj);
