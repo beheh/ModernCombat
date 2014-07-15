@@ -2,7 +2,7 @@
 
 #strict 2
 #include CCBS
-#include BT01
+#include BT06
 
 local mg_station1, mg_station2;
 
@@ -108,12 +108,16 @@ public func FxSearchTargetsTimer(object pTarget, int iNr)
 
 public func CreateWeapons()
 {
-  mg_station1 = CreateObject(WNK2, 0, 0, GetOwner());
+  mg_station1 = CreateObject(WNK2, -23, 5, GetOwner());
   mg_station1->Set(this, 0, 90, 90, 90);
   mg_station1->Arm(ACCN);
-  mg_station2 = CreateObject(WNK2, 0, 0, GetOwner());
+  mg_station2 = CreateObject(WNK2, 23, 5, GetOwner());
   mg_station2->Set(this, 0, -90, -90, -90);
   mg_station2->Arm(ACCN);
+  
+  //Der Objektliste hinzufügen
+  AddObject(mg_station1);
+  AddObject(mg_station2);
   
   return true;
 }
