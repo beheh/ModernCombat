@@ -1,0 +1,6 @@
+[Action]
+Name=Floating
+Procedure=FLOAT
+Delay=20
+FacetBase=1
+NextAction=Floating
