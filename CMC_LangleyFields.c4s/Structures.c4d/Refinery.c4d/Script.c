@@ -18,11 +18,11 @@ public func ProcessingInterval()	{return 2;}		//Intervall der Verarbeitung
 protected func Initialize()
 {
   //Effekte
+  AddEffect("SmokeEffects", this, 100, 26, this);
   if(HasEnergy())
     Sound("Building_PowerOn.ogg");
   else
     Sound("Building_PowerOff.ogg");
-  AddEffect("SmokeEffects", this, 100, 26, this);
 
   //Ressourcenverarbeitung
   AddEffect("ProcessingResource", this, 1, ProcessingInterval(), this);

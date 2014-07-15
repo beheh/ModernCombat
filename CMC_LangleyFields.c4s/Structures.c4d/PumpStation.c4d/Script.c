@@ -14,8 +14,12 @@ public func TechLevel()		{return TECHLEVEL_1;}	//Benötigte Techstufe
 public func RequiredEnergy()	{return 50;}		//Benötigte Energie
 public func MaxDamage()		{return 150;}		//Maximaler Schadenswert bis zur Zerstörung
 
+
+/* Bauanforderungen */
+
 public func BuildingConditions(object pBy, int iX, int iY, bool fReturnError)
 {
+  //Verbündete Raffinerie in Reichweite suchen
   if(!FindObject2(Find_ID(CRFY), Find_Allied(GetOwner(pBy)), Find_Distance(RefineryRange(), AbsX(iX), AbsY(iY))))
   {
     if(fReturnError)
@@ -25,7 +29,6 @@ public func BuildingConditions(object pBy, int iX, int iY, bool fReturnError)
   }
   return true;
 }
-
 
 /* Initialisierung */
 
@@ -49,7 +52,7 @@ private func PipeHeadCheck()
 {
   //Bei Bedarf Bohrkopf und Leitung erzeugen
   if(!pDrillHead) 
-  {              
+  {
     //Bohrkopf
     pDrillHead = CreateObject(PIPH, 0, 36, GetOwner());
     pDrillHead->Set(this);

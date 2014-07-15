@@ -6,13 +6,13 @@
 
 local aPUpgrades, iAdditionalEnergy;
 
-public func TechLevel()		{return TECHLEVEL_1;}		//Benötigte Techstufe
-public func ProvideTechLevel()	{return TECHLEVEL_2;}		//Vorhandene Techstufe
-public func BuildingRadius()	{return 200;}			//Bauradius
-public func EnergyProduction()	{return 100;}	//Energiehersteller
-public func AdditionalEnergyProduction() {return iAdditionalEnergy;}
-public func PossibleUpgrades()	{return aPUpgrades;}		//Mögliche Upgrades
-public func MaxDamage()		{return 200;}			//Maximaler Schadenswert bis zur Zerstörung
+public func TechLevel()				{return TECHLEVEL_1;}		//Benötigte Techstufe
+public func ProvideTechLevel()			{return TECHLEVEL_2;}		//Vorhandene Techstufe
+public func BuildingRadius()			{return 200;}			//Bauradius
+public func EnergyProduction()			{return 100;}			//Energiehersteller
+public func AdditionalEnergyProduction()	{return iAdditionalEnergy;}	//Zusätzliche Energie
+public func PossibleUpgrades()			{return aPUpgrades;}		//Mögliche Upgrades
+public func MaxDamage()				{return 200;}			//Maximaler Schadenswert bis zur Zerstörung
 
 
 /* Konstruktion */
@@ -153,7 +153,7 @@ public func FxSolarPanelTimer(object pTarget, int iNr)
 public func FindWaterSource(int &iX, int &iY)
 {
   //10px zu beiden Seiten hin nach Wasser absuchen
-  
+
   //Es fehlen noch erweiterte Checks ob es sich um ein "größeres Gewösser" handelt
   for(var i = -64;i > -75; i--)
   {
@@ -179,7 +179,7 @@ public func FindWaterSource(int &iX, int &iY)
       return true;
     }
   }
-  
+
   return false;
 }
 
@@ -193,7 +193,7 @@ public func SetupWaterTurbine()
 public func FxWaterTurbineStart(object pTarget, int iNr)
 {
   FindWaterSource(EffectVar(0, pTarget, iNr), EffectVar(1, pTarget, iNr));
-  
+
   //Starteffekte
   Sound("MotorLoop.ogg", 0, this, 40, 0, +1);
   return true;
@@ -204,10 +204,10 @@ public func FxWaterTurbineTimer(object pTarget, int iNr)
   var x = EffectVar(0, pTarget, iNr), y = EffectVar(1, pTarget, iNr);
   if(GetMaterial(x, y) == Material("Water"))
     SetAdditionalEnergy(50);
-  
+
   //Effekte
-  
-  
+
+
   return true;
 }
 
@@ -215,7 +215,7 @@ public func FxWaterTurbineStop(object pTarget, int iNr)
 {
   //Stopeffekte (Gebäude zerstört)
   Sound("MotorLoop.ogg", 0, this, 40, 0, -1);
-  
+
   return true;
 }
 
@@ -234,7 +234,7 @@ public func FxWindTurbineTimer(object pTarget, int iNr)
   pTarget->~UpgradeOffset(U_WT, x, y);
   x += GetX(pTarget);
   y += GetY(pTarget);
-  
+
   //Zusätzliche Energie abhängig von Windstärke (0 bis 50 Energie)
   pTarget->~SetAdditionalEnergy(Abs(GetWind(x, y))/2);
 
