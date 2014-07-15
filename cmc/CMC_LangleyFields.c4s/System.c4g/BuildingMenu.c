@@ -495,8 +495,12 @@ public func StartBuilding(id idBuilding, object pTarget, int selection)
 
   //Gras im Baugebiet entfernen
   var wdt = GetDefWidth(idBuilding), hgt = GetDefHeight(idBuilding);
-  for(var grass in pBuilding->FindObjects(Find_ID(GRAS), pBuilding->Find_AtRect(-wdt/2, -hgt, wdt, hgt)))
-    grass->OnShockwaveHit();
+  for(var grass in pBuilding->FindObjects(Find_Or(Find_ID(GRAS), Find_ID(BSH2)), pBuilding->Find_AtRect(-wdt/2, -hgt, wdt, hgt)))
+  {
+    grass->~DoDmg(150);
+    if(grass)
+      grass->~OnShockwaveHit();
+  }
 
   //Geld abziehen
   DoWealth(GetOwner(pTarget), -GetValue(0, idBuilding));
