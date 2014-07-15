@@ -62,7 +62,7 @@ public func CreateBuildingRadiusPreview(object pTarget)
       RemoveObject(obj);
 
   for(var obj in FindObjects(Find_Category(C4D_Structure), Find_Allied(plr), Find_Func("BuildingRadius")))
-    if(obj)
+    if(obj && GetCon(obj) >= 100)
     {
       var radiusObj = CreateObject(BGRS, 0, 0, plr), size = obj->~BuildingRadius() * 1000 / 50;
       radiusObj->SetAction("Be", obj);
