@@ -54,14 +54,19 @@ public func BuyElevatorCase(dummy, object pMenuObj)
   if(case)
     return;
 
+  //Nicht genügend Geld
   if(GetWealth(GetOwner(pMenuObj)) < GetValue(0, CHLP))
   {
     Sound("Error", 0, this, 0, GetOwner(pMenuObj)+1);
     return true;
   }
   
+  //Geld abziehen
   SetWealth(GetOwner(pMenuObj), GetWealth(GetOwner(pMenuObj))-GetValue(0, CHLP));
   CreateCase();
+  
+  //Sounds
+  Sound("Cash", 0, this, 0, GetOwner(pMenuObj)+1);
 
   return true;
 }

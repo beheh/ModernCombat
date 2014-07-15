@@ -3,6 +3,17 @@
 #strict 2
 #include ELEC
 
+local iLastAttacker, fDestroyed;
+
+public func MaxDamage() { return 140;}
+public func IsDestroyed() { return fDestroyed; } 
+
+public func Initialize()
+{
+  iLastAttacker = -1;
+  
+  return _inherited(...);
+}
 
 /* TimerCall */
 
@@ -360,6 +371,67 @@ protected func ControlTransfer(pObj, iTx, iTy)
   return SetMoveTo(iTy);
 }
 
+/* Schaden */
+
+public func Damage(int change)
+{
+  //Struktur zerstören, aber mehr Schaden als den Maximalen nicht zulassen
+  if(change > 0 && IsDestroyed())
+  {
+    if(GetDamage() > MaxDamage())
+      DoDamage(-(GetDamage()-MaxDamage()));
+  }
+
+  //Bei höherem Schaden als dem Maximalen entsprechend zerstören
+  if(GetDamage() > MaxDamage() && !IsDestroyed())
+  {
+    Destroyed();
+  }
+}
+
+public func Destroyed()
+{
+  //Status setzen
+  //SetAction("Destroyed");
+  fDestroyed = true;
+
+  //Schaden auf Maximalwert setzen
+  if(GetDamage() > MaxDamage())
+    DoDamage(-(GetDamage()-MaxDamage()));
+
+  //Explosion
+  FakeExplode(20, iLastAttacker+1);
+
+  //Sound
+  Sound("Blast2", false, this);
+
+  //Letzen Angreifer zurücksetzen
+  iLastAttacker = -1;
+
+  //Callback
+  OnDestruction();
+  
+  //Effekte
+  CastParticles("MetalSplinter", 12, 40, 0, 0, 50, 75, RGBa(255,255,255,0), RGBa(255,255,255,0));
+  
+  //Löschen
+  RemoveObject();
+  
+  return true;
+}
+
+public func OnDestruction() {}
+
+public func OnDmg(int iDmg, int iType)
+{
+  return 50;	//Default
+}
+
+public func OnHit(int iDmg, int iType, object pBy)
+{
+  if(!IsDestroyed())
+    iLastAttacker = GetController(pBy);
+}
 
 /* Zerstörung: Reduzieren des Fahrstuhls für Wiederaufbau/Reparatur */
 
