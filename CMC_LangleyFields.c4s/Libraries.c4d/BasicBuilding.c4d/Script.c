@@ -260,12 +260,12 @@ public func Destruction()
 
 /* Gebäudemenü */
 
-public func MenuHeader(object pMenuObj, string szName)
+public func MenuHeader(object pMenuObj, string szName, int iExtra)
 {
   if(GetMenu(pMenuObj))
     CloseMenu(pMenuObj);
 
-  CreateMenu(GetID(), pMenuObj, this, C4MN_Extra_None, Format("%s - %s", GetName(this), szName), 0, C4MN_Style_Dialog);
+  CreateMenu(GetID(), pMenuObj, this, iExtra, Format("%s - %s", GetName(this), szName), 0, C4MN_Style_Dialog);
 }
 
 //Für anfassbare Gebäude
@@ -376,7 +376,7 @@ public func CountHomebaseMaterial(int iPlr, int iOffset, bool fHide)
 
 public func OpenBuyMenu(id dummy, object pMenuObj, int iOffset, int iButton)
 {
-  MenuHeader(pMenuObj, "$BuyMenu$");
+  MenuHeader(pMenuObj, "$BuyMenu$", C4MN_Extra_Value);
   
   var iMaterialCount = CountHomebaseMaterial(GetOwner(pMenuObj));
   
