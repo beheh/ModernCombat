@@ -54,8 +54,8 @@ public func FxSearchTargetsTimer(object pTarget, int iNr)
 	
 	for(var pT in preTargets)
 	{
-	  //Schon alle Ziele gefunden?
-	  if(tl && tr)
+	  //Schon ein Ziel gefunden?
+	  if(tl || tr)
 	    break;
 	
 		var ox = GetX(pT);
