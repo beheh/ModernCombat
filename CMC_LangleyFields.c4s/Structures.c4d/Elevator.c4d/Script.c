@@ -28,6 +28,44 @@ protected func Initialize()
   return _inherited(...);
 }
 
+/* Menüführung */
+
+public func AdditionalBuildingMenu(object pMenuObj)
+{
+  //Fahrstuhlkorb kaufen
+  if(!case)
+  {
+    if(GetWealth(GetOwner(pMenuObj)) < GetValue(0, CHLP))
+      AddMenuItem("$BuyElevatorCaseNotEnough$", "BuyElevatorCase", CHLP, pMenuObj, GetValue(0, CHLP), pMenuObj, "$ElevatorCaseMenuDesc$");
+    else
+      AddMenuItem("$BuyElevatorCase$", "BuyElevatorCase", CHLP, pMenuObj, GetValue(0, CHLP), pMenuObj, "$ElevatorCaseMenuDesc$");
+    
+  }
+  else
+    AddMenuItem("$BuyElevatorCaseInactive$", 0, CHLP, pMenuObj);
+
+  return true;
+}
+
+public func BuyElevatorCase(dummy, object pMenuObj)
+{
+  if(!pMenuObj)
+    return;
+  if(case)
+    return;
+
+  if(GetWealth(GetOwner(pMenuObj)) < GetValue(0, CHLP))
+  {
+    Sound("Error", 0, this, 0, GetOwner(pMenuObj)+1);
+    return true;
+  }
+  
+  SetWealth(GetOwner(pMenuObj), GetWealth(GetOwner(pMenuObj))-GetValue(0, CHLP));
+  CreateCase();
+
+  return true;
+}
+
 /* Plattform */
 
 public func CreateCase()
@@ -35,6 +73,9 @@ public func CreateCase()
   //Plattform erstellen
   case = CreateObject(CHLP, 0, GetObjHeight()/2, GetOwner());
   case->Set(this);
+  
+  //Der Objektliste hinzufügen
+  AddObject(case);
 
   //Dekorative Seile erstellen
   steelcable[0] = CreateObject(SLCB, -24, 0, GetOwner());
@@ -56,9 +97,6 @@ public func OnRemoveCase()
   for(var obj in steelcable)
     if(obj)
       RemoveObject(obj);
-
-  //Neue Plattform erstellen
-  CreateCase();
 
   return true;
 }

@@ -267,6 +267,13 @@ public func MenuHeader(object pMenuObj, string szName)
   CreateMenu(GetID(), pMenuObj, this, C4MN_Extra_None, Format("%s - %s", GetName(this), szName), 0, C4MN_Style_Dialog);
 }
 
+//Für anfassbare Gebäude
+public func ControlUp(object pCaller)
+{
+  OpenBuildingMenu(pCaller);
+  return true;
+}
+
 public func ContainedUp(object pCaller)
 {
   OpenBuildingMenu(pCaller);
