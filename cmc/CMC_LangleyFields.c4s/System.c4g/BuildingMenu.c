@@ -186,7 +186,7 @@ public func MenuQueryCancel(int iSelection, object pMenuObj)
   if(GetMenu(pMenuObj) == BGRS || GetTechLevelByID(GetMenu(pMenuObj)))
   {
     DecoMessage("", GetOwner(pMenuObj)+1);
-  
+
     //Bauradiusvorschau löschen
     for(var obj in FindObjects(Find_ID(BGRS), Find_Owner(GetOwner(pMenuObj))))
       if(obj)
@@ -223,10 +223,10 @@ public func OnMenuSelection(int iIndex, object pObj)
       var clr = 0xFFFFFF;
       if(!CanBuild(building, this))
         clr = 0xFF0000;
-      
+
       str = Format("%s%s{{%i}} <c %x>%s</c>", str, comma, building, clr, GetName(0, building));
     }
-    
+
     DecoMessage(str, GetOwner(pObj)+1);
     return true;
   }
@@ -246,7 +246,7 @@ public func OnMenuSelection(int iIndex, object pObj)
     }
 
     EffectCall(this, GetEffect("PreviewBuilding", this), "Change", b);
-    
+
     //Nachricht mit Gebäudedetails generieren
     if(!b)
       DecoMessage("", GetOwner(pObj)+1);
@@ -262,13 +262,13 @@ public func OnMenuSelection(int iIndex, object pObj)
 public func BuildingDecoMessage(id idBuilding, object pObj)
 {
   var b = idBuilding;
-  
+
   var clr = 0x00FF00, error = -1;
   if((error = CheckBuild(b, this, error)) != -1)
     clr = 0xFF0000;
 
   var str = Format("<c %x>%s</c>||%s", clr, GetName(0, b), GetDesc(0, b)), info = "";
-  
+
   if(b->~MaxDamage())
     Concat(info, Format("{{SM12}} %d ", b->MaxDamage()));
   if(b->~IsBase())
@@ -289,7 +289,7 @@ public func BuildingDecoMessage(id idBuilding, object pObj)
     Concat(info, Format("{{CXEC}} %d ", b->RequiredEnergy()));
   if(b->~EnergyProduction())
     Concat(info, Format("{{ENRG}} %d ", b->EnergyProduction()));
-  
+
   var errorstr = BuildingErrors(b, this, error);
   if(GetLength(errorstr))
     errorstr = Format("||<c ff0000>%s</c>", errorstr);
@@ -307,7 +307,7 @@ public func BuildingErrors(id idBuilding, object pTarget, int iError)
   if(iError == BERROR_BuildingRadius)  return "$ErrBuildingRadius$";
   if(iError == BERROR_NotEnoughSpace)  return "$ErrNotEnoughSpace$";
   if(iError == BERROR_SpecialError)    return idBuilding->~BuildingConditions(pTarget, GetX(), GetY()+10-GetDefHeight(idBuilding)/2, true);
-  
+
   return "";
 }
 
@@ -336,7 +336,7 @@ public func FxPreviewBuildingTimer(object pTarget, int iNr, int iTime)
 
   if(!EffectVar(3, pTarget, iNr) || !EffectVar(3, pTarget, iNr)->~IsCMCBuilding())
     return true;
-  
+
   if(!(iTime % 5))
     BuildingDecoMessage(EffectVar(3, pTarget, iNr), this);
 

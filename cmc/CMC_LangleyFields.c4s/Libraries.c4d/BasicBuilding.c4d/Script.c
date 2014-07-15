@@ -5,22 +5,22 @@
 
 local fHasEnergy, aObjectList, aUpgradeList, fDestroyed, iLastAttacker;
 
-public func IsCMCBuilding()		{return true;}			//Ist CMC-Gebäude
-public func BasementID()		{return;}			//Fundament
+public func IsCMCBuilding()			{return true;}			//Ist CMC-Gebäude
+public func BasementID()			{return;}			//Fundament
 
-public func ProvideTechLevel()		{return TECHLEVEL_None;}	//Vorhandener Techlevel
-public func TechLevel()			{return 0;}			//Benötigte Techstufe
-public func IsBase()			{return false;}			//Heimatbasis
-public func BuildingRadius()		{return 0;}			//Bauradius
-public func NeedBuildingRadius()	{return true;}			//Nur in Bauradius
+public func ProvideTechLevel()			{return TECHLEVEL_None;}	//Vorhandener Techlevel
+public func TechLevel()				{return 0;}			//Benötigte Techstufe
+public func IsBase()				{return false;}			//Heimatbasis
+public func BuildingRadius()			{return 0;}			//Bauradius
+public func NeedBuildingRadius()		{return true;}			//Nur in Bauradius
 
-public func RequiredEnergy()		{return 0;}			//Benötigte Energie
-public func EnergyProduction()		{return 0;}			//Erzeugt Energie
-public func AdditionalEnergyProduction() {return 0;} //Zusätzlich erzeugte Energie (durch Upgrades o.ä.)
-public func PossibleUpgrades()		{return [];}			//Mögliche Upgrades
-public func MaxDamage()			{return 500;}			//Maximaler Schadenswert bis zur Zerstörung
-public func IsDestroyed()		{return fDestroyed;}
-public func BuyCategory()		{return C4D_All;}
+public func RequiredEnergy()			{return 0;}			//Benötigte Energie
+public func EnergyProduction()			{return 0;}			//Erzeugt Energie
+public func AdditionalEnergyProduction()	{return 0;}			//Zusätzlich erzeugte Energie
+public func PossibleUpgrades()			{return [];}			//Mögliche Upgrades
+public func MaxDamage()				{return 500;}			//Maximaler Schadenswert bis zur Zerstörung
+public func IsDestroyed()			{return fDestroyed;}
+public func BuyCategory()			{return C4D_All;}
 
 
 /* Bauanforderungen */
@@ -62,86 +62,86 @@ public func AddObject(object pObj)
 
 public func CanResearch(id idUpgrade)
 {
-	//Upgrade nicht erforschbar für dieses Gebäude
-	if(GetIndexOf(idUpgrade, PossibleUpgrades()) == -1)
-		return false;
-	
-	//Upgrade ist bereits erforscht
-	if(GetIndexOf(idUpgrade, aUpgradeList) != -1)
-		return false;
-	
-	//Ist gerade am erforschen
-	if(GetEffect("ResearchingUpgrade", this))
-		return false;
-	
-	//Hat genug Geld?
-	if(GetWealth(GetOwner()) < idUpgrade->~ResearchCost())
-		return false;
-	
-	//Erfordeliche Upgrades schon erforscht?
-	if(!BaseUpgradesResearched(idUpgrade))
-		return false;
-	
-	//Weitere Bedingungen
-	if(!FurtherUpgradeConditions(idUpgrade, idUpgrade->~ResearchDuration(), idUpgrade->~ResearchCost()))
-		return false;
-	
-	//Upgradeseitige Bedingungen
-	if(!idUpgrade->~UpgradeConditions(this))
-		return false;
-	
-	return true;
+  //Upgrade nicht erforschbar für dieses Gebäude
+  if(GetIndexOf(idUpgrade, PossibleUpgrades()) == -1)
+    return false;
+
+  //Upgrade ist bereits erforscht
+  if(GetIndexOf(idUpgrade, aUpgradeList) != -1)
+    return false;
+
+  //Ist gerade am erforschen
+  if(GetEffect("ResearchingUpgrade", this))
+    return false;
+
+  //Hat genug Geld?
+  if(GetWealth(GetOwner()) < idUpgrade->~ResearchCost())
+    return false;
+
+  //Erfordeliche Upgrades schon erforscht?
+  if(!BaseUpgradesResearched(idUpgrade))
+    return false;
+
+  //Weitere Bedingungen
+  if(!FurtherUpgradeConditions(idUpgrade, idUpgrade->~ResearchDuration(), idUpgrade->~ResearchCost()))
+    return false;
+
+  //Upgradeseitige Bedingungen
+  if(!idUpgrade->~UpgradeConditions(this))
+    return false;
+
+  return true;
 }
 
 public func ResearchUpgrade(id idUpgrade)
 {
-	//Auf Bedingungen überprüfen
-	if(!CanResearch(idUpgrade))
-		return false;
+  //Auf Bedingungen überprüfen
+  if(!CanResearch(idUpgrade))
+    return false;
 
-	//Geld abziehen
-	SetWealth(GetOwner(), GetWealth(GetOwner())-idUpgrade->~ResearchCost());
-	
-	//Upgrade entwickeln!
-	var effect = AddEffect("ResearchingUpgrade", this, 1, idUpgrade->~ResearchDuration(), this, 0, idUpgrade);
-	OnResearchingUpgradeStart(effect, idUpgrade, idUpgrade->~ResearchDuration(), idUpgrade->~ResearchCost());
-	
-	return effect;
+  //Geld abziehen
+  SetWealth(GetOwner(), GetWealth(GetOwner())-idUpgrade->~ResearchCost());
+
+  //Upgrade entwickeln
+  var effect = AddEffect("ResearchingUpgrade", this, 1, idUpgrade->~ResearchDuration(), this, 0, idUpgrade);
+  OnResearchingUpgradeStart(effect, idUpgrade, idUpgrade->~ResearchDuration(), idUpgrade->~ResearchCost());
+
+  return effect;
 }
 
 public func FxResearchingUpgradeStart(object pTarget, int iNr, int iTemp, id idUpgrade)
 {
-	if(iTemp)
-		return;
+  if(iTemp)
+    return;
 
-	EffectVar(0, pTarget, iNr) = idUpgrade;
-	
-	//Uralte Standard Clonk-Sounds op!!1 :D
-	Sound("Research", 0, this, 100, 0, +1);
-	return true;
+  EffectVar(0, pTarget, iNr) = idUpgrade;
+
+  //Uralte Standard Clonk-Sounds op!!1 :D
+  Sound("Research", 0, this, 100, 0, +1);
+  return true;
 }
 
 public func FxResearchingUpgradeStop(object pTarget, int iNr)
 {
-	EffectVar(0, pTarget, iNr)->Researched(pTarget);
-	Sound("Research", 0, this, 100, 0, -1);
-	Sound("ResearchDone", 0, this);
+  EffectVar(0, pTarget, iNr)->Researched(pTarget);
+  Sound("Research", 0, this, 100, 0, -1);
+  Sound("ResearchDone", 0, this);
 
-	return true;
+  return true;
 }
 
-public func GetUpgradeResearchProgress() {return GetEffect("ResearchingUpgrade", this, 0, 6);}
-public func GetUpgradeResearchDuration() {return GetEffect("ResearchingUpgrade", this, 0, 3);}
-public func IsResearchingUpgrades() {return GetEffect("ResearchingUpgrade", this);}
+public func GetUpgradeResearchProgress()	{return GetEffect("ResearchingUpgrade", this, 0, 6);}
+public func GetUpgradeResearchDuration()	{return GetEffect("ResearchingUpgrade", this, 0, 3);}
+public func IsResearchingUpgrades()		{return GetEffect("ResearchingUpgrade", this);}
 
 public func BaseUpgradesResearched(id idUpgrade)
 {
-	for(var baseupg in idUpgrade->~ResearchBase())
-		if(baseupg)
-			if(GetIndexOf(baseupg, aUpgradeList) == -1 && !GetTeamUpgrade(GetPlayerTeam(GetOwner()), baseupg))
-				return false;
-	
-	return true;
+  for(var baseupg in idUpgrade->~ResearchBase())
+    if(baseupg)
+      if(GetIndexOf(baseupg, aUpgradeList) == -1 && !GetTeamUpgrade(GetPlayerTeam(GetOwner()), baseupg))
+        return false;
+
+  return true;
 }
 
 public func AddUpgrade(id idUpgrade)
@@ -154,9 +154,9 @@ public func AddUpgrade(id idUpgrade)
   return true;
 }
 
-public func GetUpgradeList()	{return aUpgradeList;}
-public func OnResearchingUpgradeStart(int iEffect, id idUpgrade, int iDuration, int iCost) {return;}
-public func FurtherUpgradeConditions(id idUpgrade, int iDuration, int iCost) {return true;}
+public func GetUpgradeList()									{return aUpgradeList;}
+public func OnResearchingUpgradeStart(int iEffect, id idUpgrade, int iDuration, int iCost)	{return;}
+public func FurtherUpgradeConditions(id idUpgrade, int iDuration, int iCost)			{return true;}
 
 /* Schaden */
 
@@ -239,7 +239,7 @@ public func OnDmg(int iDmg, int iType)
 
 public func OnHit(int iDmg, int iType, object pBy)
 {
-  if(!IsDestroyed())	
+  if(!IsDestroyed())
     iLastAttacker = GetController(pBy);
 }
 /* Zerstörung */
@@ -261,8 +261,8 @@ public func Destruction()
 
 public func MenuHeader(object pMenuObj, string szName)
 {
-	if(GetMenu(pMenuObj))
-  	CloseMenu(pMenuObj);
+  if(GetMenu(pMenuObj))
+    CloseMenu(pMenuObj);
 
   CreateMenu(GetID(), pMenuObj, this, C4MN_Extra_None, Format("%s - %s", GetName(this), szName), 0, C4MN_Style_Dialog);
 }
@@ -310,41 +310,41 @@ public func OpenUpgradeMenu(id dummy, object pMenuObj)
   MenuHeader(pMenuObj, "$UpgradeMenu$");
   
   if(!IsResearchingUpgrades())
-  	AddMenuItem("$NoUpgrades$", 0, NONE, pMenuObj);
-	else
-	{
-		var upgradeID = EffectVar(0, this, IsResearchingUpgrades());
-		AddMenuItem(Format("$IsUpgrading$", GetName(0, upgradeID), GetUpgradeResearchProgress(), GetUpgradeResearchDuration()), 0, upgradeID, pMenuObj);
-	}
-	
-	//Leerzeile
-	AddMenuItem(" ", 0, NONE, pMenuObj);
-	
-	var aMenuUpgradeList = [[],[]];
-	
-	aMenuUpgradeList[0] = aUpgradeList;
+    AddMenuItem("$NoUpgrades$", 0, NONE, pMenuObj);
+  else
+  {
+    var upgradeID = EffectVar(0, this, IsResearchingUpgrades());
+    AddMenuItem(Format("$IsUpgrading$", GetName(0, upgradeID), GetUpgradeResearchProgress(), GetUpgradeResearchDuration()), 0, upgradeID, pMenuObj);
+  }
+
+  //Leerzeile
+  AddMenuItem(" ", 0, NONE, pMenuObj);
+
+  var aMenuUpgradeList = [[],[]];
+
+  aMenuUpgradeList[0] = aUpgradeList;
 
   for(var upgrade in PossibleUpgrades())
     if(GetIndexOf(upgrade, aUpgradeList) == -1)
-			aMenuUpgradeList[1][GetLength(aMenuUpgradeList[1])] = upgrade;
+      aMenuUpgradeList[1][GetLength(aMenuUpgradeList[1])] = upgrade;
 
-	if(GetLength(aMenuUpgradeList[0]))
-	{
-		AddMenuItem("$ActiveUpgrades$", 0, NONE, pMenuObj);
-		for(var upgrade in aMenuUpgradeList[0])
-		  AddMenuItem(Format("%s", GetName(0, upgrade)), 0, upgrade, pMenuObj);
-	}
-	if(GetLength(aMenuUpgradeList[1]))
-	{
-		AddMenuItem("$UpgradesToResearch$", 0, NONE, pMenuObj);
-		for(var upgrade in aMenuUpgradeList[1])
-		{
-		  if(!CanResearch(upgrade))
-		    AddMenuItem(Format("<c ff0000>%s</c>", GetName(0, upgrade)), 0, upgrade, pMenuObj);
-		  else
-		    AddMenuItem(GetName(0, upgrade), "ResearchUpgrade", upgrade, pMenuObj, 0, pMenuObj);
-		}
-	}
+  if(GetLength(aMenuUpgradeList[0]))
+  {
+    AddMenuItem("$ActiveUpgrades$", 0, NONE, pMenuObj);
+    for(var upgrade in aMenuUpgradeList[0])
+      AddMenuItem(Format("%s", GetName(0, upgrade)), 0, upgrade, pMenuObj);
+  }
+  if(GetLength(aMenuUpgradeList[1]))
+  {
+    AddMenuItem("$UpgradesToResearch$", 0, NONE, pMenuObj);
+    for(var upgrade in aMenuUpgradeList[1])
+    {
+      if(!CanResearch(upgrade))
+        AddMenuItem(Format("<c ff0000>%s</c>", GetName(0, upgrade)), 0, upgrade, pMenuObj);
+      else
+        AddMenuItem(GetName(0, upgrade), "ResearchUpgrade", upgrade, pMenuObj, 0, pMenuObj);
+    }
+  }
 
   return true;
 }
@@ -388,13 +388,13 @@ public func OpenBuyMenu(id dummy, object pMenuObj, int iOffset, int iButton)
         AddMenuItem(GetName(0, def), Format("ProcessBuy(%i, Object(%d), %d)", def, ObjectNumber(pMenuObj), iOffset), def, pMenuObj, amount);
         if(def != dummy)
         {
-        	if(!sel2)
-          	sel++;
+          if(!sel2)
+            sel++;
         }
         else
         {
           sel2 = true;
-        	sel++;
+          sel++;
         }
       }
       else
@@ -443,15 +443,15 @@ static const CCBS_EnergyNeed = 2;
 
 public func GetEnergyData(int iData)
 {
-	if(GetCon() >= 100)
-	{
-		if(iData == CCBS_EnergyProd)
-			return EnergyProduction()+AdditionalEnergyProduction();
-		if(iData == CCBS_EnergyNeed)
-			return RequiredEnergy();
-	}
-	
-	return 0;
+  if(GetCon() >= 100)
+  {
+    if(iData == CCBS_EnergyProd)
+      return EnergyProduction()+AdditionalEnergyProduction();
+    if(iData == CCBS_EnergyNeed)
+      return RequiredEnergy();
+  }
+
+  return 0;
 }
 
 public func EnergySupply(bool fEnergy, int iEnergySupply, int iEnergyNeed)
@@ -460,7 +460,6 @@ public func EnergySupply(bool fEnergy, int iEnergySupply, int iEnergyNeed)
   return true;
 }
 
-public func HasEnergy() { return fHasEnergy; }
-
+public func HasEnergy()			{return fHasEnergy;}
 public func OnUpgrade(id idUpgrade)	{}
 public func OnAddObject(object pObj)	{}
