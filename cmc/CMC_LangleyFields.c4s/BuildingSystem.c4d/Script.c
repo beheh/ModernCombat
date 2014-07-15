@@ -9,7 +9,7 @@ local aTechLevels, aTeamUpgrades, aTeamResources;
 
 protected func Activate(iByPlayer)
 {
-  return(1);
+  return true;
 }
 
 /* Initialisierung */
@@ -29,7 +29,8 @@ public func InitializePlayer(int iPlr)
   if(!aTechLevels[GetPlayerTeam(iPlr)])
     aTechLevels[GetPlayerTeam(iPlr)] = TECHLEVEL_Start;
 
-  SetWealth(iPlr, 0x7FFFFFFF);
+  SetWealth(iPlr, 2000/*0x7FFFFFFF*/);
+  return true;
 }
 
 /* Energieverwaltung */

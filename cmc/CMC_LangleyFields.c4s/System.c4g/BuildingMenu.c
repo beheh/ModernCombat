@@ -272,6 +272,7 @@ public func BuildingDecoMessage(id idBuilding, object pObj)
 
   var str = Format("<c %x>%s</c>||%s", clr, GetName(0, b), GetDesc(0, b)), info = "";
 
+  Concat(info, Format("{{MNYS}} %d ", GetValue(0, b)));
   if(b->~MaxDamage())
     Concat(info, Format("{{SM12}} %d ", b->MaxDamage()));
   if(b->~IsBase())
@@ -419,8 +420,6 @@ public func CheckBuild(id idBuilding, object pTarget, int iError)
     return false;
   if(err != -1 && iError)
     return err;
-  /*if((CanBuild(idBuilding, pTarget, iError)) != -1 || !iError)
-    return iError;*/
 
   //Bauradius
   if(idBuilding->~NeedBuildingRadius())
