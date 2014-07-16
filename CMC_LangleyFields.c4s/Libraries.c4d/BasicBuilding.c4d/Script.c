@@ -3,7 +3,7 @@
 #strict 2
 #include DOOR	//Clonk-eigenes Türsystem
 
-local fHasEnergy, aObjectList, aUpgradeList, fDestroyed, iLastAttacker;
+local fHasEnergy, aObjectList, aUpgradeList, fDestroyed, iLastAttacker, aScaffolds;
 
 public func IsCMCBuilding()			{return true;}			//Ist CMC-Gebäude
 public func BasementID()			{return;}			//Fundament
@@ -33,7 +33,17 @@ public func BuildingConditions(object pBy, int iX, int iY, bool fReturnError) {r
 
 public func Initialize()
 {
+  //potentielle Baugerüste entfernen
+  if(aScaffolds)
+  {
+    for(var aTemp in aScaffolds)
+	  for(var scaffold in aTemp)
+	    RemoveObject(scaffold);
+	aScaffolds = 0;
+  }
+
   var team = GetPlayerTeam(GetOwner());
+  
   if(ProvideTechLevel())
     SetTeamTechLevel(team, ProvideTechLevel(), true);
 
@@ -48,6 +58,43 @@ public func Initialize()
     aObjectList = [];
 
   return true;
+}
+
+/* Baugerüst */
+
+public func Construction()
+{
+  aScaffolds = [];
+  var xcount, xsize;
+  var ycount, ysize;
+  
+  //Anzahl der Gerüste in X Richtung
+  xcount = GetDefWidth()/GetDefWidth(SFFD) + 1;
+  //überstehende Pixel 
+  xsize = GetDefWidth()%GetDefWidth(SFFD);
+  xsize = xsize / xcount;
+  
+  //Anzahl der Gerüste in Y Richtung
+  ycount = GetDefHeight()/GetDefHeight(SFFD) + 1;
+  //überstehende Pixel 
+  ysize = GetDefHeight()%GetDefHeight(SFFD);
+  ysize = ysize / ycount;
+  
+  Log("Defs (%d|%d)",GetDefWidth(),GetDefHeight());
+  Log("SFFDDefs (%d|%d)",GetDefWidth(SFFD),GetDefHeight(SFFD));
+  Log("sizes (%d|%d)",xsize,ysize);
+  Log("Offsets (%d|%d)",GetXOffset(),GetYOffset());
+  Log("SFFDOffsets (%d|%d)",GetXOffset(SFFD),GetYOffset(SFFD));
+  
+  for(var x = 0; x < xcount; x++)
+    for(var y = 0; y < ycount; y++)
+	{
+	  if(!aScaffolds[x])
+	    aScaffolds[x] = [];
+	  aScaffolds[x][y] = CreateObject(SFFD,(GetXOffset() - GetXOffset(SFFD)) + (GetDefWidth()/xcount)*x,
+	                                                          (-GetYOffset(SFFD)/2-(GetDefHeight() + GetYOffset()) + GetDefHeight(SFFD)) - ((GetDefHeight()-GetYOffset(SFFD))/ycount)*y);
+	  //SetObjDrawTransform((1000/GetDefWidth(SFFD))*(GetDefWidth(SFFD)-xsize),0,0,0,(1000/GetDefHeight())*(GetDefHeight(SFFD)-ysize),0,aScaffolds[x][y],0);
+	}
 }
 
 public func AddObject(object pObj)

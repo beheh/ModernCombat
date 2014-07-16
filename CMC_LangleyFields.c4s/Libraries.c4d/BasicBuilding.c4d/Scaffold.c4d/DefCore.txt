@@ -1,0 +1,11 @@
+[DefCore]
+id=SFFD
+Name=Scaffold
+Version=4,9,8,2
+Category=C4D_StaticBack
+Width=64
+Height=48
+Offset=-32,-24
+Mass=25
+Picture=0,0,64,48
+TopFace=0,0,64,48,0,0
