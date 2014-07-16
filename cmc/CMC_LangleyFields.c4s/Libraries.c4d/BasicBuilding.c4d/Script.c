@@ -37,15 +37,32 @@ public func Initialize()
   if(aScaffolds)
   {
     for(var aTemp in aScaffolds)
-	  for(var scaffold in aTemp)
-	    if(scaffold)
-	      RemoveObject(scaffold);
-	aScaffolds = 0;
+			for(var scaffold in aTemp)
+			  if(scaffold)
+			    RemoveObject(scaffold);
+	  aScaffolds = 0;
   }
   
   var team = GetPlayerTeam(GetOwner());
   if(ProvideTechLevel())
-    SetTeamTechLevel(team, ProvideTechLevel(), true);
+  {
+    var def, i = ProvideTechLevel(), lvl = -1;
+    while(i)
+    {
+      lvl++;
+      i /= 2;
+    }
+    
+    //Techlevel erforschbar?
+    if(GetName(0, def = C4Id(Format("U_T%d", lvl))))
+    {
+      //Nur wenn Upgrade erforscht wurde
+      if(GetTeamUpgrade(GetPlayerTeam(GetOwner()), def))
+        SetTeamTechLevel(team, ProvideTechLevel(), true);
+    }
+    else
+      SetTeamTechLevel(team, ProvideTechLevel(), true);
+  }
 
   for(var upgrade in PossibleUpgrades())
     if(upgrade->~IsGroupUpgrade() && GetTeamUpgrade(GetPlayerTeam(GetOwner()), upgrade))
@@ -96,10 +113,9 @@ public func Construction()
 	  if(!aScaffolds[x])
 	    aScaffolds[x] = [];
 	  aScaffolds[x][y] = CreateObject(ScaffoldID(),(GetXOffset() - GetXOffset(ScaffoldID())) + (GetDefWidth()*x)/xcount,	                                                    
-															  -(GetCon()/100)*GetYOffset()-(GetDefHeight()*y)/ycount);
+															  -(GetDefHeight()*y)/ycount);
 	  SetObjDrawTransform(xsize,0,xpos,0,ysize,ypos,aScaffolds[x][y],0);
 	  aScaffolds[x][y]->AddVertex(0,((GetDefHeight()*y)/ycount)-GetYOffset(ScaffoldID())+1);
-	  SetObjectOrder(aScaffolds[x][y], this, true);
 	}
 }
 

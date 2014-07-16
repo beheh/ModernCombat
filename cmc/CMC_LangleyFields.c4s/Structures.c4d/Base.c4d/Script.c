@@ -11,6 +11,8 @@ public func NeedBuildingRadius()	{return false;}			//Benötigt keinen Bauradius
 public func BuildingRadius()		{return 400;}			//Bauradius
 public func EnergyProduction()		{return 50;}			//Energiehersteller
 
+public func PossibleUpgrades()    {return [U_T2, U_T3];}
+
 
 /* Initalisierung */
 
