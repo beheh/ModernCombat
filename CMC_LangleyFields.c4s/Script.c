@@ -99,9 +99,6 @@ public func Relaunch(int iPlr, object pCrew, object pKiller, int iTeam)
     if(lowest > GetPlayerByIndex(i))
       lowest = GetPlayerByIndex(i);
   }
-
-  if(lowest == 1000 || lowest == iPlr)
-    pCrew->CreateContents(FLAG);
   
   if(Contained(pCrew))
     SetPosition(iX, iY, Contained(pCrew));

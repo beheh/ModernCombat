@@ -17,7 +17,6 @@ SolidMask=120,0,120,110
 TopFace=240,0,120,110
 Entrance=-36,19,48,35
 Exclusive=1
-Base=1
 ColorByOwner=1
 Construction=1
 
