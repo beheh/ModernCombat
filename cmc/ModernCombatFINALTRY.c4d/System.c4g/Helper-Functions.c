@@ -51,3 +51,15 @@ global func Object2Overlay(object target, object obj)
   //Erzeugtes Overlay zurückgeben
   return overlay_id;
 }
+
+/* Offset (simpler GetDefCoreVal Map) */
+
+global func GetXOffset(id pID)
+{
+  return GetDefCoreVal("Offset", "DefCore", pID, 0);
+}
+
+global func GetYOffset(id pID)
+{
+  return GetDefCoreVal("Offset", "DefCore", pID, 1);
+}
