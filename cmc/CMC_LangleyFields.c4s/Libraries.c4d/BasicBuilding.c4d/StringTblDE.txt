@@ -8,3 +8,17 @@ IsUpgrading=Upgrade: %s (%d / %d)
 ActiveUpgrades=Aktive Upgrades:
 UpgradesToResearch=Erforschbare Upgrades:
 Hitpoints=Schaden: %d/%d
+
+#Kaufmenü
+GoToCart=Zum Einkaufswagen
+CartMenu=Einkaufswagen
+CartIsEmpty=<c 777777>Einkaufswagen ist leer!</c>
+OrderInQueue=Bestellung in Warteschlange.
+OrderQueuePosition=Position in Warteschlange: <c ffff33>%d</c>
+DeliveryOnTheWay=Bestellung wird als nächstes geliefert!
+Total=Summe:
+ProceedToCheckout=Zur Kasse
+ProceedToCheckoutInactive=<c 777777>Zur Kasse</c>
+CancelOrder=Bestellung stornieren
+BackToBuyMenu=Einkauf fortsetzen
+BackToMainMenu=Hauptmenü

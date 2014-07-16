@@ -2,7 +2,7 @@
 
 #strict 2
 
-local aTechLevels, aTeamUpgrades, aTeamResources;
+local aTechLevels, aTeamUpgrades, aTeamResources, aOrders;
 
 
 /* Auswahlmenü */
@@ -19,6 +19,7 @@ public func Initialize()
   aTechLevels = [];
   aTeamUpgrades = [];
   aTeamResources = [];
+  aOrders = [];
   AddEffect("EnergyManagement", this, 1, 36, this);
   return true;
 }
@@ -68,6 +69,127 @@ public func FxEnergyManagementTimer()
 
 global func BuildingSystem()	{return FindObject2(Find_ID(BGRL));}
 
+/* Lieferwarteschlange */
+
+public func AddOrderToQueue(int iPlr, id idBuilding)
+{
+  var team = GetPlayerTeam(iPlr);
+  if(!aOrders[team])
+    aOrders[team] = [];
+  
+  var found;
+  for(var i = 0; i < GetLength(aOrders[team]); i++)
+  {
+    var building = aOrders[team][i];
+    if(building && building[0] == idBuilding)
+    {
+      found = true;
+      aOrders[team][i][GetLength(building)] = iPlr;
+      break;
+    }
+  }
+  
+  if(!found)
+    aOrders[team][GetLength(aOrders[team])] = [idBuilding, iPlr];
+  
+  return true;
+}
+
+public func RemoveOrderFromQueue(int iPlr, id idBuilding)
+{
+  var team = GetPlayerTeam(iPlr);
+  if(!aOrders[team])
+    return;
+  
+  var order = [];
+  for(var i = 0; i < GetLength(aOrders[team]); i++)
+  {
+    var b = aOrders[team][i];
+    if(b && b[0] == idBuilding)
+    {
+      for(var j = 0; j < GetLength(b); j++)
+      {
+        if(b[j] != iPlr)
+          order[GetLength(order)] = b[j];
+      }
+      
+      aOrders[team][i] = order;
+      break; 
+    }
+  }
+  
+  return true;
+}
+
+public func GetOrderQueueLength(int iPlr, id idBuilding)
+{
+  var team = GetPlayerTeam(iPlr);
+  if(!aOrders[team])
+    return;
+  
+  for(var building in aOrders[team])
+    if(building && building[0] == idBuilding)
+      return GetLength(building)-1;
+  
+  return 0;
+}
+
+public func GetOrderQueuePosition(int iPlr, id idBuilding)
+{
+  var team = GetPlayerTeam(iPlr);
+  if(!aOrders[team])
+    return;
+  
+  var pos = -1;
+  for(var building in aOrders[team])
+    if(building && building[0] == idBuilding)
+    {
+      for(var i = 0; i < GetLength(building); i++)
+        if(building[i] == iPlr)
+          break;
+      
+      if(i == GetLength(building))
+        pos = -1;
+      else
+        pos = i-1;
+      break;
+    }
+  
+  return pos;
+} 
+
+/* Liefercooldown */
+
+public func DeliveryCooldown(int iPlr, id idBuilding)
+{
+  AddEffect("DeliveryCooldown", this, 1, idBuilding->~DeliveryCooldownTime(), this, 0, iPlr, idBuilding);
+  return true;
+}
+
+public func GetDeliveryCooldown(int iPlr, id idBuilding)
+{
+  var i,e;
+  while(e = GetEffect("DeliveryCooldown", this, i))
+  {
+    if(EffectVar(0, this, e) == idBuilding && EffectVar(1, this, e) == GetPlayerTeam(iPlr))
+      return true;
+
+    i++;
+  }
+  
+  return false;
+}
+
+public func FxDeliveryCooldownStart(object pTarget, int iNr, int iTemp, int iPlr, id idBuilding)
+{
+  if(iTemp)
+    return;
+
+  EffectVar(0, pTarget, iNr) = idBuilding;
+  EffectVar(1, pTarget, iNr) = GetPlayerTeam(iPlr);
+  return true;
+}
+
 /* Techstufen */
 
 static const TECHLEVEL_None	= 0;
@@ -82,10 +204,13 @@ global func SwitchTeamTechLevel(int iTeam, int iLevel)	{return LocalN("aTechLeve
 global func SetTeamTechLevel(int iTeam, int iLevel, bool fSet)
 {
   //Bleibt gleich?
-  if(GetTeamTechLevel(iTeam, iLevel) == fSet)
+  if(!!GetTeamTechLevel(iTeam, iLevel) == fSet)
     return true;
 
   SwitchTeamTechLevel(iTeam, iLevel);
+  
+  //Callback
+  FindObjects(Find_Func("OnTechLevelChange", iLevel, fSet), Find_Allied(GetTeamMemberByIndex(iTeam)));
   return true;
 }
 

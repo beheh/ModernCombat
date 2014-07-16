@@ -1,0 +1,5 @@
+StorageContent=Speicher: %d/%d
+CloseStorageSupply=Speicherzufuhr sperren
+OpenStorageSupply=Speicherzufuhr öffnen
+BuyClonkMenu=Clonks kaufen
+BuyEquipmentMenu=Ausrüstung kaufen
