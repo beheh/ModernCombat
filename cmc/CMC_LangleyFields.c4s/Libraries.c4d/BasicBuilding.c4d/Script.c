@@ -97,6 +97,7 @@ public func Construction()
 	  aScaffolds[x][y] = CreateObject(ScaffoldID(),(GetXOffset() - GetXOffset(ScaffoldID())) + (GetDefWidth()*x)/xcount,	                                                    
 															  -(GetDefHeight()*y)/ycount);
 	  SetObjDrawTransform(xsize,0,xpos,0,ysize,ypos,aScaffolds[x][y],0);
+	  aScaffolds[x][y]->AddVertex(0,((GetDefHeight()*y)/ycount)-GetYOffset(ScaffoldID())+1);
 	}
 }
 
