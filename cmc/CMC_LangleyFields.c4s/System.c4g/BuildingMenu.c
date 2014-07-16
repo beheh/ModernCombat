@@ -493,7 +493,7 @@ public func StartBuilding(id idBuilding, object pTarget, int selection)
     return;
   
   //Baugebiet glätten (Da CMC-Gebäude meist zu groß sind)
-  pBuilding->DigFreeRect(GetDefOffset(idBuilding, 0), GetDefOffset(idBuilding, 1), GetDefWidth(idBuilding), GetDefHeight(idBuilding)+1);
+  DigFreeRect(GetX(pBuilding)+GetDefOffset(idBuilding), GetY(pBuilding)+GetDefOffset(idBuilding, 1)*GetCon()/100-GetDefHeight(idBuilding), GetDefWidth(idBuilding), GetDefHeight(idBuilding)+1);
 
   //Gras im Baugebiet entfernen
   var wdt = GetDefWidth(idBuilding), hgt = GetDefHeight(idBuilding);
