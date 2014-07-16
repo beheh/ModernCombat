@@ -6,7 +6,7 @@
 local fHasEnergy, aObjectList, aUpgradeList, fDestroyed, iLastAttacker, aScaffolds;
 
 public func IsCMCBuilding()			{return true;}			//Ist CMC-Gebäude
-public func BasementID()			{return;}			//Fundament
+public func ScaffoldID()			{return SFFD;}			//Gerüst-ID
 
 public func ProvideTechLevel()			{return TECHLEVEL_None;}	//Vorhandener Techlevel
 public func TechLevel()				{return 0;}			//Benötigte Techstufe
