@@ -491,6 +491,9 @@ public func StartBuilding(id idBuilding, object pTarget, int selection)
   var pBuilding = CreateConstruction(idBuilding, 0, 10, GetOwner(pTarget), 1, true, true);
   if(!pBuilding)
     return;
+  
+  //Baugebiet glätten (Da CMC-Gebäude meist zu groß sind)
+  pBuilding->DigFreeRect(GetDefOffset(idBuilding, 0), GetDefOffset(idBuilding, 1), GetDefWidth(idBuilding), GetDefHeight(idBuilding)+1);
 
   //Gras im Baugebiet entfernen
   var wdt = GetDefWidth(idBuilding), hgt = GetDefHeight(idBuilding);
@@ -509,6 +512,7 @@ public func StartBuilding(id idBuilding, object pTarget, int selection)
 
   //Effekt
   Sound("Building_Place.ogg",false,pBuilding);
+  return true;
 }
 
 /* Bau-Effekt (by henry4k) */
