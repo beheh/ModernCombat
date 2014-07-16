@@ -126,7 +126,7 @@ public func StartFlyFree()
 protected func Opening()
 {
   var targ = GetActionTarget();
-  if(!targ || GetID(Contained(targ)) == FKDT || (GetProcedure(targ) != "FLOAT" && GetProcedure(targ) != "FLIGHT"))
+  if(!targ || GetID(Contained(targ)) == FKDT || (GetOCF(targ) & OCF_Living && GetProcedure(targ) != "FLOAT" && GetProcedure(targ) != "FLIGHT"))
   {
     Close();
     RemoveEffect("Flying", targ);
