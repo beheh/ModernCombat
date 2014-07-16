@@ -38,7 +38,8 @@ public func Initialize()
   {
     for(var aTemp in aScaffolds)
 	  for(var scaffold in aTemp)
-	    RemoveObject(scaffold);
+	    if(scaffold)
+	      RemoveObject(scaffold);
 	aScaffolds = 0;
   }
   
