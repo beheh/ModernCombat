@@ -6,7 +6,7 @@
 local fHasEnergy, aObjectList, aUpgradeList, fDestroyed, iLastAttacker, aScaffolds;
 
 public func IsCMCBuilding()			{return true;}			//Ist CMC-Gebäude
-public func ScaffoldID()			{return SFFD;}			//Gerüst-ID
+public func ScaffoldID()			{return SFFD;}			//Gerüst-ID 
 
 public func ProvideTechLevel()			{return TECHLEVEL_None;}	//Vorhandener Techlevel
 public func TechLevel()				{return 0;}			//Benötigte Techstufe
@@ -75,8 +75,8 @@ public func Construction()
   if(!xcount || xsize > GetDefWidth(ScaffoldID())/2)
     xcount++;    
   //Vergrößerungsfaktor und neue Position berechnen
-  xsize = (1000*(GetDefWidth()/xcount))/GetDefWidth(ScaffoldID());
-  xpos = -((1000-xsize)*(1000/GetDefWidth()));
+  xsize = ((GetDefWidth()*1000)/xcount)/GetDefWidth(ScaffoldID());
+  //xpos = -((1000-xsize)*(1000/GetDefWidth()));
   
   //Anzahl der Gerüste in Y Richtung
   ycount = GetDefHeight()/GetDefHeight(ScaffoldID());
@@ -86,8 +86,8 @@ public func Construction()
   if(!ycount || ysize > GetDefHeight(ScaffoldID())/2)
     ycount++;    
   //Vergrößerungsfaktor und neue Position berechnen
-  ysize = (1000*(GetDefHeight()/ycount))/GetDefHeight(ScaffoldID());
-  ypos = (1000-ysize)*(1000/GetDefHeight());
+  ysize = ((GetDefHeight()*1000)/ycount)/GetDefHeight(ScaffoldID());
+  //ypos = (1000-ysize)*(1000/GetDefHeight());
   
   Log("Defs (%d|%d)",GetDefWidth(),GetDefHeight());
   Log("ScaffoldID()Defs (%d|%d)",GetDefWidth(ScaffoldID()),GetDefHeight(ScaffoldID()));
