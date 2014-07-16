@@ -6,7 +6,7 @@
 local fHasEnergy, aObjectList, aUpgradeList, fDestroyed, iLastAttacker, aScaffolds;
 
 public func IsCMCBuilding()			{return true;}			//Ist CMC-Gebäude
-public func ScaffoldID()			{return SFFD;}			//Gerüst-ID
+public func BasementID()			{return;}			//Fundament
 
 public func ProvideTechLevel()			{return TECHLEVEL_None;}	//Vorhandener Techlevel
 public func TechLevel()				{return 0;}			//Benötigte Techstufe
@@ -41,9 +41,8 @@ public func Initialize()
 	    RemoveObject(scaffold);
 	aScaffolds = 0;
   }
-
-  var team = GetPlayerTeam(GetOwner());
   
+  var team = GetPlayerTeam(GetOwner());
   if(ProvideTechLevel())
     SetTeamTechLevel(team, ProvideTechLevel(), true);
 
