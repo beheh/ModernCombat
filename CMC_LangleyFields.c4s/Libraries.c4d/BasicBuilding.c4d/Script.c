@@ -88,15 +88,7 @@ public func Construction()
   //Vergrößerungsfaktor und neue Position berechnen
   ysize = ((GetDefHeight()*1000)/ycount)/GetDefHeight(ScaffoldID());
   ypos = -(GetDefHeight(ScaffoldID())*ysize/2 - GetDefHeight(ScaffoldID())*500);
-  
-  Log("Defs (%d|%d)",GetDefWidth(),GetDefHeight());
-  Log("ScaffoldID()Defs (%d|%d)",GetDefWidth(ScaffoldID()),GetDefHeight(ScaffoldID()));
-  Log("sizes (%d|%d)",xsize,ysize);
-  Log("sizespx (%d|%d)",1000/GetDefWidth(),1000/GetDefHeight());
-  Log("pos (%d|%d)",xpos,ypos);
-  Log("Offsets (%d|%d)",GetXOffset(),GetYOffset());
-  Log("ScaffoldID()Offsets (%d|%d)",GetXOffset(ScaffoldID()),GetYOffset(ScaffoldID()));
-  
+    
   for(var x = 0; x < xcount; x++)
     for(var y = 0; y < ycount; y++)
 	{
