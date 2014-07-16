@@ -28,8 +28,17 @@ public func CanBeResearched(object pByObj)
 public func Researched(object pBy)
 {
   if(!IsGroupUpgrade() && pBy && pBy->~IsCMCBuilding())
+  {
+    OnUpgrade(pBy);
     return pBy->AddUpgrade(GetID());
+  }
 
   if(IsGroupUpgrade())
+  {
+    OnGroupUpgrade(pBy);
     return AddTeamUpgrade(GetPlayerTeam(GetOwner(pBy)), GetID());
+  }
 }
+
+public func OnUpgrade(object pBy) {}
+public func OnGroupUpgrade(object pBy) {}
