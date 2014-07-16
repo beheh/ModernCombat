@@ -1,0 +1,1 @@
+Versorgt Truppen mit Ausrüstung, Munition, Waffen, Baumaterial, Dragnin und vielem mehr. Sobald sich die Kiste in der Nähe von 300px eines Gebäudes befindet, kann man auf [doppel-graben], falls der jeweilige Inhaltstyp passt, der Inhalt in das Gebäude übertragen werden.

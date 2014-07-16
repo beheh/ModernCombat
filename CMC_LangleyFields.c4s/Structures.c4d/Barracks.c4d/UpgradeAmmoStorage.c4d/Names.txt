@@ -1,0 +1,2 @@
+DE:Munitionsspeicher
+US:Ammo storage
