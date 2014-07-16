@@ -76,7 +76,7 @@ public func Construction()
     xcount++;    
   //Vergrößerungsfaktor und neue Position berechnen
   xsize = ((GetDefWidth()*1000)/xcount)/GetDefWidth(ScaffoldID());
-  //xpos = -((1000-xsize)*(1000/GetDefWidth()));
+  xpos = GetDefWidth(ScaffoldID())*xsize/2 - GetDefWidth(ScaffoldID())*500;
   
   //Anzahl der Gerüste in Y Richtung
   ycount = GetDefHeight()/GetDefHeight(ScaffoldID());
@@ -87,7 +87,7 @@ public func Construction()
     ycount++;    
   //Vergrößerungsfaktor und neue Position berechnen
   ysize = ((GetDefHeight()*1000)/ycount)/GetDefHeight(ScaffoldID());
-  //ypos = (1000-ysize)*(1000/GetDefHeight());
+  ypos = -(GetDefHeight(ScaffoldID())*ysize/2 - GetDefHeight(ScaffoldID())*500);
   
   Log("Defs (%d|%d)",GetDefWidth(),GetDefHeight());
   Log("ScaffoldID()Defs (%d|%d)",GetDefWidth(ScaffoldID()),GetDefHeight(ScaffoldID()));
@@ -102,8 +102,8 @@ public func Construction()
 	{
 	  if(!aScaffolds[x])
 	    aScaffolds[x] = [];
-	  aScaffolds[x][y] = CreateObject(ScaffoldID(),(GetXOffset() - GetXOffset(ScaffoldID())) + (GetDefWidth()/xcount)*x,	                                                    
-															  -(GetDefHeight()/ycount)*y);
+	  aScaffolds[x][y] = CreateObject(ScaffoldID(),(GetXOffset() - GetXOffset(ScaffoldID())) + (GetDefWidth()*x)/xcount,	                                                    
+															  -(GetDefHeight()*y)/ycount);
 	  SetObjDrawTransform(xsize,0,xpos,0,ysize,ypos,aScaffolds[x][y],0);
 	}
 }
