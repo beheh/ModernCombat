@@ -135,7 +135,7 @@ public func CheckProvideTechLevel(int iLevel)	{return ProvideTechLevel() == iLev
 public func ResetTechLevel()
 {
   if(ProvideTechLevel())
-    if(!FindObject2(Find_Category(C4D_Structure), Find_Func("CheckProvideTechLevel", ProvideTechLevel()), Find_Not(Find_Func("IsDestroyed")), Find_Allied(GetOwner())))
+    if(!FindObject2(Find_Category(C4D_Structure), Find_Func("CheckProvideTechLevel", ProvideTechLevel()), Find_Not(Find_Func("IsDestroyed")), Find_Allied(GetOwner()), Find_Exclude(this)))
       SetTeamTechLevel(GetPlayerTeam(GetOwner()), ProvideTechLevel(), false);
   
   return true;
