@@ -6,7 +6,7 @@
 local fHasEnergy, aObjectList, aUpgradeList, fDestroyed, iLastAttacker, aScaffolds;
 
 public func IsCMCBuilding()			{return true;}			//Ist CMC-Gebäude
-public func BasementID()			{return;}			//Fundament
+public func ScaffoldID()			{return SFFD;}			//Gerüst-ID
 
 public func ProvideTechLevel()			{return TECHLEVEL_None;}	//Vorhandener Techlevel
 public func TechLevel()				{return 0;}			//Benötigte Techstufe
@@ -65,35 +65,47 @@ public func Initialize()
 public func Construction()
 {
   aScaffolds = [];
-  var xcount, xsize;
-  var ycount, ysize;
+  var xcount, xsize, xpos;
+  var ycount, ysize, ypos;
   
   //Anzahl der Gerüste in X Richtung
-  xcount = GetDefWidth()/GetDefWidth(SFFD) + 1;
+  xcount = GetDefWidth()/GetDefWidth(ScaffoldID());
   //überstehende Pixel 
-  xsize = GetDefWidth()%GetDefWidth(SFFD);
-  xsize = xsize / xcount;
+  xsize = GetDefWidth()%GetDefWidth(ScaffoldID());
+  //evtl. zusätzliches Gerüst einfügen
+  if(!xcount || xsize > GetDefWidth(ScaffoldID())/2)
+    xcount++;    
+  //Vergrößerungsfaktor und neue Position berechnen
+  xsize = (1000*(GetDefWidth()/xcount))/GetDefWidth(ScaffoldID());
+  xpos = -((1000-xsize)*(1000/GetDefWidth()));
   
   //Anzahl der Gerüste in Y Richtung
-  ycount = GetDefHeight()/GetDefHeight(SFFD) + 1;
+  ycount = GetDefHeight()/GetDefHeight(ScaffoldID());
   //überstehende Pixel 
-  ysize = GetDefHeight()%GetDefHeight(SFFD);
-  ysize = ysize / ycount;
+  ysize = GetDefHeight()%GetDefHeight(ScaffoldID());
+  //evtl. zusätzliches Gerüst einfügen
+  if(!ycount || ysize > GetDefHeight(ScaffoldID())/2)
+    ycount++;    
+  //Vergrößerungsfaktor und neue Position berechnen
+  ysize = (1000*(GetDefHeight()/ycount))/GetDefHeight(ScaffoldID());
+  ypos = (1000-ysize)*(1000/GetDefHeight());
   
   Log("Defs (%d|%d)",GetDefWidth(),GetDefHeight());
-  Log("SFFDDefs (%d|%d)",GetDefWidth(SFFD),GetDefHeight(SFFD));
+  Log("ScaffoldID()Defs (%d|%d)",GetDefWidth(ScaffoldID()),GetDefHeight(ScaffoldID()));
   Log("sizes (%d|%d)",xsize,ysize);
+  Log("sizespx (%d|%d)",1000/GetDefWidth(),1000/GetDefHeight());
+  Log("pos (%d|%d)",xpos,ypos);
   Log("Offsets (%d|%d)",GetXOffset(),GetYOffset());
-  Log("SFFDOffsets (%d|%d)",GetXOffset(SFFD),GetYOffset(SFFD));
+  Log("ScaffoldID()Offsets (%d|%d)",GetXOffset(ScaffoldID()),GetYOffset(ScaffoldID()));
   
   for(var x = 0; x < xcount; x++)
     for(var y = 0; y < ycount; y++)
 	{
 	  if(!aScaffolds[x])
 	    aScaffolds[x] = [];
-	  aScaffolds[x][y] = CreateObject(SFFD,(GetXOffset() - GetXOffset(SFFD)) + (GetDefWidth()/xcount)*x,
-	                                                          (-GetYOffset(SFFD)/2-(GetDefHeight() + GetYOffset()) + GetDefHeight(SFFD)) - ((GetDefHeight()-GetYOffset(SFFD))/ycount)*y);
-	  //SetObjDrawTransform((1000/GetDefWidth(SFFD))*(GetDefWidth(SFFD)-xsize),0,0,0,(1000/GetDefHeight())*(GetDefHeight(SFFD)-ysize),0,aScaffolds[x][y],0);
+	  aScaffolds[x][y] = CreateObject(ScaffoldID(),(GetXOffset() - GetXOffset(ScaffoldID())) + (GetDefWidth()/xcount)*x,	                                                    
+															  -(GetDefHeight()/ycount)*y);
+	  SetObjDrawTransform(xsize,0,xpos,0,ysize,ypos,aScaffolds[x][y],0);
 	}
 }
 
