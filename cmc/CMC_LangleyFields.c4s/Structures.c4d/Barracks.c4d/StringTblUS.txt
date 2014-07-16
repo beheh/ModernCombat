@@ -1,0 +1,6 @@
+StorageContent=Storage: %d/%d
+CloseStorageSupply=close storage supply 
+OpenStorageSupply=open storage supply 
+BuyClonkMenu=Buy clonks
+BuyEquipmentMenu=Buy equipment
+AmmoReceived=Ammo received
