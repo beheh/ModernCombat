@@ -15,13 +15,13 @@ public func BuildingRadius()			{return 0;}			//Bauradius
 public func NeedBuildingRadius()		{return true;}			//Nur in Bauradius
 
 public func RequiredEnergy()			{return 0;}			//Benötigte Energie
-public func AdditionalRequiredEnergy() {return 0;} //Zusätzlich benötigte Energie
+public func AdditionalRequiredEnergy()	{return 0;}	//Zusätzlich benötigte Energie
 public func EnergyProduction()			{return 0;}			//Erzeugt Energie
 public func AdditionalEnergyProduction()	{return 0;}			//Zusätzlich erzeugte Energie
 public func PossibleUpgrades()			{return [];}			//Mögliche Upgrades
 public func MaxDamage()				{return 500;}			//Maximaler Schadenswert bis zur Zerstörung
 public func IsDestroyed()			{return fDestroyed;}
-public func IsRepairable()    {return true;}
+public func IsRepairable()			{return true;}	//Ist reparierbar
 public func BuyCategory()			{return C4D_All;}
 
 
@@ -37,12 +37,12 @@ public func Initialize()
   if(aScaffolds)
   {
     for(var aTemp in aScaffolds)
-			for(var scaffold in aTemp)
-			  if(scaffold)
-			    RemoveObject(scaffold);
-	  aScaffolds = 0;
+      for(var scaffold in aTemp)
+        if(scaffold)
+          RemoveObject(scaffold);
+    aScaffolds = 0;
   }
-  
+
   var team = GetPlayerTeam(GetOwner());
   if(ProvideTechLevel())
   {
@@ -52,7 +52,7 @@ public func Initialize()
       lvl++;
       i /= 2;
     }
-    
+
     //Techlevel erforschbar?
     if(GetName(0, def = C4Id(Format("U_T%d", lvl))))
     {
@@ -84,40 +84,40 @@ public func Construction()
   aScaffolds = [];
   var xcount, xsize, xpos;
   var ycount, ysize, ypos;
-  
-  //Anzahl der Gerüste in X Richtung
+
+  //Anzahl der Gerüste in X-Richtung
   xcount = GetDefWidth()/GetDefWidth(ScaffoldID());
-  //überstehende Pixel 
+  //Überstehende Pixel ermitteln
   xsize = GetDefWidth()%GetDefWidth(ScaffoldID());
-  //evtl. zusätzliches Gerüst einfügen
+  //Eventuell zusätzliches Gerüst einfügen
   if(!xcount || xsize > GetDefWidth(ScaffoldID())/2)
-    xcount++;    
+    xcount++;
   //Vergrößerungsfaktor und neue Position berechnen
   xsize = ((GetDefWidth()*1000)/xcount)/GetDefWidth(ScaffoldID());
   xpos = GetDefWidth(ScaffoldID())*xsize/2 - GetDefWidth(ScaffoldID())*500;
-  
-  //Anzahl der Gerüste in Y Richtung
+
+  //Anzahl der Gerüste in Y-Richtung
   ycount = GetDefHeight()/GetDefHeight(ScaffoldID());
-  //überstehende Pixel 
+  //Überstehende Pixel ermitteln
   ysize = GetDefHeight()%GetDefHeight(ScaffoldID());
-  //evtl. zusätzliches Gerüst einfügen
+  //Eventuell zusätzliches Gerüst einfügen
   if(!ycount || ysize > GetDefHeight(ScaffoldID())/2)
-    ycount++;    
+    ycount++;
   //Vergrößerungsfaktor und neue Position berechnen
   ysize = ((GetDefHeight()*1000)/ycount)/GetDefHeight(ScaffoldID());
   ypos = -(GetDefHeight(ScaffoldID())*ysize/2 - GetDefHeight(ScaffoldID())*500);
-    
+
   for(var x = 0; x < xcount; x++)
     for(var y = 0; y < ycount; y++)
-	{
-	  if(!aScaffolds[x])
-	    aScaffolds[x] = [];
-	  aScaffolds[x][y] = CreateObject(ScaffoldID(),(GetXOffset() - GetXOffset(ScaffoldID())) + (GetDefWidth()*x)/xcount,	                                                    
-															  -(GetDefHeight()*y)/ycount);
-	  SetObjDrawTransform(xsize,0,xpos,0,ysize,ypos,aScaffolds[x][y],0);
-	  aScaffolds[x][y]->AddVertex(0,((GetDefHeight()*y)/ycount)-GetYOffset(ScaffoldID())+1);
-	  SetObjectOrder(aScaffolds[x][y],this,1);
-	}
+    {
+      if(!aScaffolds[x])
+      aScaffolds[x] = [];
+      aScaffolds[x][y] = CreateObject(ScaffoldID(),(GetXOffset() - GetXOffset(ScaffoldID())) + (GetDefWidth()*x)/xcount,
+      													  -(GetDefHeight()*y)/ycount);
+      SetObjDrawTransform(xsize,0,xpos,0,ysize,ypos,aScaffolds[x][y],0);
+      aScaffolds[x][y]->AddVertex(0,((GetDefHeight()*y)/ycount)-GetYOffset(ScaffoldID())+1);
+      SetObjectOrder(aScaffolds[x][y],this,1);
+    }
 }
 
 public func AddObject(object pObj)
@@ -138,11 +138,11 @@ public func ResetTechLevel()
   if(ProvideTechLevel())
     if(!FindObject2(Find_Category(C4D_Structure), Find_Func("CheckProvideTechLevel", ProvideTechLevel()), Find_Not(Find_Func("IsDestroyed")), Find_Allied(GetOwner()), Find_Exclude(this)))
       SetTeamTechLevel(GetPlayerTeam(GetOwner()), ProvideTechLevel(), false);
-  
+
   return true;
 }
 
-public func OnTechLevelChange(int iLevel, bool fActive) {}
+public func OnTechLevelChange(int iLevel, bool fActive)	{}
 
 /* Upgrades */
 
@@ -290,11 +290,11 @@ public func GetUpgrade(id idUpgrade)
 {
   if(!aUpgradeList)
     return;
-  
+
   for(var upgrade in aUpgradeList)
     if(upgrade == idUpgrade)
       return true;
-  
+
   return false;
 }
 
@@ -419,7 +419,7 @@ public func OpenBuildingMenu(dummy, object pMenuObj)
   //Menü erstellen
   CreateMenu(GetID(), pMenuObj, this, C4MN_Extra_None, GetName(this), 0, C4MN_Style_Dialog);
   AddMenuItem(Format("$Hitpoints$", GetDamage(), MaxDamage()), 0, NONE, pMenuObj);
-  
+
   //Gebäudespezifische Statusanzeigen
   AdditionalStatusMenu(pMenuObj);
   AddMenuItem(" ", 0, NONE, pMenuObj);
@@ -489,7 +489,7 @@ public func OpenUpgradeMenu(id dummy, object pMenuObj)
     for(var upgrade in aMenuUpgradeList[0])
       AddMenuItem(Format("%s", GetName(0, upgrade)), 0, upgrade, pMenuObj);
   }
-  
+
   //Erforschbare Upgrades auflisten
   if(GetLength(aMenuUpgradeList[1]))
   {
@@ -527,9 +527,9 @@ public func GetBuyMenuEffect(int iPlr)
   return e;
 }
 
-public func DeliveryCapacity() { return 10; } //Maximale Anzahl an Items
-public func DeliveryMaxItemCount() { return 5; }
-public func DeliveryCooldownTime() { return 35*15; } //Nur alle 15 Sekunden liefern!
+public func DeliveryCapacity()		{return 10;}		//Maximale Anzahl an Items
+public func DeliveryMaxItemCount()	{return 5;}
+public func DeliveryCooldownTime()	{return 35*15; }	//Nur alle 15 Sekunden liefern
 
 static const CCBS_BUYMENU_Next = 1;
 static const CCBS_BUYMENU_Last = 2;
@@ -547,16 +547,16 @@ public func OpenBuyMenu(id dummy, object pMenuObj, int iOffset, int iButton, arr
       return;
     else
       aIDObjects = EffectVar(3, FindObject(BGRL), e);
-    
+
     if(!aIDObjects)
       return;
   }
   else
     EffectVar(3, FindObject(BGRL), e) = aIDObjects;
-  
+
   //Kopfzeile
   MenuHeader(pMenuObj, "$BuyMenu$", C4MN_Extra_Value);
-  
+
   var count = GetLength(aIDObjects);
   
   //Seitenanzeige
@@ -638,11 +638,11 @@ public func BuyError(id def, object pMenuObj, int iOffset)
 public func DeliveryInQueue(int iPlr)
 {
   var e = GetBuyMenuEffect(iPlr);
-  
+
   //Lieferung in Warteschlange
   if(EffectVar(4, FindObject(BGRL), e))
     return true;
-  
+
   return false;
 }
 
@@ -655,7 +655,7 @@ public func GetCartValue(int iPlr)
   for(var data in cart)
     if(data)
       value += GetValue(0, data[0])*data[1];
-  
+
   return value;
 }
 
@@ -667,7 +667,7 @@ public func GetCartItemAmount(id idDef, int iPlr)
     if(data)
       if(data[0] == idDef)
         return data[1];
-  
+
   return 0;
 }
 
@@ -684,18 +684,18 @@ public func CartNotFull(id idDef, int iPlr)
   //Anzahl von verschiedenen Items überprüfen
   if(GetLength(GetCart(iPlr)) >= DeliveryCapacity())
     return false;
-  
+
   //Hat gerade Bestellung in Warteschlange
   if(DeliveryInQueue(iPlr))
     return false;
-  
+
   return true; 
 }
 
 public func GetCart(int iPlr)
 {
   var e = GetBuyMenuEffect(iPlr);
-  
+
   return EffectVar(0, FindObject(BGRL), e);
 }
 
@@ -706,27 +706,27 @@ public func AddToCart(id idItem, object pMenuObj, int iOffset)
   //Zu wenig Geld?
   if(GetWealth(plr) < GetCartValue(plr)+GetValue(0, idItem))
     return OpenBuyMenu(idItem, pMenuObj, iOffset);
-  
+
   //Einkaufswagen voll?
   if(!CartNotFull(idItem, plr))
     return OpenBuyMenu(idItem, pMenuObj, iOffset);
-  
+
   //Ansonsten hinzufügen
   EffectCall(FindObject(BGRL), GetBuyMenuEffect(plr), "AddCart", idItem);
-  
+
   //Zum Kaufmenü
   OpenBuyMenu(idItem, pMenuObj, iOffset);
-  
+
   return true;
 }
 
 public func SubFromCart(id idItem, object pMenuObj, int iBuyOffset, int iSel)
 {
   EffectCall(FindObject(BGRL), GetBuyMenuEffect(GetOwner(pMenuObj)), "SubCart", idItem);
-  
+
   //Zum Einkaufswagen
   OpenCartMenu(pMenuObj, iBuyOffset, iSel);
-  
+
   return true;
 }
 

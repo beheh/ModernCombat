@@ -99,7 +99,7 @@ public func Relaunch(int iPlr, object pCrew, object pKiller, int iTeam)
     if(lowest > GetPlayerByIndex(i))
       lowest = GetPlayerByIndex(i);
   }
-  
+
   if(Contained(pCrew))
     SetPosition(iX, iY, Contained(pCrew));
   else

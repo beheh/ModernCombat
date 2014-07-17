@@ -40,5 +40,5 @@ public func Researched(object pBy)
   }
 }
 
-public func OnUpgrade(object pBy) {}
-public func OnGroupUpgrade(object pBy) {}
+public func OnUpgrade(object pBy)		{}
+public func OnGroupUpgrade(object pBy)	{}
