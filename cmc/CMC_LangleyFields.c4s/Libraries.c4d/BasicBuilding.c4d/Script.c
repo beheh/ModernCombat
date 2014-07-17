@@ -188,26 +188,72 @@ public func ResearchUpgrade(id idUpgrade)
   SetWealth(GetOwner(), GetWealth(GetOwner())-idUpgrade->~ResearchCost());
 
   //Upgrade entwickeln
-  var effect = AddEffect("ResearchingUpgrade", this, 1, idUpgrade->~ResearchDuration(), this, 0, idUpgrade);
+  var effect = AddEffect("ResearchingUpgrade", this, 1, 1, this, 0, idUpgrade, idUpgrade->~ResearchDuration());
   OnResearchingUpgradeStart(effect, idUpgrade, idUpgrade->~ResearchDuration(), idUpgrade->~ResearchCost());
 
   return effect;
 }
 
-public func FxResearchingUpgradeStart(object pTarget, int iNr, int iTemp, id idUpgrade)
+public func FxResearchingUpgradeStart(object pTarget, int iNr, int iTemp, id idUpgrade, int iDuration)
 {
   if(iTemp)
     return;
 
   EffectVar(0, pTarget, iNr) = idUpgrade;
+  EffectVar(1, pTarget, iNr) = iDuration;
 
   //Uralte Standard Clonk-Sounds op!!1 :D
   Sound("Research", 0, this, 100, 0, +1);
   return true;
 }
 
+public func FxResearchingUpgradeTimer(object pTarget, int iNr, int iTime)
+{
+  var bar, plr;
+  var duration = EffectVar(1, pTarget, iNr);
+  var percent = iTime*100/duration;
+
+  for(var bar in FindObjects(Find_ID(SBAR), Find_ActionTarget(this), Find_Func("HasBarType", BAR_Ammobar)))
+  {
+    if(!bar)
+      continue;
+  
+    var plr = GetOwner(bar);
+    if(!FindObject2(Find_OCF(OCF_CrewMember), Find_Or(Find_Container(this), Find_ActionTarget(this)), Find_Owner(plr)))
+      RemoveObject(bar);
+  }
+
+  plr = [];
+
+  for(var obj in FindObjects(Find_OCF(OCF_CrewMember), Find_Or(Find_Container(pTarget), Find_ActionTarget(this)), Find_Allied(GetOwner(pTarget))))
+  {
+    if(GetIndexOf(GetOwner(obj), plr) == -1)
+      plr[GetLength(plr)] = GetOwner(obj);
+    else
+      continue;
+    
+    bar = FindObject2(Find_ID(SBAR), Find_ActionTarget(this), Find_Owner(GetOwner(obj)), Find_Func("HasBarType", BAR_Ammobar));
+    if(!bar)
+    {
+      bar = CreateObject(SBAR, 0, 0, GetOwner(obj));
+      bar->Set(this, RGB(30, 100, 255), BAR_Ammobar, GetObjWidth(pTarget)*1000/GetDefWidth(SBAR)/10, 0, SM12);
+    }
+
+    bar->Update(percent);
+  }
+
+  if(iTime >= duration)
+    return -1;
+  
+  return true;
+}
+
 public func FxResearchingUpgradeStop(object pTarget, int iNr)
 {
+  for(var bar in FindObjects(Find_ID(SBAR), Find_ActionTarget(this), Find_Func("HasBarType", BAR_Ammobar)))
+    if(bar)
+      RemoveObject(bar);
+
   EffectVar(0, pTarget, iNr)->Researched(pTarget);
   Sound("Research", 0, this, 100, 0, -1);
   Sound("ResearchDone", 0, this);
@@ -216,7 +262,7 @@ public func FxResearchingUpgradeStop(object pTarget, int iNr)
 }
 
 public func GetUpgradeResearchProgress()	{return GetEffect("ResearchingUpgrade", this, 0, 6);}
-public func GetUpgradeResearchDuration()	{return GetEffect("ResearchingUpgrade", this, 0, 3);}
+public func GetUpgradeResearchDuration()	{return EffectVar(0, this, GetEffect("ResearchingUpgrade", this));}
 public func IsResearchingUpgrades()		{return GetEffect("ResearchingUpgrade", this);}
 
 public func BaseUpgradesResearched(id idUpgrade)
@@ -421,7 +467,7 @@ public func OpenUpgradeMenu(id dummy, object pMenuObj)
   else
   {
     var upgradeID = EffectVar(0, this, IsResearchingUpgrades());
-    AddMenuItem(Format("$IsUpgrading$", GetName(0, upgradeID), GetUpgradeResearchProgress(), GetUpgradeResearchDuration()), 0, upgradeID, pMenuObj);
+    AddMenuItem(Format("$IsUpgrading$", GetName(0, upgradeID), GetUpgradeResearchProgress()*100/GetUpgradeResearchDuration()), 0, upgradeID, pMenuObj);
   }
 
   //Leerzeile
