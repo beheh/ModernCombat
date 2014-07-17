@@ -1,1 +1,1 @@
-Stellt Grundfunktionalitäten für Upgrades bereit.
+Schaltet für die Kaserne weitere Waffen zum Kauf frei.

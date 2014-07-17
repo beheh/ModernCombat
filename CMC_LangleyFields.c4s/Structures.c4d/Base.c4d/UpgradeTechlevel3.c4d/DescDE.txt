@@ -1,1 +1,1 @@
-Stellt Grundfunktionalitäten für Upgrades bereit.
+Schaltet den Techlevel 3 frei.
