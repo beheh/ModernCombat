@@ -1,1 +1,1 @@
-Stellt Grundfunktionalitäten für Upgrades bereit.
+Fügt einen Speicher hinzu, der für Geld verbündete Einheiten munitioniert und heilt.

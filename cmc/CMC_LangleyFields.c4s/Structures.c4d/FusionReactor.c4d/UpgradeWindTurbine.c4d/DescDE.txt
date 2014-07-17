@@ -1,1 +1,1 @@
-Stellt Grundfunktionalitäten für Upgrades bereit.
+Windanlagen generieren je nach Windstärke zusätzlichen Strom.
