@@ -362,27 +362,29 @@ public func Use(caller)
       {
         if(obj->~IsRepairable())
           if(!obj->IsNotAttackable())
-		  {
+          {
             //Feindliche Fahrzeuge beschädigen
             DoDmg(5, DMG_Fire, obj);
 
             used = true;
             charge = BoundBy(charge-1, 0, MaxEnergy());
-          } else {}
-        else
-        {
-          if(!living_dmg_cooldown)
-          {
-            //Feindliche Lebewesen verletzen
-            DoDmg(12,DMG_Fire,obj);
-
-            if(!GetAlive(obj) || IsFakeDeath(obj))
-              //Achievement-Fortschritt (I'll fix you up?)
-              DoAchievementProgress(1, AC32, GetOwner(GetUser()));
-
-            living_dmg_cooldown = 7;
           }
-			
+          else
+          {}
+          else
+          {
+            if(!living_dmg_cooldown)
+            {
+              //Feindliche Lebewesen verletzen
+              DoDmg(12,DMG_Fire,obj);
+
+              if(!GetAlive(obj) || IsFakeDeath(obj))
+                //Achievement-Fortschritt (I'll fix you up?)
+                DoAchievementProgress(1, AC32, GetOwner(GetUser()));
+
+              living_dmg_cooldown = 7;
+            }
+
           if(!Random(7))
             DamageSound();
 
@@ -402,14 +404,14 @@ public func Use(caller)
             //Achievement-Fortschritt (Wicked Engineer)
             DoAchievementProgress(2, AC33, GetOwner(Contained()));
           }
-          
+
           //Callback
           if(GetDamage(obj) == 0)
             obj->~IsFullyRepaired();
           else
             obj->~OnRepairing(this);
         }
-        
+
         if(!Hostile(GetOwner(obj), GetOwner(Contained())) && GetOwner(obj) != GetOwner(Contained()) && iRepaired++ >= 50)
         {
           //Punkte bei Belohnungssystem (Reparatur)
