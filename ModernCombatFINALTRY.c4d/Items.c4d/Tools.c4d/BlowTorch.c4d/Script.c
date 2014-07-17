@@ -358,16 +358,17 @@ public func Use(caller)
       if(obj->~IsFakeRepairable())
         obj = obj->GetRealRepairableObject();
 
-      if(Hostile(GetOwner(obj), GetOwner(caller)))
+      if(Hostile(GetOwner(obj), GetOwner(caller)) || HostileTeam(caller->~GetTeam(),obj->~GetTeam()))
       {
         if(obj->~IsRepairable())
-        {
-          //Feindliche Fahrzeuge beschädigen
-          DoDmg(5, DMG_Fire, obj);
+          if(!obj->IsNotAttackable())
+		  {
+            //Feindliche Fahrzeuge beschädigen
+            DoDmg(5, DMG_Fire, obj);
 
-          used = true;
-          charge = BoundBy(charge-1, 0, MaxEnergy());
-        }
+            used = true;
+            charge = BoundBy(charge-1, 0, MaxEnergy());
+          } else {}
         else
         {
           if(!living_dmg_cooldown)
@@ -381,6 +382,7 @@ public func Use(caller)
 
             living_dmg_cooldown = 7;
           }
+			
           if(!Random(7))
             DamageSound();
 
