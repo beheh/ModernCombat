@@ -11,7 +11,7 @@ public func IsFakeRepairable(int iPlr)
   var fAdd = GetDamage(target);
   if(Hostile(iPlr, GetOwner(target)) || HostileTeam(GetPlayerTeam(iPlr), target->~GetTeam()))
     fAdd = true;
- 
+
   return (target && target->~IsRepairable() && fAdd);
 }
 
@@ -47,7 +47,7 @@ protected func ControlDig(pClonk)
   //Sicht auf Zielobjekt zentrieren
   SetPlrView(GetController(pClonk),target);
 
-   //Menü erstellen
+  //Menü erstellen
   CreateMenu(GetID(target), pClonk, target, 0, Format("$Control$: %s", GetName(target)), 0, 1);
   for(var i = 1, desc ; desc = target->~ConsoleControl(i, pClonk, this) ; i++)
   {

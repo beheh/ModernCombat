@@ -241,6 +241,6 @@ global func HostileTeam(int iTeam1, int iTeam2)
 {
   if(iTeam1 == iTeam2 || iTeam1 == 0 || iTeam2 == 0) 
     return;
-	
+
   return 1;
 }
