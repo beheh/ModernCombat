@@ -34,6 +34,11 @@ public func AttractTracer(object pTracer)	{return GetPlayerTeam(GetController(pT
 public func RemoveTracer()			{return IsDestroyed();}			//Tracer entfernen, wenn zerstört
 public func BonusPointCondition()		{return fActive;}
 
+public func IsNotAttackable()
+{
+  if(IsRepairing() || IsDestroyed()) return 1;
+  return;
+}
 
 /* Initialisierung */
 
@@ -226,9 +231,13 @@ public func GetWeaponR()
 /* Zielerfassung und Suchbewegung */
 
 public func Activity()
-{
+{  
   //Bereitschaft prüfen: Waffe vorhanden/kein EMP-Einfluss/nicht zerstört/ist eingeschaltet/nicht am reparieren
   if(!GetAttWeapon())	return;
+  
+  //Besitzer aktualisieren
+  cur_Attachment->SetTeam(GetTeam());
+  
   if(EMPShocked())	return;
   if(IsDestroyed())	return;
   if(!fActive)		return;
@@ -242,9 +251,6 @@ public func Activity()
   }
   else if(GetAction() != "Tower")
     SetAction("Tower");
-
-  //Besitzer aktualisieren
-  cur_Attachment->SetTeam(GetTeam());
 
   //Alle 30 Frames blinken
   if(!(GetActTime()%30))
@@ -680,16 +686,17 @@ public func SoundStop()
 
 /* Konsolensteuerung */
 
-public func ConsoleControl(int i)
+public func ConsoleControl(int i, pClonk)
 {
   if(i == 1)
   {
-    if(fActive) return "$TurnOff$";
+    if(fActive) 
+	  return "$TurnOff$";
     else
-    return "$TurnOn$";
+      return "$TurnOn$";
   }
   if(i == 2)
-    if(GetAction() == "Destroyed")
+    if(GetAction() == "Destroyed" && !HostileTeam(pClonk->~GetTeam(),GetTeam()))
       return "$Repair$";
 }
 
