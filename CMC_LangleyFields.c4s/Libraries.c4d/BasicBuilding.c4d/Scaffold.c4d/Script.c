@@ -1,27 +1,34 @@
-/*-- Geruest --*/
+/*-- Gerüst --*/
 
 #strict 2
 
 local xpos, ypos, xlength, ylength;
 
-public func ConstructionTime() 
+
+/* Zeitgebung */
+
+public func ConstructionTime()
 {
   return (GetActMapVal("Length", "Construct") * GetActMapVal("Delay", "Construct"));
 }
 
-public func DestructionTime() 
+public func DestructionTime()
 {
   return (GetActMapVal("Length", "Deconstruct") * GetActMapVal("Delay", "Deconstruct"));
 }
 
 protected func StartConstruction(int iX, int iY, int iXLength, int iYLength)
 {
-  //erstmal verstecken 
+  //Anfangs unsichtbar
   SetClrModulation(RGBa(255,255,255,255));
+
+  //Position setzen
   xpos = iX;
   ypos = iY;
   xlength = iXLength;
   ylength = iYLength;
+
+  //Animation (verzögert) starten
   if(ypos)
     Schedule("Construct()",ConstructionTime()* ypos);
   else
@@ -31,12 +38,14 @@ protected func StartConstruction(int iX, int iY, int iXLength, int iYLength)
 
 protected func Construct()
 {
-  //wieder sichtbar machen
+  //Sichtbar machen
   SetClrModulation(RGBa(255,255,255,0));
-  //Aufbauaction setzen
+  //Aktion setzen
   SetAction("Construct");
   return 1;
 }
+
+/* Entfernung */
 
 protected func StartDestruction()
 {

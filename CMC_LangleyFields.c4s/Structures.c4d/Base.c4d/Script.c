@@ -27,11 +27,10 @@ protected func Construction()
 
 protected func Initialize()
 {
-  //Flagge
+  //Flagge erstellen
   flag = CreateObject(OFLG,-27,-38);
-  //notwendig, da die Flagge den Besitzer in Initialize löscht
   SetOwner(GetOwner(), flag);
-  
+
   //Effekt
   Sound("Building_BaseUp.ogg",true,0,0,GetOwner()+1);
 
@@ -44,9 +43,9 @@ public func Destroyed()
 {
   //Effekt
   Sound("Building_BaseDown.ogg",true,0,0,GetOwner()+1);
-  
-  //Flagge wegmachen
+
+  //Flagge entfernen
   RemoveObject(flag);
-  
+
   return _inherited(...);
 }
