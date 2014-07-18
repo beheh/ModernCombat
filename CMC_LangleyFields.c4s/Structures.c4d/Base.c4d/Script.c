@@ -44,6 +44,9 @@ public func Destroyed()
 {
   //Effekt
   Sound("Building_BaseDown.ogg",true,0,0,GetOwner()+1);
-
+  
+  //Flagge wegmachen
+  RemoveObject(flag);
+  
   return _inherited(...);
 }

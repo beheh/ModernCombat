@@ -35,6 +35,12 @@ protected func Initialize()
   return _inherited(...);
 }
 
+protected func Destruction()
+{
+  RemoveObject(flag);
+  return 1;
+}
+
 /* Sucheffekt */
 
 public func EnemySearchRange() {return 100;} //Suchreichweite je Richtung
