@@ -263,7 +263,7 @@ public func FxResearchingUpgradeStop(object pTarget, int iNr)
 }
 
 public func GetUpgradeResearchProgress()	{return GetEffect("ResearchingUpgrade", this, 0, 6);}
-public func GetUpgradeResearchDuration()	{return EffectVar(0, this, GetEffect("ResearchingUpgrade", this));}
+public func GetUpgradeResearchDuration()	{return EffectVar(1, this, GetEffect("ResearchingUpgrade", this));}
 public func IsResearchingUpgrades()		{return GetEffect("ResearchingUpgrade", this);}
 
 public func BaseUpgradesResearched(id idUpgrade)
