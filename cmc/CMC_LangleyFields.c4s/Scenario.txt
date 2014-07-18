@@ -58,4 +58,4 @@ Nest=FMEG=1;BEGG=1;ZAPN=1
 Wind=1,70,-100,100
 
 [Environment]
-Objects=EGLN=3;EGRS=1;TIME=10;STRS=1
+Objects=EGRS=1;TIME=10;STRS=1
