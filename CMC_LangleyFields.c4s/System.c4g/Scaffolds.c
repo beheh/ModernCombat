@@ -47,6 +47,7 @@ global func CreateBuildScaffolds(object pBuilding)
       SetObjDrawTransform(xsize,0,xpos,0,ysize,ypos,aScaffolds[x][y],0);
       aScaffolds[x][y]->AddVertex(0,((GetDefHeight()*y)/ycount)-GetYOffset(scaffoldid)+1);
       SetObjectOrder(aScaffolds[x][y],this,1);
+	  aScaffolds[x][y]->~StartConstruction(x,y,xcount-1,ycount-1);
     }
 	
   return aScaffolds;	
@@ -57,7 +58,7 @@ global func RemoveBuildScaffolds(array &aScaffolds)
   for(var aTemp in aScaffolds)
       for(var scaffold in aTemp)
         if(scaffold)
-          RemoveObject(scaffold);
+          scaffold->~StartDestruction();
   aScaffolds = 0;
   return 1;
 }

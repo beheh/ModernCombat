@@ -17,3 +17,4 @@ Length=13
 Delay=2
 Reverse=1
 Facet=64,0,64,48
+EndCall=Destruct
