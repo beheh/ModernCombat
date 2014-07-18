@@ -35,13 +35,7 @@ public func Initialize()
 {
   //potentielle Baugerüste entfernen
   if(aScaffolds)
-  {
-    for(var aTemp in aScaffolds)
-      for(var scaffold in aTemp)
-        if(scaffold)
-          RemoveObject(scaffold);
-    aScaffolds = 0;
-  }
+    RemoveBuildScaffolds(aScaffolds);
 
   var team = GetPlayerTeam(GetOwner());
   if(ProvideTechLevel())
