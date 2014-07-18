@@ -1,7 +1,7 @@
 [Action]
 Name=Ride
 Procedure=FLOAT
-Facet=0,0,56,26
+Facet=0,0,56,30
 Delay=25
 NextAction=Ride
 
@@ -21,6 +21,6 @@ Name=Wait
 Procedure=FLOAT
 Length=1
 Delay=100
-Facet=0,0,56,26
+Facet=0,0,56,30
 NextAction=Ride
 EndCall=Waiting
