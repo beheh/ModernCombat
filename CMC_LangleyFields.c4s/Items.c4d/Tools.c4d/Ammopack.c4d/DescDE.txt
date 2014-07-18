@@ -1,0 +1,3 @@
+Enthält alle möglichen Arten von Munition und regeneriert den Inhalt mit der Zeit.
+
+[Doppelgraben] um Munitionsboxen zu entnehmen. Das MTP munitioniert automatisch Verbündete in der Nähe.
