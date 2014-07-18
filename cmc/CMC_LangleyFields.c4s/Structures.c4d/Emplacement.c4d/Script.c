@@ -38,7 +38,7 @@ protected func Initialize()
 protected func Destruction()
 {
   RemoveObject(flag);
-  return 1;
+  return _inherited(...);
 }
 
 /* Sucheffekt */
