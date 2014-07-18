@@ -19,7 +19,7 @@ protected func Initialize()
   //Flagge erstellen
   flag = CreateObject(OFLG, -19, -3);
   SetOwner(GetOwner(), flag);
-  
+
   //Waffen erstellen
   CreateWeapons();
 
@@ -37,6 +37,7 @@ protected func Initialize()
 
 protected func Destruction()
 {
+  //Flagge entfernen
   RemoveObject(flag);
   return _inherited(...);
 }
@@ -48,7 +49,7 @@ public func EnemySearchRange() {return 100;} //Suchreichweite je Richtung
 public func FxSearchTargetsTimer(object pTarget, int iNr)
 {
   var wpr = mg_station1->GetAttWeapon(), wpl = mg_station2->GetAttWeapon();
-  
+
   //Munitionsstände auffüllen
   if(wpr->GetAmmo() < wpr->~GetFMData(FM_AmmoLoad))
     wpr->DoAmmo2(0, wpr->~GetFMData(FM_AmmoID), wpr->~GetFMData(FM_AmmoLoad)-wpr->GetAmmo());
@@ -60,24 +61,24 @@ public func FxSearchTargetsTimer(object pTarget, int iNr)
                             Find_Or(
                               Find_Func("IsBulletTarget",GetID(mg_station1),0,mg_station1),
                               Find_OCF(OCF_Alive)),
-		                        Sort_Distance());
-	
+                              Sort_Distance());
+
 	for(var pT in preTargets)
 	{
 	  //Schon ein Ziel gefunden?
 	  if(tl || tr)
 	    break;
-	
+
 		var ox = GetX(pT);
 		var oy = GetY(pT);
 		
 		//Befindet sich links/rechts wo schon ein gültiges Ziel ist? Dann nicht zusätzlich prüfen
 		if((tl && ox < GetX()) || (tr && ox > GetX()))
 		  continue;
-	
+
 		if(!CheckEnemy(pT, mg_station1, true))
       continue;
-	
+
 		// Pfad frei
 		if(!PathFree(GetX(),GetY(),ox,oy))
 			continue;
@@ -92,7 +93,7 @@ public func FxSearchTargetsTimer(object pTarget, int iNr)
 		else if(ox < GetX())
       tl = pT;
 	}
-	
+
 	//Linkes Geschütz starten/stoppen
 	if(tl)
 	{
@@ -101,7 +102,7 @@ public func FxSearchTargetsTimer(object pTarget, int iNr)
 	}
 	else if(wpl->IsRecharging() && !tl)
 	  wpl->StopAutoFire();
-	
+
 	//Rechtes Geschütz starten/stoppen
 	if(tr)
 	{
@@ -110,7 +111,7 @@ public func FxSearchTargetsTimer(object pTarget, int iNr)
 	}
 	else if(wpr->IsRecharging() && !tr)
 	  wpr->StopAutoFire();
-	
+
 	return true;
 }
 
@@ -124,10 +125,10 @@ public func CreateWeapons()
   mg_station2 = CreateObject(WNK2, 23, 5, GetOwner());
   mg_station2->Set(this, 0, -90, -90, -90);
   mg_station2->Arm(ACCN);
-  
+
   //Der Objektliste hinzufügen
   AddObject(mg_station1);
   AddObject(mg_station2);
-  
+
   return true;
 }

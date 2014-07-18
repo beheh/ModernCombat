@@ -3,15 +3,15 @@
 #strict 2
 
 global func CreateBuildScaffolds(object pBuilding)
-{  
+{
   if(!pBuilding)
     return;
-	
+
   var aScaffolds = [];
   var scaffoldid = pBuilding->~ScaffoldID();
   var xcount, xsize, xpos;
   var ycount, ysize, ypos;
-  
+
   if(!scaffoldid)
     scaffoldid = SFFD;
 
@@ -47,10 +47,10 @@ global func CreateBuildScaffolds(object pBuilding)
       SetObjDrawTransform(xsize,0,xpos,0,ysize,ypos,aScaffolds[x][y],0);
       aScaffolds[x][y]->AddVertex(0,((GetDefHeight()*y)/ycount)-GetYOffset(scaffoldid)+1);
       SetObjectOrder(aScaffolds[x][y],this,1);
-	  aScaffolds[x][y]->~StartConstruction(x,y,xcount-1,ycount-1);
+      aScaffolds[x][y]->~StartConstruction(x,y,xcount-1,ycount-1);
     }
-	
-  return aScaffolds;	
+
+  return aScaffolds;
 }
 
 global func RemoveBuildScaffolds(array &aScaffolds)
