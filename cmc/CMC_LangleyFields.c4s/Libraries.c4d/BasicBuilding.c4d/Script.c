@@ -729,35 +729,35 @@ public func OpenCartMenu(object pMenuObj, int iBuyOffset, int iSel, bool fButton
     }
     else
     {
-		  //Einkaufswageninhalt auflisten
-		  for(var data in cart)
-		  {
-		    AddMenuItem(GetName(0, data[0]), Format("SubFromCart(%i, Object(%d), %d, %d, \"%s\", %d)", data[0], ObjectNumber(pMenuObj), iBuyOffset, entry, szBuyMenu, iExtraBuyInfo), data[0], pMenuObj, GetCartItemAmount(data[0], plr));
-		    entry++; 
-		  }
-		  
-		  //Summe anzeigen
-		  AddMenuItem("$Total$", 0, MNYS, pMenuObj, GetCartValue(plr));
-		  fBuy = true;
-		}
+      //Einkaufswageninhalt auflisten
+      for(var data in cart)
+      {
+        AddMenuItem(GetName(0, data[0]), Format("SubFromCart(%i, Object(%d), %d, %d, \"%s\", %d)", data[0], ObjectNumber(pMenuObj), iBuyOffset, entry, szBuyMenu, iExtraBuyInfo), data[0], pMenuObj, GetCartItemAmount(data[0], plr));
+        entry++; 
+      }
+
+      //Summe anzeigen
+      AddMenuItem("$Total$", 0, MNYS, pMenuObj, GetCartValue(plr));
+      fBuy = true;
+    }
   }
-  
+
   //Leerzeile
   AddMenuItem(" ", 0, NONE, pMenuObj);
-  
+
   //Zur Kasse
   if(fBuy && GetWealth(plr) >= GetCartValue(plr))
     AddMenuItem("$ProceedToCheckout$", Format("Checkout(Object(%d), %d, true, \"%s\", %d)", ObjectNumber(pMenuObj), iBuyOffset, szBuyMenu, iExtraBuyInfo), NONE, pMenuObj);
   else
     AddMenuItem("$ProceedToCheckoutInactive$", 0, NONE, pMenuObj);
-  
+
   //Bestellung stornieren
   if(fCancelOrder)
     AddMenuItem("$CancelOrder$", Format("CancelOrder(Object(%d), %d, true, \"%s\", %d)", ObjectNumber(pMenuObj), iBuyOffset, szBuyMenu, iExtraBuyInfo), NONE, pMenuObj);
 
   //Zurück zum Kaufmenü
   AddMenuItem("$BackToBuyMenu$", Format("%s(0, Object(%d), %d, 3, %d)", szBuyMenu, ObjectNumber(pMenuObj), iBuyOffset, iExtraBuyInfo), NONE, pMenuObj);
- 
+
   //Zurück zum Hauptmenü
   AddMenuItem("$BackToMainMenu$", "OpenBuildingMenu", NONE, pMenuObj, 0, pMenuObj, "");
 
@@ -766,7 +766,7 @@ public func OpenCartMenu(object pMenuObj, int iBuyOffset, int iSel, bool fButton
     SelectMenuItem(iSel, pMenuObj);
   else
     SelectMenuItem(entry+fButton, pMenuObj);
-  
+
   return true;
 }
 
@@ -775,7 +775,7 @@ public func OpenCartMenu(object pMenuObj, int iBuyOffset, int iSel, bool fButton
 public func Checkout(object pMenuObj, int iBuyOffset, bool fButton, string szBuyMenu, int iExtraBuyInfo)
 {
   var plr = GetOwner(pMenuObj);
-  
+
   //Genug Geld?
   if(GetWealth(plr) < GetCartValue(plr))
   {
@@ -786,7 +786,7 @@ public func Checkout(object pMenuObj, int iBuyOffset, bool fButton, string szBuy
 
   //Geld abziehen
   SetWealth(plr, GetWealth(plr)-GetCartValue(plr));
-  
+
   //Sound
   Sound("Cash", 0, pMenuObj, 0, plr);
 
@@ -795,7 +795,7 @@ public func Checkout(object pMenuObj, int iBuyOffset, bool fButton, string szBuy
 
   //Zurück zum Einkaufswagen
   OpenCartMenu(pMenuObj, iBuyOffset, 0, fButton, szBuyMenu, iExtraBuyInfo);
-  
+
   return true;
 }
 
@@ -808,19 +808,19 @@ public func CancelOrder(object pMenuObj, int iBuyOffset, bool fButton, string sz
   //Ist nicht mehr in Warteschlange?
   if(FindObject(BGRL)->GetOrderQueuePosition(plr, GetID()) == -1)
     return OpenCartMenu(pMenuObj, iBuyOffset, 0, fButton, szBuyMenu, iExtraBuyInfo);
-  
+
   //Geld zurückzahlen
   SetWealth(plr, GetWealth(plr)+GetCartValue(plr));
-  
+
   //Sound
   Sound("Cash", 0, pMenuObj, 0, plr);
-  
+
   //Aus Warteschlange nehmen
   RemoveOrderFromQueue(plr);
-  
+
   //Zurück zum Einkaufswagen
   OpenCartMenu(pMenuObj, iBuyOffset, 0, fButton, szBuyMenu, iExtraBuyInfo);
-  
+
   return true;
 }
 
@@ -831,7 +831,7 @@ public func AddOrderToQueue(int iPlr, int iExtraBuyInfo)
   //Keine Warteschlange und Lieferung möglich? Sofort liefern!
   if(!FindObject(BGRL)->GetOrderQueueLength(iPlr, GetID()) && !FindObject(BGRL)->GetDeliveryCooldown(iPlr, GetID()))
     return EffectCall(FindObject(BGRL), GetBuyMenuEffect(iPlr), "Deliver", this);
-  
+
   FindObject(BGRL)->AddOrderToQueue(iPlr, GetID());
   EffectCall(FindObject(BGRL), GetBuyMenuEffect(iPlr), "AddToQueue", this, iExtraBuyInfo);
 
@@ -852,15 +852,15 @@ public func FxBuyMenuStart(object pTarget, int iNr, int iTemp, int iPlr, id idBu
 {
   if(iTemp)
     return;
-  
-  EffectVar(0, pTarget, iNr) = [];         //Einkaufswagen
-  EffectVar(1, pTarget, iNr) = iPlr;       //Spieler
-  EffectVar(2, pTarget, iNr) = idBuilding; //Gebäudetyp
-  EffectVar(3, pTarget, iNr) = [];         //aIDObjects
-  EffectVar(4, pTarget, iNr) = false;      //In Warteschlange
-  EffectVar(5, pTarget, iNr) = 0;          //Liefergebäude
-  EffectVar(6, pTarget, iNr) = 0;          //iExtraBuyInfo
-  
+
+  EffectVar(0, pTarget, iNr) = [];		//Einkaufswagen
+  EffectVar(1, pTarget, iNr) = iPlr;		//Spieler
+  EffectVar(2, pTarget, iNr) = idBuilding;	//Gebäudetyp
+  EffectVar(3, pTarget, iNr) = [];		//aIDObjects
+  EffectVar(4, pTarget, iNr) = false;		//In Warteschlange
+  EffectVar(5, pTarget, iNr) = 0;		//Liefergebäude
+  EffectVar(6, pTarget, iNr) = 0;		//iExtraBuyInfo
+
   return true;
 }
 
@@ -875,17 +875,17 @@ public func FxBuyMenuTimer(object pTarget, int iNr)
   //Kann Gebäude liefern?
   if(FindObject(BGRL)->GetDeliveryCooldown(plr, id))
     return;
-  
+
   //Befindet sich an erster Warteschlangenposition?
   if(FindObject(BGRL)->GetOrderQueuePosition(plr, id) > 0)
     return;
-  
+
   //Dann liefern
   EffectCall(pTarget, iNr, "Deliver");
-  
+
   //Aus Warteschlange entfernen
   FindObject(BGRL)->RemoveOrderFromQueue(plr, id);
-  
+
   return true;
 }
 
@@ -906,12 +906,12 @@ public func FxBuyMenuAddCart(object pTarget, int iNr, id idItem)
         cart[i][1]++;
       }
   }
-  
+
   if(!found)
     cart[GetLength(cart)] = [idItem, 1];
-  
+
   EffectVar(0, pTarget, iNr) = cart;
-  
+
   return true;
 }
 
@@ -928,15 +928,15 @@ public func FxBuyMenuSubCart(object pTarget, int iNr, id idItem)
     {
       if(data[0] == idItem)
         data[1]--;
-      
+
       if(data[1] < 1)
         continue;
-      
+
       cart2[GetLength(cart2)] = data;
     }
-  
+
   EffectVar(0, pTarget, iNr) = cart2;
-  
+
   return true;
 }
 
@@ -976,7 +976,7 @@ public func FxBuyMenuDeliver(object pTarget, int iNr, object pTargetBuilding)
     if(!target)
       return false;
   }
-  
+
   var crate, cart = EffectVar(0, pTarget, iNr), i;
   //Übernimmt Lieferungsprozess selbst?
   if(target->~SelfDeliver(cart, EffectVar(6, pTarget, iNr), plr))
@@ -1048,8 +1048,8 @@ public func FxBuyMenuDeliver(object pTarget, int iNr, object pTargetBuilding)
   return true;
 }
 
-public func SelfDeliver(array aCart, int iExtraBuyInfo, int iPlr) {}
-public func ProcessSelfDeliver(array aCart, int iExtraBuyInfo, int iPlr) {}
+public func SelfDeliver(array aCart, int iExtraBuyInfo, int iPlr)		{}
+public func ProcessSelfDeliver(array aCart, int iExtraBuyInfo, int iPlr)	{}
 
 /* Energieversorgung */
 

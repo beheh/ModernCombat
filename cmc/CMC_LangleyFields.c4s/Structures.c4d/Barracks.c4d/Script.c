@@ -229,7 +229,7 @@ public func FxAmmoStorageTimer(object pTarget, int iNr)
     //Speicher leer?
     if(!GetStorage())
       return;
-  
+
     //Pack ist nicht voll?
     if(obj->~GetPackPoints() < obj->~MaxPoints())
     {
@@ -238,7 +238,7 @@ public func FxAmmoStorageTimer(object pTarget, int iNr)
       DoStorage(-1);
     }
   }
-  
+
   return true;
 }
 
