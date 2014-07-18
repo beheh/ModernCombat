@@ -1,4 +1,4 @@
-/*-- AufbaugerÃ¼ste --*/
+/*-- Aufbaugerüste --*/
 
 #strict 2
 
@@ -15,25 +15,25 @@ global func CreateBuildScaffolds(object pBuilding)
   if(!scaffoldid)
     scaffoldid = SFFD;
 
-  //Anzahl der GerÃ¼ste in X-Richtung
+  //Anzahl der Gerüste in X-Richtung
   xcount = GetDefWidth()/GetDefWidth(scaffoldid);
-  //Ãœberstehende Pixel ermitteln
+  //Überstehende Pixel ermitteln
   xsize = GetDefWidth()%GetDefWidth(scaffoldid);
-  //Eventuell zusÃ¤tzliches GerÃ¼st einfÃ¼gen
+  //Eventuell zusätzliches Gerüst einfügen
   if(!xcount || xsize > GetDefWidth(scaffoldid)/2)
     xcount++;
-  //VergrÃ¶ÃŸerungsfaktor und neue Position berechnen
+  //Vergrößerungsfaktor und neue Position berechnen
   xsize = ((GetDefWidth()*1000)/xcount)/GetDefWidth(scaffoldid);
   xpos = GetDefWidth(scaffoldid)*xsize/2 - GetDefWidth(scaffoldid)*500;
 
-  //Anzahl der GerÃ¼ste in Y-Richtung
+  //Anzahl der Gerüste in Y-Richtung
   ycount = GetDefHeight()/GetDefHeight(scaffoldid);
-  //Ãœberstehende Pixel ermitteln
+  //Überstehende Pixel ermitteln
   ysize = GetDefHeight()%GetDefHeight(scaffoldid);
-  //Eventuell zusÃ¤tzliches GerÃ¼st einfÃ¼gen
+  //Eventuell zusätzliches Gerüst einfügen
   if(!ycount || ysize > GetDefHeight(scaffoldid)/2)
     ycount++;
-  //VergrÃ¶ÃŸerungsfaktor und neue Position berechnen
+  //Vergrößerungsfaktor und neue Position berechnen
   ysize = ((GetDefHeight()*1000)/ycount)/GetDefHeight(scaffoldid);
   ypos = -(GetDefHeight(scaffoldid)*ysize/2 - GetDefHeight(scaffoldid)*500);
 
@@ -50,4 +50,14 @@ global func CreateBuildScaffolds(object pBuilding)
     }
 	
   return aScaffolds;	
+}
+
+global func RemoveBuildScaffolds(array &aScaffolds)
+{
+  for(var aTemp in aScaffolds)
+      for(var scaffold in aTemp)
+        if(scaffold)
+          RemoveObject(scaffold);
+  aScaffolds = 0;
+  return 1;
 }
