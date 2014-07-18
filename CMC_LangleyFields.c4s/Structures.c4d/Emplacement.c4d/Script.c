@@ -4,7 +4,7 @@
 #include CCBS
 #include BT06
 
-local mg_station1, mg_station2;
+local mg_station1, mg_station2, flag;
 
 public func TechLevel()		{return TECHLEVEL_1;}	//Benötigte Techstufe
 public func RequiredEnergy()	{return 60;}		//Energieverbraucher
@@ -16,6 +16,10 @@ public func HideWeaponRack(object pTarget) {return true;} //Waffen dauerhaft uns
 
 protected func Initialize()
 {
+  //Flagge erstellen
+  flag = CreateObject(OFLG, -19, -3);
+  SetOwner(GetOwner(), flag);
+  
   //Waffen erstellen
   CreateWeapons();
 
