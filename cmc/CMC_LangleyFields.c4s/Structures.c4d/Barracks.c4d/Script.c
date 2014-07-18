@@ -81,7 +81,7 @@ public func OpenEquipmentBuyMenu(id dummy, object pMenuObj)
   var weapons = [PSTL, RVLR, SMGN, ASTR, MNGN, PPGN], weaponadd = [];
   var grenades = [FRAG, STUN, SGRN, SRBL], grenadeadd = [];
   var ammo = [ABOX, GBOX, MBOX];
-  var equipment = [BWTH, DGNN, CDBT], equipmentadd = [];
+  var equipment = [BWTH, DGNN, CDBT, AMP2, FAP2], equipmentadd = [];
   if(GetUpgrade(U_XA))
   {
     weaponadd = [RTLR, SGST, ATWN];
@@ -224,7 +224,20 @@ public func FxAmmoStorageTimer(object pTarget, int iNr)
   }
   
   //Packs auffüllen
-  //TODO
+  for(var obj in FindObjects(Find_Container(this), Find_Func("IsStaticPack")))
+  {
+    //Speicher leer?
+    if(!GetStorage())
+      return;
+  
+    //Pack ist nicht voll?
+    if(obj->~GetPackPoints() < obj->~MaxPoints())
+    {
+      //Auffüllen
+      obj->DoPackPoints(1);
+      DoStorage(-1);
+    }
+  }
   
   return true;
 }

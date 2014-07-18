@@ -2,6 +2,8 @@
 
 #strict 2
 
+public func IsStaticPack() {return true;}
+
 local fPlaced, iCOwner;
 
 public func ControlUp(object pCaller)
