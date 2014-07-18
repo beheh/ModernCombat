@@ -4,7 +4,7 @@
 
 local basement, stock;
 
-public func MaximumAmount()	{return 500;}	//Maximalanzahl in Credits
+public func MaximumAmount()	{return 1500;}	//Maximalanzahl in Credits
 
 
 /* Initalisierung */
