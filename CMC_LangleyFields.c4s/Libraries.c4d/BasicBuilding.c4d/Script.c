@@ -497,9 +497,9 @@ public func OpenUpgradeMenu(id dummy, object pMenuObj)
     for(var upgrade in aMenuUpgradeList[1])
     {
       if(!CanResearch(upgrade))
-        AddMenuItem(Format("<c ff0000>%s</c>", GetName(0, upgrade)), 0, upgrade, pMenuObj);
+        AddMenuItem(Format("<c ff0000>%s</c>", GetName(0, upgrade)), 0, upgrade, pMenuObj, upgrade->ResearchCost());
       else
-        AddMenuItem(GetName(0, upgrade), "ResearchUpgrade", upgrade, pMenuObj, 0, pMenuObj);
+        AddMenuItem(GetName(0, upgrade), "ResearchUpgrade", upgrade, pMenuObj, upgrade->ResearchCost(), pMenuObj);
     }
   }
 
