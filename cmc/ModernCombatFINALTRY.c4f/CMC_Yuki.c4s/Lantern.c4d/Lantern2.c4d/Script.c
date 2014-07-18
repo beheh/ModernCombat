@@ -69,15 +69,14 @@ private func Adjust()
 
 public func IsBulletTarget(id idBullet, object pBullet, object pShooter)
 {
-  if(!pBullet->~IsBullet())
-    return;
-  if(!unstucking)
-  {
-    speed += pBullet->GetXDir();
-    speed = BoundBy(speed,-55,55);
-    dir = BoundBy(-speed,-1,1);
-  }
-  return(1);
+  if(pBullet->~IsBullet())
+    if(!unstucking)
+    {
+      speed += pBullet->GetXDir();
+      speed = BoundBy(speed,-55,55);
+      dir = BoundBy(-speed,-1,1);
+    }
+  return;
 }
 
 public func Damage()
