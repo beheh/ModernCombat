@@ -5,13 +5,16 @@
 
 local iLastAttacker, fDestroyed;
 
-public func MaxDamage() { return 140;}
-public func IsDestroyed() { return fDestroyed; } 
+public func MaxDamage()		{return 140;}
+public func IsDestroyed()	{return fDestroyed;} 
+
+
+/* Initialisierung */
 
 public func Initialize()
 {
   iLastAttacker = -1;
-  
+
   return _inherited(...);
 }
 
