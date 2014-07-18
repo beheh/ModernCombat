@@ -1,10 +1,11 @@
-﻿/*-- Laterne --*/
+/*-- Laterne --*/
 
 #strict 2
 #include BULB
 
 local unstucking;
 
+public func IgnoreTracer()	{return true;}
 
 private func Adjust()
 {
@@ -16,7 +17,7 @@ private func Adjust()
   if(!dir)
     return;
 
-  //In Material zurückpendeln
+  //In Material zur�ckpendeln
   if(Stuck())
   {
     if(!unstucking)
@@ -68,6 +69,8 @@ private func Adjust()
 
 public func IsBulletTarget(id idBullet, object pBullet, object pShooter)
 {
+  if(!pBullet->~IsBullet())
+    return;
   if(!unstucking)
   {
     speed += pBullet->GetXDir();
