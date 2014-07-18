@@ -81,43 +81,7 @@ public func Initialize()
 
 public func Construction()
 {
-  aScaffolds = [];
-  var xcount, xsize, xpos;
-  var ycount, ysize, ypos;
-
-  //Anzahl der Gerüste in X-Richtung
-  xcount = GetDefWidth()/GetDefWidth(ScaffoldID());
-  //Überstehende Pixel ermitteln
-  xsize = GetDefWidth()%GetDefWidth(ScaffoldID());
-  //Eventuell zusätzliches Gerüst einfügen
-  if(!xcount || xsize > GetDefWidth(ScaffoldID())/2)
-    xcount++;
-  //Vergrößerungsfaktor und neue Position berechnen
-  xsize = ((GetDefWidth()*1000)/xcount)/GetDefWidth(ScaffoldID());
-  xpos = GetDefWidth(ScaffoldID())*xsize/2 - GetDefWidth(ScaffoldID())*500;
-
-  //Anzahl der Gerüste in Y-Richtung
-  ycount = GetDefHeight()/GetDefHeight(ScaffoldID());
-  //Überstehende Pixel ermitteln
-  ysize = GetDefHeight()%GetDefHeight(ScaffoldID());
-  //Eventuell zusätzliches Gerüst einfügen
-  if(!ycount || ysize > GetDefHeight(ScaffoldID())/2)
-    ycount++;
-  //Vergrößerungsfaktor und neue Position berechnen
-  ysize = ((GetDefHeight()*1000)/ycount)/GetDefHeight(ScaffoldID());
-  ypos = -(GetDefHeight(ScaffoldID())*ysize/2 - GetDefHeight(ScaffoldID())*500);
-
-  for(var x = 0; x < xcount; x++)
-    for(var y = 0; y < ycount; y++)
-    {
-      if(!aScaffolds[x])
-      aScaffolds[x] = [];
-      aScaffolds[x][y] = CreateObject(ScaffoldID(),(GetXOffset() - GetXOffset(ScaffoldID())) + (GetDefWidth()*x)/xcount,
-      													  -((GetYOffset()*GetCon())/100)-(GetDefHeight()*y)/ycount);
-      SetObjDrawTransform(xsize,0,xpos,0,ysize,ypos,aScaffolds[x][y],0);
-      aScaffolds[x][y]->AddVertex(0,((GetDefHeight()*y)/ycount)-GetYOffset(ScaffoldID())+1);
-      SetObjectOrder(aScaffolds[x][y],this,1);
-    }
+  aScaffolds = CreateBuildScaffolds(this);
 }
 
 public func AddObject(object pObj)
