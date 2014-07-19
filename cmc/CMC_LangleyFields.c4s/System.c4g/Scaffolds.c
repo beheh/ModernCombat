@@ -8,7 +8,7 @@ global func CreateBuildScaffolds(object pBuilding)
     return;
 
   var aScaffolds = [];
-  var scaffoldid = pBuilding->~ScaffoldID();
+  var scaffoldid = pBuilding->~ScaffoldID(), buildingid = GetID(pBuilding);
   var xcount, xsize, xpos;
   var ycount, ysize, ypos;
 
@@ -16,25 +16,25 @@ global func CreateBuildScaffolds(object pBuilding)
     scaffoldid = SFFD;
 
   //Anzahl der Gerüste in X-Richtung
-  xcount = GetDefWidth()/GetDefWidth(scaffoldid);
+  xcount = GetDefWidth(buildingid)/GetDefWidth(scaffoldid);
   //Überstehende Pixel ermitteln
-  xsize = GetDefWidth()%GetDefWidth(scaffoldid);
+  xsize = GetDefWidth(buildingid)%GetDefWidth(scaffoldid);
   //Eventuell zusätzliches Gerüst einfügen
   if(!xcount || xsize > GetDefWidth(scaffoldid)/2)
     xcount++;
   //Vergrößerungsfaktor und neue Position berechnen
-  xsize = ((GetDefWidth()*1000)/xcount)/GetDefWidth(scaffoldid);
+  xsize = ((GetDefWidth(buildingid)*1000)/xcount)/GetDefWidth(scaffoldid);
   xpos = GetDefWidth(scaffoldid)*xsize/2 - GetDefWidth(scaffoldid)*500;
 
   //Anzahl der Gerüste in Y-Richtung
-  ycount = GetDefHeight()/GetDefHeight(scaffoldid);
+  ycount = GetDefHeight(buildingid)/GetDefHeight(scaffoldid);
   //Überstehende Pixel ermitteln
-  ysize = GetDefHeight()%GetDefHeight(scaffoldid);
+  ysize = GetDefHeight(buildingid)%GetDefHeight(scaffoldid);
   //Eventuell zusätzliches Gerüst einfügen
   if(!ycount || ysize > GetDefHeight(scaffoldid)/2)
     ycount++;
   //Vergrößerungsfaktor und neue Position berechnen
-  ysize = ((GetDefHeight()*1000)/ycount)/GetDefHeight(scaffoldid);
+  ysize = ((GetDefHeight(buildingid)*1000)/ycount)/GetDefHeight(scaffoldid);
   ypos = -(GetDefHeight(scaffoldid)*ysize/2 - GetDefHeight(scaffoldid)*500);
 
   for(var x = 0; x < xcount; x++)
@@ -42,11 +42,11 @@ global func CreateBuildScaffolds(object pBuilding)
     {
       if(!aScaffolds[x])
       aScaffolds[x] = [];
-      aScaffolds[x][y] = CreateObject(scaffoldid,(GetXOffset() - GetXOffset(scaffoldid)) + (GetDefWidth()*x)/xcount,
-      													  -((GetYOffset()*GetCon())/100)-(GetDefHeight()*y)/ycount);
+      aScaffolds[x][y] = pBuilding->CreateObject(scaffoldid,(GetXOffset(buildingid) - GetXOffset(scaffoldid)) + (GetDefWidth(buildingid)*x)/xcount,
+      													  -((GetYOffset(buildingid)*GetCon(pBuilding))/100)-(GetDefHeight(buildingid)*y)/ycount, GetOwner(pBuilding));
       SetObjDrawTransform(xsize,0,xpos,0,ysize,ypos,aScaffolds[x][y],0);
-      aScaffolds[x][y]->AddVertex(0,((GetDefHeight()*y)/ycount)-GetYOffset(scaffoldid)+1);
-      SetObjectOrder(aScaffolds[x][y],this,1);
+      aScaffolds[x][y]->AddVertex(0,((GetDefHeight(buildingid)*y)/ycount)-GetYOffset(scaffoldid)+1);
+      SetObjectOrder(aScaffolds[x][y],pBuilding,1);
       aScaffolds[x][y]->~StartConstruction(x,y,xcount-1,ycount-1);
     }
 

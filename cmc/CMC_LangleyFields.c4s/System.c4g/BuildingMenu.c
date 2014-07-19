@@ -475,7 +475,113 @@ global func CheckBuildingRadius(int iX, int iY)
 }
 
 public func OpenRepairMenu()	{return true;}
-public func OpenSellMenu()	{return true;}
+
+/* Verkaufsmenü */
+
+public func OpenSellMenu(dummy, object pMenuObj, object pBuilding) 
+{
+  //Objekte zählen
+  var count = ObjectCount2(Find_AtPoint(), Find_Func("IsCMCBuilding"), Find_Allied(GetOwner()), Find_OCF(OCF_Fullcon), Find_Not(Find_Func("CanNotBeSold")));
+  
+  //Kein passendes Objekt gefunden
+  if(!count)
+    return PlayerMessage(GetOwner(), "$NoObjectToSell$", this);
+
+  //Gebäude überschneiden sich? Auswahlmenü öffnen
+  if(!pBuilding && count > 1)
+    return OpenSellChooseBuildingMenu();
+  
+  if(!pBuilding)
+    pBuilding = FindObject2(Find_AtPoint(), Find_Func("IsCMCBuilding"), Find_Allied(GetOwner()), Find_OCF(OCF_Fullcon), Find_Not(Find_Func("CanNotBeSold")));
+  
+  //Sicherheitsabfrage
+  CreateMenu(EFLN, this, this, 0, "$SellMenu$", 0, C4MN_Style_Context, 0, NULL);
+  
+  AddMenuItem(Format("$SellBuildingInfo$", GetName(pBuilding), GetValue(pBuilding)/2), 0, GetID(pBuilding), this);
+  AddMenuItem("$Yes$", "SellBuilding", NONE, this, 0, pBuilding, ""); //Gebäude verkaufen
+  AddMenuItem("$No$", "", NONE, this); //Menü abbrechen
+  
+  return true;
+}
+
+public func OpenSellChooseBuildingMenu(object pMenuObj)
+{
+  CreateMenu(EFLN, this, this, 0, "$SellMenu$", 0, C4MN_Style_Context, 0, NULL);
+  
+  //Gebäude auflisten
+  for(var obj in FindObjects(Find_AtPoint(), Find_Func("IsCMCBuilding"), Find_Allied(GetOwner()), Find_OCF(OCF_Fullcon)))
+    AddMenuItem(GetName(obj), Format("OpenSellMenu(0, 0, Object(%d))", ObjectNumber(obj)), GetID(obj), this, GetValue(obj)/2);
+
+  return true;
+}
+
+public func SellBuilding(dummy, object pBuilding)
+{
+  //Ersatzbehälter suchen
+  var container = FindObject2(Find_ID(GetID(pBuilding)), Find_Allied(GetOwner()), Find_Exclude(pBuilding), Find_OCF(OCF_Fullcon));
+
+  //Kein Ersatzgebäude gefunden? Dann Kiste dafür erstellen
+  if(!container)
+  {
+    container = CreateObject(SPCT, 0, 0, GetOwner());
+    container->Set(FindObject2(Find_ID(CBAS), Find_Owner(GetOwner())));
+  }
+
+  //Inhalte evakuieren
+  var content;
+  while(content = Contents(0, pBuilding))
+  {
+    //Lebewesen und Fahrzeuge rausschciken
+    if(GetCategory(content) & C4D_Living || GetCategory(content) & C4D_Vehicle)
+      content->Exit();
+    //Sonstiges in Ersatzbehälter verschieben
+    else
+      Enter(container, content);
+  }
+
+  AddEffect("AutoSell", pBuilding, 10, 1, 0, GetID(), GetOwner());
+  
+  return true;
+}
+
+public func FxAutoSellStart(object pTarget, int iNr, int iTemp, int iPlr)
+{
+  if(iTemp)
+    return;
+
+  //Gerüste aufstellen
+  EffectVar(0, pTarget, iNr) = CreateBuildScaffolds(pTarget);
+  EffectVar(1, pTarget, iNr) = iPlr;
+
+  //(Sound-)Effekte
+  
+  return true;
+}
+
+public func FxAutoSellTimer(object pTarget, int iNr)
+{
+  //Gebäudeabbau
+  DoCon(-1, pTarget);
+  
+  //Abbaueffekte
+  
+  return true;
+}
+
+public func FxAutoSellStop(object pTarget, int iNr)
+{
+  var plr = EffectVar(1, pTarget, iNr);
+
+  //Gerüste abbauen
+  RemoveBuildScaffolds(EffectVar(0, pTarget, iNr));
+  
+  //Geld zurückzahlen
+  SetWealth(plr, GetWealth(plr)+(GetValue(pTarget)/2));
+  
+  return true;
+}
+
+/* Gebäudebau starten */
 
 public func StartBuilding(id idBuilding, object pTarget, int selection)
 {

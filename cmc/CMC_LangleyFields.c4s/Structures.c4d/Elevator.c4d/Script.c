@@ -76,7 +76,7 @@ public func BuyElevatorCase(dummy, object pMenuObj)
 public func CreateCase()
 {
   //Plattform erstellen
-  case = CreateObject(CHLP, 0, GetObjHeight()/2, GetOwner());
+  case = CreateObject(CHLP, 0, GetObjHeight()/2+5, GetOwner());
   case->Set(this);
   
   //Der Objektliste hinzufügen

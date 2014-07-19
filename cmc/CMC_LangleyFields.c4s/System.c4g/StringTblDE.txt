@@ -21,3 +21,9 @@ ErrNotEnoughMoney=Nicht genügend Geld!
 ErrNotAvailable=Technikstufe nicht erforscht!
 ErrBuildingRadius=Nicht im Bauradius!
 ErrNotEnoughSpace=Nicht genügend Platz!
+
+SellMenu=Verkaufsmenü
+SellBuildingInfo=Gebäude %s wirklich für <c ffff33>%d</c> Credits verkaufen?
+Yes=Ja
+No=Nein
+NoObjectToSell=Kein Gebäude zum Verkauf gefunden!
