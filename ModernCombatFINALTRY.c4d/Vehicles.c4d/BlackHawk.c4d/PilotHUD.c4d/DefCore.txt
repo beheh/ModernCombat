@@ -9,5 +9,4 @@ Offset=-166,-108
 Picture=0,0,332,202
 Timer=1
 TimerCall=Timer
-Version=4,9,5
 BorderBound=7
