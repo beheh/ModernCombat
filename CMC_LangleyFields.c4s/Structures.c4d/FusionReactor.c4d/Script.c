@@ -28,6 +28,8 @@ protected func Construction()
 protected func Initialize()
 {
   //Effekte
+  var deco = CreateObject(CGLW,0,8,GetOwner());
+  AddObject(deco);
   AddEffect("SmokeEffects", this, 100, 26, this);
   Sound("CFRT_PowerOn.ogg");
   Sound("CFRT_Fuse.ogg",false,0,75,0,+1);
