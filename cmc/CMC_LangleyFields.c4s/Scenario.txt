@@ -9,6 +9,7 @@ Definition2=Hazard.c4d
 Definition3=ModernCombatFINALTRY.c4d
 
 [Game]
+Goals=MELE=1
 StructNeedEnergy=0
 Rules=NMTT=1;FDMG=1;FGRV=1;TKNW=1;TACC=1;NOFF=1;NOFD=1;BGRL=1
 
