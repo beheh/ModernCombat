@@ -11,7 +11,7 @@ Offset=-28,-13
 Value=10
 Mass=80
 Components=METL=1;CALU=1;
-Picture=0,0,56,26
+Picture=0,0,56,30
 SolidMask=616,0,56,30
 Vertices=5
 VertexX=-27,27,-27,27,0

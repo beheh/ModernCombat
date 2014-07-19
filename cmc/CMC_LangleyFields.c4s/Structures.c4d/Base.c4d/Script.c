@@ -4,34 +4,33 @@
 #include CCBS
 #include BT02
 
-local flag;
-
 public func TechLevel()			{return TECHLEVEL_Start;}	//Benötigte Techstufe
 public func ProvideTechLevel()		{return TECHLEVEL_1;}		//Vorhandene Techstufe
 public func IsBase()			{return true;}			//Heimatbasis
 public func NeedBuildingRadius()	{return false;}			//Benötigt keinen Bauradius
 public func BuildingRadius()		{return 400;}			//Bauradius
 public func EnergyProduction()		{return 50;}			//Energiehersteller
+public func PossibleUpgrades()		{return [U_T2, U_T3];}		//Mögliche Upgrades
 
-public func PossibleUpgrades()    {return [U_T2, U_T3];}
 
-
-/* Initalisierung */
+/* Konstruktion */
 
 protected func Construction()
 {
+  //Techlevel anpassen
   SetTeamTechLevel(GetPlayerTeam(GetOwner()), TECHLEVEL_Start, false);
 
   return _inherited(...);
 }
 
+/* Initalisierung */
+
 protected func Initialize()
 {
-  //Flagge erstellen
-  flag = CreateObject(OFLG,-27,-38);
-  SetOwner(GetOwner(), flag);
-
-  //Effekt
+  //Effekte
+  var deco = CreateObject(OFLG,-27,-38);
+  SetOwner(GetOwner(), deco);
+  AddObject(deco);
   Sound("Building_BaseUp.ogg",true,0,0,GetOwner()+1);
 
   return _inherited(...);
@@ -43,9 +42,6 @@ public func Destroyed()
 {
   //Effekt
   Sound("Building_BaseDown.ogg",true,0,0,GetOwner()+1);
-
-  //Flagge entfernen
-  RemoveObject(flag);
 
   return _inherited(...);
 }

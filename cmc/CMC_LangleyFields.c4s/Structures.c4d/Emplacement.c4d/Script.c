@@ -4,22 +4,19 @@
 #include CCBS
 #include BT06
 
-local mg_station1, mg_station2, flag;
+local mg_station1, mg_station2;
 
-public func TechLevel()		{return TECHLEVEL_1;}	//Benötigte Techstufe
-public func RequiredEnergy()	{return 60;}		//Energieverbraucher
-public func MaxDamage()		{return 200;}		//Maximaler Schadenswert bis zur Zerstörung
+public func TechLevel()				{return TECHLEVEL_1;}	//Benötigte Techstufe
+public func RequiredEnergy()			{return 60;}		//Energieverbraucher
+public func MaxDamage()				{return 200;}		//Maximaler Schadenswert bis zur Zerstörung
 
-public func HideWeaponRack(object pTarget) {return true;} //Waffen dauerhaft unsichtbar
+public func HideWeaponRack(object pTarget)	{return true;}		//Waffen dauerhaft unsichtbar
+
 
 /* Initalisierung */
 
 protected func Initialize()
 {
-  //Flagge erstellen
-  flag = CreateObject(OFLG, -19, -3);
-  SetOwner(GetOwner(), flag);
-
   //Waffen erstellen
   CreateWeapons();
 
@@ -27,6 +24,10 @@ protected func Initialize()
   AddEffect("SearchTargets", this, 1, 3, this);
 
   //Effekte
+  var deco = CreateObject(OFLG, -19, -3);
+  SetOwner(GetOwner(), deco);
+  AddObject(deco);
+
   if(HasEnergy())
     Sound("Building_PowerOn.ogg");
   else
@@ -35,16 +36,9 @@ protected func Initialize()
   return _inherited(...);
 }
 
-protected func Destruction()
-{
-  //Flagge entfernen
-  RemoveObject(flag);
-  return _inherited(...);
-}
+/* Feindsuche */
 
-/* Sucheffekt */
-
-public func EnemySearchRange() {return 100;} //Suchreichweite je Richtung
+public func EnemySearchRange()	{return 100;}	//Suchreichweite in Schussrichtung
 
 public func FxSearchTargetsTimer(object pTarget, int iNr)
 {
@@ -56,69 +50,71 @@ public func FxSearchTargetsTimer(object pTarget, int iNr)
   if(wpl->GetAmmo() < wpl->~GetFMData(FM_AmmoLoad))
     wpl->DoAmmo2(0, wpl->~GetFMData(FM_AmmoID), wpl->~GetFMData(FM_AmmoLoad)-wpl->GetAmmo());
 
+  //Ziel suchen
   var tl, tr, preTargets = FindObjects(Find_OnLine(-EnemySearchRange(), 0, EnemySearchRange(), 0), 
-                            Find_NoContainer(),
-                            Find_Or(
-                              Find_Func("IsBulletTarget",GetID(mg_station1),0,mg_station1),
-                              Find_OCF(OCF_Alive)),
-                              Sort_Distance());
+  			Find_NoContainer(),
+  			Find_Or(
+  			Find_Func("IsBulletTarget",GetID(mg_station1),0,mg_station1),
+  			Find_OCF(OCF_Alive)),
+  			Sort_Distance());
 
-	for(var pT in preTargets)
-	{
-	  //Schon ein Ziel gefunden?
-	  if(tl || tr)
-	    break;
+  for(var pT in preTargets)
+  {
+    //Ziel gefunden?
+    if(tl || tr)
+      break;
 
-		var ox = GetX(pT);
-		var oy = GetY(pT);
-		
-		//Befindet sich links/rechts wo schon ein gültiges Ziel ist? Dann nicht zusätzlich prüfen
-		if((tl && ox < GetX()) || (tr && ox > GetX()))
-		  continue;
-
-		if(!CheckEnemy(pT, mg_station1, true))
+    var ox = GetX(pT);
+    var oy = GetY(pT);
+    
+    //Befindet sich links/rechts bereits ein Ziel: Nicht zusätzlich prüfen
+    if((tl && ox < GetX()) || (tr && ox > GetX()))
       continue;
 
-		// Pfad frei
-		if(!PathFree(GetX(),GetY(),ox,oy))
-			continue;
-		
-		// unsichtbare Ziele
-		if(!CheckVisibility(pT, mg_station1))
-			continue;
-		
-		//Als linkes/rechtes Ziel festlegen
-		if(ox > GetX())
-		  tr = pT;
-		else if(ox < GetX())
+    if(!CheckEnemy(pT, mg_station1, true))
+      continue;
+
+    //Pfad frei
+    if(!PathFree(GetX(),GetY(),ox,oy))
+      continue;
+
+    //Unsichtbare Ziele
+    if(!CheckVisibility(pT, mg_station1))
+      continue;
+
+    //Als linkes/rechtes Ziel festlegen
+    if(ox > GetX())
+      tr = pT;
+    else if(ox < GetX())
       tl = pT;
-	}
+  }
 
-	//Linkes Geschütz starten/stoppen
-	if(tl)
-	{
-	  if(!wpl->IsRecharging())
-	    wpl->Fire(mg_station2);
-	}
-	else if(wpl->IsRecharging() && !tl)
-	  wpl->StopAutoFire();
+  //Linkes Geschütz starten/stoppen
+  if(tl)
+  {
+    if(!wpl->IsRecharging())
+      wpl->Fire(mg_station2);
+  }
+  else if(wpl->IsRecharging() && !tl)
+    wpl->StopAutoFire();
 
-	//Rechtes Geschütz starten/stoppen
-	if(tr)
-	{
-	  if(!wpr->IsRecharging())
-	    wpr->Fire(mg_station1);
-	}
-	else if(wpr->IsRecharging() && !tr)
-	  wpr->StopAutoFire();
+  //Rechtes Geschütz starten/stoppen
+  if(tr)
+  {
+    if(!wpr->IsRecharging())
+      wpr->Fire(mg_station1);
+  }
+  else if(wpr->IsRecharging() && !tr)
+    wpr->StopAutoFire();
 
-	return true;
+  return true;
 }
 
 /* Waffenerstellung */
 
 public func CreateWeapons()
 {
+  //Waffengestelle platzieren und ausrüsten
   mg_station1 = CreateObject(WNK2, -23, 5, GetOwner());
   mg_station1->Set(this, 0, 90, 90, 90);
   mg_station1->Arm(ACCN);
