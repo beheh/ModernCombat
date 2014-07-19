@@ -133,7 +133,7 @@ public func OpenSpecPresetMenu(id dummy, object pMenuObj, int iSelection, int iB
   AddMenuItem(" ", 0, NONE, pMenuObj);
   
   //Kann Preset nicht kaufen?
-  if(GetWealth(plr) < PresetValue(plr, iSlot) || DeliveryInQueue(plr) || !ValidPresetItems(plr, iSlot))
+  if(GetWealth(plr) < PresetValue(plr, iSlot) || DeliveryInQueue(plr))
     AddMenuItem("$NoBuySpecPreset$", 0, NONE, pMenuObj);
   else
     AddMenuItem("$GoToCart$", Format("BuyPreset(Object(%d), %d)", ObjectNumber(pMenuObj), iSlot), NONE, pMenuObj, 0, 0, "");
@@ -234,25 +234,12 @@ public func ProcessSelfDeliver(array aCart, int iExtra, int iPlr, object pTarget
 
 /* Preset Auswahlmenüs */
 
-public func ValidPresetItems(int iPlr, int iSlot)
-{
-  var preset = BuildingSystem()->GetFullPresetSlotData(iPlr, iSlot);
-  
-  //Items überhaupt kaufbar?
-  for(var def in preset)
-    if(def && !def->~IsClonk())
-      if(GetIndexOf(def, ListBuyEquipment()) == -1)
-        return false;
-  
-  return true;
-}
-
 public func ChoosePresetInventory(id idItem, object pMenuObj, int iSlot, int iInv, bool fWeapon)
 {
   var iSelection;
 
   //Kopfzeile je nach Waffe/Equipment
-  if(fWeapon)
+  if(!fWeapon)
     MenuHeader(pMenuObj, "$ChooseWeaponSlot$");
   else
     MenuHeader(pMenuObj, "$ChooseEquipmentSlot$", C4MN_Extra_Value);
@@ -260,12 +247,6 @@ public func ChoosePresetInventory(id idItem, object pMenuObj, int iSlot, int iIn
   //Kaufliste laden
   var list = ListBuyEquipment(), entry;
   var preset = BuildingSystem()->GetFullPresetSlotData(GetOwner(pMenuObj), iSlot);
-  
-  //Nicht kaufbares Item im Preset? Dann unauswählbar in die Liste setzen
-  var item = preset[iInv];
-  if(item && GetIndexOf(item, list) == -1)
-    AddMenuItem(Format("<c ff0000>%s</c>", GetName(0, item)), 0, item, pMenuObj, 1); 
-  
   for(var def in list)
   {
     if(def == idItem)
@@ -285,7 +266,7 @@ public func ChoosePresetInventory(id idItem, object pMenuObj, int iSlot, int iIn
   }
   
   //Zurück
-  AddMenuItem("$BackToPresets$", Format("OpenSpecPresetMenu(0, Object(%d), %d, 0, %d)", ObjectNumber(pMenuObj), iInv+2+!fWeapon, iSlot+1), NULL, pMenuObj, 0, 0, "");
+  AddMenuItem("$BackToPresets$", Format("OpenSpecPresetMenu(0, Object(%d), %d, 0, %d)", ObjectNumber(pMenuObj), iInv, iSlot+1), NULL, pMenuObj, 0, 0, "");
 
   SelectMenuItem(iSelection, pMenuObj);
   
@@ -366,7 +347,7 @@ public func ListBuyEquipment()
   var weapons = [PSTL, RVLR, SMGN, ASTR, MNGN, PPGN], weaponadd = [];
   var grenades = [FRAG, STUN, SGRN, SRBL], grenadeadd = [];
   var ammo = [ABOX, GBOX, MBOX];
-  var equipment = [BWTH, DGNN, CDBT, AMP2, FAP2], equipmentadd = [];
+  var equipment = [BWTH, DGNN, CDBT, AMP2, FAP2, C4P3], equipmentadd = [];
   if(GetUpgrade(U_XA))
   {
     //Erweiterte Itemlisten
