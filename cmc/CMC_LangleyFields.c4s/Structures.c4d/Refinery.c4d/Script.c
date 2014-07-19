@@ -4,7 +4,7 @@
 #include CCBS
 #include BT02
 
-local aWaypointX, aWaypointY, aMAVProgress, aMAVs, controlling;
+local aWaypointX, aWaypointY, aMAVProgress, aMAVs, controlling, fReturning;
 
 public func TechLevel()			{return TECHLEVEL_2;}	//Benötigte Techstufe
 public func ProvideTechLevel()		{return TECHLEVEL_3;}	//Vorhandene Techstufe
@@ -29,16 +29,17 @@ protected func Initialize()
   //Ressourcenverarbeitung
   AddEffect("ProcessingResource", this, 1, ProcessingInterval(), this);
 
-  aWaypointX = CreateArray();
-  aWaypointY = CreateArray();
-  aMAVProgress = CreateArray();
-  aMAVs = CreateArray();
-
-  aWaypointX[0] = GetX();
-  aWaypointY[0] = GetY();
-
-  aMAVs[0] = CreateObject(WMAV);
-  controlling = -1;
+	aWaypointX = CreateArray();
+	aWaypointY = CreateArray();
+	aMAVProgress = CreateArray();
+	aMAVs = CreateArray();
+	
+	aWaypointX[0] = GetX() + GetDefCoreVal("Collection", "DefCore", 0, 0) + GetDefCoreVal("Collection", "DefCore", 0, 2)/2;
+	aWaypointY[0] = GetY() + GetDefCoreVal("Collection", "DefCore", 0, 1) + GetDefCoreVal("Collection", "DefCore", 0, 3)/2 + GetDefCoreVal("Offset", "DefCore", WMAV, 1) - 20;
+	
+	aMAVs[0] = CreateObject(WMAV, aWaypointX[0] - GetX(), aWaypointY[0] - GetY());
+	aMAVs[0]->Start(this);
+	controlling = -1;
 
   return _inherited(...);
 }
@@ -81,17 +82,15 @@ public func AdditionalStatusMenu(object pMenuObj)
 
 public func AdditionalBuildingMenu(object pMenuObj)
 {
-  AddMenuItem("MAV steuern", "ControlMAV", WMAV, pMenuObj, 0, pMenuObj);
-  return true;
+	AddMenuItem("MAV steuern", "ControlMAV", WMAV, pMenuObj, 0, pMenuObj);
+	if(!fReturning)
+		AddMenuItem("MAVs zurückholen", "ReturnMAV", WMAV, pMenuObj, 0, pMenuObj);
+	else
+		AddMenuItem("MAVs starten", "StartMAV", WMAV, pMenuObj, 0, pMenuObj);
+	return true;
 }
 
 /* Aufnahme von Objekten */
-
-public func Collection()
-{
-  //Effekt
-  Sound("Clonk");
-}
 
 public func Collection2(object pObj)
 {
@@ -189,6 +188,42 @@ public func FxProcessingResourceTimer(object pTarget, int iNr)
   return true;
 }
 
+func StartMAV(id foo, object pByObj)
+{
+	fReturning = false;
+	for(var i = 0; i < GetLength(aMAVs); i++)
+  {
+  	if(i == controlling || !aMAVs[i] || aMAVs[i]->IsDestroyed() || aMAVs[i]->HasMoveOrder())
+  		continue;
+  		
+  	var closest = 0;
+ 		for(var j = 0; j < GetLength(aWaypointX); j++)
+ 		{
+ 			if(Distance(GetX(aMAVs[i]), GetY(aMAVs[i]), aWaypointX[j], aWaypointY[j]) < Distance(GetX(aMAVs[i]), GetY(aMAVs[i]), aWaypointX[closest], aWaypointY[closest])
+ 			&& PathFree(GetX(aMAVs[i]), GetY(aMAVs[i]), aWaypointX[j], aWaypointY[j]))
+ 				closest = j;
+ 		}
+ 		
+ 		if(aMAVs[i]->GetAction() != "Flying")
+ 			aMAVs[i]->Start(this);
+ 		
+ 		aMAVProgress[i] = closest;
+ 		aMAVs[i]->MoveTo(aWaypointX[closest], aWaypointY[closest]);
+ 	}
+  return true;
+}
+
+func ReturnMAV(id foo, object pByObj)
+{
+	fReturning = true;
+	for(var i = 0; i < GetLength(aMAVs); i++)
+			if(aMAVs[i] && !aMAVs[i]->IsDestroyed())
+			{
+				aMAVProgress[i] = -Abs(aMAVProgress[i]);
+				aMAVs[i]->MoveTo(aWaypointX[Abs(aMAVProgress[i])], aWaypointY[Abs(aMAVProgress[i])]);
+			}
+}
+
 func ControlMAV(id foo, object pByObj)
 {
 	if(controlling < 0 || !aMAVs[controlling] || aMAVs[controlling]->IsDestroyed())
@@ -204,7 +239,7 @@ func ControlMAV(id foo, object pByObj)
 			}
 		if(controlling < 0)
 		{
-			Message("Kein MAV gefunden", this);
+			PlayerMessage(GetOwner(pByObj), "Kein MAV gefunden", aMAVs[controlling]);
 			return;
 		}
 	}
@@ -225,7 +260,7 @@ func NextWaypoint(object pMAV)
 		if(i == controlling || aMAVs[i] != pMAV)
 			continue;
 		
-		if(aMAVProgress[i] < 0 && Abs(aMAVProgress[i]) == GetLength(aWaypointX))
+		if(aMAVProgress[i] == - GetLength(aWaypointX) - 1)
 		{
 			aMAVProgress[i]++;
 			return;
@@ -235,31 +270,29 @@ func NextWaypoint(object pMAV)
 		{
 			if(Distance(GetX(pMAV), GetY(pMAV), GetX(), GetY()) < 100)
 			{
-				var resource = FindContents(RSCE, pMAV);
-				if(resource)
-				{
-					Enter(this, resource);
-				}
+				if(pMAV->Carrying())
+					pMAV->Drop();
 			}
 			else
 			{
 				pMAV->MoveTo(aWaypointX[Abs(aMAVProgress[i])], aWaypointY[Abs(aMAVProgress[i])]);
 				return;
 			}
+			if(fReturning) return;
 		}
 		
 		//Distance(GetX(), GetY(), GetX(FindObject2(Find_Func("IsSupplyStock"), Find_Distance(1000, GetX(0), GetY(0)))), GetY(FindObject2(Find_Func("IsSupplyStock"), Find_Distance(1000, GetX(0), GetY(0)))))
 		aMAVProgress[i]++;
 		if(aMAVProgress[i] == GetLength(aWaypointX))
 		{
-			aMAVProgress[i] = -GetLength(aWaypointX);
-			var supply = FindObject2(Find_Func("IsSupplyStock"), Find_Distance(100, GetX(pMAV)-GetX(), GetY(pMAV)-GetY()));
+			aMAVProgress[i] = -GetLength(aWaypointX) - 1;
+			var supply = FindObject2(Find_Func("IsSupplyStock"), Find_Distance(100, GetX(pMAV)-GetX(), GetY(pMAV)-GetY()), Sort_Distance(GetX(pMAV)-GetX(), GetX(pMAV)-GetX()));
 			if(supply)
 			{
 				pMAV->MoveTo(GetX(supply), GetY(supply));
 				return;
 			}
-			else return Message("Kein Nachschublager gefunden", pMAV);
+			else return;
 		}
 		pMAV->MoveTo(aWaypointX[Abs(aMAVProgress[i])], aWaypointY[Abs(aMAVProgress[i])]);
 		break;
@@ -399,13 +432,21 @@ protected func ContainedDigDouble(object pByObj)
   
   for(var i = 0; i < GetLength(aMAVs); i++)
   {
-  	if(i == controlling || !aMAVs[controlling] || aMAVs[controlling]->IsDestroyed() || aMAVs[controlling]->HasMoveOrder())
+  	if(!aMAVs[i] || aMAVs[i]->IsDestroyed() || aMAVs[i]->HasMoveOrder())
   		continue;
  		
- 		aMAVProgress[i] = 0;
  		if(aMAVs[i]->GetAction() != "Flying")
  			aMAVs[i]->Start(this);
- 		aMAVs[i]->MoveTo(aWaypointX[0], aWaypointY[0]);
+ 		
+ 		var closest = 0;
+ 		for(var j = 0; j < GetLength(aWaypointX); j++)
+ 		{
+ 			if(Distance(GetX(aMAVs[i]), GetY(aMAVs[i]), aWaypointX[j], aWaypointY[j]) < Distance(GetX(aMAVs[i]), GetY(aMAVs[i]), aWaypointX[closest], aWaypointY[closest])
+ 			&& PathFree(GetX(aMAVs[i]), GetY(aMAVs[i]), aWaypointX[j], aWaypointY[j]))
+ 				closest = j;
+ 		}
+ 		aMAVProgress[i] = closest;
+ 		aMAVs[i]->MoveTo(aWaypointX[closest], aWaypointY[closest]);
  	}
   return true;
 }
@@ -417,6 +458,11 @@ protected func ContainedThrow(object pByObj)
 
  	aWaypointX[GetLength(aWaypointX)] = GetX(aMAVs[controlling]);
  	aWaypointY[GetLength(aWaypointY)] = GetY(aMAVs[controlling]);
- 	Message("Wegpunkt gesetzt", aMAVs[controlling]);
+
+ 	var supply = FindObject2(Find_Func("IsSupplyStock"), Find_Distance(100, GetX(aMAVs[controlling])-GetX(), GetY(aMAVs[controlling])-GetY()), Sort_Distance(GetX(aMAVs[controlling])-GetX(), GetX(aMAVs[controlling])-GetX()));
+	if(supply)
+		PlayerMessage(GetOwner(pByObj), "Wegpunkt gesetzt (Nachschublager in Reichweite)", aMAVs[controlling]);
+	else
+		PlayerMessage(GetOwner(pByObj), "Wegpunkt gesetzt", aMAVs[controlling]);
  	return true;
 }

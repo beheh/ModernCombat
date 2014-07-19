@@ -1,4 +1,4 @@
- /*--- MAV ---*/
+ /*--- Arbeits-MAV ---*/
 
 #strict 2
 #include CVHC
@@ -13,6 +13,7 @@ local iPat_Dir;
 local pMAVStation;
 local iXDest, iYDest;
 local fOutbound; //Auf dem Hinweg
+local pCarried;
 
 public func AttractTracer(object pTracer)	{return GetPlayerTeam(GetController(pTracer)) != GetTeam() && !fDestroyed;}
 public func IsDestroyed()			{return fDestroyed;}
@@ -34,11 +35,32 @@ public func IsBorderTarget()			{return true;}
 public func DenyWeaponPathFreeCheck()		{return true;}
 public func HasMoveOrder()	{return (iXDest >= 0 && iYDest >= 0);}
 public func DeleteMoveOrder()	{iXDest = -1; iYDest = -1;}
+public func Carrying()	{return pCarried;}
+
 
 public func Full()
 {
 	if(iXDest < 0 || iYDest < 0)
 		pMAVStation->NextWaypoint(this);
+		
+	if(!pCarried && Contents())
+	{
+		pCarried = Contents();
+		Exit(pCarried);
+		
+		var height = GetDefCoreVal("Height", "DefCore", GetID(pCarried));
+		// Lasten nicht in den Boden drücken
+    if (!GBackSolid(0, height))
+    {
+      SetPosition(GetX(), GetY() + (height / 2), pCarried);
+      SetYDir(-1, pCarried); // der Schwerkraft entgegenwirken
+    }
+	}
+}
+
+public func Drop()
+{
+	pCarried = 0;
 }
 
 
@@ -66,8 +88,16 @@ public func MoveTo(int iX, int iY)
 	var iXDiff = iX - GetX();
 	var iYDiff = iY - GetY();
 	
-	iXTendency = BoundBy(Sgn(iXDiff)*(iXDiff*iXDiff)/Abs(iYDiff), -iSpeed, iSpeed);
-	iYTendency = BoundBy(Sgn(iYDiff)*(iYDiff*iYDiff)/Abs(iXDiff), -iSpeed, iSpeed);
+	if(Abs(iXDiff) > Abs(iYDiff))
+	{
+		iXTendency = BoundBy(BoundBy(Sgn(iXDiff)*(iXDiff*iXDiff)/Min(1, Abs(iYDiff)), -iSpeed, iSpeed), iXDir - 1, iXDir + 1);
+		iYTendency = BoundBy((Abs(iXTendency)*iYDiff)/Abs(iXDiff), -iSpeed, iSpeed);
+	}
+	else
+	{
+		iYTendency = BoundBy(BoundBy(Sgn(iYDiff)*(iYDiff*iYDiff)/Min(1, Abs(iXDiff)), -iSpeed, iSpeed), iYDir - 1, iYDir + 1);
+		iXTendency = BoundBy((Abs(iYTendency)*iXDiff)/Abs(iYDiff), -iSpeed, iSpeed);
+	}
 	
 	//Bremsweg = iXDir * iXDir/20
 	if((iXDir * iXDir)/20 >= Abs(iXDiff))
@@ -148,6 +178,18 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
   //Bei Wasserkontakt Schaden nehmen
   if(GBackLiquid(0, 0) && (water_damage = !water_damage))
     DoDamage(1);
+  
+  if(pCarried && !Contained(pCarried))
+  {
+  	var height = GetDefCoreVal("Height", "DefCore", GetID(pCarried));
+		// Lasten nicht in den Boden drücken
+  	if (!GBackSolid(0, height))
+  	{
+    	SetPosition(GetX(), GetY() + (height / 2), pCarried);
+    	SetYDir(-1, pCarried); // der Schwerkraft entgegenwirken
+  	}
+  }
+  else pCarried = 0;
 
   if(GetAction() != "Flying") 
     return;
@@ -254,7 +296,7 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
       CreateParticle("FlashLight", 0, 4, 0, 0 , 45, rgb, this);
     }
   }
-
+	/*
   //Namensanzeige für Verbündete
   for(var first = true, iFlags, i = 0; i < GetPlayerCount(); i++)
   {
@@ -268,7 +310,7 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
       var szStr = Format("@%s (%s)", GetName(pMAVStation->GetUser()), GetPlayerName(GetOwner()));
       CustomMessage(szStr, cur_Attachment, iPlr, 0, 0, SetRGBaValue(GetPlrColorDw(GetOwner()), 128), 0, 0, iFlags);
     }
-  }
+  }*/
 
   //Schadensverhalten
   DamageChecks();
