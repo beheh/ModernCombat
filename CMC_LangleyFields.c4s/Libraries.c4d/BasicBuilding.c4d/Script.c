@@ -419,6 +419,9 @@ public func OnHit(int iDmg, int iType, object pBy)
 
 public func Destruction()
 {
+  //Verzögerter Gamecall
+  ScheduleCall(FindObject(MELE), "OnBuildingDestroyed", 1, 0, GetID());
+
   //ggf. Technikstufe zurücksetzen
   ResetTechLevel();
 
@@ -426,7 +429,7 @@ public func Destruction()
   for(var obj in aObjectList)
     if(obj)
       RemoveObject(obj);
-
+  
   return true;
 }
 
