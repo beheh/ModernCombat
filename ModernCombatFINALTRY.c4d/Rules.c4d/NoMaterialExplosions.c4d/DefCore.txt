@@ -1,6 +1,6 @@
 [DefCore]
 id=NMTX
-Version=4,9,5
+Version=4,9,10,7
 Name=No Material Explosions
 Category=C4D_StaticBack|C4D_Rule
 MaxUserSelect=1

@@ -1,5 +1,6 @@
 [DefCore]
 id=SSHL
+Version=4,9,10,7
 Name=Smoke Shell
 Category=C4D_Object
 Width=3

@@ -1,6 +1,6 @@
 [DefCore]
 id=REHR
-Version=4,9,8,2
+Version=4,9,10,7
 Name=Rope Holder
 Category=C4D_StaticBack
 Width=28

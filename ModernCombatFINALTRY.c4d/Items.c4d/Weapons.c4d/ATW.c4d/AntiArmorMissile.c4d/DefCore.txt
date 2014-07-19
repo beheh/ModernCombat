@@ -1,7 +1,7 @@
 [DefCore]
 id=AAMS
+Version=4,9,10,7
 Name=Anti Armor Missile
-Version=4,9,5
 Category=C4D_Object
 Width=4
 Height=16

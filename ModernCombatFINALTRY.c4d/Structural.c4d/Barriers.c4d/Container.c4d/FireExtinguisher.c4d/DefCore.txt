@@ -1,7 +1,7 @@
 [DefCore]
 id=FIE2
+Version=4,9,10,7
 Name=Fire Extinguisher
-Version=4,9,8,2
 Category=C4D_StaticBack
 Width=6
 Height=12

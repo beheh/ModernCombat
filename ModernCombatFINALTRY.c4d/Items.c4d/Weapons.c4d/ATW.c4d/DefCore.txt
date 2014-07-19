@@ -1,6 +1,6 @@
 [DefCore]
 id=ATWN
-Version=4,9,8,2
+Version=4,9,10,7
 Name=ATW
 Category=C4D_Object|C4D_SelectMaterial|C4D_SelectHomebase
 MaxUserSelect=10

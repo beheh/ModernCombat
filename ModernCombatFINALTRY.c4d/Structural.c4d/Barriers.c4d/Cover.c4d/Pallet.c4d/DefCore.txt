@@ -1,7 +1,7 @@
 [DefCore]
 id=PLLT
+Version=4,9,10,7
 Name=Pallet
-Version=4,9,5,0
 Category=C4D_Vehicle
 Width=60
 Height=28

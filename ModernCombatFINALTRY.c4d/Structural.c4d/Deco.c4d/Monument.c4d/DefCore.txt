@@ -1,7 +1,7 @@
 [DefCore]
 id=MUMT
+Version=4,9,10,7
 Name=Monument
-Version=4,5,9
 Category=C4D_StaticBack
 MaxUserSelect=0
 Width=110

@@ -1,8 +1,8 @@
 [DefCore]
 id=APCE
+Version=4,9,10,7
 Name=Apache
 Category=C4D_Vehicle|C4D_SelectVehicle
-Version=4,9,5
 Picture=1200,120,200,60
 Value=350
 Mass=1400

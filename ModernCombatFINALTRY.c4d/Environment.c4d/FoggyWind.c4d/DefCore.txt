@@ -1,7 +1,7 @@
 [DefCore]
 id=DOFO
+Version=4,9,10,7
 Name=Foggy Wind
-Version=4,9,5
 Category=C4D_StaticBack|C4D_Environment|C4D_MouseIgnore
 MaxUserSelect=1
 Width=1

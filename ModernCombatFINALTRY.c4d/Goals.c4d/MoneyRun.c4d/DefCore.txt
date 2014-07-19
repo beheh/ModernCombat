@@ -1,7 +1,7 @@
 [DefCore]
 id=GMNR
+Version=4,9,10,7
 Name=Money Run
-Version=4,9,10,4
 Category=C4D_Goal|C4D_StaticBack
 Width=1
 Height=1

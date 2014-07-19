@@ -1,7 +1,7 @@
 [DefCore]
 id=SBBA
+Version=4,9,10,7
 Name=Sandbag Barrier
-Version=4,9,5
 Category=C4D_Structure
 MaxUserSelect=2
 Width=32

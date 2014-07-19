@@ -1,7 +1,7 @@
 [DefCore]
 id=MNYS
+Version=4,9,10,7
 Name=Money Spawn
-Version=4,9,10,4
 Category=C4D_StaticBack
 Width=10
 Height=10

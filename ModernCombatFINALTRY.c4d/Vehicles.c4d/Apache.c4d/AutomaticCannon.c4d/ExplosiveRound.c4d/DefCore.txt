@@ -1,5 +1,6 @@
 [DefCore]
 id=ERND
+Version=4,9,10,7
 Name=Explosive Round
 Category=3600
 MaxUserSelect=10

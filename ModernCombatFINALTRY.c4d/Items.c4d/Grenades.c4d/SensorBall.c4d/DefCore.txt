@@ -1,5 +1,6 @@
 [DefCore]
 id=SRBL
+Version=4,9,10,7
 Name=Sensor Ball
 Category=C4D_Object|C4D_SelectMaterial|C4D_SelectHomebase
 MaxUserSelect=10

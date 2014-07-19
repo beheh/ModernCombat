@@ -1,7 +1,7 @@
 [DefCore]
 id=RSLH
+Version=4,9,10,7
 Name=Drawn Shield
-Version=4,9,9,0
 Category=C4D_Object
 Width=21
 Height=18

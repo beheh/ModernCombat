@@ -1,6 +1,6 @@
 [DefCore]
 id=PCMK
-Version=4,9,5
+Version=4,9,10,7
 Name=Peacemaker
 Category=C4D_Living|C4D_SelectHomebase
 MaxUserSelect=3

@@ -1,5 +1,6 @@
 [DefCore]
 id=ESHL
+Version=4,9,10,7
 Name=Explosive Shell
 Category=C4D_Object
 Width=3

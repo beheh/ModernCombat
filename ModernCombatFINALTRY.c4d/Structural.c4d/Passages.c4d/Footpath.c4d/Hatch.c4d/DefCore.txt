@@ -1,7 +1,7 @@
 [DefCore]
 id=HA4K
+Version=4,9,10,7
 Name=Hatch
-Version=4,9,5
 Category=2
 Width=26
 Height=20
