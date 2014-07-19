@@ -1,6 +1,6 @@
 [DefCore]
 id=PCK2
+Version=4,9,10,7
 Name=Pack
-Version=4,9,10,4
 Category=1
 Picture=0,0,64,64

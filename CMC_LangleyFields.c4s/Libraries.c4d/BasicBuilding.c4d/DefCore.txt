@@ -1,6 +1,6 @@
 [DefCore]
 id=CCBS
 Name=Basic Building
-Version=4,9,5
+Version=4,9,10,7
 Category=C4D_StaticBack
 Picture=0,0,64,64
