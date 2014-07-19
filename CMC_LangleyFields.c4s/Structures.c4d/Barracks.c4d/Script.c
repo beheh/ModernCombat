@@ -9,7 +9,7 @@ local aPUpgrades, iAdditionalEnergy;
 public func TechLevel()				{return TECHLEVEL_1;}		//Benötigte Techstufe
 public func BuildingRadius()			{return 200;}			//Bauradius
 public func RequiredEnergy()			{return 100;}			//Energiehersteller
-public func AdditionalRequiredEnergy()	{return iAdditionalEnergy;}	//Zusätzliche Energie
+public func AdditionalRequiredEnergy()		{return iAdditionalEnergy;}	//Zusätzliche Energie
 public func PossibleUpgrades()			{return aPUpgrades;}		//Mögliche Upgrades
 public func MaxDamage()				{return 200;}			//Maximaler Schadenswert bis zur Zerstörung
 
