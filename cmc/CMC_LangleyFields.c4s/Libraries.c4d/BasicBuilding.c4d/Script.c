@@ -24,6 +24,11 @@ public func IsDestroyed()			{return fDestroyed;}
 public func IsRepairable()			{return true;}	//Ist reparierbar
 public func BuyCategory()			{return C4D_All;}
 
+public func BombDamage() {return 502;} //Schaden, den die Gebäudebombe macht
+public func BombPlaceTime() {return 36;} //Platzierungszeit in Frames
+public func BombDefuseTime() {return 36*5;} //Entschärfungszeit in Frames
+public func BombExplodeTime() {return 36*15;} //Explosionszeit in Frames
+public func BombDefuseRadius() {return GetDefWidth();} //Entschärfungsradius von der Gebäudemitte aus
 
 /* Bauanforderungen */
 
@@ -378,7 +383,7 @@ public func Destroyed()
       DoPlayerPoints(BonusPoints("Destruction"), RWDS_BattlePoints, iLastAttacker, GetCursor(iLastAttacker), IC03);*/
 
   //Explosion
-  FakeExplode(20, iLastAttacker+1);
+  FakeExplode(50, iLastAttacker+1);
 
   //Sound
   Sound("Blast2", false, this);
@@ -1136,6 +1141,124 @@ public func FxBuyMenuDeliver(object pTarget, int iNr, object pTargetBuilding, in
 
 public func SelfDeliver(array aCart, int iExtraBuyInfo, int iPlr)		{}
 public func ProcessSelfDeliver(array aCart, int iExtraBuyInfo, int iPlr)	{}
+
+/* Bombenplatzierung */
+
+protected func FxBuildingBombStart(object pTarget, int iEffectNumber, int iTemp, var1)
+{  
+  EffectVar(0, pTarget, iEffectNumber) = var1; //Platzierer (Spieler) der Bombe
+  EffectVar(1, pTarget, iEffectNumber) = BombExplodeTime(); //Explosionszeit
+  EffectVar(2, pTarget, iEffectNumber) = 0;	  //Entschärfungszeit
+  EffectVar(3, pTarget, iEffectNumber) = 0;     //Prozentanzeige
+  EffectVar(4, pTarget, iEffectNumber) = 0;     //Prozentanzeige Defuse
+  EffectVar(5, pTarget, iEffectNumber) = 0;	  //Bombenradius
+  return 1;  
+}
+
+protected func FxBuildingBombTimer(object pTarget, int iEffectNumber, int iEffectTime)
+{
+  var defusing = 0;
+  var enemyinrange = 0;
+  var bombteam = GetPlayerTeam(EffectVar(0, pTarget, iEffectNumber));
+  for(var clonk in FindObjects(Find_Distance(BombDefuseRadius()), Find_OCF(OCF_CrewMember | OCF_Alive), Find_NoContainer()))
+    if(GetPlayerTeam(GetOwner()) == GetPlayerTeam(GetOwner(clonk)))
+	  defusing = 1;
+	else
+	  if(HostileTeam(GetPlayerTeam(GetOwner()), GetPlayerTeam(GetOwner(clonk))))
+	    enemyinrange = 1;
+	  
+  var explodetime = EffectVar(1, pTarget, iEffectNumber);
+  var defusetime = EffectVar(2, pTarget, iEffectNumber);
+  var bar = EffectVar(3, pTarget, iEffectNumber);
+  var bar2 = EffectVar(4, pTarget, iEffectNumber);
+  var radius = EffectVar(5, pTarget, iEffectNumber);
+  
+  //wenn kein Entschärfer in der Nähe war,
+  //Zeit zurücksetzen und weiterrunterzählen
+  if(!defusing)
+  {
+    defusetime = 0;
+	explodetime--;
+	if(radius)
+	  RemoveObject(radius);
+	if(bar2)
+	  RemoveObject(bar2);
+  }
+  else
+  {
+    //erhöhen, wenn keine Feinde in der Nähe
+	if(!enemyinrange)
+	  defusetime++;
+	//und Kreis anzeigen
+    //if(!radius)
+    //  radius = ShowBombRadius(this);
+		
+	//Defusebar	
+    if(!bar2)
+    {
+      bar2 = CreateObject(SBAR, 0, GetDefHeight(SBAR), -1);
+      bar2->Set(this, RGB(30, 100, 255), BAR_AssaultBar, GetDefWidth()*1000/GetDefWidth(SBAR)/10);
+    }
+    bar2->Update(((BombDefuseTime() - defusetime)*100)/BombDefuseTime());
+  }	  
+	
+  //schon explodiert? 
+  if(explodetime <= 0)
+  {
+    DecoExplode(50,CreateObject(ROCK));
+	DoDmg(BombDamage());
+    return -1;
+  }
+  //schon entschärft?
+  if(defusetime >= BombDefuseTime())
+    return -1;
+	
+  if(!bar)
+  {
+    bar = CreateObject(SBAR, 0, 0, -1);
+    bar->Set(this, RGB(255, 100, 30), BAR_AssaultBar, GetDefWidth()*1000/GetDefWidth(SBAR)/10, 0, SM19);
+  }
+  bar->Update((explodetime*100)/BombExplodeTime());
+  
+  EffectVar(1, pTarget, iEffectNumber) = explodetime;
+  EffectVar(2, pTarget, iEffectNumber) = defusetime;
+  EffectVar(3, pTarget, iEffectNumber) = bar;
+  EffectVar(4, pTarget, iEffectNumber) = bar2;
+  EffectVar(5, pTarget, iEffectNumber) = radius;
+  return 1;
+}
+
+protected func FxBuildingBombStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)
+{  
+  var bar = EffectVar(3, pTarget, iEffectNumber);
+  var bar2 = EffectVar(4, pTarget, iEffectNumber);
+  var radius = EffectVar(5, pTarget, iEffectNumber);
+  
+  if(bar) RemoveObject(bar);
+  if(bar2) RemoveObject(bar2);
+  if(radius) RemoveObject(radius);
+  
+  return 1;
+}
+
+/* Umkreis-Effekt */
+
+protected func ShowBombRadius(object pTarget)
+{
+  //Kreis-Symbol erstellen
+  var obj = CreateObject(SM09, 0, 0, -1);
+  obj->Set(pTarget);
+
+  //Symbolgröße anpassen
+  var wdt = BombDefuseRadius() * 2000 / GetDefWidth(SM09);
+
+  //Symbol konfigurieren
+  obj->SetObjDrawTransform(wdt, 0, 0, 0, wdt, 0);
+  obj->SetGraphics("Big");
+  obj->SetColorDw(RGB(255,0,0));
+
+  return obj;
+}
 
 /* Energieversorgung */
 
