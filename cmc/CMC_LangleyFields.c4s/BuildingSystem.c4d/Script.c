@@ -2,7 +2,7 @@
 
 #strict 2
 
-local aTechLevels, aTeamUpgrades, aTeamResources, aOrders;
+local aTechLevels, aTeamUpgrades, aTeamResources, aOrders, aPresets;
 
 
 /* Auswahlmenü */
@@ -20,6 +20,7 @@ public func Initialize()
   aTeamUpgrades = [];
   aTeamResources = [];
   aOrders = [];
+  aPresets = [];
   AddEffect("EnergyManagement", this, 1, 36, this);
   return true;
 }
@@ -31,7 +32,110 @@ public func InitializePlayer(int iPlr)
     aTechLevels[GetPlayerTeam(iPlr)] = TECHLEVEL_Start;
 
   SetWealth(iPlr, 2000/*0x7FFFFFFF*/);
+  LoadPresets(iPlr);
   return true;
+}
+
+/* Presets (Kaserne) */
+
+public func MaxSlotCount() { return 3; } //Maximale Anzahl an Presets (jeweils 6 ExtraData Slots)
+
+public func LoadPresets(int iPlr)
+{
+  //Einzelne Presets laden
+  var presets = [];
+  for(var i = 0; i < MaxSlotCount(); i++)
+    presets[i] = LoadPresetSlot(iPlr, i);
+
+  aPresets[GetPlayerID(iPlr)] = presets;
+  return true;
+}
+
+public func LoadPresetSlot(int iPlr, int iSlot)
+{
+  var preset = [];
+
+  preset[0] = GetPlrExtraData(iPlr, Format("CMC_Preset%d_Clonk", iSlot));
+  
+  //Muss Clonk sien
+  if(preset[0] && !preset[0]->~IsClonk())
+    preset[0] = 0;
+  
+  //Presetdaten sammeln und auf Richtigkeit überprüfen
+  preset[1] = ValidPresetInvData(GetPlrExtraData(iPlr, Format("CMC_Preset%d_Inv1", iSlot)), preset);
+  preset[2] = ValidPresetInvData(GetPlrExtraData(iPlr, Format("CMC_Preset%d_Inv2", iSlot)), preset);
+  preset[3] = ValidPresetInvData(GetPlrExtraData(iPlr, Format("CMC_Preset%d_Inv3", iSlot)), preset);
+  preset[4] = ValidPresetInvData(GetPlrExtraData(iPlr, Format("CMC_Preset%d_Inv4", iSlot)), preset);
+  preset[5] = ValidPresetInvData(GetPlrExtraData(iPlr, Format("CMC_Preset%d_Inv5", iSlot)), preset);
+
+  return preset;
+}
+
+public func ValidPresetInvData(id data, array aPreset)
+{
+  //Keine Daten
+  if(!data)
+    return;
+  
+  //Nur Ausrüstungsgegenstände oder Waffen
+  if(!data->~IsEquipment() && !data->~IsWeapon())
+    return;
+  
+  //Wird schon im Preset benutzt
+  if(GetIndexOf(data, aPreset) != -1)
+    return;
+
+  return data;
+}
+
+public func SavePresets(int iPlr)
+{
+  //Einzelne Presets speichern
+  for(var i = 0; i < MaxSlotCount(); i++)
+    SavePresetSlot(iPlr, i);
+  
+  return true;
+}
+
+public func SavePresetSlot(int iPlr, int iSlot)
+{
+  var preset = aPresets[GetPlayerID(iPlr)][iSlot];
+  
+  //Einzelne Preset-Daten abspeichern
+  SetPlrExtraData(iPlr, Format("CMC_Preset%d_Clonk", iSlot), preset[0]);
+  
+  //Inventar
+  SetPlrExtraData(iPlr, Format("CMC_Preset%d_Inv1", iSlot), preset[1]);
+  SetPlrExtraData(iPlr, Format("CMC_Preset%d_Inv2", iSlot), preset[2]);
+  SetPlrExtraData(iPlr, Format("CMC_Preset%d_Inv3", iSlot), preset[3]);
+  SetPlrExtraData(iPlr, Format("CMC_Preset%d_Inv4", iSlot), preset[4]);
+  SetPlrExtraData(iPlr, Format("CMC_Preset%d_Inv5", iSlot), preset[5]);
+  
+  //Fertig
+  return true;
+}
+
+static const CPRESET_Clonk = 0;
+static const CPRESET_Inv1 = 1;
+static const CPRESET_Inv2 = 2;
+static const CPRESET_Inv3 = 3;
+static const CPRESET_Inv4 = 4;
+static const CPRESET_Inv5 = 5;
+
+public func GetPresetData(int iPlr, int iSlot, int iData)
+{
+  var preset = aPresets[GetPlayerID(iPlr)][iSlot];
+  return preset[iData];
+}
+
+public func GetFullPresetSlotData(int iPlr, int iSlot)
+{
+  return aPresets[GetPlayerID(iPlr)][iSlot];
+}
+
+public func SetPresetData(int iPlr, int iSlot, int iData, id idNew)
+{
+  return aPresets[GetPlayerID(iPlr)][iSlot][iData] = idNew;
 }
 
 /* Energieverwaltung */
