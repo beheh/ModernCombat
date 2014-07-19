@@ -29,16 +29,16 @@ protected func Initialize()
   //Ressourcenverarbeitung
   AddEffect("ProcessingResource", this, 1, ProcessingInterval(), this);
 
-	aWaypointX = CreateArray();
-	aWaypointY = CreateArray();
-	aMAVProgress = CreateArray();
-	aMAVs = CreateArray();
-	
-	aWaypointX[0] = GetX();
-	aWaypointY[0] = GetY();
-	
-	aMAVs[0] = CreateObject(WMAV);
-	controlling = -1;
+  aWaypointX = CreateArray();
+  aWaypointY = CreateArray();
+  aMAVProgress = CreateArray();
+  aMAVs = CreateArray();
+
+  aWaypointX[0] = GetX();
+  aWaypointY[0] = GetY();
+
+  aMAVs[0] = CreateObject(WMAV);
+  controlling = -1;
 
   return _inherited(...);
 }
@@ -81,11 +81,17 @@ public func AdditionalStatusMenu(object pMenuObj)
 
 public func AdditionalBuildingMenu(object pMenuObj)
 {
-	AddMenuItem("MAV steuern", "ControlMAV", WMAV, pMenuObj, 0, pMenuObj);
-	return true;
+  AddMenuItem("MAV steuern", "ControlMAV", WMAV, pMenuObj, 0, pMenuObj);
+  return true;
 }
 
 /* Aufnahme von Objekten */
+
+public func Collection()
+{
+  //Effekt
+  Sound("Clonk");
+}
 
 public func Collection2(object pObj)
 {
