@@ -19,7 +19,7 @@ public func MaxDamage()				{return 200;}			//Maximaler Schadenswert bis zur Zers
 
 protected func Construction()
 {
-  aPUpgrades = [U_FR, U_SP, U_WA, U_WT];
+  aPUpgrades = [U_FR, U_SP, U_WT];
   return _inherited(...);
 }
 
