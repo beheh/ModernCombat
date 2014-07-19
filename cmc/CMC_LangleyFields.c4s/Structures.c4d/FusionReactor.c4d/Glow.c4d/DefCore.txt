@@ -1,0 +1,10 @@
+[DefCore]
+id=CGLW
+Name=Glow
+Category=C4D_Vehicle|C4D_MouseIgnore
+Width=94
+Height=18
+Offset=-47,-9
+Picture=0,0,94,18
+NoSell=1
+NoGet=1

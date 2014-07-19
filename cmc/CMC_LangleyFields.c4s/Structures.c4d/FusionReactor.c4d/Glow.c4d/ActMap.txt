@@ -1,0 +1,16 @@
+[Action]
+Name=Glowing
+Procedure=FLOAT
+Length=10
+Delay=8
+Facet=0,0,94,18
+NextAction=RevGlowing
+
+[Action]
+Name=RevGlowing
+Procedure=FLOAT
+Length=10
+Delay=8
+Facet=0,0,94,18
+NextAction=Glowing
+Reverse=1
