@@ -1,5 +1,6 @@
 [DefCore]
 id=SYSK
+Version=4,9,10,7
 Name=Supply Stock
 Category=C4D_Structure
 Width=100

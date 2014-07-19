@@ -1,5 +1,6 @@
 [DefCore]
 id=CBCS
+Version=4,9,10,7
 Name=Barracks
 Category=C4D_Structure|C4D_SelectBuilding|C4D_SelectKnowledge
 MaxUserSelect=5

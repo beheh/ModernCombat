@@ -1,5 +1,6 @@
 [DefCore]
 id=CFRT
+Version=4,9,10,7
 Name=Fusion Reactor
 Category=C4D_Structure|C4D_SelectBuilding|C4D_SelectKnowledge
 MaxUserSelect=5

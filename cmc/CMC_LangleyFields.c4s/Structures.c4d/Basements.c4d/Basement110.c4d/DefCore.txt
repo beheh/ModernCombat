@@ -1,5 +1,6 @@
 [DefCore]
 id=BT03
+Version=4,9,10,7
 Name=Basement
 Category=C4D_Structure
 Width=110

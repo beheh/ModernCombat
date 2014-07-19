@@ -1,7 +1,7 @@
 [DefCore]
 id=CHLP
 Name=Platform
-Version=4,9,1,4
+Version=4,9,10,7
 Category=4
 TimerCall=Activity
 Timer=20

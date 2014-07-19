@@ -1,6 +1,6 @@
 [DefCore]
 id=RSCE
-Version=4,9,8,2
+Version=4,9,10,7
 Name=Ressource
 Category=C4D_Object|C4D_SelectMaterial
 MaxUserSelect=5
