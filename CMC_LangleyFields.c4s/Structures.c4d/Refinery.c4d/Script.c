@@ -35,9 +35,9 @@ protected func Initialize()
 	aMAVs = CreateArray();
 	
 	aWaypointX[0] = GetX() + GetDefCoreVal("Collection", "DefCore", 0, 0) + GetDefCoreVal("Collection", "DefCore", 0, 2)/2;
-	aWaypointY[0] = GetY() + GetDefCoreVal("Collection", "DefCore", 0, 1) + GetDefCoreVal("Collection", "DefCore", 0, 3)/2 + GetDefCoreVal("Offset", "DefCore", WMAV, 1) - 20;
+	aWaypointY[0] = GetY() + GetDefCoreVal("Collection", "DefCore", 0, 1) + GetDefCoreVal("Collection", "DefCore", 0, 3)/2 + GetDefCoreVal("Offset", "DefCore", CMAV, 1) - 20;
 	
-	aMAVs[0] = CreateObject(WMAV, aWaypointX[0] - GetX(), aWaypointY[0] - GetY());
+	aMAVs[0] = CreateObject(CMAV, aWaypointX[0] - GetX(), aWaypointY[0] - GetY());
 	aMAVs[0]->Start(this);
 	controlling = -1;
 
@@ -82,11 +82,11 @@ public func AdditionalStatusMenu(object pMenuObj)
 
 public func AdditionalBuildingMenu(object pMenuObj)
 {
-	AddMenuItem("MAV steuern", "ControlMAV", WMAV, pMenuObj, 0, pMenuObj);
+	AddMenuItem("MAV steuern", "ControlMAV", CMAV, pMenuObj, 0, pMenuObj);
 	if(!fReturning)
-		AddMenuItem("MAVs zurückholen", "ReturnMAV", WMAV, pMenuObj, 0, pMenuObj);
+		AddMenuItem("MAVs zurückholen", "ReturnMAV", CMAV, pMenuObj, 0, pMenuObj);
 	else
-		AddMenuItem("MAVs starten", "StartMAV", WMAV, pMenuObj, 0, pMenuObj);
+		AddMenuItem("MAVs starten", "StartMAV", CMAV, pMenuObj, 0, pMenuObj);
 	return true;
 }
 
