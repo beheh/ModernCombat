@@ -67,6 +67,9 @@ public func Initialize()
 
   if(!aObjectList)
     aObjectList = [];
+  
+  //Effekt zum Anzeigen der Gebäudebalken
+  AddEffect("ShowHealthBar", this, 100, 3, this);
 
   return true;
 }
@@ -259,6 +262,55 @@ public func GetUpgrade(id idUpgrade)
 public func GetUpgradeList()									{return aUpgradeList;}
 public func OnResearchingUpgradeStart(int iEffect, id idUpgrade, int iDuration, int iCost)	{return;}
 public func FurtherUpgradeConditions(id idUpgrade, int iDuration, int iCost)			{return true;}
+
+/* Energiebalken */
+
+public func FxShowHealthBarTimer(object pTarget, int iNr)
+{
+  var bar, plr;
+  var percent = 100-(GetDamage()*100/MaxDamage());
+
+  //Wenn Clonk nicht Gebäude anfässt/im Gebäude ist, Balken löschen
+  for(var bar in FindObjects(Find_ID(SBAR), Find_Or(Find_Container(this), Find_ActionTarget(this)), Find_Func("HasBarType", BAR_Energybar)))
+  {
+    if(!bar)
+      continue;
+  
+    var plr = GetOwner(bar);
+    if(!FindObject2(Find_OCF(OCF_CrewMember), Find_Or(Find_Container(this), Find_And(Find_ActionTarget(this), Find_Action("Push"))), Find_Owner(plr)))
+      RemoveObject(bar);
+  }
+
+  plr = [];
+  
+  //Falls Clonk im Gebäude ist/es anfässt
+  for(var obj in FindObjects(Find_OCF(OCF_CrewMember), Find_Or(Find_Container(this), Find_ActionTarget(this)), Find_Allied(GetOwner(pTarget))))
+  {
+    if(GetActionTarget(0, obj) == this && GetProcedure(obj) != "PUSH" && Contained(obj) != this)
+      continue;
+  
+    //Balken für den Spieler wurde schon aktualisiert
+    if(GetIndexOf(GetOwner(obj), plr) == -1)
+      plr[GetLength(plr)] = GetOwner(obj);
+    else
+      continue;
+    
+    //Zugehörigen Balken suchen
+    bar = FindObject2(Find_ID(SBAR), Find_Or(Find_Container(this), Find_ActionTarget(this)), Find_Owner(GetOwner(obj)), Find_Func("HasBarType", BAR_Energybar));
+    
+    //Ansonsten neu erstellen
+    if(!bar)
+    {
+      bar = CreateObject(SBAR, 0, 0, GetOwner(obj));
+      bar->Set(this, RGB(235, 60, 60), BAR_Energybar, GetObjWidth(pTarget)*1000/GetDefWidth(SBAR)/10, 0, SM13);
+    }
+
+    //Schadensanzeige updaten
+    bar->Update(percent);
+  }
+  
+  return true;
+}
 
 /* Schaden */
 
