@@ -1,7 +1,7 @@
 [DefCore]
 id=XBRL
+Version=4,9,10,7
 Name=Explosive Barrel
-Version=4,9,5,0
 Category=C4D_Vehicle
 Width=10
 Height=16

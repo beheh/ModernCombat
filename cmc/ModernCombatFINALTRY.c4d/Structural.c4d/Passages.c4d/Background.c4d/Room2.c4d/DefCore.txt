@@ -1,5 +1,6 @@
 [DefCore]
 id=ROM2
+Version=4,9,10,7
 Name=Room
 Category=1
 Width=14

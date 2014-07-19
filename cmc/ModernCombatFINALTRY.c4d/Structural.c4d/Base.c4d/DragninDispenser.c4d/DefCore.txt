@@ -1,6 +1,6 @@
 [DefCore]
 id=DGND
-Version=4,9,8,2
+Version=4,9,10,7
 Name=Dragnin Dispenser
 Category=C4D_Vehicle
 MaxUserSelect=1

@@ -1,6 +1,6 @@
 [DefCore]
 id=RG21
-Version=4,9,5
+Version=4,9,10,7
 Category=C4D_StaticBack
 Width=502
 Height=143

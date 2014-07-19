@@ -1,6 +1,6 @@
 [DefCore]
 id=MVSN
-Version=4,9,8,2
+Version=4,9,10,7
 Name=MAV Station
 Category=C4D_Structure
 Width=24

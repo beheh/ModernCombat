@@ -1,6 +1,6 @@
 [DefCore]
 id=SM14
-Version=4,9,5
+Version=4,9,10,7
 Name=Symbol
 Category=C4D_StaticBack
 Width=24

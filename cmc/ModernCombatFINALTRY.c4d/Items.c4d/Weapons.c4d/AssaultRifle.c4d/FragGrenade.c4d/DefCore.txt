@@ -1,5 +1,6 @@
 [DefCore]
 id=FSHL
+Version=4,9,10,7
 Name=Fragmentation Shell
 Category=C4D_Object
 Width=3

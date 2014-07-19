@@ -1,7 +1,7 @@
 [DefCore]
 id=BBTP
+Version=4,9,10,7
 Name=Booby Trap
-Version=4,9,5
 Category=C4D_Object
 Width=8
 Height=8

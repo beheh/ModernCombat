@@ -1,7 +1,7 @@
 [DefCore]
 id=AC05
+Version=4,9,10,7
 Name=Don't tase me Bro
-Version=4,9,5
 Category=C4D_StaticBack
 Width=502
 Height=143

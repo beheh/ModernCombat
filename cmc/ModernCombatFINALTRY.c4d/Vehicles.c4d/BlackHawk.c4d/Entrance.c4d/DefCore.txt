@@ -1,7 +1,7 @@
 [DefCore]
 id=ENTR
+Version=4,9,10,7
 Name=Entrance
-Version=4,9,5
 Category=C4D_Vehicle
 Width=60
 Height=40

@@ -1,6 +1,6 @@
 [DefCore]
 id=BPBT
-Version=4,9,8
+Version=4,9,10,7
 Name=Burned Patrol Boat
 Category=C4D_Vehicle
 MaxUserSelect=2

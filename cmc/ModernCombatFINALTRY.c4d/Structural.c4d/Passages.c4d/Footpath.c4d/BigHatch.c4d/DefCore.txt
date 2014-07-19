@@ -1,7 +1,7 @@
 [DefCore]
 id=H24K
+Version=4,9,10,7
 Name=Big Hatch
-Version=4,9,5
 Category=2
 Width=30
 Height=30

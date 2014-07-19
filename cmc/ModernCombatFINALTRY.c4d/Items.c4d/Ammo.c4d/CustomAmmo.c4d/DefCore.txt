@@ -1,5 +1,6 @@
 [DefCore]
 id=CUAM
+Version=4,9,10,7
 Name=Custom Ammo Box
 Category=C4D_Object
 Width=14

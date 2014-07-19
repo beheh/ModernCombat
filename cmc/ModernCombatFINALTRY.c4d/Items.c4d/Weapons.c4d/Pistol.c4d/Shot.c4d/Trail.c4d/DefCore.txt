@@ -1,6 +1,6 @@
 [DefCore]
 id=TRLX
-Version=4,9,8,2
+Version=4,9,10,7
 Name=Trail
 Category=C4D_Vehicle
 Width=2

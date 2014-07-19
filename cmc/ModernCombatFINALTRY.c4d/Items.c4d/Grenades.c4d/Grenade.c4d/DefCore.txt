@@ -1,5 +1,6 @@
 [DefCore]
 id=NADE
+Version=4,9,10,7
 Name=Grenade
 Category=1
 Picture=0,0,64,64

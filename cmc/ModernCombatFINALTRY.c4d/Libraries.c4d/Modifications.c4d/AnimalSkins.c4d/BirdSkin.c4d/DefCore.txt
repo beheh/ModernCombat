@@ -1,6 +1,6 @@
 [DefCore]
 id=BRSN
-Version=4,9,8
+Version=4,9,10,7
 Name=Bird Skin
 Category=C4D_Vehicle|C4D_SelectVehicle
 Width=128

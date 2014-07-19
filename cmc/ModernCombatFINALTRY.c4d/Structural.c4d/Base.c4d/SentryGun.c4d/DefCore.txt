@@ -1,6 +1,6 @@
 [DefCore]
 id=SEGU
-Version=4,9,8,2
+Version=4,9,10,7
 Name=Sentry Gun
 Category=C4D_Object
 Timer=1

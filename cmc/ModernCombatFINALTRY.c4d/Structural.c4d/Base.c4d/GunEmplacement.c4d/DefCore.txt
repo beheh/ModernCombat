@@ -1,6 +1,6 @@
 [DefCore]
 id=GNET
-Version=4,9,8,2
+Version=4,9,10,7
 Name=Gun Emplacement
 Category=C4D_Structure
 Width=32

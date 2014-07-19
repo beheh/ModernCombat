@@ -1,6 +1,6 @@
 [DefCore]
 id=SM13
-Version=4,9,5
+Version=4,9,10,7
 Name=Symbol
 Category=1
 Width=32

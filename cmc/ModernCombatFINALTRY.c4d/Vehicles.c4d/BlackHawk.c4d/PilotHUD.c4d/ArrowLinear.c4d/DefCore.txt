@@ -1,5 +1,6 @@
 [DefCore]
 id=BARW
+Version=4,9,10,7
 Name=Arrow
 Category=C4D_StaticBack|C4D_Foreground|C4D_MouseIgnore|C4D_IgnoreFoW
 Width=36

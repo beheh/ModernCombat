@@ -1,7 +1,7 @@
 [DefCore]
 id=PSPR
+Version=4,9,10,7
 Name=Phosphor
-Version=4,9,5
 Category=4
 Width=4
 Height=4

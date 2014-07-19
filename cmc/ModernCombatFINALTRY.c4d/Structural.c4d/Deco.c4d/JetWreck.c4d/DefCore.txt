@@ -1,7 +1,7 @@
 [DefCore]
 id=_JW1
+Version=4,9,10,7
 Name=JetWreck
-Version=4,9,5,0
 Category=C4D_Vehicle
 Width=64
 Height=18

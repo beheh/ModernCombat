@@ -1,6 +1,6 @@
 [DefCore]
 id=VGMN
-Version=4,9,8,2
+Version=4,9,10,7
 Name=Vending Machine
 Category=C4D_Structure
 Width=30
