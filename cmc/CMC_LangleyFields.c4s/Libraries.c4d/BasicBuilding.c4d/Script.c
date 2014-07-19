@@ -91,6 +91,30 @@ public func AddObject(object pObj)
   return true;
 }
 
+/* Eingangskontrolle */
+
+protected func ActivateEntrance(object pObj)
+{
+  //Objekt kann nicht eintreten wenn am hangeln, klettern oder in der Luft
+  if(GetProcedure(pObj) == "FLIGHT" || GetProcedure(pObj) == "HANGLE" || GetProcedure(pObj) == "SCALE" || GetProcedure(pObj) == "KNEEL")
+    return false;
+
+  //kann nicht eintreten, wenn Feind
+  if(Hostile(GetOwner(), GetOwner(pObj)) || HostileTeam(GetPlayerTeam(GetOwner()), GetPlayerTeam(GetOwner(pObj))))
+    return false;
+	
+  return _inherited(pObj, ...);
+}
+
+protected func RejectCollect(id objID, object pObj)
+{ 
+  //kann nicht eintreten, wenn Feind
+  if(Hostile(GetOwner(), GetOwner(pObj)) || HostileTeam(GetPlayerTeam(GetOwner()), GetPlayerTeam(GetOwner(pObj))))
+    return true;
+	
+  return false;
+}
+
 /* Techlevels */
 
 public func CheckProvideTechLevel(int iLevel)	{return ProvideTechLevel() == iLevel;}
