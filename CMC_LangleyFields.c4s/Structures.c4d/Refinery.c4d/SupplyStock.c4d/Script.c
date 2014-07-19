@@ -5,7 +5,7 @@
 local basement, stock;
 
 public func MaximumAmount()	{return 1500;}	//Maximalanzahl in Credits
-public func IsSupplyStock()	{return true;}  //Ist Nachschublager
+public func IsSupplyStock()	{return true;}	//Ist Nachschublager
 
 
 /* Initalisierung */
@@ -160,7 +160,7 @@ public func FxResourceStockTimer(object pTarget, int iNr)
     if(temp)
       RemoveObject(temp);
   }
-  
+
   //MAVs beladen
   for(var MAV in FindObjects(Find_Func("IsMAV"), Find_Func("IsCollector"), Find_Distance(80)))
   {
@@ -176,8 +176,8 @@ public func FxResourceStockTimer(object pTarget, int iNr)
     var obj = FindContents(RSCE, MAV);
     if(obj && GetValue(obj) >= 15)
     {
-    	MAV->Full();
-    	continue;
+      MAV->Full();
+      continue;
     }
       
     var e;
