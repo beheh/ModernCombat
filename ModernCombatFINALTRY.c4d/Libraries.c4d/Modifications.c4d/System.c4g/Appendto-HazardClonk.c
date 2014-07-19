@@ -2018,7 +2018,7 @@ private func ChangeWeapon(object pTarget)
 
 public func RejectEntrance(object pIntoObj)
 {
-  if(pIntoObj->~IsBackDoor()) return pIntoObj->~RejectCollect(GetID(), this);
+  if(pIntoObj->~IsBackDoor() || pIntoObj->~IsCMCBuilding()) return pIntoObj->~RejectCollect(GetID(), this);
   return _inherited(pIntoObj, ...);
 }
 
