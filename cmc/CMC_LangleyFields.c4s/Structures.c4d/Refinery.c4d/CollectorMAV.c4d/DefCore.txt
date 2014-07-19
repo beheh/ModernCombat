@@ -1,7 +1,7 @@
 [DefCore]
-id=WMAV
+id=CMAV
 Version=4,9,10,7
-Name=MAV
+Name=CollectorMAV
 Category=C4D_Vehicle
 Width=15
 Height=15

@@ -217,10 +217,10 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
   if(iYDir > iYTendency)
     iYDir-= 1;
 
-  if(GetY() <= GetDefCoreVal("Offset", "DefCore", WMAV, 1) * -1 && iYTendency <= 0)
+  if(GetY() <= GetDefCoreVal("Offset", "DefCore", CMAV, 1) * -1 && iYTendency <= 0)
   {
     iYTendency = 0;
-    iYDir = BoundBy((GetY() + GetDefCoreVal("Offset", "DefCore", WMAV, 1))*-1, 1, 10);
+    iYDir = BoundBy((GetY() + GetDefCoreVal("Offset", "DefCore", CMAV, 1))*-1, 1, 10);
   }
 
   if(!iYTendency && !iYDir)
