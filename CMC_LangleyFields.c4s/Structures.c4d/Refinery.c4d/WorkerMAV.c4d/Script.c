@@ -12,6 +12,7 @@ local iSpeed;
 local iPat_Dir;
 local pMAVStation;
 local iXDest, iYDest;
+local fOutbound; //Auf dem Hinweg
 
 public func AttractTracer(object pTracer)	{return GetPlayerTeam(GetController(pTracer)) != GetTeam() && !fDestroyed;}
 public func IsDestroyed()			{return fDestroyed;}
@@ -20,6 +21,7 @@ public func IsMachine()				{return true;}
 public func UpdateCharge()			{return 1;}
 public func GetAttWeapon()			{return cur_Attachment;}
 public func IsMAV()				{return true;}
+public func IsCollector()	{return true;}
 public func MaxDamage()				{return 60;}
 public func IsRepairable()			{return !fDestroyed;}
 public func IsMeleeTarget(object attacker)	{return !fDestroyed && Hostile(GetOwner(this), GetOwner(attacker));}
@@ -28,8 +30,17 @@ public func SensorDistance()			{return 190;}
 public func IsActive()				{return GetAction(this) == "Flying";}
 public func TeamSupportRange()			{return 80;}
 public func IsBorderTarget()			{return true;}
-public func GetRealCursor()			{return IsActive() && pMAVStation->GetUser();}
+//public func GetRealCursor()			{return IsActive() && pMAVStation->GetUser();}
 public func DenyWeaponPathFreeCheck()		{return true;}
+public func HasMoveOrder()	{return (iXDest >= 0 && iYDest >= 0);}
+public func DeleteMoveOrder()	{iXDest = -1; iYDest = -1;}
+
+public func Full()
+{
+	if(iXDest < 0 || iYDest < 0)
+		pMAVStation->NextWaypoint(this);
+}
+
 
 public func MoveTo(int iX, int iY)
 {
@@ -40,16 +51,17 @@ public func MoveTo(int iX, int iY)
 	{
 		iXDest = -1;
 		iYDest = -1;
+		iXTendency = 0;
+		iYTendency = 0;
+		pMAVStation->NextWaypoint(this);
 		return;
 	}
 		
 	iXDest = iX;
 	iYDest = iY;
 
-	//Bremsweg = iXDir * iXDir/20
-
 	if(!GetEffect("Flying", this))
-		Start(this);
+		Start(pMAVStation);
 	
 	var iXDiff = iX - GetX();
 	var iYDiff = iY - GetY();
@@ -57,6 +69,7 @@ public func MoveTo(int iX, int iY)
 	iXTendency = BoundBy(Sgn(iXDiff)*(iXDiff*iXDiff)/Abs(iYDiff), -iSpeed, iSpeed);
 	iYTendency = BoundBy(Sgn(iYDiff)*(iYDiff*iYDiff)/Abs(iXDiff), -iSpeed, iSpeed);
 	
+	//Bremsweg = iXDir * iXDir/20
 	if((iXDir * iXDir)/20 >= Abs(iXDiff))
 		iXTendency = 0;
 	if((iYDir * iYDir)/20 >= Abs(iYDiff))

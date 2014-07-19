@@ -5,6 +5,7 @@
 local basement, stock;
 
 public func MaximumAmount()	{return 1500;}	//Maximalanzahl in Credits
+public func IsSupplyStock()	{return true;}  //Ist Nachschublager
 
 
 /* Initalisierung */
@@ -158,6 +159,46 @@ public func FxResourceStockTimer(object pTarget, int iNr)
     
     if(temp)
       RemoveObject(temp);
+  }
+  
+  //MAVs beladen
+  for(var MAV in FindObjects(Find_Func("IsMAV"), Find_Func("IsCollector"), Find_Distance(80)))
+  {
+    if(!GetResources()) return;
+    //if(GetProcedure(clonk) == "PUSH" && GetActionTarget(0, clonk)->~IsLorry()) continue;
+    if(GetEffect("ResourceStockCooldown", MAV)) continue;
+    if(GetIndexOf(MAV, clonkarray) == -1)
+    {
+      AddEffect("ResourceStockCooldown", MAV, 1, 5, this, 0, pTarget, iNr);
+      continue;
+    }
+
+    var obj = FindContents(RSCE, MAV);
+    if(obj && GetValue(obj) >= 15)
+    {
+    	MAV->Full();
+    	continue;
+    }
+      
+    var e;
+    if(e = GetEffect("ResourceStockCheck", MAV))
+      EffectCall(MAV, e, "Clear");
+
+    AddEffect("ResourceStockCheck", MAV, 1, 15, this, 0, pTarget, iNr);
+      if(!obj)
+      {
+        obj = CreateContents(RSCE, MAV);
+        obj->Set(Min(GetResources(), 5));
+        DoResources(-Min(GetResources(), 5));
+      }
+      //Wert des Warenobjektes um 1 erhöhen
+      else if(GetValue(obj) < 15)
+      {
+        obj->Set(GetValue(obj)+1);
+        DoResources(-1);
+      }
+      else
+        MAV->Full();
   }
 
   //Raffinerie befüllen
