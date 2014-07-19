@@ -37,7 +37,7 @@ protected func Initialize()
 	aWaypointX[0] = GetX() + GetDefCoreVal("Collection", "DefCore", 0, 0) + GetDefCoreVal("Collection", "DefCore", 0, 2)/2;
 	aWaypointY[0] = GetY() + GetDefCoreVal("Collection", "DefCore", 0, 1) + GetDefCoreVal("Collection", "DefCore", 0, 3)/2 + GetDefCoreVal("Offset", "DefCore", CMAV, 1) - 20;
 	
-	aMAVs[0] = CreateObject(CMAV, aWaypointX[0] - GetX(), aWaypointY[0] - GetY());
+	aMAVs[0] = CreateObject(CMAV, aWaypointX[0] - GetX(), aWaypointY[0] - GetY(), GetOwner(this));
 	aMAVs[0]->Start(this);
 	controlling = -1;
 
@@ -243,14 +243,21 @@ func ControlMAV(id foo, object pByObj)
 			return;
 		}
 	}
+	
   //MAV-Kontrolle starten
-  if(aMAVs[controlling]->GetAction() != "Flying")
-  {
-    Sound("BKHK_Switch.ogg", true, this, 100, GetOwner(pByObj) + 1);
-    Sound("CockpitRadio.ogg", true, 0, 100, GetOwner(pByObj)+1, +1);
-    aMAVs[controlling]->Start(this);
-    SetPlrView(GetController(pByObj), aMAVs[controlling]);
-  }
+  Sound("BKHK_Switch.ogg", true, this, 100, GetOwner(pByObj) + 1);
+  Sound("CockpitRadio.ogg", true, 0, 100, GetOwner(pByObj)+1, +1);
+  aMAVs[controlling]->Start(this);
+  SetPlrView(GetController(pByObj), aMAVs[controlling]);
+  AddEffect("ControllingMAV", this, 1, 1);
+}
+
+public func FxControllingMAVTimer(object pTarget, int iNr)
+{Log("hallo");
+	if(controlling == -1)
+		return -1;
+		
+	SetPlrView(GetOwner(Contents()), aMAVs[controlling]);
 }
 
 func NextWaypoint(object pMAV)
