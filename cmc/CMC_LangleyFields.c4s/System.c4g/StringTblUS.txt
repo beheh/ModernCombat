@@ -21,3 +21,9 @@ ErrNotEnoughMoney=Not enough money!
 ErrNotAvailable=Techlevel not researched!
 ErrBuildingRadius=Not in buildradius!
 ErrNotEnoughSpace=Not enough space!
+
+SellMenu=Sellmenu
+SellBuildingInfo=Sell building %s really for <c ffff33>%d</c> credits?
+Yes=Yes
+No=No
+NoObjectToSell=Found no building for selling!

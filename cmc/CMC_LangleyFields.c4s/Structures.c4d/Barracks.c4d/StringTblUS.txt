@@ -4,3 +4,27 @@ OpenStorageSupply=open storage supply
 BuyClonkMenu=Buy clonks
 BuyEquipmentMenu=Buy equipment
 AmmoReceived=Ammo received
+
+#Presets
+BuyPresets=predefined classes
+ChoosePresetMenu=Choose preset
+Preset1=Preset 1
+Preset2=Preset 2
+Preset3=Preset 3
+ChooseSpecPresetMenu=Edit preset
+PresetClonk=Clonk:
+ChooseClonk=Choose clonk
+PresetWeapons=Weapons:
+PresetEquipment=Equipment:
+ChooseWeaponSlot=<c ffff33>Choose weapon</c>
+ChooseEquipmentSlot=<c ffff33>Choose equipment</c>
+Total=Total:
+ChooseWeaponSlot=Weaponchooser
+ChooseEquipmentSlot=Equipmentchooser
+BackToPresets=Finished
+ChooseClonkMenu=Clonkchooser
+NoBuySpecPreset=<c ff0000>Buy</c>
+BuySpecPreset=Buy
+GoToCart=To cart
+BackToMainMenu=Mainmenu
+Back=Back
