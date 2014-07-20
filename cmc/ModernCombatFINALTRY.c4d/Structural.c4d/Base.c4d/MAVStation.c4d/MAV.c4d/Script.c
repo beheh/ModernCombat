@@ -1075,6 +1075,7 @@ public func Start(object pStation)
   if(!GetEffect("Flying", this))
     AddEffect("Flying", this, 1, 1, this);
   Sound("MAVE_Engine.ogg", 0, 0, 70, 0, +1);
+  SetPlrViewRange(150);
 
   //Nachricht über eventuelle Modifikationen
   if(pItem)
