@@ -2,7 +2,7 @@
 
 #strict 2
 #include CCBS
-#include BT04
+#include BT07
 
 local aPUpgrades, iAdditionalEnergy;
 
@@ -27,6 +27,15 @@ protected func Construction()
 protected func Initialize()
 {
   //Effekte
+  var deco = CreateObject(OFLG,37,-20);
+  SetOwner(GetOwner(), deco);
+  AddObject(deco);
+  deco = CreateObject(CATA,-39,-4);
+  AddObject(deco);
+  if(HasEnergy())
+    Sound("Building_PowerOn.ogg");
+  else
+    Sound("Building_PowerOff.ogg");
 
   return _inherited(...);
 }

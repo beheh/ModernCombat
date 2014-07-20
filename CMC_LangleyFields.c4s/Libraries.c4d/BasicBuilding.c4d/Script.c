@@ -120,6 +120,18 @@ protected func RejectCollect(id objID, object pObj)
   return false;
 }
 
+/* Türsteuerung */
+
+private func SoundOpenDoor()
+{
+  return(Sound("DOOR_Open.ogg"));
+}
+
+private func SoundCloseDoor()
+{
+  return(Sound("DOOR_Close.ogg"));
+}
+
 /* Techlevels */
 
 public func CheckProvideTechLevel(int iLevel)	{return ProvideTechLevel() == iLevel;}
