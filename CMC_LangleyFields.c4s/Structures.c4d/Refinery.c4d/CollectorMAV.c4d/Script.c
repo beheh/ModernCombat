@@ -417,6 +417,7 @@ public func Start(object pStation)
   iYDir = GetYDir();
 
   pMAVStation = pStation;
+  SetPlrViewRange(150);
 
   SetAction("Flying");
   if(!GetEffect("Flying", this))
