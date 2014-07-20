@@ -13,10 +13,10 @@ public func IsSupplyStock()	{return true;}	//Ist Nachschublager
 protected func Initialize()
 {
   //Fundament erstellen
-  basement = CreateObject(BT01,0,39,GetOwner());
+  basement = CreateObject(BT07,0,39,GetOwner());
 
   //Ressourcenausgabe
-  AddEffect("ResourceStock", this, 100, 10, this);  
+  AddEffect("ResourceStock", this, 100, 10, this);
 
   //Nachschublager komplett füllen
   Fill(MaximumAmount());
