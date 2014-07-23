@@ -11,6 +11,7 @@ public func ProvideTechLevel()		{return TECHLEVEL_3;}	//Vorhandene Techstufe
 public func BuildingRadius()		{return 200;}		//Bauradius
 public func RequiredEnergy()		{return 50;}		//Energieverbraucher
 public func MaxDamage()			{return 150;}		//Maximaler Schadenswert bis zur Zerstörung
+public func PossibleUpgrades() {return [U_SB];} //Mögliche Upgrades
 
 public func ProcessingInterval()	{return 2;}		//Intervall der Verarbeitung
 
@@ -473,3 +474,50 @@ protected func ContainedThrow(object pByObj)
 		PlayerMessage(GetOwner(pByObj), "Wegpunkt gesetzt", aMAVs[controlling]);
  	return true;
 }
+
+/* Upgrades */
+
+public func OnUpgrade(id idUpgrade)
+{
+  //Sandsackbarriere
+  if(idUpgrade == U_SB)
+  {
+    AddEffect("SandbagBarrier", this, 100, 0, 0, U_SB);
+
+    //Grafikänderungen/Effekte/Sounds
+  }
+  
+  return true;
+}
+
+public func OnUpgradeRemoved(id idUpgrade)
+{
+  //Sandsackbarriere
+  if(idUpgrade == U_SB)
+  {
+    //Effekte
+  }
+
+  return true;
+}
+
+/* Sandsackbarriere */
+
+public func ChangeHealthBars(int &iPercent, int &iColor)
+{
+  if(!GetUpgrade(U_SB))
+    return;
+  
+  var e = GetEffect("SandbagBarrier", this);
+  iPercent = EffectVar(0, this, e)*100/U_SB->BarrierDamage();
+  iColor = 0xAAAAAA;
+  
+  return true;
+}
+
+public func OnDmg(int iDmg, int iType)
+{
+  if(iType == DMG_Explosion) return 50+25*GetUpgrade(U_SB);
+  return _inherited(iDmg, iType, ...);
+}
+

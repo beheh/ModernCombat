@@ -10,7 +10,7 @@ public func IsBase()			{return true;}			//Heimatbasis
 public func NeedBuildingRadius()	{return false;}			//Benötigt keinen Bauradius
 public func BuildingRadius()		{return 400;}			//Bauradius
 public func EnergyProduction()		{return 50;}			//Energiehersteller
-public func PossibleUpgrades()		{return [U_T2, U_T3];}		//Mögliche Upgrades
+public func PossibleUpgrades()		{return [U_SB, U_T2, U_T3];}		//Mögliche Upgrades
 public func CanNotBeSold()  {return true;}  //Kann nicht verkauft werden
 
 
@@ -45,4 +45,50 @@ public func Destroyed()
   Sound("Building_BaseDown.ogg",true,0,0,GetOwner()+1);
 
   return _inherited(...);
+}
+
+/* Upgrades */
+
+public func OnUpgrade(id idUpgrade)
+{
+  //Sandsackbarriere
+  if(idUpgrade == U_SB)
+  {
+    AddEffect("SandbagBarrier", this, 100, 0, 0, U_SB);
+
+    //Grafikänderungen/Effekte/Sounds
+  }
+  
+  return true;
+}
+
+public func OnUpgradeRemoved(id idUpgrade)
+{
+  //Sandsackbarriere
+  if(idUpgrade == U_SB)
+  {
+    //Effekte
+  }
+
+  return true;
+}
+
+/* Sandsackbarriere */
+
+public func ChangeHealthBars(int &iPercent, int &iColor)
+{
+  if(!GetUpgrade(U_SB))
+    return;
+  
+  var e = GetEffect("SandbagBarrier", this);
+  iPercent = EffectVar(0, this, e)*100/U_SB->BarrierDamage();
+  iColor = 0xAAAAAA;
+  
+  return true;
+}
+
+public func OnDmg(int iDmg, int iType)
+{
+  if(iType == DMG_Explosion) return 50+25*GetUpgrade(U_SB);
+  return _inherited(iDmg, iType, ...);
 }
