@@ -18,7 +18,7 @@ public func MaxDamage()				{return 200;}			//Maximaler Schadenswert bis zur Zers
 
 protected func Construction()
 {
-  aPUpgrades = [U_AS, U_XA];
+  aPUpgrades = [U_SB, U_AS, U_XA];
   return _inherited(...);
 }
 
@@ -412,9 +412,48 @@ public func Destroyed()
 public func OnUpgrade(id idUpgrade)
 {
   //[Allgemeine Effekte/Sounds]
-
+ 
+  //Munitionsspeicher
   if(idUpgrade == U_AS)
     SetupAmmoStorage();
+  //Sandsackbariere
+  else if(idUpgrade == U_SB)
+  {
+    AddEffect("SandbagBarrier", this, 100, 0, 0, U_SB);
+
+    //Grafikänderungen/Effekte/Sounds
+  }
+}
+
+public func OnUpgradeRemoved(id idUpgrade)
+{
+  //Sandsackbarriere
+  if(idUpgrade == U_SB)
+  {
+    //Effekte
+  }
+
+  return true;
+}
+
+/* Sandsackbarriere */
+
+public func ChangeHealthBars(int &iPercent, int &iColor)
+{
+  if(!GetUpgrade(U_SB))
+    return;
+  
+  var e = GetEffect("SandbagBarrier", this);
+  iPercent = EffectVar(0, this, e)*100/U_SB->BarrierDamage();
+  iColor = 0xAAAAAA;
+  
+  return true;
+}
+
+public func OnDmg(int iDmg, int iType)
+{
+  if(iType == DMG_Explosion) return 50+25*GetUpgrade(U_SB);
+  return _inherited(iDmg, iType, ...);
 }
 
 /* Munitionsspeicher */

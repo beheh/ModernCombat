@@ -284,7 +284,24 @@ public func AddUpgrade(id idUpgrade)
     aUpgradeList = [];
 
   aUpgradeList[GetLength(aUpgradeList)] = idUpgrade;
+  
   OnUpgrade(idUpgrade);
+  return true;
+}
+
+public func RemoveUpgrade(id idUpgrade)
+{
+  if(!aUpgradeList)
+    return true;
+  
+  var list = [];
+  for(var data in aUpgradeList)
+    if(data != idUpgrade)
+      list[GetLength(list)] = data;
+  
+  aUpgradeList = list;
+  OnUpgradeRemoved(idUpgrade);
+  
   return true;
 }
 
@@ -300,6 +317,8 @@ public func GetUpgrade(id idUpgrade)
   return false;
 }
 
+public func OnUpgrade(id idUpgrade)	{}
+public func OnUpgradeRemoved(id idUpgrade) {}
 public func GetUpgradeList()									{return aUpgradeList;}
 public func OnResearchingUpgradeStart(int iEffect, id idUpgrade, int iDuration, int iCost)	{return;}
 public func FurtherUpgradeConditions(id idUpgrade, int iDuration, int iCost)			{return true;}
@@ -309,7 +328,12 @@ public func FurtherUpgradeConditions(id idUpgrade, int iDuration, int iCost)			{
 public func FxShowHealthBarTimer(object pTarget, int iNr)
 {
   var bar, plr;
-  var percent = 100-(GetDamage()*100/MaxDamage());
+  var percent, color;
+  if(!this->~ChangeHealthBars(percent, color))
+  {
+    percent = 100-(GetDamage()*100/MaxDamage());
+    color = RGB(235, 60, 60);
+  }
 
   //Wenn Clonk nicht Gebäude anfässt/im Gebäude ist, Balken löschen
   for(var bar in FindObjects(Find_ID(SBAR), Find_Or(Find_Container(this), Find_ActionTarget(this)), Find_Func("HasBarType", BAR_Energybar)))
@@ -343,11 +367,12 @@ public func FxShowHealthBarTimer(object pTarget, int iNr)
     if(!bar)
     {
       bar = CreateObject(SBAR, 0, 0, GetOwner(obj));
-      bar->Set(this, RGB(235, 60, 60), BAR_Energybar, GetObjWidth(pTarget)*1000/GetDefWidth(SBAR)/10, 0, SM13);
+      bar->Set(this, color, BAR_Energybar, GetObjWidth(pTarget)*1000/GetDefWidth(SBAR)/10, 0, SM13);
     }
 
     //Schadensanzeige updaten
     bar->Update(percent);
+    bar->SetBarColor(color);
   }
   
   return true;
@@ -1300,5 +1325,4 @@ public func EnergySupply(bool fEnergy, int iEnergySupply, int iEnergyNeed)
 }
 
 public func HasEnergy()			{return fHasEnergy;}
-public func OnUpgrade(id idUpgrade)	{}
 public func OnAddObject(object pObj)	{}
