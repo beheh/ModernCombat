@@ -3,3 +3,6 @@ JetNotReady=Jet not in position!
 InvalidItem=Item not mountable!
 Updated=MAV modified with <c ffff33>%s</c>.
 AmmoReceived=%dx {{%i}} received.
+NoMAVFound=Found no MAV!
+WaypointSetStock=Marked stock with waypoint.
+WaypointSet=Set waypoint.
