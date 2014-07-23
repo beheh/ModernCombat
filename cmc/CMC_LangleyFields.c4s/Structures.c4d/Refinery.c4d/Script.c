@@ -240,7 +240,7 @@ func ControlMAV(id foo, object pByObj)
 			}
 		if(controlling < 0)
 		{
-			PlayerMessage(GetOwner(pByObj), "Kein MAV gefunden", aMAVs[controlling]);
+			PlayerMessage(GetOwner(pByObj), "$NoMAVFound$", aMAVs[controlling]);
 			return;
 		}
 	}
@@ -254,7 +254,7 @@ func ControlMAV(id foo, object pByObj)
 }
 
 public func FxControllingMAVTimer(object pTarget, int iNr)
-{Log("hallo");
+{Log("hallo"); //hi!
 	if(controlling == -1)
 		return -1;
 		
@@ -469,9 +469,9 @@ protected func ContainedThrow(object pByObj)
 
  	var supply = FindObject2(Find_Func("IsSupplyStock"), Find_Distance(100, GetX(aMAVs[controlling])-GetX(), GetY(aMAVs[controlling])-GetY()), Sort_Distance(GetX(aMAVs[controlling])-GetX(), GetX(aMAVs[controlling])-GetX()));
 	if(supply)
-		PlayerMessage(GetOwner(pByObj), "Wegpunkt gesetzt (Nachschublager in Reichweite)", aMAVs[controlling]);
+		PlayerMessage(GetOwner(pByObj), "$WaypointSetStock$", aMAVs[controlling]);
 	else
-		PlayerMessage(GetOwner(pByObj), "Wegpunkt gesetzt", aMAVs[controlling]);
+		PlayerMessage(GetOwner(pByObj), "$WaypointSet$", aMAVs[controlling]);
  	return true;
 }
 
