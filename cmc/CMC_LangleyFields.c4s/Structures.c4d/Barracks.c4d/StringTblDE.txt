@@ -4,6 +4,15 @@ OpenStorageSupply=Speicherzufuhr öffnen
 BuyClonkMenu=Clonks kaufen
 BuyEquipmentMenu=Ausrüstung kaufen
 AmmoReceived=Munition empfangen
+Paratrooper=Fallschirmspringer
+
+#Info
+CloseStorageInfo=Verbietet die Geldzufuhr zum Munitionsspeicher.
+OpenStorageInfo=Erlaubt die Geldzufuhr zum Munitionsspeicher
+ParatrooperInfo=Lässt den Clonk an einer bestimmten Position mit Fallschirm abspringen.
+BuyClonkInfo=Ermöglicht den Kauf von Einheiten.
+BuyEquipmentInfo=Ermöglicht den Kauf von Ausrüstungsgegenständen.
+BuyPresetInfo=Ermöglicht den Kauf anhand von voreingestellter Klassen.
 
 #Presets
 BuyPresets=Vordefinierte Klassen
