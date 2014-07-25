@@ -34,7 +34,7 @@ public func FxSandbagBarrierDamage(object pTarget, int iNr, int iDmg, int iCause
   
   //Effekte
   
-  return change;
+  return iDmg;
 }
 
 public func FxSandbagBarrierStop(object pTarget, int iNr, int iReason, bool fTemp)
