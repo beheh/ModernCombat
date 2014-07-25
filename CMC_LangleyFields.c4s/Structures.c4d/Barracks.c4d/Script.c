@@ -59,19 +59,26 @@ public func AdditionalBuildingMenu(object pMenuObj)
   {
     var storage = GetEffect("AmmoStorage", this);
     if(!EffectVar(0, this, storage))
-      AddMenuItem("$CloseStorageSupply$", "SwitchStorageSupply", NONE, pMenuObj);
+      AddMenuItem("$CloseStorageSupply$", "SwitchStorageSupply", NONE, pMenuObj, 0, 0, "$CloseStorageInfo$");
     else
-      AddMenuItem("$OpenStorageSupply$", "SwitchStorageSupply", NONE, pMenuObj);
-  } 
+      AddMenuItem("$OpenStorageSupply$", "SwitchStorageSupply", NONE, pMenuObj, 0, 0, "$OpenStorageInfo$");
+  }
+  //Fallschirmspringer
+  if(GetUpgrade(U_PT))
+  {
+    AddMenuItem("$Paratrooper$", "Paratrooper", PARA, pMenuObj, 0, pMenuObj, "$ParatrooperInfo$"); 
+  }
   //Clonks kaufen
-  AddMenuItem("$BuyClonkMenu$", "OpenClonkBuyMenu", PCMK, pMenuObj, 0, pMenuObj);
+  AddMenuItem("$BuyClonkMenu$", "OpenClonkBuyMenu", PCMK, pMenuObj, 0, pMenuObj, "$BuyClonkInfo$");
   //Ausrüstung kaufen
-  AddMenuItem("$BuyEquipmentMenu$", "OpenEquipmentBuyMenu", C4EX, pMenuObj, 0, pMenuObj);
+  AddMenuItem("$BuyEquipmentMenu$", "OpenEquipmentBuyMenu", C4EX, pMenuObj, 0, pMenuObj, "$BuyEquipmentInfo$");
   //Presets kaufen
-  AddMenuItem("$BuyPresets$", "OpenPresetMenu", MCLS, pMenuObj, 0, pMenuObj);
+  AddMenuItem("$BuyPresets$", "OpenPresetMenu", MCLS, pMenuObj, 0, pMenuObj, "$BuyPresetInfo$");
   
   return true;
 }
+
+/* Presets */
 
 public func OpenPresetMenu(id dummy, object pMenuObj)
 {
@@ -434,6 +441,15 @@ public func OnUpgradeRemoved(id idUpgrade)
   }
 
   return true;
+}
+
+/* Fallschirmspringer */
+
+public func Paratrooper(id dummy, object pMenuObj)
+{
+  //Koordinatenwahl starten
+  
+  
 }
 
 /* Sandsackbarriere */
