@@ -75,18 +75,6 @@ public func OnUpgradeRemoved(id idUpgrade)
 
 /* Sandsackbarriere */
 
-public func ChangeHealthBars(int &iPercent, int &iColor)
-{
-  if(!GetUpgrade(U_SB))
-    return;
-  
-  var e = GetEffect("SandbagBarrier", this);
-  iPercent = EffectVar(0, this, e)*100/U_SB->BarrierDamage();
-  iColor = 0xAAAAAA;
-  
-  return true;
-}
-
 public func OnDmg(int iDmg, int iType)
 {
   if(iType == DMG_Explosion) return 50+25*GetUpgrade(U_SB);

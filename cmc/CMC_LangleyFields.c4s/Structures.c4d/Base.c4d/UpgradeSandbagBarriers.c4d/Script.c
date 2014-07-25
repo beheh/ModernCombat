@@ -22,15 +22,14 @@ public func FxSandbagBarrierStart(object pTarget, int iNr, int iTemp)
 
 public func FxSandbagBarrierDamage(object pTarget, int iNr, int iDmg, int iCause)
 {
-  //Gebäude Reparieren ist erlaubt
+  //Sandsackupgrade nicht reparieren
   if(iDmg < 0)
     return iDmg;
 
-  var change = Abs(Min(EffectVar(0, pTarget, iNr)-iDmg));
   EffectVar(0, pTarget, iNr) -= iDmg;
   
-  //Schaden ist durchgekommen? Dann Effekt löschen
-  if(change > 0)
+  //Schaden zu hoch
+  if(EffectVar(0, pTarget, iNr) <= 0)
     RemoveEffect("SandbagBarrier", pTarget);
   
   //Effekte
