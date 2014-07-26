@@ -1065,17 +1065,22 @@ public func FxWaitTimer(object pTarget, int iEffectNumber, int iEffectTime)
 
 public func Start(object pStation)
 {
+  //Position und Host-Station ermitteln
   iXDir = GetXDir();
   iYDir = GetYDir();
-
   pMAVStation = pStation;
 
+  //Aktion setzen und Effekt übergeben
   SetAction("Flying");
   SetPhase(iItemType, this);
   if(!GetEffect("Flying", this))
     AddEffect("Flying", this, 1, 1, this);
-  Sound("MAVE_Engine.ogg", 0, 0, 70, 0, +1);
+
+  //Sicht einschränken
   SetPlrViewRange(150);
+
+  //Effekt
+  Sound("MAVE_Engine.ogg", 0, 0, 70, 0, +1);
 
   //Nachricht über eventuelle Modifikationen
   if(pItem)
@@ -1087,27 +1092,30 @@ public func Start(object pStation)
 
 public func Wait()
 {
+  //In Wartemodus wehcseln wenn nicht zerstört
   if(GetAction() != "Destroyed")
   {
+    //Aktion und Effekt setzen
     SetAction("Wait");
     if(!GetEffect("Wait", this))
       AddEffect("Wait", this, 1, 1, this);
     SetPhase(iItemType, this);
   }
 
+  //Bewegungsinformationen zurücksetzen
   iXTendency = 0;
   iYTendency = 0;
   iXDir = 0;
   iYDir = 0;
 
+  //Effekte entfernen oder stoppen und eventuelle Textnachrichten überschreiben
   if(pLaser) RemoveObject(pLaser);
   if(ChargeBar) RemoveObject(ChargeBar);
-
   Sound("MAVE_Engine.ogg", 0, 0, 70, 0, -1);
   Sound("BWTH_Repair.ogg", false, this, 100, 0, -1);
-
   CustomMessage("", cur_Attachment, NO_OWNER);
 
+  //Eventuelles Zielen einstellen
   EndAim();
 }
 
