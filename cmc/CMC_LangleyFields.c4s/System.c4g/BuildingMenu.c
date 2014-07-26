@@ -366,7 +366,7 @@ public func FxPreviewBuildingChange(object pTarget, int iNr, id idNewDef)
 
 public func FxPreviewBuildingStop(object pTarget, int iNr)
 {
-  DecoMessage("", GetOwner(pTarget));
+  DecoMessage("", GetOwner(pTarget)+1);
 
   if(EffectVar(0, pTarget, iNr))
     RemoveObject(EffectVar(0, pTarget, iNr));
