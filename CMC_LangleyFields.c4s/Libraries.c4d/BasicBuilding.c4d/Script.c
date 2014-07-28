@@ -803,13 +803,13 @@ public func AddToCart(id idItem, object pMenuObj, int iOffset, bool fNoMenuCall)
   return true;
 }
 
-public func SubFromCart(id idItem, object pMenuObj, int iBuyOffset, int iSel, bool fNoMenuCall)
+public func SubFromCart(id idItem, object pMenuObj, int iBuyOffset, int iSel, bool fNoMenuCall, string szBuyMenu, int iExtraBuyInfo)
 {
   EffectCall(FindObject(BGRL), GetBuyMenuEffect(GetOwner(pMenuObj)), "SubCart", idItem);
 
   //Zum Einkaufswagen
   if(!fNoMenuCall)
-    OpenCartMenu(pMenuObj, iBuyOffset, iSel);
+    OpenCartMenu(pMenuObj, iBuyOffset, iSel, 0, szBuyMenu, iExtraBuyInfo);
 
   return true;
 }
@@ -854,7 +854,7 @@ public func OpenCartMenu(object pMenuObj, int iBuyOffset, int iSel, bool fButton
       //Einkaufswageninhalt auflisten
       for(var data in cart)
       {
-        var cmd = Format("SubFromCart(%i, Object(%d), %d, %d, \"%s\", %d)", data[0], ObjectNumber(pMenuObj), iBuyOffset, entry, szBuyMenu, iExtraBuyInfo);
+        var cmd = Format("SubFromCart(%i, Object(%d), %d, %d, 0, \"%s\", %d)", data[0], ObjectNumber(pMenuObj), iBuyOffset, entry, szBuyMenu, iExtraBuyInfo);
         if(NoSubFromCart(iExtraBuyInfo, data, plr))
           cmd = 0; 
         AddMenuItem(GetName(0, data[0]), cmd, data[0], pMenuObj, GetCartItemAmount(data[0], plr));
