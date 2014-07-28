@@ -22,14 +22,20 @@ func CreateInterior()
   Log("$CreatingInterior$");
 
   //Nachschublager
-  CreateObject(SYSK, 795, 440, -1);
-  CreateObject(SYSK, 2980, 470, -1);
-  CreateObject(SYSK, 4020, 470, -1);
-  CreateObject(SYSK, 6200, 440, -1);
+  CreateObject(SYSK, 800, 440, -1);
+  CreateObject(SYSK, 2300, 470, -1);
+  CreateObject(SYSK, 3340, 470, -1);
+  CreateObject(SYSK, 4840, 440, -1);
+
+  //Brückensegmente
+  CreateObject(BRDG, 960, 450, -1);
+  CreateObject(BRDG, 2090, 500, -1);
+  CreateObject(BRDG, 3550, 500, -1);
+  CreateObject(BRDG, 4680, 450, -1);
 
   //Grenzen
   CreateObject(BRDR, 660, 0, -1)->Set(0);
-  CreateObject(BRDR, 6340, 0, -1)->Set(1);
+  CreateObject(BRDR, 4980, 0, -1)->Set(1);
 
 /*
   //Sounds
@@ -95,7 +101,7 @@ public func Relaunch(int iPlr, object pCrew, object pKiller, int iTeam)
   for(var i = 0; i < GetPlayerCount(); i++)
   {
     if(GetPlayerTeam(GetPlayerByIndex(i)) != iTeam) continue;
-    
+
     if(lowest > GetPlayerByIndex(i))
       lowest = GetPlayerByIndex(i);
   }
@@ -129,12 +135,12 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
   var rand = Random(2);
   if(iTeam == 1)
   {
-    iX = RandomX(1260,1360);
+    iX = RandomX(1090,1870);
     iY = -50;
   }
   else
   {
-    iX = RandomX(5640,5740);
+    iX = RandomX(3760,4550);
     iY = -50;
   }
 }
