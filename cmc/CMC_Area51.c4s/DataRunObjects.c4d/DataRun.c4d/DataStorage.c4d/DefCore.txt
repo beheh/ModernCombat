@@ -2,7 +2,7 @@
 id=DASE
 Version=4,9,10,7
 Name=Data Medium
-Category=C4D_Object
+Category=C4D_Vehicle
 Width=20
 Height=8
 Offset=-10,-4

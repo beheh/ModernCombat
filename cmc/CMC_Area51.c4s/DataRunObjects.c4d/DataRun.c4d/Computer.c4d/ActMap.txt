@@ -1,0 +1,7 @@
+[Action]
+Name=Screen
+FacetBase=1
+Facet=0,10,6,5,4,1
+Delay=5
+Length=25
+NextAction=Screen
