@@ -1,0 +1,13 @@
+[DefCore]
+id=TRMR
+Version=4,9,10,7
+Name=Transmitter
+Category=C4D_Structure
+Width=36
+Height=38
+Offset=-18,-19
+Vertices=2
+VertexY=19,-19
+VertexFriction=100,100
+Mass=800
+Picture=0,0,36,38

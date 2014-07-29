@@ -1,0 +1,6 @@
+[Action]
+Name=Show
+Procedure=ATTACH
+Delay=1
+Facet=0,0,19,18
+NextAction=Show

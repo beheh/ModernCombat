@@ -1,0 +1,3 @@
+A target which defenders should protect and attackers should destroy.
+
+To place or defuse a bomb, you need to be in the target's proximity.
