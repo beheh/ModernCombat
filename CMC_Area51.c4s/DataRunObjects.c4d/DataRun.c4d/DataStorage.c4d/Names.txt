@@ -1,0 +1,2 @@
+DE:Datenträger
+US:Data Medium

@@ -1,0 +1,20 @@
+// Computer
+
+SearchingComp=wird gesucht
+CompIdle=im Freien
+CompInPossession=in Besitz von %s
+CompLost=Computer verloren, <c ffff33>bereithalten</c> für den nächsten!
+CompSpawnDelay=Nächster Computer wird gesucht, <c ffff33>bereithalten</c>!
+ComputerSpawned=Computer wurde gesichtet, <c ffff33>holt</c> ihn euch!
+
+// Sonstiges
+
+TeamHasWon={{GDAR}} <c ffff33>Data Run</c> - Rundenende|Team <c %x>%s</c> hat diese Schlacht <c ffff33>gewonnen</c>!
+MsgGoalUnfulfilled=Dein Team hat momentan %d MB an Daten, Ziel ist das Sichern von %d.
+Points=MB
+Goal=Zielmenge
+MoreData=mehr Daten
+LessData=weniger Daten
+Finished=Fertig
+EnemyTeamIsWinning=<c ff0000>Achtung</c>: Team %s hat fast genug Daten gesammelt!
+EnemyPlayerIsWinning=<c ff0000>Achtung</c>: %s hat fast genug Daten gesammelt!
