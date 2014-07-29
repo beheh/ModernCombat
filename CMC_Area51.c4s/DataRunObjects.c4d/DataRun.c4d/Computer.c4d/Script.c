@@ -12,15 +12,18 @@ public func Initialize()
   //Computereffekt
   AddEffect("CompEffect", this, 101, 2, this);
 
-  //Effekte
-  AddLight(300, RGBa(255, 0, 0, 60));
-  Sound("RSHL_Deploy.ogg");
-
+  //Statusbalken
   var bar = CreateObject(SBAR, 0, 0, -1);
   bar->Set(this, 0, BAR_BASBombBar, 100, 0, SM25, 0, 11000, true);
   bar->Update(0, true, true);
   bar->SetIcon(0, SM25, 0, 11000, 32);
   bar->PositionToVertex(0, true);
+
+  //Effekte
+  SetAction("Screen");
+  AddLight(300, RGBa(255, 0, 0, 60));
+  Sound("SNSR_Scan.ogg", false, this, 0, 0, +1);
+  Sound("RSHL_Deploy.ogg");
 
   return _inherited(...);
 }
@@ -38,13 +41,13 @@ public func RejectEntrance(object pContainer)
 
 public func Entrance(object pClonk)
 {
-  //Eventnachricht: Sprengladung aufgehoben
+  //Eventnachricht: Computer aufgehoben
   EventInfo4K(0, Format("$ComputerCollected$", GetTaggedPlayerName(GetOwner(pClonk))), COMP, 0, 0, 0, "Info_Event.ogg");
 
   //Effekt an Clonk übergeben
   AddComputer(pClonk);
   Sound("RSHL_Deploy.ogg",0,pClonk);
-  Sound("SNSR_Scan.ogg", false, pClonk, 50, 0, +1);
+  Sound("SNSR_Scan.ogg", false, pClonk, 0, 0, +1);
 
   //Verschwinden
   RemoveObject(this);
@@ -59,7 +62,7 @@ public func AddComputer(object pTarget)
 
 public func FxCompEffectTimer(object pTarget, int iEffect, int iTime)
 {
-  //Bombe in Grenzgebiet, Lava oder Säure: Entfernen und neue anfordern
+  //Computer in Grenzgebiet, Lava oder Säure: Entfernen und neuen anfordern
   if(FindObject(GDAR) && !(GBAS->SpawningConditions(pTarget)))
   {
     FindObject(GDAR)->DelayedComputerRespawn(pTarget, 0, 0);
@@ -73,7 +76,7 @@ public func FxCompEffectTimer(object pTarget, int iEffect, int iTime)
   return true;
 }
 
-/* Trageeffekt für Bombenträger */
+/* Trageeffekt für Computerträger */
 
 public func Beep(object pTarget)
 {
@@ -118,7 +121,7 @@ public func FxDataRunComputerTimer(object pTarget, int iNr, int iTime)
   if(!(Random(5)) && GetProcedure(pTarget) == "WALK" && (Abs(GetXDir(pTarget)) > 5 || Abs(GetYDir(pTarget)) > 5) && !Contained(pTarget))
     Sound("BOMB_Rustle*.ogg", 0, pTarget, RandomX(25,50));
 
-  //Träger verstorben: Sprengladung fallenlassen
+  //Träger verstorben: Computer fallenlassen
   if(pTarget->~IsFakeDeath())
     return -1;
   
@@ -183,10 +186,10 @@ public func FxDataRunComputerStop(object pTarget, int iNr, int iReason)
 {
   if(iReason >= 3 || (pTarget && pTarget->~IsFakeDeath()))
   {
-    //Eventnachricht: Sprengladung fallengelassen
+    //Eventnachricht: Computer fallengelassen
     EventInfo4K(0, Format("$ComputerDropped$", EffectVar(2, pTarget, iNr)), COMP, 0, 0, 0, "Info_Event.ogg");
 
-    //Sprengladung erstellen und platzieren
+    //Computer erstellen und platzieren
     PlaceComputerSpawnpoint(GetX(pTarget), GetY(pTarget), false, EffectVar(3, pTarget, iNr), GetOwner(pTarget));
   }
 
@@ -198,7 +201,7 @@ public func FxDataRunComputerStop(object pTarget, int iNr, int iReason)
     RemoveObject(EffectVar(1, pTarget, iNr));
 
   //Effekt
-  Sound("SNSR_Scan.ogg", false, pTarget, 50, 0, -1);
+  Sound("SNSR_Scan.ogg", false, pTarget, 0, 0, -1);
 }
 
 
