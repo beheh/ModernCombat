@@ -131,23 +131,23 @@ public func FxDataRunComputerTimer(object pTarget, int iNr, int iTime)
   var transmitter = pTarget->FindObject2(pTarget->Find_Distance(GDAR_TransmitterRadius), Find_Func("IsDataTransmitter"));
   if(!transmitter)
   {
-  	if(EffectVar(3, pTarget, iNr) == -1)
-  		EffectVar(3, pTarget, iNr) = GDAR_NoSignalTimer;
-  	
-  	bar->SetIcon(0, SM18, 0, 11000, 32);
-  	
-  	//Länger keine Signale empfangen? Abbrechen
-  	if(!EffectVar(3, pTarget, iNr))
-  	{
-  		//Kuhle "Wegwerfanimtion" wäre kuhl.
-  		Schedule("PlaceComputerSpawnpoint()", GDAR_ComputerRespawnDelay);
-  		
-  		EventInfo4K(0, "$ComputerUseless$", COMP, 0, 0, 0, "Info_Event.ogg");
-  		return -1;
-  	}
-  	
-  	EffectVar(3, pTarget, iNr)--;
-  	EffectVar(5, pTarget, iNr) = 0;
+    if(EffectVar(3, pTarget, iNr) == -1)
+      EffectVar(3, pTarget, iNr) = GDAR_NoSignalTimer;
+
+    bar->SetIcon(0, SM26, 0, 11000, 32);
+
+    //Länger keine Signale empfangen? Abbrechen
+    if(!EffectVar(3, pTarget, iNr))
+    {
+      //Kuhle "Wegwerfanimtion" wäre kuhl.
+      Schedule("PlaceComputerSpawnpoint()", GDAR_ComputerRespawnDelay);
+
+      EventInfo4K(0, "$ComputerUseless$", COMP, 0, 0, 0, "Info_Event.ogg");
+      return -1;
+    }
+
+    EffectVar(3, pTarget, iNr)--;
+    EffectVar(5, pTarget, iNr) = 0;
   }
   else
   {
