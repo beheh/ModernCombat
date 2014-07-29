@@ -265,7 +265,7 @@ public func UpdateScoreboard()
         if(t)
         {
           if(t->IsDownloading())
-            icon = SM19;
+            icon = SM27;
         }
       }
     }
