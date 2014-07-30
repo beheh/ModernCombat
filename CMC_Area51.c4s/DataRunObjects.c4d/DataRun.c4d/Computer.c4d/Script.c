@@ -159,18 +159,19 @@ public func FxDataRunComputerTimer(object pTarget, int iNr, int iTime)
   	
   	EffectVar(5, pTarget, iNr) = transmitter;
   
-  	transmitter->DoPoints(-1);
   	var e;
   	if(!(e = GetEffect("ConnectionInUse", transmitter)))
   		AddEffect("ConnectionInUse", transmitter, 1, 4, transmitter);
 		else //Timerrefresh
 			EffectVar(0, transmitter, e) = 0;
+	  
+	  transmitter->DoPoints(-1);
 
   	bar->SetIcon(0, SM25, 0, 11000, 32);
   	EffectVar(3, pTarget, iNr) = -1;
   	EffectVar(4, pTarget, iNr)++;
 
-        Sound("AHBS_Progress*.ogg", false, pTarget);
+    Sound("AHBS_Progress*.ogg", false, pTarget);
 
   	if(EffectVar(4, pTarget, iNr) >= GDAR_PCDataInterval && FindObject2(Find_ID(GDAR)))
   	{
