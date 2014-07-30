@@ -16,16 +16,16 @@ public func RegainSignalBonus()			{return 10;}	//Startbonus nach Wiederverbindun
 
 protected func Initialize()
 {
+  //Statusbalken setzen
+  bar = CreateObject(SBAR, 0, 0, -1);
+  bar->Set(this, RGB(30, 140, 240), BAR_BASBombBar, 100, 0, SM26, 0, 11000, true);
+  bar->Update(0, true, true);
+  bar->SetIcon(0, SM26, 0, 11000, 32);
+  bar->PositionToVertex(0, true);
+
   //Dateneffekt
   AddEffect("GeneratePoints", this, 1, 3, this);
   SetPoints(MaxPoints());
-
-  //Statusbalken setzen
-  bar = CreateObject(SBAR, 0, 0, -1);
-  bar->Set(this, RGB(30, 140, 240), BAR_BASBombBar, 100, 0, SM16, 0, 11000, true);
-  bar->Update(0, true, true);
-  bar->SetIcon(0, SM16, 0, 11000, 32);
-  bar->PositionToVertex(0, true);
 
   return true;
 }
@@ -49,11 +49,14 @@ public func UpdateBar()
     fShowBar = true;
 
   bar->Update(GetPoints()*100/MaxPoints(), !fShowBar, !fShowBar);
+  
+  //Am Downloaden
   if(fShowBar)
-    bar->SetIcon(0, SM19, 0, 0, 32);
+    bar->SetIcon(0, SM27, 0, 0, 32);
 
+  //Wiederverbindung
   if(GetEffect("RegainSignal", this) && !IsDestroyed())
-    bar->SetIcon(0, SM18, 0, 11000, 32);
+    bar->SetIcon(0, SM28, 0, 11000, 32);
 
   FindObject(GDAR)->UpdateScoreboard();
 
@@ -111,7 +114,7 @@ public func FxGeneratePointsTimer(object pTarget, int iNr)
 public func FxConnectionInUseTimer(object pTarget, int iNr)
 {
   //Downloadicon setzen
-  pTarget->GetBar()->SetIcon(0, SM19, 0, 0, 32);
+  pTarget->GetBar()->SetIcon(0, SM27, 0, 0, 32);
 
   EffectVar(0, pTarget, iNr)++;
   if(EffectVar(0, pTarget, iNr) < 2)
@@ -168,7 +171,7 @@ public func OnDmg()
 public func Repair()
 {
   DoDamage(-GetDamage(), this);
-  bar->SetIcon(0, SM16, 0, 11000, 32);
+  bar->SetIcon(0, SM26, 0, 11000, 32);
   fDestroyed = false;
 
   return true;

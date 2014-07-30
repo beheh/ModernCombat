@@ -221,7 +221,7 @@ static const GDAR_Count = 2;
 public func UpdateScoreboard()
 {
   //Wird noch eingestellt
-  if (FindObject(CHOS)) return;
+  if(FindObject(CHOS)) return;
 
   //Titelzeile
   SetScoreboardData(SBRD_Caption, SBRD_Caption, GetName());
@@ -246,11 +246,13 @@ public func UpdateScoreboard()
     {
       var comp_carrier, e;
       for(var obj in FindObjects(Find_OCF(OCF_CrewMember)))
+      {
         if(e = GetEffect("DataRunComputer", obj))
         {
           comp_carrier = obj;
           break;
         }
+      }
 
       //Kein Träger verfügbar: Als gesucht melden
       if(!comp_carrier)
@@ -326,6 +328,8 @@ public func UpdateScoreboard()
 
   //Sortieren noch
   SortScoreboard(GDAR_Count, true);
+  
+  return true;
 }
 
 /* Relaunch */
