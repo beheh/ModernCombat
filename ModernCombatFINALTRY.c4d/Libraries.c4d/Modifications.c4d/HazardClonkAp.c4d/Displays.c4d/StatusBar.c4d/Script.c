@@ -23,6 +23,8 @@ public func RejectEntrance()		{return true;}
 public func HasBarType(int barType)	{return (iBarType == barType);}
 public func IconSize()			{return 14;}
 public func HasIcon()			{return (GetType(aIconData) == C4V_Array);}
+public func GetIconData() { return aIconData; }
+
 global func GetBarCount(object target, int iOwner, object exclude)
 {  
   if(!target) { target = this; }
