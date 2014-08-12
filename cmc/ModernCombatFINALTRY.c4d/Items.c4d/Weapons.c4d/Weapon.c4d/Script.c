@@ -48,6 +48,8 @@ static const AT_Laserpointer	= 4;	//Laserpointer
 static const AT_Silencer	= 8;	//Schalldämpfer
 static const AT_Flashlight	= 16;	//Taschenlampe
 
+public func MaxFMDataCount() { return 27; } // Anzahl an FM/FT-Datentypen
+
 public func IsWeapon2()			{return true;}			//Nutzt/inkludiert neues Waffensystem WPN2
 public func IsPrimaryWeapon()		{return true;}			//Standard für QuickInventory
 public func NoWeaponChoice()		{return GetID() == WPN2;}
@@ -76,6 +78,8 @@ protected func Initialize()
     aFM_FireTec[i-1] = 1;
     i++;
   }
+  
+  UpdateFMDataCache();
 
   return inherited();
 }
@@ -197,7 +201,7 @@ public func GetSlotCount()
 public func GetFMCount()
 {
   var i = 1;
-  while(GetFMData(FM_Name,i))
+  while(ObjectCall(this, Format("FMData%d", i), FM_Name))
     i++;
   return i-1;
 }
@@ -207,7 +211,7 @@ public func GetFTCount(int iFM)
   if(!iFM) iFM = firemode;
 
   var i = 1;
-  while(GetFMData(FT_Name,iFM,i))
+  while(ObjectCall(this, Format("FMData%dT%d", iFM, i), FT_Name))
     i++;
   return i;
 }
@@ -1334,12 +1338,68 @@ public func SetFireMode(int i)
 
 /* Feuermodusinfos abrufen */
 
+local aCachedFMData, aCachedFMDataDyn;
+
+//Cachen der FM-Daten
+public func UpdateFMDataCache()
+{
+	aCachedFMData = []; aCachedFMDataDyn = [];
+	
+	for(var i = 1; i <= GetFMCount(); i++)
+	{
+		var aFM = [], aFMDyn = [];
+		var aFMData = [], aFMDataDyn = [];
+		for(var data = 1; data <= MaxFMDataCount(); data++)
+		{
+			aFMData[data] = ObjectCall(this, Format("FMData%d", i), data);
+			aFMDataDyn[data] = ObjectCall(this, Format("DynFMData%d", i), data); //Dynamische Daten müssen speziell festgelegt werden
+		}
+		
+		var aFTs = [], aFTsDyn = [];
+		for(var t = 1; t <= GetFTCount(i); t++)
+		{
+			var aFT = [], aFTDyn = [];
+			for(var data = 1; data <= MaxFMDataCount(); data++)
+			{
+				aFT[data] = ObjectCall(this, Format("FMData%dT%d",i,t), data);
+				aFTDyn[data] = ObjectCall(this, Format("DynFMData%dT%d",i,t), data); //Dynamische Daten müssen speziell festgelegt werden
+			}
+			
+			aFTs[t] = aFT;
+			aFTsDyn[t] = aFTDyn;
+		}
+		
+		aFM = [aFMData, aFTs];
+		aFMDyn = [aFMDataDyn, aFTsDyn];
+		aCachedFMData[i] = aFM;
+		aCachedFMDataDyn[i] = aFMDyn;
+	}
+	
+	return true;
+}
+
+public func GetFMDataCache() { return aCachedFMData; }
+public func GetDynFMDataCache() { return aCachedFMDataDyn; }
+
 public func GetFMData(int data, int i, int t)
 {
   //Vom Feuermodus i Information holen
   //i nicht angegeben? Muss nicht, ist aktueller dann
   if(!i) i=firemode;
   if(!t) t=GetFireTec(i);
+
+	var cache = GetFMDataCache(), cachedyn = GetDynFMDataCache();
+	
+	//Failsafe-Zugriff auf nicht existente Daten
+	if(!cachedyn[i] || !cachedyn[i][1])
+		return;
+	
+	if(!cachedyn[i][1][t])
+		return cache[i][0][data];
+
+	//Cache durchsuchen, wenn kein DefinitionCall
+	if(this && !cachedyn[i][1][t][data])
+		return cache[i][1][t][data];
 
   var value,ammoid;
   if(CheckFireTec(t,i))
@@ -1356,7 +1416,7 @@ public func GetFMData(int data, int i, int t)
   if(ammoid == STAP)
     value = ammoid->~FMMod(data,value);
 
-  var effect,user = GetUser(),j;
+  /*var effect,user = GetUser(),j;
   while(effect = GetEffect("*Bonus*",this,j) || j == 0)
   {
     j++;
@@ -1374,7 +1434,7 @@ public func GetFMData(int data, int i, int t)
       if(tval)
         value = tval;
     }
-  }
+  }*/
 
   return value;
 }
@@ -1592,6 +1652,9 @@ func SetAttachment(int iValue)
   //Waffenaufsatz-Symbol setzen
   SetGraphics(0,0,AttachmentIcon(iAttachment),2,GFXOV_MODE_Picture);
   SetObjDrawTransform(500,0,10000,0,500,10000, 0, 2);
+  
+  //FMData-Cache aktualisieren
+  UpdateFMDataCache();
 
   //Waffen-HUD aktualisieren
   if(Contained()) Contained()->~UpdateCharge(true);

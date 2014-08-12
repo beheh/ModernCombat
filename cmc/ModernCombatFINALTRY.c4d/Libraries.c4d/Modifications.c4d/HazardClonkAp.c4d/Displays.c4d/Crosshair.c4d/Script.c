@@ -3,7 +3,7 @@
 #strict 2
 
 local target;
-local spread;
+local spread, iLastSpread;
 local angle;
 
 static const CH_Distance = 60;
@@ -61,7 +61,11 @@ protected func Check()
   SetClrModulation(RGBa(255,255,255,alpha),0,3);	//Base unten
   SetClrModulation(rgb,0,4);				//Overlay unten
 
-  UpdateGraphics();
+	if(spread != iLastSpread)
+	{
+  	UpdateGraphics();
+  	iLastSpread = spread;
+  }
 }
 
 public func Init(object pTarget)
@@ -132,7 +136,11 @@ public func UpdateAngle()
 public func SetSpread(int iSpread)//Achtung, Präzision beachten!
 {
   spread = iSpread;
-  UpdateGraphics();
+  if(spread != iLastSpread)
+	{
+  	UpdateGraphics();
+  	iLastSpread = spread;
+  }
 }
 
 public func GetSpread()//Achtung, Präzision beachten!
@@ -166,11 +174,11 @@ public func InitGraphics()
 public func UpdateGraphics()
 {
   Draw(-GetR()*CH_Spread_Prec-(spread/2),CH_Distance,CH_Spread_Prec,1);
-  Draw(-GetR()*CH_Spread_Prec-(spread/2),CH_Distance,CH_Spread_Prec,2,0,0,GFX_BLIT_Additive);
+  Draw(-GetR()*CH_Spread_Prec-(spread/2),CH_Distance,CH_Spread_Prec,2);//,0,0,GFX_BLIT_Additive);
   //Draw(GetR()*CH_Spread_Prec-(spread/2),CH_Distance,CH_Spread_Prec,3,0,0,GFX_BLIT_Additive);
   
   Draw(-GetR()*CH_Spread_Prec+(spread/2),CH_Distance,CH_Spread_Prec,3);
-  Draw(-GetR()*CH_Spread_Prec+(spread/2),CH_Distance,CH_Spread_Prec,4,0,0,GFX_BLIT_Additive);
+  Draw(-GetR()*CH_Spread_Prec+(spread/2),CH_Distance,CH_Spread_Prec,4);//,0,0,GFX_BLIT_Additive);
   //Draw(GetR()*CH_Spread_Prec+(spread/2),CH_Distance,CH_Spread_Prec,6,0,0,GFX_BLIT_Additive);
 }
 
@@ -184,8 +192,8 @@ private func Draw(int r, int off, int prec, int overlay)
 
   SetObjDrawTransform
   (
-    +fcos, +fsin,xoff*1000,
-    -fsin, +fcos,yoff*1000,
+    +fcos, +fsin, xoff*1000,
+    -fsin, +fcos, yoff*1000,
     0, overlay
   );
-}
+} 
