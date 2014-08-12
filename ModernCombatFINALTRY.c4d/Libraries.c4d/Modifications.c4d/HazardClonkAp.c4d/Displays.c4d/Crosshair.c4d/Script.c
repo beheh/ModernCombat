@@ -61,10 +61,10 @@ protected func Check()
   SetClrModulation(RGBa(255,255,255,alpha),0,3);	//Base unten
   SetClrModulation(rgb,0,4);				//Overlay unten
 
-	if(spread != iLastSpread)
-	{
-  	UpdateGraphics();
-  	iLastSpread = spread;
+  if(spread != iLastSpread)
+  {
+    UpdateGraphics();
+    iLastSpread = spread;
   }
 }
 
@@ -137,9 +137,9 @@ public func SetSpread(int iSpread)//Achtung, Präzision beachten!
 {
   spread = iSpread;
   if(spread != iLastSpread)
-	{
-  	UpdateGraphics();
-  	iLastSpread = spread;
+  {
+    UpdateGraphics();
+    iLastSpread = spread;
   }
 }
 
@@ -196,4 +196,4 @@ private func Draw(int r, int off, int prec, int overlay)
     -fsin, +fcos, yoff*1000,
     0, overlay
   );
-} 
+}
