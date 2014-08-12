@@ -12,121 +12,128 @@ local fStaticRope, fDisablePhysics, fZipline;
 public func SetRopeColor(int dwClr)	{return dwcolor = dwClr;}
 public func GetRopeLength()		{return iLength;}
 public func SetRopeLength(iNewLength)	{return iLength = Max(iNewLength, 0);}
-public func IsStatic()		{ return fStaticRope; }
-public func NoPhysics()   { return fDisablePhysics; }
-public func IsZipline()   { return fZipline && NoPhysics(); } 
+public func IsStatic()			{return fStaticRope;}
+public func NoPhysics()			{return fDisablePhysics;}
+public func IsZipline()			{return fZipline && NoPhysics();} 
 func IsAnvilProduct()			{return 1;}
+
+
+/* Seilrutsche erstellen */
 
 global func CreateZipline(int iX1, int iY1, int iX2, int iY2)
 {
-	var np1 = CreateObject(NLPT, iX1, iY1, -1);
+  //Knotenpunkte setzen
+  var np1 = CreateObject(NLPT, iX1, iY1, -1);
   var np2 = CreateObject(NLPT, iX2, iY2, -1);
+
+  //Seil erstellen und konfigurieren
   var rope = CreateObject(CK5P, 0, 0, -1);
-  
   rope->ConnectObjects(np1, np2);
   rope->SetStaticMode(true);
   rope->SetZipline(true);
-  
+
   return rope;
 } 
 
-//Trennt das Seil am Anfang/Ende ab 
+/* Seil abtrennen */
+
 public func CutRope(int iPosition, int iPlrPlusOne)
 {
-	//Höhenunterschiede berücksichtigen
-	if(iPosition && GetPoint(0, true) > GetPoint(GetPointNum()-1, true))
-		iPosition = iPosition+((!(iPosition-1))*2-1);
+  //Höhenunterschiede berücksichtigen
+  if(iPosition && GetPoint(0, true) > GetPoint(GetPointNum()-1, true))
+    iPosition = iPosition+((!(iPosition-1))*2-1);
 
-	SetZipline(false);
-	SetStaticMode(false);
+  SetZipline(false);
+  SetStaticMode(false);
 
-	var at0 = GetActionTarget(), at1 = GetActionTarget(1);
-	var angle = Angle(GetX(at0), GetY(at0), GetX(at1), GetY(at1));
-	var temp1, temp2;
+  var at0 = GetActionTarget(), at1 = GetActionTarget(1);
+  var angle = Angle(GetX(at0), GetY(at0), GetX(at1), GetY(at1));
+  var temp1, temp2;
 
-	if(!iPosition || iPosition == 1)
-	{
-		temp1 = CutRopeEnd(0, angle, iPlrPlusOne);
-		
-		if(iPosition)
-		{
-			ConnectObjects(at1, temp1);
-			SetXDir(+Sin(angle, 100)/2, temp1);
-			SetYDir(-Cos(angle, 100)/2, temp1);
-		}
-	}
-	if(!iPosition || iPosition == 2)
-	{
-		temp2 = CutRopeEnd(true, angle+180, iPlrPlusOne);
-		
-		if(iPosition)
-		{
-			ConnectObjects(at0, temp2);
-			SetXDir(+Sin(angle+180, 100)/2, temp2);
-			SetYDir(-Cos(angle+180, 100)/2, temp2);
-		}
-	}
-	
-	if(!iPosition)
-	{
-		ConnectObjects(temp1, temp2);
-		SetXDir(+Sin(angle, 100)/3, temp1);
-		SetYDir(-Cos(angle, 100)/3, temp1);
-		SetXDir(+Sin(angle+180, 100)/3, temp2);
-		SetYDir(-Cos(angle+180, 100)/3, temp2);
-	}
+  if(!iPosition || iPosition == 1)
+  {
+    temp1 = CutRopeEnd(0, angle, iPlrPlusOne);
 
-	FadeOut();
+    if(iPosition)
+    {
+      ConnectObjects(at1, temp1);
+      SetXDir(+Sin(angle, 100)/2, temp1);
+      SetYDir(-Cos(angle, 100)/2, temp1);
+    }
+  }
+  if(!iPosition || iPosition == 2)
+  {
+    temp2 = CutRopeEnd(true, angle+180, iPlrPlusOne);
 
-	return true;
+    if(iPosition)
+    {
+      ConnectObjects(at0, temp2);
+      SetXDir(+Sin(angle+180, 100)/2, temp2);
+      SetYDir(-Cos(angle+180, 100)/2, temp2);
+    }
+  }
+
+  if(!iPosition)
+  {
+    ConnectObjects(temp1, temp2);
+    SetXDir(+Sin(angle, 100)/3, temp1);
+    SetYDir(-Cos(angle, 100)/3, temp1);
+    SetXDir(+Sin(angle+180, 100)/3, temp2);
+    SetYDir(-Cos(angle+180, 100)/3, temp2);
+  }
+
+  //Verschwinden
+  FadeOut();
+
+  return true;
 }
 
 private func CutRopeEnd(bool fEnd, int iAngle, int iPlrPlusOne)
 {
-	var index = 0;
-	if(fEnd)
-		index = GetPointNum()-1;
-  
+  var index = 0;
+  if(fEnd)
+    index = GetPointNum()-1;
+
   var xoff, yoff;
   xoff = Sin(iAngle, GetDefWidth(NLPT), 100);
   yoff = -Cos(iAngle, GetDefHeight(NLPT), 100);
-	
-	//Temporäres Knotenpunktobjekt erzeugen
-	var temp = CreateObject(NLPT, GetPoint(index)+xoff, GetPoint(index, true)+yoff, iPlrPlusOne-1);
-	temp->SetCategory(C4D_Object);
+
+  //Temporäres Knotenpunktobjekt erzeugen
+  var temp = CreateObject(NLPT, GetPoint(index)+xoff, GetPoint(index, true)+yoff, iPlrPlusOne-1);
+  temp->SetCategory(C4D_Object);
 
   //Partikel- und Soundeffekte
   //...
 
-	FadeOut(temp);
-	return temp;
+  FadeOut(temp);
+  return temp;
 }
 
 public func SetZipline(bool fSet)
 {
-	fZipline = fSet;
-	
-	if(fZipline)
-	{
-		SetRopeColor(RGB(50,50,50));
-  	DisablePhysics(true);
-  	
-  	//Seil muss gerade sein
-  	if(WildcardMatch(GetAction(), "*Connect*"))
-  	{
-  		var o1 = GetActionTarget(), o2 = GetActionTarget(1);
-  		aPointsX = [0, 0];
-  		aPointsY = [0, 0];
-  		
-  		ConnectObjects(o1, o2);
-  	}
-  	
-  	SetRopeLength(Distance(GetPoint(), GetPoint(0, true), GetPoint(GetPointNum()-1), GetPoint(GetPointNum()-1, true)));
-	}
-	else
-		DisablePhysics(false);
+  fZipline = fSet;
 
-	return true;
+  if(fZipline)
+  {
+    SetRopeColor(RGB(50,50,50));
+    DisablePhysics(true);
+
+    //Seil muss gerade sein
+    if(WildcardMatch(GetAction(), "*Connect*"))
+    {
+      var o1 = GetActionTarget(), o2 = GetActionTarget(1);
+      aPointsX = [0, 0];
+      aPointsY = [0, 0];
+
+      ConnectObjects(o1, o2);
+    }
+
+    SetRopeLength(Distance(GetPoint(), GetPoint(0, true), GetPoint(GetPointNum()-1), GetPoint(GetPointNum()-1, true)));
+  }
+  else
+    DisablePhysics(false);
+
+  return true;
 }
 
 public func SetStaticMode(bool fSet)
@@ -152,8 +159,8 @@ public func SetStaticMode(bool fSet)
 
 public func DisablePhysics(bool fSet)
 {
-	fDisablePhysics = fSet;
-	return fSet;
+  fDisablePhysics = fSet;
+  return fSet;
 }
 
 /* Initialisierung */
@@ -480,7 +487,7 @@ private func PullObject(iToX, iToY, iLength, pObj, pObj2, iVtx)	//pObj wird vers
     {
       iToX += 7 - x;
       fFound = 7 - x;
-	    break;
+      break;
     }
   var iLen = Min(iLength, Distance(iToX, iToY, GetX(pObj) + GetVertex(iVtx, 0, pObj), GetY(pObj) + GetVertex(iVtx, 1, pObj)));
   var iAngle = MakeThisAngleUseful(Angle(GetX(pObj) + GetVertex(iVtx, 0, pObj), GetY(pObj) + GetVertex(iVtx, 1, pObj), iToX, iToY), -180, +180);
