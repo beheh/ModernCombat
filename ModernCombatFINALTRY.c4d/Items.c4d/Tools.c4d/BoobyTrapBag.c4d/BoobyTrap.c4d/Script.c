@@ -286,7 +286,7 @@ public func Detonate()
   var i = 0;
   while(i < 12)
   {
-    var ammo = CreateObject(SHRP,0,0,GetOwner(controller));
+    var ammo = CreateObject(SHRP,0,0,controller);
     ammo->Launch(iDir+RandomX(-15,15),100+Random(80),100+Random(50),3,20,50);
     i++;
   }
