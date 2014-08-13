@@ -126,7 +126,7 @@ protected func RemovePlayer(int iPlr)
 
 /* Computer platzieren */
 
-public func GetComputer()	{return FindObject(C4P2);}
+public func GetComputer()	{return FindObject(COMP);}
 
 local compSpawns;
 
