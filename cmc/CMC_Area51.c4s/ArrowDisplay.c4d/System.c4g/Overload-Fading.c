@@ -21,6 +21,12 @@ global func FxFadeOutTimer(object pTarget, int iNr)
   EffectVar(0, pTarget, iNr) += EffectVar(2, pTarget, iNr);
   var r,g,b,a;
   SplitRGBaValue(GetClrModulation(pTarget), r, g, b, a);
+  if(!GetClrModulation(pTarget))
+  {
+  	r = 255;
+  	g = 255;
+  	b = 255;
+  }
   SetClrModulation(RGBa(r, g, b, EffectVar(0, pTarget, iNr)/1000), pTarget);
 
   if(EffectVar(0, pTarget, iNr) >= EffectVar(1, pTarget, iNr))
