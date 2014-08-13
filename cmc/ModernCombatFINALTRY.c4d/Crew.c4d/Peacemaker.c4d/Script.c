@@ -54,14 +54,14 @@ protected func ContactBottom()
 
 /* Defibrillator auslösen */
 
-public func ActivateDefi()
+public func ActivateShockPaddles()
 {
   if(!FindObject2(Find_Func("IsShockPaddles"), Find_Container(this)))
     return;
 
   while(!Contents(0, this)->~IsShockPaddles())
     ShiftContents(this);
-  //und auslösen
+  //Defibrillator auslösen
   Contents(0, this)->~Activate(this);
   return 1;
 }
