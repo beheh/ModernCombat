@@ -556,16 +556,16 @@ public func ControlUp(object pCaller)
 {
   if(!pCaller) 
     return _inherited(...);
-	
-  if(!pCaller->~ActivateDefi())
+
+  if(!pCaller->~ActivateShockPaddles())
   {
-    //Defi in der Leiche?
+    //Schwerverletzter mit Defibrillator?
     var defi = FindObject2(Find_Func("IsShockPaddles"), Find_Container(this));	
-	if(defi)
-	{
+  if(defi)
+  {
       SetCommand(pCaller, "Get", defi);
-	  Schedule("ActivateDefi()", 1, 0, pCaller);
-	}
+    Schedule("ActivateShockPaddles()", 1, 0, pCaller);
+  }
   }
   return _inherited(...);
 }
