@@ -52,6 +52,20 @@ protected func ContactBottom()
   return;
 }
 
+/* Defibrillator auslösen */
+
+public func ActivateDefi()
+{
+  if(!FindObject2(Find_Func("IsShockPaddles"), Find_Container(this)))
+    return;
+
+  while(!Contents(0, this)->~IsShockPaddles())
+    ShiftContents(this);
+  //und auslösen
+  Contents(0, this)->~Activate(this);
+  return 1;
+}
+
 /* KI-Erweiterung */
 
 /* Schwerverletzte suchen */

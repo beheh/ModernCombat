@@ -552,6 +552,24 @@ public func RejectCollect(id idObj, object pObj)
   return val;
 }
 
+public func ControlUp(object pCaller)
+{
+  if(!pCaller) 
+    return _inherited(...);
+	
+  if(!pCaller->~ActivateDefi())
+  {
+    //Defi in der Leiche?
+    var defi = FindObject2(Find_Func("IsShockPaddles"), Find_Container(this));	
+	if(defi)
+	{
+      SetCommand(pCaller, "Get", defi);
+	  Schedule("ActivateDefi()", 1, 0, pCaller);
+	}
+  }
+  return _inherited(...);
+}
+
 public func ControlDig(object pCaller)
 {
   if(pCaller == clonk) return 1;
