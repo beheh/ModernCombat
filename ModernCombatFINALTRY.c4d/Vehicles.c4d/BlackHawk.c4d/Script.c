@@ -1140,22 +1140,30 @@ private func ExitClonkByRope(a, pClonk)
   Sound("StructureLeave*.ogg", true, this, 100, GetOwner(pClonk) + 1);
 }
 
-protected func FxCheckGroundStart(pTarget, iNo, iTemp, pHeli)
+protected func FxCheckGroundStart(object pTarget, int iNo, object iTemp, object pHeli)
 {
   if(iTemp)
     return;
   if(!pHeli)
     return;
+
+  //Seil erstellen und verbinden
   var pRope = CreateObject(CK5P, 0, 0, GetOwner(pTarget));
   pRope->ConnectObjects(pHeli ,pTarget);
   pRope->SetRopeLength(10);
+
+  //Effekte
+  Sound("ZiplineIn.ogg", 0, pTarget, 40);
+  Sound("ZiplineSlide.ogg", 0, pTarget, 40, 0, +1);
+
   EffectVar(0, pTarget, iNo) = pRope;	//Das Seil
   EffectVar(1, pTarget, iNo) = pHeli;	//Der Helikopter
 }
 
-protected func FxCheckGroundTimer(pTarget, iNo, iTime)
+protected func FxCheckGroundTimer(object pTarget, int iNo, int iTime)
 {
   var pRope = EffectVar(0, pTarget, iNo);
+
   //Knapp über dem Boden, falsche Aktion oder Seil zu lang?
   if(!PathFree(GetX(pTarget), GetY(pTarget), GetX(pTarget), GetY(pTarget) + 30)
      || pRope->GetRopeLength() > 1000
@@ -1164,10 +1172,18 @@ protected func FxCheckGroundTimer(pTarget, iNo, iTime)
     //Seil entfernen und Absprung verlangsamen
     RemoveObject(pRope);
     SetYDir(20,pTarget);
+
     return -1;
   }
   else
     pRope->SetRopeLength(iTime * 4 + 10);
+}
+
+protected func FxCheckGroundStop(object pTarget, int iEffectNumber)
+{
+  //Effekte
+  Sound("ZiplineOut.ogg", 0, pTarget, 40);
+  Sound("ZiplineSlide.ogg", 0, pTarget, 40, 0, -1);
 }
 
 /* Zerstörung */
