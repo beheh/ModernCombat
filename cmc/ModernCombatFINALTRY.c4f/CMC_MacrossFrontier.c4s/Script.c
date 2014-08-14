@@ -4,12 +4,6 @@
 #include CSTD
 
 func RecommendedGoals()	{return [GHTF, GTDM];}	//Spielzielempfehlung
-func ChooserBlockedTeams(id idGoal)
-{
-  //Bei CTF: Nur zwei Teams erlauben
-  if(idGoal == GCTF)
-   return 3;
-}
 
 
 /* Initialisierung */
@@ -26,8 +20,6 @@ func Initialize()
   CreateEquipment();
   //Dekoration plazieren
   CreateDecoration();
-  //Kein CTF bei mehr als 2 Teams
-  if(GetTeamCount() > 2) RemoveAll(GCTF);
   return 1;
 }
 
@@ -426,22 +418,6 @@ public func ChooserFinished()
    AddMoneySpawn(940, 160, [20]);
   }
 
-  //CTF-Spielziel
-  if(FindObject(GCTF))
-  {
-   //Hinweisschilder
-   var sign = CreateObject(SGNP, 560, 480, -1);
-   sign->SetMode(1);
-   sign->Set("Turret");
-   var sign = CreateObject(SGNP, 990, 400, -1);
-   sign->SetMode(1);
-   sign->Set("Turret");
-
-   //Flaggen
-   CreateFlag(1,110,440,GetTeamColor(1)); 
-   CreateFlag(2,1440,360,GetTeamColor(2)); 
-  }
-
   //LMS/DM-Spielziel
   if(FindObject(GLMS) || FindObject(GTDM))
   {
@@ -508,19 +484,5 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
    {
     return [[340, 340], [350, 430], [530, 410], [1020, 330], [1220, 260], [1200, 350]];
    }
-  }
-
-  //CTF-Spielziel
-  if(FindObject(GCTF))
-  {
-   if(iTeam == GetActiveTeamByIndex(0))
-   {
-    return [[220, 200], [250, 140], [365, 200]];
-   }
-   if(iTeam == GetActiveTeamByIndex(1))
-   {
-    return [[1135, 120], [1265, 85], [1295, 120]];
-   }
-   return 1;
   }
 }
