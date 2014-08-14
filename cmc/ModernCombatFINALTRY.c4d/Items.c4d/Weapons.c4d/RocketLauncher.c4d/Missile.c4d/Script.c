@@ -104,7 +104,7 @@ public func StartChasing()
   }
   else
   {
-    Sound("MISL_Switch.ogg", 0, this, 0, GetOwner());
+    Sound("MISL_Switch.ogg", 0, this, 0, GetOwner()+1);
     Sound("AT4R_Empty.ogg", 0, pLauncher, 50);
   }
 }
@@ -200,7 +200,7 @@ public func FxFollowTimer(object pTarget, int iEffectNumber, int iEffectTime)
 
       EffectVar(2, pTarget, iEffectNumber) = pBeam;
 
-      Sound("MISL_Click.ogg", 0, this, 50, GetOwner());
+      Sound("MISL_Click.ogg", 0, this, 50, GetOwner()+1);
 
       //Da noch keine automatische Steuerung erfolgt, normale Steuerung fortsetzen
       //Kann nicht gesteuert werden
