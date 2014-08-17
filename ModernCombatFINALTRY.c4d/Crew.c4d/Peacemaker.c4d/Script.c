@@ -54,15 +54,34 @@ protected func ContactBottom()
 
 /* Defibrillator auslösen */
 
+//simpler Timer
+public func FxIntActivatingShockPaddlesTimer(object pTarget, int iEffectNumber, int iEffectTime)
+{
+  if(iEffectTime >= 20)
+  {
+    Contents(0, this)->~Activate(this);
+    return -1;
+  }
+
+  return 1;
+}
+
 public func ActivateShockPaddles()
 {
   if(!FindObject2(Find_Func("IsShockPaddles"), Find_Container(this)))
     return;
 
-  while(!Contents(0, this)->~IsShockPaddles())
-    ShiftContents(this);
-  //Defibrillator auslösen
-  Contents(0, this)->~Activate(this);
+  if(!Contents(0, this)->~IsShockPaddles())
+  {
+    while(!Contents(0, this)->~IsShockPaddles())
+      ShiftContents(this);
+	  
+	//Timer für simuliertes Inventorylock
+	AddEffect("IntActivatingShockPaddles", this, 100, 20, this, GetID(this));
+  }
+  else
+    if(!GetEffect("IntActivatingShockPaddles"))
+      Contents(0, this)->~Activate(this);
   return 1;
 }
 
