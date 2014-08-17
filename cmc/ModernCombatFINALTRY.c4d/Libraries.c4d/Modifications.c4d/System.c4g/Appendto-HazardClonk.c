@@ -43,7 +43,7 @@ public func ChangeDeathAnim()
 protected func Control2Grab(string command)
 {
   if(GetProcedure() == "PUSH" && GetActionTarget())
-  return GetActionTarget()->~Control2Grab(command,this,...);
+    return GetActionTarget()->~Control2Grab(command,this,...);
 }
 
 protected func ControlDigDouble()
@@ -62,7 +62,7 @@ protected func ControlDownDouble()
 
   if(GetAction() == "Push" || IsRiding())
   {
-    if(GetActionTarget()->~ControlDownDouble(this))
+    if(GetActionTarget() && GetActionTarget()->~ControlDownDouble(this))
       return true;
   }
 
@@ -418,7 +418,7 @@ public func UpdateCharge(bool fForceUpdate)
     return true;
 
   //Reitet
-  if(IsRiding() && GetActionTarget()->~UpdateCharge(this))
+  if(IsRiding() && GetActionTarget() && GetActionTarget()->~UpdateCharge(this))
     return true;
 
   //Gegebenenfalls an angefasstes Objekt weiterleiten
@@ -2551,7 +2551,7 @@ public func ControlThrow()
 
   //Steuerung an gerittenes Objekt weitergeben
   if(IsRiding())
-    if(GetActionTarget()->~ControlThrow(this()))
+    if(GetActionTarget() && GetActionTarget()->~ControlThrow(this()))
       return(1); 
 
   if(Control2Grab("ControlThrow"))	return(0);
@@ -2585,10 +2585,9 @@ public func ControlUp()
 public func ControlUpDouble()
 {
   if(GetAction() == "Push" || IsRiding())
-  {
-    if(GetActionTarget()->~ControlUpDouble(this))
+    if(GetActionTarget() && GetActionTarget()->~ControlUpDouble(this))
       return true;
-  }
+	  
   return _inherited(...);
 }
 
@@ -2701,7 +2700,7 @@ public func ControlRightDouble()
 {
   if(GetAction() == "Push" || IsRiding())
   {
-    if(GetActionTarget()->~ControlRightDouble(this))
+    if(GetActionTarget() && GetActionTarget()->~ControlRightDouble(this))
       return true;
   }
   return _inherited(...);
