@@ -30,7 +30,7 @@ public func RejectEntrance(object pClonk)
   //Kann nur von Clonks aufgehoben werden
   if(!(GetOCF(pClonk) & OCF_CrewMember))
     return true;
-  
+
   //Data Run-Spielziel vorhanden: Daten übertragen, ansonsten verschwinden
   if(FindObject(GDAR))
     FindObject(GDAR)->GiveData(GetOwner(pClonk), iData);
@@ -62,7 +62,7 @@ public func Entrance(object pClonk)
 
   //Verschwinden
   RemoveObject(this);
-  
+
   //Inventar wieder zurückswitchen
   //ShiftContents(pClonk, true);
   return true;
