@@ -559,8 +559,8 @@ public func ControlUp(object pCaller)
 
   if(!pCaller->~ActivateShockPaddles())
     //Schwerverletzter mit Defibrillator?
-    var defi = FindObject2(Find_Func("IsShockPaddles"), Find_Container(this));	
-	
+    var defi = FindObject2(Find_Func("IsShockPaddles"), Find_Container(this));
+
   if(defi)
   {
       SetCommand(pCaller, "Get", defi);
