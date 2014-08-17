@@ -1077,7 +1077,7 @@ public func Start(object pStation)
     AddEffect("Flying", this, 1, 1, this);
 
   //Sicht einschränken
-  SetPlrViewRange(150);
+  SetPlrViewRange(250);
 
   //Effekt
   Sound("MAVE_Engine.ogg", 0, 0, 70, 0, +1);
