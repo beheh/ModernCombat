@@ -2587,7 +2587,7 @@ public func ControlUpDouble()
   if(GetAction() == "Push" || IsRiding())
     if(GetActionTarget() && GetActionTarget()->~ControlUpDouble(this))
       return true;
-	  
+
   return _inherited(...);
 }
 
