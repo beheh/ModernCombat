@@ -10,7 +10,7 @@ public func IsMarkerTarget(object pBy)
 }
 
 public func TVAR_MarkerColor(object pBy) { return GetColorDw(GetComputer2()); } //Farbe des Pfeils
-public func TVAR_MarkerIcon(object pBy) { return 0; }	//Angezeigtes Icon (String)
+public func TVAR_MarkerIcon(object pBy) { return "Computer"; }	//Angezeigtes Icon (String)
 public func TVAR_MarkerTarget(object pBy) { return GetComputer2(); } //Verweis auf anderes Objekt zum zeigen (0 = this)
 
 public func TVAR_MarkerVisibility(object pBy)

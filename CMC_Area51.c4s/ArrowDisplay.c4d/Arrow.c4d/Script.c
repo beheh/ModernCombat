@@ -6,6 +6,8 @@ public func MaxRange()	{return 1600;}
 public func NoWarp()	{return true;}
 public func IsHUD()	{return true;}
 
+local arrowIcon;
+
 //Informationsgrafik und Pfeilgrafik müssen getrennt sein, ansonsten würde die Information mitdrehen (-> 180° Drehung)
 
 /* Initialisierung */
@@ -21,21 +23,48 @@ public func Set(string szAction, object pOwner, int iColor)
 	SetAction("Show", pOwner);
 	if(iColor)
 	  SetClrModulation(iColor, this);
+
 	//Zusatzobjekt erstellen welches sich an dieses Objekt attached (im vordefinierten Abstand)
-	
+	if(szAction)
+	{
+		arrowIcon = CreateObject(TVIC, 0, 0, GetOwner());
+		arrowIcon->SetAction(szAction, this);
+		arrowIcon->SetVisibility(VIS_Owner);
+	}
+
 	return true;
 }
+
+public func GetIcon() { return arrowIcon; }
 
 public func SetPos(int iAngle, int iRange)
 {
 	var xoff = -Sin(iAngle, iRange, 1000);
   var yoff = +Cos(iAngle, iRange, 1000);
+  
+  //Attached Pfeil durch Vertex positionieren
   SetVertex(0, 0, xoff);
   SetVertex(0, 1, yoff);
   
   SetR(iAngle/1000);
+  
+  //Icon relativ zu Pfeil positionieren
+  if(arrowIcon)
+  {
+		arrowIcon->SetVertex(0, 0, -Sin(iAngle, iRange-25, 1000));
+		arrowIcon->SetVertex(0, 1, +Cos(iAngle, iRange-25, 1000));
+	}
 
   return true;
+}
+
+public func Destruction()
+{
+	//Icon löschen
+	if(arrowIcon)
+		RemoveObject(arrowIcon);
+	
+	return true;
 }
 
 static const TVAR_VIS_All = 0;      //Für alle sichtbar
