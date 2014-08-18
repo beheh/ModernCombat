@@ -8,9 +8,6 @@ public func IsDataTransmitter(bool fGoal)	{return true;}
 public func IsDestroyed()			{return fDestroyed;}
 public func MaxPoints()				{return 100;}
 public func PointsGain()			{return 1;}
-public func RegainSignalTime()			{return 35*5;}	//Dauer bis zur Wiederverbindung
-public func RegainSignalBonus()			{return 10;}	//Startbonus nach Wiederverbindung
-
 
 /* Initialisierung */
 
@@ -45,7 +42,7 @@ public func GetIcon()
 public func UpdateBar()
 {
   var fShowBar = false;
-  if(GetPoints() > 0 && GetPoints() < MaxPoints() && !GetEffect("RegainSignal", this))
+  if(GetPoints() > 0 && GetPoints() < MaxPoints())
     fShowBar = true;
 
   bar->Update(GetPoints()*100/MaxPoints(), !fShowBar, !fShowBar);
@@ -55,7 +52,7 @@ public func UpdateBar()
     bar->SetIcon(0, SM27, 0, 0, 32);
 
   //Wiederverbindung
-  if(GetEffect("RegainSignal", this) && !IsDestroyed())
+  if(!GetPoints() && !IsDestroyed())
     bar->SetIcon(0, SM28, 0, 11000, 32);
 
   FindObject(GDAR)->UpdateScoreboard();
@@ -84,14 +81,6 @@ public func DoPoints(int iChange)
 public func SetPoints(int iAmount)
 {
   iPoints = BoundBy(iAmount, 0, MaxPoints());
-  if(!iPoints)
-  {
-    var e;
-    if(!(e = GetEffect("RegainSignal", this))) //Wiederverbinden
-      AddEffect("RegainSignal", this, 1, 1, this);
-    else
-      EffectVar(0, this, e) = 0;
-  }
 
   UpdateBar();
   return true;
@@ -99,11 +88,30 @@ public func SetPoints(int iAmount)
 
 /* Effekte */
 
+local isTarget;
+
 //Punkte generieren
 public func FxGeneratePointsTimer(object pTarget, int iNr)
 {
-  if(GetEffect("RegainSignal", pTarget) || GetEffect("ConnectionInUse", pTarget))
-    return true;
+  if(GetEffect("ConnectionInUse", pTarget))
+  {
+  	isTarget = true;
+    return false;
+  }
+  
+  if(FindObject(TRMR))
+  {
+  	for(var transmitter in FindObjects(Find_ID(TRMR)))
+  		if(transmitter != this)
+  			if(GetEffect("ConnectionInUse", transmitter))
+  			{
+  				isTarget = false;
+  				break;
+  			}
+  }
+  
+  if(isTarget)
+  	return false;
 
   pTarget->SetPoints(BoundBy(pTarget->GetPoints()+pTarget->PointsGain(), 0, pTarget->MaxPoints()));
   pTarget->UpdateBar();
@@ -124,34 +132,14 @@ public func FxConnectionInUseTimer(object pTarget, int iNr)
 public func FxConnectionInUseStop(object pTarget, int iNr)
 {
   //Icon resetten
-  if(!GetEffect("RegainSignal", pTarget))
-    pTarget->UpdateBar();
+  pTarget->UpdateBar();
+
   return;
-}
-
-//Neuer Verbindungsaufbau
-public func FxRegainSignalTimer(object pTarget, int iNr)
-{
-  pTarget->UpdateBar();
-  EffectVar(0, pTarget, iNr)++;
-
-  if(EffectVar(0, pTarget, iNr) > pTarget->~RegainSignalTime())
-    return -1;
-
-  return true;
-}
-
-public func FxRegainSignalStop(object pTarget)
-{
-  pTarget->UpdateBar();
-  pTarget->SetPoints(10);
-  return true;
 }
 
 /* Zustand */
 
-public func IsDownloading()	{return GetEffect("ConnectionInUse", this) && !GetEffect("RegainSignal", this);}
-public func IsRegainingSignal()	{return GetEffect("RegainSignal", this);}
+public func IsDownloading()	{return GetEffect("ConnectionInUse", this) && GetPoints();}
 
 /* Schaden */
 

@@ -151,7 +151,7 @@ public func FxDataRunComputerTimer(object pTarget, int iNr, int iTime)
   }
   else
   {
-  	if(GetEffect("RegainSignal", transmitter) || !transmitter->GetPoints())
+  	if(!transmitter->GetPoints())
   	{
   		EffectVar(5, pTarget, iNr) = 0;
   		return;
