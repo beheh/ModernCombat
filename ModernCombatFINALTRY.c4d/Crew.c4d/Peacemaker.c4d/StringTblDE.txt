@@ -1,7 +1,7 @@
-# Control Descs
+#Steuerung
 CtrlInventoryDesc=Inventar auswählen
 
-# ContextMenu
+#Kontextmenü
 CtxUnbuckleDesc=Ausrüstung ablegen
 CtxUnbuckleItem=%s ablegen
 CtxDrone=Drone ausschalten
@@ -13,5 +13,5 @@ CtxStartCrawl=Hinlegen
 CtxStopCrawl=Aufstehen
 CtxGrenadeMenu=Granaten
 
-# Other
+#Allgemein
 AmmoBag=Munitionsgürtel

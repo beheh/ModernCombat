@@ -552,20 +552,24 @@ public func RejectCollect(id idObj, object pObj)
   return val;
 }
 
+/* Steuerung */
+
 public func ControlUp(object pCaller)
 {
   if(!pCaller) 
     return _inherited(...);
 
+  //Schwerverletzten nach Defibrillator durchsuchen
   if(!pCaller->~ActivateShockPaddles())
-    //Schwerverletzter mit Defibrillator?
     var defi = FindObject2(Find_Func("IsShockPaddles"), Find_Container(this));
 
+  //Wenn gefunden: Nehmen und Auslösen planen
   if(defi)
   {
-      SetCommand(pCaller, "Get", defi);
-      Schedule("ActivateShockPaddles()", 2, 0, pCaller);
+    SetCommand(pCaller, "Get", defi);
+    Schedule("ActivateShockPaddles()", 2, 0, pCaller);
   }
+
   return _inherited(...);
 }
 

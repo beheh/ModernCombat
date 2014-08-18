@@ -67,18 +67,21 @@ public func FxIntActivatingShockPaddlesTimer(object pTarget, int iEffectNumber, 
 
 public func ActivateShockPaddles()
 {
+  //Abburch bei keinem Defibrillator
   if(!FindObject2(Find_Func("IsShockPaddles"), Find_Container(this)))
     return;
 
+  //Defibrillator wenn nötig anwählen
   if(!Contents(0, this)->~IsShockPaddles())
   {
     while(!Contents(0, this)->~IsShockPaddles())
       ShiftContents(this);
 
-    //Timer für simuliertes Inventorylock
+    //Verzögertes Auslösen des Defibrillators um Auswahlzeiten einzuhalten
     AddEffect("IntActivatingShockPaddles", this, 100, 20, this, GetID(this));
   }
   else
+    //Ansonsten sofort auslösen
     if(!GetEffect("IntActivatingShockPaddles"))
       Contents(0, this)->~Activate(this);
   return 1;
