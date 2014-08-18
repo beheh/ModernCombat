@@ -1076,8 +1076,8 @@ public func Start(object pStation)
   if(!GetEffect("Flying", this))
     AddEffect("Flying", this, 1, 1, this);
 
-  //Sicht einschränken
-  SetPlrViewRange(250);
+  //Spielersicht in Standardgröße
+  SetPlrViewRange();
 
   //Effekt
   Sound("MAVE_Engine.ogg", 0, 0, 70, 0, +1);
@@ -1107,6 +1107,9 @@ public func Wait()
   iYTendency = 0;
   iXDir = 0;
   iYDir = 0;
+
+  //Spielersicht entfernen
+  SetPlrViewRange(0);
 
   //Effekte entfernen oder stoppen und eventuelle Textnachrichten überschreiben
   if(pLaser) RemoveObject(pLaser);
