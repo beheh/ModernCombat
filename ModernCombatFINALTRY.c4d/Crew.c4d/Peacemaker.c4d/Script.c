@@ -52,6 +52,56 @@ protected func ContactBottom()
   return;
 }
 
+/* Abseilen vom Helikopter */
+
+protected func FxCheckGroundStart(object pTarget, int iNo, int iTemp, object pHeli)
+{
+  if(!pHeli)
+    return;
+  Log("foo");
+  //Seil erstellen und verbinden
+  var pRope = CreateObject(CK5P, 0, 0, GetOwner(pTarget));
+  pRope->ConnectObjects(pHeli ,pTarget);
+  pRope->SetRopeLength(10);
+
+  //Effekte
+  Sound("ZiplineIn.ogg", 0, pTarget, 40);
+  Sound("ZiplineSlide.ogg", 0, pTarget, 40, 0, +1);
+
+  EffectVar(0, pTarget, iNo) = pRope;	//Das Seil
+  EffectVar(1, pTarget, iNo) = pHeli;	//Der Helikopter
+}
+
+protected func FxCheckGroundTimer(object pTarget, int iNo, int iTime)
+{
+  var pRope = EffectVar(0, pTarget, iNo);
+  var pHeli = EffectVar(1, pTarget, iNo);
+  
+  //Heli oder Seil weg, Knapp über dem Boden, falsche Aktion oder Seil zu lang?
+  if(!pHeli || !pRope
+     || !PathFree(GetX(pTarget), GetY(pTarget), GetX(pTarget), GetY(pTarget) + 30)
+     || pRope->GetRopeLength() > 1000
+     || !WildcardMatch(GetAction(pTarget), "*Jump*"))
+  {
+    //eventuell noch vorhandenes Seil entfernen und Absprung verlangsamen
+    if(pRope)
+      RemoveObject(pRope);
+    SetYDir(20,pTarget);
+
+    return -1;
+  }
+  else
+    pRope->SetRopeLength(iTime * 4 + 10);
+}
+
+protected func FxCheckGroundStop(object pTarget, int iEffectNumber)
+{
+  //Effekte
+  Sound("ZiplineOut.ogg", 0, pTarget, 40);
+  Sound("ZiplineSlide.ogg", 0, pTarget, 40, 0, -1);
+  return;
+}
+
 /* Automatisches Defibrillator-Auslösen */
 
 public func FxIntActivatingShockPaddlesTimer(object pTarget, int iEffectNumber, int iEffectTime)
