@@ -58,7 +58,7 @@ protected func FxCheckGroundStart(object pTarget, int iNo, int iTemp, object pHe
 {
   if(!pHeli)
     return;
-	
+
   //Seil erstellen und verbinden
   var pRope = CreateObject(CK5P, 0, 0, GetOwner(pTarget));
   pRope->ConnectObjects(pHeli ,pTarget);
