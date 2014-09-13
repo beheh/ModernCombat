@@ -529,6 +529,32 @@ func FlagCaptured(object pPoint, int iTeam)
    aSelfDefense[3]->SetTeam(iTeam);
 }
 
+/* Bei Relaunch */
+ 
+public func OnClassSelection(object pClonk, int iTeam)
+{
+  //Assault-Spielziel
+  if(FindObject(GASS))
+  {
+   if(GetPlayerTeam(GetOwner(pClonk)) == 1)
+   {
+    if(!GetAssaultTarget(2))
+    {
+     AddEffect("IntPara", pClonk, 1, 1);
+     AddEffect("Flying", pClonk, 101, 5);
+     Sound("Airstrike2", 0, pClonk);
+    }
+   }
+  }
+}
+ 
+global func FxIntParaTimer(object pTarget)
+{
+  if(!Contained(pTarget))
+   CreateObject(PARA,0,0,GetOwner(pTarget))->Set(pTarget);
+  return -1;
+}
+
 /* Regelwähler */
 
 public func ChooserFinished()
@@ -692,7 +718,7 @@ public func ChooserFinished()
    AddAssaultTarget(CMSN, 1960, 1060, 30*30, 2, "$Target2$", 0, [[[2400, 1050], [2420, 1010], [2540, 950]], [[940, 860], [1035, 900], [1200, 950]]]);
    AddAssaultTarget(RADR, 2080, 940, 30*30, 2, "$Target1$", 1, [[[2400, 1050], [2420, 1010], [2540, 950]], [[940, 860], [1035, 900], [1200, 950]]]);
    AddAssaultTarget(RADR, 3125, 750, 0, 2, "$Target1$", 2, [[[3030, 1140], [3315, 1110], [3190, 1143]], [[940, 860], [1035, 900], [1200, 950]]]);
-   AddAssaultTarget(CCP2, 3770, 1160, 0, 2, "$Target3$", 3, [[[4150, 1090], [3880, 1160], [3510, 1180]], [[940, 860], [1035, 900], [1200, 950]]]);
+   AddAssaultTarget(CCP2, 3770, 1160, 0, 2, "$Target3$", 3, [[[3880, 1040], [4140, 1090], [4180, 960]], [[3000, 0], [3150, 0], [3300, 0]]]);
 
    //Ziele verbinden
    ConnectAssaultTargets([0, 1]);
@@ -918,6 +944,10 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex, bo
 
     //Teamgrenze setzen
     FindObject(GASS)->CreateTeamBorder(AssaultDefenderTeam(),3370,0,1,1);
+
+    //Spawnpoints entfernen
+    RemoveObject(FindObject2(Find_ID(VSPW),Find_InRect(979, 749, 2, 2)));
+    RemoveObject(FindObject2(Find_ID(VSPW),Find_InRect(1189, 819, 2, 2)));
 
     //Geschützstellung entfernen
     aStationary[1]->DecoExplode(30);
