@@ -737,6 +737,7 @@ public func ChooserFinished()
    //Leitern
    CreateObject(LADR, 1325, 795, -1)->Set(6);
    CreateObject(LADR, 3920, 1108, -1)->Set(16);
+   CreateObject(LADR, 4105, 1076, -1)->Set(11);
 
    //Metallkisten
    CreateObject(MWCR, 3510, 920, -1);
