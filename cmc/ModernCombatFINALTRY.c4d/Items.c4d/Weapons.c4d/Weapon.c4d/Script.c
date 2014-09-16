@@ -1067,7 +1067,7 @@ private func Shoot(object caller)
       PlayerMessage(GetOwner(user), "$NotAbleToShoot$", user);
       RemoveEffect("BurstFire", this);
       if(GetFMData(FM_Auto))
-	    shooting = false;
+        shooting = false;
       return false;
     }
   }
