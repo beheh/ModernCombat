@@ -76,7 +76,7 @@ public func Launch(int iAngle, object pFollow, bool fUnguided, int iXDir, int iY
   pLight = AddLight(70,RGB(255,200,200),this,GLOW);
 
   //Treffer- und Steuereffekt einsetzen
-  AddEffect("HitCheck", this, 1,1, 0, SHT1,shooter);
+  AddEffect("HitCheck", this, 1,1, 0, SHT1,pFollow);
   AddEffect("Follow", this, 1,1, this, 0, pFollow);
 
   //Gesichert losfliegen

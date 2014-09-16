@@ -27,15 +27,20 @@ protected func Initialize()
 
 /* Start */
 
-func Launch(int xdir, int ydir, int iDmg,a,b,c, int attachment)
+func Launch(int xdir, int ydir, int iDmg,a,b,c, int attachment, object pUser)
 {
   iAttachment = attachment;
   SetCategory(C4D_Vehicle);
   active = true;
   sx = GetX();
   sy = GetY();
-  start = FrameCounter();
-  inherited(xdir,ydir,iDmg,a,b,c);
+  start = FrameCounter();  
+  AddEffect("HitCheck", this, 1, 1, 0, SHT1,pUser);
+  AddEffect("Grenade", this, 1, 1, this);
+  SetSpeed(xdir, ydir);  
+  if(!iDmg)
+    // Standardexplosion
+    iDmg = 30;
   if(Stuck()) Hit();
 }
 
