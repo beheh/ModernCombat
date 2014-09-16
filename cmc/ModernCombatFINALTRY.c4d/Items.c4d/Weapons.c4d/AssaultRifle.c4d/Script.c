@@ -224,7 +224,7 @@ public func LaunchGrenade(id idg, int speed, int angle, int mode)
   //Granate abfeuern
   var grenade=CreateObject(idg, x, y, GetController(user));
   SetController(GetController(user), grenade);
-  grenade->Launch(xdir+GetXDir(user)/5, ydir/*+GetYDir(user)/10*/, GetFMData(FM_Damage,2), 0, 0, 0, iAttachment);
+  grenade->Launch(xdir+GetXDir(user)/5, ydir/*+GetYDir(user)/10*/, GetFMData(FM_Damage,2), 0, 0, 0, iAttachment, user);
 
   //Sicht auf Granate wenn der Schütze zielt
   if(!(user->~IsMachine()) && user->~IsAiming())

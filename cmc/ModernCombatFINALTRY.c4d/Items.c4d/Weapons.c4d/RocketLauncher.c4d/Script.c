@@ -106,7 +106,7 @@ public func LaunchRocket(id rid, int angle, bool unguided)
   var rocket = CreateObject(rid,x,y+10,GetController(user));
   rocket->Launch(angle, user, unguided, ((GetX()-lastX) * 10), ((GetY()-lastY) * 10));
   Sound("RTLR_Launch*.ogg", 0, rocket);
-  SetController(GetController(user), rocket);
+  SetOwner(GetOwner(user), rocket);
 
   //Sicht auf Rakete
   if(!unguided) SetPlrView(GetController(user), rocket);

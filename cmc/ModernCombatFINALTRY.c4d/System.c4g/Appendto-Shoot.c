@@ -15,6 +15,7 @@ public func FxHitCheckTimer(object target, int effect, int time)
   var newy = GetY(target);
   EffectVar(0, target, effect) = GetX(target);
   EffectVar(1, target, effect) = GetY(target);
+  var user = EffectVar(2, target, effect);
   
   //Schuss schon Scharf?
   var exclude = EffectVar(2, target, effect);
@@ -33,9 +34,9 @@ public func FxHitCheckTimer(object target, int effect, int time)
     if(obj == exclude) continue;
     if(obj->~HitExclude(target)) continue;
 
-    //CheckEnemy
-    if(!CheckEnemy(obj,target)) continue;
-
+    //CheckEnemy (user für korrekte Entfernung für FF-Radius)
+    if(!CheckEnemy(obj,user)) continue;
+	
     // IsBulletTarget oder Alive
     if(obj->~IsBulletTarget(GetID(target),target,EffectVar(2, target, effect),oldx,oldy) || GetOCF(obj) & OCF_Alive)
     {
