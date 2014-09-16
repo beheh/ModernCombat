@@ -51,7 +51,8 @@ public func SetGunner(pObj)
     EndAim();
   else
   {
-    SetController(GetOwner(pObj));
+    SetOwner(GetOwner(pObj));
+    SetOwner(GetOwner(pObj), cur_Attachment);
     InitAim();
     pObj->SetHUDTarget(GetAttWeapon());
   }
@@ -191,7 +192,11 @@ protected func FxIntTimerTimer(object pTarget, int iEffect, int iTime)
   SetR(GetR(heli));
 
   //Besitzer aktualisieren
-  SetOwner(GetOwner(heli));
+  if(pController)
+    SetOwner(GetOwner(pController));
+  else
+    SetOwner(GetOwner(heli));
+  
   cur_Attachment->SetOwner(GetOwner());
 
   //Transparenz anpassen
