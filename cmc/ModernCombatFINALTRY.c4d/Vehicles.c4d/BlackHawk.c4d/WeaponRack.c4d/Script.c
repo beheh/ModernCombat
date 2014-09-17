@@ -196,7 +196,7 @@ protected func FxIntTimerTimer(object pTarget, int iEffect, int iTime)
     SetOwner(GetOwner(pController));
   else
     SetOwner(GetOwner(heli));
-  
+
   cur_Attachment->SetOwner(GetOwner());
 
   //Transparenz anpassen
@@ -217,20 +217,19 @@ protected func FxIntTimerTimer(object pTarget, int iEffect, int iTime)
   /* Geschütz fahren */
 
   //Rotation
-  
-	aim_angle += iPat_Dir;
-	//Links?
-	if(AimAngle() < MaxRotLeft())
-	{
-	  aim_angle = MaxRotLeft()-GetR();
-	  iPat_Dir = 0; //Anhalten
-	}
-	//Rechts?
-	else if(AimAngle() > MaxRotRight())
-	{
-	  aim_angle = MaxRotRight()-GetR();
-	  iPat_Dir = 0; //Anhalten
-	}
+  aim_angle += iPat_Dir;
+  //Links?
+  if(AimAngle() < MaxRotLeft())
+  {
+    aim_angle = MaxRotLeft()-GetR();
+    iPat_Dir = 0; //Anhalten
+  }
+  //Rechts?
+  else if(AimAngle() > MaxRotRight())
+{
+    aim_angle = MaxRotRight()-GetR();
+    iPat_Dir = 0; //Anhalten
+  }
 
   //Crosshair nachziehen
   if(Crosshair) {
