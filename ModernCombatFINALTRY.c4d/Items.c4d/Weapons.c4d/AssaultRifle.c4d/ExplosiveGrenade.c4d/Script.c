@@ -39,7 +39,7 @@ func Launch(int xdir, int ydir, int iDmg,a,b,c, int attachment, object pUser)
   AddEffect("Grenade", this, 1, 1, this);
   SetSpeed(xdir, ydir);  
   if(!iDmg)
-    // Standardexplosion
+    //Standardexplosion
     iDmg = 30;
   if(Stuck()) Hit();
 }
