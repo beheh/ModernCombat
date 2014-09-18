@@ -11,16 +11,16 @@ global func CheckEnemy(object pObj, object pObj2, bool findEnemy, int iX, int iY
 
   if(!pObj)
     return;
-	
+
   if(!pObj2)
     pObj2 = this;
 
   if(!pObj2)
     return;
-	
+
   if(pObj == this && pObj2 == this)
     return;
-	
+
   //Tote Lebewesen nicht treffen
   if(GetCategory(pObj) & C4D_Living)
     if(!GetAlive(pObj))

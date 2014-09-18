@@ -64,9 +64,10 @@ public func LaunchFB(int iAngle, int iSpeed, int iDist, int iSize, int iTrail, i
   SetR(iAngle);
   DoCon(100*iSize/GetDefWidth()-100);
 
+  //Mündungsposition für Schussmechanik speichern
   startx = GetX();
   starty = GetY();
-  
+
   SetAction("Travel");
 
   max_dst = iDist;
@@ -188,7 +189,7 @@ private func HitLandscape()
   OnHitLandscape(x,y);
 
   //Umliegende Objekte beschädigen
-  var objs = FindObjects(Find_AtPoint(), Find_NoContainer(), Find_Or(Find_Func("IsBulletTarget",GetID(),this,shooter), Find_OCF(OCF_Alive)), Find_Func("CheckEnemy",0,shooter,0,startx,starty), Find_Not(Find_Func(ObjectCall(this,"HitExclude"))));  
+  var objs = FindObjects(Find_AtPoint(), Find_NoContainer(), Find_Or(Find_Func("IsBulletTarget",GetID(),this,shooter), Find_OCF(OCF_Alive)), Find_Func("CheckEnemy",0,shooter,0,startx,starty), Find_Not(Find_Func(ObjectCall(this,"HitExclude"))));
   {
     for(var pTarget in objs)
       HitObject(pTarget);

@@ -75,11 +75,12 @@ public func Launch(int iAngle, object pFollow, bool fUnguided, int iXDir, int iY
   AddEffect("ThrustSound",this,1,11,this);
   pLight = AddLight(70,RGB(255,200,200),this,GLOW);
 
+  //Mündungsposition für Schussmechanik speichern
   var ffx, ffy;
   pFollow->~WeaponEnd(ffx,ffy);
   ffx += GetX(pFollow);
   ffy += GetY(pFollow);
-  
+
   //Treffer- und Steuereffekt einsetzen
   AddEffect("HitCheck", this, 1,1, 0, SHT1,pFollow,0,ffx,ffy);
   AddEffect("Follow", this, 1,1, this, 0, pFollow);
