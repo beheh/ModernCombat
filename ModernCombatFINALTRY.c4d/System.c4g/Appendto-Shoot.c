@@ -5,6 +5,33 @@
 #strict 2
 #appendto SHT1
 
+// EffectVars:
+// 0 - alte X-Position
+// 1 - alte Y-Position
+// 2 - Schütze (Objekt, das die Waffe abgefeuert hat, üblicherweise ein Clonk)
+// 3 - ID des Schützen
+// 4 - Scharf? Wenn true wird der Schütze vom Projektil getroffen 
+// 5 - niemals den Schützen treffen
+// 6 - X Position für den FF Check
+// 7 - Y Position für den FF Check
+
+public func FxHitCheckStart(object target, int effect, int temp, object byObj, bool neverShooter, int iFFX, int iFFY)
+{
+  if(temp) 
+    return;
+  EffectVar(0, target, effect) = GetX(target);
+  EffectVar(1, target, effect) = GetY(target);
+  if(!byObj)
+    byObj = target;
+  if(byObj->Contained())
+    byObj = (byObj->Contained());
+  EffectVar(2, target, effect) = byObj;
+  EffectVar(3, target, effect) = GetID(byObj);
+  EffectVar(4, target, effect) = false;
+  EffectVar(5, target, effect) = neverShooter;
+  EffectVar(6, target, effect) = iFFX;
+  EffectVar(7, target, effect) = iFFY;
+}
 
 public func FxHitCheckTimer(object target, int effect, int time)
 {
@@ -16,6 +43,8 @@ public func FxHitCheckTimer(object target, int effect, int time)
   EffectVar(0, target, effect) = GetX(target);
   EffectVar(1, target, effect) = GetY(target);
   var user = EffectVar(2, target, effect);
+  var ffx = EffectVar(6, target, effect);
+  var ffy = EffectVar(7, target, effect);
 
   //Schuss schon Scharf?
   var exclude = EffectVar(2, target, effect);
@@ -34,8 +63,8 @@ public func FxHitCheckTimer(object target, int effect, int time)
     if(obj == exclude) continue;
     if(obj->~HitExclude(target)) continue;
 
-    //CheckEnemy (user für korrekte Entfernung für Friendly Fire-freien Radius)
-    if(!CheckEnemy(obj,user)) continue;
+    //CheckEnemy 
+    if(!CheckEnemy(obj,user,0,ffx,ffy)) continue;
 
     // IsBulletTarget oder Alive
     if(obj->~IsBulletTarget(GetID(target),target,EffectVar(2, target, effect),oldx,oldy) || GetOCF(obj) & OCF_Alive)

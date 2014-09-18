@@ -1851,7 +1851,7 @@ func FxLaserDotTimer(object pTarget, int iEffectNumber, int iEffectTime)
     pEnemy = FindObject2(Find_OnLine(0, 0, x - xPos, y - yPos), 
     	Find_NoContainer(),
     	Find_Or(Find_Func("IsSmoking"), 
-    		Find_And(Find_Func("CheckEnemy", this),
+    		Find_And(Find_Func("CheckEnemy", 0, this, 0, xPos,yPos),
     			Find_Or(Find_OCF(OCF_Alive),
     				Find_Func("IsBulletTarget", GetID(), this, this)
     			)
