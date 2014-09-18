@@ -4,6 +4,7 @@
 
 local iTime,lx,ly,pTrail,iDamage,speed,max_dst,dst,fb,fNoTrail,iMaxHits,iHitReduction;
 local shooter,wpnid,iAttachment;					//Schütze, Waffe und Waffenaufsatz
+local startx, starty;
 
 func NoWarp()			{return true;}
 func IsBullet()			{return true;}
@@ -63,6 +64,9 @@ public func LaunchFB(int iAngle, int iSpeed, int iDist, int iSize, int iTrail, i
   SetR(iAngle);
   DoCon(100*iSize/GetDefWidth()-100);
 
+  startx = GetX();
+  starty = GetY();
+  
   SetAction("Travel");
 
   max_dst = iDist;
@@ -184,7 +188,7 @@ private func HitLandscape()
   OnHitLandscape(x,y);
 
   //Umliegende Objekte beschädigen
-  var objs = FindObjects(Find_AtPoint(), Find_NoContainer(), Find_Or(Find_Func("IsBulletTarget",GetID(),this,shooter), Find_OCF(OCF_Alive)), Find_Func("CheckEnemy",shooter), Find_Not(Find_Func(ObjectCall(this,"HitExclude"))));
+  var objs = FindObjects(Find_AtPoint(), Find_NoContainer(), Find_Or(Find_Func("IsBulletTarget",GetID(),this,shooter), Find_OCF(OCF_Alive)), Find_Func("CheckEnemy",0,shooter,0,startx,starty), Find_Not(Find_Func(ObjectCall(this,"HitExclude"))));  
   {
     for(var pTarget in objs)
       HitObject(pTarget);
@@ -392,7 +396,7 @@ private func HitCheck(int r, int d)
     var pObj = FindObject2(Find_OnLine(0, 0, mx, my), 
     Find_NoContainer(), 
     Find_Or(Find_Func("IsBulletTarget", GetID(), this, shooter), Find_OCF(OCF_Alive)),
-    Find_Func("CheckEnemy", shooter),
+    Find_Func("CheckEnemy", 0, shooter, 0, startx, starty),
     Find_Not(Find_Func("HitExclude", this)),
     aExcludes,
     Find_Or(Find_Not(Find_Func("UseOwnHitbox")), Find_Func("BulletHitboxCheck", sx, sy, x, y)),

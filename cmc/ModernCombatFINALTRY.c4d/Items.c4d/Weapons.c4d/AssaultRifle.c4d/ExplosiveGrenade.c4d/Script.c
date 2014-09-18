@@ -35,7 +35,11 @@ func Launch(int xdir, int ydir, int iDmg,a,b,c, int attachment, object pUser)
   sx = GetX();
   sy = GetY();
   start = FrameCounter();  
-  AddEffect("HitCheck", this, 1, 1, 0, SHT1,pUser);
+  var ffx,ffy;
+  pUser->~WeaponEnd(ffx,ffy);
+  ffx += GetX(pUser);
+  ffy += GetY(pUser);
+  AddEffect("HitCheck", this, 1, 1, 0, SHT1,pUser,0,ffx,ffy);
   AddEffect("Grenade", this, 1, 1, this);
   SetSpeed(xdir, ydir);  
   if(!iDmg)

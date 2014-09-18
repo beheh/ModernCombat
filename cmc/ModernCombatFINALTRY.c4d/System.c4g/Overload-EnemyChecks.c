@@ -4,18 +4,23 @@
 
 #strict 2
 
-
-global func CheckEnemy(object pObj, object pObj2, bool findEnemy) 
+global func CheckEnemy(object pObj, object pObj2, bool findEnemy, int iX, int iY) 
 {
   if(!pObj)
-    return;
+    pObj = this;
 
+  if(!pObj)
+    return;
+	
   if(!pObj2)
     pObj2 = this;
 
   if(!pObj2)
     return;
-
+	
+  if(pObj == this && pObj2 == this)
+    return;
+	
   //Tote Lebewesen nicht treffen
   if(GetCategory(pObj) & C4D_Living)
     if(!GetAlive(pObj))
@@ -60,7 +65,7 @@ global func CheckEnemy(object pObj, object pObj2, bool findEnemy)
     }
   //Bei Trefferchecks treffen wenn Friendly Fire aktiviert und die Distanz groß genug ist
   if(FriendlyFire() && !findEnemy)
-    if(!(pObj->~IgnoreFriendlyFire()) && !(pObj2->~IgnoreFriendlyFire()) && Distance(AbsX(GetX(pObj)),AbsY(GetY(pObj)),AbsX(GetX(pObj2)),AbsY(GetY(pObj2))) > 20)
+    if(!(pObj->~IgnoreFriendlyFire()) && !(pObj2->~IgnoreFriendlyFire()) && (Distance(GetX(pObj),GetY(pObj),iX,iY) > 20))
       return true;
 
   return false;
