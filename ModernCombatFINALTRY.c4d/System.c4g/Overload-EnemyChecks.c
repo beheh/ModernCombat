@@ -60,7 +60,7 @@ global func CheckEnemy(object pObj, object pObj2, bool findEnemy)
     }
   //Bei Trefferchecks treffen wenn Friendly Fire aktiviert und die Distanz groß genug ist
   if(FriendlyFire() && !findEnemy)
-    if(!(pObj->~IgnoreFriendlyFire()) && !(pObj2->~IgnoreFriendlyFire()) && Distance(AbsX(GetX(pObj)),AbsY(GetY(pObj)),AbsX(GetX(pObj2)),AbsY(GetY(pObj2))) > 15)
+    if(!(pObj->~IgnoreFriendlyFire()) && !(pObj2->~IgnoreFriendlyFire()) && Distance(AbsX(GetX(pObj)),AbsY(GetY(pObj)),AbsX(GetX(pObj2)),AbsY(GetY(pObj2))) > 20)
       return true;
 
   return false;

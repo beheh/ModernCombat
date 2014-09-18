@@ -184,7 +184,7 @@ private func HitLandscape()
   OnHitLandscape(x,y);
 
   //Umliegende Objekte beschädigen
-  var objs = FindObjects(Find_AtPoint(), Find_NoContainer(), Find_Or(Find_Func("IsBulletTarget",GetID(),this,shooter), Find_OCF(OCF_Alive)), Find_Func("CheckEnemy",shooter), Find_Not(Find_Func(ObjectCall(this,"HitExclude"))));  
+  var objs = FindObjects(Find_AtPoint(), Find_NoContainer(), Find_Or(Find_Func("IsBulletTarget",GetID(),this,shooter), Find_OCF(OCF_Alive)), Find_Func("CheckEnemy",shooter), Find_Not(Find_Func(ObjectCall(this,"HitExclude"))));
   {
     for(var pTarget in objs)
       HitObject(pTarget);
