@@ -328,7 +328,7 @@ public func UpdateScoreboard()
 
   //Sortieren noch
   SortScoreboard(GDAR_Count, true);
-  
+
   return true;
 }
 
@@ -373,7 +373,7 @@ private func GiveData(int iPlr, int iAmount)
 {
   var index = iPlr;
   //Teams?
-  if (Teams())
+  if(Teams())
     index = GetPlayerTeam(iPlr);
   //Wieviel ist drauf
   var iData = aData[index];
@@ -381,14 +381,14 @@ private func GiveData(int iPlr, int iAmount)
   aData[index] = Max(iData + iAmount);
   //Eine kurze Nachricht
   var pClonk = GetCursor(iPlr);
-  if (pClonk && pClonk->~GetRealCursor())
+  if(pClonk && pClonk->~GetRealCursor())
     pClonk = pClonk->~GetRealCursor();
   var string;
-  if (iAmount > 0)
+  if(iAmount > 0)
     string = Format("{{IC20}} <c 00ff00>+%d</c>", iAmount);
   else
     string = Format("{{IC20}} <c ff0000>%d</c>", iAmount);
-  if (pClonk)
+  if(pClonk)
     AddEffect("PointMessage", pClonk, 130, 1, pClonk, 0, string);
 
   var iWarningData = iGoal - Min(32 * (iGoal/2) / 100, 100);
@@ -421,19 +421,19 @@ global func Teams()
 public func IsFulfilled()
 {
   //Wird noch eingestellt
-  if (FindObject(CHOS)) return;
+  if(FindObject(CHOS)) return;
 
-  if (fFulfilled) return true;
+  if(fFulfilled) return true;
 
   //Siegerermittlung je nach Teameinstellung
-  if (Teams())
+  if(Teams())
   {
-    for (var i = 0; i < GetTeamCount(); i++)
-      if (aData[GetTeamByIndex(i)] >= iGoal)
+    for(var i = 0; i < GetTeamCount(); i++)
+      if(aData[GetTeamByIndex(i)] >= iGoal)
       {
         //Verlierer eliminieren
-        for (var j = GetPlayerCount(); j >= 0; j--)
-          if (GetPlayerTeam(GetPlayerByIndex(j)) != GetTeamByIndex(i))
+        for(var j = GetPlayerCount(); j >= 0; j--)
+          if(GetPlayerTeam(GetPlayerByIndex(j)) != GetTeamByIndex(i))
             EliminatePlayer(GetPlayerByIndex(j));
 
         //Spielende planen
@@ -453,12 +453,12 @@ public func IsFulfilled()
   }
   else
   {
-    for (var i = 0; i < GetPlayerCount(); i++)
-      if (aData[GetPlayerByIndex(i)] >= iGoal)
+    for(var i = 0; i < GetPlayerCount(); i++)
+      if(aData[GetPlayerByIndex(i)] >= iGoal)
       {
         //Verlierer eliminieren
-        for (var j = GetPlayerCount(); j >= 0; j--)
-          if (GetPlayerByIndex(j) != GetPlayerByIndex(i))
+        for(var j = GetPlayerCount(); j >= 0; j--)
+          if(GetPlayerByIndex(j) != GetPlayerByIndex(i))
             EliminatePlayer(GetPlayerByIndex(j));
 
         //Spielende planen
@@ -478,7 +478,7 @@ public func IsFulfilled()
   }
 
   //Nur noch eins übrig
-  if (GetActiveTeamCount() <= 1)
+  if(GetActiveTeamCount() <= 1)
   {
     var i = GetPlayerTeam(GetPlayerByIndex());
 
@@ -506,7 +506,7 @@ protected func Activate(int iPlr)
     return MessageWindow(GetDesc(this), iPlr);
 
   var iIndex = iPlr;
-  if (Teams())
+  if(Teams())
     iIndex = GetPlayerTeam(iPlr);
   return MessageWindow(Format("$MsgGoalUnfulfilled$", aData[iIndex], iGoal), iPlr);
 }
