@@ -6,18 +6,19 @@
 #appendto SHT1
 
 // EffectVars:
-// 0 - alte X-Position
-// 1 - alte Y-Position
+// 0 - Alte X-Position
+// 1 - Alte Y-Position
 // 2 - Schütze (Objekt, das die Waffe abgefeuert hat, üblicherweise ein Clonk)
 // 3 - ID des Schützen
-// 4 - Scharf? Wenn true wird der Schütze vom Projektil getroffen 
-// 5 - niemals den Schützen treffen
-// 6 - X Position für den FF Check
-// 7 - Y Position für den FF Check
+// 4 - Wenn scharf (true) wird der Schütze vom Projektil getroffen
+// 5 - Niemals den Schützen treffen
+// 6 - X Position für den Friendly Fire-Check
+// 7 - Y Position für den Friendly Fire-Check
+
 
 public func FxHitCheckStart(object target, int effect, int temp, object byObj, bool neverShooter, int iFFX, int iFFY)
 {
-  if(temp) 
+  if(temp)
     return;
   EffectVar(0, target, effect) = GetX(target);
   EffectVar(1, target, effect) = GetY(target);
@@ -63,7 +64,7 @@ public func FxHitCheckTimer(object target, int effect, int time)
     if(obj == exclude) continue;
     if(obj->~HitExclude(target)) continue;
 
-    //CheckEnemy 
+    //CheckEnemy (user für korrekte Entfernung für Friendly Fire-freien Radius)
     if(!CheckEnemy(obj,user,0,ffx,ffy)) continue;
 
     // IsBulletTarget oder Alive

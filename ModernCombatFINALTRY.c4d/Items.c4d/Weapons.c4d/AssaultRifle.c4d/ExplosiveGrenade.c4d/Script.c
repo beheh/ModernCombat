@@ -34,7 +34,7 @@ func Launch(int xdir, int ydir, int iDmg,a,b,c, int attachment, object pUser)
   active = true;
   sx = GetX();
   sy = GetY();
-  start = FrameCounter();  
+  start = FrameCounter();
   var ffx,ffy;
   pUser->~WeaponEnd(ffx,ffy);
   ffx += GetX(pUser);
