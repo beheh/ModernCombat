@@ -135,6 +135,12 @@ private func WalkSound()
   return 1;
 }
 
+private func ClimbSound()
+{
+  if(!Random(6)) Sound("ClonkVestRustle*.ogg", 0, 0, 25);
+  return 1;
+}
+
 private func SwimSound()
 {
   Sound("ClonkSwim*.ogg", 0, 0, 75);

@@ -22,6 +22,7 @@ Delay=15
 Facet=0,20,16,20,0,0
 NextAction=Scale
 StartCall=Scaling
+PhaseCall=ClimbSound
 
 [Action]
 Name=ScaleDown
@@ -34,6 +35,7 @@ Delay=15
 Facet=0,20,16,20,0,0
 NextAction=ScaleDown
 StartCall=Scaling
+PhaseCall=ClimbSound
 
 [Action]
 Name=ScaleLadder
@@ -105,6 +107,7 @@ Delay=16
 Facet=0,100,16,20,0,0
 NextAction=Hangle
 StartCall=Hangling
+PhaseCall=ClimbSound
 InLiquidAction=Swim
 
 [Action]

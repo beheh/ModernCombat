@@ -157,7 +157,14 @@ protected func FxScalingLadderTimer(object pTarget, int iEffectNumber)
   var iLastY = GetY();
   var iPhase = GetPhase();
   var fSliding = EffectVar(1, pTarget, iEffectNumber);
-  if(GetComDir() == COMD_Up()) {iPosY -= iStep; iPhase += iStep*14/1000;}
+  if(GetComDir() == COMD_Up())
+  {
+    iPosY -= iStep;
+    iPhase += iStep*14/1000;
+
+    if(!fSliding)
+      Sound("ClonkLadderClimb*.ogg", 0, 0, 25);
+  }
   if(GetComDir() == COMD_Down())
   {
     var iPosX = GetX();
@@ -172,6 +179,8 @@ protected func FxScalingLadderTimer(object pTarget, int iEffectNumber)
     {
       iPosY += iStep;
       iPhase -= iStep*14/1000;
+
+      Sound("ClonkLadderClimb*.ogg", 0, 0, 25);
     }
   }
 
@@ -194,7 +203,7 @@ protected func FxScalingLadderTimer(object pTarget, int iEffectNumber)
       SetPosition(GetX(), iLastY);
       SetComDir(COMD_Stop());
     }
-  return();
+    return();
   }
 
   if(iPhase < 0) iPhase = 15; if(iPhase > 15) iPhase = 0;
