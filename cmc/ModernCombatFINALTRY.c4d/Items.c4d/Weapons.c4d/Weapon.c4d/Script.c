@@ -445,8 +445,9 @@ public func GetRecharge()
 
   if(!IsRecharging())
     return 100;
+
   var time = GetEffect("Recharge",this,0,6);
-  return (100*time)/GetFMData(FM_Recharge);
+  return (100*time)/GetEffect("Recharge",this,0,3);
 }
 
 /*----- Nachladen beenden-Effekt -----*/
