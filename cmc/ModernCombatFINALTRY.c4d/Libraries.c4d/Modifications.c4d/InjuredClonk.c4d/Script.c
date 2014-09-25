@@ -16,16 +16,6 @@ public func MenuQueryCancel()	{return true;}
 public func BlockTime()		{return 35*3;}
 public func RWDS_MenuAbort()	{return true;}
 
-/* Munitionsgürtel */
-
-public func AmmoStoring()
-{
-	if(!clonk) return;
-	
-	//Auf Munitionsgürtel des Clonks verweisen
-	return clonk->~AmmoStoring();
-}
-
 
 /* Initialisierung */
 
@@ -39,6 +29,16 @@ protected func Initialize()
   FKDT_QuickTipIDs = [ASTR, MNGN, PSTL, RTLR, PPGN, SGST, SMGN, ATWN, FGRN, FRAG, PGRN, STUN, SGRN, SRBL, AMPK, BTBG, C4PA, DGNN, FAPK, RSHL, CDBT, CUAM, BWTH];
 
   _inherited();
+}
+
+/* Munitionsgürtel */
+
+public func AmmoStoring()
+{
+  if(!clonk) return;
+
+  //Auf Munitionsgürtel des Clonks verweisen
+  return clonk->~AmmoStoring();
 }
 
 /* Ablehnung */
