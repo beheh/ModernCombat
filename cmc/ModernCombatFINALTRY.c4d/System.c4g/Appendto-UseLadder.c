@@ -25,7 +25,7 @@ private func ControlLadder(string strControl, par1)
   if((effect = GetEffect("ScalingLadder", this())) && strControl ne "ControlDown" && par1 != COMD_Down)
     EffectVar(1, this, effect) = false;
 
-  //Log("%s: %s",GetName(),strControl); //DEBUGZ!
+  //Log("%s: %s",GetName(),strControl);
 
   // JnR
   if (strControl S= "ControlUpdate")
