@@ -2,7 +2,7 @@
 
 //Erweitert die Leiter-Kletterfunktion um das Herunterrutschen per [Doppelstop].
 
-#strict 2
+#strict
 #appendto L_LA
 
 private func ControlLadder(string strControl, par1)
@@ -12,24 +12,23 @@ private func ControlLadder(string strControl, par1)
     lastladder = 0;
 
   //Nicht an einem kletterbaren Objekt
-  if(GetAction() != "ScaleLadder") 
-    return; 
+  if(GetAction() ne "ScaleLadder") return(0); 
 
   //Klettert an der Leiter
-  if(strControl == "ControlCommand")
+  if(strControl S= "ControlCommand")
   {
     ClimbLadder();
     return(1);
   }
 
   var effect;
-  if((effect = GetEffect("ScalingLadder", this)) && strControl != "ControlDown" && par1 != COMD_Down)
+  if((effect = GetEffect("ScalingLadder", this())) && strControl ne "ControlDown" && par1 != COMD_Down)
     EffectVar(1, this, effect) = false;
 
   //Log("%s: %s",GetName(),strControl); //DEBUGZ!
 
   // JnR
-  if (strControl == "ControlUpdate")
+  if (strControl S= "ControlUpdate")
   {
     var comdir = par1;
     // Strip away COMD_Left/COMD_Right, this is handled via ControlLeft/ControlRight
@@ -50,16 +49,16 @@ private func ControlLadder(string strControl, par1)
   }
 
   //Rauf
-  if(strControl == "ControlUp" && !GetPlrCoreJumpAndRunControl(GetController()))
+  if(strControl S= "ControlUp" && !GetPlrCoreJumpAndRunControl(GetController()))
   {
     SetComDir(COMD_Up);
     Sound("LADR_Slide.ogg", 0, this, 40, 0, -1);
   }
   //Runter
-  if(strControl == "ControlDown" && !GetPlrCoreJumpAndRunControl(GetController()))
+  if(strControl S= "ControlDown" && !GetPlrCoreJumpAndRunControl(GetController()))
     SetComDir(COMD_Down);
   //Rechts
-  if(strControl == "ControlRight")
+  if(strControl S= "ControlRight")
   {
     //Richtung wechseln
     if(GetDir() == DIR_Right)
@@ -67,7 +66,7 @@ private func ControlLadder(string strControl, par1)
       SetDir(DIR_Left);
       SetComDir(COMD_Stop);
       if(!AdjustLadderOffset(GetActionTarget()))
-        SetDir(DIR_Right);
+        SetDir(DIR_Right());
       Sound("LADR_Slide.ogg", 0, this, 40, 0, -1);
     }
     //Abspringen
@@ -79,7 +78,7 @@ private func ControlLadder(string strControl, par1)
     }
   }
   //Links
-  if(strControl == "ControlLeft")
+  if(strControl S= "ControlLeft")
   {
     //Richtung wechseln
     if(GetDir() == DIR_Left)
@@ -100,7 +99,7 @@ private func ControlLadder(string strControl, par1)
   }
 
   //Runterrutschen
-  if(strControl == "ControlDownDouble" && effect && CanSlideLadder())
+  if(strControl S= "ControlDownDouble" && effect && CanSlideLadder())
   {
     SetComDir(COMD_Down);
     EffectVar(1, this, effect) = true;
@@ -108,10 +107,10 @@ private func ControlLadder(string strControl, par1)
   }
 
   //Werfen
-  if(strControl == "ControlThrow") LadderThrow();
+  if(strControl S= "ControlThrow") LadderThrow();
 
   //Graben
-  if(strControl == "ControlDig") LadderDig();
+  if(strControl S= "ControlDig") LadderDig();
 
   return(1);
 }
@@ -128,7 +127,7 @@ protected func FxScalingLadderTimer(object pTarget, int iEffectNumber)
 {
   var pLadder;
   //Kletteraktion verloren: Abbruch
-  if(!(GetAction() == "ScaleLadder"))
+  if(!(GetAction() S= "ScaleLadder"))
     //Klettern beenden
     return(ReleaseLadder(0));
 
@@ -136,7 +135,7 @@ protected func FxScalingLadderTimer(object pTarget, int iEffectNumber)
   if(!(pLadder = FindLadder()))
   {
     //Oberes Ende: Versuchen, die Wand zu erreichen
-    if(GetComDir() == COMD_Up)
+    if(GetComDir() == COMD_Up())
     {
       return(ReleaseLadder(-15 + GetDir() * 30,-20));
     }
@@ -158,31 +157,30 @@ protected func FxScalingLadderTimer(object pTarget, int iEffectNumber)
   var iLastY = GetY();
   var iPhase = GetPhase();
   var fSliding = EffectVar(1, pTarget, iEffectNumber);
-  if(GetComDir() == COMD_Up)
+  if(GetComDir() == COMD_Up())
   {
     iPosY -= iStep;
     iPhase += iStep*14/1000;
 
     if(!fSliding)
-      Sound(Format("ClonkLadderClimb%s*.ogg", pLadder->~GetGraphicsName()), 0, 0, 50);
+      Sound("ClonkLadderClimb*.ogg", 0, 0, 50);
   }
-  if(GetComDir() == COMD_Down)
+  if(GetComDir() == COMD_Down())
   {
     var iPosX = GetX();
-    var inewPosY = iPosY +(iStep*5)/2;
+    var iNewPosY = iPosY +(iStep*5)/2;
     var iYAdd = GetObjectVal("Height", 0, this) + GetObjectVal("Offset", 0, this, 1);
-    if(fSliding && PathFree(iPosX, iLastY + iYAdd, iPosX, inewPosY/100 + iYAdd))
+    if(fSliding && PathFree(iPosX, iLastY + iYAdd, iPosX, iNewPosY/100 + iYAdd))
     {
-      iPosY = inewPosY;
-      if(GetEffectData(EFSM_ExplosionEffects) > 0) 
-	    CastSmoke("Smoke3",RandomX(2,4),RandomX(2,8),(GetDir(pTarget)*2-1)*6,2,4,70);
+      iPosY = iNewPosY;
+      if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",RandomX(2,4),RandomX(2,8),(GetDir(pTarget)*2-1)*6,2,4,70);
     }
     else
     {
       iPosY += iStep;
       iPhase -= iStep*14/1000;
 
-      Sound(Format("ClonkLadderClimb%s*.ogg", pLadder->~GetGraphicsName()), 0, 0, 50);
+      Sound("ClonkLadderClimb*.ogg", 0, 0, 50);
     }
   }
 
@@ -203,9 +201,9 @@ protected func FxScalingLadderTimer(object pTarget, int iEffectNumber)
     else
     {
       SetPosition(GetX(), iLastY);
-      SetComDir(COMD_Stop);
+      SetComDir(COMD_Stop());
     }
-    return;
+    return();
   }
 
   if(iPhase < 0) iPhase = 15; if(iPhase > 15) iPhase = 0;
@@ -223,14 +221,14 @@ public func ReleaseLadder(int iXDir, int iYDir)
   var diffx, pLadder = GetActionTarget(), xpos = GetX(pLadder);
   //Leiter noch vorhanden?
   if(!pLadder)
-    return;
+    return(0);
 
   lastladder = pLadder;
 
   Sound("LADR_Slide.ogg", 0, this, 40, 0, -1);
 
   //Klettereffekt beenden
-  RemoveEffect("ScalingLadder", this);
+  RemoveEffect("ScalingLadder", this());
 
   //und runter von der Leiter
   if(dir < 0 || GetContact(0,1,CNAT_Bottom))
@@ -242,7 +240,7 @@ public func ReleaseLadder(int iXDir, int iYDir)
     SetAction("Hangle");
   }
   else
-    if(GetAction() != "Tumble")  
+    if(GetAction() ne "Tumble")  
       SetAction("Jump");
 
   SetXDir(iXDir);
