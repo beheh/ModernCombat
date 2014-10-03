@@ -13,8 +13,8 @@ local Graphics, ID;	//Grafikeinstellung
 local iGraCount;
 local l_graphic;
 
-public func IsClimbable()	{return true;}
-
+public func IsClimbable()	{ return true; }
+public func GetGraphicsName() { return l_graphic; }
 
 /* Initialisierung */
 
