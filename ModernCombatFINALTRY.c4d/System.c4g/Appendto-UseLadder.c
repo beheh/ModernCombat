@@ -164,7 +164,7 @@ protected func FxScalingLadderTimer(object pTarget, int iEffectNumber)
     iPhase += iStep*14/1000;
 
     if(!fSliding)
-      Sound(Format("ClonkLadderClimb%s*.ogg", pLadder->~GetGraphicsName()), 0, 0, 50);
+      Sound(Format("ClonkClimb%s*.ogg", pLadder->~GetGraphicsName()), 0, 0, 50);
   }
   if(GetComDir() == COMD_Down)
   {
@@ -182,7 +182,7 @@ protected func FxScalingLadderTimer(object pTarget, int iEffectNumber)
       iPosY += iStep;
       iPhase -= iStep*14/1000;
 
-      Sound(Format("ClonkLadderClimb%s*.ogg", pLadder->~GetGraphicsName()), 0, 0, 50);
+      Sound(Format("ClonkClimb%s*.ogg", pLadder->~GetGraphicsName()), 0, 0, 50);
     }
   }
 
