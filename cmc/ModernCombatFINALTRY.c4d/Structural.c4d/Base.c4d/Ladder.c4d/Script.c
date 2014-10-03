@@ -13,8 +13,9 @@ local Graphics, ID;	//Grafikeinstellung
 local iGraCount;
 local l_graphic;
 
-public func IsClimbable()	{ return true; }
-public func GetGraphicsName() { return l_graphic; }
+public func IsClimbable()	{return true;}
+public func GetGraphicsName()	{return l_graphic;}
+
 
 /* Initialisierung */
 
@@ -95,7 +96,7 @@ public func Set(int iNewLength, int iDir, string szGraphic)
 
       while(SetGraphics(Format("Part%d%s", graphcount, szGraphic), this))
         graphcount++;
-  	
+
       SetGraphics("", this);
       for(var i = 4; i < graphcount; i++)
         AddGraphics(Format("Part%d", i), LADR);
