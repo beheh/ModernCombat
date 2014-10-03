@@ -5,6 +5,7 @@
 #strict 2
 #appendto L_LA
 
+
 private func ControlLadder(string strControl, par1)
 {
   //Wenn schnell genug, wieder an Leiter anhalten
@@ -13,7 +14,7 @@ private func ControlLadder(string strControl, par1)
 
   //Nicht an einem kletterbaren Objekt
   if(GetAction() != "ScaleLadder") 
-    return; 
+    return;
 
   //Klettert an der Leiter
   if(strControl == "ControlCommand")
@@ -175,7 +176,7 @@ protected func FxScalingLadderTimer(object pTarget, int iEffectNumber)
     {
       iPosY = inewPosY;
       if(GetEffectData(EFSM_ExplosionEffects) > 0) 
-	    CastSmoke("Smoke3",RandomX(2,4),RandomX(2,8),(GetDir(pTarget)*2-1)*6,2,4,70);
+        CastSmoke("Smoke3",RandomX(2,4),RandomX(2,8),(GetDir(pTarget)*2-1)*6,2,4,70);
     }
     else
     {
@@ -242,7 +243,7 @@ public func ReleaseLadder(int iXDir, int iYDir)
     SetAction("Hangle");
   }
   else
-    if(GetAction() != "Tumble")  
+    if(GetAction() != "Tumble")
       SetAction("Jump");
 
   SetXDir(iXDir);
