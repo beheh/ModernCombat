@@ -10,6 +10,8 @@ local aSlot_Type;			//Munitionstyp
 local aSlot_Amount;			//Munitionsmenge
 local aFM_FireTec;			//Feuertechnik
 
+
+//BEI NEUER FM_DATA MUSS DIE ZAHL IM MaxFMDataCount() ANGEPASST WERDEN!!!
 static const FM_Slot		= 13;	//Slot des Feuermodus
 static const FM_SingleReload	= 14;	//Zeit des einzelnen Nachladens bei Revolversystemen (z.B. für Schrotflinten)
 static const FM_PrepareReload	= 15;	//Zeit bevor das eigentliche Nachladen beginnt (nur interessant wenn auch FM_SingleReload benutzt wird)
@@ -48,7 +50,7 @@ static const AT_Laserpointer	= 4;	//Laserpointer
 static const AT_Silencer	= 8;	//Schalldämpfer
 static const AT_Flashlight	= 16;	//Taschenlampe
 
-public func MaxFMDataCount()	{return 27;}			//Anzahl FM/FT-Datentypen
+public func MaxFMDataCount()	{return 36;}			//Anzahl FM/FT-Datentypen
 public func IsWeapon2()			{return true;}			//Nutzt/inkludiert neues Waffensystem WPN2
 public func IsPrimaryWeapon()		{return true;}			//Standard für QuickInventory
 public func NoWeaponChoice()		{return GetID() == WPN2;}
