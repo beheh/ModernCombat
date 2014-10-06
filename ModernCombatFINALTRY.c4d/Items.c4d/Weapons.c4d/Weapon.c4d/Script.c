@@ -11,7 +11,7 @@ local aSlot_Amount;			//Munitionsmenge
 local aFM_FireTec;			//Feuertechnik
 
 
-//BEI NEUER FM_DATA MUSS DIE ZAHL IM MaxFMDataCount() ANGEPASST WERDEN!!!
+//Info: Bei neuer FM_DATA muss MaxFMDataCount() entsprechend angepasst werden
 static const FM_Slot		= 13;	//Slot des Feuermodus
 static const FM_SingleReload	= 14;	//Zeit des einzelnen Nachladens bei Revolversystemen (z.B. für Schrotflinten)
 static const FM_PrepareReload	= 15;	//Zeit bevor das eigentliche Nachladen beginnt (nur interessant wenn auch FM_SingleReload benutzt wird)
