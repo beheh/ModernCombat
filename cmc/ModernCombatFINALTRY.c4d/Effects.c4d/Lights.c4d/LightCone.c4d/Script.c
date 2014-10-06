@@ -183,7 +183,7 @@ public func FxFlashlightBlindnessTimer(object pTarget, int iNr)
         }
       }
       else
-        Message("@", pTarget); 
+	    CustomMessage("@", pTarget, GetPlayerByIndex(i), 0, 0, 0, 0, 0, 0); 
     }
   return true;
 }
