@@ -124,10 +124,14 @@ func CreateInterior()
   container = CreateObject(CON1, 530, 440, -1);
   container->SetPerspective(2);
   container->SetGraphics("5");
+  container = CreateObject(CON1, 1075, 440, -1);
+  container->SetPerspective(2);
   CreateObject(CON1, 530, 640, -1)->SetGraphics("5");
   container = CreateObject(CON1, 1365, 440, -1);
   container->SetPerspective(3);
   container->SetGraphics("5");
+  container = CreateObject(CON1, 1655, 440, -1);
+  container->SetPerspective(2);
   container = CreateObject(CON1, 2200, 440, -1);
   container->SetPerspective(2);
   container->SetGraphics("5");
@@ -150,10 +154,10 @@ func CreateInterior()
   CreateObject(CCAR, 695, 640, -1);
   CreateObject(CCAR, 2035, 640, -1);
   var car = CreateObject(CCAR, 2610, 641, -1);
-  car->SetPhase(0);
+  car->SetPhase(1);
   car->SetSolidMask(GetPhase() * 60, 26, 60, 26);
   var car = CreateObject(CCAR, 2680, 641, -1);
-  car->SetPhase(0);
+  car->SetPhase(1);
   car->SetSolidMask(GetPhase() * 60, 26, 60, 26);
 
   //Kisten
@@ -182,14 +186,22 @@ func CreateInterior()
   CreateObject(BECR, 590, 800, -1)->AutoRespawn();
   CreateObject(BECR, 2140, 800, -1)->AutoRespawn();
 
+  //Gerüste
+  CreateObject(SFFG, 765, 440, -1)->Set(5);
+  CreateObject(SFFG, 825, 440, -1)->Set(4);
+  CreateObject(SFFG, 1905, 440, -1)->Set(4);
+  CreateObject(SFFG, 1965, 440, -1)->Set(5);
+
   //Sandsackbarrieren
   CreateObject(SBBA, 790, 800, -1)->Right();
+  CreateObject(SBBA, 850, 390, -1)->Right();
   CreateObject(SBBA, 960, 640, -1);
   CreateObject(SBBA, 1160, 800, -1);
   CreateObject(SBBA, 1260, 640, -1);
   CreateObject(SBBA, 1470, 640, -1)->Right();
   CreateObject(SBBA, 1570, 800, -1)->Right();
   CreateObject(SBBA, 1770, 640, -1)->Right();
+  CreateObject(SBBA, 1876, 390, -1);
   CreateObject(SBBA, 1940, 800, -1);
 
   //Stahlbrücken
@@ -283,11 +295,11 @@ func CreateInterior()
 
   aSelfDefense[1] = CreateObject(SEGU, 1252, 556, -1);
   aSelfDefense[1]->Set(0,0,0,90);
-  CreateObject(CONS, 1280, 515, -1)->Set(aSelfDefense[1]);
+  CreateObject(CONS, 1250, 795, -1)->Set(aSelfDefense[1]);
 
   aSelfDefense[2] = CreateObject(SEGU, 1478, 556, -1);
   aSelfDefense[2]->Set(0,0,0,-90);
-  CreateObject(CONS, 1450, 515, -1)->Set(aSelfDefense[2]);
+  CreateObject(CONS, 1480, 795, -1)->Set(aSelfDefense[2]);
 
   aSelfDefense[3] = CreateObject(SEGU, 2140, 329, -1);
   CreateObject(CONS, 2420, 525, -1)->Set(aSelfDefense[3]);
@@ -332,15 +344,16 @@ func CreateEquipment()
   //Versorgungskisten (Kugeln)
   var crate = CreateObject (AMCT, 530, 730, -1);
   crate->Set(ABOX);
-  crate = CreateObject (AMCT, 2200, 730, -1);
+  crate = CreateObject(AMCT, 2200, 730, -1);
   crate->Set(ABOX);
 
   //Versorgungskiste (Gewehrgranaten)
-  crate = CreateObject (AMCT, 1380, 411, -1);
+  crate = CreateObject(AMCT, 1465, 310, -1);
   crate->Set(GBOX);
 
   //Raketen
   PlaceSpawnpoint(MBOX, 755, 715);
+  PlaceSpawnpoint(MBOX, 1265, 305);
   PlaceSpawnpoint(MBOX, 1975, 715);
 
   //Automaten
@@ -359,8 +372,8 @@ func CreateEquipment()
   store->AddWare(SRBL,-1);
 
   //Artilleriebatterien
-  CreateObject(ATBY,1260,310,-1)->SetRotation(-20);
-  CreateObject(ATBY,1470,310,-1)->SetRotation(20);
+  CreateObject(ATBY,615,270,-1)->SetRotation(20);
+  CreateObject(ATBY,2115,270,-1)->SetRotation(-20);
 }
 
 func CreateDecoration()
@@ -383,6 +396,8 @@ func CreateDecoration()
   CreateObject(RAI1, 505, 270, -1)->SetRail([1,1,1,1,1,1,1,1]);
   CreateObject(RAI1, 725, 440, -1)->SetRail([1,1,1]);
   CreateObject(RAI1, 1227, 310, -1)->SetRail([1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]);
+  CreateObject(RAI1, 1230, 800, -1)->SetRail([1,1]);
+  CreateObject(RAI1, 1460, 800, -1)->SetRail([1,1]);
   CreateObject(RAI1, 1945, 440, -1)->SetRail([1,1,1]);
   CreateObject(RAI1, 2075, 270, -1)->SetRail([1,1,1,1,1,1,1,1]);
 
@@ -500,8 +515,7 @@ func CreateDecoration()
 
   //Büsche
   CreateObject(BSH2, 505, 515, -1);
-  CreateObject(BSH2, 1350, 815, -1)->SetR(-50);
-  CreateObject(BSH2, 1365, 815, -1)->SetR(90);
+  CreateObject(BSH2, 1340, 820, -1)->SetR(90);
   CreateObject(BSH2, 1390, 820, -1);
   CreateObject(BSH2, 1455, 570, -1);
   CreateObject(BSH2, 1780, 820, -1);
@@ -722,9 +736,6 @@ public func ChooserFinished()
     //Versorgungskiste (Kugeln)
     var crate = CreateObject(AMCT, 1330, 640, -1);
     crate->Set(ABOX);
-
-    //Raketen
-    PlaceSpawnpoint(MBOX, 1330, 305);
    }
   }
 
