@@ -153,7 +153,7 @@ public func FxIntFlashbangTimer(object pTarget, int iEffectNumber, int iEffectTi
     }
   }
   else
-    CustomMessage("@", pTarget, GetPlayerByIndex(i), 0, 0, 0, 0, 0, 0);       
+    CustomMessage("@", pTarget, GetPlayerByIndex(i), 0, 0, 0, 0, 0, 0);
 }
 
 public func FxIntFlashbangStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)
