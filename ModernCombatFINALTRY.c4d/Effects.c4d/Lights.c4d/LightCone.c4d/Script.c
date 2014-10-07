@@ -154,7 +154,7 @@ public func FxFlashlightBlindnessTimer(object pTarget, int iNr)
       {
         var pCursor = GetCursor(GetPlayerByIndex(i));
         if(!pCursor)
-        	continue;
+          continue;
         
         pCursor = pCursor->~GetRealCursor();
         if(!pCursor && !(pCursor = GetCursor(GetPlayerByIndex(i))))
@@ -183,7 +183,7 @@ public func FxFlashlightBlindnessTimer(object pTarget, int iNr)
         }
       }
       else
-	    CustomMessage("@", pTarget, GetPlayerByIndex(i), 0, 0, 0, 0, 0, 0); 
+        CustomMessage("@", pTarget, GetPlayerByIndex(i), 0, 0, 0, 0, 0, 0);
     }
   return true;
 }
