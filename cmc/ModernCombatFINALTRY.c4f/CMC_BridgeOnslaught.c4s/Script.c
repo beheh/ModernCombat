@@ -42,9 +42,11 @@ func CreateInterior()
   CreateObject(LADR, 755, 623, -1)->Set(22);
   CreateObject(LADR, 810, 778, -1)->Set(15);
 
+  CreateObject(LADR, 1170, 768, -1)->Set(15);
   CreateObject(LADR, 1305, 621, -1)->Set(38);
   CreateObject(LADR, 1365, 791, -1)->Set(18);
   CreateObject(LADR, 1425, 621, -1)->Set(38);
+  CreateObject(LADR, 1560, 768, -1)->Set(15);
 
   CreateObject(LADR, 1920, 778, -1)->Set(15);
   CreateObject(LADR, 1975, 623, -1)->Set(22);
@@ -74,7 +76,9 @@ func CreateInterior()
   //Bodenluken
   CreateObject(HA4K, 400, 433, -1);
   CreateObject(HA4K, 810, 653, -1);
+  CreateObject(HA4K, 1170, 643, -1);
 
+  CreateObject(HA4K, 1560, 643, -1);
   CreateObject(HA4K, 1920, 653, -1);
   CreateObject(HA4K, 2330, 433, -1);
 
@@ -184,6 +188,8 @@ func CreateInterior()
 
   //Verbandskisten
   CreateObject(BECR, 590, 800, -1)->AutoRespawn();
+  CreateObject(BECR, 1280, 710, -1);
+  CreateObject(BECR, 1450, 710, -1);
   CreateObject(BECR, 2140, 800, -1)->AutoRespawn();
 
   //Gerüste
@@ -214,9 +220,9 @@ func CreateInterior()
   CreateObject(_HBR, 1225, 452, -1)->SwitchMode();
   CreateObject(_HBR, 915, 652, -1)->SwitchMode();
   CreateObject(_HBR, 1115, 652, -1)->SwitchMode();
-  CreateObject(_HBR, 1215, 652, -1)->SwitchMode();
+  CreateObject(_HBR, 1225, 652, -1)->SwitchMode();
 
-  CreateObject(_HBR, 1515, 652, -1)->SwitchMode();
+  CreateObject(_HBR, 1505, 652, -1)->SwitchMode();
   CreateObject(_HBR, 1615, 652, -1)->SwitchMode();
   CreateObject(_HBR, 1815, 652, -1)->SwitchMode();
   CreateObject(_HBR, 1505, 452, -1)->SwitchMode();
@@ -397,6 +403,8 @@ func CreateDecoration()
   CreateObject(RAI1, 725, 440, -1)->SetRail([1,1,1]);
   CreateObject(RAI1, 1227, 310, -1)->SetRail([1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]);
   CreateObject(RAI1, 1230, 800, -1)->SetRail([1,1]);
+  CreateObject(RAI1, 1274, 710, -1)->SetRail([1,1]);
+  CreateObject(RAI1, 1414, 710, -1)->SetRail([1,1]);
   CreateObject(RAI1, 1460, 800, -1)->SetRail([1,1]);
   CreateObject(RAI1, 1945, 440, -1)->SetRail([1,1,1]);
   CreateObject(RAI1, 2075, 270, -1)->SetRail([1,1,1,1,1,1,1,1]);
@@ -614,9 +622,12 @@ public func ChooserFinished()
    aFlag[1]->Set("$Flag2$",0,2);
 
    aFlag[2] = CreateObject(OFPL,1365,413,NO_OWNER);
-   aFlag[2] -> AddSpawnPoint(1330,300);
-   aFlag[2] -> AddSpawnPoint(1400,510);
+   aFlag[2] -> AddSpawnPoint(1310,700);
    aFlag[2] -> AddSpawnPoint(1315,790);
+   aFlag[2] -> AddSpawnPoint(1330,630);
+   aFlag[2] -> AddSpawnPoint(1425,790);
+   aFlag[2] -> AddSpawnPoint(1420,700);
+
    aFlag[2]->Set("$Flag3$",0,2);
 
    aFlag[3] = CreateObject(OFPL,2015,800,NO_OWNER);
@@ -668,7 +679,7 @@ public func ChooserFinished()
    AddAssaultTarget(CCP2, 2090, 440, 350, 2, "$Target1$", 3, [[2400, 530], [2500, 440]]);
 
    //Sprengsatz-Spawn
-   SetupBombSpawnpoint([[1365, 410],[1365,520],[1365,810]]);
+   SetupBombSpawnpoint([[1365, 310],[1365, 410],[1365,520],[1365,810]]);
 
    //SSA Besitzer setzen
    if(aTeams[1] == true)
