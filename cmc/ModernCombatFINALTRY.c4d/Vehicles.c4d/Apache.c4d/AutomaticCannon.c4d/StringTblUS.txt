@@ -1,2 +1,2 @@
-Bullets=Bullets
+Bullets=High Caliber Rounds
 Auto=Auto
