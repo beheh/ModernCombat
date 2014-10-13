@@ -1,7 +1,7 @@
 Bullets=Bullets
 Burst=Burst
-Single=Single Shots
+Single=Single
 Grenades=Grenades
-Explosive=Explosive Grenades
-Cluster=Frag Grenades
-Smoke=Smoke Grenades
+Explosive=Explosive
+Cluster=Frag
+Smoke=Smoke

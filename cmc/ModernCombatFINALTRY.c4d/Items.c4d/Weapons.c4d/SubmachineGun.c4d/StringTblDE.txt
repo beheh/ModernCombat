@@ -1,4 +1,4 @@
 Bullets=Kugeln
-Auto=Automatikfeuer
-Burst=Stoﬂfeuer
-Single=Einzelfeuer
+Auto=Automatik
+Burst=Feuerstoﬂ
+Single=Einzeln
