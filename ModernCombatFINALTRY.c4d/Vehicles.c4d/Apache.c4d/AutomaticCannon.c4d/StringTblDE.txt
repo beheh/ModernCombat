@@ -1,2 +1,2 @@
-Bullets=Hochkaliberprojektile
-Auto=Automatikfeuer
+Bullets=Explosivkugeln
+Auto=Automatik

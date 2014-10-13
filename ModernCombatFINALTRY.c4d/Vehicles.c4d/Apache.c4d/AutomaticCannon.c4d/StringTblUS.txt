@@ -1,2 +1,2 @@
-Bullets=High Caliber Rounds
-Auto=Auto
+Bullets=Explosive Rounds
+Auto=Automatic

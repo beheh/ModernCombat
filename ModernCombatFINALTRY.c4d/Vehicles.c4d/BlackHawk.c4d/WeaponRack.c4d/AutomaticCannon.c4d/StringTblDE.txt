@@ -1,2 +1,2 @@
 Bullets=Kugeln
-Auto=Automatikfeuer
+Auto=Automatik

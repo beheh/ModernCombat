@@ -1,4 +1,4 @@
 Bullets=Bullets
 Auto=Auto
 Burst=Burst
-Single=Single Shots
+Single=Single

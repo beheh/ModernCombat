@@ -1,7 +1,7 @@
 [DefCore]
 id=AGMS
 Version=4,9,10,7
-Name=Air-to-ground Missile
+Name=Air-to-Ground Missile
 Category=C4D_Object
 Width=4
 Height=16

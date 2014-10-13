@@ -1,4 +1,4 @@
 Grenades=Grenades
-Explosive=Explosive Grenades
-Cluster=Frag Grenades
-Smoke=Smoke Grenades
+Explosive=Explosive
+Cluster=Frag
+Smoke=Smoke
