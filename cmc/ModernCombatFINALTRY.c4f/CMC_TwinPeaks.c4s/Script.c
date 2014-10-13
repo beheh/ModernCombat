@@ -130,12 +130,12 @@ func CreateInterior()
   CreateObject(_HBR, 1465, 792, -1)->SwitchMode();
   CreateObject(_HBR, 1925, 852, -1)->SwitchMode();
 
-  CreateObject(_HBR, 2332, 1492, -1);
-  CreateObject(_HBR, 2404, 1492, -1);
+  CreateObject(_HBR, 2314, 1492, -1);
+  CreateObject(_HBR, 2405, 1492, -1)->SwitchMode();
   CreateObject(_HBR, 2645, 1442, -1)->SwitchMode();
   CreateObject(_HBR, 3085, 1442, -1)->SwitchMode();
-  CreateObject(_HBR, 3327, 1492, -1);
-  CreateObject(_HBR, 3399, 1492, -1);
+  CreateObject(_HBR, 3325, 1492, -1)->SwitchMode();
+  CreateObject(_HBR, 3417, 1492, -1);
 
   CreateObject(_HBR, 3805, 852, -1)->SwitchMode();
   CreateObject(_HBR, 4265, 792, -1)->SwitchMode();
