@@ -130,6 +130,7 @@ public func OnDestruction()
   }
 
   //Definitions- und Aktionswechsel
+  SetOwner(-1);
   ChangeDef(_GTB);
   SetAction("Destroyed", this);
 
