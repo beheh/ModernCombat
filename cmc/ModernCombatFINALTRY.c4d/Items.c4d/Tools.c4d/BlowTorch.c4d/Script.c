@@ -361,7 +361,7 @@ public func Use(caller)
       if(Hostile(GetOwner(obj), GetOwner(caller)) || HostileTeam(caller->~GetTeam(),obj->~GetTeam()))
       {
         if(obj->~IsRepairable())
-          if(!obj->IsNotAttackable())
+          if(!obj->~IsNotAttackable())
           {
             //Feindliche Fahrzeuge beschädigen
             DoDmg(5, DMG_Fire, obj);
