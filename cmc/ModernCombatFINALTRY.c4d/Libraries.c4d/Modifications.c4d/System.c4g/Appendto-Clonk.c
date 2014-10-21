@@ -763,6 +763,12 @@ global func FxFakeDeathDamage(object pTarget, int iEffectNumber, int iDmgEngy, i
           //Ehrenband-Fortschritt (The Eagle)
           AttemptAwardRibbon(RB06, GetKiller(pTarget), GetOwner());
         }
+        
+      if(EffectVar(0,Contents(0, pTarget),GetEffect("Silencer", Contents(0, pTarget))) == 200)
+  		{
+   			//Achievement-Fortschritt (Peek-a-Boo)
+   			DoAchievementProgress(1, AC55, GetKiller(pTarget));
+  		}
     }
   }
 
