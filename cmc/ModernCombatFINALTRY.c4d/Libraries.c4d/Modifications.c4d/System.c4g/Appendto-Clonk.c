@@ -266,9 +266,17 @@ func Hit2(int xDir, int yDir)
     if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",4,8,0,10,20,50);
   }
 
+	//Achievement-Fortschritt (Totally Planned)
+	var prevEnergy = GetEnergy();
+
   //Schaden bei Fallschaden-Regel
   if(!FindObject(FDMG) || hit <= 700) return _inherited(xDir,yDir,...);
   DoDmg((hit-700)*2/10,DMG_Melee,this,0,GetKiller(this)+1,SM10);
+
+	//Achievement-Fortschritt (Totally Planned)
+	if((prevEnergy-GetEnergy()) * 100000 / GetPhysical("Energy") >= 80 && GetEnergy() * 100000 / GetPhysical("Energy") <= 5)
+		DoAchievementProgress(1, AC56, GetOwner());
+		
 
   if(GetAlive(this))
     Sound("ClonkPain*.ogg");
