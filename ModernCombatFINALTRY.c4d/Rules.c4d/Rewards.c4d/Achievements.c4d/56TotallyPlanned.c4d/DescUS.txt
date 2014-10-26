@@ -1,1 +1,1 @@
-Eliminate an enemy by shooting through another.
+Survive a fall with less than 5% energy.
