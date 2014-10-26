@@ -1,1 +1,1 @@
-Eliminiere einen Feind durch Durchschießen eines weiteren.
+Eliminiere einen Feind welcher komplett getarnt ist.

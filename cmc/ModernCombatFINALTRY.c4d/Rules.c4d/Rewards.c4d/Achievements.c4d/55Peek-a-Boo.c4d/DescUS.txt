@@ -1,1 +1,1 @@
-Eliminate an enemy by shooting through another.
+Eliminate an enemy which is completely camouflaged.
