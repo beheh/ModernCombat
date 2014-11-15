@@ -171,6 +171,7 @@ func CreateInterior()
   CreateObject(WCR2, 1400, 640, -1)->AutoRespawn();
   CreateObject(WCR2, 1415, 640, -1);
   CreateObject(WCR2, 1405, 622, -1);
+  CreateObject(WCR2, 1460, 440, -1)->AutoRespawn();
   CreateObject(WCR2, 1815, 640, -1);
   CreateObject(WCR2, 2120, 640, -1)->AutoRespawn();
 
@@ -188,8 +189,8 @@ func CreateInterior()
 
   //Verbandskisten
   CreateObject(BECR, 590, 800, -1)->AutoRespawn();
-  CreateObject(BECR, 1280, 710, -1);
-  CreateObject(BECR, 1450, 710, -1);
+  CreateObject(BECR, 1280, 710, -1)->AutoRespawn();
+  CreateObject(BECR, 1450, 710, -1)->AutoRespawn();
   CreateObject(BECR, 2140, 800, -1)->AutoRespawn();
 
   //Gerüste
@@ -754,10 +755,12 @@ public func ChooserFinished()
   if(FindObject(GMNR))
   {
    //Geldsäcke
-   AddMoneySpawn(1075, 435, [20]);
+   AddMoneySpawn(1075, 405, [15]);
+   AddMoneySpawn(1170, 635, [15]);
    AddMoneySpawn(1365, 305, [20]);
    AddMoneySpawn(1365, 805, [20]);
-   AddMoneySpawn(1655, 435, [20]);
+   AddMoneySpawn(1560, 635, [15]);
+   AddMoneySpawn(1655, 405, [15]);
 
    //Teamgrenzen
    CreateObject(BRDR, 900, 0, -1)->Set(0,1,0,1,1);
