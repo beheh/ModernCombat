@@ -51,8 +51,8 @@ func CreateInterior()
   DrawMaterialQuad("Wall-Stripes",4541,730,4541,700,4571,730,4541,730,true);
 
   //Sprungschanzen
-  CreateObject (JMPD, 2565, 1490, -1)->Set(200, -10);
-  CreateObject (JMPD, 3165, 1490, -1)->Set(200, 10);
+  CreateObject(JMPD, 2565, 1490, -1)->Set(200, -10);
+  CreateObject(JMPD, 3165, 1490, -1)->Set(200, 10);
 
   //Glasscheiben
   CreateObject(PANE, 1802, 884, -1);
