@@ -244,19 +244,19 @@ func CreateEquipment()
   Log("$CreatingEquipment$");
 
   //Versorgungskisten (Kugeln)
-  var crate = CreateObject (AMCT, 735, 660, -1);
+  var crate = CreateObject(AMCT, 735, 660, -1);
   crate->Set(ABOX);
-  crate = CreateObject (AMCT, 1775, 660, -1);
+  crate = CreateObject(AMCT, 1775, 660, -1);
   crate->Set(ABOX);
 
   //Versorgungskiste (Gewehrgranaten)
-  crate = CreateObject (AMCT, 1300, 430, -1);
+  crate = CreateObject(AMCT, 1300, 430, -1);
   crate->Set(GBOX);
 
   //Versorgungskisten (Dragnin)
-  crate = CreateObject (AMCT, 870, 760, -1);
+  crate = CreateObject(AMCT, 870, 760, -1);
   crate->Set(DGNN);
-  crate = CreateObject (AMCT, 1695, 830, -1);
+  crate = CreateObject(AMCT, 1695, 830, -1);
   crate->Set(DGNN);
 
   //Raketen
@@ -611,7 +611,7 @@ public func ChooserFinished()
    if(!FindObject(NOAM))
    {
     //Versorgungskiste (Kugeln)
-    var crate = CreateObject (AMCT, 1310, 660, -1);
+    var crate = CreateObject(AMCT, 1310, 660, -1);
     crate->Set(ABOX);
    }
   }

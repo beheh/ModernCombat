@@ -202,13 +202,13 @@ func CreateInterior()
   CreateObject(XTNK, 1590, 1260, -1)->AutoRespawn();
 
   //Tore und Konsolen
-  var autod = CreateObject (HNG3, 1433, 1110, -1);
+  var autod = CreateObject(HNG3, 1433, 1110, -1);
   autod->Open();
-  CreateObject (CONS, 1500, 1105, -1)->Set(autod);
+  CreateObject(CONS, 1500, 1105, -1)->Set(autod);
 
-  autod = CreateObject (HNG3, 1637, 1110, -1);
+  autod = CreateObject(HNG3, 1637, 1110, -1);
   autod->Open();
-  CreateObject (CONS, 1570, 1105, -1)->Set(autod);
+  CreateObject(CONS, 1570, 1105, -1)->Set(autod);
 
   //Selbstschussanlagen
   aSelfDefense[0] = CreateObject(SEGU, 1310, 1140, -1);

@@ -195,11 +195,11 @@ func CreateEquipment()
   Log("$CreatingEquipment$");
 
   //Versorgungskisten (Kugeln)
-  var crate = CreateObject (AMCT, 600, 690, -1);
+  var crate = CreateObject(AMCT, 600, 690, -1);
   crate->Set(ABOX);
-  crate = CreateObject (AMCT, 1940, 490, -1);
+  crate = CreateObject(AMCT, 1940, 490, -1);
   crate->Set(ABOX);
-  crate = CreateObject (AMCT, 2960, 440, -1);
+  crate = CreateObject(AMCT, 2960, 440, -1);
   crate->Set(ABOX);
 
   //Gewehrgranaten

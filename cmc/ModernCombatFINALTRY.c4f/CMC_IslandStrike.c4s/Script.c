@@ -297,21 +297,21 @@ func CreateInterior()
   FindObject(LENS)->SetPosition(4165,100);
 
   //Tore und Konsolen
-  var autod = CreateObject (HNG3, 2780, 720, -1);
+  var autod = CreateObject(HNG3, 2780, 720, -1);
   autod->Open();
-  CreateObject (CONS, 2880, 715, -1)->Set(autod);
+  CreateObject(CONS, 2880, 715, -1)->Set(autod);
   
-  autod = CreateObject (HNG3, 3570, 600, -1);
+  autod = CreateObject(HNG3, 3570, 600, -1);
   autod->Open();
-  CreateObject (CONS, 3695, 565, -1)->Set(autod);
+  CreateObject(CONS, 3695, 565, -1)->Set(autod);
   
-  autod = CreateObject (HNG3, 5532, 670, -1);
+  autod = CreateObject(HNG3, 5532, 670, -1);
   autod->Open();
-  CreateObject (CONS, 5630, 630, -1)->Set(autod);
+  CreateObject(CONS, 5630, 630, -1)->Set(autod);
   
-  autod = CreateObject (HNG3, 6370, 720, -1);
+  autod = CreateObject(HNG3, 6370, 720, -1);
   autod->Open();
-  CreateObject (CONS, 6270, 715, -1)->Set(autod);
+  CreateObject(CONS, 6270, 715, -1)->Set(autod);
 
   //Selbstschussanlagen
   aSelfDefense[0] = CreateObject(SEGU, 1095, 409, -1);
@@ -848,29 +848,29 @@ public func ChooserFinished()
    AddGOCCWarnEffect(warn, aFlag[0]);
 
    //Flaggenposten 2
-   warn = CreateObject (ALGH, 2525, 469, -1);
+   warn = CreateObject(ALGH, 2525, 469, -1);
    warn->SetR(-180);
    AddGOCCWarnEffect(warn, aFlag[1]);
-   warn = CreateObject (ALGH, 2595, 469, -1);
+   warn = CreateObject(ALGH, 2595, 469, -1);
    warn->SetR(-180);
    AddGOCCWarnEffect(warn, aFlag[1]);
-   warn = CreateObject (ALGH, 2780, 539, -1);
+   warn = CreateObject(ALGH, 2780, 539, -1);
    warn->SetR(-180);
    AddGOCCWarnEffect(warn, aFlag[1]);
 
    //Flaggenposten 3
-   warn = CreateObject (ALGH, 3570, 469, -1);
+   warn = CreateObject(ALGH, 3570, 469, -1);
    warn->SetR(-180);
    AddGOCCWarnEffect(warn, aFlag[2]);
-   warn = CreateObject (ALGH, 3710, 609, -1);
+   warn = CreateObject(ALGH, 3710, 609, -1);
    warn->SetR(-180);
    AddGOCCWarnEffect(warn, aFlag[2]);
 
    //Flaggenposten 4
-   warn = CreateObject (ALGH, 4245, 599, -1);
+   warn = CreateObject(ALGH, 4245, 599, -1);
    warn->SetR(-180);
    AddGOCCWarnEffect(warn, aFlag[3]);
-   warn = CreateObject (ALGH, 4415, 609, -1);
+   warn = CreateObject(ALGH, 4415, 609, -1);
    warn->SetR(-180);
    AddGOCCWarnEffect(warn, aFlag[3]);
 
@@ -878,25 +878,25 @@ public func ChooserFinished()
    warn = CreateObject(ALGH, 5705, 479, -1);
    warn->SetR(-180); 
    AddGOCCWarnEffect(warn, aFlag[4]);
-   warn = CreateObject (ALGH, 5570, 619, -1);
+   warn = CreateObject(ALGH, 5570, 619, -1);
    warn->SetR(-180);
    AddGOCCWarnEffect(warn, aFlag[4]);
 
    //Flaggenposten 6
-   warn = CreateObject (ALGH, 6555, 469, -1);
+   warn = CreateObject(ALGH, 6555, 469, -1);
    warn->SetR(-180);
    AddGOCCWarnEffect(warn, aFlag[5]);
-   warn = CreateObject (ALGH, 6625, 469, -1);
+   warn = CreateObject(ALGH, 6625, 469, -1);
    warn->SetR(-180);
    AddGOCCWarnEffect(warn, aFlag[5]);
-   warn = CreateObject (ALGH, 6370, 539, -1);
+   warn = CreateObject(ALGH, 6370, 539, -1);
    warn->SetR(-180);
    AddGOCCWarnEffect(warn, aFlag[5]);
 
    //Flaggenposten 7
-   warn = CreateObject (ALGH, 7150, 460, -1);
+   warn = CreateObject(ALGH, 7150, 460, -1);
    AddGOCCWarnEffect(warn, aFlag[6]);
-   warn = CreateObject (ALGH, 7410, 460, -1);
+   warn = CreateObject(ALGH, 7410, 460, -1);
    AddGOCCWarnEffect(warn, aFlag[6]);
   }
 

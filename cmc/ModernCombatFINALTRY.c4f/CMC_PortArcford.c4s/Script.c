@@ -184,7 +184,7 @@ func CreateInterior()
   //Kran und Konsole
   var cran = CreateObject(CRN1, 5430, 577, -1);
   cran->Set(19);
-  CreateObject (CONS, 5240, 555, -1)->Set(cran);
+  CreateObject(CONS, 5240, 555, -1)->Set(cran);
 
   //Sounds
 
@@ -226,11 +226,11 @@ func CreateEquipment()
   crate->Set(ABOX);
 
   //Versorgungskisten (Gewehrgranaten)
-  crate = CreateObject (AMCT, 1310, 530, -1);
+  crate = CreateObject(AMCT, 1310, 530, -1);
   crate->Set(GBOX);
-  crate = CreateObject (AMCT, 2970, 700, -1);
+  crate = CreateObject(AMCT, 2970, 700, -1);
   crate->Set(GBOX);
-  crate = CreateObject (AMCT, 5330, 560, -1);
+  crate = CreateObject(AMCT, 5330, 560, -1);
   crate->Set(GBOX);
 
   //Raketen

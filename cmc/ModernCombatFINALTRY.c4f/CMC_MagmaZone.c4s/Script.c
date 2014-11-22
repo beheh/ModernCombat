@@ -52,8 +52,8 @@ func CreateInterior()
   CreateObject(LADR, 2320, 528, -1)->Set(35);
 
   //Sprungschanzen
-  CreateObject (JMPD, 565, 330, -1)->Set(100, 20);
-  CreateObject (JMPD, 1575, 300, -1)->Set(85, 10);
+  CreateObject(JMPD, 565, 330, -1)->Set(100, 20);
+  CreateObject(JMPD, 1575, 300, -1)->Set(85, 10);
 
   //Stahlbrücken
   CreateObject(_HBR, 985, 660, -1);
@@ -258,12 +258,12 @@ public func ChooserFinished()
   //Sprungschanzen
   if(FindObject(FDMG))
   {
-   CreateObject (JMPD, 1585, 460, -1)->Set(40, -20);
-   CreateObject (JMPD, 1890, 370, -1)->Set(75, -80);
+   CreateObject(JMPD, 1585, 460, -1)->Set(40, -20);
+   CreateObject(JMPD, 1890, 370, -1)->Set(75, -80);
   }
   else
   {
-   CreateObject (JMPD, 1890, 370, -1)->Set(85, -80);
+   CreateObject(JMPD, 1890, 370, -1)->Set(85, -80);
   }
 
   //OP-Spielziel

@@ -250,9 +250,9 @@ func CreateEquipment()
   crate->Set(GBOX);
 
   //Versorgungskisten (APW)
-  crate = CreateObject (AMCT, 1980, 690, -1);
+  crate = CreateObject(AMCT, 1980, 690, -1);
   crate->Set(ATWN);
-  crate = CreateObject (AMCT, 4850, 690, -1);
+  crate = CreateObject(AMCT, 4850, 690, -1);
   crate->Set(ATWN);
 
   //Granatenmunition

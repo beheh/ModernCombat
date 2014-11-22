@@ -275,12 +275,12 @@ func CreateInterior()
   DrawMaterialQuad("Wall-Concrete3",1271,1940,1241,1930,1241,1940,1256,1940,true);
 
   //Sprungschanzen
-  CreateObject (JMPD, 900, 920, -1)->Set(100, 10);
-  CreateObject (JMPD, 1470, 920, -1)->Set(100, -10);
-  CreateObject (JMPD, 860, 2090, -1)->Set(90, 15);
-  CreateObject (JMPD, 880, 2090, -1)->Set(90, -15);
-  CreateObject (JMPD, 1490, 2090, -1)->Set(90, 15);
-  CreateObject (JMPD, 1510, 2090, -1)->Set(90, -15);
+  CreateObject(JMPD, 900, 920, -1)->Set(100, 10);
+  CreateObject(JMPD, 1470, 920, -1)->Set(100, -10);
+  CreateObject(JMPD, 860, 2090, -1)->Set(90, 15);
+  CreateObject(JMPD, 880, 2090, -1)->Set(90, -15);
+  CreateObject(JMPD, 1490, 2090, -1)->Set(90, 15);
+  CreateObject(JMPD, 1510, 2090, -1)->Set(90, -15);
 
   //Rahmen
   CreateObject(FRME, 1070, 1082, -1);
@@ -409,39 +409,39 @@ func CreateInterior()
   CreateObject(PILR, 1390, 1610, -1)->Set("PreparePillarCollapseR2");
 
   //Tore und Konsolen
-  var autod = CreateObject (HNG3, 1045, 1250, -1);
+  var autod = CreateObject(HNG3, 1045, 1250, -1);
   autod->Close();
   CreateObject(CONS, 1160, 1245, -1)->Set(autod);
-  autod = CreateObject (HNG3, 1325, 1250, -1);
+  autod = CreateObject(HNG3, 1325, 1250, -1);
   autod->Open();
   CreateObject(CONS, 1210, 1245, -1)->Set(autod);
-  autod = CreateObject (HNG3, 1045, 1370, -1);
+  autod = CreateObject(HNG3, 1045, 1370, -1);
   autod->Open();
   CreateObject(CONS, 985, 1365, -1)->Set(autod);
-  autod = CreateObject (HNG3, 1325, 1370, -1);
+  autod = CreateObject(HNG3, 1325, 1370, -1);
   autod->Close();
   CreateObject(CONS, 1380, 1365, -1)->Set(autod);
 
-  autod = CreateObject (HNG3, 1065, 1800, -1);
+  autod = CreateObject(HNG3, 1065, 1800, -1);
   autod->Close();
   CreateObject(CONS, 1145, 1795, -1)->Set(autod);
-  autod = CreateObject (HNG3, 1305, 1800, -1);
+  autod = CreateObject(HNG3, 1305, 1800, -1);
   autod->Close();
   CreateObject(CONS, 1225, 1795, -1)->Set(autod);
-  autod = CreateObject (HNG3, 1065, 1940, -1);
+  autod = CreateObject(HNG3, 1065, 1940, -1);
   autod->Open();
   CreateObject(CONS, 1090, 1935, -1)->Set(autod);
-  autod = CreateObject (HNG3, 1305, 1940, -1);
+  autod = CreateObject(HNG3, 1305, 1940, -1);
   autod->Open();
   CreateObject(CONS, 1280, 1935, -1)->Set(autod);
 
   //Hangartore und Konsolen
-  autod = CreateObject (HNG1, 870, 1950, -1);
+  autod = CreateObject(HNG1, 870, 1950, -1);
   autod->Open();
   CreateObject(CONS, 770, 1935, -1)->Set(autod);
-  autod = CreateObject (HNG1, 1500, 1950, -1);
+  autod = CreateObject(HNG1, 1500, 1950, -1);
   autod->Open();
-  CreateObject (CONS, 1590, 1935, -1)->Set(autod);
+  CreateObject(CONS, 1590, 1935, -1)->Set(autod);
 
   //Selbstschussanlagen und Konsolen
   //Basis 2
@@ -453,14 +453,14 @@ func CreateInterior()
 
   //Basis 3
   aSelfDefense[2] = CreateObject(SEGU, 1080, 1320, -1);
-  CreateObject (CONS, 1130, 1360, -1)->Set(aSelfDefense[2]);
+  CreateObject(CONS, 1130, 1360, -1)->Set(aSelfDefense[2]);
 
   aSelfDefense[3] = CreateObject(SEGU, 1290, 1320, -1);
   CreateObject(CONS, 1240, 1360, -1)->Set(aSelfDefense[3]);
 
   //Basis 4
   aSelfDefense[4] = CreateObject(SEGU, 745, 1765, -1);
-  CreateObject (CONS, 770, 1985, -1)->Set(aSelfDefense[4]);
+  CreateObject(CONS, 770, 1985, -1)->Set(aSelfDefense[4]);
 
   aSelfDefense[5] = CreateObject(SEGU, 1625, 1765, -1);
   CreateObject(CONS, 1605, 1985, -1)->Set(aSelfDefense[5]);
@@ -511,9 +511,9 @@ func CreateEquipment()
   crate->Set(GBOX);
 
   //Versorgungskisten (APW)
-  aTowerInterior[7] = CreateObject (AMCT, 1185, 392, -1);
+  aTowerInterior[7] = CreateObject(AMCT, 1185, 392, -1);
   aTowerInterior[7] -> Set(ATWN);
-  crate = CreateObject (AMCT, 1075, 1120, -1);
+  crate = CreateObject(AMCT, 1075, 1120, -1);
   crate->Set(ATWN);
 
   //Raketen
@@ -1113,38 +1113,38 @@ public func ChooserFinished()
 
    //Alarmleuchten
    //Flaggenposten 1
-   var warn = CreateObject (ALGH, 1090, 320, -1);
+   var warn = CreateObject(ALGH, 1090, 320, -1);
    AddGOCCWarnEffect(warn,aFlag[0]);
-   warn = CreateObject (ALGH, 1280, 320, -1);
+   warn = CreateObject(ALGH, 1280, 320, -1);
    AddGOCCWarnEffect(warn,aFlag[0]);
 
    //Flaggenposten 2
-   warn = CreateObject (ALGH, 985, 700, -1);
+   warn = CreateObject(ALGH, 985, 700, -1);
    AddGOCCWarnEffect(warn,aFlag[1]);
-   warn = CreateObject (ALGH, 1385, 700, -1);
+   warn = CreateObject(ALGH, 1385, 700, -1);
    AddGOCCWarnEffect(warn,aFlag[1]);
 
    //Flaggenposten 3
-   warn = CreateObject (ALGH, 1105, 1280, -1);
+   warn = CreateObject(ALGH, 1105, 1280, -1);
     warn->SetR(90);
    AddGOCCWarnEffect(warn,aFlag[2]);
-   warn = CreateObject (ALGH, 1265, 1280, -1);
+   warn = CreateObject(ALGH, 1265, 1280, -1);
     warn->SetR(-90);
    AddGOCCWarnEffect(warn,aFlag[2]);
 
    //Flaggenposten 4
-   warn = CreateObject (ALGH, 1125, 1505, -1);
+   warn = CreateObject(ALGH, 1125, 1505, -1);
     warn->SetR(90);
    AddGOCCWarnEffect(warn,aFlag[3]);
-   warn = CreateObject (ALGH, 1245, 1505, -1);
+   warn = CreateObject(ALGH, 1245, 1505, -1);
     warn->SetR(-90);
    AddGOCCWarnEffect(warn,aFlag[3]);
 
    //Flaggenposten 5
-   warn = CreateObject (ALGH, 1090, 1889, -1);
+   warn = CreateObject(ALGH, 1090, 1889, -1);
     warn->SetR(-180);
    AddGOCCWarnEffect(warn,aFlag[4]);
-   warn = CreateObject (ALGH, 1280, 1889, -1);
+   warn = CreateObject(ALGH, 1280, 1889, -1);
     warn->SetR(-180);
    AddGOCCWarnEffect(warn,aFlag[4]);
 

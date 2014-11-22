@@ -106,8 +106,8 @@ func CreateInterior()
   CreateObject(PIPL, 1550, 120, -1)->Solid()->Left()->Solid()->Left()->Solid()->Left()->Solid()->Left()->Solid()->Left()->Solid();
 
   //Sprungschanzen
-  CreateObject (JMPD, 705, 440, -1)->Set(85, -9);
-  CreateObject (JMPD, 840, 360, -1)->Set(91, 13);
+  CreateObject(JMPD, 705, 440, -1)->Set(85, -9);
+  CreateObject(JMPD, 840, 360, -1)->Set(91, 13);
 
   //Glasscheiben
   CreateObject(PANE, 115, 340, -1);
@@ -178,13 +178,13 @@ func CreateInterior()
   CreateObject(STNE, 1390, 40, -1);
 
   //Tore und Konsolen
-  var autod = CreateObject (HNG3, 610, 340, -1);
+  var autod = CreateObject(HNG3, 610, 340, -1);
   autod->Open();
-  CreateObject (CONS, 470, 340, -1)
+  CreateObject(CONS, 470, 340, -1)
   ->Set(autod);
-  var autod = CreateObject (HNG3, 940, 260, -1);
+  var autod = CreateObject(HNG3, 940, 260, -1);
   autod->Open();
-  CreateObject (CONS, 1080, 260, -1)
+  CreateObject(CONS, 1080, 260, -1)
   ->Set(autod);
 
   //Verbundene Räume
@@ -213,9 +213,9 @@ func CreateEquipment()
   Log("$CreatingEquipment$");
 
   //Versorgungskisten (Kugeln)
-  var crate = CreateObject (AMCT, 75, 350, -1);
+  var crate = CreateObject(AMCT, 75, 350, -1);
   crate->Set(ABOX);
-  var crate = CreateObject (AMCT, 1475, 260, -1);
+  var crate = CreateObject(AMCT, 1475, 260, -1);
   crate->Set(ABOX);
 
   //Gewehrgranaten
@@ -395,7 +395,7 @@ public func ChooserFinished()
    if(!FindObject(NOAM))
    {
     //Versorgungskiste (Kugeln)
-    var crate = CreateObject (AMCT, 760, 440, -1);
+    var crate = CreateObject(AMCT, 760, 440, -1);
     crate->Set(ABOX);
    }
   }

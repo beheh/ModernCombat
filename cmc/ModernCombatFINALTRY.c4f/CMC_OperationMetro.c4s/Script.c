@@ -316,25 +316,25 @@ func CreateEquipment()
   PlaceSpawnpoint(MBOX, 3380, 295);
 
   //Versorgungskisten (Kugeln)
-  var crate = CreateObject (AMCT, 1120, 440, -1);
+  var crate = CreateObject(AMCT, 1120, 440, -1);
   crate->Set(ABOX);
-  crate = CreateObject (AMCT, 4120, 440, -1);
+  crate = CreateObject(AMCT, 4120, 440, -1);
   crate->Set(ABOX);
-  crate = CreateObject (AMCT, 2600, 440, -1);
+  crate = CreateObject(AMCT, 2600, 440, -1);
   crate->Set(ABOX);
 
   //Versorgungskisten (Gewehrgranaten)
-  crate = CreateObject (AMCT, 1150, 440, -1);
+  crate = CreateObject(AMCT, 1150, 440, -1);
   crate->Set(GBOX);
-  crate = CreateObject (AMCT, 4090, 440, -1);
+  crate = CreateObject(AMCT, 4090, 440, -1);
   crate->Set(GBOX);
-  crate = CreateObject (AMCT, 2640, 440, -1);
+  crate = CreateObject(AMCT, 2640, 440, -1);
   crate->Set(GBOX);
 
   //Versorgungskisten (Dragnin)
-  crate = CreateObject (AMCT, 1930, 440, -1);
+  crate = CreateObject(AMCT, 1930, 440, -1);
   crate->Set(DGNN);
-  crate = CreateObject (AMCT, 3310, 440, -1);
+  crate = CreateObject(AMCT, 3310, 440, -1);
   crate->Set(DGNN);
 }
 
@@ -664,9 +664,9 @@ public func ChooserFinished()
    CreateObject(GNET, 4410, 440, -1)->Set(0,-90,1);
 
    //Versorgungskisten (APW)
-   crate = CreateObject (AMCT, 1650, 500, -1);
+   crate = CreateObject(AMCT, 1650, 500, -1);
    crate->Set(ATWN);
-   crate = CreateObject (AMCT, 3590, 500, -1);
+   crate = CreateObject(AMCT, 3590, 500, -1);
    crate->Set(ATWN);
   }
 
@@ -735,7 +735,7 @@ public func ChooserFinished()
    CreateObject(MWCR, 3990, 440, -1);
 
    //Versorgungskiste (APW)
-   var crate = CreateObject (AMCT, 3920, 440, -1);
+   var crate = CreateObject(AMCT, 3920, 440, -1);
    crate->Set(ATWN);
   }
 
@@ -776,9 +776,9 @@ public func ChooserFinished()
    CreateObject(GNET, 3640, 370, -1)->Set(0,-90,1);
 
    //Versorgungskisten (APW)
-   crate = CreateObject (AMCT, 1650, 500, -1);
+   crate = CreateObject(AMCT, 1650, 500, -1);
    crate->Set(ATWN);
-   crate = CreateObject (AMCT, 3590, 500, -1);
+   crate = CreateObject(AMCT, 3590, 500, -1);
    crate->Set(ATWN);
   }
 
@@ -804,9 +804,9 @@ public func ChooserFinished()
    CreateObject(GNET, 3640, 370, -1)->Set(0,-90,1);
 
    //Versorgungskisten (APW)
-   crate = CreateObject (AMCT, 1650, 500, -1);
+   crate = CreateObject(AMCT, 1650, 500, -1);
    crate->Set(ATWN);
-   crate = CreateObject (AMCT, 3590, 500, -1);
+   crate = CreateObject(AMCT, 3590, 500, -1);
    crate->Set(ATWN);
   }
 
@@ -828,9 +828,9 @@ public func ChooserFinished()
    CreateObject(GNET, 3640, 370, -1)->Set(0,-90,1);
 
    //Versorgungskisten (APW)
-   crate = CreateObject (AMCT, 1650, 500, -1);
+   crate = CreateObject(AMCT, 1650, 500, -1);
    crate->Set(ATWN);
-   crate = CreateObject (AMCT, 3590, 500, -1);
+   crate = CreateObject(AMCT, 3590, 500, -1);
    crate->Set(ATWN);
   }
 
@@ -846,9 +846,9 @@ public func ChooserFinished()
    CreateObject(GNET, 3640, 370, -1)->Set(0,-90,1);
 
    //Versorgungskisten (APW)
-   crate = CreateObject (AMCT, 1650, 500, -1);
+   crate = CreateObject(AMCT, 1650, 500, -1);
    crate->Set(ATWN);
-   crate = CreateObject (AMCT, 3590, 500, -1);
+   crate = CreateObject(AMCT, 3590, 500, -1);
    crate->Set(ATWN);
   }
 }
