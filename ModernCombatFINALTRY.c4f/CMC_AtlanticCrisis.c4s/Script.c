@@ -265,7 +265,7 @@ func CreateEquipment()
   crate->Set(ABOX);
 
   //Versorgungskiste (Gewehrgranaten)
-  crate = CreateObject (AMCT, 3020, 460, -1);
+  crate = CreateObject(AMCT, 3020, 460, -1);
   crate->Set(GBOX);
 
   //Raketen

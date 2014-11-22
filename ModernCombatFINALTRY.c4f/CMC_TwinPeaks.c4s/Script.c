@@ -226,27 +226,27 @@ func CreateEquipment()
   Log("$CreatingEquipment$");
 
   //Versorgungskisten (Kugeln)
-  var crate = CreateObject (AMCT, 1240, 890, -1);
+  var crate = CreateObject(AMCT, 1240, 890, -1);
   crate->Set(ABOX);
-  crate = CreateObject (AMCT, 4490, 890, -1);
+  crate = CreateObject(AMCT, 4490, 890, -1);
   crate->Set(ABOX);
 
   //Versorgungskisten (Gewehrgranaten)
-  crate = CreateObject (AMCT, 1590, 890, -1);
+  crate = CreateObject(AMCT, 1590, 890, -1);
   crate->Set(GBOX);
-  crate = CreateObject (AMCT, 4140, 890, -1);
+  crate = CreateObject(AMCT, 4140, 890, -1);
   crate->Set(GBOX);
 
   //Versorgungskisten (Dragnin)
-  crate = CreateObject (AMCT, 1565, 890, -1);
+  crate = CreateObject(AMCT, 1565, 890, -1);
   crate->Set(DGNN);
-  crate = CreateObject (AMCT, 4165, 890, -1);
+  crate = CreateObject(AMCT, 4165, 890, -1);
   crate->Set(DGNN);
 
   //Versorgungskisten (APW)
-  crate = CreateObject (AMCT, 1300, 780, -1);
+  crate = CreateObject(AMCT, 1300, 780, -1);
   crate->Set(ATWN);
-  crate = CreateObject (AMCT, 4430, 780, -1);
+  crate = CreateObject(AMCT, 4430, 780, -1);
   crate->Set(ATWN);
 
   //Raketen
@@ -552,7 +552,7 @@ public func ChooserFinished()
    }
 
    //Versorgungskiste (APW)
-   var crate = CreateObject (AMCT, 2865, 1350, -1);
+   var crate = CreateObject(AMCT, 2865, 1350, -1);
    crate->Set(ATWN);
 
    //SSA Besitzer setzen
@@ -641,7 +641,7 @@ public func ChooserFinished()
    store->AddWare(SRBL,-1);
 
    //Versorgungskiste (APW)
-   var crate = CreateObject (AMCT, 2865, 1350, -1);
+   var crate = CreateObject(AMCT, 2865, 1350, -1);
    crate->Set(ATWN);
 
    //SSA Besitzer setzen
@@ -682,7 +682,7 @@ public func ChooserFinished()
    store->AddWare(SRBL,-1);
 
    //Versorgungskiste (APW)
-   var crate = CreateObject (AMCT, 2865, 1350, -1);
+   var crate = CreateObject(AMCT, 2865, 1350, -1);
    crate->Set(ATWN);
 
    //SSA Besitzer setzen

@@ -294,9 +294,9 @@ func CreateEquipment()
   PlaceSpawnpoint(MBOX, 4600, 785);
 
   //Versorgungskisten (Dragnin)
-  crate = CreateObject (AMCT, 3725, 950, -1);
+  crate = CreateObject(AMCT, 3725, 950, -1);
   crate->Set(DGNN);
-  crate = CreateObject (AMCT, 4765, 950, -1);
+  crate = CreateObject(AMCT, 4765, 950, -1);
   crate->Set(DGNN);
 
   //Automat

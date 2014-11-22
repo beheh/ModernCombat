@@ -381,23 +381,23 @@ func CreateEquipment()
   Log("$CreatingEquipment$");
 
   //Versorgungskisten (Kugeln)
-  var crate = CreateObject (AMCT, 535, 450, -1);
+  var crate = CreateObject(AMCT, 535, 450, -1);
   crate->Set(ABOX);
-  crate = CreateObject (AMCT, 1490, 260, -1);
+  crate = CreateObject(AMCT, 1490, 260, -1);
   crate->Set(ABOX);
-  crate = CreateObject (AMCT, 1680, 550, -1);
+  crate = CreateObject(AMCT, 1680, 550, -1);
   crate->Set(ABOX);
-  crate = CreateObject (AMCT, 2120, 210, -1);
+  crate = CreateObject(AMCT, 2120, 210, -1);
   crate->Set(ABOX);
-  crate = CreateObject (AMCT, 2235, 490, -1);
+  crate = CreateObject(AMCT, 2235, 490, -1);
   crate->Set(ABOX);
-  crate = CreateObject (AMCT, 2775, 580, -1);
+  crate = CreateObject(AMCT, 2775, 580, -1);
   crate->Set(ABOX);
 
   //Versorgungskisten (Gewehrgranaten)
-  crate = CreateObject (AMCT, 505, 450, -1);
+  crate = CreateObject(AMCT, 505, 450, -1);
   crate->Set(GBOX);
-  crate = CreateObject (AMCT, 1490, 430, -1);
+  crate = CreateObject(AMCT, 1490, 430, -1);
   crate->Set(GBOX);
 
   //Versorgungskiste (Splittergranaten)
@@ -918,7 +918,7 @@ public func ChooserFinished()
    aStationary[3] -> Set(0,-90);
 
    //Versorgungskiste (APW)
-   var crate = CreateObject (AMCT, 1340, 160, -1);
+   var crate = CreateObject(AMCT, 1340, 160, -1);
    crate->Set(ATWN);
 
    //Hinweisschilder

@@ -39,7 +39,7 @@ func CreateInterior()
   CreateObject(LFTP, 465, 500, -1);
   CreateObject(LFTP, 915, 380, -1);
   CreateObject(LFTP, 1325, 390, -1);
-  var liftp = CreateObject (LFTP, 1405, 185, -1);
+  var liftp = CreateObject(LFTP, 1405, 185, -1);
   liftp->DisableVertical();
   CreateObject(LFTP, 2075, 400, -1);
   CreateObject(LFTP, 2485, 405, -1);
@@ -218,13 +218,13 @@ func CreateInterior()
   CreateObject(CONS, 2850, 385, -1)->Set(aSelfDefense[1]);
 
   //Tore und Konsolen
-  var autod = CreateObject (HNG3, 1700, 610, -1);
+  var autod = CreateObject(HNG3, 1700, 610, -1);
   autod->Open();
-  CreateObject (CONS, 1570, 605, -1)
+  CreateObject(CONS, 1570, 605, -1)
   ->Set(autod);
-  var autod = CreateObject (HNG3, 1700, 520, -1);
+  var autod = CreateObject(HNG3, 1700, 520, -1);
   autod->Open();
-  CreateObject (CONS, 1830, 605, -1)
+  CreateObject(CONS, 1830, 605, -1)
   ->Set(autod);
 
   //Sounds

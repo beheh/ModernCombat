@@ -270,10 +270,10 @@ func CreateInterior()
   CreateObject(PLLT, 2170, 270, -1);
 
   //Tore
-  CreateObject (HNG2, 175, 440, -1);
-  CreateObject (HNG2, 365, 630, -1);
-  CreateObject (HNG2, 2365, 630, -1);
-  CreateObject (HNG2, 2555, 440, -1);
+  CreateObject(HNG2, 175, 440, -1);
+  CreateObject(HNG2, 365, 630, -1);
+  CreateObject(HNG2, 2365, 630, -1);
+  CreateObject(HNG2, 2555, 440, -1);
 
   //Steine
   CreateObject(STNE, 1290, 800, -1)->Set(0);
@@ -349,7 +349,7 @@ func CreateEquipment()
   Log("$CreatingEquipment$");
 
   //Versorgungskisten (Kugeln)
-  var crate = CreateObject (AMCT, 530, 730, -1);
+  var crate = CreateObject(AMCT, 530, 730, -1);
   crate->Set(ABOX);
   crate = CreateObject(AMCT, 2200, 730, -1);
   crate->Set(ABOX);
