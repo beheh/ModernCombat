@@ -13,9 +13,7 @@ Killer=<c ffff33>Killer</c>
 Tip=<c ffff33>Tip</c>
 Points=<c ffff33>Points</c>
 NextTipp=Next tip
-
-#Injured Clonk
-NoShockPaddles=No shock paddles!
+NoShockPaddles=No shock paddles available!
 
 #Tips
 
