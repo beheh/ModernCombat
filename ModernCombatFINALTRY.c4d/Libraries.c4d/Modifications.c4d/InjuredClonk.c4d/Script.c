@@ -572,6 +572,8 @@ public func ControlUp(object pCaller)
   //Schwerverletzten nach Defibrillator durchsuchen
   if(!pCaller->~ActivateShockPaddles())
     var defi = FindObject2(Find_Func("IsShockPaddles"), Find_Container(this));
+  else
+    return _inherited(...);
 
   //Wenn gefunden: Nehmen und Auslösen planen
   if(defi)
