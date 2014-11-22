@@ -579,6 +579,8 @@ public func ControlUp(object pCaller)
     SetCommand(pCaller, "Get", defi);
     Schedule("ActivateShockPaddles()", 2, 0, pCaller);
   }
+  else
+    PlayerMessage(GetOwner(pCaller), "$NoShockPaddles$", pCaller);
 
   return _inherited(...);
 }

@@ -14,6 +14,9 @@ Tip=<c ffff33>Tipp</c>
 Points=<c ffff33>Punktestand</c>
 NextTipp=Nächster Tipp
 
+#Leiche    
+NoShockPaddles=Kein Defibrillator vorhanden!
+
 #Tipps
 
 #Allgemein
