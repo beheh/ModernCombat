@@ -566,7 +566,7 @@ public func RejectCollect(id idObj, object pObj)
 
 public func ControlUp(object pCaller)
 {
-  if(!pCaller || Hostile(GetOwner(pCaller), GetOwner()) || rejected || !clonk || !GetAlive(clonk)) 
+  if(!pCaller || Hostile(GetOwner(pCaller), GetOwner()) || rejected || !clonk || !GetAlive(clonk))
     return _inherited(...);
 
   //Schwerverletzten nach Defibrillator durchsuchen
