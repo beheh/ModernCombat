@@ -70,7 +70,7 @@ private func Adjust()
 
 public func IsBulletTarget(id idBullet, object pBullet, object pShooter)
 {
-  if(pBullet->~IsBullet())
+  if(pBullet && pBullet->~IsBullet())
     if(!unstucking)
     {
       speed += pBullet->GetXDir();
