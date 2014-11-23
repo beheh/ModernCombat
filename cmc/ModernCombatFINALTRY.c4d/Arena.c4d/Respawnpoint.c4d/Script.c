@@ -82,18 +82,18 @@ func Respawn()
 
 public func FxIntRespawnTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
-  if(GetDefCoreVal("SolidMask",0,id,2) > 0)
-  {
-    var w = GetDefWidth(id); var h = GetDefHeight(id);
-    var x = -w/2; var y = -h;
+  //if(GetDefCoreVal("SolidMask",0,id,2) > 0)
+  //{
+  var w = GetDefWidth(id); var h = GetDefHeight(id);
+  var x = -w/2; var y = -h;
 
-    if(ObjectCount2(Find_InRect(x,y,w,h),Find_OCF(OCF_Alive)))
-    {
-      if(GetEffect(0,pTarget,iEffectNumber,3) > 35)
-        ChangeEffect("IntRespawn",pTarget,0,"IntRespawn",35);
-      return;
-    }
+  if(ObjectCount2(Find_InRect(x,y,w,h),Find_OCF(OCF_Alive)))
+  {
+    if(GetEffect(0,pTarget,iEffectNumber,3) > 35)
+      ChangeEffect("IntRespawn",pTarget,0,"IntRespawn",35);
+    return;
   }
+  //}
   Respawn();
   return -1;
 }
