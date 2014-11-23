@@ -13,3 +13,4 @@ Flag5=East Entrance
 
 Target1=Surveillance System
 Target2=Communication Server
+Target3=Gas Line

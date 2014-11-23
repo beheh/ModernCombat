@@ -36,7 +36,7 @@ func CreateInterior()
   Log("$CreatingInterior$");
 
   //Leitern
-  CreateObject(LADR, 400, 630, -1)->Set(24);
+  CreateObject(LADR, 400, 726, -1)->Set(36);
   CreateObject(LADR, 495, 421, -1)->Set(18);
   CreateObject(LADR, 585, 775, -1)->Set(16);
   CreateObject(LADR, 755, 623, -1)->Set(22);
@@ -52,10 +52,11 @@ func CreateInterior()
   CreateObject(LADR, 1975, 623, -1)->Set(22);
   CreateObject(LADR, 2145, 775, -1)->Set(16);
   CreateObject(LADR, 2235, 421, -1)->Set(18);
-  CreateObject(LADR, 2330, 630, -1)->Set(24);
+  CreateObject(LADR, 2330, 726, -1)->Set(36);
 
   //Rampen
   DrawMaterialQuad("Wall-Concrete3",330,440,360,430,360,440,345,440,true);
+  DrawMaterialQuad("Wall-Concrete2",371,740,371,730,341,740,371,740,true);
   DrawMaterialQuad("Wall-Concrete3",471,440,441,430,441,440,456,440,true);
 
   DrawMaterialQuad("Wall-Concrete3",331,641,361,631,361,641,346,641,true);
@@ -71,16 +72,19 @@ func CreateInterior()
   DrawMaterialQuad("Wall-Concrete3",2400,641,2370,631,2370,641,2385,641,true);
 
   DrawMaterialQuad("Wall-Concrete3",2260,440,2290,430,2290,440,2275,440,true);
+  DrawMaterialQuad("Wall-Concrete2",2361,740,2361,730,2391,740,2361,740,true);
   DrawMaterialQuad("Wall-Concrete3",2401,440,2371,430,2371,440,2386,440,true);
 
   //Bodenluken
   CreateObject(HA4K, 400, 433, -1);
+  CreateObject(HA4K, 400, 634, -1);
   CreateObject(HA4K, 810, 653, -1);
   CreateObject(HA4K, 1170, 643, -1);
 
   CreateObject(HA4K, 1560, 643, -1);
   CreateObject(HA4K, 1920, 653, -1);
   CreateObject(HA4K, 2330, 433, -1);
+  CreateObject(HA4K, 2330, 634, -1);
 
   //Große Bodenluken
   CreateObject(H24K, 585, 648, -1);
@@ -531,6 +535,8 @@ func CreateDecoration()
   CreateObject(BSH2, 2190, 515, -1);
 
   //Ventillatoren
+  CreateObject(VEN3, 430, 725, -1)->SetCon(20);
+  CreateObject(VEN3, 450, 725, -1)->SetCon(20);
   CreateObject(VEN3, 490, 595, -1)->SetCon(20);
   var vent = CreateObject(VEN3, 510, 595, -1);
   vent->SetCon(20);
@@ -551,6 +557,8 @@ func CreateDecoration()
   vent->SetCon(20);
   vent->SetPhase(4);
   CreateObject(VEN3, 2240, 595, -1)->SetCon(20);
+  CreateObject(VEN3, 2280, 725, -1)->SetCon(20);
+  CreateObject(VEN3, 2300, 725, -1)->SetCon(20);
 }
 
 func CreateOptionalFeatures()
@@ -675,9 +683,11 @@ public func ChooserFinished()
   {
    //Zielobjekte
    AddAssaultTarget(CCP2, 640, 440, 350, 1, "$Target1$", 0, [[230, 440], [330, 530]]);
-   AddAssaultTarget(CMSN, 830, 800, 350, 1, "$Target2$", 1, [[640, 640], [420, 630]]);
-   AddAssaultTarget(CMSN, 1900, 800, 350, 2, "$Target2$", 2, [[2090, 640], [2310, 630]]);
-   AddAssaultTarget(CCP2, 2090, 440, 350, 2, "$Target1$", 3, [[2400, 530], [2500, 440]]);
+   AddAssaultTarget(CMSN, 830, 800, 350, 1, "$Target2$", 1, [[380, 730], [420, 630]]);
+   AddAssaultTarget(PMP2, 860, 605, 350, 1, "$Target3$", 2, [[330, 530], [420, 630]]);
+   AddAssaultTarget(PMP2, 1870, 605, 350, 2, "$Target3$", 3, [[2400, 530], [2310, 630]]);
+   AddAssaultTarget(CMSN, 1900, 800, 350, 2, "$Target2$", 4, [[2350, 730], [2310, 630]]);
+   AddAssaultTarget(CCP2, 2090, 440, 350, 2, "$Target1$", 5, [[2400, 530], [2500, 440]]);
 
    //Sprengsatz-Spawn
    SetupBombSpawnpoint([[1365, 310],[1365, 410],[1365,520],[1365,810]]);
@@ -705,6 +715,10 @@ public func ChooserFinished()
    sign = CreateObject(SNPT, 2330, 430, -1);
    sign->SetAction("Sign2");
    sign->Light();
+
+   //Objekte entfernen
+   RemoveObject(FindObject2(Find_ID(CONS),Find_InRect(300, 510, 30, 30)));
+   RemoveObject(FindObject2(Find_ID(CONS),Find_InRect(2410, 510, 30, 30)));
   }
 
   //HTF-Spielziel

@@ -13,3 +13,4 @@ Flag5=Östlicher Eingang
 
 Target1=Überwachungssystem
 Target2=Kommunikationsserver
+Target3=Gasleitung
