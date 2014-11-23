@@ -274,7 +274,7 @@ func Hit2(int xDir, int yDir)
   DoDmg((hit-700)*2/10,DMG_Melee,this,0,GetKiller(this)+1,SM10);
 
   //Achievement-Fortschritt (Totally Planned)
-  if((prevEnergy-GetEnergy()) * 100000 / GetPhysical("Energy") >= 80 && GetEnergy() * 100000 / GetPhysical("Energy") <= 5)
+  if((prevEnergy-GetEnergy()) * 100000 / GetPhysical("Energy") >= 80 && GetEnergy() * 100000 / GetPhysical("Energy") < 5 && GetAlive(this) && GetID(Contained()) != FKDT)
     DoAchievementProgress(1, AC56, GetOwner());
 
 
