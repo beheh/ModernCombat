@@ -266,38 +266,5 @@ global func FxIntVehicleUnusedDamaging(object pTarget, int iEffectNumber)
 
 global func SpawnEffect(object pObj)
 {
-  AddEffect("SpawnBeam", pObj, 120, 1, 0, GetID());
   Exit(pObj);
-}
-
-global func FxSpawnBeamStart(pTarget, iEffectNumber, temp)
-{
-  EffectVar(0, pTarget, iEffectNumber) = GetClrModulation(pTarget);
-  EffectVar(1, pTarget, iEffectNumber) = 70;
-  SetClrModulation(RGBa(255, 255, 255, 255), pTarget);//Unsichtbar.
-}
-
-global func FxSpawnBeamTimer(pTarget, iEffectNumber, iTime)
-{
-  var iFrames = EffectVar(1, pTarget, iEffectNumber);
-
-  for(var i = 0; i < 2; ++i)
-  {
-    var cur_X = GetX(pTarget) - GetX();
-    var cur_Y = GetY(pTarget) - GetY();
-    var x = RandomX( cur_X - GetObjWidth(pTarget) / 2, cur_X + GetObjWidth(pTarget) / 2);
-    var y = RandomX( cur_Y - GetObjHeight(pTarget) / 2, cur_Y + GetObjHeight(pTarget) / 2);
-
-    CreateParticle("LsrSprk",x,y,0,-2,170,RGBa(0, RandomX(128,255), 255, 50));
-  }
-  var v = 255-(iTime*255/iFrames);
-  SetClrModulation(RGBa(255,255,255,v),pTarget);
-
-  if(iTime >= iFrames)
-    return -1;
-}
-
-global func FxSpawnBeamStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)
-{
-  SetClrModulation(EffectVar(0, pTarget, iEffectNumber), pTarget);
 }
