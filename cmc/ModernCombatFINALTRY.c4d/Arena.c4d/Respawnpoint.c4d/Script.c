@@ -68,8 +68,6 @@ func Respawn()
   SetXDir(xdir, obj);
   SetYDir(ydir, obj);
 
-  obj->FadeIn4K(10);
-
   if(!GetDefCoreVal("SolidMask",0,GetID(obj),3)) return;
 
   //Eventuell feststeckende Objekte freimachen
