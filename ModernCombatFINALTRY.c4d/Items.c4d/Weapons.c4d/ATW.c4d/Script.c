@@ -16,6 +16,7 @@ public func IsSecondaryWeapon()	{return true;}
 
 public func SelectionTime()	{return 55;}	//Anwahlzeit
 
+public func GetPathFreeY() { return -2; }
 
 /* Initialisierung */
 
