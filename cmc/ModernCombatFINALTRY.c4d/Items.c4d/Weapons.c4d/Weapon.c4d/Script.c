@@ -63,6 +63,8 @@ public func OnFinishReloadStart(int iSlot)				{}
 public func OnFireStop(int iSlot)					{}
 public func NeedBotControl()						{return false;}	//KI-Kontrolle
 
+public func GetPathFreeX()	{ return; }
+public func GetPathFreeY()	{ return; }
 
 /*----- Initialisierung -----*/
 
@@ -1064,6 +1066,9 @@ private func Shoot(object caller)
        x = x + Sin(user->GetWeaponR(), GetDefHeight(projectileid) - GetDefCoreVal("VertexY","DefCore",projectileid));
        y = y - Cos(user->GetWeaponR(), GetDefHeight(projectileid) - GetDefCoreVal("VertexY","DefCore",projectileid));
     }
+
+    x = x + GetPathFreeX();
+    y = y + GetPathFreeY();
 
     if(!PathFree(GetX(),GetY(),GetX()+x,GetY()+y))
     {
