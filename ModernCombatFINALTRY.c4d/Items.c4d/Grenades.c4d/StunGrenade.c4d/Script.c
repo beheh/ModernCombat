@@ -29,7 +29,7 @@ public func Fused()
       continue;
 
     //Intensität errechnen
-    var intensity = ((270-ObjectDistance(this,obj))*470/250)/2;
+    var intensity = ((1000-ObjectDistance(this,obj))*470/250)/2;
 
     //Ziel ein Clonk?
     if(obj->~IsClonk())
@@ -46,7 +46,11 @@ public func Fused()
     {
       if(!PathFree(GetX(),GetY(),GetX(obj),GetY(obj))) continue;
     }
-    AddEffect("IntFlashbang",obj,1,1,0,GetID(), intensity, GetOwner(GetUser())); 
+	var effect = GetEffect("IntFlashbang", obj);
+	if(!effect)
+      AddEffect("IntFlashbang",obj,1,1,0,GetID(), intensity, GetOwner(GetUser())); 
+	else
+	  EffectVar(0, obj, effect) += intensity;
   }
 
   //Effekte
@@ -72,29 +76,20 @@ public func FxIntFlashbangStart(object pTarget, int iEffectNumber, int iTemp, in
     return;
 
   //Keine Intensität?
-  if(!intensity) return -1;
+  if(!intensity)
+    return -1;
 
   EffectVar(0,pTarget,iEffectNumber) = intensity;
-  EffectVar(2,pTarget,iEffectNumber) = owner;	//Zur Punkteberechnung
 
   //Blendung stark genug? Dann auch hörbar
-  if(intensity > 38) Sound("STUN_Bang.ogg", false, pTarget, 100, GetOwner(pTarget)+1);
+  if(intensity > 38) 
+    Sound("STUN_Bang.ogg", false, pTarget, 100, GetOwner(pTarget)+1);
 
   //Stärke berechnen und Blendung erstellen
-  var a = BoundBy(255-(intensity*255/100),0,255);
-
-  //Ziel bereits geblendet: Hinzuaddieren
-  var srgb = GetScreenRGB(GetOwner(pTarget), SR4K_LayerLight, pTarget);
-  if(srgb)
-  {
-    srgb->~DoAlpha(255-a, 0, 255);
-
-    if(GetEffectCount("IntFlashbang", pTarget) > 1)
-      return -1;
-  }
+  var a = BoundBy(intensity,0,255);
 
   var flash = ScreenRGB(pTarget,RGB(255,255,255), 0, 0, false, SR4K_LayerLight);
-  flash->SetAlpha(a);
+  flash->SetAlpha(255-a);
   if(!flash)
     return -1;
   else
@@ -104,24 +99,23 @@ public func FxIntFlashbangStart(object pTarget, int iEffectNumber, int iTemp, in
 public func FxIntFlashbangTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
   var rgb = EffectVar(1,pTarget,iEffectNumber);
-  if(!rgb) return -1;
+  if(!rgb) 
+    return -1;
 
-  var i;
-  if(--EffectVar(0, pTarget, iEffectNumber) >= 100)
-    i = EffectVar(0, pTarget, iEffectNumber);
-  else
-    //Aktuelle Intensität anhand des ScreenRGB-Alphawerts ermitteln
-    i = ((255-rgb->~GetAlpha()) * 100 / 255)-1;
+  var i = EffectVar(0, pTarget, iEffectNumber);
 
-  if(i <= 0) return -1;
+  if(i <= 0) 
+    return -1;
+	
+  if(i > 1000)
+    i = 1000;
 
-  var a = BoundBy(255-(i*255/100)-1,0,255);
-  rgb->SetAlpha(a);
+  EffectVar(0, pTarget, iEffectNumber)--;	
+	
+  var a = BoundBy(i,0,255);
+  rgb->SetAlpha(255-a);
 
-  var val, num, pCursor, c, flag;
   if(!Contained())
-  {
-    var a = rgb->~GetAlpha(), c;
     for(var i = 0; i < GetPlayerCount(); i++)
     {
       var pCursor = GetCursor(GetPlayerByIndex(i))->~GetRealCursor();
@@ -132,28 +126,12 @@ public func FxIntFlashbangTimer(object pTarget, int iEffectNumber, int iEffectTi
         continue;
 
       var srgb = GetScreenRGB(GetPlayerByIndex(i), SR4K_LayerLight, pCursor);
-      var val = 0;
-
-      if(srgb)
-      {
-        val = srgb->~GetAlpha();
-
-        if(val > 127)
-          val = 255-val;
-      }
-      else
-        val = 255-a;
-
-      var flag = 0;
-      if(c != 0)
-        flag = MSG_Multiple;
-
-      CustomMessage(Format("<c %x>{{SM07}}</c>", RGBa(255,255,255,BoundBy(val, 1, 254))), pTarget, GetPlayerByIndex(i), 0, 0, 0, 0, 0, flag); 
-      c++;
+	   
+	  if(srgb && srgb->GetAlpha() <= 200)		
+        CustomMessage(Format("<c %x>{{SM07}}</c>", RGBa(255,255,255,BoundBy(a, 1, 254))), pTarget, GetPlayerByIndex(i)); 
     }
-  }
   else
-    CustomMessage("@", pTarget, GetPlayerByIndex(i), 0, 0, 0, 0, 0, 0);
+    CustomMessage("@", pTarget, GetPlayerByIndex(i));
 }
 
 public func FxIntFlashbangStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)
