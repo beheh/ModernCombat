@@ -50,7 +50,7 @@ static const AT_Laserpointer	= 4;	//Laserpointer
 static const AT_Silencer	= 8;	//Schalldämpfer
 static const AT_Flashlight	= 16;	//Taschenlampe
 
-public func MaxFMDataCount()	{return 36;}			//Anzahl FM/FT-Datentypen
+public func MaxFMDataCount()		{return 36;}			//Anzahl FM/FT-Datentypen
 public func IsWeapon2()			{return true;}			//Nutzt/inkludiert neues Waffensystem WPN2
 public func IsPrimaryWeapon()		{return true;}			//Standard für QuickInventory
 public func NoWeaponChoice()		{return GetID() == WPN2;}
@@ -63,8 +63,9 @@ public func OnFinishReloadStart(int iSlot)				{}
 public func OnFireStop(int iSlot)					{}
 public func NeedBotControl()						{return false;}	//KI-Kontrolle
 
-public func GetPathFreeX()	{ return; }
-public func GetPathFreeY()	{ return; }
+public func GetPathFreeX()	{return;}	//Waffenspezifische X-Koordinaten-Anrechnung für den Projektilaustritt
+public func GetPathFreeY()	{return;}	//Waffenspezifische Y-Koordinaten-Anrechnung für den Projektilaustritt
+
 
 /*----- Initialisierung -----*/
 
@@ -1067,6 +1068,7 @@ private func Shoot(object caller)
        y = y - Cos(user->GetWeaponR(), GetDefHeight(projectileid) - GetDefCoreVal("VertexY","DefCore",projectileid));
     }
 
+    //Eventuell vorhandene waffenspezifische Austrittskoordinaten hinzurechnen
     x = x + GetPathFreeX();
     y = y + GetPathFreeY();
 
