@@ -29,7 +29,7 @@ public func Fused()
       continue;
 
     //Intensität errechnen
-    var intensity = ((1000-ObjectDistance(this,obj))*470/250)/2;
+    var intensity = ((300-ObjectDistance(this,obj))*470/250)/2;
 
     //Ziel ein Clonk?
     if(obj->~IsClonk())
@@ -38,7 +38,7 @@ public func Fused()
       if(!PathFree(GetX(),GetY(),GetX(obj),GetY(obj)-8))
         continue;
 
-      //Clonk freundlich? Intensität halbieren
+      //Clonk freundlich: Intensität halbieren
       if(!Hostile(GetOwner(obj), GetOwner(GetUser())))
         intensity = intensity/2;
     }
@@ -46,11 +46,13 @@ public func Fused()
     {
       if(!PathFree(GetX(),GetY(),GetX(obj),GetY(obj))) continue;
     }
-	var effect = GetEffect("IntFlashbang", obj);
-	if(!effect)
-      AddEffect("IntFlashbang",obj,1,1,0,GetID(), intensity, GetOwner(GetUser())); 
-	else
-	  EffectVar(0, obj, effect) += intensity;
+
+    //Vorhandenen Blendeffekt des Ziels aktualisieren oder neuen anhängen
+    var effect = GetEffect("IntFlashbang", obj);
+    if(!effect)
+      AddEffect("IntFlashbang",obj,1,1,0,GetID(), intensity, GetOwner(GetUser()));
+    else
+      EffectVar(0, obj, effect) += intensity;
   }
 
   //Effekte
@@ -81,8 +83,8 @@ public func FxIntFlashbangStart(object pTarget, int iEffectNumber, int iTemp, in
 
   EffectVar(0,pTarget,iEffectNumber) = intensity;
 
-  //Blendung stark genug? Dann auch hörbar
-  if(intensity > 38) 
+  //Blendung stark genug: Dann auch hörbar
+  if(intensity > 38)
     Sound("STUN_Bang.ogg", false, pTarget, 100, GetOwner(pTarget)+1);
 
   //Stärke berechnen und Blendung erstellen
@@ -99,36 +101,40 @@ public func FxIntFlashbangStart(object pTarget, int iEffectNumber, int iTemp, in
 public func FxIntFlashbangTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
   var rgb = EffectVar(1,pTarget,iEffectNumber);
-  if(!rgb) 
+  if(!rgb)
     return -1;
 
   var i = EffectVar(0, pTarget, iEffectNumber);
 
-  if(i <= 0) 
+  //Keine Blendung mehr: Abbruch
+  if(i <= 0)
     return -1;
-	
-  if(i > 1000)
-    i = 1000;
 
-  EffectVar(0, pTarget, iEffectNumber)--;	
-	
+  //"Überblendung" verhindern
+  if(i > 300)
+    i = 300;
+
+  //Blendung senken
+  EffectVar(0, pTarget, iEffectNumber)--;
+
   var a = BoundBy(i,0,255);
   rgb->SetAlpha(255-a);
 
+  //Blendungsicon anhängen
   if(!Contained())
     for(var i = 0; i < GetPlayerCount(); i++)
     {
       var pCursor = GetCursor(GetPlayerByIndex(i))->~GetRealCursor();
-      if(!pCursor && !(pCursor = GetCursor(GetPlayerByIndex(i)))) 
+      if(!pCursor && !(pCursor = GetCursor(GetPlayerByIndex(i))))
         continue;
 
       if(Contained(pCursor))
         continue;
 
       var srgb = GetScreenRGB(GetPlayerByIndex(i), SR4K_LayerLight, pCursor);
-	   
-	  if(srgb && srgb->GetAlpha() >= 200)		
-        CustomMessage(Format("<c %x>{{SM07}}</c>", RGBa(255,255,255,BoundBy(a, 1, 254))), pTarget, GetPlayerByIndex(i)); 
+
+      if(srgb && srgb->GetAlpha() >= 200)
+        CustomMessage(Format("<c %x>{{SM07}}</c>", RGBa(255,255,255,BoundBy(a, 1, 254))), pTarget, GetPlayerByIndex(i));
     }
   else
     CustomMessage("@", pTarget, GetPlayerByIndex(i));
@@ -142,7 +148,7 @@ public func FxIntFlashbangStop(object pTarget, int iEffectNumber, int iReason, b
 
 /* Schaden */
 
-protected func Damage(int iChange) 
+protected func Damage(int iChange)
 {
   //Kein Schaden nehmen wenn gehalten und eventuelles Feuer löschen
   if(Contained())

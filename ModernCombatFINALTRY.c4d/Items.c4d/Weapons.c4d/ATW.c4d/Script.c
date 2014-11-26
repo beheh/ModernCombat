@@ -13,10 +13,10 @@ public func HandY()		{return -1000;}
 public func BarrelXOffset()	{return -3500;}
 public func BarrelYOffset()	{return 4000;}
 public func IsSecondaryWeapon()	{return true;}
+public func GetPathFreeY()	{return -2;}
 
 public func SelectionTime()	{return 55;}	//Anwahlzeit
 
-public func GetPathFreeY() { return -2; }
 
 /* Initialisierung */
 
