@@ -29,7 +29,7 @@ public func Fused()
       continue;
 
     //Intensität errechnen
-    var intensity = ((300-ObjectDistance(this,obj))*470/250)/2;
+    var intensity = ((400-ObjectDistance(this,obj))*470/250)/2;
 
 	if(intensity <= 0)
 	  continue;
@@ -114,8 +114,8 @@ public func FxIntFlashbangTimer(object pTarget, int iEffectNumber, int iEffectTi
     return -1;
 
   //"Überblendung" verhindern
-  if(i > 300)
-    i = 300;
+  if(i > 750)
+    i = 750;
 
   //Blendung senken
   EffectVar(0, pTarget, iEffectNumber)--;
@@ -136,7 +136,7 @@ public func FxIntFlashbangTimer(object pTarget, int iEffectNumber, int iEffectTi
 
       var srgb = GetScreenRGB(GetPlayerByIndex(i), SR4K_LayerLight, pCursor);
 
-      if(srgb && srgb->GetAlpha() >= 50)
+      if(srgb && srgb->GetAlpha() <= 50)
         CustomMessage(Format("<c %x>{{SM07}}</c>", RGBa(255,255,255,BoundBy(a, 1, 254))), pTarget, GetPlayerByIndex(i));
     }
   else
