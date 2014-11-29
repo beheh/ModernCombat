@@ -123,15 +123,15 @@ public func FxFlashlightBlindnessTimer(object pTarget, int iNr)
 {
   var rgb = EffectVar(0, pTarget, iNr);
   var distAlpha = EffectVar(4, pTarget, iNr);
-  
+
   if(!rgb)
     rgb = EffectVar(0, pTarget, iNr) = ScreenRGB(pTarget, RGBa(255, 255, 255, 254), 0, 0, false, SR4K_LayerLight);
 
   var a = rgb->GetAlpha();
-	
+
   if(a < Flashlight_MinAlpha)
-    return;	
-	
+    return;
+
   if(--EffectVar(1, pTarget, iNr) <= 0)
     rgb->DoAlpha(-5, distAlpha, 255);
   else
@@ -141,14 +141,14 @@ public func FxFlashlightBlindnessTimer(object pTarget, int iNr)
     return;
 
   a = rgb->GetAlpha();
-	
+
   if(!Contained())
   {
     for(var i = 0; i < GetPlayerCount(); i++)
     {
-	  if(i == GetOwner(pTarget))
-	    continue;
-		
+      if(i == GetOwner(pTarget))
+      continue;
+
       var pCursor = GetCursor(GetPlayerByIndex(i))->~GetRealCursor();
       if(!pCursor && !(pCursor = GetCursor(GetPlayerByIndex(i))))
         continue;
@@ -158,24 +158,24 @@ public func FxFlashlightBlindnessTimer(object pTarget, int iNr)
 
       var srgb = GetScreenRGB(GetPlayerByIndex(i), SR4K_LayerLight, pCursor);
 
-      if(srgb && srgb->GetAlpha() < 50) 
-	  {
+      if(srgb && srgb->GetAlpha() < 50)
+      {
         CustomMessage("@", pTarget, GetPlayerByIndex(i));
-		continue;
-	  }
-	  
-	  srgb = GetScreenRGB(GetPlayerByIndex(i), SR4K_LayerSmoke, pCursor);
-      
+        continue;
+      }
+
+      srgb = GetScreenRGB(GetPlayerByIndex(i), SR4K_LayerSmoke, pCursor);
+
       if(srgb && srgb->GetAlpha() < 200) 
-	  {
+      {
         CustomMessage("@", pTarget, GetPlayerByIndex(i));
-		continue;
-	  }
-	  
+        continue;
+      }
+
       CustomMessage(Format("<c %x>{{SM07}}</c>", RGBa(255,255,255,BoundBy(255 - a, 1, 254))), pTarget, GetPlayerByIndex(i), 0, 0, 0, 0, 0, MSG_Multiple); 
-	}
+    }
   }
-  
+
   return true;
 }
 
