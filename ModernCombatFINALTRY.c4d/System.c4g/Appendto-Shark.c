@@ -58,6 +58,8 @@ private func Attack()
 
   // Beute suchen
   var pPrey = FindObject(0, -20 + 40 * GetDir(), 0, 0, 0, OCF_Prey, 0, 0, NoContainer());
+  if (!pPrey || !GetAlive(pPrey))
+  	var pPrey = FindObject(0, -28 + 56 * GetDir(), 0, 0, 0, OCF_Prey, 0, 0, NoContainer());
   if (!pPrey || !GetAlive(pPrey)) return;
 
   //Schaden
