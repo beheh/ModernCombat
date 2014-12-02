@@ -172,7 +172,7 @@ public func FxFlashlightBlindnessTimer(object pTarget, int iNr)
         continue;
       }
 
-      CustomMessage(Format("<c %x>{{SM07}}</c>", RGBa(255,255,255,BoundBy(255 - a, 1, 254))), pTarget, GetPlayerByIndex(i)); 
+      CustomMessage(Format("<c %x>{{SM07}}</c>", RGBa(255,255,255,BoundBy(255 - a, 1, 254))), pTarget, GetPlayerByIndex(i));
     }
   }
 
