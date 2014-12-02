@@ -16,7 +16,6 @@ private func Attack(object pPrey)
 
   //Schaden
   DoDmg(8,DMG_Melee,pPrey,0,0,GetID());
-  if(!Random(3)) SetComDir(COMD_Stop,pPrey);
   return(1);
 }
 
