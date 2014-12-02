@@ -120,24 +120,20 @@ public func FxIntFlashbangTimer(object pTarget, int iEffectNumber, int iEffectTi
   //Blendung senken
   i--;
   EffectVar(0, pTarget, iEffectNumber) = i;
-/*
-  var a = 255 - BoundBy(i,0,255);
-  //haxxiger Taschenlampencheck
+
+  //Taschenlampen Haxx
+  var a = rgb->GetAlpha();
   var eff = GetEffect("FlashlightBlindness", pTarget);
-  if(!eff || !((EffectVar(1, pTarget, eff) <= 0) && (a < Flashlight_MinAlpha || a > Flashlight_MaxAlpha)))
+  if(eff && EffectVar(1, pTarget, eff) > 0 && a >= Flashlight_MinAlpha) 
   {
-    //dies hier wird nur ausgeführt, wenn entweder kein Taschenlampeneffekt vorhanden ist
-    //oder der Alphawert zu klein/zu groß für die Taschenlampe ist
-    rgb->SetAlpha(a);
+    //ja, das muss so!
   }
   else
-    if(eff)
-      return;
-    else
-      a = rgb->GetAlpha();
-*/
-  var a = 255 - BoundBy(i, 0, 255);
-  rgb->SetAlpha(a);
+  {  
+    a = BoundBy(i, 0, 255);
+    rgb->SetAlpha(255 - a);
+  }	
+	
   //Blendungsicon anhängen
   if(!Contained())
     for(var i = 0; i < GetPlayerCount(); i++)
@@ -168,7 +164,7 @@ public func FxIntFlashbangTimer(object pTarget, int iEffectNumber, int iEffectTi
         continue;
       }
 
-      CustomMessage(Format("<c %x>{{SM07}}</c>", RGBa(255,255,255,BoundBy(255 - a, 1, 254))), pTarget, GetPlayerByIndex(i), 0, 0, 0, 0, 0, MSG_Multiple); 
+      CustomMessage(Format("<c %x>{{SM07}}</c>", RGBa(255,255,255,BoundBy(a, 1, 254))), pTarget, GetPlayerByIndex(i)); 
     }
 }
 

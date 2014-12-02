@@ -142,7 +142,7 @@ public func FxFlashlightBlindnessTimer(object pTarget, int iNr)
 
   a = rgb->GetAlpha();
 
-  if(!Contained())
+  if(!GetEffect("IntFlashbang", pTarget) && !Contained())
   {
     for(var i = 0; i < GetPlayerCount(); i++)
     {
@@ -172,7 +172,7 @@ public func FxFlashlightBlindnessTimer(object pTarget, int iNr)
         continue;
       }
 
-      CustomMessage(Format("<c %x>{{SM07}}</c>", RGBa(255,255,255,BoundBy(255 - a, 1, 254))), pTarget, GetPlayerByIndex(i), 0, 0, 0, 0, 0, MSG_Multiple); 
+      CustomMessage(Format("<c %x>{{SM07}}</c>", RGBa(255,255,255,BoundBy(255 - a, 1, 254))), pTarget, GetPlayerByIndex(i)); 
     }
   }
 

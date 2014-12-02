@@ -516,7 +516,7 @@ public func Reanimation()
       if(item = FindContents(aContents[i], this))
         Enter(clonk, item);
     }
-    clonk->GrabContents(this);
+    //clonk->GrabContents(this);
     if(GetLength(aGrenades))
     {
       //Granatensortierung wiederherstellen
