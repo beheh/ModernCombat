@@ -41,8 +41,8 @@ protected func Activity()
 
 private func CheckAttack()
 {
-  // Die KI-Steuerung wird bei Besessenheit nicht gebraucht
-  if (GetEffect("PossessionSpell", this())) return;
+  //Die KI-Steuerung wird bei Besessenheit nicht gebraucht
+  if(GetEffect("PossessionSpell", this())) return;
 
   var pPrey;
   if(GetAction() != "Swim") return;
@@ -50,5 +50,5 @@ private func CheckAttack()
     if(pPrey = FindObject(0,+1,+1,0,0,OCF_Prey,0,0,NoContainer()))
       Attack(pPrey);
     else if(pPrey = FindObject(0,-8 + 16 * GetDir(),+1,0,0,OCF_Prey,0,0,NoContainer()))
-    	Attack(pPrey);
+      Attack(pPrey);
 }
