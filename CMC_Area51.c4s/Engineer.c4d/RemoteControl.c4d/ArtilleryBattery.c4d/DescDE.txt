@@ -1,0 +1,4 @@
+Tödliche Fernwaffe.
+
+Anfassen und [Graben] zum Einsehen des Zielgebiets. [Werfen] zum Starten eines Artillerieschlages.
+[Links]/[Rechts] zum Ausrichten des Geschützes.
