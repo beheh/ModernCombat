@@ -1,0 +1,23 @@
+[DefCore]
+id=ATBY
+Version=4,9,10,7
+Name=Artillery Battery
+Category=C4D_Structure
+MaxUserSelect=10
+Width=47
+Height=22
+Offset=-23,-11
+SolidMask=48,0,47,22
+Vertices=5
+VertexX=13,-14,23,-24,0
+VertexY=-3,-3,11,11,-2
+VertexFriction=60,60,60,60
+Value=300
+Mass=500
+Components=METL=4
+Picture=0,66,46,36
+Construction=1
+Grab=2
+NoPushEnter=1
+Timer=3
+TimerCall=Rotation

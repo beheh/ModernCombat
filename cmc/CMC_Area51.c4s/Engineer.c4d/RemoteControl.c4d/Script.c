@@ -12,6 +12,7 @@ public func IsDrawable()	{return true;}	//Wird sichtbar getragen
 public func HandX()		{return 4000;}
 public func HandY()		{return 10;}
 public func HandSize()		{return 1000;}
+public func IsControlling() {return fControlling;}
 
 func Activate(object pCaller) {
   
@@ -27,8 +28,10 @@ func Activate(object pCaller) {
 		Sound("Bsss.wav", 1, 0, 0, GetOwner(pCaller));
 		fControlling = true;
 		SetPlrView(GetOwner(pClonk), ViewTarget());
-		ObjectSetAction(pCaller, "Heal");
-		if(!pTarget->~ActivateEntrance(pCaller, true))
+		ObjectSetAction(pCaller, "Remote");
+		if((pTarget->~IsGunEmplacement() || pTarget->~IsMAVStation()) && !pTarget->~ActivateEntrance(pCaller, true))
+			Cancel();
+		if(pTarget->~IsArtilleryBattery() && FindObject2(Find_Action("Push"), Find_ActionTarget(pTarget)))
 			Cancel();
   }
   else
@@ -46,7 +49,7 @@ func ControlThrow(object pCaller)
 		return true;
 	}
 	
-	var pGun = FindObject2(Find_AtPoint(), Find_Or(Find_Func("IsGunEmplacement"), Find_Func("IsMAVStation")));
+	var pGun = FindObject2(Find_AtPoint(), Find_Or(Find_Func("IsGunEmplacement"), Find_Func("IsMAVStation"), Find_Func("IsArtilleryBattery"), Find_Func("IsConsole")));
 
 	if(pTarget && pGun)
 	{
@@ -62,6 +65,7 @@ func ControlThrow(object pCaller)
 	{
 		pTarget = pGun;
 		LocalN("pRemoteControl", pTarget) = this;
+		PlayerMessage(GetOwner(pCaller), Format("%s hacked!", GetName(pTarget)), this);
 	}
 	return true;
 }
@@ -71,9 +75,8 @@ func Cancel()
 	fControlling = false;
 	if(pClonk)
 		SetPlrView(GetOwner(pClonk), pClonk);
-	if(GetAction(pClonk) == "Heal")
+	if(GetAction(pClonk) == "Remote")
 		ObjectSetAction(pClonk, "Walk");
-	
 }
 
 func ViewTarget()
@@ -83,22 +86,22 @@ func ViewTarget()
 		var pMAV;
 		if(pTarget->~IsMAVStation() && (pMAV = LocalN("pMAV", pTarget)) && !pMAV->IsDestroyed())
 			return pMAV;
-		else
-			return pTarget;
+		return pTarget;
 	}
 }
 
+/*
 func Check()
 {
 	if(!fControlling)
 		return;
 
 	if(WildcardMatch(GetAction(pClonk), "Walk*"))
-		return ObjectSetAction(pClonk, "Heal");
-	else if(GetAction(pClonk) != "Heal")
+		return ObjectSetAction(pClonk, "Remote");
+	else if(GetAction(pClonk) != "Remote")
 		return Cancel();
 }
-
+*/
 func RelayControl(object pCaller, string szControl)
 {
 	if(!fControlling)
@@ -107,8 +110,25 @@ func RelayControl(object pCaller, string szControl)
 	if(pTarget)
 	{
 		SetPlrView(GetOwner(pClonk), ViewTarget());
-		if(pTarget->~IsGunEmplacement() && WildcardMatch(szControl, "*Double"))
+		if((pTarget->~IsGunEmplacement() || pTarget->~IsArtilleryBattery()) && WildcardMatch(szControl, "*Double"))
 			return true;
+		if(pTarget->~IsConsole())
+			if(szControl == "ControlDigSingle")
+			{
+				var target = LocalN("target", pTarget);
+				SetPlrView(GetOwner(pCaller),target);
+
+  			//Menü erstellen
+  			CreateMenu(GetID(target), pCaller, target, 0, Format("Control: %s", GetName(target)), 0, 1);
+  			for(var i = 1, desc ; desc = target->~ConsoleControl(i, pCaller, this) ; i++)
+  			{
+    			AddMenuItem(desc, Format("ConsoleControlled(%d, %d, %d)", i, ObjectNumber(pCaller), ObjectNumber(this)), GetID(), pCaller, 0, 0, "Control");
+    			Sound("Acknowledge.ogg", 0, pCaller, 100, GetOwner(pCaller)+1);
+  			}
+				szControl = "ControlDig";
+			}
+			else
+				return true;
 		pTarget->~eval(Format("%s(%d)", szControl, pCaller));
 		return true;
 	}
@@ -119,8 +139,8 @@ func ControlUpdate(object pCaller, int comdir, bool dig, bool throw)
 	if(fControlling)
 	{
 		if(WildcardMatch(GetAction(pClonk), "Walk*"))
-			ObjectSetAction(pClonk, "Heal");
-		else if(GetAction(pClonk) != "Heal")
+			ObjectSetAction(pClonk, "Remote");
+		else if(GetAction(pClonk) != "Remote")
 			return Cancel();
 		pTarget->~ControlUpdate(pCaller, comdir, dig, throw);
 		//1. (niedrigstes) Bit: Links 2. Bit: Rechts 3. Bit: Hoch 4. Bit: Runter
@@ -156,7 +176,6 @@ func ControlUpdate(object pCaller, int comdir, bool dig, bool throw)
 
 func ControlLeft(object pCaller)
 {
-
 	return RelayControl(pCaller, "ControlLeft");
 }
 

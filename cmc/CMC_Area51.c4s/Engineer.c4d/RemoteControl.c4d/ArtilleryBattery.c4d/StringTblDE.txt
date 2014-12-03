@@ -1,0 +1,3 @@
+Reloading=Artillerieschlag wird vorbereitet.
+Destroyed=Artilleriebatterie nicht einsatzbereit.
+ArtilleryLaunch=<c ff0000>Achtung</c>: <c %x>%s</c> startet einen <c ffff33>Artillerieschlag</c>
