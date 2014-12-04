@@ -3,7 +3,7 @@
 SearchingComp=wird gesucht
 CompIdle=im Freien
 CompInPossession=in Besitz von %s
-CompLost=Computer verloren, <c ffff33>bereithalten</c> für den nächsten!
+CompLost=Zugangsdaten ungültig, <c ffff33>bereithalten</c> für neuen Computer!
 CompSpawnDelay=Nächster Computer wird gesucht, <c ffff33>bereithalten</c>!
 ComputerSpawned=Computer wurde gesichtet, <c ffff33>holt</c> ihn euch!
 

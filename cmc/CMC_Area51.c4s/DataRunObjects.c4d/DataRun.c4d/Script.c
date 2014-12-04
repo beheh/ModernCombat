@@ -159,11 +159,15 @@ public func DelayedComputerRespawn(object pComp, int iX, int iY)
   EventInfo4K(0, "$CompLost$", COMP, 0, 0, 0, "Info_Objective.ogg");
 
   //Effekte
-  Sound("StructureHeavyHit*.ogg", false, pComp);
-  ShakeViewPort(400, pComp);
+  pComp->Sparks(20,RGB(250,150,0),0,-5);
+  pComp->AddLightFlash(100+Random(20),0,0,RGB(0,140,255));
+  pComp->AddSmokeEffect4K(40,-2,-5,true,this);
 
-  //Computer explodieren lassen (WTF)
-  Explode(50, pComp);
+  //Kategorie wechseln
+  SetCategory(C4D_Vehicle); 
+
+  //Verschwinden
+  FadeOut();
 
   //Neue Computerplatzierung planen
   ScheduleCall(this, "PlaceComputerSpawnpoint", GDAR_ComputerRespawnDelay, 0, iX, iY, true);
@@ -342,7 +346,7 @@ public func OnDeathAnnounce(object pCrew, int iKiller, int iAssist)
     return false;
 
   var iChange;
-  //Datenträger fallenlasen bei Gegnerkill
+  //Datenträger fallenlassen bei Gegnerkill
   if(!(iKiller == NO_OWNER || iPlr == iKiller || GetPlayerTeam(iPlr) == GetPlayerTeam(iKiller)))
   {
     var index = iPlr;
