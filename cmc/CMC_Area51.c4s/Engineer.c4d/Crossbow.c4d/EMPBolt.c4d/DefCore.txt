@@ -11,3 +11,5 @@ Vertices=2
 VertexY=-4,3
 VertexFriction=100
 Rotate=1
+Timer=1
+TimerCall=Flying

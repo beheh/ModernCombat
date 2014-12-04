@@ -4,6 +4,7 @@
 #include GREN
 
 local active,sx,sy, start;
+local iXDir, iYDir;
 local iLastAttacker;
 local iAttachment;
 
@@ -34,8 +35,19 @@ func Launch(int xdir, int ydir, int iDmg,a,b,c, int attachment)
   sx = GetX();
   sy = GetY();
   start = FrameCounter();
-  inherited(xdir,ydir,iDmg,a,b,c);
+  iXDir = xdir;
+  iYDir = ydir - 7;
+  inherited(iXDir,iYDir,iDmg,a,b,c);
   if(Stuck()) Hit();
+}
+
+func Flying()
+{
+	iYDir += !((FrameCounter()-start) % 2);
+	iYDir += (FrameCounter()-start > 20);
+	iXDir -= Sgn(iXDir)*((FrameCounter()-start) > 20)*2;
+	SetXDir(iXDir);
+	SetYDir(iYDir);
 }
 
 /* Treffer */
