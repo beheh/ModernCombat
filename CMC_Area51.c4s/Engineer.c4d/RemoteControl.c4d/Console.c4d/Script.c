@@ -17,6 +17,16 @@ public func IsFakeRepairable(int iPlr)
   return (target && target->~IsRepairable() && fAdd);
 }
 
+func Grabbed(object pByObject, bool fGrab)
+{
+	if(pRemoteControl)
+	{
+		if(Hostile(GetOwner(pRemoteControl), GetOwner(pByObject)))
+			pRemoteControl->RemoveTarget();
+		else
+			pRemoteControl->Cancel();
+	}
+}
 
 /* Timer */
 

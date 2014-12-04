@@ -29,10 +29,15 @@ func Initialize()
   return inherited();
 }
 
-func Grabbed()
+func Grabbed(object pByObject, bool fGrab)
 {
 	if(pRemoteControl)
-		pRemoteControl->Cancel();
+	{
+		if(Hostile(GetOwner(pRemoteControl), GetOwner(pByObject)))
+			pRemoteControl->RemoveTarget();
+		else
+			pRemoteControl->Cancel();
+	}
 }
 
 /* Check */
@@ -167,6 +172,9 @@ func ControlDig(object pByObj)
     SetPlrView(GetOwner(pByObj), target);
     target->Set(pByObj);
     Sound("CatapultSet");
+    
+    if(pRemoteControl)
+    	LocalN("tempView", pRemoteControl) = target;
   }
 }
 

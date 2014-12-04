@@ -7,6 +7,7 @@ local fControlling;
 local pClonk;
 local throwActive;
 local lastMovement; //1. (niedrigstes) Bit: Links 2. Bit: Rechts 3. Bit: Hoch 4. Bit: Runter
+local tempView;
 
 public func IsDrawable()	{return true;}	//Wird sichtbar getragen
 public func HandX()		{return 4000;}
@@ -51,21 +52,19 @@ func ControlThrow(object pCaller)
 	
 	var pGun = FindObject2(Find_AtPoint(), Find_Or(Find_Func("IsGunEmplacement"), Find_Func("IsMAVStation"), Find_Func("IsArtilleryBattery"), Find_Func("IsConsole")));
 
-	if(pTarget && pGun)
-	{
-		var pPrevRemote = LocalN("pRemoteControl", pTarget);
-		if(pPrevRemote)
-		{
-			pPrevRemote->Cancel();
-			LocalN("pRemoteControl", pTarget) = 0;
-			LocalN("pTarget", pPrevRemote) = 0;
-		}
-	}
 	if(pGun)
 	{
+		if(pTarget)
+			LocalN("pRemoteControl", pTarget) = 0;
+		tempView = 0;
+
+		var pPrevRemote = LocalN("pRemoteControl", pGun);
+		if(pPrevRemote)
+			pPrevRemote->RemoveTarget();
+			
+		LocalN("pRemoteControl", pGun) = this;
+		PlayerMessage(GetOwner(pCaller), Format("%s hacked!", GetName(pGun)), this);
 		pTarget = pGun;
-		LocalN("pRemoteControl", pTarget) = this;
-		PlayerMessage(GetOwner(pCaller), Format("%s hacked!", GetName(pTarget)), this);
 	}
 	return true;
 }
@@ -79,44 +78,61 @@ func Cancel()
 		ObjectSetAction(pClonk, "Walk");
 }
 
+func RemoveTarget()
+{
+	Cancel();
+	if(pTarget)
+		LocalN("pRemoteControl", pTarget) = 0;
+	pTarget = 0;
+	if(Contained()->Contents() == this)
+		PlayerMessage(GetOwner(), "Target lost!", this);
+}
+
 func ViewTarget()
 {
 	if(pTarget)
-	{
+	{	
 		var pMAV;
 		if(pTarget->~IsMAVStation() && (pMAV = LocalN("pMAV", pTarget)) && !pMAV->IsDestroyed())
 			return pMAV;
+		
+		if(tempView)
+			return tempView;
+		
 		return pTarget;
 	}
 }
 
-/*
+
 func Check()
 {
-	if(!fControlling)
+	if(!fControlling || !pTarget)
 		return;
 
-	if(WildcardMatch(GetAction(pClonk), "Walk*"))
-		return ObjectSetAction(pClonk, "Remote");
-	else if(GetAction(pClonk) != "Remote")
-		return Cancel();
+	SetPlrView(GetOwner(), ViewTarget());
 }
-*/
+
 func RelayControl(object pCaller, string szControl)
 {
+
 	if(!fControlling)
 		return;
 		
 	if(pTarget)
 	{
+		if(!pTarget->~IsGunEmplacement())
+			tempView = 0;
+
 		SetPlrView(GetOwner(pClonk), ViewTarget());
 		if((pTarget->~IsGunEmplacement() || pTarget->~IsArtilleryBattery()) && WildcardMatch(szControl, "*Double"))
 			return true;
+
 		if(pTarget->~IsConsole())
 			if(szControl == "ControlDigSingle")
 			{
 				var target = LocalN("target", pTarget);
 				SetPlrView(GetOwner(pCaller),target);
+				tempView = target;
 
   			//Menü erstellen
   			CreateMenu(GetID(target), pCaller, target, 0, Format("Control: %s", GetName(target)), 0, 1);
@@ -129,7 +145,7 @@ func RelayControl(object pCaller, string szControl)
 			}
 			else
 				return true;
-		pTarget->~eval(Format("%s(%d)", szControl, pCaller));
+		pTarget->~eval(Format("%s(Object(%d))", szControl, ObjectNumber(pCaller)));
 		return true;
 	}
 }
@@ -269,4 +285,10 @@ protected func Destruction()
 	Cancel();
 	if(pTarget)
 		LocalN("pRemoteControl", pTarget) = 0;
+}
+
+func Selection()
+{
+	if(pTarget)
+		PlayerMessage(GetOwner(), GetName(pTarget), this);
 }

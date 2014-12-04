@@ -227,12 +227,10 @@ protected func ActivateEntrance(pUser, fRemote)
   	
   	if(pRemoteControl)
     {
-    	pRemoteControl->Cancel();
     	if(Hostile(GetOwner(pUser), GetOwner(pRemoteControl)))
-    	{
-    		LocalN("pTarget", pRemoteControl) = 0;
-    		pRemoteControl = 0;
-    	}
+    		pRemoteControl->RemoveTarget();
+    	else
+    		pRemoteControl->Cancel();
     }
   }
 
