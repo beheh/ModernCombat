@@ -1,6 +1,6 @@
 [DefCore]
-id=XBOW
-Name=Crossbow
+id=ABOW
+Name=Bow
 Version=4,9,5
 Category=C4D_Object|C4D_SelectMaterial|C4D_SelectHomebase
 MaxUserSelect=5

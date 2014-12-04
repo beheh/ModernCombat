@@ -68,6 +68,7 @@ public func Fire()
 {
 	if(!drawing && CheckAmmo(FMData1(FM_AmmoID),1,this) && Contained()->~ReadyToFire())
 	{
+		Sound("ABOW_Bend.ogg");
 		AddEffect("Drawing", this, 1, 1, this);
 		return true;
 	}
@@ -83,10 +84,7 @@ public func Fire1T1()
 
 func FxDrawingTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
-	if(!Contained(pTarget))
-		return -1;
-
-	if(Contained(pTarget)->Contents() != pTarget || !Contained(pTarget)->~ReadyToFire())
+	if(!Contained(pTarget) || Contained(pTarget)->Contents() != pTarget || !Contained(pTarget)->~ReadyToFire())
 	{
 		drawing = 0;
 		PlayerMessage(GetOwner(), "", this);
@@ -165,9 +163,7 @@ public func LaunchBolt(id idg, int speed, int angle, int mode)
     }
   }
   */
-  Sound("SGST_Fire*.ogg", 0, bolt);
-  Echo("SGST_Echo.ogg");
-  Schedule("Sound(\"SGST_Pump.ogg\")", 30);
+  Sound("ABOW_Fire*.ogg", 0, bolt);
 
   //Patronenhülse hinzufügen
   casings++;
@@ -195,8 +191,15 @@ func FxLaserDotTimer(object pTarget, int iEffectNumber, int iEffectTime)
 
 func OnReload()
 {
-  Sound("SGST_ReloadStart.ogg");
-
+  Sound("ABOW_Reload.ogg");
+	if(drawing)
+	{
+		RemoveEffect("Drawing", this);
+		PlayerMessage(GetOwner(), "", this);
+ 		drawing = 0;
+ 		return true;
+	}
+	
 	/*
   var j = casings;
   for(var i; i = j; j--)
@@ -209,16 +212,6 @@ func OnReload()
   */
 }
 
-func OnSingleReloadStart()
-{
-  Sound("SGST_Loading.ogg");
-}
-
-func OnFinishReloadStart()
-{
-  Sound("SGST_ReloadStop.ogg");
-}
-
 /* Handeffekt */
 
 public func ReloadAnimation()	{return true;}
@@ -228,5 +221,5 @@ public func MaxReloadRotation()	{return 17;}
 
 func OnSelect()
 {
-  Sound("SGST_Charge.ogg");
+  Sound("ABOW_Charge*.ogg");
 }
