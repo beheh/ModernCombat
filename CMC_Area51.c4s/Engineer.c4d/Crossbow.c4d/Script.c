@@ -69,7 +69,7 @@ public func FMData1T1(int data)
 
 public func Fire1T1()
 {
-  LaunchBolt(EPBT, 180+Random(40),Contained()->~AimAngle(0,0,true));
+  LaunchBolt(EPBT, 280+Random(40),Contained()->~AimAngle(0,0,true));
 }
 
 public func BotData1(int data)
