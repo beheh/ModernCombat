@@ -79,6 +79,9 @@ public func LaunchRocket(id rid, int angle)
   SetPlrView(GetController(), rocket);
   pRocket = rocket;
   fView = true;
+  var remote = LocalN("pRemoteControl", Contained());
+  if(remote)
+  	LocalN("tempView", remote) = rocket;
 
   //Effekte
   var ax, ay, xdir, ydir;

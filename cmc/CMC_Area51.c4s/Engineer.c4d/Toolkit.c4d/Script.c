@@ -22,7 +22,7 @@ public func Activate(pClonk)
   for(i = 0; i < GetLength(plans); i++)
   {
     idType = plans[i];
-    AddMenuItem("$TxtConstructions$", "CreateConstructionSite", idType, pClonk);
+    AddMenuItem(Format("%d: $TxtConstructions$", idType->BuildCost()), "CreateConstructionSite", idType, pClonk);
   }
   return(1);
 }
@@ -32,7 +32,7 @@ protected func CreateConstructionSite(idType)
   // Nur wenn der Clonk steht und sich im Freien befindet
   if (!WildcardMatch(GetAction(Contained()), "Walk*")) return(0);
   if (Contained(Contained())) return(0);
-	if(GetPackPoints() < idType->BuildCost()) return 0;
+	if(GetPackPoints() < idType->BuildCost()) return PlayerMessage(GetOwner(), "Not enough points!", this);
 	
   // Besitzer setzen für CreateConstruction
   SetOwner(GetOwner(Contained()));
