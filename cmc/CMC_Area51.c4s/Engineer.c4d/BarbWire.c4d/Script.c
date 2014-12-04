@@ -5,7 +5,7 @@
 
 local iHits;
 
-public func MaxDamage()			{return 100;}	//Maximalschaden
+public func MaxDamage()			{return 30;}	//Maximalschaden
 public func AutoRepairDuration()	{return 0;}	//Keine Selbstreparatur
 public func BuildCost()			{return 10;}	//Baukosten
 

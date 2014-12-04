@@ -52,6 +52,91 @@ protected func ContactBottom()
   return;
 }
 
+/* Abseilen vom Helikopter */
+
+protected func FxCheckGroundStart(object pTarget, int iNo, int iTemp, object pHeli)
+{
+  if(!pHeli)
+    return;
+
+  //Seil erstellen und verbinden
+  var pRope = CreateObject(CK5P, 0, 0, GetOwner(pTarget));
+  pRope->ConnectObjects(pHeli ,pTarget);
+  pRope->SetRopeLength(10);
+
+  //Effekte
+  Sound("ZiplineIn.ogg", 0, pTarget, 40);
+  Sound("ZiplineSlide.ogg", 0, pTarget, 40, 0, +1);
+
+  EffectVar(0, pTarget, iNo) = pRope;	//Das Seil
+  EffectVar(1, pTarget, iNo) = pHeli;	//Der Helikopter
+}
+
+protected func FxCheckGroundTimer(object pTarget, int iNo, int iTime)
+{
+  var pRope = EffectVar(0, pTarget, iNo);
+  var pHeli = EffectVar(1, pTarget, iNo);
+  
+  //Heli oder Seil weg, Knapp über dem Boden, falsche Aktion oder Seil zu lang?
+  if(!pHeli || !pRope
+     || !PathFree(GetX(pTarget), GetY(pTarget), GetX(pTarget), GetY(pTarget) + 30)
+     || pRope->GetRopeLength() > 1000
+     || !WildcardMatch(GetAction(pTarget), "*Jump*"))
+  {
+    //eventuell noch vorhandenes Seil entfernen und Absprung verlangsamen
+    if(pRope)
+      RemoveObject(pRope);
+    SetYDir(20,pTarget);
+
+    return -1;
+  }
+  else
+    pRope->SetRopeLength(iTime * 4 + 10);
+}
+
+protected func FxCheckGroundStop(object pTarget, int iEffectNumber)
+{
+  //Effekte
+  Sound("ZiplineOut.ogg", 0, pTarget, 40);
+  Sound("ZiplineSlide.ogg", 0, pTarget, 40, 0, -1);
+  return;
+}
+
+/* Automatisches Defibrillator-Auslösen */
+
+public func FxIntActivatingShockPaddlesTimer(object pTarget, int iEffectNumber, int iEffectTime)
+{
+  if(iEffectTime >= 20)
+  {
+    Contents(0, this)->~Activate(this);
+    return -1;
+  }
+
+  return 1;
+}
+
+public func ActivateShockPaddles()
+{
+  //Abburch bei keinem Defibrillator
+  if(!FindObject2(Find_Func("IsShockPaddles"), Find_Container(this)))
+    return;
+
+  //Defibrillator wenn nötig anwählen
+  if(!Contents(0, this)->~IsShockPaddles())
+  {
+    while(!Contents(0, this)->~IsShockPaddles())
+      ShiftContents(this);
+
+    //Verzögertes Auslösen des Defibrillators um Auswahlzeiten einzuhalten
+    AddEffect("IntActivatingShockPaddles", this, 100, 20, this, GetID(this));
+  }
+  else
+    //Ansonsten sofort auslösen
+    if(!GetEffect("IntActivatingShockPaddles"))
+      Contents(0, this)->~Activate(this);
+  return 1;
+}
+
 /* KI-Erweiterung */
 
 /* Schwerverletzte suchen */
@@ -702,159 +787,4 @@ protected func MacroComMoveTo()
     return;
   SetCommand(this, "MoveTo", 0, x, y);
   return;
-}
-
-/* Seilrutschen */
-
-public func SearchZipline(int &iRopePos)
-{
-  //Seile suchen
-  for(var rope in FindObjects(Find_ID(CK5P)))
-  {
-    if(!rope->NoPhysics())
-      continue;
-
-    var rcnt = rope->GetPointNum()-1;
-    var rsx = rope->GetPoint(), rsy = rope->GetPoint(0, true);
-    var rex = rope->GetPoint(rcnt), rey = rope->GetPoint(rcnt, true);
-
-    var fac1 = CHBX->BulletHitboxFactor(rsx, rsy, rex, rey, GetX(), GetY(), GetX(), GetY()-20);
-    var fac2 = CHBX->BulletHitboxFactor(GetX(), GetY(), GetX(), GetY()-20, rsx, rsy, rex, rey);
-
-    if(Inside(fac1, 0, 949) && Inside(fac2, 0, 1000))
-    {
-      iRopePos = fac1;
-      return rope;
-    }
-  }
-}
-
-public func ControlUp()
-{
-  if(GetProcedure() == "FLIGHT" && !GetEffect("RideZipline", this) && !GetEffect("ZiplineCooldown", this))
-  {
-    var ropepos;
-    var zipline = SearchZipline(ropepos);
-    if(zipline)
-      StartZiplineRide(zipline, ropepos);
-  }
-
-  return _inherited(...);
-}
-
-public func ControlDown()
-{
-  if(GetEffect("RideZipline", this))
-    return StopZiplineRide();
-
-  return _inherited(...);
-}
-
-public func StartZiplineRide(object pRope, int iRopePos)
-{
-  SetAction("ZiplineRide", this);
-  AddEffect("RideZipline", this, 100, 1, this, 0, pRope, iRopePos);
-  return true;
-}
-
-public func StopZiplineRide()
-{
-  RemoveEffect("RideZipline", this);
-  return true;
-}
-
-public func FxRideZiplineStart(object pTarget, int iNr, int iTemp, object pRope, int iRopePos)
-{
-  if(iTemp)
-    return;
-
-  EffectVar(0, pTarget, iNr) = pRope;
-  EffectVar(1, pTarget, iNr) = 120; //1.2 px/frm
-  EffectVar(2, pTarget, iNr) = GetX(pTarget)*100;
-
-  var rcnt = pRope->GetPointNum()-1;
-  var rsx = pRope->GetPoint(), rsy = pRope->GetPoint(0, true);
-  var rex = pRope->GetPoint(rcnt), rey = pRope->GetPoint(rcnt, true);
-  var angle = Angle(rsx, rsy, rex, rey, 100);
-  EffectVar(3, pTarget, iNr) = (rsy-Cos(angle, Sqrt(Abs(rsx-rex)**2+Abs(rsy-rey)**2), 100)*iRopePos/1000+12)*100;
-
-  //Effekte
-  Sound("ZiplineIn.ogg", 0, pTarget, 40);
-  Sound("ZiplineSlide.ogg", 0, pTarget, 40, 0, +1);
-
-  //Vorhandene Fallschirme schließen
-  if(pTarget->~GetParachute())
-    pTarget->~GetParachute()->Close();
-
-  return true;
-}
-
-public func FxRideZiplineTimer(object pTarget, int iNr)
-{
-  var rope = EffectVar(0, pTarget, iNr);
-  if(!rope)
-    return -1;
-
-  if(!rope->~IsZipline())
-    return -1;
-
-  if(GetAction(pTarget) != "ZiplineRide")
-    return -1;
-
-  var rcnt = rope->GetPointNum()-1;
-  var rsx = rope->GetPoint(), rsy = rope->GetPoint(0, true);
-  var rex = rope->GetPoint(rcnt), rey = rope->GetPoint(rcnt, true);
-
-  if(rsy > rey)
-  {
-    var tx = rex, ty = rey;
-    rex = rsx; rey = rsy;
-    rsx = tx;  rsy = ty;
-  }
-
-  //Kurz vor Ende automatisch loslassen
-  if(CHBX->BulletHitboxFactor(rsx, rsy, rex, rey, GetX(pTarget), GetY(pTarget), GetX(pTarget), GetY(pTarget)-20) > 950)
-    return -1;
-
-  var angle = Angle(rsx, rsy, rex, rey, 100);
-
-  if(EffectVar(1, pTarget, iNr) < 700)
-    EffectVar(1, pTarget, iNr) += 15; //Geschwindigkeit um 0.15px/frm erhöhen (bis 7.00px/frm)
-
-  var velocity = EffectVar(1, pTarget, iNr);
-  var addx = Sin(angle, velocity, 100);
-  var addy = -Cos(angle, velocity, 100);
-
-  var x = (EffectVar(2, pTarget, iNr) += addx);
-  var y = (EffectVar(3, pTarget, iNr) += addy);
-  SetPosition(x/100, y/100, pTarget);
-
-  pTarget->CastSmoke("Smoke3", Random(2)+1, Random(7)+2, 0, -12, 4, 70);
-
-  //Enginegeschwindigkeit/beschleunigung rausnehmen
-  SetYDir(0, pTarget);
-  SetXDir(0, pTarget);
-
-  EffectVar(4, pTarget, iNr) = addx;
-  EffectVar(5, pTarget, iNr) = addy;
-
-  return true;
-}
-
-public func FxRideZiplineStop(object pTarget, int iNr, int iReason)
-{
-  SetXDir(EffectVar(4, pTarget, iNr)*1/3, pTarget, 100);
-  SetYDir(EffectVar(5, pTarget, iNr)*1/3, pTarget, 100);
-
-  if(!iReason)
-    pTarget->SetAction("JumpArmed", pTarget);
-
-  //Cooldown anfügen
-  AddEffect("ZiplineCooldown", pTarget, 1, 16);
-
-  //Effekt
-  Sound("ZiplineOut.ogg", 0, pTarget, 40);
-  Sound("ZiplineSlide.ogg", 0, pTarget, 40, 0, -1);
-
-  return true;
 }

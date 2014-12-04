@@ -4,6 +4,7 @@
 #include WPN2
 
 local casings;
+local drawing;
 
 public func HandSize()		{return 1050;}
 public func HandX()		{return 4000;}
@@ -42,18 +43,14 @@ public func FMData1(int data)
   if(data == FM_AmmoID)		return GRAM;						//ID der Munition
   if(data == FM_AmmoLoad)	return 8 + (iAttachment == AT_ExtendedMag)*2;		//Magazingröße
 
-  if(data == FM_SingleReload)	return 1;						//Zeit des einzelnen Nachladens bei Revolversystemen
-  if(data == FM_PrepareReload)	return 25;						//Zeit bevor das eigentliche Nachladen beginnt
-  if(data == FM_FinishReload)	return 30;						//Zeit nach dem Nachladen
-
-  if(data == FM_Reload)		return 210 + (iAttachment == AT_ExtendedMag) * 52;	//Zeit für Nachladen
-  if(data == FM_Recharge)	return 60;						//Zeit bis erneut geschossen werden kann
+  if(data == FM_Reload)		return 14 + (iAttachment == AT_ExtendedMag) * 5;	//Zeit für Nachladen
+  if(data == FM_Recharge)	return 14;						//Zeit bis erneut geschossen werden kann
 
   if(data == FM_Damage)		return 20;						//Schadenswert
 
-  if(data == FM_SpreadAdd)	return 200 - (iAttachment == AT_Laserpointer)*10;	//Bei jedem Schuss hinzuzuaddierende Streuung
-  if(data == FM_StartSpread)	return 80 - (iAttachment == AT_Laserpointer)*20;	//Bei Auswahl der Waffe gesetzte Streuung
-  if(data == FM_MaxSpread)	return 400 - (iAttachment == AT_Laserpointer)*150;	//Maximaler Streuungswert
+  if(data == FM_SpreadAdd)	return 10 - (iAttachment == AT_Laserpointer)*5;	//Bei jedem Schuss hinzuzuaddierende Streuung
+  if(data == FM_StartSpread)	return 20 - (iAttachment == AT_Laserpointer)*10;	//Bei Auswahl der Waffe gesetzte Streuung
+  if(data == FM_MaxSpread)	return 100 - (iAttachment == AT_Laserpointer)*50;	//Maximaler Streuungswert
 
   return Default(data);
 }
@@ -67,9 +64,51 @@ public func FMData1T1(int data)
   return FMData1(data);
 }
 
+public func Fire()
+{
+	if(!drawing && CheckAmmo(FMData1(FM_AmmoID),1,this) && Contained()->~ReadyToFire())
+	{
+		AddEffect("Drawing", this, 1, 1, this);
+		return true;
+	}
+	else return _inherited(...);
+}
+
 public func Fire1T1()
 {
-  LaunchBolt(EPBT, 280+Random(40),Contained()->~AimAngle(0,0,true));
+ 	LaunchBolt(EPBT, 60 + drawing*2,Contained()->~AimAngle(0,0,true));
+ 	RemoveEffect("Drawing", this);
+ 	drawing = 0;
+}
+
+func FxDrawingTimer(object pTarget, int iEffectNumber, int iEffectTime)
+{
+	if(!Contained(pTarget))
+		return -1;
+
+	if(Contained(pTarget)->Contents() != pTarget || !Contained(pTarget)->~ReadyToFire())
+	{
+		drawing = 0;
+		PlayerMessage(GetOwner(), "", this);
+		return -1;
+	}
+
+	drawing += 2;
+	drawing = Min(100, drawing);
+	PlayerMessage(GetOwner(), Format("%d%", drawing), this);
+}
+
+public func ControlDig()
+{
+	if(drawing)
+	{
+		RemoveEffect("Drawing", this);
+		PlayerMessage(GetOwner(), "", this);
+ 		drawing = 0;
+ 		return true;
+	}
+	else
+		return _inherited(...);
 }
 
 public func BotData1(int data)
@@ -109,6 +148,7 @@ public func LaunchBolt(id idg, int speed, int angle, int mode)
   }
 
   //Effekte
+  /*
   if(GetEffectData(EFSM_ExplosionEffects) > 0)
   {
     CreateParticle("Thrust",x,y,GetXDir(user),GetYDir(user),80,RGBa(255,200,200,0),0,0);
@@ -124,6 +164,7 @@ public func LaunchBolt(id idg, int speed, int angle, int mode)
       		RandomX(60,90),RGBa(200,200,200,0),0,0);
     }
   }
+  */
   Sound("SGST_Fire*.ogg", 0, bolt);
   Echo("SGST_Echo.ogg");
   Schedule("Sound(\"SGST_Pump.ogg\")", 30);
@@ -147,7 +188,7 @@ func FxLaserDotTimer(object pTarget, int iEffectNumber, int iEffectTime)
 
   var iAngle = EffectVar(1, user, GetEffect("ShowWeapon", user));
   var empty = IsReloading() || !GetCharge();
-  AddTrajectory(pTarget, GetX(pTarget), GetY(pTarget), Sin(iAngle, 200), -Cos(iAngle, 200), 35*3, RGB(255*empty, 255*(!empty), 0));
+  AddTrajectory(pTarget, GetX(pTarget), GetY(pTarget), Sin(iAngle, 60 + drawing*2), -Cos(iAngle, 60 + drawing*2), 35*3, RGB(255*empty, 255*(!empty), 0));
 }
 
 /* Nachladen */
@@ -156,6 +197,7 @@ func OnReload()
 {
   Sound("SGST_ReloadStart.ogg");
 
+	/*
   var j = casings;
   for(var i; i = j; j--)
   {
@@ -164,6 +206,7 @@ func OnReload()
     SABulletCasing(dir*1,0,-dir*14*(Random(1)+1),-(10+Random(2)),6,RGB(255,0,0));
   }
   casings = 0;
+  */
 }
 
 func OnSingleReloadStart()

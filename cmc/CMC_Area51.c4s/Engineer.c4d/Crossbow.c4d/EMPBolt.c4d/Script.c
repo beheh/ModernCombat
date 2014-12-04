@@ -41,15 +41,6 @@ func Launch(int xdir, int ydir, int iDmg,a,b,c, int attachment)
   if(Stuck()) Hit();
 }
 
-func Flying()
-{
-	iYDir += !((FrameCounter()-start) % 2);
-	iYDir += (FrameCounter()-start > 20);
-	iXDir -= Sgn(iXDir)*((FrameCounter()-start) > 20)*2;
-	SetXDir(iXDir);
-	SetYDir(iYDir);
-}
-
 /* Treffer */
 
 func Hit()
