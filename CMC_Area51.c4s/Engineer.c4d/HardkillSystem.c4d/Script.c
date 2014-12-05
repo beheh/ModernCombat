@@ -8,7 +8,8 @@ local iHKShots;
 
 public func BuildCost() {return 25;}
 public func AutoRepairDuration()	{return 0;}
-public func MaxDamage()			{return 100;}
+public func MaxDamage()			{return 30;}
+public func IsRepairable()	{return !fDestroyed;}
 
 
 public func Initialize() {iHKShots = 5; return _inherited(...);}
