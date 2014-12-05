@@ -112,7 +112,7 @@ func ControlThrow(object pCaller)
 func Cancel()
 {
 	fControlling = false;
-	if(pTarget->~IsWeaponRack() && LocalN("pController", pTarget) == pClonk)
+	if(pTarget && pTarget->~IsWeaponRack() && LocalN("pController", pTarget) == pClonk)
 	{
 		pTarget->SetGunner(this);
 	}

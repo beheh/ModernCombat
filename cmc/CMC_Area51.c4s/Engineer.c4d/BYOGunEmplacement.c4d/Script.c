@@ -376,6 +376,7 @@ public func FxActivityTimer(object pTarget, int iEffectNumber, int iEffectTime)
 		LocalN("firemode", GetAttWeapon()) = fm;
   	GetAttWeapon()->SetFireTec(userWeapon->GetFireTec());
   	GetAttWeapon()->SetAmmoCount(userWeapon->GetSlot(), userWeapon->GetAmmo2(userWeapon->GetSlot()));
+  	LocalN("stopauto", GetAttWeapon()) = false;
   }
   
   if(reloading && !userWeapon->IsReloading())
@@ -479,12 +480,10 @@ public func ActivateEntrance(pUser, fRemote)
     	SetDir(1, pUser);
     if(pRemoteControl)
     {
-    	pRemoteControl->Cancel();
     	if(Hostile(GetOwner(pUser), GetOwner(pRemoteControl)))
-    	{
-    		LocalN("pTarget", pRemoteControl) = 0;
-    		pRemoteControl = 0;
-    	}
+    		pRemoteControl->RemoveTarget();
+    	else
+    		pRemoteControl->Cancel();
     }
     //Clonkposition anpassen
     UpdateDir();
@@ -533,7 +532,8 @@ public func GetUser()
     	return pUser;
     }
     else
-    	pUser=0;}
+    	pUser=0;
+  }
 }
 
 private func ExitClonk(object byObject)
@@ -623,7 +623,7 @@ protected func ControlThrow(object byObj)
 
   SetOwner(GetController(byObj), GetAttWeapon());
 
-  if(GetAttWeapon()->IsShooting())
+  if(GetAttWeapon()->IsShooting() || userWeapon->IsReloading())
     GetAttWeapon()->StopAutoFire();
   else
     GetAttWeapon()->ControlThrow(this);
@@ -632,8 +632,17 @@ protected func ControlThrow(object byObj)
 
 public func ControlUpdate(object byObj, int comdir, bool dig, bool throw) 
 {
+	if(throw && GetAttWeapon() && !GetAttWeapon()->IsShooting() && !userWeapon->IsReloading())
+		return GetAttWeapon()->ControlThrow(this);
+		
   if(!throw && GetAttWeapon())
+  {
+  	if(GetEffect("BurstFire", GetAttWeapon()))
+    {
+      LocalN("stopburst", GetAttWeapon()) = true;
+    }
     return GetAttWeapon()->~StopAutoFire();
+  }
 }
 
 /* Sonstiges */
