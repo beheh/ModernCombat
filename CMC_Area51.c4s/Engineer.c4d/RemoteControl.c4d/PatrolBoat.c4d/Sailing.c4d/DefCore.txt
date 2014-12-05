@@ -1,0 +1,24 @@
+[DefCore]
+id=SPBT
+Version=4,9,10,7
+Name=Patrol Boat
+Category=C4D_Vehicle|C4D_SelectVehicle
+MaxUserSelect=2
+Width=80
+Height=22
+Offset=-40,-11
+Value=25
+Mass=100
+Components=METL=3
+Picture=0,66,64,64
+SolidMask=0,44,80,22
+TopFace=0,22,80,22
+Rebuy=1
+Float=3
+BorderBound=1
+ColorByOwner=1
+Vertices=5
+VertexX=0,33,-34,33,-34
+VertexY=-1,6,6,7,7
+VertexCNAT=80,10,9,6,5
+VertexFriction=0,80,80,80,80

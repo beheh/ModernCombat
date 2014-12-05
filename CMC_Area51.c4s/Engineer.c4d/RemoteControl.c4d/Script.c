@@ -15,11 +15,13 @@ public func HandY()		{return 10;}
 public func HandSize()		{return 1000;}
 public func IsControlling() {return fControlling;}
 
-func Activate(object pCaller) {
-  
+func Activate(object pCaller)
+{
   if(fControlling)
   {
   	Cancel();
+  	if(pTarget && pTarget->~IsPatrolBoatMotor())
+  		pTarget->Grabbed(this, false);
   	return true;
   }
   
@@ -30,10 +32,17 @@ func Activate(object pCaller) {
 		fControlling = true;
 		SetPlrView(GetOwner(pClonk), ViewTarget());
 		ObjectSetAction(pCaller, "Remote");
-		if((pTarget->~IsGunEmplacement() || pTarget->~IsMAVStation()) && !pTarget->~ActivateEntrance(pCaller, true))
+		if(	((pTarget->~IsGunEmplacement() || pTarget->~IsMAVStation()) && !pTarget->~ActivateEntrance(pCaller, true)) || 
+				((pTarget->~IsArtilleryBattery() || pTarget->~IsPatrolBoatMotor()) && FindObject2(Find_Action("Push"), Find_ActionTarget(pTarget)))
+			)
+		{
 			Cancel();
-		if(pTarget->~IsArtilleryBattery() && FindObject2(Find_Action("Push"), Find_ActionTarget(pTarget)))
-			Cancel();
+			PlayerMessage(GetOwner(pCaller), "Target in use!", this);
+			return true;
+		}
+		
+		if(pTarget->~IsPatrolBoatMotor())
+  		pTarget->Grabbed(this, true);
   }
   else
 		PlayerMessage(GetOwner(pCaller), "No target!", this);
@@ -50,7 +59,7 @@ func ControlThrow(object pCaller)
 		return true;
 	}
 	
-	var pGun = FindObject2(Find_AtPoint(), Find_Or(Find_Func("IsGunEmplacement"), Find_Func("IsMAVStation"), Find_Func("IsArtilleryBattery"), Find_Func("IsConsole")));
+	var pGun = FindObject2(Find_AtPoint(), Find_Or(Find_Func("IsGunEmplacement"), Find_Func("IsMAVStation"), Find_Func("IsArtilleryBattery"), Find_Func("IsConsole"), Find_Func("IsPatrolBoatMotor")));
 
 	if(pGun)
 	{
@@ -124,7 +133,7 @@ func RelayControl(object pCaller, string szControl)
 			tempView = 0;
 
 		SetPlrView(GetOwner(pClonk), ViewTarget());
-		if((pTarget->~IsGunEmplacement() || pTarget->~IsArtilleryBattery()) && WildcardMatch(szControl, "*Double"))
+		if((pTarget->~IsGunEmplacement() || pTarget->~IsArtilleryBattery()) || pTarget->~IsPatrolBoatMotor() && WildcardMatch(szControl, "*Double"))
 			return true;
 
 		if(pTarget->~IsConsole())
