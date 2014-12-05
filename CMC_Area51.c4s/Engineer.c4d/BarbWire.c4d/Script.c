@@ -15,7 +15,11 @@ public func BuildCost()			{return 10;}	//Baukosten
 public func Initialize()
 {
   //Maximalzahl an Treffern
-  iHits = 5;
+  iHits = 4;
+
+	var flag = CreateObject(MFLG, 0, 1, GetOwner());
+  flag->Set(this);
+  SetDir(DIR_Right, flag);
 
   return _inherited(...);
 }
@@ -24,7 +28,7 @@ public func Initialize()
 
 protected func Check()
 {
-  if(!iHits && fDestroyed)
+  if(!iHits || fDestroyed)
   	return;
 
   //Clonks suchen
@@ -81,6 +85,14 @@ public func Destroyed()
   if(GetEffectData(EFSM_ExplosionEffects) > 1) CastSmoke("Smoke3",4,20,0,0,100,300);
   if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",8,60,0,0,40,60);
   Sound("FenceDestruct.ogg");
+
+  //Verschwinden
+  FadeOut(this);
+}
+
+public func Replaced()
+{
+  fDestroyed = true;
 
   //Verschwinden
   FadeOut(this);

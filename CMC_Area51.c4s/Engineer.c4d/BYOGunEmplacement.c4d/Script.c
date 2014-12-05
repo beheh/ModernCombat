@@ -301,6 +301,32 @@ public func GetWeaponR()
   return EffectVar(1, this, number);
 }
 
+public func Replaced()
+{
+  fDestroyed = true;
+  
+  RemoveEffect("ShowWeapon", this);
+  EndAim();
+  
+  //Schützen auswerfen sofern vorhanden
+  if(GetUser())
+  {
+    var pUser = GetUser();
+
+    ObjectSetAction(pUser, "Walk");
+    SetActionTargets(0, 0, pUser);
+    pUser->SetHUDTarget(0);
+    pUser->~ShowCH();
+    
+    if(pRemoteControl)
+    	pRemoteControl->Cancel();
+  }
+  	
+
+  //Verschwinden
+  FadeOut(this);
+}
+
 public func FxActivityTimer(object pTarget, int iEffectNumber, int iEffectTime)
 {
 	if(!reloading && userWeapon && GetAttWeapon())

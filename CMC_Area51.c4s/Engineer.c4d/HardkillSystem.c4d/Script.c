@@ -15,7 +15,7 @@ public func Initialize() {iHKShots = 5; return _inherited(...);}
 
 public func HardKill()
 {
-	if(!iHKShots)
+	if(!iHKShots || fDestroyed)
 		return;
 
   //Statusbalken aktualisieren
@@ -64,5 +64,21 @@ public func HardKill()
 public func Destroyed()
 {
   fDestroyed = true;
+  
+  //Statusbalken entfernen
+  if(ChargeBar)
+  	RemoveObject(ChargeBar);
+
+	FadeOut(this);
+}
+
+public func Replaced()
+{
+  fDestroyed = true;
+  
+  //Statusbalken entfernen
+  if(ChargeBar)
+  	RemoveObject(ChargeBar);
+
 	FadeOut(this);
 }
