@@ -1,0 +1,17 @@
+[DefCore]
+id=WNRK
+Version=4,9,10,7
+Name=Weapon Rack
+Category=C4D_Vehicle
+Width=36
+Height=21
+Offset=-18,-10
+Vertices=1
+VertexX=2
+VertexY=2
+VertexFriction=20
+Value=0
+Mass=170
+Components=METL=6
+Picture=0,21,94,33
+Rotate=1

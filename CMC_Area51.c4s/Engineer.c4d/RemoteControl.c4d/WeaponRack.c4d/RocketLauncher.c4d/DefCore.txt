@@ -1,0 +1,19 @@
+[DefCore]
+id=RLSA
+Version=4,9,10,7
+Name=Rocket Launcher
+Category=C4D_Object|C4D_SelectMaterial|C4D_SelectKnowledge|C4D_SelectHomebase
+MaxUserSelect=1
+Width=25
+Height=10
+Offset=-13,-7
+Vertices=2
+VertexX=-6,6
+VertexY=2,2
+VertexFriction=100,100
+Value=120
+Mass=20
+Components=METL=4;KLAS=1
+Picture=0,10,134,132
+Timer=1
+TimerCall=Check

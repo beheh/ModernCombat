@@ -28,12 +28,9 @@ func Activate(object pCaller)
   if(pTarget)
   {
   	SetComDir(COMD_Stop, pCaller);
-		Sound("Bsss.wav", 1, 0, 0, GetOwner(pCaller));
-		fControlling = true;
-		SetPlrView(GetOwner(pClonk), ViewTarget());
-		ObjectSetAction(pCaller, "Remote");
 		if(	((pTarget->~IsGunEmplacement() || pTarget->~IsMAVStation()) && !pTarget->~ActivateEntrance(pCaller, true)) || 
-				((pTarget->~IsArtilleryBattery() || pTarget->~IsPatrolBoatMotor()) && FindObject2(Find_Action("Push"), Find_ActionTarget(pTarget)))
+				((pTarget->~IsArtilleryBattery() || pTarget->~IsPatrolBoatMotor()) && FindObject2(Find_Action("Push"), Find_ActionTarget(pTarget))) ||
+				(pTarget->~IsWeaponRack() && LocalN("pController", pTarget))
 			)
 		{
 			Cancel();
@@ -41,8 +38,23 @@ func Activate(object pCaller)
 			return true;
 		}
 		
+		if(pTarget->~IsWeaponRack() && Hostile(GetOwner(), GetOwner(LocalN("heli", pTarget))))
+		{
+			RemoveTarget();
+			PlayerMessage(GetOwner(pCaller), "No target!", this);
+			return true;
+		}
+		
 		if(pTarget->~IsPatrolBoatMotor())
   		pTarget->Grabbed(this, true);
+  		
+  	if(pTarget->~IsWeaponRack())
+  		pTarget->SetGunner(pCaller);
+
+  	fControlling = true;
+  	Sound("Bsss.wav", 1, 0, 0, GetOwner(pCaller));
+  	ObjectSetAction(pCaller, "Remote");
+  	SetPlrView(GetOwner(pClonk), ViewTarget());
   }
   else
 		PlayerMessage(GetOwner(pCaller), "No target!", this);
@@ -55,11 +67,28 @@ func ControlThrow(object pCaller)
 	if(pTarget && fControlling)
 	{
 		SetPlrView(GetOwner(pClonk), ViewTarget());
+		
+		if(pTarget->~IsWeaponRack() && !LocalN("heli", pTarget)->GetPilot())
+		{
+			LocalN("heli", pTarget)->RefuseLaunch(pCaller);
+			return true;
+		}
+		
 		pTarget->~ControlThrow(pCaller);
 		return true;
 	}
-	
-	var pGun = FindObject2(Find_AtPoint(), Find_Or(Find_Func("IsGunEmplacement"), Find_Func("IsMAVStation"), Find_Func("IsArtilleryBattery"), Find_Func("IsConsole"), Find_Func("IsPatrolBoatMotor")));
+
+	var pGun = FindObject2(Find_AtPoint(), Find_Or(
+																									Find_Func("IsGunEmplacement"),
+																									Find_Func("IsMAVStation"),
+																									Find_Func("IsArtilleryBattery"),
+																									Find_Func("IsConsole"),
+																									Find_Func("IsPatrolBoatMotor"),
+																									Find_Func("IsWeaponRack"))
+	);
+						
+	if(pGun && pGun->~IsWeaponRack() && Hostile(GetOwner(), GetOwner(LocalN("heli", pGun))))
+		return true;
 
 	if(pGun)
 	{
@@ -81,8 +110,14 @@ func ControlThrow(object pCaller)
 func Cancel()
 {
 	fControlling = false;
+	if(pTarget->~IsWeaponRack() && LocalN("pController", pTarget) == pClonk)
+	{
+		pTarget->SetGunner(this);
+	}
+	
 	if(pClonk)
 		SetPlrView(GetOwner(pClonk), pClonk);
+
 	if(GetAction(pClonk) == "Remote")
 		ObjectSetAction(pClonk, "Walk");
 }
@@ -117,6 +152,12 @@ func Check()
 {
 	if(!fControlling || !pTarget)
 		return;
+
+	if(GetAction(pClonk) != "Remote" || (pTarget->~IsWeaponRack() && Hostile(GetOwner(), GetOwner(LocalN("heli", pTarget)))))
+	{
+		Cancel();
+		return;
+	}
 
 	SetPlrView(GetOwner(), ViewTarget());
 }
