@@ -9,10 +9,8 @@ local iLastAttacker;
 local iAttachment;
 
 public func Color()		{return RGB(255,0,0);}
-public func BlastRadius()	{return 30;}
-protected func SecureDistance()	{return 0;}
 public func IgnoreTracer()	{return true;}
-public func IsRifleGrenade()	{return true;}		//Ist eine Gewehrgranate
+public func IsArrow()				{return true;}
 public func AllowHitboxCheck()	{return true;}
 public func RejectC4Attach()	{return true;}
 
@@ -37,7 +35,9 @@ func Launch(int xdir, int ydir, int iDmg,a,b,c, int attachment)
   start = FrameCounter();
   iXDir = xdir;
   iYDir = ydir - 7;
-  inherited(iXDir,iYDir,iDmg,a,b,c);
+  AddEffect("HitCheck", this(), 1, 1, 0, SHT1,shooter);
+  SetSpeed(xdir, ydir);
+  iDamage = iDmg;
   if(Stuck()) Hit();
 }
 
@@ -84,14 +84,6 @@ func HitObject(object pObj)
   if(Hostile(iLastAttacker, GetController()) && GetID() != ERND)
     //Punkte bei Belohnungssystem (Granatenabwehr)
     DoPlayerPoints(BonusPoints("Protection"), RWDS_TeamPoints, iLastAttacker, GetCursor(iLastAttacker), IC16);
-}
-
-/* Zerstörung */
-
-func IsBulletTarget(id id)
-{
-  //Kann von anderen Geschossen getroffen werden
-  return true;
 }
 
 func Damage()
