@@ -84,7 +84,9 @@ func ControlThrow(object pCaller)
 																									Find_Func("IsArtilleryBattery"),
 																									Find_Func("IsConsole"),
 																									Find_Func("IsPatrolBoatMotor"),
-																									Find_Func("IsWeaponRack"))
+																									Find_Func("IsWeaponRack"),
+																									Find_Func("IsLiftPlate")
+																								)
 	);
 						
 	if(pGun && pGun->~IsWeaponRack() && Hostile(GetOwner(), GetOwner(LocalN("heli", pGun))))
@@ -174,7 +176,7 @@ func RelayControl(object pCaller, string szControl)
 			tempView = 0;
 
 		SetPlrView(GetOwner(pClonk), ViewTarget());
-		if((pTarget->~IsGunEmplacement() || pTarget->~IsArtilleryBattery()) || pTarget->~IsPatrolBoatMotor() && WildcardMatch(szControl, "*Double"))
+		if((pTarget->~IsGunEmplacement() || pTarget->~IsArtilleryBattery() || pTarget->~IsPatrolBoatMotor() || pTarget->~IsLiftPlate()) && WildcardMatch(szControl, "*Double"))
 			return true;
 
 		if(pTarget->~IsConsole())
@@ -195,6 +197,10 @@ func RelayControl(object pCaller, string szControl)
 			}
 			else
 				return true;
+				
+		if(pTarget->~IsLiftPlate() && szControl == "ControlDown")
+			szControl = "ControlDownSingle";
+		
 		pTarget->~eval(Format("%s(Object(%d))", szControl, ObjectNumber(pCaller)));
 		return true;
 	}
