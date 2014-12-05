@@ -5,7 +5,7 @@
 
 local iHits;
 
-public func MaxDamage()			{return 30;}	//Maximalschaden
+public func MaxDamage()			{return 20;}	//Maximalschaden
 public func AutoRepairDuration()	{return 0;}	//Keine Selbstreparatur
 public func BuildCost()			{return 10;}	//Baukosten
 
@@ -15,7 +15,7 @@ public func BuildCost()			{return 10;}	//Baukosten
 public func Initialize()
 {
   //Maximalzahl an Treffern
-  iHits = 4;
+  iHits = 3;
 
 	var flag = CreateObject(MFLG, 0, 1, GetOwner());
   flag->Set(this);
