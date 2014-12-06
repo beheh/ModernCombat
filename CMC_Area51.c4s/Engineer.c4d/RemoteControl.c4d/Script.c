@@ -25,9 +25,6 @@ func Activate(object pCaller)
   	return true;
   }
   
-  if(!WildcardMatch(GetAction(pCaller), "Walk*"))
-  	return true;
-  
   if(pTarget)
   {
   	SetComDir(COMD_Stop, pCaller);
@@ -185,22 +182,18 @@ func RelayControl(object pCaller, string szControl)
 		if(pTarget->~IsConsole())
 			if(szControl == "ControlDigSingle")
 			{
+				pTarget->~ControlDig(pCaller);
+				
 				var target = LocalN("target", pTarget);
 				SetPlrView(GetOwner(pCaller),target);
 				tempView = target;
-
-  			//Menü erstellen
-  			CreateMenu(GetID(target), pCaller, target, 0, Format("Control: %s", GetName(target)), 0, 1);
-  			for(var i = 1, desc ; desc = target->~ConsoleControl(i, pCaller, this) ; i++)
-  			{
-    			AddMenuItem(desc, Format("ConsoleControlled(%d, %d, %d)", i, ObjectNumber(pCaller), ObjectNumber(this)), GetID(), pCaller, 0, 0, "Control");
-    			Sound("Acknowledge.ogg", 0, pCaller, 100, GetOwner(pCaller)+1);
-  			}
-				szControl = "ControlDig";
+				
+				szControl = "ControlDig";	
 			}
 			else
 				return true;
-				
+			
+			
 		if(pTarget->~IsLiftPlate() && szControl == "ControlDown")
 			szControl = "ControlDownSingle";
 		
