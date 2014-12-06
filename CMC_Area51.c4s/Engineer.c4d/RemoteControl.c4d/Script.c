@@ -25,6 +25,9 @@ func Activate(object pCaller)
   	return true;
   }
   
+  if(!WildcardMatch(GetAction(pCaller), "Walk*"))
+  	return true;
+  
   if(pTarget)
   {
   	SetComDir(COMD_Stop, pCaller);
@@ -171,9 +174,6 @@ func RelayControl(object pCaller, string szControl)
 	if(!fControlling)
 		return;
 		
-    if(!WildcardMatch(GetAction(pCaller), "Walk*"))
-      return true;		
-		
 	if(pTarget)
 	{
 		if(!pTarget->~IsGunEmplacement())
@@ -319,10 +319,7 @@ func ControlDig(object pCaller)
 }
 
 func ControlDigDouble(object pCaller)
-{
-    if(!WildcardMatch(GetAction(pCaller), "Walk*"))
-      return true;
-	  
+{	  
 	return Activate(pCaller);
 }
 
