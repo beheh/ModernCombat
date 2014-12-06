@@ -142,8 +142,9 @@ func ViewTarget()
 		if(pTarget->~IsMAVStation() && (pMAV = LocalN("pMAV", pTarget)) && !pMAV->IsDestroyed())
 			return pMAV;
 		
-		if(tempView)
-			return tempView;
+		var temp = pTarget->~GetViewTarget();
+		if(temp)
+			return temp;
 		
 		return pTarget;
 	}
