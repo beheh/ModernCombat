@@ -111,10 +111,10 @@ protected func FxBorderStart(pTarget, iNo, iTemp)
       //Opfer sofort töten
       pTarget->~KillIcon(SM10);
       pTarget->~LastDamageType(DMG_Melee);
-	  //Ribbon-Fortschritt (The End)
-	  if(Hostile(GetKiller(pTarget), GetOwner(pTarget)))
+      //Ehrenband-Fortschritt (The End)
+      if(Hostile(GetKiller(pTarget), GetOwner(pTarget)))
         AttemptAwardRibbon(RB13, GetKiller(pTarget), GetOwner(pTarget));
-		
+
       Kill(pTarget);
     }
     else
