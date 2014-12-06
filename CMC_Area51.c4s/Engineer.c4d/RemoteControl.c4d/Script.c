@@ -25,6 +25,9 @@ func Activate(object pCaller)
   	return true;
   }
   
+  if(!WildcardMatch(GetAction(pCaller), "Walk*"))
+  	return true;
+  
   if(pTarget)
   {
   	SetComDir(COMD_Stop, pCaller);
