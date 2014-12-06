@@ -172,7 +172,7 @@ func RelayControl(object pCaller, string szControl)
 		return;
 		
     if(!WildcardMatch(GetAction(pCaller), "Walk*"))
-      return true;
+      return true;		
 		
 	if(pTarget)
 	{
@@ -320,6 +320,9 @@ func ControlDig(object pCaller)
 
 func ControlDigDouble(object pCaller)
 {
+    if(!WildcardMatch(GetAction(pCaller), "Walk*"))
+      return true;
+	  
 	return Activate(pCaller);
 }
 
