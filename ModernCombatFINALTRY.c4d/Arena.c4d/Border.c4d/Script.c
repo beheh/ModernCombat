@@ -112,7 +112,9 @@ protected func FxBorderStart(pTarget, iNo, iTemp)
       pTarget->~KillIcon(SM10);
       pTarget->~LastDamageType(DMG_Melee);
 	  //Ribbon-Fortschritt (The End)
-      AttemptAwardRibbon(RB13, GetKiller(pTarget), GetOwner(pTarget));
+	  if(Hostile(GetKiller(pTarget), GetOwner(pTarget)))
+        AttemptAwardRibbon(RB13, GetKiller(pTarget), GetOwner(pTarget));
+		
       Kill(pTarget);
     }
     else
