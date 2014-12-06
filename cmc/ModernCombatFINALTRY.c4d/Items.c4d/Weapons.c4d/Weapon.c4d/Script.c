@@ -789,7 +789,7 @@ public func ControlThrow(caller)
               if(iAttachment == AT_Bayonet)
                 //Achievement-Fortschritt (Assassin)
                 DoAchievementProgress(1, AC45, GetOwner(GetUser()));
-              //Ribbon-Fortschritt (The Tuna)
+              //Ehrenband-Fortschritt (The Tuna)
               AttemptAwardRibbon(RB07, GetOwner(GetUser()), GetOwner(target));
             }
           meleeattacked = true;

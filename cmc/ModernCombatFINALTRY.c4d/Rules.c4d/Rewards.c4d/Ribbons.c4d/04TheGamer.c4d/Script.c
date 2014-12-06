@@ -1,4 +1,4 @@
-/*-- The Stationary --*/
+/*-- The Gamer --*/
 
 #strict 2
 #include RBBN
