@@ -703,18 +703,14 @@ public func ConsoleControl(int i, pClonk)
 public func ConsoleControlled(int i)
 {
   if(i == 1)
-  {
-    if(fActive) TurnOff();
+    if(fActive) 
+	  TurnOff();
     else
-    {
       TurnOn();
-    }
-  }
+	  
   if(i == 2)
-  {
     if(GetAction() == "Destroyed")
       StartRepair();
-  }
 }
 
 /* Serialisierung */
