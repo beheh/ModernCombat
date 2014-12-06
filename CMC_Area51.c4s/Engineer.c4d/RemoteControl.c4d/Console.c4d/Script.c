@@ -4,17 +4,29 @@
 
 local target;
 local pRemoteControl;
+local aTargets; 
+local aGroups;
+
 
 public func IsMachine()			{return 1;}
 public func GetRealRepairableObject()	{return target;}
 public func IsConsole()	{return true;}
-public func IsFakeRepairable(int iPlr)
-{
-  var fAdd = GetDamage(target);
-  if(Hostile(iPlr, GetOwner(target)) || HostileTeam(GetPlayerTeam(iPlr), target->~GetTeam()))
-    fAdd = true;
 
-  return (target && target->~IsRepairable() && fAdd);
+protected func Initialize()
+{
+  aTargets = CreateArray();
+  aGroups = CreateArray();
+  return _inherited(...);
+}
+
+public func IsFakeRepairable(int iPlr)		
+{
+  for(var i = 0; i < GetLength(aTargets); i++)
+    if(aTargets[i] && aTargets[i]->~IsRepairable() && ( GetDamage(aTargets[i]) || Hostile(iPlr, GetOwner(aTargets[i])) ) )
+    {
+	  target = aTargets[i];
+	  return true;
+	}
 }
 
 func Grabbed(object pByObject, bool fGrab)
@@ -32,19 +44,21 @@ func Grabbed(object pByObject, bool fGrab)
 
 protected func Timer(pClonk)
 {
-  //Kein Zielobjekt: Selbstzerstörung
-  if(!target)
-  {
-   if(GetEffectData(EFSM_ExplosionEffects) > 1) CastParticles("MetalSplinter",4,50,0,0,40,150);
-   CastSmoke("Smoke3",5,10,0,0,50,200, RGBa(255,255,255,0));
-   Sound("StructureHit*.ogg");
-   return RemoveObject();
-  }
-
   //Blinkeffekt
   AddLightFlash(100,0,0,RGB(0,0,255));
   CreateParticle("NoGravSpark", -8, 1, 0, 0, 50, RGBa(0, 0, 255, 50));
   CreateParticle("NoGravSpark", 8, 1, 0, 0, 50, RGBa(0, 0, 255, 50));
+}
+
+/* sichtbares Objekt */
+
+public func GetViewTarget()
+{
+  for(var i = 0; i < GetLength(aTargets); i++)
+	if(aTargets[i])
+	  return aTargets[i];
+	  
+  return 0;
 }
 
 /* Bedienung */
@@ -53,29 +67,63 @@ protected func ControlDig(pClonk)
 {
   [$Control$]
 
+  var pTarget = GetViewTarget();  
+  
   //Kein Menü wenn kein Ziel
-  if(!target) return;
+  if(!pTarget) 
+    return;
 
   //Sicht auf Zielobjekt zentrieren
-  SetPlrView(GetController(pClonk),target);
+  SetPlrView(GetController(pClonk),pTarget);
 
   //Menü erstellen
-  CreateMenu(GetID(target), pClonk, target, 0, Format("$Control$: %s", GetName(target)), 0, 1);
-  for(var i = 1, desc ; desc = target->~ConsoleControl(i, pClonk, this) ; i++)
-  {
-    AddMenuItem(desc, Format("ConsoleControlled(%d, %d, %d)", i, ObjectNumber(pClonk), ObjectNumber(this)), GetID(), pClonk, 0, 0, "$Control$");
-    Sound("Acknowledge.ogg", 0, pClonk, 100, GetOwner(pClonk)+1);
+  CreateMenu(GetID(pTarget), pClonk, 0, 0, Format("$Control$: %s", GetName(pTarget)), 0, 1);
+  
+  var aHandledGroups = CreateArray();
+  for(var k = 0; k < GetLength(aTargets); k++)
+    if(GetIndexOf(aGroups[k],aHandledGroups) == -1 ) 
+	{
+      for(var i = 1, desc ; desc = aTargets[k]->~ConsoleControl(i, pClonk, this) ; i++)
+      {
+	    if(aGroups[k])
+          var s = Format("$%s$",aGroups[k]); 
+		else
+		  var s = GetName(aTargets[i]);
+		  
+        AddMenuItem(Format("%s: %s", s, desc), Format("ConsoleControlled(%d, %d, %d, \"%s\")", i, ObjectNumber(pClonk), ObjectNumber(this), aGroups[k]), GetID(), pClonk, 0, 0, "$Control$");
+        Sound("Acknowledge.ogg", 0, pClonk, 100, GetOwner(pClonk)+1);
+      }
+	  aHandledGroups[GetLength(aHandledGroups)] = aGroups[k];
+	}
+	
+  return 1;
+}
+
+public func ConsoleControlled(int i1, i2, i3, string i4)
+{
+  //existiert nur für Abwärtskompatibilität!
+  if(i4 != "")
+  {  
+    aTargets[0]->~ConsoleControlled(i1,i2,i3);	  
+	return 1;
   }
+  
+  for(var k = 0; k < GetLength(aTargets); k++)
+    if(aGroups[k] == i4)
+      aTargets[k]->~ConsoleControlled(i1,i2,i3);
+	  
   return 1;
 }
 
 /* Ziel setzen */
 
-public func Set(pTarget)
+public func Set(pTarget, sGroup)
 {
-  target = pTarget;
-
-  //Konsolen, die keine SSA steuern, grün färben
-  if(GetID(pTarget) != SEGU)
-    SetClrModulation(RGB(0,150,0));
+  if(!pTarget)
+    return;
+	
+  aTargets[GetLength(aTargets)]=pTarget;
+  aGroups[GetLength(aGroups)]=sGroup;
+	  
+  return this;
 }
