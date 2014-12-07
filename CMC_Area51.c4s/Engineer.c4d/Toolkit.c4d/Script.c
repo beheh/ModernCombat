@@ -29,7 +29,7 @@ public func Activate(pClonk)
   SetComDir(COMD_Stop, pClonk);
   // Kann der Clonk überhaupt bauen?
   // Menü erzeugen und mit Bauplänen des Spielers füllen
-  CreateMenu(CXCN, pClonk, this(), 1, "$EngiPlansTxtNoconstructiona$");
+  CreateMenu(CXCN, pClonk, this(), 1, "$TxtNoConstructionPlans$");
   var idType; var i = 0;
   for(i = 0; i < GetLength(EngiPlans); i++)
   {

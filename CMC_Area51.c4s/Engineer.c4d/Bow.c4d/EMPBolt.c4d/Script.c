@@ -70,6 +70,7 @@ func HitObject(object pObj)
     if(GetOCF(pObj) & OCF_Living)
     {
       Sound("SharpnelImpact*.ogg");
+      ObjectSetAction(pObj, "Tumble");
     }
     else
     {
