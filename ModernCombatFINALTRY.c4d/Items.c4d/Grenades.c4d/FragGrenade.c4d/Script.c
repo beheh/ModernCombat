@@ -18,7 +18,7 @@ func Fused()
   {
     iAngle = Interpolate4K(Random(360),iR,0,80,iSpeed);
     pAmmo = CreateObject(SHRP,0,0,GetController());
-	SetController(GetController(), pAmmo);
+    SetController(GetController(), pAmmo);
     pAmmo->Launch(iAngle,70+Random(30),200+Random(100),5,15,20);
   }
 
