@@ -14,7 +14,6 @@ public func IsArrow()				{return true;}
 public func AllowHitboxCheck()	{return true;}
 public func RejectC4Attach()	{return true;}
 
-
 /* Initialisierung */
 
 protected func Initialize()
@@ -36,9 +35,17 @@ func Launch(int xdir, int ydir, int iDmg,a,b,c, int attachment)
   iXDir = xdir;
   iYDir = ydir - 7;
   AddEffect("HitCheck", this(), 1, 1, 0, SHT1,shooter);
+  AddEffect("Grenade", this, 1, 1, this);
   SetSpeed(xdir, ydir);
   iDamage = iDmg;
   if(Stuck()) Hit();
+}
+
+/* Timer */
+
+func FxGrenadeTimer(object target, int effect, int time)
+{
+  SetR(Angle(0,0,GetXDir(),GetYDir()));
 }
 
 /* Treffer */
