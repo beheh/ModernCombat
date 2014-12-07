@@ -1,4 +1,4 @@
-TxtCreateconstructionsi=Baustelle errichten
-TxtNoconstructionplansa=Keine Baupläne verfügbar
+TxtCreateConstructions=Baustelle errichten
+TxtNoConstructionPlans=Keine Baupläne verfügbar
 TxtConstructions=Konstruktion: %s
 TxtCantConstruct=%s kann nicht bauen.
