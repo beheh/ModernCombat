@@ -47,9 +47,9 @@ func BlowUp(int iPlr)
   for(var i = 5; i > 0; --i)
   {
     var angle = Interpolate4K(Random(360),Angle(GetXDir(),GetYDir()),0,40,BoundBy(Distance(GetXDir(),GetYDir()),0,40)) - 180;
-    var ammo = CreateObject(SHRP,0,0,GetOwner());
-    SetController(iPlr, ammo);
-    ammo->Launch(angle,70+Random(30),100+Random(100),5,15,20);
+    var ammo = CreateObject(SHRP,0,0,GetOwner());    
+	SetController(GetOwner(), ammo);
+    ammo->Launch(angle,70+Random(30),100+Random(100),5,15,20,0,1);
   }
 
   //Verschwinden lassen

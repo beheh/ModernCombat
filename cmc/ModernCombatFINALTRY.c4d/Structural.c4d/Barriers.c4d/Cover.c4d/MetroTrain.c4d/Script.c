@@ -37,9 +37,9 @@ func Explode(int iPlr)
   for(var i = 10; i > 0; --i)
   {
     var angle = Interpolate4K(Random(360),Angle(GetXDir(),GetYDir()),0,40,BoundBy(Distance(GetXDir(),GetYDir()),0,40)) - 180;
-    var ammo = CreateObject(SHRP,0,0,NO_OWNER);
+    var ammo = CreateObject(SHRP,0,0,iPlr);
     SetController(iPlr, ammo);
-    ammo->Launch(angle,70+Random(30),100+Random(100),5,15,20);
+    ammo->Launch(angle,70+Random(30),100+Random(100),5,15,20,0,1);
   }
 
   //Explosion

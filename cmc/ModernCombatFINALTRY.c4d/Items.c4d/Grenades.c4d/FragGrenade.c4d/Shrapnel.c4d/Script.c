@@ -3,15 +3,15 @@
 #strict 2
 #include SHTX
 
-local hitcnt, size, trail_len, iAttachment, iStartFrame;
+local hitcnt, size, trail_len, iAttachment, iStartFrame, bNoFFChecks;
 
 public func IsSpecialAmmo()	{return false;}
 public func TumbleTime()	{return 10;}	//Dauer des Zeitfensters in denen Splitter tumblen lassen
-
+public func CheckFF() { return !bNoFFChecks; }
 
 /* Abschuss */
 
-public func Launch(int iAngle, int iSpeed, int iDist, int iSize, int iTrail, int iDmg, int attachment)
+public func Launch(int iAngle, int iSpeed, int iDist, int iSize, int iTrail, int iDmg, int attachment, bool bDoNoFFChecks)
 {
   //Schaden des Splitters setzen
   if(!iDmg)
@@ -62,6 +62,8 @@ public func Launch(int iAngle, int iSpeed, int iDist, int iSize, int iTrail, int
   size = iSize;
   trail_len = iTrail;
   CreateTrail(iSize, iTrail);
+  
+  bNoFFChecks = bDoNoFFChecks;
 
   AddEffect("HitCheck", this, 1,1, 0, GetID(), shooter);
 }
@@ -292,7 +294,7 @@ public func FxHitCheckTimer(object target, int effect, int time)
     if(obj == target) continue;
     if(obj == exclude) continue;
     if(obj->~HitExclude(target)) continue;
-    if(!CheckEnemy(obj,target)) continue;
+    if(target->~CheckFF() && !CheckEnemy(obj,target)) continue;
     if(obj->~IsBulletTarget(GetID(target),target,EffectVar(2, target, effect), oldx, oldy) || GetOCF(obj) & OCF_Alive)
     {
       if(!target)
