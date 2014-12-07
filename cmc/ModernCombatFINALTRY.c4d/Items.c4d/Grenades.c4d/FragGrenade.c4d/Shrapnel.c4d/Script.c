@@ -7,7 +7,8 @@ local hitcnt, size, trail_len, iAttachment, iStartFrame, bNoFFChecks;
 
 public func IsSpecialAmmo()	{return false;}
 public func TumbleTime()	{return 10;}	//Dauer des Zeitfensters in denen Splitter tumblen lassen
-public func CheckFF() { return !bNoFFChecks; }
+public func CheckFF()		{return !bNoFFChecks;}
+
 
 /* Abschuss */
 
@@ -62,7 +63,8 @@ public func Launch(int iAngle, int iSpeed, int iDist, int iSize, int iTrail, int
   size = iSize;
   trail_len = iTrail;
   CreateTrail(iSize, iTrail);
-  
+
+  //Entsprechend nur Feinden oder jedem schaden
   bNoFFChecks = bDoNoFFChecks;
 
   AddEffect("HitCheck", this, 1,1, 0, GetID(), shooter);
