@@ -118,7 +118,7 @@ public func FxIntFlashbangTimer(object pTarget, int iEffectNumber, int iEffectTi
     i = 750;
 
   //Blendung senken
-  i--;
+  i -= 2;
   EffectVar(0, pTarget, iEffectNumber) = i;
 
   //Taschenlampen-Blendung beachten
@@ -163,7 +163,7 @@ public func FxIntFlashbangTimer(object pTarget, int iEffectNumber, int iEffectTi
         continue;
       }
 
-      CustomMessage(Format("<c %x>{{SM07}}</c>", RGBa(255,255,255,BoundBy(a, 1, 254))), pTarget, GetPlayerByIndex(i));
+      CustomMessage(Format("<c %x>{{SM07}}</c>%d", RGBa(255,255,255,BoundBy(a, 1, 254)), a), pTarget, GetPlayerByIndex(i));
     }
 }
 
