@@ -13,6 +13,7 @@ public func IgnoreTracer()	{return true;}
 public func IsArrow()				{return true;}
 public func AllowHitboxCheck()	{return true;}
 public func RejectC4Attach()	{return true;}
+public func IsBulletTarget()  {return false;}
 
 /* Initialisierung */
 
