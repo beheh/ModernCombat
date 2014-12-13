@@ -858,3 +858,9 @@ public func FxRideZiplineStop(object pTarget, int iNr, int iReason)
 
   return true;
 }
+
+public func ControlThrowDouble()
+{
+  if(Contents()->~IsBow()) return ControlThrow(...);
+  return _inherited(...);
+}
