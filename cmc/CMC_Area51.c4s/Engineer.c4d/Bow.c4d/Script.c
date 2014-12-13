@@ -12,6 +12,7 @@ public func HandY()		{return 1000;}
 public func BarrelXOffset()	{return -1000;}
 public func BarrelYOffset()	{return -2000;}
 public func IsPrimaryWeapon()	{return true;}
+public func IsBow()					{return true;}
 
 public func SelectionTime()	{return 42;}	//Anwahlzeit
 

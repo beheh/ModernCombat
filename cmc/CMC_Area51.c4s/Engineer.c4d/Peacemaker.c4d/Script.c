@@ -11,7 +11,6 @@ public func DeathAnimationCount()	{return (GetID() == PCMK) && 6;}	//Anzahl Tode
 
 
 /* Portrait-Updates */
-
 protected func Recruitment()
 {
   if(GetID() == PCMK)
@@ -787,4 +786,10 @@ protected func MacroComMoveTo()
     return;
   SetCommand(this, "MoveTo", 0, x, y);
   return;
+}
+
+public func ControlThrowDouble()
+{
+  if(Contents()->~IsBow()) return ControlThrow(...);
+  return _inherited(...);
 }
