@@ -45,7 +45,8 @@ protected func Check()
       Destroyed();
 
     //Clonk beeinflussen
-    AddEffect("BarbedWireHit", obj, 30, 75, 0, GetID(this));
+    //AddEffect("BarbedWireHit", obj, 30, 75, 0, GetID(this));
+    AddEffect("BarbedWireHit", obj, 30, 15, 0, GetID(this));
 
     //Effekte
     if(GetEffectData(EFSM_ExplosionEffects) > 1) CastSmoke("Smoke3",4,5,0,0,40,80);
@@ -54,7 +55,11 @@ protected func Check()
   }
 }
 
-/* Lähmungseffekt */
+/* Lähmungseffekt 
+0 = X
+1 = Y
+2 = Aufrufzahl
+*/
 
 func FxBarbedWireHitStart(object pTarget, int iEffectNumber, int iTemp)
 {
@@ -64,6 +69,20 @@ func FxBarbedWireHitStart(object pTarget, int iEffectNumber, int iTemp)
   SetPhysical("Scale", GetPhysical("Scale", 2, pTarget)/4, 3, pTarget);
   SetPhysical("Hangle", GetPhysical("Hangle", 2, pTarget)/4, 3, pTarget);
   SetPhysical("Swim", GetPhysical("Swim", 2, pTarget)/4, 3, pTarget);
+}
+
+func FxBarbedWireHitTimer(object pTarget, int iEffectNumber, int iEffectTime)
+{
+	EffectVar(2, pTarget, iEffectNumber)++;
+	
+	if(EffectVar(2, pTarget, iEffectNumber) == 1)
+	{
+		EffectVar(0, pTarget, iEffectNumber) = GetX(pTarget);
+		EffectVar(1, pTarget, iEffectNumber) = GetY(pTarget);
+	}
+	
+	if(EffectVar(2, pTarget, iEffectNumber) > 4 && (EffectVar(0, pTarget, iEffectNumber) != GetX(pTarget) || EffectVar(1, pTarget, iEffectNumber) != GetY(pTarget)))
+	 return -1;
 }
 
 public func FxBarbedWireHitStop(object pTarget, no, reason, temp)
