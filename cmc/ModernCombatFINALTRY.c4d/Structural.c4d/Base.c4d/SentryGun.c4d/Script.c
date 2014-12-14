@@ -26,7 +26,6 @@ public func MaxRotRight()			{return 250 + GetR() + fAAMode*40;}	//Maximaler Wink
 public func AimAngle()				{return aim_angle+GetR();}		//Winkel auf Ziel
 public func ReadyToFire()			{return 1;}				//Allzeit bereit
 public func IsMachine()				{return true;}				//Ist eine Elektrische Anlage
-public func IsBulletTarget()			{return !IsDestroyed();}		//Kugelziel wenn nicht zerstört
 public func IsAiming()				{return true;}				//Selbstschussanlage immer am Zielen
 public func IsThreat()				{return fActive && !IsDestroyed();}	//Status
 public func UpdateCharge()			{return 1;}
@@ -39,6 +38,25 @@ public func IsNotAttackable()
   return;
 }
 
+public func IsBulletTarget(id idBullet, object pBullet, object pShooter)			
+{
+  //Kugelziel wenn nicht zerstört
+  if(IsDestroyed())
+    return false;
+	
+  //Nicht treffbar wenn neutral
+  if(GetOwner() == NO_OWNER)
+    return false;
+
+  //Wir schließen hier Verbündete gezielt aus
+  //Damit müssen wir den Sonderfall nicht in den EnemyChecks einbauen
+  //C4 darf speziell immer, wenn jemandem zugehörig
+  if(!idBullet || !idBullet->~IgnoreEnemyCheck())
+    if(pBullet && ((GetOwner(pBullet) != NO_OWNER && !Hostile(GetOwner(pBullet), GetOwner())) || GetTeam(pBullet) == GetTeam()))
+      return false;
+
+  return true;
+}		
 
 /* Initialisierung */
 
