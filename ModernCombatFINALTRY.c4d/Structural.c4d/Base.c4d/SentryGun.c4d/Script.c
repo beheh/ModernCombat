@@ -43,16 +43,12 @@ public func IsBulletTarget(id idBullet, object pBullet, object pShooter)
   //Kugelziel wenn nicht zerstört
   if(IsDestroyed())
     return false;
-	
-  //Nicht treffbar wenn neutral
-  if(GetOwner() == NO_OWNER)
-    return false;
 
   //Wir schließen hier Verbündete gezielt aus
   //Damit müssen wir den Sonderfall nicht in den EnemyChecks einbauen
   //C4 darf speziell immer, wenn jemandem zugehörig
   if(!idBullet || !idBullet->~IgnoreEnemyCheck())
-    if(pBullet && ((GetOwner(pBullet) != NO_OWNER && !Hostile(GetOwner(pBullet), GetOwner())) || GetTeam(pBullet) == GetTeam()))
+    if(pBullet && ((GetOwner(pBullet) != NO_OWNER && !Hostile(GetOwner(pBullet), GetOwner())) != (HostileTeam(GetTeam(pBullet), GetTeam()))))
       return false;
 
   return true;
