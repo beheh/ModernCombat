@@ -45,14 +45,12 @@ protected func CreateConstructionSite(idType)
   if (!WildcardMatch(GetAction(Contained()), "Walk*")) return;
   if (Contained(Contained())) return;
 	if(GetPackPoints() < idType->BuildCost()) return PlayerMessage(GetOwner(), "Not enough points!", this);
+	if(FindObject2(Find_ID(idType), Find_AtPoint(), Find_Not(Find_Func("IsDestroyed")))) return PlayerMessage(GetOwner(), Format("%s already exists here!", GetName(0, idType)), this);
 	
   // Besitzer setzen für CreateConstruction
   SetOwner(GetOwner(Contained()));
   var obj = CreateObject(idType, 0, 0, GetOwner());
   SetCon(1, obj);
-  
-  if(!obj)
-  	return PlayerMessage(GetOwner(), "Not enough space!", this);
   	
   Contained()->SetAction("Push", obj);
   
