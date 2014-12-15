@@ -2,6 +2,7 @@
 
 #strict 2
 #include CSTR
+#include FDSE
 
 local cur_Attachment;
 local aim_angle;
@@ -469,8 +470,8 @@ public func ActivateEntrance(pUser, fRemote)
   if(!pUser->~IsClonk())
     return(0);
 
-  //Nur, wenn das Objekt noch steht
-  if(IsDestroyed())
+  //Nur, wenn das Objekt schon/noch steht
+  if(IsDestroyed() || GetCon() < 100)
     return(0);
 
 	if(!fRemote)
@@ -689,4 +690,13 @@ private func EndAim()
 public func DoHit(int iDamage)
 {
   return true;
+}
+
+public func Grabbed(object pByObject, bool fGrab)
+{
+	if(GetCon() >= 100 && fGrab)
+	{
+		pByObject->SetAction("Walk");
+		SetCommand(pByObject, "None");
+	}
 }

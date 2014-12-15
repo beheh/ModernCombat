@@ -1,6 +1,6 @@
 [DefCore]
 id=BBWE
-Version=4,9,8
+Version=4,9,10,7
 Name=Barbwire
 Category=C4D_Structure
 TimerCall=Check
@@ -14,3 +14,4 @@ VertexY=-6,7,7,7,-7,-7
 VertexFriction=100,100,100,100,100,100
 Mass=30
 Picture=0,14,114,114
+Grab=2

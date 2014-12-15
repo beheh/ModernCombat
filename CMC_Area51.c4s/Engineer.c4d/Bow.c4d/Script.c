@@ -11,6 +11,7 @@ public func HandY()		{return 1000;}
 public func BarrelXOffset()	{return -1000;}
 public func BarrelYOffset()	{return -2000;}
 public func IsPrimaryWeapon()	{return true;}
+public func IsBow()					{return true;}
 
 public func SelectionTime()	{return 42;}	//Anwahlzeit
 
@@ -70,7 +71,8 @@ public func Fire()
     AddEffect("Drawing", this, 1, 1, this);
     return true;
   }
-  else return _inherited(...);
+  else _inherited(...);
+  return Reload();
 }
 
 public func Fire1T1()

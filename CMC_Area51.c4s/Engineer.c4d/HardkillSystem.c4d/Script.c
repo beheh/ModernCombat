@@ -2,6 +2,7 @@
 
 #strict 2
 #include CSTR
+#include FDSE
 
 local ChargeBar;
 local iHKShots;
@@ -16,7 +17,7 @@ public func Initialize() {iHKShots = 5; return _inherited(...);}
 
 public func HardKill()
 {
-	if(!iHKShots || fDestroyed)
+	if(!iHKShots || fDestroyed || GetCon() < 100)
 		return;
 
   //Statusbalken aktualisieren
