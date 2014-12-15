@@ -2,8 +2,10 @@
 
 #strict 2
 #include CSTR
+#include FDSE
 
 local iHits;
+local flag;
 
 public func MaxDamage()			{return 20;}	//Maximalschaden
 public func AutoRepairDuration()	{return 0;}	//Keine Selbstreparatur
@@ -13,12 +15,12 @@ public func IsRepairable()	{return !fDestroyed;}
 
 /* Initialisierung */
 
-public func Initialize()
+public func Construction()
 {
   //Maximalzahl an Treffern
   iHits = 3;
 
-	var flag = CreateObject(MFLG, 0, 1, GetOwner());
+	flag = CreateObject(MFLG, 0, 1, GetOwner());
   flag->Set(this);
   SetDir(DIR_Right, flag);
 
@@ -29,7 +31,7 @@ public func Initialize()
 
 protected func Check()
 {
-  if(!iHits || fDestroyed)
+  if(!iHits || fDestroyed || GetCon() < 100)
   	return;
 
   //Clonks suchen
@@ -100,6 +102,7 @@ public func FxBarbedWireHitStop(object pTarget, no, reason, temp)
 public func Destroyed()
 {
   fDestroyed = true;
+  RemoveObject(flag);
 
   //Effekte
   if(GetEffectData(EFSM_ExplosionEffects) > 1) CastSmoke("Smoke3",4,20,0,0,100,300);
@@ -113,6 +116,7 @@ public func Destroyed()
 public func Replaced()
 {
   fDestroyed = true;
+  RemoveObject(flag);
 
   //Verschwinden
   FadeOut(this);

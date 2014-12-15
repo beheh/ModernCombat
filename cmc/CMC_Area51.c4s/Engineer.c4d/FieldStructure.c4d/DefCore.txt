@@ -1,0 +1,5 @@
+[DefCore]
+id=FDSE
+Version=4,9,10,7
+Name=Field Structure
+Category=C4D_StaticBack

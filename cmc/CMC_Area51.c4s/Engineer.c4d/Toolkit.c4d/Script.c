@@ -49,6 +49,12 @@ protected func CreateConstructionSite(idType)
   // Besitzer setzen für CreateConstruction
   SetOwner(GetOwner(Contained()));
   var obj = CreateObject(idType, 0, 0, GetOwner());
+  SetCon(1, obj);
+  
+  if(!obj)
+  	return PlayerMessage(GetOwner(), "Not enough space!", this);
+  	
+  Contained()->SetAction("Push", obj);
   
   var index;
   for(var i = 0; i < GetLength(EngiPlans); i++)
