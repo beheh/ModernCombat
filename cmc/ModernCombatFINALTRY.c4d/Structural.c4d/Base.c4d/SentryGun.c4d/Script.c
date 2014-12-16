@@ -38,25 +38,28 @@ public func IsNotAttackable()
   return;
 }
 
-public func IsBulletTarget(id idBullet, object pBullet, object pShooter)			
+public func IsBulletTarget(id idBullet, object pBullet, object pShooter)
 {
-  //Kugelziel wenn nicht zerstört
+  //SSA muss intakt sein
   if(IsDestroyed())
     return false;
 
-  //Wir schließen hier Verbündete gezielt aus
-  //Damit müssen wir den Sonderfall nicht in den EnemyChecks einbauen
-  //C4 darf speziell immer, wenn jemandem zugehörig
+  //Immer treffbar wenn neutral
+  if(GetOwner() == NO_OWNER)
+    return true;
+
+  //Ansonsten nur Feindbeschuss beachten
   if(!idBullet || !idBullet->~IgnoreEnemyCheck())
     if(pBullet && ((GetOwner(pBullet) != NO_OWNER && !Hostile(GetOwner(pBullet), GetOwner())) != (HostileTeam(GetTeam(pBullet), GetTeam()))))
       return false;
 
   return true;
-}		
+}
+
 
 /* Initialisierung */
 
-public func Initialize() 
+public func Initialize()
 {
   //(Waffen)Grafik setzen
   AddEffect("ShowWeapon",this,1,1,this,GetID());
