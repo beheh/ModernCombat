@@ -100,14 +100,12 @@ public func FxDataRunComputerStart(object pTarget, int iNr)
   EffectVar(2, pTarget, iNr) = GetTaggedPlayerName(GetOwner(pTarget));
 
   EffectVar(3, pTarget, iNr) = -1;
-
-  ShowTransmitterRadius(pTarget);
 }
 
-static const GDAR_TransmitterRadius = 100;
-static const GDAR_NoSignalTimer = 525; //Frameanzahl wird VERDOPPELT
-static const GDAR_PCDataInterval = 50; //Alle 100 Frames Daten liefern
-static const GDAR_PCDataAmount = 5; //In Intervallen 5 Daten aufs Konto hinzufügen
+static const GDAR_TransmitterRadius	= 100;	//Reichweite eines Transmitters
+static const GDAR_NoSignalTimer		= 525;	//Frameanzahl*2 bis ein ungenutzter Computer unbrauchbar wird
+static const GDAR_PCDataInterval	= 50;	//Downloadzeit pro Datenladung in Frames
+static const GDAR_PCDataAmount		= 10;	//Datenanzahl pro Datenladung
 
 public func FxDataRunComputerTimer(object pTarget, int iNr, int iTime)
 {
@@ -118,16 +116,17 @@ public func FxDataRunComputerTimer(object pTarget, int iNr, int iTime)
     COMP->Beep(pTarget);
   }
 
+  //Soundeffekt beim Gehen
   if(!(Random(5)) && GetProcedure(pTarget) == "WALK" && (Abs(GetXDir(pTarget)) > 5 || Abs(GetYDir(pTarget)) > 5) && !Contained(pTarget))
     Sound("BOMB_Rustle*.ogg", 0, pTarget, RandomX(25,50));
 
   //Träger verstorben: Computer fallenlassen
   if(pTarget->~IsFakeDeath())
     return -1;
-  
+
   var bar = EffectVar(0, pTarget, iNr);
-  
-  //Suche nach Sendeanlagen
+
+  //Transmitter suchen
   var transmitter = pTarget->FindObject2(pTarget->Find_Distance(GDAR_TransmitterRadius), Find_Func("IsDataTransmitter"));
   if(!transmitter)
   {
@@ -136,7 +135,7 @@ public func FxDataRunComputerTimer(object pTarget, int iNr, int iTime)
 
     bar->SetIcon(0, SM26, 0, 11000, 32);
 
-    //Länger keine Signale empfangen? Abbrechen
+    //Länger keine Signale empfangen: Abbrechen
     if(!EffectVar(3, pTarget, iNr))
     {
       //Kuhle "Wegwerfanimtion" wäre kuhl.
@@ -151,35 +150,39 @@ public func FxDataRunComputerTimer(object pTarget, int iNr, int iTime)
   }
   else
   {
-  	if(!transmitter->GetPoints())
-  	{
-  		EffectVar(5, pTarget, iNr) = 0;
-  		return;
-  	}
-  	
-  	EffectVar(5, pTarget, iNr) = transmitter;
-  
-  	var e;
-  	if(!(e = GetEffect("ConnectionInUse", transmitter)))
-  		AddEffect("ConnectionInUse", transmitter, 1, 4, transmitter);
-		else //Timerrefresh
-			EffectVar(0, transmitter, e) = 0;
-	  
-	  transmitter->DoPoints(-1);
+    //Keine Daten im Transmitter vorhanden: Abbruch
+    if(!transmitter->GetPoints())
+    {
+      EffectVar(5, pTarget, iNr) = 0;
+      return;
+    }
 
-  	bar->SetIcon(0, SM25, 0, 11000, 32);
-  	EffectVar(3, pTarget, iNr) = -1;
-  	EffectVar(4, pTarget, iNr)++;
+    EffectVar(5, pTarget, iNr) = transmitter;
+
+    var e;
+    if(!(e = GetEffect("ConnectionInUse", transmitter)))
+    {
+      AddEffect("ConnectionInUse", transmitter, 1, 4, transmitter);
+      ShowTransmitterRadius(pTarget);
+    }
+    else //Timerrefresh
+      EffectVar(0, transmitter, e) = 0;
+
+    transmitter->DoPoints(-1);
+
+    bar->SetIcon(0, SM25, 0, 11000, 32);
+    EffectVar(3, pTarget, iNr) = -1;
+    EffectVar(4, pTarget, iNr)++;
 
     Sound("AHBS_Progress*.ogg", false, pTarget);
 
-  	if(EffectVar(4, pTarget, iNr) >= GDAR_PCDataInterval && FindObject2(Find_ID(GDAR)))
-  	{
-  		FindObject2(Find_ID(GDAR))->GiveData(GetOwner(pTarget), GDAR_PCDataAmount);
-  		EffectVar(4, pTarget, iNr) = 0;
-  	}
+    if(EffectVar(4, pTarget, iNr) >= GDAR_PCDataInterval && FindObject2(Find_ID(GDAR)))
+    {
+      FindObject2(Find_ID(GDAR))->GiveData(GetOwner(pTarget), GDAR_PCDataAmount);
+      EffectVar(4, pTarget, iNr) = 0;
+    }
   }
-  
+
   return true;
 }
 

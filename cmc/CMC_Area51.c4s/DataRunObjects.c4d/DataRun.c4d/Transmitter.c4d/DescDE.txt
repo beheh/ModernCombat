@@ -1,3 +1,3 @@
-Ein Zielobjekt, welches Verteidiger beschützen und Angreifer zerstören sollten.
+Eine Sendeanlage welche Zugriff auf gesicherte Netzwerke ermöglicht.
 
-Um eine Sprengladung am Zielobjekt zu plazieren oder zu entschärfen, muss man sich in der Nähe des Objekts befinden.
+Kann mithilfe eines entsprechend ausgerüsteten Computers gehackt werden.
