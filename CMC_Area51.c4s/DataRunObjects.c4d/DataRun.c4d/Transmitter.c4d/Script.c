@@ -1,4 +1,4 @@
-/*-- Sendeanlage --*/
+/*-- Transmitter --*/
 
 #strict 2
 
@@ -8,6 +8,7 @@ public func IsDataTransmitter(bool fGoal)	{return true;}
 public func IsDestroyed()			{return fDestroyed;}
 public func MaxPoints()				{return 100;}
 public func PointsGain()			{return 1;}
+
 
 /* Initialisierung */
 
@@ -46,12 +47,12 @@ public func UpdateBar()
     fShowBar = true;
 
   bar->Update(GetPoints()*100/MaxPoints(), !fShowBar, !fShowBar);
-  
+
   //Am Downloaden
   if(fShowBar)
     bar->SetIcon(0, SM27, 0, 0, 32);
 
-  //Wiederverbindung
+  //Am Wiederverbinden
   if(!GetPoints() && !IsDestroyed())
     bar->SetIcon(0, SM28, 0, 11000, 32);
 
@@ -81,8 +82,8 @@ public func DoPoints(int iChange)
 public func SetPoints(int iAmount)
 {
   iPoints = BoundBy(iAmount, 0, MaxPoints());
-
   UpdateBar();
+
   return true;
 }
 
@@ -95,26 +96,27 @@ public func FxGeneratePointsTimer(object pTarget, int iNr)
 {
   if(GetEffect("ConnectionInUse", pTarget))
   {
-  	isTarget = true;
+    isTarget = true;
     return false;
   }
   
   if(FindObject(TRMR))
   {
-  	for(var transmitter in FindObjects(Find_ID(TRMR)))
-  		if(transmitter != this)
-  			if(GetEffect("ConnectionInUse", transmitter))
-  			{
-  				isTarget = false;
-  				break;
-  			}
+    for(var transmitter in FindObjects(Find_ID(TRMR)))
+      if(transmitter != this)
+        if(GetEffect("ConnectionInUse", transmitter))
+        {
+          isTarget = false;
+          break;
+        }
   }
-  
+
   if(isTarget)
-  	return false;
+    return false;
 
   pTarget->SetPoints(BoundBy(pTarget->GetPoints()+pTarget->PointsGain(), 0, pTarget->MaxPoints()));
   pTarget->UpdateBar();
+
   return true;
 }
 
