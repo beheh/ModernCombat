@@ -12,7 +12,7 @@ public func HandSize()		{return 1000;}
 public func HandX()		{return 3500;}
 
 public func IsEquipment()	{return true;}
-public func MaxPoints()		{return 8;}
+public func MaxPoints()		{return 6;}
 public func StartPoints()	{return 1;}
 public func TeamSupportTime()	{return 0;}
 public func PackLight()		{return false;}
