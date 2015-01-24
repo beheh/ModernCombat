@@ -369,18 +369,18 @@ func CreateEquipment()
 
   //Automaten
   var store = CreateObject(WPVM,1365, 520,-1);
-  store->AddWare(C4PA,-1);
-  store->AddWare(FAPK,-1);
-  store->AddWare(CDBT,-1);
-  store->AddWare(BWTH,-1);
-  store->AddWare(RSHL,-1);
-  store->AddWare(ATWN,-1);
-  store->AddWare(FGRN,-1);
-  store->AddWare(FRAG,-1);
-  store->AddWare(PGRN,-1);
-  store->AddWare(SGRN,-1);
-  store->AddWare(STUN,-1);
-  store->AddWare(SRBL,-1);
+  store->AddWare(C4PA,10);
+  store->AddWare(FAPK,10);
+  store->AddWare(CDBT,10);
+  store->AddWare(BWTH,10);
+  store->AddWare(RSHL,10);
+  store->AddWare(ATWN,20);
+  store->AddWare(FGRN,20);
+  store->AddWare(FRAG,20);
+  store->AddWare(PGRN,20);
+  store->AddWare(SGRN,20);
+  store->AddWare(STUN,20);
+  store->AddWare(SRBL,20);
 
   //Artilleriebatterien
   CreateObject(ATBY,615,270,-1)->SetRotation(20);
