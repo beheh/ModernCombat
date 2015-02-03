@@ -7,11 +7,11 @@ local active,sx,sy, start;
 local iLastAttacker;
 local iAttachment;
 
-public func Color()		{return RGB(255,0,0);}
-public func BlastRadius()	{return 30;}
-protected func SecureDistance()	{return 75;}
-func ExplodeDelay()		{return 35*3;}
-public func IgnoreTracer()	{return true;}
+public func Color()		{return RGB(255,0,0);}	//Kennfarbe
+public func BlastRadius()	{return 30;}		//Explosionsradius
+protected func SecureDistance()	{return 75;}		//Sicherungsreichweite
+func ExplodeDelay()		{return 35*3;}		//Verzögerung bis zu automatischer Zündung
+public func IgnoreTracer()	{return true;}		//Nicht markierbar
 public func IsRifleGrenade()	{return true;}		//Ist eine Gewehrgranate
 public func AllowHitboxCheck()	{return true;}
 public func RejectC4Attach()	{return true;}

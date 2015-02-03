@@ -10,14 +10,12 @@ local iXSpawnOff;
 local iYSpawnOff;
 local iBuyCooldown;
 
-public func RemoveTracer()			{return IsDestroyed();}		//Tracer entfernen, wenn zerstört
 public func DisableCH()				{return true;}			//Eventuelles Fadenkreuz des Clonks ausblenden
 public func MaxDamage()				{return 150;}
 public func IsMachine()				{return true;}
 public func IsBulletTarget()			{return false;}
 public func IsThreat()				{return !IsDestroyed();}
 public func UpdateCharge()			{return (pMAV && GetAction(pMAV) == "Flying" && !pMAV->~IsDestroyed());}
-public func AttractTracer(object pTracer)	{return GetPlayerTeam(GetController(pTracer)) != GetTeam() && !IsDestroyed();}
 public func IsStill()				{return true;}
 public func IsAiming()				{return true;}
 public func StartRepair()			{return true;}

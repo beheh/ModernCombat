@@ -4,14 +4,14 @@
 
 local fuse, active, thrown, pStickTo, iStickROffset, iStickAngle, iStickDistance, iPreviousCategory, iBulletsTrigger, rt_defusecnt;
 
-public func IsAttached()	{return pStickTo != false;}
 public func LimitationCount()	{return 8;}
-public func AttractTracer()	{return false;}
+public func IgnoreTracer()	{return true;}			//Nicht markierbar
 public func RejectC4Attach()	{return true;}
+public func IsAttached()	{return pStickTo != false;}
 public func IsC4Explosive()	{return true;}
 public func IsSpawnTrap()	{return true;}
 public func IsDefusable()	{return true;}
-public func IgnoreEnemyCheck()	{return true;}	//Ignoriert Feindcheck bei Fahrzeugen
+public func IgnoreEnemyCheck()	{return true;}			//Ignoriert Feindcheck bei Fahrzeugen
 
 
 /* Initialisierung */

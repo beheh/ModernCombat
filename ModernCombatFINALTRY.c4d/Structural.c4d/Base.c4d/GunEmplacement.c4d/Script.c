@@ -17,14 +17,12 @@ local iTurningSpeed;
 public func GetAttWeapon()			{return cur_Attachment;}
 public func AimAngle()				{return aim_angle + GetR();}	//Winkel auf Ziel
 public func ReadyToFire()			{return 1;}			//Ständige Feuerbereitschaft
-public func RemoveTracer()			{return IsDestroyed();}		//Tracer entfernen, wenn zerstört
 public func DisableCH()				{return true;}			//Eventuelles Fadenkreuz des Clonks ausblenden
 public func MaxDamage()				{return 100;}
 public func IsMachine()				{return true;}
 public func IsBulletTarget()			{return false;}
 public func IsThreat()				{return !IsDestroyed();}
 public func UpdateCharge()			{return 1;}
-public func AttractTracer(object pTracer)	{return GetPlayerTeam(GetController(pTracer)) != GetTeam() && !IsDestroyed();}
 public func IsStill()				{return true;}
 public func IsAiming()				{return true;}
 public func VaryingDir()			{if(AimAngle() > 0) return 3; else return 2;}

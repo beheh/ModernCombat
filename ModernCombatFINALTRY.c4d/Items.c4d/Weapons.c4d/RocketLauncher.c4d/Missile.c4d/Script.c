@@ -5,27 +5,27 @@
 
 local sx, sy, iStartY, iStartX, pLauncher, pLight, iLastAttacker, fGuided, fTracerChasing;
 
-public func MaxTime()		{return 200;}			//Maximale Flugzeit
+public func MaxTime()		{return 200;}				//Maximale Flugzeit
 
-public func StartSpeed()	{return 5;}			//Startgeschwindigkeit
-public func Acceleration()	{return 3+!fGuided*2;}		//Beschleunigung
-public func MaxSpeed()		{return 100+!fGuided*50;}	//Maximale Geschwindigkeit
+public func StartSpeed()	{return 5;}				//Startgeschwindigkeit
+public func Acceleration()	{return 3+!fGuided*2;}			//Beschleunigung
+public func MaxSpeed()		{return 100+!fGuided*50;}		//Maximale Geschwindigkeit
 
-public func SecureTime()	{return 25;}			//Mindestflugzeit
-public func MaxDamage()		{return 5;}			//Maximalschaden bis Absturz
+public func SecureTime()	{return 25;}				//Mindestflugzeit
+public func MaxDamage()		{return 5;}				//Maximalschaden bis Absturz
 
-public func ExplosionDamage()	{return 25;}			//Explosionsschaden
-public func ExplosionRadius()	{return 25;}			//Radius
+public func ExplosionDamage()	{return 25;}				//Explosionsschaden
+public func ExplosionRadius()	{return 25;}				//Radius
 
-public func TracerCompatible()	{return true;}			//Peilsendersuchende Rakete
+public func TracerCompatible()	{return true;}				//Peilsendersuchende Rakete
 public func TracerRadius()	{return 350;}
 
-public func MaxTurn()		{return 6;}			//max. Drehung
-public func MaxTracerTurn()	{return 8;}			//max. Drehung bei Zielverfolgung
+public func MaxTurn()		{return 6;}				//max. Drehung
+public func MaxTracerTurn()	{return 8;}				//max. Drehung bei Zielverfolgung
 
-public func IgnoreTracer()	{return true;}
+public func IgnoreTracer()	{return true;}				//Nicht markierbar
 public func IsDamaged()		{return GetEffect("Damaged", this);}
-public func IsRocket()		{return true;}			//Ist eine Rakete
+public func IsRocket()		{return true;}				//Ist eine Rakete
 
 public func AllowHitboxCheck()	{return true;}
 public func RejectC4Attach()	{return true;}
