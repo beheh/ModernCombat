@@ -14,7 +14,7 @@ public func IsMine()			{return true;}
 public func Color()			{return RGB(200,200,200);}
 public func IsBulletTarget(idBullet)	{return idBullet == TRDT || !Random(6);}
 public func NoArenaRemove()		{return true;}
-public func AttractTracer()		{return false;}
+public func IgnoreTracer()		{return true;}					//Nicht markierbar
 public func LimitationCount()		{return 2;}
 public func IsSpawnTrap()		{return true;}
 public func IsDefusable()		{return true;}

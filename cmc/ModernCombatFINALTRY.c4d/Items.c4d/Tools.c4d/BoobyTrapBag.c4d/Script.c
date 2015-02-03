@@ -14,7 +14,6 @@ public func CanAim()			{return Contained();}
 public func Color()			{return RGB(200,200,200);}
 public func IsEquipment()		{return true;}
 public func NoArenaRemove()		{return true;}
-public func AttractTracer()		{return false;}
 public func LimitationCount()		{return 1;}
 public func MaxPoints()			{return 3;}
 public func StartPoints()		{return 1;}

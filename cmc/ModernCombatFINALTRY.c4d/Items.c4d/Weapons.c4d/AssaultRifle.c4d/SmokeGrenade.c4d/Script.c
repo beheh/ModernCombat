@@ -3,9 +3,9 @@
 #strict 2
 #include ESHL
 
-public func Color()		{return RGB(255,255,255);}
-protected func SecureDistance()	{}
-func ExplodeDelay()		{return 120;}
+public func Color()		{return RGB(255,255,255);}	//Kennfarbe
+protected func SecureDistance()	{}				//Keine Sicherungsreichweite
+func ExplodeDelay()		{return 120;}			//Verzögerung bis zu automatischer Zündung
 
 
 /* Treffer */
