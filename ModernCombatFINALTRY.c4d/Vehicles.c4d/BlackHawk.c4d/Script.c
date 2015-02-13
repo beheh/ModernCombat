@@ -1540,7 +1540,7 @@ protected func TimerCall()
       {
         if(!(iWarningSound % 36))
         for(var obj in FindObjects(Find_OCF(OCF_CrewMember), Find_Container(this)))
-          Sound("WarningDamage.ogg", false, pMGStation, 100, GetOwner(obj) + 1);
+          Sound("WarningDamage.ogg", false, this, 100, GetOwner(obj) + 1);
         iWarningSound++;
         if(iWarningSound >= 100)
           iWarningSound = 0;
@@ -1552,7 +1552,7 @@ protected func TimerCall()
           Local(2) = 0;
           for(var obj in FindObjects(Find_OCF(OCF_CrewMember), Find_Container(this)))
             if(obj != GetPilot())
-              Sound("WarningDamageCritical.ogg", false, pMGStation, 100, GetOwner(obj) + 1);
+              Sound("WarningDamageCritical.ogg", false, this, 100, GetOwner(obj) + 1);
         }
         iWarningSound++;
         if(iWarningSound >= 100)
