@@ -42,14 +42,14 @@ public func SetState(int iNewState, bool fKeepSound)
     SetClrModulation(RGBa(255,0,0,50));
     SetClrModulation(RGBa(255,0,0,50), this, BHUD_Overlay_Failure);
     dwArrowColor = RGBa(255,0,0,50);
-    Sound("WarningDamage.ogg", false, pHelicopter, 100, GetOwner()+1, +1);
+    Sound("WarningDamage.ogg", false, this, 100, GetOwner()+1, +1);
   }
   else
   {
     SetClrModulation(RGBa(255,255,255,255), this, BHUD_Overlay_Failure);
     if(!fKeepSound)
     {
-      Sound("WarningDamage.ogg", false, pHelicopter, 100, GetOwner()+1, -1);
+      Sound("WarningDamage.ogg", false, this, 100, GetOwner()+1, -1);
     }
   }
   if(iState == BHUD_Warning)
@@ -57,14 +57,14 @@ public func SetState(int iNewState, bool fKeepSound)
     SetClrModulation(RGBa(255,153,0,50));
     SetClrModulation(RGBa(255,153,0,50), this, BHUD_Overlay_Warning);
     dwArrowColor = RGBa(255,153,0,50);
-    Sound("WarningLockon.ogg", false, pHelicopter, 100, GetOwner()+1, +1);
+    Sound("WarningLockon.ogg", false, this, 100, GetOwner()+1, +1);
   }
   else
   {
     SetClrModulation(RGBa(255,255,255,255), this, BHUD_Overlay_Warning);
     if(!fKeepSound)
     {
-      Sound("WarningLockon.ogg", false, pHelicopter, 100, GetOwner()+1, -1);
+      Sound("WarningLockon.ogg", false, this, 100, GetOwner()+1, -1);
     }
   }
   if(iState == BHUD_Ready)
