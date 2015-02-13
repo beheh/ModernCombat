@@ -485,6 +485,18 @@ public func Destruction()
   Sound("FKDT_ClonkDown.ogg", false, clonk, 100, GetOwner(clonk)+1, -1);
 }
 
+/* Zusätzliche Inventaritems */
+
+public func Collection2(object pObj) {
+	if(!aContents || !clonk || !GetAlive(clonk))
+		return;
+	
+	if(GetIndexOf(GetID(pObj), aContents) != -1)
+		return;
+	
+	aContents[GetLength(aContents)] = GetID(pObj);
+}
+
 /* Wiederbelebung */
 
 public func Reanimation()
@@ -511,11 +523,8 @@ public func Reanimation()
   if(GetAlive(clonk))
   {
     for(i = 0; i < GetLength(aContents); i++)
-    {
-      var item;
-      if(item = FindContents(aContents[i], this))
-        Enter(clonk, item);
-    }
+      Collect(FindContents(aContents[i], this), clonk);
+
     if(GetLength(aGrenades))
     {
       //Granatensortierung wiederherstellen
@@ -537,12 +546,9 @@ public func Reanimation()
     }
     RemoveEffect("NoAnnounce", clonk);
   }
-  else
-  {
-    while(Contents())
-    {
-      Exit(Contents(),0,+10);
-    }
+  while(Contents()) {
+  	if(!GetAlive(clonk) || !Contents()->~IsClonk())
+    	Exit(Contents(),0,+10);
   }
   //Sichtdaten zurücksetzen
   SetFoW(oldvisstate,GetOwner(clonk));
