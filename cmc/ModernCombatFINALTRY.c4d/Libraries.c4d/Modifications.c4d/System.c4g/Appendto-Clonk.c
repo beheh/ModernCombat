@@ -720,7 +720,7 @@ global func StopFakeDeath(object pTarget)
   if(!pTarget->IsClonk()) return false;
 
   Sound("ClonkCough*.ogg",0,pTarget);
-  ObjectSetAction(pTarget,"FlatUp",0,0,1);
+  ObjectSetAction(pTarget,"FlatUp2",0,0,1);
   Contained(pTarget)->Reanimation();
 
   return true;
