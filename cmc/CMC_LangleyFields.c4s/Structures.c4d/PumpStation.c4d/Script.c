@@ -124,7 +124,7 @@ public func FxSendResourcesTimer(object pTarget, int iNr)
   var ref;
   if(!(ref = FindObject2(Find_ID(CRFY), Find_Distance(RefineryRange()), Find_Allied(GetOwner()), Find_Not(Find_OCF(OCF_Construct)))))
     return false;
-  
+
   if(!(iLiquidValue/1000))
     return false;
 
