@@ -169,7 +169,7 @@ NextAction=KneelUp
 ObjectDisabled=1
 
 [Action]
-Name=FlatUp2
+Name=Reanimated
 Procedure=KNEEL
 Directions=2
 FlipDir=1
