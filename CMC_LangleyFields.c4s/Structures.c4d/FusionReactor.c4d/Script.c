@@ -9,10 +9,10 @@ local aPUpgrades, iAdditionalEnergy;
 public func TechLevel()				{return TECHLEVEL_1;}		//Benötigte Techstufe
 public func ProvideTechLevel()			{return TECHLEVEL_2;}		//Vorhandene Techstufe
 public func BuildingRadius()			{return 200;}			//Bauradius
-public func EnergyProduction()			{return 100;}			//Energiehersteller
+public func EnergyProduction()			{return 200;}			//Energiehersteller
 public func AdditionalEnergyProduction()	{return iAdditionalEnergy;}	//Zusätzliche Energie
 public func PossibleUpgrades()			{return aPUpgrades;}		//Mögliche Upgrades
-public func MaxDamage()				{return 200;}			//Maximaler Schadenswert bis zur Zerstörung
+public func MaxDamage()				{return 150;}			//Maximaler Schadenswert bis zur Zerstörung
 
 
 /* Konstruktion */
@@ -52,6 +52,7 @@ public func Destroyed()
 public func FxSmokeEffectsTimer()
 {
   Smoke();
+
   return true;
 }
 
@@ -221,7 +222,7 @@ public func FxWaterTurbineStop(object pTarget, int iNr)
   return true;
 }
 
-/* Upgrade: Windanlge */
+/* Upgrade: Windanlage */
 
 public func SetupWindTurbine()
 {

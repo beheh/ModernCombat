@@ -4,14 +4,14 @@
 #include CCBS
 #include BT02
 
-public func TechLevel()			{return TECHLEVEL_Start;}	//Benötigte Techstufe
-public func ProvideTechLevel()		{return TECHLEVEL_1;}		//Vorhandene Techstufe
-public func IsBase()			{return true;}			//Heimatbasis
-public func NeedBuildingRadius()	{return false;}			//Benötigt keinen Bauradius
-public func BuildingRadius()		{return 400;}			//Bauradius
-public func EnergyProduction()		{return 50;}			//Energiehersteller
-public func PossibleUpgrades()		{return [U_SB, U_SU, U_T2, U_T3];}		//Mögliche Upgrades
-public func CanNotBeSold()  {return true;}  //Kann nicht verkauft werden
+public func TechLevel()			{return TECHLEVEL_Start;}		//Benötigte Techstufe
+public func ProvideTechLevel()		{return TECHLEVEL_1;}			//Vorhandene Techstufe
+public func IsBase()			{return true;}				//Heimatbasis
+public func NeedBuildingRadius()	{return false;}				//Benötigt keinen Bauradius
+public func BuildingRadius()		{return 400;}				//Bauradius
+public func EnergyProduction()		{return 50;}				//Energiehersteller
+public func PossibleUpgrades()		{return [U_SB, U_SU, U_T2, U_T3];}	//Mögliche Upgrades
+public func CanNotBeSold()		{return true;}				//Nicht verkaufbar
 
 
 /* Konstruktion */
@@ -58,7 +58,7 @@ public func OnUpgrade(id idUpgrade)
 
     //Grafikänderungen/Effekte/Sounds
   }
-  
+
   return true;
 }
 

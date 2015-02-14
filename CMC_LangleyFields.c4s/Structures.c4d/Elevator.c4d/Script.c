@@ -39,7 +39,6 @@ public func AdditionalBuildingMenu(object pMenuObj)
       AddMenuItem("$BuyElevatorCaseNotEnough$", "BuyElevatorCase", CHLP, pMenuObj, GetValue(0, CHLP), pMenuObj, "$ElevatorCaseMenuDesc$");
     else
       AddMenuItem("$BuyElevatorCase$", "BuyElevatorCase", CHLP, pMenuObj, GetValue(0, CHLP), pMenuObj, "$ElevatorCaseMenuDesc$");
-    
   }
   else
     AddMenuItem("$BuyElevatorCaseInactive$", 0, CHLP, pMenuObj);
@@ -60,11 +59,11 @@ public func BuyElevatorCase(dummy, object pMenuObj)
     Sound("Error", 0, this, 0, GetOwner(pMenuObj)+1);
     return true;
   }
-  
+
   //Geld abziehen
   SetWealth(GetOwner(pMenuObj), GetWealth(GetOwner(pMenuObj))-GetValue(0, CHLP));
   CreateCase();
-  
+
   //Sounds
   Sound("Cash", 0, this, 0, GetOwner(pMenuObj)+1);
 
@@ -78,7 +77,7 @@ public func CreateCase()
   //Plattform erstellen
   case = CreateObject(CHLP, 0, GetObjHeight()/2+5, GetOwner());
   case->Set(this);
-  
+
   //Der Objektliste hinzufügen
   AddObject(case);
 

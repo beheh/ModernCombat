@@ -11,7 +11,7 @@ public func ProvideTechLevel()		{return TECHLEVEL_3;}	//Vorhandene Techstufe
 public func BuildingRadius()		{return 200;}		//Bauradius
 public func RequiredEnergy()		{return 50;}		//Energieverbraucher
 public func MaxDamage()			{return 150;}		//Maximaler Schadenswert bis zur Zerstörung
-public func PossibleUpgrades() {return [U_SB];} //Mögliche Upgrades
+public func PossibleUpgrades()		{return [U_SB];}	//Mögliche Upgrades
 
 public func ProcessingInterval()	{return 2;}		//Intervall der Verarbeitung
 
@@ -30,17 +30,18 @@ protected func Initialize()
   //Ressourcenverarbeitung
   AddEffect("ProcessingResource", this, 1, ProcessingInterval(), this);
 
-	aWaypointX = CreateArray();
-	aWaypointY = CreateArray();
-	aMAVProgress = CreateArray();
-	aMAVs = CreateArray();
-	
-	aWaypointX[0] = GetX() + GetDefCoreVal("Collection", "DefCore", 0, 0) + GetDefCoreVal("Collection", "DefCore", 0, 2)/2;
-	aWaypointY[0] = GetY() + GetDefCoreVal("Collection", "DefCore", 0, 1) + GetDefCoreVal("Collection", "DefCore", 0, 3)/2 + GetDefCoreVal("Offset", "DefCore", CMAV, 1) - 20;
-	
-	aMAVs[0] = CreateObject(CMAV, aWaypointX[0] - GetX(), aWaypointY[0] - GetY(), GetOwner(this));
-	aMAVs[0]->Start(this);
-	controlling = -1;
+  //Sammler-MAV
+  aWaypointX = CreateArray();
+  aWaypointY = CreateArray();
+  aMAVProgress = CreateArray();
+  aMAVs = CreateArray();
+
+  aWaypointX[0] = GetX() + GetDefCoreVal("Collection", "DefCore", 0, 0) + GetDefCoreVal("Collection", "DefCore", 0, 2)/2;
+  aWaypointY[0] = GetY() + GetDefCoreVal("Collection", "DefCore", 0, 1) + GetDefCoreVal("Collection", "DefCore", 0, 3)/2 + GetDefCoreVal("Offset", "DefCore", CMAV, 1) - 20;
+
+  aMAVs[0] = CreateObject(CMAV, aWaypointX[0] - GetX(), aWaypointY[0] - GetY(), GetOwner(this));
+  aMAVs[0]->Start(this);
+  controlling = -1;
 
   return _inherited(...);
 }
@@ -83,12 +84,13 @@ public func AdditionalStatusMenu(object pMenuObj)
 
 public func AdditionalBuildingMenu(object pMenuObj)
 {
-	AddMenuItem("MAV steuern", "ControlMAV", CMAV, pMenuObj, 0, pMenuObj);
-	if(!fReturning)
-		AddMenuItem("MAVs zurückholen", "ReturnMAV", CMAV, pMenuObj, 0, pMenuObj);
-	else
-		AddMenuItem("MAVs starten", "StartMAV", CMAV, pMenuObj, 0, pMenuObj);
-	return true;
+  AddMenuItem("MAV steuern", "ControlMAV", CMAV, pMenuObj, 0, pMenuObj);
+  if(!fReturning)
+    AddMenuItem("MAVs zurückholen", "ReturnMAV", CMAV, pMenuObj, 0, pMenuObj);
+  else
+    AddMenuItem("MAVs starten", "StartMAV", CMAV, pMenuObj, 0, pMenuObj);
+
+  return true;
 }
 
 /* Aufnahme von Objekten */
@@ -508,4 +510,3 @@ public func OnDmg(int iDmg, int iType)
   if(iType == DMG_Explosion) return 50+25*GetUpgrade(U_SB);
   return _inherited(iDmg, iType, ...);
 }
-
