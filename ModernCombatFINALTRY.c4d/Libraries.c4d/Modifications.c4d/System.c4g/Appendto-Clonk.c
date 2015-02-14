@@ -720,13 +720,13 @@ global func StopFakeDeath(object pTarget)
   if(!pTarget->IsClonk()) return false;
 
   Sound("ClonkCough*.ogg",0,pTarget);
-  
-  //Falls spezielle Reanimated-Action vorhanden ist, diese benutzen, da kein ObjectDisabled
+
+  //Spezielle Reanimated-Action vorhanden: Diese verwenden, da kein ObjectDisabled
   if(GetActMapVal("Name", "Reanimated", GetID()))
-  	ObjectSetAction(pTarget,"Reanimated",0,0,1);
-  //Ansonsten FlatUp verwenden. (Inventar wird jedoch auf den Boden fallengelassen)
+    ObjectSetAction(pTarget,"Reanimated",0,0,1);
+  //Ansonsten FlatUp-Action verwenden (Inventar wird dann ausgeworfen)
   else
-  	ObjectSetAction(pTarget,"FlatUp",0,0,1);
+    ObjectSetAction(pTarget,"FlatUp",0,0,1);
   Contained(pTarget)->Reanimation();
 
   return true;
