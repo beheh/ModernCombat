@@ -598,7 +598,7 @@ public func StartBuilding(id idBuilding, object pTarget, int selection)
   if(!pBuilding)
     return;
   
-  //Baugebiet glätten (Da CMC-Gebäude meist zu groß sind)
+  //Baugebiet planieren
   DigFreeRect(GetX(pBuilding)+GetDefOffset(idBuilding), GetY(pBuilding)+(GetObjHeight(pBuilding)+(GetDefOffset(idBuilding, 1)*GetCon(pBuilding)/100))-GetDefHeight(idBuilding), GetDefWidth(idBuilding), GetDefHeight(idBuilding)+2);
 
   //Gras im Baugebiet entfernen
@@ -616,8 +616,11 @@ public func StartBuilding(id idBuilding, object pTarget, int selection)
   //Baueffekt übergeben
   AddEffect("AutoBuild", pBuilding, 10, 1);
 
-  //Effekt
+  //Effekte
+  CastSmoke("Smoke3",20,40,-10,0,100,200);
+  CastSmoke("Smoke3",20,40,10,0,100,200);
   Sound("Building_Place.ogg",false,pBuilding);
+
   return true;
 }
 
@@ -625,16 +628,20 @@ public func StartBuilding(id idBuilding, object pTarget, int selection)
 
 global func FxAutoBuildStart(object pTarget, int iNo, int iTemp)
 {
+  //Effekt
   Sound("SF_Build", 0, pTarget, 0, 0, +1);
 }
 
 global func FxAutoBuildTimer(object pTarget, int iNo, int iTime)
 {
   var con = GetCon(pTarget);
+
+  //Abbruch sobald fertiggestellt
   if(con >= 100) return -1;
 
   if(iTime % 10) return;
 
+  //Gebäude hochziehen
   DoCon(+1, pTarget);
   con++;
 
@@ -642,6 +649,7 @@ global func FxAutoBuildTimer(object pTarget, int iNo, int iTime)
   var y = -GetDefHeight(GetID(pTarget)) * con / 100 / 2;
   var w = GetObjWidth(pTarget);
 
+  //Effekte
   for(var i = 10; i > 0; i--)
   {
     x = Random(w) - w / 2;
@@ -651,5 +659,6 @@ global func FxAutoBuildTimer(object pTarget, int iNo, int iTime)
 
 global func FxAutoBuildStop(object pTarget, int iNo, int iReason)
 {
+  //Effekt
   Sound("SF_Build", 0, pTarget, 0, 0, -1);
 }

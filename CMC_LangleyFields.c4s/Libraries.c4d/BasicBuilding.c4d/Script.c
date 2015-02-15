@@ -15,24 +15,25 @@ public func BuildingRadius()			{return 0;}			//Bauradius
 public func NeedBuildingRadius()		{return true;}			//Nur in Bauradius
 
 public func RequiredEnergy()			{return 0;}			//Benötigte Energie
-public func AdditionalRequiredEnergy()	{return 0;}	//Zusätzlich benötigte Energie
+public func AdditionalRequiredEnergy()		{return 0;}			//Zusätzlich benötigte Energie
 public func EnergyProduction()			{return 0;}			//Erzeugt Energie
 public func AdditionalEnergyProduction()	{return 0;}			//Zusätzlich erzeugte Energie
 public func PossibleUpgrades()			{return [];}			//Mögliche Upgrades
 public func MaxDamage()				{return 500;}			//Maximaler Schadenswert bis zur Zerstörung
 public func IsDestroyed()			{return fDestroyed;}
-public func IsRepairable()			{return true;}	//Ist reparierbar
+public func IsRepairable()			{return true;}			//Ist reparierbar
 public func BuyCategory()			{return C4D_All;}
 
-public func BombDamage() {return 502;} //Schaden, den die Gebäudebombe macht
-public func BombPlaceTime() {return 36;} //Platzierungszeit in Frames
-public func BombDefuseTime() {return 36*5;} //Entschärfungszeit in Frames
-public func BombExplodeTime() {return 36*15;} //Explosionszeit in Frames
-public func BombDefuseRadius() {return GetDefWidth();} //Entschärfungsradius von der Gebäudemitte aus
+public func BombDamage()			{return 502;}			//Schaden, den die Gebäudebombe macht
+public func BombPlaceTime()			{return 36;}			//Platzierungszeit in Frames
+public func BombDefuseTime()			{return 36*5;}			//Entschärfungszeit in Frames
+public func BombExplodeTime()			{return 36*15;}			//Explosionszeit in Frames
+public func BombDefuseRadius()			{return GetDefWidth();}		//Entschärfungsradius von der Gebäudemitte aus
 
 /* Bauanforderungen */
 
 public func BuildingConditions(object pBy, int iX, int iY, bool fReturnError) {return true;}
+
 
 /* Initialisierung */
 
@@ -205,8 +206,9 @@ public func FxResearchingUpgradeStart(object pTarget, int iNr, int iTemp, id idU
   EffectVar(0, pTarget, iNr) = idUpgrade;
   EffectVar(1, pTarget, iNr) = iDuration;
 
-  //Uralte Standard Clonk-Sounds op!!1 :D
+  //Effekte
   Sound("Research", 0, this, 100, 0, +1);
+
   return true;
 }
 
@@ -234,7 +236,7 @@ public func FxResearchingUpgradeTimer(object pTarget, int iNr, int iTime)
       plr[GetLength(plr)] = GetOwner(obj);
     else
       continue;
-    
+
     bar = FindObject2(Find_ID(SBAR), Find_ActionTarget(this), Find_Owner(GetOwner(obj)), Find_Func("HasBarType", BAR_Ammobar));
     if(!bar)
     {
@@ -247,7 +249,7 @@ public func FxResearchingUpgradeTimer(object pTarget, int iNr, int iTime)
 
   if(iTime >= duration)
     return -1;
-  
+
   return true;
 }
 
@@ -258,8 +260,10 @@ public func FxResearchingUpgradeStop(object pTarget, int iNr)
       RemoveObject(bar);
 
   EffectVar(0, pTarget, iNr)->Researched(pTarget);
+
+  //Effekte
+  Sound("Building_UpgradeComplete.ogg", 0, this, 100, GetOwner()+1);
   Sound("Research", 0, this, 100, 0, -1);
-  Sound("ResearchDone", 0, this);
 
   return true;
 }
@@ -284,7 +288,7 @@ public func AddUpgrade(id idUpgrade)
     aUpgradeList = [];
 
   aUpgradeList[GetLength(aUpgradeList)] = idUpgrade;
-  
+
   OnUpgrade(idUpgrade);
   return true;
 }
@@ -293,15 +297,15 @@ public func RemoveUpgrade(id idUpgrade)
 {
   if(!aUpgradeList)
     return true;
-  
+
   var list = [];
   for(var data in aUpgradeList)
     if(data != idUpgrade)
       list[GetLength(list)] = data;
-  
+
   aUpgradeList = list;
   OnUpgradeRemoved(idUpgrade);
-  
+
   return true;
 }
 
@@ -317,8 +321,8 @@ public func GetUpgrade(id idUpgrade)
   return false;
 }
 
-public func OnUpgrade(id idUpgrade)	{}
-public func OnUpgradeRemoved(id idUpgrade) {}
+public func OnUpgrade(id idUpgrade)								{}
+public func OnUpgradeRemoved(id idUpgrade)							{}
 public func GetUpgradeList()									{return aUpgradeList;}
 public func OnResearchingUpgradeStart(int iEffect, id idUpgrade, int iDuration, int iCost)	{return;}
 public func FurtherUpgradeConditions(id idUpgrade, int iDuration, int iCost)			{return true;}
@@ -340,29 +344,29 @@ public func FxShowHealthBarTimer(object pTarget, int iNr)
   {
     if(!bar)
       continue;
-  
+
     var plr = GetOwner(bar);
     if(!FindObject2(Find_OCF(OCF_CrewMember), Find_Or(Find_Container(this), Find_And(Find_ActionTarget(this), Find_Action("Push"))), Find_Owner(plr)))
       RemoveObject(bar);
   }
 
   plr = [];
-  
+
   //Falls Clonk im Gebäude ist/es anfässt
   for(var obj in FindObjects(Find_OCF(OCF_CrewMember), Find_Or(Find_Container(this), Find_ActionTarget(this)), Find_Allied(GetOwner(pTarget))))
   {
     if(GetActionTarget(0, obj) == this && GetProcedure(obj) != "PUSH" && Contained(obj) != this)
       continue;
-  
+
     //Balken für den Spieler wurde schon aktualisiert
     if(GetIndexOf(GetOwner(obj), plr) == -1)
       plr[GetLength(plr)] = GetOwner(obj);
     else
       continue;
-    
+
     //Zugehörigen Balken suchen
     bar = FindObject2(Find_ID(SBAR), Find_Or(Find_Container(this), Find_ActionTarget(this)), Find_Owner(GetOwner(obj)), Find_Func("HasBarType", BAR_Energybar));
-    
+
     //Ansonsten neu erstellen
     if(!bar)
     {
@@ -374,7 +378,7 @@ public func FxShowHealthBarTimer(object pTarget, int iNr)
     bar->Update(percent);
     bar->SetBarColor(color);
   }
-  
+
   return true;
 }
 
@@ -430,7 +434,7 @@ public func Destroyed()
 
   //Callback
   OnDestruction();
-  
+
   //Löschen planen (Momentan noch nicht besonders fancy)
   Schedule("RemoveObject()", 35*6, 1, this);
 
@@ -466,7 +470,7 @@ public func Destruction()
   for(var obj in aObjectList)
     if(obj)
       RemoveObject(obj);
-  
+
   return true;
 }
 
@@ -533,14 +537,14 @@ public func OpenBaseBuyMenu(dummy, object pMenuObj)
   return OpenBuyMenu(dummy, pMenuObj, 0, 0, aBuy);
 }
 
-public func AdditionalStatusMenu(object pMenuObj) {}
-public func AdditionalBuildingMenu(object pMenuObj) {}
-public func EmergencyBuildingMenu(object pMenuObj) {}
+public func AdditionalStatusMenu(object pMenuObj)	{}
+public func AdditionalBuildingMenu(object pMenuObj)	{}
+public func EmergencyBuildingMenu(object pMenuObj)	{}
 
 public func OpenUpgradeMenu(id dummy, object pMenuObj)
 {
   MenuHeader(pMenuObj, "$UpgradeMenu$");
-  
+
   //Erforscht Upgrades?
   if(!IsResearchingUpgrades())
     AddMenuItem("$NoUpgrades$", 0, NONE, pMenuObj);
@@ -637,12 +641,12 @@ public func OpenBuyMenu(id dummy, object pMenuObj, int iOffset, int iButton, arr
   MenuHeader(pMenuObj, "$BuyMenu$", C4MN_Extra_Value);
 
   var count = GetLength(aIDObjects);
-  
+
   //Seitenanzeige
   AddMenuItem(Format("<c 33ccff>$Showing$</c>", iOffset/10+1, count/10+1), 0, NONE, pMenuObj);
 
   var def = 0, i = iOffset, plr = GetOwner(pMenuObj), sel, sel2;
-   
+
   while((def = aIDObjects[i++]) && i <= 10+iOffset)
   {
     //Einkaufswagen voll?
@@ -656,7 +660,7 @@ public func OpenBuyMenu(id dummy, object pMenuObj, int iOffset, int iButton, arr
     }
     else
       AddMenuItem(Format("<c 777777>%s</c>", GetName(0, def)), Format("BuyError(%i, Object(%d), %d)", def, ObjectNumber(pMenuObj), iOffset), def, pMenuObj, GetCartItemAmount(def, plr));
-      
+
     if(def != dummy)
     {
       if(!sel2)
@@ -668,7 +672,7 @@ public func OpenBuyMenu(id dummy, object pMenuObj, int iOffset, int iButton, arr
       sel++;
     }
   }
-  
+
   //Leerzeile
   AddMenuItem(" ", 0, NONE, pMenuObj);
 
@@ -693,7 +697,7 @@ public func OpenBuyMenu(id dummy, object pMenuObj, int iOffset, int iButton, arr
   AddMenuItem("$GoToCart$", Format("OpenCartMenu(Object(%d), %d)", ObjectNumber(pMenuObj), iOffset), NONE, pMenuObj, GetCartValue(plr), 0, "");
   if(iButton == CCBS_BUYMENU_Cart)
     btn++;
-  
+
   //Zurück zum Hauptmenü
   AddMenuItem("$BackToMainMenu$", "OpenBuildingMenu", NONE, pMenuObj, 0, pMenuObj, "");
   if(iButton == CCBS_BUYMENU_Back)
@@ -704,7 +708,7 @@ public func OpenBuyMenu(id dummy, object pMenuObj, int iOffset, int iButton, arr
     SelectMenuItem(sel, pMenuObj);
   else if(iButton)
     SelectMenuItem(i-iOffset+btn, pMenuObj);
-  
+
   return true;
 }
 
@@ -822,14 +826,14 @@ public func OpenCartMenu(object pMenuObj, int iBuyOffset, int iSel, bool fButton
 {
   var plr = GetOwner(pMenuObj);
   var cart = GetCart(plr), entry, fBuy, fCancelOrder;
-  
+
   //Verweis auf Kaufmenü
   if(!szBuyMenu)
     szBuyMenu = "OpenBuyMenu";
 
   //Kopfzeile
   MenuHeader(pMenuObj, "$CartMenu$", 0);
-  
+
   //Einkaufswagen leer?
   if(!GetLength(cart))
     AddMenuItem("$CartIsEmpty$", 0, SM12, pMenuObj);
@@ -1115,57 +1119,57 @@ public func FxBuyMenuDeliver(object pTarget, int iNr, object pTargetBuilding, in
   else
   {
     //Ansonsten Einkaufswagen abarbeiten 
-		for(var item in cart)
-		{
-		  if(!item)
-		    continue;
+    for(var item in cart)
+    {
+      if(!item)
+        continue;
 
-		  for(var j = 0; j < item[1]; j++)
-		  {
-		    //Neue Kiste erstellen
-		    if(!crate || crate->ContentsCount() >= crate->ItemLimit())
-		    {
-		      crate = CreateObject(SPCT, BoundBy(GetX(target)+Random(60)-30, 15, LandscapeWidth()-15), 60, plr);
-		      CreateObject(PARA, GetX(crate), GetY(crate), plr)->Set(crate);
-		      crate->Set(target, true);
-		    }
-		    
-		    if(!item[0]->~IsClonk())
-		    {
-		      var wpn = CreateContents(item[0], crate);
-		      if(wpn->~IsWeapon())
-		      {
-		        //Waffen auffüllen
-		        while(wpn->~CycleFM(+1))
-						{
-							var ammo = wpn->GetFMData(FM_AmmoID);
-							var load = wpn->GetFMData(FM_AmmoLoad);
-							if(wpn->GetAmmo(ammo) == load) break;
-							//erst entladen
-							DoAmmo(ammo,-load, wpn);
-							//dann neu reinladen
-							DoAmmo(ammo, load, wpn);
-						}
-						//noch ein letztes Mal
-						wpn->~CycleFM(+1);
-		      }
-		    }
-		    else
-		    {
-		      //Clonk erstellen und an Fallschirm hängen
-		      var clonk = CreateObject(item[0], BoundBy(GetX(target)+Random(60)-30, 15, LandscapeWidth()-15), 60, plr);
-		      MakeCrewMember(clonk, plr);
-		      clonk->SetAction("Jump");
-		      CreateObject(PARA, GetX(clonk), GetY(clonk), plr)->Set(clonk);
-		    }
-		  }
-		}
-		
-		//Sound
-		if(crate)
-		  Sound("JetFlyBy*.ogg", false, crate);
-		else if(clonk)
-		  Sound("JetFlyBy*.ogg", false, clonk);
+      for(var j = 0; j < item[1]; j++)
+      {
+        //Neue Kiste erstellen
+        if(!crate || crate->ContentsCount() >= crate->ItemLimit())
+        {
+          crate = CreateObject(SPCT, BoundBy(GetX(target)+Random(60)-30, 15, LandscapeWidth()-15), 60, plr);
+          CreateObject(PARA, GetX(crate), GetY(crate), plr)->Set(crate);
+          crate->Set(target, true);
+        }
+
+        if(!item[0]->~IsClonk())
+        {
+          var wpn = CreateContents(item[0], crate);
+          if(wpn->~IsWeapon())
+          {
+            //Waffen auffüllen
+            while(wpn->~CycleFM(+1))
+            {
+              var ammo = wpn->GetFMData(FM_AmmoID);
+              var load = wpn->GetFMData(FM_AmmoLoad);
+              if(wpn->GetAmmo(ammo) == load) break;
+              //erst entladen
+              DoAmmo(ammo,-load, wpn);
+              //dann neu reinladen
+              DoAmmo(ammo, load, wpn);
+            }
+            //noch ein letztes Mal
+            wpn->~CycleFM(+1);
+          }
+        }
+        else
+        {
+          //Clonk erstellen und an Fallschirm hängen
+          var clonk = CreateObject(item[0], BoundBy(GetX(target)+Random(60)-30, 15, LandscapeWidth()-15), 60, plr);
+          MakeCrewMember(clonk, plr);
+          clonk->SetAction("Jump");
+          CreateObject(PARA, GetX(clonk), GetY(clonk), plr)->Set(clonk);
+        }
+      }
+    }
+
+    //Sound
+    if(crate)
+      Sound("JetFlyBy*.ogg", false, crate);
+    else if(clonk)
+      Sound("JetFlyBy*.ogg", false, clonk);
   }
   
   //Liefercooldown einstellen
@@ -1186,12 +1190,13 @@ public func ProcessSelfDeliver(array aCart, int iExtraBuyInfo, int iPlr)	{}
 
 protected func FxBuildingBombStart(object pTarget, int iEffectNumber, int iTemp, var1)
 {  
-  EffectVar(0, pTarget, iEffectNumber) = var1; //Platzierer (Spieler) der Bombe
-  EffectVar(1, pTarget, iEffectNumber) = BombExplodeTime(); //Explosionszeit
-  EffectVar(2, pTarget, iEffectNumber) = 0;	  //Entschärfungszeit
-  EffectVar(3, pTarget, iEffectNumber) = 0;     //Prozentanzeige
-  EffectVar(4, pTarget, iEffectNumber) = 0;     //Prozentanzeige Defuse
-  EffectVar(5, pTarget, iEffectNumber) = 0;	  //Bombenradius
+  EffectVar(0, pTarget, iEffectNumber) = var1;			//Platzierer (Spieler) der Bombe
+  EffectVar(1, pTarget, iEffectNumber) = BombExplodeTime();	//Explosionszeit
+  EffectVar(2, pTarget, iEffectNumber) = 0;			//Entschärfungszeit
+  EffectVar(3, pTarget, iEffectNumber) = 0;			//Prozentanzeige
+  EffectVar(4, pTarget, iEffectNumber) = 0;			//Prozentanzeige Defuse
+  EffectVar(5, pTarget, iEffectNumber) = 0;			//Bombenradius
+
   return 1;  
 }
 
@@ -1202,57 +1207,55 @@ protected func FxBuildingBombTimer(object pTarget, int iEffectNumber, int iEffec
   var bombteam = GetPlayerTeam(EffectVar(0, pTarget, iEffectNumber));
   for(var clonk in FindObjects(Find_Distance(BombDefuseRadius()), Find_OCF(OCF_CrewMember | OCF_Alive), Find_NoContainer()))
     if(GetPlayerTeam(GetOwner()) == GetPlayerTeam(GetOwner(clonk)))
-	  defusing = 1;
-	else
-	  if(HostileTeam(GetPlayerTeam(GetOwner()), GetPlayerTeam(GetOwner(clonk))))
-	    enemyinrange = 1;
-	  
+      defusing = 1;
+    else
+    if(HostileTeam(GetPlayerTeam(GetOwner()), GetPlayerTeam(GetOwner(clonk))))
+      enemyinrange = 1;
+
   var explodetime = EffectVar(1, pTarget, iEffectNumber);
   var defusetime = EffectVar(2, pTarget, iEffectNumber);
   var bar = EffectVar(3, pTarget, iEffectNumber);
   var bar2 = EffectVar(4, pTarget, iEffectNumber);
   var radius = EffectVar(5, pTarget, iEffectNumber);
-  
-  //wenn kein Entschärfer in der Nähe war,
-  //Zeit zurücksetzen und weiterrunterzählen
+
+  //wenn kein Entschärfer in der Nähe war, Zeit zurücksetzen und weiterrunterzählen
   if(!defusing)
   {
     defusetime = 0;
-	explodetime--;
-	if(radius)
-	  RemoveObject(radius);
-	if(bar2)
-	  RemoveObject(bar2);
+    explodetime--;
+    if(radius)
+      RemoveObject(radius);
+    if(bar2)
+      RemoveObject(bar2);
   }
   else
   {
     //erhöhen, wenn keine Feinde in der Nähe
-	if(!enemyinrange)
-	  defusetime++;
-	//und Kreis anzeigen
+    if(!enemyinrange)
+      defusetime++;
+    //und Kreis anzeigen
     //if(!radius)
     //  radius = ShowBombRadius(this);
-		
-	//Defusebar	
+    //Defusebar  
     if(!bar2)
     {
       bar2 = CreateObject(SBAR, 0, GetDefHeight(SBAR), -1);
       bar2->Set(this, RGB(30, 100, 255), BAR_AssaultBar, GetDefWidth()*1000/GetDefWidth(SBAR)/10);
     }
     bar2->Update(((BombDefuseTime() - defusetime)*100)/BombDefuseTime());
-  }	  
-	
+  }
+
   //schon explodiert? 
   if(explodetime <= 0)
   {
     DecoExplode(50,CreateObject(ROCK));
-	DoDmg(BombDamage());
+    DoDmg(BombDamage());
     return -1;
   }
   //schon entschärft?
   if(defusetime >= BombDefuseTime())
     return -1;
-	
+
   if(!bar)
   {
     bar = CreateObject(SBAR, 0, 0, -1);
