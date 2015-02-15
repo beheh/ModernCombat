@@ -234,6 +234,27 @@ public func KillAttachment(int iKillAttachment, bool fReset)
   return killattachment;
 }
 
+public func Ejection(object pObj) {
+	AddEffect("MatJumpProtection", pObj, 1, 40, this);
+
+	return _inherited(pObj, ...);
+}
+
+/* Objekttreffer */
+
+local pLastObjectHit;
+
+protected func QueryCatchBlow(object pBy)
+{
+  //Materialjump verhindern
+  if(GetEffect("MatJumpProtection", pBy) && GetEffect("MatJumpProtection", pBy, 0, 4) == this && !GameCall("AllowMaterialJump"))
+    return true;
+  
+  pLastObjectHit = pBy;
+
+  return _inherited(pBy, ...);
+}
+
 /* Reject Shift */
 
 protected func ControlContents(idTarget)
@@ -606,7 +627,7 @@ protected func ControlSpecial2()
 
 /* Bildschirmfärbung bei Schaden */
 
-global func FxDmgCheckDamage(object pTarget, int iEffect, int iDmg)
+global func FxDmgCheckDamage(object pTarget, int iEffect, int iDmg, int iCause)
 {
   if(!IsFakeDeath(pTarget) && iDmg < 0)
   {
@@ -617,8 +638,23 @@ global func FxDmgCheckDamage(object pTarget, int iEffect, int iDmg)
     else
       ScreenRGB(pTarget, RGB(255), iAlpha, 4, false, SR4K_LayerDamage);
   }
+  
+  var idKillIcon;
+  if(iCause == 2 || iCause == 35)
+    idKillIcon = GSAM;
+  else if(iCause == 1 || iCause == 3)
+    idKillIcon = BOOM;
+  else if(iCause == 38)
+    idKillIcon = GLOB;
+  else if(iCause == 40)
+  	idKillIcon = SM04;
+  else if(iCause == 34 && pTarget->~IsClonk())
+  	idKillIcon = GetID(LocalN("pLastObjectHit", pTarget));
+ 	
+ 	if(idKillIcon)
+ 		pTarget->~KillIcon(idKillIcon);
 
-  return _inherited(pTarget, iEffect, iDmg, ...);
+  return _inherited(pTarget, iEffect, iDmg, iCause, ...);
 }
 
 /* Assist: Abbau von Schaden bei Heilung */
