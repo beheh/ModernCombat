@@ -815,7 +815,7 @@ public func StatsStatistics(int iPlr)
 
       if(j == 20 && percent)
       {
-        str = Format("<c %x>%s", GetPlrColorDw(iPlr), str);
+        str = Format("<c %x>%s", 0xFFCC00, str);
         colored = true;
       }
       else if(!percent)
