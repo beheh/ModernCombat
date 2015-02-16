@@ -234,10 +234,11 @@ public func KillAttachment(int iKillAttachment, bool fReset)
   return killattachment;
 }
 
-public func Ejection(object pObj) {
-	AddEffect("MatJumpProtection", pObj, 1, 40, this);
+public func Ejection(object pObj)
+{
+  AddEffect("MatJumpProtection", pObj, 1, 40, this);
 
-	return _inherited(pObj, ...);
+  return _inherited(pObj, ...);
 }
 
 /* Objekttreffer */
@@ -638,7 +639,7 @@ global func FxDmgCheckDamage(object pTarget, int iEffect, int iDmg, int iCause)
     else
       ScreenRGB(pTarget, RGB(255), iAlpha, 4, false, SR4K_LayerDamage);
   }
-  
+
   var idKillIcon;
   if(iCause == 2 || iCause == 35)
     idKillIcon = GSAM;
@@ -647,12 +648,12 @@ global func FxDmgCheckDamage(object pTarget, int iEffect, int iDmg, int iCause)
   else if(iCause == 38)
     idKillIcon = GLOB;
   else if(iCause == 40)
-  	idKillIcon = SM04;
+    idKillIcon = SM04;
   else if(iCause == 34 && pTarget->~IsClonk())
-  	idKillIcon = GetID(LocalN("pLastObjectHit", pTarget));
- 	
- 	if(idKillIcon)
- 		pTarget->~KillIcon(idKillIcon);
+    idKillIcon = GetID(LocalN("pLastObjectHit", pTarget));
+
+  if(idKillIcon)
+    pTarget->~KillIcon(idKillIcon);
 
   return _inherited(pTarget, iEffect, iDmg, iCause, ...);
 }

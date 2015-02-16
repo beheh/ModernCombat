@@ -37,11 +37,12 @@ public func KMsg(int plr1, int plr2, object clonk, int plr3)
   {
     if(type == DMG_Fire)
       typeicon = GSAM;
-    else if(type == DMG_Melee) {
+    else if(type == DMG_Melee)
+    {
       if(GetID(LocalN("pLastObjectHit", clonk)) == killicon)
-      	typeicon = SM25;
+        typeicon = SM25;
       else
-      	typeicon = SM04;
+        typeicon = SM04;
     }
     else if(type == DMG_Explosion)
       typeicon = BOOM;
@@ -52,7 +53,7 @@ public func KMsg(int plr1, int plr2, object clonk, int plr3)
     else if(type == DMG_Projectile)
       if(killicon)
         if(killicon->~IsWeapon() || killicon->~HasBullets())
-      	  typeicon = SHTX;
+          typeicon = SHTX;
         else
           typeicon = SHRP;
   }
