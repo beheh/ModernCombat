@@ -37,25 +37,24 @@ public func IsNotAttackable()
   if(IsRepairing() || IsDestroyed()) return 1;
   return;
 }
-
 public func IsBulletTarget(id idBullet, object pBullet, object pShooter)
 {
   //SSA muss intakt sein
   if(IsDestroyed())
     return false;
 
-  //Immer treffbar wenn neutral
-  if(GetOwner() == NO_OWNER)
+  //Immer treffbar wenn Team(!) neutral
+  //denn die SSA ist normalerweise selber Owner -1,
+  //unabhängig vom Team
+  if(GetTeam() == 0)
     return true;
 
   //Ansonsten nur Feindbeschuss beachten
-  if(!idBullet || !idBullet->~IgnoreEnemyCheck())
-    if(pBullet && ((GetOwner(pBullet) != NO_OWNER && !Hostile(GetOwner(pBullet), GetOwner())) != (HostileTeam(GetTeam(pBullet), GetTeam()))))
-      return false;
+  if(pBullet && HostileTeam(GetTeam(pBullet), GetTeam()))
+    return true;
 
-  return true;
+  return false;
 }
-
 
 /* Initialisierung */
 
