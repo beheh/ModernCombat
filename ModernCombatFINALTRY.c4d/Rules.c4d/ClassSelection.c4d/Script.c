@@ -383,6 +383,10 @@ protected func OnMenuSelection(int iIndex, object pClonk)
     OpenMenu(pClonk,iIndex);
 }
 
+public func GetLastClass(int iPlr) {
+	return lastclass[iPlr];
+}
+
 /* Klassen */
 
 static const CData_Name			= 1;
