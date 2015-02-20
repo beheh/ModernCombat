@@ -329,6 +329,9 @@ protected func DeathAnnounce(int plr, object clonk, int killplr, bool fNoPoints,
     DoPoints();
 
   GameCallEx("OnDeathAnnounce", clonk, killplr, assistplusone - 1);
+  
+  if(GetObjCoreDeathMessage(clonk))
+ 		Message(GetObjCoreDeathMessage(clonk), clonk, GetName(clonk));
 
   return true;
 }
