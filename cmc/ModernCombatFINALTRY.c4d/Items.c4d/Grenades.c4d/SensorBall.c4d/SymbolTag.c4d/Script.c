@@ -7,17 +7,19 @@ local pTarget, pHost, iRemoveTime, iEffectRemoveTime;
 
 /* Einstellung */
 
-public func Set(object target, object host, bool fClonk, int remove_time, string szGraphics)
+public func Set(object target, object host, bool fClonk, int remove_time, string szGraphics, int color)
 {
   pHost = host;
   pTarget = target;
   iRemoveTime = iEffectRemoveTime = remove_time;
 
-  //Ziel kein Clonk: Andere Grafik setzen
-  if(!fClonk)
-    SetGraphics("Object", this);
+  //Definierte Grafik verwenden oder passende ermitteln
   if(szGraphics)
-  	SetGraphics(szGraphics, this);
+    SetGraphics(szGraphics, this);
+  else
+    //Ziel kein Clonk: Objekt-Grafik setzen
+    if(!fClonk)
+      SetGraphics("Object", this);
 
   //Positionieren
   SetAction("Attach", pTarget);
