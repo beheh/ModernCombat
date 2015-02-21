@@ -209,4 +209,11 @@ protected func Hit()
 protected func Selection()
 {
   Sound("C4PA_Deploy.ogg");
+  
+  var c4 = GetC4();
+  for(var obj in c4) {
+  	var marker = CreateObject(SM08, 0, 0, GetOwner(Contained()));
+  	marker->Set(obj, this, 0, 30, "C4");
+  	marker->SetVisibility(VIS_Owner);
+  }
 }
