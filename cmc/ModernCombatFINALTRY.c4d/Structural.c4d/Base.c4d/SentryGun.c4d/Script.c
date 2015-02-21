@@ -43,9 +43,7 @@ public func IsBulletTarget(id idBullet, object pBullet, object pShooter)
   if(IsDestroyed())
     return false;
 
-  //Immer treffbar wenn Team(!) neutral
-  //denn die SSA ist normalerweise selber Owner -1,
-  //unabhängig vom Team
+  //Immer treffbar wenn Team(!) neutral, da selbst normalerweise Owner -1, unabhängig vom Team
   if(GetTeam() == 0)
     return true;
 

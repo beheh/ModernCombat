@@ -39,7 +39,7 @@ public func FMData1(int data)
   if(data == FM_Name)		return "$Bullets$";
 
   if(data == FM_AmmoID)		return STAM;						//ID der Munition
-  if(data == FM_AmmoLoad)	return 15 + (iAttachment == AT_ExtendedMag)*6;		//Magazingröße
+  if(data == FM_AmmoLoad)	return 10 + (iAttachment == AT_ExtendedMag)*6;		//Magazingröße
 
   if(data == FM_Reload)		return 40 + (iAttachment == AT_ExtendedMag)*17;		//Zeit für Nachladen
 
