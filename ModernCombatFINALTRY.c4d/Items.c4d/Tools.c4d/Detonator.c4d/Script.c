@@ -209,11 +209,13 @@ protected func Hit()
 protected func Selection()
 {
   Sound("C4PA_Deploy.ogg");
-  
+
+  //Ladungen kurzzeitig markieren
   var c4 = GetC4();
-  for(var obj in c4) {
-  	var marker = CreateObject(SM08, 0, 0, GetOwner(Contained()));
-  	marker->Set(obj, this, 0, 30, "C4");
-  	marker->SetVisibility(VIS_Owner);
+  for(var obj in c4)
+  {
+    var marker = CreateObject(SM08, 0, 0, GetOwner(Contained()));
+    marker->Set(obj, this, 0, 30, "ObjectAllied");
+    marker->SetVisibility(VIS_Owner);
   }
 }
