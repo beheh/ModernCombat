@@ -133,7 +133,7 @@ public func FxIntFlashbangTimer(object pTarget, int iEffectNumber, int iEffectTi
     rgb->SetAlpha(255 - a);
   }
   if(Contained())
-	  a=255;
+    a=255;
 
   //Blendungsicon anhängen
   for(var i = 0; i < GetPlayerCount(); i++)
