@@ -492,10 +492,13 @@ public func Collection2(object pObj)
   if(!aContents || !clonk || !GetAlive(clonk))
     return;
 
-  if(GetIndexOf(GetID(pObj), aContents) != -1)
+  if(GetIndexOf(GetID(pObj), aContents) != -1 || GetIndexOf(GetID(pObj), aGrenades) != -1)
     return;
 
-  aContents[GetLength(aContents)] = GetID(pObj);
+	if(pObj->~IsGrenade())
+		aGrenades[GetLength(aGrenades)] = GetID(pObj);
+  else
+  	aContents[GetLength(aContents)] = GetID(pObj);
 }
 
 /* Wiederbelebung */
@@ -537,12 +540,6 @@ public func Reanimation()
           clonk->~StoreGrenade(item);
           if(!Contained(item)) RemoveObject(item);
         }
-      }
-      //Neue Granaten nach ganz unten
-      for(var item in FindObjects(Find_Container(clonk), Find_Func("IsGrenade")))
-      {
-        clonk->~StoreGrenade(item);
-        if(!Contained(item)) RemoveObject(item);
       }
     }
     RemoveEffect("NoAnnounce", clonk);
