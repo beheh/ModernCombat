@@ -495,10 +495,10 @@ public func Collection2(object pObj)
   if(GetIndexOf(GetID(pObj), aContents) != -1 || GetIndexOf(GetID(pObj), aGrenades) != -1)
     return;
 
-	if(pObj->~IsGrenade())
-		aGrenades[GetLength(aGrenades)] = GetID(pObj);
+  if(pObj->~IsGrenade())
+    aGrenades[GetLength(aGrenades)] = GetID(pObj);
   else
-  	aContents[GetLength(aContents)] = GetID(pObj);
+    aContents[GetLength(aContents)] = GetID(pObj);
 }
 
 /* Wiederbelebung */
@@ -526,12 +526,13 @@ public func Reanimation()
   //Besitztümer weitergeben
   if(GetAlive(clonk))
   {
-    for(i = 0; i < GetLength(aContents); i++) {
-    	if(GetAction(clonk) == "Reanimated")
-    		Collect(FindContents(aContents[i], this), clonk);
-    	else
-    		Enter(FindContents(aContents[i], this), clonk);
-		}
+    for(i = 0; i < GetLength(aContents); i++)
+    {
+      if(GetAction(clonk) == "Reanimated")
+        Collect(FindContents(aContents[i], this), clonk);
+      else
+        Enter(FindContents(aContents[i], this), clonk);
+    }
 
     if(GetLength(aGrenades))
     {
