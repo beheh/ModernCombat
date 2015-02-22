@@ -132,39 +132,40 @@ public func FxIntFlashbangTimer(object pTarget, int iEffectNumber, int iEffectTi
     a = BoundBy(i, 0, 255);
     rgb->SetAlpha(255 - a);
   }
+  if(Contained())
+	  a=255;
 
   //Blendungsicon anhängen
-  if(!Contained())
-    for(var i = 0; i < GetPlayerCount(); i++)
+  for(var i = 0; i < GetPlayerCount(); i++)
+  {
+    if(i == GetOwner(pTarget))
+      continue;
+
+    var pCursor = GetCursor(GetPlayerByIndex(i))->~GetRealCursor();
+    if(!pCursor && !(pCursor = GetCursor(GetPlayerByIndex(i))))
+      continue;
+
+    if(Contained(pCursor))
+      continue;
+
+    var srgb = GetScreenRGB(GetPlayerByIndex(i), SR4K_LayerLight, pCursor);
+
+    if(srgb && srgb->GetAlpha() < 50)
     {
-      if(i == GetOwner(pTarget))
-        continue;
-
-      var pCursor = GetCursor(GetPlayerByIndex(i))->~GetRealCursor();
-      if(!pCursor && !(pCursor = GetCursor(GetPlayerByIndex(i))))
-        continue;
-
-      if(Contained(pCursor))
-        continue;
-
-      var srgb = GetScreenRGB(GetPlayerByIndex(i), SR4K_LayerLight, pCursor);
-
-      if(srgb && srgb->GetAlpha() < 50)
-      {
-        CustomMessage("@", pTarget, GetPlayerByIndex(i));
-        continue;
-      }
-
-      srgb = GetScreenRGB(GetPlayerByIndex(i), SR4K_LayerSmoke, pCursor);
-
-      if(srgb && srgb->GetAlpha() < 200)
-      {
-        CustomMessage("@", pTarget, GetPlayerByIndex(i));
-        continue;
-      }
-
-      CustomMessage(Format("<c %x>{{SM07}}</c>%d", RGBa(255,255,255,BoundBy(a, 1, 254)), a), pTarget, GetPlayerByIndex(i));
+      CustomMessage("@", pTarget, GetPlayerByIndex(i));
+      continue;
     }
+
+    srgb = GetScreenRGB(GetPlayerByIndex(i), SR4K_LayerSmoke, pCursor);
+
+    if(srgb && srgb->GetAlpha() < 200)
+    {
+      CustomMessage("@", pTarget, GetPlayerByIndex(i));
+      continue;
+    }
+
+    CustomMessage(Format("<c %x>{{SM07}}</c>%d", RGBa(255,255,255,BoundBy(a, 1, 254)), a), pTarget, GetPlayerByIndex(i));
+  }
 }
 
 public func FxIntFlashbangStop(object pTarget, int iEffectNumber, int iReason, bool fTemp)
