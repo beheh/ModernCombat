@@ -526,8 +526,12 @@ public func Reanimation()
   //Besitztümer weitergeben
   if(GetAlive(clonk))
   {
-    for(i = 0; i < GetLength(aContents); i++)
-      Collect(FindContents(aContents[i], this), clonk);
+    for(i = 0; i < GetLength(aContents); i++) {
+    	if(GetAction(clonk) == "Reanimated")
+    		Collect(FindContents(aContents[i], this), clonk);
+    	else
+    		Enter(FindContents(aContents[i], this), clonk);
+		}
 
     if(GetLength(aGrenades))
     {
