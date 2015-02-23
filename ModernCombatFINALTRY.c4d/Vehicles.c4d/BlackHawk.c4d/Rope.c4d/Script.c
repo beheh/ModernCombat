@@ -3,6 +3,7 @@
 #strict 2
 
 local iLength, iCalcedLength, iOCF, iVtx1, iVtx2;
+local CntObj1, CntObj2;
 local aPointsX, aPointsY;
 local pPulley;
 local fNoPickUp_0, fNoPickUp_1;
@@ -67,6 +68,9 @@ public func ConnectObjects(pObj1, pObj2)
     SetAction("ConnectStatic", pObj1, pObj2);
   else
     SetAction("Connect", pObj1, pObj2);
+
+  CntObj1 = Obj1;
+  CntObj2 = Obj2;
   iLength = CalcLength();
 
   //Seil als Hilfsobjekt verstecken

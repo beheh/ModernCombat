@@ -5,10 +5,11 @@
 
 public func SpecificEquipment()	{return [[JTPK, 1]];} //Zusatzausrüstung: Jetpack
 
+static zipline1, zipline2;
 
 /* Initalisierung */
 
-func Initialize()
+public func Initialize()
 {
   //Starttitel und Musikliste zusammenstellen
   SetPlayList("CMC_Base Groove.ogg;CMC_Firehawk.ogg;CMC_Friendly Unit.ogg;CMC_Getaway.ogg;CMC_Moving Squad.ogg;CMC_Offensive.ogg;CMC_Showtime.ogg;CMC_Slow Motion.ogg;CMC_Striking Force.ogg;CMC_No Good.ogg;CMC_Obsession.ogg");
@@ -24,7 +25,7 @@ func Initialize()
 
 /* Plazierungslisten */
 
-func CreateInterior()
+public func CreateInterior()
 {
   Log("$CreatingInterior$");
 
@@ -72,8 +73,8 @@ func CreateInterior()
   CreateObject (CONS, 650, 1105, -1)->Set(autod);
   
   //Ziplines
-  CreateZipline(1860, 650, 810, 1010);
-  CreateZipline(220, 650, 1270, 1010);
+  zipline1 = CreateZipline(1860, 650, 810, 1010);
+  zipline2 = CreateZipline(220, 650, 1270, 1010);
 }
 
 func CreateEquipment()
@@ -180,6 +181,12 @@ func CreateOptionalFeatures()
   CreateObject(BD03,500,1400,-1);
   CreateObject(BD03,1580,1400,-1);
   CreateObject(BD03,1900,900,-1);
+}
+
+public func TestDestroyZiplines()
+{
+	RemoveObject(zipline1);
+	return 1;
 }
 
 /* Sonstiges */
