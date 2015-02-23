@@ -4,6 +4,7 @@
 
 local iLength, iCalcedLength, iOCF, iVtx1, iVtx2;
 local aPointsX, aPointsY;
+local CntObj1, CntObj2;
 local pPulley;
 local fNoPickUp_0, fNoPickUp_1;
 local dwcolor;
@@ -34,6 +35,22 @@ global func CreateZipline(int iX1, int iY1, int iX2, int iY2)
 
   return rope;
 } 
+
+/* Zerstörung */
+
+protected func Destruction()
+{
+  //absichtlich nicht IsZipline, damit die Knotenpunkte auch entfernt werden, 
+  //damit auch bei NoPhysics die Nodepoints geloescht werden
+  if(fZipline)
+  {
+    if(CntObj1)
+      RemoveObject(CntObj1);
+	if(CntObj2)
+      RemoveObject(CntObj2);
+  }
+  return _inherited(...);	
+}
 
 /* Seil abtrennen */
 
