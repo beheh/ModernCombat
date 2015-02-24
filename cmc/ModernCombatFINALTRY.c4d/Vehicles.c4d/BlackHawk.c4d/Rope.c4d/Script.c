@@ -69,8 +69,8 @@ public func ConnectObjects(pObj1, pObj2)
   else
     SetAction("Connect", pObj1, pObj2);
 
-  CntObj1 = Obj1;
-  CntObj2 = Obj2;
+  CntObj1 = pObj1;
+  CntObj2 = pObj2;
   iLength = CalcLength();
 
   //Seil als Hilfsobjekt verstecken
