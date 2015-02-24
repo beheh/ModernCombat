@@ -531,7 +531,7 @@ public func Reanimation()
       if(GetAction(clonk) == "Reanimated")
         Collect(FindContents(aContents[i], this), clonk);
       else
-        Enter(FindContents(aContents[i], this), clonk);
+        Enter(clonk, FindContents(aContents[i], this));
     }
 
     if(GetLength(aGrenades))
