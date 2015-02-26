@@ -123,7 +123,7 @@ public func Update()
     return item->RemoveShield();
 
   var x,y,r;
-  if(!target->WeaponAt(x,y,r))
+  if(!target->~WeaponAt(x,y,r))
     return Hide();
   else
     Show();

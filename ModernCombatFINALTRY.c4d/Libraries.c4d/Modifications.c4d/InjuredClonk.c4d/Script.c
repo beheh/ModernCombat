@@ -142,7 +142,7 @@ public func KillMessage(string msg)
   killmsg = msg;
 
   //Spieler hat Hilfen aktiviert: Quicktipp geben
-  if(clonk && !clonk->ShorterDeathMenu())
+  if(clonk && !clonk->~ShorterDeathMenu())
     aTipps = GetQuickTipps(this);
 
   DeathMenu();
