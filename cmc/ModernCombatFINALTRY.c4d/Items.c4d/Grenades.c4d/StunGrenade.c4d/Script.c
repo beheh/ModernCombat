@@ -132,8 +132,6 @@ public func FxIntFlashbangTimer(object pTarget, int iEffectNumber, int iEffectTi
     a = BoundBy(i, 0, 255);
     rgb->SetAlpha(255 - a);
   }
-  if(Contained())
-    a=255;
 
   //Blendungsicon anhängen
   for(var i = 0; i < GetPlayerCount(); i++)
@@ -150,7 +148,7 @@ public func FxIntFlashbangTimer(object pTarget, int iEffectNumber, int iEffectTi
 
     var srgb = GetScreenRGB(GetPlayerByIndex(i), SR4K_LayerLight, pCursor);
 
-    if(srgb && srgb->GetAlpha() < 50)
+    if((srgb && srgb->GetAlpha() < 50) || (Contained() && a < 1))
     {
       CustomMessage("@", pTarget, GetPlayerByIndex(i));
       continue;
@@ -163,7 +161,7 @@ public func FxIntFlashbangTimer(object pTarget, int iEffectNumber, int iEffectTi
       CustomMessage("@", pTarget, GetPlayerByIndex(i));
       continue;
     }
-
+	
     CustomMessage(Format("<c %x>{{SM07}}</c>%d", RGBa(255,255,255,BoundBy(a, 1, 254)), a), pTarget, GetPlayerByIndex(i));
   }
 }
