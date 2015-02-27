@@ -161,7 +161,7 @@ public func FxIntFlashbangTimer(object pTarget, int iEffectNumber, int iEffectTi
       CustomMessage("@", pTarget, GetPlayerByIndex(i));
       continue;
     }
-	
+
     CustomMessage(Format("<c %x>{{SM07}}</c>%d", RGBa(255,255,255,BoundBy(a, 1, 254)), a), pTarget, GetPlayerByIndex(i));
   }
 }
