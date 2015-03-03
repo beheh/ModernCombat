@@ -4,6 +4,7 @@
 
 #strict 2
 #appendto LCKR
+#appendto GTBL
 #appendto LTBL
 #appendto FLGH
 

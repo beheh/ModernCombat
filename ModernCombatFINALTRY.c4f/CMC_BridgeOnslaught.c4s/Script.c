@@ -276,7 +276,7 @@ func CreateInterior()
   CreateObject(GSBL, 2300, 800, -1)->AutoRespawn();
   CreateObject(GSBL, 2390, 613, -1)->AutoRespawn();
 
-  //Explosive Kiste
+  //Explosive Kisten
   CreateObject(XWCR, 1175, 440, -1)->AutoRespawn();
   CreateObject(XWCR, 1955, 440, -1)->AutoRespawn();
 
