@@ -5,7 +5,7 @@
 #include BT01
 
 public func TechLevel()		{return TECHLEVEL_3;}	//Benötigte Techstufe
-public func BuildingRadius()	{return 200;}		//Bauradius
+public func BuildingRadius()	{return 300;}		//Bauradius
 public func RequiredEnergy()	{return 100;}		//Energieverbraucher
 public func MaxDamage()		{return 200;}		//Maximaler Schadenswert bis zur Zerstörung
 
