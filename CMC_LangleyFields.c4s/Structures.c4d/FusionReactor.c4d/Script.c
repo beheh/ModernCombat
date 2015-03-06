@@ -8,7 +8,7 @@ local aPUpgrades, iAdditionalEnergy;
 
 public func TechLevel()				{return TECHLEVEL_1;}		//Benötigte Techstufe
 public func ProvideTechLevel()			{return TECHLEVEL_2;}		//Vorhandene Techstufe
-public func BuildingRadius()			{return 200;}			//Bauradius
+public func BuildingRadius()			{return 300;}			//Bauradius
 public func EnergyProduction()			{return 200;}			//Energiehersteller
 public func AdditionalEnergyProduction()	{return iAdditionalEnergy;}	//Zusätzliche Energie
 public func PossibleUpgrades()			{return aPUpgrades;}		//Mögliche Upgrades
