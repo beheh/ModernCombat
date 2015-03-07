@@ -90,6 +90,9 @@ protected func Collection2(object pObj)
     //Freund: Rein. Feind: Raus
     if(!Hostile(GetOwner(this),GetOwner(pObj)) || (GetOwner() == -1) || !GetPassengerCount())
     {
+    	ResetAchievementProgress(AC57, GetOwner(pObj));
+      SetAchievementExtra(this, AC57, GetOwner(pObj));
+    
       //Soundschleife übergeben
       SoundPassenger("CockpitRadio.ogg", true, GetOwner(pObj));
 

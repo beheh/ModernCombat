@@ -376,6 +376,9 @@ protected func Collection2(object pObj)
         SetOwnerFade(GetOwner(pObj));
         SetOwner(GetOwner(pObj), pEntrance);
       }
+      
+      ResetAchievementProgress(AC57, GetOwner(pObj));
+      SetAchievementExtra(this, AC57, GetOwner(pObj));
 
       //Soundschleife einschalten
       SoundPassenger("CockpitRadio.ogg", true, GetOwner(pObj));
@@ -1171,8 +1174,17 @@ public func OnDmg(int iDmg, int iType)
 
 public func OnDamage(int iDamage)
 {
-  //Reperaturen haben keine Auswirkung
-  if(iDamage < 1) return;
+  //Reparaturen haben keine Auswirkung, abgesehen vom Apocalypse Now Achievement
+  if(iDamage < 1)
+  {
+  	if(GetDamage() < MaxDamage() * 3 / 4)
+  		for(var obj in FindObjects(Find_Container(this), Find_Not(Find_ID(FKDT))))
+    	{
+      	if(GetOCF(obj) & OCF_Alive && GetID(Contained(obj)) != FKDT)
+      		ResetAchievementProgress(AC57, GetOwner(obj));
+      }
+  }
+  return;
 
   //Schaden dem HUD melden
   if(hud)
