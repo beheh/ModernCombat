@@ -10,5 +10,5 @@ public func GetSavingSlot()
 
 public func GetAchievementScore()
 {
-  return 3;	//Benötigte Punktzahl einfügen
+  return 1;	//Benötigte Punktzahl einfügen
 }
