@@ -1172,7 +1172,7 @@ public func OnDmg(int iDmg, int iType)
 public func OnDamage(int iDamage)
 {
   //Reparaturen haben keine Auswirkung
-  if(iDamage < 1)	return;
+  if(iDamage < 1) return;
 
   //Schaden dem HUD melden
   if(hud)

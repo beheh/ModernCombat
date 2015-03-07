@@ -447,9 +447,10 @@ protected func DoPoints()
         {
           //Achievement-Fortschritt (Get to the Chopper)
           DoAchievementProgress(1,AC18,killer);
-          
+
           if((GetDamage(Contained(pClonk)) >= Contained(pClonk)->MaxDamage() * 3 / 4))
-          	DoAchievementProgress(1, AC57, killer);
+            //Achievement-Fortschritt (Apocalypse Now)
+            DoAchievementProgress(1, AC57, killer);
         }
         if(Contained(pClonk)->~GetPilot())
         {
