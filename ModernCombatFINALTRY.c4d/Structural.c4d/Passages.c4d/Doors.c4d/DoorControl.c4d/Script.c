@@ -168,7 +168,7 @@ private func SomeonesApproaching()
     aClonks = FindObjects(Find_InRect(-35 * i, -GetObjHeight() / 2, 35, GetObjHeight()),
     				Find_NoContainer(),
     				Find_Or(Find_And(Find_OCF(OCF_Alive), Find_Not(Find_Func("IsAlien"))),
-    					Find_Func("IsMAV")));
+    				Find_Func("IsMAV")));
     if(GetLength(aClonks) > 0)
     {
       return true;
