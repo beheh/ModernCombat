@@ -68,7 +68,6 @@ func CreateInterior()
   CreateObject(HA4K, 1700, 833, -1);
   CreateObject(HA4K, 2190, 1573, -1);
   CreateObject(HA4K, 2340, 253, -1);
-  CreateObject(HA4K, 520, 1493, -1);
   CreateObject(HA4K, 2380, 1493, -1);
   CreateObject(HA4K, 2560, 1493, -1);
   CreateObject(HA4K, 2590, 853, -1);
