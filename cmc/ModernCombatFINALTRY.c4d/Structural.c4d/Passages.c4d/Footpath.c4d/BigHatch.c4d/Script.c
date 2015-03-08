@@ -1,4 +1,4 @@
-/*-- Groﬂe Bodenlucke --*/
+/*-- Groﬂe Bodenluke --*/
 
 #strict 2
 

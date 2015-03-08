@@ -1,4 +1,4 @@
-/*-- Bodenlucke --*/
+/*-- Bodenluke --*/
 
 #strict 2
 
@@ -52,16 +52,16 @@ private func SomeonesApproaching()
   //Clonks suchen
   aClonks = FindObjects(Find_InRect(-(GetObjWidth()/2),0,GetObjWidth(),20),
   			Find_NoContainer(),
-  			Find_OCF(OCF_Alive),
-  			Find_Not(Find_Func("IsAlien")) );
+  			Find_Or(Find_Category(C4D_Living), Find_Func("IsMAV")),
+  			Find_Not(Find_Func("IsAlien")));
   if(!closed)
   {
     if(!GetLength(aClonks))
     {
       aClonks = FindObjects(Find_InRect(-(GetObjWidth()/2),-20,GetObjWidth(),20),
-      				Find_NoContainer(),
-      				Find_OCF(OCF_Alive),
-      				Find_Not(Find_Func("IsAlien")) );
+      			Find_NoContainer(),
+      			Find_Or(Find_Category(C4D_Living), Find_Func("IsMAV")),
+      			Find_Not(Find_Func("IsAlien")));
     }
   }
   if(GetLength(aClonks) > 0)
@@ -91,7 +91,6 @@ public func ControlDig(object pByObj)
 
 public func UpdateTransferZone()
 {
-  //SetTransferZone(-15,-GetObjWidth()/2,30,GetObjWidth());
   SetTransferZone(-GetObjWidth()/2,-GetObjHeight()/2,GetObjWidth(),GetObjHeight());
 }
 
