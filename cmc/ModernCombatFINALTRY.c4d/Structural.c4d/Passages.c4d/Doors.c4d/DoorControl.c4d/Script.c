@@ -111,7 +111,7 @@ public func Close()
   //Tür verfügt über SolidMask: Eventuell feststeckende Objekte freimachen
   if(!GetDefCoreVal("SolidMask",0,GetID(),3)) return;
   for(var o in FindObjects(Find_InRect(-GetObjWidth()/2,-GetObjHeight()/2,GetObjWidth(),GetObjHeight()),
-  				Find_Category(C4D_Living),
+  				Find_Or(Find_Category(C4D_Living), Find_Func("IsMAV")),
   				Find_NoContainer(),
   				Find_Exclude(this),
   				Find_Not(Find_ID(LADR))))
@@ -167,8 +167,8 @@ private func SomeonesApproaching()
   {
     aClonks = FindObjects(Find_InRect(-35 * i, -GetObjHeight() / 2, 35, GetObjHeight()),
     				Find_NoContainer(),
-    				Find_OCF(OCF_Alive),
-    				Find_Not(Find_Func("IsAlien")));
+    				Find_Or(Find_And(Find_OCF(OCF_Alive), Find_Not(Find_Func("IsAlien"))),
+    					Find_Func("IsMAV")));
     if(GetLength(aClonks) > 0)
     {
       return true;
