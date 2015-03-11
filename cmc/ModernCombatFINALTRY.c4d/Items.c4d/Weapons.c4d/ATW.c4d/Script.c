@@ -138,6 +138,9 @@ public func LaunchRocket(id rid, int angle, bool unguided)
   //Waffe abgefeuert
   fired = true;
   Echo("RTLR_Echo.ogg");
+  //abwerfen, wenn unguided
+  if(unguided)
+    ThrowAway();
 }
 
 /* Raketenverfolgung */
