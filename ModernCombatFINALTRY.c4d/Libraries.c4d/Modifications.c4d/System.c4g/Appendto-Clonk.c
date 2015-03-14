@@ -7,6 +7,7 @@ local assistkiller, machinekill;
 local killicon;
 local LastDmgType;
 local killattachment;
+local objinfo_deathmessage;
 
 
 /* Erstellung */
@@ -48,6 +49,14 @@ protected func Initialize()
     AddEffect("FakeDeath",this,10,0,this);
 
   AddEffect("AssistDmgReduction", this, 1, 0, this);
+}
+
+/* Crew */
+
+protected func Recruitment() {
+	objinfo_deathmessage = GetObjCoreDeathMessage(this);
+	
+	return _inherited(...);
 }
 
 /* Brennen */
@@ -329,11 +338,6 @@ protected func DeathAnnounce(int plr, object clonk, int killplr, bool fNoPoints,
     DoPoints();
 
   GameCallEx("OnDeathAnnounce", clonk, killplr, assistplusone - 1);
-
-  //Spielereigene Todesnachricht ausgeben wenn vorhanden
-  if(GetObjCoreDeathMessage(clonk))
-    Message(GetObjCoreDeathMessage(clonk), clonk, GetName(clonk));
-
   return true;
 }
 
@@ -855,6 +859,10 @@ func Death2()
 {
   var pTarget = this;
   if(!pTarget) return;
+    
+  //Spielereigene Todesnachricht ausgeben wenn vorhanden
+  if(objinfo_deathmessage)
+    Message(objinfo_deathmessage, pTarget, GetName(pTarget));
 
   if(pTarget->~HasCrawled())
     SetPhase(5, pTarget);
