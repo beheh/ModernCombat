@@ -5,7 +5,7 @@
 #include WPN2
 #include RTLR
 
-local pRocket, fired;
+local pRocket, fired, guided;
 
 public func HandSize()		{return 850;}
 public func HandX()		{return 2000;}
@@ -105,7 +105,7 @@ public func LaunchRocket(id rid, int angle, bool unguided)
   rocket->Launch(angle, user, unguided, ((GetX()-lastX) * 10), ((GetY()-lastY) * 10));
   Sound("AT4R_Launch.ogg", 0, rocket);
   SetController(GetController(user), rocket);
-
+  
   //Sicht auf Rakete  
   if(!unguided) SetPlrView(GetController(user), rocket);
   pRocket = rocket;
@@ -136,11 +136,9 @@ public func LaunchRocket(id rid, int angle, bool unguided)
   }
 
   //Waffe abgefeuert
+  guided = !unguided;
   fired = true;
   Echo("RTLR_Echo.ogg");
-  //abwerfen, wenn unguided
-  if(unguided)
-    ThrowAway();
 }
 
 /* Raketenverfolgung */
@@ -155,14 +153,10 @@ private func Check()
 
   //Wegwurf wenn Rakete abgefeuert und/oder explodiert
   if(fired)
-    if(!pRocket)
+    if(!pRocket || !guided)
       if(Contained() && Contained()->~IsClonk())
       {
         if(Contained()->~IsAiming() && Contents(0, Contained()) == this) return;
-        ThrowAway();
-      }
-      else
-      {
         ThrowAway();
       }
 
@@ -237,7 +231,7 @@ public func ControlThrow(caller)
 public func RejectEntrance()
 {
   if(fired)
-    if(!pRocket)
+    if(!pRocket || !guided)
       return true;
 }
 
