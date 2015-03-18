@@ -53,10 +53,11 @@ protected func Initialize()
 
 /* Crew */
 
-protected func Recruitment() {
-	objinfo_deathmessage = GetObjCoreDeathMessage(this);
-	
-	return _inherited(...);
+protected func Recruitment()
+{
+  objinfo_deathmessage = GetObjCoreDeathMessage(this);
+
+  return _inherited(...);
 }
 
 /* Brennen */
@@ -859,7 +860,7 @@ func Death2()
 {
   var pTarget = this;
   if(!pTarget) return;
-    
+
   //Spielereigene Todesnachricht ausgeben wenn vorhanden
   if(objinfo_deathmessage)
     Message(objinfo_deathmessage, pTarget, GetName(pTarget));

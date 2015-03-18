@@ -164,7 +164,7 @@ public func FMMenu(clonk)
     {
       szName = GetFMData(FM_Name, i, 1);
         if(!szName) continue;
-      if(i == firemode) 
+      if(i == firemode)
         szName = Format("<c ffff00>%s</c>", szName);
       else
       szName = Format("<c eeeeee>%s</c>", szName);
