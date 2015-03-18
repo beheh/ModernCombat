@@ -7,6 +7,8 @@ local active,sx,sy, start;
 local iXDir, iYDir;
 local iLastAttacker;
 local iAttachment;
+local fStuck;
+local fHit;
 
 public func Color()		{return RGB(255,0,0);}
 public func IgnoreTracer()	{return true;}
@@ -47,14 +49,83 @@ func Launch(int xdir, int ydir, int iDmg,a,b,c, int attachment)
 
 func FxGrenadeTimer(object target, int effect, int time)
 {
-  SetR(Angle(0,0,GetXDir(),GetYDir()));
+	if(fStuck)
+	{
+		SetXDir(0);
+		SetYDir(-2);
+		SetRDir(0);
+	}
+	else
+  	SetR(Angle(0,0,GetXDir(),GetYDir()));
 }
 
 /* Treffer */
 
 func Hit()
 {
-  HitObject();
+
+	var x, y, xdir, ydir, fFound;
+	x = GetX();
+ 	y = GetY();
+
+	xdir = GetXDir();
+	ydir = GetYDir();
+
+	SimFlight(x, y, xdir, ydir);
+
+	x -= GetX();
+	y -= GetY();
+
+	//var normX, normY;
+
+	for(var i = -1; i < 2; i++)
+  {
+    for(var j = -1; j < 2; j++)
+    {
+      if(GetMaterialVal("DigFree", "Material", GetMaterial(x + i, y + j)))
+      {
+        fFound = true;
+        break;
+      }/*
+      if(GetMaterial(x + i, y + j) == -1)
+      {
+      	normX = i;
+        normY = j;
+      }*/
+    }
+    if(fFound)
+      break;
+  }
+
+	x += GetX();
+	y += GetY();
+	
+  if(fFound)
+  {
+    fStuck = true;
+    SetPosition(x, y);
+    SetXDir(0);
+    SetYDir(-2);
+    SetRDir(0);
+  }/*
+  else
+  {
+  	if(!fHit)Log("%d %d %d %d", normX, Sgn(xdir), normY, Sgn(ydir));
+  	//SetPosition(x, y);
+  	if(normX == Sgn(xdir))
+  		SetXDir(-xdir/2);
+  	if(normY == Sgn(ydir))
+  		SetYDir(-ydir/2);
+  	
+  	SetRDir(Abs((xdir+ydir))*10);  	
+  }*/
+	//else
+	//	Log("x: %d, y: %d xdir: %d, ydir: %d", GetX()+GetVertex(0, false)+ Sgn(GetXDir()), GetY()+GetVertex(0, true)+ Sgn(GetYDir()), GetXDir(), GetYDir());
+	
+	if(!fHit)
+  	FadeOut(this);
+  		
+	fHit = true;
 }
 
 protected func RejectEntrance(pNewContainer)
@@ -64,6 +135,9 @@ protected func RejectEntrance(pNewContainer)
 
 func HitObject(object pObj)
 {
+	if(fHit)
+		return;
+
   if(pObj)
   {
     DoDmg(40, DMG_Energy, pObj, 0, 0, 0, iAttachment);
@@ -81,7 +155,7 @@ func HitObject(object pObj)
     }
     RemoveObject();
     return;
-  }
+  }/*
   else
   {
     Sound("GrenadeHit*.ogg");
@@ -89,7 +163,7 @@ func HitObject(object pObj)
     //if(GetEffectData(EFSM_ExplosionEffects) > 0) CastSmoke("Smoke3",12, 10, 0, 0, 100, 200, RGBa(255,255,255,100), RGBa(255,255,255,130));
     RemoveObject();
     return;
-  }
+  }*/
 
   if(Hostile(iLastAttacker, GetController()) && GetID() != ERND)
     //Punkte bei Belohnungssystem (Granatenabwehr)
@@ -98,6 +172,9 @@ func HitObject(object pObj)
 
 func Damage()
 {
+	if(fHit)
+		return;
+		
   if(GetDamage() > 10)
   {
     //Effekte
