@@ -59,10 +59,17 @@ public func AddBombObject(object pTarget)
   return true;
 }
 
+public func FxBombEffectStart(object pTarget, int iNr)
+{
+  EffectVar(0, pTarget, iNr) = 0;	
+
+  return true;	
+}
+
 public func FxBombEffectTimer(object pTarget, int iEffect, int iTime)
 {
   //Bombe in Grenzgebiet, Lava oder Säure: Entfernen und neue anfordern
-  if(FindObject(GBAS) && !(FindObject(GBAS)->SpawningConditions(pTarget)))
+  if(FindObject(GBAS) && (!(FindObject(GBAS)->SpawningConditions(pTarget)) || (EffectVar(0, this, iEffect) && EffectVar(0, this, iEffect) < iTime)))
   {
     FindObject(GBAS)->DelayedBombRespawn(pTarget, 0, 0);
     return -1;
@@ -125,7 +132,7 @@ public func FxBaseAssaultBombStop(object pTarget, int iNr, int iReason)
     EventInfo4K(0, Format("$BombDropped$", EffectVar(3, pTarget, iNr)), C4P2, 0, 0, 0, "Info_Event.ogg");
 
     //Sprengladung erstellen und platzieren
-    PlaceBombSpawnpoint(GetX(pTarget), GetY(pTarget));
+    PlaceBombSpawnpoint(GetX(pTarget), GetY(pTarget), false, true);
   }
 
   //Grafik löschen
