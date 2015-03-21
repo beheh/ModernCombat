@@ -3,7 +3,7 @@
 #strict 2
 #include PANE
 
-public func MaxDamage()	{return 50;}
+public func MaxDamage()	{return 10;}
 
 
 /* Zerstörung */
