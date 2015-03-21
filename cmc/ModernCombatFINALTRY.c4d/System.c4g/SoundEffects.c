@@ -39,7 +39,7 @@ global func EchoLoop(string szSound, int iLoopCount)
 
   //Der eigentliche Sound
   SoundLevel(szSound, 0, obj);
-  if(iLevel) Sound(szSound, false, obj, BoundBy(iLevel, 0, 100), 0, 0, true, 1000);
+  if(iLevel) Sound(szSound, false, obj, BoundBy(iLevel, 0, 100), 0, 0, true, iLoopCount);
 
   return true;
 }
