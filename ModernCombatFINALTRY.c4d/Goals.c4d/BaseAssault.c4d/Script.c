@@ -5,8 +5,8 @@
 
 public func RejectChoosedClassInfo()	{return true;}
 
-static const GBAS_BombRespawnDelay = 420;
-static const GBAS_BombRespawnTimer = 720;
+static const GBAS_BombRespawnDelay = 420;		//Zeit bis Neuspawn
+static const GBAS_BombRespawnTimer = 720;		//Zeit bis Selbstzerstörung wenn im Freien
 
 local fGameOver;
 
@@ -335,8 +335,7 @@ public func DelayedBombRespawn(object pBomb, int iX, int iY)
   Explode(50, pBomb);
 
   //Neue Bombenplatzierung planen
-  ScheduleCall(this, "PlaceBombSpawnpoint", 
-  , 0, iX, iY, true);
+  ScheduleCall(this, "PlaceBombSpawnpoint", GBAS_BombRespawnDelay, 0, iX, iY, true);
 }
 
 /* Bombe platzieren */
@@ -375,10 +374,10 @@ public func PlaceBombSpawnpoint(int iX, int iY, bool fNoDelay, bool fRespawn)
       bomb->SetPosition(iX, iY);
     }
   }
-  
+
   var eff = GetEffect("BombEffect", bomb);
   if(fRespawn && eff)
-	EffectVar(0, bomb, eff) = GBAS_BombRespawnTimer;
+    EffectVar(0, bomb, eff) = GBAS_BombRespawnTimer;
 
   return true;
 }

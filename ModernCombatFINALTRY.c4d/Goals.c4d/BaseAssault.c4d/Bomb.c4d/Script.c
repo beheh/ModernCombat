@@ -61,14 +61,14 @@ public func AddBombObject(object pTarget)
 
 public func FxBombEffectStart(object pTarget, int iNr)
 {
-  EffectVar(0, pTarget, iNr) = 0;	
+  EffectVar(0, pTarget, iNr) = 0;
 
   return true;	
 }
 
 public func FxBombEffectTimer(object pTarget, int iEffect, int iTime)
 {
-  //Bombe in Grenzgebiet, Lava oder Säure: Entfernen und neue anfordern
+  //Bombe in Grenzgebiet, Lava, Säure oder Idle-Zeit im Freien überschritten: Entfernen und neue anfordern
   if(FindObject(GBAS) && (!(FindObject(GBAS)->SpawningConditions(pTarget)) || (EffectVar(0, this, iEffect) && EffectVar(0, this, iEffect) < iTime)))
   {
     FindObject(GBAS)->DelayedBombRespawn(pTarget, 0, 0);
