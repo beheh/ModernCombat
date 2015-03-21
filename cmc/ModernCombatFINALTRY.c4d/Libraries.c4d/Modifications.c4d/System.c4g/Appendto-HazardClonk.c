@@ -1749,13 +1749,27 @@ public func GetGrenade(id type)
   return FindContents(type,pGrenadeStoring);
 }
 
-public func GrabGrenade(id type)
+public func GrabGrenade(id type, iParameter, bool bRight)
 {
   var grenade = FindContents(type,pGrenadeStoring);
   if(!grenade) return;
+  
+  if(bRight)
+  	return GrabGrenadesType(type);
   Enter(this, grenade);
   ShiftContents (this,false,type,true);
   return grenade;
+}
+
+public func GrabGrenadesType(id type) {
+  for(var pGrenade in FindObjects(Find_ID(type), Find_Container(pGrenadeStoring)))
+  	Enter(this, pGrenade);
+  
+  if(!pGrenade)
+  	return;
+
+  ShiftContents(this, false, type, true);
+  return true;
 }
 
 public func GrabGrenades(object pInto)
