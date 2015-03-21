@@ -3,7 +3,7 @@
 #strict 2
 #include CSTD
 
-static aDoor1,aDoor2,aLamp1,aLamp2,aFlag;
+static aDoor1,aDoor2,aLamp1,aLamp2,aLamp3,aFlag;
 
 func RecommendedGoals()	{return [GOCC, GBAS];}	//Spielzielempfehlung
 
@@ -16,14 +16,16 @@ func Initialize()
   SetWaitingMusic();
   //Himmelparallaxität
   SetSkyParallax(1,50,15);
-  //Hydrauliktüren 1
+  //Hydrauliktüren A
   aDoor1 = [];
-  //Hydrauliktüren 2
+  //Hydrauliktüren B
   aDoor2 = [];
-  //Lampen 1
+  //Lampen A
   aLamp1 = [];
-  //Lampen 2
+  //Lampen B
   aLamp2 = [];
+  //Lampen C
+  aLamp3 = [];
   //Flaggen
   aFlag = [];
   //Einrichtung plazieren
@@ -161,44 +163,58 @@ func CreateInterior()
   aDoor2[5]->SetMaxDamage(-1);
 
   //Lampen A
-  aLamp1[0] = CreateObject(ALGH, 505, 499, -1);
-  aLamp1[0]->SetR(180);
+  aLamp1[0] = CreateObject(ALGH, 534, 599, -1);
+  aLamp1[0]->SetR(90);
   aLamp1[0]->TurnOff();
-  aLamp1[1] = CreateObject(ALGH, 955, 329, -1);
+  aLamp1[0]->ChangeLightColor(RGB(0,255,255));
+  aLamp1[1] = CreateObject(ALGH, 990, 679, -1);
   aLamp1[1]->SetR(180);
   aLamp1[1]->TurnOff();
-  aLamp1[2] = CreateObject(ALGH, 955, 729, -1);
+  aLamp1[1]->ChangeLightColor(RGB(0,255,255));
+  aLamp1[2] = CreateObject(ALGH, 1450, 669, -1);
   aLamp1[2]->SetR(180);
   aLamp1[2]->TurnOff();
-  aLamp1[3] = CreateObject(ALGH, 1405, 359, -1);
+  aLamp1[2]->ChangeLightColor(RGB(0,255,255));
+  aLamp1[3] = CreateObject(ALGH, 1940, 499, -1);
   aLamp1[3]->SetR(180);
   aLamp1[3]->TurnOff();
-  aLamp1[4] = CreateObject(ALGH, 1405, 729, -1);
-  aLamp1[4]->SetR(180);
-  aLamp1[4]->TurnOff();
-  aLamp1[5] = CreateObject(ALGH, 1835, 479, -1);
-  aLamp1[5]->SetR(180);
-  aLamp1[5]->TurnOff();
+  aLamp1[3]->ChangeLightColor(RGB(0,255,255));
 
   //Lampen B
-  aLamp2[0] = CreateObject(ALGH, 505, 379, -1);
-  aLamp2[0]->SetR(180);
+  aLamp2[0] = CreateObject(ALGH, 534, 619, -1);
+  aLamp2[0]->SetR(90);
   aLamp2[0]->TurnOff();
-  aLamp2[1] = CreateObject(ALGH, 505, 699, -1);
+  aLamp2[0]->ChangeLightColor(RGB(255,255,50));
+  aLamp2[1] = CreateObject(ALGH, 1010, 679, -1);
   aLamp2[1]->SetR(180);
   aLamp2[1]->TurnOff();
-  aLamp2[2] = CreateObject(ALGH, 955, 589, -1);
+  aLamp2[1]->ChangeLightColor(RGB(255,255,50));
+  aLamp2[2] = CreateObject(ALGH, 1470, 669, -1);
   aLamp2[2]->SetR(180);
   aLamp2[2]->TurnOff();
-  aLamp2[3] = CreateObject(ALGH, 1405, 569, -1);
+  aLamp2[2]->ChangeLightColor(RGB(255,255,50));
+  aLamp2[3] = CreateObject(ALGH, 1960, 499, -1);
   aLamp2[3]->SetR(180);
   aLamp2[3]->TurnOff();
-  aLamp2[4] = CreateObject(ALGH, 1835, 359, -1);
-  aLamp2[4]->SetR(180);
-  aLamp2[4]->TurnOff();
-  aLamp2[5] = CreateObject(ALGH, 1835, 619, -1);
-  aLamp2[5]->SetR(180);
-  aLamp2[5]->TurnOff();
+  aLamp2[3]->ChangeLightColor(RGB(255,255,50));
+
+  //Lampen C
+  aLamp3[0] = CreateObject(ALGH, 534, 639, -1);
+  aLamp3[0]->SetR(90);
+  aLamp3[0]->TurnOff();
+  aLamp3[0]->ChangeLightColor(RGB(255,50,50));
+  aLamp3[1] = CreateObject(ALGH, 1030, 679, -1);
+  aLamp3[1]->SetR(180);
+  aLamp3[1]->TurnOff();
+  aLamp3[1]->ChangeLightColor(RGB(255,50,50));
+  aLamp3[2] = CreateObject(ALGH, 1490, 669, -1);
+  aLamp3[2]->SetR(180);
+  aLamp3[2]->TurnOff();
+  aLamp3[2]->ChangeLightColor(RGB(255,50,50));
+  aLamp3[3] = CreateObject(ALGH, 1980, 499, -1);
+  aLamp3[3]->SetR(180);
+  aLamp3[3]->TurnOff();
+  aLamp3[3]->ChangeLightColor(RGB(255,50,50));
 
   //Grenzen
   CreateObject(BRDR, 330, 0, -1)->Set(0);
@@ -674,61 +690,48 @@ public func RelaunchPosition(& iX, & iY, int iTeam)
 
 protected func Script220()
 {
-  aLamp1[0]->ChangeLightColor(RGB(255,50,50));
   aLamp1[0]->TurnOn();
-  aLamp1[1]->ChangeLightColor(RGB(255,50,50));
   aLamp1[1]->TurnOn();
-  aLamp1[2]->ChangeLightColor(RGB(255,50,50));
   aLamp1[2]->TurnOn();
-  aLamp1[3]->ChangeLightColor(RGB(255,50,50));
   aLamp1[3]->TurnOn();
-  aLamp1[4]->ChangeLightColor(RGB(255,50,50));
-  aLamp1[4]->TurnOn();
-  aLamp1[5]->ChangeLightColor(RGB(255,50,50));
-  aLamp1[5]->TurnOn();
-
-  aLamp2[0]->ChangeLightColor(RGB(0,255,255));
-  aLamp2[0]->TurnOn();
-  aLamp2[1]->ChangeLightColor(RGB(0,255,255));
-  aLamp2[1]->TurnOn();
-  aLamp2[2]->ChangeLightColor(RGB(0,255,255));
-  aLamp2[2]->TurnOn();
-  aLamp2[3]->ChangeLightColor(RGB(0,255,255));
-  aLamp2[3]->TurnOn();
-  aLamp2[4]->ChangeLightColor(RGB(0,255,255));
-  aLamp2[4]->TurnOn();
-  aLamp2[5]->ChangeLightColor(RGB(0,255,255));
-  aLamp2[5]->TurnOn();
 }
 
 protected func Script230()
-{
-  Sound("Announce*.ogg",1);
-}
-
-protected func Script250()
 {
   aLamp1[0]->TurnOff();
   aLamp1[1]->TurnOff();
   aLamp1[2]->TurnOff();
   aLamp1[3]->TurnOff();
-  aLamp1[4]->TurnOff();
-  aLamp1[5]->TurnOff();
+
+  aLamp2[0]->TurnOn();
+  aLamp2[1]->TurnOn();
+  aLamp2[2]->TurnOn();
+  aLamp2[3]->TurnOn();
+
+  Sound("Announce*.ogg",1);
+}
+
+protected func Script240()
+{
   aLamp2[0]->TurnOff();
   aLamp2[1]->TurnOff();
   aLamp2[2]->TurnOff();
   aLamp2[3]->TurnOff();
-  aLamp2[4]->TurnOff();
-  aLamp2[5]->TurnOff();
+
+  aLamp3[0]->TurnOn();
+  aLamp3[1]->TurnOn();
+  aLamp3[2]->TurnOn();
+  aLamp3[3]->TurnOn();
+}
+
+protected func Script250()
+{
+  aLamp3[0]->TurnOff();
+  aLamp3[1]->TurnOff();
+  aLamp3[2]->TurnOff();
+  aLamp3[3]->TurnOff();
 
   EventInfo4K(0,Format("$MsgDoor$"),STDR, 0, 0, 0, "Info_Event.ogg");
-
-  aDoor1[0]->Close();
-  aDoor1[1]->Close();
-  aDoor1[2]->Close();
-  aDoor1[3]->Close();
-  aDoor1[4]->Close();
-  aDoor1[5]->Close();
 
   aDoor2[0]->Open();
   aDoor2[0]->AddLightFlash(100,0,0,RGB(0,255,255));
@@ -743,57 +746,64 @@ protected func Script250()
   aDoor2[5]->Open();
   aDoor2[5]->AddLightFlash(100,0,0,RGB(0,255,255));
 
-  return 1;
+  aDoor1[0]->Close();
+  aDoor1[0]->AddLightFlash(100,0,0,RGB(255,50,50));
+  aDoor1[1]->Close();
+  aDoor1[1]->AddLightFlash(100,0,0,RGB(255,50,50));
+  aDoor1[2]->Close();
+  aDoor1[2]->AddLightFlash(100,0,0,RGB(255,50,50));
+  aDoor1[3]->Close();
+  aDoor1[3]->AddLightFlash(100,0,0,RGB(255,50,50));
+  aDoor1[4]->Close();
+  aDoor1[4]->AddLightFlash(100,0,0,RGB(255,50,50));
+  aDoor1[5]->Close();
+  aDoor1[5]->AddLightFlash(100,0,0,RGB(255,50,50));
+
+  return(1);
 }
 
 protected func Script470()
 {
-  aLamp1[0]->ChangeLightColor(RGB(0,255,255));
   aLamp1[0]->TurnOn();
-  aLamp1[1]->ChangeLightColor(RGB(0,255,255));
   aLamp1[1]->TurnOn();
-  aLamp1[2]->ChangeLightColor(RGB(0,255,255));
   aLamp1[2]->TurnOn();
-  aLamp1[3]->ChangeLightColor(RGB(0,255,255));
   aLamp1[3]->TurnOn();
-  aLamp1[4]->ChangeLightColor(RGB(0,255,255));
-  aLamp1[4]->TurnOn();
-  aLamp1[5]->ChangeLightColor(RGB(0,255,255));
-  aLamp1[5]->TurnOn();
-
-  aLamp2[0]->ChangeLightColor(RGB(255,50,50));
-  aLamp2[0]->TurnOn();
-  aLamp2[1]->ChangeLightColor(RGB(255,50,50));
-  aLamp2[1]->TurnOn();
-  aLamp2[2]->ChangeLightColor(RGB(255,50,50));
-  aLamp2[2]->TurnOn();
-  aLamp2[3]->ChangeLightColor(RGB(255,50,50));
-  aLamp2[3]->TurnOn();
-  aLamp2[4]->ChangeLightColor(RGB(255,50,50));
-  aLamp2[4]->TurnOn();
-  aLamp2[5]->ChangeLightColor(RGB(255,50,50));
-  aLamp2[5]->TurnOn();
 }
 
 protected func Script480()
-{
-  Sound("Announce*.ogg",1);
-}
-
-protected func Script500()
 {
   aLamp1[0]->TurnOff();
   aLamp1[1]->TurnOff();
   aLamp1[2]->TurnOff();
   aLamp1[3]->TurnOff();
-  aLamp1[4]->TurnOff();
-  aLamp1[5]->TurnOff();
+
+  aLamp2[0]->TurnOn();
+  aLamp2[1]->TurnOn();
+  aLamp2[2]->TurnOn();
+  aLamp2[3]->TurnOn();
+
+  Sound("Announce*.ogg",1);
+}
+
+protected func Script490()
+{
   aLamp2[0]->TurnOff();
   aLamp2[1]->TurnOff();
   aLamp2[2]->TurnOff();
   aLamp2[3]->TurnOff();
-  aLamp2[4]->TurnOff();
-  aLamp2[5]->TurnOff();
+
+  aLamp3[0]->TurnOn();
+  aLamp3[1]->TurnOn();
+  aLamp3[2]->TurnOn();
+  aLamp3[3]->TurnOn();
+}
+
+protected func Script500()
+{
+  aLamp3[0]->TurnOff();
+  aLamp3[1]->TurnOff();
+  aLamp3[2]->TurnOff();
+  aLamp3[3]->TurnOff();
 
   EventInfo4K(0,Format("$MsgDoor$"),STDR, 0, 0, 0, "Info_Event.ogg");
 
@@ -811,11 +821,17 @@ protected func Script500()
   aDoor1[5]->AddLightFlash(100,0,0,RGB(0,255,255));
 
   aDoor2[0]->Close();
+  aDoor2[0]->AddLightFlash(100,0,0,RGB(255,50,50));
   aDoor2[1]->Close();
+  aDoor2[1]->AddLightFlash(100,0,0,RGB(255,50,50));
   aDoor2[2]->Close();
+  aDoor2[2]->AddLightFlash(100,0,0,RGB(255,50,50));
   aDoor2[3]->Close();
+  aDoor2[3]->AddLightFlash(100,0,0,RGB(255,50,50));
   aDoor2[4]->Close();
+  aDoor2[4]->AddLightFlash(100,0,0,RGB(255,50,50));
   aDoor2[5]->Close();
+  aDoor2[5]->AddLightFlash(100,0,0,RGB(255,50,50));
 
   goto(0);
 }
