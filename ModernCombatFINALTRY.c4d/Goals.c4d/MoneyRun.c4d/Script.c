@@ -389,7 +389,13 @@ public func IsFulfilled()
         RewardEvaluation();
 
         //Nachricht über Gewinner
-        Message("$TeamHasWon$", 0, GetTeamColor(GetTeamByIndex(i)), GetTeamName(GetTeamByIndex(i)));
+        var team = GetTeamByIndex(i);
+        if(GetTeamPlayerCount(team) == 1) {
+        	var plr = GetTeamMemberByIndex(team, 0);
+        	Message("$PlayerHasWon$", 0, GetPlrColorDw(plr), GetPlayerName(plr)); 
+        }
+        else
+          Message("$TeamHasWon$", 0, GetTeamColor(GetTeamByIndex(i)), GetTeamName(GetTeamByIndex(i)));
 
         //Sound
         Sound("Cheer.ogg", true);
@@ -414,7 +420,7 @@ public func IsFulfilled()
         RewardEvaluation();
 
         //Nachricht über Gewinner
-        Message("$TeamHasWon$", 0, GetPlrColorDw(GetPlayerByIndex(i)), GetPlayerName(GetPlayerByIndex(i)));
+        Message("$PlayerHasWon$", 0, GetPlrColorDw(GetPlayerByIndex(i)), GetPlayerName(GetPlayerByIndex(i)));
 
         //Sound
         Sound("Cheer.ogg", true);
