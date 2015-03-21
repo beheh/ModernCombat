@@ -287,14 +287,14 @@ func CreateInterior()
 
   CreateObject(PANE, 1842, 140, -1);
 
-  CreateObject(PAN2, 2225, 215, -1);
-  CreateObject(PAN2, 2305, 215, -1);
+  CreateObject(PAN2, 2225, 216, -1);
+  CreateObject(PAN2, 2305, 216, -1);
 
-  CreateObject(PAN2, 2445, 325, -1);
+  CreateObject(PAN2, 2445, 326, -1);
 
-  CreateObject(PAN2, 2575, 215, -1);
-  CreateObject(PAN2, 2605, 215, -1);
-  CreateObject(PAN2, 2635, 215, -1);
+  CreateObject(PAN2, 2575, 216, -1);
+  CreateObject(PAN2, 2605, 216, -1);
+  CreateObject(PAN2, 2635, 216, -1);
 
   //Steine
   CreateObject(STNE, 70, 680, -1)->Set(4);

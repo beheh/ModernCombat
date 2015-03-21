@@ -321,10 +321,10 @@ func CreateInterior()
   CreateObject(PANE, 1398, 1800, -1);
   CreateObject(PANE, 1398, 1850, -1);
 
-  CreateObject(PAN2, 1115, 1255, -1);
-  CreateObject(PAN2, 1255, 1255, -1);
-  CreateObject(PAN2, 1015, 1805, -1);
-  CreateObject(PAN2, 1355, 1805, -1);
+  CreateObject(PAN2, 1015, 1806, -1);
+  CreateObject(PAN2, 1115, 1256, -1);
+  CreateObject(PAN2, 1255, 1256, -1);
+  CreateObject(PAN2, 1355, 1806, -1);
 
   //Kiste
   CreateObject(WCR2, 1255, 870, -1)->AutoRespawn();
