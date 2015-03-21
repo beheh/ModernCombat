@@ -216,6 +216,7 @@ protected func Selection()
   {
     var marker = CreateObject(SM08, 0, 0, GetOwner(Contained()));
     marker->Set(obj, this, 0, 30, "ObjectAllied");
+    marker->SetActionData(4);
     marker->SetVisibility(VIS_Owner);
   }
 }
