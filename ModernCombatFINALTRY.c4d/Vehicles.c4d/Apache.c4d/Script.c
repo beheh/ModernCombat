@@ -9,6 +9,8 @@ local pEntrance;
 
 public func MaxDamage()		{return 200;}
 
+public func SoundIdle() { return "APCE_IdleSystem.ogg"; }
+public func SoundIdleEcho() { return "APCE_IdleSystemEcho.ogg"; }
 
 /* Hitbox */
 
