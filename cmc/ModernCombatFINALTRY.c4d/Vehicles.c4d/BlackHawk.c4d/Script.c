@@ -1670,9 +1670,6 @@ protected func FxEngineTimer(object Target, int EffectNumber, int EffectTime)
   //Geschwindigkeit anpassen
   SetYDir(GetYDir(Target, 95) + av, Target, 100);
   SetXDir(GetXDir(Target, 95) + ah, Target, 100);
-  
-  Sound(SoundIdle(), false, Target, 100, 0, +1);
-  EchoLoop(SoundIdleEcho(), +1);	
 
   return true;
 }
@@ -1686,6 +1683,7 @@ protected func FxEngineStart(object pTarget, int iNr, int iTemp)
 
   Sound(SoundIdle(), false, pTarget, 100, 0, +1);
   EchoLoop(SoundIdleEcho(), +1);
+
   return true;
 }
 
@@ -1696,7 +1694,6 @@ protected func FxEngineStop(object pTarget)
 
   return true;
 }
-
 //Neue Funktion: Tangens = Sinus / Kosinus
 global func Tan(int angle, int radius)
 {
