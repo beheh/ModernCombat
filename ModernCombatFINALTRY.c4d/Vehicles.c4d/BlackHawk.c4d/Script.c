@@ -1505,9 +1505,14 @@ protected func TimerCall()
         DoAchievementProgress(1, AC29, GetController(GetPilot()));
     }
 
-    //Festes Material im Rotor beschädigen gleicheren
+    //Festes Material im Rotor beschädigen gleicheren abhaengig von Geschwindigkeit und laesst ihn zurueckbouncen
     if(!PathFree(GetX() + GetVertex(7), GetY() + GetVertex(7, true), GetX() + GetVertex(11), GetY() + GetVertex(11, true)))
-      DoDamage(1, this, FX_Call_DmgScript, GetController(GetPilot()) + 1);
+	{
+	  //todo: Balancing
+	  Log("%d %d", GetXDir(), GetYDir());
+      DoDamage((Abs(GetXDir()) + Abs(GetYDir())) * 2, this, FX_Call_DmgScript, GetController(GetPilot()) + 1);
+	  SetYDir(-GetYDir());
+	}
   }
 
   //Nachladezeit reduzieren
