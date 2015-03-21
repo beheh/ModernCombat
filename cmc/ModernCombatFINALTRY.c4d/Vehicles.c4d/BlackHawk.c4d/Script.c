@@ -1509,8 +1509,9 @@ protected func TimerCall()
     if(!PathFree(GetX() + GetVertex(7), GetY() + GetVertex(7, true), GetX() + GetVertex(11), GetY() + GetVertex(11, true)))
   {
     //todo: Balancing
-    Log("%d %d", GetXDir(), GetYDir());
+	if((Abs(GetXDir()) + Abs(GetYDir())) > 30)
       DoDamage((Abs(GetXDir()) + Abs(GetYDir())) * 2, this, FX_Call_DmgScript, GetController(GetPilot()) + 1);
+  
     SetYDir(-GetYDir());
   }
   }
