@@ -38,8 +38,8 @@ global func EchoLoop(string szSound, int iLoopCount)
   if(GetMaterial(AbsX(GetX(obj)), AbsY(GetY(obj))) != -1) iLevel /= 3;
 
   //Der eigentliche Sound
-  SoundLevel(szSound, 0, obj);
-  if(iLevel) Sound(szSound, false, obj, BoundBy(iLevel, 0, 100), 0, 0, true, iLoopCount);
+  //SoundLevel(szSound, 0, obj);
+  if(iLevel) Sound(szSound, false, obj, BoundBy(iLevel, 0, 100), 0, iLoopCount, true, 1000);
 
   return true;
 }
