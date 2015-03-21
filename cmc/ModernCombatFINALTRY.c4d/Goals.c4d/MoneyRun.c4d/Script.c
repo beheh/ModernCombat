@@ -390,9 +390,10 @@ public func IsFulfilled()
 
         //Nachricht über Gewinner
         var team = GetTeamByIndex(i);
-        if(GetTeamPlayerCount(team) == 1) {
-        	var plr = GetTeamMemberByIndex(team, 0);
-        	Message("$PlayerHasWon$", 0, GetPlrColorDw(plr), GetPlayerName(plr)); 
+        if(GetTeamPlayerCount(team) == 1)
+        {
+          var plr = GetTeamMemberByIndex(team, 0);
+          Message("$PlayerHasWon$", 0, GetPlrColorDw(plr), GetPlayerName(plr));
         }
         else
           Message("$TeamHasWon$", 0, GetTeamColor(GetTeamByIndex(i)), GetTeamName(GetTeamByIndex(i)));

@@ -1505,14 +1505,14 @@ protected func TimerCall()
         DoAchievementProgress(1, AC29, GetController(GetPilot()));
     }
 
-    //Festes Material im Rotor beschädigen gleicheren abhaengig von Geschwindigkeit und laesst ihn zurueckbouncen
+    //Festes Material im Rotor verursacht, abhängig von Geschwindigkeit, Schaden und stößt den Helikopter vom Material ab
     if(!PathFree(GetX() + GetVertex(7), GetY() + GetVertex(7, true), GetX() + GetVertex(11), GetY() + GetVertex(11, true)))
-	{
-	  //todo: Balancing
-	  Log("%d %d", GetXDir(), GetYDir());
+  {
+    //todo: Balancing
+    Log("%d %d", GetXDir(), GetYDir());
       DoDamage((Abs(GetXDir()) + Abs(GetYDir())) * 2, this, FX_Call_DmgScript, GetController(GetPilot()) + 1);
-	  SetYDir(-GetYDir());
-	}
+    SetYDir(-GetYDir());
+  }
   }
 
   //Nachladezeit reduzieren
