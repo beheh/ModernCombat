@@ -46,8 +46,8 @@ public func RejectPull()		{return true;}
 public func EngineRunning()		{return GetEffect("Engine", this);}
 public func GetRotorSpeed()		{return iRotorSpeed;}
 
-public func SoundIdle() { return "BKHK_IdleSystem.ogg"; }
-public func SoundIdleEcho() { return "BKHK_IdleSystemEcho.ogg"; }
+public func SoundIdle()			{return "BKHK_IdleSystem.ogg";}
+public func SoundIdleEcho()		{return "BKHK_IdleSystemEcho.ogg";}
 
 public func IsBulletTarget(id idBullet, object pBullet, object pShooter)
 {
@@ -1677,21 +1677,24 @@ protected func FxEngineTimer(object Target, int EffectNumber, int EffectTime)
   return true;
 }
 
-//Rotorsounds
-protected func FxEngineStart(object pTarget, int iNr, int iTemp) {
-	if(iTemp)
-		return;
+/* Motorengeräusche */
 
-	Sound(SoundIdle(), false, pTarget, 100, 0, +1);
-	EchoLoop(SoundIdleEcho(), +1);
-	return true;
+protected func FxEngineStart(object pTarget, int iNr, int iTemp)
+{
+  if(iTemp)
+    return;
+
+  Sound(SoundIdle(), false, pTarget, 100, 0, +1);
+  EchoLoop(SoundIdleEcho(), +1);
+  return true;
 }
 
-protected func FxEngineStop(object pTarget) {
-	Sound(SoundIdle(), false, pTarget, 100, 0, -1);
-	EchoLoop(SoundIdleEcho(), -1);
-	
-	return true;
+protected func FxEngineStop(object pTarget)
+{
+  Sound(SoundIdle(), false, pTarget, 100, 0, -1);
+  EchoLoop(SoundIdleEcho(), -1);
+
+  return true;
 }
 
 //Neue Funktion: Tangens = Sinus / Kosinus

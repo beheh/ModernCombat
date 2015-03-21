@@ -28,10 +28,13 @@ global func Echo(string szSound, bool fNewObject)
   return true;
 }
 
-global func EchoLoop(string szSound, int iLoopCount) {
-	var iLevel = 100;
-	var obj = this;
-	while(Contained(obj)) obj = Contained(obj);
+/* Echo für Loop-Sounds */
+
+global func EchoLoop(string szSound, int iLoopCount)
+{
+  var iLevel = 100;
+  var obj = this;
+  while(Contained(obj)) obj = Contained(obj);
   if(GetMaterial(AbsX(GetX(obj)), AbsY(GetY(obj))) != -1) iLevel /= 3;
 
   //Der eigentliche Sound
