@@ -36,10 +36,12 @@ global func EchoLoop(string szSound, int iLoopCount)
   var obj = this;
   while(Contained(obj)) obj = Contained(obj);
   if(GetMaterial(AbsX(GetX(obj)), AbsY(GetY(obj))) != -1) iLevel /= 3;
+  
+  Log("EchoLoop: %s für %v mit LoopCount: %d", szSound, obj, iLoopCount);
 
   //Der eigentliche Sound
   //SoundLevel(szSound, 0, obj);
-  if(iLevel) Sound(szSound, false, obj, BoundBy(iLevel, 0, 100), 0, iLoopCount, true, 1000);
+  if(iLevel) Sound(szSound, false, obj, BoundBy(iLevel, 0, 100), 0, iLoopCount, false, 1000);
 
   return true;
 }
