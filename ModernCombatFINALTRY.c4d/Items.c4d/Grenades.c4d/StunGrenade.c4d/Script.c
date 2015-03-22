@@ -29,7 +29,7 @@ public func Fused()
       continue;
 
     //Intensität errechnen
-    var intensity = ((400-ObjectDistance(this,obj))*470/250)/2;
+    var intensity = ((400-ObjectDistance(this,obj))*600/250)/2;
 
   if(intensity <= 0)
     continue;
@@ -114,8 +114,8 @@ public func FxIntFlashbangTimer(object pTarget, int iEffectNumber, int iEffectTi
     return -1;
 
   //"Überblendung" verhindern
-  if(i > 750)
-    i = 750;
+  if(i > 850)
+    i = 850;
 
   //Blendung senken
   i -= 2;
