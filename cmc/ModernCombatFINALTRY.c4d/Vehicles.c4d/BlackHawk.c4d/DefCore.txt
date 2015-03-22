@@ -20,6 +20,7 @@ VehicleControl=2
 SilentCommands=1
 NoStabilize=1
 NoBurnDecay=1
+ContactIncinerate=0
 AttractLightning=1
 NoSell=1
 NoGet=1
