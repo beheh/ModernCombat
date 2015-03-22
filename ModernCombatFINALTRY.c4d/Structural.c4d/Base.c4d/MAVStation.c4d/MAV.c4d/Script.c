@@ -129,7 +129,7 @@ public func FxFlyingTimer(object pTarget, int iEffectNumber, int iEffectTime)
 
   //Soundeffekt
   Sound("MAVE_Engine.ogg", 0, 0, 70, 0, +1);
-  
+
   //Flugverhalten
   if(iXDir < iXTendency)
     iXDir+= 1 - (fIsAiming && !(iEffectTime % 3));

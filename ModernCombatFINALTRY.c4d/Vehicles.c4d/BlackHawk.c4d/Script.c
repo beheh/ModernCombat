@@ -1594,6 +1594,35 @@ protected func SoundPassenger(string szSound, bool fSound, int iPlr)
   Sound(szSound, false, this, 0, iPlr+1, iLoop);
 }
 
+/* Motorengeräusche */
+
+protected func FxEngineStart(object pTarget, int iNr, int iTemp)
+{
+  if(iTemp)
+    return;
+
+  Sound(SoundIdle(), false, pTarget, 100, 0, +1);
+  EchoLoop(SoundIdleEcho(), +1);
+
+  return true;
+}
+
+protected func FxEngineStop(object pTarget, int iNr, int iReason, bool fTemp)
+{
+  if(fTemp)
+    return true;
+
+  Sound(SoundIdle(), false, pTarget, 100, 0, -1);
+  EchoLoop(SoundIdleEcho(), -1);
+
+  return true;
+}
+//Neue Funktion: Tangens = Sinus / Kosinus
+global func Tan(int angle, int radius)
+{
+  return Sin(angle, radius, 10) / Cos(angle, radius, 10);
+}
+
 /* Physik */
 
 protected func StartEngine()
@@ -1673,35 +1702,6 @@ protected func FxEngineTimer(object Target, int EffectNumber, int EffectTime)
 
   Sound(SoundIdle(), false, Target, 100, 0, +1);
   EchoLoop(SoundIdleEcho(), +1);
-  
-  return true;
-}
-
-/* Motorengeräusche */
-
-protected func FxEngineStart(object pTarget, int iNr, int iTemp)
-{
-  if(iTemp)
-    return;
-
-  Sound(SoundIdle(), false, pTarget, 100, 0, +1);
-  EchoLoop(SoundIdleEcho(), +1);
 
   return true;
-}
-
-protected func FxEngineStop(object pTarget, int iNr, int iReason, bool fTemp)
-{
-	if(fTemp)
-		return true;
-
-  Sound(SoundIdle(), false, pTarget, 100, 0, -1);
-  EchoLoop(SoundIdleEcho(), -1);
-
-  return true;
-}
-//Neue Funktion: Tangens = Sinus / Kosinus
-global func Tan(int angle, int radius)
-{
-  return Sin(angle, radius, 10) / Cos(angle, radius, 10);
 }
