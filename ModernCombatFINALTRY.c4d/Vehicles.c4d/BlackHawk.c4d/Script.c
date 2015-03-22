@@ -1690,8 +1690,11 @@ protected func FxEngineStart(object pTarget, int iNr, int iTemp)
   return true;
 }
 
-protected func FxEngineStop(object pTarget)
+protected func FxEngineStop(object pTarget, int iNr, int iReason, bool fTemp)
 {
+	if(fTemp)
+		return true;
+
   Sound(SoundIdle(), false, pTarget, 100, 0, -1);
   EchoLoop(SoundIdleEcho(), -1);
 
