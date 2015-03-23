@@ -5,6 +5,7 @@
 
 local damaged;
 
+public func NotInflammable		{return true;}
 
 /* Zerstörung */
 
