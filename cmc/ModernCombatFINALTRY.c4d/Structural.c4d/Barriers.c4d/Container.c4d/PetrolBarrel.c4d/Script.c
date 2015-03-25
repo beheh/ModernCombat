@@ -3,6 +3,7 @@
 #strict 2
 #include XBRL
 
+
 /* Zerstörung */
 
 func BlowUp(int iPlr)
