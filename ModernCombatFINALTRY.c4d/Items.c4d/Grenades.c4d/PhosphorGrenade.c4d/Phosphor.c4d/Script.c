@@ -81,7 +81,7 @@ func BurnObjects()
 }
 
 func HitObject(pObj)
-{	
+{
   //Lebenwesen mit Effekt belegen
   if(GetOCF(pObj) & OCF_Living)
     AddEffect("Phosphored", pObj, 50, 20, this, GetID());
