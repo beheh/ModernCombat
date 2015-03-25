@@ -2084,8 +2084,8 @@ func FxSilencerTimer(object pTarget, int iEffectNumber, int iEffectTime)
   else if(EffectVar(0, pTarget, iEffectNumber) < 200)
     EffectVar(0, pTarget, iEffectNumber) += 2;
 
-  //Clonk reitet: Sichtbar machen
-  if(EffectVar(3, pTarget, iEffectNumber)->~IsRiding())
+  //Clonk reitet oder ist in Objekt: Sichtbar machen
+  if(EffectVar(3, pTarget, iEffectNumber)->~IsRiding() || EffectVar(3, pTarget, iEffectNumber)->~Contained())
     EffectVar(0, pTarget, iEffectNumber) = 0;
   //Sonst: Clonk ist markiert: Tarnung abschwächen
   else if(FindObject2(Find_ID(SM08), Find_ActionTarget(EffectVar(3, pTarget, iEffectNumber)), Find_Action("Attach")))
