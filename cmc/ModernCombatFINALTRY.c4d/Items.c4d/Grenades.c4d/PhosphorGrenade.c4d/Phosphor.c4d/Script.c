@@ -71,7 +71,7 @@ func Timer()
 func BurnObjects()
 {
   //Objekte suchen
-  for(var pTarget in FindObjects(Find_Distance(10), Find_Not(Find_ID(GetID())), Find_NoContainer(), Find_OCF(OCF_Inflammable), Find_Or(Find_Func("IsBulletTarget", GetID(), this), Find_OCF(OCF_Prey))) )
+  for(var pTarget in FindObjects(Find_Distance(10), Find_Not(Find_ID(GetID())), Find_NoContainer(), Find_OCF(OCF_Inflammable), Find_Or(Find_Func("IsBulletTarget", GetID(), this), Find_OCF(OCF_Prey))))
   {
     if(!pTarget)
       continue;
