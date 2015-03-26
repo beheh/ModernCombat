@@ -5,7 +5,6 @@
 
 local damaged;
 
-public func NotInflammable()		{return true;}
 public func IsBulletTarget(idBullet)	{return idBullet == TRDT || !Random(6);}
 public func IsMeleeTarget(object obj)
 {

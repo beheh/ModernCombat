@@ -3,8 +3,6 @@
 #strict 2
 #include XBRL
 
-public func NotInflammable()	{return true;}
-
 
 /* Zerstörung */
 
