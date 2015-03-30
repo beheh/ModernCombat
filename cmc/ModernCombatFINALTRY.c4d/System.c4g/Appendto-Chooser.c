@@ -729,7 +729,7 @@ private func SwitchPredefinedTeam(bool fInvisible, int iSelection, int iPlr, int
       }
 
       if(i+1 >= GetLength(arTeams))
-        i = 0;
+        i = -1;
     }
 
     arTeams[0] = false;
@@ -819,10 +819,10 @@ protected func CreateTeams(int iTeamSort, int iMode, bool fNoTeamMenu)
     for(var i = 0; i < GetPlayerCount(C4PT_User); i++)
     {
       var plr = GetPlayerByIndex(i, C4PT_User);
-      players[GetLength(players)] = plr;
-
       if(aPlayerSetting[plr])
         SetPlayerTeam(plr, aPlayerSetting[plr]);
+      else
+        players[GetLength(players)] = plr;
     }
 
     var i = 0;
@@ -830,6 +830,8 @@ protected func CreateTeams(int iTeamSort, int iMode, bool fNoTeamMenu)
     while(GetLength(players))
     {
       ++i;
+      
+      //Teamnummer ggf. resetten
       if(iTeamSort == 2)
       {
         if(i >= GetLength(arTeams))
@@ -842,14 +844,16 @@ protected func CreateTeams(int iTeamSort, int iMode, bool fNoTeamMenu)
         if(i > iTeamCount)
           i = 1;
 
+      //Falls ein vordefinierter Spieler für dieses Team gefunden wurde, das Team überspringen
       var plr2 = GetIndexOf(i, tPlayerSetting);
       if(plr2 != -1)
       {
-        DelArrayItem4K(players, GetIndexOf(plr2, players));
+        //DelArrayItem4K(players, GetIndexOf(plr2, players));
         tPlayerSetting[plr2] = 0;
         continue;
       }
 
+      //Zufälligen Spieler ziehen
       var pos = Random(GetLength(players));
       var plr = players[pos];
       if(tPlayerSetting[plr])
