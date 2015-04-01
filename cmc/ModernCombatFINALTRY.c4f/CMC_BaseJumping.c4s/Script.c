@@ -313,6 +313,13 @@ func CreateDecoration()
   CreateObject(MUMT, 1870, 330, -1);
 
   //Hinweisschilder
+  var sign = CreateObject(SNPT, 740, 900, -1);
+  sign->SetAction("Sign5");
+  sign->SetMode(1);
+  sign = CreateObject(SNPT, 2340, 900, -1);
+  sign->SetAction("Sign5");
+  sign->SetMode(1);
+
   CreateObject(WLSN, 665, 1540, -1)->Set("A");
   CreateObject(WLSN, 1110, 1490, -1)->Set("A");
   CreateObject(WLSN, 1110, 1520, -1)->Set("Heights");

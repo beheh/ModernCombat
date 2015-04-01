@@ -309,6 +309,16 @@ func CreateDecoration()
 {
   Log("$CreatingDecoration$");
 
+  //Hinweisschilder
+  var sign = CreateObject(SNPT, 1615, 760, -1);
+  sign->SetAction("Sign5");
+  sign->SetMode(1);
+  sign->Light();
+  sign = CreateObject(SNPT, 4115, 760, -1);
+  sign->SetAction("Sign5");
+  sign->SetMode(1);
+  sign->Light();
+
   //Leitkegel
   CreateObject(TCCN, 2370, 1480, -1)->Light();
   CreateObject(TCCN, 2400, 1480, -1);
