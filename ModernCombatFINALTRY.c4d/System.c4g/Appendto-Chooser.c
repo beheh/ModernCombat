@@ -830,8 +830,8 @@ protected func CreateTeams(int iTeamSort, int iMode, bool fNoTeamMenu)
     while(GetLength(players))
     {
       ++i;
-      
-      //Teamnummer ggf. resetten
+
+      //Teamnummer gegebenenfalls zurücksetzen
       if(iTeamSort == 2)
       {
         if(i >= GetLength(arTeams))
@@ -844,7 +844,7 @@ protected func CreateTeams(int iTeamSort, int iMode, bool fNoTeamMenu)
         if(i > iTeamCount)
           i = 1;
 
-      //Falls ein vordefinierter Spieler für dieses Team gefunden wurde, das Team überspringen
+      //Vordefinierter Spieler für dieses Team gefunden: Das Team überspringen
       var plr2 = GetIndexOf(i, tPlayerSetting);
       if(plr2 != -1)
       {
