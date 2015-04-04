@@ -2,7 +2,6 @@
 
 #strict 2
 
-// Lokale Variablen
 local closed;							//Offen?
 local lock;							//Tür ist verschließbar (geht nicht automatisch auf)
 local destroyed;						//zerstört
@@ -11,13 +10,13 @@ local maxdmg;
 public func GetMaxDamage()	{return maxdmg;}		//Maximaler Schaden
 public func IsDestroyable()	{return maxdmg != -1;}		//Zerstörbar?
 public func SetMaxDamage(int m)	{ maxdmg = m; }
+public func RejectC4Attach()	{return true;}
 public func Lock(bool aut)	{lock = 1; if(aut) lock = 2;}	//Tür öffnet sich nicht mehr automtisch
 public func Unlock()		{lock = 0;}
 public func IsSideDoor()	{return true;}
-
-func OnDestroyed()	{return 1;}				//Zerstört
-func OnOpen()		{return 1;}				//Geöffnet
-func OnClose()		{return 1;}				//Geschlossen
+func OnDestroyed()		{return 1;}			//Zerstört
+func OnOpen()			{return 1;}			//Geöffnet
+func OnClose()			{return 1;}			//Geschlossen
 
 
 /* Initialisierung */
