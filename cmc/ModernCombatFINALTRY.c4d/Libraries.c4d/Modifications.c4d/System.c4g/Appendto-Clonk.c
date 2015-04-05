@@ -302,7 +302,7 @@ func Hit2(int xDir, int yDir)
   var prevEnergy = GetEnergy();
 
   //Schaden bei Fallschaden-Regel
-  if(!FindObject(FDMG) || hit <= 700) return _inherited(xDir,yDir,...);
+  if(!FindObject(FDMG) || hit <= 800) return _inherited(xDir,yDir,...);
   DoDmg((hit-700)*2/10,DMG_Melee,this,0,GetKiller(this)+1,SM10);
 
   //Achievement-Fortschritt (Totally Planned)
