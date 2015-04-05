@@ -103,9 +103,9 @@ public func UpdateShape()
 
 protected func Grabbed(object pByObject, bool fGrab)
 {
-	//Keine Sounds falls ein anderer Clonk den Motor anfässt
-	if(FindObject2(Find_ActionTarget(this), Find_Action("Push"), Find_Exclude(pByObject)))
-		return;
+  //Bereits mindestens ein Bediener vorhanden: Keine Sounds abspielen
+  if(FindObject2(Find_ActionTarget(this), Find_Action("Push"), Find_Exclude(pByObject)))
+    return;
 
   var boat = GetActionTarget();
   if(fGrab)

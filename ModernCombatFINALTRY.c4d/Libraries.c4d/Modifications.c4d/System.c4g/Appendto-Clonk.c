@@ -303,13 +303,13 @@ func Hit2(int xDir, int yDir)
 
   //Schaden bei Fallschaden-Regel
   if(!FindObject(FDMG) || hit <= 800) return _inherited(xDir,yDir,...);
-  DoDmg((hit-700)*2/10,DMG_Melee,this,0,GetKiller(this)+1,SM10);
+    DoDmg((hit-700)*2/10,DMG_Melee,this,0,GetKiller(this)+1,SM10);
 
   //Achievement-Fortschritt (Totally Planned)
   if((prevEnergy-GetEnergy()) * 100000 / GetPhysical("Energy") >= 80 && GetEnergy() * 100000 / GetPhysical("Energy") < 5 && GetAlive(this) && GetID(Contained()) != FKDT)
     DoAchievementProgress(1, AC56, GetOwner());
 
-
+  //Sound
   if(GetAlive(this))
     Sound("ClonkPain*.ogg");
 
