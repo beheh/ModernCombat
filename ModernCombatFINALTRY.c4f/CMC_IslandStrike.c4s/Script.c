@@ -904,11 +904,11 @@ public func ChooserFinished()
   if(FindObject(GASS))
   {
    //Zielobjekte
-   AddAssaultTarget(RADR, 1200, 490, 30*30, 2, "$Target1$", 0, [[[1680, 540], [1790, 530], [1880, 520]], [[560, 0], [610, 0], [650, 0]]]);
-   AddAssaultTarget(CMSN, 2720, 440, 0, 2, "$Target2$", 1, [[[2920, 720], [3025, 610], [3040, 730]], [[1650, 0], [1670, 0], [1710, 0]]]);
-   AddAssaultTarget(CCP2, 3580, 730, 0, 2, "$Target3$", 2, [[[3750, 0], [3800, 0], [3850, 0]], [[2570, 0], [2700, 0], [2800, 0]]]);
-   AddAssaultTarget(GSTA, 4520, 490, 0, 2, "$Target4$", 3, [[[4870, 540], [4930, 530], [5000, 490]], [[3570, 430], [3600, 510], [3470, 730]]]);
-   AddAssaultTarget(LBPC, 5720, 650, 0, 2, "$Target5$", 4, [[[6040, 480], [6115, 452], [6180, 480]], [[4290, 510], [4320, 570], [4320, 680]]]);
+   AddAssaultTarget(RADR, 1200, 490, 30*30, 2, "$Target1$", 0, [[[1790, 530], [1880, 520], [1935, 505]], [[560, 0], [610, 0], [650, 0]]]);
+   AddAssaultTarget(CMSN, 2720, 440, 0, 2, "$Target2$", 1, [[[2950, 720], [3040, 730], [3160, 650]], [[1650, 0], [1670, 0], [1710, 0]]]);
+   AddAssaultTarget(CCP2, 3580, 730, 0, 2, "$Target3$", 2, [[[4250, 0], [4300, 0], [4350, 0]], [[2570, 0], [2700, 0], [2800, 0]]]);
+   AddAssaultTarget(GSTA, 4520, 490, 0, 2, "$Target4$", 3, [[[5000, 490], [5080, 570], [5140, 500]], [[3550, 600], [3600, 510], [3700, 570]]]);
+   AddAssaultTarget(LBPC, 5720, 650, 0, 2, "$Target5$", 4, [[[6195, 355], [6210, 490], [6240, 500]], [[4340, 570], [4425, 430], [4550, 680]]]);
    AddAssaultTarget(RADR, 6440, 440, 0, 2, "$Target6$", 5, [[[6520, 740], [6670, 750], [6695, 609]], [[5630, 500], [5630, 570], [5730, 650]]]);
    AddAssaultTarget(CMSN, 7210, 530, 30*30, 2, "$Target7$", 6, [[[7565, 510], [7580, 610], [7750, 420]], [[6410, 440], [6460, 610], [6370, 610]]]);
 
@@ -933,6 +933,9 @@ public func ChooserFinished()
     sign->Set("Helicopter");
    }
 
+   //Leiter
+   CreateObject(LADR, 525, 515, -1)->Set(15);
+
    //Boden
    DrawMaterialQuad("Wall-Bricks2", 7230,530, 7250,530, 7250,560, 7230,560);
 
@@ -942,6 +945,8 @@ public func ChooserFinished()
    RemoveObject(aSelfDefense[2]);
    RemoveObject(aArtillery[0]);
    RemoveAll(LCKR);
+   for(var obj in FindObjects(Find_Or(Find_ID(PBRL), Find_ID(RSPT)), Find_InRect(510, 520, 30, 25)))
+    obj->RemoveObject();
    RemoveObject(FindObject2(Find_ID(LADR),Find_InRect(915, 370, 20, 190)));
    RemoveObject(FindObject2(Find_ID(BUOY),Find_InRect(5160, 620, 100, 100)));
    RemoveObject(FindObject2(Find_ID(VGMN),Find_InRect(7200, 490, 40, 40)));
@@ -955,11 +960,11 @@ public func ChooserFinished()
 
    //Leitern
    CreateObject(LADR, 6025, 450, -1)->Set(12);
+   CreateObject(LADR, 6805, 620, -1)->Set(7);
    CreateObject(LADR, 7700, 590, -1)->Set(13);
 
    //Stahlbrücken
    CreateObject(_HBR, 495, 622, -1);
-   CreateObject(_HBR, 565, 622, -1);
    CreateObject(_HBR, 635, 622, -1);
    CreateObject(_HBR, 705, 622, -1);
    CreateObject(_HBR, 775, 622, -1);
@@ -970,10 +975,17 @@ public func ChooserFinished()
    CreateObject(_HBR, 5370, 662, -1);
    CreateObject(_HBR, 5440, 662, -1);
 
-   //Gerüst
+   //Gerüste
+   CreateObject(SFFG, 570, 440, -1)->Set(5);
+   CreateObject(SFFG, 570, 490, -1)->Set(2);
+   CreateObject(SFFG, 570, 540, -1)->Set(3);
+   CreateObject(SFFG, 650, 440, -1)->Set(4);
+   CreateObject(SFFG, 650, 490, -1)->Set(4);
    CreateObject(SFFG, 650, 540, -1)->Set(4);
+   CreateObject(SFFG, 6850, 610, -1)->Set(4);
 
    //Metallkisten
+   CreateObject(MWCR, 678, 440, -1);
    CreateObject(MWCR, 678, 490, -1);
    CreateObject(MWCR, 790, 610, -1);
    CreateObject(MWCR, 990, 510, -1);
@@ -996,18 +1008,18 @@ public func ChooserFinished()
    CreateObject(BECR, 785, 592, -1);
    CreateObject(BECR, 2120, 520, -1);
    CreateObject(BECR, 5270, 650, -1);
-
-   //Hinweisschild
-   var sign = CreateObject(SNPT, 1460, 500, -1);
-   sign->SetAction("Sign2");
-   sign->SetMode(1);
+   CreateObject(BECR, 6880, 560, -1)->AutoRespawn();
 
    //Versorgungskiste (Dragnin)
    var crate = CreateObject(AMCT, 560, 540, -1);
    crate->Set(DGNN);
 
+   //Versorgungskiste (APW)
+   crate = CreateObject(AMCT, 645, 490, -1);
+   crate->Set(ATWN);
+
    //Geschützstellungen
-   CreateObject(GNET, 675, 540, -1)->Set(0,90);
+   CreateObject(GNET, 675, 540, -1)->Set(1,90);
    aStationary[0] = CreateObject(GNET, 3570, 430, -1);
    aStationary[0] -> Set(0,-90);
    aStationary[1] = CreateObject(GNET, 4205, 510, -1);
@@ -1169,7 +1181,7 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
    //Grenzen neu setzen
    RemoveAll(BRDR);
    CreateObject(BRDR, 1560, 0, -1)->Set(0,1);
-   CreateObject(BRDR, 3930, 0, -1)->Set(1,1);
+   CreateObject(BRDR, 4400, 0, -1)->Set(1,1);
 
    //Teamgrenze setzen
    FindObject(GASS)->CreateTeamBorder(AssaultDefenderTeam(),2990,0,1,1);
@@ -1193,7 +1205,7 @@ public func OnAssaultTargetDestruction(object pTarget, int iTeam, int iIndex)
    //Grenzen neu setzen
    RemoveAll(BRDR);
    CreateObject(BRDR, 2600, 0, -1)->Set(0,1);
-   CreateObject(BRDR, 5140, 0, -1)->Set(1,1);
+   CreateObject(BRDR, 5250, 0, -1)->Set(1,1);
 
    //Teamgrenze setzen
    FindObject(GASS)->CreateTeamBorder(AssaultDefenderTeam(),3820,0,1,1);
