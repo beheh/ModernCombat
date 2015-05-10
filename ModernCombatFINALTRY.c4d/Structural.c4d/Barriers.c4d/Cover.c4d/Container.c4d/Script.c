@@ -13,7 +13,7 @@ public func Initialize()
   SetPerspective(1);
 
   //Zufälliges Aussehen
-  var rnd = Random(5)+2;
+  var rnd = Random(6)+2;
   SetGraphics(Format("%d", rnd));
 }
 
