@@ -132,7 +132,7 @@ public func DefaultBulletTarget(id idBullet, object pBullet, object pShooter)
   //Damit müssen wir den Sonderfall nicht in den EnemyChecks einbauen
   //C4 darf speziell immer, wenn jemandem zugehörig
   if(!idBullet || !idBullet->~IgnoreEnemyCheck())
-    if(pBullet && ((GetOwner(pBullet) != NO_OWNER && !Hostile(GetOwner(pBullet), GetOwner())) || ((GetTeam(pBullet) == GetTeam()) && (GetTeam() != 0)) ) )
+    if(pBullet && ((GetOwner(pBullet) != NO_OWNER && !Hostile(GetOwner(pBullet), GetOwner())) || ((GetTeam(pBullet) == GetTeam()) && (GetTeam() != 0))))
       return false;
   return true;
 }
