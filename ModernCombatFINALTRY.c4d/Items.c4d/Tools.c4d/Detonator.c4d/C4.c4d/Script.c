@@ -2,7 +2,7 @@
 
 #strict 2
 
-local fuse, active, thrown, pStickTo, iStickROffset, iStickAngle, iStickDistance, iPreviousCategory, iBulletsTrigger, rt_defusecnt;
+local fuse, active, thrown, pStickTo, iStickROffset, iStickAngle, iStickDistance, iPreviousCategory, iBulletsTrigger, rt_defusecnt, fEntered;
 
 public func LimitationCount()	{return 8;}
 public func IgnoreTracer()	{return true;}			//Nicht markierbar
@@ -76,27 +76,47 @@ private func CheckFuse()
 protected func Timer()
 {
   CheckFuse();
-  if(pStickTo && !Contained(pStickTo) && pStickTo->~IsBulletTarget(GetID(), this))
+ 
+  if(pStickTo && pStickTo->~IsBulletTarget(GetID(), this)) // we still have a target to stick to
   {
-    var dir = GetDir(pStickTo)*2-1;
-    if(GetActMapVal("Directions", GetAction(pStickTo), GetID(pStickTo)) < 2)
-      dir = 1;
+    var pTargetContainer = Contained(pStickTo);
+    if(pTargetContainer) {
+      if(!Contained()) {
+        // if we're sticking and the target is contained, we need to enter
+        Enter(pTargetContainer);
+      }
+      else if(pTargetContainer != Contained()) {
+        Enter(pTargetContainer); // switch container if our stick target transfers
+      }
+    }
+    else {
+      fEntered = false; // reset entering
+      if(Contained()) {
+        // if we're sticking, contained and the target is outside, we need to exit
+        Exit();
+      }
+      var dir = GetDir(pStickTo)*2-1;
+      if(GetActMapVal("Directions", GetAction(pStickTo), GetID(pStickTo)) < 2)
+        dir = 1;
 
-    SetPosition(GetX(pStickTo)+Sin(GetR(pStickTo)+iStickAngle, iStickDistance)*dir, GetY(pStickTo)-Cos(dir*GetR(pStickTo)+iStickAngle, iStickDistance), this, false);
-    SetXDir();
-    SetYDir();
-    SetR(GetR(pStickTo)+iStickROffset);
+      SetPosition(GetX(pStickTo)+Sin(GetR(pStickTo)+iStickAngle, iStickDistance)*dir, GetY(pStickTo)-Cos(dir*GetR(pStickTo)+iStickAngle, iStickDistance), this, false);
+      SetXDir();
+      SetYDir();
+      SetR(GetR(pStickTo)+iStickROffset);
+    }
   }
-  else
+  else // no valid stick target
   {
+    if(Contained()) {
+      Exit(); // can't be in a building without stick target
+    }
+    if(pStickTo) {
+      Unstick();
+    }
     pStickTo = FindObject2(Find_AtPoint(), Find_Func("IsBulletTarget", GetID(), this), Find_Not(Find_Func("RejectC4Attach", this)), Find_NoContainer(), Find_Not(Find_OCF(OCF_Living)));
     if(pStickTo)
     {
       StickTo(pStickTo);
-    }
-    else
-    {
-      SetCategory(iPreviousCategory); 
     }
   }
   if(iBulletsTrigger) iBulletsTrigger--;
@@ -118,6 +138,13 @@ public func StickTo(object pObj)
   SetCategory(C4D_Vehicle);
   SetObjectOrder(pStickTo, this);
   SetRDir();
+
+  return true;
+}
+
+public func Unstick() {
+  pStickTo = false;
+  SetCategory(iPreviousCategory);
 
   return true;
 }
