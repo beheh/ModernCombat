@@ -76,23 +76,30 @@ private func CheckFuse()
 protected func Timer()
 {
   CheckFuse();
- 
-  if(pStickTo && pStickTo->~IsBulletTarget(GetID(), this)) // we still have a target to stick to
+
+  //Prüfen ob Ziel weiter vorhanden
+  if(pStickTo && pStickTo->~IsBulletTarget(GetID(), this))
   {
     var pTargetContainer = Contained(pStickTo);
-    if(pTargetContainer) {
-      if(!Contained()) {
-        // if we're sticking and the target is contained, we need to enter
+    if(pTargetContainer)
+    {
+      if(!Contained())
+      {
+        //Ziel innerhalb eines Objekts: Hineinfolgen
         Enter(pTargetContainer);
       }
-      else if(pTargetContainer != Contained()) {
-        Enter(pTargetContainer); // switch container if our stick target transfers
+      else if(pTargetContainer != Contained())
+      {
+        //Verschachteltem Ziel bei Transfer in ein anderes Objekt folgen
+        Enter(pTargetContainer);
       }
     }
-    else {
-      fEntered = false; // reset entering
-      if(Contained()) {
-        // if we're sticking, contained and the target is outside, we need to exit
+    else
+    {
+      fEntered = false;
+      if(Contained())
+      {
+        //Ziel vorhanden und im Freien, C4 wiederum innerhalb eines Objekts: Objekt verlassen
         Exit();
       }
       var dir = GetDir(pStickTo)*2-1;
@@ -105,12 +112,15 @@ protected func Timer()
       SetR(GetR(pStickTo)+iStickROffset);
     }
   }
-  else // no valid stick target
+  else
   {
-    if(Contained()) {
-      Exit(); // can't be in a building without stick target
+    //Contained: Objekt verlassen
+    if(Contained())
+    {
+      Exit();
     }
-    if(pStickTo) {
+    if(pStickTo)
+    {
       Unstick();
     }
     pStickTo = FindObject2(Find_AtPoint(), Find_Func("IsBulletTarget", GetID(), this), Find_Not(Find_Func("RejectC4Attach", this)), Find_NoContainer(), Find_Not(Find_OCF(OCF_Living)));
@@ -142,7 +152,8 @@ public func StickTo(object pObj)
   return true;
 }
 
-public func Unstick() {
+public func Unstick()
+{
   pStickTo = false;
   SetCategory(iPreviousCategory);
 
