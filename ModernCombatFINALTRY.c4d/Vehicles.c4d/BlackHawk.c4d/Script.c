@@ -1162,7 +1162,7 @@ protected func Destruction()
 
 public func OnDmg(int iDmg, int iType)
 {
-  if(iType == DMG_Energy)	return -20;	//Energie
+  if(iType == DMG_Energy)	return 40;	//Energie
   if(iType == DMG_Bio)		return 100;	//Säure und biologische Schadstoffe
   if(iType == DMG_Melee)	return 80;	//Nahkampf
   if(iType == DMG_Fire)		return 50;	//Feuer
