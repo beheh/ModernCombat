@@ -115,13 +115,14 @@ public func FxIntRespawnTimer(object pTarget, int iEffectNumber, int iEffectTime
 
 func Respawn()
 {
-  //Neues Objekt erstellen und entsprechend färben, drehen und platzieren
+  //Neues Objekt erstellen und entsprechend färben, drehen, platzieren und einblenden
   var obj = CreateObject(id,0,-1,GetOwner());
   target = obj;
   SetR(r, obj);
   SetClrModulation(GetClrModulation(), obj); 
   SetXDir(xdir, obj);
   SetYDir(ydir, obj);
+  obj->FadeIn4K(10);
 
   //Sofern das Objekt nicht über SolidMask verfügt: Freimachen wenn feststeckend
   if(!GetDefCoreVal("SolidMask",0,GetID(obj),3)) return;
