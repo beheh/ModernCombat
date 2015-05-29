@@ -843,7 +843,8 @@ private func Control2Contents(string command)
     if(command == "ControlUpdate")
       return Contents()->~ControlUpdate(this, Par(1));
 
-    if(!Contents()->~SkipSelectItem(command)) {
+    if(!Contents()->~SkipSelectItem(command))
+    {
       return (command == "ControlThrow" || command == "ControlDig");
     }
   }
