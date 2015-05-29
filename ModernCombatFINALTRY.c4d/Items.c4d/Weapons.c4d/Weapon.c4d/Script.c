@@ -175,7 +175,8 @@ public func FMMenu(clonk)
   return true;
 }
 
-private func IsSelecting() {
+private func IsSelecting()
+{
   return GetEffect("SelectItem", this) != 0;
 }
 
@@ -183,7 +184,8 @@ private func ManualReload(fm)
 {
   if(IsReloading()) return false;
   if(GetFMData(FM_NoAmmoModify)) return false;
-  if(IsSelecting()) {
+  if(IsSelecting())
+  {
     PlayerMessage(GetOwner(GetUser()), "$CantUse$", GetUser());
     return false;
   }
@@ -194,7 +196,8 @@ private func ManualEmpty(unused,fm)
 {
   if(IsReloading()) return false;
   if(GetFMData(FM_NoAmmoModify)) return false;
-  if(IsSelecting()) {
+  if(IsSelecting())
+  {
     PlayerMessage(GetOwner(GetUser()), "$CantUse$", GetUser());
     return false;
   }
@@ -1633,7 +1636,8 @@ public func Selection(object pContainer)
 
 /* Interaktion trotz Anwahlzeit erlauben */
 
-public func SkipSelectItem(string command) {
+public func SkipSelectItem(string command)
+{
   return command == "ControlDigDouble";
 }
 
