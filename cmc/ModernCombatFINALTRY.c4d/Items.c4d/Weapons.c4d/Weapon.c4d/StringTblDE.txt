@@ -4,6 +4,7 @@ DescFireMode=Auf %s schalten
 DescFireTec=Auf %s schalten
 NotEnoughAmmo=Nicht genug {{%i}}!
 NotAbleToShoot=Schuss hier nicht möglich!
+CantUse=Waffe kann gerade nicht bedient werden.
 Reloaded=%dx {{%i}} nachgeladen.
 FireModeChanged=Feuermodus:|%s ({{%i}})
 Reload=Nachladen

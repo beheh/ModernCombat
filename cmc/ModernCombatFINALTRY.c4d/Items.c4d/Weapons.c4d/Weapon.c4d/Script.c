@@ -175,10 +175,18 @@ public func FMMenu(clonk)
   return true;
 }
 
+private func IsSelecting() {
+  return GetEffect("SelectItem", this) != 0;
+}
+
 private func ManualReload(fm)
 {
   if(IsReloading()) return false;
   if(GetFMData(FM_NoAmmoModify)) return false;
+  if(IsSelecting()) {
+    PlayerMessage(GetOwner(GetUser()), "$CantUse$", GetUser());
+    return false;
+  }
   return Reload(fm);
 }
 
@@ -186,6 +194,10 @@ private func ManualEmpty(unused,fm)
 {
   if(IsReloading()) return false;
   if(GetFMData(FM_NoAmmoModify)) return false;
+  if(IsSelecting()) {
+    PlayerMessage(GetOwner(GetUser()), "$CantUse$", GetUser());
+    return false;
+  }
   Sound("WPN2_Unload.ogg");
   return Empty2(GetSlot(fm));
 }
@@ -1617,6 +1629,12 @@ public func Selection(object pContainer)
   this->~OnSelect(firemode);
   //Laden wiederaufnehmen
   this->ResumeReload();
+}
+
+/* Interaktion trotz Anwahlzeit erlauben */
+
+public func SkipSelectItem(string command) {
+  return command == "ControlDigDouble";
 }
 
 /* Waffenaufsatz-Eigenschaften */

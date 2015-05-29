@@ -843,7 +843,9 @@ private func Control2Contents(string command)
     if(command == "ControlUpdate")
       return Contents()->~ControlUpdate(this, Par(1));
 
-    return command == "ControlThrow" || command == "ControlDig";
+    if(!Contents()->~SkipSelectItem(command)) {
+      return (command == "ControlThrow" || command == "ControlDig");
+    }
   }
   //Getragenes Objekt hat spezielle Steuerungsauswertung
   return ObjectCall(Contents(), command, this, Par(1), Par(2), Par(3), Par(4), Par(5), Par(6), Par(7));
