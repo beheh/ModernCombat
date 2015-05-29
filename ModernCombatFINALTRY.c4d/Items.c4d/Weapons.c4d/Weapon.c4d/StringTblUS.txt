@@ -4,6 +4,7 @@ DescFireMode=Switch to %s
 DescFireTec=Switch to %s
 NotEnoughAmmo=Not enough {{%i}}!
 NotAbleToShoot=Not able to shoot here!
+CantUse=Weapon can't be used right now.
 Reloaded=Reloaded %dx {{%i}}.
 FireModeChanged=Fire mode: %s ({{%i}})
 Reload=Reload
