@@ -237,7 +237,7 @@ private func DeathMenu()
     if(FindObject(EFMN) && GetOwner(clonk) == GetPlayerByIndex(0, C4PT_User) && !GetLeague())
       AddMenuItem("$EffectLevel$", Format("FindObject(EFMN)->Activate(%d)", GetOwner(clonk)), EFMN, clonk);			//Effektstufe-Menüpunkt
 
-    if(aTipps[iTippNr] && !clonk->ShorterDeathMenu())
+    if(aTipps[iTippNr] && !clonk->~ShorterDeathMenu())
       AddMenuItem("$NextTipp$", "NextTipp", MCMC, clonk);									//Nächster Tipp-Menüpunkt
   }
 
@@ -249,7 +249,7 @@ private func DeathMenu()
     AddMenuItem(killmsg, "", NONE, clonk, 0, 0, "", 512);									//Killerinformationen
   }
 
-  if(!clonk->ShorterDeathMenu())
+  if(!clonk->~ShorterDeathMenu())
   {
     var obj;
     if((obj = FindObject(RWDS)))												//Punktestatistik erstellen
@@ -267,7 +267,7 @@ private func DeathMenu()
         var iTeam = obj->~GetPlayerData(RWDS_PlayerTeam, iPlr);
         if(!aList[iTeam]) aList[iTeam] = [];
         szString = Format("%s: %d", obj->~GetPlayerData(RWDS_PlayerName, iPlr), obj->~GetPlayerPoints(RWDS_TotalPoints, iPlr));
-        if(clonk->ShorterDeathMenu())
+        if(clonk->~ShorterDeathMenu())
           szString = Format("%s: %d", obj->~GetPlayerData(RWDS_CPlayerName, iPlr), obj->~GetPlayerPoints(RWDS_TotalPoints, iPlr));
 
         aList[iTeam][GetLength(aList[iTeam])] = szString;
