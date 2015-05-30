@@ -210,14 +210,21 @@ protected func Selection()
 {
   Sound("C4PA_Deploy.ogg");
 
-  //Ladungen kurzzeitig markieren
-  var c4 = GetC4();
-  for(var obj in c4)
+  //Ladungen kurzzeitig markieren, falls nicht mehr sichtbar
+  if(!GetEffect("IntC4Icon"))
   {
-    var marker = CreateObject(SM08, 0, 0, GetOwner(Contained()));
-    marker->Set(obj, this, 0, 30, "ObjectAllied");
-    marker->SetActionData(4);
-    marker->SetVisibility(VIS_Owner);
-	marker->SetClrModulation(GetPlrColorDw(GetOwner()));
+	AddEffect("IntC4Icon", 0, 100, 30);
+    var c4 = GetC4();
+    for(var obj in c4)
+    {
+      var marker = CreateObject(SM08, 0, 0, GetOwner(Contained()));
+      marker->Set(obj, this, 0, 30, "ObjectAllied");
+      marker->SetActionData(4);
+      marker->SetVisibility(VIS_Owner);
+	  marker->SetClrModulation(GetPlrColorDw(GetOwner()));
+    } 
   }
 }
+
+protected func IntC4IconStart() { return 1; }
+
