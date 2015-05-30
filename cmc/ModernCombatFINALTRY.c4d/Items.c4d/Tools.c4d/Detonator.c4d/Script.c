@@ -218,5 +218,6 @@ protected func Selection()
     marker->Set(obj, this, 0, 30, "ObjectAllied");
     marker->SetActionData(4);
     marker->SetVisibility(VIS_Owner);
+	marker->SetClrModulation(GetPlrColorDw(GetOwner()));
   }
 }
