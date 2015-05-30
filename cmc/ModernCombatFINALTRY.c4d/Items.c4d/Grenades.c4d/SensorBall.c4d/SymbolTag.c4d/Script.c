@@ -51,9 +51,13 @@ protected func FxRemoverStop()
   return RemoveObject();
 }
 
-public func RefreshRemoveTimer()
+public func RefreshRemoveTimer(object pByHost)
 {
+	if(pHost && pHost != pByHost)
+		return;
+
   iEffectRemoveTime = iRemoveTime;
+  return true;
 }
 
 /* Statusbalkeneffekt für feindliche Energie */

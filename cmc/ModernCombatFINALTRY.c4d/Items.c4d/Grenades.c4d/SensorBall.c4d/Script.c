@@ -89,7 +89,7 @@ protected func Sense()
     var tag;
     if(tag = FindObject2(Find_ID(SM08), Find_Action("Attach"), Find_ActionTarget(pObj), Find_Allied(GetOwner())))
     {
-      tag->~RefreshRemoveTimer();
+      tag->~RefreshRemoveTimer(this);
       continue;
     }
 
