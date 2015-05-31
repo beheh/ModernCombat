@@ -97,7 +97,7 @@ public func FxIntRespawnTimer(object pTarget, int iEffectNumber, int iEffectTime
   var x = -w/2; var y = -h;
 
   //Im Prüfbereich nach Lebewesen suchen
-  if(ObjectCount2(Find_Distance(GetDefWidth(id) * 2,x,y),Find_OCF(OCF_Alive)))
+  if(ObjectCount2(Find_Distance(GetDefWidth(id) * 4,x,y),Find_OCF(OCF_Alive)))
   {
     if(GetEffect(0,pTarget,iEffectNumber,3) > 35)
       //Nach 35 Frames erneut prüfen
