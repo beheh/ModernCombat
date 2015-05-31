@@ -1417,7 +1417,16 @@ protected func TimerCall()
     }
     else
     {
-      CustomMessage("@", this, iPlr);
+	  if(GetPilot() && Hostile(GetOwner(GetPilot()), iPlr))
+	  {
+	    var a = EffectVar(0, GetPilot(), GetEffect("IntFlashbang"));
+	    if(a)
+          CustomMessage(Format("<c %x>{{SM07}}</c>%d", RGBa(255,255,255,BoundBy(a, 1, 254)), a), this, iPlr);
+	    else
+          CustomMessage("@", this, iPlr);
+	  }
+	  else
+        CustomMessage("@", this, iPlr);
     }
   }
 
